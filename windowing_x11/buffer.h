@@ -30,11 +30,11 @@ namespace windowing_x11
       virtual ~buffer();
 
 
-      ::windowing_x11::window * x11_window() { return (::windowing_x11::window *) (m_pwindow ? m_pwindow->layer(LAYERED_X11) : nullptr); }
+      ::windowing_x11::window * x11_window() { return (::windowing_x11::window *) (m_pwindow ? m_pwindow->m_pWindow : nullptr); }
 
 
       virtual ::e_status initialize_graphics_graphics(::user::interaction_impl * pimpl) override;
-      virtual void finalize() override;
+      virtual ::e_status finalize() override;
 
 
       virtual bool create_os_buffer(const ::size_i32 & size, int iStride = -1) ;

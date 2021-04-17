@@ -20,15 +20,16 @@ namespace windowing_xcb
       __pointer(windowing_xcb::display)         m_pdisplay;
       xcb_gcontext_t                               m_gcontext;
 
+
       buffer();
       virtual ~buffer();
 
 
-      ::windowing_xcb::window * xcb_window() { return (::windowing_xcb::window *) (m_pwindow ? m_pwindow->layer(LAYERED_X11) : nullptr); }
+      ::windowing_xcb::window * xcb_window() { return (::windowing_xcb::window *) (m_pwindow ? m_pwindow->m_pWindow : nullptr); }
 
 
       virtual ::e_status initialize_graphics_graphics(::user::interaction_impl * pimpl) override;
-      virtual void finalize() override;
+      virtual ::e_status finalize() override;
 
 
       virtual bool create_os_buffer(const ::size_i32 & size, int iStride = -1) ;

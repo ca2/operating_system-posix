@@ -7,6 +7,7 @@
 #include "acme/os/ansios/_pthread.h"
 #include "acme/os/linux/_user.h"
 #include "platform/x_window.h"
+#include "aura_linux/_.h"
 
 
 #define WITH_XI

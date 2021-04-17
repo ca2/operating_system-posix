@@ -47,6 +47,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 namespace node_gnome
 {
 
+
    ::logic::bit g_bitLastDarkMode;
 
    char *gsettings_get_malloc(const char *pszSchema, const char *pszKey);
@@ -227,7 +228,10 @@ namespace node_gnome
    void wallpaper_change_notification(GSettings *settings, const gchar *key, gpointer data)
    {
 
-      System.process_subject(id_wallpaper_change);
+
+      ::node_gnome::node * pnode = (::node_gnome::node *) data;
+
+      pnode->m_psystem->m_papexsystem->process_subject(id_wallpaper_change);
 
    }
 
@@ -342,7 +346,7 @@ namespace node_gnome
 
    bool g_bInitializedUserTheme = false;
 
-   string _os_get_user_theme()
+   string node::_os_get_user_theme()
    {
 
       if (!g_bInitializedUserTheme)
@@ -350,7 +354,9 @@ namespace node_gnome
 
          g_bInitializedUserTheme = true;
 
-         System.start_subject_handling(id_os_user_theme);
+         auto psystem = m_psystem->m_papexsystem;
+
+         psystem->start_subject_handling(id_os_user_theme);
 
       }
 
@@ -363,7 +369,9 @@ namespace node_gnome
 
       bool bOk = false;
 
-      auto edesktop = System.get_edesktop();
+      auto psystem = m_psystem->m_papexsystem;
+
+      auto edesktop = psystem->get_edesktop();
 
       switch (edesktop)
       {
@@ -413,7 +421,7 @@ namespace node_gnome
    }
 
 
-   string get_wallpaper(::index iIndex)
+   string get_wallpaper(::acme::system * psystem, ::index iIndex)
    {
 
       // wall-changer sourceforge.net contribution
@@ -422,7 +430,9 @@ namespace node_gnome
 
       string strWallpaper;
 
-      auto edesktop = System.get_edesktop();
+      auto papexsystem = psystem->m_papexsystem;
+
+      auto edesktop = papexsystem->get_edesktop();
 
       switch (edesktop)
       {

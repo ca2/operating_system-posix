@@ -63,6 +63,7 @@ list(APPEND library_references
    apex
    aqua
    aura
+   aura_linux
    )
 
 
@@ -91,7 +92,7 @@ elseif (LINUX)
    target_compile_options(windowing_x11 PRIVATE -fpermissive)
    target_compile_options(windowing_x11 PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(windowing_x11 PRIVATE -Wl,-rpath=\$ORIGIN)
-   target_link_libraries(windowing_x11 PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
+   target_link_libraries(windowing_x11 PRIVATE ${PKGCONFIG_LIBRARIES} ${library_references})
    target_link_libraries(windowing_x11 PRIVATE asound)
    target_link_options(windowing_x11 PRIVATE -Wl,-z,defs)
    add_dependencies(windowing_x11 draw2d_cairo)

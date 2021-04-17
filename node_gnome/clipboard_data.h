@@ -26,13 +26,15 @@ struct clipboard_data :
 public:
 
 
-   clipboard_data(::object * pobject, enum_clipboard eclipboard) :
-      object(pobject)
+   clipboard_data(::object * pobject, enum_clipboard eclipboard) //:
+      //object(pobject)
    {
 
       m_eclipboard = eclipboard;
 
       m_event.ResetEvent();
+
+      initialize(pobject);
 
    }
 

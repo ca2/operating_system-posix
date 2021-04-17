@@ -59,13 +59,13 @@ namespace windowing_x11
    }
 
 
-   void buffer::finalize()
+   ::e_status buffer::finalize()
    {
 
       if(!x11_window())
       {
 
-         return;
+         return error_failed;
 
       }
 
@@ -82,6 +82,7 @@ namespace windowing_x11
 
       }
 
+      return ::success;
 
    }
 
@@ -336,7 +337,7 @@ namespace windowing_x11
 
          memcpy(colora, pimage->get_data(), sizeof(colora));
 
-         int iDefaultDepth = DefaultDepth(x11_window()->Display(), x11_window()->m_iScreen);
+         int iDefaultDepth = DefaultDepth(x11_window()->Display(), x11_window()->Screen());
 
          int iWindowDepth = x11_window()->m_iDepth;
 

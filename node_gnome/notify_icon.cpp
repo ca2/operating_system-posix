@@ -161,16 +161,21 @@ namespace node_gnome
 
          ::file::path path = pathFolder / (strNotifyIcon + "_128.png");
 
-         path = Context.defer_process_path(path);
+         auto pcontext = m_pcontext->m_papexcontext;
+
+         path = pcontext->defer_process_path(path);
 
          pathFolder = path.folder();
 
-         auto pnode = Node;
+         auto psystem = m_psystem;
+
+         auto pnode = psystem->node();
 
          pnode->node_sync(5_s, __routine([this, pnode, strNotifyIcon, pathFolder]()
                                          {
 
-                                            m_pindicator = pnode->new_appindicator();
+
+                                            auto estatus = __construct(m_pindicator);
 
                                             m_pindicator->create(m_strId, strNotifyIcon + "_128", pathFolder, this);
 
@@ -297,7 +302,7 @@ namespace node_gnome
 
 #else
 
-      __throw(todo());
+      __throw(todo);
 
 #endif
 

@@ -4,7 +4,7 @@
 #pragma once
 
 
-//!!!#include <X11/Xlib.h>
+//#include <X11/Xlib.h>
 
 
 //Display * x11_get_display();
@@ -37,6 +37,12 @@ void x11_defer_handle_just_hooks();
 int x11_message_box(const string & str, const string & strTitle, const ::e_message_box & emessagebox);
 bool __x11_hook_process_event(Display * pdisplay, XEvent * pevent, XGenericEventCookie * cookie);
 
+
+#include "keyboard.h"
+
+
 #include "display.h"
 #include "window.h"
+
+
 

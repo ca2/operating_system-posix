@@ -23,8 +23,11 @@ namespace windowing_x11
 
       ::Display *                                  m_pdisplay;
       XVisualInfo                                  m_visualinfo;
+      ::Visual *                                   m_pvisual;
       Colormap                                     m_colormap;
       int                                          m_iScreen;
+      int                                          m_iDepth;
+      Window                                       m_windowRoot;
 
 
       Atom                                         m_atomLongType;
@@ -32,7 +35,7 @@ namespace windowing_x11
       Atom                                         m_atomLongStyleEx;
       Atom                                         m_atomWmState;
       Atom                                         m_atomNetWmState;
-      Atom                                         m_atomaNetWmState[e_net_wm_state_count];
+      Atom                                         m_atoma[x_window::e_atom_count];
       iptr                                         m_countReference;
       __pointer(class window)                   m_pwindowRoot;
       __pointer(class window)                   m_pwindowKeyboardFocus;
@@ -62,7 +65,7 @@ namespace windowing_x11
 
       virtual ::windowing_x11::window * _window(Window window);
 
-      inline ::windowing_x11::windowing * x11_windowing() { return (::windowing_x11::windowing *) m_pwindowing->layer(LAYERED_X11); }
+      inline ::windowing_x11::windowing * x11_windowing() { return (::windowing_x11::windowing *) m_pwindowing->m_pWindowing; }
 
       virtual void _on_capture_changed_to(::windowing_x11::window * pwindowWithCapture);
 
@@ -78,6 +81,10 @@ namespace windowing_x11
       virtual ::Display * Display();
 
       virtual ::Display * Display() const;
+
+      virtual int Screen();
+
+      virtual int Screen() const;
 
 //      virtual ::Visual * Visual();
 //
@@ -106,7 +113,7 @@ namespace windowing_x11
 
       Atom intern_atom(const char * pszAtomName, bool bCreate);
 
-      Atom intern_atom(enum_net_wm_state estate, bool bCreate);
+      Atom intern_atom(x_window::enum_atom eatom, bool bCreate);
 
       Atom net_wm_state_atom(bool bCreate);
 
@@ -121,13 +128,13 @@ namespace windowing_x11
       virtual ::windowing_x11::window * _get_active_window(::thread * pthread);
 
 
-      virtual bool x11_window_list(array < Window > & windowa);
+      //virtual bool x11_window_list(array < Window > & windowa);
       //virtual oswindow get_focus();
 
       virtual bool get_cursor_position(POINT_I32 * ppointCursor);
       //virtual oswindow _x11_get_active_window(WINDOWING_X11_DISPLAY_MEMBER);
       //virtual oswindow _x11_get_active_window();
-      virtual Window * x11_window_list(unsigned long * len);
+      virtual comparable_array < Window > x11_window_list();
 
       virtual Cursor create_alpha_cursor(const ::image *pimage, int xHotSpot, int yHotSpot);
       virtual Pixmap _x11_create_pixmap(::image_pointer pimage);

@@ -29,7 +29,7 @@ namespace windowing_xcb
    window::window()
    {
 
-      set_layer(LAYERED_X11, this);
+      m_pWindow = this;
 
       m_pkeyboarcontext = nullptr;
 

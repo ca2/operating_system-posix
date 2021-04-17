@@ -10,23 +10,25 @@ namespace windowing_x11
 {
 
    /// must be run in x11 thread (user thread)
-   void window::wm_add_remove_state_mapped_raw(enum_net_wm_state estate, bool bSet)
+   void window::wm_add_remove_state_mapped_raw(x_window::enum_atom eatomNetWmState, bool bSet)
    {
 
       synchronous_lock synchronouslock(user_mutex());
 
-      if (m_iaNetWmState[estate] == (bSet ? 1 : 0))
+      int iStateIndex = eatomNetWmState - x_window::e_atom_net_wm_state_first;
+
+      if (m_iaNetWmState2[iStateIndex] == (bSet ? 1 : 0))
       {
 
          return;
 
       }
 
-      m_iaNetWmState[estate] = (bSet ? 1 : 0);
+      m_iaNetWmState2[iStateIndex] = (bSet ? 1 : 0);
 
       auto windowRoot = DefaultRootWindow(Display());
 
-      auto atomFlag = x11_display()->intern_atom(estate, true);
+      auto atomFlag = x11_display()->intern_atom(eatomNetWmState, true);
 
       auto atomWmNetState = x11_display()->net_wm_state_atom(true);
 
@@ -73,7 +75,7 @@ namespace windowing_x11
 
 
    /// must be run in x11 thread (user thread)
-   void window::wm_add_remove_state_mapped(enum_net_wm_state estate, bool bSet)
+   void window::wm_add_remove_state_mapped(x_window::enum_atom eatomNetWmState, bool bSet)
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -82,7 +84,7 @@ namespace windowing_x11
 
       display_lock displaylock(x11_display());
 
-      wm_add_remove_state_mapped_raw(estate, bSet);
+      wm_add_remove_state_mapped_raw(eatomNetWmState, bSet);
 
       windowing_output_debug_string("\n::wm_add_remove_state_mapped 2");
 
@@ -90,29 +92,27 @@ namespace windowing_x11
 
 
    /// must be run in x11 thread (user thread)
-   void window::wm_add_remove_state_unmapped_raw(enum_net_wm_state estate, bool bSet)
+   void window::wm_add_remove_state_unmapped_raw(x_window::enum_atom eatomNetWmState, bool bSet)
    {
 
       synchronous_lock synchronouslock(user_mutex());
 
-      if (m_iaNetWmState[estate] == (bSet ? 1 : 0))
+      int iStateIndex = eatomNetWmState - x_window::e_atom_net_wm_state_first;
+
+      if (m_iaNetWmState2[iStateIndex] == (bSet ? 1 : 0))
       {
 
          return;
 
       }
 
-      m_iaNetWmState[estate] = (bSet ? 1 : 0);
-
-      
-
-      
+      m_iaNetWmState2[iStateIndex] = (bSet ? 1 : 0);
 
       int iScreen = DefaultScreen(Display());
 
       auto windowRoot = RootWindow(Display(), iScreen);
 
-      Atom atomFlag = x11_display()->intern_atom(estate, true);
+      Atom atomFlag = x11_display()->intern_atom(eatomNetWmState, true);
 
       Atom atomWmNetState = x11_display()->net_wm_state_atom(true);
 
@@ -122,7 +122,7 @@ namespace windowing_x11
 
 
    /// must be run in x11 thread (user thread)
-   void window::wm_add_remove_state_unmapped(enum_net_wm_state estate, bool bSet)
+   void window::wm_add_remove_state_unmapped(x_window::enum_atom eatomNetWmState, bool bSet)
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -131,7 +131,7 @@ namespace windowing_x11
 
       display_lock displaylock(x11_display());
 
-      wm_add_remove_state_unmapped_raw(estate, bSet);
+      wm_add_remove_state_unmapped_raw(eatomNetWmState, bSet);
 
       windowing_output_debug_string("\n::wm_add_remove_state_unmapped 2");
 
@@ -139,7 +139,7 @@ namespace windowing_x11
 
 
    /// must be run in x11 thread (user thread)
-   void window::wm_add_remove_state_raw(enum_net_wm_state estate, bool bSet)
+   void window::wm_add_remove_state_raw(x_window::enum_atom eatomNetWmState, bool bSet)
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -147,13 +147,13 @@ namespace windowing_x11
       if (IsWindowVisibleRaw())
       {
 
-         wm_add_remove_state_mapped_raw(estate, bSet);
+         wm_add_remove_state_mapped_raw(eatomNetWmState, bSet);
 
       }
       else
       {
 
-         wm_add_remove_state_unmapped_raw(estate, bSet);
+         wm_add_remove_state_unmapped_raw(eatomNetWmState, bSet);
 
       }
 
@@ -161,7 +161,7 @@ namespace windowing_x11
 
 
    /// must be run in x11 thread (user thread)
-   void window::wm_add_remove_state(enum_net_wm_state estate, bool bSet)
+   void window::wm_add_remove_state(x_window::enum_atom eatomNetWmState, bool bSet)
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -170,7 +170,7 @@ namespace windowing_x11
 
       display_lock displaylock(x11_display());
 
-      wm_add_remove_state_raw(estate, bSet);
+      wm_add_remove_state_raw(eatomNetWmState, bSet);
 
       windowing_output_debug_string("\n::wm_add_remove_state 2");
 
@@ -183,9 +183,9 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      wm_add_remove_state_raw(e_net_wm_state_above, false);
-      wm_add_remove_state_raw(e_net_wm_state_below, false);
-      wm_add_remove_state_raw(e_net_wm_state_hidden, false);
+      wm_add_remove_state_raw(x_window::e_atom_net_wm_state_above, false);
+      wm_add_remove_state_raw(x_window::e_atom_net_wm_state_below, false);
+      wm_add_remove_state_raw(x_window::e_atom_net_wm_state_hidden, false);
 
    }
 
@@ -201,9 +201,9 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      wm_add_remove_state_raw(e_net_wm_state_hidden, false);
-      wm_add_remove_state_raw(e_net_wm_state_above, false);
-      wm_add_remove_state_raw(e_net_wm_state_below, bSet);
+      wm_add_remove_state_raw(x_window::e_atom_net_wm_state_hidden, false);
+      wm_add_remove_state_raw(x_window::e_atom_net_wm_state_above, false);
+      wm_add_remove_state_raw(x_window::e_atom_net_wm_state_below, bSet);
 
    }
 
@@ -214,9 +214,9 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      wm_add_remove_state_raw(e_net_wm_state_hidden, false);
-      wm_add_remove_state_raw(e_net_wm_state_below, false);
-      wm_add_remove_state_raw(e_net_wm_state_above, bSet);
+      wm_add_remove_state_raw(x_window::e_atom_net_wm_state_hidden, false);
+      wm_add_remove_state_raw(x_window::e_atom_net_wm_state_below, false);
+      wm_add_remove_state_raw(x_window::e_atom_net_wm_state_above, bSet);
 
    }
 
@@ -227,9 +227,9 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      wm_add_remove_state_raw(e_net_wm_state_below, false);
-      wm_add_remove_state_raw(e_net_wm_state_above, false);
-      wm_add_remove_state_raw(e_net_wm_state_hidden, bSet);
+      wm_add_remove_state_raw(x_window::e_atom_net_wm_state_below, false);
+      wm_add_remove_state_raw(x_window::e_atom_net_wm_state_above, false);
+      wm_add_remove_state_raw(x_window::e_atom_net_wm_state_hidden, bSet);
 
    }
 
@@ -320,9 +320,7 @@ namespace windowing_x11
 
       }
 
-      
-
-      wm_add_remove_state_raw(e_net_wm_state_skip_taskbar, bToolWindow);
+      wm_add_remove_state_raw(x_window::e_atom_net_wm_state_skip_taskbar, bToolWindow);
 
       windowing_output_debug_string("\n::wm_toolwindow 2");
 
@@ -379,9 +377,7 @@ namespace windowing_x11
 
       }
 
-      
-
-      wm_add_remove_state_raw(e_net_wm_state_skip_taskbar, bHidden);
+      wm_add_remove_state_raw(x_window::e_atom_net_wm_state_skip_taskbar, bHidden);
 
       windowing_output_debug_string("\n::wm_hidden_state 2");
 

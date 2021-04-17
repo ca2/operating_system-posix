@@ -114,12 +114,15 @@ void apex_application_activate(GApplication * application)
 
 #ifndef RASPBIAN
 
-   auto pnode = Node;
+      __throw(todo);
 
-   auto pwindowing = pnode->windowing();
-
-   pwindowing->_libsn_start_context();
-
+//   auto psystem = m_psystem->m_papexsystem;
+//
+//   auto pnode = psystem->node();
+//
+//   auto pwindowing = pnode->windowing();
+//
+//   pwindowing->_libsn_start_context();
 
 #endif
 
@@ -151,7 +154,10 @@ void apex_application_startup (GApplication *application)
 
    GtkApplication * app = GTK_APPLICATION (application);
 
-   if(System.m_bGtkApp)
+   //if(System.m_bGtkApp)
+   __throw(todo);
+
+
    {
 
       G_APPLICATION_CLASS (apex_application_parent_class)->startup (application);
@@ -162,13 +168,14 @@ void apex_application_startup (GApplication *application)
 
    }
 
-   ::apex::system * psystem = &System;
+   //::apex::system * psystem = papexapplication->get_system();
 
    //psystem->m_strAppId = psystem->m_pmaindata->m_strAppId;
 
    //psystem->startup_command(psystem->m_pmaindata);
 
    //psystem->request(psystem->m_pcommand);
+
 
    g_application_hold(application);
 

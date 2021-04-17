@@ -34,6 +34,7 @@ namespace node_gnome
    display::display()
    {
 
+      m_pDisplay2 = nullptr;
       //m_pcsOsDisplayData = new critical_section();
       m_pdisplay = nullptr;
       m_atomLongType = None;

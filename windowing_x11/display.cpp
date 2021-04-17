@@ -43,7 +43,8 @@ namespace windowing_x11
    display::display()
    {
 
-      set_layer(LAYERED_X11, this);
+      m_pDisplay = this;
+
       //m_pcsOsDisplayData = new critical_section();
       m_pdisplay = nullptr;
       m_atomLongType = None;
@@ -156,30 +157,28 @@ namespace windowing_x11
 
       }
 
-      if (XMatchVisualInfo(display, DefaultScreen(display), 32, TrueColor, &m_px11data->m_visualinfo))
+      if (XMatchVisualInfo(m_pdisplay, DefaultScreen(m_pdisplay), 32, TrueColor, &m_visualinfo))
       {
 
-         visual = m_px11data->m_visualinfo.visual;
+         m_pvisual = m_visualinfo.visual;
 
       }
       else
       {
 
-         __zero(m_px11data->m_visualinfo);
+         __zero(m_visualinfo);
 
       }
 
+      m_iScreen = DefaultScreen(m_pdisplay);
 
-      m_iScreen = DefaultScreen(display);
-
-
-      m_iDepth = m_px11data->m_visualinfo.depth;
+      m_iDepth = m_visualinfo.depth;
 
       XSetWindowAttributes attr;
 
       __zero(attr);
 
-      m_colormap = XCreateColormap(display, rootwin, visual, AllocNone);
+      m_colormap = XCreateColormap(m_pdisplay, m_windowRoot, m_pvisual, AllocNone);
 
       return ::success;
 
@@ -242,6 +241,22 @@ namespace windowing_x11
    {
 
       return ::is_null(this) ? nullptr : m_pdisplay;
+
+   }
+
+
+   int display::Screen()
+   {
+
+      return ::is_null(this) ? 0 : m_iScreen;
+
+   }
+
+
+   int display::Screen() const
+   {
+
+      return ::is_null(this) ? 0 : m_iScreen;
 
    }
 
@@ -522,24 +537,28 @@ namespace windowing_x11
    }
 
 
-   Atom display::intern_atom(enum_net_wm_state estate, bool bCreate)
+   Atom display::intern_atom(x_window::enum_atom eatom, bool bCreate)
    {
 
-      if (estate < e_net_wm_state_above || estate >= e_net_wm_state_count)
+      if (eatom < 0 || eatom >= x_window::e_atom_count)
       {
 
          return None;
 
       }
 
-      if (m_atomaNetWmState[estate] == None)
+      Atom atom = m_atoma[eatom];
+
+      if (atom == None)
       {
 
-         m_atomaNetWmState[estate] = intern_atom(net_wm_state_text(estate), bCreate);
+         atom = intern_atom(x_window::atom_name(eatom), bCreate);
+
+         m_atoma[eatom] = atom;
 
       }
 
-      return m_atomaNetWmState[estate];
+      return atom;
 
    }
 
@@ -550,7 +569,7 @@ namespace windowing_x11
       if (m_atomNetWmState == None)
       {
 
-         m_atomNetWmState = intern_atom("_NET_WM_STATE", bCreate);
+         m_atomNetWmState = intern_atom(x_window::e_atom_net_wm_state, bCreate);
 
       }
 
@@ -953,87 +972,117 @@ namespace windowing_x11
 
    }
 
-   xcb_window_t *display::xcb_window_list(unsigned long *len)
+
+   comparable_array < Window > display::x11_window_list()
    {
 
-      xcb_atom_t prop = intern_atom("_NET_CLIENT_LIST_STACKING", False);
+      comparable_array < Window > windowa;
 
-      if (prop == 0)
+      auto atomWindowList = intern_atom("_NET_CLIENT_LIST_STACKING", False);
+
+      if (atomWindowList == 0)
       {
 
-         prop = intern_atom("_NET_CLIENT_LIST", False);
+         atomWindowList = intern_atom("_NET_CLIENT_LIST", False);
 
       }
 
-      if (prop == 0)
+      if (atomWindowList == 0)
       {
 
-         return nullptr;
+         return windowa;
 
       }
 
-      xcb_atom_t type;
+      Atom type;
       int form;
       unsigned long remain;
       unsigned char *list;
-
+      unsigned long ulBytesReturned = 0;
       errno = 0;
-      auto cookie = (xcb_get_property(xcb_connection(), 0,  m_windowRoot, prop, 0, 1024, False, XA_WINDOW,
-                                      &type, &form, len, &remain, &list) != Success)
+
+      Atom actual_type;
+
+      int actual_format;
+
+      unsigned long int bytes_after;
+
+      Window * windowList = nullptr;
+
+      if(XGetWindowProperty(
+         Display(),
+         Window(),
+         atomWindowList, 0, 1024, False, XA_WINDOW,
+         &actual_type, &actual_format, &ulBytesReturned, &bytes_after,
+         (unsigned char **) &windowList) != Success)
       {
+
          output_debug_string("winlist() -- GetWinProp");
-         return nullptr;
+
+         return windowa;
+
       }
 
-      return (xcb_window_t *) list;
+      unsigned long nchildren = ulBytesReturned / sizeof(Window);
+
+      windowa.set_size(nchildren);
+
+      memcpy(windowa.get_data(), windowList, minimum(windowa.get_size_in_bytes(), ulBytesReturned));
+
+      XFree(windowList);
+
+      return windowa;
 
    }
 
 
-   bool display::xcb_window_list(array<xcb_window_t> &windowa)
-   {
+//   bool display::xcb_window_list(array<xcb_window_t> &windowa)
+//   {
+//
+//      unsigned long len = 0;
+//
+//      xcb_window_t *list = (xcb_window_t *) xcb_window_list(&len);
+//
+//
+//      if (list == nullptr)
+//      {
+//
+//         return false;
+//
+//      }
+//
+//      for (int i = 0; i < (int) len; i++)
+//      {
+//
+//         windowa.add(list[i]);
+//
+//      }
+//
+//      XFree(list);
+//
+//      return true;
+//
+//   }
 
-      unsigned long len = 0;
-
-      xcb_window_t *list = (xcb_window_t *) xcb_window_list(&len);
-
-
-      if (list == nullptr)
-      {
-
-         return false;
-
-      }
-
-      for (int i = 0; i < (int) len; i++)
-      {
-
-         windowa.add(list[i]);
-
-      }
-
-      XFree(list);
-
-      return true;
-
-   }
 
    bool display::point_is_window_origin(POINT_I32 pointHitTest, ::windowing::window *pwindowExclude, int iMargin)
    {
 
       bool bIsOrigin = false;
 
-      auto pnode = Node;
+      auto psystem = m_psystem->m_papexsystem;
+
+      auto pnode = psystem->node();
 
       pnode->node_sync(10_s, [this, pointHitTest, pwindowExclude, iMargin, &bIsOrigin]()
       {
 
-         ::windowing_xcb::window *pwindowxcbExclude = nullptr;
+         ::windowing_x11::window *pwindowxcbExclude = nullptr;
 
          if (pwindowExclude)
          {
 
-            pwindowxcbExclude = dynamic_cast < ::windowing_xcb::window * >(pwindowExclude);
+            pwindowxcbExclude = dynamic_cast < ::windowing_x11::window * >(pwindowExclude);
 
          }
 
@@ -1047,7 +1096,7 @@ namespace windowing_x11
 
 #endif
 
-         if (!xcb_connection_t())
+         if (!Display())
          {
 
             windowing_output_debug_string("\n::GetFocus 1.1");
@@ -1061,34 +1110,25 @@ namespace windowing_x11
          windowing_output_debug_string("\n::GetFocus 1.01");
 
 
-         comparable_array<xcb_window_t> windowa;
-
-         if (!xcb_window_list(windowa))
-         {
-
-            bIsOrigin = true;
-
-            return;
-
-         }
+         auto windowa = x11_window_list();
 
          ::rectangle_i32 rectTest;
 
          for (index i = 0; i < windowa.get_size(); i++)
          {
 
-            string strItem = ::xcb_get_name(xcb_connection(), windowa[i]);
+            string strItem = ::x11_get_name(Display(), windowa[i]);
 
             ::rectangle_i32 rectHigher;
 
-            if (::is_set(pwindowxcbExclude) && windowa[i] == pwindowxcbExclude->xcb_window_t())
+            if (::is_set(pwindowxcbExclude) && windowa[i] == pwindowxcbExclude->Window())
             {
 
                continue;
 
             }
 
-            if (::xcb_get_window_rect(xcb_connection(), windowa[i], rectHigher))
+            if (::x11_get_window_rect(Display(), windowa[i], rectHigher))
             {
 
                ::rectangle_i32 rectHitTest;

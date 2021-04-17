@@ -30,13 +30,14 @@ namespace windowing_x11
 
 #endif
 
+      ::routine_array                                 m_routinea;
 
 
       windowing();
       virtual ~windowing();
 
 
-      virtual ::e_status initialize(::layered * pobjectContext) override;
+      virtual ::e_status initialize(::object * pobject) override;
 
 
       virtual bool initialize_windowing();
@@ -72,7 +73,7 @@ namespace windowing_x11
 
       virtual ::windowing::window * new_window(::user::interaction_impl * pimpl) override;
 
-      virtual ::e_status remove_window(::windowing::window * pwindow) override;
+      virtual ::e_status erase_window(::windowing::window * pwindow) override;
 
       virtual ::windowing_x11::window * _window(Window window);
 
@@ -104,6 +105,10 @@ namespace windowing_x11
       //virtual bool __x11_hook_list_is_empty();
 
       virtual bool x11_message_loop_step();
+
+      void x11_branch(const ::routine & routine);
+
+      virtual bool x11_runnable_step();
 
       virtual ::windowing::window * window(oswindow oswindow) override;
 

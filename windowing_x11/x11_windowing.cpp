@@ -76,7 +76,7 @@ GC x11_create_gc(Colormap colormap, Display* pdisplay, Window window, byte a, by
 
 CLASS_DECL_ACME string message_box_result_to_string(int iResult);
 
-CLASS_DECL_ACME void x11_message_box(const string & strMessage, const string & strTitle, const ::e_message_box & emessagebox, const ::promise::process & process);
+//CLASS_DECL_ACME void x11_message_box(const string & strMessage, const string & strTitle, const ::e_message_box & emessagebox, const ::promise::process & process);
 
 //::e_status os_message_box(oswindow oswindow, const char * pszMessage, const char * pszTitle, const ::e_message_box & emessagebox, ::future future)
 //{

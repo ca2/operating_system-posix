@@ -47,8 +47,8 @@ CLASS_DECL_WINDOWING_X11 void x11_main();
 CLASS_DECL_WINDOWING_X11 ::mutex * user_mutex();
 
 
-enum_net_wm_state net_wm_state(const char *pszText);
-const char * net_wm_state_text(enum_net_wm_state estate);
+//enum_net_wm_state net_wm_state(const char *pszText);
+//const char * net_wm_state_text(enum_net_wm_state estate);
 void x11_check_status(int status, unsigned long window);
 unsigned char *x11_get_string_property(Display *display, Window window, char *property_name);
 unsigned long x11_get_long_property(Display *d, Window w, char *property_name);
@@ -62,10 +62,10 @@ bool x11_get_client_rect(Display * d, Window window, RECTANGLE_I32 * prectangle)
 //CLASS_DECL_WINDOWING_X11 ::Display * x11_get_display();
 
 
-CLASS_DECL_WINDOWING_X11 enum_net_wm_state net_wm_state(const char * pszText);
-
-
-CLASS_DECL_WINDOWING_X11 const char * net_wm_state_text(enum_net_wm_state estate);
+//CLASS_DECL_WINDOWING_X11 enum_net_wm_state net_wm_state(const char * pszText);
+//
+//
+//CLASS_DECL_WINDOWING_X11 const char * net_wm_state_text(enum_net_wm_state estate);
 
 
 //CLASS_DECL_ACME int xinerama_get_monitor_count();

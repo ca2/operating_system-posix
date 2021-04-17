@@ -12,6 +12,7 @@ namespace node_gnome
    windowing::windowing()
    {
 
+      m_pWindowing2 = this;
 
    }
 
@@ -23,7 +24,7 @@ namespace node_gnome
    }
 
 
-   ::e_status windowing::user_fork(const ::promise::routine & routine)
+   ::e_status windowing::user_start(const ::routine & routine)
    {
 
       gdk_fork([routine]()

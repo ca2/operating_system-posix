@@ -7,5 +7,7 @@
 
 #include "_.h"
 
+#include "_windowing.h"
+
 #include "aura/_defer.h"
 

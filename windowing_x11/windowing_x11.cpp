@@ -1,7 +1,7 @@
 //
 // Created by camilo on 16/02/2021.
 //
-#include "platform-linux/windowing_xcb/framework.h"
+#include "platform-linux/windowing_x11/framework.h"
 #include "aura/user/_user.h"
 #include "aura/os/x11/_x11.h"
 #include "acme/const/id.h"
@@ -158,8 +158,8 @@ Window g_windowX11Client = 0;
 int_bool _x11_get_cursor_pos(Display * d, POINT_I32 * ppointCursor);
 
 
-extern ::mutex *g_pmutexX11Runnable;
-extern list<__pointer(::matter) > *g_prunnableptrlX11;
+//extern ::mutex *g_pmutexX11Runnable;
+//extern list<__pointer(::matter) > *g_prunnableptrlX11;
 //extern ::mutex *g_pmutexX11Sync;
 //extern manual_reset_event *g_peventX11Sync;
 //extern __pointer(::matter) g_prunnableX11Sync;
@@ -447,166 +447,167 @@ namespace windowing_x11
 //}
 
 
-   Window *display::x11_window_list(unsigned long *len)
-   {
-
-      Atom prop = intern_atom("_NET_CLIENT_LIST_STACKING", False);
-
-      if (prop == 0)
-      {
-
-         prop = intern_atom("_NET_CLIENT_LIST", False);
-
-      }
-
-      if (prop == 0)
-      {
-
-         return nullptr;
-
-      }
-
-      Atom type;
-      int form;
-      unsigned long remain;
-      unsigned char *list;
-
-      errno = 0;
-      if (XGetWindowProperty(Display(), DefaultRootWindow(Display()), prop, 0, 1024, False, XA_WINDOW,
-                             &type, &form, len, &remain, &list) != Success)
-      {
-         output_debug_string("winlist() -- GetWinProp");
-         return nullptr;
-      }
-
-      return (Window *) list;
-
-   }
-
-
-   bool display::x11_window_list(array<Window> &windowa)
-   {
-
-      unsigned long len = 0;
-
-      Window *list = (Window *) x11_window_list(&len);
-
-
-      if (list == nullptr)
-      {
-
-         return false;
-
-      }
-
-      for (int i = 0; i < (int) len; i++)
-      {
-
-         windowa.add(list[i]);
-
-      }
-
-      XFree(list);
-
-      return true;
-
-   }
-
-   bool display::point_is_window_origin(POINT_I32 pointHitTest, ::windowing::window *pwindowExclude, int iMargin)
-   {
-
-      bool bIsOrigin = false;
-
-      x11_sync([this, pointHitTest, pwindowExclude, iMargin, &bIsOrigin]()
-               {
-
-                  ::windowing_x11::window *pwindowx11Exclude = nullptr;
-
-                  if (pwindowExclude)
-                  {
-
-                     pwindowx11Exclude = dynamic_cast < ::windowing_x11::window * >(pwindowExclude);
-
-                  }
-
-                  synchronous_lock synchronouslock(user_mutex());
-
-                  windowing_output_debug_string("\n::GetFocus 1");
-
-#ifdef display_lock_LOCK_LOG
-
-                  b_prevent_display_lock_lock_log = false;
-
-#endif
-
-                  if (!Display())
-                  {
-
-                     windowing_output_debug_string("\n::GetFocus 1.1");
-
-                     return;
-
-                  }
-
-                  display_lock display(this);
-
-                  windowing_output_debug_string("\n::GetFocus 1.01");
-
-
-                  comparable_array<Window> windowa;
-
-                  if (!x11_window_list(windowa))
-                  {
-
-                     bIsOrigin = true;
-
-                     return;
-
-                  }
-
-                  ::rectangle_i32 rectTest;
-
-                  for (index i = 0; i < windowa.get_size(); i++)
-                  {
-
-                     string strItem = ::x11_get_name(Display(), windowa[i]);
-
-                     ::rectangle_i32 rectHigher;
-
-                     if (::is_set(pwindowx11Exclude) && windowa[i] == pwindowx11Exclude->Window())
-                     {
-
-                        continue;
-
-                     }
-
-                     if (::x11_get_window_rect(Display(), windowa[i], rectHigher))
-                     {
-
-                        ::rectangle_i32 rectHitTest;
-
-                        rectHitTest.set(rectHigher.origin(), ::size_i32());
-
-                        rectHitTest.inflate(iMargin + 1);
-
-                        if (rectHitTest.contains(pointHitTest))
-                        {
-
-                           bIsOrigin = true;
-
-                           return;
-
-                        }
-
-                     }
-
-                  }
-
-               });
-
-      return bIsOrigin;
-
-   }
+//   Window *display::x11_window_list(unsigned long *len)
+//   {
+//
+//      Atom prop = intern_atom("_NET_CLIENT_LIST_STACKING", False);
+//
+//      if (prop == 0)
+//      {
+//
+//         prop = intern_atom("_NET_CLIENT_LIST", False);
+//
+//      }
+//
+//      if (prop == 0)
+//      {
+//
+//         return nullptr;
+//
+//      }
+//
+//      Atom type;
+//      int form;
+//      unsigned long remain;
+//      unsigned char *list;
+//
+//      errno = 0;
+//      if (XGetWindowProperty(Display(), DefaultRootWindow(Display()), prop, 0, 1024, False, XA_WINDOW,
+//                             &type, &form, len, &remain, &list) != Success)
+//      {
+//         output_debug_string("winlist() -- GetWinProp");
+//         return nullptr;
+//      }
+//
+//      return (Window *) list;
+//
+//   }
+
+
+//   bool display::x11_window_list(array<Window> &windowa)
+//   {
+//
+//      unsigned long len = 0;
+//
+//      Window *list = (Window *) x11_window_list(&len);
+//
+//      if (list == nullptr)
+//      {
+//
+//         return false;
+//
+//      }
+//
+//      for (int i = 0; i < (int) len; i++)
+//      {
+//
+//         windowa.add(list[i]);
+//
+//      }
+//
+//      XFree(list);
+//
+//      return true;
+//
+//   }
+
+
+//   bool display::point_is_window_origin(POINT_I32 pointHitTest, ::windowing::window *pwindowExclude, int iMargin)
+//   {
+//
+//      bool bIsOrigin = false;
+//
+//      auto pwindowing = x11_windowing();
+//
+//      pwindowing->x11_start(__routine([this, pointHitTest, pwindowExclude, iMargin, &bIsOrigin]()
+//               {
+//
+//                  ::windowing_x11::window *pwindowx11Exclude = nullptr;
+//
+//                  if (pwindowExclude)
+//                  {
+//
+//                     pwindowx11Exclude = dynamic_cast < ::windowing_x11::window * >(pwindowExclude);
+//
+//                  }
+//
+//                  synchronous_lock synchronouslock(user_mutex());
+//
+//                  windowing_output_debug_string("\n::GetFocus 1");
+//
+//#ifdef display_lock_LOCK_LOG
+//
+//                  b_prevent_display_lock_lock_log = false;
+//
+//#endif
+//
+//                  if (!Display())
+//                  {
+//
+//                     windowing_output_debug_string("\n::GetFocus 1.1");
+//
+//                     return;
+//
+//                  }
+//
+//                  display_lock display(this);
+//
+//                  windowing_output_debug_string("\n::GetFocus 1.01");
+//
+//                  comparable_array<Window> windowa;
+//
+//                  if (!x11_window_list(windowa))
+//                  {
+//
+//                     bIsOrigin = true;
+//
+//                     return;
+//
+//                  }
+//
+//                  ::rectangle_i32 rectTest;
+//
+//                  for (index i = 0; i < windowa.get_size(); i++)
+//                  {
+//
+//                     string strItem = ::x11_get_name(Display(), windowa[i]);
+//
+//                     ::rectangle_i32 rectHigher;
+//
+//                     if (::is_set(pwindowx11Exclude) && windowa[i] == pwindowx11Exclude->Window())
+//                     {
+//
+//                        continue;
+//
+//                     }
+//
+//                     if (::x11_get_window_rect(Display(), windowa[i], rectHigher))
+//                     {
+//
+//                        ::rectangle_i32 rectHitTest;
+//
+//                        rectHitTest.set(rectHigher.origin(), ::size_i32());
+//
+//                        rectHitTest.inflate(iMargin + 1);
+//
+//                        if (rectHitTest.contains(pointHitTest))
+//                        {
+//
+//                           bIsOrigin = true;
+//
+//                           return;
+//
+//                        }
+//
+//                     }
+//
+//                  }
+//
+//               }));
+//
+//      return bIsOrigin;
+//
+//   }
 
 
 // int_bool is_window_occluded(oswindow oswindow)
@@ -1479,7 +1480,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                }
 
-               auto psubject = System.subject(eid);
+               auto psystem = m_psystem->m_papexsystem;
+
+               auto psubject = psystem->subject(eid);
 
                psubject->payload("return") = is_return_key((XIRawEvent*)cookie->data);
 
@@ -1585,9 +1588,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
             m_pointCursor.y = e.xmotion.y_root;
 
-            g_pointX11Cursor.x = e.xmotion.x_root;
+            //g_pointX11Cursor.x = e.xmotion.x_root;
 
-            g_pointX11Cursor.y = e.xmotion.y_root;
+            //g_pointX11Cursor.y = e.xmotion.y_root;
 
             if (msg.oswindow != nullptr && msg.oswindow->m_pimpl != nullptr)
             {
@@ -2050,7 +2053,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
             if (e.xconfigure.window == DefaultRootWindow(m_pdisplay->Display()))
             {
 
-               auto applicationa = Session->m_applicationa;
+               auto psession = get_session()->m_papexsession;
+
+               auto applicationa = psession->m_applicationa;
 
                try
                {
@@ -2061,9 +2066,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                      try
                      {
 
-                        auto &app = App(papplication);
+                        auto pauraapplication = papplication->m_pauraapplication;
 
-                        auto uiptraFrame = app.m_puiptraFrame->interactiona();
+                        auto uiptraFrame = pauraapplication->m_puiptraFrame->interactiona();
 
                         for (auto &pframe : uiptraFrame)
                         {
@@ -2310,8 +2315,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                            if (best_style != 0)
                            {
 
-                              msg.oswindow->m_pimpl->set("xim_flag",
-                                                         msg.oswindow->m_pimpl->payload("xim_flag").i32() | 2);
+                              msg.oswindow->m_pimpl->payload("xim_flag")
+                              = msg.oswindow->m_pimpl->payload("xim_flag").i32() | 2;
 
                            }
 
@@ -2868,9 +2873,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       //acme_defer_os_init_windowing();
 
-      g_pmutexX11Runnable = new ::mutex();
+      //g_pmutexX11Runnable = new ::mutex();
 
-      g_prunnableptrlX11 = new list<__pointer(::matter) >();
+      //g_prunnableptrlX11 = new list<__pointer(::matter) >();
 
 //      g_pmutexX11Sync = new ::mutex();
 
@@ -2900,15 +2905,15 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       //::acme::del(oswindow_data::s_pdataptra);
 
-      {
+//      {
+//
+//         synchronous_lock synchronouslock(g_pmutexX11Runnable);
+//
+//         ::acme::del(g_prunnableptrlX11);
+//
+//      }
 
-         synchronous_lock synchronouslock(g_pmutexX11Runnable);
-
-         ::acme::del(g_prunnableptrlX11);
-
-      }
-
-      ::acme::del(g_pmutexX11Runnable);
+      //::acme::del(g_pmutexX11Runnable);
 
 //      ::acme::del(g_peventX11Sync);
 
@@ -2957,13 +2962,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    void x11_async_runnable(::matter *prunnable)
    {
 
-      {
-
-         synchronous_lock synchronouslock(g_pmutexX11Runnable);
-
-         g_prunnableptrlX11->add_tail(prunnable);
-
-      }
+//      {
+//
+//         synchronous_lock synchronouslock(g_pmutexX11Runnable);
+//
+//         g_prunnableptrlX11->add_tail(prunnable);
+//
+//      }
 
       x11_kick_idle();
 
@@ -3284,52 +3289,52 @@ const char *g_pszaNetWmState[] =
 
 
 
-const char *net_wm_state_text(enum_net_wm_state estate)
-{
-
-   if (estate < e_net_wm_state_first || estate >= e_net_wm_state_count)
-   {
-
-      return "";
-
-   }
-
-   return g_pszaNetWmState[estate];
-
-}
-
-
-enum_net_wm_state net_wm_state(const char *pszText)
-{
-
-   if (::is_null(pszText))
-   {
-
-      return e_net_wm_state_count;
-
-   }
-
-   auto ppsz = g_pszaNetWmState;
-
-   int i = 0;
-
-   while (ppsz[i] != NULL)
-   {
-
-      if (!ansi_compare_ci(pszText, ppsz[i]))
-      {
-
-         break;
-
-      }
-
-      i++;
-
-   }
-
-   return (enum_net_wm_state) i;
-
-}
+//const char *net_wm_state_text(enum_net_wm_state estate)
+//{
+//
+//   if (estate < e_net_wm_state_first || estate >= e_net_wm_state_count)
+//   {
+//
+//      return "";
+//
+//   }
+//
+//   return g_pszaNetWmState[estate];
+//
+//}
+//
+//
+//enum_net_wm_state net_wm_state(const char *pszText)
+//{
+//
+//   if (::is_null(pszText))
+//   {
+//
+//      return e_net_wm_state_count;
+//
+//   }
+//
+//   auto ppsz = g_pszaNetWmState;
+//
+//   int i = 0;
+//
+//   while (ppsz[i] != NULL)
+//   {
+//
+//      if (!ansi_compare_ci(pszText, ppsz[i]))
+//      {
+//
+//         break;
+//
+//      }
+//
+//      i++;
+//
+//   }
+//
+//   return (enum_net_wm_state) i;
+//
+//}
 
 
 
@@ -3485,7 +3490,7 @@ bool x11_get_window_rect(Display * d, Window window, RECTANGLE_I32 * prectangle)
 
    XSetErrorHandler(_c_XErrorHandler);
 
-   g_pmutexX11 = new ::mutex();
+   //g_pmutexX11 = new ::mutex();
 
    return ::success;
 
@@ -3510,13 +3515,13 @@ bool x11_get_window_rect(Display * d, Window window, RECTANGLE_I32 * prectangle)
 }
 
 
-mutex * user_mutex()
-{
-
-   return g_pmutexX11;
-
-
-}
+//mutex * user_mutex()
+//{
+//
+//   return g_pmutexX11;
+//
+//
+//}
 
 
 

@@ -30,7 +30,7 @@ void gtk_settings_gtk_theme_name_callback(GObject* object, GParamSpec* pspec, gp
 
    }
 
-   System.process_subject(id_os_user_theme);
+   pnode->m_psystem->m_papexsystem->process_subject(id_os_user_theme);
 
 }
 
@@ -114,7 +114,9 @@ namespace node_gnome
    void node::defer_notify_startup_complete()
    {
 
-      string strApplicationServerName = System.get_application_server_name();
+      auto psystem = m_psystem->m_papexsystem;
+
+      string strApplicationServerName = psystem->get_application_server_name();
 
       gdk_notify_startup_complete_with_id (strApplicationServerName);
 
@@ -123,13 +125,15 @@ namespace node_gnome
    }
 
 
-   ::e_status node::start()
+   ::e_status node::start_node()
    {
 
-      if (System.m_bGtkApp)
+      auto psystem = m_psystem->m_papexsystem;
+
+      if (psystem->m_bGtkApp)
       {
 
-         apex_application_run(System.m_strAppId, System.m_strProgName);
+         apex_application_run(psystem->m_strAppId, psystem->m_strProgName);
 
       }
       else
@@ -199,7 +203,9 @@ namespace node_gnome
 
             x11_add_idle_source(this);
 
-             System.on_start();
+             auto psystem = m_psystem->m_papexsystem;
+
+               psystem->on_start();
 
 
          });
@@ -231,7 +237,7 @@ namespace node_gnome
    }
 
 
-   ::e_status node::initialize(::layered *pobjectContext)
+   ::e_status node::initialize(::object *pobject)
    {
 
       ::node_gnome::g_defer_init();
@@ -244,7 +250,7 @@ namespace node_gnome
    void node::os_calc_user_dark_mode()
    {
 
-      ::node_linux::node::os_calc_user_dark_mode();
+      ::linux::aura::node::os_calc_user_dark_mode();
 
    }
 
@@ -252,39 +258,45 @@ namespace node_gnome
    bool node::windowing_message_loop_step()
    {
 
-      auto pcontextsession = get_context_session();
+      auto psession = get_session();
 
-      if(::is_null(pcontextsession))
+      if(::is_null(psession))
       {
 
          return false;
 
       }
 
-      auto psession = Sess(pcontextsession);
+      auto paurasession = psession->m_paurasession;
 
-      if(::is_set(psession))
+      if(::is_null(paurasession))
       {
 
-         auto puser = psession->user();
-
-         if(::is_set(puser))
-         {
-
-            auto pwindowing = puser->windowing();
-
-            if(pwindowing)
-            {
-
-               return pwindowing->message_loop_step();
-
-            }
-
-         }
+         return false;
 
       }
 
-      return false;
+      auto puser = paurasession->user();
+
+      if(::is_null(puser))
+      {
+
+         return false;
+
+      }
+
+      auto pwindowing = puser->windowing();
+
+      if(::is_null(pwindowing))
+      {
+
+         return false;
+
+      }
+
+      bool bRet = pwindowing->message_loop_step();
+
+      return bRet;
 
    }
 
@@ -305,7 +317,9 @@ namespace node_gnome
 
       // indirect wall-changer sourceforge.net contribution
 
-      auto edesktop = System.get_edesktop();
+      auto psystem = m_psystem->m_papexsystem;
+
+      auto edesktop = psystem->get_edesktop();
 
       switch (edesktop)
       {
@@ -384,9 +398,9 @@ namespace node_gnome
 
       // wall-changer sourceforge.net contribution
 
-      auto pnode = Node;
+      auto psystem = m_psystem->m_papexsystem;
 
-      auto edesktop = System.get_edesktop();
+      auto edesktop = psystem->get_edesktop();
 
       switch (edesktop)
       {
@@ -434,7 +448,9 @@ namespace node_gnome
    void node::enable_wallpaper_change_notification()
    {
 
-      auto edesktop = System.get_edesktop();
+      auto psystem = m_psystem->m_papexsystem;
+
+      auto edesktop = psystem->get_edesktop();
 
       switch (edesktop)
       {
@@ -504,7 +520,7 @@ namespace node_gnome
    }
 
 
-   void node::node_fork(const ::promise::routine & routine)
+   void node::node_branch(const ::routine & routine)
    {
 
       gdk_branch(routine);
@@ -639,7 +655,7 @@ namespace node_gnome
 //
 //   }
 
-   bool node::should_launch_on_node(::promise::subject * psubject)
+   bool node::should_launch_on_node(::subject::subject * psubject)
    {
 
       if(::is_null(psubject))
@@ -661,7 +677,7 @@ namespace node_gnome
    }
 
 
-   bool node::launch_on_node(::promise::subject * psubject)
+   bool node::launch_on_node(::subject::subject * psubject)
    {
 
       ::matter * pmatter = psubject;

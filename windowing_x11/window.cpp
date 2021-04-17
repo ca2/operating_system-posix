@@ -10,7 +10,6 @@
 #include <X11/Xatom.h>
 
 
-
 //void on_sn_launch_context(void * pSnContext, Window window);
 //void on_sn_launch_complete(void * pSnContext);
 
@@ -29,18 +28,18 @@ namespace windowing_x11
    window::window()
    {
 
-      set_layer(LAYERED_X11, this);
+      m_pWindow = this;
 
       m_iXic = 0;
 
       m_xic = nullptr;
 
-      for (auto &i : m_iaNetWmState)
-      {
-
-         i = -1;
-
-      }
+//      for (auto & i : m_iaNetWmState)
+//      {
+//
+//         i = -1;
+//
+//      }
 
       m_cursorLast = 0;
 
@@ -56,9 +55,9 @@ namespace windowing_x11
 
       m_iDepth = -1;
 
-      m_iScreen = -1;
+      //m_iScreen = -1;
 
-      m_colormap = None;
+      //m_colormap = None;
 
       m_iXic = 0;
 
@@ -113,61 +112,61 @@ namespace windowing_x11
 
       bool bVisible = m_pimpl->m_puserinteraction->layout().sketch().is_screen_visible();
 
-      if(pusersystem)
-      {
+//      if(pusersystem)
+//      {
+//
+//         if (pusersystem->m_createstruct.x <= 0)
+//         {
+//
+//            x = pusersystem->m_createstruct.x;
+//
+//         }
+//
+//         if (pusersystem->m_createstruct.y <= 0)
+//         {
+//
+//            y = pusersystem->m_createstruct.y;
+//
+//         }
+//
+//         if (pusersystem->m_createstruct.cx <= 0)
+//         {
+//
+//            cx = 1;
+//
+//         }
+//
+//         if (pusersystem->m_createstruct.cy <= 0)
+//         {
+//
+//            cy = 1;
+//
+//         }
+//
+//         if (pusersystem->m_createstruct.style & WS_VISIBLE)
+//         {
+//
+//            bVisible = true;
+//
+//         }
+//
+//      }
 
-         if (pusersystem->m_createstruct.x <= 0)
-         {
-
-            x = pusersystem->m_createstruct.x;
-
-         }
-
-         if (pusersystem->m_createstruct.y <= 0)
-         {
-
-            y = pusersystem->m_createstruct.y;
-
-         }
-
-         if (pusersystem->m_createstruct.cx <= 0)
-         {
-
-            cx = 1;
-
-         }
-
-         if (pusersystem->m_createstruct.cy <= 0)
-         {
-
-            cy = 1;
-
-         }
-
-         if (pusersystem->m_createstruct.style & WS_VISIBLE)
-         {
-
-            bVisible = true;
-
-         }
-
-      }
-
-      if(cx <= 0)
+      if (cx <= 0)
       {
 
          cx = 1;
 
       }
 
-      if(cy <= 0)
+      if (cy <= 0)
       {
 
          cy = 1;
 
       }
 
-      ::Window rootwin = RootWindow(display, m_iScreen);
+      ::Window rootwin = RootWindow(display, x11_display()->m_iScreen);
 
       XEvent e;
 
@@ -184,20 +183,19 @@ namespace windowing_x11
 
       }
 
-      if (XMatchVisualInfo(display, DefaultScreen(display), 32, TrueColor, &m_px11data->m_visualinfo))
+      if (XMatchVisualInfo(display, DefaultScreen(display), 32, TrueColor, &m_visualinfo))
       {
 
-         visual = m_px11data->m_visualinfo.visual;
+         visual = m_visualinfo.visual;
 
-      }
-      else
+      } else
       {
 
-         __zero(m_px11data->m_visualinfo);
+         __zero(m_visualinfo);
 
       }
 
-      m_iDepth = m_px11data->m_visualinfo.depth;
+      m_iDepth = m_visualinfo.depth;
 
       XSetWindowAttributes attr;
 
@@ -232,7 +230,7 @@ namespace windowing_x11
                                       CWColormap | CWEventMask | CWBackPixmap | CWBorderPixel
                                       | CWOverrideRedirect, &attr);
 
-      auto &windowstate3 = pimpl->m_puserinteraction->m_layout.window();
+      auto & windowstate3 = pimpl->m_puserinteraction->m_layout.window();
 
       windowstate3.origin() = {INT_MIN, INT_MIN};
 
@@ -240,7 +238,7 @@ namespace windowing_x11
 
       windowstate3.screen_origin() = {INT_MIN, INT_MIN};
 
-      auto &state = pimpl->m_puserinteraction->m_layout.design();
+      auto & state = pimpl->m_puserinteraction->m_layout.design();
 
       state.origin() = {x, y};
 
@@ -257,7 +255,8 @@ namespace windowing_x11
 
       }
 
-      auto estatus = initialize_x11_window(pdisplayx11, window, visual, m_iDepth, m_iScreen, attr.colormap);
+      auto estatus = initialize_x11_window(pdisplayx11, window, visual, m_iDepth, x11_display()->m_iScreen,
+                                           attr.colormap);
 
       if (!estatus)
       {
@@ -270,26 +269,28 @@ namespace windowing_x11
 
       pimpl->m_pwindow = this;
 
-      set_os_data((::windowing::window *)this);
+      set_os_data((::windowing::window *) this);
 
-      pimpl->set_os_data((::windowing::window *)this);
+      //pimpl->set_os_data((::windowing::window *)this);
 
-      set_os_data(LAYERED_X11, (::windowing_x11::window *)this);
+      //set_os_data(LAYERED_X11, (::windowing_x11::window *)this);
 
-      pimpl->set_os_data(LAYERED_X11, (::windowing_x11::window *)this);
+      //pimpl->set_os_data(LAYERED_X11, (::windowing_x11::window *)this);
 
       pimpl->m_puserinteraction->m_pimpl = pimpl;
 
       pimpl->m_puserinteraction->add_ref(OBJ_REF_DBG_P_NOTE(this, "native_create_window"));
 
-      auto papp = get_context_application();
+      auto papplication = get_application();
 
       if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
       {
 
-         XClassHint *pupdate = XAllocClassHint();
+         XClassHint * pupdate = XAllocClassHint();
 
-         string strApplicationServerName = System.get_application_server_name();
+         auto psystem = m_psystem->m_papexsystem;
+
+         string strApplicationServerName = psystem->get_application_server_name();
 
          pupdate->res_class = (char *) (const char *) strApplicationServerName;
 
@@ -303,14 +304,14 @@ namespace windowing_x11
 
 #ifndef RASPBIAN
 
-      if (pwindowing->m_pSnLauncheeContext != nullptr && !papp->m_bSnLauncheeSetup)
+      if (pwindowing->m_pSnLauncheeContext != nullptr && !papplication->m_bSnLauncheeSetup)
       {
 
-         Application.os_on_start_application();
+         papplication->os_on_start_application();
 
          //on_sn_launch_context(pwindowing->m_pSnLauncheeContext, window);
 
-         papp->m_bSnLauncheeSetup = true;
+         papplication->m_bSnLauncheeSetup = true;
 
       }
 
@@ -321,27 +322,23 @@ namespace windowing_x11
 
          wm_dockwindow(true);
 
-      }
-      else if (pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_desktop_window)
+      } else if (pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_desktop_window)
       {
 
          wm_desktopwindow(true);
 
-      }
-      else if (pimpl->m_puserinteraction->layout().sketch().activation() & e_activation_on_center_of_screen)
+      } else if (pimpl->m_puserinteraction->layout().sketch().activation() & e_activation_on_center_of_screen)
       {
 
          wm_centerwindow(true);
 
-      }
-      else if (pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window
-      || pimpl->m_puserinteraction->m_bToolWindow)
+      } else if (pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window
+                 || pimpl->m_puserinteraction->m_bToolWindow)
       {
 
          wm_toolwindow(true);
 
-      }
-      else
+      } else
       {
 
          wm_normalwindow();
@@ -352,7 +349,7 @@ namespace windowing_x11
 
       ::Window root = 0;
 
-      ::Window *pchildren = nullptr;
+      ::Window * pchildren = nullptr;
 
       u32 ncount = 0;
 
@@ -382,28 +379,28 @@ namespace windowing_x11
 
       string strName;
 
-      if (pusersystem && pusersystem->m_createstruct.lpszName != nullptr && strlen(pusersystem->m_createstruct.lpszName) > 0)
+//      if (pusersystem && pusersystem->m_createstruct.lpszName != nullptr && strlen(pusersystem->m_createstruct.lpszName) > 0)
+//      {
+//
+//         strName = pusersystem->m_createstruct.lpszName;
+//
+//      }
+
+      //if(strName.is_empty())
+      //{
+
+      string strWindowText = pimpl->m_puserinteraction->get_window_text();
+
+      if (strWindowText.has_char())
       {
 
-         strName = pusersystem->m_createstruct.lpszName;
+         strName = strWindowText;
 
       }
 
-      if(strName.is_empty())
-      {
+      //}
 
-         string strWindowText = pimpl->m_puserinteraction->get_window_text();
-
-         if (strWindowText.has_char())
-         {
-
-            strName = strWindowText;
-
-         }
-
-      }
-
-      if(strName.has_char())
+      if (strName.has_char())
       {
 
          XStoreName(Display(), Window(), strName);
@@ -415,13 +412,12 @@ namespace windowing_x11
       _wm_nodecorations(0);
 
       //if (pusersystem->m_createstruct.style & WS_VISIBLE)
-      if(bVisible)
+      if (bVisible)
       {
 
          map_window();
 
-      }
-      else
+      } else
       {
 
          pimpl->m_puserinteraction->layout().window() = e_display_none;
@@ -441,8 +437,10 @@ namespace windowing_x11
                // initial (XCreateWindow) size_i32 and position maybe not be honored.
                // so requesting the same change again in a effort to set the "docked/snapped" size_i32 and position.
 
-               set_window_position(e_zorder_top, pusersystem->m_createstruct.x, pusersystem->m_createstruct.y,
-                                   pusersystem->m_createstruct.cx, pusersystem->m_createstruct.cy, SWP_SHOWWINDOW);
+               //set_window_position(e_zorder_top, pusersystem->m_createstruct.x, pusersystem->m_createstruct.y,
+               //                  pusersystem->m_createstruct.cx, pusersystem->m_createstruct.cy, SWP_SHOWWINDOW);
+
+               set_window_position(e_zorder_top, x, y, cx, cy, SWP_SHOWWINDOW);
 
             }
 
@@ -461,7 +459,7 @@ namespace windowing_x11
          {
 
 
-            if (get_context_session() != nullptr)
+            if (get_session() != nullptr)
             {
 
                // Initial position of window below the cursor position
@@ -486,19 +484,21 @@ namespace windowing_x11
 
          }
 
-   //   }
+         //   }
 
-      //});
-   //}
+         //});
+         //}
 
       }
 
-      if(bOk)
+      if (bOk)
       {
 
-         auto lresult = pimpl->m_puserinteraction->send_message(e_message_create, 0, (lparam) &pusersystem->m_createstruct);
+         //auto lresult = pimpl->m_puserinteraction->send_message(e_message_create, 0, (lparam) &pusersystem->m_createstruct);
 
-         if(lresult == -1)
+         auto lresult = pimpl->m_puserinteraction->send_message(e_message_create, 0, 0);
+
+         if (lresult == -1)
          {
 
             return false;
@@ -514,7 +514,7 @@ namespace windowing_x11
    }
 
 
-   void window::set_wm_class(const char *psz)
+   void window::set_wm_class(const char * psz)
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -555,19 +555,21 @@ namespace windowing_x11
 
       auto pwindowing = x11_windowing();
 
-    //  if (pwindowing->m_pSnLauncheeContext != nullptr)
-      if(!pwindowing->m_bFirstWindowMap)
+      //  if (pwindowing->m_pSnLauncheeContext != nullptr)
+      if (!pwindowing->m_bFirstWindowMap)
       {
 
          pwindowing->m_bFirstWindowMap = true;
 
-         auto pnode = Node;
+         auto psystem = m_psystem->m_papexsystem;
+
+         auto pnode = psystem->node();
 
          pnode->defer_notify_startup_complete();
 
          //on_sn_launch_complete(pwindowing->m_pSnLauncheeContext);
 
-  //       pwindowing->m_pSnLauncheeContext = nullptr;
+         //       pwindowing->m_pSnLauncheeContext = nullptr;
 
       }
 
@@ -594,10 +596,9 @@ namespace windowing_x11
       if (bWithdraw)
       {
 
-         i = XWithdrawWindow(Display(), Window(), m_iScreen);
+         i = XWithdrawWindow(Display(), Window(), x11_display()->m_iScreen);
 
-      }
-      else
+      } else
       {
 
          i = XUnmapWindow(Display(), Window());
@@ -740,7 +741,9 @@ namespace windowing_x11
 //   }
 
 
-   ::e_status window::initialize_x11_window(::windowing_x11::display * pdisplay, ::Window window, ::Visual *pvisual, int iDepth, int iScreen, Colormap colormap)
+   ::e_status
+   window::initialize_x11_window(::windowing_x11::display * pdisplay, ::Window window, ::Visual * pvisual, int iDepth,
+                                 int iScreen, Colormap colormap)
    {
 
       //single_lock slOsWindow(::window::s_pmutex, true);
@@ -769,8 +772,8 @@ namespace windowing_x11
       }
 
       m_iDepth = iDepth;
-      m_iScreen = iScreen;
-      m_colormap = colormap;
+      //m_iScreen = iScreen;
+      //m_colormap = colormap;
       //m_parent = 0;
 
       //::window::s_pdataptra->add(pdata);
@@ -806,6 +809,22 @@ namespace windowing_x11
    {
 
       return x11_display()->Display();
+
+   }
+
+
+   int window::Screen()
+   {
+
+      return x11_display()->Screen();
+
+   }
+
+
+   int window::Screen() const
+   {
+
+      return x11_display()->Screen();
 
    }
 
@@ -865,9 +884,13 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      auto pnode = Node;
+      auto psystem = m_psystem->m_papexsystem;
 
-      ::file::path path = pnode->get_desktop_file_path(&Application);
+      auto pnode = psystem->node();
+
+      auto papplication = get_application();
+
+      ::file::path path = pnode->get_desktop_file_path(papplication);
 
       output_debug_string("\nlinux::interaction_impl::set_window_text");
 
@@ -888,14 +911,14 @@ namespace windowing_x11
          ixa,
          8,
          PropModeReplace,
-         (const unsigned char*) (const char *) path,
+         (const unsigned char *) (const char *) path,
          path.get_length());
 
       output_debug_string("\nlinux::interaction_impl::bamf_set_icon END");
 
       fflush(stdout);
 
-      if(status != 0)
+      if (status != 0)
       {
 
          return false;
@@ -907,9 +930,8 @@ namespace windowing_x11
    }
 
 
-
    int
-   window::x_change_property(Atom property, Atom type, int format, int mode, const unsigned char *data, int nelements)
+   window::x_change_property(Atom property, Atom type, int format, int mode, const unsigned char * data, int nelements)
    {
 
       return XChangeProperty(Display(), Window(), property, type, format, mode, data, nelements);
@@ -933,7 +955,7 @@ namespace windowing_x11
 //   }
 
 
-   bool window::set_icon(::image *pimage)
+   bool window::set_icon(::image * pimage)
    {
 
       // http://stackoverflow.com/questions/10699927/xlib-argb-window-icon
@@ -983,13 +1005,13 @@ namespace windowing_x11
 
       d1->g()->stretch(d1->rectangle(), pimage->g(), pimage->rectangle());
 
-      memory m(m_pimpl->m_puserinteraction->get_context_application());
+      memory m(m_pimpl->m_puserinteraction->get_application());
 
       int length = 2 + d1->area();
 
       m.set_size(length * 4);
 
-      unsigned int *pcr = (unsigned int *) m.get_data();
+      unsigned int * pcr = (unsigned int *) m.get_data();
 
       pcr[0] = d1->width();
 
@@ -1020,8 +1042,7 @@ namespace windowing_x11
       {
 
 
-      }
-      else if (status != 0)
+      } else if (status != 0)
       {
 
          return false;
@@ -1119,7 +1140,7 @@ namespace windowing_x11
    }
 
 
-   i32 window::store_name(const char *psz)
+   i32 window::store_name(const char * psz)
    {
 
       windowing_output_debug_string("\nwindow::store_name");
@@ -1179,14 +1200,14 @@ namespace windowing_x11
       if (!::is_null(this))
       {
 
-         m_pwindowing->remove_window(this);
+         m_pwindowing->erase_window(this);
 
       }
 
    }
 
 
-   void window::set_user_interaction(::user::interaction_impl *pimpl)
+   void window::set_user_interaction(::user::interaction_impl * pimpl)
    {
 
 //      single_lock sl(ms_pmutex, true);
@@ -1200,7 +1221,7 @@ namespace windowing_x11
 
       m_pimpl = pimpl;
 
-      m_hthread = pimpl->get_context_application()->get_os_handle();
+      m_hthread = pimpl->get_application()->get_os_handle();
 
       m_pmessagequeue = pimpl->m_puserinteraction->m_pthreadUserInteraction->get_message_queue();
 
@@ -1209,8 +1230,7 @@ namespace windowing_x11
    }
 
 
-   bool window::is_child(::oswindow
-                         oswindow)
+   bool window::is_child(::oswindow oswindow)
    {
 
       if (oswindow == nullptr || oswindow->m_pimpl == nullptr || oswindow->m_pimpl->m_puserinteraction == nullptr)
@@ -1227,9 +1247,7 @@ namespace windowing_x11
 
       }
 
-      return m_pimpl->m_puserinteraction->
-         is_child(oswindow
-                     ->m_pimpl->m_puserinteraction);
+      return m_pimpl->m_puserinteraction->is_child(oswindow->m_pimpl->m_puserinteraction);
 
    }
 
@@ -1345,8 +1363,8 @@ namespace windowing_x11
 
       }
 
-      XSendEvent(Display(), RootWindow(Display(), m_iScreen), False, SubstructureRedirectMask | SubstructureNotifyMask,
-                 &xevent);
+      XSendEvent(Display(), RootWindow(Display(), x11_display()->m_iScreen), False,
+                 SubstructureRedirectMask | SubstructureNotifyMask, &xevent);
 
       va_end(argp);
 
@@ -1370,7 +1388,7 @@ namespace windowing_x11
       __zero(xclient);
       xclient.type = ClientMessage;
       xclient.window = Window();
-      xclient.message_type =x11_display()->intern_atom("_NET_WM_STATE", False);
+      xclient.message_type = x11_display()->intern_atom("_NET_WM_STATE", False);
       xclient.format = 32;
       xclient.data.l[0] = add ? _NET_WM_STATE_ADD : _NET_WM_STATE_REMOVE;
       xclient.data.l[1] = state1;
@@ -1378,66 +1396,66 @@ namespace windowing_x11
       xclient.data.l[3] = 1; /* source indication */
       xclient.data.l[4] = 0;
 
-      XSendEvent (Display(), RootWindow(Display(), iScreen), False, SubstructureRedirectMask | SubstructureNotifyMask, (XEvent *)&xclient);
+      XSendEvent(Display(), RootWindow(Display(), iScreen), False, SubstructureRedirectMask | SubstructureNotifyMask,
+                 (XEvent *) &xclient);
 
    }
 
 
    void window::unmapped_net_state_raw(Atom atom1, ...)
-{
+   {
 
-   synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
-   XEvent xevent;
+      XEvent xevent;
 
-   unsigned int i;
+      unsigned int i;
 
-   va_list argp;
+      va_list argp;
 
-   va_start(argp, atom1);
+      va_start(argp, atom1);
 
-   __zero(xevent);
+      __zero(xevent);
 
-   array < Atom > atoms;
+      array<Atom> atoms;
 
-   atoms.add(atom1);
+      atoms.add(atom1);
 
-   while(true)
-{
+      while (true)
+      {
 
-   Atom atom = va_arg(argp, int);
+         Atom atom = va_arg(argp, int);
 
-   if(atom == 0)
-{
+         if (atom == 0)
+         {
 
-   break;
+            break;
 
-}
+         }
 
-atoms.add(atom);
+         atoms.add(atom);
 
-}
+      }
 
-if(atoms.has_elements())
-{
+      if (atoms.has_elements())
+      {
 
-XChangeProperty(Display(), Window(), x11_display()->intern_atom("_NET_WM_STATE", False),
-XA_ATOM, 32, PropModeReplace,
-(const unsigned char *) atoms.get_data(), atoms.get_size());
-}
-else
-{
+         XChangeProperty(Display(), Window(), x11_display()->intern_atom("_NET_WM_STATE", False),
+                         XA_ATOM, 32, PropModeReplace,
+                         (const unsigned char *) atoms.get_data(), atoms.get_size());
+      } else
+      {
 
-XDeleteProperty(Display(), Window(), x11_display()->intern_atom("_NET_WM_STATE", False));
+         XDeleteProperty(Display(), Window(), x11_display()->intern_atom("_NET_WM_STATE", False));
 
-}
+      }
 
-va_end(argp);
+      va_end(argp);
 
-}
+   }
 
 
-::e_status window::show_window(const ::e_display &edisplay, const ::e_activation &eactivationi)
+   ::e_status window::show_window(const ::e_display & edisplay, const ::e_activation & eactivationi)
    {
 
       windowing_output_debug_string("\n::window::show_window 1");
@@ -1467,18 +1485,16 @@ va_end(argp);
 
          }
 
-         mapped_net_state_raw(true, m_iScreen,
-                              x11_display()->intern_atom(e_net_wm_state_maximized_horz, false),
-                              x11_display()->intern_atom(e_net_wm_state_maximized_vert, false));
+         mapped_net_state_raw(true, x11_display()->m_iScreen,
+                              x11_display()->intern_atom(x_window::e_atom_net_wm_state_maximized_horz, false),
+                              x11_display()->intern_atom(x_window::e_atom_net_wm_state_maximized_vert, false));
 
-      }
-      else if (edisplay == e_display_iconic)
+      } else if (edisplay == e_display_iconic)
       {
 
          wm_iconify_window();
 
-      }
-      else if (::is_visible(edisplay))
+      } else if (::is_visible(edisplay))
       {
 
          if (attr.map_state == IsUnmapped)
@@ -1488,14 +1504,13 @@ va_end(argp);
 
          }
 
-      }
-      else
+      } else
       {
 
          if (attr.map_state != IsUnmapped)
          {
 
-            XWithdrawWindow(Display(), Window(), m_iScreen);
+            XWithdrawWindow(Display(), Window(), Screen());
 
          }
 
@@ -1508,7 +1523,7 @@ va_end(argp);
    }
 
 
-   void window::full_screen(const ::rectangle_i32 &rectangle)
+   ::e_status window::full_screen(const ::rectangle_i32 & rectangle)
    {
 
       ::rectangle_i32 rBest;
@@ -1539,7 +1554,7 @@ va_end(argp);
 
          fflush(stdout);
 
-         return;
+         return error_failed;
 
       }
 
@@ -1562,13 +1577,12 @@ va_end(argp);
       if (attr.map_state == IsViewable)
       {
 
-         mapped_net_state_raw(true, m_iScreen, x11_display()->intern_atom(e_net_wm_state_fullscreen, false), 0);
+         mapped_net_state_raw(true, Screen(), x11_display()->intern_atom(x_window::e_atom_net_wm_state_fullscreen, false), 0);
 
-      }
-      else
+      } else
       {
 
-         unmapped_net_state_raw(x11_display()->intern_atom(e_net_wm_state_fullscreen, false), 0);
+         unmapped_net_state_raw(x11_display()->intern_atom(x_window::e_atom_net_wm_state_fullscreen, false), 0);
 
          XMapWindow(Display(), Window());
 
@@ -1578,10 +1592,12 @@ va_end(argp);
 
       ::fflush(stdout);
 
+      return ::success;
+
    }
 
 
-   void window::exit_iconify()
+   ::e_status window::exit_iconify()
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -1597,21 +1613,23 @@ va_end(argp);
 
          fflush(stdout);
 
-         return;
+         return error_failed;
 
       }
 
       if (attr.map_state == IsViewable)
       {
 
-         mapped_net_state_raw(false, m_iScreen, x11_display()->intern_atom(e_net_wm_state_hidden, false), 0);
+         mapped_net_state_raw(false, Screen(), x11_display()->intern_atom(x_window::e_atom_net_wm_state_hidden, false), 0);
 
       }
+
+      return ::success;
 
    }
 
 
-   void window::exit_full_screen()
+   ::e_status window::exit_full_screen()
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -1627,21 +1645,23 @@ va_end(argp);
 
          fflush(stdout);
 
-         return;
+         return error_failed;
 
       }
 
       if (attr.map_state == IsViewable)
       {
 
-         mapped_net_state_raw(false, m_iScreen, x11_display()->intern_atom("_NET_WM_STATE_FULLSCREEN", false), 0);
+         mapped_net_state_raw(false, Screen(), x11_display()->intern_atom("_NET_WM_STATE_FULLSCREEN", false), 0);
 
       }
+
+      return ::success;
 
    }
 
 
-   void window::exit_zoomed()
+   ::e_status window::exit_zoomed()
    {
 
       synchronous_lock sl(user_mutex());
@@ -1657,18 +1677,20 @@ va_end(argp);
 
          fflush(stdout);
 
-         return;
+         return error_failed;
 
       }
 
       if (attr.map_state == IsViewable)
       {
 
-         mapped_net_state_raw(false, m_iScreen,
-                              x11_display()->intern_atom("_NET_WM_STATE_MAXIMIZED_HORZ", false),
-                              x11_display()->intern_atom("_NET_WM_STATE_MAXIMIZED_VERT", false));
+         mapped_net_state_raw(false, Screen(),
+                              x11_display()->intern_atom(x_window::e_atom_net_wm_state_maximized_horz, false),
+                              x11_display()->intern_atom(x_window::e_atom_net_wm_state_maximized_vert, false));
 
       }
+
+      return success;
 
    }
 
@@ -1707,7 +1729,7 @@ va_end(argp);
 //   }
 
 
-   bool window::_001ClientToScreen(POINT_I32 *ppoint)
+   bool window::_001ClientToScreen(POINT_I32 * ppoint)
    {
 
       return true;
@@ -1715,7 +1737,7 @@ va_end(argp);
    }
 
 
-   bool window::_001ScreenToClient(POINT_I32 *ppoint)
+   bool window::_001ScreenToClient(POINT_I32 * ppoint)
    {
 
       return true;
@@ -1746,7 +1768,7 @@ va_end(argp);
 
       i32 status = 0;
 
-      unsigned char *point = nullptr;
+      unsigned char * point = nullptr;
 
       if (x11_display()->m_atomWmState == None)
       {
@@ -1757,7 +1779,8 @@ va_end(argp);
 
       atomWmState = x11_display()->m_atomWmState;
 
-      status = XGetWindowProperty(Display(), Window(), atomWmState, 0L, WM_STATE_ELEMENTS, False, AnyPropertyType, &actual_type,
+      status = XGetWindowProperty(Display(), Window(), atomWmState, 0L, WM_STATE_ELEMENTS, False, AnyPropertyType,
+                                  &actual_type,
                                   &actual_format, &nitems, &leftover, &point);
 
       if (status == 0)
@@ -1892,7 +1915,7 @@ va_end(argp);
 //   }
 
 
-   ::e_status window::set_window_icon(const ::file::path &path)
+   ::e_status window::set_window_icon(const ::file::path & path)
    {
 
 
@@ -2006,16 +2029,18 @@ va_end(argp);
       try
       {
 
-         if(msg.oswindow == nullptr)
+         if (msg.oswindow == nullptr)
          {
 
-            System.post_message(msg.m_id, msg.wParam, msg.lParam);
+            auto pcontext = m_pcontext->m_papexcontext;
 
-         }
-         else
+            pcontext->post_message(msg.m_id, msg.wParam, msg.lParam);
+
+         } else
          {
 
-            if(msg.oswindow != nullptr && msg.oswindow->m_pimpl != nullptr && msg.oswindow->m_pimpl->m_puserinteraction != nullptr)
+            if (msg.oswindow != nullptr && msg.oswindow->m_pimpl != nullptr &&
+                msg.oswindow->m_pimpl->m_puserinteraction != nullptr)
             {
 
                ::user::interaction * pinteraction = msg.oswindow->m_pimpl->m_puserinteraction;
@@ -2027,7 +2052,7 @@ va_end(argp);
          }
 
       }
-      catch(...)
+      catch (...)
       {
 
       }
@@ -2048,14 +2073,14 @@ va_end(argp);
 
       ::thread * pthread = nullptr;
 
-      if(::is_set(pinteraction))
+      if (::is_set(pinteraction))
       {
 
          pthread = pinteraction->m_pthreadUserInteraction;
 
       }
 
-      if(::is_null(pthread))
+      if (::is_null(pthread))
       {
 
          return false;
@@ -2064,10 +2089,10 @@ va_end(argp);
 
       class ::message_queue * pmq = pthread->m_pmq;
 
-      if(pmq == nullptr)
+      if (pmq == nullptr)
       {
 
-         if(message.m_id == e_message_quit)
+         if (message.m_id == e_message_quit)
          {
 
             return false;
@@ -2078,7 +2103,7 @@ va_end(argp);
 
       }
 
-      if(pmq == nullptr)
+      if (pmq == nullptr)
       {
 
          return false;
@@ -2087,20 +2112,19 @@ va_end(argp);
 
       synchronous_lock ml(pmq->mutex());
 
-      if(message.m_id == e_message_quit)
+      if (message.m_id == e_message_quit)
       {
 
          output_debug_string("e_message_quit thread");
 
       }
 
-      if(message.m_id == e_message_left_button_down)
+      if (message.m_id == e_message_left_button_down)
       {
 
          output_debug_string("post_ui_message::e_message_left_button_down\n");
 
-      }
-      else if(message.m_id == e_message_left_button_up)
+      } else if (message.m_id == e_message_left_button_up)
       {
 
          output_debug_string("post_ui_message::e_message_left_button_up\n");
@@ -2121,25 +2145,25 @@ va_end(argp);
 
       ::user::interaction * pinteraction = m_pimpl->m_puserinteraction;
 
-      if(pinteraction == nullptr)
+      if (pinteraction == nullptr)
       {
 
          return false;
 
       }
 
-      if(pinteraction->get_context_application() == nullptr)
+      if (pinteraction->get_application() == nullptr)
       {
 
          return false;
 
       }
 
-      itask_t idthread = pinteraction->get_context_application()->get_ithread();
+      itask_t idthread = pinteraction->get_application()->get_ithread();
 
       message_queue * pmq = get_message_queue(idthread, false);
 
-      if(pmq == nullptr)
+      if (pmq == nullptr)
       {
 
          return false;
@@ -2148,12 +2172,12 @@ va_end(argp);
 
       synchronous_lock ml(pmq->mutex());
 
-      pmq->m_messagea.predicate_remove([this](MESSAGE & item)
-      {
+      pmq->m_messagea.predicate_erase([this](MESSAGE & item)
+                                       {
 
-         return item.oswindow == this;
+                                          return item.oswindow == this;
 
-      });
+                                       });
 
       return true;
 
@@ -2238,8 +2262,7 @@ va_end(argp);
 
             XMoveResizeWindow(Display(), Window(), x, y, cx, cy);
 
-         }
-         else
+         } else
          {
 
             windowing_output_debug_string("\n::window::set_window_pos Move Window 1.4.1");
@@ -2248,8 +2271,7 @@ va_end(argp);
 
          }
 
-      }
-      else if (bSize)
+      } else if (bSize)
       {
 
          windowing_output_debug_string("\n::window::set_window_pos Resize Window 1.4.2");
@@ -2293,7 +2315,7 @@ va_end(argp);
 
             windowing_output_debug_string("\n::window::set_window_pos Withdraw Window 1.4.3");
 
-            XWithdrawWindow(Display(), Window(), m_iScreen);
+            XWithdrawWindow(Display(), Window(), Screen());
 
          }
 
@@ -2317,7 +2339,7 @@ va_end(argp);
             if (zorder.m_ezorder == e_zorder_top_most)
             {
 
-               if (m_iaNetWmState[e_net_wm_state_above] != 1)
+               if (net_wm_state(x_window::e_atom_net_wm_state_above) != 1)
                {
 
                   wm_state_above_raw(true);
@@ -2326,16 +2348,15 @@ va_end(argp);
 
                XRaiseWindow(Display(), Window());
 
-            }
-            else if (zorder.m_ezorder == e_zorder_top)
+            } else if (zorder.m_ezorder == e_zorder_top)
             {
 
-               if (m_iaNetWmState[e_net_wm_state_above] != 0
-                   || m_iaNetWmState[e_net_wm_state_below] != 0
-                   || m_iaNetWmState[e_net_wm_state_hidden] != 0
-                   || m_iaNetWmState[e_net_wm_state_maximized_horz] != 0
-                   || m_iaNetWmState[e_net_wm_state_maximized_vert] != 0
-                   || m_iaNetWmState[e_net_wm_state_fullscreen] != 0)
+               if (net_wm_state(x_window::e_atom_net_wm_state_above) != 0
+                   || net_wm_state(x_window::e_atom_net_wm_state_below) != 0
+                   || net_wm_state(x_window::e_atom_net_wm_state_hidden) != 0
+                   || net_wm_state(x_window::e_atom_net_wm_state_maximized_horz) != 0
+                   || net_wm_state(x_window::e_atom_net_wm_state_maximized_vert) != 0
+                   || net_wm_state(x_window::e_atom_net_wm_state_fullscreen) != 0)
                {
 
                   wm_state_clear_raw(false);
@@ -2348,7 +2369,7 @@ va_end(argp);
             else if (zorder.m_ezorder == e_zorder_bottom)
             {
 
-               if (m_iaNetWmState[e_net_wm_state_below] != 1)
+               if (net_wm_state(x_window::e_atom_net_wm_state_below) != 1)
                {
 
                   wm_state_below_raw(true);
@@ -2361,15 +2382,15 @@ va_end(argp);
 
          }
 
-         m_pimpl->m_puserinteraction->ModifyStyle(0, WS_VISIBLE, 0);
+         //m_pimpl->m_puserinteraction->ModifyStyle(0, WS_VISIBLE, 0);
 
       }
-      else
-      {
-
-         m_pimpl->m_puserinteraction->ModifyStyle(WS_VISIBLE, 0, 0);
-
-      }
+//      else
+//      {
+//
+//         //m_pimpl->m_puserinteraction->ModifyStyle(WS_VISIBLE, 0, 0);
+//
+//      }
 
       //m_pimpl->on_change_visibility();
 
@@ -2423,7 +2444,7 @@ va_end(argp);
 //   }
 
 
-   void window::set_window_text(const char *pszString)
+   void window::set_window_text(const char * pszString)
    {
 
 //      m_strWindowText = pszString;
@@ -2443,7 +2464,7 @@ va_end(argp);
    }
 
 
-   ::e_status window::set_cursor2(::windowing::cursor *pcursor)
+   ::e_status window::set_cursor2(::windowing::cursor * pcursor)
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -2487,7 +2508,7 @@ va_end(argp);
    ::e_status window::set_cursor(::windowing::cursor * pcursor)
    {
 
-      if(::is_null(pcursor))
+      if (::is_null(pcursor))
       {
 
          return error_failed;
@@ -2496,7 +2517,7 @@ va_end(argp);
 
       auto pcursorx11 = dynamic_cast < ::windowing_x11::cursor * >(pcursor);
 
-      if(::is_null(pcursorx11))
+      if (::is_null(pcursorx11))
       {
 
          return error_failed;
@@ -2533,7 +2554,7 @@ va_end(argp);
    }
 
 
-   bool window::x11_get_window_rect(RECTANGLE_I32 *prectangle)
+   bool window::x11_get_window_rect(RECTANGLE_I32 * prectangle)
    {
 
       return ::x11_get_window_rect(Display(), Window(), prectangle);
@@ -2541,7 +2562,7 @@ va_end(argp);
    }
 
 
-   ::e_status window::get_window_rect(RECTANGLE_I32 *prectangle)
+   ::e_status window::get_window_rect(RECTANGLE_I32 * prectangle)
    {
 
       return x11_get_window_rect(prectangle);
@@ -2549,7 +2570,7 @@ va_end(argp);
    }
 
 
-   bool window::x11_get_client_rect(RECTANGLE_I32 *prectangle)
+   bool window::x11_get_client_rect(RECTANGLE_I32 * prectangle)
    {
 
       return ::x11_get_client_rect(Display(), Window(), prectangle);
@@ -2557,7 +2578,7 @@ va_end(argp);
    }
 
 
-   ::e_status window::get_client_rect(RECTANGLE_I32 *prectangle)
+   ::e_status window::get_client_rect(RECTANGLE_I32 * prectangle)
    {
 
       return x11_get_client_rect(prectangle);
@@ -2565,12 +2586,12 @@ va_end(argp);
    }
 
 
-   void window::upper_window_rects(rectangle_i32_array &ra)
+   void window::upper_window_rects(rectangle_i32_array & ra)
    {
 
       synchronous_lock synchronouslock(user_mutex());
 
-      ra.remove_all();
+      ra.erase_all();
 
       windowing_output_debug_string("\n::GetFocus 1");
 
@@ -2584,14 +2605,7 @@ va_end(argp);
 
       windowing_output_debug_string("\n::GetFocus 1.01");
 
-      comparable_array<::Window> windowa;
-
-      if (!x11_display()->x11_window_list(windowa))
-      {
-
-         return;
-
-      }
+      auto windowa = x11_display()->x11_window_list();
 
       if (windowa.last() == Window())
       {
@@ -2677,7 +2691,7 @@ va_end(argp);
 
       auto estatus = set_keyboard_focus();
 
-      if(!estatus)
+      if (!estatus)
       {
 
          return estatus;
@@ -2689,7 +2703,7 @@ va_end(argp);
    }
 
 
-   Window window::_get_window_relative(enum_relative erelative, ::Window *windowa, int numItems)
+   Window window::_get_window_relative(enum_relative erelative, ::Window * windowa, int numItems)
    {
 
       if (::is_null(windowa))
@@ -2712,7 +2726,7 @@ va_end(argp);
             window = windowa[0];
 
          }
-         break;
+            break;
 
          case e_relative_last_sibling:
          {
@@ -2720,7 +2734,7 @@ va_end(argp);
             window = windowa[numItems - 1];
 
          }
-         break;
+            break;
 
          case e_relative_next_sibling:
          case e_relative_previous_sibling:
@@ -2761,8 +2775,7 @@ va_end(argp);
 
                window = windowa[iFound + 1];
 
-            }
-            else if (erelative == e_relative_previous_sibling)
+            } else if (erelative == e_relative_previous_sibling)
             {
 
                if (iFound - 1 < 0)
@@ -2774,8 +2787,7 @@ va_end(argp);
 
                window = windowa[iFound - 1];
 
-            }
-            else
+            } else
             {
 
                return 0;
@@ -2795,7 +2807,7 @@ va_end(argp);
       return window;
 
    }
-   
+
 
    ::windowing::window * window::get_window(enum_relative erelative)
    {
@@ -2831,7 +2843,7 @@ va_end(argp);
 
             int status = XGetWindowProperty(
                Display(),
-               RootWindow(Display(), m_iScreen),
+               RootWindow(Display(), Screen()),
                atomNetClientListStacking,
                0L,
                1024,
@@ -2857,13 +2869,12 @@ va_end(argp);
 
             }
 
-         }
-         else
+         } else
          {
 
             ::Window root = 0;
             ::Window parent = 0;
-            ::Window *pchildren = nullptr;
+            ::Window * pchildren = nullptr;
             u32 numItems = 0;
 
             int status = XQueryTree(Display(), Window(),
@@ -2885,13 +2896,12 @@ va_end(argp);
 
          }
 
-      }
-      else
+      } else
       {
 
          ::Window root = 0;
          ::Window parent = 0;
-         ::Window *pchildren = nullptr;
+         ::Window * pchildren = nullptr;
          u32 numItems = 0;
 
          int status = XQueryTree(Display(), Window(),
@@ -2905,8 +2915,7 @@ va_end(argp);
 
                window = pchildren[0];
 
-            }
-            else if (erelative == e_relative_last_child)
+            } else if (erelative == e_relative_last_child)
             {
 
                window = pchildren[numItems - 1];
@@ -2926,7 +2935,7 @@ va_end(argp);
 
       auto pwindowx11 = x11_display()->_window(window);
 
-      if(::is_null(pwindowx11))
+      if (::is_null(pwindowx11))
       {
 
          return nullptr;
@@ -2957,8 +2966,7 @@ va_end(argp);
 
             pinteraction->send_message(e_message_ncdestroy, 0, 0);
 
-         }
-         else
+         } else
          {
 
             try
@@ -2976,35 +2984,35 @@ va_end(argp);
 
          //oswindow_remove_impl(window->m_pimpl);
 
-         m_pwindowing->remove_window(this);
+         m_pwindowing->erase_window(this);
 
       }
 
 //      x11_fork([window]()
 //               {
 
-                  synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
-                  //Display *Display() = Display();
+      //Display *Display() = Display();
 
-                  //Window win = window->window();
+      //Window win = window->window();
 
-                  //oswindow_data * pdata = (oswindow_data * )(void * )
-                  //window;
+      //oswindow_data * pdata = (oswindow_data * )(void * )
+      //window;
 
-                  bool bIs = is_window();
+      bool bIs = is_window();
 
-                  m_pwindowing->remove_window(this);
+      m_pwindowing->erase_window(this);
 
-                  windowing_output_debug_string("\n::DestroyWindow 1");
+      windowing_output_debug_string("\n::DestroyWindow 1");
 
-                  display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display());
 
-                  XUnmapWindow(Display(), Window());
+      XUnmapWindow(Display(), Window());
 
-                  XDestroyWindow(Display(), Window());
+      XDestroyWindow(Display(), Window());
 
-                  windowing_output_debug_string("\n::DestroyWindow 2");
+      windowing_output_debug_string("\n::DestroyWindow 2");
 //
 //               });
 
@@ -3029,7 +3037,7 @@ va_end(argp);
 
    }
 
-   Atom *window::wm_get_list_raw(Atom atomList, unsigned long int *pnum_items)
+   Atom * window::wm_get_list_raw(Atom atomList, unsigned long int * pnum_items)
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -3047,9 +3055,10 @@ va_end(argp);
 
       unsigned long int bytes_after;
 
-      Atom *atoms = nullptr;
+      Atom * atoms = nullptr;
 
-      XGetWindowProperty(Display(), Window(), atomList, 0, 1024, False, XA_ATOM, &actual_type, &actual_format, pnum_items,
+      XGetWindowProperty(Display(), Window(), atomList, 0, 1024, False, XA_ATOM, &actual_type, &actual_format,
+                         pnum_items,
                          &bytes_after, (unsigned char **) &atoms);
 
       return atoms;
@@ -3068,7 +3077,7 @@ va_end(argp);
 
       unsigned long i, num_items;
 
-      Atom *atoms = wm_get_list_raw(atomList, &num_items);
+      Atom * atoms = wm_get_list_raw(atomList, &num_items);
 
       if (atoms == nullptr)
       {
@@ -3100,7 +3109,7 @@ va_end(argp);
    }
 
 
-   int window::wm_test_state_raw(const char *pszNetStateFlag)
+   int window::wm_test_state_raw(const char * pszNetStateFlag)
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -3132,7 +3141,7 @@ va_end(argp);
    }
 
 
-   int window::wm_test_state(const char *pszNetStateFlag)
+   int window::wm_test_state(const char * pszNetStateFlag)
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -3192,13 +3201,12 @@ va_end(argp);
 
          }
 
-      }
-      else
+      } else
       {
 
          unsigned long num_items;
 
-         Atom *plist = wm_get_list_raw(atomList, &num_items);
+         Atom * plist = wm_get_list_raw(atomList, &num_items);
 
          if (plist == nullptr)
          {
@@ -3266,7 +3274,7 @@ va_end(argp);
 
       auto pdisplay = x11_display();
 
-      if(::is_null(pdisplay))
+      if (::is_null(pdisplay))
       {
 
          return false;
@@ -3275,14 +3283,14 @@ va_end(argp);
 
       auto pwindowCapture = pdisplay->m_pwindowMouseCapture;
 
-      if(::is_null(pwindowCapture))
+      if (::is_null(pwindowCapture))
       {
 
          return false;
 
       }
 
-      if(pwindowCapture != this)
+      if (pwindowCapture != this)
       {
 
          return false;
@@ -3299,7 +3307,7 @@ va_end(argp);
 
       auto pdisplay = x11_display();
 
-      if(::is_null(pdisplay))
+      if (::is_null(pdisplay))
       {
 
          return false;
@@ -3308,7 +3316,7 @@ va_end(argp);
 
       auto pwindowFocus = pdisplay->m_pwindowKeyboardFocus;
 
-      if(::is_null(pwindowFocus))
+      if (::is_null(pwindowFocus))
       {
 
          return false;
@@ -3326,14 +3334,14 @@ va_end(argp);
 
       auto pinteractionFocus = pimplFocus->m_puserinteraction;
 
-      if(::is_null(pinteractionFocus))
+      if (::is_null(pinteractionFocus))
       {
 
          return false;
 
       }
 
-      if(!(pinteractionFocus->m_ewindowflag & ::e_window_flag_focus))
+      if (!(pinteractionFocus->m_ewindowflag & ::e_window_flag_focus))
       {
 
          return false;
@@ -3346,7 +3354,7 @@ va_end(argp);
 
 
    /// should be run in user thread
-   ::e_status window::x11_store_name(const char *pszName)
+   ::e_status window::x11_store_name(const char * pszName)
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -3464,39 +3472,39 @@ va_end(argp);
    {
 
       m_pwindowing->user_fork(__routine([this]()
-      {
+                                        {
 
-         auto pimpl = m_pimpl;
+                                           auto pimpl = m_pimpl;
 
-         if(::is_set(pimpl))
-         {
+                                           if (::is_set(pimpl))
+                                           {
 
-            auto puserinteraction = pimpl->m_puserinteraction;
+                                              auto puserinteraction = pimpl->m_puserinteraction;
 
-            if(::is_set(puserinteraction))
-            {
+                                              if (::is_set(puserinteraction))
+                                              {
 
-               auto pimpl2 = puserinteraction->m_pimpl2;
+                                                 auto pimpl2 = puserinteraction->m_pimpl2;
 
-               if(::is_set(pimpl2))
-               {
+                                                 if (::is_set(pimpl2))
+                                                 {
 
-                  auto pprodevian = pimpl2->m_pprodevian;
+                                                    auto pprodevian = pimpl2->m_pprodevian;
 
-                  if(::is_set(pprodevian))
-                  {
+                                                    if (::is_set(pprodevian))
+                                                    {
 
-                     pprodevian->update_screen();
+                                                       pprodevian->update_screen();
 
-                  }
+                                                    }
 
-               }
+                                                 }
 
-            }
+                                              }
 
-         }
+                                           }
 
-      }));
+                                        }));
 
    }
 
@@ -3505,32 +3513,32 @@ va_end(argp);
    {
 
       m_pwindowing->user_fork(__routine([this]()
-      {
+                                        {
 
-         auto pimpl = m_pimpl;
+                                           auto pimpl = m_pimpl;
 
-         if(::is_set(pimpl))
-         {
+                                           if (::is_set(pimpl))
+                                           {
 
-            auto puserinteraction = pimpl->m_puserinteraction;
+                                              auto puserinteraction = pimpl->m_puserinteraction;
 
-            if(::is_set(puserinteraction))
-            {
+                                              if (::is_set(puserinteraction))
+                                              {
 
-               auto pimpl2 = puserinteraction->m_pimpl2;
+                                                 auto pimpl2 = puserinteraction->m_pimpl2;
 
-               if(::is_set(pimpl2))
-               {
+                                                 if (::is_set(pimpl2))
+                                                 {
 
-                  pimpl2->window_show();
+                                                    pimpl2->window_show();
 
-               }
+                                                 }
 
-            }
+                                              }
 
-         }
+                                           }
 
-      }));
+                                        }));
 
 
    }
@@ -3559,7 +3567,8 @@ va_end(argp);
 
       display_lock displaylock(x11_display());
 
-      auto grabStatus = XGrabPointer(Display(), Window(), False, ButtonPressMask | ButtonReleaseMask | PointerMotionMask,
+      auto grabStatus = XGrabPointer(Display(), Window(), False,
+                                     ButtonPressMask | ButtonReleaseMask | PointerMotionMask,
                                      GrabModeAsync, GrabModeAsync, None, None, CurrentTime);
 
       if (grabStatus != GrabSuccess)
@@ -3573,7 +3582,7 @@ va_end(argp);
 
       auto pdisplay = x11_display();
 
-      if(pdisplay)
+      if (pdisplay)
       {
 
          pdisplay->_on_capture_changed_to(this);
@@ -3626,8 +3635,6 @@ va_end(argp);
       return ::success;
 
    }
-
-
 
 
 } // namespace windowing_x11

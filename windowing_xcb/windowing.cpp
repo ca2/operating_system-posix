@@ -14,6 +14,8 @@ namespace windowing_xcb
    windowing::windowing()
    {
 
+      m_pWindowing = this;
+
       m_bFinishXcbThread = false;
 
       m_bFirstWindowMap = false;

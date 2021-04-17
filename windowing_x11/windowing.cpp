@@ -13,6 +13,8 @@ namespace windowing_x11
    windowing::windowing()
    {
 
+      m_pWindowing = this;
+
       m_bFirstWindowMap = false;
 
       m_bInitX11Thread = false;
@@ -20,8 +22,6 @@ namespace windowing_x11
       m_bFinishX11Thread = false;
 
       defer_initialize_x11();
-
-      set_layer(LAYERED_X11, this);
 
    }
 
@@ -58,7 +58,7 @@ namespace windowing_x11
    }
 
 
-    ::e_status windowing::remove_window(::windowing::window * pwindow)
+    ::e_status windowing::erase_window(::windowing::window * pwindow)
    {
 
       return m_pdisplay->remove_window(pwindow);
@@ -66,10 +66,10 @@ namespace windowing_x11
    }
 
 
-   ::e_status windowing::initialize(::layered *pobjectContext)
+   ::e_status windowing::initialize(::object * pobject)
    {
 
-      auto estatus = ::windowing::windowing::initialize(pobjectContext);
+      auto estatus = ::windowing::windowing::initialize(pobject);
 
       if(!estatus)
       {
@@ -132,21 +132,23 @@ namespace windowing_x11
    ::e_status windowing::start()
    {
 
-      if (System.m_bUser)
+      auto psystem = m_psystem->m_papexsystem;
+
+      if (psystem->m_bUser)
       {
 
          defer_initialize_x11();
 
       }
 
-      auto pnode = Node;
+      auto pnode = psystem->node();
 
       if(pnode)
       {
 
          _libsn_start_context();
 
-         pnode->start();
+         branch(pnode);
 
       }
       else
@@ -157,6 +159,47 @@ namespace windowing_x11
       }
 
       return ::success;
+
+   }
+
+
+   void windowing::x11_branch(const ::routine & routine)
+   {
+
+      synchronous_lock synchronouslock(mutex());
+
+      m_routinea.add(routine);
+
+   }
+
+
+   bool windowing::x11_runnable_step()
+   {
+
+      synchronous_lock synchronouslock(mutex());
+
+      if(!m_routinea.has_element())
+      {
+
+         return false;
+
+      }
+
+      do
+      {
+
+         auto routine = m_routinea.pick_first();
+
+         synchronouslock.unlock();
+
+         routine();
+
+         synchronouslock.lock();
+
+      }
+      while(m_routinea.has_element());
+
+      return true;
 
    }
 
@@ -191,10 +234,10 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(mutex());
 
-      if (m_pcursorset.is_null())
+      if (!m_pcursormanager)
       {
 
-         auto estatus = __construct_new(m_pcursorset);
+         auto estatus = __construct_new(m_pcursormanager);
 
          if (!estatus)
          {
@@ -205,7 +248,7 @@ namespace windowing_x11
 
       }
 
-      auto & pcursor = m_pcursorset->m_cursormap[ecursor];
+      auto & pcursor = m_pcursormanager->m_cursormap[ecursor];
 
       if(pcursor)
       {

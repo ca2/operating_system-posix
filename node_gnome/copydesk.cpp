@@ -41,10 +41,10 @@ namespace node_gnome
    }
 
 
-   ::e_status copydesk::initialize(::layered * pobjectContext)
+   ::e_status copydesk::initialize(::object * pobject)
    {
 
-      auto estatus = ::user::copydesk::initialize(pobjectContext);
+      auto estatus = ::user::copydesk::initialize(pobject);
 
       if(!estatus)
       {
@@ -58,10 +58,12 @@ namespace node_gnome
    }
 
 
-   void copydesk::finalize()
+   ::e_status copydesk::finalize()
    {
 
-      ::user::copydesk::finalize();
+      auto estatus = ::user::copydesk::finalize();
+
+      return ::success;
 
    }
 
@@ -85,7 +87,9 @@ namespace node_gnome
    bool copydesk::_set_plain_text(const string & str)
    {
 
-      auto pnode = Node;
+      auto psystem = m_psystem->m_paurasystem;
+
+      auto pnode = psystem->node();
 
       pnode->node_fork([this, str]
       {
@@ -104,7 +108,7 @@ namespace node_gnome
    bool copydesk::_get_plain_text(string & str)
    {
 
-      __pointer(clipboard_data) pdata = __new(clipboard_data(get_context_application(), e_clipboard_get_plain_text));
+      __pointer(clipboard_data) pdata = __new(clipboard_data(this, e_clipboard_get_plain_text));
 
       pdata->add_ref(OBJ_REF_DBG_P_NOTE(this, "copydesk::_get_plain_text"));
 
@@ -137,7 +141,9 @@ namespace node_gnome
 
       payload->m_var = false;
 
-      auto pnode = Node;
+      auto psystem = m_psystem->m_paurasystem;
+
+      auto pnode = psystem->node();
 
       pnode->node_sync(seconds(5), [=]()
       {
@@ -156,7 +162,7 @@ namespace node_gnome
    bool copydesk::_has_filea()
    {
 
-      __pointer(clipboard_data) pdata = __new(clipboard_data(get_context_application(), e_clipboard_get_file_target_count));
+      __pointer(clipboard_data) pdata = __new(clipboard_data(this, e_clipboard_get_file_target_count));
 
       pdata->add_ref(OBJ_REF_DBG_P_NOTE(this, "copydesk::_has_filea"));
 
@@ -181,7 +187,7 @@ namespace node_gnome
    bool copydesk::_get_filea(::file::patha & patha, e_op & eop)
    {
 
-      __pointer(clipboard_data) pdata = __new(clipboard_data(get_context_application(), e_clipboard_get_patha));
+      __pointer(clipboard_data) pdata = __new(clipboard_data(this, e_clipboard_get_patha));
 
       pdata->add_ref(OBJ_REF_DBG_P_NOTE(this, "copydesk::_get_filea"));
 
@@ -210,7 +216,7 @@ namespace node_gnome
    bool copydesk::_set_filea(const ::file::patha & patha, e_op eop)
    {
 
-      __pointer(clipboard_data) pdata = __new(clipboard_data(get_context_application(), e_clipboard_set_patha));
+      __pointer(clipboard_data) pdata = __new(clipboard_data(this, e_clipboard_set_patha));
 
       pdata->add_ref(OBJ_REF_DBG_P_NOTE(this, "copydesk::_set_filea"));
 
@@ -241,7 +247,7 @@ namespace node_gnome
    bool copydesk::_desk_to_image(::image * pimage)
    {
 
-      __pointer(clipboard_data) pdata = __new(clipboard_data(get_context_application(), e_clipboard_get_image));
+      __pointer(clipboard_data) pdata = __new(clipboard_data(this, e_clipboard_get_image));
 
       pdata->add_ref(OBJ_REF_DBG_P_NOTE(this, "copydesk::_desk_to_image"));
 
@@ -270,11 +276,9 @@ namespace node_gnome
    bool copydesk::_image_to_desk(const ::image * pimage)
    {
 
-
-      __throw(todo());
+      __throw(todo);
 
       return false;
-
 
    }
 
@@ -284,7 +288,9 @@ namespace node_gnome
 
       bool b = false;
 
-      auto pnode = Node;
+      auto psystem = m_psystem->m_papexsystem;
+
+      auto pnode = psystem->node();
 
       pnode->node_sync(10_s, __routine([&]()
       {

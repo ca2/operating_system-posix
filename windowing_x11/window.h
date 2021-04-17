@@ -10,7 +10,7 @@
 
 
 #define WINDOWING_X11_WINDOW_MEMBER
-
+//using htask_t = pthread_t;
 
 namespace windowing_x11
 {
@@ -44,7 +44,7 @@ namespace windowing_x11
       //Window                                       m_parent;
       ::rectangle_i32                              m_rect;
       string                                       m_strWMClass;
-      int                                          m_iaNetWmState[e_net_wm_state_count];
+      int                                          m_iaNetWmState2[x_window::e_atom_net_wm_state_last-x_window::e_atom_net_wm_state_first+1];
 
       //static oswindow_dataptra *                 s_pdataptra;
       //static::mutex *                            s_pmutex;
@@ -68,10 +68,21 @@ namespace windowing_x11
       static Atom get_window_long_atom(i32 nIndex);
 
 
+      inline int net_wm_state(x_window::enum_atom eatom) const
+      {
+
+         return m_iaNetWmState2[eatom - x_window::e_atom_net_wm_state_first];
+
+      }
+
 
       virtual ::Display * Display();
 
       virtual ::Display * Display() const;
+
+      virtual int Screen();
+
+      virtual int Screen() const;
 
       virtual ::Window Window();
 
@@ -95,13 +106,13 @@ namespace windowing_x11
       virtual i32 unmap_window(bool bWithdraw);
       virtual void set_wm_class(const char * psz);
 
-      virtual void exit_iconify();
+      virtual ::e_status exit_iconify() override;
 
-      virtual void full_screen(const ::rectangle_i32 & rect = nullptr);
+      virtual ::e_status full_screen(const ::rectangle_i32 & rect = nullptr) override;
 
-      virtual void exit_full_screen();
+      virtual ::e_status exit_full_screen() override;
 
-      virtual void exit_zoomed();
+      virtual ::e_status exit_zoomed() override;
 
       virtual void set_user_interaction(::user::interaction_impl * pinteraction);
 
@@ -116,8 +127,8 @@ namespace windowing_x11
 
       //virtual ::Window get_parent_handle() const;
 
-      ::windowing_x11::windowing * x11_windowing() const {return (::windowing_x11::windowing *) m_pwindowing->layer(LAYERED_X11); }
-      ::windowing_x11::display * x11_display() const {return (::windowing_x11::display *) m_pdisplay->layer(LAYERED_X11); }
+      ::windowing_x11::windowing * x11_windowing() const {return (::windowing_x11::windowing *) m_pwindowing->m_pWindowing; }
+      ::windowing_x11::display * x11_display() const {return (::windowing_x11::display *) m_pdisplay->m_pDisplay; }
 
       virtual ::e_status set_parent(::windowing::window * pwindowNewParent);
       //virtual ::e_status set_parent(::windowing::window * pwindowNewParent) override;
@@ -201,12 +212,12 @@ namespace windowing_x11
       virtual int wm_test_state_raw( WINDOWING_X11_WINDOW_MEMBER const char * pszNetStateFlag);
       virtual int wm_test_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag);
       virtual bool wm_add_remove_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag, bool bSet);
-      virtual void wm_add_remove_state_mapped_raw( WINDOWING_X11_WINDOW_MEMBER enum_net_wm_state estate, bool bSet);
-      virtual void wm_add_remove_state_mapped( WINDOWING_X11_WINDOW_MEMBER enum_net_wm_state estate, bool bSet);
-      virtual void wm_add_remove_state_unmapped_raw( WINDOWING_X11_WINDOW_MEMBER enum_net_wm_state estate, bool bSet);
-      virtual void wm_add_remove_state_unmapped( WINDOWING_X11_WINDOW_MEMBER enum_net_wm_state estate, bool bSet);
-      virtual void wm_add_remove_state_raw( WINDOWING_X11_WINDOW_MEMBER enum_net_wm_state estate, bool bSet);
-      virtual void wm_add_remove_state( WINDOWING_X11_WINDOW_MEMBER enum_net_wm_state estate, bool bSet);
+      virtual void wm_add_remove_state_mapped_raw( WINDOWING_X11_WINDOW_MEMBER x_window::enum_atom eatomNetWmState, bool bSet);
+      virtual void wm_add_remove_state_mapped( WINDOWING_X11_WINDOW_MEMBER x_window::enum_atom eatomNetWmState, bool bSet);
+      virtual void wm_add_remove_state_unmapped_raw( WINDOWING_X11_WINDOW_MEMBER x_window::enum_atom eatomNetWmState, bool bSet);
+      virtual void wm_add_remove_state_unmapped( WINDOWING_X11_WINDOW_MEMBER x_window::enum_atom eatomNetWmState, bool bSet);
+      virtual void wm_add_remove_state_raw( WINDOWING_X11_WINDOW_MEMBER x_window::enum_atom eatomNetWmState, bool bSet);
+      virtual void wm_add_remove_state( WINDOWING_X11_WINDOW_MEMBER x_window::enum_atom eatomNetWmState, bool bSet);
       virtual void wm_state_clear_raw( WINDOWING_X11_WINDOW_MEMBER bool bSet);
       virtual void wm_state_below_raw( WINDOWING_X11_WINDOW_MEMBER bool bSet);
       virtual void wm_state_above_raw( WINDOWING_X11_WINDOW_MEMBER bool bSet);

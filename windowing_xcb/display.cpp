@@ -25,7 +25,7 @@ namespace windowing_xcb
    display::display()
    {
 
-      set_layer(LAYERED_X11, this);
+      m_pDisplay = this;
 
       m_pconnection = nullptr;
       m_pdepth = nullptr;
@@ -1209,6 +1209,77 @@ namespace windowing_xcb
 //            });
 
       return bIsOrigin;
+
+   }
+
+   xcb_window_t *display::xcb_window_list(unsigned long *len)
+   {
+
+
+      Atom propCleints = XInternAtom(pDisplay, "_NET_CLIENT_LIST_STACKING", True);
+      unsigned long ulBytesReturned = 0;
+      Window *windowList = (Window *)GetWindowProperty(pDisplay, root, propCleints, &ulBytesReturned);
+      unsigned long nchildren = ulBytesReturned / sizeof(Window);
+
+      xcb_atom_t prop = intern_atom("_NET_CLIENT_LIST_STACKING", False);
+
+      if (prop == 0)
+      {
+
+         prop = intern_atom("_NET_CLIENT_LIST", False);
+
+      }
+
+      if (prop == 0)
+      {
+
+         return nullptr;
+
+      }
+
+      xcb_atom_t type;
+      int form;
+      unsigned long remain;
+      unsigned char *list;
+
+      errno = 0;
+      auto cookie = (xcb_get_property(xcb_connection(), 0,  m_windowRoot, prop, 0, 1024, False, XA_WINDOW,
+                                      &type, &form, len, &remain, &list) != Success)
+      {
+         output_debug_string("winlist() -- GetWinProp");
+         return nullptr;
+      }
+
+      return (xcb_window_t *) list;
+
+   }
+
+
+   bool display::xcb_window_list(array<xcb_window_t> &windowa)
+   {
+
+      unsigned long len = 0;
+
+      xcb_window_t *list = (xcb_window_t *) xcb_window_list(&len);
+
+
+      if (list == nullptr)
+      {
+
+         return false;
+
+      }
+
+      for (int i = 0; i < (int) len; i++)
+      {
+
+         windowa.add(list[i]);
+
+      }
+
+      XFree(list);
+
+      return true;
 
    }
 

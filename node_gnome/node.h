@@ -13,7 +13,7 @@ namespace node_gnome
 
 
    class CLASS_DECL_ACME node :
-      virtual public ::node_linux::node
+      virtual public ::linux::aura::node
    {
    public:
 
@@ -30,13 +30,15 @@ namespace node_gnome
 
       virtual void defer_notify_startup_complete() override;
 
-      virtual ::e_status start() override;
+      virtual ::e_status start_node() override;
 
-      virtual ::e_status initialize(::layered * pobjectContext) override;
+      virtual ::e_status initialize(::object * pobject) override;
 
       virtual void os_calc_user_dark_mode() override;
 
       virtual string os_get_user_theme() override;
+
+      virtual string _os_get_user_theme();
 
       virtual bool os_set_user_theme(const string & strUserTheme) override;
 
@@ -56,7 +58,7 @@ namespace node_gnome
 
       virtual bool windowing_message_loop_step();
 
-      virtual void node_fork(const ::promise::routine & routine) override;
+      virtual void node_branch(const ::routine & routine);
 
       virtual void node_post_quit() override;
 
@@ -76,9 +78,9 @@ namespace node_gnome
 
       virtual void os_post_quit() override;
 
-      virtual bool should_launch_on_node(::promise::subject * psubject);
+      virtual bool should_launch_on_node(::subject::subject * psubject);
 
-      virtual bool launch_on_node(::promise::subject * psubject);
+      virtual bool launch_on_node(::subject::subject * psubject);
 
 
    };
