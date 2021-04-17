@@ -1104,214 +1104,212 @@ CLASS_DECL_ACME void GetSystemTime(system_time_t * systime)
 
 
 
-
-
-namespace node_ansios
-{
-
-
-
-
-   ::e_status node::get_system_time(system_time_t * psystemtime)
-   {
-
-      GetSystemTime(psystemtime);
-
-      return success;
-
-   }
-
-
-   double node::get_time_zone()
-   {
-
-      return TIME_GetBias() / 3'600.0;
-
-   }
-
-
-   ::e_status node::system_time_to_time(time_t * ptime, const system_time_t * psystemtime, i32 nDST)
-   {
-
-      struct tm tm;
-
-      auto estatus = system_time_to_tm(&tm, psystemtime);
-
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      *ptime = timegm(&tm);
-
-      return ::success;
-
-   }
-
-
-   ::e_status node::system_time_to_tm(tm * ptm, const system_time_t * psystemtime)
-   {
-
-      ptm->tm_hour   = psystemtime->wHour;
-      ptm->tm_min    = psystemtime->wMinute;
-      ptm->tm_sec    = psystemtime->wSecond;
-      ptm->tm_mon    = psystemtime->wMonth;
-      ptm->tm_mday   = psystemtime->wDay;
-      ptm->tm_year   = psystemtime->wYear;
-
-      return ::success;
-
-   }
-
-
-   ::e_status node::tm_to_system_time(system_time_t * psystemtime, const tm * ptm)
-   {
-
-      psystemtime->wHour      = ptm->tm_hour    ;
-      psystemtime->wMinute    = ptm->tm_min     ;
-      psystemtime->wSecond    = ptm->tm_sec     ;
-      psystemtime->wMonth     = ptm->tm_mon     ;
-      psystemtime->wDay       = ptm->tm_mday    ;
-      psystemtime->wYear      = ptm->tm_year    ;
-
-      return ::success;
-
-   }
-
-
-   ::e_status node::file_time_to_time(time_t * ptime, const filetime_t * pfiletime, i32 nDST)
-   {
-
-      system_time_t systemtime;
-
-      auto estatus = file_time_to_system_time(&systemtime, pfiletime);
-
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      struct tm tm;
-
-      estatus = system_time_to_tm(&tm, &systemtime);
-
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      *ptime = timegm(&tm);
-
-      return ::success;
-
-   }
-
-
-   ::e_status node::time_to_system_time(system_time_t * psystemtime, const time_t * ptime)
-   {
-
-      struct tm tm;
-
-      gmtime_r(ptime, &tm);
-
-      system_time_t systemtime;
-
-      auto estatus = tm_to_system_time(psystemtime, &tm);
-
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
-
-   }
-
-
-   ::e_status node::get_system_time_as_file_time(filetime_t * pfiletime)
-   {
-
-      return ::acme::node::get_system_time_as_file_time(pfiletime);
-
-   }
-
-
-   ::e_status node::system_time_to_file_time(filetime_t * pfiletime, const system_time_t * psystemtime)
-   {
-
-      if(!SystemTimeToFileTime(psystemtime, pfiletime))
-      {
-
-         return error_failed;
-
-      }
-
-      return ::success;
-
-   }
-
-
-   ::e_status node::file_time_to_system_time(system_time_t * psystemtime, const filetime_t * pfiletime)
-   {
-
-      if(!FileTimeToSystemTime(pfiletime, psystemtime))
-      {
-
-         return error_failed;
-
-      }
-
-      return ::success;
-
-   }
-
-
-   ::e_status node::file_time_to_local_file_time(filetime_t * pfiletimeLocal, const filetime_t * pfiletime)
-   {
-
-      if(!FileTimeToLocalFileTime(pfiletime, pfiletimeLocal))
-      {
-
-         return error_failed;
-
-      }
-
-      return ::success;
-
-   }
-
-
-   ::e_status node::is_valid_filetime(const filetime_t * pfiletime)
-   {
-
-
-      return ::success;
-
-
-   }
-
-
-   filetime node::get_filetime_now()
-   {
-
-      filetime filetime;
-
-      GetSystemTimeAsFileTime(&filetime.m_filetime);
-
-      return filetime;
-
-   }
-
-
-} // namespace node_ansios
-
-
-
+//
+//
+//namespace node_ansios
+//{
+//
+//
+//   ::e_status node::get_system_time(system_time_t * psystemtime)
+//   {
+//
+//      GetSystemTime(psystemtime);
+//
+//      return success;
+//
+//   }
+//
+//
+//   double node::get_time_zone()
+//   {
+//
+//      return TIME_GetBias() / 3'600.0;
+//
+//   }
+//
+//
+//   ::e_status node::system_time_to_time(time_t * ptime, const system_time_t * psystemtime, i32 nDST)
+//   {
+//
+//      struct tm tm;
+//
+//      auto estatus = system_time_to_tm(&tm, psystemtime);
+//
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      *ptime = timegm(&tm);
+//
+//      return ::success;
+//
+//   }
+//
+//
+//   ::e_status node::system_time_to_tm(tm * ptm, const system_time_t * psystemtime)
+//   {
+//
+//      ptm->tm_hour   = psystemtime->wHour;
+//      ptm->tm_min    = psystemtime->wMinute;
+//      ptm->tm_sec    = psystemtime->wSecond;
+//      ptm->tm_mon    = psystemtime->wMonth;
+//      ptm->tm_mday   = psystemtime->wDay;
+//      ptm->tm_year   = psystemtime->wYear;
+//
+//      return ::success;
+//
+//   }
+//
+//
+//   ::e_status node::tm_to_system_time(system_time_t * psystemtime, const tm * ptm)
+//   {
+//
+//      psystemtime->wHour      = ptm->tm_hour    ;
+//      psystemtime->wMinute    = ptm->tm_min     ;
+//      psystemtime->wSecond    = ptm->tm_sec     ;
+//      psystemtime->wMonth     = ptm->tm_mon     ;
+//      psystemtime->wDay       = ptm->tm_mday    ;
+//      psystemtime->wYear      = ptm->tm_year    ;
+//
+//      return ::success;
+//
+//   }
+//
+//
+//   ::e_status node::file_time_to_time(time_t * ptime, const filetime_t * pfiletime, i32 nDST)
+//   {
+//
+//      system_time_t systemtime;
+//
+//      auto estatus = file_time_to_system_time(&systemtime, pfiletime);
+//
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      struct tm tm;
+//
+//      estatus = system_time_to_tm(&tm, &systemtime);
+//
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      *ptime = timegm(&tm);
+//
+//      return ::success;
+//
+//   }
+//
+//
+//   ::e_status node::time_to_system_time(system_time_t * psystemtime, const time_t * ptime)
+//   {
+//
+//      struct tm tm;
+//
+//      gmtime_r(ptime, &tm);
+//
+//      system_time_t systemtime;
+//
+//      auto estatus = tm_to_system_time(psystemtime, &tm);
+//
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
+//
+//   }
+//
+//
+//   ::e_status node::get_system_time_as_file_time(filetime_t * pfiletime)
+//   {
+//
+//      return ::acme::node::get_system_time_as_file_time(pfiletime);
+//
+//   }
+//
+//
+//   ::e_status node::system_time_to_file_time(filetime_t * pfiletime, const system_time_t * psystemtime)
+//   {
+//
+//      if(!SystemTimeToFileTime(psystemtime, pfiletime))
+//      {
+//
+//         return error_failed;
+//
+//      }
+//
+//      return ::success;
+//
+//   }
+//
+//
+//   ::e_status node::file_time_to_system_time(system_time_t * psystemtime, const filetime_t * pfiletime)
+//   {
+//
+//      if(!FileTimeToSystemTime(pfiletime, psystemtime))
+//      {
+//
+//         return error_failed;
+//
+//      }
+//
+//      return ::success;
+//
+//   }
+//
+//
+//   ::e_status node::file_time_to_local_file_time(filetime_t * pfiletimeLocal, const filetime_t * pfiletime)
+//   {
+//
+//      if(!FileTimeToLocalFileTime(pfiletime, pfiletimeLocal))
+//      {
+//
+//         return error_failed;
+//
+//      }
+//
+//      return ::success;
+//
+//   }
+//
+//
+//   ::e_status node::is_valid_filetime(const filetime_t * pfiletime)
+//   {
+//
+//
+//      return ::success;
+//
+//
+//   }
+//
+//
+//   filetime node::get_filetime_now()
+//   {
+//
+//      filetime filetime;
+//
+//      GetSystemTimeAsFileTime(&filetime.m_filetime);
+//
+//      return filetime;
+//
+//   }
+//
+//
+//} // namespace node_ansios
+//
+//
+//

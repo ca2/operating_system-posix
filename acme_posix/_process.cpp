@@ -1,12 +1,11 @@
 //
 // Created by camilo on 14/04/2021. 00:23 BRT <3TBS_!!
 //
-
+#include "framework.h"
+#include "acme/platform/static_start.h"
 
 
 extern char **environ;
-
-
 
 
 struct chldstatus
@@ -30,7 +29,7 @@ chldstatus_map * g_ppid = nullptr;
 critical_section * get_pid_cs()
 {
 
-   critical_section_lock cs(::acme::g_pcsGlobal);
+   critical_section_lock cs(::acme::get_global_critical_section());
 
    if(g_pcsPid2 == nullptr)
    {

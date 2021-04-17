@@ -35,7 +35,7 @@
 //      user_fork(__routine([this, bMouse, bKeyboard]()
 //                          {
 //
-//                             synchronization_lock synchronizationlock(user_mutex());
+//                             synchronous_lock synchronouslock(user_mutex());
 //
 //                             ::windowing_xcb::display_lock lock(m_pdisplay);
 //

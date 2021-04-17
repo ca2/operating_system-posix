@@ -50,7 +50,7 @@ namespace write_text_pango
    void font_department::enum_fonts(::write_text::font_enum_item_array & itema)
    {
 
-      //synchronization_lock ml(cairo_mutex());
+      //synchronous_lock ml(cairo_mutex());
 
       PangoFontMap * pfontmap = pango_cairo_font_map_get_default();
 

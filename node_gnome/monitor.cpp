@@ -51,7 +51,7 @@ namespace node_gnome
    bool monitor::get_monitor_rectangle(::RECTANGLE_I32 * prectangle)
    {
 
-      synchronization_lock sl(user_mutex());
+      synchronous_lock sl(user_mutex());
 
       GdkDisplay * pdisplay = gdk_display_get_default();
 
@@ -86,7 +86,7 @@ namespace node_gnome
    bool monitor::get_workspace_rectangle(::RECTANGLE_I32 *prectangle)
    {
 
-      synchronization_lock sl(user_mutex());
+      synchronous_lock sl(user_mutex());
 
       GdkDisplay * pdisplay = gdk_display_get_default();
 
@@ -120,7 +120,7 @@ namespace node_gnome
    //      node_fork(__routine([psession]
 //                           {
 //
-//                              synchronization_lock sl(user_mutex());
+//                              synchronous_lock sl(user_mutex());
 //
 //                              //xdisplay d(x11_get_display());
 //
@@ -133,7 +133,7 @@ namespace node_gnome
 //
 //                              }
 //
-//                              synchronization_lock slSession(psession->mutex());
+//                              synchronous_lock slSession(psession->mutex());
 //
 //                              ::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
 //

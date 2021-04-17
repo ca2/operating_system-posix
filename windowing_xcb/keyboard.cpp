@@ -691,7 +691,7 @@ namespace user
    ::e_status keyboard::show_software_keyboard(::user::primitive* pprimitive, string str, strsize iBeg, strsize iEnd)
    {
 
-      synchronization_lock synchronizationlock(mutex());
+      synchronous_lock synchronouslock(mutex());
 
       m_iSoftwareKeyboardEventId++;
 
@@ -704,14 +704,14 @@ namespace user
 
               sleep(400_ms);
 
-              synchronization_lock synchronizationlock(mutex());
+              synchronous_lock synchronouslock(mutex());
 
               if (iEventId == m_iSoftwareKeyboardEventId)
               {
 
                  ASSERT(pprimitive == m_pprimitiveSoftwareKeyboard);
 
-                 synchronizationlock.unlock();
+                 synchronouslock.unlock();
 
                  m_pprimitiveSoftwareKeyboard->show_software_keyboard(pprimitive, str, iBeg, iEnd);
 
@@ -734,7 +734,7 @@ namespace user
 
       }
 
-      synchronization_lock synchronizationlock(mutex());
+      synchronous_lock synchronouslock(mutex());
 
       m_iSoftwareKeyboardEventId++;
 
@@ -747,12 +747,12 @@ namespace user
 
               sleep(400_ms);
 
-              synchronization_lock synchronizationlock(mutex());
+              synchronous_lock synchronouslock(mutex());
 
               if (iEventId == m_iSoftwareKeyboardEventId)
               {
 
-                 synchronizationlock.unlock();
+                 synchronouslock.unlock();
 
                  m_pprimitiveSoftwareKeyboard->hide_software_keyboard(pprimitive);
 

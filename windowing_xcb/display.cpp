@@ -307,7 +307,7 @@ namespace windowing_xcb
 
       }
 
-      critical_section_lock synchronizationlock(&m_criticalsectionWindowMap);
+      critical_section_lock synchronouslock(&m_criticalsectionWindowMap);
 
       auto & pwindow = m_windowmap[window];
 
@@ -380,7 +380,7 @@ namespace windowing_xcb
    ::e_status display::release_mouse_capture()
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       _on_capture_changed_to(nullptr);
 
@@ -526,7 +526,7 @@ namespace windowing_xcb
    ::windowing_xcb::window * display::_get_keyboard_focus()
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       oswindow oswindow = nullptr;
 
@@ -569,7 +569,7 @@ namespace windowing_xcb
       i32 win_y_return;
       u32 mask_return;
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       windowing_output_debug_string("\n::GetCursorPos 1");
 
@@ -799,7 +799,7 @@ namespace windowing_xcb
    bool display::_window_has_atom_list_atom(xcb_window_t window, xcb_atom_t propertyList, xcb_atom_t propertyItem)
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       array < xcb_atom_t > atoma;
 
@@ -851,7 +851,7 @@ namespace windowing_xcb
    comparable_array < xcb_atom_t > display::_window_get_atom_array(xcb_window_t window, xcb_atom_t property)
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       comparable_array < xcb_atom_t > atoma;
 
@@ -1139,7 +1139,7 @@ namespace windowing_xcb
 
          }
 
-         synchronization_lock synchronizationlock(user_mutex());
+         synchronous_lock synchronouslock(user_mutex());
 
          windowing_output_debug_string("\n::GetFocus 1");
 

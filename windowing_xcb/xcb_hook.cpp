@@ -34,7 +34,7 @@ __pointer_array(xcb_hook) g_xcbhooka;
 ::e_status xcb_hook::hook()
 {
 
-   synchronization_lock sl(user_mutex());
+   synchronous_lock sl(user_mutex());
 
    g_xcbhooka.add(this);
 
@@ -46,7 +46,7 @@ __pointer_array(xcb_hook) g_xcbhooka;
 ::e_status xcb_hook::unhook()
 {
 
-   synchronization_lock sl(user_mutex());
+   synchronous_lock sl(user_mutex());
 
    g_xcbhooka.remove(this);
 

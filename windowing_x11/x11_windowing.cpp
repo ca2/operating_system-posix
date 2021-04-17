@@ -227,7 +227,7 @@ void x11_wait_timer_or_event(Display * pdisplay)
 //      try
 //      {
 //
-//         synchronization_lock sl(user_mutex());
+//         synchronous_lock sl(user_mutex());
 //
 //         XLockDisplay(pdisplay);
 //

@@ -857,7 +857,7 @@ GdkFilterReturn x11_gdk_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data
 //////
 //////      g_bInitX11Thread = true;
 //////
-//////      synchronization_lock sl(user_mutex());
+//////      synchronous_lock sl(user_mutex());
 //////
 //////      xdisplay d(pdisplay);
 //////
@@ -879,7 +879,7 @@ GdkFilterReturn x11_gdk_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data
 ////   try
 ////   {
 ////
-////      synchronization_lock sl(user_mutex());
+////      synchronous_lock sl(user_mutex());
 ////
 ////      xdisplay d(pdisplay);
 ////

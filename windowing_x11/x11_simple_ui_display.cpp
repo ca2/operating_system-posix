@@ -108,7 +108,7 @@ void simple_ui_display::common_construct()
 simple_ui_display::~ simple_ui_display()
 {
 
-   synchronization_lock sl(user_mutex());
+   synchronous_lock sl(user_mutex());
 
    Display * pdisplay = x11_get_display();
 
@@ -249,7 +249,7 @@ void simple_ui_display::call_expose(Display * pdisplay)
 }
 
 
-void simple_ui_display::on_subject(::promise::subject * psubject, ::promise::context * pcontext)
+void simple_ui_display::on_subject(::promise::subject * psubject, ::subject::context * pcontext)
 {
 
    if(psubject->id() == id_os_user_theme)
@@ -463,7 +463,7 @@ int simple_ui_display::show()
 
    {
 
-      synchronization_lock sl(user_mutex());
+      synchronous_lock sl(user_mutex());
 
       Display * pdisplay = x11_get_display();
 

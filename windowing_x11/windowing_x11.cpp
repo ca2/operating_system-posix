@@ -27,7 +27,7 @@
 #include "acme/os/_user.h"
 
 
-bool x11_runnable_step();
+//bool x11_runnable_step();
 
 
 //::mutex * g_pmutexX11Runnable = nullptr;
@@ -37,7 +37,7 @@ bool x11_runnable_step();
 //::point_i32 g_pointX11Cursor;
 
 
-message_queue * get_message_queue(ithread_t idthread, bool bCreate);
+message_queue * get_message_queue(itask_t idthread, bool bCreate);
 
 
 void oswindow_set_active_window(oswindow oswindow);
@@ -406,7 +406,7 @@ namespace windowing_x11
 //oswindow windowing::get_active_window()
 //{
 //
-//   synchronization_lock synchronizationlock(user_mutex());
+//   synchronous_lock synchronouslock(user_mutex());
 //
 //   oswindow oswindow = nullptr;
 //
@@ -529,7 +529,7 @@ namespace windowing_x11
 
                   }
 
-                  synchronization_lock synchronizationlock(user_mutex());
+                  synchronous_lock synchronouslock(user_mutex());
 
                   windowing_output_debug_string("\n::GetFocus 1");
 
@@ -612,7 +612,7 @@ namespace windowing_x11
 // int_bool is_window_occluded(oswindow oswindow)
 // {
 
-//    synchronization_lock synchronizationlock(user_mutex());
+//    synchronous_lock synchronouslock(user_mutex());
 
 //    windowing_output_debug_string("\n::GetFocus 1");
 
@@ -774,7 +774,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //void message_box_paint(::draw2d::graphics_pointer & pgraphics, string_array & stra, bool_array  & baTab, int_array  & ya,SIZE_I32 * psize)
 //{
 //
-//   synchronization_lock synchronizationlock(user_mutex());
+//   synchronous_lock synchronouslock(user_mutex());
 //
 //   pgraphics->fill_rectangle(::rectangle_i32(*psize), rgb(84, 90, 80));
 //
@@ -810,7 +810,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //int_bool IsWindowVisibleRaw(oswindow w)
 //{
 //
-//   synchronization_lock synchronizationlock(user_mutex());
+//   synchronous_lock synchronouslock(user_mutex());
 //
 //   Display * display = w->display();
 //
@@ -851,7 +851,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //::e_status x11_hook::hook()
 //{
 //
-//   synchronization_lock synchronizationlock(user_mutex());
+//   synchronous_lock synchronouslock(user_mutex());
 //
 //   g_x11hooka.add(this);
 //
@@ -862,7 +862,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //::e_status x11_hook::unhook()
 //{
 //
-//   synchronization_lock synchronizationlock(user_mutex());
+//   synchronous_lock synchronouslock(user_mutex());
 //
 //   g_x11hooka.remove(this);
 //
@@ -940,7 +940,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //   {
 //
-//      synchronization_lock synchronizationlock(user_mutex());
+//      synchronous_lock synchronouslock(user_mutex());
 //
 //      display_lock d(pdisplay);
 //
@@ -1092,7 +1092,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       try
       {
 
-         synchronization_lock synchronizationlock(user_mutex());
+         synchronous_lock synchronouslock(user_mutex());
 
          display_lock displaylock(m_pdisplay);
 
@@ -1210,7 +1210,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //      g_bInitX11Thread = true;
 //
-//      synchronization_lock synchronizationlock(user_mutex());
+//      synchronous_lock synchronouslock(user_mutex());
 //
 //      display_lock d(pdisplay);
 //
@@ -1232,7 +1232,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       try
       {
 
-         synchronization_lock synchronizationlock(user_mutex());
+         synchronous_lock synchronouslock(user_mutex());
 
          display_lock displayLock(m_pdisplay);
 
@@ -1485,7 +1485,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                psubject->payload("space") = is_space_key((XIRawEvent*)cookie->data);
 
-               ::promise::context context;
+               ::subject::context context;
 
                for(auto & p : *m_pobjectaExtendedEventListener)
                {
@@ -2558,7 +2558,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //      }
 //
-//      synchronization_lock synchronizationlock(pdata->m_pmutexInput);
+//      synchronous_lock synchronouslock(pdata->m_pmutexInput);
 //
 //      pdata->m_messsageaInput.add(msg);
 
@@ -2732,7 +2732,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //int_bool set_window_position(oswindow hwnd, oswindow hwndInsertAfter, i32 x, i32 y, i32 cx, i32 cy, ::u32 nFlags)
 //{
 //
-//   synchronization_lock synchronizationlock(user_mutex());
+//   synchronous_lock synchronouslock(user_mutex());
 //
 //   return hwnd->set_window_position(hwndInsertAfter, x, y, cx, cy, nFlags);
 //
@@ -2745,7 +2745,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //int_bool get_window_rect(oswindow hwnd, RECTANGLE_I32 * prectangle)
 //{
 //
-//   synchronization_lock synchronizationlock(user_mutex());
+//   synchronous_lock synchronouslock(user_mutex());
 //
 //   display_lock d(hwnd->display());
 //
@@ -2767,7 +2767,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //int_bool ca2_GetClientRect(oswindow window, RECTANGLE_I32 * prectangle)
 //{
 //
-//   synchronization_lock synchronizationlock(window->m_pimpl->m_puserinteraction->mutex());
+//   synchronous_lock synchronouslock(window->m_pimpl->m_puserinteraction->mutex());
 //
 //   window->m_pimpl->m_puserinteraction->get_window_rect(prectangle);
 //
@@ -2787,7 +2787,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //   x11_sync([&]()
 //            {
 //
-//               synchronization_lock synchronizationlock(user_mutex());
+//               synchronous_lock synchronouslock(user_mutex());
 //
 //               x11_get_cursor_pos(ppointCursor);
 //
@@ -2902,7 +2902,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       {
 
-         synchronization_lock synchronizationlock(g_pmutexX11Runnable);
+         synchronous_lock synchronouslock(g_pmutexX11Runnable);
 
          ::acme::del(g_prunnableptrlX11);
 
@@ -2959,7 +2959,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       {
 
-         synchronization_lock synchronizationlock(g_pmutexX11Runnable);
+         synchronous_lock synchronouslock(g_pmutexX11Runnable);
 
          g_prunnableptrlX11->add_tail(prunnable);
 
@@ -2981,7 +2981,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //   void defer_term_ui()
 //   {
 //
-//      synchronization_lock synchronizationlock(user_mutex());
+//      synchronous_lock synchronouslock(user_mutex());
 //
 //      g_iX11Ref--;
 //
@@ -3005,10 +3005,10 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    __pointer(::thread) g_pthreadXlib;
 
 
-   ithread_t g_ithreadXlib;
+   itask_t g_ithreadXlib;
 
 
-   ithread_t x11_get_ithread()
+   itask_t x11_get_ithread()
    {
 
       return g_ithreadXlib;
@@ -3092,7 +3092,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       }
 
-      synchronization_lock ml(pmq->mutex());
+      synchronous_lock ml(pmq->mutex());
 
       if (message.m_id == e_message_quit)
       {
@@ -3181,7 +3181,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //
 //
-//message_queue * get_message_queue(ithread_t idthread, bool bCreate);
+//message_queue * get_message_queue(itask_t idthread, bool bCreate);
 //
 //
 //void oswindow_set_active_window(oswindow oswindow);
@@ -3382,7 +3382,7 @@ unsigned long x11_get_long_property(Display *d, Window w, char *property_name)
 bool x11_get_client_rect(Display * pdisplay, Window window, RECTANGLE_I32 *prectangle)
 {
 
-   synchronization_lock synchronizationlock(user_mutex());
+   synchronous_lock synchronouslock(user_mutex());
 
    XWindowAttributes attr;
 

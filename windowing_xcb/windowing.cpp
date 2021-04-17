@@ -192,7 +192,7 @@ namespace windowing_xcb
    __pointer(::windowing::cursor) windowing::load_default_cursor(enum_cursor ecursor)
    {
 
-      synchronization_lock synchronizationlock(mutex());
+      synchronous_lock synchronouslock(mutex());
 
       if (m_pcursorset.is_null())
       {
@@ -281,7 +281,7 @@ namespace windowing_xcb
 
       }
 
-      synchronization_lock sl(user_mutex());
+      synchronous_lock sl(user_mutex());
 
       windowing_output_debug_string("\n::xcb_GetWindowRect 1");
 
@@ -318,7 +318,7 @@ namespace windowing_xcb
 
       }
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       display_lock lock(m_pdisplay);
 
@@ -339,7 +339,7 @@ namespace windowing_xcb
 
       }
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       display_lock lock(m_pdisplay);
 
@@ -427,7 +427,7 @@ namespace windowing_xcb
       try
       {
 
-         synchronization_lock synchronizationlock(user_mutex());
+         synchronous_lock synchronouslock(user_mutex());
 
          display_lock displaylock(m_pdisplay);
 
@@ -499,7 +499,7 @@ namespace windowing_xcb
       try
       {
 
-         synchronization_lock synchronizationlock(user_mutex());
+         synchronous_lock synchronouslock(user_mutex());
 
          display_lock displayLock(m_pdisplay);
 
@@ -1621,7 +1621,7 @@ namespace windowing_xcb
 //
 //      }
 //
-//      synchronization_lock synchronizationlock(pdata->m_pmutexInput);
+//      synchronous_lock synchronouslock(pdata->m_pmutexInput);
 //
 //      pdata->m_messsageaInput.add(msg);
 

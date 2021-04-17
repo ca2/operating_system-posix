@@ -520,7 +520,7 @@ namespace node_gnome
 //   }
 
 
-//   void node::on_subject(::promise::subject * psubject, ::promise::context * pcontext)
+//   void node::on_subject(::promise::subject * psubject, ::subject::context * pcontext)
 //   {
 //
 //      if(psubject->m_id == ::id_os_user_theme)
@@ -558,7 +558,7 @@ namespace node_gnome
 //      node_fork(__routine([psession]
 //                           {
 //
-//                              synchronization_lock sl(user_mutex());
+//                              synchronous_lock sl(user_mutex());
 //
 //                              //xdisplay d(x11_get_display());
 //
@@ -571,7 +571,7 @@ namespace node_gnome
 //
 //                              }
 //
-//                              synchronization_lock slSession(psession->mutex());
+//                              synchronous_lock slSession(psession->mutex());
 //
 //                              ::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
 //

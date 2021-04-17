@@ -11,23 +11,24 @@ void os_post_quit();
 void apex_application_run(const char * pszAppName, const char * pszProgName);
 
 
-namespace node_ansios
+namespace apex
 {
 
 
-   //CLASS_DECL_ACME void _os_process_user_theme(string strTheme);
-
-
-   node::node()
+   namespace posix
    {
+      //CLASS_DECL_ACME void _os_process_user_theme(string strTheme);
 
-      //m_pGtkSettingsDefault = nullptr;
+      node::node()
+      {
 
-   }
+         //m_pGtkSettingsDefault = nullptr;
+
+      }
 
 
-   node::~node()
-   {
+      node::~node()
+      {
 
 //      if(m_pGtkSettingsDefault)
 //      {
@@ -36,129 +37,129 @@ namespace node_ansios
 //
 //      }
 
-   }
+      }
 
 
-   int node::node_init_check(int *pi, char ***ppz)
-   {
+      int node::node_init_check(int * pi, char *** ppz)
+      {
 
-      //auto iResult = gtk_init_check(pi, ppz);
+         //auto iResult = gtk_init_check(pi, ppz);
 
-      //return iResult;
+         //return iResult;
 
-      return 0;
+         return 0;
 
-   }
-
-
-   ::e_status node::start()
-   {
+      }
 
 
-//      if (psystem->m_bGtkApp)
+//      ::e_status node::start_()
 //      {
 //
-//         apex_application_run(psystem->m_strAppId, psystem->m_strProgName);
+//
+////      if (psystem->m_bGtkApp)
+////      {
+////
+////         apex_application_run(psystem->m_strAppId, psystem->m_strProgName);
+////
+////      }
+////      else
+////      {
+//         //
+//         ////      g_set_application_name(psystem->m_strAppId);
+//         ////
+//         ////      g_set_prgname(psystem->m_strProgName);
+//         ////
+//         ////      //auto idle_source = g_idle_source_new();
+//         ////
+//         ////      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) m_psystem, nullptr);
+//         ////
+//         ////      //g_source_attach(idle_source, g_main_context_default());
+//         ////
+//         ////      //int c = 2;
+//         ////
+//         ////      //const char * argv[]={"app", "--g-fatal-warnings"};
+//         ////
+//         ////#if !defined(__SANITIZE_ADDRESS__)
+//         ////
+//         ////      gtk_init_check(&psystem->m_argc, &psystem->m_argv);
+//         ////
+//         ////#endif
+//
+////         node_fork([this]()
+////                   {
+////
+////                      //x11_add_idle_source();
+////
+////                      //x11_add_filter();
+////
+////                      auto pgtksettingsDefault = gtk_settings_get_default();
+////
+////                      if(pgtksettingsDefault)
+////                      {
+////
+////
+////                         m_pGtkSettingsDefault = G_OBJECT(pgtksettingsDefault);
+////
+////                         g_object_ref (m_pGtkSettingsDefault);
+////
+////                         gchar *theme_name = nullptr;
+////
+////                         g_object_get(m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
+////
+////                         m_strTheme = theme_name;
+////
+////                         g_free(theme_name);
+////
+////                         auto preturn = g_signal_connect_data(
+////                            m_pGtkSettingsDefault,
+////                            "notify::gtk-theme-name",
+////                            G_CALLBACK(gtk_settings_gtk_theme_name_callback),
+////                            this,
+////                            NULL,
+////                            G_CONNECT_AFTER);
+////
+////                         //g_object_ref(preturn);
+////
+////                         //printf("return %" PRIiPTR, preturn);
+////
+////                         //printf("return %" PRIiPTR, preturn);
+////
+////                      }
+////
+////
+////                   });
+////
+////
+////         //x11_add_filter();
+////
+////psystem->fork([]()
+////     {
+////
+////      x11_main();
+////
+////     });
+////
+////         gtk_main();
+//
+//         //x11_main();
+//
+//         //}
+//         //
+//         //::parallelization::post_quit_and_wait(get_context_system(), one_minute());
+//
+//         return ::success;
 //
 //      }
-//      else
+
+
+//      ::e_status node::initialize(::object * pobject)
 //      {
-      //
-      ////      g_set_application_name(psystem->m_strAppId);
-      ////
-      ////      g_set_prgname(psystem->m_strProgName);
-      ////
-      ////      //auto idle_source = g_idle_source_new();
-      ////
-      ////      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) m_psystem, nullptr);
-      ////
-      ////      //g_source_attach(idle_source, g_main_context_default());
-      ////
-      ////      //int c = 2;
-      ////
-      ////      //const char * argv[]={"app", "--g-fatal-warnings"};
-      ////
-      ////#if !defined(__SANITIZE_ADDRESS__)
-      ////
-      ////      gtk_init_check(&psystem->m_argc, &psystem->m_argv);
-      ////
-      ////#endif
-
-//         node_fork([this]()
-//                   {
 //
-//                      //x11_add_idle_source();
+//         //::node_gnome::g_defer_init();
 //
-//                      //x11_add_filter();
+//         return ::success;
 //
-//                      auto pgtksettingsDefault = gtk_settings_get_default();
-//
-//                      if(pgtksettingsDefault)
-//                      {
-//
-//
-//                         m_pGtkSettingsDefault = G_OBJECT(pgtksettingsDefault);
-//
-//                         g_object_ref (m_pGtkSettingsDefault);
-//
-//                         gchar *theme_name = nullptr;
-//
-//                         g_object_get(m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
-//
-//                         m_strTheme = theme_name;
-//
-//                         g_free(theme_name);
-//
-//                         auto preturn = g_signal_connect_data(
-//                            m_pGtkSettingsDefault,
-//                            "notify::gtk-theme-name",
-//                            G_CALLBACK(gtk_settings_gtk_theme_name_callback),
-//                            this,
-//                            NULL,
-//                            G_CONNECT_AFTER);
-//
-//                         //g_object_ref(preturn);
-//
-//                         //printf("return %" PRIiPTR, preturn);
-//
-//                         //printf("return %" PRIiPTR, preturn);
-//
-//                      }
-//
-//
-//                   });
-//
-//
-//         //x11_add_filter();
-//
-//psystem->fork([]()
-//     {
-//
-//      x11_main();
-//
-//     });
-//
-//         gtk_main();
-
-      //x11_main();
-
-      //}
-      //
-      //::parallelization::post_quit_and_wait(get_context_system(), one_minute());
-
-      return ::success;
-
-   }
-
-
-   ::e_status node::initialize(::object * pobject)
-   {
-
-      //::node_gnome::g_defer_init();
-
-      return ::success;
-
-   }
+//      }
 
 
 //void node::os_calc_user_dark_mode()
@@ -567,6 +568,10 @@ namespace node_ansios
 //
 //}
 
+   } // namespace posix
 
-} // namespace node_ansios
+
+} // namespace apex
+
+
 

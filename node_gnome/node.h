@@ -60,7 +60,7 @@ namespace node_gnome
 
       virtual void node_post_quit() override;
 
-      //virtual void on_subject(::promise::subject * psubject, ::promise::context * pcontext) override;
+      //virtual void on_subject(::promise::subject * psubject, ::subject::context * pcontext) override;
 
       //virtual void _on_change_os_user_theme(string strTheme);
 

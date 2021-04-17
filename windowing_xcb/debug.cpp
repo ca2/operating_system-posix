@@ -20,7 +20,7 @@ extern ::mutex * user_mutex();
 //void x_display_error_trap_pop(SnDisplay * sndisplay, xcb_connection_t * display)
 //{
 //
-//   synchronization_lock sl(user_mutex());
+//   synchronous_lock sl(user_mutex());
 //
 //   g_iIgnoreXDisplayError--;
 //

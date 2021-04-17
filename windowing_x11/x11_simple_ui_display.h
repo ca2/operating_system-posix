@@ -87,7 +87,7 @@ public:
 
    void call_expose(Display * pdisplay);
 
-   virtual void on_subject(::promise::subject * psubject, ::promise::context * pcontext) override;
+   virtual void on_subject(::promise::subject * psubject, ::subject::context * pcontext) override;
 
    void on_layout(Display * pdisplay);
 

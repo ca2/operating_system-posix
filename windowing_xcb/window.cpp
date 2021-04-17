@@ -61,7 +61,7 @@ namespace windowing_xcb
    ::e_status window::create_window(::user::interaction_impl * pimpl)
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       bool bOk = true;
 
@@ -281,9 +281,9 @@ namespace windowing_xcb
 
       u32 ncount = 0;
 
-      hthread_t hthread = ::get_current_hthread();
+      htask_t htask = ::get_current_hthread();
 
-      m_hthread = hthread;
+      m_hthread = htask;
 
       estatus = _get_window_attributes();
 
@@ -394,7 +394,7 @@ namespace windowing_xcb
 
       int i = 0;
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       windowing_output_debug_string("\nwindow::map_window");
 
@@ -432,7 +432,7 @@ namespace windowing_xcb
    ::e_status window::_unmap_window()
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       windowing_output_debug_string("\nwindow::unmap_window");
 
@@ -509,7 +509,7 @@ namespace windowing_xcb
    bool window::bamf_set_icon()
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       auto pnode = Node;
 
@@ -685,7 +685,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\nwindow::set_icon");
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       display_lock displaylock(xcb_display());
 
@@ -712,7 +712,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\nwindow::store_name");
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       display_lock displaylock(xcb_display());
 
@@ -737,7 +737,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\nwindow::select_input");
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       display_lock displaylock(xcb_display());
 
@@ -772,7 +772,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\nwindow::select_all_input");
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       display_lock displaylock(xcb_display());
 
@@ -874,7 +874,7 @@ namespace windowing_xcb
 
       }
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       display_lock displaylock(xcb_display());
 
@@ -905,7 +905,7 @@ namespace windowing_xcb
    ::e_status window::_mapped_net_state_raw(bool add, xcb_atom_t state1, xcb_atom_t state2)
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       auto estatus = _send_client_event(
          xcb_display()->intern_atom("_NET_WM_STATE", false),
@@ -932,7 +932,7 @@ namespace windowing_xcb
    ::e_status window::_unmapped_net_state_raw(xcb_atom_t atom1, ...)
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       array<xcb_atom_t> atoms;
 
@@ -990,7 +990,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::window::show_window 1");
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       display_lock displaylock(xcb_display());
 
@@ -1071,7 +1071,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::window::full_screen 1");
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       display_lock displaylock(xcb_display());
 
@@ -1143,7 +1143,7 @@ namespace windowing_xcb
    ::e_status window::exit_iconify()
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       display_lock displaylock(xcb_display());
 
@@ -1171,7 +1171,7 @@ namespace windowing_xcb
    ::e_status window::exit_full_screen()
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       display_lock displaylock(xcb_display());
 
@@ -1199,7 +1199,7 @@ namespace windowing_xcb
    ::e_status window::exit_zoomed()
    {
 
-      synchronization_lock sl(user_mutex());
+      synchronous_lock sl(user_mutex());
 
       display_lock displaylock(xcb_display());
 
@@ -1251,7 +1251,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::window::get_state 1");
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       display_lock displaylock(xcb_display());
 
@@ -1305,7 +1305,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::window::is_window_visible 1");
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       display_lock displaylock(xcb_display());
 
@@ -1473,7 +1473,7 @@ namespace windowing_xcb
 
       }
 
-      synchronization_lock ml(pmq->mutex());
+      synchronous_lock ml(pmq->mutex());
 
       if(message.m_id == e_message_quit)
       {
@@ -1523,7 +1523,7 @@ namespace windowing_xcb
 
       }
 
-      ithread_t idthread = pinteraction->get_context_application()->get_ithread();
+      itask_t idthread = pinteraction->get_context_application()->get_ithread();
 
       message_queue * pmq = get_message_queue(idthread, false);
 
@@ -1534,7 +1534,7 @@ namespace windowing_xcb
 
       }
 
-      synchronization_lock ml(pmq->mutex());
+      synchronous_lock ml(pmq->mutex());
 
       pmq->m_messagea.predicate_remove([this](MESSAGE & item)
       {
@@ -1551,7 +1551,7 @@ namespace windowing_xcb
    bool window::set_window_position(const class ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy, ::u32 nFlags)
    {
 
-      synchronization_lock sl(user_mutex());
+      synchronous_lock sl(user_mutex());
 
       windowing_output_debug_string("\n::window::set_window_pos 1");
 
@@ -1724,7 +1724,7 @@ namespace windowing_xcb
    ::e_status window::set_cursor2(::windowing::cursor *pcursor)
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       display_lock displaylock(xcb_display());
 
@@ -1776,7 +1776,7 @@ namespace windowing_xcb
 
       }
 
-      synchronization_lock sl(user_mutex());
+      synchronous_lock sl(user_mutex());
 
       windowing_output_debug_string("\n::SetCursor 1");
 
@@ -1857,7 +1857,7 @@ namespace windowing_xcb
    ::rectangle_i32_array window::upper_window_rects()
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       rectangle_i32_array recta;
 
@@ -1925,7 +1925,7 @@ namespace windowing_xcb
    ::e_status window::set_active_window()
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       windowing_output_debug_string("\n::set_active_window 1");
 
@@ -2073,7 +2073,7 @@ namespace windowing_xcb
    ::windowing::window * window::get_window(enum_relative erelative)
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       ::xcb_window_t window = 0;
 
@@ -2242,7 +2242,7 @@ namespace windowing_xcb
 
       }
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       bool bIs = is_window();
 
@@ -2300,7 +2300,7 @@ namespace windowing_xcb
    ::e_status window::_list_add_atom(xcb_atom_t atomList, xcb_atom_t atomFlag)
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       if (atomFlag == 0)
       {
@@ -2331,7 +2331,7 @@ namespace windowing_xcb
    ::e_status window::_list_remove_atom(xcb_atom_t atomList, xcb_atom_t atomFlag)
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       if (atomFlag == 0)
       {
@@ -2374,7 +2374,7 @@ namespace windowing_xcb
    ::e_status window::set_foreground_window()
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       display_lock displaylock(xcb_display());
 
@@ -2600,7 +2600,7 @@ namespace windowing_xcb
    ::e_status window::set_mouse_capture()
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       if (xcb_connection() == nullptr)
       {
@@ -2665,7 +2665,7 @@ namespace windowing_xcb
    ::e_status window::set_keyboard_focus()
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       if (xcb_window() == 0)
       {

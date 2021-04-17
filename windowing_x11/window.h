@@ -38,7 +38,7 @@ namespace windowing_x11
       bool                                         m_bMessageOnlyWindow;
       //__pointer(::user::interaction_impl)     m_pimpl;
       //__pointer(::message_queue)              m_pmessagequeue;
-      hthread_t                                    m_hthread;
+      htask_t                                    m_hthread;
       //Colormap                                     m_colormap;
       millis                                       m_millisLastMouseMove;
       //Window                                       m_parent;

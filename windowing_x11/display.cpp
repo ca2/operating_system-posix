@@ -196,7 +196,7 @@ namespace windowing_x11
 
       }
 
-      critical_section_lock synchronizationlock(&m_criticalsectionWindowMap);
+      critical_section_lock synchronouslock(&m_criticalsectionWindowMap);
 
       auto &pwindow = m_windowmap[window];
 
@@ -283,7 +283,7 @@ namespace windowing_x11
    {
       return ::windowing::display::get_monitor_rectangle(iMonitor, prectangle);
 //
-//      synchronization_lock synchronizationlock(mutex());
+//      synchronous_lock synchronouslock(mutex());
 //
 //      if (iMonitor < 0 || iMonitor >= get_monitor_count())
 //      {
@@ -310,7 +310,7 @@ namespace windowing_x11
    ::e_status display::release_mouse_capture()
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       _on_capture_changed_to(nullptr);
 
@@ -726,7 +726,7 @@ namespace windowing_x11
 //      m_pwindowing->user_sync([&]()
 //                              {
 //
-//                                 synchronization_lock synchronizationlock(user_mutex());
+//                                 synchronous_lock synchronouslock(user_mutex());
 //
 //                                 windowing_output_debug_string("\n::xrender_create_picture 1");
 //
@@ -779,7 +779,7 @@ namespace windowing_x11
    ::windowing_x11::window *display::_get_keyboard_focus()
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       oswindow oswindow = nullptr;
 
@@ -843,7 +843,7 @@ namespace windowing_x11
 
 #endif
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       windowing_output_debug_string("\n::GetCursorPos 1");
 
@@ -893,7 +893,7 @@ namespace windowing_x11
    XImage *display::x11_create_image(::image_pointer pimage)
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       windowing_output_debug_string("\n::x11_create_image 1");
 
@@ -943,7 +943,7 @@ namespace windowing_x11
    Pixmap display::x11_create_pixmap(::image_pointer pimage)
    {
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       windowing_output_debug_string("\n::x11_create_pixmap 1");
 
@@ -1037,7 +1037,7 @@ namespace windowing_x11
 
          }
 
-         synchronization_lock synchronizationlock(user_mutex());
+         synchronous_lock synchronouslock(user_mutex());
 
          windowing_output_debug_string("\n::GetFocus 1");
 

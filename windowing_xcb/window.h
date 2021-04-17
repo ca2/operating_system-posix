@@ -41,7 +41,7 @@ namespace windowing_xcb
       xcb_cursor_t                                 m_cursorLast;
       xcb_window_t                                 m_window;
       xcb_visualid_t                               m_visualid;
-      hthread_t                                    m_hthread;
+      htask_t                                    m_hthread;
       millis                                       m_millisLastMouseMove;
       ::rectangle_i32                              m_rect;
 

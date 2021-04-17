@@ -228,7 +228,7 @@ void xcb_wait_timer_or_event(xcb_connection_t * pconnection)
 //      try
 //      {
 //
-//         synchronization_lock sl(user_mutex());
+//         synchronous_lock sl(user_mutex());
 //
 //         XLockDisplay(pdisplay);
 //

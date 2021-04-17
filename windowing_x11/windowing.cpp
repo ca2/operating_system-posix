@@ -189,7 +189,7 @@ namespace windowing_x11
    __pointer(::windowing::cursor) windowing::load_default_cursor(enum_cursor ecursor)
    {
 
-      synchronization_lock synchronizationlock(mutex());
+      synchronous_lock synchronouslock(mutex());
 
       if (m_pcursorset.is_null())
       {
@@ -278,7 +278,7 @@ namespace windowing_x11
 
       }
 
-      synchronization_lock sl(user_mutex());
+      synchronous_lock sl(user_mutex());
 
       windowing_output_debug_string("\n::x11_GetWindowRect 1");
 
@@ -315,7 +315,7 @@ namespace windowing_x11
 
       }
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       display_lock lock(m_pdisplay);
 
@@ -336,7 +336,7 @@ namespace windowing_x11
 
       }
 
-      synchronization_lock synchronizationlock(user_mutex());
+      synchronous_lock synchronouslock(user_mutex());
 
       display_lock lock(m_pdisplay);
 
