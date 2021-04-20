@@ -166,7 +166,7 @@ namespace windowing_x11
 
       }
 
-      ::Window rootwin = RootWindow(display, x11_display()->m_iScreen);
+      ::Window rootwin = RootWindow(display, pdisplayx11->m_iScreen);
 
       XEvent e;
 
@@ -201,7 +201,7 @@ namespace windowing_x11
 
       __zero(attr);
 
-      attr.colormap = x11_display()->m_colormap;
+      attr.colormap = pdisplayx11->m_colormap;
 
       attr.event_mask =
          PropertyChangeMask | ExposureMask | ButtonPressMask | ButtonReleaseMask | KeyPressMask | KeyReleaseMask |
@@ -255,7 +255,7 @@ namespace windowing_x11
 
       }
 
-      auto estatus = initialize_x11_window(pdisplayx11, window, visual, m_iDepth, x11_display()->m_iScreen,
+      auto estatus = initialize_x11_window(pdisplayx11, window, visual, m_iDepth, pdisplayx11->m_iScreen,
                                            attr.colormap);
 
       if (!estatus)
@@ -3471,7 +3471,7 @@ namespace windowing_x11
    void window::update_screen()
    {
 
-      m_pwindowing->user_fork(__routine([this]()
+      m_pwindowing->user_branch(__routine([this]()
                                         {
 
                                            auto pimpl = m_pimpl;
@@ -3512,7 +3512,7 @@ namespace windowing_x11
    void window::window_show()
    {
 
-      m_pwindowing->user_fork(__routine([this]()
+      m_pwindowing->user_branch(__routine([this]()
                                         {
 
                                            auto pimpl = m_pimpl;

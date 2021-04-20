@@ -157,9 +157,16 @@ namespace acme
       ::e_status node::initialize(::object * pobject)
       {
 
-         //::node_gnome::g_defer_init();
+         auto estatus = ::acme::node::initialize(pobject);
 
-         return ::success;
+         if(!estatus)
+         {
+
+            return estatus;
+
+         }
+
+         return estatus;
 
       }
 

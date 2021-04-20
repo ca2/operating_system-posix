@@ -44,7 +44,8 @@ namespace windowing_x11
    {
 
       m_pDisplay = this;
-
+   m_colormap = None;
+   m_windowRoot = None;
       //m_pcsOsDisplayData = new critical_section();
       m_pdisplay = nullptr;
       m_atomLongType = None;
@@ -172,6 +173,8 @@ namespace windowing_x11
 
       m_iScreen = DefaultScreen(m_pdisplay);
 
+      m_windowRoot = RootWindow(m_pdisplay, m_iScreen);
+
       m_iDepth = m_visualinfo.depth;
 
       XSetWindowAttributes attr;
@@ -199,14 +202,14 @@ namespace windowing_x11
 
       auto &pwindow = m_windowmap[window];
 
-      if (!pwindow)
-      {
-
-         __construct(pwindow);
-
-         pwindow->set_os_data((void *) (iptr) window);
-
-      }
+//      if (!pwindow)
+//      {
+//
+//         __construct(pwindow);
+//
+//         pwindow->set_os_data((void *) (iptr) window);
+//
+//      }
 
       return pwindow;
 

@@ -40,6 +40,8 @@ namespace node_gnome
 
       virtual string _os_get_user_theme();
 
+      virtual ::e_status system_main() override;
+
       virtual bool os_set_user_theme(const string & strUserTheme) override;
 
       virtual void os_process_user_theme(string strTheme) override;

@@ -106,7 +106,7 @@ namespace windowing_x11
 
       virtual bool x11_message_loop_step();
 
-      void x11_branch(const ::routine & routine);
+      virtual ::e_status user_branch(const ::routine & routine) override;
 
       virtual bool x11_runnable_step();
 

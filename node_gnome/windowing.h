@@ -20,7 +20,7 @@ namespace node_gnome
       virtual ~windowing();
 
 
-      virtual ::e_status user_start(const ::routine & routine);
+      virtual ::e_status user_branch(const ::routine & routine) override;
 
 
       virtual bool message_loop_step() override;

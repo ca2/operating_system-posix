@@ -163,12 +163,14 @@ namespace windowing_x11
    }
 
 
-   void windowing::x11_branch(const ::routine & routine)
+   ::e_status windowing::user_branch(const ::routine & routine)
    {
 
       synchronous_lock synchronouslock(mutex());
 
       m_routinea.add(routine);
+
+      return ::success_scheduled;
 
    }
 

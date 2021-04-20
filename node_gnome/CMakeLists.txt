@@ -73,13 +73,10 @@ elseif (LINUX)
    target_compile_options(node_gnome PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(node_gnome PRIVATE -Wl,-rpath=\$ORIGIN)
    target_link_libraries(node_gnome PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
-   target_link_libraries(node_gnome PRIVATE asound)
    target_link_options(node_gnome PRIVATE -Wl,-z,defs)
-   add_dependencies(node_gnome draw2d_cairo)
 endif ()
 
 
-target_include_directories(node_gnome PRIVATE $ENV{HOME}/__config)
 target_include_directories(node_gnome PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 target_include_directories(node_gnome PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 target_include_directories(node_gnome PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
