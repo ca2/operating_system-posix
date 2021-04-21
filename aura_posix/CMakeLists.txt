@@ -5,8 +5,8 @@ project(aura_posix CXX)
 list(APPEND aura_posix_source
    _.h
    _.cpp
-#   appindicator.cpp
-#   appindicator.h
+   appindicator.cpp
+   appindicator.h
    factory_exchange.cpp
    factory_exchange.h
    framework.cpp

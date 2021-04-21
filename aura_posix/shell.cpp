@@ -1,7 +1,5 @@
 #include "framework.h"
-#include "core/user/user/_user.h"
 #include "shell.h"
-#include "aura/node/linux/_linux.h"
 
 
 
@@ -29,12 +27,12 @@
 
 
 
-namespace linux
+namespace aura
 {
 
 
-//   namespace shell
-//   {
+   namespace posix
+   {
 
 
       shell::shell()
@@ -86,7 +84,7 @@ namespace linux
 
          }
 
-         estatus = m_contextimage.initialize(pobject);
+         estatus = __compose(m_pcontextimage);
 
          if(!estatus)
          {
@@ -793,7 +791,7 @@ namespace linux
          {
 
 
-            ::image_pointer pimage1 = m_contextimage.load_image(strIcon16);
+            ::image_pointer pimage1 = m_pcontextimage->load_image(strIcon16);
 
             if (!::is_ok(pimage1))
             {
@@ -1149,47 +1147,38 @@ namespace linux
    //} // namespace shell
 
 
-} // namespace user
+//      ::e_status user::create_user_shell()
+//      {
+//
+//         ::e_status estatus = ::success;
+//
+//         if (!m_pshell)
+//         {
+//
+//            estatus = __compose(m_pshell, __new(::linux::shell));
+//
+//            if (!estatus)
+//            {
+//
+//               return estatus;
+//
+//            }
+//
+//         }
+//
+//         if (!m_pshell)
+//         {
+//
+//            return ::error_failed;
+//
+//         }
+//
+//         return ::success;
+//
+//      }
 
 
+   } // namespace posix
 
 
-
-
-
-namespace core
-{
-
-
-   ::e_status user::create_user_shell()
-   {
-
-      ::e_status estatus = ::success;
-
-      if (!m_pshell)
-      {
-
-         estatus = __compose(m_pshell, __new(::linux::shell));
-
-         if (!estatus)
-         {
-
-            return estatus;
-
-         }
-
-      }
-
-      if (!m_pshell)
-      {
-
-         return ::error_failed;
-
-      }
-
-      return ::success;
-
-   }
-
-
-} // namespace core
+} // namespace aura

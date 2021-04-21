@@ -128,13 +128,14 @@ namespace node_gnome
    ::e_status node::system_main()
    {
 
+      auto estatus = m_psystem->m_papexsystem->begin_synch();
 
-      if (!m_psystem->m_papexsystem->begin_synch())
+      if (!estatus)
       {
 
          output_debug_string("Failed to begin_synch the system (::apex::system or ::apex::system derived)");
 
-         return error_failed;
+         return estatus;
 
       }
       //   ::e_status estatus = psystem->begin_synch();
@@ -179,8 +180,6 @@ namespace node_gnome
       }
 
 #endif
-
-      ::e_status estatus = ::success;
 
 //      if (m_bUser)
 //      {
@@ -340,7 +339,7 @@ namespace node_gnome
    void node::os_calc_user_dark_mode()
    {
 
-      ::linux::aura::node::os_calc_user_dark_mode();
+      ::aura::posix::node::os_calc_user_dark_mode();
 
    }
 

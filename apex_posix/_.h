@@ -3,6 +3,7 @@
 
 #include "apex/_.h"
 #include "apex/operating_system.h"
+#include "acme_posix/_.h"
 
 
 #if defined(_NODE_ANSIOS_LIBRARY)

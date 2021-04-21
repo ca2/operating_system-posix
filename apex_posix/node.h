@@ -17,13 +17,14 @@ namespace apex
 
 
       class CLASS_DECL_ACME node :
-         virtual public ::acme::node
+         virtual public ::apex::node,
+         virtual public ::acme::posix::node
       {
       public:
 
 
          //gpointer m_pGtkSettingsDefault;
-         string m_strTheme;
+         //string m_strTheme;
 
 
          node();

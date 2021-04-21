@@ -18,7 +18,7 @@ namespace aura
       public:
 
 
-         ::context_image * m_pcontextimage;
+         __composite(::context_image) m_pcontextimage;
 
 
          shell();

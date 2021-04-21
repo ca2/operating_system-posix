@@ -59,15 +59,15 @@ namespace write_text_pango
       virtual ~font_department();
 
 
-      virtual ::e_status initialize(::layered * pobjectContext);
-      virtual void finalize();
+      virtual ::e_status initialize(::object * pobject) override;
+      virtual ::e_status finalize() override;
 
 
       //virtual bool is_initialized();
       //virtual void defer_create_font_enumeration(::promise::subject * psubject);
 
 
-      virtual void enum_fonts(::write_text::font_enum_item_array & itema);
+      virtual void enum_fonts(::write_text::font_enum_item_array & itema) override;
       //virtual void sorted_fonts(::write_text::font_enum_item_array & itema);
 
 

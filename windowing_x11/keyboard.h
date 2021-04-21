@@ -13,7 +13,7 @@ namespace windowing_x11
    //class keyboard_layout;
 
    class CLASS_DECL_WINDOWING_X11 keyboard :
-      virtual public ::object
+      virtual public ::windowing::keyboard
    {
       public:
 
@@ -53,7 +53,7 @@ namespace windowing_x11
 
       //bool initialize(::user::keyboard_layout_id * playoutid, const char * pszPath);
 
-      void translate_os_key_message(::user::key * pkey);
+      virtual void translate_os_key_message(::user::key * pkey) override;
 
       virtual bool load_os_layout(const ::file::path & pszPath);
 

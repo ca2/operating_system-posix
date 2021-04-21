@@ -36,13 +36,11 @@ list(APPEND node_gnome_source
 list(APPEND library_references
    acme
    acme_posix
-   acme_linux
    apex
    apex_posix
-   apex_linux
    aqua
    aura
-   aura_linux
+   aura_posix
    windowing_x11
    )
 

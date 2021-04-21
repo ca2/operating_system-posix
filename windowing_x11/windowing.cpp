@@ -36,7 +36,7 @@ namespace windowing_x11
    ::windowing::window * windowing::new_window(::user::interaction_impl * pimpl)
    {
 
-      __pointer(::windowing_x11::window) pwindow = __create < ::windowing::window >();
+      __pointer(::windowing_x11::window) pwindow = pimpl->__create < ::windowing::window >();
 
       if(!pwindow)
       {

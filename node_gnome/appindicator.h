@@ -9,7 +9,7 @@ namespace node_gnome
 
 
    class appindicator :
-      virtual public ::linux::aura::appindicator
+      virtual public ::aura::posix::appindicator
    {
    public:
 

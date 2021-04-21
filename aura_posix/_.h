@@ -22,6 +22,8 @@ namespace aura_posix
 } // namespace aura_posix
 
 
+#include "appindicator.h"
+
 
 #include "shell.h"
 

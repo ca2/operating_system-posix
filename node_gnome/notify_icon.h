@@ -36,7 +36,7 @@ namespace node_gnome
 //#ifdef WINDOWS_DESKTOP
 //      NOTIFYICONDATA m_nid;
 //#elif defined(LINUX)
-      __pointer(::linux::aura::appindicator)        m_pindicator;
+      __pointer(::aura::posix::appindicator)        m_pindicator;
 //#endif
       __pointer(::user::notify_icon_listener)      m_plistener;
       __pointer_array(::user::interaction)         m_wndptraHidden;

@@ -13,13 +13,12 @@ namespace node_gnome
 
 
    class CLASS_DECL_ACME node :
-      virtual public ::linux::aura::node
+      virtual public ::aura::posix::node
    {
    public:
 
 
       gpointer m_pGtkSettingsDefault;
-      string   m_strTheme;
 
 
       node();

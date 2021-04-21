@@ -22,10 +22,10 @@ namespace write_text_pango
    }
 
 
-   ::e_status font_department::initialize(::layered * pobjectContext)
+   ::e_status font_department::initialize(::object * pobject)
    {
 
-      auto estatus = ::font_department::initialize(pobjectContext);
+      auto estatus = ::font_department::initialize(pobject);
 
       if (!estatus)
       {
@@ -39,10 +39,19 @@ namespace write_text_pango
    }
 
 
-   void font_department::finalize()
+   ::e_status font_department::finalize()
    {
 
-      ::font_department::finalize();
+      auto estatus = ::font_department::finalize();
+
+      if(!estatus)
+      {
+
+         return estatus;
+
+      }
+
+      return estatus;
 
    }
 

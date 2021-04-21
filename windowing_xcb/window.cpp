@@ -349,7 +349,7 @@ namespace windowing_xcb
 
       }
 
-      bamf_set_icon();
+      bamf_set_icon(papplication);
 
       _set_nodecorations(0);
 
@@ -513,7 +513,9 @@ namespace windowing_xcb
 
       auto pnode = Node;
 
-      ::file::path path = pnode->get_desktop_file_path(&Application);
+      auto papplication = get_application();
+
+      ::file::path path = pnode->get_desktop_file_path(papplication);
 
       output_debug_string("\nlinux::interaction_impl::set_window_text");
 

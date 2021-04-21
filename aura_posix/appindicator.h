@@ -7,15 +7,15 @@
 class user_notify_icon_bridge;
 
 
-namespace linux
+namespace aura
 {
 
 
-   namespace aura
+   namespace posix
    {
 
 
-      class CLASS_DECL_AURA_LINUX appindicator :
+      class CLASS_DECL_AURA_POSIX appindicator :
          virtual public ::matter
       {
          public:
@@ -31,10 +31,10 @@ namespace linux
       };
 
 
-   } // namespace aura
+   } // namespace posix
 
 
-} // namespace_linux
+} // namespace aura
 
 
 

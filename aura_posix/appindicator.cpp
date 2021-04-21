@@ -4,11 +4,11 @@
 #include "framework.h"
 
 
-namespace linux
+namespace aura
 {
 
 
-   namespace aura
+   namespace posix
    {
 
 
@@ -26,10 +26,10 @@ namespace linux
       }
 
 
-   } // namespace aura
+   } // namespace posix
 
 
-} // namespace linux
+} // namespace aura
 
 
 
