@@ -69,13 +69,13 @@ namespace aura
 //         //      if (System.m_bGtkApp)
 //         //      {
 //         //
-//         //         apex_application_run(System.m_strAppId, System.m_strProgName);
+//         //         apex_application_run(System.m_XstrAppId, System.m_strProgName);
 //         //
 //         //      }
 //         //      else
 //         //      {
 //         //      //
-//         //      ////      g_set_application_name(psystem->m_strAppId);
+//         //      ////      g_set_application_name(psystem->m_XstrAppId);
 //         //      ////
 //         //      ////      g_set_prgname(psystem->m_strProgName);
 //         //      ////

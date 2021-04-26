@@ -13,7 +13,7 @@ namespace node_gnome
 
 
    class CLASS_DECL_ACME node :
-      virtual public ::aura::posix::node
+      virtual public ::windowing_x11::node
    {
    public:
 

@@ -10,6 +10,7 @@
 #include "aura_posix/_.h"
 
 
+
 #define WITH_XI
 #define WITH_SN
 
@@ -62,6 +63,9 @@ namespace windowing_x11
 
 
 #include "factory_exchange.h"
+
+
+#include "node.h"
 
 
 

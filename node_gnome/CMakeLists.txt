@@ -45,13 +45,6 @@ list(APPEND library_references
    )
 
 
-if (MSVC)
-   set(LIBCXX_TARGETING_MSVC ON)
-else ()
-   set(LIBCXX_TARGETING_MSVC OFF)
-endif ()
-
-
 add_library(node_gnome SHARED ${node_gnome_source} )
 
 target_precompile_headers(node_gnome PRIVATE framework.h)
@@ -81,8 +74,6 @@ target_include_directories(node_gnome PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 
 target_compile_definitions(node_gnome PRIVATE _NODE_GNOME_LIBRARY)
-target_compile_definitions(node_gnome PRIVATE UNICODE)
-target_compile_definitions(node_gnome PRIVATE _UNICODE)
 
 
 

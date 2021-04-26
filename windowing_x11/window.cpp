@@ -188,7 +188,8 @@ namespace windowing_x11
 
          visual = m_visualinfo.visual;
 
-      } else
+      }
+      else
       {
 
          __zero(m_visualinfo);
@@ -286,19 +287,25 @@ namespace windowing_x11
       if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
       {
 
-         XClassHint * pupdate = XAllocClassHint();
-
          auto psystem = m_psystem->m_papexsystem;
 
          string strApplicationServerName = psystem->get_application_server_name();
 
-         pupdate->res_class = (char *) (const char *) strApplicationServerName;
+         set_wm_class(strApplicationServerName);
 
-         pupdate->res_name = (char *) (const char *) strApplicationServerName;
-
-         XSetClassHint(display, window, pupdate);
-
-         XFree(pupdate);
+//         XClassHint * pupdate = XAllocClassHint();
+//
+//         auto psystem = m_psystem->m_papexsystem;
+//
+//         string strApplicationServerName = psystem->get_application_server_name();
+//
+//         pupdate->res_class = (char *) (const char *) strApplicationServerName;
+//
+//         pupdate->res_name = (char *) (const char *) strApplicationServerName;
+//
+//         XSetClassHint(display, window, pupdate);
+//
+//         XFree(pupdate);
 
       }
 
@@ -1455,8 +1462,11 @@ namespace windowing_x11
    }
 
 
-   ::e_status window::show_window(const ::e_display & edisplay, const ::e_activation & eactivationi)
+   ::e_status window::show_window(const ::e_display & edisplay, const ::e_activation & eactivation)
    {
+
+      x11_windowing()->windowing_branch(__routine([this, edisplay, eactivation]()
+                                                  {
 
       windowing_output_debug_string("\n::window::show_window 1");
 
@@ -1518,7 +1528,9 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::window::show_window 2");
 
-      return true;
+                                                  }));
+
+      return ::success;
 
    }
 
@@ -2464,7 +2476,17 @@ namespace windowing_x11
    }
 
 
-   ::e_status window::set_cursor2(::windowing::cursor * pcursor)
+   ::e_status window::set_tool_window(bool bSet)
+   {
+
+      wm_toolwindow(bSet);
+
+      return ::success;
+
+   }
+
+
+   ::e_status window::set_mouse_cursor2(::windowing::cursor * pcursor)
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -2505,7 +2527,7 @@ namespace windowing_x11
    }
 
 
-   ::e_status window::set_cursor(::windowing::cursor * pcursor)
+   ::e_status window::set_mouse_cursor(::windowing::cursor * pcursor)
    {
 
       if (::is_null(pcursor))
@@ -2531,15 +2553,20 @@ namespace windowing_x11
 
       }
 
-      synchronous_lock sl(user_mutex());
+      m_pwindowing->windowing_branch(__routine([this, pcursorx11]()
+                                          {
 
-      windowing_output_debug_string("\n::SetCursor 1");
+                                             synchronous_lock sl(user_mutex());
 
-      display_lock displaylock(x11_display());;
+                                             windowing_output_debug_string("\n::SetCursor 1");
 
-      XDefineCursor(Display(), Window(), pcursorx11->m_cursor);
+                                             display_lock displaylock(x11_display());;
 
-      m_cursorLast = pcursorx11->m_cursor;
+                                             XDefineCursor(Display(), Window(), pcursorx11->m_cursor);
+
+                                             m_cursorLast = pcursorx11->m_cursor;
+
+                                          }));
 
       return true;
 
@@ -3471,7 +3498,7 @@ namespace windowing_x11
    void window::update_screen()
    {
 
-      m_pwindowing->user_branch(__routine([this]()
+      m_pwindowing->windowing_branch(__routine([this]()
                                         {
 
                                            auto pimpl = m_pimpl;
@@ -3512,7 +3539,7 @@ namespace windowing_x11
    void window::window_show()
    {
 
-      m_pwindowing->user_branch(__routine([this]()
+      m_pwindowing->windowing_branch(__routine([this]()
                                         {
 
                                            auto pimpl = m_pimpl;
@@ -3565,31 +3592,38 @@ namespace windowing_x11
 
       windowing_output_debug_string("\noswindow_data::SetCapture 1");
 
-      display_lock displaylock(x11_display());
+      m_pwindowing->windowing_branch(__routine([this]()
+                                          {
 
-      auto grabStatus = XGrabPointer(Display(), Window(), False,
-                                     ButtonPressMask | ButtonReleaseMask | PointerMotionMask,
-                                     GrabModeAsync, GrabModeAsync, None, None, CurrentTime);
+                                             display_lock displaylock(x11_display());
 
-      if (grabStatus != GrabSuccess)
-      {
+                                             auto grabStatus = XGrabPointer(Display(), Window(), False,
+                                                                            ButtonPressMask | ButtonReleaseMask |
+                                                                            PointerMotionMask,
+                                                                            GrabModeAsync, GrabModeAsync, None, None,
+                                                                            CurrentTime);
 
-         windowing_output_debug_string("\noswindow_data::SetCapture 2.1");
+                                             if (grabStatus != GrabSuccess)
+                                             {
 
-         return error_failed;
+                                                windowing_output_debug_string("\noswindow_data::SetCapture 2.1");
 
-      }
+                                                return error_failed;
 
-      auto pdisplay = x11_display();
+                                             }
 
-      if (pdisplay)
-      {
+                                             auto pdisplay = x11_display();
 
-         pdisplay->_on_capture_changed_to(this);
+                                             if (pdisplay)
+                                             {
 
-      }
+                                                pdisplay->_on_capture_changed_to(this);
 
-      windowing_output_debug_string("\noswindow_data::SetCapture 2");
+                                             }
+
+                                             windowing_output_debug_string("\noswindow_data::SetCapture 2");
+
+                                          }));
 
       return ::success;
 

@@ -37,15 +37,10 @@ namespace windowing_x11
       Atom                                         m_atomNetWmState;
       Atom                                         m_atoma[x_window::e_atom_count];
       iptr                                         m_countReference;
-      __pointer(class window)                   m_pwindowRoot;
-      __pointer(class window)                   m_pwindowKeyboardFocus;
-      //array < MESSAGE >                          m_messsageaInput;
-      //::mutex *                                  m_pmutexInput;
-
-      //static osdisplay_dataptra *                s_pdataptra;
-      //static ::mutex *                           s_pmutex;
-      __pointer(::windowing_x11::window)      m_pwindowActive;
-      __pointer(::windowing_x11::window)       m_pwindowMouseCapture;
+      __pointer(class window)                      m_pwindowRoot;
+      __pointer(class window)                      m_pwindowKeyboardFocus;
+      __pointer(::windowing_x11::window)           m_pwindowActive;
+      __pointer(::windowing_x11::window)           m_pwindowMouseCapture;
 
 
       display();
@@ -63,6 +58,7 @@ namespace windowing_x11
 
 #endif
 
+
       virtual ::windowing_x11::window * _window(Window window);
 
       inline ::windowing_x11::windowing * x11_windowing() { return (::windowing_x11::windowing *) m_pwindowing->m_pWindowing; }
@@ -77,7 +73,6 @@ namespace windowing_x11
 
       virtual ::e_status remove_window(::windowing::window * pwindow);
 
-
       virtual ::Display * Display();
 
       virtual ::Display * Display() const;
@@ -85,10 +80,6 @@ namespace windowing_x11
       virtual int Screen();
 
       virtual int Screen() const;
-
-//      virtual ::Visual * Visual();
-//
-//      virtual ::Visual * Visual() const;
 
       virtual Atom atom_long_type();
 
@@ -98,18 +89,13 @@ namespace windowing_x11
 
       virtual bool is_null() const;
 
-
       virtual bool get_monitor_rectangle(index iMonitor, RECTANGLE_I32 * prectangle);
-
 
       virtual bool get_workspace_rectangle(index iWorkspace, RECTANGLE_I32 * prectangle);
 
+      virtual ::windowing::window * get_mouse_capture();
 
       virtual ::e_status release_mouse_capture();
-
-
-
-      Atom get_window_long_atom(i32 nIndex);
 
       Atom intern_atom(const char * pszAtomName, bool bCreate);
 
@@ -117,23 +103,14 @@ namespace windowing_x11
 
       Atom net_wm_state_atom(bool bCreate);
 
-      //virtual ::windowing::window * default_root_window() override;
-
-
       virtual ::windowing_x11::window * get_keyboard_focus();
 
       virtual ::windowing_x11::window * _get_keyboard_focus();
 
-
       virtual ::windowing_x11::window * _get_active_window(::thread * pthread);
 
-
-      //virtual bool x11_window_list(array < Window > & windowa);
-      //virtual oswindow get_focus();
-
       virtual bool get_cursor_position(POINT_I32 * ppointCursor);
-      //virtual oswindow _x11_get_active_window(WINDOWING_X11_DISPLAY_MEMBER);
-      //virtual oswindow _x11_get_active_window();
+
       virtual comparable_array < Window > x11_window_list();
 
       virtual Cursor create_alpha_cursor(const ::image *pimage, int xHotSpot, int yHotSpot);
@@ -144,49 +121,10 @@ namespace windowing_x11
 
       virtual bool point_is_window_origin(POINT_I32 pointHitTest, ::windowing::window * pwindowExclude, int iMargin);
 
-
-      //virtual Atom intern_atom(const char * pszAtomName, bool bCreate);
-      //virtual Atom intern_atom(enum_net_wm_state state, bool bCreate);
-
       virtual Picture xrender_create_picture(::image_pointer pimage);
-      //virtual Picture xrender_create_picture(::image_pointer pimage);
-
 
 
    };
-
-
-//   typedef osdisplay_data *osdisplay;
-
-
-
-
-//class osdisplay_dataptra :
-//   public ::raw_array<osdisplay_data *>
-//{
-//public:
-//
-//   virtual ~osdisplay_dataptra()
-//   {
-//
-//      remove_all();
-//
-//   }
-//
-//   void remove_all()
-//   {
-//
-//      for (auto point : *this)
-//      {
-//
-//         delete point;
-//
-//      }
-//
-//      raw_array<osdisplay_data *>::remove_all();
-//   }
-//
-//};
 
 
 } // namespace windowing_x11

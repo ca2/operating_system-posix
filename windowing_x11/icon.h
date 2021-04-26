@@ -13,8 +13,6 @@ namespace windowing_x11
    public:
 
 
-      string                                    m_strTrayIconName;
-
       array < concrete < ::size_i32 > >         m_sizea;
 
 
@@ -25,7 +23,7 @@ namespace windowing_x11
       virtual string get_tray_icon_name() const;
 
 
-      virtual void set_tray_icon_name(const string & strTrayIconName);
+      virtual ::e_status set_tray_icon_name(const string & strTrayIconName) override;
 
 
       virtual void get_sizes(array < concrete < ::size_i32 > > & a);

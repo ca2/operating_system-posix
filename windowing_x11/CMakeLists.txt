@@ -31,8 +31,8 @@ list(APPEND windowing_x11_source
    icon.h
    keyboard.cpp
    keyboard.h
-   #node.cpp
-   #node.h
+   node.cpp
+   node.h
    sn.cpp
    sn.h
    text_composition_client.cpp
@@ -51,9 +51,12 @@ list(APPEND windowing_x11_source
 
 list(APPEND library_references
    acme
+   acme_posix
    apex
+   apex_posix
    aqua
    aura
+   aura_posix
    aura_linux
    )
 

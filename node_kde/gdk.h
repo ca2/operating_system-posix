@@ -22,7 +22,7 @@ namespace node_kde{
 } // namespace node_kde
 
 
-void gdk_branch(matter * prunnable, e_priority epriority = priority_normal);
+void kde_branch(const ::runnable & runnable);
 
 
 

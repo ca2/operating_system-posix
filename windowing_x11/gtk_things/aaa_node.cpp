@@ -121,7 +121,7 @@ namespace node_gnome
       else
       {
       //
-      ////      g_set_application_name(psystem->m_strAppId);
+      ////      g_set_application_name(psystem->m_XstrAppId);
       ////
       ////      g_set_prgname(psystem->m_strProgName);
       ////

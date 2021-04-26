@@ -710,9 +710,6 @@ namespace node_gnome
 } // namespace user
 
 
-
-
-
 #ifdef LINUX
 static void
 log_handler (const gchar   *log_domain,
@@ -727,60 +724,6 @@ log_handler (const gchar   *log_domain,
 
 
 #endif
-
-
-
-
-::e_status     run_runnable(::matter * pobjectTask);
-
-
-gboolean gdk_callback_run_runnable(gpointer pdata)
-{
-
-   run_runnable((matter *) pdata);
-
-   return FALSE;
-
-}
-
-
-void gdk_branch(matter * prunnable, e_priority epriority)
-{
-
-   prunnable->add_ref(OBJ_REF_DBG_P_NOTE(nullptr, "gdk_branch"));
-
-   auto idle_source = g_idle_source_new();
-
-   g_source_set_priority(idle_source, G_PRIORITY_DEFAULT);
-
-   g_source_set_callback(idle_source, &gdk_callback_run_runnable, prunnable, nullptr);
-
-   g_source_attach(idle_source, g_main_context_default());
-
-}
-
-
-CLASS_DECL_APEX void main_branch(::matter * prunnable, e_priority epriority)
-{
-
-   prunnable->add_ref(OBJ_REF_DBG_P_NOTE(nullptr, "main_branch"));
-
-   gdk_branch(prunnable, epriority);
-
-}
-
-
-
-//void os_post_quit()
-//{
-//
-//   auto idle_source = g_idle_source_new();
-//
-//   g_source_set_callback(idle_source, &gtk_quit_callback, nullptr, nullptr);
-//
-//   g_source_attach(idle_source, g_main_context_default());
-//
-//}
 
 
 gboolean x11_source_func(gpointer)

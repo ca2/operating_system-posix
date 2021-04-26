@@ -33,6 +33,20 @@ namespace node_gnome
 #undef Node
 #define Node (::get_context_system()->m_pnode ? ::get_context_system()->m_pnode->cast < ::node_gnome::node > () : nullptr)
 
+//material_object
+//
+//template < typename TYPE >
+//class ___matter :
+//   virtual public TYPE,
+//   virtual public ::matter
+//{
+//public:
+//
+//
+//};
+
+
+#define __matter(TYPE) __new(::matter<TYPE>)
 
 namespace user
 {

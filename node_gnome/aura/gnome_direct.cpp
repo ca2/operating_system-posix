@@ -20,15 +20,7 @@
 
 
 
-//int uname(struct utsname *buf);
-#ifndef RASPBIAN
-//#ifndef MANJARO
-// Manjaro libappindicator-gtk3
-#include <libappindicator3-0.1/libappindicator/app-indicator.h>
-//#else // MANJARO
-//#include <libappindicator-0.1/libappindicator/app-indicator.h>
-//#endif
-#endif
+
 
 #include <malloc.h>
 
@@ -108,29 +100,6 @@ void os_post_quit();
 
 GtkWidget * linux_g_direct_app_indicator_init(AppIndicator * pindicator, user_notify_icon_bridge * pbridge);
 
-
-static void ___extra_action(GtkAction * action, void * data)
-{
-
-   ::user_notify_icon_bridge * pi = (::user_notify_icon_bridge *) data;
-
-   pi->call_notification_area_action(gtk_action_get_stock_id(action));
-
-}
-
-extern "C"
-{
-
-
-   static void __extra_action(GtkAction * action, gpointer data)
-   {
-
-      ___extra_action(action, data);
-
-   }
-
-
-} // extern "C"
 
 
 
@@ -266,19 +235,6 @@ void safe_free(void * pfree)
 
 }
 
-void g_safe_free(void * pfree)
-{
-
-   if(pfree == nullptr)
-   {
-
-      return;
-
-   }
-
-   ::g_free(pfree);
-
-}
 
 #ifndef RASPBIAN
 

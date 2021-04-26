@@ -106,7 +106,9 @@ namespace node_gnome
       //m_nid.uFlags               = NIF_ICON | NIF_MESSAGE;
       //m_nid.uCallbackMessage     = MessageNotifyIcon;
 
-#elif defined(LINUX)
+#elif defined(LINUX) || defined(FREEBSD)
+
+      m_picon = picon;
 
 #elif defined(MACOS)
 

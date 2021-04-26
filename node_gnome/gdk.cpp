@@ -749,58 +749,150 @@ log_handler (const gchar   *log_domain,
 #endif
 
 
+::mutex * user_mutex();
 
 
-::e_status     run_runnable(::matter * pobjectTask);
+::e_status run_runnable(::matter * pobjectTask);
 
 
-gboolean gdk_callback_run_runnable(gpointer pdata)
+#define GDK_BRANCH_USE_LIST 0
+
+
+#if GDK_BRANCH_USE_LIST
+
+GSource * g_psourceGdkBranch = nullptr;
+
+routine_list * g_plistGdkBranch = nullptr;
+
+gboolean gdk_callback_run_runnable(gpointer)
 {
 
-   run_runnable((matter *) pdata);
+   synchronous_lock synchronouslock (g_mutexGdkBranch);
+
+   if(g_plistGdkBranch->has_element())
+   {
+
+      {
+
+         auto routine = g_plistGdkBranch->pick_head();
+
+         synchronouslock.unlock();
+
+         routine();
+
+      }
+
+      return TRUE;
+
+   }
 
    return FALSE;
 
 }
 
 
-void gdk_branch(matter * prunnable, e_priority epriority)
+GSource * get_gdk_branch_source()
 {
 
-   prunnable->add_ref(OBJ_REF_DBG_P_NOTE(nullptr, "gdk_branch"));
+   if(!g_mutexGdkBranch)
+   {
+
+      g_mutexGdkBranch = new mutex();
+
+   }
+
+   synchronous_lock synchronouslock (g_mutexGdkBranch);
+
+   if(g_psourceGdkBranch)
+   {
+
+      return g_psourceGdkBranch;
+
+   }
+
+   g_plistGdkBranch = new routine_list;
 
    auto idle_source = g_idle_source_new();
 
    g_source_set_priority(idle_source, G_PRIORITY_DEFAULT);
 
-   g_source_set_callback(idle_source, &gdk_callback_run_runnable, prunnable, nullptr);
+   g_psourceGdkBranch = idle_source;
 
-   g_source_attach(idle_source, g_main_context_default());
+   return g_psourceGdkBranch;
 
 }
 
 
-CLASS_DECL_APEX void main_branch(::matter * prunnable, e_priority epriority)
+void gdk_branch(const ::routine & routine)
 {
 
-   prunnable->add_ref(OBJ_REF_DBG_P_NOTE(nullptr, "main_branch"));
+   auto psource = get_gdk_branch_source();
 
-   gdk_branch(prunnable, epriority);
+   synchronous_lock synchronouslock (g_mutexGdkBranch);
+
+   bool bStartSourceCallback = g_plistGdkBranch->is_empty();
+
+   g_plistGdkBranch->add_head(routine);
+
+   if(bStartSourceCallback)
+   {
+
+      g_source_set_callback(psource, &gdk_callback_run_runnable, nullptr, nullptr);
+
+      g_source_attach(psource, g_main_context_default());
+
+   }
 
 }
 
 
+#else
 
-//void os_post_quit()
-//{
-//
-//   auto idle_source = g_idle_source_new();
-//
-//   g_source_set_callback(idle_source, &gtk_quit_callback, nullptr, nullptr);
-//
-//   g_source_attach(idle_source, g_main_context_default());
-//
-//}
+
+gboolean gdk_callback_run_runnable(gpointer pdata)
+{
+
+   auto pmatter = (::matter *) pdata;
+
+   try
+   {
+
+      pmatter->run();
+
+   }
+   catch(...)
+   {
+
+   }
+
+   ::release(pmatter);
+
+   return FALSE;
+
+}
+
+
+void gdk_branch(const ::routine & routine)
+{
+
+   ::matter * pmatter = routine.m_p;
+
+   ::add_ref(pmatter);
+
+   synchronous_lock synchronouslock (user_mutex());
+
+   auto psource = g_idle_source_new();
+
+   g_source_set_priority(psource, G_PRIORITY_DEFAULT);
+
+   g_source_set_callback(psource, &gdk_callback_run_runnable, pmatter, nullptr);
+
+   g_source_attach(psource, g_main_context_default());
+
+}
+
+
+#endif
 
 
 gboolean x11_source_func(gpointer p)
@@ -841,14 +933,6 @@ GdkFilterReturn x11_event_func(GdkXEvent *xevent, GdkEvent *event, gpointer  dat
    auto pwindowing = pnode->windowing();
 
    pwindowing->_message_handler(pevent);
-
-   //if(pwindowing)
-
-//   {
-
-  //    return GDK_FILTER_REMOVE;
-
-   //}
 
    return GDK_FILTER_CONTINUE;
 

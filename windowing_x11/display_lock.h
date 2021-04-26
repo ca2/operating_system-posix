@@ -3,16 +3,6 @@
 //
 #pragma once
 
-//
-//class osdisplay_dataptra;
-//class osdisplay_data;
-//class ::mutex;
-
-
-//CLASS_DECL_AURA i32 osdisplay_find(Display * pdisplay);
-//CLASS_DECL_AURA osdisplay_data * osdisplay_get(Display * pdisplay);
-//CLASS_DECL_AURA bool osdisplay_remove(Display * pdisplay);
-
 
 namespace windowing_x11
 {
@@ -23,8 +13,8 @@ namespace windowing_x11
    public:
 
 
-      __pointer(::windowing_x11::display)        m_pdisplay;
-      bool                                            m_bLocked;
+      __pointer(::windowing_x11::display)          m_pdisplay;
+      bool                                         m_bLocked;
 
 
       display_lock(::windowing_x11::display * pdisplay, bool bInitialLock = true);

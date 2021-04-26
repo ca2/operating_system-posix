@@ -9,6 +9,9 @@
 #include "windowing_x11/windowing_x11.h"
 
 
+void gdk_branch(const ::routine & routine);
+
+
 void x11_add_idle_source(::node_gnome::node * pnode);
 
 
@@ -148,7 +151,7 @@ namespace node_gnome
       //   }
       //
 
-//      const char *pszName = m_strAppId;
+//      const char *pszName = m_XstrAppId;
 
 //       g_set_application_name(pszName);
 
@@ -205,7 +208,6 @@ namespace node_gnome
 //
 //      return ::success;
 
-
       auto psystem = m_psystem->m_papexsystem;
 
       if (psystem->m_bGtkApp)
@@ -217,7 +219,7 @@ namespace node_gnome
       else
       {
 
-         //g_set_application_name(System.m_strAppId);
+         //g_set_application_name(System.m_XstrAppId);
 
          //g_set_prgname(System.m_strProgName);
       ////
@@ -281,9 +283,9 @@ namespace node_gnome
 
             x11_add_idle_source(this);
 
-             auto psystem = m_psystem->m_papexsystem;
+            auto psystem = m_psystem->m_papexsystem;
 
-               psystem->on_start_system();
+            psystem->post_initial_request();
 
 
          });

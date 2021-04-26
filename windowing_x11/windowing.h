@@ -16,7 +16,7 @@ namespace windowing_x11
 
       bool                                            m_bFirstWindowMap : 1;
 
-      __pointer(::windowing_x11::display)        m_pdisplay;
+      __pointer(::windowing_x11::display)             m_pdisplay;
       void *                                          m_pSnLauncheeContext;
       bool                                            m_bFinishX11Thread;
       bool                                            m_bInitX11Thread;
@@ -30,7 +30,7 @@ namespace windowing_x11
 
 #endif
 
-      ::routine_array                                 m_routinea;
+      ::routine_list                                  m_routinelist;
 
 
       windowing();
@@ -106,7 +106,7 @@ namespace windowing_x11
 
       virtual bool x11_message_loop_step();
 
-      virtual ::e_status user_branch(const ::routine & routine) override;
+      virtual ::e_status windowing_branch(const ::routine & routine) override;
 
       virtual bool x11_runnable_step();
 
