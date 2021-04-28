@@ -26,9 +26,10 @@ struct clipboard_data :
 public:
 
 
-   clipboard_data(::object * pobject, enum_clipboard eclipboard) :
-      object(pobject)
+   clipboard_data(::object * pobject, enum_clipboard eclipboard)
    {
+
+      initialzie(pobject);
 
       m_eclipboard = eclipboard;
 
@@ -44,7 +45,7 @@ public:
    ::file::patha              m_patha;
    int                        m_nTargets;
    //GtkImage *                 m_pgtkimage;
-   void *                     m_pgtkimage;
+   //void *                     m_pgtkimage;
 
 };
 
