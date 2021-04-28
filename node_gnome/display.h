@@ -201,4 +201,4 @@ namespace node_gnome
 //};
 
 
-} // namespace windowing_x11
+} // namespace node_gnome

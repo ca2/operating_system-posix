@@ -59,7 +59,7 @@ namespace windowing_x11
 #include "display.h"
 
 
-#include "display_lock.h"
+#include "archive/platform-posix/aura_posix/display_lock.h"
 
 
 #include "factory_exchange.h"

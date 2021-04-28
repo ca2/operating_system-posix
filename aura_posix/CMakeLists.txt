@@ -7,6 +7,8 @@ list(APPEND aura_posix_source
    _.cpp
    appindicator.cpp
    appindicator.h
+   display_lock.cpp
+   display_lock.h
    factory_exchange.cpp
    factory_exchange.h
    framework.cpp
@@ -44,6 +46,7 @@ if (MSVC)
    target_link_libraries(aura_posix PRIVATE ${library_references})
    add_dependencies(aura_posix draw2d_gdiplus)
 elseif (LINUX)
+   pkg_check_modules(PKGCONFIG x11 x11-xcb)
    target_compile_options(aura_posix PRIVATE -fpermissive)
    target_compile_options(aura_posix PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(aura_posix PRIVATE -Wl,-rpath=\$ORIGIN)

@@ -84,6 +84,8 @@ namespace node_gnome
    node::node()
    {
 
+      m_pNodeGnome = this;
+
       defer_initialize_x11();
 
       m_pGtkSettingsDefault = nullptr;

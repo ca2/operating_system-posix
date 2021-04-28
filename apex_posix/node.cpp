@@ -24,6 +24,8 @@ namespace apex
 
          //m_pGtkSettingsDefault = nullptr;
 
+         m_pApexPosix = this;
+
       }
 
 

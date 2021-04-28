@@ -211,7 +211,7 @@ namespace windowing_x11
 
 
 
-      virtual Atom * wm_get_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, unsigned long int * items);
+      virtual comparable_array < Atom > wm_get_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList);
       virtual int wm_test_state( WINDOWING_X11_WINDOW_MEMBER const char * pszNetStateFlag);
       virtual int wm_test_state_raw( WINDOWING_X11_WINDOW_MEMBER const char * pszNetStateFlag);
       virtual int wm_test_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag);

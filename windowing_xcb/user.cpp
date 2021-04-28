@@ -11,7 +11,8 @@
 #define XK_ARMENIAN
 #include <X11/keysymdef.h>
 
-namespace user
+
+namespace windowing_xcb
 {
 
    
@@ -23,41 +24,41 @@ namespace user
       switch(keysym)
       {
          case XK_BackSpace:
-            return e_key_back;
+            return ::user::e_key_back;
          case XK_Shift_L:
-            return e_key_lshift;
+            return ::user::e_key_lshift;
          case XK_Shift_R:
-            return e_key_rshift;
+            return ::user::e_key_rshift;
          case XK_Control_L:
-            return e_key_lcontrol;
+            return ::user::e_key_lcontrol;
          case XK_Control_R:
-            return e_key_rcontrol;
+            return ::user::e_key_rcontrol;
          case XK_Alt_L:
-            return e_key_lalt;
+            return ::user::e_key_lalt;
          case XK_Alt_R:
-            return e_key_ralt;
+            return ::user::e_key_ralt;
          case XK_Delete:
-            return e_key_delete;
+            return ::user::e_key_delete;
          case XK_Return:
-            return e_key_return;
+            return ::user::e_key_return;
          case XK_Tab:
-            return e_key_tab;
+            return ::user::e_key_tab;
          case XK_Left:
-            return e_key_left;
+            return ::user::e_key_left;
          case XK_Right:
-            return e_key_right;
+            return ::user::e_key_right;
          case XK_Up:
-            return e_key_up;
+            return ::user::e_key_up;
          case XK_Down:
-            return e_key_down;
+            return ::user::e_key_down;
          case XK_Page_Up:
-            return e_key_prior;
+            return ::user::e_key_prior;
          case XK_Page_Down:
-            return e_key_next;
+            return ::user::e_key_next;
          case XK_Home:
-            return e_key_home;
+            return ::user::e_key_home;
          case XK_End:
-            return e_key_end;
+            return ::user::e_key_end;
 
 
       }
@@ -75,9 +76,12 @@ namespace user
 
       }
 
-      return e_key_none;
+      return ::user::e_key_none;
 
    }
 
 
-} // namespace user
+} // namespace windowing_xcb
+
+
+

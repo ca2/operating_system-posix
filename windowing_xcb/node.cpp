@@ -1,19 +1,20 @@
 //
-// Created by camilo on 26/04/2021. 13:10 BRT --<33ThomasBS!!
+// Created by camilo on 27/04/2021. 01:02 BRT --<33ThomasBS!!
 //
 #include "framework.h"
-
+#include "_windowing_xcb.h"
 
 //void x11_register_extended_event_listener(::matter * pdata, bool bMouse, bool bKeyboard);
 
 
-namespace windowing_x11
+namespace windowing_xcb
 {
 
 
    node::node()
    {
 
+      m_pNodeXcb = this;
 
    }
 
@@ -21,6 +22,22 @@ namespace windowing_x11
    node::~node()
    {
 
+
+   }
+
+
+   Display * node::_get_Display()
+   {
+
+      return (Display *) ::aura::posix::node::_get_Display();
+
+   }
+
+
+   xcb_connection_t * node::_get_connection()
+   {
+
+      return (xcb_connection_t *) ::aura::posix::node::_get_connection();
 
    }
 
@@ -34,9 +51,9 @@ namespace windowing_x11
 
       auto puser = psession->user();
 
-      auto pwindowing = (::windowing_x11::windowing *) puser->windowing()->m_pWindowing;
+      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing;
 
-      pwindowing->x11_register_extended_event_listener(pdata, bMouse, bKeyboard);
+      pwindowing->register_extended_event_listener(pdata, bMouse, bKeyboard);
 
       //::x11_register_extended_event_listener(pdata, bMouse, bKeyboard);
 
@@ -45,7 +62,7 @@ namespace windowing_x11
    }
 
 
-} // namespace windowing_x11
+} // namespace windowing_xcb
 
 
 

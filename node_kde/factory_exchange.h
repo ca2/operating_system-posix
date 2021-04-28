@@ -4,7 +4,7 @@
 //namespace node_kde//{
 //
 //
-//   class CLASS_DECL_NODE_GNOME factory_exchange :
+//   class CLASS_DECL_NODE_KDE factory_exchange :
 //      virtual public ::object
 //   {
 //   public:

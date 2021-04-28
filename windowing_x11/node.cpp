@@ -14,6 +14,7 @@ namespace windowing_x11
    node::node()
    {
 
+      m_pNodeX11 = this;
 
    }
 

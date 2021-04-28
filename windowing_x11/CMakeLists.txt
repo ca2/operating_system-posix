@@ -16,8 +16,8 @@ list(APPEND windowing_x11_source
    debug.cpp
    display.cpp
    display.h
-   display_lock.cpp
-   display_lock.h
+   ../aura_posix/display_lock.cpp
+   ../aura_posix/display_lock.h
    display_xrender.cpp
    enum_display_monitors.cpp
    factory_exchange.cpp

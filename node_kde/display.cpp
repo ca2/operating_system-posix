@@ -1,22 +1,24 @@
 // created by Camilo <3CamiloSasukeThomasBorregaardSoerensen
 // recreated by Camilo 2021-01-16 22:38 <3TBS, Mummi and bilbo!!
+// recreated by Camilo 2021-04-27 06:20 <3ThomasBS_!!
 // hi5 contribution...
 #include "framework.h"
 #include "apex/platform/app_core.h"
+#include "display.h"
 //#include "_user.h"
 //#include <gdk/gdk.h>
+#include <QScreen>
+
+//extern ::app_core * g_pappcore;
+
+//Display * x11_get_display();
+
+//mutex * user_mutex();
 
 
-extern ::app_core * g_pappcore;
+//void windowing_output_debug_string(const char * pszDebugString);
 
-Display * x11_get_display();
-
-mutex * user_mutex();
-
-
-void windowing_output_debug_string(const char * pszDebugString);
-
-namespace node_gnome
+namespace node_kde
 {
 
 
@@ -34,14 +36,14 @@ namespace node_gnome
    display::display()
    {
 
-      m_pDisplay2 = nullptr;
+      m_pDisplay2 = this;
       //m_pcsOsDisplayData = new critical_section();
-      m_pdisplay = nullptr;
-      m_atomLongType = None;
-      m_atomLongStyle = None;
-      m_atomNetWmState = None;
-      m_atomLongStyleEx = 0;
-      m_countReference = 1;
+//      m_pdisplay = nullptr;
+//      m_atomLongType = None;
+//      m_atomLongStyle = None;
+//      m_atomNetWmState = None;
+//      m_atomLongStyleEx = 0;
+//      m_countReference = 1;
 //   m_pmutexInput           = new ::mutex();
 
    }
@@ -273,23 +275,25 @@ namespace node_gnome
    {
 
 
-      GdkDisplay * pdisplay = gdk_display_get_default();
+//      GdkDisplay * pdisplay = gdk_display_get_default();
+//
+//         if (pdisplay == nullptr)
+//         {
+//
+//            return 0;
+//
+//         }
 
-         if (pdisplay == nullptr)
-         {
+         auto screens = QGuiApplication::screens();
 
-            return 0;
+         auto size =screens.size() ;
 
-         }
-
-        ::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
-
-        return iMonitorCount;
+        return size;
 
    }
 
 
-} // namespace node_gnome
+} // namespace node_kde
 
 
 

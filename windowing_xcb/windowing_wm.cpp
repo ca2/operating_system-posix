@@ -45,7 +45,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status window::_mapped_remove_net_wm_state(x_window::enum_atom eatomNetWmState)
+   ::e_status window::_mapped_erase_net_wm_state(x_window::enum_atom eatomNetWmState)
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -81,18 +81,27 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      windowing_output_debug_string("\n::wm_add_remove_state 1");
-
       display_lock displaylock(xcb_display());
 
-      auto estatus = _add_net_wm_state(eatomNetWmState);
-
-      windowing_output_debug_string("\n::wm_add_remove_state 2");
+      auto estatus = _get_window_attributes();
 
       if(!estatus)
       {
 
          return estatus;
+
+      }
+
+      if(m_attributes.map_state != XCB_MAP_STATE_UNMAPPED)
+      {
+
+         estatus = _mapped_add_net_wm_state(eatomNetWmState);
+
+      }
+      else
+      {
+
+         estatus = _unmapped_add_net_wm_state(eatomNetWmState);
 
       }
 
@@ -102,30 +111,30 @@ namespace windowing_xcb
 
 
    /// must be run in x11 thread (user thread)
-   ::e_status window::_remove_net_wm_state(x_window::enum_atom eatomNetWmState)
+   ::e_status window::_erase_net_wm_state(x_window::enum_atom eatomNetWmState)
    {
 
       synchronous_lock synchronouslock(user_mutex());
 
-      ::e_status estatus;
-
-      if (IsWindowVisibleRaw())
-      {
-
-         estatus = _mapped_remove_net_wm_state(eatomNetWmState);
-
-      }
-      else
-      {
-
-         estatus = _unmapped_remove_net_wm_state(eatomNetWmState);
-
-      }
+      auto estatus = _get_window_attributes();
 
       if(!estatus)
       {
 
          return estatus;
+
+      }
+
+      if(m_attributes.map_state != XCB_MAP_STATE_UNMAPPED)
+      {
+
+         estatus = _mapped_erase_net_wm_state(eatomNetWmState);
+
+      }
+      else
+      {
+
+         estatus = _unmapped_erase_net_wm_state(eatomNetWmState);
 
       }
 
@@ -140,11 +149,11 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      auto estatus1 = _remove_net_wm_state(x_window::e_atom_net_wm_state_above);
+      auto estatus1 = _erase_net_wm_state(x_window::e_atom_net_wm_state_above);
 
-      auto estatus2 = _remove_net_wm_state(x_window::e_atom_net_wm_state_below);
+      auto estatus2 = _erase_net_wm_state(x_window::e_atom_net_wm_state_below);
 
-      auto estatus3 = _remove_net_wm_state(x_window::e_atom_net_wm_state_hidden);
+      auto estatus3 = _erase_net_wm_state(x_window::e_atom_net_wm_state_hidden);
 
       if(!estatus1 || !estatus2 || estatus3)
       {
@@ -164,9 +173,9 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      auto estatus1 = _remove_net_wm_state_hidden();
+      auto estatus1 = _erase_net_wm_state_hidden();
 
-      auto estatus2 = _remove_net_wm_state_above();
+      auto estatus2 = _erase_net_wm_state_above();
 
       auto estatus3 = _add_net_wm_state(x_window::e_atom_net_wm_state_below);
 
@@ -188,9 +197,9 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      auto estatus1 = _remove_net_wm_state_hidden();
+      auto estatus1 = _erase_net_wm_state_hidden();
       auto estatus2 = _add_net_wm_state(x_window::e_atom_net_wm_state_above);
-      auto estatus3 = _remove_net_wm_state_hidden();
+      auto estatus3 = _erase_net_wm_state_hidden();
 
       if(!estatus1 || !estatus2 || estatus3)
       {
@@ -211,8 +220,8 @@ namespace windowing_xcb
       synchronous_lock synchronouslock(user_mutex());
 
       auto estatus1 = _add_net_wm_state(x_window::e_atom_net_wm_state_hidden);
-      auto estatus2 = _remove_net_wm_state_above();
-      auto estatus3 = _remove_net_wm_state_below();
+      auto estatus2 = _erase_net_wm_state_above();
+      auto estatus3 = _erase_net_wm_state_below();
 
       if(!estatus1 || !estatus2 || estatus3)
       {
@@ -252,7 +261,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status window::_unmapped_remove_net_wm_state(x_window::enum_atom eatomNetWmState)
+   ::e_status window::_unmapped_erase_net_wm_state(x_window::enum_atom eatomNetWmState)
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -261,7 +270,7 @@ namespace windowing_xcb
 
       auto atomWmNetState = xcb_display()->atom(eatomNetWmState);
 
-      auto estatus = _list_remove_atom(atomWmNetState, atomWmNetState);
+      auto estatus = _list_erase_atom(atomWmNetState, atomWmNetState);
 
       if(!estatus)
       {
@@ -276,12 +285,12 @@ namespace windowing_xcb
 
 
    /// must be run in x11 thread (user thread)
-   ::e_status window::_remove_net_wm_state_below()
+   ::e_status window::_erase_net_wm_state_below()
    {
 
       synchronous_lock synchronouslock(user_mutex());
 
-      auto estatus = _remove_net_wm_state(x_window::e_atom_net_wm_state_below);
+      auto estatus = _erase_net_wm_state(x_window::e_atom_net_wm_state_below);
 
       if(!estatus)
       {
@@ -296,12 +305,12 @@ namespace windowing_xcb
 
 
    /// must be run in x11 thread (user thread)
-   ::e_status window::_remove_net_wm_state_above()
+   ::e_status window::_erase_net_wm_state_above()
    {
 
       synchronous_lock synchronouslock(user_mutex());
 
-      auto estatus = _remove_net_wm_state(x_window::e_atom_net_wm_state_above);
+      auto estatus = _erase_net_wm_state(x_window::e_atom_net_wm_state_above);
 
       if(!estatus)
       {
@@ -316,12 +325,12 @@ namespace windowing_xcb
 
 
    /// must be run in x11 thread (user thread)
-   ::e_status window::_remove_net_wm_state_hidden()
+   ::e_status window::_erase_net_wm_state_hidden()
    {
 
       synchronous_lock synchronouslock(user_mutex());
 
-      auto estatus = _remove_net_wm_state(x_window::e_atom_net_wm_state_hidden);
+      auto estatus = _erase_net_wm_state(x_window::e_atom_net_wm_state_hidden);
 
       if(!estatus)
       {
@@ -356,7 +365,7 @@ namespace windowing_xcb
       else
       {
 
-         estatus = _remove_net_wm_state(x_window::e_atom_net_wm_state_skip_taskbar);
+         estatus = _erase_net_wm_state(x_window::e_atom_net_wm_state_skip_taskbar);
 
       }
 
@@ -435,7 +444,7 @@ namespace windowing_xcb
       else
       {
 
-         estatus = _remove_net_wm_state(x_window::e_atom_net_wm_state_skip_taskbar);
+         estatus = _erase_net_wm_state(x_window::e_atom_net_wm_state_skip_taskbar);
 
       }
 

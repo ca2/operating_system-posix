@@ -1,11 +1,13 @@
 // created by Camilo 2021-01-31 05:16 BRT <3CamiloSasukeThomasBorregaardSoerensen
+// created by Camilo 2021-04-27 06:06 BRT <3CamiloSasukeThomasBorregaardSoerensen
 #include "framework.h"
-
+#include "monitor.h"
+#include <QScreen>
 
 mutex * user_mutex();
 
 
-namespace node_gnome
+namespace node_kde
 {
 
 
@@ -52,31 +54,35 @@ namespace node_gnome
 
       synchronous_lock sl(user_mutex());
 
-      GdkDisplay * pdisplay = gdk_display_get_default();
+      auto screens = QGuiApplication::screens();
 
-      if (pdisplay == nullptr)
+      if (m_iIndex < 0 || m_iIndex >= screens.size())
       {
 
          return ::error_failed;
 
       }
 
-      GdkMonitor * pmonitor = gdk_display_get_monitor(pdisplay, m_iIndex);
+      auto pscreen = screens.at(m_iIndex);
 
-      if (pmonitor == nullptr)
+      if (pscreen == nullptr)
       {
 
          return error_failed;
 
       }
 
-      GdkRectangle  rect;
+      int left             = 0;
+      int top              = 0;
+      int right            = 0;
+      int bottom           = 0;
 
-      gdk_monitor_get_geometry(pmonitor, &rect);
+      pscreen->geometry().getCoords(&left, &top, &right, &bottom);
 
-      ::rectangle_i32 rectangle;
-
-      __copy(m_rectangle, rect);
+      m_rectangle.left     = left;
+      m_rectangle.top      = top;
+      m_rectangle.right    = right;
+      m_rectangle.bottom   = bottom;
 
       return ::success;
 
@@ -88,29 +94,35 @@ namespace node_gnome
 
       synchronous_lock sl(user_mutex());
 
-      GdkDisplay * pdisplay = gdk_display_get_default();
+      auto screens = QGuiApplication::screens();
 
-      if (pdisplay == nullptr)
+      if (m_iIndex < 0 || m_iIndex >= screens.size())
+      {
+
+         return ::error_failed;
+
+      }
+
+      auto pscreen = screens.at(m_iIndex);
+
+      if (pscreen == nullptr)
       {
 
          return error_failed;
 
       }
 
-      GdkMonitor * pmonitor = gdk_display_get_monitor(pdisplay, m_iIndex);
+      int left             = 0;
+      int top              = 0;
+      int right            = 0;
+      int bottom           = 0;
 
-      if (pmonitor == nullptr)
-      {
+      pscreen->availableGeometry().getCoords(&left, &top, &right, &bottom);
 
-         return error_failed;
-
-      }
-
-      GdkRectangle rect;
-
-      gdk_monitor_get_workarea(pmonitor, &rect);
-
-      __copy(m_rectangleWorkspace, rect);
+      m_rectangle.left     = left;
+      m_rectangle.top      = top;
+      m_rectangle.right    = right;
+      m_rectangle.bottom   = bottom;
 
       return ::success;
 
@@ -120,7 +132,7 @@ namespace node_gnome
    ::e_status monitor::get_monitor_rectangle(::RECTANGLE_I32 *prectangle)
    {
 
-      auto estatus = x11_windowing()->windowing_sync(5_s, __routine([this]() { _get_monitor_rectangle(); }));
+      auto estatus = xcb_windowing()->windowing_sync(5_s, __routine([this]() { _get_monitor_rectangle(); }));
 
       if(!estatus)
       {
@@ -146,7 +158,7 @@ namespace node_gnome
    ::e_status monitor::get_workspace_rectangle(::RECTANGLE_I32 *prectangle)
    {
 
-      auto estatus = x11_windowing()->windowing_sync(5_s, __routine([this]() { _get_workspace_rectangle(); }));
+      auto estatus = xcb_windowing()->windowing_sync(5_s, __routine([this]() { _get_workspace_rectangle(); }));
 
       if(!estatus)
       {
@@ -234,7 +246,7 @@ namespace node_gnome
 //   }
 
 
-} // namespace node_gnome
+} // namespace node_kde
 
 
 

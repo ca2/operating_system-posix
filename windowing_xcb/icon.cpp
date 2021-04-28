@@ -1,7 +1,7 @@
 // created by Camilo <3CamiloSasukeThomasBorregaardSoerensen  - Honoring Thomas Borregaard S�rensen MY ONLY LORD
 // recreated by Camilo 2021-01-28 16:38
 #include "framework.h"
-#include "_windowing.h"
+#include "_windowing_xcb.h"
 
 
 namespace windowing_xcb
@@ -29,10 +29,19 @@ namespace windowing_xcb
    }
 
 
-   void icon::set_tray_icon_name(const ::string & strTrayIconName)
+   ::e_status icon::set_tray_icon_name(const ::string & strTrayIconName)
    {
 
-      m_strTrayIconName = strTrayIconName;
+      auto estatus = ::windowing::icon::set_tray_icon_name(strTrayIconName);
+
+      if(!estatus)
+      {
+
+         return estatus;
+
+      }
+
+      return estatus;
 
    }
 
@@ -58,7 +67,9 @@ namespace windowing_xcb
    ::e_status icon::load_matter(string strMatter)
    {
 
-      string strPath = Context.dir().matter(strMatter);
+      auto pcontext = m_pcontext;
+
+      string strPath = pcontext->m_papexcontext->dir().matter(strMatter);
 
       if (!load_file(strPath))
       {

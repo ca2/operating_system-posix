@@ -30,6 +30,7 @@ namespace windowing_xcb
 
       xcb_depth_t *                                            m_pdepth;
       xcb_visualtype_t *                                       m_pvisualtype;
+      Display *                                                m_pX11Display;
       xcb_connection_t *                                       m_pconnection;
       xcb_screen_t *                                           m_pscreen;
       xcb_colormap_t                                           m_colormap;
@@ -62,7 +63,7 @@ namespace windowing_xcb
 
       virtual ::windowing_xcb::window * _window(xcb_window_t window);
 
-      inline ::windowing_xcb::windowing * xcb_windowing() { return (::windowing_xcb::windowing *) m_pwindowing->layer(LAYERED_X11); }
+      inline ::windowing_xcb::windowing * xcb_windowing() { return (::windowing_xcb::windowing *) m_pwindowing->m_pWindowing; }
 
       virtual void _on_capture_changed_to(::windowing_xcb::window * pwindowWithCapture);
 
@@ -123,7 +124,7 @@ namespace windowing_xcb
       virtual comparable_array < xcb_atom_t > _window_get_atom_array(xcb_window_t window, xcb_atom_t property);
       virtual bool _window_has_atom_list_atom(xcb_window_t window, xcb_atom_t propertyList, xcb_atom_t propertyItem);
       virtual string _window_get_string_property(xcb_window_t window, xcb_atom_t property);
-      virtual long _window_get_long_property(xcb_window_t window, xcb_atom_t property);
+      virtual long _window_get_long_property(xcb_window_t window, xcb_atom_t property, xcb_atom_t type);
       virtual string _window_get_name(xcb_window_t window);
       virtual status < xcb_get_geometry_reply_t > _window_get_geometry(xcb_window_t window);
       virtual ::e_status _window_get_window_rectangle(xcb_window_t window, RECTANGLE_I32 * prectangle);

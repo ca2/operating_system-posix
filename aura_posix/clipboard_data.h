@@ -4,8 +4,6 @@
 #pragma once
 
 
-
-
 enum enum_clipboard
 {
 
@@ -26,17 +24,6 @@ struct clipboard_data :
 public:
 
 
-   clipboard_data(::object * pobject, enum_clipboard eclipboard)
-   {
-
-      initialzie(pobject);
-
-      m_eclipboard = eclipboard;
-
-      m_event.ResetEvent();
-
-   }
-
    ::user::copydesk::e_op     m_eop;
    enum_clipboard             m_eclipboard;
    manual_reset_event         m_event;
@@ -44,8 +31,20 @@ public:
    ::image_pointer            m_pimage;
    ::file::patha              m_patha;
    int                        m_nTargets;
-   //GtkImage *                 m_pgtkimage;
-   //void *                     m_pgtkimage;
+
+
+   clipboard_data(::object * pobject, enum_clipboard eclipboard)
+   {
+
+      initialize(pobject);
+
+      m_eclipboard = eclipboard;
+
+      m_event.ResetEvent();
+
+   }
+
+
 
 };
 

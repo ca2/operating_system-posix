@@ -7,12 +7,13 @@
 #include "acme/os/ansios/_pthread.h"
 #include "aura/user/_user.h"
 #include "aura/os/linux/appindicator.h"
+#include "platform-posix/windowing_xcb/_.h"
 
 
-#if defined(_NODE_GNOME_LIBRARY)
-   #define CLASS_DECL_NODE_GNOME  CLASS_DECL_EXPORT
+#if defined(_NODE_KDE_LIBRARY)
+   #define CLASS_DECL_NODE_KDE  CLASS_DECL_EXPORT
 #else
-   #define CLASS_DECL_NODE_GNOME  CLASS_DECL_IMPORT
+   #define CLASS_DECL_NODE_KDE  CLASS_DECL_IMPORT
 #endif
 
 #undef new
@@ -32,14 +33,14 @@ namespace node_kde
 } // namespace node_kde
 
 
-namespace user
-{
-
-
-   char * gsettings_get_malloc(const char * pszSchema, const char * pszKey);
-
-
-} // namespace user
+//namespace user
+//{
+//
+//
+//   char * gsettings_get_malloc(const char * pszSchema, const char * pszKey);
+//
+//
+//} // namespace user
 
 
 #include "node.h"

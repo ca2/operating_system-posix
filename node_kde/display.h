@@ -1,15 +1,16 @@
 // created by Camilo <3CamiloSasukeThomasBorregaardSoerensen
 // recreated by Camilo 2021-01-16 19:38 <3TBS, Mummi and bilbo!!
+// recreated by Camilo 2021-04-27 06:20 <3ThomasBS_!!
 // hi5 contribution...
 #pragma one
 
 
-namespace node_gnome
+namespace node_kde
 {
 
 
    class CLASS_DECL_AURA display :
-      virtual public ::windowing_x11::display
+      virtual public ::windowing_xcb::display
    {
 
    public:
@@ -201,4 +202,4 @@ namespace node_gnome
 //};
 
 
-} // namespace windowing_x11
+} // namespace node_kde

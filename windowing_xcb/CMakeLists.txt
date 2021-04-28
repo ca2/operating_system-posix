@@ -31,8 +31,8 @@ list(APPEND windowing_xcb_source
    icon.h
    keyboard.cpp
    keyboard.h
-   #node.cpp
-   #node.h
+   node.cpp
+   node.h
    sn.cpp
    sn.h
    user.cpp
@@ -48,18 +48,22 @@ list(APPEND windowing_xcb_source
    xi.cpp
    windowing_xkb.cpp
    xcb_icccm.cpp
+   #xcb_util.cpp
    )
 
 
 list(APPEND library_references
    acme
+   acme_posix
    apex
+   apex_posix
    aqua
    aura
+   aura_posix
    )
 
 
-add_library(windowing_xcb SHARED ${windowing_xcb_source} )
+add_library(windowing_xcb SHARED ${windowing_xcb_source} _windowing_xcb.h)
 
 target_precompile_headers(windowing_xcb PRIVATE framework.h)
 
@@ -73,7 +77,7 @@ if (MSVC)
    target_link_libraries(windowing_xcb PRIVATE ${library_references})
 elseif (LINUX)
    #pkg_check_modules(PKGCONFIG xcb xrender xi)
-   pkg_check_modules(PKGCONFIG xcb xcb-render xcb-image xkbcommon-x11 xcb-icccm)
+   pkg_check_modules(PKGCONFIG Qt5Core x11 xcb x11-xcb xcb-render xcb-image xkbcommon-x11 xcb-icccm)
    target_compile_options(windowing_xcb PRIVATE -fpermissive)
    target_compile_options(windowing_xcb PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(windowing_xcb PRIVATE -Wl,-rpath=\$ORIGIN)

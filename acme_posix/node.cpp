@@ -26,6 +26,8 @@ namespace acme
 
          //m_pGtkSettingsDefault = nullptr;
 
+         m_pAcmePosix = this;
+
       }
 
 

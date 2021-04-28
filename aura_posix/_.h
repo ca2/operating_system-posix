@@ -2,6 +2,7 @@
 
 
 #include "aura/_.h"
+#include "aura/user/_user.h"
 #include "apex_posix/_.h"
 
 
@@ -26,6 +27,9 @@ namespace aura_posix
 
 
 #include "shell.h"
+
+
+#include "clipboard_data.h"
 
 
 #include "node.h"

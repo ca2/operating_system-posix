@@ -9,7 +9,7 @@ namespace node_kde
 
 
    class appindicator :
-      virtual public ::node_linux::appindicator
+      virtual public ::aura::posix::appindicator
    {
    public:
 

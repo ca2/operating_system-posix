@@ -325,3 +325,34 @@ void xcb_wait_timer_or_event(xcb_connection_t * pconnection)
 
 
 
+
+
+
+::e_status xcb_register_extended_event_listener(::matter * pdata, bool bMouse, bool bKeyboard)
+{
+
+   __throw(error_not_implemented);
+
+   return error_not_implemented;
+
+}
+
+
+
+bool xcb_on_event(xcb_generic_event_t * pevent)
+{
+
+   return true;
+
+}
+
+
+void kde_branch(const ::routine & routine)
+{
+
+
+
+}
+
+
+

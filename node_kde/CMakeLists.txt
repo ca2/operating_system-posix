@@ -9,9 +9,10 @@ list(APPEND node_kde_source
    appindicator.h
    application.cpp
    application.h
-   clipboard_data.h
    copydesk.cpp
    copydesk.h
+   display.cpp
+   display.h
    enum_display_monitors.cpp
    factory_exchange.cpp
    factory_exchange.h
@@ -21,22 +22,23 @@ list(APPEND node_kde_source
    gdk.h
    gnome_direct.cpp
    gtk_clipboard.cpp
+   monitor.cpp
+   monitor.h
    node.cpp
    node.h
-   node_impl.cpp
-   node_impl.h
-   q_node_impl.cpp
-   q_node_impl.h
+   windowing.cpp
+   windowing.h
    )
 
 
 list(APPEND library_references
    acme
-   node_ansios
+   acme_posix
    apex
+   apex_posix
    aqua
    aura
-   node_linux
+   aura_posix
    windowing_xcb
    )
 
@@ -59,7 +61,7 @@ if (MSVC)
    target_link_options(node_kde PRIVATE "/SUBSYSTEM:WINDOWS")
    target_link_libraries(node_kde PRIVATE ${library_references})
 elseif (LINUX)
-   pkg_check_modules(PKGCONFIG Qt5Core Qt5UiTools)
+   pkg_check_modules(PKGCONFIG Qt5Core Qt5UiTools Qt5X11Extras)
    target_compile_options(node_kde PRIVATE -fpermissive)
    target_compile_options(node_kde PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(node_kde PRIVATE -Wl,-rpath=\$ORIGIN)

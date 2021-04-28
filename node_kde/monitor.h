@@ -1,8 +1,9 @@
 // created by Camilo 2021-01-31 05:13 BRT <3CamiloSasukeThomasBorregaardSoerensen
+// created by Camilo 2021-04-27 06:06 BRT <3CamiloSasukeThomasBorregaardSoerensen
 #pragma once
 
 
-namespace node_gnome
+namespace node_kde
 {
 
 
@@ -21,8 +22,8 @@ namespace node_gnome
       virtual ~monitor();
 
 
-      ::windowing_x11::windowing * x11_windowing() const {return (::windowing_x11::windowing *) m_pdisplay->m_pwindowing->m_pWindowing; }
-      ::windowing_x11::display * x11_display() const {return (::windowing_x11::display *) m_pdisplay->m_pDisplay; }
+      ::windowing_xcb::windowing * xcb_windowing() const {return (::windowing_xcb::windowing *) m_pdisplay->m_pwindowing->m_pWindowing; }
+      ::windowing_xcb::display * xcb_display() const {return (::windowing_xcb::display *) m_pdisplay->m_pDisplay; }
 
 
 
@@ -47,7 +48,7 @@ namespace node_gnome
    //using monitor_map = iptr_map < __pointer(monitor) >;
 
 
-} // namespace node_gnome
+} // namespace node_kde
 
 
 

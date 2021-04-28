@@ -2,14 +2,15 @@
 // recreated by Camilo 2021-01-28 22:20 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
 #include "framework.h"
+#include "_windowing_xcb.h"
 #include "apex/platform/app_core.h"
-#include "windowing_xcb.h"
+
 
 
 extern ::app_core * g_pappcore;
 
 
-xcb_connection_t * xcb_get_display();
+//xcb_connection_t * xcb_get_display();
 
 
 mutex * user_mutex();
@@ -33,6 +34,11 @@ namespace windowing_xcb
       m_pscreen = nullptr;
       m_colormap = 0;
       m_fontCursor = 0;
+      m_windowRoot = 0;
+
+      __zero(m_atoma);
+
+
 
    }
 
@@ -100,7 +106,13 @@ namespace windowing_xcb
 
       }
 
-      m_pconnection = xcb_connect(nullptr, nullptr);
+      auto pnode = (::aura::posix::node *) m_psystem->node()->m_pAuraNode;
+
+//      m_pconnection = xcb_connect(nullptr, nullptr);
+
+      m_pX11Display = pnode->_get_Display();
+
+      m_pconnection = pnode->_get_connection();
 
       if (::is_null(m_pconnection))
       {
@@ -268,7 +280,7 @@ namespace windowing_xcb
 
          auto estatus = _request_check(cookie);
 
-         if (estatus)
+         if (!estatus)
          {
 
             fprintf(stderr, "ERROR: failed to create colormap\n");
@@ -284,11 +296,16 @@ namespace windowing_xcb
       for (::index iAtomName = 0; iAtomName < x_window::e_atom_count; iAtomName++)
       {
 
-         auto pszWindowName = x_window::atom_name((x_window::enum_atom) iAtomName);
+         if(!m_atoma[iAtomName])
+         {
 
-         auto atom = intern_atom(pszWindowName);
+            auto pszWindowName = x_window::atom_name((x_window::enum_atom) iAtomName);
 
-         m_atoma[iAtomName] = atom;
+            auto atom = intern_atom(pszWindowName);
+
+            m_atoma[iAtomName] = atom;
+
+         }
 
       }
 
@@ -311,14 +328,14 @@ namespace windowing_xcb
 
       auto & pwindow = m_windowmap[window];
 
-      if (!pwindow)
-      {
-
-         __construct(pwindow);
-
-         pwindow->set_os_data((void *) (iptr) window);
-
-      }
+//      if (!pwindow)
+//      {
+//
+//         __construct(pwindow);
+//
+//         pwindow->m_window = window;
+//
+//      }
 
       return pwindow;
 
@@ -386,7 +403,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\noswindow_data::ReleaseCapture 1");
 
-      display_lock displaylock(this);
+      //display_lock displaylock(this);
 
       xcb_ungrab_pointer(xcb_connection(), XCB_CURRENT_TIME);
 
@@ -462,7 +479,7 @@ namespace windowing_xcb
    ::windowing_xcb::window * display::_get_active_window(::thread * pthread)
    {
 
-      auto window = (xcb_window_t) _window_get_long_property(m_windowRoot, atom(x_window::e_atom_net_active_window));
+      auto window = (xcb_window_t) _window_get_long_property(m_windowRoot, atom(x_window::e_atom_net_active_window), XCB_ATOM_WINDOW);
 
       auto pwindow = _window(window);
 
@@ -532,7 +549,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::GetFocus 1");
 
-      display_lock displaylock(this);
+      //display_lock displaylock(this);
 
       windowing_output_debug_string("\n::GetFocus 1.01");
 
@@ -573,7 +590,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::GetCursorPos 1");
 
-      display_lock displaylock(this);
+      //display_lock displaylock(this);
 
       auto cookie = xcb_query_pointer(xcb_connection(), m_windowRoot);
 
@@ -985,12 +1002,12 @@ namespace windowing_xcb
    }
 
 
-   long display::_window_get_long_property(xcb_window_t window, xcb_atom_t property)
+   long display::_window_get_long_property(xcb_window_t window, xcb_atom_t property, xcb_atom_t type)
    {
 
       int iDelete = 0;
 
-      auto cookie = xcb_get_property(m_pconnection, iDelete, window, property, XCB_ATOM_INTEGER, 0, 0);
+      auto cookie = xcb_get_property(m_pconnection, iDelete, window, property, type, 0, 1);
 
       auto preply = __malloc(xcb_get_property_reply(m_pconnection, cookie, nullptr));
 
@@ -1006,7 +1023,7 @@ namespace windowing_xcb
       if(len != 4)
       {
 
-         ASSERT(FALSE);
+         //ASSERT(FALSE);
 
          return 0;
 
@@ -1106,7 +1123,7 @@ namespace windowing_xcb
 
       auto perror = __malloc(xcb_request_check(m_pconnection, cookie));
 
-      if(!perror)
+      if(perror)
       {
 
          int iErrorCode = perror->error_code;
@@ -1125,7 +1142,9 @@ namespace windowing_xcb
 
       bool bIsOrigin = false;
 
-      auto pnode = Node;
+      auto psystem = m_psystem;
+
+      auto pnode = psystem->node();
 
       pnode->node_sync(10_s, [this, pointHitTest, pwindowExclude, iMargin, &bIsOrigin]()
       {
@@ -1158,7 +1177,7 @@ namespace windowing_xcb
 
          }
 
-         display_lock display(this);
+         //display_lock display(this);
 
          windowing_output_debug_string("\n::GetFocus 1.01");
 
@@ -1212,76 +1231,76 @@ namespace windowing_xcb
 
    }
 
-   xcb_window_t *display::xcb_window_list(unsigned long *len)
-   {
+//   xcb_window_t *display::xcb_window_list(unsigned long *len)
+//   {
+//
+//
+//      Atom propCleints = XInternAtom(pDisplay, "_NET_CLIENT_LIST_STACKING", True);
+//      unsigned long ulBytesReturned = 0;
+//      Window *windowList = (Window *)GetWindowProperty(pDisplay, root, propCleints, &ulBytesReturned);
+//      unsigned long nchildren = ulBytesReturned / sizeof(Window);
+//
+//      xcb_atom_t prop = intern_atom("_NET_CLIENT_LIST_STACKING", False);
+//
+//      if (prop == 0)
+//      {
+//
+//         prop = intern_atom("_NET_CLIENT_LIST", False);
+//
+//      }
+//
+//      if (prop == 0)
+//      {
+//
+//         return nullptr;
+//
+//      }
+//
+//      xcb_atom_t type;
+//      int form;
+//      unsigned long remain;
+//      unsigned char *list;
+//
+//      errno = 0;
+//      auto cookie = (xcb_get_property(xcb_connection(), 0,  m_windowRoot, prop, 0, 1024, False, XA_WINDOW,
+//                                      &type, &form, len, &remain, &list) != Success)
+//      {
+//         output_debug_string("winlist() -- GetWinProp");
+//         return nullptr;
+//      }
+//
+//      return (xcb_window_t *) list;
+//
+//   }
 
 
-      Atom propCleints = XInternAtom(pDisplay, "_NET_CLIENT_LIST_STACKING", True);
-      unsigned long ulBytesReturned = 0;
-      Window *windowList = (Window *)GetWindowProperty(pDisplay, root, propCleints, &ulBytesReturned);
-      unsigned long nchildren = ulBytesReturned / sizeof(Window);
-
-      xcb_atom_t prop = intern_atom("_NET_CLIENT_LIST_STACKING", False);
-
-      if (prop == 0)
-      {
-
-         prop = intern_atom("_NET_CLIENT_LIST", False);
-
-      }
-
-      if (prop == 0)
-      {
-
-         return nullptr;
-
-      }
-
-      xcb_atom_t type;
-      int form;
-      unsigned long remain;
-      unsigned char *list;
-
-      errno = 0;
-      auto cookie = (xcb_get_property(xcb_connection(), 0,  m_windowRoot, prop, 0, 1024, False, XA_WINDOW,
-                                      &type, &form, len, &remain, &list) != Success)
-      {
-         output_debug_string("winlist() -- GetWinProp");
-         return nullptr;
-      }
-
-      return (xcb_window_t *) list;
-
-   }
-
-
-   bool display::xcb_window_list(array<xcb_window_t> &windowa)
-   {
-
-      unsigned long len = 0;
-
-      xcb_window_t *list = (xcb_window_t *) xcb_window_list(&len);
-
-
-      if (list == nullptr)
-      {
-
-         return false;
-
-      }
-
-      for (int i = 0; i < (int) len; i++)
-      {
-
-         windowa.add(list[i]);
-
-      }
-
-      XFree(list);
-
-      return true;
-
-   }
+//   bool display::xcb_window_list(array<xcb_window_t> &windowa)
+//   {
+//
+//      unsigned long len = 0;
+//
+//      xcb_window_t *list = (xcb_window_t *) xcb_window_list(&len);
+//
+//
+//      if (list == nullptr)
+//      {
+//
+//         return false;
+//
+//      }
+//
+//      for (int i = 0; i < (int) len; i++)
+//      {
+//
+//         windowa.add(list[i]);
+//
+//      }
+//
+//      XFree(list);
+//
+//      return true;
+//
+//   }
 
 
 } // namespace windowing_xcb

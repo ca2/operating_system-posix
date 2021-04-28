@@ -2,13 +2,15 @@
 // Created by camilo on 16/02/2021. 22:05 BRT <3TBS_!!
 //
 #include "framework.h"
+#include <X11/Xlib-xcb.h>
+#include "display_lock.h"
 
 
 namespace windowing_x11
 {
 
 
-   display_lock::display_lock(::windowing_x11::display * pdisplay, bool bInitialLock) :
+   display_lock::display_lock(Display * pdisplay, bool bInitialLock) :
       m_pdisplay(pdisplay),
       m_bLocked(false)
    {
@@ -39,7 +41,7 @@ namespace windowing_x11
 
          m_bLocked = true;
 
-         m_pdisplay->lock_display();
+         XLockDisplay((Display *) m_pdisplay);
 
       }
 
@@ -52,7 +54,7 @@ namespace windowing_x11
       if(m_bLocked && ::is_set(m_pdisplay))
       {
 
-         m_pdisplay->unlock_display();
+         XUnlockDisplay((Display *) m_pdisplay);
 
          m_bLocked = false;
 
