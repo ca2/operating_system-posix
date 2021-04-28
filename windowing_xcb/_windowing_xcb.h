@@ -4,17 +4,10 @@
 #pragma once
 
 
-#undef new
-
-
-#include <QMetaType>
 #include <X11/Xlib-xcb.h>
 #include <xcb/xcb.h>
 #include <xcb/xcb_image.h>
 #include <xcb/render.h>
-
-
-#define new AURA_NEW
 
 
 namespace windowing_xcb
@@ -87,6 +80,7 @@ bool __xcb_hook_process_event(xcb_connection_t * pdisplay, xcb_generic_event_t *
 #include "display.h"
 
 
-//#include "display_lock.h"
+#include "node.h"
+
 
 

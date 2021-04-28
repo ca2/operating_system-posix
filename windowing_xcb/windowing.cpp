@@ -2,7 +2,6 @@
 // recreated by Camilo 2021-01-28 22:35 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
 #include "framework.h"
-#include "windowing_xcb.h"
 #include <X11/cursorfont.h>
 #include <xcb/xcb.h>
 #include "acme/os/_user.h"
@@ -316,7 +315,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::xcb_GetWindowRect 1");
 
-      display_lock lock(m_pdisplay);
+      //display_lock lock(m_pdisplay);
 
       auto cursor = m_pdisplay->_create_font_cursor(iCursor);
 
@@ -351,7 +350,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock lock(m_pdisplay);
+      //display_lock lock(m_pdisplay);
 
       auto pwindow = m_pdisplay->get_keyboard_focus();
 
@@ -372,7 +371,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock lock(m_pdisplay);
+      //display_lock lock(m_pdisplay);
 
       auto pwindow = m_pdisplay->get_keyboard_focus();
 
@@ -477,7 +476,7 @@ namespace windowing_xcb
 
          synchronous_lock synchronouslock(user_mutex());
 
-         display_lock displaylock(m_pdisplay);
+         //display_lock displaylock(m_pdisplay);
 
          try
          {
@@ -553,7 +552,7 @@ namespace windowing_xcb
 
          synchronous_lock synchronouslock(user_mutex());
 
-         display_lock displayLock(m_pdisplay);
+         //display_lock displayLock(m_pdisplay);
 
          xcb_connection_t * pdisplay = m_pdisplay->xcb_connection();
 

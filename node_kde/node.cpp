@@ -2,7 +2,6 @@
 // Created by camilo on 19/01/2021. --<33ThomasBS!!
 //
 #include "framework.h"
-#include "node.h"
 #include "gnome_shared.h"
 #include "appindicator.h"
 #include "gdk.h"
@@ -428,7 +427,7 @@ namespace node_kde
    }
 
 
-   ::e_status windowing::_allocate_Display_and_connection()
+   ::e_status node::_allocate_Display_and_connection()
    {
 
       m_pX11Display = QX11Info::display();
@@ -440,9 +439,9 @@ namespace node_kde
 
       }
 
-      m_pconnection = QX11Info::connection();
+      m_pxcbconnection = QX11Info::connection();
 
-      if(!m_pconnection)
+      if(!m_pxcbconnection)
       {
 
          return error_failed;
@@ -690,10 +689,19 @@ namespace node_kde
    }
 
 
-   void node::node_branch(const ::routine &routine)
+   ::e_status node::node_branch(const ::routine &routine)
    {
 
-      kde_branch(routine);
+      auto estatus = kde_branch(routine);
+
+      if(!estatus)
+      {
+
+         return estatus;
+
+      }
+
+      return estatus;
 
    }
 

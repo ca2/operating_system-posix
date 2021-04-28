@@ -16,12 +16,6 @@
    #define CLASS_DECL_NODE_KDE  CLASS_DECL_IMPORT
 #endif
 
-#undef new
-#include <qmetatype.h>
-#include <QApplication>
-#include <QPalette>
-#include <QAbstractNativeEventFilter>
-#define new ACME_NEW
 
 namespace node_kde
 {
@@ -41,9 +35,6 @@ namespace node_kde
 //
 //
 //} // namespace user
-
-
-#include "node.h"
 
 
 #include "copydesk.h"

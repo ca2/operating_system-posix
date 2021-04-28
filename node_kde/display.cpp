@@ -4,7 +4,7 @@
 // hi5 contribution...
 #include "framework.h"
 #include "apex/platform/app_core.h"
-#include "display.h"
+//#include "display.h"
 //#include "_user.h"
 //#include <gdk/gdk.h>
 #include <QScreen>

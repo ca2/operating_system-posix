@@ -1,8 +1,25 @@
 //
 // Created by camilo on 28/04/2021.
 //
+#pragma once
 
-#ifndef BASIS__NODE_KDE_H
-#define BASIS__NODE_KDE_H
 
-#endif //BASIS__NODE_KDE_H
+#undef new
+#include <qmetatype.h>
+#include <QApplication>
+#include <QPalette>
+#include <QAbstractNativeEventFilter>
+#include <QX11Info>
+#define new ACME_NEW
+
+
+#include "windowing_xcb/_windowing_xcb.h"
+
+
+#include "display.h"
+
+
+#include "node.h"
+
+
+

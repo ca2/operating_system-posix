@@ -2,8 +2,9 @@
 // Created by camilo on 17/02/2021. 15:16 BRT <3TBS_!!
 //
 #include "framework.h"
-#include "aura/user/_user.h"
+#include "_windowing_xcb.h"
 #include "windowing_xcb.h"
+#include "aura/user/_user.h"
 #include "acme/os/_user.h"
 #include "aura/user/interaction_prodevian.h"
 #include "aura/platform/message_queue.h"
@@ -81,7 +82,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       auto estatus = _get_window_attributes();
 
@@ -352,7 +353,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       ::e_status estatus;
 
@@ -431,7 +432,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       ::e_status estatus;
 
@@ -472,7 +473,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       xcb_atom_t atomWindowType = xcb_display()->intern_atom("_NET_WM_WINDOW_TYPE", false);
 
@@ -527,7 +528,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       xcb_atom_t atomWindowType = xcb_display()->intern_atom("_NET_WM_WINDOW_TYPE", false);
 
@@ -583,7 +584,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       xcb_atom_t atomWindowType = xcb_display()->intern_atom("_NET_WM_WINDOW_TYPE", false);
 
@@ -638,7 +639,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       xcb_atom_t atomWindowType = xcb_display()->intern_atom("_NET_WM_WINDOW_TYPE", false);
 
@@ -734,7 +735,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       windowing_output_debug_string("\n::wm_iconify_window 1");
       
@@ -795,6 +796,7 @@ namespace windowing_xcb
 
 
 } // namespace windowing_xcb
+
 
 
 

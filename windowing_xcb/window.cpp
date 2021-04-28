@@ -3,7 +3,6 @@
 // hi5 contribution...
 #include "framework.h"
 #include "aura/user/_user.h"
-#include "windowing_xcb.h"
 #include "acme/os/_user.h"
 #include "aura/user/interaction_prodevian.h"
 #include "aura/platform/message_queue.h"
@@ -88,7 +87,7 @@ namespace windowing_xcb
 
       }
 
-      display_lock displaylock(pdisplayxcb);
+      //display_lock displaylock(pdisplayxcb);
 
       int x = m_pimpl->m_puserinteraction->layout().sketch().origin().x;
 
@@ -368,7 +367,7 @@ namespace windowing_xcb
 
       }
 
-      displaylock.unlock();
+      //displaylock.unlock();
 
       if(bOk)
       {
@@ -400,7 +399,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\nwindow::map_window");
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       auto cookie = xcb_map_window(xcb_connection(), m_window);
 
@@ -442,7 +441,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\nwindow::unmap_window");
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       ::e_status estatus;
 
@@ -529,7 +528,7 @@ namespace windowing_xcb
 
       fflush(stdout);
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       xcb_atom_t net_wm_icon = xcb_display()->intern_atom("_BAMF_DESKTOP_FILE", false);
 
@@ -697,7 +696,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       xcb_atom_t net_wm_icon = xcb_display()->intern_atom("_NET_WM_ICON", false);
 
@@ -724,7 +723,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       auto estatus = _replace_string_property(XCB_ATOM_WM_NAME, psz);
 
@@ -749,7 +748,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       uint32_t value[1];
 
@@ -784,7 +783,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       auto estatus = _select_input(XCB_EVENT_MASK_EXPOSURE | XCB_EVENT_MASK_BUTTON_PRESS);
 
@@ -886,7 +885,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       xcb_reparent_window(xcb_connection(), xcb_window(), pwindowxcbNewParent->xcb_window(), 0, 0);
 
@@ -1002,7 +1001,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       auto estatus = _get_window_attributes();
 
@@ -1083,7 +1082,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       auto estatus = _get_window_attributes();
 
@@ -1155,7 +1154,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       auto estatus = _get_window_attributes();
 
@@ -1183,7 +1182,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       auto estatus = _get_window_attributes();
 
@@ -1211,7 +1210,7 @@ namespace windowing_xcb
 
       synchronous_lock sl(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       auto estatus = _get_window_attributes();
 
@@ -1263,7 +1262,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       static const long WM_STATE_ELEMENTS = 2L;
 
@@ -1317,7 +1316,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       if (xcb_display()->is_null())
       {
@@ -1565,7 +1564,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::window::set_window_pos 1");
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       auto estatus = _get_window_attributes();
 
@@ -1736,7 +1735,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       xcb_atom_t net_wm_icon = xcb_display()->intern_atom("_BAMF_DESKTOP_FILE", false);
 
@@ -1790,7 +1789,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::SetCursor 1");
 
-      display_lock displaylock(xcb_display());;
+      //display_lock displaylock(xcb_display());;
 
       uint32_t value[1];
 
@@ -1873,7 +1872,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::GetFocus 1");
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       windowing_output_debug_string("\n::GetFocus 1.01");
 
@@ -1939,7 +1938,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::set_active_window 1");
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       xcb_atom_t atomActiveWindow = xcb_display()->atom(x_window::e_atom_net_active_window);
 
@@ -2089,7 +2088,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::get_window 1");
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       if (erelative == e_relative_first_sibling ||
           erelative == e_relative_last_sibling ||
@@ -2260,7 +2259,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::DestroyWindow 1");
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       _unmap_window();
 
@@ -2386,7 +2385,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       _raise_window();
 
@@ -2628,7 +2627,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\noswindow_data::SetCapture 1");
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       int owner_events = 0;
 
@@ -2686,7 +2685,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\noswindow_data::SetFocus 1");
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       if (!is_window())
       {

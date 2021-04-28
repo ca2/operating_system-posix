@@ -2,7 +2,6 @@
 // recreated by Camilo 2021-01-28 22:20 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
 #include "framework.h"
-#include "_windowing_xcb.h"
 #include "apex/platform/app_core.h"
 
 
@@ -106,7 +105,7 @@ namespace windowing_xcb
 
       }
 
-      auto pnode = (::aura::posix::node *) m_psystem->node()->m_pAuraNode;
+      auto pnode = (::windowing_xcb::node *) m_psystem->node()->m_pNodeXcb;
 
 //      m_pconnection = xcb_connect(nullptr, nullptr);
 

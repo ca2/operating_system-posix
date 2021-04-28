@@ -75,7 +75,7 @@ namespace node_kde
 
       using ::aura::node::node_fork;
 
-      virtual void node_branch(const ::routine & routine) override;
+      virtual ::e_status node_branch(const ::routine & routine) override;
 
       virtual void node_post_quit() override;
 

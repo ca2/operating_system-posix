@@ -49,8 +49,6 @@ namespace windowing_xcb
       virtual ::e_status start() override;
 
 
-
-
       virtual ::e_status windowing_branch(const ::routine & routine) override;
 
 

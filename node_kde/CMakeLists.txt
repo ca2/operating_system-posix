@@ -46,7 +46,7 @@ list(APPEND library_references
 set_source_files_properties(q_node_impl.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 
 
-add_library(node_kde SHARED ${node_kde_source})
+add_library(node_kde SHARED ${node_kde_source} _node_kde.h)
 
 target_precompile_headers(node_kde PRIVATE framework.h)
 

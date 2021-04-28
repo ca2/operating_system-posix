@@ -1,9 +1,6 @@
 #include "framework.h"
-#include "_windowing_xcb.h"
 #include "text_composition_client.h"
 #include "keyboard.h"
-
-
 
 
 extern "C"

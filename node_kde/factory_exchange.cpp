@@ -1,6 +1,7 @@
 #include "framework.h"
+#include "_node_kde.h"
 #include "monitor.h"
-#include "display.h"
+//#include "display.h"
 #include "windowing.h"
 
 
