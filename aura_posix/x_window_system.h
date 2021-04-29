@@ -41,6 +41,7 @@ namespace x_window
 
    int get_default_system_cursor_glyph(enum_cursor ecursor);
 
+
 } // namespace x_window
 
 

@@ -4,10 +4,25 @@
 #pragma once
 
 
-//#include <X11/Xlib.h>
+#include "aura_posix/_aura_posix.h"
+#include "aura/user/_user.h"
+#include "aura/os/linux/appindicator.h"
+#include "acme/os/ansios/_pthread.h"
+#include "acme/os/linux/_user.h"
+#include "archive/platform-posix/aura_posix/x_window_system.h"
+#include "aura_posix/_.h"
 
 
-//Display * x11_get_display();
+
+#define WITH_XI
+#define WITH_SN
+
+
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include <X11/extensions/Xrender.h>
+#include <X11/Xatom.h>
+
 
 
 Visual * get_32bit_visual(Display * pdisplay);
@@ -42,7 +57,36 @@ bool __x11_hook_process_event(Display * pdisplay, XEvent * pevent, XGenericEvent
 
 
 #include "display.h"
+
+
 #include "window.h"
+
+
+#include "buffer.h"
+
+
+#include "cursor.h"
+
+
+#include "icon.h"
+
+
+#include "window.h"
+
+
+#include "windowing.h"
+
+
+#include "display.h"
+
+
+#include "archive/platform-posix/aura_posix/display_lock.h"
+
+
+#include "factory_exchange.h"
+
+
+#include "node.h"
 
 
 

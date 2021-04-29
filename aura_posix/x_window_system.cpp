@@ -70,51 +70,61 @@ namespace x_window
       else if(ecursor == e_cursor_size_top_right)
       {
 
-      iCursor = XC_top_right_corner;
+         iCursor = XC_top_right_corner;
 
       }
       else if(ecursor == e_cursor_size_top)
       {
 
-      iCursor = XC_top_side;
+         iCursor = XC_top_side;
 
       }
       else if(ecursor == e_cursor_size_right)
       {
 
-      iCursor = XC_right_side;
+         iCursor = XC_right_side;
 
       }
       else if(ecursor == e_cursor_size_left)
       {
 
-      iCursor = XC_left_side;
+         iCursor = XC_left_side;
 
       }
       else if(ecursor == e_cursor_size_bottom)
       {
 
-      iCursor = XC_bottom_side;
+         iCursor = XC_bottom_side;
 
       }
       else if(ecursor == e_cursor_size_bottom_left)
       {
 
-      iCursor = XC_bottom_left_corner;
+         iCursor = XC_bottom_left_corner;
 
       }
       else if(ecursor == e_cursor_size_bottom_right)
       {
 
-      iCursor = XC_bottom_right_corner;
+         iCursor = XC_bottom_right_corner;
 
       }
       else if(ecursor == e_cursor_arrow)
       {
 
-      iCursor = XC_arrow;
+         iCursor = XC_arrow;
 
       }
+      else
+      {
+
+         iCursor = -1;
+
+      }
+
+      return iCursor;
+
+   }
 
 
 

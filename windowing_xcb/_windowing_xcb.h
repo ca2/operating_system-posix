@@ -4,10 +4,13 @@
 #pragma once
 
 
-#include <X11/Xlib-xcb.h>
+#include "aura_posix/_aura_posix.h"
+
+
 #include <xcb/xcb.h>
 #include <xcb/xcb_image.h>
 #include <xcb/render.h>
+#include <X11/Xlib-xcb.h>
 
 
 namespace windowing_xcb

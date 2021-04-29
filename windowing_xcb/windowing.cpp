@@ -7,7 +7,7 @@
 #include "acme/os/_user.h"
 
 
-::e_status xcb_register_extended_event_listener(::matter * pdata, bool bMouse, bool bKeyboard);
+//::e_status xcb_register_extended_event_listener(::matter * pdata, bool bMouse, bool bKeyboard);
 
 
 namespace windowing_xcb
@@ -633,21 +633,21 @@ namespace windowing_xcb
    }
 
 
-   ::e_status windowing::register_extended_event_listener(::matter * pdata, bool bMouse, bool bKeyboard)
-   {
-
-      auto estatus = xcb_register_extended_event_listener(pdata, bMouse, bKeyboard);
-
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
-
-   }
+//   ::e_status windowing::register_extended_event_listener(::matter * pdata, bool bMouse, bool bKeyboard)
+//   {
+//
+//      auto estatus = xcb_register_extended_event_listener(pdata, bMouse, bKeyboard);
+//
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
+//
+//   }
 
 
    bool windowing::xcb_process_event(xcb_generic_event_t * pgenericevent)

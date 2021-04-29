@@ -1,7 +1,7 @@
 // created by Camilo <3CamiloSasukeThomasBorregaardSoerensen  - Honoring Thomas Borregaard S�rensen MY ONLY LORD
 // recreated by Camilo 2021-01-28 16:38
 #include "framework.h"
-#include "_windowing.h"
+#include "_windowing_x11.h"
 
 
 namespace windowing_x11

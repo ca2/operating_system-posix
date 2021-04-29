@@ -1778,7 +1778,9 @@ namespace windowing_xcb
 
       }
 
-      if (m_cursorLast == pcursorxcb->m_cursor)
+      auto cursor = pcursorxcb->get_os_cursor();
+
+      if (m_cursorLast == cursor)
       {
 
          return true;
@@ -1798,7 +1800,7 @@ namespace windowing_xcb
       auto cookie = xcb_change_window_attributes(
          xcb_connection(),
          xcb_window(),
-         XCB_CW_EVENT_MASK,
+         XCB_CW_CURSOR,
          value);
 
       auto estatus = _request_check(cookie);

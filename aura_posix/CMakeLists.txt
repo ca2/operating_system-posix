@@ -3,8 +3,9 @@ project(aura_posix CXX)
 
 
 list(APPEND aura_posix_source
-   _.h
    _.cpp
+   _.h
+   _aura_posix.h
    appindicator.cpp
    appindicator.h
    display_lock.cpp
@@ -19,6 +20,8 @@ list(APPEND aura_posix_source
    node.h
    shell.cpp
    shell.h
+   x_window_system.cpp
+   x_window_system.h
    )
 
 

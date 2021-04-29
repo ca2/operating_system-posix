@@ -37,7 +37,7 @@ namespace windowing_xcb
 
       __zero(m_atoma);
 
-
+      m_fontCursor = 0;
 
    }
 
@@ -489,21 +489,14 @@ namespace windowing_xcb
    }
 
 
+
+   //// recreated on 2021-04-28 19:32 https://lists.freedesktop.org/archives/xcb/2010-June/006111.html
    xcb_cursor_t display::_create_font_cursor(uint16_t glyph)
    {
 
-      if (!m_fontCursor)
-      {
+      synchronous_lock synchronouslock(mutex());
 
-         m_fontCursor = xcb_generate_id(xcb_connection());
-
-         string strFontName("cursor");
-
-         xcb_open_font(xcb_connection(), m_fontCursor, strFontName.get_length(), strFontName.c_str());
-
-      }
-
-      xcb_cursor_t cursor = m_mapGlyphCursor[glyph];
+      xcb_cursor_t & cursor = m_mapGlyphCursor[glyph];
 
       if (cursor)
       {
@@ -512,9 +505,29 @@ namespace windowing_xcb
 
       }
 
+      if (!m_fontCursor)
+      {
+
+         m_fontCursor = xcb_generate_id(xcb_connection());
+
+         string strFontName("cursor");
+
+         auto cookie = xcb_open_font(xcb_connection(), m_fontCursor, strFontName.get_length(), strFontName.c_str());
+
+         auto estatus = _request_check(cookie);
+
+         if(!estatus)
+         {
+
+            __throw(estatus, "could not create default cursor font");
+
+         }
+
+      }
+
       cursor = xcb_generate_id(xcb_connection());
 
-      xcb_create_glyph_cursor(
+      auto cookie = xcb_create_glyph_cursor(
          xcb_connection(),
          cursor,
          m_fontCursor,
@@ -524,7 +537,16 @@ namespace windowing_xcb
          0, 0, 0,
          0xffff, 0xffff, 0xffff);  /* rgb, rgb */
 
-      m_mapGlyphCursor.set_at(glyph, cursor);
+      //m_mapGlyphCursor.set_at(glyph, cursor);
+
+      auto estatus = _request_check(cookie);
+
+      if(!estatus)
+      {
+
+         __throw(estatus, "could not create a default cursor with the specified/\"or any\" glyph");
+
+      }
 
       return cursor;
 
@@ -1300,6 +1322,60 @@ namespace windowing_xcb
 //      return true;
 //
 //   }
+
+
+
+//
+////on 2021-04-28 19:32 https://lists.freedesktop.org/archives/xcb/2010-June/006111.html
+//   xcb_font_t display::_create_font_cursor(uint16_t glyph)
+//   {
+//
+//      if (!m_fontCursor)
+//      {
+//
+//         m_fontCursor = xcb_generate_id (m_pconnection);
+//
+//         auto cookie = xcb_open_font (m_pconnection, m_fontCursor, strlen ("cursor"), "cursor");
+//
+//         auto estatus = _request_check(cookie);
+//
+//         if(!estatus)
+//         {
+//
+//            throw(estatus, "could not open default cursor font");
+//
+//         }
+//
+//      }
+
+///*
+// * Other_stuff: A group of routines which do common X11 tasks.
+// *
+// * Written by Mark Lillibridge.   Last updated 7/1/87
+// */
+//      xcb_cursor_t cursor = xcb_generate_id (m_pconnection);
+//
+//      auto cookie = xcb_create_glyph_cursor (
+//         m_pconnection,
+//         cursor,
+//         m_fontCursor,
+//         m_fontCursor,
+//         glyph, glyph + 1,
+//         0, 0, 0, 0xffff, 0xffff, 0xffff);  /* rgb, rgb */
+//
+//      auto estatus = _request_check(cookie);
+//
+//      if(!estatus)
+//      {
+//
+//         throw(estatus, "could not create a default cursor with the specified/\"or any\" glyph");
+//
+//      }
+//
+//      return cursor;
+//
+//   }
+//
 
 
 } // namespace windowing_xcb

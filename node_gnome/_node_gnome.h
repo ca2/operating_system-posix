@@ -4,5 +4,34 @@
 #pragma once
 
 
-#include "acme/operating_system.h"
+#include "windowing_x11/_windowing_x11.h"
+#include "acme/os/ansios/_pthread.h"
+#include "aura/user/_user.h"
+#include "aura/os/linux/appindicator.h"
+
+
+#include "monitor.h"
+
+
+#include "display.h"
+
+
+#include "node.h"
+
+
+#include "windowing.h"
+
+
+#include "copydesk.h"
+
+
+#include "appindicator.h"
+
+
+#include "notify_icon.h"
+
+
+#include "factory_exchange.h"
+
+
 

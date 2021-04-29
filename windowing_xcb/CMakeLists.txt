@@ -3,8 +3,9 @@ project(windowing_xcb CXX)
 
 
 list(APPEND windowing_xcb_source
-   _.h
    _.cpp
+   _.h
+   _windowing_xcb.h
    #application.cpp
    #application.h
    buffer.cpp
@@ -75,7 +76,7 @@ if (MSVC)
    target_link_libraries(windowing_xcb PRIVATE ${library_references})
 elseif (LINUX)
    #pkg_check_modules(PKGCONFIG xcb xrender xi)
-   pkg_check_modules(PKGCONFIG Qt5Core x11 xcb x11-xcb xcb-render xcb-image xkbcommon-x11 xcb-icccm)
+   pkg_check_modules(PKGCONFIG Qt5Core x11 xcb xi x11-xcb xcb-render xcb-image xkbcommon-x11 xcb-icccm)
    target_compile_options(windowing_xcb PRIVATE -fpermissive)
    target_compile_options(windowing_xcb PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(windowing_xcb PRIVATE -Wl,-rpath=\$ORIGIN)

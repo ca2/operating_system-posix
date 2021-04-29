@@ -7,7 +7,6 @@
 #include "gdk.h"
 
 
-
 namespace node_kde
 {
 
@@ -218,8 +217,6 @@ namespace node_kde
    ::e_status node::system_main()
    {
 
-      m_pqapplication = new QApplication(m_psystem->m_argc, m_psystem->m_argv);
-
       auto estatus = m_psystem->m_papexsystem->begin_synch();
 
       if (!estatus)
@@ -410,6 +407,17 @@ namespace node_kde
 
    ::e_status node::initialize(::object *pobject)
    {
+
+      auto psystem = pobject->m_psystem;
+
+      m_pqapplication = new QApplication(psystem->m_argc, psystem->m_argv);
+
+      if(!m_pqapplication)
+      {
+
+         return error_failed;
+
+      }
 
       auto estatus = ::aura::posix::node::initialize(pobject);
 
@@ -692,16 +700,17 @@ namespace node_kde
    ::e_status node::node_branch(const ::routine &routine)
    {
 
-      auto estatus = kde_branch(routine);
+      // invoke on the main thread
+      QMetaObject::invokeMethod(
+         m_pqapplication,
+         [routine]
+         {
 
-      if(!estatus)
-      {
+            routine();
 
-         return estatus;
+         });
 
-      }
-
-      return estatus;
+      return success;
 
    }
 

@@ -34,9 +34,11 @@ namespace node_kde
 
       auto pnode = psystem->node()->cast < node >();
 
+      auto pqapplication = pnode->m_pqapplication;
+
       // invoke on the main thread
       QMetaObject::invokeMethod(
-         pnode->m_pqapplication,
+         pqapplication,
          [routine]
          {
 
@@ -62,16 +64,6 @@ namespace node_kde
       }
 
       return true;
-
-   }
-
-
-   xcb_connection_t * windowing::_get_connection()
-   {
-
-      XGetXCBConnection
-
-      return QX11Info::display();
 
    }
 

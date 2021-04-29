@@ -2,7 +2,6 @@
 
 
 #include "aura/_.h"
-#include "aura/user/_user.h"
 #include "apex_posix/_.h"
 
 
@@ -13,31 +12,21 @@
 #endif
 
 
-namespace aura_posix
+namespace aura
 {
 
 
-   class node;
+   namespace posix
+   {
+
+
+      class node;
+
+
+   } // namespace posix
 
 
 } // namespace aura_posix
-
-
-#include "appindicator.h"
-
-
-#include "shell.h"
-
-
-#include "clipboard_data.h"
-
-
-#include "node.h"
-
-
-#include "factory_exchange.h"
-
-
 
 
 

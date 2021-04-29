@@ -5,7 +5,7 @@
 #include "aura/os/linux/appindicator.h"
 #include "acme/os/ansios/_pthread.h"
 #include "acme/os/linux/_user.h"
-#include "platform/x_window.h"
+#include "archive/platform-posix/aura_posix/x_window_system.h"
 #include "aura_posix/_.h"
 
 

@@ -5,6 +5,7 @@ project(node_kde CXX)
 list(APPEND node_kde_source
    _.cpp
    _.h
+   _node_kde.h
    appindicator.cpp
    appindicator.h
    application.cpp

@@ -6,6 +6,7 @@
 
 #undef new
 #include <qmetatype.h>
+#include <qdatastream.h>
 #include <QApplication>
 #include <QPalette>
 #include <QAbstractNativeEventFilter>
@@ -14,6 +15,20 @@
 
 
 #include "windowing_xcb/_windowing_xcb.h"
+#include "acme/os/ansios/_pthread.h"
+#include "aura/user/_user.h"
+#include "aura/os/linux/appindicator.h"
+
+
+
+
+#include "copydesk.h"
+
+
+#include "appindicator.h"
+
+
+#include "factory_exchange.h"
 
 
 #include "display.h"

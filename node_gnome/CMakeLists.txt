@@ -5,6 +5,7 @@ project(node_gnome CXX)
 list(APPEND node_gnome_source
    _.cpp
    _.h
+   _node_gnome.h
    appindicator.cpp
    appindicator.h
    application.cpp

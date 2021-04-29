@@ -3,8 +3,9 @@ project(windowing_x11 CXX)
 
 
 list(APPEND windowing_x11_source
-   _.h
    _.cpp
+   _.h
+   _windowing_x11.h
    #application.cpp
    #application.h
    buffer.cpp

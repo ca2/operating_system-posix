@@ -28,6 +28,8 @@ namespace windowing_xcb
       i32_map < xcb_cursor_t>                                  m_mapGlyphCursor;
       xcb_atom_t                                               m_atoma[x_window::e_atom_count];
 
+      xcb_font_t                                               m_fontCursor;
+
       xcb_depth_t *                                            m_pdepth;
       xcb_visualtype_t *                                       m_pvisualtype;
       Display *                                                m_pX11Display;
@@ -35,8 +37,6 @@ namespace windowing_xcb
       xcb_screen_t *                                           m_pscreen;
       xcb_colormap_t                                           m_colormap;
       xcb_window_t                                             m_windowRoot;
-
-      xcb_font_t                                               m_fontCursor;
 
       __pointer(class window)                                  m_pwindowRoot;
       __pointer(class window)                                  m_pwindowKeyboardFocus;
@@ -129,6 +129,9 @@ namespace windowing_xcb
       virtual status < xcb_get_geometry_reply_t > _window_get_geometry(xcb_window_t window);
       virtual ::e_status _window_get_window_rectangle(xcb_window_t window, RECTANGLE_I32 * prectangle);
       virtual ::e_status _window_get_client_rectangle(xcb_window_t window, RECTANGLE_I32 * prectangle);
+
+
+      //virtual xcb_font_t _create_font_cursor(uint16_t glyph);
 
 
    };
