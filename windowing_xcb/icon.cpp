@@ -84,30 +84,19 @@ namespace windowing_xcb
    }
 
 
-   ::e_status icon::load_app_tray_icon(string strApp)
+   ::e_status icon::load_app_tray_icon(string strAppId)
    {
 
-#ifdef WINDOWS_DESKTOP
+      auto estatus = set_tray_icon_name(strAppId);
 
-      string strMatter = "main/icon.ico";
-
-      if (!load_matter(strMatter))
+      if(!estatus)
       {
 
-         return false;
+         return estatus;
 
       }
 
-      return true;
-
-#else
-
-      //m_strAppTrayIcon = strApp;
-
-      return true;
-
-#endif
-
+      return estatus;
 
    }
 

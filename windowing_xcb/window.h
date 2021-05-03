@@ -41,9 +41,10 @@ namespace windowing_xcb
       xcb_cursor_t                                 m_cursorLast;
       xcb_window_t                                 m_window;
       xcb_visualid_t                               m_visualid;
-      htask_t                                    m_hthread;
+      htask_t                                      m_hthread;
       millis                                       m_millisLastMouseMove;
-      ::rectangle_i32                              m_rect;
+      //::rectangle_i32                              m_rect;
+      __pointer(::xim::keyboard)                   m_pximkeyboard;
 
 
       window();
@@ -200,7 +201,7 @@ namespace windowing_xcb
       virtual ::e_status defer_update_keyboard_context();
       virtual int keycode_to_keysym(xcb_keycode_t code);
       virtual void release_keyboard();
-      virtual string _on_key_down(xcb_keycode_t code);
+      virtual string _on_key_down(xcb_keycode_t code, ::u16 state, KeySym * pkeysym);
 
 
       static xcb_atom_t _get_window_long_atom(i32 nIndex);

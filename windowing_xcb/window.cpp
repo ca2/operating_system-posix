@@ -7,7 +7,7 @@
 #include "aura/user/interaction_prodevian.h"
 #include "aura/platform/message_queue.h"
 #include <X11/Xatom.h>
-
+#include <xcb/xcb_util.h>
 
 
 //void on_sn_launch_context(void * pSnContext, xcb_window_t window);
@@ -113,15 +113,17 @@ namespace windowing_xcb
 
       }
 
-      uint32_t attrs[5];
+      xcb_params_cw_t  paramscw;
 
-      auto & back_pixmap = attrs[0] = 0;
+      __zero(paramscw);
 
-      auto & border_pixel = attrs[1] = 0;
+      auto & back_pixmap = paramscw.back_pixmap = 0;
 
-      auto & override_redirect = attrs[2] = pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning ? 1 : 0;
+      auto & border_pixel = paramscw.border_pixel = 0;
 
-      auto & event_mask = attrs[3] =
+      auto & override_redirect = paramscw.override_redirect = pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning ? 1 : 0;
+
+      auto & event_mask = paramscw.event_mask =
          XCB_EVENT_MASK_PROPERTY_CHANGE
          | XCB_EVENT_MASK_EXPOSURE
          | XCB_EVENT_MASK_BUTTON_PRESS
@@ -135,13 +137,21 @@ namespace windowing_xcb
          | XCB_EVENT_MASK_ENTER_WINDOW
          ;
 
-      auto & colormap = attrs[4] = pdisplayxcb->m_colormap;
+      auto & colormap = paramscw.colormap = pdisplayxcb->m_colormap;
 
       INFO("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
 
       xcb_window_t window = xcb_generate_id(pdisplayxcb->m_pconnection);
 
-      auto cookie = xcb_create_window(
+      m_point.x = x;
+
+      m_point.y = y;
+
+      m_size.cx = cx;
+
+      m_size.cy = cy;
+
+      auto cookie = xcb_aux_create_window(
          display,
          pdisplayxcb->m_pdepth->depth,
          window,
@@ -156,7 +166,7 @@ namespace windowing_xcb
          | XCB_CW_OVERRIDE_REDIRECT
          | XCB_CW_EVENT_MASK
          | XCB_CW_COLORMAP,
-         &attrs);
+         &paramscw);
 
       auto estatus = pdisplayxcb->_request_check(cookie);
 
@@ -189,7 +199,7 @@ namespace windowing_xcb
          pdisplayxcb,
          window,
          pdisplayxcb->m_pdepth->depth,
-         attrs[4]);
+         paramscw.colormap);
 
       if (!estatus)
       {
@@ -2611,6 +2621,9 @@ namespace windowing_xcb
    ::e_status window::set_mouse_capture()
    {
 
+      m_pwindowing->windowing_branch(__routine([this]
+                                               {
+
       synchronous_lock synchronouslock(user_mutex());
 
       if (xcb_connection() == nullptr)
@@ -2667,6 +2680,11 @@ namespace windowing_xcb
       }
 
       windowing_output_debug_string("\noswindow_data::SetCapture 2");
+
+      return ::success;
+
+                                               }));
+
 
       return ::success;
 
@@ -2788,32 +2806,41 @@ namespace windowing_xcb
    ::e_status window::_move_resize(int x, int y, int cx, int cy)
    {
 
-      uint16_t mask = 0;
-
-      mask |= XCB_CONFIG_WINDOW_X;
-      mask |= XCB_CONFIG_WINDOW_Y;
-      mask |= XCB_CONFIG_WINDOW_WIDTH;
-      mask |= XCB_CONFIG_WINDOW_HEIGHT;
-
-      const int32_t values[] = {
-         x,
-         y,
-         cx,
-         cy
-      };
-
-      auto cookie = xcb_configure_window(xcb_connection(), m_window, mask, values);
-
-      auto estatus = _request_check(cookie);
-
-      if(!estatus)
+      if(x <= 0 || y <= 0)
       {
 
-         return estatus;
+         output_debug_string("_move_resize x <= 0 and/or y <= 0");
 
       }
 
-      return estatus;
+      m_pwindowing->windowing_branch(__routine([x, y, cx, cy, this]
+                                               {
+
+                                                  uint16_t mask = 0;
+
+                                                  mask |= XCB_CONFIG_WINDOW_X;
+                                                  mask |= XCB_CONFIG_WINDOW_Y;
+                                                  mask |= XCB_CONFIG_WINDOW_WIDTH;
+                                                  mask |= XCB_CONFIG_WINDOW_HEIGHT;
+
+                                                  ::u32 ua[] = {(::u32) x, (::u32) y, (::u32) cx, (::u32) cy};
+
+                                                  auto cookie = xcb_configure_window(xcb_connection(), m_window, mask, ua);
+
+                                                  auto estatus = _request_check(cookie);
+
+                                                  if (!estatus)
+                                                  {
+
+                                                     return estatus;
+
+                                                  }
+
+                                                  return estatus;
+
+                                               }));
+
+      return ::success;
 
    }
 
@@ -2821,28 +2848,39 @@ namespace windowing_xcb
    ::e_status window::_move(int x, int y)
    {
 
-      uint16_t mask = 0;
-
-      mask |= XCB_CONFIG_WINDOW_X;
-      mask |= XCB_CONFIG_WINDOW_Y;
-
-      const int32_t values[] = {
-         x,
-         y
-      };
-
-      auto cookie = xcb_configure_window(xcb_connection(), m_window, mask, values);
-
-      auto estatus = _request_check(cookie);
-
-      if(!estatus)
+      if(x <= 0 || y <= 0)
       {
 
-         return estatus;
+         output_debug_string("_move x <= 0 and/or y <= 0");
 
       }
 
-      return estatus;
+      m_pwindowing->windowing_branch(__routine([x, y,  this]
+                                               {
+
+                                                  uint16_t mask = 0;
+
+                                                  mask |= XCB_CONFIG_WINDOW_X;
+                                                  mask |= XCB_CONFIG_WINDOW_Y;
+
+                                                  ::u32 ua[] = { (::u32) x, (::u32) y};
+
+                                                  auto cookie = xcb_configure_window(xcb_connection(), m_window, mask, ua);
+
+                                                  auto estatus = _request_check(cookie);
+
+                                                  if (!estatus)
+                                                  {
+
+                                                     return estatus;
+
+                                                  }
+
+                                                  return estatus;
+
+                                               }));
+
+      return ::success;
 
    }
 
@@ -2850,28 +2888,33 @@ namespace windowing_xcb
    ::e_status window::_resize(int cx, int cy)
    {
 
-      uint16_t mask = 0;
 
-      mask |= XCB_CONFIG_WINDOW_WIDTH;
-      mask |= XCB_CONFIG_WINDOW_HEIGHT;
+      m_pwindowing->windowing_branch(__routine([cx, cy, this]
+                                               {
 
-      const int32_t values[] = {
-         cx,
-         cy
-      };
+                                                  uint16_t mask = 0;
 
-      auto cookie = xcb_configure_window(xcb_connection(), m_window, mask, values);
+                                                  mask |= XCB_CONFIG_WINDOW_WIDTH;
+                                                  mask |= XCB_CONFIG_WINDOW_HEIGHT;
 
-      auto estatus = _request_check(cookie);
+                                                  ::u32 ua[] = { (::u32) cx, (::u32) cy };
 
-      if(!estatus)
-      {
+                                                  auto cookie = xcb_configure_window(xcb_connection(), m_window, mask, ua);
 
-         return estatus;
+                                                  auto estatus = _request_check(cookie);
 
-      }
+                                                  if (!estatus)
+                                                  {
 
-      return estatus;
+                                                     return estatus;
+
+                                                  }
+
+                                                  return estatus;
+
+                                               }));
+
+      return ::success;
 
    }
 

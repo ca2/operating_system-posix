@@ -804,9 +804,9 @@ namespace windowing_xcb
          iDelete,
          m_windowRoot,
          property,
-         XCB_ATOM_ATOM,
+         XCB_ATOM_WINDOW,
          0,
-         0);
+         16384);
 
       auto preply = xcb_get_property_reply(
          xcb_connection(),
@@ -1072,6 +1072,25 @@ namespace windowing_xcb
    }
 
 
+   status < xcb_get_window_attributes_reply_t > display::_window_get_window_attributes(xcb_window_t window)
+   {
+
+      auto cookie = xcb_get_window_attributes(m_pconnection, window);
+
+      auto preply = __malloc(xcb_get_window_attributes_reply(m_pconnection, cookie, nullptr));
+
+      if(!preply)
+      {
+
+         return error_failed;
+
+      }
+
+      return *preply;
+
+   }
+
+
    status < xcb_get_geometry_reply_t > display::_window_get_geometry(xcb_window_t window)
    {
 
@@ -1086,9 +1105,30 @@ namespace windowing_xcb
 
       }
 
+      auto trans = xcb_translate_coordinates_reply (
+         m_pconnection,
+         xcb_translate_coordinates (
+            m_pconnection,
+            window,
+            m_windowRoot,
+            0, 0),
+            NULL);
+      if (trans)
+      {
+
+         preply->x = trans->dst_x;
+         preply->y = trans->dst_y;
+
+         free(trans);
+
+      }
+
+
+
       return *preply;
 
    }
+
 
 
    ::e_status display::_window_get_window_rectangle(xcb_window_t window, RECTANGLE_I32 * prectangle)

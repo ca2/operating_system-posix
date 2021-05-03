@@ -4,26 +4,32 @@
 #pragma once
 
 
+#include <X11/XKBlib.h>
+
+
 namespace xim
 {
 
 
-   class keyboard
+   class keyboard :
+      virtual public matter
    {
    public:
 
 
-      bool  m_bXim;
-      bool m_bBestStyle;
-      bool m_bXic;
-      XIC m_xic;
-      XIM m_xim;
+      bool        m_bXim;
+      XIMStyle    m_imstyleBest;
+      bool        m_bXic;
+      XIC         m_xic;
+      XIM         m_xim;
+      Display *   m_pdisplay;
+      Window      m_window;
 
 
-      keyboard();
+      keyboard(Display * pdisplay, Window window);
 
 
-      string get_key_press_text(Display * pdisplay, int code, int state);
+      string get_key_press_text(XKeyPressedEvent * pevent, KeySym * pkeysym);
 
 
    };

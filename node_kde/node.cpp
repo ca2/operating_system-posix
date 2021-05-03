@@ -873,6 +873,14 @@ namespace node_kde
    }
 
 
+   int node::os_launch_uri(const char * pszUri, char * pszError = NULL, int iBufferSize = 0)
+   {
+
+      QDesktopServices::openUrl(QUrl(pszUri));
+
+      return 0;
+
+   }
 
 //   os_theme_colors * node::new_os_theme_colors()
 //   {
@@ -904,6 +912,12 @@ namespace node_kde
             return true;
 
          }
+
+      }
+      else
+      {
+
+         output_debug_string("");
 
       }
 

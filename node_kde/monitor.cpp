@@ -119,10 +119,10 @@ namespace node_kde
 
       pscreen->availableGeometry().getCoords(&left, &top, &right, &bottom);
 
-      m_rectangle.left     = left;
-      m_rectangle.top      = top;
-      m_rectangle.right    = right;
-      m_rectangle.bottom   = bottom;
+      m_rectangleWorkspace.left     = left;
+      m_rectangleWorkspace.top      = top;
+      m_rectangleWorkspace.right    = right;
+      m_rectangleWorkspace.bottom   = bottom;
 
       return ::success;
 
@@ -167,7 +167,7 @@ namespace node_kde
 
       }
 
-      estatus = ::windowing::monitor::get_workspace_rectangle(prectangle);
+      estatus = ::windowing::monitor::get_monitor_rectangle(prectangle);
 
       if(!estatus)
       {

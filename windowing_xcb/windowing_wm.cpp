@@ -9,6 +9,7 @@
 #include "aura/user/interaction_prodevian.h"
 #include "aura/platform/message_queue.h"
 #include <X11/Xatom.h>
+#include <xcb/xcb_icccm.h>
 
 
 namespace windowing_xcb
@@ -741,6 +742,21 @@ namespace windowing_xcb
       
       ::e_status estatus;
 
+      xcb_client_message_event_t event;
+      event.response_type = XCB_CLIENT_MESSAGE;
+      event.format = 32;
+      event.sequence = 0;
+      event.window = m_window;
+      event.type = xcb_display()->intern_atom("WM_CHANGE_STATE", true);
+      event.data.data32[0] = XCB_ICCCM_WM_STATE_ICONIC;
+      event.data.data32[1] = 0;
+      event.data.data32[2] = 0;
+      event.data.data32[3] = 0;
+      event.data.data32[4] = 0;
+      xcb_send_event(xcb_connection(), 0, xcb_windowing()->m_pdisplay->m_windowRoot,
+                     XCB_EVENT_MASK_STRUCTURE_NOTIFY | XCB_EVENT_MASK_SUBSTRUCTURE_REDIRECT,
+                     (const char *)&event);
+
       if (IsWindowVisibleRaw())
       {
 
@@ -760,6 +776,17 @@ namespace windowing_xcb
          estatus = _unmapped_net_state_raw(xcb_display()->intern_atom("_NET_WM_STATE_HIDDEN", false));
 
       }
+
+      xcb_get_property_cookie_t cookie = xcb_icccm_get_wm_hints_unchecked(xcb_connection(), m_window);
+      xcb_icccm_wm_hints_t hints;
+      if (xcb_icccm_get_wm_hints_reply(xcb_connection(), cookie, &hints, nullptr)) {
+         //if (state & Qt::WindowMinimized)
+            xcb_icccm_wm_hints_set_iconic(&hints);
+         //else
+           // xcb_icccm_wm_hints_set_normal(&hints);
+         xcb_icccm_set_wm_hints(xcb_connection(), m_window, &hints);
+      }
+
 
       windowing_output_debug_string("\n::wm_iconify_window 2");
 

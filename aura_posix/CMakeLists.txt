@@ -22,6 +22,8 @@ list(APPEND aura_posix_source
    shell.h
    x_window_system.cpp
    x_window_system.h
+   xim_keyboard.cpp
+   xim_keyboard.h
    )
 
 
@@ -35,7 +37,7 @@ list(APPEND library_references
    )
 
 
-add_library(aura_posix SHARED ${aura_posix_source} )
+add_library(aura_posix SHARED ${aura_posix_source})
 
 target_precompile_headers(aura_posix PRIVATE framework.h)
 

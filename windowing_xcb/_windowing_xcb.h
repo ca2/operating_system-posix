@@ -5,7 +5,7 @@
 
 
 #include "aura_posix/_aura_posix.h"
-
+#include "aura_posix/xim_keyboard.h"
 
 #include <xcb/xcb.h>
 #include <xcb/xcb_image.h>

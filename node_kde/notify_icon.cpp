@@ -7,6 +7,7 @@
 #include "aura/user/_user.h"
 
 
+
 static ::user::notify_icon * g_pnotifyiconLast = nullptr;
 
 
@@ -17,13 +18,14 @@ static ::user::notify_icon * g_pnotifyiconLast = nullptr;
 #endif
 
 
-namespace node_gnome
+namespace node_kde
 {
 
 
    notify_icon::notify_icon()
    {
 
+      m_pstatusnotifieritem = nullptr;
       g_pnotifyiconLast = this;
 
 #ifdef WINDOWS_DESKTOP
@@ -80,6 +82,127 @@ namespace node_gnome
          return false;
 
       }
+
+      m_plistener = plistener;
+
+
+      auto pnode = m_psystem->m_pnode->m_pNodeKDE;
+
+      pnode->node_branch(__routine([this, picon]()
+      {
+
+         auto papplication = get_application();
+
+         string strWMClass = papplication->get_wm_class();
+
+         auto pnode = m_psystem->m_pnode->m_pNodeKDE;
+
+         QObject::setParent(pnode->m_pqapplication);
+
+         m_pstatusnotifieritem = new KStatusNotifierItem(this);
+
+         string strTrayIconName = picon->get_tray_icon_name();
+
+         ::file::path pathIcon = papplication->dir().matter("main/icon-256.png");
+
+         m_pstatusnotifieritem->setIconByName(pathIcon.c_str());
+
+         string strFriendlyName = papplication->get_app_user_friendly_task_bar_name();
+
+         auto pmenu = m_pstatusnotifieritem->contextMenu();
+
+//      connect( msmKernel, &QAction::triggered, this, [msmKernel, this]()
+//      {
+//         QProcess::startDetached( "manjaro-settings-manager", QStringList() << "-m" << "msm_kernel" );
+//         m_tray->setStatus( KStatusNotifierItem::Passive );
+//      } );
+//      connect( msmLanguagePackages, &QAction::triggered, this, [msmLanguagePackages, this]()
+//      {
+//         QProcess::startDetached( "manjaro-settings-manager", QStringList() << "-m" << "msm_language_packages" );
+//         m_tray->setStatus( KStatusNotifierItem::Passive );
+//      } );
+//
+//      connect( optionsAction, &QAction::triggered, this, [optionsAction, this]()
+//      {
+//         m_settingsDialog = new NotifierSettingsDialog(NULL);
+//         m_settingsDialog->setAttribute(Qt::WidgetAttribute::WA_DeleteOnClose, true);
+//         m_settingsDialog->exec();
+//      } );
+
+         for(index i = 0; i < _get_notification_area_action_count(); i++)
+         {
+
+            string strLabel = _get_notification_area_action_label(i);
+
+            string strId = _get_notification_area_action_id(i);
+
+            string strName = _get_notification_area_action_name(i);
+
+            if(strId == "app_exit")
+            {
+
+            }
+            else if(strId == "separator")
+            {
+
+               if(i + 1 < _get_notification_area_action_count() && _get_notification_area_action_id(i+1) == "app_exit")
+               {
+
+
+               }
+               else
+               {
+
+                  pmenu->addSeparator();
+
+               }
+
+            }
+            else
+            {
+
+               auto paction = new QAction(strName.c_str(), pmenu);
+   //         QAction* msmLanguagePackages = new QAction(
+   //            QIcon( ":/icons/language.png" ),
+   //            QString( tr ( "Language packages" ) ),
+   //            menu );
+   //
+   //         QAction* optionsAction = new QAction(
+   //            QIcon::fromTheme( "gtk-preferences"  ),
+   //            QString( tr ( "Options" ) ),
+   //            menu );
+
+               connect(paction, &QAction::triggered, this, [this, strId]()
+               {
+
+                  call_notification_area_action(strId);
+
+               });
+
+               pmenu->addAction(paction);
+
+
+            }
+
+
+         }
+
+
+      m_pstatusnotifieritem->setTitle(strFriendlyName.c_str());
+      m_pstatusnotifieritem->setCategory(KStatusNotifierItem::ApplicationStatus);
+      m_pstatusnotifieritem->setStatus( KStatusNotifierItem::Active );
+
+
+      //notification->setActions({i18n("Open chat")});
+      //const auto groups = contact->groups();
+      //for (const QString &group : groups) {
+        // notification->addContext("group", group);
+      //}
+      //connect(notification, QOverload<unsigned int>::of(&KNotification::activated), contact, &Contact::slotOpenChat);
+      //m_pstatusnotifieritem->update();
+m_pstatusnotifieritem->setStatus(KStatusNotifierItem::ItemStatus::Active);
+
+                                   }));
 
       m_strId.Format("notify_icon_%d", uId);
 
@@ -553,7 +676,7 @@ namespace node_gnome
 //#endif
 
 
-} // namespace node_gnome
+} // namespace node_kde
 
 
 

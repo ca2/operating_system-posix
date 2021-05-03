@@ -16,7 +16,6 @@ list(APPEND node_kde_source
    display.h
    enum_display_monitors.cpp
    factory_exchange.cpp
-   factory_exchange.h
    framework.cpp
    framework.h
    gdk.cpp
@@ -27,6 +26,8 @@ list(APPEND node_kde_source
    monitor.h
    node.cpp
    node.h
+   notify_icon.cpp
+   notify_icon.h
    windowing.cpp
    windowing.h
    )
@@ -65,8 +66,14 @@ elseif (LINUX)
    pkg_check_modules(PKGCONFIG Qt5Core Qt5UiTools Qt5X11Extras)
    target_compile_options(node_kde PRIVATE -fpermissive)
    target_compile_options(node_kde PRIVATE ${PKGCONFIG_CFLAGS})
+   if(LINUX_KDE)
+   target_include_directories(node_kde PRIVATE KF5::Notifications)
+   endif()
    target_link_options(node_kde PRIVATE -Wl,-rpath=\$ORIGIN)
    target_link_libraries(node_kde PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
+   if(LINUX_KDE)
+      target_link_libraries(node_kde PRIVATE KF5::Notifications)
+   endif()
    target_link_options(node_kde PRIVATE -Wl,-z,defs)
 endif ()
 

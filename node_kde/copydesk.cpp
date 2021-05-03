@@ -259,6 +259,43 @@ return false;
    bool copydesk::_desk_to_image(::image * pimage)
    {
 
+      auto psystem = m_psystem;
+
+      auto pnode = psystem->node()->m_pNodeKDE;
+
+      auto pqapplication = pnode->m_pqapplication;
+
+      auto pclipboard = pqapplication->clipboard();
+
+      auto imageClipboard = pclipboard->image();
+
+      imageClipboard.convertTo(QImage::Format_ARGB32);
+
+      int w = imageClipboard.width();
+
+      int h = imageClipboard.height();
+
+      auto estatus = pimage->create(w, h);
+
+      if(!estatus)
+      {
+
+         return false;
+
+      }
+
+      color32_t * pcolor32Dst = (color32_t *) pimage->get_data();
+
+      int scanDst = pimage->scan_size();
+
+      color32_t * pcolor32Src = (color32_t *) imageClipboard.bits();
+
+      int scanSrc = imageClipboard.bytesPerLine();
+
+      ::copy_colorref(pcolor32Dst, w, h, scanDst, pcolor32Src, scanSrc);
+
+      return true;
+
 //      __pointer(clipboard_data) pdata = __new(clipboard_data(get_context_application(), e_clipboard_get_image));
 //
 //      pdata->add_ref(OBJ_REF_DBG_P_NOTE(this, "copydesk::_desk_to_image"));
@@ -282,7 +319,7 @@ return false;
 //
 //      return true;
 
-return false;
+//return false;
 
    }
 
@@ -301,6 +338,20 @@ return false;
 
    bool copydesk::_has_image()
    {
+
+      auto psystem = m_psystem;
+
+      auto pnode = psystem->node()->m_pNodeKDE;
+
+      auto pqapplication = pnode->m_pqapplication;
+
+      auto pclipboard = pqapplication->clipboard();
+
+      auto pdata = pclipboard->mimeData();
+
+      bool bHasImage = pdata->hasImage();
+
+      return bHasImage;
 
 //      bool b = false;
 //

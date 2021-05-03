@@ -13,7 +13,7 @@ namespace windowing_x11
    //class keyboard_layout;
 
    class CLASS_DECL_WINDOWING_X11 keyboard :
-      virtual public ::windowing::keyboard
+      virtual public ::windowing_posix::keyboard
    {
       public:
 

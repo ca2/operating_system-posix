@@ -93,6 +93,7 @@ namespace node_kde
 
       virtual bool launch_on_node(::subject::subject * psubject);
 
+      virtual int os_launch_uri(const char * pszUri, char * pszError = NULL, int iBufferSize = 0) override;
 
       virtual bool nativeEventFilter(const QByteArray &eventType, void *message, long *result)  override;
 

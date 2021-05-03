@@ -114,11 +114,13 @@ namespace windowing_xcb
 
       //virtual void _libsn_start_context() override;
 
+
 #ifdef WITH_XI
 
       virtual ::e_status register_extended_event_listener(::matter * pdata, bool bMouse, bool bKeyboard) override;
       //bool xcb_process_event(xcb_generic_event_t* xcbevent, XGenericEventCookie *cookie);
       bool xcb_process_event(xcb_generic_event_t* xcbevent);
+      bool xcb_process_ge_event(xcb_ge_event_t * pgeevent);
 
 #else
 

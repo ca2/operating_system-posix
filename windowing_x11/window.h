@@ -53,6 +53,8 @@ namespace windowing_x11
       //static Atom                                s_atomLongStyle;
       //static Atom                                s_atomLongStyleEx;
 
+      __pointer(::xim::keyboard)                   m_pximkeyboard;
+
 
       window();
       //oswindow_data(::user::interaction * puibaseMessageOnlyWindow);
