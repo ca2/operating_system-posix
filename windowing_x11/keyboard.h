@@ -13,7 +13,7 @@ namespace windowing_x11
    //class keyboard_layout;
 
    class CLASS_DECL_WINDOWING_X11 keyboard :
-      virtual public ::windowing_posix::keyboard
+      virtual public ::windowing::keyboard
    {
       public:
 
@@ -31,7 +31,7 @@ namespace windowing_x11
       virtual ~keyboard();
 
 
-      virtual void enum_init(::acme::system * psystem);
+      virtual void enum_init(class ::system * psystem);
 
       //virtual class keyboard_layout & on_layout();
 

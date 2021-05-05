@@ -20,6 +20,8 @@ list(APPEND aura_posix_source
    node.h
    shell.cpp
    shell.h
+   x_window.cpp
+   x_window.h
    x_window_system.cpp
    x_window_system.h
    xim_keyboard.cpp

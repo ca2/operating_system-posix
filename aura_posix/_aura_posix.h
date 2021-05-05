@@ -9,9 +9,6 @@
 #include "aura/user/_user.h"
 
 
-#include "x_window_system.h"
-
-
 #include "appindicator.h"
 
 
@@ -19,6 +16,15 @@
 
 
 #include "clipboard_data.h"
+
+
+#include "x_window_system.h"
+
+
+#include "xim_keyboard.h"
+
+
+#include "x_window.h"
 
 
 #include "node.h"

@@ -12,6 +12,9 @@
 void gdk_branch(const ::routine & routine);
 
 
+int gdk_launch_uri(const char * pszUri, char * pszError, int iBufferSize);
+
+
 void x11_add_idle_source(::node_gnome::node * pnode);
 
 
@@ -412,7 +415,9 @@ namespace node_gnome
 
       auto psystem = m_psystem->m_papexsystem;
 
-      auto edesktop = psystem->get_edesktop();
+      auto pnode = psystem->node();
+
+      auto edesktop = pnode->get_edesktop();
 
       switch (edesktop)
       {
@@ -493,7 +498,9 @@ namespace node_gnome
 
       auto psystem = m_psystem->m_papexsystem;
 
-      auto edesktop = psystem->get_edesktop();
+      auto pnode = psystem->node();
+
+      auto edesktop = pnode->get_edesktop();
 
       switch (edesktop)
       {
@@ -543,7 +550,9 @@ namespace node_gnome
 
       auto psystem = m_psystem->m_papexsystem;
 
-      auto edesktop = psystem->get_edesktop();
+      auto pnode = psystem->node();
+
+      auto edesktop = pnode->get_edesktop();
 
       switch (edesktop)
       {
@@ -613,10 +622,12 @@ namespace node_gnome
    }
 
 
-   void node::node_branch(const ::routine & routine)
+   ::e_status node::node_branch(const ::routine & routine)
    {
 
       gdk_branch(routine);
+
+      return ::success;
 
    }
 
@@ -789,6 +800,16 @@ namespace node_gnome
       }));
 
       return true;
+
+   }
+
+
+   int node::os_launch_uri(const char * pszUri, char * pszError, int iBufferSize)
+   {
+
+      int iRet = gdk_launch_uri(pszUri, pszError, iBufferSize);
+
+      return iRet;
 
    }
 

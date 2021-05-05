@@ -141,7 +141,7 @@ namespace windowing_x11
 
       auto px11display = (::windowing_x11::display *) pwindowing->display()->m_pDisplay;
 
-      display_lock lock(px11display);
+      display_lock lock(px11display->Display());
 
       auto cursor = XCreateFontCursor(px11display->Display(), iCursor);
 

@@ -50,9 +50,6 @@ namespace node_kde
 
       virtual ::e_status _allocate_Display_and_connection() override;
 
-
-
-
       //virtual void os_calc_user_dark_mode() override;
 
       virtual void on_os_dark_mode_change() override;

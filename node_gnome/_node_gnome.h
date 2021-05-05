@@ -31,7 +31,4 @@
 #include "notify_icon.h"
 
 
-#include "factory_exchange.h"
-
-
 

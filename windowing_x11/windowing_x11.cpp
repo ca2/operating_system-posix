@@ -2029,6 +2029,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                         post_ui_message(msg);
 
+                        msg.oswindow->m_point = point;
+
                      }
 
                      if (bSizeFix)
@@ -2040,9 +2042,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                         post_ui_message(msg);
 
-                     }
+                        msg.oswindow->m_point = size;
 
-                     msg.oswindow->m_rectangle.set(point, size);
+                     }
 
                   }
 
@@ -2236,15 +2238,14 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                __pointer(::windowing_x11::window) pwindow = msg.oswindow;
 
-               if(!m_pximkeyboard)
+               if(!pwindow->m_pximkeyboard)
                {
 
-                  m_pximkeyboard = new ::xim::keyboard(x11_display(), window);
+                  pwindow->m_pximkeyboard = new ::xim::keyboard(m_pdisplay->Display(), e.xkey.window);
 
                }
 
-               strText = m_pximkeyboard->get_key_press_text(&e);
-
+               strText = pwindow->m_pximkeyboard->get_key_press_text(&e.xkey, &keysym);
 
                //case XK_Escape:
 //                dv_dpy->dontdraw = 1;
@@ -2273,6 +2274,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
             else if (e.xkey.type == KeyRelease)
             {
 
+               keysym = XkbKeycodeToKeysym(m_pdisplay->Display(), e.xkey.keycode, 0, e.xkey.state & ShiftMask ? 1 : 0);
+
                msg.m_id = e_message_key_up;
 
             }
@@ -2285,8 +2288,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
             if (bRet)
             {
-
-               KeySym keysym = XkbKeycodeToKeysym(m_pdisplay->Display(), e.xkey.keycode, 0, e.xkey.state & ShiftMask ? 1 : 0);
 
                msg.wParam = e.xkey.keycode;
 

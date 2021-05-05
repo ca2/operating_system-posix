@@ -298,7 +298,7 @@ namespace windowing_x11
 
         windowing_output_debug_string("\noswindow_data::ReleaseCapture 1");
 
-        display_lock displaylock(this);
+        display_lock displaylock(Display());
 
         int_bool bRet = XUngrabPointer(Display(), CurrentTime) != false;
 
@@ -499,7 +499,7 @@ namespace windowing_x11
 
    #endif
 
-         display_lock displaylock(this);
+         display_lock displaylock(Display());
 
          windowing_output_debug_string("\n::GetFocus 1.01");
 
@@ -569,7 +569,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::GetCursorPos 1");
 
-      display_lock displaylock(this);
+      display_lock displaylock(Display());
 
       XQueryPointer(Display(), DefaultRootWindow(Display()), &root_return, &child_return, &ppointCursor->x,
                     &ppointCursor->y, &win_x_return, &win_y_return, &mask_return);
@@ -619,7 +619,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::x11_create_image 1");
 
-      display_lock displaylock(this);
+      display_lock displaylock(Display());
 
       return _x11_create_image(pimage);
 
@@ -669,7 +669,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::x11_create_pixmap 1");
 
-      display_lock displaylock(this);
+      display_lock displaylock(Display());
 
       return _x11_create_pixmap(pimage);
 
@@ -779,7 +779,7 @@ namespace windowing_x11
 
          }
 
-         display_lock display(this);
+         display_lock displaylock(Display());
 
          windowing_output_debug_string("\n::GetFocus 1.01");
 

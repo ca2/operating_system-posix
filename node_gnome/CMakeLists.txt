@@ -17,7 +17,6 @@ list(APPEND node_gnome_source
    display.h
    enum_display_monitors.cpp
    factory_exchange.cpp
-   factory_exchange.h
    framework.cpp
    framework.h
    gdk.cpp

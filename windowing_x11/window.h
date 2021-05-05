@@ -17,7 +17,7 @@ namespace windowing_x11
 
 
    class CLASS_DECL_WINDOWING_X11 window :
-      virtual public ::windowing::window
+      virtual public ::windowing_posix::window
    {
    public:
 

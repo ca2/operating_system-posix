@@ -9,8 +9,8 @@
 #include "aura/os/linux/appindicator.h"
 #include "acme/os/ansios/_pthread.h"
 #include "acme/os/linux/_user.h"
-#include "archive/platform-posix/aura_posix/x_window_system.h"
-#include "aura_posix/_.h"
+#include "aura_posix/x_window_system.h"
+#include "aura_posix/xim_keyboard.h"
 
 
 
@@ -56,10 +56,10 @@ bool __x11_hook_process_event(Display * pdisplay, XEvent * pevent, XGenericEvent
 #include "keyboard.h"
 
 
-#include "display.h"
-
-
 #include "window.h"
+
+
+#include "display.h"
 
 
 #include "buffer.h"

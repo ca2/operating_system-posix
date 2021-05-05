@@ -22,7 +22,7 @@ namespace windowing_xcb
 
 
    class CLASS_DECL_WINDOWING_XCB window :
-      virtual public ::windowing::window
+      virtual public ::windowing_posix::window
    {
    public:
 
@@ -44,7 +44,6 @@ namespace windowing_xcb
       htask_t                                      m_hthread;
       millis                                       m_millisLastMouseMove;
       //::rectangle_i32                              m_rect;
-      __pointer(::xim::keyboard)                   m_pximkeyboard;
 
 
       window();

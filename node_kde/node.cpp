@@ -103,6 +103,7 @@ namespace node_kde
 
 
 
+
    void node::on_os_dark_mode_change()
    {
 
