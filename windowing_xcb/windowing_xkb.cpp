@@ -6,7 +6,7 @@
 
 #include <xkbcommon/xkbcommon.h> // libxkbcommon-dev
 #include <xkbcommon/xkbcommon-x11.h> // libxkbcommon-x11-dev
-
+//#include <xcb/xkb.h>
 
 namespace windowing_xcb
 {
@@ -154,6 +154,8 @@ namespace windowing_xcb
    int window::keycode_to_keysym(xcb_keycode_t code)
    {
 
+      defer_update_keyboard_context();
+
       xkb_keycode_t keycode = (xkb_keycode_t) code;
 
       xkb_keysym_t keysym;
@@ -217,29 +219,59 @@ namespace windowing_xcb
 
    }
 
-   string window::_on_key_down(xcb_keycode_t code)
+
+//   string window::_on_key_down(xcb_keycode_t code)
+//   {
+//
+//      string strText;
+//
+//      int size = xkb_state_key_get_utf8(m_pkeystate, code, NULL, 0);
+//
+//      if (size <= 1)
+//      {
+//
+//         auto psz = strText.get_string_buffer(size);
+//
+//         xkb_state_key_get_utf8(m_pkeystate, code, psz, size);
+//
+//         strText.release_string_buffer(size);
+//
+//      }
+//
+//      return strText;
+//
+//   }
+
+
+   string window::_on_key_down(xcb_keycode_t code, ::u16 state, KeySym * pkeysym)
    {
+
+      XKeyPressedEvent event;
+
+      __zero(event);
+
+      Display * px11display = xcb_display()->m_pX11Display;
+
+      event.type = KeyPress;
+      event.display = px11display;
+      event.window = m_window;
+      event.state = state;
+      event.keycode = code;
 
       string strText;
 
-      int size = xkb_state_key_get_utf8(m_pkeystate, code, NULL, 0);
-
-      if (size <= 1)
+      if(!m_pximkeyboard)
       {
 
-         auto psz = strText.get_string_buffer(size);
-
-         xkb_state_key_get_utf8(m_pkeystate, code, psz, size);
-
-         strText.release_string_buffer(size);
+         m_pximkeyboard = __new(::xim::keyboard(px11display, m_window));
 
       }
 
+      strText = m_pximkeyboard->get_key_press_text(&event, pkeysym);
+
       return strText;
 
-
    }
-
 
 
 } // namespace windowing_xcb

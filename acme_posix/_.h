@@ -2,7 +2,6 @@
 
 
 #include "acme/_.h"
-#include "acme/operating_system.h"
 
 
 #if defined(_ACME_POSIX_LIBRARY)
@@ -27,18 +26,5 @@ namespace acme
 
 
 } // namespace node_gnome
-
-
-#include "file_memory_map.h"
-
-
-#include "pipe.h"
-
-
-#include "serial.h"
-
-
-#include "node.h"
-
 
 

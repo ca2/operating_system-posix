@@ -15,6 +15,7 @@ void windowing_x11_factory_exchange(::factory_map * pfactorymap)
    pfactorymap->create_factory < ::windowing_x11::windowing, ::windowing::windowing > ();
    pfactorymap->create_factory < ::windowing_x11::text_composition_client, ::user::text_composition_client > ();
 
+   pfactorymap->create_factory < ::windowing_x11::icon, ::windowing::icon > ();
    pfactorymap->create_factory < ::windowing_x11::cursor, ::windowing::cursor > ();
    pfactorymap->create_factory < ::windowing_x11::keyboard, ::windowing::keyboard > ();
 

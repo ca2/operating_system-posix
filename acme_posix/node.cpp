@@ -26,6 +26,8 @@ namespace acme
 
          //m_pGtkSettingsDefault = nullptr;
 
+         m_pAcmePosix = this;
+
       }
 
 
@@ -61,13 +63,13 @@ namespace acme
 //         //      if (psystem->m_bGtkApp)
 //         //      {
 //         //
-//         //         apex_application_run(psystem->m_strAppId, psystem->m_strProgName);
+//         //         apex_application_run(psystem->m_XstrAppId, psystem->m_strProgName);
 //         //
 //         //      }
 //         //      else
 //         //      {
 //         //
-//         ////      g_set_application_name(psystem->m_strAppId);
+//         ////      g_set_application_name(psystem->m_XstrAppId);
 //         ////
 //         ////      g_set_prgname(psystem->m_strProgName);
 //         ////

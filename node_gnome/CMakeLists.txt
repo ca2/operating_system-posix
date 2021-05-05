@@ -5,6 +5,7 @@ project(node_gnome CXX)
 list(APPEND node_gnome_source
    _.cpp
    _.h
+   _node_gnome.h
    appindicator.cpp
    appindicator.h
    application.cpp
@@ -16,7 +17,6 @@ list(APPEND node_gnome_source
    display.h
    enum_display_monitors.cpp
    factory_exchange.cpp
-   factory_exchange.h
    framework.cpp
    framework.h
    gdk.cpp
@@ -43,13 +43,6 @@ list(APPEND library_references
    aura_posix
    windowing_x11
    )
-
-
-if (MSVC)
-   set(LIBCXX_TARGETING_MSVC ON)
-else ()
-   set(LIBCXX_TARGETING_MSVC OFF)
-endif ()
 
 
 add_library(node_gnome SHARED ${node_gnome_source} )
@@ -81,8 +74,6 @@ target_include_directories(node_gnome PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 
 target_compile_definitions(node_gnome PRIVATE _NODE_GNOME_LIBRARY)
-target_compile_definitions(node_gnome PRIVATE UNICODE)
-target_compile_definitions(node_gnome PRIVATE _UNICODE)
 
 
 

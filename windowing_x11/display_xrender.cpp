@@ -17,7 +17,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::CreateAlphaCursor 1");
 
-      display_lock displaylock(this);
+      display_lock displaylock(Display());
 
       Picture picture = xrender_create_picture(pimage);
 

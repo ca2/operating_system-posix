@@ -1,7 +1,7 @@
 // created by Camilo <3CamiloSasukeThomasBorregaardSoerensen  - Honoring Thomas Borregaard S�rensen MY ONLY LORD
 // recreated by Camilo 2021-02-01 20:19
 #include "framework.h"
-#include "_windowing.h"
+#include "_windowing_x11.h"
 #include <X11/cursorfont.h>
 
 
@@ -22,21 +22,21 @@ namespace windowing_x11
    }
 
 
-   ::e_status cursor::initialize_system_default()
-   {
-
-      auto estatus = load_default_cursor(m_ecursor);
-
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
-
-   }
+//   ::e_status cursor::initialize_system_default()
+//   {
+//
+//      auto estatus = load_default_cursor(m_ecursor);
+//
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
+//
+//   }
 
    
    ::e_status cursor::create_from_image(const ::image * pimage, ::i32 xHotspot, ::i16 yHotspot)
@@ -52,62 +52,9 @@ namespace windowing_x11
    ::e_status cursor::load_default_cursor(enum_cursor ecursor)
    {
 
-      int iCursor = 0;
+      int iCursor;
 
-      if(ecursor == e_cursor_size_top_left)
-      {
-
-         iCursor = XC_top_left_corner;
-
-      }
-      else if(ecursor == e_cursor_size_top_right)
-      {
-
-         iCursor = XC_top_right_corner;
-
-      }
-      else if(ecursor == e_cursor_size_top)
-      {
-
-         iCursor = XC_top_side;
-
-      }
-      else if(ecursor == e_cursor_size_right)
-      {
-
-         iCursor = XC_right_side;
-
-      }
-      else if(ecursor == e_cursor_size_left)
-      {
-
-         iCursor = XC_left_side;
-
-      }
-      else if(ecursor == e_cursor_size_bottom)
-      {
-
-         iCursor = XC_bottom_side;
-
-      }
-      else if(ecursor == e_cursor_size_bottom_left)
-      {
-
-         iCursor = XC_bottom_left_corner;
-
-      }
-      else if(ecursor == e_cursor_size_bottom_right)
-      {
-
-         iCursor = XC_bottom_right_corner;
-
-      }
-      else if(ecursor == e_cursor_arrow)
-      {
-
-         iCursor = XC_arrow;
-
-      }
+      iCursor = ::x_window::get_default_system_cursor_glyph(ecursor);
 
       if(iCursor == 0)
       {
@@ -115,6 +62,68 @@ namespace windowing_x11
          return ::error_failed;
 
       }
+
+//      if(ecursor == e_cursor_size_top_left)
+//      {
+//
+//         iCursor = XC_top_left_corner;
+//
+//      }
+//      else if(ecursor == e_cursor_size_top_right)
+//      {
+//
+//         iCursor = XC_top_right_corner;
+//
+//      }
+//      else if(ecursor == e_cursor_size_top)
+//      {
+//
+//         iCursor = XC_top_side;
+//
+//      }
+//      else if(ecursor == e_cursor_size_right)
+//      {
+//
+//         iCursor = XC_right_side;
+//
+//      }
+//      else if(ecursor == e_cursor_size_left)
+//      {
+//
+//         iCursor = XC_left_side;
+//
+//      }
+//      else if(ecursor == e_cursor_size_bottom)
+//      {
+//
+//         iCursor = XC_bottom_side;
+//
+//      }
+//      else if(ecursor == e_cursor_size_bottom_left)
+//      {
+//
+//         iCursor = XC_bottom_left_corner;
+//
+//      }
+//      else if(ecursor == e_cursor_size_bottom_right)
+//      {
+//
+//         iCursor = XC_bottom_right_corner;
+//
+//      }
+//      else if(ecursor == e_cursor_arrow)
+//      {
+//
+//         iCursor = XC_arrow;
+//
+//      }
+//
+//      if(iCursor < 0)
+//      {
+//
+//         return ::error_failed;
+//
+//      }
 
       synchronous_lock sl(user_mutex());
 
@@ -132,7 +141,7 @@ namespace windowing_x11
 
       auto px11display = (::windowing_x11::display *) pwindowing->display()->m_pDisplay;
 
-      display_lock lock(px11display);
+      display_lock lock(px11display->Display());
 
       auto cursor = XCreateFontCursor(px11display->Display(), iCursor);
 

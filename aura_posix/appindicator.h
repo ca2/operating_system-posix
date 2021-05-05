@@ -16,7 +16,7 @@ namespace aura
 
 
       class CLASS_DECL_AURA_POSIX appindicator :
-         virtual public ::matter
+         virtual public ::object
       {
          public:
 

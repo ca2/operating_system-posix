@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "node.h"
 #include "acme/filesystem/filesystem/acme_dir.h"
+#include <X11/Xlib-xcb.h>
 
 
 namespace aura
@@ -18,6 +19,12 @@ namespace aura
       {
 
          //m_pGtkSettingsDefault = nullptr;
+
+         m_pX11Display = nullptr;
+
+         m_pxcbconnection = nullptr;
+
+         m_pAuraPosix = this;
 
       }
 
@@ -69,13 +76,13 @@ namespace aura
 //         //      if (System.m_bGtkApp)
 //         //      {
 //         //
-//         //         apex_application_run(System.m_strAppId, System.m_strProgName);
+//         //         apex_application_run(System.m_XstrAppId, System.m_strProgName);
 //         //
 //         //      }
 //         //      else
 //         //      {
 //         //      //
-//         //      ////      g_set_application_name(psystem->m_strAppId);
+//         //      ////      g_set_application_name(psystem->m_XstrAppId);
 //         //      ////
 //         //      ////      g_set_prgname(psystem->m_strProgName);
 //         //      ////
@@ -165,7 +172,6 @@ namespace aura
       ::e_status node::initialize(::object * pobject)
       {
 
-
          auto estatus = ::apex::posix::node::initialize(pobject);
 
          if (!estatus)
@@ -175,7 +181,58 @@ namespace aura
 
          }
 
+         estatus = _allocate_Display_and_connection();
+
+         if(!estatus)
+         {
+
+            return estatus;
+
+         }
+
          return estatus;
+
+      }
+
+
+      ::e_status node::_allocate_Display_and_connection()
+      {
+
+         m_pX11Display = XOpenDisplay(nullptr);
+
+         if(!m_pX11Display)
+         {
+
+            return error_failed;
+
+         }
+
+         m_pxcbconnection = XGetXCBConnection((Display *) m_pX11Display);
+
+         if(!m_pxcbconnection)
+         {
+
+            return error_failed;
+
+         }
+
+         return ::success;
+
+      }
+
+
+      void * node::_get_Display()
+      {
+
+         return m_pX11Display;
+
+      }
+
+
+      void * node::_get_connection()
+      {
+
+         return m_pxcbconnection;
 
       }
 

@@ -2,9 +2,12 @@
 // recreated by Camilo 2021-01-28 22:35 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
 #include "framework.h"
-#include "windowing_xcb.h"
 #include <X11/cursorfont.h>
+#include <xcb/xcb.h>
 #include "acme/os/_user.h"
+
+int g_i135=0;
+//::e_status xcb_register_extended_event_listener(::matter * pdata, bool bMouse, bool bKeyboard);
 
 
 namespace windowing_xcb
@@ -24,9 +27,13 @@ namespace windowing_xcb
 
       m_bFinishX11Thread = false;
 
+//      m_pX11Display = nullptr;
+//
+//      m_pconnection = nullptr;
+
       //defer_initialize_xcb();
 
-      set_layer(LAYERED_X11, this);
+      //set_layer(LAYERED_X11, this);
 
    }
 
@@ -41,7 +48,7 @@ namespace windowing_xcb
    ::windowing::window * windowing::new_window(::user::interaction_impl * pimpl)
    {
 
-      __pointer(::windowing_xcb::window) pwindow = __create < ::windowing::window >();
+      __pointer(::windowing_xcb::window) pwindow = pimpl->__create < ::windowing::window >();
 
       if(!pwindow)
       {
@@ -71,10 +78,12 @@ namespace windowing_xcb
    }
 
 
-   ::e_status windowing::initialize(::layered *pobjectContext)
+
+
+   ::e_status windowing::initialize(::object *pobject)
    {
 
-      auto estatus = ::windowing::windowing::initialize(pobjectContext);
+      auto estatus = ::windowing::windowing::initialize(pobject);
 
       if(!estatus)
       {
@@ -144,14 +153,16 @@ namespace windowing_xcb
 //
 //      }
 
-      auto pnode = Node;
+      auto psystem = m_psystem;
+
+      auto pnode = psystem->node();
 
       if(pnode)
       {
 
          _libsn_start_context();
 
-         pnode->start();
+         pnode->start_node();
 
       }
       else
@@ -162,6 +173,23 @@ namespace windowing_xcb
       }
 
       return ::success;
+
+   }
+
+
+   ::e_status windowing::windowing_branch(const ::routine & routine)
+   {
+
+      auto estatus = routine();
+
+      if(!estatus)
+      {
+
+         return estatus;
+
+      }
+
+      return estatus;
 
    }
 
@@ -196,10 +224,10 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(mutex());
 
-      if (m_pcursorset.is_null())
+      if (!m_pcursormanager)
       {
 
-         auto estatus = __construct_new(m_pcursorset);
+         auto estatus = __construct_new(m_pcursormanager);
 
          if (!estatus)
          {
@@ -210,7 +238,7 @@ namespace windowing_xcb
 
       }
 
-      auto & pcursor = m_pcursorset->m_cursormap[ecursor];
+      auto & pcursor = m_pcursormanager->m_cursormap[ecursor];
 
       if(pcursor)
       {
@@ -287,7 +315,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::xcb_GetWindowRect 1");
 
-      display_lock lock(m_pdisplay);
+      //display_lock lock(m_pdisplay);
 
       auto cursor = m_pdisplay->_create_font_cursor(iCursor);
 
@@ -322,7 +350,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock lock(m_pdisplay);
+      //display_lock lock(m_pdisplay);
 
       auto pwindow = m_pdisplay->get_keyboard_focus();
 
@@ -343,7 +371,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock lock(m_pdisplay);
+      //display_lock lock(m_pdisplay);
 
       auto pwindow = m_pdisplay->get_keyboard_focus();
 
@@ -401,6 +429,23 @@ namespace windowing_xcb
    }
 
 
+   ::e_status windowing::clear_active_window(::thread *)
+   {
+
+      if (!m_pdisplay)
+      {
+
+         return error_failed;
+
+      }
+
+      m_pdisplay->m_pwindowActive.release();
+
+      return ::success;
+
+   }
+
+
    bool windowing::xcb_on_event(xcb_generic_event_t * pevent)
    {
 
@@ -431,7 +476,7 @@ namespace windowing_xcb
 
          synchronous_lock synchronouslock(user_mutex());
 
-         display_lock displaylock(m_pdisplay);
+         //display_lock displaylock(m_pdisplay);
 
          try
          {
@@ -460,7 +505,11 @@ namespace windowing_xcb
          try
          {
 
-            if (!User->runnable_step())
+            auto psession = get_session();
+
+            auto puser = psession->user();
+
+            if (!puser->runnable_step())
             {
 
                break;
@@ -503,7 +552,7 @@ namespace windowing_xcb
 
          synchronous_lock synchronouslock(user_mutex());
 
-         display_lock displayLock(m_pdisplay);
+         //display_lock displayLock(m_pdisplay);
 
          xcb_connection_t * pdisplay = m_pdisplay->xcb_connection();
 
@@ -545,7 +594,11 @@ namespace windowing_xcb
          try
          {
 
-            if (!User->runnable_step())
+            auto psession = get_session();
+
+            auto puser = psession->user();
+
+            if (!puser->runnable_step())
             {
 
                break;
@@ -580,6 +633,23 @@ namespace windowing_xcb
    }
 
 
+//   ::e_status windowing::register_extended_event_listener(::matter * pdata, bool bMouse, bool bKeyboard)
+//   {
+//
+//      auto estatus = xcb_register_extended_event_listener(pdata, bMouse, bKeyboard);
+//
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
+//
+//   }
+
+
    bool windowing::xcb_process_event(xcb_generic_event_t * pgenericevent)
    {
 
@@ -589,116 +659,123 @@ namespace windowing_xcb
 
       bool bRet = true;
 
+      ::u8 uResponseType = (pgenericevent->response_type & 0x7f);
+
+      if(uResponseType == XCB_GE_GENERIC)
+      {
+
+         auto pgeevent = (xcb_ge_event_t *) pgenericevent;
+
+         return xcb_process_ge_event(pgeevent);
+
+      }
+
       switch (pgenericevent->response_type)
       {
-         case XCB_LEAVE_NOTIFY:
+      case XCB_LEAVE_NOTIFY:
+      {
+
+         auto pevent = (xcb_leave_notify_event_t *) pgenericevent;
+
+         ::minimum(m_pointCursor.x);
+
+         ::minimum(m_pointCursor.y);
+
+         msg.oswindow = m_pdisplay->_window(pevent->event);
+         msg.m_id = e_message_mouse_leave;
+         msg.wParam = 0;
+         msg.lParam = 0;
+         msg.time = pevent->time;
+
+         post_ui_message(msg);
+
+      }
+      break;
+      case XCB_ENTER_NOTIFY:
+      {
+
+      }
+      break;
+      case XCB_MOTION_NOTIFY:
+      {
+
+         auto pmotion = (xcb_motion_notify_event_t *) pgenericevent;
+
+         msg.oswindow = m_pdisplay->_window(pmotion->event);
+
+         m_pointCursor.x = pmotion->root_x;
+
+         m_pointCursor.y = pmotion->root_y;
+
+         if (msg.oswindow != nullptr && msg.oswindow->m_pimpl != nullptr)
          {
 
-            auto pevent = (xcb_leave_notify_event_t *) pgenericevent;
+            bool bOk = true;
 
-            ::minimum(m_pointCursor.x);
+            __pointer(::user::interaction) pinteraction = msg.oswindow->m_pimpl->m_puserinteraction;
 
-            ::minimum(m_pointCursor.y);
-
-            msg.oswindow = m_pdisplay->_window(pevent->child);
-            msg.m_id = e_message_mouse_leave;
-            msg.wParam = 0;
-            msg.lParam = 0;
-            msg.time = pevent->time;
-
-            post_ui_message(msg);
-
-         }
-            break;
-         case XCB_ENTER_NOTIFY:
-         {
-
-         }
-            break;
-         case XCB_MOTION_NOTIFY:
-         {
-
-            auto pmotion = (xcb_motion_notify_event_t *) pgenericevent;
-
-            msg.oswindow = m_pdisplay->_window(pmotion->child);
-
-            m_pointCursor.x = pmotion->root_x;
-
-            m_pointCursor.y = pmotion->root_y;
-
-            if (msg.oswindow != nullptr && msg.oswindow->m_pimpl != nullptr)
+            if (pinteraction.is_set())
             {
 
-               bool bOk = true;
-
-               __pointer(::user::interaction) pinteraction = msg.oswindow->m_pimpl->m_puserinteraction;
-
-               if (pinteraction.is_set())
+               if (pinteraction->m_millisMouseMove.elapsed() < pinteraction->m_millisMouseMoveIgnore)
                {
 
-                  if (pinteraction->m_millisMouseMove.elapsed() < pinteraction->m_millisMouseMoveIgnore)
+                  bOk = false;
+
+               }
+
+               if (bOk)
+               {
+
+                  pinteraction->m_millisMouseMove.Now();
+
+                  pinteraction->m_pointMouseMove.x = pmotion->root_x;
+
+                  pinteraction->m_pointMouseMove.y = pmotion->root_y;
+
+                  if (false)
                   {
 
-                     bOk = false;
-
-                  }
-
-                  if (bOk)
-                  {
-
-                     pinteraction->m_millisMouseMove.Now();
-
-                     pinteraction->m_pointMouseMove.x = pmotion->root_x;
-
-                     pinteraction->m_pointMouseMove.y = pmotion->root_y;
-
-                     if (false)
+                     if (pinteraction->m_millisMouseMovePeriod > 0)
                      {
 
-                        if (pinteraction->m_millisMouseMovePeriod > 0)
+                        ::size_i32 sizeDistance(
+                           (pinteraction->m_pointMouseMoveSkip.x - pinteraction->m_pointMouseMove.x),
+                           (pinteraction->m_pointMouseMoveSkip.y - pinteraction->m_pointMouseMove.y));
+
+                        if (!pinteraction->m_millisMouseMoveSkip.timeout(pinteraction->m_millisMouseMovePeriod)
+                            && sizeDistance.cx * sizeDistance.cx + sizeDistance.cy * sizeDistance.cy <
+                               pinteraction->m_iMouseMoveSkipSquareDistance)
                         {
 
-                           ::size_i32 sizeDistance(
-                              (pinteraction->m_pointMouseMoveSkip.x - pinteraction->m_pointMouseMove.x),
-                              (pinteraction->m_pointMouseMoveSkip.y - pinteraction->m_pointMouseMove.y));
+                           pinteraction->m_iMouseMoveSkipCount++;
 
-                           if (!pinteraction->m_millisMouseMoveSkip.timeout(pinteraction->m_millisMouseMovePeriod)
-                               && sizeDistance.cx * sizeDistance.cx + sizeDistance.cy * sizeDistance.cy <
-                                  pinteraction->m_iMouseMoveSkipSquareDistance)
+                           pinteraction->m_bMouseMovePending = true;
+
+                           if (pinteraction->m_iMouseMoveSkipCount == 2)
                            {
 
-                              pinteraction->m_iMouseMoveSkipCount++;
+                              //output_debug_string("\nmmv>skip 2!");
 
-                              pinteraction->m_bMouseMovePending = true;
+                           } else if (pinteraction->m_iMouseMoveSkipCount == 5)
+                           {
 
-                              if (pinteraction->m_iMouseMoveSkipCount == 2)
-                              {
+                              //output_debug_string("\nmmv>Skip 5!!!");
 
-                                 //output_debug_string("\nmmv>skip 2!");
+                           } else if (pinteraction->m_iMouseMoveSkipCount == 10)
+                           {
 
-                              }
-                              else if (pinteraction->m_iMouseMoveSkipCount == 5)
-                              {
-
-                                 //output_debug_string("\nmmv>Skip 5!!!");
-
-                              }
-                              else if (pinteraction->m_iMouseMoveSkipCount == 10)
-                              {
-
-                                 //output_debug_string("\nmmv>SKIP 10 !!!!!!!!!");
-
-                              }
-
-                              return true;
+                              //output_debug_string("\nmmv>SKIP 10 !!!!!!!!!");
 
                            }
 
-                           pinteraction->m_iMouseMoveSkipCount = 0;
-
-                           pinteraction->m_pointMouseMoveSkip = pinteraction->m_pointMouseMove;
+                           return true;
 
                         }
+
+                        pinteraction->m_iMouseMoveSkipCount = 0;
+
+                        pinteraction->m_pointMouseMoveSkip = pinteraction->m_pointMouseMove;
 
                      }
 
@@ -706,25 +783,31 @@ namespace windowing_xcb
 
                }
 
-               if (!bOk)
-               {
-
-                  return true;
-
-               }
-
             }
 
-            wparam wparam(0);
-
-            if (pmotion->state & XCB_BUTTON_MASK_1)
+            if (!bOk)
             {
 
-               wparam |= MK_LBUTTON;
+               return true;
 
             }
 
-            msg.oswindow = m_pdisplay->_window(pmotion->child);
+         }
+
+         wparam wparam(0);
+
+         if (pmotion->state & XCB_BUTTON_MASK_1)
+         {
+
+            wparam |= MK_LBUTTON;
+
+         }
+
+         if (msg.oswindow->has_mouse_capture()
+         || msg.oswindow->screen_pixel(pmotion->root_x, pmotion->root_y).alpha != 0)
+         {
+
+            //msg.oswindow = m_pdisplay->_window(pmotion->event);
             msg.m_id = e_message_mouse_move;
             msg.wParam = wparam;
             msg.lParam = MAKELONG(pmotion->root_x, pmotion->root_y);
@@ -733,7 +816,98 @@ namespace windowing_xcb
             post_ui_message(msg);
 
          }
-            break;
+         else
+         {
+
+            auto list = m_pdisplay->_window_enumerate();
+
+            int iFind = -1;
+
+            xcb_window_t wFound = 0;
+
+            for (int i = list.get_upper_bound(); i >= 0; i--)
+            {
+
+               auto w = list[i];
+
+               if (w == pmotion->event)
+               {
+
+                  iFind = i;
+
+               }
+               else if (i < iFind)
+               {
+
+                  auto g = m_pdisplay->_window_get_geometry(w);
+
+                  if (pmotion->root_x >= g.x && pmotion->root_x < g.x + g.width
+                      && pmotion->root_y >= g.y && pmotion->root_y < g.y + g.height)
+                  {
+
+                     auto a = m_pdisplay->_window_get_window_attributes(w);
+
+                     if(a.map_state == XCB_MAP_STATE_VIEWABLE)
+                     {
+
+                        wFound = w;
+
+                        break;
+
+                     }
+
+                  }
+
+               }
+
+            }
+
+            if (!wFound)
+            {
+
+               wFound = m_pdisplay->m_windowRoot;
+
+            }
+
+            xcb_motion_notify_event_t motion(*pmotion);
+
+            if (motion.same_screen)
+            {
+
+               auto trans = xcb_translate_coordinates_reply(
+                  m_pdisplay->m_pconnection,
+                  xcb_translate_coordinates(
+                     m_pdisplay->m_pconnection,
+                     motion.event,
+                     wFound,
+                     motion.event_x, motion.event_y),
+                  NULL);
+
+               if (trans)
+               {
+                  motion.event_x = trans->dst_x;
+                  motion.event_y = trans->dst_y;
+                  free(trans);
+               }
+
+            }
+
+            motion.event = wFound;
+
+            auto cookie = xcb_send_event(m_pdisplay->m_pconnection,
+                                         1,
+                                         wFound,
+                                         XCB_EVENT_MASK_POINTER_MOTION,
+                                         (char *) &motion);
+
+            auto estatus = m_pdisplay->_request_check(cookie);
+
+
+            output_debug_string("");
+         }
+
+      }
+      break;
          case XCB_EXPOSE:
          {
 
@@ -929,7 +1103,28 @@ namespace windowing_xcb
 
             auto pconfigure = (xcb_configure_notify_event_t *) pgenericevent;
 
+            ::point_i32 point(pconfigure->x, pconfigure->y);
+
+            ::size_i32 size(pconfigure->width, pconfigure->height);
+
             msg.oswindow = m_pdisplay->_window(pconfigure->window);
+
+            auto trans = xcb_translate_coordinates_reply (m_pdisplay->m_pconnection,
+                                                     xcb_translate_coordinates (m_pdisplay->m_pconnection,
+                                                                                pconfigure->window,
+                                                                                m_pdisplay->m_windowRoot,
+                                                                                0, 0),
+                                                     NULL);
+            if (trans)
+            {
+
+               point.x = trans->dst_x;
+               point.y = trans->dst_y;
+
+               free(trans);
+
+            }
+
 
             ::user::primitive_impl *pimpl = msg.oswindow->m_pimpl;
 
@@ -956,7 +1151,7 @@ namespace windowing_xcb
 //
 //               pinteraction->m_windowrect.m_edisplay = edisplayPrevious;
 
-                     pinteraction->fork([=]()
+                     pinteraction->fork([point,size,pinteraction]()
                                         {
 
                                            auto edisplayPrevious = pinteraction->window_previous_display();
@@ -982,13 +1177,10 @@ namespace windowing_xcb
 
                      //_xcb_defer_check_configuration(msg.oswindow);
 
-                     ::point_i32 point(pconfigure->x, pconfigure->y);
 
-                     ::size_i32 size(pconfigure->width, pconfigure->height);
+                     auto pointWindow = msg.oswindow->m_point;
 
-                     auto pointWindow = pinteraction->layout().window().screen_origin();
-
-                     auto sizeWindow = pinteraction->layout().window().size();
+                     auto sizeWindow = msg.oswindow->m_size;
 
                      // Robbers -> Smart -> Tough Law
                      // Kids -> Soft Law
@@ -1066,6 +1258,8 @@ namespace windowing_xcb
 
                         post_ui_message(msg);
 
+                        msg.oswindow->m_point = point;
+
                      }
 
                      if (bSizeFix)
@@ -1077,9 +1271,9 @@ namespace windowing_xcb
 
                         post_ui_message(msg);
 
-                     }
+                        msg.oswindow->m_size = size;
 
-                     msg.oswindow->m_rectangle.set(point, size);
+                     }
 
                   }
 
@@ -1090,20 +1284,22 @@ namespace windowing_xcb
             if (pconfigure->window == m_pdisplay->m_windowRoot)
             {
 
-               auto applicationa = Session->m_applicationa;
+               auto psession = get_session();
+
+               auto applicationa = psession->m_applicationa;
 
                try
                {
 
-                  for (auto &papplication : applicationa)
+                  for (auto &papplicationItem : applicationa)
                   {
 
                      try
                      {
 
-                        auto &app = App(papplication);
+                        auto papplication = papplicationItem->m_pauraapplication;
 
-                        auto uiptraFrame = app.m_puiptraFrame->interactiona();
+                        auto uiptraFrame = papplication->m_puiptraFrame->interactiona();
 
                         for (auto &pframe : uiptraFrame)
                         {
@@ -1147,7 +1343,7 @@ namespace windowing_xcb
 
             bRet = true;
 
-            msg.oswindow = m_pdisplay->_window(pbutton->child);
+            msg.oswindow = m_pdisplay->_window(pbutton->event);
             msg.time = pbutton->time;
 
             if (pbutton->response_type == XCB_BUTTON_PRESS)
@@ -1157,6 +1353,8 @@ namespace windowing_xcb
                {
 
                   ::output_debug_string("ButtonPress::Button1\n");
+
+                  g_i135++;
 
                   msg.m_id = e_message_left_button_down;
 
@@ -1238,7 +1436,11 @@ namespace windowing_xcb
 //      int h1 = r.height();
 
 
-            if (bRet)
+            if (bRet &&
+               (
+                  msg.oswindow->has_mouse_capture()
+                  || msg.oswindow->screen_pixel(pbutton->root_x, pbutton->root_y).alpha != 0
+               ))
             {
 
                msg.wParam = 0;
@@ -1248,20 +1450,109 @@ namespace windowing_xcb
                post_ui_message(msg);
 
             }
+            else
+            {
+
+               auto list = m_pdisplay->_window_enumerate();
+
+               int iFind = -1;
+
+               xcb_window_t wFound = 0;
+
+               for(int i = list.get_upper_bound(); i>= 0; i--)
+               {
+                  auto w = list[i];
+
+                  if (w == pbutton->event)
+                  {
+                     iFind = i;
+
+                  } else if (i < iFind)
+                  {
+
+                     auto g = m_pdisplay->_window_get_geometry(w);
+
+                     if (pbutton->root_x >= g.x && pbutton->root_x < g.x + g.width
+                         && pbutton->root_y >= g.y && pbutton->root_y < g.y + g.height)
+                     {
+
+                        auto a = m_pdisplay->_window_get_window_attributes(w);
+
+                        if(a.map_state == XCB_MAP_STATE_VIEWABLE)
+                        {
+
+                           wFound = w;
+
+                           break;
+
+                        }
+
+                     }
+
+                  }
+
+               }
+
+               if(!wFound)
+               {
+
+                  wFound = m_pdisplay->m_windowRoot;
+
+               }
+
+               xcb_button_press_event_t button(*pbutton);
+               if(button.same_screen)
+               {
+
+                  auto trans = xcb_translate_coordinates_reply (
+                     m_pdisplay->m_pconnection,
+                     xcb_translate_coordinates (
+                        m_pdisplay->m_pconnection,
+                        button.event,
+                        wFound,
+                        button.event_x, button.event_y),
+                     NULL);
+
+                  if(trans)
+                  {
+                     button.event_x =trans->dst_x;
+                     button.event_y = trans->dst_y;
+                     free(trans);
+                  }
+
+               }
+               button.event = wFound;
+               auto cookie = xcb_send_event(m_pdisplay->m_pconnection,
+                                               1,
+                                               wFound,
+                                            button.response_type == XCB_BUTTON_PRESS ?
+                                               XCB_EVENT_MASK_BUTTON_PRESS :
+               XCB_EVENT_MASK_BUTTON_RELEASE,
+                                               (char *) &button);
+
+               auto estatus = m_pdisplay->_request_check(cookie);
+
+               break;
+
+
+
+            }
 
          }
-            break;
+         break;
          case XCB_KEY_PRESS:
          case XCB_KEY_RELEASE:
          {
 
             auto pkey = (xcb_key_press_event_t *)pgenericevent;
 
-            auto pwindow = m_pdisplay->_window(pkey->child);
+            auto pwindow = m_pdisplay->_window(pkey->event);
 
             msg.oswindow = pwindow;
 
             xcb_keycode_t code = pkey->detail;
+
+            ::u16 state = pkey->state;
 
             msg.time = pkey->time;
 
@@ -1275,12 +1566,12 @@ namespace windowing_xcb
 
             msg.wParam = code;
 
-            msg.lParam = pwindow->keycode_to_keysym(code);
+            KeySym keysym = 0;
 
             if (pkey->response_type == XCB_KEY_PRESS)
             {
 
-               strText = pwindow->_on_key_down(code);
+               strText = pwindow->_on_key_down(code, state, &keysym);
 
                msg.m_id = e_message_key_down;
 
@@ -1491,6 +1782,8 @@ namespace windowing_xcb
             else if (pkey->response_type == XCB_KEY_RELEASE)
             {
 
+               keysym = pwindow->keycode_to_keysym(code);
+
                msg.m_id = e_message_key_up;
 
             }
@@ -1508,7 +1801,7 @@ namespace windowing_xcb
 
                //msg.wParam = pkey->code;
 
-               //msg.lParam = keysym;
+               msg.lParam = keysym;
 
                post_ui_message(msg);
 
@@ -1550,12 +1843,14 @@ namespace windowing_xcb
 
             msg.m_id = e_message_set_focus;
 
-            auto oswindow = msg.oswindow;
+            auto pwindow = m_pdisplay->_window(pfocusin->event);
 
-            if (::is_set(oswindow))
+            msg.oswindow = pwindow;
+
+            if (::is_set(msg.oswindow))
             {
 
-               m_pdisplay->m_pwindowKeyboardFocus = oswindow;
+               m_pdisplay->m_pwindowKeyboardFocus = msg.oswindow;
 
                auto pimpl = msg.oswindow->m_pimpl;
 
@@ -1637,12 +1932,14 @@ namespace windowing_xcb
 
             ::output_debug_string("FocusOut\n");
 
-            auto oswindow = msg.oswindow;
+            auto pwindow = m_pdisplay->_window(pfocusout->event);
 
-            if (::is_set(oswindow))
+            msg.oswindow = pwindow;
+
+            if (::is_set(msg.oswindow))
             {
 
-               if(m_pdisplay->m_pwindowKeyboardFocus == oswindow)
+               if(m_pdisplay->m_pwindowKeyboardFocus == msg.oswindow)
                {
 
                   m_pdisplay->m_pwindowKeyboardFocus = nullptr;
@@ -1706,6 +2003,46 @@ namespace windowing_xcb
 
          }
          break;
+         case XCB_ALLOC_NAMED_COLOR: // 85
+         {
+
+            auto pevent = (xcb_alloc_named_color_request_t *) pgenericevent;
+
+            const char * pszAllocNamedColor = (const char *) pevent->pad1;
+
+#if 0
+
+            output_debug_string("\n");
+            output_debug_string("XCB_ALLOC_NAMED_COLOR");
+            output_debug_string("\n");
+            output_debug_string(pszAllocNamedColor);
+            output_debug_string("\n");
+
+#endif
+
+         }
+            break;
+         case XCB_ALLOC_COLOR_CELLS: // 86
+         {
+
+            auto pevent = (xcb_alloc_color_cells_request_t *) pgenericevent;
+
+         }
+         break;
+         case XCB_ALLOC_COLOR_PLANES: // 87
+         {
+
+            auto pevent = (xcb_alloc_color_planes_request_t *) pgenericevent;
+
+         }
+         break;
+         case XCB_REPARENT_NOTIFY: // 21
+         {
+            auto pevent = (xcb_reparent_notify_event_t *) pgenericevent;
+
+
+            }
+            break;
          default:
          {
 

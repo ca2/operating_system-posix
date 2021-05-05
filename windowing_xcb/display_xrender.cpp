@@ -2,7 +2,6 @@
 // Created by camilo on 17/02/2021. 23:08 BRT <3TBS_!!
 //
 #include "framework.h"
-#include "windowing_xcb.h"
 
 
 namespace windowing_xcb
@@ -17,7 +16,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::CreateAlphaCursor 1");
 
-      display_lock displaylock(this);
+      //display_lock displaylock(this);
 
       xcb_render_picture_t picture = _create_picture(pimage);
 

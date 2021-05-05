@@ -24,19 +24,19 @@ namespace node_gnome
    }
 
 
-   ::e_status windowing::user_branch(const ::routine & routine)
-   {
-
-      gdk_fork([routine]()
-               {
-
-                  routine();
-
-               });
-
-      return success;
-
-   }
+//   ::e_status windowing::windowing_branch(const ::routine & routine)
+//   {
+//
+//      gdk_fork([routine]()
+//               {
+//
+//                  routine();
+//
+//               });
+//
+//      return success;
+//
+//   }
 
 
    bool windowing::message_loop_step()

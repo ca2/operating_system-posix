@@ -16,37 +16,39 @@ namespace node_kde
 
 
    class CLASS_DECL_ACME node :
-      virtual public ::node_linux::node,
+      virtual public ::windowing_xcb::node,
       virtual public QAbstractNativeEventFilter
    {
    public:
 
 
+      QApplication *       m_pqapplication;
 
-
-      QApplication m_qapplication;
-
-      QPalette m_qpalette;
+      QPalette             m_qpalette;
 
       //qDebug() << "palette after:" << palette2.color(group, role).name();
 
       //node_impl *    m_pnodeimpl;
       //gpointer m_pGtkSettingsDefault;
-      string   m_strTheme;
+      //string   m_strTheme;
 
       node();
       virtual ~node();
 
 
-      ::os_theme_colors * new_os_theme_colors();
+      void _destroy_node_kde();
+
+      //::os_theme_colors * new_os_theme_colors();
 
       virtual bool _os_calc_app_dark_mode() override;
 
       virtual int node_init_check(int * pi, char *** ppz) override;
 
-      virtual ::e_status start() override;
+      virtual ::e_status system_main() override;
 
-      virtual ::e_status initialize(::layered * pobjectContext) override;
+      virtual ::e_status initialize(::object * pobject) override;
+
+      virtual ::e_status _allocate_Display_and_connection() override;
 
       //virtual void os_calc_user_dark_mode() override;
 
@@ -70,7 +72,7 @@ namespace node_kde
 
       using ::aura::node::node_fork;
 
-      virtual void node_fork(const ::routine & routine) override;
+      virtual ::e_status node_branch(const ::routine & routine) override;
 
       virtual void node_post_quit() override;
 
@@ -88,12 +90,18 @@ namespace node_kde
 
       virtual bool launch_on_node(::subject::subject * psubject);
 
+      virtual int os_launch_uri(const char * pszUri, char * pszError = NULL, int iBufferSize = 0) override;
+
+      virtual bool nativeEventFilter(const QByteArray &eventType, void *message, long *result)  override;
+
+
+      virtual ::e_status _qapplication_exec();
+
 
    };
 
 
 } // namespace node_kde
-
 
 
 

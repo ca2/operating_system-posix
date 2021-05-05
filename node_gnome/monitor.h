@@ -21,13 +21,24 @@ namespace node_gnome
       virtual ~monitor();
 
 
+      ::windowing_x11::windowing * x11_windowing() const {return (::windowing_x11::windowing *) m_pdisplay->m_pwindowing->m_pWindowing; }
+      ::windowing_x11::display * x11_display() const {return (::windowing_x11::display *) m_pdisplay->m_pDisplay; }
+
+
+
       virtual ::e_status update_cache();
+
 
       virtual ::u32 get_monitor_color_temperature() override;
       virtual bool adjust_monitor( ::u32 dwTemperature, double dBrightness, double dwGamma) override;
 
-      virtual bool get_monitor_rectangle(::RECTANGLE_I32 * prectangle) override;
-      virtual bool get_workspace_rectangle(::RECTANGLE_I32 * prectangle) override;
+
+      virtual ::e_status get_monitor_rectangle(::RECTANGLE_I32 * prectangle) override;
+      virtual ::e_status get_workspace_rectangle(::RECTANGLE_I32 * prectangle) override;
+
+
+      virtual ::e_status _get_monitor_rectangle();
+      virtual ::e_status _get_workspace_rectangle();
 
 
    };

@@ -2,12 +2,14 @@
 // Created by camilo on 17/02/2021. 15:16 BRT <3TBS_!!
 //
 #include "framework.h"
-#include "aura/user/_user.h"
+#include "_windowing_xcb.h"
 #include "windowing_xcb.h"
+#include "aura/user/_user.h"
 #include "acme/os/_user.h"
 #include "aura/user/interaction_prodevian.h"
 #include "aura/platform/message_queue.h"
 #include <X11/Xatom.h>
+#include <xcb/xcb_icccm.h>
 
 
 namespace windowing_xcb
@@ -45,7 +47,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status window::_mapped_remove_net_wm_state(x_window::enum_atom eatomNetWmState)
+   ::e_status window::_mapped_erase_net_wm_state(x_window::enum_atom eatomNetWmState)
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -81,18 +83,27 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      windowing_output_debug_string("\n::wm_add_remove_state 1");
+      //display_lock displaylock(xcb_display());
 
-      display_lock displaylock(xcb_display());
-
-      auto estatus = _add_net_wm_state(eatomNetWmState);
-
-      windowing_output_debug_string("\n::wm_add_remove_state 2");
+      auto estatus = _get_window_attributes();
 
       if(!estatus)
       {
 
          return estatus;
+
+      }
+
+      if(m_attributes.map_state != XCB_MAP_STATE_UNMAPPED)
+      {
+
+         estatus = _mapped_add_net_wm_state(eatomNetWmState);
+
+      }
+      else
+      {
+
+         estatus = _unmapped_add_net_wm_state(eatomNetWmState);
 
       }
 
@@ -102,30 +113,30 @@ namespace windowing_xcb
 
 
    /// must be run in x11 thread (user thread)
-   ::e_status window::_remove_net_wm_state(x_window::enum_atom eatomNetWmState)
+   ::e_status window::_erase_net_wm_state(x_window::enum_atom eatomNetWmState)
    {
 
       synchronous_lock synchronouslock(user_mutex());
 
-      ::e_status estatus;
-
-      if (IsWindowVisibleRaw())
-      {
-
-         estatus = _mapped_remove_net_wm_state(eatomNetWmState);
-
-      }
-      else
-      {
-
-         estatus = _unmapped_remove_net_wm_state(eatomNetWmState);
-
-      }
+      auto estatus = _get_window_attributes();
 
       if(!estatus)
       {
 
          return estatus;
+
+      }
+
+      if(m_attributes.map_state != XCB_MAP_STATE_UNMAPPED)
+      {
+
+         estatus = _mapped_erase_net_wm_state(eatomNetWmState);
+
+      }
+      else
+      {
+
+         estatus = _unmapped_erase_net_wm_state(eatomNetWmState);
 
       }
 
@@ -140,11 +151,11 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      auto estatus1 = _remove_net_wm_state(x_window::e_atom_net_wm_state_above);
+      auto estatus1 = _erase_net_wm_state(x_window::e_atom_net_wm_state_above);
 
-      auto estatus2 = _remove_net_wm_state(x_window::e_atom_net_wm_state_below);
+      auto estatus2 = _erase_net_wm_state(x_window::e_atom_net_wm_state_below);
 
-      auto estatus3 = _remove_net_wm_state(x_window::e_atom_net_wm_state_hidden);
+      auto estatus3 = _erase_net_wm_state(x_window::e_atom_net_wm_state_hidden);
 
       if(!estatus1 || !estatus2 || estatus3)
       {
@@ -164,9 +175,9 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      auto estatus1 = _remove_net_wm_state_hidden();
+      auto estatus1 = _erase_net_wm_state_hidden();
 
-      auto estatus2 = _remove_net_wm_state_above();
+      auto estatus2 = _erase_net_wm_state_above();
 
       auto estatus3 = _add_net_wm_state(x_window::e_atom_net_wm_state_below);
 
@@ -188,9 +199,9 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      auto estatus1 = _remove_net_wm_state_hidden();
+      auto estatus1 = _erase_net_wm_state_hidden();
       auto estatus2 = _add_net_wm_state(x_window::e_atom_net_wm_state_above);
-      auto estatus3 = _remove_net_wm_state_hidden();
+      auto estatus3 = _erase_net_wm_state_hidden();
 
       if(!estatus1 || !estatus2 || estatus3)
       {
@@ -211,8 +222,8 @@ namespace windowing_xcb
       synchronous_lock synchronouslock(user_mutex());
 
       auto estatus1 = _add_net_wm_state(x_window::e_atom_net_wm_state_hidden);
-      auto estatus2 = _remove_net_wm_state_above();
-      auto estatus3 = _remove_net_wm_state_below();
+      auto estatus2 = _erase_net_wm_state_above();
+      auto estatus3 = _erase_net_wm_state_below();
 
       if(!estatus1 || !estatus2 || estatus3)
       {
@@ -252,7 +263,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status window::_unmapped_remove_net_wm_state(x_window::enum_atom eatomNetWmState)
+   ::e_status window::_unmapped_erase_net_wm_state(x_window::enum_atom eatomNetWmState)
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -261,7 +272,7 @@ namespace windowing_xcb
 
       auto atomWmNetState = xcb_display()->atom(eatomNetWmState);
 
-      auto estatus = _list_remove_atom(atomWmNetState, atomWmNetState);
+      auto estatus = _list_erase_atom(atomWmNetState, atomWmNetState);
 
       if(!estatus)
       {
@@ -276,12 +287,12 @@ namespace windowing_xcb
 
 
    /// must be run in x11 thread (user thread)
-   ::e_status window::_remove_net_wm_state_below()
+   ::e_status window::_erase_net_wm_state_below()
    {
 
       synchronous_lock synchronouslock(user_mutex());
 
-      auto estatus = _remove_net_wm_state(x_window::e_atom_net_wm_state_below);
+      auto estatus = _erase_net_wm_state(x_window::e_atom_net_wm_state_below);
 
       if(!estatus)
       {
@@ -296,12 +307,12 @@ namespace windowing_xcb
 
 
    /// must be run in x11 thread (user thread)
-   ::e_status window::_remove_net_wm_state_above()
+   ::e_status window::_erase_net_wm_state_above()
    {
 
       synchronous_lock synchronouslock(user_mutex());
 
-      auto estatus = _remove_net_wm_state(x_window::e_atom_net_wm_state_above);
+      auto estatus = _erase_net_wm_state(x_window::e_atom_net_wm_state_above);
 
       if(!estatus)
       {
@@ -316,12 +327,12 @@ namespace windowing_xcb
 
 
    /// must be run in x11 thread (user thread)
-   ::e_status window::_remove_net_wm_state_hidden()
+   ::e_status window::_erase_net_wm_state_hidden()
    {
 
       synchronous_lock synchronouslock(user_mutex());
 
-      auto estatus = _remove_net_wm_state(x_window::e_atom_net_wm_state_hidden);
+      auto estatus = _erase_net_wm_state(x_window::e_atom_net_wm_state_hidden);
 
       if(!estatus)
       {
@@ -343,7 +354,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       ::e_status estatus;
 
@@ -356,7 +367,7 @@ namespace windowing_xcb
       else
       {
 
-         estatus = _remove_net_wm_state(x_window::e_atom_net_wm_state_skip_taskbar);
+         estatus = _erase_net_wm_state(x_window::e_atom_net_wm_state_skip_taskbar);
 
       }
 
@@ -422,7 +433,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       ::e_status estatus;
 
@@ -435,7 +446,7 @@ namespace windowing_xcb
       else
       {
 
-         estatus = _remove_net_wm_state(x_window::e_atom_net_wm_state_skip_taskbar);
+         estatus = _erase_net_wm_state(x_window::e_atom_net_wm_state_skip_taskbar);
 
       }
 
@@ -463,7 +474,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       xcb_atom_t atomWindowType = xcb_display()->intern_atom("_NET_WM_WINDOW_TYPE", false);
 
@@ -518,7 +529,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       xcb_atom_t atomWindowType = xcb_display()->intern_atom("_NET_WM_WINDOW_TYPE", false);
 
@@ -574,7 +585,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       xcb_atom_t atomWindowType = xcb_display()->intern_atom("_NET_WM_WINDOW_TYPE", false);
 
@@ -629,7 +640,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       xcb_atom_t atomWindowType = xcb_display()->intern_atom("_NET_WM_WINDOW_TYPE", false);
 
@@ -725,11 +736,26 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_display());
+      //display_lock displaylock(xcb_display());
 
       windowing_output_debug_string("\n::wm_iconify_window 1");
       
       ::e_status estatus;
+
+      xcb_client_message_event_t event;
+      event.response_type = XCB_CLIENT_MESSAGE;
+      event.format = 32;
+      event.sequence = 0;
+      event.window = m_window;
+      event.type = xcb_display()->intern_atom("WM_CHANGE_STATE", true);
+      event.data.data32[0] = XCB_ICCCM_WM_STATE_ICONIC;
+      event.data.data32[1] = 0;
+      event.data.data32[2] = 0;
+      event.data.data32[3] = 0;
+      event.data.data32[4] = 0;
+      xcb_send_event(xcb_connection(), 0, xcb_windowing()->m_pdisplay->m_windowRoot,
+                     XCB_EVENT_MASK_STRUCTURE_NOTIFY | XCB_EVENT_MASK_SUBSTRUCTURE_REDIRECT,
+                     (const char *)&event);
 
       if (IsWindowVisibleRaw())
       {
@@ -750,6 +776,17 @@ namespace windowing_xcb
          estatus = _unmapped_net_state_raw(xcb_display()->intern_atom("_NET_WM_STATE_HIDDEN", false));
 
       }
+
+      xcb_get_property_cookie_t cookie = xcb_icccm_get_wm_hints_unchecked(xcb_connection(), m_window);
+      xcb_icccm_wm_hints_t hints;
+      if (xcb_icccm_get_wm_hints_reply(xcb_connection(), cookie, &hints, nullptr)) {
+         //if (state & Qt::WindowMinimized)
+            xcb_icccm_wm_hints_set_iconic(&hints);
+         //else
+           // xcb_icccm_wm_hints_set_normal(&hints);
+         xcb_icccm_set_wm_hints(xcb_connection(), m_window, &hints);
+      }
+
 
       windowing_output_debug_string("\n::wm_iconify_window 2");
 
@@ -786,6 +823,7 @@ namespace windowing_xcb
 
 
 } // namespace windowing_xcb
+
 
 
 

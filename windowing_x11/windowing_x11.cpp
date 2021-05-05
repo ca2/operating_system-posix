@@ -1095,7 +1095,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
          synchronous_lock synchronouslock(user_mutex());
 
-         display_lock displaylock(m_pdisplay);
+         display_lock displaylock(m_pdisplay->Display());
 
          try
          {
@@ -1235,7 +1235,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
          synchronous_lock synchronouslock(user_mutex());
 
-         display_lock displayLock(m_pdisplay);
+         display_lock displayLock(m_pdisplay->Display());
 
          Display *pdisplay = m_pdisplay->Display();
 
@@ -2029,6 +2029,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                         post_ui_message(msg);
 
+                        msg.oswindow->m_point = point;
+
                      }
 
                      if (bSizeFix)
@@ -2040,9 +2042,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                         post_ui_message(msg);
 
-                     }
+                        msg.oswindow->m_point = size;
 
-                     msg.oswindow->m_rectangle.set(point, size);
+                     }
 
                   }
 
@@ -2236,180 +2238,14 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                __pointer(::windowing_x11::window) pwindow = msg.oswindow;
 
-               Window window = pwindow->Window();
-
-               auto &setThread = msg.oswindow->m_pimpl->get_property_set();
-
-               XIC xic = pwindow->m_xic;
-
-               XIM xim = (XIM) setThread["xim"].iptr();
-
-               if (xic == nullptr && (pwindow->m_iXic & 1) == 0)
+               if(!pwindow->m_pximkeyboard)
                {
 
-                  if (((iptr) (setThread["xim_flag"].i32()) & 1) == 0)
-                  {
-
-                     setThread["xim_flag"] = 1;
-
-                     xim = XOpenIM(m_pdisplay->Display(), NULL, (char *) "ca2 Input Manager", (char *) "ca2 Input Manager");
-
-                     if (!xim)
-                     {
-
-                        TRACE("cannot Open Input Manager: Try default.\n");
-
-                        XSetLocaleModifiers("@im=");
-
-                        xim = XOpenIM(m_pdisplay->Display(), NULL, (char *) "ca2 Input Manager (default)",
-                                      (char *) "ca2 Input Manager (default)");
-
-                        if (!xim)
-                        {
-
-                           TRACE("Couldn't Open Input Manager");
-
-                        }
-
-                     }
-
-                     XIMStyle best_style = 0;
-
-                     if (xim)
-                     {
-
-                        msg.oswindow->m_pimpl->payload("xim") = (iptr) xim;
-
-                        XIMStyles *pximstyles = nullptr;
-
-                        __zero(pximstyles);
-
-                        XGetIMValues(xim, XNQueryInputStyle, &pximstyles, NULL, NULL);
-
-                        if (pximstyles)
-                        {
-
-                           XIMStyle *pstyle = nullptr;
-
-                           int i = 0;
-
-                           for (pstyle = pximstyles->supported_styles; i < pximstyles->count_styles; i++, pstyle++)
-                           {
-
-                              TRACE("input style : 0x%X\n", *pstyle);
-
-                              if ((*pstyle & XIMStatusNone || *pstyle & XIMStatusNothing) &&
-                                  (*pstyle & XIMPreeditNone || *pstyle & XIMPreeditNothing))
-                              {
-
-                                 best_style = *pstyle;
-
-                                 break;
-
-                              }
-
-                           }
-
-                           XFree(pximstyles);
-
-                           if (best_style != 0)
-                           {
-
-                              msg.oswindow->m_pimpl->payload("xim_flag")
-                              = msg.oswindow->m_pimpl->payload("xim_flag").i32() | 2;
-
-                           }
-
-                        }
-
-                     }
-
-                  }
-
-                  if (((iptr) setThread["xim_flag"].i32() & 2) != 0 && (pwindow->m_iXic & 1) == 0)
-                  {
-
-                     pwindow->m_iXic = 1;
-
-                     xic = XCreateIC(
-                        xim,
-                        XNInputStyle,
-                        (XIMPreeditNothing | XIMStatusNothing),
-                        XNClientWindow, window,
-                        XNFocusWindow, window,
-                        NULL);
-
-                     if (xic)
-                     {
-
-                        pwindow->m_iXic |= 2;
-
-                        pwindow->m_xic = xic;
-
-                     }
-                     else
-                     {
-
-                        TRACE("cannot create Input Context.\n");
-
-                     }
-
-                  }
+                  pwindow->m_pximkeyboard = new ::xim::keyboard(m_pdisplay->Display(), e.xkey.window);
 
                }
 
-               if ((pwindow->m_iXic & 3) == 3)
-               {
-
-                  Status status_return;
-
-                  int iCount = Xutf8LookupString(xic, &e.xkey, buf, sizeof(buf), &keysym, &status_return);
-
-                  switch (status_return)
-                  {
-                     case XLookupNone:
-                        strText.Empty();
-                        keysym = 0;
-                        break;
-
-                     case XLookupChars:
-                        strText = string(buf, iCount);
-                        keysym = 0;
-                        break;
-
-                     case XLookupKeySym:
-                        strText.Empty();
-                        break;
-
-                     case XLookupBoth:
-                        strText = string(buf, iCount);
-                        break;
-
-                     default:
-                        break;
-
-                  };
-
-               }
-
-               if (keysym == XK_BackSpace
-                   || keysym == XK_Delete
-                   || keysym == XK_Tab
-                   || keysym == XK_Return
-                   || keysym == XK_Left
-                   || keysym == XK_Right
-                   || keysym == XK_Up
-                   || keysym == XK_Down
-                   || keysym == XK_Page_Up
-                   || keysym == XK_Page_Down
-                   || keysym == XK_Home
-                   || keysym == XK_End)
-               {
-
-                  strText.Empty();
-
-               }
-
+               strText = pwindow->m_pximkeyboard->get_key_press_text(&e.xkey, &keysym);
 
                //case XK_Escape:
 //                dv_dpy->dontdraw = 1;
@@ -2438,6 +2274,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
             else if (e.xkey.type == KeyRelease)
             {
 
+               keysym = XkbKeycodeToKeysym(m_pdisplay->Display(), e.xkey.keycode, 0, e.xkey.state & ShiftMask ? 1 : 0);
+
                msg.m_id = e_message_key_up;
 
             }
@@ -2450,8 +2288,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
             if (bRet)
             {
-
-               KeySym keysym = XkbKeycodeToKeysym(m_pdisplay->Display(), e.xkey.keycode, 0, e.xkey.state & ShiftMask ? 1 : 0);
 
                msg.wParam = e.xkey.keycode;
 

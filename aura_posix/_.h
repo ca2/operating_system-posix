@@ -12,28 +12,21 @@
 #endif
 
 
-namespace aura_posix
+namespace aura
 {
 
 
-   class node;
+   namespace posix
+   {
+
+
+      class node;
+
+
+   } // namespace posix
 
 
 } // namespace aura_posix
-
-
-#include "appindicator.h"
-
-
-#include "shell.h"
-
-
-#include "node.h"
-
-
-#include "factory_exchange.h"
-
-
 
 
 

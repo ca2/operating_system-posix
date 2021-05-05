@@ -13,7 +13,7 @@ namespace node_gnome
 
 
    class CLASS_DECL_ACME node :
-      virtual public ::aura::posix::node
+      virtual public ::windowing_x11::node
    {
    public:
 
@@ -24,6 +24,8 @@ namespace node_gnome
       node();
       virtual ~node();
 
+
+      virtual ::os_theme_colors * _new_os_theme_colors(string strTheme);
 
       virtual int node_init_check(int * pi, char *** ppz) override;
 
@@ -59,7 +61,7 @@ namespace node_gnome
 
       virtual bool windowing_message_loop_step();
 
-      virtual void node_branch(const ::routine & routine);
+      virtual ::e_status node_branch(const ::routine & routine);
 
       virtual void node_post_quit() override;
 
@@ -82,6 +84,8 @@ namespace node_gnome
       virtual bool should_launch_on_node(::subject::subject * psubject);
 
       virtual bool launch_on_node(::subject::subject * psubject);
+
+      virtual int os_launch_uri(const char * pszUri, char * pszError = NULL, int iBufferSize = 0) override;
 
 
    };

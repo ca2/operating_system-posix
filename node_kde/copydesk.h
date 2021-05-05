@@ -1,7 +1,8 @@
 #pragma once
 
 
-namespace node_kde{
+namespace node_kde
+{
 
 
    class CLASS_DECL_AURA copydesk :
@@ -16,8 +17,8 @@ namespace node_kde{
       virtual ~copydesk();
 
 
-      virtual ::e_status initialize(::layered * pobjectContext) override;
-      virtual void finalize() override;
+      virtual ::e_status initialize(::object * pobject) override;
+      virtual ::e_status finalize() override;
 
       virtual bool _set_filea(const ::file::patha & patha, e_op eop) override;
       virtual bool _get_filea(::file::patha & patha, e_op & eop) override;
@@ -37,7 +38,6 @@ namespace node_kde{
 
 
 } // namespace node_kde
-
 
 
 

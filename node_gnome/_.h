@@ -1,12 +1,7 @@
 #pragma once
 
 
-#include "aura_posix/_.h"
 #include "windowing_x11/_.h"
-#include "acme/os/linux/_linux.h"
-#include "acme/os/ansios/_pthread.h"
-#include "aura/user/_user.h"
-#include "aura/os/linux/appindicator.h"
 
 
 #include <gtk/gtk.h>
@@ -30,8 +25,7 @@ namespace node_gnome
 } // namespace node_gnome
 
 
-#undef Node
-#define Node (::get_context_system()->m_pnode ? ::get_context_system()->m_pnode->cast < ::node_gnome::node > () : nullptr)
+#define __matter(TYPE) __new(::matter<TYPE>)
 
 
 namespace user
@@ -42,30 +36,5 @@ namespace user
 
 
 }
-
-
-#include "monitor.h"
-
-
-#include "display.h"
-
-
-#include "node.h"
-
-
-#include "windowing.h"
-
-
-#include "copydesk.h"
-
-
-#include "appindicator.h"
-
-
-#include "notify_icon.h"
-
-
-#include "factory_exchange.h"
-
 
 

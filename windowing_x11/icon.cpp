@@ -1,7 +1,7 @@
 // created by Camilo <3CamiloSasukeThomasBorregaardSoerensen  - Honoring Thomas Borregaard S�rensen MY ONLY LORD
 // recreated by Camilo 2021-01-28 16:38
 #include "framework.h"
-#include "_windowing.h"
+#include "_windowing_x11.h"
 
 
 namespace windowing_x11
@@ -29,10 +29,19 @@ namespace windowing_x11
    }
 
 
-   void icon::set_tray_icon_name(const ::string & strTrayIconName)
+   ::e_status icon::set_tray_icon_name(const ::string & strTrayIconName)
    {
 
-      m_strTrayIconName = strTrayIconName;
+      auto estatus = ::windowing::icon::set_tray_icon_name(strTrayIconName);
+
+      if(!estatus)
+      {
+
+         return estatus;
+
+      }
+
+      return estatus;
 
    }
 
@@ -76,29 +85,19 @@ namespace windowing_x11
    }
 
 
-   ::e_status icon::load_app_tray_icon(string strApp)
+   ::e_status icon::load_app_tray_icon(string strAppId)
    {
 
-#ifdef WINDOWS_DESKTOP
+      auto estatus = set_tray_icon_name(strAppId);
 
-      string strMatter = "main/icon.ico";
-
-      if (!load_matter(strMatter))
+      if(!estatus)
       {
 
-         return false;
+         return estatus;
 
       }
 
-      return true;
-
-#else
-
-      //m_strAppTrayIcon = strApp;
-
-      return true;
-
-#endif
+      return estatus;
 
 
    }

@@ -2,31 +2,33 @@
 
 
 #include "apex/_.h"
-#include "apex/operating_system.h"
 #include "acme_posix/_.h"
 
 
-#if defined(_NODE_ANSIOS_LIBRARY)
-   #define CLASS_DECL_NODE_ANSIOS  CLASS_DECL_EXPORT
+#if defined(_APEX_POSIX_LIBRARY)
+   #define CLASS_DECL_APEX_POSIX  CLASS_DECL_EXPORT
 #else
-   #define CLASS_DECL_NODE_ANSIOS  CLASS_DECL_IMPORT
+   #define CLASS_DECL_APEX_POSIX  CLASS_DECL_IMPORT
 #endif
 
 
-namespace node_ansios
+namespace apex
 {
 
 
-   class node;
+   namespace posix
+   {
 
 
-} // namespace node_gnome
+      class node;
 
 
-#include "file_os_watcher.h"
+   } // namespace posix
 
 
-#include "node.h"
+} // namespace apex
+
+
 
 
 

@@ -2,7 +2,7 @@
 // recreated by Camilo 2021-01-28 22:42 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
 #include "framework.h"
-#include "windowing_xcb.h"
+//#include "windowing_xcb.h"
 //#if !BROAD_PRECOMPILED_HEADER
 //#include "aura/user/_user.h"
 //#endif
@@ -17,6 +17,7 @@ namespace windowing_xcb
    buffer::buffer()
    {
 
+      m_gcontext = 0;
 //      m_gc = nullptr;
 
 //      m_pimage = nullptr;
@@ -48,32 +49,32 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_window()->xcb_display());
-
       m_pdisplay = xcb_window()->xcb_display();
 
-      //XGCValues gcvalues = {};
+      m_gcontext = xcb_generate_id(xcb_window()->xcb_connection());
 
-      //m_gc = XCreateGC(xcb_window()->xcb_connection(), xcb_window()->xcb_window(), 0, &gcvalues);
+      auto cookie = xcb_create_gc(xcb_window()->xcb_connection(), m_gcontext, xcb_window()->xcb_window(), 0, nullptr);
+
+      estatus = xcb_window()->xcb_display()->_request_check(cookie);
 
       return estatus;
 
    }
 
 
-   void buffer::finalize()
+   ::e_status buffer::finalize()
    {
 
       if(!xcb_window())
       {
 
-         return;
+         return error_failed;
 
       }
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(xcb_window()->xcb_display());
+//      display_lock displaylock(xcb_window()->xcb_display());
 
 //      if(m_gc != nullptr)
 //      {
@@ -84,6 +85,7 @@ namespace windowing_xcb
 //
 //      }
 
+      return ::success;
 
    }
 
@@ -325,7 +327,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displayLock(xcb_window()->xcb_display());
+      //display_lock displayLock(xcb_window()->xcb_display());
 
       //xcb_image_t * pximage = (xcb_image_t *)pimage->payload("pximage").i64();
 
@@ -405,13 +407,13 @@ namespace windowing_xcb
 
          xcb_put_image(
             pxcbconnection,
-            XCB_IMAGE_FORMAT_XY_BITMAP,
+            XCB_IMAGE_FORMAT_Z_PIXMAP,
             xcb_window()->xcb_window(),
             m_gcontext,
             iWidth,
             iHeight,
             0, 0, 0, 32,
-            iWidth * 4,
+            iWidth * iHeight * 4,
             (uint8_t *) pimage->get_data());
 
             //XPutImage(xcb_window()->xcb_connection(), xcb_window()->xcb_window(), m_gc, pximage, 0, 0, 0, 0, iWidth, iHeight);

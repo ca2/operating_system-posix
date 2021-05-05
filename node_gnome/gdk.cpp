@@ -371,7 +371,9 @@ namespace node_gnome
 
       auto psystem = m_psystem->m_papexsystem;
 
-      auto edesktop = psystem->get_edesktop();
+      auto pnode = psystem->node();
+
+      auto edesktop = pnode->get_edesktop();
 
       switch (edesktop)
       {
@@ -421,70 +423,7 @@ namespace node_gnome
    }
 
 
-   string get_wallpaper(::acme::system * psystem, ::index iIndex)
-   {
-
-      // wall-changer sourceforge.net contribution
-
-      bool bOk = false;
-
-      string strWallpaper;
-
-      auto papexsystem = psystem->m_papexsystem;
-
-      auto edesktop = papexsystem->get_edesktop();
-
-      switch (edesktop)
-      {
-
-         case ::user::e_desktop_gnome:
-         case ::user::e_desktop_ubuntu_gnome:
-         case ::user::e_desktop_unity_gnome:
-
-            bOk = gsettings_get(strWallpaper, "org.gnome.desktop.background", "picture-uri");
-
-            break;
-
-         case ::user::e_desktop_mate:
-
-            bOk = gsettings_get(strWallpaper, "org.mate.background", "picture-filename");
-
-            break;
-
-         case ::user::e_desktop_lxde:
-
-            //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
-
-            break;
-
-         case ::user::e_desktop_xfce:
-         {
-            //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
-            //          if(entry.contains("image-path") || entry.contains("last-image")){
-            //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
-            //      }
-            //}
-
-         }
-
-            //break;
-
-         default:
-
-            output_debug_string(
-               "Failed to get wallpaper setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
-            //return "";
-
-      }
-
-      ::str::begins_eat_ci(strWallpaper, "file://");
-
-      return strWallpaper;
-
-   }
-
-
-   ::os_theme_colors *new_os_theme_colors(string strTheme)
+   ::os_theme_colors *node::_new_os_theme_colors(string strTheme)
    {
 
       auto pthemecolors = new ::os_theme_colors;
@@ -656,7 +595,7 @@ namespace node_gnome
    void node::_os_process_user_theme_color(string strTheme)
    {
 
-      auto pthemecolors = new_os_theme_colors(strTheme);
+      auto pthemecolors = _new_os_theme_colors(strTheme);
 
       auto pthemecolorsOld = ::user::os_get_theme_colors();
 
@@ -692,7 +631,7 @@ namespace node_gnome
 
          string strTheme = _os_get_user_theme();
 
-         pthemecolors = new_os_theme_colors(strTheme);
+         pthemecolors = _new_os_theme_colors(strTheme);
 
          ::user::os_set_theme_colors(pthemecolors);
 
@@ -749,58 +688,150 @@ log_handler (const gchar   *log_domain,
 #endif
 
 
+::mutex * user_mutex();
 
 
-::e_status     run_runnable(::matter * pobjectTask);
+::e_status run_runnable(::matter * pobjectTask);
 
 
-gboolean gdk_callback_run_runnable(gpointer pdata)
+#define GDK_BRANCH_USE_LIST 0
+
+
+#if GDK_BRANCH_USE_LIST
+
+GSource * g_psourceGdkBranch = nullptr;
+
+routine_list * g_plistGdkBranch = nullptr;
+
+gboolean gdk_callback_run_runnable(gpointer)
 {
 
-   run_runnable((matter *) pdata);
+   synchronous_lock synchronouslock (g_mutexGdkBranch);
+
+   if(g_plistGdkBranch->has_element())
+   {
+
+      {
+
+         auto routine = g_plistGdkBranch->pick_head();
+
+         synchronouslock.unlock();
+
+         routine();
+
+      }
+
+      return TRUE;
+
+   }
 
    return FALSE;
 
 }
 
 
-void gdk_branch(matter * prunnable, e_priority epriority)
+GSource * get_gdk_branch_source()
 {
 
-   prunnable->add_ref(OBJ_REF_DBG_P_NOTE(nullptr, "gdk_branch"));
+   if(!g_mutexGdkBranch)
+   {
+
+      g_mutexGdkBranch = new mutex();
+
+   }
+
+   synchronous_lock synchronouslock (g_mutexGdkBranch);
+
+   if(g_psourceGdkBranch)
+   {
+
+      return g_psourceGdkBranch;
+
+   }
+
+   g_plistGdkBranch = new routine_list;
 
    auto idle_source = g_idle_source_new();
 
    g_source_set_priority(idle_source, G_PRIORITY_DEFAULT);
 
-   g_source_set_callback(idle_source, &gdk_callback_run_runnable, prunnable, nullptr);
+   g_psourceGdkBranch = idle_source;
 
-   g_source_attach(idle_source, g_main_context_default());
+   return g_psourceGdkBranch;
 
 }
 
 
-CLASS_DECL_APEX void main_branch(::matter * prunnable, e_priority epriority)
+void gdk_branch(const ::routine & routine)
 {
 
-   prunnable->add_ref(OBJ_REF_DBG_P_NOTE(nullptr, "main_branch"));
+   auto psource = get_gdk_branch_source();
 
-   gdk_branch(prunnable, epriority);
+   synchronous_lock synchronouslock (g_mutexGdkBranch);
+
+   bool bStartSourceCallback = g_plistGdkBranch->is_empty();
+
+   g_plistGdkBranch->add_head(routine);
+
+   if(bStartSourceCallback)
+   {
+
+      g_source_set_callback(psource, &gdk_callback_run_runnable, nullptr, nullptr);
+
+      g_source_attach(psource, g_main_context_default());
+
+   }
 
 }
 
 
+#else
 
-//void os_post_quit()
-//{
-//
-//   auto idle_source = g_idle_source_new();
-//
-//   g_source_set_callback(idle_source, &gtk_quit_callback, nullptr, nullptr);
-//
-//   g_source_attach(idle_source, g_main_context_default());
-//
-//}
+
+gboolean gdk_callback_run_runnable(gpointer pdata)
+{
+
+   auto pmatter = (::matter *) pdata;
+
+   try
+   {
+
+      pmatter->run();
+
+   }
+   catch(...)
+   {
+
+   }
+
+   ::release(pmatter);
+
+   return FALSE;
+
+}
+
+
+void gdk_branch(const ::routine & routine)
+{
+
+   ::matter * pmatter = routine.m_p;
+
+   ::add_ref(pmatter);
+
+   synchronous_lock synchronouslock (user_mutex());
+
+   auto psource = g_idle_source_new();
+
+   g_source_set_priority(psource, G_PRIORITY_DEFAULT);
+
+   g_source_set_callback(psource, &gdk_callback_run_runnable, pmatter, nullptr);
+
+   g_source_attach(psource, g_main_context_default());
+
+}
+
+
+#endif
 
 
 gboolean x11_source_func(gpointer p)
@@ -841,14 +872,6 @@ GdkFilterReturn x11_event_func(GdkXEvent *xevent, GdkEvent *event, gpointer  dat
    auto pwindowing = pnode->windowing();
 
    pwindowing->_message_handler(pevent);
-
-   //if(pwindowing)
-
-//   {
-
-  //    return GDK_FILTER_REMOVE;
-
-   //}
 
    return GDK_FILTER_CONTINUE;
 

@@ -5,38 +5,42 @@ project(node_kde CXX)
 list(APPEND node_kde_source
    _.cpp
    _.h
+   _node_kde.h
    appindicator.cpp
    appindicator.h
    application.cpp
    application.h
-   clipboard_data.h
    copydesk.cpp
    copydesk.h
+   display.cpp
+   display.h
    enum_display_monitors.cpp
    factory_exchange.cpp
-   factory_exchange.h
    framework.cpp
    framework.h
    gdk.cpp
    gdk.h
    gnome_direct.cpp
    gtk_clipboard.cpp
+   monitor.cpp
+   monitor.h
    node.cpp
    node.h
-   node_impl.cpp
-   node_impl.h
-   q_node_impl.cpp
-   q_node_impl.h
+   notify_icon.cpp
+   notify_icon.h
+   windowing.cpp
+   windowing.h
    )
 
 
 list(APPEND library_references
    acme
-   node_ansios
+   acme_posix
    apex
+   apex_posix
    aqua
    aura
-   node_linux
+   aura_posix
    windowing_xcb
    )
 
@@ -44,7 +48,7 @@ list(APPEND library_references
 set_source_files_properties(q_node_impl.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 
 
-add_library(node_kde SHARED ${node_kde_source})
+add_library(node_kde SHARED ${node_kde_source} _node_kde.h)
 
 target_precompile_headers(node_kde PRIVATE framework.h)
 
@@ -59,11 +63,17 @@ if (MSVC)
    target_link_options(node_kde PRIVATE "/SUBSYSTEM:WINDOWS")
    target_link_libraries(node_kde PRIVATE ${library_references})
 elseif (LINUX)
-   pkg_check_modules(PKGCONFIG Qt5Core Qt5UiTools)
+   pkg_check_modules(PKGCONFIG Qt5Core Qt5UiTools Qt5X11Extras)
    target_compile_options(node_kde PRIVATE -fpermissive)
    target_compile_options(node_kde PRIVATE ${PKGCONFIG_CFLAGS})
+   if(LINUX_KDE)
+   target_include_directories(node_kde PRIVATE KF5::Notifications)
+   endif()
    target_link_options(node_kde PRIVATE -Wl,-rpath=\$ORIGIN)
    target_link_libraries(node_kde PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
+   if(LINUX_KDE)
+      target_link_libraries(node_kde PRIVATE KF5::Notifications)
+   endif()
    target_link_options(node_kde PRIVATE -Wl,-z,defs)
 endif ()
 

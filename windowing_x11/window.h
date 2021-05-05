@@ -17,7 +17,7 @@ namespace windowing_x11
 
 
    class CLASS_DECL_WINDOWING_X11 window :
-      virtual public ::windowing::window
+      virtual public ::windowing_posix::window
    {
    public:
 
@@ -25,7 +25,7 @@ namespace windowing_x11
       XWindowAttributes                            m_attr;
       XVisualInfo                                  m_visualinfo;
       void *                                       m_pgdkwindow;
-      __pointer(::windowing_x11::x11data)     m_px11data;
+      __pointer(::windowing_x11::x11data)          m_px11data;
       ::Window                                     m_parent;
       Cursor                                       m_cursorLast;
       int                                          m_iXic;
@@ -52,6 +52,8 @@ namespace windowing_x11
       //static Atom                                s_atomLongType;
       //static Atom                                s_atomLongStyle;
       //static Atom                                s_atomLongStyleEx;
+
+      __pointer(::xim::keyboard)                   m_pximkeyboard;
 
 
       window();
@@ -152,13 +154,14 @@ namespace windowing_x11
 
       virtual bool bamf_set_icon();
 
+
       virtual bool set_icon(::image * pimage);
 
       virtual int x_change_property(Atom property, Atom type, int format, int mode, const unsigned char * data, int nelements);
 
-      virtual ::e_status set_cursor(::windowing::cursor * pcursor);
+      virtual ::e_status set_mouse_cursor(::windowing::cursor * pcursor);
 
-      virtual ::e_status set_cursor2(::windowing::cursor * pcursor);
+      virtual ::e_status set_mouse_cursor2(::windowing::cursor * pcursor);
 
       virtual ::e_status set_keyboard_focus() override;
       virtual ::e_status set_mouse_capture() override;
@@ -203,11 +206,14 @@ namespace windowing_x11
       virtual void set_window_text(const char * pszString);
 
 
+      virtual ::e_status set_tool_window(bool bSet) override;
+
+
       virtual bool set_window_position(const class ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy, ::u32 nFlags) override;
 
 
 
-      virtual Atom * wm_get_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, unsigned long int * items);
+      virtual comparable_array < Atom > wm_get_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList);
       virtual int wm_test_state( WINDOWING_X11_WINDOW_MEMBER const char * pszNetStateFlag);
       virtual int wm_test_state_raw( WINDOWING_X11_WINDOW_MEMBER const char * pszNetStateFlag);
       virtual int wm_test_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag);

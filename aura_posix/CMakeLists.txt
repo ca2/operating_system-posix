@@ -3,10 +3,13 @@ project(aura_posix CXX)
 
 
 list(APPEND aura_posix_source
-   _.h
    _.cpp
+   _.h
+   _aura_posix.h
    appindicator.cpp
    appindicator.h
+   display_lock.cpp
+   display_lock.h
    factory_exchange.cpp
    factory_exchange.h
    framework.cpp
@@ -17,6 +20,12 @@ list(APPEND aura_posix_source
    node.h
    shell.cpp
    shell.h
+   x_window.cpp
+   x_window.h
+   x_window_system.cpp
+   x_window_system.h
+   xim_keyboard.cpp
+   xim_keyboard.h
    )
 
 
@@ -30,7 +39,7 @@ list(APPEND library_references
    )
 
 
-add_library(aura_posix SHARED ${aura_posix_source} )
+add_library(aura_posix SHARED ${aura_posix_source})
 
 target_precompile_headers(aura_posix PRIVATE framework.h)
 
@@ -44,6 +53,7 @@ if (MSVC)
    target_link_libraries(aura_posix PRIVATE ${library_references})
    add_dependencies(aura_posix draw2d_gdiplus)
 elseif (LINUX)
+   pkg_check_modules(PKGCONFIG x11 x11-xcb)
    target_compile_options(aura_posix PRIVATE -fpermissive)
    target_compile_options(aura_posix PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(aura_posix PRIVATE -Wl,-rpath=\$ORIGIN)

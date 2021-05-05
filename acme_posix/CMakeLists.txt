@@ -3,8 +3,10 @@ project(acme_posix CXX)
 
 
 list(APPEND acme_posix_source
+   _.cpp
    _.h
    _process.cpp
+   _acme_posix.h
    factory_exchange.cpp
    file_memory_map.cpp
    file_memory_map.h
@@ -17,7 +19,7 @@ list(APPEND acme_posix_source
    )
 
 
-add_library(acme_posix SHARED ${acme_posix_source})
+add_library(acme_posix SHARED ${acme_posix_source} _acme_posix.h)
 
 list(APPEND library_references acme)
 

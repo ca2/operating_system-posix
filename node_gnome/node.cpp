@@ -9,6 +9,12 @@
 #include "windowing_x11/windowing_x11.h"
 
 
+void gdk_branch(const ::routine & routine);
+
+
+int gdk_launch_uri(const char * pszUri, char * pszError, int iBufferSize);
+
+
 void x11_add_idle_source(::node_gnome::node * pnode);
 
 
@@ -81,6 +87,8 @@ namespace node_gnome
    node::node()
    {
 
+      m_pNodeGnome = this;
+
       defer_initialize_x11();
 
       m_pGtkSettingsDefault = nullptr;
@@ -148,7 +156,7 @@ namespace node_gnome
       //   }
       //
 
-//      const char *pszName = m_strAppId;
+//      const char *pszName = m_XstrAppId;
 
 //       g_set_application_name(pszName);
 
@@ -205,7 +213,6 @@ namespace node_gnome
 //
 //      return ::success;
 
-
       auto psystem = m_psystem->m_papexsystem;
 
       if (psystem->m_bGtkApp)
@@ -217,7 +224,7 @@ namespace node_gnome
       else
       {
 
-         //g_set_application_name(System.m_strAppId);
+         //g_set_application_name(System.m_XstrAppId);
 
          //g_set_prgname(System.m_strProgName);
       ////
@@ -281,9 +288,13 @@ namespace node_gnome
 
             x11_add_idle_source(this);
 
-             auto psystem = m_psystem->m_papexsystem;
+            auto psystem = m_psystem->m_papexsystem;
 
+<<<<<<< HEAD
                psystem->post_initial_request();
+=======
+            psystem->post_initial_request();
+>>>>>>> origin/basis
 
 
          });
@@ -408,7 +419,9 @@ namespace node_gnome
 
       auto psystem = m_psystem->m_papexsystem;
 
-      auto edesktop = psystem->get_edesktop();
+      auto pnode = psystem->node();
+
+      auto edesktop = pnode->get_edesktop();
 
       switch (edesktop)
       {
@@ -489,7 +502,9 @@ namespace node_gnome
 
       auto psystem = m_psystem->m_papexsystem;
 
-      auto edesktop = psystem->get_edesktop();
+      auto pnode = psystem->node();
+
+      auto edesktop = pnode->get_edesktop();
 
       switch (edesktop)
       {
@@ -539,7 +554,9 @@ namespace node_gnome
 
       auto psystem = m_psystem->m_papexsystem;
 
-      auto edesktop = psystem->get_edesktop();
+      auto pnode = psystem->node();
+
+      auto edesktop = pnode->get_edesktop();
 
       switch (edesktop)
       {
@@ -609,10 +626,12 @@ namespace node_gnome
    }
 
 
-   void node::node_branch(const ::routine & routine)
+   ::e_status node::node_branch(const ::routine & routine)
    {
 
       gdk_branch(routine);
+
+      return ::success;
 
    }
 
@@ -785,6 +804,16 @@ namespace node_gnome
       }));
 
       return true;
+
+   }
+
+
+   int node::os_launch_uri(const char * pszUri, char * pszError, int iBufferSize)
+   {
+
+      int iRet = gdk_launch_uri(pszUri, pszError, iBufferSize);
+
+      return iRet;
 
    }
 

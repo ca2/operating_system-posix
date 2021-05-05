@@ -13,6 +13,8 @@ namespace windowing_x11
    windowing::windowing()
    {
 
+      defer_create_mutex();
+
       m_pWindowing = this;
 
       m_bFirstWindowMap = false;
@@ -163,12 +165,19 @@ namespace windowing_x11
    }
 
 
-   ::e_status windowing::user_branch(const ::routine & routine)
+   ::e_status windowing::windowing_branch(const ::routine & routine)
    {
+
+      if(::is_null(routine.m_p))
+      {
+
+         return error_failed;
+
+      }
 
       synchronous_lock synchronouslock(mutex());
 
-      m_routinea.add(routine);
+      m_routinelist.add_tail(routine);
 
       return ::success_scheduled;
 
@@ -180,7 +189,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(mutex());
 
-      if(!m_routinea.has_element())
+      if(m_routinelist.is_empty())
       {
 
          return false;
@@ -190,16 +199,20 @@ namespace windowing_x11
       do
       {
 
-         auto routine = m_routinea.pick_first();
+         {
 
-         synchronouslock.unlock();
+            auto routine = m_routinelist.pick_head();
 
-         routine();
+            synchronouslock.unlock();
+
+            routine();
+
+         }
 
          synchronouslock.lock();
 
       }
-      while(m_routinea.has_element());
+      while(m_routinelist.has_element());
 
       return true;
 
@@ -327,7 +340,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::x11_GetWindowRect 1");
 
-      display_lock lock(m_pdisplay);
+      display_lock lock(m_pdisplay->Display());
 
       auto cursor = XCreateFontCursor(m_pdisplay->Display(), iCursor);
 
@@ -360,10 +373,6 @@ namespace windowing_x11
 
       }
 
-      synchronous_lock synchronouslock(user_mutex());
-
-      display_lock lock(m_pdisplay);
-
       auto pwindow = m_pdisplay->get_keyboard_focus();
 
       return pwindow;
@@ -381,11 +390,7 @@ namespace windowing_x11
 
       }
 
-      synchronous_lock synchronouslock(user_mutex());
-
-      display_lock lock(m_pdisplay);
-
-      auto pwindow = m_pdisplay->get_keyboard_focus();
+      auto pwindow = m_pdisplay->get_mouse_capture();
 
       return pwindow;
 

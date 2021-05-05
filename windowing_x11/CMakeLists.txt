@@ -3,8 +3,9 @@ project(windowing_x11 CXX)
 
 
 list(APPEND windowing_x11_source
-   _.h
    _.cpp
+   _.h
+   _windowing_x11.h
    #application.cpp
    #application.h
    buffer.cpp
@@ -16,8 +17,8 @@ list(APPEND windowing_x11_source
    debug.cpp
    display.cpp
    display.h
-   display_lock.cpp
-   display_lock.h
+   ../aura_posix/display_lock.cpp
+   ../aura_posix/display_lock.h
    display_xrender.cpp
    enum_display_monitors.cpp
    factory_exchange.cpp
@@ -31,8 +32,8 @@ list(APPEND windowing_x11_source
    icon.h
    keyboard.cpp
    keyboard.h
-   #node.cpp
-   #node.h
+   node.cpp
+   node.h
    sn.cpp
    sn.h
    text_composition_client.cpp
@@ -51,9 +52,12 @@ list(APPEND windowing_x11_source
 
 list(APPEND library_references
    acme
+   acme_posix
    apex
+   apex_posix
    aqua
    aura
+   aura_posix
    aura_linux
    )
 

@@ -4,7 +4,7 @@
 #pragma once
 
 
-#define _NET_WM_STATE_REMOVE        0    // remove/unset property
+#define _NET_WM_STATE_REMOVE        0    // erase/unset property
 #define _NET_WM_STATE_ADD           1    // add/set property
 #define _NET_WM_STATE_TOGGLE        2    // toggle property
 
@@ -22,7 +22,7 @@ namespace windowing_xcb
 
 
    class CLASS_DECL_WINDOWING_XCB window :
-      virtual public ::windowing::window
+      virtual public ::windowing_posix::window
    {
    public:
 
@@ -41,9 +41,9 @@ namespace windowing_xcb
       xcb_cursor_t                                 m_cursorLast;
       xcb_window_t                                 m_window;
       xcb_visualid_t                               m_visualid;
-      htask_t                                    m_hthread;
+      htask_t                                      m_hthread;
       millis                                       m_millisLastMouseMove;
-      ::rectangle_i32                              m_rect;
+      //::rectangle_i32                              m_rect;
 
 
       window();
@@ -61,8 +61,8 @@ namespace windowing_xcb
       virtual xcb_window_t xcb_window() const;
 
 
-      ::windowing_xcb::windowing * xcb_windowing() const {return (::windowing_xcb::windowing *) m_pwindowing->layer(LAYERED_X11); }
-      ::windowing_xcb::display * xcb_display() const {return (::windowing_xcb::display *) m_pdisplay->layer(LAYERED_X11); }
+      ::windowing_xcb::windowing * xcb_windowing() const {return (::windowing_xcb::windowing *) m_pwindowing->m_pWindowing; }
+      ::windowing_xcb::display * xcb_display() const {return (::windowing_xcb::display *) m_pdisplay->m_pDisplay; }
 
 
       ::e_status get_wm_hints(void * p_xcb_icccm_wm_hints_t);
@@ -118,13 +118,13 @@ namespace windowing_xcb
 
       virtual bool is_destroying();
       
-      virtual bool bamf_set_icon();
+      virtual ::e_status bamf_set_icon();
 
       virtual bool set_icon(::image * pimage);
 
-      virtual ::e_status set_cursor(::windowing::cursor * pcursor);
+      virtual ::e_status set_mouse_cursor(::windowing::cursor * pcursor) override;
 
-      virtual ::e_status set_cursor2(::windowing::cursor * pcursor);
+      virtual ::e_status set_mouse_cursor2(::windowing::cursor * pcursor);
 
       virtual ::e_status set_keyboard_focus() override;
       virtual ::e_status set_mouse_capture() override;
@@ -159,20 +159,20 @@ namespace windowing_xcb
       virtual bool _has_net_wm_state(xcb_atom_t propertyItem);
       virtual bool _list_has_atom(xcb_atom_t propertyList, xcb_atom_t propertyItem);
       virtual ::e_status _list_add_atom(xcb_atom_t atomList, xcb_atom_t atomFlag);
-      virtual ::e_status _list_remove_atom(xcb_atom_t atomList, xcb_atom_t atomFlag);
+      virtual ::e_status _list_erase_atom(xcb_atom_t atomList, xcb_atom_t atomFlag);
       virtual ::e_status _mapped_add_net_wm_state(x_window::enum_atom eatomNetWmState);
-      virtual ::e_status _mapped_remove_net_wm_state(x_window::enum_atom eatomNetWmState);
+      virtual ::e_status _mapped_erase_net_wm_state(x_window::enum_atom eatomNetWmState);
       virtual ::e_status _unmapped_add_net_wm_state(x_window::enum_atom eatomNetWmState);
-      virtual ::e_status _unmapped_remove_net_wm_state(x_window::enum_atom eatomNetWmState);
+      virtual ::e_status _unmapped_erase_net_wm_state(x_window::enum_atom eatomNetWmState);
       virtual ::e_status _add_net_wm_state(x_window::enum_atom eatomNetWmState);
-      virtual ::e_status _remove_net_wm_state(x_window::enum_atom eatomNetWmState);
+      virtual ::e_status _erase_net_wm_state(x_window::enum_atom eatomNetWmState);
       virtual ::e_status _clear_net_wm_state();
       virtual ::e_status _add_net_wm_state_below();
       virtual ::e_status _add_net_wm_state_above();
       virtual ::e_status _add_net_wm_state_hidden();
-      virtual ::e_status _remove_net_wm_state_below();
-      virtual ::e_status _remove_net_wm_state_above();
-      virtual ::e_status _remove_net_wm_state_hidden();
+      virtual ::e_status _erase_net_wm_state_below();
+      virtual ::e_status _erase_net_wm_state_above();
+      virtual ::e_status _erase_net_wm_state_hidden();
       virtual ::e_status _set_tool_window(bool bToolWindow = true);
       virtual ::e_status _set_normal_window();
       virtual ::e_status _set_hidden_state(bool bHidden);
@@ -190,7 +190,7 @@ namespace windowing_xcb
       virtual ::e_status post_ui_message(const MESSAGE & message);
       //virtual ::e_status get_window_rect(RECTANGLE_I32 * prectangle);
       //virtual ::e_status get_client_rect(RECTANGLE_I32 * prectangle);
-      virtual ::e_status mq_remove_window_from_all_queues( );
+      virtual ::e_status mq_erase_window_from_all_queues( );
 
 
       virtual void update_screen() override;
@@ -200,7 +200,7 @@ namespace windowing_xcb
       virtual ::e_status defer_update_keyboard_context();
       virtual int keycode_to_keysym(xcb_keycode_t code);
       virtual void release_keyboard();
-      virtual string _on_key_down(xcb_keycode_t code);
+      virtual string _on_key_down(xcb_keycode_t code, ::u16 state, KeySym * pkeysym);
 
 
       static xcb_atom_t _get_window_long_atom(i32 nIndex);

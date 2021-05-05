@@ -32,12 +32,12 @@ namespace windowing_x11
 
       m_pobjectaExtendedEventListener->add(pdata);
 
-      user_branch(__routine([this, bMouse, bKeyboard]()
+      windowing_branch(__routine([this, bMouse, bKeyboard]()
                           {
 
                              synchronous_lock synchronouslock(user_mutex());
 
-                             ::windowing_x11::display_lock lock(m_pdisplay);
+                             ::windowing_x11::display_lock lock(m_pdisplay->Display());
 
                              int event, error;
 

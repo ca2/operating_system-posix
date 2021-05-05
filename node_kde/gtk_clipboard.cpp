@@ -2,7 +2,7 @@
 // Created by camilo on 20/01/2021. <3ThomasBS!!
 //
 #include "framework.h"
-#include "clipboard_data.h"
+#include "archive/platform-posix/aura_posix/clipboard_data.h"
 //#include <gtk/gtk.h>
 
 //

@@ -82,7 +82,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::wm_add_remove_state_mapped 1");
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       wm_add_remove_state_mapped_raw(eatomNetWmState, bSet);
 
@@ -129,7 +129,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::wm_add_remove_state_unmapped 1");
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       wm_add_remove_state_unmapped_raw(eatomNetWmState, bSet);
 
@@ -168,7 +168,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::wm_add_remove_state 1");
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       wm_add_remove_state_raw(eatomNetWmState, bSet);
 
@@ -241,7 +241,7 @@ namespace windowing_x11
 //
 //   windowing_output_debug_string("\n::wm_state_above 1");
 //
-//   display_lock displaylock(x11_display());
+//   display_lock displaylock(x11_display()->Display());
 //
 //   wm_state_hidden_raw(bSet);
 //
@@ -256,7 +256,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::wm_state_above 1");
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       wm_state_above_raw(bSet);
 
@@ -273,7 +273,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::wm_state_below 1");
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       wm_state_above_raw(bSet);
 
@@ -290,7 +290,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::wm_state_hidden 1");
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       wm_state_hidden_raw(bSet);
 
@@ -303,26 +303,31 @@ namespace windowing_x11
    void window::wm_toolwindow(bool bToolWindow)
    {
 
-      windowing_output_debug_string("\n::wm_toolwindow 1");
-
-      synchronous_lock synchronouslock(user_mutex());
-
-      display_lock displaylock(x11_display());
-
-      if (!m_pdisplay)
+      x11_windowing()->windowing_branch(__routine([this, bToolWindow]()
       {
 
-         windowing_output_debug_string("\n::wm_toolwindow 1.1");
+         windowing_output_debug_string("\n::wm_toolwindow 1");
 
-         fflush(stdout);
+         synchronous_lock synchronouslock(user_mutex());
 
-         return;
+         display_lock displaylock(x11_display()->Display());
 
-      }
+         if (!m_pdisplay)
+         {
 
-      wm_add_remove_state_raw(x_window::e_atom_net_wm_state_skip_taskbar, bToolWindow);
+            windowing_output_debug_string("\n::wm_toolwindow 1.1");
 
-      windowing_output_debug_string("\n::wm_toolwindow 2");
+            fflush(stdout);
+
+            return;
+
+         }
+
+         wm_add_remove_state_raw(x_window::e_atom_net_wm_state_skip_taskbar, bToolWindow);
+
+         windowing_output_debug_string("\n::wm_toolwindow 2");
+
+      }));
 
    }
 
@@ -364,7 +369,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       if (!m_pdisplay)
       {
@@ -394,7 +399,7 @@ namespace windowing_x11
 //
 //               synchronous_lock synchronouslock(user_mutex());
 //
-//               display_lock displaylock(x11_display());
+//               display_lock displaylock(x11_display()->Display());
 //
 //               if(!m_pdisplay)
 //               {
@@ -455,7 +460,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       if (!m_pdisplay)
       {
@@ -513,7 +518,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       if (!m_pdisplay)
       {
@@ -571,7 +576,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       if (!m_pdisplay)
       {
@@ -629,7 +634,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       if (!m_pdisplay)
       {
@@ -689,7 +694,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       if (!m_pdisplay)
       {
@@ -753,7 +758,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       windowing_output_debug_string("\n::wm_iconify_window 1");
 

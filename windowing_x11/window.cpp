@@ -100,7 +100,7 @@ namespace windowing_x11
 
       }
 
-      display_lock displaylock(pdisplayx11);
+      display_lock displaylock(pdisplayx11->Display());
 
       int x = m_pimpl->m_puserinteraction->layout().sketch().origin().x;
 
@@ -188,7 +188,8 @@ namespace windowing_x11
 
          visual = m_visualinfo.visual;
 
-      } else
+      }
+      else
       {
 
          __zero(m_visualinfo);
@@ -286,19 +287,25 @@ namespace windowing_x11
       if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
       {
 
-         XClassHint * pupdate = XAllocClassHint();
-
          auto psystem = m_psystem->m_papexsystem;
 
          string strApplicationServerName = psystem->get_application_server_name();
 
-         pupdate->res_class = (char *) (const char *) strApplicationServerName;
+         set_wm_class(strApplicationServerName);
 
-         pupdate->res_name = (char *) (const char *) strApplicationServerName;
-
-         XSetClassHint(display, window, pupdate);
-
-         XFree(pupdate);
+//         XClassHint * pupdate = XAllocClassHint();
+//
+//         auto psystem = m_psystem->m_papexsystem;
+//
+//         string strApplicationServerName = psystem->get_application_server_name();
+//
+//         pupdate->res_class = (char *) (const char *) strApplicationServerName;
+//
+//         pupdate->res_name = (char *) (const char *) strApplicationServerName;
+//
+//         XSetClassHint(display, window, pupdate);
+//
+//         XFree(pupdate);
 
       }
 
@@ -521,7 +528,7 @@ namespace windowing_x11
 
       m_strWMClass = psz;
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       XClassHint classHint;
 
@@ -545,7 +552,7 @@ namespace windowing_x11
 
          windowing_output_debug_string("\nwindow::map_window");
 
-         display_lock displaylock(x11_display());
+         display_lock displaylock(x11_display()->Display());
 
          i = XMapWindow(Display(), Window());
 
@@ -589,7 +596,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\nwindow::unmap_window");
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       int i;
 
@@ -896,7 +903,7 @@ namespace windowing_x11
 
       fflush(stdout);
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       Atom net_wm_icon = x11_display()->intern_atom("_BAMF_DESKTOP_FILE", False);
 
@@ -971,7 +978,7 @@ namespace windowing_x11
          4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 0, 0, 0, 0, 0, 0, 0, 0, 0, 268369920, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 1509949695, 3120562431, 4009754879, 4194304255, 3690987775, 2130706687, 83886335, 0, 50331903, 1694499071, 3170894079, 3992977663, 4211081471, 3657433343, 1879048447, 16777471, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3087007999, 2281701631, 1191182591, 1040187647, 2030043391, 4127195391, 2566914303, 0, 16777471, 3254780159, 2181038335, 1191182591, 973078783, 2030043391,4177527039, 2130706687, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 0, 0, 0, 0, 0, 2214592767, 4093640959, 0, 0, 0, 0, 0, 0, 0, 2298478847, 3909091583, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2214592767, 3607101695, 0, 0, 0, 0, 0, 0, 0, 1946157311, 4093640959, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 0, 0, 536871167, 1191182591, 2281701631,3019899135, 637534463, 0, 0, 0, 100597760, 251592704, 33488896, 0, 3321889023, 2919235839, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2550137087, 4278190335, 4278190335, 3405775103, 570425599, 0, 0, 0, 0, 0, 0, 2046820607, 4043309311, 620757247, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 33488896, 0, 0, 218104063, 1291845887, 3841982719, 3388997887, 0, 0, 0, 0, 0, 1996488959, 4093640959, 1073742079, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1761607935, 4278190335, 150995199, 0, 0, 67109119, 2550137087, 3909091583, 889192703, 0, 0, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 0, 0, 0, 0, 0, 2181038335, 3925868799, 0, 0, 218104063, 3070230783, 3623878911, 570425599, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 805306623, 3288334591, 1795162367, 1040187647, 1023410431, 2231369983, 4211081471, 1694499071, 0, 369099007, 3456106751, 3825205503, 1174405375, 872415487, 872415487, 872415487, 872415487, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4293984270, 2046951677, 3422552319, 4110418175, 4177527039, 3405775103, 1409286399, 0, 0, 1409286399, 4278190335, 4278190335, 4278190335, 4278190335, 4278190335, 4278190335, 4278190335, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760,4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4278255360, 4144037632, 4009819904, 3875602176, 3741384448, 3607166720, 3472948992, 3338731264, 3204513536, 3053518592, 2936078080, 2801860352, 2650865408, 2516647680, 2382429952, 2264989440, 2113994496, 1996553984, 1862336256, 1728118528, 1577123584, 1459683072, 1325465344, 1191247616, 1040252672, 922812160, 771817216, 637599488, 503381760, 385941248, 234946304, 100728576, 4278255360, 4144037632, 4009819904, 3875602176, 3724607232, 3607166720, 3472948992, 3338731264, 3204513536, 3070295808, 2936078080, 2801860352, 2667642624, 2516647680, 2399207168, 2264989440, 2130771712, 1996553984, 1845559040, 1728118528, 1593900800, 1459683072, 1308688128, 1191247616, 1057029888, 922812160, 788594432, 637599488, 503381760, 369164032, 234946304, 117505792, 4278255360, 4144037632, 4009819904, 3875602176, 3741384448, 3607166720, 3472948992, 3338731264, 3204513536, 3053518592, 2919300864, 2801860352, 2650865408, 2533424896, 2399207168, 2264989440, 2113994496, 1996553984, 1862336256, 1728118528,1593900800, 1459683072, 1325465344, 1191247616, 1040252672, 906034944, 771817216, 654376704, 503381760, 369164032, 234946304, 117505792, 4278255360, 4144037632, 4009819904, 3858824960, 3741384448, 3607166720, 3472948992, 3338731264, 3204513536, 3070295808, 2936078080, 2801860352, 2667642624, 2533424896, 2382429952, 2264989440, 2130771712, 1979776768, 1862336256, 1728118528, 1577123584, 1442905856, 1325465344, 1191247616, 1040252672, 922812160, 771817216, 637599488, 503381760, 369164032, 234946304, 100728576, 4278255360, 4144037632, 4009819904, 3875602176, 3741384448, 3607166720, 3472948992, 3338731264, 3204513536, 3070295808, 2919300864, 2801860352, 2667642624, 2533424896, 2399207168, 2264989440, 2113994496, 1996553984, 1862336256, 1728118528, 1593900800, 1442905856, 1342241795, 1174470400, 1057029888, 906034944, 788594432, 654376704, 503381760, 385941248, 251723520, 100728576, 4278190335, 4160749823, 4026532095, 3892314367, 3741319423, 3623878911, 3472883967, 3338666239, 3221225727, 3070230783, 2952790271, 2818572543, 2667577599, 2533359871, 2399142143, 2264924415, 2147483903, 1996488959, 1862271231, 1728053503, 1593835775, 1459618047, 1325400319, 1191182591, 1056964863, 922747135, 788529407, 654311679, 520093951,385876223, 251658495, 117440767, 4278190335, 4160749823, 4026532095, 3892314367, 3741319423, 3623878911, 3489661183, 3355443455, 3221225727, 3087007999, 2936013055, 2801795327, 2667577599, 2533359871, 2399142143, 2281701631, 2130706687, 1996488959, 1862271231, 1728053503, 1593835775,1459618047, 1325400319, 1191182591, 1056964863, 922747135, 788529407, 654311679, 520093951, 385876223, 234881279, 100663551, 4278190335, 4160749823, 4026532095, 3892314367, 3758096639, 3623878911, 3489661183, 3355443455, 3221225727, 3087007999, 2936013055, 2801795327, 2667577599, 2550137087, 2415919359, 2264924415, 2130706687, 1996488959, 1862271231, 1728053503, 1593835775, 1459618047, 1325400319, 1191182591, 1056964863, 922747135, 788529407, 654311679, 503316735, 369099007, 251658495, 100663551, 4278190335, 4160749823, 4026532095, 3892314367, 3758096639, 3623878911, 3489661183, 3355443455, 3204448511, 3087007999, 2936013055, 2818572543, 2667577599, 2533359871, 2399142143, 2264924415, 2130706687, 1996488959, 1879048447, 1728053503, 1593835775, 1459618047, 1325400319, 1191182591, 1056964863, 922747135, 788529407, 654311679, 520093951, 385876223, 251658495, 117440767, 4278190335, 4160749823, 4026532095, 3892314367, 3758096639, 3623878911, 3489661183, 3355443455, 3221225727, 3087007999, 2952790271, 2818572543, 2667577599, 2533359871, 2399142143, 2264924415, 2147483903, 2013266175, 1862271231, 1744830719, 1610612991, 1476395263, 1342177535, 1191182591, 1056964863, 922747135, 788529407, 654311679, 520093951, 385876223, 251658495, 100663551, 4294901760, 4160684032, 4026466304, 3909025792, 3774808064, 3623813120, 3489595392, 3355377664, 3237937152, 3103719424, 2952724480, 2818506752, 2684289024, 2550071296, 2415853568, 2281635840, 2147418112, 2013200384, 1878982656, 1744764928, 1593769984, 1476329472,1325334528, 1207894016, 1056899072, 939458560, 788463616, 654245888, 520028160, 385810432, 251592704, 117374976, 4294901760, 4177461248, 4043243520, 3909025792, 3774808064, 3640590336, 3506372608, 3355377664, 3221159936, 3086942208, 2952724480, 2818506752, 2701066240, 2550071296, 2415853568, 2281635840, 2147418112, 2013200384, 1878982656, 1727987712, 1610547200, 1476329472, 1325334528, 1191116800, 1073676288, 922681344, 788463616, 654245888, 520028160, 385810432, 251592704, 100597760, 4294901760, 4177461248, 4043243520, 3909025792, 3774808064, 3640590336, 3489595392, 3372154880, 3237937152, 3103719424, 2952724480, 2818506752, 2700935170, 2550071296, 2415853568, 2281635840, 2147418112, 2013200384, 1878982656, 1744764928, 1610547200, 1459552256, 1342111744, 1191116800, 1056899072, 922681344, 788463616, 671023104, 520028160, 385810432, 251592704, 100597760, 4294901760, 4177461248, 4043243520, 3909025792, 3774808064, 3640590336, 3489595392, 3372154880, 3237937152, 3086942208, 2969501696, 2818506752, 2684289024, 2550071296, 2432630784, 2281635840, 2147418112, 2013200384, 1862205440, 1744764928, 1610547200, 1476329472, 1342111744, 1191116800, 1056899072, 922681344, 788463616, 654245888, 520028160, 385810432, 251592704, 117374976, 4294901760, 4177461248, 4043243520, 3909025792, 3774808064, 3623813120, 3506372608, 3372154880, 3237937152, 3103719424, 2952724480, 2835283968, 2684289024, 2550071296, 2432630784, 2281635840, 2147418112, 2046492676, 1862205440, 1744764928, 1610547200, 1476329472, 1342111744,1207894016, 1056899072, 939458560, 788463616, 654245888, 536281096, 385810432, 251592704, 134152192,
       };
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       int iScreen = DefaultScreen(d);
 
@@ -1030,7 +1037,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       Atom net_wm_icon = x11_display()->intern_atom("_NET_WM_ICON", False);
 
@@ -1147,7 +1154,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       int i = XStoreName(Display(), Window(), psz);
 
@@ -1165,7 +1172,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       int i = XSelectInput(Display(), Window(), iInput);
 
@@ -1183,7 +1190,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       int i = select_input(ExposureMask | ButtonPressMask);
 
@@ -1325,7 +1332,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       XReparentWindow(Display(), Window(), pwindowx11NewParent->Window(), 0, 0);
 
@@ -1455,14 +1462,17 @@ namespace windowing_x11
    }
 
 
-   ::e_status window::show_window(const ::e_display & edisplay, const ::e_activation & eactivationi)
+   ::e_status window::show_window(const ::e_display & edisplay, const ::e_activation & eactivation)
    {
+
+      x11_windowing()->windowing_branch(__routine([this, edisplay, eactivation]()
+                                                  {
 
       windowing_output_debug_string("\n::window::show_window 1");
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       XWindowAttributes attr;
 
@@ -1519,6 +1529,9 @@ namespace windowing_x11
       windowing_output_debug_string("\n::window::show_window 2");
 
       return true;
+                                                  }));
+
+      return ::success;
 
    }
 
@@ -1534,7 +1547,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
 //      if (x11_display()->is_null())
 //      {
@@ -1602,7 +1615,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       XWindowAttributes attr;
 
@@ -1634,7 +1647,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       XWindowAttributes attr;
 
@@ -1666,7 +1679,7 @@ namespace windowing_x11
 
       synchronous_lock sl(user_mutex());
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       XWindowAttributes attr;
 
@@ -1752,7 +1765,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       static const long WM_STATE_ELEMENTS = 2L;
 
@@ -1839,7 +1852,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       if (x11_display()->is_null())
       {
@@ -2191,7 +2204,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::window::set_window_pos 1");
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       XWindowAttributes attrs = {};
 
@@ -2464,12 +2477,22 @@ namespace windowing_x11
    }
 
 
-   ::e_status window::set_cursor2(::windowing::cursor * pcursor)
+   ::e_status window::set_tool_window(bool bSet)
+   {
+
+      wm_toolwindow(bSet);
+
+      return ::success;
+
+   }
+
+
+   ::e_status window::set_mouse_cursor2(::windowing::cursor * pcursor)
    {
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       Atom net_wm_icon = x11_display()->intern_atom("_BAMF_DESKTOP_FILE", False);
 
@@ -2505,7 +2528,7 @@ namespace windowing_x11
    }
 
 
-   ::e_status window::set_cursor(::windowing::cursor * pcursor)
+   ::e_status window::set_mouse_cursor(::windowing::cursor * pcursor)
    {
 
       if (::is_null(pcursor))
@@ -2531,15 +2554,20 @@ namespace windowing_x11
 
       }
 
-      synchronous_lock sl(user_mutex());
+      m_pwindowing->windowing_branch(__routine([this, pcursorx11]()
+                                          {
 
-      windowing_output_debug_string("\n::SetCursor 1");
+                                             synchronous_lock sl(user_mutex());
 
-      display_lock displaylock(x11_display());;
+                                             windowing_output_debug_string("\n::SetCursor 1");
 
-      XDefineCursor(Display(), Window(), pcursorx11->m_cursor);
+                                             display_lock displaylock(x11_display()->Display());;
 
-      m_cursorLast = pcursorx11->m_cursor;
+                                             XDefineCursor(Display(), Window(), pcursorx11->m_cursor);
+
+                                             m_cursorLast = pcursorx11->m_cursor;
+
+                                          }));
 
       return true;
 
@@ -2601,7 +2629,7 @@ namespace windowing_x11
 
 #endif
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       windowing_output_debug_string("\n::GetFocus 1.01");
 
@@ -2661,7 +2689,7 @@ namespace windowing_x11
 
          windowing_output_debug_string("\n::set_active_window 1");
 
-         display_lock displaylock(x11_display());
+         display_lock displaylock(x11_display()->Display());
 
          XEvent xev;
 
@@ -2818,7 +2846,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::get_window 1");
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       if (erelative == e_relative_first_sibling ||
           erelative == e_relative_last_sibling ||
@@ -3006,7 +3034,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::DestroyWindow 1");
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       XUnmapWindow(Display(), Window());
 
@@ -3037,15 +3065,18 @@ namespace windowing_x11
 
    }
 
-   Atom * window::wm_get_list_raw(Atom atomList, unsigned long int * pnum_items)
+
+   comparable_array < Atom > window::wm_get_list_raw(Atom atomList)
    {
+
+      comparable_array < Atom >atoma;
 
       synchronous_lock synchronouslock(user_mutex());
 
       if (atomList == None)
       {
 
-         return nullptr;
+         return atoma;
 
       }
 
@@ -3055,13 +3086,21 @@ namespace windowing_x11
 
       unsigned long int bytes_after;
 
-      Atom * atoms = nullptr;
+      Atom * patoms = nullptr;
 
-      XGetWindowProperty(Display(), Window(), atomList, 0, 1024, False, XA_ATOM, &actual_type, &actual_format,
-                         pnum_items,
-                         &bytes_after, (unsigned char **) &atoms);
+      long unsigned int num_items =0;
 
-      return atoms;
+      XGetWindowProperty(Display(), Window(), atomList, 0, 1024,
+                         False, XA_ATOM, &actual_type, &actual_format,
+                         &num_items,
+                         &bytes_after, (unsigned char **) &patoms);
+
+      atoma.set_size(num_items);
+
+      memcpy(atoma.get_data(), patoms, atoma.get_size_in_bytes());
+      XFree(patoms);
+
+      return atoma;
 
    }
 
@@ -3075,34 +3114,18 @@ namespace windowing_x11
 
       int actual_format;
 
-      unsigned long i, num_items;
+      unsigned long i;
 
-      Atom * atoms = wm_get_list_raw(atomList, &num_items);
+      auto atoma = wm_get_list_raw(atomList);
 
-      if (atoms == nullptr)
+      if (atoma.is_empty())
       {
 
          return 0;
 
       }
 
-      bool bFind = false;
-
-      for (i = 0; i < num_items; i++)
-      {
-
-         if (atoms[i] == atomFlag)
-         {
-
-            bFind = true;
-
-            break;
-
-         }
-
-      }
-
-      XFree(atoms);
+      bool bFind = atoma.contains(atomFlag);
 
       return bFind ? 1 : 0;
 
@@ -3148,7 +3171,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::wm_test_state 1");
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       if (x11_display()->is_null())
       {
@@ -3206,9 +3229,9 @@ namespace windowing_x11
 
          unsigned long num_items;
 
-         Atom * plist = wm_get_list_raw(atomList, &num_items);
+         auto atoma = wm_get_list_raw(atomList);
 
-         if (plist == nullptr)
+         if (atoma.is_empty())
          {
 
             return false;
@@ -3222,7 +3245,7 @@ namespace windowing_x11
          for (i = 0; i < num_items; i++)
          {
 
-            if (plist[i] == atomFlag)
+            if (atoma[i] == atomFlag)
             {
 
                iFind = i;
@@ -3236,14 +3259,12 @@ namespace windowing_x11
          if (iFind >= 0)
          {
 
-            __memmov(&plist[iFind], &plist[iFind + 1], (num_items - iFind - 1) * sizeof(Atom));
+            atoma.erase_at(iFind);
 
-            XChangeProperty(Display(), Window(), atomList, XA_ATOM, 32, PropModeReplace, (unsigned char *) plist,
-                            num_items - 1);
+            XChangeProperty(Display(), Window(), atomList, XA_ATOM, 32, PropModeReplace, (unsigned char *) atoma.get_data(),
+                            atoma.get_size());
 
          }
-
-         XFree(plist);
 
       }
 
@@ -3258,7 +3279,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       XRaiseWindow(Display(), Window());
 
@@ -3359,7 +3380,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       XStoreName(Display(), Window(), pszName);
 
@@ -3431,7 +3452,7 @@ namespace windowing_x11
 //
 //      synchronous_lock synchronouslock(user_mutex());
 //
-//      display_lock displaylock(x11_display());
+//      display_lock displaylock(x11_display()->Display());
 //
 //      if (x11_display()->is_null())
 //      {
@@ -3471,7 +3492,7 @@ namespace windowing_x11
    void window::update_screen()
    {
 
-      m_pwindowing->user_branch(__routine([this]()
+      m_pwindowing->windowing_branch(__routine([this]()
                                         {
 
                                            auto pimpl = m_pimpl;
@@ -3512,7 +3533,7 @@ namespace windowing_x11
    void window::window_show()
    {
 
-      m_pwindowing->user_branch(__routine([this]()
+      m_pwindowing->windowing_branch(__routine([this]()
                                         {
 
                                            auto pimpl = m_pimpl;
@@ -3565,31 +3586,38 @@ namespace windowing_x11
 
       windowing_output_debug_string("\noswindow_data::SetCapture 1");
 
-      display_lock displaylock(x11_display());
+      m_pwindowing->windowing_branch(__routine([this]()
+                                          {
 
-      auto grabStatus = XGrabPointer(Display(), Window(), False,
-                                     ButtonPressMask | ButtonReleaseMask | PointerMotionMask,
-                                     GrabModeAsync, GrabModeAsync, None, None, CurrentTime);
+                                             display_lock displaylock(x11_display()->Display());
 
-      if (grabStatus != GrabSuccess)
-      {
+                                             auto grabStatus = XGrabPointer(Display(), Window(), False,
+                                                                            ButtonPressMask | ButtonReleaseMask |
+                                                                            PointerMotionMask,
+                                                                            GrabModeAsync, GrabModeAsync, None, None,
+                                                                            CurrentTime);
 
-         windowing_output_debug_string("\noswindow_data::SetCapture 2.1");
+                                             if (grabStatus != GrabSuccess)
+                                             {
 
-         return error_failed;
+                                                windowing_output_debug_string("\noswindow_data::SetCapture 2.1");
 
-      }
+                                                return;
 
-      auto pdisplay = x11_display();
+                                             }
 
-      if (pdisplay)
-      {
+                                             auto pdisplay = x11_display();
 
-         pdisplay->_on_capture_changed_to(this);
+                                             if (pdisplay)
+                                             {
 
-      }
+                                                pdisplay->_on_capture_changed_to(this);
 
-      windowing_output_debug_string("\noswindow_data::SetCapture 2");
+                                             }
+
+                                             windowing_output_debug_string("\noswindow_data::SetCapture 2");
+
+                                          }));
 
       return ::success;
 
@@ -3610,7 +3638,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\noswindow_data::SetFocus 1");
 
-      display_lock displaylock(x11_display());
+      display_lock displaylock(x11_display()->Display());
 
       if (!is_window())
       {

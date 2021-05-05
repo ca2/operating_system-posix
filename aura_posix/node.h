@@ -23,13 +23,23 @@ namespace aura
       public:
 
 
+         void *                                 m_pX11Display;
+         void *                                 m_pxcbconnection;
+
 
          node();
          virtual ~node();
 
-         //virtual ::e_status start() override;
 
          virtual ::e_status initialize(::object * pobject) override;
+
+
+         virtual ::e_status _allocate_Display_and_connection();
+
+
+         void * _get_Display();
+         void * _get_connection();
+
 
          virtual ::file::path get_desktop_file_path(::apex::application * papp) const override;
 

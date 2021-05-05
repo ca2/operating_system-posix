@@ -48,7 +48,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_window()->x11_display());
+      display_lock displaylock(x11_window()->x11_display()->Display());
 
       XGCValues gcvalues = {};
 
@@ -71,7 +71,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displaylock(x11_window()->x11_display());
+      display_lock displaylock(x11_window()->x11_display()->Display());
 
       if(m_gc != nullptr)
       {
@@ -324,7 +324,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      display_lock displayLock(x11_window()->x11_display());
+      display_lock displayLock(x11_window()->x11_display()->Display());
 
       //XImage * pximage = (XImage *)pimage->payload("pximage").i64();
 

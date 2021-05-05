@@ -8,6 +8,8 @@ list(APPEND apex_posix_source
    datetime.cpp
    datetime.h
    factory_exchange.cpp
+   file_context.cpp
+   file_context.h
    file_os_watcher.cpp
    file_os_watcher.h
    framework.cpp

@@ -1,31 +1,5 @@
 #include "framework.h"
 
-//
-//namespace node_gnome
-//{
-//
-//
-//   factory_exchange::factory_exchange()
-//   {
-//
-//      create_factory < node, ::acme::node > ();
-//
-//   }
-//
-//
-//   factory_exchange::~factory_exchange()
-//   {
-//
-//   }
-//
-//
-//} // namespace music
-//
-//
-//
-//
-
-
 
 extern "C"
 void windowing_x11_factory_exchange(::factory_map * pfactorymap);

@@ -90,7 +90,7 @@ gboolean linux_start_system(gpointer data)
 
    ::apex::system * psystem = (::apex::system *) data;
 
-   //psystem->m_strAppId = psystem->m_pmaindata->m_strAppId;
+   //psystem->m_XstrAppId = psystem->m_pmaindata->m_XstrAppId;
 
    //psystem->startup_command(psystem->m_pmaindata);
 
@@ -158,7 +158,7 @@ void apex_application_startup (GApplication *application)
 
    ::apex::system * psystem = &System;
 
-   //psystem->m_strAppId = psystem->m_pmaindata->m_strAppId;
+   //psystem->m_XstrAppId = psystem->m_pmaindata->m_XstrAppId;
 
    //psystem->startup_command(psystem->m_pmaindata);
 

@@ -4,7 +4,7 @@
 #include "framework.h"
 #ifdef WITH_SN
 #include "sn.h"
-#include "windowing_xcb.h"
+
 
 
 int g_iIgnoreXDisplayError = 0;
