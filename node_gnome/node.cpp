@@ -283,7 +283,7 @@ namespace node_gnome
 
              auto psystem = m_psystem->m_papexsystem;
 
-               psystem->on_start_system();
+               psystem->post_initial_request();
 
 
          });
