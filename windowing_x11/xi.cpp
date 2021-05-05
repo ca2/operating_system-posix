@@ -37,7 +37,7 @@ namespace windowing_x11
 
                              synchronous_lock synchronouslock(user_mutex());
 
-                             ::windowing_x11::display_lock lock(m_pdisplay);
+                             ::windowing_x11::display_lock lock(m_pdisplay->Display());
 
                              int event, error;
 

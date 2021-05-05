@@ -1,7 +1,7 @@
 #include "framework.h"
 #include "_.h"
 #include "aura/os/linux/_linux.h"
-//#include "apex/os/linux/gnome_gnome.h"
+//#include "apex/os/linux/xfce_xfce.h"
 #include "aura/node/linux/_linux.h"
 #include "clipboard_data.h"
 #include <gtk/gtk.h>
@@ -24,7 +24,7 @@ gboolean clipboard_callback(gpointer data);
 
 
 
-namespace node_gnome
+namespace node_xfce
 {
 
 
@@ -306,7 +306,7 @@ namespace node_gnome
    }
 
 
-} // namespace node_gnome
+} // namespace node_xfce
 
 
 //void clipboard_targets_func(GtkClipboard *clipboard, GdkAtom *atoms, gint n_atoms, gpointer data)
@@ -314,7 +314,7 @@ namespace node_gnome
 //
 //   clipboard_data * pdata = (clipboard_data *) data;
 //
-//   GdkAtom target = gdk_atom_intern("x-special/gnome-copied-files", false);
+//   GdkAtom target = gdk_atom_intern("x-special/xfce-copied-files", false);
 //
 //   pdata->m_nTargets = 0;
 //
@@ -563,7 +563,7 @@ namespace node_gnome
 //
 //      GtkTargetEntry entrya[2];
 //
-//      entrya[0].target = (char *) "x-special/gnome-copied-files";
+//      entrya[0].target = (char *) "x-special/xfce-copied-files";
 //      entrya[0].flags = 0;
 //      entrya[0].info = 0;
 //
@@ -579,7 +579,7 @@ namespace node_gnome
 //   else if(pdata->m_eclipboard == e_clipboard_get_patha)
 //   {
 //
-//      GdkAtom target = gdk_atom_intern("x-special/gnome-copied-files", false);
+//      GdkAtom target = gdk_atom_intern("x-special/xfce-copied-files", false);
 //
 //      gtk_clipboard_request_contents(clipboard, target, &clipboard_received_func, pdata);
 //

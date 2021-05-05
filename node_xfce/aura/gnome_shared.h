@@ -9,12 +9,12 @@
 //   {
 //
 //      // please note that the row of these must match the row of the corresponding combobox in Preferences Dialog.
-//      desktop_unity_gnome,
-//      desktop_gnome,
+//      desktop_unity_xfce,
+//      desktop_xfce,
 //      desktop_xfce,
 //      desktop_lxde,
 //      desktop_mate,
-//      desktop_ubuntu_gnome,
+//      desktop_ubuntu_xfce,
 //
 //   };
 //

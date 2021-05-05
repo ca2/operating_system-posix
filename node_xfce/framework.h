@@ -9,7 +9,7 @@
 #include "_.h"
 
 
-#include "_node_gnome.h"
+#include "_node_xfce.h"
 
 
 #include "aura/_defer.h"

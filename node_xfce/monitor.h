@@ -2,7 +2,7 @@
 #pragma once
 
 
-namespace node_gnome
+namespace node_xfce
 {
 
 
@@ -47,7 +47,7 @@ namespace node_gnome
    //using monitor_map = iptr_map < __pointer(monitor) >;
 
 
-} // namespace node_gnome
+} // namespace node_xfce
 
 
 

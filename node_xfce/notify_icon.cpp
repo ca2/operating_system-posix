@@ -3,7 +3,7 @@
 //
 
 #include "framework.h"
-//#include "apex/os/linux/gnome_gnome.h"
+//#include "apex/os/linux/xfce_xfce.h"
 #include "aura/user/_user.h"
 
 
@@ -17,7 +17,7 @@ static ::user::notify_icon * g_pnotifyiconLast = nullptr;
 #endif
 
 
-namespace node_gnome
+namespace node_xfce
 {
 
 
@@ -553,7 +553,7 @@ namespace node_gnome
 //#endif
 
 
-} // namespace node_gnome
+} // namespace node_xfce
 
 
 

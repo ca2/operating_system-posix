@@ -30,7 +30,7 @@ extern "C"
 //};
 
 
-#include "gnome_shared.h"
+#include "xfce_shared.h"
 
 
 

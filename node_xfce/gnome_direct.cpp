@@ -2,9 +2,9 @@
 #include "platform/platform_setup.h"
 #include <limits.h>
 #include "__standard_type.h"
-//#include "gnome.h"
-#include "gnome_gnome.h"
-#include "gnome_internal_glue.h"
+//#include "xfce.h"
+#include "xfce_xfce.h"
+#include "xfce_internal_glue.h"
 #include "apex/message/global.h"
 #include "acme/id.h"
 #include "platform/_.h"

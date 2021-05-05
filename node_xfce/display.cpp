@@ -16,7 +16,7 @@ mutex * user_mutex();
 
 void windowing_output_debug_string(const char * pszDebugString);
 
-namespace node_gnome
+namespace node_xfce
 {
 
 
@@ -289,7 +289,7 @@ namespace node_gnome
    }
 
 
-} // namespace node_gnome
+} // namespace node_xfce
 
 
 

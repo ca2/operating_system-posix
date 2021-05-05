@@ -1,7 +1,7 @@
 #pragma once
 
 
-namespace node_gnome
+namespace node_xfce
 {
 
 
@@ -20,7 +20,7 @@ namespace node_gnome
    //void os_calc_dark_mode();
 
 
-} // namespace node_gnome
+} // namespace node_xfce
 
 
 

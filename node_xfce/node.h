@@ -8,7 +8,7 @@
 #pragma once
 
 
-namespace node_gnome
+namespace node_xfce
 {
 
 
@@ -91,7 +91,7 @@ namespace node_gnome
    };
 
 
-} // namespace node_gnome
+} // namespace node_xfce
 
 
 

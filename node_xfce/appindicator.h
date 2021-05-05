@@ -4,7 +4,7 @@
 #pragma once
 
 
-namespace node_gnome
+namespace node_xfce
 {
 
 
@@ -25,8 +25,8 @@ namespace node_gnome
 
 
 
-//      gnome_appindicator();
-//      virtual ~gnome_appindicator();
+//      xfce_appindicator();
+//      virtual ~xfce_appindicator();
 //
 
       //virtual bool create(const char * pszId, const char * pszIcon, const char * pszFolder, user_notify_icon_bridge * pbridge) override;
@@ -40,7 +40,7 @@ namespace node_gnome
    };
 
 
-} // namespace node_gnome
+} // namespace node_xfce
 
 
 

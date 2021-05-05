@@ -1095,7 +1095,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
          synchronous_lock synchronouslock(user_mutex());
 
-         display_lock displaylock(m_pdisplay);
+         display_lock displaylock(m_pdisplay->Display());
 
          try
          {
@@ -1235,7 +1235,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
          synchronous_lock synchronouslock(user_mutex());
 
-         display_lock displayLock(m_pdisplay);
+         display_lock displayLock(m_pdisplay->Display());
 
          Display *pdisplay = m_pdisplay->Display();
 

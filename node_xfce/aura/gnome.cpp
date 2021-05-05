@@ -1,5 +1,5 @@
 #include "framework.h"
-#include "gnome_gnome.h"
+#include "xfce_xfce.h"
 #include "aura/os/linux/appindicator.h"
 
 
@@ -51,7 +51,7 @@ namespace user
 #ifndef RASPBIAN
 
 
-namespace node_gnome
+namespace node_xfce
 {
 
 
@@ -75,7 +75,7 @@ namespace user
    {
 
       // https://ubuntuforums.org/showthread.php?t=2140488
-      // gsettings set org.gnome.desktop.interface gtk-theme your_theme
+      // gsettings set org.xfce.desktop.interface gtk-theme your_theme
 
       // indirect wall-changer sourceforge.net contribution
 
@@ -88,11 +88,11 @@ namespace user
       switch(edesktop)
       {
 
-      case ::user::desktop_gnome:
-      case ::user::desktop_ubuntu_gnome:
-      case ::user::desktop_unity_gnome:
+      case ::user::desktop_xfce:
+      case ::user::desktop_ubuntu_xfce:
+      case ::user::desktop_unity_xfce:
 
-         bOk = ::user::gsettings_get(strTheme, "org.gnome.desktop.interface", "gtk-theme");
+         bOk = ::user::gsettings_get(strTheme, "org.xfce.desktop.interface", "gtk-theme");
 
          break;
 
@@ -146,11 +146,11 @@ namespace user
       switch (edesktop)
       {
 
-      case ::user::desktop_gnome:
-      case ::user::desktop_ubuntu_gnome:
-      case ::user::desktop_unity_gnome:
+      case ::user::desktop_xfce:
+      case ::user::desktop_ubuntu_xfce:
+      case ::user::desktop_unity_xfce:
 
-         bOk = ::user::gsettings_get(strWallpaper, "org.gnome.desktop.background", "picture-uri");
+         bOk = ::user::gsettings_get(strWallpaper, "org.xfce.desktop.background", "picture-uri");
 
          break;
 
@@ -192,7 +192,7 @@ namespace user
    }
 
 
-} // namespace node_gnome
+} // namespace node_xfce
 
 
 

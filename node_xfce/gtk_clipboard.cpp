@@ -11,7 +11,7 @@ void clipboard_targets_func(GtkClipboard *clipboard, GdkAtom *atoms, gint n_atom
 
    clipboard_data * pdata = (clipboard_data *) data;
 
-   GdkAtom target = gdk_atom_intern("x-special/gnome-copied-files", false);
+   GdkAtom target = gdk_atom_intern("x-special/xfce-copied-files", false);
 
    pdata->m_nTargets = 0;
 
@@ -260,7 +260,7 @@ gboolean clipboard_callback(gpointer data)
 
       GtkTargetEntry entrya[2];
 
-      entrya[0].target = (char *) "x-special/gnome-copied-files";
+      entrya[0].target = (char *) "x-special/xfce-copied-files";
       entrya[0].flags = 0;
       entrya[0].info = 0;
 
@@ -276,7 +276,7 @@ gboolean clipboard_callback(gpointer data)
    else if(pdata->m_eclipboard == e_clipboard_get_patha)
    {
 
-      GdkAtom target = gdk_atom_intern("x-special/gnome-copied-files", false);
+      GdkAtom target = gdk_atom_intern("x-special/xfce-copied-files", false);
 
       gtk_clipboard_request_contents(clipboard, target, &clipboard_received_func, pdata);
 

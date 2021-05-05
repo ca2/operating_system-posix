@@ -3602,7 +3602,7 @@ namespace windowing_x11
 
                                                 windowing_output_debug_string("\noswindow_data::SetCapture 2.1");
 
-                                                return error_failed;
+                                                return;
 
                                              }
 
