@@ -378,11 +378,11 @@ namespace node_xfce
       switch (edesktop)
       {
 
-         case ::user::e_desktop_xfce:
-         case ::user::e_desktop_ubuntu_xfce:
-         case ::user::e_desktop_unity_xfce:
+         case ::user::e_desktop_gnome:
+         case ::user::e_desktop_ubuntu_gnome:
+         case ::user::e_desktop_unity_gnome:
 
-            bOk = gsettings_get(strTheme, "org.xfce.desktop.interface", "gtk-theme");
+            bOk = gsettings_get(strTheme, "org.gnome.desktop.interface", "gtk-theme");
 
             break;
 

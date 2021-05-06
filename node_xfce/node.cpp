@@ -87,7 +87,7 @@ namespace node_xfce
    node::node()
    {
 
-      m_pNodeGnome = this;
+      m_pNodeXfce = this;
 
       defer_initialize_x11();
 
@@ -422,12 +422,12 @@ namespace node_xfce
       switch (edesktop)
       {
 
-      case ::user::e_desktop_xfce:
-      case ::user::e_desktop_ubuntu_xfce:
-      case ::user::e_desktop_unity_xfce:
+      case ::user::e_desktop_gnome:
+      case ::user::e_desktop_ubuntu_gnome:
+      case ::user::e_desktop_unity_gnome:
       {
 
-      bool bOk1 = ::node_xfce::gsettings_set("org.xfce.desktop.interface", "gtk-theme", strUserTheme);
+      bool bOk1 = ::node_xfce::gsettings_set("org.gnome.desktop.interface", "gtk-theme", strUserTheme);
 
       bool bOk2 = true;
 
@@ -505,11 +505,11 @@ namespace node_xfce
       switch (edesktop)
       {
 
-         case ::user::e_desktop_xfce:
-         case ::user::e_desktop_ubuntu_xfce:
-         case ::user::e_desktop_unity_xfce:
+         case ::user::e_desktop_gnome:
+         case ::user::e_desktop_ubuntu_gnome:
+         case ::user::e_desktop_unity_gnome:
 
-            return ::node_xfce::gsettings_set("org.xfce.desktop.background", "picture-uri", "file://" + strLocalImagePath);
+            return ::node_xfce::gsettings_set("org.gnome.desktop.background", "picture-uri", "file://" + strLocalImagePath);
 
          case ::user::e_desktop_mate:
 
@@ -557,11 +557,11 @@ namespace node_xfce
       switch (edesktop)
       {
 
-         case ::user::e_desktop_xfce:
-         case ::user::e_desktop_ubuntu_xfce:
-         case ::user::e_desktop_unity_xfce:
+         case ::user::e_desktop_gnome:
+         case ::user::e_desktop_ubuntu_gnome:
+         case ::user::e_desktop_unity_gnome:
 
-            ::node_xfce::g_enable_wallpaper_change_notification("org.xfce.desktop.background", "picture-uri");
+            ::node_xfce::g_enable_wallpaper_change_notification("org.gnome.desktop.background", "picture-uri");
 
             break;
 
