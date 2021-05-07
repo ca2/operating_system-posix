@@ -1126,7 +1126,7 @@ namespace windowing_xcb
             }
 
 
-            ::user::primitive_impl *pimpl = msg.oswindow->m_pimpl;
+            ::user::primitive_impl *pimpl = msg.oswindow ? msg.oswindow->m_pimpl : nullptr;
 
             if (pimpl != nullptr)
             {
