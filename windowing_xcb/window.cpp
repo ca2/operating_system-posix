@@ -7,6 +7,7 @@
 #include "aura/user/interaction_prodevian.h"
 #include "aura/platform/message_queue.h"
 #include <X11/Xatom.h>
+// dnf install xcb-util-devel
 #include <xcb/xcb_util.h>
 
 

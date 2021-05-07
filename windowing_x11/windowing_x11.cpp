@@ -1089,7 +1089,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       }
 
-
       try
       {
 

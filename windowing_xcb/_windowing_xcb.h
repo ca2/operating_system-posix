@@ -8,6 +8,7 @@
 #include "aura_posix/xim_keyboard.h"
 
 #include <xcb/xcb.h>
+// dnf install xcb-util-image-devel
 #include <xcb/xcb_image.h>
 #include <xcb/render.h>
 #include <X11/Xlib-xcb.h>
