@@ -2528,6 +2528,16 @@ namespace windowing_x11
    }
 
 
+   ::e_status window::set_tool_window(bool bSet)
+   {
+
+      _set_tool_window(bSet);
+
+      return ::success;
+
+   }
+
+
    ::e_status window::set_mouse_cursor(::windowing::cursor * pcursor)
    {
 

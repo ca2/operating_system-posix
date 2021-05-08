@@ -2460,6 +2460,23 @@ namespace windowing_xcb
    }
 
 
+   ::e_status window::set_tool_window(bool bSet)
+   {
+
+      auto estatus = _set_tool_window(bSet);
+
+      if(!estatus)
+      {
+
+         return estatus;
+
+      }
+
+      return estatus;
+
+   }
+
+
    bool window::has_mouse_capture() const
    {
 

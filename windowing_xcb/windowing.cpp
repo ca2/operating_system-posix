@@ -1440,6 +1440,7 @@ namespace windowing_xcb
                (
                   msg.oswindow->has_mouse_capture()
                   || msg.oswindow->screen_pixel(pbutton->root_x, pbutton->root_y).alpha != 0
+                  || msg.oswindow->m_pimpl->m_bTransparentMouseEvents
                ))
             {
 
