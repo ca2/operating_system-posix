@@ -47,19 +47,25 @@ set_target_properties(aura_posix PROPERTIES LINKER_LANGUAGE CXX)
 
 
 if (MSVC)
+
+
    target_compile_options(aura_posix PRIVATE "/MD$<$<CONFIG:Debug>:d>")
    target_link_options(aura_posix PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
    target_link_options(aura_posix PRIVATE "/SUBSYSTEM:WINDOWS")
    target_link_libraries(aura_posix PRIVATE ${library_references})
-   add_dependencies(aura_posix draw2d_gdiplus)
+
+
 elseif (LINUX)
+
+
    pkg_check_modules(PKGCONFIG x11 x11-xcb)
    target_compile_options(aura_posix PRIVATE -fpermissive)
    target_compile_options(aura_posix PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(aura_posix PRIVATE -Wl,-rpath=\$ORIGIN)
    target_link_libraries(aura_posix PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
-   #target_link_libraries(aura_posix PRIVATE asound)
    target_link_options(aura_posix PRIVATE -Wl,-z,defs)
+
+
 endif ()
 
 

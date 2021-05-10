@@ -128,6 +128,7 @@ namespace windowing_xcb
       virtual string _window_get_name(xcb_window_t window);
       virtual status < xcb_get_window_attributes_reply_t > _window_get_window_attributes(xcb_window_t window);
       virtual status < xcb_get_geometry_reply_t > _window_get_geometry(xcb_window_t window);
+      virtual ::rectangle_i32 _window_get_frame_extents(xcb_window_t window);
       virtual ::e_status _window_get_window_rectangle(xcb_window_t window, RECTANGLE_I32 * prectangle);
       virtual ::e_status _window_get_client_rectangle(xcb_window_t window, RECTANGLE_I32 * prectangle);
 
