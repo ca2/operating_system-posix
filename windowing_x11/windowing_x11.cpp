@@ -1981,7 +1981,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                      // This means setting same size_i32 and position to all three sketch and window states.
                      // The buffer may need to be resized so don't mess with current design state.
 
-                     bool bPositionFix = pinteraction->layout().sketch().origin() != point;
+                     bool bPositionFix = pointWindow != point;
 
 #ifdef X11_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE
 
@@ -2002,7 +2002,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 #endif
 
-                     bool bSizeFix = pinteraction->layout().sketch().size() != size;
+                     bool bSizeFix = sizeWindow != size;
 
 #ifdef X11_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE_FOR_AWESOME_FILE
 
@@ -2022,26 +2022,26 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                      if (bPositionFix)
                      {
 
+                        msg.oswindow->m_point = point;
+
                         msg.m_id = e_message_move;
                         msg.wParam = 0;
                         msg.lParam = point.lparam();
 
                         post_ui_message(msg);
 
-                        msg.oswindow->m_point = point;
-
                      }
 
                      if (bSizeFix)
                      {
+
+                        msg.oswindow->m_point = size;
 
                         msg.m_id = e_message_size;
                         msg.wParam = 0;
                         msg.lParam = size.lparam();
 
                         post_ui_message(msg);
-
-                        msg.oswindow->m_point = size;
 
                      }
 

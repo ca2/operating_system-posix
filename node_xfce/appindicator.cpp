@@ -243,7 +243,6 @@ namespace node_xfce
    void appindicator::close()
    {
 
-
       if(m_pindicator == NULL)
       {
 

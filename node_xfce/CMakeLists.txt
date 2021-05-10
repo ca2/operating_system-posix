@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.17)
 project(node_xfce CXX)
 
 
-list(APPEND node_xfce_source
+list(APPEND library_source
    _.cpp
    _.h
    _node_xfce.h
@@ -42,10 +42,11 @@ list(APPEND library_references
    aura
    aura_posix
    windowing_x11
+   node_gtk
    )
 
 
-add_library(node_xfce SHARED ${node_xfce_source} )
+add_library(node_xfce SHARED ${library_source} )
 
 target_precompile_headers(node_xfce PRIVATE framework.h)
 

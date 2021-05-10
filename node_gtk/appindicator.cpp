@@ -54,7 +54,7 @@ static void __extra_action(GtkAction * action, gpointer data)
 } // extern "C"
 
 
-namespace node_gnome
+namespace node_gtk
 {
 
 
@@ -273,7 +273,7 @@ namespace node_gnome
    }
 
 
-} // namespace node_gnome
+} // namespace node_gtk
 
 
 

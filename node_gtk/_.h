@@ -8,21 +8,21 @@
 #include <gdk/gdkx.h>
 
 
-#if defined(_NODE_GNOME_LIBRARY)
-   #define CLASS_DECL_NODE_GNOME  CLASS_DECL_EXPORT
+#if defined(_NODE_GTK_LIBRARY)
+   #define CLASS_DECL_NODE_GTK  CLASS_DECL_EXPORT
 #else
-   #define CLASS_DECL_NODE_GNOME  CLASS_DECL_IMPORT
+   #define CLASS_DECL_NODE_GTK  CLASS_DECL_IMPORT
 #endif
 
 
-namespace node_gnome
+namespace node_gtk
 {
 
 
    class node;
 
 
-} // namespace node_gnome
+} // namespace node_gtk
 
 
 #define __matter(TYPE) __new(::matter<TYPE>)

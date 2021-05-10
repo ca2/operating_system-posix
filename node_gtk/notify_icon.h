@@ -12,7 +12,7 @@
 //#endif
 
 
-namespace node_gnome
+namespace node_gtk
 {
 
 

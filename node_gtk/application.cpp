@@ -284,7 +284,7 @@ gboolean gtk_quit_callback(gpointer data)
 
 
 
-namespace node_gnome
+namespace node_gtk
 {
 
 
@@ -302,7 +302,7 @@ namespace node_gnome
    }
 
 
-} // namespace node_gnome
+} // namespace node_gtk
 
 
 

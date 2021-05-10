@@ -10,25 +10,25 @@
 #include "aura/os/linux/appindicator.h"
 
 
-#include "monitor.h"
+//#include "monitor.h"
 
 
-#include "display.h"
+//#include "display.h"
 
 
 #include "node.h"
 
 
-#include "windowing.h"
+//#include "windowing.h"
 
 
-#include "copydesk.h"
+//#include "copydesk.h"
 
 
-#include "appindicator.h"
+//#include "appindicator.h"
 
 
-#include "notify_icon.h"
+//#include "notify_icon.h"
 
 
 

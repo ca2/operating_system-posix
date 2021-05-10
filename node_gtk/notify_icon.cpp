@@ -17,7 +17,7 @@ static ::user::notify_icon * g_pnotifyiconLast = nullptr;
 #endif
 
 
-namespace node_gnome
+namespace node_gtk
 {
 
 
@@ -553,7 +553,7 @@ namespace node_gnome
 //#endif
 
 
-} // namespace node_gnome
+} // namespace node_gtk
 
 
 

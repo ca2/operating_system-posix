@@ -4,7 +4,7 @@
 #pragma once
 
 
-namespace node_gnome
+namespace node_gtk
 {
 
 
@@ -40,7 +40,7 @@ namespace node_gnome
    };
 
 
-} // namespace node_gnome
+} // namespace node_gtk
 
 
 

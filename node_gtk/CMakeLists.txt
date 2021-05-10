@@ -8,8 +8,8 @@ list(APPEND library_source
    _node_gtk.h
    #appindicator.cpp
    #appindicator.h
-   #application.cpp
-   #application.h
+   application.cpp
+   application.h
    #clipboard_data.h
    #copydesk.cpp
    #copydesk.h
@@ -22,6 +22,7 @@ list(APPEND library_source
    #gdk.cpp
    #gdk.h
    #gnome_direct.cpp
+   #gtk_direct2.cpp
    #gtk_clipboard.cpp
    #monitor.cpp
    #monitor.h

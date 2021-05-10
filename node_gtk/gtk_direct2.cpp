@@ -1,13 +1,14 @@
 #include "framework.h"
 #include "platform/platform_setup.h"
 #include <limits.h>
-#include "acme/os/x11/_x11.h"
+//#include "acme/os/x11/_x11.h"
+#include "acme/os/ansios/pmutex_lock.h"
 #include "__standard_type.h"
-#include "gnome.h"
-#include "gnome_gnome.h"
-#include "gnome_internal_glue.h"
+#include "archive/platform-posix/node_gtk/aura/gnome.h"
+#include "archive/platform-posix/node_gtk/aura/gnome_gnome.h"
+#include "archive/platform-posix/node_gtk/aura/gnome_internal_glue.h"
 #include "apex/message/global.h"
-#include "aura/const/_const.h"
+//#include "aura/const/_const.h"
 #include "acme/const/id.h"
 #include "platform/_.h"
 #include "aura/os/linux/appindicator.h"
@@ -108,111 +109,111 @@ GtkWidget * linux_g_direct_app_indicator_init(AppIndicator * pindicator, user_no
 #ifndef RASPBIAN
 
 
-class gnome_appindicator :
-   virtual public ::linux::appindicator
-{
-public:
+//class gnome_appindicator :
+//   virtual public ::linux::appindicator
+//{
+//public:
+//
+//
+//   AppIndicator * m_pindicator;
+//
+//
+//   gnome_appindicator();
+//   virtual ~gnome_appindicator();
+//
+//
+//   virtual bool create(const char * pszId, const char * pszIcon, const char * pszFolder, user_notify_icon_bridge * pbridge) override;
+//   virtual bool init(user_notify_icon_bridge * pbridge);
+//   virtual void close();
+//
+//
+//   //virtual bool step() override;
+//
+//
+//};
+//
+//
+//gnome_appindicator::gnome_appindicator()
+//{
+//
+//}
+//
+//
+//gnome_appindicator::~gnome_appindicator()
+//{
+//
+//   close();
+//
+//}
+//
+//
+//void gnome_appindicator::close()
+//{
+//
+//
+//   if(m_pindicator == NULL)
+//   {
+//
+//      return;
+//
+//   }
+//
+//   auto pindicator = m_pindicator;
+//
+//   gdk_fork([pindicator]()
+//   {
+//
+//      app_indicator_set_status(pindicator, APP_INDICATOR_STATUS_PASSIVE);
+//
+//   });
+//
+//   m_pindicator = NULL;
+//
+//}
 
+//namespace linux
+//{
+//
+//
+//   char * gsettings_get_malloc(const char * pszSchema, const char * pszKey);
+//
+//
+//   appindicator * allocate_appindicator()
+//   {
+//
+//      return new ::gnome_appindicator();
+//
+//   }
+//
+//
+//} // namespace linux
 
-   AppIndicator * m_pindicator;
-
-
-   gnome_appindicator();
-   virtual ~gnome_appindicator();
-
-
-   virtual bool create(const char * pszId, const char * pszIcon, const char * pszFolder, user_notify_icon_bridge * pbridge) override;
-   virtual bool init(user_notify_icon_bridge * pbridge);
-   virtual void close();
-
-
-   //virtual bool step() override;
-
-
-};
-
-
-gnome_appindicator::gnome_appindicator()
-{
-
-}
-
-
-gnome_appindicator::~gnome_appindicator()
-{
-
-   close();
-
-}
-
-
-void gnome_appindicator::close()
-{
-
-
-   if(m_pindicator == NULL)
-   {
-
-      return;
-
-   }
-
-   auto pindicator = m_pindicator;
-
-   gdk_fork([pindicator]()
-   {
-
-      app_indicator_set_status(pindicator, APP_INDICATOR_STATUS_PASSIVE);
-
-   });
-
-   m_pindicator = NULL;
-
-}
-
-namespace linux
-{
-
-
-   char * gsettings_get_malloc(const char * pszSchema, const char * pszKey);
-
-
-   appindicator * allocate_appindicator()
-   {
-
-      return new ::gnome_appindicator();
-
-   }
-
-
-} // namespace linux
-
-
-bool gnome_appindicator::create(const char * pszId, const char * pszIcon, const char * pszFolder, user_notify_icon_bridge * pbridge)
-{
-
-   m_pindicator = app_indicator_new_with_path(pszId, pszIcon, APP_INDICATOR_CATEGORY_APPLICATION_STATUS, pszFolder);
-
-   if(m_pindicator == nullptr)
-   {
-
-      return false;
-
-   }
-
-   if(!init(pbridge))
-   {
-
-      close();
-
-      return false;
-
-   }
-
-   return true;
-
-}
-
+//
+//bool gnome_appindicator::create(const char * pszId, const char * pszIcon, const char * pszFolder, user_notify_icon_bridge * pbridge)
+//{
+//
+//   m_pindicator = app_indicator_new_with_path(pszId, pszIcon, APP_INDICATOR_CATEGORY_APPLICATION_STATUS, pszFolder);
+//
+//   if(m_pindicator == nullptr)
+//   {
+//
+//      return false;
+//
+//   }
+//
+//   if(!init(pbridge))
+//   {
+//
+//      close();
+//
+//      return false;
+//
+//   }
+//
+//   return true;
+//
+//}
+//
 
 
 
@@ -239,144 +240,144 @@ void safe_free(void * pfree)
 #ifndef RASPBIAN
 
 
-bool gnome_appindicator::init(user_notify_icon_bridge * pbridge)
-{
-
-   int iCount = pbridge->_get_notification_area_action_count();
-
-   GtkWidget *  indicator_menu = nullptr;
-
-   if(iCount > 0)
-   {
-
-
-      GError * error = nullptr;
-
-      GtkActionGroup * action_group = gtk_action_group_new ("AppActions");
-
-      if(action_group != nullptr)
-      {
-
-         GtkActionEntry * entries = new GtkActionEntry[pbridge->_get_notification_area_action_count()];
-
-         string strInfo;
-
-         strInfo += "<ui>";
-
-         strInfo += "  <popup name='IndicatorPopup'>";
-
-         int iEntry = 0;
-
-         for(int i = 0; i < iCount; i++)
-         {
-
-            int iIndex = i;
-
-            const char * pszName = pbridge->_get_notification_area_action_name(iIndex);
-            const char * pszId = pbridge->_get_notification_area_action_id(iIndex);
-            const char * pszLabel = pbridge->_get_notification_area_action_label(iIndex);
-            const char * pszAccelerator = pbridge->_get_notification_area_action_accelerator(iIndex);
-            const char * pszDescription = pbridge->_get_notification_area_action_description(iIndex);
-
-            memset(&entries[iEntry], 0, sizeof(GtkActionEntry));
-
-            if(strcasecmp(pszName, "separator") == 0)
-            {
-
-               strInfo += "<separator/>\n";
-
-            }
-            else
-            {
-
-               entries[iEntry].name = g_strdup(pszLabel);
-
-               strInfo += "    <menuitem action='";
-               strInfo += pszLabel;
-               strInfo += "' />";
-
-               entries[iEntry].stock_id = g_strdup(pszId);
-
-               entries[iEntry].label = g_strdup(pszName);
-
-               //entries[iEntry].accelerator = g_strdup(pszAccelerator);
-
-               entries[iEntry].accelerator = nullptr;
-
-               entries[iEntry].tooltip = g_strdup(pszDescription);
-
-               entries[iEntry].callback = G_CALLBACK (__extra_action);
-
-               iEntry++;
-
-            }
-
-         }
-
-         strInfo += "  </popup>";
-         strInfo += "</ui>";
-
-         gtk_action_group_add_actions (action_group, entries, iEntry, pbridge);
-
-         GtkUIManager * uim = gtk_ui_manager_new ();
-
-         bool bOk = false;
-
-         gchar * ui_info = (gchar *) g_strdup(strInfo);
-
-         if(uim != nullptr)
-         {
-
-            gtk_ui_manager_insert_action_group (uim, action_group, 0);
-
-            bOk = gtk_ui_manager_add_ui_from_string (uim, ui_info, -1, &error) != FALSE;
-
-            if(!bOk)
-            {
-
-               g_message ("Failed to build menus: %s\n", error->message);
-
-               g_error_free (error);
-
-               error = nullptr;
-
-            }
-
-         }
-
-         for(int i = 0; i < iEntry; i++)
-         {
-
-            g_safe_free((void *) entries[i].name);
-            g_safe_free((void *) entries[i].stock_id);
-            g_safe_free((void *) entries[i].label);
-            g_safe_free((void *) entries[i].accelerator);
-            g_safe_free((void *) entries[i].tooltip);
-
-         }
-
-         delete [] entries;
-
-         g_safe_free(ui_info);
-
-         if(bOk)
-         {
-
-            indicator_menu = gtk_ui_manager_get_widget (uim, "/ui/IndicatorPopup");
-
-            app_indicator_set_menu(m_pindicator, GTK_MENU (indicator_menu));
-
-         }
-
-      }
-
-   }
-
-   app_indicator_set_status(m_pindicator, APP_INDICATOR_STATUS_ACTIVE);
-
-   return true;
-
-}
+//bool gnome_appindicator::init(user_notify_icon_bridge * pbridge)
+//{
+//
+//   int iCount = pbridge->_get_notification_area_action_count();
+//
+//   GtkWidget *  indicator_menu = nullptr;
+//
+//   if(iCount > 0)
+//   {
+//
+//
+//      GError * error = nullptr;
+//
+//      GtkActionGroup * action_group = gtk_action_group_new ("AppActions");
+//
+//      if(action_group != nullptr)
+//      {
+//
+//         GtkActionEntry * entries = new GtkActionEntry[pbridge->_get_notification_area_action_count()];
+//
+//         string strInfo;
+//
+//         strInfo += "<ui>";
+//
+//         strInfo += "  <popup name='IndicatorPopup'>";
+//
+//         int iEntry = 0;
+//
+//         for(int i = 0; i < iCount; i++)
+//         {
+//
+//            int iIndex = i;
+//
+//            const char * pszName = pbridge->_get_notification_area_action_name(iIndex);
+//            const char * pszId = pbridge->_get_notification_area_action_id(iIndex);
+//            const char * pszLabel = pbridge->_get_notification_area_action_label(iIndex);
+//            const char * pszAccelerator = pbridge->_get_notification_area_action_accelerator(iIndex);
+//            const char * pszDescription = pbridge->_get_notification_area_action_description(iIndex);
+//
+//            memset(&entries[iEntry], 0, sizeof(GtkActionEntry));
+//
+//            if(strcasecmp(pszName, "separator") == 0)
+//            {
+//
+//               strInfo += "<separator/>\n";
+//
+//            }
+//            else
+//            {
+//
+//               entries[iEntry].name = g_strdup(pszLabel);
+//
+//               strInfo += "    <menuitem action='";
+//               strInfo += pszLabel;
+//               strInfo += "' />";
+//
+//               entries[iEntry].stock_id = g_strdup(pszId);
+//
+//               entries[iEntry].label = g_strdup(pszName);
+//
+//               //entries[iEntry].accelerator = g_strdup(pszAccelerator);
+//
+//               entries[iEntry].accelerator = nullptr;
+//
+//               entries[iEntry].tooltip = g_strdup(pszDescription);
+//
+//               entries[iEntry].callback = G_CALLBACK (__extra_action);
+//
+//               iEntry++;
+//
+//            }
+//
+//         }
+//
+//         strInfo += "  </popup>";
+//         strInfo += "</ui>";
+//
+//         gtk_action_group_add_actions (action_group, entries, iEntry, pbridge);
+//
+//         GtkUIManager * uim = gtk_ui_manager_new ();
+//
+//         bool bOk = false;
+//
+//         gchar * ui_info = (gchar *) g_strdup(strInfo);
+//
+//         if(uim != nullptr)
+//         {
+//
+//            gtk_ui_manager_insert_action_group (uim, action_group, 0);
+//
+//            bOk = gtk_ui_manager_add_ui_from_string (uim, ui_info, -1, &error) != FALSE;
+//
+//            if(!bOk)
+//            {
+//
+//               g_message ("Failed to build menus: %s\n", error->message);
+//
+//               g_error_free (error);
+//
+//               error = nullptr;
+//
+//            }
+//
+//         }
+//
+//         for(int i = 0; i < iEntry; i++)
+//         {
+//
+//            g_safe_free((void *) entries[i].name);
+//            g_safe_free((void *) entries[i].stock_id);
+//            g_safe_free((void *) entries[i].label);
+//            g_safe_free((void *) entries[i].accelerator);
+//            g_safe_free((void *) entries[i].tooltip);
+//
+//         }
+//
+//         delete [] entries;
+//
+//         g_safe_free(ui_info);
+//
+//         if(bOk)
+//         {
+//
+//            indicator_menu = gtk_ui_manager_get_widget (uim, "/ui/IndicatorPopup");
+//
+//            app_indicator_set_menu(m_pindicator, GTK_MENU (indicator_menu));
+//
+//         }
+//
+//      }
+//
+//   }
+//
+//   app_indicator_set_status(m_pindicator, APP_INDICATOR_STATUS_ACTIVE);
+//
+//   return true;
+//
+//}
 
 
 #endif
@@ -595,145 +596,6 @@ namespace node_gtk
 } // namespace node_gtk
 
 
-const char * linux_g_direct_get_file_icon_path(const char * pszPath, int iSize)
-{
-
-   GFile * pfile = g_file_new_for_path (pszPath);
-
-   if(pfile == nullptr)
-   {
-
-      return nullptr;
-
-   }
-
-   GError * perror = nullptr;
-
-   GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
-
-   if(pfileinfo == nullptr)
-   {
-
-      return nullptr;
-
-   }
-
-   /* you'd have to use g_loadable_icon_load to get the actual icon */
-   GIcon * picon = g_file_info_get_icon (pfileinfo);
-
-   if(picon == nullptr)
-   {
-
-      return nullptr;
-
-   }
-
-   if(G_IS_FILE_ICON(G_OBJECT(picon)))
-   {
-
-      GFileIcon * pfileicon = G_FILE_ICON(G_OBJECT(picon));
-
-      if(pfileicon == nullptr)
-      {
-
-         return nullptr;
-
-      }
-
-      GFile * pfileIcon = g_file_icon_get_file(pfileicon);
-
-      if(pfileIcon == nullptr)
-      {
-
-         return nullptr;
-
-      }
-
-      char * psz = strdup(g_file_get_path(pfileIcon));
-
-      return psz;
-
-   }
-   else if(G_IS_THEMED_ICON(G_OBJECT(picon)))
-   {
-
-      GtkIconInfo *pGtkIconInfo;
-
-      GtkIconTheme *pGtkIconTheme= gtk_icon_theme_get_default();
-
-      if(pGtkIconTheme == nullptr)
-      {
-
-         return nullptr;
-
-      }
-
-      pGtkIconInfo = gtk_icon_theme_lookup_by_gicon(pGtkIconTheme,picon,(gint)iSize,GTK_ICON_LOOKUP_USE_BUILTIN);
-
-      if(pGtkIconInfo == nullptr)
-      {
-
-         return nullptr;
-
-      }
-
-      const char * point = gtk_icon_info_get_filename(pGtkIconInfo);
-
-      char * psz = nullptr;
-
-      if(point != nullptr)
-      {
-
-         psz = strdup(point);
-
-      }
-
-      return psz;
-
-   }
-
-   return nullptr;
-
-}
-
-
-const char * linux_g_direct_get_file_content_type(const char * pszPath)
-{
-
-   GFile * pfile = g_file_new_for_path (pszPath);
-
-   if(pfile == nullptr)
-   {
-
-      return nullptr;
-
-   }
-
-   GError * perror = nullptr;
-
-   GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
-
-   if(pfileinfo == nullptr)
-   {
-
-      return nullptr;
-
-   }
-
-   const char * pszContentType = g_file_info_get_content_type (pfileinfo);
-
-   const char * point = nullptr;
-
-   if(pszContentType != nullptr)
-   {
-
-      point = strdup(pszContentType);
-
-   }
-
-   return point;
-
-}
 
 
 int gdk_launch_uri(const char * pszUri, char * pszError, int iBufferSize)

@@ -13,12 +13,12 @@ namespace node_xfce
 
 
    class CLASS_DECL_ACME node :
-      virtual public ::windowing_x11::node
+      virtual public ::node_gtk::node
    {
    public:
 
 
-      gpointer m_pGtkSettingsDefault;
+      //gpointer m_pGtkSettingsDefault;
 
 
       node();

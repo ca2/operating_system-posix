@@ -51,7 +51,7 @@ namespace user
 #ifndef RASPBIAN
 
 
-namespace node_gnome
+namespace node_gtk
 {
 
 
@@ -192,7 +192,7 @@ namespace user
    }
 
 
-} // namespace node_gnome
+} // namespace node_gtk
 
 
 

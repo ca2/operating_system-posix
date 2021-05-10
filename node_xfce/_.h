@@ -1,11 +1,7 @@
 #pragma once
 
 
-#include "windowing_x11/_.h"
-
-
-#include <gtk/gtk.h>
-#include <gdk/gdkx.h>
+#include "node_gtk/_.h"
 
 
 #if defined(_NODE_XFCE_LIBRARY)
