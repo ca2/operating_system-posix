@@ -935,7 +935,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //   }
 //
-//   ::set_thread_name("x11_thread");
+//   ::task_set_name("x11_thread");
 //
 ////   g_pdisplayX11 = pdisplay;
 //
