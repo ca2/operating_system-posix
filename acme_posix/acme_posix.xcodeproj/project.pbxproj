@@ -7,14 +7,77 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9A0C163C264A281D00B5CC33 /* acme_posix.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C163B264A281D00B5CC33 /* acme_posix.h */; };
-		9A0C163E264A281D00B5CC33 /* acme_posix.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C163D264A281D00B5CC33 /* acme_posix.m */; };
+		9A0C16C5264A2C6D00B5CC33 /* pipe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16AF264A2C6C00B5CC33 /* pipe.cpp */; };
+		9A0C16C6264A2C6D00B5CC33 /* _process.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16B0264A2C6C00B5CC33 /* _process.cpp */; };
+		9A0C16C7264A2C6D00B5CC33 /* file_memory_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16B2264A2C6C00B5CC33 /* file_memory_map.cpp */; };
+		9A0C16C8264A2C6D00B5CC33 /* framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16B3264A2C6C00B5CC33 /* framework.cpp */; };
+		9A0C16C9264A2C6D00B5CC33 /* file_os_watcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16B5264A2C6C00B5CC33 /* file_os_watcher.cpp */; };
+		9A0C16CA264A2C6D00B5CC33 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16B6264A2C6C00B5CC33 /* node.cpp */; };
+		9A0C16CB264A2C6D00B5CC33 /* node.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16B7264A2C6C00B5CC33 /* node.h */; };
+		9A0C16CC264A2C6D00B5CC33 /* file_os_watcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16B8264A2C6C00B5CC33 /* file_os_watcher.h */; };
+		9A0C16CD264A2C6D00B5CC33 /* serial.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16B9264A2C6C00B5CC33 /* serial.h */; };
+		9A0C16CE264A2C6D00B5CC33 /* _.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16BA264A2C6C00B5CC33 /* _.cpp */; };
+		9A0C16CF264A2C6D00B5CC33 /* serial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16BE264A2C6C00B5CC33 /* serial.cpp */; };
+		9A0C16D0264A2C6D00B5CC33 /* file_memory_map.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16BF264A2C6C00B5CC33 /* file_memory_map.h */; };
+		9A0C16D1264A2C6D00B5CC33 /* pipe.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C0264A2C6C00B5CC33 /* pipe.h */; };
+		9A0C16D2264A2C6D00B5CC33 /* factory_exchange.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16C1264A2C6C00B5CC33 /* factory_exchange.cpp */; };
+		9A0C16D3264A2C6D00B5CC33 /* framework.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C2264A2C6C00B5CC33 /* framework.h */; };
+		9A0C16D4264A2C6D00B5CC33 /* _acme_posix.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C3264A2C6C00B5CC33 /* _acme_posix.h */; };
+		9A0C16D5264A2C6D00B5CC33 /* _.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C4264A2C6C00B5CC33 /* _.h */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9A0C1797264A315100B5CC33 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A0C1792264A315100B5CC33 /* acme.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9A68A41425114352008DABD2;
+			remoteInfo = acme;
+		};
+		9A0C1799264A315100B5CC33 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A0C1792264A315100B5CC33 /* acme.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9AD692B6251A753A00C0EBD7;
+			remoteInfo = ios_acme;
+		};
+		9A0C179B264A316000B5CC33 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A0C1792264A315100B5CC33 /* acme.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A68A41325114352008DABD2;
+			remoteInfo = acme;
+		};
+		9A0C17E4264A322E00B5CC33 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A0C17E0264A322E00B5CC33 /* apex_posix.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9A0C1680264A29B800B5CC33;
+			remoteInfo = apex_posix;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		9A0C1638264A281D00B5CC33 /* libacme_posix.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libacme_posix.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A0C163B264A281D00B5CC33 /* acme_posix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = acme_posix.h; sourceTree = "<group>"; };
-		9A0C163D264A281D00B5CC33 /* acme_posix.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = acme_posix.m; sourceTree = "<group>"; };
+		9A0C16AF264A2C6C00B5CC33 /* pipe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pipe.cpp; sourceTree = "<group>"; };
+		9A0C16B0264A2C6C00B5CC33 /* _process.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = _process.cpp; sourceTree = "<group>"; };
+		9A0C16B2264A2C6C00B5CC33 /* file_memory_map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file_memory_map.cpp; sourceTree = "<group>"; };
+		9A0C16B3264A2C6C00B5CC33 /* framework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = framework.cpp; sourceTree = "<group>"; };
+		9A0C16B5264A2C6C00B5CC33 /* file_os_watcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file_os_watcher.cpp; sourceTree = "<group>"; };
+		9A0C16B6264A2C6C00B5CC33 /* node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = node.cpp; sourceTree = "<group>"; };
+		9A0C16B7264A2C6C00B5CC33 /* node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = node.h; sourceTree = "<group>"; };
+		9A0C16B8264A2C6C00B5CC33 /* file_os_watcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file_os_watcher.h; sourceTree = "<group>"; };
+		9A0C16B9264A2C6C00B5CC33 /* serial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = serial.h; sourceTree = "<group>"; };
+		9A0C16BA264A2C6C00B5CC33 /* _.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = _.cpp; sourceTree = "<group>"; };
+		9A0C16BE264A2C6C00B5CC33 /* serial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = serial.cpp; sourceTree = "<group>"; };
+		9A0C16BF264A2C6C00B5CC33 /* file_memory_map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file_memory_map.h; sourceTree = "<group>"; };
+		9A0C16C0264A2C6C00B5CC33 /* pipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pipe.h; sourceTree = "<group>"; };
+		9A0C16C1264A2C6C00B5CC33 /* factory_exchange.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = factory_exchange.cpp; sourceTree = "<group>"; };
+		9A0C16C2264A2C6C00B5CC33 /* framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = framework.h; sourceTree = "<group>"; };
+		9A0C16C3264A2C6C00B5CC33 /* _acme_posix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _acme_posix.h; sourceTree = "<group>"; };
+		9A0C16C4264A2C6C00B5CC33 /* _.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _.h; sourceTree = "<group>"; };
+		9A0C1792264A315100B5CC33 /* acme.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = acme.xcodeproj; path = ../../../source/app/acme/acme.xcodeproj; sourceTree = "<group>"; };
+		9A0C17E0264A322E00B5CC33 /* apex_posix.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = apex_posix.xcodeproj; path = ../apex_posix/apex_posix.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,7 +94,9 @@
 		9A0C162F264A281D00B5CC33 = {
 			isa = PBXGroup;
 			children = (
-				9A0C163A264A281D00B5CC33 /* acme_posix */,
+				9A0C17E0264A322E00B5CC33 /* apex_posix.xcodeproj */,
+				9A0C1792264A315100B5CC33 /* acme.xcodeproj */,
+				9A0C16AE264A2C6C00B5CC33 /* acme_posix */,
 				9A0C1639264A281D00B5CC33 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -44,13 +109,45 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9A0C163A264A281D00B5CC33 /* acme_posix */ = {
+		9A0C16AE264A2C6C00B5CC33 /* acme_posix */ = {
 			isa = PBXGroup;
 			children = (
-				9A0C163B264A281D00B5CC33 /* acme_posix.h */,
-				9A0C163D264A281D00B5CC33 /* acme_posix.m */,
+				9A0C16AF264A2C6C00B5CC33 /* pipe.cpp */,
+				9A0C16B0264A2C6C00B5CC33 /* _process.cpp */,
+				9A0C16B2264A2C6C00B5CC33 /* file_memory_map.cpp */,
+				9A0C16B3264A2C6C00B5CC33 /* framework.cpp */,
+				9A0C16B5264A2C6C00B5CC33 /* file_os_watcher.cpp */,
+				9A0C16B6264A2C6C00B5CC33 /* node.cpp */,
+				9A0C16B7264A2C6C00B5CC33 /* node.h */,
+				9A0C16B8264A2C6C00B5CC33 /* file_os_watcher.h */,
+				9A0C16B9264A2C6C00B5CC33 /* serial.h */,
+				9A0C16BA264A2C6C00B5CC33 /* _.cpp */,
+				9A0C16BE264A2C6C00B5CC33 /* serial.cpp */,
+				9A0C16BF264A2C6C00B5CC33 /* file_memory_map.h */,
+				9A0C16C0264A2C6C00B5CC33 /* pipe.h */,
+				9A0C16C1264A2C6C00B5CC33 /* factory_exchange.cpp */,
+				9A0C16C2264A2C6C00B5CC33 /* framework.h */,
+				9A0C16C3264A2C6C00B5CC33 /* _acme_posix.h */,
+				9A0C16C4264A2C6C00B5CC33 /* _.h */,
 			);
-			path = acme_posix;
+			name = acme_posix;
+			sourceTree = "<group>";
+		};
+		9A0C1793264A315100B5CC33 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9A0C1798264A315100B5CC33 /* libacme.dylib */,
+				9A0C179A264A315100B5CC33 /* libios_acme.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9A0C17E1264A322E00B5CC33 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9A0C17E5264A322E00B5CC33 /* libapex_posix.dylib */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -60,7 +157,14 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A0C163C264A281D00B5CC33 /* acme_posix.h in Headers */,
+				9A0C16D5264A2C6D00B5CC33 /* _.h in Headers */,
+				9A0C16D1264A2C6D00B5CC33 /* pipe.h in Headers */,
+				9A0C16D0264A2C6D00B5CC33 /* file_memory_map.h in Headers */,
+				9A0C16CB264A2C6D00B5CC33 /* node.h in Headers */,
+				9A0C16D4264A2C6D00B5CC33 /* _acme_posix.h in Headers */,
+				9A0C16D3264A2C6D00B5CC33 /* framework.h in Headers */,
+				9A0C16CD264A2C6D00B5CC33 /* serial.h in Headers */,
+				9A0C16CC264A2C6D00B5CC33 /* file_os_watcher.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +182,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9A0C179C264A316000B5CC33 /* PBXTargetDependency */,
 			);
 			name = acme_posix;
 			productName = acme_posix;
@@ -108,6 +213,16 @@
 			mainGroup = 9A0C162F264A281D00B5CC33;
 			productRefGroup = 9A0C1639264A281D00B5CC33 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 9A0C1793264A315100B5CC33 /* Products */;
+					ProjectRef = 9A0C1792264A315100B5CC33 /* acme.xcodeproj */;
+				},
+				{
+					ProductGroup = 9A0C17E1264A322E00B5CC33 /* Products */;
+					ProjectRef = 9A0C17E0264A322E00B5CC33 /* apex_posix.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				9A0C1637264A281D00B5CC33 /* acme_posix */,
@@ -115,16 +230,56 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		9A0C1798264A315100B5CC33 /* libacme.dylib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = libacme.dylib;
+			remoteRef = 9A0C1797264A315100B5CC33 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9A0C179A264A315100B5CC33 /* libios_acme.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = libios_acme.a;
+			remoteRef = 9A0C1799264A315100B5CC33 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9A0C17E5264A322E00B5CC33 /* libapex_posix.dylib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = libapex_posix.dylib;
+			remoteRef = 9A0C17E4264A322E00B5CC33 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9A0C1635264A281D00B5CC33 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A0C163E264A281D00B5CC33 /* acme_posix.m in Sources */,
+				9A0C16CE264A2C6D00B5CC33 /* _.cpp in Sources */,
+				9A0C16C8264A2C6D00B5CC33 /* framework.cpp in Sources */,
+				9A0C16C9264A2C6D00B5CC33 /* file_os_watcher.cpp in Sources */,
+				9A0C16CF264A2C6D00B5CC33 /* serial.cpp in Sources */,
+				9A0C16D2264A2C6D00B5CC33 /* factory_exchange.cpp in Sources */,
+				9A0C16C5264A2C6D00B5CC33 /* pipe.cpp in Sources */,
+				9A0C16C6264A2C6D00B5CC33 /* _process.cpp in Sources */,
+				9A0C16C7264A2C6D00B5CC33 /* file_memory_map.cpp in Sources */,
+				9A0C16CA264A2C6D00B5CC33 /* node.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9A0C179C264A316000B5CC33 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = acme;
+			targetProxy = 9A0C179B264A316000B5CC33 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		9A0C163F264A281D00B5CC33 /* Debug */ = {
@@ -133,7 +288,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++2a";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -192,7 +347,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++2a";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
