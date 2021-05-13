@@ -9,11 +9,9 @@
 /* Begin PBXBuildFile section */
 		9A0C1735264A2DAB00B5CC33 /* process.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C171C264A2DAB00B5CC33 /* process.cpp */; };
 		9A0C1736264A2DAB00B5CC33 /* framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C171E264A2DAB00B5CC33 /* framework.cpp */; };
-		9A0C1737264A2DAB00B5CC33 /* file_os_watcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C171F264A2DAB00B5CC33 /* file_os_watcher.cpp */; };
 		9A0C1738264A2DAB00B5CC33 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C1720264A2DAB00B5CC33 /* node.cpp */; };
 		9A0C1739264A2DAB00B5CC33 /* datetime.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1721264A2DAB00B5CC33 /* datetime.h */; };
 		9A0C173A264A2DAB00B5CC33 /* node.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1722264A2DAB00B5CC33 /* node.h */; };
-		9A0C173B264A2DAB00B5CC33 /* file_os_watcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1723264A2DAB00B5CC33 /* file_os_watcher.h */; };
 		9A0C173C264A2DAB00B5CC33 /* _apex_posix.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1724264A2DAB00B5CC33 /* _apex_posix.h */; };
 		9A0C173D264A2DAB00B5CC33 /* file_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C1725264A2DAB00B5CC33 /* file_context.cpp */; };
 		9A0C173E264A2DAB00B5CC33 /* file_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1726264A2DAB00B5CC33 /* file_context.h */; };
@@ -71,11 +69,9 @@
 		9A0C1680264A29B800B5CC33 /* libapex_posix.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libapex_posix.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A0C171C264A2DAB00B5CC33 /* process.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = process.cpp; sourceTree = "<group>"; };
 		9A0C171E264A2DAB00B5CC33 /* framework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = framework.cpp; sourceTree = "<group>"; };
-		9A0C171F264A2DAB00B5CC33 /* file_os_watcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file_os_watcher.cpp; sourceTree = "<group>"; };
 		9A0C1720264A2DAB00B5CC33 /* node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = node.cpp; sourceTree = "<group>"; };
 		9A0C1721264A2DAB00B5CC33 /* datetime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = datetime.h; sourceTree = "<group>"; };
 		9A0C1722264A2DAB00B5CC33 /* node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = node.h; sourceTree = "<group>"; };
-		9A0C1723264A2DAB00B5CC33 /* file_os_watcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file_os_watcher.h; sourceTree = "<group>"; };
 		9A0C1724264A2DAB00B5CC33 /* _apex_posix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _apex_posix.h; sourceTree = "<group>"; };
 		9A0C1725264A2DAB00B5CC33 /* file_context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file_context.cpp; sourceTree = "<group>"; };
 		9A0C1726264A2DAB00B5CC33 /* file_context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file_context.h; sourceTree = "<group>"; };
@@ -129,11 +125,9 @@
 			children = (
 				9A0C171C264A2DAB00B5CC33 /* process.cpp */,
 				9A0C171E264A2DAB00B5CC33 /* framework.cpp */,
-				9A0C171F264A2DAB00B5CC33 /* file_os_watcher.cpp */,
 				9A0C1720264A2DAB00B5CC33 /* node.cpp */,
 				9A0C1721264A2DAB00B5CC33 /* datetime.h */,
 				9A0C1722264A2DAB00B5CC33 /* node.h */,
-				9A0C1723264A2DAB00B5CC33 /* file_os_watcher.h */,
 				9A0C1724264A2DAB00B5CC33 /* _apex_posix.h */,
 				9A0C1725264A2DAB00B5CC33 /* file_context.cpp */,
 				9A0C1726264A2DAB00B5CC33 /* file_context.h */,
@@ -185,7 +179,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A0C1748264A2DAB00B5CC33 /* _.h in Headers */,
-				9A0C173B264A2DAB00B5CC33 /* file_os_watcher.h in Headers */,
 				9A0C1742264A2DAB00B5CC33 /* process.h in Headers */,
 				9A0C173A264A2DAB00B5CC33 /* node.h in Headers */,
 				9A0C173E264A2DAB00B5CC33 /* file_context.h in Headers */,
@@ -305,7 +298,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A0C1743264A2DAB00B5CC33 /* user.cpp in Sources */,
-				9A0C1737264A2DAB00B5CC33 /* file_os_watcher.cpp in Sources */,
 				9A0C173D264A2DAB00B5CC33 /* file_context.cpp in Sources */,
 				9A0C1736264A2DAB00B5CC33 /* framework.cpp in Sources */,
 				9A0C1741264A2DAB00B5CC33 /* factory_exchange.cpp in Sources */,
@@ -372,11 +364,37 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(WorkspaceDir)/archive",
+					"$(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER)/storage-$(PLATFORM_MODIFIER)/library/$(CONFIGURATION)",
+					"$(WorkspaceDir)/archive",
+					"$(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER)/storage-$(PLATFORM_MODIFIER)/third/library/$(CONFIGURATION)",
+					"$(WorkspaceDir)/time/$(PLATFORM_MODIFIER)",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = (
+					.,
+					"$(WorkspaceDir)/source",
+					"$(WorkspaceDir)/source/include",
+					"$(WorkspaceDir)/source/app",
+					"$(WorkspaceDir)/source/app/_include",
+					"$(WorkspaceDir)/archive",
+					"$(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER)",
+					"$(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER)/_include",
+					"$(WorkspaceDir)/source/third/include",
+					"$(WorkspaceDir)/archive/third-$(PLATFORM_MODIFIER)/third/include/include",
+					"$(WorkspaceDir)/archive/third-$(PLATFORM_MODIFIER)/third/include",
+					"$(PROJECT_DIR)",
+					"$(HOME)/sensitive/sensitive/include",
+				);
+				USE_HEADERMAP = NO;
+				WorkspaceDir = "$(SRCROOT)/../../..";
 			};
 			name = Debug;
 		};
@@ -425,10 +443,36 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(WorkspaceDir)/archive",
+					"$(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER)/storage-$(PLATFORM_MODIFIER)/library/$(CONFIGURATION)",
+					"$(WorkspaceDir)/archive",
+					"$(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER)/storage-$(PLATFORM_MODIFIER)/third/library/$(CONFIGURATION)",
+					"$(WorkspaceDir)/time/$(PLATFORM_MODIFIER)",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = (
+					.,
+					"$(WorkspaceDir)/source",
+					"$(WorkspaceDir)/source/include",
+					"$(WorkspaceDir)/source/app",
+					"$(WorkspaceDir)/source/app/_include",
+					"$(WorkspaceDir)/archive",
+					"$(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER)",
+					"$(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER)/_include",
+					"$(WorkspaceDir)/source/third/include",
+					"$(WorkspaceDir)/archive/third-$(PLATFORM_MODIFIER)/third/include/include",
+					"$(WorkspaceDir)/archive/third-$(PLATFORM_MODIFIER)/third/include",
+					"$(PROJECT_DIR)",
+					"$(HOME)/sensitive/sensitive/include",
+				);
+				USE_HEADERMAP = NO;
+				WorkspaceDir = "$(SRCROOT)/../../..";
 			};
 			name = Release;
 		};
@@ -439,6 +483,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_PREFIX = lib;
+				PLATFORM_MODIFIER = macos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -451,6 +496,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_PREFIX = lib;
+				PLATFORM_MODIFIER = macos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
