@@ -10,8 +10,6 @@ list(APPEND apex_posix_source
    factory_exchange.cpp
    file_context.cpp
    file_context.h
-   file_os_watcher.cpp
-   file_os_watcher.h
    framework.cpp
    framework.h
    #application.cpp
@@ -21,6 +19,15 @@ list(APPEND apex_posix_source
    system_color.cpp
    system_time.cpp
    )
+
+
+if(FILE_SYSTEM_INOTIFY)
+
+   list(APPEND apex_posix_source
+      inotify/file_os_watcher.cpp
+      inotify/file_os_watcher.h)
+
+endif()
 
 
 list(APPEND library_references acme acme_posix apex)
