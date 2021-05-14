@@ -1,15 +1,15 @@
 #pragma once
 
 
-namespace file
+namespace inotify
 {
 
 
-   class os_watcher;
+   class watcher;
 
 
-   class os_watch :
-      virtual public watch
+   class watch :
+      virtual public ::file::watch
    {
    public:
 
@@ -17,8 +17,8 @@ namespace file
       //bool                 m_bOwn;
 
 
-      os_watch();
-      virtual ~os_watch();
+      watch();
+      virtual ~watch();
 
       //virtual bool open(const ::file::path & pathFolder, bool bRecursive);
 
@@ -26,24 +26,22 @@ namespace file
    };
 
 
-
-
-   class os_watcher :
-      virtual public watcher
+   class watcher :
+      virtual public ::file::watcher
    {
    public:
 
 
-      i32 mFD;
-      struct timeval mTimeOut;
-      fd_set mDescriptorSet;
+      i32                        m_iFd;
+      struct timeval             m_timevalTimeOut;
+      fd_set                     m_fdset;
 
 
-      os_watcher();
-      virtual ~os_watcher();
+      watcher();
+      virtual ~watcher();
 
 
-      virtual watch_id add_watch(const ::file::path & pathFolder, listener * plistenerParam, bool bRecursive) override;
+      virtual ::file::watch_id add_watch(const ::file::path & pathFolder, ::file::listener * plistenerParam, bool bRecursive) override;
 
 
       virtual ::e_status step() override;
@@ -53,4 +51,6 @@ namespace file
 
 
 } // namespace file_watcher
+
+
 

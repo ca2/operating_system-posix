@@ -24,8 +24,8 @@ list(APPEND apex_posix_source
 if(FILE_SYSTEM_INOTIFY)
 
    list(APPEND apex_posix_source
-      inotify/file_os_watcher.cpp
-      inotify/file_os_watcher.h)
+      inotify/watcher.cpp
+      inotify/watcher.h)
 
 endif()
 
