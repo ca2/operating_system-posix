@@ -3,6 +3,7 @@
 //
 #include "framework.h"
 #include "file_context.h"
+#include <sys/stat.h>
 
 
 namespace posix

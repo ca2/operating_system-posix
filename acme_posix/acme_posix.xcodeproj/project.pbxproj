@@ -22,6 +22,7 @@
 		9A0C16D3264A2C6D00B5CC33 /* framework.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C2264A2C6C00B5CC33 /* framework.h */; };
 		9A0C16D4264A2C6D00B5CC33 /* _acme_posix.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C3264A2C6C00B5CC33 /* _acme_posix.h */; };
 		9A0C16D5264A2C6D00B5CC33 /* _.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C4264A2C6C00B5CC33 /* _.h */; };
+		9A787E3F264DCFCD003DF8A0 /* libacme.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0C1798264A315100B5CC33 /* libacme.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A787E3F264DCFCD003DF8A0 /* libacme.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +96,7 @@
 				9A0C1792264A315100B5CC33 /* acme.xcodeproj */,
 				9A0C16AE264A2C6C00B5CC33 /* acme_posix */,
 				9A0C1639264A281D00B5CC33 /* Products */,
+				9A787E3E264DCFCD003DF8A0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -142,6 +145,13 @@
 				9A0C17E5264A322E00B5CC33 /* libapex_posix.dylib */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		9A787E3E264DCFCD003DF8A0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -1,5 +1,5 @@
 #include "framework.h"
-#include "acme/node/posix/pipe.h"
+#include "acme/process/pipe.h"
 #include "apex/platform/static_start.h"
 #include "process.h"
 

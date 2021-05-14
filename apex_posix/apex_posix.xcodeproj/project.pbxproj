@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9A0C1735264A2DAB00B5CC33 /* process.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C171C264A2DAB00B5CC33 /* process.cpp */; };
 		9A0C1736264A2DAB00B5CC33 /* framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C171E264A2DAB00B5CC33 /* framework.cpp */; };
 		9A0C1738264A2DAB00B5CC33 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C1720264A2DAB00B5CC33 /* node.cpp */; };
 		9A0C1739264A2DAB00B5CC33 /* datetime.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1721264A2DAB00B5CC33 /* datetime.h */; };
@@ -18,13 +17,15 @@
 		9A0C173F264A2DAB00B5CC33 /* _.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C1727264A2DAB00B5CC33 /* _.cpp */; };
 		9A0C1740264A2DAB00B5CC33 /* user.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1729264A2DAB00B5CC33 /* user.h */; };
 		9A0C1741264A2DAB00B5CC33 /* factory_exchange.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C172D264A2DAB00B5CC33 /* factory_exchange.cpp */; };
-		9A0C1742264A2DAB00B5CC33 /* process.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C172E264A2DAB00B5CC33 /* process.h */; };
 		9A0C1743264A2DAB00B5CC33 /* user.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C172F264A2DAB00B5CC33 /* user.cpp */; };
 		9A0C1744264A2DAB00B5CC33 /* framework.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1730264A2DAB00B5CC33 /* framework.h */; };
 		9A0C1745264A2DAB00B5CC33 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C1731264A2DAB00B5CC33 /* datetime.cpp */; };
 		9A0C1746264A2DAB00B5CC33 /* system_time.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C1732264A2DAB00B5CC33 /* system_time.cpp */; };
 		9A0C1747264A2DAB00B5CC33 /* system_color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C1733264A2DAB00B5CC33 /* system_color.cpp */; };
 		9A0C1748264A2DAB00B5CC33 /* _.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1734264A2DAB00B5CC33 /* _.h */; };
+		9A787E4C264E2198003DF8A0 /* libacme.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0C17BF264A31DF00B5CC33 /* libacme.dylib */; };
+		9A787E4D264E2198003DF8A0 /* libacme_posix.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0C17C7264A31EA00B5CC33 /* libacme_posix.dylib */; };
+		9A787E4E264E2198003DF8A0 /* libapex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0C17B6264A31D300B5CC33 /* libapex.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,7 +68,6 @@
 
 /* Begin PBXFileReference section */
 		9A0C1680264A29B800B5CC33 /* libapex_posix.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libapex_posix.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A0C171C264A2DAB00B5CC33 /* process.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = process.cpp; sourceTree = "<group>"; };
 		9A0C171E264A2DAB00B5CC33 /* framework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = framework.cpp; sourceTree = "<group>"; };
 		9A0C1720264A2DAB00B5CC33 /* node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = node.cpp; sourceTree = "<group>"; };
 		9A0C1721264A2DAB00B5CC33 /* datetime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = datetime.h; sourceTree = "<group>"; };
@@ -78,7 +78,6 @@
 		9A0C1727264A2DAB00B5CC33 /* _.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = _.cpp; sourceTree = "<group>"; };
 		9A0C1729264A2DAB00B5CC33 /* user.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = user.h; sourceTree = "<group>"; };
 		9A0C172D264A2DAB00B5CC33 /* factory_exchange.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = factory_exchange.cpp; sourceTree = "<group>"; };
-		9A0C172E264A2DAB00B5CC33 /* process.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = process.h; sourceTree = "<group>"; };
 		9A0C172F264A2DAB00B5CC33 /* user.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = user.cpp; sourceTree = "<group>"; };
 		9A0C1730264A2DAB00B5CC33 /* framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = framework.h; sourceTree = "<group>"; };
 		9A0C1731264A2DAB00B5CC33 /* datetime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = datetime.cpp; sourceTree = "<group>"; };
@@ -95,6 +94,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A787E4C264E2198003DF8A0 /* libacme.dylib in Frameworks */,
+				9A787E4D264E2198003DF8A0 /* libacme_posix.dylib in Frameworks */,
+				9A787E4E264E2198003DF8A0 /* libapex.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,6 +111,7 @@
 				9A0C17C2264A31EA00B5CC33 /* acme_posix.xcodeproj */,
 				9A0C171B264A2DAB00B5CC33 /* apex_posix */,
 				9A0C1681264A29B800B5CC33 /* Products */,
+				9A787E4B264E2198003DF8A0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -123,24 +126,22 @@
 		9A0C171B264A2DAB00B5CC33 /* apex_posix */ = {
 			isa = PBXGroup;
 			children = (
-				9A0C171C264A2DAB00B5CC33 /* process.cpp */,
-				9A0C171E264A2DAB00B5CC33 /* framework.cpp */,
-				9A0C1720264A2DAB00B5CC33 /* node.cpp */,
-				9A0C1721264A2DAB00B5CC33 /* datetime.h */,
-				9A0C1722264A2DAB00B5CC33 /* node.h */,
+				9A0C1727264A2DAB00B5CC33 /* _.cpp */,
+				9A0C1734264A2DAB00B5CC33 /* _.h */,
 				9A0C1724264A2DAB00B5CC33 /* _apex_posix.h */,
+				9A0C1731264A2DAB00B5CC33 /* datetime.cpp */,
+				9A0C1721264A2DAB00B5CC33 /* datetime.h */,
+				9A0C172D264A2DAB00B5CC33 /* factory_exchange.cpp */,
 				9A0C1725264A2DAB00B5CC33 /* file_context.cpp */,
 				9A0C1726264A2DAB00B5CC33 /* file_context.h */,
-				9A0C1727264A2DAB00B5CC33 /* _.cpp */,
-				9A0C1729264A2DAB00B5CC33 /* user.h */,
-				9A0C172D264A2DAB00B5CC33 /* factory_exchange.cpp */,
-				9A0C172E264A2DAB00B5CC33 /* process.h */,
-				9A0C172F264A2DAB00B5CC33 /* user.cpp */,
+				9A0C171E264A2DAB00B5CC33 /* framework.cpp */,
 				9A0C1730264A2DAB00B5CC33 /* framework.h */,
-				9A0C1731264A2DAB00B5CC33 /* datetime.cpp */,
-				9A0C1732264A2DAB00B5CC33 /* system_time.cpp */,
+				9A0C1720264A2DAB00B5CC33 /* node.cpp */,
+				9A0C1722264A2DAB00B5CC33 /* node.h */,
 				9A0C1733264A2DAB00B5CC33 /* system_color.cpp */,
-				9A0C1734264A2DAB00B5CC33 /* _.h */,
+				9A0C1732264A2DAB00B5CC33 /* system_time.cpp */,
+				9A0C172F264A2DAB00B5CC33 /* user.cpp */,
+				9A0C1729264A2DAB00B5CC33 /* user.h */,
 			);
 			name = apex_posix;
 			sourceTree = "<group>";
@@ -171,6 +172,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		9A787E4B264E2198003DF8A0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -179,7 +187,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A0C1748264A2DAB00B5CC33 /* _.h in Headers */,
-				9A0C1742264A2DAB00B5CC33 /* process.h in Headers */,
 				9A0C173A264A2DAB00B5CC33 /* node.h in Headers */,
 				9A0C173E264A2DAB00B5CC33 /* file_context.h in Headers */,
 				9A0C1740264A2DAB00B5CC33 /* user.h in Headers */,
@@ -305,7 +312,6 @@
 				9A0C173F264A2DAB00B5CC33 /* _.cpp in Sources */,
 				9A0C1747264A2DAB00B5CC33 /* system_color.cpp in Sources */,
 				9A0C1745264A2DAB00B5CC33 /* datetime.cpp in Sources */,
-				9A0C1735264A2DAB00B5CC33 /* process.cpp in Sources */,
 				9A0C1738264A2DAB00B5CC33 /* node.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -387,6 +393,7 @@
 					"$(WorkspaceDir)/archive",
 					"$(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER)",
 					"$(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER)/_include",
+					"$(WorkspaceDir)/archive/platform-posix",
 					"$(WorkspaceDir)/source/third/include",
 					"$(WorkspaceDir)/archive/third-$(PLATFORM_MODIFIER)/third/include/include",
 					"$(WorkspaceDir)/archive/third-$(PLATFORM_MODIFIER)/third/include",
@@ -465,6 +472,7 @@
 					"$(WorkspaceDir)/archive",
 					"$(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER)",
 					"$(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER)/_include",
+					"$(WorkspaceDir)/archive/platform-posix",
 					"$(WorkspaceDir)/source/third/include",
 					"$(WorkspaceDir)/archive/third-$(PLATFORM_MODIFIER)/third/include/include",
 					"$(WorkspaceDir)/archive/third-$(PLATFORM_MODIFIER)/third/include",
