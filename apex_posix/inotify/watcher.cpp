@@ -1,5 +1,5 @@
 #include "framework.h"
-#include "file_os_watcher.h"
+#include "watcher.h"
 
 #include <sys/stat.h>
 #include <fcntl.h>
