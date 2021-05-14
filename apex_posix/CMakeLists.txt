@@ -30,6 +30,15 @@ if(FILE_SYSTEM_INOTIFY)
 endif()
 
 
+if(POSIX_SPAWN)
+
+   list(APPEND apex_posix_source
+      posix_spawn/process.cpp
+      posix_spawn/process.h)
+
+endif()
+
+
 list(APPEND library_references acme acme_posix apex)
 
 
