@@ -602,9 +602,6 @@ namespace acme
       }
 
 
-
-   
-   
    } // namespace posix
 
 
