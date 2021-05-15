@@ -4,10 +4,15 @@
 
 
 extern "C"
+void acme_posix_factory_exchange(::factory_map * pfactorymap);
+
+
+extern "C"
 void apex_posix_factory_exchange(::factory_map * pfactorymap)
 {
 
-
+   acme_posix_factory_exchange(pfactorymap);
+   
 //   pfactorymap->create_factory < ::file::os_watcher, ::file::watcher >();
    //pfactorymap->create_factory < ::file::os_watch, ::file::watch >();
 
