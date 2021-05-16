@@ -583,9 +583,9 @@ namespace acme
 
                   string strCmdLine = command_line_from_pid(iPid);
 
-                  stringa straCmdLine = command_line_get_command_arguments(strCmdLine);
+                  auto args = get_c_args_from_string(strCmdLine);
 
-                  if (straCmdLine.find_first(str) > 0)
+                  if (args.find_first(str) > 0)
                   {
 
                      ia.add(iPid);
