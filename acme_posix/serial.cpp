@@ -196,7 +196,7 @@ serial_impl::reconfigurePort()
 
    // setup baud rate
    bool custom_baud = false;
-   speed_t baud;
+   speed_t baud = 0;
    switch (m_ulBaudrate)
    {
 #ifdef B0

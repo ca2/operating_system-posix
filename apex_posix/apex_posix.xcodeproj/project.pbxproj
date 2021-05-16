@@ -64,6 +64,27 @@
 			remoteGlobalIDString = 9A0C1638264A281D00B5CC33;
 			remoteInfo = acme_posix;
 		};
+		9A788050264F6ABA003DF8A0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A0C17B9264A31DF00B5CC33 /* acme.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A68A41325114352008DABD2;
+			remoteInfo = acme;
+		};
+		9A788052264F6ABA003DF8A0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A0C17B0264A31D300B5CC33 /* apex.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A68A445251143F8008DABD2;
+			remoteInfo = apex;
+		};
+		9A788054264F6ABA003DF8A0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A0C17C2264A31EA00B5CC33 /* acme_posix.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A0C1637264A281D00B5CC33;
+			remoteInfo = acme_posix;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -107,8 +128,8 @@
 			isa = PBXGroup;
 			children = (
 				9A0C17B9264A31DF00B5CC33 /* acme.xcodeproj */,
-				9A0C17B0264A31D300B5CC33 /* apex.xcodeproj */,
 				9A0C17C2264A31EA00B5CC33 /* acme_posix.xcodeproj */,
+				9A0C17B0264A31D300B5CC33 /* apex.xcodeproj */,
 				9A0C171B264A2DAB00B5CC33 /* apex_posix */,
 				9A0C1681264A29B800B5CC33 /* Products */,
 				9A787E4B264E2198003DF8A0 /* Frameworks */,
@@ -210,6 +231,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				9A788051264F6ABA003DF8A0 /* PBXTargetDependency */,
+				9A788055264F6ABA003DF8A0 /* PBXTargetDependency */,
+				9A788053264F6ABA003DF8A0 /* PBXTargetDependency */,
 			);
 			name = apex_posix;
 			productName = apex_posix;
@@ -318,6 +342,24 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		9A788051264F6ABA003DF8A0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = acme;
+			targetProxy = 9A788050264F6ABA003DF8A0 /* PBXContainerItemProxy */;
+		};
+		9A788053264F6ABA003DF8A0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = apex;
+			targetProxy = 9A788052264F6ABA003DF8A0 /* PBXContainerItemProxy */;
+		};
+		9A788055264F6ABA003DF8A0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = acme_posix;
+			targetProxy = 9A788054264F6ABA003DF8A0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		9A0C1687264A29B800B5CC33 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -374,9 +416,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(WorkspaceDir)/archive",
-					"$(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER)/storage-$(PLATFORM_MODIFIER)/library/$(CONFIGURATION)",
-					"$(WorkspaceDir)/archive",
-					"$(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER)/storage-$(PLATFORM_MODIFIER)/third/library/$(CONFIGURATION)",
+					"$(WorkspaceDir)/archive/storage-$(PLATFORM_MODIFIER)/library/$(CONFIGURATION)",
 					"$(WorkspaceDir)/time/$(PLATFORM_MODIFIER)",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.3;
