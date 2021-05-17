@@ -12,15 +12,27 @@ list(APPEND acme_posix_source
    file_memory_map.h
    framework.cpp
    framework.h
-   list_serial_ports.cpp
    node.cpp
    node.h
    pipe.cpp
    pipe.h
    )
 
+if(POSIX_LIST_SERIAL_PORTS)
+
+list(APPEND acme_posix_source
+   posix/list_serial_ports.cpp
+   )
+endif()
 
 add_library(acme_posix SHARED ${acme_posix_source} _acme_posix.h process.cpp)
+
+if(POSIX_LIST_SERIAL_PORTS)
+
+target_compile_definitions(acme_posix PRIVATE _ACME_POSIX_LIBRARY)
+
+endif()
+
 
 list(APPEND library_references acme)
 
