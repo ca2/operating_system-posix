@@ -87,35 +87,35 @@ namespace acme
 
          virtual ::e_status install_sigchld_handler() override;
 
+         bool is_process_running(::u32 pid) override;
 
-         virtual bool process_modules(string_array& stra, u32 processID);
+         bool process_modules(string_array& stra, u32 processID) override;
 
-         virtual bool load_modules_diff(string_array& straOld, string_array& straNew, const char* pszExceptDir);
+         bool load_modules_diff(string_array& straOld, string_array& straNew, const char* pszExceptDir) override;
 
-         virtual id_array get_pids();
+         id_array get_pids() override;
 
-         virtual id_array module_path_get_pid(const char* pszModulePath, bool bModuleNameIsPropertyFormatted);
+         id_array module_path_get_pid(const char* pszModulePath, bool bModuleNameIsPropertyFormatted) override;
 
-         virtual string module_path_from_pid(u32 pid);
+         string module_path_from_pid(u32 pid) override;
 
-         virtual string command_line_from_pid(u32 pid);
+         string command_line_from_pid(u32 pid) override;
 
-         virtual bool is_shared_library_busy(u32 processid, const string_array& stra);
+         bool is_shared_library_busy(u32 processid, const string_array& stra) override;
 
-         virtual bool is_shared_library_busy(const string_array& stra);
+         bool is_shared_library_busy(const string_array& stra) override;
 
-         virtual bool process_contains_module(string& strImage, ::u32 processID, const char* pszLibrary);
+         bool process_contains_module(string& strImage, ::u32 processID, const char* pszLibrary) override;
 
-         virtual void shared_library_process(dword_array& dwa, string_array& straProcesses, const char* pszLibrary);
+         void shared_library_process(dword_array& dwa, string_array& straProcesses, const char* pszLibrary) override;
 
-         virtual int_bool is_process_running(::u32 pid);
+         string get_environment_variable(const char* pszEnvironmentVariable) override;
 
-         virtual string get_environment_variable(const char* pszEnvironmentVariable);
+         string expand_env(string str) override;
 
-         virtual string expand_env(string str);
-
-
+#ifdef POSIX_LIST_SERIAL_PORTS
          virtual array <::serial::port_info> list_serial_ports();
+#endif
 
 
       };
