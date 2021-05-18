@@ -626,11 +626,23 @@ namespace acme
             if (ch == '\0')
             {
 
-               stra.add(strArg);
+               if(strArg.find_first_in(" \t\n") >= 0)
+               {
+
+                  stra.add("\""+ strArg + "\"");
+
+               }
+               else
+               {
+
+                  stra.add(strArg);
+
+               }
 
                strArg.Empty();
 
-            } else
+            }
+            else
             {
 
                strArg += ch;
@@ -643,11 +655,22 @@ namespace acme
          if (strArg.has_char())
          {
 
-            stra.add(strArg);
+            if(strArg.find_first_in(" \t\n") >= 0)
+            {
+
+               stra.add("\""+ strArg + "\"");
+
+            }
+            else
+            {
+
+               stra.add(strArg);
+
+            }
 
          }
 
-         return stra;
+         return stra.implode(" ");
 
          /* the easiest case: we are in linux */
 //    ssize_t s = readlink (str, path, iSize);

@@ -251,10 +251,14 @@ namespace acme
 
          string result;
 
-         auto buffer = __malloc < char * >(buffer_size_bytes);
+         auto buffer = __malloc < char * >(::malloc(buffer_size_bytes));
 
          if (buffer == nullptr)
+         {
+
             return result;
+
+         }
 
          bool done = false;
 
