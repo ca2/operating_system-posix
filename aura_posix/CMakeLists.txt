@@ -8,8 +8,6 @@ list(APPEND aura_posix_source
    _aura_posix.h
    appindicator.cpp
    appindicator.h
-   display_lock.cpp
-   display_lock.h
    factory_exchange.cpp
    factory_exchange.h
    framework.cpp
@@ -20,12 +18,6 @@ list(APPEND aura_posix_source
    node.h
    shell.cpp
    shell.h
-   x_window.cpp
-   x_window.h
-   x_window_system.cpp
-   x_window_system.h
-   xim_keyboard.cpp
-   xim_keyboard.h
    )
 
 
@@ -38,9 +30,26 @@ list(APPEND library_references
    aura
    )
 
+if(WITH_X11)
 
+   list(APPEND aura_posix_source
+      x11/display_lock.cpp
+      x11/display_lock.h
+      x11/x_window.cpp
+      x11/x_window.h
+      x11/x_window_system.cpp
+      x11/x_window_system.h
+      x11/xim_keyboard.cpp
+      x11/xim_keyboard.h
+
+      )
+
+   endif()
 add_library(aura_posix SHARED ${aura_posix_source})
 
+if(WITH_X11)
+   target_compile_definitions(aura_posix PRIVATE WITH_X11)
+endif()
 target_precompile_headers(aura_posix PRIVATE framework.h)
 
 set_target_properties(aura_posix PROPERTIES LINKER_LANGUAGE CXX)
@@ -56,6 +65,7 @@ if (MSVC)
 
 
 elseif (LINUX)
+
 
 
    pkg_check_modules(PKGCONFIG x11 x11-xcb)
