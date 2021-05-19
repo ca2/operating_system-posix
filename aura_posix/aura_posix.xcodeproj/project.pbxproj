@@ -233,33 +233,33 @@
 		9AC2D0092653DB5B00CC8096 /* aura_posix */ = {
 			isa = PBXGroup;
 			children = (
-				9AC2D00D2653DB5B00CC8096 /* shell.h */,
-				9AC2D00E2653DB5B00CC8096 /* aaa_application.h */,
-				9AC2D00F2653DB5B00CC8096 /* xim_keyboard.cpp */,
-				9AC2D0102653DB5B00CC8096 /* display_lock.cpp */,
+				9AC2D01B2653DB5B00CC8096 /* _.cpp */,
+				9AC2D02C2653DB5B00CC8096 /* _.h */,
+				9AC2D0282653DB5B00CC8096 /* _aura_posix.h */,
 				9AC2D0122653DB5B00CC8096 /* aaa_application.cpp */,
-				9AC2D0132653DB5B00CC8096 /* display_lock.h */,
+				9AC2D00E2653DB5B00CC8096 /* aaa_application.h */,
+				9AC2D0252653DB5B00CC8096 /* aaa_user.cpp */,
+				9AC2D01C2653DB5B00CC8096 /* appindicator.cpp */,
+				9AC2D0262653DB5B00CC8096 /* appindicator.h */,
 				9AC2D0142653DB5B00CC8096 /* clipboard_data.h */,
-				9AC2D0152653DB5B00CC8096 /* framework.cpp */,
-				9AC2D0162653DB5B00CC8096 /* xim_keyboard.h */,
+				9AC2D0102653DB5B00CC8096 /* display_lock.cpp */,
+				9AC2D0132653DB5B00CC8096 /* display_lock.h */,
+				9AC2D01E2653DB5B00CC8096 /* factory_exchange.cpp */,
 				9AC2D0172653DB5B00CC8096 /* factory_exchange.h */,
-				9AC2D0182653DB5B00CC8096 /* x_window.cpp */,
+				9AC2D0152653DB5B00CC8096 /* framework.cpp */,
+				9AC2D0242653DB5B00CC8096 /* framework.h */,
+				9AC2D0202653DB5B00CC8096 /* gnu_source.cpp */,
 				9AC2D0192653DB5B00CC8096 /* node.cpp */,
 				9AC2D01A2653DB5B00CC8096 /* node.h */,
-				9AC2D01B2653DB5B00CC8096 /* _.cpp */,
-				9AC2D01C2653DB5B00CC8096 /* appindicator.cpp */,
-				9AC2D01D2653DB5B00CC8096 /* user.h */,
-				9AC2D01E2653DB5B00CC8096 /* factory_exchange.cpp */,
-				9AC2D0202653DB5B00CC8096 /* gnu_source.cpp */,
-				9AC2D0242653DB5B00CC8096 /* framework.h */,
-				9AC2D0252653DB5B00CC8096 /* aaa_user.cpp */,
-				9AC2D0262653DB5B00CC8096 /* appindicator.h */,
-				9AC2D0272653DB5B00CC8096 /* x_window.h */,
-				9AC2D0282653DB5B00CC8096 /* _aura_posix.h */,
 				9AC2D0292653DB5B00CC8096 /* shell.cpp */,
-				9AC2D02A2653DB5B00CC8096 /* x_window_system.h */,
+				9AC2D00D2653DB5B00CC8096 /* shell.h */,
+				9AC2D01D2653DB5B00CC8096 /* user.h */,
 				9AC2D02B2653DB5B00CC8096 /* x_window_system.cpp */,
-				9AC2D02C2653DB5B00CC8096 /* _.h */,
+				9AC2D02A2653DB5B00CC8096 /* x_window_system.h */,
+				9AC2D0182653DB5B00CC8096 /* x_window.cpp */,
+				9AC2D0272653DB5B00CC8096 /* x_window.h */,
+				9AC2D00F2653DB5B00CC8096 /* xim_keyboard.cpp */,
+				9AC2D0162653DB5B00CC8096 /* xim_keyboard.h */,
 			);
 			name = aura_posix;
 			sourceTree = "<group>";
@@ -377,7 +377,7 @@
 		A1CFD76F154F5EA7007447E2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "ca2 Desenvolvimento de Sofware Ltda.";
 				TargetAttributes = {
 					07B657C6190F3CBF002DAADE = {
@@ -526,7 +526,7 @@
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MACH_O_TYPE = staticlib;
 				SDKROOT = iphoneos;
 			};
@@ -541,7 +541,7 @@
 				EXECUTABLE_EXTENSION = a;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MACH_O_TYPE = staticlib;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -571,7 +571,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "music_midi_core_audio_iosTests/music_midi_core_audio_iosTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "ca2.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -600,7 +600,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "music_midi_core_audio_iosTests/music_midi_core_audio_iosTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "ca2.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -633,6 +633,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_PRAGMA_PACK = NO;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -664,7 +665,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				INSTALL_PATH = "@executable_path";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -706,6 +707,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_PRAGMA_PACK = NO;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -730,7 +732,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				INSTALL_PATH = "@executable_path";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

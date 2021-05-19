@@ -978,7 +978,7 @@ CLASS_DECL_ACME int_bool LocalFileTimeToFileTime( const filetime_t *localft, fil
 
    int status;
 
-   if (status = RtlLocalTimeToSystemTime( localft, utcft ))
+   if ((status = RtlLocalTimeToSystemTime( localft, utcft )))
    {
       //set_last_error( RtlNtStatusToDosError(status) );
       set_last_status(1);
@@ -994,7 +994,7 @@ CLASS_DECL_ACME int_bool LocalFileTimeToFileTime( const filetime_t *localft, fil
 CLASS_DECL_ACME int_bool FileTimeToLocalFileTime( const filetime_t *utcft, filetime_t * localft )
 {
    int status;
-   if (status = RtlSystemTimeToLocalTime( utcft, localft ))
+   if ((status = RtlSystemTimeToLocalTime( utcft, localft )))
    {
       //set_last_error( RtlNtStatusToDosError(status) );
       set_last_status( 1);
@@ -1090,7 +1090,7 @@ CLASS_DECL_ACME void GetSystemTimeAsFileTime(
  */
 CLASS_DECL_ACME void GetSystemTime(system_time_t * systime)
 {
-   filetime_t ft;
+   //filetime_t ft;
    u64 t;
 
    NtQuerySystemTime(&t);
