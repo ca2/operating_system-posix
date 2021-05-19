@@ -4,7 +4,9 @@
 #include "framework.h"
 #include "node.h"
 #include "acme/filesystem/filesystem/acme_dir.h"
+#ifdef WITH_X11
 #include <X11/Xlib-xcb.h>
+#endif
 
 
 namespace aura
@@ -180,6 +182,8 @@ namespace aura
             return estatus;
 
          }
+         
+#ifdef WITH_X11
 
          estatus = _allocate_Display_and_connection();
 
@@ -189,11 +193,16 @@ namespace aura
             return estatus;
 
          }
+         
+#endif // WITH_X11
 
          return estatus;
 
       }
 
+   
+#ifdef WITH_X11
+   
 
       ::e_status node::_allocate_Display_and_connection()
       {
@@ -220,7 +229,7 @@ namespace aura
 
       }
 
-
+   
       void * node::_get_Display()
       {
 
@@ -236,6 +245,9 @@ namespace aura
 
       }
 
+   
+#endif
+   
 
       ::file::path node::get_desktop_file_path(::apex::application * papplication) const
       {
