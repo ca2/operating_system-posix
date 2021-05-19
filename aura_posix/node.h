@@ -22,10 +22,10 @@ namespace aura
       {
       public:
 
-
+#ifdef WITH_X11
          void *                                 m_pX11Display;
          void *                                 m_pxcbconnection;
-
+#endif
 
          node();
          virtual ~node();
@@ -52,7 +52,7 @@ namespace aura
    } // namespace posix
 
 
-} // namespace node_linux
+} // namespace aura
 
 
 
