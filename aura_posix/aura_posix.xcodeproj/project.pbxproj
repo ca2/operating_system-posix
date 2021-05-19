@@ -9,27 +9,16 @@
 /* Begin PBXBuildFile section */
 		07B657CA190F3CBF002DAADE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07B657BA190F3CBF002DAADE /* Foundation.framework */; };
 		07B657CF190F3CBF002DAADE /* libios_aura_posix.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07B657B8190F3CBF002DAADE /* libios_aura_posix.a */; };
-		07D6C9BB18987A5E00CB8AA8 /* libveriwell_multimedia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D6C9BA18987A5E00CB8AA8 /* libveriwell_multimedia.dylib */; };
-		07D6C9BD18987A7200CB8AA8 /* libmultimedia.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D6C9BC18987A7200CB8AA8 /* libmultimedia.dylib */; };
 		9A8997BD177D0E7F00C7761E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A8997BC177D0E7D00C7761E /* Carbon.framework */; };
-		9A8CCB0117EA063800F87A02 /* libbase.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A8CCAF917EA063800F87A02 /* libbase.dylib */; };
-		9A8CCB0817EA063800F87A02 /* libcore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A8CCB0017EA063800F87A02 /* libcore.dylib */; };
-		9A941A6A1FF334E40028686E /* libaura.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A941A6B1FF334E40028686E /* libaura.dylib */; };
-		9A941A6C1FF334EA0028686E /* libaxis.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A941A6D1FF334EA0028686E /* libaxis.dylib */; };
-		9A941C501FF34F880028686E /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A941C4F1FF34F880028686E /* CoreMIDI.framework */; };
-		9A941C521FF34F9E0028686E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A941C511FF34F9E0028686E /* CoreAudio.framework */; };
 		9AA1B44A176361950019E812 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA1B449176361950019E812 /* Cocoa.framework */; };
 		9AC2D02F2653DB5C00CC8096 /* shell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D00D2653DB5B00CC8096 /* shell.h */; };
 		9AC2D0302653DB5C00CC8096 /* aaa_application.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D00E2653DB5B00CC8096 /* aaa_application.h */; };
-		9AC2D0312653DB5C00CC8096 /* xim_keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D00F2653DB5B00CC8096 /* xim_keyboard.cpp */; };
 		9AC2D0322653DB5C00CC8096 /* display_lock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D0102653DB5B00CC8096 /* display_lock.cpp */; };
 		9AC2D0332653DB5C00CC8096 /* aaa_application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D0122653DB5B00CC8096 /* aaa_application.cpp */; };
 		9AC2D0342653DB5C00CC8096 /* display_lock.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D0132653DB5B00CC8096 /* display_lock.h */; };
 		9AC2D0352653DB5C00CC8096 /* clipboard_data.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D0142653DB5B00CC8096 /* clipboard_data.h */; };
 		9AC2D0362653DB5C00CC8096 /* framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D0152653DB5B00CC8096 /* framework.cpp */; };
-		9AC2D0372653DB5C00CC8096 /* xim_keyboard.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D0162653DB5B00CC8096 /* xim_keyboard.h */; };
 		9AC2D0382653DB5C00CC8096 /* factory_exchange.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D0172653DB5B00CC8096 /* factory_exchange.h */; };
-		9AC2D0392653DB5C00CC8096 /* x_window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D0182653DB5B00CC8096 /* x_window.cpp */; };
 		9AC2D03A2653DB5C00CC8096 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D0192653DB5B00CC8096 /* node.cpp */; };
 		9AC2D03B2653DB5C00CC8096 /* node.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D01A2653DB5B00CC8096 /* node.h */; };
 		9AC2D03C2653DB5C00CC8096 /* _.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D01B2653DB5B00CC8096 /* _.cpp */; };
@@ -40,11 +29,8 @@
 		9AC2D0412653DB5C00CC8096 /* framework.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D0242653DB5B00CC8096 /* framework.h */; };
 		9AC2D0422653DB5C00CC8096 /* aaa_user.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D0252653DB5B00CC8096 /* aaa_user.cpp */; };
 		9AC2D0432653DB5C00CC8096 /* appindicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D0262653DB5B00CC8096 /* appindicator.h */; };
-		9AC2D0442653DB5C00CC8096 /* x_window.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D0272653DB5B00CC8096 /* x_window.h */; };
 		9AC2D0452653DB5C00CC8096 /* _aura_posix.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D0282653DB5B00CC8096 /* _aura_posix.h */; };
 		9AC2D0462653DB5C00CC8096 /* shell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D0292653DB5B00CC8096 /* shell.cpp */; };
-		9AC2D0472653DB5C00CC8096 /* x_window_system.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D02A2653DB5B00CC8096 /* x_window_system.h */; };
-		9AC2D0482653DB5C00CC8096 /* x_window_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D02B2653DB5B00CC8096 /* x_window_system.cpp */; };
 		9AC2D0492653DB5C00CC8096 /* _.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D02C2653DB5B00CC8096 /* _.h */; };
 /* End PBXBuildFile section */
 
@@ -116,31 +102,18 @@
 		07B657B8190F3CBF002DAADE /* libios_aura_posix.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libios_aura_posix.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		07B657BA190F3CBF002DAADE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		07B657C7190F3CBF002DAADE /* music_midi_core_audio_iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = music_midi_core_audio_iosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		07D6C9BA18987A5E00CB8AA8 /* libveriwell_multimedia.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libveriwell_multimedia.dylib; path = "../../../../Users/carlos/Library/Developer/Xcode/DerivedData/all-dlckdugtwkhfjkdbgurajmehstei/Build/Products/Debug/libveriwell_multimedia.dylib"; sourceTree = "<group>"; };
-		07D6C9BC18987A7200CB8AA8 /* libmultimedia.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmultimedia.dylib; path = "../../../../Users/carlos/Library/Developer/Xcode/DerivedData/all-dlckdugtwkhfjkdbgurajmehstei/Build/Products/Debug/libmultimedia.dylib"; sourceTree = "<group>"; };
 		9A0C15F2264A205B00B5CC33 /* acme.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = acme.xcodeproj; path = ../../../source/app/acme/acme.xcodeproj; sourceTree = "<group>"; };
 		9A8997BC177D0E7D00C7761E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
-		9A8CCAF917EA063800F87A02 /* libbase.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbase.dylib; path = "../../../../Users/camilo/Library/Developer/Xcode/DerivedData/all-dlckdugtwkhfjkdbgurajmehstei/Build/Products/Debug/libbase.dylib"; sourceTree = "<group>"; };
-		9A8CCB0017EA063800F87A02 /* libcore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcore.dylib; path = "../../../../Users/camilo/Library/Developer/Xcode/DerivedData/all-dlckdugtwkhfjkdbgurajmehstei/Build/Products/Debug/libcore.dylib"; sourceTree = "<group>"; };
-		9A941A6B1FF334E40028686E /* libaura.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libaura.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A941A6D1FF334EA0028686E /* libaxis.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libaxis.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A941C4F1FF34F880028686E /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
-		9A941C511FF34F9E0028686E /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
-		9A986D861D226CFC001F4C04 /* libios_base.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libios_base.dylib; path = "../../app/base/build/Debug-iphoneos/libios_base.dylib"; sourceTree = "<group>"; };
-		9A986D881D226D07001F4C04 /* libios_core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libios_core.dylib; path = "../../../../macos/app/core/build/Debug-iphoneos/libios_core.dylib"; sourceTree = "<group>"; };
 		9AA1B449176361950019E812 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		9AC2CFF92653DB2E00CC8096 /* aura.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = aura.xcodeproj; path = ../../../source/app/aura/aura.xcodeproj; sourceTree = "<group>"; };
 		9AC2D00D2653DB5B00CC8096 /* shell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shell.h; sourceTree = "<group>"; };
 		9AC2D00E2653DB5B00CC8096 /* aaa_application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aaa_application.h; sourceTree = "<group>"; };
-		9AC2D00F2653DB5B00CC8096 /* xim_keyboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xim_keyboard.cpp; sourceTree = "<group>"; };
 		9AC2D0102653DB5B00CC8096 /* display_lock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = display_lock.cpp; sourceTree = "<group>"; };
 		9AC2D0122653DB5B00CC8096 /* aaa_application.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = aaa_application.cpp; sourceTree = "<group>"; };
 		9AC2D0132653DB5B00CC8096 /* display_lock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = display_lock.h; sourceTree = "<group>"; };
 		9AC2D0142653DB5B00CC8096 /* clipboard_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = clipboard_data.h; sourceTree = "<group>"; };
 		9AC2D0152653DB5B00CC8096 /* framework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = framework.cpp; sourceTree = "<group>"; };
-		9AC2D0162653DB5B00CC8096 /* xim_keyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xim_keyboard.h; sourceTree = "<group>"; };
 		9AC2D0172653DB5B00CC8096 /* factory_exchange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = factory_exchange.h; sourceTree = "<group>"; };
-		9AC2D0182653DB5B00CC8096 /* x_window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = x_window.cpp; sourceTree = "<group>"; };
 		9AC2D0192653DB5B00CC8096 /* node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = node.cpp; sourceTree = "<group>"; };
 		9AC2D01A2653DB5B00CC8096 /* node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = node.h; sourceTree = "<group>"; };
 		9AC2D01B2653DB5B00CC8096 /* _.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = _.cpp; sourceTree = "<group>"; };
@@ -151,11 +124,8 @@
 		9AC2D0242653DB5B00CC8096 /* framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = framework.h; sourceTree = "<group>"; };
 		9AC2D0252653DB5B00CC8096 /* aaa_user.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = aaa_user.cpp; sourceTree = "<group>"; };
 		9AC2D0262653DB5B00CC8096 /* appindicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = appindicator.h; sourceTree = "<group>"; };
-		9AC2D0272653DB5B00CC8096 /* x_window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x_window.h; sourceTree = "<group>"; };
 		9AC2D0282653DB5B00CC8096 /* _aura_posix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _aura_posix.h; sourceTree = "<group>"; };
 		9AC2D0292653DB5B00CC8096 /* shell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shell.cpp; sourceTree = "<group>"; };
-		9AC2D02A2653DB5B00CC8096 /* x_window_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x_window_system.h; sourceTree = "<group>"; };
-		9AC2D02B2653DB5B00CC8096 /* x_window_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = x_window_system.cpp; sourceTree = "<group>"; };
 		9AC2D02C2653DB5B00CC8096 /* _.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _.h; sourceTree = "<group>"; };
 		A1CFD778154F5EAA007447E2 /* libaura_posix.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libaura_posix.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -181,16 +151,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A941C521FF34F9E0028686E /* CoreAudio.framework in Frameworks */,
-				9A941C501FF34F880028686E /* CoreMIDI.framework in Frameworks */,
-				9A941A6C1FF334EA0028686E /* libaxis.dylib in Frameworks */,
-				9A941A6A1FF334E40028686E /* libaura.dylib in Frameworks */,
 				9AA1B44A176361950019E812 /* Cocoa.framework in Frameworks */,
 				9A8997BD177D0E7F00C7761E /* Carbon.framework in Frameworks */,
-				9A8CCB0117EA063800F87A02 /* libbase.dylib in Frameworks */,
-				9A8CCB0817EA063800F87A02 /* libcore.dylib in Frameworks */,
-				07D6C9BD18987A7200CB8AA8 /* libmultimedia.dylib in Frameworks */,
-				07D6C9BB18987A5E00CB8AA8 /* libveriwell_multimedia.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,12 +162,6 @@
 		07B657B9190F3CBF002DAADE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9A941C511FF34F9E0028686E /* CoreAudio.framework */,
-				9A941C4F1FF34F880028686E /* CoreMIDI.framework */,
-				9A941A6D1FF334EA0028686E /* libaxis.dylib */,
-				9A941A6B1FF334E40028686E /* libaura.dylib */,
-				9A986D881D226D07001F4C04 /* libios_core.dylib */,
-				9A986D861D226CFC001F4C04 /* libios_base.dylib */,
 				07B657BA190F3CBF002DAADE /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -254,12 +210,6 @@
 				9AC2D0292653DB5B00CC8096 /* shell.cpp */,
 				9AC2D00D2653DB5B00CC8096 /* shell.h */,
 				9AC2D01D2653DB5B00CC8096 /* user.h */,
-				9AC2D02B2653DB5B00CC8096 /* x_window_system.cpp */,
-				9AC2D02A2653DB5B00CC8096 /* x_window_system.h */,
-				9AC2D0182653DB5B00CC8096 /* x_window.cpp */,
-				9AC2D0272653DB5B00CC8096 /* x_window.h */,
-				9AC2D00F2653DB5B00CC8096 /* xim_keyboard.cpp */,
-				9AC2D0162653DB5B00CC8096 /* xim_keyboard.h */,
 			);
 			name = aura_posix;
 			sourceTree = "<group>";
@@ -274,10 +224,6 @@
 				9AC2D0092653DB5B00CC8096 /* aura_posix */,
 				07B657B9190F3CBF002DAADE /* Frameworks */,
 				A1CFD779154F5EAA007447E2 /* Products */,
-				07D6C9BC18987A7200CB8AA8 /* libmultimedia.dylib */,
-				07D6C9BA18987A5E00CB8AA8 /* libveriwell_multimedia.dylib */,
-				9A8CCAF917EA063800F87A02 /* libbase.dylib */,
-				9A8CCB0017EA063800F87A02 /* libcore.dylib */,
 			);
 			sourceTree = "<group>";
 		};
@@ -300,14 +246,11 @@
 			files = (
 				9AC2D0492653DB5C00CC8096 /* _.h in Headers */,
 				9AC2D0382653DB5C00CC8096 /* factory_exchange.h in Headers */,
-				9AC2D0472653DB5C00CC8096 /* x_window_system.h in Headers */,
 				9AC2D03B2653DB5C00CC8096 /* node.h in Headers */,
 				9AC2D0432653DB5C00CC8096 /* appindicator.h in Headers */,
 				9AC2D03E2653DB5C00CC8096 /* user.h in Headers */,
 				9AC2D0302653DB5C00CC8096 /* aaa_application.h in Headers */,
-				9AC2D0372653DB5C00CC8096 /* xim_keyboard.h in Headers */,
 				9AC2D0452653DB5C00CC8096 /* _aura_posix.h in Headers */,
-				9AC2D0442653DB5C00CC8096 /* x_window.h in Headers */,
 				9AC2D0342653DB5C00CC8096 /* display_lock.h in Headers */,
 				9AC2D0412653DB5C00CC8096 /* framework.h in Headers */,
 				9AC2D02F2653DB5C00CC8096 /* shell.h in Headers */,
@@ -357,9 +300,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A1CFD77C154F5EAA007447E2 /* Build configuration list for PBXNativeTarget "aura_posix" */;
 			buildPhases = (
+				A1CFD776154F5EAA007447E2 /* Headers */,
 				A1CFD774154F5EAA007447E2 /* Sources */,
 				A1CFD775154F5EAA007447E2 /* Frameworks */,
-				A1CFD776154F5EAA007447E2 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -482,11 +425,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AC2D0392653DB5C00CC8096 /* x_window.cpp in Sources */,
 				9AC2D03F2653DB5C00CC8096 /* factory_exchange.cpp in Sources */,
 				9AC2D0322653DB5C00CC8096 /* display_lock.cpp in Sources */,
 				9AC2D0332653DB5C00CC8096 /* aaa_application.cpp in Sources */,
-				9AC2D0482653DB5C00CC8096 /* x_window_system.cpp in Sources */,
 				9AC2D0402653DB5C00CC8096 /* gnu_source.cpp in Sources */,
 				9AC2D0462653DB5C00CC8096 /* shell.cpp in Sources */,
 				9AC2D03A2653DB5C00CC8096 /* node.cpp in Sources */,
@@ -494,7 +435,6 @@
 				9AC2D03C2653DB5C00CC8096 /* _.cpp in Sources */,
 				9AC2D0362653DB5C00CC8096 /* framework.cpp in Sources */,
 				9AC2D0422653DB5C00CC8096 /* aaa_user.cpp in Sources */,
-				9AC2D0312653DB5C00CC8096 /* xim_keyboard.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,7 +556,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_DEADCODE_DEADSTORES = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++2a";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_STATIC_ANALYZER_MODE_ON_ANALYZE_ACTION = shallow;
@@ -669,16 +609,17 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(TARGET_BUILD_DIR)\"",
+					"$(WorkspaceDir)/archive",
+					"$(WorkspaceDir)/archive/storage-$(PLATFORM_MODIFIER)/library/$(CONFIGURATION)",
+					"$(WorkspaceDir)/time/$(PLATFORM_MODIFIER)",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
-				SYSTEM_HEADER_SEARCH_PATHS = "$(WorkspaceDir)/nodeapp/include $(WorkspaceDir)/nodeapp/include $(WorkspaceDir)/source/app $(WorkspaceDir)/archive $(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER)/_include $(WorkspaceDir)/source/third/include $(WorkspaceDir)/archive $(WorkspaceDir)/archive/third-$(PLATFORM_MODIFIER)/third/include/include $(WorkspaceDir)/archive $(WorkspaceDir)/archive/third-$(PLATFORM_MODIFIER)/third/include";
-				USER_HEADER_SEARCH_PATHS = "$(WorkspaceDir)/source $(WorkspaceDir)/source/include $(WorkspaceDir) $(WorkspaceDir)/source/app $(WorkspaceDir)/archive $(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER) $(WorkspaceDir)/source/app $(WorkspaceDir)/archive $(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER)/core $(PROJECT_DIR)/.. $(PROJECT_DIR) .";
+				USER_HEADER_SEARCH_PATHS = ". $(WorkspaceDir)/source $(WorkspaceDir)/source/include $(WorkspaceDir)/source/app $(WorkspaceDir)/source/app/_include $(WorkspaceDir)/archive $(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER) $(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER)/_include $(WorkspaceDir)/archive/platform-apple $(WorkspaceDir)/archive/platform-posix $(WorkspaceDir)/source/third/include $(WorkspaceDir)/archive/third-$(PLATFORM_MODIFIER)/third/include/include $(WorkspaceDir)/archive/third-$(PLATFORM_MODIFIER)/third/include $(PROJECT_DIR) $(HOME)/sensitive/sensitive/include";
 				USE_HEADERMAP = NO;
 				WorkspaceDir = "$(SRCROOT)/../../..";
 			};
@@ -690,7 +631,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_DEADCODE_DEADSTORES = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++2a";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_STATIC_ANALYZER_MODE_ON_ANALYZE_ACTION = shallow;
@@ -736,14 +677,17 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(TARGET_BUILD_DIR)\"",
+					"$(WorkspaceDir)/archive",
+					"$(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER)/storage-$(PLATFORM_MODIFIER)/library/$(CONFIGURATION)",
+					"$(WorkspaceDir)/archive",
+					"$(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER)/storage-$(PLATFORM_MODIFIER)/third/library/$(CONFIGURATION)",
+					"$(WorkspaceDir)/time/$(PLATFORM_MODIFIER)",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SYSTEM_HEADER_SEARCH_PATHS = "$(WorkspaceDir)/nodeapp/include $(WorkspaceDir)/nodeapp/include $(WorkspaceDir)/source/app $(WorkspaceDir)/archive $(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER)/_include $(WorkspaceDir)/source/third/include $(WorkspaceDir)/archive $(WorkspaceDir)/archive/third-$(PLATFORM_MODIFIER)/third/include/include $(WorkspaceDir)/archive $(WorkspaceDir)/archive/third-$(PLATFORM_MODIFIER)/third/include";
-				USER_HEADER_SEARCH_PATHS = "$(WorkspaceDir)/source $(WorkspaceDir)/source/include $(WorkspaceDir) $(WorkspaceDir)/source/app $(WorkspaceDir)/archive $(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER) $(WorkspaceDir)/source/app $(WorkspaceDir)/archive $(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER)/core $(PROJECT_DIR)/.. $(PROJECT_DIR) .";
+				USER_HEADER_SEARCH_PATHS = ". $(WorkspaceDir)/source $(WorkspaceDir)/source/include $(WorkspaceDir)/source/app $(WorkspaceDir)/source/app/_include $(WorkspaceDir)/archive $(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER) $(WorkspaceDir)/archive/platform-$(PLATFORM_MODIFIER)/_include $(WorkspaceDir)/archive/platform-apple $(WorkspaceDir)/archive/platform-posix $(WorkspaceDir)/source/third/include $(WorkspaceDir)/archive/third-$(PLATFORM_MODIFIER)/third/include/include $(WorkspaceDir)/archive/third-$(PLATFORM_MODIFIER)/third/include $(PROJECT_DIR) $(HOME)/sensitive/sensitive/include";
 				USE_HEADERMAP = NO;
 				WorkspaceDir = "$(SRCROOT)/../../..";
 			};
@@ -755,6 +699,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = framework.h;
+				PLATFORM_MODIFIER = macos;
 			};
 			name = Debug;
 		};
@@ -764,6 +709,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = framework.h;
+				PLATFORM_MODIFIER = macos;
 			};
 			name = Release;
 		};

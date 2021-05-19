@@ -18,6 +18,9 @@
 #include "clipboard_data.h"
 
 
+#ifdef WITH_X11
+
+
 #include "x_window_system.h"
 
 
@@ -25,6 +28,9 @@
 
 
 #include "x_window.h"
+
+
+#endif
 
 
 #include "node.h"
