@@ -22,9 +22,16 @@ namespace aura
 
          //m_pGtkSettingsDefault = nullptr;
 
+#ifdef WITH_X11
+         
+         
          m_pX11Display = nullptr;
 
          m_pxcbconnection = nullptr;
+         
+         
+#endif // WITH_X11
+         
 
          m_pAuraPosix = this;
 
