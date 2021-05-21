@@ -9,39 +9,39 @@
 
 #define BUFF_SIZE ((sizeof(struct inotify_event)+FILENAME_MAX)*1024)
 
-namespace file
+namespace inotify
 {
 
 
-   os_watch::os_watch()
+   watch::watch()
    {
 
    }
 
 
-   os_watch::~os_watch()
+   watch::~watch()
    {
 
-      os_watcher * pwatcher  =dynamic_cast < os_watcher * >(m_pwatcher);
+      watcher * pwatcher = dynamic_cast < watcher * >(m_pwatcher);
 
-      inotify_rm_watch(pwatcher->mFD, m_id);
+      inotify_rm_watch(pwatcher->m_iFd, m_id);
 
    }
 
 
-   os_watcher::os_watcher()
+   watcher::watcher()
    {
 
-      mFD = inotify_init();
+      m_iFd = inotify_init();
 
-      if (mFD < 0)
+      if (m_iFd < 0)
       {
 
          fprintf (stderr, "Error: %s\n", strerror(errno));
 
       }
 
-      mTimeOut.tv_sec = 1;
+      m_timeout.tv_sec = 1;
 
       mTimeOut.tv_usec = 0;
 
@@ -50,7 +50,7 @@ namespace file
    }
 
    //--------
-   os_watcher::~os_watcher()
+   watcher::~watcher()
    {
 
       //::parallelization::post_quit_and_wait(m_pthread, seconds(15));
@@ -60,7 +60,7 @@ namespace file
    }
 
 
-   watch_id os_watcher::add_watch(const ::file::path & pathFolder, listener * plistenerParam, bool bRecursive)
+   watch_id watcher::add_watch(const ::file::path & pathFolder, listener * plistenerParam, bool bRecursive)
    {
 
       if (pathFolder.is_empty())
@@ -85,7 +85,7 @@ namespace file
 
       }
 
-      auto pwatch = __create_new < os_watch >();
+      auto pwatch = __create_new < watch >();
 
       pwatch->add_listener(plistener);
 
@@ -131,7 +131,7 @@ namespace file
             else
             {
 
-               auto pwatch  = __create_new < os_watch > ();
+               auto pwatch  = __create_new < watch > ();
 
                pwatch->add_listener(plistener);
 
@@ -162,7 +162,7 @@ namespace file
    }
 
 
-   ::e_status os_watcher::step()
+   ::e_status watcher::step()
    {
 
       FD_ZERO(&mDescriptorSet);
@@ -254,7 +254,6 @@ namespace file
       return true;
 
    }
-
 
 
 } // namespace file_watcher

@@ -251,9 +251,11 @@ namespace acme
 
          string result;
 
-         auto buffer = __malloc < char * >(::malloc(buffer_size_bytes));
+         ::acme::malloc < char * > buffer;
 
-         if (buffer == nullptr)
+         buffer.alloc(buffer_size_bytes);
+
+         if (buffer.is_null())
          {
 
             return result;
@@ -290,7 +292,7 @@ namespace acme
                }
             } else
             {
-               result = buffer;
+               result = string(buffer.m_p, buffer.m_iSize);
                done = true;
             }
 
@@ -324,6 +326,9 @@ namespace acme
          return format("USB VID:PID=%s:%s %s", vid.c_str(), pid.c_str(), serial_number.c_str());
 
       }
+
+
+#ifdef POSIX_LIST_SERIAL_PORTS
 
 
       array<::serial::port_info> node::list_serial_ports()
@@ -362,6 +367,8 @@ namespace acme
          return portinfoa;
 
       }
+
+#endif // POSIX_LIST_SERIAL_PORTS
 
 
    } // namespace posix

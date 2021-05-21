@@ -29,7 +29,7 @@ add_library(acme_posix SHARED ${acme_posix_source} _acme_posix.h process.cpp)
 
 if(POSIX_LIST_SERIAL_PORTS)
 
-target_compile_definitions(acme_posix PRIVATE _ACME_POSIX_LIBRARY)
+target_compile_definitions(acme_posix PRIVATE POSIX_LIST_SERIAL_PORTS)
 
 endif()
 

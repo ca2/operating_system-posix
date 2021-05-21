@@ -318,208 +318,210 @@ i32 create_process4(const char * pszCommandLine, i32 * pprocessId)
 }
 
 
-CLASS_DECL_ACME ::e_status call_async(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid)
-{
-
-   string strCmdLine;
-
-   strCmdLine = pszPath;
-
-   if(ansi_length(pszParam) > 0)
-   {
-
-      strCmdLine +=  " ";
-
-      strCmdLine += pszParam;
-
-   }
-
-   i32 processId;
-
-   if(!create_process(strCmdLine, &processId))
-   {
-
-      if(puiPid != nullptr)
-      {
-
-         *puiPid = -1;
-
-      }
-
-      return -1;
-
-   }
-
-   if(puiPid != nullptr)
-   {
-
-      *puiPid = processId;
-
-   }
-
-   return 0;
-
-}
-
-
-CLASS_DECL_ACME ::e_status call_sync(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, const ::duration & durationTimeout, ::property_set & set)
-{
-
-   string strCmdLine;
-
-   strCmdLine = pszPath;
-
-   if(ansi_length(pszParam) > 0)
-   {
-
-      strCmdLine +=  " ";
-
-      strCmdLine += pszParam;
-
-   }
-
-   i32 processId;
-
-   if(!create_process(strCmdLine, &processId))
-   {
-
-      set["pid"] = processId;
-
-      return -1;
-
-   }
-
-
-   while(true)
-   {
-
-      if(kill(processId, 0) == -1 && errno == ESRCH) // No process can be found corresponding to processId
-      {
-
-         break;
-
-      }
-
-      sleep(1_ms);
-
-   }
-
-   set["pid"] = processId;
-
-   return 0;
-
-}
-
-
-string module_path_from_pid(unsigned int iPid)
-{
-
-   struct stat sb;
-
-   int iSize;
-
-   string str;
-
-   str = "/proc/" + __str(iPid) + "/exe";
-
-   memory mem;
-
-   ssize_t s;
-
-   bool iTry;
-
-   if(lstat(str, &sb) == -1)
-   {
-
-      retry:
-
-      iSize = 1024 * 4;
-
-      iTry = 1;
-
-      sb.st_size = iSize - 1;
-
-   }
-   else
-   {
-
-      iSize = sb.st_size + 1;
-
-      iTry = 0;
-
-   }
-#if MEMDLEAK
-   mem.m_strTag = "memory://function=module_path_from_pid";
-#endif
-   mem.set_size(iSize);
-
-   s = readlink (str, (char *) mem.get_data(), iSize);
-
-   if(s > sb.st_size)
-   {
-
-      if(iTry <= 0)
-      {
-
-         goto retry;
-
-      }
-      else
-      {
-
-         return "";
-
-      }
-
-   }
-
-   mem.get_data()[s] = '\0';
-
-   return (const char *) mem.get_data();
-
-}
-
-
-int_array module_path_get_pid(const char * pszPath)
-{
-
-   int_array ia;
-
-   ::file::patha stra;
-
-   ::dir::ls_dir(stra, "/proc/");
-
-   for(auto & strPid : stra)
-   {
-
-      int iPid = atoi(strPid.title());
-
-      if(iPid > 0)
-      {
-
-         string strPath =module_path_from_pid(iPid);
-
-         if(strPath	 == pszPath)
-         {
-
-            ia.add(iPid);
-
-         }
-
-      }
-
-   }
-
-   return ia;
-
-}
-
 namespace acme
 {
 
 
    namespace posix
    {
+
+
+      ::e_status
+      node::call_async(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay,
+                       bool bPrivileged, unsigned int * puiPid)
+      {
+
+         string strCmdLine;
+
+         strCmdLine = pszPath;
+
+         if (ansi_length(pszParam) > 0)
+         {
+
+            strCmdLine += " ";
+
+            strCmdLine += pszParam;
+
+         }
+
+         i32 processId;
+
+         if (!create_process(strCmdLine, &processId))
+         {
+
+            if (puiPid != nullptr)
+            {
+
+               *puiPid = -1;
+
+            }
+
+            return -1;
+
+         }
+
+         if (puiPid != nullptr)
+         {
+
+            *puiPid = processId;
+
+         }
+
+         return 0;
+
+      }
+
+
+      ::e_status node::call_sync(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay,
+                                 const ::duration & durationTimeout, ::property_set & set)
+      {
+
+         string strCmdLine;
+
+         strCmdLine = pszPath;
+
+         if (ansi_length(pszParam) > 0)
+         {
+
+            strCmdLine += " ";
+
+            strCmdLine += pszParam;
+
+         }
+
+         i32 processId;
+
+         if (!create_process(strCmdLine, &processId))
+         {
+
+            set["pid"] = processId;
+
+            return -1;
+
+         }
+
+
+         while (true)
+         {
+
+            if (kill(processId, 0) == -1 && errno == ESRCH) // No process can be found corresponding to processId
+            {
+
+               break;
+
+            }
+
+            sleep(1_ms);
+
+         }
+
+         set["pid"] = processId;
+
+         return 0;
+
+      }
+
+
+      string node::module_path_from_pid(unsigned int iPid)
+      {
+
+         struct stat sb;
+
+         int iSize;
+
+         string str;
+
+         str = "/proc/" + __str(iPid) + "/exe";
+
+         memory mem;
+
+         ssize_t s;
+
+         bool iTry;
+
+         if (lstat(str, &sb) == -1)
+         {
+
+            retry:
+
+            iSize = 1024 * 4;
+
+            iTry = 1;
+
+            sb.st_size = iSize - 1;
+
+         } else
+         {
+
+            iSize = sb.st_size + 1;
+
+            iTry = 0;
+
+         }
+#if MEMDLEAK
+         mem.m_strTag = "memory://function=module_path_from_pid";
+#endif
+         mem.set_size(iSize);
+
+         s = readlink(str, (char *) mem.get_data(), iSize);
+
+         if (s > sb.st_size)
+         {
+
+            if (iTry <= 0)
+            {
+
+               goto retry;
+
+            } else
+            {
+
+               return "";
+
+            }
+
+         }
+
+         mem.get_data()[s] = '\0';
+
+         return (const char *) mem.get_data();
+
+      }
+
+
+//      int_array node::module_path_get_pid(const char * pszPath)
+//      {
+//
+//         int_array ia;
+//
+//         ::file::patha stra;
+//
+//         ::dir::ls_dir(stra, "/proc/");
+//
+//         for(auto & strPid : stra)
+//         {
+//
+//            int iPid = atoi(strPid.title());
+//
+//            if(iPid > 0)
+//            {
+//
+//               string strPath =module_path_from_pid(iPid);
+//
+//               if(strPath	 == pszPath)
+//               {
+//
+//                  ia.add(iPid);
+//
+//               }
+//
+//            }
+//
+//         }
+//
+//         return ia;
+//
+//      }
 
 
       id_array node::module_path_get_pid(const char * psz, bool bModuleNameIsPropertyFormatted)
@@ -703,20 +705,21 @@ namespace acme
       }
 
 
+      ::e_status node::shell_execute_sync(const char * pszFile, const char * pszParams, ::duration durationTimeout )
+      {
+
+         property_set set;
+
+         return call_sync(pszFile, pszParams, ::file::path(pszFile).folder(), e_display_none, durationTimeout, set);
+
+      }
+
 
    } // namespace posix
 
 
 } // namespace acme
 
-bool shell_execute_sync(const char * pszFile, const char * pszParams, ::duration durationTimeout )
-{
-
-   property_set set;
-
-   return call_sync(pszFile, pszParams, ::file::path(pszFile).folder(), e_display_none, durationTimeout, set);
-
-}
 
 
 

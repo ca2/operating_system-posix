@@ -44,6 +44,26 @@ namespace acme
       }
 
 
+//      ::e_status node::call_async(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid)
+//      {
+//
+//         __throw(error_interface_only);
+//
+//         return error_interface_only;
+//
+//      }
+//
+//
+//      ::e_status node::call_sync(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, const ::duration & durationTimeout, ::property_set & set)
+//      {
+//
+//         __throw(error_interface_only);
+//
+//         return error_interface_only;
+//
+//      }
+
+
       int node::node_init_check(int * pi, char *** ppz)
       {
 
@@ -631,73 +651,73 @@ namespace acme
       }
 
 
-      id_array node::module_path_get_pid(const char* pszModulePath, bool bModuleNameIsPropertyFormatted)
-      {
-
-         id_array iaPid;
-
-         id_array pids = get_pids();
-
-         string strPath;
-
-         for(auto & iCurrentPid : pids)
-         {
-
-            strPath = module_path_from_pid(iCurrentPid.i32());
-
-            if(strPath.compare_ci(pszModulePath) == 0 )
-            {
-
-               iaPid.add(iCurrentPid);
-
-            }
-
-         }
-
-         return iaPid;
-
-
-      }
-
-
-      string node::module_path_from_pid(u32 pid)
-      {
-
-         __throw(error_interface_only);
-
-         return "";
-
-      }
+//      id_array node::module_path_get_pid(const char* pszModulePath, bool bModuleNameIsPropertyFormatted)
+//      {
+//
+//         id_array iaPid;
+//
+//         id_array pids = get_pids();
+//
+//         string strPath;
+//
+//         for(auto & iCurrentPid : pids)
+//         {
+//
+//            strPath = module_path_from_pid(iCurrentPid.i32());
+//
+//            if(strPath.compare_ci(pszModulePath) == 0 )
+//            {
+//
+//               iaPid.add(iCurrentPid);
+//
+//            }
+//
+//         }
+//
+//         return iaPid;
+//
+//
+//      }
 
 
-      string node::command_line_from_pid(u32 pid)
-      {
-
-         __throw(error_interface_only);
-
-         return "";
-
-      }
-
-
-      bool node::is_shared_library_busy(u32 processid, const string_array& stra)
-      {
-
-         __throw(error_interface_only);
-
-         return false;
-
-      }
+//      string node::module_path_from_pid(u32 pid)
+//      {
+//
+//         __throw(error_interface_only);
+//
+//         return "";
+//
+//      }
 
 
-      bool node::is_shared_library_busy(const string_array& stra)
-      {
+//      string node::command_line_from_pid(u32 pid)
+//      {
+//
+//         __throw(error_interface_only);
+//
+//         return "";
+//
+//      }
 
-         __throw(error_interface_only);
 
-         return false;
+//      bool node::is_shared_library_busy(u32 processid, const string_array& stra)
+//      {
+//
+//         __throw(error_interface_only);
+//
+//         return false;
+//
+//      }
 
-      }
+
+//      bool node::is_shared_library_busy(const string_array& stra)
+//      {
+//
+//         __throw(error_interface_only);
+//
+//         return false;
+//
+//      }
 
 
       bool node::process_contains_module(string& strImage, ::u32 processID, const char* pszLibrary)
