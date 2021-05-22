@@ -31,6 +31,6 @@
 //
 //
 //
-//void apex_application_set_application_menu(::apex::application_menu * papplicationmenu, ::apex::application * papp);
+//void apex_application_set_application_menu(::application_menu * papplicationmenu, ::application * papp);
 //
 //

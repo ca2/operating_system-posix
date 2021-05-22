@@ -43,7 +43,7 @@ namespace aura
 
 #endif // WITH_X11
 
-         virtual ::file::path get_desktop_file_path(::apex::application * papp) const override;
+         virtual ::file::path get_desktop_file_path(::application * papp) const override;
 
 
       };

@@ -256,7 +256,7 @@ namespace aura
 #endif
    
 
-      ::file::path node::get_desktop_file_path(::apex::application * papplication) const
+      ::file::path node::get_desktop_file_path(::application * papplication) const
       {
 
          ::file::path path;
