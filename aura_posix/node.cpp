@@ -282,6 +282,25 @@ namespace aura
       }
 
 
+      ::e_status node::main()
+      {
+
+         auto psystem = m_psystem;
+
+         auto estatus = psystem->system_main();
+
+         if(!estatus)
+         {
+
+            return estatus;
+
+         }
+
+         return estatus;
+
+      }
+
+
    } // namespace posix
 
 

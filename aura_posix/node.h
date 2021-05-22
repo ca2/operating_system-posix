@@ -46,6 +46,9 @@ namespace aura
          virtual ::file::path get_desktop_file_path(::application * papp) const override;
 
 
+         ::e_status main() override;
+
+
       };
 
 
