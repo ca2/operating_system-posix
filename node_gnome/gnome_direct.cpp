@@ -1,5 +1,5 @@
 #include "framework.h"
-#include "platform/platform_setup.h"
+#include "operating_system/platform_setup.h"
 #include <limits.h>
 #include "__standard_type.h"
 //#include "gnome.h"
@@ -7,7 +7,7 @@
 #include "gnome_internal_glue.h"
 #include "apex/message/global.h"
 #include "acme/id.h"
-#include "platform/_.h"
+#include "operating_system/_.h"
 
 
 // apt-get install libgtk2.0-dev

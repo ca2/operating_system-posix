@@ -30,23 +30,24 @@ critical_section * g_pcsPid2 = nullptr;
 chldstatus_map * g_ppid = nullptr;
 
 
+void init_pid_cs()
+{
 
+   g_pcsPid2 = new critical_section;
+
+}
+
+
+void term_pid_cs()
+{
+
+   ::acme::del(g_pcsPid2);
+
+}
 
 
 critical_section * get_pid_cs()
 {
-
-   critical_section_lock cs(::acme::get_global_critical_section());
-
-   if(g_pcsPid2 == nullptr)
-   {
-
-      g_pcsPid2 = new critical_section();
-
-      g_ppid = new chldstatus_map();
-
-
-   }
 
    return g_pcsPid2;
 

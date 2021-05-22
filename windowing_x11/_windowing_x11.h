@@ -9,9 +9,6 @@
 #include "aura/os/linux/appindicator.h"
 #include "acme/os/ansios/_pthread.h"
 #include "acme/os/linux/_user.h"
-#include "aura_posix/x_window_system.h"
-#include "aura_posix/xim_keyboard.h"
-
 
 
 #define WITH_XI
@@ -22,7 +19,6 @@
 #include <X11/Xutil.h>
 #include <X11/extensions/Xrender.h>
 #include <X11/Xatom.h>
-
 
 
 Visual * get_32bit_visual(Display * pdisplay);
@@ -80,7 +76,7 @@ bool __x11_hook_process_event(Display * pdisplay, XEvent * pevent, XGenericEvent
 #include "display.h"
 
 
-#include "archive/platform-posix/aura_posix/display_lock.h"
+#include "archive/platform-posix/aura_posix/x11/display_lock.h"
 
 
 #include "factory_exchange.h"

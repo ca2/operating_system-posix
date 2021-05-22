@@ -12,8 +12,6 @@ list(APPEND aura_posix_source
    factory_exchange.h
    framework.cpp
    framework.h
-   #application.cpp
-   #application.h
    node.cpp
    node.h
    shell.cpp
@@ -30,27 +28,32 @@ list(APPEND library_references
    aura
    )
 
+
 if(WITH_X11)
+
 
    list(APPEND aura_posix_source
+      x11/_.cpp
+      x11/_const.h
       x11/display_lock.cpp
       x11/display_lock.h
-      x11/x_window.cpp
-      x11/x_window.h
-      x11/x_window_system.cpp
-      x11/x_window_system.h
+      x11/window.cpp
+      x11/window.h
+      x11/windowing.cpp
+      x11/windowing.h
       x11/xim_keyboard.cpp
       x11/xim_keyboard.h
-
       )
 
-   endif()
-add_library(aura_posix SHARED ${aura_posix_source})
 
-if(WITH_X11)
-   target_compile_definitions(aura_posix PRIVATE WITH_X11)
 endif()
+
+
+add_library(aura_posix SHARED ${aura_posix_source} x11/_x11.h)
+
+
 target_precompile_headers(aura_posix PRIVATE framework.h)
+
 
 set_target_properties(aura_posix PROPERTIES LINKER_LANGUAGE CXX)
 
@@ -67,7 +70,6 @@ if (MSVC)
 elseif (LINUX)
 
 
-
    pkg_check_modules(PKGCONFIG x11 x11-xcb)
    target_compile_options(aura_posix PRIVATE -fpermissive)
    target_compile_options(aura_posix PRIVATE ${PKGCONFIG_CFLAGS})
@@ -79,11 +81,12 @@ elseif (LINUX)
 endif ()
 
 
-
-
 target_include_directories(aura_posix PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 target_include_directories(aura_posix PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 target_include_directories(aura_posix PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 
 target_compile_definitions(aura_posix PRIVATE _AURA_POSIX_LIBRARY)
+
+
+

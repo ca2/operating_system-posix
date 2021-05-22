@@ -21,13 +21,7 @@
 #ifdef WITH_X11
 
 
-#include "x_window_system.h"
-
-
-#include "xim_keyboard.h"
-
-
-#include "x_window.h"
+#include "x11/_x11.h"
 
 
 #endif

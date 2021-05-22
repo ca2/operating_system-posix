@@ -4,6 +4,12 @@
 #include "framework.h"
 
 
+void init_pid_cs();
+
+
+void term_pid_cs();
+
+
 void os_post_quit();
 
 
@@ -28,6 +34,8 @@ namespace acme
 
          m_pAcmePosix = this;
 
+         init_pid_cs();
+
       }
 
 
@@ -40,6 +48,8 @@ namespace acme
          //         g_object_unref(m_pGtkSettingsDefault);
          //
          //      }
+
+         term_pid_cs();
 
       }
 

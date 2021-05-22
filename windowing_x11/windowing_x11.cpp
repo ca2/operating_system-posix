@@ -9,7 +9,8 @@
 ////#include "third/sn/sn.h"
 #include <fcntl.h> // library for fcntl function
 #include <sys/stat.h>
-#include <X11/extensions/xf86vmode.h> // libxxf86vm-dev
+// apt install libxxf86vm-dev
+#include <X11/extensions/xf86vmode.h>
 #include <X11/Xatom.h>
 //!!!#define pointer x11_pointer
 //!!!#include <X11/extensions/Xrender.h>

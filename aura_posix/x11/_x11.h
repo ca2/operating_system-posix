@@ -1,8 +1,19 @@
 //
-// Created by camilo on 22/05/2021.
+// Created by camilo on 2021-05-21 03:35 BRT <3ThomasBS_!!
 //
+#pragma once
 
-#ifndef BASIS__X11_H
-#define BASIS__X11_H
 
-#endif //BASIS__X11_H
+#include "_const.h"
+
+
+#include "xim_keyboard.h"
+
+
+#include "window.h"
+
+
+#include "windowing.h"
+
+
+

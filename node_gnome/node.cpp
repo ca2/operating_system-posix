@@ -290,12 +290,7 @@ namespace node_gnome
 
             auto psystem = m_psystem->m_papexsystem;
 
-<<<<<<< HEAD
-               psystem->post_initial_request();
-=======
             psystem->post_initial_request();
->>>>>>> origin/basis
-
 
          });
 
