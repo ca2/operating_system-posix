@@ -76,6 +76,8 @@ namespace node_gtk
 
       ::rectangle_i32 rectangle;
 
+      sleep(3_min);
+
       __copy(m_rectangle, rect);
 
       return ::success;
@@ -120,7 +122,11 @@ namespace node_gtk
    ::e_status monitor::get_monitor_rectangle(::RECTANGLE_I32 *prectangle)
    {
 
-      auto estatus = x11_windowing()->windowing_sync(5_s, __routine([this]() { _get_monitor_rectangle(); }));
+      auto pwindowing = x11_windowing();
+
+      auto proutine = __routine([this]() { _get_monitor_rectangle(); });
+
+      auto estatus = pwindowing->windowing_sync(5_min, proutine);
 
       if(!estatus)
       {

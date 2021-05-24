@@ -70,7 +70,8 @@ if (MSVC)
 elseif (LINUX)
 
 
-   pkg_check_modules(PKGCONFIG x11 x11-xcb)
+   #pkg_check_modules(PKGCONFIG x11 x11-xcb)
+   pkg_check_modules(PKGCONFIG x11)
    target_compile_options(aura_posix PRIVATE -fpermissive)
    target_compile_options(aura_posix PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(aura_posix PRIVATE -Wl,-rpath=\$ORIGIN)

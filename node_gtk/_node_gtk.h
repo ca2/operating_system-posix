@@ -10,10 +10,10 @@
 #include "aura/os/linux/appindicator.h"
 
 
-//#include "monitor.h"
+#include "monitor.h"
 
 
-//#include "display.h"
+#include "display.h"
 
 
 #include "node.h"

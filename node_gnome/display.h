@@ -9,7 +9,7 @@ namespace node_gnome
 
 
    class CLASS_DECL_AURA display :
-      virtual public ::windowing_x11::display
+      virtual public ::node_gtk::display
    {
 
    public:

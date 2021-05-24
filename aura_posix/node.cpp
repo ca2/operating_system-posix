@@ -4,9 +4,9 @@
 #include "framework.h"
 #include "node.h"
 #include "acme/filesystem/filesystem/acme_dir.h"
-#ifdef WITH_X11
-#include <X11/Xlib-xcb.h>
-#endif
+//#ifdef WITH_X11
+//#include <X11/Xlib-xcb.h>
+//#endif
 
 
 namespace aura
@@ -223,6 +223,8 @@ namespace aura
 
          }
 
+#ifdef WITH_XCB
+
          m_pxcbconnection = XGetXCBConnection((Display *) m_pX11Display);
 
          if(!m_pxcbconnection)
@@ -231,6 +233,8 @@ namespace aura
             return error_failed;
 
          }
+
+#endif
 
          return ::success;
 

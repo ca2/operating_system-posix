@@ -13,8 +13,8 @@ list(APPEND library_source
    #clipboard_data.h
    #copydesk.cpp
    #copydesk.h
-   #display.cpp
-   #display.h
+   display.cpp
+   display.h
    #enum_display_monitors.cpp
    factory_exchange.cpp
    framework.cpp
@@ -24,8 +24,8 @@ list(APPEND library_source
    #gnome_direct.cpp
    #gtk_direct2.cpp
    #gtk_clipboard.cpp
-   #monitor.cpp
-   #monitor.h
+   monitor.cpp
+   monitor.h
    node.cpp
    node.h
    #notify_icon.cpp
