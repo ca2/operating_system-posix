@@ -3,9 +3,12 @@
 //
 #include "framework.h"
 
-
-#include <xkbcommon/xkbcommon.h> // libxkbcommon-dev
-#include <xkbcommon/xkbcommon-x11.h> // libxkbcommon-x11-dev
+// apt install libxkbcommon-dev
+// dnf install libxkbcommon-devel
+#include <xkbcommon/xkbcommon.h>
+// apt install libxkbcommon-x11-dev
+// dnf install libxkbcommon-x11-devel
+#include <xkbcommon/xkbcommon-x11.h>
 //#include <xcb/xkb.h>
 
 namespace windowing_xcb

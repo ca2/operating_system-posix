@@ -63,6 +63,7 @@ if (MSVC)
    target_link_options(node_kde PRIVATE "/SUBSYSTEM:WINDOWS")
    target_link_libraries(node_kde PRIVATE ${library_references})
 elseif (LINUX)
+   # dnf install qt5-qttools-devel qt5-qtx11extras-devel qt5-qttools-static
    pkg_check_modules(PKGCONFIG Qt5Core Qt5UiTools Qt5X11Extras)
    target_compile_options(node_kde PRIVATE -fpermissive)
    target_compile_options(node_kde PRIVATE ${PKGCONFIG_CFLAGS})

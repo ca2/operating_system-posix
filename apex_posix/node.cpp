@@ -22,8 +22,6 @@ namespace apex
       node::node()
       {
 
-         //m_pGtkSettingsDefault = nullptr;
-
          m_pApexPosix = this;
 
       }
@@ -32,26 +30,19 @@ namespace apex
       node::~node()
       {
 
-//      if(m_pGtkSettingsDefault)
+      }
+
+
+//      int node::node_init_check(int * pi, char *** ppz)
 //      {
 //
-//         g_object_unref(m_pGtkSettingsDefault);
+//         //auto iResult = gtk_init_check(pi, ppz);
+//
+//         //return iResult;
+//
+//         return 0;
 //
 //      }
-
-      }
-
-
-      int node::node_init_check(int * pi, char *** ppz)
-      {
-
-         //auto iResult = gtk_init_check(pi, ppz);
-
-         //return iResult;
-
-         return 0;
-
-      }
 
 
 //      ::e_status node::start_()

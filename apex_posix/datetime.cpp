@@ -196,7 +196,7 @@ static inline i32 IsLeapYear(i32 Year)
  * RETURNS
  *   Nothing.
  */
-CLASS_DECL_ACME void WINAPI RtlTimeToTimeFields(
+CLASS_DECL_ACME void RtlTimeToTimeFields(
    const u64 *liTime,
    PTIME_FIELDS TimeFields)
 {
@@ -265,7 +265,7 @@ CLASS_DECL_ACME void WINAPI RtlTimeToTimeFields(
  *   Success: true.
  *   Failure: false.
  */
-int_bool WINAPI RtlTimeFieldsToTime(
+int_bool RtlTimeFieldsToTime(
    PTIME_FIELDS tfTimeFields,
    u64 * Time)
 {
@@ -370,7 +370,7 @@ int_bool WINAPI RtlTimeFieldsToTime(
  *   Success: STATUS_SUCCESS.
  *   Failure: An NTSTATUS error code indicating the problem.
  */
-int WINAPI RtlLocalTimeToSystemTime( const ::u64 *LocalTime,
+int RtlLocalTimeToSystemTime( const ::u64 *LocalTime,
                                           ::u64 * SystemTime)
 {
    ::i32 bias;
@@ -395,7 +395,7 @@ int WINAPI RtlLocalTimeToSystemTime( const ::u64 *LocalTime,
  *   Success: STATUS_SUCCESS.
  *   Failure: An NTSTATUS error code indicating the problem.
  */
-int WINAPI RtlSystemTimeToLocalTime( const ::u64 *SystemTime,
+int RtlSystemTimeToLocalTime( const ::u64 *SystemTime,
                                           ::u64 * LocalTime )
 {
    ::i32 bias;
@@ -420,7 +420,7 @@ int WINAPI RtlSystemTimeToLocalTime( const ::u64 *SystemTime,
  *   Success: true.
  *   Failure: false, if the resulting value will not fit in a ::u32.
  */
-int_bool WINAPI RtlTimeToSecondsSince1970( const u64 *Time, LPDWORD Seconds )
+int_bool RtlTimeToSecondsSince1970( const u64 *Time, LPDWORD Seconds )
 {
    ULONGLONG tmp = *Time;
    tmp = tmp / TICKSPERSEC - SECS_1601_TO_1970;
@@ -442,7 +442,7 @@ int_bool WINAPI RtlTimeToSecondsSince1970( const u64 *Time, LPDWORD Seconds )
  *   Success: true.
  *   Failure: false, if the resulting value will not fit in a ::u32.
  */
-int_bool WINAPI RtlTimeToSecondsSince1980( const u64 *Time, LPDWORD Seconds )
+int_bool RtlTimeToSecondsSince1980( const u64 *Time, LPDWORD Seconds )
 {
    ULONGLONG tmp = *Time;
    tmp = tmp / TICKSPERSEC - SECS_1601_TO_1980;
@@ -463,7 +463,7 @@ int_bool WINAPI RtlTimeToSecondsSince1980( const u64 *Time, LPDWORD Seconds )
  * RETURNS
  *   Nothing.
  */
-void WINAPI RtlSecondsSince1970ToTime( ::u32 Seconds, u64 *Time )
+void RtlSecondsSince1970ToTime( ::u32 Seconds, u64 *Time )
 {
    ULONGLONG secs = Seconds * (ULONGLONG)TICKSPERSEC + TICKS_1601_TO_1970;
    *Time = secs;
@@ -481,7 +481,7 @@ void WINAPI RtlSecondsSince1970ToTime( ::u32 Seconds, u64 *Time )
  * RETURNS
  *   Nothing.
  */
-void WINAPI RtlSecondsSince1980ToTime( ::u32 Seconds, u64 *Time )
+void RtlSecondsSince1980ToTime( ::u32 Seconds, u64 *Time )
 {
    ULONGLONG secs = Seconds * (ULONGLONG)TICKSPERSEC + TICKS_1601_TO_1980;
    *Time = secs;
@@ -499,7 +499,7 @@ void WINAPI RtlSecondsSince1980ToTime( ::u32 Seconds, u64 *Time )
  * RETURNS
  *   Nothing.
  */
-void WINAPI RtlTimeToElapsedTimeFields( const u64 *Time, PTIME_FIELDS TimeFields )
+void RtlTimeToElapsedTimeFields( const u64 *Time, PTIME_FIELDS TimeFields )
 {
    ::i64 time;
    ::i32 rem;
@@ -584,7 +584,7 @@ struct timezone2
  *   Success: STATUS_SUCCESS.
  *   Failure: An NTSTATUS error code indicating the problem.
  */
-int WINAPI NtQuerySystemTime( u64 * Time )
+int NtQuerySystemTime( u64 * Time )
 {
 
    struct timeval now;
@@ -607,7 +607,7 @@ int WINAPI NtQuerySystemTime( u64 * Time )
  *  lower or higher than what Windows gives. Also too high counter values are
  *  reported to give problems.
  */
-int WINAPI NtQueryPerformanceCounter( u64 * Counter, u64 * Frequency )
+int NtQueryPerformanceCounter( u64 * Counter, u64 * Frequency )
 {
    u64 now;
 
@@ -627,7 +627,7 @@ int WINAPI NtQueryPerformanceCounter( u64 * Counter, u64 * Frequency )
  * NtGetTickCount   (NTDLL.@)
  * ZwGetTickCount   (NTDLL.@)
  */
-ULONGLONG WINAPI NtGetTickCount(void)
+ULONGLONG NtGetTickCount(void)
 {
    u64 now;
 
@@ -887,7 +887,7 @@ static i32 init_tz_info(RTL_TIME_ZONE_INFORMATION *tzi)
  *   Success: STATUS_SUCCESS.
  *   Failure: An NTSTATUS error code indicating the problem.
  */
-int WINAPI RtlQueryTimeZoneInformation(RTL_TIME_ZONE_INFORMATION *tzinfo)
+int RtlQueryTimeZoneInformation(RTL_TIME_ZONE_INFORMATION *tzinfo)
 {
    init_tz_info( tzinfo );
 
@@ -908,7 +908,7 @@ int WINAPI RtlQueryTimeZoneInformation(RTL_TIME_ZONE_INFORMATION *tzinfo)
  *
  */
 #define STATUS_PRIVILEGE_NOT_HELD        (0xC0000061)
-int WINAPI RtlSetTimeZoneInformation( const RTL_TIME_ZONE_INFORMATION *tzinfo )
+int RtlSetTimeZoneInformation( const RTL_TIME_ZONE_INFORMATION *tzinfo )
 {
    return STATUS_PRIVILEGE_NOT_HELD;
 }
@@ -933,7 +933,7 @@ int WINAPI RtlSetTimeZoneInformation( const RTL_TIME_ZONE_INFORMATION *tzinfo )
 
 
 #ifndef _UWP
-int WINAPI NtSetSystemTime(const u64 *NewTime, u64 *OldTime)
+int NtSetSystemTime(const u64 *NewTime, u64 *OldTime)
 {
    struct timeval tv;
    //time_t tm_t;
@@ -973,12 +973,12 @@ int WINAPI NtSetSystemTime(const u64 *NewTime, u64 *OldTime)
 /*********************************************************************
  *      LocalFileTimeToFileTime                         (KERNEL32.@)
  */
-CLASS_DECL_ACME int_bool WINAPI LocalFileTimeToFileTime( const filetime_t *localft, filetime_t * utcft )
+CLASS_DECL_ACME int_bool LocalFileTimeToFileTime( const filetime_t *localft, filetime_t * utcft )
 {
 
    int status;
 
-   if (status = RtlLocalTimeToSystemTime( localft, utcft ))
+   if ((status = RtlLocalTimeToSystemTime( localft, utcft )))
    {
       //set_last_error( RtlNtStatusToDosError(status) );
       set_last_status(1);
@@ -991,10 +991,10 @@ CLASS_DECL_ACME int_bool WINAPI LocalFileTimeToFileTime( const filetime_t *local
 /*********************************************************************
  *      FileTimeToLocalFileTime                         (KERNEL32.@)
  */
-CLASS_DECL_ACME int_bool WINAPI FileTimeToLocalFileTime( const filetime_t *utcft, filetime_t * localft )
+CLASS_DECL_ACME int_bool FileTimeToLocalFileTime( const filetime_t *utcft, filetime_t * localft )
 {
    int status;
-   if (status = RtlSystemTimeToLocalTime( utcft, localft ))
+   if ((status = RtlSystemTimeToLocalTime( utcft, localft )))
    {
       //set_last_error( RtlNtStatusToDosError(status) );
       set_last_status( 1);
@@ -1010,7 +1010,7 @@ CLASS_DECL_ACME int_bool WINAPI FileTimeToLocalFileTime( const filetime_t *utcft
 /*********************************************************************
  *      FileTimeToSystemTime                            (KERNEL32.@)
  */
-int_bool WINAPI FileTimeToSystemTime( const filetime_t *ft, system_time_t * syst )
+int_bool FileTimeToSystemTime( const filetime_t *ft, system_time_t * syst )
 {
 
    TIME_FIELDS tf;
@@ -1032,7 +1032,7 @@ int_bool WINAPI FileTimeToSystemTime( const filetime_t *ft, system_time_t * syst
 /*********************************************************************
  *      SystemTimeToFileTime                            (KERNEL32.@)
  */
-int_bool WINAPI SystemTimeToFileTime( const system_time_t *syst, filetime_t * ft )
+int_bool SystemTimeToFileTime( const system_time_t *syst, filetime_t * ft )
 {
    TIME_FIELDS tf;
    u64 t;
@@ -1090,7 +1090,7 @@ CLASS_DECL_ACME void GetSystemTimeAsFileTime(
  */
 CLASS_DECL_ACME void GetSystemTime(system_time_t * systime)
 {
-   filetime_t ft;
+   //filetime_t ft;
    u64 t;
 
    NtQuerySystemTime(&t);

@@ -196,7 +196,7 @@ serial_impl::reconfigurePort()
 
    // setup baud rate
    bool custom_baud = false;
-   speed_t baud;
+   speed_t baud = 0;
    switch (m_ulBaudrate)
    {
 #ifdef B0
@@ -346,7 +346,7 @@ serial_impl::reconfigurePort()
       __throw(invalid_argument("OS does not currently support custom bauds"));
 #endif
    }
-   if (custom_baud == false)
+   if (!custom_baud)
    {
 #ifdef _BSD_SOURCE
       ::cfsetspeed(&options, baud);
@@ -407,7 +407,7 @@ serial_impl::reconfigurePort()
    // CMSPAR is not defined on OSX. So do not support mark or space eparity.
    else if (m_eparity == e_parity_mark || m_eparity == e_parity_space)
    {
-      __throw(error_invalid_argument, "OS does not support mark or space eparity"));
+      __throw(error_invalid_argument, "OS does not support mark or space eparity");
    }
 #endif  // ifdef CMSPAR
    else
@@ -1008,7 +1008,8 @@ serial_impl::waitForChange()
          }
       }
 
-      usleep(1000_ms);
+      sleep((::micros) 1_s);
+      
    }
 
    return false;

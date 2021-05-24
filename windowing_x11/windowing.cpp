@@ -340,7 +340,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::x11_GetWindowRect 1");
 
-      display_lock lock(m_pdisplay);
+      display_lock lock(m_pdisplay->Display());
 
       auto cursor = XCreateFontCursor(m_pdisplay->Display(), iCursor);
 

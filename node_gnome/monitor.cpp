@@ -47,126 +47,126 @@ namespace node_gnome
    }
 
 
-   ::e_status monitor::_get_monitor_rectangle()
-   {
-
-      synchronous_lock sl(user_mutex());
-
-      GdkDisplay * pdisplay = gdk_display_get_default();
-
-      if (pdisplay == nullptr)
-      {
-
-         return ::error_failed;
-
-      }
-
-      GdkMonitor * pmonitor = gdk_display_get_monitor(pdisplay, m_iIndex);
-
-      if (pmonitor == nullptr)
-      {
-
-         return error_failed;
-
-      }
-
-      GdkRectangle  rect;
-
-      gdk_monitor_get_geometry(pmonitor, &rect);
-
-      ::rectangle_i32 rectangle;
-
-      __copy(m_rectangle, rect);
-
-      return ::success;
-
-   }
-
-
-   ::e_status monitor::_get_workspace_rectangle()
-   {
-
-      synchronous_lock sl(user_mutex());
-
-      GdkDisplay * pdisplay = gdk_display_get_default();
-
-      if (pdisplay == nullptr)
-      {
-
-         return error_failed;
-
-      }
-
-      GdkMonitor * pmonitor = gdk_display_get_monitor(pdisplay, m_iIndex);
-
-      if (pmonitor == nullptr)
-      {
-
-         return error_failed;
-
-      }
-
-      GdkRectangle rect;
-
-      gdk_monitor_get_workarea(pmonitor, &rect);
-
-      __copy(m_rectangleWorkspace, rect);
-
-      return ::success;
-
-   }
-
-
-   ::e_status monitor::get_monitor_rectangle(::RECTANGLE_I32 *prectangle)
-   {
-
-      auto estatus = x11_windowing()->windowing_sync(5_s, __routine([this]() { _get_monitor_rectangle(); }));
-
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      estatus = ::windowing::monitor::get_monitor_rectangle(prectangle);
-
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
-
-   }
-
-
-   ::e_status monitor::get_workspace_rectangle(::RECTANGLE_I32 *prectangle)
-   {
-
-      auto estatus = x11_windowing()->windowing_sync(5_s, __routine([this]() { _get_workspace_rectangle(); }));
-
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      estatus = ::windowing::monitor::get_workspace_rectangle(prectangle);
-
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
-
-   }
+//   ::e_status monitor::_get_monitor_rectangle()
+//   {
+//
+//      synchronous_lock sl(user_mutex());
+//
+//      GdkDisplay * pdisplay = gdk_display_get_default();
+//
+//      if (pdisplay == nullptr)
+//      {
+//
+//         return ::error_failed;
+//
+//      }
+//
+//      GdkMonitor * pmonitor = gdk_display_get_monitor(pdisplay, m_iIndex);
+//
+//      if (pmonitor == nullptr)
+//      {
+//
+//         return error_failed;
+//
+//      }
+//
+//      GdkRectangle  rect;
+//
+//      gdk_monitor_get_geometry(pmonitor, &rect);
+//
+//      ::rectangle_i32 rectangle;
+//
+//      __copy(m_rectangle, rect);
+//
+//      return ::success;
+//
+//   }
+//
+//
+//   ::e_status monitor::_get_workspace_rectangle()
+//   {
+//
+//      synchronous_lock sl(user_mutex());
+//
+//      GdkDisplay * pdisplay = gdk_display_get_default();
+//
+//      if (pdisplay == nullptr)
+//      {
+//
+//         return error_failed;
+//
+//      }
+//
+//      GdkMonitor * pmonitor = gdk_display_get_monitor(pdisplay, m_iIndex);
+//
+//      if (pmonitor == nullptr)
+//      {
+//
+//         return error_failed;
+//
+//      }
+//
+//      GdkRectangle rect;
+//
+//      gdk_monitor_get_workarea(pmonitor, &rect);
+//
+//      __copy(m_rectangleWorkspace, rect);
+//
+//      return ::success;
+//
+//   }
+//
+//
+//   ::e_status monitor::get_monitor_rectangle(::RECTANGLE_I32 *prectangle)
+//   {
+//
+//      auto estatus = x11_windowing()->windowing_sync(5_s, __routine([this]() { _get_monitor_rectangle(); }));
+//
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      estatus = ::windowing::monitor::get_monitor_rectangle(prectangle);
+//
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
+//
+//   }
+//
+//
+//   ::e_status monitor::get_workspace_rectangle(::RECTANGLE_I32 *prectangle)
+//   {
+//
+//      auto estatus = x11_windowing()->windowing_sync(5_s, __routine([this]() { _get_workspace_rectangle(); }));
+//
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      estatus = ::windowing::monitor::get_workspace_rectangle(prectangle);
+//
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
+//
+//   }
 
 
    //      node_fork(__routine([psession]

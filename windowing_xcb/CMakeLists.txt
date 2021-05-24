@@ -62,7 +62,7 @@ list(APPEND library_references
    )
 
 
-add_library(windowing_xcb SHARED ${windowing_xcb_source} _windowing_xcb.h)
+add_library(windowing_xcb SHARED ${windowing_xcb_source})
 
 target_precompile_headers(windowing_xcb PRIVATE framework.h)
 
@@ -80,7 +80,7 @@ elseif (LINUX)
    target_compile_options(windowing_xcb PRIVATE -fpermissive)
    target_compile_options(windowing_xcb PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(windowing_xcb PRIVATE -Wl,-rpath=\$ORIGIN)
-   target_link_libraries(windowing_xcb PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
+   target_link_libraries(windowing_xcb PRIVATE ${PKGCONFIG_LIBRARIES} ${library_references})
    target_link_options(windowing_xcb PRIVATE -Wl,-z,defs)
 endif ()
 

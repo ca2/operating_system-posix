@@ -1130,6 +1130,50 @@ namespace windowing_xcb
    }
 
 
+   ::rectangle_i32 display::_window_get_frame_extents(xcb_window_t window)
+   {
+
+      synchronous_lock synchronouslock(user_mutex());
+
+      ::rectangle_i32 r;
+
+      auto property = intern_atom("_NET_FRAME_EXTENTS"); // l, r, t, b CARDINAL[4]/32bit
+
+      auto cookie = xcb_get_property(
+         m_pconnection,
+         0,
+         window,
+         property,
+         XCB_ATOM_CARDINAL,
+         0,
+         4);
+
+      auto preply = __malloc(xcb_get_property_reply(
+         m_pconnection,
+         cookie,
+         nullptr
+      ));
+
+      if(!preply)
+      {
+
+         return r;
+
+      }
+
+      auto size = xcb_get_property_value_length(preply);
+
+      auto pi = (::i32 *) xcb_get_property_value(preply);
+
+      r.left = pi[0];
+      r.right = pi[1];
+      r.top = pi[2];
+      r.bottom = pi[3];
+
+      return r;
+
+   }
+
 
    ::e_status display::_window_get_window_rectangle(xcb_window_t window, RECTANGLE_I32 * prectangle)
    {

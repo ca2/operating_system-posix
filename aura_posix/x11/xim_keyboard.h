@@ -4,6 +4,7 @@
 #pragma once
 
 
+// apt install libx11-dev
 #include <X11/XKBlib.h>
 
 

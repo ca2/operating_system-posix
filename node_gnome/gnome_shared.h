@@ -1,8 +1,9 @@
 #pragma once
 
 
-namespace user
+namespace node_gnome
 {
+
 
 //   // wall-changer sourceforge.net contribution
 //   enum e_desktop
@@ -19,6 +20,7 @@ namespace user
 //   };
 //
 
+
    bool gsettings_set(const char * pszSchema, const char * pszKey, const char * pszValue);
 
    bool gsettings_sync();
@@ -32,4 +34,7 @@ namespace user
    void g_defer_term();
 
 
-} // namespace user
+} // namespace node_gnome
+
+
+

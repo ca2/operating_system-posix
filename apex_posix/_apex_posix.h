@@ -11,7 +11,14 @@
 #include "file_context.h"
 
 
-#include "file_os_watcher.h"
+#ifdef FILE_SYSTEM_INOTIFY
+#include "inotify/file_os_watcher.h"
+#endif
+
+
+#ifdef POSIX_SPAWN
+#include "posix_spawn/process.h"
+#endif
 
 
 #include "node.h"

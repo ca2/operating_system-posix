@@ -32,7 +32,7 @@ void sn_start_context();
 //void apex_application_application_menu_activate_callback(GSimpleAction *action, GVariant      *parameter, gpointer       user_data)
 //{
 //
-//   ::apex::application * papp = (::apex::application *) user_data;
+//   ::application * papp = (::application *) user_data;
 //
 //   const gchar * name = g_action_get_name (G_ACTION(action));
 //
@@ -49,7 +49,7 @@ void sn_start_context();
 //
 //
 //
-//void apex_application_set_application_menu(::apex::application_menu * papplicationmenu, ::apex::application * papp)
+//void apex_application_set_application_menu(::application_menu * papplicationmenu, ::application * papp)
 //{
 //
 //   GApplication * papplication = G_APPLICATION(g_papexapplication);

@@ -803,8 +803,13 @@ namespace windowing_xcb
 
          }
 
-         if (msg.oswindow->has_mouse_capture()
-         || msg.oswindow->screen_pixel(pmotion->root_x, pmotion->root_y).alpha != 0)
+         bool bHasMouseCapture = msg.oswindow->has_mouse_capture();
+
+         auto screen_pixel = msg.oswindow->screen_pixel(pmotion->root_x, pmotion->root_y);
+
+         auto alpha = screen_pixel.alpha;
+
+         if (bHasMouseCapture || alpha != 0)
          {
 
             //msg.oswindow = m_pdisplay->_window(pmotion->event);
@@ -825,7 +830,13 @@ namespace windowing_xcb
 
             xcb_window_t wFound = 0;
 
-            for (int i = list.get_upper_bound(); i >= 0; i--)
+            status < xcb_get_window_attributes_reply_t > attributesFound;
+
+            status < xcb_get_geometry_reply_t > geometryFound;
+
+            ::rectangle_i32 rectangleFoundFrameExtents;
+
+            for (int i = list.get_upper_bound(); i >= 0;i--)
             {
 
                auto w = list[i];
@@ -839,22 +850,35 @@ namespace windowing_xcb
                else if (i < iFind)
                {
 
-                  auto g = m_pdisplay->_window_get_geometry(w);
+                  geometryFound = m_pdisplay->_window_get_geometry(w);
 
-                  if (pmotion->root_x >= g.x && pmotion->root_x < g.x + g.width
-                      && pmotion->root_y >= g.y && pmotion->root_y < g.y + g.height)
+                  if (pmotion->root_x >= geometryFound.x
+                  && pmotion->root_x < geometryFound.x + geometryFound.width
+                      && pmotion->root_y >= geometryFound.y
+                      && pmotion->root_y < geometryFound.y + geometryFound.height)
                   {
 
-                     auto a = m_pdisplay->_window_get_window_attributes(w);
+                     attributesFound = m_pdisplay->_window_get_window_attributes(w);
 
-                     if(a.map_state == XCB_MAP_STATE_VIEWABLE)
+                     if(!(attributesFound.all_event_masks & XCB_EVENT_MASK_POINTER_MOTION))
                      {
 
-                        wFound = w;
-
-                        break;
+                        continue;
 
                      }
+
+                     if(attributesFound.map_state != XCB_MAP_STATE_VIEWABLE)
+                     {
+
+                        continue;
+
+                     }
+
+                     rectangleFoundFrameExtents = m_pdisplay->_window_get_frame_extents(w);
+
+                     wFound = w;
+
+                     break;
 
                   }
 
@@ -874,36 +898,50 @@ namespace windowing_xcb
             if (motion.same_screen)
             {
 
-               auto trans = xcb_translate_coordinates_reply(
+               //motion.event_x = motion.root_x - (geometryFound.x - rectangleFoundFrameExtents.left);
+
+               //motion.event_y = motion.root_y - (geometryFound.y - rectangleFoundFrameExtents.top);
+
+               auto cookie = xcb_translate_coordinates(
                   m_pdisplay->m_pconnection,
-                  xcb_translate_coordinates(
-                     m_pdisplay->m_pconnection,
-                     motion.event,
-                     wFound,
-                     motion.event_x, motion.event_y),
+                  pmotion->event,
+                  wFound,
+                  pmotion->event_x, pmotion->event_y);
+
+               auto ptranslate = xcb_translate_coordinates_reply(
+                  m_pdisplay->m_pconnection,
+                  cookie,
                   NULL);
 
-               if (trans)
+               if (ptranslate)
                {
-                  motion.event_x = trans->dst_x;
-                  motion.event_y = trans->dst_y;
-                  free(trans);
+
+                  motion.event_x = ptranslate->dst_x;
+
+                  motion.event_y = ptranslate->dst_y;
+
+                  free(ptranslate);
+
                }
 
             }
 
             motion.event = wFound;
 
+            //motion.event_x = 0;
+
+            //motion.event_y = 0;
+
             auto cookie = xcb_send_event(m_pdisplay->m_pconnection,
-                                         1,
-                                         wFound,
-                                         XCB_EVENT_MASK_POINTER_MOTION,
-                                         (char *) &motion);
+                 0,
+                 wFound,
+                 XCB_EVENT_MASK_POINTER_MOTION,
+                 (char *) &motion);
 
             auto estatus = m_pdisplay->_request_check(cookie);
 
-
             output_debug_string("");
+
          }
 
       }
@@ -1089,6 +1127,8 @@ namespace windowing_xcb
 
             auto pmap = (xcb_map_notify_event_t *) pgenericevent;
 
+            __defer_post_move_and_or_size(pmap->window);
+
             msg.oswindow = m_pdisplay->_window(pmap->window);
             msg.m_id = e_message_show_window;
             msg.wParam = pmap->response_type == XCB_MAP_NOTIFY;
@@ -1109,24 +1149,24 @@ namespace windowing_xcb
 
             msg.oswindow = m_pdisplay->_window(pconfigure->window);
 
-            auto trans = xcb_translate_coordinates_reply (m_pdisplay->m_pconnection,
-                                                     xcb_translate_coordinates (m_pdisplay->m_pconnection,
-                                                                                pconfigure->window,
-                                                                                m_pdisplay->m_windowRoot,
-                                                                                0, 0),
-                                                     NULL);
-            if (trans)
-            {
+//            auto trans = xcb_translate_coordinates_reply (m_pdisplay->m_pconnection,
+//                                                     xcb_translate_coordinates (m_pdisplay->m_pconnection,
+//                                                                                pconfigure->window,
+//                                                                                m_pdisplay->m_windowRoot,
+//                                                                                0, 0),
+//                                                     NULL);
+//            if (trans)
+//            {
+//
+//               point.x = trans->dst_x;
+//               point.y = trans->dst_y;
+//
+//               free(trans);
+//
+//            }
 
-               point.x = trans->dst_x;
-               point.y = trans->dst_y;
 
-               free(trans);
-
-            }
-
-
-            ::user::primitive_impl *pimpl = msg.oswindow->m_pimpl;
+            ::user::primitive_impl *pimpl = msg.oswindow ? msg.oswindow->m_pimpl : nullptr;
 
             if (pimpl != nullptr)
             {
@@ -1178,9 +1218,9 @@ namespace windowing_xcb
                      //_xcb_defer_check_configuration(msg.oswindow);
 
 
-                     auto pointWindow = msg.oswindow->m_point;
+                     //auto pointWindow = msg.oswindow->m_point;
 
-                     auto sizeWindow = msg.oswindow->m_size;
+                     //auto sizeWindow = msg.oswindow->m_size;
 
                      // Robbers -> Smart -> Tough Law
                      // Kids -> Soft Law
@@ -1211,69 +1251,7 @@ namespace windowing_xcb
                      // This means setting same size_i32 and position to all three sketch and window states.
                      // The buffer may need to be resized so don't mess with current design state.
 
-                     bool bPositionFix = pinteraction->layout().sketch().origin() != point;
-
-#ifdef Xcb_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE
-
-                     if(bPositionFix)
-                     {
-
-                        pinteraction->layout().sketch().origin() = point;
-
-                        pinteraction->layout().window().origin() = point;
-
-                        pinteraction->layout().sketch().screen_origin() = point;
-
-                        pinteraction->layout().window().screen_origin() = point;
-
-                        pinteraction->set_reposition(true);
-
-                     }
-
-#endif
-
-                     bool bSizeFix = pinteraction->layout().sketch().size() != size;
-
-#ifdef Xcb_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE_FOR_AWESOME_FILE
-
-                     if(bSizeFix)
-                     {
-
-                        pinteraction->layout().sketch().size() = size;
-
-                        pinteraction->layout().window().size() = size;
-
-                        pinteraction->set_need_layout();
-
-                     }
-
-#endif
-
-                     if (bPositionFix)
-                     {
-
-                        msg.m_id = e_message_move;
-                        msg.wParam = 0;
-                        msg.lParam = point.lparam();
-
-                        post_ui_message(msg);
-
-                        msg.oswindow->m_point = point;
-
-                     }
-
-                     if (bSizeFix)
-                     {
-
-                        msg.m_id = e_message_size;
-                        msg.wParam = 0;
-                        msg.lParam = size.lparam();
-
-                        post_ui_message(msg);
-
-                        msg.oswindow->m_size = size;
-
-                     }
+                     __defer_post_move_and_or_size(pconfigure->window);
 
                   }
 
@@ -1334,7 +1312,7 @@ namespace windowing_xcb
             }
 
          }
-            break;
+         break;
          case XCB_BUTTON_PRESS:
          case XCB_BUTTON_RELEASE:
          {
@@ -1435,57 +1413,58 @@ namespace windowing_xcb
 //      int w1 = r.width();
 //      int h1 = r.height();
 
+         bool bMouseCapture = msg.oswindow->has_mouse_capture();
 
-            if (bRet &&
-               (
-                  msg.oswindow->has_mouse_capture()
-                  || msg.oswindow->screen_pixel(pbutton->root_x, pbutton->root_y).alpha != 0
-               ))
+         auto screen_pixel = msg.oswindow->screen_pixel(pbutton->root_x, pbutton->root_y);
+
+         auto alpha = screen_pixel.alpha;
+
+         bool bTransparentMouseEvents = msg.oswindow->m_pimpl->m_bTransparentMouseEvents;
+
+         if (bRet && (bMouseCapture || alpha != 0 || bTransparentMouseEvents))
+         {
+
+            msg.wParam = 0;
+
+            msg.lParam = MAKELONG(pbutton->root_x, pbutton->root_y);
+
+            post_ui_message(msg);
+
+         }
+         else
+         {
+
+            auto list = m_pdisplay->_window_enumerate();
+
+            int iFind = -1;
+
+            xcb_window_t wFound = 0;
+
+            for(int i = list.get_upper_bound(); i>= 0; i--)
             {
+               auto w = list[i];
 
-               msg.wParam = 0;
-
-               msg.lParam = MAKELONG(pbutton->root_x, pbutton->root_y);
-
-               post_ui_message(msg);
-
-            }
-            else
-            {
-
-               auto list = m_pdisplay->_window_enumerate();
-
-               int iFind = -1;
-
-               xcb_window_t wFound = 0;
-
-               for(int i = list.get_upper_bound(); i>= 0; i--)
+               if (w == pbutton->event)
                {
-                  auto w = list[i];
+                  iFind = i;
 
-                  if (w == pbutton->event)
+               } else if (i < iFind)
+               {
+
+                  auto g = m_pdisplay->_window_get_geometry(w);
+
+                  if (pbutton->root_x >= g.x && pbutton->root_x < g.x + g.width
+                      && pbutton->root_y >= g.y && pbutton->root_y < g.y + g.height)
                   {
-                     iFind = i;
 
-                  } else if (i < iFind)
-                  {
+                     auto a = m_pdisplay->_window_get_window_attributes(w);
 
-                     auto g = m_pdisplay->_window_get_geometry(w);
-
-                     if (pbutton->root_x >= g.x && pbutton->root_x < g.x + g.width
-                         && pbutton->root_y >= g.y && pbutton->root_y < g.y + g.height)
+                     if(a.map_state == XCB_MAP_STATE_VIEWABLE)
                      {
 
-                        auto a = m_pdisplay->_window_get_window_attributes(w);
+                        wFound = w;
 
-                        if(a.map_state == XCB_MAP_STATE_VIEWABLE)
-                        {
-
-                           wFound = w;
-
-                           break;
-
-                        }
+                        break;
 
                      }
 
@@ -1493,50 +1472,52 @@ namespace windowing_xcb
 
                }
 
-               if(!wFound)
-               {
+            }
 
-                  wFound = m_pdisplay->m_windowRoot;
+            if(!wFound)
+            {
 
-               }
-
-               xcb_button_press_event_t button(*pbutton);
-               if(button.same_screen)
-               {
-
-                  auto trans = xcb_translate_coordinates_reply (
-                     m_pdisplay->m_pconnection,
-                     xcb_translate_coordinates (
-                        m_pdisplay->m_pconnection,
-                        button.event,
-                        wFound,
-                        button.event_x, button.event_y),
-                     NULL);
-
-                  if(trans)
-                  {
-                     button.event_x =trans->dst_x;
-                     button.event_y = trans->dst_y;
-                     free(trans);
-                  }
-
-               }
-               button.event = wFound;
-               auto cookie = xcb_send_event(m_pdisplay->m_pconnection,
-                                               1,
-                                               wFound,
-                                            button.response_type == XCB_BUTTON_PRESS ?
-                                               XCB_EVENT_MASK_BUTTON_PRESS :
-               XCB_EVENT_MASK_BUTTON_RELEASE,
-                                               (char *) &button);
-
-               auto estatus = m_pdisplay->_request_check(cookie);
-
-               break;
-
-
+               wFound = m_pdisplay->m_windowRoot;
 
             }
+
+            xcb_button_press_event_t button(*pbutton);
+            if(button.same_screen)
+            {
+
+               auto trans = xcb_translate_coordinates_reply (
+                  m_pdisplay->m_pconnection,
+                  xcb_translate_coordinates (
+                     m_pdisplay->m_pconnection,
+                     button.event,
+                     wFound,
+                     button.event_x, button.event_y),
+                  NULL);
+
+               if(trans)
+               {
+                  button.event_x =trans->dst_x;
+                  button.event_y = trans->dst_y;
+                  free(trans);
+               }
+
+            }
+            button.event = wFound;
+            auto cookie = xcb_send_event(m_pdisplay->m_pconnection,
+                                            1,
+                                            wFound,
+                                         button.response_type == XCB_BUTTON_PRESS ?
+                                            XCB_EVENT_MASK_BUTTON_PRESS :
+            XCB_EVENT_MASK_BUTTON_RELEASE,
+                                            (char *) &button);
+
+            auto estatus = m_pdisplay->_request_check(cookie);
+
+            break;
+
+
+
+         }
 
          }
          break;
@@ -2056,6 +2037,111 @@ namespace windowing_xcb
       // processed
 
       return true;
+
+   }
+
+
+   void windowing::__defer_post_move_and_or_size(xcb_window_t window)
+   {
+
+      auto geometry = m_pdisplay->_window_get_geometry(window);
+
+      auto pointWindow = ::point_i32(geometry.x, geometry.y);
+
+      auto sizeWindow = ::size_i32(geometry.width, geometry.height);
+
+      oswindow oswindow = m_pdisplay->_window(window);
+
+      if(oswindow)
+      {
+
+         return;
+
+      }
+
+      auto pimpl = oswindow->m_pimpl;
+
+      auto puserinteraction = pimpl->m_puserinteraction;
+
+      if(::is_null(puserinteraction))
+      {
+
+         return;
+
+      }
+
+      bool bPositionFix = puserinteraction->layout().sketch().origin() != pointWindow;
+
+//#ifdef Xcb_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE
+//
+//   if(bPositionFix)
+//                     {
+//
+//                        pinteraction->layout().sketch().origin() = point;
+//
+//                        pinteraction->layout().window().origin() = point;
+//
+//                        pinteraction->layout().sketch().screen_origin() = point;
+//
+//                        pinteraction->layout().window().screen_origin() = point;
+//
+//                        pinteraction->set_reposition(true);
+//
+//                     }
+//
+//#endif
+
+      bool bSizeFix = puserinteraction->layout().sketch().size() != sizeWindow;
+
+//#ifdef Xcb_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE_FOR_AWESOME_FILE
+//
+//   if(bSizeFix)
+//                     {
+//
+//                        pinteraction->layout().sketch().size() = size;
+//
+//                        pinteraction->layout().window().size() = size;
+//
+//                        pinteraction->set_need_layout();
+//
+//                     }
+//
+//#endif
+
+      if (bPositionFix || bSizeFix)
+      {
+
+         MESSAGE msg;
+
+         msg.oswindow = oswindow;
+
+         if (bPositionFix)
+         {
+
+            msg.oswindow->m_point = pointWindow;
+
+            msg.m_id = e_message_move;
+            msg.wParam = 0;
+            msg.lParam = pointWindow.lparam();
+
+            post_ui_message(msg);
+
+         }
+
+         if (bSizeFix)
+         {
+
+            msg.oswindow->m_size = sizeWindow;
+
+            msg.m_id = e_message_size;
+            msg.wParam = 0;
+            msg.lParam = sizeWindow.lparam();
+
+            post_ui_message(msg);
+
+         }
+
+      }
 
    }
 

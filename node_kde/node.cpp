@@ -874,7 +874,7 @@ namespace node_kde
    }
 
 
-   int node::os_launch_uri(const char * pszUri, char * pszError = NULL, int iBufferSize = 0)
+   int node::os_launch_uri(const char * pszUri, char * pszError, int iBufferSize)
    {
 
       QDesktopServices::openUrl(QUrl(pszUri));

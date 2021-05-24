@@ -1,5 +1,5 @@
 #include "framework.h"
-#include "acme/node/posix/pipe.h"
+#include "acme/process/pipe.h"
 #include "apex/platform/static_start.h"
 #include "process.h"
 
@@ -15,8 +15,18 @@
 #endif
 
 
+struct chldstatus
+{
+
+   bool m_bRet;
+   int  m_iExitCode;
+
+};
 
 
+critical_section * get_pid_cs();
+chldstatus get_chldstatus(int iPid);
+void init_chldstatus(int iPid);
 
 
 CLASS_DECL_APEX void process_get_os_priority(i32 * piOsPolicy, sched_param * pparam, ::e_priority epriority);

@@ -18,13 +18,13 @@
 #include "clipboard_data.h"
 
 
-#include "x_window_system.h"
+#ifdef WITH_X11
 
 
-#include "xim_keyboard.h"
+#include "x11/_x11.h"
 
 
-#include "x_window.h"
+#endif
 
 
 #include "node.h"

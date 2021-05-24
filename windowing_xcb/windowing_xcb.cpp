@@ -886,7 +886,12 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       oswindow oswindow = message.oswindow;
 
-      ASSERT(oswindow != nullptr);
+      if(::is_null(oswindow))
+      {
+
+         return false;
+
+      }
 
       auto pimpl = oswindow->m_pimpl;
 

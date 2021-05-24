@@ -7,7 +7,7 @@ namespace node_gnome
 
 
    class CLASS_DECL_AURA monitor :
-         virtual public ::windowing::monitor
+         virtual public ::node_gtk::monitor
    {
    public:
 
@@ -33,12 +33,12 @@ namespace node_gnome
       virtual bool adjust_monitor( ::u32 dwTemperature, double dBrightness, double dwGamma) override;
 
 
-      virtual ::e_status get_monitor_rectangle(::RECTANGLE_I32 * prectangle) override;
-      virtual ::e_status get_workspace_rectangle(::RECTANGLE_I32 * prectangle) override;
-
-
-      virtual ::e_status _get_monitor_rectangle();
-      virtual ::e_status _get_workspace_rectangle();
+//      virtual ::e_status get_monitor_rectangle(::RECTANGLE_I32 * prectangle) override;
+//      virtual ::e_status get_workspace_rectangle(::RECTANGLE_I32 * prectangle) override;
+//
+//
+//      virtual ::e_status _get_monitor_rectangle();
+//      virtual ::e_status _get_workspace_rectangle();
 
 
    };

@@ -22,10 +22,10 @@ namespace aura
       {
       public:
 
-
+#ifdef WITH_X11
          void *                                 m_pX11Display;
          void *                                 m_pxcbconnection;
-
+#endif
 
          node();
          virtual ~node();
@@ -33,6 +33,7 @@ namespace aura
 
          virtual ::e_status initialize(::object * pobject) override;
 
+#ifdef WITH_X11
 
          virtual ::e_status _allocate_Display_and_connection();
 
@@ -40,8 +41,12 @@ namespace aura
          void * _get_Display();
          void * _get_connection();
 
+#endif // WITH_X11
 
-         virtual ::file::path get_desktop_file_path(::apex::application * papp) const override;
+         virtual ::file::path get_desktop_file_path(::application * papp) const override;
+
+
+         ::e_status main() override;
 
 
       };
@@ -50,7 +55,7 @@ namespace aura
    } // namespace posix
 
 
-} // namespace node_linux
+} // namespace aura
 
 
 

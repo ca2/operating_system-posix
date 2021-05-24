@@ -514,7 +514,7 @@ namespace windowing_x11
 
             windowing_output_debug_string("\n::GetFocus 1.2");
 
-            return nullptr;
+            return;
 
          }
 
@@ -523,7 +523,7 @@ namespace windowing_x11
 
             windowing_output_debug_string("\n::GetFocus 1.3");
 
-            return nullptr;
+            return;
 
          }
 

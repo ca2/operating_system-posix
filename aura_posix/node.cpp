@@ -4,7 +4,9 @@
 #include "framework.h"
 #include "node.h"
 #include "acme/filesystem/filesystem/acme_dir.h"
-#include <X11/Xlib-xcb.h>
+//#ifdef WITH_X11
+//#include <X11/Xlib-xcb.h>
+//#endif
 
 
 namespace aura
@@ -20,9 +22,16 @@ namespace aura
 
          //m_pGtkSettingsDefault = nullptr;
 
+#ifdef WITH_X11
+         
+         
          m_pX11Display = nullptr;
 
          m_pxcbconnection = nullptr;
+         
+         
+#endif // WITH_X11
+         
 
          m_pAuraPosix = this;
 
@@ -180,6 +189,8 @@ namespace aura
             return estatus;
 
          }
+         
+#ifdef WITH_X11
 
          estatus = _allocate_Display_and_connection();
 
@@ -189,11 +200,16 @@ namespace aura
             return estatus;
 
          }
+         
+#endif // WITH_X11
 
          return estatus;
 
       }
 
+   
+#ifdef WITH_X11
+   
 
       ::e_status node::_allocate_Display_and_connection()
       {
@@ -207,6 +223,8 @@ namespace aura
 
          }
 
+#ifdef WITH_XCB
+
          m_pxcbconnection = XGetXCBConnection((Display *) m_pX11Display);
 
          if(!m_pxcbconnection)
@@ -216,11 +234,13 @@ namespace aura
 
          }
 
+#endif
+
          return ::success;
 
       }
 
-
+   
       void * node::_get_Display()
       {
 
@@ -236,8 +256,11 @@ namespace aura
 
       }
 
+   
+#endif
+   
 
-      ::file::path node::get_desktop_file_path(::apex::application * papplication) const
+      ::file::path node::get_desktop_file_path(::application * papplication) const
       {
 
          ::file::path path;
@@ -259,6 +282,25 @@ namespace aura
          path /= (strApplicationServerName + ".desktop");
 
          return path;
+
+      }
+
+
+      ::e_status node::main()
+      {
+
+         auto psystem = m_psystem;
+
+         auto estatus = psystem->system_main();
+
+         if(!estatus)
+         {
+
+            return estatus;
+
+         }
+
+         return estatus;
 
       }
 

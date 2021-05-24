@@ -52,6 +52,9 @@ namespace windowing_xcb
       virtual ::e_status windowing_branch(const ::routine & routine) override;
 
 
+      virtual void __defer_post_move_and_or_size(xcb_window_t window);
+
+
       virtual void _libsn_start_context()  override;
       virtual ::windowing::display * display() override;
 

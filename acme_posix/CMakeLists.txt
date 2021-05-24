@@ -18,8 +18,21 @@ list(APPEND acme_posix_source
    pipe.h
    )
 
+if(POSIX_LIST_SERIAL_PORTS)
 
-add_library(acme_posix SHARED ${acme_posix_source} _acme_posix.h)
+list(APPEND acme_posix_source
+   posix/list_serial_ports.cpp
+   )
+endif()
+
+add_library(acme_posix SHARED ${acme_posix_source} _acme_posix.h process.cpp)
+
+if(POSIX_LIST_SERIAL_PORTS)
+
+target_compile_definitions(acme_posix PRIVATE POSIX_LIST_SERIAL_PORTS)
+
+endif()
+
 
 list(APPEND library_references acme)
 

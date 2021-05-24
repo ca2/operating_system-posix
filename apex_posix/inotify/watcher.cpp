@@ -1,5 +1,5 @@
 #include "framework.h"
-#include "file_os_watcher.h"
+#include "watcher.h"
 
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -9,48 +9,48 @@
 
 #define BUFF_SIZE ((sizeof(struct inotify_event)+FILENAME_MAX)*1024)
 
-namespace file
+namespace inotify
 {
 
 
-   os_watch::os_watch()
+   watch::watch()
    {
 
    }
 
 
-   os_watch::~os_watch()
+   watch::~watch()
    {
 
-      os_watcher * pwatcher  =dynamic_cast < os_watcher * >(m_pwatcher);
+      watcher * pwatcher = dynamic_cast < watcher * >(m_pwatcher);
 
-      inotify_rm_watch(pwatcher->mFD, m_id);
+      inotify_rm_watch(pwatcher->m_iFd, m_id);
 
    }
 
 
-   os_watcher::os_watcher()
+   watcher::watcher()
    {
 
-      mFD = inotify_init();
+      m_iFd = inotify_init();
 
-      if (mFD < 0)
+      if (m_iFd < 0)
       {
 
          fprintf (stderr, "Error: %s\n", strerror(errno));
 
       }
 
-      mTimeOut.tv_sec = 1;
+      m_timevalTimeOut.tv_sec = 1;
 
-      mTimeOut.tv_usec = 0;
+      m_timevalTimeOut.tv_usec = 0;
 
-      FD_ZERO(&mDescriptorSet);
+      FD_ZERO(&m_fdset);
 
    }
 
    //--------
-   os_watcher::~os_watcher()
+   watcher::~watcher()
    {
 
       //::parallelization::post_quit_and_wait(m_pthread, seconds(15));
@@ -60,7 +60,7 @@ namespace file
    }
 
 
-   watch_id os_watcher::add_watch(const ::file::path & pathFolder, listener * plistenerParam, bool bRecursive)
+   ::file::watch_id watcher::add_watch(const ::file::path & pathFolder, ::file::listener * plistenerParam, bool bRecursive)
    {
 
       if (pathFolder.is_empty())
@@ -70,11 +70,11 @@ namespace file
 
       }
 
-      __pointer(listener) plistener(plistenerParam);
+      __pointer(::file::listener) plistener(plistenerParam);
 
       synchronous_lock synchronouslock(mutex());
 
-      i32 wd = inotify_add_watch (mFD, pathFolder, IN_MODIFY | IN_CLOSE_WRITE | IN_MOVED_TO | IN_CREATE | IN_MOVED_FROM | IN_DELETE);
+      i32 wd = inotify_add_watch (m_iFd, pathFolder, IN_MODIFY | IN_CLOSE_WRITE | IN_MOVED_TO | IN_CREATE | IN_MOVED_FROM | IN_DELETE);
 
       if (wd < 0)
       {
@@ -85,7 +85,7 @@ namespace file
 
       }
 
-      auto pwatch = __create_new < os_watch >();
+      auto pwatch = __create_new < watch >();
 
       pwatch->add_listener(plistener);
 
@@ -109,7 +109,7 @@ namespace file
 
             string strDirPath = stra[index];
 
-            i32 inaw = inotify_add_watch (mFD, strDirPath, IN_MODIFY | IN_CLOSE_WRITE | IN_MOVED_TO | IN_CREATE | IN_MODIFY | IN_MOVED_FROM | IN_DELETE);
+            i32 inaw = inotify_add_watch (m_iFd, strDirPath, IN_MODIFY | IN_CLOSE_WRITE | IN_MOVED_TO | IN_CREATE | IN_MODIFY | IN_MOVED_FROM | IN_DELETE);
 
             if(inaw < 0)
             {
@@ -131,7 +131,7 @@ namespace file
             else
             {
 
-               auto pwatch  = __create_new < os_watch > ();
+               auto pwatch  = __create_new < watch > ();
 
                pwatch->add_listener(plistener);
 
@@ -162,16 +162,16 @@ namespace file
    }
 
 
-   ::e_status os_watcher::step()
+   ::e_status watcher::step()
    {
 
-      FD_ZERO(&mDescriptorSet);
+      FD_ZERO(&m_fdset);
 
-      FD_SET(mFD, &mDescriptorSet);
+      FD_SET(m_iFd, &m_fdset);
 
-      timeval timeOut = mTimeOut;
+      auto timeOut = m_timevalTimeOut;
 
-      i32 ret = select(mFD + 1, &mDescriptorSet, nullptr, nullptr, &timeOut);
+      i32 ret = select(m_iFd + 1, &m_fdset, nullptr, nullptr, &timeOut);
 
       if(ret < 0)
       {
@@ -190,14 +190,14 @@ namespace file
          }
 
       }
-      else if(FD_ISSET(mFD, &mDescriptorSet))
+      else if(FD_ISSET(m_iFd, &m_fdset))
       {
 
          ssize_t len, i = 0;
          char action[81+FILENAME_MAX] = {0};
          char buff[BUFF_SIZE] = {0};
 
-         len = ::read (mFD, buff, BUFF_SIZE);
+         len = ::read (m_iFd, buff, BUFF_SIZE);
 
 
          while (i < len)
@@ -212,33 +212,33 @@ namespace file
             a.m_id = pwatch->m_id;
             a.m_pathFolder = pwatch->m_pathFolder;
             a.m_pathFile = pevent->name;
-            a.m_eaction = action_none;
+            a.m_eaction = ::file::e_action_none;
 
             if((IN_CLOSE_WRITE & pevent->mask) || (IN_MODIFY & pevent->mask))
             {
 
-               a.m_eaction |= action_modify;
+               a.m_eaction |= ::file::e_action_modify;
 
             }
 
             if(IN_MOVED_TO & pevent->mask || IN_CREATE & pevent->mask)
             {
 
-               a.m_eaction |= action_add;
+               a.m_eaction |= ::file::e_action_add;
 
             }
 
             if(IN_MOVED_FROM & pevent->mask || IN_DELETE & pevent->mask)
             {
 
-               a.m_eaction |= action_delete;
+               a.m_eaction |= ::file::e_action_delete;
 
             }
 
             if((IN_CLOSE_WRITE | IN_MODIFY)& pevent->mask  || IN_MODIFY & pevent->mask )
             {
 
-               a.m_eaction |= action_modify;
+               a.m_eaction |= ::file::e_action_modify;
 
             }
 
@@ -256,7 +256,7 @@ namespace file
    }
 
 
-
 } // namespace file_watcher
+
 
 

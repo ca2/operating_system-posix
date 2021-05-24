@@ -1,0 +1,5 @@
+#include "framework.h"
+#include "acme/id.h"
+#include "_.h"
+#include "gtk_direct.h"
+#include "acme/user/os_theme_colors.h"

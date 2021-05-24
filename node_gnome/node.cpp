@@ -298,7 +298,6 @@ namespace node_gnome
 
             psystem->post_initial_request();
 
-
          });
 
 

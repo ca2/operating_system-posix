@@ -30,6 +30,12 @@ namespace acme
          virtual ~node();
 
 
+         ::e_status call_async(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid = nullptr) override;
+         ::e_status call_sync(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, const ::duration & durationTimeout, ::property_set & set) override;
+
+
+         ::e_status shell_execute_sync(const char * pszFile, const char * pszParams, ::duration durationTimeout );
+
          //virtual ::color::color get_system_color(enum_system_color esystemcolor) override;
 
          virtual int node_init_check(int * pi, char *** ppz) override;
@@ -87,6 +93,40 @@ namespace acme
 
          virtual ::e_status install_sigchld_handler() override;
 
+         bool is_process_running(::u32 pid) override;
+
+         bool process_modules(string_array& stra, u32 processID) override;
+
+         bool load_modules_diff(string_array& straOld, string_array& straNew, const char* pszExceptDir) override;
+
+         id_array get_pids() override;
+
+         id_array module_path_get_pid(const char* pszModulePath, bool bModuleNameIsPropertyFormatted) override;
+
+         string module_path_from_pid(u32 pid) override;
+
+         string command_line_from_pid(u32 pid) override;
+
+         bool is_shared_library_busy(u32 processid, const string_array& stra) override;
+
+         bool is_shared_library_busy(const string_array& stra) override;
+
+         bool process_contains_module(string& strImage, ::u32 processID, const char* pszLibrary) override;
+
+         void shared_library_process(dword_array& dwa, string_array& straProcesses, const char* pszLibrary) override;
+
+         string get_environment_variable(const char* pszEnvironmentVariable) override;
+
+         string expand_env(string str) override;
+
+
+#ifdef POSIX_LIST_SERIAL_PORTS
+
+
+         virtual array <::serial::port_info> list_serial_ports();
+
+
+#endif
 
 
       };

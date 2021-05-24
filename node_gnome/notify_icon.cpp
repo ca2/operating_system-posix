@@ -176,10 +176,9 @@ namespace node_gnome
          pnode->node_sync(5_s, __routine([this, pnode, strNotifyIcon, pathFolder]()
                                          {
 
-
                                             auto estatus = __construct(m_pindicator);
 
-                                            m_pindicator->create(m_strId, strNotifyIcon + "_128", pathFolder, this);
+                                            m_pindicator->create(m_strId, strNotifyIcon + "_128", pathFolder, m_pbridge);
 
                                          }));
 

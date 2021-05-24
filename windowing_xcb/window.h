@@ -186,6 +186,9 @@ namespace windowing_xcb
       virtual ::e_status _lower_window();
 
 
+      virtual ::e_status set_tool_window(bool bSet) override;
+
+
       virtual ::e_status xcb_post_message(MESSAGE & msg);
       virtual ::e_status post_ui_message(const MESSAGE & message);
       //virtual ::e_status get_window_rect(RECTANGLE_I32 * prectangle);

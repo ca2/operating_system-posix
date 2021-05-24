@@ -9,7 +9,8 @@
 ////#include "third/sn/sn.h"
 #include <fcntl.h> // library for fcntl function
 #include <sys/stat.h>
-#include <X11/extensions/xf86vmode.h> // libxxf86vm-dev
+// apt install libxxf86vm-dev
+#include <X11/extensions/xf86vmode.h>
 #include <X11/Xatom.h>
 //!!!#define pointer x11_pointer
 //!!!#include <X11/extensions/Xrender.h>
@@ -935,7 +936,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //   }
 //
-//   ::set_thread_name("x11_thread");
+//   ::task_set_name("x11_thread");
 //
 ////   g_pdisplayX11 = pdisplay;
 //
@@ -1089,13 +1090,12 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       }
 
-
       try
       {
 
          synchronous_lock synchronouslock(user_mutex());
 
-         display_lock displaylock(m_pdisplay);
+         display_lock displaylock(m_pdisplay->Display());
 
          try
          {
@@ -1235,7 +1235,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
          synchronous_lock synchronouslock(user_mutex());
 
-         display_lock displayLock(m_pdisplay);
+         display_lock displayLock(m_pdisplay->Display());
 
          Display *pdisplay = m_pdisplay->Display();
 
@@ -1982,7 +1982,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                      // This means setting same size_i32 and position to all three sketch and window states.
                      // The buffer may need to be resized so don't mess with current design state.
 
-                     bool bPositionFix = pinteraction->layout().sketch().origin() != point;
+                     bool bPositionFix = pointWindow != point;
 
 #ifdef X11_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE
 
@@ -2003,7 +2003,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 #endif
 
-                     bool bSizeFix = pinteraction->layout().sketch().size() != size;
+                     bool bSizeFix = sizeWindow != size;
 
 #ifdef X11_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE_FOR_AWESOME_FILE
 
@@ -2023,26 +2023,26 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                      if (bPositionFix)
                      {
 
+                        msg.oswindow->m_point = point;
+
                         msg.m_id = e_message_move;
                         msg.wParam = 0;
                         msg.lParam = point.lparam();
 
                         post_ui_message(msg);
 
-                        msg.oswindow->m_point = point;
-
                      }
 
                      if (bSizeFix)
                      {
+
+                        msg.oswindow->m_point = size;
 
                         msg.m_id = e_message_size;
                         msg.wParam = 0;
                         msg.lParam = size.lparam();
 
                         post_ui_message(msg);
-
-                        msg.oswindow->m_point = size;
 
                      }
 

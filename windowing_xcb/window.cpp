@@ -7,6 +7,7 @@
 #include "aura/user/interaction_prodevian.h"
 #include "aura/platform/message_queue.h"
 #include <X11/Xatom.h>
+// dnf install xcb-util-devel
 #include <xcb/xcb_util.h>
 
 
@@ -2446,6 +2447,23 @@ namespace windowing_xcb
       auto cookie = xcb_circulate_window(xcb_connection(), XCB_CIRCULATE_LOWER_HIGHEST, xcb_window());
 
       estatus = _request_check(cookie);
+
+      if(!estatus)
+      {
+
+         return estatus;
+
+      }
+
+      return estatus;
+
+   }
+
+
+   ::e_status window::set_tool_window(bool bSet)
+   {
+
+      auto estatus = _set_tool_window(bSet);
 
       if(!estatus)
       {
