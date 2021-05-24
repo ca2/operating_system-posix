@@ -48,7 +48,7 @@ namespace node_gnome
 {
 
 
-   ::logic::bit g_bitLastDarkMode;
+   //::logic::bit g_bitLastDarkMode;
 
    char *gsettings_get_malloc(const char *pszSchema, const char *pszKey);
 
@@ -604,11 +604,8 @@ namespace node_gnome
 
          ::user::os_set_theme_colors(pthemecolors);
 
-//         auto psubject = System.subject(id_os_user_theme);
-//
-//         psubject->m_esubject = e_subject_deliver;
-//
-//         System.process(psubject);
+         _os_calc_system_dark_mode();
+
 
       }
       else
@@ -644,27 +641,6 @@ namespace node_gnome
    }
 
 
-//   void os_calc_dark_mode()
-//   {
-//
-//      bool bDarkMode = _os_calc_dark_mode();
-//
-//      if(g_bitLastDarkMode != bDarkMode)
-//      {
-//
-//         ::user::set_app_dark_mode(bDarkMode);
-//
-//         ::user::set_system_dark_mode(bDarkMode);
-//
-//         g_bitLastDarkMode = bDarkMode;
-//
-//         System.deliver(id_os_dark_mode);
-//
-//         x11_kick_idle();
-//
-//      }
-//
-//   }
 
 } // namespace user
 

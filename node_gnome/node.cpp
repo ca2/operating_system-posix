@@ -278,6 +278,12 @@ namespace node_gnome
                    NULL,
                    G_CONNECT_AFTER);
 
+                auto psystem = m_psystem->m_papexsystem;
+
+                auto psubject = psystem->subject(id_os_user_theme);
+
+                psubject->add(this);
+
                 //g_object_ref(preturn);
 
                 //printf("return %" PRIiPTR, preturn);
@@ -652,6 +658,13 @@ namespace node_gnome
 //
 //
 //   }
+
+
+   void node::on_subject(::subject::subject * psubject, ::subject::context * pcontext)
+   {
+
+
+   }
 
 
 //   ::nlinux::appindicator * node::appindicator_allocate()

@@ -87,6 +87,7 @@ namespace node_gnome
 
       virtual int os_launch_uri(const char * pszUri, char * pszError = NULL, int iBufferSize = 0) override;
 
+      void on_subject(::subject::subject * psubject, ::subject::context * pcontext) override;
 
    };
 
