@@ -68,7 +68,7 @@ namespace node_gnome
    appindicator::~appindicator()
    {
 
-      close();
+      //close();
 
    }
 

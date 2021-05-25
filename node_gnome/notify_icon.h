@@ -38,7 +38,7 @@ namespace node_gnome
 //#elif defined(LINUX)
       __pointer(::aura::posix::appindicator)        m_pindicator;
 //#endif
-      __pointer(::user::notify_icon_listener)      m_plistener;
+      //__pointer(::user::notify_icon_listener)      m_plistener;
       __pointer_array(::user::interaction)         m_wndptraHidden;
       __pointer(::windowing::icon)                 m_picon;
 
@@ -69,6 +69,8 @@ namespace node_gnome
       bool modify_icon(::windowing::icon * picon);
 
       virtual bool create_notify_icon(::u32 id, ::user::notify_icon_listener * plistener, ::windowing::icon * picon) override;
+
+      ::e_status destroy_notify_icon() override;
 
       //DECL_GEN_SIGNAL(_001OnNotifyIconMessage);
       //DECL_GEN_SIGNAL(_001OnDestroy);

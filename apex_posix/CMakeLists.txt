@@ -44,6 +44,13 @@ list(APPEND library_references acme acme_posix apex)
 
 add_library(apex_posix SHARED ${apex_posix_source})
 
+
+if(FILE_SYSTEM_INOTIFY)
+
+   target_compile_definitions(apex_posix PRIVATE FILE_SYSTEM_INOTIFY)
+
+endif()
+
 target_precompile_headers(apex_posix PRIVATE framework.h)
 
 set_target_properties(apex_posix PROPERTIES LINKER_LANGUAGE CXX)

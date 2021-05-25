@@ -35,11 +35,15 @@ void init_pid_cs()
 
    g_pcsPid2 = new critical_section;
 
+   g_ppid = new iptr_map < chldstatus >;
+
 }
 
 
 void term_pid_cs()
 {
+
+   ::acme::del(g_ppid);
 
    ::acme::del(g_pcsPid2);
 

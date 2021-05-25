@@ -231,21 +231,21 @@ namespace windowing_x11
                                       CWColormap | CWEventMask | CWBackPixmap | CWBorderPixel
                                       | CWOverrideRedirect, &attr);
 
-      auto & windowstate3 = pimpl->m_puserinteraction->m_layout.window();
+      //auto & windowstate3 = pimpl->m_puserinteraction->m_layout.window();
 
-      windowstate3.origin() = {INT_MIN, INT_MIN};
+      //windowstate3.origin() = {INT_MIN, INT_MIN};
 
-      windowstate3.size() = {INT_MIN, INT_MIN};
+      //windowstate3.size() = {INT_MIN, INT_MIN};
 
-      windowstate3.screen_origin() = {INT_MIN, INT_MIN};
+      //windowstate3.screen_origin() = {INT_MIN, INT_MIN};
 
-      auto & state = pimpl->m_puserinteraction->m_layout.design();
+      //auto & state = pimpl->m_puserinteraction->m_layout.design();
 
-      state.origin() = {x, y};
+      //state.origin() = {x, y};
 
-      state.size() = {cx, cy};
+      //state.size() = {cx, cy};
 
-      state.screen_origin() = state.origin();
+      //state.screen_origin() = state.origin();
 
       if (window == 0)
       {

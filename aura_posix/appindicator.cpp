@@ -26,6 +26,13 @@ namespace aura
       }
 
 
+      void appindicator::close()
+      {
+
+
+      }
+
+
    } // namespace posix
 
 

@@ -178,7 +178,7 @@ namespace node_gnome
 
                                             auto estatus = __construct(m_pindicator);
 
-                                            m_pindicator->create(m_strId, strNotifyIcon + "_128", pathFolder, m_pbridge);
+                                            m_pindicator->create(m_strId, strNotifyIcon + "_128", pathFolder, m_plistener);
 
                                          }));
 
@@ -357,118 +357,15 @@ namespace node_gnome
 
 #endif // defined(WINDOWS_DESKTOP)
 
-//
-//   bool notify_icon::DestroyWindow()
-//   {
-//
-//      if(!m_bCreated)
-//      {
-//
-//         return false;
-//
-//      }
-//
-//      m_bCreated = false;
-//
-//#ifdef WINDOWS_DESKTOP
-//
-//      ::user::interaction::DestroyWindow();
-//
-//      return true;
-//
-//
-//#elif defined(LINUX) && !defined(RASPBIAN)
-//
-//      if(m_pindicator)
-//      {
-//
-//         auto pnode = Node;
-//
-//         pnode->appindicator_destroy(m_pindicator);
-//
-//         m_pindicator = nullptr;
-//
-//      }
-//
-//      return true;
-//
-//#elif defined(MACOS)
-//
-//      notify_icon_destroy();
-//
-//      return true;
-//
-//#else
-//
-//
-//      __throw(todo());
-//
-//      return true;
-//
-//#endif
-//
-//   }
-//
-//
-//   void notify_icon::_001OnDestroy(::message::message* pmessage)
-//   {
-//
-//      output_debug_string("notify_icon::_001OnDestroy");
-//
-//   }
 
+   ::e_status notify_icon::destroy_notify_icon()
+   {
 
-   //void notify_icon::_001OnNotifyIconMessage(::message::message * pmessage)
-   //{
+      m_pindicator->close();
 
-   //   __pointer(::user::message) pusermessage(pmessage);
+      return ::success;
 
-   //   if (pusermessage->m_lparam == e_message_left_button_down)
-   //   {
-
-   //      while (m_wndptraHidden.get_size() > 0)
-   //      {
-
-   //         try
-   //         {
-
-   //            __pointer(::user::interaction) pframe = (m_wndptraHidden.element_at(0));
-
-   //            if (pframe != nullptr)
-   //            {
-
-   //               pframe->display(e_display_normal);
-
-   //            }
-   //            else
-   //            {
-
-   //               m_wndptraHidden.element_at(0)->display(e_display_normal);
-
-   //            }
-
-   //         }
-   //         catch (...)
-   //         {
-
-   //         }
-
-   //         m_wndptraHidden.remove_at(0);
-
-   //      }
-
-   //   }
-
-   //   m_plistener->OnNotifyIconMessage(m_uiId, (::u32) pusermessage->m_lparam);
-
-   //}
-
-
-   //void notify_icon::notify_icon_play(const char * action)
-   //{
-
-
-   //}
+   }
 
 
    ::e_status notify_icon::step()
