@@ -76,7 +76,7 @@ namespace node_gtk
 
       ::rectangle_i32 rectangle;
 
-      sleep(3_min);
+      //sleep(15_s);
 
       __copy(m_rectangle, rect);
 
