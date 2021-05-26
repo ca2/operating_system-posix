@@ -30,194 +30,196 @@ CLASS_DECL_ACME void dll_processes(u32_array & dwa, string_array & straProcesses
 namespace acme
 {
 
-namespace posix
-{
 
-::e_status node::create_process(const char * pszCommandLine, i32 * pprocessId, int * piErrorCode)
-{
-
-   string_array stra;
-
-   stra = get_c_args_for_c(pszCommandLine);
-
-   address_array < char * > argv;
-
-   for(auto & str : stra)
+   namespace posix
    {
 
-      argv.add((char *) str.c_str());
 
-   }
-
-   argv.add(nullptr);
-
-   pid_t pid = 0;
-
-   string strExe = argv[0];
-
-   int status = posix_spawn(&pid, argv[0], nullptr, nullptr, argv.get_data(), environ);
-
-   if (status == 0)
-   {
-
-      if(strExe.ends_ci("_app_core_clockverse"))
+      ::e_status node::create_process(const char * pszCommandLine, u32 * pprocessId)
       {
 
-         ::output_debug_string("app-core/clockverse");
+         string_array stra;
+
+         stra = get_c_args_for_c(pszCommandLine);
+
+         address_array < char * > argv;
+
+         for(auto & str : stra)
+         {
+
+            argv.add((char *) str.c_str());
+
+         }
+
+         argv.add(nullptr);
+
+         pid_t pid = 0;
+
+         string strExe = argv[0];
+
+         int status = posix_spawn(&pid, argv[0], nullptr, nullptr, argv.get_data(), environ);
+
+         if (status == 0)
+         {
+
+            if(strExe.ends_ci("_app_core_clockverse"))
+            {
+
+               ::output_debug_string("app-core/clockverse");
+
+            }
+
+            if(pprocessId != nullptr)
+            {
+
+               *pprocessId = pid;
+
+            }
+
+            return 1;
+
+         }
+         else
+         {
+
+            if(strExe.ends_ci("_app_core_clockverse"))
+            {
+
+               ::output_debug_string("app-core/clockverse");
+
+            }
+
+            return 0;
+
+         }
 
       }
 
-      if(pprocessId != nullptr)
+
+      ::e_status node::run_silent(const char* strFunct, const char* strstrParams)
       {
 
-         *pprocessId = pid;
+      #if defined(_UWP)
+
+         throw interface_only_exception();
+
+      #elif defined(WINDOWS_DESKTOP)
+
+         STARTUPINFO StartupInfo;
+
+         PROCESS_INFORMATION ProcessInfo;
+
+         char Args[4096];
+
+         char *pEnvCMD = nullptr;
+
+         const char *pDefaultCMD = "CMD.EXE";
+
+         ULONG rc;
+
+         __memset(&StartupInfo, 0, sizeof(StartupInfo));
+
+         StartupInfo.cb = sizeof(STARTUPINFO);
+
+         StartupInfo.dwFlags = STARTF_USESHOWWINDOW;
+
+         StartupInfo.wShowWindow = SW_HIDE;
+
+         Args[0] = 0;
+
+         pEnvCMD = getenv("COMSPEC");
+
+         if (pEnvCMD)
+         {
+
+            strcpy(Args, pEnvCMD);
+
+         }
+         else
+         {
+
+            strcpy(Args, pDefaultCMD);
+
+         }
+
+         // "/c" option - Do the command then terminate the command window
+         ansi_concatenate(Args, " /c ");
+         //the application you would like to run from the command window
+         ansi_concatenate(Args, strFunct);
+         ansi_concatenate(Args, " ");
+         //the parameters passed to the application being run from the command window.
+         ansi_concatenate(Args, strstrParams);
+
+         if (!CreateProcessW(nullptr, wstring(Args), nullptr, nullptr, false,
+                            CREATE_NEW_CONSOLE,
+                            nullptr,
+                            nullptr,
+                            &StartupInfo,
+                            &ProcessInfo))
+         {
+
+            return ::GetLastError();
+
+         }
+
+         WaitForSingleObject(ProcessInfo.hProcess, U32_INFINITE_TIMEOUT);
+
+         if (!GetExitCodeProcess(ProcessInfo.hProcess, &rc))
+         {
+
+            rc = 0;
+
+         }
+
+         CloseHandle(ProcessInfo.hThread);
+
+         CloseHandle(ProcessInfo.hProcess);
+
+         return rc;
+
+      #else
+
+         string strCmdLine;
+
+         strCmdLine = strFunct;
+
+         if (ansi_length(strstrParams) > 0)
+         {
+
+            strCmdLine += " ";
+
+            strCmdLine += strstrParams;
+
+         }
+
+         u32 processId;
+
+         if (!create_process(strCmdLine, &processId))
+         {
+
+            return -1;
+
+         }
+
+         while (true)
+         {
+
+            if (kill(processId, 0) == -1 && errno == ESRCH) // No process can be found corresponding to processId
+            {
+
+               break;
+
+            }
+
+            sleep(millis(23));
+
+         }
+
+         return 0;
+
+      #endif
 
       }
-
-      return 1;
-
-   }
-   else
-   {
-
-      if(strExe.ends_ci("_app_core_clockverse"))
-      {
-
-         ::output_debug_string("app-core/clockverse");
-
-      }
-
-      return 0;
-
-   }
-
-}
-
-
-::e_status node::run_silent(const char* strFunct, const char* strstrParams)
-{
-
-#if defined(_UWP)
-
-   throw interface_only_exception();
-
-#elif defined(WINDOWS_DESKTOP)
-
-   STARTUPINFO StartupInfo;
-
-   PROCESS_INFORMATION ProcessInfo;
-
-   char Args[4096];
-
-   char *pEnvCMD = nullptr;
-
-   const char *pDefaultCMD = "CMD.EXE";
-
-   ULONG rc;
-
-   __memset(&StartupInfo, 0, sizeof(StartupInfo));
-
-   StartupInfo.cb = sizeof(STARTUPINFO);
-
-   StartupInfo.dwFlags = STARTF_USESHOWWINDOW;
-
-   StartupInfo.wShowWindow = SW_HIDE;
-
-   Args[0] = 0;
-
-   pEnvCMD = getenv("COMSPEC");
-
-   if (pEnvCMD)
-   {
-
-      strcpy(Args, pEnvCMD);
-
-   }
-   else
-   {
-
-      strcpy(Args, pDefaultCMD);
-
-   }
-
-   // "/c" option - Do the command then terminate the command window
-   ansi_concatenate(Args, " /c ");
-   //the application you would like to run from the command window
-   ansi_concatenate(Args, strFunct);
-   ansi_concatenate(Args, " ");
-   //the parameters passed to the application being run from the command window.
-   ansi_concatenate(Args, strstrParams);
-
-   if (!CreateProcessW(nullptr, wstring(Args), nullptr, nullptr, false,
-                      CREATE_NEW_CONSOLE,
-                      nullptr,
-                      nullptr,
-                      &StartupInfo,
-                      &ProcessInfo))
-   {
-
-      return ::GetLastError();
-
-   }
-
-   WaitForSingleObject(ProcessInfo.hProcess, U32_INFINITE_TIMEOUT);
-
-   if (!GetExitCodeProcess(ProcessInfo.hProcess, &rc))
-   {
-
-      rc = 0;
-
-   }
-
-   CloseHandle(ProcessInfo.hThread);
-
-   CloseHandle(ProcessInfo.hProcess);
-
-   return rc;
-
-#else
-
-   string strCmdLine;
-
-   strCmdLine = strFunct;
-
-   if (ansi_length(strstrParams) > 0)
-   {
-
-      strCmdLine += " ";
-
-      strCmdLine += strstrParams;
-
-   }
-
-   i32 processId;
-
-   if (!create_process(strCmdLine, &processId))
-   {
-
-      return -1;
-
-   }
-
-   while (true)
-   {
-
-      if (kill(processId, 0) == -1 && errno == ESRCH) // No process can be found corresponding to processId
-      {
-
-         break;
-
-      }
-
-      sleep(millis(23));
-
-   }
-
-   return 0;
-
-#endif
-
-}
 
 
 
@@ -481,7 +483,7 @@ namespace acme
 
          }
 
-         i32 processId;
+         u32 processId;
 
          if (!create_process(strCmdLine, &processId))
          {
@@ -526,7 +528,7 @@ namespace acme
 
          }
 
-         i32 processId;
+         u32 processId;
 
          if (!create_process(strCmdLine, &processId))
          {
