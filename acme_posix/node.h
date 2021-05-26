@@ -95,6 +95,10 @@ namespace acme
 
          bool is_process_running(::u32 pid) override;
 
+         ::e_status create_process(const char * pszCommandLine, u32 * pprocessID) override;
+
+         ::e_status run_silent(const char* strFunct, const char* strstrParams) override;
+
          bool process_modules(string_array& stra, u32 processID) override;
 
          bool load_modules_diff(string_array& straOld, string_array& straNew, const char* pszExceptDir) override;
