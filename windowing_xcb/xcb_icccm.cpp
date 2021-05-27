@@ -18,7 +18,7 @@ namespace windowing_xcb
 
       auto cookie = xcb_icccm_get_wm_hints(xcb_connection(), xcb_window());
 
-      auto preply = __malloc(xcb_get_property_reply(xcb_connection(), cookie, nullptr));
+      ::acme::malloc preply(xcb_get_property_reply(xcb_connection(), cookie, nullptr));
 
       if (!preply)
       {

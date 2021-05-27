@@ -10,6 +10,7 @@
 #include <QApplication>
 #include <QPalette>
 #include <QAbstractNativeEventFilter>
+// apt install qtbase5-dev qttools5-dev libqt5x11extras5-dev
 #include <QX11Info>
 #include <KStatusNotifierItem>
 #include <QAction>

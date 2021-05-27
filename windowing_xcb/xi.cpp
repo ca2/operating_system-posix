@@ -4,7 +4,7 @@
 #include "framework.h"
 #ifdef WITH_XI
 #include <xcb/xinput.h>
-#include "aura_posix/display_lock.h"
+#include "aura_posix/x11/display_lock.h"
 
 
 namespace windowing_xcb

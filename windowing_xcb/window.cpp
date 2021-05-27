@@ -325,7 +325,7 @@ namespace windowing_xcb
 
          auto cookie = xcb_get_selection_owner(xcb_connection(), atomNetWmCmS0);
 
-         auto preply = __malloc(xcb_get_selection_owner_reply(xcb_connection(), cookie, nullptr));
+         ::acme::malloc preply(xcb_get_selection_owner_reply(xcb_connection(), cookie, nullptr));
 
          if (preply)
          {
@@ -1293,7 +1293,7 @@ namespace windowing_xcb
 
       auto cookie = xcb_get_property(xcb_connection(), 0, xcb_window(), atomWmState, WM_STATE_ELEMENTS, 0, 1);
 
-      auto preply = __malloc(xcb_get_property_reply(xcb_connection(), cookie, nullptr));
+      ::acme::malloc preply(xcb_get_property_reply(xcb_connection(), cookie, nullptr));
 
       if (!preply)
       {
@@ -2679,7 +2679,7 @@ namespace windowing_xcb
          cursor,
          XCB_CURRENT_TIME);
 
-      auto preply = __malloc(xcb_grab_pointer_reply(xcb_connection(), cookie, nullptr));
+      ::acme::malloc preply(xcb_grab_pointer_reply(xcb_connection(), cookie, nullptr));
 
       if (!preply)
       {
@@ -2780,7 +2780,7 @@ namespace windowing_xcb
 
       auto cookie = xcb_get_window_attributes(xcb_connection(), m_window);
 
-      auto preply = __malloc(xcb_get_window_attributes_reply(xcb_connection(), cookie, nullptr));
+      ::acme::malloc preply(xcb_get_window_attributes_reply(xcb_connection(), cookie, nullptr));
 
       if(!preply)
       {
@@ -2803,7 +2803,7 @@ namespace windowing_xcb
 
       auto cookie = xcb_get_geometry(xcb_connection(), m_window);
 
-      auto preply = __malloc(xcb_get_geometry_reply(xcb_connection(), cookie, nullptr));
+      ::acme::malloc preply(xcb_get_geometry_reply(xcb_connection(), cookie, nullptr));
 
       if(!preply)
       {

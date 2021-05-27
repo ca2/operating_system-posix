@@ -4,9 +4,9 @@
 #include "framework.h"
 #include "node.h"
 #include "acme/filesystem/filesystem/acme_dir.h"
-//#ifdef WITH_X11
-//#include <X11/Xlib-xcb.h>
-//#endif
+#ifdef WITH_XCB
+#include <X11/Xlib-xcb.h>
+#endif
 
 
 namespace aura

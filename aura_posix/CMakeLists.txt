@@ -29,7 +29,7 @@ list(APPEND library_references
    )
 
 
-if(WITH_X11)
+if(WITH_X11 OR WITH_XCB)
 
 
    list(APPEND aura_posix_source
@@ -70,12 +70,16 @@ if (MSVC)
 elseif (LINUX)
 
 
-   #pkg_check_modules(PKGCONFIG x11 x11-xcb)
+if(WITH_XCB)
+   pkg_check_modules(PKGCONFIG x11 x11-xcb)
+else()
    pkg_check_modules(PKGCONFIG x11)
+endif()
+
    target_compile_options(aura_posix PRIVATE -fpermissive)
    target_compile_options(aura_posix PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(aura_posix PRIVATE -Wl,-rpath=\$ORIGIN)
-   target_link_libraries(aura_posix PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
+   target_link_libraries(aura_posix PRIVATE ${PKGCONFIG_LIBRARIES} ${library_references})
    target_link_options(aura_posix PRIVATE -Wl,-z,defs)
 
 

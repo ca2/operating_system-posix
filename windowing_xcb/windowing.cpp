@@ -1947,7 +1947,7 @@ namespace windowing_xcb
 
                      auto cookie = xcb_get_input_focus(m_pdisplay->xcb_connection());
 
-                     auto preply = __malloc(xcb_get_input_focus_reply(m_pdisplay->xcb_connection(), cookie, nullptr));
+                     ::acme::malloc preply(xcb_get_input_focus_reply(m_pdisplay->xcb_connection(), cookie, nullptr));
 
                      if(preply)
                      {

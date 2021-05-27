@@ -75,7 +75,10 @@ if (MSVC)
    target_link_options(windowing_xcb PRIVATE "/SUBSYSTEM:WINDOWS")
    target_link_libraries(windowing_xcb PRIVATE ${library_references})
 elseif (LINUX)
-   #pkg_check_modules(PKGCONFIG xcb xrender xi)
+   #pkg_check_modules
+
+   # apt install libxcb-xinput-dev libxcb-image0-dev libxkbcommon-x11-dev
+
    pkg_check_modules(PKGCONFIG Qt5Core x11 xcb xcb-xkb xcb-icccm xcb-xinput xcb-aux x11-xcb xcb-render xcb-image xkbcommon-x11 xcb-xfixes)
    target_compile_options(windowing_xcb PRIVATE -fpermissive)
    target_compile_options(windowing_xcb PRIVATE ${PKGCONFIG_CFLAGS})
