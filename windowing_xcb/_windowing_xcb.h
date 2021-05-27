@@ -5,12 +5,13 @@
 
 
 #include "aura_posix/_aura_posix.h"
-#include "aura_posix/xim_keyboard.h"
+#include "aura_posix/x11/xim_keyboard.h"
 
 #include <xcb/xcb.h>
 // dnf install xcb-util-image-devel
 #include <xcb/xcb_image.h>
 #include <xcb/render.h>
+// apt install libx11-xcb-dev
 #include <X11/Xlib-xcb.h>
 
 
