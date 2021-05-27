@@ -54,24 +54,24 @@ namespace acme
       }
 
 
-//      ::e_status node::call_async(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid)
-//      {
-//
-//         __throw(error_interface_only);
-//
-//         return error_interface_only;
-//
-//      }
-//
-//
-//      ::e_status node::call_sync(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, const ::duration & durationTimeout, ::property_set & set)
-//      {
-//
-//         __throw(error_interface_only);
-//
-//         return error_interface_only;
-//
-//      }
+      ::e_status node::call_async(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid)
+      {
+
+         __throw(error_interface_only);
+
+         return error_interface_only;
+
+      }
+
+
+      ::e_status node::call_sync(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, const ::duration & durationTimeout, ::property_set & set)
+      {
+
+         __throw(error_interface_only);
+
+         return error_interface_only;
+
+      }
 
 
       int node::node_init_check(int * pi, char *** ppz)
@@ -631,6 +631,29 @@ namespace acme
 
       }
 
+   
+      
+      ::e_status node::create_process(const char * pszCommandLine, u32 * pprocessID)
+      {
+
+         __throw(error_interface_only);
+
+         return false;
+
+      }
+
+      
+      ::e_status node::run_silent(const char* strFunct, const char* strstrParams)
+      {
+
+         __throw(error_interface_only);
+
+         return false;
+
+      }
+
+
+   
       bool node::process_modules(string_array& stra, u32 processID)
       {
 
@@ -661,81 +684,52 @@ namespace acme
       }
 
 
-//      id_array node::module_path_get_pid(const char* pszModulePath, bool bModuleNameIsPropertyFormatted)
-//      {
-//
-//         id_array iaPid;
-//
-//         id_array pids = get_pids();
-//
-//         string strPath;
-//
-//         for(auto & iCurrentPid : pids)
-//         {
-//
-//            strPath = module_path_from_pid(iCurrentPid.i32());
-//
-//            if(strPath.compare_ci(pszModulePath) == 0 )
-//            {
-//
-//               iaPid.add(iCurrentPid);
-//
-//            }
-//
-//         }
-//
-//         return iaPid;
-//
-//
-//      }
+      id_array node::module_path_get_pid(const char* pszModulePath, bool bModuleNameIsPropertyFormatted)
+      {
+
+         return ::acme::node::module_path_get_pid(pszModulePath, bModuleNameIsPropertyFormatted);
 
 
-//      string node::module_path_from_pid(u32 pid)
-//      {
-//
-//         __throw(error_interface_only);
-//
-//         return "";
-//
-//      }
+      }
 
 
-//      string node::command_line_from_pid(u32 pid)
-//      {
-//
-//         __throw(error_interface_only);
-//
-//         return "";
-//
-//      }
+      string node::module_path_from_pid(u32 pid)
+      {
+
+         return ::acme::node::module_path_from_pid(pid);
+
+      }
 
 
-//      bool node::is_shared_library_busy(u32 processid, const string_array& stra)
-//      {
-//
-//         __throw(error_interface_only);
-//
-//         return false;
-//
-//      }
+      string node::command_line_from_pid(u32 pid)
+      {
+
+         return ::acme::node::command_line_from_pid(pid);
+
+      }
 
 
-//      bool node::is_shared_library_busy(const string_array& stra)
-//      {
-//
-//         __throw(error_interface_only);
-//
-//         return false;
-//
-//      }
+      bool node::is_shared_library_busy(u32 processid, const string_array& stra)
+      {
+
+         return ::acme::node::is_shared_library_busy(processid, stra);
+
+      }
+
+   
+      bool node::is_shared_library_busy(const string_array& stra)
+      {
+
+         return ::acme::node::is_shared_library_busy(stra);
+
+      }
 
 
       bool node::process_contains_module(string& strImage, ::u32 processID, const char* pszLibrary)
       {
 
-         __throw(error_interface_only);
-
-         return false;
+         return ::acme::node::process_contains_module(strImage, processID
+                                                      , pszLibrary);
 
       }
 
@@ -751,9 +745,7 @@ namespace acme
       bool node::is_process_running(::u32 pid)
       {
 
-         __throw(error_interface_only);
-
-         return false;
+         return ::acme::node::is_process_running(pid);
 
       }
 
@@ -761,7 +753,8 @@ namespace acme
       string node::get_environment_variable(const char* pszEnvironmentVariable)
       {
 
-         return "";
+         return ::acme::node::get_environment_variable(                                                      pszEnvironmentVariable
+                                                       );
 
       }
 
@@ -769,7 +762,7 @@ namespace acme
       string node::expand_env(string str)
       {
 
-         return "";
+         return ::acme::node::expand_env(str);
 
       }
 
