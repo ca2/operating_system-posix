@@ -595,15 +595,15 @@ namespace aura
 
             ::file::path path = pcontext->m_papexcontext->dir().matter("cloud.ico");
 
-            for (auto iSize : m_iaSize)
-            {
-
-
-//               HICON hicon = (HICON)LoadImage(nullptr, path, IMAGE_ICON, iSize, iSize, LR_LOADFROMFILE);
-
-               //             iImage = add_icon(iSize, hicon, crBk);
-
-            }
+//            for (auto iSize : m_iaSize)
+//            {
+//
+//
+////               HICON hicon = (HICON)LoadImage(nullptr, path, IMAGE_ICON, iSize, iSize, LR_LOADFROMFILE);
+//
+//               //             iImage = add_icon(iSize, hicon, crBk);
+//
+//            }
 
             single_lock synchronouslock(mutex(), true);
 
@@ -619,15 +619,15 @@ namespace aura
 
             ::file::path path = pcontext->m_papexcontext->dir().matter("remote.ico");
 
-            for (auto iSize : m_iaSize)
-            {
-
-
-//               HICON hicon = (HICON)LoadImage(nullptr, path, IMAGE_ICON, iSize, iSize, LR_LOADFROMFILE);
-
-               //             iImage = add_icon(iSize, hicon, crBk);
-
-            }
+//            for (auto iSize : m_iaSize)
+//            {
+//
+//
+////               HICON hicon = (HICON)LoadImage(nullptr, path, IMAGE_ICON, iSize, iSize, LR_LOADFROMFILE);
+//
+//               //             iImage = add_icon(iSize, hicon, crBk);
+//
+//            }
 
             single_lock synchronouslock(mutex(), true);
 
@@ -643,15 +643,15 @@ namespace aura
 
             ::file::path path = pcontext->m_papexcontext->dir().matter("ftp.ico");
 
-            for (auto iSize : m_iaSize)
-            {
-
-
-               //HICON hicon = (HICON)LoadImage(nullptr, path, IMAGE_ICON, iSize, iSize, LR_LOADFROMFILE);
-
-               //iImage = add_icon(iSize, hicon, crBk);
-
-            }
+//            for (auto iSize : m_iaSize)
+//            {
+//
+//
+//               //HICON hicon = (HICON)LoadImage(nullptr, path, IMAGE_ICON, iSize, iSize, LR_LOADFROMFILE);
+//
+//               //iImage = add_icon(iSize, hicon, crBk);
+//
+//            }
 
             single_lock synchronouslock(mutex(), true);
 
