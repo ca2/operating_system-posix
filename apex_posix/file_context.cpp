@@ -71,6 +71,32 @@ namespace posix
    }
 
 
+   ::extended::status file_context::del(const ::file::path &psz)
+   {
+
+      if (unlink(psz) != 0)
+      {
+      
+         i32 err = errno;
+      
+         if (err != ENOENT) // already does not exist - consider removal successful - does not issue an exception
+         {
+         
+            string strError;
+         
+            strError.Format("Failed to delete file error=%d", err);
+         
+            __throw(error_failed, strError);
+      
+         }
+         
+      }
+
+      return ::success;
+
+   }
+
+
 } // namespace posix
 
 

@@ -14,7 +14,9 @@ namespace posix
    public:
 
 
-      virtual ::payload length(const ::file::path & path, ::payload * pvarQuery) override;
+      ::payload length(const ::file::path & path, ::payload * pvarQuery) override;
+
+      ::extended::status del(const ::file::path & path) override;
 
 
    };
