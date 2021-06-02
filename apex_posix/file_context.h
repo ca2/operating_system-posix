@@ -15,6 +15,8 @@ namespace posix
 
 
       ::payload length(const ::file::path & path, ::payload * pvarQuery) override;
+      
+      bool is_read_only(const ::file::path &psz) override;
 
       ::extended::status del(const ::file::path & path) override;
 

@@ -71,6 +71,21 @@ namespace posix
    }
 
 
+bool file_context::is_read_only(const ::file::path &psz)
+{
+
+
+   struct stat st;
+
+   if (stat(psz, &st) != 0)
+      return true;
+
+   return !(st.st_mode & S_IWUSR);
+
+
+}
+
+
    ::extended::status file_context::del(const ::file::path &psz)
    {
 
