@@ -1788,27 +1788,29 @@ namespace windowing_xcb
 
             }
 
-            char *buffer;
-            int size;
+            //char *buffer;
+            //int size;
 
 // First find the needed size; return value is the same as snprintf(3).
 
             if (strText.has_char() && !(pkey->state & XCB_MOD_MASK_CONTROL))
             {
 
-               MESSAGE msgText(msg);
+               //MESSAGE msgText(msg);
 
-               msgText.m_id = e_message_text_composition;
+               auto pkey = __create_new < ::message::key >();
 
-               msgText.wParam = 0;
+               pkey->set(pwindow, pwindow, e_message_text_composition, 0, 0, point_i32());
 
-               string *pstringText = new string(strText);
+               pkey->m_strText = strText;
 
-               msgText.lParam = (lparam) (iptr) (string *) (pstringText);
+               //string *pstringText = new string(strText);
+
+               //msgText.lParam = (lparam) (iptr) (string *) (pstringText);
 
                printf("xcb_process_message e_message_text_composition\n");
 
-               post_ui_message(msgText);
+               post_ui_message(pkey);
 
             }
 
@@ -2052,7 +2054,7 @@ namespace windowing_xcb
 
       oswindow oswindow = m_pdisplay->_window(window);
 
-      if(oswindow)
+      if(!oswindow)
       {
 
          return;

@@ -46,6 +46,8 @@ namespace windowing_xcb
 
       virtual bool post_ui_message(const MESSAGE & message);
 
+      virtual bool post_ui_message(::message::message * pmessage);
+
       virtual ::e_status start() override;
 
 

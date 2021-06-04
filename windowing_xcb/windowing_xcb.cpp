@@ -980,7 +980,45 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
    }
 
-//
+
+   bool windowing::post_ui_message(::message::message * pmessage)
+   {
+
+      oswindow oswindow = pmessage->m_oswindow;
+
+      if(::is_null(oswindow))
+      {
+
+         return false;
+
+      }
+
+      auto pimpl = oswindow->m_pimpl;
+
+      if(::is_null(pimpl))
+      {
+
+         return false;
+
+      }
+
+      auto puserinteraction = pimpl->m_puserinteraction;
+
+      if(::is_null(puserinteraction))
+      {
+
+         return false;
+
+      }
+
+      puserinteraction->post(pmessage);
+
+      return true;
+
+   }
+
+
+   //
 //int_bool set_foreground_window(oswindow oswindow)
 //{
 //
