@@ -54,24 +54,24 @@ namespace acme
       }
 
 
-      ::e_status node::call_async(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid)
-      {
+//      ::e_status node::call_async(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid)
+//      {
+//
+//         __throw(error_interface_only);
+//
+//         return error_interface_only;
+//
+//      }
 
-         __throw(error_interface_only);
 
-         return error_interface_only;
-
-      }
-
-
-      ::e_status node::call_sync(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, const ::duration & durationTimeout, ::property_set & set)
-      {
-
-         __throw(error_interface_only);
-
-         return error_interface_only;
-
-      }
+//      ::e_status node::call_sync(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, const ::duration & durationTimeout, ::property_set & set)
+//      {
+//
+//         __throw(error_interface_only);
+//
+//         return error_interface_only;
+//
+//      }
 
 
       int node::node_init_check(int * pi, char *** ppz)
@@ -633,24 +633,24 @@ namespace acme
 
    
       
-      ::e_status node::create_process(const char * pszCommandLine, u32 * pprocessID)
-      {
-
-         __throw(error_interface_only);
-
-         return false;
-
-      }
+//      ::e_status node::create_process(const char * pszCommandLine, u32 * pprocessID)
+//      {
+//
+//         __throw(error_interface_only);
+//
+//         return false;
+//
+//      }
 
       
-      ::e_status node::run_silent(const char* strFunct, const char* strstrParams)
-      {
-
-         __throw(error_interface_only);
-
-         return false;
-
-      }
+//      ::e_status node::run_silent(const char* strFunct, const char* strstrParams)
+//      {
+//
+//         __throw(error_interface_only);
+//
+//         return false;
+//
+//      }
 
 
    
@@ -684,52 +684,51 @@ namespace acme
       }
 
 
-      id_array node::module_path_get_pid(const char* pszModulePath, bool bModuleNameIsPropertyFormatted)
-      {
-
-         return ::acme::node::module_path_get_pid(pszModulePath, bModuleNameIsPropertyFormatted);
-
-
-      }
-
-
-      string node::module_path_from_pid(u32 pid)
-      {
-
-         return ::acme::node::module_path_from_pid(pid);
-
-      }
+//      id_array node::module_path_get_pid(const char* pszModulePath, bool bModuleNameIsPropertyFormatted)
+//      {
+//
+//         return ::acme::node::module_path_get_pid(pszModulePath, bModuleNameIsPropertyFormatted);
+//
+//
+//      }
 
 
-      string node::command_line_from_pid(u32 pid)
-      {
+//      string node::module_path_from_pid(u32 pid)
+//      {
+//
+//         return ::acme::node::module_path_from_pid(pid);
+//
+//      }
 
-         return ::acme::node::command_line_from_pid(pid);
 
-      }
+//      string node::command_line_from_pid(u32 pid)
+//      {
+//
+//         return ::acme::node::command_line_from_pid(pid);
+//
+//      }
 
 
-      bool node::is_shared_library_busy(u32 processid, const string_array& stra)
-      {
-
-         return ::acme::node::is_shared_library_busy(processid, stra);
-
-      }
+//      bool node::is_shared_library_busy(u32 processid, const string_array& stra)
+//      {
+//
+//         return ::acme::node::is_shared_library_busy(processid, stra);
+//
+//      }
 
    
-      bool node::is_shared_library_busy(const string_array& stra)
-      {
-
-         return ::acme::node::is_shared_library_busy(stra);
-
-      }
+//      bool node::is_shared_library_busy(const string_array& stra)
+//      {
+//
+//         return ::acme::node::is_shared_library_busy(stra);
+//
+//      }
 
 
       bool node::process_contains_module(string& strImage, ::u32 processID, const char* pszLibrary)
       {
 
-         return ::acme::node::process_contains_module(strImage, processID
-                                                      , pszLibrary);
+         return ::acme::node::process_contains_module(strImage, processID, pszLibrary);
 
       }
 
@@ -753,8 +752,7 @@ namespace acme
       string node::get_environment_variable(const char* pszEnvironmentVariable)
       {
 
-         return ::acme::node::get_environment_variable(                                                      pszEnvironmentVariable
-                                                       );
+         return ::getenv(pszEnvironmentVariable);
 
       }
 

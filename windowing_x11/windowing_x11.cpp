@@ -1462,6 +1462,19 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                e_id eid;
 
+               auto prawevent = (XIRawEvent*)cookie->data;
+
+               auto psystem = m_psystem->m_papexsystem;
+
+               // detail:
+               // 1 - left button
+               // 2 - middle button
+               // 3 - right button
+               // 4 - wheel down(orup)
+               // 5 - wheel up(ordown)
+
+               auto detail = prawevent->detail;
+
                switch (cookie->evtype)
                {
 
@@ -1472,21 +1485,21 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                      eid = id_raw_keyup;
                      break;
                   case XI_RawButtonPress:
-                     eid = id_raw_buttondown;
+                     eid = detail == 5 || detail == 4 ? id_none : id_raw_buttondown;
                      break;
                   case XI_RawButtonRelease:
-                     eid = id_raw_buttonup;
+                     eid = detail == 5 || detail == 4 ? id_none : id_raw_buttonup;
                      break;
 
                }
 
-               auto psystem = m_psystem->m_papexsystem;
+               output_debug_string("\ndetail:" + __str(prawevent->detail));
 
                auto psubject = psystem->subject(eid);
 
-               psubject->payload("return") = is_return_key((XIRawEvent*)cookie->data);
+               psubject->payload("return") = is_return_key(prawevent);
 
-               psubject->payload("space") = is_space_key((XIRawEvent*)cookie->data);
+               psubject->payload("space") = is_space_key(prawevent);
 
                ::subject::context context;
 
@@ -1518,14 +1531,16 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       msg.time = 0;
 
-      msg.oswindow = m_pdisplay->_window(e.xany.window);
+      auto oswindow = m_pdisplay->_window(e.xany.window);
 
-      if (msg.oswindow == nullptr)
+      if (oswindow == nullptr)
       {
 
          return false;
 
       }
+
+      msg.oswindow = oswindow;
 
       if (e.xany.type == ClientMessage && e.xany.window == g_windowX11Client
           && e.xclient.message_type == g_atomKickIdle)
@@ -2300,19 +2315,26 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
             if (strText.has_char() && !(e.xkey.state & ControlMask))
             {
 
-               MESSAGE msgText(msg);
+               auto pkey = __create_new < ::message::key >();
 
-               msgText.m_id = e_message_text_composition;
+               pkey->set(oswindow, oswindow, e_message_text_composition, 0, 0, ::point_i32());
 
-               msgText.wParam = 0;
+               pkey->m_strText = strText;
 
-               string *pstringText = new string(strText);
-
-               msgText.lParam = (lparam) (iptr) (string *) (pstringText);
+//               MESSAGE msgText(msg);
+//
+//               msgText.m_id = e_message_text_composition;
+//
+//               msgText.wParam = 0;
+//
+//               string *pstringText = new string(strText);
+//
+//               msgText.lParam = (lparam) (iptr) (string *) (pstringText);
 
                printf("x11_process_message e_message_text_composition\n");
 
-               post_ui_message(msgText);
+               //post_ui_message(msgText);
+               post_ui_message(pkey);
 
             }
 
@@ -2962,6 +2984,107 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       return true;
 
    }
+
+
+   bool windowing::post_ui_message(::message::message * pmessage)
+   {
+
+      oswindow oswindow = pmessage->m_oswindow;
+
+      ASSERT(oswindow != nullptr);
+
+      auto pimpl = oswindow->m_pimpl;
+
+      if(::is_null(pimpl))
+      {
+
+         return false;
+
+      }
+
+      auto puserinteraction = pimpl->m_puserinteraction;
+
+      if(::is_null(puserinteraction))
+      {
+
+         return false;
+
+      }
+
+      auto result = puserinteraction->post(pmessage);
+
+      return result;
+
+
+//      ::thread *pthread = nullptr;
+//
+//      if (::is_set(pinteraction))
+//      {
+//
+//         pthread = pinteraction->m_pthreadUserInteraction;
+//
+//      }
+//
+//      if (::is_null(pthread))
+//      {
+//
+//         return false;
+//
+//      }
+//
+//      class ::message_queue *pmq = pthread->m_pmq;
+//
+//      if (pmq == nullptr)
+//      {
+//
+//         if (message.m_id == e_message_quit)
+//         {
+//
+//            return false;
+//
+//         }
+//
+//         pmq = pthread->get_message_queue();
+//
+//      }
+//
+//      if (pmq == nullptr)
+//      {
+//
+//         return false;
+//
+//      }
+//
+//      synchronous_lock ml(pmq->mutex());
+//
+//      if (message.m_id == e_message_quit)
+//      {
+//
+//         output_debug_string("e_message_quit thread");
+//
+//      }
+//
+//      if (message.m_id == e_message_left_button_down)
+//      {
+//
+//         output_debug_string("post_ui_message::e_message_left_button_down\n");
+//
+//      }
+//      else if (message.m_id == e_message_left_button_up)
+//      {
+//
+//         output_debug_string("post_ui_message::e_message_left_button_up\n");
+//
+//      }
+//
+//      pmq->m_messagea.add(message);
+//
+//      pmq->m_eventNewMessage.set_event();
+//
+//      return true;
+
+   }
+
 
 //
 //int_bool set_foreground_window(oswindow oswindow)

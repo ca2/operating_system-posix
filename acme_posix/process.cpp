@@ -709,12 +709,15 @@ namespace acme
 
                }
 
-               string strTitle = path.title();
+               //string strTitle = path.title();
 
-               ::str::ends_eat_ci(strTitle, " (deleted)");
+               string strPath = path;
 
-               if (strTitle == strApp ||
-                   strTitle == strApp2)
+               ::str::ends_eat_ci(strPath, " (deleted)");
+
+               //if (strTitle == strApp ||
+                 //  strTitle == strApp2)
+                 if(strPath == psz)
                {
 
                   ia.add(iPid);
