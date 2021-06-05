@@ -22,6 +22,7 @@
 		9A0C16D3264A2C6D00B5CC33 /* framework.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C2264A2C6C00B5CC33 /* framework.h */; };
 		9A0C16D4264A2C6D00B5CC33 /* _acme_posix.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C3264A2C6C00B5CC33 /* _acme_posix.h */; };
 		9A0C16D5264A2C6D00B5CC33 /* _.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C4264A2C6C00B5CC33 /* _.h */; };
+		9A741469266BC34E00552531 /* process.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A741467266BC34E00552531 /* process.cpp */; };
 		9A787E3F264DCFCD003DF8A0 /* libacme.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0C1798264A315100B5CC33 /* libacme.dylib */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,7 @@
 		9A0C16C3264A2C6C00B5CC33 /* _acme_posix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _acme_posix.h; sourceTree = "<group>"; };
 		9A0C16C4264A2C6C00B5CC33 /* _.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _.h; sourceTree = "<group>"; };
 		9A0C1792264A315100B5CC33 /* acme.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = acme.xcodeproj; path = ../../../source/app/acme/acme.xcodeproj; sourceTree = "<group>"; };
+		9A741467266BC34E00552531 /* process.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = process.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				9A0C16B7264A2C6C00B5CC33 /* node.h */,
 				9A0C16AF264A2C6C00B5CC33 /* pipe.cpp */,
 				9A0C16C0264A2C6C00B5CC33 /* pipe.h */,
+				9A741467266BC34E00552531 /* process.cpp */,
 				9A0C16BE264A2C6C00B5CC33 /* serial.cpp */,
 				9A0C16B9264A2C6C00B5CC33 /* serial.h */,
 			);
@@ -236,6 +239,7 @@
 			files = (
 				9A0C16CE264A2C6D00B5CC33 /* _.cpp in Sources */,
 				9A0C16C8264A2C6D00B5CC33 /* framework.cpp in Sources */,
+				9A741469266BC34E00552531 /* process.cpp in Sources */,
 				9A0C16CF264A2C6D00B5CC33 /* serial.cpp in Sources */,
 				9A0C16D2264A2C6D00B5CC33 /* factory_exchange.cpp in Sources */,
 				9A0C16C5264A2C6D00B5CC33 /* pipe.cpp in Sources */,

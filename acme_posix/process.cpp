@@ -52,12 +52,14 @@ namespace acme
          }
 
          argv.add(nullptr);
+         
+         auto envp = m_psystem->m_envp;
 
          pid_t pid = 0;
 
          string strExe = argv[0];
 
-         int status = posix_spawn(&pid, argv[0], nullptr, nullptr, argv.get_data(), environ);
+         int status = posix_spawn(&pid, argv[0], nullptr, nullptr, argv.get_data(), envp);
 
          if (status == 0)
          {
@@ -222,60 +224,63 @@ namespace acme
       }
 
 
+      i32 node::_create_process3(const char * _cmd_line, i32 * pprocessId)
+      {
+
+         //char *   exec_path_name;
+
+         char *   cmd_line;
+
+         //char *   cmd_line2;
+
+         cmd_line = strdup(_cmd_line);
+
+         if(cmd_line == nullptr)
+         {
+
+            return 0;
+
+         }
+
+         char *      argv[1024 + 1];
+
+         i32      argc = 0;
+
+         prepare_argc_argv(argc, argv, cmd_line);
+
+         pid_t pid;
+
+         int status;
+         
+         auto envp = m_psystem->m_envp;
+
+         status = posix_spawn(&pid, argv[0], nullptr, nullptr, argv, envp);
+
+         free(cmd_line);
+
+         if (status == 0)
+         {
+
+            return 1;
+
+         }
+         else
+         {
+
+            return 0;
+
+         }
+
+      }
 
 
-} // namespace posix
+   } // namespace posix
+
 
 } // namespace amce
 
 
-i32 create_process3(const char * _cmd_line, i32 * pprocessId)
-{
-
-   char *   exec_path_name;
-
-   char *	cmd_line;
-
-   char *	cmd_line2;
-
-   cmd_line = strdup(_cmd_line);
-
-   if(cmd_line == nullptr)
-   {
-
-      return 0;
-
-   }
-
-   char *      argv[1024 + 1];
-
-   i32		argc = 0;
-
-   prepare_argc_argv(argc, argv, cmd_line);
-
-   pid_t pid;
-
-   int status;
-
-   status = posix_spawn(&pid, argv[0], nullptr, nullptr, argv, environ);
-
-   free(cmd_line);
-
-   if (status == 0)
-   {
-
-      return 1;
-
-   }
-   else
-   {
-
-      return 0;
-
-   }
-
-}
-
+#ifdef LINUX
 
 i32 daemonize_process(const char * pszCommandLine, i32 * pprocessId)
 {
@@ -381,6 +386,9 @@ i32 daemonize_process(const char * pszCommandLine, i32 * pprocessId)
    return 0;
 
 }
+
+
+#endif
 
 
 i32 create_process4(const char * pszCommandLine, i32 * pprocessId)
@@ -592,7 +600,7 @@ namespace acme
          } else
          {
 
-            iSize = sb.st_size + 1;
+            iSize = (int) (sb.st_size + 1);
 
             iTry = 0;
 

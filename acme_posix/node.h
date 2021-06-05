@@ -98,6 +98,9 @@ namespace acme
          ::e_status create_process(const char * pszCommandLine, u32 * pprocessID) override;
 
          ::e_status run_silent(const char* strFunct, const char* strstrParams) override;
+         
+         
+         virtual i32 _create_process3(const char * _cmd_line, i32 * pprocessId);
 
          bool process_modules(string_array& stra, u32 processID) override;
 
