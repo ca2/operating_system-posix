@@ -363,12 +363,12 @@ namespace draw2d_xlib
       virtual i32 draw_text_ex(char * lpszString, i32 nCount, RECTANGLE_I32 * prectangle, const ::e_align & ealign = e_align_top_left, const ::e_draw_text & edrawtext = e_draw_text_none, LPDRAWTEXTPARAMS lpDTParams);
       virtual i32 draw_text_ex(const string & str, RECTANGLE_I32 * prectangle, const ::e_align & ealign = e_align_top_left, const ::e_draw_text & edrawtext = e_draw_text_none, LPDRAWTEXTPARAMS lpDTParams);
 
-      size_i32 GetTextExtent(const char * lpszString, strsize nCount, i32 iIndex) const;
-      size_i32 GetTextExtent(const char * lpszString, strsize nCount) const;
-      size_i32 GetTextExtent(const string & str) const;
-      bool GetTextExtent(size_f64 & size, const char * lpszString, strsize nCount, i32 iIndex) const;
-      bool GetTextExtent(size_f64 & size, const char * lpszString, strsize nCount) const;
-      bool GetTextExtent(size_f64 & size, const string & str) const;
+      size_i32 get_text_extent(const char * lpszString, strsize nCount, i32 iIndex) const;
+      size_i32 get_text_extent(const char * lpszString, strsize nCount) const;
+      size_i32 get_text_extent(const string & str) const;
+      bool get_text_extent(size_f64 & size, const char * lpszString, strsize nCount, i32 iIndex) const;
+      bool get_text_extent(size_f64 & size, const char * lpszString, strsize nCount) const;
+      bool get_text_extent(size_f64 & size, const string & str) const;
       size_i32 GetOutputTextExtent(const char * lpszString, strsize nCount) const;
       size_i32 GetOutputTextExtent(const string & str) const;
       size_i32 GetTabbedTextExtent(const char * lpszString, strsize nCount, i32 nTabPositions, LPINT lpnTabStopPositions) const;

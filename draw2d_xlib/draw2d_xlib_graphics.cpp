@@ -1667,7 +1667,7 @@ namespace draw2d_xlib
          /*         {
                   //   return true;
                      ::rectangle_i32 rectIntersect(m_pointAlphaBlend, m_pimageAlphaBlend->size());
-                     ::rectangle_i32 rectText(::point_i32(x, y), GetTextExtent(str));
+                     ::rectangle_i32 rectText(::point_i32(x, y), get_text_extent(str));
                      if(rectIntersect.intersect(rectIntersect, rectText))
                      {
                         /* p::image_pointer pimage0(this);
@@ -1728,7 +1728,7 @@ namespace draw2d_xlib
          {
             //   return true;
             ::rectangle_i32 rectIntersect(m_pointAlphaBlend, m_pimageAlphaBlend->size());
-            ::rectangle_i32 rectText(point_i32((i64) x, (i64) y), GetTextExtent(str));
+            ::rectangle_i32 rectText(point_i32((i64) x, (i64) y), get_text_extent(str));
             if(rectIntersect.intersect(rectIntersect, rectText))
             {
                ::image_pointer pimage0;
@@ -1928,8 +1928,8 @@ namespace draw2d_xlib
       string str2;
       str2 = L"WWÜ123AWZwmcpQçgÁiItf";
 
-      size_i32 sz1 = GetTextExtent(str1);
-      size_i32 sz2 = GetTextExtent(str2);
+      size_i32 sz1 = get_text_extent(str1);
+      size_i32 sz2 = get_text_extent(str2);
 
       lpMetrics->tmAveCharWidth = sz2.cx / (double) str2.get_length();
       lpMetrics->tmAscent = sz1.cy;
@@ -4541,7 +4541,7 @@ namespace draw2d_xlib
 
       int h = compute_line_height();
 
-      size_i32 sz = GetTextExtent(str);
+      size_i32 sz = get_text_extent(str);
 
       xlib_keep keep(this);
 
@@ -4658,7 +4658,7 @@ namespace draw2d_xlib
     * Computes the text rectangle.
     * \return C::u322dRectangle.
     */
-   size_i32 graphics::GetTextExtent(const char * lpszString, strsize nCount, i32 iIndex) const
+   size_i32 graphics::get_text_extent(const char * lpszString, strsize nCount, i32 iIndex) const
    {
 
       synchronous_lock ml(&xlib_mutex());
@@ -4703,18 +4703,18 @@ namespace draw2d_xlib
    }
 
 
-   size_i32 graphics::GetTextExtent(const char * lpszString, strsize nCount) const
+   size_i32 graphics::get_text_extent(const char * lpszString, strsize nCount) const
    {
 
-      return GetTextExtent(lpszString, nCount, 0);
+      return get_text_extent(lpszString, nCount, 0);
 
    }
 
 
-   size_i32 graphics::GetTextExtent(const string & str) const
+   size_i32 graphics::get_text_extent(const string & str) const
    {
 
-      return GetTextExtent(str);
+      return get_text_extent(str);
 
    }
 
@@ -4752,12 +4752,12 @@ namespace draw2d_xlib
    }
 
 
-   bool graphics::GetTextExtent(size_f64 & size, const char * lpszString, strsize nCount, i32 iIndex) const
+   bool graphics::get_text_extent(size_f64 & size, const char * lpszString, strsize nCount, i32 iIndex) const
    {
 
       synchronous_lock ml(&xlib_mutex());
 
-      ::size_i32  sz = GetTextExtent(lpszString, nCount, iIndex);
+      ::size_i32  sz = get_text_extent(lpszString, nCount, iIndex);
 
       size.cx = sz.cx;
 
@@ -4768,18 +4768,18 @@ namespace draw2d_xlib
    }
 
 
-   bool graphics::GetTextExtent(size_f64 & size, const char * lpszString, strsize nCount) const
+   bool graphics::get_text_extent(size_f64 & size, const char * lpszString, strsize nCount) const
    {
 
-      return GetTextExtent(size, lpszString, nCount, 0);
+      return get_text_extent(size, lpszString, nCount, 0);
 
    }
 
 
-   bool graphics::GetTextExtent(size_f64 & size, const string & str) const
+   bool graphics::get_text_extent(size_f64 & size, const string & str) const
    {
 
-      return GetTextExtent(size, str, 0);
+      return get_text_extent(size, str, 0);
 
    }
 
@@ -5701,7 +5701,7 @@ ok:
    unsigned int graphics::compute_line_height()
    {
 
-      size_i32 sz = GetTextExtent(L"Ac");
+      size_i32 sz = get_text_extent(L"Ac");
       return sz.cy;
       /*
             ::draw2d_xlib::bitmap * pbitmap = dynamic_cast < ::draw2d_xlib::bitmap * > (m_pbitmap.m_p);
