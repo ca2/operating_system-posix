@@ -354,9 +354,9 @@ namespace node_gnome
 
          g_bInitializedUserTheme = true;
 
-         auto psystem = m_psystem->m_papexsystem;
-
-         psystem->start_subject_handling(id_os_user_theme);
+//         auto psystem = m_psystem->m_papexsystem;
+//
+//         psystem->start_subject_handling(id_os_user_theme);
 
       }
 

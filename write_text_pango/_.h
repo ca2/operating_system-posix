@@ -16,28 +16,4 @@
 #endif
 
 
-//namespace write_text_win32
-//{
-//
-//
-//   class windowing;
-//   class hwnd_array;
-//
-//
-//   CLASS_DECL_WRITE_TEXT_WIN32 void wingdi_enum_fonts(::write_text::font_enum_item_array & itema, bool bRaster, bool bTrueType, bool bOther);
-//   CLASS_DECL_WRITE_TEXT_WIN32 ::e_char_set wingdi_get_cs(int iCharSet);
-//
-//
-//} // namespace write_text_win32
-
-
-//#include "font_enum.h"
-
-
-#include "font_department.h"
-
-
-#include "write_text.h"
-
-
 

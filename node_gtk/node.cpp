@@ -1187,9 +1187,9 @@ namespace node_gtk
 
          g_bInitializedUserTheme = true;
 
-         auto psystem = m_psystem->m_papexsystem;
+         //auto psystem = m_psystem->m_papexsystem;
 
-         psystem->start_subject_handling(id_os_user_theme);
+         //psystem->start_subject_handling(id_os_user_theme);
 
       }
 
@@ -1730,7 +1730,7 @@ int gdk_launch_uri(const char * pszUri, char * pszError, int iBufferSize)
 
    GError * error = NULL;
 
-   g_type_init();
+   //g_type_init();
 
    ret = g_app_info_launch_default_for_uri(pszUri, NULL, &error);
 

@@ -6,8 +6,8 @@ namespace write_text_pango
 {
 
 
-   class CLASS_DECL_WRITE_TEXT_PANGO font_department :
-      virtual public ::font_department
+   class CLASS_DECL_WRITE_TEXT_PANGO fonts :
+virtual public ::write_text::fonts
    {
    public:
 
@@ -55,19 +55,19 @@ namespace write_text_pango
       //void DestroyLyricViewFonts();
 
 
-      font_department();
-      virtual ~font_department();
+      fonts();
+      virtual ~fonts();
 
 
       virtual ::e_status initialize(::object * pobject) override;
-      virtual ::e_status finalize() override;
+      //virtual ::e_status finalize() override;
 
 
       //virtual bool is_initialized();
       //virtual void defer_create_font_enumeration(::promise::subject * psubject);
 
 
-      virtual void enum_fonts(::write_text::font_enum_item_array & itema) override;
+      //virtual void enum_fonts(::write_text::font_enum_item_array & itema) override;
       //virtual void sorted_fonts(::write_text::font_enum_item_array & itema);
 
 

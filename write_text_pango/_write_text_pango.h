@@ -1,8 +1,18 @@
 //
-// Created by camilo on 10/06/2021.
+// Created by camilo on 2021-26-10 12:54 BRT <3ThomasBorregaardSørensen__!!
 //
 
-#ifndef BASIS__WRITE_TEXT_PANGO_H
-#define BASIS__WRITE_TEXT_PANGO_H
 
-#endif //BASIS__WRITE_TEXT_PANGO_H
+
+
+
+#include "font_enumeration.h"
+
+
+#include "fonts.h"
+
+
+#include "write_text.h"
+
+
+
