@@ -56,6 +56,13 @@
 			remoteGlobalIDString = 9A0C1680264A29B800B5CC33;
 			remoteInfo = apex_posix;
 		};
+		9A7ED48F2670B4EA00BC7094 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A2BB87E2654F8FB00ABA8B9 /* apex_posix.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A0C167F264A29B800B5CC33;
+			remoteInfo = apex_posix;
+		};
 		9AC2D0012653DB2E00CC8096 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9AC2CFF92653DB2E00CC8096 /* aura.xcodeproj */;
@@ -300,6 +307,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9A7ED4902670B4EA00BC7094 /* PBXTargetDependency */,
 				9A41243C266C3F9800C3FF0E /* PBXTargetDependency */,
 			);
 			name = aura_posix;
@@ -433,6 +441,11 @@
 			isa = PBXTargetDependency;
 			name = aura;
 			targetProxy = 9A41243B266C3F9800C3FF0E /* PBXContainerItemProxy */;
+		};
+		9A7ED4902670B4EA00BC7094 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = apex_posix;
+			targetProxy = 9A7ED48F2670B4EA00BC7094 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

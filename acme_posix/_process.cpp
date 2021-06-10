@@ -12,13 +12,6 @@
 extern char **environ;
 
 
-struct chldstatus
-{
-
-   bool m_bRet;
-   int  m_iExitCode;
-
-};
 
 
 typedef iptr_map < chldstatus > chldstatus_map;
