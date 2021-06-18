@@ -359,7 +359,7 @@ m_pstatusnotifieritem->setStatus(KStatusNotifierItem::ItemStatus::Active);
 //
 //      string strFile = "menubar-icon-22.png";
 //
-//      string strUrl = "https://server.ca2.cc/matter/" + strFolder + strFile;
+//      string strUrl = "https://server.ca2.software/matter/" + strFolder + strFile;
 //
 //      strFile = Context.dir().appdata() / strFolder / strFile;
 //
