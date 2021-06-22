@@ -74,7 +74,8 @@ namespace node_kde
 
       virtual ::e_status node_branch(const ::routine & routine) override;
 
-      virtual void node_post_quit() override;
+      void node_post_quit() override;
+
 
       //virtual ::linux::appindicator * appindicator_allocate() override;
 
@@ -84,7 +85,9 @@ namespace node_kde
 
       //virtual void enum_display_monitors(::aura::session * psession) override;
 
-      virtual void os_post_quit() override;
+      void os_post_quit() override;
+
+      ::e_status reboot() override;
 
       virtual bool should_launch_on_node(::subject::subject * psubject);
 

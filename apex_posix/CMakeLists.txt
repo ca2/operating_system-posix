@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.17)
 project(apex_posix CXX)
 
 
-list(APPEND apex_posix_source
+list(APPEND library_source
    _.h
    _.cpp
    datetime.cpp
@@ -23,7 +23,7 @@ list(APPEND apex_posix_source
 
 if(FILE_SYSTEM_INOTIFY)
 
-   list(APPEND apex_posix_source
+   list(APPEND library_source
       inotify/watcher.cpp
       inotify/watcher.h)
 
@@ -32,7 +32,7 @@ endif()
 
 if(POSIX_SPAWN)
 
-   list(APPEND apex_posix_source
+   list(APPEND library_source
       posix_spawn/process.cpp
       posix_spawn/process.h)
 
@@ -42,7 +42,7 @@ endif()
 list(APPEND library_references acme acme_posix apex)
 
 
-add_library(apex_posix SHARED ${apex_posix_source})
+add_library(apex_posix SHARED ${library_source})
 
 
 if(FILE_SYSTEM_INOTIFY)

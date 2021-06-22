@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.17)
 project(node_kde CXX)
 
 
-list(APPEND node_kde_source
+list(APPEND library_source
    _.cpp
    _.h
    _node_kde.h
@@ -48,7 +48,7 @@ list(APPEND library_references
 set_source_files_properties(q_node_impl.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 
 
-add_library(node_kde SHARED ${node_kde_source} _node_kde.h)
+add_library(node_kde SHARED ${library_source})
 
 target_precompile_headers(node_kde PRIVATE framework.h)
 
@@ -69,11 +69,13 @@ elseif (LINUX)
    target_compile_options(node_kde PRIVATE ${PKGCONFIG_CFLAGS})
    if(LINUX_KDE)
    target_include_directories(node_kde PRIVATE KF5::Notifications)
+   target_include_directories(node_kde PRIVATE PW::KWorkspace)
    endif()
    target_link_options(node_kde PRIVATE -Wl,-rpath=\$ORIGIN)
    target_link_libraries(node_kde PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
    if(LINUX_KDE)
       target_link_libraries(node_kde PRIVATE KF5::Notifications)
+      target_link_libraries(node_kde PRIVATE PW::KWorkspace)
    endif()
    target_link_options(node_kde PRIVATE -Wl,-z,defs)
 endif ()

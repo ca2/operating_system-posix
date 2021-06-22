@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.17)
 project(acme_posix CXX)
 
 
-list(APPEND acme_posix_source
+list(APPEND library_source
    _.cpp
    _.h
    _process.cpp
@@ -16,16 +16,17 @@ list(APPEND acme_posix_source
    node.h
    pipe.cpp
    pipe.h
+   process.cpp
    )
 
 if(POSIX_LIST_SERIAL_PORTS)
 
-list(APPEND acme_posix_source
+list(APPEND library_source
    posix/list_serial_ports.cpp
    )
 endif()
 
-add_library(acme_posix SHARED ${acme_posix_source} _acme_posix.h process.cpp)
+add_library(acme_posix SHARED ${library_source} )
 
 if(POSIX_LIST_SERIAL_PORTS)
 

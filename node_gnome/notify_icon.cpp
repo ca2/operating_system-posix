@@ -159,9 +159,7 @@ namespace node_gnome
 
          pathFolder /= "_matter" / strId / "_std/_std/main" ;
 
-         string strNotifyIcon = _002Underscore(strAppId);
-
-         ::file::path path = pathFolder / (strNotifyIcon + "_128.png");
+         ::file::path path = pathFolder / ("notify_icon_128.png);
 
          auto pcontext = m_pcontext->m_papexcontext;
 
@@ -173,12 +171,12 @@ namespace node_gnome
 
          auto pnode = psystem->node();
 
-         pnode->node_sync(5_s, __routine([this, pnode, strNotifyIcon, pathFolder]()
+         pnode->node_sync(5_s, __routine([this, pnode, pathFolder]()
                                          {
 
                                             auto estatus = __construct(m_pindicator);
 
-                                            m_pindicator->create(m_strId, strNotifyIcon + "_128", pathFolder, m_plistener);
+                                            m_pindicator->create(m_strId, "notify_icon_128", pathFolder, m_plistener);
 
                                          }));
 
