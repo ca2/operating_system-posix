@@ -803,13 +803,28 @@ namespace windowing_xcb
 
          }
 
-         bool bHasMouseCapture = msg.oswindow->has_mouse_capture();
+         bool bMouseCapture = msg.oswindow->has_mouse_capture();
 
-         auto screen_pixel = msg.oswindow->screen_pixel(pmotion->root_x, pmotion->root_y);
+         bool bCompositeWindow = msg.oswindow->m_pimpl->m_bComposite;
 
-         auto alpha = screen_pixel.alpha;
+         ::color::color screen_pixel;
 
-         if (bHasMouseCapture || alpha != 0)
+         unsigned char alpha = 0;
+
+         bool bTransparentMouseEvents = false;
+
+         if(bCompositeWindow)
+         {
+
+            screen_pixel = msg.oswindow->screen_pixel(pmotion->root_x, pmotion->root_y);
+
+            alpha = screen_pixel.alpha;
+
+            bTransparentMouseEvents = msg.oswindow->m_pimpl->m_bTransparentMouseEvents;
+
+         }
+
+         if (bRet && (!bCompositeWindow || bMouseCapture || alpha != 0 || bTransparentMouseEvents))
          {
 
             //msg.oswindow = m_pdisplay->_window(pmotion->event);
@@ -1415,13 +1430,26 @@ namespace windowing_xcb
 
          bool bMouseCapture = msg.oswindow->has_mouse_capture();
 
-         auto screen_pixel = msg.oswindow->screen_pixel(pbutton->root_x, pbutton->root_y);
+         bool bTranslucent = msg.oswindow->m_pimpl->m_puserinteraction->has_translucency();
 
-         auto alpha = screen_pixel.alpha;
+         ::color::color screen_pixel;
 
-         bool bTransparentMouseEvents = msg.oswindow->m_pimpl->m_bTransparentMouseEvents;
+         unsigned char alpha = 0;
 
-         if (bRet && (bMouseCapture || alpha != 0 || bTransparentMouseEvents))
+         bool bTransparentMouseEvents = false;
+
+         if(bTranslucent)
+         {
+
+            screen_pixel = msg.oswindow->screen_pixel(pbutton->root_x, pbutton->root_y);
+
+            alpha = screen_pixel.alpha;
+
+            bTransparentMouseEvents = msg.oswindow->m_pimpl->m_bTransparentMouseEvents;
+
+         }
+
+         if (bRet && (!bTranslucent || bMouseCapture || alpha != 0 || bTransparentMouseEvents))
          {
 
             msg.wParam = 0;
