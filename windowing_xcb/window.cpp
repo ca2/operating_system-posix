@@ -2940,6 +2940,8 @@ namespace windowing_xcb
    ::e_status window::_withdraw_window()
    {
 
+      _unmap_window();
+
       auto estatus = _delete_property(xcb_display()->atom(x_window::e_atom_net_wm_state));
 
       if(!estatus)
