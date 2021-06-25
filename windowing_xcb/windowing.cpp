@@ -694,6 +694,14 @@ namespace windowing_xcb
       case XCB_ENTER_NOTIFY:
       {
 
+         auto pevent = (xcb_enter_notify_event_t *) pgenericevent;
+
+         ::minimum(m_pointCursor.x);
+
+         ::minimum(m_pointCursor.y);
+
+         msg.oswindow = m_pdisplay->_window(pevent->event);
+
       }
       break;
       case XCB_MOTION_NOTIFY:
@@ -1142,7 +1150,7 @@ namespace windowing_xcb
 
             auto pmap = (xcb_map_notify_event_t *) pgenericevent;
 
-            __defer_post_move_and_or_size(pmap->window);
+            //__defer_post_move_and_or_size(pmap->window);
 
             msg.oswindow = m_pdisplay->_window(pmap->window);
             msg.m_id = e_message_show_window;
@@ -1164,23 +1172,6 @@ namespace windowing_xcb
 
             msg.oswindow = m_pdisplay->_window(pconfigure->window);
 
-//            auto trans = xcb_translate_coordinates_reply (m_pdisplay->m_pconnection,
-//                                                     xcb_translate_coordinates (m_pdisplay->m_pconnection,
-//                                                                                pconfigure->window,
-//                                                                                m_pdisplay->m_windowRoot,
-//                                                                                0, 0),
-//                                                     NULL);
-//            if (trans)
-//            {
-//
-//               point.x = trans->dst_x;
-//               point.y = trans->dst_y;
-//
-//               free(trans);
-//
-//            }
-
-
             ::user::primitive_impl *pimpl = msg.oswindow ? msg.oswindow->m_pimpl : nullptr;
 
             if (pimpl != nullptr)
@@ -1193,18 +1184,6 @@ namespace windowing_xcb
 
                   if (pinteraction->layout().design().display() == ::e_display_iconic && !msg.oswindow->is_iconic())
                   {
-
-//               ::enum_display edisplayPrevious = pinteraction->window_previous_display();
-//
-//               pinteraction->layout().sketch() = edisplayPrevious;
-//
-//               pinteraction->layout().design() = edisplayPrevious;
-//
-//               pinteraction->layout().output() = edisplayPrevious;
-//
-//               pinteraction->layout().window() = edisplayPrevious;
-//
-//               pinteraction->m_windowrect.m_edisplay = edisplayPrevious;
 
                      pinteraction->fork([point,size,pinteraction]()
                                         {
@@ -1337,6 +1316,27 @@ namespace windowing_xcb
             bRet = true;
 
             msg.oswindow = m_pdisplay->_window(pbutton->event);
+
+            {
+
+               auto pimpl = msg.oswindow->m_pimpl;
+
+               auto puserinteraction = pimpl->m_puserinteraction;
+
+               auto & window = puserinteraction->layout().window();
+
+               auto origin = window.origin();
+
+               auto & screen_origin = window.screen_origin();
+
+               ::output_debug_string("\nwindow.origin=" + __str(origin.x) + ", " + __str(origin.y));
+               ::output_debug_string("\nwindow.screen_origin=" + __str(screen_origin.x) + ", " + __str(screen_origin.y));
+               ::output_debug_string("\nbutton.root_x=" + __str(pbutton->root_x));
+               ::output_debug_string("\nbutton.root_y=" + __str(pbutton->root_y));
+               ::output_debug_string("\n");
+
+            }
+
             msg.time = pbutton->time;
 
             if (pbutton->response_type == XCB_BUTTON_PRESS)
@@ -1414,85 +1414,76 @@ namespace windowing_xcb
 
             int YRoot = pbutton->root_y;
 
-//      int l = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.x;
-//      int t = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.y;
-//      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx;
-//      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy;
-//
-//      ::rectangle_i32 r;
-//
-//      get_window_rect(msg.oswindow, &r);
-//
-//      int l1 = r.left;
-//      int t1 = r.top;
-//      int w1 = r.width();
-//      int h1 = r.height();
+            bool bMouseCapture = msg.oswindow->has_mouse_capture();
 
-         bool bMouseCapture = msg.oswindow->has_mouse_capture();
+            bool bHasTranslucency = msg.oswindow->m_pimpl->m_puserinteraction->has_translucency();
 
-         bool bTranslucent = msg.oswindow->m_pimpl->m_puserinteraction->has_translucency();
+            ::color::color screen_pixel;
 
-         ::color::color screen_pixel;
+            unsigned char alpha = 0;
 
-         unsigned char alpha = 0;
+            bool bTransparentMouseEvents = false;
 
-         bool bTransparentMouseEvents = false;
-
-         if(bTranslucent)
-         {
-
-            screen_pixel = msg.oswindow->screen_pixel(pbutton->root_x, pbutton->root_y);
-
-            alpha = screen_pixel.alpha;
-
-            bTransparentMouseEvents = msg.oswindow->m_pimpl->m_bTransparentMouseEvents;
-
-         }
-
-         if (bRet && (!bTranslucent || bMouseCapture || alpha != 0 || bTransparentMouseEvents))
-         {
-
-            msg.wParam = 0;
-
-            msg.lParam = MAKELONG(pbutton->root_x, pbutton->root_y);
-
-            post_ui_message(msg);
-
-         }
-         else
-         {
-
-            auto list = m_pdisplay->_window_enumerate();
-
-            int iFind = -1;
-
-            xcb_window_t wFound = 0;
-
-            for(int i = list.get_upper_bound(); i>= 0; i--)
+            if(bHasTranslucency)
             {
-               auto w = list[i];
 
-               if (w == pbutton->event)
+               screen_pixel = msg.oswindow->screen_pixel(pbutton->root_x, pbutton->root_y);
+
+               ::output_debug_string("\nscreen_pixel.r=" + __str((int)screen_pixel.red) + ",g=" + __str((int)screen_pixel.green)+ ",b=" + __str((int)screen_pixel.blue)+ ",a=" + __str((int)screen_pixel.alpha));
+               ::output_debug_string("\n");
+
+               alpha = screen_pixel.alpha;
+
+               bTransparentMouseEvents = msg.oswindow->m_pimpl->m_bTransparentMouseEvents;
+
+            }
+
+            if (bRet && (!bHasTranslucency || bMouseCapture || alpha != 0 || bTransparentMouseEvents))
+            {
+
+               msg.wParam = 0;
+
+               msg.lParam = MAKELONG(pbutton->root_x, pbutton->root_y);
+
+               post_ui_message(msg);
+
+            }
+            else
+            {
+
+               auto list = m_pdisplay->_window_enumerate();
+
+               int iFind = -1;
+
+               xcb_window_t wFound = 0;
+
+               for(int i = list.get_upper_bound(); i>= 0; i--)
                {
-                  iFind = i;
+                  auto w = list[i];
 
-               } else if (i < iFind)
-               {
+                  if (w == pbutton->event)
+                  {
+                     iFind = i;
 
-                  auto g = m_pdisplay->_window_get_geometry(w);
-
-                  if (pbutton->root_x >= g.x && pbutton->root_x < g.x + g.width
-                      && pbutton->root_y >= g.y && pbutton->root_y < g.y + g.height)
+                  } else if (i < iFind)
                   {
 
-                     auto a = m_pdisplay->_window_get_window_attributes(w);
+                     auto g = m_pdisplay->_window_get_geometry(w);
 
-                     if(a.map_state == XCB_MAP_STATE_VIEWABLE)
+                     if (pbutton->root_x >= g.x && pbutton->root_x < g.x + g.width
+                         && pbutton->root_y >= g.y && pbutton->root_y < g.y + g.height)
                      {
 
-                        wFound = w;
+                        auto a = m_pdisplay->_window_get_window_attributes(w);
 
-                        break;
+                        if(a.map_state == XCB_MAP_STATE_VIEWABLE)
+                        {
+
+                           wFound = w;
+
+                           break;
+
+                        }
 
                      }
 
@@ -1500,52 +1491,48 @@ namespace windowing_xcb
 
                }
 
-            }
-
-            if(!wFound)
-            {
-
-               wFound = m_pdisplay->m_windowRoot;
-
-            }
-
-            xcb_button_press_event_t button(*pbutton);
-            if(button.same_screen)
-            {
-
-               auto trans = xcb_translate_coordinates_reply (
-                  m_pdisplay->m_pconnection,
-                  xcb_translate_coordinates (
-                     m_pdisplay->m_pconnection,
-                     button.event,
-                     wFound,
-                     button.event_x, button.event_y),
-                  NULL);
-
-               if(trans)
+               if(!wFound)
                {
-                  button.event_x =trans->dst_x;
-                  button.event_y = trans->dst_y;
-                  free(trans);
+
+                  wFound = m_pdisplay->m_windowRoot;
+
                }
 
+               xcb_button_press_event_t button(*pbutton);
+               if(button.same_screen)
+               {
+
+                  auto trans = xcb_translate_coordinates_reply (
+                     m_pdisplay->m_pconnection,
+                     xcb_translate_coordinates (
+                        m_pdisplay->m_pconnection,
+                        button.event,
+                        wFound,
+                        button.event_x, button.event_y),
+                     NULL);
+
+                  if(trans)
+                  {
+                     button.event_x =trans->dst_x;
+                     button.event_y = trans->dst_y;
+                     free(trans);
+                  }
+
+               }
+               button.event = wFound;
+               auto cookie = xcb_send_event(m_pdisplay->m_pconnection,
+                                               1,
+                                               wFound,
+                                            button.response_type == XCB_BUTTON_PRESS ?
+                                               XCB_EVENT_MASK_BUTTON_PRESS :
+               XCB_EVENT_MASK_BUTTON_RELEASE,
+                                               (char *) &button);
+
+               auto estatus = m_pdisplay->_request_check(cookie);
+
+               break;
+
             }
-            button.event = wFound;
-            auto cookie = xcb_send_event(m_pdisplay->m_pconnection,
-                                            1,
-                                            wFound,
-                                         button.response_type == XCB_BUTTON_PRESS ?
-                                            XCB_EVENT_MASK_BUTTON_PRESS :
-            XCB_EVENT_MASK_BUTTON_RELEASE,
-                                            (char *) &button);
-
-            auto estatus = m_pdisplay->_request_check(cookie);
-
-            break;
-
-
-
-         }
 
          }
          break;
@@ -1553,17 +1540,17 @@ namespace windowing_xcb
          case XCB_KEY_RELEASE:
          {
 
-            auto pkey = (xcb_key_press_event_t *)pgenericevent;
+            auto pkeyevent = (xcb_key_press_event_t *)pgenericevent;
 
-            auto pwindow = m_pdisplay->_window(pkey->event);
+            auto pwindow = m_pdisplay->_window(pkeyevent->event);
 
             msg.oswindow = pwindow;
 
-            xcb_keycode_t code = pkey->detail;
+            xcb_keycode_t code = pkeyevent->detail;
 
-            ::u16 state = pkey->state;
+            ::u16 state = pkeyevent->state;
 
-            msg.time = pkey->time;
+            msg.time = pkeyevent->time;
 
             bRet = true;
 
@@ -1577,218 +1564,15 @@ namespace windowing_xcb
 
             KeySym keysym = 0;
 
-            if (pkey->response_type == XCB_KEY_PRESS)
+            if (pkeyevent->response_type == XCB_KEY_PRESS)
             {
 
                strText = pwindow->_on_key_down(code, state, &keysym);
 
                msg.m_id = e_message_key_down;
 
-               //on_key_down(keycode);
-
-
-//               __pointer(::windowing_xcb::window) pwindow = msg.oswindow;
-//
-//               xcb_window_t window = pwindow->xcb_window();
-//
-//               auto &setThread = msg.oswindow->m_pimpl->get_property_set();
-//
-//               XIC xic = pwindow->m_xic;
-//
-//               XIM xim = (XIM) setThread["xim"].iptr();
-//
-//               if (xic == nullptr && (pwindow->m_iXic & 1) == 0)
-//               {
-//
-//                  if (((iptr) (setThread["xim_flag"].i32()) & 1) == 0)
-//                  {
-//
-//                     setThread["xim_flag"] = 1;
-//
-//                     xim = XOpenIM(m_pdisplay->xcb_connection(), NULL, (char *) "ca2 Input Manager", (char *) "ca2 Input Manager");
-//
-//                     if (!xim)
-//                     {
-//
-//                        TRACE("cannot Open Input Manager: Try default.\n");
-//
-//                        XSetLocaleModifiers("@im=");
-//
-//                        xim = XOpenIM(m_pdisplay->xcb_connection(), NULL, (char *) "ca2 Input Manager (default)",
-//                                      (char *) "ca2 Input Manager (default)");
-//
-//                        if (!xim)
-//                        {
-//
-//                           TRACE("Couldn't Open Input Manager");
-//
-//                        }
-//
-//                     }
-//
-//                     XIMStyle best_style = 0;
-//
-//                     if (xim)
-//                     {
-//
-//                        msg.oswindow->m_pimpl->payload("xim") = (iptr) xim;
-//
-//                        XIMStyles *pximstyles = nullptr;
-//
-//                        __zero(pximstyles);
-//
-//                        XGetIMValues(xim, XNQueryInputStyle, &pximstyles, NULL, NULL);
-//
-//                        if (pximstyles)
-//                        {
-//
-//                           XIMStyle *pstyle = nullptr;
-//
-//                           int i = 0;
-//
-//                           for (pstyle = pximstyles->supported_styles; i < pximstyles->count_styles; i++, pstyle++)
-//                           {
-//
-//                              TRACE("input style : 0x%X\n", *pstyle);
-//
-//                              if ((*pstyle & XIMStatusNone || *pstyle & XIMStatusNothing) &&
-//                                  (*pstyle & XIMPreeditNone || *pstyle & XIMPreeditNothing))
-//                              {
-//
-//                                 best_style = *pstyle;
-//
-//                                 break;
-//
-//                              }
-//
-//                           }
-//
-//                           XFree(pximstyles);
-//
-//                           if (best_style != 0)
-//                           {
-//
-//                              msg.oswindow->m_pimpl->set("xim_flag",
-//                                                         msg.oswindow->m_pimpl->payload("xim_flag").i32() | 2);
-//
-//                           }
-//
-//                        }
-//
-//                     }
-//
-//                  }
-//
-//                  if (((iptr) setThread["xim_flag"].i32() & 2) != 0 && (pwindow->m_iXic & 1) == 0)
-//                  {
-//
-//                     pwindow->m_iXic = 1;
-//
-//                     xic = XCreateIC(
-//                        xim,
-//                        XNInputStyle,
-//                        (XIMPreeditNothing | XIMStatusNothing),
-//                        XNClientWindow, window,
-//                        XNFocusWindow, window,
-//                        NULL);
-//
-//                     if (xic)
-//                     {
-//
-//                        pwindow->m_iXic |= 2;
-//
-//                        pwindow->m_xic = xic;
-//
-//                     }
-//                     else
-//                     {
-//
-//                        TRACE("cannot create Input Context.\n");
-//
-//                     }
-//
-//                  }
-//
-//               }
-//
-//               if ((pwindow->m_iXic & 3) == 3)
-//               {
-//
-//                  Status status_return;
-//
-//                  int iCount = Xutf8LookupString(xic, &e.xkey, buf, sizeof(buf), &keysym, &status_return);
-//
-//                  switch (status_return)
-//                  {
-//                     case XLookupNone:
-//                        strText.Empty();
-//                        keysym = 0;
-//                        break;
-//
-//                     case XLookupChars:
-//                        strText = string(buf, iCount);
-//                        keysym = 0;
-//                        break;
-//
-//                     case XLookupKeySym:
-//                        strText.Empty();
-//                        break;
-//
-//                     case XLookupBoth:
-//                        strText = string(buf, iCount);
-//                        break;
-//
-//                     default:
-//                        break;
-//
-//                  };
-
-               //}
-
-//               if (keysym == XK_BackSpace
-//                   || keysym == XK_Delete
-//                   || keysym == XK_Tab
-//                   || keysym == XK_Return
-//                   || keysym == XK_Left
-//                   || keysym == XK_Right
-//                   || keysym == XK_Up
-//                   || keysym == XK_Down
-//                   || keysym == XK_Page_Up
-//                   || keysym == XK_Page_Down
-//                   || keysym == XK_Home
-//                   || keysym == XK_End)
-//               {
-//
-//                  strText.Empty();
-//
-//               }
-
-
-               //case XK_Escape:
-//                dv_dpy->dontdraw = 1;
-//                xv_pause=0;
-//                XvStopVideo(dv_dpy->dpy, dv_dpy->port, dv_dpy->win);
-//                XDestroyWindow(dv_dpy->dpy, dv_dpy->win);
-//                break;
-//
-//            case XK_Q:
-//            case XK_q:
-//                xv_pause=0;
-//                dv_dpy->dontdraw = (dv_dpy->dontdraw) ? 0:1;
-//                break;
-//
-//            case XK_space:
-//                xv_pause = (xv_pause)?0:1;
-//                while(xv_pause) {
-//                    dv_display_event(dv_dpy);
-//                    usleep(10000_ms);
-//                }
-//
-//            default:
-//                break;
-//            }
             }
-            else if (pkey->response_type == XCB_KEY_RELEASE)
+            else if (pkeyevent->response_type == XCB_KEY_RELEASE)
             {
 
                keysym = pwindow->keycode_to_keysym(code);
@@ -1806,35 +1590,20 @@ namespace windowing_xcb
             if (bRet)
             {
 
-//               int wparam = key_code_to_wparam(code);
-
-               //msg.wParam = pkey->code;
-
                msg.lParam = keysym;
 
                post_ui_message(msg);
 
             }
 
-            //char *buffer;
-            //int size;
-
-// First find the needed size; return value is the same as snprintf(3).
-
-            if (strText.has_char() && !(pkey->state & XCB_MOD_MASK_CONTROL))
+            if (strText.has_char() && !(pkeyevent->state & XCB_MOD_MASK_CONTROL))
             {
-
-               //MESSAGE msgText(msg);
 
                auto pkey = __create_new < ::message::key >();
 
                pkey->set(pwindow, pwindow, e_message_text_composition, 0, 0, point_i32());
 
                pkey->m_strText = strText;
-
-               //string *pstringText = new string(strText);
-
-               //msgText.lParam = (lparam) (iptr) (string *) (pstringText);
 
                printf("xcb_process_message e_message_text_composition\n");
 
@@ -1843,8 +1612,7 @@ namespace windowing_xcb
             }
 
          }
-            break;
-
+         break;
          case XCB_FOCUS_IN:
          {
 
@@ -1885,57 +1653,8 @@ namespace windowing_xcb
 
             }
 
-            //msg.wParam = (WPARAM) oswindow_get(display(), e.xfocus.window);
-
-//      xcb_window_t wFocus = 0;
-//
-//      int revert_to_return = 0;
-//
-//      int iStatus = XGetInputFocus(display, &wFocus, &revert_to_return);
-//
-//      //if(iStatus == Success)
-//      if(iStatus)
-//      {
-//
-//         if(wFocus == e.xfocus.window)
-//         {
-//
-//            output_debug_string("A\n");
-//
-//         }
-//         else
-//         {
-//
-//            output_debug_string("B " + __str(wFocus));
-//
-//            g_windowFocus = wFocus;
-//
-//         }
-//
-//         if(wFocus == g_windowFocus)
-//         {
-//
-//            output_debug_string("C\n");
-//
-//         }
-//         else
-//         {
-//
-//            output_debug_string("D " + __str(wFocus));
-//
-//            g_windowFocus = wFocus;
-//
-//         }
-//
-//      }
-//
-//      synchronous_lock synchronouslock(pdata->m_pmutexInput);
-//
-//      pdata->m_messsageaInput.add(msg);
-
          }
-
-            break;
+         break;
          case XCB_FOCUS_OUT:
          {
 
@@ -2006,6 +1725,7 @@ namespace windowing_xcb
             auto pdestroy = (xcb_destroy_notify_event_t *)pgenericevent;
 
             msg.oswindow = m_pdisplay->_window(pdestroy->window);
+
             msg.m_id = e_message_destroy;
 
             post_ui_message(msg);
@@ -2021,18 +1741,8 @@ namespace windowing_xcb
 
             const char * pszAllocNamedColor = (const char *) pevent->pad1;
 
-#if 0
-
-            output_debug_string("\n");
-            output_debug_string("XCB_ALLOC_NAMED_COLOR");
-            output_debug_string("\n");
-            output_debug_string(pszAllocNamedColor);
-            output_debug_string("\n");
-
-#endif
-
          }
-            break;
+         break;
          case XCB_ALLOC_COLOR_CELLS: // 86
          {
 
@@ -2049,11 +1759,11 @@ namespace windowing_xcb
          break;
          case XCB_REPARENT_NOTIFY: // 21
          {
+
             auto pevent = (xcb_reparent_notify_event_t *) pgenericevent;
 
-
-            }
-            break;
+         }
+         break;
          default:
          {
 
@@ -2100,43 +1810,9 @@ namespace windowing_xcb
 
       }
 
-      bool bPositionFix = puserinteraction->layout().sketch().origin() != pointWindow;
+      bool bPositionFix = puserinteraction->layout().window().origin() != pointWindow;
 
-//#ifdef Xcb_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE
-//
-//   if(bPositionFix)
-//                     {
-//
-//                        pinteraction->layout().sketch().origin() = point;
-//
-//                        pinteraction->layout().window().origin() = point;
-//
-//                        pinteraction->layout().sketch().screen_origin() = point;
-//
-//                        pinteraction->layout().window().screen_origin() = point;
-//
-//                        pinteraction->set_reposition(true);
-//
-//                     }
-//
-//#endif
-
-      bool bSizeFix = puserinteraction->layout().sketch().size() != sizeWindow;
-
-//#ifdef Xcb_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE_FOR_AWESOME_FILE
-//
-//   if(bSizeFix)
-//                     {
-//
-//                        pinteraction->layout().sketch().size() = size;
-//
-//                        pinteraction->layout().window().size() = size;
-//
-//                        pinteraction->set_need_layout();
-//
-//                     }
-//
-//#endif
+      bool bSizeFix = puserinteraction->layout().window().size() != sizeWindow;
 
       if (bPositionFix || bSizeFix)
       {
