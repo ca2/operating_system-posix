@@ -75,7 +75,9 @@ void gtk_settings_gtk_theme_name_callback(GObject* object, GParamSpec* pspec, gp
 
    }
 
-   pnode->m_psystem->m_papexsystem->process_subject(id_os_user_theme);
+   auto psubject = pnode->m_psystem->m_papexsystem->subject(id_os_user_theme);
+
+   pnode->m_psystem->m_papexsystem->handle_subject(psubject);
 
 }
 
@@ -1064,7 +1066,9 @@ namespace node_gtk
 
       ::node_gtk::node * pnode = (::node_gtk::node *) data;
 
-      pnode->m_psystem->m_papexsystem->process_subject(id_wallpaper_change);
+      auto psubject = pnode->m_psystem->m_papexsystem->subject(id_wallpaper_change);
+
+      pnode->m_psystem->m_papexsystem->handle_subject(psubject);
 
    }
 

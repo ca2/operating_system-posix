@@ -5,7 +5,6 @@
 #include "aura/user/_user.h"
 
 
-
 namespace node_kde
 {
 

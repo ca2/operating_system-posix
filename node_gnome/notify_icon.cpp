@@ -1,20 +1,8 @@
 //
 // Created by camilo on 15/02/2021.
 //
-
 #include "framework.h"
-//#include "apex/os/linux/gnome_gnome.h"
 #include "aura/user/_user.h"
-
-
-static ::user::notify_icon * g_pnotifyiconLast = nullptr;
-
-
-#ifdef LINUX
-
-#include "aura/os/linux/appindicator.h"
-
-#endif
 
 
 namespace node_gnome
@@ -24,18 +12,6 @@ namespace node_gnome
    notify_icon::notify_icon()
    {
 
-      g_pnotifyiconLast = this;
-
-#ifdef WINDOWS_DESKTOP
-
-      //m_nid.cbSize = sizeof(m_nid);
-
-#elif defined(LINUX)
-
-      m_pindicator = nullptr;
-
-#endif
-
       m_bCreated = false;
 
    }
@@ -44,37 +20,13 @@ namespace node_gnome
    notify_icon::~notify_icon()
    {
 
-      //DestroyWindow();
-
-      if(g_pnotifyiconLast== this)
-      {
-
-         g_pnotifyiconLast = nullptr;
-
-      }
-
    }
 
 
-   /*void notify_icon::install_message_routing(::channel * pchannel)
+   ::e_status notify_icon::create_notify_icon(::u32 uId, ::user::notify_icon_listener * plistener, ::windowing::icon * picon)
    {
 
-#ifdef WINDOWS_DESKTOP
-
-      ::user::interaction::install_message_routing(pchannel);
-
-      MESSAGE_LINK(MessageNotifyIcon, pchannel, this, &notify_icon::_001OnNotifyIconMessage);
-      MESSAGE_LINK(e_message_destroy, pchannel, this, &notify_icon::_001OnDestroy);
-
-#endif
-
-   }*/
-
-
-   bool notify_icon::create_notify_icon(::u32 uId, ::user::notify_icon_listener * plistener, ::windowing::icon * picon)
-   {
-
-      if(m_bCreated)
+      if (m_bCreated)
       {
 
          return false;
@@ -85,184 +37,47 @@ namespace node_gnome
 
       m_strId = "ca2-" + picon->get_tray_icon_name() + "-" + m_strId;
 
-#ifdef WINDOWS_DESKTOP
+      m_uiId = uId;
 
-      if(!create_message_queue(m_strId))
+      m_piconCurrent = picon;
+
+      m_plistener = plistener;
+
+      string strAppId = m_piconCurrent->get_tray_icon_name();
+
+      string strId(strAppId);
+
+      string strMatterRoot = ::str::token(strId, "/");
+
+      if (strMatterRoot.is_empty())
       {
 
-         return false;
+         strMatterRoot = "app";
 
       }
 
-#endif
+      auto papplication = get_application();
 
-      m_uiId                     = uId;
+      ::file::path pathIcon = papplication->dir().matter("main/notify_icon_128.png");
 
-#ifdef WINDOWS_DESKTOP
+      auto pathFolder = pathIcon.folder();
 
-      //m_nid.hWnd                 = get_safe_handle();
-      //m_nid.uID                  = uId;
-      //m_nid.hIcon                = *pvisualicon;
-      //m_nid.uFlags               = NIF_ICON | NIF_MESSAGE;
-      //m_nid.uCallbackMessage     = MessageNotifyIcon;
+      auto psystem = m_psystem;
 
-#elif defined(LINUX) || defined(FREEBSD)
+      auto pnode = psystem->node();
 
-      m_picon = picon;
+      auto estatus = __construct(m_pindicator);
 
-#elif defined(MACOS)
+      m_pindicator->create(m_strId, "notify_icon_128", pathFolder, m_plistener);
 
-      #elif defined(_UWP)
-
-#elif defined(ANDROID)
-
-#elif defined(APPLE_IOS)
-
-#else
-      __throw(todo());
-
-#endif
-
-      m_plistener                = plistener;
-
-#ifdef WINDOWS_DESKTOP
-
-      //if(!Shell_NotifyIcon(NIM_ADD, &m_nid))
-      //{
-
-      //   m_plistener = nullptr;
-
-      //   DestroyWindow();
-
-      //   return false;
-
-      //}
-
-#elif defined(LINUX) && !defined(RASPBIAN)
-
-      {
-
-         string strAppId = m_picon->get_tray_icon_name();
-
-         string strId(strAppId);
-
-         string strMatterRoot = ::str::token(strId, "/");
-
-         if(strMatterRoot.is_empty())
-         {
-
-            strMatterRoot = "app";
-
-         }
-
-         ::file::path pathFolder("appmatter://" + strMatterRoot);
-
-         pathFolder /= "_matter" / strId / "_std/_std/main" ;
-
-         ::file::path path = pathFolder / ("notify_icon_128.png);
-
-         auto pcontext = m_pcontext->m_papexcontext;
-
-         path = pcontext->defer_process_path(path);
-
-         pathFolder = path.folder();
-
-         auto psystem = m_psystem;
-
-         auto pnode = psystem->node();
-
-         pnode->node_sync(5_s, __routine([this, pnode, pathFolder]()
-                                         {
-
-                                            auto estatus = __construct(m_pindicator);
-
-                                            m_pindicator->create(m_strId, "notify_icon_128", pathFolder, m_plistener);
-
-                                         }));
-
-      }
-
-      if(m_pindicator == nullptr)
+      if (m_pindicator == nullptr)
       {
 
          m_plistener = nullptr;
 
-         //DestroyWindow();
-
          return false;
 
       }
-
-#elif defined(MACOS)
-
-      //      string strFolder;
-//
-//      string str1 = pvisualicon->m_strAppTrayIcon;
-//
-//      str1.replace("-", "_");
-//
-//      str1.replace("/", "_");
-//
-//      str1.replace("\\", "_");
-//
-//      string str(str1);
-//
-//      if(::str::begins_eat_ci(str, "app_veriwell_"))
-//      {
-//
-//         strFolder+="app-veriwell";
-//
-//      }
-//      else if(::str::begins_eat_ci(str, "app_core_"))
-//      {
-//
-//         strFolder+="app-core";
-//
-//      }
-//      else
-//      {
-//
-//         strFolder+="app";
-//
-//      }
-//
-//      //str
-//
-//      strFolder+= "/appmatter/" + str;
-//
-//      strFolder += "/_std/_std/main/";
-//
-//      string strFile = "menubar-icon-22.png";
-//
-//      string strUrl = "https://server.ca2.software/matter/" + strFolder + strFile;
-//
-//      strFile = Context.dir().appdata() / strFolder / strFile;
-//
-//      int iRetry = 3;
-//
-//      while(iRetry >= 0 && (!Context.file().exists(strFile) || Context.file().length(strFile) <= 0))
-//      {
-//
-//         ::property_set set;
-//
-//         set["raw_http"] = true;
-//         set["disable_common_name_cert_check"] = true;
-//
-//         Context.http().download(strUrl, strFile, set);
-//
-//         iRetry--;
-//
-//      }
-
-      string strFile;
-
-      strFile = Context.defer_process_matter_path("matter://main/menubar-icon-22.png");
-
-      notify_icon_init(strFile);
-
-#else
-
-#endif
 
       m_bCreated = true;
 
@@ -271,89 +86,38 @@ namespace node_gnome
    }
 
 
-   bool notify_icon::modify_icon(::windowing::icon * picon)
+   ::e_status notify_icon::modify_icon(::windowing::icon * picon)
    {
 
-      if(!m_bCreated)
+      if (!m_bCreated)
       {
 
          return false;
 
       }
 
-
-#ifdef WINDOWS_DESKTOP
-
-         //m_nid.hIcon       = (HICON) *hicon;
-
-      //m_nid.uFlags      = NIF_ICON;
-
-      //if(!Shell_NotifyIcon(NIM_MODIFY, &m_nid))
-      //{
-
-      //   return false;
-
-      //}
-
-      //m_piconCurrent = hicon;
-
-      return true;
-
-#else
-
       __throw(todo);
 
-#endif
-
+      return error_not_implemented;
 
    }
 
 
-   void notify_icon::AddHiddenWindow(__pointer(::user::interaction) pwnd)
+   ::e_status notify_icon::add_hidden_window(::user::interaction * puserinteraction)
    {
 
-      m_wndptraHidden.add_unique(pwnd);
+      auto estatus = ::user::notify_icon::add_hidden_window(puserinteraction);
+
+      if (!estatus)
+      {
+
+         return estatus;
+
+      }
+
+      return estatus;
 
    }
-
-
-#ifdef WINDOWS_DESKTOP
-
-
-   //void notify_icon::destroy_window()
-   //{
-
-   //   m_nid.uFlags = 0;
-
-   //   if (!Shell_NotifyIcon(NIM_DELETE, &m_nid))
-   //   {
-
-   //      //return false;
-
-   //   }
-
-   //   ::user::interaction::destroy_window();
-
-   //}
-
-
-   //void notify_icon::remove_all_routes()
-   //{
-
-   //   ::user::interaction::remove_all_routes();
-
-   //}
-
-
-   //void notify_icon::PostNcDestroy()
-   //{
-
-   //   ::user::interaction::PostNcDestroy();
-
-
-   //}
-
-#endif // defined(WINDOWS_DESKTOP)
 
 
    ::e_status notify_icon::destroy_notify_icon()
@@ -369,82 +133,9 @@ namespace node_gnome
    ::e_status notify_icon::step()
    {
 
-#if defined(LINUX)
-
-//      main_async([&]
-//      {
-//
-//         linux_g_direct_app_indicator_step(m_pindicator);
-//
-//      });
-
-#endif
-
       return ::success;
 
    }
-
-
-//#if defined(LINUX) || defined(MACOS)
-
-
-   int notify_icon::_get_notification_area_action_count()
-   {
-
-      return m_plistener->_get_notification_area_action_count();
-
-   }
-
-
-   const char * notify_icon::_get_notification_area_action_name(int iIndex)
-   {
-
-      return m_plistener->_get_notification_area_action_name(iIndex);
-
-   }
-
-
-   const char * notify_icon::_get_notification_area_action_id(int iIndex)
-   {
-
-      return m_plistener->_get_notification_area_action_id(iIndex);
-
-   }
-
-
-   const char * notify_icon::_get_notification_area_action_label(int iIndex)
-   {
-
-      return m_plistener->_get_notification_area_action_label(iIndex);
-
-   }
-
-
-   const char * notify_icon::_get_notification_area_action_accelerator(int iIndex)
-   {
-
-      return m_plistener->_get_notification_area_action_accelerator(iIndex);
-
-   }
-
-
-   const char * notify_icon::_get_notification_area_action_description(int iIndex)
-   {
-
-      return m_plistener->_get_notification_area_action_description(iIndex);
-
-   }
-
-
-   void notify_icon::call_notification_area_action(const char * pszId)
-   {
-
-      m_plistener->call_notification_area_action(pszId);
-
-   }
-
-
-//#endif
 
 
 } // namespace node_gnome

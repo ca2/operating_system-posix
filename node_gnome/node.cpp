@@ -36,7 +36,9 @@ void gtk_settings_gtk_theme_name_callback(GObject* object, GParamSpec* pspec, gp
 
    }
 
-   pnode->m_psystem->m_papexsystem->process_subject(id_os_user_theme);
+   auto psubject = pnode->m_psystem->m_papexsystem->subject(id_os_user_theme);
+
+   pnode->m_psystem->m_papexsystem->handle_subject(psubject);
 
 }
 
@@ -282,7 +284,7 @@ namespace node_gnome
 
                 auto psubject = psystem->subject(id_os_user_theme);
 
-                psubject->add(this);
+                psubject->add_listener(this);
 
                 //g_object_ref(preturn);
 
