@@ -3,6 +3,7 @@
 //
 #include "framework.h"
 #include "aura/user/_user.h"
+#include "acme/filesystem/filesystem/acme_dir.h"
 
 
 namespace node_gnome
@@ -56,11 +57,12 @@ namespace node_gnome
 
       }
 
-      auto papplication = get_application();
+      ::file::path pathFolder = m_psystem->m_pacmedir->ca2roaming() / "matter/icon/128";
 
-      ::file::path pathIcon = papplication->dir().matter("main/notify_icon_128.png");
+      string strIconName = get_application()->m_strAppId;
 
-      auto pathFolder = pathIcon.folder();
+      strIconName.replace("/", "_");
+      strIconName.replace("-", "_");
 
       auto psystem = m_psystem;
 
@@ -68,7 +70,7 @@ namespace node_gnome
 
       auto estatus = __construct(m_pindicator);
 
-      m_pindicator->create(m_strId, "notify_icon_128", pathFolder, m_plistener);
+      m_pindicator->create(m_strId, strIconName, pathFolder, m_plistener);
 
       if (m_pindicator == nullptr)
       {

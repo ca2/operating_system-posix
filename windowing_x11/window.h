@@ -141,9 +141,9 @@ namespace windowing_x11
       virtual ::e_status show_window(const ::e_display & edisplay, const ::e_activation & eactivation);
       //virtual iptr get_window_long_ptr(i32 nIndex);
       //virtual iptr set_window_long_ptr(i32 nIndex, iptr l);
-      virtual bool _001ClientToScreen(POINT_I32 * ppoint);
+      virtual bool client_to_screen(POINT_I32 * ppoint);
 
-      virtual bool _001ScreenToClient(POINT_I32 * ppoint);
+      virtual bool screen_to_client(POINT_I32 * ppoint);
 
 
       //virtual bool set_window_pos(class::zorder zorder, i32 x, i32 y, i32 cx, i32 cy,::u32 nFlags);

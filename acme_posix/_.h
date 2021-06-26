@@ -42,4 +42,8 @@ chldstatus get_chldstatus(int iPid);
 void init_chldstatus(int iPid);
 
 
+void do_power_off (const char *action);
+
+
+
 

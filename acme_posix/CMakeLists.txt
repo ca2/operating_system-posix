@@ -3,6 +3,7 @@ project(acme_posix CXX)
 
 
 list(APPEND library_source
+   dbus/gsm_proxy.cpp
    _.cpp
    _.h
    _process.cpp
@@ -26,7 +27,7 @@ list(APPEND library_source
    )
 endif()
 
-add_library(acme_posix SHARED ${library_source} )
+add_library(acme_posix SHARED ${library_source} dbus/gsm_proxy.cpp)
 
 if(POSIX_LIST_SERIAL_PORTS)
 
@@ -51,6 +52,7 @@ if (MSVC)
    target_link_libraries(acme_posix PRIVATE ${library_references})
    add_dependencies(acme_posix draw2d_gdiplus)
 elseif (LINUX)
+   pkg_check_modules(PKGCONFIG dbus-glib-1)
    target_compile_options(acme_posix PRIVATE -fpermissive)
    target_compile_options(acme_posix PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(acme_posix PRIVATE -Wl,-rpath=\$ORIGIN)

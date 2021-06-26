@@ -135,6 +135,8 @@ namespace acme
 
 #endif
 
+         ::e_status reboot() override;
+
 
       };
 

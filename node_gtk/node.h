@@ -88,6 +88,7 @@ namespace node_gtk
       virtual int os_launch_uri(const char * pszUri, char * pszError = NULL, int iBufferSize = 0) override;
 
 
+
    };
 
 
