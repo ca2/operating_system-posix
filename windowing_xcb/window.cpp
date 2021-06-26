@@ -374,7 +374,7 @@ namespace windowing_xcb
       else
       {
 
-         pimpl->m_puserinteraction->layout().window() = e_display_none;
+         pimpl->m_puserinteraction->layout().window().display() = e_display_none;
 
       }
 
