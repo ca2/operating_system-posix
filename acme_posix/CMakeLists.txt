@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.17)
 project(acme_posix CXX)
 
 
-list(APPEND acme_posix_source
+list(APPEND library_source
+   dbus/gsm_proxy.cpp
    _.cpp
    _.h
    _process.cpp
@@ -16,16 +17,17 @@ list(APPEND acme_posix_source
    node.h
    pipe.cpp
    pipe.h
+   process.cpp
    )
 
 if(POSIX_LIST_SERIAL_PORTS)
 
-list(APPEND acme_posix_source
+list(APPEND library_source
    posix/list_serial_ports.cpp
    )
 endif()
 
-add_library(acme_posix SHARED ${acme_posix_source} _acme_posix.h process.cpp)
+add_library(acme_posix SHARED ${library_source} dbus/gsm_proxy.cpp)
 
 if(POSIX_LIST_SERIAL_PORTS)
 
@@ -50,6 +52,7 @@ if (MSVC)
    target_link_libraries(acme_posix PRIVATE ${library_references})
    add_dependencies(acme_posix draw2d_gdiplus)
 elseif (LINUX)
+   pkg_check_modules(PKGCONFIG dbus-glib-1)
    target_compile_options(acme_posix PRIVATE -fpermissive)
    target_compile_options(acme_posix PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(acme_posix PRIVATE -Wl,-rpath=\$ORIGIN)

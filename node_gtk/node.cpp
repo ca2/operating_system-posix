@@ -13,6 +13,8 @@
 #include <glib.h>
 
 
+
+
 ::e_status os_defer_init_gtk();
 
 
@@ -75,7 +77,9 @@ void gtk_settings_gtk_theme_name_callback(GObject* object, GParamSpec* pspec, gp
 
    }
 
-   pnode->m_psystem->m_papexsystem->process_subject(id_os_user_theme);
+   auto psubject = pnode->m_psystem->m_papexsystem->subject(id_os_user_theme);
+
+   pnode->m_psystem->m_papexsystem->handle_subject(psubject);
 
 }
 
@@ -1064,7 +1068,9 @@ namespace node_gtk
 
       ::node_gtk::node * pnode = (::node_gtk::node *) data;
 
-      pnode->m_psystem->m_papexsystem->process_subject(id_wallpaper_change);
+      auto psubject = pnode->m_psystem->m_papexsystem->subject(id_wallpaper_change);
+
+      pnode->m_psystem->m_papexsystem->handle_subject(psubject);
 
    }
 
@@ -1477,29 +1483,8 @@ namespace node_gtk
    }
 
 
-//   void os_calc_dark_mode()
-//   {
-//
-//      bool bDarkMode = _os_calc_dark_mode();
-//
-//      if(g_bitLastDarkMode != bDarkMode)
-//      {
-//
-//         ::user::set_app_dark_mode(bDarkMode);
-//
-//         ::user::set_system_dark_mode(bDarkMode);
-//
-//         g_bitLastDarkMode = bDarkMode;
-//
-//         System.deliver(id_os_dark_mode);
-//
-//         x11_kick_idle();
-//
-//      }
-//
-//   }
 
-} // namespace user
+} // namespace node_gtk
 
 
 

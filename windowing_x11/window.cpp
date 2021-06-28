@@ -427,7 +427,7 @@ namespace windowing_x11
       } else
       {
 
-         pimpl->m_puserinteraction->layout().window() = e_display_none;
+         pimpl->m_puserinteraction->layout().window().display() = e_display_none;
 
       }
 
@@ -1466,70 +1466,74 @@ namespace windowing_x11
    {
 
       x11_windowing()->windowing_branch(__routine([this, edisplay, eactivation]()
-                                                  {
-
-      windowing_output_debug_string("\n::window::show_window 1");
-
-      synchronous_lock synchronouslock(user_mutex());
-
-      display_lock displaylock(x11_display()->Display());
-
-      XWindowAttributes attr;
-
-      if (!XGetWindowAttributes(Display(), Window(), &attr))
       {
 
-         windowing_output_debug_string("\n::window::show_window 1.2");
+         windowing_output_debug_string("\n::window::show_window 1");
 
-         return false;
+         synchronous_lock synchronouslock(user_mutex());
 
-      }
+         display_lock displaylock(x11_display()->Display());
 
-      if (edisplay == e_display_zoomed)
-      {
+         XWindowAttributes attr;
 
-         if (attr.map_state == IsUnmapped)
+         if (!XGetWindowAttributes(Display(), Window(), &attr))
          {
 
-            XMapWindow(Display(), Window());
+            windowing_output_debug_string("\n::window::show_window 1.2");
+
+            return false;
 
          }
 
-         mapped_net_state_raw(true, x11_display()->m_iScreen,
-                              x11_display()->intern_atom(x_window::e_atom_net_wm_state_maximized_horz, false),
-                              x11_display()->intern_atom(x_window::e_atom_net_wm_state_maximized_vert, false));
-
-      } else if (edisplay == e_display_iconic)
-      {
-
-         wm_iconify_window();
-
-      } else if (::is_visible(edisplay))
-      {
-
-         if (attr.map_state == IsUnmapped)
+         if (edisplay == e_display_zoomed)
          {
 
-            XMapWindow(Display(), Window());
+            if (attr.map_state == IsUnmapped)
+            {
+
+               XMapWindow(Display(), Window());
+
+            }
+
+            mapped_net_state_raw(true, x11_display()->m_iScreen,
+                                 x11_display()->intern_atom(x_window::e_atom_net_wm_state_maximized_horz, false),
+                                 x11_display()->intern_atom(x_window::e_atom_net_wm_state_maximized_vert, false));
+
+         }
+         else if (edisplay == e_display_iconic)
+         {
+
+            wm_iconify_window();
+
+         }
+         else if (::is_visible(edisplay))
+         {
+
+            if (attr.map_state == IsUnmapped)
+            {
+
+               XMapWindow(Display(), Window());
+
+            }
+
+         }
+         else
+         {
+
+            if (attr.map_state != IsUnmapped)
+            {
+
+               XWithdrawWindow(Display(), Window(), Screen());
+
+            }
 
          }
 
-      } else
-      {
+         windowing_output_debug_string("\n::window::show_window 2");
 
-         if (attr.map_state != IsUnmapped)
-         {
+         return true;
 
-            XWithdrawWindow(Display(), Window(), Screen());
-
-         }
-
-      }
-
-      windowing_output_debug_string("\n::window::show_window 2");
-
-      return true;
-                                                  }));
+      }));
 
       return ::success;
 
@@ -1742,7 +1746,7 @@ namespace windowing_x11
 //   }
 
 
-   bool window::_001ClientToScreen(POINT_I32 * ppoint)
+   bool window::client_to_screen(POINT_I32 * ppoint)
    {
 
       return true;
@@ -1750,7 +1754,7 @@ namespace windowing_x11
    }
 
 
-   bool window::_001ScreenToClient(POINT_I32 * ppoint)
+   bool window::screen_to_client(POINT_I32 * ppoint)
    {
 
       return true;

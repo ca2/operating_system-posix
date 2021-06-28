@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.17)
 project(aura_posix CXX)
 
 
-list(APPEND aura_posix_source
+list(APPEND library_source
+        x11/_x11.h
    _.cpp
    _.h
    _aura_posix.h
@@ -32,7 +33,7 @@ list(APPEND library_references
 if(WITH_X11 OR WITH_XCB)
 
 
-   list(APPEND aura_posix_source
+   list(APPEND library_source
       x11/_.cpp
       x11/_const.h
       x11/display_lock.cpp
@@ -49,7 +50,7 @@ if(WITH_X11 OR WITH_XCB)
 endif()
 
 
-add_library(aura_posix SHARED ${aura_posix_source} x11/_x11.h)
+add_library(aura_posix SHARED ${library_source})
 
 
 target_precompile_headers(aura_posix PRIVATE framework.h)

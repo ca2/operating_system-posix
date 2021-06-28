@@ -12,6 +12,7 @@ list(APPEND library_references
 list(APPEND library_source
         _.cpp
         _.h
+        _write_text_pango.h
         factory_exchange.cpp
     font_enumeration.cpp
     font_enumeration.h
@@ -23,7 +24,7 @@ list(APPEND library_source
         write_text.h)
 
 
-add_library(write_text_pango SHARED ${library_source} _write_text_pango.h)
+add_library(write_text_pango SHARED ${library_source})
 
 target_precompile_headers(write_text_pango PRIVATE framework.h)
 

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.17)
 project(windowing_x11 CXX)
 
 
-list(APPEND windowing_x11_source
+list(APPEND library_source
    _.cpp
    _.h
    _windowing_x11.h
@@ -60,7 +60,7 @@ list(APPEND library_references
    )
 
 
-add_library(windowing_x11 SHARED ${windowing_x11_source})
+add_library(windowing_x11 SHARED ${library_source})
 
 target_precompile_headers(windowing_x11 PRIVATE framework.h)
 

@@ -112,9 +112,9 @@ namespace windowing_xcb
 
       virtual long _get_wm_state();
 
-      virtual bool _001ClientToScreen(POINT_I32 * ppoint);
+      virtual bool client_to_screen(POINT_I32 * ppoint);
 
-      virtual bool _001ScreenToClient(POINT_I32 * ppoint);
+      virtual bool screen_to_client(POINT_I32 * ppoint);
 
       virtual bool is_destroying();
       

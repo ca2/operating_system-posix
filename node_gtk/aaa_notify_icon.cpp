@@ -1,20 +1,8 @@
 //
 // Created by camilo on 15/02/2021.
 //
-
 #include "framework.h"
-//#include "apex/os/linux/gnome_gnome.h"
 #include "aura/user/_user.h"
-
-
-static ::user::notify_icon * g_pnotifyiconLast = nullptr;
-
-
-#ifdef LINUX
-
-#include "aura/os/linux/appindicator.h"
-
-#endif
 
 
 namespace node_gtk
@@ -24,18 +12,6 @@ namespace node_gtk
    notify_icon::notify_icon()
    {
 
-      g_pnotifyiconLast = this;
-
-#ifdef WINDOWS_DESKTOP
-
-      //m_nid.cbSize = sizeof(m_nid);
-
-#elif defined(LINUX)
-
-      m_pindicator = nullptr;
-
-#endif
-
       m_bCreated = false;
 
    }
@@ -44,31 +20,7 @@ namespace node_gtk
    notify_icon::~notify_icon()
    {
 
-      //DestroyWindow();
-
-      if(g_pnotifyiconLast== this)
-      {
-
-         g_pnotifyiconLast = nullptr;
-
-      }
-
    }
-
-
-   /*void notify_icon::install_message_routing(::channel * pchannel)
-   {
-
-#ifdef WINDOWS_DESKTOP
-
-      ::user::interaction::install_message_routing(pchannel);
-
-      MESSAGE_LINK(MessageNotifyIcon, pchannel, this, &notify_icon::_001OnNotifyIconMessage);
-      MESSAGE_LINK(e_message_destroy, pchannel, this, &notify_icon::_001OnDestroy);
-
-#endif
-
-   }*/
 
 
    bool notify_icon::create_notify_icon(::u32 uId, ::user::notify_icon_listener * plistener, ::windowing::icon * picon)
@@ -84,17 +36,6 @@ namespace node_gtk
       m_strId.Format("notify_icon_%d", uId);
 
       m_strId = "ca2-" + picon->get_tray_icon_name() + "-" + m_strId;
-
-#ifdef WINDOWS_DESKTOP
-
-      if(!create_message_queue(m_strId))
-      {
-
-         return false;
-
-      }
-
-#endif
 
       m_uiId                     = uId;
 
@@ -159,9 +100,7 @@ namespace node_gtk
 
          pathFolder /= "_matter" / strId / "_std/_std/main" ;
 
-         string strNotifyIcon = _002Underscore(strAppId);
-
-         ::file::path path = pathFolder / (strNotifyIcon + "_128.png");
+         ::file::path path = pathFolder / ("notify_icon_128.png);
 
          auto pcontext = m_pcontext->m_papexcontext;
 
@@ -173,13 +112,13 @@ namespace node_gtk
 
          auto pnode = psystem->node();
 
-         pnode->node_sync(5_s, __routine([this, pnode, strNotifyIcon, pathFolder]()
+         pnode->node_sync(5_s, __routine([this, pnode, pathFolder]()
                                          {
 
 
                                             auto estatus = __construct(m_pindicator);
 
-                                            m_pindicator->create(m_strId, strNotifyIcon + "_128", pathFolder, this);
+                                            m_pindicator->create(m_strId, "notify_icon_128", pathFolder, this);
 
                                          }));
 

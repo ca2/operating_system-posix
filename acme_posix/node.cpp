@@ -777,6 +777,16 @@ namespace acme
 //      }
 
 
+      ::e_status node::reboot()
+      {
+
+         do_power_off("Reboot");
+
+         return success;
+
+      }
+
+
    } // namespace posix
 
 

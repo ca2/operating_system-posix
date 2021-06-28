@@ -76,7 +76,6 @@ namespace node_gnome
    bool appindicator::create(const char * pszId, const char * pszIcon, const char * pszFolder, user_notify_icon_bridge * pbridge)
    {
 
-
       m_pindicator = app_indicator_new_with_path(pszId, pszIcon, APP_INDICATOR_CATEGORY_APPLICATION_STATUS, pszFolder);
 
       if(m_pindicator == nullptr)

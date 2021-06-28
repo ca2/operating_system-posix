@@ -5,7 +5,7 @@
 #include "gnome_shared.h"
 #include "appindicator.h"
 #include "gdk.h"
-
+#include <kworkspace5/kworkspace.h>
 
 namespace node_kde
 {
@@ -815,6 +815,15 @@ namespace node_kde
 
    }
 
+
+   ::e_status node::reboot()
+   {
+
+      KWorkSpace::requestShutDown(KWorkSpace::ShutdownConfirmYes, KWorkSpace::ShutdownTypeReboot, KWorkSpace::ShutdownModeInteractive);
+
+      return ::success;
+
+   }
 
 //   void * node::node_wrap_window(void * pvoidDisplay, i64 window)
 //   {

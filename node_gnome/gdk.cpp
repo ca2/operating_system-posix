@@ -231,7 +231,9 @@ namespace node_gnome
 
       ::node_gnome::node * pnode = (::node_gnome::node *) data;
 
-      pnode->m_psystem->m_papexsystem->process_subject(id_wallpaper_change);
+      auto psubject = pnode->m_psystem->m_papexsystem->subject(id_wallpaper_change);
+
+      pnode->m_psystem->m_papexsystem->handle_subject(psubject);
 
    }
 

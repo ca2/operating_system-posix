@@ -4158,20 +4158,20 @@ namespace draw2d_xlib
 
    }
    /*
-   void window::_001ScreenToClient(RECTANGLE_I32 * prectangle)
+   void window::screen_to_client(RECTANGLE_I32 * prectangle)
    {
    ASSERT(::IsWindow(get_handle1()));
-   ::_001ScreenToClient(get_handle1(), (POINT_I32 *)rectangle_i32);
-   ::_001ScreenToClient(get_handle1(), ((POINT_I32 *)rectangle_i32)+1);
+   ::screen_to_client(get_handle1(), (POINT_I32 *)rectangle_i32);
+   ::screen_to_client(get_handle1(), ((POINT_I32 *)rectangle_i32)+1);
    if (GetExStyle() & WS_EX_LAYOUTRTL)
    rectangle_i32::swap_left_right(rectangle);
    }
 
-   void window::_001ClientToScreen(RECTANGLE_I32 * prectangle)
+   void window::client_to_screen(RECTANGLE_I32 * prectangle)
    {
    ASSERT(::IsWindow(get_handle1()));
-   ::_001ClientToScreen(get_handle1(), (POINT_I32 *)rectangle_i32);
-   ::_001ClientToScreen(get_handle1(), ((POINT_I32 *)rectangle_i32)+1);
+   ::client_to_screen(get_handle1(), (POINT_I32 *)rectangle_i32);
+   ::client_to_screen(get_handle1(), ((POINT_I32 *)rectangle_i32)+1);
    if (GetExStyle() & WS_EX_LAYOUTRTL)
    rectangle_i32::swap_left_right(rectangle);
    }*/

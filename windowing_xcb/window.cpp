@@ -374,7 +374,7 @@ namespace windowing_xcb
       else
       {
 
-         pimpl->m_puserinteraction->layout().window() = e_display_none;
+         pimpl->m_puserinteraction->layout().window().display() = e_display_none;
 
       }
 
@@ -1248,7 +1248,7 @@ namespace windowing_xcb
    }
 
 
-   bool window::_001ClientToScreen(POINT_I32 *ppoint)
+   bool window::client_to_screen(POINT_I32 *ppoint)
    {
 
       return true;
@@ -1256,7 +1256,7 @@ namespace windowing_xcb
    }
 
 
-   bool window::_001ScreenToClient(POINT_I32 *ppoint)
+   bool window::screen_to_client(POINT_I32 *ppoint)
    {
 
       return true;
@@ -2939,6 +2939,8 @@ namespace windowing_xcb
 
    ::e_status window::_withdraw_window()
    {
+
+      _unmap_window();
 
       auto estatus = _delete_property(xcb_display()->atom(x_window::e_atom_net_wm_state));
 

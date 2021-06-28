@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.17)
 project(windowing_xcb CXX)
 
 
-list(APPEND windowing_xcb_source
+list(APPEND library_source
    _.cpp
    _.h
    _windowing_xcb.h
@@ -62,7 +62,7 @@ list(APPEND library_references
    )
 
 
-add_library(windowing_xcb SHARED ${windowing_xcb_source})
+add_library(windowing_xcb SHARED ${library_source})
 
 target_precompile_headers(windowing_xcb PRIVATE framework.h)
 
@@ -87,8 +87,6 @@ elseif (LINUX)
    target_link_options(windowing_xcb PRIVATE -Wl,-z,defs)
 endif ()
 
-
-#add_dependencies(windowing_xcb experience_core)
 
 
 
