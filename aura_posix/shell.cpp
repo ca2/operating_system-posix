@@ -847,7 +847,7 @@ namespace aura
 
             m_pilHover[48]->add_image(image48, 0, 0);
 
-            if (imagekey.m_cr == 0)
+            if (imagekey.m_cr.is_transparent())
             {
 
 //               auto psystem = m_psystem->m_paurasystem;
