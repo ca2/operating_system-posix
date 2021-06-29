@@ -1327,10 +1327,10 @@ namespace windowing_xcb
 
                auto origin = window.origin();
 
-               auto & screen_origin = window.screen_origin();
+               //auto & screen_origin = window.screen_origin();
 
                ::output_debug_string("\nwindow.origin=" + __str(origin.x) + ", " + __str(origin.y));
-               ::output_debug_string("\nwindow.screen_origin=" + __str(screen_origin.x) + ", " + __str(screen_origin.y));
+               //::output_debug_string("\nwindow.screen_origin=" + __str(screen_origin.x) + ", " + __str(screen_origin.y));
                ::output_debug_string("\nbutton.root_x=" + __str(pbutton->root_x));
                ::output_debug_string("\nbutton.root_y=" + __str(pbutton->root_y));
                ::output_debug_string("\n");

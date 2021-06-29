@@ -177,7 +177,7 @@ namespace windowing_xcb
 
       windowstate3.size() = {INT_MIN, INT_MIN};
 
-      windowstate3.screen_origin() = {INT_MIN, INT_MIN};
+      //windowstate3.screen_origin() = {INT_MIN, INT_MIN};
 
       auto &state = pimpl->m_puserinteraction->m_layout.design();
 
@@ -185,7 +185,7 @@ namespace windowing_xcb
 
       state.size() = {cx, cy};
 
-      state.screen_origin() = state.origin();
+      //state.screen_origin() = state.origin();
 
       if (!estatus)
       {

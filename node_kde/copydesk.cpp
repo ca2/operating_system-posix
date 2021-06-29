@@ -259,42 +259,55 @@ return false;
    bool copydesk::_desk_to_image(::image * pimage)
    {
 
-      auto psystem = m_psystem;
+      bool bOk = false;
 
-      auto pnode = psystem->node()->m_pNodeKDE;
+      auto psession = get_session()->m_paurasession;
 
-      auto pqapplication = pnode->m_pqapplication;
+      auto puser = psession->user();
 
-      auto pclipboard = pqapplication->clipboard();
+      auto pwindowing = puser->windowing();
 
-      auto imageClipboard = pclipboard->image();
+      pwindowing->windowing_sync(30_s, __routine([this, pimage, &bOk]()
+                {
 
-      imageClipboard.convertTo(QImage::Format_ARGB32);
+                   auto psystem = m_psystem;
 
-      int w = imageClipboard.width();
+                   auto pnode = psystem->node()->m_pNodeKDE;
 
-      int h = imageClipboard.height();
+                   auto pqapplication = pnode->m_pqapplication;
 
-      auto estatus = pimage->create(w, h);
+                   auto pclipboard = pqapplication->clipboard();
 
-      if(!estatus)
-      {
+                   auto imageClipboard = pclipboard->image().convertToFormat(QImage::Format_ARGB32_Premultiplied);
 
-         return false;
+                   int width = imageClipboard.width();
 
-      }
+                   int height = imageClipboard.height();
 
-      color32_t * pcolor32Dst = (color32_t *) pimage->get_data();
+                   auto estatus = pimage->create(width, height);
 
-      int scanDst = pimage->scan_size();
+                   if (!estatus)
+                   {
 
-      color32_t * pcolor32Src = (color32_t *) imageClipboard.bits();
+                      bOk = false;
 
-      int scanSrc = imageClipboard.bytesPerLine();
+                      return;
 
-      ::copy_colorref(pcolor32Dst, w, h, scanDst, pcolor32Src, scanSrc);
+                   }
 
-      return true;
+                   color32_t * pcolor32Dst = (color32_t *) pimage->get_data();
+
+                   int scanDst = pimage->scan_size();
+
+                   color32_t * pcolor32Src = (color32_t *) imageClipboard.bits();
+
+                   int scanSrc = imageClipboard.bytesPerLine();
+
+                   ::copy_colorref(pcolor32Dst, width, height, scanDst, pcolor32Src, scanSrc);
+
+                   bOk = true;
+
+                }));
 
 //      __pointer(clipboard_data) pdata = __new(clipboard_data(get_context_application(), e_clipboard_get_image));
 //
@@ -320,6 +333,7 @@ return false;
 //      return true;
 
 //return false;
+return bOk;
 
    }
 
