@@ -68,7 +68,7 @@ elseif (LINUX)
    pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 appindicator3-0.1)
    target_compile_options(node_gtk PRIVATE -fpermissive)
    target_compile_options(node_gtk PRIVATE ${PKGCONFIG_CFLAGS})
-   target_link_options(node_gtk PRIVATE -Wl,-rpath=\$ORIGIN)
+   #target_link_options(node_gtk PRIVATE -Wl,-rpath=$ORIGIN)
    target_link_libraries(node_gtk PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
    target_link_options(node_gtk PRIVATE -Wl,-z,defs)
 

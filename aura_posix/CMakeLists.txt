@@ -79,7 +79,7 @@ endif()
 
    target_compile_options(aura_posix PRIVATE -fpermissive)
    target_compile_options(aura_posix PRIVATE ${PKGCONFIG_CFLAGS})
-   target_link_options(aura_posix PRIVATE -Wl,-rpath=\$ORIGIN)
+   #target_link_options(aura_posix PRIVATE -Wl,-rpath=$ORIGIN)
    target_link_libraries(aura_posix PRIVATE ${PKGCONFIG_LIBRARIES} ${library_references})
    target_link_options(aura_posix PRIVATE -Wl,-z,defs)
 
