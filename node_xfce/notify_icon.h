@@ -47,7 +47,7 @@ namespace node_xfce
       virtual ~notify_icon();
 
 
-      void AddHiddenWindow(__pointer(::user::interaction) pwnd);
+      void add_hidden_window(::user::interaction * puserinteraction) override;
 
       //#ifdef WINDOWS_DESKTOP
 
@@ -66,9 +66,9 @@ namespace node_xfce
 
       //#endif
 
-      bool modify_icon(::windowing::icon * picon);
+      ::e_status modify_icon(::windowing::icon * picon) override;
 
-      virtual bool create_notify_icon(::u32 id, ::user::notify_icon_listener * plistener, ::windowing::icon * picon) override;
+      ::e_status create_notify_icon(::u32 id, ::user::notify_icon_listener * plistener, ::windowing::icon * picon) override;
 
       //DECL_GEN_SIGNAL(_001OnNotifyIconMessage);
       //DECL_GEN_SIGNAL(_001OnDestroy);
@@ -86,13 +86,13 @@ namespace node_xfce
 //      virtual void notify_icon_play(const char * action) override;
 //#endif
 //#ifndef WINDOWS_DESKTOP
-      virtual int _get_notification_area_action_count() override;
-      virtual const char * _get_notification_area_action_name(int iIndex) override;
-      virtual const char * _get_notification_area_action_id(int iIndex) override;
-      virtual const char * _get_notification_area_action_label(int iIndex) override;
-      virtual const char * _get_notification_area_action_accelerator(int iIndex) override;
-      virtual const char * _get_notification_area_action_description(int iIndex) override;
-      virtual void call_notification_area_action(const char * pszId) override;
+//      virtual int _get_notification_area_action_count() override;
+//      virtual const char * _get_notification_area_action_name(int iIndex) override;
+//      virtual const char * _get_notification_area_action_id(int iIndex) override;
+//      virtual const char * _get_notification_area_action_label(int iIndex) override;
+//      virtual const char * _get_notification_area_action_accelerator(int iIndex) override;
+//      virtual const char * _get_notification_area_action_description(int iIndex) override;
+//      virtual void call_notification_area_action(const char * pszId) override;
 //#endif
 
 
