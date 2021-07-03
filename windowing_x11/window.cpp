@@ -2551,6 +2551,20 @@ namespace windowing_x11
 
       }
 
+      if(!pcursorx11->m_cursor)
+      {
+
+         auto estatus = pcursorx11->_create_os_cursor();
+
+         if(!estatus)
+         {
+
+            return estatus;
+
+         }
+
+      }
+
       if (m_cursorLast == pcursorx11->m_cursor)
       {
 

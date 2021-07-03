@@ -39,17 +39,41 @@ namespace windowing_x11
 //   }
 
    
-   ::e_status cursor::create_from_image(const ::image * pimage, ::i32 xHotspot, ::i16 yHotspot)
+//   ::e_status cursor::create_from_image(const ::image * pimage, ::i32 xHotspot, ::i16 yHotspot)
+//   {
+//
+//      __throw(error_interface_only);
+//
+//      return error_interface_only;
+//
+//   }
+
+
+   ::e_status cursor::_create_os_cursor()
    {
 
-      __throw(error_interface_only);
+      if(m_cursor)
+      {
 
-      return error_interface_only;
+         return ::success_none;
+
+      }
+
+      auto estatus = _load_default_cursor(m_ecursor);
+
+      if(!estatus)
+      {
+
+         return estatus;
+
+      }
+
+      return estatus;
 
    }
 
    
-   ::e_status cursor::load_default_cursor(enum_cursor ecursor)
+   ::e_status cursor::_load_default_cursor(enum_cursor ecursor)
    {
 
       int iCursor;
