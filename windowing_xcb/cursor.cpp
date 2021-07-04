@@ -31,7 +31,7 @@ namespace windowing_xcb
 //   }
 
    
-   ::e_status cursor::create_from_image(const ::image * pimage, ::i32 xHotspot, ::i16 yHotspot)
+   ::e_status cursor::_create_from_image(const ::image * pimage, ::i32 xHotspot, ::i16 yHotspot)
    {
 
       __throw(error_interface_only);
@@ -41,7 +41,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status cursor::load_default_cursor(enum_cursor ecursor)
+   ::e_status cursor::_load_default_cursor(enum_cursor ecursor)
    {
 
       int iCursor;
@@ -85,18 +85,44 @@ namespace windowing_xcb
    }
 
 
+   ::e_status cursor::_create_os_cursor()
+   {
+
+      if(m_cursor)
+      {
+
+         return ::success;
+
+      }
+
+      auto estatus = _load_default_cursor(m_ecursor);
+
+      if(!estatus)
+      {
+
+         return estatus;
+
+      }
+
+      return estatus;
+
+   }
+
+
    xcb_cursor_t cursor::get_os_cursor()
    {
 
       if(!m_cursor)
       {
 
-         if(m_bLoadSystemDefaultCursorHint)
-         {
+         //if(m_bLoadSystemDefaultCursorHint)
+         //{
 
-            load_default_cursor(m_ecursor);
+//            load_default_cursor(m_ecursor);
 
-         }
+  //       }
+
+      _create_os_cursor();
 
       }
 
