@@ -149,6 +149,8 @@ namespace node_gtk
 
       }
 
+      ::os_post_quit();
+
    }
 
 
@@ -189,6 +191,13 @@ namespace node_gtk
          return estatus;
 
       }
+
+      // To pair linux.h/main platform_create_system new system
+      // This should be safe here in this node_gtk::node
+      // because just above m_psystem has begin_synch()
+      // so the running thread is holding references to the m_psystem thread.
+      m_psystem->release();
+
       //   ::e_status estatus = psystem->begin_synch();
       //
       //   if(!estatus)
@@ -784,6 +793,8 @@ namespace node_gtk
 
    void node::os_post_quit()
    {
+
+      //::os_post_quit();
 
    }
 
@@ -1878,5 +1889,19 @@ const char * linux_g_direct_get_file_content_type(const char * pszPath)
 
 }
 
+
+
+
+
+void os_post_quit()
+{
+
+   auto idle_source = g_idle_source_new();
+
+   g_source_set_callback(idle_source, &gtk_quit_callback, nullptr, nullptr);
+
+   g_source_attach(idle_source, g_main_context_default());
+
+}
 
 

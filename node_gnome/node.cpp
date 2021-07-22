@@ -148,6 +148,15 @@ namespace node_gnome
          return estatus;
 
       }
+
+
+      // To pair linux.h/main platform_create_system new system
+      // This should be safe here in this node_gtk::node
+      // because just above m_psystem has begin_synch()
+      // so the running thread is holding references to the m_psystem thread.
+      m_psystem->release();
+
+
       //   ::e_status estatus = psystem->begin_synch();
       //
       //   if(!estatus)
@@ -756,6 +765,8 @@ namespace node_gnome
 
    void node::os_post_quit()
    {
+
+      ::node_gtk::node::os_post_quit();
 
    }
 

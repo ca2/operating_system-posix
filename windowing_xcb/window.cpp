@@ -394,6 +394,8 @@ namespace windowing_xcb
 
          pimpl->m_puserinteraction->m_ewindowflag |= e_window_flag_window_created;
 
+         pimpl->m_puserinteraction->m_bTaskStarted = true;
+
       }
 
       return bOk;

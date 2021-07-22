@@ -22,7 +22,7 @@ namespace node_gtk
 
 
       node();
-      virtual ~node();
+      ~node() override;
 
 
       virtual ::os_theme_colors * _new_os_theme_colors(string strTheme);

@@ -514,6 +514,8 @@ namespace windowing_x11
 
          pimpl->m_puserinteraction->m_ewindowflag |= e_window_flag_window_created;
 
+         pimpl->m_puserinteraction->m_bTaskStarted = true;
+
       }
 
       return bOk;
@@ -3010,9 +3012,10 @@ namespace windowing_x11
 
             mq_remove_window_from_all_queues();
 
-            pinteraction->send_message(e_message_ncdestroy, 0, 0);
+            pinteraction->send_message(e_message_non_client_destroy, 0, 0);
 
-         } else
+         }
+         else
          {
 
             try
