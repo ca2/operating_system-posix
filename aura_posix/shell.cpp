@@ -581,7 +581,7 @@ namespace aura
       }
 
 
-      i32 shell::impl_get_file_image(const image_key & imagekeyParam)
+      i32 shell::_get_file_image(const image_key & imagekeyParam)
       {
 
          image_key imagekey(imagekeyParam);

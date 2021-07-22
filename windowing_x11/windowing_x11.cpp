@@ -2085,15 +2085,15 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                         auto pauraapplication = papplication->m_pauraapplication;
 
-                        auto uiptraFrame = pauraapplication->m_puiptraFrame->interactiona();
+                        auto userinteractionaFrame = pauraapplication->m_puserinteractionaFrame->interactiona();
 
-                        for (auto &pframe : uiptraFrame)
+                        for (auto &puserinteractionFrame : userinteractionaFrame)
                         {
 
                            try
                            {
 
-                              pframe->post_message(e_message_display_change);
+                              puserinteractionFrame->post_message(e_message_display_change);
 
                            }
                            catch (...)
@@ -2258,6 +2258,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                   pwindow->m_pximkeyboard = new ::xim::keyboard(m_pdisplay->Display(), e.xkey.window);
 
+                  pwindow->m_pximkeyboard->initialize(pwindow);
+
                }
 
                strText = pwindow->m_pximkeyboard->get_key_press_text(&e.xkey, &keysym);
@@ -2317,7 +2319,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                auto pkey = __create_new < ::message::key >();
 
-               pkey->set(oswindow, oswindow, e_message_text_composition, 0, 0, ::point_i32());
+               pkey->set(oswindow, oswindow, e_message_text_composition, 0, 0);
 
                pkey->m_strText = strText;
 

@@ -39,7 +39,7 @@ namespace aura
          virtual void on_update_sizes_interest() override;
 
 
-         virtual i32 impl_get_file_image(const image_key & imagekey) override;
+         virtual i32 _get_file_image(const image_key & imagekey) override;
 
 
          virtual ::user::shell::e_folder get_folder_type(::object * pobject, const widechar * lpcszPath) override;
