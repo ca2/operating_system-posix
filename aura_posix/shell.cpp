@@ -662,9 +662,6 @@ namespace aura
          }
 
 
-
-
-
          if (::str::ends_ci(imagekey.m_strPath, ".aura"))
          {
 
@@ -698,13 +695,19 @@ namespace aura
             }
             return iImage;
          }
+
          // try to find "uifs:// http:// ftp:// like addresses"
          // then should show icon by extension or if is folder
+
          strsize iFind = imagekey.m_strPath.find_ci("://");
+
          strsize iFind2 = imagekey.m_strPath.find_ci(":");
+
          if (iFind >= 0 || iFind2 >= 2)
          {
+
             string strProtocol = string(imagekey.m_strPath).Left(maximum(iFind, iFind2));
+
             i32 i = 0;
 
             while (i < strProtocol.get_length() && ansi_char_is_alphanumeric(strProtocol[i]))
@@ -739,7 +742,6 @@ namespace aura
             // output_debug_string("test .sln");
 
          }
-
 
          string strIcon48;
 
@@ -787,9 +789,21 @@ namespace aura
 
          }
 
-         if (strIcon48.has_char())
+         if (strIcon16.has_char() || strIcon48.has_char())
          {
 
+            if(strIcon16.is_empty())
+            {
+
+               strIcon16 = strIcon48;
+
+            }
+            else if(strIcon48.is_empty())
+            {
+
+               strIcon48 = strIcon16;
+
+            }
 
             ::image_pointer pimage1 = m_pcontextimage->load_image(strIcon16);
 
@@ -813,56 +827,113 @@ namespace aura
 
             }
 
-            ::image_pointer image16 = create_image({16, 16});
+            ::image_pointer image16;
 
-            if (!::is_ok(image16))
+            if(pimage1->get_size() == ::size_i32(16, 16))
             {
 
-               return -1;
-
-            }
-
-            ::image_pointer image48 = create_image({48, 48});
-
-            if (!::is_ok(image48))
-            {
-
-               return -1;
-
-            }
-
-            pimage->get_graphics()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicubic);
-
-            pimage->get_graphics()->stretch(::size_i32(16, 16), pimage1->get_graphics(), pimage1->rectangle());
-
-            pimage->get_graphics()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicubic);
-
-            pimage->get_graphics()->stretch(::size_i32(48, 48), pimage->get_graphics(), pimage->rectangle());
-
-            synchronous_lock sl1(m_pilHover[48]->mutex());
-
-            synchronous_lock sl2(m_pil[48]->mutex());
-
-            iImage = m_pil[16]->add_image(image16, 0, 0);
-
-            m_pilHover[48]->add_image(image48, 0, 0);
-
-            if (imagekey.m_cr.is_transparent())
-            {
-
-//               auto psystem = m_psystem->m_paurasystem;
-//
-//               auto pdraw2d = psystem->draw2d();
-//
-//               auto pimaging = pdraw2d->imaging();
-//
-               m_pil[48]->color_blend(m_pilHover[48], rgb(255, 255, 240), 64);
+               image16 = pimage1;
 
             }
             else
             {
 
-               *m_pil[48] = *m_pilHover[48];
+               image16 = create_image({16, 16});
+
+               if (!::is_ok(image16))
+               {
+
+                  return -1;
+
+               }
+
+               image16->get_graphics()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicubic);
+
+               image16->get_graphics()->stretch(::size_i32(16, 16), pimage1, pimage1->rectangle());
+
+            }
+
+            ::image_pointer image48;
+
+            if(pimage->get_size() == ::size_i32(48, 48))
+            {
+
+               image48 = pimage;
+
+            }
+            else
+            {
+
+               image48 = create_image({48, 48});
+
+               if (!::is_ok(image48))
+               {
+
+                  return -1;
+
+               }
+
+               image48->get_graphics()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicubic);
+
+               image48->get_graphics()->stretch(::size_i32(48, 48), pimage, pimage->rectangle());
+
+            }
+
+            {
+
+               synchronous_lock sl1(m_pil[16]->mutex());
+
+               iImage = m_pil[16]->add_image(image16, 0, 0);
+
+            }
+
+            {
+
+               synchronous_lock sl2(m_pil[48]->mutex());
+
+               m_pil[48]->add_image(image48, 0, 0);
+
+            }
+
+            {
+
+               synchronous_lock sl1(m_pilHover[16]->mutex());
+
+               m_pilHover[16]->add_image(image16, 0, 0);
+
+               if (imagekey.m_cr.is_transparent())
+               {
+
+                  m_pilHover[16]->color_blend(m_pil[16], rgb(255, 255, 240), 64);
+
+               }
+               else
+               {
+
+                  m_pilHover[16]->color_blend(m_pil[16], imagekey.m_cr, 64);
+
+               }
+
+            }
+
+            {
+
+               synchronous_lock sl1(m_pilHover[16]->mutex());
+
+               m_pilHover[48]->add_image(image48, 0, 0);
+
+               if (imagekey.m_cr.is_transparent())
+               {
+
+                  m_pilHover[48]->color_blend(m_pil[48], rgb(255, 255, 240), 64);
+
+               }
+               else
+               {
+
+                  m_pilHover[48]->color_blend(m_pil[48], imagekey.m_cr, 64);
+
+               }
 
             }
 
