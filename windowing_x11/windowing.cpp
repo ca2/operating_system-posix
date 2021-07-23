@@ -15,6 +15,8 @@ namespace windowing_x11
 
       defer_create_mutex();
 
+      m_itask = -1;
+
       m_pWindowing = this;
 
       m_bFirstWindowMap = false;
@@ -30,6 +32,17 @@ namespace windowing_x11
 
    windowing::~windowing()
    {
+
+
+   }
+
+
+   bool windowing::is_branch_current() const
+   {
+
+      auto ithreadCurrent = get_current_ithread();
+
+      return ithreadCurrent == m_itask;
 
 
    }

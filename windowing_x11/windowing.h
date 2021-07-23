@@ -21,7 +21,7 @@ namespace windowing_x11
       bool                                            m_bFinishX11Thread;
       bool                                            m_bInitX11Thread;
 
-
+      itask_t                                         m_itask;
 
 #ifdef WITH_XI
 
@@ -34,10 +34,13 @@ namespace windowing_x11
 
 
       windowing();
-      virtual ~windowing();
+      ~windowing() override;
 
 
       virtual ::e_status initialize(::object * pobject) override;
+
+
+      bool is_branch_current() const override;
 
 
       virtual bool initialize_windowing();

@@ -42,14 +42,16 @@ namespace node_gnome
    bool windowing::message_loop_step()
    {
 
-      if(!x11_message_loop_step())
-      {
+      return ::node_gtk::windowing::message_loop_step();
 
-         return false;
-
-      }
-
-      return true;
+//      if(!x11_message_loop_step())
+//      {
+//
+//         return false;
+//
+//      }
+//
+//      return true;
 
    }
 

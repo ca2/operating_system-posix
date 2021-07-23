@@ -42,6 +42,13 @@ namespace node_gtk
    bool windowing::message_loop_step()
    {
 
+      if(m_itask == -1)
+      {
+
+         m_itask = get_current_ithread();
+
+      }
+
       if(!x11_message_loop_step())
       {
 

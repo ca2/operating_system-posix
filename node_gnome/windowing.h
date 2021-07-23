@@ -9,7 +9,7 @@ namespace node_gnome
 
 
    class CLASS_DECL_WINDOWING_X11 windowing :
-      virtual public ::windowing_x11::windowing
+      virtual public ::node_gtk::windowing
    {
    public:
 

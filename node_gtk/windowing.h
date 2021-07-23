@@ -17,13 +17,13 @@ namespace node_gtk
 
 
       windowing();
-      virtual ~windowing();
+      ~windowing() override;
 
 
       //virtual ::e_status windowing_branch(const ::routine & routine) override;
 
 
-      virtual bool message_loop_step() override;
+      bool message_loop_step() override;
 
 
    };

@@ -24,7 +24,7 @@ namespace node_gnome
    }
 
 
-   ::e_status notify_icon::create_notify_icon(::u32 uId, ::user::notify_icon_listener * plistener, ::windowing::icon * picon)
+   ::e_status notify_icon::create_notify_icon(const ::id & id, ::user::interaction * puserinteractionNotify, ::windowing::icon * picon)
    {
 
       if (m_bCreated)
@@ -34,15 +34,15 @@ namespace node_gnome
 
       }
 
-      m_strId.Format("notify_icon_%d", uId);
+      m_strId.Format("notify_icon_%s", id.to_string().c_str());
 
       m_strId = "ca2-" + picon->get_tray_icon_name() + "-" + m_strId;
 
-      m_uiId = uId;
+      m_id = id;
 
       m_piconCurrent = picon;
 
-      m_plistener = plistener;
+      m_puserinteractionNotify = puserinteractionNotify;
 
       string strAppId = m_piconCurrent->get_tray_icon_name();
 
@@ -70,12 +70,10 @@ namespace node_gnome
 
       auto estatus = __construct(m_pindicator);
 
-      m_pindicator->create(m_strId, strIconName, pathFolder, m_plistener);
+      m_pindicator->create(m_strId, strIconName, pathFolder, this);
 
       if (m_pindicator == nullptr)
       {
-
-         m_plistener = nullptr;
 
          return false;
 

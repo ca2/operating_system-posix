@@ -19,7 +19,7 @@
 #include "node.h"
 
 
-//#include "windowing.h"
+#include "windowing.h"
 
 
 //#include "copydesk.h"

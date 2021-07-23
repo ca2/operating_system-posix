@@ -29,8 +29,8 @@ list(APPEND library_source
    node.cpp
    node.h
    #notify_icon.cpp
-   #windowing.cpp
-   #windowing.h
+   windowing.cpp
+   windowing.h
    )
 
 
