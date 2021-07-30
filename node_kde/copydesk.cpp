@@ -82,7 +82,7 @@ namespace node_kde
 
 //      __pointer(clipboard_data) pdata = __new(clipboard_data(get_context_application(), e_clipboard_get_plain_text));
 //
-//      pdata->add_ref(OBJ_REF_DBG_P_NOTE(this, "copydesk::_get_plain_text"));
+//      pdata->increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_P_NOTE(this, "copydesk::_get_plain_text"));
 //
 //      auto idle_source = g_idle_source_new();
 //
@@ -138,7 +138,7 @@ namespace node_kde
 
 //      __pointer(clipboard_data) pdata = __new(clipboard_data(get_context_application(), e_clipboard_get_file_target_count));
 //
-//      pdata->add_ref(OBJ_REF_DBG_P_NOTE(this, "copydesk::_has_filea"));
+//      pdata->increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_P_NOTE(this, "copydesk::_has_filea"));
 //
 //      auto idle_source = g_idle_source_new();
 //
@@ -163,7 +163,7 @@ namespace node_kde
 
 //      __pointer(clipboard_data) pdata = __new(clipboard_data(get_context_application(), e_clipboard_get_patha));
 //
-//      pdata->add_ref(OBJ_REF_DBG_P_NOTE(this, "copydesk::_get_filea"));
+//      pdata->increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_P_NOTE(this, "copydesk::_get_filea"));
 //
 //      auto idle_source = g_idle_source_new();
 //
@@ -194,7 +194,7 @@ return false;
 
 //      __pointer(clipboard_data) pdata = __new(clipboard_data(get_context_application(), e_clipboard_set_patha));
 //
-//      pdata->add_ref(OBJ_REF_DBG_P_NOTE(this, "copydesk::_set_filea"));
+//      pdata->increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_P_NOTE(this, "copydesk::_set_filea"));
 //
 //      pdata->m_eop = eop;
 //

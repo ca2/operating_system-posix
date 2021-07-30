@@ -106,7 +106,7 @@ namespace node_gnome
 
       __pointer(clipboard_data) pdata = __new(clipboard_data(get_context_application(), e_clipboard_get_plain_text));
 
-      pdata->add_ref(OBJ_REF_DBG_P_NOTE(this, "copydesk::_get_plain_text"));
+      pdata->increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_P_NOTE(this, "copydesk::_get_plain_text"));
 
       auto idle_source = g_idle_source_new();
 
@@ -158,7 +158,7 @@ namespace node_gnome
 
       __pointer(clipboard_data) pdata = __new(clipboard_data(get_context_application(), e_clipboard_get_file_target_count));
 
-      pdata->add_ref(OBJ_REF_DBG_P_NOTE(this, "copydesk::_has_filea"));
+      pdata->increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_P_NOTE(this, "copydesk::_has_filea"));
 
       auto idle_source = g_idle_source_new();
 
@@ -183,7 +183,7 @@ namespace node_gnome
 
       __pointer(clipboard_data) pdata = __new(clipboard_data(get_context_application(), e_clipboard_get_patha));
 
-      pdata->add_ref(OBJ_REF_DBG_P_NOTE(this, "copydesk::_get_filea"));
+      pdata->increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_P_NOTE(this, "copydesk::_get_filea"));
 
       auto idle_source = g_idle_source_new();
 
@@ -212,7 +212,7 @@ namespace node_gnome
 
       __pointer(clipboard_data) pdata = __new(clipboard_data(get_context_application(), e_clipboard_set_patha));
 
-      pdata->add_ref(OBJ_REF_DBG_P_NOTE(this, "copydesk::_set_filea"));
+      pdata->increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_P_NOTE(this, "copydesk::_set_filea"));
 
       pdata->m_eop = eop;
 
@@ -243,7 +243,7 @@ namespace node_gnome
 
       __pointer(clipboard_data) pdata = __new(clipboard_data(get_context_application(), e_clipboard_get_image));
 
-      pdata->add_ref(OBJ_REF_DBG_P_NOTE(this, "copydesk::_desk_to_image"));
+      pdata->increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_P_NOTE(this, "copydesk::_desk_to_image"));
 
       pdata->m_pimage = create_image();
 

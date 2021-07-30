@@ -816,7 +816,7 @@ void gdk_branch(const ::routine & routine)
 
    ::matter * pmatter = routine.m_p;
 
-   ::add_ref(pmatter);
+   ::increment_reference_count(pmatter);
 
    synchronous_lock synchronouslock (user_mutex());
 

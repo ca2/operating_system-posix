@@ -65,26 +65,26 @@ simple_ui_display::simple_ui_display(const string & strMessageParam, const strin
 }
 
 
-i64 simple_ui_display::add_ref(OBJ_REF_DBG_PARAMS_DEF)
+i64 simple_ui_display::increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_PARAMETERS_DEF)
 {
 
-   return xcb_hook::add_ref(OBJ_REF_DBG_ARGS);
+   return xcb_hook::increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_ARGS);
 
 }
 
 
-i64 simple_ui_display::dec_ref(OBJ_REF_DBG_PARAMS_DEF)
+i64 simple_ui_display::decrement_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_PARAMETERS_DEF)
 {
 
-   return xcb_hook::dec_ref(OBJ_REF_DBG_ARGS);
+   return xcb_hook::decrement_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_ARGS);
 
 }
 
 
-i64 simple_ui_display::release(OBJ_REF_DBG_PARAMS_DEF)
+i64 simple_ui_display::release(OBJECT_REFERENCE_COUNT_DEBUG_PARAMETERS_DEF)
 {
 
-   return xcb_hook::release(OBJ_REF_DBG_ARGS);
+   return xcb_hook::release(OBJECT_REFERENCE_COUNT_DEBUG_ARGS);
 
 }
 
