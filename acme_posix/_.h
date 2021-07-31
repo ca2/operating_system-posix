@@ -42,8 +42,22 @@ chldstatus get_chldstatus(int iPid);
 void init_chldstatus(int iPid);
 
 
-void do_power_off (const char *action);
+#ifdef LINUX
 
+
+#define USE_DBUS 1
+
+
+#endif
+
+
+#ifdef USE_DBUS
+
+
+void dbus_do_power_off (const char *action);
+
+
+#endif
 
 
 

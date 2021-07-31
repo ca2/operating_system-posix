@@ -780,7 +780,11 @@ namespace acme
       ::e_status node::reboot()
       {
 
-         do_power_off("Reboot");
+#ifdef LINUX
+
+         dbus_do_power_off("Reboot");
+
+#endif
 
          return success;
 

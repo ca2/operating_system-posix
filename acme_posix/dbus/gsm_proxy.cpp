@@ -61,7 +61,7 @@ get_sm_proxy (void)
 
 
 
-void do_power_off (const char *action)
+void dbus_do_power_off (const char *action)
 {
    DBusGProxy *sm_proxy;
    GError     *error;
