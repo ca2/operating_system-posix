@@ -29,7 +29,7 @@ namespace node_kde
    }
 
 
-   ::e_status notify_icon::create_notify_icon(::u32 uId, ::user::notify_icon_listener * plistener, ::windowing::icon * picon)
+   ::e_status notify_icon::create_notify_icon(const ::id & id, ::user::interaction * puserinteractionNotify, ::windowing::icon * picon)
    {
 
       if (m_bCreated)
@@ -41,15 +41,15 @@ namespace node_kde
 
       string strNotifyIcon;
 
-      strNotifyIcon.Format("notify_icon_%d", uId);
+      strNotifyIcon = "notify_icon_" + id.to_string();
 
       m_strId = "ca2-" + picon->get_tray_icon_name() + "-" + strNotifyIcon;
 
-      m_uiId = uId;
+      m_id = id;
 
       m_piconCurrent = picon;
 
-      m_plistener = plistener;
+      m_puserinteractionNotify = puserinteractionNotify;
 
       auto pnode = m_psystem->m_pnode->m_pNodeKDE;
 
@@ -97,11 +97,7 @@ namespace node_kde
 
          string strName = _get_notification_area_action_name(i);
 
-         if (strId == "app_exit")
-         {
-
-         }
-         else if (strId == "separator")
+         if (strId == "separator")
          {
 
             if (i + 1 < _get_notification_area_action_count() && _get_notification_area_action_id(i + 1) == "app_exit")
@@ -142,6 +138,8 @@ namespace node_kde
       m_pstatusnotifieritem->setStatus(KStatusNotifierItem::Active);
 
       m_pstatusnotifieritem->setContextMenu(pmenu);
+
+      m_pstatusnotifieritem->setStandardActionsEnabled(false);
 
       m_pstatusnotifieritem->setParent(this);
 

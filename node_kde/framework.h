@@ -18,6 +18,9 @@
 #define new ACME_NEW
 
 
+void copy(::color::color * pcolor, const QColor * pqcolor);
+
+
 #include "aura/_defer.h"
 
 

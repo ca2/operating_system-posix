@@ -26,17 +26,17 @@ namespace windowing_xcb
          case XK_BackSpace:
             return ::user::e_key_back;
          case XK_Shift_L:
-            return ::user::e_key_lshift;
+            return ::user::e_key_left_shift;
          case XK_Shift_R:
-            return ::user::e_key_rshift;
+            return ::user::e_key_right_shift;
          case XK_Control_L:
-            return ::user::e_key_lcontrol;
+            return ::user::e_key_left_control;
          case XK_Control_R:
-            return ::user::e_key_rcontrol;
+            return ::user::e_key_right_control;
          case XK_Alt_L:
-            return ::user::e_key_lalt;
+            return ::user::e_key_left_alt;
          case XK_Alt_R:
-            return ::user::e_key_ralt;
+            return ::user::e_key_right_alt;
          case XK_Delete:
             return ::user::e_key_delete;
          case XK_Return:
@@ -59,8 +59,6 @@ namespace windowing_xcb
             return ::user::e_key_home;
          case XK_End:
             return ::user::e_key_end;
-
-
       }
 
       if(keysym >= 'a' && keysym <= 'z')

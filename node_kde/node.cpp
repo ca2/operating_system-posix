@@ -6,6 +6,32 @@
 #include "appindicator.h"
 #include "gdk.h"
 #include <kworkspace5/kworkspace.h>
+#include <KColorScheme>
+#include <KFileItem>
+#include <KIconLoader>
+
+
+void kde_update_os_theme_colors(::os_theme_colors * pthemecolors)
+{
+
+   KColorScheme colorscheme;
+
+   auto brushBackground = colorscheme.background();
+
+   __copy(pthemecolors->m_colorBack, brushBackground.color());
+
+}
+
+
+
+
+void copy(::color::color * pcolor, const QColor * pqcolor)
+{
+
+   pcolor->set_double(pqcolor->redF(), pqcolor->greenF(), pqcolor->blueF(), pqcolor->alphaF());
+
+}
+
 
 namespace node_kde
 {
@@ -17,6 +43,8 @@ namespace node_kde
       m_pNodeKDE = this;
 
       m_pqapplication = nullptr;
+
+      m_piconloader = nullptr;
 
    }
 
@@ -43,6 +71,8 @@ namespace node_kde
 //
 //      }
 
+      //os_post_quit();
+
    }
 
 
@@ -59,6 +89,40 @@ namespace node_kde
    }
 
 
+   bool node::eventFilter(QObject * pobject, QEvent * pevent)
+   {
+
+      if(pevent->type() == QEvent::ApplicationPaletteChange)
+      {
+
+         auto psystem = m_psystem->m_papexsystem;
+
+         auto psubject = psystem->subject(id_os_dark_mode);
+
+         auto pthemecolors = ::user::os_get_theme_colors();
+
+         if(!pthemecolors)
+         {
+
+            pthemecolors = new_os_theme_colors();
+
+            ::user::os_set_theme_colors(pthemecolors);
+
+         }
+
+         kde_update_os_theme_colors(pthemecolors);
+
+         psystem->handle_subject(psubject);
+
+         return false;
+
+      }
+
+      return false;
+
+   }
+
+
    int node::node_init_check(int *pi, char ***ppz)
    {
 
@@ -69,14 +133,16 @@ namespace node_kde
    }
 
 
-//   ::os_theme_colors * node::new_os_theme_colors()
-//   {
-//
-//      auto pthemecolors = m_pnodeimpl->new_os_theme_colors();
-//
-//      return pthemecolors;
-//
-//   }
+   ::os_theme_colors * node::new_os_theme_colors()
+   {
+
+      auto pthemecolors = ::new_os_theme_colors();
+
+      kde_update_os_theme_colors(pthemecolors);
+
+      return pthemecolors;
+
+   }
 
 
    bool node::_os_calc_app_dark_mode()
@@ -138,7 +204,7 @@ namespace node_kde
 //         ////
 //         ////      //int c = 2;
 //         ////
-//         ////      //const char * argv[]={"app", "--g-fatal-warnings"};
+//         ////      //const ::string & argv[]={"app", "--g-fatal-warnings"};
 //         ////
 //         ////#if !defined(__SANITIZE_ADDRESS__)
 //         ////
@@ -238,11 +304,11 @@ namespace node_kde
       //   }
       //
 
-//      const char *pszName = m_XstrAppId;
+//      const ::string &pszName = m_XstrAppId;
 
 //       g_set_application_name(pszName);
 
-//      const char *pszPrgName = m_strProgName;
+//      const ::string &pszPrgName = m_strProgName;
 
 //      g_set_prgname(pszPrgName);
 
@@ -254,7 +320,7 @@ namespace node_kde
 
       //int c = 2;
 
-      //const char * argv[]={"app", "--g-fatal-warnings"};
+      //const ::string & argv[]={"app", "--g-fatal-warnings"};
 
 #if !defined(__SANITIZE_ADDRESS__)
 
@@ -318,7 +384,7 @@ namespace node_kde
          ////
          ////      //int c = 2;
          ////
-         ////      //const char * argv[]={"app", "--g-fatal-warnings"};
+         ////      //const ::string & argv[]={"app", "--g-fatal-warnings"};
          ////
          ////#if !defined(__SANITIZE_ADDRESS__)
          ////
@@ -419,6 +485,8 @@ namespace node_kde
          return error_failed;
 
       }
+
+      m_pqapplication->installEventFilter(this);
 
       auto estatus = ::aura::posix::node::initialize(pobject);
 
@@ -670,17 +738,36 @@ namespace node_kde
    }
 
 
-   string node::get_file_icon_path(const char *pszPath, int iSize)
+   string node::get_file_icon_path(const ::string & strPath, int iSize)
    {
+
+      QUrl url((const char *) ("file://"+strPath));
+
+      KFileItem fileitem(url, KFileItem::NormalMimeTypeDetermination);
+
+      auto name = fileitem.iconName();
+
+//      if(::is_null(m_piconloader))
+//      {
+//
+//         m_piconloader = new KIconLoader();
+//
+//      }
+
+      auto path = KIconLoader::global()->iconPath(name, -iSize);
 
       //return ::linux_g_direct_get_file_icon_path(pszPath, iSize);
 
-      return "";
+      QByteArray bytea = path.toUtf8();
+
+      const char *pathData = bytea.constData();
+
+      return pathData;
 
    }
 
 
-   string node::get_file_content_type(const char *pszPath)
+   string node::get_file_content_type(const ::string & strPath)
    {
 
       //return ::linux_g_direct_get_file_content_type(pszPath);
@@ -698,7 +785,7 @@ namespace node_kde
    }
 
 
-   ::e_status node::node_branch(const ::routine &routine)
+   ::e_status node::node_branch(const ::routine & routine)
    {
 
       // invoke on the main thread
@@ -716,104 +803,22 @@ namespace node_kde
    }
 
 
-   void node::node_post_quit()
-   {
-
-      os_post_quit();
-
-   }
-
-
-//   ::node_linux::appindicator *node::appindicator_allocate()
-//   {
-//
-//      return new ::node_kde::appindicator();
-//
-//   }
-//
-//
-//   void node::appindicator_destroy(::linux::appindicator *pappindicator)
-//   {
-//
-//      //::linux::appindicator_destroy(pappindicator);
-//
-//      delete pappindicator;
-//
-//   }
-
-//
-//   void node::enum_display_monitors(::aura::session *psession)
-//   {
-//
-//      node_fork(__routine([psession]
-//                          {
-//
-//                             synchronous_lock sl(user_mutex());
-//
-//                             xdisplay d(x11_get_display());
-//
-//                             GdkDisplay *pdisplay = gdk_display_get_default();
-//
-//                             if (pdisplay == nullptr)
-//                             {
-//
-//                                return;
-//
-//                             }
-//
-//                             synchronous_lock slSession(psession->mutex());
-//
-//                             ::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
-//
-//                             psession->m_rectaWorkspace.set_size(iMonitorCount);
-//
-//                             psession->m_rectaMonitor.set_size(iMonitorCount);
-//
-//                             for (index iMonitor = 0; iMonitor < iMonitorCount; iMonitor++)
-//                             {
-//
-//                                GdkMonitor *pmonitor = gdk_display_get_monitor(pdisplay, iMonitor);
-//
-//                                auto &rectWorkspace = psession->m_rectaWorkspace[iMonitor];
-//
-//                                auto &rectMonitor = psession->m_rectaMonitor[iMonitor];
-//
-//                                if (pmonitor == nullptr)
-//                                {
-//
-//                                   rectWorkspace.Null();
-//
-//                                   rectMonitor.Null();
-//
-//                                   continue;
-//
-//                                }
-//
-//                                GdkRectangle rect;
-//
-//                                __zero(rect);
-//
-//                                gdk_monitor_get_workarea(pmonitor, &rect);
-//
-//                                __copy(rectWorkspace, rect);
-//
-//                                __zero(rect);
-//
-//                                gdk_monitor_get_geometry(pmonitor, &rect);
-//
-//                                __copy(rectMonitor, rect);
-//
-//                             }
-//
-//                          }));
-//
-//   }
-
-
    void node::os_post_quit()
    {
 
+      //os_post_quit();
+
+      m_pqapplication->quit();
+
    }
+
+
+//   void node::os_post_quit()
+//   {
+//
+//      m_pqapplication->quit();
+//
+//   }
 
 
    ::e_status node::reboot()
@@ -883,10 +888,10 @@ namespace node_kde
    }
 
 
-   int node::os_launch_uri(const char * pszUri, char * pszError, int iBufferSize)
+   int node::os_launch_uri(const ::string & strUri, char * pszError, int iBufferSize)
    {
 
-      QDesktopServices::openUrl(QUrl(pszUri));
+      QDesktopServices::openUrl(QUrl((const char *) strUri));
 
       return 0;
 
@@ -946,6 +951,30 @@ namespace node_kde
       return ::success;
 
    }
+
+
+   bool node::_os_calc_system_dark_mode()
+   {
+
+      auto pthemecolors = ::user::os_get_theme_colors();
+
+      if(!pthemecolors)
+      {
+
+         pthemecolors = new_os_theme_colors();
+
+         ::user::os_set_theme_colors(pthemecolors);
+
+      }
+
+      ::color::color colorBack(pthemecolors->m_colorBack);
+
+      auto dLuminance = colorBack.get_luminance();
+
+      return dLuminance < 0.5;
+
+   }
+
 
 
 } // namespace node_kde

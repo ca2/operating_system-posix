@@ -2258,7 +2258,7 @@ namespace windowing_xcb
 
             mq_erase_window_from_all_queues();
 
-            pinteraction->send_message(e_message_ncdestroy, 0, 0);
+            pinteraction->send_message(e_message_non_client_destroy, 0, 0);
 
          }
 

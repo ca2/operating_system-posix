@@ -1271,7 +1271,7 @@ namespace windowing_xcb
 
                         auto papplication = papplicationItem->m_pauraapplication;
 
-                        auto uiptraFrame = papplication->m_puiptraFrame->interactiona();
+                        auto uiptraFrame = papplication->m_puserinteractionaFrame->interactiona();
 
                         for (auto &pframe : uiptraFrame)
                         {
@@ -1601,7 +1601,7 @@ namespace windowing_xcb
 
                auto pkey = __create_new < ::message::key >();
 
-               pkey->set(pwindow, pwindow, e_message_text_composition, 0, 0, point_i32());
+               pkey->set(pwindow, pwindow, e_message_text_composition, 0, 0);
 
                pkey->m_strText = strText;
 

@@ -39,10 +39,10 @@ namespace node_kde
    }
 
 
-   ::e_status copydesk::finalize()
+   ::e_status copydesk::destroy()
    {
 
-      auto estatus = ::user::copydesk::finalize();
+      auto estatus = ::user::copydesk::destroy();
 
       if(!estatus)
       {
@@ -109,9 +109,9 @@ namespace node_kde
    bool copydesk::_has_plain_text()
    {
 
-      __pointer(ovar) payload(__new(ovar));
+      auto ppayload = __new(payload_object);
 
-      payload->m_var = false;
+      ppayload->m_payload = false;
 
       auto psystem = m_psystem->m_paurasystem;
 
@@ -126,7 +126,7 @@ namespace node_kde
 
       });
 
-      return payload->m_var.operator bool();
+      return ppayload->m_payload.operator bool();
 
    }
 

@@ -268,6 +268,8 @@ namespace windowing_xcb
 
          m_pximkeyboard = __new(::xim::keyboard(px11display, m_window));
 
+         m_pximkeyboard->initialize(this);
+
       }
 
       strText = m_pximkeyboard->get_key_press_text(&event, pkeysym);

@@ -62,7 +62,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status buffer::finalize()
+   ::e_status buffer::destroy()
    {
 
       if(!xcb_window())

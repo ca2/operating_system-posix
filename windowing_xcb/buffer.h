@@ -4,6 +4,7 @@
 #pragma once
 //#include <X11/extensions/Xrender.h>
 
+
 //#include "app/base/graphics/graphics_window_buffer.h"
 namespace windowing_xcb
 {
@@ -17,26 +18,25 @@ namespace windowing_xcb
 
 
       ::rectangle_i32                              m_rectLast;
-      __pointer(windowing_xcb::display)         m_pdisplay;
+      __pointer(windowing_xcb::display)       m_pdisplay;
       xcb_gcontext_t                               m_gcontext;
 
 
       buffer();
-      virtual ~buffer();
+      ~buffer() override;
 
 
       ::windowing_xcb::window * xcb_window() { return (::windowing_xcb::window *) (m_pwindow ? m_pwindow->m_pWindow : nullptr); }
 
 
-      virtual ::e_status initialize_graphics_graphics(::user::interaction_impl * pimpl) override;
-      virtual ::e_status finalize() override;
+      ::e_status initialize_graphics_graphics(::user::interaction_impl * pimpl) override;
+      ::e_status destroy() override;
+
 
 
       virtual bool create_os_buffer(const ::size_i32 & size, int iStride = -1) ;
       virtual void destroy_os_buffer() ;
 
-//      virtual bool create_os_buffer(::image::image * pimage);
-//      virtual void destroy_os_buffer(::image::image * pimage);
 
       virtual bool update_window() override;
       virtual bool update_window(::image * pimage) override;
