@@ -27,14 +27,14 @@ namespace acme
 
 
          node();
-         virtual ~node();
+         ~node() override;
 
 
-         ::e_status call_async(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid = nullptr) override;
-         ::e_status call_sync(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, const ::duration & durationTimeout, ::property_set & set) override;
+         ::e_status call_async(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid = nullptr) override;
+         ::e_status call_sync(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, const ::duration & durationTimeout, ::property_set & set) override;
 
 
-         ::e_status shell_execute_sync(const char * pszFile, const char * pszParams, ::duration durationTimeout );
+         ::e_status shell_execute_sync(const ::string & pszFile, const ::string & pszParams, ::duration durationTimeout );
 
          //virtual ::color::color get_system_color(enum_system_color esystemcolor) override;
 
@@ -95,20 +95,20 @@ namespace acme
 
          bool is_process_running(::u32 pid) override;
 
-         ::e_status create_process(const char * pszCommandLine, u32 * pprocessID) override;
+         ::e_status create_process(const ::string & pszCommandLine, u32 * pprocessID) override;
 
-         ::e_status run_silent(const char* strFunct, const char* strstrParams) override;
+         ::e_status run_silent(const ::string & strFunct, const ::string & strstrParams) override;
          
          
-         virtual i32 _create_process3(const char * _cmd_line, i32 * pprocessId);
+         virtual i32 _create_process3(const ::string & _cmd_line, i32 * pprocessId);
 
          bool process_modules(string_array& stra, u32 processID) override;
 
-         bool load_modules_diff(string_array& straOld, string_array& straNew, const char* pszExceptDir) override;
+         bool load_modules_diff(string_array& straOld, string_array& straNew, const ::string & pszExceptDir) override;
 
          id_array get_pids() override;
 
-         id_array module_path_get_pid(const char* pszModulePath, bool bModuleNameIsPropertyFormatted) override;
+         id_array module_path_get_pid(const ::string & pszModulePath, bool bModuleNameIsPropertyFormatted) override;
 
          string module_path_from_pid(u32 pid) override;
 
@@ -118,11 +118,11 @@ namespace acme
 
          bool is_shared_library_busy(const string_array& stra) override;
 
-         bool process_contains_module(string& strImage, ::u32 processID, const char* pszLibrary) override;
+         bool process_contains_module(string& strImage, ::u32 processID, const ::string & pszLibrary) override;
 
-         void shared_library_process(dword_array& dwa, string_array& straProcesses, const char* pszLibrary) override;
+         void shared_library_process(dword_array& dwa, string_array& straProcesses, const ::string & pszLibrary) override;
 
-         string get_environment_variable(const char* pszEnvironmentVariable) override;
+         string get_environment_variable(const ::string & pszEnvironmentVariable) override;
 
          string expand_env(string str) override;
 

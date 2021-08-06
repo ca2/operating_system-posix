@@ -58,30 +58,14 @@ namespace node_gnome
    }
 
 
-   ::e_status copydesk::finalize()
+   ::e_status copydesk::destroy()
    {
 
-      auto estatus = ::user::copydesk::finalize();
+      auto estatus = ::user::copydesk::destroy();
 
       return ::success;
 
    }
-
-
-   //bool copydesk::set_plain_text(const string & strParam)
-   //{
-
-   //   string str(strParam);
-
-   //      string strText(str);
-
-   //      ::user::copydesk::set_plain_text(strText);
-
-   //   });
-
-   //   return true;
-
-   //}
 
 
    bool copydesk::_set_plain_text(const string & str)
@@ -91,7 +75,7 @@ namespace node_gnome
 
       auto pnode = psystem->node();
 
-      pnode->node_fork([this, str]
+      pnode->node_fork([str]
       {
 
          GtkClipboard * clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
@@ -137,24 +121,24 @@ namespace node_gnome
    bool copydesk::_has_plain_text()
    {
 
-      __pointer(ovar) payload(__new(ovar));
+      auto ppayload = __new(payload_object);
 
-      payload->m_var = false;
+      ppayload->m_payload = false;
 
       auto psystem = m_psystem->m_paurasystem;
 
       auto pnode = psystem->node();
 
-      pnode->node_sync(seconds(5), [=]()
+      pnode->node_sync(5_s, [ppayload]()
       {
 
          GtkClipboard* clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
 
-         payload->m_var = gtk_clipboard_wait_is_text_available (clipboard);
+         ppayload->m_payload = gtk_clipboard_wait_is_text_available (clipboard);
 
       });
 
-      return payload->m_var.operator bool();
+      return ppayload->m_payload.operator bool();
 
    }
 

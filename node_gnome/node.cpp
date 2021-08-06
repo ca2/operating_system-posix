@@ -614,18 +614,18 @@ namespace node_gnome
    }
 
 
-   string node::get_file_icon_path(const char * pszPath, int iSize)
+   string node::get_file_icon_path(const ::string & strPath, int iSize)
    {
 
-      return ::linux_g_direct_get_file_icon_path(pszPath, iSize);
+      return ::linux_g_direct_get_file_icon_path(strPath, iSize);
 
    }
 
 
-   string node::get_file_content_type(const char * pszPath)
+   string node::get_file_content_type(const ::string & strPath)
    {
 
-      return ::linux_g_direct_get_file_content_type(pszPath);
+      return ::linux_g_direct_get_file_content_type(strPath);
 
    }
 
@@ -648,119 +648,11 @@ namespace node_gnome
    }
 
 
-//   void node::node_post_quit()
-//   {
-//
-//      os_post_quit();
-//
-//   }
-
-
-//   void node::on_subject(::promise::subject * psubject, ::subject::context * pcontext)
-//   {
-//
-//      if(psubject->m_id == ::id_os_user_theme)
-//      {
-//
-//         _on_change_os_user_theme();
-//
-//      }
-//
-//
-//   }
-
-
    void node::on_subject(::subject::subject * psubject, ::subject::context * pcontext)
    {
 
 
    }
-
-
-//   ::nlinux::appindicator * node::appindicator_allocate()
-//   {
-//
-//      return new ::node_gnome::appindicator();
-//
-//   }
-//
-//
-//   void node::appindicator_destroy(::linux::appindicator * pappindicator)
-//   {
-//
-//      //::linux::appindicator_destroy(pappindicator);
-//
-//      delete pappindicator;
-//
-//   }
-
-
-//   void node::enum_display_monitors(::aura::session * psession)
-//   {
-//
-//      node_fork(__routine([psession]
-//                           {
-//
-//                              synchronous_lock sl(user_mutex());
-//
-//                              //xdisplay d(x11_get_display());
-//
-//                              GdkDisplay *pdisplay = gdk_display_get_default();
-//
-//                              if (pdisplay == nullptr)
-//                              {
-//
-//                                 return;
-//
-//                              }
-//
-//                              synchronous_lock slSession(psession->mutex());
-//
-//                              ::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
-//
-//                              psession->m_rectaWorkspace.set_size(iMonitorCount);
-//
-//                              psession->m_rectaMonitor.set_size(iMonitorCount);
-//
-//                              for (index iMonitor = 0; iMonitor < iMonitorCount; iMonitor++)
-//                              {
-//
-//                                 GdkMonitor *pmonitor = gdk_display_get_monitor(pdisplay, iMonitor);
-//
-//                                 auto &rectWorkspace = psession->m_rectaWorkspace[iMonitor];
-//
-//                                 auto &rectMonitor = psession->m_rectaMonitor[iMonitor];
-//
-//                                 if (pmonitor == nullptr)
-//                                 {
-//
-//                                    rectWorkspace.Null();
-//
-//                                    rectMonitor.Null();
-//
-//                                    continue;
-//
-//                                 }
-//
-//                                 GdkRectangle rect;
-//
-//                                 __zero(rect);
-//
-//                                 gdk_monitor_get_workarea(pmonitor, &rect);
-//
-//                                 __copy(rectWorkspace, rect);
-//
-//                                 __zero(rect);
-//
-//                                 gdk_monitor_get_geometry(pmonitor, &rect);
-//
-//                                 __copy(rectMonitor, rect);
-//
-//                              }
-//
-//                           }));
-//
-//   }
 
 
    void node::os_post_quit()
@@ -770,19 +662,6 @@ namespace node_gnome
 
    }
 
-
-//   void * node::node_wrap_window(void * pvoidDisplay, i64 window)
-//   {
-//
-//      Display * pdisplay = (Display *) pvoidDisplay;
-//
-//      GdkDisplay * pd = gdk_x11_lookup_xdisplay (pdisplay);
-//
-//      auto pwindow = gdk_x11_window_foreign_new_for_display(GDK_DISPLAY(pd), (Window) window);
-//
-//      return pwindow;
-//
-//   }
 
    bool node::should_launch_on_node(::subject::subject * psubject)
    {
@@ -829,10 +708,10 @@ namespace node_gnome
    }
 
 
-   int node::os_launch_uri(const char * pszUri, char * pszError, int iBufferSize)
+   int node::os_launch_uri(const ::string & strUri, char * pszError, int iBufferSize)
    {
 
-      int iRet = gdk_launch_uri(pszUri, pszError, iBufferSize);
+      int iRet = gdk_launch_uri(strUri, pszError, iBufferSize);
 
       return iRet;
 

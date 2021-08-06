@@ -534,20 +534,20 @@ namespace aura
 //
 
 
-      shell::e_folder shell::get_folder_type(::object * pobject, const char * lpcsz)
+      shell::e_folder shell::get_folder_type(::object * pobject, const ::string & str)
       {
 
-         return get_folder_type(pobject, ::str::international::utf8_to_unicode(lpcsz));
+         return get_folder_type(pobject, ::str::international::utf8_to_unicode(str));
 
       }
 
 
-      shell::e_folder shell::get_folder_type(::object * pobject, const widechar * lpcszPath)
+      shell::e_folder shell::get_folder_type(::object * pobject, const ::wstring & wstrPath)
       {
 
          string strPath;
 
-         ::str::international::unicode_to_utf8(strPath, lpcszPath);
+         ::str::international::unicode_to_utf8(strPath, wstrPath);
 
          if (dir::is(strPath))
          {

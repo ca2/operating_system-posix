@@ -22,10 +22,10 @@ namespace aura
 
 
          shell();
-         virtual ~shell();
+         ~shell() override;
 
 
-         virtual ::e_status initialize(::object * pobject) override;
+         ::e_status initialize(::object * pobject) override;
          //virtual void initialize() override;
 
          //virtual void defer_start();
@@ -36,14 +36,14 @@ namespace aura
          //virtual i32 get_image(oswindow oswindow, const string & strPath, e_file_attribute eattribute, e_icon eicon, color32_t crBk = 0) override;
 
 
-         virtual void on_update_sizes_interest() override;
+         void on_update_sizes_interest() override;
 
 
-         virtual i32 _get_file_image(const image_key & imagekey) override;
+         i32 _get_file_image(const image_key & imagekey) override;
 
 
-         virtual ::user::shell::e_folder get_folder_type(::object * pobject, const widechar * lpcszPath) override;
-         virtual ::user::shell::e_folder get_folder_type(::object * pobject, const char * lpcszPath) override;
+         ::user::shell::e_folder get_folder_type(::object * pobject, const ::wstring & lpcszPath) override;
+         ::user::shell::e_folder get_folder_type(::object * pobject, const ::string & lpcszPath) override;
 
          int add_icon_path(::file::path path, color32_t crBk);
 

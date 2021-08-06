@@ -643,7 +643,7 @@ namespace acme
 //      }
 
       
-//      ::e_status node::run_silent(const char* strFunct, const char* strstrParams)
+//      ::e_status node::run_silent(const ::string & strFunct, const ::string & strstrParams)
 //      {
 //
 //         __throw(error_interface_only);
@@ -664,7 +664,7 @@ namespace acme
       }
 
 
-      bool node::load_modules_diff(string_array& straOld, string_array& straNew, const char* pszExceptDir)
+      bool node::load_modules_diff(string_array& straOld, string_array& straNew, const ::string & pszExceptDir)
       {
 
          __throw(error_interface_only);
@@ -684,7 +684,7 @@ namespace acme
       }
 
 
-//      id_array node::module_path_get_pid(const char* pszModulePath, bool bModuleNameIsPropertyFormatted)
+//      id_array node::module_path_get_pid(const ::string & pszModulePath, bool bModuleNameIsPropertyFormatted)
 //      {
 //
 //         return ::acme::node::module_path_get_pid(pszModulePath, bModuleNameIsPropertyFormatted);
@@ -725,7 +725,7 @@ namespace acme
 //      }
 
 
-      bool node::process_contains_module(string& strImage, ::u32 processID, const char* pszLibrary)
+      bool node::process_contains_module(string& strImage, ::u32 processID, const ::string & pszLibrary)
       {
 
          return ::acme::node::process_contains_module(strImage, processID, pszLibrary);
@@ -733,7 +733,7 @@ namespace acme
       }
 
 
-      void node::shared_library_process(dword_array& dwa, string_array& straProcesses, const char* pszLibrary)
+      void node::shared_library_process(dword_array& dwa, string_array& straProcesses, const ::string & pszLibrary)
       {
 
          __throw(error_interface_only);
@@ -749,7 +749,7 @@ namespace acme
       }
 
 
-      string node::get_environment_variable(const char* pszEnvironmentVariable)
+      string node::get_environment_variable(const ::string & pszEnvironmentVariable)
       {
 
          return ::getenv(pszEnvironmentVariable);

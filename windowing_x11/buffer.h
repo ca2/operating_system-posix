@@ -33,12 +33,13 @@ namespace windowing_x11
       ::windowing_x11::window * x11_window() { return (::windowing_x11::window *) (m_pwindow ? m_pwindow->m_pWindow : nullptr); }
 
 
-      virtual ::e_status initialize_graphics_graphics(::user::interaction_impl * pimpl) override;
-      virtual ::e_status finalize() override;
+      ::e_status initialize_graphics_graphics(::user::interaction_impl * pimpl) override;
+      ::e_status destroy() override;
 
 
-      virtual bool create_os_buffer(const ::size_i32 & size, int iStride = -1) ;
-      virtual void destroy_os_buffer() ;
+      virtual bool create_os_buffer(const ::size_i32 & size, int iStride = -1);
+      virtual void destroy_os_buffer();
+
 
 //      virtual bool create_os_buffer(::image::image * pimage);
 //      virtual void destroy_os_buffer(::image::image * pimage);

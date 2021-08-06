@@ -15,9 +15,9 @@
 #include <unistd.h>
 #include "node.h"
 
-// int create_process6(const char * _cmd_line, int * pprocessId);
+// int create_process6(const ::string & _cmd_line, int * pprocessId);
 
-CLASS_DECL_ACME void dll_processes(u32_array & dwa, string_array & straProcesses, const char * pszDll)
+CLASS_DECL_ACME void dll_processes(u32_array & dwa, string_array & straProcesses, const ::string & pszDll)
 {
 
    UNREFERENCED_PARAMETER(dwa);
@@ -35,7 +35,7 @@ namespace acme
    {
 
 
-      ::e_status node::create_process(const char * pszCommandLine, u32 * pprocessId)
+      ::e_status node::create_process(const ::string & pszCommandLine, u32 * pprocessId)
       {
 
          string_array stra;
@@ -98,7 +98,7 @@ namespace acme
       }
 
 
-      ::e_status node::run_silent(const char* strFunct, const char* strstrParams)
+      ::e_status node::run_silent(const ::string & strFunct, const ::string & strstrParams)
       {
 
       #if defined(_UWP)
@@ -115,7 +115,7 @@ namespace acme
 
          char *pEnvCMD = nullptr;
 
-         const char *pDefaultCMD = "CMD.EXE";
+         const ::string &pDefaultCMD = "CMD.EXE";
 
          ULONG rc;
 
@@ -224,7 +224,7 @@ namespace acme
       }
 
 
-      i32 node::_create_process3(const char * _cmd_line, i32 * pprocessId)
+      i32 node::_create_process3(const ::string & _cmd_line, i32 * pprocessId)
       {
 
          //char *   exec_path_name;
@@ -282,7 +282,7 @@ namespace acme
 
 #ifdef LINUX
 
-i32 daemonize_process(const char * pszCommandLine, i32 * pprocessId)
+i32 daemonize_process(const ::string & pszCommandLine, i32 * pprocessId)
 {
 
    string_array stra;
@@ -391,7 +391,7 @@ i32 daemonize_process(const char * pszCommandLine, i32 * pprocessId)
 #endif
 
 
-i32 create_process4(const char * pszCommandLine, i32 * pprocessId)
+i32 create_process4(const ::string & pszCommandLine, i32 * pprocessId)
 {
 
    string_array stra;
@@ -474,7 +474,7 @@ namespace acme
 
 
       ::e_status
-      node::call_async(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay,
+      node::call_async(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay,
                        bool bPrivileged, unsigned int * puiPid)
       {
 
@@ -519,7 +519,7 @@ namespace acme
       }
 
 
-      ::e_status node::call_sync(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay,
+      ::e_status node::call_sync(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay,
                                  const ::duration & durationTimeout, ::property_set & set)
       {
 
@@ -636,7 +636,7 @@ namespace acme
       }
 
 
-//      int_array node::module_path_get_pid(const char * pszPath)
+//      int_array node::module_path_get_pid(const ::string & pszPath)
 //      {
 //
 //         int_array ia;
@@ -671,7 +671,7 @@ namespace acme
 //      }
 
 
-      id_array node::module_path_get_pid(const char * psz, bool bModuleNameIsPropertyFormatted)
+      id_array node::module_path_get_pid(const ::string & psz, bool bModuleNameIsPropertyFormatted)
       {
 
          ::output_debug_string("os/linux_process.cpp app_get_pid (" + string(psz) + ")");
@@ -855,7 +855,7 @@ namespace acme
       }
 
 
-      ::e_status node::shell_execute_sync(const char * pszFile, const char * pszParams, ::duration durationTimeout )
+      ::e_status node::shell_execute_sync(const ::string & pszFile, const ::string & pszParams, ::duration durationTimeout )
       {
 
          property_set set;
@@ -880,7 +880,7 @@ CLASS_DECL_ACME i32 ca2_main();
 
 
 
-int create_process2(const char * pszCommandLine, int * pprocessId)
+int create_process2(const ::string & pszCommandLine, int * pprocessId)
 {
 
    string_array stra;

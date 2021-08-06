@@ -59,7 +59,7 @@ namespace windowing_x11
    }
 
 
-   ::e_status buffer::finalize()
+   ::e_status buffer::destroy()
    {
 
       if(!x11_window())

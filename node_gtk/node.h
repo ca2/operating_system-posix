@@ -49,9 +49,9 @@ namespace node_gtk
 
       virtual void enable_wallpaper_change_notification() override;
 
-      virtual string get_file_icon_path(const char * pszPath, int iSize) override;
+      virtual string get_file_icon_path(const ::string & strPath, int iSize) override;
 
-      virtual string get_file_content_type(const char * pszPath) override;
+      virtual string get_file_content_type(const ::string & strPath) override;
 
       virtual bool set_wallpaper(index iScreen, string strLocalImagePath) override;
 
@@ -85,7 +85,7 @@ namespace node_gtk
 
       virtual bool launch_on_node(::subject::subject * psubject);
 
-      virtual int os_launch_uri(const char * pszUri, char * pszError = NULL, int iBufferSize = 0) override;
+      virtual int os_launch_uri(const ::string & strUri, char * pszError = NULL, int iBufferSize = 0) override;
 
 
 

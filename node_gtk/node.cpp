@@ -649,18 +649,18 @@ namespace node_gtk
    }
 
 
-   string node::get_file_icon_path(const char * pszPath, int iSize)
+   string node::get_file_icon_path(const ::string & strPath, int iSize)
    {
 
-      return ::linux_g_direct_get_file_icon_path(pszPath, iSize);
+      return ::linux_g_direct_get_file_icon_path(strPath, iSize);
 
    }
 
 
-   string node::get_file_content_type(const char * pszPath)
+   string node::get_file_content_type(const ::string & strPath)
    {
 
-      return ::linux_g_direct_get_file_content_type(pszPath);
+      return ::linux_g_direct_get_file_content_type(strPath);
 
    }
 
@@ -857,10 +857,10 @@ namespace node_gtk
    }
 
 
-   int node::os_launch_uri(const char * pszUri, char * pszError, int iBufferSize)
+   int node::os_launch_uri(const ::string & strUri, char * pszError, int iBufferSize)
    {
 
-      int iRet = gdk_launch_uri(pszUri, pszError, iBufferSize);
+      int iRet = gdk_launch_uri(strUri, pszError, iBufferSize);
 
       return iRet;
 
