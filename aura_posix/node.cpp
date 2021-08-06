@@ -289,9 +289,7 @@ namespace aura
       ::e_status node::main()
       {
 
-         auto psystem = m_psystem;
-
-         auto estatus = psystem->system_main();
+         auto estatus = system_main();
 
          if(!estatus)
          {
@@ -299,6 +297,17 @@ namespace aura
             return estatus;
 
          }
+
+         //auto psystem = m_psystem;
+
+         //auto estatus = psystem->system_main();
+
+         //if(!estatus)
+         //{
+
+           // return estatus;
+
+         //}
 
          return estatus;
 
