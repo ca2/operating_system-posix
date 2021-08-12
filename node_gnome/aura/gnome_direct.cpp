@@ -1,7 +1,7 @@
 #include "framework.h"
 #include "platform/platform_setup.h"
 #include <limits.h>
-#include "acme/os/x11/_x11.h"
+#include "acme/node/operating_system/x11/_x11.h"
 #include "__standard_type.h"
 #include "gnome.h"
 #include "gnome_gnome.h"

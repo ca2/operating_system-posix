@@ -1,8 +1,8 @@
 #include "framework.h"
 #include "platform/platform_setup.h"
 #include <limits.h>
-//#include "acme/os/x11/_x11.h"
-#include "acme/os/ansios/pmutex_lock.h"
+//#include "acme/node/operating_system/x11/_x11.h"
+#include "acme/node/operating_system/ansi/pmutex_lock.h"
 #include "__standard_type.h"
 #include "archive/platform-posix/node_gtk/aura/gnome.h"
 #include "archive/platform-posix/node_gtk/aura/gnome_gnome.h"

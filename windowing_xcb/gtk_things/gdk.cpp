@@ -2,7 +2,7 @@
 #include "acme/id.h"
 #include "_.h"
 #include "gdk.h"
-#include "acme/os/xcb/_xcb.h"
+#include "acme/node/operating_system/xcb/_xcb.h"
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 #include <glib.h>

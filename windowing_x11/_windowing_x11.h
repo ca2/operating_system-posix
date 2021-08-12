@@ -7,8 +7,8 @@
 #include "aura_posix/_aura_posix.h"
 #include "aura/user/_user.h"
 #include "aura/os/linux/appindicator.h"
-#include "acme/os/ansios/_pthread.h"
-#include "acme/os/linux/_user.h"
+#include "acme/node/operating_system/ansi/_pthread.h"
+#include "acme/node/operating_system/linux/_user.h"
 
 
 #define WITH_XI

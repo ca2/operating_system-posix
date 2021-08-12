@@ -7,7 +7,7 @@
 //#include "appindicator.h"
 #include "gtk_direct.h"
 //#include "windowing_x11/windowing_x11.h"
-#include "acme/os/ansios/pmutex_lock.h"
+#include "acme/node/operating_system/ansi/pmutex_lock.h"
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 #include <glib.h>

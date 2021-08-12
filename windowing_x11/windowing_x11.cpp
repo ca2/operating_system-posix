@@ -25,7 +25,7 @@
 #include "aura/os/x11/_x11.h"
 #include "acme/parallelization/message_queue.h"
 #include "windowing_x11.h"
-#include "acme/os/_user.h"
+#include "acme/node/operating_system/_user.h"
 
 
 //bool x11_runnable_step();

@@ -3,7 +3,7 @@
 // hi5 contribution...
 #include "framework.h"
 #include "aura/user/_user.h"
-#include "acme/os/_user.h"
+#include "acme/node/operating_system/_user.h"
 #include "aura/user/interaction_prodevian.h"
 #include "aura/platform/message_queue.h"
 #include <X11/Xatom.h>

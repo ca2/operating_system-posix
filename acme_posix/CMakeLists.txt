@@ -27,7 +27,7 @@ list(APPEND library_source
    )
 endif()
 
-add_library(acme_posix SHARED ${library_source} dbus/gsm_proxy.cpp)
+add_library(acme_posix SHARED ${library_source} dbus/gsm_proxy.cpp acme_posix.h.cpp acme_file.h.cpp)
 
 if(POSIX_LIST_SERIAL_PORTS)
 

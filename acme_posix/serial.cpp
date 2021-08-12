@@ -4,7 +4,7 @@
  */
 
 #include "framework.h"
-#include "acme/os/posix/time.h"
+#include "acme/node/operating_system/posix/time.h"
 
  //#include <sstream>
 
@@ -23,7 +23,7 @@
 #include <sysexits.h>
 #include <termios.h>
 #include <sys/param.h>
-#include "acme/os/ansios/_pthread.h"
+#include "acme/node/operating_system/ansi/_pthread.h"
 
 #if defined(__linux__)
 #include <unistd.h>

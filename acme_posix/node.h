@@ -124,7 +124,7 @@ namespace acme
 
          string get_environment_variable(const ::string & pszEnvironmentVariable) override;
 
-         string expand_env(string str) override;
+         string expand_environment_variables(const ::string & str) override;
 
 
 #ifdef POSIX_LIST_SERIAL_PORTS
@@ -136,6 +136,9 @@ namespace acme
 #endif
 
          ::e_status reboot() override;
+
+
+         virtual int _get_proc_stat_core_count();
 
 
       };
