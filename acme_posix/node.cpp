@@ -757,10 +757,10 @@ namespace acme
       }
 
 
-      string node::expand_env(string str)
+      string node::expand_environment_variables(const ::string & str)
       {
 
-         return ::acme::node::expand_env(str);
+         return ::acme::node::expand_environment_variables(str);
 
       }
 

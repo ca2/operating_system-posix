@@ -680,7 +680,7 @@ namespace acme
 
          ::file::patha stra;
 
-         ::dir::ls_dir(stra, "/proc/");
+         m_psystem->m_pacmedir->ls_dir(stra, "/proc/");
 
          string str(psz);
 
@@ -764,7 +764,7 @@ namespace acme
 
          str = "/proc/" + __str(iPid) + "/cmdline";
 
-         memory mem = file_as_memory(str);
+         memory mem = m_psystem->m_pacmefile->as_memory(str);
 
          string strArg;
 

@@ -47,7 +47,7 @@ namespace posix
       if (m_pdata != (void *)MAP_FAILED)
       {
 
-         ::munmap(m_pdata, ::get_file_size(m_iFile));
+         ::munmap(m_pdata, m_psystem->m_pacmefile->get_size(m_iFile));
 
          m_pdata = (void *)MAP_FAILED;
 
@@ -89,7 +89,7 @@ namespace posix
 
       ::file::path path(get_path());
 
-      ::dir::mk(path.folder());
+      m_psystem->m_pacmedir->create(path.folder());
 
       m_iFile = ::open(path, iOpen, S_IRUSR | S_IWUSR);
 
