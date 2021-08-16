@@ -8,6 +8,12 @@ list(APPEND library_source
    _.h
    _process.cpp
    _acme_posix.h
+   acme_dir.cpp
+   acme_dir.h
+   acme_file.cpp
+   acme_file.h
+   acme_path.cpp
+   acme_path.h
    factory_exchange.cpp
    file_memory_map.cpp
    file_memory_map.h
@@ -27,7 +33,7 @@ list(APPEND library_source
    )
 endif()
 
-add_library(acme_posix SHARED ${library_source} dbus/gsm_proxy.cpp acme_posix.h.cpp acme_file.h.cpp)
+add_library(acme_posix SHARED ${library_source} )
 
 if(POSIX_LIST_SERIAL_PORTS)
 

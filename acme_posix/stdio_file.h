@@ -27,7 +27,7 @@ public:
    virtual ::extended::status open(const ::file::path & pszFileName, const ::file::e_open & eopen) override;
 
 
-   virtual filesize seek(filesize lOff,::file::e_seek  nFrom) override;
+   virtual filesize seek(filesize lOff,::enum_seek eseek) override;
    virtual void set_size(filesize dwNewLen) override;
    virtual filesize get_size() const override;
 

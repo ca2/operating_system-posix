@@ -362,7 +362,12 @@ namespace node_gnome
    void node::os_calc_user_dark_mode()
    {
 
-      ::aura::posix::node::os_calc_user_dark_mode();
+      node_branch(__routine([this]()
+      {
+
+         ::aura::posix::node::os_calc_user_dark_mode();
+
+      }));
 
    }
 

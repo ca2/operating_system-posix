@@ -269,11 +269,7 @@ namespace aura
 
          auto pacmedir = psystem->m_pacmedir;
 
-         path =          auto psystem = m_psystem;
-
-         auto pacmedir = psystem->m_pacmedir;
-
-pacmedir->home();
+         path = pacmedir->home();
 
          path /= ".local/share/applications";
 

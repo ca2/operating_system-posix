@@ -47,7 +47,7 @@ namespace posix
       if (m_pdata != (void *)MAP_FAILED)
       {
 
-         ::munmap(m_pdata, m_psystem->m_pacmefile->get_size(m_iFile));
+         ::munmap(m_pdata, m_psystem->m_pacmefile->get_size_fd(m_iFile));
 
          m_pdata = (void *)MAP_FAILED;
 
@@ -102,7 +102,7 @@ namespace posix
 
       }
 
-      ensure_file_size_fd(m_iFile, m_size);
+      m_psystem->m_pacmefile->set_size(m_iFile, m_size);
 
       m_pdata = (color32_t *)mmap(nullptr, m_size, (m_bRead ? PROT_READ : 0) | (m_bWrite ? PROT_WRITE : 0), MAP_SHARED, m_iFile, 0);
 
@@ -119,7 +119,7 @@ namespace posix
 
       strMutex = m_strName + "-mutex";
 
-      set_mutex(new ::mutex(e_create_new, false, strMutex));
+      set_mutex(new ::mutex(m_psystem, false, strMutex));
 
       return true;
 

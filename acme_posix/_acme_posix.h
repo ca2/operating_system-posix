@@ -10,6 +10,15 @@
 #include "file_memory_map.h"
 
 
+#include "acme_dir.h"
+
+
+#include "acme_file.h"
+
+
+#include "acme_path.h"
+
+
 #include "pipe.h"
 
 

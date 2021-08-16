@@ -5,8 +5,6 @@ project(apex_posix CXX)
 list(APPEND library_source
    _.h
    _.cpp
-   datetime.cpp
-   datetime.h
    factory_exchange.cpp
    file_context.cpp
    file_context.h
@@ -51,7 +49,9 @@ if(FILE_SYSTEM_INOTIFY)
 
 endif()
 
+
 target_precompile_headers(apex_posix PRIVATE framework.h)
+
 
 set_target_properties(apex_posix PROPERTIES LINKER_LANGUAGE CXX)
 

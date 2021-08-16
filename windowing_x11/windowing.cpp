@@ -15,6 +15,8 @@ namespace windowing_x11
 
       defer_create_mutex();
 
+      m_bRootSelectInput = false;
+
       m_itask = -1;
 
       m_pWindowing = this;

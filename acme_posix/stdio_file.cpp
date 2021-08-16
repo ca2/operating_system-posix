@@ -12,6 +12,14 @@ stdio_file::stdio_file()
 }
 
 
+stdio_file::stdio_file(FILE * pfile)
+{
+
+   m_pfile = pfile;
+
+}
+
+
 
 stdio_file::~stdio_file()
 {
@@ -112,18 +120,18 @@ pacmedir->create(::file::path(pszFileName).folder());
 }
 
 
-filesize stdio_file::seek(filesize lOff,::file::e_seek eseek)
+filesize stdio_file::seek(filesize lOff,::enum_seek eseek)
 {
 
    int nFrom = SEEK_SET;
 
    switch(eseek)
    {
-   case ::file::seek_current:
+   case ::e_seek_current:
       nFrom = SEEK_CUR;
       break;
 
-   case ::file::seek_end:
+   case ::e_seek_end:
       nFrom = SEEK_END;
       break;
 

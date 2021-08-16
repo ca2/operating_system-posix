@@ -14,6 +14,7 @@ namespace windowing_x11
    public:
 
 
+      bool                                            m_bRootSelectInput : 1;
       bool                                            m_bFirstWindowMap : 1;
 
       __pointer(::windowing_x11::display)             m_pdisplay;
@@ -99,7 +100,7 @@ namespace windowing_x11
 
       virtual ::windowing::window * get_mouse_capture(::thread * pthread) override;
 
-      //virtual ::e_status clear_active_window(::thread * pthread);
+      virtual ::e_status clear_active_window(::thread * pthread, ::windowing::window * pwindow);
 
       virtual bool x11_on_event(XEvent * pevent);
 

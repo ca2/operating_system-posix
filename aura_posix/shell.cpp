@@ -534,7 +534,7 @@ namespace aura
 //
 
 
-      shell::e_folder shell::get_folder_type(::object * pobject, const ::string & str)
+      shell::enum_folder shell::get_folder_type(::object * pobject, const ::string & str)
       {
 
          return get_folder_type(pobject, ::str::international::utf8_to_unicode(str));
@@ -542,23 +542,23 @@ namespace aura
       }
 
 
-      shell::e_folder shell::get_folder_type(::object * pobject, const ::wstring & wstrPath)
+      shell::enum_folder shell::get_folder_type(::object * pobject, const ::wstring & wstrPath)
       {
 
          string strPath;
 
          ::str::international::unicode_to_utf8(strPath, wstrPath);
 
-         if (dir::is(strPath))
+         if (m_psystem->m_pacmedir->is(strPath))
          {
 
-            return folder_file_system;
+            return e_folder_file_system;
 
          }
          else
          {
 
-            return folder_none;
+            return e_folder_none;
 
          }
 
@@ -581,14 +581,16 @@ namespace aura
       }
 
 
-      i32 shell::_get_file_image(const image_key & imagekeyParam)
+      void shell::_get_file_image(_get_file_image_ & getfileimage)
       {
 
-         image_key imagekey(imagekeyParam);
+         ::file::path path = getfileimage.m_imagekey.m_strPath;
 
-         i32 iImage = 0x80000000;
+//         image_key imagekey(imagekeyParam);
+//
+//         i32 iImage = 0x80000000;
 
-         if (::str::begins_ci(imagekey.m_strPath, "uifs:"))
+         if (::str::begins_ci(getfileimage.m_imagekey.m_strPath, "uifs:"))
          {
 
             auto pcontext = m_pcontext;
@@ -607,12 +609,14 @@ namespace aura
 
             single_lock synchronouslock(mutex(), true);
 
-            m_imagemap.set_at(imagekey, iImage);
+            m_imagemap.set_at(getfileimage.m_imagekey, getfileimage.m_iImage);
 
-            return iImage;
+            //return iImage;
+
+            return;
 
          }
-         else if (::str::begins_ci(imagekey.m_strPath, "fs:"))
+         else if (::str::begins_ci(getfileimage.m_imagekey.m_strPath, "fs:"))
          {
 
             auto pcontext = m_pcontext;
@@ -631,12 +635,14 @@ namespace aura
 
             single_lock synchronouslock(mutex(), true);
 
-            m_imagemap.set_at(imagekey, iImage);
+            m_imagemap.set_at(getfileimage.m_imagekey, getfileimage.m_iImage);
 
-            return iImage;
+            //return iImage;
+
+            return;
 
          }
-         else if (::str::begins_ci(imagekey.m_strPath, "ftp:"))
+         else if (::str::begins_ci(getfileimage.m_imagekey.m_strPath, "ftp:"))
          {
 
             auto pcontext = m_pcontext;
@@ -655,22 +661,24 @@ namespace aura
 
             single_lock synchronouslock(mutex(), true);
 
-            m_imagemap.set_at(imagekey, iImage);
+            m_imagemap.set_at(getfileimage.m_imagekey, getfileimage.m_iImage);
 
-            return iImage;
+            //return iImage;
+
+            return;
 
          }
 
-
-         if (::str::ends_ci(imagekey.m_strPath, ".aura"))
+         if (::str::ends_ci(getfileimage.m_imagekey.m_strPath, ".aura"))
          {
 
             auto pcontext = m_pcontext;
 
-            string str = pcontext->m_papexcontext->file().as_string(imagekey.m_strPath);
+            string str = pcontext->m_papexcontext->file().as_string(getfileimage.m_imagekey.m_strPath);
 
             if (::str::begins_eat_ci(str, "ca2prompt\r\n"))
             {
+
                str.trim();
                /*HICON hicon16 = (HICON) ::LoadImage(nullptr, pcontext->m_papexcontext->dir().matter(str + "/mainframe/icon.ico"), IMAGE_ICON, 16, 16, LR_LOADFROMFILE);
                HICON hicon48 = (HICON) ::LoadImage(nullptr, pcontext->m_papexcontext->dir().matter(str + "/mainframe/icon.ico"), IMAGE_ICON, 48, 48, LR_LOADFROMFILE);
@@ -693,42 +701,34 @@ namespace aura
                }*/
 
             }
-            return iImage;
+            //return iImage;
+
+            return;
+
          }
 
          // try to find "uifs:// http:// ftp:// like addresses"
          // then should show icon by extension or if is folder
 
-         strsize iFind = imagekey.m_strPath.find_ci("://");
+         string strPath = getfileimage.m_imagekey.m_strPath;
 
-         strsize iFind2 = imagekey.m_strPath.find_ci(":");
+         string strRealPath = m_pcontext->m_papexcontext->defer_process_path(strPath);
 
-         if (iFind >= 0 || iFind2 >= 2)
+         string strFinalPath = m_psystem->m_pacmepath->_final(strRealPath);
+
+         if(strFinalPath.is_empty())
          {
 
-            string strProtocol = string(imagekey.m_strPath).Left(maximum(iFind, iFind2));
+            string strProtocol = m_psystem->m_purldepartment->get_protocol(path);
 
-            i32 i = 0;
+            string strRoot = m_psystem->m_purldepartment->get_root(path);
 
-            while (i < strProtocol.get_length() && ansi_char_is_alphanumeric(strProtocol[i]))
+            if (strProtocol.has_char() && strRoot.has_char())
             {
 
-               i++;
+               get_image_by_file_extension(getfileimage.m_imagekey);
 
-            }
-
-            if (i > 0 && i == strProtocol.get_length())
-            {
-
-               // heuristically valid protocol
-               return get_image_by_file_extension(imagekey);
-
-            }
-
-            if (imagekey.m_eattribute.has(file_attribute_directory))
-            {
-
-               return get_image_by_file_extension(imagekey);
+               return;
 
             }
 
@@ -736,7 +736,7 @@ namespace aura
 
          string strExtension;
 
-         if (::str::ends_ci(imagekey.m_strPath, ".sln"))
+         if (::str::ends_ci(getfileimage.m_imagekey.m_strPath, ".sln"))
          {
 
             // output_debug_string("test .sln");
@@ -747,12 +747,12 @@ namespace aura
 
          string strIcon16;
 
-         if (::str::ends_ci(imagekey.m_strPath, ".desktop"))
+         if (::str::ends_ci(getfileimage.m_imagekey.m_strPath, ".desktop"))
          {
 
             auto pcontext = m_pcontext;
 
-            string str = pcontext->m_papexcontext->file().as_string(imagekey.m_strPath);
+            string str = pcontext->m_papexcontext->file().as_string(getfileimage.m_imagekey.m_strPath);
 
             string_array stra;
 
@@ -763,7 +763,9 @@ namespace aura
             if (stra.get_size() <= 0)
             {
 
-               return -1;
+               getfileimage.m_iImage = -1;
+
+               return;
 
             }
 
@@ -783,14 +785,49 @@ namespace aura
 
             auto pnode = psystem->node();
 
-            strIcon48 = pnode->get_file_icon_path(imagekey.m_strPath, 48);
+            strIcon48 = pnode->get_file_icon_path(strFinalPath, 48);
 
-            strIcon16 = pnode->get_file_icon_path(imagekey.m_strPath, 16);
+            strIcon16 = pnode->get_file_icon_path(strFinalPath, 16);
 
          }
 
          if (strIcon16.has_char() || strIcon48.has_char())
          {
+
+            if(strIcon16.has_char())
+            {
+
+               getfileimage.m_imagekey.m_strPath = strIcon16;
+
+               getfileimage.m_imagekey.m_strExtension = "";
+
+               getfileimage.m_imagekey.m_eicon = e_icon_normal;
+
+               if(!reserve_image(getfileimage))
+               {
+
+                  return;
+
+               }
+
+            }
+            else if(strIcon48.has_char())
+            {
+
+               getfileimage.m_imagekey.m_strPath = strIcon48;
+
+               getfileimage.m_imagekey.m_strExtension = "";
+
+               getfileimage.m_imagekey.m_eicon = e_icon_normal;
+
+               if(!reserve_image(getfileimage))
+               {
+
+                  return;
+
+               }
+
+            }
 
             if(strIcon16.is_empty())
             {
@@ -810,7 +847,7 @@ namespace aura
             if (!::is_ok(pimage1))
             {
 
-               return -1;
+               return;
 
             }
 
@@ -823,7 +860,7 @@ namespace aura
             if (!::is_ok(pimage))
             {
 
-               return -1;
+               return;
 
             }
 
@@ -843,13 +880,21 @@ namespace aura
                if (!::is_ok(image16))
                {
 
-                  return -1;
+                  return;
 
                }
 
                image16->get_graphics()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicubic);
 
-               image16->get_graphics()->stretch(::size_i32(16, 16), pimage1, pimage1->rectangle());
+               image_source imagesource(pimage1, pimage1->rectangle());
+
+               rectangle_f64 rectangle(::size_i32(16, 16));
+
+               image_drawing_options imagedrawingoptions(rectangle);
+
+               image_drawing imagedrawing(imagedrawingoptions, imagesource);
+
+               image16->get_graphics()->draw(imagedrawing);
 
             }
 
@@ -869,13 +914,21 @@ namespace aura
                if (!::is_ok(image48))
                {
 
-                  return -1;
+                  return;
 
                }
 
                image48->get_graphics()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicubic);
 
-               image48->get_graphics()->stretch(::size_i32(48, 48), pimage, pimage->rectangle());
+               image_source imagesource(pimage, pimage->rectangle());
+
+               rectangle_f64 rectangle(::size_i32(48, 48));
+
+               image_drawing_options imagedrawingoptions(rectangle);
+
+               image_drawing imagedrawing(imagedrawingoptions, imagesource);
+
+               image48->get_graphics()->draw(imagedrawing);
 
             }
 
@@ -883,7 +936,15 @@ namespace aura
 
                synchronous_lock sl1(m_pil[16]->mutex());
 
-               iImage = m_pil[16]->add_image(image16, 0, 0);
+               image_source imagesource(pimage1, pimage1->rectangle());
+
+               rectangle_f64 rectangle(::size_i32(16, 16));
+
+               image_drawing_options imagedrawingoptions(rectangle);
+
+               image_drawing imagedrawing(imagedrawingoptions, imagesource);
+
+               getfileimage.m_iImage = m_pil[16]->set(getfileimage.m_iImage, imagedrawing);
 
             }
 
@@ -891,7 +952,15 @@ namespace aura
 
                synchronous_lock sl2(m_pil[48]->mutex());
 
-               m_pil[48]->add_image(image48, 0, 0);
+               image_source imagesource(image48, image48->rectangle());
+
+               rectangle_f64 rectangle(::size_i32(48, 48));
+
+               image_drawing_options imagedrawingoptions(rectangle);
+
+               image_drawing imagedrawing(imagedrawingoptions, imagesource);
+
+               getfileimage.m_iImage = m_pil[48]->set(getfileimage.m_iImage, imagedrawing);
 
             }
 
@@ -899,55 +968,41 @@ namespace aura
 
                synchronous_lock sl1(m_pilHover[16]->mutex());
 
-               m_pilHover[16]->add_image(image16, 0, 0);
+               image_source imagesource(image16, image16->rectangle());
 
-               if (imagekey.m_cr.is_transparent())
-               {
+               rectangle_f64 rectangle(::size_i32(16, 16));
 
-                  m_pilHover[16]->color_blend(m_pil[16], rgb(255, 255, 240), 64);
+               image_drawing_options imagedrawingoptions(rectangle);
 
-               }
-               else
-               {
+               image_drawing imagedrawing(imagedrawingoptions, imagesource);
 
-                  m_pilHover[16]->color_blend(m_pil[16], imagekey.m_cr, 64);
+               getfileimage.m_iImage = m_pil[16]->set(getfileimage.m_iImage, imagedrawing);
 
-               }
+               m_pilHover[16]->color_blend(m_pil[16], rgb(255, 255, 240), 64);
 
             }
 
             {
 
-               synchronous_lock sl1(m_pilHover[16]->mutex());
+               synchronous_lock sl1(m_pilHover[48]->mutex());
 
-               m_pilHover[48]->add_image(image48, 0, 0);
+               image_source imagesource(image48, image48->rectangle());
 
-               if (imagekey.m_cr.is_transparent())
-               {
+               rectangle_f64 rectangle(::size_i32(48, 48));
 
-                  m_pilHover[48]->color_blend(m_pil[48], rgb(255, 255, 240), 64);
+               image_drawing_options imagedrawingoptions(rectangle);
 
-               }
-               else
-               {
+               image_drawing imagedrawing(imagedrawingoptions, imagesource);
 
-                  m_pilHover[48]->color_blend(m_pil[48], imagekey.m_cr, 64);
+               getfileimage.m_iImage = m_pil[48]->set(getfileimage.m_iImage, imagedrawing);
 
-               }
+               m_pilHover[48]->color_blend(m_pil[48], rgb(255, 255, 240), 64);
 
             }
 
-            return iImage;
+            return;
 
          }
-
-
-         string str(imagekey.m_strPath);
-
-
-         //iImage = GetImageByExtension(oswindow, imagekey.m_strPath, imagekey.m_eicon, imagekey.m_eattribute, crBk);
-
-         return iImage;
 
       }
 
@@ -1112,12 +1167,12 @@ namespace aura
 
          {
 
-            if (colorref_get_a_value(imagekey.m_cr) != 255)
-            {
-
-               imagekey.m_cr = 0;
-
-            }
+//            if (colorref_get_a_value(imagekey.m_cr) != 255)
+//            {
+//
+//               imagekey.m_cr = 0;
+//
+//            }
 
 
             image_key imagekey;
@@ -1127,6 +1182,13 @@ namespace aura
             imagekey.set_extension(imagekey.m_strPath);
 
             imagekey.m_strPath = "foo";
+
+            if(imagekey.m_strExtension.is_empty())
+            {
+
+               return -1;
+
+            }
 
 //            imagekey.m_eattribute = eattribute;
 

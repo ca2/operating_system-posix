@@ -271,6 +271,11 @@ namespace windowing_x11
       virtual void update_screen() override;
       virtual void window_show() override;
 
+      bool is_active_window() const;
+
+
+      ::e_status bring_to_front() override;
+
 
    };
 

@@ -3,9 +3,9 @@
 //
 #include "platform-posix/windowing_x11/framework.h"
 #include "aura/user/_user.h"
-#include "aura/os/x11/_x11.h"
-#include "acme/const/id.h"
-#include "acme/const/message.h"
+#include "aura/node/operating_system/x11/_x11.h"
+#include "acme/constant/id.h"
+#include "acme/constant/message.h"
 ////#include "third/sn/sn.h"
 #include <fcntl.h> // library for fcntl function
 #include <sys/stat.h>
@@ -22,7 +22,7 @@
 #include <X11/extensions/XInput2.h>
 #include <X11/XKBlib.h>
 #define new ACME_NEW
-#include "aura/os/x11/_x11.h"
+#include "aura/node/operating_system/x11/_x11.h"
 #include "acme/parallelization/message_queue.h"
 #include "windowing_x11.h"
 #include "acme/node/operating_system/_user.h"
@@ -376,6 +376,39 @@ namespace windowing_x11
          }
 
       }
+
+   }
+
+
+   ::e_status windowing::clear_active_window(::thread * pthread, ::windowing::window * pwindow)
+   {
+
+      if (!m_pdisplay)
+      {
+
+         return error_failed;
+
+      }
+
+      auto pwindowActive = m_pdisplay->m_pwindowActive;
+
+      if (!pwindowActive)
+      {
+
+         return ::success_none;
+
+      }
+
+      if(pwindowActive != pwindow)
+      {
+
+         return error_none;
+
+      }
+
+      m_pdisplay->m_pwindowActive = nullptr;
+
+      return ::success;
 
    }
 
@@ -1246,6 +1279,17 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
          }
 
+         if(!m_bRootSelectInput)
+         {
+
+            m_bRootSelectInput = true;
+
+            auto windowRoot = DefaultRootWindow( pdisplay );
+
+            XSelectInput( pdisplay, windowRoot, PropertyChangeMask );
+
+         }
+
          while (XPending(pdisplay) && !m_bFinishX11Thread)
          {
 
@@ -1460,7 +1504,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
             if(m_pobjectaExtendedEventListener && m_pobjectaExtendedEventListener->get_count() > 0)
             {
 
-               e_id eid;
+               e_id eid = id_none;
 
                auto prawevent = (XIRawEvent*)cookie->data;
 
@@ -1485,28 +1529,63 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                      eid = id_raw_keyup;
                      break;
                   case XI_RawButtonPress:
-                     eid = detail == 5 || detail == 4 ? id_none : id_raw_buttondown;
+                  {
+                     if(detail == 1)
+                     {
+                        eid = id_raw_left_button_down;
+                     }
+                     else if(detail == 2)
+                     {
+                        eid = id_raw_middle_button_down;
+
+                     }
+                     else if(detail == 3)
+                     {
+                        eid = id_raw_right_button_down;
+                     }
+                     //eid = detail == 5 || detail == 4 ? id_none : id_raw_buttondown;
+
+                  }
                      break;
                   case XI_RawButtonRelease:
-                     eid = detail == 5 || detail == 4 ? id_none : id_raw_buttonup;
+//                     eid = detail == 5 || detail == 4 ? id_none : id_raw_buttonup;
+
+if(detail == 1)
+{
+   eid = id_raw_left_button_up;
+}
+else if(detail == 2)
+{
+   eid = id_raw_middle_button_up;
+
+}
+else if(detail == 3)
+{
+   eid = id_raw_right_button_up;
+}
+
                      break;
 
                }
 
                output_debug_string("\ndetail:" + __str(prawevent->detail));
 
-               auto psubject = psystem->subject(eid);
-
-               psubject->payload("return") = is_return_key(prawevent);
-
-               psubject->payload("space") = is_space_key(prawevent);
-
-               ::subject::context context;
-
-               for(auto & p : *m_pobjectaExtendedEventListener)
+               if(eid != id_none)
                {
+                  auto psubject = psystem->subject(eid);
 
-                  p->on_subject(psubject, &context);
+                  psubject->payload("return") = is_return_key(prawevent);
+
+                  psubject->payload("space") = is_space_key(prawevent);
+
+                  ::subject::context context;
+
+                  for(auto & p : *m_pobjectaExtendedEventListener)
+                  {
+
+                     p->on_subject(psubject, &context);
+
+                  }
 
                }
 
@@ -1533,12 +1612,12 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       auto oswindow = m_pdisplay->_window(e.xany.window);
 
-      if (oswindow == nullptr)
-      {
-
-         return false;
-
-      }
+//      if (oswindow == nullptr)
+//      {
+//
+//         return false;
+//
+//      }
 
       msg.oswindow = oswindow;
 
@@ -1790,7 +1869,34 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                   if (atom == e.xproperty.atom)
                   {
 
-                     m_pdisplay->m_pwindowActive = m_pdisplay->_get_active_window(nullptr);
+                     auto pwindowActiveOld = m_pdisplay->m_pwindowActive;
+
+                     auto pwindowActiveNew = m_pdisplay->_get_active_window(nullptr);
+
+                     if(pwindowActiveNew != pwindowActiveOld)
+                     {
+
+                        m_pdisplay->m_pwindowActive = pwindowActiveNew;
+
+                        if(::is_set(pwindowActiveNew))
+                        {
+
+                           pwindowActiveNew->m_pimpl->m_puserinteraction->set_need_redraw();
+
+                           pwindowActiveNew->m_pimpl->m_puserinteraction->post_redraw();
+
+                        }
+
+                        if(::is_set(pwindowActiveOld))
+                        {
+
+                           pwindowActiveOld->m_pimpl->m_puserinteraction->set_need_redraw();
+
+                           pwindowActiveOld->m_pimpl->m_puserinteraction->post_redraw();
+
+                        }
+
+                     }
 
                   }
 

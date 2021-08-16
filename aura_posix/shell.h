@@ -39,11 +39,11 @@ namespace aura
          void on_update_sizes_interest() override;
 
 
-         i32 _get_file_image(const image_key & imagekey) override;
+         void _get_file_image(_get_file_image_ & getfileimage) override;
 
 
-         ::user::shell::e_folder get_folder_type(::object * pobject, const ::wstring & lpcszPath) override;
-         ::user::shell::e_folder get_folder_type(::object * pobject, const ::string & lpcszPath) override;
+         ::user::shell::enum_folder get_folder_type(::object * pobject, const ::wstring & lpcszPath) override;
+         ::user::shell::enum_folder get_folder_type(::object * pobject, const ::string & lpcszPath) override;
 
          int add_icon_path(::file::path path, color32_t crBk);
 
@@ -54,11 +54,7 @@ namespace aura
 //         i32 get_foo_image(per_fork * pfork, oswindow oswindow, image_key key, color32_t crBk);
 
 
-
          //int shell_run();
-
-
-
 
 
       };

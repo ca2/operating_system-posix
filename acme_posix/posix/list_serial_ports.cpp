@@ -38,12 +38,12 @@ namespace acme
 
       static string realpath(const string & path);
 
-      static string usb_sysfs_friendly_name(const string & sys_usb_path);
+      static string usb_sysfs_friendly_name(::matter * pmatter, const string & sys_usb_path);
 
-      static string_array get_sysfs_info(const string & device_path);
+      static string_array get_sysfs_info(::matter * pmatter, const string & device_path);
 
 //static string read_line(const string& file);
-      static string usb_sysfs_hw_string(const string & sysfs_path);
+      static string usb_sysfs_hw_string(::matter * pmatter, const string & sysfs_path);
 
       static string format(const char * format, ...);
 
@@ -156,18 +156,22 @@ namespace acme
       }
 
 
-      string usb_sysfs_friendly_name(const string & sys_usb_path)
+      string usb_sysfs_friendly_name(::matter * pmatter, const string & sys_usb_path)
       {
 
          unsigned int device_number = 0;
 
-         device_number = atoi(file_first_line_dup(sys_usb_path + "/devnum"));
+         auto psystem = pmatter->m_psystem;
 
-         string manufacturer = file_first_line_dup(sys_usb_path + "/manufacturer");
+         auto pacmefile = psystem->m_pacmefile;
 
-         string product = file_first_line_dup(sys_usb_path + "/product");
+         device_number = atoi(pacmefile->first_line(sys_usb_path + "/devnum"));
 
-         string serial = file_first_line_dup(sys_usb_path + "/serial");
+         string manufacturer = pacmefile->first_line(sys_usb_path + "/manufacturer");
+
+         string product = pacmefile->first_line(sys_usb_path + "/product");
+
+         string serial = pacmefile->first_line(sys_usb_path + "/serial");
 
          if (manufacturer.empty() && product.empty() && serial.empty())
          {
@@ -181,7 +185,7 @@ namespace acme
       }
 
 
-      string_array get_sysfs_info(const string & device_path)
+      string_array get_sysfs_info(matter * pmatter, const string & device_path)
       {
 
          string device_name = basename(device_path);
@@ -200,9 +204,9 @@ namespace acme
             if (path_exists(sys_device_path))
             {
 
-               friendly_name = usb_sysfs_friendly_name(sys_device_path);
+               friendly_name = usb_sysfs_friendly_name(pmatter, sys_device_path);
 
-               hardware_id = usb_sysfs_hw_string(sys_device_path);
+               hardware_id = usb_sysfs_hw_string(pmatter, sys_device_path);
 
             }
 
@@ -213,32 +217,50 @@ namespace acme
 
             if (path_exists(sys_device_path))
             {
-               friendly_name = usb_sysfs_friendly_name(sys_device_path);
+               friendly_name = usb_sysfs_friendly_name(pmatter, sys_device_path);
 
-               hardware_id = usb_sysfs_hw_string(sys_device_path);
+               hardware_id = usb_sysfs_hw_string(pmatter, sys_device_path);
             }
 
          } else
          {
             // Try to read ID string of PCI device
 
-            string sys_id_path = sys_device_path + "/id";
+            string sys_id_path = sys_device_path + string("/id");
+
+            auto psystem = pmatter->m_psystem;
+
+            auto pacmefile = psystem->m_pacmefile;
 
             if (path_exists(sys_id_path))
-               hardware_id = file_first_line_dup(sys_id_path);
+            {
+
+               hardware_id = pacmefile->first_line(sys_id_path);
+
+            }
+
          }
 
          if (friendly_name.empty())
+         {
+
             friendly_name = device_name;
 
+         }
+
          if (hardware_id.empty())
+         {
+
             hardware_id = "n/a";
+
+         }
 
          string_array result;
          result.push_back(friendly_name);
          result.push_back(hardware_id);
 
          return result;
+
       }
 
 
@@ -310,18 +332,23 @@ namespace acme
 
 
       string
-      usb_sysfs_hw_string(const string & sysfs_path)
+      usb_sysfs_hw_string(::matter * pmatter, const string & sysfs_path)
       {
-         string serial_number = file_first_line_dup(sysfs_path + "/serial");
+
+         auto psystem = pmatter->m_psystem;
+
+         auto pacmefile = psystem->m_pacmefile;
+
+         string serial_number = pacmefile->first_line(sysfs_path + "/serial");
 
          if (serial_number.length() > 0)
          {
             serial_number = format("SNR=%s", serial_number.c_str());
          }
 
-         string vid = file_first_line_dup(sysfs_path + "/idVendor");
+         string vid = pacmefile->first_line(sysfs_path + "/idVendor");
 
-         string pid = file_first_line_dup(sysfs_path + "/idProduct");
+         string pid = pacmefile->first_line(sysfs_path + "/idProduct");
 
          return format("USB VID:PID=%s:%s %s", vid.c_str(), pid.c_str(), serial_number.c_str());
 
@@ -349,7 +376,7 @@ namespace acme
          for (auto device : devices_found)
          {
 
-            string_array sysfs_info = get_sysfs_info(device);
+            string_array sysfs_info = get_sysfs_info(this, device);
 
             string friendly_name = sysfs_info[0];
 
