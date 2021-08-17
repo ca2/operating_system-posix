@@ -305,79 +305,79 @@ namespace windowing_x11
 
 #endif
 
-   oswindow g_oswindowActive;
+//   oswindow g_oswindowActive;
+//
+//
+//   oswindow get_active_window()
+//   {
+//
+//      return g_oswindowActive;
+//
+//   }
 
 
-   oswindow get_active_window()
-   {
-
-      return g_oswindowActive;
-
-   }
-
-
-   void oswindow_set_active_window(oswindow oswindow)
-   {
-
-      if (g_oswindowActive)
-      {
-
-         try
-         {
-
-            if (g_oswindowActive->m_pimpl)
-            {
-
-               if (g_oswindowActive->m_pimpl->m_puserinteraction)
-               {
-
-                  g_oswindowActive->m_pimpl->m_puserinteraction->m_ewindowflag -= ::e_window_flag_active;
-
-                  g_oswindowActive->m_pimpl->m_puserinteraction->post_message(e_message_activate, 0);
-
-               }
-
-            }
-
-         }
-         catch (...)
-         {
-
-         }
-
-      }
-
-      g_oswindowActive = oswindow;
-
-      if (g_oswindowActive)
-      {
-
-         try
-         {
-
-            if (g_oswindowActive->m_pimpl)
-            {
-
-               if (g_oswindowActive->m_pimpl->m_puserinteraction)
-               {
-
-                  g_oswindowActive->m_pimpl->m_puserinteraction->m_ewindowflag += ::e_window_flag_active;
-
-                  g_oswindowActive->m_pimpl->m_puserinteraction->post_message(e_message_activate, 1);
-
-               }
-
-            }
-
-         }
-         catch (...)
-         {
-
-         }
-
-      }
-
-   }
+//   void oswindow_set_active_window(oswindow oswindow)
+//   {
+//
+//      if (g_oswindowActive)
+//      {
+//
+//         try
+//         {
+//
+//            if (g_oswindowActive->m_pimpl)
+//            {
+//
+//               if (g_oswindowActive->m_pimpl->m_puserinteraction)
+//               {
+//
+//                  g_oswindowActive->m_pimpl->m_puserinteraction->m_ewindowflag -= ::e_window_flag_active;
+//
+//                  g_oswindowActive->m_pimpl->m_puserinteraction->post_message(e_message_activate, 0);
+//
+//               }
+//
+//            }
+//
+//         }
+//         catch (...)
+//         {
+//
+//         }
+//
+//      }
+//
+//      g_oswindowActive = oswindow;
+//
+//      if (g_oswindowActive)
+//      {
+//
+//         try
+//         {
+//
+//            if (g_oswindowActive->m_pimpl)
+//            {
+//
+//               if (g_oswindowActive->m_pimpl->m_puserinteraction)
+//               {
+//
+//                  g_oswindowActive->m_pimpl->m_puserinteraction->m_ewindowflag += ::e_window_flag_active;
+//
+//                  g_oswindowActive->m_pimpl->m_puserinteraction->post_message(e_message_activate, 1);
+//
+//               }
+//
+//            }
+//
+//         }
+//         catch (...)
+//         {
+//
+//         }
+//
+//      }
+//
+//   }
 
 
    ::e_status windowing::clear_active_window(::thread * pthread, ::windowing::window * pwindow)

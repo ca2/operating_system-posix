@@ -429,10 +429,17 @@ namespace windowing_xcb
    }
 
 
-   ::e_status windowing::clear_active_window(::thread *)
+   ::e_status windowing::clear_active_window(::thread *, ::windowing::window * pwindow)
    {
 
       if (!m_pdisplay)
+      {
+
+         return error_failed;
+
+      }
+
+      if(pwindow != m_pdisplay->m_pwindowActive)
       {
 
          return error_failed;
@@ -1042,7 +1049,34 @@ namespace windowing_xcb
                if (pproperty->atom == m_pdisplay->atom(x_window::e_atom_net_active_window))
                {
 
-                  m_pdisplay->m_pwindowActive = m_pdisplay->_get_active_window(nullptr);
+                  auto pwindowActiveOld = m_pdisplay->m_pwindowActive;
+
+                  auto pwindowActiveNew = m_pdisplay->_get_active_window(nullptr);
+
+                  if(pwindowActiveNew != pwindowActiveOld)
+                  {
+
+                     m_pdisplay->m_pwindowActive = pwindowActiveNew;
+
+                     if(::is_set(pwindowActiveNew))
+                     {
+
+                        pwindowActiveNew->m_pimpl->m_puserinteraction->set_need_redraw();
+
+                        pwindowActiveNew->m_pimpl->m_puserinteraction->post_redraw();
+
+                     }
+
+                     if(::is_set(pwindowActiveOld))
+                     {
+
+                        pwindowActiveOld->m_pimpl->m_puserinteraction->set_need_redraw();
+
+                        pwindowActiveOld->m_pimpl->m_puserinteraction->post_redraw();
+
+                     }
+
+                  }
 
                }
 

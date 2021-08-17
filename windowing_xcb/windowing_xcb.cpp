@@ -3,7 +3,7 @@
 //
 #include "framework.h"
 #include "aura/user/_user.h"
-#include "aura/os/xcb/_xcb.h"
+#include "aura/node/operating_system/xcb/_xcb.h"
 #include "acme/constant/id.h"
 #include "acme/constant/message.h"
 ////#include "third/sn/sn.h"
@@ -22,7 +22,7 @@
 //#include <Xcb/XKBlib.h>
 #include <X11/XKBlib.h>
 #define new ACME_NEW
-#include "aura/os/xcb/_xcb.h"
+#include "aura/node/operating_system/xcb/_xcb.h"
 #include "acme/parallelization/message_queue.h"
 #include "windowing_xcb.h"
 #include "acme/node/operating_system/_user.h"

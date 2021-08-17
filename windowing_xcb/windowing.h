@@ -97,13 +97,13 @@ namespace windowing_xcb
       //void x_display_error_trap_pop(SnDisplay * sndisplay, xcb_connection_t * display);
 
 
-      virtual ::windowing::window * get_active_window(::thread * pthread) override;
+      ::windowing::window * get_active_window(::thread * pthread) override;
 
-      virtual ::windowing::window * get_keyboard_focus(::thread * pthread) override;
+      ::windowing::window * get_keyboard_focus(::thread * pthread) override;
 
-      virtual ::windowing::window * get_mouse_capture(::thread * pthread) override;
+      ::windowing::window * get_mouse_capture(::thread * pthread) override;
 
-      virtual ::e_status clear_active_window(::thread * pthread);
+      ::e_status clear_active_window(::thread * pthread, ::windowing::window * pwindow) override;
 
       virtual bool xcb_on_event(xcb_generic_event_t * pevent);
 

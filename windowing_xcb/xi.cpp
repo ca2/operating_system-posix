@@ -362,17 +362,17 @@ namespace windowing_xcb
                 if(prawevent->detail == 1)
                 {
                    //left_button
-                   eid = id_raw_buttondown;
+                   eid = id_raw_left_button_down;
                 }
                 else if(prawevent->detail == 2)
                 {
                    //middle_button
-                   eid = id_raw_buttondown;
+                   eid = id_raw_middle_button_down;
                 }
                 else if(prawevent->detail == 3)
                 {
                    //right_button
-                   eid = id_raw_buttondown;
+                   eid = id_raw_right_button_down;
                 }
                 else if(prawevent->detail == 4)
                 {
@@ -395,17 +395,17 @@ namespace windowing_xcb
                if(prawevent->detail == 1)
                {
                   //left_button
-                  eid = id_raw_buttonup;
+                  eid = id_raw_left_button_up;
                }
                else if(prawevent->detail == 2)
                {
                   //middle_button
-                  eid = id_raw_buttonup;
+                  eid = id_raw_middle_button_up;
                }
                else if(prawevent->detail == 3)
                {
                   //right_button
-                  eid = id_raw_buttonup;
+                  eid = id_raw_right_button_up;
                }
                else if(prawevent->detail == 4)
                {

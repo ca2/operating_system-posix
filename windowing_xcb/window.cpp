@@ -682,7 +682,17 @@ namespace windowing_xcb
 
       d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicubic);
 
-      d1->g()->stretch(d1->rectangle(), pimage->g(), pimage->rectangle());
+      {
+
+         image_source imagesource(pimage, pimage->rectangle());
+
+         image_drawing_options imagedrawingoptions(d1->rectangle());
+
+         image_drawing imagedrawing(imagedrawingoptions, imagesource);
+
+         d1->g()->draw(imagedrawing);
+
+      }
 
       memory m(m_pimpl->m_puserinteraction->get_application());
 

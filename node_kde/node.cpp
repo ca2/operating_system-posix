@@ -53,7 +53,15 @@ namespace node_kde
    {
 
 
-      _destroy_node_kde();
+      if(m_pqapplication != nullptr)
+      {
+
+         delete m_pqapplication;
+
+      }
+
+//
+//      _destroy_node_kde();
 
 //      if (m_pGtkSettingsDefault)
 //      {
@@ -73,18 +81,15 @@ namespace node_kde
 
       //os_post_quit();
 
+
+
    }
 
 
-   void node::_destroy_node_kde()
+   void node::node_quit()
    {
 
-      if(m_pqapplication != nullptr)
-      {
-
-         delete m_pqapplication;
-
-      }
+      m_pqapplication->quit();
 
    }
 
@@ -286,6 +291,15 @@ namespace node_kde
 
       auto estatus = m_psystem->m_papexsystem->begin_synch();
 
+      /// new:platform_create_system:decrement_reference_count
+      /// begin_synch starts new thread
+      /// the framework will hold a reference to the system as this
+      /// new started thread
+      /// now it is safe to release the platform_create_system
+      /// creation reference.
+
+      m_psystem->decrement_reference_count();
+
       if (!estatus)
       {
 
@@ -294,6 +308,7 @@ namespace node_kde
          return estatus;
 
       }
+
       //   ::e_status estatus = psystem->begin_synch();
       //
       //   if(!estatus)
@@ -803,14 +818,14 @@ namespace node_kde
    }
 
 
-   void node::os_post_quit()
-   {
-
-      //os_post_quit();
-
-      m_pqapplication->quit();
-
-   }
+//   void node::os_post_quit()
+//   {
+//
+//      //os_post_quit();
+//
+//      //m_pqapplication->quit();
+//
+//   }
 
 
 //   void node::os_post_quit()

@@ -42,7 +42,7 @@ namespace node_kde
       ~node() override;
 
 
-      void _destroy_node_kde();
+      void node_quit();
 
       ::os_theme_colors * new_os_theme_colors();
 
@@ -84,7 +84,7 @@ namespace node_kde
 
       //void node_post_quit() override;
 
-      void os_post_quit() override;
+      //void os_post_quit() override;
 
       bool _os_calc_system_dark_mode() override;
 

@@ -734,6 +734,13 @@ namespace aura
 
          }
 
+         if(defer_set_thumbnail(getfileimage))
+         {
+
+            return;
+
+         }
+
          string strExtension;
 
          if (::str::ends_ci(getfileimage.m_imagekey.m_strPath, ".sln"))
