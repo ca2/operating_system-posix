@@ -149,7 +149,7 @@ namespace node_gtk
 
       }
 
-      ::os_post_quit();
+      //::os_post_quit();
 
    }
 
@@ -791,10 +791,10 @@ namespace node_gtk
 //   }
 
 
-   void node::os_post_quit()
+   void node::node_quit()
    {
 
-      //::os_post_quit();
+      ::os_post_quit();
 
    }
 

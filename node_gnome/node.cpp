@@ -660,12 +660,12 @@ namespace node_gnome
    }
 
 
-   void node::os_post_quit()
-   {
-
-      ::node_gtk::node::os_post_quit();
-
-   }
+//   void node::os_post_quit()
+//   {
+//
+//      ::node_gtk::node::os_post_quit();
+//
+//   }
 
 
    bool node::should_launch_on_node(::subject::subject * psubject)

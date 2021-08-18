@@ -287,19 +287,18 @@ gboolean gtk_quit_callback(gpointer data)
 namespace node_gtk
 {
 
-
-   void node::node_post_quit()
-   {
-
-      //auto idle_source = g_idle_source_new();
-
-      //g_source_set_callback(idle_source, &gtk_quit_callback, nullptr, nullptr);
-
-      //g_source_attach(idle_source, g_main_context_default());
-
-      gdk_threads_add_idle(&gtk_quit_callback, nullptr);
-
-   }
+//
+//   void node::node_post_quit()
+//   {
+//
+//      //auto idle_source = g_idle_source_new();
+//
+//      //g_source_set_callback(idle_source, &gtk_quit_callback, nullptr, nullptr);
+//
+//      //g_source_attach(idle_source, g_main_context_default());
+//
+//
+//   }
 
 
 } // namespace node_gtk

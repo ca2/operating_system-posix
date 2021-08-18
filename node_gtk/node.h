@@ -63,7 +63,7 @@ namespace node_gtk
 
       virtual ::e_status node_branch(const ::routine & routine);
 
-      virtual void node_post_quit() override;
+      ///virtual void node_post_quit() override;
 
       //virtual void on_subject(::promise::subject * psubject, ::subject::context * pcontext) override;
 
@@ -79,7 +79,7 @@ namespace node_gtk
 
       virtual bool _os_calc_system_dark_mode() override;
 
-      virtual void os_post_quit() override;
+      virtual void node_quit() override;
 
       virtual bool should_launch_on_node(::subject::subject * psubject);
 
