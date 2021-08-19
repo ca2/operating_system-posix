@@ -15,7 +15,7 @@ namespace posix
 
 
       acme_file();
-      ~acme_file() override;
+      ~acme_file() noexcept override ;
 
 
       memory as_memory(const char * path, strsize iReadAtMostByteCount = -1) override;

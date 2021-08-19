@@ -1008,7 +1008,7 @@ serial_impl::waitForChange()
          }
       }
 
-      sleep((::micros) 1_s);
+      preempt((::millis) 1_s);
       
    }
 

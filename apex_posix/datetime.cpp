@@ -43,7 +43,7 @@
 using DWORD = unsigned int;
 using LPDWORD = DWORD *;
 
-using ULONGLONG = unsigned long int;
+//using ULONGLONG = unsigned long int;
 
 
 #define server_start_time 0
@@ -597,7 +597,7 @@ int NtQuerySystemTime( u64 * Time )
 
 }
 
-#define STATUS_ACCESS_VIOLATION          (0xC0000005)
+//#define STATUS_ACCESS_VIOLATION          (0xC0000005)
 
 /******************************************************************************
  *  NtQueryPerformanceCounter	[NTDLL.@]
