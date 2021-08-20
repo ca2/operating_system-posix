@@ -49,7 +49,7 @@ namespace windowing_xcb
       virtual ~display();
 
 
-#ifdef DEBUG
+#ifdef _DEBUG
 
 
       virtual i64 get_ref_count();

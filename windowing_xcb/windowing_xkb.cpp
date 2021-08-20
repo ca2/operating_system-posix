@@ -165,7 +165,7 @@ namespace windowing_xcb
 
       keysym = xkb_state_key_get_one_sym(m_pkeystate, keycode);
 
-#ifdef DEBUG
+#ifdef _DEBUG
 
       char keysym_name[64];
 
