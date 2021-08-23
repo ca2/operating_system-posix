@@ -32,14 +32,14 @@ namespace aura
 
          //virtual i32 get_image_foo(oswindow oswindow, const string & strExtension, e_file_attribute eattribute, e_icon eicon, color32_t crBk = 0) override;
          //virtual i32 get_file_extension_image(oswindow oswindow, const string & strExtension, e_file_attribute eattribute, e_icon eicon, color32_t crBk = 0) override;
-         i32 get_image_by_file_extension(image_key & imagekey);
+         bool get_image_by_file_extension(_get_file_image_ & getfileimage) override;
          //virtual i32 get_image(oswindow oswindow, const string & strPath, e_file_attribute eattribute, e_icon eicon, color32_t crBk = 0) override;
 
 
          void on_update_sizes_interest() override;
 
 
-         void _get_file_image(_get_file_image_ & getfileimage) override;
+         bool _get_file_image(_get_file_image_ & getfileimage) override;
 
 
          ::user::shell::enum_folder get_folder_type(::object * pobject, const ::wstring & lpcszPath) override;

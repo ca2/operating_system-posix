@@ -581,435 +581,10 @@ namespace aura
       }
 
 
-      void shell::_get_file_image(_get_file_image_ & getfileimage)
+      bool shell::_get_file_image(_get_file_image_ & getfileimage)
       {
-
-         ::file::path path = getfileimage.m_imagekey.m_strPath;
-
-//         image_key imagekey(imagekeyParam);
-//
-//         i32 iImage = 0x80000000;
-
-         if (::str::begins_ci(getfileimage.m_imagekey.m_strPath, "uifs:"))
-         {
-
-            auto pcontext = m_pcontext;
-
-            ::file::path path = pcontext->m_papexcontext->dir().matter("cloud.ico");
-
-//            for (auto iSize : m_iaSize)
-//            {
-//
-//
-////               HICON hicon = (HICON)LoadImage(nullptr, path, IMAGE_ICON, iSize, iSize, LR_LOADFROMFILE);
-//
-//               //             iImage = add_icon(iSize, hicon, crBk);
-//
-//            }
-
-            single_lock synchronouslock(mutex(), true);
-
-            m_imagemap.set_at(getfileimage.m_imagekey, getfileimage.m_iImage);
-
-            //return iImage;
-
-            return;
-
-         }
-         else if (::str::begins_ci(getfileimage.m_imagekey.m_strPath, "fs:"))
-         {
-
-            auto pcontext = m_pcontext;
-
-            ::file::path path = pcontext->m_papexcontext->dir().matter("remote.ico");
-
-//            for (auto iSize : m_iaSize)
-//            {
-//
-//
-////               HICON hicon = (HICON)LoadImage(nullptr, path, IMAGE_ICON, iSize, iSize, LR_LOADFROMFILE);
-//
-//               //             iImage = add_icon(iSize, hicon, crBk);
-//
-//            }
-
-            single_lock synchronouslock(mutex(), true);
-
-            m_imagemap.set_at(getfileimage.m_imagekey, getfileimage.m_iImage);
-
-            //return iImage;
-
-            return;
-
-         }
-         else if (::str::begins_ci(getfileimage.m_imagekey.m_strPath, "ftp:"))
-         {
-
-            auto pcontext = m_pcontext;
-
-            ::file::path path = pcontext->m_papexcontext->dir().matter("ftp.ico");
-
-//            for (auto iSize : m_iaSize)
-//            {
-//
-//
-//               //HICON hicon = (HICON)LoadImage(nullptr, path, IMAGE_ICON, iSize, iSize, LR_LOADFROMFILE);
-//
-//               //iImage = add_icon(iSize, hicon, crBk);
-//
-//            }
-
-            single_lock synchronouslock(mutex(), true);
-
-            m_imagemap.set_at(getfileimage.m_imagekey, getfileimage.m_iImage);
-
-            //return iImage;
-
-            return;
-
-         }
-
-         if (::str::ends_ci(getfileimage.m_imagekey.m_strPath, ".aura"))
-         {
-
-            auto pcontext = m_pcontext;
-
-            string str = pcontext->m_papexcontext->file().as_string(getfileimage.m_imagekey.m_strPath);
-
-            if (::str::begins_eat_ci(str, "ca2prompt\r\n"))
-            {
-
-               str.trim();
-               /*HICON hicon16 = (HICON) ::LoadImage(nullptr, pcontext->m_papexcontext->dir().matter(str + "/mainframe/icon.ico"), IMAGE_ICON, 16, 16, LR_LOADFROMFILE);
-               HICON hicon48 = (HICON) ::LoadImage(nullptr, pcontext->m_papexcontext->dir().matter(str + "/mainframe/icon.ico"), IMAGE_ICON, 48, 48, LR_LOADFROMFILE);
-               synchronous_lock sl1(m_pil48Hover->mutex());
-               synchronous_lock sl2(m_pil48->mutex());
-               iImage = m_pil16->add_icon_os_data(hicon16);
-               m_pil48Hover->add_icon_os_data(hicon48);
-
-               if (crBk == 0)
-               {
-                  psystem->imaging().Createcolor_blend_ImageList(
-                     m_pil48,
-                     m_pil48Hover,
-                     rgb(255, 255, 240),
-                     64);
-               }
-               else
-               {
-                  *m_pil48 = *m_pil48Hover;
-               }*/
-
-            }
-            //return iImage;
-
-            return;
-
-         }
-
-         // try to find "uifs:// http:// ftp:// like addresses"
-         // then should show icon by extension or if is folder
-
-         string strPath = getfileimage.m_imagekey.m_strPath;
-
-         string strRealPath = m_pcontext->m_papexcontext->defer_process_path(strPath);
-
-         string strFinalPath = m_psystem->m_pacmepath->_final(strRealPath);
-
-         if(strFinalPath.is_empty())
-         {
-
-            string strProtocol = m_psystem->m_purldepartment->get_protocol(path);
-
-            string strRoot = m_psystem->m_purldepartment->get_root(path);
-
-            if (strProtocol.has_char() && strRoot.has_char())
-            {
-
-               get_image_by_file_extension(getfileimage.m_imagekey);
-
-               return;
-
-            }
-
-         }
-
-         if(defer_set_thumbnail(getfileimage))
-         {
-
-            return;
-
-         }
-
-         string strExtension;
-
-         if (::str::ends_ci(getfileimage.m_imagekey.m_strPath, ".sln"))
-         {
-
-            // output_debug_string("test .sln");
-
-         }
-
-         string strIcon48;
-
-         string strIcon16;
-
-         if (::str::ends_ci(getfileimage.m_imagekey.m_strPath, ".desktop"))
-         {
-
-            auto pcontext = m_pcontext;
-
-            string str = pcontext->m_papexcontext->file().as_string(getfileimage.m_imagekey.m_strPath);
-
-            string_array stra;
-
-            stra.add_lines(str);
-
-            stra.filter_begins_ci("icon=");
-
-            if (stra.get_size() <= 0)
-            {
-
-               getfileimage.m_iImage = -1;
-
-               return;
-
-            }
-
-            string strIcon = stra[0];
-
-            ::str::begins_eat_ci(strIcon, "icon=");
-
-            strIcon48 = strIcon;
-
-            strIcon16 = strIcon;
-
-         }
-         else
-         {
-
-            auto psystem = m_psystem->m_paurasystem;
-
-            auto pnode = psystem->node();
-
-            strIcon48 = pnode->get_file_icon_path(strFinalPath, 48);
-
-            strIcon16 = pnode->get_file_icon_path(strFinalPath, 16);
-
-         }
-
-         if (strIcon16.has_char() || strIcon48.has_char())
-         {
-
-            if(strIcon16.has_char())
-            {
-
-               getfileimage.m_imagekey.m_strPath = strIcon16;
-
-               getfileimage.m_imagekey.m_strExtension = "";
-
-               getfileimage.m_imagekey.m_eicon = e_icon_normal;
-
-               if(!reserve_image(getfileimage))
-               {
-
-                  return;
-
-               }
-
-            }
-            else if(strIcon48.has_char())
-            {
-
-               getfileimage.m_imagekey.m_strPath = strIcon48;
-
-               getfileimage.m_imagekey.m_strExtension = "";
-
-               getfileimage.m_imagekey.m_eicon = e_icon_normal;
-
-               if(!reserve_image(getfileimage))
-               {
-
-                  return;
-
-               }
-
-            }
-
-            if(strIcon16.is_empty())
-            {
-
-               strIcon16 = strIcon48;
-
-            }
-            else if(strIcon48.is_empty())
-            {
-
-               strIcon48 = strIcon16;
-
-            }
-
-            ::image_pointer pimage1 = m_pcontextimage->load_image(strIcon16);
-
-            if (!::is_ok(pimage1))
-            {
-
-               return;
-
-            }
-
-            auto pcontext = m_pcontext;
-
-            auto pcontextimage = pcontext->context_image();
-
-            ::image_pointer pimage = pcontextimage->load_image(strIcon48);
-
-            if (!::is_ok(pimage))
-            {
-
-               return;
-
-            }
-
-            ::image_pointer image16;
-
-            if(pimage1->get_size() == ::size_i32(16, 16))
-            {
-
-               image16 = pimage1;
-
-            }
-            else
-            {
-
-               image16 = create_image({16, 16});
-
-               if (!::is_ok(image16))
-               {
-
-                  return;
-
-               }
-
-               image16->get_graphics()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicubic);
-
-               image_source imagesource(pimage1, pimage1->rectangle());
-
-               rectangle_f64 rectangle(::size_i32(16, 16));
-
-               image_drawing_options imagedrawingoptions(rectangle);
-
-               image_drawing imagedrawing(imagedrawingoptions, imagesource);
-
-               image16->get_graphics()->draw(imagedrawing);
-
-            }
-
-            ::image_pointer image48;
-
-            if(pimage->get_size() == ::size_i32(48, 48))
-            {
-
-               image48 = pimage;
-
-            }
-            else
-            {
-
-               image48 = create_image({48, 48});
-
-               if (!::is_ok(image48))
-               {
-
-                  return;
-
-               }
-
-               image48->get_graphics()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicubic);
-
-               image_source imagesource(pimage, pimage->rectangle());
-
-               rectangle_f64 rectangle(::size_i32(48, 48));
-
-               image_drawing_options imagedrawingoptions(rectangle);
-
-               image_drawing imagedrawing(imagedrawingoptions, imagesource);
-
-               image48->get_graphics()->draw(imagedrawing);
-
-            }
-
-            {
-
-               synchronous_lock sl1(m_pil[16]->mutex());
-
-               image_source imagesource(pimage1, pimage1->rectangle());
-
-               rectangle_f64 rectangle(::size_i32(16, 16));
-
-               image_drawing_options imagedrawingoptions(rectangle);
-
-               image_drawing imagedrawing(imagedrawingoptions, imagesource);
-
-               getfileimage.m_iImage = m_pil[16]->set(getfileimage.m_iImage, imagedrawing);
-
-            }
-
-            {
-
-               synchronous_lock sl2(m_pil[48]->mutex());
-
-               image_source imagesource(image48, image48->rectangle());
-
-               rectangle_f64 rectangle(::size_i32(48, 48));
-
-               image_drawing_options imagedrawingoptions(rectangle);
-
-               image_drawing imagedrawing(imagedrawingoptions, imagesource);
-
-               getfileimage.m_iImage = m_pil[48]->set(getfileimage.m_iImage, imagedrawing);
-
-            }
-
-            {
-
-               synchronous_lock sl1(m_pilHover[16]->mutex());
-
-               image_source imagesource(image16, image16->rectangle());
-
-               rectangle_f64 rectangle(::size_i32(16, 16));
-
-               image_drawing_options imagedrawingoptions(rectangle);
-
-               image_drawing imagedrawing(imagedrawingoptions, imagesource);
-
-               getfileimage.m_iImage = m_pil[16]->set(getfileimage.m_iImage, imagedrawing);
-
-               m_pilHover[16]->color_blend(m_pil[16], rgb(255, 255, 240), 64);
-
-            }
-
-            {
-
-               synchronous_lock sl1(m_pilHover[48]->mutex());
-
-               image_source imagesource(image48, image48->rectangle());
-
-               rectangle_f64 rectangle(::size_i32(48, 48));
-
-               image_drawing_options imagedrawingoptions(rectangle);
-
-               image_drawing imagedrawing(imagedrawingoptions, imagesource);
-
-               getfileimage.m_iImage = m_pil[48]->set(getfileimage.m_iImage, imagedrawing);
-
-               m_pilHover[48]->color_blend(m_pil[48], rgb(255, 255, 240), 64);
-
-            }
-
-            return;
-
-         }
+         
+         return ::user::shell::_get_file_image(getfileimage);
 
       }
 
@@ -1166,11 +741,11 @@ namespace aura
 //
 
 
-      i32 shell::get_image_by_file_extension(image_key & imagekey)
+      bool shell::get_image_by_file_extension(_get_file_image_ & getfileimage)
       //i32 linux::get_image_foo(oswindow oswindow, const string & strExtension, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
       {
 
-         i32 iImage = 0x80000000;
+         getfileimage.m_iImage = 0x80000000;
 
          {
 
@@ -1182,18 +757,18 @@ namespace aura
 //            }
 
 
-            image_key imagekey;
+            //image_key imagekey;
 
-            imagekey.m_strShellThemePrefix = (char *)m_strShellThemePrefix.c_str();
+            getfileimage.m_imagekey.m_strShellThemePrefix = (char *)m_strShellThemePrefix.c_str();
 
-            imagekey.set_extension(imagekey.m_strPath);
+            getfileimage.m_imagekey.set_extension(getfileimage.m_imagekey.m_strPath);
 
-            imagekey.m_strPath = "foo";
+            getfileimage.m_imagekey.m_strPath = "foo";
 
-            if(imagekey.m_strExtension.is_empty())
+            if(getfileimage.m_imagekey.m_strExtension.is_empty())
             {
 
-               return -1;
+               return false;
 
             }
 
@@ -1201,30 +776,32 @@ namespace aura
 
 //            imagekey.m_eicon = eicon;
 
-            imagekey.m_iIcon = 0;
+            getfileimage.m_imagekey.m_iIcon = 0;
 
             {
 
                synchronous_lock synchronouslock(mutex());
 
-               if (m_imagemap.lookup(imagekey, iImage))
+               if (m_imagemap.lookup(getfileimage.m_imagekey, getfileimage.m_iImage))
                {
 
-                  return iImage;
+                  return getfileimage.m_iImage;
 
                }
 
             }
 
-            iImage = get_file_image(imagekey);
+            getfileimage.m_iImage = get_file_image(getfileimage.m_imagekey);
 
             synchronous_lock synchronouslock(mutex());
 
-            m_imagemap.set_at(imagekey, iImage);
+            m_imagemap.set_at(getfileimage.m_imagekey, getfileimage.m_iImage);
 
          }
 
-         return iImage;
+         //return iImage;
+         
+         return true;
 
       }
 
