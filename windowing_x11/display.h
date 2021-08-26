@@ -47,7 +47,7 @@ namespace windowing_x11
       virtual ~display();
 
 
-#ifdef DEBUG
+#ifdef _DEBUG
 
 
       virtual i64 get_ref_count();

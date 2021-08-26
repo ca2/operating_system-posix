@@ -2,6 +2,8 @@
 // From acme_posix/acme_file.h
 // on 2021-08-12
 // 18:20 BRT
+#include "framework.h"
+#include <sys/stat.h>
 
 
 namespace posix

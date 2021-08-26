@@ -664,7 +664,7 @@ namespace acme
       }
 
 
-      bool node::load_modules_diff(string_array& straOld, string_array& straNew, const ::string & pszExceptDir)
+   bool node::load_modules_diff(string_array& straOld, string_array& straNew, const ::string & strExceptDir)
       {
 
          __throw(error_interface_only);
@@ -684,7 +684,7 @@ namespace acme
       }
 
 
-//      id_array node::module_path_get_pid(const ::string & pszModulePath, bool bModuleNameIsPropertyFormatted)
+//      id_array node::module_path_get_pid(const char * pszModulePath, bool bModuleNameIsPropertyFormatted)
 //      {
 //
 //         return ::acme::node::module_path_get_pid(pszModulePath, bModuleNameIsPropertyFormatted);
@@ -725,15 +725,15 @@ namespace acme
 //      }
 
 
-      bool node::process_contains_module(string& strImage, ::u32 processID, const ::string & pszLibrary)
+      bool node::process_contains_module(string& strImage, ::u32 processID, const ::string & strLibrary)
       {
 
-         return ::acme::node::process_contains_module(strImage, processID, pszLibrary);
+         return ::acme::node::process_contains_module(strImage, processID, strLibrary);
 
       }
 
 
-      void node::shared_library_process(dword_array& dwa, string_array& straProcesses, const ::string & pszLibrary)
+      void node::shared_library_process(dword_array& dwa, string_array& straProcesses, const ::string & strLibrary)
       {
 
          __throw(error_interface_only);
@@ -749,10 +749,10 @@ namespace acme
       }
 
 
-      string node::get_environment_variable(const ::string & pszEnvironmentVariable)
+      string node::get_environment_variable(const ::string & strEnvironmentVariable)
       {
 
-         return ::getenv(pszEnvironmentVariable);
+         return ::getenv(strEnvironmentVariable);
 
       }
 
@@ -801,7 +801,7 @@ namespace acme
 
          stra.add_lines(str);
 
-         return stra.predicate_get_count([](auto str) { return ::str::begins(str, "cpu"); });
+         return (int) stra.predicate_get_count([](auto str) { return ::str::begins(str, "cpu"); });
 
       }
 

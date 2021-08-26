@@ -43,7 +43,7 @@ namespace windowing_x11
    }
 
 
-#ifdef DEBUG
+#ifdef _DEBUG
 
 
    i64 display::get_ref_count()

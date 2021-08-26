@@ -108,7 +108,7 @@ namespace posix
 
       i32 iFileDescriptor = ::open(lpszName, O_RDONLY);
 
-      int_bool bSet = set_size(iFileDescriptor, size) != -1;
+      auto bSet = set_size(iFileDescriptor, size);
 
       ::close(iFileDescriptor);
 
@@ -526,7 +526,7 @@ namespace posix
       return string(pszModuleFilePath);
 
 
-   #elif defined(APPLEOS)
+   #elif defined(__APPLE__)
 
       return apple_app_module_path();
 
