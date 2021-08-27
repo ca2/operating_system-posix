@@ -43,6 +43,8 @@ namespace aura
          defer_create_mutex();
          //begin();
 
+         m_bGetFileImageByIconPath = true;
+
          //SHGetImageList(SHIL_SMALL, IID_IImageList, m_pilSmall);
          //SHGetImageList(SHIL_LARGE, IID_IImageList, m_pilLarge);
          //SHGetImageList(SHIL_EXTRALARGE, IID_IImageList, m_pilExtraLarge);
