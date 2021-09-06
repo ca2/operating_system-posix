@@ -29,7 +29,7 @@
 //void init_chldstatus(int iPid);
 
 
-CLASS_DECL_APEX void process_get_os_priority(i32 * piOsPolicy, sched_param * pparam, ::e_priority epriority);
+CLASS_DECL_APEX void process_get_os_priority(i32 * piOsPolicy, sched_param * pparam, ::enum_priority epriority);
 
 
 namespace ansios
@@ -48,7 +48,7 @@ namespace ansios
    }
 
 
-   bool process::create_child_process(const ::string & pszCmdLine,bool bPiped,const ::string & pszDir, ::e_priority epriority)
+   bool process::create_child_process(const ::string & pszCmdLine,bool bPiped,const ::string & pszDir, ::enum_priority epriority)
    {
 
       if(!::process::process::create_child_process(pszCmdLine, bPiped, pszDir, epriority))
@@ -68,7 +68,7 @@ namespace ansios
 
       posix_spawnattr_init(&attr);
 
-      if(epriority != ::priority_normal && epriority != ::priority_none)
+      if(epriority != ::e_priority_normal && epriority != ::e_priority_none)
       {
 
          i32 iPolicy = SCHED_OTHER;
