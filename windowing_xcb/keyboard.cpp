@@ -371,7 +371,7 @@ namespace windowing_xcb
       //   if(is_debugger_attached())
       //   {
 
-      //      Application.message_box("keyboard default.xml has no keyboard entries?!?!?!?!");
+      //      Application.output_message_box_error("keyboard default.xml has no keyboard entries?!?!?!?!");
 
       //   }
 
