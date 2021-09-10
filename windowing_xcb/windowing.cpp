@@ -845,7 +845,7 @@ namespace windowing_xcb
             //msg.oswindow = m_pdisplay->_window(pmotion->event);
             msg.m_id = e_message_mouse_move;
             msg.wParam = wparam;
-            msg.lParam = MAKELONG(pmotion->root_x, pmotion->root_y);
+            msg.lParam = __MAKE_LONG(pmotion->root_x, pmotion->root_y);
             msg.time = pmotion->time;
 
             post_ui_message(msg);
@@ -1477,7 +1477,7 @@ namespace windowing_xcb
 
                msg.wParam = 0;
 
-               msg.lParam = MAKELONG(pbutton->root_x, pbutton->root_y);
+               msg.lParam = __MAKE_LONG(pbutton->root_x, pbutton->root_y);
 
                post_ui_message(msg);
 
