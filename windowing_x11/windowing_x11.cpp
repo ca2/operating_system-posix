@@ -1786,7 +1786,7 @@ else if(detail == 3)
 
             msg.m_id = e_message_mouse_move;
             msg.wParam = wparam;
-            msg.lParam = MAKELONG(e.xmotion.x_root, e.xmotion.y_root);
+            msg.lParam = __MAKE_LONG(e.xmotion.x_root, e.xmotion.y_root);
             msg.time = e.xmotion.time;
 
             post_ui_message(msg);
@@ -2328,7 +2328,7 @@ else if(detail == 3)
 
                msg.wParam = 0;
 
-               msg.lParam = MAKELONG(e.xbutton.x_root, e.xbutton.y_root);
+               msg.lParam = __MAKE_LONG(e.xbutton.x_root, e.xbutton.y_root);
 
                post_ui_message(msg);
 
@@ -3040,9 +3040,9 @@ else if(detail == 3)
 
       }
 
-      class ::message_queue *pmq = pthread->m_pmq;
+      auto pmessagequeue = pthread->m_pmessagequeue.get();
 
-      if (pmq == nullptr)
+      if (pmessagequeue == nullptr)
       {
 
          if (message.m_id == e_message_quit)
@@ -3052,18 +3052,18 @@ else if(detail == 3)
 
          }
 
-         pmq = pthread->get_message_queue();
+         pmessagequeue = pthread->get_message_queue();
 
       }
 
-      if (pmq == nullptr)
+      if (pmessagequeue == nullptr)
       {
 
          return false;
 
       }
 
-      synchronous_lock ml(pmq->mutex());
+      synchronous_lock ml(pmessagequeue->mutex());
 
       if (message.m_id == e_message_quit)
       {
@@ -3085,9 +3085,9 @@ else if(detail == 3)
 
       }
 
-      pmq->m_messagea.add(message);
+      pmessagequeue->m_messagea.add(message);
 
-      pmq->m_eventNewMessage.set_event();
+      pmessagequeue->m_eventNewMessage.set_event();
 
       return true;
 

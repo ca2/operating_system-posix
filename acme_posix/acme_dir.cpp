@@ -60,7 +60,7 @@ namespace posix
    }
 
 
-   bool acme_dir::create(const char * path)
+   ::e_status acme_dir::create(const char * path)
    {
 
 
@@ -73,7 +73,7 @@ namespace posix
    }
 
 
-   bool acme_dir::_create(const char * path)
+   ::e_status acme_dir::_create(const char * path)
    {
 
       return ::create_directory_path(path);
@@ -81,7 +81,7 @@ namespace posix
    }
 
 
-   bool acme_dir::create_directory(const char * path)
+   ::e_status acme_dir::create_directory(const char * path)
    {
 
       return ::create_directory(path);
@@ -299,12 +299,12 @@ namespace posix
    }
 
 
-   int acme_dir::make_path(const char * psz)
-   {
-
-      return create(psz) != false;
-
-   }
+//   int acme_dir::make_path(const char * psz)
+//   {
+//
+//      return create(psz) != false;
+//
+//   }
 
 
    bool acme_dir::_is(const char * path)

@@ -68,7 +68,7 @@ namespace node_gnome
    }
 
 
-   bool copydesk::_set_plain_text(const string & str)
+   ::e_status copydesk::_set_plain_text(const string & str)
    {
 
       auto psystem = m_psystem->m_paurasystem;
@@ -89,7 +89,7 @@ namespace node_gnome
    }
 
 
-   bool copydesk::_get_plain_text(string & str)
+   ::e_status copydesk::_get_plain_text(string & str)
    {
 
       __pointer(clipboard_data) pdata = __new(clipboard_data(this, e_clipboard_get_plain_text));
@@ -168,7 +168,7 @@ namespace node_gnome
    }
 
 
-   bool copydesk::_get_filea(::file::patha & patha, e_op & eop)
+   ::e_status copydesk::_get_filea(::file::patha & patha, e_op & eop)
    {
 
       __pointer(clipboard_data) pdata = __new(clipboard_data(this, e_clipboard_get_patha));
@@ -197,7 +197,7 @@ namespace node_gnome
    }
 
 
-   bool copydesk::_set_filea(const ::file::patha & patha, e_op eop)
+   ::e_status copydesk::_set_filea(const ::file::patha & patha, e_op eop)
    {
 
       __pointer(clipboard_data) pdata = __new(clipboard_data(this, e_clipboard_set_patha));
@@ -228,14 +228,14 @@ namespace node_gnome
    }
 
 
-   bool copydesk::_desk_to_image(::image * pimage)
+   ::e_status copydesk::_desk_to_image(::image * pimage)
    {
 
       __pointer(clipboard_data) pdata = __new(clipboard_data(this, e_clipboard_get_image));
 
       pdata->increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_P_NOTE(this, "copydesk::_desk_to_image"));
 
-      pdata->m_pimage = create_image();
+      pdata->m_pimage = m_pcontext->context_image()->create_image();
 
       auto idle_source = g_idle_source_new();
 
@@ -257,7 +257,7 @@ namespace node_gnome
    }
 
 
-   bool copydesk::_image_to_desk(const ::image * pimage)
+   ::e_status copydesk::_image_to_desk(const ::image * pimage)
    {
 
       __throw(todo);
