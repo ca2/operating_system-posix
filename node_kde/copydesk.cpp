@@ -56,7 +56,7 @@ namespace node_kde
    }
 
 
-   bool copydesk::_set_plain_text(const string & str)
+   ::e_status copydesk::_set_plain_text(const string & str)
    {
 
       auto psystem = m_psystem->m_paurasystem;
@@ -77,7 +77,7 @@ namespace node_kde
    }
 
 
-   bool copydesk::_get_plain_text(string & str)
+   ::e_status copydesk::_get_plain_text(string & str)
    {
 
 //      __pointer(clipboard_data) pdata = __new(clipboard_data(get_context_application(), e_clipboard_get_plain_text));
@@ -158,7 +158,7 @@ namespace node_kde
    }
 
 
-   bool copydesk::_get_filea(::file::patha & patha, e_op & eop)
+   ::e_status copydesk::_get_filea(::file::patha & patha, e_op & eop)
    {
 
 //      __pointer(clipboard_data) pdata = __new(clipboard_data(get_context_application(), e_clipboard_get_patha));
@@ -189,7 +189,7 @@ return false;
    }
 
 
-   bool copydesk::_set_filea(const ::file::patha & patha, e_op eop)
+   ::e_status copydesk::_set_filea(const ::file::patha & patha, e_op eop)
    {
 
 //      __pointer(clipboard_data) pdata = __new(clipboard_data(get_context_application(), e_clipboard_set_patha));
@@ -222,7 +222,7 @@ return false;
    }
 
 
-   bool copydesk::_desk_to_image(::image * pimage)
+   ::e_status copydesk::_desk_to_image(::image * pimage)
    {
 
       bool bOk = false;
@@ -280,7 +280,7 @@ return false;
    }
 
 
-   bool copydesk::_image_to_desk(const ::image * pimage)
+   ::e_status copydesk::_image_to_desk(const ::image * pimage)
    {
 
 

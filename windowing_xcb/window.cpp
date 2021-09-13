@@ -394,7 +394,7 @@ namespace windowing_xcb
 
          pimpl->m_puserinteraction->m_ewindowflag |= e_window_flag_window_created;
 
-         pimpl->m_puserinteraction->m_bTaskStarted = true;
+         pimpl->m_puserinteraction->set(e_matter_task_started);
 
       }
 
@@ -671,7 +671,7 @@ namespace windowing_xcb
    bool window::set_icon(::image *pimage)
    {
 
-      auto d1 = create_image({32, 32});
+      auto d1 = m_pcontext->context_image()->create_image({32, 32});
 
       if (!::is_ok(d1))
       {
@@ -1482,9 +1482,9 @@ namespace windowing_xcb
 
       }
 
-      class ::message_queue * pmq = pthread->m_pmq;
+      auto pmessagequeue = pthread->m_pmessagequeue.get();
 
-      if(pmq == nullptr)
+      if(pmessagequeue == nullptr)
       {
 
          if(message.m_id == e_message_quit)
@@ -1494,18 +1494,18 @@ namespace windowing_xcb
 
          }
 
-         pmq = pthread->get_message_queue();
+         pmessagequeue = pthread->get_message_queue();
 
       }
 
-      if(pmq == nullptr)
+      if(pmessagequeue == nullptr)
       {
 
          return false;
 
       }
 
-      synchronous_lock ml(pmq->mutex());
+      synchronous_lock ml(pmessagequeue->mutex());
 
       if(message.m_id == e_message_quit)
       {
@@ -1527,9 +1527,9 @@ namespace windowing_xcb
 
       }
 
-      pmq->m_messagea.add(message);
+      pmessagequeue->m_messagea.add(message);
 
-      pmq->m_eventNewMessage.set_event();
+      pmessagequeue->m_eventNewMessage.set_event();
 
       return true;
 

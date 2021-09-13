@@ -927,9 +927,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       }
 
-      class ::message_queue *pmq = pthread->m_pmq;
+      auto pmessagequeue = pthread->m_pmessagequeue.get();
 
-      if (pmq == nullptr)
+      if (pmessagequeue == nullptr)
       {
 
          if (message.m_id == e_message_quit)
@@ -939,18 +939,18 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
          }
 
-         pmq = pthread->get_message_queue();
+         pmessagequeue = pthread->get_message_queue();
 
       }
 
-      if (pmq == nullptr)
+      if (pmessagequeue == nullptr)
       {
 
          return false;
 
       }
 
-      synchronous_lock ml(pmq->mutex());
+      synchronous_lock ml(pmessagequeue->mutex());
 
       if (message.m_id == e_message_quit)
       {
@@ -972,9 +972,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       }
 
-      pmq->m_messagea.add(message);
+      pmessagequeue->m_messagea.add(message);
 
-      pmq->m_eventNewMessage.set_event();
+      pmessagequeue->m_eventNewMessage.set_event();
 
       return true;
 
