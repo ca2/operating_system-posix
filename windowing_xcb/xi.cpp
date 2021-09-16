@@ -5,6 +5,7 @@
 #ifdef WITH_XI
 #include <xcb/xinput.h>
 #include "aura_posix/x11/display_lock.h"
+#include <X11/keysym.h>
 
 
 namespace windowing_xcb
@@ -344,15 +345,15 @@ namespace windowing_xcb
    bool windowing::xcb_process_ge_event(xcb_ge_event_t * pgeevent)
    {
 
-      e_id eid = id_none;
+      enum_message emessage = e_message_null;
 
       switch (pgeevent->event_type)
       {
          case XCB_INPUT_RAW_KEY_PRESS:
-            eid = id_raw_keydown;
+            emessage = e_message_key_down;
             break;
          case XCB_INPUT_RAW_KEY_RELEASE:
-            eid = id_raw_keyup;
+            emessage = e_message_key_up;
             break;
          case XCB_INPUT_RAW_BUTTON_PRESS:
             {
@@ -362,17 +363,17 @@ namespace windowing_xcb
                 if(prawevent->detail == 1)
                 {
                    //left_button
-                   eid = id_raw_left_button_down;
+                   emessage = e_message_left_button_down;
                 }
                 else if(prawevent->detail == 2)
                 {
                    //middle_button
-                   eid = id_raw_middle_button_down;
+                   emessage = e_message_middle_button_down;
                 }
                 else if(prawevent->detail == 3)
                 {
                    //right_button
-                   eid = id_raw_right_button_down;
+                   emessage = e_message_right_button_down;
                 }
                 else if(prawevent->detail == 4)
                 {
@@ -395,17 +396,17 @@ namespace windowing_xcb
                if(prawevent->detail == 1)
                {
                   //left_button
-                  eid = id_raw_left_button_up;
+                  emessage = e_message_left_button_up;
                }
                else if(prawevent->detail == 2)
                {
                   //middle_button
-                  eid = id_raw_middle_button_up;
+                  emessage = e_message_middle_button_up;
                }
                else if(prawevent->detail == 3)
                {
                   //right_button
-                  eid = id_raw_right_button_up;
+                  emessage = e_message_right_button_up;
                }
                else if(prawevent->detail == 4)
                {
@@ -425,26 +426,43 @@ namespace windowing_xcb
 
       auto psystem = m_psystem->m_papexsystem;
 
-      auto psubject = psystem->subject(eid);
+      //auto psubject = psystem->subject(eid);
 
-      if(eid != id_none)
+      if(emessage != e_message_null)
       {
 
-         if (eid == id_raw_keydown || eid == id_raw_keyup)
+         ::i64 iKey = XK_a;
+
+         if (emessage == e_message_key_down || emessage == e_message_key_up)
          {
 
-            psubject->payload("return") = is_return_key(pgeevent);
+            if(is_return_key(pgeevent))
+            {
 
-            psubject->payload("space") = is_space_key(pgeevent);
+               iKey = XK_Return;
+
+            }
+            else if(is_space_key(pgeevent))
+            {
+
+               iKey = XK_space;
+
+            }
+
+            //psubject->payload("return") = is_return_key(pgeevent);
+
+            //psubject->payload("space") = is_space_key(pgeevent);
 
          }
 
-         ::subject::context context;
+         //::subject::context context;
 
          for (auto & p : *m_pobjectaExtendedEventListener)
          {
 
-            p->on_subject(psubject, &context);
+            p->handle(emessage, iKey);
+
+            //p->on_subject(psubject, &context);
 
          }
 

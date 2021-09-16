@@ -514,7 +514,7 @@ namespace windowing_x11
 
          pimpl->m_puserinteraction->m_ewindowflag |= e_window_flag_window_created;
 
-         pimpl->m_puserinteraction->m_bTaskStarted = true;
+         pimpl->m_puserinteraction->set(e_matter_task_started);
 
       }
 
@@ -1001,7 +1001,7 @@ if(status != 0)
 
 #elif 1
 
-auto d1 = create_image({32, 32});
+auto d1 = m_pcontext->context_image()->create_image({32, 32});
 
 if (!::is_ok(d1))
 {
@@ -2120,9 +2120,9 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       }
 
-      class ::message_queue * pmq = pthread->m_pmq;
+      auto pmessagequeue = pthread->m_pmessagequeue.get();
 
-      if (pmq == nullptr)
+      if (pmessagequeue == nullptr)
       {
 
          if (message.m_id == e_message_quit)
@@ -2132,18 +2132,18 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
          }
 
-         pmq = pthread->get_message_queue();
+         pmessagequeue = pthread->get_message_queue();
 
       }
 
-      if (pmq == nullptr)
+      if (pmessagequeue == nullptr)
       {
 
          return false;
 
       }
 
-      synchronous_lock ml(pmq->mutex());
+      synchronous_lock ml(pmessagequeue->mutex());
 
       if (message.m_id == e_message_quit)
       {
@@ -2157,16 +2157,17 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
          output_debug_string("post_ui_message::e_message_left_button_down\n");
 
-      } else if (message.m_id == e_message_left_button_up)
+      }
+      else if (message.m_id == e_message_left_button_up)
       {
 
          output_debug_string("post_ui_message::e_message_left_button_up\n");
 
       }
 
-      pmq->m_messagea.add(message);
+      pmessagequeue->m_messagea.add(message);
 
-      pmq->m_eventNewMessage.set_event();
+      pmessagequeue->m_eventNewMessage.set_event();
 
       return true;
 

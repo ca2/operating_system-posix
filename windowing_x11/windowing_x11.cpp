@@ -1504,7 +1504,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
             if(m_pobjectaExtendedEventListener && m_pobjectaExtendedEventListener->get_count() > 0)
             {
 
-               e_id eid = id_none;
+               enum_message emessage = e_message_null;
 
                auto prawevent = (XIRawEvent*)cookie->data;
 
@@ -1523,25 +1523,25 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                {
 
                   case XI_RawKeyPress:
-                     eid = id_raw_keydown;
+                     emessage = e_message_key_down;
                      break;
                   case XI_RawKeyRelease:
-                     eid = id_raw_keyup;
+                     emessage = e_message_key_up;
                      break;
                   case XI_RawButtonPress:
                   {
                      if(detail == 1)
                      {
-                        eid = id_raw_left_button_down;
+                        emessage = e_message_left_button_down;
                      }
                      else if(detail == 2)
                      {
-                        eid = id_raw_middle_button_down;
+                        emessage = e_message_middle_button_down;
 
                      }
                      else if(detail == 3)
                      {
-                        eid = id_raw_right_button_down;
+                        emessage = e_message_right_button_down;
                      }
                      //eid = detail == 5 || detail == 4 ? id_none : id_raw_buttondown;
 
@@ -1552,16 +1552,16 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 if(detail == 1)
 {
-   eid = id_raw_left_button_up;
+   emessage = e_message_left_button_up;
 }
 else if(detail == 2)
 {
-   eid = id_raw_middle_button_up;
+   emessage = e_message_middle_button_up;
 
 }
 else if(detail == 3)
 {
-   eid = id_raw_right_button_up;
+   emessage = e_message_right_button_up;
 }
 
                      break;
@@ -1570,23 +1570,48 @@ else if(detail == 3)
 
                output_debug_string("\ndetail:" + __str(prawevent->detail));
 
-               if(eid != id_none)
+               if(emessage != e_message_null)
                {
-                  auto psubject = psystem->subject(eid);
+//                  auto psubject = psystem->subject(eid);
 
-                  psubject->payload("return") = is_return_key(prawevent);
+  //                ::subject::context context;
 
-                  psubject->payload("space") = is_space_key(prawevent);
 
-                  ::subject::context context;
+                  int iKey = XK_A;
 
-                  for(auto & p : *m_pobjectaExtendedEventListener)
+                  if(is_return_key((XIRawEvent*)cookie->data))
                   {
 
-                     p->on_subject(psubject, &context);
+                     iKey = XK_Return;
+
+                  }
+                  else if(is_space_key((XIRawEvent*)cookie->data))
+                  {
+
+                     iKey = XK_space;
 
                   }
 
+
+//                  psubject->payload("return") = is_return_key(prawevent);
+//
+//                  psubject->payload("space") = is_space_key(prawevent);
+
+                  //::subject::context context;
+
+//                  for(auto & p : *m_pobjectaExtendedEventListener)
+//                  {
+//
+//                     p->on_subject(psubject, &context);
+//
+//                  }
+
+for(auto & p : *m_pobjectaExtendedEventListener)
+{
+
+   p->handle(emessage, iKey);
+
+}
                }
 
                bProcessed = true;
@@ -1786,7 +1811,7 @@ else if(detail == 3)
 
             msg.m_id = e_message_mouse_move;
             msg.wParam = wparam;
-            msg.lParam = MAKELONG(e.xmotion.x_root, e.xmotion.y_root);
+            msg.lParam = __MAKE_LONG(e.xmotion.x_root, e.xmotion.y_root);
             msg.time = e.xmotion.time;
 
             post_ui_message(msg);
@@ -2328,7 +2353,7 @@ else if(detail == 3)
 
                msg.wParam = 0;
 
-               msg.lParam = MAKELONG(e.xbutton.x_root, e.xbutton.y_root);
+               msg.lParam = __MAKE_LONG(e.xbutton.x_root, e.xbutton.y_root);
 
                post_ui_message(msg);
 
@@ -3040,9 +3065,9 @@ else if(detail == 3)
 
       }
 
-      class ::message_queue *pmq = pthread->m_pmq;
+      auto pmessagequeue = pthread->m_pmessagequeue.get();
 
-      if (pmq == nullptr)
+      if (pmessagequeue == nullptr)
       {
 
          if (message.m_id == e_message_quit)
@@ -3052,18 +3077,18 @@ else if(detail == 3)
 
          }
 
-         pmq = pthread->get_message_queue();
+         pmessagequeue = pthread->get_message_queue();
 
       }
 
-      if (pmq == nullptr)
+      if (pmessagequeue == nullptr)
       {
 
          return false;
 
       }
 
-      synchronous_lock ml(pmq->mutex());
+      synchronous_lock ml(pmessagequeue->mutex());
 
       if (message.m_id == e_message_quit)
       {
@@ -3085,9 +3110,9 @@ else if(detail == 3)
 
       }
 
-      pmq->m_messagea.add(message);
+      pmessagequeue->m_messagea.add(message);
 
-      pmq->m_eventNewMessage.set_event();
+      pmessagequeue->m_eventNewMessage.set_event();
 
       return true;
 

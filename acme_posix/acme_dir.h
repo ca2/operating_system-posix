@@ -21,11 +21,11 @@ namespace posix
 
       virtual ::file::path module_folder() override;
 
-      bool create(const char * path) override;
+      ::e_status create(const char * path) override;
 
-      bool _create(const char * path) override;
+      ::e_status _create(const char * path) override;
 
-      bool create_directory(const char * path) override;
+      ::e_status create_directory(const char * path) override;
 
       //::file::path module() override;
 
@@ -47,7 +47,7 @@ namespace posix
 
       ::file::path archive() override;
 
-      int make_path(const char * psz) override;
+      //int make_path(const char * psz) override;
 
 
    };

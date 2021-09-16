@@ -21,7 +21,7 @@ namespace posix
       memory as_memory(const char * path, strsize iReadAtMostByteCount = -1) override;
       memsize as_memory(const char * path, void * p, memsize s) override;
       string as_string(const char * path, strsize iReadAtMostByteCount = -1) override;
-      bool as_memory(memory_base & memory, const char * path, strsize iReadAtMostByteCount) override;
+      ::e_status as_memory(memory_base & memory, const char * path, strsize iReadAtMostByteCount) override;
 
 
       string get_temporary_file_name(const char * lpszName, const char * pszExtension) override;
@@ -34,14 +34,14 @@ namespace posix
 
       ::file::path executable() override;
 
-      bool put_contents(const char * path, const char * contents, strsize len) override;
+      ::e_status put_contents(const char * path, const char * contents, strsize len) override;
       //bool get_temporary_file_name_template(char * szRet, strsize iBufferSize, const char * lpszName, const char * pszExtension, const char * pszTemplate) override;
       filesize get_size(const char * path) override;
       filesize get_size(FILE * pfile) override;
       filesize get_size_fd(int iFileDescriptor) override;
 
 
-      bool copy(const char * pszNew, const char * pszSrc, bool bOverwrite) override;
+      ::e_status copy(const char * pszNew, const char * pszSrc, bool bOverwrite) override;
 
 //   virtual FILE * FILE_open(const char * path, const char * attrs, int iShare);
 //   virtual i32 FILE_printf(FILE * fp, const char * s, ...);
@@ -73,14 +73,14 @@ namespace posix
       string first_line(const char * path) override;
 
 
-      bool set_size(const char * lpszName, filesize iSize) override;
-      bool set_size(int iFileDescriptor, filesize iSize) override;
-      bool set_size(FILE * pfile, filesize iSize) override;
+      ::e_status set_size(const char * lpszName, filesize iSize) override;
+      ::e_status set_size(int iFileDescriptor, filesize iSize) override;
+      ::e_status set_size(FILE * pfile, filesize iSize) override;
 
 
       //bool move(const char * pszNewName, const char * pszOldName) override;
 
-      bool delete_file(const char * pszFileName) override;
+      ::e_status delete_file(const char * pszFileName) override;
 
 
    };

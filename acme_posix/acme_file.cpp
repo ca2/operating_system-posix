@@ -103,7 +103,7 @@ namespace posix
    }
 
 
-   bool acme_file::set_size(const char * lpszName, filesize size)
+   ::e_status acme_file::set_size(const char * lpszName, filesize size)
    {
 
       i32 iFileDescriptor = ::open(lpszName, O_RDONLY);
@@ -117,7 +117,7 @@ namespace posix
    }
 
 
-   bool acme_file::set_size(i32 iFileDescriptor, filesize size)
+   ::e_status acme_file::set_size(i32 iFileDescriptor, filesize size)
    {
 
       if (ftruncate(iFileDescriptor, size) == -1)
@@ -132,7 +132,7 @@ namespace posix
    }
 
 
-   bool acme_file::set_size(FILE * pfile, filesize size)
+   ::e_status acme_file::set_size(FILE * pfile, filesize size)
    {
 
       return set_size(fileno(pfile), size);
@@ -250,7 +250,7 @@ namespace posix
 
 
 
-   bool acme_file::put_contents(const char * path, const char * contents, ::count len)
+   ::e_status acme_file::put_contents(const char * path, const char * contents, ::count len)
    {
 
       bool bOk = false;
@@ -356,7 +356,7 @@ namespace posix
    }
 
 
-   bool acme_file::as_memory(memory_base & memory, const char * path, strsize iReadAtMostByteCount)
+   ::e_status acme_file::as_memory(memory_base & memory, const char * path, strsize iReadAtMostByteCount)
    {
 
       FILE * f = fopen(path, "rb");
@@ -535,7 +535,7 @@ namespace posix
    }
 
 
-   bool acme_file::copy(const char * pszNew, const char * pszSrc, bool bOverwrite)
+   ::e_status acme_file::copy(const char * pszNew, const char * pszSrc, bool bOverwrite)
    {
 
       i32 input, output;
@@ -621,7 +621,7 @@ namespace posix
 
 
 
-   bool acme_file::delete_file(const char * path)
+   ::e_status acme_file::delete_file(const char * path)
    {
 
       return file_delete(path);
