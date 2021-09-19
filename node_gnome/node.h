@@ -65,7 +65,7 @@ namespace node_gnome
 
       //virtual void node_post_quit() override;
 
-      //virtual void on_subject(::promise::subject * psubject, ::subject::context * pcontext) override;
+      //virtual void on_subject(::promise::subject * psubject, ::context * pcontext) override;
 
       //virtual void _on_change_os_user_theme(string strTheme);
 
@@ -81,13 +81,13 @@ namespace node_gnome
 
       //virtual void os_post_quit() override;
 
-      bool should_launch_on_node(::subject::subject * psubject);
+      bool should_launch_on_node(::subject * psubject);
 
-      bool launch_on_node(::subject::subject * psubject) override;
+      bool launch_on_node(::subject * psubject) override;
 
       int os_launch_uri(const ::string & strUri, char * pszError = NULL, int iBufferSize = 0) override;
 
-      void on_subject(::subject::subject * psubject, ::subject::context * pcontext) override;
+      void handle(::subject * psubject, ::context * pcontext) override;
 
    };
 

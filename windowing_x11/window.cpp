@@ -1238,7 +1238,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 //      if (::is_null(this))
 //      {
 //
-//         __throw(::exception::exception("error, m_pdata cannot be nullptr to ::oswindow::set_user_interaction"));
+//         __throw(::exception("error, m_pdata cannot be nullptr to ::oswindow::set_user_interaction"));
 //
 //      }
 
@@ -1918,7 +1918,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       }
 
-      if (!m_pimpl->m_puserinteraction->m_bUserPrimitiveOk)
+      if (!m_pimpl->m_puserinteraction->m_bUserElementOk)
       {
 
          return true;

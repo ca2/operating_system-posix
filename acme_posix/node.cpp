@@ -57,7 +57,7 @@ namespace acme
 //      ::e_status node::call_async(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid)
 //      {
 //
-//         __throw(error_interface_only);
+//         throw ::interface_only_exception();
 //
 //         return error_interface_only;
 //
@@ -67,7 +67,7 @@ namespace acme
 //      ::e_status node::call_sync(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, const ::duration & durationTimeout, ::property_set & set)
 //      {
 //
-//         __throw(error_interface_only);
+//         throw ::interface_only_exception();
 //
 //         return error_interface_only;
 //
@@ -547,51 +547,6 @@ namespace acme
       //
       //   }
 
-      //   bool node::should_launch_on_node(::subject::subject * psubject)
-      //   {
-      //
-      //      if(::is_null(psubject))
-      //      {
-      //
-      //         return false;
-      //
-      //      }
-      //
-      //      if(psubject->m_id == id_os_dark_mode)
-      //      {
-      //
-      //         return false;
-      //
-      //      }
-      //
-      //      return false;
-      //
-      //   }
-      //
-      //
-      //   bool node::launch_on_node(::subject::subject * psubject)
-      //   {
-      //
-      //      ::matter * pmatter = psubject;
-      //
-      //      node_fork([pmatter]()
-      //                {
-      //
-      //                   auto ret = g_timeout_add(300, (GSourceFunc) &node_gnome_source_func, pmatter);
-      //
-      //                   printf("ret %d", ret);
-      //
-      //                   printf("ret %d", ret);
-      //
-      ////      g_idle_add(&node_gnome_source_func, pmatter);
-      //
-      //                });
-      //
-      //   }
-      //
-      //
-      //} // namespace node_gnome
-      //
       //
       //gboolean node_gnome_source_func(gpointer pUserdata)
       //{
@@ -636,7 +591,7 @@ namespace acme
 //      ::e_status node::create_process(const char * pszCommandLine, u32 * pprocessID)
 //      {
 //
-//         __throw(error_interface_only);
+//         throw ::interface_only_exception();
 //
 //         return false;
 //
@@ -646,7 +601,7 @@ namespace acme
 //      ::e_status node::run_silent(const ::string & strFunct, const ::string & strstrParams)
 //      {
 //
-//         __throw(error_interface_only);
+//         throw ::interface_only_exception();
 //
 //         return false;
 //
@@ -657,7 +612,7 @@ namespace acme
       bool node::process_modules(string_array& stra, u32 processID)
       {
 
-         __throw(error_interface_only);
+         throw ::interface_only_exception();
 
          return false;
 
@@ -667,7 +622,7 @@ namespace acme
    bool node::load_modules_diff(string_array& straOld, string_array& straNew, const ::string & strExceptDir)
       {
 
-         __throw(error_interface_only);
+         throw ::interface_only_exception();
 
          return false;
 
@@ -677,7 +632,7 @@ namespace acme
       id_array node::get_pids()
       {
 
-         __throw(error_interface_only);
+         throw ::interface_only_exception();
 
          return id_array();
 
@@ -736,7 +691,7 @@ namespace acme
       void node::shared_library_process(dword_array& dwa, string_array& straProcesses, const ::string & strLibrary)
       {
 
-         __throw(error_interface_only);
+         throw ::interface_only_exception();
 
       }
 
@@ -770,7 +725,7 @@ namespace acme
 //      array <::serial::port_info> node::list_serial_ports()
 //      {
 //
-//         __throw(error_interface_only);
+//         throw ::interface_only_exception();
 //
 //         return ::array <::serial::port_info>();
 //

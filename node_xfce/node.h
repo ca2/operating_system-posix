@@ -65,7 +65,7 @@ namespace node_xfce
 
       virtual void node_post_quit() override;
 
-      //virtual void on_subject(::promise::subject * psubject, ::subject::context * pcontext) override;
+      //virtual void on_subject(::promise::subject * psubject, ::context * pcontext) override;
 
       //virtual void _on_change_os_user_theme(string strTheme);
 
@@ -81,9 +81,9 @@ namespace node_xfce
 
       virtual void os_post_quit() override;
 
-      virtual bool should_launch_on_node(::subject::subject * psubject);
+      virtual bool should_launch_on_node(::subject * psubject);
 
-      virtual bool launch_on_node(::subject::subject * psubject);
+      virtual bool launch_on_node(::subject * psubject);
 
       virtual int os_launch_uri(const char * pszUri, char * pszError = NULL, int iBufferSize = 0) override;
 

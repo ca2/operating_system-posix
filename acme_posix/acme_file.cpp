@@ -604,7 +604,7 @@ namespace posix
    //      if (ansi_compare_ci(psz1, psz2) == 0)
    //         return true;
    //
-   //      //__throw(::exception::exception(" // TODO: it should follow links "));
+   //      //__throw(::exception(" // TODO: it should follow links "));
    //
    //      return false;
    //
@@ -613,7 +613,7 @@ namespace posix
 
    //CLASS_DECL_APEX string file_get_mozilla_firefox_plugin_container_path()
    //{
-   //      __throw(::exception::exception(" todo "));
+   //      __throw(::exception(" todo "));
    //
    //      return "";
    //

@@ -1383,7 +1383,7 @@ namespace windowing_xcb
 
       }
 
-      if (!m_pimpl->m_puserinteraction->m_bUserPrimitiveOk)
+      if (!m_pimpl->m_puserinteraction->m_bUserElementOk)
       {
 
          return true;

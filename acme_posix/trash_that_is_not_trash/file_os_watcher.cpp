@@ -225,37 +225,37 @@ namespace file
             struct inotify_event *pevent = (struct inotify_event *)&buff[i];
 
 
-            auto pwatch = m_watchmap[(id)pevent->wd];
+            auto pwatch = m_watchmap[(id)psubject->wd];
 
             ::file::action a;
             a.m_pwatch = pwatch;
             a.m_id = pwatch->m_id;
             a.m_pathFolder = pwatch->m_pathFolder;
-            a.m_pathFile = pevent->name;
+            a.m_pathFile = psubject->name;
             a.m_eaction = action_none;
 
-            if((IN_CLOSE_WRITE & pevent->mask) || (IN_MODIFY & pevent->mask))
+            if((IN_CLOSE_WRITE & psubject->mask) || (IN_MODIFY & psubject->mask))
             {
 
                a.m_eaction |= action_modify;
 
             }
 
-            if(IN_MOVED_TO & pevent->mask || IN_CREATE & pevent->mask)
+            if(IN_MOVED_TO & psubject->mask || IN_CREATE & psubject->mask)
             {
 
                a.m_eaction |= action_add;
 
             }
 
-            if(IN_MOVED_FROM & pevent->mask || IN_DELETE & pevent->mask)
+            if(IN_MOVED_FROM & psubject->mask || IN_DELETE & psubject->mask)
             {
 
                a.m_eaction |= action_delete;
 
             }
 
-            if((IN_CLOSE_WRITE | IN_MODIFY)& pevent->mask  || IN_MODIFY & pevent->mask )
+            if((IN_CLOSE_WRITE | IN_MODIFY)& psubject->mask  || IN_MODIFY & psubject->mask )
             {
 
                a.m_eaction |= action_modify;
@@ -264,7 +264,7 @@ namespace file
 
             pwatch->handle_action(&a);
 
-            i += sizeof(struct inotify_event) + pevent->len;
+            i += sizeof(struct inotify_event) + psubject->len;
 
          }
 

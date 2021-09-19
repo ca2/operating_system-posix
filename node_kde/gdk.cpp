@@ -37,7 +37,7 @@ bool x11_message_loop_step();
 
 namespace node_kde{
 
-//   ::logic::bit g_bitLastDarkMode;
+//   ::boolean g_bitLastDarkMode;
 //
 //   char * gsettings_get_malloc(const char * pszSchema, const char * pszKey);
 //

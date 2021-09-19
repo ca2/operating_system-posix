@@ -38,7 +38,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 namespace node_gnome
 {
 
-   ::logic::bit g_bitLastDarkMode;
+   ::boolean g_bitLastDarkMode;
 
    char * gsettings_get_malloc(const char * pszSchema, const char * pszKey);
 
@@ -684,28 +684,6 @@ namespace node_gnome
 
    }
 
-
-//   void os_calc_dark_mode()
-//   {
-//
-//      bool bDarkMode = _os_calc_dark_mode();
-//
-//      if(g_bitLastDarkMode != bDarkMode)
-//      {
-//
-//         ::user::set_app_dark_mode(bDarkMode);
-//
-//         ::user::set_system_dark_mode(bDarkMode);
-//
-//         g_bitLastDarkMode = bDarkMode;
-//
-//         System.deliver(id_os_dark_mode);
-//
-//         xcb_kick_idle();
-//
-//      }
-//
-//   }
 
 } // namespace user
 

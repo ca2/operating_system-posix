@@ -48,7 +48,7 @@ namespace node_gnome
 {
 
 
-   //::logic::bit g_bitLastDarkMode;
+   //::boolean g_bitLastDarkMode;
 
    char *gsettings_get_malloc(const char *pszSchema, const char *pszKey);
 

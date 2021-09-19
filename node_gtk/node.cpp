@@ -691,7 +691,7 @@ namespace node_gtk
 //   }
 
 
-//   void node::on_subject(::promise::subject * psubject, ::subject::context * pcontext)
+//   void node::on_subject(::promise::subject * psubject, ::context * pcontext)
 //   {
 //
 //      if(psubject->m_id == ::id_os_user_theme)
@@ -812,7 +812,7 @@ namespace node_gtk
 //
 //   }
 
-   bool node::should_launch_on_node(::subject::subject * psubject)
+   bool node::should_launch_on_node(::subject * psubject)
    {
 
       if(::is_null(psubject))
@@ -834,7 +834,7 @@ namespace node_gtk
    }
 
 
-   bool node::launch_on_node(::subject::subject * psubject)
+   bool node::launch_on_node(::subject * psubject)
    {
 
       ::matter * pmatter = psubject;
@@ -896,7 +896,7 @@ namespace node_gtk
 {
 
 
-   ::logic::bit g_bitLastDarkMode;
+   ::boolean g_bitLastDarkMode;
 
    char *gsettings_get_malloc(const char *pszSchema, const char *pszKey);
 

@@ -4896,10 +4896,10 @@ namespace draw2d_xlib
 
 
 
-   // IMPLEMENT_DYNAMIC(resource_exception, ::exception::exception)
+   // IMPLEMENT_DYNAMIC(resource_exception, ::exception)
    //resource_exception _simpleResourceException(false, __IDS_RESOURCE_EXCEPTION);
 
-   // IMPLEMENT_DYNAMIC(user_exception, ::exception::exception)
+   // IMPLEMENT_DYNAMIC(user_exception, ::exception)
    //user_exception _simpleUserException(false, __IDS_USER_EXCEPTION);
 
    // IMPLEMENT_DYNCREATE(pgraphics, object)
@@ -5603,7 +5603,7 @@ ok:
                }
                break;
             default:
-               __throw(::exception::exception("unexpected simple os graphics matter type"));
+               __throw(::exception("unexpected simple os graphics matter type"));
             }*/
 
       return false;

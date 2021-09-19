@@ -249,7 +249,7 @@ void simple_ui_display::call_expose(xcb_connection_t * pdisplay)
 }
 
 
-void simple_ui_display::on_subject(::promise::subject * psubject, ::subject::context * pcontext)
+void simple_ui_display::on_subject(::promise::subject * psubject, ::context * pcontext)
 {
 
    if(psubject->id() == id_os_user_theme)
@@ -317,7 +317,7 @@ void simple_ui_display::on_expose(xcb_connection_t * pdisplay)
 
       {
 
-         color32_t crBk = get_simple_ui_color(::user::e_element_background);
+         color32_t crBk = get_simple_ui_color(::e_element_background);
 
          int iY = m_iMarginTop;
 

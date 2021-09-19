@@ -90,9 +90,9 @@ namespace node_kde
 
       ::e_status reboot() override;
 
-      virtual bool should_launch_on_node(::subject::subject * psubject);
+      virtual bool should_launch_on_node(::subject * psubject);
 
-      virtual bool launch_on_node(::subject::subject * psubject);
+      virtual bool launch_on_node(::subject * psubject);
 
       virtual int os_launch_uri(const ::string & pszUri, char * pszError = NULL, int iBufferSize = 0) override;
 

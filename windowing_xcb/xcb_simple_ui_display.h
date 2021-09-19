@@ -87,7 +87,7 @@ public:
 
    void call_expose(xcb_connection_t * pdisplay);
 
-   virtual void on_subject(::promise::subject * psubject, ::subject::context * pcontext) override;
+   virtual void on_subject(::promise::subject * psubject, ::context * pcontext) override;
 
    void on_layout(xcb_connection_t * pdisplay);
 

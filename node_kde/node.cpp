@@ -97,12 +97,8 @@ namespace node_kde
    bool node::eventFilter(QObject * pobject, QEvent * pevent)
    {
 
-      if(pevent->type() == QEvent::ApplicationPaletteChange)
+      if(psubject->type() == QEvent::ApplicationPaletteChange)
       {
-
-         auto psystem = m_psystem->m_papexsystem;
-
-         auto psubject = psystem->subject(id_os_dark_mode);
 
          auto pthemecolors = ::user::os_get_theme_colors();
 
@@ -117,7 +113,9 @@ namespace node_kde
 
          kde_update_os_theme_colors(pthemecolors);
 
-         psystem->handle_subject(psubject);
+         auto psystem = m_psystem->m_papexsystem;
+
+         psystem->signal(id_check_os_dark_mode);
 
          return false;
 
@@ -858,7 +856,7 @@ namespace node_kde
 //
 //   }
 
-   bool node::should_launch_on_node(::subject::subject *psubject)
+   bool node::should_launch_on_node(::subject *psubject)
    {
 
       if (::is_null(psubject))
@@ -880,7 +878,7 @@ namespace node_kde
    }
 
 
-   bool node::launch_on_node(::subject::subject *psubject)
+   bool node::launch_on_node(::subject *psubject)
    {
 
       ::matter *pmatter = psubject;

@@ -18,7 +18,7 @@
 //      if (systemtime.wYear < 1900)
 //      {
 //
-//         __throw(::exception::exception("invalid datetime::time"));
+//         __throw(::exception("invalid datetime::time"));
 //
 //      }
 //
@@ -41,7 +41,7 @@
 //   system_time_t node::time_to_system_time(const ::datetime::time & time)
 //   {
 //
-//      __throw(error_interface_only);
+//      throw ::interface_only_exception();
 //
 //      return {};
 //
