@@ -746,25 +746,25 @@ namespace node_gtk
 //
 //                              ::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
 //
-//                              psession->m_rectaWorkspace.set_size(iMonitorCount);
+//                              psession->m_rectangleaWorkspace.set_size(iMonitorCount);
 //
-//                              psession->m_rectaMonitor.set_size(iMonitorCount);
+//                              psession->m_rectangleaMonitor.set_size(iMonitorCount);
 //
 //                              for (index iMonitor = 0; iMonitor < iMonitorCount; iMonitor++)
 //                              {
 //
 //                                 GdkMonitor *pmonitor = gdk_display_get_monitor(pdisplay, iMonitor);
 //
-//                                 auto &rectWorkspace = psession->m_rectaWorkspace[iMonitor];
+//                                 auto &rectangleWorkspace = psession->m_rectangleaWorkspace[iMonitor];
 //
-//                                 auto &rectMonitor = psession->m_rectaMonitor[iMonitor];
+//                                 auto &rectangleMonitor = psession->m_rectangleaMonitor[iMonitor];
 //
 //                                 if (pmonitor == nullptr)
 //                                 {
 //
-//                                    rectWorkspace.Null();
+//                                    rectangleWorkspace.Null();
 //
-//                                    rectMonitor.Null();
+//                                    rectangleMonitor.Null();
 //
 //                                    continue;
 //
@@ -776,13 +776,13 @@ namespace node_gtk
 //
 //                                 gdk_monitor_get_workarea(pmonitor, &rect);
 //
-//                                 __copy(rectWorkspace, rect);
+//                                 __copy(rectangleWorkspace, rect);
 //
 //                                 __zero(rect);
 //
 //                                 gdk_monitor_get_geometry(pmonitor, &rect);
 //
-//                                 __copy(rectMonitor, rect);
+//                                 __copy(rectangleMonitor, rect);
 //
 //                              }
 //

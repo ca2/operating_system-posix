@@ -32,12 +32,12 @@ namespace windowing_xcb
       m_pvisualtype = nullptr;
       m_pscreen = nullptr;
       m_colormap = 0;
-      m_fontCursor = 0;
+      m_pfontCursor = 0;
       m_windowRoot = 0;
 
       __zero(m_atoma);
 
-      m_fontCursor = 0;
+      m_pfontCursor = 0;
 
    }
 
@@ -505,14 +505,14 @@ namespace windowing_xcb
 
       }
 
-      if (!m_fontCursor)
+      if (!m_pfontCursor)
       {
 
-         m_fontCursor = xcb_generate_id(xcb_connection());
+         m_pfontCursor = xcb_generate_id(xcb_connection());
 
          string strFontName("cursor");
 
-         auto cookie = xcb_open_font(xcb_connection(), m_fontCursor, strFontName.get_length(), strFontName.c_str());
+         auto cookie = xcb_open_font(xcb_connection(), m_pfontCursor, strFontName.get_length(), strFontName.c_str());
 
          auto estatus = _request_check(cookie);
 
@@ -530,8 +530,8 @@ namespace windowing_xcb
       auto cookie = xcb_create_glyph_cursor(
          xcb_connection(),
          cursor,
-         m_fontCursor,
-         m_fontCursor,
+         m_pfontCursor,
+         m_pfontCursor,
          glyph,
          glyph + 1,
          0, 0, 0,
@@ -1414,12 +1414,12 @@ namespace windowing_xcb
 //   xcb_font_t display::_create_font_cursor(uint16_t glyph)
 //   {
 //
-//      if (!m_fontCursor)
+//      if (!m_pfontCursor)
 //      {
 //
-//         m_fontCursor = xcb_generate_id (m_pconnection);
+//         m_pfontCursor = xcb_generate_id (m_pconnection);
 //
-//         auto cookie = xcb_open_font (m_pconnection, m_fontCursor, strlen ("cursor"), "cursor");
+//         auto cookie = xcb_open_font (m_pconnection, m_pfontCursor, strlen ("cursor"), "cursor");
 //
 //         auto estatus = _request_check(cookie);
 //
@@ -1442,8 +1442,8 @@ namespace windowing_xcb
 //      auto cookie = xcb_create_glyph_cursor (
 //         m_pconnection,
 //         cursor,
-//         m_fontCursor,
-//         m_fontCursor,
+//         m_pfontCursor,
+//         m_pfontCursor,
 //         glyph, glyph + 1,
 //         0, 0, 0, 0xffff, 0xffff, 0xffff);  /* rgb, rgb */
 //

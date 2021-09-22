@@ -2432,11 +2432,11 @@ namespace draw2d_xlib
 
       /* xxx
 
-      Gdiplus::RectF rectDest(0, 0, (Gdiplus::REAL) width(), (Gdiplus::REAL) height());
+      Gdiplus::RectF rectangleDest(0, 0, (Gdiplus::REAL) width(), (Gdiplus::REAL) height());
 
-      Gdiplus::RectF rectSource(0, 0, (Gdiplus::REAL) pimage->width(), (Gdiplus::REAL) pimage->height());
+      Gdiplus::RectF rectangleSource(0, 0, (Gdiplus::REAL) pimage->width(), (Gdiplus::REAL) pimage->height());
 
-      ((Gdiplus::Graphics * ) m_spgraphics->get_os_data())->DrawImage(((Gdiplus::Bitmap *)pimage->get_bitmap()->get_os_data()), rectDest, rectSource, Gdiplus::UnitPixel);
+      ((Gdiplus::Graphics * ) m_spgraphics->get_os_data())->DrawImage(((Gdiplus::Bitmap *)pimage->get_bitmap()->get_os_data()), rectangleDest, rectangleSource, Gdiplus::UnitPixel);
 
       */
 
@@ -2563,15 +2563,15 @@ namespace draw2d_xlib
    {
 
 
-      rectangle_i64 rectWindow;
+      rectangle_i64 rectangleWindow;
 
-      rectWindow = puserinteraction->m_rectParentClient;
+      rectangleWindow = puserinteraction->m_rectangleParentClient;
 
       m_spgraphics->SetViewportOrg(0, 0);
 
       map(true);
 
-      ::rectangle_i32 rectangle(rectWindow);
+      ::rectangle_i32 rectangle(rectangleWindow);
 
       window_graphics::update_window(puserinteraction->m_pgraphics, puserinteraction->get_handle(), m_pcolorref, rectangle, m_iScan);
 
@@ -2607,13 +2607,13 @@ namespace draw2d_xlib
       try
       {
 
-         ::rectangle_i32 rectWindow;
+         ::rectangle_i32 rectangleWindow;
 
-         puserinteraction->get_window_rect(rectWindow);
+         puserinteraction->get_window_rect(rectangleWindow);
 
          ::image_pointer pimage;
 
-         if(!pimage = create_image(rectWindow.bottom_right()))
+         if(!pimage = create_image(rectangleWindow.bottom_right()))
             return false;
 
          ::draw2d::graphics * pgraphics = pimage->get_graphics();
@@ -2621,11 +2621,11 @@ namespace draw2d_xlib
          if(pgraphics->get_os_data() == nullptr)
             return false;
 
-         ::rectangle_i32 rectPaint;
-         ::rectangle_i32 rectUpdate;
-         rectUpdate = rectWindow;
-         rectPaint = rectWindow;
-         rectPaint.offset(-rectPaint.top_left());
+         ::rectangle_i32 rectanglePaint;
+         ::rectangle_i32 rectangleUpdate;
+         rectangleUpdate = rectangleWindow;
+         rectanglePaint = rectangleWindow;
+         rectanglePaint.offset(-rectanglePaint.top_left());
          m_spgraphics->SelectClipRgn(nullptr);
          if(puserinteraction->m_pguie != nullptr && puserinteraction->m_pguie != this)
          {
@@ -2639,14 +2639,14 @@ namespace draw2d_xlib
          m_spgraphics-> SetViewportOrg(::point_i32());
          puserinteraction->_000OnDraw(pgraphics);
          m_spgraphics->SetViewportOrg(::point_i32());
-         //(dynamic_cast<::win::graphics * >(pgraphics))->FillSolidRect(rectUpdate.left, rectUpdate.top, 100, 100, 255);
+         //(dynamic_cast<::win::graphics * >(pgraphics))->FillSolidRect(rectangleUpdate.left, rectangleUpdate.top, 100, 100, 255);
          m_spgraphics->SelectClipRgn(nullptr);
          m_spgraphics->SetViewportOrg(::point_i32());
 
          m_spgraphics->SelectClipRgn( nullptr);
-         m_spgraphics->BitBlt(rectPaint.left, rectPaint.top,
-                              rectPaint.width(), rectPaint.height(),
-                              pgraphics, rectUpdate.left, rectUpdate.top,
+         m_spgraphics->BitBlt(rectanglePaint.left, rectanglePaint.top,
+                              rectanglePaint.width(), rectanglePaint.height(),
+                              pgraphics, rectangleUpdate.left, rectangleUpdate.top,
                               SRCCOPY);
 
          m_spgraphics->text_out(0, 0, "Xlib Drawing!!", 11);
@@ -2668,15 +2668,15 @@ namespace draw2d_xlib
    bool image::update_window(::window * puserinteraction, ::message::message * pmessage)
    {
 
-//      rectangle_i64 rectWindow;
+//      rectangle_i64 rectangleWindow;
 //
-//      rectWindow = puserinteraction->m_rectParentClient;
+//      rectangleWindow = puserinteraction->m_rectangleParentClient;
 //
 //      m_spgraphics->SetViewportOrg(0, 0);
 //
 //      map(true);
 //
-//      ::rectangle_i32 rectangle(rectWindow);
+//      ::rectangle_i32 rectangle(rectangleWindow);
 //
 //      window_graphics::update_window(puserinteraction->m_pgraphics, puserinteraction->get_handle(), m_pcolorref, rectangle, m_iScan);
 

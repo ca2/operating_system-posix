@@ -16,9 +16,9 @@ void kde_update_os_theme_colors(::os_theme_colors * pthemecolors)
 
    KColorScheme colorscheme;
 
-   auto brushBackground = colorscheme.background();
+   auto pbrushBackground = colorscheme.background();
 
-   __copy(pthemecolors->m_colorBack, brushBackground.color());
+   __copy(pthemecolors->m_colorBack, pbrushBackground.color());
 
 }
 

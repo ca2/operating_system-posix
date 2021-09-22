@@ -28,7 +28,7 @@ namespace windowing_xcb
       i32_map < xcb_cursor_t>                                  m_mapGlyphCursor;
       xcb_atom_t                                               m_atoma[x_window::e_atom_count];
 
-      xcb_font_t                                               m_fontCursor;
+      xcb_font_t                                               m_pfontCursor;
 
       xcb_depth_t *                                            m_pdepth;
       xcb_visualtype_t *                                       m_pvisualtype;

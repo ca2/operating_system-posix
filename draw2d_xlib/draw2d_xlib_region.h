@@ -11,7 +11,7 @@ namespace draw2d_xlib
    public:
 
 //      xlib_surface_t *       m_psurface;
-      ::rectangle_i32                  m_rectBoundingBoxInternal;
+      ::rectangle_i32                  m_rectangleBoundingBoxInternal;
 
 
 // xxx     Gdiplus::Region *       m_pregion;

@@ -1376,7 +1376,7 @@ namespace draw2d_xlib
       {
          __throw(error_not_implemented);
 
-         /*::rectangle_i32 rectIntersect(m_pointAlphaBlend, m_pimageAlphaBlend->size());
+         /*::rectangle_i32 rectangleIntersect(m_pointAlphaBlend, m_pimageAlphaBlend->size());
 
 
          ::image_pointer pimageWork = nullptr;
@@ -1666,12 +1666,12 @@ namespace draw2d_xlib
          //if(GetBkMode() == TRANSPARENT)
          /*         {
                   //   return true;
-                     ::rectangle_i32 rectIntersect(m_pointAlphaBlend, m_pimageAlphaBlend->size());
-                     ::rectangle_i32 rectText(::point_i32(x, y), get_text_extent(str));
-                     if(rectIntersect.intersect(rectIntersect, rectText))
+                     ::rectangle_i32 rectangleIntersect(m_pointAlphaBlend, m_pimageAlphaBlend->size());
+                     ::rectangle_i32 rectangleText(::point_i32(x, y), get_text_extent(str));
+                     if(rectangleIntersect.intersect(rectangleIntersect, rectangleText))
                      {
                         /* p::image_pointer pimage0(this);
-                        image0 = create_image(rectText.size());
+                        image0 = create_image(rectangleText.size());
                         image0.Fill(0, 0, 0, 0);
                         image0.get_graphics()->SetTextColor(argb(255, 255, 255, 255));
                         image0.get_graphics()->SelectObject(&get_current_font());
@@ -1679,7 +1679,7 @@ namespace draw2d_xlib
                         image0.get_graphics()->text_out(0, 0, str);
                         image0.ToAlpha(0);*/
          /* p::image_pointer pimage1(this);
-                      pimage1 = create_image(rectText.size());
+                      pimage1 = create_image(rectangleText.size());
                       pimage1->Fill(0, 0, 0, 0);
          //               pimage1->get_graphics()->set_color(m_colorColor);
                       pimage1->get_graphics()->SelectObject(&get_current_font());
@@ -1687,7 +1687,7 @@ namespace draw2d_xlib
                       pimage1->get_graphics()->text_out(0, 0, str);
                       //pimage1->channel_from(::color::e_channel_alpha, image0);
                       ::image_pointer pimage2(this);
-                      pimage2 = create_image(rectText.size());
+                      pimage2 = create_image(rectangleText.size());
                       pimage2->Fill(255, 0, 0, 0);
                       pimage2->get_graphics()->set_alpha_mode(::draw2d::alpha_mode_set);
                       pimage2->from(point_i32(maximum(0, m_pointAlphaBlend.x - x), maximum(0, m_pointAlphaBlend.y - y)),
@@ -1700,7 +1700,7 @@ namespace draw2d_xlib
 
          /*           keeper < image > keep(&m_pimageAlphaBlend, nullptr, m_pimageAlphaBlend, true);
 
-                    return psystem->imaging().true_blend(this, ::point_i32(x, y), rectText.size(), pimage1->get_graphics(), ::point_i32());
+                    return psystem->imaging().true_blend(this, ::point_i32(x, y), rectangleText.size(), pimage1->get_graphics(), ::point_i32());
 
                     /*BLENDFUNCTION bf;
                     bf.BlendOp     = AC_SRC_OVER;
@@ -1708,8 +1708,8 @@ namespace draw2d_xlib
                     bf.SourceConstantAlpha = 0xFF;
                     bf.AlphaFormat = AC_SRC_ALPHA;
                     return ::AlphaBlend(get_handle1(), x, y,
-                       rectText.width(), rectText.height(), WIN_HDC(pimage1->get_graphics()), 0, 0, rectText.width(),
-                       rectText.height(), bf) != false; */
+                       rectangleText.width(), rectangleText.height(), WIN_HDC(pimage1->get_graphics()), 0, 0, rectangleText.width(),
+                       rectangleText.height(), bf) != false; */
          //      }
          // }
       }
@@ -1727,35 +1727,35 @@ namespace draw2d_xlib
 //         if(GetBkMode() == TRANSPARENT)
          {
             //   return true;
-            ::rectangle_i32 rectIntersect(m_pointAlphaBlend, m_pimageAlphaBlend->size());
-            ::rectangle_i32 rectText(point_i32((i64) x, (i64) y), get_text_extent(str));
-            if(rectIntersect.intersect(rectIntersect, rectText))
+            ::rectangle_i32 rectangleIntersect(m_pointAlphaBlend, m_pimageAlphaBlend->size());
+            ::rectangle_i32 rectangleText(point_i32((i64) x, (i64) y), get_text_extent(str));
+            if(rectangleIntersect.intersect(rectangleIntersect, rectangleText))
             {
                ::image_pointer pimage0;
-               image0 = create_image(rectText.size());
+               image0 = create_image(rectangleText.size());
                ::draw2d::brush_pointer brush(e_create_new, this,argb(255, 255, 255, 255));
                image0.get_graphics()->SelectObject(get_current_font());
                image0.get_graphics()->SelectObject(brush);
                image0.get_graphics()->text_out(0, 0, str);
                image0.ToAlpha(0);
                ::image_pointer pimage1;
-               pimage1 = create_image(rectText.size());
-               brush->create_solid(m_pbrush->m_color);
+               pimage1 = create_image(rectangleText.size());
+               pbrush->create_solid(m_pbrush->m_color);
                pimage1->get_graphics()->SelectObject(get_current_font());
                pimage1->get_graphics()->text_out(0, 0, str);
                pimage1->channel_from(::color::e_channel_alpha, image0);
                ::image_pointer pimage2;
-               pimage2 = create_image(rectText.size());
+               pimage2 = create_image(rectangleText.size());
                pimage2->Fill(255, 0, 0, 0);
                pimage2->from(point_i32((i64) maximum(0, m_pointAlphaBlend.x - x), (i64) maximum(0, m_pointAlphaBlend.y - y)),
-                           m_pimageAlphaBlend->get_graphics(), point_i32((i64) maximum(0, x - m_pointAlphaBlend.x), (i64) maximum(0, y - m_pointAlphaBlend.y)), rectText.size());
+                           m_pimageAlphaBlend->get_graphics(), point_i32((i64) maximum(0, x - m_pointAlphaBlend.x), (i64) maximum(0, y - m_pointAlphaBlend.y)), rectangleText.size());
                pimage1->channel_multiply(::color::e_channel_alpha, pimage2->m_p);
                /* p::image_pointer pimage3(this);
                pimage1->mult_alpha(image3);*/
 
                keep < image > keep(&m_pimageAlphaBlend, nullptr, m_pimageAlphaBlend, true);
 
-               return BitBlt((i32) x, (i32) y, rectText.width(), rectText.height(), pimage1->get_graphics(), 0, 0);
+               return BitBlt((i32) x, (i32) y, rectangleText.width(), rectangleText.height(), pimage1->get_graphics(), 0, 0);
 
                /*BLENDFUNCTION bf;
                bf.BlendOp     = AC_SRC_OVER;
@@ -1763,8 +1763,8 @@ namespace draw2d_xlib
                bf.SourceConstantAlpha = 0xFF;
                bf.AlphaFormat = AC_SRC_ALPHA;
                return ::AlphaBlend(get_handle1(), x, y,
-                  rectText.width(), rectText.height(), WIN_HDC(pimage1->get_graphics()), 0, 0, rectText.width(),
-                  rectText.height(), bf) != false; */
+                  rectangleText.width(), rectangleText.height(), WIN_HDC(pimage1->get_graphics()), 0, 0, rectangleText.width(),
+                  rectangleText.height(), bf) != false; */
             }
          }
       }
@@ -1918,10 +1918,10 @@ namespace draw2d_xlib
       Gdiplus::RectF rectangle_i32;
       Gdiplus::RectF rect2;
       Gdiplus::PointF origin(0, 0);
-      m_pgraphics->MeasureString(wstr.m_pwsz, -1, (Gdiplus::Font *) m_font->get_os_data(), origin, &rectangle);
+      m_pgraphics->MeasureString(wstr.m_pwsz, -1, (Gdiplus::Font *) m_pfont->get_os_data(), origin, &rectangle);
 
       wstr = L"123AWZwmcpQçg";
-      m_pgraphics->MeasureString(wstr.m_pwsz, -1, (Gdiplus::Font *) m_font->get_os_data(), origin, &rect2);*/
+      m_pgraphics->MeasureString(wstr.m_pwsz, -1, (Gdiplus::Font *) m_pfont->get_os_data(), origin, &rect2);*/
 
       string str1;
       str1 = L"WM123AWZwmciItf";
@@ -1950,14 +1950,14 @@ namespace draw2d_xlib
          return false;
       }
 
-      lpMetrics->tmAscent              = (::i32) font->max_bounds.ascent;
-      lpMetrics->tmDescent             = (::i32) font->max_bounds.descent;
-      lpMetrics->tmHeight              = (::i32) font->ascent + font->descent;*/
+      lpMetrics->tmAscent              = (::i32) pfont->max_bounds.ascent;
+      lpMetrics->tmDescent             = (::i32) pfont->max_bounds.descent;
+      lpMetrics->tmHeight              = (::i32) pfont->ascent + pfont->descent;*/
 
       lpMetrics->tmInternalLeading     = (::i32) lpMetrics->tmAscent + lpMetrics->tmDescent - lpMetrics->tmHeight;
       lpMetrics->tmExternalLeading     = (::i32) (lpMetrics->tmHeight * 0.25);
 
-//      lpMetrics->tmAveCharWidth        = (::i32) (font->max_bounds.width + font->min_bounds.width) / 2; // fast calculation
+//      lpMetrics->tmAveCharWidth        = (::i32) (pfont->max_bounds.width + pfont->min_bounds.width) / 2; // fast calculation
 
       //::XFreeFontInfo(nullptr, font, 0);
 
@@ -2062,7 +2062,7 @@ namespace draw2d_xlib
    }
 
 
-   bool graphics::ScrollDC(i32 dx, i32 dy, rectangle_i32 lpRectScroll, const ::rectangle_i32 & rectClip, ::draw2d::region* pRgnUpdate, RECTANGLE_I32 * lpRectUpdate)
+   bool graphics::ScrollDC(i32 dx, i32 dy, rectangle_i32 lpRectScroll, const ::rectangle_i32 & rectangleClip, ::draw2d::region* pRgnUpdate, RECTANGLE_I32 * lpRectUpdate)
    {
 
       __throw(error_not_implemented);
@@ -2086,25 +2086,25 @@ namespace draw2d_xlib
    }
 
    // graphics 3.1 Specific functions
-   ::u32 graphics::SetBoundsRect(::rectangle_i32 rectBounds, ::u32 flags)
+   ::u32 graphics::SetBoundsRect(::rectangle_i32 rectangleBounds, ::u32 flags)
    {
 
       __throw(error_not_implemented);
       return 0;
 
 //      ASSERT(get_handle1() != nullptr);
-//      return ::SetBoundsRect(get_handle1(), rectBounds, flags);
+//      return ::SetBoundsRect(get_handle1(), rectangleBounds, flags);
 
    }
 
-   ::u32 graphics::GetBoundsRect(RECTANGLE_I32 * rectBounds, ::u32 flags)
+   ::u32 graphics::GetBoundsRect(RECTANGLE_I32 * rectangleBounds, ::u32 flags)
    {
 
       __throw(error_not_implemented);
       return 0;
 
 //      ASSERT(get_handle2() != nullptr);
-//      return ::GetBoundsRect(get_handle2(), rectBounds, flags);
+//      return ::GetBoundsRect(get_handle2(), rectangleBounds, flags);
 
    }
 
@@ -2723,7 +2723,7 @@ namespace draw2d_xlib
          __throw(error_not_implemented);
 
          /*
-                  ::rectangle_i32 rectIntersect(m_pointAlphaBlend, m_pimageAlphaBlend->size());
+                  ::rectangle_i32 rectangleIntersect(m_pointAlphaBlend, m_pimageAlphaBlend->size());
 
 
                   ::image_pointer pimageWork = nullptr;
@@ -2856,7 +2856,7 @@ namespace draw2d_xlib
       {
 
 
-         ::rectangle_i32 rectIntersect(m_pointAlphaBlend, m_pimageAlphaBlend->size());
+         ::rectangle_i32 rectangleIntersect(m_pointAlphaBlend, m_pimageAlphaBlend->size());
 
 
          ::image_pointer pimageWork = nullptr;
@@ -3187,7 +3187,7 @@ namespace draw2d_xlib
       return nullptr;
    }
 
-   void graphics::DrawDragRect(const ::rectangle_i32 & rectangle, const ::size_i32 & size, const ::rectangle_i32 & rectLast, const ::size_i32 & sizeLast, ::draw2d::brush* pBrush, ::draw2d::brush* pBrushLast)
+   void graphics::DrawDragRect(const ::rectangle_i32 & rectangle, const ::size_i32 & size, const ::rectangle_i32 & rectangleLast, const ::size_i32 & sizeLast, ::draw2d::brush* pBrush, ::draw2d::brush* pBrushLast)
    {
 
       __throw(error_not_implemented);
@@ -4663,7 +4663,7 @@ namespace draw2d_xlib
 
       synchronous_lock ml(&xlib_mutex());
 
-      //int direction = 0, fontAscent = 0, fontDescent = 0;
+      //int direction = 0, pfontAscent = 0, pfontDescent = 0;
 
       if(m_pfont.is_null())
          return size_i32(0, 0);
@@ -4694,9 +4694,9 @@ namespace draw2d_xlib
 
       //::XCharStruct charStruct;
 
-      //::XQueryTextExtents16(m_pdc->m_pdisplay, ::XGContextFromGC(m_pdc->m_gc), x.get_data(), x.get_count(), &direction, &fontAscent, &fontDescent, &charStruct);
+      //::XQueryTextExtents16(m_pdc->m_pdisplay, ::XGContextFromGC(m_pdc->m_gc), x.get_data(), x.get_count(), &direction, &pfontAscent, &pfontDescent, &charStruct);
 
-      //return ::size_i32(charStruct.rbearing - charStruct.lbearing, fontAscent + fontDescent);
+      //return ::size_i32(charStruct.rbearing - charStruct.lbearing, pfontAscent + pfontDescent);
 
       return size_i32(extents.width, extents.height);
 

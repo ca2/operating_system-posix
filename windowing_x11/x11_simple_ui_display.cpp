@@ -432,13 +432,13 @@ void simple_ui_display::on_expose(Display * pdisplay)
 
             XftDrawRect(m_pdraw, &colorBack, rButton.left, rButton.top, rButton.width(), rButton.height());
 
-            ::rect rectText(rButton);
+            ::rect rectangleText(rButton);
 
-            rectText.deflate(m_iButtonHPadding, m_iButtonVPadding);
+            rectangleText.deflate(m_iButtonHPadding, m_iButtonVPadding);
 
             XftDrawStringUtf8(m_pdraw, &colorFore, m_pfont,
-            rectText.left + (rectText.width() - rText.width) / 2,
-            rectText.top + m_iTextAscent,
+            rectangleText.left + (rectangleText.width() - rText.width) / 2,
+            rectangleText.top + m_iTextAscent,
             (FcChar8 *)pbutton->m_strLabel.c_str(), pbutton->m_strLabel.get_length());
 
             right = rButton.left - m_iButtonHSpacing;

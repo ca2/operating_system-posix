@@ -2694,19 +2694,19 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
 //string strTopic = x11_get_name(x11_display(), Window());
 
-      ::rectangle_i32 rectTest;
+      ::rectangle_i32 rectangleTest;
 
       for (iFind++; iFind < windowa.get_size(); iFind++)
       {
 
 //string strItem = x11_get_name(x11_display(), windowa[iFind]);
 
-         ::rectangle_i32 rectHigher;
+         ::rectangle_i32 rectangleHigher;
 
-         if (::x11_get_window_rect(Display(), windowa[iFind], rectHigher))
+         if (::x11_get_window_rect(Display(), windowa[iFind], rectangleHigher))
          {
 
-            ra.add(rectHigher);
+            ra.add(rectangleHigher);
 
          }
 

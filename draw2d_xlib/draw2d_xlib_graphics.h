@@ -99,8 +99,8 @@ namespace draw2d_xlib
       virtual i32 SaveDC();
       virtual bool RestoreDC(i32 nSavedDC);
       i32 GetDevicecaps(i32 nIndex) const;
-      ::u32 SetBoundsRect(::rectangle_i32 rectBounds, ::u32 flags);
-      ::u32 GetBoundsRect(RECTANGLE_I32 * rectBounds, ::u32 flags);
+      ::u32 SetBoundsRect(::rectangle_i32 rectangleBounds, ::u32 flags);
+      ::u32 GetBoundsRect(RECTANGLE_I32 * rectangleBounds, ::u32 flags);
 // xxx      bool ResetDC(const DEVMODE* lpDevMode);
 
       // Drawing-Tool Functions
@@ -405,7 +405,7 @@ namespace draw2d_xlib
 //      bool DrawFrameControl(RECTANGLE_I32 * prectangle, ::u32 nType, ::u32 nState);
 
       // Scrolling Functions
-      bool ScrollDC(i32 dx, i32 dy, rectangle_i32 lpRectScroll, const ::rectangle_i32 & rectClip,
+      bool ScrollDC(i32 dx, i32 dy, rectangle_i32 lpRectScroll, const ::rectangle_i32 & rectangleClip,
                     ::draw2d::region* pRgnUpdate, RECTANGLE_I32 * lpRectUpdate);
 
       // font Functions

@@ -483,19 +483,19 @@ namespace windowing_xcb
 
 //    string strTopic = xcb_get_name(display, oswindow->window());
 
-//    ::rectangle_i32 rectTest;
+//    ::rectangle_i32 rectangleTest;
 
 //    for(iFind++; iFind < windowa.get_size(); iFind++)
 //    {
 
 //       string strItem = xcb_get_name(display, windowa[iFind]);
 
-//       ::rectangle_i32 rectHigher;
+//       ::rectangle_i32 rectangleHigher;
 
-//       if(xcb_get_window_rect(display, windowa[iFind], rectHigher))
+//       if(xcb_get_window_rect(display, windowa[iFind], rectangleHigher))
 //       {
 
-//          if(rectTest.intersect(rectHigher, rectangle))
+//          if(rectangleTest.intersect(rectangleHigher, rectangle))
 //          {
 
 //             return true;
@@ -595,7 +595,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //   ::draw2d::brush_pointer pen(e_create_new);
 //
-//   pen->create_solid(0);
+//   ppen->create_solid(0);
 //
 //   for(index i = 0; i < stra.get_count(); i++)
 //   {

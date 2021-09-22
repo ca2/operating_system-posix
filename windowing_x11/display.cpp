@@ -786,14 +786,14 @@ namespace windowing_x11
 
          auto windowa = x11_window_list();
 
-         ::rectangle_i32 rectTest;
+         ::rectangle_i32 rectangleTest;
 
          for (index i = 0; i < windowa.get_size(); i++)
          {
 
             string strItem = ::x11_get_name(Display(), windowa[i]);
 
-            ::rectangle_i32 rectHigher;
+            ::rectangle_i32 rectangleHigher;
 
             if (::is_set(pwindowxcbExclude) && windowa[i] == pwindowxcbExclude->Window())
             {
@@ -802,16 +802,16 @@ namespace windowing_x11
 
             }
 
-            if (::x11_get_window_rect(Display(), windowa[i], rectHigher))
+            if (::x11_get_window_rect(Display(), windowa[i], rectangleHigher))
             {
 
-               ::rectangle_i32 rectHitTest;
+               ::rectangle_i32 rectangleHitTest;
 
-               rectHitTest.set(rectHigher.origin(), ::size_i32());
+               rectangleHitTest.set(rectangleHigher.origin(), ::size_i32());
 
-               rectHitTest.inflate(iMargin + 1);
+               rectangleHitTest.inflate(iMargin + 1);
 
-               if (rectHitTest.contains(pointHitTest))
+               if (rectangleHitTest.contains(pointHitTest))
                {
 
                   bIsOrigin = true;

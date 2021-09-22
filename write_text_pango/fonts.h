@@ -14,13 +14,13 @@ virtual public ::write_text::fonts
 
     /*  __pointer(::write_text::font_enumeration)   m_pfontenumeration;*/
 
-      //::write_text::font_pointer                m_fontCaption;
-      //::write_text::font_pointer                m_fontMenu;
-      //::write_text::font_pointer                m_fontStandard;
-      //::write_text::font_pointer                m_font;
-      //::write_text::font_pointer                m_fontListCtrl;
-      //::write_text::font_pointer                m_fontMeshCtrl;
-      //::write_text::font_pointer                m_fontGridCtrl;
+      //::write_text::font_pointer                m_pfontCaption;
+      //::write_text::font_pointer                m_pfontMenu;
+      //::write_text::font_pointer                m_pfontStandard;
+      //::write_text::font_pointer                m_pfont;
+      //::write_text::font_pointer                m_pfontListCtrl;
+      //::write_text::font_pointer                m_pfontMeshCtrl;
+      //::write_text::font_pointer                m_pfontGridCtrl;
       //__pointer(::write_text::font)                 m_lpSongLabelFont;
       //__pointer(::write_text::font)                 m_lpSongListFont;
       //__pointer(::write_text::font)                 m_pfontLyric;

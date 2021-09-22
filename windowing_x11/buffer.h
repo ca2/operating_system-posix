@@ -22,7 +22,7 @@ namespace windowing_x11
       //memory                        m_mem;
       //XImage *                      m_pimage;
       //bool                          m_bMapped;
-      ::rectangle_i32                 m_rectLast;
+      ::rectangle_i32                 m_rectangleLast;
       //::image_pointer                         m_pimage;
 
 
