@@ -1606,12 +1606,13 @@ else if(detail == 3)
 //
 //                  }
 
-for(auto & p : *m_pobjectaExtendedEventListener)
-{
+                  for(auto & p : *m_pobjectaExtendedEventListener)
+                  {
 
-   p->handle(emessage, iKey);
+                     p->call(emessage, iKey);
 
-}
+                  }
+
                }
 
                bProcessed = true;
@@ -1713,6 +1714,8 @@ for(auto & p : *m_pobjectaExtendedEventListener)
 
             if (msg.oswindow != nullptr && msg.oswindow->m_pimpl != nullptr)
             {
+
+               ((::windowing_x11::window *) msg.oswindow->m_pWindow)->m_pointCursor = m_pointCursor;
 
                bool bOk = true;
 

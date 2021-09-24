@@ -35,7 +35,7 @@ namespace node_gnome
 
       virtual ::e_status initialize(::object * pobject) override;
 
-      virtual void os_calc_user_dark_mode() override;
+      void fetch_user_color() override;
 
       virtual string os_get_user_theme() override;
 
@@ -77,15 +77,15 @@ namespace node_gnome
 
       //virtual void enum_display_monitors(::aura::session * psession) override;
 
-      virtual bool _os_calc_system_dark_mode() override;
+      //virtual bool _os_calc_system_dark_mode() override;
 
       //virtual void os_post_quit() override;
 
-      bool should_launch_on_node(::subject * psubject);
+      bool should_launch_on_node(::subject * psubject) override;
 
       bool launch_on_node(::subject * psubject) override;
 
-      int os_launch_uri(const ::string & strUri, char * pszError = NULL, int iBufferSize = 0) override;
+      int os_launch_uri(const ::string & strUri, char * pszError = nullptr, int iBufferSize = 0) override;
 
       void handle(::subject * psubject, ::context * pcontext) override;
 

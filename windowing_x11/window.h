@@ -46,7 +46,7 @@ namespace windowing_x11
       ::rectangle_i32                              m_rect;
       string                                       m_strWMClass;
       int                                          m_iaNetWmState2[x_window::e_atom_net_wm_state_last-x_window::e_atom_net_wm_state_first+1];
-
+      ::point_i32                                  m_pointCursor;
       //static oswindow_dataptra *                 s_pdataptra;
       //static::mutex *                            s_pmutex;
 
@@ -62,7 +62,7 @@ namespace windowing_x11
       //oswindow_data(const void * p);
       //oswindow_data(const LPARAM & lparam);
       //oswindow_data(const WPARAM & wparam);
-      virtual ~window();
+      ~window() override;
 
 
       virtual ::e_status create_window(::user::interaction_impl * pimpl) override;
@@ -127,6 +127,8 @@ namespace windowing_x11
       virtual ::windowing::window * get_parent() const;
       //virtual ::Window get_parent_handle();
       virtual oswindow get_parent_oswindow() const;
+
+      ::point_i32 get_mouse_cursor_position() override;
 
       //virtual ::Window get_parent_handle() const;
 

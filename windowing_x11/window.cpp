@@ -1292,6 +1292,14 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
    }
 
 
+   ::point_i32 window::get_mouse_cursor_position()
+   {
+
+      return m_pointCursor;
+
+   }
+
+
 //   ::Window window::get_parent_handle()
 //   {
 //

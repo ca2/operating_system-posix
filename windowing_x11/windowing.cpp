@@ -97,7 +97,7 @@ namespace windowing_x11
 
       initialize_windowing();
 
-      auto pdisplay = ::__create < ::windowing::display >();
+      auto pdisplay = __create < ::windowing::display >();
 
       if(!pdisplay)
       {

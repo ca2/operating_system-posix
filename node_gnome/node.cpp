@@ -36,9 +36,7 @@ void gtk_settings_gtk_theme_name_callback(GObject* object, GParamSpec* pspec, gp
 
    }
 
-   auto psubject = pnode->m_psystem->m_papexsystem->subject(id_os_user_theme);
-
-   pnode->m_psystem->m_papexsystem->handle_subject(psubject);
+   pnode->m_psystem->m_papexsystem->signal(id_os_user_theme);
 
 }
 
@@ -291,9 +289,9 @@ namespace node_gnome
 
                 auto psystem = m_psystem->m_papexsystem;
 
-                auto psubject = psystem->subject(id_os_user_theme);
+                auto psignal = psystem->get_signal(id_os_user_theme);
 
-                psubject->add_listener(this);
+                psignal->add_handler(this);
 
                 //g_object_ref(preturn);
 
@@ -359,13 +357,13 @@ namespace node_gnome
    }
 
 
-   void node::os_calc_user_dark_mode()
+   void node::fetch_user_color()
    {
 
       node_branch(__routine([this]()
       {
 
-         ::aura::posix::node::os_calc_user_dark_mode();
+         ::aura::posix::node::fetch_user_color();
 
       }));
 
@@ -678,7 +676,7 @@ namespace node_gnome
 
       }
 
-      if(psubject->m_id == id_os_dark_mode)
+      if(psubject->m_id == id_user_color)
       {
 
          return false;

@@ -77,9 +77,7 @@ void gtk_settings_gtk_theme_name_callback(GObject* object, GParamSpec* pspec, gp
 
    }
 
-   auto psubject = pnode->m_psystem->m_papexsystem->subject(id_os_user_theme);
-
-   pnode->m_psystem->m_papexsystem->handle_subject(psubject);
+   pnode->m_psystem->m_papexsystem->signal(id_os_user_theme);
 
 }
 
@@ -394,12 +392,12 @@ namespace node_gtk
    }
 
 
-   void node::os_calc_user_dark_mode()
-   {
-
-      ::aura::posix::node::os_calc_user_dark_mode();
-
-   }
+//   void node::fetch_user_color()
+//   {
+//
+//      ::aura::posix::node::fetch_user_color();
+//
+//   }
 
 
    bool node::windowing_message_loop_step()
@@ -822,7 +820,7 @@ namespace node_gtk
 
       }
 
-      if(psubject->m_id == id_os_dark_mode)
+      if(psubject->m_id == id_user_color)
       {
 
          return false;
@@ -1079,9 +1077,7 @@ namespace node_gtk
 
       ::node_gtk::node * pnode = (::node_gtk::node *) data;
 
-      auto psubject = pnode->m_psystem->m_papexsystem->subject(id_wallpaper_change);
-
-      pnode->m_psystem->m_papexsystem->handle_subject(psubject);
+      pnode->m_psystem->m_papexsystem->signal(id_wallpaper_change);
 
    }
 
@@ -1437,7 +1433,7 @@ namespace node_gtk
 
       _os_process_user_theme_color(strTheme);
 
-      os_calc_user_dark_mode();
+      fetch_user_color();
 
    }
 
@@ -1471,7 +1467,7 @@ namespace node_gtk
    }
 
 
-   bool node::_os_calc_system_dark_mode()
+   void node::fetch_user_color()
    {
 
       auto pthemecolors = ::user::os_get_theme_colors();
@@ -1487,9 +1483,7 @@ namespace node_gtk
 
       }
 
-      auto dLuminance = pthemecolors->m_colorBack.get_luminance();
-
-      return dLuminance < 0.5;
+      background_color(pthemecolors->m_colorBack);
 
    }
 

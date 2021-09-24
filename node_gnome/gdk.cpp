@@ -231,9 +231,7 @@ namespace node_gnome
 
       ::node_gnome::node * pnode = (::node_gnome::node *) data;
 
-      auto psubject = pnode->m_psystem->m_papexsystem->subject(id_wallpaper_change);
-
-      pnode->m_psystem->m_papexsystem->handle_subject(psubject);
+      pnode->m_psystem->m_papexsystem->signal(id_wallpaper_change);
 
    }
 
@@ -589,7 +587,7 @@ namespace node_gnome
 
       _os_process_user_theme_color(strTheme);
 
-      os_calc_user_dark_mode();
+      fetch_user_color();
 
    }
 
@@ -606,8 +604,7 @@ namespace node_gnome
 
          ::user::os_set_theme_colors(pthemecolors);
 
-         _os_calc_system_dark_mode();
-
+         fetch_user_color();
 
       }
       else
@@ -620,27 +617,25 @@ namespace node_gnome
    }
 
 
-   bool node::_os_calc_system_dark_mode()
-   {
-
-      auto pthemecolors = ::user::os_get_theme_colors();
-
-      if(!pthemecolors)
-      {
-
-         string strTheme = _os_get_user_theme();
-
-         pthemecolors = _new_os_theme_colors(strTheme);
-
-         ::user::os_set_theme_colors(pthemecolors);
-
-      }
-
-      auto dLuminance = pthemecolors->m_colorBack.get_luminance();
-
-      return dLuminance < 0.5;
-
-   }
+//   void node::fetch_user_color()
+//   {
+//
+//      auto pthemecolors = ::user::os_get_theme_colors();
+//
+//      if(!pthemecolors)
+//      {
+//
+//         string strTheme = _os_get_user_theme();
+//
+//         pthemecolors = _new_os_theme_colors(strTheme);
+//
+//         ::user::os_set_theme_colors(pthemecolors);
+//
+//      }
+//
+//      background_color(pthemecolors->m_colorBack);
+//
+//   }
 
 
 

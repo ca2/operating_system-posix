@@ -35,7 +35,7 @@ namespace node_gtk
 
       virtual ::e_status initialize(::object * pobject) override;
 
-      virtual void os_calc_user_dark_mode() override;
+      void fetch_user_color() override;
 
       virtual string os_get_user_theme() override;
 
@@ -77,7 +77,7 @@ namespace node_gtk
 
       //virtual void enum_display_monitors(::aura::session * psession) override;
 
-      virtual bool _os_calc_system_dark_mode() override;
+      //virtual bool _os_calc_system_dark_mode() override;
 
       virtual void node_quit() override;
 

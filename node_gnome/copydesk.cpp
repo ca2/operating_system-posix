@@ -250,7 +250,7 @@ namespace node_gnome
 
       }
 
-      pimage->copy(pdata->m_pimage);
+      pimage->copy_from(pdata->m_pimage);
 
       return true;
 
