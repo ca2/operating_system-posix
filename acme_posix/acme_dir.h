@@ -19,7 +19,7 @@ namespace posix
 
       //virtual string name(const char * path1) override;
 
-      virtual ::file::path module_folder() override;
+      virtual ::file::path module() override;
 
       ::e_status create(const char * path) override;
 

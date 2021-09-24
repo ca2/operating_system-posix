@@ -36,7 +36,7 @@ namespace ansios
 {
 
 
-   operating_system::process()
+   process::process()
    {
 
    }
