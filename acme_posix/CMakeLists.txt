@@ -33,7 +33,7 @@ list(APPEND library_source
    )
 endif()
 
-add_library(acme_posix SHARED ${library_source} )
+add_library(acme_posix SHARED ${library_source} dbus.cpp)
 
 if(POSIX_LIST_SERIAL_PORTS)
 

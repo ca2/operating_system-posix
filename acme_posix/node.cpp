@@ -30,8 +30,6 @@ namespace acme
       node::node()
       {
 
-         //m_pGtkSettingsDefault = nullptr;
-
          m_pAcmePosix = this;
 
          init_pid_cs();
