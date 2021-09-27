@@ -97,7 +97,7 @@ namespace node_kde
    bool node::eventFilter(QObject * pobject, QEvent * pevent)
    {
 
-      if(psubject->type() == QEvent::ApplicationPaletteChange)
+      if(pevent->type() == QEvent::ApplicationPaletteChange)
       {
 
          auto pthemecolors = ::user::os_get_theme_colors();
@@ -113,9 +113,7 @@ namespace node_kde
 
          kde_update_os_theme_colors(pthemecolors);
 
-         auto psystem = m_psystem->m_papexsystem;
-
-         psystem->signal(id_check_os_dark_mode);
+         fetch_user_color();
 
          return false;
 
@@ -148,7 +146,7 @@ namespace node_kde
    }
 
 
-   bool node::_os_calc_app_dark_mode()
+   void node::fetch_user_color()
    {
 
       auto pthemecolors = ::user::os_get_theme_colors();
@@ -164,21 +162,18 @@ namespace node_kde
 
       ::color::color colorBack(pthemecolors->m_colorBack);
 
-      auto dLuminance = colorBack.get_luminance();
-
-      return dLuminance < 0.5;
+      background_color(colorBack);
 
    }
 
 
-
-
-   void node::on_os_dark_mode_change()
-   {
-
-      //x11_kick_idle();
-
-   }
+//
+//   void node::on_os_dark_mode_change()
+//   {
+//
+//      //x11_kick_idle();
+//
+//   }
 
 
 //   ::e_status node::start_node()
@@ -856,6 +851,7 @@ namespace node_kde
 //
 //   }
 
+
    bool node::should_launch_on_node(::subject *psubject)
    {
 
@@ -866,7 +862,7 @@ namespace node_kde
 
       }
 
-      if (psubject->m_id == id_os_dark_mode)
+      if (psubject->m_id == id_user_color)
       {
 
          return false;
@@ -966,27 +962,27 @@ namespace node_kde
    }
 
 
-   bool node::_os_calc_system_dark_mode()
-   {
-
-      auto pthemecolors = ::user::os_get_theme_colors();
-
-      if(!pthemecolors)
-      {
-
-         pthemecolors = new_os_theme_colors();
-
-         ::user::os_set_theme_colors(pthemecolors);
-
-      }
-
-      ::color::color colorBack(pthemecolors->m_colorBack);
-
-      auto dLuminance = colorBack.get_luminance();
-
-      return dLuminance < 0.5;
-
-   }
+//   bool node::_os_calc_system_dark_mode()
+//   {
+//
+//      auto pthemecolors = ::user::os_get_theme_colors();
+//
+//      if(!pthemecolors)
+//      {
+//
+//         pthemecolors = new_os_theme_colors();
+//
+//         ::user::os_set_theme_colors(pthemecolors);
+//
+//      }
+//
+//      ::color::color colorBack(pthemecolors->m_colorBack);
+//
+//      auto dLuminance = colorBack.get_luminance();
+//
+//      return dLuminance < 0.5;
+//
+//   }
 
 
 

@@ -34,7 +34,7 @@ namespace windowing_xcb
 
 
       windowing();
-      virtual ~windowing();
+      ~windowing() override;
 
 
       virtual ::e_status initialize(::object * pobject) override;
@@ -122,8 +122,14 @@ namespace windowing_xcb
 
 #ifdef WITH_XI
 
-      virtual ::e_status register_extended_event_listener(::matter * pdata, bool bMouse, bool bKeyboard) override;
-      //bool xcb_process_event(xcb_generic_event_t* xcbevent, XGenericEventCookie *cookie);
+      virtual ::e_status register_extended_event_listener(::matter *pdata, bool bMouse, bool bKeyboard);
+
+      virtual ::e_status install_mouse_hook(::matter * pmatterListener);
+      virtual ::e_status install_keyboard_hook(::matter * pmatterListener);
+
+      virtual ::e_status uninstall_mouse_hook(::matter * pmatterListener);
+      virtual ::e_status uninstall_keyboard_hook(::matter * pmatterListener);
+
       bool xcb_process_event(xcb_generic_event_t* xcbevent);
       bool xcb_process_ge_event(xcb_ge_event_t * pgeevent);
 

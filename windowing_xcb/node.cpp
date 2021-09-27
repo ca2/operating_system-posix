@@ -41,7 +41,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status node::register_extended_event_listener(::matter * pdata, bool bMouse, bool bKeyboard)
+   ::e_status node::install_mouse_hook(::matter * pmatterListener)
    {
 
       auto psystem = m_psystem->m_paurasystem;
@@ -52,9 +52,62 @@ namespace windowing_xcb
 
       auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing;
 
-      pwindowing->register_extended_event_listener(pdata, bMouse, bKeyboard);
+      pwindowing->install_mouse_hook(pmatterListener);
 
-      //::x11_register_extended_event_listener(pdata, bMouse, bKeyboard);
+      return ::success;
+
+   }
+
+
+   ::e_status node::install_keyboard_hook(::matter * pmatterListener)
+   {
+
+      auto psystem = m_psystem->m_paurasystem;
+
+      auto psession = psystem->get_session();
+
+      auto puser = psession->user();
+
+      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing;
+
+      pwindowing->install_keyboard_hook(pmatterListener);
+
+      return ::success;
+
+   }
+
+
+
+   ::e_status node::uninstall_keyboard_hook(::matter * pmatterListener)
+   {
+
+      auto psystem = m_psystem->m_paurasystem;
+
+      auto psession = psystem->get_session();
+
+      auto puser = psession->user();
+
+      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing;
+
+      pwindowing->uninstall_keyboard_hook(pmatterListener);
+
+      return ::success;
+
+   }
+
+
+   ::e_status node::uninstall_mouse_hook(::matter * pmatterListener)
+   {
+
+      auto psystem = m_psystem->m_paurasystem;
+
+      auto psession = psystem->get_session();
+
+      auto puser = psession->user();
+
+      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing;
+
+      pwindowing->uninstall_mouse_hook(pmatterListener);
 
       return ::success;
 

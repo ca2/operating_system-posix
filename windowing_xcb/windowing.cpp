@@ -94,7 +94,7 @@ namespace windowing_xcb
 
       initialize_windowing();
 
-      auto pdisplay = ::__create < ::windowing::display >();
+      auto pdisplay = __create < ::windowing::display >();
 
       if(!pdisplay)
       {
@@ -655,6 +655,56 @@ namespace windowing_xcb
 //      return estatus;
 //
 //   }
+
+
+   ::e_status windowing::install_mouse_hook(::matter * pmatterListener)
+   {
+
+      auto estatus = register_extended_event_listener(pmatterListener, true, false);
+
+      if(!estatus)
+      {
+
+         return estatus;
+
+      }
+
+      return estatus;
+
+   }
+
+
+   ::e_status windowing::install_keyboard_hook(::matter * pmatterListener)
+   {
+
+      auto estatus = register_extended_event_listener(pmatterListener, false, true);
+
+      if(!estatus)
+      {
+
+         return estatus;
+
+      }
+
+      return estatus;
+
+   }
+
+
+   ::e_status windowing::uninstall_mouse_hook(::matter * pmatterListener)
+   {
+
+      return ::error_interface_only;
+
+   }
+
+
+   ::e_status windowing::uninstall_keyboard_hook(::matter * pmatterListener)
+   {
+
+      return ::error_interface_only;
+
+   }
 
 
    bool windowing::xcb_process_event(xcb_generic_event_t * pgenericevent)

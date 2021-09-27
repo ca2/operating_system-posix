@@ -19,14 +19,18 @@ namespace windowing_xcb
 
 
       node();
-      virtual ~node();
+      ~node() override;
 
 
       Display * _get_Display();
       xcb_connection_t * _get_connection();
 
 
-      virtual ::e_status register_extended_event_listener(::matter * pdata, bool bMouse, bool bKeyboard) override;
+      ::e_status install_mouse_hook(::matter * pmatterListener) override;
+      ::e_status install_keyboard_hook(::matter * pmatterListener) override;
+
+      ::e_status uninstall_mouse_hook(::matter * pmatterListener) override;
+      ::e_status uninstall_keyboard_hook(::matter * pmatterListener) override;
 
 
    };

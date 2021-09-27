@@ -460,7 +460,7 @@ namespace windowing_xcb
          for (auto & p : *m_pobjectaExtendedEventListener)
          {
 
-            p->handle(emessage, iKey);
+            p->call(emessage, iKey);
 
             //p->on_subject(psubject, &context);
 
