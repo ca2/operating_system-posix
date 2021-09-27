@@ -1782,6 +1782,13 @@ namespace windowing_xcb
    }
 
 
+   ::point_i32 window::get_mouse_cursor_position()
+   {
+
+      return m_pointMouseCursor;
+
+   }
+
    ::e_status window::set_mouse_cursor(::windowing::cursor * pcursor)
    {
 

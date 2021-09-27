@@ -43,14 +43,14 @@ namespace windowing_xcb
       xcb_visualid_t                               m_visualid;
       htask_t                                      m_hthread;
       millis                                       m_millisLastMouseMove;
-      //::rectangle_i32                              m_rect;
+      ::point_i32                                  m_pointMouseCursor;
 
 
       window();
-      virtual ~window();
+      ~window() override;
 
 
-      virtual ::e_status create_window(::user::interaction_impl * pimpl) override;
+      ::e_status create_window(::user::interaction_impl * pimpl) override;
 
 
       virtual xcb_connection_t * xcb_connection();
@@ -71,14 +71,14 @@ namespace windowing_xcb
       virtual ::e_status initialize_xcb_window(::windowing_xcb::display * pdisplay, xcb_window_t window, int iDepth, xcb_colormap_t colormap);
 
 
-      virtual ::e_status destroy_window();
-      virtual bool is_window();
+      ::e_status destroy_window() override;
+      bool is_window() override;
 
 
       virtual void set_window_text(const char * pszString);
 
 
-      virtual bool set_window_position(const class ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy, ::u32 nFlags) override;
+      bool set_window_position(const class ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy, ::u32 nFlags) override;
 
 
       virtual int_bool IsWindowVisibleRaw();
@@ -92,51 +92,53 @@ namespace windowing_xcb
 
 
       virtual bool is_child( ::windowing::window * candidateChildOrDescendant); // or descendant
-      virtual ::windowing::window * get_parent() const;
-      virtual oswindow get_parent_oswindow() const;
+      ::windowing::window * get_parent() const override;
+      oswindow get_parent_oswindow() const override;
 
 
-      virtual bool is_iconic();
-      virtual bool is_window_visible();
+      bool is_iconic() override;
+      bool is_window_visible() override;
 
 
-      virtual ::e_status show_window(const ::e_display & edisplay, const ::e_activation & eactivation);
+      ::e_status show_window(const ::e_display & edisplay, const ::e_activation & eactivation) override;
 
-      virtual ::e_status exit_iconify()override;
-      virtual ::e_status full_screen(const ::rectangle_i32 & rect = nullptr)override;
-      virtual ::e_status exit_full_screen()override;
-      virtual ::e_status exit_zoomed() override;
+      ::e_status exit_iconify()override;
+      ::e_status full_screen(const ::rectangle_i32 & rect = nullptr)override;
+      ::e_status exit_full_screen()override;
+      ::e_status exit_zoomed() override;
 
 
-      virtual ::e_status set_parent(::windowing::window * pwindowNewParent);
+      ::e_status set_parent(::windowing::window * pwindowNewParent) override;
 
       virtual long _get_wm_state();
 
-      virtual bool client_to_screen(POINT_I32 * ppoint);
+       bool client_to_screen(POINT_I32 * ppoint) override;
 
-      virtual bool screen_to_client(POINT_I32 * ppoint);
+      bool screen_to_client(POINT_I32 * ppoint) override;
 
-      virtual bool is_destroying();
+      bool is_destroying() override;
       
       virtual ::e_status bamf_set_icon();
 
       virtual bool set_icon(::image * pimage);
 
-      virtual ::e_status set_mouse_cursor(::windowing::cursor * pcursor) override;
+      ::e_status set_mouse_cursor(::windowing::cursor * pcursor) override;
 
       virtual ::e_status set_mouse_cursor2(::windowing::cursor * pcursor);
 
-      virtual ::e_status set_keyboard_focus() override;
-      virtual ::e_status set_mouse_capture() override;
-      virtual ::e_status set_active_window() override;
+      ::point_i32 get_mouse_cursor_position() override;
+
+      ::e_status set_keyboard_focus() override;
+      ::e_status set_mouse_capture() override;
+      ::e_status set_active_window() override;
 
 
-      virtual ::e_status set_foreground_window() override;
+      ::e_status set_foreground_window() override;
 
 
-      virtual bool has_mouse_capture() const override;
+      bool has_mouse_capture() const override;
 
-      virtual bool has_keyboard_focus() const override;
+      bool has_keyboard_focus() const override;
 
 
       virtual rectangle_i32_array upper_window_rects();
@@ -186,7 +188,7 @@ namespace windowing_xcb
       virtual ::e_status _lower_window();
 
 
-      virtual ::e_status set_tool_window(bool bSet) override;
+      ::e_status set_tool_window(bool bSet) override;
 
 
       virtual ::e_status xcb_post_message(MESSAGE & msg);
@@ -196,8 +198,8 @@ namespace windowing_xcb
       virtual ::e_status mq_erase_window_from_all_queues( );
 
 
-      virtual void update_screen() override;
-      virtual void window_show() override;
+      void update_screen() override;
+      void window_show() override;
 
 
       virtual ::e_status defer_update_keyboard_context();

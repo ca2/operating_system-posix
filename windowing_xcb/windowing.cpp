@@ -775,6 +775,8 @@ namespace windowing_xcb
          if (msg.oswindow != nullptr && msg.oswindow->m_pimpl != nullptr)
          {
 
+            ((class window *) msg.oswindow->m_pWindow)->m_pointMouseCursor = m_pointCursor;
+
             bool bOk = true;
 
             __pointer(::user::interaction) pinteraction = msg.oswindow->m_pimpl->m_puserinteraction;
