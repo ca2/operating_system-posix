@@ -227,7 +227,7 @@ namespace node_gnome
       if (psystem->m_bGtkApp)
       {
 
-         apex_application_run(psystem->m_strAppId, psystem->m_strProgName);
+         //apex_application_run(psystem->m_strAppId, psystem->m_strProgName);
 
       }
       else

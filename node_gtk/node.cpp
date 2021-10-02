@@ -140,12 +140,14 @@ namespace node_gtk
    node::~node()
    {
 
-      if(m_pGtkSettingsDefault)
-      {
+      m_pGtkSettingsDefault = nullptr;
 
-         g_object_unref(m_pGtkSettingsDefault);
-
-      }
+//      if(m_pGtkSettingsDefault)
+//      {
+//
+//         g_object_unref(m_pGtkSettingsDefault);
+//
+//      }
 
       //::os_post_quit();
 
@@ -268,7 +270,7 @@ namespace node_gtk
       if (psystem->m_bGtkApp)
       {
 
-         apex_application_run(psystem->m_strAppId, psystem->m_strProgName);
+         //apex_application_run(psystem->m_strAppId, psystem->m_strProgName);
 
       }
       else

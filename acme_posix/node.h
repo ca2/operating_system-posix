@@ -43,7 +43,7 @@ namespace acme
          virtual int node_init_check(int * pi, char *** ppz) override;
 
 
-         ::e_status node::_dbus_init();
+         ::e_status _dbus_init();
 
          //virtual ::e_status start_node();
 

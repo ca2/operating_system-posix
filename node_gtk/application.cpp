@@ -247,27 +247,27 @@ void apex_application_class_init (ApexApplicationClass * pclass)
 }
 
 
-void apex_application_run(const char * pszAppName, const char * pszProgName)
-{
-
-   g_papexapplication = apex_application_new(pszAppName, pszProgName);
-
-   if(g_papexapplication == nullptr)
-   {
-
-      output_debug_string("Failed to initialize GtkApplication (gtk_application_new return nullptr)");
-
-      return;
-
-   }
-
-   int status = g_application_run (G_APPLICATION (g_papexapplication), 0, nullptr);
-
-   g_object_unref(g_papexapplication);
-
-   g_papexapplication = nullptr;
-
-}
+//void apex_application_run(const char * pszAppName, const char * pszProgName)
+//{
+//
+//   g_papexapplication = apex_application_new(pszAppName, pszProgName);
+//
+//   if(g_papexapplication == nullptr)
+//   {
+//
+//      output_debug_string("Failed to initialize GtkApplication (gtk_application_new return nullptr)");
+//
+//      return;
+//
+//   }
+//
+//   int status = g_application_run (G_APPLICATION (g_papexapplication), 0, nullptr);
+//
+//   g_object_unref(g_papexapplication);
+//
+//   g_papexapplication = nullptr;
+//
+//}
 
 
 

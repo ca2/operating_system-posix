@@ -1909,18 +1909,46 @@ else if(detail == 3)
                         if(::is_set(pwindowActiveNew))
                         {
 
-                           pwindowActiveNew->m_pimpl->m_puserinteraction->set_need_redraw();
+                           auto pimplNew = pwindowActiveNew->m_pimpl;
 
-                           pwindowActiveNew->m_pimpl->m_puserinteraction->post_redraw();
+                           if(::is_set(pimplNew))
+                           {
+
+                              auto puserinteractionNew = pimplNew->m_puserinteraction;
+
+                              if(::is_set(puserinteractionNew))
+                              {
+
+                                 puserinteractionNew->set_need_redraw();
+
+                                 puserinteractionNew->post_redraw();
+
+                              }
+
+                           }
 
                         }
 
                         if(::is_set(pwindowActiveOld))
                         {
 
-                           pwindowActiveOld->m_pimpl->m_puserinteraction->set_need_redraw();
+                           auto pimplOld = pwindowActiveOld->m_pimpl;
 
-                           pwindowActiveOld->m_pimpl->m_puserinteraction->post_redraw();
+                           if(::is_set(pimplOld))
+                           {
+
+                              auto puserinteractionOld = pimplOld->m_puserinteraction;
+
+                              if(::is_set(puserinteractionOld))
+                              {
+
+                                 puserinteractionOld->set_need_redraw();
+
+                                 puserinteractionOld->post_redraw();
+
+                              }
+
+                           }
 
                         }
 
