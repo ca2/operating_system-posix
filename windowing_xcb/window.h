@@ -188,6 +188,9 @@ namespace windowing_xcb
       virtual ::e_status _lower_window();
 
 
+      ::e_status bring_to_front() override;
+
+
       ::e_status set_tool_window(bool bSet) override;
 
 

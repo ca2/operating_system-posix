@@ -2994,6 +2994,22 @@ namespace windowing_xcb
    }
 
 
+   ::e_status window::bring_to_front()
+   {
+
+      m_pwindowing->windowing_branch(__routine([this]()
+                                               {
+
+                                                  _raise_window();
+
+                                               }));
+
+      return ::success;
+
+   }
+
+
+
 } // namespace windowing_xcb
 
 
