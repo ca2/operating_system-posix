@@ -784,7 +784,7 @@ namespace windowing_xcb
             if (pinteraction.is_set())
             {
 
-               if (pinteraction->m_millisMouseMove.elapsed() < pinteraction->m_millisMouseMoveIgnore)
+               if (pinteraction->m_durationMouseMove.elapsed() < pinteraction->m_durationMouseMoveIgnore)
                {
 
                   bOk = false;
@@ -794,7 +794,7 @@ namespace windowing_xcb
                if (bOk)
                {
 
-                  pinteraction->m_millisMouseMove.Now();
+                  pinteraction->m_durationMouseMove.Now();
 
                   pinteraction->m_pointMouseMove.x = pmotion->root_x;
 
@@ -803,14 +803,14 @@ namespace windowing_xcb
                   if (false)
                   {
 
-                     if (pinteraction->m_millisMouseMovePeriod > 0)
+                     if (pinteraction->m_durationMouseMovePeriod > 0)
                      {
 
                         ::size_i32 sizeDistance(
                            (pinteraction->m_pointMouseMoveSkip.x - pinteraction->m_pointMouseMove.x),
                            (pinteraction->m_pointMouseMoveSkip.y - pinteraction->m_pointMouseMove.y));
 
-                        if (!pinteraction->m_millisMouseMoveSkip.timeout(pinteraction->m_millisMouseMovePeriod)
+                        if (!pinteraction->m_durationMouseMoveSkip.timeout(pinteraction->m_durationMouseMovePeriod)
                             && sizeDistance.cx * sizeDistance.cx + sizeDistance.cy * sizeDistance.cy <
                                pinteraction->m_iMouseMoveSkipSquareDistance)
                         {
@@ -1415,10 +1415,10 @@ namespace windowing_xcb
 
                //auto & screen_origin = window.screen_origin();
 
-               ::output_debug_string("\nwindow.origin=" + __str(origin.x) + ", " + __str(origin.y));
-               //::output_debug_string("\nwindow.screen_origin=" + __str(screen_origin.x) + ", " + __str(screen_origin.y));
-               ::output_debug_string("\nbutton.root_x=" + __str(pbutton->root_x));
-               ::output_debug_string("\nbutton.root_y=" + __str(pbutton->root_y));
+               ::output_debug_string("\nwindow.origin=" + __string(origin.x) + ", " + __string(origin.y));
+               //::output_debug_string("\nwindow.screen_origin=" + __string(screen_origin.x) + ", " + __string(screen_origin.y));
+               ::output_debug_string("\nbutton.root_x=" + __string(pbutton->root_x));
+               ::output_debug_string("\nbutton.root_y=" + __string(pbutton->root_y));
                ::output_debug_string("\n");
 
             }
@@ -1515,7 +1515,7 @@ namespace windowing_xcb
 
                screen_pixel = msg.oswindow->screen_pixel(pbutton->root_x, pbutton->root_y);
 
-               ::output_debug_string("\nscreen_pixel.r=" + __str((int)screen_pixel.red) + ",g=" + __str((int)screen_pixel.green)+ ",b=" + __str((int)screen_pixel.blue)+ ",a=" + __str((int)screen_pixel.alpha));
+               ::output_debug_string("\nscreen_pixel.r=" + __string((int)screen_pixel.red) + ",g=" + __string((int)screen_pixel.green)+ ",b=" + __string((int)screen_pixel.blue)+ ",a=" + __string((int)screen_pixel.alpha));
                ::output_debug_string("\n");
 
                alpha = screen_pixel.alpha;

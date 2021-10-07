@@ -74,7 +74,7 @@ namespace serial
       available ();
 
       bool
-      waitReadable (::millis timeout);
+      waitReadable (::duration timeout);
 
       void
       waitByteTimes (size_t count);

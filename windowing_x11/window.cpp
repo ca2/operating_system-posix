@@ -219,7 +219,7 @@ namespace windowing_x11
 
       //attr.override_redirect = True;
 
-      INFO("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
+      INFORMATION("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
 
       ::Window window = XCreateWindow(display, DefaultRootWindow(display),
                                       x, y,
@@ -376,7 +376,7 @@ namespace windowing_x11
       if (!XGetWindowAttributes(Display(), Window(), &m_px11data->m_attr))
       {
 
-         INFO("linux::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.");
+         INFORMATION("linux::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.");
 
       }
 
@@ -1153,7 +1153,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       if(status != 0)
       {
 
-         //file_put_contents("/home/camilo/window.txt", __str((int)w->Window()));
+         //file_put_contents("/home/camilo/window.txt", __string((int)w->Window()));
          return false;
 
       }
@@ -2283,7 +2283,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
 #ifdef SET_WINDOW_POS_LOG
 
-            INFO("XMoveResizeWindow (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
+            INFORMATION("XMoveResizeWindow (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
 
 #endif
 
@@ -2296,7 +2296,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
 #ifdef SET_WINDOW_POS_LOG
 
-               INFO("Changing parameters... (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
+               INFORMATION("Changing parameters... (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
 
 #endif
 
@@ -2338,7 +2338,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       //            if(!XChangeWindowAttributes(Display(), Window(), CWOverrideRedirect, &set))
       //            {
       //
-      //               INFO("linux::interaction_impl::_native_create_window_ex failed to clear override_redirect");
+      //               INFORMATION("linux::interaction_impl::_native_create_window_ex failed to clear override_redirect");
       //
       //            }
       //

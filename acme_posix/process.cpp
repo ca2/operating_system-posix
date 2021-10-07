@@ -213,7 +213,7 @@ namespace acme
 
             }
 
-            sleep(millis(23));
+            sleep(::duration(23));
 
          }
 
@@ -578,7 +578,7 @@ namespace acme
 
          string str;
 
-         str = "/proc/" + __str(iPid) + "/exe";
+         str = "/proc/" + __string(iPid) + "/exe";
 
          memory mem;
 
@@ -762,7 +762,7 @@ namespace acme
 
          string str;
 
-         str = "/proc/" + __str(iPid) + "/cmdline";
+         str = "/proc/" + __string(iPid) + "/cmdline";
 
          memory mem = m_psystem->m_pacmefile->as_memory(str);
 

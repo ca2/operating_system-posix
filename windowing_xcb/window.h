@@ -42,7 +42,7 @@ namespace windowing_xcb
       xcb_window_t                                 m_window;
       xcb_visualid_t                               m_visualid;
       htask_t                                      m_hthread;
-      millis                                       m_millisLastMouseMove;
+      ::duration                                       m_durationLastMouseMove;
       ::point_i32                                  m_pointMouseCursor;
 
 

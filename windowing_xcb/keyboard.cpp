@@ -230,7 +230,7 @@ namespace windowing_xcb
 //
 //      }
 //
-//      string str = __str(w);
+//      string str = __string(w);
 //
 //      //strFile = Context.dir().matter("keyboard/windows/" + str + ".xml");
 //

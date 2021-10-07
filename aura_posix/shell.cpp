@@ -10,7 +10,7 @@
 // string linux_get_file_icon_path(string strPath, int iSize)
 // {
 
-//    return ::str::from_strdup(linux_g_direct_get_file_icon_path(strPath, iSize));
+//    return ::string_from_strdup(linux_g_direct_get_file_icon_path(strPath, iSize));
 
 // }
 
@@ -19,7 +19,7 @@
 // string core_linux_get_file_content_type(string strPath)
 // {
 
-//    return ::str::from_strdup(linux_g_direct_get_file_content_type(strPath));
+//    return ::string_from_strdup(linux_g_direct_get_file_content_type(strPath));
 
 // }
 

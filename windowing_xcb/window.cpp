@@ -140,7 +140,7 @@ namespace windowing_xcb
 
       auto & colormap = paramscw.colormap = pdisplayxcb->m_colormap;
 
-      INFO("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
+      INFORMATION("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
 
       xcb_window_t window = xcb_generate_id(pdisplayxcb->m_pconnection);
 
@@ -2804,7 +2804,7 @@ namespace windowing_xcb
       if(!preply)
       {
 
-         INFO("linux::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.");
+         INFORMATION("linux::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.");
 
          return error_failed;
 
@@ -2827,7 +2827,7 @@ namespace windowing_xcb
       if(!preply)
       {
 
-         INFO("linux::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.");
+         INFORMATION("linux::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.");
 
          return error_failed;
 

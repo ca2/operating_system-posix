@@ -41,7 +41,7 @@ namespace windowing_x11
       //__pointer(::message_queue)              m_pmessagequeue;
       htask_t                                    m_hthread;
       //Colormap                                     m_colormap;
-      millis                                       m_millisLastMouseMove;
+      ::duration                                       m_durationLastMouseMove;
       //Window                                       m_parent;
       ::rectangle_i32                              m_rect;
       string                                       m_strWMClass;

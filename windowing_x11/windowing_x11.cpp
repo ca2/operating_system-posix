@@ -1568,7 +1568,7 @@ else if(detail == 3)
 
                }
 
-               output_debug_string("\ndetail:" + __str(prawevent->detail));
+               output_debug_string("\ndetail:" + __string(prawevent->detail));
 
                if(emessage != e_message_null)
                {
@@ -1724,7 +1724,7 @@ else if(detail == 3)
                if (pinteraction.is_set())
                {
 
-                  if (pinteraction->m_millisMouseMove.elapsed() < pinteraction->m_millisMouseMoveIgnore)
+                  if (pinteraction->m_durationMouseMove.elapsed() < pinteraction->m_durationMouseMoveIgnore)
                   {
 
                      bOk = false;
@@ -1734,7 +1734,7 @@ else if(detail == 3)
                   if (bOk)
                   {
 
-                     pinteraction->m_millisMouseMove.Now();
+                     pinteraction->m_durationMouseMove.Now();
 
                      pinteraction->m_pointMouseMove.x = e.xmotion.x_root;
 
@@ -1743,14 +1743,14 @@ else if(detail == 3)
                      if (false)
                      {
 
-                        if (pinteraction->m_millisMouseMovePeriod > 0)
+                        if (pinteraction->m_durationMouseMovePeriod > 0)
                         {
 
                            ::size_i32 sizeDistance(
                               (pinteraction->m_pointMouseMoveSkip.x - pinteraction->m_pointMouseMove.x),
                               (pinteraction->m_pointMouseMoveSkip.y - pinteraction->m_pointMouseMove.y));
 
-                           if (!pinteraction->m_millisMouseMoveSkip.timeout(pinteraction->m_millisMouseMovePeriod)
+                           if (!pinteraction->m_durationMouseMoveSkip.timeout(pinteraction->m_durationMouseMovePeriod)
                                && sizeDistance.cx * sizeDistance.cx + sizeDistance.cy * sizeDistance.cy <
                                   pinteraction->m_iMouseMoveSkipSquareDistance)
                            {
@@ -2562,7 +2562,7 @@ else if(detail == 3)
 //         else
 //         {
 //
-//            output_debug_string("B " + __str(wFocus));
+//            output_debug_string("B " + __string(wFocus));
 //
 //            g_windowFocus = wFocus;
 //
@@ -2577,7 +2577,7 @@ else if(detail == 3)
 //         else
 //         {
 //
-//            output_debug_string("D " + __str(wFocus));
+//            output_debug_string("D " + __string(wFocus));
 //
 //            g_windowFocus = wFocus;
 //

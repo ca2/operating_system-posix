@@ -53,17 +53,17 @@
 #include <IOKit/serial/ioss.h>
 #endif
 
-//using MillisecondTimer;
+//using ::durationTimer;
 //using serial;
 //using serial_exception;
 //using port_not_opened_exception;
 //using io_exception;
 
 
-//MillisecondTimer::MillisecondTimer(const u32 millis)
+//::durationTimer::::durationTimer(const u32 ::duration)
 //   : expiry(timespec_now())
 //{
-//   i64 tv_nsec = expiry.tv_nsec + (millis * 1e6);
+//   i64 tv_nsec = expiry.tv_nsec + (::duration * 1e6);
 //   if (tv_nsec >= 1e9)
 //   {
 //      i64 sec_diff = tv_nsec / static_cast<int> (1e9);
@@ -77,16 +77,16 @@
 //}
 //
 //i64
-//MillisecondTimer::remaining()
+//::durationTimer::remaining()
 //{
 //   timespec now(timespec_now());
-//   i64 millis = (expiry.tv_sec - now.tv_sec) * 1e3;
-//   millis += (expiry.tv_nsec - now.tv_nsec) / 1e6;
-//   return millis;
+//   i64 ::duration = (expiry.tv_sec - now.tv_sec) * 1e3;
+//   ::duration += (expiry.tv_nsec - now.tv_nsec) / 1e6;
+//   return ::duration;
 //}
 //
 //timespec
-//MillisecondTimer::timespec_now()
+//::durationTimer::timespec_now()
 //{
 //   timespec time;
 //# ifdef __MACH__ // OS X does not have clock_gettime, use clock_get_time
@@ -526,7 +526,7 @@ serial_impl::available()
 }
 
 bool
-serial_impl::waitReadable(::millis timeout)
+serial_impl::waitReadable(::duration timeout)
 {
    // Setup a select call to block for serial data or a timeout
    fd_set readfds;
@@ -577,10 +577,10 @@ serial_impl::read(u8 * buf, size_t size)
    }
    size_t bytes_read = 0;
 
-   // Calculate total timeout in milliseconds t_c + (t_m * N)
-   auto total_timeout_ms = m_timeout.m_millisReadTimeoutConstant;
+   // Calculate total timeout in ::durations t_c + (t_m * N)
+   auto total_timeout_ms = m_timeout.m_durationReadTimeoutConstant;
    total_timeout_ms.m_i += m_timeout.m_uReadTimeoutMultiplier * static_cast<long> (size);
-   auto millisStart = ::millis::now();
+   auto millisStart = ::duration::now();
 
    // Pre-fill buffer with available bytes
    {
@@ -601,14 +601,14 @@ serial_impl::read(u8 * buf, size_t size)
       }
       // Timeout for the next select is whichever is less of the remaining
       // total read timeout and the inter-byte timeout.
-      auto timeout = minimum(millisRemaining, m_timeout.m_millisInterByteTimeout);
+      auto timeout = minimum(millisRemaining, m_timeout.m_durationInterByteTimeout);
       // Wait for the device to be readable, and then attempt to read.
       if (waitReadable(timeout))
       {
          // If it's a fixed-length multi-byte read, insert a wait here so that
          // we can attempt to grab the whole thing in a single IO call. Skip
          // this wait if a non-maximum inter_byte_timeout is specified.
-         if (size > 1 && m_timeout.m_millisInterByteTimeout == timeout::maximum())
+         if (size > 1 && m_timeout.m_durationInterByteTimeout == timeout::maximum())
          {
             size_t bytes_available = available();
             if (bytes_available + bytes_read < size)
@@ -663,10 +663,10 @@ serial_impl::write(const u8 * data, size_t length)
    fd_set writefds;
    size_t bytes_written = 0;
 
-   // Calculate total timeout in milliseconds t_c + (t_m * N)
-   auto total_timeout_ms = m_timeout.m_millisWriteTimeoutConstant;
+   // Calculate total timeout in ::durations t_c + (t_m * N)
+   auto total_timeout_ms = m_timeout.m_durationWriteTimeoutConstant;
    total_timeout_ms += m_timeout.m_uWriteTimeoutMultiplier * static_cast<long> (length);
-   auto millisStart = ::millis::now();
+   auto millisStart = ::duration::now();
 
    bool first_iteration = true;
    while (bytes_written < length)
@@ -1008,7 +1008,7 @@ serial_impl::waitForChange()
          }
       }
 
-      preempt((::millis) 1_s);
+      preempt((::duration) 1_s);
       
    }
 

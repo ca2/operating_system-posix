@@ -74,7 +74,7 @@ namespace posix
 
          path /= lpszName;
 
-         path /= __str(i);
+         path /= __string(i);
 
          path /= (string(lpszName) + "." + string(pszExtension));
 
