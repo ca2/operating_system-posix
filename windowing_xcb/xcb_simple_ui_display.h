@@ -14,7 +14,7 @@ public:
    string                           m_strFontName;
 
    xcb_window_t                           m_window;
-   ::point                          m_point;
+   ::point_i32                          m_point;
    ::size                           m_size;
 
    int                              m_iLineHeight;

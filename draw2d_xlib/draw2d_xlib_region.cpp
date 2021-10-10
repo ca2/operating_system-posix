@@ -72,8 +72,8 @@ namespace draw2d_xlib
       { ASSERT(get_os_data() != nullptr); return ::PtInRegion((HRGN)get_os_data(), x, y); }
       int_bool region::PtInRegion(const ::point_i32 & point) const
       { ASSERT(get_os_data() != nullptr); return ::PtInRegion((HRGN)get_os_data(), point.x, point.y); }
-      int_bool region::RectInRegion(const ::rectangle_i32 & rectangle) const
-      { ASSERT(get_os_data() != nullptr); return ::RectInRegion((HRGN)get_os_data(), rectangle); }*/
+      int_bool region::rectInRegion(const ::rectangle_i32 & rectangle) const
+      { ASSERT(get_os_data() != nullptr); return ::rectInRegion((HRGN)get_os_data(), rectangle); }*/
 
    /*   bool region::get(xlib_t * pgraphics)
       {

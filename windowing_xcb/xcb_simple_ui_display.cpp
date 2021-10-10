@@ -347,14 +347,14 @@ void simple_ui_display::on_expose(xcb_connection_t * pdisplay)
 
             XGlyphInfo & rText = pbutton->m_infoText;
 
-            ::rect & rButtonOuter = pbutton->m_rect;
+            ::rectangle_i32 & rButtonOuter = pbutton->m_rect;
 
             rButtonOuter.right = right;
             rButtonOuter.left = right - m_iButtonWidth;
             rButtonOuter.top = m_iButtonTop;
             rButtonOuter.bottom = m_iButtonTop + m_iButtonHeight;
 
-            ::rect rButton = rButtonOuter;
+            ::rectangle_i32 rButton = rButtonOuter;
 
             rButton.deflate(1, 1);
 
@@ -432,7 +432,7 @@ void simple_ui_display::on_expose(xcb_connection_t * pdisplay)
 
             XftDrawRect(m_pdraw, &colorBack, rButton.left, rButton.top, rButton.width(), rButton.height());
 
-            ::rect rectangleText(rButton);
+            ::rectangle_i32 rectangleText(rButton);
 
             rectangleText.deflate(m_iButtonHPadding, m_iButtonVPadding);
 
@@ -728,7 +728,7 @@ bool simple_ui_display::process_event(xcb_connection_t * pdisplay, XEvent & e, X
       else if (e.type == MotionNotify)
       {
 
-         ::point point(e.xmotion.x, e.xmotion.y);
+         ::point_i32 point(e.xmotion.x, e.xmotion.y);
 
          bool bRedraw = false;
 
@@ -759,7 +759,7 @@ bool simple_ui_display::process_event(xcb_connection_t * pdisplay, XEvent & e, X
       else if(e.type == ButtonPress)
       {
 
-         ::point point(e.xbutton.x, e.xbutton.y);
+         ::point_i32 point(e.xbutton.x, e.xbutton.y);
 
          bool bRedraw = false;
 
@@ -790,7 +790,7 @@ bool simple_ui_display::process_event(xcb_connection_t * pdisplay, XEvent & e, X
       else if(e.type == ButtonRelease)
       {
 
-         ::point point(e.xbutton.x, e.xbutton.y);
+         ::point_i32 point(e.xbutton.x, e.xbutton.y);
 
          bool bRedraw = false;
 

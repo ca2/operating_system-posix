@@ -579,12 +579,12 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::RectVisible(const ::rectangle_i32 & rectangle) const
+   bool graphics::rectVisible(const ::rectangle_i32 & rectangle) const
    {
 
 //      ASSERT(get_handle1() != nullptr);
 
-//      return ::RectVisible(get_handle1(), rectangle) != false;
+//      return ::rectVisible(get_handle1(), rectangle) != false;
 
       __throw(error_not_implemented);
       return false;
@@ -1259,7 +1259,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::Rectangle(i32 x1, i32 y1, i32 x2, i32 y2)
+   bool graphics::rectangle(i32 x1, i32 y1, i32 x2, i32 y2)
    {
 
       /*      Gdiplus::RectF rectangle_f32((Gdiplus::REAL) x1, (Gdiplus::REAL) y1, (Gdiplus::REAL) (x2 - x1), (Gdiplus::REAL) (y2 - y1));
@@ -1285,7 +1285,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::Rectangle(const ::rectangle_i32 & rectangle)
+   bool graphics::rectangle(const ::rectangle_i32 & rectangle)
    {
 
       return Rectangle(rectangle.left, rectangle.top, rectangle.right, rectangle.bottom);

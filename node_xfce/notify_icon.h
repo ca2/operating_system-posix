@@ -70,8 +70,8 @@ namespace node_xfce
 
       ::e_status create_notify_icon(::u32 id, ::user::notify_icon_listener * plistener, ::windowing::icon * picon) override;
 
-      //DECL_GEN_SIGNAL(_001OnNotifyIconMessage);
-      //DECL_GEN_SIGNAL(_001OnDestroy);
+      //DECLARE_MESSAGE_HANDLER(_001OnNotifyIconMessage);
+      //DECLARE_MESSAGE_HANDLER(_001OnDestroy);
 
       //void install_message_routing(::channel * pchannel) override;
 

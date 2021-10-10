@@ -72,8 +72,8 @@ namespace node_gnome
 
       ::e_status destroy_notify_icon() override;
 
-      //DECL_GEN_SIGNAL(_001OnNotifyIconMessage);
-      //DECL_GEN_SIGNAL(_001OnDestroy);
+      //DECLARE_MESSAGE_HANDLER(_001OnNotifyIconMessage);
+      //DECLARE_MESSAGE_HANDLER(_001OnDestroy);
 
       //void install_message_routing(::channel * pchannel) override;
 

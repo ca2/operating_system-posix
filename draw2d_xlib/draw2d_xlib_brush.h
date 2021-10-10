@@ -35,7 +35,7 @@ namespace draw2d_xlib
       //bool CreateSysColorBrush(i32 nIndex);
 
 
-      virtual void dump(dump_context & dumpcontext) const;
+      void dump(dump_context & dumpcontext) const override;
 
 
    };

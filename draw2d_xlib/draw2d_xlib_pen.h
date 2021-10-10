@@ -32,7 +32,7 @@ namespace draw2d_xlib
       virtual void * get_os_data() const;
 
 
-      virtual void dump(dump_context & dumpcontext) const;
+      void dump(dump_context & dumpcontext) const override;
 
    };
 
