@@ -735,10 +735,10 @@ GSource * get_gdk_branch_source()
 }
 
 
-void gdk_branch(const ::routine & routine)
+void gdk_post(const ::routine & routine)
 {
 
-   auto psource = get_gdk_branch_source();
+   auto psource = get_gdk_post_source();
 
    synchronous_lock synchronouslock (g_mutexGdkBranch);
 
