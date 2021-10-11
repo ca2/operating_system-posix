@@ -171,7 +171,7 @@ namespace node_xfce
 
          auto pnode = psystem->node();
 
-         pnode->node_sync(5_s, __routine([this, pnode, pathFolder]()
+         pnode->node_send(5_s, __routine([this, pnode, pathFolder]()
                                          {
 
 

@@ -112,7 +112,7 @@ namespace windowing_x11
 
       virtual bool x11_message_loop_step();
 
-      virtual ::e_status windowing_branch(const ::routine & routine) override;
+      virtual ::e_status windowing_post(const ::routine & routine) override;
 
       virtual bool x11_runnable_step();
 

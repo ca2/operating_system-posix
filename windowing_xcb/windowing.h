@@ -51,7 +51,7 @@ namespace windowing_xcb
       virtual ::e_status start() override;
 
 
-      virtual ::e_status windowing_branch(const ::routine & routine) override;
+      virtual ::e_status windowing_post(const ::routine & routine) override;
 
 
       virtual void __defer_post_move_and_or_size(xcb_window_t window);

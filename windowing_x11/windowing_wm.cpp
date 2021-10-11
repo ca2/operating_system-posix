@@ -303,7 +303,7 @@ namespace windowing_x11
    void window::wm_toolwindow(bool bToolWindow)
    {
 
-      x11_windowing()->windowing_branch(__routine([this, bToolWindow]()
+      x11_windowing()->windowing_post(__routine([this, bToolWindow]()
       {
 
          windowing_output_debug_string("\n::wm_toolwindow 1");

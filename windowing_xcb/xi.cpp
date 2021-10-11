@@ -146,7 +146,7 @@ namespace windowing_xcb
 
       m_pobjectaExtendedEventListener->add(pdata);
 
-      windowing_branch(__routine([this, bMouse, bKeyboard]()
+      windowing_post(__routine([this, bMouse, bKeyboard]()
                                  {
 
                                     auto psystem = get_system();

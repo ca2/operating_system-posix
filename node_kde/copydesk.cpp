@@ -117,7 +117,7 @@ namespace node_kde
 
       auto pnode = psystem->node();
 
-      pnode->node_sync(seconds(5), [=]()
+      pnode->node_send(seconds(5), [=]()
       {
 
          //GtkClipboard* clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);

@@ -260,7 +260,7 @@ namespace node_xfce
 
       auto pwindowing = puser->windowing();
 
-      pwindowing->windowing_branch(__routine([pindicator]()
+      pwindowing->windowing_post(__routine([pindicator]()
                {
 
                   app_indicator_set_status(pindicator, APP_INDICATOR_STATUS_PASSIVE);

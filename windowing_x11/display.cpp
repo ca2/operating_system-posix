@@ -308,7 +308,7 @@ namespace windowing_x11
 
       auto pwindowing = x11_windowing();
 
-      pwindowing->windowing_branch(proutine);
+      pwindowing->windowing_post(proutine);
 
       return ::success;
 
@@ -535,7 +535,7 @@ namespace windowing_x11
 
       auto pwindowing = x11_windowing();
 
-      pwindowing->windowing_branch(proutine);
+      pwindowing->windowing_post(proutine);
 
       if(proutine->sync_wait(5_s).failed())
       {
@@ -748,7 +748,7 @@ namespace windowing_x11
 
       auto pnode = psystem->node();
 
-      pnode->node_sync(10_s, [this, pointHitTest, pwindowExclude, iMargin, &bIsOrigin]()
+      pnode->node_send(__routine(10_s, [this, pointHitTest, pwindowExclude, iMargin, &bIsOrigin]()
       {
 
          ::windowing_x11::window *pwindowxcbExclude = nullptr;
@@ -782,7 +782,6 @@ namespace windowing_x11
          display_lock displaylock(Display());
 
          windowing_output_debug_string("\n::GetFocus 1.01");
-
 
          auto windowa = x11_window_list();
 
@@ -824,7 +823,7 @@ namespace windowing_x11
 
          }
 
-      });
+      }));
 
       return bIsOrigin;
 

@@ -180,7 +180,7 @@ namespace windowing_x11
    }
 
 
-   ::e_status windowing::windowing_branch(const ::routine & routine)
+   ::e_status windowing::windowing_post(const ::routine & routine)
    {
 
       if(::is_null(routine.m_p))

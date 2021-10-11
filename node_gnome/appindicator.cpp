@@ -14,6 +14,8 @@
 #endif
 
 
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
 void g_safe_free(void * pfree);
 //{
 //
@@ -260,7 +262,7 @@ namespace node_gnome
 
       auto pwindowing = puser->windowing();
 
-      pwindowing->windowing_branch(__routine([pindicator]()
+      pwindowing->windowing_post(__routine([pindicator]()
                {
 
                   app_indicator_set_status(pindicator, APP_INDICATOR_STATUS_PASSIVE);

@@ -309,7 +309,6 @@ namespace node_gtk
              if(pgtksettingsDefault)
              {
 
-
                 m_pGtkSettingsDefault = G_OBJECT(pgtksettingsDefault);
 
                 g_object_ref (m_pGtkSettingsDefault);
@@ -673,7 +672,7 @@ namespace node_gtk
    }
 
 
-   ::e_status node::node_branch(const ::routine & routine)
+   ::e_status node::node_post(const ::routine & routine)
    {
 
       gdk_branch(routine);

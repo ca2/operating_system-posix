@@ -2583,7 +2583,7 @@ namespace windowing_xcb
    void window::update_screen()
    {
 
-      m_pwindowing->windowing_branch(__routine([this]()
+      m_pwindowing->windowing_post(__routine([this]()
       {
 
          auto pimpl = m_pimpl;
@@ -2624,7 +2624,7 @@ namespace windowing_xcb
    void window::window_show()
    {
 
-      m_pwindowing->windowing_branch(__routine([this]()
+      m_pwindowing->windowing_post(__routine([this]()
       {
 
          auto pimpl = m_pimpl;
@@ -2658,7 +2658,7 @@ namespace windowing_xcb
    ::e_status window::set_mouse_capture()
    {
 
-      m_pwindowing->windowing_branch(__routine([this]
+      m_pwindowing->windowing_post(__routine([this]
                                                {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -2850,7 +2850,7 @@ namespace windowing_xcb
 
       }
 
-      m_pwindowing->windowing_branch(__routine([x, y, cx, cy, this]
+      m_pwindowing->windowing_post(__routine([x, y, cx, cy, this]
                                                {
 
                                                   uint16_t mask = 0;
@@ -2892,7 +2892,7 @@ namespace windowing_xcb
 
       }
 
-      m_pwindowing->windowing_branch(__routine([x, y,  this]
+      m_pwindowing->windowing_post(__routine([x, y,  this]
                                                {
 
                                                   uint16_t mask = 0;
@@ -2926,7 +2926,7 @@ namespace windowing_xcb
    {
 
 
-      m_pwindowing->windowing_branch(__routine([cx, cy, this]
+      m_pwindowing->windowing_post(__routine([cx, cy, this]
                                                {
 
                                                   uint16_t mask = 0;
@@ -2997,7 +2997,7 @@ namespace windowing_xcb
    ::e_status window::bring_to_front()
    {
 
-      m_pwindowing->windowing_branch(__routine([this]()
+      m_pwindowing->windowing_post(__routine([this]()
                                                {
 
                                                   _raise_window();

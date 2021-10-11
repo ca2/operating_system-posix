@@ -18,27 +18,27 @@ int gdk_launch_uri(const char * pszUri, char * pszError, int iBufferSize);
 void x11_add_idle_source(::node_gnome::node * pnode);
 
 
-void gtk_settings_gtk_theme_name_callback(GObject* object, GParamSpec* pspec, gpointer data)
-{
-
-   node_gnome::node * pnode = (node_gnome::node *) data;
-
-   if(pnode)
-   {
-
-      gchar *theme_name = nullptr;
-
-      g_object_get(pnode->m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
-
-      pnode->m_strTheme = theme_name;
-
-      g_free(theme_name);
-
-   }
-
-   pnode->m_psystem->m_papexsystem->signal(id_os_user_theme);
-
-}
+//void gtk_settings_gtk_theme_name_callback(GObject* object, GParamSpec* pspec, gpointer data)
+//{
+//
+//   node_gnome::node * pnode = (node_gnome::node *) data;
+//
+//   if(pnode)
+//   {
+//
+//      gchar *theme_name = nullptr;
+//
+//      g_object_get(pnode->m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
+//
+//      pnode->m_strTheme = theme_name;
+//
+//      g_free(theme_name);
+//
+//   }
+//
+//   pnode->m_psystem->m_papexsystem->signal(id_os_user_theme);
+//
+//}
 
 
 const char * linux_g_direct_get_file_icon_path(const char * pszPath, int iSize);
@@ -133,206 +133,206 @@ namespace node_gnome
    }
 
 
-   ::e_status node::system_main()
-   {
-
-      auto estatus = m_psystem->m_papexsystem->begin_synch();
-
-      if (!estatus)
-      {
-
-         output_debug_string("Failed to begin_synch the system (::apex::system or ::apex::system derived)");
-
-         return estatus;
-
-      }
-
-
-      // To pair linux.h/main platform_create_system new system
-      // This should be safe here in this node_gtk::node
-      // because just above m_psystem has begin_synch()
-      // so the running thread is holding references to the m_psystem thread.
-      m_psystem->release();
-
-
-      //   ::e_status estatus = psystem->begin_synch();
-      //
-      //   if(!estatus)
-      //   {
-      //
-      //      return estatus;
-      //
-      //   }
-      //
-
-//      const char *pszName = m_XstrAppId;
-
-//       g_set_application_name(pszName);
-
-//      const char *pszPrgName = m_strProgName;
-
-//      g_set_prgname(pszPrgName);
-
-      //auto idle_source = g_idle_source_new();
-
-      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) m_psystem, nullptr);
-
-      //g_source_attach(idle_source, g_main_context_default());
-
-      //int c = 2;
-
-      //const char * argv[]={"app", "--g-fatal-warnings"};
-
-#if !defined(__SANITIZE_ADDRESS__)
-
-      {
-
-         ///auto psystem = m_psystem;
-
-         //auto pnode = psystem->node();
-
-         //pnode->node_init_check(&m_argc, &m_argv);
-         node_init_check(&m_psystem->m_argc, &m_psystem->m_argv);
-
-      }
-
-#endif
-
-//      if (m_bUser)
+//   ::e_status node::system_main()
+//   {
+//
+//      auto estatus = m_psystem->m_papexsystem->begin_synch();
+//
+//      if (!estatus)
 //      {
 //
-//         estatus = defer_initialize_x11();
+//         output_debug_string("Failed to begin_synch the system (::apex::system or ::apex::system derived)");
 //
-//         if(!estatus)
-//         {
-//
-//            return estatus;
-//
-//         }
+//         return estatus;
 //
 //      }
-
-
 //
-//      auto psystem = m_psystem;
 //
-//      auto pnode = psystem->node();
+//      // To pair linux.h/main platform_create_system new system
+//      // This should be safe here in this node_gtk::node
+//      // because just above m_psystem has begin_synch()
+//      // so the running thread is holding references to the m_psystem thread.
+//      m_psystem->release();
 //
-//      m_pcontext->branch(pnode);
 //
-//      return ::success;
-
-      auto psystem = m_psystem->m_papexsystem;
-
-      if (psystem->m_bGtkApp)
-      {
-
-         //apex_application_run(psystem->m_strAppId, psystem->m_strProgName);
-
-      }
-      else
-      {
-
-         //g_set_application_name(System.m_XstrAppId);
-
-         //g_set_prgname(System.m_strProgName);
-      ////
-      ////      //auto idle_source = g_idle_source_new();
-      ////
-      ////      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) m_psystem, nullptr);
-      ////
-      ////      //g_source_attach(idle_source, g_main_context_default());
-      ////
-      ////      //int c = 2;
-      ////
-      ////      //const char * argv[]={"app", "--g-fatal-warnings"};
-      ////
-      ////#if !defined(__SANITIZE_ADDRESS__)
-      ////
-      ////      gtk_init_check(&psystem->m_argc, &psystem->m_argv);
-      ////
-      ////#endif
-
-            node_fork([this]()
-            {
-
-             // This seems not to work with "foreign" windows
-             // (X11 windows not created with Gdk)
-             //x11_add_filter();
-
-
-             auto pgtksettingsDefault = gtk_settings_get_default();
-
-             if(pgtksettingsDefault)
-             {
-
-
-                m_pGtkSettingsDefault = G_OBJECT(pgtksettingsDefault);
-
-                g_object_ref (m_pGtkSettingsDefault);
-
-                gchar *theme_name = nullptr;
-
-                g_object_get(m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
-
-                m_strTheme = theme_name;
-
-                g_free(theme_name);
-
-                auto preturn = g_signal_connect_data(
-                   m_pGtkSettingsDefault,
-                   "notify::gtk-theme-name",
-                   G_CALLBACK(gtk_settings_gtk_theme_name_callback),
-                   this,
-                   NULL,
-                   G_CONNECT_AFTER);
-
-                auto psystem = m_psystem->m_papexsystem;
-
-                auto psignal = psystem->get_signal(id_os_user_theme);
-
-                psignal->add_handler(this);
-
-                //g_object_ref(preturn);
-
-                //printf("return %" PRIiPTR, preturn);
-
-                //printf("return %" PRIiPTR, preturn);
-
-             }
-
-            x11_add_idle_source(this);
-
-            auto psystem = m_psystem->m_papexsystem;
-
-            psystem->post_initial_request();
-
-         });
-
-
-         //x11_add_filter();
+//      //   ::e_status estatus = psystem->begin_synch();
+//      //
+//      //   if(!estatus)
+//      //   {
+//      //
+//      //      return estatus;
+//      //
+//      //   }
+//      //
 //
-//         System.fork([this]()
-//         {
+////      const char *pszName = m_XstrAppId;
 //
-//            //m_pwindowing->windowing_main();
+////       g_set_application_name(pszName);
+//
+////      const char *pszPrgName = m_strProgName;
+//
+////      g_set_prgname(pszPrgName);
+//
+//      //auto idle_source = g_idle_source_new();
+//
+//      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) m_psystem, nullptr);
+//
+//      //g_source_attach(idle_source, g_main_context_default());
+//
+//      //int c = 2;
+//
+//      //const char * argv[]={"app", "--g-fatal-warnings"};
+//
+//#if !defined(__SANITIZE_ADDRESS__)
+//
+//      {
+//
+//         ///auto psystem = m_psystem;
+//
+//         //auto pnode = psystem->node();
+//
+//         //pnode->node_init_check(&m_argc, &m_argv);
+//         node_init_check(&m_psystem->m_argc, &m_psystem->m_argv);
+//
+//      }
+//
+//#endif
+//
+////      if (m_bUser)
+////      {
+////
+////         estatus = defer_initialize_x11();
+////
+////         if(!estatus)
+////         {
+////
+////            return estatus;
+////
+////         }
+////
+////      }
+//
+//
+////
+////      auto psystem = m_psystem;
+////
+////      auto pnode = psystem->node();
+////
+////      m_pcontext->branch(pnode);
+////
+////      return ::success;
+//
+//      auto psystem = m_psystem->m_papexsystem;
+//
+//      if (psystem->m_bGtkApp)
+//      {
+//
+//         //apex_application_run(psystem->m_strAppId, psystem->m_strProgName);
+//
+//      }
+//      else
+//      {
+//
+//         //g_set_application_name(System.m_XstrAppId);
+//
+//         //g_set_prgname(System.m_strProgName);
+//      ////
+//      ////      //auto idle_source = g_idle_source_new();
+//      ////
+//      ////      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) m_psystem, nullptr);
+//      ////
+//      ////      //g_source_attach(idle_source, g_main_context_default());
+//      ////
+//      ////      //int c = 2;
+//      ////
+//      ////      //const char * argv[]={"app", "--g-fatal-warnings"};
+//      ////
+//      ////#if !defined(__SANITIZE_ADDRESS__)
+//      ////
+//      ////      gtk_init_check(&psystem->m_argc, &psystem->m_argv);
+//      ////
+//      ////#endif
+//
+//            node_fork([this]()
+//            {
+//
+//             // This seems not to work with "foreign" windows
+//             // (X11 windows not created with Gdk)
+//             //x11_add_filter();
+//
+//
+//             auto pgtksettingsDefault = gtk_settings_get_default();
+//
+//             if(pgtksettingsDefault)
+//             {
+//
+//
+//                m_pGtkSettingsDefault = G_OBJECT(pgtksettingsDefault);
+//
+//                g_object_ref (m_pGtkSettingsDefault);
+//
+//                gchar *theme_name = nullptr;
+//
+//                g_object_get(m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
+//
+//                m_strTheme = theme_name;
+//
+//                g_free(theme_name);
+//
+//                auto preturn = g_signal_connect_data(
+//                   m_pGtkSettingsDefault,
+//                   "notify::gtk-theme-name",
+//                   G_CALLBACK(gtk_settings_gtk_theme_name_callback),
+//                   this,
+//                   NULL,
+//                   G_CONNECT_AFTER);
+//
+//                auto psystem = m_psystem->m_papexsystem;
+//
+//                auto psignal = psystem->get_signal(id_os_user_theme);
+//
+//                psignal->add_handler(this);
+//
+//                //g_object_ref(preturn);
+//
+//                //printf("return %" PRIiPTR, preturn);
+//
+//                //printf("return %" PRIiPTR, preturn);
+//
+//             }
+//
+//            x11_add_idle_source(this);
+//
+//            auto psystem = m_psystem->m_papexsystem;
+//
+//            psystem->post_initial_request();
 //
 //         });
-
-         //x11_add_idle_source(this);
-
-         //x11_add_idle_source(this);
-
-         gtk_main();
-
-         //x11_main();
-
-      }
-
-      return ::success;
-
-   }
-
+//
+//
+//         //x11_add_filter();
+////
+////         System.fork([this]()
+////         {
+////
+////            //m_pwindowing->windowing_main();
+////
+////         });
+//
+//         //x11_add_idle_source(this);
+//
+//         //x11_add_idle_source(this);
+//
+//         gtk_main();
+//
+//         //x11_main();
+//
+//      }
+//
+//      return ::success;
+//
+//   }
+//
 
    ::e_status node::start_node()
    {
@@ -360,7 +360,7 @@ namespace node_gnome
    void node::fetch_user_color()
    {
 
-      node_branch(__routine([this]()
+      node_post(__routine([this]()
       {
 
          ::aura::posix::node::fetch_user_color();
@@ -637,16 +637,6 @@ namespace node_gnome
    {
 
       return "";
-
-   }
-
-
-   ::e_status node::node_branch(const ::routine & routine)
-   {
-
-      gdk_branch(routine);
-
-      return ::success;
 
    }
 

@@ -102,7 +102,7 @@ namespace node_gnome
 
       g_source_attach(idle_source, g_main_context_default());
 
-      if(!pdata->m_event.wait(seconds(5)).succeeded())
+      if(!pdata->m_event.wait(5_s).succeeded())
       {
 
          return false;
@@ -129,14 +129,14 @@ namespace node_gnome
 
       auto pnode = psystem->node();
 
-      pnode->node_sync(5_s, [ppayload]()
+      pnode->node_send(__routine(5_s, [ppayload]()
       {
 
          GtkClipboard* clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
 
          ppayload->m_payload = gtk_clipboard_wait_is_text_available (clipboard);
 
-      });
+      }));
 
       return ppayload->m_payload.operator bool();
 
@@ -156,7 +156,7 @@ namespace node_gnome
 
       g_source_attach(idle_source, g_main_context_default());
 
-      if(!pdata->m_event.wait(seconds(5)).succeeded())
+      if(!pdata->m_event.wait(5_s).succeeded())
       {
 
          return false;
@@ -181,7 +181,7 @@ namespace node_gnome
 
       g_source_attach(idle_source, g_main_context_default());
 
-      if(!pdata->m_event.wait(seconds(5)).succeeded() || pdata->m_eclipboard == e_clipboard_error)
+      if(!pdata->m_event.wait(5_s).succeeded() || pdata->m_eclipboard == e_clipboard_error)
       {
 
          return false;
@@ -214,7 +214,7 @@ namespace node_gnome
 
       g_source_attach(idle_source, g_main_context_default());
 
-      if(!pdata->m_event.wait(seconds(5)).succeeded())
+      if(!pdata->m_event.wait(5_s).succeeded())
       {
 
          return false;
@@ -243,7 +243,7 @@ namespace node_gnome
 
       g_source_attach(idle_source, g_main_context_default());
 
-      if(!pdata->m_event.wait(seconds(5)).succeeded() || pdata->m_eclipboard == e_clipboard_error)
+      if(!pdata->m_event.wait(5_s).succeeded() || pdata->m_eclipboard == e_clipboard_error)
       {
 
          return false;
@@ -276,7 +276,7 @@ namespace node_gnome
 
       auto pnode = psystem->node();
 
-      pnode->node_sync(10_s, __routine([&]()
+      pnode->node_send(__routine(10_s, [&]()
       {
 
          GtkClipboard* clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);

@@ -18,11 +18,8 @@ namespace node_gnome
    public:
 
 
-      //gpointer m_pGtkSettingsDefault;
-
-
       node();
-      virtual ~node();
+      ~node() override;
 
 
       virtual ::os_theme_colors * _new_os_theme_colors(string strTheme);
@@ -41,8 +38,6 @@ namespace node_gnome
 
       virtual string _os_get_user_theme();
 
-      virtual ::e_status system_main() override;
-
       virtual bool os_set_user_theme(const string & strUserTheme) override;
 
       virtual void os_process_user_theme(string strTheme) override;
@@ -57,29 +52,9 @@ namespace node_gnome
 
       virtual string get_wallpaper(index iScreen) override;
 
-      using ::aura::node::node_fork;
-
       virtual bool windowing_message_loop_step();
 
-      virtual ::e_status node_branch(const ::routine & routine);
-
-      //virtual void node_post_quit() override;
-
-      //virtual void on_subject(::promise::subject * psubject, ::context * pcontext) override;
-
-      //virtual void _on_change_os_user_theme(string strTheme);
-
       virtual void _os_process_user_theme_color(string strTheme);
-
-      //virtual ::node_linux::appindicator * appindicator_allocate() override;
-
-      //virtual void appindicator_destroy(::linux::appindicator * pappindicator) override;
-
-      //virtual void enum_display_monitors(::aura::session * psession) override;
-
-      //virtual bool _os_calc_system_dark_mode() override;
-
-      //virtual void os_post_quit() override;
 
       bool should_launch_on_node(::subject * psubject) override;
 
@@ -88,6 +63,7 @@ namespace node_gnome
       int os_launch_uri(const ::string & strUri, char * pszError = nullptr, int iBufferSize = 0) override;
 
       void handle(::subject * psubject, ::context * pcontext) override;
+
 
    };
 

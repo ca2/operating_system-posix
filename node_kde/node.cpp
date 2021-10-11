@@ -210,7 +210,7 @@ namespace node_kde
 //         ////
 //         ////#endif
 //
-//         node_branch(__routine([this]()
+//         node_post(__routine([this]()
 //                   {
 //
 ////                      //x11_add_idle_source();
@@ -793,7 +793,7 @@ namespace node_kde
    }
 
 
-   ::e_status node::node_branch(const ::routine & routine)
+   ::e_status node::node_post(const ::routine & routine)
    {
 
       // invoke on the main thread

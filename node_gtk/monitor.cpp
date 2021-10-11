@@ -124,9 +124,9 @@ namespace node_gtk
 
       auto pwindowing = x11_windowing();
 
-      auto proutine = __routine([this]() { _get_monitor_rectangle(); });
+      auto proutine = __routine(5_minute, [this]() { _get_monitor_rectangle(); });
 
-      auto estatus = pwindowing->windowing_sync(5_min, proutine);
+      auto estatus = pwindowing->windowing_send(proutine);
 
       if(!estatus)
       {
@@ -152,7 +152,7 @@ namespace node_gtk
    ::e_status monitor::get_workspace_rectangle(::RECTANGLE_I32 *prectangle)
    {
 
-      auto estatus = x11_windowing()->windowing_sync(5_s, __routine([this]() { _get_workspace_rectangle(); }));
+      auto estatus = x11_windowing()->windowing_send(__routine(5_s, [this]() { _get_workspace_rectangle(); }));
 
       if(!estatus)
       {

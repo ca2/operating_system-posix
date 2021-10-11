@@ -80,7 +80,7 @@ namespace node_kde
 
       using ::aura::node::node_fork;
 
-      ::e_status node_branch(const ::routine & routine) override;
+      ::e_status node_post(const ::routine & routine) override;
 
       //void node_post_quit() override;
 

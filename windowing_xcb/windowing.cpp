@@ -177,7 +177,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status windowing::windowing_branch(const ::routine & routine)
+   ::e_status windowing::windowing_post(const ::routine & routine)
    {
 
       auto estatus = routine();

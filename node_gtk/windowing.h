@@ -20,7 +20,7 @@ namespace node_gtk
       ~windowing() override;
 
 
-      //virtual ::e_status windowing_branch(const ::routine & routine) override;
+      //virtual ::e_status windowing_post(const ::routine & routine) override;
 
 
       bool message_loop_step() override;
