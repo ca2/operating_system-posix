@@ -138,7 +138,7 @@ namespace node_xfce
 //
 //      XCloseDisplay(pdata->m_pdisplay);
 //
-//      ::display::s_pdataptra->remove_at(iFind);
+//      ::display::s_pdataptra->erase_at(iFind);
 //
 //      return true;
 //

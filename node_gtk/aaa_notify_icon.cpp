@@ -393,7 +393,7 @@ namespace node_gtk
 
    //         }
 
-   //         m_wndptraHidden.remove_at(0);
+   //         m_wndptraHidden.erase_at(0);
 
    //      }
 

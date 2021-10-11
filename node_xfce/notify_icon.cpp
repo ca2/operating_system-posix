@@ -452,7 +452,7 @@ namespace node_xfce
 
    //         }
 
-   //         m_wndptraHidden.remove_at(0);
+   //         m_wndptraHidden.erase_at(0);
 
    //      }
 

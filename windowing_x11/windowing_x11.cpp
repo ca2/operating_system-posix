@@ -241,7 +241,7 @@ i32 _c_XErrorHandler(Display * display, XErrorEvent * perrorevent);
 //
 //   delete ::oswindow_data::s_pdataptra->element_at(iFind);
 //
-//   ::oswindow_data::s_pdataptra->remove_at(iFind);
+//   ::oswindow_data::s_pdataptra->erase_at(iFind);
 //
 //   return true;
 //
@@ -264,7 +264,7 @@ i32 _c_XErrorHandler(Display * display, XErrorEvent * perrorevent);
 //
 //   delete ::oswindow_data::s_pdataptra->element_at(iFind);
 //
-//   ::oswindow_data::s_pdataptra->remove_at(iFind);
+//   ::oswindow_data::s_pdataptra->erase_at(iFind);
 //
 //   return true;
 //
