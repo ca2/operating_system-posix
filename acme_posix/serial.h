@@ -128,9 +128,9 @@ namespace serial
       getPort () const;
 
       void
-      setTimeout (timeout &timeout);
+      setTimeout (struct timeout &timeout);
 
-      timeout
+      struct timeout
       getTimeout () const;
 
       void
@@ -186,7 +186,7 @@ namespace serial
       bool               m_bXonXoff;
       bool               m_bRtsCts;
 
-      timeout            m_timeout;           // Timeout for read operations
+      struct timeout     m_timeout;           // Timeout for read operations
       unsigned long      m_ulBaudrate;    // Baudrate
       u32           m_uiByteTimeNs;     // Nanoseconds to transmit/receive a single byte
 
