@@ -64,20 +64,28 @@ void gtk_settings_gtk_theme_name_callback(GObject* object, GParamSpec* pspec, gp
 
    node_gtk::node * pnode = (node_gtk::node *) data;
 
-   if(pnode)
+   if(!pnode)
    {
 
-      gchar *theme_name = nullptr;
-
-      g_object_get(pnode->m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
-
-      pnode->m_strTheme = theme_name;
-
-      g_free(theme_name);
+      return;
 
    }
 
-   pnode->m_psystem->m_papexsystem->signal(id_os_user_theme);
+   gchar * theme_name = nullptr;
+
+   g_object_get(pnode->m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
+
+   string strTheme = theme_name;
+
+   g_free(theme_name);
+
+   pnode->os_process_user_theme(strTheme);
+
+   //}
+
+   //pnode->m_psystem->m_papexsystem->signal(id_os_user_theme);
+
+   //pnode->_on_user_theme_changed();
 
 }
 
@@ -386,7 +394,7 @@ namespace node_gtk
    ::e_status node::initialize(::object *pobject)
    {
 
-      //::node_gtk::g_defer_init();
+      ::node_gtk::g_defer_init();
 
       return ::success;
 
@@ -453,6 +461,14 @@ namespace node_gtk
       return m_strTheme;
 
    }
+
+
+//   string node::_on_user_theme_changed()
+//   {
+//
+//      m_psystem->m_papexsystem->signal(id_os_user_theme);
+//
+//   }
 
 
    bool node::os_set_user_theme(const ::string &strUserTheme)
@@ -1431,6 +1447,15 @@ namespace node_gtk
 
    void node::os_process_user_theme(string strTheme)
    {
+
+      if(strTheme == m_strTheme)
+      {
+
+         return;
+
+      }
+
+      m_strTheme = strTheme;
 
       _os_process_user_theme_color(strTheme);
 

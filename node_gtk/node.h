@@ -43,6 +43,8 @@ namespace node_gtk
 
       virtual ::e_status system_main() override;
 
+      //virtual void _on_user_theme_changed() override;
+
       virtual bool os_set_user_theme(const string & strUserTheme) override;
 
       virtual void os_process_user_theme(string strTheme) override;
@@ -86,7 +88,6 @@ namespace node_gtk
       virtual bool launch_on_node(::subject * psubject);
 
       virtual int os_launch_uri(const ::string & strUri, char * pszError = NULL, int iBufferSize = 0) override;
-
 
 
    };
