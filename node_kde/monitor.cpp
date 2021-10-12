@@ -132,7 +132,7 @@ namespace node_kde
    ::e_status monitor::get_monitor_rectangle(::RECTANGLE_I32 *prectangle)
    {
 
-      auto estatus = xcb_windowing()->windowing_sync(5_s, __routine([this]() { _get_monitor_rectangle(); }));
+      auto estatus = xcb_windowing()->windowing_send(__routine(5_s, [this]() { _get_monitor_rectangle(); }));
 
       if(!estatus)
       {
@@ -158,7 +158,7 @@ namespace node_kde
    ::e_status monitor::get_workspace_rectangle(::RECTANGLE_I32 *prectangle)
    {
 
-      auto estatus = xcb_windowing()->windowing_sync(5_s, __routine([this]() { _get_workspace_rectangle(); }));
+      auto estatus = xcb_windowing()->windowing_send(__routine(5_s, [this]() { _get_workspace_rectangle(); }));
 
       if(!estatus)
       {
