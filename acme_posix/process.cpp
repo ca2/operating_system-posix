@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include "node.h"
 
+
 // int create_process6(const ::string & _cmd_line, int * pprocessId);
 
 CLASS_DECL_ACME void dll_processes(u32_array & dwa, string_array & straProcesses, const ::string & pszDll)
@@ -419,9 +420,6 @@ i32 create_process4(const ::string & pszCommandLine, i32 * pprocessId)
       execv(argv[0], argv);
 
       int status = 0;
-
-      wait(&status);
-
       char ** pargv = argv;
 
       while(*pargv != nullptr)

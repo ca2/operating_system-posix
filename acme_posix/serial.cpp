@@ -5,7 +5,7 @@
 
 #include "framework.h"
 #include "acme/node/operating_system/posix/time.h"
-
+#undef _POSIX_C_SOURCE
  //#include <sstream>
 
 #if !defined(_WIN32)
@@ -469,7 +469,7 @@ serial_impl::reconfigurePort()
 
    // Update byte_time_ based on the new settings.
    u32 bit_time_ns = 1e9 / m_ulBaudrate;
-   m_uiByteTimeNs = bit_time_ns * (1 + m_ebytesize + m_eparity + m_estopbit);
+   m_uiByteTimeNs = bit_time_ns * (1 + (int)m_ebytesize + (int)m_eparity + (int)m_estopbit);
 
    // Compensate for the e_stop_bit_one_point_five enum being equal to int 3,
    // and not 1.5.
@@ -579,7 +579,7 @@ serial_impl::read(u8 * buf, size_t size)
 
    // Calculate total timeout in ::durations t_c + (t_m * N)
    auto total_timeout_ms = m_timeout.m_durationReadTimeoutConstant;
-   total_timeout_ms.m_i += m_timeout.m_uReadTimeoutMultiplier * static_cast<long> (size);
+   total_timeout_ms += m_timeout.m_uReadTimeoutMultiplier * INTEGRAL_MILLISECOND(size);
    auto millisStart = ::duration::now();
 
    // Pre-fill buffer with available bytes
@@ -593,12 +593,17 @@ serial_impl::read(u8 * buf, size_t size)
 
    while (bytes_read < size)
    {
+      
       auto millisRemaining = millisStart.remaining(total_timeout_ms);
-      if (millisRemaining <= 0)
+      
+      if (!millisRemaining)
       {
+         
          // Timed out
          break;
+         
       }
+      
       // Timeout for the next select is whichever is less of the remaining
       // total read timeout and the inter-byte timeout.
       auto timeout = minimum(millisRemaining, m_timeout.m_durationInterByteTimeout);
@@ -608,7 +613,7 @@ serial_impl::read(u8 * buf, size_t size)
          // If it's a fixed-length multi-byte read, insert a wait here so that
          // we can attempt to grab the whole thing in a single IO call. Skip
          // this wait if a non-maximum inter_byte_timeout is specified.
-         if (size > 1 && m_timeout.m_durationInterByteTimeout == timeout::maximum())
+         if (size > 1 && m_timeout.m_durationInterByteTimeout.is_infinite())
          {
             size_t bytes_available = available();
             if (bytes_available + bytes_read < size)
@@ -665,7 +670,7 @@ serial_impl::write(const u8 * data, size_t length)
 
    // Calculate total timeout in ::durations t_c + (t_m * N)
    auto total_timeout_ms = m_timeout.m_durationWriteTimeoutConstant;
-   total_timeout_ms += m_timeout.m_uWriteTimeoutMultiplier * static_cast<long> (length);
+   total_timeout_ms += m_timeout.m_uWriteTimeoutMultiplier * INTEGRAL_MILLISECOND (length);
    auto millisStart = ::duration::now();
 
    bool first_iteration = true;
@@ -677,7 +682,7 @@ serial_impl::write(const u8 * data, size_t length)
       // Only consider the timeout if it's not the first iteration of the loop
       // otherwise a timeout of 0 won't be allowed through
 
-      if (!first_iteration && (timeout_remaining_ms <= 0))
+      if (!first_iteration && !timeout_remaining_ms)
       {
          // Timed out
          break;
@@ -769,7 +774,7 @@ serial_impl::getPort() const
 }
 
 
-void serial_impl::setTimeout(timeout & timeout)
+void serial_impl::setTimeout(::serial::timeout & timeout)
 {
 
    m_timeout = timeout;
