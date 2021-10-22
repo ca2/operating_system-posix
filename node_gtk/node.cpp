@@ -852,18 +852,18 @@ namespace node_gtk
    bool node::launch_on_node(::subject * psubject)
    {
 
-      ::matter * pmatter = psubject;
+      ::element * pelement = psubject;
 
-      node_fork(__routine([pmatter]()
+      node_fork(__routine([pelement]()
       {
 
-         auto ret = g_timeout_add(300, (GSourceFunc) &node_gtk_source_func, pmatter);
+         auto ret = g_timeout_add(300, (GSourceFunc) &node_gtk_source_func, pelement);
 
          printf("ret %d", ret);
 
          printf("ret %d", ret);
 
-         g_idle_add(&node_gtk_source_func, pmatter);
+         g_idle_add(&node_gtk_source_func, pelement);
 
       }));
 
@@ -888,9 +888,9 @@ namespace node_gtk
 gboolean node_gtk_source_func(gpointer pUserdata)
 {
 
-   ::matter * pmatter = (::matter *) pUserdata;
+   ::element * pelement = (::element *) pUserdata;
 
-   if(!pmatter->step())
+   if(!pelement->step())
    {
 
       return false;
@@ -1540,7 +1540,7 @@ log_handler (const gchar   *log_domain,
 ::mutex * user_mutex();
 
 
-::e_status run_runnable(::matter * pobjectTask);
+::e_status run_runnable(::element * pobjectTask);
 
 
 #define GDK_BRANCH_USE_LIST 0
@@ -1640,12 +1640,12 @@ void gdk_branch(const ::routine & routine)
 gboolean gdk_callback_run_runnable(gpointer pdata)
 {
 
-   auto pmatter = (::matter *) pdata;
+   auto pelement = (::element *) pdata;
 
    try
    {
 
-      pmatter->run();
+      pelement->run();
 
    }
    catch(...)
@@ -1653,7 +1653,7 @@ gboolean gdk_callback_run_runnable(gpointer pdata)
 
    }
 
-   ::release(pmatter);
+   ::release(pelement);
 
    return FALSE;
 
@@ -1663,9 +1663,9 @@ gboolean gdk_callback_run_runnable(gpointer pdata)
 void gdk_branch(const ::routine & routine)
 {
 
-   ::matter * pmatter = routine.m_p;
+   ::element * pelement = routine.m_p;
 
-   ::increment_reference_count(pmatter);
+   ::increment_reference_count(pelement);
 
    synchronous_lock synchronouslock (user_mutex());
 
@@ -1673,7 +1673,7 @@ void gdk_branch(const ::routine & routine)
 
    g_source_set_priority(psource, G_PRIORITY_DEFAULT);
 
-   g_source_set_callback(psource, &gdk_callback_run_runnable, pmatter, nullptr);
+   g_source_set_callback(psource, &gdk_callback_run_runnable, pelement, nullptr);
 
    g_source_attach(psource, g_main_context_default());
 

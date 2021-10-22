@@ -537,7 +537,7 @@ namespace windowing_x11
 
       pwindowing->windowing_post(proutine);
 
-      if(proutine->sync_wait(5_s).failed())
+      if(proutine->wait(5_s).failed())
       {
 
          return nullptr;

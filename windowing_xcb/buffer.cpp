@@ -270,7 +270,7 @@ namespace windowing_xcb
 
       }
 
-      string strType = m_pimpl->m_puserinteraction->type_name();
+      string strType = __type_name(m_pimpl->m_puserinteraction);
 
       bool bComboList = strType.contains_ci("combo_list");
 
