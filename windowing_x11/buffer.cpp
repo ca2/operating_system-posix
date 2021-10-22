@@ -267,7 +267,7 @@ namespace windowing_x11
 
       }
 
-      string strType = m_pimpl->m_puserinteraction->type_c_str();
+      string strType = m_pimpl->m_puserinteraction->type_name();
 
       bool bComboList = strType.contains_ci("combo_list");
 
