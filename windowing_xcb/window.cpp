@@ -394,7 +394,7 @@ namespace windowing_xcb
 
          pimpl->m_puserinteraction->m_ewindowflag |= e_window_flag_window_created;
 
-         pimpl->m_puserinteraction->set(e_matter_task_started);
+         pimpl->m_puserinteraction->set(e_element_task_started);
 
       }
 
