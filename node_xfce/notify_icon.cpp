@@ -81,7 +81,7 @@ namespace node_xfce
 
       }
 
-      m_strId.Format("notify_icon_%d", uId);
+      m_strId.format("notify_icon_%d", uId);
 
       m_strId = "ca2-" + picon->get_tray_icon_name() + "-" + m_strId;
 

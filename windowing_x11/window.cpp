@@ -219,7 +219,7 @@ namespace windowing_x11
 
       //attr.override_redirect = True;
 
-      INFORMATION("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
+      FORMATTED_INFORMATION("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
 
       ::Window window = XCreateWindow(display, DefaultRootWindow(display),
                                       x, y,
@@ -2283,7 +2283,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
 #ifdef SET_WINDOW_POS_LOG
 
-            INFORMATION("XMoveResizeWindow (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
+            FORMATTED_INFORMATION("XMoveResizeWindow (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
 
 #endif
 
@@ -2296,7 +2296,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
 #ifdef SET_WINDOW_POS_LOG
 
-               INFORMATION("Changing parameters... (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
+               FORMATTED_INFORMATION("Changing parameters... (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
 
 #endif
 
@@ -3536,7 +3536,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
    void window::update_screen()
    {
 
-      m_pwindowing->windowing_post(__routine([this]()
+      window_post(__routine([this]()
                                         {
 
                                            auto pimpl = m_pimpl;
@@ -3548,6 +3548,15 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
                                               if (::is_set(puserinteraction))
                                               {
+
+                                                 string strType = __type_name(puserinteraction);
+
+                                                 if(strType.contains("menu"))
+                                                 {
+
+                                                   output_debug_string("menu");
+
+                                                 }
 
                                                  auto pimpl2 = puserinteraction->m_pimpl2;
 

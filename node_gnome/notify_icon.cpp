@@ -34,7 +34,7 @@ namespace node_gnome
 
       }
 
-      m_strId.Format("notify_icon_%s", id.to_string().c_str());
+      m_strId.format("notify_icon_%s", id.to_string().c_str());
 
       m_strId = "ca2-" + picon->get_tray_icon_name() + "-" + m_strId;
 

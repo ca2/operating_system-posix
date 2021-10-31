@@ -5396,7 +5396,7 @@ namespace draw2d_xlib
       }
 
 
-      //strFont.Format("-*-helvetica-*-rectangle_i32-*-*-%d-*-*-*-*-*-iso10646-1", iPoint);
+      //strFont.format("-*-helvetica-*-rectangle_i32-*-*-%d-*-*-*-*-*-iso10646-1", iPoint);
 
       char ** szMissing;
       int i;
@@ -5414,7 +5414,7 @@ namespace draw2d_xlib
 
       fprintf (stderr, "unable to load font %s: using fixed\n", strFont.c_str());
 
-//      strFont.Format("-*-sans-*-rectangle_i32-*-*-%d-*-*-*-*-*-iso10646-1", iPoint);
+//      strFont.format("-*-sans-*-rectangle_i32-*-*-%d-*-*-*-*-*-iso10646-1", iPoint);
       pfont->m_pft = XftFontOpen (m_pdc->m_pdisplay, m_pdc->m_iScreen,
                                   XFT_FAMILY, XftTypeString, "sans",
                                   pfont->m_eunitFontSize == ::draw2d::unit_point ? XFT_SIZE : XFT_PIXEL_SIZE, XftTypeDouble, pfont->m_dFontSize,
@@ -5427,7 +5427,7 @@ namespace draw2d_xlib
 
       fprintf (stderr, "unable to load font %s: using fixed\n", strFont.c_str());
 
-      //    strFont.Format("-*-fixed-*-rectangle_i32-*-*-%d-*-*-*-*-*-iso10646-1", iPoint);
+      //    strFont.format("-*-fixed-*-rectangle_i32-*-*-%d-*-*-*-*-*-iso10646-1", iPoint);
 
       pfont->m_pft = XftFontOpen (m_pdc->m_pdisplay, m_pdc->m_iScreen,
                                   XFT_FAMILY, XftTypeString, "sans",

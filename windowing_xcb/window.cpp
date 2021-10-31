@@ -140,7 +140,7 @@ namespace windowing_xcb
 
       auto & colormap = paramscw.colormap = pdisplayxcb->m_colormap;
 
-      INFORMATION("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
+      FORMATTED_INFORMATION("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
 
       xcb_window_t window = xcb_generate_id(pdisplayxcb->m_pconnection);
 
