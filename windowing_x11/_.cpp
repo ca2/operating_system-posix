@@ -1,4 +1,4 @@
-#include "framework.h"
+﻿#include "framework.h"
 //#include "platform/common_atoms.cpp"
 //#include <gtk/gtk.h>
 

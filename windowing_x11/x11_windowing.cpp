@@ -1,4 +1,4 @@
-#include "framework.h"
+﻿#include "framework.h"
 #include "windowing_x11.h"
 #include <fcntl.h> // library for fcntl function
 #include <sys/stat.h>

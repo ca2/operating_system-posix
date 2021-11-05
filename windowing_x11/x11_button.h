@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 
 //!!!#include <X11/Xft/Xft.h>

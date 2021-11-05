@@ -1,4 +1,4 @@
- /**
+﻿ /**
  *
  * \file CColor.cpp
  * \brief This file contains the CColor class implementation.
