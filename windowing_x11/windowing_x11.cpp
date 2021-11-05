@@ -1,4 +1,4 @@
-//
+﻿//
 // Created by camilo on 16/02/2021.
 //
 #include "platform-posix/windowing_x11/framework.h"

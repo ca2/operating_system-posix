@@ -1,4 +1,4 @@
-#include "framework.h"
+﻿#include "framework.h"
 #include "_node_kde.h"
 #include "monitor.h"
 //#include "display.h"

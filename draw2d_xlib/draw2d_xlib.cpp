@@ -1,4 +1,4 @@
-#include "framework.h"
+﻿#include "framework.h"
 
 
 static ::mutex * s_pmutexDraw2dXlib = nullptr;
