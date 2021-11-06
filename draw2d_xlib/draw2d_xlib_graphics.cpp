@@ -1,4 +1,4 @@
-﻿#include "framework.h"
+#include "framework.h"
 //!!!#include <X11/Xft/Xft.h>
 #include <math.h>
 

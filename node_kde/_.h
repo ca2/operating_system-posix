@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 
 #include "windowing_xcb/_.h"

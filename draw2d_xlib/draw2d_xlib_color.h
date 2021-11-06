@@ -1,4 +1,4 @@
-﻿/**
+/**
  *
  * \file CColor.h
  * \brief This file contains the CColor class declaration.

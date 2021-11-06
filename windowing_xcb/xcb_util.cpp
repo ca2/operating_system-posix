@@ -1,4 +1,4 @@
-﻿
+
 /* Copyright (c) 2013 John Vogel, see README for licence details */
 /* xutil.c -- x utility functions. */
 #include <stdio.h>

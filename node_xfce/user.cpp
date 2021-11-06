@@ -1,4 +1,4 @@
-﻿#include "framework.h"
+#include "framework.h"
 #include "xfce_xfce.h"
 //#include "apex/os/linux/appindicator.h"
 

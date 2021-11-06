@@ -1,4 +1,4 @@
-﻿#include "framework.h"
+#include "framework.h"
 #include <fcntl.h> // library for fcntl function
 #include <sys/stat.h>
 

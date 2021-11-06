@@ -1,4 +1,4 @@
-﻿#include "framework.h"
+#include "framework.h"
 #include "_.h"
 #include "aura/os/linux/_linux.h"
 //#include "apex/os/linux/xfce_xfce.h"

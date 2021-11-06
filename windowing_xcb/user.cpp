@@ -1,4 +1,4 @@
-﻿#include "framework.h"
+#include "framework.h"
 #include <X11/XKBlib.h>
 #define XK_MISCELLANY
 #define XK_XKB_KEYS

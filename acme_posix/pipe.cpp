@@ -1,4 +1,4 @@
-﻿#include "framework.h"
+#include "framework.h"
 #include "pipe.h"
 #include <stdlib.h>
 

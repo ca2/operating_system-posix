@@ -1,4 +1,4 @@
-﻿#ifndef BASE_DRAW2D_XLIB_h
+#ifndef BASE_DRAW2D_XLIB_h
 #define BASE_DRAW2D_XLIB_h
 
 

@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 
 #include "node_gtk/_.h"

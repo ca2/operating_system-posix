@@ -1,4 +1,4 @@
-﻿//
+//
 // Created by camilo on 15/02/2021 <3ThomasBS_!!.
 //
 #include "framework.h"
