@@ -18,6 +18,12 @@ namespace posix
       ~acme_file() noexcept override ;
 
 
+
+      ::e_status ensure_exists(const char* path) override;
+      ::e_status touch(const char* path) override;
+      ::e_status clear_read_only(const char* path) override;
+
+
       memory as_memory(const char * path, strsize iReadAtMostByteCount = -1) override;
       memsize as_memory(const char * path, void * p, memsize s) override;
       string as_string(const char * path, strsize iReadAtMostByteCount = -1) override;

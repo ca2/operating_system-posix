@@ -37,6 +37,85 @@ namespace posix
    }
 
 
+   ::e_status acme_file::ensure_exists(const char* path)
+   {
+
+      ::e_status estatus = ::success;
+
+
+      int fd = ::open(path,
+                      O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK,
+                      0666);
+      if (fd<0) // Couldn't open that path.
+      {
+         estatus = error_io;
+      }
+
+      if(estatus)
+      {
+
+         ::close(fd);
+
+
+      }
+
+
+
+      return estatus;
+
+
+   }
+
+
+   ::e_status acme_file::touch(const char* path)
+   {
+
+      ::e_status estatus = ::success;
+
+
+      int fd = ::open(path,
+                    O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK,
+                    0666);
+      if (fd<0) // Couldn't open that path.
+      {
+         estatus = error_io;
+      }
+
+      if(estatus)
+      {
+         int rc = ::utimensat(AT_FDCWD,
+                            path,
+                            nullptr,
+                            0);
+         if (rc)
+         {
+            estatus = error_failed;
+         }
+
+         ::close(fd);
+
+
+      }
+
+
+
+      return estatus;
+
+
+   }
+
+
+   ::e_status acme_file::clear_read_only(const char* path)
+   {
+
+
+      return error_interface_only;
+
+
+   }
+
+
+
    string acme_file::get_temporary_file_name(const char * lpszName, const char * pszExtension)
    {
 
