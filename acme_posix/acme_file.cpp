@@ -7,6 +7,7 @@
 //Copy file using mmap()
 #include <sys/mman.h>
 #include <unistd.h>
+#include <sys/time.h>
 
 
 #include <fcntl.h>
@@ -17,7 +18,11 @@
 //#include <fcntl.h>
 //#include <sys/stat.h>
 
-
+#ifdef MACOS
+#define IS_UTIMENSAT_AVAILABLE __builtin_available(macOS 10.13, *)
+#else
+#define IS_UTIMENSAT_AVAILABLE (TRUE)
+#endif
 
 namespace posix
 {
@@ -39,30 +44,32 @@ namespace posix
 
    ::e_status acme_file::ensure_exists(const char* path)
    {
+      
+      if(exists(path))
+      {
+         
+         return ::success;
+         
+      }
 
       ::e_status estatus = ::success;
 
-
-      int fd = ::open(path,
-                      O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK,
-                      0666);
-      if (fd<0) // Couldn't open that path.
+      int fd = ::open(path, O_WRONLY | O_CREAT, 0666);
+      
+      if (fd < 0)
       {
+         
          estatus = error_io;
+         
       }
-
-      if(estatus)
+      else
       {
 
          ::close(fd);
 
-
       }
 
-
-
       return estatus;
-
 
    }
 
@@ -72,29 +79,46 @@ namespace posix
 
       ::e_status estatus = ::success;
 
-
-      int fd = ::open(path,
-                    O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK,
-                    0666);
-      if (fd<0) // Couldn't open that path.
+      if(IS_UTIMENSAT_AVAILABLE)
       {
-         estatus = error_io;
-      }
-
-      if(estatus)
-      {
-         int rc = ::utimensat(AT_FDCWD,
-                            path,
-                            nullptr,
-                            0);
-         if (rc)
+         
+         int fd = ::open(path, O_WRONLY|O_CREAT, 0666);
+         
+         if (fd < 0)
          {
-            estatus = error_failed;
+            
+            estatus = error_io;
+            
+         }
+         else
+         {
+
+            int rc = ::futimens(fd, nullptr);
+            
+            if (rc)
+            {
+            
+               estatus = error_failed;
+
+            }
+            
+            ::close(fd);
+            
          }
 
-         ::close(fd);
+      }
+      else
+      {
+         
+         int rc = utimes(path, nullptr);
+         
+         if (rc)
+         {
+         
+            estatus = error_failed;
 
-
+         }
+         
       }
 
 

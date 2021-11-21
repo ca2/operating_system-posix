@@ -920,7 +920,7 @@ serial_impl::setBreak(bool level)
       if (-1 == ioctl(m_iFd, TIOCCBRK))
       {
          string ss;
-         ss.Format("setBreak failed on a call to ioctl(TIOCCBRK): %d %s", errno, strerror(errno));
+         ss.format("setBreak failed on a call to ioctl(TIOCCBRK): %d %s", errno, strerror(errno));
          throw serial_exception(ss);
       }
    }
