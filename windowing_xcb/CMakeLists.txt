@@ -74,7 +74,7 @@ if (MSVC)
    target_link_options(windowing_xcb PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
    target_link_options(windowing_xcb PRIVATE "/SUBSYSTEM:WINDOWS")
    target_link_libraries(windowing_xcb PRIVATE ${library_references})
-elseif (LINUX)
+elseif(LINUX OR FREEBSD)
    #pkg_check_modules
 
    # apt install libxcb-xinput-dev libxcb-image0-dev libxkbcommon-x11-dev

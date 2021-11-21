@@ -62,7 +62,7 @@ if (MSVC)
    target_link_libraries(node_gnome PRIVATE ${library_references})
 
 
-elseif (LINUX)
+elseif(LINUX OR FREEBSD)
 
 
    pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 appindicator3-0.1)

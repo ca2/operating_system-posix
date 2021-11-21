@@ -68,7 +68,7 @@ if (MSVC)
    target_link_libraries(aura_posix PRIVATE ${library_references})
 
 
-elseif (LINUX)
+elseif(LINUX OR FREEBSD)
 
 
 if(WITH_XCB)
