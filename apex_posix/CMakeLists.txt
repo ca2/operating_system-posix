@@ -5,7 +5,7 @@ project(apex_posix CXX)
 list(APPEND library_source
    _.h
    _.cpp
-   factory_exchange.cpp
+   _factory.cpp
    file_context.cpp
    file_context.h
    framework.cpp

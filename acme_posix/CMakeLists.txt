@@ -14,7 +14,7 @@ list(APPEND library_source
    acme_file.h
    acme_path.cpp
    acme_path.h
-   factory_exchange.cpp
+   _factory.cpp
    file_memory_map.cpp
    file_memory_map.h
    framework.cpp

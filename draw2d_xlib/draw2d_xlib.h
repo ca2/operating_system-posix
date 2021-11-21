@@ -22,7 +22,7 @@ class window;
 void init_xlib_mutex(::object * pobject);
 
 
-#include "draw2d_xlib_factory_exchange.h"
+#include "([a-z0-9_]+)_factory.h"
 #include "draw2d_xlib_keep.h"
 
 

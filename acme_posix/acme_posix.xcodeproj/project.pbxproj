@@ -18,7 +18,7 @@
 		9A0C16CF264A2C6D00B5CC33 /* serial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16BE264A2C6C00B5CC33 /* serial.cpp */; };
 		9A0C16D0264A2C6D00B5CC33 /* file_memory_map.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16BF264A2C6C00B5CC33 /* file_memory_map.h */; };
 		9A0C16D1264A2C6D00B5CC33 /* pipe.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C0264A2C6C00B5CC33 /* pipe.h */; };
-		9A0C16D2264A2C6D00B5CC33 /* factory_exchange.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16C1264A2C6C00B5CC33 /* factory_exchange.cpp */; };
+		9A0C16D2264A2C6D00B5CC33 /* _factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16C1264A2C6C00B5CC33 /* _factory.cpp */; };
 		9A0C16D3264A2C6D00B5CC33 /* framework.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C2264A2C6C00B5CC33 /* framework.h */; };
 		9A0C16D4264A2C6D00B5CC33 /* _acme_posix.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C3264A2C6C00B5CC33 /* _acme_posix.h */; };
 		9A0C16D5264A2C6D00B5CC33 /* _.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C4264A2C6C00B5CC33 /* _.h */; };
@@ -69,7 +69,7 @@
 		9A0C16BE264A2C6C00B5CC33 /* serial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = serial.cpp; sourceTree = "<group>"; };
 		9A0C16BF264A2C6C00B5CC33 /* file_memory_map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file_memory_map.h; sourceTree = "<group>"; };
 		9A0C16C0264A2C6C00B5CC33 /* pipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pipe.h; sourceTree = "<group>"; };
-		9A0C16C1264A2C6C00B5CC33 /* factory_exchange.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = factory_exchange.cpp; sourceTree = "<group>"; };
+		9A0C16C1264A2C6C00B5CC33 /* _factory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = _factory.cpp; sourceTree = "<group>"; };
 		9A0C16C2264A2C6C00B5CC33 /* framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = framework.h; sourceTree = "<group>"; };
 		9A0C16C3264A2C6C00B5CC33 /* _acme_posix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _acme_posix.h; sourceTree = "<group>"; };
 		9A0C16C4264A2C6C00B5CC33 /* _.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _.h; sourceTree = "<group>"; };
@@ -126,7 +126,7 @@
 				9A0C16C4264A2C6C00B5CC33 /* _.h */,
 				9A0C16C3264A2C6C00B5CC33 /* _acme_posix.h */,
 				9A0C16B0264A2C6C00B5CC33 /* _process.cpp */,
-				9A0C16C1264A2C6C00B5CC33 /* factory_exchange.cpp */,
+				9A0C16C1264A2C6C00B5CC33 /* _factory.cpp */,
 				9A0C16B2264A2C6C00B5CC33 /* file_memory_map.cpp */,
 				9A0C16BF264A2C6C00B5CC33 /* file_memory_map.h */,
 				9A0C16B3264A2C6C00B5CC33 /* framework.cpp */,
@@ -264,7 +264,7 @@
 				9A741469266BC34E00552531 /* process.cpp in Sources */,
 				9A892E8226CDDAA9008D6412 /* acme_dir.cpp in Sources */,
 				9A0C16CF264A2C6D00B5CC33 /* serial.cpp in Sources */,
-				9A0C16D2264A2C6D00B5CC33 /* factory_exchange.cpp in Sources */,
+				9A0C16D2264A2C6D00B5CC33 /* _factory.cpp in Sources */,
 				9A0C16C5264A2C6D00B5CC33 /* pipe.cpp in Sources */,
 				9A0C16C6264A2C6D00B5CC33 /* _process.cpp in Sources */,
 				9A892E8126CDDAA9008D6412 /* acme_file.cpp in Sources */,

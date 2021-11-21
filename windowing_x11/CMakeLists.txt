@@ -19,7 +19,7 @@ list(APPEND library_source
    display.h
    display_xrender.cpp
    enum_display_monitors.cpp
-   factory_exchange.cpp
+   _factory.cpp
    factory_exchange.h
    framework.cpp
    framework.h

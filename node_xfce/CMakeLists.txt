@@ -16,7 +16,7 @@ list(APPEND library_source
    display.cpp
    display.h
    enum_display_monitors.cpp
-   factory_exchange.cpp
+   _factory.cpp
    framework.cpp
    framework.h
    gdk.cpp

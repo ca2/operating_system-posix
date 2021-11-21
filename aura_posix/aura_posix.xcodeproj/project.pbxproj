@@ -25,7 +25,7 @@
 		9AC2D03C2653DB5C00CC8096 /* _.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D01B2653DB5B00CC8096 /* _.cpp */; };
 		9AC2D03D2653DB5C00CC8096 /* appindicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D01C2653DB5B00CC8096 /* appindicator.cpp */; };
 		9AC2D03E2653DB5C00CC8096 /* user.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D01D2653DB5B00CC8096 /* user.h */; };
-		9AC2D03F2653DB5C00CC8096 /* factory_exchange.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D01E2653DB5B00CC8096 /* factory_exchange.cpp */; };
+		9AC2D03F2653DB5C00CC8096 /* _factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D01E2653DB5B00CC8096 /* _factory.cpp */; };
 		9AC2D0402653DB5C00CC8096 /* gnu_source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D0202653DB5B00CC8096 /* gnu_source.cpp */; };
 		9AC2D0412653DB5C00CC8096 /* framework.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D0242653DB5B00CC8096 /* framework.h */; };
 		9AC2D0432653DB5C00CC8096 /* appindicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D0262653DB5B00CC8096 /* appindicator.h */; };
@@ -119,7 +119,7 @@
 		9AC2D01B2653DB5B00CC8096 /* _.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = _.cpp; sourceTree = "<group>"; };
 		9AC2D01C2653DB5B00CC8096 /* appindicator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = appindicator.cpp; sourceTree = "<group>"; };
 		9AC2D01D2653DB5B00CC8096 /* user.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = user.h; sourceTree = "<group>"; };
-		9AC2D01E2653DB5B00CC8096 /* factory_exchange.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = factory_exchange.cpp; sourceTree = "<group>"; };
+		9AC2D01E2653DB5B00CC8096 /* _factory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = _factory.cpp; sourceTree = "<group>"; };
 		9AC2D0202653DB5B00CC8096 /* gnu_source.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gnu_source.cpp; sourceTree = "<group>"; };
 		9AC2D0242653DB5B00CC8096 /* framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = framework.h; sourceTree = "<group>"; };
 		9AC2D0262653DB5B00CC8096 /* appindicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = appindicator.h; sourceTree = "<group>"; };
@@ -202,7 +202,7 @@
 				9AC2D01C2653DB5B00CC8096 /* appindicator.cpp */,
 				9AC2D0262653DB5B00CC8096 /* appindicator.h */,
 				9AC2D0142653DB5B00CC8096 /* clipboard_data.h */,
-				9AC2D01E2653DB5B00CC8096 /* factory_exchange.cpp */,
+				9AC2D01E2653DB5B00CC8096 /* _factory.cpp */,
 				9AC2D0172653DB5B00CC8096 /* factory_exchange.h */,
 				9AC2D0152653DB5B00CC8096 /* framework.cpp */,
 				9AC2D0242653DB5B00CC8096 /* framework.h */,
@@ -419,7 +419,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AC2D03F2653DB5C00CC8096 /* factory_exchange.cpp in Sources */,
+				9AC2D03F2653DB5C00CC8096 /* _factory.cpp in Sources */,
 				9AC2D0402653DB5C00CC8096 /* gnu_source.cpp in Sources */,
 				9AC2D0462653DB5C00CC8096 /* shell.cpp in Sources */,
 				9AC2D03A2653DB5C00CC8096 /* node.cpp in Sources */,
