@@ -92,7 +92,7 @@ namespace posix
    ::file::path acme_dir::module()
    {
 
-      ::file::path pathModule (m_pacmefile->executable());
+      ::file::path pathModule (m_pacmefile->module());
 
       return pathModule.folder();
 
