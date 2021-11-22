@@ -38,7 +38,7 @@ namespace posix
       bool exists(const char * path) override;
 
 
-      ::file::path executable() override;
+      ::file::path module() override;
 
       ::e_status put_contents(const char * path, const char * contents, strsize len) override;
       //bool get_temporary_file_name_template(char * szRet, strsize iBufferSize, const char * lpszName, const char * pszExtension, const char * pszTemplate) override;
