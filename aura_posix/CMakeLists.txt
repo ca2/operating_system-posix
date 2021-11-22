@@ -10,7 +10,7 @@ list(APPEND library_source
    appindicator.cpp
    appindicator.h
    _factory.cpp
-   factory_exchange.h
+
    framework.cpp
    framework.h
    node.cpp
