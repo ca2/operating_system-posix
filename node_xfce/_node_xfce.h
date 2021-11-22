@@ -7,7 +7,7 @@
 #include "node_gtk/_node_gtk.h"
 #include "acme/node/operating_system/ansi/_pthread.h"
 #include "aura/user/_user.h"
-#include "aura/os/linux/appindicator.h"
+#include "aura/os/freebsd/appindicator.h"
 
 
 #include "monitor.h"

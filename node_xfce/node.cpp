@@ -669,10 +669,10 @@ namespace node_xfce
 //   }
 //
 //
-//   void node::appindicator_destroy(::linux::appindicator * pappindicator)
+//   void node::appindicator_destroy(::freebsd::appindicator * pappindicator)
 //   {
 //
-//      //::linux::appindicator_destroy(pappindicator);
+//      //::freebsd::appindicator_destroy(pappindicator);
 //
 //      delete pappindicator;
 //

@@ -537,7 +537,7 @@ namespace windowing_xcb
 
       ::file::path path = pnode->get_desktop_file_path(papplication);
 
-      output_debug_string("\nlinux::interaction_impl::set_window_text");
+      output_debug_string("\nfreebsd::interaction_impl::set_window_text");
 
       fflush(stdout);
 
@@ -547,7 +547,7 @@ namespace windowing_xcb
 
       auto estatus = _replace_string_property(net_wm_icon, path);
 
-      output_debug_string("\nlinux::interaction_impl::bamf_set_icon END");
+      output_debug_string("\nfreebsd::interaction_impl::bamf_set_icon END");
 
       fflush(stdout);
 
@@ -1404,7 +1404,7 @@ namespace windowing_xcb
 
       auto estatus = _replace_string_property(net_wm_icon, path);
 
-      output_debug_string("\nlinux::interaction_impl::bamf_set_icon END");
+      output_debug_string("\nfreebsd::interaction_impl::bamf_set_icon END");
 
       fflush(stdout);
 
@@ -1766,7 +1766,7 @@ namespace windowing_xcb
 
       auto estatus = _replace_string_property(net_wm_icon, path);
 
-      output_debug_string("\nlinux::interaction_impl::bamf_set_icon END");
+      output_debug_string("\nfreebsd::interaction_impl::bamf_set_icon END");
 
       fflush(stdout);
 
@@ -2804,7 +2804,7 @@ namespace windowing_xcb
       if(!preply)
       {
 
-         INFORMATION("linux::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.");
+         INFORMATION("freebsd::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.");
 
          return error_failed;
 
@@ -2827,7 +2827,7 @@ namespace windowing_xcb
       if(!preply)
       {
 
-         INFORMATION("linux::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.");
+         INFORMATION("freebsd::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.");
 
          return error_failed;
 

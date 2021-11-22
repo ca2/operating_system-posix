@@ -179,7 +179,7 @@ namespace windowing_x11
 //
 //    return true;
 //
-//      strFile = Context.dir().matter("keyboard/linux/default.xml");
+//      strFile = Context.dir().matter("keyboard/freebsd/default.xml");
 //
 //#elif defined(__APPLE__)
 //

@@ -2,9 +2,9 @@
 
 
 #include "aura/_.h"
-#include "aura/node/operating_system/linux/appindicator.h"
+#include "aura/node/operating_system/freebsd/appindicator.h"
 #include "acme/node/operating_system/ansi/_pthread.h"
-#include "acme/node/operating_system/linux/_user.h"
+#include "acme/node/operating_system/freebsd/_user.h"
 #include "archive/platform-posix/aura_posix/x_window_system.h"
 #include "aura_posix/_.h"
 

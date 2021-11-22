@@ -27,7 +27,7 @@
 
 #if defined(__linux__)
 #include <unistd.h>
-# include <linux/serial.h>
+# include <freebsd/serial.h>
 #endif
 
 #include <sys/select.h>

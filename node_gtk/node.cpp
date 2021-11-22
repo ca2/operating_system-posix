@@ -200,7 +200,7 @@ namespace node_gtk
 
       }
 
-      // To pair linux.h/main platform_create_system new system
+      // To pair freebsd.h/main platform_create_system new system
       // This should be safe here in this node_gtk::node
       // because just above m_psystem has begin_synch()
       // so the running thread is holding references to the m_psystem thread.
@@ -728,10 +728,10 @@ namespace node_gtk
 //   }
 //
 //
-//   void node::appindicator_destroy(::linux::appindicator * pappindicator)
+//   void node::appindicator_destroy(::freebsd::appindicator * pappindicator)
 //   {
 //
-//      //::linux::appindicator_destroy(pappindicator);
+//      //::freebsd::appindicator_destroy(pappindicator);
 //
 //      delete pappindicator;
 //

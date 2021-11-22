@@ -8,7 +8,7 @@
 
 //#ifdef LINUX
 #include "apex/user/notify_icon_bridge.h"
-//namespace linux { class appindicator; }
+//namespace freebsd { class appindicator; }
 //#endif
 
 

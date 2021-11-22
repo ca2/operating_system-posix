@@ -6,9 +6,9 @@
 
 #include "aura_posix/_aura_posix.h"
 #include "aura/user/_user.h"
-#include "aura/node/operating_system/linux/appindicator.h"
+#include "aura/node/operating_system/freebsd/appindicator.h"
 #include "acme/node/operating_system/ansi/_pthread.h"
-#include "acme/node/operating_system/linux/_user.h"
+#include "acme/node/operating_system/freebsd/_user.h"
 
 
 #define WITH_XI

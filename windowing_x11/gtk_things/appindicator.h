@@ -9,7 +9,7 @@
 //
 //
 //   class appindicator :
-//      virtual public ::linux::appindicator
+//      virtual public ::freebsd::appindicator
 //   {
 //   public:
 //

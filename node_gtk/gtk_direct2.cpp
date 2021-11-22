@@ -11,7 +11,7 @@
 //#include "aura/const/_const.h"
 #include "acme/constant/id.h"
 #include "platform/_.h"
-#include "aura/os/linux/appindicator.h"
+#include "aura/os/freebsd/appindicator.h"
 
 
 // apt-get install libgtk2.0-dev
@@ -110,7 +110,7 @@ GtkWidget * linux_g_direct_app_indicator_init(AppIndicator * pindicator, user_no
 
 
 //class gnome_appindicator :
-//   virtual public ::linux::appindicator
+//   virtual public ::freebsd::appindicator
 //{
 //public:
 //
@@ -171,7 +171,7 @@ GtkWidget * linux_g_direct_app_indicator_init(AppIndicator * pindicator, user_no
 //
 //}
 
-//namespace linux
+//namespace freebsd
 //{
 //
 //
@@ -186,7 +186,7 @@ GtkWidget * linux_g_direct_app_indicator_init(AppIndicator * pindicator, user_no
 //   }
 //
 //
-//} // namespace linux
+//} // namespace freebsd
 
 //
 //bool gnome_appindicator::create(const char * pszId, const char * pszIcon, const char * pszFolder, user_notify_icon_bridge * pbridge)

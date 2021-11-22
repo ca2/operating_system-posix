@@ -55,9 +55,9 @@ namespace node_gnome
 
       virtual void node_post_quit() override;
 
-      virtual ::linux::appindicator * appindicator_allocate() override;
+      virtual ::freebsd::appindicator * appindicator_allocate() override;
 
-      virtual void appindicator_destroy(::linux::appindicator * pappindicator) override;
+      virtual void appindicator_destroy(::freebsd::appindicator * pappindicator) override;
 
       //virtual void enum_display_monitors(::aura::session * psession) override;
 

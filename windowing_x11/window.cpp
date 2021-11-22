@@ -376,7 +376,7 @@ namespace windowing_x11
       if (!XGetWindowAttributes(Display(), Window(), &m_px11data->m_attr))
       {
 
-         INFORMATION("linux::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.");
+         INFORMATION("freebsd::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.");
 
       }
 
@@ -901,7 +901,7 @@ namespace windowing_x11
 
       ::file::path path = pnode->get_desktop_file_path(papplication);
 
-      output_debug_string("\nlinux::interaction_impl::set_window_text");
+      output_debug_string("\nfreebsd::interaction_impl::set_window_text");
 
       fflush(stdout);
 
@@ -923,7 +923,7 @@ namespace windowing_x11
          (const unsigned char *) (const char *) path,
          path.get_length());
 
-      output_debug_string("\nlinux::interaction_impl::bamf_set_icon END");
+      output_debug_string("\nfreebsd::interaction_impl::bamf_set_icon END");
 
       fflush(stdout);
 
@@ -1976,7 +1976,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
          (const unsigned char *) (const char *) path,
          path.get_length());
 
-      output_debug_string("\nlinux::interaction_impl::bamf_set_icon END");
+      output_debug_string("\nfreebsd::interaction_impl::bamf_set_icon END");
 
       fflush(stdout);
 
@@ -2338,7 +2338,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       //            if(!XChangeWindowAttributes(Display(), Window(), CWOverrideRedirect, &set))
       //            {
       //
-      //               INFORMATION("linux::interaction_impl::_native_create_window_ex failed to clear override_redirect");
+      //               INFORMATION("freebsd::interaction_impl::_native_create_window_ex failed to clear override_redirect");
       //
       //            }
       //
@@ -2491,7 +2491,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
 //      m_strWindowText = pszString;
 
-      //windowing_output_debug_string("\nlinux::interaction_impl::set_window_text");
+      //windowing_output_debug_string("\nfreebsd::interaction_impl::set_window_text");
 
       //fflush(stdout);
 
@@ -2499,7 +2499,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       x11_store_name(pszString);
 
-      //windowing_output_debug_string("\nlinux::interaction_impl::set_window_text END");
+      //windowing_output_debug_string("\nfreebsd::interaction_impl::set_window_text END");
 
       //fflush(stdout);
 
@@ -2541,7 +2541,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
          (const unsigned char *) (const char *) path,
          path.get_length());
 
-      output_debug_string("\nlinux::interaction_impl::bamf_set_icon END");
+      output_debug_string("\nfreebsd::interaction_impl::bamf_set_icon END");
 
       fflush(stdout);
 

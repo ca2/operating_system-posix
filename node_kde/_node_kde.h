@@ -26,7 +26,7 @@
 #include "windowing_xcb/_windowing_xcb.h"
 #include "acme/node/operating_system/ansi/_pthread.h"
 #include "aura/user/_user.h"
-#include "aura/node/operating_system/linux/appindicator.h"
+#include "aura/node/operating_system/freebsd/appindicator.h"
 
 
 

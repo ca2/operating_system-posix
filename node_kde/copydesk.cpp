@@ -1,7 +1,7 @@
 #include "framework.h"
 #include "_.h"
-#include "aura/node/operating_system/linux/_linux.h"
-#include "aura/node/linux/_linux.h"
+#include "aura/node/operating_system/freebsd/_linux.h"
+#include "aura/node/freebsd/_linux.h"
 #include "archive/platform-posix/aura_posix/clipboard_data.h"
 
 
