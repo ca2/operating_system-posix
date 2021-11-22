@@ -574,7 +574,7 @@ namespace posix
 
    #if defined(ANDROID) || defined(LINUX)
 
-         ::file::path path;
+      ::file::path path;
 
       char * pszModule = nullptr;
 
@@ -632,6 +632,10 @@ namespace posix
    #elif defined(__APPLE__)
 
       return apple_app_module_path();
+
+   #else
+
+      throw interface_only_exception();
 
    #endif
 
