@@ -569,7 +569,7 @@ namespace posix
 
 
 
-   ::file::path acme_file::executable()
+   ::file::path acme_file::module()
    {
 
    #if defined(ANDROID) || defined(LINUX)
