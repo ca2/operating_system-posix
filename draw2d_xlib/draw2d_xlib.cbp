@@ -85,8 +85,8 @@
 		<Unit filename="draw2d_xlib_color.h" />
 		<Unit filename="draw2d_xlib_dib.cpp" />
 		<Unit filename="draw2d_xlib_dib.h" />
-		<Unit filename="draw2d_xlib_factory_exchange.cpp" />
-		<Unit filename="draw2d_xlib_factory_exchange.h" />
+		<Unit filename="draw2d_xlib_factory.cpp" />
+		<Unit filename="draw2d_xlib_factory.h" />
 		<Unit filename="draw2d_xlib_font.cpp" />
 		<Unit filename="draw2d_xlib_font.h" />
 		<Unit filename="draw2d_xlib_graphics.cpp" />
