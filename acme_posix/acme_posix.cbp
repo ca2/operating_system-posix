@@ -109,8 +109,8 @@
 		<Unit filename="message_out.cpp" />
 		<Unit filename="message_out.h" />
 		<Unit filename="music_midi_alsa.cpp" />
-		<Unit filename="music_midi_alsa_factory_exchange.cpp" />
-		<Unit filename="music_midi_alsa_factory_exchange.h" />
+		<Unit filename="music_midi_alsa_factory.cpp" />
+		<Unit filename="music_midi_alsa_factory.h" />
 		<Unit filename="music_midi_alsa_file.h" />
 		<Unit filename="music_midi_alsa_midi.cpp" />
 		<Unit filename="music_midi_alsa_midi.h" />
