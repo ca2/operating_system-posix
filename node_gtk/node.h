@@ -45,6 +45,8 @@ namespace node_gtk
 
       //virtual void _on_user_theme_changed() override;
 
+      bool is_branch_current() const override;
+
       virtual bool os_set_user_theme(const string & strUserTheme) override;
 
       virtual void os_process_user_theme(string strTheme) override;
