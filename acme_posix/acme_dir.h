@@ -31,7 +31,7 @@ namespace posix
 
       bool is(const char * path) override;
 
-      bool _is(const char * path1) override;
+      //bool _is(const char * path1) override;
 
       //string name(string path) override;
 

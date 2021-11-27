@@ -35,7 +35,7 @@ namespace posix
       //bool append_wait(const ::string & strFile, const block & block, const ::duration & duration) override;
       //bool append(const ::string & strFile, const block & block) override;
 
-      bool exists(const char * path) override;
+      //bool exists(const char * path) override;
 
 
       ::file::path module() override;
