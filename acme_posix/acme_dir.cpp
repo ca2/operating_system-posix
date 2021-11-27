@@ -306,13 +306,13 @@ namespace posix
 //
 //   }
 
-
-   bool acme_dir::_is(const char * path)
-   {
-
-      return ::is_directory(path);
-
-   }
+//
+//   bool acme_dir::_is(const char * path)
+//   {
+//
+//      return ::is_directory(path);
+//
+//   }
 
 
 } // namespace posix
