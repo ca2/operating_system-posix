@@ -728,12 +728,12 @@ namespace posix
 
 
 
-   ::e_status acme_file::delete_file(const char * path)
-   {
-
-      return file_delete(path);
-
-   }
+//   ::e_status acme_file::delete_file(const char * path)
+//   {
+//
+//      return file_delete(path);
+//
+//   }
 
 
 

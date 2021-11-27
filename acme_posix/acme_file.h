@@ -86,7 +86,7 @@ namespace posix
 
       //bool move(const char * pszNewName, const char * pszOldName) override;
 
-      ::e_status delete_file(const char * pszFileName) override;
+      //::e_status delete_file(const char * pszFileName) override;
 
 
    };
