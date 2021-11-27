@@ -21,11 +21,11 @@ namespace posix
 
       virtual ::file::path module() override;
 
-      ::e_status create(const char * path) override;
+      //::e_status create(const char * path) override;
 
-      ::e_status _create(const char * path) override;
+      //::e_status _create(const char * path) override;
 
-      ::e_status create_directory(const char * path) override;
+      //::e_status create_directory(const char * path) override;
 
       //::file::path module() override;
 

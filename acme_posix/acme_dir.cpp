@@ -59,34 +59,34 @@ namespace posix
 
    }
 
-
-   ::e_status acme_dir::create(const char * path)
-   {
-
-
-      return _create(path);
-
-      //}
-
-      //return ::file::system_dir::g_pthis->mk(path, ::get_context_system());
-
-   }
-
-
-   ::e_status acme_dir::_create(const char * path)
-   {
-
-      return ::create_directory_path(path);
-
-   }
-
-
-   ::e_status acme_dir::create_directory(const char * path)
-   {
-
-      return ::create_directory(path);
-
-   }
+//
+//   ::e_status acme_dir::create(const char * path)
+//   {
+//
+//
+//      return _create(path);
+//
+//      //}
+//
+//      //return ::file::system_dir::g_pthis->mk(path, ::get_context_system());
+//
+//   }
+//
+//
+//   ::e_status acme_dir::_create(const char * path)
+//   {
+//
+//      return ::create_directory_path(path);
+//
+//   }
+//
+//
+//   ::e_status acme_dir::create_directory(const char * path)
+//   {
+//
+//      return ::create_directory(path);
+//
+//   }
 
 
    ::file::path acme_dir::module()
