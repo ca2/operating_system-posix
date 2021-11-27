@@ -241,14 +241,14 @@ namespace posix
       return set_size(fileno(pfile), size);
 
    }
-
-
-   bool acme_file::exists(const char * path)
-   {
-
-      return ::file_exists(path);
-
-   }
+//
+//
+//   bool acme_file::exists(const char * path)
+//   {
+//
+//      return ::file_exists(path);
+//
+//   }
 
 
 //void file_read_ex1_string_dup(FILE * hfile, ::md5::md5 * pctx, string & str);
