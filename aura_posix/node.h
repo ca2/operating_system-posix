@@ -22,10 +22,24 @@ namespace aura
       {
       public:
 
-#ifdef WITH_X11
+
+#if defined(WITH_X11) || defined(WITH_XCB)
+
+
          void *                                 m_pX11Display;
-         void *                                 m_pxcbconnection;
+
+
 #endif
+
+
+#if defined(WITH_XCB)
+
+
+         void *                                 m_pxcbconnection;
+
+
+#endif
+
 
          node();
          virtual ~node();
