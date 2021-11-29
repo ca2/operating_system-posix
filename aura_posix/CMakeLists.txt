@@ -30,7 +30,7 @@ list(APPEND library_references
    )
 
 
-if(WITH_X11 OR WITH_XCB)
+if(WITH_X11)
 
 
    list(APPEND library_source
@@ -44,8 +44,7 @@ if(WITH_X11 OR WITH_XCB)
       x11/windowing.h
       x11/xim_keyboard.cpp
       x11/xim_keyboard.h
-      )
-
+   )
 
 endif()
 

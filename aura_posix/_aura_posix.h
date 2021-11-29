@@ -18,7 +18,7 @@
 #include "clipboard_data.h"
 
 
-#if defined(WITH_X11) || defined(WITH_XCB)
+#if defined(WITH_X11)
 
 
 #include "x11/_x11.h"
