@@ -6,6 +6,7 @@
 
 #include "aura_posix/_aura_posix.h"
 #include "aura/user/_user.h"
+#include "aura_posix/x_window_system.h"
 #ifdef FREEBSD
 #include "aura/node/operating_system/freebsd/appindicator.h"
 #endif

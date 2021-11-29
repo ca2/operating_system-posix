@@ -6,6 +6,7 @@ list(APPEND library_source
    dbus/gsm_proxy.cpp
    _.cpp
    _.h
+   _factory.cpp
    _process.cpp
    _acme_posix.h
    acme_dir.cpp
@@ -14,7 +15,6 @@ list(APPEND library_source
    acme_file.h
    acme_path.cpp
    acme_path.h
-   _factory.cpp
    file_memory_map.cpp
    file_memory_map.h
    framework.cpp
