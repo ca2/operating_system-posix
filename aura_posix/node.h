@@ -33,7 +33,7 @@ namespace aura
 
          virtual ::e_status initialize(::object * pobject) override;
 
-#ifdef WITH_X11
+#if defined(WITH_X11) || defined(WITH_XCB)
 
          virtual ::e_status _allocate_Display_and_connection();
 
@@ -41,7 +41,7 @@ namespace aura
          void * _get_Display();
          void * _get_connection();
 
-#endif // WITH_X11
+#endif // WITH_X11 || WITH_XCB
 
          virtual ::file::path get_desktop_file_path(::application * papp) const override;
 
