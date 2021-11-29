@@ -18,7 +18,7 @@ namespace windowing_x11
 {
 
 
-#ifdef LINUX
+#if defined(LINUX) || defined(FREEBSD)
 
    CLASS_DECL_AURA ::user::enum_key keysym_to_userkey(const lparam & lparam);
 

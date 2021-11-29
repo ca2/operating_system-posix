@@ -56,7 +56,7 @@ list(APPEND library_references
    aqua
    aura
    aura_posix
-   aura_linux
+   aura_${PLATFORM_NAME}
    )
 
 

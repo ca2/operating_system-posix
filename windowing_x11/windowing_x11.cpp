@@ -183,9 +183,7 @@ int_bool _x11_get_cursor_pos(Display * d, POINT_I32 * ppointCursor);
 
 Window g_windowFocus = 0;
 
-#ifdef LINUX
 i32 _c_XErrorHandler(Display * display, XErrorEvent * perrorevent);
-#endif
 
 
 //struct MWMHints

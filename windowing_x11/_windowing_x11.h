@@ -78,7 +78,7 @@ bool __x11_hook_process_event(Display * pdisplay, XEvent * pevent, XGenericEvent
 #include "display.h"
 
 
-#include "archive/platform-posix/aura_posix/x11/display_lock.h"
+#include "platform-posix/aura_posix/x11/display_lock.h"
 
 
 //#include "factory_exchange.h"
