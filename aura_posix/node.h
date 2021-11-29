@@ -22,10 +22,24 @@ namespace aura
       {
       public:
 
-#ifdef WITH_X11
+
+#if defined(WITH_X11) || defined(WITH_XCB)
+
+
          void *                                 m_pX11Display;
-         void *                                 m_pxcbconnection;
+
+
 #endif
+
+
+#if defined(WITH_XCB)
+
+
+         void *                                 m_pxcbconnection;
+
+
+#endif
+
 
          node();
          virtual ~node();
@@ -39,9 +53,16 @@ namespace aura
 
 
          void * _get_Display();
+
+#if defined(WITH_XCB)
+
+
          void * _get_connection();
 
+#endif // WITH_XCB
+
 #endif // WITH_X11 || WITH_XCB
+
 
          virtual ::file::path get_desktop_file_path(::application * papp) const override;
 

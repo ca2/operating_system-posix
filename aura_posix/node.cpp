@@ -20,18 +20,19 @@ namespace aura
       node::node()
       {
 
-         //m_pGtkSettingsDefault = nullptr;
-
-#ifdef WITH_X11
+#if defined(WITH_X11) || defined(WITH_XCB)
          
          
          m_pX11Display = nullptr;
 
+#endif // WITH_X11 || WITH_XCB
+
+
+#if defined(WITH_XCB)
+
          m_pxcbconnection = nullptr;
          
-         
-#endif // WITH_X11
-         
+#endif
 
          m_pAuraPosix = this;
 
@@ -189,8 +190,8 @@ namespace aura
             return estatus;
 
          }
-         
-#ifdef WITH_X11
+
+#if defined(WITH_X11) || defined(WITH_XCB)
 
          estatus = _allocate_Display_and_connection();
 
@@ -208,7 +209,7 @@ namespace aura
       }
 
    
-#ifdef WITH_X11
+#if defined(WITH_X11) || defined(WITH_XCB)
    
 
       ::e_status node::_allocate_Display_and_connection()
@@ -223,7 +224,7 @@ namespace aura
 
          }
 
-#ifdef WITH_XCB
+#if defined(WITH_XCB)
 
          m_pxcbconnection = XGetXCBConnection((Display *) m_pX11Display);
 
@@ -249,6 +250,8 @@ namespace aura
       }
 
 
+#if defined(WITH_XCB)
+
       void * node::_get_connection()
       {
 
@@ -256,6 +259,7 @@ namespace aura
 
       }
 
+#endif
    
 #endif
    
