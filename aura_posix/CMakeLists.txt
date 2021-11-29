@@ -30,7 +30,7 @@ list(APPEND library_references
    )
 
 
-if(WITH_X11)
+if(WITH_X11 OR WITH_XCB)
 
 
    list(APPEND library_source
