@@ -30,21 +30,29 @@ list(APPEND library_references
    )
 
 
-if(WITH_X11)
+if(WITH_X11 OR WITH_XCB)
 
 
    list(APPEND library_source
       x11/_.cpp
       x11/_const.h
-      x11/display_lock.cpp
-      x11/display_lock.h
       x11/window.cpp
       x11/window.h
       x11/windowing.cpp
       x11/windowing.h
+   )
+
+
+   if(WITH_X11)
+
+      list(APPEND library_source
+      x11/display_lock.cpp
+      x11/display_lock.h
       x11/xim_keyboard.cpp
       x11/xim_keyboard.h
-   )
+         )
+
+   endif()
 
 endif()
 
