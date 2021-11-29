@@ -50,11 +50,11 @@ set_source_files_properties(q_node_impl.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS O
 
 add_library(node_kde SHARED ${library_source})
 
+
 target_precompile_headers(node_kde PRIVATE framework.h)
 
+
 set_target_properties(node_kde PROPERTIES LINKER_LANGUAGE CXX)
-
-
 
 
 if (MSVC)
