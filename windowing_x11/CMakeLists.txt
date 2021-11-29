@@ -5,27 +5,19 @@ project(windowing_x11 CXX)
 list(APPEND library_source
    _.cpp
    _.h
+   _factory.cpp
    _windowing_x11.h
-   #application.cpp
-   #application.h
    buffer.cpp
    buffer.h
    cursor.cpp
    cursor.h
-   #copydesk.cpp
-   #copydesk.h
    debug.cpp
    display.cpp
    display.h
    display_xrender.cpp
    enum_display_monitors.cpp
-   _factory.cpp
-
    framework.cpp
    framework.h
-   #gdk.cpp
-   #gdk.h
-   #gnome_direct.cpp
    icon.cpp
    icon.h
    keyboard.cpp
@@ -74,14 +66,16 @@ if (MSVC)
    target_link_libraries(windowing_x11 PRIVATE ${library_references})
    add_dependencies(windowing_x11 draw2d_gdiplus)
 elseif(LINUX OR FREEBSD)
+
+
    pkg_check_modules(PKGCONFIG x11 xrender xi)
    target_compile_options(windowing_x11 PRIVATE -fpermissive)
-      target_compile_options(windowing_x11 PRIVATE ${PKGCONFIG_CFLAGS})
+   target_compile_options(windowing_x11 PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(windowing_x11 PRIVATE ${PKGCONFIG_LDFLAGS})
-   #target_link_options(windowing_x11 PRIVATE -Wl,-rpath=$ORIGIN)
-   target_link_libraries(windowing_x11 PRIVATE ${PKGCONFIG_LIBRARIES} ${library_references})
+   target_link_libraries(windowing_x11 PRIVATE ${library_references})
    target_link_options(windowing_x11 PRIVATE -Wl,-z,defs)
    add_dependencies(windowing_x11 draw2d_cairo)
+
 endif ()
 
 

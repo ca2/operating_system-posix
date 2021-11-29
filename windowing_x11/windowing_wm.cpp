@@ -716,7 +716,7 @@ namespace windowing_x11
 
       auto windowRoot = DefaultRootWindow(Display());
 
-      bool bCreateAtom = true;
+      bool bCreateAtom = false;
 
       Atom atomMotifHints = XInternAtom(Display(), "_MOTIF_WM_HINTS", bCreateAtom ? True : False);
 
@@ -730,8 +730,8 @@ namespace windowing_x11
 
          //XChangeProperty(Display(), Window(), atomMotifHints, atomMotifHints, 32, PropModeReplace,
            //              (unsigned char *) &hints, sizeof(MWMHints) / 4);
-         XChangeProperty(Display(), Window(), atomMotifHints, atomMotifHints, 8, PropModeReplace,
-                       (unsigned char *) &hints, 5);
+         XChangeProperty(Display(), Window(), atomMotifHints, atomMotifHints, 32, PropModeReplace,
+                       (unsigned char *) &hints, sizeof(hints) / 4);
 
       }
 
