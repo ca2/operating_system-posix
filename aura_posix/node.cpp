@@ -250,6 +250,8 @@ namespace aura
       }
 
 
+#if defined(WITH_XCB)
+
       void * node::_get_connection()
       {
 
@@ -257,6 +259,7 @@ namespace aura
 
       }
 
+#endif
    
 #endif
    

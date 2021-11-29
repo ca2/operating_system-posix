@@ -53,9 +53,16 @@ namespace aura
 
 
          void * _get_Display();
+
+#if defined(WITH_XCB)
+
+
          void * _get_connection();
 
+#endif // WITH_XCB
+
 #endif // WITH_X11 || WITH_XCB
+
 
          virtual ::file::path get_desktop_file_path(::application * papp) const override;
 
