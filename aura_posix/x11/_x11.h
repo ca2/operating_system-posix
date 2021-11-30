@@ -7,13 +7,13 @@
 #include "_const.h"
 
 
-#if defined(WITH_X11)
+//#if defined(WITH_X11)
 
 
 #include "xim_keyboard.h"
 
 
-#endif
+//#endif
 
 
 #include "window.h"

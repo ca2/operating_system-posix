@@ -43,7 +43,7 @@ if(WITH_X11 OR WITH_XCB)
    )
 
 
-   if(WITH_X11)
+#   if(WITH_X11)
 
       list(APPEND library_source
       x11/display_lock.cpp
@@ -52,7 +52,7 @@ if(WITH_X11 OR WITH_XCB)
       x11/xim_keyboard.h
          )
 
-   endif()
+ #  endif()
 
 endif()
 

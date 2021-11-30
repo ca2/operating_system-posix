@@ -9,17 +9,8 @@
 #include "aura_posix/_.h"
 
 
-
-
 #define WITH_XI
 #define WITH_SN
-
-
-//#include <QMetaType>
-//#include <X11/Xlib-xcb.h>
-//#include <xcb/xcb.h>
-//#include <xcb/xcb_image.h>
-//#include <xcb/render.h>
 
 
 #if defined(_WINDOWING_XCB_LIBRARY)
@@ -39,33 +30,6 @@ namespace windowing_xcb
 
 
 } // namespace windowing_xcb
-
-
-//#include "buffer.h"
-
-
-//#include "cursor.h"
-
-
-//#include "icon.h"
-
-
-//#include "window.h"
-
-
-//#include "windowing.h"
-
-
-//#include "display.h"
-
-
-//#include "display_lock.h"
-
-
-//#include "factory_exchange.h"
-
-
-//#include "node.h"
 
 
 
