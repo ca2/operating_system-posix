@@ -1,7 +1,6 @@
 #include "framework.h"
 #include "_.h"
-#include "aura/node/operating_system/freebsd/_linux.h"
-#include "aura/node/freebsd/_linux.h"
+#include "aura/operating_system.h"
 #include "archive/platform-posix/aura_posix/clipboard_data.h"
 
 
@@ -250,7 +249,7 @@ return false;
 
                    int height = imageClipboard.height();
 
-                   auto estatus = pimage->create(width, height);
+                   auto estatus = pimage->create({width, height});
 
                    if (!estatus)
                    {

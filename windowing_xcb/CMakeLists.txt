@@ -78,6 +78,7 @@ elseif(LINUX OR FREEBSD)
    target_compile_options(windowing_xcb PRIVATE -fpermissive)
    target_compile_options(windowing_xcb PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(windowing_xcb PRIVATE ${PKGCONFIG_LDFLAGS})
+   target_link_libraries(windowing_xcb PRIVATE ${PKGCONFIG_LIBRARIES})
    target_link_libraries(windowing_xcb PRIVATE ${library_references})
    target_link_options(windowing_xcb PRIVATE -Wl,-z,defs)
 

@@ -58,15 +58,21 @@ set_target_properties(node_kde PROPERTIES LINKER_LANGUAGE CXX)
 
 
 if (MSVC)
+
+
    target_compile_options(node_kde PRIVATE "/MD$<$<CONFIG:Debug>:d>")
    target_link_options(node_kde PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
    target_link_options(node_kde PRIVATE "/SUBSYSTEM:WINDOWS")
    target_link_libraries(node_kde PRIVATE ${library_references})
+
+
 elseif(LINUX OR FREEBSD)
+
+
    # dnf install qt5-qttools-devel qt5-qtx11extras-devel qt5-qttools-static
    pkg_check_modules(PKGCONFIG Qt5Core Qt5UiTools Qt5X11Extras)
    target_compile_options(node_kde PRIVATE -fpermissive)
-      target_compile_options(node_kde PRIVATE ${PKGCONFIG_CFLAGS})
+   target_compile_options(node_kde PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(node_kde PRIVATE ${PKGCONFIG_LDFLAGS})
    if(KDE_DESKTOP)
    target_include_directories(node_kde PRIVATE KF5::Notifications)
@@ -85,6 +91,8 @@ elseif(LINUX OR FREEBSD)
       target_link_libraries(node_kde PRIVATE PW::KWorkspace)
    endif()
    target_link_options(node_kde PRIVATE -Wl,-z,defs)
+
+
 endif ()
 
 
