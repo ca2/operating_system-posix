@@ -29,7 +29,7 @@ namespace posix
 
       //::file::path module() override;
 
-      bool is(const char * path) override;
+      ::e_status is(const char * path) override;
 
       //bool _is(const char * path1) override;
 

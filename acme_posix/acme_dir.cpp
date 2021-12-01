@@ -99,7 +99,7 @@ namespace posix
    }
 
 
-   bool acme_dir::is(const char * path)
+   ::e_status acme_dir::is(const char * path)
    {
 
       return _is(path);
