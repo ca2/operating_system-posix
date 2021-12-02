@@ -68,10 +68,17 @@ if (MSVC)
 elseif(LINUX OR FREEBSD)
 
 
+#   if(UBUNTU)
+#      list(APPEND library_references
+#         X11
+#         Xrender)
+#   endif()
+
    pkg_check_modules(PKGCONFIG x11 xrender xi)
    target_compile_options(windowing_x11 PRIVATE -fpermissive)
    target_compile_options(windowing_x11 PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(windowing_x11 PRIVATE ${PKGCONFIG_LDFLAGS})
+   target_link_libraries(windowing_x11 PRIVATE ${PKGCONFIG_LIBRARIES})
    target_link_libraries(windowing_x11 PRIVATE ${library_references})
    target_link_options(windowing_x11 PRIVATE -Wl,-z,defs)
    add_dependencies(windowing_x11 draw2d_cairo)
