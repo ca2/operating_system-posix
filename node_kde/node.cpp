@@ -5,10 +5,12 @@
 #include "gnome_shared.h"
 #include "appindicator.h"
 #include "gdk.h"
+#undef new
 #include <kworkspace5/kworkspace.h>
 #include <KColorScheme>
 #include <KFileItem>
 #include <KIconLoader>
+#define new ACME_NEW
 
 
 void kde_update_os_theme_colors(::os_theme_colors * pthemecolors)
