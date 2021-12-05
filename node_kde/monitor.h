@@ -27,15 +27,15 @@ namespace node_kde
 
 
 
-      virtual ::e_status update_cache();
+      ::e_status update_cache() override;
 
 
-      virtual ::u32 get_monitor_color_temperature() override;
-      virtual bool adjust_monitor( ::u32 dwTemperature, double dBrightness, double dwGamma) override;
+      ::u32 get_monitor_color_temperature() override;
+      bool adjust_monitor( ::u32 dwTemperature, double dBrightness, double dwGamma) override;
 
 
-      virtual ::e_status get_monitor_rectangle(::RECTANGLE_I32 * prectangle) override;
-      virtual ::e_status get_workspace_rectangle(::RECTANGLE_I32 * prectangle) override;
+      ::e_status get_monitor_rectangle(::RECTANGLE_I32 * prectangle) override;
+      ::e_status get_workspace_rectangle(::RECTANGLE_I32 * prectangle) override;
 
 
       virtual ::e_status _get_monitor_rectangle();

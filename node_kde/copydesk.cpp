@@ -1,7 +1,7 @@
 #include "framework.h"
 #include "_.h"
 #include "aura/operating_system.h"
-#include "archive/platform-posix/aura_posix/clipboard_data.h"
+#include "platform-posix/aura_posix/clipboard_data.h"
 
 
 namespace node_kde
