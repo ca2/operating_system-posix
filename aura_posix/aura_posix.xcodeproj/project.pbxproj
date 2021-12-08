@@ -32,7 +32,6 @@
 		9AC2D0452653DB5C00CC8096 /* _aura_posix.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D0282653DB5B00CC8096 /* _aura_posix.h */; };
 		9AC2D0462653DB5C00CC8096 /* shell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D0292653DB5B00CC8096 /* shell.cpp */; };
 		9AC2D0492653DB5C00CC8096 /* _.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D02C2653DB5B00CC8096 /* _.h */; };
-		9AEA17CB275FFA45006437A3 /* libaura_posix.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = A1CFD778154F5EAA007447E2 /* libaura_posix.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,16 +93,6 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9AEA17C6275FFA31006437A3 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(WorkspaceDir)/time-$(PLATFORM_MODIFIER)/output";
-			dstSubfolderSpec = 0;
-			files = (
-				9AEA17CB275FFA45006437A3 /* libaura_posix.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,7 +303,6 @@
 				A1CFD776154F5EAA007447E2 /* Headers */,
 				A1CFD774154F5EAA007447E2 /* Sources */,
 				A1CFD775154F5EAA007447E2 /* Frameworks */,
-				9AEA17C6275FFA31006437A3 /* CopyFiles */,
 			);
 			buildRules = (
 			);

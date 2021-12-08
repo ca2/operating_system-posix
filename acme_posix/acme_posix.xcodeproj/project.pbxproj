@@ -30,7 +30,6 @@
 		9A892E8326CDDAA9008D6412 /* acme_file.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A892E7D26CDDAA8008D6412 /* acme_file.h */; };
 		9A892E8426CDDAA9008D6412 /* acme_path.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A892E7E26CDDAA8008D6412 /* acme_path.cpp */; };
 		9A892E8526CDDAA9008D6412 /* acme_path.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A892E7F26CDDAA8008D6412 /* acme_path.h */; };
-		9AEA17D2275FFC9B006437A3 /* libacme_posix.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9A0C1638264A281D00B5CC33 /* libacme_posix.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,19 +55,6 @@
 			remoteInfo = acme;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		9AEA17D0275FFC85006437A3 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(WorkspaceDir)/time-$(PLATFORM_MODIFIER)/output";
-			dstSubfolderSpec = 0;
-			files = (
-				9AEA17D2275FFC9B006437A3 /* libacme_posix.dylib in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		9A0C1638264A281D00B5CC33 /* libacme_posix.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libacme_posix.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -202,7 +188,6 @@
 				9A0C1634264A281D00B5CC33 /* Headers */,
 				9A0C1635264A281D00B5CC33 /* Sources */,
 				9A0C1636264A281D00B5CC33 /* Frameworks */,
-				9AEA17D0275FFC85006437A3 /* CopyFiles */,
 			);
 			buildRules = (
 			);
