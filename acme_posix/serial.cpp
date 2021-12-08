@@ -119,7 +119,7 @@ serial_impl::serial_impl(const string & port, unsigned long baudrate,
 {
    pthread_mutex_init(&this->m_mutexRead, nullptr);
    pthread_mutex_init(&this->m_mutexWrite, nullptr);
-   if (m_strPort.empty() == false)
+   if (m_strPort.has_char())
       open();
 }
 
@@ -133,7 +133,7 @@ serial_impl::~serial_impl()
 void
 serial_impl::open()
 {
-   if (m_strPort.empty())
+   if (m_strPort.is_empty())
    {
       __throw(error_invalid_argument, "Empty port is invalid.");
    }
