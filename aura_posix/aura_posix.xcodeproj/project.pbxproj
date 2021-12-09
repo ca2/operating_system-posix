@@ -7,15 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		07B657CA190F3CBF002DAADE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07B657BA190F3CBF002DAADE /* Foundation.framework */; };
 		07B657CF190F3CBF002DAADE /* libios_aura_posix.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07B657B8190F3CBF002DAADE /* libios_aura_posix.a */; };
 		9A2BB8772654F8D400ABA8B9 /* libaura.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AC2D0022653DB2E00CC8096 /* libaura.dylib */; };
 		9A412446266C3FC500C3FF0E /* libacme_posix.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A412445266C3FC500C3FF0E /* libacme_posix.dylib */; };
 		9A412448266C3FC500C3FF0E /* libapex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A412447266C3FC500C3FF0E /* libapex.dylib */; };
 		9A41244A266C3FC500C3FF0E /* libapex_posix.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A412449266C3FC500C3FF0E /* libapex_posix.dylib */; };
 		9A41244C266C3FE300C3FF0E /* libacme.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A41244B266C3FE300C3FF0E /* libacme.dylib */; };
-		9A8997BD177D0E7F00C7761E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A8997BC177D0E7D00C7761E /* Carbon.framework */; };
-		9AA1B44A176361950019E812 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA1B449176361950019E812 /* Cocoa.framework */; };
+		9A91C2B22761845E00FE3905 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A91C2AE2761845100FE3905 /* Carbon.framework */; };
+		9A91C2B32761846100FE3905 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A91C2B12761845100FE3905 /* Cocoa.framework */; };
 		9AC2D02F2653DB5C00CC8096 /* shell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D00D2653DB5B00CC8096 /* shell.h */; };
 		9AC2D0352653DB5C00CC8096 /* clipboard_data.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D0142653DB5B00CC8096 /* clipboard_data.h */; };
 		9AC2D0362653DB5C00CC8096 /* framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D0152653DB5B00CC8096 /* framework.cpp */; };
@@ -100,15 +99,14 @@
 
 /* Begin PBXFileReference section */
 		07B657B8190F3CBF002DAADE /* libios_aura_posix.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libios_aura_posix.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		07B657BA190F3CBF002DAADE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		07B657C7190F3CBF002DAADE /* music_midi_core_audio_iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = music_midi_core_audio_iosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A2BB87E2654F8FB00ABA8B9 /* apex_posix.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = apex_posix.xcodeproj; path = ../apex_posix/apex_posix.xcodeproj; sourceTree = "<group>"; };
 		9A412445266C3FC500C3FF0E /* libacme_posix.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libacme_posix.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A412447266C3FC500C3FF0E /* libapex.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libapex.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A412449266C3FC500C3FF0E /* libapex_posix.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libapex_posix.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A41244B266C3FE300C3FF0E /* libacme.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libacme.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A8997BC177D0E7D00C7761E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
-		9AA1B449176361950019E812 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		9A91C2AE2761845100FE3905 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		9A91C2B12761845100FE3905 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		9AC2CFF92653DB2E00CC8096 /* aura.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = aura.xcodeproj; path = ../../../source/app/aura/aura.xcodeproj; sourceTree = "<group>"; };
 		9AC2D00D2653DB5B00CC8096 /* shell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shell.h; sourceTree = "<group>"; };
 		9AC2D0142653DB5B00CC8096 /* clipboard_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = clipboard_data.h; sourceTree = "<group>"; };
@@ -142,7 +140,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				07B657CF190F3CBF002DAADE /* libios_aura_posix.a in Frameworks */,
-				07B657CA190F3CBF002DAADE /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,13 +147,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A91C2B22761845E00FE3905 /* Carbon.framework in Frameworks */,
+				9A91C2B32761846100FE3905 /* Cocoa.framework in Frameworks */,
 				9A41244C266C3FE300C3FF0E /* libacme.dylib in Frameworks */,
 				9A412446266C3FC500C3FF0E /* libacme_posix.dylib in Frameworks */,
 				9A412448266C3FC500C3FF0E /* libapex.dylib in Frameworks */,
 				9A41244A266C3FC500C3FF0E /* libapex_posix.dylib in Frameworks */,
 				9A2BB8772654F8D400ABA8B9 /* libaura.dylib in Frameworks */,
-				9AA1B44A176361950019E812 /* Cocoa.framework in Frameworks */,
-				9A8997BD177D0E7F00C7761E /* Carbon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,11 +163,12 @@
 		07B657B9190F3CBF002DAADE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9A91C2AE2761845100FE3905 /* Carbon.framework */,
+				9A91C2B12761845100FE3905 /* Cocoa.framework */,
 				9A41244B266C3FE300C3FF0E /* libacme.dylib */,
 				9A412445266C3FC500C3FF0E /* libacme_posix.dylib */,
 				9A412447266C3FC500C3FF0E /* libapex.dylib */,
 				9A412449266C3FC500C3FF0E /* libapex_posix.dylib */,
-				07B657BA190F3CBF002DAADE /* Foundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -221,8 +219,6 @@
 			children = (
 				9A2BB87E2654F8FB00ABA8B9 /* apex_posix.xcodeproj */,
 				9AC2CFF92653DB2E00CC8096 /* aura.xcodeproj */,
-				9A8997BC177D0E7D00C7761E /* Carbon.framework */,
-				9AA1B449176361950019E812 /* Cocoa.framework */,
 				9AC2D0092653DB5B00CC8096 /* aura_posix */,
 				07B657B9190F3CBF002DAADE /* Frameworks */,
 				A1CFD779154F5EAA007447E2 /* Products */,
