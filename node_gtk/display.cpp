@@ -1,6 +1,8 @@
 // created by Camilo <3CamiloSasukeThomasBorregaardSoerensen
 // recreated by Camilo 2021-01-16 22:38 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
+// wall-changer code extracted by camilo on 09/12/2021. 13:03 BRT <ThomasBoregaardSorensen!!
+
 #include "framework.h"
 #include "apex/platform/app_core.h"
 //#include "_user.h"
@@ -285,6 +287,58 @@ namespace node_gtk
         ::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
 
         return iMonitorCount;
+
+   }
+
+
+
+   bool display::impl_set_wallpaper(::index, string strWallpaper)
+   {
+
+      // wall-changer sourceforge.net contribution
+
+      bool bOk = false;
+
+      auto pnode = m_psystem->m_pnode;
+
+      auto edesktop = pnode->get_edesktop();
+
+      if(edesktop & ::user::e_desktop_gnome)
+      {
+
+         bOk = ::user::gsettings_set("org.gnome.desktop.background", "picture-uri", "file://" + strWallpaper);
+
+      }
+      else if(edesktop & ::user::e_desktop_mate)
+      {
+
+         bOk = ::user::gsettings_set("org.mate.background", "picture-filename", "file://" + strWallpaper);
+
+      }
+      else if(edesktop & ::user::e_desktop_lxde)
+      {
+
+         //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+
+      }
+      else if(edesktop & ::user::e_desktop_xfce)
+      {
+
+         //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+         //          if(entry.contains("image-path") || entry.contains("last-image")){
+         //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+         //      }
+         //}
+
+      }
+      else
+      {
+
+         output_debug_string("Failed to set wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+
+      }
+
+      return ::success;
 
    }
 

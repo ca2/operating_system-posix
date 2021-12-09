@@ -46,7 +46,7 @@ list(APPEND library_references
    )
 
 
-add_library(node_gtk SHARED ${library_source} )
+add_library(node_gtk SHARED ${library_source} gconf.cpp gsettings.cpp)
 
 target_precompile_headers(node_gtk PRIVATE framework.h)
 
@@ -65,13 +65,13 @@ if (MSVC)
 elseif(LINUX OR FREEBSD)
 
 
-   pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 appindicator3-0.1)
-   target_compile_options(node_gtk PRIVATE -fpermissive)
-      target_compile_options(node_gtk PRIVATE ${PKGCONFIG_CFLAGS})
-   target_link_options(node_gtk PRIVATE ${PKGCONFIG_LDFLAGS})
-   #target_link_options(node_gtk PRIVATE -Wl,-rpath=$ORIGIN)
-   target_link_libraries(node_gtk PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
-   target_link_options(node_gtk PRIVATE -Wl,-z,defs)
+   pkg_check_modules(PKGCONFIG gconf-2.0 glib-2.0 gtk+-3.0 gdk-3.0 appindicator3-0.1)
+   target_compile_options(${PROJECT_NAME} PRIVATE -fpermissive)
+   target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+   target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LIBRARIES})
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references})
+   target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
 
 
 endif ()

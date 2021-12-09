@@ -21,6 +21,17 @@ namespace node_gtk
 } // namespace node_gtk
 
 
+typedef enum {
+   WALLPAPER_ALIGN_TILED     = 0,
+   WALLPAPER_ALIGN_CENTERED  = 1,
+   WALLPAPER_ALIGN_STRETCHED = 2,
+   WALLPAPER_ALIGN_SCALED    = 3,
+   WALLPAPER_NONE            = 4
+} WallpaperAlign;
+
+
+bool gconf_set_as_wallpaper( const char *image_path, WallpaperAlign align );
+
 #define __matter(TYPE) __new(::matter<TYPE>)
 
 
@@ -31,6 +42,10 @@ namespace user
    char * gsettings_get_malloc(const char * pszSchema, const char * pszKey);
 
 
-}
+   ::e_status gsettings_set(const ::string & strSchema, const ::string & strKey, const ::string & strValue);
+
+
+} // namespace user
+
 
 
