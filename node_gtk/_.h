@@ -1,3 +1,4 @@
+// Changed by camilo on 2021-12-09 13:40 BRT <3ThomasBorregaardSorensen!!
 #pragma once
 
 
@@ -21,31 +22,8 @@ namespace node_gtk
 } // namespace node_gtk
 
 
-typedef enum {
-   WALLPAPER_ALIGN_TILED     = 0,
-   WALLPAPER_ALIGN_CENTERED  = 1,
-   WALLPAPER_ALIGN_STRETCHED = 2,
-   WALLPAPER_ALIGN_SCALED    = 3,
-   WALLPAPER_NONE            = 4
-} WallpaperAlign;
-
-
-bool gconf_set_as_wallpaper( const char *image_path, WallpaperAlign align );
-
 #define __matter(TYPE) __new(::matter<TYPE>)
 
 
-namespace user
-{
-
-
-   char * gsettings_get_malloc(const char * pszSchema, const char * pszKey);
-
-
-   ::e_status gsettings_set(const ::string & strSchema, const ::string & strKey, const ::string & strValue);
-
-
-} // namespace user
-
-
+//#include "gtk.h"
 

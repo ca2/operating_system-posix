@@ -306,13 +306,13 @@ namespace node_gtk
       if(edesktop & ::user::e_desktop_gnome)
       {
 
-         bOk = ::user::gsettings_set("org.gnome.desktop.background", "picture-uri", "file://" + strWallpaper);
+         bOk = gsettings_set("org.gnome.desktop.background", "picture-uri", "file://" + strWallpaper);
 
       }
       else if(edesktop & ::user::e_desktop_mate)
       {
 
-         bOk = ::user::gsettings_set("org.mate.background", "picture-filename", "file://" + strWallpaper);
+         bOk = gsettings_set("org.mate.background", "picture-filename", "file://" + strWallpaper);
 
       }
       else if(edesktop & ::user::e_desktop_lxde)

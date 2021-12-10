@@ -21,7 +21,7 @@ list(APPEND library_source
    framework.h
    #gdk.cpp
    #gdk.h
-   gnome_direct.cpp
+   #gnome_direct.cpp
    gtk_clipboard.cpp
    monitor.cpp
    monitor.h

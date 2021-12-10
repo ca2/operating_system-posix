@@ -780,7 +780,7 @@ const char * linux_g_direct_get_file_content_type(const char * pszPath)
 }
 
 
-int gdk_launch_uri(const char * pszUri, char * pszError, int iBufferSize)
+int aaa_gdk_launch_uri(const char * pszUri, char * pszError, int iBufferSize)
 {
 
    gboolean ret;

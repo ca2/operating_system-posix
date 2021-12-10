@@ -32,7 +32,7 @@ namespace node_gnome
 
       bool launch_on_node(::subject * psubject) override;
 
-      int os_launch_uri(const ::string & strUri, char * pszError = nullptr, int iBufferSize = 0) override;
+      //int os_launch_uri(const ::string & strUri, char * pszError = nullptr, int iBufferSize = 0) override;
 
       void handle(::subject * psubject, ::context * pcontext) override;
 

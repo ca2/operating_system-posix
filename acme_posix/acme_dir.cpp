@@ -23,6 +23,7 @@
 #include "acme/os/universal_windows/file_winrt.h"
 #endif
 
+
 namespace posix
 {
 
@@ -297,22 +298,6 @@ namespace posix
       return home() / "archive";
 
    }
-
-
-//   int acme_dir::make_path(const char * psz)
-//   {
-//
-//      return create(psz) != false;
-//
-//   }
-
-//
-//   bool acme_dir::_is(const char * path)
-//   {
-//
-//      return ::is_directory(path);
-//
-//   }
 
 
 } // namespace posix

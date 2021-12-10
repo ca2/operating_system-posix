@@ -2,21 +2,11 @@
 // on 2021-08-12 17:38 BRT
 // <3ThomasBorregaardSørensen!!
 #include "framework.h"
-
 #include <sys/stat.h>
-//Copy file using mmap()
 #include <sys/mman.h>
 #include <unistd.h>
 #include <sys/time.h>
-
-
 #include <fcntl.h>
-
-//
-//#define PACKAGE "mmap"
-//#include <wchar.h>
-//#include <fcntl.h>
-//#include <sys/stat.h>
 
 #ifdef MACOS
 #define IS_UTIMENSAT_AVAILABLE __builtin_available(macOS 10.13, *)
@@ -24,22 +14,15 @@
 #define IS_UTIMENSAT_AVAILABLE (TRUE)
 #endif
 
+
 namespace posix
 {
 
 
-   acme_file::acme_file()
-   {
-
-   }
+   acme_file::acme_file() = default;
 
 
-   acme_file::~acme_file() noexcept
-   {
-
-
-
-   }
+   acme_file::~acme_file() noexcept = default;
 
 
    ::e_status acme_file::ensure_exists(const char* path)
@@ -81,44 +64,44 @@ namespace posix
 
       if(IS_UTIMENSAT_AVAILABLE)
       {
-         
+
          int fd = ::open(path, O_WRONLY|O_CREAT, 0666);
-         
+
          if (fd < 0)
          {
-            
+
             estatus = error_io;
-            
+
          }
          else
          {
 
             int rc = ::futimens(fd, nullptr);
-            
+
             if (rc)
             {
-            
+
                estatus = error_failed;
 
             }
-            
+
             ::close(fd);
-            
+
          }
 
       }
       else
       {
-         
+
          int rc = utimes(path, nullptr);
-         
+
          if (rc)
          {
-         
+
             estatus = error_failed;
 
          }
-         
+
       }
 
 
@@ -323,6 +306,51 @@ namespace posix
 //      return true;
 //
 //}
+
+
+   ::duration acme_file::modification_time(const char* psz)
+   {
+
+      struct stat st{};
+
+      int iError = ::stat(psz, &st);
+
+      if(iError != 0)
+      {
+
+         return {};
+
+      }
+
+      return {st.st_mtim.tv_sec, st.st_mtim.tv_nsec};
+
+
+   }
+
+
+   ::e_status acme_file::set_modification_time(const char* psz, const ::duration& duration)
+   {
+
+      timespec times[2];
+
+      times[0].tv_sec = 0;
+      times[0].tv_nsec = UTIME_OMIT;
+
+      times[1].tv_sec = duration.m_iSecond;
+      times[1].tv_nsec = duration.m_iNanosecond;
+
+      int iError = utimensat(0, psz, times, 0);
+
+      if(iError != 0)
+      {
+
+         return error_failed;
+
+      }
+
+      return ::success;
+
+   }
 
 
    filesize acme_file::get_size(FILE * pfile)

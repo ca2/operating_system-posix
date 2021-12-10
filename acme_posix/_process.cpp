@@ -12,8 +12,6 @@
 extern char **environ;
 
 
-
-
 typedef iptr_map < chldstatus > chldstatus_map;
 
 

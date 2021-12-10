@@ -6,29 +6,22 @@ list(APPEND library_source
    _.cpp
    _.h
    _node_gtk.h
-   #appindicator.cpp
-   #appindicator.h
    application.cpp
    application.h
-   #clipboard_data.h
-   #copydesk.cpp
-   #copydesk.h
    display.cpp
    display.h
-   #enum_display_monitors.cpp
    _factory.cpp
    framework.cpp
    framework.h
-   #gdk.cpp
-   #gdk.h
-   #gnome_direct.cpp
-   #gtk_direct2.cpp
-   #gtk_clipboard.cpp
+   gconf.cpp
+   gdk_gdk.cpp
+   gdk_gdk.h
+   gtk_gtk.cpp
+   gtk_gtk.h
    monitor.cpp
    monitor.h
    node.cpp
    node.h
-   #notify_icon.cpp
    windowing.cpp
    windowing.h
    )
@@ -46,7 +39,7 @@ list(APPEND library_references
    )
 
 
-add_library(node_gtk SHARED ${library_source} gconf.cpp gsettings.cpp)
+add_library(node_gtk SHARED ${library_source})
 
 target_precompile_headers(node_gtk PRIVATE framework.h)
 

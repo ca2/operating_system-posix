@@ -3,14 +3,13 @@ project(aura_posix CXX)
 
 
 list(APPEND library_source
-        x11/_x11.h
+   x11/_x11.h
    _.cpp
    _.h
    _aura_posix.h
    appindicator.cpp
    appindicator.h
    _factory.cpp
-
    framework.cpp
    framework.h
    node.cpp
@@ -79,16 +78,25 @@ elseif(LINUX OR FREEBSD)
 
 
 if(WITH_XCB)
+
+
    pkg_check_modules(PKGCONFIG x11 x11-xcb)
+
+
 else()
+
+
    pkg_check_modules(PKGCONFIG x11)
+
+
 endif()
 
+
    target_compile_options(aura_posix PRIVATE -fpermissive)
-      target_compile_options(aura_posix PRIVATE ${PKGCONFIG_CFLAGS})
+   target_compile_options(aura_posix PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(aura_posix PRIVATE ${PKGCONFIG_LDFLAGS})
-   #target_link_options(aura_posix PRIVATE -Wl,-rpath=$ORIGIN)
-   target_link_libraries(aura_posix PRIVATE ${PKGCONFIG_LIBRARIES} ${library_references})
+   target_link_libraries(aura_posix PRIVATE ${PKGCONFIG_LIBRARIES})
+   target_link_libraries(aura_posix PRIVATE ${library_references})
    target_link_options(aura_posix PRIVATE -Wl,-z,defs)
 
 

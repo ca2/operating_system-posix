@@ -16,7 +16,7 @@
 
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 
-void g_safe_free(void * pfree);
+//void g_safe_free(void * pfree);
 //{
 //
 //   if(pfree == nullptr)
@@ -209,17 +209,17 @@ namespace node_gnome
             for(int i = 0; i < iEntry; i++)
             {
 
-               g_safe_free((void *) entries[i].name);
-               g_safe_free((void *) entries[i].stock_id);
-               g_safe_free((void *) entries[i].label);
-               g_safe_free((void *) entries[i].accelerator);
-               g_safe_free((void *) entries[i].tooltip);
+               ::node_gtk::g_safe_free((void *) entries[i].name);
+               ::node_gtk::g_safe_free((void *) entries[i].stock_id);
+               ::node_gtk::g_safe_free((void *) entries[i].label);
+               ::node_gtk::g_safe_free((void *) entries[i].accelerator);
+               ::node_gtk::g_safe_free((void *) entries[i].tooltip);
 
             }
 
             delete [] entries;
 
-            g_safe_free(ui_info);
+            ::node_gtk::g_safe_free(ui_info);
 
             if(bOk)
             {

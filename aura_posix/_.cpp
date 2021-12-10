@@ -8,7 +8,7 @@
 //::e_status g_estatusInitGtk = ::error_none;
 //
 //
-//::e_status os_defer_init_gtk()
+//::e_status aaa_os_defer_init_gtk()
 //{
 //
 //   if (!g_bInitGtk)
