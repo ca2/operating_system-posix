@@ -2,9 +2,9 @@
 // Created by camilo on 19/01/2021. --<33ThomasBS!!
 //
 #include "framework.h"
-#include "gnome_shared.h"
+//#include "gnome_shared.h"
 #include "appindicator.h"
-#include "gdk.h"
+//#include "gdk.h"
 #undef new
 #include <kworkspace5/kworkspace.h>
 #include <KColorScheme>
@@ -548,7 +548,7 @@ namespace node_kde
    }
 
 
-   bool node::os_set_user_theme(const ::string &strUserTheme)
+   ::e_status node::os_set_user_theme(const ::string &strUserTheme)
    {
 
 //      // https://ubuntuforums.org/showthread.php?t=2140488
@@ -864,7 +864,7 @@ namespace node_kde
 
       }
 
-      if (psubject->m_id == id_user_color)
+      if (psubject->m_id == id_operating_system_user_color_change)
       {
 
          return false;

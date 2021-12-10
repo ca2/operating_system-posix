@@ -64,7 +64,7 @@ namespace node_kde
 
       string os_get_user_theme() override;
 
-      bool os_set_user_theme(const string & strUserTheme) override;
+      ::e_status os_set_user_theme(const string & strUserTheme) override;
 
       void os_process_user_theme(string strTheme) override;
 

@@ -18,10 +18,10 @@ list(APPEND library_source
    _factory.cpp
    framework.cpp
    framework.h
-   gdk.cpp
-   gdk.h
-   gnome_direct.cpp
-   gtk_clipboard.cpp
+   #gdk.cpp
+   #gdk.h
+   #gnome_direct.cpp
+   #gtk_clipboard.cpp
    monitor.cpp
    monitor.h
    node.cpp
