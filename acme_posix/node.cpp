@@ -3,6 +3,14 @@
 //
 #include "framework.h"
 
+#ifdef FREEBSD
+
+
+#include <sys/types.h>
+#include <sys/sysctl.h>
+
+#endif
+
 
 void init_pid_cs();
 
@@ -371,7 +379,12 @@ namespace acme
 
 /* set the mib for hw.ncpu */
          mib[0] = CTL_HW;
+#ifdef FREEBSD
+         mib[1] = HW_NCPU;  // alternatively, try HW_NCPU;
+#else
          mib[1] = HW_AVAILCPU;  // alternatively, try HW_NCPU;
+
+#endif
 
 /* get the number of CPUs from the system */
          sysctl(mib, 2, &numCPU, &len, NULL, 0);
