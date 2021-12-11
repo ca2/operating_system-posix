@@ -23,6 +23,17 @@ __FACTORY_EXPORT void apex_posix_factory(::factory::factory * pfactory)
 
 #endif
 
+
+#if defined(INTERPROCESS_COMMUNICATION_SYSTEM_V)
+
+   pfactory->add_factory_item < ::system_v::interprocess_communication_base, ::interprocess_communication::base >();
+   pfactory->add_factory_item < ::system_v::interprocess_communication_rx, ::interprocess_communication::rx >();
+   pfactory->add_factory_item < ::system_v::interprocess_communication_tx, ::interprocess_communication::tx >();
+
+#endif
+
+
+
    pfactory->add_factory_item < ::apex::posix::node, ::acme::node > ();
 
    pfactory->add_factory_item < ::posix::file_context, ::file_context >();

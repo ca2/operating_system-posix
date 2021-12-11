@@ -37,14 +37,7 @@ if(POSIX_LIST_SERIAL_PORTS)
 endif()
 
 
-if(INTERPROCESS_COMMUNICATION_SYSTEM_V)
 
-   list(APPEND library_source
-      system_v/interprocess_communication.cpp
-      system_v/interprocess_communication.h
-      )
-
-endif()
 
 
 add_library(acme_posix SHARED ${library_source})
@@ -56,12 +49,6 @@ target_compile_definitions(acme_posix PRIVATE POSIX_LIST_SERIAL_PORTS)
 
 endif()
 
-
-if(POSIX_LIST_SERIAL_PORTS)
-
-   target_compile_definitions(acme_posix PRIVATE INTERPROCESS_COMMUNICATION_SYSTEM_V)
-
-endif()
 
 list(APPEND library_references acme)
 
