@@ -18,7 +18,7 @@
 namespace windowing_xcb
 {
 
-#ifdef LINUX
+#if defined(LINUX) || defined(FREEBSD)
 
 
    CLASS_DECL_AURA ::user::enum_key keysym_to_userkey(const lparam & lparam);
@@ -796,7 +796,7 @@ namespace windowing_xcb
 
       }
 
-#elif !defined(LINUX)
+#elif !defined(LINUX) && !defined(FREEBSD)
 
 
 #else
