@@ -2,7 +2,7 @@
 #pragma once
 
 
-namespace linux
+namespace system_5
 {
 
 
@@ -71,15 +71,15 @@ namespace linux
       ~interprocess_communication_tx() override;
 
 
-      ::e_status open(const ::string & strChannel, launcher * plauncher = nullptr);
+      ::e_status open(const ::string & strChannel, launcher * plauncher = nullptr) override;
       ::e_status close() override;
 
 
-      ::e_status send(const ::string & pszMessage, const ::duration & durationTimeout);
-      ::e_status send(int message, void * pdata, int len, const ::duration & durationTimeout);
+      ::e_status send(const ::string & pszMessage, const ::duration & durationTimeout) override;
+      ::e_status send(int message, void * pdata, int len, const ::duration & durationTimeout) override;
 
 
-      bool is_tx_ok();
+      bool is_tx_ok() override;
 
 
    };
@@ -99,7 +99,7 @@ namespace linux
       ~interprocess_communication_rx() override;
 
 
-      ::e_status create(const ::string & strChannel);
+      ::e_status create(const ::string & strChannel) override;
       ::e_status destroy() override;
 
 
@@ -108,7 +108,7 @@ namespace linux
       void on_interprocess_post(i64 a, i64 b) override;
 
 
-      virtual bool on_idle();
+      bool on_idle() override;
 
 
       virtual bool start_receiving();
@@ -116,7 +116,7 @@ namespace linux
       virtual void * receive();
 
 
-      bool is_rx_ok();
+      bool is_rx_ok() override;
 
 
    };
@@ -163,7 +163,7 @@ namespace linux
    CLASS_DECL_APEX string app_install(string strPlatform = "");
 
 
-} // namespace windows
+} // namespace system_5
 
 
 

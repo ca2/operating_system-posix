@@ -6,7 +6,8 @@
 #include <sys/ipc.h>
 #include <sys/msg.h>
 
-namespace linux
+
+namespace system_5
 {
 
 
@@ -552,7 +553,7 @@ namespace linux
 //      }
 
 
-   } // namespace interprocess_intercommunication
+} // namespace interprocess_intercommunication
 
 
 

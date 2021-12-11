@@ -28,11 +28,11 @@ if(FILE_SYSTEM_INOTIFY)
 endif()
 
 
-if(INTERPROCESS_COMMUNICATION_SYSTEM_V)
+if(INTERPROCESS_COMMUNICATION_SYSTEM_5)
 
    list(APPEND library_source
-      system_v/interprocess_communication.cpp
-      system_v/interprocess_communication.h
+      system_5/interprocess_communication.cpp
+      system_5/interprocess_communication.h
       )
 
 endif()
@@ -65,9 +65,9 @@ endif()
 
 
 
-if(INTERPROCESS_COMMUNICATION_SYSTEM_V)
+if(INTERPROCESS_COMMUNICATION_SYSTEM_5)
 
-   target_compile_definitions(apex_posix PRIVATE INTERPROCESS_COMMUNICATION_SYSTEM_V)
+   target_compile_definitions(apex_posix PRIVATE INTERPROCESS_COMMUNICATION_SYSTEM_5)
 
 endif()
 

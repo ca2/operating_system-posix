@@ -1,7 +1,7 @@
 #include "framework.h"
 #include "file_context.h"
-#if defined(INTERPROCESS_COMMUNICATION_SYSTEM_V)
-#include "system_v/interprocess_communication.h"
+#if defined(INTERPROCESS_COMMUNICATION_SYSTEM_5)
+#include "system_5/interprocess_communication.h"
 #endif
 
 #ifdef FILE_SYSTEM_INOTIFY
@@ -26,11 +26,11 @@ __FACTORY_EXPORT void apex_posix_factory(::factory::factory * pfactory)
 #endif
 
 
-#if defined(INTERPROCESS_COMMUNICATION_SYSTEM_V)
+#if defined(INTERPROCESS_COMMUNICATION_SYSTEM_5)
 
-   pfactory->add_factory_item < ::system_v::interprocess_communication_base, ::interprocess_communication::base >();
-   pfactory->add_factory_item < ::system_v::interprocess_communication_rx, ::interprocess_communication::rx >();
-   pfactory->add_factory_item < ::system_v::interprocess_communication_tx, ::interprocess_communication::tx >();
+   pfactory->add_factory_item < ::system_5::interprocess_communication_base, ::interprocess_communication::base >();
+   pfactory->add_factory_item < ::system_5::interprocess_communication_rx, ::interprocess_communication::rx >();
+   pfactory->add_factory_item < ::system_5::interprocess_communication_tx, ::interprocess_communication::tx >();
 
 
    ***test***
