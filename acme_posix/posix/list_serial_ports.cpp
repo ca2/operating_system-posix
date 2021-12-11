@@ -1,8 +1,6 @@
 #include "framework.h"
 #include "acme/node/operating_system/ansi/_ansi.h"
 
-//#if defined(__linux__)
-
 /*
  * Copyright (c) 2014 Craig Lilley <cralilley@gmail.com>
  * This software is made available under the terms of the MIT licence.
@@ -173,7 +171,7 @@ namespace acme
 
          string serial = pacmefile->first_line(sys_usb_path + "/serial");
 
-         if (manufacturer.empty() && product.empty() && serial.empty())
+         if (manufacturer.is_empty() && product.is_empty() && serial.is_empty())
          {
 
             return "";
@@ -241,14 +239,14 @@ namespace acme
 
          }
 
-         if (friendly_name.empty())
+         if (friendly_name.is_empty())
          {
 
             friendly_name = device_name;
 
          }
 
-         if (hardware_id.empty())
+         if (hardware_id.is_empty())
          {
 
             hardware_id = "n/a";
@@ -256,7 +254,9 @@ namespace acme
          }
 
          string_array result;
+
          result.push_back(friendly_name);
+
          result.push_back(hardware_id);
 
          return result;
@@ -264,9 +264,9 @@ namespace acme
       }
 
 
-      string
-      format(const char * format, ...)
+      string format(const char * format, ...)
       {
+
          va_list ap;
 
          size_t buffer_size_bytes = 256;
@@ -290,15 +290,20 @@ namespace acme
 
          while (!done)
          {
+
             va_start(ap, format);
 
             int return_value = vsnprintf(buffer, buffer_size_bytes, format, ap);
 
             if (return_value < 0)
             {
+
                done = true;
-            } else if (return_value >= buffer_size_bytes)
+
+            }
+            else if (return_value >= buffer_size_bytes)
             {
+
                // Realloc and try again.
 
                buffer_size_bytes = return_value + 1;
@@ -307,32 +312,44 @@ namespace acme
 
                if (new_buffer_ptr == nullptr)
                {
+
                   done = true;
-               } else
-               {
-                  buffer = new_buffer_ptr;
+
                }
-            } else
+               else
+               {
+
+                  buffer = new_buffer_ptr;
+
+               }
+
+            }
+            else
             {
+
                result = string(buffer.m_p, buffer.m_iSize);
+
                done = true;
+
             }
 
             va_end(ap);
 
             if (++loop_count > 5)
-               done = true;
-         }
+            {
 
-         //free(buffer);
+               done = true;
+
+            }
+
+         }
 
          return result;
 
       }
 
 
-      string
-      usb_sysfs_hw_string(::matter * pmatter, const string & sysfs_path)
+      string usb_sysfs_hw_string(::matter * pmatter, const string & sysfs_path)
       {
 
          auto psystem = pmatter->m_psystem;
@@ -343,7 +360,9 @@ namespace acme
 
          if (serial_number.length() > 0)
          {
+
             serial_number = format("SNR=%s", serial_number.c_str());
+
          }
 
          string vid = pacmefile->first_line(sysfs_path + "/idVendor");
@@ -364,6 +383,7 @@ namespace acme
          array<::serial::port_info> portinfoa;
 
          string_array search_globs;
+
          search_globs.push_back("/dev/ttyACM*");
          search_globs.push_back("/dev/ttyS*");
          search_globs.push_back("/dev/ttyUSB*");
@@ -371,7 +391,6 @@ namespace acme
          search_globs.push_back("/dev/cu.*");
 
          string_array devices_found = glob(search_globs);
-
 
          for (auto device : devices_found)
          {
@@ -383,6 +402,7 @@ namespace acme
             string hardware_id = sysfs_info[1];
 
             ::serial::port_info portinfo;
+
             portinfo.port = device;
             portinfo.description = friendly_name;
             portinfo.hardware_id = hardware_id;
@@ -395,6 +415,7 @@ namespace acme
 
       }
 
+
 #endif // POSIX_LIST_SERIAL_PORTS
 
 
@@ -404,4 +425,4 @@ namespace acme
 } // namespace acme
 
 
-//#endif // defined(__linux__)
+

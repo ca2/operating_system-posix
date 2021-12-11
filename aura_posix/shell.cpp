@@ -99,19 +99,19 @@ namespace aura
 
       }
 //
-//      void linux::initialize()
+//      void freebsd::initialize()
 //      {
 //
 //
 //      }
 
-//      void linux::defer_start()
+//      void freebsd::defer_start()
 //      {
 //
 //
 //      }
 
-//      i32 linux::get_image_by_extension(per_fork * pfork, oswindow oswindow, image_key & key, color32_t crBk)
+//      i32 freebsd::get_image_by_extension(per_fork * pfork, oswindow oswindow, image_key & key, color32_t crBk)
 //      {
 //
 //         return 0x80000000;
@@ -121,7 +121,7 @@ namespace aura
 
 
 
-//      i32 linux::get_file_extension_image(oswindow oswindow, const string & strExtension, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
+//      i32 freebsd::get_file_extension_image(oswindow oswindow, const string & strExtension, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
 //      {
 //
 //         i32 iImage;
@@ -221,7 +221,7 @@ namespace aura
 
 
 
-      //bool linux::get_icon(
+      //bool freebsd::get_icon(
       //   per_fork * pfork,
       //   oswindow oswindow,
       //   IShellFolder * lpsf,
@@ -293,7 +293,7 @@ namespace aura
       //   SHFILEINFO shfi16;
       //   SHFILEINFO shfi48;
 
-      //   ::linux::comptr< IExtractIcon > lpiextracticon;
+      //   ::freebsd::comptr< IExtractIcon > lpiextracticon;
 
       //   if (SUCCEEDED(lpsf->GetUIObjectOf(
       //      oswindow,
@@ -478,7 +478,7 @@ namespace aura
 
 
 
-      //i32 linux::get_image(per_fork * pfork, oswindow oswindow, image_key imagekey, LPITEMIDLIST lpiidlAbsolute, const unichar * lpcszExtra, color32_t crBk)
+      //i32 freebsd::get_image(per_fork * pfork, oswindow oswindow, image_key imagekey, LPITEMIDLIST lpiidlAbsolute, const unichar * lpcszExtra, color32_t crBk)
       //{
 
       //   i32 iImage = get_image(pfork, oswindow, imagekey, lpiidlAbsolute, lpiidlChild, lpcszExtra, crBk);
@@ -493,7 +493,7 @@ namespace aura
 
 
 
-//      bool linux::get_icon( oswindow oswindow, const char * psz, const unichar * lpcszExtra, e_icon eicon, HICON * phicon16, HICON * phicon48)
+//      bool freebsd::get_icon( oswindow oswindow, const char * psz, const unichar * lpcszExtra, e_icon eicon, HICON * phicon16, HICON * phicon48)
 //      {
 //
 //         single_lock synchronouslock(mutex(), true);
@@ -507,15 +507,15 @@ namespace aura
 //
 //      }
 //
-//      bool linux::get_icon(per_fork * pfork, oswindow oswindow, LPITEMIDLIST lpiidlAbsolute, const unichar * lpcszExtra, e_icon eicon, HICON * phicon16, HICON * phicon48)
+//      bool freebsd::get_icon(per_fork * pfork, oswindow oswindow, LPITEMIDLIST lpiidlAbsolute, const unichar * lpcszExtra, e_icon eicon, HICON * phicon16, HICON * phicon48)
 //      {
 //
 //         single_lock synchronouslock(mutex(), true);
 //
 //         wstring wstr;
 //
-////         ::linux::comptr < IShellFolder > lpsf = _017GetShellFolder(wstr, lpiidlAbsolute);
-//         ::linux::comptr < IShellFolder > lpsf = _017GetShellFolder(lpiidlAbsolute);
+////         ::freebsd::comptr < IShellFolder > lpsf = _017GetShellFolder(wstr, lpiidlAbsolute);
+//         ::freebsd::comptr < IShellFolder > lpsf = _017GetShellFolder(lpiidlAbsolute);
 //
 //
 //         LPITEMIDLIST lpiidlChild = _017ItemIDListGetLast(pfork, lpiidlAbsolute);
@@ -592,7 +592,7 @@ namespace aura
 
 
 
-//      linux::per_fork::per_fork(bool bInit)
+//      freebsd::per_fork::per_fork(bool bInit)
 //      {
 //         if (bInit)
 //         {
@@ -604,20 +604,20 @@ namespace aura
 //      }
 //
 //
-//      linux::per_fork::~per_fork()
+//      freebsd::per_fork::~per_fork()
 //      {
 //
 //      }
 //
 //
-//      void linux::per_fork::init()
+//      void freebsd::per_fork::init()
 //      {
 //
 //
 //
 //      }
 //
-//      int linux::shell_run()
+//      int freebsd::shell_run()
 //      {
 //
 //         per_fork fork;
@@ -671,7 +671,7 @@ namespace aura
 //
 
 
-//      i32 linux::get_image(oswindow oswindow, const string & strPath, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
+//      i32 freebsd::get_image(oswindow oswindow, const string & strPath, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
 //      {
 //
 //         i32 iImage = 0x80000000;
@@ -744,7 +744,7 @@ namespace aura
 
 
       bool shell::get_image_by_file_extension(_get_file_image_ & getfileimage)
-      //i32 linux::get_image_foo(oswindow oswindow, const string & strExtension, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
+      //i32 freebsd::get_image_foo(oswindow oswindow, const string & strExtension, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
       {
 
          getfileimage.m_iImage = 0x80000000;
@@ -874,7 +874,7 @@ namespace aura
 //         if (!m_pshell)
 //         {
 //
-//            estatus = __compose(m_pshell, __new(::linux::shell));
+//            estatus = __compose(m_pshell, __new(::freebsd::shell));
 //
 //            if (!estatus)
 //            {

@@ -13,7 +13,7 @@ list(APPEND library_source
         _.cpp
         _.h
         _write_text_pango.h
-        factory_exchange.cpp
+        _factory.cpp
     font_enumeration.cpp
     font_enumeration.h
     fonts.cpp
@@ -31,18 +31,26 @@ target_precompile_headers(write_text_pango PRIVATE framework.h)
 set_target_properties(write_text_pango PROPERTIES LINKER_LANGUAGE CXX)
 
 if (MSVC)
+
+
     target_compile_options(write_text_pango PRIVATE "/MD$<$<CONFIG:Debug>:d>")
     target_link_options(write_text_pango PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
     target_link_options(write_text_pango PRIVATE "/IMPLIB:${LIBRARY_OUTPUT_PATH}/write_text_pango.lib")
     target_link_options(write_text_pango PRIVATE "/DEF:${CMAKE_CURRENT_SOURCE_DIR}/write_text_pango.def")
     target_link_libraries(write_text_pango PRIVATE acme apex aqua aura Gdiplus)
-elseif(LINUX)
+
+
+elseif(LINUX OR FREEBSD)
+
+
     pkg_check_modules(PKGCONFIG pangocairo)
     target_compile_options(write_text_pango PRIVATE ${PKGCONFIG_CFLAGS})
-    #target_link_options(write_text_pango PRIVATE -Wl,-rpath=$ORIGIN)
+    target_link_options(write_text_pango PRIVATE ${PKGCONFIG_LDFLAGS})
     target_link_libraries(write_text_pango PRIVATE ${PKGCONFIG_LIBRARIES} ${library_references})
     target_link_options(write_text_pango PRIVATE -Wl,-z,defs)
     message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
+
+
 endif()
 
 

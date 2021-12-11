@@ -3,10 +3,6 @@
 //
 #include "framework.h"
 #include "node.h"
-//#include "gtk_shared.h"
-//#include "appindicator.h"
-#include "gtk_direct.h"
-//#include "windowing_x11/windowing_x11.h"
 #include "acme/node/operating_system/ansi/pmutex_lock.h"
 #include <gio/gio.h>
 #include <gtk/gtk.h>
@@ -14,8 +10,6 @@
 
 
 
-
-::e_status os_defer_init_gtk();
 
 
 bool x11_message_loop_step();
@@ -50,12 +44,6 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 }
 
 
-void gdk_branch(const ::routine & routine);
-
-
-int gdk_launch_uri(const char * pszUri, char * pszError, int iBufferSize);
-
-
 void x11_add_idle_source(::node_gtk::node * pnode);
 
 
@@ -81,19 +69,9 @@ void gtk_settings_gtk_theme_name_callback(GObject* object, GParamSpec* pspec, gp
 
    pnode->os_process_user_theme(strTheme);
 
-   //}
-
-   //pnode->m_psystem->m_papexsystem->signal(id_os_user_theme);
-
-   //pnode->_on_user_theme_changed();
-
 }
 
 
-const char * linux_g_direct_get_file_icon_path(const char * pszPath, int iSize);
-
-
-const char * linux_g_direct_get_file_content_type(const char * pszPath);
 
 
 void x11_add_idle_source();
@@ -150,15 +128,6 @@ namespace node_gtk
 
       m_pGtkSettingsDefault = nullptr;
 
-//      if(m_pGtkSettingsDefault)
-//      {
-//
-//         g_object_unref(m_pGtkSettingsDefault);
-//
-//      }
-
-      //::os_post_quit();
-
    }
 
 
@@ -194,13 +163,13 @@ namespace node_gtk
       if (!estatus)
       {
 
-         output_debug_string("Failed to begin_synch the system (::apex::system or ::apex::system derived)");
+         WARNING("Failed to begin_synch the system (::apex::system or ::apex::system derived)");
 
          return estatus;
 
       }
 
-      // To pair linux.h/main platform_create_system new system
+      // To pair freebsd.h/main platform_create_system new system
       // This should be safe here in this node_gtk::node
       // because just above m_psystem has begin_synch()
       // so the running thread is holding references to the m_psystem thread.
@@ -471,7 +440,24 @@ namespace node_gtk
 //   }
 
 
-   bool node::os_set_user_theme(const ::string &strUserTheme)
+   ::e_status node::os_set_user_theme(const ::string &strUserTheme)
+   {
+
+      auto estatus = _os_set_user_theme(strUserTheme);
+
+      if(!estatus)
+      {
+
+         return estatus;
+
+      }
+
+      return estatus;
+
+   }
+
+
+   ::e_status node::_os_set_user_theme(const ::string &strUserTheme)
    {
 
       // https://ubuntuforums.org/showthread.php?t=2140488
@@ -485,66 +471,62 @@ namespace node_gtk
 
       auto edesktop = pnode->get_edesktop();
 
-      switch (edesktop)
+      if (edesktop & ::user::e_desktop_gnome)
       {
 
-      case ::user::e_desktop_gnome:
-      case ::user::e_desktop_ubuntu_gnome:
-      case ::user::e_desktop_unity_gnome:
+         bool bOk1 = gsettings_set("org.gnome.desktop.interface", "gtk-theme", strUserTheme);
+
+         bool bOk2 = true;
+
+         //if(::file::system_short_name().contains_ci("manjaro"))
+         {
+
+            bOk2 = gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme);
+
+         }
+
+         sleep(300_ms);
+
+         ::node_gtk::gsettings_sync();
+
+         sleep(300_ms);
+
+         if(!bOk1 || !bOk2)
+         {
+
+            return error_failed;
+
+         }
+
+      }
+      else if (edesktop & ::user::e_desktop_mate)
       {
 
-      bool bOk1 = ::node_gtk::gsettings_set("org.gnome.desktop.interface", "gtk-theme", strUserTheme);
+         //return ::user::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
 
-      bool bOk2 = true;
-
-      //if(::file::system_short_name().contains_ci("manjaro"))
+      }
+      else if (edesktop & ::user::e_desktop_lxde)
       {
 
-         bOk2 = ::node_gtk::gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme);
+
+         //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+
+      }
+      else if (edesktop & ::user::e_desktop_xfce)
+      {
+         //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+         //          if(entry.contains("image-path") || entry.contains("last-image")){
+         //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+         //      }
+         //}
+
+         WARNING("Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+
+         return error_failed;
 
       }
 
-      sleep(300_ms);
-
-      ::node_gtk::gsettings_sync();
-
-      sleep(300_ms);
-
-      return
-      bOk1 &&bOk2;
-
-      }
-
-      case ::user::e_desktop_mate:
-
-      //return ::user::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
-
-      case ::user::e_desktop_lxde:
-
-      //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
-
-      break;
-
-      case ::user::e_desktop_xfce:
-      {
-      //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
-      //          if(entry.contains("image-path") || entry.contains("last-image")){
-      //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
-      //      }
-      //}
-
-      }
-
-      //break;
-
-      default:
-
-      output_debug_string("Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
-      return false;
-
-      }
-
-      return true;
+      return ::success;
 
    }
 
@@ -601,7 +583,7 @@ namespace node_gtk
 
          default:
 
-            output_debug_string("Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+            WARNING("Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
             return false;
 
       }
@@ -627,13 +609,13 @@ namespace node_gtk
          case ::user::e_desktop_ubuntu_gnome:
          case ::user::e_desktop_unity_gnome:
 
-            ::node_gtk::g_enable_wallpaper_change_notification("org.gnome.desktop.background", "picture-uri");
+            node_enable_wallpaper_change_notification(this, "org.gnome.desktop.background", "picture-uri");
 
             break;
 
          case ::user::e_desktop_mate:
 
-            ::node_gtk::g_enable_wallpaper_change_notification("org.mate.background", "picture-filename");
+            node_enable_wallpaper_change_notification(this, "org.mate.background", "picture-filename");
 
             break;
 
@@ -656,7 +638,7 @@ namespace node_gtk
          break;
          default:
 
-            output_debug_string("Failed to get wallpaper setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+            WARNING("Failed to get wallpaper setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
             //return "";
 
       }
@@ -667,7 +649,7 @@ namespace node_gtk
    string node::get_file_icon_path(const ::string & strPath, int iSize)
    {
 
-      return ::linux_g_direct_get_file_icon_path(strPath, iSize);
+      return ::node_gtk::g_get_file_icon_path(strPath, iSize);
 
    }
 
@@ -675,7 +657,7 @@ namespace node_gtk
    string node::get_file_content_type(const ::string & strPath)
    {
 
-      return ::linux_g_direct_get_file_content_type(strPath);
+      return ::node_gtk::g_get_file_content_type(strPath);
 
    }
 
@@ -728,10 +710,10 @@ namespace node_gtk
 //   }
 //
 //
-//   void node::appindicator_destroy(::linux::appindicator * pappindicator)
+//   void node::appindicator_destroy(::freebsd::appindicator * pappindicator)
 //   {
 //
-//      //::linux::appindicator_destroy(pappindicator);
+//      //::freebsd::appindicator_destroy(pappindicator);
 //
 //      delete pappindicator;
 //
@@ -837,7 +819,7 @@ namespace node_gtk
 
       }
 
-      if(psubject->m_id == id_user_color)
+      if(psubject->m_id == id_operating_system_user_color_change)
       {
 
          return false;
@@ -871,340 +853,17 @@ namespace node_gtk
 
    }
 
-
-   int node::os_launch_uri(const ::string & strUri, char * pszError, int iBufferSize)
-   {
-
-      int iRet = gdk_launch_uri(strUri, pszError, iBufferSize);
-
-      return iRet;
-
-   }
-
-
-} // namespace node_gtk
-
-
-gboolean node_gtk_source_func(gpointer pUserdata)
-{
-
-   ::element * pelement = (::element *) pUserdata;
-
-   if(!pelement->step())
-   {
-
-      return false;
-
-   }
-
-   return true;
-
-}
-
-
-
-
-
-
-
-namespace node_gtk
-{
-
-
-   ::boolean g_bitLastDarkMode;
-
-   char *gsettings_get_malloc(const char *pszSchema, const char *pszKey);
-
-   CLASS_DECL_ACME void _os_process_user_theme_color(string strTheme);
-
-   bool gsettings_get(string &str, const char *pszSchema, const char *pszKey)
-   {
-
-      char *psz = gsettings_get_malloc(pszSchema, pszKey);
-
-      if (psz == nullptr)
-      {
-
-         return false;
-
-      }
-
-      try
-      {
-
-         str = psz;
-
-      }
-      catch (...)
-      {
-
-      }
-
-      try
-      {
-
-         ::free(psz);
-
-      }
-      catch (...)
-      {
-
-      }
-
-      return true;
-
-   }
-
-
-   bool g_bGInitialized = false;
-
-
-   pthread_mutex_t g_mutexG;
-
-
-   bool gsettings_set(const char *pszSchema, const char *pszKey, const char *pszValue)
-   {
-
-      if (pszSchema == nullptr)
-      {
-
-         return false;
-
-      }
-
-      if (pszKey == nullptr)
-      {
-
-         return false;
-
-      }
-
-      if (pszValue == nullptr)
-      {
-
-         return false;
-
-      }
-
-      if (!os_defer_init_gtk())
-      {
-
-         return false;
-
-      }
-
-      GSettings *settings = g_settings_new(pszSchema);
-
-      if (settings == nullptr)
-      {
-
-         return false;
-
-      }
-
-      gboolean bOk = g_settings_set_string(settings, pszKey, pszValue);
-
-      if (settings != nullptr)
-      {
-
-         g_object_unref(settings);
-
-      }
-
-      return bOk;
-
-   }
-
-
-   bool gsettings_sync()
-   {
-
-      if (!os_defer_init_gtk())
-      {
-
-         return false;
-
-      }
-
-      g_settings_sync();
-
-      return true;
-
-   }
-
-
-   char *gsettings_get_malloc(const char *pszSchema, const char *pszKey)
-   {
-
-      if (pszSchema == nullptr)
-      {
-
-         return nullptr;
-
-      }
-
-      if (pszKey == nullptr)
-      {
-
-         return nullptr;
-
-      }
-
-      if (!os_defer_init_gtk())
-      {
-
-         return nullptr;
-
-      }
-
-      GSettings *settings = g_settings_new(pszSchema);
-
-      if (settings == nullptr)
-      {
-
-         return nullptr;
-
-      }
-
-      gchar *pgchar = g_settings_get_string(settings, pszKey);
-
-      if (pgchar == nullptr)
-      {
-
-         g_object_unref(settings);
-
-         return nullptr;
-
-      }
-
-      char *psz = strdup(pgchar);
-
-      g_free(pgchar);
-
-      g_object_unref(settings);
-
-      return psz;
-
-   }
-
-
-   void wallpaper_change_notification(GSettings *settings, const gchar *key, gpointer data)
-   {
-
-
-      ::node_gtk::node * pnode = (::node_gtk::node *) data;
-
-      pnode->m_psystem->m_papexsystem->signal(id_wallpaper_change);
-
-   }
-
-
-   GAction *g_pactionWallpaper = nullptr;
-
-
-   bool g_enable_wallpaper_change_notification(const char *pszSchema, const char *pszKey)
-   {
-
-      if (!g_bGInitialized)
-      {
-
-         return false;
-
-      }
-
-      pmutex_lock lock(&g_mutexG);
-
-      if (g_pactionWallpaper != nullptr)
-      {
-
-         return true;
-
-      }
-
-      GSettings *settings = g_settings_new(pszSchema);
-
-      if (settings == nullptr)
-      {
-
-         return false;
-
-      }
-
-      g_pactionWallpaper = g_settings_create_action(settings, pszKey);
-
-      g_object_unref(settings);
-
-      g_signal_connect (g_pactionWallpaper, "notify::state", G_CALLBACK(wallpaper_change_notification), nullptr);
-
-      return true;
-
-   }
-
-
-   void g_defer_init()
-   {
-
-      if (g_bGInitialized)
-      {
-
-         return;
-
-      }
-
-      g_bGInitialized = true;
-
-      pthread_mutex_init(&g_mutexG, nullptr);
-
-   }
-
-
-   void g_defer_term()
-   {
-
-      if (!g_bGInitialized)
-      {
-
-         return;
-
-      }
-
-      g_bGInitialized = false;
-
-      if (g_pactionWallpaper != nullptr)
-      {
-
-         g_object_unref(g_pactionWallpaper);
-
-         g_pactionWallpaper = nullptr;
-
-      }
-
-      pthread_mutex_destroy(&g_mutexG);
-
-   }
-
-
-
-
-
-
-   //void os_calc_user_theme()
-   //{
-
-//      string strTheme = _os_calc_user_theme();
 //
-//      if(System.m_strOsUserTheme != strTheme)
-//      {
+//   int node::os_launch_uri(const ::string & strUri, char * pszError, int iBufferSize)
+//   {
 //
-//         System.m_strOsUserTheme = strTheme;
+//      int iRet = gdk_launch_uri(strUri, pszError, iBufferSize);
 //
-//         System.set_modified(id_os_user_theme);
-//
-//         x11_kick_idle();
-//
-//      }
+//      return iRet;
 //
 //   }
+
+
 
 
    bool g_bInitializedUserTheme = false;
@@ -1275,8 +934,8 @@ namespace node_gtk
 
          default:
 
-            output_debug_string(
-               "Failed to get wallpaper setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+            WARNING(
+               "Failed to get user theme setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
             //return "";
 
       }
@@ -1457,6 +1116,18 @@ namespace node_gtk
 
       m_strTheme = strTheme;
 
+      try
+      {
+
+         m_psystem->m_papexsystem->signal(id_operating_system_user_theme_change);
+
+      }
+      catch(...)
+      {
+
+
+      }
+
       _os_process_user_theme_color(strTheme);
 
       fetch_user_color();
@@ -1476,11 +1147,7 @@ namespace node_gtk
 
          ::user::os_set_theme_colors(pthemecolors);
 
-//         auto psubject = System.subject(id_os_user_theme);
-//
-//         psubject->m_esubject = e_subject_deliver;
-//
-//         System.process(psubject);
+         m_psystem->m_papexsystem->signal(id_operating_system_user_color_change);
 
       }
       else
@@ -1503,6 +1170,8 @@ namespace node_gtk
 
          string strTheme = _os_get_user_theme();
 
+         INFORMATION("node::fetch_user_color _os_get_user_theme(): " << strTheme);
+
          pthemecolors = _new_os_theme_colors(strTheme);
 
          ::user::os_set_theme_colors(pthemecolors);
@@ -1514,8 +1183,72 @@ namespace node_gtk
    }
 
 
+   bool node::is_branch_current() const
+   {
+
+      return get_current_ithread() == get_main_ithread();
+
+   }
+
+
+   int node::os_launch_uri(const ::string & strUri, char * pszError, int iBufferSize)
+   {
+
+      int iRet = gdk_launch_uri(strUri, pszError, iBufferSize);
+
+      return iRet;
+
+   }
+
 
 } // namespace node_gtk
+
+
+gboolean node_gtk_source_func(gpointer pUserdata)
+{
+
+   ::element * pelement = (::element *) pUserdata;
+
+   if(!pelement->step())
+   {
+
+      return false;
+
+   }
+
+   return true;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+   //void os_calc_user_theme()
+   //{
+
+//      string strTheme = _os_calc_user_theme();
+//
+//      if(System.m_strOsUserTheme != strTheme)
+//      {
+//
+//         System.m_strOsUserTheme = strTheme;
+//
+//         System.set_modified(id_os_user_theme);
+//
+//         x11_kick_idle();
+//
+//      }
+//
+//   }
+
+
 
 
 
@@ -1542,145 +1275,6 @@ log_handler (const gchar   *log_domain,
 
 ::e_status run_runnable(::element * pobjectTask);
 
-
-#define GDK_BRANCH_USE_LIST 0
-
-
-#if GDK_BRANCH_USE_LIST
-
-GSource * g_psourceGdkBranch = nullptr;
-
-routine_list * g_plistGdkBranch = nullptr;
-
-gboolean gdk_callback_run_runnable(gpointer)
-{
-
-   synchronous_lock synchronouslock (g_mutexGdkBranch);
-
-   if(g_plistGdkBranch->has_element())
-   {
-
-      {
-
-         auto routine = g_plistGdkBranch->pick_head();
-
-         synchronouslock.unlock();
-
-         routine();
-
-      }
-
-      return TRUE;
-
-   }
-
-   return FALSE;
-
-}
-
-
-GSource * get_gdk_branch_source()
-{
-
-   if(!g_mutexGdkBranch)
-   {
-
-      g_mutexGdkBranch = new mutex();
-
-   }
-
-   synchronous_lock synchronouslock (g_mutexGdkBranch);
-
-   if(g_psourceGdkBranch)
-   {
-
-      return g_psourceGdkBranch;
-
-   }
-
-   g_plistGdkBranch = new routine_list;
-
-   auto idle_source = g_idle_source_new();
-
-   g_source_set_priority(idle_source, G_PRIORITY_DEFAULT);
-
-   g_psourceGdkBranch = idle_source;
-
-   return g_psourceGdkBranch;
-
-}
-
-
-void gdk_branch(const ::routine & routine)
-{
-
-   auto psource = get_gdk_branch_source();
-
-   synchronous_lock synchronouslock (g_mutexGdkBranch);
-
-   bool bStartSourceCallback = g_plistGdkBranch->is_empty();
-
-   g_plistGdkBranch->add_head(routine);
-
-   if(bStartSourceCallback)
-   {
-
-      g_source_set_callback(psource, &gdk_callback_run_runnable, nullptr, nullptr);
-
-      g_source_attach(psource, g_main_context_default());
-
-   }
-
-}
-
-
-#else
-
-
-gboolean gdk_callback_run_runnable(gpointer pdata)
-{
-
-   auto pelement = (::element *) pdata;
-
-   try
-   {
-
-      pelement->run();
-
-   }
-   catch(...)
-   {
-
-   }
-
-   ::release(pelement);
-
-   return FALSE;
-
-}
-
-
-void gdk_branch(const ::routine & routine)
-{
-
-   ::element * pelement = routine.m_p;
-
-   ::increment_reference_count(pelement);
-
-   synchronous_lock synchronouslock (user_mutex());
-
-   auto psource = g_idle_source_new();
-
-   g_source_set_priority(psource, G_PRIORITY_DEFAULT);
-
-   g_source_set_callback(psource, &gdk_callback_run_runnable, pelement, nullptr);
-
-   g_source_attach(psource, g_main_context_default());
-
-}
-
-
-#endif
 
 
 gboolean x11_source_func(gpointer p)
@@ -1739,177 +1333,32 @@ void x11_add_filter()
 }
 
 
-int gdk_launch_uri(const char * pszUri, char * pszError, int iBufferSize)
-{
-
-   gboolean ret;
-
-   GError * error = NULL;
-
-   //g_type_init();
-
-   ret = g_app_info_launch_default_for_uri(pszUri, NULL, &error);
-
-   if(ret)
-   {
-
-      return true;
-
-   }
-
-   if(pszError != nullptr)
-   {
-
-      strncpy(pszError, error->message, iBufferSize);
-
-   }
-
-   return 0;
-
-}
-
-
-const char * linux_g_direct_get_file_icon_path(const char * pszPath, int iSize)
-{
-
-   GFile * pfile = g_file_new_for_path (pszPath);
-
-   if(pfile == nullptr)
-   {
-
-      return nullptr;
-
-   }
-
-   GError * perror = nullptr;
-
-   GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
-
-   if(pfileinfo == nullptr)
-   {
-
-      return nullptr;
-
-   }
-
-   /* you'd have to use g_loadable_icon_load to get the actual icon */
-   GIcon * picon = g_file_info_get_icon (pfileinfo);
-
-   if(picon == nullptr)
-   {
-
-      return nullptr;
-
-   }
-
-   if(G_IS_FILE_ICON(G_OBJECT(picon)))
-   {
-
-      GFileIcon * pfileicon = G_FILE_ICON(G_OBJECT(picon));
-
-      if(pfileicon == nullptr)
-      {
-
-         return nullptr;
-
-      }
-
-      GFile * pfileIcon = g_file_icon_get_file(pfileicon);
-
-      if(pfileIcon == nullptr)
-      {
-
-         return nullptr;
-
-      }
-
-      char * psz = strdup(g_file_get_path(pfileIcon));
-
-      return psz;
-
-   }
-   else if(G_IS_THEMED_ICON(G_OBJECT(picon)))
-   {
-
-      GtkIconInfo *pGtkIconInfo;
-
-      GtkIconTheme *pGtkIconTheme= gtk_icon_theme_get_default();
-
-      if(pGtkIconTheme == nullptr)
-      {
-
-         return nullptr;
-
-      }
-
-      pGtkIconInfo = gtk_icon_theme_lookup_by_gicon(pGtkIconTheme,picon,(gint)iSize,GTK_ICON_LOOKUP_USE_BUILTIN);
-
-      if(pGtkIconInfo == nullptr)
-      {
-
-         return nullptr;
-
-      }
-
-      const char * point = gtk_icon_info_get_filename(pGtkIconInfo);
-
-      char * psz = nullptr;
-
-      if(point != nullptr)
-      {
-
-         psz = strdup(point);
-
-      }
-
-      return psz;
-
-   }
-
-   return nullptr;
-
-}
-
-
-const char * linux_g_direct_get_file_content_type(const char * pszPath)
-{
-
-   GFile * pfile = g_file_new_for_path (pszPath);
-
-   if(pfile == nullptr)
-   {
-
-      return nullptr;
-
-   }
-
-   GError * perror = nullptr;
-
-   GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
-
-   if(pfileinfo == nullptr)
-   {
-
-      return nullptr;
-
-   }
-
-   const char * pszContentType = g_file_info_get_content_type (pfileinfo);
-
-   const char * point = nullptr;
-
-   if(pszContentType != nullptr)
-   {
-
-      point = strdup(pszContentType);
-
-   }
-
-   return point;
-
-}
-
-
+//int gdk_launch_uri(const char * pszUri, char * pszError, int iBufferSize)
+//{
+//
+//   gboolean ret;
+//
+//   GError * error = NULL;
+//
+//   ret = g_app_info_launch_default_for_uri(pszUri, NULL, &error);
+//
+//   if(ret)
+//   {
+//
+//      return true;
+//
+//   }
+//
+//   if(pszError != nullptr)
+//   {
+//
+//      strncpy(pszError, error->message, iBufferSize);
+//
+//   }
+//
+//   return 0;
+//
+//}
 
 
 

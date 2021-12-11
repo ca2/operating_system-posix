@@ -1,7 +1,8 @@
-/*****<3ThomasBorregaardSørensen!!Created by camilo*/
+// <3ThomasBorregaardSørensen!!Created by camilo*/
 // From acme_apple/acme_file.h
 // on 2021-08-09
 // 05:02 BRT
+#pragma once
 
 
 namespace posix
@@ -35,16 +36,22 @@ namespace posix
       //bool append_wait(const ::string & strFile, const block & block, const ::duration & duration) override;
       //bool append(const ::string & strFile, const block & block) override;
 
-      bool exists(const char * path) override;
+      //bool exists(const char * path) override;
 
 
-      ::file::path executable() override;
+      ::file::path module() override;
 
       ::e_status put_contents(const char * path, const char * contents, strsize len) override;
       //bool get_temporary_file_name_template(char * szRet, strsize iBufferSize, const char * lpszName, const char * pszExtension, const char * pszTemplate) override;
       filesize get_size(const char * path) override;
       filesize get_size(FILE * pfile) override;
       filesize get_size_fd(int iFileDescriptor) override;
+
+
+      ::duration modification_time(const char* psz) override;
+
+
+      ::e_status set_modification_time(const char* psz, const ::duration& duration) override;
 
 
       ::e_status copy(const char * pszNew, const char * pszSrc, bool bOverwrite) override;
@@ -86,7 +93,7 @@ namespace posix
 
       //bool move(const char * pszNewName, const char * pszOldName) override;
 
-      ::e_status delete_file(const char * pszFileName) override;
+      //::e_status delete_file(const char * pszFileName) override;
 
 
    };

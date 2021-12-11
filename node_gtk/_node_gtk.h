@@ -7,7 +7,17 @@
 #include "windowing_x11/_windowing_x11.h"
 #include "acme/node/operating_system/ansi/_pthread.h"
 #include "aura/user/_user.h"
-#include "aura/node/operating_system/linux/appindicator.h"
+#include "aura_posix/appindicator.h"
+
+
+#include <gtk/gtk.h>
+#include <gdk/gdkx.h>
+
+
+#include "gdk_gdk.h"
+
+
+#include "gtk_gtk.h"
 
 
 #include "monitor.h"
@@ -20,15 +30,6 @@
 
 
 #include "windowing.h"
-
-
-//#include "copydesk.h"
-
-
-//#include "appindicator.h"
-
-
-//#include "notify_icon.h"
 
 
 

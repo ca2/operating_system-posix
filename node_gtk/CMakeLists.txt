@@ -6,29 +6,22 @@ list(APPEND library_source
    _.cpp
    _.h
    _node_gtk.h
-   #appindicator.cpp
-   #appindicator.h
    application.cpp
    application.h
-   #clipboard_data.h
-   #copydesk.cpp
-   #copydesk.h
    display.cpp
    display.h
-   #enum_display_monitors.cpp
-   factory_exchange.cpp
+   _factory.cpp
    framework.cpp
    framework.h
-   #gdk.cpp
-   #gdk.h
-   #gnome_direct.cpp
-   #gtk_direct2.cpp
-   #gtk_clipboard.cpp
+   gconf.cpp
+   gdk_gdk.cpp
+   gdk_gdk.h
+   gtk_gtk.cpp
+   gtk_gtk.h
    monitor.cpp
    monitor.h
    node.cpp
    node.h
-   #notify_icon.cpp
    windowing.cpp
    windowing.h
    )
@@ -46,7 +39,7 @@ list(APPEND library_references
    )
 
 
-add_library(node_gtk SHARED ${library_source} )
+add_library(node_gtk SHARED ${library_source})
 
 target_precompile_headers(node_gtk PRIVATE framework.h)
 
@@ -62,15 +55,16 @@ if (MSVC)
    target_link_libraries(node_gtk PRIVATE ${library_references})
 
 
-elseif (LINUX)
+elseif(LINUX OR FREEBSD)
 
 
-   pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 appindicator3-0.1)
-   target_compile_options(node_gtk PRIVATE -fpermissive)
-   target_compile_options(node_gtk PRIVATE ${PKGCONFIG_CFLAGS})
-   #target_link_options(node_gtk PRIVATE -Wl,-rpath=$ORIGIN)
-   target_link_libraries(node_gtk PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
-   target_link_options(node_gtk PRIVATE -Wl,-z,defs)
+   pkg_check_modules(PKGCONFIG gconf-2.0 glib-2.0 gtk+-3.0 gdk-3.0 appindicator3-0.1)
+   target_compile_options(${PROJECT_NAME} PRIVATE -fpermissive)
+   target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+   target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LIBRARIES})
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references})
+   target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
 
 
 endif ()

@@ -822,7 +822,7 @@ namespace acme
 
          return stra.implode(" ");
 
-         /* the easiest case: we are in linux */
+         /* the easiest case: we are in freebsd */
 //    ssize_t s = readlink (str, path, iSize);
 
          //  if(s == -1)

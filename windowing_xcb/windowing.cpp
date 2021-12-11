@@ -772,6 +772,8 @@ namespace windowing_xcb
 
          m_pointCursor.y = pmotion->root_y;
 
+         FORMATTED_INFORMATION("XCB_MOTION_NOTIFY %d,%d", pmotion->root_x, pmotion->root_y);
+
          if (msg.oswindow != nullptr && msg.oswindow->m_pimpl != nullptr)
          {
 
@@ -1329,7 +1331,7 @@ namespace windowing_xcb
                      // Lets not fight this Xcb "thing"
                      // Accept-"stall" "authocratic" "top-down" window manager set position and size.
                      // This means setting same size_i32 and position to all three sketch and window states.
-                     // The buffer may need to be resized so don't mess with current design state.
+                     // The buffer may need to be resized so don't mess wixcb_th current design state.
 
                      __defer_post_move_and_or_size(pconfigure->window);
 
@@ -1403,35 +1405,35 @@ namespace windowing_xcb
 
             msg.oswindow = m_pdisplay->_window(pbutton->event);
 
-            {
+            auto pimpl = msg.oswindow->m_pimpl;
 
-               auto pimpl = msg.oswindow->m_pimpl;
+            auto puserinteraction = pimpl->m_puserinteraction;
 
-               auto puserinteraction = pimpl->m_puserinteraction;
+            auto & window = puserinteraction->layout().window();
 
-               auto & window = puserinteraction->layout().window();
+            auto origin = window.origin();
 
-               auto origin = window.origin();
+            auto size = window.size();
 
-               //auto & screen_origin = window.screen_origin();
+            //auto & screen_origin = window.screen_origin();
 
-               ::output_debug_string("\nwindow.origin=" + __string(origin.x) + ", " + __string(origin.y));
-               //::output_debug_string("\nwindow.screen_origin=" + __string(screen_origin.x) + ", " + __string(screen_origin.y));
-               ::output_debug_string("\nbutton.root_x=" + __string(pbutton->root_x));
-               ::output_debug_string("\nbutton.root_y=" + __string(pbutton->root_y));
-               ::output_debug_string("\n");
-
-            }
+            //FORMATTED_INFORMATION("");
+            //::output_debug_string("\nwindow(origin=" + __string(origin.x) + ", " + __string(origin.y));
+            //::output_debug_string("\nwindow.screen_origin=" + __string(screen_origin.x) + ", " + __string(screen_origin.y));
+            //::output_debug_string("\nbutton.root_x=" + __string(pbutton->root_x));
+            //::output_debug_string("\nbutton.root_y=" + __string(pbutton->root_y));
+            //::output_debug_string("\n");
 
             msg.time = pbutton->time;
 
             if (pbutton->response_type == XCB_BUTTON_PRESS)
             {
 
+
                if (pbutton->detail == XCB_BUTTON_INDEX_1)
                {
 
-                  ::output_debug_string("ButtonPress::Button1\n");
+                  //::output_debug_string("ButtonPress::Button1\n");
 
                   g_i135++;
 
@@ -1457,6 +1459,11 @@ namespace windowing_xcb
 
                }
 
+               FORMATTED_INFORMATION("XCB_BUTTON_PRESS %d,%d window %d,%d %d,%d",
+                                     pbutton->root_x, pbutton->root_y,
+                                     origin.x, origin.y,
+                                     origin.x + size.cx, origin.y + size.cy);
+
             }
             else if (pbutton->response_type == XCB_BUTTON_RELEASE)
             {
@@ -1464,7 +1471,7 @@ namespace windowing_xcb
                if (pbutton->detail == XCB_BUTTON_INDEX_1)
                {
 
-                  ::output_debug_string("ButtonRelease::Button1\n");
+                  //::output_debug_string("ButtonRelease::Button1\n");
 
                   msg.m_id = e_message_left_button_up;
 
@@ -1487,6 +1494,11 @@ namespace windowing_xcb
                   bRet = false;
 
                }
+
+               FORMATTED_INFORMATION("XCB_BUTTON_RELEASE %d,%d window %d,%d %d,%d",
+                                     pbutton->root_x, pbutton->root_y,
+                                     origin.x, origin.y,
+                                     origin.x + size.cx, origin.y + size.cy);
 
             }
             else
@@ -1515,8 +1527,7 @@ namespace windowing_xcb
 
                screen_pixel = msg.oswindow->screen_pixel(pbutton->root_x, pbutton->root_y);
 
-               ::output_debug_string("\nscreen_pixel.r=" + __string((int)screen_pixel.red) + ",g=" + __string((int)screen_pixel.green)+ ",b=" + __string((int)screen_pixel.blue)+ ",a=" + __string((int)screen_pixel.alpha));
-               ::output_debug_string("\n");
+               FORMATTED_INFORMATION("pixel argb(%d,%d,%d,%d)", screen_pixel.alpha, screen_pixel.red, screen_pixel.green, screen_pixel.blue);
 
                alpha = screen_pixel.alpha;
 

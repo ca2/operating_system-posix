@@ -9,7 +9,7 @@
 #include <glib.h>
 
 
-::e_status os_defer_init_gtk();
+//::e_status aaa_os_defer_init_gtk();
 
 
 bool x11_message_loop_step();
@@ -99,7 +99,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 //   pthread_mutex_t g_mutexG;
 //
 //
-//   bool gsettings_set(const char *pszSchema, const char *pszKey, const char *pszValue)
+//   bool aaa_gsettings_set(const char *pszSchema, const char *pszKey, const char *pszValue)
 //   {
 //
 //      if (pszSchema == nullptr)
@@ -123,7 +123,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 //
 //      }
 //
-//      if (!os_defer_init_gtk())
+//      if (!aaa_os_defer_init_gtk())
 //      {
 //
 //         return false;
@@ -156,7 +156,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 //   bool gsettings_sync()
 //   {
 //
-//      if (!os_defer_init_gtk())
+//      if (!aaa_os_defer_init_gtk())
 //      {
 //
 //         return false;
@@ -187,7 +187,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 //
 //      }
 //
-//      if (!os_defer_init_gtk())
+//      if (!aaa_os_defer_init_gtk())
 //      {
 //
 //         return nullptr;

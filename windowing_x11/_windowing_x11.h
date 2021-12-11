@@ -6,9 +6,12 @@
 
 #include "aura_posix/_aura_posix.h"
 #include "aura/user/_user.h"
-#include "aura/node/operating_system/linux/appindicator.h"
+#include "aura_posix/x_window_system.h"
+#ifdef FREEBSD
+#include "aura/node/operating_system/freebsd/appindicator.h"
+#endif
 #include "acme/node/operating_system/ansi/_pthread.h"
-#include "acme/node/operating_system/linux/_user.h"
+#include "acme/node/operating_system/freebsd/_user.h"
 
 
 #define WITH_XI
@@ -76,10 +79,10 @@ bool __x11_hook_process_event(Display * pdisplay, XEvent * pevent, XGenericEvent
 #include "display.h"
 
 
-#include "archive/platform-posix/aura_posix/x11/display_lock.h"
+#include "platform-posix/aura_posix/x11/display_lock.h"
 
 
-#include "factory_exchange.h"
+//#include "factory_exchange.h"
 
 
 #include "node.h"

@@ -3,7 +3,7 @@
 //
 
 #include "framework.h"
-//#include "apex/os/linux/xfce_xfce.h"
+//#include "apex/os/freebsd/xfce_xfce.h"
 #include "aura/user/_user.h"
 
 
@@ -12,7 +12,7 @@ static ::user::notify_icon * g_pnotifyiconLast = nullptr;
 
 #ifdef LINUX
 
-#include "aura/os/linux/appindicator.h"
+#include "aura/os/freebsd/appindicator.h"
 
 #endif
 

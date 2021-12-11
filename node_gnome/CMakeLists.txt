@@ -16,12 +16,12 @@ list(APPEND library_source
    display.cpp
    display.h
    enum_display_monitors.cpp
-   factory_exchange.cpp
+   _factory.cpp
    framework.cpp
    framework.h
    #gdk.cpp
    #gdk.h
-   gnome_direct.cpp
+   #gnome_direct.cpp
    gtk_clipboard.cpp
    monitor.cpp
    monitor.h
@@ -62,13 +62,13 @@ if (MSVC)
    target_link_libraries(node_gnome PRIVATE ${library_references})
 
 
-elseif (LINUX)
+elseif(LINUX OR FREEBSD)
 
 
-   pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 appindicator3-0.1)
+   pkg_check_modules(PKGCONFIG x11 glib-2.0 gtk+-3.0 gdk-3.0 appindicator3-0.1)
    target_compile_options(node_gnome PRIVATE -fpermissive)
    target_compile_options(node_gnome PRIVATE ${PKGCONFIG_CFLAGS})
-   #target_link_options(node_gnome PRIVATE -Wl,-rpath=$ORIGIN)
+   target_link_options(node_gnome PRIVATE ${PKGCONFIG_LDFLAGS})
    target_link_libraries(node_gnome PRIVATE ${PKGCONFIG_LIBRARIES} ${library_references})
    target_link_options(node_gnome PRIVATE -Wl,-z,defs)
 

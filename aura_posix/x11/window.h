@@ -14,7 +14,13 @@ namespace windowing_posix
    public:
 
 
+//#if defined(WITH_X11)
+
+
       __pointer(::xim::keyboard) m_pximkeyboard;
+
+
+//#endif
 
 
       window();

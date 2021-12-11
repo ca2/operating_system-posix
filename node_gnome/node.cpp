@@ -3,48 +3,12 @@
 //
 #include "framework.h"
 #include "node.h"
-#include "gnome_shared.h"
 #include "appindicator.h"
-//#include "gdk.h"
 #include "windowing_x11/windowing_x11.h"
 
 
-void gdk_branch(const ::routine & routine);
-
-
-int gdk_launch_uri(const char * pszUri, char * pszError, int iBufferSize);
-
 
 void x11_add_idle_source(::node_gnome::node * pnode);
-
-
-//void gtk_settings_gtk_theme_name_callback(GObject* object, GParamSpec* pspec, gpointer data)
-//{
-//
-//   node_gnome::node * pnode = (node_gnome::node *) data;
-//
-//   if(pnode)
-//   {
-//
-//      gchar *theme_name = nullptr;
-//
-//      g_object_get(pnode->m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
-//
-//      pnode->m_strTheme = theme_name;
-//
-//      g_free(theme_name);
-//
-//   }
-//
-//   pnode->m_psystem->m_papexsystem->signal(id_os_user_theme);
-//
-//}
-
-
-const char * linux_g_direct_get_file_icon_path(const char * pszPath, int iSize);
-
-
-const char * linux_g_direct_get_file_content_type(const char * pszPath);
 
 
 void x11_add_idle_source();
@@ -109,16 +73,6 @@ namespace node_gnome
    }
 
 
-//   int node::node_init_check(int *pi, char ***ppz)
-//   {
-//
-//      auto iResult = gtk_init_check(pi, ppz);
-//
-//      return iResult;
-//
-//   }
-
-
    void node::defer_notify_startup_complete()
    {
 
@@ -132,207 +86,6 @@ namespace node_gnome
 
    }
 
-
-//   ::e_status node::system_main()
-//   {
-//
-//      auto estatus = m_psystem->m_papexsystem->begin_synch();
-//
-//      if (!estatus)
-//      {
-//
-//         output_debug_string("Failed to begin_synch the system (::apex::system or ::apex::system derived)");
-//
-//         return estatus;
-//
-//      }
-//
-//
-//      // To pair linux.h/main platform_create_system new system
-//      // This should be safe here in this node_gtk::node
-//      // because just above m_psystem has begin_synch()
-//      // so the running thread is holding references to the m_psystem thread.
-//      m_psystem->release();
-//
-//
-//      //   ::e_status estatus = psystem->begin_synch();
-//      //
-//      //   if(!estatus)
-//      //   {
-//      //
-//      //      return estatus;
-//      //
-//      //   }
-//      //
-//
-////      const char *pszName = m_XstrAppId;
-//
-////       g_set_application_name(pszName);
-//
-////      const char *pszPrgName = m_strProgName;
-//
-////      g_set_prgname(pszPrgName);
-//
-//      //auto idle_source = g_idle_source_new();
-//
-//      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) m_psystem, nullptr);
-//
-//      //g_source_attach(idle_source, g_main_context_default());
-//
-//      //int c = 2;
-//
-//      //const char * argv[]={"app", "--g-fatal-warnings"};
-//
-//#if !defined(__SANITIZE_ADDRESS__)
-//
-//      {
-//
-//         ///auto psystem = m_psystem;
-//
-//         //auto pnode = psystem->node();
-//
-//         //pnode->node_init_check(&m_argc, &m_argv);
-//         node_init_check(&m_psystem->m_argc, &m_psystem->m_argv);
-//
-//      }
-//
-//#endif
-//
-////      if (m_bUser)
-////      {
-////
-////         estatus = defer_initialize_x11();
-////
-////         if(!estatus)
-////         {
-////
-////            return estatus;
-////
-////         }
-////
-////      }
-//
-//
-////
-////      auto psystem = m_psystem;
-////
-////      auto pnode = psystem->node();
-////
-////      m_pcontext->branch(pnode);
-////
-////      return ::success;
-//
-//      auto psystem = m_psystem->m_papexsystem;
-//
-//      if (psystem->m_bGtkApp)
-//      {
-//
-//         //apex_application_run(psystem->m_strAppId, psystem->m_strProgName);
-//
-//      }
-//      else
-//      {
-//
-//         //g_set_application_name(System.m_XstrAppId);
-//
-//         //g_set_prgname(System.m_strProgName);
-//      ////
-//      ////      //auto idle_source = g_idle_source_new();
-//      ////
-//      ////      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) m_psystem, nullptr);
-//      ////
-//      ////      //g_source_attach(idle_source, g_main_context_default());
-//      ////
-//      ////      //int c = 2;
-//      ////
-//      ////      //const char * argv[]={"app", "--g-fatal-warnings"};
-//      ////
-//      ////#if !defined(__SANITIZE_ADDRESS__)
-//      ////
-//      ////      gtk_init_check(&psystem->m_argc, &psystem->m_argv);
-//      ////
-//      ////#endif
-//
-//            node_fork([this]()
-//            {
-//
-//             // This seems not to work with "foreign" windows
-//             // (X11 windows not created with Gdk)
-//             //x11_add_filter();
-//
-//
-//             auto pgtksettingsDefault = gtk_settings_get_default();
-//
-//             if(pgtksettingsDefault)
-//             {
-//
-//
-//                m_pGtkSettingsDefault = G_OBJECT(pgtksettingsDefault);
-//
-//                g_object_ref (m_pGtkSettingsDefault);
-//
-//                gchar *theme_name = nullptr;
-//
-//                g_object_get(m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
-//
-//                m_strTheme = theme_name;
-//
-//                g_free(theme_name);
-//
-//                auto preturn = g_signal_connect_data(
-//                   m_pGtkSettingsDefault,
-//                   "notify::gtk-theme-name",
-//                   G_CALLBACK(gtk_settings_gtk_theme_name_callback),
-//                   this,
-//                   NULL,
-//                   G_CONNECT_AFTER);
-//
-//                auto psystem = m_psystem->m_papexsystem;
-//
-//                auto psignal = psystem->get_signal(id_os_user_theme);
-//
-//                psignal->add_handler(this);
-//
-//                //g_object_ref(preturn);
-//
-//                //printf("return %" PRIiPTR, preturn);
-//
-//                //printf("return %" PRIiPTR, preturn);
-//
-//             }
-//
-//            x11_add_idle_source(this);
-//
-//            auto psystem = m_psystem->m_papexsystem;
-//
-//            psystem->post_initial_request();
-//
-//         });
-//
-//
-//         //x11_add_filter();
-////
-////         System.fork([this]()
-////         {
-////
-////            //m_pwindowing->windowing_main();
-////
-////         });
-//
-//         //x11_add_idle_source(this);
-//
-//         //x11_add_idle_source(this);
-//
-//         gtk_main();
-//
-//         //x11_main();
-//
-//      }
-//
-//      return ::success;
-//
-//   }
-//
 
    ::e_status node::start_node()
    {
@@ -357,175 +110,6 @@ namespace node_gnome
    }
 
 
-//   void node::fetch_user_color()
-//   {
-//
-//      node_post(__routine([this]()
-//      {
-//
-//         ::aura::posix::node::fetch_user_color();
-//
-//      }));
-//
-//   }
-
-
-//   bool node::windowing_message_loop_step()
-//   {
-//
-//      auto psession = get_session();
-//
-//      if(::is_null(psession))
-//      {
-//
-//         return false;
-//
-//      }
-//
-//      auto paurasession = psession->m_paurasession;
-//
-//      if(::is_null(paurasession))
-//      {
-//
-//         return false;
-//
-//      }
-//
-//      auto puser = paurasession->user();
-//
-//      if(::is_null(puser))
-//      {
-//
-//         return false;
-//
-//      }
-//
-//      auto pwindowing = puser->windowing();
-//
-//      if(::is_null(pwindowing))
-//      {
-//
-//         return false;
-//
-//      }
-//
-//      bool bRet = pwindowing->message_loop_step();
-//
-//      return bRet;
-//
-//   }
-//
-//
-//   string node::os_get_user_theme()
-//   {
-//
-//      return m_strTheme;
-//
-//   }
-//
-//
-//   bool node::os_set_user_theme(const ::string &strUserTheme)
-//   {
-//
-//      // https://ubuntuforums.org/showthread.php?t=2140488
-//      // gsettings set org.gnome.desktop.interface gtk-theme your_theme
-//
-//      // indirect wall-changer sourceforge.net contribution
-//
-//      auto psystem = m_psystem->m_papexsystem;
-//
-//      auto pnode = psystem->node();
-//
-//      auto edesktop = pnode->get_edesktop();
-//
-//      switch (edesktop)
-//      {
-//
-//      case ::user::e_desktop_gnome:
-//      case ::user::e_desktop_ubuntu_gnome:
-//      case ::user::e_desktop_unity_gnome:
-//      {
-//
-//      bool bOk1 = ::node_gnome::gsettings_set("org.gnome.desktop.interface", "gtk-theme", strUserTheme);
-//
-//      bool bOk2 = true;
-//
-//      //if(::file::system_short_name().contains_ci("manjaro"))
-//      {
-//
-//         bOk2 = ::node_gnome::gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme);
-//
-//      }
-//
-//      sleep(300_ms);
-//
-//      ::node_gnome::gsettings_sync();
-//
-//      sleep(300_ms);
-//
-//      return
-//      bOk1 &&bOk2;
-//
-//      }
-//
-//      case ::user::e_desktop_mate:
-//
-//      //return ::user::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
-//
-//      case ::user::e_desktop_lxde:
-//
-//      //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
-//
-//      break;
-//
-//      case ::user::e_desktop_xfce:
-//      {
-//      //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
-//      //          if(entry.contains("image-path") || entry.contains("last-image")){
-//      //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
-//      //      }
-//      //}
-//
-//      }
-//
-//      //break;
-//
-//      default:
-//
-//      output_debug_string("Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
-//      return false;
-//
-//      }
-//
-//      return true;
-//
-//   }
-//
-//
-//   string node::get_file_icon_path(const ::string & strPath, int iSize)
-//   {
-//
-//      return ::linux_g_direct_get_file_icon_path(strPath, iSize);
-//
-//   }
-//
-//
-//   string node::get_file_content_type(const ::string & strPath)
-//   {
-//
-//      return ::linux_g_direct_get_file_content_type(strPath);
-//
-//   }
-//
-//
-//   string node::get_wallpaper(index iScreen)
-//   {
-//
-//      return "";
-//
-//   }
-
-
    void node::handle(::subject * psubject, ::context * pcontext)
    {
 
@@ -543,7 +127,7 @@ namespace node_gnome
 
       }
 
-      if(psubject->m_id == id_user_color)
+      if(psubject->m_id == id_operating_system_user_color_change)
       {
 
          return false;
@@ -574,16 +158,6 @@ namespace node_gnome
       }));
 
       return true;
-
-   }
-
-
-   int node::os_launch_uri(const ::string & strUri, char * pszError, int iBufferSize)
-   {
-
-      int iRet = gdk_launch_uri(strUri, pszError, iBufferSize);
-
-      return iRet;
 
    }
 

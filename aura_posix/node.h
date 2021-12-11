@@ -22,26 +22,52 @@ namespace aura
       {
       public:
 
-#ifdef WITH_X11
+
+#if defined(WITH_X11) || defined(WITH_XCB)
+
+
          void *                                 m_pX11Display;
-         void *                                 m_pxcbconnection;
+
+
 #endif
 
+
+#if defined(WITH_XCB)
+
+
+         void *                                 m_pxcbconnection;
+
+
+#endif
+
+
          node();
-         virtual ~node();
+         ~node() override;
 
 
          virtual ::e_status initialize(::object * pobject) override;
 
-#ifdef WITH_X11
+
+#if defined(WITH_X11) || defined(WITH_XCB)
+
 
          virtual ::e_status _allocate_Display_and_connection();
 
 
          void * _get_Display();
+
+
+#endif // WITH_X11 || WITH_XCB
+
+
+#if defined(WITH_XCB)
+
+
          void * _get_connection();
 
-#endif // WITH_X11
+
+#endif // WITH_XCB
+
 
          virtual ::file::path get_desktop_file_path(::application * papp) const override;
 

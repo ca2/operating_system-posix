@@ -16,7 +16,7 @@ list(APPEND library_source
    display.cpp
    display.h
    enum_display_monitors.cpp
-   factory_exchange.cpp
+   _factory.cpp
    framework.cpp
    framework.h
    gdk.cpp
@@ -59,10 +59,11 @@ if (MSVC)
    target_link_options(node_xfce PRIVATE "/SUBSYSTEM:WINDOWS")
    target_link_libraries(node_xfce PRIVATE ${library_references})
    add_dependencies(node_xfce draw2d_gdiplus)
-elseif (LINUX)
+elseif(LINUX OR FREEBSD)
    pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 appindicator3-0.1)
    target_compile_options(node_xfce PRIVATE -fpermissive)
-   target_compile_options(node_xfce PRIVATE ${PKGCONFIG_CFLAGS})
+      target_compile_options(node_xfce PRIVATE ${PKGCONFIG_CFLAGS})
+   target_link_options(node_xfce PRIVATE ${PKGCONFIG_LDFLAGS})
    #target_link_options(node_xfce PRIVATE -Wl,-rpath=$ORIGIN)
    target_link_libraries(node_xfce PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
    target_link_options(node_xfce PRIVATE -Wl,-z,defs)

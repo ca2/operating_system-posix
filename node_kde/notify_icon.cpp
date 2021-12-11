@@ -100,7 +100,7 @@ namespace node_kde
          if (strId == "separator")
          {
 
-            if (i + 1 < _get_notification_area_action_count() && _get_notification_area_action_id(i + 1) == "app_exit")
+            if (i + 1 < _get_notification_area_action_count() && string(_get_notification_area_action_id(i + 1)) == "app_exit")
             {
 
 

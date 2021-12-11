@@ -88,7 +88,7 @@ namespace xim
                   i++, pstyle++)
                {
 
-                  TRACE("input style : 0x%X\n", *pstyle);
+                  TRACE("input style " <<  *pstyle);
 
                   if ((*
                           pstyle & XIMStatusNone

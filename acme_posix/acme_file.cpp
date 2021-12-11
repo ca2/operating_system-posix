@@ -2,67 +2,57 @@
 // on 2021-08-12 17:38 BRT
 // <3ThomasBorregaardSørensen!!
 #include "framework.h"
-
 #include <sys/stat.h>
-//Copy file using mmap()
 #include <sys/mman.h>
 #include <unistd.h>
-
-
+#include <sys/time.h>
 #include <fcntl.h>
 
-//
-//#define PACKAGE "mmap"
-//#include <wchar.h>
-//#include <fcntl.h>
-//#include <sys/stat.h>
-
+#ifdef MACOS
+#define IS_UTIMENSAT_AVAILABLE __builtin_available(macOS 10.13, *)
+#else
+#define IS_UTIMENSAT_AVAILABLE (TRUE)
+#endif
 
 
 namespace posix
 {
 
 
-   acme_file::acme_file()
-   {
-
-   }
+   acme_file::acme_file() = default;
 
 
-   acme_file::~acme_file() noexcept
-   {
-
-
-
-   }
+   acme_file::~acme_file() noexcept = default;
 
 
    ::e_status acme_file::ensure_exists(const char* path)
    {
+      
+      if(exists(path))
+      {
+         
+         return ::success;
+         
+      }
 
       ::e_status estatus = ::success;
 
-
-      int fd = ::open(path,
-                      O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK,
-                      0666);
-      if (fd<0) // Couldn't open that path.
+      int fd = ::open(path, O_WRONLY | O_CREAT, 0666);
+      
+      if (fd < 0)
       {
+         
          estatus = error_io;
+         
       }
-
-      if(estatus)
+      else
       {
 
          ::close(fd);
 
-
       }
 
-
-
       return estatus;
-
 
    }
 
@@ -72,28 +62,45 @@ namespace posix
 
       ::e_status estatus = ::success;
 
-
-      int fd = ::open(path,
-                    O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK,
-                    0666);
-      if (fd<0) // Couldn't open that path.
+      if(IS_UTIMENSAT_AVAILABLE)
       {
-         estatus = error_io;
-      }
 
-      if(estatus)
-      {
-         int rc = ::utimensat(AT_FDCWD,
-                            path,
-                            nullptr,
-                            0);
-         if (rc)
+         int fd = ::open(path, O_WRONLY|O_CREAT, 0666);
+
+         if (fd < 0)
          {
-            estatus = error_failed;
+
+            estatus = error_io;
+
+         }
+         else
+         {
+
+            int rc = ::futimens(fd, nullptr);
+
+            if (rc)
+            {
+
+               estatus = error_failed;
+
+            }
+
+            ::close(fd);
+
          }
 
-         ::close(fd);
+      }
+      else
+      {
 
+         int rc = utimes(path, nullptr);
+
+         if (rc)
+         {
+
+            estatus = error_failed;
+
+         }
 
       }
 
@@ -217,14 +224,14 @@ namespace posix
       return set_size(fileno(pfile), size);
 
    }
-
-
-   bool acme_file::exists(const char * path)
-   {
-
-      return ::file_exists(path);
-
-   }
+//
+//
+//   bool acme_file::exists(const char * path)
+//   {
+//
+//      return ::file_exists(path);
+//
+//   }
 
 
 //void file_read_ex1_string_dup(FILE * hfile, ::md5::md5 * pctx, string & str);
@@ -299,6 +306,51 @@ namespace posix
 //      return true;
 //
 //}
+
+
+   ::duration acme_file::modification_time(const char* psz)
+   {
+
+      struct stat st{};
+
+      int iError = ::stat(psz, &st);
+
+      if(iError != 0)
+      {
+
+         return {};
+
+      }
+
+      return {st.st_mtim.tv_sec, st.st_mtim.tv_nsec};
+
+
+   }
+
+
+   ::e_status acme_file::set_modification_time(const char* psz, const ::duration& duration)
+   {
+
+      timespec times[2];
+
+      times[0].tv_sec = 0;
+      times[0].tv_nsec = UTIME_OMIT;
+
+      times[1].tv_sec = duration.m_iSecond;
+      times[1].tv_nsec = duration.m_iNanosecond;
+
+      int iError = utimensat(0, psz, times, 0);
+
+      if(iError != 0)
+      {
+
+         return error_failed;
+
+      }
+
+      return ::success;
+
+   }
 
 
    filesize acme_file::get_size(FILE * pfile)
@@ -545,12 +597,12 @@ namespace posix
 
 
 
-   ::file::path acme_file::executable()
+   ::file::path acme_file::module()
    {
 
    #if defined(ANDROID) || defined(LINUX)
 
-         ::file::path path;
+      ::file::path path;
 
       char * pszModule = nullptr;
 
@@ -608,6 +660,10 @@ namespace posix
    #elif defined(__APPLE__)
 
       return apple_app_module_path();
+
+   #else
+
+      throw interface_only_exception();
 
    #endif
 
@@ -700,12 +756,12 @@ namespace posix
 
 
 
-   ::e_status acme_file::delete_file(const char * path)
-   {
-
-      return file_delete(path);
-
-   }
+//   ::e_status acme_file::delete_file(const char * path)
+//   {
+//
+//      return file_delete(path);
+//
+//   }
 
 
 

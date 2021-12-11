@@ -45,7 +45,11 @@ namespace node_gtk
 
       //virtual void _on_user_theme_changed() override;
 
-      virtual bool os_set_user_theme(const string & strUserTheme) override;
+      bool is_branch_current() const override;
+
+      ::e_status os_set_user_theme(const string & strUserTheme) override;
+
+      virtual ::e_status _os_set_user_theme(const string & strUserTheme);
 
       virtual void os_process_user_theme(string strTheme) override;
 
@@ -75,7 +79,7 @@ namespace node_gtk
 
       //virtual ::node_linux::appindicator * appindicator_allocate() override;
 
-      //virtual void appindicator_destroy(::linux::appindicator * pappindicator) override;
+      //virtual void appindicator_destroy(::freebsd::appindicator * pappindicator) override;
 
       //virtual void enum_display_monitors(::aura::session * psession) override;
 

@@ -27,7 +27,7 @@
 
 #if defined(__linux__)
 #include <unistd.h>
-# include <linux/serial.h>
+# include <freebsd/serial.h>
 #endif
 
 #include <sys/select.h>
@@ -119,7 +119,7 @@ serial_impl::serial_impl(const string & port, unsigned long baudrate,
 {
    pthread_mutex_init(&this->m_mutexRead, nullptr);
    pthread_mutex_init(&this->m_mutexWrite, nullptr);
-   if (m_strPort.empty() == false)
+   if (m_strPort.has_char())
       open();
 }
 
@@ -133,7 +133,7 @@ serial_impl::~serial_impl()
 void
 serial_impl::open()
 {
-   if (m_strPort.empty())
+   if (m_strPort.is_empty())
    {
       __throw(error_invalid_argument, "Empty port is invalid.");
    }
@@ -920,7 +920,7 @@ serial_impl::setBreak(bool level)
       if (-1 == ioctl(m_iFd, TIOCCBRK))
       {
          string ss;
-         ss.Format("setBreak failed on a call to ioctl(TIOCCBRK): %d %s", errno, strerror(errno));
+         ss.format("setBreak failed on a call to ioctl(TIOCCBRK): %d %s", errno, strerror(errno));
          throw serial_exception(ss);
       }
    }

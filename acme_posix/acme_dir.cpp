@@ -23,6 +23,7 @@
 #include "acme/os/universal_windows/file_winrt.h"
 #endif
 
+
 namespace posix
 {
 
@@ -59,47 +60,47 @@ namespace posix
 
    }
 
-
-   ::e_status acme_dir::create(const char * path)
-   {
-
-
-      return _create(path);
-
-      //}
-
-      //return ::file::system_dir::g_pthis->mk(path, ::get_context_system());
-
-   }
-
-
-   ::e_status acme_dir::_create(const char * path)
-   {
-
-      return ::create_directory_path(path);
-
-   }
-
-
-   ::e_status acme_dir::create_directory(const char * path)
-   {
-
-      return ::create_directory(path);
-
-   }
+//
+//   ::e_status acme_dir::create(const char * path)
+//   {
+//
+//
+//      return _create(path);
+//
+//      //}
+//
+//      //return ::file::system_dir::g_pthis->mk(path, ::get_context_system());
+//
+//   }
+//
+//
+//   ::e_status acme_dir::_create(const char * path)
+//   {
+//
+//      return ::create_directory_path(path);
+//
+//   }
+//
+//
+//   ::e_status acme_dir::create_directory(const char * path)
+//   {
+//
+//      return ::create_directory(path);
+//
+//   }
 
 
    ::file::path acme_dir::module()
    {
 
-      ::file::path pathModule (m_pacmefile->executable());
+      ::file::path pathModule (m_pacmefile->module());
 
       return pathModule.folder();
 
    }
 
 
-   bool acme_dir::is(const char * path)
+   ::e_status acme_dir::is(const char * path)
    {
 
       return _is(path);
@@ -295,22 +296,6 @@ namespace posix
 
 
       return home() / "archive";
-
-   }
-
-
-//   int acme_dir::make_path(const char * psz)
-//   {
-//
-//      return create(psz) != false;
-//
-//   }
-
-
-   bool acme_dir::_is(const char * path)
-   {
-
-      return ::is_directory(path);
 
    }
 

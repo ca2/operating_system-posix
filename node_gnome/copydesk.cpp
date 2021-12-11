@@ -1,8 +1,6 @@
 #include "framework.h"
 #include "_.h"
-#include "aura/node/operating_system/linux/_linux.h"
-//#include "apex/os/linux/gnome_gnome.h"
-#include "aura/node/linux/_linux.h"
+#include "aura/operating_system.h"
 #include "clipboard_data.h"
 #include <gtk/gtk.h>
 
@@ -270,7 +268,7 @@ namespace node_gnome
    bool copydesk::_has_image()
    {
 
-      bool b = false;
+      bool bIsImageAvailable = false;
 
       auto psystem = m_psystem->m_papexsystem;
 
@@ -281,11 +279,24 @@ namespace node_gnome
 
          GtkClipboard* clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
 
-         b = gtk_clipboard_wait_is_image_available (clipboard);
+         bIsImageAvailable = gtk_clipboard_wait_is_image_available (clipboard);
+
+         if(bIsImageAvailable)
+         {
+
+            INFORMATION("There is image in Selection Clipboard.");
+
+         }
+         else
+         {
+
+            INFORMATION("No image in Selection Clipboard.");
+
+         }
 
       }));
 
-      return b;
+      return bIsImageAvailable;
 
    }
 

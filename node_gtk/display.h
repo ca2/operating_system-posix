@@ -144,6 +144,8 @@ namespace node_gtk
       virtual ::count get_monitor_count() override;
 
 
+      bool impl_set_wallpaper(::index, string strWallpaper) override;
+
 };
 
 
