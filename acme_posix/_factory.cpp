@@ -1,5 +1,7 @@
 #include "framework.h"
-
+#if defined(INTERPROCESS_COMMUNICATION_SYSTEM_V)
+#include "system_v/interprocess_communication.h"
+#endif
 
 __FACTORY_EXPORT void acme_posix_factory(::factory::factory * pfactory)
 {
