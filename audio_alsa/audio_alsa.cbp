@@ -2,15 +2,15 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="music_midi_alsa" />
+		<Option title="audio_alsa" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Option extended_obj_names="1" />
 		<Build>
 			<Target title="basis">
-				<Option output="$(#time_dir)/x64/$(TARGET_NAME)/music_midi_alsa" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
+				<Option output="$(#time_dir)/x64/$(TARGET_NAME)/audio_alsa" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="$(#time_dir)/x64/$(TARGET_NAME)/" />
-				<Option object_output="$(#time_dir)/intermediate/platform/music_midi_alsa" />
+				<Option object_output="$(#time_dir)/intermediate/platform/audio_alsa" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Option parameters=": app=app-core/hellomultiverse build_number=basis locale=_std schema=_std" />
@@ -23,12 +23,13 @@
 					<Add option="-D_DEBUG" />
 					<Add directory="$(WORKSPACE_DIR)/../../../archive/platform-linux" />
 					<Add directory="$(WORKSPACE_DIR)/../../../archive/platform-linux/_include" />
+					<Add directory="$(#archive)/third-linux/third/include" />
 				</Compiler>
 			</Target>
 			<Target title="stage">
-				<Option output="$(#time_dir)/x64/$(TARGET_NAME)/music_midi_alsa" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
+				<Option output="$(#time_dir)/x64/$(TARGET_NAME)/audio_alsa" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="$(#time_dir)/x64/$(TARGET_NAME)/" />
-				<Option object_output="$(#time_dir)/intermediate/platform/music_midi_alsa" />
+				<Option object_output="$(#time_dir)/intermediate/platform/audio_alsa" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Option parameters=": app=app-core/hellomultiverse build_number=basis locale=_std schema=_std" />
@@ -46,9 +47,9 @@
 				</Linker>
 			</Target>
 			<Target title="memdleak">
-				<Option output="$(#time_dir)/x64/$(TARGET_NAME)/music_midi_alsa" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
+				<Option output="$(#time_dir)/x64/$(TARGET_NAME)/audio_alsa" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="$(#time_dir)/x64/$(TARGET_NAME)/" />
-				<Option object_output="$(#time_dir)/intermediate/platform/music_midi_alsa" />
+				<Option object_output="$(#time_dir)/intermediate/platform/audio_alsa" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Option parameters=": app=app-core/hellomultiverse build_number=basis locale=_std schema=_std" />
@@ -72,7 +73,6 @@
 			<Add option="-Wno-attributes" />
 			<Add option="-Winvalid-pch" />
 			<Add option="-Wno-conversion-null" />
-			<Add option="-DLINUX" />
 			<Add option="-D_AUDIO_ALSA_LIBRARY" />
 			<Add directory="." />
 			<Add directory="$(PROJECT_DIR)" />
@@ -81,6 +81,7 @@
 			<Add directory="$(WORKSPACE_DIR)/../../../source" />
 			<Add directory="$(WORKSPACE_DIR)/../../../source/inc" />
 			<Add directory="$(WORKSPACE_DIR)/../../../source/include" />
+			<Add directory="$(WORKSPACE_DIR)/../../../archive/platform-linux" />
 			<Add directory="$(WORKSPACE_DIR)/../../../source/app/_include" />
 			<Add directory="$(WORKSPACE_DIR)/../../../source/app/" />
 			<Add directory="$(WORKSPACE_DIR)/../../../archive/platform-$(#platform_modifier)" />
@@ -93,35 +94,27 @@
 			<Add option="-lacme" />
 			<Add option="-lapex" />
 			<Add option="-laqua" />
-			<Add option="-laura" />
+			<Add option="-laudio" />
 			<Add option="-lasound" />
-			<Add option="-lmultimedia" />
-			<Add option="-lveriwell_multimedia" />
 			<Add option="-Wl,-z,defs" />
 			<Add directory="$(#time_dir)/x64/$(TARGET_NAME)" />
 			<Add directory="/usr/lib64/mysql/" />
 		</Linker>
 		<Unit filename="_.h" />
+		<Unit filename="factory_exchange.cpp" />
+		<Unit filename="factory_exchange.h" />
 		<Unit filename="framework.h">
 			<Option compile="1" />
 			<Option weight="0" />
 		</Unit>
-		<Unit filename="message_out.cpp" />
-		<Unit filename="message_out.h" />
-		<Unit filename="music_midi_alsa.cpp" />
-		<Unit filename="music_midi_alsa_factory_exchange.cpp" />
-		<Unit filename="music_midi_alsa_factory_exchange.h" />
-		<Unit filename="music_midi_alsa_file.h" />
-		<Unit filename="music_midi_alsa_midi.cpp" />
-		<Unit filename="music_midi_alsa_midi.h" />
-		<Unit filename="music_midi_alsa_out.cpp" />
-		<Unit filename="music_midi_alsa_out.h" />
-		<Unit filename="music_midi_alsa_translation.cpp" />
-		<Unit filename="music_midi_alsa_translation.h" />
-		<Unit filename="seqlib.cpp" />
-		<Unit filename="seqlib.h" />
-		<Unit filename="seqmidi.cpp" />
-		<Unit filename="seqpriv.h" />
+		<Unit filename="snd_pcm.cpp" />
+		<Unit filename="snd_pcm.h" />
+		<Unit filename="translation.cpp" />
+		<Unit filename="translation.h" />
+		<Unit filename="wave_in.cpp" />
+		<Unit filename="wave_in.h" />
+		<Unit filename="wave_out.cpp" />
+		<Unit filename="wave_out.h" />
 		<Extensions>
 			<debugger>
 				<search_path add="/ca2/app/appseed/ca/" />
