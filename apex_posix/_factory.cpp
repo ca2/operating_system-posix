@@ -1,6 +1,8 @@
 #include "framework.h"
-//#include "file_os_watcher.h"
 #include "file_context.h"
+#if defined(INTERPROCESS_COMMUNICATION_SYSTEM_V)
+#include "system_v/interprocess_communication.h"
+#endif
 
 #ifdef FILE_SYSTEM_INOTIFY
 
@@ -22,6 +24,17 @@ __FACTORY_EXPORT void apex_posix_factory(::factory::factory * pfactory)
    pfactory->add_factory_item < ::inotify::watch, ::file::watch >();
 
 #endif
+
+
+#if defined(INTERPROCESS_COMMUNICATION_SYSTEM_V)
+
+   pfactory->add_factory_item < ::system_v::interprocess_communication_base, ::interprocess_communication::base >();
+   pfactory->add_factory_item < ::system_v::interprocess_communication_rx, ::interprocess_communication::rx >();
+   pfactory->add_factory_item < ::system_v::interprocess_communication_tx, ::interprocess_communication::tx >();
+
+#endif
+
+
 
    pfactory->add_factory_item < ::apex::posix::node, ::acme::node > ();
 

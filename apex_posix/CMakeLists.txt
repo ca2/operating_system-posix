@@ -28,6 +28,16 @@ if(FILE_SYSTEM_INOTIFY)
 endif()
 
 
+if(INTERPROCESS_COMMUNICATION_SYSTEM_V)
+
+   list(APPEND library_source
+      system_v/interprocess_communication.cpp
+      system_v/interprocess_communication.h
+      )
+
+endif()
+
+
 if(POSIX_SPAWN)
 
 
@@ -52,6 +62,17 @@ if(FILE_SYSTEM_INOTIFY)
 
 
 endif()
+
+
+
+if(INTERPROCESS_COMMUNICATION_SYSTEM_V)
+
+   target_compile_definitions(acme_posix PRIVATE INTERPROCESS_COMMUNICATION_SYSTEM_V)
+
+endif()
+
+
+
 
 
 target_precompile_headers(apex_posix PRIVATE framework.h)
