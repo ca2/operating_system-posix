@@ -1,6 +1,8 @@
 #include "framework.h"
-//#include "file_os_watcher.h"
 #include "file_context.h"
+#if defined(INTERPROCESS_COMMUNICATION_SYSTEM_V)
+#include "system_v/interprocess_communication.h"
+#endif
 
 #ifdef FILE_SYSTEM_INOTIFY
 
