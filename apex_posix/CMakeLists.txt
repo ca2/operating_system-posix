@@ -73,6 +73,13 @@ if (MSVC)
 elseif(LINUX OR FREEBSD)
 
 
+   if(FILE_SYSTEM_INOTIFY)
+      pkg_check_modules(PKGCONFIG libinotify)
+      target_compile_options(apex_posix PRIVATE ${PKGCONFIG_CFLAGS})
+      target_link_options(apex_posix PRIVATE ${PKGCONFIG_LDFLAGS})
+      target_link_libraries(apex_posix PRIVATE ${PKGCONFIG_LIBRARIES})
+   endif()
+
    target_compile_options(apex_posix PRIVATE -fpermissive)
    target_link_libraries(apex_posix PRIVATE ${library_references})
    target_link_options(apex_posix PRIVATE -Wl,-z,defs)
