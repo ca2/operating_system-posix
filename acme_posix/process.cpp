@@ -576,7 +576,15 @@ namespace acme
 
          string str;
 
+#if defined(FREEBSD)
+
+         str = "/proc/" + __string(iPid) + "/file";
+
+#else
+
          str = "/proc/" + __string(iPid) + "/exe";
+
+#endif
 
          memory mem;
 
