@@ -32,6 +32,9 @@ __FACTORY_EXPORT void apex_posix_factory(::factory::factory * pfactory)
    pfactory->add_factory_item < ::system_v::interprocess_communication_rx, ::interprocess_communication::rx >();
    pfactory->add_factory_item < ::system_v::interprocess_communication_tx, ::interprocess_communication::tx >();
 
+
+   ***test***
+
 #endif
 
 

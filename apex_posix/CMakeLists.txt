@@ -67,7 +67,7 @@ endif()
 
 if(INTERPROCESS_COMMUNICATION_SYSTEM_V)
 
-   target_compile_definitions(acme_posix PRIVATE INTERPROCESS_COMMUNICATION_SYSTEM_V)
+   target_compile_definitions(apex_posix PRIVATE INTERPROCESS_COMMUNICATION_SYSTEM_V)
 
 endif()
 
