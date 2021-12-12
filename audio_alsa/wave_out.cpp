@@ -487,7 +487,7 @@ namespace multimedia
       snd_pcm_t * wave_out::out_get_safe_PCM()
       {
 
-         if(this == NULL)
+         if(::is_null(this))
          {
 
             return NULL;
@@ -497,7 +497,6 @@ namespace multimedia
          return m_ppcm;
 
       }
-
 
 
       bool wave_out::alsa_should_play()

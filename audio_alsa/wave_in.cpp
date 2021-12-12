@@ -467,34 +467,34 @@ Opened:
       }
 
 
-/*
-
-      ::e_status wave_in::in_add_buffer(int32_t iBuffer)
-      {
-
-         return in_add_buffer(wave_hdr(iBuffer));
-
-      }
-
-
-      ::e_status wave_in::in_add_buffer(LPWAVEHDR lpwavehdr)
-      {
-
-         ::e_status mmr;
-
-         /*if(success != (mmr = waveInAddBuffer(m_hwavein, lpwavehdr, sizeof(WAVEHDR))))
-         {
-
-            TRACE("ERROR OPENING Adding INPUT DEVICE buffer");
-
-         }*/
-
-/*         m_iBuffer++;
-
-         return mmr;
-
-      }
-*/
+//
+//
+//      ::e_status wave_in::in_add_buffer(int32_t iBuffer)
+//      {
+//
+//         return in_add_buffer(wave_hdr(iBuffer));
+//
+//      }
+//
+//
+//      ::e_status wave_in::in_add_buffer(LPWAVEHDR lpwavehdr)
+//      {
+//
+//         ::e_status mmr;
+//
+//         if(success != (mmr = waveInAddBuffer(m_hwavein, lpwavehdr, sizeof(WAVEHDR))))
+//         {
+//
+//            TRACE("ERROR OPENING Adding INPUT DEVICE buffer");
+//
+//         }
+//
+//         m_iBuffer++;
+//
+//         return mmr;
+//
+//      }
+//
 
       bool wave_in::in_initialize_encoder()
       {
@@ -521,8 +521,12 @@ Opened:
       snd_pcm_t * wave_in::in_get_safe_PCM()
       {
 
-         if(this == NULL)
-            return NULL;
+         if(::is_null(this))
+         {
+
+            return nullptr;
+
+         }
 
          return m_ppcm;
 
