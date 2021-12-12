@@ -46,9 +46,10 @@ list(APPEND library_references
 
 
 set_source_files_properties(q_node_impl.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
+set_source_files_properties(set_wallpaper.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 
 
-add_library(node_kde SHARED ${library_source})
+add_library(node_kde SHARED ${library_source} set_wallpaper.cpp)
 
 
 target_precompile_headers(node_kde PRIVATE framework.h)
