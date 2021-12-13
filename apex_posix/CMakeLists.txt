@@ -72,7 +72,11 @@ if(INTERPROCESS_COMMUNICATION_SYSTEM_5)
 endif()
 
 
+if(POSIX_SPAWN)
 
+   target_compile_definitions(apex_posix PRIVATE POSIX_SPAWN)
+
+endif()
 
 
 target_precompile_headers(apex_posix PRIVATE framework.h)

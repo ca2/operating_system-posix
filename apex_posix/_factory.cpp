@@ -35,6 +35,12 @@ __FACTORY_EXPORT void apex_posix_factory(::factory::factory * pfactory)
 #endif
 
 
+#if defined(POSIX_SPAWN)
+
+   pfactory->add_factory_item < ::ansios::process, ::operating_system::process >();
+
+#endif
+
 
    pfactory->add_factory_item < ::apex::posix::node, ::acme::node > ();
 
