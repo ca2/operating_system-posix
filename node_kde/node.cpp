@@ -492,6 +492,8 @@ namespace node_kde
       if(!m_pqapplication)
       {
 
+         printf("%s", "Failed to create QApplication");
+
          return error_failed;
 
       }
