@@ -84,9 +84,12 @@ elseif(LINUX OR FREEBSD)
 endif ()
 
 
-target_include_directories(acme_posix PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../..)
-target_include_directories(acme_posix PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
-target_include_directories(acme_posix PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
+
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
 
 
 target_compile_definitions(acme_posix PRIVATE _ACME_POSIX_LIBRARY)
