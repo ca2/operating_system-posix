@@ -122,6 +122,13 @@ namespace posix
    }
 
 
+   ::e_status acme_file::set_file_normal(const char* path)
+   {
+
+      return success_none;
+
+   }
+
 
    string acme_file::get_temporary_file_name(const char * lpszName, const char * pszExtension)
    {
