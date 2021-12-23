@@ -47,7 +47,14 @@ namespace posix
       if (m_pdata != (void *)MAP_FAILED)
       {
 
-         ::munmap(m_pdata, m_psystem->m_pacmefile->get_size_fd(m_iFile));
+         auto size = m_psystem->m_pacmefile->get_size_fd(m_iFile);
+
+         if(size.estatus())
+         {
+
+            ::munmap(m_pdata, size.holding());
+
+         }
 
          m_pdata = (void *)MAP_FAILED;
 

@@ -130,7 +130,7 @@ namespace posix
    }
 
 
-   string acme_file::get_temporary_file_name(const char * lpszName, const char * pszExtension)
+   status < string > acme_file::get_temporary_file_name(const char * lpszName, const char * pszExtension)
    {
 
 #ifdef WINDOWS
@@ -191,7 +191,7 @@ namespace posix
 
       }
 
-      return "";
+      return string();
 
    }
 
@@ -360,7 +360,7 @@ namespace posix
    }
 
 
-   filesize acme_file::get_size(FILE * pfile)
+   holding_status < filesize > acme_file::get_size(FILE * pfile)
    {
 
       return get_size_fd(fileno(pfile));
@@ -368,7 +368,7 @@ namespace posix
    }
 
 
-   ::i64 acme_file::get_size_fd(i32 iFileDescriptor)
+   holding_status < filesize > acme_file::get_size_fd(i32 iFileDescriptor)
    {
 
       struct stat st = {};
@@ -376,9 +376,13 @@ namespace posix
       if (fstat(iFileDescriptor, &st) == -1)
       {
 
+         int iErrNo = errno;
+
          ::close(iFileDescriptor);
 
-         return -1;
+         auto estatus = errno_to_status(iErrNo);
+
+         return estatus;
 
       }
 
@@ -446,34 +450,43 @@ namespace posix
    }
 
 
-   string acme_file::as_string(const char * path, strsize iReadAtMostByteCount)
+   status < string > acme_file::as_string(const char * path, strsize iReadAtMostByteCount)
    {
-
-      string str;
 
       FILE * f = fopen(path, "rb");
 
       if (f == nullptr)
       {
 
-         return "";
+         auto iErrNo = errno;
+
+         auto estatus = failed_errno_to_status(iErrNo);
+
+         return estatus;
 
       }
 
-      ::count iSize = get_size(f);
+      string str;
 
-      iReadAtMostByteCount = minimum_non_negative(iSize, iReadAtMostByteCount);
+      auto size = get_size(f);
 
-      char * psz = str.get_string_buffer(iReadAtMostByteCount);
+      if(size)
+      {
 
 
-      ::count iRead = fread(psz, 1, iReadAtMostByteCount, f);
+         iReadAtMostByteCount = minimum_non_negative(size.holding(), iReadAtMostByteCount);
 
-      psz[iRead] = '\0';
+         char * psz = str.get_string_buffer(iReadAtMostByteCount);
 
-      str.release_string_buffer(iRead);
+         ::count iRead = fread(psz, 1, iReadAtMostByteCount, f);
 
-      ::str::begins_eat_ci(str, "\xef\xbb\xbf");
+         psz[iRead] = '\0';
+
+         str.release_string_buffer(iRead);
+
+         ::str::begins_eat_ci(str, "\xef\xbb\xbf");
+
+      }
 
       fclose(f);
 
@@ -482,7 +495,7 @@ namespace posix
    }
 
 
-   memory acme_file::as_memory(const char * path, strsize iReadAtMostByteCount)
+   status < memory > acme_file::as_memory(const char * path, strsize iReadAtMostByteCount)
    {
 
       memory mem;
@@ -497,12 +510,25 @@ namespace posix
    ::e_status acme_file::as_memory(memory_base & memory, const char * path, strsize iReadAtMostByteCount)
    {
 
+      ::e_status estatus = ::success;
+
       FILE * f = fopen(path, "rb");
 
       if (f == nullptr)
       {
 
-         return false;
+         int iErrNo = errno;
+
+         estatus = failed_errno_to_status(iErrNo);
+
+         if(!estatus)
+         {
+
+            return estatus;
+
+         }
+
+         return estatus;
 
       }
 
@@ -548,18 +574,36 @@ namespace posix
 
          memory.set_size(iReadAtMostByteCount);
 
-         fread(memory.get_data(), memory.get_size(), 1, f);
+         int iToRead = memory.get_size();
+
+         int iRead = fread(memory.get_data(), 1, iToRead, f);
+
+         if(iToRead < iRead)
+         {
+
+            int iFileError = ferror(f);
+
+            if(iFileError)
+            {
+
+               int iErrNo = errno;
+
+               estatus = failed_errno_to_status(iFileError);
+
+            }
+
+         }
 
       }
 
       fclose(f);
 
-      return true;
+      return estatus;
 
    }
 
 
-   memsize acme_file::as_memory(const char * path, void * p, memsize s)
+   holding_status < memsize > acme_file::as_memory(const char * path, void * p, memsize s)
    {
 
       FILE * f = fopen(path, "rb");
@@ -567,7 +611,7 @@ namespace posix
       if (f == nullptr)
       {
 
-         return 0;
+         return error_io;
 
       }
 
@@ -591,7 +635,7 @@ namespace posix
    }
 
 
-   filesize acme_file::get_size(const char * path)
+   holding_status < filesize > acme_file::get_size(const char * path)
    {
 
       struct stat st;
@@ -706,7 +750,19 @@ namespace posix
 
 
       filesize = lseek(input, 0, SEEK_END);
-      ftruncate(output, filesize);
+
+      int iError = ftruncate(output, filesize);
+
+      if(iError != 0)
+      {
+
+         auto iErrNo = errno;
+
+         auto estatus = errno_to_status(iErrNo);
+
+         return estatus;
+
+      }
 
       if ((source = mmap(0, filesize, PROT_READ, MAP_PRIVATE, input, 0)) == (void *)-1)
       {
@@ -878,7 +934,7 @@ namespace posix
    }
 
 
-   string acme_file::first_line(const char * strPath)
+   status < string > acme_file::first_line(const char * strPath)
    {
 
       string line;
@@ -888,7 +944,7 @@ namespace posix
       if (file == nullptr)
       {
 
-         return "";
+         return error_io;
 
       }
 

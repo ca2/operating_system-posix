@@ -28,13 +28,13 @@ namespace posix
       ::e_status set_file_normal(const char* path) override;
 
 
-      memory as_memory(const char * path, strsize iReadAtMostByteCount = -1) override;
-      memsize as_memory(const char * path, void * p, memsize s) override;
-      string as_string(const char * path, strsize iReadAtMostByteCount = -1) override;
+      status < memory > as_memory(const char * path, strsize iReadAtMostByteCount = -1) override;
+      holding_status < memsize > as_memory(const char * path, void * p, memsize s) override;
+      status < string > as_string(const char * path, strsize iReadAtMostByteCount = -1) override;
       ::e_status as_memory(memory_base & memory, const char * path, strsize iReadAtMostByteCount) override;
 
 
-      string get_temporary_file_name(const char * lpszName, const char * pszExtension) override;
+      status < string > get_temporary_file_name(const char * lpszName, const char * pszExtension) override;
       //bool write_memory_to_file(FILE * file, const void * pdata, memsize nCount, memsize * puiWritten) override;
       //bool append_wait(const ::string & strFile, const block & block, const ::duration & duration) override;
       //bool append(const ::string & strFile, const block & block) override;
@@ -46,9 +46,9 @@ namespace posix
 
       ::e_status put_contents(const char * path, const char * contents, strsize len) override;
       //bool get_temporary_file_name_template(char * szRet, strsize iBufferSize, const char * lpszName, const char * pszExtension, const char * pszTemplate) override;
-      filesize get_size(const char * path) override;
-      filesize get_size(FILE * pfile) override;
-      filesize get_size_fd(int iFileDescriptor) override;
+      holding_status < filesize > get_size(const char * path) override;
+      holding_status < filesize > get_size(FILE * pfile) override;
+      holding_status < filesize > get_size_fd(int iFileDescriptor) override;
 
 
       ::duration modification_time(const char* psz) override;
@@ -86,7 +86,7 @@ namespace posix
    //virtual filesize FILE_get_size(FILE * fp);
 
 
-      string first_line(const char * path) override;
+      status < string > first_line(const char * path) override;
 
 
       ::e_status set_size(const char * lpszName, filesize iSize) override;

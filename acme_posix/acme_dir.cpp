@@ -300,6 +300,64 @@ namespace posix
    }
 
 
+   status < string > acme_dir::get_current()
+   {
+
+      auto pszCurrentDirName = get_current_dir_name();
+
+      if(is_set(pszCurrentDirName))
+      {
+
+         string strCurrentDirName = ::string_from_strdup(pszCurrentDirName);
+
+         return strCurrentDirName;
+
+      }
+
+      auto iErrNo = errno;
+
+      auto estatus = errno_to_status(iErrNo);
+
+      if(!estatus)
+      {
+
+         return estatus;
+
+      }
+
+      return estatus;
+
+   }
+
+
+   ::e_status acme_dir::change_current(const char * psz)
+   {
+
+      auto iError = chdir(psz);
+
+      if(!iError)
+      {
+
+         return ::success;
+
+      }
+
+      auto iErrNo = errno;
+
+      auto estatus = errno_to_status(iErrNo);
+
+      if(!estatus)
+      {
+
+         return estatus;
+
+      }
+
+      return estatus;
+
+   }
+
+
 } // namespace posix
 
 
