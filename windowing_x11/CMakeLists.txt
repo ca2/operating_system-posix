@@ -87,9 +87,12 @@ endif ()
 
 
 target_include_directories(windowing_x11 PRIVATE .)
-target_include_directories(windowing_x11 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../..)
-target_include_directories(windowing_x11 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
-target_include_directories(windowing_x11 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
+
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
 
 
 target_compile_definitions(windowing_x11 PRIVATE _WINDOWING_X11_ALSA_LIBRARY)

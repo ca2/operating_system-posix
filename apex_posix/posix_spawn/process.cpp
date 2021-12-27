@@ -160,7 +160,7 @@ namespace ansios
 
       int iExitCode;
 
-#if 0
+#if 1
 
       {
 

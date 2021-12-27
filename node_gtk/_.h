@@ -1,3 +1,4 @@
+// Changed by camilo on 2021-12-09 13:40 BRT <3ThomasBorregaardSorensen!!
 #pragma once
 
 
@@ -24,13 +25,5 @@ namespace node_gtk
 #define __matter(TYPE) __new(::matter<TYPE>)
 
 
-namespace user
-{
-
-
-   char * gsettings_get_malloc(const char * pszSchema, const char * pszKey);
-
-
-}
-
+//#include "gtk.h"
 

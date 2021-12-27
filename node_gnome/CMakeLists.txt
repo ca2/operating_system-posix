@@ -21,7 +21,7 @@ list(APPEND library_source
    framework.h
    #gdk.cpp
    #gdk.h
-   gnome_direct.cpp
+   #gnome_direct.cpp
    gtk_clipboard.cpp
    monitor.cpp
    monitor.h
@@ -76,9 +76,12 @@ elseif(LINUX OR FREEBSD)
 endif ()
 
 
-target_include_directories(node_gnome PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../..)
-target_include_directories(node_gnome PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
-target_include_directories(node_gnome PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
+
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
 
 
 target_compile_definitions(node_gnome PRIVATE _NODE_GNOME_LIBRARY)

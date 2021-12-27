@@ -3,6 +3,14 @@
 //
 #include "framework.h"
 
+#ifdef FREEBSD
+
+
+#include <sys/types.h>
+#include <sys/sysctl.h>
+
+#endif
+
 
 void init_pid_cs();
 
@@ -363,6 +371,36 @@ namespace acme
       int node::_get_proc_stat_core_count()
       {
 
+#ifdef FREEBSD
+
+         int mib[4];
+         int numCPU;
+         std::size_t len = sizeof(numCPU);
+
+/* set the mib for hw.ncpu */
+         mib[0] = CTL_HW;
+#ifdef FREEBSD
+         mib[1] = HW_NCPU;  // alternatively, try HW_NCPU;
+#else
+         mib[1] = HW_AVAILCPU;  // alternatively, try HW_NCPU;
+
+#endif
+
+/* get the number of CPUs from the system */
+         sysctl(mib, 2, &numCPU, &len, NULL, 0);
+
+         if (numCPU < 1)
+         {
+            mib[1] = HW_NCPU;
+            sysctl(mib, 2, &numCPU, &len, NULL, 0);
+            if (numCPU < 1)
+               numCPU = 1;
+         }
+
+         return numCPU;
+
+#else
+
          string str = m_psystem->m_pacmefile->as_string("/proc/stat");
 
          string_array stra;
@@ -370,6 +408,8 @@ namespace acme
          stra.add_lines(str);
 
          return (int) stra.predicate_get_count([](auto str) { return ::str::begins(str, "cpu"); });
+
+#endif
 
       }
 

@@ -2,9 +2,9 @@
 // Created by camilo on 19/01/2021. --<33ThomasBS!!
 //
 #include "framework.h"
-#include "gnome_shared.h"
+//#include "gnome_shared.h"
 #include "appindicator.h"
-#include "gdk.h"
+//#include "gdk.h"
 #undef new
 #include <kworkspace5/kworkspace.h>
 #include <KColorScheme>
@@ -492,6 +492,8 @@ namespace node_kde
       if(!m_pqapplication)
       {
 
+         printf("%s", "Failed to create QApplication");
+
          return error_failed;
 
       }
@@ -548,7 +550,7 @@ namespace node_kde
    }
 
 
-   bool node::os_set_user_theme(const ::string &strUserTheme)
+   ::e_status node::os_set_user_theme(const ::string &strUserTheme)
    {
 
 //      // https://ubuntuforums.org/showthread.php?t=2140488
@@ -568,14 +570,14 @@ namespace node_kde
 //         case ::user::e_desktop_unity_gnome:
 //         {
 //
-//            bool bOk1 = ::node_kde::gsettings_set("org.gnome.desktop.interface", "gtk-theme", strUserTheme);
+//            bool bOk1 = ::node_kde::aaa_gsettings_set("org.gnome.desktop.interface", "gtk-theme", strUserTheme);
 //
 //            bool bOk2 = true;
 //
 //            //if(::file::system_short_name().contains_ci("manjaro"))
 //            {
 //
-//               bOk2 = ::node_kde::gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme);
+//               bOk2 = ::node_kde::aaa_gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme);
 //
 //            }
 //
@@ -592,7 +594,7 @@ namespace node_kde
 //
 //         case ::user::e_desktop_mate:
 //
-//            //return ::user::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
+//            //return ::user::aaa_gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
 //
 //         case ::user::e_desktop_lxde:
 //
@@ -655,12 +657,12 @@ namespace node_kde
 //         case ::user::e_desktop_ubuntu_gnome:
 //         case ::user::e_desktop_unity_gnome:
 //
-//            return ::node_kde::gsettings_set("org.gnome.desktop.background", "picture-uri",
+//            return ::node_kde::aaa_gsettings_set("org.gnome.desktop.background", "picture-uri",
 //                                               "file://" + strLocalImagePath);
 //
 //         case ::user::e_desktop_mate:
 //
-//            return ::node_kde::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
+//            return ::node_kde::aaa_gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
 //
 //         case ::user::e_desktop_lxde:
 //
@@ -864,7 +866,7 @@ namespace node_kde
 
       }
 
-      if (psubject->m_id == id_user_color)
+      if (psubject->m_id == id_operating_system_user_color_change)
       {
 
          return false;

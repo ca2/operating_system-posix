@@ -142,7 +142,9 @@ namespace node_kde
 //
 //   Window default_root_window();
 
-      virtual ::count get_monitor_count() override;
+      ::count get_monitor_count() override;
+
+      void set_wallpaper(const string_array & strWallpaper) override;
 
 
 };

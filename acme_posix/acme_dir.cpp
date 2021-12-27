@@ -23,6 +23,7 @@
 #include "acme/os/universal_windows/file_winrt.h"
 #endif
 
+
 namespace posix
 {
 
@@ -299,20 +300,62 @@ namespace posix
    }
 
 
-//   int acme_dir::make_path(const char * psz)
-//   {
-//
-//      return create(psz) != false;
-//
-//   }
+   status < string > acme_dir::get_current()
+   {
 
-//
-//   bool acme_dir::_is(const char * path)
-//   {
-//
-//      return ::is_directory(path);
-//
-//   }
+      auto pszCurrentDirName = get_current_dir_name();
+
+      if(is_set(pszCurrentDirName))
+      {
+
+         string strCurrentDirName = ::string_from_strdup(pszCurrentDirName);
+
+         return strCurrentDirName;
+
+      }
+
+      auto iErrNo = errno;
+
+      auto estatus = errno_to_status(iErrNo);
+
+      if(!estatus)
+      {
+
+         return estatus;
+
+      }
+
+      return estatus;
+
+   }
+
+
+   ::e_status acme_dir::change_current(const char * psz)
+   {
+
+      auto iError = chdir(psz);
+
+      if(!iError)
+      {
+
+         return ::success;
+
+      }
+
+      auto iErrNo = errno;
+
+      auto estatus = errno_to_status(iErrNo);
+
+      if(!estatus)
+      {
+
+         return estatus;
+
+      }
+
+      return estatus;
+
+   }
 
 
 } // namespace posix

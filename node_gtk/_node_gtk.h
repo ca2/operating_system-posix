@@ -14,6 +14,12 @@
 #include <gdk/gdkx.h>
 
 
+#include "gdk_gdk.h"
+
+
+#include "gtk_gtk.h"
+
+
 #include "monitor.h"
 
 

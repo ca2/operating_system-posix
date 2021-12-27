@@ -9,6 +9,8 @@
 //#include <gdk/gdk.h>
 #include <QScreen>
 
+
+bool kde_plasma_set_wallpaper(const char *psz);
 //extern ::app_core * g_pappcore;
 
 //Display * x11_get_display();
@@ -289,6 +291,25 @@ namespace node_kde
          auto size =screens.size() ;
 
         return size;
+
+   }
+
+
+   void display::set_wallpaper(const string_array & strWallpaper)
+   {
+
+      if(strWallpaper.has_element())
+      {
+
+         kde_plasma_set_wallpaper(strWallpaper[0]);
+
+      }
+      else
+      {
+
+         kde_plasma_set_wallpaper("");
+
+      }
 
    }
 

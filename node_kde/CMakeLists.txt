@@ -18,10 +18,10 @@ list(APPEND library_source
    _factory.cpp
    framework.cpp
    framework.h
-   gdk.cpp
-   gdk.h
-   gnome_direct.cpp
-   gtk_clipboard.cpp
+   #gdk.cpp
+   #gdk.h
+   #gnome_direct.cpp
+   #gtk_clipboard.cpp
    monitor.cpp
    monitor.h
    node.cpp
@@ -46,9 +46,10 @@ list(APPEND library_references
 
 
 set_source_files_properties(q_node_impl.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
+set_source_files_properties(set_wallpaper.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 
 
-add_library(node_kde SHARED ${library_source})
+add_library(node_kde SHARED ${library_source} set_wallpaper.cpp)
 
 
 target_precompile_headers(node_kde PRIVATE framework.h)
@@ -97,9 +98,12 @@ endif ()
 
 
 
-target_include_directories(node_kde PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../..)
-target_include_directories(node_kde PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
-target_include_directories(node_kde PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
+
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
 
 
 target_compile_definitions(node_kde PRIVATE _NODE_KDE_LIBRARY)
