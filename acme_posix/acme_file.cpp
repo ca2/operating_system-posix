@@ -38,7 +38,27 @@ namespace posix
    {
 
 
+   }
 
+
+   ::e_status acme_file::exists(const char *filename)
+   {
+         
+      struct stat st;
+      
+      if(stat (filename, &st) != 0)
+      {
+         
+         int iErrNo = errno;
+         
+         auto estatus = failed_errno_to_status(iErrNo);
+         
+         return estatus;
+         
+      }
+      
+      return ::success;
+      
    }
 
 
@@ -140,31 +160,12 @@ namespace posix
 
 
 
-   string acme_file::get_temporary_file_name(const char * lpszName, const char * pszExtension)
+   status < string >  acme_file::get_temporary_file_name(const char * lpszName, const char * pszExtension)
    {
-
-#ifdef WINDOWS
-
-      WCHAR pPathBuffer[MAX_PATH * 16];
-
-      ::u32 dwRetVal = GetTempPathW(sizeof(pPathBuffer) / sizeof(WCHAR), pPathBuffer);
-
-      if (dwRetVal > sizeof(pPathBuffer) || (dwRetVal == 0))
-      {
-
-         debug_print("GetTempPath failed (%d)\n", ::GetLastError());
-
-         return "";
-
-      }
-
-#else
 
       char pPathBuffer[MAX_PATH * 16];
 
       strcpy(pPathBuffer, "/tmp/");
-
-#endif
 
       ::file::path pathFolder(pPathBuffer);
 
@@ -201,7 +202,7 @@ namespace posix
 
       }
 
-      return "";
+      return error_not_found;
 
    }
 
@@ -241,91 +242,9 @@ namespace posix
       return set_size(fileno(pfile), size);
 
    }
-//
-//
-//   bool acme_file::exists(const char * path)
-//   {
-//
-//      return ::file_exists(path);
-//
-//   }
 
 
-//void file_read_ex1_string_dup(FILE * hfile, ::md5::md5 * pctx, string & str);
-
-
-//bool acme_file::set_size(i32 fd, size_t iSize)
-//{
-//
-//      if (ftruncate(fd, iSize) == -1)
-//         return false;
-//
-//      return true;
-//
-//}
-
-//
-//size_t acme_file::get_size(i32 fd)
-//{
-//
-//      struct stat st;
-//
-//      if (fstat(fd, &st) == -1)
-//      {
-//
-//         ::close(fd);
-//
-//         return -1;
-//
-//      }
-//
-//      return st.st_size;
-//
-//}
-//
-
-//
-//int_bool acme_file::set_size(const char * lpszName, size_t iSize)
-//{
-//
-//      i32 fd = ::open(lpszName, O_RDONLY);
-//
-//      int_bool bSet = ::ensure_file_size_fd(fd, iSize) != -1;
-//
-//      ::close(fd);
-//
-//      return bSet;
-//
-//}
-
-
-//bool acme_file::exists(const char * path1)
-//{
-//
-//      // dedicaverse stat -> Sir And Arthur - Cesar Serenato
-//
-//      struct stat st;
-//
-//      if (stat(path1, &st))
-//      {
-//
-//         return false;
-//
-//      }
-//
-//      if ((st.st_mode & S_IFDIR))
-//      {
-//
-//         return false;
-//
-//      }
-//
-//      return true;
-//
-//}
-
-
-   filesize acme_file::get_size(FILE * pfile)
+   holding_status < filesize > acme_file::get_size(FILE * pfile)
    {
 
       return get_size_fd(fileno(pfile));
@@ -333,7 +252,7 @@ namespace posix
    }
 
 
-   ::i64 acme_file::get_size_fd(i32 iFileDescriptor)
+   holding_status < filesize > acme_file::get_size_fd(i32 iFileDescriptor)
    {
 
       struct stat st = {};
@@ -411,7 +330,7 @@ namespace posix
    }
 
 
-   string acme_file::as_string(const char * path, strsize iReadAtMostByteCount)
+   status < string > acme_file::as_string(const char * path, strsize iReadAtMostByteCount)
    {
 
       string str;
@@ -420,14 +339,25 @@ namespace posix
 
       if (f == nullptr)
       {
+         
+         int iErrNo = errno;
+         
+         auto estatus = failed_errno_to_status(iErrNo);
 
-         return "";
+         return estatus;
 
       }
 
-      ::count iSize = get_size(f);
+      auto iSize = get_size(f);
+      
+      if(!iSize)
+      {
+         
+         return iSize.estatus();
+         
+      }
 
-      iReadAtMostByteCount = minimum_non_negative(iSize, iReadAtMostByteCount);
+      iReadAtMostByteCount = minimum_non_negative(iSize.holding(), (filesize) iReadAtMostByteCount);
 
       char * psz = str.get_string_buffer(iReadAtMostByteCount);
 
@@ -447,7 +377,7 @@ namespace posix
    }
 
 
-   memory acme_file::as_memory(const char * path, strsize iReadAtMostByteCount)
+   status < memory > acme_file::as_memory(const char * path, strsize iReadAtMostByteCount)
    {
 
       memory mem;
@@ -471,9 +401,9 @@ namespace posix
 
       }
 
-      strsize iSize = get_size(f);
+      auto iSize = get_size(f);
 
-      if (iSize < 0)
+      if (!iSize)
       {
 
          ::memory mem;
@@ -509,7 +439,7 @@ namespace posix
       else
       {
 
-         iReadAtMostByteCount = minimum_non_negative(iSize, iReadAtMostByteCount);
+         iReadAtMostByteCount = minimum_non_negative(iSize.holding(), (filesize) iReadAtMostByteCount);
 
          memory.set_size(iReadAtMostByteCount);
 
@@ -524,15 +454,19 @@ namespace posix
    }
 
 
-   memsize acme_file::as_memory(const char * path, void * p, memsize s)
+   holding_status < memsize > acme_file::as_memory(const char * path, void * p, memsize s)
    {
 
       FILE * f = fopen(path, "rb");
 
       if (f == nullptr)
       {
+         
+         int iErrNo = errno;
+         
+         auto estatus = failed_errno_to_status(iErrNo);
 
-         return 0;
+         return estatus;
 
       }
 
@@ -556,13 +490,22 @@ namespace posix
    }
 
 
-   filesize acme_file::get_size(const char * path)
+   holding_status < filesize > acme_file::get_size(const char * path)
    {
 
       struct stat st;
 
-      stat(path, &st);
-
+      if(stat(path, &st) != 0)
+      {
+         
+         int iErrNo = errno;
+         
+         auto estatus = failed_errno_to_status(iErrNo);
+         
+         return estatus;
+         
+      }
+      
       return st.st_size;
 
    }
@@ -843,7 +786,7 @@ namespace posix
    }
 
 
-   string acme_file::first_line(const char * strPath)
+   status < string > acme_file::first_line(const char * strPath)
    {
 
       string line;
@@ -852,8 +795,12 @@ namespace posix
 
       if (file == nullptr)
       {
+         
+         int iErrNo = errno;
+         
+         auto estatus = failed_errno_to_status(iErrNo);
 
-         return "";
+         return estatus;
 
       }
 
