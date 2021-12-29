@@ -152,12 +152,17 @@ namespace posix
    ::e_status acme_file::clear_read_only(const char* path)
    {
 
-
-      return error_interface_only;
-
+      return ::success_none;
 
    }
 
+
+   ::e_status acme_file::set_file_normal(const char* path)
+   {
+
+      return ::success_none;
+
+   }
 
 
    status < string >  acme_file::get_temporary_file_name(const char * lpszName, const char * pszExtension)

@@ -212,17 +212,19 @@ namespace acme
       ::e_status node::install_sigchld_handler()
       {
 
-         struct sigaction sa;
-
-         __zero(sa);
-
-         sa.sa_handler = &ansios_sigchld_handler;
-
-         sigemptyset(&sa.sa_mask);
-
-         sa.sa_flags = SA_RESTART | SA_NOCLDSTOP;
-
-         sigaction(SIGCHLD, &sa, nullptr);
+//
+//
+//         struct sigaction sa;
+//
+//         __zero(sa);
+//
+//         sa.sa_handler = &ansios_sigchld_handler;
+//
+//         sigemptyset(&sa.sa_mask);
+//
+//         sa.sa_flags = SA_RESTART | SA_NOCLDSTOP;
+//
+//         sigaction(SIGCHLD, &sa, nullptr);
 
          return ::success;
 
