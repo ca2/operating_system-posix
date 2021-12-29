@@ -1,17 +1,24 @@
 //
 // Created by camilo on 20/01/2021. ThomasBS!!
 //
-#include "framework.h"
-#include "appindicator.h"
+
+
 //int uname(struct utsname *buf);
 #ifndef RASPBIAN
 //#ifndef MANJARO
 // Manjaro libappindicator-gtk3
-#include <libappindicator3-0.1/libappindicator/app-indicator.h>
+//#include <libappindicator3-0.1/libappindicator/app-indicator.h>
+#ifdef DEBIAN_LINUX
+#include <libayatana-appindicator/app-indicator.h>
+#else
+#include <libappindicator/app-indicator.h>
+#endif
+//#include <libappindicator-0.1/libappindicator/app-indicator.h>
 //#else // MANJARO
 //#include <libappindicator-0.1/libappindicator/app-indicator.h>
 //#endif
 #endif
+
 
 
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
