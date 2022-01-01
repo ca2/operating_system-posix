@@ -5,6 +5,9 @@
 #pragma once
 
 
+#include "acme/filesystem/filesystem/acme_file.h"
+
+
 namespace posix
 {
 

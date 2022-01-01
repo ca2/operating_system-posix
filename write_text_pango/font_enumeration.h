@@ -1,12 +1,15 @@
 #pragma once
 
 
+#include "aura/graphics/write_text/font_enumeration.h"
+
+
 namespace write_text_pango
 {
 
 
    class CLASS_DECL_WRITE_TEXT_PANGO font_enumeration :
-virtual public ::write_text::font_enumeration
+      virtual public ::write_text::font_enumeration
    {
    public:
 

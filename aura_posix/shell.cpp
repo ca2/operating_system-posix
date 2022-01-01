@@ -1,7 +1,6 @@
 #include "framework.h"
 #include "shell.h"
-
-
+#include "aura/graphics/draw2d/context_image.h"
 
 
 

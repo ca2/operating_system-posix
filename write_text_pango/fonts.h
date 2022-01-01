@@ -2,12 +2,15 @@
 #pragma once
 
 
+#include "aura/graphics/write_text/fonts.h"
+
+
 namespace write_text_pango
 {
 
 
    class CLASS_DECL_WRITE_TEXT_PANGO fonts :
-virtual public ::write_text::fonts
+      virtual public ::write_text::fonts
    {
    public:
 
