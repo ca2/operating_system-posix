@@ -1,8 +1,7 @@
-// <3ThomasBorregaardSørensen!!Created by camilo*/
+/*****<3ThomasBorregaardSørensen!!Created by camilo*/
 // From acme_apple/acme_file.h
 // on 2021-08-09
 // 05:02 BRT
-#pragma once
 
 
 #include "acme/filesystem/filesystem/acme_file.h"
@@ -21,7 +20,9 @@ namespace posix
       acme_file();
       ~acme_file() noexcept override ;
 
-
+      
+      ::e_status exists(const char * path) override;
+      
 
       ::e_status ensure_exists(const char* path) override;
       ::e_status touch(const char* path) override;
@@ -52,12 +53,6 @@ namespace posix
       holding_status < filesize > get_size(const char * path) override;
       holding_status < filesize > get_size(FILE * pfile) override;
       holding_status < filesize > get_size_fd(int iFileDescriptor) override;
-
-
-      ::duration modification_time(const char* psz) override;
-
-
-      ::e_status set_modification_time(const char* psz, const ::duration& duration) override;
 
 
       ::e_status copy(const char * pszNew, const char * pszSrc, bool bOverwrite) override;

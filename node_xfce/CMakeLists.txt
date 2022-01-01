@@ -60,7 +60,10 @@ if (MSVC)
    target_link_libraries(node_xfce PRIVATE ${library_references})
    add_dependencies(node_xfce draw2d_gdiplus)
 elseif(LINUX OR FREEBSD)
-   pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 appindicator3-0.1)
+
+
+   pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
+
    target_compile_options(node_xfce PRIVATE -fpermissive)
       target_compile_options(node_xfce PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(node_xfce PRIVATE ${PKGCONFIG_LDFLAGS})

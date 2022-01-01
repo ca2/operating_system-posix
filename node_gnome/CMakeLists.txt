@@ -64,8 +64,7 @@ if (MSVC)
 
 elseif(LINUX OR FREEBSD)
 
-
-   pkg_check_modules(PKGCONFIG x11 glib-2.0 gtk+-3.0 gdk-3.0 appindicator3-0.1)
+   pkg_check_modules(PKGCONFIG x11 glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
    target_compile_options(node_gnome PRIVATE -fpermissive)
    target_compile_options(node_gnome PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(node_gnome PRIVATE ${PKGCONFIG_LDFLAGS})
