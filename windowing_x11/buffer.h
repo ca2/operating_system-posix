@@ -2,6 +2,11 @@
 // recreated by Camilo 2021-01-28 22:42 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
 #pragma once
+
+
+#include "aura/graphics/graphics/_.h"
+#include "aura/graphics/graphics/_graphics.h"
+
 //#include <X11/extensions/Xrender.h>
 
 //#include "app/base/graphics/graphics_window_buffer.h"

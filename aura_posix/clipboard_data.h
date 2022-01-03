@@ -4,6 +4,9 @@
 #pragma once
 
 
+#include "aura/graphics/draw2d/image.h"
+
+
 enum enum_clipboard
 {
 

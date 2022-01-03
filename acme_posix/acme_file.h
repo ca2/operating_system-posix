@@ -4,6 +4,9 @@
 // 05:02 BRT
 
 
+#include "acme/filesystem/filesystem/acme_file.h"
+
+
 namespace posix
 {
 

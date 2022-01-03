@@ -42,6 +42,9 @@
 #pragma once
 
 
+#include "acme/platform/serial.h"
+
+
 namespace serial
 {
 

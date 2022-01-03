@@ -8,6 +8,8 @@
 #include "aura/user/interaction_prodevian.h"
 #include "aura/platform/message_queue.h"
 #include <X11/Xatom.h>
+#include "aura/graphics/draw2d/context_image.h"
+#include "aura/graphics/draw2d/image_drawing.h"
 
 
 //void on_sn_launch_context(void * pSnContext, Window window);

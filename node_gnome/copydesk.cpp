@@ -3,6 +3,7 @@
 #include "aura/operating_system.h"
 #include "clipboard_data.h"
 #include <gtk/gtk.h>
+#include "aura/graphics/draw2d/context_image.h"
 
 
 gboolean clipboard_callback(gpointer data);
