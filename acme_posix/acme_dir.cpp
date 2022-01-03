@@ -5,6 +5,13 @@
 #include "acme/operating_system.h"
 
 
+#ifdef __APPLE__
+
+char * get_current_dir_name();
+
+#endif
+
+
 #if defined(WINDOWS_DESKTOP)
 #include <Shlobj.h>
 #include <shellapi.h>
@@ -159,17 +166,26 @@ namespace posix
       DIR * dirp = opendir(psz);
 
       if (dirp == nullptr)
+      {
+
          return;
+         
+      }
 
       dirent * dp;
+      
       ::file::path path;
+      
       while ((dp = readdir(dirp)) != nullptr)
       {
 
-         if (strcmp(dp->d_name, "..") == 0)
+         if (file_path_is_dots(dp->d_name))
+         {
+            
             continue;
-         else if (strcmp(dp->d_name, ".") == 0)
-            continue;
+               
+         }
+
          path = ::file::path(psz) / dp->d_name;
          path.m_iDir = dp->d_type & DT_DIR ? 1 : 0;
          path.m_iSize = -1;
@@ -190,21 +206,22 @@ namespace posix
       DIR * dirp = opendir(psz);
 
       if (dirp == nullptr)
+      {
+
          return;
+         
+      }
 
       dirent * dp;
 
       while ((dp = readdir(dirp)) != nullptr)
       {
-         if (dp->d_name[0] == '.')
+         
+         if (file_path_is_dots(dp->d_name))
          {
-            if (dp->d_name[1] == '\0')
-               continue;
-            if (dp->d_name[1] == '.')
-            {
-               if (dp->d_name[2] == '\0')
-                  continue;
-            }
+            
+            continue;
+               
          }
 
          ::file::path strPath = ::file::path(psz) / dp->d_name;
@@ -220,7 +237,6 @@ namespace posix
 
       closedir(dirp);
 
-
    }
 
 
@@ -230,26 +246,31 @@ namespace posix
       DIR * dirp = opendir(psz);
 
       if (dirp == nullptr)
+      {
+         
          return;
+         
+      }
 
       dirent * dp;
 
       while ((dp = readdir(dirp)) != nullptr)
       {
-         if (dp->d_name[0] == '.')
+         
+         if (file_path_is_dots(dp->d_name))
          {
-            if (dp->d_name[1] == '\0')
-               continue;
-            if (dp->d_name[1] == '.')
-            {
-               if (dp->d_name[2] == '\0')
-                  continue;
-            }
+            
+            continue;
+               
          }
+
          ::file::path strPath = ::file::path(psz) / dp->d_name;
+         
          if (!is(strPath))
          {
+            
             stra.add(strPath);
+            
          }
 
       }
@@ -272,7 +293,11 @@ namespace posix
       {
 
          if (stra[i].is_empty())
+         {
+            
             continue;
+            
+         }
 
          strCandidate = ::file::path(stra[i]) / pszTopic;
 
@@ -290,7 +315,6 @@ namespace posix
    }
 
 
-
    ::file::path acme_dir::archive()
    {
 
@@ -305,27 +329,20 @@ namespace posix
 
       auto pszCurrentDirName = get_current_dir_name();
 
-      if(is_set(pszCurrentDirName))
+      if(is_null(pszCurrentDirName))
       {
 
-         string strCurrentDirName = ::string_from_strdup(pszCurrentDirName);
+         auto iErrNo = errno;
 
-         return strCurrentDirName;
-
-      }
-
-      auto iErrNo = errno;
-
-      auto estatus = errno_to_status(iErrNo);
-
-      if(!estatus)
-      {
+         auto estatus = failed_errno_to_status(iErrNo);
 
          return estatus;
 
       }
 
-      return estatus;
+      string strCurrentDirName = ::string_from_strdup(pszCurrentDirName);
+
+      return strCurrentDirName;
 
    }
 
@@ -335,25 +352,18 @@ namespace posix
 
       auto iError = chdir(psz);
 
-      if(!iError)
+      if(iError)
       {
 
-         return ::success;
+         auto iErrNo = errno;
 
-      }
-
-      auto iErrNo = errno;
-
-      auto estatus = errno_to_status(iErrNo);
-
-      if(!estatus)
-      {
-
+         auto estatus = failed_errno_to_status(iErrNo);
+         
          return estatus;
 
       }
 
-      return estatus;
+      return success;
 
    }
 
@@ -361,4 +371,37 @@ namespace posix
 } // namespace posix
 
 
+
+
+
+#ifdef __APPLE__
+
+char * get_current_dir_name()
+{
+   
+   auto size = pathconf(".", _PC_PATH_MAX);
+   
+   if(size <= 0)
+   {
+      
+      size = PATH_MAX;
+      
+   }
+   
+   char * buf = (char *) malloc(size + 1);
+   
+   if(buf == nullptr)
+   {
+    
+      return nullptr;
+      
+   }
+   
+   auto ptr = getcwd(buf, (size_t)(size + 1));
+   
+   return ptr;
+
+}
+
+#endif
 
