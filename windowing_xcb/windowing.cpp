@@ -694,7 +694,7 @@ namespace windowing_xcb
    ::e_status windowing::uninstall_mouse_hook(::matter * pmatterListener)
    {
 
-      return ::error_interface_only;
+      throw ::interface_only_exception();
 
    }
 
@@ -702,7 +702,7 @@ namespace windowing_xcb
    ::e_status windowing::uninstall_keyboard_hook(::matter * pmatterListener)
    {
 
-      return ::error_interface_only;
+      throw ::interface_only_exception();
 
    }
 

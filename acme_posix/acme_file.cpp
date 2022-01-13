@@ -165,7 +165,7 @@ namespace posix
    }
 
 
-   status < string >  acme_file::get_temporary_file_name(const char * lpszName, const char * pszExtension)
+   string  acme_file::get_temporary_file_name(const char * lpszName, const char * pszExtension)
    {
 
       char pPathBuffer[MAX_PATH * 16];
@@ -249,7 +249,7 @@ namespace posix
    }
 
 
-   holding_status < filesize > acme_file::get_size(FILE * pfile)
+   filesize acme_file::get_size(FILE * pfile)
    {
 
       return get_size_fd(fileno(pfile));
@@ -257,7 +257,7 @@ namespace posix
    }
 
 
-   holding_status < filesize > acme_file::get_size_fd(i32 iFileDescriptor)
+   filesize acme_file::get_size_fd(i32 iFileDescriptor)
    {
 
       struct stat st = {};
@@ -335,7 +335,7 @@ namespace posix
    }
 
 
-   status < string > acme_file::as_string(const char * path, strsize iReadAtMostByteCount)
+   string acme_file::as_string(const char * path, strsize iReadAtMostByteCount)
    {
 
       string str;
@@ -382,7 +382,7 @@ namespace posix
    }
 
 
-   status < memory > acme_file::as_memory(const char * path, strsize iReadAtMostByteCount)
+   memoryacme_file::as_memory(const char * path, strsize iReadAtMostByteCount)
    {
 
       memory mem;
@@ -459,7 +459,7 @@ namespace posix
    }
 
 
-   holding_status < memsize > acme_file::as_memory(const char * path, void * p, memsize s)
+   memsize acme_file::as_memory(const char * path, void * p, memsize s)
    {
 
       FILE * f = fopen(path, "rb");
@@ -495,7 +495,7 @@ namespace posix
    }
 
 
-   holding_status < filesize > acme_file::get_size(const char * path)
+   filesize acme_file::get_size(const char * path)
    {
 
       struct stat st;
@@ -791,7 +791,7 @@ namespace posix
    }
 
 
-   status < string > acme_file::first_line(const char * strPath)
+   string acme_file::first_line(const char * strPath)
    {
 
       string line;

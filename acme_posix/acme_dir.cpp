@@ -324,7 +324,7 @@ namespace posix
    }
 
 
-   status < string > acme_dir::get_current()
+   string acme_dir::get_current()
    {
 
       auto pszCurrentDirName = get_current_dir_name();

@@ -53,7 +53,7 @@ namespace posix
 
       //int make_path(const char * psz) override;
 
-      status < string > get_current() override;
+      string get_current() override;
 
       ::e_status change_current(const char * psz) override;
 
