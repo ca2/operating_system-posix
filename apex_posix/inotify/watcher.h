@@ -21,7 +21,7 @@ namespace inotify
 
 
       watch();
-      virtual ~watch();
+      ~watch() override;
 
       //virtual bool open(const ::file::path & pathFolder, bool bRecursive);
 
@@ -41,13 +41,13 @@ namespace inotify
 
 
       watcher();
-      virtual ~watcher();
+      ~watcher() override;
 
 
       virtual ::file::watch_id add_watch(const ::file::path & pathFolder, ::file::listener * plistenerParam, bool bRecursive) override;
 
 
-      virtual ::e_status step() override;
+      virtual bool step() override;
 
 
    };

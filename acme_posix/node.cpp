@@ -192,24 +192,27 @@ namespace acme
 //      }
 
 
-      ::e_status node::initialize(::object * pobject)
+      void node::initialize(::object * pobject)
       {
 
-         auto estatus = ::acme::node::initialize(pobject);
+         //auto estatus =
+         //
+         //
+         ::acme::node::initialize(pobject);
 
-         if(!estatus)
-         {
-
-            return estatus;
-
-         }
-         
-         return estatus;
+//         if(!estatus)
+//         {
+//
+//            return estatus;
+//
+//         }
+//
+//         return estatus;
 
       }
 
 
-      ::e_status node::install_sigchld_handler()
+      void node::install_sigchld_handler()
       {
 
 //
@@ -226,7 +229,7 @@ namespace acme
 //
 //         sigaction(SIGCHLD, &sa, nullptr);
 
-         return ::success;
+         //return ::success;
 
       }
 
@@ -355,7 +358,7 @@ namespace acme
 //      }
 
 
-      ::e_status node::reboot()
+      void node::reboot()
       {
 
 #ifdef LINUX
@@ -364,7 +367,7 @@ namespace acme
 
 #endif
 
-         return success;
+         //return success;
 
       }
 

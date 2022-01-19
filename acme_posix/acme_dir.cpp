@@ -107,7 +107,7 @@ namespace posix
    }
 
 
-   ::e_status acme_dir::is(const char * path)
+   bool acme_dir::is(const char * path)
    {
 
       return _is(path);
@@ -336,7 +336,7 @@ namespace posix
 
          auto estatus = failed_errno_to_status(iErrNo);
 
-         return estatus;
+         throw_status(estatus);
 
       }
 
@@ -347,7 +347,7 @@ namespace posix
    }
 
 
-   ::e_status acme_dir::change_current(const char * psz)
+   void acme_dir::change_current(const char * psz)
    {
 
       auto iError = chdir(psz);
@@ -359,11 +359,9 @@ namespace posix
 
          auto estatus = failed_errno_to_status(iErrNo);
          
-         return estatus;
+         throw_status(estatus);
 
       }
-
-      return success;
 
    }
 

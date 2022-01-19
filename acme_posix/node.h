@@ -28,8 +28,8 @@ namespace acme
          ~node() override;
 
 
-         ::e_status call_async(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid = nullptr) override;
-         ::e_status call_sync(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, const ::duration & durationTimeout, ::property_set & set) override;
+         void call_async(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid = nullptr) override;
+         void call_sync(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, const ::duration & durationTimeout, ::property_set & set) override;
 
 
          ::e_status shell_execute_sync(const ::string & pszFile, const ::string & pszParams, ::duration durationTimeout );
@@ -37,17 +37,17 @@ namespace acme
          virtual int node_init_check(int * pi, char *** ppz) override;
 
 
-         ::e_status _dbus_init();
+         void dbus_init();
 
-         virtual ::e_status initialize(::object * pobject) override;
+         void initialize(::object * pobject) override;
 
-         virtual ::e_status install_sigchld_handler() override;
+         void install_sigchld_handler() override;
 
          bool is_process_running(::u32 pid) override;
 
-         ::e_status create_process(const ::string & pszCommandLine, u32 * pprocessID) override;
+         void create_process(const ::string & pszCommandLine, u32 * pprocessID) override;
 
-         ::e_status run_silent(const ::string & strFunct, const ::string & strstrParams) override;
+         void run_silent(const ::string & strFunct, const ::string & strstrParams) override;
          
          virtual i32 _create_process3(const ::string & _cmd_line, i32 * pprocessId);
 
@@ -84,7 +84,7 @@ namespace acme
 
 #endif
 
-         ::e_status reboot() override;
+         void reboot() override;
 
 
          virtual int _get_proc_stat_core_count();

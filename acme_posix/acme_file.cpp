@@ -41,7 +41,7 @@ namespace posix
    }
 
 
-   ::e_status acme_file::exists(const char *filename)
+   bool acme_file::exists(const char *filename)
    {
          
       struct stat st;
@@ -53,48 +53,38 @@ namespace posix
          
          auto estatus = failed_errno_to_status(iErrNo);
          
-         return estatus;
+         throw_status(estatus);
          
       }
       
-      return ::success;
+      return true;
       
    }
 
 
-   ::e_status acme_file::ensure_exists(const char* path)
+   void acme_file::ensure_exists(const char* path)
    {
       
       if(exists(path))
       {
          
-         return ::success;
+         return;
          
       }
 
-      ::e_status estatus = ::success;
-
-      int fd = ::open(path, O_WRONLY | O_CREAT, 0666);
+      int_handle fd(::open(path, O_WRONLY | O_CREAT, 0666));
       
       if (fd < 0)
       {
          
-         estatus = error_io;
+         throw_status(error_io);
          
       }
-      else
-      {
-
-         ::close(fd);
-
-      }
-
-      return estatus;
 
    }
 
 
-   ::e_status acme_file::touch(const char* path)
+   void acme_file::touch(const char* path)
    {
 
       ::e_status estatus = ::success;
@@ -135,32 +125,23 @@ namespace posix
          if (rc)
          {
          
-            estatus = error_failed;
+            throw_status(error_failed);
 
          }
          
       }
 
+   }
 
 
-      return estatus;
-
+   void acme_file::clear_read_only(const char* path)
+   {
 
    }
 
 
-   ::e_status acme_file::clear_read_only(const char* path)
+   void acme_file::set_file_normal(const char* path)
    {
-
-      return ::success_none;
-
-   }
-
-
-   ::e_status acme_file::set_file_normal(const char* path)
-   {
-
-      return ::success_none;
 
    }
 
@@ -190,12 +171,9 @@ namespace posix
          if (exists(path))
          {
 
-            if (delete_file(path))
-            {
+            delete_file(path);
 
-               return ::move(path);
-
-            }
+            return ::move(path);
 
          }
          else
@@ -207,44 +185,44 @@ namespace posix
 
       }
 
-      return error_not_found;
+      throw_status(error_not_found);
+
+      return {};
 
    }
 
 
-   ::e_status acme_file::set_size(const char * lpszName, filesize size)
+   void acme_file::set_size(const char * lpszName, filesize size)
    {
 
-      i32 iFileDescriptor = ::open(lpszName, O_RDONLY);
+      int_handle iFileDescriptor(::open(lpszName, O_RDONLY));
 
-      auto bSet = set_size(iFileDescriptor, size);
-
-      ::close(iFileDescriptor);
-
-      return bSet;
+      set_size(iFileDescriptor, size);
 
    }
 
 
-   ::e_status acme_file::set_size(i32 iFileDescriptor, filesize size)
+   void acme_file::set_size(i32 iFileDescriptor, filesize size)
    {
 
       if (ftruncate(iFileDescriptor, size) == -1)
       {
 
-         return false;
+         int iErrNo = errno;
+
+         auto estatus = errno_to_status(iErrNo);
+
+         throw_status(estatus);
 
       }
-
-      return true;
 
    }
 
 
-   ::e_status acme_file::set_size(FILE * pfile, filesize size)
+   void acme_file::set_size(FILE * pfile, filesize size)
    {
 
-      return set_size(fileno(pfile), size);
+      set_size(fileno(pfile), size);
 
    }
 
@@ -265,6 +243,10 @@ namespace posix
       if (fstat(iFileDescriptor, &st) == -1)
       {
 
+         int iErrNo = errno;
+
+         auto estatus = errno_to_status(iErrNo);
+
          ::close(iFileDescriptor);
 
          return -1;
@@ -277,7 +259,7 @@ namespace posix
 
 
 
-   ::e_status acme_file::put_contents(const char * path, const char * contents, ::count len)
+   void acme_file::put_contents(const char * path, const char * contents, ::count len)
    {
 
       bool bOk = false;
@@ -290,84 +272,104 @@ namespace posix
 
       wstring wstr(path);
 
-      FILE * file = fopen(path, "w+");
+      FILE_holder pfile(fopen(path, "w+"));
 
-      if (file == nullptr)
+      if (pfile == nullptr)
       {
 
-         return false;
+         throw_status(error_failed);
 
       }
 
-      try
+      size_t dwWrite;
+
+      if (len < 0)
       {
 
-         size_t dwWrite;
+         dwWrite = ansi_length(contents);
 
-         if (len < 0)
+      }
+      else
+      {
+
+         dwWrite = len;
+
+      }
+
+      size_t dwWritten = ::fwrite(contents, 1, (u32)dwWrite, pfile);
+
+      if(dwWritten != dwWrite)
+      {
+
+         if(dwWritten < dwWrite)
          {
 
-            dwWrite = ansi_length(contents);
+            throw_status(error_disk_full);
 
          }
          else
          {
 
-            dwWrite = len;
+            throw_status(error_io);
 
          }
 
-         size_t dwWritten = ::fwrite(contents, 1, (u32)dwWrite, file);
-
-         bOk = dwWritten == dwWrite;
 
       }
-      catch (...)
-      {
-
-
-      }
-
-      ::fclose(file);
-
-      return bOk;
 
    }
 
 
-   string acme_file::as_string(const char * path, strsize iReadAtMostByteCount)
+   string acme_file::as_string(const char * path, strsize iReadAtMostByteCount, bool bNoExceptionOnFail)
    {
 
       string str;
 
-      FILE * f = fopen(path, "rb");
+      FILE_holder pfile(fopen(path, "rb"));
 
-      if (f == nullptr)
+      if (pfile == nullptr)
       {
-         
+
+         if(bNoExceptionOnFail)
+         {
+
+            return {};
+
+         }
+
          int iErrNo = errno;
          
          auto estatus = failed_errno_to_status(iErrNo);
 
-         return estatus;
+         throw_status(estatus);
 
       }
 
-      auto iSize = get_size(f);
+      auto iSize = get_size(pfile);
       
       if(!iSize)
       {
-         
-         return iSize.estatus();
+
+         if(bNoExceptionOnFail)
+         {
+
+            return {};
+
+         }
+
+         int iErrNo = ferror(pfile);
+
+         auto estatus = failed_errno_to_status(iErrNo);
+
+         throw_status(estatus);
          
       }
 
-      iReadAtMostByteCount = minimum_non_negative(iSize.holding(), (filesize) iReadAtMostByteCount);
+      int iToRead = minimum_non_negative(iSize, (filesize) iReadAtMostByteCount);
 
-      char * psz = str.get_string_buffer(iReadAtMostByteCount);
+      char * psz = str.get_string_buffer(iToRead);
 
-
-      ::count iRead = fread(psz, 1, iReadAtMostByteCount, f);
+      ::count iRead = fread(psz, 1, iToRead, pfile);
 
       psz[iRead] = '\0';
 
@@ -375,14 +377,12 @@ namespace posix
 
       ::str::begins_eat_ci(str, "\xef\xbb\xbf");
 
-      fclose(f);
-
       return str;
 
    }
 
 
-   memoryacme_file::as_memory(const char * path, strsize iReadAtMostByteCount)
+   memory acme_file::as_memory(const char * path, strsize iReadAtMostByteCount)
    {
 
       memory mem;
@@ -394,19 +394,19 @@ namespace posix
    }
 
 
-   ::e_status acme_file::as_memory(memory_base & memory, const char * path, strsize iReadAtMostByteCount)
+   void acme_file::as_memory(memory_base & memory, const char * path, strsize iReadAtMostByteCount)
    {
 
-      FILE * f = fopen(path, "rb");
+      FILE_holder pfile(fopen(path, "rb"));
 
-      if (f == nullptr)
+      if (pfile == nullptr)
       {
 
-         return false;
+         throw_status(error_io);
 
       }
 
-      auto iSize = get_size(f);
+      auto iSize = get_size(pfile);
 
       if (!iSize)
       {
@@ -420,7 +420,7 @@ namespace posix
          if (iReadAtMostByteCount >= 0)
          {
 
-            while ((iRead = (int)fread(mem.get_data(), 1, minimum(iReadAtMostByteCount - memory.get_size(), mem.get_size()), f)) > 0)
+            while ((iRead = (int)fread(mem.get_data(), 1, minimum(iReadAtMostByteCount - memory.get_size(), mem.get_size()), pfile)) > 0)
             {
 
                memory.append(mem.get_data(), iRead);
@@ -431,7 +431,7 @@ namespace posix
          else
          {
 
-            while ((iRead = (int)fread(mem.get_data(), 1, mem.get_size(), f)) > 0)
+            while ((iRead = (int)fread(mem.get_data(), 1, mem.get_size(), pfile)) > 0)
             {
 
                memory.append(mem.get_data(), iRead);
@@ -444,17 +444,27 @@ namespace posix
       else
       {
 
-         iReadAtMostByteCount = minimum_non_negative(iSize.holding(), (filesize) iReadAtMostByteCount);
+         auto iToRead = minimum_non_negative(iSize, (filesize) iReadAtMostByteCount);
 
-         memory.set_size(iReadAtMostByteCount);
+         memory.set_size(iToRead);
 
-         fread(memory.get_data(), memory.get_size(), 1, f);
+         auto iRead = fread(memory.get_data(), memory.get_size(), 1, pfile);
+
+         if(iRead < iToRead && iToRead > 0)
+         {
+
+            auto iFError = ferror(pfile);
+
+            if(iFError)
+            {
+
+               throw_status(error_io);
+
+            }
+
+         }
 
       }
-
-      fclose(f);
-
-      return true;
 
    }
 
@@ -462,9 +472,9 @@ namespace posix
    memsize acme_file::as_memory(const char * path, void * p, memsize s)
    {
 
-      FILE * f = fopen(path, "rb");
+      FILE_holder pfile(fopen(path, "rb"));
 
-      if (f == nullptr)
+      if (pfile == nullptr)
       {
          
          int iErrNo = errno;
@@ -480,15 +490,13 @@ namespace posix
       try
       {
 
-         sRead = fread(p, 1, s, f);
+         sRead = fread(p, 1, s, pfile);
 
       }
       catch (...)
       {
 
       }
-
-      fclose(f);
 
       return sRead;
 
@@ -590,48 +598,84 @@ namespace posix
    }
 
 
-   ::e_status acme_file::copy(const char * pszNew, const char * pszSrc, bool bOverwrite)
+   void acme_file::copy(const char * pszNew, const char * pszSrc, bool bOverwrite)
    {
 
-      i32 input, output;
+      int_handle input;
+
+      int_handle output;
+
       size_t filesize;
+
       void * source, * target;
 
-
       i32 flags = O_RDWR | O_CREAT | O_TRUNC;
+
       if (!bOverwrite)
+      {
+
          flags |= O_EXCL;
+
+      }
+
       if ((output = ::open(pszNew, flags, 0666)) == -1)
       {
-         fprintf(stderr, "Error: opening file: %s\n", pszNew);
-         return false;
+
+         int iErrNo = errno;
+
+         auto estatus = failed_errno_to_status(iErrNo);
+
+         throw_status(estatus, "Error opening file : \"" + string(pszNew) + "\"");
+
       }
 
 
       if ((input = ::open(pszSrc, O_RDONLY)) == -1)
       {
 
-         fprintf(stderr, "Error: opening file: %s\n", pszSrc);
+         int iErrNo = errno;
 
-         return false;
+         auto estatus = failed_errno_to_status(iErrNo);
+
+         throw_status(estatus, "Error opening file : \"" + string(pszSrc) + "\"");
 
       }
 
 
       filesize = lseek(input, 0, SEEK_END);
-      ftruncate(output, filesize);
+
+      if(ftruncate(output, filesize) < 0)
+      {
+
+         int iErrNo = errno;
+
+         auto estatus = failed_errno_to_status(iErrNo);
+
+         throw_status(estatus, "Failed to set output file size : \"" + string(pszNew) + "\"");
+
+      }
 
       if ((source = mmap(0, filesize, PROT_READ, MAP_PRIVATE, input, 0)) == (void *)-1)
       {
-         fprintf(stderr, "Error mapping input file: %s\n", pszSrc);
-         return false;
+
+         int iErrNo = errno;
+
+         auto estatus = failed_errno_to_status(iErrNo);
+
+         throw_status(estatus, "Error mapping input file : \"" + string(pszSrc) + "\"");
+
       }
 
 
       if ((target = mmap(0, filesize, PROT_WRITE, MAP_SHARED, output, 0)) == (void *)-1)
       {
-         fprintf(stderr, "Error mapping ouput file: %s\n", pszNew);
-         return false;
+
+         int iErrNo = errno;
+
+         auto estatus = failed_errno_to_status(iErrNo);
+
+         throw_status(estatus, "Error mapping output file: \"" + string(pszNew) + "\"");
+
       }
 
       memcpy_dup(target, source, filesize);
@@ -639,14 +683,10 @@ namespace posix
       msync(target, filesize, MS_SYNC);
 
       munmap(source, filesize);
+
       munmap(target, filesize);
 
       fsync(output);
-
-      close(input);
-      close(output);
-
-      return true;
 
    }
 
@@ -796,16 +836,16 @@ namespace posix
 
       string line;
 
-      FILE * file = fopen(strPath, "r");
+      FILE_holder pfile(fopen(strPath, "r"));
 
-      if (file == nullptr)
+      if (pfile == nullptr)
       {
          
          int iErrNo = errno;
          
          auto estatus = failed_errno_to_status(iErrNo);
 
-         return estatus;
+         throw_status(estatus);
 
       }
 
@@ -817,7 +857,7 @@ namespace posix
          do
          {
 
-            c = fgetc(file);
+            c = fgetc(pfile);
 
             if (c == '\n') break;
 
@@ -832,8 +872,6 @@ namespace posix
       {
 
       }
-
-      fclose(file);
 
       return line;
 

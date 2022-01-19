@@ -33,7 +33,7 @@ namespace posix
 
       //::file::path module() override;
 
-      ::e_status is(const char * path) override;
+      bool is(const char * path) override;
 
       //bool _is(const char * path1) override;
 
@@ -55,7 +55,7 @@ namespace posix
 
       string get_current() override;
 
-      ::e_status change_current(const char * psz) override;
+      void change_current(const char * psz) override;
 
 
    };

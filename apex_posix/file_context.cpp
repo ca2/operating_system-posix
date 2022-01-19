@@ -86,7 +86,7 @@ bool file_context::is_read_only(const ::file::path &psz)
 }
 
 
-   ::extended::status file_context::del(const ::file::path &psz)
+   void file_context::erase(const ::file::path &psz)
    {
 
       if (unlink(psz) != 0)
@@ -107,7 +107,7 @@ bool file_context::is_read_only(const ::file::path &psz)
          
       }
 
-      return ::success;
+      //return ::success;
 
    }
 

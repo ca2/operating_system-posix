@@ -18,7 +18,7 @@ namespace posix
       
       bool is_read_only(const ::file::path &psz) override;
 
-      ::extended::status del(const ::file::path & path) override;
+      void erase(const ::file::path & path) override;
 
 
    };

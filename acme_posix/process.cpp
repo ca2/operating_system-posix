@@ -36,7 +36,7 @@ namespace acme
    {
 
 
-      ::e_status node::create_process(const ::string & pszCommandLine, u32 * pprocessId)
+      void node::create_process(const ::string & pszCommandLine, u32 * pprocessId)
       {
 
          string_array stra;
@@ -79,7 +79,7 @@ namespace acme
 
             }
 
-            return 1;
+            return;
 
          }
          else
@@ -92,14 +92,14 @@ namespace acme
 
             }
 
-            return 0;
+            throw_status(error_failed);
 
          }
 
       }
 
 
-      ::e_status node::run_silent(const ::string & strFunct, const ::string & strstrParams)
+      void node::run_silent(const ::string & strFunct, const ::string & strstrParams)
       {
 
       #if defined(_UWP)
@@ -197,12 +197,12 @@ namespace acme
 
          u32 processId;
 
-         if (!create_process(strCmdLine, &processId))
-         {
-
-            return -1;
-
-         }
+         create_process(strCmdLine, &processId);
+//         {
+//
+//            return -1;
+//
+//         }
 
          while (true)
          {
@@ -218,7 +218,7 @@ namespace acme
 
          }
 
-         return 0;
+         //return 0;
 
       #endif
 
@@ -471,8 +471,7 @@ namespace acme
    {
 
 
-      ::e_status
-      node::call_async(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay,
+      void node::call_async(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay,
                        bool bPrivileged, unsigned int * puiPid)
       {
 
@@ -491,19 +490,7 @@ namespace acme
 
          u32 processId;
 
-         if (!create_process(strCmdLine, &processId))
-         {
-
-            if (puiPid != nullptr)
-            {
-
-               *puiPid = -1;
-
-            }
-
-            return -1;
-
-         }
+         create_process(strCmdLine, &processId);
 
          if (puiPid != nullptr)
          {
@@ -512,12 +499,10 @@ namespace acme
 
          }
 
-         return 0;
-
       }
 
 
-      ::e_status node::call_sync(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay,
+      void node::call_sync(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay,
                                  const ::duration & durationTimeout, ::property_set & set)
       {
 
@@ -536,15 +521,7 @@ namespace acme
 
          u32 processId;
 
-         if (!create_process(strCmdLine, &processId))
-         {
-
-            set["pid"] = processId;
-
-            return -1;
-
-         }
-
+         create_process(strCmdLine, &processId);
 
          while (true)
          {
@@ -561,8 +538,6 @@ namespace acme
          }
 
          set["pid"] = processId;
-
-         return 0;
 
       }
 
@@ -603,7 +578,8 @@ namespace acme
 
             sb.st_size = iSize - 1;
 
-         } else
+         }
+         else
          {
 
             iSize = (int) (sb.st_size + 1);
@@ -866,7 +842,9 @@ namespace acme
 
          property_set set;
 
-         return call_sync(pszFile, pszParams, ::file::path(pszFile).folder(), e_display_none, durationTimeout, set);
+         call_sync(pszFile, pszParams, ::file::path(pszFile).folder(), e_display_none, durationTimeout, set);
+
+         return ::success;
 
       }
 

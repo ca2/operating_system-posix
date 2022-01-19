@@ -162,7 +162,7 @@ namespace inotify
    }
 
 
-   ::e_status watcher::step()
+   bool watcher::step()
    {
 
       FD_ZERO(&m_fdset);

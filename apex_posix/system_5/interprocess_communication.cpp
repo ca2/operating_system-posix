@@ -40,7 +40,7 @@ namespace system_5
    }
 
 
-   ::e_status interprocess_communication_tx::open(const ::string & strChannel,launcher * plauncher)
+   void interprocess_communication_tx::open(const ::string & strChannel,launcher * plauncher)
    {
 
       if(m_iQueue >= 0)
@@ -62,31 +62,31 @@ namespace system_5
       if(m_key == 0)
       {
 
-         return false;
+         throw_status(error_failed);
 
       }
 
       if((m_iQueue = msgget(m_key,IPC_CREAT | 0660)) == -1)
       {
 
-         return false;
+         throw_status(error_failed);
 
       }
 
       m_strBaseChannel = strChannel;
 
-      return true;
+      //return true;
 
    }
 
 
-   ::e_status interprocess_communication_tx::close()
+   void interprocess_communication_tx::close()
    {
 
       if(m_iQueue < 0)
       {
 
-         return true;
+         return;
 
       }
 
@@ -94,12 +94,12 @@ namespace system_5
 
       m_strBaseChannel = "";
 
-      return true;
+      //return true;
 
    }
 
 
-   ::e_status interprocess_communication_tx::send(const ::string & pszMessage, const duration &durationTimeout)
+   void interprocess_communication_tx::send(const ::string & pszMessage, const duration &durationTimeout)
    {
 
       memory m;
@@ -129,7 +129,7 @@ namespace system_5
 
          int iError = errno;
 
-         return false;
+         throw_status(error_failed);
 
       }
 
@@ -139,25 +139,25 @@ namespace system_5
 
       ::output_debug_string("message: \"" +string(pszMessage)+ "\"\n");
 
-      return true;
+      //return true;
 
    }
 
 
-   ::e_status interprocess_communication_tx::send(i32 message,void * p,i32 iLen,const duration & durationTimeout)
+   void interprocess_communication_tx::send(i32 message,void * p,i32 iLen,const duration & durationTimeout)
    {
 
       if(message == 1024)
       {
 
-         return false;
+         throw_status(error_failed);
 
       }
 
       if(!is_tx_ok())
       {
 
-         return false;
+         throw_status(error_failed);
 
       }
 
@@ -194,11 +194,11 @@ namespace system_5
       if((result = msgsnd(m_iQueue,pdata,m.get_size() - sizeof(long),0)) == -1)
       {
 
-         return false;
+         throw_status(error_failed);
 
       }
 
-      return true;
+      //return true;
 
    }
 
@@ -225,7 +225,7 @@ namespace system_5
    }
 
 
-   ::e_status interprocess_communication_rx::create(const ::string & strChannel)
+   void interprocess_communication_rx::create(const ::string & strChannel)
    {
 
       if(!file_exists(strChannel))
@@ -240,7 +240,7 @@ namespace system_5
       if(m_key == 0)
       {
 
-         return false;
+         throw_status(error_failed);
 
       }
 
@@ -248,18 +248,18 @@ namespace system_5
       if((m_iQueue = msgget(m_key,IPC_CREAT | 0660)) == -1)
       {
 
-         return false;
+         throw_status(error_failed);
 
       }
 
       start_receiving();
 
-      return true;
+      //return true;
 
    }
 
 
-   ::e_status interprocess_communication_rx::destroy()
+   void interprocess_communication_rx::destroy()
    {
 
       i32 iRetry = 23;
@@ -278,20 +278,22 @@ namespace system_5
       if(m_iQueue < 0)
       {
 
-         return true;
+         //return true;
+
+         return;
 
       }
 
       if(msgctl(m_iQueue,IPC_RMID,0) == -1)
       {
 
-         return false;
+         throw_status(error_failed);
 
       }
 
       m_iQueue = -1;
 
-      return ::success;
+      //return ::success;
 
    }
 
