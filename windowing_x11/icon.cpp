@@ -57,38 +57,40 @@ namespace windowing_x11
    }
 
 
-   ::e_status icon::load_file(string strPath)
+   void icon::load_file(string strPath)
    {
 
       throw ::interface_only_exception();
 
-      return false;
+      //return false;
 
    }
 
 
-   ::e_status icon::load_matter(string strMatter)
+   void icon::load_matter(string strMatter)
    {
 
       auto pcontext = m_pcontext->m_papexcontext;
 
       string strPath = pcontext->dir().matter(strMatter);
 
-      if (!load_file(strPath))
-      {
+      load_file(strPath);
 
-         return false;
-
-      }
+//      if (!load_file(strPath))
+//      {
+//
+//         //return false;
+//
+//      }
 
 //      on_update_icon();
 
-      return true;
+      //return true;
 
    }
 
 
-   ::e_status icon::load_app_tray_icon(string strAppId)
+   void icon::load_app_tray_icon(string strAppId)
    {
 
       //auto estatus =
