@@ -20,7 +20,7 @@ namespace write_text_pango
 
 
 
-      ::e_status on_enumerate_fonts() override;
+      void on_enumerate_fonts() override;
 
 
    };

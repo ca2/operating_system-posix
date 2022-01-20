@@ -378,13 +378,15 @@ namespace windowing_x11
 //   }
 
 
-   ::e_status windowing::clear_active_window(::thread * pthread, ::windowing::window * pwindow)
+   void windowing::clear_active_window(::thread * pthread, ::windowing::window * pwindow)
    {
 
       if (!m_pdisplay)
       {
 
-         return error_failed;
+         //return error_failed;
+
+         throw_status(error_failed);
 
       }
 
@@ -393,20 +395,22 @@ namespace windowing_x11
       if (!pwindowActive)
       {
 
-         return ::success_none;
+         //return ::success_none;
+
+         return;
 
       }
 
       if(pwindowActive != pwindow)
       {
 
-         return error_none;
+         return;
 
       }
 
       m_pdisplay->m_pwindowActive = nullptr;
 
-      return ::success;
+      //return ::success;
 
    }
 
@@ -873,7 +877,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 #else
 
-      return oswindow->m_pimpl;
+      return oswindow->m_puserinteractionimpl;
 
 #endif
 
@@ -1710,14 +1714,14 @@ else if(detail == 3)
 
             //g_pointX11Cursor.y = e.xmotion.y_root;
 
-            if (msg.oswindow != nullptr && msg.oswindow->m_pimpl != nullptr)
+            if (msg.oswindow != nullptr && msg.oswindow->m_puserinteractionimpl != nullptr)
             {
 
                ((::windowing_x11::window *) msg.oswindow->m_pWindow)->m_pointCursor = m_pointCursor;
 
                bool bOk = true;
 
-               __pointer(::user::interaction) pinteraction = msg.oswindow->m_pimpl->m_puserinteraction;
+               __pointer(::user::interaction) pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
 
                if (pinteraction.is_set())
                {
@@ -1830,7 +1834,7 @@ else if(detail == 3)
                if(oswindow)
                {
 
-                  auto pimpl = oswindow->m_pimpl;
+                  auto pimpl = oswindow->m_puserinteractionimpl;
 
                   if(pimpl)
                   {
@@ -1907,7 +1911,7 @@ else if(detail == 3)
                         if(::is_set(pwindowActiveNew))
                         {
 
-                           auto pimplNew = pwindowActiveNew->m_pimpl;
+                           auto pimplNew = pwindowActiveNew->m_puserinteractionimpl;
 
                            if(::is_set(pimplNew))
                            {
@@ -1930,7 +1934,7 @@ else if(detail == 3)
                         if(::is_set(pwindowActiveOld))
                         {
 
-                           auto pimplOld = pwindowActiveOld->m_pimpl;
+                           auto pimplOld = pwindowActiveOld->m_puserinteractionimpl;
 
                            if(::is_set(pimplOld))
                            {
@@ -1960,7 +1964,7 @@ else if(detail == 3)
 
             msg.time = e.xproperty.time;
 
-            if (msg.oswindow != nullptr && msg.oswindow->m_pimpl != nullptr)
+            if (msg.oswindow != nullptr && msg.oswindow->m_puserinteractionimpl != nullptr)
             {
 
                int iIconic = -1;
@@ -1972,12 +1976,12 @@ else if(detail == 3)
 
                }
 
-               ::user::interaction *pinteraction = msg.oswindow->m_pimpl->m_puserinteraction;
+               ::user::interaction *pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
 
                if (pinteraction != nullptr)
                {
 
-                  ::user::primitive *pimpl = pinteraction->m_pimpl;
+                  ::user::primitive *pimpl = pinteraction->m_pprimitiveimpl;
 
                   bool bHandled = false;
 
@@ -2069,7 +2073,7 @@ else if(detail == 3)
          case ConfigureNotify:
          {
 
-            ::user::primitive_impl *pimpl = msg.oswindow->m_pimpl;
+            ::user::primitive_impl *pimpl = msg.oswindow->m_puserinteractionimpl;
 
             if (pimpl != nullptr)
             {
@@ -2517,7 +2521,7 @@ else if(detail == 3)
 
                m_pdisplay->m_pwindowKeyboardFocus = oswindow;
 
-               auto pimpl = msg.oswindow->m_pimpl;
+               auto pimpl = msg.oswindow->m_puserinteractionimpl;
 
                 if (::is_set(pimpl))
                 {
@@ -2607,7 +2611,7 @@ else if(detail == 3)
 
                }
 
-               auto pimpl = msg.oswindow->m_pimpl;
+               auto pimpl = msg.oswindow->m_puserinteractionimpl;
 
                if (::is_set(pimpl))
                {
@@ -3060,7 +3064,7 @@ else if(detail == 3)
 
       ASSERT(oswindow != nullptr);
 
-      auto pimpl = oswindow->m_pimpl;
+      auto pimpl = oswindow->m_puserinteractionimpl;
 
       if(::is_null(pimpl))
       {
@@ -3155,7 +3159,7 @@ else if(detail == 3)
 
       ASSERT(oswindow != nullptr);
 
-      auto pimpl = oswindow->m_pimpl;
+      auto pimpl = oswindow->m_puserinteractionimpl;
 
       if(::is_null(pimpl))
       {
@@ -3173,9 +3177,11 @@ else if(detail == 3)
 
       }
 
-      auto result = puserinteraction->post(pmessage);
+      //auto result =
+      //
+      puserinteraction->post(pmessage);
 
-      return result;
+      //return result;
 
 
 //      ::thread *pthread = nullptr;

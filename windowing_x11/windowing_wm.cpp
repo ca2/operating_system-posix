@@ -784,10 +784,10 @@ namespace windowing_x11
       else
       {
 
-         if (m_pimpl->m_puserinteraction->layout().design().display() != ::e_display_iconic)
+         if (m_puserinteractionimpl->m_puserinteraction->layout().design().display() != ::e_display_iconic)
          {
 
-            m_pimpl->m_puserinteraction->layout().design() = ::e_display_iconic;
+            m_puserinteractionimpl->m_puserinteraction->layout().design() = ::e_display_iconic;
 
          }
 

@@ -34,17 +34,19 @@ namespace windowing_x11
    }
 
 
-   ::e_status buffer::initialize_graphics_graphics(::user::interaction_impl * pimpl)
+   void buffer::initialize_graphics_graphics(::user::interaction_impl * pimpl)
    {
 
-      auto estatus = double_buffer::initialize_graphics_graphics(pimpl);
+      //auto estatus =
+      //
+      double_buffer::initialize_graphics_graphics(pimpl);
 
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
 
       synchronous_lock synchronouslock(user_mutex());
 
@@ -54,18 +56,18 @@ namespace windowing_x11
 
       m_gc = XCreateGC(x11_window()->Display(), x11_window()->Window(), 0, &gcvalues);
 
-      return estatus;
+      //return estatus;
 
    }
 
 
-   ::e_status buffer::destroy()
+   void buffer::destroy()
    {
 
       if(!x11_window())
       {
 
-         return error_failed;
+         throw_status(error_wrong_state);
 
       }
 
@@ -82,7 +84,7 @@ namespace windowing_x11
 
       }
 
-      return ::success;
+      //return ::success;
 
    }
 

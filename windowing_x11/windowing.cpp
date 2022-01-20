@@ -64,7 +64,7 @@ namespace windowing_x11
 
       pwindow->m_pwindowing = this;
 
-      pwindow->m_pimpl = pimpl;
+      pwindow->m_puserinteractionimpl = pimpl;
 
       pimpl->m_pwindow = pwindow;
 
@@ -75,78 +75,80 @@ namespace windowing_x11
    }
 
 
-    ::e_status windowing::erase_window(::windowing::window * pwindow)
+   void windowing::erase_window(::windowing::window * pwindow)
    {
 
-      return m_pdisplay->remove_window(pwindow);
+      m_pdisplay->erase_window(pwindow);
 
    }
 
 
-   ::e_status windowing::initialize(::object * pobject)
+   void windowing::initialize(::object * pobject)
    {
 
-      auto estatus = ::windowing::windowing::initialize(pobject);
+      //auto estatus =
+      //
+      ::windowing::windowing::initialize(pobject);
 
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
 
       initialize_windowing();
 
       auto pdisplay = __create < ::windowing::display >();
 
-      if(!pdisplay)
-      {
+//      if(!pdisplay)
+//      {
+//
+//         output_debug_string("\nFailed to __create < ::windowing::display > at windowing_x11::windowing::initialize");
+//
+//         return ::error_no_factory;
+//
+//      }
 
-         output_debug_string("\nFailed to __create < ::windowing::display > at windowing_x11::windowing::initialize");
+      //estatus =
+      //
+      pdisplay->initialize_display(this);
 
-         return ::error_no_factory;
-
-      }
-
-      estatus = pdisplay->initialize_display(this);
-
-      if(!estatus)
-      {
-
-         output_debug_string("\nFailed to initialize_display at windowing_x11::windowing::initialize");
-
-         return estatus;
-
-      }
+//      if(!estatus)
+//      {
+//
+//         output_debug_string("\nFailed to initialize_display at windowing_x11::windowing::initialize");
+//
+//         return estatus;
+//
+//      }
 
       m_pdisplay = pdisplay;
 
       if(!pdisplay)
       {
 
-         output_debug_string("\nFailed to cast pdisplay to m_pdisplay at windowing_x11::windowing::initialize");
-
-         return error_no_interface;
+         throw_status(error_no_interface, "Failed to cast pdisplay to m_pdisplay at windowing_x11::windowing::initialize");
 
       }
 
-      estatus = m_pdisplay->open();
+      m_pdisplay->open();
 
-      if(!estatus)
-      {
-
-         output_debug_string("\nFailed to m_pdisplay->open at windowing_x11::windowing::initialize");
-
-         return estatus;
-
-      }
-
-      return ::success;
+//      if(!estatus)
+//      {
+//
+//         output_debug_string("\nFailed to m_pdisplay->open at windowing_x11::windowing::initialize");
+//
+//         return estatus;
+//
+//      }
+//
+//      return ::success;
 
    }
 
 
-   ::e_status windowing::start()
+   void windowing::start()
    {
 
       auto psystem = m_psystem->m_papexsystem;
@@ -175,18 +177,18 @@ namespace windowing_x11
 
       }
 
-      return ::success;
+      //return ::success;
 
    }
 
 
-   ::e_status windowing::windowing_post(const ::routine & routine)
+   void windowing::windowing_post(const ::routine & routine)
    {
 
       if(::is_null(routine.m_p))
       {
 
-         return error_failed;
+         throw_status(error_null_pointer);
 
       }
 
@@ -194,7 +196,7 @@ namespace windowing_x11
 
       m_routinelist.add_tail(routine);
 
-      return ::success_scheduled;
+      //return ::success_scheduled;
 
    }
 
@@ -267,14 +269,17 @@ namespace windowing_x11
       if (!m_pcursormanager)
       {
 
-         auto estatus = __construct_new(m_pcursormanager);
+         //auto estatus =
+         //
+         //
+         __construct_new(m_pcursormanager);
 
-         if (!estatus)
-         {
-
-            return nullptr;
-
-         }
+//         if (!estatus)
+//         {
+//
+//            return nullptr;
+//
+//         }
 
       }
 
@@ -420,19 +425,21 @@ namespace windowing_x11
    }
 
 
-   ::e_status windowing::release_mouse_capture()
+   void windowing::release_mouse_capture()
    {
 
-      auto estatus = m_pdisplay->release_mouse_capture();
+      //auto estatus =
+      //
+      m_pdisplay->release_mouse_capture();
 
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
 
    }
 

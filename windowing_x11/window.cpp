@@ -49,7 +49,7 @@ namespace windowing_x11
 
       m_window = None;
 
-      m_pimpl = nullptr;
+      //m_puserinteractionimpl = nullptr;
 
       m_bMessageOnlyWindow = false;
 
@@ -72,7 +72,7 @@ namespace windowing_x11
    }
 
 
-   ::e_status window::create_window(::user::interaction_impl * pimpl)
+   void window::create_window(::user::interaction_impl * pimpl)
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -98,21 +98,22 @@ namespace windowing_x11
 
          bOk = false;
 
-         return ::success;
+         //return ::success;
+         throw_status(error_failed);
 
       }
 
       display_lock displaylock(pdisplayx11->Display());
 
-      int x = m_pimpl->m_puserinteraction->layout().sketch().origin().x;
+      int x = m_puserinteractionimpl->m_puserinteraction->layout().sketch().origin().x;
 
-      int y = m_pimpl->m_puserinteraction->layout().sketch().origin().y;
+      int y = m_puserinteractionimpl->m_puserinteraction->layout().sketch().origin().y;
 
-      int cx = m_pimpl->m_puserinteraction->layout().sketch().width();
+      int cx = m_puserinteractionimpl->m_puserinteraction->layout().sketch().width();
 
-      int cy = m_pimpl->m_puserinteraction->layout().sketch().height();
+      int cy = m_puserinteractionimpl->m_puserinteraction->layout().sketch().height();
 
-      bool bVisible = m_pimpl->m_puserinteraction->layout().sketch().is_screen_visible();
+      bool bVisible = m_puserinteractionimpl->m_puserinteraction->layout().sketch().is_screen_visible();
 
       //      if(pusersystem)
       //      {
@@ -254,7 +255,7 @@ namespace windowing_x11
 
          bOk = false;
 
-         return error_failed;
+         throw_status(error_failed);
 
       }
 
@@ -264,11 +265,11 @@ namespace windowing_x11
       if (!estatus)
       {
 
-         return estatus;
+         throw_status(error_failed);
 
       }
 
-      m_pimpl = pimpl;
+      m_puserinteractionimpl = pimpl;
 
       pimpl->m_pwindow = this;
 
@@ -280,7 +281,7 @@ namespace windowing_x11
 
       //pimpl->set_os_data(LAYERED_X11, (::windowing_x11::window *)this);
 
-      pimpl->m_puserinteraction->m_pimpl = pimpl;
+      pimpl->m_puserinteraction->m_pinteractionimpl = pimpl;
 
       pimpl->m_puserinteraction->increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_P_NOTE(this, "native_create_window"));
 
@@ -510,7 +511,7 @@ namespace windowing_x11
          if (lresult == -1)
          {
 
-            return false;
+            throw_status(error_failed);
 
          }
 
@@ -520,7 +521,12 @@ namespace windowing_x11
 
       }
 
-      return bOk;
+      if(!bOk)
+      {
+
+         throw_status(error_failed);
+
+      }
 
    }
 
@@ -645,7 +651,7 @@ namespace windowing_x11
    //      {
    //
    //         if (::window::s_pdataptra->element_at(i)->m_bMessageOnlyWindow
-   //             && ::window::s_pdataptra->element_at(i)->m_pimpl == pimpl)
+   //             && ::window::s_pdataptra->element_at(i)->m_puserinteractionimpl == pimpl)
    //         {
    //
    //            return i;
@@ -721,7 +727,7 @@ namespace windowing_x11
    //
    //      pdata->m_bMessageOnlyWindow = true;
    //      pdata->m_window = None;
-   //      pdata->m_pimpl = pinteraction;
+   //      pdata->m_puserinteractionimpl = pinteraction;
    //      pdata->m_osdisplay = nullptr;
    //      pdata->m_parent = 0;
    //      pdata->m_pmq = pinteraction->m_puserinteraction->m_pthreadUserInteraction->get_mq();
@@ -803,7 +809,7 @@ namespace windowing_x11
                                  //
                                  //   g_oswindowDesktop = oswindow_get(dpy, DefaultRootWindow(dpy));
                                  //
-                                 //   g_oswindowDesktop->m_pimpl = nullptr;
+                                 //   g_oswindowDesktop->m_puserinteractionimpl = nullptr;
                                  //
                                  //   XSelectInput(g_oswindowDesktop->Display(), g_oswindowDesktop->Window(), StructureNotifyMask);
                                  //
@@ -1030,7 +1036,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
 }
 
-      memory m(m_pimpl->m_puserinteraction->get_application());
+      memory m(m_puserinteractionimpl->m_puserinteraction->get_application());
 
       int length = 2 + d1->area();
 
@@ -1080,7 +1086,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
 #else
 
-      image d1(w->m_pimpl->m_puserinteraction->create_new, this);
+      image d1(w->m_puserinteractionimpl->m_puserinteraction->create_new, this);
 
       if(!d1->create(24, 24))
       {
@@ -1093,7 +1099,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       d1->get_graphics()->StretchBlt(0, 0, d1.width(), d1.height(), point->get_graphics(), 0, 0, point.width(), point.height());
 
-      image d2(w->m_pimpl->m_puserinteraction->create_new, this);
+      image d2(w->m_puserinteractionimpl->m_puserinteraction->create_new, this);
 
       if(!d2->create(54, 54))
       {
@@ -1106,7 +1112,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       d2->get_graphics()->StretchBlt(0, 0, d2.width(), d2.height(), point->get_graphics(), 0, 0, point.width(), point.height());
 
-      memory m(w->m_pimpl->m_puserinteraction->get_context_application());
+      memory m(w->m_puserinteractionimpl->m_puserinteraction->get_context_application());
 
       int length = 2 + d1->area() + 2 + d2->area();
 
@@ -1244,7 +1250,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 //
 //      }
 
-      m_pimpl = pimpl;
+      m_puserinteractionimpl = pimpl;
 
       m_hthread = pimpl->get_application()->get_os_handle();
 
@@ -1258,21 +1264,21 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
    bool window::is_child(::oswindow oswindow)
    {
 
-      if (oswindow == nullptr || oswindow->m_pimpl == nullptr || oswindow->m_pimpl->m_puserinteraction == nullptr)
+      if (oswindow == nullptr || oswindow->m_puserinteractionimpl == nullptr || oswindow->m_puserinteractionimpl->m_puserinteraction == nullptr)
       {
 
          return false;
 
       }
 
-      if (m_pimpl == nullptr || m_pimpl->m_puserinteraction == nullptr)
+      if (m_puserinteractionimpl == nullptr || m_puserinteractionimpl->m_puserinteraction == nullptr)
       {
 
          return false;
 
       }
 
-      return m_pimpl->m_puserinteraction->is_child(oswindow->m_pimpl->m_puserinteraction);
+      return m_puserinteractionimpl->m_puserinteraction->is_child(oswindow->m_puserinteractionimpl->m_puserinteraction);
 
    }
 
@@ -1330,20 +1336,20 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 //   }
 
 
-   ::e_status window::set_parent(::windowing::window * pwindowNewParent)
+   void window::set_parent(::windowing::window * pwindowNewParent)
    {
 
       if (::is_null(this))
       {
 
-         return error_failed;
+         throw_status(error_failed);
 
       }
 
       if (::is_null(pwindowNewParent))
       {
 
-         return error_failed;
+         throw_status(error_failed);
 
       }
 
@@ -1352,7 +1358,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       if (::is_null(pwindowx11NewParent))
       {
 
-         return error_failed;
+         throw_status(error_null_pointer);
 
       }
 
@@ -1362,7 +1368,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       XReparentWindow(Display(), Window(), pwindowx11NewParent->Window(), 0, 0);
 
-      return ::success;
+      //return ::success;
 
    }
 
@@ -1488,7 +1494,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
    }
 
 
-   ::e_status window::show_window(const ::e_display & edisplay, const ::e_activation & eactivation)
+   void window::show_window(const ::e_display & edisplay, const ::e_activation & eactivation)
    {
 
       x11_windowing()->windowing_post(__routine([this, edisplay, eactivation]()
@@ -1561,12 +1567,12 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       }));
 
-      return ::success;
+      //return ::success;
 
    }
 
 
-   ::e_status window::full_screen(const ::rectangle_i32 & rectangle)
+   void window::full_screen(const ::rectangle_i32 & rectangle)
    {
 
       ::rectangle_i32 rBest;
@@ -1597,7 +1603,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
          fflush(stdout);
 
-         return error_failed;
+         throw_status(error_failed);
 
       }
 
@@ -1611,7 +1617,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       if (rBest != rWindow)
       {
 
-         m_pimpl->m_puserinteraction->place(rBest);
+         m_puserinteractionimpl->m_puserinteraction->place(rBest);
 
          XMoveResizeWindow(Display(), Window(), rBest.left, rBest.top, rBest.width(), rBest.height());
 
@@ -1635,12 +1641,12 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       ::fflush(stdout);
 
-      return ::success;
+      //return ::success;
 
    }
 
 
-   ::e_status window::exit_iconify()
+   void window::exit_iconify()
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -1656,7 +1662,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
          fflush(stdout);
 
-         return error_failed;
+         throw_status(error_failed);
 
       }
 
@@ -1667,12 +1673,12 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       }
 
-      return ::success;
+      //return ::success;
 
    }
 
 
-   ::e_status window::exit_full_screen()
+   void window::exit_full_screen()
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -1688,7 +1694,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
          fflush(stdout);
 
-         return error_failed;
+         throw_status(error_failed);
 
       }
 
@@ -1699,12 +1705,12 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       }
 
-      return ::success;
+      //return ::success;
 
    }
 
 
-   ::e_status window::exit_zoomed()
+   void window::exit_zoomed()
    {
 
       synchronous_lock sl(user_mutex());
@@ -1720,7 +1726,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
          fflush(stdout);
 
-         return error_failed;
+         throw_status(error_failed);
 
       }
 
@@ -1733,7 +1739,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       }
 
-      return success;
+      //return success;
 
    }
 
@@ -1741,7 +1747,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 //   iptr window::get_window_long_ptr(i32 nIndex)
 //   {
 //
-//      return m_pimpl->get_window_long_ptr(nIndex);
+//      return m_puserinteractionimpl->get_window_long_ptr(nIndex);
 //
 //   }
 
@@ -1749,7 +1755,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 //   iptr window::set_window_long_ptr(i32 nIndex, iptr i)
 //   {
 //
-//      return m_pimpl->set_window_long_ptr(nIndex, i);
+//      return m_puserinteractionimpl->set_window_long_ptr(nIndex, i);
 //
 //      //iptr iOld = m_plongmap->operator[](nIndex);
 //
@@ -1921,14 +1927,14 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       }
 
-      if (m_pimpl == nullptr)
+      if (m_puserinteractionimpl == nullptr)
       {
 
          return true;
 
       }
 
-      if (!m_pimpl->m_puserinteraction->m_bUserElementOk)
+      if (!m_puserinteractionimpl->m_puserinteraction->m_bUserElementOk)
       {
 
          return true;
@@ -1999,7 +2005,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 //
 //      ::rectangle_i32 rBest;
 //
-//      int iMonitor = best_xinerama_monitor(m_pimpl->m_puserinteraction, rectangle, rBest);
+//      int iMonitor = best_xinerama_monitor(m_puserinteractionimpl->m_puserinteraction, rectangle, rBest);
 //
 //      windowing_output_debug_string("\n::oswindow_data::full_screen 1");
 //
@@ -2037,7 +2043,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 //      if(rBest != rWindow)
 //      {
 //
-//         m_pimpl->m_puserinteraction->place(rBest);
+//         m_puserinteractionimpl->m_puserinteraction->place(rBest);
 //
 //         XMoveResizeWindow(d, m_window, rBest.left, rBest.top, rBest.width(), rBest.height());
 //
@@ -2082,11 +2088,11 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
          } else
          {
 
-            if (msg.oswindow != nullptr && msg.oswindow->m_pimpl != nullptr &&
-                msg.oswindow->m_pimpl->m_puserinteraction != nullptr)
+            if (msg.oswindow != nullptr && msg.oswindow->m_puserinteractionimpl != nullptr &&
+                msg.oswindow->m_puserinteractionimpl->m_puserinteraction != nullptr)
             {
 
-               ::user::interaction * pinteraction = msg.oswindow->m_pimpl->m_puserinteraction;
+               ::user::interaction * pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
 
                pinteraction->post_message(msg.m_id, msg.wParam, msg.lParam);
 
@@ -2112,7 +2118,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       ASSERT(oswindow != nullptr);
 
-      ::user::interaction * pinteraction = oswindow->m_pimpl->m_puserinteraction;
+      ::user::interaction * pinteraction = oswindow->m_puserinteractionimpl->m_puserinteraction;
 
       ::thread * pthread = nullptr;
 
@@ -2187,7 +2193,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
    ::e_status window::mq_remove_window_from_all_queues()
    {
 
-      ::user::interaction * pinteraction = m_pimpl->m_puserinteraction;
+      ::user::interaction * pinteraction = m_puserinteractionimpl->m_puserinteraction;
 
       if (pinteraction == nullptr)
       {
@@ -2330,7 +2336,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       //      if(attrs.override_redirect)
       //      {
       //
-      //         if(!(m_pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning))
+      //         if(!(m_puserinteractionimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning))
       //         {
       //
       //            XSetWindowAttributes set;
@@ -2426,17 +2432,17 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
          }
 
-         //m_pimpl->m_puserinteraction->ModifyStyle(0, WS_VISIBLE, 0);
+         //m_puserinteractionimpl->m_puserinteraction->ModifyStyle(0, WS_VISIBLE, 0);
 
       }
 //      else
 //      {
 //
-//         //m_pimpl->m_puserinteraction->ModifyStyle(WS_VISIBLE, 0, 0);
+//         //m_puserinteractionimpl->m_puserinteraction->ModifyStyle(WS_VISIBLE, 0, 0);
 //
 //      }
 
-      //m_pimpl->on_change_visibility();
+      //m_puserinteractionimpl->on_change_visibility();
 
       windowing_output_debug_string("\n::window::set_window_pos 2");
 
@@ -2508,17 +2514,17 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
    }
 
 
-   ::e_status window::set_tool_window(bool bSet)
+   void window::set_tool_window(bool bSet)
    {
 
       wm_toolwindow(bSet);
 
-      return ::success;
+      //return ::success;
 
    }
 
 
-   ::e_status window::set_mouse_cursor2(::windowing::cursor * pcursor)
+   void window::set_mouse_cursor2(::windowing::cursor * pcursor)
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -2550,22 +2556,22 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       if (status != 0)
       {
 
-         return false;
+         throw_status(error_failed);
 
       }
 
-      return true;
+      //return true;
 
    }
 
 
-   ::e_status window::set_mouse_cursor(::windowing::cursor * pcursor)
+   void window::set_mouse_cursor(::windowing::cursor * pcursor)
    {
 
       if (::is_null(pcursor))
       {
 
-         return error_failed;
+         throw_status(error_null_pointer);
 
       }
 
@@ -2574,28 +2580,32 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       if (::is_null(pcursorx11))
       {
 
-         return error_failed;
+         throw_status(error_null_pointer);
 
       }
 
       if(!pcursorx11->m_cursor)
       {
 
-         auto estatus = pcursorx11->_create_os_cursor();
+         //auto estatus =
+         //
+         pcursorx11->_create_os_cursor();
 
-         if(!estatus)
-         {
-
-            return estatus;
-
-         }
+//         if(!estatus)
+//         {
+//
+//            return estatus;
+//
+//         }
 
       }
 
       if (m_cursorLast == pcursorx11->m_cursor)
       {
 
-         return true;
+         //return true;
+
+         return;
 
       }
 
@@ -2614,7 +2624,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
                                           }));
 
-      return true;
+      //return true;
 
    }
 
@@ -2700,7 +2710,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       x11_get_window_rect(rectangle);
 
-//r = oswindow->m_pimpl->m_puserinteraction->get_window_rect();
+//r = oswindow->m_puserinteractionimpl->m_puserinteraction->get_window_rect();
 
 //string strTopic = x11_get_name(x11_display(), Window());
 
@@ -2725,7 +2735,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
    }
 
 
-   ::e_status window::set_active_window()
+   void window::set_active_window()
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -2762,16 +2772,18 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       }
 
-      auto estatus = set_keyboard_focus();
+      //auto estatus =
+      //
+      set_keyboard_focus();
 
-      if (!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
+//      if (!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
 
    }
 
@@ -3020,15 +3032,15 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
    }
 
 
-   ::e_status window::destroy_window()
+   void window::destroy_window()
    {
 
       bool bOk = false;
 
-      if (::is_set(m_pimpl))
+      if (::is_set(m_puserinteractionimpl))
       {
 
-         __pointer(::user::interaction) pinteraction = m_pimpl->m_puserinteraction;
+         __pointer(::user::interaction) pinteraction = m_puserinteractionimpl->m_puserinteraction;
 
          if (pinteraction.is_set())
          {
@@ -3046,7 +3058,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
             try
             {
 
-//window->m_pimpl->release();
+//window->m_puserinteractionimpl->release();
 
             }
             catch (...)
@@ -3056,7 +3068,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
          }
 
-         //oswindow_remove_impl(window->m_pimpl);
+         //oswindow_remove_impl(window->m_puserinteractionimpl);
 
          m_pwindowing->erase_window(this);
 
@@ -3090,7 +3102,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 //
 //               });
 
-      return ::success;
+      //return ::success;
 
    }
 
@@ -3320,7 +3332,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
 
    /// should be run at user_thread
-   ::e_status window::set_foreground_window()
+   void window::set_foreground_window()
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -3331,7 +3343,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       XSetInputFocus(Display(), Window(), RevertToNone, CurrentTime);
 
-      return true;
+      //return true;
 
    }
 
@@ -3390,7 +3402,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       }
 
-      auto pimplFocus = pwindowFocus->m_pimpl;
+      auto pimplFocus = pwindowFocus->m_puserinteractionimpl;
 
       if (::is_null(pimplFocus))
       {
@@ -3541,7 +3553,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       window_post(__routine([this]()
                                         {
 
-                                           auto pimpl = m_pimpl;
+                                           auto pimpl = m_puserinteractionimpl;
 
                                            if (::is_set(pimpl))
                                            {
@@ -3560,7 +3572,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
                                                  }
 
-                                                 auto pimpl2 = puserinteraction->m_pimpl2;
+                                                 auto pimpl2 = puserinteraction->m_pinteractionimpl;
 
                                                  if (::is_set(pimpl2))
                                                  {
@@ -3591,7 +3603,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       m_pwindowing->windowing_post(__routine([this]()
                                         {
 
-                                           auto pimpl = m_pimpl;
+                                           auto pimpl = m_puserinteractionimpl;
 
                                            if (::is_set(pimpl))
                                            {
@@ -3601,7 +3613,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
                                               if (::is_set(puserinteraction))
                                               {
 
-                                                 auto pimpl2 = puserinteraction->m_pimpl2;
+                                                 auto pimpl2 = puserinteraction->m_pinteractionimpl;
 
                                                  if (::is_set(pimpl2))
                                                  {
@@ -3620,7 +3632,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
    }
 
 
-   ::e_status window::set_mouse_capture()
+   void window::set_mouse_capture()
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -3628,14 +3640,14 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       if (Display() == nullptr)
       {
 
-         return error_failed;
+         throw_status(error_failed);
 
       }
 
       if (Window() == None)
       {
 
-         return error_failed;
+         throw_status(error_failed);
 
       }
 
@@ -3674,12 +3686,12 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
                                           }));
 
-      return ::success;
+      //return ::success;
 
    }
 
 
-   ::e_status window::set_keyboard_focus()
+   void window::set_keyboard_focus()
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -3687,7 +3699,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       if (Window() == 0)
       {
 
-         return error_failed;
+         throw_status(error_failed);
 
       }
 
@@ -3700,7 +3712,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
          windowing_output_debug_string("\noswindow_data::SetFocus 1.1");
 
-         return error_failed;
+         throw_status(error_failed);
 
       }
 
@@ -3709,13 +3721,13 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
          windowing_output_debug_string("\noswindow_data::SetFocus 1.3");
 
-         return error_failed;
+         throw_status(error_failed);
 
       }
 
       windowing_output_debug_string("\noswindow_data::SetFocus 2");
 
-      return ::success;
+      //return ::success;
 
    }
 
@@ -3728,7 +3740,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
    }
 
 
-   ::e_status window::bring_to_front()
+   void window::bring_to_front()
    {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -3736,7 +3748,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       if (Window() == 0)
       {
 
-         return error_failed;
+         throw_status(error_failed);
 
       }
 
@@ -3746,7 +3758,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       XRaiseWindow(displaylock.m_pdisplay, Window());
 
-      return ::success;
+      //return ::success;
 
    }
 

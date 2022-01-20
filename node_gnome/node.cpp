@@ -87,7 +87,7 @@ namespace node_gnome
    }
 
 
-   ::e_status node::start_node()
+   void node::start_node()
    {
 
 
@@ -95,17 +95,17 @@ namespace node_gnome
       //
       //::parallelization::post_quit_and_wait(get_context_system(), one_minute());
 
-      return ::success;
+      //return ::success;
 
    }
 
 
-   ::e_status node::initialize(::object *pobject)
+   void node::initialize(::object *pobject)
    {
 
 //      ::node_gnome::g_defer_init();
 
-      return ::success;
+      //return ::success;
 
    }
 

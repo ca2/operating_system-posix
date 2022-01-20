@@ -70,17 +70,19 @@ namespace multimedia
       }
 
 
-      ::e_status wave_out::init_thread()
+      void wave_out::init_thread()
       {
 
-         if(!::wave::out::init_thread())
-         {
+         //if(!
+          ::wave::out::init_thread();
 
-            return false;
-
-         }
-
-         return true;
+//         {
+//
+//            return false;
+//
+//         }
+//
+//         return true;
 
       }
 
@@ -95,7 +97,7 @@ namespace multimedia
       }
 
 
-      ::e_status wave_out::out_open_ex(thread * pthreadCallback, ::u32 uiSamplesPerSec, ::u32 uiChannelCount, ::u32 uiBitsPerSample, ::wave::e_purpose epurpose)
+      void wave_out::out_open_ex(thread * pthreadCallback, ::u32 uiSamplesPerSec, ::u32 uiChannelCount, ::u32 uiBitsPerSample, ::wave::e_purpose epurpose)
       {
 
          synchronous_lock sl(mutex());
@@ -105,7 +107,9 @@ namespace multimedia
          if(m_ppcm != NULL && m_estate != e_state_initial)
          {
 
-            return success;
+            ///return success;
+
+            return;
 
          }
 
@@ -156,10 +160,10 @@ namespace multimedia
          m_pwaveformat->m_waveformat.nAvgBytesPerSec   = m_pwaveformat->m_waveformat.nSamplesPerSec * m_pwaveformat->m_waveformat.nBlockAlign;
          //m_pwaveformat->cbSize            = 0;
 
-         if((m_estatusWave = this->snd_pcm_open(SND_PCM_STREAM_PLAYBACK)) != success)
+         if(!(m_estatusWave = this->snd_pcm_open(SND_PCM_STREAM_PLAYBACK)))
          {
 
-            return m_estatusWave;
+             throw_status(m_estatusWave);
 
          }
 
@@ -191,7 +195,7 @@ namespace multimedia
 
             FORMATTED_TRACE("unable to determine current m_pswparams for playback: %s\n", snd_strerror(err));
 
-            return error_failed;
+            throw_status(error_failed);
 
          }
 
@@ -203,7 +207,7 @@ namespace multimedia
 
             FORMATTED_TRACE("unable to set start threshold mode for playback: %s\n", snd_strerror(err));
 
-            return error_failed;
+            throw_status(error_failed);
 
          }
 
@@ -213,7 +217,7 @@ namespace multimedia
 
             FORMATTED_TRACE("unable to set avail min for playback: %s\n", snd_strerror(err));
 
-            return error_failed;
+            throw_status(error_failed);
 
          }
 
@@ -222,7 +226,7 @@ namespace multimedia
 
             FORMATTED_TRACE("unable to set time stamp mode: %s\n", snd_strerror(err));
 
-            return error_failed;
+            throw_status(error_failed);
 
          }
 
@@ -231,7 +235,7 @@ namespace multimedia
 
             FORMATTED_TRACE("unable to set time stamp type: %s\n", snd_strerror(err));
 
-            return error_failed;
+            throw_status(error_failed);
 
          }
 
@@ -241,7 +245,7 @@ namespace multimedia
 
             FORMATTED_TRACE("unable to set sw params for playback: %s\n", snd_strerror(err));
 
-            return error_failed;
+            throw_status(error_failed);
 
          }
 
@@ -251,12 +255,12 @@ namespace multimedia
 
          m_epurpose = epurpose;
 
-         return success;
+         //return success;
 
       }
 
 
-      ::e_status wave_out::out_close()
+      void wave_out::out_close()
       {
 
          synchronous_lock sl(mutex());
@@ -273,7 +277,9 @@ namespace multimedia
          if(m_estate != e_state_opened)
          {
 
-            return success;
+            //return success;
+
+            return;
 
          }
 
@@ -287,12 +293,12 @@ namespace multimedia
 
          m_estate = e_state_initial;
 
-         return success;
+         //return success;
 
       }
 
 
-      ::e_status wave_out::out_stop()
+      void wave_out::out_stop()
       {
 
          synchronous_lock sl(mutex());
@@ -302,7 +308,7 @@ namespace multimedia
          if(m_estate != e_state_playing && m_estate != e_state_paused)
          {
 
-            return error_failed;
+            throw_status(error_wrong_state);
 
          }
 
@@ -324,12 +330,17 @@ namespace multimedia
 
          }
 
-         return m_estatusWave;
+         if(!m_estatusWave)
+         {
+
+            throw_status(m_estatusWave);
+
+         }
 
       }
 
 
-      ::e_status wave_out::out_pause()
+      void wave_out::out_pause()
       {
 
          synchronous_lock sl(mutex());
@@ -341,7 +352,7 @@ namespace multimedia
          if(m_estate != e_state_playing)
          {
 
-            return error_failed;
+            throw_status(error_wrong_state);
 
          }
 
@@ -361,12 +372,17 @@ namespace multimedia
 
          }
 
-         return m_estatusWave;
+         if(!m_estatusWave)
+         {
+
+            throw_status(m_estatusWave);
+
+         }
 
       }
 
 
-      ::e_status wave_out::out_restart()
+      void wave_out::out_restart()
       {
 
          synchronous_lock sl(mutex());
@@ -376,7 +392,11 @@ namespace multimedia
          TRACE("multimedia::audio_alsa::out_restart");
 
          if(m_estate != e_state_paused)
-            return error_failed;
+         {
+
+            throw_status(error_wrong_state);
+
+         }
 
          // waveOutReset
          // The waveOutReset function stops playback on the given
@@ -392,7 +412,12 @@ namespace multimedia
             m_estate = e_state_playing;
          }
 
-         return m_estatusWave;
+         if(!m_estatusWave)
+         {
+
+            throw_status(m_estatusWave);
+
+         }
 
       }
 
@@ -777,7 +802,7 @@ namespace multimedia
       }
 
 
-      ::e_status wave_out::out_start(const ::duration & time)
+      void wave_out::out_start(const ::duration & time)
       {
 
          synchronous_lock sl(mutex());
@@ -785,14 +810,18 @@ namespace multimedia
          if(m_estate == e_state_playing)
          {
 
-            return success;
+            //return success;
+
+            return;
 
          }
 
          if(m_estate != e_state_opened && m_estate != e_state_stopped)
          {
 
-            return error_failed;
+            //return error_failed;
+
+            throw_status(error_wrong_state);
 
          }
 
@@ -803,7 +832,7 @@ namespace multimedia
 
             FORMATTED_TRACE ("out_start: Cannot prepare audio interface for use (%s)\n",snd_strerror (err));
 
-            return error_failed;
+            throw_status(error_failed);
 
          }
 
@@ -811,14 +840,14 @@ namespace multimedia
 
          m_bStarted = false;
 
-         m_estatusWave = ::wave::out::out_start(time);
+         ::wave::out::out_start(time);
 
-         if(failed(m_estatusWave))
+         if(!m_estatusWave)
          {
 
             TRACE("out_start: ::wave::out::out_start FAILED");
 
-            return m_estatusWave;
+            throw_status(m_estatusWave);
 
          }
 
@@ -831,7 +860,7 @@ namespace multimedia
 
          TRACE("out_start: ::wave::out::out_start OK");
 
-         return success;
+         //return success;
 
       }
 

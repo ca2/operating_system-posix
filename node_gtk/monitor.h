@@ -18,7 +18,7 @@ namespace node_gtk
 
 
       monitor();
-      virtual ~monitor();
+      ~monitor() override;
 
 
       ::windowing_x11::windowing * x11_windowing() const {return (::windowing_x11::windowing *) m_pdisplay->m_pwindowing->m_pWindowing; }
@@ -26,15 +26,15 @@ namespace node_gtk
 
 
 
-      virtual ::e_status update_cache();
+      void update_cache() override;
 
 
       virtual ::u32 get_monitor_color_temperature() override;
       virtual bool adjust_monitor( ::u32 dwTemperature, double dBrightness, double dwGamma) override;
 
 
-      virtual ::e_status get_monitor_rectangle(::RECTANGLE_I32 * prectangle) override;
-      virtual ::e_status get_workspace_rectangle(::RECTANGLE_I32 * prectangle) override;
+      void get_monitor_rectangle(::RECTANGLE_I32 * prectangle) override;
+      void get_workspace_rectangle(::RECTANGLE_I32 * prectangle) override;
 
 
       virtual ::e_status _get_monitor_rectangle();

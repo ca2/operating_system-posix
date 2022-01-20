@@ -47,7 +47,7 @@ namespace node_gnome
       ~notify_icon() override;
 
 
-      ::e_status add_hidden_window(::user::interaction * puserinteraction) override;
+      void add_hidden_window(::user::interaction * puserinteraction) override;
 
       //#ifdef WINDOWS_DESKTOP
 
@@ -66,18 +66,18 @@ namespace node_gnome
 
       //#endif
 
-      ::e_status modify_icon(::windowing::icon * picon) override;
+      void modify_icon(::windowing::icon * picon) override;
 
-      ::e_status create_notify_icon(const ::id & id, ::user::interaction * puserinteractionNotify, ::windowing::icon * picon) override;
+      void create_notify_icon(const ::id & id, ::user::interaction * puserinteractionNotify, ::windowing::icon * picon) override;
 
-      ::e_status destroy_notify_icon() override;
+      void destroy_notify_icon() override;
 
       //DECLARE_MESSAGE_HANDLER(_001OnNotifyIconMessage);
       //DECLARE_MESSAGE_HANDLER(_001OnDestroy);
 
       //void install_message_routing(::channel * pchannel) override;
 
-      ::e_status step() override;
+      bool step() override;
 
 //#if defined(APPLE_IOS) || defined(WINDOWS_DESKTOP) || defined(ANDROID) || defined(_UWP)
 //      virtual void notify_icon_play(const char * action);

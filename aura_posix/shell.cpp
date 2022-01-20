@@ -73,28 +73,33 @@ namespace aura
       }
 
 
-      ::e_status shell::initialize(::object * pobject)
+      void shell::initialize(::object * pobject)
       {
 
-         auto estatus = ::user::shell::initialize(pobject);
+         //auto estatus =
+         //
 
-         if(!estatus)
-         {
+         ::user::shell::initialize(pobject);
 
-            return estatus;
+//         if(!estatus)
+//         {
+//
+//            return estatus;
+//
+//         }
 
-         }
+         //estatus =
+         //
+         __compose(m_pcontextimage);
 
-         estatus = __compose(m_pcontextimage);
+//         if(!estatus)
+//         {
+//
+//            return estatus;
+//
+//         }
 
-         if(!estatus)
-         {
-
-            return estatus;
-
-         }
-
-         return estatus;
+         //return estatus;
 
       }
 //

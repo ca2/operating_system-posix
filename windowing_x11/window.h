@@ -65,7 +65,7 @@ namespace windowing_x11
       ~window() override;
 
 
-      virtual ::e_status create_window(::user::interaction_impl * pimpl) override;
+      void create_window(::user::interaction_impl * pimpl) override;
 
 
       static Atom get_window_long_atom(i32 nIndex);
@@ -109,13 +109,13 @@ namespace windowing_x11
       virtual i32 unmap_window(bool bWithdraw);
       virtual void set_wm_class(const char * psz);
 
-      virtual ::e_status exit_iconify() override;
+      void exit_iconify() override;
 
-      virtual ::e_status full_screen(const ::rectangle_i32 & rect = nullptr) override;
+      void full_screen(const ::rectangle_i32 & rect = nullptr) override;
 
-      virtual ::e_status exit_full_screen() override;
+      void exit_full_screen() override;
 
-      virtual ::e_status exit_zoomed() override;
+      void exit_zoomed() override;
 
       virtual void set_user_interaction(::user::interaction_impl * pinteraction);
 
@@ -135,12 +135,12 @@ namespace windowing_x11
       ::windowing_x11::windowing * x11_windowing() const {return (::windowing_x11::windowing *) m_pwindowing->m_pWindowing; }
       ::windowing_x11::display * x11_display() const {return (::windowing_x11::display *) m_pdisplay->m_pDisplay; }
 
-      virtual ::e_status set_parent(::windowing::window * pwindowNewParent);
+      void set_parent(::windowing::window * pwindowNewParent);
       //virtual ::e_status set_parent(::windowing::window * pwindowNewParent) override;
       virtual long get_state();
       virtual bool is_iconic();
       virtual bool is_window_visible();
-      virtual ::e_status show_window(const ::e_display & edisplay, const ::e_activation & eactivation);
+      void show_window(const ::e_display & edisplay, const ::e_activation & eactivation) override;
       //virtual iptr get_window_long_ptr(i32 nIndex);
       //virtual iptr set_window_long_ptr(i32 nIndex, iptr l);
       virtual bool client_to_screen(POINT_I32 * ppoint);
@@ -162,21 +162,21 @@ namespace windowing_x11
 
       virtual int x_change_property(Atom property, Atom type, int format, int mode, const unsigned char * data, int nelements);
 
-      virtual ::e_status set_mouse_cursor(::windowing::cursor * pcursor);
+      void set_mouse_cursor(::windowing::cursor * pcursor) override;
 
-      virtual ::e_status set_mouse_cursor2(::windowing::cursor * pcursor);
+      virtual void set_mouse_cursor2(::windowing::cursor * pcursor);
 
-      virtual ::e_status set_keyboard_focus() override;
-      virtual ::e_status set_mouse_capture() override;
-      virtual ::e_status set_active_window() override;
-
-
-      virtual ::e_status set_foreground_window() override;
+      void set_keyboard_focus() override;
+      void set_mouse_capture() override;
+      void set_active_window() override;
 
 
-      virtual bool has_mouse_capture() const override;
+      void set_foreground_window() override;
 
-      virtual bool has_keyboard_focus() const override;
+
+      bool has_mouse_capture() const override;
+
+      bool has_keyboard_focus() const override;
 
 
 
@@ -200,7 +200,7 @@ namespace windowing_x11
       virtual ::Window _get_window_relative( WINDOWING_X11_WINDOW_MEMBER enum_relative erelative, ::Window * windowa, int numItems);
       virtual ::windowing::window * get_window( WINDOWING_X11_WINDOW_MEMBER enum_relative erelative);
 
-      virtual ::e_status destroy_window();
+      void destroy_window() override;
       //virtual int_bool destroy_window( WINDOWING_X11_WINDOW_MEMBER );
       virtual bool is_window();
       //virtual int_bool is_window( WINDOWING_X11_WINDOW_MEMBER );
@@ -209,10 +209,10 @@ namespace windowing_x11
       virtual void set_window_text(const char * pszString);
 
 
-      virtual ::e_status set_tool_window(bool bSet) override;
+      void set_tool_window(bool bSet) override;
 
 
-      virtual bool set_window_position(const class ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy, ::u32 nFlags) override;
+      bool set_window_position(const class ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy, ::u32 nFlags) override;
 
 
 
@@ -270,13 +270,13 @@ namespace windowing_x11
       //virtual void wm_state_hidden_raw( WINDOWING_X11_WINDOW_MEMBER bool bSet);
       virtual ::e_status mq_remove_window_from_all_queues( WINDOWING_X11_WINDOW_MEMBER );
 
-      virtual void update_screen() override;
-      virtual void window_show() override;
+      void update_screen() override;
+      void window_show() override;
 
-      bool is_active_window() const;
+      bool is_active_window() const override;
 
 
-      ::e_status bring_to_front() override;
+      void bring_to_front() override;
 
 
    };

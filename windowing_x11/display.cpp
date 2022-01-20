@@ -107,13 +107,13 @@ namespace windowing_x11
 #endif // DEBUG
 
 
-   ::e_status display::open()
+   void display::open()
    {
 
       if(::is_set(m_pdisplay))
       {
 
-         return ::success;
+         return;
 
       }
 
@@ -122,7 +122,7 @@ namespace windowing_x11
       if(::is_null(m_pdisplay))
       {
 
-         return ::error_failed;
+         throw_status(error_failed);
 
       }
 
@@ -151,7 +151,7 @@ namespace windowing_x11
 
       m_colormap = XCreateColormap(m_pdisplay, m_windowRoot, m_pvisual, AllocNone);
 
-      return ::success;
+      //return ::success;
 
    }
 
@@ -367,7 +367,7 @@ namespace windowing_x11
    }
 
 
-   ::e_status display::remove_window(::windowing::window * pwindow)
+   ::e_status display::erase_window(::windowing::window * pwindow)
    {
 
       return error_failed;
@@ -478,13 +478,9 @@ namespace windowing_x11
    ::windowing_x11::window *display::_get_keyboard_focus()
    {
 
-      //auto pmatterWindow = __matter(__pointer(::windowing_x11::window));
+      auto ppropertyobject = __new(::property_object);
 
-      auto pmatter = __new(::matter);
-
-      output_debug_string("A");
-
-      auto proutine = __routine([this,pmatter]()
+      auto proutine = __routine([this,ppropertyobject]()
       {
 
          synchronous_lock synchronouslock(user_mutex());
@@ -527,7 +523,7 @@ namespace windowing_x11
 
          }
 
-         //pmatterWindow = _window(window);
+         ppropertyobject->payload("window") = window;
 
          windowing_output_debug_string("\n::GetFocus 2");
 
@@ -537,15 +533,32 @@ namespace windowing_x11
 
       pwindowing->windowing_post(proutine);
 
-      if(proutine->wait(5_s).failed())
+      if(!proutine->wait(5_s))
       {
 
          return nullptr;
 
       }
 
-      //return *pmatterWindow;
-      return nullptr;
+      if(ppropertyobject->payload("window").is_new())
+      {
+
+         return nullptr;
+
+      }
+
+      Window window = (Window) ppropertyobject->payload("window").iptr();
+
+      auto pwindow = _window(window);
+
+      if(!pwindow)
+      {
+
+         return nullptr;
+
+      }
+
+      return pwindow;
 
    }
 

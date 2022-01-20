@@ -49,26 +49,28 @@ namespace windowing_x11
 //   }
 
 
-   ::e_status cursor::_create_os_cursor()
+   void cursor::_create_os_cursor()
    {
 
       if(m_cursor)
       {
 
-         return ::success_none;
+         return;
 
       }
 
-      auto estatus = _load_default_cursor(m_ecursor);
+      //auto estatus =
+      //
+      _load_default_cursor(m_ecursor);
 
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
 
    }
 

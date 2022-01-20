@@ -69,9 +69,9 @@ namespace windowing_x11
 
       virtual void unlock_display();
 
-      virtual ::e_status open() override;
+      void open() override;
 
-      virtual ::e_status remove_window(::windowing::window * pwindow);
+      virtual ::e_status erase_window(::windowing::window * pwindow);
 
       virtual ::Display * Display();
 

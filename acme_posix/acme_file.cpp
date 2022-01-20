@@ -43,21 +43,24 @@ namespace posix
 
    bool acme_file::exists(const char *filename)
    {
+
+
+      return ::file_exists(filename);
          
-      struct stat st;
-      
-      if(stat (filename, &st) != 0)
-      {
-         
-         int iErrNo = errno;
-         
-         auto estatus = failed_errno_to_status(iErrNo);
-         
-         throw_status(estatus);
-         
-      }
-      
-      return true;
+//      struct stat st;
+//
+//      if(stat (filename, &st) != 0)
+//      {
+//
+//         int iErrNo = errno;
+//
+//         auto estatus = failed_errno_to_status(iErrNo);
+//
+//         throw_status(estatus);
+//
+//      }
+//
+//      return true;
       
    }
 

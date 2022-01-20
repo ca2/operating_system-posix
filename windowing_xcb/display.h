@@ -73,7 +73,7 @@ namespace windowing_xcb
 
       virtual ::e_status open() override;
 
-      virtual ::e_status remove_window(::windowing::window * pwindow);
+      virtual ::e_status erase_window(::windowing::window * pwindow);
 
       virtual xcb_atom_t intern_atom(const char * pszAtomName, bool bCreate = true);
 

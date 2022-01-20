@@ -23,10 +23,10 @@ namespace node_gnome
    }
 
 
-   ::e_status monitor::update_cache()
+   void monitor::update_cache()
    {
 
-      return ::success_none;
+      //return ::success_none;
 
    }
 

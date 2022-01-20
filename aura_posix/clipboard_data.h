@@ -27,13 +27,13 @@ struct clipboard_data :
 public:
 
 
-   ::user::copydesk::e_op     m_eop;
-   enum_clipboard             m_eclipboard;
-   manual_reset_event         m_event;
-   string                     m_str;
-   ::image_pointer            m_pimage;
-   ::file::patha              m_patha;
-   int                        m_nTargets;
+   ::user::copydesk::enum_op     m_eop;
+   enum_clipboard                m_eclipboard;
+   manual_reset_event            m_event;
+   string                        m_str;
+   ::image_pointer               m_pimage;
+   ::file::patha                 m_patha;
+   int                           m_nTargets;
 
 
    clipboard_data(::object * pobject, enum_clipboard eclipboard)

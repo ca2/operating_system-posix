@@ -2,6 +2,7 @@
 // Created by camilo on 19/01/2021. --<33ThomasBS!!
 //
 #include "framework.h"
+#include <signal.h>
 
 #ifdef FREEBSD
 
@@ -10,6 +11,48 @@
 #include <sys/sysctl.h>
 
 #endif
+
+
+struct sigaction g_sigactionFpe;
+
+struct sigaction g_sigactionFpeOld;
+
+
+
+void sigfpe_sigaction(int signum, siginfo_t * psiginfo, void * p)
+{
+
+   throw standard_sigfpe(signum, psiginfo, p);
+
+}
+
+
+
+void install_sigfpe_handler()
+{
+
+   __zero(g_sigactionFpe);
+
+   __zero(g_sigactionFpeOld);
+
+   g_sigactionFpe.sa_sigaction = &sigfpe_sigaction;
+
+   sigemptyset(&g_sigactionFpe.sa_mask);
+
+   g_sigactionFpe.sa_flags = SA_SIGINFO | SA_NODEFER | SA_NOMASK;
+
+   sigaction(SIGFPE, &g_sigactionFpe, &g_sigactionFpeOld);
+
+}
+
+
+void uninstall_sigfpe_handler()
+{
+
+   sigaction(SIGFPE, &g_sigactionFpeOld, nullptr);
+
+}
+
 
 
 void init_pid_cs();
@@ -42,6 +85,8 @@ namespace acme
 
          init_pid_cs();
 
+         install_sigfpe_handler();
+
       }
 
 
@@ -55,7 +100,11 @@ namespace acme
          //
          //      }
 
+         uninstall_sigfpe_handler();
+
          term_pid_cs();
+
+
 
       }
 

@@ -17,19 +17,19 @@ namespace windowing_x11
 
 
       icon();
-      virtual ~icon();
+      ~icon() override;
 
 
-      virtual string get_tray_icon_name() const;
+      string get_tray_icon_name() const override;
 
 
-      virtual ::e_status set_tray_icon_name(const string & strTrayIconName) override;
+      void set_tray_icon_name(const string & strTrayIconName) override;
 
 
-      virtual void get_sizes(array < concrete < ::size_i32 > > & a);
+      void get_sizes(array < concrete < ::size_i32 > > & a) override;
 
 
-      virtual void * get_os_data(const ::size_i32 & size) const;
+      void * get_os_data(const ::size_i32 & size) const override;
 
 
       virtual ::e_status load_matter(string strPath);

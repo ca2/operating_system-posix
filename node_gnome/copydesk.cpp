@@ -40,34 +40,38 @@ namespace node_gnome
    }
 
 
-   ::e_status copydesk::initialize(::object * pobject)
+   void copydesk::initialize(::object * pobject)
    {
 
-      auto estatus = ::user::copydesk::initialize(pobject);
+      //auto estatus =
+      //
+      ::user::copydesk::initialize(pobject);
 
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
 
    }
 
 
-   ::e_status copydesk::destroy()
+   void copydesk::destroy()
    {
 
-      auto estatus = ::user::copydesk::destroy();
+      //auto estatus =
+      //
+      ::user::copydesk::destroy();
 
-      return ::success;
+      //return ::success;
 
    }
 
 
-   ::e_status copydesk::_set_plain_text(const string & str)
+   bool copydesk::_set_plain_text(const string & str)
    {
 
       auto psystem = m_psystem->m_paurasystem;
@@ -88,7 +92,7 @@ namespace node_gnome
    }
 
 
-   ::e_status copydesk::_get_plain_text(string & str)
+   bool copydesk::_get_plain_text(string & str)
    {
 
       __pointer(clipboard_data) pdata = __new(clipboard_data(this, e_clipboard_get_plain_text));
@@ -101,7 +105,7 @@ namespace node_gnome
 
       g_source_attach(idle_source, g_main_context_default());
 
-      if(!pdata->m_event.wait(5_s).succeeded())
+      if(!pdata->m_event.wait(5_s))
       {
 
          return false;
@@ -155,7 +159,7 @@ namespace node_gnome
 
       g_source_attach(idle_source, g_main_context_default());
 
-      if(!pdata->m_event.wait(5_s).succeeded())
+      if(!pdata->m_event.wait(5_s))
       {
 
          return false;
@@ -167,7 +171,7 @@ namespace node_gnome
    }
 
 
-   ::e_status copydesk::_get_filea(::file::patha & patha, e_op & eop)
+   bool copydesk::_get_filea(::file::patha & patha, enum_op & eop)
    {
 
       __pointer(clipboard_data) pdata = __new(clipboard_data(this, e_clipboard_get_patha));
@@ -180,7 +184,7 @@ namespace node_gnome
 
       g_source_attach(idle_source, g_main_context_default());
 
-      if(!pdata->m_event.wait(5_s).succeeded() || pdata->m_eclipboard == e_clipboard_error)
+      if(!pdata->m_event.wait(5_s) || pdata->m_eclipboard == e_clipboard_error)
       {
 
          return false;
@@ -196,7 +200,7 @@ namespace node_gnome
    }
 
 
-   ::e_status copydesk::_set_filea(const ::file::patha & patha, e_op eop)
+   bool copydesk::_set_filea(const ::file::patha & patha, enum_op eop)
    {
 
       __pointer(clipboard_data) pdata = __new(clipboard_data(this, e_clipboard_set_patha));
@@ -213,7 +217,7 @@ namespace node_gnome
 
       g_source_attach(idle_source, g_main_context_default());
 
-      if(!pdata->m_event.wait(5_s).succeeded())
+      if(!pdata->m_event.wait(5_s))
       {
 
          return false;
@@ -227,7 +231,7 @@ namespace node_gnome
    }
 
 
-   ::e_status copydesk::_desk_to_image(::image * pimage)
+   bool copydesk::_desk_to_image(::image * pimage)
    {
 
       __pointer(clipboard_data) pdata = __new(clipboard_data(this, e_clipboard_get_image));
@@ -242,7 +246,7 @@ namespace node_gnome
 
       g_source_attach(idle_source, g_main_context_default());
 
-      if(!pdata->m_event.wait(5_s).succeeded() || pdata->m_eclipboard == e_clipboard_error)
+      if(!pdata->m_event.wait(5_s) || pdata->m_eclipboard == e_clipboard_error)
       {
 
          return false;
@@ -256,7 +260,7 @@ namespace node_gnome
    }
 
 
-   ::e_status copydesk::_image_to_desk(const ::image * pimage)
+   bool copydesk::_image_to_desk(const ::image * pimage)
    {
 
       __throw(todo);

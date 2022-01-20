@@ -28,14 +28,14 @@ namespace windowing_x11
       //__pointer(keyboard_layout)                    m_playout;
 
       keyboard();
-      virtual ~keyboard();
+      ~keyboard() override;
 
 
       virtual void enum_init(class ::system * psystem);
 
       //virtual class keyboard_layout & on_layout();
 
-      virtual ::e_status initialize(::object * pobject) override;
+      void initialize(::object * pobject) override;
 
       //bool load_layout(const char * pszPath, const ::action_context & action_context);
 
@@ -53,13 +53,13 @@ namespace windowing_x11
 
       //bool initialize(::user::keyboard_layout_id * playoutid, const char * pszPath);
 
-      virtual void translate_os_key_message(::user::key * pkey) override;
+      void translate_os_key_message(::user::key * pkey) override;
 
-      virtual bool load_os_layout(const ::file::path & pszPath);
+      bool load_os_layout(const ::file::path & pszPath) override;
 
-      virtual ::e_status show_software_keyboard(::user::primitive * pprimitive, string str, strsize iBeg, strsize iEnd);
+      void show_software_keyboard(::user::primitive * pprimitive, string str, strsize iBeg, strsize iEnd) override;
 
-      virtual ::e_status hide_software_keyboard(::user::primitive * pprimitive);
+      void hide_software_keyboard(::user::primitive * pprimitive) override;
 
 
    };

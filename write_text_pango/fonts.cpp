@@ -20,19 +20,21 @@ namespace write_text_pango
    }
 
 
-   ::e_status fonts::initialize(::object * pobject)
+   void fonts::initialize(::object * pobject)
    {
 
-      auto estatus = ::write_text::fonts::initialize(pobject);
+      //auto estatus =
+      //
+      ::write_text::fonts::initialize(pobject);
 
-      if (!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
+//      if (!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
 
    }
 

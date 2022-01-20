@@ -59,10 +59,10 @@ namespace write_text_pango
 
 
       fonts();
-      virtual ~fonts();
+      ~fonts() override;
 
 
-      virtual ::e_status initialize(::object * pobject) override;
+      void initialize(::object * pobject) override;
       //virtual ::e_status finalize() override;
 
 

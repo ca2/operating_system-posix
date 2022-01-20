@@ -118,13 +118,13 @@ void clipboard_received_func(GtkClipboard * clipboard, GtkSelectionData * select
    if(strOp.compare_ci("copy") == 0)
    {
 
-      pdata->m_eop = ::user::copydesk::op_copy;
+      pdata->m_eop = ::user::copydesk::e_op_copy;
 
    }
    else if(strOp.compare_ci("cut") == 0)
    {
 
-      pdata->m_eop = ::user::copydesk::op_cut;
+      pdata->m_eop = ::user::copydesk::e_op_cut;
 
    }
    else
@@ -163,13 +163,13 @@ void clipboard_get_func(GtkClipboard * clipboard, GtkSelectionData * selection_d
 
    string strAction;
 
-   if(pdata->m_eop == ::user::copydesk::op_copy)
+   if(pdata->m_eop == ::user::copydesk::e_op_copy)
    {
 
       strAction = "copy";
 
    }
-   else if(pdata->m_eop == ::user::copydesk::op_cut)
+   else if(pdata->m_eop == ::user::copydesk::e_op_cut)
    {
 
       strAction = "cut";

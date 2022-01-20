@@ -70,10 +70,10 @@ namespace windowing_xcb
    }
 
 
-    ::e_status windowing::remove_window(::windowing::window * pwindow)
+    ::e_status windowing::erase_window(::windowing::window * pwindow)
    {
 
-      return m_pdisplay->remove_window(pwindow);
+      return m_pdisplay->erase_window(pwindow);
 
    }
 

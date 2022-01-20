@@ -45,7 +45,7 @@ namespace aura
          ~node() override;
 
 
-         virtual ::e_status initialize(::object * pobject) override;
+         void initialize(::object * pobject) override;
 
 
 #if defined(WITH_X11) || defined(WITH_XCB)
@@ -69,10 +69,10 @@ namespace aura
 #endif // WITH_XCB
 
 
-         virtual ::file::path get_desktop_file_path(::application * papp) const override;
+         ::file::path get_desktop_file_path(::application * papp) const override;
 
 
-         ::e_status main() override;
+         void main() override;
 
 
       };

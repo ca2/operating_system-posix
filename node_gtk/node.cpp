@@ -155,19 +155,21 @@ namespace node_gtk
    }
 
 
-   ::e_status node::system_main()
+   void node::system_main()
    {
 
-      auto estatus = m_psystem->m_papexsystem->begin_synch();
+      //auto estatus =
+      //
+      m_psystem->m_papexsystem->begin_synch();
 
-      if (!estatus)
-      {
-
-         WARNING("Failed to begin_synch the system (::apex::system or ::apex::system derived)");
-
-         return estatus;
-
-      }
+//      if (!estatus)
+//      {
+//
+//         WARNING("Failed to begin_synch the system (::apex::system or ::apex::system derived)");
+//
+//         return estatus;
+//
+//      }
 
       // To pair freebsd.h/main platform_create_system new system
       // This should be safe here in this node_gtk::node
@@ -342,12 +344,12 @@ namespace node_gtk
 
       }
 
-      return ::success;
+      //return ::success;
 
    }
 
 
-   ::e_status node::start_node()
+   void node::start_node()
    {
 
 
@@ -355,17 +357,17 @@ namespace node_gtk
       //
       //::parallelization::post_quit_and_wait(get_context_system(), one_minute());
 
-      return ::success;
+      //return ::success;
 
    }
 
 
-   ::e_status node::initialize(::object *pobject)
+   void node::initialize(::object *pobject)
    {
 
       ::node_gtk::g_defer_init();
 
-      return ::success;
+      //return ::success;
 
    }
 
@@ -440,19 +442,22 @@ namespace node_gtk
 //   }
 
 
-   ::e_status node::os_set_user_theme(const ::string &strUserTheme)
+   void node::os_set_user_theme(const ::string &strUserTheme)
    {
 
-      auto estatus = _os_set_user_theme(strUserTheme);
+      //auto estatus =
+      //
+      //
+      _os_set_user_theme(strUserTheme);
 
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
 
    }
 
@@ -670,12 +675,12 @@ namespace node_gtk
    }
 
 
-   ::e_status node::node_post(const ::routine & routine)
+   void node::node_post(const ::routine & routine)
    {
 
       gdk_branch(routine);
 
-      return ::success;
+      //return ::success;
 
    }
 

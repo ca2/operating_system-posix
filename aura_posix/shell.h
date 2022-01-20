@@ -25,7 +25,7 @@ namespace aura
          ~shell() override;
 
 
-         ::e_status initialize(::object * pobject) override;
+         void initialize(::object * pobject) override;
          //virtual void initialize() override;
 
          //virtual void defer_start();

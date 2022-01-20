@@ -24,14 +24,14 @@ namespace multimedia
       }
 
 
-      ::e_status wave_in::init_thread()
+      void wave_in::init_thread()
       {
          TRACE("wave_in::initialize_instance %X\n", get_ithread());
          //SetMainWnd(NULL);
          //ASSERT(GetMainWnd() == NULL);
          set_thread_priority(::e_priority_highest);
          //m_evInitialized.SetEvent();
-         return true;
+         //return true;
       }
 
 
@@ -45,17 +45,21 @@ namespace multimedia
       }
 
 
-      ::e_status wave_in::in_open(int32_t iBufferCount, int32_t iBufferSampleCount)
+      void wave_in::in_open(int32_t iBufferCount, int32_t iBufferSampleCount)
       {
 
-         return success;
+         //return success;
+
+         return;
 
          if(m_ppcm != NULL && m_estate != e_state_initial)
          {
 
             in_initialize_encoder();
 
-            return success;
+            //return success;
+
+            return;
 
          }
 
@@ -75,14 +79,16 @@ namespace multimedia
          m_pwaveformat->m_waveformat.nAvgBytesPerSec = m_pwaveformat->m_waveformat.nSamplesPerSec * m_pwaveformat->m_waveformat.nBlockAlign;
          //m_pwaveformat->m_waveformat.cbSize = 0;
 
-         return error_failed;
+         //return error_failed;
+
+         throw_status(error_failed);
 
          auto estatus = snd_pcm_open(SND_PCM_STREAM_CAPTURE);
 
          if(!estatus)
          {
 
-            return estatus;
+            throw_status(estatus);
 
          }
 
@@ -218,28 +224,32 @@ Opened:
 
             in_close();
 
-            return (::e_status) -1;
+            throw_status(error_failed);
 
          }
 
          m_estate = e_state_opened;
 
-         return success;
+         //return success;
 
       }
 
 
-      ::e_status wave_in::in_close()
+      void wave_in::in_close()
       {
 
          single_lock sLock(mutex(), TRUE);
 
-         ::e_status mmr;
+         ::e_status estatus;
 
          if(m_estate != e_state_opened && m_estate != state_stopped)
-            return success;
+         {
 
-         mmr = in_reset();
+            return;
+
+         }
+
+         in_reset();
 
          //int32_t i, iSize;
 
@@ -258,57 +268,70 @@ Opened:
 
          }*/
 
-         mmr = snd_pcm_close();
+         estatus = snd_pcm_close();
 
          m_ppcm = NULL;
 
          m_estate = e_state_initial;
 
-         return success;
+         if(!estatus)
+         {
+
+            throw_status(estatus);
+
+         }
 
       }
 
 
-      ::e_status wave_in::in_start()
+      void wave_in::in_start()
       {
 
-         return success;
+         //return success;
+
+         return;
 
          single_lock sLock(mutex(), TRUE);
 
          if(m_estate == state_recording)
          {
 
-            return success;
+            //return success;
+
+            return;
 
          }
 
          if(m_estate != e_state_opened && m_estate != state_stopped)
          {
 
-            return success;
+            //return success;
+
+            return;
 
          }
 
-         ::e_status mmr;
+         ::e_status estatus;
 
-         if((mmr = translate_alsa(snd_pcm_start(m_ppcm))) != success)
+         if((estatus = translate_alsa(snd_pcm_start(m_ppcm))) != success)
          {
 
             TRACE("ERROR starting INPUT DEVICE ");
 
-            return mmr;
+            //return mmr;
+
+            throw_status(estatus);
 
          }
 
          m_estate = state_recording;
 
-         return success;
+         //return success;
 
       }
 
 
-      ::e_status wave_in::in_stop()
+      void wave_in::in_stop()
       {
 
          synchronous_lock sl(mutex());
@@ -316,18 +339,18 @@ Opened:
          if(m_estate != state_recording)
          {
 
-            return error_failed;
+            throw_status(error_failed);
 
          }
 
-         ::e_status mmr;
+         ::e_status estatus;
 
          m_estate = e_state_stopping;
 
          try
          {
 
-            if(success != (mmr = translate_alsa(snd_pcm_drain(m_ppcm))))
+            if(success != (estatus = translate_alsa(snd_pcm_drain(m_ppcm))))
             {
 
                TRACE("wave_in::in_stop : ERROR OPENING stopping INPUT DEVICE ");
@@ -346,12 +369,12 @@ Opened:
 
          m_eventStopped.SetEvent();
 
-         return success;
+         //return success;
 
       }
 
 
-      ::e_status wave_in::run()
+      void wave_in::run()
       {
 
          int iBuffer = 0;
@@ -393,7 +416,7 @@ Opened:
 
          }
 
-         return success;
+         //return success;
 
       }
 
@@ -428,31 +451,43 @@ Opened:
       }
 
 
-      ::e_status wave_in::in_reset()
+      void wave_in::in_reset()
       {
+
          synchronous_lock sl(mutex());
+
          m_bResetting = true;
+
          if(m_ppcm == NULL)
          {
-            return error_failed;
+
+            throw_status(error_failed);
+
          }
 
-         ::e_status mmr;
+
+
          if(m_estate == state_recording)
          {
-            if(success != (mmr = in_stop()))
-            {
-               TRACE("wave_in::Reset error stopping input device");
-               return mmr;
-            }
+
+            in_stop();
+
          }
+
          try
          {
-            if(success != (mmr = translate_alsa(snd_pcm_drop(m_ppcm))))
+
+            ::e_status estatus;
+
+            if(!(estatus = translate_alsa(snd_pcm_drop(m_ppcm))))
             {
+
                TRACE("wave_in::Reset error resetting input device");
-               return mmr;
+
+               throw_status(estatus);
+
             }
+
          }
          catch(...)
          {
@@ -462,7 +497,7 @@ Opened:
 
          m_bResetting = false;
 
-         return success;
+         //return success;
 
       }
 

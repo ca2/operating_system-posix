@@ -21,7 +21,7 @@ namespace write_text_pango
    }
 
 
-   ::e_status font_enumeration::on_enumerate_fonts()
+   void font_enumeration::on_enumerate_fonts()
    {
 
       //synchronous_lock ml(cairo_mutex());
@@ -59,7 +59,7 @@ namespace write_text_pango
 
       g_free(families);
 
-      return ::success;
+      //return ::success;
 
    }
 

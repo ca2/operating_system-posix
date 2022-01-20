@@ -32,14 +32,14 @@ namespace windowing_x11
 
 
       buffer();
-      virtual ~buffer();
+      ~buffer() override;
 
 
       ::windowing_x11::window * x11_window() { return (::windowing_x11::window *) (m_pwindow ? m_pwindow->m_pWindow : nullptr); }
 
 
-      ::e_status initialize_graphics_graphics(::user::interaction_impl * pimpl) override;
-      ::e_status destroy() override;
+      void initialize_graphics_graphics(::user::interaction_impl * pimpl) override;
+      void destroy() override;
 
 
       virtual bool create_os_buffer(const ::size_i32 & size, int iStride = -1);
@@ -49,11 +49,11 @@ namespace windowing_x11
 //      virtual bool create_os_buffer(::image::image * pimage);
 //      virtual void destroy_os_buffer(::image::image * pimage);
 
-      virtual bool update_window() override;
-      virtual bool update_window(::image * pimage) override;
+      bool update_window() override;
+      bool update_window(::image * pimage) override;
 
 
-      virtual bool buffer_lock_round_swap_key_buffers() override;
+      bool buffer_lock_round_swap_key_buffers() override;
 
       //void update_window();
 

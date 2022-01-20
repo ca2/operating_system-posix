@@ -23,11 +23,11 @@ namespace windowing_x11
       ~node() override;
 
 
-      ::e_status install_mouse_hook(::matter * pmatter) override;
-      ::e_status install_keyboard_hook(::matter * pmatter) override;
+      void install_mouse_hook(::matter * pmatter) override;
+      void install_keyboard_hook(::matter * pmatter) override;
 
-      ::e_status uninstall_mouse_hook(::matter * pmatter) override;
-      ::e_status uninstall_keyboard_hook(::matter * pmatter) override;
+      void uninstall_mouse_hook(::matter * pmatter) override;
+      void uninstall_keyboard_hook(::matter * pmatter) override;
 
 
    };

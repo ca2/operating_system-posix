@@ -467,7 +467,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status display::remove_window(::windowing::window * pwindow)
+   ::e_status display::erase_window(::windowing::window * pwindow)
    {
 
       return error_failed;

@@ -29,19 +29,22 @@ namespace windowing_x11
    }
 
 
-   ::e_status icon::set_tray_icon_name(const ::string & strTrayIconName)
+   void icon::set_tray_icon_name(const ::string & strTrayIconName)
    {
 
-      auto estatus = ::windowing::icon::set_tray_icon_name(strTrayIconName);
+      //auto estatus =
+      //
+      //
+      ::windowing::icon::set_tray_icon_name(strTrayIconName);
 
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
 
    }
 
@@ -88,17 +91,18 @@ namespace windowing_x11
    ::e_status icon::load_app_tray_icon(string strAppId)
    {
 
-      auto estatus = set_tray_icon_name(strAppId);
+      //auto estatus =
+      //
+      set_tray_icon_name(strAppId);
 
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
-
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
 
    }
 

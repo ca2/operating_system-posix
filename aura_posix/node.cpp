@@ -179,34 +179,38 @@ namespace aura
 //      }
 
 
-      ::e_status node::initialize(::object * pobject)
+      void node::initialize(::object * pobject)
       {
 
-         auto estatus = ::apex::posix::node::initialize(pobject);
+         //auto estatus =
+         //
+         ::apex::posix::node::initialize(pobject);
 
-         if (!estatus)
-         {
-
-            return estatus;
-
-         }
+//         if (!estatus)
+//         {
+//
+//            return estatus;
+//
+//         }
 
 #if defined(WITH_X11) || defined(WITH_XCB)
 
-         estatus = _allocate_Display_and_connection();
+         //estatus =
+         //
+         _allocate_Display_and_connection();
 
-         if(!estatus)
-         {
-
-            INFORMATION("Failed to _allocate_Display_and_connection");
-
-            return estatus;
-
-         }
+//         if(!estatus)
+//         {
+//
+//            INFORMATION("Failed to _allocate_Display_and_connection");
+//
+//            return estatus;
+//
+//         }
          
 #endif // WITH_X11
 
-         return estatus;
+         //return estatus;
 
       }
 
@@ -292,30 +296,33 @@ namespace aura
       }
 
 
-      ::e_status node::main()
+      void node::main()
       {
 
-         auto estatus = system_main();
+         //auto estatus =
 
-         if(!estatus)
-         {
 
-            return estatus;
-
-         }
-
-         //auto psystem = m_psystem;
-
-         //auto estatus = psystem->system_main();
-
-         //if(!estatus)
-         //{
-
-           // return estatus;
-
-         //}
-
-         return estatus;
+            system_main();
+//
+//         if(!estatus)
+//         {
+//
+//            return estatus;
+//
+//         }
+//
+//         //auto psystem = m_psystem;
+//
+//         //auto estatus = psystem->system_main();
+//
+//         //if(!estatus)
+//         //{
+//
+//           // return estatus;
+//
+//         //}
+//
+//         return estatus;
 
       }
 

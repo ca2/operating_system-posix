@@ -153,21 +153,23 @@ namespace windowing_x11
    }
 
 
-   ::e_status keyboard::initialize(::object * pobject)
+   void keyboard::initialize(::object * pobject)
    {
 
-      auto estatus = ::object::initialize(pobject);
+      //auto estatus =
+      //
+      ::object::initialize(pobject);
 
-      if (!estatus)
-      {
-
-         return estatus;
-
-      }
+//      if (!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
 
       enum_init(m_psystem);
 
-      return ::success;
+      //return ::success;
 
 //      string strFile;
 //
@@ -698,7 +700,7 @@ namespace windowing_x11
 //   }
 
 
-   ::e_status keyboard::show_software_keyboard(::user::primitive* pprimitive, string str, strsize iBeg, strsize iEnd)
+   void keyboard::show_software_keyboard(::user::primitive* pprimitive, string str, strsize iBeg, strsize iEnd)
    {
 
       synchronous_lock synchronouslock(mutex());
@@ -729,12 +731,12 @@ namespace windowing_x11
 
            });
 
-      return ::success;
+      //return ::success;
 
    }
 
 
-   ::e_status keyboard::hide_software_keyboard(::user::primitive * pprimitive)
+   void keyboard::hide_software_keyboard(::user::primitive * pprimitive)
    {
 
       if (!::is_null(pprimitive) && pprimitive != m_pprimitiveSoftwareKeyboard)
@@ -770,7 +772,7 @@ namespace windowing_x11
 
            });
 
-      return ::success;
+      //return ::success;
 
    }
 

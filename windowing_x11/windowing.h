@@ -38,7 +38,7 @@ namespace windowing_x11
       ~windowing() override;
 
 
-      virtual ::e_status initialize(::object * pobject) override;
+      void initialize(::object * pobject) override;
 
 
       bool is_branch_current() const override;
@@ -52,18 +52,18 @@ namespace windowing_x11
 
       virtual bool post_ui_message(::message::message * pmessage);
 
-      virtual ::e_status start() override;
+      void start() override;
 
-      virtual void _libsn_start_context()  override;
-      virtual ::windowing::display * display() override;
+      void _libsn_start_context()  override;
+      ::windowing::display * display() override;
 
-      virtual void windowing_main() override;
-
-
-      virtual void windowing_post_quit() override;
+      void windowing_main() override;
 
 
-      virtual ::e_status release_mouse_capture() override;
+      void windowing_post_quit() override;
+
+
+      void release_mouse_capture() override;
 
 
       virtual void x11_main();
@@ -77,9 +77,9 @@ namespace windowing_x11
 
       //virtual ::windowing::window * new_message_window(::user::interaction_impl * pimpl) override;
 
-      virtual ::windowing::window * new_window(::user::interaction_impl * pimpl) override;
+      ::windowing::window * new_window(::user::interaction_impl * pimpl) override;
 
-      virtual ::e_status erase_window(::windowing::window * pwindow) override;
+      void erase_window(::windowing::window * pwindow) override;
 
       virtual ::windowing_x11::window * _window(Window window);
 
@@ -94,13 +94,13 @@ namespace windowing_x11
       //void x_display_error_trap_pop(SnDisplay * sndisplay, Display * display);
 
 
-      virtual ::windowing::window * get_active_window(::thread * pthread) override;
+      ::windowing::window * get_active_window(::thread * pthread) override;
 
-      virtual ::windowing::window * get_keyboard_focus(::thread * pthread) override;
+      ::windowing::window * get_keyboard_focus(::thread * pthread) override;
 
-      virtual ::windowing::window * get_mouse_capture(::thread * pthread) override;
+      ::windowing::window * get_mouse_capture(::thread * pthread) override;
 
-      virtual ::e_status clear_active_window(::thread * pthread, ::windowing::window * pwindow);
+      void clear_active_window(::thread * pthread, ::windowing::window * pwindow) override;
 
       virtual bool x11_on_event(XEvent * pevent);
 
@@ -112,7 +112,7 @@ namespace windowing_x11
 
       virtual bool x11_message_loop_step();
 
-      virtual ::e_status windowing_post(const ::routine & routine) override;
+      void windowing_post(const ::routine & routine) override;
 
       virtual bool x11_runnable_step();
 

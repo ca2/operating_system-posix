@@ -24,13 +24,13 @@ namespace node_gnome
    }
 
 
-   ::e_status notify_icon::create_notify_icon(const ::id & id, ::user::interaction * puserinteractionNotify, ::windowing::icon * picon)
+   void notify_icon::create_notify_icon(const ::id & id, ::user::interaction * puserinteractionNotify, ::windowing::icon * picon)
    {
 
       if (m_bCreated)
       {
 
-         return false;
+         return;
 
       }
 
@@ -68,25 +68,25 @@ namespace node_gnome
 
       auto pnode = psystem->node();
 
-      auto estatus = __construct(m_pindicator);
+      __construct(m_pindicator);
 
       m_pindicator->create(m_strId, strIconName, pathFolder, this);
 
-      if (m_pindicator == nullptr)
-      {
-
-         return false;
-
-      }
+//      if (m_pindicator == nullptr)
+//      {
+//
+//         return false;
+//
+//      }
 
       m_bCreated = true;
 
-      return true;
+      //return true;
 
    }
 
 
-   ::e_status notify_icon::modify_icon(::windowing::icon * picon)
+   void notify_icon::modify_icon(::windowing::icon * picon)
    {
 
       if (!m_bCreated)
@@ -103,37 +103,41 @@ namespace node_gnome
    }
 
 
-   ::e_status notify_icon::add_hidden_window(::user::interaction * puserinteraction)
+   void notify_icon::add_hidden_window(::user::interaction * puserinteraction)
    {
 
-      auto estatus = ::user::notify_icon::add_hidden_window(puserinteraction);
+      //auto estatus =
+      //
+      ::user::notify_icon::add_hidden_window(puserinteraction);
 
-      if (!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
+//      if (!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
 
    }
 
 
-   ::e_status notify_icon::destroy_notify_icon()
+   void notify_icon::destroy_notify_icon()
    {
 
       m_pindicator->close();
 
-      return ::success;
+      //return ::success;
 
    }
 
 
-   ::e_status notify_icon::step()
+   bool notify_icon::step()
    {
 
-      return ::success;
+      //return ::success;
+
+      return true;
 
    }
 

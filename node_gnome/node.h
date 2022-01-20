@@ -22,11 +22,11 @@ namespace node_gnome
       ~node() override;
 
 
-      virtual void defer_notify_startup_complete() override;
+      void defer_notify_startup_complete() override;
 
-      virtual ::e_status start_node() override;
+      void start_node() override;
 
-      virtual ::e_status initialize(::object * pobject) override;
+      void initialize(::object * pobject) override;
 
       bool should_launch_on_node(::subject * psubject) override;
 

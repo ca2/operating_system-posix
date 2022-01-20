@@ -82,7 +82,7 @@ namespace windowing_xcb
 
       virtual ::windowing::window * new_window(::user::interaction_impl * pimpl) override;
 
-      virtual ::e_status remove_window(::windowing::window * pwindow);
+      virtual ::e_status erase_window(::windowing::window * pwindow);
 
       virtual ::windowing_xcb::window * _window(xcb_window_t window);
 

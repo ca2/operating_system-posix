@@ -26,7 +26,7 @@ namespace windowing_x11
    }
 
 
-   ::e_status node::install_mouse_hook(::matter * pmatter)
+   void node::install_mouse_hook(::matter * pmatter)
    {
 
       auto psystem = m_psystem->m_paurasystem;
@@ -41,12 +41,12 @@ namespace windowing_x11
 
       //::x11_register_extended_event_listener(pdata, bMouse, bKeyboard);
 
-      return ::success;
+      //return ::success;
 
    }
 
 
-   ::e_status node::install_keyboard_hook(::matter * pmatter)
+   void node::install_keyboard_hook(::matter * pmatter)
    {
 
       auto psystem = m_psystem->m_paurasystem;
@@ -61,23 +61,23 @@ namespace windowing_x11
 
       //::x11_register_extended_event_listener(pdata, bMouse, bKeyboard);
 
-      return ::success;
+      //return ::success;
 
    }
 
 
-   ::e_status node::uninstall_mouse_hook(::matter * pmatter)
+   void node::uninstall_mouse_hook(::matter * pmatter)
    {
 
-      return ::error_failed;
+      //return ::error_failed;
 
    }
 
 
-   ::e_status node::uninstall_keyboard_hook(::matter * pmatter)
+   void node::uninstall_keyboard_hook(::matter * pmatter)
    {
 
-      return ::error_failed;
+      //return ::error_failed;
 
    }
 
