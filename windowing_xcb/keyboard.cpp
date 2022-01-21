@@ -43,17 +43,19 @@ namespace windowing_xcb
    }
 
 
-   ::e_status keyboard::initialize(::object * pobject)
+   void keyboard::initialize(::object * pobject)
    {
 
-      auto estatus = ::object::initialize(pobject);
+      //auto estatus =
+      //
+      ::object::initialize(pobject);
 
-      if (!estatus)
-      {
-
-         return estatus;
-
-      }
+//      if (!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
 
       auto psystem = m_psystem;
 
@@ -162,7 +164,7 @@ namespace windowing_xcb
 //      SET_ENUM_TEXT(::user::e_key_f12);
 
 
-      return ::success;
+//      return ::success;
 
 //      string strFile;
 //
@@ -694,7 +696,7 @@ namespace windowing_xcb
 //   }
 
 
-   ::e_status keyboard::show_software_keyboard(::user::primitive* pprimitive, string str, strsize iBeg, strsize iEnd)
+   void keyboard::show_software_keyboard(::user::primitive* pprimitive, string str, strsize iBeg, strsize iEnd)
    {
 
       synchronous_lock synchronouslock(mutex());
@@ -725,18 +727,20 @@ namespace windowing_xcb
 
            });
 
-      return ::success;
+      //return ::success;
 
    }
 
 
-   ::e_status keyboard::hide_software_keyboard(::user::primitive * pprimitive)
+   void keyboard::hide_software_keyboard(::user::primitive * pprimitive)
    {
 
       if (!::is_null(pprimitive) && pprimitive != m_pprimitiveSoftwareKeyboard)
       {
 
-         return error_invalid_argument;
+         //return error_invalid_argument;
+
+         throw_status(error_invalid_argument);
 
       }
 
@@ -766,7 +770,7 @@ namespace windowing_xcb
 
            });
 
-      return ::success;
+      //return ::success;
 
    }
 

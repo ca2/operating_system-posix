@@ -28,19 +28,21 @@ namespace windowing_xcb
    }
 
 
-   ::e_status icon::set_tray_icon_name(const ::string & strTrayIconName)
+   void icon::set_tray_icon_name(const ::string & strTrayIconName)
    {
 
-      auto estatus = ::windowing::icon::set_tray_icon_name(strTrayIconName);
+      //auto estatus =
+      //
+      ::windowing::icon::set_tray_icon_name(strTrayIconName);
 
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
 
    }
 
@@ -53,50 +55,54 @@ namespace windowing_xcb
    }
 
 
-   ::e_status icon::load_file(string strPath)
+   void icon::load_file(string strPath)
    {
 
       throw ::interface_only_exception();
 
-      return false;
+      //return false;
 
    }
 
 
-   ::e_status icon::load_matter(string strMatter)
+   void icon::load_matter(string strMatter)
    {
 
       auto pcontext = m_pcontext;
 
       string strPath = pcontext->m_papexcontext->dir().matter(strMatter);
 
-      if (!load_file(strPath))
-      {
+      load_file(strPath);
 
-         return false;
-
-      }
+      //if (!load_file(strPath))
+//      {
+//
+//         return false;
+//
+//      }
 
 //      on_update_icon();
 
-      return true;
+//      return true;
 
    }
 
 
-   ::e_status icon::load_app_tray_icon(string strAppId)
+   void icon::load_app_tray_icon(string strAppId)
    {
 
-      auto estatus = set_tray_icon_name(strAppId);
+      //auto estatus =
+      //
+      set_tray_icon_name(strAppId);
 
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
 
    }
 

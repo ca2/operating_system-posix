@@ -21,41 +21,45 @@ namespace node_kde
    }
 
 
-   ::e_status copydesk::initialize(::object * pobject)
+   void copydesk::initialize(::object * pobject)
    {
 
-      auto estatus = ::user::copydesk::initialize(pobject);
+      //auto estatus =
+      //
+      ::user::copydesk::initialize(pobject);
 
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
 
    }
 
 
-   ::e_status copydesk::destroy()
+   void copydesk::destroy()
    {
 
-      auto estatus = ::user::copydesk::destroy();
+      //auto estatus =
+      //
+      ::user::copydesk::destroy();
 
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
 
    }
 
 
-   ::e_status copydesk::_set_plain_text(const string & str)
+   bool copydesk::_set_plain_text(const string & str)
    {
 
       auto psystem = m_psystem->m_paurasystem;
@@ -76,7 +80,7 @@ namespace node_kde
    }
 
 
-   ::e_status copydesk::_get_plain_text(string & str)
+   bool copydesk::_get_plain_text(string & str)
    {
 
 //      __pointer(clipboard_data) pdata = __new(clipboard_data(get_context_application(), e_clipboard_get_plain_text));
@@ -157,7 +161,7 @@ namespace node_kde
    }
 
 
-   ::e_status copydesk::_get_filea(::file::patha & patha, e_op & eop)
+   bool copydesk::_get_filea(::file::patha & patha, enum_op & eop)
    {
 
 //      __pointer(clipboard_data) pdata = __new(clipboard_data(get_context_application(), e_clipboard_get_patha));
@@ -188,7 +192,7 @@ return false;
    }
 
 
-   ::e_status copydesk::_set_filea(const ::file::patha & patha, e_op eop)
+   bool copydesk::_set_filea(const ::file::patha & patha, enum_op eop)
    {
 
 //      __pointer(clipboard_data) pdata = __new(clipboard_data(get_context_application(), e_clipboard_set_patha));
@@ -221,7 +225,7 @@ return false;
    }
 
 
-   ::e_status copydesk::_desk_to_image(::image * pimage)
+   bool copydesk::_desk_to_image(::image * pimage)
    {
 
       bool bOk = false;
@@ -249,16 +253,18 @@ return false;
 
                    int height = imageClipboard.height();
 
-                   auto estatus = pimage->create({width, height});
+                   //auto estatus =
+                   //
+                   pimage->create({width, height});
 
-                   if (!estatus)
-                   {
-
-                      bOk = false;
-
-                      return;
-
-                   }
+//                   if (!estatus)
+//                   {
+//
+//                      bOk = false;
+//
+//                      return;
+//
+//                   }
 
                    color32_t * pcolor32Target = (color32_t *) pimage->get_data();
 
@@ -279,7 +285,7 @@ return false;
    }
 
 
-   ::e_status copydesk::_image_to_desk(const ::image * pimage)
+   bool copydesk::_image_to_desk(const ::image * pimage)
    {
 
 

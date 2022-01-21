@@ -29,13 +29,15 @@ namespace node_kde
    }
 
 
-   ::e_status notify_icon::create_notify_icon(const ::id & id, ::user::interaction * puserinteractionNotify, ::windowing::icon * picon)
+   void notify_icon::create_notify_icon(const ::id & id, ::user::interaction * puserinteractionNotify, ::windowing::icon * picon)
    {
 
       if (m_bCreated)
       {
 
-         return ::success_none;
+         //return ::success_none;
+
+         return;
 
       }
 
@@ -60,13 +62,15 @@ namespace node_kde
       if(!estatus)
       {
 
-         return estatus;
+         //return estatus;
+
+         throw_status(estatus);
 
       }
 
       m_bCreated = true;
 
-      return ::success;
+      //return ::success;
 
    }
 
@@ -148,51 +152,59 @@ namespace node_kde
    }
 
 
-   ::e_status notify_icon::modify_icon(::windowing::icon * picon)
+   void notify_icon::modify_icon(::windowing::icon * picon)
    {
 
       if(!m_bCreated)
       {
 
-         return ::error_failed;
+         //return ::error_failed;
+
+         throw_status(error_failed);
 
       }
 
-      auto estatus = ::user::notify_icon::modify_icon(picon);
+      //auto estatus =
+      //
+      ::user::notify_icon::modify_icon(picon);
 
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
 
    }
 
 
-   ::e_status notify_icon::add_hidden_window(::user::interaction * puserinteraction)
+   void notify_icon::add_hidden_window(::user::interaction * puserinteraction)
    {
 
-      auto estatus = ::user::notify_icon::add_hidden_window(puserinteraction);
+      //auto estatus =
+      //
+      ::user::notify_icon::add_hidden_window(puserinteraction);
 
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
 
    }
 
 
-   ::e_status notify_icon::step()
+   bool notify_icon::step()
    {
 
-      return ::success;
+      //return ::success;
+
+      return true;
 
    }
 

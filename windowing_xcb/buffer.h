@@ -5,7 +5,10 @@
 //#include <X11/extensions/Xrender.h>
 
 
-//#include "app/base/graphics/graphics_window_buffer.h"
+#include "aura/graphics/graphics/_.h"
+#include "aura/graphics/graphics/_graphics.h"
+
+
 namespace windowing_xcb
 {
 
@@ -29,8 +32,8 @@ namespace windowing_xcb
       ::windowing_xcb::window * xcb_window() { return (::windowing_xcb::window *) (m_pwindow ? m_pwindow->m_pWindow : nullptr); }
 
 
-      ::e_status initialize_graphics_graphics(::user::interaction_impl * pimpl) override;
-      ::e_status destroy() override;
+      void initialize_graphics_graphics(::user::interaction_impl * pimpl) override;
+      void destroy() override;
 
 
 
@@ -38,11 +41,11 @@ namespace windowing_xcb
       virtual void destroy_os_buffer() ;
 
 
-      virtual bool update_window() override;
-      virtual bool update_window(::image * pimage) override;
+      bool update_window() override;
+      bool update_window(::image * pimage) override;
 
 
-      virtual bool buffer_lock_round_swap_key_buffers() override;
+      bool buffer_lock_round_swap_key_buffers() override;
 
       //void update_window();
 

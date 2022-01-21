@@ -50,7 +50,7 @@ namespace windowing_xcb
       ~window() override;
 
 
-      ::e_status create_window(::user::interaction_impl * pimpl) override;
+      void create_window(::user::interaction_impl * pimpl) override;
 
 
       virtual xcb_connection_t * xcb_connection();
@@ -71,7 +71,7 @@ namespace windowing_xcb
       virtual ::e_status initialize_xcb_window(::windowing_xcb::display * pdisplay, xcb_window_t window, int iDepth, xcb_colormap_t colormap);
 
 
-      ::e_status destroy_window() override;
+      void destroy_window() override;
       bool is_window() override;
 
 
@@ -88,7 +88,7 @@ namespace windowing_xcb
       virtual void post_nc_destroy();
 
 
-      virtual ::e_status set_window_icon(const ::file::path & path);
+      virtual void set_window_icon(const ::file::path & path);
 
 
       virtual bool is_child( ::windowing::window * candidateChildOrDescendant); // or descendant
@@ -100,19 +100,19 @@ namespace windowing_xcb
       bool is_window_visible() override;
 
 
-      ::e_status show_window(const ::e_display & edisplay, const ::e_activation & eactivation) override;
+      void show_window(const ::e_display & edisplay, const ::e_activation & eactivation) override;
 
-      ::e_status exit_iconify()override;
-      ::e_status full_screen(const ::rectangle_i32 & rect = nullptr)override;
-      ::e_status exit_full_screen()override;
-      ::e_status exit_zoomed() override;
+      void exit_iconify()override;
+      void full_screen(const ::rectangle_i32 & rect = nullptr)override;
+      void exit_full_screen()override;
+      void exit_zoomed() override;
 
 
-      ::e_status set_parent(::windowing::window * pwindowNewParent) override;
+      void set_parent(::windowing::window * pwindowNewParent) override;
 
       virtual long _get_wm_state();
 
-       bool client_to_screen(POINT_I32 * ppoint) override;
+      bool client_to_screen(POINT_I32 * ppoint) override;
 
       bool screen_to_client(POINT_I32 * ppoint) override;
 
@@ -122,18 +122,18 @@ namespace windowing_xcb
 
       virtual bool set_icon(::image * pimage);
 
-      ::e_status set_mouse_cursor(::windowing::cursor * pcursor) override;
+      void set_mouse_cursor(::windowing::cursor * pcursor) override;
 
       virtual ::e_status set_mouse_cursor2(::windowing::cursor * pcursor);
 
       ::point_i32 get_mouse_cursor_position() override;
 
-      ::e_status set_keyboard_focus() override;
-      ::e_status set_mouse_capture() override;
-      ::e_status set_active_window() override;
+      void set_keyboard_focus() override;
+      void set_mouse_capture() override;
+      void set_active_window() override;
 
 
-      ::e_status set_foreground_window() override;
+      void set_foreground_window() override;
 
 
       bool has_mouse_capture() const override;
@@ -188,17 +188,17 @@ namespace windowing_xcb
       virtual ::e_status _lower_window();
 
 
-      ::e_status bring_to_front() override;
+      void bring_to_front() override;
 
 
-      ::e_status set_tool_window(bool bSet) override;
+      void set_tool_window(bool bSet) override;
 
 
-      virtual ::e_status xcb_post_message(MESSAGE & msg);
-      virtual ::e_status post_ui_message(const MESSAGE & message);
+      void xcb_post_message(MESSAGE & msg);
+      void post_ui_message(const MESSAGE & message);
       //virtual ::e_status get_window_rect(RECTANGLE_I32 * prectangle);
       //virtual ::e_status get_client_rect(RECTANGLE_I32 * prectangle);
-      virtual ::e_status mq_erase_window_from_all_queues( );
+      void mq_erase_window_from_all_queues( );
 
 
       void update_screen() override;

@@ -20,15 +20,15 @@ namespace node_kde
       ~notify_icon() override;
 
 
-      ::e_status add_hidden_window(::user::interaction * puserinteraction) override;
+      void add_hidden_window(::user::interaction * puserinteraction) override;
 
-      ::e_status modify_icon(::windowing::icon * picon) override;
+      void modify_icon(::windowing::icon * picon) override;
 
-      ::e_status create_notify_icon(const ::id & id, ::user::interaction * puserinteractionNotify, ::windowing::icon * picon) override;
+      void create_notify_icon(const ::id & id, ::user::interaction * puserinteractionNotify, ::windowing::icon * picon) override;
 
       virtual ::e_status _create_status_notifier_item();
 
-      ::e_status step() override;
+      bool step() override;
 
 
    };

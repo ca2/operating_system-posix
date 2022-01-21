@@ -37,7 +37,7 @@ namespace windowing_xcb
       ~windowing() override;
 
 
-      virtual ::e_status initialize(::object * pobject) override;
+      void initialize(::object * pobject) override;
 
 
       virtual bool initialize_windowing();
@@ -48,10 +48,10 @@ namespace windowing_xcb
 
       virtual bool post_ui_message(::message::message * pmessage);
 
-      virtual ::e_status start() override;
+      void start() override;
 
 
-      virtual ::e_status windowing_post(const ::routine & routine) override;
+      void windowing_post(const ::routine & routine) override;
 
 
       virtual void __defer_post_move_and_or_size(xcb_window_t window);
@@ -66,7 +66,7 @@ namespace windowing_xcb
       //virtual void windowing_post_quit() override;
 
 
-      virtual ::e_status release_mouse_capture() override;
+      void release_mouse_capture() override;
 
 
       virtual void xcb_main();
@@ -82,7 +82,7 @@ namespace windowing_xcb
 
       virtual ::windowing::window * new_window(::user::interaction_impl * pimpl) override;
 
-      virtual ::e_status erase_window(::windowing::window * pwindow);
+      void erase_window(::windowing::window * pwindow);
 
       virtual ::windowing_xcb::window * _window(xcb_window_t window);
 
@@ -103,7 +103,7 @@ namespace windowing_xcb
 
       ::windowing::window * get_mouse_capture(::thread * pthread) override;
 
-      ::e_status clear_active_window(::thread * pthread, ::windowing::window * pwindow) override;
+      void clear_active_window(::thread * pthread, ::windowing::window * pwindow) override;
 
       virtual bool xcb_on_event(xcb_generic_event_t * pevent);
 
@@ -122,13 +122,13 @@ namespace windowing_xcb
 
 #ifdef WITH_XI
 
-      virtual ::e_status register_extended_event_listener(::matter *pdata, bool bMouse, bool bKeyboard);
+      void register_extended_event_listener(::matter *pdata, bool bMouse, bool bKeyboard);
 
-      virtual ::e_status install_mouse_hook(::matter * pmatterListener);
-      virtual ::e_status install_keyboard_hook(::matter * pmatterListener);
-
-      virtual ::e_status uninstall_mouse_hook(::matter * pmatterListener);
-      virtual ::e_status uninstall_keyboard_hook(::matter * pmatterListener);
+//      virtual ::e_status install_mouse_hook(::matter * pmatterListener);
+//      virtual ::e_status install_keyboard_hook(::matter * pmatterListener);
+//
+//      virtual ::e_status uninstall_mouse_hook(::matter * pmatterListener);
+//      virtual ::e_status uninstall_keyboard_hook(::matter * pmatterListener);
 
       bool xcb_process_event(xcb_generic_event_t* xcbevent);
       bool xcb_process_ge_event(xcb_ge_event_t * pgeevent);

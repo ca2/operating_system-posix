@@ -16,13 +16,13 @@ namespace node_kde
 
 
       windowing();
-      virtual ~windowing();
+      ~windowing() override;
 
 
-      virtual ::e_status windowing_post(const ::routine & routine) override;
+      void windowing_post(const ::routine & routine) override;
 
 
-      virtual bool message_loop_step() override;
+      bool message_loop_step() override;
 
 
       //virtual xcb_connection_t * _get_connection() override;

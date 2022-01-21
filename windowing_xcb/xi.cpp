@@ -127,20 +127,20 @@ namespace windowing_xcb
 //__pointer(object_array) g_pobjectaExtendedEventListener;
 
 
-   ::e_status windowing::register_extended_event_listener(::matter *pdata, bool bMouse, bool bKeyboard)
+   void windowing::register_extended_event_listener(::matter *pdata, bool bMouse, bool bKeyboard)
    {
 
       if (!m_pobjectaExtendedEventListener)
       {
 
-         auto estatus = __construct_new(m_pobjectaExtendedEventListener);
+         __construct_new(m_pobjectaExtendedEventListener);
 
-         if(!estatus)
-         {
-
-            return estatus;
-
-         }
+//         if(!estatus)
+//         {
+//
+//            return estatus;
+//
+//         }
 
       }
 
@@ -335,7 +335,7 @@ namespace windowing_xcb
 
      }));
 
-      return ::success;
+      //return ::success;
 
    }
 

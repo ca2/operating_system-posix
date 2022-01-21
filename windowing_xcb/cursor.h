@@ -17,7 +17,7 @@ namespace windowing_xcb
 
 
       cursor();
-      virtual ~cursor();
+      ~cursor() override;
 
 
       //virtual ::e_status initialize_system_default();
@@ -26,7 +26,7 @@ namespace windowing_xcb
 
       virtual ::e_status _load_default_cursor(enum_cursor ecursor);
 
-      ::e_status _create_os_cursor() override;
+      void _create_os_cursor() override;
 
 
       xcb_cursor_t get_os_cursor();

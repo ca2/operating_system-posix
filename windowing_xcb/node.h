@@ -26,11 +26,11 @@ namespace windowing_xcb
       xcb_connection_t * _get_connection();
 
 
-      ::e_status install_mouse_hook(::matter * pmatterListener) override;
-      ::e_status install_keyboard_hook(::matter * pmatterListener) override;
+      void install_mouse_hook(::matter * pmatterListener) override;
+      void install_keyboard_hook(::matter * pmatterListener) override;
 
-      ::e_status uninstall_mouse_hook(::matter * pmatterListener) override;
-      ::e_status uninstall_keyboard_hook(::matter * pmatterListener) override;
+      void uninstall_mouse_hook(::matter * pmatterListener) override;
+      void uninstall_keyboard_hook(::matter * pmatterListener) override;
 
 
    };

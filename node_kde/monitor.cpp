@@ -25,10 +25,10 @@ namespace node_kde
    }
 
 
-   ::e_status monitor::update_cache()
+   void monitor::update_cache()
    {
 
-      return ::success_none;
+      //return ::success_none;
 
    }
 
@@ -129,54 +129,62 @@ namespace node_kde
    }
 
 
-   ::e_status monitor::get_monitor_rectangle(::RECTANGLE_I32 *prectangle)
+   void monitor::get_monitor_rectangle(::RECTANGLE_I32 *prectangle)
    {
 
-      auto estatus = xcb_windowing()->windowing_send(__routine(5_s, [this]() { _get_monitor_rectangle(); }));
+      //auto estatus =
+      //
+      xcb_windowing()->windowing_send(__routine(5_s, [this]() { _get_monitor_rectangle(); }));
 
-      if(!estatus)
-      {
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
 
-         return estatus;
+      //estatus =
+      //
+      ::windowing::monitor::get_monitor_rectangle(prectangle);
 
-      }
-
-      estatus = ::windowing::monitor::get_monitor_rectangle(prectangle);
-
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
 
    }
 
 
-   ::e_status monitor::get_workspace_rectangle(::RECTANGLE_I32 *prectangle)
+   void monitor::get_workspace_rectangle(::RECTANGLE_I32 *prectangle)
    {
 
-      auto estatus = xcb_windowing()->windowing_send(__routine(5_s, [this]() { _get_workspace_rectangle(); }));
+      //auto estatus =
+      //
+      xcb_windowing()->windowing_send(__routine(5_s, [this]() { _get_workspace_rectangle(); }));
 
-      if(!estatus)
-      {
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
 
-         return estatus;
+      //estatus =
+      //
+      ::windowing::monitor::get_monitor_rectangle(prectangle);
 
-      }
-
-      estatus = ::windowing::monitor::get_monitor_rectangle(prectangle);
-
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
 
    }
 

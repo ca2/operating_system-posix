@@ -281,10 +281,12 @@ namespace node_kde
 //   }
 
 
-   ::e_status node::system_main()
+   void node::system_main()
    {
 
-      auto estatus = m_psystem->m_papexsystem->begin_synch();
+      //auto estatus =
+      //
+      m_psystem->m_papexsystem->begin_synch();
 
       /// new:platform_create_system:decrement_reference_count
       /// begin_synch starts new thread
@@ -295,14 +297,14 @@ namespace node_kde
 
       m_psystem->decrement_reference_count();
 
-      if (!estatus)
-      {
-
-         output_debug_string("Failed to begin_synch the system (::apex::system or ::apex::system derived)");
-
-         return estatus;
-
-      }
+//      if (!estatus)
+//      {
+//
+//         output_debug_string("Failed to begin_synch the system (::apex::system or ::apex::system derived)");
+//
+//         return estatus;
+//
+//      }
 
       //   ::e_status estatus = psystem->begin_synch();
       //
@@ -477,12 +479,12 @@ namespace node_kde
 
       }
 
-      return ::success;
+      //return ::success;
 
    }
 
 
-   ::e_status node::initialize(::object *pobject)
+   void node::initialize(::object *pobject)
    {
 
       auto psystem = pobject->m_psystem;
@@ -494,24 +496,26 @@ namespace node_kde
 
          printf("%s", "Failed to create QApplication");
 
-         return error_failed;
+         throw_status(error_failed);
 
       }
 
       m_pqapplication->installEventFilter(this);
 
-      auto estatus = ::aura::posix::node::initialize(pobject);
+      //auto estatus =
+      //
+      ::aura::posix::node::initialize(pobject);
 
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      //::node_kde::g_defer_init();
-
-      return estatus;
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      //::node_kde::g_defer_init();
+//
+//      return estatus;
 
    }
 
@@ -550,7 +554,7 @@ namespace node_kde
    }
 
 
-   ::e_status node::os_set_user_theme(const ::string &strUserTheme)
+   void node::os_set_user_theme(const ::string &strUserTheme)
    {
 
 //      // https://ubuntuforums.org/showthread.php?t=2140488
@@ -624,7 +628,7 @@ namespace node_kde
 //
 //      return true;
 
-      return false;
+      //return false;
 
    }
 
@@ -797,7 +801,7 @@ namespace node_kde
    }
 
 
-   ::e_status node::node_post(const ::routine & routine)
+   void node::node_post(const ::routine & routine)
    {
 
       // invoke on the main thread
@@ -810,7 +814,7 @@ namespace node_kde
 
          });
 
-      return success;
+      //return success;
 
    }
 
@@ -833,12 +837,12 @@ namespace node_kde
 //   }
 
 
-   ::e_status node::reboot()
+   void node::reboot()
    {
 
       KWorkSpace::requestShutDown(KWorkSpace::ShutdownConfirmYes, KWorkSpace::ShutdownTypeReboot, KWorkSpace::ShutdownModeInteractive);
 
-      return ::success;
+      //return ::success;
 
    }
 

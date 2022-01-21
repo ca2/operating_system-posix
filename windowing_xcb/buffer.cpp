@@ -35,17 +35,19 @@ namespace windowing_xcb
    }
 
 
-   ::e_status buffer::initialize_graphics_graphics(::user::interaction_impl * pimpl)
+   void buffer::initialize_graphics_graphics(::user::interaction_impl * pimpl)
    {
 
-      auto estatus = double_buffer::initialize_graphics_graphics(pimpl);
+      //auto estatus =
+      //
+      double_buffer::initialize_graphics_graphics(pimpl);
 
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
 
       synchronous_lock synchronouslock(user_mutex());
 
@@ -55,20 +57,24 @@ namespace windowing_xcb
 
       auto cookie = xcb_create_gc(xcb_window()->xcb_connection(), m_gcontext, xcb_window()->xcb_window(), 0, nullptr);
 
-      estatus = xcb_window()->xcb_display()->_request_check(cookie);
+      //estatus =
+      //
+      xcb_window()->xcb_display()->_request_check(cookie);
 
-      return estatus;
+      //return estatus;
 
    }
 
 
-   ::e_status buffer::destroy()
+   void buffer::destroy()
    {
 
       if(!xcb_window())
       {
 
-         return error_failed;
+         //return error_failed;
+
+         return;
 
       }
 
@@ -85,7 +91,7 @@ namespace windowing_xcb
 //
 //      }
 
-      return ::success;
+      //return ::success;
 
    }
 
@@ -131,7 +137,6 @@ namespace windowing_xcb
       return true;
 
    }
-
 
 
    void buffer::destroy_os_buffer()

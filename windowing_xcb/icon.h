@@ -13,35 +13,38 @@ namespace windowing_xcb
    public:
 
 
-      string                                    m_strTrayIconName;
+      string m_strTrayIconName;
 
-      array < concrete < ::size_i32 > >         m_sizea;
+      array<concrete<::size_i32> > m_sizea;
 
 
       icon();
-      virtual ~icon();
+
+      ~icon() override;
 
 
-      virtual string get_tray_icon_name() const;
+      string get_tray_icon_name() const;
 
 
-      virtual ::e_status set_tray_icon_name(const string & strTrayIconName) override;
+      void set_tray_icon_name(const string & strTrayIconName) override;
 
 
-      virtual void get_sizes(array < concrete < ::size_i32 > > & a);
+      void get_sizes(array<concrete<::size_i32> > & a);
 
 
-      virtual void * get_os_data(const ::size_i32 & size) const;
+      void * get_os_data(const ::size_i32 & size) const;
 
 
-      virtual void load_matter(string strPath);
-      virtual void load_app_tray_icon(string strPath);
-      virtual void load_file(string strPath);
+      void load_matter(string strPath);
+
+      void load_app_tray_icon(string strPath);
+
+      void load_file(string strPath);
 
 
-      virtual image_pointer get_image(const concrete < ::size_i32 > & size);
+      image_pointer get_image(const concrete<::size_i32> & size);
 
-      
+
    };
 
 

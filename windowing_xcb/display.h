@@ -71,7 +71,7 @@ namespace windowing_xcb
 
       virtual void unlock_display();
 
-      virtual ::e_status open() override;
+      void open() override;
 
       virtual ::e_status erase_window(::windowing::window * pwindow);
 

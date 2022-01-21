@@ -655,7 +655,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 #else
 
-      return oswindow->m_pimpl;
+      return oswindow->m_puserinteractionimpl;
 
 #endif
 
@@ -893,7 +893,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       }
 
-      auto pimpl = oswindow->m_pimpl;
+      auto pimpl = oswindow->m_puserinteractionimpl;
 
       if(::is_null(pimpl))
       {
@@ -993,7 +993,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       }
 
-      auto pimpl = oswindow->m_pimpl;
+      auto pimpl = oswindow->m_puserinteractionimpl;
 
       if(::is_null(pimpl))
       {

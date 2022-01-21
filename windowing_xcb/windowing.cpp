@@ -59,7 +59,7 @@ namespace windowing_xcb
 
       pwindow->m_pwindowing = this;
 
-      pwindow->m_pimpl = pimpl;
+      pwindow->m_puserinteractionimpl = pimpl;
 
       pimpl->m_pwindow = pwindow;
 
@@ -70,80 +70,88 @@ namespace windowing_xcb
    }
 
 
-    ::e_status windowing::erase_window(::windowing::window * pwindow)
+   void windowing::erase_window(::windowing::window * pwindow)
    {
 
-      return m_pdisplay->erase_window(pwindow);
+      //return
+      //
+      m_pdisplay->erase_window(pwindow);
 
    }
 
 
-
-
-   ::e_status windowing::initialize(::object *pobject)
+   void windowing::initialize(::object *pobject)
    {
 
-      auto estatus = ::windowing::windowing::initialize(pobject);
+      //auto estatus =
+      //
+      ::windowing::windowing::initialize(pobject);
 
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
 
       initialize_windowing();
 
       auto pdisplay = __create < ::windowing::display >();
 
-      if(!pdisplay)
-      {
+//      if(!pdisplay)
+//      {
+//
+//         output_debug_string("\nFailed to __create < ::windowing::display > at windowing_xcb::windowing::initialize");
+//
+//         //return ::error_no_factory;
+//
+//         throw_status(error_fac)
+//
+//      }
 
-         output_debug_string("\nFailed to __create < ::windowing::display > at windowing_xcb::windowing::initialize");
+      //estatus =
+      //
+      pdisplay->initialize_display(this);
 
-         return ::error_no_factory;
-
-      }
-
-      estatus = pdisplay->initialize_display(this);
-
-      if(!estatus)
-      {
-
-         output_debug_string("\nFailed to initialize_display at windowing_xcb::windowing::initialize");
-
-         return estatus;
-
-      }
+//      if(!estatus)
+//      {
+//
+//         output_debug_string("\nFailed to initialize_display at windowing_xcb::windowing::initialize");
+//
+//         return estatus;
+//
+//      }
 
       m_pdisplay = pdisplay;
 
-      if(!pdisplay)
-      {
+//      if(!pdisplay)
+//      {
+//
+//         output_debug_string("\nFailed to cast pdisplay to m_pdisplay at windowing_xcb::windowing::initialize");
+//
+//         return error_no_interface;
+//
+//      }
 
-         output_debug_string("\nFailed to cast pdisplay to m_pdisplay at windowing_xcb::windowing::initialize");
+      ///estatus =
+      ///
+      m_pdisplay->open();
 
-         return error_no_interface;
+//      if(!estatus)
+//      {
+//
+//         output_debug_string("\nFailed to m_pdisplay->open at windowing_xcb::windowing::initialize");
+//
+//         return estatus;
+//
+//      }
 
-      }
-
-      estatus = m_pdisplay->open();
-
-      if(!estatus)
-      {
-
-         output_debug_string("\nFailed to m_pdisplay->open at windowing_xcb::windowing::initialize");
-
-         return estatus;
-
-      }
-
-      return ::success;
+//      return ::success;
 
    }
 
 
-   ::e_status windowing::start()
+   void windowing::start()
    {
 
 //      if (System->m_bUser)
@@ -172,24 +180,26 @@ namespace windowing_xcb
 
       }
 
-      return ::success;
+      //return ::success;
 
    }
 
 
-   ::e_status windowing::windowing_post(const ::routine & routine)
+   void windowing::windowing_post(const ::routine & routine)
    {
 
-      auto estatus = routine();
+      //auto estatus =
+      //
+      routine();
 
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
 
    }
 
@@ -227,14 +237,14 @@ namespace windowing_xcb
       if (!m_pcursormanager)
       {
 
-         auto estatus = __construct_new(m_pcursormanager);
+         __construct_new(m_pcursormanager);
 
-         if (!estatus)
-         {
-
-            return nullptr;
-
-         }
+//         if (!estatus)
+//         {
+//
+//            return nullptr;
+//
+//         }
 
       }
 
@@ -388,19 +398,21 @@ namespace windowing_xcb
    }
 
 
-   ::e_status windowing::release_mouse_capture()
+   void windowing::release_mouse_capture()
    {
 
-      auto estatus = m_pdisplay->release_mouse_capture();
+      ///auto estatus =
+      ///
+      m_pdisplay->release_mouse_capture();
 
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
 
    }
 
@@ -429,26 +441,30 @@ namespace windowing_xcb
    }
 
 
-   ::e_status windowing::clear_active_window(::thread *, ::windowing::window * pwindow)
+   void windowing::clear_active_window(::thread *, ::windowing::window * pwindow)
    {
 
       if (!m_pdisplay)
       {
 
-         return error_failed;
+         //return error_failed;
+
+         throw_status(error_failed);
 
       }
 
       if(pwindow != m_pdisplay->m_pwindowActive)
       {
 
-         return error_failed;
+         //return error_failed;
+
+         throw_status(error_failed);
 
       }
 
       m_pdisplay->m_pwindowActive.release();
 
-      return ::success;
+      //return ::success;
 
    }
 
@@ -657,54 +673,56 @@ namespace windowing_xcb
 //   }
 
 
-   ::e_status windowing::install_mouse_hook(::matter * pmatterListener)
-   {
-
-      auto estatus = register_extended_event_listener(pmatterListener, true, false);
-
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
-
-   }
-
-
-   ::e_status windowing::install_keyboard_hook(::matter * pmatterListener)
-   {
-
-      auto estatus = register_extended_event_listener(pmatterListener, false, true);
-
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
-
-   }
-
-
-   ::e_status windowing::uninstall_mouse_hook(::matter * pmatterListener)
-   {
-
-      throw ::interface_only_exception();
-
-   }
-
-
-   ::e_status windowing::uninstall_keyboard_hook(::matter * pmatterListener)
-   {
-
-      throw ::interface_only_exception();
-
-   }
+//   ::e_status windowing::install_mouse_hook(::matter * pmatterListener)
+//   {
+//
+//      //auto estatus =
+//      //
+//      register_extended_event_listener(pmatterListener, true, false);
+//
+////      if(!estatus)
+////      {
+////
+////         return estatus;
+////
+////      }
+////
+////      return estatus;
+//
+//   }
+//
+//
+//   ::e_status windowing::install_keyboard_hook(::matter * pmatterListener)
+//   {
+//
+//      auto estatus = register_extended_event_listener(pmatterListener, false, true);
+//
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
+//
+//   }
+//
+//
+//   ::e_status windowing::uninstall_mouse_hook(::matter * pmatterListener)
+//   {
+//
+//      throw ::interface_only_exception();
+//
+//   }
+//
+//
+//   ::e_status windowing::uninstall_keyboard_hook(::matter * pmatterListener)
+//   {
+//
+//      throw ::interface_only_exception();
+//
+//   }
 
 
    bool windowing::xcb_process_event(xcb_generic_event_t * pgenericevent)
@@ -774,14 +792,14 @@ namespace windowing_xcb
 
          FORMATTED_INFORMATION("XCB_MOTION_NOTIFY %d,%d", pmotion->root_x, pmotion->root_y);
 
-         if (msg.oswindow != nullptr && msg.oswindow->m_pimpl != nullptr)
+         if (msg.oswindow != nullptr && msg.oswindow->m_puserinteractionimpl != nullptr)
          {
 
             ((class window *) msg.oswindow->m_pWindow)->m_pointMouseCursor = m_pointCursor;
 
             bool bOk = true;
 
-            __pointer(::user::interaction) pinteraction = msg.oswindow->m_pimpl->m_puserinteraction;
+            __pointer(::user::interaction) pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
 
             if (pinteraction.is_set())
             {
@@ -874,7 +892,7 @@ namespace windowing_xcb
 
          bool bMouseCapture = msg.oswindow->has_mouse_capture();
 
-         bool bCompositeWindow = msg.oswindow->m_pimpl->m_bComposite;
+         bool bCompositeWindow = msg.oswindow->m_puserinteractionimpl->m_bComposite;
 
          ::color::color screen_pixel;
 
@@ -889,7 +907,7 @@ namespace windowing_xcb
 
             alpha = screen_pixel.alpha;
 
-            bTransparentMouseEvents = msg.oswindow->m_pimpl->m_bTransparentMouseEvents;
+            bTransparentMouseEvents = msg.oswindow->m_puserinteractionimpl->m_bTransparentMouseEvents;
 
          }
 
@@ -1045,7 +1063,7 @@ namespace windowing_xcb
                if(oswindow)
                {
 
-                  auto pimpl = oswindow->m_pimpl;
+                  auto pimpl = oswindow->m_puserinteractionimpl;
 
                   if(pimpl)
                   {
@@ -1115,18 +1133,18 @@ namespace windowing_xcb
                      if(::is_set(pwindowActiveNew))
                      {
 
-                        pwindowActiveNew->m_pimpl->m_puserinteraction->set_need_redraw();
+                        pwindowActiveNew->m_puserinteractionimpl->m_puserinteraction->set_need_redraw();
 
-                        pwindowActiveNew->m_pimpl->m_puserinteraction->post_redraw();
+                        pwindowActiveNew->m_puserinteractionimpl->m_puserinteraction->post_redraw();
 
                      }
 
                      if(::is_set(pwindowActiveOld))
                      {
 
-                        pwindowActiveOld->m_pimpl->m_puserinteraction->set_need_redraw();
+                        pwindowActiveOld->m_puserinteractionimpl->m_puserinteraction->set_need_redraw();
 
-                        pwindowActiveOld->m_pimpl->m_puserinteraction->post_redraw();
+                        pwindowActiveOld->m_puserinteractionimpl->m_puserinteraction->post_redraw();
 
                      }
 
@@ -1138,7 +1156,7 @@ namespace windowing_xcb
 
             msg.time = pproperty->time;
 
-            if (msg.oswindow != nullptr && msg.oswindow->m_pimpl != nullptr)
+            if (msg.oswindow != nullptr && msg.oswindow->m_puserinteractionimpl != nullptr)
             {
 
                int iIconic = -1;
@@ -1150,12 +1168,12 @@ namespace windowing_xcb
 
                }
 
-               ::user::interaction *pinteraction = msg.oswindow->m_pimpl->m_puserinteraction;
+               ::user::interaction *pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
 
                if (pinteraction != nullptr)
                {
 
-                  ::user::primitive *pimpl = pinteraction->m_pimpl;
+                  ::user::primitive *pimpl = pinteraction->m_pinteractionimpl;
 
                   bool bHandled = false;
 
@@ -1260,7 +1278,7 @@ namespace windowing_xcb
 
             msg.oswindow = m_pdisplay->_window(pconfigure->window);
 
-            ::user::primitive_impl *pimpl = msg.oswindow ? msg.oswindow->m_pimpl : nullptr;
+            ::user::primitive_impl *pimpl = msg.oswindow ? msg.oswindow->m_puserinteractionimpl : nullptr;
 
             if (pimpl != nullptr)
             {
@@ -1405,7 +1423,7 @@ namespace windowing_xcb
 
             msg.oswindow = m_pdisplay->_window(pbutton->event);
 
-            auto pimpl = msg.oswindow->m_pimpl;
+            auto pimpl = msg.oswindow->m_puserinteractionimpl;
 
             auto puserinteraction = pimpl->m_puserinteraction;
 
@@ -1514,7 +1532,7 @@ namespace windowing_xcb
 
             bool bMouseCapture = msg.oswindow->has_mouse_capture();
 
-            bool bHasTranslucency = msg.oswindow->m_pimpl->m_puserinteraction->has_translucency();
+            bool bHasTranslucency = msg.oswindow->m_puserinteractionimpl->m_puserinteraction->has_translucency();
 
             ::color::color screen_pixel;
 
@@ -1531,7 +1549,7 @@ namespace windowing_xcb
 
                alpha = screen_pixel.alpha;
 
-               bTransparentMouseEvents = msg.oswindow->m_pimpl->m_bTransparentMouseEvents;
+               bTransparentMouseEvents = msg.oswindow->m_puserinteractionimpl->m_bTransparentMouseEvents;
 
             }
 
@@ -1728,7 +1746,7 @@ namespace windowing_xcb
 
                m_pdisplay->m_pwindowKeyboardFocus = msg.oswindow;
 
-               auto pimpl = msg.oswindow->m_pimpl;
+               auto pimpl = msg.oswindow->m_puserinteractionimpl;
 
                if (::is_set(pimpl))
                {
@@ -1773,7 +1791,7 @@ namespace windowing_xcb
 
                }
 
-               auto pimpl = msg.oswindow->m_pimpl;
+               auto pimpl = msg.oswindow->m_puserinteractionimpl;
 
                if (::is_set(pimpl))
                {
@@ -1896,7 +1914,7 @@ namespace windowing_xcb
 
       }
 
-      auto pimpl = oswindow->m_pimpl;
+      auto pimpl = oswindow->m_puserinteractionimpl;
 
       auto puserinteraction = pimpl->m_puserinteraction;
 

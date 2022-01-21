@@ -95,13 +95,15 @@ namespace windowing_xcb
 #endif // DEBUG
 
 
-   ::e_status display::open()
+   void display::open()
    {
 
       if (::is_set(m_pconnection))
       {
 
-         return ::success;
+         //return ::success;
+
+         return;
 
       }
 
@@ -116,7 +118,11 @@ namespace windowing_xcb
       if (::is_null(m_pconnection))
       {
 
-         return ::error_failed;
+         //return ::error_failed;
+
+         throw_status(error_failed);
+
+         //return;
 
       }
 
@@ -125,7 +131,9 @@ namespace windowing_xcb
 
          fprintf(stderr, "ERROR: failed to connection to X server\n");
 
-         return error_failed;
+         //return error_failed;
+
+         throw_status(error_failed);
 
       }
 
@@ -233,7 +241,9 @@ namespace windowing_xcb
 
          xcb_disconnect(m_pconnection);
 
-         return error_failed;
+         //return error_failed;
+
+         throw_status(error_failed);
 
       }
 
@@ -262,7 +272,9 @@ namespace windowing_xcb
 
          xcb_disconnect(m_pconnection);
 
-         return error_failed;
+         ///return error_failed;
+
+         throw_status(error_failed);
 
       }
 
@@ -286,7 +298,9 @@ namespace windowing_xcb
 
             xcb_disconnect(m_pconnection);
 
-            return estatus;
+            //return estatus;
+
+            throw_status(estatus);
 
          }
 
@@ -308,7 +322,7 @@ namespace windowing_xcb
 
       }
 
-      return ::success;
+      //return ::success;
 
    }
 

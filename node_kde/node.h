@@ -52,9 +52,9 @@ namespace node_kde
 
       bool eventFilter(QObject * pobject, QEvent * pevent) override;
 
-      ::e_status system_main() override;
+      void system_main() override;
 
-      ::e_status initialize(::object * pobject) override;
+      void initialize(::object * pobject) override;
 
       ::e_status _allocate_Display_and_connection() override;
 
@@ -64,7 +64,7 @@ namespace node_kde
 
       string os_get_user_theme() override;
 
-      ::e_status os_set_user_theme(const string & strUserTheme) override;
+      void os_set_user_theme(const string & strUserTheme) override;
 
       void os_process_user_theme(string strTheme) override;
 
@@ -80,7 +80,7 @@ namespace node_kde
 
       using ::aura::node::node_fork;
 
-      ::e_status node_post(const ::routine & routine) override;
+      void node_post(const ::routine & routine) override;
 
       //void node_post_quit() override;
 
@@ -88,7 +88,7 @@ namespace node_kde
 
       //bool _os_calc_system_dark_mode() override;
 
-      ::e_status reboot() override;
+      void reboot() override;
 
       bool should_launch_on_node(::subject * psubject) override;
 

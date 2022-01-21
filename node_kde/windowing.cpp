@@ -27,7 +27,7 @@ namespace node_kde
    }
 
 
-   ::e_status windowing::windowing_post(const ::routine & routine)
+   void windowing::windowing_post(const ::routine & routine)
    {
 
       auto psystem = m_psystem->m_paurasystem;
@@ -47,7 +47,7 @@ namespace node_kde
          });
 
 
-      return success;
+      //return success;
 
    }
 
