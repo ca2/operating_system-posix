@@ -301,7 +301,7 @@ namespace windowing_xcb
 
       u32 ncount = 0;
 
-      htask_t htask = ::get_current_hthread();
+      htask_t htask = ::get_current_htask();
 
       m_hthread = htask;
 

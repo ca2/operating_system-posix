@@ -42,7 +42,7 @@ namespace windowing_x11
    bool windowing::is_branch_current() const
    {
 
-      auto ithreadCurrent = get_current_ithread();
+      auto ithreadCurrent = get_current_itask();
 
       return ithreadCurrent == m_itask;
 

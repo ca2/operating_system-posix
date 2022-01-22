@@ -45,7 +45,7 @@ namespace node_gtk
       if(m_itask == -1)
       {
 
-         m_itask = get_current_ithread();
+         m_itask = get_current_itask();
 
       }
 

@@ -372,7 +372,7 @@ namespace windowing_x11
 
       }
 
-      htask_t htask = ::get_current_hthread();
+      htask_t htask = ::get_current_htask();
 
       m_hthread = htask;
 
