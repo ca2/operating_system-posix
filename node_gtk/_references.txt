@@ -1,1 +1,1 @@
-platform-posix/windowing_x11
+operating-system-posix/windowing_x11
