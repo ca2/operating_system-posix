@@ -48,7 +48,7 @@ list(APPEND library_references
    aqua
    aura
    aura_posix
-   aura_${PLATFORM_NAME}
+   aura_${OPERATING_SYSTEM_NAME}
    )
 
 
