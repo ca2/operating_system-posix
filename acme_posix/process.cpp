@@ -670,9 +670,9 @@ namespace acme
 
          string strApp(psz);
 
-         strApp.replace("-", "_");
+         strApp.find_replace("-", "_");
 
-         strApp.replace("/", "_");
+         strApp.find_replace("/", "_");
 
          string strApp2;
 
@@ -941,14 +941,12 @@ int create_process2(const ::string & pszCommandLine, int * pprocessId)
 }
 
 
-
-
 CLASS_DECL_ACME ::file::path core_app_path(string strApp)
 {
 
-   strApp.replace("-", "_");
+   strApp.find_replace("-", "_");
 
-   strApp.replace("/", "_");
+   strApp.find_replace("/", "_");
 
    return "/xcore/time/x64/basis/" + strApp;
 

@@ -174,7 +174,7 @@ namespace posix
          if (exists(path))
          {
 
-            delete_file(path);
+            erase(path);
 
             return ::move(path);
 
