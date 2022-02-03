@@ -38,8 +38,8 @@ void install_sigfpe_handler()
    g_sigactionFpe.sa_sigaction = &sigfpe_sigaction;
 
    sigemptyset(&g_sigactionFpe.sa_mask);
-
-   g_sigactionFpe.sa_flags = SA_SIGINFO | SA_NODEFER | SA_NOMASK;
+    
+   g_sigactionFpe.sa_flags = SA_SIGINFO | SA_NODEFER;
 
    sigaction(SIGFPE, &g_sigactionFpe, &g_sigactionFpeOld);
 

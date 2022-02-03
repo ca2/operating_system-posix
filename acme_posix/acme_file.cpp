@@ -171,15 +171,7 @@ namespace posix
 
          path /= (string(lpszName) + "." + string(pszExtension));
 
-         if (exists(path))
-         {
-
-            erase(path);
-
-            return ::move(path);
-
-         }
-         else
+         if (!exists(path))
          {
 
             return ::move(path);
@@ -248,11 +240,13 @@ namespace posix
 
          int iErrNo = errno;
 
-         auto estatus = errno_to_status(iErrNo);
+         auto estatus = failed_errno_to_status(iErrNo);
 
          ::close(iFileDescriptor);
-
-         return -1;
+         
+         throw_status(estatus);
+//
+//         return -1;
 
       }
 
@@ -265,7 +259,7 @@ namespace posix
    void acme_file::put_contents(const char * path, const char * contents, ::count len)
    {
 
-      bool bOk = false;
+      //bool bOk = false;
 
       auto psystem = m_psystem;
 
@@ -368,7 +362,7 @@ namespace posix
          
       }
 
-      int iToRead = minimum_non_negative(iSize, (filesize) iReadAtMostByteCount);
+      filesize iToRead = minimum_non_negative((filesize)iSize, (filesize) iReadAtMostByteCount);
 
       char * psz = str.get_string_buffer(iToRead);
 
@@ -484,7 +478,7 @@ namespace posix
          
          auto estatus = failed_errno_to_status(iErrNo);
 
-         return estatus;
+         throw_status(estatus);
 
       }
 
