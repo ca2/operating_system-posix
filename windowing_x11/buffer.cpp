@@ -335,9 +335,9 @@ namespace windowing_x11
       //if(!pximage)
       {
 
-         color32_t colora[8];
+         //color32_t colora[8];
 
-         memcpy(colora, pimage->get_data(), sizeof(colora));
+         //memcpy(colora, pimage->get_data(), sizeof(colora));
 
          int iDefaultDepth = DefaultDepth(x11_window()->Display(), x11_window()->Screen());
 
@@ -384,6 +384,8 @@ namespace windowing_x11
          //{
 
             XPutImage(x11_window()->Display(), x11_window()->Window(), m_gc, pximage, 0, 0, 0, 0, iWidth, iHeight);
+
+
 
          //}
 

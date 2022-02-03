@@ -1664,9 +1664,12 @@ else if(detail == 3)
          case LeaveNotify:
          {
 
-            ::minimum(m_pointCursor.x);
+            if(msg.oswindow)
+            {
 
-            ::minimum(m_pointCursor.y);
+               ::minimum(m_pointCursor.x);
+
+               ::minimum(m_pointCursor.y);
 
 //            if(e.xcrossing.mode == NotifyUngrab)
 //            {
@@ -1683,12 +1686,14 @@ else if(detail == 3)
 //
 //            }
 
-            msg.m_id = e_message_mouse_leave;
-            msg.wParam = 0;
-            msg.lParam = 0;
-            msg.time = e.xcrossing.time;
+               msg.m_id = e_message_mouse_leave;
+               msg.wParam = 0;
+               msg.lParam = 0;
+               msg.time = e.xcrossing.time;
 
-            post_ui_message(msg);
+               post_ui_message(msg);
+
+            }
 
          }
          break;
@@ -1706,87 +1711,94 @@ else if(detail == 3)
          case MotionNotify:
          {
 
-            m_pointCursor.x = e.xmotion.x_root;
-
-            m_pointCursor.y = e.xmotion.y_root;
-
-            //g_pointX11Cursor.x = e.xmotion.x_root;
-
-            //g_pointX11Cursor.y = e.xmotion.y_root;
-
-            if (msg.oswindow != nullptr && msg.oswindow->m_puserinteractionimpl != nullptr)
+            if(msg.oswindow)
             {
 
-               ((::windowing_x11::window *) msg.oswindow->m_pWindow)->m_pointCursor = m_pointCursor;
+               m_pointCursor.x = e.xmotion.x_root;
 
-               bool bOk = true;
+               m_pointCursor.y = e.xmotion.y_root;
 
-               __pointer(::user::interaction) pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
+               //g_pointX11Cursor.x = e.xmotion.x_root;
 
-               if (pinteraction.is_set())
+               //g_pointX11Cursor.y = e.xmotion.y_root;
+
+               if (msg.oswindow != nullptr && msg.oswindow->m_puserinteractionimpl != nullptr)
                {
 
-                  if (pinteraction->m_durationMouseMove.elapsed() < pinteraction->m_durationMouseMoveIgnore)
+                  ((::windowing_x11::window *) msg.oswindow->m_pWindow)->m_pointCursor = m_pointCursor;
+
+                  bool bOk = true;
+
+                  __pointer(
+                     ::user::interaction) pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
+
+                  if (pinteraction.is_set())
                   {
 
-                     bOk = false;
-
-                  }
-
-                  if (bOk)
-                  {
-
-                     pinteraction->m_durationMouseMove.Now();
-
-                     pinteraction->m_pointMouseMove.x = e.xmotion.x_root;
-
-                     pinteraction->m_pointMouseMove.y = e.xmotion.y_root;
-
-                     if (false)
+                     if (pinteraction->m_durationMouseMove.elapsed() < pinteraction->m_durationMouseMoveIgnore)
                      {
 
-                        if (pinteraction->m_durationMouseMovePeriod > 0)
+                        bOk = false;
+
+                     }
+
+                     if (bOk)
+                     {
+
+                        pinteraction->m_durationMouseMove.Now();
+
+                        pinteraction->m_pointMouseMove.x = e.xmotion.x_root;
+
+                        pinteraction->m_pointMouseMove.y = e.xmotion.y_root;
+
+                        if (false)
                         {
 
-                           ::size_i32 sizeDistance(
-                              (pinteraction->m_pointMouseMoveSkip.x - pinteraction->m_pointMouseMove.x),
-                              (pinteraction->m_pointMouseMoveSkip.y - pinteraction->m_pointMouseMove.y));
-
-                           if (!pinteraction->m_durationMouseMoveSkip.timeout(pinteraction->m_durationMouseMovePeriod)
-                               && sizeDistance.cx * sizeDistance.cx + sizeDistance.cy * sizeDistance.cy <
-                                  pinteraction->m_iMouseMoveSkipSquareDistance)
+                           if (pinteraction->m_durationMouseMovePeriod > 0)
                            {
 
-                              pinteraction->m_iMouseMoveSkipCount++;
+                              ::size_i32 sizeDistance(
+                                 (pinteraction->m_pointMouseMoveSkip.x - pinteraction->m_pointMouseMove.x),
+                                 (pinteraction->m_pointMouseMoveSkip.y - pinteraction->m_pointMouseMove.y));
 
-                              pinteraction->m_bMouseMovePending = true;
-
-                              if (pinteraction->m_iMouseMoveSkipCount == 2)
+                              if (
+                                 !pinteraction->m_durationMouseMoveSkip.timeout(pinteraction->m_durationMouseMovePeriod)
+                                 && sizeDistance.cx * sizeDistance.cx + sizeDistance.cy * sizeDistance.cy <
+                                    pinteraction->m_iMouseMoveSkipSquareDistance)
                               {
 
-                                 //output_debug_string("\nmmv>skip 2!");
+                                 pinteraction->m_iMouseMoveSkipCount++;
+
+                                 pinteraction->m_bMouseMovePending = true;
+
+                                 if (pinteraction->m_iMouseMoveSkipCount == 2)
+                                 {
+
+                                    //output_debug_string("\nmmv>skip 2!");
+
+                                 }
+                                 else if (pinteraction->m_iMouseMoveSkipCount == 5)
+                                 {
+
+                                    //output_debug_string("\nmmv>Skip 5!!!");
+
+                                 }
+                                 else if (pinteraction->m_iMouseMoveSkipCount == 10)
+                                 {
+
+                                    //output_debug_string("\nmmv>SKIP 10 !!!!!!!!!");
+
+                                 }
+
+                                 return true;
 
                               }
-                              else if (pinteraction->m_iMouseMoveSkipCount == 5)
-                              {
 
-                                 //output_debug_string("\nmmv>Skip 5!!!");
+                              pinteraction->m_iMouseMoveSkipCount = 0;
 
-                              }
-                              else if (pinteraction->m_iMouseMoveSkipCount == 10)
-                              {
-
-                                 //output_debug_string("\nmmv>SKIP 10 !!!!!!!!!");
-
-                              }
-
-                              return true;
+                              pinteraction->m_pointMouseMoveSkip = pinteraction->m_pointMouseMove;
 
                            }
-
-                           pinteraction->m_iMouseMoveSkipCount = 0;
-
-                           pinteraction->m_pointMouseMoveSkip = pinteraction->m_pointMouseMove;
 
                         }
 
@@ -1794,32 +1806,32 @@ else if(detail == 3)
 
                   }
 
+                  if (!bOk)
+                  {
+
+                     return true;
+
+                  }
+
                }
 
-               if (!bOk)
+               wparam wparam(0);
+
+               if (e.xmotion.state & Button1Mask)
                {
 
-                  return true;
+                  wparam |= MK_LBUTTON;
 
                }
 
-            }
+               msg.m_id = e_message_mouse_move;
+               msg.wParam = wparam;
+               msg.lParam = __MAKE_LONG(e.xmotion.x_root, e.xmotion.y_root);
+               msg.time = e.xmotion.time;
 
-            wparam wparam(0);
-
-            if (e.xmotion.state & Button1Mask)
-            {
-
-               wparam |= MK_LBUTTON;
+               post_ui_message(msg);
 
             }
-
-            msg.m_id = e_message_mouse_move;
-            msg.wParam = wparam;
-            msg.lParam = __MAKE_LONG(e.xmotion.x_root, e.xmotion.y_root);
-            msg.time = e.xmotion.time;
-
-            post_ui_message(msg);
 
          }
          break;
@@ -2062,18 +2074,23 @@ else if(detail == 3)
          case UnmapNotify:
          {
 
-            msg.m_id = e_message_show_window;
-            msg.wParam = e.type == MapNotify;
-            msg.lParam = 0;
+            if(msg.oswindow)
+            {
 
-            post_ui_message(msg);
+               msg.m_id = e_message_show_window;
+               msg.wParam = e.type == MapNotify;
+               msg.lParam = 0;
+
+               post_ui_message(msg);
+
+            }
 
          }
          break;
          case ConfigureNotify:
          {
 
-            ::user::primitive_impl *pimpl = msg.oswindow->m_puserinteractionimpl;
+            ::user::primitive_impl *pimpl = msg.oswindow ? msg.oswindow->m_puserinteractionimpl : nullptr;
 
             if (pimpl != nullptr)
             {
@@ -2289,31 +2306,73 @@ else if(detail == 3)
          case ButtonRelease:
          {
 
-            bRet = true;
-
-            msg.time = e.xbutton.time;
-
-            if (e.xbutton.type == ButtonPress)
+            if(msg.oswindow)
             {
 
-               if (e.xbutton.button == Button1)
+               bRet = true;
+
+               msg.time = e.xbutton.time;
+
+               if (e.xbutton.type == ButtonPress)
                {
 
-                  ::output_debug_string("ButtonPress::Button1\n");
+                  if (e.xbutton.button == Button1)
+                  {
 
-                  msg.m_id = e_message_left_button_down;
+                     ::output_debug_string("ButtonPress::Button1\n");
+
+                     msg.m_id = e_message_left_button_down;
+
+                  }
+                  else if (e.xbutton.button == Button2)
+                  {
+
+                     msg.m_id = e_message_middle_button_down;
+
+                  }
+                  else if (e.xbutton.button == Button3)
+                  {
+
+                     msg.m_id = e_message_right_button_down;
+
+                  }
+                  else
+                  {
+
+                     bRet = false;
+
+                  }
 
                }
-               else if (e.xbutton.button == Button2)
+               else if (e.xbutton.type == ButtonRelease)
                {
 
-                  msg.m_id = e_message_middle_button_down;
+                  if (e.xbutton.button == Button1)
+                  {
 
-               }
-               else if (e.xbutton.button == Button3)
-               {
+                     ::output_debug_string("ButtonRelease::Button1\n");
 
-                  msg.m_id = e_message_right_button_down;
+                     msg.m_id = e_message_left_button_up;
+
+                  }
+                  else if (e.xbutton.button == Button2)
+                  {
+
+                     msg.m_id = e_message_middle_button_up;
+
+                  }
+                  else if (e.xbutton.button == Button3)
+                  {
+
+                     msg.m_id = e_message_right_button_up;
+
+                  }
+                  else
+                  {
+
+                     bRet = false;
+
+                  }
 
                }
                else
@@ -2323,48 +2382,9 @@ else if(detail == 3)
 
                }
 
-            }
-            else if (e.xbutton.type == ButtonRelease)
-            {
+               int XRoot = e.xbutton.x_root;
 
-               if (e.xbutton.button == Button1)
-               {
-
-                  ::output_debug_string("ButtonRelease::Button1\n");
-
-                  msg.m_id = e_message_left_button_up;
-
-               }
-               else if (e.xbutton.button == Button2)
-               {
-
-                  msg.m_id = e_message_middle_button_up;
-
-               }
-               else if (e.xbutton.button == Button3)
-               {
-
-                  msg.m_id = e_message_right_button_up;
-
-               }
-               else
-               {
-
-                  bRet = false;
-
-               }
-
-            }
-            else
-            {
-
-               bRet = false;
-
-            }
-
-            int XRoot = e.xbutton.x_root;
-
-            int YRoot = e.xbutton.y_root;
+               int YRoot = e.xbutton.y_root;
 
 //      int l = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.x;
 //      int t = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.y;
@@ -2381,14 +2401,16 @@ else if(detail == 3)
 //      int h1 = r.height();
 
 
-            if (bRet)
-            {
+               if (bRet)
+               {
 
-               msg.wParam = 0;
+                  msg.wParam = 0;
 
-               msg.lParam = __MAKE_LONG(e.xbutton.x_root, e.xbutton.y_root);
+                  msg.lParam = __MAKE_LONG(e.xbutton.x_root, e.xbutton.y_root);
 
-               post_ui_message(msg);
+                  post_ui_message(msg);
+
+               }
 
             }
 
@@ -2398,37 +2420,40 @@ else if(detail == 3)
          case KeyRelease:
          {
 
-            msg.time = e.xkey.time;
-
-            bRet = true;
-
-            char buf[32];
-
-            xxf_zeroa(buf);
-
-            string strText;
-
-            KeySym keysym = 0;
-
-            if (e.xkey.type == KeyPress)
+            if(msg.oswindow)
             {
 
-               msg.m_id = e_message_key_down;
+               msg.time = e.xkey.time;
 
-               __pointer(::windowing_x11::window) pwindow = msg.oswindow;
+               bRet = true;
 
-               if(!pwindow->m_pximkeyboard)
+               char buf[32];
+
+               xxf_zeroa(buf);
+
+               string strText;
+
+               KeySym keysym = 0;
+
+               if (e.xkey.type == KeyPress)
                {
 
-                  pwindow->m_pximkeyboard = new ::xim::keyboard(m_pdisplay->Display(), e.xkey.window);
+                  msg.m_id = e_message_key_down;
 
-                  pwindow->m_pximkeyboard->initialize(pwindow);
+                  __pointer(::windowing_x11::window) pwindow = msg.oswindow;
 
-               }
+                  if (!pwindow->m_pximkeyboard)
+                  {
 
-               strText = pwindow->m_pximkeyboard->get_key_press_text(&e.xkey, &keysym);
+                     pwindow->m_pximkeyboard = new ::xim::keyboard(m_pdisplay->Display(), e.xkey.window);
 
-               //case XK_Escape:
+                     pwindow->m_pximkeyboard->initialize(pwindow);
+
+                  }
+
+                  strText = pwindow->m_pximkeyboard->get_key_press_text(&e.xkey, &keysym);
+
+                  //case XK_Escape:
 //                dv_dpy->dontdraw = 1;
 //                xv_pause=0;
 //                XvStopVideo(dv_dpy->dpy, dv_dpy->port, dv_dpy->win);
@@ -2451,41 +2476,42 @@ else if(detail == 3)
 //            default:
 //                break;
 //            }
-            }
-            else if (e.xkey.type == KeyRelease)
-            {
+               }
+               else if (e.xkey.type == KeyRelease)
+               {
 
-               keysym = XkbKeycodeToKeysym(m_pdisplay->Display(), e.xkey.keycode, 0, e.xkey.state & ShiftMask ? 1 : 0);
+                  keysym = XkbKeycodeToKeysym(m_pdisplay->Display(), e.xkey.keycode, 0,
+                                              e.xkey.state & ShiftMask ? 1 : 0);
 
-               msg.m_id = e_message_key_up;
+                  msg.m_id = e_message_key_up;
 
-            }
-            else
-            {
+               }
+               else
+               {
 
-               bRet = false;
+                  bRet = false;
 
-            }
+               }
 
-            if (bRet)
-            {
+               if (bRet)
+               {
 
-               msg.wParam = e.xkey.keycode;
+                  msg.wParam = e.xkey.keycode;
 
-               msg.lParam = keysym;
+                  msg.lParam = keysym;
 
-               post_ui_message(msg);
+                  post_ui_message(msg);
 
-            }
+               }
 
-            if (strText.has_char() && !(e.xkey.state & ControlMask))
-            {
+               if (strText.has_char() && !(e.xkey.state & ControlMask))
+               {
 
-               auto pkey = __create_new < ::message::key >();
+                  auto pkey = __create_new<::message::key>();
 
-               pkey->set(oswindow, oswindow, e_message_text_composition, 0, 0);
+                  pkey->set(oswindow, oswindow, e_message_text_composition, 0, 0);
 
-               pkey->m_strText = strText;
+                  pkey->m_strText = strText;
 
 //               MESSAGE msgText(msg);
 //
@@ -2497,10 +2523,12 @@ else if(detail == 3)
 //
 //               msgText.lParam = (lparam) (iptr) (string *) (pstringText);
 
-               printf("x11_process_message e_message_text_composition\n");
+                  printf("x11_process_message e_message_text_composition\n");
 
-               //post_ui_message(msgText);
-               post_ui_message(pkey);
+                  //post_ui_message(msgText);
+                  post_ui_message(pkey);
+
+               }
 
             }
 
@@ -2647,10 +2675,14 @@ else if(detail == 3)
          case DestroyNotify:
          {
 
-            msg.oswindow = m_pdisplay->_window(e.xdestroywindow.window);
-            msg.m_id = e_message_destroy;
+            if(msg.oswindow)
+            {
+               msg.oswindow = m_pdisplay->_window(e.xdestroywindow.window);
+               msg.m_id = e_message_destroy;
 
-            post_ui_message(msg);
+               post_ui_message(msg);
+
+            }
 
             return true;
 
@@ -2892,7 +2924,7 @@ else if(detail == 3)
 //
 
 
-   bool windowing::initialize_windowing()
+   void windowing::initialize_windowing()
    {
 
       //acme_defer_os_init_windowing();
@@ -2913,12 +2945,12 @@ else if(detail == 3)
 
       //osdisplay_data::s_pmutex = new ::mutex;
 
-      return true;
+      //return true;
 
    }
 
 
-   bool windowing::terminate_windowing()
+   void windowing::terminate_windowing()
    {
 
       //::acme::del(osdisplay_data::s_pmutex);
@@ -3057,7 +3089,7 @@ else if(detail == 3)
 //
 
 
-   bool windowing::post_ui_message(const MESSAGE &message)
+   void windowing::post_ui_message(const MESSAGE &message)
    {
 
       oswindow oswindow = message.oswindow;
@@ -3069,7 +3101,7 @@ else if(detail == 3)
       if(::is_null(pimpl))
       {
 
-         return false;
+         throw_status(error_null_pointer);
 
       }
 
@@ -3078,7 +3110,7 @@ else if(detail == 3)
       if(::is_null(pinteraction))
       {
 
-         return false;
+         throw_status(error_null_pointer);
 
       }
 
@@ -3094,7 +3126,7 @@ else if(detail == 3)
       if (::is_null(pthread))
       {
 
-         return false;
+         throw_status(error_null_pointer);
 
       }
 
@@ -3106,7 +3138,7 @@ else if(detail == 3)
          if (message.m_id == e_message_quit)
          {
 
-            return false;
+            return;
 
          }
 
@@ -3117,7 +3149,7 @@ else if(detail == 3)
       if (pmessagequeue == nullptr)
       {
 
-         return false;
+         throw_status(error_null_pointer);
 
       }
 
@@ -3147,12 +3179,12 @@ else if(detail == 3)
 
       pmessagequeue->m_eventNewMessage.set_event();
 
-      return true;
+      //return true;
 
    }
 
 
-   bool windowing::post_ui_message(::message::message * pmessage)
+   void windowing::post_ui_message(::message::message * pmessage)
    {
 
       oswindow oswindow = pmessage->m_oswindow;
@@ -3164,7 +3196,7 @@ else if(detail == 3)
       if(::is_null(pimpl))
       {
 
-         return false;
+         throw_status(error_null_pointer);
 
       }
 
@@ -3173,7 +3205,7 @@ else if(detail == 3)
       if(::is_null(puserinteraction))
       {
 
-         return false;
+         throw_status(error_null_pointer);
 
       }
 

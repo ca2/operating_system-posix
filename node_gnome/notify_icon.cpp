@@ -61,8 +61,8 @@ namespace node_gnome
 
       string strIconName = get_application()->m_strAppId;
 
-      strIconName.replace("/", "_");
-      strIconName.replace("-", "_");
+      strIconName.find_replace("/", "_");
+      strIconName.find_replace("-", "_");
 
       auto psystem = m_psystem;
 

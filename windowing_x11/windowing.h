@@ -44,17 +44,18 @@ namespace windowing_x11
       bool is_branch_current() const override;
 
 
-      virtual bool initialize_windowing();
+      virtual void initialize_windowing();
 
-      virtual bool terminate_windowing();
+      virtual void terminate_windowing();
 
-      virtual bool post_ui_message(const MESSAGE & message);
+      virtual void post_ui_message(const MESSAGE & message);
 
-      virtual bool post_ui_message(::message::message * pmessage);
+      virtual void post_ui_message(::message::message * pmessage);
 
       void start() override;
 
       void _libsn_start_context()  override;
+
       ::windowing::display * display() override;
 
       void windowing_main() override;

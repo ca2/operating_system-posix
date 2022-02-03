@@ -285,9 +285,9 @@ namespace aura
 
          string strApplicationServerName = papplication->m_strAppId;
 
-         strApplicationServerName.replace("/", ".");
+         strApplicationServerName.find_replace("/", ".");
 
-         strApplicationServerName.replace("_", "-");
+         strApplicationServerName.find_replace("_", "-");
 
          path /= (strApplicationServerName + ".desktop");
 
