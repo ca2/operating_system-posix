@@ -647,7 +647,7 @@ namespace node_xfce
 //   }
 
 
-//   void node::on_subject(::promise::subject * psubject, ::context * pcontext)
+//   void node::on_subject(::promise::topic * psubject, ::context * pcontext)
 //   {
 //
 //      if(psubject->m_id == ::id_os_user_theme)
@@ -766,7 +766,7 @@ namespace node_xfce
 //
 //   }
 
-   bool node::should_launch_on_node(::subject * psubject)
+   bool node::should_launch_on_node(::topic * psubject)
    {
 
       if(::is_null(psubject))
@@ -788,7 +788,7 @@ namespace node_xfce
    }
 
 
-   bool node::launch_on_node(::subject * psubject)
+   bool node::launch_on_node(::topic * psubject)
    {
 
       ::matter * pmatter = psubject;

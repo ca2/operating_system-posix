@@ -644,9 +644,9 @@ namespace node_gnome
 
          ::user::os_set_theme_colors(pthemecolors);
 
-//         auto psubject = System.subject(id_os_user_theme);
+//         auto psubject = System.topic(id_os_user_theme);
 //
-//         psubject->m_esubject = e_subject_deliver;
+//         psubject->m_etopic = id_deliver;
 //
 //         System.process(psubject);
 

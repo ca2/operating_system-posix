@@ -786,7 +786,7 @@ a copy of this software and associated documentation files (the
 "Software"), to deal in the Software without restriction, including
 without limitation the rights to uxse, cxopy, mxodify, mxerge, pxublish,
 distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
+permit persons to whom the Software is furnished to do so, topic to
 the following conditions:
 
 The above copyright notice and this permission notice shall be
@@ -1574,9 +1574,9 @@ else if(detail == 3)
 
                if(emessage != e_message_null)
                {
-//                  auto psubject = psystem->subject(eid);
+//                  auto psubject = psystem->topic(eid);
 
-  //                ::subject::context context;
+  //                ::topic::context context;
 
 
                   int iKey = XK_A;
@@ -1599,7 +1599,7 @@ else if(detail == 3)
 //
 //                  psubject->payload("space") = is_space_key(prawevent);
 
-                  //::subject::context context;
+                  //::topic::context context;
 
 //                  for(auto & p : *m_pobjectaExtendedEventListener)
 //                  {

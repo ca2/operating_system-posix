@@ -28,13 +28,13 @@ namespace node_gnome
 
       void initialize(::object * pobject) override;
 
-      bool should_launch_on_node(::subject * psubject) override;
+      bool should_launch_on_node(::topic * psubject) override;
 
-      bool launch_on_node(::subject * psubject) override;
+      bool launch_on_node(::topic * psubject) override;
 
       //int os_launch_uri(const ::string & strUri, char * pszError = nullptr, int iBufferSize = 0) override;
 
-      void handle(::subject * psubject, ::context * pcontext) override;
+      void handle(::topic * psubject, ::context * pcontext) override;
 
 
    };

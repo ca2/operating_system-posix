@@ -90,9 +90,9 @@ namespace node_kde
 
       void reboot() override;
 
-      bool should_launch_on_node(::subject * psubject) override;
+      bool should_launch_on_node(::topic * psubject) override;
 
-      bool launch_on_node(::subject * psubject) override;
+      bool launch_on_node(::topic * psubject) override;
 
       int os_launch_uri(const ::string & pszUri, char * pszError = NULL, int iBufferSize = 0) override;
 

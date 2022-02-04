@@ -561,7 +561,7 @@ void node::os_calc_user_dark_mode()
 //
 //   }
 
-   bool node::should_launch_on_node(::promise::subject * psubject)
+   bool node::should_launch_on_node(::promise::topic * psubject)
    {
 
       if(::is_null(psubject))
@@ -583,7 +583,7 @@ void node::os_calc_user_dark_mode()
    }
 
 
-   bool node::launch_on_node(::promise::subject * psubject)
+   bool node::launch_on_node(::promise::topic * psubject)
    {
 
       ::matter * pmatter = psubject;

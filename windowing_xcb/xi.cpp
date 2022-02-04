@@ -426,7 +426,7 @@ namespace windowing_xcb
 
       auto psystem = m_psystem->m_papexsystem;
 
-      //auto psubject = psystem->subject(eid);
+      //auto psubject = psystem->topic(eid);
 
       if(emessage != e_message_null)
       {
@@ -455,7 +455,7 @@ namespace windowing_xcb
 
          }
 
-         //::subject::context context;
+         //::topic::context context;
 
          for (auto & p : *m_pobjectaExtendedEventListener)
          {

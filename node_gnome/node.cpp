@@ -110,14 +110,14 @@ namespace node_gnome
    }
 
 
-   void node::handle(::subject * psubject, ::context * pcontext)
+   void node::handle(::topic * psubject, ::context * pcontext)
    {
 
 
    }
 
 
-   bool node::should_launch_on_node(::subject * psubject)
+   bool node::should_launch_on_node(::topic * psubject)
    {
 
       if(::is_null(psubject))
@@ -139,7 +139,7 @@ namespace node_gnome
    }
 
 
-   bool node::launch_on_node(::subject * psubject)
+   bool node::launch_on_node(::topic * psubject)
    {
 
       ::matter * pmatter = psubject;
