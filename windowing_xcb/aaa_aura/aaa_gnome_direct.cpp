@@ -8,7 +8,7 @@
 #include "gnome_internal_glue.h"
 #include "apex/message/global.h"
 #include "aura/const/_const.h"
-#include "acme/constant/id.h"
+#include "acme/id.h"
 #include "platform/_.h"
 #include "aura/os/freebsd/appindicator.h"
 

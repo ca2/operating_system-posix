@@ -156,9 +156,9 @@ void preview_dc::SetScaleRatio(i32 nNumerator, i32 nDenominator)
 
 // Implementation support
 #ifdef _DEBUG
-void preview_dc::assert_valid() const
+void preview_dc::assert_ok() const
 {
-   ::draw2d::graphics_pointer::assert_valid();
+   ::draw2d::graphics_pointer::assert_ok();
 }
 
 

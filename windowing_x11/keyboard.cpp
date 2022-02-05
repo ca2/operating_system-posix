@@ -742,7 +742,7 @@ namespace windowing_x11
       if (!::is_null(pprimitive) && pprimitive != m_pprimitiveSoftwareKeyboard)
       {
 
-         return error_invalid_argument;
+         return error_bad_argument;
 
       }
 

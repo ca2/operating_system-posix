@@ -54,9 +54,9 @@ namespace draw2d_xlib
 //   }
 
 
-   void graphics::assert_valid() const
+   void graphics::assert_ok() const
    {
-      object::assert_valid();
+      object::assert_ok();
    }
 
    void graphics::dump(dump_context & dumpcontext) const
@@ -4791,9 +4791,9 @@ namespace draw2d_xlib
       // Helper DCs
 
 
-      void CClientDC::assert_valid() const
+      void CClientDC::assert_ok() const
       {
-         graphics::assert_valid();
+         graphics::assert_ok();
          ASSERT(m_hWnd == nullptr || ::IsWindow(m_hWnd));
       }
 
@@ -4821,9 +4821,9 @@ namespace draw2d_xlib
       }
 
 
-      void CWindowDC::assert_valid() const
+      void CWindowDC::assert_ok() const
       {
-         graphics::assert_valid();
+         graphics::assert_ok();
          ASSERT(m_hWnd == nullptr || ::IsWindow(m_hWnd));
       }
 
@@ -4851,9 +4851,9 @@ namespace draw2d_xlib
       }
 
 
-      void CPaintDC::assert_valid() const
+      void CPaintDC::assert_ok() const
       {
-         graphics::assert_valid();
+         graphics::assert_ok();
          ASSERT(::IsWindow(m_hWnd));
       }
 

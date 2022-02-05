@@ -68,14 +68,14 @@ namespace node_gtk
       if (strSchema.is_empty())
       {
 
-         return error_invalid_argument;
+         return error_bad_argument;
 
       }
 
       if (strKey.is_empty())
       {
 
-         return error_invalid_argument;
+         return error_bad_argument;
 
       }
 

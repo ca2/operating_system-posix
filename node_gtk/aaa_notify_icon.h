@@ -68,7 +68,7 @@ namespace node_gtk
 
       bool modify_icon(::windowing::icon * picon);
 
-      virtual bool create_notify_icon(::u32 id, ::user::notify_icon_listener * plistener, ::windowing::icon * picon) override;
+      virtual bool create_notify_icon(::u32 atom, ::user::notify_icon_listener * plistener, ::windowing::icon * picon) override;
 
       //DECLARE_MESSAGE_HANDLER(_001OnNotifyIconMessage);
       //DECLARE_MESSAGE_HANDLER(_001OnDestroy);

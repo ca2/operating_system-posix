@@ -68,7 +68,7 @@ namespace node_xfce
 
       ::e_status modify_icon(::windowing::icon * picon) override;
 
-      ::e_status create_notify_icon(::u32 id, ::user::notify_icon_listener * plistener, ::windowing::icon * picon) override;
+      ::e_status create_notify_icon(::u32 atom, ::user::notify_icon_listener * plistener, ::windowing::icon * picon) override;
 
       //DECLARE_MESSAGE_HANDLER(_001OnNotifyIconMessage);
       //DECLARE_MESSAGE_HANDLER(_001OnDestroy);

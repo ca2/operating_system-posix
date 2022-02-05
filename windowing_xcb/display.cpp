@@ -178,7 +178,7 @@ namespace windowing_xcb
          if (formats[i].type == XCB_RENDER_PICT_TYPE_DIRECT)
          {
 
-            m_mapFormatInfo.set_at(formats[i].id, &formats[i]);
+            m_mapFormatInfo.set_at(formats[i].atom, &formats[i]);
 
          }
 
@@ -778,7 +778,7 @@ namespace windowing_xcb
 
       {
 
-         auto cookie = xcb_render_create_picture(m_pconnection, picture, pixmap, pformat->id, 0, nullptr);
+         auto cookie = xcb_render_create_picture(m_pconnection, picture, pixmap, pformat->atom, 0, nullptr);
 
          auto estatus = _request_check(cookie);
 

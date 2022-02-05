@@ -225,7 +225,7 @@ namespace file
             struct inotify_event *pevent = (struct inotify_event *)&buff[i];
 
 
-            auto pwatch = m_watchmap[(id)ptopic->wd];
+            auto pwatch = m_watchmap[(atom)ptopic->wd];
 
             ::file::action a;
             a.m_pwatch = pwatch;

@@ -449,9 +449,9 @@ namespace windowing_xcb
 
             }
 
-            //ptopic->payload("return") = is_return_key(pgeevent);
+            //ptopic->m_pextendedtopic->payload("return") = is_return_key(pgeevent);
 
-            //ptopic->payload("space") = is_space_key(pgeevent);
+            //ptopic->m_pextendedtopic->payload("space") = is_space_key(pgeevent);
 
          }
 

@@ -4,7 +4,7 @@
 #include "operating-system-posix/windowing_x11/framework.h"
 #include "aura/user/_user.h"
 #include "aura/node/operating_system/x11/_x11.h"
-#include "acme/constant/id.h"
+#include "acme/id.h"
 #include "acme/constant/message.h"
 ////#include "third/sn/sn.h"
 #include <fcntl.h> // library for fcntl function
@@ -1595,9 +1595,9 @@ else if(detail == 3)
                   }
 
 
-//                  ptopic->payload("return") = is_return_key(prawevent);
+//                  ptopic->m_pextendedtopic->payload("return") = is_return_key(prawevent);
 //
-//                  ptopic->payload("space") = is_space_key(prawevent);
+//                  ptopic->m_pextendedtopic->payload("space") = is_space_key(prawevent);
 
                   //::topic::context context;
 
@@ -3501,7 +3501,7 @@ void x11_check_status(int status, unsigned long window)
 {
    if (status == BadWindow)
    {
-      printf("window id # 0x%lx does not exists!", window);
+      printf("window atom # 0x%lx does not exists!", window);
       //   exit(1);
    }
 

@@ -646,7 +646,7 @@ namespace node_gnome
 
 //         auto ptopic = System.topic(id_os_user_theme);
 //
-//         ptopic->m_etopic = id_deliver;
+//         ptopic->m_id = id_deliver;
 //
 //         System.process(ptopic);
 

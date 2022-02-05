@@ -18,7 +18,7 @@ void sn_start_context();
 //   //g_set_application_name (pszAppName);
 //
 //   apex_application = (ApexApplication *) g_object_new (apex_application_get_type (),
-//                                          "application-id", pszProgName,
+//                                          "application-atom", pszProgName,
 //                                          "flags", G_APPLICATION_FLAGS_NONE,
 //                                          "inactivity-timeout", 30000,
 //                                          "register-session", TRUE,
