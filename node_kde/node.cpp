@@ -860,17 +860,17 @@ namespace node_kde
 //   }
 
 
-   bool node::should_launch_on_node(::topic *psubject)
+   bool node::should_launch_on_node(::topic *ptopic)
    {
 
-      if (::is_null(psubject))
+      if (::is_null(ptopic))
       {
 
          return false;
 
       }
 
-      if (psubject->m_id == id_operating_system_user_color_change)
+      if (ptopic->m_id == id_operating_system_user_color_change)
       {
 
          return false;
@@ -882,10 +882,10 @@ namespace node_kde
    }
 
 
-   bool node::launch_on_node(::topic *psubject)
+   bool node::launch_on_node(::topic *ptopic)
    {
 
-      ::matter *pmatter = psubject;
+      ::matter *pmatter = ptopic;
 
 //      node_fork([pmatter]()
 //                {

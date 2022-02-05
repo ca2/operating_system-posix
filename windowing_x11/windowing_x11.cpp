@@ -1574,7 +1574,7 @@ else if(detail == 3)
 
                if(emessage != e_message_null)
                {
-//                  auto psubject = psystem->topic(eid);
+//                  auto ptopic = psystem->topic(eid);
 
   //                ::topic::context context;
 
@@ -1595,16 +1595,16 @@ else if(detail == 3)
                   }
 
 
-//                  psubject->payload("return") = is_return_key(prawevent);
+//                  ptopic->payload("return") = is_return_key(prawevent);
 //
-//                  psubject->payload("space") = is_space_key(prawevent);
+//                  ptopic->payload("space") = is_space_key(prawevent);
 
                   //::topic::context context;
 
 //                  for(auto & p : *m_pobjectaExtendedEventListener)
 //                  {
 //
-//                     p->on_subject(psubject, &context);
+//                     p->on_subject(ptopic, &context);
 //
 //                  }
 

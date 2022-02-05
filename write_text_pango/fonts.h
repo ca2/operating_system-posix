@@ -67,7 +67,7 @@ namespace write_text_pango
 
 
       //virtual bool is_initialized();
-      //virtual void defer_create_font_enumeration(::promise::topic * psubject);
+      //virtual void defer_create_font_enumeration(::promise::topic * ptopic);
 
 
       //virtual void enum_fonts(::write_text::font_enum_item_array & itema) override;

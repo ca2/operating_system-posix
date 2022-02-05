@@ -63,9 +63,9 @@ namespace node_gnome
 
       virtual void os_post_quit() override;
 
-      virtual bool should_launch_on_node(::promise::topic * psubject);
+      virtual bool should_launch_on_node(::promise::topic * ptopic);
 
-      virtual bool launch_on_node(::promise::topic * psubject);
+      virtual bool launch_on_node(::promise::topic * ptopic);
 
 
    };

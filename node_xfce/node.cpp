@@ -647,10 +647,10 @@ namespace node_xfce
 //   }
 
 
-//   void node::on_subject(::promise::topic * psubject, ::context * pcontext)
+//   void node::on_subject(::promise::topic * ptopic, ::context * pcontext)
 //   {
 //
-//      if(psubject->m_id == ::id_os_user_theme)
+//      if(ptopic->m_id == ::id_os_user_theme)
 //      {
 //
 //         _on_change_os_user_theme();
@@ -766,17 +766,17 @@ namespace node_xfce
 //
 //   }
 
-   bool node::should_launch_on_node(::topic * psubject)
+   bool node::should_launch_on_node(::topic * ptopic)
    {
 
-      if(::is_null(psubject))
+      if(::is_null(ptopic))
       {
 
          return false;
 
       }
 
-      if(psubject->m_id == id_os_dark_mode)
+      if(ptopic->m_id == id_os_dark_mode)
       {
 
          return false;
@@ -788,10 +788,10 @@ namespace node_xfce
    }
 
 
-   bool node::launch_on_node(::topic * psubject)
+   bool node::launch_on_node(::topic * ptopic)
    {
 
-      ::matter * pmatter = psubject;
+      ::matter * pmatter = ptopic;
 
       node_fork(__routine([pmatter]()
       {

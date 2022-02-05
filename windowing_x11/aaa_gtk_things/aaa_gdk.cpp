@@ -644,11 +644,11 @@ namespace node_gnome
 
          ::user::os_set_theme_colors(pthemecolors);
 
-//         auto psubject = System.topic(id_os_user_theme);
+//         auto ptopic = System.topic(id_os_user_theme);
 //
-//         psubject->m_etopic = id_deliver;
+//         ptopic->m_etopic = id_deliver;
 //
-//         System.process(psubject);
+//         System.process(ptopic);
 
       }
       else
