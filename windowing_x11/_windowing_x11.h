@@ -8,7 +8,7 @@
 #include "aura/user/_user.h"
 #include "aura_posix/x_window_system.h"
 #ifdef FREEBSD
-#include "aura/node/operating_system/freebsd/appindicator.h"
+#include "aura/operating_system/freebsd/appindicator.h"
 #endif
 #include "acme/operating_system/ansi/_pthread.h"
 #include "acme/operating_system/freebsd/_user.h"

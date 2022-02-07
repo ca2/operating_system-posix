@@ -2,7 +2,7 @@
 
 
 #include "aura/_.h"
-#include "aura/node/operating_system/freebsd/appindicator.h"
+#include "aura/operating_system/freebsd/appindicator.h"
 #include "acme/operating_system/ansi/_pthread.h"
 #include "acme/operating_system/freebsd/_user.h"
 #include "operating-system-posix/aura_posix/x_window_system.h"

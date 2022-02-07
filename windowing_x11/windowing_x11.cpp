@@ -3,7 +3,7 @@
 //
 #include "operating-system-posix/windowing_x11/framework.h"
 #include "aura/user/_user.h"
-#include "aura/node/operating_system/x11/_x11.h"
+#include "aura/operating_system/x11/_x11.h"
 #include "acme/id.h"
 #include "acme/constant/message.h"
 ////#include "third/sn/sn.h"
@@ -22,7 +22,7 @@
 #include <X11/extensions/XInput2.h>
 #include <X11/XKBlib.h>
 #define new ACME_NEW
-#include "aura/node/operating_system/x11/_x11.h"
+#include "aura/operating_system/x11/_x11.h"
 #include "acme/parallelization/message_queue.h"
 #include "windowing_x11.h"
 #include "acme/operating_system/_user.h"
