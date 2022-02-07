@@ -2,8 +2,8 @@
 #include "acme/id.h"
 #include "_.h"
 #include "gdk.h"
-#include "acme/node/operating_system/ansi/pmutex_lock.h"
-#include "acme/user/os_theme_colors.h"
+#include "acme/operating_system/ansi/pmutex_lock.h"
+#include "acme/user/user/os_theme_colors.h"
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 #include <glib.h>

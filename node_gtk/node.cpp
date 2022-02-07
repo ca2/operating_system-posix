@@ -3,7 +3,7 @@
 //
 #include "framework.h"
 #include "node.h"
-#include "acme/node/operating_system/ansi/pmutex_lock.h"
+#include "acme/operating_system/ansi/pmutex_lock.h"
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 #include <glib.h>
@@ -353,7 +353,7 @@ namespace node_gtk
    {
 
 
-      __throw(error_failed, "deprecated");
+      throw ::exception(error_failed, "deprecated");
       //
       //::parallelization::post_quit_and_wait(get_context_system(), one_minute());
 
@@ -696,7 +696,7 @@ namespace node_gtk
 //   void node::on_subject(::promise::topic * ptopic, ::context * pcontext)
 //   {
 //
-//      if(ptopic->m_id == ::id_os_user_theme)
+//      if(ptopic->m_atom == ::id_os_user_theme)
 //      {
 //
 //         _on_change_os_user_theme();
@@ -824,7 +824,7 @@ namespace node_gtk
 
       }
 
-      if(ptopic->m_id == id_operating_system_user_color_change)
+      if(ptopic->m_atom == id_operating_system_user_color_change)
       {
 
          return false;

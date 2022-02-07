@@ -47,7 +47,7 @@ namespace node_kde
 
       m_strId = "ca2-" + picon->get_tray_icon_name() + "-" + strNotifyIcon;
 
-      m_id = atom;
+      m_atom = atom;
 
       m_piconCurrent = picon;
 

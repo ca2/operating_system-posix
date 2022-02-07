@@ -440,7 +440,7 @@ namespace windowing_xcb
          MESSAGE msg;
 
          msg.oswindow = pwindowMouseCaptureOld;
-         msg.m_id = e_message_capture_changed;
+         msg.m_atom = e_message_capture_changed;
          msg.wParam = 0;
          msg.lParam = pwindowMouseCaptureNew;
 
@@ -533,7 +533,7 @@ namespace windowing_xcb
          if(!estatus)
          {
 
-            __throw(estatus, "could not create default cursor font");
+            throw ::exception(estatus, "could not create default cursor font");
 
          }
 
@@ -558,7 +558,7 @@ namespace windowing_xcb
       if(!estatus)
       {
 
-         __throw(estatus, "could not create a default cursor with the specified/\"or any\" glyph");
+         throw ::exception(estatus, "could not create a default cursor with the specified/\"or any\" glyph");
 
       }
 

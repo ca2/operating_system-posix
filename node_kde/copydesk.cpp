@@ -289,7 +289,7 @@ return false;
    {
 
 
-      __throw(todo);
+      throw ::exception(todo);
 
       return false;
 

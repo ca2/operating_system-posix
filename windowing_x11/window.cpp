@@ -4,7 +4,7 @@
 #include "framework.h"
 #include "aura/user/_user.h"
 #include "windowing_x11.h"
-#include "acme/node/operating_system/_user.h"
+#include "acme/operating_system/_user.h"
 #include "aura/user/interaction_prodevian.h"
 #include "aura/platform/message_queue.h"
 #include <X11/Xatom.h>
@@ -1246,7 +1246,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 //      if (::is_null(this))
 //      {
 //
-//         __throw(::exception("error, m_pdata cannot be nullptr to ::oswindow::set_user_interaction"));
+//         throw ::exception(::exception("error, m_pdata cannot be nullptr to ::oswindow::set_user_interaction"));
 //
 //      }
 
@@ -2083,7 +2083,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
             auto pcontext = m_pcontext->m_papexcontext;
 
-            pcontext->post_message(msg.m_id, msg.wParam, msg.lParam);
+            pcontext->post_message(msg.m_atom, msg.wParam, msg.lParam);
 
          } else
          {
@@ -2094,7 +2094,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
                ::user::interaction * pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
 
-               pinteraction->post_message(msg.m_id, msg.wParam, msg.lParam);
+               pinteraction->post_message(msg.m_atom, msg.wParam, msg.lParam);
 
             }
 
@@ -2141,7 +2141,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       if (pmessagequeue == nullptr)
       {
 
-         if (message.m_id == e_message_quit)
+         if (message.m_atom == e_message_quit)
          {
 
             return false;
@@ -2161,20 +2161,20 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       synchronous_lock ml(pmessagequeue->mutex());
 
-      if (message.m_id == e_message_quit)
+      if (message.m_atom == e_message_quit)
       {
 
          output_debug_string("e_message_quit thread");
 
       }
 
-      if (message.m_id == e_message_left_button_down)
+      if (message.m_atom == e_message_left_button_down)
       {
 
          output_debug_string("post_ui_message::e_message_left_button_down\n");
 
       }
-      else if (message.m_id == e_message_left_button_up)
+      else if (message.m_atom == e_message_left_button_up)
       {
 
          output_debug_string("post_ui_message::e_message_left_button_up\n");

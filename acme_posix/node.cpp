@@ -112,9 +112,9 @@ namespace acme
 //      ::e_status node::call_async(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid)
 //      {
 //
-//         throw ::interface_only_exception();
+//         throw ::interface_only();
 //
-//         throw ::interface_only_exception();
+//         throw ::interface_only();
 //
 //      }
 
@@ -122,9 +122,9 @@ namespace acme
 //      ::e_status node::call_sync(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, const ::duration & durationTimeout, ::property_set & set)
 //      {
 //
-//         throw ::interface_only_exception();
+//         throw ::interface_only();
 //
-//         throw ::interface_only_exception();
+//         throw ::interface_only();
 //
 //      }
 
@@ -287,7 +287,7 @@ namespace acme
       bool node::process_modules(string_array& stra, u32 processID)
       {
 
-         throw ::interface_only_exception();
+         throw ::interface_only();
 
          return false;
 
@@ -297,7 +297,7 @@ namespace acme
       bool node::load_modules_diff(string_array& straOld, string_array& straNew, const ::string & strExceptDir)
       {
 
-         throw ::interface_only_exception();
+         throw ::interface_only();
 
          return false;
 
@@ -307,7 +307,7 @@ namespace acme
       id_array node::get_pids()
       {
 
-         throw ::interface_only_exception();
+         throw ::interface_only();
 
          return id_array();
 
@@ -366,7 +366,7 @@ namespace acme
       void node::shared_library_process(dword_array& dwa, string_array& straProcesses, const ::string & strLibrary)
       {
 
-         throw ::interface_only_exception();
+         throw ::interface_only();
 
       }
 
@@ -400,7 +400,7 @@ namespace acme
 //      array <::serial::port_info> node::list_serial_ports()
 //      {
 //
-//         throw ::interface_only_exception();
+//         throw ::interface_only();
 //
 //         return ::array <::serial::port_info>();
 //

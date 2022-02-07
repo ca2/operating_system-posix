@@ -324,7 +324,7 @@ namespace node_xfce
    {
 
 
-      __throw(error_failed, "deprecated");
+      throw ::exception(error_failed, "deprecated");
       //
       //::parallelization::post_quit_and_wait(get_context_system(), one_minute());
 
@@ -650,7 +650,7 @@ namespace node_xfce
 //   void node::on_subject(::promise::topic * ptopic, ::context * pcontext)
 //   {
 //
-//      if(ptopic->m_id == ::id_os_user_theme)
+//      if(ptopic->m_atom == ::id_os_user_theme)
 //      {
 //
 //         _on_change_os_user_theme();
@@ -776,7 +776,7 @@ namespace node_xfce
 
       }
 
-      if(ptopic->m_id == id_os_dark_mode)
+      if(ptopic->m_atom == id_os_dark_mode)
       {
 
          return false;

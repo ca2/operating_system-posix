@@ -91,7 +91,7 @@ namespace node_gnome
    {
 
 
-      __throw(error_failed, "deprecated");
+      throw ::exception(error_failed, "deprecated");
       //
       //::parallelization::post_quit_and_wait(get_context_system(), one_minute());
 
@@ -127,7 +127,7 @@ namespace node_gnome
 
       }
 
-      if(ptopic->m_id == id_operating_system_user_color_change)
+      if(ptopic->m_atom == id_operating_system_user_color_change)
       {
 
          return false;

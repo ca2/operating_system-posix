@@ -588,7 +588,7 @@ namespace posix
 
    #else
 
-      throw interface_only_exception();
+      throw ::interface_only();
 
    #endif
 
@@ -696,7 +696,7 @@ namespace posix
    //      if (ansi_compare_ci(psz1, psz2) == 0)
    //         return true;
    //
-   //      //__throw(::exception(" // TODO: it should follow links "));
+   //      //throw ::exception(::exception(" // TODO: it should follow links "));
    //
    //      return false;
    //
@@ -705,7 +705,7 @@ namespace posix
 
    //CLASS_DECL_APEX string file_get_mozilla_firefox_plugin_container_path()
    //{
-   //      __throw(::exception(" todo "));
+   //      throw ::exception(::exception(" todo "));
    //
    //      return "";
    //

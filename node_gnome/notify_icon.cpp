@@ -38,7 +38,7 @@ namespace node_gnome
 
       m_strId = "ca2-" + picon->get_tray_icon_name() + "-" + m_strId;
 
-      m_id = atom;
+      m_atom = atom;
 
       m_piconCurrent = picon;
 

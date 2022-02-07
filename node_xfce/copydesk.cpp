@@ -276,7 +276,7 @@ namespace node_xfce
    bool copydesk::_image_to_desk(const ::image * pimage)
    {
 
-      __throw(todo);
+      throw ::exception(todo);
 
       return false;
 
@@ -695,7 +695,7 @@ namespace node_xfce
 //   else
 //   {
 //
-//      __throw(invalid_argument_exception());
+//      throw ::exception(invalid_argument_exception());
 //
 //   }
 //

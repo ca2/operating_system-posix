@@ -4,7 +4,7 @@
  */
 
 #include "framework.h"
-#include "acme/node/operating_system/posix/time.h"
+#include "acme/operating_system/posix/time.h"
 #undef _POSIX_C_SOURCE
  //#include <sstream>
 
@@ -23,7 +23,7 @@
 #include <sysexits.h>
 #include <termios.h>
 #include <sys/param.h>
-#include "acme/node/operating_system/ansi/_pthread.h"
+#include "acme/operating_system/ansi/_pthread.h"
 
 #if defined(__linux__)
 #include <unistd.h>
@@ -135,11 +135,11 @@ serial_impl::open()
 {
    if (m_strPort.is_empty())
    {
-      __throw(error_bad_argument, "Empty port is invalid.");
+      throw ::exception(error_bad_argument, "Empty port is invalid.");
    }
    if (m_bOpened == true)
    {
-      __throw(error_serial, "serial port already open.");
+      throw ::exception(error_serial, "serial port already open.");
    }
 
    m_iFd = ::open(m_strPort.c_str(), O_RDWR | O_NOCTTY | O_NONBLOCK);
@@ -343,7 +343,7 @@ serial_impl::reconfigurePort()
          throw io_exception(errno);
       }
 #else
-      __throw(invalid_argument("OS does not currently support custom bauds"));
+      throw ::exception(invalid_argument("OS does not currently support custom bauds"));
 #endif
    }
    if (!custom_baud)
@@ -367,7 +367,7 @@ serial_impl::reconfigurePort()
    else if (m_ebytesize == e_byte_size_five)
       options.c_cflag |= CS5;
    else
-      __throw(error_bad_argument, "invalid char len");
+      throw ::exception(error_bad_argument, "invalid char len");
    // setup estopbit
    if (m_estopbit == e_stop_bit_one)
       options.c_cflag &= (tcflag_t)~(CSTOPB);
@@ -377,7 +377,7 @@ serial_impl::reconfigurePort()
    else if (m_estopbit == e_stop_bit_two)
       options.c_cflag |= (CSTOPB);
    else
-      __throw(error_bad_argument, "invalid stop bit");
+      throw ::exception(error_bad_argument, "invalid stop bit");
    // setup eparity
    options.c_iflag &= (tcflag_t)~(INPCK | ISTRIP);
    if (m_eparity == e_parity_none)
@@ -407,12 +407,12 @@ serial_impl::reconfigurePort()
    // CMSPAR is not defined on OSX. So do not support mark or space eparity.
    else if (m_eparity == e_parity_mark || m_eparity == e_parity_space)
    {
-      __throw(error_bad_argument, "OS does not support mark or space eparity");
+      throw ::exception(error_bad_argument, "OS does not support mark or space eparity");
    }
 #endif  // ifdef CMSPAR
    else
    {
-      __throw(error_bad_argument, "invalid eparity");
+      throw ::exception(error_bad_argument, "invalid eparity");
    }
    // setup flow control
    if (m_eflowcontrol == e_flow_control_none)
@@ -570,7 +570,7 @@ serial_impl::waitByteTimes(size_t count)
 size_t
 serial_impl::read(u8 * buf, size_t size)
 {
-   // If the port is not open, __throw(new
+   // If the port is not open, throw ::exception(new
    if (!m_bOpened)
    {
       throw port_not_opened_exception("read");

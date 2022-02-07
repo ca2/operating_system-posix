@@ -24,7 +24,7 @@ namespace file
 
       os_watcher * pwatcher  =dynamic_cast < os_watcher * >(m_pwatcher);
 
-      inotify_rm_watch(pwatcher->mFD, m_id);
+      inotify_rm_watch(pwatcher->mFD, m_atom);
 
    }
 
@@ -89,7 +89,7 @@ namespace file
 
       pwatch->add_listener(plistener);
 
-      pwatch->m_id = wd;
+      pwatch->m_atom = wd;
 
       pwatch->m_pathFolder = pathFolder;
 
@@ -135,7 +135,7 @@ namespace file
 
                pwatch->add_listener(plistener);
 
-               pwatch->m_id = inaw;
+               pwatch->m_atom = inaw;
 
                pwatch->m_pathFolder = stra[index];
 
@@ -229,7 +229,7 @@ namespace file
 
             ::file::action a;
             a.m_pwatch = pwatch;
-            a.m_id = pwatch->m_id;
+            a.m_atom = pwatch->m_atom;
             a.m_pathFolder = pwatch->m_pathFolder;
             a.m_pathFile = ptopic->name;
             a.m_eaction = action_none;

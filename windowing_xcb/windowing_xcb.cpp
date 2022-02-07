@@ -25,7 +25,7 @@
 #include "aura/node/operating_system/xcb/_xcb.h"
 #include "acme/parallelization/message_queue.h"
 #include "windowing_xcb.h"
-#include "acme/node/operating_system/_user.h"
+#include "acme/operating_system/_user.h"
 
 
 
@@ -932,7 +932,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       if (pmessagequeue == nullptr)
       {
 
-         if (message.m_id == e_message_quit)
+         if (message.m_atom == e_message_quit)
          {
 
             return false;
@@ -952,20 +952,20 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       synchronous_lock ml(pmessagequeue->mutex());
 
-      if (message.m_id == e_message_quit)
+      if (message.m_atom == e_message_quit)
       {
 
          output_debug_string("e_message_quit thread");
 
       }
 
-      if (message.m_id == e_message_left_button_down)
+      if (message.m_atom == e_message_left_button_down)
       {
 
          output_debug_string("post_ui_message::e_message_left_button_down\n");
 
       }
-      else if (message.m_id == e_message_left_button_up)
+      else if (message.m_atom == e_message_left_button_up)
       {
 
          output_debug_string("post_ui_message::e_message_left_button_up\n");

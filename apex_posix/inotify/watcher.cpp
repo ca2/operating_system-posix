@@ -24,7 +24,7 @@ namespace inotify
 
       watcher * pwatcher = dynamic_cast < watcher * >(m_pwatcher);
 
-      inotify_rm_watch(pwatcher->m_iFd, m_id);
+      inotify_rm_watch(pwatcher->m_iFd, m_atom);
 
    }
 
@@ -89,7 +89,7 @@ namespace inotify
 
       pwatch->add_listener(plistener);
 
-      pwatch->m_id = wd;
+      pwatch->m_atom = wd;
 
       pwatch->m_pathFolder = pathFolder;
 
@@ -135,7 +135,7 @@ namespace inotify
 
                pwatch->add_listener(plistener);
 
-               pwatch->m_id = inaw;
+               pwatch->m_atom = inaw;
 
                pwatch->m_pathFolder = stra[index];
 
@@ -209,7 +209,7 @@ namespace inotify
 
             ::file::action a;
             a.m_pwatch = pwatch;
-            a.m_id = pwatch->m_id;
+            a.m_atom = pwatch->m_atom;
             a.m_pathFolder = pwatch->m_pathFolder;
             a.m_pathFile = pevent->name;
             a.m_eaction = ::file::e_action_none;

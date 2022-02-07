@@ -2,7 +2,7 @@
 #include "acme/id.h"
 #include "_.h"
 #include "gdk.h"
-#include "acme/node/operating_system/xcb/_xcb.h"
+#include "acme/operating_system/xcb/_xcb.h"
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 #include <glib.h>
@@ -646,7 +646,7 @@ namespace node_gnome
 
 //         auto ptopic = System.topic(id_os_user_theme);
 //
-//         ptopic->m_id = id_deliver;
+//         ptopic->m_atom = id_deliver;
 //
 //         System.process(ptopic);
 

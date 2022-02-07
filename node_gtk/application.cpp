@@ -114,7 +114,7 @@ void apex_application_activate(GApplication * application)
 
 #ifndef RASPBIAN
 
-      __throw(todo);
+      throw ::exception(todo);
 
 //   auto psystem = m_psystem->m_papexsystem;
 //
@@ -155,7 +155,7 @@ void apex_application_startup (GApplication *application)
    GtkApplication * app = GTK_APPLICATION (application);
 
    //if(System.m_bGtkApp)
-   __throw(todo);
+   throw ::exception(todo);
 
 
    {

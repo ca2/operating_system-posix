@@ -302,7 +302,7 @@ namespace windowing_x11
          return false;
       }
 
-      __throw(todo, "xml");
+      throw ::exception(todo, "xml");
 
       //::xml::document doc;
 
@@ -649,7 +649,7 @@ namespace windowing_x11
 //      if(str.is_empty())
 //         return false;
 //
-//      __throw(todo("xml"));
+//      throw ::exception(todo("xml"));
 //
 ////      ::xml::document doc;
 ////
@@ -688,7 +688,7 @@ namespace windowing_x11
 ////
 ////#else
 ////
-////      //__throw(todo());
+////      //throw ::exception(todo());
 ////
 ////#endif
 ////
