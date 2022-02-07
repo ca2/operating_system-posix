@@ -112,9 +112,9 @@ namespace acme
 //      ::e_status node::call_async(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid)
 //      {
 //
-//         throw ::interface_only_exception();
+//         throw ::interface_only();
 //
-//         throw ::interface_only_exception();
+//         throw ::interface_only();
 //
 //      }
 
@@ -122,9 +122,9 @@ namespace acme
 //      ::e_status node::call_sync(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, const ::duration & durationTimeout, ::property_set & set)
 //      {
 //
-//         throw ::interface_only_exception();
+//         throw ::interface_only();
 //
-//         throw ::interface_only_exception();
+//         throw ::interface_only();
 //
 //      }
 
@@ -400,7 +400,7 @@ namespace acme
 //      array <::serial::port_info> node::list_serial_ports()
 //      {
 //
-//         throw ::interface_only_exception();
+//         throw ::interface_only();
 //
 //         return ::array <::serial::port_info>();
 //

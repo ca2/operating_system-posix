@@ -3,7 +3,7 @@
 // hi5 contribution...
 #include "framework.h"
 #include "aura/user/_user.h"
-#include "acme/node/operating_system/_user.h"
+#include "acme/operating_system/_user.h"
 #include "aura/user/interaction_prodevian.h"
 #include "aura/platform/message_queue.h"
 #include <X11/Xatom.h>
@@ -1452,7 +1452,7 @@ namespace windowing_xcb
          if(msg.oswindow == nullptr)
          {
 
-            m_psystem->m_papexsystem->post_message(msg.m_id, msg.wParam, msg.lParam);
+            m_psystem->m_papexsystem->post_message(msg.m_atom, msg.wParam, msg.lParam);
 
          }
          else
@@ -1463,7 +1463,7 @@ namespace windowing_xcb
 
                ::user::interaction * pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
 
-               pinteraction->post_message(msg.m_id, msg.wParam, msg.lParam);
+               pinteraction->post_message(msg.m_atom, msg.wParam, msg.lParam);
 
             }
 
@@ -1510,7 +1510,7 @@ namespace windowing_xcb
       if(pmessagequeue == nullptr)
       {
 
-//         if(message.m_id == e_message_quit)
+//         if(message.m_atom == e_message_quit)
 //         {
 //
 //            //return false;
@@ -1530,20 +1530,20 @@ namespace windowing_xcb
 
       synchronous_lock ml(pmessagequeue->mutex());
 
-      if(message.m_id == e_message_quit)
+      if(message.m_atom == e_message_quit)
       {
 
          output_debug_string("e_message_quit thread");
 
       }
 
-      if(message.m_id == e_message_left_button_down)
+      if(message.m_atom == e_message_left_button_down)
       {
 
          output_debug_string("post_ui_message::e_message_left_button_down\n");
 
       }
-      else if(message.m_id == e_message_left_button_up)
+      else if(message.m_atom == e_message_left_button_up)
       {
 
          output_debug_string("post_ui_message::e_message_left_button_up\n");
@@ -2161,7 +2161,7 @@ namespace windowing_xcb
          if (oswindowParent == nullptr)
          {
 
-            __throw(todo);
+            throw ::exception(todo);
 
 //            xcb_atom_t atomNetClientListStacking = xcb_display()->atom(x_window::e_atom_net_client_list_stacking);
 //
@@ -2205,7 +2205,7 @@ namespace windowing_xcb
          else
          {
 
-            __throw(todo);
+            throw ::exception(todo);
 
 //            ::xcb_window_t root = 0;
 //            ::xcb_window_t parent = 0;
@@ -2235,7 +2235,7 @@ namespace windowing_xcb
       else
       {
 
-         __throw(todo);
+         throw ::exception(todo);
 
 //         ::xcb_window_t root = 0;
 //         ::xcb_window_t parent = 0;

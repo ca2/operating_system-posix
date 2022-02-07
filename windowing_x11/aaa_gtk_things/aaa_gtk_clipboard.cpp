@@ -393,7 +393,7 @@ gboolean clipboard_callback(gpointer data)
    else
    {
 
-      __throw(invalid_argument_exception());
+      throw ::exception(invalid_argument_exception());
 
    }
 

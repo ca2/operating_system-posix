@@ -4,7 +4,7 @@
 #include "operating-system-posix/windowing_x11/framework.h"
 #include "aura/user/_user.h"
 #include "aura/node/operating_system/x11/_x11.h"
-#include "acme/constant/id.h"
+#include "acme/id.h"
 #include "acme/constant/message.h"
 ////#include "third/sn/sn.h"
 #include <fcntl.h> // library for fcntl function
@@ -25,7 +25,7 @@
 #include "aura/node/operating_system/x11/_x11.h"
 #include "acme/parallelization/message_queue.h"
 #include "windowing_x11.h"
-#include "acme/node/operating_system/_user.h"
+#include "acme/operating_system/_user.h"
 
 
 //bool x11_runnable_step();
@@ -786,7 +786,7 @@ a copy of this software and associated documentation files (the
 "Software"), to deal in the Software without restriction, including
 without limitation the rights to uxse, cxopy, mxodify, mxerge, pxublish,
 distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
+permit persons to whom the Software is furnished to do so, topic to
 the following conditions:
 
 The above copyright notice and this permission notice shall be
@@ -1574,9 +1574,9 @@ else if(detail == 3)
 
                if(emessage != e_message_null)
                {
-//                  auto psubject = psystem->subject(eid);
+//                  auto ptopic = psystem->topic(eid);
 
-  //                ::subject::context context;
+  //                ::topic::context context;
 
 
                   int iKey = XK_A;
@@ -1595,16 +1595,16 @@ else if(detail == 3)
                   }
 
 
-//                  psubject->payload("return") = is_return_key(prawevent);
+//                  ptopic->get_extended_topic()->payload("return") = is_return_key(prawevent);
 //
-//                  psubject->payload("space") = is_space_key(prawevent);
+//                  ptopic->get_extended_topic()->payload("space") = is_space_key(prawevent);
 
-                  //::subject::context context;
+                  //::topic::context context;
 
 //                  for(auto & p : *m_pobjectaExtendedEventListener)
 //                  {
 //
-//                     p->on_subject(psubject, &context);
+//                     p->on_subject(ptopic, &context);
 //
 //                  }
 
@@ -1677,7 +1677,7 @@ else if(detail == 3)
 //  //             MESSAGE msgCaptureChanged;
 //
 ////               msgCaptureChanged.oswindow = m_pwindowCapture;
-//               msg.m_id = e_message_capture_changed;
+//               msg.m_atom = e_message_capture_changed;
 //               msg.wParam = 0;
 //               msg.lParam = (lparam) (oswindow) (msg.oswindow == m_pwindowCapture ? nullptr : m_pwindowCapture.m_p);
 //               msg.time = e.xcrossing.time;
@@ -1686,7 +1686,7 @@ else if(detail == 3)
 //
 //            }
 
-               msg.m_id = e_message_mouse_leave;
+               msg.m_atom = e_message_mouse_leave;
                msg.wParam = 0;
                msg.lParam = 0;
                msg.time = e.xcrossing.time;
@@ -1824,7 +1824,7 @@ else if(detail == 3)
 
                }
 
-               msg.m_id = e_message_mouse_move;
+               msg.m_atom = e_message_mouse_move;
                msg.wParam = wparam;
                msg.lParam = __MAKE_LONG(e.xmotion.x_root, e.xmotion.y_root);
                msg.time = e.xmotion.time;
@@ -1865,7 +1865,7 @@ else if(detail == 3)
                         else
                         {
 
-                           msg.m_id = e_message_paint;
+                           msg.m_atom = e_message_paint;
                            msg.lParam = 0;
                            msg.wParam = 0;
 
@@ -2077,7 +2077,7 @@ else if(detail == 3)
             if(msg.oswindow)
             {
 
-               msg.m_id = e_message_show_window;
+               msg.m_atom = e_message_show_window;
                msg.wParam = e.type == MapNotify;
                msg.lParam = 0;
 
@@ -2221,7 +2221,7 @@ else if(detail == 3)
 
                         msg.oswindow->m_point = point;
 
-                        msg.m_id = e_message_move;
+                        msg.m_atom = e_message_move;
                         msg.wParam = 0;
                         msg.lParam = point.lparam();
 
@@ -2234,7 +2234,7 @@ else if(detail == 3)
 
                         msg.oswindow->m_point = size;
 
-                        msg.m_id = e_message_size;
+                        msg.m_atom = e_message_size;
                         msg.wParam = 0;
                         msg.lParam = size.lparam();
 
@@ -2321,19 +2321,19 @@ else if(detail == 3)
 
                      ::output_debug_string("ButtonPress::Button1\n");
 
-                     msg.m_id = e_message_left_button_down;
+                     msg.m_atom = e_message_left_button_down;
 
                   }
                   else if (e.xbutton.button == Button2)
                   {
 
-                     msg.m_id = e_message_middle_button_down;
+                     msg.m_atom = e_message_middle_button_down;
 
                   }
                   else if (e.xbutton.button == Button3)
                   {
 
-                     msg.m_id = e_message_right_button_down;
+                     msg.m_atom = e_message_right_button_down;
 
                   }
                   else
@@ -2352,19 +2352,19 @@ else if(detail == 3)
 
                      ::output_debug_string("ButtonRelease::Button1\n");
 
-                     msg.m_id = e_message_left_button_up;
+                     msg.m_atom = e_message_left_button_up;
 
                   }
                   else if (e.xbutton.button == Button2)
                   {
 
-                     msg.m_id = e_message_middle_button_up;
+                     msg.m_atom = e_message_middle_button_up;
 
                   }
                   else if (e.xbutton.button == Button3)
                   {
 
-                     msg.m_id = e_message_right_button_up;
+                     msg.m_atom = e_message_right_button_up;
 
                   }
                   else
@@ -2438,7 +2438,7 @@ else if(detail == 3)
                if (e.xkey.type == KeyPress)
                {
 
-                  msg.m_id = e_message_key_down;
+                  msg.m_atom = e_message_key_down;
 
                   __pointer(::windowing_x11::window) pwindow = msg.oswindow;
 
@@ -2483,7 +2483,7 @@ else if(detail == 3)
                   keysym = XkbKeycodeToKeysym(m_pdisplay->Display(), e.xkey.keycode, 0,
                                               e.xkey.state & ShiftMask ? 1 : 0);
 
-                  msg.m_id = e_message_key_up;
+                  msg.m_atom = e_message_key_up;
 
                }
                else
@@ -2515,7 +2515,7 @@ else if(detail == 3)
 
 //               MESSAGE msgText(msg);
 //
-//               msgText.m_id = e_message_text_composition;
+//               msgText.m_atom = e_message_text_composition;
 //
 //               msgText.wParam = 0;
 //
@@ -2540,7 +2540,7 @@ else if(detail == 3)
 
             ::output_debug_string("FocusIn\n");
 
-            msg.m_id = e_message_set_focus;
+            msg.m_atom = e_message_set_focus;
 
             auto oswindow = msg.oswindow;
 
@@ -2559,7 +2559,7 @@ else if(detail == 3)
                     if (::is_set(pinteraction))
                     {
 
-                        msg.m_id = e_message_set_focus;
+                        msg.m_atom = e_message_set_focus;
 
                         pinteraction->m_ewindowflag |= ::e_window_flag_focus;
 
@@ -2649,7 +2649,7 @@ else if(detail == 3)
                   if (::is_set(pinteraction))
                   {
 
-                     msg.m_id = e_message_kill_focus;
+                     msg.m_atom = e_message_kill_focus;
 
                      pinteraction->m_ewindowflag -= ::e_window_flag_focus;
 
@@ -2678,7 +2678,7 @@ else if(detail == 3)
             if(msg.oswindow)
             {
                msg.oswindow = m_pdisplay->_window(e.xdestroywindow.window);
-               msg.m_id = e_message_destroy;
+               msg.m_atom = e_message_destroy;
 
                post_ui_message(msg);
 
@@ -2780,7 +2780,7 @@ else if(detail == 3)
 //__pointer(::user::message) channel::get_message_base(void * pevent,::user::interaction * pwnd)
 //{
 //
-//   __throw(todo());
+//   throw ::exception(todo());
 //
 //   return nullptr;
 //
@@ -3135,7 +3135,7 @@ else if(detail == 3)
       if (pmessagequeue == nullptr)
       {
 
-         if (message.m_id == e_message_quit)
+         if (message.m_atom == e_message_quit)
          {
 
             return;
@@ -3155,20 +3155,20 @@ else if(detail == 3)
 
       synchronous_lock ml(pmessagequeue->mutex());
 
-      if (message.m_id == e_message_quit)
+      if (message.m_atom == e_message_quit)
       {
 
          output_debug_string("e_message_quit thread");
 
       }
 
-      if (message.m_id == e_message_left_button_down)
+      if (message.m_atom == e_message_left_button_down)
       {
 
          output_debug_string("post_ui_message::e_message_left_button_down\n");
 
       }
-      else if (message.m_id == e_message_left_button_up)
+      else if (message.m_atom == e_message_left_button_up)
       {
 
          output_debug_string("post_ui_message::e_message_left_button_up\n");
@@ -3237,7 +3237,7 @@ else if(detail == 3)
 //      if (pmq == nullptr)
 //      {
 //
-//         if (message.m_id == e_message_quit)
+//         if (message.m_atom == e_message_quit)
 //         {
 //
 //            return false;
@@ -3257,20 +3257,20 @@ else if(detail == 3)
 //
 //      synchronous_lock ml(pmq->mutex());
 //
-//      if (message.m_id == e_message_quit)
+//      if (message.m_atom == e_message_quit)
 //      {
 //
 //         output_debug_string("e_message_quit thread");
 //
 //      }
 //
-//      if (message.m_id == e_message_left_button_down)
+//      if (message.m_atom == e_message_left_button_down)
 //      {
 //
 //         output_debug_string("post_ui_message::e_message_left_button_down\n");
 //
 //      }
-//      else if (message.m_id == e_message_left_button_up)
+//      else if (message.m_atom == e_message_left_button_up)
 //      {
 //
 //         output_debug_string("post_ui_message::e_message_left_button_up\n");
@@ -3501,7 +3501,7 @@ void x11_check_status(int status, unsigned long window)
 {
    if (status == BadWindow)
    {
-      printf("window id # 0x%lx does not exists!", window);
+      printf("window atom # 0x%lx does not exists!", window);
       //   exit(1);
    }
 

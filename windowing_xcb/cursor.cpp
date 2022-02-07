@@ -34,9 +34,9 @@ namespace windowing_xcb
    ::e_status cursor::_create_from_image(const ::image * pimage, ::i32 xHotspot, ::i16 yHotspot)
    {
 
-      throw ::interface_only_exception();
+      throw ::interface_only();
       
-      throw ::interface_only_exception();
+      throw ::interface_only();
 
    }
 

@@ -426,7 +426,7 @@ namespace windowing_xcb
 
       auto psystem = m_psystem->m_papexsystem;
 
-      //auto psubject = psystem->subject(eid);
+      //auto ptopic = psystem->topic(eid);
 
       if(emessage != e_message_null)
       {
@@ -449,20 +449,20 @@ namespace windowing_xcb
 
             }
 
-            //psubject->payload("return") = is_return_key(pgeevent);
+            //ptopic->get_extended_topic()->payload("return") = is_return_key(pgeevent);
 
-            //psubject->payload("space") = is_space_key(pgeevent);
+            //ptopic->get_extended_topic()->payload("space") = is_space_key(pgeevent);
 
          }
 
-         //::subject::context context;
+         //::topic::context context;
 
          for (auto & p : *m_pobjectaExtendedEventListener)
          {
 
             p->call(emessage, iKey);
 
-            //p->on_subject(psubject, &context);
+            //p->on_subject(ptopic, &context);
 
          }
 

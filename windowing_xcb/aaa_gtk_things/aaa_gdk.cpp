@@ -2,7 +2,7 @@
 #include "acme/id.h"
 #include "_.h"
 #include "gdk.h"
-#include "acme/node/operating_system/xcb/_xcb.h"
+#include "acme/operating_system/xcb/_xcb.h"
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 #include <glib.h>
@@ -644,11 +644,11 @@ namespace node_gnome
 
          ::user::os_set_theme_colors(pthemecolors);
 
-//         auto psubject = System.subject(id_os_user_theme);
+//         auto ptopic = System.topic(id_os_user_theme);
 //
-//         psubject->m_esubject = e_subject_deliver;
+//         ptopic->m_atom = id_deliver;
 //
-//         System.process(psubject);
+//         System.process(ptopic);
 
       }
       else

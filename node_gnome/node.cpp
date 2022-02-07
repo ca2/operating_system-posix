@@ -91,7 +91,7 @@ namespace node_gnome
    {
 
 
-      __throw(error_failed, "deprecated");
+      throw ::exception(error_failed, "deprecated");
       //
       //::parallelization::post_quit_and_wait(get_context_system(), one_minute());
 
@@ -110,24 +110,24 @@ namespace node_gnome
    }
 
 
-   void node::handle(::subject * psubject, ::context * pcontext)
+   void node::handle(::topic * ptopic, ::context * pcontext)
    {
 
 
    }
 
 
-   bool node::should_launch_on_node(::subject * psubject)
+   bool node::should_launch_on_node(::topic * ptopic)
    {
 
-      if(::is_null(psubject))
+      if(::is_null(ptopic))
       {
 
          return false;
 
       }
 
-      if(psubject->m_id == id_operating_system_user_color_change)
+      if(ptopic->m_atom == id_operating_system_user_color_change)
       {
 
          return false;
@@ -139,10 +139,10 @@ namespace node_gnome
    }
 
 
-   bool node::launch_on_node(::subject * psubject)
+   bool node::launch_on_node(::topic * ptopic)
    {
 
-      ::matter * pmatter = psubject;
+      ::matter * pmatter = ptopic;
 
       node_fork(__routine([pmatter]()
       {

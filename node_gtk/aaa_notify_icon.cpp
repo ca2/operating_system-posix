@@ -60,7 +60,7 @@ namespace node_gtk
 #elif defined(APPLE_IOS)
 
 #else
-      __throw(todo());
+      throw ::exception(todo());
 
 #endif
 
@@ -243,7 +243,7 @@ namespace node_gtk
 
 #else
 
-      __throw(todo);
+      throw ::exception(todo);
 
 #endif
 
@@ -341,7 +341,7 @@ namespace node_gtk
 //#else
 //
 //
-//      __throw(todo());
+//      throw ::exception(todo());
 //
 //      return true;
 //

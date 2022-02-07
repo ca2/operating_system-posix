@@ -249,10 +249,10 @@ void simple_ui_display::call_expose(xcb_connection_t * pdisplay)
 }
 
 
-void simple_ui_display::on_subject(::promise::subject * psubject, ::context * pcontext)
+void simple_ui_display::on_subject(::promise::topic * ptopic, ::context * pcontext)
 {
 
-   if(psubject->id() == id_os_user_theme)
+   if(ptopic->m_atom == id_os_user_theme)
    {
 
       m_bOsUserThemeColorModified = true;

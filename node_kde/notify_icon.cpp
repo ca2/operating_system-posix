@@ -29,7 +29,7 @@ namespace node_kde
    }
 
 
-   void notify_icon::create_notify_icon(const ::id & id, ::user::interaction * puserinteractionNotify, ::windowing::icon * picon)
+   void notify_icon::create_notify_icon(const ::atom & atom, ::user::interaction * puserinteractionNotify, ::windowing::icon * picon)
    {
 
       if (m_bCreated)
@@ -43,11 +43,11 @@ namespace node_kde
 
       string strNotifyIcon;
 
-      strNotifyIcon = "notify_icon_" + id.to_string();
+      strNotifyIcon = "notify_icon_" + atom.to_string();
 
       m_strId = "ca2-" + picon->get_tray_icon_name() + "-" + strNotifyIcon;
 
-      m_id = id;
+      m_atom = atom;
 
       m_piconCurrent = picon;
 

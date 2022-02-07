@@ -561,17 +561,17 @@ void node::os_calc_user_dark_mode()
 //
 //   }
 
-   bool node::should_launch_on_node(::promise::subject * psubject)
+   bool node::should_launch_on_node(::promise::topic * ptopic)
    {
 
-      if(::is_null(psubject))
+      if(::is_null(ptopic))
       {
 
          return false;
 
       }
 
-      if(psubject->m_id == id_os_dark_mode)
+      if(ptopic->m_atom == id_os_dark_mode)
       {
 
          return false;
@@ -583,10 +583,10 @@ void node::os_calc_user_dark_mode()
    }
 
 
-   bool node::launch_on_node(::promise::subject * psubject)
+   bool node::launch_on_node(::promise::topic * ptopic)
    {
 
-      ::matter * pmatter = psubject;
+      ::matter * pmatter = ptopic;
 
       node_fork([pmatter]()
                 {

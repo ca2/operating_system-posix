@@ -224,7 +224,7 @@ namespace acme
          {
             // Try to read ID string of PCI device
 
-            string sys_id_path = sys_device_path + string("/id");
+            string sys_id_path = sys_device_path + string("/atom");
 
             auto psystem = pmatter->m_psystem;
 

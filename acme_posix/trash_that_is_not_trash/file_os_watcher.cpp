@@ -24,7 +24,7 @@ namespace file
 
       os_watcher * pwatcher  =dynamic_cast < os_watcher * >(m_pwatcher);
 
-      inotify_rm_watch(pwatcher->mFD, m_id);
+      inotify_rm_watch(pwatcher->mFD, m_atom);
 
    }
 
@@ -89,7 +89,7 @@ namespace file
 
       pwatch->add_listener(plistener);
 
-      pwatch->m_id = wd;
+      pwatch->m_atom = wd;
 
       pwatch->m_pathFolder = pathFolder;
 
@@ -135,7 +135,7 @@ namespace file
 
                pwatch->add_listener(plistener);
 
-               pwatch->m_id = inaw;
+               pwatch->m_atom = inaw;
 
                pwatch->m_pathFolder = stra[index];
 
@@ -225,37 +225,37 @@ namespace file
             struct inotify_event *pevent = (struct inotify_event *)&buff[i];
 
 
-            auto pwatch = m_watchmap[(id)psubject->wd];
+            auto pwatch = m_watchmap[(atom)ptopic->wd];
 
             ::file::action a;
             a.m_pwatch = pwatch;
-            a.m_id = pwatch->m_id;
+            a.m_atom = pwatch->m_atom;
             a.m_pathFolder = pwatch->m_pathFolder;
-            a.m_pathFile = psubject->name;
+            a.m_pathFile = ptopic->name;
             a.m_eaction = action_none;
 
-            if((IN_CLOSE_WRITE & psubject->mask) || (IN_MODIFY & psubject->mask))
+            if((IN_CLOSE_WRITE & ptopic->mask) || (IN_MODIFY & ptopic->mask))
             {
 
                a.m_eaction |= action_modify;
 
             }
 
-            if(IN_MOVED_TO & psubject->mask || IN_CREATE & psubject->mask)
+            if(IN_MOVED_TO & ptopic->mask || IN_CREATE & ptopic->mask)
             {
 
                a.m_eaction |= action_add;
 
             }
 
-            if(IN_MOVED_FROM & psubject->mask || IN_DELETE & psubject->mask)
+            if(IN_MOVED_FROM & ptopic->mask || IN_DELETE & ptopic->mask)
             {
 
                a.m_eaction |= action_delete;
 
             }
 
-            if((IN_CLOSE_WRITE | IN_MODIFY)& psubject->mask  || IN_MODIFY & psubject->mask )
+            if((IN_CLOSE_WRITE | IN_MODIFY)& ptopic->mask  || IN_MODIFY & ptopic->mask )
             {
 
                a.m_eaction |= action_modify;
@@ -264,7 +264,7 @@ namespace file
 
             pwatch->handle_action(&a);
 
-            i += sizeof(struct inotify_event) + psubject->len;
+            i += sizeof(struct inotify_event) + ptopic->len;
 
          }
 

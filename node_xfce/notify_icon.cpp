@@ -119,7 +119,7 @@ namespace node_xfce
 #elif defined(APPLE_IOS)
 
 #else
-      __throw(todo());
+      throw ::exception(todo());
 
 #endif
 
@@ -302,7 +302,7 @@ namespace node_xfce
 
 #else
 
-      __throw(todo);
+      throw ::exception(todo);
 
 #endif
 
@@ -400,7 +400,7 @@ namespace node_xfce
 //#else
 //
 //
-//      __throw(todo());
+//      throw ::exception(todo());
 //
 //      return true;
 //

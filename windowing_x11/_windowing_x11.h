@@ -10,8 +10,8 @@
 #ifdef FREEBSD
 #include "aura/node/operating_system/freebsd/appindicator.h"
 #endif
-#include "acme/node/operating_system/ansi/_pthread.h"
-#include "acme/node/operating_system/freebsd/_user.h"
+#include "acme/operating_system/ansi/_pthread.h"
+#include "acme/operating_system/freebsd/_user.h"
 
 
 #define WITH_XI

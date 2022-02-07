@@ -298,7 +298,7 @@ namespace windowing_xcb
          return false;
       }
 
-      __throw(todo, "xml");
+      throw ::exception(todo, "xml");
 
       //::xml::document doc;
 
@@ -645,7 +645,7 @@ namespace windowing_xcb
 //      if(str.is_empty())
 //         return false;
 //
-//      __throw(todo("xml"));
+//      throw ::exception(todo("xml"));
 //
 ////      ::xml::document doc;
 ////
@@ -684,7 +684,7 @@ namespace windowing_xcb
 ////
 ////#else
 ////
-////      //__throw(todo());
+////      //throw ::exception(todo());
 ////
 ////#endif
 ////
@@ -738,9 +738,9 @@ namespace windowing_xcb
       if (!::is_null(pprimitive) && pprimitive != m_pprimitiveSoftwareKeyboard)
       {
 
-         //return error_invalid_argument;
+         //return error_bad_argument;
 
-         throw_status(error_invalid_argument);
+         throw_status(error_bad_argument);
 
       }
 

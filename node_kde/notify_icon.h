@@ -24,7 +24,7 @@ namespace node_kde
 
       void modify_icon(::windowing::icon * picon) override;
 
-      void create_notify_icon(const ::id & id, ::user::interaction * puserinteractionNotify, ::windowing::icon * picon) override;
+      void create_notify_icon(const ::atom & atom, ::user::interaction * puserinteractionNotify, ::windowing::icon * picon) override;
 
       virtual ::e_status _create_status_notifier_item();
 

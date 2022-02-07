@@ -1,7 +1,7 @@
 //
 // Created by camilo on 09/12/2021. 13:03 BRT <ThomasBoregaardSorensen!!
 #include "framework.h"
-#include "acme/node/operating_system/ansi/pmutex_lock.h"
+#include "acme/operating_system/ansi/pmutex_lock.h"
 
 
 namespace node_gtk
@@ -68,14 +68,14 @@ namespace node_gtk
       if (strSchema.is_empty())
       {
 
-         return error_invalid_argument;
+         return error_bad_argument;
 
       }
 
       if (strKey.is_empty())
       {
 
-         return error_invalid_argument;
+         return error_bad_argument;
 
       }
 

@@ -24,7 +24,7 @@ namespace node_gnome
    }
 
 
-   void notify_icon::create_notify_icon(const ::id & id, ::user::interaction * puserinteractionNotify, ::windowing::icon * picon)
+   void notify_icon::create_notify_icon(const ::atom & atom, ::user::interaction * puserinteractionNotify, ::windowing::icon * picon)
    {
 
       if (m_bCreated)
@@ -34,11 +34,11 @@ namespace node_gnome
 
       }
 
-      m_strId.format("notify_icon_%s", id.to_string().c_str());
+      m_strId.format("notify_icon_%s", atom.to_string().c_str());
 
       m_strId = "ca2-" + picon->get_tray_icon_name() + "-" + m_strId;
 
-      m_id = id;
+      m_atom = atom;
 
       m_piconCurrent = picon;
 

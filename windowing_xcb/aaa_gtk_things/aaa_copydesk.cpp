@@ -271,7 +271,7 @@ namespace node_gnome
    {
 
 
-      __throw(todo());
+      throw ::exception(todo());
 
       return false;
 
@@ -689,7 +689,7 @@ namespace node_gnome
 //   else
 //   {
 //
-//      __throw(invalid_argument_exception());
+//      throw ::exception(invalid_argument_exception());
 //
 //   }
 //

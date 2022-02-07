@@ -178,7 +178,7 @@ namespace windowing_xcb
          if (formats[i].type == XCB_RENDER_PICT_TYPE_DIRECT)
          {
 
-            m_mapFormatInfo.set_at(formats[i].id, &formats[i]);
+            m_mapFormatInfo.set_at(formats[i].atom, &formats[i]);
 
          }
 
@@ -440,7 +440,7 @@ namespace windowing_xcb
          MESSAGE msg;
 
          msg.oswindow = pwindowMouseCaptureOld;
-         msg.m_id = e_message_capture_changed;
+         msg.m_atom = e_message_capture_changed;
          msg.wParam = 0;
          msg.lParam = pwindowMouseCaptureNew;
 
@@ -533,7 +533,7 @@ namespace windowing_xcb
          if(!estatus)
          {
 
-            __throw(estatus, "could not create default cursor font");
+            throw ::exception(estatus, "could not create default cursor font");
 
          }
 
@@ -558,7 +558,7 @@ namespace windowing_xcb
       if(!estatus)
       {
 
-         __throw(estatus, "could not create a default cursor with the specified/\"or any\" glyph");
+         throw ::exception(estatus, "could not create a default cursor with the specified/\"or any\" glyph");
 
       }
 
@@ -778,7 +778,7 @@ namespace windowing_xcb
 
       {
 
-         auto cookie = xcb_render_create_picture(m_pconnection, picture, pixmap, pformat->id, 0, nullptr);
+         auto cookie = xcb_render_create_picture(m_pconnection, picture, pixmap, pformat->atom, 0, nullptr);
 
          auto estatus = _request_check(cookie);
 

@@ -1,14 +1,14 @@
 #include "framework.h"
 #include "platform/platform_setup.h"
 #include <limits.h>
-#include "acme/node/operating_system/xcb/_xcb.h"
+#include "acme/operating_system/xcb/_xcb.h"
 #include "__standard_type.h"
 #include "gnome.h"
 #include "gnome_gnome.h"
 #include "gnome_internal_glue.h"
 #include "apex/message/global.h"
 #include "aura/const/_const.h"
-#include "acme/constant/id.h"
+#include "acme/id.h"
 #include "platform/_.h"
 #include "aura/os/freebsd/appindicator.h"
 

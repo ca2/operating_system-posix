@@ -18,7 +18,7 @@ void sn_start_context();
 //   //g_set_application_name (pszAppName);
 //
 //   apex_application = (ApexApplication *) g_object_new (apex_application_get_type (),
-//                                          "application-id", pszProgName,
+//                                          "application-atom", pszProgName,
 //                                          "flags", G_APPLICATION_FLAGS_NONE,
 //                                          "inactivity-timeout", 30000,
 //                                          "register-session", TRUE,
@@ -63,7 +63,7 @@ void sn_start_context();
 //
 //      string strName = papplicationmenu->element_at(i).m_strName;
 //
-//      auto psubject = g_simple_action_new (strId, NULL);
+//      auto ptopic = g_simple_action_new (strId, NULL);
 //
 //      g_signal_connect (
 //         papplication,
@@ -71,7 +71,7 @@ void sn_start_context();
 //         G_CALLBACK (apex_application_application_menu_activate_callback),
 //         papp);
 //
-//      g_action_map_add_action(G_ACTION_MAP(papplication), G_ACTION (psubject));
+//      g_action_map_add_action(G_ACTION_MAP(papplication), G_ACTION (ptopic));
 //
 //      g_menu_append (pmenu, strName, strId);
 //
