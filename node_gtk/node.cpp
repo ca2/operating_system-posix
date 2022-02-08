@@ -4,12 +4,10 @@
 #include "framework.h"
 #include "node.h"
 #include "acme/operating_system/ansi/pmutex_lock.h"
+#include "acme/operating_system/parallelization.h"
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 #include <glib.h>
-
-
-
 
 
 bool x11_message_loop_step();
@@ -160,7 +158,7 @@ namespace node_gtk
 
       //auto estatus =
       //
-      m_psystem->m_papexsystem->begin_synch();
+      m_psystem->m_papexsystem->begin_synchronously();
 
 //      if (!estatus)
 //      {
@@ -839,7 +837,7 @@ namespace node_gtk
    bool node::launch_on_node(::topic * ptopic)
    {
 
-      ::element * pelement = ptopic;
+      ::element * pelement = ptopic->get_extended_topic();
 
       node_fork(__routine([pelement]()
       {

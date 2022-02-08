@@ -167,7 +167,7 @@ namespace windowing_x11
 
          _libsn_start_context();
 
-         branch_task(pnode);
+         branch_element(pnode);
 
       }
       else

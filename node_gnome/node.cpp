@@ -142,7 +142,7 @@ namespace node_gnome
    bool node::launch_on_node(::topic * ptopic)
    {
 
-      ::matter * pmatter = ptopic;
+      ::matter * pmatter = ptopic->get_extended_topic();
 
       node_fork(__routine([pmatter]()
       {
