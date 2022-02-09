@@ -1595,9 +1595,9 @@ else if(detail == 3)
                   }
 
 
-//                  ptopic->get_extended_topic()->payload("return") = is_return_key(prawevent);
+//                  ptopic->_extended_topic()->payload("return") = is_return_key(prawevent);
 //
-//                  ptopic->get_extended_topic()->payload("space") = is_space_key(prawevent);
+//                  ptopic->_extended_topic()->payload("space") = is_space_key(prawevent);
 
                   //::topic::context context;
 
