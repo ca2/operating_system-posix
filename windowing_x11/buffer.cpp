@@ -67,7 +67,7 @@ namespace windowing_x11
       if(!x11_window())
       {
 
-         throw_status(error_wrong_state);
+         throw ::exception(error_wrong_state);
 
       }
 

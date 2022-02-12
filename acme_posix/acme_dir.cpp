@@ -336,7 +336,7 @@ namespace posix
 
          auto estatus = failed_errno_to_status(iErrNo);
 
-         throw_status(estatus);
+         throw ::exception(estatus, "posix::acme_dir::get_current");
 
       }
 
@@ -359,7 +359,7 @@ namespace posix
 
          auto estatus = failed_errno_to_status(iErrNo);
          
-         throw_status(estatus);
+         throw ::exception(estatus, "posix::acme_dir::change_current");
 
       }
 

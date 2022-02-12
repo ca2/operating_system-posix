@@ -163,7 +163,7 @@ namespace multimedia
          if(!(m_estatusWave = this->snd_pcm_open(SND_PCM_STREAM_PLAYBACK)))
          {
 
-             throw_status(m_estatusWave);
+             throw ::exception(m_estatusWave);
 
          }
 
@@ -195,7 +195,7 @@ namespace multimedia
 
             FORMATTED_TRACE("unable to determine current m_pswparams for playback: %s\n", snd_strerror(err));
 
-            throw_status(error_failed);
+            throw ::exception(error_failed);
 
          }
 
@@ -207,7 +207,7 @@ namespace multimedia
 
             FORMATTED_TRACE("unable to set start threshold mode for playback: %s\n", snd_strerror(err));
 
-            throw_status(error_failed);
+            throw ::exception(error_failed);
 
          }
 
@@ -217,7 +217,7 @@ namespace multimedia
 
             FORMATTED_TRACE("unable to set avail min for playback: %s\n", snd_strerror(err));
 
-            throw_status(error_failed);
+            throw ::exception(error_failed);
 
          }
 
@@ -226,7 +226,7 @@ namespace multimedia
 
             FORMATTED_TRACE("unable to set time stamp mode: %s\n", snd_strerror(err));
 
-            throw_status(error_failed);
+            throw ::exception(error_failed);
 
          }
 
@@ -235,7 +235,7 @@ namespace multimedia
 
             FORMATTED_TRACE("unable to set time stamp type: %s\n", snd_strerror(err));
 
-            throw_status(error_failed);
+            throw ::exception(error_failed);
 
          }
 
@@ -245,7 +245,7 @@ namespace multimedia
 
             FORMATTED_TRACE("unable to set sw params for playback: %s\n", snd_strerror(err));
 
-            throw_status(error_failed);
+            throw ::exception(error_failed);
 
          }
 
@@ -308,7 +308,7 @@ namespace multimedia
          if(m_estate != e_state_playing && m_estate != e_state_paused)
          {
 
-            throw_status(error_wrong_state);
+            throw ::exception(error_wrong_state);
 
          }
 
@@ -333,7 +333,7 @@ namespace multimedia
          if(!m_estatusWave)
          {
 
-            throw_status(m_estatusWave);
+            throw ::exception(m_estatusWave);
 
          }
 
@@ -352,7 +352,7 @@ namespace multimedia
          if(m_estate != e_state_playing)
          {
 
-            throw_status(error_wrong_state);
+            throw ::exception(error_wrong_state);
 
          }
 
@@ -375,7 +375,7 @@ namespace multimedia
          if(!m_estatusWave)
          {
 
-            throw_status(m_estatusWave);
+            throw ::exception(m_estatusWave);
 
          }
 
@@ -394,7 +394,7 @@ namespace multimedia
          if(m_estate != e_state_paused)
          {
 
-            throw_status(error_wrong_state);
+            throw ::exception(error_wrong_state);
 
          }
 
@@ -415,7 +415,7 @@ namespace multimedia
          if(!m_estatusWave)
          {
 
-            throw_status(m_estatusWave);
+            throw ::exception(m_estatusWave);
 
          }
 
@@ -821,7 +821,7 @@ namespace multimedia
 
             //return error_failed;
 
-            throw_status(error_wrong_state);
+            throw ::exception(error_wrong_state);
 
          }
 
@@ -832,7 +832,7 @@ namespace multimedia
 
             FORMATTED_TRACE ("out_start: Cannot prepare audio interface for use (%s)\n",snd_strerror (err));
 
-            throw_status(error_failed);
+            throw ::exception(error_failed);
 
          }
 
@@ -847,7 +847,7 @@ namespace multimedia
 
             TRACE("out_start: ::wave::out::out_start FAILED");
 
-            throw_status(m_estatusWave);
+            throw ::exception(m_estatusWave);
 
          }
 

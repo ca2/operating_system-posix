@@ -386,7 +386,7 @@ namespace windowing_x11
 
          //return error_failed;
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -3101,7 +3101,7 @@ else if(detail == 3)
       if(::is_null(pimpl))
       {
 
-         throw_status(error_null_pointer);
+         throw ::exception(error_null_pointer);
 
       }
 
@@ -3110,7 +3110,7 @@ else if(detail == 3)
       if(::is_null(pinteraction))
       {
 
-         throw_status(error_null_pointer);
+         throw ::exception(error_null_pointer);
 
       }
 
@@ -3126,7 +3126,7 @@ else if(detail == 3)
       if (::is_null(pthread))
       {
 
-         throw_status(error_null_pointer);
+         throw ::exception(error_null_pointer);
 
       }
 
@@ -3149,7 +3149,7 @@ else if(detail == 3)
       if (pmessagequeue == nullptr)
       {
 
-         throw_status(error_null_pointer);
+         throw ::exception(error_null_pointer);
 
       }
 
@@ -3196,7 +3196,7 @@ else if(detail == 3)
       if(::is_null(pimpl))
       {
 
-         throw_status(error_null_pointer);
+         throw ::exception(error_null_pointer);
 
       }
 
@@ -3205,7 +3205,7 @@ else if(detail == 3)
       if(::is_null(puserinteraction))
       {
 
-         throw_status(error_null_pointer);
+         throw ::exception(error_null_pointer);
 
       }
 

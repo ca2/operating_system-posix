@@ -496,7 +496,7 @@ namespace node_kde
 
          printf("%s", "Failed to create QApplication");
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 

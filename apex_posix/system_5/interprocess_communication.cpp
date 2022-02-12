@@ -62,14 +62,14 @@ namespace system_5
       if(m_key == 0)
       {
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
       if((m_iQueue = msgget(m_key,IPC_CREAT | 0660)) == -1)
       {
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -129,7 +129,7 @@ namespace system_5
 
          int iError = errno;
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -150,14 +150,14 @@ namespace system_5
       if(message == 1024)
       {
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
       if(!is_tx_ok())
       {
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -194,7 +194,7 @@ namespace system_5
       if((result = msgsnd(m_iQueue,pdata,m.get_size() - sizeof(long),0)) == -1)
       {
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -240,7 +240,7 @@ namespace system_5
       if(m_key == 0)
       {
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -248,7 +248,7 @@ namespace system_5
       if((m_iQueue = msgget(m_key,IPC_CREAT | 0660)) == -1)
       {
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -287,7 +287,7 @@ namespace system_5
       if(msgctl(m_iQueue,IPC_RMID,0) == -1)
       {
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 

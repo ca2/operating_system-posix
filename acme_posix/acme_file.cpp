@@ -47,21 +47,6 @@ namespace posix
 
       return ::file_exists(filename);
          
-//      struct stat st;
-//
-//      if(stat (filename, &st) != 0)
-//      {
-//
-//         int iErrNo = errno;
-//
-//         auto estatus = failed_errno_to_status(iErrNo);
-//
-//         throw_status(estatus);
-//
-//      }
-//
-//      return true;
-      
    }
 
 
@@ -80,7 +65,7 @@ namespace posix
       if (fd < 0)
       {
          
-         throw_status(error_io);
+         throw ::exception(error_io);
          
       }
 
@@ -128,7 +113,7 @@ namespace posix
          if (rc)
          {
          
-            throw_status(error_failed);
+            throw ::exception(error_failed, "posix::acme_file::touch");
 
          }
          
@@ -180,7 +165,7 @@ namespace posix
 
       }
 
-      throw_status(error_not_found);
+      throw ::exception(error_not_found);
 
       return {};
 
@@ -207,7 +192,7 @@ namespace posix
 
          auto estatus = errno_to_status(iErrNo);
 
-         throw_status(estatus);
+         throw ::exception(estatus, "::posix::acme_file::set_size");
 
       }
 
@@ -244,7 +229,7 @@ namespace posix
 
          ::close(iFileDescriptor);
          
-         throw_status(estatus);
+         throw ::exception(estatus, "posix::acme_file::get_size_fd");
 //
 //         return -1;
 
@@ -274,7 +259,7 @@ namespace posix
       if (pfile == nullptr)
       {
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -301,13 +286,13 @@ namespace posix
          if(dwWritten < dwWrite)
          {
 
-            throw_status(error_disk_full);
+            throw ::exception(error_disk_full);
 
          }
          else
          {
 
-            throw_status(error_io);
+            throw ::exception(error_io);
 
          }
 
@@ -338,7 +323,7 @@ namespace posix
          
          auto estatus = failed_errno_to_status(iErrNo);
 
-         throw_status(estatus);
+         throw ::exception(estatus, "posix::acme_file::as_string");
 
       }
 
@@ -358,7 +343,7 @@ namespace posix
 
          auto estatus = failed_errno_to_status(iErrNo);
 
-         throw_status(estatus);
+         throw ::exception(estatus, "posix::acme_file::as_string");
          
       }
 
@@ -399,7 +384,7 @@ namespace posix
       if (pfile == nullptr)
       {
 
-         throw_status(error_io);
+         throw ::exception(error_io);
 
       }
 
@@ -455,7 +440,7 @@ namespace posix
             if(iFError)
             {
 
-               throw_status(error_io);
+               throw ::exception(error_io);
 
             }
 
@@ -478,7 +463,7 @@ namespace posix
          
          auto estatus = failed_errno_to_status(iErrNo);
 
-         throw_status(estatus);
+         throw ::exception(estatus, "posix::acme_file::as_memory");
 
       }
 
@@ -622,7 +607,7 @@ namespace posix
 
          auto estatus = failed_errno_to_status(iErrNo);
 
-         throw_status(estatus, "Error opening file : \"" + string(pszNew) + "\"");
+         throw ::exception(estatus, "Error opening file : \"" + string(pszNew) + "\"");
 
       }
 
@@ -634,7 +619,7 @@ namespace posix
 
          auto estatus = failed_errno_to_status(iErrNo);
 
-         throw_status(estatus, "Error opening file : \"" + string(pszSrc) + "\"");
+         throw ::exception(estatus, "Error opening file : \"" + string(pszSrc) + "\"");
 
       }
 
@@ -648,7 +633,7 @@ namespace posix
 
          auto estatus = failed_errno_to_status(iErrNo);
 
-         throw_status(estatus, "Failed to set output file size : \"" + string(pszNew) + "\"");
+         throw ::exception(estatus, "Failed to set output file size : \"" + string(pszNew) + "\"");
 
       }
 
@@ -659,7 +644,7 @@ namespace posix
 
          auto estatus = failed_errno_to_status(iErrNo);
 
-         throw_status(estatus, "Error mapping input file : \"" + string(pszSrc) + "\"");
+         throw ::exception(estatus, "Error mapping input file : \"" + string(pszSrc) + "\"");
 
       }
 
@@ -671,7 +656,7 @@ namespace posix
 
          auto estatus = failed_errno_to_status(iErrNo);
 
-         throw_status(estatus, "Error mapping output file: \"" + string(pszNew) + "\"");
+         throw ::exception(estatus, "Error mapping output file: \"" + string(pszNew) + "\"");
 
       }
 
@@ -842,7 +827,7 @@ namespace posix
          
          auto estatus = failed_errno_to_status(iErrNo);
 
-         throw_status(estatus);
+         throw ::exception(estatus);
 
       }
 

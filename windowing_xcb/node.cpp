@@ -61,7 +61,7 @@ namespace windowing_xcb
 //      if(!estatus)
 //      {
 //
-//         throw_status(estatus);
+//         throw ::exception(estatus);
 //
 //      }
 
@@ -88,7 +88,7 @@ namespace windowing_xcb
 //      if(!estatus)
 //      {
 //
-//         throw_status(estatus);
+//         throw ::exception(estatus);
 //
 //      }
 

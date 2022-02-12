@@ -128,7 +128,7 @@ namespace windowing_x11
       if(!pdisplay)
       {
 
-         throw_status(error_no_interface, "Failed to cast pdisplay to m_pdisplay at windowing_x11::windowing::initialize");
+         throw ::exception(error_no_interface, "Failed to cast pdisplay to m_pdisplay at windowing_x11::windowing::initialize");
 
       }
 
@@ -188,7 +188,7 @@ namespace windowing_x11
       if(::is_null(routine.m_p))
       {
 
-         throw_status(error_null_pointer);
+         throw ::exception(error_null_pointer);
 
       }
 

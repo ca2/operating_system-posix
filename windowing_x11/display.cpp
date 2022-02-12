@@ -122,7 +122,7 @@ namespace windowing_x11
       if(::is_null(m_pdisplay))
       {
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 

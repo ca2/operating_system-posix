@@ -105,7 +105,7 @@ namespace windowing_xcb
 //
 //         //return ::error_no_factory;
 //
-//         throw_status(error_fac)
+//         throw ::exception(error_fac)
 //
 //      }
 
@@ -449,7 +449,7 @@ namespace windowing_xcb
 
          //return error_failed;
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -458,7 +458,7 @@ namespace windowing_xcb
 
          //return error_failed;
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 

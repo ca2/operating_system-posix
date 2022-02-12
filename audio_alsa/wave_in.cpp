@@ -81,14 +81,14 @@ namespace multimedia
 
          //return error_failed;
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
          auto estatus = snd_pcm_open(SND_PCM_STREAM_CAPTURE);
 
          if(!estatus)
          {
 
-            throw_status(estatus);
+            throw ::exception(estatus);
 
          }
 
@@ -224,7 +224,7 @@ Opened:
 
             in_close();
 
-            throw_status(error_failed);
+            throw ::exception(error_failed);
 
          }
 
@@ -277,7 +277,7 @@ Opened:
          if(!estatus)
          {
 
-            throw_status(estatus);
+            throw ::exception(estatus);
 
          }
 
@@ -320,7 +320,7 @@ Opened:
 
             //return mmr;
 
-            throw_status(estatus);
+            throw ::exception(estatus);
 
          }
 
@@ -339,7 +339,7 @@ Opened:
          if(m_estate != state_recording)
          {
 
-            throw_status(error_failed);
+            throw ::exception(error_failed);
 
          }
 
@@ -461,7 +461,7 @@ Opened:
          if(m_ppcm == NULL)
          {
 
-            throw_status(error_failed);
+            throw ::exception(error_failed);
 
          }
 
@@ -484,7 +484,7 @@ Opened:
 
                TRACE("wave_in::Reset error resetting input device");
 
-               throw_status(estatus);
+               throw ::exception(estatus);
 
             }
 

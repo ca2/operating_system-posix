@@ -99,7 +99,7 @@ namespace windowing_x11
          bOk = false;
 
          //return ::success;
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -255,7 +255,7 @@ namespace windowing_x11
 
          bOk = false;
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -265,7 +265,7 @@ namespace windowing_x11
       if (!estatus)
       {
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -511,7 +511,7 @@ namespace windowing_x11
          if (lresult == -1)
          {
 
-            throw_status(error_failed);
+            throw ::exception(error_failed);
 
          }
 
@@ -524,7 +524,7 @@ namespace windowing_x11
       if(!bOk)
       {
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -1342,14 +1342,14 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       if (::is_null(this))
       {
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
       if (::is_null(pwindowNewParent))
       {
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -1358,7 +1358,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       if (::is_null(pwindowx11NewParent))
       {
 
-         throw_status(error_null_pointer);
+         throw ::exception(error_null_pointer);
 
       }
 
@@ -1603,7 +1603,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
          fflush(stdout);
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -1662,7 +1662,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
          fflush(stdout);
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -1694,7 +1694,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
          fflush(stdout);
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -1726,7 +1726,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
          fflush(stdout);
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -2556,7 +2556,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       if (status != 0)
       {
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -2571,7 +2571,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       if (::is_null(pcursor))
       {
 
-         throw_status(error_null_pointer);
+         throw ::exception(error_null_pointer);
 
       }
 
@@ -2580,7 +2580,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       if (::is_null(pcursorx11))
       {
 
-         throw_status(error_null_pointer);
+         throw ::exception(error_null_pointer);
 
       }
 
@@ -3640,14 +3640,14 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       if (Display() == nullptr)
       {
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
       if (Window() == None)
       {
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -3699,7 +3699,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       if (Window() == 0)
       {
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -3712,7 +3712,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
          windowing_output_debug_string("\noswindow_data::SetFocus 1.1");
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -3721,7 +3721,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
          windowing_output_debug_string("\noswindow_data::SetFocus 1.3");
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -3748,7 +3748,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       if (Window() == 0)
       {
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 

@@ -120,7 +120,7 @@ namespace windowing_xcb
 
          //return ::error_failed;
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
          //return;
 
@@ -133,7 +133,7 @@ namespace windowing_xcb
 
          //return error_failed;
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -243,7 +243,7 @@ namespace windowing_xcb
 
          //return error_failed;
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -274,7 +274,7 @@ namespace windowing_xcb
 
          ///return error_failed;
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -300,7 +300,7 @@ namespace windowing_xcb
 
             //return estatus;
 
-            throw_status(estatus);
+            throw ::exception(estatus);
 
          }
 

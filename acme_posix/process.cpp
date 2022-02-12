@@ -92,7 +92,7 @@ namespace acme
 
             }
 
-            throw_status(error_failed);
+            throw ::exception(error_failed, "posix::acme_posix::create_process");
 
          }
 

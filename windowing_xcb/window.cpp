@@ -198,7 +198,7 @@ namespace windowing_xcb
 
          //return error_failed;
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -213,7 +213,7 @@ namespace windowing_xcb
 
          //return estatus;
 
-         throw_status(estatus);
+         throw ::exception(estatus);
 
       }
 
@@ -312,7 +312,7 @@ namespace windowing_xcb
 
          //return estatus;
 
-         throw_status(estatus);
+         throw ::exception(estatus);
 
       }
 
@@ -323,7 +323,7 @@ namespace windowing_xcb
 
          //return estatus;
 
-         throw_status(estatus);
+         throw ::exception(estatus);
 
       }
 
@@ -402,7 +402,7 @@ namespace windowing_xcb
 
             //return false;
 
-            throw_status(error_failed);
+            throw ::exception(error_failed);
 
          }
 
@@ -415,7 +415,7 @@ namespace windowing_xcb
       if(!bOk)
       {
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -907,7 +907,7 @@ namespace windowing_xcb
 
          //return error_failed;
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -916,7 +916,7 @@ namespace windowing_xcb
 
          //return error_failed;
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -927,7 +927,7 @@ namespace windowing_xcb
 
          //return error_failed;
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -1524,7 +1524,7 @@ namespace windowing_xcb
       if(pmessagequeue == nullptr)
       {
 
-         throw_status(error_null_pointer);
+         throw ::exception(error_null_pointer);
 
       }
 
@@ -1567,14 +1567,14 @@ namespace windowing_xcb
       if(pinteraction == nullptr)
       {
 
-         throw_status(error_null_pointer);
+         throw ::exception(error_null_pointer);
 
       }
 
       if(pinteraction->get_application() == nullptr)
       {
 
-         throw_status(error_null_pointer);
+         throw ::exception(error_null_pointer);
 
       }
 
@@ -1585,7 +1585,7 @@ namespace windowing_xcb
       if(pmq == nullptr)
       {
 
-         throw_status(error_null_pointer);
+         throw ::exception(error_null_pointer);
 
       }
 
@@ -1819,7 +1819,7 @@ namespace windowing_xcb
       if(::is_null(pcursor))
       {
 
-         throw_status(error_null_pointer);
+         throw ::exception(error_null_pointer);
 
       }
 
@@ -1828,7 +1828,7 @@ namespace windowing_xcb
       if(::is_null(pcursorxcb))
       {
 
-         throw_status(error_null_pointer);
+         throw ::exception(error_null_pointer);
 
       }
 
@@ -1866,7 +1866,7 @@ namespace windowing_xcb
       if(!estatus)
       {
 
-         throw_status(estatus);
+         throw ::exception(estatus);
 
       }
 
@@ -2009,7 +2009,7 @@ namespace windowing_xcb
       if(!estatus)
       {
 
-         throw_status(estatus);
+         throw ::exception(estatus);
 
       }
 
@@ -2456,7 +2456,7 @@ namespace windowing_xcb
       if(!estatus)
       {
 
-         throw_status(estatus);
+         throw ::exception(estatus);
 
       }
 
@@ -2515,7 +2515,7 @@ namespace windowing_xcb
       if(!estatus)
       {
 
-         throw_status(estatus);
+         throw ::exception(estatus);
 
       }
 
@@ -2764,7 +2764,7 @@ namespace windowing_xcb
       if (xcb_window() == 0)
       {
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -2777,7 +2777,7 @@ namespace windowing_xcb
 
          windowing_output_debug_string("\noswindow_data::SetFocus 1.1");
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
@@ -2788,7 +2788,7 @@ namespace windowing_xcb
       if(!estatus)
       {
 
-         throw_status(estatus);
+         throw ::exception(estatus);
 
       }
 

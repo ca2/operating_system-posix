@@ -92,11 +92,11 @@ namespace node_gnome
       if (!m_bCreated)
       {
 
-         throw_status(error_wrong_state);
+         throw ::exception(error_wrong_state);
 
       }
 
-      throw_status(todo);
+      throw ::exception(todo);
 
    }
 

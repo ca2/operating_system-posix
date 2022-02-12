@@ -740,7 +740,7 @@ namespace windowing_xcb
 
          //return error_bad_argument;
 
-         throw_status(error_bad_argument);
+         throw ::exception(error_bad_argument);
 
       }
 

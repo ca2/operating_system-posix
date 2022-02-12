@@ -64,7 +64,7 @@ namespace node_kde
 
          //return estatus;
 
-         throw_status(estatus);
+         throw ::exception(estatus);
 
       }
 
@@ -160,7 +160,7 @@ namespace node_kde
 
          //return ::error_failed;
 
-         throw_status(error_failed);
+         throw ::exception(error_failed);
 
       }
 
