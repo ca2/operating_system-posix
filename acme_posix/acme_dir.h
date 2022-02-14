@@ -17,7 +17,7 @@ namespace posix
    public:
 
 
-      __creatable_from_library(acme_dir, ::acme_dir, "acme_posix_node");
+      __creatable_from_library(acme_dir, ::acme_dir, "acme_posix");
 
 
       acme_dir();

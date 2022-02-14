@@ -11,7 +11,7 @@ namespace posix
    public:
 
 
-      __creatable_from_library(pipe, ::operating_system::pipe, "acme_posix_node");
+      __creatable_from_library(pipe, ::operating_system::pipe, "acme_posix");
 
 
       char *               m_pchBuf;

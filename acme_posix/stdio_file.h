@@ -12,7 +12,7 @@ public:
 
 
    stdio_file();
-   virtual ~stdio_file();
+   ~stdio_file() overrid;
 
 
    void assert_ok() const override;

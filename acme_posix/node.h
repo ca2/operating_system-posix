@@ -21,7 +21,7 @@ namespace acme
       {
       public:
 
-         __creatable_from_library(node, ::acme::node, "acme_posix_node");
+         __creatable_from_library(node, ::acme::node, "acme_posix");
 
          string m_strTheme;
 

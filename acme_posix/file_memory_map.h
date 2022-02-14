@@ -17,7 +17,7 @@ namespace posix
    public:
 
 
-      __creatable_from_library(file_memory_map, ::file::memory_map, "acme_posix_node");
+      __creatable_from_library(file_memory_map, ::file::memory_map, "acme_posix");
 
 
       int                        m_iFile;
