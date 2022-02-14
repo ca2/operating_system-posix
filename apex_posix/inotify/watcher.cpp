@@ -117,13 +117,13 @@ namespace inotify
                if(errno == ENOENT)
                {
 
-                  ::file::throw_errno(ENOENT, strDirPath);
+                  ::throw ::file::exception(ENOENT, strDirPath);
 
                }
                else
                {
 
-                  ::file::throw_errno(errno, strDirPath);
+                  ::throw ::file::exception(errno, strDirPath);
 
                }
 

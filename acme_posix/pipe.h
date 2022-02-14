@@ -11,6 +11,9 @@ namespace posix
    public:
 
 
+      __creatable_from_library(pipe, ::operating_system::pipe, "acme_posix_node");
+
+
       char *               m_pchBuf;
       string               m_strRead;
 
@@ -18,7 +21,7 @@ namespace posix
 
 
       pipe();
-      virtual ~pipe();
+       ~pipe() override;
 
 
       virtual bool create(bool bBlock = true, bool bInherit = false);

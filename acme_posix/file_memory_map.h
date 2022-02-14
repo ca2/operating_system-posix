@@ -17,11 +17,14 @@ namespace posix
    public:
 
 
+      __creatable_from_library(file_memory_map, ::file::memory_map, "acme_posix_node");
+
+
       int                        m_iFile;
 
 
       file_memory_map();
-      virtual ~file_memory_map();
+      ~file_memory_map() override;
 
 
       virtual bool open() override;

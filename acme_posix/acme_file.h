@@ -17,6 +17,10 @@ namespace posix
    public:
 
 
+
+      __creatable_from_library(acme_file, ::acme_file, "acme_posix_node");
+
+
       acme_file();
       ~acme_file() noexcept override ;
 
