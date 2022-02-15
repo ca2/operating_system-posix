@@ -24,18 +24,17 @@ namespace posix
        ~pipe() override;
 
 
-      virtual bool create(bool bBlock = true, bool bInherit = false);
+      bool create(bool bBlock = true, bool bInherit = false) override;
 
 
-      virtual bool not_inherit_read();
-      virtual bool not_inherit_write();
+      bool not_inherit_read() override;
+      bool not_inherit_write() override;
 
-      virtual bool write(const char * psz);
-      virtual string read();
-      virtual string one_pass_read();
+      bool write(const char * psz) override;
+      string read() override;
+      string one_pass_read() override;
 
-
-
+      
    };
 
 

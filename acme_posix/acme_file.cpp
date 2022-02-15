@@ -539,7 +539,6 @@ namespace posix
 
                pszModule = strdup(dest);
 
-
             }
 
          }
@@ -551,25 +550,6 @@ namespace posix
       ::free(pszModule);
 
       return path;
-
-   #elif defined(WINDOWS)
-
-      wstring pszModuleFolder(MAX_PATH * 8);
-
-
-      wstring pszModuleFilePath(MAX_PATH * 8);
-
-
-      if (!GetModuleFileNameW(nullptr, pszModuleFilePath, (::u32)pszModuleFilePath.count()))
-
-         return "";
-
-      return string(pszModuleFilePath);
-
-
-   #elif defined(__APPLE__)
-
-      return apple_app_module_path();
 
    #else
 
