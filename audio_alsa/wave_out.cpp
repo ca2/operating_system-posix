@@ -70,11 +70,11 @@ namespace multimedia
       }
 
 
-      void wave_out::init_thread()
+      void wave_out::init_task()
       {
 
          //if(!
-          ::wave::out::init_thread();
+          ::wave::out::init_task();
 
 //         {
 //
@@ -87,12 +87,12 @@ namespace multimedia
       }
 
 
-      void wave_out::term_thread()
+      void wave_out::term_task()
       {
 
-         ::wave::out::term_thread();
+         ::wave::out::term_task();
 
-         thread::term_thread();
+         thread::term_task();
 
       }
 

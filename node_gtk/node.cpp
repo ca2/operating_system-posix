@@ -158,7 +158,7 @@ namespace node_gtk
 
       //auto estatus =
       //
-      m_psystem->m_papexsystem->begin_synchronously();
+      m_psystem->m_papexsystem->branch_synchronously();
 
 //      if (!estatus)
 //      {
@@ -837,7 +837,8 @@ namespace node_gtk
    bool node::launch_on_node(::topic * ptopic)
    {
 
-      ::element * pelement = ptopic->get_extended_topic();
+      // TODO check if ptopic below is own topic or what else?
+      ::element * pelement = ptopic;
 
       node_fork(__routine([pelement]()
       {

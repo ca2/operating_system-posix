@@ -2,7 +2,7 @@
 // Created by camilo on 14/04/2021. 00:23 BRT <3TBS_!!
 //
 #include "framework.h"
-#include "acme/platform/static_start.h"
+#include "acme/platform/acme.h"
 
 
 #include <sys/types.h>

@@ -49,35 +49,35 @@ void apex_application_application_menu_activate_callback(GSimpleAction *action, 
 
 
 
-void apex_application_set_application_menu(::application_menu * papplicationmenu, ::application * papp)
+void apex_application_set_application_menu(::application_menu * pappmenu, ::application * papp)
 {
 
-   GApplication * papplication = G_APPLICATION(g_papexapplication);
+   GApplication * papp = G_APPLICATION(g_papexapplication);
 
    GMenu * pmenu = g_menu_new ();
 
-   for(::index i = 0; i < papplicationmenu->get_count(); i++)
+   for(::index i = 0; i < pappmenu->get_count(); i++)
    {
 
-      string strId = papplicationmenu->element_at(i).m_strId;
+      string strId = pappmenu->element_at(i).m_strId;
 
-      string strName = papplicationmenu->element_at(i).m_strName;
+      string strName = pappmenu->element_at(i).m_strName;
 
       auto ptopic = g_simple_action_new (strId, NULL);
 
       g_signal_connect (
-         papplication,
+         papp,
          "activate",
          G_CALLBACK (apex_application_application_menu_activate_callback),
          papp);
 
-      g_action_map_add_action(G_ACTION_MAP(papplication), G_ACTION (ptopic));
+      g_action_map_add_action(G_ACTION_MAP(papp), G_ACTION (ptopic));
 
       g_menu_append (pmenu, strName, strId);
 
    }
 
-   gtk_application_set_app_menu (GTK_APPLICATION (papplication), G_MENU_MODEL (pmenu));
+   gtk_application_set_app_menu (GTK_APPLICATION (papp), G_MENU_MODEL (pmenu));
 
 }
 
@@ -218,16 +218,16 @@ void apex_application_shutdown(GApplication *application)
 void apex_application_class_init (ApexApplicationClass * pclass)
 {
 
-   GApplicationClass *papplicationclass    = G_APPLICATION_CLASS (pclass);
+   GApplicationClass *pappclass    = G_APPLICATION_CLASS (pclass);
 
    GObjectClass *pobjectclass              = G_OBJECT_CLASS (pclass);
 
-   papplicationclass->startup              = apex_application_startup;
-   papplicationclass->shutdown             = apex_application_shutdown;
-   papplicationclass->activate             = apex_application_activate;
-   papplicationclass->open                 = apex_application_open;
+   pappclass->startup              = apex_application_startup;
+   pappclass->shutdown             = apex_application_shutdown;
+   pappclass->activate             = apex_application_activate;
+   pappclass->open                 = apex_application_open;
 
-   papplicationclass->run_mainloop         = apex_application_run_mainloop;
+   pappclass->run_mainloop         = apex_application_run_mainloop;
 
    pobjectclass->finalize                  = apex_application_finalize;
 

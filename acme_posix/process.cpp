@@ -623,7 +623,7 @@ namespace acme
 //
 //         int_array ia;
 //
-//         ::file::patha stra;
+//         ::file::path_array stra;
 //
 //         ::dir::ls_dir(stra, "/proc/");
 //
@@ -660,7 +660,7 @@ namespace acme
 
          id_array ia;
 
-         ::file::patha stra;
+         ::file::path_array stra;
 
          m_psystem->m_pacmedir->ls_dir(stra, "/proc/");
 

@@ -17,7 +17,7 @@ namespace posix
    public:
 
 
-      __creatable_from_library(acme_file, ::acme_file, "acme_posix");
+      //__creatable_from_library(acme_file, ::acme_file, "acme_posix");
 
 
       acme_file();
@@ -98,6 +98,11 @@ namespace posix
       //bool move(const char * pszNewName, const char * pszOldName) override;
 
       //::e_status delete_file(const char * pszFileName) override;
+
+
+      ::datetime::time modification_time(const char* psz) override;
+
+      void set_modification_time(const char* psz, const ::datetime::time& time) override;
 
 
    };

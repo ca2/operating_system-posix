@@ -82,13 +82,13 @@ namespace node_kde
 
       string strTrayIconName = m_piconCurrent->get_tray_icon_name();
 
-      auto papplication = get_application();
+      auto papp = get_app();
 
-      ::file::path pathIcon = papplication->dir().matter("main/icon-256.png");
+      ::file::path pathIcon = papp->dir().matter("main/icon-256.png");
 
       m_pstatusnotifieritem->setIconByName(pathIcon.c_str());
 
-      string strFriendlyName = papplication->get_app_user_friendly_task_bar_name();
+      string strFriendlyName = papp->get_app_user_friendly_task_bar_name();
 
       auto pmenu = new QMenu();
 

@@ -5,32 +5,36 @@
 
 void sn_start_context();
 
+
 GtkWindow * g_pmainwindow = nullptr;
 
-G_DEFINE_TYPE (ApexApplication, apex_application, GTK_TYPE_APPLICATION)
 
-ApexApplication * g_papexapplication = nullptr;
+G_DEFINE_TYPE (NodeGtkApplication, node_gtk_application, GTK_TYPE_APPLICATION)
 
-ApexApplication * apex_application_new (const char * pszAppName, const char * pszProgName)
+
+NodeGtkApplication * g_pnodegtkapplication = nullptr;
+
+
+NodeGtkApplication * node_gtk_application_new (const char * pszAppName, const char * pszProgName)
 {
 
-   ApexApplication * apex_application;
+   NodeGtkApplication * pnodegtkapplication;
 
    //g_set_application_name (pszAppName);
 
-   apex_application = (ApexApplication *) g_object_new (apex_application_get_type (),
+   pnodegtkapplication = (NodeGtkApplication *) g_object_new (node_gtk_application_get_type (),
                                           "application-atom", pszProgName,
                                           "flags", G_APPLICATION_FLAGS_NONE,
                                           "inactivity-timeout", 30000,
                                           "register-session", TRUE,
                                           nullptr);
 
-   return apex_application;
+   return pnodegtkapplication;
 
 }
 
 
-void apex_application_application_menu_activate_callback(GSimpleAction *action, GVariant      *parameter, gpointer       user_data)
+void node_gtk_application_application_menu_activate_callback(GSimpleAction *action, GVariant * parameter, gpointer user_data)
 {
 
    ::application * papp = (::application *) user_data;
@@ -50,35 +54,35 @@ void apex_application_application_menu_activate_callback(GSimpleAction *action, 
 
 
 
-void apex_application_set_application_menu(::application_menu * papplicationmenu, ::application * papp)
+void node_gtk_application_set_application_menu(::application_menu * pappmenu, ::application * papp)
 {
 
-   GApplication * papplication = G_APPLICATION(g_papexapplication);
+   GApplication * pgapplication = G_APPLICATION(g_pnodegtkapplication);
 
    GMenu * pmenu = g_menu_new ();
 
-   for(::index i = 0; i < papplicationmenu->get_count(); i++)
+   for(::index i = 0; i < pappmenu->get_count(); i++)
    {
 
-      string strId = papplicationmenu->element_at(i).m_strId;
+      string strId = pappmenu->element_at(i).m_strId;
 
-      string strName = papplicationmenu->element_at(i).m_strName;
+      string strName = pappmenu->element_at(i).m_strName;
 
       auto ptopic = g_simple_action_new (strId, NULL);
 
       g_signal_connect (
-         papplication,
+         papp,
          "activate",
-         G_CALLBACK (apex_application_application_menu_activate_callback),
+         G_CALLBACK (node_gtk_application_application_menu_activate_callback),
          papp);
 
-      g_action_map_add_action(G_ACTION_MAP(papplication), G_ACTION (ptopic));
+      g_action_map_add_action(G_ACTION_MAP(pgapplication), G_ACTION (ptopic));
 
       g_menu_append (pmenu, strName, strId);
 
    }
 
-   gtk_application_set_app_menu (GTK_APPLICATION (papplication), G_MENU_MODEL (pmenu));
+   gtk_application_set_app_menu (GTK_APPLICATION (pgapplication), G_MENU_MODEL (pmenu));
 
 }
 
@@ -87,7 +91,7 @@ void apex_application_set_application_menu(::application_menu * papplicationmenu
 gboolean linux_start_system(gpointer data)
 {
 
-   GApplication * papp = g_application_get_default ();
+   GApplication * papp = g_application_get_default();
 
    ::apex::system * psystem = (::apex::system *) data;
 
@@ -102,7 +106,7 @@ gboolean linux_start_system(gpointer data)
 }
 
 
-void apex_application_activate(GApplication * application)
+void node_gtk_application_activate(GApplication * application)
 {
 
    //GCancellable * pc = g_cancellable_new();
@@ -129,28 +133,28 @@ void apex_application_activate(GApplication * application)
 }
 
 
-void apex_application_run_mainloop(GApplication * application)
+void node_gtk_application_run_mainloop(GApplication * pgapplication)
 {
 
-   ApexApplication * papexapplication = (ApexApplication *) application;
+   NodeGtkApplication * pnodegtkapplication = (NodeGtkApplication *) pgapplication;
 
-   GtkApplication * app = GTK_APPLICATION (application);
+   GtkApplication * pgtkapplication = GTK_APPLICATION (pgapplication);
 
-   G_APPLICATION_CLASS (apex_application_parent_class)->run_mainloop(application);
+   G_APPLICATION_CLASS (node_gtk_application_parent_class)->run_mainloop(pgapplication);
 
 }
 
 
-void apex_application_init (ApexApplication *app)
+void node_gtk_application_init (NodeGtkApplication * pnodegtkapplication)
 {
 
 }
 
 
-void apex_application_startup (GApplication *application)
+void node_gtk_application_startup (GApplication *application)
 {
 
-   ApexApplication * papexapplication = (ApexApplication *) application;
+   NodeGtkApplication * papexapplication = (NodeGtkApplication *) application;
 
    GtkApplication * app = GTK_APPLICATION (application);
 
@@ -160,7 +164,7 @@ void apex_application_startup (GApplication *application)
 
    {
 
-      G_APPLICATION_CLASS (apex_application_parent_class)->startup (application);
+      G_APPLICATION_CLASS (node_gtk_application_parent_class)->startup (application);
 
       g_pmainwindow = GTK_WINDOW(gtk_window_new(GTK_WINDOW_TOPLEVEL));
 
@@ -182,7 +186,7 @@ void apex_application_startup (GApplication *application)
 }
 
 
-void apex_application_open(GApplication * application, GFile ** files, gint n_files, const gchar * hint)
+void node_gtk_application_open(GApplication * application, GFile ** files, gint n_files, const gchar * hint)
 {
 
 //   gint i;
@@ -197,18 +201,18 @@ void apex_application_open(GApplication * application, GFile ** files, gint n_fi
 }
 
 
-void apex_application_finalize (GObject *object)
+void node_gtk_application_finalize (GObject *object)
 {
 
-   G_OBJECT_CLASS (apex_application_parent_class)->finalize (object);
+   G_OBJECT_CLASS (node_gtk_application_parent_class)->finalize (object);
 
 }
 
 
-void apex_application_shutdown(GApplication *application)
+void node_gtk_application_shutdown(GApplication *application)
 {
 
-   ApexApplication * papexapplication = (ApexApplication *) application;
+   NodeGtkApplication * papexapplication = (NodeGtkApplication *) application;
 
    /*
 
@@ -223,26 +227,26 @@ void apex_application_shutdown(GApplication *application)
 
    */
 
-   G_APPLICATION_CLASS (apex_application_parent_class)->shutdown (application);
+   G_APPLICATION_CLASS (node_gtk_application_parent_class)->shutdown (application);
 
 }
 
 
-void apex_application_class_init (ApexApplicationClass * pclass)
+void node_gtk_application_class_init (NodeGtkApplicationClass * pclass)
 {
 
-   GApplicationClass *papplicationclass    = G_APPLICATION_CLASS (pclass);
+   GApplicationClass *pappclass    = G_APPLICATION_CLASS (pclass);
 
-   GObjectClass *pobjectclass              = G_OBJECT_CLASS (pclass);
+   GObjectClass *pobjectclass      = G_OBJECT_CLASS (pclass);
 
-   papplicationclass->startup              = apex_application_startup;
-   papplicationclass->shutdown             = apex_application_shutdown;
-   papplicationclass->activate             = apex_application_activate;
-   papplicationclass->open                 = apex_application_open;
+   pappclass->startup              = node_gtk_application_startup;
+   pappclass->shutdown             = node_gtk_application_shutdown;
+   pappclass->activate             = node_gtk_application_activate;
+   pappclass->open                 = node_gtk_application_open;
 
-   papplicationclass->run_mainloop         = apex_application_run_mainloop;
+   pappclass->run_mainloop         = node_gtk_application_run_mainloop;
 
-   pobjectclass->finalize                  = apex_application_finalize;
+   pobjectclass->finalize          = node_gtk_application_finalize;
 
 }
 

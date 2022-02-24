@@ -1369,15 +1369,15 @@ namespace windowing_xcb
                try
                {
 
-                  for (auto &papplicationItem : applicationa)
+                  for (auto &pappItem : applicationa)
                   {
 
                      try
                      {
 
-                        auto papplication = papplicationItem->m_pauraapplication;
+                        auto papp = pappItem->m_pauraapplication;
 
-                        auto uiptraFrame = papplication->m_puserinteractionaFrame->interactiona();
+                        auto uiptraFrame = papp->m_puserinteractionaFrame->interactiona();
 
                         for (auto &pframe : uiptraFrame)
                         {

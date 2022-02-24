@@ -142,22 +142,24 @@ namespace node_gnome
    bool node::launch_on_node(::topic * ptopic)
    {
 
-      ::matter * pmatter = ptopic->get_extended_topic();
+      return ::node_gtk::node::launch_on_node(ptopic);
 
-      node_fork(__routine([pmatter]()
-      {
+//      ::matter * pmatter = ptopic->get_extended_topic();
+//
+//      node_fork(__routine([pmatter]()
+//      {
+//
+//         auto ret = g_timeout_add(300, (GSourceFunc) &node_gnome_source_func, pmatter);
+//
+//         printf("ret %d", ret);
+//
+//         printf("ret %d", ret);
+//
+//         g_idle_add(&node_gnome_source_func, pmatter);
+//
+//      }));
 
-         auto ret = g_timeout_add(300, (GSourceFunc) &node_gnome_source_func, pmatter);
-
-         printf("ret %d", ret);
-
-         printf("ret %d", ret);
-
-         g_idle_add(&node_gnome_source_func, pmatter);
-
-      }));
-
-      return true;
+//      return true;
 
    }
 

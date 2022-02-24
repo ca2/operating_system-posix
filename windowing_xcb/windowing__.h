@@ -29,7 +29,6 @@ extern ::mutex * user_mutex();
 xcb_connection_t * g_pdisplayX11= nullptr;
 
 
-int g_fdX11[2] = {};
 
 
 xcb_connection_t * xcb_get_display()

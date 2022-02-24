@@ -4,33 +4,26 @@
 #include <gtk/gtk.h>
 
 
-
-
 typedef struct
 {
 
-  GtkApplication parent_instance;
 
-  //g::u32 quit_inhibit;
-  //GMenu *time;
-  //g::u32 timeout;
-
-} ApexApplication; // you can search for ApexApplication in 2017 and so Internet
-
-typedef GtkApplicationClass ApexApplicationClass;
+   GtkApplication parent_instance;
 
 
+} NodeGtkApplication;
 
-extern ApexApplication * g_papexapplication;
+
+typedef GtkApplicationClass NodeGtkApplicationClass;
+
+
+extern NodeGtkApplication * g_pnodegtkapplication;
 
 
 void apex_application_run(const char * pszAppName, const char * pszProgName);
 
 
+void apex_application_set_application_menu(::application_menu * pappmenu, ::application * papp);
 
-
-
-
-void apex_application_set_application_menu(::application_menu * papplicationmenu, ::application * papp);
 
 

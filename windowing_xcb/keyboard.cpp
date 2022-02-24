@@ -510,7 +510,7 @@ namespace windowing_xcb
 //
 //      keyboard_layout_ida layoutida;
 //
-//      ::file::patha patha;
+//      ::file::path_array patha;
 //
 //      Context.dir().matter_ls_file("keyboard layout", patha);
 //

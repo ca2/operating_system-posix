@@ -88,8 +88,6 @@ CLASS_DECL_ACME string message_box_result_to_string(int iResult);
 //}
 
 
-bool g_bX11Idle = false;
-
 
 void x11_kick_idle()
 {
@@ -110,62 +108,6 @@ void x11_kick_idle()
 }
 
 
-void x11_wait_timer_or_event(Display * pdisplay)
-{
-
-   struct timeval tv;
-
-   // This returns the FD of the X11 display (or something like that)
-   int x11_fd = ConnectionNumber(pdisplay);
-
-   fd_set in_fds;
-
-   // Create a File Description Set containing x11_fd
-   FD_ZERO(&in_fds);
-   FD_SET(x11_fd, &in_fds);
-   FD_SET(g_fdX11[0], &in_fds);
-
-   // Set our timer.  One second sounds good.
-   tv.tv_usec = 0;
-   tv.tv_sec = 1;
-
-   // Wait for X Event or a Timer
-   int num_ready_fds = select(maximum(x11_fd, g_fdX11[0]) + 1, &in_fds, NULL, NULL, &tv);
-
-   if (num_ready_fds > 0)
-   {
-
-      //printf("Event Received!\n");
-
-      g_bX11Idle = false;
-
-      char buf[32];
-
-      int iRead;
-
-      while((iRead = read(g_fdX11[0], buf, sizeof(buf)))>0)
-      {
-
-         //printf("X11 fork count = %d\n", iRead);
-
-      }
-
-   }
-   else if (num_ready_fds == 0)
-   {
-
-      // Handle timer here
-      //printf("Timer Fired!\n");
-
-   }
-   else
-   {
-
-      //printf("An error occured!\n");
-
-   }
-
-}
 
 
 //::mutex * g_pmutexX11 = nullptr;

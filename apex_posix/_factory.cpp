@@ -46,6 +46,8 @@ __FACTORY_EXPORT void apex_posix_factory(::factory::factory * pfactory)
 
    pfactory->add_factory_item < ::posix::file_context, ::file_context >();
 
+   pfactory->add_factory_item < ::posix::os_context, ::os_context >();
+
 }
 
 

@@ -270,7 +270,7 @@ namespace aura
 #endif
    
 
-      ::file::path node::get_desktop_file_path(::application * papplication) const
+      ::file::path node::get_desktop_file_path(::application * papp) const
       {
 
          ::file::path path;
@@ -283,7 +283,7 @@ namespace aura
 
          path /= ".local/share/applications";
 
-         string strApplicationServerName = papplication->m_strAppId;
+         string strApplicationServerName = papp->m_strAppId;
 
          strApplicationServerName.find_replace("/", ".");
 

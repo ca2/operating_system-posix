@@ -115,7 +115,7 @@ namespace posix
    }
 
 
-   void acme_dir::rls(::file::patha & stra, const char * psz)
+   void acme_dir::rls(::file::path_array & stra, const char * psz)
    {
 
       ::count start = stra.get_count();
@@ -139,7 +139,7 @@ namespace posix
    }
 
 
-   void acme_dir::rls_dir(::file::patha & stra, const char * psz)
+   void acme_dir::rls_dir(::file::path_array & stra, const char * psz)
    {
 
       ::count start = stra.get_count();
@@ -160,7 +160,7 @@ namespace posix
    }
 
 
-   void acme_dir::ls(::file::patha & stra, const char * psz)
+   void acme_dir::ls(::file::path_array & stra, const char * psz)
    {
 
       DIR * dirp = opendir(psz);
@@ -200,7 +200,7 @@ namespace posix
    }
 
 
-   void acme_dir::ls_dir(::file::patha & stra, const char * psz)
+   void acme_dir::ls_dir(::file::path_array & stra, const char * psz)
    {
 
       DIR * dirp = opendir(psz);
@@ -240,7 +240,7 @@ namespace posix
    }
 
 
-   void acme_dir::ls_file(::file::patha & stra, const char * psz)
+   void acme_dir::ls_file(::file::path_array & stra, const char * psz)
    {
 
       DIR * dirp = opendir(psz);

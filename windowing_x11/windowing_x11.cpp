@@ -2258,13 +2258,13 @@ else if(detail == 3)
                try
                {
 
-                  for (auto &papplication : applicationa)
+                  for (auto &papp : applicationa)
                   {
 
                      try
                      {
 
-                        auto pauraapplication = papplication->m_pauraapplication;
+                        auto pauraapplication = papp->m_pauraapplication;
 
                         auto userinteractionaFrame = pauraapplication->m_puserinteractionaFrame->interactiona();
 
@@ -2975,7 +2975,7 @@ else if(detail == 3)
 
 //      ::acme::del(g_pmutexX11Sync);
 
-      return false;
+      //return false;
 
    }
 

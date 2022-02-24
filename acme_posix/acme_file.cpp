@@ -11,12 +11,17 @@
 
 
 #include <fcntl.h>
+#include <utime.h>
 
 //
 //#define PACKAGE "mmap"
 //#include <wchar.h>
 //#include <fcntl.h>
 //#include <sys/stat.h>
+//struct utimbuf {
+//   time_t actime;       /* access time */
+//   time_t modtime;      /* modification time */
+//};
 
 #ifdef MACOS
 #define IS_UTIMENSAT_AVAILABLE __builtin_available(macOS 10.13, *)
@@ -567,8 +572,6 @@ namespace posix
 
       int_handle output;
 
-      size_t filesize;
-
       void * source, * target;
 
       i32 flags = O_RDWR | O_CREAT | O_TRUNC;
@@ -580,7 +583,7 @@ namespace posix
 
       }
 
-      if ((output = ::open(pszNew, flags, 0666)) == -1)
+      if ((output.m_i = ::open(pszNew, flags, 0666)) == -1)
       {
 
          int iErrNo = errno;
@@ -592,7 +595,7 @@ namespace posix
       }
 
 
-      if ((input = ::open(pszSrc, O_RDONLY)) == -1)
+      if ((input.m_i = ::open(pszSrc, O_RDONLY)) == -1)
       {
 
          int iErrNo = errno;
@@ -603,10 +606,20 @@ namespace posix
 
       }
 
+      off_t filesize = lseek(input.m_i, 0, SEEK_END);
 
-      filesize = lseek(input, 0, SEEK_END);
+      if(filesize < 0)
+      {
 
-      if(ftruncate(output, filesize) < 0)
+         int iErrNo = errno;
+
+         auto estatus = failed_errno_to_status(iErrNo);
+
+         throw ::exception(estatus, "Error lseek file : \"" + string(pszSrc) + "\"");
+
+      }
+
+      if(ftruncate(output.m_i, filesize) < 0)
       {
 
          int iErrNo = errno;
@@ -617,7 +630,7 @@ namespace posix
 
       }
 
-      if ((source = mmap(0, filesize, PROT_READ, MAP_PRIVATE, input, 0)) == (void *)-1)
+      if ((source = mmap(0, filesize, PROT_READ, MAP_PRIVATE, input.m_i, 0)) == (void *)-1)
       {
 
          int iErrNo = errno;
@@ -629,7 +642,7 @@ namespace posix
       }
 
 
-      if ((target = mmap(0, filesize, PROT_WRITE, MAP_SHARED, output, 0)) == (void *)-1)
+      if ((target = mmap(0, filesize, PROT_WRITE, MAP_SHARED, output.m_i, 0)) == (void *)-1)
       {
 
          int iErrNo = errno;
@@ -836,6 +849,90 @@ namespace posix
       }
 
       return line;
+
+   }
+
+
+   ::datetime::time acme_file::modification_time(const char* pszPath)
+   {
+
+      if(is_trimmed_empty(pszPath))
+      {
+
+         throw ::exception(error_invalid_parameter);
+
+      }
+
+      struct stat statAttribute;
+
+      if(stat(pszPath, &statAttribute))
+      {
+
+         int iErrNo = errno;
+
+         auto estatus = errno_to_status(iErrNo);
+
+         string strMessage;
+
+         strMessage.format("Failed to stat file \"%s\".", pszPath);
+
+         throw ::exception(estatus, strMessage);
+
+      }
+
+      return statAttribute.st_mtime;
+
+   }
+
+
+   void acme_file::set_modification_time(const char* pszPath, const ::datetime::time& time)
+   {
+
+
+      if(is_trimmed_empty(pszPath))
+      {
+
+         throw ::exception(error_invalid_parameter);
+
+      }
+
+      struct stat statAttribute;
+
+      if(stat(pszPath, &statAttribute))
+      {
+
+         int iErrNo = errno;
+
+         auto estatus = errno_to_status(iErrNo);
+
+         string strMessage;
+
+         strMessage.format("Failed to stat file \"%s\".", pszPath);
+
+         throw ::exception(estatus, strMessage);
+
+      }
+
+      utimbuf utimbuf;
+
+      utimbuf.actime = statAttribute.st_atime;
+
+      utimbuf.modtime = time.m_i;
+
+      if(utime(pszPath, &utimbuf))
+      {
+
+         int iErrNo = errno;
+
+         auto estatus = errno_to_status(iErrNo);
+
+         string strMessage;
+
+         strMessage.format("Failed to set file modification time \"%s\".", pszPath);
+
+         throw ::exception(estatus, strMessage);
+
+      }
 
    }
 

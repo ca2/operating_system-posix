@@ -514,7 +514,7 @@ namespace windowing_x11
 //
 //      keyboard_layout_ida layoutida;
 //
-//      ::file::patha patha;
+//      ::file::path_array patha;
 //
 //      Context.dir().matter_ls_file("keyboard layout", patha);
 //
@@ -742,7 +742,7 @@ namespace windowing_x11
       if (!::is_null(pprimitive) && pprimitive != m_pprimitiveSoftwareKeyboard)
       {
 
-         return error_bad_argument;
+         throw ::exception(error_bad_argument);
 
       }
 

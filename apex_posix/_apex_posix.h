@@ -11,6 +11,9 @@
 #include "file_context.h"
 
 
+#include "os_context.h"
+
+
 //#ifdef FILE_SYSTEM_INOTIFY
 //#include "inotify/file_os_watcher.h"
 //#endif

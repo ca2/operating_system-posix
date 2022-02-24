@@ -100,7 +100,7 @@ namespace inotify
 
          pwatch->m_bRecursive = true;
 
-         ::file::patha stra;
+         ::file::path_array stra;
 
          m_psystem->m_pacmedir->rls_dir(stra, pathFolder);
 
@@ -117,13 +117,13 @@ namespace inotify
                if(errno == ENOENT)
                {
 
-                  ::throw ::file::exception(ENOENT, strDirPath);
+                  throw ::file::exception(error_io, ENOENT, ENOENT, strDirPath);
 
                }
                else
                {
 
-                  ::throw ::file::exception(errno, strDirPath);
+                  throw ::file::exception(error_io, errno, errno, strDirPath);
 
                }
 

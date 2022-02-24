@@ -59,7 +59,7 @@ namespace node_gnome
 
       ::file::path pathFolder = m_psystem->m_pacmedir->ca2roaming() / "matter/icon/128";
 
-      string strIconName = get_application()->m_strAppId;
+      string strIconName = get_app()->m_strAppId;
 
       strIconName.find_replace("/", "_");
       strIconName.find_replace("-", "_");

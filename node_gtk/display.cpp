@@ -4,7 +4,7 @@
 // wall-changer code extracted by camilo on 09/12/2021. 13:03 BRT <ThomasBoregaardSorensen!!
 
 #include "framework.h"
-#include "apex/platform/app_core.h"
+//#include "apex/platform/app_core.h"
 //#include "_user.h"
 //#include <gdk/gdk.h>
 

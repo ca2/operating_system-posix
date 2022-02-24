@@ -304,7 +304,7 @@ namespace draw2d_xlib
                return nullptr;
             if(pbitmap == nullptr)
                return nullptr;
-            return dynamic_cast < ::draw2d::bitmap* > (SelectGdiObject(get_application(), get_handle1(), pbitmap->get_os_data()));*/
+            return dynamic_cast < ::draw2d::bitmap* > (SelectGdiObject(get_app(), get_handle1(), pbitmap->get_os_data()));*/
       if(m_pdc != nullptr)
       {
 
@@ -343,7 +343,7 @@ namespace draw2d_xlib
       /*      ASSERT(get_handle1() != nullptr);
          if(pObject == nullptr)
             return nullptr;
-         return SelectGdiObject(get_application(), get_handle1(), pObject->get_os_data()); */
+         return SelectGdiObject(get_app(), get_handle1(), pObject->get_os_data()); */
       return nullptr;
    }
 
@@ -3513,7 +3513,7 @@ namespace draw2d_xlib
                hOldObj = ::SelectObject(get_handle1(), hObject);
             if(get_handle2() != nullptr)
                hOldObj = ::SelectObject(get_handle2(), hObject);
-            return ::win::object::from_handle(get_application(), hOldObj);*/
+            return ::win::object::from_handle(get_app(), hOldObj);*/
 
       return nullptr;
    }
@@ -3527,7 +3527,7 @@ namespace draw2d_xlib
          hOldObj = ::SelectObject(get_handle1(), pPen->get_os_data());
       if(get_handle2() != nullptr)
          hOldObj = ::SelectObject(get_handle2(), pPen->get_os_data());
-      return dynamic_cast < pen * > (::win::object::from_handle(get_application(), hOldObj));*/
+      return dynamic_cast < pen * > (::win::object::from_handle(get_app(), hOldObj));*/
       m_ppen = ppen;
       return m_ppen;
    }
@@ -3541,7 +3541,7 @@ namespace draw2d_xlib
                hOldObj = ::SelectObject(get_handle1(), pBrush->get_os_data());
             if(get_handle2() != nullptr)
                hOldObj = ::SelectObject(get_handle2(), pBrush->get_os_data());
-            return dynamic_cast < ::draw2d::brush * > (::win::object::from_handle(get_application(), hOldObj));*/
+            return dynamic_cast < ::draw2d::brush * > (::win::object::from_handle(get_app(), hOldObj));*/
       m_pbrush = pbrush;
       return m_pbrush;
 
@@ -3556,7 +3556,7 @@ namespace draw2d_xlib
                hOldObj = ::SelectObject(get_handle1(), pFont->get_os_data());
             if(get_handle2() != nullptr)
                hOldObj = ::SelectObject(get_handle2(), pFont->get_os_data());
-            return dynamic_cast < ::write_text::font * > (::win::object::from_handle(get_application(), hOldObj));*/
+            return dynamic_cast < ::write_text::font * > (::win::object::from_handle(get_app(), hOldObj));*/
 
       /*ASSERT(pFont != nullptr);
 
@@ -3593,7 +3593,7 @@ namespace draw2d_xlib
    ::draw2d::palette* graphics::SelectPalette(::draw2d::palette* pPalette, bool bForceBackground)
    {
       return nullptr;
-//      return dynamic_cast < ::draw2d::palette * > (::win::object::from_handle(get_application(), ::SelectPalette(get_handle1(), (HPALETTE)pPalette->get_os_data(), bForceBackground)));
+//      return dynamic_cast < ::draw2d::palette * > (::win::object::from_handle(get_app(), ::SelectPalette(get_handle1(), (HPALETTE)pPalette->get_os_data(), bForceBackground)));
    }
 
 
@@ -4418,7 +4418,7 @@ namespace draw2d_xlib
                   {
                      // got the stock object back, so must be selecting a font
                      throw ::not_implemented();
-   //                  (dynamic_cast<::win::graphics * >(pgraphics))->SelectObject(::win::font::from_handle(pgraphics->get_application(), (HFONT)hObject));
+   //                  (dynamic_cast<::win::graphics * >(pgraphics))->SelectObject(::win::font::from_handle(pgraphics->get_app(), (HFONT)hObject));
                      break;  // don't play the default record
                   }
                   else
@@ -4432,7 +4432,7 @@ namespace draw2d_xlib
                else if (nObjType == OBJ_FONT)
                {
                   // play back as graphics::SelectObject(::write_text::font*)
-   //               (dynamic_cast<::win::graphics * >(pgraphics))->SelectObject(::win::font::from_handle(pgraphics->get_application(), (HFONT)hObject));
+   //               (dynamic_cast<::win::graphics * >(pgraphics))->SelectObject(::win::font::from_handle(pgraphics->get_app(), (HFONT)hObject));
                   throw ::not_implemented();
                   break;  // don't play the default record
                }

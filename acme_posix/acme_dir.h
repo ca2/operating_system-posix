@@ -17,7 +17,7 @@ namespace posix
    public:
 
 
-      __creatable_from_library(acme_dir, ::acme_dir, "acme_posix");
+      //__creatable_from_library(acme_dir, ::acme_dir, "acme_posix");
 
 
       acme_dir();
@@ -42,13 +42,13 @@ namespace posix
 
       //string name(string path) override;
 
-      void rls(::file::patha & stra, const char * psz) override;
+      void rls(::file::path_array & stra, const char * psz) override;
 
-      void rls_dir(::file::patha & stra, const char * psz) override;
-      void ls(::file::patha & stra, const char * psz) override;
+      void rls_dir(::file::path_array & stra, const char * psz) override;
+      void ls(::file::path_array & stra, const char * psz) override;
 
-      void ls_dir(::file::patha & stra, const char * psz) override;
-      void ls_file(::file::patha & stra, const char * psz) override;
+      void ls_dir(::file::path_array & stra, const char * psz) override;
+      void ls_file(::file::path_array & stra, const char * psz) override;
 
       ::file::path pathfind(const string & pszEnv, const string & pszTopic, const string & pszMode) override;
 

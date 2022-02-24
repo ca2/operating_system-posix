@@ -36,8 +36,8 @@ namespace multimedia
 
          //virtual void translate_in_message(::signal_details * pobj);
 
-         void init_thread() override;
-         void term_thread() override;
+         void init_task() override;
+         void term_task() override;
          //virtual void pre_translate_message(::signal_details * pobj);
 
          void in_proc(snd_pcm_t * hwi, ::u32 uMsg, ::u32 dwInstance, ::u32 dwParam1, ::u32 dwParam2);

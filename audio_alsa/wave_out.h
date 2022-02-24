@@ -48,8 +48,8 @@ namespace multimedia
          void out_filled(index iBuffer) override;
          virtual bool alsa_should_play();
 
-         void init_thread() override;
-         void term_thread() override;
+         void init_task() override;
+         void term_task() override;
 
          void out_start(const ::duration & time) override;
 

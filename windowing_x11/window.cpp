@@ -285,7 +285,7 @@ namespace windowing_x11
 
       pimpl->m_puserinteraction->increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_P_NOTE(this, "native_create_window"));
 
-      auto papplication = get_application();
+      auto papp = get_app();
 
       if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
       {
@@ -314,14 +314,14 @@ namespace windowing_x11
 
 #ifndef RASPBIAN
 
-      if (pwindowing->m_pSnLauncheeContext != nullptr && !papplication->m_bSnLauncheeSetup)
+      if (pwindowing->m_pSnLauncheeContext != nullptr && !papp->m_bSnLauncheeSetup)
       {
 
-         papplication->os_on_start_application();
+         papp->os_on_start_application();
 
          //on_sn_launch_context(pwindowing->m_pSnLauncheeContext, window);
 
-         papplication->m_bSnLauncheeSetup = true;
+         papp->m_bSnLauncheeSetup = true;
 
       }
 
@@ -905,9 +905,9 @@ namespace windowing_x11
 
       auto pnode = psystem->node();
 
-      auto papplication = get_application();
+      auto papp = get_app();
 
-      ::file::path path = pnode->get_desktop_file_path(papplication);
+      ::file::path path = pnode->get_desktop_file_path(papp);
 
       output_debug_string("\nfreebsd::interaction_impl::set_window_text");
 
@@ -1036,7 +1036,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
 }
 
-      memory m(m_puserinteractionimpl->m_puserinteraction->get_application());
+      memory m(m_puserinteractionimpl->m_puserinteraction->get_app());
 
       int length = 2 + d1->area();
 
@@ -1252,7 +1252,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       m_puserinteractionimpl = pimpl;
 
-      m_hthread = pimpl->get_application()->get_os_handle();
+      m_hthread = pimpl->get_app()->get_os_handle();
 
       m_pmessagequeue = pimpl->m_puserinteraction->m_pthreadUserInteraction->get_message_queue();
 
@@ -2202,14 +2202,14 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       }
 
-      if (pinteraction->get_application() == nullptr)
+      if (pinteraction->get_app() == nullptr)
       {
 
          return false;
 
       }
 
-      itask_t idthread = pinteraction->get_application()->get_ithread();
+      itask_t idthread = pinteraction->get_app()->get_ithread();
 
       message_queue * pmq = get_message_queue(idthread, false);
 

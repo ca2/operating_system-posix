@@ -12,6 +12,8 @@ list(APPEND library_source
    framework.h
    node.cpp
    node.h
+   os_context.cpp
+   os_context.h
    system_color.cpp
    system_time.cpp
    )

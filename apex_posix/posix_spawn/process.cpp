@@ -1,6 +1,6 @@
 #include "framework.h"
 #include "acme/process/pipe.h"
-#include "apex/platform/static_start.h"
+//#include "apex/platform/static_start.h"
 #include "process.h"
 
 

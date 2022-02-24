@@ -43,7 +43,7 @@
 //   manual_reset_event         m_event;
 //   string                     m_str;
 //   ::image_pointer            m_pimage;
-//   ::file::patha              m_patha;
+//   ::file::path_array              m_patha;
 //   int                        m_nTargets;
 //   //GtkImage *                 m_pgtkimage;
 //   void *                     m_pgtkimage;

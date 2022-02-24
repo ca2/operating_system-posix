@@ -21,7 +21,7 @@ namespace acme
       {
       public:
 
-         __creatable_from_library(node, ::acme::node, "acme_posix");
+         //__creatable_from_library(node, ::acme::node, "acme_posix");
 
          string m_strTheme;
 
@@ -37,7 +37,6 @@ namespace acme
          ::e_status shell_execute_sync(const ::string & pszFile, const ::string & pszParams, ::duration durationTimeout );
 
          virtual int node_init_check(int * pi, char *** ppz) override;
-
 
          void dbus_init();
 
