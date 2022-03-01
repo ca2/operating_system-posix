@@ -23,6 +23,8 @@
 		9A0C1746264A2DAB00B5CC33 /* system_time.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C1732264A2DAB00B5CC33 /* system_time.cpp */; };
 		9A0C1747264A2DAB00B5CC33 /* system_color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C1733264A2DAB00B5CC33 /* system_color.cpp */; };
 		9A0C1748264A2DAB00B5CC33 /* _.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1734264A2DAB00B5CC33 /* _.h */; };
+		9A226D4B27CE9D7C0042BAC2 /* os_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A226D4827CE9D7C0042BAC2 /* os_context.cpp */; };
+		9A226D4C27CE9D7C0042BAC2 /* os_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A226D4A27CE9D7C0042BAC2 /* os_context.h */; };
 		9A412459266C41A000C3FF0E /* libacme.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A412458266C41A000C3FF0E /* libacme.dylib */; };
 		9A787E4D264E2198003DF8A0 /* libacme_posix.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0C17C7264A31EA00B5CC33 /* libacme_posix.dylib */; };
 		9A787E4E264E2198003DF8A0 /* libapex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0C17B6264A31D300B5CC33 /* libapex.dylib */; };
@@ -86,6 +88,8 @@
 		9A0C1734264A2DAB00B5CC33 /* _.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _.h; sourceTree = "<group>"; };
 		9A0C17B0264A31D300B5CC33 /* apex.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = apex.xcodeproj; path = ../../../source/app/apex/apex.xcodeproj; sourceTree = "<group>"; };
 		9A0C17C2264A31EA00B5CC33 /* acme_posix.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = acme_posix.xcodeproj; path = ../acme_posix/acme_posix.xcodeproj; sourceTree = "<group>"; };
+		9A226D4827CE9D7C0042BAC2 /* os_context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = os_context.cpp; sourceTree = "<group>"; };
+		9A226D4A27CE9D7C0042BAC2 /* os_context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os_context.h; sourceTree = "<group>"; };
 		9A412458266C41A000C3FF0E /* libacme.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libacme.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -125,6 +129,8 @@
 		9A0C171B264A2DAB00B5CC33 /* apex_posix */ = {
 			isa = PBXGroup;
 			children = (
+				9A226D4827CE9D7C0042BAC2 /* os_context.cpp */,
+				9A226D4A27CE9D7C0042BAC2 /* os_context.h */,
 				9A0C1727264A2DAB00B5CC33 /* _.cpp */,
 				9A0C1734264A2DAB00B5CC33 /* _.h */,
 				9A0C1724264A2DAB00B5CC33 /* _apex_posix.h */,
@@ -177,6 +183,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A226D4C27CE9D7C0042BAC2 /* os_context.h in Headers */,
 				9A0C1748264A2DAB00B5CC33 /* _.h in Headers */,
 				9A0C173A264A2DAB00B5CC33 /* node.h in Headers */,
 				9A0C173E264A2DAB00B5CC33 /* file_context.h in Headers */,
@@ -288,6 +295,7 @@
 				9A0C1747264A2DAB00B5CC33 /* system_color.cpp in Sources */,
 				9A0C1745264A2DAB00B5CC33 /* datetime.cpp in Sources */,
 				9A0C1738264A2DAB00B5CC33 /* node.cpp in Sources */,
+				9A226D4B27CE9D7C0042BAC2 /* os_context.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,7 +374,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(WorkspaceDir)/operating-system/storage-$(PLATFORM_MODIFIER)/library",
-					"$(WorkspaceDir)/time-$(PLATFORM_MODIFIER)/output",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -381,7 +388,7 @@
 					"$(WorkspaceDir)/source/include",
 					"$(WorkspaceDir)/source/app",
 					"$(WorkspaceDir)/source/app/_include",
-					"$(WorkspaceDir)/archive",
+					"$(WorkspaceDir)/operating-system",
 					"$(WorkspaceDir)/operating-system/operating-system-$(PLATFORM_MODIFIER)",
 					"$(WorkspaceDir)/operating-system/operating-system-$(PLATFORM_MODIFIER)/_include",
 					"$(WorkspaceDir)/operating-system/operating-system-posix",
@@ -450,7 +457,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(WorkspaceDir)/operating-system/storage-$(PLATFORM_MODIFIER)/library",
-					"$(WorkspaceDir)/time-$(PLATFORM_MODIFIER)/output",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -464,7 +470,7 @@
 					"$(WorkspaceDir)/source/include",
 					"$(WorkspaceDir)/source/app",
 					"$(WorkspaceDir)/source/app/_include",
-					"$(WorkspaceDir)/archive",
+					"$(WorkspaceDir)/operating-system",
 					"$(WorkspaceDir)/operating-system/operating-system-$(PLATFORM_MODIFIER)",
 					"$(WorkspaceDir)/operating-system/operating-system-$(PLATFORM_MODIFIER)/_include",
 					"$(WorkspaceDir)/operating-system/operating-system-posix",
