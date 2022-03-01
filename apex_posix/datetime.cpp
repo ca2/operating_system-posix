@@ -973,7 +973,7 @@
 // /*********************************************************************
 //  *      LocalFileTimeToFileTime                         (KERNEL32.@)
 //  */
-// CLASS_DECL_ACME int_bool LocalFileTimeToFileTime( const filetime_t *localft, filetime_t * utcft )
+// CLASS_DECL_ACME int_bool LocalFileTimeToFileTime( const file_time_t *localft, file_time_t * utcft )
 // {
 
 //    int status;
@@ -991,7 +991,7 @@
 // /*********************************************************************
 //  *      FileTimeToLocalFileTime                         (KERNEL32.@)
 //  */
-// CLASS_DECL_ACME int_bool FileTimeToLocalFileTime( const filetime_t *utcft, filetime_t * localft )
+// CLASS_DECL_ACME int_bool FileTimeToLocalFileTime( const file_time_t *utcft, file_time_t * localft )
 // {
 //    int status;
 //    if ((status = RtlSystemTimeToLocalTime( utcft, localft )))
@@ -1010,7 +1010,7 @@
 // /*********************************************************************
 //  *      FileTimeToSystemTime                            (KERNEL32.@)
 //  */
-// int_bool FileTimeToSystemTime( const filetime_t *ft, system_time_t * syst )
+// int_bool FileTimeToSystemTime( const file_time_t *ft, system_time_t * syst )
 // {
 
 //    TIME_FIELDS tf;
@@ -1032,7 +1032,7 @@
 // /*********************************************************************
 //  *      SystemTimeToFileTime                            (KERNEL32.@)
 //  */
-// int_bool SystemTimeToFileTime( const system_time_t *syst, filetime_t * ft )
+// int_bool SystemTimeToFileTime( const system_time_t *syst, file_time_t * ft )
 // {
 //    TIME_FIELDS tf;
 //    u64 t;
@@ -1068,7 +1068,7 @@
 //  *   Nothing.
 //  */
 // CLASS_DECL_ACME void GetSystemTimeAsFileTime(
-//    filetime_t * time) /* [out] Destination for the current utc time */
+//    file_time_t * time) /* [out] Destination for the current utc time */
 // {
 //    u64 t;
 //    NtQuerySystemTime( &t );
@@ -1090,7 +1090,7 @@
 //  */
 // CLASS_DECL_ACME void GetSystemTime(system_time_t * systime)
 // {
-//    //filetime_t ft;
+//    //file_time_t ft;
 //    u64 t;
 
 //    NtQuerySystemTime(&t);

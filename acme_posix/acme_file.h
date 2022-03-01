@@ -100,9 +100,9 @@ namespace posix
       //::e_status delete_file(const char * pszFileName) override;
 
 
-      ::datetime::time modification_time(const char* psz) override;
+      ::earth::time modification_time(const char* psz) override;
 
-      void set_modification_time(const char* psz, const ::datetime::time& time) override;
+      void set_modification_time(const char* psz, const ::earth::time& time) override;
 
 
    };

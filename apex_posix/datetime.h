@@ -14,25 +14,25 @@
 ///*********************************************************************
 // *      LocalFileTimeToFileTime                         (KERNEL32.@)
 // */
-//CLASS_DECL_APEX_POSIX int_bool LocalFileTimeToFileTime(const filetime_t * pfiletimeLocal, filetime_t * pfiletimeUTC);
+//CLASS_DECL_APEX_POSIX int_bool LocalFileTimeToFileTime(const file_time_t * pfile_timeLocal, file_time_t * pfile_timeUTC);
 //
 //
 ///*********************************************************************
 // *      FileTimeToLocalFileTime                         (KERNEL32.@)
 // */
-//CLASS_DECL_APEX_POSIX int_bool FileTimeToLocalFileTime(const filetime_t * pfiletimeUTC, filetime_t * pfiletimeLocal);
+//CLASS_DECL_APEX_POSIX int_bool FileTimeToLocalFileTime(const file_time_t * pfile_timeUTC, file_time_t * pfile_timeLocal);
 //
 //
 ///*********************************************************************
 // *      FileTimeToSystemTime                            (KERNEL32.@)
 // */
-//CLASS_DECL_APEX_POSIX int_bool FileTimeToSystemTime(const filetime_t * pfiletime, system_time_t * psystemtime);
+//CLASS_DECL_APEX_POSIX int_bool FileTimeToSystemTime(const file_time_t * pfile_time, system_time_t * psystemtime);
 //
 //
 ///*********************************************************************
 // *      SystemTimeToFileTime                            (KERNEL32.@)
 // */
-//CLASS_DECL_APEX_POSIX int_bool SystemTimeToFileTime(const system_time_t * psystemtime, filetime_t * pfiletime);
+//CLASS_DECL_APEX_POSIX int_bool SystemTimeToFileTime(const system_time_t * psystemtime, file_time_t * pfile_time);
 //
 //
 ///***********************************************************************
@@ -43,7 +43,7 @@
 // *  RETURNS
 // *   Nothing.
 // */
-//CLASS_DECL_APEX_POSIX void GetSystemTimeAsFileTime(filetime_t * pfiletime);
+//CLASS_DECL_APEX_POSIX void GetSystemTimeAsFileTime(file_time_t * pfile_time);
 //
 //
 //

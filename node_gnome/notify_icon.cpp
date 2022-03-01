@@ -34,9 +34,7 @@ namespace node_gnome
 
       }
 
-      m_strId.format("notify_icon_%s", atom.to_string().c_str());
-
-      m_strId = "ca2-" + picon->get_tray_icon_name() + "-" + m_strId;
+      m_strId = atom;
 
       m_atom = atom;
 
@@ -57,12 +55,15 @@ namespace node_gnome
 
       }
 
-      ::file::path pathFolder = m_psystem->m_pacmedir->ca2roaming() / "matter/icon/128";
+      auto iSlash = strAppId.find('/');
 
-      string strIconName = get_app()->m_strAppId;
+      string strAppName = strAppId.Mid(iSlash + 1);
 
-      strIconName.find_replace("/", "_");
-      strIconName.find_replace("-", "_");
+      ::file::path pathFolder = m_psystem->m_pacmedir->roaming() / strMatterRoot / "matter/icon/128";
+
+      ::file::path pathRoamingIcon = pathFolder / (strAppName + ".png");
+
+      get_app()->m_papplication->file().copy(pathRoamingIcon, "matter://main/icon-128.png");
 
       auto psystem = m_psystem;
 
@@ -70,7 +71,7 @@ namespace node_gnome
 
       __construct(m_pindicator);
 
-      m_pindicator->create(m_strId, strIconName, pathFolder, this);
+      m_pindicator->create(m_strId, strAppName, pathFolder, this);
 
 //      if (m_pindicator == nullptr)
 //      {

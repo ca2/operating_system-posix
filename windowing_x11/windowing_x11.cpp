@@ -1578,7 +1578,6 @@ else if(detail == 3)
 
   //                ::topic::context context;
 
-
                   int iKey = XK_A;
 
                   if(is_return_key((XIRawEvent*)cookie->data))
@@ -1607,6 +1606,7 @@ else if(detail == 3)
 //                     p->on_subject(ptopic, &context);
 //
 //                  }
+
 
                   for(auto & p : *m_pobjectaExtendedEventListener)
                   {

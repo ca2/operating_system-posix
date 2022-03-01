@@ -853,7 +853,7 @@ namespace posix
    }
 
 
-   ::datetime::time acme_file::modification_time(const char* pszPath)
+   ::earth::time acme_file::modification_time(const char* pszPath)
    {
 
       if(is_trimmed_empty(pszPath))
@@ -885,7 +885,7 @@ namespace posix
    }
 
 
-   void acme_file::set_modification_time(const char* pszPath, const ::datetime::time& time)
+   void acme_file::set_modification_time(const char* pszPath, const ::earth::time& time)
    {
 
 
