@@ -42,7 +42,7 @@ void install_sigfpe_handler()
    g_sigactionFpe.sa_flags = SA_SIGINFO | SA_NODEFER;
 
    sigaction(SIGFPE, &g_sigactionFpe, &g_sigactionFpeOld);
-
+   
 }
 
 
