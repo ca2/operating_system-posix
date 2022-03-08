@@ -27,7 +27,7 @@ namespace multimedia
       void wave_in::init_task()
       {
 
-         TRACE("wave_in::initialize_instance %X\n", get_ithread());
+         TRACE("wave_in::initialize_instance %X\n", get_itask());
          //SetMainWnd(NULL);
          //ASSERT(GetMainWnd() == NULL);
          set_thread_priority(::e_priority_highest);
@@ -219,14 +219,10 @@ Opened:
 
          }*/
 
-         if(m_pencoder != NULL && !in_initialize_encoder())
+         if(m_pencoder != NULL)
          {
 
-            m_estate = e_state_opened;
-
-            in_close();
-
-            throw ::exception(error_failed);
+            in_initialize_encoder();
 
          }
 
@@ -533,16 +529,23 @@ Opened:
 //      }
 //
 
-      bool wave_in::in_initialize_encoder()
+      void wave_in::in_initialize_encoder()
       {
 
          if(m_pencoder == NULL)
-            return false;
+         {
 
-         if(!::wave::in::in_initialize_encoder())
-            return false;
+            throw ::exception(error_wrong_state);
 
-         return true;
+         }
+            //return false;
+
+         ::wave::in::in_initialize_encoder();
+
+         //if(!::wave::in::in_initialize_encoder())
+            //return false;
+
+         //return true;
 
       }
 

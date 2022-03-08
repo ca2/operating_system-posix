@@ -1325,7 +1325,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                XNextEvent(pdisplay, &e);
 
-               //if (!__x11_hook_process_event(&e, cookie))
+
+               if(!m_pdisplay->m_px11display->x11_event(&e))
                {
 
 #ifdef WITH_XI
@@ -2139,11 +2140,19 @@ else if(detail == 3)
 
                   {
 
+                     //XWindowAttributes attrs;
+
+                     //XGetWindowAttributes(m_pdisplay->Display(), e.xconfigure.window, &attrs);
+
                      //_x11_defer_check_configuration(msg.oswindow);
 
                      ::point_i32 point(e.xconfigure.x, e.xconfigure.y);
 
                      ::size_i32 size(e.xconfigure.width, e.xconfigure.height);
+
+                     //::point_i32 point(attrs.x, attrs.y);
+
+                     //::size_i32 size(attrs.width, attrs.height);
 
                      auto pointWindow = pinteraction->screen_origin();
 
@@ -2232,7 +2241,7 @@ else if(detail == 3)
                      if (bSizeFix)
                      {
 
-                        msg.oswindow->m_point = size;
+                        msg.oswindow->m_size = size;
 
                         msg.m_atom = e_message_size;
                         msg.wParam = 0;
@@ -3066,13 +3075,13 @@ else if(detail == 3)
    __pointer(::thread) g_pthreadXlib;
 
 
-   itask_t g_ithreadXlib;
+   itask_t g_itaskXlib;
 
 
-   itask_t x11_get_ithread()
+   itask_t x11_get_itask()
    {
 
-      return g_ithreadXlib;
+      return g_itaskXlib;
 
    }
 

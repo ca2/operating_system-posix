@@ -45,7 +45,7 @@ namespace windowing_x11
 
       m_cursorLast = 0;
 
-      m_hthread = 0;
+      m_htask = 0;
 
       m_window = None;
 
@@ -374,7 +374,7 @@ namespace windowing_x11
 
       htask_t htask = ::get_current_htask();
 
-      m_hthread = htask;
+      m_htask = htask;
 
       if (!XGetWindowAttributes(Display(), Window(), &m_px11data->m_attr))
       {
@@ -1252,7 +1252,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       m_puserinteractionimpl = pimpl;
 
-      m_hthread = pimpl->get_app()->get_os_handle();
+      m_htask = pimpl->get_app()->get_os_handle();
 
       m_pmessagequeue = pimpl->m_puserinteraction->m_pthreadUserInteraction->get_message_queue();
 
@@ -2209,7 +2209,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       }
 
-      itask_t idthread = pinteraction->get_app()->get_ithread();
+      itask_t idthread = pinteraction->get_app()->get_itask();
 
       message_queue * pmq = get_message_queue(idthread, false);
 

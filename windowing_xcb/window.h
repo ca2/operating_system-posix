@@ -41,7 +41,7 @@ namespace windowing_xcb
       xcb_cursor_t                                 m_cursorLast;
       xcb_window_t                                 m_window;
       xcb_visualid_t                               m_visualid;
-      htask_t                                      m_hthread;
+      htask_t                                      m_htask;
       ::duration                                       m_durationLastMouseMove;
       ::point_i32                                  m_pointMouseCursor;
 

@@ -41,7 +41,7 @@ namespace windowing_xcb
 
       m_cursorLast = 0;
 
-      m_hthread = 0;
+      m_htask = 0;
 
       m_window = 0;
 
@@ -303,7 +303,7 @@ namespace windowing_xcb
 
       htask_t htask = ::get_current_htask();
 
-      m_hthread = htask;
+      m_htask = htask;
 
       estatus = _get_window_attributes();
 
@@ -854,7 +854,7 @@ namespace windowing_xcb
 
       m_puserinteractionimpl = pimpl;
 
-      m_hthread = pimpl->get_app()->get_os_handle();
+      m_htask = pimpl->get_app()->get_os_handle();
 
       m_pmessagequeue = pimpl->m_puserinteraction->m_pthreadUserInteraction->get_message_queue();
 
@@ -1578,7 +1578,7 @@ namespace windowing_xcb
 
       }
 
-      itask_t idthread = pinteraction->get_app()->get_ithread();
+      itask_t idthread = pinteraction->get_app()->get_itask();
 
       message_queue * pmq = get_message_queue(idthread, false);
 

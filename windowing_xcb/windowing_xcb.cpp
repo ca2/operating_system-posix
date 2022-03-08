@@ -858,13 +858,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    __pointer(::thread) g_pthreadXlib;
 
 
-   itask_t g_ithreadXlib;
+   itask_t g_itaskXlib;
 
 
-   itask_t xcb_get_ithread()
+   itask_t xcb_get_itask()
    {
 
-      return g_ithreadXlib;
+      return g_itaskXlib;
 
    }
 

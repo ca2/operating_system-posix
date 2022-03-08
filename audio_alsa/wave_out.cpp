@@ -249,7 +249,7 @@ namespace multimedia
 
          }
 
-         m_psynththread->m_iWaitBuffer = 1;
+         m_psynthtask->m_iWaitBuffer = 1;
 
          m_estate = e_state_opened;
 
@@ -767,7 +767,7 @@ namespace multimedia
          if(iBuffer >= 0)
          {
 
-            m_psynththread->on_free(iBuffer);
+            m_psynthtask->on_free(iBuffer);
 
          }
 

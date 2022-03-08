@@ -37,14 +37,11 @@ namespace node_gtk
    {
 
       m_pDisplay2 = nullptr;
-      //m_pcsOsDisplayData = new critical_section();
-      m_pdisplay = nullptr;
       m_atomLongType = None;
       m_atomLongStyle = None;
       m_atomNetWmState = None;
       m_atomLongStyleEx = 0;
       m_countReference = 1;
-//   m_pmutexInput           = new ::mutex();
 
    }
 

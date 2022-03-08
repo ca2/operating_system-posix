@@ -27,7 +27,7 @@ namespace windowing_x11
       m_pDisplay = this;
       m_colormap = None;
       m_windowRoot = None;
-      m_pdisplay = nullptr;
+      m_px11display = nullptr;
       m_atomLongType = None;
       m_atomLongStyle = None;
       m_atomNetWmState = None;
@@ -110,23 +110,25 @@ namespace windowing_x11
    void display::open()
    {
 
-      if(::is_set(m_pdisplay))
+      if(::is_set(m_px11display))
       {
 
          return;
 
       }
 
-      m_pdisplay =  XOpenDisplay(NULL);
+      m_px11display = ::x11::display::get(this, false);
 
-      if(::is_null(m_pdisplay))
+      if(::is_null(m_px11display))
       {
 
          throw ::exception(error_failed);
 
       }
 
-      if (XMatchVisualInfo(m_pdisplay, DefaultScreen(m_pdisplay), 32, TrueColor, &m_visualinfo))
+      m_px11display->m_bUnhook = true;
+
+      if (XMatchVisualInfo(m_px11display->m_pdisplay, DefaultScreen(m_px11display->m_pdisplay), 32, TrueColor, &m_visualinfo))
       {
 
          m_pvisual = m_visualinfo.visual;
@@ -139,9 +141,9 @@ namespace windowing_x11
 
       }
 
-      m_iScreen = DefaultScreen(m_pdisplay);
+      m_iScreen = DefaultScreen(m_px11display->m_pdisplay);
 
-      m_windowRoot = RootWindow(m_pdisplay, m_iScreen);
+      m_windowRoot = RootWindow(m_px11display->m_pdisplay, m_iScreen);
 
       m_iDepth = m_visualinfo.depth;
 
@@ -149,7 +151,7 @@ namespace windowing_x11
 
       __zero(attr);
 
-      m_colormap = XCreateColormap(m_pdisplay, m_windowRoot, m_pvisual, AllocNone);
+      m_colormap = XCreateColormap(m_px11display->m_pdisplay, m_windowRoot, m_pvisual, AllocNone);
 
       //return ::success;
 
@@ -168,9 +170,16 @@ namespace windowing_x11
 
       critical_section_lock synchronouslock(&m_criticalsectionWindowMap);
 
-      auto & pwindow = m_windowmap[window];
+      auto passociation = m_windowmap.plookup(window);
 
-      return pwindow;
+      if(::is_null(passociation))
+      {
+
+         return nullptr;
+
+      }
+
+      return passociation->m_element2;
 
    }
 
@@ -185,7 +194,7 @@ namespace windowing_x11
 
       }
 
-      XLockDisplay(m_pdisplay);
+      XLockDisplay(m_px11display->m_pdisplay);
 
    }
 
@@ -193,7 +202,7 @@ namespace windowing_x11
    void display::unlock_display()
    {
 
-      XUnlockDisplay(m_pdisplay);
+      XUnlockDisplay(m_px11display->m_pdisplay);
 
    }
 
@@ -201,7 +210,7 @@ namespace windowing_x11
    ::Display *display::Display()
    {
 
-      return ::is_null(this) ? nullptr : m_pdisplay;
+      return ::is_null(this) ? nullptr : m_px11display->m_pdisplay;
 
    }
 
@@ -209,7 +218,7 @@ namespace windowing_x11
    ::Display *display::Display() const
    {
 
-      return ::is_null(this) ? nullptr : m_pdisplay;
+      return ::is_null(this) ? nullptr : m_px11display->m_pdisplay;
 
    }
 
@@ -344,14 +353,14 @@ namespace windowing_x11
    Atom display::intern_atom(const char *pszAtomName, bool bCreate)
    {
 
-      if (m_pdisplay == nullptr)
+      if (m_px11display == nullptr)
       {
 
          return 0;
 
       }
 
-      auto atom = XInternAtom(m_pdisplay, pszAtomName, bCreate ? True : False);
+      auto atom = XInternAtom(m_px11display->m_pdisplay, pszAtomName, bCreate ? True : False);
 
       if (atom == None)
       {

@@ -43,8 +43,6 @@ namespace node_gtk
 
       void system_main() override;
 
-      //virtual void _on_user_theme_changed() override;
-
       bool is_branch_current() const override;
 
       void os_set_user_theme(const string & strUserTheme) override;
@@ -69,21 +67,7 @@ namespace node_gtk
 
       void node_post(const ::routine & routine) override;
 
-      ///virtual void node_post_quit() override;
-
-      //virtual void on_subject(::promise::topic * ptopic, ::context * pcontext) override;
-
-      //virtual void _on_change_os_user_theme(string strTheme);
-
       virtual void _os_process_user_theme_color(string strTheme);
-
-      //virtual ::node_linux::appindicator * appindicator_allocate() override;
-
-      //virtual void appindicator_destroy(::freebsd::appindicator * pappindicator) override;
-
-      //virtual void enum_display_monitors(::aura::session * psession) override;
-
-      //virtual bool _os_calc_system_dark_mode() override;
 
       void node_quit() override;
 

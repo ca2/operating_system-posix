@@ -1,6 +1,7 @@
 // Created by camilo 2021-01
 // Recreated by camilo 2021-02-10 <3TBS_!!
 #include "framework.h"
+#include "aura/graphics/write_text/font_enumeration_item.h"
 #include <pango/pangocairo.h>
 
 

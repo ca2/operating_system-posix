@@ -7,6 +7,10 @@
 #define WINDOWING_X11_DISPLAY_MEMBER
 
 
+#include "acme/operating_system/x11/nano/event_listener.h"
+#include "acme/operating_system/x11/nano/display.h"
+
+
 namespace windowing_x11
 {
 
@@ -21,7 +25,8 @@ namespace windowing_x11
       window_map                                   m_windowmap;
 
 
-      ::Display *                                  m_pdisplay;
+      __pointer(::x11::display)                    m_px11display;
+      //::Display *                                m_pdisplay;
       XVisualInfo                                  m_visualinfo;
       ::Visual *                                   m_pvisual;
       Colormap                                     m_colormap;

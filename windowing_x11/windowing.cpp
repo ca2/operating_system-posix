@@ -42,9 +42,9 @@ namespace windowing_x11
    bool windowing::is_branch_current() const
    {
 
-      auto ithreadCurrent = get_current_itask();
+      auto itaskCurrent = get_current_itask();
 
-      return ithreadCurrent == m_itask;
+      return itaskCurrent == m_itask;
 
 
    }
@@ -204,12 +204,31 @@ namespace windowing_x11
    bool windowing::x11_runnable_step()
    {
 
+      bool bHandled = false;
+
+      if(m_pdisplay)
+      {
+
+         if(m_pdisplay->m_px11display)
+         {
+
+            while(m_pdisplay->m_px11display->x11_posted())
+            {
+
+               bHandled = true;
+
+            }
+
+         }
+
+      }
+
       synchronous_lock synchronouslock(mutex());
 
       if(m_routinelist.is_empty())
       {
 
-         return false;
+         return bHandled;
 
       }
 

@@ -17,10 +17,10 @@ namespace multimedia
 
 
          wave_in();
-         virtual ~wave_in();
+         ~wave_in() override;
 
 
-         virtual bool in_initialize_encoder();
+         virtual void in_initialize_encoder();
 
          //virtual ::e_status in_add_buffer(int32_t iBuffer);
          //virtual ::e_status in_add_buffer(LPWAVEHDR lpwavehdr);

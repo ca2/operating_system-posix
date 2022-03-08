@@ -309,7 +309,7 @@ namespace windowing_x11
 
       auto psync = get_screen_sync();
 
-      synchronous_lock sl(psync);
+      synchronous_lock slImage(psync);
 
       auto & pimage = get_screen_image();
 
@@ -469,7 +469,9 @@ namespace windowing_x11
    ::draw2d::graphics * buffer::on_begin_draw()
    {
 
-      m_iGoodStride = maximum(m_iGoodStride, window_size().cx);
+      int cx = window_size().cx;
+
+      m_iGoodStride = maximum(m_iGoodStride, cx);
 
       bitmap_source_buffer::on_begin_draw();
 

@@ -63,6 +63,8 @@ namespace node_gnome
 
       ::file::path pathRoamingIcon = pathFolder / (strAppName + ".png");
 
+      //get_app()->m_papplication->file().copy(pathRoamingIcon, "matter://main/icon-128.png");
+
       get_app()->m_papplication->file().copy(pathRoamingIcon, "matter://main/icon-128.png");
 
       auto psystem = m_psystem;
