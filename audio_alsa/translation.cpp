@@ -1,4 +1,5 @@
 #include "framework.h"
+#include "aqua/multimedia/audio/_c_audio.h"
 
 
 namespace multimedia
