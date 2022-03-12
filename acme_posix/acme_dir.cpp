@@ -110,7 +110,16 @@ namespace posix
    bool acme_dir::is(const char * path)
    {
 
-      return _is(path);
+      bool bDir = false;
+
+      if(!_is(bDir, path))
+      {
+
+         return false;
+
+      }
+
+      return bDir;
 
    }
 
