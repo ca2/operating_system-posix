@@ -91,7 +91,7 @@ namespace posix
 
       ::file::path path(get_path());
 
-      m_psystem->m_pacmedir->create(path.folder());
+      m_psystem->m_pacmedirectory->create(path.folder());
 
       m_iFile = ::open(path, iOpen, S_IRUSR | S_IWUSR);
 

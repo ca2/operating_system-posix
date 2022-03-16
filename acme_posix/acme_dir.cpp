@@ -54,21 +54,21 @@ namespace posix
    }
 
 
-   acme_dir::acme_dir()
+   acme_directory::acme_directory()
    {
 
 
    }
 
 
-   acme_dir::~acme_dir()
+   acme_directory::~acme_directory()
    {
 
 
    }
 
 //
-//   ::e_status acme_dir::create(const char * path)
+//   ::e_status acme_directory::create(const char * path)
 //   {
 //
 //
@@ -81,7 +81,7 @@ namespace posix
 //   }
 //
 //
-//   ::e_status acme_dir::_create(const char * path)
+//   ::e_status acme_directory::_create(const char * path)
 //   {
 //
 //      return ::create_directory_path(path);
@@ -89,7 +89,7 @@ namespace posix
 //   }
 //
 //
-//   ::e_status acme_dir::create_directory(const char * path)
+//   ::e_status acme_directory::create_directory(const char * path)
 //   {
 //
 //      return ::create_directory(path);
@@ -97,7 +97,7 @@ namespace posix
 //   }
 
 
-   ::file::path acme_dir::module()
+   ::file::path acme_directory::module()
    {
 
       ::file::path pathModule (m_pacmefile->module());
@@ -107,7 +107,7 @@ namespace posix
    }
 
 
-   bool acme_dir::is(const char * path)
+   bool acme_directory::is(const char * path)
    {
 
       bool bDir = false;
@@ -124,7 +124,7 @@ namespace posix
    }
 
 
-   void acme_dir::rls(::file::path_array & stra, const char * psz)
+   void acme_directory::rls(::file::path_array & stra, const char * psz)
    {
 
       ::count start = stra.get_count();
@@ -148,7 +148,7 @@ namespace posix
    }
 
 
-   void acme_dir::rls_dir(::file::path_array & stra, const char * psz)
+   void acme_directory::rls_dir(::file::path_array & stra, const char * psz)
    {
 
       ::count start = stra.get_count();
@@ -169,7 +169,7 @@ namespace posix
    }
 
 
-   void acme_dir::ls(::file::path_array & stra, const char * psz)
+   void acme_directory::ls(::file::path_array & stra, const char * psz)
    {
 
       DIR * dirp = opendir(psz);
@@ -209,7 +209,7 @@ namespace posix
    }
 
 
-   void acme_dir::ls_dir(::file::path_array & stra, const char * psz)
+   void acme_directory::ls_dir(::file::path_array & stra, const char * psz)
    {
 
       DIR * dirp = opendir(psz);
@@ -249,7 +249,7 @@ namespace posix
    }
 
 
-   void acme_dir::ls_file(::file::path_array & stra, const char * psz)
+   void acme_directory::ls_file(::file::path_array & stra, const char * psz)
    {
 
       DIR * dirp = opendir(psz);
@@ -289,7 +289,7 @@ namespace posix
    }
 
 
-   ::file::path acme_dir::pathfind(const string & pszEnv, const string & pszTopic, const string & pszMode)
+   ::file::path acme_directory::pathfind(const string & pszEnv, const string & pszTopic, const string & pszMode)
    {
 
       string_array stra;
@@ -324,7 +324,7 @@ namespace posix
    }
 
 
-   ::file::path acme_dir::archive()
+   ::file::path acme_directory::archive()
    {
 
 
@@ -333,7 +333,7 @@ namespace posix
    }
 
 
-   string acme_dir::get_current()
+   string acme_directory::get_current()
    {
 
       auto pszCurrentDirName = get_current_dir_name();
@@ -345,7 +345,7 @@ namespace posix
 
          auto estatus = failed_errno_to_status(iErrNo);
 
-         throw ::exception(estatus, "posix::acme_dir::get_current");
+         throw ::exception(estatus, "posix::acme_directory::get_current");
 
       }
 
@@ -356,7 +356,7 @@ namespace posix
    }
 
 
-   void acme_dir::change_current(const char * psz)
+   void acme_directory::change_current(const char * psz)
    {
 
       auto iError = chdir(psz);
@@ -368,7 +368,7 @@ namespace posix
 
          auto estatus = failed_errno_to_status(iErrNo);
          
-         throw ::exception(estatus, "posix::acme_dir::change_current");
+         throw ::exception(estatus, "posix::acme_directory::change_current");
 
       }
 

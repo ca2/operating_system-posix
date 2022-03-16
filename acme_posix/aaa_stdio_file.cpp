@@ -1,5 +1,5 @@
 #include "framework.h"
-#include "acme/filesystem/filesystem/acme_dir.h"
+#include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/filesystem/filesystem/acme_file.h"
 #include <stdio.h>
 
@@ -44,11 +44,11 @@ stdio_file::~stdio_file()
 
       auto psystem = m_psystem;
 
-      auto pacmedir = psystem->m_pacmedir;
+      auto pacmedir = psystem->m_pacmedirectory;
 
                auto psystem = m_psystem;
 
-         auto pacmedir = psystem->m_pacmedir;
+         auto pacmedir = psystem->m_pacmedirectory;
 
 pacmedir->create(::file::path(pszFileName).folder());
 

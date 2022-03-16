@@ -555,7 +555,7 @@ namespace aura
 
          ::str::international::unicode_to_utf8(strPath, wstrPath);
 
-         if (m_psystem->m_pacmedir->is(strPath))
+         if (m_psystem->m_pacmedirectory->is(strPath))
          {
 
             return e_folder_file_system;

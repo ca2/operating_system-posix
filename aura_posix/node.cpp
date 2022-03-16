@@ -3,7 +3,7 @@
 //
 #include "framework.h"
 #include "node.h"
-#include "acme/filesystem/filesystem/acme_dir.h"
+#include "acme/filesystem/filesystem/acme_directory.h"
 #ifdef WITH_XCB
 #include <X11/Xlib-xcb.h>
 #endif
@@ -277,7 +277,7 @@ namespace aura
 
          auto psystem = m_psystem;
 
-         auto pacmedir = psystem->m_pacmedir;
+         auto pacmedir = psystem->m_pacmedirectory;
 
          path = pacmedir->home();
 

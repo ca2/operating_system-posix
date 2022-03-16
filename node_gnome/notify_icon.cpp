@@ -3,7 +3,7 @@
 //
 #include "framework.h"
 #include "aura/user/_user.h"
-#include "acme/filesystem/filesystem/acme_dir.h"
+#include "acme/filesystem/filesystem/acme_directory.h"
 
 
 namespace node_gnome
@@ -59,7 +59,7 @@ namespace node_gnome
 
       string strAppName = strAppId.Mid(iSlash + 1);
 
-      ::file::path pathFolder = m_psystem->m_pacmedir->roaming() / strMatterRoot / "matter/icon/128";
+      ::file::path pathFolder = m_psystem->m_pacmedirectory->roaming() / strMatterRoot / "matter/icon/128";
 
       ::file::path pathRoamingIcon = pathFolder / (strAppName + ".png");
 

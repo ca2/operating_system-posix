@@ -662,7 +662,7 @@ namespace acme
 
          ::file::path_array stra;
 
-         m_psystem->m_pacmedir->ls_dir(stra, "/proc/");
+         m_psystem->m_pacmedirectory->ls_dir(stra, "/proc/");
 
          string str(psz);
 

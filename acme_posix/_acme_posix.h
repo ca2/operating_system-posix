@@ -25,7 +25,7 @@ void init_chldstatus(int iPid);
 #include "file_memory_map.h"
 
 
-#include "acme_dir.h"
+#include "acme_directory.h"
 
 
 #include "acme_file.h"

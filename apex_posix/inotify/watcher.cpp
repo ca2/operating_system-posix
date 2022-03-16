@@ -102,7 +102,7 @@ namespace inotify
 
          ::file::path_array stra;
 
-         m_psystem->m_pacmedir->rls_dir(stra, pathFolder);
+         m_psystem->m_pacmedirectory->rls_dir(stra, pathFolder);
 
          for(index index = 0; index < stra.get_count(); index++)
          {
