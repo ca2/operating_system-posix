@@ -405,8 +405,8 @@ namespace draw2d_xlib
    i32 graphics::GetPolyFillMode() const
    {
       //return ::GetPolyFillMode(get_handle2());
-//      return xlib_get_fill_rule(m_pdc) == CAIRO_FILL_RULE_WINDING ? ::draw2d::fill_mode_winding : ::draw2d::fill_mode_alternate;
-      return ::draw2d::fill_mode_winding;
+//      return xlib_get_fill_rule(m_pdc) == CAIRO_FILL_RULE_WINDING ? ::draw2d::e_fill_mode_winding : ::draw2d::e_fill_mode_alternate;
+      return ::draw2d::e_fill_mode_winding;
    }
 
    i32 graphics::GetROP2() const
@@ -5172,7 +5172,7 @@ namespace draw2d_xlib
 
 //   ::aura::enum_fill_mode graphics::gdiplus_get_fill_mode()
    // {
-//      return ::draw2d::fill_mode_winding;
+//      return ::draw2d::e_fill_mode_winding;
    // }
 
    /*void xlib_image_surface_blur( xlib_surface_t* surface, double radius )
@@ -5404,7 +5404,7 @@ namespace draw2d_xlib
 
       pfont->m_pft = XftFontOpen (m_pdc->m_pdisplay, m_pdc->m_iScreen,
                                   XFT_FAMILY, XftTypeString, pnode->font_name(e_font_sans),
-                                  pfont->m_eunitFontSize == ::draw2d::unit_point ? XFT_SIZE : XFT_PIXEL_SIZE, XftTypeDouble, pfont->m_dFontSize,
+                                  pfont->m_eunitFontSize == ::draw2d::e_unit_point ? XFT_SIZE : XFT_PIXEL_SIZE, XftTypeDouble, pfont->m_dFontSize,
                                   nullptr);
 
       //pfont->m_pfont = XLoadQueryFont(m_pdc->m_pdisplay, strFont);
@@ -5417,7 +5417,7 @@ namespace draw2d_xlib
 //      strFont.format("-*-sans-*-rectangle_i32-*-*-%d-*-*-*-*-*-iso10646-1", iPoint);
       pfont->m_pft = XftFontOpen (m_pdc->m_pdisplay, m_pdc->m_iScreen,
                                   XFT_FAMILY, XftTypeString, "sans",
-                                  pfont->m_eunitFontSize == ::draw2d::unit_point ? XFT_SIZE : XFT_PIXEL_SIZE, XftTypeDouble, pfont->m_dFontSize,
+                                  pfont->m_eunitFontSize == ::draw2d::e_unit_point ? XFT_SIZE : XFT_PIXEL_SIZE, XftTypeDouble, pfont->m_dFontSize,
                                   nullptr);
 
 //      pfont->m_pfont = XLoadQueryFont(m_pdc->m_pdisplay, strFont);
@@ -5431,7 +5431,7 @@ namespace draw2d_xlib
 
       pfont->m_pft = XftFontOpen (m_pdc->m_pdisplay, m_pdc->m_iScreen,
                                   XFT_FAMILY, XftTypeString, "sans",
-                                  pfont->m_eunitFontSize == ::draw2d::unit_point ? XFT_SIZE : XFT_PIXEL_SIZE, XftTypeDouble, pfont->m_dFontSize,
+                                  pfont->m_eunitFontSize == ::draw2d::e_unit_point ? XFT_SIZE : XFT_PIXEL_SIZE, XftTypeDouble, pfont->m_dFontSize,
                                   nullptr);
 //      pfont->m_pfont = XLoadQueryFont(m_pdc->m_pdisplay, strFont);
 
@@ -5444,7 +5444,7 @@ namespace draw2d_xlib
 //      strFont = "fixed";
       pfont->m_pft = XftFontOpen (m_pdc->m_pdisplay, m_pdc->m_iScreen,
                                   XFT_FAMILY, XftTypeString, "charter",
-                                  pfont->m_eunitFontSize == ::draw2d::unit_point ? XFT_SIZE : XFT_PIXEL_SIZE, XftTypeDouble, pfont->m_dFontSize,
+                                  pfont->m_eunitFontSize == ::draw2d::e_unit_point ? XFT_SIZE : XFT_PIXEL_SIZE, XftTypeDouble, pfont->m_dFontSize,
                                   nullptr);
 
       //    pfont->m_pfont = XLoadQueryFont(m_pdc->m_pdisplay, strFont);
@@ -5561,7 +5561,7 @@ ok:
 
       }
 
-      if(ppath->m_efillmode == ::draw2d::fill_mode_alternate)
+      if(ppath->m_efillmode == ::draw2d::e_fill_mode_alternate)
       {
 
          xlib_set_fill_rule(m_pdc, CAIRO_FILL_RULE_EVEN_ODD);
