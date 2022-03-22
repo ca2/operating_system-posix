@@ -6,7 +6,7 @@
 
 #include "node_gtk/_node_gtk.h"
 #include "acme/operating_system/ansi/_pthread.h"
-#include "aura/user/_user.h"
+#include "aura/user/user/_user.h"
 #include "aura_posix/appindicator.h"
 
 

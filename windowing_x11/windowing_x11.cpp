@@ -2,7 +2,7 @@
 // Created by camilo on 16/02/2021.
 //
 #include "operating-system-posix/windowing_x11/framework.h"
-#include "aura/user/_user.h"
+#include "aura/user/user/_user.h"
 #include "aura/operating_system/x11/_x11.h"
 #include "acme/id.h"
 #include "acme/constant/message.h"
