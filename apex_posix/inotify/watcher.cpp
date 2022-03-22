@@ -100,14 +100,16 @@ namespace inotify
 
          pwatch->m_bRecursive = true;
 
-         ::file::path_array stra;
+         ::file::listing listing;
 
-         m_psystem->m_pacmedirectory->rls_dir(stra, pathFolder);
+         listing.set_folder_listing(pathFolder, ::e_depth_recursively);
 
-         for(index index = 0; index < stra.get_count(); index++)
+         m_psystem->m_pacmedirectory->enumerate(listing);
+
+         for(index index = 0; index < listing.get_count(); index++)
          {
 
-            string strDirPath = stra[index];
+            string strDirPath = listing[index];
 
             i32 inaw = inotify_add_watch (m_iFd, strDirPath, IN_MODIFY | IN_CLOSE_WRITE | IN_MOVED_TO | IN_CREATE | IN_MODIFY | IN_MOVED_FROM | IN_DELETE);
 
@@ -137,7 +139,7 @@ namespace inotify
 
                pwatch->m_atom = inaw;
 
-               pwatch->m_pathFolder = stra[index];
+               pwatch->m_pathFolder = listing[index];
 
                pwatch->m_pwatcher = this;
 

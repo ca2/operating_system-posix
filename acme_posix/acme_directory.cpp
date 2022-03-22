@@ -124,60 +124,123 @@ namespace posix
    }
 
 
-   void acme_directory::rls(::file::path_array & stra, const char * psz)
+//   void acme_directory::rls(::file::path_array & stra, const char * psz)
+//   {
+//
+//      ::count start = stra.get_count();
+//
+//      ls(stra, psz);
+//
+//      ::count end = stra.get_count();
+//
+//      for (::index i = start; i < end; i++)
+//      {
+//
+//         if (is(stra[i]))
+//         {
+//
+//            rls(stra, stra[i]);
+//
+//         }
+//
+//      }
+//
+//   }
+
+
+//   void acme_directory::rls_dir(::file::path_array & stra, const char * psz)
+//   {
+//
+//      ::count start = stra.get_count();
+//
+//      ls_dir(stra, psz);
+//
+//      ::count end = stra.get_count();
+//
+//      for (::index i = start; i < end; i++)
+//      {
+//
+//         ::file::path path = stra[i];
+//
+//         rls_dir(stra, path);
+//
+//      }
+//
+//   }
+
+
+   void defer_add(::file::listing & listing, const dirent * dp)
    {
 
-      ::count start = stra.get_count();
 
-      ls(stra, psz);
-
-      ::count end = stra.get_count();
-
-      for (::index i = start; i < end; i++)
+      if (file_path_is_dots(dp->d_name))
       {
 
-         if (is(stra[i]))
-         {
-
-            rls(stra, stra[i]);
-
-         }
+         return;
 
       }
+
+
+      ::file::path path;
+
+      string strFilename(dp->d_name);
+
+      path = listing.m_pathFinal / strFilename;
+
+      if(path.begins(listing.m_pathBasePath))
+      {
+
+         path.m_iBasePathLength = listing.m_pathBasePath.get_length() + 1;
+
+      }
+
+      path.m_iDir = dp->d_type & DT_DIR ? 1 : 0;
+
+      //path.m_iSize = make64_from32(finddata.nFileSizeLow, finddata.nFileSizeHigh);
+
+      listing.defer_add(path);
 
    }
 
 
-   void acme_directory::rls_dir(::file::path_array & stra, const char * psz)
+
+   bool acme_directory::enumerate(::file::listing & listing)
    {
 
-      ::count start = stra.get_count();
-
-      ls_dir(stra, psz);
-
-      ::count end = stra.get_count();
-
-      for (::index i = start; i < end; i++)
+      if (listing.m_pathFinal.is_empty())
       {
 
-         ::file::path path = stra[i];
-
-         rls_dir(stra, path);
+         listing.m_pathFinal = listing.m_pathUser;
 
       }
 
-   }
+      if(listing.m_pathBasePath.is_empty())
+      {
 
+         listing.m_pathBasePath = listing.m_pathFinal;
 
-   void acme_directory::ls(::file::path_array & stra, const char * psz)
-   {
+      }
 
-      DIR * dirp = opendir(psz);
+      if (!is(listing.m_pathFinal))
+      {
+
+         return false;
+
+      }
+
+      if (!listing.on_start_enumerating(this))
+      {
+
+         return true;
+
+      }
+
+      DIR * dirp = opendir(listing.m_pathFinal);
 
       if (dirp == nullptr)
       {
 
-         return;
+         return true;
          
       }
 
@@ -188,28 +251,18 @@ namespace posix
       while ((dp = readdir(dirp)) != nullptr)
       {
 
-         if (file_path_is_dots(dp->d_name))
-         {
-            
-            continue;
-               
-         }
-
-         path = ::file::path(psz) / dp->d_name;
-         path.m_iDir = dp->d_type & DT_DIR ? 1 : 0;
-         path.m_iSize = -1;
-         stra.add(path);
-
-         //output_debug_string("flood for you: dir::ls ----> " + path);
+         defer_add(listing, dp);
 
       }
 
       closedir(dirp);
 
+      return true;
+
    }
 
 
-   void acme_directory::ls_dir(::file::path_array & stra, const char * psz)
+   bool acme_directory::list(string_array & stra, const char * psz, ::file::e_flag eflag)
    {
 
       DIR * dirp = opendir(psz);
@@ -217,28 +270,37 @@ namespace posix
       if (dirp == nullptr)
       {
 
-         return;
-         
+         return true;
+
       }
 
       dirent * dp;
 
+      ::file::path path;
+
       while ((dp = readdir(dirp)) != nullptr)
       {
-         
-         if (file_path_is_dots(dp->d_name))
+
+         if(dp->d_type & DT_DIR)
          {
-            
-            continue;
-               
+
+            if(eflag & ::file::e_flag_folder && !(eflag & ::file::e_flag_file))
+            {
+
+               stra.add(string(dp->d_name) + "/");
+
+            }
+
          }
-
-         ::file::path strPath = ::file::path(psz) / dp->d_name;
-
-         if (is(strPath))
+         else
          {
 
-            stra.add(strPath);
+            if(eflag & ::file::e_flag_file)
+            {
+
+               stra.add(dp->d_name);
+
+            }
 
          }
 
@@ -249,44 +311,84 @@ namespace posix
    }
 
 
-   void acme_directory::ls_file(::file::path_array & stra, const char * psz)
-   {
-
-      DIR * dirp = opendir(psz);
-
-      if (dirp == nullptr)
-      {
-         
-         return;
-         
-      }
-
-      dirent * dp;
-
-      while ((dp = readdir(dirp)) != nullptr)
-      {
-         
-         if (file_path_is_dots(dp->d_name))
-         {
-            
-            continue;
-               
-         }
-
-         ::file::path strPath = ::file::path(psz) / dp->d_name;
-         
-         if (!is(strPath))
-         {
-            
-            stra.add(strPath);
-            
-         }
-
-      }
-
-      closedir(dirp);
-
-   }
+//   void acme_directory::ls_dir(::file::path_array & stra, const char * psz)
+//   {
+//
+//      DIR * dirp = opendir(psz);
+//
+//      if (dirp == nullptr)
+//      {
+//
+//         return;
+//
+//      }
+//
+//      dirent * dp;
+//
+//      while ((dp = readdir(dirp)) != nullptr)
+//      {
+//
+//         if (file_path_is_dots(dp->d_name))
+//         {
+//
+//            continue;
+//
+//         }
+//
+//         ::file::path strPath = ::file::path(psz) / dp->d_name;
+//
+//         if (is(strPath))
+//         {
+//
+//            stra.add(strPath);
+//
+//         }
+//
+//      }
+//
+//      closedir(dirp);
+//
+//   }
+//
+//
+//   void acme_directory::ls_file(::file::path_array & stra, const char * psz)
+//   {
+//
+//      DIR * dirp = opendir(psz);
+//
+//      if (dirp == nullptr)
+//      {
+//
+//         return;
+//
+//      }
+//
+//      dirent * dp;
+//
+//      while ((dp = readdir(dirp)) != nullptr)
+//      {
+//
+//         if (file_path_is_dots(dp->d_name))
+//         {
+//
+//            continue;
+//
+//         }
+//
+//         ::file::path strPath = ::file::path(psz) / dp->d_name;
+//
+//         if (!is(strPath))
+//         {
+//
+//            stra.add(strPath);
+//
+//         }
+//
+//      }
+//
+//      closedir(dirp);
+//
+//   }
 
 
    ::file::path acme_directory::pathfind(const string & pszEnv, const string & pszTopic, const string & pszMode)

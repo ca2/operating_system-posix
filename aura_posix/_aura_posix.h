@@ -6,7 +6,7 @@
 
 #include "aura/operating_system.h"
 #include "apex_posix/_apex_posix.h"
-#include "aura/user/_user.h"
+#include "aura/user/user/_user.h"
 
 
 #include "appindicator.h"

@@ -660,9 +660,11 @@ namespace acme
 
          id_array ia;
 
-         ::file::path_array stra;
+         ::file::listing listing;
 
-         m_psystem->m_pacmedirectory->ls_dir(stra, "/proc/");
+         listing.set_file_listing("/proc/");
+
+         m_psystem->m_pacmedirectory->enumerate(listing);
 
          string str(psz);
 
@@ -678,10 +680,10 @@ namespace acme
 
          strApp2 = "_" + strApp;
 
-         for (auto & strPid : stra)
+         for (auto & pathPid : listing)
          {
 
-            int iPid = atoi(strPid.title());
+            int iPid = atoi(pathPid.title());
 
             if (iPid > 0)
             {

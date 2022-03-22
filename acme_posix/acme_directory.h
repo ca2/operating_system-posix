@@ -42,13 +42,17 @@ namespace posix
 
       //string name(string path) override;
 
-      void rls(::file::path_array & stra, const char * psz) override;
+      //void rls(::file::path_array & stra, const char * psz) override;
 
-      void rls_dir(::file::path_array & stra, const char * psz) override;
-      void ls(::file::path_array & stra, const char * psz) override;
+      //void rls_dir(::file::path_array & stra, const char * psz) override;
+      //void ls(::file::path_array & stra, const char * psz) override;
 
-      void ls_dir(::file::path_array & stra, const char * psz) override;
-      void ls_file(::file::path_array & stra, const char * psz) override;
+      //void ls_dir(::file::path_array & stra, const char * psz) override;
+      //void ls_file(::file::path_array & stra, const char * psz) override;
+
+      bool enumerate(::file::listing & listing) override;
+
+      bool list(::string_array & stra, const char * psz, ::file::e_flag eflag = ::file::e_flag_file_or_folder) override;
 
       ::file::path pathfind(const string & pszEnv, const string & pszTopic, const string & pszMode) override;
 
