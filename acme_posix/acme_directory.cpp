@@ -308,6 +308,8 @@ namespace posix
 
       closedir(dirp);
 
+      return true;
+
    }
 
 
