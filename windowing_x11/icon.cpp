@@ -57,7 +57,7 @@ namespace windowing_x11
    }
 
 
-   void icon::load_file(string strPath)
+   void icon::load_file(const string & strPath)
    {
 
       throw ::interface_only();
@@ -67,7 +67,7 @@ namespace windowing_x11
    }
 
 
-   void icon::load_matter(string strMatter)
+   void icon::load_matter(const string & strMatter)
    {
 
       auto pcontext = m_pcontext->m_papexcontext;
@@ -90,7 +90,7 @@ namespace windowing_x11
    }
 
 
-   void icon::load_app_tray_icon(string strAppId)
+   void icon::load_app_tray_icon(const string & strAppId)
    {
 
       //auto estatus =
