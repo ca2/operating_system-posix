@@ -16,14 +16,20 @@ namespace inotify
    {
    public:
 
-
+      i32                        m_iFd;
+      struct timeval             m_timevalTimeOut;
+      fd_set                     m_fdset;
+      int                        m_watchdescriptor;
       //bool                 m_bOwn;
 
 
       watch();
       ~watch() override;
 
-      //virtual bool open(const ::file::path & pathFolder, bool bRecursive);
+      bool open(const ::file::path & pathFolder, bool bRecursive) override;
+
+
+      bool step() override;
 
 
    };
@@ -35,16 +41,13 @@ namespace inotify
    public:
 
 
-      i32                        m_iFd;
-      struct timeval             m_timevalTimeOut;
-      fd_set                     m_fdset;
 
 
       watcher();
       ~watcher() override;
 
 
-      virtual ::file::watch_id add_watch(const ::file::path & pathFolder, ::file::listener * plistenerParam, bool bRecursive) override;
+      //virtual ::file::watch_id add_watch(const ::file::path & pathFolder, ::file::listener * plistenerParam, bool bRecursive) override;
 
 
       virtual bool step() override;
