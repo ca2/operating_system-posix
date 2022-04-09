@@ -238,6 +238,8 @@ namespace inotify
 
       }
 
+      return true;
+
    }
 
 

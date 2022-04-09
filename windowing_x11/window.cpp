@@ -273,7 +273,9 @@ namespace windowing_x11
 
       pimpl->m_pwindow = this;
 
-      set_os_data((::windowing::window *) this);
+      set_oswindow(this);
+
+      set_os_data((void *) window);
 
       //pimpl->set_os_data((::windowing::window *)this);
 

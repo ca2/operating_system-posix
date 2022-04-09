@@ -662,7 +662,7 @@ namespace acme
 
          ::file::listing listing;
 
-         listing.set_file_listing("/proc/");
+         listing.set_folder_listing("/proc");
 
          m_psystem->m_pacmedirectory->enumerate(listing);
 

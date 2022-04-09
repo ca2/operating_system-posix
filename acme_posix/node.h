@@ -91,6 +91,9 @@ namespace acme
          virtual int _get_proc_stat_core_count();
 
 
+         void node_post(const ::routine & routine) override;
+
+
       };
 
 

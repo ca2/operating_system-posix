@@ -468,6 +468,20 @@ namespace acme
       }
 
 
+      void node::node_post(const ::routine & routine)
+      {
+
+
+         ::acme::node::node_post(routine);
+
+//      defer_create_mutex();
+//
+//      synchronous_lock synchronouslock(mutex());
+//
+//      m_routineaPost.add(routine);
+
+      }
+
 
    } // namespace posix
 

@@ -3119,7 +3119,8 @@ else if(detail == 3)
       if(::is_null(pinteraction))
       {
 
-         throw ::exception(error_null_pointer);
+         return;
+         //throw ::exception(error_null_pointer);
 
       }
 
