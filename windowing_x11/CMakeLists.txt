@@ -24,8 +24,8 @@ list(APPEND library_source
    keyboard.h
    node.cpp
    node.h
-   sn.cpp
-   sn.h
+   startup-notification.cpp
+   startup-notification.h
    text_composition_client.cpp
    text_composition_client.h
    user.cpp
@@ -74,7 +74,7 @@ elseif(LINUX OR FREEBSD)
 #         Xrender)
 #   endif()
 
-   pkg_check_modules(PKGCONFIG x11 xrender xi)
+   pkg_check_modules(PKGCONFIG libstartup-notification-1.0 x11 xrender xi)
    target_compile_options(windowing_x11 PRIVATE -fpermissive)
    target_compile_options(windowing_x11 PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(windowing_x11 PRIVATE ${PKGCONFIG_LDFLAGS})

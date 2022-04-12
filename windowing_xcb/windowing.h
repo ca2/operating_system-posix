@@ -48,7 +48,7 @@ namespace windowing_xcb
 
       virtual bool post_ui_message(::message::message * pmessage);
 
-      void start() override;
+      //void start() override;
 
 
       void windowing_post(const ::routine & routine) override;

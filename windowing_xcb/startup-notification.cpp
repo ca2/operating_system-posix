@@ -16,11 +16,11 @@ void on_sn_launch_context(void * pSnContext , Window window)
 
    SnLauncheeContext * pcontext = (SnLauncheeContext *) pSnContext;
 
-   string str;
-
-   str.format("Is the the window id %08x?\n", window);
-
-   output_debug_string(str);
+//   string str;
+//
+//   str.format("Is this the window id %08x?\n", window);
+//
+//   output_debug_string(str);
 
    sn_launchee_context_setup_window(pcontext, window);
 

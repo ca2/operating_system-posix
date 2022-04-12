@@ -174,7 +174,7 @@ namespace node_kde
 
       //auto estatus =
       //
-      m_psystem->m_papexsystem->begin_synch();
+      m_psystem->m_papexsystem->branch_synchronously();
 
       /// new:platform_create_system:decrement_reference_count
       /// begin_synch starts new thread
@@ -419,6 +419,8 @@ namespace node_kde
          return error_failed;
 
       }
+
+      ::x11::display::get(this, false, (Display *) m_pX11Display);
 
       m_pxcbconnection = QX11Info::connection();
 

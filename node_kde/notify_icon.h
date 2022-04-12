@@ -12,8 +12,9 @@ namespace node_kde
    public:
 
 
-      __pointer(::aura::posix::appindicator)        m_pindicator;
-      KStatusNotifierItem *                              m_pstatusnotifieritem;
+      __pointer(::aura::posix::appindicator)          m_pindicator;
+      KStatusNotifierItem *                           m_pstatusnotifieritem;
+      ::image_pointer                                 m_pimage;
 
 
       notify_icon();

@@ -360,18 +360,7 @@ namespace windowing_x11
 
       }
 
-      auto atom = XInternAtom(m_px11display->m_pdisplay, pszAtomName, bCreate ? True : False);
-
-      if (atom == None)
-      {
-
-         windowing_output_debug_string("ERROR: cannot find atom for " + string(pszAtomName) + "\n");
-
-         return None;
-
-      }
-
-      return atom;
+      return m_px11display->intern_atom(pszAtomName, bCreate);
 
    }
 
@@ -384,30 +373,6 @@ namespace windowing_x11
    }
 
 
-   Atom display::intern_atom(x_window::enum_atom eatom, bool bCreate)
-   {
-
-      if (eatom < 0 || eatom >= x_window::e_atom_count)
-      {
-
-         return None;
-
-      }
-
-      Atom atom = m_atoma[eatom];
-
-      if (atom == None)
-      {
-
-         atom = intern_atom(x_window::atom_name(eatom), bCreate);
-
-         m_atoma[eatom] = atom;
-
-      }
-
-      return atom;
-
-   }
 
 
    Atom display::net_wm_state_atom(bool bCreate)
@@ -461,11 +426,7 @@ namespace windowing_x11
    ::windowing_x11::window *display::_get_active_window(::thread *pthread)
    {
 
-      int screen = XDefaultScreen(Display());
-
-      Window windowRoot = RootWindow(Display(), screen);
-
-      Window window = x11_get_long_property(Display(), windowRoot, (char *) "_NET_ACTIVE_WINDOW");
+      auto window = m_px11display->_get_active_window();
 
       auto pwindow = _window(window);
 

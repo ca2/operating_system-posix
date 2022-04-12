@@ -2,18 +2,18 @@
 // recreated by Camilo 2021-01-28 22:20 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
 #include "framework.h"
-#include "aura/user/_user.h"
+#include "aura/user/user/_user.h"
 #include "acme/operating_system/_user.h"
-#include "aura/user/interaction_prodevian.h"
+#include "aura/user/user/interaction_prodevian.h"
 #include "aura/platform/message_queue.h"
 #include <X11/Xatom.h>
 // dnf install xcb-util-devel
 #include <xcb/xcb_util.h>
-#include "aura/graphics/draw2d/context_image.h"
-#include "aura/graphics/draw2d/image_drawing.h"
+#include "aura/graphics/image/context_image.h"
+#include "aura/graphics/image/drawing.h"
 
 
-//void on_sn_launch_context(void * pSnContext, xcb_window_t window);
+void on_sn_launch_context(void * pSnContext, Window window);
 //void on_sn_launch_complete(void * pSnContext);
 
 
@@ -142,11 +142,11 @@ namespace windowing_xcb
          | XCB_EVENT_MASK_ENTER_WINDOW
          ;
 
-      auto & colormap = paramscw.colormap = pdisplayxcb->m_colormap;
+      auto & colormap = paramscw.colormap = pdisplayxcb->m_pxcbdisplay->m_colormap;
 
       FORMATTED_INFORMATION("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
 
-      xcb_window_t window = xcb_generate_id(pdisplayxcb->m_pconnection);
+      xcb_window_t window = xcb_generate_id(pdisplayxcb->m_pxcbdisplay->m_pconnection);
 
       m_point.x = x;
 
@@ -158,14 +158,14 @@ namespace windowing_xcb
 
       auto cookie = xcb_aux_create_window(
          display,
-         pdisplayxcb->m_pdepth->depth,
+         pdisplayxcb->m_pxcbdisplay->m_pdepth->depth,
          window,
-         pdisplayxcb->m_windowRoot,
+         pdisplayxcb->m_pxcbdisplay->m_windowRoot,
          x, y,
          cx, cy,
          0,
          XCB_WINDOW_CLASS_INPUT_OUTPUT,
-         pdisplayxcb->m_pvisualtype->visual_id,
+         pdisplayxcb->m_pxcbdisplay->m_pvisualtype->visual_id,
          XCB_CW_BACK_PIXMAP
          | XCB_CW_BORDER_PIXEL
          | XCB_CW_OVERRIDE_REDIRECT
@@ -205,7 +205,7 @@ namespace windowing_xcb
       estatus = initialize_xcb_window(
          pdisplayxcb,
          window,
-         pdisplayxcb->m_pdepth->depth,
+         pdisplayxcb->m_pxcbdisplay->m_pdepth->depth,
          paramscw.colormap);
 
       if (!estatus)
@@ -223,7 +223,9 @@ namespace windowing_xcb
 
       m_window = window;
 
-      set_os_data((void *) (::windowing::window *)this);
+      set_oswindow(this);
+
+      set_os_data((void *)(iptr) window);
 
       //set_os_data(LAYERED_X11, (::windowing_xcb::window *)this);
 
@@ -255,7 +257,7 @@ namespace windowing_xcb
 
          papp->os_on_start_application();
 
-         //on_sn_launch_context(pwindowing->m_pSnLauncheeContext, window);
+         on_sn_launch_context(pwindowing->m_pSnLauncheeContext, window);
 
          papp->m_bSnLauncheeSetup = true;
 
@@ -333,7 +335,7 @@ namespace windowing_xcb
 
       {
 
-         auto atomNetWmCmS0 = xcb_display()->atom(x_window::e_atom_net_wm_cm_s0);
+         auto atomNetWmCmS0 = xcb_display()->m_pxcbdisplay->intern_atom(::x11::e_atom_net_wm_cm_s0, false);
 
          auto cookie = xcb_get_selection_owner(xcb_connection(), atomNetWmCmS0);
 
@@ -425,41 +427,43 @@ namespace windowing_xcb
    ::e_status window::_map_window()
    {
 
-      int i = 0;
+      //int i = 0;
 
       synchronous_lock synchronouslock(user_mutex());
 
-      windowing_output_debug_string("\nwindow::map_window");
+      auto estatus = xcb_display()->m_pxcbdisplay->_map_window(xcb_window());
 
-      //display_lock displaylock(xcb_display());
-
-      auto cookie = xcb_map_window(xcb_connection(), m_window);
-
-      auto estatus = _request_check(cookie);
-
-      auto pwindowing = xcb_windowing();
-
-      if(!pwindowing->m_bFirstWindowMap)
-      {
-
-         pwindowing->m_bFirstWindowMap = true;
-
-         auto psystem = m_psystem->m_paurasystem;
-
-         auto pnode = psystem->node();
-
-         pnode->defer_notify_startup_complete();
-
-      }
-
-      windowing_output_debug_string("\nwindow::map_window END");
-
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
+//      windowing_output_debug_string("\nwindow::map_window");
+//
+//      //display_lock displaylock(xcb_display());
+//
+//      auto cookie = xcb_map_window(xcb_connection(), m_window);
+//
+//      auto estatus = _request_check(cookie);
+//
+//      auto pwindowing = xcb_windowing();
+//
+////      if(!pwindowing->m_bFirstWindowMap)
+////      {
+////
+////         pwindowing->m_bFirstWindowMap = true;
+////
+////         auto psystem = m_psystem->m_paurasystem;
+////
+////         auto pnode = psystem->node();
+////
+////         pnode->defer_notify_startup_complete();
+////
+////      }
+//
+//      windowing_output_debug_string("\nwindow::map_window END");
+//
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
 
       return estatus;
 
@@ -471,25 +475,27 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
-      windowing_output_debug_string("\nwindow::unmap_window");
+      auto estatus = xcb_display()->m_pxcbdisplay->_unmap_window(xcb_window());
 
-      //display_lock displaylock(xcb_display());
-
-      ::e_status estatus;
-
-      auto cookie = xcb_unmap_window(xcb_connection(), xcb_window());
-
-      estatus =_request_check(cookie);
-
-      windowing_output_debug_string("\nwindow::unmap_window END");
-
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
+//      windowing_output_debug_string("\nwindow::unmap_window");
+//
+//      //display_lock displaylock(xcb_display());
+//
+//      ::e_status estatus;
+//
+//      auto cookie = xcb_unmap_window(xcb_connection(), xcb_window());
+//
+//      estatus =_request_check(cookie);
+//
+//      windowing_output_debug_string("\nwindow::unmap_window END");
+//
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
       return estatus;
 
    }
@@ -790,30 +796,32 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_mutex());
 
+      return xcb_display()->m_pxcbdisplay->_select_input(xcb_window(), iInput);
+
       //display_lock displaylock(xcb_display());
 
-      uint32_t value[1];
-
-      value[0]=iInput;
-
-      auto cookie = xcb_change_window_attributes(
-         xcb_connection(),
-         xcb_window(),
-         XCB_CW_EVENT_MASK,
-         value);
-
-      auto estatus = _request_check(cookie);
-
-      windowing_output_debug_string("\nwindow::select_input END");
-
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
+//      uint32_t value[1];
+//
+//      value[0]=iInput;
+//
+//      auto cookie = xcb_change_window_attributes(
+//         xcb_connection(),
+//         xcb_window(),
+//         XCB_CW_EVENT_MASK,
+//         value);
+//
+//      auto estatus = _request_check(cookie);
+//
+//      windowing_output_debug_string("\nwindow::select_input END");
+//
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
 
    }
 
@@ -950,7 +958,8 @@ namespace windowing_xcb
 
       va_start(argList, numArgs);
 
-      auto estatus = xcb_display()->_send_client_event_v(xcb_window(), atom, numArgs, argList);
+      auto estatus = xcb_display()->m_pxcbdisplay->_send_client_event_v(
+         xcb_display()->m_pxcbdisplay->m_windowRoot, xcb_window(), atom, numArgs, argList);
 
       va_end(argList);
 
@@ -1072,8 +1081,8 @@ namespace windowing_xcb
 
          estatus = _mapped_net_state_raw(
             true,
-            xcb_display()->atom(x_window::e_atom_net_wm_state_maximized_horz),
-            xcb_display()->atom(x_window::e_atom_net_wm_state_maximized_vert));
+            xcb_display()->m_pxcbdisplay->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false),
+            xcb_display()->m_pxcbdisplay->intern_atom(::x11::e_atom_net_wm_state_maximized_vert, false));
 
       }
       else if (edisplay == e_display_iconic)
@@ -1169,13 +1178,13 @@ namespace windowing_xcb
       if (m_attributes.map_state == XCB_MAP_STATE_VIEWABLE)
       {
 
-         estatus = _mapped_net_state_raw(true, xcb_display()->atom(x_window::e_atom_net_wm_state_fullscreen), 0);
+         estatus = _mapped_net_state_raw(true, xcb_display()->m_pxcbdisplay->intern_atom(::x11::e_atom_net_wm_state_fullscreen, false), 0);
 
       }
       else
       {
 
-         estatus = _unmapped_net_state_raw(xcb_display()->atom(x_window::e_atom_net_wm_state_fullscreen), 0);
+         estatus = _unmapped_net_state_raw(xcb_display()->m_pxcbdisplay->intern_atom(::x11::e_atom_net_wm_state_fullscreen, false), 0);
 
          estatus = _map_window();
 
@@ -1216,7 +1225,7 @@ namespace windowing_xcb
       if (m_attributes.map_state == XCB_MAP_STATE_VIEWABLE)
       {
 
-         _mapped_net_state_raw(false, xcb_display()->atom(x_window::e_atom_net_wm_state_hidden), 0);
+         _mapped_net_state_raw(false, xcb_display()->m_pxcbdisplay->intern_atom(::x11::e_atom_net_wm_state_hidden, false), 0);
 
       }
 
@@ -1274,8 +1283,8 @@ namespace windowing_xcb
 
          estatus = _mapped_net_state_raw(
             false,
-            xcb_display()->atom(x_window::e_atom_net_wm_state_maximized_horz),
-            xcb_display()->atom(x_window::e_atom_net_wm_state_maximized_vert)
+            xcb_display()->m_pxcbdisplay->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false),
+            xcb_display()->m_pxcbdisplay->intern_atom(::x11::e_atom_net_wm_state_maximized_vert, false)
             );
 
       }
@@ -1318,7 +1327,7 @@ namespace windowing_xcb
 
       unsigned long leftover = 0;
 
-      xcb_atom_t atomWmState = xcb_display()->atom(x_window::e_atom_net_wm_state);
+      xcb_atom_t atomWmState = xcb_display()->m_pxcbdisplay->intern_atom(::x11::e_atom_net_wm_state, false);
 
       xcb_atom_t actual_type = 0;
 
@@ -1998,13 +2007,7 @@ namespace windowing_xcb
 
       //display_lock displaylock(xcb_display());
 
-      xcb_atom_t atomActiveWindow = xcb_display()->atom(x_window::e_atom_net_active_window);
-
-      auto estatus = xcb_display()->_send_client_event(
-         xcb_display()->m_windowRoot,
-         atomActiveWindow,
-         1,
-         1);
+      auto estatus = xcb_display()->m_pxcbdisplay->_set_active_window(xcb_window());
 
       if(!estatus)
       {
@@ -2163,7 +2166,7 @@ namespace windowing_xcb
 
             throw ::exception(todo);
 
-//            xcb_atom_t atomNetClientListStacking = xcb_display()->atom(x_window::e_atom_net_client_list_stacking);
+//            xcb_atom_t atomNetClientListStacking = xcb_display()->atom(::x11::e_atom_net_client_list_stacking);
 //
 //            xcb_atom_t atomActualType;
 //
@@ -2343,7 +2346,7 @@ namespace windowing_xcb
    bool window::_has_net_wm_state(xcb_atom_t propertyItem)
    {
 
-      auto atomWmState = xcb_display()->atom(x_window::e_atom_net_wm_state);
+      auto atomWmState = xcb_display()->m_pxcbdisplay->intern_atom(::x11::e_atom_net_wm_state, false);
 
       return _list_has_atom(atomWmState, propertyItem);
 
@@ -2421,7 +2424,7 @@ namespace windowing_xcb
       if (atoma.is_empty())
       {
 
-         return false;
+         return true;
 
       }
 
@@ -2468,18 +2471,7 @@ namespace windowing_xcb
    ::e_status window::_raise_window()
    {
 
-      auto estatus = _clear_net_wm_state();
-
-      auto cookie = xcb_circulate_window(xcb_connection(), XCB_CIRCULATE_RAISE_LOWEST, xcb_window());
-
-      estatus = _request_check(cookie);
-
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
+      auto estatus = xcb_display()->m_pxcbdisplay->_raise_window(xcb_window());
 
       return estatus;
 
@@ -2489,18 +2481,7 @@ namespace windowing_xcb
    ::e_status window::_lower_window()
    {
 
-      auto estatus = _clear_net_wm_state();
-
-      auto cookie = xcb_circulate_window(xcb_connection(), XCB_CIRCULATE_LOWER_HIGHEST, xcb_window());
-
-      estatus = _request_check(cookie);
-
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
+      auto estatus = xcb_display()->m_pxcbdisplay->_lower_window(xcb_window());
 
       return estatus;
 
@@ -2825,22 +2806,9 @@ namespace windowing_xcb
    ::e_status window::_get_window_attributes()
    {
 
-      auto cookie = xcb_get_window_attributes(xcb_connection(), m_window);
+      auto estatus = xcb_display()->m_pxcbdisplay->_get_window_attributes(&m_attributes, m_window);
 
-      ::acme::malloc preply(xcb_get_window_attributes_reply(xcb_connection(), cookie, nullptr));
-
-      if(!preply)
-      {
-
-         INFORMATION("freebsd::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.");
-
-         return error_failed;
-
-      }
-
-      m_attributes = *preply;
-
-      return success;
+      return estatus;
 
    }
 
@@ -2989,7 +2957,7 @@ namespace windowing_xcb
 
       _unmap_window();
 
-      auto estatus = _delete_property(xcb_display()->atom(x_window::e_atom_net_wm_state));
+      auto estatus = _delete_property(xcb_display()->m_pxcbdisplay->intern_atom(::x11::e_atom_net_wm_state, false));
 
       if(!estatus)
       {

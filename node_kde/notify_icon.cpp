@@ -2,7 +2,7 @@
 // Created by camilo on 15/02/2021 <3ThomasBS_!!.
 //
 #include "framework.h"
-#include "aura/user/_user.h"
+#include "aura/user/user/_user.h"
 
 
 namespace node_kde
@@ -82,13 +82,33 @@ namespace node_kde
 
       string strTrayIconName = m_piconCurrent->get_tray_icon_name();
 
+      auto pathHome = m_pcontext->m_papexcontext->dir().home();
+
       auto papp = get_app();
 
-      ::file::path pathIcon = papp->dir().matter("main/icon-256.png");
+      auto pathIcon24 = pathHome / "application" / papp->m_strAppId / "main/icon-24-resized.png";
 
-      m_pstatusnotifieritem->setIconByName(pathIcon.c_str());
+      auto pimage = m_pcontext->context_image()->get_image("matter://main/icon-256.png");
 
-      string strFriendlyName = papp->get_app_user_friendly_task_bar_name();
+      auto pimage24 = m_pcontext->context_image()->create_image({24, 24});
+
+      image_source imagesource(pimage);
+
+      auto rectangle = rectangle_f64_dimension(0., 0., 24., 24.);
+
+      image_drawing_options imagedrawingoptions(rectangle);
+
+      image_drawing imagedrawing(imagedrawingoptions, imagesource);
+
+      pimage24->g()->set_compositing_quality(::draw2d::e_compositing_quality_high_quality);
+
+      pimage24->g()->draw(imagedrawing);
+
+      m_pcontext->context_image()->save_image(pathIcon24, pimage24);
+
+      m_pstatusnotifieritem->setIconByName(pathIcon24.c_str());
+
+      string strFriendlyName = papp->m_papplication->get_app_user_friendly_task_bar_name();
 
       auto pmenu = new QMenu();
 

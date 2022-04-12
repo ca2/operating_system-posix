@@ -1,10 +1,27 @@
 //
 // Created by camilo on 2021-05-21 03:35 BRT <3ThomasBS_!!
 //
+
+//
+// Created by camilo on 05/03/2021. 22:54 BRT ThomasBS_!!
+//
+
 #pragma once
 
 
-#include "_const.h"
+#include "_constant.h"
+
+
+namespace x11
+{
+
+
+   int get_default_system_cursor_glyph(enum_cursor ecursor);
+
+
+} // namespace x11
+
+
 
 
 //#if defined(WITH_X11)

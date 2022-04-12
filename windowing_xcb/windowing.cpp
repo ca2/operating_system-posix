@@ -10,6 +10,9 @@ int g_i135=0;
 //::e_status xcb_register_extended_event_listener(::matter * pdata, bool bMouse, bool bKeyboard);
 
 
+void on_sn_launch_complete(void * pSnContext);
+
+
 namespace windowing_xcb
 {
 
@@ -137,6 +140,10 @@ namespace windowing_xcb
       ///
       m_pdisplay->open();
 
+
+      _libsn_start_context();
+
+
 //      if(!estatus)
 //      {
 //
@@ -151,38 +158,38 @@ namespace windowing_xcb
    }
 
 
-   void windowing::start()
-   {
-
-//      if (System->m_bUser)
+//   void windowing::start()
+//   {
+//
+////      if (System->m_bUser)
+////      {
+////
+////         defer_initialize_xcb();
+////
+////      }
+//
+//      auto psystem = m_psystem;
+//
+//      auto pnode = psystem->node();
+//
+//      if(pnode)
 //      {
 //
-//         defer_initialize_xcb();
+//         _libsn_start_context();
+//
+//         pnode->start_node();
 //
 //      }
-
-      auto psystem = m_psystem;
-
-      auto pnode = psystem->node();
-
-      if(pnode)
-      {
-
-         _libsn_start_context();
-
-         pnode->start_node();
-
-      }
-      else
-      {
-
-         xcb_main();
-
-      }
-
-      //return ::success;
-
-   }
+//      else
+//      {
+//
+//         xcb_main();
+//
+//      }
+//
+//      //return ::success;
+//
+//   }
 
 
    void windowing::windowing_post(const ::routine & routine)
@@ -991,7 +998,7 @@ namespace windowing_xcb
             if (!wFound)
             {
 
-               wFound = m_pdisplay->m_windowRoot;
+               wFound = m_pdisplay->m_pxcbdisplay->m_windowRoot;
 
             }
 
@@ -1005,13 +1012,13 @@ namespace windowing_xcb
                //motion.event_y = motion.root_y - (geometryFound.y - rectangleFoundFrameExtents.top);
 
                auto cookie = xcb_translate_coordinates(
-                  m_pdisplay->m_pconnection,
+                  m_pdisplay->m_pxcbdisplay->m_pconnection,
                   pmotion->event,
                   wFound,
                   pmotion->event_x, pmotion->event_y);
 
                auto ptranslate = xcb_translate_coordinates_reply(
-                  m_pdisplay->m_pconnection,
+                  m_pdisplay->m_pxcbdisplay->m_pconnection,
                   cookie,
                   NULL);
 
@@ -1034,7 +1041,7 @@ namespace windowing_xcb
 
             //motion.event_y = 0;
 
-            auto cookie = xcb_send_event(m_pdisplay->m_pconnection,
+            auto cookie = xcb_send_event(m_pdisplay->m_pxcbdisplay->m_pconnection,
                  0,
                  wFound,
                  XCB_EVENT_MASK_POINTER_MOTION,
@@ -1115,10 +1122,10 @@ namespace windowing_xcb
 
             msg.oswindow = m_pdisplay->_window(pproperty->window);
 
-            if (pproperty->window == m_pdisplay->m_windowRoot)
+            if (pproperty->window == m_pdisplay->m_pxcbdisplay->m_windowRoot)
             {
 
-               if (pproperty->atom == m_pdisplay->atom(x_window::e_atom_net_active_window))
+               if (pproperty->atom == m_pdisplay->m_pxcbdisplay->intern_atom(::x11::e_atom_net_active_window, false))
                {
 
                   auto pwindowActiveOld = m_pdisplay->m_pwindowActive;
@@ -1161,7 +1168,7 @@ namespace windowing_xcb
 
                int iIconic = -1;
 
-               if (pproperty->atom == m_pdisplay->atom(x_window::e_atom_wm_state))
+               if (pproperty->atom == m_pdisplay->m_pxcbdisplay->intern_atom(::x11::e_atom_wm_state, false))
                {
 
                   iIconic = msg.oswindow->is_iconic() ? 1 : 0;
@@ -1256,12 +1263,38 @@ namespace windowing_xcb
 
             auto pmap = (xcb_map_notify_event_t *) pgenericevent;
 
+            auto pwindow = m_pdisplay->_window(pmap->window);
+
+            if(pmap->response_type == XCB_MAP_NOTIFY)
+            {
+
+               if (!m_bFirstWindowMap && pwindow)
+               {
+
+                  m_bFirstWindowMap = true;
+
+                  auto psystem = m_psystem->m_papexsystem;
+
+                  auto pnode = psystem->node();
+
+                  pnode->defer_notify_startup_complete();
+
+                  on_sn_launch_complete(m_pSnLauncheeContext);
+
+                  m_pSnLauncheeContext = nullptr;
+
+               }
+
+
+            }
+
             //__defer_post_move_and_or_size(pmap->window);
 
-            msg.oswindow = m_pdisplay->_window(pmap->window);
+            msg.oswindow = pwindow;
             msg.m_atom = e_message_show_window;
             msg.wParam = pmap->response_type == XCB_MAP_NOTIFY;
             msg.lParam = 0;
+
 
             post_ui_message(msg);
 
@@ -1359,7 +1392,7 @@ namespace windowing_xcb
 
             }
 
-            if (pconfigure->window == m_pdisplay->m_windowRoot)
+            if (pconfigure->window == m_pdisplay->m_pxcbdisplay->m_windowRoot)
             {
 
                auto psession = get_session();
@@ -1609,7 +1642,7 @@ namespace windowing_xcb
                if(!wFound)
                {
 
-                  wFound = m_pdisplay->m_windowRoot;
+                  wFound = m_pdisplay->m_pxcbdisplay->m_windowRoot;
 
                }
 
@@ -1618,9 +1651,9 @@ namespace windowing_xcb
                {
 
                   auto trans = xcb_translate_coordinates_reply (
-                     m_pdisplay->m_pconnection,
+                     m_pdisplay->m_pxcbdisplay->m_pconnection,
                      xcb_translate_coordinates (
-                        m_pdisplay->m_pconnection,
+                        m_pdisplay->m_pxcbdisplay->m_pconnection,
                         button.event,
                         wFound,
                         button.event_x, button.event_y),
@@ -1635,7 +1668,7 @@ namespace windowing_xcb
 
                }
                button.event = wFound;
-               auto cookie = xcb_send_event(m_pdisplay->m_pconnection,
+               auto cookie = xcb_send_event(m_pdisplay->m_pxcbdisplay->m_pconnection,
                                                1,
                                                wFound,
                                             button.response_type == XCB_BUTTON_PRESS ?

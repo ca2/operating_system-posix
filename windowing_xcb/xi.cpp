@@ -163,13 +163,13 @@ namespace windowing_xcb
                                     const xcb_query_extension_reply_t *qe_reply;
                                     xcb_xfixes_query_version_cookie_t qv_cookie;
                                     xcb_xfixes_query_version_reply_t *qv_reply;
-                                    qe_reply = xcb_get_extension_data(m_pdisplay->m_pconnection, &xcb_xfixes_id);
+                                    qe_reply = xcb_get_extension_data(m_pdisplay->m_pxcbdisplay->m_pconnection, &xcb_xfixes_id);
                                     if (qe_reply && qe_reply->present) {
                                        // We *must* negotiate the XFIXES version with the server
-                                       qv_cookie = xcb_xfixes_query_version(m_pdisplay->m_pconnection,
+                                       qv_cookie = xcb_xfixes_query_version(m_pdisplay->m_pxcbdisplay->m_pconnection,
                                                                             XCB_XFIXES_MAJOR_VERSION,
                                                                             XCB_XFIXES_MINOR_VERSION);
-                                       qv_reply = xcb_xfixes_query_version_reply(m_pdisplay->m_pconnection, qv_cookie, NULL);
+                                       qv_reply = xcb_xfixes_query_version_reply(m_pdisplay->m_pxcbdisplay->m_pconnection, qv_cookie, NULL);
 
                                        if (qv_reply->major_version < 4) {
                                           fputs("Unsupported XFIXES version\n", stderr);
@@ -311,7 +311,7 @@ namespace windowing_xcb
 
         mask.mask = (xcb_input_xi_event_mask_t) iMask;
 
-      auto cookie = xcb_input_xi_select_events(m_pdisplay->m_pconnection,  m_pdisplay->m_windowRoot, 1, &mask.head);
+      auto cookie = xcb_input_xi_select_events(m_pdisplay->m_pxcbdisplay->m_pconnection,  m_pdisplay->m_pxcbdisplay->m_windowRoot, 1, &mask.head);
 
       auto estatus= m_pdisplay->_request_check(cookie);
 
@@ -322,7 +322,7 @@ namespace windowing_xcb
 
       }
 
-      xcb_flush(m_pdisplay->m_pconnection);
+      xcb_flush(m_pdisplay->m_pxcbdisplay->m_pconnection);
         //XISelectEvents(pdisplay, win, &mask[0], use_root ? 2 : 1);
         //if (!use_root) {
         //  XISelectEvents(display, DefaultRootWindow(display), &mask[1], 1);
@@ -431,7 +431,9 @@ namespace windowing_xcb
       if(emessage != e_message_null)
       {
 
-         ::i64 iKey = XK_a;
+         ::i64 iWparam = 'a';
+
+         ::i64 iLparam = XK_a;
 
          if (emessage == e_message_key_down || emessage == e_message_key_up)
          {
@@ -439,13 +441,17 @@ namespace windowing_xcb
             if(is_return_key(pgeevent))
             {
 
-               iKey = XK_Return;
+               iWparam = '\n';
+
+               iLparam = XK_Return;
 
             }
             else if(is_space_key(pgeevent))
             {
 
-               iKey = XK_space;
+               iWparam = ' ';
+
+               iLparam = XK_space;
 
             }
 
@@ -460,7 +466,7 @@ namespace windowing_xcb
          for (auto & p : *m_pobjectaExtendedEventListener)
          {
 
-            p->call(emessage, iKey);
+            p->call(emessage, iWparam, iLparam);
 
             //p->on_subject(ptopic, &context);
 

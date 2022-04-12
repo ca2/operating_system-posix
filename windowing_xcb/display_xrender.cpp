@@ -20,13 +20,13 @@ namespace windowing_xcb
 
       xcb_render_picture_t picture = _create_picture(pimage);
 
-      xcb_cursor_t cursor = xcb_generate_id(m_pconnection);
+      xcb_cursor_t cursor = xcb_generate_id(m_pxcbdisplay->m_pconnection);
 
-      auto cookie = xcb_render_create_cursor(m_pconnection, cursor, picture, xHotSpot, yHotSpot);
+      auto cookie = xcb_render_create_cursor(m_pxcbdisplay->m_pconnection, cursor, picture, xHotSpot, yHotSpot);
 
       auto estatus = _request_check(cookie);
 
-      xcb_render_free_picture(m_pconnection, picture);
+      xcb_render_free_picture(m_pxcbdisplay->m_pconnection, picture);
 
       if(!estatus)
       {

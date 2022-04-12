@@ -134,6 +134,10 @@ namespace windowing_x11
 
       m_pdisplay->open();
 
+
+      _libsn_start_context();
+
+
 //      if(!estatus)
 //      {
 //
@@ -148,38 +152,38 @@ namespace windowing_x11
    }
 
 
-   void windowing::start()
-   {
-
-      auto psystem = m_psystem->m_papexsystem;
-
-      if (psystem->m_bUser)
-      {
-
-         defer_initialize_x11();
-
-      }
-
-      auto pnode = psystem->node();
-
-      if(pnode)
-      {
-
-         _libsn_start_context();
-
-         branch_element(pnode);
-
-      }
-      else
-      {
-
-         x11_main();
-
-      }
-
-      //return ::success;
-
-   }
+//   void windowing::start()
+//   {
+//
+//      auto psystem = m_psystem->m_papexsystem;
+//
+//      if (psystem->m_bUser)
+//      {
+//
+//         defer_initialize_x11();
+//
+//      }
+//
+//      auto pnode = psystem->node();
+//
+//      if(pnode)
+//      {
+//
+//         _libsn_start_context();
+//
+//         branch_element(pnode);
+//
+//      }
+//      else
+//      {
+//
+//         x11_main();
+//
+//      }
+//
+//      //return ::success;
+//
+//   }
 
 
    void windowing::windowing_post(const ::routine & routine)

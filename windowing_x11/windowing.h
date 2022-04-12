@@ -52,7 +52,7 @@ namespace windowing_x11
 
       virtual void post_ui_message(::message::message * pmessage);
 
-      void start() override;
+      //void start() override;
 
       void _libsn_start_context()  override;
 

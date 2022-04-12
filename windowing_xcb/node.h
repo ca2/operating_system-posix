@@ -8,6 +8,9 @@
 #pragma once
 
 
+#include "acme/operating_system/x11/nano/display.h"
+
+
 namespace windowing_xcb
 {
 
@@ -23,6 +26,7 @@ namespace windowing_xcb
 
 
       Display * _get_Display();
+      ::x11::display * _get_display();
       xcb_connection_t * _get_connection();
 
 

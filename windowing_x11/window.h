@@ -45,7 +45,7 @@ namespace windowing_x11
       //Window                                       m_parent;
       ::rectangle_i32                              m_rect;
       string                                       m_strWMClass;
-      int                                          m_iaNetWmState2[x_window::e_atom_net_wm_state_last-x_window::e_atom_net_wm_state_first+1];
+      int                                          m_iaNetWmState2[::x11::e_atom_net_wm_state_last-::x11::e_atom_net_wm_state_first+1];
       ::point_i32                                  m_pointCursor;
       //static oswindow_dataptra *                 s_pdataptra;
       //static::mutex *                            s_pmutex;
@@ -71,10 +71,10 @@ namespace windowing_x11
       static Atom get_window_long_atom(i32 nIndex);
 
 
-      inline int net_wm_state(x_window::enum_atom eatom) const
+      inline int net_wm_state(::x11::enum_atom eatom) const
       {
 
-         return m_iaNetWmState2[eatom - x_window::e_atom_net_wm_state_first];
+         return m_iaNetWmState2[eatom - ::x11::e_atom_net_wm_state_first];
 
       }
 
@@ -221,12 +221,12 @@ namespace windowing_x11
       virtual int wm_test_state_raw( WINDOWING_X11_WINDOW_MEMBER const char * pszNetStateFlag);
       virtual int wm_test_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag);
       virtual bool wm_add_remove_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag, bool bSet);
-      virtual void wm_add_remove_state_mapped_raw( WINDOWING_X11_WINDOW_MEMBER x_window::enum_atom eatomNetWmState, bool bSet);
-      virtual void wm_add_remove_state_mapped( WINDOWING_X11_WINDOW_MEMBER x_window::enum_atom eatomNetWmState, bool bSet);
-      virtual void wm_add_remove_state_unmapped_raw( WINDOWING_X11_WINDOW_MEMBER x_window::enum_atom eatomNetWmState, bool bSet);
-      virtual void wm_add_remove_state_unmapped( WINDOWING_X11_WINDOW_MEMBER x_window::enum_atom eatomNetWmState, bool bSet);
-      virtual void wm_add_remove_state_raw( WINDOWING_X11_WINDOW_MEMBER x_window::enum_atom eatomNetWmState, bool bSet);
-      virtual void wm_add_remove_state( WINDOWING_X11_WINDOW_MEMBER x_window::enum_atom eatomNetWmState, bool bSet);
+      virtual void wm_add_remove_state_mapped_raw( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
+      virtual void wm_add_remove_state_mapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
+      virtual void wm_add_remove_state_unmapped_raw( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
+      virtual void wm_add_remove_state_unmapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
+      virtual void wm_add_remove_state_raw( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
+      virtual void wm_add_remove_state( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
       virtual void wm_state_clear_raw( WINDOWING_X11_WINDOW_MEMBER bool bSet);
       virtual void wm_state_below_raw( WINDOWING_X11_WINDOW_MEMBER bool bSet);
       virtual void wm_state_above_raw( WINDOWING_X11_WINDOW_MEMBER bool bSet);

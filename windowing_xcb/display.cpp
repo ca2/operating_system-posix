@@ -2,7 +2,7 @@
 // recreated by Camilo 2021-01-28 22:20 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
 #include "framework.h"
-#include "apex/platform/app_core.h"
+//#include "apex/platform/app_core.h"
 
 
 
@@ -27,13 +27,13 @@ namespace windowing_xcb
 
       m_pDisplay = this;
 
-      m_pconnection = nullptr;
-      m_pdepth = nullptr;
-      m_pvisualtype = nullptr;
-      m_pscreen = nullptr;
-      m_colormap = 0;
+      m_pxcbdisplay = nullptr;
+      //m_pdepth = nullptr;
+      //m_pvisualtype = nullptr;
+      //m_pscreen = nullptr;
+      //m_colormap = 0;
       m_pfontCursor = 0;
-      m_windowRoot = 0;
+      //m_windowRoot = 0;
 
       __zero(m_atoma);
 
@@ -45,12 +45,12 @@ namespace windowing_xcb
    display::~ display()
    {
 
-      if (m_pconnection)
+      if (m_pxcbdisplay->m_pconnection)
       {
 
-         xcb_disconnect(m_pconnection);
+         xcb_disconnect(m_pxcbdisplay->m_pconnection);
 
-         m_pconnection = nullptr;
+         m_pxcbdisplay->m_pconnection = nullptr;
 
       }
 
@@ -98,7 +98,7 @@ namespace windowing_xcb
    void display::open()
    {
 
-      if (::is_set(m_pconnection))
+      if (::is_set(m_pxcbdisplay))
       {
 
          //return ::success;
@@ -109,13 +109,16 @@ namespace windowing_xcb
 
       auto pnode = (::windowing_xcb::node *) m_psystem->node()->m_pNodeXcb;
 
-//      m_pconnection = xcb_connect(nullptr, nullptr);
-
       m_pX11Display = pnode->_get_Display();
 
-      m_pconnection = pnode->_get_connection();
+      m_pxcbdisplay = ::xcb::display::get(this, false, m_pX11Display);
 
-      if (::is_null(m_pconnection))
+      m_pxcbdisplay->m_pconnection = pnode->_get_connection();
+
+
+//      m_pxcbdisplay->m_pconnection = xcb_connect(nullptr, nullptr);
+
+      if (::is_null(m_pxcbdisplay->m_pconnection))
       {
 
          //return ::error_failed;
@@ -126,193 +129,13 @@ namespace windowing_xcb
 
       }
 
-      if (xcb_connection_has_error(m_pconnection))
-      {
-
-         fprintf(stderr, "ERROR: failed to connection to X server\n");
-
-         //return error_failed;
-
-         throw ::exception(error_failed);
-
-      }
-
-      auto cookie = xcb_render_query_pict_formats_unchecked(xcb_connection());
-
-      ::acme::malloc preply(xcb_render_query_pict_formats_reply(xcb_connection(), cookie, nullptr));
-
-      m_prender_query_pict_formats_reply2 = preply;
-
-      // Init the visual ID -> format ID hash table
-      for (auto screens = xcb_render_query_pict_formats_screens_iterator(
-         preply); screens.rem; xcb_render_pictscreen_next(&screens))
-      {
-
-         for (auto depths = xcb_render_pictscreen_depths_iterator(screens.data); depths.rem; xcb_render_pictdepth_next(
-            &depths))
-         {
-
-            const xcb_render_pictvisual_t * visuals = xcb_render_pictdepth_visuals(depths.data);
-
-            const int len = xcb_render_pictdepth_visuals_length(depths.data);
-
-            for (int i = 0; i < len; i++)
-            {
-
-               m_mapVisualPictFormat.set_at(visuals[i].visual, visuals[i].format);
-
-            }
-
-         }
-
-      }
-
-      // Init the format ID -> xcb_render_directformat_t* hash table
-      const xcb_render_pictforminfo_t * formats = xcb_render_query_pict_formats_formats(preply);
-
-      const int len = xcb_render_query_pict_formats_formats_length(preply);
-
-      for (int i = 0; i < len; i++)
-      {
-
-         if (formats[i].type == XCB_RENDER_PICT_TYPE_DIRECT)
-         {
-
-            m_mapFormatInfo.set_at(formats[i].atom, &formats[i]);
-
-         }
-
-         // Init the visual ID -> depth hash table
-         const xcb_setup_t * psetup = xcb_get_setup(xcb_connection());
-
-         for (auto screen = xcb_setup_roots_iterator(psetup); screen.rem; xcb_screen_next(&screen))
-         {
-
-            for (auto depth = xcb_screen_allowed_depths_iterator(screen.data); depth.rem; xcb_depth_next(&depth))
-            {
-
-               const int len = xcb_depth_visuals_length(depth.data);
-
-               const xcb_visualtype_t * visualtypea = xcb_depth_visuals(depth.data);
-
-               for (int i = 0; i < len; i++)
-               {
-
-                  m_mapVisualDepth.set_at(visualtypea[i].visual_id, depth.data->depth);
-
-               }
-
-            }
-
-         }
-
-      }
-
-      const xcb_setup_t * psetup = xcb_get_setup(m_pconnection);
-
-      m_pscreen = xcb_setup_roots_iterator(psetup).data;
-
-      m_windowRoot = m_pscreen->root;
-
-      xcb_depth_iterator_t depthiterator = xcb_screen_allowed_depths_iterator(m_pscreen);
-
-      m_pdepth = nullptr;
-
-      while (depthiterator.rem)
-      {
-
-         if (depthiterator.data->depth == 32 && depthiterator.data->visuals_len)
-         {
-
-            m_pdepth = depthiterator.data;
-
-            break;
-
-         }
-
-         xcb_depth_next(&depthiterator);
-
-      }
-
-      if (!m_pdepth)
-      {
-
-         fprintf(stderr, "ERROR: screen does not support 32 bit color depth\n");
-
-         xcb_disconnect(m_pconnection);
-
-         //return error_failed;
-
-         throw ::exception(error_failed);
-
-      }
-
-      xcb_visualtype_iterator_t visualtypeiterator = xcb_depth_visuals_iterator(m_pdepth);
-
-      while (visualtypeiterator.rem)
-      {
-
-         if (visualtypeiterator.data->_class == XCB_VISUAL_CLASS_TRUE_COLOR)
-         {
-
-            m_pvisualtype = visualtypeiterator.data;
-
-            break;
-
-         }
-
-         xcb_visualtype_next(&visualtypeiterator);
-
-      }
-
-      if (!m_pvisualtype)
-      {
-
-         fprintf(stderr, "ERROR: screen does not support true Color\n");
-
-         xcb_disconnect(m_pconnection);
-
-         ///return error_failed;
-
-         throw ::exception(error_failed);
-
-      }
-
-      m_colormap = xcb_generate_id(xcb_connection());
-
-      {
-
-         auto cookie = xcb_create_colormap_checked(
-            m_pconnection,
-            XCB_COLORMAP_ALLOC_NONE,
-            m_colormap,
-            m_pscreen->root,
-            m_pvisualtype->visual_id);
-
-         auto estatus = _request_check(cookie);
-
-         if (!estatus)
-         {
-
-            fprintf(stderr, "ERROR: failed to create colormap\n");
-
-            xcb_disconnect(m_pconnection);
-
-            //return estatus;
-
-            throw ::exception(estatus);
-
-         }
-
-      }
-
-      for (::index iAtomName = 0; iAtomName < x_window::e_atom_count; iAtomName++)
+      for (::index iAtomName = 0; iAtomName < ::x11::e_atom_count; iAtomName++)
       {
 
          if(!m_atoma[iAtomName])
          {
 
-            auto pszWindowName = x_window::atom_name((x_window::enum_atom) iAtomName);
+            auto pszWindowName = ::x11::atom_name((::x11::enum_atom) iAtomName);
 
             auto atom = intern_atom(pszWindowName);
 
@@ -370,7 +193,7 @@ namespace windowing_xcb
    xcb_connection_t * display::xcb_connection()
    {
 
-      return ::is_null(this) ? nullptr : m_pconnection;
+      return ::is_null(this) ? nullptr : m_pxcbdisplay->m_pconnection;
 
    }
 
@@ -378,7 +201,7 @@ namespace windowing_xcb
    xcb_connection_t * display::xcb_connection() const
    {
 
-      return ::is_null(this) ? nullptr : m_pconnection;
+      return ::is_null(this) ? nullptr : m_pxcbdisplay->m_pconnection;
 
    }
 
@@ -456,27 +279,37 @@ namespace windowing_xcb
    xcb_atom_t display::intern_atom(const char * pszAtomName, bool bCreate)
    {
 
-      if (::is_null(this))
-      {
+      return m_pxcbdisplay->intern_atom(pszAtomName, bCreate);
 
-         return 0;
+//      if (::is_null(this))
+//      {
+//
+//         return 0;
+//
+//      }
+//
+//      auto cookie = xcb_intern_atom(xcb_connection(), !bCreate, strlen(pszAtomName), pszAtomName);
+//
+//      ::acme::malloc preply(xcb_intern_atom_reply(xcb_connection(), cookie, nullptr));
+//
+//      if (!preply)
+//      {
+//
+//         return 0;
+//
+//      }
+//
+//      auto atom = preply->atom;
+//
+//      return atom;
 
-      }
+   }
 
-      auto cookie = xcb_intern_atom(xcb_connection(), !bCreate, strlen(pszAtomName), pszAtomName);
 
-      ::acme::malloc preply(xcb_intern_atom_reply(xcb_connection(), cookie, nullptr));
+   xcb_atom_t display::intern_atom(::x11::enum_atom eatom, bool bCreate)
+   {
 
-      if (!preply)
-      {
-
-         return 0;
-
-      }
-
-      auto atom = preply->atom;
-
-      return atom;
+      return m_pxcbdisplay->intern_atom(eatom, bCreate);
 
    }
 
@@ -492,7 +325,9 @@ namespace windowing_xcb
    ::windowing_xcb::window * display::_get_active_window(::thread * pthread)
    {
 
-      auto window = (xcb_window_t) _window_get_long_property(m_windowRoot, atom(x_window::e_atom_net_active_window), XCB_ATOM_WINDOW);
+      //auto window = (xcb_window_t) _window_get_long_property(m_m_windowRoot, atom(::x11::e_atom_net_active_window), XCB_ATOM_WINDOW);
+
+      auto window = m_pxcbdisplay->_get_active_window();
 
       auto pwindow = _window(window);
 
@@ -627,7 +462,7 @@ namespace windowing_xcb
 
       //display_lock displaylock(this);
 
-      auto cookie = xcb_query_pointer(xcb_connection(), m_windowRoot);
+      auto cookie = xcb_query_pointer(xcb_connection(), m_pxcbdisplay->m_windowRoot);
 
       ::acme::malloc preply(xcb_query_pointer_reply(xcb_connection(), cookie, nullptr));
 
@@ -726,7 +561,7 @@ namespace windowing_xcb
 
       {
 
-         auto cookie = xcb_create_gc(m_pconnection, gcontext, windowRoot, 0, nullptr);
+         auto cookie = xcb_create_gc(m_pxcbdisplay->m_pconnection, gcontext, windowRoot, 0, nullptr);
 
          auto estatus = _request_check(cookie);
 
@@ -766,9 +601,9 @@ namespace windowing_xcb
 
       xcb_render_picture_t picture = xcb_generate_id(xcb_connection());
 
-      auto pvisualtype = m_pvisualtype;
+      auto pvisualtype = m_pxcbdisplay->m_pvisualtype;
 
-      auto pformat = m_mapFormatInfo[m_mapVisualPictFormat[pvisualtype->visual_id]];
+      auto pformat = m_pxcbdisplay->m_mapFormatInfo[m_pxcbdisplay->m_mapVisualPictFormat[pvisualtype->visual_id]];
 
       bool hasAlpha = (pformat->type == XCB_RENDER_PICT_TYPE_DIRECT && pformat->direct.alpha_mask);
       int x = 0;
@@ -778,7 +613,7 @@ namespace windowing_xcb
 
       {
 
-         auto cookie = xcb_render_create_picture(m_pconnection, picture, pixmap, pformat->atom, 0, nullptr);
+         auto cookie = xcb_render_create_picture(m_pxcbdisplay->m_pconnection, picture, pixmap, pformat->id, 0, nullptr);
 
          auto estatus = _request_check(cookie);
 
@@ -791,7 +626,7 @@ namespace windowing_xcb
 
       }
 
-      xcb_free_pixmap(m_pconnection, pixmap);
+      xcb_free_pixmap(m_pxcbdisplay->m_pconnection, pixmap);
 
       return picture;
 
@@ -803,7 +638,7 @@ namespace windowing_xcb
 
       comparable_raw_array < xcb_window_t > windowa;
 
-      auto property = atom(x_window::e_atom_net_client_list_stacking);
+      auto property = atom(::x11::e_atom_net_client_list_stacking);
 
       unsigned long remain;
 
@@ -816,7 +651,7 @@ namespace windowing_xcb
       auto cookie = xcb_get_property(
          xcb_connection(),
          iDelete,
-         m_windowRoot,
+         m_pxcbdisplay->m_windowRoot,
          property,
          XCB_ATOM_WINDOW,
          0,
@@ -856,7 +691,7 @@ namespace windowing_xcb
       array < xcb_atom_t > atoma;
 
       auto cookie = xcb_get_property(
-         m_pconnection,
+         m_pxcbdisplay->m_pconnection,
          0,
          window,
          propertyList,
@@ -865,7 +700,7 @@ namespace windowing_xcb
          0);
 
       ::acme::malloc preply(xcb_get_property_reply(
-         m_pconnection,
+         m_pxcbdisplay->m_pconnection,
          cookie,
          nullptr
       ));
@@ -908,7 +743,7 @@ namespace windowing_xcb
       comparable_array < xcb_atom_t > atoma;
 
       auto cookie = xcb_get_property(
-         m_pconnection,
+         m_pxcbdisplay->m_pconnection,
          0,
          window,
          property,
@@ -917,7 +752,7 @@ namespace windowing_xcb
          0);
 
       ::acme::malloc preply(xcb_get_property_reply(
-         m_pconnection,
+         m_pxcbdisplay->m_pconnection,
          cookie,
          nullptr
          ));
@@ -942,72 +777,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status display::_send_client_event(xcb_window_t window, xcb_atom_t atom, unsigned int numArgs, ...)
-   {
 
-      va_list argList;
-
-      va_start(argList, numArgs);
-
-      auto estatus = _send_client_event_v(window, atom, numArgs, argList);
-
-      va_end(argList);
-
-      return estatus;
-
-   }
-
-
-   ::e_status display::_send_client_event_v(xcb_window_t window, xcb_atom_t atom, unsigned int numArgs, va_list argList)
-   {
-
-      xcb_client_message_event_t event;
-
-      __zero(event);
-
-      event.response_type = XCB_CLIENT_MESSAGE;
-      event.sequence = 0;
-      event.window = window;
-      event.type = atom;
-      event.format = 32;
-
-      for (int i = 0; i < 5; i++)
-      {
-
-         if (i < numArgs)
-         {
-
-            event.data.data32[i] = va_arg(argList, int);
-
-         }
-         else
-         {
-
-            event.data.data32[i] = 0;
-
-         }
-
-      }
-
-      auto cookie = xcb_send_event(
-         xcb_connection(),
-         m_windowRoot,
-         false,
-         XCB_EVENT_MASK_SUBSTRUCTURE_REDIRECT | XCB_EVENT_MASK_STRUCTURE_NOTIFY,
-         (const char *) &event);
-
-      auto estatus = _request_check(cookie);
-
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
-
-   }
 
 
    string display::_window_get_string_property(xcb_window_t window, xcb_atom_t property)
@@ -1015,9 +785,9 @@ namespace windowing_xcb
 
       int iDelete = 0;
 
-      auto cookie = xcb_get_property(m_pconnection, iDelete, window, property, XCB_ATOM_STRING, 0, 0);
+      auto cookie = xcb_get_property(m_pxcbdisplay->m_pconnection, iDelete, window, property, XCB_ATOM_STRING, 0, 0);
 
-      ::acme::malloc preply(xcb_get_property_reply(m_pconnection, cookie, nullptr));
+      ::acme::malloc preply(xcb_get_property_reply(m_pxcbdisplay->m_pconnection, cookie, nullptr));
 
       if(!preply)
       {
@@ -1040,40 +810,7 @@ namespace windowing_xcb
    long display::_window_get_long_property(xcb_window_t window, xcb_atom_t property, xcb_atom_t type)
    {
 
-      int iDelete = 0;
-
-      auto cookie = xcb_get_property(m_pconnection, iDelete, window, property, type, 0, 1);
-
-      ::acme::malloc preply(xcb_get_property_reply(m_pconnection, cookie, nullptr));
-
-      if(!preply)
-      {
-
-         return 0;
-
-      }
-
-      auto len = xcb_get_property_value_length(preply);
-
-      if(len != 4)
-      {
-
-         //ASSERT(FALSE);
-
-         return 0;
-
-      }
-
-      auto pint = (int *) xcb_get_property_value(preply);
-
-      if(!pint)
-      {
-
-         return 0;
-
-      }
-
-      return *pint;
+      return m_pxcbdisplay->_window_get_long_property(window, property, type);
 
    }
 
@@ -1081,7 +818,7 @@ namespace windowing_xcb
    string display::_window_get_name(xcb_window_t window)
    {
 
-      return _window_get_string_property(window, atom(x_window::e_atom_wm_name));
+      return _window_get_string_property(window, atom(::x11::e_atom_wm_name));
 
    }
 
@@ -1089,9 +826,9 @@ namespace windowing_xcb
    status < xcb_get_window_attributes_reply_t > display::_window_get_window_attributes(xcb_window_t window)
    {
 
-      auto cookie = xcb_get_window_attributes(m_pconnection, window);
+      auto cookie = xcb_get_window_attributes(m_pxcbdisplay->m_pconnection, window);
 
-      ::acme::malloc preply(xcb_get_window_attributes_reply(m_pconnection, cookie, nullptr));
+      ::acme::malloc preply(xcb_get_window_attributes_reply(m_pxcbdisplay->m_pconnection, cookie, nullptr));
 
       if(!preply)
       {
@@ -1108,9 +845,9 @@ namespace windowing_xcb
    status < xcb_get_geometry_reply_t > display::_window_get_geometry(xcb_window_t window)
    {
 
-      auto cookie = xcb_get_geometry(m_pconnection, window);
+      auto cookie = xcb_get_geometry(m_pxcbdisplay->m_pconnection, window);
 
-      ::acme::malloc preply(xcb_get_geometry_reply(m_pconnection, cookie, nullptr));
+      ::acme::malloc preply(xcb_get_geometry_reply(m_pxcbdisplay->m_pconnection, cookie, nullptr));
 
       if(!preply)
       {
@@ -1120,11 +857,11 @@ namespace windowing_xcb
       }
 
       auto trans = xcb_translate_coordinates_reply (
-         m_pconnection,
+         m_pxcbdisplay->m_pconnection,
          xcb_translate_coordinates (
-            m_pconnection,
+            m_pxcbdisplay->m_pconnection,
             window,
-            m_windowRoot,
+            m_pxcbdisplay->m_windowRoot,
             0, 0),
             NULL);
       if (trans)
@@ -1154,7 +891,7 @@ namespace windowing_xcb
       auto property = intern_atom("_NET_FRAME_EXTENTS"); // l, r, t, b CARDINAL[4]/32bit
 
       auto cookie = xcb_get_property(
-         m_pconnection,
+         m_pxcbdisplay->m_pconnection,
          0,
          window,
          property,
@@ -1163,7 +900,7 @@ namespace windowing_xcb
          4);
 
       ::acme::malloc preply(xcb_get_property_reply(
-         m_pconnection,
+         m_pxcbdisplay->m_pconnection,
          cookie,
          nullptr
       ));
@@ -1240,18 +977,7 @@ namespace windowing_xcb
    ::e_status display::_request_check(xcb_void_cookie_t cookie)
    {
 
-      ::acme::malloc perror(xcb_request_check(m_pconnection, cookie));
-
-      if(perror)
-      {
-
-         int iErrorCode = perror->error_code;
-
-         return error_failed;
-
-      }
-
-      return success;
+      return m_pxcbdisplay->_request_check(cookie);
 
    }
 
@@ -1431,9 +1157,9 @@ namespace windowing_xcb
 //      if (!m_pfontCursor)
 //      {
 //
-//         m_pfontCursor = xcb_generate_id (m_pconnection);
+//         m_pfontCursor = xcb_generate_id (m_pxcbdisplay->m_pconnection);
 //
-//         auto cookie = xcb_open_font (m_pconnection, m_pfontCursor, strlen ("cursor"), "cursor");
+//         auto cookie = xcb_open_font (m_pxcbdisplay->m_pconnection, m_pfontCursor, strlen ("cursor"), "cursor");
 //
 //         auto estatus = _request_check(cookie);
 //
@@ -1451,10 +1177,10 @@ namespace windowing_xcb
 // *
 // * Written by Mark Lillibridge.   Last updated 7/1/87
 // */
-//      xcb_cursor_t cursor = xcb_generate_id (m_pconnection);
+//      xcb_cursor_t cursor = xcb_generate_id (m_pxcbdisplay->m_pconnection);
 //
 //      auto cookie = xcb_create_glyph_cursor (
-//         m_pconnection,
+//         m_pxcbdisplay->m_pconnection,
 //         cursor,
 //         m_pfontCursor,
 //         m_pfontCursor,

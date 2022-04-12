@@ -12,7 +12,7 @@
 #include "aura/graphics/image/drawing.h"
 
 
-//void on_sn_launch_context(void * pSnContext, Window window);
+void on_sn_launch_context(void * pSnContext, Window window);
 //void on_sn_launch_complete(void * pSnContext);
 
 
@@ -321,7 +321,7 @@ namespace windowing_x11
 
          papp->os_on_start_application();
 
-         //on_sn_launch_context(pwindowing->m_pSnLauncheeContext, window);
+         on_sn_launch_context(pwindowing->m_pSnLauncheeContext, window);
 
          papp->m_bSnLauncheeSetup = true;
 
@@ -586,9 +586,9 @@ namespace windowing_x11
 
          pnode->defer_notify_startup_complete();
 
-         //on_sn_launch_complete(pwindowing->m_pSnLauncheeContext);
+         on_sn_launch_complete(pwindowing->m_pSnLauncheeContext);
 
-         //       pwindowing->m_pSnLauncheeContext = nullptr;
+         pwindowing->m_pSnLauncheeContext = nullptr;
 
       }
 

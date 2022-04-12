@@ -3507,50 +3507,36 @@ const char *g_pszaNetWmState[] =
 
 
 
-void x11_check_status(int status, unsigned long window)
-{
-   if (status == BadWindow)
-   {
-      printf("window atom # 0x%lx does not exists!", window);
-      //   exit(1);
-   }
 
-   if (status != Success)
-   {
-      printf("XGetWindowProperty failed!");
-      // exit(2);
-   }
-}
+//#define MAXSTR 1000
 
-#define MAXSTR 1000
-
-unsigned char *x11_get_string_property(Display *display, Window window, char *property_name)
-{
-
-   unsigned char *prop;
-   Atom actual_type, filter_atom;
-   int actual_format, status;
-   unsigned long nitems, bytes_after;
-
-   filter_atom = XInternAtom(display, property_name, True);
-   status = XGetWindowProperty(display, window, filter_atom, 0, MAXSTR, False, AnyPropertyType,
-                               &actual_type, &actual_format, &nitems, &bytes_after, &prop);
-   x11_check_status(status, window);
-   return prop;
-
-}
-
-
-unsigned long x11_get_long_property(Display *d, Window w, char *property_name)
-{
-
-   unsigned char *prop = x11_get_string_property(d, w, property_name);
-
-   unsigned long long_property = prop[0] + (prop[1] << 8) + (prop[2] << 16) + (prop[3] << 24);
-
-   return long_property;
-
-}
+//unsigned char *x11_get_string_property(Display *display, Window window, char *property_name)
+//{
+//
+//   unsigned char *prop;
+//   Atom actual_type, filter_atom;
+//   int actual_format, status;
+//   unsigned long nitems, bytes_after;
+//
+//   filter_atom = XInternAtom(display, property_name, True);
+//   status = XGetWindowProperty(display, window, filter_atom, 0, MAXSTR, False, AnyPropertyType,
+//                               &actual_type, &actual_format, &nitems, &bytes_after, &prop);
+//   x11_check_status(status, window);
+//   return prop;
+//
+//}
+//
+//
+//unsigned long x11_get_long_property(Display *d, Window w, char *property_name)
+//{
+//
+//   unsigned char *prop = x11_get_string_property(d, w, property_name);
+//
+//   unsigned long long_property = prop[0] + (prop[1] << 8) + (prop[2] << 16) + (prop[3] << 24);
+//
+//   return long_property;
+//
+//}
 
 
 bool x11_get_client_rect(Display * pdisplay, Window window, RECTANGLE_I32 *prectangle)

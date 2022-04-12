@@ -34,7 +34,7 @@ if(WITH_X11 OR WITH_XCB)
 
    list(APPEND library_source
       x11/_.cpp
-      x11/_const.h
+      x11/_constant.h
       x11/window.cpp
       x11/window.h
       x11/windowing.cpp
