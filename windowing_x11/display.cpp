@@ -24,6 +24,8 @@ namespace windowing_x11
    display::display()
    {
 
+      __zero(m_atoma);
+
       m_pDisplay = this;
       m_colormap = None;
       m_windowRoot = None;
@@ -125,6 +127,8 @@ namespace windowing_x11
          throw ::exception(error_failed);
 
       }
+
+      _m_pX11Display = m_px11display->m_pdisplay;
 
       m_px11display->m_bUnhook = true;
 
@@ -365,14 +369,38 @@ namespace windowing_x11
    }
 
 
+   Atom display::intern_atom(::x11::enum_atom eatom, bool bCreate)
+   {
+
+      if (eatom < 0 || eatom >= ::x11::e_atom_count)
+      {
+
+         return None;
+
+      }
+
+      Atom atom = m_atoma[eatom];
+
+      if (atom == None)
+      {
+
+         atom = intern_atom(atom_name(eatom), bCreate);
+
+         m_atoma[eatom] = atom;
+
+      }
+
+      return atom;
+
+   }
+
+
    ::e_status display::erase_window(::windowing::window * pwindow)
    {
 
       return error_failed;
 
    }
-
-
 
 
    Atom display::net_wm_state_atom(bool bCreate)
@@ -501,7 +529,11 @@ namespace windowing_x11
 
       auto pwindowing = x11_windowing();
 
-      if(!pwindowing->windowing_send(proutine, 5_s))
+      proutine->set_timeout(5_s);
+
+      pwindowing->windowing_send(proutine);
+
+      if(has_timed_out())
       {
 
          return nullptr;

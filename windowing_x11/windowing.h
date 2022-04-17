@@ -18,7 +18,6 @@ namespace windowing_x11
       bool                                            m_bFirstWindowMap : 1;
 
       __pointer(::windowing_x11::display)             m_pdisplay;
-      void *                                          m_pSnLauncheeContext;
       bool                                            m_bFinishX11Thread;
       bool                                            m_bInitX11Thread;
 
@@ -54,7 +53,7 @@ namespace windowing_x11
 
       //void start() override;
 
-      void _libsn_start_context()  override;
+      //void _libsn_start_context()  override;
 
       ::windowing::display * display() override;
 

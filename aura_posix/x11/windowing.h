@@ -14,8 +14,14 @@ namespace windowing_posix
    public:
 
 
+      void *                                          m_pSnLauncheeContext;
+
+
       windowing();
       ~windowing() override;
+
+
+      virtual void _libsn_start_context();
 
 
    };

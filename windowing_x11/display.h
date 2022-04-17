@@ -25,6 +25,9 @@ namespace windowing_x11
       window_map                                   m_windowmap;
 
 
+      Atom                                         m_atoma[::x11::e_atom_count];
+
+
       __pointer(::x11::display)                    m_px11display;
       //::Display *                                m_pdisplay;
       XVisualInfo                                  m_visualinfo;

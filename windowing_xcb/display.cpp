@@ -25,6 +25,7 @@ namespace windowing_xcb
    display::display()
    {
 
+      __zero(m_atoma);
       m_pDisplay = this;
 
       m_pxcbdisplay = nullptr;
@@ -34,8 +35,6 @@ namespace windowing_xcb
       //m_colormap = 0;
       m_pfontCursor = 0;
       //m_windowRoot = 0;
-
-      __zero(m_atoma);
 
       m_pfontCursor = 0;
 
@@ -110,6 +109,8 @@ namespace windowing_xcb
       auto pnode = (::windowing_xcb::node *) m_psystem->node()->m_pNodeXcb;
 
       m_pX11Display = pnode->_get_Display();
+
+      _m_pX11Display = m_px11display->m_pdisplay;
 
       m_pxcbdisplay = ::xcb::display::get(this, false, m_pX11Display);
 

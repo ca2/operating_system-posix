@@ -12,6 +12,9 @@
 #include "_constant.h"
 
 
+#define WITH_SN
+
+
 namespace x11
 {
 

@@ -15,7 +15,7 @@
 
 
 #define WITH_XI
-#define WITH_SN
+
 
 
 #include <X11/Xlib.h>

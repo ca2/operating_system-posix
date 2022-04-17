@@ -74,7 +74,7 @@ elseif(LINUX OR FREEBSD)
 #         Xrender)
 #   endif()
 
-   pkg_check_modules(PKGCONFIG libstartup-notification-1.0 x11 xrender xi)
+   pkg_check_modules(PKGCONFIG x11 xrender xi)
    target_compile_options(windowing_x11 PRIVATE -fpermissive)
    target_compile_options(windowing_x11 PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(windowing_x11 PRIVATE ${PKGCONFIG_LDFLAGS})
