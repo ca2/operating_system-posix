@@ -250,9 +250,7 @@ namespace windowing_x11
    }
 
 
-
-
-   bool buffer::update_window(void)
+   bool buffer::update_screen(void)
    {
 
       if(m_pimpl == nullptr)
@@ -456,7 +454,7 @@ namespace windowing_x11
    }
 
 
-   bool buffer::update_window(::image * pimage)
+   bool buffer::update_screen(::image * pimage)
    {
 
       throw("use update_window(void)");

@@ -3,8 +3,8 @@
 //
 #include "framework.h"
 #ifdef WITH_SN
-SN_API_NOT_YET_FROZEN
-#include "sn.h"
+#define SN_API_NOT_YET_FROZEN
+#include <libsn/sn.h>
 #include "windowing_x11.h"
 
 

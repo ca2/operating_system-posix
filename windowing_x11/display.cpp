@@ -381,7 +381,7 @@ namespace windowing_x11
       if (m_atomNetWmState == None)
       {
 
-         m_atomNetWmState = intern_atom(x_window::e_atom_net_wm_state, bCreate);
+         m_atomNetWmState = intern_atom(::x11::e_atom_net_wm_state, bCreate);
 
       }
 
@@ -501,9 +501,7 @@ namespace windowing_x11
 
       auto pwindowing = x11_windowing();
 
-      pwindowing->windowing_post(proutine);
-
-      if(!proutine->wait(5_s))
+      if(!pwindowing->windowing_send(proutine, 5_s))
       {
 
          return nullptr;
