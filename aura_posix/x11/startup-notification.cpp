@@ -74,11 +74,11 @@ namespace windowing_posix
 
       auto papp = m_psystem->m_pappMain ? m_psystem->m_pappMain : m_psystem->m_pappStartup;
 
-      string strAppName = papp->m_strAppId;
+      string strWMClass = papp->m_strAppId;
 
-      strAppName.find_replace("/", ".");
+      strWMClass.find_replace("/", ".");
 
-      m_pSnLauncheeContext = sn_launchee_context_new(psndisplay, iScreen, strAppName);
+      m_pSnLauncheeContext = sn_launchee_context_new(psndisplay, iScreen, strWMClass);
 
    }
 

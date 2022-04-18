@@ -41,8 +41,8 @@ namespace windowing_xcb
       virtual void destroy_os_buffer() ;
 
 
-      bool update_window() override;
-      bool update_window(::image * pimage) override;
+      bool update_screen() override;
+      bool update_screen(::image * pimage) override;
 
 
       bool buffer_lock_round_swap_key_buffers() override;

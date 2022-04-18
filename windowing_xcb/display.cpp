@@ -110,7 +110,7 @@ namespace windowing_xcb
 
       m_pX11Display = pnode->_get_Display();
 
-      _m_pX11Display = m_px11display->m_pdisplay;
+      _m_pX11Display = m_pX11Display;
 
       m_pxcbdisplay = ::xcb::display::get(this, false, m_pX11Display);
 

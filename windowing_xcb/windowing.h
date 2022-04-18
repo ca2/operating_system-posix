@@ -9,7 +9,7 @@ namespace windowing_xcb
 
 
    class CLASS_DECL_WINDOWING_XCB windowing :
-      virtual public ::windowing::windowing
+      virtual public ::windowing_posix::windowing
    {
    public:
 
@@ -18,7 +18,7 @@ namespace windowing_xcb
       bool                                      m_bFinishXcbThread;
 
       __pointer(::windowing_xcb::display)       m_pdisplay;
-      void *                                    m_pSnLauncheeContext;
+      //void *                                    m_pSnLauncheeContext;
       bool                                      m_bFinishX11Thread;
       bool                                      m_bInitX11Thread;
 

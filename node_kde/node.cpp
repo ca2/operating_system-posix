@@ -835,6 +835,10 @@ namespace node_kde
 
          }
 
+         auto pxcbdisplay = ::xcb::display::get(this);
+
+         pxcbdisplay->xcb_event(pevent);
+
       }
       else
       {
