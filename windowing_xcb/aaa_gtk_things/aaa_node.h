@@ -51,7 +51,7 @@ namespace node_gnome
 
       using ::aura::node::node_fork;
 
-      virtual void node_fork(const ::promise::routine & routine) override;
+      virtual void node_fork(const ::promise::procedure & routine) override;
 
       virtual void node_post_quit() override;
 

@@ -691,7 +691,7 @@ namespace node_kde
    }
 
 
-   void node::node_post(const ::routine & routine)
+   void node::node_post(const ::procedure & procedure)
    {
 
       // invoke on the main thread

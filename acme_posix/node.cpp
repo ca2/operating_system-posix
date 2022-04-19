@@ -468,7 +468,7 @@ namespace acme
       }
 
 
-      void node::node_post(const ::routine & routine)
+      void node::node_post(const ::procedure & procedure)
       {
 
 

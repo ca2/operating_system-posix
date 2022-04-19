@@ -65,7 +65,7 @@ namespace node_gtk
 
       virtual bool windowing_message_loop_step();
 
-      void node_post(const ::routine & routine) override;
+      void node_post(const ::procedure & procedure) override;
 
       virtual void _os_process_user_theme_color(string strTheme);
 

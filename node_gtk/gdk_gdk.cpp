@@ -473,7 +473,7 @@ namespace node_gtk
    }
 
 
-   void gdk_branch(const ::routine & routine)
+   void gdk_branch(const ::procedure & procedure)
    {
 
       ::element * pelement = routine.m_p;

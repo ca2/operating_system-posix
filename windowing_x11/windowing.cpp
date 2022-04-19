@@ -186,7 +186,7 @@ namespace windowing_x11
 //   }
 
 
-   void windowing::windowing_post(const ::routine & routine)
+   void windowing::windowing_post(const ::procedure & procedure)
    {
 
       if(::is_null(routine.m_p))

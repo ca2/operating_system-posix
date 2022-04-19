@@ -673,7 +673,7 @@ namespace node_gtk
    }
 
 
-   void node::node_post(const ::routine & routine)
+   void node::node_post(const ::procedure & procedure)
    {
 
       gdk_branch(routine);

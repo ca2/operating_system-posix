@@ -80,7 +80,7 @@ namespace node_kde
 
       using ::aura::node::node_fork;
 
-      void node_post(const ::routine & routine) override;
+      void node_post(const ::procedure & procedure) override;
 
       //void node_post_quit() override;
 

@@ -27,7 +27,7 @@ namespace node_kde
    }
 
 
-   void windowing::windowing_post(const ::routine & routine)
+   void windowing::windowing_post(const ::procedure & procedure)
    {
 
       auto psystem = m_psystem->m_paurasystem;

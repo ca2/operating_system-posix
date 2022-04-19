@@ -51,7 +51,7 @@ namespace windowing_xcb
       //void start() override;
 
 
-      void windowing_post(const ::routine & routine) override;
+      void windowing_post(const ::procedure & procedure) override;
 
 
       virtual void __defer_post_move_and_or_size(xcb_window_t window);

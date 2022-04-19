@@ -192,7 +192,7 @@ namespace windowing_xcb
 //   }
 
 
-   void windowing::windowing_post(const ::routine & routine)
+   void windowing::windowing_post(const ::procedure & procedure)
    {
 
       //auto estatus =
