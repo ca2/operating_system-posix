@@ -32,7 +32,7 @@ namespace windowing_x11
 
       m_pobjectaExtendedEventListener->add(pdata);
 
-      windowing_post(__routine([this, bMouse, bKeyboard]()
+      windowing_post([this, bMouse, bKeyboard]()
                           {
 
                              synchronous_lock synchronouslock(user_mutex());
@@ -131,7 +131,7 @@ namespace windowing_x11
                              free(mask[0].mask);
                              free(mask[1].mask);
 
-                          }));
+                          });
 
    }
 

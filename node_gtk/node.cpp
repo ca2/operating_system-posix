@@ -273,7 +273,7 @@ namespace node_gtk
       ////
       ////#endif
 
-            node_fork([this]()
+            node_post([this]()
             {
 
              // This seems not to work with "foreign" windows
@@ -676,119 +676,9 @@ namespace node_gtk
    void node::node_post(const ::procedure & procedure)
    {
 
-      gdk_branch(routine);
-
-      //return ::success;
+      gdk_branch(procedure);
 
    }
-
-
-//   void node::node_post_quit()
-//   {
-//
-//      os_post_quit();
-//
-//   }
-
-
-//   void node::on_subject(::promise::topic * ptopic, ::context * pcontext)
-//   {
-//
-//      if(ptopic->m_atom == ::id_os_user_theme)
-//      {
-//
-//         _on_change_os_user_theme();
-//
-//      }
-//
-//
-//   }
-
-
-//   ::nlinux::appindicator * node::appindicator_allocate()
-//   {
-//
-//      return new ::node_gtk::appindicator();
-//
-//   }
-//
-//
-//   void node::appindicator_destroy(::freebsd::appindicator * pappindicator)
-//   {
-//
-//      //::freebsd::appindicator_destroy(pappindicator);
-//
-//      delete pappindicator;
-//
-//   }
-
-
-//   void node::enum_display_monitors(::aura::session * psession)
-//   {
-//
-//      node_fork(__routine([psession]
-//                           {
-//
-//                              synchronous_lock sl(user_mutex());
-//
-//                              //xdisplay d(x11_get_display());
-//
-//                              GdkDisplay *pdisplay = gdk_display_get_default();
-//
-//                              if (pdisplay == nullptr)
-//                              {
-//
-//                                 return;
-//
-//                              }
-//
-//                              synchronous_lock slSession(psession->mutex());
-//
-//                              ::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
-//
-//                              psession->m_rectangleaWorkspace.set_size(iMonitorCount);
-//
-//                              psession->m_rectangleaMonitor.set_size(iMonitorCount);
-//
-//                              for (index iMonitor = 0; iMonitor < iMonitorCount; iMonitor++)
-//                              {
-//
-//                                 GdkMonitor *pmonitor = gdk_display_get_monitor(pdisplay, iMonitor);
-//
-//                                 auto &rectangleWorkspace = psession->m_rectangleaWorkspace[iMonitor];
-//
-//                                 auto &rectangleMonitor = psession->m_rectangleaMonitor[iMonitor];
-//
-//                                 if (pmonitor == nullptr)
-//                                 {
-//
-//                                    rectangleWorkspace.Null();
-//
-//                                    rectangleMonitor.Null();
-//
-//                                    continue;
-//
-//                                 }
-//
-//                                 GdkRectangle rect;
-//
-//                                 __zero(rect);
-//
-//                                 gdk_monitor_get_workarea(pmonitor, &rect);
-//
-//                                 __copy(rectangleWorkspace, rect);
-//
-//                                 __zero(rect);
-//
-//                                 gdk_monitor_get_geometry(pmonitor, &rect);
-//
-//                                 __copy(rectangleMonitor, rect);
-//
-//                              }
-//
-//                           }));
-//
-//   }
 
 
    void node::node_quit()
@@ -840,7 +730,7 @@ namespace node_gtk
       // TODO check if ptopic below is own topic or what else?
       ::element * pelement = ptopic;
 
-      node_fork(__routine([pelement]()
+      node_post([pelement]()
       {
 
          auto ret = g_timeout_add(300, (GSourceFunc) &node_gtk_source_func, pelement);
@@ -851,7 +741,7 @@ namespace node_gtk
 
          g_idle_add(&node_gtk_source_func, pelement);
 
-      }));
+      });
 
       return true;
 

@@ -78,7 +78,7 @@ namespace node_gnome
 
       auto pnode = psystem->node();
 
-      pnode->node_fork([str]
+      pnode->node_post([str]
       {
 
          GtkClipboard * clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
@@ -132,14 +132,14 @@ namespace node_gnome
 
       auto pnode = psystem->node();
 
-      pnode->node_send(__routine(5_s, [ppayload]()
+      pnode->node_send([ppayload]()
       {
 
          GtkClipboard* clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
 
          ppayload->m_payload = gtk_clipboard_wait_is_text_available (clipboard);
 
-      }));
+      });
 
       return ppayload->m_payload.operator bool();
 
@@ -279,7 +279,7 @@ namespace node_gnome
 
       auto pnode = psystem->node();
 
-      pnode->node_send(__routine(10_s, [&]()
+      pnode->node_send([&]()
       {
 
          GtkClipboard* clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
@@ -299,7 +299,7 @@ namespace node_gnome
 
          }
 
-      }));
+      });
 
       return bIsImageAvailable;
 

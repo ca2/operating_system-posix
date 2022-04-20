@@ -2322,6 +2322,8 @@ else if(detail == 3)
 
                msg.time = e.xbutton.time;
 
+               int iDelta = 0;
+
                if (e.xbutton.type == ButtonPress)
                {
 
@@ -2343,6 +2345,18 @@ else if(detail == 3)
                   {
 
                      msg.m_atom = e_message_right_button_down;
+
+                  }
+                  else if (e.xbutton.button == Button4)
+                  {
+
+                     iDelta = 120;
+
+                  }
+                  else if (e.xbutton.button == Button5)
+                  {
+
+                     iDelta = -120;
 
                   }
                   else
@@ -2409,8 +2423,20 @@ else if(detail == 3)
 //      int w1 = r.width();
 //      int h1 = r.height();
 
+               if(iDelta != 0)
+               {
 
-               if (bRet)
+                  msg.m_atom = e_message_mouse_wheel;
+
+                  msg.wParam = __MAKE_LONG(0, iDelta);
+
+                  msg.lParam = __MAKE_LONG(e.xbutton.x_root, e.xbutton.y_root);
+
+                  post_ui_message(msg);
+
+
+               }
+               else if (bRet)
                {
 
                   msg.wParam = 0;

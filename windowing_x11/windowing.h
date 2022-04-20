@@ -30,7 +30,7 @@ namespace windowing_x11
 
 #endif
 
-      ::::procedure_list                                  m_routinelist;
+      ::procedure_list                                m_procedurelist;
 
 
       windowing();

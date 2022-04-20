@@ -61,7 +61,7 @@ namespace node_gtk
 
       string get_wallpaper(index iScreen) override;
 
-      using ::aura::node::node_fork;
+      using ::aura::node::node_post;
 
       virtual bool windowing_message_loop_step();
 

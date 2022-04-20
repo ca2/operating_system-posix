@@ -471,14 +471,7 @@ namespace acme
       void node::node_post(const ::procedure & procedure)
       {
 
-
-         ::acme::node::node_post(routine);
-
-//      defer_create_mutex();
-//
-//      synchronous_lock synchronouslock(mutex());
-//
-//      m_routineaPost.add(routine);
+         ::acme::node::node_post(procedure);
 
       }
 

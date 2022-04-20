@@ -302,7 +302,7 @@ namespace windowing_x11
    ::e_status display::release_mouse_capture()
    {
 
-      auto proutine =  __routine([this]()
+      auto predicate = [this]()
       {
 
         synchronous_lock synchronouslock(user_mutex());
@@ -317,11 +317,11 @@ namespace windowing_x11
 
         windowing_output_debug_string("\noswindow_data::ReleaseCapture 2");
 
-      });
+      };
 
       auto pwindowing = x11_windowing();
 
-      pwindowing->windowing_post(proutine);
+      pwindowing->windowing_post(predicate);
 
       return ::success;
 
@@ -478,7 +478,7 @@ namespace windowing_x11
 
       auto ppropertyobject = __new(::property_object);
 
-      auto proutine = __routine([this,ppropertyobject]()
+      auto predicate = [this,ppropertyobject]()
       {
 
          synchronous_lock synchronouslock(user_mutex());
@@ -525,20 +525,20 @@ namespace windowing_x11
 
          windowing_output_debug_string("\n::GetFocus 2");
 
-      });
+      };
 
       auto pwindowing = x11_windowing();
 
-      proutine->set_timeout(5_s);
+      //proutine->set_timeout(5_s);
 
-      pwindowing->windowing_send(proutine);
+      pwindowing->windowing_send(predicate);
 
-      if(has_timed_out())
-      {
-
-         return nullptr;
-
-      }
+//      if(proutine->has_timed_out())
+//      {
+//
+//         return nullptr;
+//
+//      }
 
       if(ppropertyobject->payload("window").is_new())
       {
@@ -761,7 +761,7 @@ namespace windowing_x11
 
       auto pnode = psystem->node();
 
-      pnode->node_send(__routine(10_s, [this, pointHitTest, pwindowExclude, iMargin, &bIsOrigin]()
+      pnode->node_send([this, pointHitTest, pwindowExclude, iMargin, &bIsOrigin]()
       {
 
          ::windowing_x11::window *pwindowxcbExclude = nullptr;
@@ -836,7 +836,7 @@ namespace windowing_x11
 
          }
 
-      }));
+      });
 
       return bIsOrigin;
 

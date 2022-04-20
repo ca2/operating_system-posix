@@ -269,12 +269,12 @@ namespace node_gnome
 
       auto pwindowing = puser->windowing();
 
-      pwindowing->windowing_post(__routine([pindicator]()
+      pwindowing->windowing_post([pindicator]()
                {
 
                   app_indicator_set_status(pindicator, APP_INDICATOR_STATUS_PASSIVE);
 
-               }));
+               });
 
       m_pindicator = NULL;
 

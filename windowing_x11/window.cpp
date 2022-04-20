@@ -1499,7 +1499,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
    void window::show_window(const ::e_display & edisplay, const ::e_activation & eactivation)
    {
 
-      x11_windowing()->windowing_post(__routine([this, edisplay, eactivation]()
+      x11_windowing()->windowing_post([this, edisplay, eactivation]()
       {
 
          windowing_output_debug_string("\n::window::show_window 1");
@@ -1567,7 +1567,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
          return true;
 
-      }));
+      });
 
       //return ::success;
 
@@ -2611,7 +2611,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       }
 
-      m_pwindowing->windowing_post(__routine([this, pcursorx11]()
+      m_pwindowing->windowing_post([this, pcursorx11]()
                                           {
 
                                              synchronous_lock sl(user_mutex());
@@ -2624,7 +2624,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
                                              m_cursorLast = pcursorx11->m_cursor;
 
-                                          }));
+                                          });
 
       //return true;
 
@@ -3552,7 +3552,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
    void window::update_screen()
    {
 
-      window_post(__routine([this]()
+      window_post([this]()
                                         {
 
                                            auto pimpl = m_puserinteractionimpl;
@@ -3594,7 +3594,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
                                            }
 
-                                        }));
+                                        });
 
    }
 
@@ -3602,7 +3602,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
    void window::window_show()
    {
 
-      m_pwindowing->windowing_post(__routine([this]()
+      m_pwindowing->windowing_post([this]()
                                         {
 
                                            auto pimpl = m_puserinteractionimpl;
@@ -3628,7 +3628,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
                                            }
 
-                                        }));
+                                        });
 
 
    }
@@ -3655,7 +3655,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       windowing_output_debug_string("\noswindow_data::SetCapture 1");
 
-      m_pwindowing->windowing_post(__routine([this]()
+      m_pwindowing->windowing_post([this]()
                                           {
 
                                              display_lock displaylock(x11_display()->Display());
@@ -3686,7 +3686,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
                                              windowing_output_debug_string("\noswindow_data::SetCapture 2");
 
-                                          }));
+                                          });
 
       //return ::success;
 
