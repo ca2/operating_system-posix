@@ -1,0 +1,16 @@
+//
+// Created by camilo on 17/04/22. 03:39 <3ThomasBorregaardSørensen!!
+//
+//
+// Created by camilo on 18/02/2021.
+//
+#pragma once
+
+
+////#include "third/sn/sn.h"
+
+
+//extern SnLauncheeContext * g_psncontext;
+
+
+

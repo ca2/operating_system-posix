@@ -440,7 +440,7 @@ void node::os_calc_user_dark_mode()
    }
 
 
-   void node::node_fork(const ::promise::routine & routine)
+   void node::node_fork(const ::promise::procedure & routine)
    {
 
       gdk_branch(routine);

@@ -24,6 +24,8 @@ namespace windowing_x11
    display::display()
    {
 
+      __zero(m_atoma);
+
       m_pDisplay = this;
       m_colormap = None;
       m_windowRoot = None;
@@ -125,6 +127,8 @@ namespace windowing_x11
          throw ::exception(error_failed);
 
       }
+
+      _m_pX11Display = m_px11display->m_pdisplay;
 
       m_px11display->m_bUnhook = true;
 
@@ -298,7 +302,7 @@ namespace windowing_x11
    ::e_status display::release_mouse_capture()
    {
 
-      auto proutine =  __routine([this]()
+      auto predicate = [this]()
       {
 
         synchronous_lock synchronouslock(user_mutex());
@@ -313,11 +317,11 @@ namespace windowing_x11
 
         windowing_output_debug_string("\noswindow_data::ReleaseCapture 2");
 
-      });
+      };
 
       auto pwindowing = x11_windowing();
 
-      pwindowing->windowing_post(proutine);
+      pwindowing->windowing_post(predicate);
 
       return ::success;
 
@@ -360,14 +364,29 @@ namespace windowing_x11
 
       }
 
-      auto atom = XInternAtom(m_px11display->m_pdisplay, pszAtomName, bCreate ? True : False);
+      return m_px11display->intern_atom(pszAtomName, bCreate);
+
+   }
+
+
+   Atom display::intern_atom(::x11::enum_atom eatom, bool bCreate)
+   {
+
+      if (eatom < 0 || eatom >= ::x11::e_atom_count)
+      {
+
+         return None;
+
+      }
+
+      Atom atom = m_atoma[eatom];
 
       if (atom == None)
       {
 
-         windowing_output_debug_string("ERROR: cannot find atom for " + string(pszAtomName) + "\n");
+         atom = intern_atom(atom_name(eatom), bCreate);
 
-         return None;
+         m_atoma[eatom] = atom;
 
       }
 
@@ -384,39 +403,13 @@ namespace windowing_x11
    }
 
 
-   Atom display::intern_atom(x_window::enum_atom eatom, bool bCreate)
-   {
-
-      if (eatom < 0 || eatom >= x_window::e_atom_count)
-      {
-
-         return None;
-
-      }
-
-      Atom atom = m_atoma[eatom];
-
-      if (atom == None)
-      {
-
-         atom = intern_atom(x_window::atom_name(eatom), bCreate);
-
-         m_atoma[eatom] = atom;
-
-      }
-
-      return atom;
-
-   }
-
-
    Atom display::net_wm_state_atom(bool bCreate)
    {
 
       if (m_atomNetWmState == None)
       {
 
-         m_atomNetWmState = intern_atom(x_window::e_atom_net_wm_state, bCreate);
+         m_atomNetWmState = intern_atom(::x11::e_atom_net_wm_state, bCreate);
 
       }
 
@@ -461,11 +454,7 @@ namespace windowing_x11
    ::windowing_x11::window *display::_get_active_window(::thread *pthread)
    {
 
-      int screen = XDefaultScreen(Display());
-
-      Window windowRoot = RootWindow(Display(), screen);
-
-      Window window = x11_get_long_property(Display(), windowRoot, (char *) "_NET_ACTIVE_WINDOW");
+      auto window = m_px11display->_get_active_window();
 
       auto pwindow = _window(window);
 
@@ -489,7 +478,7 @@ namespace windowing_x11
 
       auto ppropertyobject = __new(::property_object);
 
-      auto proutine = __routine([this,ppropertyobject]()
+      auto predicate = [this,ppropertyobject]()
       {
 
          synchronous_lock synchronouslock(user_mutex());
@@ -536,18 +525,20 @@ namespace windowing_x11
 
          windowing_output_debug_string("\n::GetFocus 2");
 
-      });
+      };
 
       auto pwindowing = x11_windowing();
 
-      pwindowing->windowing_post(proutine);
+      //proutine->set_timeout(5_s);
 
-      if(!proutine->wait(5_s))
-      {
+      pwindowing->windowing_send(predicate);
 
-         return nullptr;
-
-      }
+//      if(proutine->has_timed_out())
+//      {
+//
+//         return nullptr;
+//
+//      }
 
       if(ppropertyobject->payload("window").is_new())
       {
@@ -770,7 +761,7 @@ namespace windowing_x11
 
       auto pnode = psystem->node();
 
-      pnode->node_send(__routine(10_s, [this, pointHitTest, pwindowExclude, iMargin, &bIsOrigin]()
+      pnode->node_send([this, pointHitTest, pwindowExclude, iMargin, &bIsOrigin]()
       {
 
          ::windowing_x11::window *pwindowxcbExclude = nullptr;
@@ -845,7 +836,7 @@ namespace windowing_x11
 
          }
 
-      }));
+      });
 
       return bIsOrigin;
 

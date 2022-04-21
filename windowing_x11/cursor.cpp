@@ -80,7 +80,7 @@ namespace windowing_x11
 
       int iCursor;
 
-      iCursor = ::x_window::get_default_system_cursor_glyph(ecursor);
+      iCursor = ::x11::get_default_system_cursor_glyph(ecursor);
 
       if(iCursor == 0)
       {

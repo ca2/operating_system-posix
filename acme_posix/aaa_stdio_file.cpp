@@ -44,13 +44,13 @@ stdio_file::~stdio_file()
 
       auto psystem = m_psystem;
 
-      auto pacmedir = psystem->m_pacmedirectory;
+      auto pacmedirectory = psystem->m_pacmedirectory;
 
                auto psystem = m_psystem;
 
-         auto pacmedir = psystem->m_pacmedirectory;
+         auto pacmedirectory = psystem->m_pacmedirectory;
 
-pacmedir->create(::file::path(pszFileName).folder());
+pacmedirectory->create(::file::path(pszFileName).folder());
 
    }
 

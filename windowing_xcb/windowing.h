@@ -9,7 +9,7 @@ namespace windowing_xcb
 
 
    class CLASS_DECL_WINDOWING_XCB windowing :
-      virtual public ::windowing::windowing
+      virtual public ::windowing_posix::windowing
    {
    public:
 
@@ -18,7 +18,7 @@ namespace windowing_xcb
       bool                                      m_bFinishXcbThread;
 
       __pointer(::windowing_xcb::display)       m_pdisplay;
-      void *                                    m_pSnLauncheeContext;
+      //void *                                    m_pSnLauncheeContext;
       bool                                      m_bFinishX11Thread;
       bool                                      m_bInitX11Thread;
 
@@ -48,16 +48,16 @@ namespace windowing_xcb
 
       virtual bool post_ui_message(::message::message * pmessage);
 
-      void start() override;
+      //void start() override;
 
 
-      void windowing_post(const ::routine & routine) override;
+      void windowing_post(const ::procedure & procedure) override;
 
 
       virtual void __defer_post_move_and_or_size(xcb_window_t window);
 
 
-      virtual void _libsn_start_context()  override;
+      //virtual void _libsn_start_context()  override;
       virtual ::windowing::display * display() override;
 
       virtual void windowing_main() override;

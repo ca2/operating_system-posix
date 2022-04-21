@@ -9,7 +9,7 @@
 #include "windowing_x11/windowing_x11.h"
 
 
-void gdk_branch(const ::routine & routine);
+void gdk_branch(const ::procedure & procedure);
 
 
 int gdk_launch_uri(const char * pszUri, char * pszError, int iBufferSize);
@@ -629,7 +629,7 @@ namespace node_xfce
    }
 
 
-   ::e_status node::node_post(const ::routine & routine)
+   ::e_status node::node_post(const ::procedure & procedure)
    {
 
       gdk_branch(routine);

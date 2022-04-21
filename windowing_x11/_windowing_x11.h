@@ -5,8 +5,8 @@
 
 
 #include "aura_posix/_aura_posix.h"
-#include "aura/user/_user.h"
-#include "aura_posix/x_window_system.h"
+#include "aura/user/user/_user.h"
+#include "acme/operating_system/x11/_.h"
 #ifdef FREEBSD
 #include "aura/operating_system/freebsd/appindicator.h"
 #endif
@@ -15,7 +15,7 @@
 
 
 #define WITH_XI
-#define WITH_SN
+
 
 
 #include <X11/Xlib.h>

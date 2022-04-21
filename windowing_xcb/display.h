@@ -7,6 +7,9 @@
 #define WINDOWING_X11_DISPLAY_MEMBER
 
 
+#include "acme/operating_system/xcb/nano/_nano.h"
+
+
 namespace windowing_xcb
 {
 
@@ -19,24 +22,15 @@ namespace windowing_xcb
 
 
       critical_section                                         m_criticalsectionWindowMap;
+      __pointer(::xcb::display)                                m_pxcbdisplay;
       window_map                                               m_windowmap;
-      acme::malloc < xcb_render_query_pict_formats_reply_t * > m_prender_query_pict_formats_reply2;
-      visual_pictformat_map                                    m_mapVisualPictFormat;
-      visual_depth_map                                         m_mapVisualDepth;
-      //map < xcb_visualid_t, FbConfigInfo * >                 m_mapVisualFbConfig;
-      pictformat_info_map                                      m_mapFormatInfo;
       i32_map < xcb_cursor_t>                                  m_mapGlyphCursor;
-      xcb_atom_t                                               m_atoma[x_window::e_atom_count];
+      xcb_atom_t                                               m_atoma[::x11::e_atom_count];
 
       xcb_font_t                                               m_pfontCursor;
 
-      xcb_depth_t *                                            m_pdepth;
-      xcb_visualtype_t *                                       m_pvisualtype;
       Display *                                                m_pX11Display;
-      xcb_connection_t *                                       m_pconnection;
-      xcb_screen_t *                                           m_pscreen;
-      xcb_colormap_t                                           m_colormap;
-      xcb_window_t                                             m_windowRoot;
+      //xcb_connection_t *                                       m_pconnection;
 
       __pointer(class window)                                  m_pwindowRoot;
       __pointer(class window)                                  m_pwindowKeyboardFocus;
@@ -46,7 +40,7 @@ namespace windowing_xcb
 
 
       display();
-      virtual ~display();
+      ~display() override;
 
 
 #ifdef _DEBUG
@@ -77,7 +71,7 @@ namespace windowing_xcb
 
       virtual xcb_atom_t intern_atom(const char * pszAtomName, bool bCreate = true);
 
-      inline xcb_atom_t atom(x_window::enum_atom eatom) { return m_atoma[eatom]; }
+      virtual xcb_atom_t intern_atom(::x11::enum_atom eatom, bool bCreate = true);
 
       virtual xcb_cursor_t _create_font_cursor (uint16_t glyph);
 
@@ -108,8 +102,8 @@ namespace windowing_xcb
       virtual ::e_status _request_check(xcb_void_cookie_t cookie);
 
 
-      virtual ::e_status _send_client_event(xcb_window_t window, xcb_atom_t atom, unsigned int numArgs, ...);
-      virtual ::e_status _send_client_event_v(xcb_window_t window, xcb_atom_t atom, unsigned int numArgs, va_list args);
+      //virtual ::e_status _send_client_event(xcb_window_t window, xcb_atom_t atom, unsigned int numArgs, ...);
+      //virtual ::e_status _send_client_event_v(xcb_window_t window, xcb_atom_t atom, unsigned int numArgs, va_list args);
 
 
       virtual xcb_cursor_t _create_alpha_cursor(const ::image *pimage, int xHotSpot, int yHotSpot);

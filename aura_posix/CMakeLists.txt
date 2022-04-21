@@ -34,7 +34,7 @@ if(WITH_X11 OR WITH_XCB)
 
    list(APPEND library_source
       x11/_.cpp
-      x11/_const.h
+      x11/_constant.h
       x11/window.cpp
       x11/window.h
       x11/windowing.cpp
@@ -56,7 +56,7 @@ if(WITH_X11 OR WITH_XCB)
 endif()
 
 
-add_library(aura_posix SHARED ${library_source})
+add_library(aura_posix SHARED ${library_source} x11/startup-notification.cpp x11/startup-notification.h)
 
 
 target_precompile_headers(aura_posix PRIVATE framework.h)
@@ -77,21 +77,30 @@ if (MSVC)
 elseif(LINUX OR FREEBSD)
 
 
+   list(APPEND extra_pkg_modules
+      libstartup-notification-1.0
+      )
+
 if(WITH_XCB)
 
 
-   pkg_check_modules(PKGCONFIG x11 x11-xcb)
+   list(APPEND extra_pkg_modules
+               x11 x11-xcb
+      )
 
 
 else()
 
 
-   pkg_check_modules(PKGCONFIG x11)
+   list(APPEND extra_pkg_modules
+               x11
+      )
 
 
 endif()
 
 
+   pkg_check_modules(PKGCONFIG ${extra_pkg_modules})
    target_compile_options(aura_posix PRIVATE -fpermissive)
    target_compile_options(aura_posix PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(aura_posix PRIVATE ${PKGCONFIG_LDFLAGS})

@@ -277,9 +277,9 @@ namespace aura
 
          auto psystem = m_psystem;
 
-         auto pacmedir = psystem->m_pacmedirectory;
+         auto pacmedirectory = psystem->m_pacmedirectory;
 
-         path = pacmedir->home();
+         path = pacmedirectory->home();
 
          path /= ".local/share/applications";
 

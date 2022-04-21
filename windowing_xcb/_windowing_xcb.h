@@ -7,38 +7,7 @@
 #include "aura_posix/_aura_posix.h"
 #include "aura_posix/x11/xim_keyboard.h"
 
-#include <xcb/xcb.h>
-// dnf install xcb-util-image-devel
-#include <xcb/xcb_image.h>
-#include <xcb/render.h>
-// apt install libx11-xcb-dev
-#include <X11/Xlib-xcb.h>
-
-
-namespace windowing_xcb
-{
-
-
-   class windowing;
-   class display;
-   class window;
-
-
-   template < typename TYPE >
-   using visual_id_map = map < xcb_visualid_t, TYPE >;
-
-   using visual_pictformat_map = visual_id_map < xcb_render_pictformat_t >;
-
-   using visual_depth_map = visual_id_map < uint32_t >;
-
-   template < typename TYPE >
-   using pictformat_map = map < xcb_render_pictformat_t, TYPE >;
-
-   using pictformat_info_map = pictformat_map < const xcb_render_pictforminfo_t * >;
-
-
-} // namespace windowing_xcb
-
+#include "acme/operating_system/xcb/nano/_nano.h"
 
 
 void xcb_kick_idle();

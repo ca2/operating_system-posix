@@ -18,7 +18,6 @@ namespace windowing_x11
       bool                                            m_bFirstWindowMap : 1;
 
       __pointer(::windowing_x11::display)             m_pdisplay;
-      void *                                          m_pSnLauncheeContext;
       bool                                            m_bFinishX11Thread;
       bool                                            m_bInitX11Thread;
 
@@ -31,7 +30,7 @@ namespace windowing_x11
 
 #endif
 
-      ::routine_list                                  m_routinelist;
+      ::procedure_list                                m_procedurelist;
 
 
       windowing();
@@ -52,9 +51,9 @@ namespace windowing_x11
 
       virtual void post_ui_message(::message::message * pmessage);
 
-      void start() override;
+      //void start() override;
 
-      void _libsn_start_context()  override;
+      //void _libsn_start_context()  override;
 
       ::windowing::display * display() override;
 
@@ -113,7 +112,7 @@ namespace windowing_x11
 
       virtual bool x11_message_loop_step();
 
-      void windowing_post(const ::routine & routine) override;
+      void windowing_post(const ::procedure & procedure) override;
 
       virtual bool x11_runnable_step();
 

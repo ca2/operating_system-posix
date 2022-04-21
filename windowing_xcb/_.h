@@ -5,8 +5,9 @@
 #include "aura/operating_system/freebsd/appindicator.h"
 #include "acme/operating_system/ansi/_pthread.h"
 #include "acme/operating_system/freebsd/_user.h"
-#include "operating-system-posix/aura_posix/x_window_system.h"
+#include "acme/operating_system/x11/_.h"
 #include "aura_posix/_.h"
+//#include "aura_posix/x11/_x11.h"
 
 
 #define WITH_XI

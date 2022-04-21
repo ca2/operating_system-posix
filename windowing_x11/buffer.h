@@ -49,8 +49,8 @@ namespace windowing_x11
 //      virtual bool create_os_buffer(::image::image * pimage);
 //      virtual void destroy_os_buffer(::image::image * pimage);
 
-      bool update_window() override;
-      bool update_window(::image * pimage) override;
+      bool update_screen() override;
+      bool update_screen(::image * pimage) override;
 
 
       bool buffer_lock_round_swap_key_buffers() override;

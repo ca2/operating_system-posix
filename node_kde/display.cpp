@@ -3,7 +3,7 @@
 // recreated by Camilo 2021-04-27 06:20 <3ThomasBS_!!
 // hi5 contribution...
 #include "framework.h"
-#include "apex/platform/app_core.h"
+//#include "apex/platform/app_core.h"
 //#include "display.h"
 //#include "_user.h"
 //#include <gdk/gdk.h>

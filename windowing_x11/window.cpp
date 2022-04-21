@@ -2,18 +2,18 @@
 // recreated by Camilo 2021-01-28 22:20 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
 #include "framework.h"
-#include "aura/user/_user.h"
+#include "aura/user/user/_user.h"
 #include "windowing_x11.h"
 #include "acme/operating_system/_user.h"
-#include "aura/user/interaction_prodevian.h"
+#include "aura/user/user/interaction_prodevian.h"
 #include "aura/platform/message_queue.h"
 #include <X11/Xatom.h>
 #include "aura/graphics/image/context_image.h"
 #include "aura/graphics/image/drawing.h"
 
 
-//void on_sn_launch_context(void * pSnContext, Window window);
-//void on_sn_launch_complete(void * pSnContext);
+void on_sn_launch_context(void * pSnContext, Window window);
+void on_sn_launch_complete(void * pSnContext);
 
 
 mutex * user_mutex();
@@ -273,7 +273,9 @@ namespace windowing_x11
 
       pimpl->m_pwindow = this;
 
-      set_os_data((::windowing::window *) this);
+      set_oswindow(this);
+
+      set_os_data((void *) window);
 
       //pimpl->set_os_data((::windowing::window *)this);
 
@@ -319,7 +321,7 @@ namespace windowing_x11
 
          papp->os_on_start_application();
 
-         //on_sn_launch_context(pwindowing->m_pSnLauncheeContext, window);
+         on_sn_launch_context(pwindowing->m_pSnLauncheeContext, window);
 
          papp->m_bSnLauncheeSetup = true;
 
@@ -584,9 +586,9 @@ namespace windowing_x11
 
          pnode->defer_notify_startup_complete();
 
-         //on_sn_launch_complete(pwindowing->m_pSnLauncheeContext);
+         on_sn_launch_complete(pwindowing->m_pSnLauncheeContext);
 
-         //       pwindowing->m_pSnLauncheeContext = nullptr;
+         pwindowing->m_pSnLauncheeContext = nullptr;
 
       }
 
@@ -1497,7 +1499,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
    void window::show_window(const ::e_display & edisplay, const ::e_activation & eactivation)
    {
 
-      x11_windowing()->windowing_post(__routine([this, edisplay, eactivation]()
+      x11_windowing()->windowing_post([this, edisplay, eactivation]()
       {
 
          windowing_output_debug_string("\n::window::show_window 1");
@@ -1528,8 +1530,8 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
             }
 
             mapped_net_state_raw(true, x11_display()->m_iScreen,
-                                 x11_display()->intern_atom(x_window::e_atom_net_wm_state_maximized_horz, false),
-                                 x11_display()->intern_atom(x_window::e_atom_net_wm_state_maximized_vert, false));
+                                 x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false),
+                                 x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_vert, false));
 
          }
          else if (edisplay == e_display_iconic)
@@ -1565,7 +1567,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
          return true;
 
-      }));
+      });
 
       //return ::success;
 
@@ -1626,12 +1628,12 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       if (attr.map_state == IsViewable)
       {
 
-         mapped_net_state_raw(true, Screen(), x11_display()->intern_atom(x_window::e_atom_net_wm_state_fullscreen, false), 0);
+         mapped_net_state_raw(true, Screen(), x11_display()->intern_atom(::x11::e_atom_net_wm_state_fullscreen, false), 0);
 
       } else
       {
 
-         unmapped_net_state_raw(x11_display()->intern_atom(x_window::e_atom_net_wm_state_fullscreen, false), 0);
+         unmapped_net_state_raw(x11_display()->intern_atom(::x11::e_atom_net_wm_state_fullscreen, false), 0);
 
          XMapWindow(Display(), Window());
 
@@ -1669,7 +1671,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       if (attr.map_state == IsViewable)
       {
 
-         mapped_net_state_raw(false, Screen(), x11_display()->intern_atom(x_window::e_atom_net_wm_state_hidden, false), 0);
+         mapped_net_state_raw(false, Screen(), x11_display()->intern_atom(::x11::e_atom_net_wm_state_hidden, false), 0);
 
       }
 
@@ -1734,8 +1736,8 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       {
 
          mapped_net_state_raw(false, Screen(),
-                              x11_display()->intern_atom(x_window::e_atom_net_wm_state_maximized_horz, false),
-                              x11_display()->intern_atom(x_window::e_atom_net_wm_state_maximized_vert, false));
+                              x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false),
+                              x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_vert, false));
 
       }
 
@@ -2357,7 +2359,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       //   }
 
 
-      if (nFlags & SWP_HIDEWINDOW)
+      if ((nFlags & SWP_HIDEWINDOW) != 0U)
       {
 
          if (attrs.map_state == IsViewable)
@@ -2371,7 +2373,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       }
 
-      if (!XGetWindowAttributes(Display(), Window(), &attrs))
+      if (XGetWindowAttributes(Display(), Window(), &attrs) == 0)
       {
 
          windowing_output_debug_string("\n::window::set_window_pos xgetwndattr 1.4.4");
@@ -2380,16 +2382,16 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       }
 
-      if (attrs.map_state == IsViewable || (nFlags & SWP_SHOWWINDOW))
+      if (attrs.map_state == IsViewable || ((nFlags & SWP_SHOWWINDOW) != 0U))
       {
 
-         if (!(nFlags & SWP_NOZORDER))
+         if ((nFlags & SWP_NOZORDER) == 0U)
          {
 
             if (zorder.m_ezorder == e_zorder_top_most)
             {
 
-               if (net_wm_state(x_window::e_atom_net_wm_state_above) != 1)
+               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 1)
                {
 
                   wm_state_above_raw(true);
@@ -2401,12 +2403,12 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
             } else if (zorder.m_ezorder == e_zorder_top)
             {
 
-               if (net_wm_state(x_window::e_atom_net_wm_state_above) != 0
-                   || net_wm_state(x_window::e_atom_net_wm_state_below) != 0
-                   || net_wm_state(x_window::e_atom_net_wm_state_hidden) != 0
-                   || net_wm_state(x_window::e_atom_net_wm_state_maximized_horz) != 0
-                   || net_wm_state(x_window::e_atom_net_wm_state_maximized_vert) != 0
-                   || net_wm_state(x_window::e_atom_net_wm_state_fullscreen) != 0)
+               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 0
+                   || net_wm_state(::x11::e_atom_net_wm_state_below) != 0
+                   || net_wm_state(::x11::e_atom_net_wm_state_hidden) != 0
+                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_horz) != 0
+                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_vert) != 0
+                   || net_wm_state(::x11::e_atom_net_wm_state_fullscreen) != 0)
                {
 
                   wm_state_clear_raw(false);
@@ -2419,7 +2421,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
             else if (zorder.m_ezorder == e_zorder_bottom)
             {
 
-               if (net_wm_state(x_window::e_atom_net_wm_state_below) != 1)
+               if (net_wm_state(::x11::e_atom_net_wm_state_below) != 1)
                {
 
                   wm_state_below_raw(true);
@@ -2446,7 +2448,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       windowing_output_debug_string("\n::window::set_window_pos 2");
 
-      return 1;
+      return true;
 
    }
 
@@ -2609,7 +2611,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       }
 
-      m_pwindowing->windowing_post(__routine([this, pcursorx11]()
+      m_pwindowing->windowing_post([this, pcursorx11]()
                                           {
 
                                              synchronous_lock sl(user_mutex());
@@ -2622,7 +2624,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
                                              m_cursorLast = pcursorx11->m_cursor;
 
-                                          }));
+                                          });
 
       //return true;
 
@@ -3550,7 +3552,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
    void window::update_screen()
    {
 
-      window_post(__routine([this]()
+      window_post([this]()
                                         {
 
                                            auto pimpl = m_puserinteractionimpl;
@@ -3592,7 +3594,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
                                            }
 
-                                        }));
+                                        });
 
    }
 
@@ -3600,7 +3602,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
    void window::window_show()
    {
 
-      m_pwindowing->windowing_post(__routine([this]()
+      m_pwindowing->windowing_post([this]()
                                         {
 
                                            auto pimpl = m_puserinteractionimpl;
@@ -3626,7 +3628,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
                                            }
 
-                                        }));
+                                        });
 
 
    }
@@ -3653,7 +3655,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       windowing_output_debug_string("\noswindow_data::SetCapture 1");
 
-      m_pwindowing->windowing_post(__routine([this]()
+      m_pwindowing->windowing_post([this]()
                                           {
 
                                              display_lock displaylock(x11_display()->Display());
@@ -3684,7 +3686,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
                                              windowing_output_debug_string("\noswindow_data::SetCapture 2");
 
-                                          }));
+                                          });
 
       //return ::success;
 

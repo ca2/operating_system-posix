@@ -14,7 +14,7 @@ namespace user
 } // namespace user
 
 
-void gdk_branch(const ::routine & routine);
+void gdk_branch(const ::procedure & procedure);
 
 
 

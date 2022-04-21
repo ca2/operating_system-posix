@@ -134,6 +134,10 @@ namespace windowing_x11
 
       m_pdisplay->open();
 
+
+      _libsn_start_context();
+
+
 //      if(!estatus)
 //      {
 //
@@ -148,44 +152,44 @@ namespace windowing_x11
    }
 
 
-   void windowing::start()
+//   void windowing::start()
+//   {
+//
+//      auto psystem = m_psystem->m_papexsystem;
+//
+//      if (psystem->m_bUser)
+//      {
+//
+//         defer_initialize_x11();
+//
+//      }
+//
+//      auto pnode = psystem->node();
+//
+//      if(pnode)
+//      {
+//
+//         _libsn_start_context();
+//
+//         branch_element(pnode);
+//
+//      }
+//      else
+//      {
+//
+//         x11_main();
+//
+//      }
+//
+//      //return ::success;
+//
+//   }
+
+
+   void windowing::windowing_post(const ::procedure & procedure)
    {
 
-      auto psystem = m_psystem->m_papexsystem;
-
-      if (psystem->m_bUser)
-      {
-
-         defer_initialize_x11();
-
-      }
-
-      auto pnode = psystem->node();
-
-      if(pnode)
-      {
-
-         _libsn_start_context();
-
-         branch_element(pnode);
-
-      }
-      else
-      {
-
-         x11_main();
-
-      }
-
-      //return ::success;
-
-   }
-
-
-   void windowing::windowing_post(const ::routine & routine)
-   {
-
-      if(::is_null(routine.m_p))
+      if(::is_null(procedure))
       {
 
          throw ::exception(error_null_pointer);
@@ -194,7 +198,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(mutex());
 
-      m_routinelist.add_tail(routine);
+      m_procedurelist.add_tail(procedure);
 
       //return ::success_scheduled;
 
@@ -225,7 +229,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(mutex());
 
-      if(m_routinelist.is_empty())
+      if(m_procedurelist.is_empty())
       {
 
          return bHandled;
@@ -237,7 +241,7 @@ namespace windowing_x11
 
          {
 
-            auto routine = m_routinelist.pick_head();
+            auto routine = m_procedurelist.pick_head();
 
             synchronouslock.unlock();
 
@@ -248,7 +252,7 @@ namespace windowing_x11
          synchronouslock.lock();
 
       }
-      while(m_routinelist.has_element());
+      while(m_procedurelist.has_element());
 
       return true;
 

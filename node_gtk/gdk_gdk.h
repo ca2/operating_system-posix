@@ -37,7 +37,7 @@ namespace node_gtk
    const char * g_get_file_content_type(const char * pszPath);
 
 
-   void gdk_branch(const ::routine & routine);
+   void gdk_branch(const ::procedure & procedure);
 
 
    int gdk_launch_uri(const char * pszUri, char * pszError, int iBufferSize);

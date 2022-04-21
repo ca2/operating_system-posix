@@ -16,7 +16,7 @@ namespace posix
    acme_path::~acme_path() = default;
 
 
-   bool acme_path::is_file_or_dir(const char * path1, ::file::enum_type * petype)
+   ::file::enum_type acme_path::get_type(const char * path1)
    {
 
       struct stat st;
@@ -24,36 +24,22 @@ namespace posix
       if (stat(path1, &st))
       {
 
-         if (is_set(petype))
-         {
-
-            *petype = ::file::e_type_none;
-
-         }
-
-         return false;
+         return ::file::e_type_doesnt_exist;
 
       }
 
-      if (is_set(petype))
+      if ((st.st_mode & S_IFDIR))
       {
 
-         if ((st.st_mode & S_IFDIR))
-         {
-
-            *petype = ::file::e_type_folder;
-
-         }
-         else
-         {
-
-            *petype = ::file::e_type_file;
-
-         }
+         return ::file::e_type_folder;
 
       }
+      else
+      {
 
-      return true;
+         return ::file::e_type_file;
+
+      }
 
    }
 

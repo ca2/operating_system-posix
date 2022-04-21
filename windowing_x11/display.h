@@ -25,6 +25,9 @@ namespace windowing_x11
       window_map                                   m_windowmap;
 
 
+      Atom                                         m_atoma[::x11::e_atom_count];
+
+
       __pointer(::x11::display)                    m_px11display;
       //::Display *                                m_pdisplay;
       XVisualInfo                                  m_visualinfo;
@@ -40,7 +43,6 @@ namespace windowing_x11
       Atom                                         m_atomLongStyleEx;
       Atom                                         m_atomWmState;
       Atom                                         m_atomNetWmState;
-      Atom                                         m_atoma[x_window::e_atom_count];
       iptr                                         m_countReference;
       __pointer(class window)                      m_pwindowRoot;
       __pointer(class window)                      m_pwindowKeyboardFocus;
@@ -49,7 +51,7 @@ namespace windowing_x11
 
 
       display();
-      virtual ~display();
+      ~display() override;
 
 
 #ifdef _DEBUG
@@ -104,7 +106,7 @@ namespace windowing_x11
 
       Atom intern_atom(const char * pszAtomName, bool bCreate);
 
-      Atom intern_atom(x_window::enum_atom eatom, bool bCreate);
+      Atom intern_atom(::x11::enum_atom eatom, bool bCreate);
 
       Atom net_wm_state_atom(bool bCreate);
 

@@ -24,7 +24,7 @@ namespace node_gnome
    }
 
 
-//   ::e_status windowing::windowing_post(const ::routine & routine)
+//   ::e_status windowing::windowing_post(const ::procedure & procedure)
 //   {
 //
 //      gdk_fork([routine]()

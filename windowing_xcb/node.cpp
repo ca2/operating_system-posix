@@ -33,6 +33,14 @@ namespace windowing_xcb
    }
 
 
+   ::x11::display * node::_get_display()
+   {
+
+      return ::x11::display::get(this);
+
+   }
+
+
    xcb_connection_t * node::_get_connection()
    {
 
@@ -54,7 +62,7 @@ namespace windowing_xcb
 
       auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing;
 
-      pwindowing->register_extended_event_listener(pmatterListener, false, true);
+      pwindowing->register_extended_event_listener(pmatterListener, true, false);
 
       //auto estatus =
 
@@ -83,7 +91,7 @@ namespace windowing_xcb
 
       //o estatus =
       //
-      pwindowing->register_extended_event_listener(pmatterListener, true, false);
+      pwindowing->register_extended_event_listener(pmatterListener, false, true);
 
 //      if(!estatus)
 //      {

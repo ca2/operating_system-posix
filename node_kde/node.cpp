@@ -174,7 +174,7 @@ namespace node_kde
 
       //auto estatus =
       //
-      m_psystem->m_papexsystem->begin_synch();
+      m_psystem->m_papexsystem->branch_synchronously();
 
       /// new:platform_create_system:decrement_reference_count
       /// begin_synch starts new thread
@@ -419,6 +419,8 @@ namespace node_kde
          return error_failed;
 
       }
+
+      ::x11::display::get(this, false, (Display *) m_pX11Display);
 
       m_pxcbconnection = QX11Info::connection();
 
@@ -689,7 +691,7 @@ namespace node_kde
    }
 
 
-   void node::node_post(const ::routine & routine)
+   void node::node_post(const ::procedure & procedure)
    {
 
       // invoke on the main thread
@@ -832,6 +834,10 @@ namespace node_kde
             return true;
 
          }
+
+         auto pxcbdisplay = ::xcb::display::get(this);
+
+         pxcbdisplay->xcb_event(pevent);
 
       }
       else

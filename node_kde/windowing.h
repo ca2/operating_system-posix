@@ -19,7 +19,7 @@ namespace node_kde
       ~windowing() override;
 
 
-      void windowing_post(const ::routine & routine) override;
+      void windowing_post(const ::procedure & procedure) override;
 
 
       bool message_loop_step() override;

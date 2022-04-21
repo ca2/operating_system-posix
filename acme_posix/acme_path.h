@@ -24,7 +24,7 @@ namespace posix
       ~acme_path() override;
 
 
-      bool is_file_or_dir(const char * path1, ::file::enum_type * petype) override;
+      ::file::enum_type get_type(const char * path1) override;
 
       ::file::path _final(const char * path) override;
 

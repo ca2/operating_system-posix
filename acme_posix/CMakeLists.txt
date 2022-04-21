@@ -9,8 +9,8 @@ list(APPEND library_source
    _factory.cpp
    _process.cpp
    _acme_posix.h
-   acme_dir.cpp
-   acme_dir.h
+   acme_directory.cpp
+   acme_directory.h
    acme_file.cpp
    acme_file.h
    acme_path.cpp

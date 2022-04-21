@@ -256,9 +256,7 @@ namespace windowing_xcb
    }
 
 
-
-
-   bool buffer::update_window(void)
+   bool buffer::update_screen(void)
    {
 
       if(m_pimpl == nullptr)
@@ -492,7 +490,7 @@ namespace windowing_xcb
    }
 
 
-   bool buffer::update_window(::image * pimage)
+   bool buffer::update_screen(::image * pimage)
    {
 
       throw("use update_window(void)");

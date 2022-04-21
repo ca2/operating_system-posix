@@ -14,7 +14,7 @@ namespace user
 } // namespace user
 
 
-void gdk_post(const ::routine & routine);
+void gdk_post(const ::procedure & procedure);
 
 
 

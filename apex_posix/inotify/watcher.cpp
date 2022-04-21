@@ -4,7 +4,9 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <sys/inotify.h>
+
 #undef USE_MISC
+
 #include <unistd.h>
 
 #define BUFF_SIZE ((sizeof(struct inotify_event)+FILENAME_MAX)*1024)
@@ -15,29 +17,12 @@ namespace inotify
 
    watch::watch()
    {
-
-   }
-
-
-   watch::~watch()
-   {
-
-      watcher * pwatcher = dynamic_cast < watcher * >(m_pwatcher);
-
-      inotify_rm_watch(pwatcher->m_iFd, m_atom);
-
-   }
-
-
-   watcher::watcher()
-   {
-
       m_iFd = inotify_init();
 
       if (m_iFd < 0)
       {
 
-         fprintf (stderr, "Error: %s\n", strerror(errno));
+         fprintf(stderr, "Error: %s\n", strerror(errno));
 
       }
 
@@ -49,19 +34,18 @@ namespace inotify
 
    }
 
-   //--------
-   watcher::~watcher()
+
+   watch::~watch()
    {
 
-      //::parallelization::post_quit_and_wait(m_pthread, seconds(15));
-
-      m_watchmap.erase_all();
+      inotify_rm_watch(m_iFd, m_watchdescriptor);
 
    }
 
 
-   ::file::watch_id watcher::add_watch(const ::file::path & pathFolder, ::file::listener * plistenerParam, bool bRecursive)
+   bool watch::open(const ::file::path & pathFolder, bool bRecursive)
    {
+
 
       if (pathFolder.is_empty())
       {
@@ -70,99 +54,103 @@ namespace inotify
 
       }
 
-      __pointer(::file::listener) plistener(plistenerParam);
 
       synchronous_lock synchronouslock(mutex());
 
-      i32 wd = inotify_add_watch (m_iFd, pathFolder, IN_MODIFY | IN_CLOSE_WRITE | IN_MOVED_TO | IN_CREATE | IN_MOVED_FROM | IN_DELETE);
+      i32 wd = inotify_add_watch(m_iFd, pathFolder,
+                                 IN_MODIFY | IN_CLOSE_WRITE | IN_MOVED_TO | IN_CREATE | IN_MOVED_FROM | IN_DELETE);
 
       if (wd < 0)
       {
 
          FORMATTED_TRACE("Error: os_watcher::add_watch at directory %s : (%s)", pathFolder.c_str(), strerror(errno));
 
-         return -1;
+         return false;
 
       }
 
-      auto pwatch = __create_new < watch >();
+//      auto watchid = ::file::watcher::add_watch(pathFolder, plistenerParam, bRecursive);
+//
+//      auto pwatch = __create_new < watch >();
+//
+//      pwatch->add_listener(plistener);
 
-      pwatch->add_listener(plistener);
+      m_atom = wd;
 
-      pwatch->m_atom = wd;
+      m_pathFolder = pathFolder;
 
-      pwatch->m_pathFolder = pathFolder;
+      //>m_pwatcher = this;
 
-      pwatch->m_pwatcher = this;
-
-      if(bRecursive)
+//      if(bRecursive)
+//      {
+//
+//         pwatch->m_bRecursive = true;
+//
+//         ::file::listing listing;
+//
+//         listing.set_folder_listing(pathFolder, ::e_depth_recursively);
+//
+//         m_psystem->m_pacmedirectory->enumerate(listing);
+//
+//         for(index index = 0; index < listing.get_count(); index++)
+//         {
+//
+//            string strDirPath = listing[index];
+//
+//            i32 inaw = inotify_add_watch (m_iFd, strDirPath, IN_MODIFY | IN_CLOSE_WRITE | IN_MOVED_TO | IN_CREATE | IN_MODIFY | IN_MOVED_FROM | IN_DELETE);
+//
+//            if(inaw < 0)
+//            {
+//
+//               if(errno == ENOENT)
+//               {
+//
+//                  throw ::file::exception(error_io, ENOENT, ENOENT, strDirPath);
+//
+//               }
+//               else
+//               {
+//
+//                  throw ::file::exception(error_io, errno, errno, strDirPath);
+//
+//               }
+//
+//            }
+//            else
+//            {
+//
+//               auto pwatch  = __create_new < watch > ();
+//
+//               pwatch->add_listener(plistener);
+//
+//               pwatch->m_atom = inaw;
+//
+//               pwatch->m_pathFolder = listing[index];
+//
+//               pwatch->m_pwatcher = this;
+//
+//               m_watchmap.set_at(inaw, pwatch);
+//
+//            }
+//
+//         }
+//
+//      }
+//      else
       {
 
-         pwatch->m_bRecursive = true;
-
-         ::file::path_array stra;
-
-         m_psystem->m_pacmedirectory->rls_dir(stra, pathFolder);
-
-         for(index index = 0; index < stra.get_count(); index++)
-         {
-
-            string strDirPath = stra[index];
-
-            i32 inaw = inotify_add_watch (m_iFd, strDirPath, IN_MODIFY | IN_CLOSE_WRITE | IN_MOVED_TO | IN_CREATE | IN_MODIFY | IN_MOVED_FROM | IN_DELETE);
-
-            if(inaw < 0)
-            {
-
-               if(errno == ENOENT)
-               {
-
-                  throw ::file::exception(error_io, ENOENT, ENOENT, strDirPath);
-
-               }
-               else
-               {
-
-                  throw ::file::exception(error_io, errno, errno, strDirPath);
-
-               }
-
-            }
-            else
-            {
-
-               auto pwatch  = __create_new < watch > ();
-
-               pwatch->add_listener(plistener);
-
-               pwatch->m_atom = inaw;
-
-               pwatch->m_pathFolder = stra[index];
-
-               pwatch->m_pwatcher = this;
-
-               m_watchmap.set_at(inaw, pwatch);
-
-            }
-
-         }
-
-      }
-      else
-      {
-
-         pwatch->m_bRecursive = false;
+         m_bRecursive = false;
 
       }
 
-      m_watchmap.set_at(wd, pwatch);
+      //m_watchmap.set_at(wd, pwatch);
 
-      return wd;
+      return true;
 
    }
 
 
-   bool watcher::step()
+   bool watch::step()
    {
 
       FD_ZERO(&m_fdset);
@@ -173,10 +161,10 @@ namespace inotify
 
       i32 ret = select(m_iFd + 1, &m_fdset, nullptr, nullptr, &timeOut);
 
-      if(ret < 0)
+      if (ret < 0)
       {
 
-         if(errno == EINTR)
+         if (errno == EINTR)
          {
 
             sleep(200_ms);
@@ -190,63 +178,204 @@ namespace inotify
          }
 
       }
-      else if(FD_ISSET(m_iFd, &m_fdset))
+      else if (FD_ISSET(m_iFd, &m_fdset))
       {
 
          ssize_t len, i = 0;
-         char action[81+FILENAME_MAX] = {0};
+         char action[81 + FILENAME_MAX] = {0};
          char buff[BUFF_SIZE] = {0};
 
-         len = ::read (m_iFd, buff, BUFF_SIZE);
+         len = ::read(m_iFd, buff, BUFF_SIZE);
 
 
          while (i < len)
          {
-            struct inotify_event *pevent = (struct inotify_event *)&buff[i];
+            struct inotify_event * pevent = (struct inotify_event *) &buff[i];
 
 
-            auto pwatch = m_watchmap[(atom)pevent->wd];
+//auto pwatch = m_watchmap[(atom)pevent->wd];
 
             ::file::action a;
-            a.m_pwatch = pwatch;
-            a.m_atom = pwatch->m_atom;
-            a.m_pathFolder = pwatch->m_pathFolder;
+            a.m_pwatch = this;
+            a.m_atom = m_atom;
+            a.m_pathFolder = m_pathFolder;
             a.m_pathFile = pevent->name;
             a.m_eaction = ::file::e_action_none;
 
-            if((IN_CLOSE_WRITE & pevent->mask) || (IN_MODIFY & pevent->mask))
+            if ((IN_CLOSE_WRITE & pevent->mask) || (IN_MODIFY & pevent->mask))
             {
 
                a.m_eaction |= ::file::e_action_modify;
 
             }
 
-            if(IN_MOVED_TO & pevent->mask || IN_CREATE & pevent->mask)
+            if (IN_MOVED_TO & pevent->mask || IN_CREATE & pevent->mask)
             {
 
                a.m_eaction |= ::file::e_action_add;
 
             }
 
-            if(IN_MOVED_FROM & pevent->mask || IN_DELETE & pevent->mask)
+            if (IN_MOVED_FROM & pevent->mask || IN_DELETE & pevent->mask)
             {
 
                a.m_eaction |= ::file::e_action_delete;
 
             }
 
-            if((IN_CLOSE_WRITE | IN_MODIFY)& pevent->mask  || IN_MODIFY & pevent->mask )
+            if ((IN_CLOSE_WRITE | IN_MODIFY) & pevent->mask || IN_MODIFY & pevent->mask)
             {
 
                a.m_eaction |= ::file::e_action_modify;
 
             }
 
-            pwatch->handle_action(&a);
+            handle_action(&a);
 
             i += sizeof(struct inotify_event) + pevent->len;
 
          }
+
+      }
+
+      return true;
+
+   }
+
+
+   watcher::watcher()
+   {
+
+
+   }
+
+   //--------
+   watcher::~watcher()
+   {
+
+      //::parallelization::post_quit_and_wait(m_pthread, seconds(15));
+
+      //m_watchmap.erase_all();
+
+   }
+
+//
+//   ::file::watch_id watcher::add_watch(const ::file::path & pathFolder, ::file::listener * plistenerParam, bool bRecursive)
+//   {
+//
+//
+//
+//      if (pathFolder.is_empty())
+//      {
+//
+//         return -1;
+//
+//      }
+//
+//
+//      __pointer(::file::listener) plistener(plistenerParam);
+//
+//      synchronous_lock synchronouslock(mutex());
+//
+//      i32 wd = inotify_add_watch (m_iFd, pathFolder, IN_MODIFY | IN_CLOSE_WRITE | IN_MOVED_TO | IN_CREATE | IN_MOVED_FROM | IN_DELETE);
+//
+//      if (wd < 0)
+//      {
+//
+//         FORMATTED_TRACE("Error: os_watcher::add_watch at directory %s : (%s)", pathFolder.c_str(), strerror(errno));
+//
+//         return -1;
+//
+//      }
+//
+//      auto watchid = ::file::watcher::add_watch(pathFolder, plistenerParam, bRecursive);
+//
+//      auto pwatch = __create_new < watch >();
+//
+//      pwatch->add_listener(plistener);
+//
+//      pwatch->m_atom = wd;
+//
+//      pwatch->m_pathFolder = pathFolder;
+//
+//      pwatch->m_pwatcher = this;
+//
+//      if(bRecursive)
+//      {
+//
+//         pwatch->m_bRecursive = true;
+//
+//         ::file::listing listing;
+//
+//         listing.set_folder_listing(pathFolder, ::e_depth_recursively);
+//
+//         m_psystem->m_pacmedirectory->enumerate(listing);
+//
+//         for(index index = 0; index < listing.get_count(); index++)
+//         {
+//
+//            string strDirPath = listing[index];
+//
+//            i32 inaw = inotify_add_watch (m_iFd, strDirPath, IN_MODIFY | IN_CLOSE_WRITE | IN_MOVED_TO | IN_CREATE | IN_MODIFY | IN_MOVED_FROM | IN_DELETE);
+//
+//            if(inaw < 0)
+//            {
+//
+//               if(errno == ENOENT)
+//               {
+//
+//                  throw ::file::exception(error_io, ENOENT, ENOENT, strDirPath);
+//
+//               }
+//               else
+//               {
+//
+//                  throw ::file::exception(error_io, errno, errno, strDirPath);
+//
+//               }
+//
+//            }
+//            else
+//            {
+//
+//               auto pwatch  = __create_new < watch > ();
+//
+//               pwatch->add_listener(plistener);
+//
+//               pwatch->m_atom = inaw;
+//
+//               pwatch->m_pathFolder = listing[index];
+//
+//               pwatch->m_pwatcher = this;
+//
+//               m_watchmap.set_at(inaw, pwatch);
+//
+//            }
+//
+//         }
+//
+//      }
+//      else
+//      {
+//
+//         pwatch->m_bRecursive = false;
+//
+//      }
+//
+//      m_watchmap.set_at(wd, pwatch);
+//
+//      return wd;
+//
+//   }
+
+
+   bool watcher::step()
+   {
+
+      for (auto & pwatch: m_watchmap.values())
+      {
+
+         pwatch->step();
 
       }
 

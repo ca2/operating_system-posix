@@ -124,31 +124,11 @@ namespace node_gtk
 
       auto pwindowing = x11_windowing();
 
-      auto proutine = __routine(5_minute, [this]() { _get_monitor_rectangle(); });
+      auto predicate = [this]() { _get_monitor_rectangle(); };
 
-      //auto estatus =
-      //
-      pwindowing->windowing_send(proutine);
+      pwindowing->windowing_send(predicate);
 
-//      if(!estatus)
-//      {
-//
-//         return estatus;
-//
-//      }
-
-      //estatus =
-      //
       ::windowing::monitor::get_monitor_rectangle(prectangle);
-
-//      if(!estatus)
-//      {
-//
-//         return estatus;
-//
-//      }
-//
-//      return estatus;
 
    }
 
@@ -156,96 +136,11 @@ namespace node_gtk
    void monitor::get_workspace_rectangle(::RECTANGLE_I32 *prectangle)
    {
 
-      //auto estatus =
-      //
-      x11_windowing()->windowing_send(__routine(5_s, [this]() { _get_workspace_rectangle(); }));
+      x11_windowing()->windowing_send([this]() { _get_workspace_rectangle(); });
 
-//      if(!estatus)
-//      {
-//
-//         return estatus;
-//
-//      }
-
-      //estatus =
-      //
       ::windowing::monitor::get_workspace_rectangle(prectangle);
 
-//      if(!estatus)
-//      {
-//
-//         return estatus;
-//
-//      }
-//
-//      return estatus;
-
    }
-
-
-   //      node_fork(__routine([psession]
-//                           {
-//
-//                              synchronous_lock sl(user_mutex());
-//
-//                              //xdisplay d(x11_get_display());
-//
-//                              GdkDisplay *pdisplay = gdk_display_get_default();
-//
-//                              if (pdisplay == nullptr)
-//                              {
-//
-//                                 return;
-//
-//                              }
-//
-//                              synchronous_lock slSession(psession->mutex());
-//
-//                              ::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
-//
-//                              psession->m_rectangleaWorkspace.set_size(iMonitorCount);
-//
-//                              psession->m_rectangleaMonitor.set_size(iMonitorCount);
-//
-//                              for (index iMonitor = 0; iMonitor < iMonitorCount; iMonitor++)
-//                              {
-//
-//                                 GdkMonitor *pmonitor = gdk_display_get_monitor(pdisplay, iMonitor);
-//
-//                                 auto &rectangleWorkspace = psession->m_rectangleaWorkspace[iMonitor];
-//
-//                                 auto &rectangleMonitor = psession->m_rectangleaMonitor[iMonitor];
-//
-//                                 if (pmonitor == nullptr)
-//                                 {
-//
-//                                    rectangleWorkspace.Null();
-//
-//                                    rectangleMonitor.Null();
-//
-//                                    continue;
-//
-//                                 }
-//
-//                                 GdkRectangle rect;
-//
-//                                 __zero(rect);
-//
-//                                 gdk_monitor_get_workarea(pmonitor, &rect);
-//
-//                                 __copy(rectangleWorkspace, rect);
-//
-//                                 __zero(rect);
-//
-//                                 gdk_monitor_get_geometry(pmonitor, &rect);
-//
-//                                 __copy(rectangleMonitor, rect);
-//
-//                              }
-//
-//                           }));
-//
-//   }
 
 
 } // namespace node_gtk
