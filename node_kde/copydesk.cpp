@@ -120,14 +120,14 @@ namespace node_kde
 
       auto pnode = psystem->node();
 
-      pnode->node_send(__routine(5_s, [=]()
+      pnode->node_send([=]()
       {
 
          //GtkClipboard* clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
 
          //payload->m_var = gtk_clipboard_wait_is_text_available (clipboard);
 
-      }));
+      });
 
       return ppayload->m_payload.operator bool();
 
@@ -236,7 +236,7 @@ return false;
 
       auto pwindowing = puser->windowing();
 
-      pwindowing->windowing_send(__routine(30_s, [this, pimage, &bOk]()
+      pwindowing->windowing_send([this, pimage, &bOk]()
                 {
 
                    auto psystem = m_psystem;
@@ -278,7 +278,7 @@ return false;
 
                    bOk = true;
 
-                }));
+                });
 
       return bOk;
 

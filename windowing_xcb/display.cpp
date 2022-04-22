@@ -992,7 +992,7 @@ namespace windowing_xcb
 
       auto pnode = psystem->node();
 
-      pnode->node_send(__routine(10_s, [this, pointHitTest, pwindowExclude, iMargin, &bIsOrigin]()
+      pnode->node_send([this, pointHitTest, pwindowExclude, iMargin, &bIsOrigin]()
       {
 
          ::windowing_xcb::window *pwindowxcbExclude = nullptr;
@@ -1069,7 +1069,7 @@ namespace windowing_xcb
 
          }
 
-      }));
+      });
 //
 //            });
 

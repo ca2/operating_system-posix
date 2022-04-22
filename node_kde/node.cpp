@@ -697,10 +697,10 @@ namespace node_kde
       // invoke on the main thread
       QMetaObject::invokeMethod(
          m_pqapplication,
-         [routine]
+         [procedure]
          {
 
-            routine();
+            procedure();
 
          });
 

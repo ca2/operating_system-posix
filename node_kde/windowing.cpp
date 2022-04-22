@@ -39,10 +39,10 @@ namespace node_kde
       // invoke on the main thread
       QMetaObject::invokeMethod(
          pqapplication,
-         [routine]
+         [procedure]
          {
 
-            routine();
+            procedure();
 
          });
 

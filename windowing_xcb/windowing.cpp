@@ -197,7 +197,7 @@ namespace windowing_xcb
 
       //auto estatus =
       //
-      routine();
+      procedure();
 
 //      if(!estatus)
 //      {
@@ -1574,13 +1574,13 @@ namespace windowing_xcb
                else if (pbutton->detail == XCB_BUTTON_INDEX_4)
                {
 
-                  iDelta = -120;
+                  iDelta = 120;
 
                }
                else if (pbutton->detail == XCB_BUTTON_INDEX_5)
                {
 
-                  iDelta = 120;
+                  iDelta = -120;
 
                }
                else

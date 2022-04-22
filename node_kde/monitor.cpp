@@ -134,7 +134,7 @@ namespace node_kde
 
       //auto estatus =
       //
-      xcb_windowing()->windowing_send(__routine(5_s, [this]() { _get_monitor_rectangle(); }));
+      xcb_windowing()->windowing_send([this]() { _get_monitor_rectangle(); });
 
 //      if(!estatus)
 //      {
@@ -164,7 +164,7 @@ namespace node_kde
 
       //auto estatus =
       //
-      xcb_windowing()->windowing_send(__routine(5_s, [this]() { _get_workspace_rectangle(); }));
+      xcb_windowing()->windowing_send([this]() { _get_workspace_rectangle(); });
 
 //      if(!estatus)
 //      {

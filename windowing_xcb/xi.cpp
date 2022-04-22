@@ -146,7 +146,7 @@ namespace windowing_xcb
 
       m_pobjectaExtendedEventListener->add(pdata);
 
-      windowing_post(__routine([this, bMouse, bKeyboard]()
+      windowing_post([this, bMouse, bKeyboard]()
                                  {
 
                                     auto psystem = get_system();
@@ -333,7 +333,7 @@ namespace windowing_xcb
         //free(mask[0].mask);
         //free(mask[1].mask);
 
-     }));
+     });
 
       //return ::success;
 

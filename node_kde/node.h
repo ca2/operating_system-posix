@@ -78,7 +78,7 @@ namespace node_kde
 
       string get_wallpaper(index iScreen) override;
 
-      using ::aura::node::node_fork;
+      //using ::aura::node::node_fork;
 
       void node_post(const ::procedure & procedure) override;
 

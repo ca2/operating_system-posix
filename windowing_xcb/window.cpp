@@ -2592,7 +2592,7 @@ namespace windowing_xcb
    void window::update_screen()
    {
 
-      m_pwindowing->windowing_post(__routine([this]()
+      m_pwindowing->windowing_post([this]()
       {
 
          auto pimpl = m_puserinteractionimpl;
@@ -2625,7 +2625,7 @@ namespace windowing_xcb
 
          }
 
-      }));
+      });
 
    }
 
@@ -2633,7 +2633,7 @@ namespace windowing_xcb
    void window::window_show()
    {
 
-      m_pwindowing->windowing_post(__routine([this]()
+      m_pwindowing->windowing_post([this]()
       {
 
          auto pimpl = m_puserinteractionimpl;
@@ -2659,7 +2659,7 @@ namespace windowing_xcb
 
          }
 
-      }));
+      });
 
    }
 
@@ -2667,7 +2667,7 @@ namespace windowing_xcb
    void window::set_mouse_capture()
    {
 
-      m_pwindowing->windowing_post(__routine([this]
+      m_pwindowing->windowing_post([this]
                                                {
 
       synchronous_lock synchronouslock(user_mutex());
@@ -2729,7 +2729,7 @@ namespace windowing_xcb
 
       return ::success;
 
-                                               }));
+                                               });
 
 
       //return ::success;
@@ -2846,7 +2846,7 @@ namespace windowing_xcb
 
       }
 
-      m_pwindowing->windowing_post(__routine([x, y, cx, cy, this]
+      m_pwindowing->windowing_post([x, y, cx, cy, this]
                                                {
 
                                                   uint16_t mask = 0;
@@ -2871,7 +2871,7 @@ namespace windowing_xcb
 
                                                   return estatus;
 
-                                               }));
+                                               });
 
       return ::success;
 
@@ -2888,7 +2888,7 @@ namespace windowing_xcb
 
       }
 
-      m_pwindowing->windowing_post(__routine([x, y,  this]
+      m_pwindowing->windowing_post([x, y,  this]
                                                {
 
                                                   uint16_t mask = 0;
@@ -2911,7 +2911,7 @@ namespace windowing_xcb
 
                                                   return estatus;
 
-                                               }));
+                                               });
 
       return ::success;
 
@@ -2922,7 +2922,7 @@ namespace windowing_xcb
    {
 
 
-      m_pwindowing->windowing_post(__routine([cx, cy, this]
+      m_pwindowing->windowing_post([cx, cy, this]
                                                {
 
                                                   uint16_t mask = 0;
@@ -2945,7 +2945,7 @@ namespace windowing_xcb
 
                                                   return estatus;
 
-                                               }));
+                                               });
 
       return ::success;
 
@@ -2993,12 +2993,12 @@ namespace windowing_xcb
    void window::bring_to_front()
    {
 
-      m_pwindowing->windowing_post(__routine([this]()
+      m_pwindowing->windowing_post([this]()
                                                {
 
                                                   _raise_window();
 
-                                               }));
+                                               });
 
       //return ::success;
 
