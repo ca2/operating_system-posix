@@ -8,7 +8,7 @@
 //#ifndef MANJARO
 // Manjaro libappindicator-gtk3
 //#include <libappindicator3-0.1/libappindicator/app-indicator.h>
-#ifdef DEBIAN_LINUX
+#ifdef AYATANA_APPINDICATOR
 #include <libayatana-appindicator/app-indicator.h>
 #else
 #include <libappindicator/app-indicator.h>

@@ -46,6 +46,33 @@ list(APPEND library_references
    )
 
 
+if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+
+   message(STATUS "DISTRO is ${DISTRO}")
+
+   if(${DISTRO} STREQUAL "ubuntu")
+
+      #set(APPINDICATOR_PKG_MODULE "appindicator3-0.1")
+
+      set(APPINDICATOR_PKG_MODULE "ayatana-appindicator3-0.1")
+
+      add_compile_definitions(AYATANA_APPINDICATOR)
+
+   elseif(${DISTRO} STREQUAL "debian")
+
+      add_compile_definitions(AYATANA_APPINDICATOR)
+
+      set(APPINDICATOR_PKG_MODULE "ayatana-appindicator3-0.1")
+
+   else()
+
+      set(APPINDICATOR_PKG_MODULE "appindicator3-0.1")
+
+   endif()
+
+endif()
+
+
 add_library(node_gnome SHARED ${library_source} )
 
 target_precompile_headers(node_gnome PRIVATE framework.h)
