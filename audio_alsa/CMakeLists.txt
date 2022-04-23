@@ -49,7 +49,9 @@ if (MSVC)
 elseif(LINUX OR FREEBSD)
 
 
-   pkg_check_modules(PKGCONFIG alsa)
+   if(NOT DONT_USE_PKG_CONFIG)
+      pkg_check_modules(PKGCONFIG alsa)
+   endif()
    target_compile_options(audio_alsa PRIVATE -fpermissive)
    target_compile_options(audio_alsa PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(audio_alsa PRIVATE ${PKGCONFIG_LDFLAGS})

@@ -62,8 +62,9 @@ if (MSVC)
 elseif(LINUX OR FREEBSD)
 
 
-   pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
-
+   if(NOT DONT_USE_PKG_CONFIG)
+      pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
+   endif()
    target_compile_options(node_xfce PRIVATE -fpermissive)
       target_compile_options(node_xfce PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(node_xfce PRIVATE ${PKGCONFIG_LDFLAGS})

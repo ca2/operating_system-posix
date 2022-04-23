@@ -70,8 +70,10 @@ if (MSVC)
 elseif(LINUX OR FREEBSD)
 
 
-   # dnf install qt5-qttools-devel qt5-qtx11extras-devel qt5-qttools-static
-   pkg_check_modules(PKGCONFIG Qt5Core Qt5UiTools Qt5X11Extras)
+   if(NOT DONT_USE_PKG_CONFIG)
+      # dnf install qt5-qttools-devel qt5-qtx11extras-devel qt5-qttools-static
+      pkg_check_modules(PKGCONFIG Qt5Core Qt5UiTools Qt5X11Extras)
+   endif()
    target_compile_options(node_kde PRIVATE -fpermissive)
    target_compile_options(node_kde PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(node_kde PRIVATE ${PKGCONFIG_LDFLAGS})

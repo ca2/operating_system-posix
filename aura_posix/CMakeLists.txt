@@ -100,7 +100,9 @@ else()
 endif()
 
 
-   pkg_check_modules(PKGCONFIG ${extra_pkg_modules})
+   if(NOT DONT_USE_PKG_CONFIG)
+      pkg_check_modules(PKGCONFIG ${extra_pkg_modules})
+   endif()
    target_compile_options(aura_posix PRIVATE -fpermissive)
    target_compile_options(aura_posix PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(aura_posix PRIVATE ${PKGCONFIG_LDFLAGS})

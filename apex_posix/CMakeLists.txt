@@ -100,7 +100,7 @@ if (MSVC)
 elseif(LINUX OR FREEBSD)
 
 
-   if(FILE_SYSTEM_INOTIFY AND NOT DEFINED DEBIAN)
+   if(FILE_SYSTEM_INOTIFY AND NOT DEFINED DEBIAN_LIKE AND NOT DONT_USE_PKG_CONFIG)
       pkg_check_modules(PKGCONFIG libinotify)
       target_compile_options(apex_posix PRIVATE ${PKGCONFIG_CFLAGS})
       target_link_options(apex_posix PRIVATE ${PKGCONFIG_LDFLAGS})

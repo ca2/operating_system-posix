@@ -43,7 +43,9 @@ if (MSVC)
 elseif(LINUX OR FREEBSD)
 
 
-    pkg_check_modules(PKGCONFIG pangocairo)
+    if(NOT DONT_USE_PKG_CONFIG)
+        pkg_check_modules(PKGCONFIG pangocairo)
+    endif()
     target_compile_options(write_text_pango PRIVATE ${PKGCONFIG_CFLAGS})
     target_link_options(write_text_pango PRIVATE ${PKGCONFIG_LDFLAGS})
     target_link_libraries(write_text_pango PRIVATE ${PKGCONFIG_LIBRARIES} ${library_references})

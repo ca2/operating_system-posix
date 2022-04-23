@@ -74,8 +74,10 @@ if (MSVC)
 elseif(LINUX OR FREEBSD)
 
 
-   #pkg_check_modules(PKGCONFIG libstartup-notification-1.0 Qt5Core x11 xcb xcb-xkb xcb-icccm xcb-xinput xcb-aux x11-xcb xcb-render xcb-image xkbcommon-x11 xcb-xfixes freetype2)
-   pkg_check_modules(PKGCONFIG Qt5Core x11 xcb xcb-xkb xcb-icccm xcb-xinput xcb-aux x11-xcb xcb-render xcb-image xkbcommon-x11 xcb-xfixes freetype2)
+   if(NOT DONT_USE_PKG_CONFIG)
+      #pkg_check_modules(PKGCONFIG libstartup-notification-1.0 Qt5Core x11 xcb xcb-xkb xcb-icccm xcb-xinput xcb-aux x11-xcb xcb-render xcb-image xkbcommon-x11 xcb-xfixes freetype2)
+      pkg_check_modules(PKGCONFIG Qt5Core x11 xcb xcb-xkb xcb-icccm xcb-xinput xcb-aux x11-xcb xcb-render xcb-image xkbcommon-x11 xcb-xfixes freetype2)
+   endif()
    target_compile_options(windowing_xcb PRIVATE -fpermissive)
    target_compile_options(windowing_xcb PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(windowing_xcb PRIVATE ${PKGCONFIG_LDFLAGS})

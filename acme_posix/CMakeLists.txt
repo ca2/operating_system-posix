@@ -72,7 +72,9 @@ if (MSVC)
 elseif(LINUX OR FREEBSD)
 
 
-   pkg_check_modules(PKGCONFIG dbus-glib-1)
+   if(NOT DONT_USE_PKG_CONFIG)
+      pkg_check_modules(PKGCONFIG dbus-glib-1)
+   endif()
    target_compile_options(acme_posix PRIVATE -fpermissive)
    target_compile_options(acme_posix PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(acme_posix PRIVATE ${PKGCONFIG_LDFLAGS})
