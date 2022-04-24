@@ -147,15 +147,6 @@ namespace windowing_x11
 
       m_iScreen = DefaultScreen(m_px11display->m_pdisplay);
 
-      ::rectangle_i32 rectangleMainScreen;
-
-      rectangleMainScreen.left = 0;
-      rectangleMainScreen.top = 0;
-      rectangleMainScreen.right = WidthOfScreen(DefaultScreen(m_px11display->m_pdisplay));
-      rectangleMainScreen.top = HeightOfScreen(DefaultScreen(m_px11display->m_pdisplay));
-
-      operating_system_set_main_screen_rectangle(rectangleMainScreen);
-
       m_windowRoot = RootWindow(m_px11display->m_pdisplay, m_iScreen);
 
       m_iDepth = m_visualinfo.depth;
