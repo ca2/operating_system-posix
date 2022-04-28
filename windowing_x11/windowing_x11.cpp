@@ -910,19 +910,19 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 
 
-#if !defined(RASPBIAN)
+//#if !defined(RASPBIAN)
 
 
    bool x11_process_event(Display *pdisplay, XEvent *pevent, XGenericEventCookie *cookie);
 
 
-#else
+//#else
 
 
-   bool x11_process_event(osdisplay_data * pdisplaydata, XEvent & e);
+   //bool x11_process_event(osdisplay_data * pdisplaydata, XEvent & e);
 
 
-#endif
+//#endif
 
 
    void x11_post_message(MESSAGE &msg);
@@ -1137,24 +1137,24 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
             XEvent &e = *pevent;
 
-#if !defined(RASPBIAN)
+//#if !defined(RASPBIAN)
 
-            XGenericEventCookie *cookie;
+            XGenericEventCookie * pcookie;
 
-#endif
+//#endif
 
 #ifdef WITH_XI
 
             if(m_pobjectaExtendedEventListener)
             {
 
-               cookie = &e.xcookie;
+               pcookie = &e.xcookie;
 
             }
             else
             {
 
-               cookie = nullptr;
+               pcookie = nullptr;
 
             }
 
@@ -1165,7 +1165,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 #ifdef WITH_XI
 
-               if(!x11_process_event(&e, cookie))
+               if(!x11_process_event(&e, pcookie))
 
 #else
 
@@ -1300,24 +1300,24 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                XEvent e = {};
 
-#if !defined(RASPBIAN)
+//#if !defined(RASPBIAN)
 
-               XGenericEventCookie *cookie;
+               XGenericEventCookie * pcookie;
 
-#endif
+//#endif
 
 #ifdef WITH_XI
 
                if(m_pobjectaExtendedEventListener)
                {
 
-                  cookie = &e.xcookie;
+                  pcookie = &e.xcookie;
 
                }
                else
                {
 
-                  cookie = nullptr;
+                  pcookie = nullptr;
 
                }
 
@@ -1331,7 +1331,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 #ifdef WITH_XI
 
-                  if(!x11_process_event(&e, cookie))
+                  if(!x11_process_event(&e, pcookie))
 
 #else
 
