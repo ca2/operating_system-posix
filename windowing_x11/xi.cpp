@@ -11,7 +11,7 @@ namespace windowing_x11
 {
 
 
-#if !defined(RASPBIAN)
+//#if !defined(RASPBIAN)
 
 
 //int xi_opcode = -1;
@@ -136,7 +136,7 @@ namespace windowing_x11
    }
 
 
-#endif
+//#endif
 
 
 } // namespace windowing_x11
