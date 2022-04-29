@@ -303,7 +303,22 @@ namespace node_gtk
       if(edesktop & ::user::e_desktop_gnome)
       {
 
-         bOk = gsettings_set("org.gnome.desktop.background", "picture-uri", "file://" + strWallpaper);
+         string strColorScheme;
+
+         gsettings_get(strColorScheme, "org.gnome.desktop.interface", "color-scheme");
+
+         if(strColorScheme.contains_ci("dark"))
+         {
+
+            bOk = gsettings_set("org.gnome.desktop.background", "picture-uri-dark", "file://" + strWallpaper);
+
+         }
+         else
+         {
+
+            bOk = gsettings_set("org.gnome.desktop.background", "picture-uri", "file://" + strWallpaper);
+
+         }
 
       }
       else if(edesktop & ::user::e_desktop_mate)

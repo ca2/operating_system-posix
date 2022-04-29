@@ -1573,48 +1573,93 @@ else if(detail == 3)
 
                output_debug_string("\ndetail:" + __string(prawevent->detail));
 
+
                if(emessage != e_message_null)
                {
-//                  auto ptopic = psystem->topic(eid);
 
-  //                ::topic::context context;
+                  ::i64 iWparam = 'a';
 
-                  int iKey = XK_A;
+                  ::i64 iLparam = XK_a;
 
-                  if(is_return_key((XIRawEvent*)cookie->data))
+                  if (emessage == e_message_key_down || emessage == e_message_key_up)
                   {
 
-                     iKey = XK_Return;
+                     if(is_return_key((XIRawEvent*)cookie->data))
+                     {
+
+                        iWparam = '\n';
+
+                        iLparam = XK_Return;
+
+                     }
+                     else if(is_space_key((XIRawEvent*)cookie->data))
+                     {
+
+                        iWparam = ' ';
+
+                        iLparam = XK_space;
+
+                     }
+
+                     //ptopic->payload("return") = is_return_key(pgeevent);
+
+                     //ptopic->payload("space") = is_space_key(pgeevent);
 
                   }
-                  else if(is_space_key((XIRawEvent*)cookie->data))
-                  {
-
-                     iKey = XK_space;
-
-                  }
-
-
-//                  ptopic->payload("return") = is_return_key(prawevent);
-//
-//                  ptopic->payload("space") = is_space_key(prawevent);
 
                   //::topic::context context;
 
+                  for (auto & p : *m_pobjectaExtendedEventListener)
+                  {
+
+                     p->call(emessage, iWparam, iLparam);
+
+                     //p->on_subject(ptopic, &context);
+
+                  }
+
+//                  if(emessage != e_message_null)
+//               {
+////                  auto ptopic = psystem->topic(eid);
+//
+//  //                ::topic::context context;
+//
+//                  int iKey = XK_A;
+//
+//                  if(is_return_key((XIRawEvent*)cookie->data))
+//                  {
+//
+//                     iKey = XK_Return;
+//
+//                  }
+//                  else if(is_space_key((XIRawEvent*)cookie->data))
+//                  {
+//
+//                     iKey = XK_space;
+//
+//                  }
+//
+//
+////                  ptopic->payload("return") = is_return_key(prawevent);
+////
+////                  ptopic->payload("space") = is_space_key(prawevent);
+//
+//                  //::topic::context context;
+//
+////                  for(auto & p : *m_pobjectaExtendedEventListener)
+////                  {
+////
+////                     p->on_subject(ptopic, &context);
+////
+////                  }
+//
+//
 //                  for(auto & p : *m_pobjectaExtendedEventListener)
 //                  {
 //
-//                     p->on_subject(ptopic, &context);
+//                     p->call(emessage, iKey);
 //
 //                  }
-
-
-                  for(auto & p : *m_pobjectaExtendedEventListener)
-                  {
-
-                     p->call(emessage, iKey);
-
-                  }
 
                }
 
