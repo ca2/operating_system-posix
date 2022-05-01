@@ -27,6 +27,8 @@
 
 #if defined(__linux__)
 #include <unistd.h>
+#endif
+#if defined(FREEBSD)
 # include <freebsd/serial.h>
 #endif
 

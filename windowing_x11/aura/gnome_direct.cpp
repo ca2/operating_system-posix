@@ -2,7 +2,7 @@
 //#include "platform/platform_setup.h"
 //#include <limits.h>
 //#include "acme/operating_system/x11/_x11.h"
-//#include "__standard_type.h"
+//#include "xxx__standard_type.h"
 //#include "gnome.h"
 //#include "gnome_gnome.h"
 //#include "gnome_internal_glue.h"

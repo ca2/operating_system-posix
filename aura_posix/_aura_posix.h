@@ -9,13 +9,13 @@
 #include "aura/user/user/_user.h"
 
 
+#if !defined(ANDROID)
 #include "appindicator.h"
+#include "clipboard_data.h"
+#endif
 
 
 #include "shell.h"
-
-
-#include "clipboard_data.h"
 
 
 #if defined(WITH_X11) || defined(WITH_XCB)

@@ -5,7 +5,7 @@
 #include "acme/operating_system.h"
 
 
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(ANDROID)
 
 char * get_current_dir_name();
 
@@ -482,10 +482,8 @@ namespace posix
 } // namespace posix
 
 
+#if defined(__APPLE__) || defined(ANDROID)
 
-
-
-#ifdef __APPLE__
 
 char * get_current_dir_name()
 {
@@ -514,5 +512,8 @@ char * get_current_dir_name()
 
 }
 
+
 #endif
+
+
 

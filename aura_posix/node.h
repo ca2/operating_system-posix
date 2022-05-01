@@ -17,8 +17,8 @@ namespace aura
 
 
       class CLASS_DECL_AURA_POSIX node :
-         virtual public ::aura::node,
-         virtual public ::apex::posix::node
+         virtual public ::apex::posix::node,
+         virtual public ::aura::node
       {
       public:
 

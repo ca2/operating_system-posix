@@ -142,7 +142,7 @@ namespace posix
    string  acme_file::get_temporary_file_name(const char * lpszName, const char * pszExtension)
    {
 
-      char pPathBuffer[MAX_PATH * 16];
+      char pPathBuffer[300 * 16];
 
       strcpy(pPathBuffer, "/tmp/");
 

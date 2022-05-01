@@ -37,7 +37,7 @@ void init_chldstatus(int iPid);
 #include "pipe.h"
 
 
-#include "serial.h"
+//#include "serial.h"
 
 
 #include "node.h"

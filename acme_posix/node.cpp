@@ -141,6 +141,14 @@ namespace acme
       }
 
 
+      void node::dbus_init()
+      {
+
+
+
+      }
+
+
 //      ::e_status node::start()
 //      {
 //
@@ -323,37 +331,9 @@ namespace acme
 //      }
 
 
-//      string node::module_path_from_pid(u32 pid)
-//      {
-//
-//         return ::acme::node::module_path_from_pid(pid);
-//
-//      }
 
-
-//      string node::command_line_from_pid(u32 pid)
-//      {
-//
-//         return ::acme::node::command_line_from_pid(pid);
-//
-//      }
-
-
-//      bool node::is_shared_library_busy(u32 processid, const string_array& stra)
-//      {
-//
-//         return ::acme::node::is_shared_library_busy(processid, stra);
-//
-//      }
 
    
-//      bool node::is_shared_library_busy(const string_array& stra)
-//      {
-//
-//         return ::acme::node::is_shared_library_busy(stra);
-//
-//      }
-
 
       bool node::process_contains_module(string& strImage, ::u32 processID, const ::string & strLibrary)
       {

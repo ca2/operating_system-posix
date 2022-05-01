@@ -24,7 +24,7 @@ namespace apex
 
 
          node();
-         virtual ~node();
+         ~node() override;
 
 
          //virtual int node_init_check(int * pi, char *** ppz) override;
