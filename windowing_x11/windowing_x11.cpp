@@ -910,19 +910,19 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 
 
-#if !defined(RASPBIAN)
+//#if !defined(RASPBIAN)
 
 
    bool x11_process_event(Display *pdisplay, XEvent *pevent, XGenericEventCookie *cookie);
 
 
-#else
+//#else
 
 
-   bool x11_process_event(osdisplay_data * pdisplaydata, XEvent & e);
+   //bool x11_process_event(osdisplay_data * pdisplaydata, XEvent & e);
 
 
-#endif
+//#endif
 
 
    void x11_post_message(MESSAGE &msg);
@@ -1137,24 +1137,24 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
             XEvent &e = *pevent;
 
-#if !defined(RASPBIAN)
+//#if !defined(RASPBIAN)
 
-            XGenericEventCookie *cookie;
+            XGenericEventCookie * pcookie;
 
-#endif
+//#endif
 
 #ifdef WITH_XI
 
             if(m_pobjectaExtendedEventListener)
             {
 
-               cookie = &e.xcookie;
+               pcookie = &e.xcookie;
 
             }
             else
             {
 
-               cookie = nullptr;
+               pcookie = nullptr;
 
             }
 
@@ -1165,7 +1165,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 #ifdef WITH_XI
 
-               if(!x11_process_event(&e, cookie))
+               if(!x11_process_event(&e, pcookie))
 
 #else
 
@@ -1300,24 +1300,24 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                XEvent e = {};
 
-#if !defined(RASPBIAN)
+//#if !defined(RASPBIAN)
 
-               XGenericEventCookie *cookie;
+               XGenericEventCookie * pcookie;
 
-#endif
+//#endif
 
 #ifdef WITH_XI
 
                if(m_pobjectaExtendedEventListener)
                {
 
-                  cookie = &e.xcookie;
+                  pcookie = &e.xcookie;
 
                }
                else
                {
 
-                  cookie = nullptr;
+                  pcookie = nullptr;
 
                }
 
@@ -1331,7 +1331,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 #ifdef WITH_XI
 
-                  if(!x11_process_event(&e, cookie))
+                  if(!x11_process_event(&e, pcookie))
 
 #else
 
@@ -1573,48 +1573,93 @@ else if(detail == 3)
 
                output_debug_string("\ndetail:" + __string(prawevent->detail));
 
+
                if(emessage != e_message_null)
                {
-//                  auto ptopic = psystem->topic(eid);
 
-  //                ::topic::context context;
+                  ::i64 iWparam = 'a';
 
-                  int iKey = XK_A;
+                  ::i64 iLparam = XK_a;
 
-                  if(is_return_key((XIRawEvent*)cookie->data))
+                  if (emessage == e_message_key_down || emessage == e_message_key_up)
                   {
 
-                     iKey = XK_Return;
+                     if(is_return_key((XIRawEvent*)cookie->data))
+                     {
+
+                        iWparam = '\n';
+
+                        iLparam = XK_Return;
+
+                     }
+                     else if(is_space_key((XIRawEvent*)cookie->data))
+                     {
+
+                        iWparam = ' ';
+
+                        iLparam = XK_space;
+
+                     }
+
+                     //ptopic->payload("return") = is_return_key(pgeevent);
+
+                     //ptopic->payload("space") = is_space_key(pgeevent);
 
                   }
-                  else if(is_space_key((XIRawEvent*)cookie->data))
-                  {
-
-                     iKey = XK_space;
-
-                  }
-
-
-//                  ptopic->payload("return") = is_return_key(prawevent);
-//
-//                  ptopic->payload("space") = is_space_key(prawevent);
 
                   //::topic::context context;
 
+                  for (auto & p : *m_pobjectaExtendedEventListener)
+                  {
+
+                     p->call(emessage, iWparam, iLparam);
+
+                     //p->on_subject(ptopic, &context);
+
+                  }
+
+//                  if(emessage != e_message_null)
+//               {
+////                  auto ptopic = psystem->topic(eid);
+//
+//  //                ::topic::context context;
+//
+//                  int iKey = XK_A;
+//
+//                  if(is_return_key((XIRawEvent*)cookie->data))
+//                  {
+//
+//                     iKey = XK_Return;
+//
+//                  }
+//                  else if(is_space_key((XIRawEvent*)cookie->data))
+//                  {
+//
+//                     iKey = XK_space;
+//
+//                  }
+//
+//
+////                  ptopic->payload("return") = is_return_key(prawevent);
+////
+////                  ptopic->payload("space") = is_space_key(prawevent);
+//
+//                  //::topic::context context;
+//
+////                  for(auto & p : *m_pobjectaExtendedEventListener)
+////                  {
+////
+////                     p->on_subject(ptopic, &context);
+////
+////                  }
+//
+//
 //                  for(auto & p : *m_pobjectaExtendedEventListener)
 //                  {
 //
-//                     p->on_subject(ptopic, &context);
+//                     p->call(emessage, iKey);
 //
 //                  }
-
-
-                  for(auto & p : *m_pobjectaExtendedEventListener)
-                  {
-
-                     p->call(emessage, iKey);
-
-                  }
 
                }
 

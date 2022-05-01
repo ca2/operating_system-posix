@@ -521,7 +521,7 @@ namespace windowing_x11
 
          }
 
-         ppropertyobject->payload("window") = window;
+         ppropertyobject->payload("window") = (::iptr) window;
 
          windowing_output_debug_string("\n::GetFocus 2");
 
