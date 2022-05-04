@@ -4,7 +4,7 @@
 #pragma once
 
 
-namespace posix
+namespace apex_posix
 {
 
 
@@ -24,7 +24,7 @@ namespace posix
    };
 
 
-} // namespace posix
+} // namespace apex_posix
 
 
 

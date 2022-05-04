@@ -42,11 +42,11 @@ __FACTORY_EXPORT void apex_posix_factory(::factory::factory * pfactory)
 #endif
 
 
-   pfactory->add_factory_item < ::apex::posix::node, ::acme::node > ();
+   pfactory->add_factory_item < ::apex_posix::node, ::acme::node > ();
 
-   pfactory->add_factory_item < ::posix::file_context, ::file_context >();
+   pfactory->add_factory_item < ::apex_posix::file_context, ::file_context >();
 
-   pfactory->add_factory_item < ::posix::os_context, ::os_context >();
+   pfactory->add_factory_item < ::apex_posix::os_context, ::os_context >();
 
 }
 

@@ -2,7 +2,7 @@
 #include <sys/stat.h>
 
 
-namespace posix
+namespace apex_posix
 {
 
 
@@ -51,7 +51,7 @@ namespace posix
    }
 
 
-} // namespace posix
+} // namespace apex_posix
 
 
 

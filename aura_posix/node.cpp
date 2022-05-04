@@ -9,47 +9,45 @@
 #endif
 
 
-namespace aura
+
+namespace aura_posix
 {
 
 
-   namespace posix
+   node::node()
    {
-
-
-      node::node()
-      {
 
 #if defined(WITH_X11) || defined(WITH_XCB)
          
          
-         m_pX11Display = nullptr;
+      m_pX11Display = nullptr;
 
 #endif // WITH_X11 || WITH_XCB
 
 
 #if defined(WITH_XCB)
 
-         m_pxcbconnection = nullptr;
+      m_pxcbconnection = nullptr;
          
 #endif
 
-         m_pAuraPosix = this;
+      m_pAuraPosix = this;
 
-      }
+   }
 
 
-      node::~node()
-      {
+   node::~node()
+   {
 
-         //      if(m_pGtkSettingsDefault)
-         //      {
-         //
-         //         g_object_unref(m_pGtkSettingsDefault);
-         //
-         //      }
+      //      if(m_pGtkSettingsDefault)
+      //      {
+      //
+      //         g_object_unref(m_pGtkSettingsDefault);
+      //
+      //      }
 
-      }
+   }
+
 
 //
 //      ::extended::transport<appindicator> node::new_appindicator()
@@ -69,14 +67,14 @@ namespace aura
 //      }
 
 
-      //   int node::node_init_check(int *pi, char ***ppz)
-      //   {
-      //
-      //      auto iResult = gtk_init_check(pi, ppz);
-      //
-      //      return iResult;
-      //
-      //   }
+   //   int node::node_init_check(int *pi, char ***ppz)
+   //   {
+   //
+   //      auto iResult = gtk_init_check(pi, ppz);
+   //
+   //      return iResult;
+   //
+   //   }
 
 
 //      ::e_status node::start()
@@ -179,12 +177,12 @@ namespace aura
 //      }
 
 
-      void node::initialize(::object * pobject)
-      {
+   void node::initialize(::object * pobject)
+   {
 
-         //auto estatus =
-         //
-         ::apex::posix::node::initialize(pobject);
+      //auto estatus =
+      //
+      ::apex_posix::node::initialize(pobject);
 
 //         if (!estatus)
 //         {
@@ -195,9 +193,9 @@ namespace aura
 
 #if defined(WITH_X11) || defined(WITH_XCB)
 
-         //estatus =
-         //
-         _allocate_Display_and_connection();
+      //estatus =
+      //
+      _allocate_Display_and_connection();
 
 //         if(!estatus)
 //         {
@@ -210,99 +208,318 @@ namespace aura
          
 #endif // WITH_X11
 
-         //return estatus;
+      //return estatus;
 
-      }
+   }
 
    
+   //void node::on_initialize_object()
+   //{
+
+   //   ::aura::node::on_initialize_object();
+
+   //   ::apex::posix::node::on_initialize_object();
+
+   //}
+
+   //
+   //::string node::system_options_html()
+   //{
+
+   //   return ::aura::node::system_options_html();
+
+   //}
+
+
+   //void node::set_application_menu(application_menu * pmenu, ::application * papp)
+   //{
+
+   //   ::aura::node::set_application_menu(pmenu, papp);
+
+   //}
+   //
+
+   //void node::call_async(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid)
+   //{
+
+   //   ::apex::posix::node::call_async(pszPath, pszParam, pszDir, edisplay, bPrivileged, puiPid);
+
+   //}
+
+   //
+   //void node::call_sync(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, const ::duration & durationTimeout, ::property_set & set)
+   //{
+
+   //   ::apex::posix::node::call_sync(pszPath, pszParam, pszDir, edisplay, durationTimeout, set);
+
+   //}
+
+
+   //int node::node_init_check(int * pi, char *** ppz)
+   //{
+
+   //   return ::apex::posix::node::node_init_check(pi, ppz);
+
+   //}
+
+   //void node::reboot()
+   //{
+
+   //   ::apex::posix::node::reboot();
+
+   //}
+
+   //void node::start_node()
+   //{
+
+   //   ::apex::posix::node::start_node();
+
+   //}
+
+   //void node::install_sigchld_handler()
+   //{
+
+   //   ::apex::posix::node::install_sigchld_handler();
+
+   //}
+
+
+   //void node::on_operating_system_user_theme_change()
+   //{
+
+   //   ::apex::posix::node::on_operating_system_user_theme_change();
+
+   //}
+
+
+   //void node::on_operating_system_user_color_change()
+   //{
+
+   //   ::apex::posix::node::on_operating_system_user_color_change();
+
+   //}
+
+
+   //void node::on_operating_system_font_list_change()
+   //{
+
+   //   ::apex::posix::node::on_operating_system_font_list_change();
+
+   //}
+
+
+   //void node::node_post(const ::function < void() > & function)
+   //{
+
+   //   ::aura::node::node_post(function);
+
+   //}
+
+
+   //void node::create_process(const string_base<char> & str, unsigned int * puId)
+   //{
+
+   //   ::apex::posix::node::create_process(str, puId);
+
+   //}
+
+
+   //void node::run_silent(const string_base<char> & str1, const string_base<char> & str2)
+   //{
+
+   //   ::apex::posix::node::run_silent(str1, str2);
+
+   //}
+
+
+   //bool node::process_modules(string_array & stra, u32 processID)
+   //{
+
+   //   return ::apex::posix::node::process_modules(stra, processID);
+
+   //}
+   //   
+   //bool node::load_modules_diff(string_array & straOld, string_array & straNew, const ::string & pszExceptDir)
+
+   //{
+
+   //   return ::apex::posix::node::load_modules_diff(straOld, straNew, pszExceptDir);
+   //}
+
+   //   id_array node::get_pids()
+   //{
+
+   //   return ::apex::posix::node::get_pids();
+
+
+   //}
+
+   //id_array node::module_path_get_pid(const ::string & pszModulePath, bool bModuleNameIsPropertyFormatted)
+   //{
+
+   //   return ::apex::posix::node::module_path_get_pid(pszModulePath, bModuleNameIsPropertyFormatted);
+
+   //}
+
+
+   //string node::module_path_from_pid(u32 pid)
+   //{
+
+   //   return ::apex::posix::node::module_path_from_pid(pid);
+
+   //}
+   //
+   //
+   //string node::command_line_from_pid(u32 pid)
+   //{
+
+   //   return ::apex::posix::node::command_line_from_pid(pid);
+
+   //}
+   //   bool node::is_shared_library_busy(u32 processid, const string_array & stra)
+   //{
+
+   //   return ::apex::posix::node::is_shared_library_busy(processid, stra);
+
+   //}
+
+   //   bool node::is_shared_library_busy(const string_array & stra)
+   //{
+
+   //   return ::apex::posix::node::is_shared_library_busy(stra);
+
+   //}
+   //   bool node::process_contains_module(string & strImage, ::u32 processID, const ::string & pszLibrary)
+   //{
+
+   //   return ::apex::posix::node::process_contains_module(strImage, processID, pszLibrary);
+
+   //}
+
+   //void node::shared_library_process(dword_array & dwa, string_array & straProcesses, const ::string & pszLibrary)
+   //{
+
+   //   ::apex::posix::node::shared_library_process(dwa, straProcesses, pszLibrary);
+
+   //}
+   //
+   //
+   //bool node::is_process_running(::u32 pid)
+   //{
+
+   //   return ::apex::posix::node::is_process_running(pid);
+
+   //}
+   //string node::get_environment_variable(const ::string & pszEnvironmentVariable)
+   //{
+
+   //   return ::apex::posix::node::get_environment_variable(pszEnvironmentVariable);
+
+   //}
+
+   //string node::expand_environment_variables(const ::string & str)
+   //{
+
+   //   return ::apex::posix::node::expand_environment_variables(str);
+
+   //}
+
+   //void node::delete_this()
+   //{
+
+   //   ::aura::node::delete_this();
+
+   //}
+
+
 #if defined(WITH_X11) || defined(WITH_XCB)
    
 
-      ::e_status node::_allocate_Display_and_connection()
+   ::e_status node::_allocate_Display_and_connection()
+   {
+
+      m_pX11Display = XOpenDisplay(nullptr);
+
+      if(!m_pX11Display)
       {
 
-         m_pX11Display = XOpenDisplay(nullptr);
+         return error_failed;
 
-         if(!m_pX11Display)
-         {
-
-            return error_failed;
-
-         }
+      }
 
 #if defined(WITH_XCB)
 
-         m_pxcbconnection = XGetXCBConnection((Display *) m_pX11Display);
+      m_pxcbconnection = XGetXCBConnection((Display *) m_pX11Display);
 
-         if(!m_pxcbconnection)
-         {
+      if(!m_pxcbconnection)
+      {
 
-            return error_failed;
+         return error_failed;
 
-         }
+      }
 
 #endif
 
-         return ::success;
+      return ::success;
 
-      }
+   }
 
    
-      void * node::_get_Display()
-      {
+   void * node::_get_Display()
+   {
 
-         return m_pX11Display;
+      return m_pX11Display;
 
-      }
+   }
 
 
 #if defined(WITH_XCB)
 
-      void * node::_get_connection()
-      {
+   void * node::_get_connection()
+   {
 
-         return m_pxcbconnection;
+      return m_pxcbconnection;
 
-      }
+   }
 
 #endif
    
 #endif
    
 
-      ::file::path node::get_desktop_file_path(::application * papp) const
-      {
+   ::file::path node::get_desktop_file_path(::application * papp) const
+   {
 
-         ::file::path path;
+      ::file::path path;
 
-         auto psystem = m_psystem;
+      auto psystem = m_psystem;
 
-         auto pacmedirectory = psystem->m_pacmedirectory;
+      auto pacmedirectory = psystem->m_pacmedirectory;
 
-         path = pacmedirectory->home();
+      path = pacmedirectory->home();
 
-         path /= ".local/share/applications";
+      path /= ".local/share/applications";
 
-         string strApplicationServerName = papp->m_strAppId;
+      string strApplicationServerName = papp->m_strAppId;
 
-         strApplicationServerName.find_replace("/", ".");
+      strApplicationServerName.find_replace("/", ".");
 
-         strApplicationServerName.find_replace("_", "-");
+      strApplicationServerName.find_replace("_", "-");
 
-         path /= (strApplicationServerName + ".desktop");
+      path /= (strApplicationServerName + ".desktop");
 
-         return path;
+      return path;
 
-      }
-
-
-      void node::main()
-      {
-
-         //auto estatus =
+   }
 
 
-            system_main();
+   void node::main()
+   {
+
+      //auto estatus =
+
+
+         system_main();
 //
 //         if(!estatus)
 //         {
@@ -324,13 +541,10 @@ namespace aura
 //
 //         return estatus;
 
-      }
+   }
 
 
-   } // namespace posix
-
-
-} // namespace aura
+} // namespace aura_posix
 
 
 

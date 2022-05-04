@@ -31,7 +31,7 @@ char * get_current_dir_name();
 #endif
 
 
-namespace posix
+namespace acme_posix
 {
 
 
@@ -479,7 +479,7 @@ namespace posix
    }
 
 
-} // namespace posix
+} // namespace acme_posix
 
 
 #if defined(__APPLE__) || defined(ANDROID)

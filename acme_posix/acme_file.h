@@ -7,7 +7,7 @@
 #include "acme/filesystem/filesystem/acme_file.h"
 
 
-namespace posix
+namespace acme_posix
 {
 
 
@@ -108,7 +108,7 @@ namespace posix
    };
 
 
-} // namespace posix
+} // namespace acme_posix
 
 
 

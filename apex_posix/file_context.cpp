@@ -6,7 +6,7 @@
 #include <sys/stat.h>
 
 
-namespace posix
+namespace apex_posix
 {
 
 
@@ -112,7 +112,7 @@ bool file_context::is_read_only(const ::file::path &psz)
    }
 
 
-} // namespace posix
+} // namespace apex_posix
 
 
 

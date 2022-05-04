@@ -13,7 +13,7 @@
 #include <unistd.h>
 
 
-namespace posix
+namespace acme_posix
 {
 
 
@@ -142,7 +142,7 @@ namespace posix
    }
 
 
-} // namespace file
+} // namespace acme_posix
 
 
 

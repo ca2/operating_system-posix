@@ -7,9 +7,6 @@
     <ClInclude Include="_acme_posix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="aaa_stdio_file.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="acme_directory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -50,9 +47,6 @@
     <ClCompile Include="_factory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="_process.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="acme_directory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -60,9 +54,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="acme_path.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="acme_posix.h.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dbus.cpp">
@@ -78,9 +69,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pipe.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="process.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

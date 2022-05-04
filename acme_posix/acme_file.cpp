@@ -29,7 +29,8 @@
 #define IS_UTIMENSAT_AVAILABLE (TRUE)
 #endif
 
-namespace posix
+
+namespace acme_posix
 {
 
 
@@ -937,7 +938,7 @@ namespace posix
    }
 
 
-}  // namespace posix
+}  // namespace acme_posix
 
 
 

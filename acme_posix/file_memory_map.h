@@ -7,7 +7,7 @@
 #include "acme/filesystem/file/memory_map.h"
 
 
-namespace posix
+namespace acme_posix
 {
 
 
@@ -39,7 +39,7 @@ namespace posix
    };
 
 
-} // namespace posix
+} // namespace acme_posix
 
 
 

@@ -23,32 +23,25 @@
 // }
 
 
-
-
-
-namespace aura
+namespace aura_posix
 {
 
 
-   namespace posix
+   shell::shell()
    {
 
+      //set_get_file_content_type_function(&core_linux_get_file_content_type);
 
-      shell::shell()
-      {
+      defer_create_mutex();
+      //begin();
 
-         //set_get_file_content_type_function(&core_linux_get_file_content_type);
+      m_bGetFileImageByIconPath = true;
 
-         defer_create_mutex();
-         //begin();
-
-         m_bGetFileImageByIconPath = true;
-
-         //SHGetImageList(SHIL_SMALL, IID_IImageList, m_pilSmall);
-         //SHGetImageList(SHIL_LARGE, IID_IImageList, m_pilLarge);
-         //SHGetImageList(SHIL_EXTRALARGE, IID_IImageList, m_pilExtraLarge);
-         //SHGetImageList(SHIL_JUMBO, IID_IImageList, m_pilJumbo);
-         /// SHGetMalloc(&m_pmalloc);
+      //SHGetImageList(SHIL_SMALL, IID_IImageList, m_pilSmall);
+      //SHGetImageList(SHIL_LARGE, IID_IImageList, m_pilLarge);
+      //SHGetImageList(SHIL_EXTRALARGE, IID_IImageList, m_pilExtraLarge);
+      //SHGetImageList(SHIL_JUMBO, IID_IImageList, m_pilJumbo);
+      /// SHGetMalloc(&m_pmalloc);
 
 //         for (index i = 0; i < get_processor_count() * 2; i++)
 //         {
@@ -64,33 +57,22 @@ namespace aura
 //
 //         }
 
-      }
+   }
 
 
-      shell::~shell()
-      {
+   shell::~shell()
+   {
 
-      }
+   }
 
 
-      void shell::initialize(::object * pobject)
-      {
+   void shell::initialize(::object * pobject)
+   {
 
-         //auto estatus =
-         //
+      //auto estatus =
+      //
 
-         ::user::shell::initialize(pobject);
-
-//         if(!estatus)
-//         {
-//
-//            return estatus;
-//
-//         }
-
-         //estatus =
-         //
-         __compose(m_pcontextimage);
+      ::user::shell::initialize(pobject);
 
 //         if(!estatus)
 //         {
@@ -99,9 +81,20 @@ namespace aura
 //
 //         }
 
-         //return estatus;
+      //estatus =
+      //
+      __compose(m_pcontextimage);
 
-      }
+//         if(!estatus)
+//         {
+//
+//            return estatus;
+//
+//         }
+
+      //return estatus;
+
+   }
 //
 //      void freebsd::initialize()
 //      {
@@ -225,273 +218,273 @@ namespace aura
 
 
 
-      //bool freebsd::get_icon(
-      //   per_fork * pfork,
-      //   oswindow oswindow,
-      //   IShellFolder * lpsf,
-      //   LPITEMIDLIST lpiidlAbsolute,
-      //   LPITEMIDLIST lpiidlChild,
-      //   const unichar * lpcszExtra,
-      //   e_icon eicon,
-      //   HICON * phicon16,
-      //   HICON * phicon48)
-      //{
+   //bool freebsd::get_icon(
+   //   per_fork * pfork,
+   //   oswindow oswindow,
+   //   IShellFolder * lpsf,
+   //   LPITEMIDLIST lpiidlAbsolute,
+   //   LPITEMIDLIST lpiidlChild,
+   //   const unichar * lpcszExtra,
+   //   e_icon eicon,
+   //   HICON * phicon16,
+   //   HICON * phicon48)
+   //{
 
-      //   single_lock synchronouslock(mutex(), true);
+   //   single_lock synchronouslock(mutex(), true);
 
-      //   if (lpsf == nullptr)
-      //      return false;
-      //   i32 iType;
-      //   switch (eicon)
-      //   {
-      //   case icon_normal:
-      //      iType = 0;
-      //      break;
-      //   case icon_open:
-      //      iType = GIL_OPENICON;
-      //      break;
-      //   default:
-      //      // unexpected icon type
-      //      ASSERT(false);
-      //      return false;
-      //   }
-
-
-      //   WCHAR szFilePath[_MAX_PATH * 10];
-      //   SHGetPathFromIDListW(
-      //      lpiidlAbsolute,
-      //      szFilePath);
-      //   string strFilePath(szFilePath);
-
-      //   //   WCHAR wszFilePath[_MAX_PATH * 10];
-      //   SHGetPathFromIDListW(
-      //      lpiidlAbsolute,
-      //      szFilePath);
-
-      //   char szPath[_MAX_PATH * 10];
-      //   string strPath;
-      //   //   i32 iImage = 0x80000000;
-
-      //   HICON hicon16 = nullptr;
-      //   HICON hicon48 = nullptr;
-      //   HRESULT hrIconLocation;
-      //   HRESULT hrExtract;
-      //   image_key imagekey;
+   //   if (lpsf == nullptr)
+   //      return false;
+   //   i32 iType;
+   //   switch (eicon)
+   //   {
+   //   case icon_normal:
+   //      iType = 0;
+   //      break;
+   //   case icon_open:
+   //      iType = GIL_OPENICON;
+   //      break;
+   //   default:
+   //      // unexpected icon type
+   //      ASSERT(false);
+   //      return false;
+   //   }
 
 
-      //   string strPathEx(strFilePath);
-      //   string strExtra;
+   //   WCHAR szFilePath[_MAX_PATH * 10];
+   //   SHGetPathFromIDListW(
+   //      lpiidlAbsolute,
+   //      szFilePath);
+   //   string strFilePath(szFilePath);
 
-      //   ::str::international::unicode_to_utf8(strExtra, lpcszExtra);
+   //   //   WCHAR wszFilePath[_MAX_PATH * 10];
+   //   SHGetPathFromIDListW(
+   //      lpiidlAbsolute,
+   //      szFilePath);
 
-      //   if (strExtra.get_length() > 0)
-      //   {
-      //      strPathEx += ":" + strExtra;
-      //   }
+   //   char szPath[_MAX_PATH * 10];
+   //   string strPath;
+   //   //   i32 iImage = 0x80000000;
+
+   //   HICON hicon16 = nullptr;
+   //   HICON hicon48 = nullptr;
+   //   HRESULT hrIconLocation;
+   //   HRESULT hrExtract;
+   //   image_key imagekey;
 
 
+   //   string strPathEx(strFilePath);
+   //   string strExtra;
 
-      //   i32 iIcon = 0x80000000;
-      //   ::u32 uFlags = 0;
+   //   ::str::international::unicode_to_utf8(strExtra, lpcszExtra);
 
-      //   SHFILEINFO shfi16;
-      //   SHFILEINFO shfi48;
-
-      //   ::freebsd::comptr< IExtractIcon > lpiextracticon;
-
-      //   if (SUCCEEDED(lpsf->GetUIObjectOf(
-      //      oswindow,
-      //      1,
-      //      (LPCITEMIDLIST *)&lpiidlChild,
-      //      IID_IExtractIcon,
-      //      nullptr,
-      //      lpiextracticon)))
-      //   {
-      //      if (SUCCEEDED(hrIconLocation = lpiextracticon->GetIconLocation(
-      //         iType,
-      //         szPath,
-      //         sizeof(szPath),
-      //         &iIcon,
-      //         &uFlags)))
-      //      {
-      //         strPath = szPath;
-      //         if (strPath == "*")
-      //         {
-      //            strsize iFind = strFilePath.reverse_find('.');
-
-      //            imagekey.m_iIcon = 0x80000000;
-      //            imagekey.m_pszExtension = (char*)&strFilePath[iFind];
-      //            imagekey.m_strPath = "";
-      //         }
-      //         else
-      //         {
-      //            imagekey.m_strPath = (char *)strPath.c_str();
-      //            imagekey.m_iIcon = iIcon;
-      //            imagekey.m_pszExtension = nullptr;
-      //         }
-      //      }
-      //   }
-      //   if (pcontext->m_papexcontext->dir().is(::str::international::unicode_to_utf8(szFilePath)))
-      //   {
-      //      if (imagekey.m_iIcon == 0x80000000)
-      //      {
-      //         SHGetFileInfo(
-      //            "foo",
-      //            FILE_ATTRIBUTE_DIRECTORY,
-      //            &shfi16,
-      //            sizeof(shfi16),
-      //            SHGFI_USEFILEATTRIBUTES
-      //            | SHGFI_ICON
-      //            | SHGFI_SMALLICON);
-      //         SHGetFileInfo(
-      //            "foo",
-      //            FILE_ATTRIBUTE_DIRECTORY,
-      //            &shfi48,
-      //            sizeof(shfi48),
-      //            SHGFI_USEFILEATTRIBUTES
-      //            | SHGFI_ICON
-      //            | SHGFI_LARGEICON);
-      //      }
-      //      else
-      //      {
-      //         strPath = "foo." + string(imagekey.m_pszExtension);
-      //         SHGetFileInfo(
-      //            strPath,
-      //            FILE_ATTRIBUTE_NORMAL,
-      //            &shfi16,
-      //            sizeof(shfi16),
-      //            SHGFI_USEFILEATTRIBUTES
-      //            | SHGFI_ICON
-      //            | SHGFI_SMALLICON);
-      //         SHGetFileInfo(
-      //            strPath,
-      //            FILE_ATTRIBUTE_NORMAL,
-      //            &shfi48,
-      //            sizeof(shfi48),
-      //            SHGFI_USEFILEATTRIBUTES
-      //            | SHGFI_ICON
-      //            | SHGFI_LARGEICON);
-      //      }
-      //      *phicon16 = shfi16.hIcon;
-      //      *phicon48 = shfi48.hIcon;
-      //   }
-      //   else
-      //   {
-      //      try
-      //      {
-      //         hicon16 = nullptr;
-      //         strPath.Truncate(0);
-      //         strPath.free_extra();
-      //         strPath = imagekey.m_strPath;
-      //         iIcon = imagekey.m_iIcon;
-      //         bool bExtract = false;
-      //         //HGLOBAL hglobal = ::GlobalAlloc(GPTR, strPath.get_length() + 1);
-      //         //char * lpsz = (char *) ::GlobalLock(hglobal);
-      //         //strcpy(lpsz, strPath);
-      //         try
-      //         {
-      //            if ((hrIconLocation == S_OK && !(uFlags & GIL_NOTFILENAME))
-      //               && lpiextracticon.is_null()
-      //               && (NOERROR == (hrExtract = lpiextracticon->Extract(
-      //                  strPath,
-      //                  iIcon,
-      //                  &hicon48,
-      //                  &hicon16,
-      //                  0x00100030)))
-      //               )
-      //            {
-      //               bExtract = true;
-      //               *phicon16 = hicon16;
-      //               *phicon48 = hicon48;
-      //            }
-      //         }
-      //         catch (...)
-      //         {
-      //         }
-      //         //::GlobalUnlock(hglobal);
-      //         //::GlobalFree(hglobal);
-      //         if (!bExtract)
-      //         {
-      //            if (strlen(imagekey.m_strPath) <= 0)
-      //            {
-      //               SHGetFileInfo(
-      //                  (const char *)lpiidlAbsolute,
-      //                  FILE_ATTRIBUTE_NORMAL,
-      //                  &shfi16,
-      //                  sizeof(shfi16),
-      //                  SHGFI_PIDL
-      //                  | SHGFI_ICON
-      //                  | SHGFI_SMALLICON);
-      //               hicon16 = shfi16.hIcon;
-      //               SHGetFileInfo(
-      //                  (const char *)lpiidlAbsolute,
-      //                  FILE_ATTRIBUTE_NORMAL,
-      //                  &shfi48,
-      //                  sizeof(shfi48),
-      //                  SHGFI_PIDL
-      //                  | SHGFI_ICON
-      //                  | SHGFI_LARGEICON);
-      //               hicon16 = shfi16.hIcon;
-      //               hicon48 = shfi48.hIcon;
-      //            }
-      //            else
-      //            {
-      //               ExtractIconEx(
-      //                  imagekey.m_strPath,
-      //                  imagekey.m_iIcon,
-      //                  &hicon48,
-      //                  &hicon16,
-      //                  1);
-      //            }
-      //            if (hicon16 == nullptr)
-      //            {
-      //               SHGetFileInfo(
-      //                  "foo",
-      //                  FILE_ATTRIBUTE_NORMAL,
-      //                  &shfi16,
-      //                  sizeof(shfi16),
-      //                  SHGFI_USEFILEATTRIBUTES
-      //                  | SHGFI_ICON
-      //                  | SHGFI_SMALLICON);
-      //               hicon16 = shfi16.hIcon;
-      //            }
-      //            if (hicon48 == nullptr)
-      //            {
-      //               SHGetFileInfo(
-      //                  "foo",
-      //                  FILE_ATTRIBUTE_NORMAL,
-      //                  &shfi48,
-      //                  sizeof(shfi48),
-      //                  SHGFI_USEFILEATTRIBUTES
-      //                  | SHGFI_ICON
-      //                  | SHGFI_LARGEICON);
-      //               hicon48 = shfi48.hIcon;
-      //            }
-      //            *phicon16 = hicon16;
-      //            *phicon48 = hicon48;
-      //         }
-      //      }
-      //      catch (...)
-      //      {
-      //      }
-      //   }
-
-      //   return true;
-
-      //}
+   //   if (strExtra.get_length() > 0)
+   //   {
+   //      strPathEx += ":" + strExtra;
+   //   }
 
 
 
-      //i32 freebsd::get_image(per_fork * pfork, oswindow oswindow, image_key imagekey, LPITEMIDLIST lpiidlAbsolute, const unichar * lpcszExtra, color32_t crBk)
-      //{
+   //   i32 iIcon = 0x80000000;
+   //   ::u32 uFlags = 0;
 
-      //   i32 iImage = get_image(pfork, oswindow, imagekey, lpiidlAbsolute, lpiidlChild, lpcszExtra, crBk);
+   //   SHFILEINFO shfi16;
+   //   SHFILEINFO shfi48;
 
-      //   _017ItemIDListFree(pfork, lpiidlChild);
+   //   ::freebsd::comptr< IExtractIcon > lpiextracticon;
 
-      //   return iImage;
+   //   if (SUCCEEDED(lpsf->GetUIObjectOf(
+   //      oswindow,
+   //      1,
+   //      (LPCITEMIDLIST *)&lpiidlChild,
+   //      IID_IExtractIcon,
+   //      nullptr,
+   //      lpiextracticon)))
+   //   {
+   //      if (SUCCEEDED(hrIconLocation = lpiextracticon->GetIconLocation(
+   //         iType,
+   //         szPath,
+   //         sizeof(szPath),
+   //         &iIcon,
+   //         &uFlags)))
+   //      {
+   //         strPath = szPath;
+   //         if (strPath == "*")
+   //         {
+   //            strsize iFind = strFilePath.reverse_find('.');
 
-      //}
+   //            imagekey.m_iIcon = 0x80000000;
+   //            imagekey.m_pszExtension = (char*)&strFilePath[iFind];
+   //            imagekey.m_strPath = "";
+   //         }
+   //         else
+   //         {
+   //            imagekey.m_strPath = (char *)strPath.c_str();
+   //            imagekey.m_iIcon = iIcon;
+   //            imagekey.m_pszExtension = nullptr;
+   //         }
+   //      }
+   //   }
+   //   if (pcontext->m_papexcontext->dir().is(::str::international::unicode_to_utf8(szFilePath)))
+   //   {
+   //      if (imagekey.m_iIcon == 0x80000000)
+   //      {
+   //         SHGetFileInfo(
+   //            "foo",
+   //            FILE_ATTRIBUTE_DIRECTORY,
+   //            &shfi16,
+   //            sizeof(shfi16),
+   //            SHGFI_USEFILEATTRIBUTES
+   //            | SHGFI_ICON
+   //            | SHGFI_SMALLICON);
+   //         SHGetFileInfo(
+   //            "foo",
+   //            FILE_ATTRIBUTE_DIRECTORY,
+   //            &shfi48,
+   //            sizeof(shfi48),
+   //            SHGFI_USEFILEATTRIBUTES
+   //            | SHGFI_ICON
+   //            | SHGFI_LARGEICON);
+   //      }
+   //      else
+   //      {
+   //         strPath = "foo." + string(imagekey.m_pszExtension);
+   //         SHGetFileInfo(
+   //            strPath,
+   //            FILE_ATTRIBUTE_NORMAL,
+   //            &shfi16,
+   //            sizeof(shfi16),
+   //            SHGFI_USEFILEATTRIBUTES
+   //            | SHGFI_ICON
+   //            | SHGFI_SMALLICON);
+   //         SHGetFileInfo(
+   //            strPath,
+   //            FILE_ATTRIBUTE_NORMAL,
+   //            &shfi48,
+   //            sizeof(shfi48),
+   //            SHGFI_USEFILEATTRIBUTES
+   //            | SHGFI_ICON
+   //            | SHGFI_LARGEICON);
+   //      }
+   //      *phicon16 = shfi16.hIcon;
+   //      *phicon48 = shfi48.hIcon;
+   //   }
+   //   else
+   //   {
+   //      try
+   //      {
+   //         hicon16 = nullptr;
+   //         strPath.Truncate(0);
+   //         strPath.free_extra();
+   //         strPath = imagekey.m_strPath;
+   //         iIcon = imagekey.m_iIcon;
+   //         bool bExtract = false;
+   //         //HGLOBAL hglobal = ::GlobalAlloc(GPTR, strPath.get_length() + 1);
+   //         //char * lpsz = (char *) ::GlobalLock(hglobal);
+   //         //strcpy(lpsz, strPath);
+   //         try
+   //         {
+   //            if ((hrIconLocation == S_OK && !(uFlags & GIL_NOTFILENAME))
+   //               && lpiextracticon.is_null()
+   //               && (NOERROR == (hrExtract = lpiextracticon->Extract(
+   //                  strPath,
+   //                  iIcon,
+   //                  &hicon48,
+   //                  &hicon16,
+   //                  0x00100030)))
+   //               )
+   //            {
+   //               bExtract = true;
+   //               *phicon16 = hicon16;
+   //               *phicon48 = hicon48;
+   //            }
+   //         }
+   //         catch (...)
+   //         {
+   //         }
+   //         //::GlobalUnlock(hglobal);
+   //         //::GlobalFree(hglobal);
+   //         if (!bExtract)
+   //         {
+   //            if (strlen(imagekey.m_strPath) <= 0)
+   //            {
+   //               SHGetFileInfo(
+   //                  (const char *)lpiidlAbsolute,
+   //                  FILE_ATTRIBUTE_NORMAL,
+   //                  &shfi16,
+   //                  sizeof(shfi16),
+   //                  SHGFI_PIDL
+   //                  | SHGFI_ICON
+   //                  | SHGFI_SMALLICON);
+   //               hicon16 = shfi16.hIcon;
+   //               SHGetFileInfo(
+   //                  (const char *)lpiidlAbsolute,
+   //                  FILE_ATTRIBUTE_NORMAL,
+   //                  &shfi48,
+   //                  sizeof(shfi48),
+   //                  SHGFI_PIDL
+   //                  | SHGFI_ICON
+   //                  | SHGFI_LARGEICON);
+   //               hicon16 = shfi16.hIcon;
+   //               hicon48 = shfi48.hIcon;
+   //            }
+   //            else
+   //            {
+   //               ExtractIconEx(
+   //                  imagekey.m_strPath,
+   //                  imagekey.m_iIcon,
+   //                  &hicon48,
+   //                  &hicon16,
+   //                  1);
+   //            }
+   //            if (hicon16 == nullptr)
+   //            {
+   //               SHGetFileInfo(
+   //                  "foo",
+   //                  FILE_ATTRIBUTE_NORMAL,
+   //                  &shfi16,
+   //                  sizeof(shfi16),
+   //                  SHGFI_USEFILEATTRIBUTES
+   //                  | SHGFI_ICON
+   //                  | SHGFI_SMALLICON);
+   //               hicon16 = shfi16.hIcon;
+   //            }
+   //            if (hicon48 == nullptr)
+   //            {
+   //               SHGetFileInfo(
+   //                  "foo",
+   //                  FILE_ATTRIBUTE_NORMAL,
+   //                  &shfi48,
+   //                  sizeof(shfi48),
+   //                  SHGFI_USEFILEATTRIBUTES
+   //                  | SHGFI_ICON
+   //                  | SHGFI_LARGEICON);
+   //               hicon48 = shfi48.hIcon;
+   //            }
+   //            *phicon16 = hicon16;
+   //            *phicon48 = hicon48;
+   //         }
+   //      }
+   //      catch (...)
+   //      {
+   //      }
+   //   }
+
+   //   return true;
+
+   //}
+
+
+
+   //i32 freebsd::get_image(per_fork * pfork, oswindow oswindow, image_key imagekey, LPITEMIDLIST lpiidlAbsolute, const unichar * lpcszExtra, color32_t crBk)
+   //{
+
+   //   i32 iImage = get_image(pfork, oswindow, imagekey, lpiidlAbsolute, lpiidlChild, lpcszExtra, crBk);
+
+   //   _017ItemIDListFree(pfork, lpiidlChild);
+
+   //   return iImage;
+
+   //}
 
 
 
@@ -540,59 +533,59 @@ namespace aura
 //
 
 
-      shell::enum_folder shell::get_folder_type(::object * pobject, const ::string & str)
+   shell::enum_folder shell::get_folder_type(::object * pobject, const ::string & str)
+   {
+
+      return get_folder_type(pobject, ::str::international::utf8_to_unicode(str));
+
+   }
+
+
+   shell::enum_folder shell::get_folder_type(::object * pobject, const ::wstring & wstrPath)
+   {
+
+      string strPath;
+
+      ::str::international::unicode_to_utf8(strPath, wstrPath);
+
+      if (m_psystem->m_pacmedirectory->is(strPath))
       {
 
-         return get_folder_type(pobject, ::str::international::utf8_to_unicode(str));
+         return e_folder_file_system;
+
+      }
+      else
+      {
+
+         return e_folder_none;
 
       }
 
-
-      shell::enum_folder shell::get_folder_type(::object * pobject, const ::wstring & wstrPath)
-      {
-
-         string strPath;
-
-         ::str::international::unicode_to_utf8(strPath, wstrPath);
-
-         if (m_psystem->m_pacmedirectory->is(strPath))
-         {
-
-            return e_folder_file_system;
-
-         }
-         else
-         {
-
-            return e_folder_none;
-
-         }
-
-      }
+   }
 
 
-      void shell::on_update_sizes_interest()
-      {
+   void shell::on_update_sizes_interest()
+   {
 
-         synchronous_lock synchronouslock(mutex());
+      synchronous_lock synchronouslock(mutex());
 
-         m_iaSize.erase_all();
+      m_iaSize.erase_all();
 
-         m_iaSize.add(16);
+      m_iaSize.add(16);
 
-         m_iaSize.add(48);
+      m_iaSize.add(48);
 
-         ::user::shell::shell::on_update_sizes_interest();
+      ::user::shell::shell::on_update_sizes_interest();
 
-      }
+   }
 
 
-      bool shell::_get_file_image(_get_file_image_ & getfileimage)
-      {
+   bool shell::_get_file_image(_get_file_image_ & getfileimage)
+   {
          
-         return ::user::shell::_get_file_image(getfileimage);
+      return ::user::shell::_get_file_image(getfileimage);
 
-      }
+   }
 
 
 
@@ -747,13 +740,13 @@ namespace aura
 //
 
 
-      bool shell::get_image_by_file_extension(_get_file_image_ & getfileimage)
-      //i32 freebsd::get_image_foo(oswindow oswindow, const string & strExtension, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
+   bool shell::get_image_by_file_extension(_get_file_image_ & getfileimage)
+   //i32 freebsd::get_image_foo(oswindow oswindow, const string & strExtension, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
+   {
+
+      getfileimage.m_iImage = 0x80000000;
+
       {
-
-         getfileimage.m_iImage = 0x80000000;
-
-         {
 
 //            if (colorref_get_a_value(imagekey.m_cr) != 255)
 //            {
@@ -763,53 +756,53 @@ namespace aura
 //            }
 
 
-            //image_key imagekey;
+         //image_key imagekey;
 
-            getfileimage.m_imagekey.m_strShellThemePrefix = (char *)m_strShellThemePrefix.c_str();
+         getfileimage.m_imagekey.m_strShellThemePrefix = (char *)m_strShellThemePrefix.c_str();
 
-            getfileimage.m_imagekey.set_extension(getfileimage.m_imagekey.m_strPath);
+         getfileimage.m_imagekey.set_extension(getfileimage.m_imagekey.m_strPath);
 
-            getfileimage.m_imagekey.m_strPath = "foo";
+         getfileimage.m_imagekey.m_strPath = "foo";
 
-            if(getfileimage.m_imagekey.m_strExtension.is_empty())
-            {
+         if(getfileimage.m_imagekey.m_strExtension.is_empty())
+         {
 
-               return false;
+            return false;
 
-            }
+         }
 
 //            imagekey.m_eattribute = eattribute;
 
 //            imagekey.m_eicon = eicon;
 
-            getfileimage.m_imagekey.m_iIcon = 0;
+         getfileimage.m_imagekey.m_iIcon = 0;
 
-            {
-
-               synchronous_lock synchronouslock(mutex());
-
-               if (m_imagemap.lookup(getfileimage.m_imagekey, getfileimage.m_iImage))
-               {
-
-                  return getfileimage.m_iImage;
-
-               }
-
-            }
-
-            getfileimage.m_iImage = get_file_image(getfileimage.m_imagekey);
+         {
 
             synchronous_lock synchronouslock(mutex());
 
-            m_imagemap.set_at(getfileimage.m_imagekey, getfileimage.m_iImage);
+            if (m_imagemap.lookup(getfileimage.m_imagekey, getfileimage.m_iImage))
+            {
+
+               return getfileimage.m_iImage;
+
+            }
 
          }
 
-         //return iImage;
-         
-         return true;
+         getfileimage.m_iImage = get_file_image(getfileimage.m_imagekey);
+
+         synchronous_lock synchronouslock(mutex());
+
+         m_imagemap.set_at(getfileimage.m_imagekey, getfileimage.m_iImage);
 
       }
+
+      //return iImage;
+         
+      return true;
+
+   }
 
 
 //      int shell::add_hover_image(int iSize, int iImage, color32_t crBk)
@@ -867,7 +860,7 @@ namespace aura
 //
 //      }
 
-   //} // namespace shell
+//} // namespace shell
 
 
 //      ::e_status user::create_user_shell()
@@ -901,7 +894,7 @@ namespace aura
 //      }
 
 
-   } // namespace posix
+} // namespace aura_posix
 
 
-} // namespace aura
+

@@ -12,24 +12,4 @@
 #endif
 
 
-namespace apex
-{
-
-
-   namespace posix
-   {
-
-
-      class node;
-
-
-   } // namespace posix
-
-
-} // namespace apex
-
-
-
-
-
 

@@ -2,7 +2,7 @@
 #pragma once
 
 
-namespace posix
+namespace acme_posix
 {
 
 
@@ -39,7 +39,7 @@ namespace posix
    };
 
 
-} // namespace posix
+} // namespace acme_posix
 
 
 
