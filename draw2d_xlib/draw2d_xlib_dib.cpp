@@ -522,7 +522,7 @@ namespace draw2d_xlib
 
    //      //x64
    //#else
-   //      _asm
+   //      _asmxxx
    //      {
    //         emms
    //         mov      eax, isize
