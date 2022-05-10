@@ -5,6 +5,7 @@
 **/.git
 **/.svn
 **/CVS
+*.xcuserdata
 .DS_Store
 ._.DS_Store
 *.suo
