@@ -53,14 +53,28 @@
 			remoteGlobalIDString = 9A8E9E0E282A2FCA005FF778;
 			remoteInfo = ios_apex_posix;
 		};
-		9A8E9F05282A359A005FF778 /* PBXContainerItemProxy */ = {
+		9A951359282AF3BF009D7C28 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A2BB87E2654F8FB00ABA8B9 /* apex_posix.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A0C167F264A29B800B5CC33;
+			remoteInfo = apex_posix;
+		};
+		9A95135B282AF3C8009D7C28 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9AC2CFF92653DB2E00CC8096 /* aura.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A98A6031771D67E000AE16E;
+			remoteInfo = aura;
+		};
+		9A95135D282AF3D4009D7C28 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9A2BB87E2654F8FB00ABA8B9 /* apex_posix.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 9A8E9DF4282A2FCA005FF778;
 			remoteInfo = ios_apex_posix;
 		};
-		9A8E9F09282A35AF005FF778 /* PBXContainerItemProxy */ = {
+		9A95135F282AF3E1009D7C28 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9AC2CFF92653DB2E00CC8096 /* aura.xcodeproj */;
 			proxyType = 1;
@@ -269,6 +283,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				9A951360282AF3E1009D7C28 /* PBXTargetDependency */,
+				9A95135E282AF3D4009D7C28 /* PBXTargetDependency */,
 			);
 			name = ios_aura_posix;
 			productName = music_midi_core_audio_ios;
@@ -304,8 +320,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				9A8E9F0A282A35AF005FF778 /* PBXTargetDependency */,
-				9A8E9F06282A359A005FF778 /* PBXTargetDependency */,
+				9A95135C282AF3C8009D7C28 /* PBXTargetDependency */,
+				9A95135A282AF3BF009D7C28 /* PBXTargetDependency */,
 			);
 			name = aura_posix;
 			productName = os;
@@ -440,15 +456,25 @@
 			target = 07B657B7190F3CBF002DAADE /* ios_aura_posix */;
 			targetProxy = 07B657CD190F3CBF002DAADE /* PBXContainerItemProxy */;
 		};
-		9A8E9F06282A359A005FF778 /* PBXTargetDependency */ = {
+		9A95135A282AF3BF009D7C28 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = apex_posix;
+			targetProxy = 9A951359282AF3BF009D7C28 /* PBXContainerItemProxy */;
+		};
+		9A95135C282AF3C8009D7C28 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = aura;
+			targetProxy = 9A95135B282AF3C8009D7C28 /* PBXContainerItemProxy */;
+		};
+		9A95135E282AF3D4009D7C28 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ios_apex_posix;
-			targetProxy = 9A8E9F05282A359A005FF778 /* PBXContainerItemProxy */;
+			targetProxy = 9A95135D282AF3D4009D7C28 /* PBXContainerItemProxy */;
 		};
-		9A8E9F0A282A35AF005FF778 /* PBXTargetDependency */ = {
+		9A951360282AF3E1009D7C28 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ios_aura;
-			targetProxy = 9A8E9F09282A35AF005FF778 /* PBXContainerItemProxy */;
+			targetProxy = 9A95135F282AF3E1009D7C28 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
