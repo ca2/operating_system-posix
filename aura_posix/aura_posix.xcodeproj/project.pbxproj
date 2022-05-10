@@ -39,13 +39,6 @@
 			remoteGlobalIDString = 07B657B7190F3CBF002DAADE;
 			remoteInfo = music_midi_core_audio_ios;
 		};
-		9A41243B266C3F9800C3FF0E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9AC2CFF92653DB2E00CC8096 /* aura.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 9A98A6031771D67E000AE16E;
-			remoteInfo = aura;
-		};
 		9A413D37266EDEA500C3FF0E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9A2BB87E2654F8FB00ABA8B9 /* apex_posix.xcodeproj */;
@@ -53,12 +46,26 @@
 			remoteGlobalIDString = 9A0C1680264A29B800B5CC33;
 			remoteInfo = apex_posix;
 		};
-		9A7ED48F2670B4EA00BC7094 /* PBXContainerItemProxy */ = {
+		9A8E9ED1282A3362005FF778 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A2BB87E2654F8FB00ABA8B9 /* apex_posix.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9A8E9E0E282A2FCA005FF778;
+			remoteInfo = ios_apex_posix;
+		};
+		9A8E9F05282A359A005FF778 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9A2BB87E2654F8FB00ABA8B9 /* apex_posix.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 9A0C167F264A29B800B5CC33;
-			remoteInfo = apex_posix;
+			remoteGlobalIDString = 9A8E9DF4282A2FCA005FF778;
+			remoteInfo = ios_apex_posix;
+		};
+		9A8E9F09282A35AF005FF778 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9AC2CFF92653DB2E00CC8096 /* aura.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A20198924772E9000A31CBF;
+			remoteInfo = ios_aura;
 		};
 		9AC2D0012653DB2E00CC8096 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -173,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				9A413D38266EDEA500C3FF0E /* libapex_posix.dylib */,
+				9A8E9ED2282A3362005FF778 /* libios_apex_posix.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -296,8 +304,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				9A7ED4902670B4EA00BC7094 /* PBXTargetDependency */,
-				9A41243C266C3F9800C3FF0E /* PBXTargetDependency */,
+				9A8E9F0A282A35AF005FF778 /* PBXTargetDependency */,
+				9A8E9F06282A359A005FF778 /* PBXTargetDependency */,
 			);
 			name = aura_posix;
 			productName = os;
@@ -354,6 +362,13 @@
 			fileType = "compiled.mach-o.dylib";
 			path = libapex_posix.dylib;
 			remoteRef = 9A413D37266EDEA500C3FF0E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9A8E9ED2282A3362005FF778 /* libios_apex_posix.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = libios_apex_posix.a;
+			remoteRef = 9A8E9ED1282A3362005FF778 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		9AC2D0022653DB2E00CC8096 /* libaura.dylib */ = {
@@ -425,15 +440,15 @@
 			target = 07B657B7190F3CBF002DAADE /* ios_aura_posix */;
 			targetProxy = 07B657CD190F3CBF002DAADE /* PBXContainerItemProxy */;
 		};
-		9A41243C266C3F9800C3FF0E /* PBXTargetDependency */ = {
+		9A8E9F06282A359A005FF778 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = aura;
-			targetProxy = 9A41243B266C3F9800C3FF0E /* PBXContainerItemProxy */;
+			name = ios_apex_posix;
+			targetProxy = 9A8E9F05282A359A005FF778 /* PBXContainerItemProxy */;
 		};
-		9A7ED4902670B4EA00BC7094 /* PBXTargetDependency */ = {
+		9A8E9F0A282A35AF005FF778 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = apex_posix;
-			targetProxy = 9A7ED48F2670B4EA00BC7094 /* PBXContainerItemProxy */;
+			name = ios_aura;
+			targetProxy = 9A8E9F09282A35AF005FF778 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -443,15 +458,12 @@
 			buildSettings = {
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				EXECUTABLE_EXTENSION = a;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				EXECUTABLE_EXTENSION = "$(STATIC_LIBRARY_EXTENSION:default=a)";
+				EXECUTABLE_PREFIX = lib;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MACH_O_TYPE = staticlib;
+				PLATFORM_MODIFIER = ios;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -461,12 +473,12 @@
 			buildSettings = {
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				ENABLE_NS_ASSERTIONS = NO;
-				EXECUTABLE_EXTENSION = a;
+				EXECUTABLE_EXTENSION = "$(STATIC_LIBRARY_EXTENSION:default=a)";
+				EXECUTABLE_PREFIX = lib;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MACH_O_TYPE = staticlib;
+				PLATFORM_MODIFIER = ios;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
