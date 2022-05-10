@@ -34,9 +34,6 @@
 		9A8E9E04282A2FCA005FF778 /* _.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C1727264A2DAB00B5CC33 /* _.cpp */; };
 		9A8E9E05282A2FCA005FF778 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C1720264A2DAB00B5CC33 /* node.cpp */; };
 		9A8E9E06282A2FCA005FF778 /* os_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A226D4827CE9D7C0042BAC2 /* os_context.cpp */; };
-		9A8E9E08282A2FCA005FF778 /* libacme.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A412458266C41A000C3FF0E /* libacme.dylib */; };
-		9A8E9E09282A2FCA005FF778 /* libacme_posix.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0C17C7264A31EA00B5CC33 /* libacme_posix.dylib */; };
-		9A8E9E0A282A2FCA005FF778 /* libapex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0C17B6264A31D300B5CC33 /* libapex.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,9 +130,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A8E9E08282A2FCA005FF778 /* libacme.dylib in Frameworks */,
-				9A8E9E09282A2FCA005FF778 /* libacme_posix.dylib in Frameworks */,
-				9A8E9E0A282A2FCA005FF778 /* libapex.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,7 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				9A0C17C7264A31EA00B5CC33 /* libacme_posix.dylib */,
-				9A8E9E11282A2FCA005FF778 /* libios_acme_posix.dylib */,
+				9A8E9E11282A2FCA005FF778 /* libios_acme_posix.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -341,10 +335,10 @@
 			remoteRef = 9A0C17C6264A31EA00B5CC33 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9A8E9E11282A2FCA005FF778 /* libios_acme_posix.dylib */ = {
+		9A8E9E11282A2FCA005FF778 /* libios_acme_posix.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.dylib";
-			path = libios_acme_posix.dylib;
+			path = libios_acme_posix.a;
 			remoteRef = 9A8E9E10282A2FCA005FF778 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -596,8 +590,7 @@
 		9A8E9E0C282A2FCA005FF778 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DEVELOPMENT_TEAM = L8N5V6TZE5;
 				EXECUTABLE_EXTENSION = "$(STATIC_LIBRARY_EXTENSION:default=a)";
 				EXECUTABLE_PREFIX = lib;
 				MACH_O_TYPE = staticlib;
@@ -609,8 +602,7 @@
 		9A8E9E0D282A2FCA005FF778 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DEVELOPMENT_TEAM = L8N5V6TZE5;
 				EXECUTABLE_EXTENSION = "$(STATIC_LIBRARY_EXTENSION:default=a)";
 				EXECUTABLE_PREFIX = lib;
 				MACH_O_TYPE = staticlib;

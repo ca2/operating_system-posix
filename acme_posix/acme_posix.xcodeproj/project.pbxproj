@@ -44,7 +44,6 @@
 		9A8E9DCF282A2F7E005FF778 /* acme_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A892E7B26CDDAA8008D6412 /* acme_file.cpp */; };
 		9A8E9DD0282A2F7E005FF778 /* file_memory_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16B2264A2C6C00B5CC33 /* file_memory_map.cpp */; };
 		9A8E9DD1282A2F7E005FF778 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16B6264A2C6C00B5CC33 /* node.cpp */; };
-		9A8E9DD3282A2F7E005FF778 /* libacme.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0C1798264A315100B5CC33 /* libacme.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,7 +114,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A8E9DD3282A2F7E005FF778 /* libacme.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -555,8 +553,7 @@
 		9A8E9DD5282A2F7E005FF778 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DEVELOPMENT_TEAM = L8N5V6TZE5;
 				EXECUTABLE_EXTENSION = "$(STATIC_LIBRARY_EXTENSION:default=a)";
 				EXECUTABLE_PREFIX = lib;
 				MACH_O_TYPE = staticlib;
@@ -568,8 +565,7 @@
 		9A8E9DD6282A2F7E005FF778 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DEVELOPMENT_TEAM = L8N5V6TZE5;
 				EXECUTABLE_EXTENSION = "$(STATIC_LIBRARY_EXTENSION:default=a)";
 				EXECUTABLE_PREFIX = lib;
 				MACH_O_TYPE = staticlib;
