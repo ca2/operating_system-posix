@@ -83,7 +83,7 @@ namespace acme_posix
 
       ::e_status estatus = ::success;
 
-      if(IS_UTIMENSAT_AVAILABLE)
+#if IS_UTIMENSAT_AVAILABLE
       {
          
          int fd = ::open(path, O_WRONLY|O_CREAT, 0666);
@@ -111,9 +111,7 @@ namespace acme_posix
          }
 
       }
-      else
-      {
-         
+#else
          int rc = utimes(path, nullptr);
          
          if (rc)
@@ -123,7 +121,7 @@ namespace acme_posix
 
          }
          
-      }
+#endif
 
    }
 
