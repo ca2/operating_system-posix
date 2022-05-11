@@ -13,6 +13,7 @@
 		9A412448266C3FC500C3FF0E /* libapex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A412447266C3FC500C3FF0E /* libapex.dylib */; };
 		9A41244A266C3FC500C3FF0E /* libapex_posix.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A412449266C3FC500C3FF0E /* libapex_posix.dylib */; };
 		9A41244C266C3FE300C3FF0E /* libacme.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A41244B266C3FE300C3FF0E /* libacme.dylib */; };
+		9A750E85282B611000C4861B /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D0192653DB5B00CC8096 /* node.cpp */; };
 		9A91C2B22761845E00FE3905 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A91C2AE2761845100FE3905 /* Carbon.framework */; };
 		9A91C2B32761846100FE3905 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A91C2B12761845100FE3905 /* Cocoa.framework */; };
 		9AC2D02F2653DB5C00CC8096 /* shell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D00D2653DB5B00CC8096 /* shell.h */; };
@@ -425,6 +426,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A750E85282B611000C4861B /* node.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
