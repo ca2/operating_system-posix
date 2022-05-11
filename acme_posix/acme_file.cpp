@@ -81,47 +81,14 @@ namespace acme_posix
    void acme_file::touch(const char* path)
    {
 
-      ::e_status estatus = ::success;
-
-#if IS_UTIMENSAT_AVAILABLE
+      int rc = utimes(path, nullptr);
+      
+      if (rc)
       {
-         
-         int fd = ::open(path, O_WRONLY|O_CREAT, 0666);
-         
-         if (fd < 0)
-         {
-            
-            estatus = error_io;
-            
-         }
-         else
-         {
-
-            int rc = ::futimens(fd, nullptr);
-            
-            if (rc)
-            {
-            
-               estatus = error_failed;
-
-            }
-            
-            ::close(fd);
-            
-         }
+      
+         throw ::exception(error_failed, "posix::acme_file::touch");
 
       }
-#else
-         int rc = utimes(path, nullptr);
-         
-         if (rc)
-         {
-         
-            throw ::exception(error_failed, "posix::acme_file::touch");
-
-         }
-         
-#endif
 
    }
 
