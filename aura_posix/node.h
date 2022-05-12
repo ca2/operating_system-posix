@@ -76,19 +76,14 @@ namespace aura_posix
       //void delete_this() override;
 
 
-
-
 #if defined(WITH_X11) || defined(WITH_XCB)
-
-      ^ ^^^
 
       virtual ::e_status _allocate_Display_and_connection();
 
-
       void * _get_Display();
 
-
 #endif // WITH_X11 || WITH_XCB
+
 
 
 #if defined(WITH_XCB)

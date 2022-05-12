@@ -14,8 +14,8 @@ list(APPEND library_source
    node.h
    os_context.cpp
    os_context.h
-   system_color.cpp
-   system_time.cpp
+   #system_color.cpp
+   #system_time.cpp
    )
 
 

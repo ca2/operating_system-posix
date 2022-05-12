@@ -14,6 +14,8 @@
 #include <unistd.h>
 #endif
 
+critical_section * get_pid_cs();
+void init_chldstatus(int iPid);
 
 //struct chldstatus
 //{
@@ -92,13 +94,13 @@ namespace ansios
       if(bPiped)
       {
 
-         ::posix::pipe * ppipeOut = m_pipe.m_ppipeOut.cast < ::posix::pipe >();
+         ::acme_posix::pipe * ppipeOut = m_pipe.m_ppipeOut.cast < ::acme_posix::pipe >();
 
          posix_spawn_file_actions_adddup2(&actions, ppipeOut->m_fd[1],STDOUT_FILENO);
 
          posix_spawn_file_actions_adddup2(&actions, ppipeOut->m_fd[1],STDERR_FILENO);
 
-         ::posix::pipe * ppipeIn = m_pipe.m_ppipeIn.cast < ::posix::pipe >();
+         ::acme_posix::pipe * ppipeIn = m_pipe.m_ppipeIn.cast < ::acme_posix::pipe >();
 
          posix_spawn_file_actions_adddup2(&actions, ppipeIn->m_fd[0],STDIN_FILENO);
 

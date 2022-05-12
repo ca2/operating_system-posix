@@ -13,7 +13,7 @@ namespace windowing_x11
 
 
    class CLASS_DECL_ACME node :
-      virtual public ::aura::posix::node
+      virtual public ::aura_posix::node
    {
    public:
 

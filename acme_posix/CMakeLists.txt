@@ -7,7 +7,7 @@ list(APPEND library_source
    _.cpp
    _.h
    _factory.cpp
-   _process.cpp
+   #_process.cpp
    _acme_posix.h
    acme_directory.cpp
    acme_directory.h
@@ -24,7 +24,9 @@ list(APPEND library_source
    node.h
    pipe.cpp
    pipe.h
-   process.cpp
+   #stdio_file.cpp
+   #stdio_file.h
+   #process.cpp
    )
 
 
