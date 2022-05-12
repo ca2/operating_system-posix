@@ -16,6 +16,11 @@
 		9A750E85282B611000C4861B /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D0192653DB5B00CC8096 /* node.cpp */; };
 		9A91C2B22761845E00FE3905 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A91C2AE2761845100FE3905 /* Carbon.framework */; };
 		9A91C2B32761846100FE3905 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A91C2B12761845100FE3905 /* Cocoa.framework */; };
+		9A94DEDF282C4B7400F5C1CA /* _.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D01B2653DB5B00CC8096 /* _.cpp */; };
+		9A94DEE0282C4B7400F5C1CA /* appindicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D01C2653DB5B00CC8096 /* appindicator.cpp */; };
+		9A94DEE1282C4B7400F5C1CA /* _factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D01E2653DB5B00CC8096 /* _factory.cpp */; };
+		9A94DEE2282C4B7400F5C1CA /* framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D0152653DB5B00CC8096 /* framework.cpp */; };
+		9A94DEE3282C4B7400F5C1CA /* shell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D0292653DB5B00CC8096 /* shell.cpp */; };
 		9AC2D02F2653DB5C00CC8096 /* shell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D00D2653DB5B00CC8096 /* shell.h */; };
 		9AC2D0352653DB5C00CC8096 /* clipboard_data.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D0142653DB5B00CC8096 /* clipboard_data.h */; };
 		9AC2D0362653DB5C00CC8096 /* framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D0152653DB5B00CC8096 /* framework.cpp */; };
@@ -214,17 +219,17 @@
 			isa = PBXGroup;
 			children = (
 				9AC2D01B2653DB5B00CC8096 /* _.cpp */,
+				9AC2D01E2653DB5B00CC8096 /* _factory.cpp */,
+				9AC2D01C2653DB5B00CC8096 /* appindicator.cpp */,
+				9AC2D0152653DB5B00CC8096 /* framework.cpp */,
+				9AC2D0192653DB5B00CC8096 /* node.cpp */,
+				9AC2D0292653DB5B00CC8096 /* shell.cpp */,
 				9AC2D02C2653DB5B00CC8096 /* _.h */,
 				9AC2D0282653DB5B00CC8096 /* _aura_posix.h */,
-				9AC2D01C2653DB5B00CC8096 /* appindicator.cpp */,
 				9AC2D0262653DB5B00CC8096 /* appindicator.h */,
 				9AC2D0142653DB5B00CC8096 /* clipboard_data.h */,
-				9AC2D01E2653DB5B00CC8096 /* _factory.cpp */,
-				9AC2D0152653DB5B00CC8096 /* framework.cpp */,
 				9AC2D0242653DB5B00CC8096 /* framework.h */,
-				9AC2D0192653DB5B00CC8096 /* node.cpp */,
 				9AC2D01A2653DB5B00CC8096 /* node.h */,
-				9AC2D0292653DB5B00CC8096 /* shell.cpp */,
 				9AC2D00D2653DB5B00CC8096 /* shell.h */,
 				9AC2D01D2653DB5B00CC8096 /* user.h */,
 			);
@@ -426,7 +431,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A94DEE1282C4B7400F5C1CA /* _factory.cpp in Sources */,
 				9A750E85282B611000C4861B /* node.cpp in Sources */,
+				9A94DEDF282C4B7400F5C1CA /* _.cpp in Sources */,
+				9A94DEE2282C4B7400F5C1CA /* framework.cpp in Sources */,
+				9A94DEE3282C4B7400F5C1CA /* shell.cpp in Sources */,
+				9A94DEE0282C4B7400F5C1CA /* appindicator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
