@@ -4,7 +4,7 @@
 #pragma once
 
 
-////#include "third/sn/sn.h"
+////#include "sn/sn.h"
 
 
 //extern SnLauncheeContext * g_psncontext;

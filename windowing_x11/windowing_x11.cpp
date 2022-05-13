@@ -6,7 +6,7 @@
 #include "aura/operating_system/x11/_x11.h"
 #include "acme/id.h"
 #include "acme/constant/message.h"
-////#include "third/sn/sn.h"
+////#include "sn/sn.h"
 #include <fcntl.h> // library for fcntl function
 #include <sys/stat.h>
 // apt install libxxf86vm-dev

@@ -1,6 +1,6 @@
 #include "framework.h"
 #include "windowing_x11.h"
-////#include "third/sn/sn.h"
+////#include "sn/sn.h"
 
 
 extern ::mutex * user_mutex();

@@ -6,7 +6,7 @@
 #include "aura/operating_system/xcb/_xcb.h"
 #include "acme/id.h"
 #include "acme/constant/message.h"
-////#include "third/sn/sn.h"
+////#include "sn/sn.h"
 #include <fcntl.h> // library for fcntl function
 #include <sys/stat.h>
 //#include <Xcb/extensions/xf86vmode.h> // libxxf86vm-dev

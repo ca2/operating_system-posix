@@ -31,7 +31,7 @@
 #include "notify_icon.h"
 
 
-#include "third/include/_impl_cairo.h"
+#include "include/_impl_cairo.h"
 
 
 
