@@ -345,7 +345,9 @@ namespace windowing_x11
 
          Atom atomWindowTypeNormal;
 
-         atomWindowTypeNormal = x11_display()->intern_atom("_NET_WM_WINDOW_TYPE_NORMAL", False);
+         //atomWindowTypeNormal = x11_display()->intern_atom("_NET_WM_WINDOW_TYPE_NORMAL", False);
+
+         atomWindowTypeNormal = x11_display()->intern_atom("_NET_WM_WINDOW_TYPE_DIALOG", False);
 
          if(atomWindowTypeNormal != None)
          {
