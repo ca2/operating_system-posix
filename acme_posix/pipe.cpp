@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 
-#if defined(LINUX) || defined(ANDROID)
+#if defined(LINUX) || defined(ANDROID) || defined(FREEBSD)
 #include <fcntl.h>
 #undef USE_MISC
 
