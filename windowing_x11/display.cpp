@@ -109,6 +109,14 @@ namespace windowing_x11
 #endif // DEBUG
 
 
+   Display * display::_get_system_default_display()
+   {
+
+      return nullptr;
+
+   }
+
+
    void display::open()
    {
 
@@ -119,6 +127,11 @@ namespace windowing_x11
 
       }
 
+      //auto px11displayGdk = _get_system_default_display();
+
+      //m_px11display = ::x11::display::get(this, false, px11displayGdk);
+
+      // Using another new and different X11 Display connection apart from Gtk.
       m_px11display = ::x11::display::get(this, false);
 
       if(::is_null(m_px11display))

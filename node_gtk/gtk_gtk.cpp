@@ -13,6 +13,8 @@
 #include <sys/utsname.h>
 
 
+platform_char *** process_get_pargv();
+
 
 ////int uname(struct utsname *buf);
 //#ifndef RASPBIAN

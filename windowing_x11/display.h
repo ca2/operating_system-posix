@@ -66,6 +66,9 @@ namespace windowing_x11
 #endif
 
 
+      virtual ::Display * _get_system_default_display();
+
+
       virtual ::windowing_x11::window * _window(Window window);
 
       inline ::windowing_x11::windowing * x11_windowing() { return (::windowing_x11::windowing *) m_pwindowing->m_pWindowing; }

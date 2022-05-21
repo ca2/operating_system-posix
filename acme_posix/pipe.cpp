@@ -14,6 +14,10 @@
 #include <unistd.h>
 #endif
 
+#if defined(FREEBSD)
+#include <unistd.h>
+#endif
+
 
 namespace acme_posix
 {

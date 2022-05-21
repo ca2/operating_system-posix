@@ -1300,11 +1300,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                XEvent e = {};
 
-//#if !defined(RASPBIAN)
-
                XGenericEventCookie * pcookie;
-
-//#endif
 
 #ifdef WITH_XI
 
@@ -1324,7 +1320,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 #endif
 
                XNextEvent(pdisplay, &e);
-
 
                if(!m_pdisplay->m_px11display->x11_event(&e))
                {

@@ -32,7 +32,7 @@ namespace node_gtk
 
    display();
 
-   virtual ~display();
+   ~display() override;
 
 //   Display *display()
 //   {
@@ -58,6 +58,9 @@ namespace node_gtk
 //   {
 //      return ::is_null(this) ? 0 : m_atomLongStyleEx;
 //   }
+
+
+   ::Display * _get_system_default_display() override;
 
    bool is_null() const
    {

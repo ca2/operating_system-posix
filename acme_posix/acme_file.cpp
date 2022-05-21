@@ -10,6 +10,11 @@
 #include <sys/time.h>
 
 
+#if defined(ANDROID) || defined(LINUX) || defined(FREEBSD)
+#include "acme/operating_system/ansi/binreloc.h"
+#endif
+
+
 #include <fcntl.h>
 #include <utime.h>
 
@@ -481,7 +486,7 @@ namespace acme_posix
    ::file::path acme_file::module()
    {
 
-   #if defined(ANDROID) || defined(LINUX)
+   #if defined(ANDROID) || defined(LINUX) || defined(FREEBSD)
 
       ::file::path path;
 
