@@ -39,7 +39,7 @@ list(APPEND library_references
    )
 
 
-add_library(node_gtk SHARED ${library_source})
+add_library(node_gtk SHARED ${library_source} gtk-launch.cpp)
 
 target_precompile_headers(node_gtk PRIVATE framework.h)
 

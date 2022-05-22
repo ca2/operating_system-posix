@@ -486,7 +486,7 @@ namespace acme_posix
    ::file::path acme_file::module()
    {
 
-   #if defined(ANDROID) || defined(LINUX) || defined(FREEBSD)
+#if defined(ANDROID) || defined(LINUX)
 
       ::file::path path;
 

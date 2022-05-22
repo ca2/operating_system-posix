@@ -8,6 +8,11 @@
 #pragma once
 
 
+#ifdef G_OS_UNIX
+#include <gio/gdesktopappinfo.h>
+#endif
+
+
 namespace node_gtk
 {
 
@@ -19,6 +24,9 @@ namespace node_gtk
 
 
       gpointer m_pGtkSettingsDefault;
+
+      GdkAppLaunchContext * m_pgdkapplaunchcontext;
+      string_map < GDesktopAppInfo * > m_mapGDesktopAppInfo;
 
 
       node();
@@ -76,6 +84,8 @@ namespace node_gtk
       bool launch_on_node(::topic * ptopic) override;
 
       int os_launch_uri(const ::string & strUri, char * pszError = NULL, int iBufferSize = 0) override;
+
+      void shell_launch(const ::string & strAppId) override;
 
 
    };
