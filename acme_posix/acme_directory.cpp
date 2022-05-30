@@ -28,6 +28,14 @@ char * get_current_dir_name();
 #include <dirent.h>
 #elif defined(_UWP)
 #include "acme/os/universal_windows/file_winrt.h"
+#elif defined(FREEBSD)
+#define _GNU_SOURCE
+#include <dlfcn.h>
+#include <link.h>
+#include <sys/stat.h>
+#include <dirent.h>
+#include <unistd.h>
+char * get_current_dir_name();
 #endif
 
 

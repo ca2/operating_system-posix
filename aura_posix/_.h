@@ -12,18 +12,11 @@
 #endif
 
 
-namespace aura
+namespace aura_posix
 {
 
 
-   namespace posix
-   {
-
-
-      class node;
-
-
-   } // namespace posix
+   class node;
 
 
 } // namespace aura_posix

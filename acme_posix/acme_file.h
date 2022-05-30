@@ -105,6 +105,9 @@ namespace acme_posix
       void set_modification_time(const char* psz, const ::earth::time& time) override;
 
 
+      void _erase(const char * path) override;
+
+
    };
 
 

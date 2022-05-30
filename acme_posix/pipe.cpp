@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 
-#if defined(LINUX) || defined(ANDROID)
+#if defined(LINUX) || defined(ANDROID) || defined(FREEBSD)
 #include <fcntl.h>
 #undef USE_MISC
 
@@ -11,6 +11,10 @@
 
 #if defined(RASPBIAN)
 #include <sys/types.h>
+#include <unistd.h>
+#endif
+
+#if defined(FREEBSD)
 #include <unistd.h>
 #endif
 

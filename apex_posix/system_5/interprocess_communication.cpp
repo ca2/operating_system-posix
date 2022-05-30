@@ -66,7 +66,7 @@ namespace system_5
 
       }
 
-      if((m_iQueue = msgget(m_key,IPC_CREAT | 0660)) == -1)
+      if((m_iQueue = msgget(m_key, 0)) == -1)
       {
 
          throw ::exception(error_failed);
@@ -240,15 +240,23 @@ namespace system_5
       if(m_key == 0)
       {
 
-         throw ::exception(error_failed);
+         int iErrorNumber = errno;
+
+         auto estatus = errno_to_status(iErrorNumber);
+
+         throw ::exception(estatus, "ftok(\""+strChannel+"\", 'c') has failed");
 
       }
 
       //if((m_iQueue = msgget(m_key,IPC_CREAT | IPC_EXCL | 0660)) == -1)
-      if((m_iQueue = msgget(m_key,IPC_CREAT | 0660)) == -1)
+      if((m_iQueue = msgget(m_key, IPC_CREAT | IPC_EXCL | 0660)) == -1)
       {
 
-         throw ::exception(error_failed);
+         int iErrorNumber = errno;
+
+         auto estatus = errno_to_status(iErrorNumber);
+
+         throw ::exception(estatus, "msgget has failed");
 
       }
 

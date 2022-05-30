@@ -56,6 +56,26 @@ namespace node_gtk
    }
 
 
+   ::Display * display::_get_system_default_display()
+   {
+
+      if(!os_defer_init_gtk())
+      {
+
+         return nullptr;
+
+      }
+
+      ::Display * pdisplay = ::gdk_x11_get_default_xdisplay();
+
+      return pdisplay;
+
+   }
+
+
+
+
+
 //   i32 osdisplay_find(Display *pdisplay)
 //   {
 //

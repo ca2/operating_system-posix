@@ -5,6 +5,10 @@
 #include "file_context.h"
 #include <sys/stat.h>
 
+#if defined(FREEBSD)
+#include <unistd.h>
+#endif
+
 
 namespace apex_posix
 {

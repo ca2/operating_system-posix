@@ -8,12 +8,17 @@
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 #include <glib.h>
+//#include <gtk/gtk.h>
+
 
 
 bool x11_message_loop_step();
 
 
 gboolean gtk_quit_callback(gpointer data);
+
+
+///int gtk_launch (const char * pszDesktopFileTitle);
 
 
 void __copy(::color::color & color, const GdkRGBA & rgba)
@@ -118,6 +123,8 @@ namespace node_gtk
 
       m_pGtkSettingsDefault = nullptr;
 
+      m_pgdkapplaunchcontext = nullptr;
+
    }
 
 
@@ -126,15 +133,36 @@ namespace node_gtk
 
       m_pGtkSettingsDefault = nullptr;
 
+      for(auto & pinfo : m_mapGDesktopAppInfo.values())
+      {
+
+         g_object_unref(pinfo);
+
+      }
+
+      if(m_pgdkapplaunchcontext)
+      {
+
+          g_object_unref(m_pgdkapplaunchcontext);
+
+      }
+
    }
 
 
    int node::node_init_check(int *pi, char ***ppz)
    {
 
-      auto iResult = gtk_init_check(pi, ppz);
+      //auto iResult = gtk_init_check(pi, ppz);
 
-      return iResult;
+      if(!os_defer_init_gtk())
+      {
+
+          return 0;
+
+      }
+
+      return 1;
 
    }
 
@@ -1091,6 +1119,54 @@ namespace node_gtk
       int iRet = gdk_launch_uri(strUri, pszError, iBufferSize);
 
       return iRet;
+
+   }
+
+
+   void node::shell_launch(const ::string & strAppId)
+   {
+
+      string strDesktopFileTitle(strAppId);
+
+      strDesktopFileTitle.find_replace("/", ".");
+
+      ::file::path pathDesktop;
+
+      pathDesktop = m_psystem->m_pacmedirectory->home() / ".local/share/applications" / (strDesktopFileTitle + ".desktop");
+
+      main_asynchronous([this,pathDesktop]()
+      {
+
+         GError * pgerror = NULL;
+         GDesktopAppInfo * pgdesktopappinfo;
+         GList * plistFiles = NULL;
+
+         pgdesktopappinfo = g_desktop_app_info_new_from_filename (pathDesktop);
+
+         if(!pgdesktopappinfo)
+         {
+
+            throw exception(error_failed);
+
+         }
+
+         m_mapGDesktopAppInfo[pathDesktop] = pgdesktopappinfo;
+
+         if(!m_pgdkapplaunchcontext)
+         {
+
+            m_pgdkapplaunchcontext = gdk_display_get_app_launch_context (gdk_display_get_default ());
+
+         }
+
+         if (!g_app_info_launch (G_APP_INFO(pgdesktopappinfo), plistFiles, G_APP_LAUNCH_CONTEXT(m_pgdkapplaunchcontext), &pgerror))
+         {
+
+             throw exception(error_failed);
+
+         }
+
+      });
 
    }
 

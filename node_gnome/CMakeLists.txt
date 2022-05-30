@@ -70,7 +70,13 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 
    endif()
 
+elseif(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
+
+    set(APPINDICATOR_PKG_MODULE "appindicator3-0.1")
+
 endif()
+
+
 
 
 add_library(node_gnome SHARED ${library_source} )

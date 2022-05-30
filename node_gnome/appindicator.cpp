@@ -52,12 +52,12 @@ extern "C"
 {
 
 
-static void __extra_action(GtkAction * action, gpointer data)
-{
+   static void __extra_action(GtkAction * action, gpointer data)
+   {
 
-   ___extra_action(action, data);
+      ___extra_action(action, data);
 
-}
+   }
 
 
 } // extern "C"

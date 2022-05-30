@@ -21,7 +21,7 @@ namespace windowing_posix
       ~windowing() override;
 
 
-      virtual void _libsn_start_context();
+      void _libsn_start_context() override;
 
 
    };
