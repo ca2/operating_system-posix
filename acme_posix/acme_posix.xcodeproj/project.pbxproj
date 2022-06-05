@@ -78,7 +78,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9A0C1638264A281D00B5CC33 /* libacme_posix.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libacme_posix.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A0C1638264A281D00B5CC33 /* acme_posix.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = acme_posix.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A0C16AF264A2C6C00B5CC33 /* pipe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pipe.cpp; sourceTree = "<group>"; };
 		9A0C16B2264A2C6C00B5CC33 /* file_memory_map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file_memory_map.cpp; sourceTree = "<group>"; };
 		9A0C16B3264A2C6C00B5CC33 /* framework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = framework.cpp; sourceTree = "<group>"; };
@@ -98,7 +98,7 @@
 		9A892E7D26CDDAA8008D6412 /* acme_file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = acme_file.h; sourceTree = "<group>"; };
 		9A892E7E26CDDAA8008D6412 /* acme_path.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = acme_path.cpp; sourceTree = "<group>"; };
 		9A892E7F26CDDAA8008D6412 /* acme_path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = acme_path.h; sourceTree = "<group>"; };
-		9A8E9DD7282A2F7E005FF778 /* libios_acme_posix.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libios_acme_posix.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A8E9DD7282A2F7E005FF778 /* ios_acme_posix.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = ios_acme_posix.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,8 +133,8 @@
 		9A0C1639264A281D00B5CC33 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9A0C1638264A281D00B5CC33 /* libacme_posix.dylib */,
-				9A8E9DD7282A2F7E005FF778 /* libios_acme_posix.a */,
+				9A0C1638264A281D00B5CC33 /* acme_posix.dylib */,
+				9A8E9DD7282A2F7E005FF778 /* ios_acme_posix.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -233,7 +233,7 @@
 			);
 			name = acme_posix;
 			productName = acme_posix;
-			productReference = 9A0C1638264A281D00B5CC33 /* libacme_posix.dylib */;
+			productReference = 9A0C1638264A281D00B5CC33 /* acme_posix.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		9A8E9DBB282A2F7E005FF778 /* ios_acme_posix */ = {
@@ -251,7 +251,7 @@
 			);
 			name = ios_acme_posix;
 			productName = acme_posix;
-			productReference = 9A8E9DD7282A2F7E005FF778 /* libios_acme_posix.a */;
+			productReference = 9A8E9DD7282A2F7E005FF778 /* ios_acme_posix.a */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
@@ -395,6 +395,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				EXECUTABLE_PREFIX = lib;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
@@ -487,6 +488,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -537,9 +539,6 @@
 		9A0C1642264A281D00B5CC33 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				EXECUTABLE_PREFIX = lib;
 				PLATFORM_MODIFIER = macos;
 			};
 			name = Debug;
@@ -547,9 +546,6 @@
 		9A0C1643264A281D00B5CC33 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				EXECUTABLE_PREFIX = lib;
 				PLATFORM_MODIFIER = macos;
 			};
 			name = Release;
@@ -557,9 +553,7 @@
 		9A8E9DD5282A2F7E005FF778 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = L8N5V6TZE5;
 				EXECUTABLE_EXTENSION = "$(STATIC_LIBRARY_EXTENSION:default=a)";
-				EXECUTABLE_PREFIX = lib;
 				MACH_O_TYPE = staticlib;
 				PLATFORM_MODIFIER = ios;
 				SDKROOT = iphoneos;
@@ -569,9 +563,7 @@
 		9A8E9DD6282A2F7E005FF778 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = L8N5V6TZE5;
 				EXECUTABLE_EXTENSION = "$(STATIC_LIBRARY_EXTENSION:default=a)";
-				EXECUTABLE_PREFIX = lib;
 				MACH_O_TYPE = staticlib;
 				PLATFORM_MODIFIER = ios;
 				SDKROOT = iphoneos;

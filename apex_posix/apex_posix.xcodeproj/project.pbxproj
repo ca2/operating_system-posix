@@ -20,7 +20,7 @@
 		9A226D4B27CE9D7C0042BAC2 /* os_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A226D4827CE9D7C0042BAC2 /* os_context.cpp */; };
 		9A226D4C27CE9D7C0042BAC2 /* os_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A226D4A27CE9D7C0042BAC2 /* os_context.h */; };
 		9A412459266C41A000C3FF0E /* libacme.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A412458266C41A000C3FF0E /* libacme.dylib */; };
-		9A787E4D264E2198003DF8A0 /* libacme_posix.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0C17C7264A31EA00B5CC33 /* libacme_posix.dylib */; };
+		9A787E4D264E2198003DF8A0 /* acme_posix.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0C17C7264A31EA00B5CC33 /* acme_posix.dylib */; };
 		9A787E4E264E2198003DF8A0 /* libapex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0C17B6264A31D300B5CC33 /* libapex.dylib */; };
 		9A8E9DFA282A2FCA005FF778 /* os_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A226D4A27CE9D7C0042BAC2 /* os_context.h */; };
 		9A8E9DFB282A2FCA005FF778 /* _.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1734264A2DAB00B5CC33 /* _.h */; };
@@ -96,7 +96,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9A0C1680264A29B800B5CC33 /* libapex_posix.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libapex_posix.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A0C1680264A29B800B5CC33 /* apex_posix.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; name = apex_posix.dylib; path = libapex_posix.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A0C171E264A2DAB00B5CC33 /* framework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = framework.cpp; sourceTree = "<group>"; };
 		9A0C1720264A2DAB00B5CC33 /* node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = node.cpp; sourceTree = "<group>"; };
 		9A0C1722264A2DAB00B5CC33 /* node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = node.h; sourceTree = "<group>"; };
@@ -121,15 +121,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A412459266C41A000C3FF0E /* libacme.dylib in Frameworks */,
-				9A787E4D264E2198003DF8A0 /* libacme_posix.dylib in Frameworks */,
+				9A787E4D264E2198003DF8A0 /* acme_posix.dylib in Frameworks */,
 				9A787E4E264E2198003DF8A0 /* libapex.dylib in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9A8E9E07282A2FCA005FF778 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,7 +143,7 @@
 		9A0C1681264A29B800B5CC33 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9A0C1680264A29B800B5CC33 /* libapex_posix.dylib */,
+				9A0C1680264A29B800B5CC33 /* apex_posix.dylib */,
 				9A8E9E0E282A2FCA005FF778 /* libios_apex_posix.a */,
 			);
 			name = Products;
@@ -187,8 +180,8 @@
 		9A0C17C3264A31EA00B5CC33 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9A0C17C7264A31EA00B5CC33 /* libacme_posix.dylib */,
-				9A8E9E11282A2FCA005FF778 /* libios_acme_posix.a */,
+				9A0C17C7264A31EA00B5CC33 /* acme_posix.dylib */,
+				9A8E9E11282A2FCA005FF778 /* ios_acme_posix.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -249,7 +242,7 @@
 			);
 			name = apex_posix;
 			productName = apex_posix;
-			productReference = 9A0C1680264A29B800B5CC33 /* libapex_posix.dylib */;
+			productReference = 9A0C1680264A29B800B5CC33 /* apex_posix.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		9A8E9DF4282A2FCA005FF778 /* ios_apex_posix */ = {
@@ -258,7 +251,6 @@
 			buildPhases = (
 				9A8E9DF9282A2FCA005FF778 /* Headers */,
 				9A8E9E00282A2FCA005FF778 /* Sources */,
-				9A8E9E07282A2FCA005FF778 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -328,16 +320,18 @@
 			remoteRef = 9A0C17B7264A31D300B5CC33 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9A0C17C7264A31EA00B5CC33 /* libacme_posix.dylib */ = {
+		9A0C17C7264A31EA00B5CC33 /* acme_posix.dylib */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.dylib";
+			name = acme_posix.dylib;
 			path = libacme_posix.dylib;
 			remoteRef = 9A0C17C6264A31EA00B5CC33 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9A8E9E11282A2FCA005FF778 /* libios_acme_posix.a */ = {
+		9A8E9E11282A2FCA005FF778 /* ios_acme_posix.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.dylib";
+			name = ios_acme_posix.a;
 			path = libios_acme_posix.a;
 			remoteRef = 9A8E9E10282A2FCA005FF778 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
@@ -433,6 +427,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				EXECUTABLE_PREFIX = lib;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
@@ -524,6 +519,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -574,9 +570,6 @@
 		9A0C168A264A29B800B5CC33 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				EXECUTABLE_PREFIX = lib;
 				PLATFORM_MODIFIER = macos;
 			};
 			name = Debug;
@@ -584,9 +577,6 @@
 		9A0C168B264A29B800B5CC33 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				EXECUTABLE_PREFIX = lib;
 				PLATFORM_MODIFIER = macos;
 			};
 			name = Release;
@@ -594,9 +584,7 @@
 		9A8E9E0C282A2FCA005FF778 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = L8N5V6TZE5;
-				EXECUTABLE_EXTENSION = "$(STATIC_LIBRARY_EXTENSION:default=a)";
-				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_EXTENSION = a;
 				MACH_O_TYPE = staticlib;
 				PLATFORM_MODIFIER = ios;
 				SDKROOT = iphoneos;
@@ -606,9 +594,7 @@
 		9A8E9E0D282A2FCA005FF778 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = L8N5V6TZE5;
-				EXECUTABLE_EXTENSION = "$(STATIC_LIBRARY_EXTENSION:default=a)";
-				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_EXTENSION = a;
 				MACH_O_TYPE = staticlib;
 				PLATFORM_MODIFIER = ios;
 				SDKROOT = iphoneos;
