@@ -522,7 +522,7 @@ namespace acme
 
                string strPath = path;
 
-               ::str::ends_eat_ci(strPath, " (deleted)");
+               ::::str::ch().ends_eat_ci(strPath, " (deleted)");
 
                //if (strTitle == strApp ||
                  //  strTitle == strApp2)

@@ -206,7 +206,7 @@ namespace windowing_xcb
 //
 //            for(; i < 8; i++)
 //            {
-//               if(!::str::ch::is_digit(wsz[i]) && !(wsz[i] >= 'A' && wsz[i] <= 'F') && !(wsz[i] >= 'a' && wsz[i] <= 'f'))
+//               if(!::::::str::ch().ch().is_digit(wsz[i]) && !(wsz[i] >= 'A' && wsz[i] <= 'F') && !(wsz[i] >= 'a' && wsz[i] <= 'f'))
 //                  break;
 //            }
 //
@@ -671,7 +671,7 @@ namespace windowing_xcb
 ////         string strHkl = straHkl[i];
 ////         HKL hkl;
 ////         strHkl.trim();
-////         if(::str::begins_eat_ci(strHkl, "0x"))
+////         if(::::str::ch().begins_eat_ci(strHkl, "0x"))
 ////         {
 ////            hkl = (HKL) ::hex::to_uptr(strHkl);
 ////         }

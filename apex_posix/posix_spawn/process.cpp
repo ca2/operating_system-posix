@@ -112,7 +112,7 @@ namespace ansios
 
       string strFallback;
 
-      if(::str::begins_ci(strFallback, "/Users/"))
+      if(::::str::ch().begins_ci(strFallback, "/Users/"))
       {
 
          index i = 0;
