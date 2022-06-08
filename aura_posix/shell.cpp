@@ -536,7 +536,7 @@ namespace aura_posix
    shell::enum_folder shell::get_folder_type(::object * pobject, const ::string & str)
    {
 
-      return get_folder_type(pobject, ::::str::ch().international::utf8_to_unicode(str));
+      return get_folder_type(pobject, utf8_to_unicode(str));
 
    }
 
@@ -546,7 +546,7 @@ namespace aura_posix
 
       string strPath;
 
-      ::::str::ch().international::unicode_to_utf8(strPath, wstrPath);
+      unicode_to_utf8(strPath, wstrPath);
 
       if (m_psystem->m_pacmedirectory->is(strPath))
       {
