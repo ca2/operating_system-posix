@@ -448,7 +448,7 @@ namespace acme_posix
 
       stra.add_lines(str);
 
-      return (int) stra.predicate_get_count([](auto str) { return ::::str::ch().begins(str, "cpu"); });
+      return (int) stra.predicate_get_count([](auto str) { return str.begins("cpu"); });
 
 #endif
 
@@ -1003,7 +1003,7 @@ namespace acme_posix
 
             string strPath = path;
 
-            ::::str::ch().ends_eat_ci(strPath, " (deleted)");
+            strPath.ends_eat(" (deleted)");
 
             //if (strTitle == strApp ||
                //  strTitle == strApp2)

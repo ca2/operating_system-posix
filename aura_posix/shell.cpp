@@ -275,7 +275,7 @@ namespace aura_posix
    //   string strPathEx(strFilePath);
    //   string strExtra;
 
-   //   ::::str::ch().international::unicode_to_utf8(strExtra, lpcszExtra);
+   //   unicode_to_utf8(strExtra, lpcszExtra);
 
    //   if (strExtra.get_length() > 0)
    //   {
@@ -324,7 +324,7 @@ namespace aura_posix
    //         }
    //      }
    //   }
-   //   if (pcontext->m_papexcontext->dir().is(::::str::ch().international::unicode_to_utf8(szFilePath)))
+   //   if (pcontext->m_papexcontext->dir().is(unicode_to_utf8(szFilePath)))
    //   {
    //      if (imagekey.m_iIcon == 0x80000000)
    //      {

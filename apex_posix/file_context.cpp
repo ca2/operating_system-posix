@@ -30,7 +30,7 @@ namespace apex_posix
    //
    //   WIN32_FILE_ATTRIBUTE_DATA data;
    //
-   //   if (!GetFileAttributesExW(::::str::ch().international::utf8_to_unicode(path), GetFileExInfoStandard, &data))
+   //   if (!GetFileAttributesExW(utf8_to_unicode(path), GetFileExInfoStandard, &data))
    //   {
    //
    //      varRet.set_type(::e_type_null);

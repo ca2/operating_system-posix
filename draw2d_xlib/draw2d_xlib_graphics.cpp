@@ -1715,7 +1715,7 @@ namespace draw2d_xlib
       }
 
       //ASSERT(get_handle1() != nullptr);
-      //wstring wstr = ::::str::ch().international::utf8_to_unicode(str);
+      //wstring wstr = utf8_to_unicode(str);
       return text_out(x, y, str, (i32) str.get_length());
 
    } // call virtual
@@ -1770,7 +1770,7 @@ namespace draw2d_xlib
       }
 
       //ASSERT(get_handle1() != nullptr);
-      //wstring wstr = ::::str::ch().international::utf8_to_unicode(str);
+      //wstring wstr = utf8_to_unicode(str);
       return text_out(x, y, str, (i32) str.get_length());
 
    } // call virtual
@@ -4514,7 +4514,7 @@ namespace draw2d_xlib
       // these flags would modify the string
       ASSERT((nFormat & (DT_END_ELLIPSIS | DT_MODIFYSTRING)) != (DT_END_ELLIPSIS | DT_MODIFYSTRING));
       ASSERT((nFormat & (DT_PATH_ELLIPSIS | DT_MODIFYSTRING)) != (DT_PATH_ELLIPSIS | DT_MODIFYSTRING));
-      wstring wstr = ::::str::ch().international::utf8_to_unicode(string(lpszString, nCount));
+      wstring wstr = utf8_to_unicode(string(lpszString, nCount));
       return ::DrawTextW(get_handle1(), wstr, (i32) wcslen(wstr), rectangle, nFormat); */
 
       return draw_text(string(lpszString, nCount), rectangle, nFormat);
@@ -4632,7 +4632,7 @@ namespace draw2d_xlib
             // these flags would modify the string
             ASSERT((nFormat & (DT_END_ELLIPSIS | DT_MODIFYSTRING)) != (DT_END_ELLIPSIS | DT_MODIFYSTRING));
             ASSERT((nFormat & (DT_PATH_ELLIPSIS | DT_MODIFYSTRING)) != (DT_PATH_ELLIPSIS | DT_MODIFYSTRING));
-            wstring wstr = ::::str::ch().international::utf8_to_unicode(string(lpszString, nCount));
+            wstring wstr = utf8_to_unicode(string(lpszString, nCount));
             return ::DrawTextExW(get_handle1(), const_cast<unichar *>((const unichar *)wstr), (i32)wcslen(wstr), rectangle, nFormat, lpDTParams);
       */
    }
@@ -4648,7 +4648,7 @@ namespace draw2d_xlib
             // these flags would modify the string
             ASSERT((nFormat & (DT_END_ELLIPSIS | DT_MODIFYSTRING)) != (DT_END_ELLIPSIS | DT_MODIFYSTRING));
             ASSERT((nFormat & (DT_PATH_ELLIPSIS | DT_MODIFYSTRING)) != (DT_PATH_ELLIPSIS | DT_MODIFYSTRING));
-            wstring wstr = ::::str::ch().international::utf8_to_unicode(str);
+            wstring wstr = utf8_to_unicode(str);
             return ::DrawTextExW(get_handle1(), const_cast<unichar *>((const unichar *)wstr), (i32)wcslen(wstr), rectangle, nFormat, lpDTParams);
       */
 
@@ -4729,7 +4729,7 @@ namespace draw2d_xlib
             ASSERT(get_handle1() != nullptr);
             ::size_i32 size;
             string str(lpszString, nCount);
-            wstring wstr = ::::str::ch().international::utf8_to_unicode(str);
+            wstring wstr = utf8_to_unicode(str);
             VERIFY(::GetTextExtentPoint32W(get_handle1(), wstr, (i32)wstr.get_length(), &size));
             return size;
       */
@@ -4745,7 +4745,7 @@ namespace draw2d_xlib
       /*
             ASSERT(get_handle1() != nullptr);
             ::size_i32 size;
-            wstring wstr = ::::str::ch().international::utf8_to_unicode(str);
+            wstring wstr = utf8_to_unicode(str);
             VERIFY(::GetTextExtentPoint32W(get_handle1(), wstr, (i32)wstr.get_length(), &size));
             return size;
       */
