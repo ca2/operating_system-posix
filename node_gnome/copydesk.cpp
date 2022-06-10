@@ -238,7 +238,7 @@ namespace node_gnome
 
       pdata->increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_P_NOTE(this, "copydesk::_desk_to_image"));
 
-      pdata->m_pimage = m_pcontext->context_image()->create_image();
+      pdata->m_pimage = pcontext->m_pauracontext->create_image();
 
       auto idle_source = g_idle_source_new();
 

@@ -696,7 +696,7 @@ namespace windowing_xcb
    bool window::set_icon(::image *pimage)
    {
 
-      auto d1 = m_pcontext->context_image()->create_image({32, 32});
+      auto d1 = pcontext->m_pauracontext->create_image({32, 32});
 
       if (!::is_ok(d1))
       {
