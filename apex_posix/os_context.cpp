@@ -51,6 +51,15 @@ namespace apex_posix
    }
 
 
+   int os_context::get_pid()
+   {
+      
+      return ::getpid();
+
+   }
+
+
+
 } // namespace apex_posix
 
 

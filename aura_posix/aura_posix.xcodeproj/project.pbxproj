@@ -199,7 +199,7 @@
 		9A413D34266EDEA500C3FF0E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9A413D38266EDEA500C3FF0E /* libapex_posix.dylib */,
+				9A413D38266EDEA500C3FF0E /* apex_posix.dylib */,
 				9A8E9ED2282A3362005FF778 /* libios_apex_posix.a */,
 			);
 			name = Products;
@@ -219,17 +219,17 @@
 			isa = PBXGroup;
 			children = (
 				9AC2D01B2653DB5B00CC8096 /* _.cpp */,
-				9AC2D01E2653DB5B00CC8096 /* _factory.cpp */,
-				9AC2D01C2653DB5B00CC8096 /* appindicator.cpp */,
-				9AC2D0152653DB5B00CC8096 /* framework.cpp */,
-				9AC2D0192653DB5B00CC8096 /* node.cpp */,
-				9AC2D0292653DB5B00CC8096 /* shell.cpp */,
 				9AC2D02C2653DB5B00CC8096 /* _.h */,
 				9AC2D0282653DB5B00CC8096 /* _aura_posix.h */,
+				9AC2D01E2653DB5B00CC8096 /* _factory.cpp */,
+				9AC2D01C2653DB5B00CC8096 /* appindicator.cpp */,
 				9AC2D0262653DB5B00CC8096 /* appindicator.h */,
 				9AC2D0142653DB5B00CC8096 /* clipboard_data.h */,
+				9AC2D0152653DB5B00CC8096 /* framework.cpp */,
 				9AC2D0242653DB5B00CC8096 /* framework.h */,
+				9AC2D0192653DB5B00CC8096 /* node.cpp */,
 				9AC2D01A2653DB5B00CC8096 /* node.h */,
+				9AC2D0292653DB5B00CC8096 /* shell.cpp */,
 				9AC2D00D2653DB5B00CC8096 /* shell.h */,
 				9AC2D01D2653DB5B00CC8096 /* user.h */,
 			);
@@ -379,9 +379,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		9A413D38266EDEA500C3FF0E /* libapex_posix.dylib */ = {
+		9A413D38266EDEA500C3FF0E /* apex_posix.dylib */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.dylib";
+			name = apex_posix.dylib;
 			path = libapex_posix.dylib;
 			remoteRef = 9A413D37266EDEA500C3FF0E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
@@ -497,7 +498,6 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				EXECUTABLE_EXTENSION = "$(STATIC_LIBRARY_EXTENSION:default=a)";
-				EXECUTABLE_PREFIX = lib;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				MACH_O_TYPE = staticlib;
@@ -512,7 +512,6 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				EXECUTABLE_EXTENSION = "$(STATIC_LIBRARY_EXTENSION:default=a)";
-				EXECUTABLE_PREFIX = lib;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				MACH_O_TYPE = staticlib;

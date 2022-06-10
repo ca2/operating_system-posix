@@ -16,6 +16,9 @@ namespace apex_posix
 
 
       bool is_alias(const char* path) override;
+      
+      
+      virtual int get_pid() override;
 
 
    };
