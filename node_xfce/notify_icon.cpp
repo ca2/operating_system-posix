@@ -146,7 +146,7 @@ namespace node_xfce
 
          string strId(strAppId);
 
-         string strMatterRoot = ::str::token(strId, "/");
+         string strMatterRoot = ::str().token(strId, "/");
 
          if(strMatterRoot.is_empty())
          {
@@ -208,13 +208,13 @@ namespace node_xfce
 //
 //      string str(str1);
 //
-//      if(::str::begins_eat_ci(str, "app_veriwell_"))
+//      if(::str().begins_eat_ci(str, "app_veriwell_"))
 //      {
 //
 //         strFolder+="app-veriwell";
 //
 //      }
-//      else if(::str::begins_eat_ci(str, "app_core_"))
+//      else if(::str().begins_eat_ci(str, "app_core_"))
 //      {
 //
 //         strFolder+="app-core";

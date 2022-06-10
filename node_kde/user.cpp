@@ -120,7 +120,7 @@
 //
 //      }
 //
-//      ::str::begins_eat_ci(strWallpaper, "file://");
+//      ::str().begins_eat_ci(strWallpaper, "file://");
 //
 //      return strWallpaper;
 //

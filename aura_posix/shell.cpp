@@ -275,7 +275,7 @@ namespace aura_posix
    //   string strPathEx(strFilePath);
    //   string strExtra;
 
-   //   ::str::international::unicode_to_utf8(strExtra, lpcszExtra);
+   //   unicode_to_utf8(strExtra, lpcszExtra);
 
    //   if (strExtra.get_length() > 0)
    //   {
@@ -324,7 +324,7 @@ namespace aura_posix
    //         }
    //      }
    //   }
-   //   if (pcontext->m_papexcontext->dir().is(::str::international::unicode_to_utf8(szFilePath)))
+   //   if (pcontext->m_papexcontext->dir().is(unicode_to_utf8(szFilePath)))
    //   {
    //      if (imagekey.m_iIcon == 0x80000000)
    //      {
@@ -536,7 +536,7 @@ namespace aura_posix
    shell::enum_folder shell::get_folder_type(::object * pobject, const ::string & str)
    {
 
-      return get_folder_type(pobject, ::str::international::utf8_to_unicode(str));
+      return get_folder_type(pobject, utf8_to_unicode(str));
 
    }
 
@@ -546,7 +546,7 @@ namespace aura_posix
 
       string strPath;
 
-      ::str::international::unicode_to_utf8(strPath, wstrPath);
+      unicode_to_utf8(strPath, wstrPath);
 
       if (m_psystem->m_pacmedirectory->is(strPath))
       {
