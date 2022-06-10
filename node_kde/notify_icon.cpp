@@ -90,7 +90,7 @@ namespace node_kde
 
       auto pimage = m_pcontext->context_image()->get_image("matter://main/icon-256.png");
 
-      auto pimage24 = pcontext->m_pauracontext->create_image({24, 24});
+      auto pimage24 = m_pcontext->m_pauracontext->create_image({24, 24});
 
       image_source imagesource(pimage);
 
