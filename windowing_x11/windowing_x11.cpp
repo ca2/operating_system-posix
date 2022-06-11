@@ -2034,7 +2034,7 @@ else if(detail == 3)
                if (pinteraction != nullptr)
                {
 
-                  ::user::primitive *pimpl = pinteraction->m_pprimitiveimpl;
+                  auto pimpl = pinteraction->m_pprimitiveimpl;
 
                   bool bHandled = false;
 

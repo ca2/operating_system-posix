@@ -479,7 +479,7 @@ namespace multimedia
 
          }
 
-         if(time > 0)
+         if(time > 0_s)
          {
 
             //output_debug_string("test");
