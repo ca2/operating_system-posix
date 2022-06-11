@@ -1795,7 +1795,7 @@ else if(detail == 3)
                         if (false)
                         {
 
-                           if (pinteraction->m_durationMouseMovePeriod > 0)
+                           if (pinteraction->m_durationMouseMovePeriod > 0_s)
                            {
 
                               ::size_i32 sizeDistance(

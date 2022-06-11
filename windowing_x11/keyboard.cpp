@@ -725,7 +725,10 @@ namespace windowing_x11
 
                  synchronouslock.unlock();
 
-                 m_pprimitiveSoftwareKeyboard->show_software_keyboard(pprimitive, str, iBeg, iEnd);
+
+                 throw 0;
+
+                 //m_pprimitiveSoftwareKeyboard->show_software_keyboard(pprimitive, str, iBeg, iEnd);
 
               }
 
