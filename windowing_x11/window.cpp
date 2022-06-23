@@ -105,15 +105,15 @@ namespace windowing_x11
 
       display_lock displaylock(pdisplayx11->Display());
 
-      int x = m_puserinteractionimpl->m_puserinteraction->layout().sketch().origin().x;
+      int x = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().x;
 
-      int y = m_puserinteractionimpl->m_puserinteraction->layout().sketch().origin().y;
+      int y = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().y;
 
-      int cx = m_puserinteractionimpl->m_puserinteraction->layout().sketch().width();
+      int cx = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().width();
 
-      int cy = m_puserinteractionimpl->m_puserinteraction->layout().sketch().height();
+      int cy = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().height();
 
-      bool bVisible = m_puserinteractionimpl->m_puserinteraction->layout().sketch().is_screen_visible();
+      bool bVisible = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().is_screen_visible();
 
       //      if(pusersystem)
       //      {
@@ -339,7 +339,7 @@ namespace windowing_x11
 
          wm_desktopwindow(true);
 
-      } else if (pimpl->m_puserinteraction->layout().sketch().activation() & e_activation_on_center_of_screen)
+      } else if (pimpl->m_puserinteraction->const_layout().sketch().activation() & e_activation_on_center_of_screen)
       {
 
          wm_centerwindow(true);
@@ -432,7 +432,7 @@ namespace windowing_x11
       } else
       {
 
-         pimpl->m_puserinteraction->layout().window().display() = e_display_none;
+         pimpl->m_puserinteraction->const_layout().window().display() = e_display_none;
 
       }
 
@@ -442,7 +442,7 @@ namespace windowing_x11
          if (!attr.override_redirect)
          {
 
-            if (is_docking_appearance(pimpl->m_puserinteraction->layout().sketch().display()))
+            if (is_docking_appearance(pimpl->m_puserinteraction->const_layout().sketch().display()))
             {
 
                // window managers generally "don't like" windows that starts "docked/snapped".
@@ -479,16 +479,16 @@ namespace windowing_x11
                // (Hinting for monitor placement, if no stored information
                // available).
 
-               if (pimpl->m_puserinteraction->layout().sketch().display() == e_display_undefined)
+               if (pimpl->m_puserinteraction->const_layout().sketch().display() == e_display_undefined)
                {
 
                   auto pwindowing = windowing();
 
                   auto pointCursor = pwindowing->get_cursor_position();
 
-                  pimpl->m_puserinteraction->move_to(pointCursor);
+                  pimpl->m_puserinteraction->set_position(pointCursor);
 
-                  pimpl->m_puserinteraction->set_size(0, 0);
+                  pimpl->m_puserinteraction->set_size({0, 0});
 
                }
 

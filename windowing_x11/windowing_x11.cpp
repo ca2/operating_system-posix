@@ -2047,7 +2047,7 @@ else if(detail == 3)
                         if (iIconic == 0)
                         {
 
-                           if (pinteraction->layout().design().display() == ::e_display_iconic)
+                           if (pinteraction->const_layout().design().display() == ::e_display_iconic)
                            {
 
                               //file_put_contents("/home/camilo/xxx.txt", "");
@@ -2079,11 +2079,11 @@ else if(detail == 3)
                               bHandled = true;
 
                            }
-                           else if (pinteraction->layout().sketch().display() == ::e_display_full_screen
-                                    && pinteraction->layout().design().display() != ::e_display_full_screen)
+                           else if (pinteraction->const_layout().sketch().display() == ::e_display_full_screen
+                                    && pinteraction->const_layout().design().display() != ::e_display_full_screen)
                            {
 
-                              pinteraction->layout().sketch() = ::e_display_full_screen;
+                              pinteraction->display(::e_display_full_screen);
 
                            }
 
@@ -2091,11 +2091,11 @@ else if(detail == 3)
                         else
                         {
 
-                           if (pinteraction->layout().design().display() != ::e_display_iconic
-                               && pinteraction->layout().design().display() != ::e_display_none)
+                           if (pinteraction->const_layout().design().display() != ::e_display_iconic
+                               && pinteraction->const_layout().design().display() != ::e_display_none)
                            {
 
-                              pinteraction->layout().sketch() = ::e_display_iconic;
+                              pinteraction->display(::e_display_iconic);
 
                            }
 
@@ -2141,7 +2141,7 @@ else if(detail == 3)
                if (pinteraction != nullptr)
                {
 
-                  if (pinteraction->layout().design().display() == ::e_display_iconic && !msg.oswindow->is_iconic())
+                  if (pinteraction->const_layout().design().display() == ::e_display_iconic && !msg.oswindow->is_iconic())
                   {
 
 //               ::enum_display edisplayPrevious = pinteraction->window_previous_display();
@@ -2196,7 +2196,7 @@ else if(detail == 3)
 
                      auto pointWindow = pinteraction->screen_origin();
 
-                     auto sizeWindow = pinteraction->layout().window().size();
+                     auto sizeWindow = pinteraction->const_layout().window().size();
 
                      // Robbers -> Smart -> Tough Law
                      // Kids -> Soft Law
