@@ -402,60 +402,6 @@ system_5/interprocess_communication.cpp.s:
 	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/apex_posix/CMakeFiles/apex_posix.dir/build.make operating-system/operating-system-posix/apex_posix/CMakeFiles/apex_posix.dir/system_5/interprocess_communication.cpp.s
 .PHONY : system_5/interprocess_communication.cpp.s
 
-system_color.o: system_color.cpp.o
-
-.PHONY : system_color.o
-
-# target to build an object file
-system_color.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/apex_posix/CMakeFiles/apex_posix.dir/build.make operating-system/operating-system-posix/apex_posix/CMakeFiles/apex_posix.dir/system_color.cpp.o
-.PHONY : system_color.cpp.o
-
-system_color.i: system_color.cpp.i
-
-.PHONY : system_color.i
-
-# target to preprocess a source file
-system_color.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/apex_posix/CMakeFiles/apex_posix.dir/build.make operating-system/operating-system-posix/apex_posix/CMakeFiles/apex_posix.dir/system_color.cpp.i
-.PHONY : system_color.cpp.i
-
-system_color.s: system_color.cpp.s
-
-.PHONY : system_color.s
-
-# target to generate assembly for a file
-system_color.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/apex_posix/CMakeFiles/apex_posix.dir/build.make operating-system/operating-system-posix/apex_posix/CMakeFiles/apex_posix.dir/system_color.cpp.s
-.PHONY : system_color.cpp.s
-
-system_time.o: system_time.cpp.o
-
-.PHONY : system_time.o
-
-# target to build an object file
-system_time.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/apex_posix/CMakeFiles/apex_posix.dir/build.make operating-system/operating-system-posix/apex_posix/CMakeFiles/apex_posix.dir/system_time.cpp.o
-.PHONY : system_time.cpp.o
-
-system_time.i: system_time.cpp.i
-
-.PHONY : system_time.i
-
-# target to preprocess a source file
-system_time.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/apex_posix/CMakeFiles/apex_posix.dir/build.make operating-system/operating-system-posix/apex_posix/CMakeFiles/apex_posix.dir/system_time.cpp.i
-.PHONY : system_time.cpp.i
-
-system_time.s: system_time.cpp.s
-
-.PHONY : system_time.s
-
-# target to generate assembly for a file
-system_time.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/apex_posix/CMakeFiles/apex_posix.dir/build.make operating-system/operating-system-posix/apex_posix/CMakeFiles/apex_posix.dir/system_time.cpp.s
-.PHONY : system_time.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -495,12 +441,6 @@ help:
 	@echo "... system_5/interprocess_communication.o"
 	@echo "... system_5/interprocess_communication.i"
 	@echo "... system_5/interprocess_communication.s"
-	@echo "... system_color.o"
-	@echo "... system_color.i"
-	@echo "... system_color.s"
-	@echo "... system_time.o"
-	@echo "... system_time.i"
-	@echo "... system_time.s"
 .PHONY : help
 
 

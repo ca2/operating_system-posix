@@ -198,33 +198,6 @@ _factory.cpp.s:
 	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/_factory.cpp.s
 .PHONY : _factory.cpp.s
 
-_process.o: _process.cpp.o
-
-.PHONY : _process.o
-
-# target to build an object file
-_process.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/_process.cpp.o
-.PHONY : _process.cpp.o
-
-_process.i: _process.cpp.i
-
-.PHONY : _process.i
-
-# target to preprocess a source file
-_process.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/_process.cpp.i
-.PHONY : _process.cpp.i
-
-_process.s: _process.cpp.s
-
-.PHONY : _process.s
-
-# target to generate assembly for a file
-_process.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/_process.cpp.s
-.PHONY : _process.cpp.s
-
 acme_directory.o: acme_directory.cpp.o
 
 .PHONY : acme_directory.o
@@ -510,33 +483,6 @@ posix/list_serial_ports.cpp.s:
 	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/posix/list_serial_ports.cpp.s
 .PHONY : posix/list_serial_ports.cpp.s
 
-process.o: process.cpp.o
-
-.PHONY : process.o
-
-# target to build an object file
-process.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/process.cpp.o
-.PHONY : process.cpp.o
-
-process.i: process.cpp.i
-
-.PHONY : process.i
-
-# target to preprocess a source file
-process.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/process.cpp.i
-.PHONY : process.cpp.i
-
-process.s: process.cpp.s
-
-.PHONY : process.s
-
-# target to generate assembly for a file
-process.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/process.cpp.s
-.PHONY : process.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -552,9 +498,6 @@ help:
 	@echo "... _factory.o"
 	@echo "... _factory.i"
 	@echo "... _factory.s"
-	@echo "... _process.o"
-	@echo "... _process.i"
-	@echo "... _process.s"
 	@echo "... acme_directory.o"
 	@echo "... acme_directory.i"
 	@echo "... acme_directory.s"
@@ -588,9 +531,6 @@ help:
 	@echo "... posix/list_serial_ports.o"
 	@echo "... posix/list_serial_ports.i"
 	@echo "... posix/list_serial_ports.s"
-	@echo "... process.o"
-	@echo "... process.i"
-	@echo "... process.s"
 .PHONY : help
 
 
