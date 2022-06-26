@@ -4,7 +4,9 @@
 #include "framework.h"
 #include "windowing_x11.h"
 //#if !BROAD_PRECOMPILED_HEADER
-//#include "aura/user/_user.h"
+#if !BROAD_PRECOMPILED_HEADER
+#include "aura/user/user/_user.h"
+#endif
 //#endif
 //#include "_user.h"
 
