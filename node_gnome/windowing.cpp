@@ -12,7 +12,7 @@ namespace node_gnome
    windowing::windowing()
    {
 
-      m_pWindowing2 = this;
+      //m_pWindowing4 = this;
 
    }
 

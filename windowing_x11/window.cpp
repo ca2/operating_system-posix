@@ -30,7 +30,7 @@ namespace windowing_x11
    window::window()
    {
 
-      m_pWindow = this;
+      m_pWindow4 = this;
 
       m_iXic = 0;
 
@@ -271,6 +271,12 @@ namespace windowing_x11
 
       m_puserinteractionimpl = pimpl;
 
+      m_puserinteractionimpl->m_puserinteraction->m_pwindow = this;
+
+      m_puserinteractionimpl->m_puserinteraction->m_puserinteractionTopLevel = m_puserinteractionimpl->m_puserinteraction;
+
+      m_pdisplay = pwindowing->display();
+
       pimpl->m_pwindow = this;
 
       set_oswindow(this);
@@ -482,9 +488,7 @@ namespace windowing_x11
                if (pimpl->m_puserinteraction->const_layout().sketch().display() == e_display_undefined)
                {
 
-                  auto pwindowing = windowing();
-
-                  auto pointCursor = pwindowing->get_cursor_position();
+                  auto pointCursor = get_cursor_position();
 
                   pimpl->m_puserinteraction->set_position(pointCursor);
 
@@ -2116,7 +2120,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
    ::e_status window::post_ui_message(const MESSAGE & message)
    {
 
-      oswindow oswindow = message.oswindow;
+      ::oswindow oswindow = message.oswindow;
 
       ASSERT(oswindow != nullptr);
 

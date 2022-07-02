@@ -1766,7 +1766,7 @@ else if(detail == 3)
                if (msg.oswindow != nullptr && msg.oswindow->m_puserinteractionimpl != nullptr)
                {
 
-                  ((::windowing_x11::window *) msg.oswindow->m_pWindow)->m_pointCursor = m_pointCursor;
+                  ((::windowing_x11::window *) msg.oswindow->m_pWindow4)->m_pointCursor = m_pointCursor;
 
                   bool bOk = true;
 

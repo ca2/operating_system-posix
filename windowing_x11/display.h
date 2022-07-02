@@ -71,7 +71,7 @@ namespace windowing_x11
 
       virtual ::windowing_x11::window * _window(Window window);
 
-      inline ::windowing_x11::windowing * x11_windowing() { return (::windowing_x11::windowing *) m_pwindowing->m_pWindowing; }
+      inline ::windowing_x11::windowing * x11_windowing() { return (::windowing_x11::windowing *) m_pwindowing->m_pWindowing4; }
 
       virtual void _on_capture_changed_to(::windowing_x11::window * pwindowWithCapture);
 

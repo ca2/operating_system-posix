@@ -12,7 +12,7 @@ namespace node_gtk
    windowing::windowing()
    {
 
-      m_pWindowing2 = this;
+      //m_pWindowing4 = this;
 
    }
 

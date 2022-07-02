@@ -19,7 +19,7 @@ namespace windowing_x11
 
       m_itask = -1;
 
-      m_pWindowing = this;
+      m_pWindowing4 = this;
 
       m_bFirstWindowMap = false;
 

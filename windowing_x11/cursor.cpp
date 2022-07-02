@@ -161,7 +161,7 @@ namespace windowing_x11
 
       auto puser = psession->user();
 
-      auto pwindowing = puser->windowing();
+      auto pwindowing = puser->windowing1();
 
       auto pdisplay = pwindowing->display();
 

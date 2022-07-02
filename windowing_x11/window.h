@@ -126,13 +126,13 @@ namespace windowing_x11
       virtual bool is_child( WINDOWING_X11_WINDOW_MEMBER ::windowing::window * candidateChildOrDescendant); // or descendant
       virtual ::windowing::window * get_parent() const;
       //virtual ::Window get_parent_handle();
-      virtual oswindow get_parent_oswindow() const;
+      virtual ::oswindow get_parent_oswindow() const;
 
       ::point_i32 get_mouse_cursor_position() override;
 
       //virtual ::Window get_parent_handle() const;
 
-      ::windowing_x11::windowing * x11_windowing() const {return (::windowing_x11::windowing *) m_pwindowing->m_pWindowing; }
+      ::windowing_x11::windowing * x11_windowing() const {return (::windowing_x11::windowing *) m_pwindowing->m_pWindowing4; }
       ::windowing_x11::display * x11_display() const {return (::windowing_x11::display *) m_pdisplay->m_pDisplay; }
 
       void set_parent(::windowing::window * pwindowNewParent);

@@ -35,7 +35,7 @@ namespace windowing_x11
       ~buffer() override;
 
 
-      ::windowing_x11::window * x11_window() { return (::windowing_x11::window *) (m_pwindow ? m_pwindow->m_pWindow : nullptr); }
+      ::windowing_x11::window * x11_window() { return (::windowing_x11::window *) (m_pwindow ? m_pwindow->m_pWindow4 : nullptr); }
 
 
       void initialize_graphics_graphics(::user::interaction_impl * pimpl) override;
