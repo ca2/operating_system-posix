@@ -45,8 +45,13 @@ list(APPEND library_references
    node_gtk
    )
 
+if(${DISTRO} STREQUAL "raspbian")
 
-if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+   set(APPINDICATOR_PKG_MODULE "ayatana-appindicator3-0.1")
+
+   add_compile_definitions(AYATANA_APPINDICATOR)
+
+elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 
    message(STATUS "DISTRO is ${DISTRO}")
 

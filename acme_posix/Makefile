@@ -67,10 +67,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/pi/solution/basis
+CMAKE_SOURCE_DIR = /home/camilo/solution/basis
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pi/solution/basis
+CMAKE_BINARY_DIR = /home/camilo/solution/basis
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -99,14 +99,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/pi/solution/basis && $(CMAKE_COMMAND) -E cmake_progress_start /home/pi/solution/basis/CMakeFiles /home/pi/solution/basis/operating-system/operating-system-posix/acme_posix//CMakeFiles/progress.marks
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/acme_posix/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pi/solution/basis/CMakeFiles 0
+	cd /home/camilo/solution/basis && $(CMAKE_COMMAND) -E cmake_progress_start /home/camilo/solution/basis/CMakeFiles /home/camilo/solution/basis/operating-system/operating-system-posix/acme_posix//CMakeFiles/progress.marks
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/acme_posix/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/camilo/solution/basis/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/acme_posix/clean
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/acme_posix/clean
 .PHONY : clean
 
 # The main clean target
@@ -116,22 +116,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/acme_posix/preinstall
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/acme_posix/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/acme_posix/preinstall
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/acme_posix/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/pi/solution/basis && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/camilo/solution/basis && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/rule:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/rule
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/rule
 .PHONY : operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/rule
 
 # Convenience name for target.
@@ -141,7 +141,7 @@ acme_posix: operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_p
 
 # fast build rule for target.
 acme_posix/fast:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build
 .PHONY : acme_posix/fast
 
 _.o: _.cpp.o
@@ -150,7 +150,7 @@ _.o: _.cpp.o
 
 # target to build an object file
 _.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/_.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/_.cpp.o
 .PHONY : _.cpp.o
 
 _.i: _.cpp.i
@@ -159,7 +159,7 @@ _.i: _.cpp.i
 
 # target to preprocess a source file
 _.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/_.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/_.cpp.i
 .PHONY : _.cpp.i
 
 _.s: _.cpp.s
@@ -168,7 +168,7 @@ _.s: _.cpp.s
 
 # target to generate assembly for a file
 _.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/_.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/_.cpp.s
 .PHONY : _.cpp.s
 
 _factory.o: _factory.cpp.o
@@ -177,7 +177,7 @@ _factory.o: _factory.cpp.o
 
 # target to build an object file
 _factory.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/_factory.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/_factory.cpp.o
 .PHONY : _factory.cpp.o
 
 _factory.i: _factory.cpp.i
@@ -186,7 +186,7 @@ _factory.i: _factory.cpp.i
 
 # target to preprocess a source file
 _factory.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/_factory.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/_factory.cpp.i
 .PHONY : _factory.cpp.i
 
 _factory.s: _factory.cpp.s
@@ -195,7 +195,7 @@ _factory.s: _factory.cpp.s
 
 # target to generate assembly for a file
 _factory.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/_factory.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/_factory.cpp.s
 .PHONY : _factory.cpp.s
 
 acme_directory.o: acme_directory.cpp.o
@@ -204,7 +204,7 @@ acme_directory.o: acme_directory.cpp.o
 
 # target to build an object file
 acme_directory.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/acme_directory.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/acme_directory.cpp.o
 .PHONY : acme_directory.cpp.o
 
 acme_directory.i: acme_directory.cpp.i
@@ -213,7 +213,7 @@ acme_directory.i: acme_directory.cpp.i
 
 # target to preprocess a source file
 acme_directory.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/acme_directory.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/acme_directory.cpp.i
 .PHONY : acme_directory.cpp.i
 
 acme_directory.s: acme_directory.cpp.s
@@ -222,7 +222,7 @@ acme_directory.s: acme_directory.cpp.s
 
 # target to generate assembly for a file
 acme_directory.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/acme_directory.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/acme_directory.cpp.s
 .PHONY : acme_directory.cpp.s
 
 acme_file.o: acme_file.cpp.o
@@ -231,7 +231,7 @@ acme_file.o: acme_file.cpp.o
 
 # target to build an object file
 acme_file.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/acme_file.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/acme_file.cpp.o
 .PHONY : acme_file.cpp.o
 
 acme_file.i: acme_file.cpp.i
@@ -240,7 +240,7 @@ acme_file.i: acme_file.cpp.i
 
 # target to preprocess a source file
 acme_file.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/acme_file.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/acme_file.cpp.i
 .PHONY : acme_file.cpp.i
 
 acme_file.s: acme_file.cpp.s
@@ -249,7 +249,7 @@ acme_file.s: acme_file.cpp.s
 
 # target to generate assembly for a file
 acme_file.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/acme_file.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/acme_file.cpp.s
 .PHONY : acme_file.cpp.s
 
 acme_path.o: acme_path.cpp.o
@@ -258,7 +258,7 @@ acme_path.o: acme_path.cpp.o
 
 # target to build an object file
 acme_path.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/acme_path.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/acme_path.cpp.o
 .PHONY : acme_path.cpp.o
 
 acme_path.i: acme_path.cpp.i
@@ -267,7 +267,7 @@ acme_path.i: acme_path.cpp.i
 
 # target to preprocess a source file
 acme_path.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/acme_path.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/acme_path.cpp.i
 .PHONY : acme_path.cpp.i
 
 acme_path.s: acme_path.cpp.s
@@ -276,22 +276,22 @@ acme_path.s: acme_path.cpp.s
 
 # target to generate assembly for a file
 acme_path.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/acme_path.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/acme_path.cpp.s
 .PHONY : acme_path.cpp.s
 
 # target to build an object file
 cmake_pch.hxx.gch:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/cmake_pch.hxx.gch
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/cmake_pch.hxx.gch
 .PHONY : cmake_pch.hxx.gch
 
 # target to preprocess a source file
 cmake_pch.hxx.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/cmake_pch.hxx.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/cmake_pch.hxx.i
 .PHONY : cmake_pch.hxx.i
 
 # target to generate assembly for a file
 cmake_pch.hxx.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/cmake_pch.hxx.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/cmake_pch.hxx.s
 .PHONY : cmake_pch.hxx.s
 
 dbus.o: dbus.cpp.o
@@ -300,7 +300,7 @@ dbus.o: dbus.cpp.o
 
 # target to build an object file
 dbus.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/dbus.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/dbus.cpp.o
 .PHONY : dbus.cpp.o
 
 dbus.i: dbus.cpp.i
@@ -309,7 +309,7 @@ dbus.i: dbus.cpp.i
 
 # target to preprocess a source file
 dbus.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/dbus.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/dbus.cpp.i
 .PHONY : dbus.cpp.i
 
 dbus.s: dbus.cpp.s
@@ -318,7 +318,7 @@ dbus.s: dbus.cpp.s
 
 # target to generate assembly for a file
 dbus.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/dbus.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/dbus.cpp.s
 .PHONY : dbus.cpp.s
 
 dbus/gsm_proxy.o: dbus/gsm_proxy.cpp.o
@@ -327,7 +327,7 @@ dbus/gsm_proxy.o: dbus/gsm_proxy.cpp.o
 
 # target to build an object file
 dbus/gsm_proxy.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/dbus/gsm_proxy.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/dbus/gsm_proxy.cpp.o
 .PHONY : dbus/gsm_proxy.cpp.o
 
 dbus/gsm_proxy.i: dbus/gsm_proxy.cpp.i
@@ -336,7 +336,7 @@ dbus/gsm_proxy.i: dbus/gsm_proxy.cpp.i
 
 # target to preprocess a source file
 dbus/gsm_proxy.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/dbus/gsm_proxy.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/dbus/gsm_proxy.cpp.i
 .PHONY : dbus/gsm_proxy.cpp.i
 
 dbus/gsm_proxy.s: dbus/gsm_proxy.cpp.s
@@ -345,7 +345,7 @@ dbus/gsm_proxy.s: dbus/gsm_proxy.cpp.s
 
 # target to generate assembly for a file
 dbus/gsm_proxy.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/dbus/gsm_proxy.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/dbus/gsm_proxy.cpp.s
 .PHONY : dbus/gsm_proxy.cpp.s
 
 file_memory_map.o: file_memory_map.cpp.o
@@ -354,7 +354,7 @@ file_memory_map.o: file_memory_map.cpp.o
 
 # target to build an object file
 file_memory_map.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/file_memory_map.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/file_memory_map.cpp.o
 .PHONY : file_memory_map.cpp.o
 
 file_memory_map.i: file_memory_map.cpp.i
@@ -363,7 +363,7 @@ file_memory_map.i: file_memory_map.cpp.i
 
 # target to preprocess a source file
 file_memory_map.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/file_memory_map.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/file_memory_map.cpp.i
 .PHONY : file_memory_map.cpp.i
 
 file_memory_map.s: file_memory_map.cpp.s
@@ -372,7 +372,7 @@ file_memory_map.s: file_memory_map.cpp.s
 
 # target to generate assembly for a file
 file_memory_map.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/file_memory_map.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/file_memory_map.cpp.s
 .PHONY : file_memory_map.cpp.s
 
 framework.o: framework.cpp.o
@@ -381,7 +381,7 @@ framework.o: framework.cpp.o
 
 # target to build an object file
 framework.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/framework.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/framework.cpp.o
 .PHONY : framework.cpp.o
 
 framework.i: framework.cpp.i
@@ -390,7 +390,7 @@ framework.i: framework.cpp.i
 
 # target to preprocess a source file
 framework.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/framework.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/framework.cpp.i
 .PHONY : framework.cpp.i
 
 framework.s: framework.cpp.s
@@ -399,7 +399,7 @@ framework.s: framework.cpp.s
 
 # target to generate assembly for a file
 framework.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/framework.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/framework.cpp.s
 .PHONY : framework.cpp.s
 
 node.o: node.cpp.o
@@ -408,7 +408,7 @@ node.o: node.cpp.o
 
 # target to build an object file
 node.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/node.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/node.cpp.o
 .PHONY : node.cpp.o
 
 node.i: node.cpp.i
@@ -417,7 +417,7 @@ node.i: node.cpp.i
 
 # target to preprocess a source file
 node.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/node.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/node.cpp.i
 .PHONY : node.cpp.i
 
 node.s: node.cpp.s
@@ -426,7 +426,7 @@ node.s: node.cpp.s
 
 # target to generate assembly for a file
 node.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/node.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/node.cpp.s
 .PHONY : node.cpp.s
 
 pipe.o: pipe.cpp.o
@@ -435,7 +435,7 @@ pipe.o: pipe.cpp.o
 
 # target to build an object file
 pipe.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/pipe.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/pipe.cpp.o
 .PHONY : pipe.cpp.o
 
 pipe.i: pipe.cpp.i
@@ -444,7 +444,7 @@ pipe.i: pipe.cpp.i
 
 # target to preprocess a source file
 pipe.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/pipe.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/pipe.cpp.i
 .PHONY : pipe.cpp.i
 
 pipe.s: pipe.cpp.s
@@ -453,7 +453,7 @@ pipe.s: pipe.cpp.s
 
 # target to generate assembly for a file
 pipe.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/pipe.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/pipe.cpp.s
 .PHONY : pipe.cpp.s
 
 posix/list_serial_ports.o: posix/list_serial_ports.cpp.o
@@ -462,7 +462,7 @@ posix/list_serial_ports.o: posix/list_serial_ports.cpp.o
 
 # target to build an object file
 posix/list_serial_ports.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/posix/list_serial_ports.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/posix/list_serial_ports.cpp.o
 .PHONY : posix/list_serial_ports.cpp.o
 
 posix/list_serial_ports.i: posix/list_serial_ports.cpp.i
@@ -471,7 +471,7 @@ posix/list_serial_ports.i: posix/list_serial_ports.cpp.i
 
 # target to preprocess a source file
 posix/list_serial_ports.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/posix/list_serial_ports.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/posix/list_serial_ports.cpp.i
 .PHONY : posix/list_serial_ports.cpp.i
 
 posix/list_serial_ports.s: posix/list_serial_ports.cpp.s
@@ -480,7 +480,7 @@ posix/list_serial_ports.s: posix/list_serial_ports.cpp.s
 
 # target to generate assembly for a file
 posix/list_serial_ports.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/posix/list_serial_ports.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/build.make operating-system/operating-system-posix/acme_posix/CMakeFiles/acme_posix.dir/posix/list_serial_ports.cpp.s
 .PHONY : posix/list_serial_ports.cpp.s
 
 # Help Target
@@ -542,6 +542,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/pi/solution/basis && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/camilo/solution/basis && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -103,6 +103,16 @@ namespace windowing_x11
 
       }
 
+      m_puserinteractionimpl = pimpl;
+
+      m_puserinteractionimpl->m_puserinteraction->m_pwindow = this;
+
+      m_puserinteractionimpl->m_puserinteraction->m_puserinteractionTopLevel = m_puserinteractionimpl->m_puserinteraction;
+
+      m_pdisplay = pwindowing->display();
+
+      pimpl->m_pwindow = this;
+
       display_lock displaylock(pdisplayx11->Display());
 
       int x = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().x;
@@ -269,15 +279,6 @@ namespace windowing_x11
 
       }
 
-      m_puserinteractionimpl = pimpl;
-
-      m_puserinteractionimpl->m_puserinteraction->m_pwindow = this;
-
-      m_puserinteractionimpl->m_puserinteraction->m_puserinteractionTopLevel = m_puserinteractionimpl->m_puserinteraction;
-
-      m_pdisplay = pwindowing->display();
-
-      pimpl->m_pwindow = this;
 
       set_oswindow(this);
 

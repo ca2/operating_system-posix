@@ -67,10 +67,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/pi/solution/basis
+CMAKE_SOURCE_DIR = /home/camilo/solution/basis
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pi/solution/basis
+CMAKE_BINARY_DIR = /home/camilo/solution/basis
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -99,14 +99,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/pi/solution/basis && $(CMAKE_COMMAND) -E cmake_progress_start /home/pi/solution/basis/CMakeFiles /home/pi/solution/basis/operating-system/operating-system-posix/aura_posix//CMakeFiles/progress.marks
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/aura_posix/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pi/solution/basis/CMakeFiles 0
+	cd /home/camilo/solution/basis && $(CMAKE_COMMAND) -E cmake_progress_start /home/camilo/solution/basis/CMakeFiles /home/camilo/solution/basis/operating-system/operating-system-posix/aura_posix//CMakeFiles/progress.marks
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/aura_posix/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/camilo/solution/basis/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/aura_posix/clean
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/aura_posix/clean
 .PHONY : clean
 
 # The main clean target
@@ -116,22 +116,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/aura_posix/preinstall
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/aura_posix/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/aura_posix/preinstall
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/aura_posix/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/pi/solution/basis && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/camilo/solution/basis && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/rule:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/rule
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/rule
 .PHONY : operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/rule
 
 # Convenience name for target.
@@ -141,7 +141,7 @@ aura_posix: operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_p
 
 # fast build rule for target.
 aura_posix/fast:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build
 .PHONY : aura_posix/fast
 
 _.o: _.cpp.o
@@ -150,7 +150,7 @@ _.o: _.cpp.o
 
 # target to build an object file
 _.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/_.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/_.cpp.o
 .PHONY : _.cpp.o
 
 _.i: _.cpp.i
@@ -159,7 +159,7 @@ _.i: _.cpp.i
 
 # target to preprocess a source file
 _.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/_.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/_.cpp.i
 .PHONY : _.cpp.i
 
 _.s: _.cpp.s
@@ -168,7 +168,7 @@ _.s: _.cpp.s
 
 # target to generate assembly for a file
 _.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/_.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/_.cpp.s
 .PHONY : _.cpp.s
 
 _factory.o: _factory.cpp.o
@@ -177,7 +177,7 @@ _factory.o: _factory.cpp.o
 
 # target to build an object file
 _factory.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/_factory.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/_factory.cpp.o
 .PHONY : _factory.cpp.o
 
 _factory.i: _factory.cpp.i
@@ -186,7 +186,7 @@ _factory.i: _factory.cpp.i
 
 # target to preprocess a source file
 _factory.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/_factory.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/_factory.cpp.i
 .PHONY : _factory.cpp.i
 
 _factory.s: _factory.cpp.s
@@ -195,7 +195,7 @@ _factory.s: _factory.cpp.s
 
 # target to generate assembly for a file
 _factory.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/_factory.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/_factory.cpp.s
 .PHONY : _factory.cpp.s
 
 appindicator.o: appindicator.cpp.o
@@ -204,7 +204,7 @@ appindicator.o: appindicator.cpp.o
 
 # target to build an object file
 appindicator.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/appindicator.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/appindicator.cpp.o
 .PHONY : appindicator.cpp.o
 
 appindicator.i: appindicator.cpp.i
@@ -213,7 +213,7 @@ appindicator.i: appindicator.cpp.i
 
 # target to preprocess a source file
 appindicator.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/appindicator.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/appindicator.cpp.i
 .PHONY : appindicator.cpp.i
 
 appindicator.s: appindicator.cpp.s
@@ -222,22 +222,22 @@ appindicator.s: appindicator.cpp.s
 
 # target to generate assembly for a file
 appindicator.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/appindicator.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/appindicator.cpp.s
 .PHONY : appindicator.cpp.s
 
 # target to build an object file
 cmake_pch.hxx.gch:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/cmake_pch.hxx.gch
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/cmake_pch.hxx.gch
 .PHONY : cmake_pch.hxx.gch
 
 # target to preprocess a source file
 cmake_pch.hxx.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/cmake_pch.hxx.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/cmake_pch.hxx.i
 .PHONY : cmake_pch.hxx.i
 
 # target to generate assembly for a file
 cmake_pch.hxx.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/cmake_pch.hxx.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/cmake_pch.hxx.s
 .PHONY : cmake_pch.hxx.s
 
 framework.o: framework.cpp.o
@@ -246,7 +246,7 @@ framework.o: framework.cpp.o
 
 # target to build an object file
 framework.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/framework.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/framework.cpp.o
 .PHONY : framework.cpp.o
 
 framework.i: framework.cpp.i
@@ -255,7 +255,7 @@ framework.i: framework.cpp.i
 
 # target to preprocess a source file
 framework.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/framework.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/framework.cpp.i
 .PHONY : framework.cpp.i
 
 framework.s: framework.cpp.s
@@ -264,7 +264,7 @@ framework.s: framework.cpp.s
 
 # target to generate assembly for a file
 framework.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/framework.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/framework.cpp.s
 .PHONY : framework.cpp.s
 
 node.o: node.cpp.o
@@ -273,7 +273,7 @@ node.o: node.cpp.o
 
 # target to build an object file
 node.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/node.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/node.cpp.o
 .PHONY : node.cpp.o
 
 node.i: node.cpp.i
@@ -282,7 +282,7 @@ node.i: node.cpp.i
 
 # target to preprocess a source file
 node.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/node.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/node.cpp.i
 .PHONY : node.cpp.i
 
 node.s: node.cpp.s
@@ -291,7 +291,7 @@ node.s: node.cpp.s
 
 # target to generate assembly for a file
 node.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/node.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/node.cpp.s
 .PHONY : node.cpp.s
 
 shell.o: shell.cpp.o
@@ -300,7 +300,7 @@ shell.o: shell.cpp.o
 
 # target to build an object file
 shell.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/shell.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/shell.cpp.o
 .PHONY : shell.cpp.o
 
 shell.i: shell.cpp.i
@@ -309,7 +309,7 @@ shell.i: shell.cpp.i
 
 # target to preprocess a source file
 shell.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/shell.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/shell.cpp.i
 .PHONY : shell.cpp.i
 
 shell.s: shell.cpp.s
@@ -318,7 +318,7 @@ shell.s: shell.cpp.s
 
 # target to generate assembly for a file
 shell.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/shell.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/shell.cpp.s
 .PHONY : shell.cpp.s
 
 x11/_.o: x11/_.cpp.o
@@ -327,7 +327,7 @@ x11/_.o: x11/_.cpp.o
 
 # target to build an object file
 x11/_.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/_.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/_.cpp.o
 .PHONY : x11/_.cpp.o
 
 x11/_.i: x11/_.cpp.i
@@ -336,7 +336,7 @@ x11/_.i: x11/_.cpp.i
 
 # target to preprocess a source file
 x11/_.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/_.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/_.cpp.i
 .PHONY : x11/_.cpp.i
 
 x11/_.s: x11/_.cpp.s
@@ -345,7 +345,7 @@ x11/_.s: x11/_.cpp.s
 
 # target to generate assembly for a file
 x11/_.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/_.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/_.cpp.s
 .PHONY : x11/_.cpp.s
 
 x11/display_lock.o: x11/display_lock.cpp.o
@@ -354,7 +354,7 @@ x11/display_lock.o: x11/display_lock.cpp.o
 
 # target to build an object file
 x11/display_lock.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/display_lock.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/display_lock.cpp.o
 .PHONY : x11/display_lock.cpp.o
 
 x11/display_lock.i: x11/display_lock.cpp.i
@@ -363,7 +363,7 @@ x11/display_lock.i: x11/display_lock.cpp.i
 
 # target to preprocess a source file
 x11/display_lock.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/display_lock.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/display_lock.cpp.i
 .PHONY : x11/display_lock.cpp.i
 
 x11/display_lock.s: x11/display_lock.cpp.s
@@ -372,7 +372,7 @@ x11/display_lock.s: x11/display_lock.cpp.s
 
 # target to generate assembly for a file
 x11/display_lock.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/display_lock.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/display_lock.cpp.s
 .PHONY : x11/display_lock.cpp.s
 
 x11/startup-notification.o: x11/startup-notification.cpp.o
@@ -381,7 +381,7 @@ x11/startup-notification.o: x11/startup-notification.cpp.o
 
 # target to build an object file
 x11/startup-notification.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/startup-notification.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/startup-notification.cpp.o
 .PHONY : x11/startup-notification.cpp.o
 
 x11/startup-notification.i: x11/startup-notification.cpp.i
@@ -390,7 +390,7 @@ x11/startup-notification.i: x11/startup-notification.cpp.i
 
 # target to preprocess a source file
 x11/startup-notification.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/startup-notification.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/startup-notification.cpp.i
 .PHONY : x11/startup-notification.cpp.i
 
 x11/startup-notification.s: x11/startup-notification.cpp.s
@@ -399,7 +399,7 @@ x11/startup-notification.s: x11/startup-notification.cpp.s
 
 # target to generate assembly for a file
 x11/startup-notification.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/startup-notification.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/startup-notification.cpp.s
 .PHONY : x11/startup-notification.cpp.s
 
 x11/window.o: x11/window.cpp.o
@@ -408,7 +408,7 @@ x11/window.o: x11/window.cpp.o
 
 # target to build an object file
 x11/window.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/window.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/window.cpp.o
 .PHONY : x11/window.cpp.o
 
 x11/window.i: x11/window.cpp.i
@@ -417,7 +417,7 @@ x11/window.i: x11/window.cpp.i
 
 # target to preprocess a source file
 x11/window.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/window.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/window.cpp.i
 .PHONY : x11/window.cpp.i
 
 x11/window.s: x11/window.cpp.s
@@ -426,7 +426,7 @@ x11/window.s: x11/window.cpp.s
 
 # target to generate assembly for a file
 x11/window.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/window.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/window.cpp.s
 .PHONY : x11/window.cpp.s
 
 x11/windowing.o: x11/windowing.cpp.o
@@ -435,7 +435,7 @@ x11/windowing.o: x11/windowing.cpp.o
 
 # target to build an object file
 x11/windowing.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/windowing.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/windowing.cpp.o
 .PHONY : x11/windowing.cpp.o
 
 x11/windowing.i: x11/windowing.cpp.i
@@ -444,7 +444,7 @@ x11/windowing.i: x11/windowing.cpp.i
 
 # target to preprocess a source file
 x11/windowing.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/windowing.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/windowing.cpp.i
 .PHONY : x11/windowing.cpp.i
 
 x11/windowing.s: x11/windowing.cpp.s
@@ -453,7 +453,7 @@ x11/windowing.s: x11/windowing.cpp.s
 
 # target to generate assembly for a file
 x11/windowing.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/windowing.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/windowing.cpp.s
 .PHONY : x11/windowing.cpp.s
 
 x11/xim_keyboard.o: x11/xim_keyboard.cpp.o
@@ -462,7 +462,7 @@ x11/xim_keyboard.o: x11/xim_keyboard.cpp.o
 
 # target to build an object file
 x11/xim_keyboard.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/xim_keyboard.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/xim_keyboard.cpp.o
 .PHONY : x11/xim_keyboard.cpp.o
 
 x11/xim_keyboard.i: x11/xim_keyboard.cpp.i
@@ -471,7 +471,7 @@ x11/xim_keyboard.i: x11/xim_keyboard.cpp.i
 
 # target to preprocess a source file
 x11/xim_keyboard.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/xim_keyboard.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/xim_keyboard.cpp.i
 .PHONY : x11/xim_keyboard.cpp.i
 
 x11/xim_keyboard.s: x11/xim_keyboard.cpp.s
@@ -480,7 +480,7 @@ x11/xim_keyboard.s: x11/xim_keyboard.cpp.s
 
 # target to generate assembly for a file
 x11/xim_keyboard.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/xim_keyboard.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/build.make operating-system/operating-system-posix/aura_posix/CMakeFiles/aura_posix.dir/x11/xim_keyboard.cpp.s
 .PHONY : x11/xim_keyboard.cpp.s
 
 # Help Target
@@ -542,6 +542,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/pi/solution/basis && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/camilo/solution/basis && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

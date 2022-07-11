@@ -67,10 +67,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/pi/solution/basis
+CMAKE_SOURCE_DIR = /home/camilo/solution/basis
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pi/solution/basis
+CMAKE_BINARY_DIR = /home/camilo/solution/basis
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -99,14 +99,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/pi/solution/basis && $(CMAKE_COMMAND) -E cmake_progress_start /home/pi/solution/basis/CMakeFiles /home/pi/solution/basis/operating-system/operating-system-posix/write_text_pango//CMakeFiles/progress.marks
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/write_text_pango/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pi/solution/basis/CMakeFiles 0
+	cd /home/camilo/solution/basis && $(CMAKE_COMMAND) -E cmake_progress_start /home/camilo/solution/basis/CMakeFiles /home/camilo/solution/basis/operating-system/operating-system-posix/write_text_pango//CMakeFiles/progress.marks
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/write_text_pango/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/camilo/solution/basis/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/write_text_pango/clean
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/write_text_pango/clean
 .PHONY : clean
 
 # The main clean target
@@ -116,22 +116,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/write_text_pango/preinstall
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/write_text_pango/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/write_text_pango/preinstall
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/write_text_pango/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/pi/solution/basis && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/camilo/solution/basis && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/rule:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/rule
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/rule
 .PHONY : operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/rule
 
 # Convenience name for target.
@@ -141,7 +141,7 @@ write_text_pango: operating-system/operating-system-posix/write_text_pango/CMake
 
 # fast build rule for target.
 write_text_pango/fast:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build
 .PHONY : write_text_pango/fast
 
 _.o: _.cpp.o
@@ -150,7 +150,7 @@ _.o: _.cpp.o
 
 # target to build an object file
 _.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/_.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/_.cpp.o
 .PHONY : _.cpp.o
 
 _.i: _.cpp.i
@@ -159,7 +159,7 @@ _.i: _.cpp.i
 
 # target to preprocess a source file
 _.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/_.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/_.cpp.i
 .PHONY : _.cpp.i
 
 _.s: _.cpp.s
@@ -168,7 +168,7 @@ _.s: _.cpp.s
 
 # target to generate assembly for a file
 _.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/_.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/_.cpp.s
 .PHONY : _.cpp.s
 
 _factory.o: _factory.cpp.o
@@ -177,7 +177,7 @@ _factory.o: _factory.cpp.o
 
 # target to build an object file
 _factory.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/_factory.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/_factory.cpp.o
 .PHONY : _factory.cpp.o
 
 _factory.i: _factory.cpp.i
@@ -186,7 +186,7 @@ _factory.i: _factory.cpp.i
 
 # target to preprocess a source file
 _factory.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/_factory.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/_factory.cpp.i
 .PHONY : _factory.cpp.i
 
 _factory.s: _factory.cpp.s
@@ -195,22 +195,22 @@ _factory.s: _factory.cpp.s
 
 # target to generate assembly for a file
 _factory.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/_factory.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/_factory.cpp.s
 .PHONY : _factory.cpp.s
 
 # target to build an object file
 cmake_pch.hxx.gch:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/cmake_pch.hxx.gch
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/cmake_pch.hxx.gch
 .PHONY : cmake_pch.hxx.gch
 
 # target to preprocess a source file
 cmake_pch.hxx.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/cmake_pch.hxx.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/cmake_pch.hxx.i
 .PHONY : cmake_pch.hxx.i
 
 # target to generate assembly for a file
 cmake_pch.hxx.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/cmake_pch.hxx.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/cmake_pch.hxx.s
 .PHONY : cmake_pch.hxx.s
 
 font_enumeration.o: font_enumeration.cpp.o
@@ -219,7 +219,7 @@ font_enumeration.o: font_enumeration.cpp.o
 
 # target to build an object file
 font_enumeration.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/font_enumeration.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/font_enumeration.cpp.o
 .PHONY : font_enumeration.cpp.o
 
 font_enumeration.i: font_enumeration.cpp.i
@@ -228,7 +228,7 @@ font_enumeration.i: font_enumeration.cpp.i
 
 # target to preprocess a source file
 font_enumeration.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/font_enumeration.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/font_enumeration.cpp.i
 .PHONY : font_enumeration.cpp.i
 
 font_enumeration.s: font_enumeration.cpp.s
@@ -237,7 +237,7 @@ font_enumeration.s: font_enumeration.cpp.s
 
 # target to generate assembly for a file
 font_enumeration.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/font_enumeration.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/font_enumeration.cpp.s
 .PHONY : font_enumeration.cpp.s
 
 fonts.o: fonts.cpp.o
@@ -246,7 +246,7 @@ fonts.o: fonts.cpp.o
 
 # target to build an object file
 fonts.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/fonts.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/fonts.cpp.o
 .PHONY : fonts.cpp.o
 
 fonts.i: fonts.cpp.i
@@ -255,7 +255,7 @@ fonts.i: fonts.cpp.i
 
 # target to preprocess a source file
 fonts.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/fonts.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/fonts.cpp.i
 .PHONY : fonts.cpp.i
 
 fonts.s: fonts.cpp.s
@@ -264,7 +264,7 @@ fonts.s: fonts.cpp.s
 
 # target to generate assembly for a file
 fonts.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/fonts.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/fonts.cpp.s
 .PHONY : fonts.cpp.s
 
 framework.o: framework.cpp.o
@@ -273,7 +273,7 @@ framework.o: framework.cpp.o
 
 # target to build an object file
 framework.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/framework.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/framework.cpp.o
 .PHONY : framework.cpp.o
 
 framework.i: framework.cpp.i
@@ -282,7 +282,7 @@ framework.i: framework.cpp.i
 
 # target to preprocess a source file
 framework.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/framework.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/framework.cpp.i
 .PHONY : framework.cpp.i
 
 framework.s: framework.cpp.s
@@ -291,7 +291,7 @@ framework.s: framework.cpp.s
 
 # target to generate assembly for a file
 framework.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/framework.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/framework.cpp.s
 .PHONY : framework.cpp.s
 
 write_text.o: write_text.cpp.o
@@ -300,7 +300,7 @@ write_text.o: write_text.cpp.o
 
 # target to build an object file
 write_text.cpp.o:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/write_text.cpp.o
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/write_text.cpp.o
 .PHONY : write_text.cpp.o
 
 write_text.i: write_text.cpp.i
@@ -309,7 +309,7 @@ write_text.i: write_text.cpp.i
 
 # target to preprocess a source file
 write_text.cpp.i:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/write_text.cpp.i
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/write_text.cpp.i
 .PHONY : write_text.cpp.i
 
 write_text.s: write_text.cpp.s
@@ -318,7 +318,7 @@ write_text.s: write_text.cpp.s
 
 # target to generate assembly for a file
 write_text.cpp.s:
-	cd /home/pi/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/write_text.cpp.s
+	cd /home/camilo/solution/basis && $(MAKE) $(MAKESILENT) -f operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/build.make operating-system/operating-system-posix/write_text_pango/CMakeFiles/write_text_pango.dir/write_text.cpp.s
 .PHONY : write_text.cpp.s
 
 # Help Target
@@ -362,6 +362,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/pi/solution/basis && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/camilo/solution/basis && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
