@@ -1,4 +1,6 @@
 **/.visualgdb
+cmake_install.cmake
+Makefile
 **/CMakeFiles
 **/.vs
 **/.DS_Store
