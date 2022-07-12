@@ -107,6 +107,23 @@ namespace windowing_x11
 
       m_puserinteractionimpl->m_puserinteraction->m_pwindow = this;
 
+      if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+      {
+
+         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+
+      }
+      else
+      {
+
+         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+
+      }
+      
+      fflush(stdout);
+
       m_puserinteractionimpl->m_puserinteraction->m_puserinteractionTopLevel = m_puserinteractionimpl->m_puserinteraction;
 
       m_pdisplay = pwindowing->display();
@@ -244,6 +261,25 @@ namespace windowing_x11
                                       CWColormap | CWEventMask | CWBackPixmap | CWBorderPixel
                                       | CWOverrideRedirect, &attr);
 
+
+      if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+      {
+
+         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (2)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+
+      }
+      else
+      {
+
+         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (2)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+
+      }
+      
+      fflush(stdout);
+
+
       //auto & windowstate3 = pimpl->m_puserinteraction->m_layout.window();
 
       //windowstate3.origin() = {INT_MIN, INT_MIN};
@@ -278,6 +314,23 @@ namespace windowing_x11
          throw ::exception(error_failed);
 
       }
+
+      if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+      {
+
+         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (3)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+
+      }
+      else
+      {
+
+         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (3)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+
+      }
+      
+      fflush(stdout);
 
 
       set_oswindow(this);
@@ -320,6 +373,24 @@ namespace windowing_x11
          //         XFree(pupdate);
 
       }
+
+      if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+      {
+
+         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (4) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+
+      }
+      else
+      {
+
+         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (4) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+
+      }
+      
+      fflush(stdout);
+
 
 #ifndef RASPBIAN
 
@@ -426,6 +497,24 @@ namespace windowing_x11
 
       }
 
+      if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+      {
+
+         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!!(5) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+
+      }
+      else
+      {
+
+         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!!(5) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+
+      }
+      
+      fflush(stdout);
+
+
       bamf_set_icon();
 
       _wm_nodecorations(0);
@@ -508,10 +597,99 @@ namespace windowing_x11
 
       }
 
+      if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+      {
+
+         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (6)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+
+      }
+      else
+      {
+
+         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (6)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+
+      }
+      
+      fflush(stdout);
+
+
       if (bOk)
       {
 
          //auto lresult = pimpl->m_puserinteraction->send_message(e_message_create, 0, (lparam) &pusersystem->m_createstruct);
+
+         if(::is_null(pimpl->m_puserinteraction->m_pwindow))
+         {
+
+            printf("pimpl->m_puserinteraction->m_pwindow is null!! (7) (0x%x)\n", pimpl->m_puserinteraction->m_pwindow);
+            printf("pimpl->m_puserinteraction (0x%x)\n", pimpl->m_puserinteraction.m_p);
+
+         }
+         else
+         {
+
+            printf("pimpl->m_puserinteraction->m_pwindow is set!! (7) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+            printf("pimpl->m_puserinteraction (0x%x)\n", pimpl->m_puserinteraction.m_p);
+
+         }
+         
+         fflush(stdout);
+
+         auto & pwindowInteraction = pimpl->m_puserinteraction->m_pwindow;
+
+         printf("pwindowInteraction (7B) (0x%x)\n", pwindowInteraction);
+         printf("&pwindowInteraction (7BA) (0x%x)\n", &pwindowInteraction);
+
+         fflush(stdout);
+
+// // https://stackoverflow.com/questions/23367775/pragma-packshow-with-gcc - Morten Jensen
+//       /*
+//    The static_assert macro will generate an error at compile-time, if the predicate is false
+//    but will only work for predicates that are resolvable at compile-time!
+
+//    E.g.: to assert the size of a data structure, static_assert(sizeof(struct_t) == 10)
+// */
+// #define STATIC_ASSERT(COND,MSG)      typedef char static_assertion_##MSG[(!!(COND))*2-1]
+// /* token pasting madness: */
+// #define COMPILE_TIME_ASSERT3(X,L)     STATIC_ASSERT(X,at_line_##L)             /* add line-number to error message for better warnings, especially GCC will tell the name of the variable as well */
+// #define COMPILE_TIME_ASSERT2(X,L)     COMPILE_TIME_ASSERT3(X, L)               /* expand line-number */
+// #define static_assert(X)              COMPILE_TIME_ASSERT2(X, __LINE__)        /* call with line-number macro */
+
+// #define PACKED  __attribute__ ((gcc_struct, __packed__))
+
+// typedef struct {
+//   uint8_t bytes[3];
+//   uint32_t looong;
+// } PACKED struct_t;
+// static_assert(sizeof(struct_t) == 8);
+
+ typedef struct {
+   uint8_t bytes[3];
+   uint32_t looong;
+ } struct_t2;
+// static_assert(sizeof(struct_t) == 8);
+
+printf("sizeof(struct_t2) = %d\n", sizeof(struct_t2));
+
+
+      #ifdef _DEBUG
+      printf("_DEBUG defined\n");
+      #else
+      printf("_DEBUG not defined\n");
+      #endif
+
+      #ifdef RASPBIAN
+      printf("RASPBIAN defined\n");
+      #else
+      printf("RASPBIAN not defined\n");
+      #endif
+
+      printf("(7BB) offset of m_durationFocusStart in ::user::primitive = %d\n", offsetof(::user::primitive,m_durationFocusStart));
+      printf("(7BB) offset of m_uUserInteractionFlags in ::user::interaction = %d\n", offsetof(::user::interaction, m_bExtendOnParent));
+      printf("(7BB) offset of m_pwindow in ::user::interaction = %d\n", offsetof(::user::interaction, m_pwindow));
+
 
          auto lresult = pimpl->m_puserinteraction->send_message(e_message_create, 0, 0);
 
