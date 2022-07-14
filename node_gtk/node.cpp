@@ -17,7 +17,7 @@ bool x11_message_loop_step();
 
 gboolean gtk_quit_callback(gpointer data);
 
-
+//void gio_open_url(const char * pszUrl);
 ///int gtk_launch (const char * pszDesktopFileTitle);
 
 
@@ -1167,6 +1167,25 @@ namespace node_gtk
          }
 
       });
+
+   }
+
+
+   void node::open_url(const ::string & strUrl)
+   {
+
+      const char * pszUrl = strUrl;
+
+      GError * perror = nullptr;
+
+      if(!g_app_info_launch_default_for_uri(pszUrl, nullptr, &perror))
+      {
+
+         fprintf (stderr, "Unable to read file: %s\n", perror->message);
+
+         g_error_free (perror);
+
+      }
 
    }
 
