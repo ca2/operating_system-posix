@@ -29,7 +29,7 @@ namespace windowing_xcb
       ~buffer() override;
 
 
-      ::windowing_xcb::window * xcb_window() { return (::windowing_xcb::window *) (m_pwindow ? m_pwindow->m_pWindow : nullptr); }
+      ::windowing_xcb::window * xcb_window() { return (::windowing_xcb::window *) (m_pwindow ? m_pwindow->m_pWindow4 : nullptr); }
 
 
       void initialize_graphics_graphics(::user::interaction_impl * pimpl) override;

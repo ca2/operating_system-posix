@@ -88,7 +88,7 @@ namespace aura_posix
 
 #if defined(WITH_XCB)
 
-      ^ ^^^
+      /// ^ ^^^
 
       void * _get_connection();
 

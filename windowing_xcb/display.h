@@ -57,7 +57,7 @@ namespace windowing_xcb
 
       virtual ::windowing_xcb::window * _window(xcb_window_t window);
 
-      inline ::windowing_xcb::windowing * xcb_windowing() { return (::windowing_xcb::windowing *) m_pwindowing->m_pWindowing; }
+      inline ::windowing_xcb::windowing * xcb_windowing() { return (::windowing_xcb::windowing *) m_pwindowing->m_pWindowing4; }
 
       virtual void _on_capture_changed_to(::windowing_xcb::window * pwindowWithCapture);
 

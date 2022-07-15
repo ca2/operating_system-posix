@@ -61,7 +61,7 @@ namespace windowing_xcb
       virtual xcb_window_t xcb_window() const;
 
 
-      ::windowing_xcb::windowing * xcb_windowing() const {return (::windowing_xcb::windowing *) m_pwindowing->m_pWindowing; }
+      ::windowing_xcb::windowing * xcb_windowing() const {return (::windowing_xcb::windowing *) m_pwindowing->m_pWindowing4; }
       ::windowing_xcb::display * xcb_display() const {return (::windowing_xcb::display *) m_pdisplay->m_pDisplay; }
 
 
@@ -93,7 +93,7 @@ namespace windowing_xcb
 
       virtual bool is_child( ::windowing::window * candidateChildOrDescendant); // or descendant
       ::windowing::window * get_parent() const override;
-      oswindow get_parent_oswindow() const override;
+      ::oswindow get_parent_oswindow() const override;
 
 
       bool is_iconic() override;

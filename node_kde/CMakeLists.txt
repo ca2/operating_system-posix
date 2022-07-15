@@ -47,9 +47,10 @@ list(APPEND library_references
 
 set_source_files_properties(q_node_impl.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 set_source_files_properties(set_wallpaper.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
+set_source_files_properties(kde-open.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 
 
-add_library(node_kde SHARED ${library_source} set_wallpaper.cpp)
+add_library(node_kde SHARED ${library_source} set_wallpaper.cpp urlinfo.h kde-open.cpp)
 
 
 target_precompile_headers(node_kde PRIVATE framework.h)
@@ -82,6 +83,9 @@ elseif(LINUX OR FREEBSD)
    target_include_directories(node_kde PRIVATE KF5::ConfigWidgets)
    target_include_directories(node_kde PRIVATE KF5::IconThemes)
    target_include_directories(node_kde PRIVATE KF5::KIOCore)
+   target_include_directories(node_kde PRIVATE KF5::KIOFileWidgets)
+   target_include_directories(node_kde PRIVATE KF5::KIOWidgets)
+   target_include_directories(node_kde PRIVATE KF5::KIONTLM)
    target_include_directories(node_kde PRIVATE PW::KWorkspace)
    endif()
    #target_link_options(node_kde PRIVATE -Wl,-rpath=$ORIGIN)
@@ -91,6 +95,9 @@ elseif(LINUX OR FREEBSD)
       target_link_libraries(node_kde PRIVATE KF5::ConfigWidgets)
       target_link_libraries(node_kde PRIVATE KF5::IconThemes)
       target_link_libraries(node_kde PRIVATE KF5::KIOCore)
+      target_link_libraries(node_kde PRIVATE KF5::KIOFileWidgets)
+      target_link_libraries(node_kde PRIVATE KF5::KIOWidgets)
+      target_link_libraries(node_kde PRIVATE KF5::KIONTLM)
       target_link_libraries(node_kde PRIVATE PW::KWorkspace)
    endif()
    target_link_options(node_kde PRIVATE -Wl,-z,defs)
