@@ -4,7 +4,7 @@ project(audio_alsa CXX)
 
 list(APPEND library_source
    _.h
-   _audio_alsa.h
+   _library.h
    _factory.cpp
    audio_mmsystem_wave_in.h
    framework.cpp
