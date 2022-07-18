@@ -64,7 +64,7 @@ if (MSVC)
    target_link_options(windowing_x11 PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
    target_link_options(windowing_x11 PRIVATE "/SUBSYSTEM:WINDOWS")
    target_link_libraries(windowing_x11 PRIVATE ${library_references})
-   add_dependencies(windowing_x11 draw2d_gdiplus)
+   #add_dependencies(windowing_x11 draw2d_gdiplus)
 elseif(LINUX OR FREEBSD)
 
 
@@ -83,21 +83,18 @@ elseif(LINUX OR FREEBSD)
    target_link_libraries(windowing_x11 PRIVATE ${PKGCONFIG_LIBRARIES})
    target_link_libraries(windowing_x11 PRIVATE ${library_references})
    target_link_options(windowing_x11 PRIVATE -Wl,-z,defs)
-   add_dependencies(windowing_x11 draw2d_cairo)
+   #add_dependencies(windowing_x11 draw2d_cairo)
 
 endif ()
 
 
-target_include_directories(windowing_x11 PRIVATE .)
-list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
-list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
-list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
+#target_include_directories(windowing_x11 PRIVATE .)
 
 
-target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
+#target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
 
 
-target_compile_definitions(windowing_x11 PRIVATE _WINDOWING_X11_ALSA_LIBRARY)
+target_compile_definitions(windowing_x11 PRIVATE _WINDOWING_X11_LIBRARY)
 
 
 

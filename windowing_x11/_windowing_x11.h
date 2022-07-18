@@ -9,9 +9,9 @@
 #include "acme/operating_system/x11/_.h"
 #ifdef FREEBSD
 #include "aura/operating_system/freebsd/appindicator.h"
+#include "acme/operating_system/freebsd/_user.h"
 #endif
 #include "acme/operating_system/ansi/_pthread.h"
-#include "acme/operating_system/freebsd/_user.h"
 
 
 #define WITH_XI
@@ -70,19 +70,10 @@ bool __x11_hook_process_event(Display * pdisplay, XEvent * pevent, XGenericEvent
 #include "icon.h"
 
 
-#include "window.h"
-
-
 #include "windowing.h"
 
 
-#include "display.h"
-
-
 #include "operating-system-posix/aura_posix/x11/display_lock.h"
-
-
-//#include "factory_exchange.h"
 
 
 #include "node.h"

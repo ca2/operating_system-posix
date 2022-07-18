@@ -130,6 +130,9 @@ namespace windowing_x11
 
       pimpl->m_pwindow = this;
 
+      printf("pimpl->m_pwindow.m_p (0x%x)\n", pimpl->m_pwindow.m_p);
+      printf("pimpl->m_pwindow.m_pelement (0x%x)\n", pimpl->m_pwindow.m_pelement);
+
       display_lock displaylock(pdisplayx11->Display());
 
       int x = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().x;
@@ -687,8 +690,18 @@ printf("sizeof(struct_t2) = %d\n", sizeof(struct_t2));
       #endif
 
       printf("(7BB) offset of m_durationFocusStart in ::user::primitive = %d\n", offsetof(::user::primitive,m_durationFocusStart));
-      printf("(7BB) offset of m_uUserInteractionFlags in ::user::interaction = %d\n", offsetof(::user::interaction, m_bExtendOnParent));
+      printf("(7BB) offset of m_bExtendOnParent in ::user::interaction = %d\n", offsetof(::user::interaction, m_bExtendOnParent));
       printf("(7BB) offset of m_pwindow in ::user::interaction = %d\n", offsetof(::user::interaction, m_pwindow));
+      printf("(7BB) offset of m_pImpl2 in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_pImpl2));
+      printf("(7BB) offset of m_durationLastExposureAddUp in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_durationLastExposureAddUp));
+      printf("(7BB) offset of m_strBitmapSource in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_strBitmapSource));
+      printf("(7BB) offset of m_bCursorRedraw in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_bCursorRedraw));
+      printf("(7BB) offset of m_bLockWindowUpdate in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_bLockWindowUpdate));
+      printf("(7BB) offset of m_bOkToUpdateScreen in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_bOkToUpdateScreen));
+      printf("(7BB) offset of m_sizeDrawn in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_sizeDrawn));
+      printf("(7BB) offset of m_pthreadMouseLeave in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_pthreadMouseLeave));
+      printf("(7BB) offset of m_bPointInside in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_bPointInside));
+      printf("(7BB) offset of m_pwindow in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_pwindow));
 
 
          auto lresult = pimpl->m_puserinteraction->send_message(e_message_create, 0, 0);
