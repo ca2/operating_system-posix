@@ -745,10 +745,10 @@ namespace windowing_xcb
       else
       {
 
-         if (m_puserinteractionimpl->m_puserinteraction->layout().design().display() != ::e_display_iconic)
+         if (m_puserinteractionimpl->m_puserinteraction->const_layout().design().display() != ::e_display_iconic)
          {
 
-            m_puserinteractionimpl->m_puserinteraction->layout().design() = ::e_display_iconic;
+            m_puserinteractionimpl->m_puserinteraction->display(::e_display_iconic);
 
          }
 

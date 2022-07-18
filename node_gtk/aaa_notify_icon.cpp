@@ -377,13 +377,13 @@ namespace node_gtk
    //            if (pframe != nullptr)
    //            {
 
-   //               pframe->display(e_display_normal);
+   //               pframe->display(e_display_restored);
 
    //            }
    //            else
    //            {
 
-   //               m_wndptraHidden.element_at(0)->display(e_display_normal);
+   //               m_wndptraHidden.element_at(0)->display(e_display_restored);
 
    //            }
 

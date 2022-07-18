@@ -28,7 +28,7 @@ namespace windowing_xcb
    Display * node::_get_Display()
    {
 
-      return (Display *) ::aura::posix::node::_get_Display();
+      return (Display *) ::aura_posix::node::_get_Display();
 
    }
 
@@ -44,7 +44,7 @@ namespace windowing_xcb
    xcb_connection_t * node::_get_connection()
    {
 
-      return (xcb_connection_t *) ::aura::posix::node::_get_connection();
+      return (xcb_connection_t *) ::aura_posix::node::_get_connection();
 
    }
 
@@ -60,7 +60,7 @@ namespace windowing_xcb
 
       auto puser = psession->user();
 
-      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing;
+      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing1()->m_pWindowing4;
 
       pwindowing->register_extended_event_listener(pmatterListener, true, false);
 
@@ -87,7 +87,7 @@ namespace windowing_xcb
 
       auto puser = psession->user();
 
-      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing;
+      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing1()->m_pWindowing4;
 
       //o estatus =
       //

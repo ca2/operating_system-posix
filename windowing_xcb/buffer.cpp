@@ -328,7 +328,7 @@ namespace windowing_xcb
 
       slGraphics.unlock();
 
-      //pimage->map();
+      pimage->map();
 
       synchronous_lock synchronouslock(user_mutex());
 
@@ -410,16 +410,22 @@ namespace windowing_xcb
          //buffer.pixels +
          //buffer.bytes_per_row * y
 
+         auto pxcbwindow = xcb_window();
+
+         auto xcbwindow = pxcbwindow->xcb_window();
+
+         auto pdata = pimage->get_data();
+
          xcb_put_image(
             pxcbconnection,
             XCB_IMAGE_FORMAT_Z_PIXMAP,
-            xcb_window()->xcb_window(),
+            xcbwindow,
             m_gcontext,
             iWidth,
             iHeight,
             0, 0, 0, 32,
             iWidth * iHeight * 4,
-            (uint8_t *) pimage->get_data());
+            (uint8_t *) pdata);
 
             //XPutImage(xcb_window()->xcb_connection(), xcb_window()->xcb_window(), m_gc, pximage, 0, 0, 0, 0, iWidth, iHeight);
 

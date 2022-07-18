@@ -22,7 +22,7 @@ namespace node_kde
       virtual ~monitor();
 
 
-      ::windowing_xcb::windowing * xcb_windowing() const {return (::windowing_xcb::windowing *) m_pdisplay->m_pwindowing->m_pWindowing; }
+      ::windowing_xcb::windowing * xcb_windowing() const {return (::windowing_xcb::windowing *) m_pdisplay->m_pwindowing->m_pWindowing4; }
       ::windowing_xcb::display * xcb_display() const {return (::windowing_xcb::display *) m_pdisplay->m_pDisplay; }
 
 

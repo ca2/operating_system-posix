@@ -15,7 +15,7 @@ namespace node_kde
    windowing::windowing()
    {
 
-      m_pWindowing2 = this;
+      //m_pWindowing2 = this;
 
    }
 

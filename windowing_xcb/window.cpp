@@ -31,7 +31,7 @@ namespace windowing_xcb
    window::window()
    {
 
-      m_pWindow = this;
+      m_pWindow4 = this;
 
       m_pkeyboarcontext = nullptr;
 
@@ -92,17 +92,23 @@ namespace windowing_xcb
 
       }
 
+      pimpl->m_puserinteraction->m_puserinteractionTopLevel = pimpl->m_puserinteraction;
+
+      pimpl->m_puserinteraction->m_pwindow = this;
+
+      pimpl->m_pwindow = this;
+
       //display_lock displaylock(pdisplayxcb);
 
-      int x = m_puserinteractionimpl->m_puserinteraction->layout().sketch().origin().x;
+      int x = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().x;
 
-      int y = m_puserinteractionimpl->m_puserinteraction->layout().sketch().origin().y;
+      int y = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().y;
 
-      int cx = m_puserinteractionimpl->m_puserinteraction->layout().sketch().width();
+      int cx = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().width();
 
-      int cy = m_puserinteractionimpl->m_puserinteraction->layout().sketch().height();
+      int cy = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().height();
 
-      bool bVisible = m_puserinteractionimpl->m_puserinteraction->layout().sketch().is_screen_visible();
+      bool bVisible = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().is_screen_visible();
 
       if(cx <= 0)
       {
@@ -175,19 +181,19 @@ namespace windowing_xcb
 
       auto estatus = pdisplayxcb->_request_check(cookie);
 
-      auto & windowstate3 = pimpl->m_puserinteraction->m_layout.window();
-
-      windowstate3.origin() = {INT_MIN, INT_MIN};
-
-      windowstate3.size() = {INT_MIN, INT_MIN};
+//      auto & windowstate3 = pimpl->m_puserinteraction->m_layout.window();
+//
+//      windowstate3.origin() = {INT_MIN, INT_MIN};
+//
+//      windowstate3.size() = {INT_MIN, INT_MIN};
 
       //windowstate3.screen_origin() = {INT_MIN, INT_MIN};
 
-      auto &state = pimpl->m_puserinteraction->m_layout.design();
-
-      state.origin() = {x, y};
-
-      state.size() = {cx, cy};
+//      auto &state = pimpl->m_puserinteraction->m_layout.design();
+//
+//      state.origin() = {x, y};
+//
+//      state.size() = {cx, cy};
 
       //state.screen_origin() = state.origin();
 
@@ -277,7 +283,7 @@ namespace windowing_xcb
          _set_desktop_window();
 
       }
-      else if (pimpl->m_puserinteraction->layout().sketch().activation() & e_activation_on_center_of_screen)
+      else if (pimpl->m_puserinteraction->const_layout().sketch().activation() & e_activation_on_center_of_screen)
       {
 
          _set_center_window();
@@ -388,7 +394,9 @@ namespace windowing_xcb
       else
       {
 
-         pimpl->m_puserinteraction->layout().window().display() = e_display_none;
+         //pimpl->m_puserinteraction->layout().window().display() = e_display_none;
+
+         pimpl->m_puserinteraction->hide();
 
       }
 
@@ -1492,7 +1500,7 @@ namespace windowing_xcb
    void window::post_ui_message(const MESSAGE & message)
    {
 
-      oswindow oswindow = message.oswindow;
+      ::oswindow oswindow = message.oswindow;
 
       ASSERT(oswindow != nullptr);
 

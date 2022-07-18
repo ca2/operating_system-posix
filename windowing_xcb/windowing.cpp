@@ -20,7 +20,7 @@ namespace windowing_xcb
    windowing::windowing()
    {
 
-      m_pWindowing = this;
+      m_pWindowing4 = this;
 
       m_bFinishXcbThread = false;
 
@@ -827,7 +827,7 @@ namespace windowing_xcb
          if (msg.oswindow != nullptr && msg.oswindow->m_puserinteractionimpl != nullptr)
          {
 
-            ((class window *) msg.oswindow->m_pWindow)->m_pointMouseCursor = m_pointCursor;
+            ((class window *) msg.oswindow->m_pWindow4)->m_pointMouseCursor = m_pointCursor;
 
             bool bOk = true;
 
@@ -855,7 +855,7 @@ namespace windowing_xcb
                   if (false)
                   {
 
-                     if (pinteraction->m_durationMouseMovePeriod > 0)
+                     if (pinteraction->m_durationMouseMovePeriod > 0_s)
                      {
 
                         ::size_i32 sizeDistance(
@@ -1238,7 +1238,7 @@ namespace windowing_xcb
                         if (iIconic == 0)
                         {
 
-                           if (pinteraction->layout().design().display() == ::e_display_iconic)
+                           if (pinteraction->const_layout().design().display() == ::e_display_iconic)
                            {
 
                               //file_put_contents("/home/camilo/xxx.txt", "");
@@ -1255,7 +1255,7 @@ namespace windowing_xcb
                                                     if (edisplayPrevious == ::e_display_iconic)
                                                     {
 
-                                                       pinteraction->_001OnDeiconify(::e_display_normal);
+                                                       pinteraction->_001OnDeiconify(::e_display_restored);
 
                                                     }
                                                     else
@@ -1270,11 +1270,11 @@ namespace windowing_xcb
                               bHandled = true;
 
                            }
-                           else if (pinteraction->layout().sketch().display() == ::e_display_full_screen
-                                    && pinteraction->layout().design().display() != ::e_display_full_screen)
+                           else if (pinteraction->const_layout().sketch().display() == ::e_display_full_screen
+                                    && pinteraction->const_layout().design().display() != ::e_display_full_screen)
                            {
 
-                              pinteraction->layout().sketch() = ::e_display_full_screen;
+                              pinteraction->display(::e_display_full_screen);
 
                            }
 
@@ -1282,11 +1282,11 @@ namespace windowing_xcb
                         else
                         {
 
-                           if (pinteraction->layout().design().display() != ::e_display_iconic
-                               && pinteraction->layout().design().display() != ::e_display_none)
+                           if (pinteraction->const_layout().design().display() != ::e_display_iconic
+                               && pinteraction->const_layout().design().display() != ::e_display_none)
                            {
 
-                              pinteraction->layout().sketch() = ::e_display_iconic;
+                              pinteraction->display(::e_display_iconic);
 
                            }
 
@@ -1380,7 +1380,7 @@ namespace windowing_xcb
                if (pinteraction != nullptr)
                {
 
-                  if (pinteraction->layout().design().display() == ::e_display_iconic && !msg.oswindow->is_iconic())
+                  if (pinteraction->const_layout().design().display() == ::e_display_iconic && !msg.oswindow->is_iconic())
                   {
 
                      pinteraction->fork([point,size,pinteraction]()
@@ -1391,7 +1391,7 @@ namespace windowing_xcb
                                            if (edisplayPrevious == ::e_display_iconic)
                                            {
 
-                                              pinteraction->_001OnDeiconify(::e_display_normal);
+                                              pinteraction->_001OnDeiconify(::e_display_restored);
 
                                            }
                                            else
@@ -1526,7 +1526,7 @@ namespace windowing_xcb
 
             auto puserinteraction = pimpl->m_puserinteraction;
 
-            auto & window = puserinteraction->layout().window();
+            auto & window = puserinteraction->const_layout().window();
 
             auto origin = window.origin();
 
@@ -2080,9 +2080,9 @@ namespace windowing_xcb
 
       }
 
-      bool bPositionFix = puserinteraction->layout().window().origin() != pointWindow;
+      bool bPositionFix = puserinteraction->const_layout().window().origin() != pointWindow;
 
-      bool bSizeFix = puserinteraction->layout().window().size() != sizeWindow;
+      bool bSizeFix = puserinteraction->const_layout().window().size() != sizeWindow;
 
       if (bPositionFix || bSizeFix)
       {

@@ -696,83 +696,83 @@ namespace windowing_xcb
 //   }
 
 
-   void keyboard::show_software_keyboard(::user::primitive* pprimitive, string str, strsize iBeg, strsize iEnd)
-   {
-
-      synchronous_lock synchronouslock(mutex());
-
-      m_iSoftwareKeyboardEventId++;
-
-      index iEventId = m_iSoftwareKeyboardEventId;
-
-      m_pprimitiveSoftwareKeyboard = pprimitive;
-
-      fork([=,this]
-           {
-
-              sleep(400_ms);
-
-              synchronous_lock synchronouslock(mutex());
-
-              if (iEventId == m_iSoftwareKeyboardEventId)
-              {
-
-                 ASSERT(pprimitive == m_pprimitiveSoftwareKeyboard);
-
-                 synchronouslock.unlock();
-
-                 m_pprimitiveSoftwareKeyboard->show_software_keyboard(pprimitive, str, iBeg, iEnd);
-
-              }
-
-           });
-
-      //return ::success;
-
-   }
-
-
-   void keyboard::hide_software_keyboard(::user::primitive * pprimitive)
-   {
-
-      if (!::is_null(pprimitive) && pprimitive != m_pprimitiveSoftwareKeyboard)
-      {
-
-         //return error_bad_argument;
-
-         throw ::exception(error_bad_argument);
-
-      }
-
-      synchronous_lock synchronouslock(mutex());
-
-      m_iSoftwareKeyboardEventId++;
-
-      index iEventId = m_iSoftwareKeyboardEventId;
-
-      m_pprimitiveSoftwareKeyboard = nullptr;
-
-      fork([this,iEventId,pprimitive]
-           {
-
-              sleep(400_ms);
-
-              synchronous_lock synchronouslock(mutex());
-
-              if (iEventId == m_iSoftwareKeyboardEventId)
-              {
-
-                 synchronouslock.unlock();
-
-                 m_pprimitiveSoftwareKeyboard->hide_software_keyboard(pprimitive);
-
-              }
-
-           });
-
-      //return ::success;
-
-   }
+//   void keyboard::show_software_keyboard(::user::primitive* pprimitive, string str, strsize iBeg, strsize iEnd)
+//   {
+//
+//      synchronous_lock synchronouslock(mutex());
+//
+//      m_iSoftwareKeyboardEventId++;
+//
+//      index iEventId = m_iSoftwareKeyboardEventId;
+//
+//      m_pprimitiveSoftwareKeyboard = pprimitive;
+//
+//      fork([=,this]
+//           {
+//
+//              sleep(400_ms);
+//
+//              synchronous_lock synchronouslock(mutex());
+//
+//              if (iEventId == m_iSoftwareKeyboardEventId)
+//              {
+//
+//                 ASSERT(pprimitive == m_pprimitiveSoftwareKeyboard);
+//
+//                 synchronouslock.unlock();
+//
+//                 m_pprimitiveSoftwareKeyboard->show_software_keyboard(pprimitive, str, iBeg, iEnd);
+//
+//              }
+//
+//           });
+//
+//      //return ::success;
+//
+//   }
+//
+//
+//   void keyboard::hide_software_keyboard(::user::primitive * pprimitive)
+//   {
+//
+//      if (!::is_null(pprimitive) && pprimitive != m_pprimitiveSoftwareKeyboard)
+//      {
+//
+//         //return error_bad_argument;
+//
+//         throw ::exception(error_bad_argument);
+//
+//      }
+//
+//      synchronous_lock synchronouslock(mutex());
+//
+//      m_iSoftwareKeyboardEventId++;
+//
+//      index iEventId = m_iSoftwareKeyboardEventId;
+//
+//      m_pprimitiveSoftwareKeyboard = nullptr;
+//
+//      fork([this,iEventId,pprimitive]
+//           {
+//
+//              sleep(400_ms);
+//
+//              synchronous_lock synchronouslock(mutex());
+//
+//              if (iEventId == m_iSoftwareKeyboardEventId)
+//              {
+//
+//                 synchronouslock.unlock();
+//
+//                 m_pprimitiveSoftwareKeyboard->hide_software_keyboard(pprimitive);
+//
+//              }
+//
+//           });
+//
+//      //return ::success;
+//
+//   }
 
 
 

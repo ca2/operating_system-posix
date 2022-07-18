@@ -102,6 +102,12 @@ namespace node_kde
       virtual ::e_status _qapplication_exec();
 
 
+      void shell_launch(const ::string & strAppId);
+
+
+      void open_url(const ::string & strUrl) override;
+
+
    };
 
 

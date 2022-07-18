@@ -13,6 +13,11 @@
 #define new ACME_NEW
 
 
+#include <QtGui/QDesktopServices>
+
+
+void kde_open_local_file(QApplication * papplication, const char *psz, const char * pszMimeType);
+
 void kde_update_os_theme_colors(::os_theme_colors * pthemecolors)
 {
 
@@ -392,7 +397,7 @@ namespace node_kde
 
       //auto estatus =
       //
-      ::aura::posix::node::initialize(pobject);
+      ::aura_posix::node::initialize(pobject);
 
 //      if(!estatus)
 //      {
@@ -826,7 +831,7 @@ namespace node_kde
 
          xcb_generic_event_t * pevent = (xcb_generic_event_t *) message;
 
-         auto pwindowing = (::windowing_xcb::windowing *) m_pwindowing->m_pWindowing;
+         auto pwindowing = (::windowing_xcb::windowing *) m_pwindowing->m_pWindowing4;
 
          if(pwindowing->xcb_process_event(pevent))
          {
@@ -886,6 +891,30 @@ namespace node_kde
 //
 //   }
 
+   void node::shell_launch(const ::string & strAppId)
+   {
+
+      string strDesktopFileTitle(strAppId);
+
+      strDesktopFileTitle.find_replace("/", ".");
+
+      ::file::path pathDesktop;
+
+      pathDesktop = m_psystem->m_pacmedirectory->home() / ".local/share/applications" / (strDesktopFileTitle + ".desktop");
+
+      kde_open_local_file(m_pqapplication, pathDesktop, "application/x-desktop");
+
+   }
+
+
+   void node::open_url(const ::string & strUrl)
+   {
+
+      QUrl url(strUrl.c_str());
+
+      QDesktopServices::openUrl(url);
+
+   }
 
 
 } // namespace node_kde

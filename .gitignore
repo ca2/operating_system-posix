@@ -3,6 +3,7 @@ cmake_install.cmake
 Makefile
 **/CMakeFiles
 **/.vs
+**/.vscode
 **/.DS_Store
 **/.git
 **/.svn

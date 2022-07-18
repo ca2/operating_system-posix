@@ -18,6 +18,7 @@ list(APPEND library_source
    gdk_gdk.h
    gtk_gtk.cpp
    gtk_gtk.h
+   gtk-launch.cpp
    monitor.cpp
    monitor.h
    node.cpp
@@ -39,7 +40,7 @@ list(APPEND library_references
    )
 
 
-add_library(node_gtk SHARED ${library_source} gtk-launch.cpp)
+add_library(node_gtk SHARED ${library_source})
 
 target_precompile_headers(node_gtk PRIVATE framework.h)
 

@@ -87,6 +87,7 @@ namespace node_gtk
 
       void shell_launch(const ::string & strAppId) override;
 
+      void open_url(const ::string & strUrl) override;
 
    };
 
