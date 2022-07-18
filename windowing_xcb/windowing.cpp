@@ -1255,7 +1255,7 @@ namespace windowing_xcb
                                                     if (edisplayPrevious == ::e_display_iconic)
                                                     {
 
-                                                       pinteraction->_001OnDeiconify(::e_display_normal);
+                                                       pinteraction->_001OnDeiconify(::e_display_restored);
 
                                                     }
                                                     else
@@ -1391,7 +1391,7 @@ namespace windowing_xcb
                                            if (edisplayPrevious == ::e_display_iconic)
                                            {
 
-                                              pinteraction->_001OnDeiconify(::e_display_normal);
+                                              pinteraction->_001OnDeiconify(::e_display_restored);
 
                                            }
                                            else
