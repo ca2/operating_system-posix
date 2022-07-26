@@ -107,22 +107,22 @@ namespace windowing_x11
 
       m_puserinteractionimpl->m_puserinteraction->m_pwindow = this;
 
-      if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
-      {
+      // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+      // {
 
-         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+      //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+      //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
 
-      }
-      else
-      {
+      // }
+      // else
+      // {
 
-         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+      //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+      //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
 
-      }
+      // }
       
-      fflush(stdout);
+      // fflush(stdout);
 
       m_puserinteractionimpl->m_puserinteraction->m_puserinteractionTopLevel = m_puserinteractionimpl->m_puserinteraction;
 
@@ -130,8 +130,8 @@ namespace windowing_x11
 
       pimpl->m_pwindow = this;
 
-      printf("pimpl->m_pwindow.m_p (0x%x)\n", pimpl->m_pwindow.m_p);
-      printf("pimpl->m_pwindow.m_pelement (0x%x)\n", pimpl->m_pwindow.m_pelement);
+      // printf("pimpl->m_pwindow.m_p (0x%x)\n", pimpl->m_pwindow.m_p);
+      // printf("pimpl->m_pwindow.m_pelement (0x%x)\n", pimpl->m_pwindow.m_pelement);
 
       display_lock displaylock(pdisplayx11->Display());
 
@@ -265,22 +265,22 @@ namespace windowing_x11
                                       | CWOverrideRedirect, &attr);
 
 
-      if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
-      {
+      // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+      // {
 
-         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (2)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+      //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (2)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+      //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
 
-      }
-      else
-      {
+      // }
+      // else
+      // {
 
-         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (2)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+      //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (2)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+      //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
 
-      }
+      // }
       
-      fflush(stdout);
+      // fflush(stdout);
 
 
       //auto & windowstate3 = pimpl->m_puserinteraction->m_layout.window();
@@ -318,22 +318,22 @@ namespace windowing_x11
 
       }
 
-      if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
-      {
+      // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+      // {
 
-         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (3)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+      //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (3)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+      //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
 
-      }
-      else
-      {
+      // }
+      // else
+      // {
 
-         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (3)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+      //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (3)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+      //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
 
-      }
+      // }
       
-      fflush(stdout);
+      //fflush(stdout);
 
 
       set_oswindow(this);
@@ -377,22 +377,22 @@ namespace windowing_x11
 
       }
 
-      if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
-      {
+      // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+      // {
 
-         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (4) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+      //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (4) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+      //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
 
-      }
-      else
-      {
+      // }
+      // else
+      // {
 
-         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (4) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+      //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (4) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+      //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
 
-      }
+      // }
       
-      fflush(stdout);
+      // fflush(stdout);
 
 
 #ifndef RASPBIAN
@@ -500,22 +500,22 @@ namespace windowing_x11
 
       }
 
-      if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
-      {
+      // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+      // {
 
-         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!!(5) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+      //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!!(5) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+      //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
 
-      }
-      else
-      {
+      // }
+      // else
+      // {
 
-         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!!(5) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+      //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!!(5) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+      //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
 
-      }
+      // }
       
-      fflush(stdout);
+      // fflush(stdout);
 
 
       bamf_set_icon();
@@ -600,22 +600,22 @@ namespace windowing_x11
 
       }
 
-      if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
-      {
+      // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+      // {
 
-         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (6)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+      //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (6)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+      //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
 
-      }
-      else
-      {
+      // }
+      // else
+      // {
 
-         printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (6)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+      //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (6)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+      //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
 
-      }
+      // }
       
-      fflush(stdout);
+      // fflush(stdout);
 
 
       if (bOk)
@@ -623,29 +623,29 @@ namespace windowing_x11
 
          //auto lresult = pimpl->m_puserinteraction->send_message(e_message_create, 0, (lparam) &pusersystem->m_createstruct);
 
-         if(::is_null(pimpl->m_puserinteraction->m_pwindow))
-         {
+         // if(::is_null(pimpl->m_puserinteraction->m_pwindow))
+         // {
 
-            printf("pimpl->m_puserinteraction->m_pwindow is null!! (7) (0x%x)\n", pimpl->m_puserinteraction->m_pwindow);
-            printf("pimpl->m_puserinteraction (0x%x)\n", pimpl->m_puserinteraction.m_p);
+         //    printf("pimpl->m_puserinteraction->m_pwindow is null!! (7) (0x%x)\n", pimpl->m_puserinteraction->m_pwindow);
+         //    printf("pimpl->m_puserinteraction (0x%x)\n", pimpl->m_puserinteraction.m_p);
 
-         }
-         else
-         {
+         // }
+         // else
+         // {
 
-            printf("pimpl->m_puserinteraction->m_pwindow is set!! (7) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-            printf("pimpl->m_puserinteraction (0x%x)\n", pimpl->m_puserinteraction.m_p);
+         //    printf("pimpl->m_puserinteraction->m_pwindow is set!! (7) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+         //    printf("pimpl->m_puserinteraction (0x%x)\n", pimpl->m_puserinteraction.m_p);
 
-         }
+         // }
          
-         fflush(stdout);
+         // fflush(stdout);
 
-         auto & pwindowInteraction = pimpl->m_puserinteraction->m_pwindow;
+         // auto & pwindowInteraction = pimpl->m_puserinteraction->m_pwindow;
 
-         printf("pwindowInteraction (7B) (0x%x)\n", pwindowInteraction);
-         printf("&pwindowInteraction (7BA) (0x%x)\n", &pwindowInteraction);
+         // printf("pwindowInteraction (7B) (0x%x)\n", pwindowInteraction);
+         // printf("&pwindowInteraction (7BA) (0x%x)\n", &pwindowInteraction);
 
-         fflush(stdout);
+         // fflush(stdout);
 
 // // https://stackoverflow.com/questions/23367775/pragma-packshow-with-gcc - Morten Jensen
 //       /*
@@ -668,26 +668,29 @@ namespace windowing_x11
 // } PACKED struct_t;
 // static_assert(sizeof(struct_t) == 8);
 
- typedef struct {
-   uint8_t bytes[3];
-   uint32_t looong;
- } struct_t2;
-// static_assert(sizeof(struct_t) == 8);
+//  typedef struct {
+//    uint8_t bytes[3];
+//    uint32_t looong;
+//  } struct_t2;
+// // static_assert(sizeof(struct_t) == 8);
 
-printf("sizeof(struct_t2) = %d\n", sizeof(struct_t2));
+// printf("sizeof(struct_t2) = %d\n", sizeof(struct_t2));
 
 
-      #ifdef _DEBUG
-      printf("_DEBUG defined\n");
-      #else
-      printf("_DEBUG not defined\n");
-      #endif
+//       #ifdef _DEBUG
+//       printf("_DEBUG defined\n");
+//       #else
+//       printf("_DEBUG not defined\n");
+//       #endif
 
-      #ifdef RASPBIAN
-      printf("RASPBIAN defined\n");
-      #else
-      printf("RASPBIAN not defined\n");
-      #endif
+//       #ifdef RASPBIAN
+//       printf("RASPBIAN defined\n");
+//       #else
+//       printf("RASPBIAN not defined\n");
+//       #endif
+
+
+      #ifdef REPORT_OFFSET
 
       printf("(7BB) offset of m_durationFocusStart in ::user::primitive = %d\n", offsetof(::user::primitive,m_durationFocusStart));
       printf("(7BB) offset of m_bExtendOnParent in ::user::interaction = %d\n", offsetof(::user::interaction, m_bExtendOnParent));
@@ -703,6 +706,7 @@ printf("sizeof(struct_t2) = %d\n", sizeof(struct_t2));
       printf("(7BB) offset of m_bPointInside in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_bPointInside));
       printf("(7BB) offset of m_pwindow in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_pwindow));
 
+   #endif
 
          auto lresult = pimpl->m_puserinteraction->send_message(e_message_create, 0, 0);
 
