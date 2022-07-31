@@ -393,6 +393,8 @@ namespace node_kde
 
       }
 
+      //main_asynchronous([])
+
       m_pqapplication->installEventFilter(this);
 
       //auto estatus =
@@ -425,8 +427,6 @@ namespace node_kde
 
       }
 
-      ::x11::display::get(this, false, (Display *) m_pX11Display);
-
       m_pxcbconnection = QX11Info::connection();
 
       if(!m_pxcbconnection)
@@ -435,6 +435,8 @@ namespace node_kde
          return error_failed;
 
       }
+
+      ::x11::display::get(this, false, (Display *) m_pX11Display);
 
       return ::success;
 
