@@ -92,9 +92,9 @@ __STATIC long CLASS_DECL_DRAW2D_XLIB _AfxMultMultDivDiv(
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// Print Preview DC (preview_dc)
+// Print Thumbnail DC (thumbnail_dc)
 
-preview_dc::preview_dc()
+thumbnail_dc::thumbnail_dc()
 {
    // Initial scale factor and top-left offset
    m_nScaleNum = m_nScaleDen = 1;
@@ -102,7 +102,7 @@ preview_dc::preview_dc()
    m_hFont = m_hPrinterFont = nullptr;
 }
 
-void preview_dc::SetOutputDC(HDC hDC)
+void thumbnail_dc::SetOutputDC(HDC hDC)
 {
    ASSERT(hDC != nullptr);
    m_nSaveDCIndex = ::SaveDC(hDC); // restore in ReleaseOutputDC()
@@ -120,14 +120,14 @@ void preview_dc::SetOutputDC(HDC hDC)
    }
 }
 
-void preview_dc::ReleaseOutputDC()
+void thumbnail_dc::ReleaseOutputDC()
 {
    ASSERT(get_os_data() != nullptr);
    ::RestoreDC(get_os_data(), m_nSaveDCIndex); // Saved in SetOutputDC()
    ::draw2d::graphics_pointer::ReleaseOutputDC();
 }
 
-void preview_dc::SetAttribDC(HDC hDC)
+void thumbnail_dc::SetAttribDC(HDC hDC)
 {
    ASSERT(hDC != nullptr);
    ::draw2d::graphics_pointer::SetAttribDC(hDC);
@@ -137,13 +137,13 @@ void preview_dc::SetAttribDC(HDC hDC)
    MirrorAttributes();
 }
 
-preview_dc::~preview_dc()
+thumbnail_dc::~thumbnail_dc()
 {
    ASSERT(get_os_data() == nullptr);      // Should not have a screen DC at this time
    AfxDeleteObject((HGDIOBJ*)&m_hFont);
 }
 
-void preview_dc::SetScaleRatio(i32 nNumerator, i32 nDenominator)
+void thumbnail_dc::SetScaleRatio(i32 nNumerator, i32 nDenominator)
 {
    m_nScaleNum = nNumerator;
    m_nScaleDen = nDenominator;
@@ -156,13 +156,13 @@ void preview_dc::SetScaleRatio(i32 nNumerator, i32 nDenominator)
 
 // Implementation support
 #ifdef _DEBUG
-void preview_dc::assert_ok() const
+void thumbnail_dc::assert_ok() const
 {
    ::draw2d::graphics_pointer::assert_ok();
 }
 
 
-void preview_dc::dump(dump_context & dumpcontext) const
+void thumbnail_dc::dump(dump_context & dumpcontext) const
 {
    ::draw2d::graphics_pointer::dump(dumpcontext);
 
@@ -171,7 +171,7 @@ void preview_dc::dump(dump_context & dumpcontext) const
 }
 #endif
 
-i32 preview_dc::SaveDC()
+i32 thumbnail_dc::SaveDC()
 {
    ASSERT(get_handle2() != nullptr);
    i32 nAttribIndex = ::SaveDC(get_handle2());
@@ -190,7 +190,7 @@ i32 preview_dc::SaveDC()
    return nAttribIndex;
 }
 
-int_bool preview_dc::RestoreDC(i32 nSavedDC)
+int_bool thumbnail_dc::RestoreDC(i32 nSavedDC)
 {
    ASSERT(get_handle2() != nullptr);
    int_bool bSuccess = ::RestoreDC(get_handle2(), nSavedDC);
@@ -213,7 +213,7 @@ int_bool preview_dc::RestoreDC(i32 nSavedDC)
    return bSuccess;
 }
 
-void preview_dc::MirrorAttributes()
+void thumbnail_dc::MirrorAttributes()
 {
    ASSERT(get_handle2() != nullptr);
 
@@ -237,7 +237,7 @@ void preview_dc::MirrorAttributes()
    }
 }
 
-object* preview_dc::SelectStockObject(i32 nIndex)
+object* thumbnail_dc::SelectStockObject(i32 nIndex)
 {
    ASSERT(get_handle2() != nullptr);
 
@@ -276,7 +276,7 @@ object* preview_dc::SelectStockObject(i32 nIndex)
    }
 }
 
-void preview_dc::MirrorFont()
+void thumbnail_dc::MirrorFont()
 {
    if (get_handle2() == nullptr)
       return;         // can't do anything without Attrib DC
@@ -366,7 +366,7 @@ void preview_dc::MirrorFont()
    m_hFont = hNewFont;         // save the new one
 }
 
-::write_text::font* preview_dc::SelectObject(::write_text::font* pFont)
+::write_text::font* thumbnail_dc::SelectObject(::write_text::font* pFont)
 {
    if (pFont == nullptr)
       return nullptr;
@@ -390,7 +390,7 @@ void preview_dc::MirrorFont()
 /////////////////////////////////////////////////////////////////////////////
 // Drawing-Attribute Functions
 
-color32_t preview_dc::SetBkColor(color32_t crColor)
+color32_t thumbnail_dc::SetBkColor(color32_t crColor)
 {
    ASSERT(get_handle2() != nullptr);
    if (get_os_data() != nullptr)
@@ -398,7 +398,7 @@ color32_t preview_dc::SetBkColor(color32_t crColor)
    return ::SetBkColor(get_handle2(), crColor);
 }
 
-color32_t preview_dc::SetTextColor(color32_t crColor)
+color32_t thumbnail_dc::SetTextColor(color32_t crColor)
 {
    ASSERT(get_handle2() != nullptr);
    if (get_os_data() != nullptr)
@@ -406,7 +406,7 @@ color32_t preview_dc::SetTextColor(color32_t crColor)
    return ::SetTextColor(get_handle2(), crColor);
 }
 
-i32 preview_dc::SetMapMode(i32 nMapMode)
+i32 thumbnail_dc::SetMapMode(i32 nMapMode)
 {
    ASSERT(get_handle2() != nullptr);
    i32 nModeOld = ::SetMapMode(get_handle2(), nMapMode);
@@ -414,7 +414,7 @@ i32 preview_dc::SetMapMode(i32 nMapMode)
    return nModeOld;
 }
 
-point_i32 preview_dc::SetViewportOrg(i32 x, i32 y)
+point_i32 thumbnail_dc::SetViewportOrg(i32 x, i32 y)
 {
    ASSERT(get_handle2() != nullptr);
    point_i32 ptOrgOld;
@@ -423,7 +423,7 @@ point_i32 preview_dc::SetViewportOrg(i32 x, i32 y)
    return ptOrgOld;
 }
 
-point_i32 preview_dc::OffsetViewportOrg(i32 nWidth, i32 nHeight)
+point_i32 thumbnail_dc::OffsetViewportOrg(i32 nWidth, i32 nHeight)
 {
    ASSERT(get_handle2() != nullptr);
    point_i32 ptOrgOld;
@@ -432,7 +432,7 @@ point_i32 preview_dc::OffsetViewportOrg(i32 nWidth, i32 nHeight)
    return ptOrgOld;
 }
 
-size_i32 preview_dc::SetViewportExt(i32 x, i32 y)
+size_i32 thumbnail_dc::SetViewportExt(i32 x, i32 y)
 {
    ASSERT(get_handle2() != nullptr);
    size_i32 sizeExtOld;
@@ -441,7 +441,7 @@ size_i32 preview_dc::SetViewportExt(i32 x, i32 y)
    return sizeExtOld;
 }
 
-size_i32 preview_dc::ScaleViewportExt(i32 xNum, i32 xDenom, i32 yNum, i32 yDenom)
+size_i32 thumbnail_dc::ScaleViewportExt(i32 xNum, i32 xDenom, i32 yNum, i32 yDenom)
 {
    ASSERT(get_handle2() != nullptr);
    size_i32 sizeExtOld;
@@ -451,7 +451,7 @@ size_i32 preview_dc::ScaleViewportExt(i32 xNum, i32 xDenom, i32 yNum, i32 yDenom
    return sizeExtOld;
 }
 
-size_i32 preview_dc::set_window_ext(i32 x, i32 y)
+size_i32 thumbnail_dc::set_window_ext(i32 x, i32 y)
 {
    ASSERT(get_handle2() != nullptr);
    size_i32 sizeExtOld;
@@ -460,7 +460,7 @@ size_i32 preview_dc::set_window_ext(i32 x, i32 y)
    return sizeExtOld;
 }
 
-size_i32 preview_dc::scale_window_ext(i32 xNum, i32 xDenom, i32 yNum, i32 yDenom)
+size_i32 thumbnail_dc::scale_window_ext(i32 xNum, i32 xDenom, i32 yNum, i32 yDenom)
 {
    ASSERT(get_handle2() != nullptr);
    size_i32 sizeExtOld;
@@ -491,7 +491,7 @@ __STATIC i32 CLASS_DECL_DRAW2D_XLIB _AfxComputeNextTab(i32 x, ::u32 nTabStops, L
 
 // Compute a character delta table for correctly positioning the screen
 // font characters where the printer characters will appear on the page
-size_i32 preview_dc::ComputeDeltas(i32& x, const char * lpszString, ::u32 &nCount,
+size_i32 thumbnail_dc::ComputeDeltas(i32& x, const char * lpszString, ::u32 &nCount,
    int_bool bTabbed, ::u32 nTabStops, LPINT lpnTabStops, i32 nTabOrigin,
    __out_z char * lpszOutputString, i32* pnDxWidths, i32& nRightFixup)
 {
@@ -634,12 +634,12 @@ size_i32 preview_dc::ComputeDeltas(i32& x, const char * lpszString, ::u32 &nCoun
    return sizeExtent;
 }
 
-int_bool preview_dc::text_out(i32 x, i32 y, const char * lpszString, i32 nCount)
+int_bool thumbnail_dc::text_out(i32 x, i32 y, const char * lpszString, i32 nCount)
 {
    return ExtTextOut(x, y, 0, nullptr, lpszString, nCount, nullptr);
 }
 
-int_bool preview_dc::ExtTextOut(i32 x, i32 y, ::u32 nOptions, const ::rectangle_i32 & rectangle,
+int_bool thumbnail_dc::ExtTextOut(i32 x, i32 y, ::u32 nOptions, const ::rectangle_i32 & rectangle,
    const char * lpszString, ::u32 nCount, LPINT lpDxWidths)
 {
    ASSERT(get_os_data() != nullptr);
@@ -692,7 +692,7 @@ int_bool preview_dc::ExtTextOut(i32 x, i32 y, ::u32 nOptions, const ::rectangle_
    return bSuccess;
 }
 
-size_i32 preview_dc::TabbedTextOut(i32 x, i32 y, const char * lpszString, i32 nCount,
+size_i32 thumbnail_dc::TabbedTextOut(i32 x, i32 y, const char * lpszString, i32 nCount,
    i32 nTabPositions, LPINT lpnTabStopPositions, i32 nTabOrigin)
 {
    ASSERT(get_handle2() != nullptr);
@@ -745,7 +745,7 @@ size_i32 preview_dc::TabbedTextOut(i32 x, i32 y, const char * lpszString, i32 nC
 
 // This one is too complicated to do character-by-character output positioning
 // All we really need to do here is mirror the current position
-i32 preview_dc::DrawText(const char * lpszString, i32 nCount, RECTANGLE_I32 * prectangle,
+i32 thumbnail_dc::DrawText(const char * lpszString, i32 nCount, RECTANGLE_I32 * prectangle,
    ::u32 nFormat)
 {
    ASSERT(get_handle2() != nullptr);
@@ -765,7 +765,7 @@ i32 preview_dc::DrawText(const char * lpszString, i32 nCount, RECTANGLE_I32 * pr
    return retVal;
 }
 
-i32 preview_dc::DrawTextEx(__in_ecount(nCount) char * lpszString, i32 nCount, RECTANGLE_I32 * prectangle,
+i32 thumbnail_dc::DrawTextEx(__in_ecount(nCount) char * lpszString, i32 nCount, RECTANGLE_I32 * prectangle,
    ::u32 nFormat, LPDRAWTEXTPARAMS lpDTParams)
 {
    ASSERT(get_handle2() != nullptr);
@@ -785,15 +785,15 @@ i32 preview_dc::DrawTextEx(__in_ecount(nCount) char * lpszString, i32 nCount, RE
    return retVal;
 }
 
-int_bool preview_dc::GrayString(::draw2d::brush*,
+int_bool thumbnail_dc::GrayString(::draw2d::brush*,
             int_bool (CALLBACK *)(HDC, LPARAM, i32),
                LPARAM lpData, i32 nCount, i32 x, i32 y, i32, i32)
 {
-   TRACE(::aura::trace::category_AppMsg, 0, "text_out() substituted for GrayString() in Print Preview.\n");
+   TRACE(::aura::trace::category_AppMsg, 0, "text_out() substituted for GrayString() in Print Thumbnail.\n");
    return text_out(x, y, (const char *)lpData, nCount);
 }
 
-i32 preview_dc::Escape(i32 nEscape, i32 nCount, const char * lpszInData, void * lpOutData)
+i32 thumbnail_dc::Escape(i32 nEscape, i32 nCount, const char * lpszInData, void * lpOutData)
 {
    // The tact here is to NOT allow any of the document control escapes
    // to be passed through.  Elimination of StartDoc and EndDoc should
@@ -849,7 +849,7 @@ i32 preview_dc::Escape(i32 nEscape, i32 nCount, const char * lpszInData, void * 
    }
 }
 
-void preview_dc::MirrorMappingMode(int_bool bCompute)
+void thumbnail_dc::MirrorMappingMode(int_bool bCompute)
 {
    ASSERT(get_handle2() != nullptr);
    if (bCompute)
@@ -912,7 +912,7 @@ void preview_dc::MirrorMappingMode(int_bool bCompute)
    }
 }
 
-void preview_dc::MirrorViewportOrg()
+void thumbnail_dc::MirrorViewportOrg()
 {
    if (get_handle2() == nullptr || get_os_data() == nullptr)
       return;
@@ -928,14 +928,14 @@ void preview_dc::MirrorViewportOrg()
    ::SetWindowOrgEx(get_os_data(), ptWinOrg.x, ptWinOrg.y, nullptr);
 }
 
-void preview_dc::SetTopLeftOffset(const ::size_i32 & sizeTopLeft)
+void thumbnail_dc::SetTopLeftOffset(const ::size_i32 & sizeTopLeft)
 {
    ASSERT(get_handle2() != nullptr);
    m_sizeTopLeft = sizeTopLeft;
    MirrorViewportOrg();
 }
 
-void preview_dc::ClipToPage()
+void thumbnail_dc::ClipToPage()
 {
    ASSERT(get_handle2() != nullptr);
    ASSERT(get_os_data() != nullptr);
@@ -961,7 +961,7 @@ void preview_dc::ClipToPage()
 
 // these conversion functions can be used without an attached screen DC
 
-void preview_dc::PrinterDPtoScreenDP(POINT_I32 * lpPoint) const
+void thumbnail_dc::PrinterDPtoScreenDP(POINT_I32 * lpPoint) const
 {
    ASSERT(get_handle2() != nullptr);
 
@@ -1010,7 +1010,7 @@ HDC CLASS_DECL_DRAW2D_XLIB AfxCreateDC(HGLOBAL hDevNames, HGLOBAL hDevMode)
 }
 
 
-// IMPLEMENT_DYNAMIC(preview_dc, ::draw2d::graphics_pointer)
+// IMPLEMENT_DYNAMIC(thumbnail_dc, ::draw2d::graphics_pointer)
 
 /////////////////////////////////////////////////////////////////////////////
 */

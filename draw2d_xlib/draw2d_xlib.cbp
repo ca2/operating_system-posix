@@ -101,7 +101,7 @@
 		<Unit filename="draw2d_xlib_path.h" />
 		<Unit filename="draw2d_xlib_pen.cpp" />
 		<Unit filename="draw2d_xlib_pen.h" />
-		<Unit filename="draw2d_xlib_preview_dc.cpp" />
+		<Unit filename="draw2d_xlib_thumbnail_dc.cpp" />
 		<Unit filename="draw2d_xlib_region.cpp" />
 		<Unit filename="draw2d_xlib_region.h" />
 		<Unit filename="framework.h">
