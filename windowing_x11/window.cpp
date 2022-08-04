@@ -1722,7 +1722,9 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
          if (edisplay == e_display_zoomed)
          {
 
-            if (attr.map_state == IsUnmapped)
+            int iMapState = attr.map_state;
+
+            if (iMapState != IsViewable)
             {
 
                XMapWindow(Display(), Window());
