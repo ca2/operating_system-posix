@@ -1197,7 +1197,23 @@ i32 daemonize_process(const ::string & pszCommandLine, i32 * pprocessId)
 
    }
 
-   daemon(0, 0);
+   // change to the "/" directory
+   int nochdir = 0;
+
+   // redirect standard input, output and error to /dev/null
+   // this is equivalent to "closing the file descriptors"
+   int noclose = 0;
+
+   // glibc call to daemonize this process without a double fork
+   int iError = daemon(nochdir, noclose);
+
+   if(iError != 0)
+   {
+
+      throw ::exception(error_failed, "could not daemonize");
+
+   }
+
 
    //   signal(SIGCHLD, SIG_IGN);
    //

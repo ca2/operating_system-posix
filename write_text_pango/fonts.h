@@ -48,14 +48,14 @@ namespace write_text_pango
       //::write_text::font * GetH3TitleFont();
       //::write_text::font * GetMidiTrackNameFont();
       //::write_text::font * GetMenuFont();
-      //::write_text::font * GetLyricViewFont();
-      //::write_text::font * GetLyricViewCompactFont();
+      //::write_text::font * GetLyricWindowFont();
+      //::write_text::font * GetLyricWindowCompactFont();
       //draw2d_font_spa & GetTitleFonts();
       //draw2d_font_spa & GetSubTitleFonts();
       //draw2d_font_spa & GetH3TitleFonts();
 
-      //void CreateLyricViewFonts();
-      //void DestroyLyricViewFonts();
+      //void CreateLyricWindowFonts();
+      //void DestroyLyricWindowFonts();
 
 
       fonts();

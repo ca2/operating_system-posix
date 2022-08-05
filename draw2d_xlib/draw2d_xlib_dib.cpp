@@ -2567,7 +2567,7 @@ namespace draw2d_xlib
 
       rectangleWindow = puserinteraction->m_rectangleParentClient;
 
-      m_spgraphics->SetViewportOrg(0, 0);
+      m_spgraphics->set_origin(0, 0);
 
       map(true);
 
@@ -2636,12 +2636,12 @@ namespace draw2d_xlib
             puserinteraction->_001OnDeferPaintLayeredWindowBackground(pgraphics);
          }
          m_spgraphics->SelectClipRgn(nullptr);
-         m_spgraphics-> SetViewportOrg(::point_i32());
+         m_spgraphics-> set_origin(::point_i32());
          puserinteraction->_000OnDraw(pgraphics);
-         m_spgraphics->SetViewportOrg(::point_i32());
+         m_spgraphics->set_origin(::point_i32());
          //(dynamic_cast<::win::graphics * >(pgraphics))->FillSolidRect(rectangleUpdate.left, rectangleUpdate.top, 100, 100, 255);
          m_spgraphics->SelectClipRgn(nullptr);
-         m_spgraphics->SetViewportOrg(::point_i32());
+         m_spgraphics->set_origin(::point_i32());
 
          m_spgraphics->SelectClipRgn( nullptr);
          m_spgraphics->BitBlt(rectanglePaint.left, rectanglePaint.top,
@@ -2672,7 +2672,7 @@ namespace draw2d_xlib
 //
 //      rectangleWindow = puserinteraction->m_rectangleParentClient;
 //
-//      m_spgraphics->SetViewportOrg(0, 0);
+//      m_spgraphics->set_origin(0, 0);
 //
 //      map(true);
 //

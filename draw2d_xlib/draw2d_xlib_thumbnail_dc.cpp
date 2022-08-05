@@ -331,7 +331,7 @@ void thumbnail_dc::MirrorFont()
    size_i32 sizeWinExt;
    VERIFY(::GetWindowExtEx(get_os_data(), &sizeWinExt));
    size_i32 sizeVpExt;
-   VERIFY(::GetViewportExtEx(get_os_data(), &sizeVpExt));
+   VERIFY(::Get_wiewportExtEx(get_os_data(), &sizeVpExt));
 
    // Only interested in Extent Magnitudes, not direction
    if (sizeWinExt.cy < 0)
@@ -414,38 +414,38 @@ i32 thumbnail_dc::SetMapMode(i32 nMapMode)
    return nModeOld;
 }
 
-point_i32 thumbnail_dc::SetViewportOrg(i32 x, i32 y)
+point_i32 thumbnail_dc::set_origin(i32 x, i32 y)
 {
    ASSERT(get_handle2() != nullptr);
    point_i32 ptOrgOld;
-   VERIFY(::SetViewportOrgEx(get_handle2(), x, y, &ptOrgOld));
-   MirrorViewportOrg();
+   VERIFY(::SetContextOrgEx(get_handle2(), x, y, &ptOrgOld));
+   MirrorContextOrg();
    return ptOrgOld;
 }
 
-point_i32 thumbnail_dc::OffsetViewportOrg(i32 nWidth, i32 nHeight)
+point_i32 thumbnail_dc::offset_origin(i32 nWidth, i32 nHeight)
 {
    ASSERT(get_handle2() != nullptr);
    point_i32 ptOrgOld;
-   VERIFY(::OffsetViewportOrgEx(get_handle2(), nWidth, nHeight, &ptOrgOld));
-   MirrorViewportOrg();
+   VERIFY(::OffsetContextOrgEx(get_handle2(), nWidth, nHeight, &ptOrgOld));
+   MirrorContextOrg();
    return ptOrgOld;
 }
 
-size_i32 thumbnail_dc::SetViewportExt(i32 x, i32 y)
+size_i32 thumbnail_dc::set_context_extents(i32 x, i32 y)
 {
    ASSERT(get_handle2() != nullptr);
    size_i32 sizeExtOld;
-   VERIFY(::SetViewportExtEx(get_handle2(), x, y, &sizeExtOld));
+   VERIFY(::Set_wiewportExtEx(get_handle2(), x, y, &sizeExtOld));
    MirrorMappingMode(true);
    return sizeExtOld;
 }
 
-size_i32 thumbnail_dc::ScaleViewportExt(i32 xNum, i32 xDenom, i32 yNum, i32 yDenom)
+size_i32 thumbnail_dc::scale_context_extents(i32 xNum, i32 xDenom, i32 yNum, i32 yDenom)
 {
    ASSERT(get_handle2() != nullptr);
    size_i32 sizeExtOld;
-   VERIFY(::ScaleViewportExtEx(get_handle2(), xNum, xDenom,
+   VERIFY(::scale_context_extentsEx(get_handle2(), xNum, xDenom,
       yNum, yDenom, &sizeExtOld));
    MirrorMappingMode(true);
    return sizeExtOld;
@@ -856,7 +856,7 @@ void thumbnail_dc::MirrorMappingMode(int_bool bCompute)
    {
       //
       // The following formula is used to compute the screen's viewport extent
-      // From the printer and screen information and the Printer's Viewport
+      // From the printer and screen information and the Printer's Context
       // Extents.  (Note:  This formula is used twice, once for horizontal
       // and once for vertical)
       //
@@ -869,7 +869,7 @@ void thumbnail_dc::MirrorMappingMode(int_bool bCompute)
       // Where m/n is the scaling factor.  (m/n > 1 is expansion)
       //
 
-      VERIFY(::GetViewportExtEx(get_handle2(), &m_sizeVpExt));
+      VERIFY(::Get_wiewportExtEx(get_handle2(), &m_sizeVpExt));
       VERIFY(::GetWindowExtEx(get_handle2(), &m_sizeWinExt));
 
       while (m_sizeWinExt.cx > -0x4000 && m_sizeWinExt.cx < 0x4000 &&
@@ -905,23 +905,23 @@ void thumbnail_dc::MirrorMappingMode(int_bool bCompute)
    {
       ::SetMapMode(get_os_data(), MM_ANISOTROPIC);
       ::SetWindowExtEx(get_os_data(), m_sizeWinExt.cx, m_sizeWinExt.cy, nullptr);
-      ::SetViewportExtEx(get_os_data(), m_sizeVpExt.cx, m_sizeVpExt.cy, nullptr);
+      ::Set_wiewportExtEx(get_os_data(), m_sizeVpExt.cx, m_sizeVpExt.cy, nullptr);
 
-      // Now that the Logical Units are synchronized, we can set the Viewport Org
-      MirrorViewportOrg();
+      // Now that the Logical Units are synchronized, we can set the Context Org
+      MirrorContextOrg();
    }
 }
 
-void thumbnail_dc::MirrorViewportOrg()
+void thumbnail_dc::MirrorContextOrg()
 {
    if (get_handle2() == nullptr || get_os_data() == nullptr)
       return;
 
    point_i32 ptVpOrg;
-   VERIFY(::GetViewportOrgEx(get_handle2(), &ptVpOrg));
+   VERIFY(::GetContextOrgEx(get_handle2(), &ptVpOrg));
    PrinterDPtoScreenDP(&ptVpOrg);
    ptVpOrg += m_sizeTopLeft;
-   ::SetViewportOrgEx(get_os_data(), ptVpOrg.x, ptVpOrg.y, nullptr);
+   ::SetContextOrgEx(get_os_data(), ptVpOrg.x, ptVpOrg.y, nullptr);
 
    point_i32 ptWinOrg;
    VERIFY(::GetWindowOrgEx(get_handle2(), &ptWinOrg));
@@ -932,7 +932,7 @@ void thumbnail_dc::SetTopLeftOffset(const ::size_i32 & sizeTopLeft)
 {
    ASSERT(get_handle2() != nullptr);
    m_sizeTopLeft = sizeTopLeft;
-   MirrorViewportOrg();
+   MirrorContextOrg();
 }
 
 void thumbnail_dc::ClipToPage()
@@ -952,7 +952,7 @@ void thumbnail_dc::ClipToPage()
 
    ::SetMapMode(get_os_data(), MM_TEXT);
    ::SetWindowOrgEx(get_os_data(), 0, 0, nullptr);
-   ::SetViewportOrgEx(get_os_data(), m_sizeTopLeft.cx, m_sizeTopLeft.cy, nullptr);
+   ::SetContextOrgEx(get_os_data(), m_sizeTopLeft.cx, m_sizeTopLeft.cy, nullptr);
    ::IntersectClipRect(get_os_data(), -1, -1, point.x + 2, point.y + 2);
 
    // Resynchronize the mapping mode
@@ -966,7 +966,7 @@ void thumbnail_dc::PrinterDPtoScreenDP(POINT_I32 * lpPoint) const
    ASSERT(get_handle2() != nullptr);
 
    size_i32 sizePrinterVpExt;
-   VERIFY(::GetViewportExtEx(get_handle2(), &sizePrinterVpExt));
+   VERIFY(::Get_wiewportExtEx(get_handle2(), &sizePrinterVpExt));
    size_i32 sizePrinterWinExt;
    VERIFY(::GetWindowExtEx(get_handle2(), &sizePrinterWinExt));
 

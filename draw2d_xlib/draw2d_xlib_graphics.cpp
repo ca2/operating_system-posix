@@ -441,10 +441,10 @@ namespace draw2d_xlib
 
    }
 
-   size_i32 graphics::GetViewportExt() const
+   size_i32 graphics::get_context_extents() const
    {
       /*::size_i32 size;
-      ::GetViewportExtEx(get_handle2(), &size);
+      ::Get_wiewportExtEx(get_handle2(), &size);
       return size;*/
 
       return ::size_i32(0, 0);
@@ -467,7 +467,7 @@ namespace draw2d_xlib
    }
 
    // non-virtual helpers calling virtual mapping functions
-   point_i32 graphics::SetViewportOrg(const ::point_i32 & point)
+   point_i32 graphics::set_origin(const ::point_i32 & point)
    {
 
       m_pdc->m_point = point;
@@ -477,9 +477,9 @@ namespace draw2d_xlib
    }
 
 
-   size_i32 graphics::SetViewportExt(const ::size_i32 & size)
+   size_i32 graphics::set_context_extents(const ::size_i32 & size)
    {
-      //return SetViewportExt(size.cx, size.cy);
+      //return set_context_extents(size.cx, size.cy);
       return ::size_i32(0, 0);
    }
 
@@ -3732,7 +3732,7 @@ namespace draw2d_xlib
    }
 
 
-   point_i32 graphics::GetViewportOrg() const
+   point_i32 graphics::get_origin() const
    {
 
       return m_pdc->m_pointOffset;
@@ -3740,7 +3740,7 @@ namespace draw2d_xlib
    }
 
 
-   point_i32 graphics::SetViewportOrg(i32 x, i32 y)
+   point_i32 graphics::set_origin(i32 x, i32 y)
    {
 
       m_pdc->m_pointOffset.x = x;
@@ -3752,7 +3752,7 @@ namespace draw2d_xlib
    }
 
 
-   point_i32 graphics::OffsetViewportOrg(i32 nWidth, i32 nHeight)
+   point_i32 graphics::offset_origin(i32 nWidth, i32 nHeight)
    {
 
       m_pdc->m_pointOffset.x += nWidth;
@@ -3763,7 +3763,7 @@ namespace draw2d_xlib
 
    }
 
-   size_i32 graphics::SetViewportExt(i32 x, i32 y)
+   size_i32 graphics::set_context_extents(i32 x, i32 y)
    {
 
       throw ::not_implemented();
@@ -3772,14 +3772,14 @@ namespace draw2d_xlib
       /*
             size_i32 size(0, 0);
             if(get_handle1() != nullptr && get_handle1() != get_handle2())
-               ::SetViewportExtEx(get_handle1(), x, y, &size);
+               ::Set_wiewportExtEx(get_handle1(), x, y, &size);
             if(get_handle2() != nullptr)
-               ::SetViewportExtEx(get_handle2(), x, y, &size);
+               ::Set_wiewportExtEx(get_handle2(), x, y, &size);
             return size;
       */
    }
 
-   size_i32 graphics::ScaleViewportExt(i32 xNum, i32 xDenom, i32 yNum, i32 yDenom)
+   size_i32 graphics::scale_context_extents(i32 xNum, i32 xDenom, i32 yNum, i32 yDenom)
    {
 
       throw ::not_implemented();
@@ -3788,9 +3788,9 @@ namespace draw2d_xlib
       /*
             size_i32 size(0, 0);
             if(get_handle1() != nullptr && get_handle1() != get_handle2())
-               ::ScaleViewportExtEx(get_handle1(), xNum, xDenom, yNum, yDenom, &size);
+               ::scale_context_extentsEx(get_handle1(), xNum, xDenom, yNum, yDenom, &size);
             if(get_handle2() != nullptr)
-               ::ScaleViewportExtEx(get_handle2(), xNum, xDenom, yNum, yDenom, &size);
+               ::scale_context_extentsEx(get_handle2(), xNum, xDenom, yNum, yDenom, &size);
             return size;
       */
 
@@ -4369,11 +4369,11 @@ namespace draw2d_xlib
                (i32)(short)pMetaRec->rdParm[1], (i32)(short)pMetaRec->rdParm[0]);
             break;
          case META_SETVIEWPORTEXT:
-            (dynamic_cast<::win::graphics * >(pgraphics))->SetViewportExt(
+            (dynamic_cast<::win::graphics * >(pgraphics))->set_context_extents(
                (i32)(short)pMetaRec->rdParm[1], (i32)(short)pMetaRec->rdParm[0]);
             break;
          case META_SETVIEWPORTORG:
-            (dynamic_cast<::win::graphics * >(pgraphics))->SetViewportOrg(
+            (dynamic_cast<::win::graphics * >(pgraphics))->set_origin(
                (i32)(short)pMetaRec->rdParm[1], (i32)(short)pMetaRec->rdParm[0]);
             break;
          case META_ScaLEWINDOWEXT:
@@ -4382,12 +4382,12 @@ namespace draw2d_xlib
                (i32)(short)pMetaRec->rdParm[1], (i32)(short)pMetaRec->rdParm[0]);
             break;
          case META_ScaLEVIEWPORTEXT:
-            (dynamic_cast<::win::graphics * >(pgraphics))->ScaleViewportExt(
+            (dynamic_cast<::win::graphics * >(pgraphics))->scale_context_extents(
                (i32)(short)pMetaRec->rdParm[3], (i32)(short)pMetaRec->rdParm[2],
                (i32)(short)pMetaRec->rdParm[1], (i32)(short)pMetaRec->rdParm[0]);
             break;
          case META_OFFSETVIEWPORTORG:
-            (dynamic_cast<::win::graphics * >(pgraphics))->OffsetViewportOrg(
+            (dynamic_cast<::win::graphics * >(pgraphics))->offset_origin(
                (i32)(short)pMetaRec->rdParm[1], (i32)(short)pMetaRec->rdParm[0]);
             break;
          case META_SAVEDC:
@@ -4481,7 +4481,7 @@ namespace draw2d_xlib
             ASSERT(__is_valid_address(LPSIZE32, sizeof(SIZE_I32)));
 
             size_i32 sizeWinExt = GetWindowExt();
-            size_i32 sizeVpExt = GetViewportExt();
+            size_i32 sizeVpExt = get_context_extents();
             LPSIZE32->cx = MulDiv(LPSIZE32->cx, abs(sizeVpExt.cx), abs(sizeWinExt.cx));
             LPSIZE32->cy = MulDiv(LPSIZE32->cy, abs(sizeVpExt.cy), abs(sizeWinExt.cy));
       */
@@ -4498,7 +4498,7 @@ namespace draw2d_xlib
             ASSERT(__is_valid_address(LPSIZE32, sizeof(SIZE_I32)));
 
             size_i32 sizeWinExt = GetWindowExt();
-            size_i32 sizeVpExt = GetViewportExt();
+            size_i32 sizeVpExt = get_context_extents();
             LPSIZE32->cx = MulDiv(LPSIZE32->cx, abs(sizeWinExt.cx), abs(sizeVpExt.cx));
             LPSIZE32->cy = MulDiv(LPSIZE32->cy, abs(sizeWinExt.cy), abs(sizeVpExt.cy));
       */
