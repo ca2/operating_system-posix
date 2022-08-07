@@ -2516,7 +2516,8 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
             XMoveResizeWindow(Display(), Window(), x, y, cx, cy);
 
-         } else
+         }
+         else
          {
 
             windowing_output_debug_string("\n::window::set_window_pos Move Window 1.4.1");
@@ -2525,7 +2526,8 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
          }
 
-      } else if (bSize)
+      }
+      else if (bSize)
       {
 
          windowing_output_debug_string("\n::window::set_window_pos Resize Window 1.4.2");
@@ -2602,7 +2604,8 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
                XRaiseWindow(Display(), Window());
 
-            } else if (zorder.m_ezorder == e_zorder_top)
+            }
+            else if (zorder.m_ezorder == e_zorder_top)
             {
 
                if (net_wm_state(::x11::e_atom_net_wm_state_above) != 0

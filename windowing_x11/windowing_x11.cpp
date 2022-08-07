@@ -2112,6 +2112,21 @@ else if(detail == 3)
          }
          break;
          case MapNotify:
+         {
+
+            if(msg.oswindow)
+            {
+
+               msg.m_atom = e_message_show_window;
+               msg.wParam = 1;
+               msg.lParam = 0;
+
+               post_ui_message(msg);
+
+            }
+
+         }
+         break;
          case UnmapNotify:
          {
 
@@ -2119,7 +2134,7 @@ else if(detail == 3)
             {
 
                msg.m_atom = e_message_show_window;
-               msg.wParam = e.type == MapNotify;
+               msg.wParam = 0;
                msg.lParam = 0;
 
                post_ui_message(msg);
