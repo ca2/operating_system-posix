@@ -1225,11 +1225,11 @@ namespace windowing_xcb
                if (pinteraction != nullptr)
                {
 
-                  ::user::primitive *pimpl = pinteraction->m_pinteractionimpl;
+                  auto pimpl = pinteraction->m_pinteractionimpl;
 
                   bool bHandled = false;
 
-                  if (pimpl != nullptr)
+                  if (pimpl)
                   {
 
                      if (iIconic >= 0)
