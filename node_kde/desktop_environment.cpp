@@ -64,8 +64,8 @@ namespace node_kde
 
       prectangle->left     = left;
       prectangle->top      = top;
-      prectangle->right    = right;
-      prectangle->bottom   = bottom;
+      prectangle->right    = right + 1;
+      prectangle->bottom   = bottom + 1;
 
       return ::success;
 
@@ -104,8 +104,8 @@ namespace node_kde
 
       prectangle->left     = left;
       prectangle->top      = top;
-      prectangle->right    = right;
-      prectangle->bottom   = bottom;
+      prectangle->right    = right + 1;
+      prectangle->bottom   = bottom + 1;
 
       return ::success;
 
@@ -143,7 +143,7 @@ namespace node_kde
       else
       {
 
-         _get_monitor_rectangle(iIndex, prectangle);
+         _get_workspace_rectangle(iIndex, prectangle);
 
       }
 
