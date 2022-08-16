@@ -15,6 +15,9 @@ namespace node_kde
    public:
 
 
+      bool        m_bX11;
+
+
       desktop_environment();
       ~desktop_environment() override;
 

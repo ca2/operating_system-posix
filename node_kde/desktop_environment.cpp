@@ -20,6 +20,8 @@ namespace node_kde
 
       //m_pWindowing2 = this;
 
+      m_bX11 = QX11Info::isPlatformX11();
+
    }
 
 
@@ -113,10 +115,18 @@ namespace node_kde
    void desktop_environment::get_monitor_rectangle(::index iIndex, ::RECTANGLE_I32 *prectangle)
    {
 
-      _get_monitor_rectangle(iIndex, prectangle);
-      //auto estatus =
-      //
-      //m_pwindowing->windowing_send([this, iIndex, prectangle]() { _get_monitor_rectangle(iIndex, prectangle); });
+      if(m_bX11)
+      {
+
+         m_pwindowing->windowing_send([this, iIndex, prectangle]() { _get_monitor_rectangle(iIndex, prectangle); });
+
+      }
+      else
+      {
+
+         _get_monitor_rectangle(iIndex, prectangle);
+
+      }
 
    }
 
@@ -124,10 +134,18 @@ namespace node_kde
    void desktop_environment::get_workspace_rectangle(::index iIndex, ::RECTANGLE_I32 *prectangle)
    {
 
-      _get_workspace_rectangle(iIndex, prectangle);
-      //auto estatus =
-      //
-      //m_pwindowing->windowing_send([this, iIndex, prectangle]() { _get_workspace_rectangle(iIndex, prectangle); });
+      if(m_bX11)
+      {
+
+         m_pwindowing->windowing_send([this, iIndex, prectangle]() { _get_workspace_rectangle(iIndex, prectangle); });
+
+      }
+      else
+      {
+
+         _get_monitor_rectangle(iIndex, prectangle);
+
+      }
 
    }
 
