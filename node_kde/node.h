@@ -19,7 +19,7 @@ namespace node_kde
 
 
    class CLASS_DECL_ACME node :
-      virtual public ::windowing_xcb::node,
+      virtual public ::aura_posix::node,
       virtual public QAbstractNativeEventFilter,
       virtual public QObject
    {

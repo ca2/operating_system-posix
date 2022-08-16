@@ -4,7 +4,7 @@
 #pragma once
 
 
-#include "aura_posix/_aura_posix.h"
+#include "aura_posix/_library.h"
 #include "aura/user/user/_user.h"
 #include "acme/operating_system/x11/_.h"
 #ifdef FREEBSD

@@ -27,6 +27,14 @@ namespace windowing_posix
    };
 
 
+   class CLASS_DECL_AURA_POSIX desktop_environment :
+      virtual public ::windowing::desktop_environment
+   {
+   public:
+
+
+   };
+
 } // namespace windowing_posix
 
 

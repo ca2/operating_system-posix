@@ -12,7 +12,13 @@
 #undef new
 
 
-#include "_node_kde.h"
+#if BROAD_PRECOMPILED_HEADER
+
+
+#include "_library.h"
+
+
+#endif
 
 
 #define new ACME_NEW

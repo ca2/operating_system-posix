@@ -50,12 +50,12 @@ namespace windowing_x11
    }
 
 
-   ::windowing::window * windowing::new_window(::user::interaction_impl * pimpl)
+   ::windowing::window *windowing::new_window(::user::interaction_impl *pimpl)
    {
 
-      __pointer(::windowing_x11::window) pwindow = pimpl->__create < ::windowing::window >();
+      __pointer(::windowing_x11::window) pwindow = pimpl->__create<::windowing::window>();
 
-      if(!pwindow)
+      if (!pwindow)
       {
 
          return nullptr;
@@ -75,7 +75,7 @@ namespace windowing_x11
    }
 
 
-   void windowing::erase_window(::windowing::window * pwindow)
+   void windowing::erase_window(::windowing::window *pwindow)
    {
 
       m_pdisplay->erase_window(pwindow);
@@ -83,7 +83,7 @@ namespace windowing_x11
    }
 
 
-   void windowing::initialize(::object * pobject)
+   void windowing::initialize(::object *pobject)
    {
 
       //auto estatus =
@@ -97,9 +97,13 @@ namespace windowing_x11
 //
 //      }
 
-      initialize_windowing();
+   }
 
-      auto pdisplay = __create < ::windowing::display >();
+
+   void windowing::_initialize_windowing()
+   {
+
+   auto pdisplay = __create < ::windowing::display >();
 
 //      if(!pdisplay)
 //      {
@@ -110,9 +114,9 @@ namespace windowing_x11
 //
 //      }
 
-      //estatus =
-      //
-      pdisplay->initialize_display(this);
+   //estatus =
+   //
+   pdisplay->initialize_display(this);
 
 //      if(!estatus)
 //      {
@@ -123,19 +127,19 @@ namespace windowing_x11
 //
 //      }
 
-      m_pdisplay = pdisplay;
+   m_pdisplay = pdisplay;
 
-      if(!pdisplay)
-      {
+   if(!pdisplay)
+{
 
-         throw ::exception(error_no_interface, "Failed to cast pdisplay to m_pdisplay at windowing_x11::windowing::initialize");
+   throw ::exception(error_no_interface, "Failed to cast pdisplay to m_pdisplay at windowing_x11::windowing::initialize");
 
-      }
+}
 
-      m_pdisplay->open();
+m_pdisplay->open();
 
 
-      _libsn_start_context();
+_libsn_start_context();
 
 
 //      if(!estatus)
@@ -149,8 +153,16 @@ namespace windowing_x11
 //
 //      return ::success;
 
-   }
 
+      fork([this]()
+           {
+
+              x11_message_loop();
+
+           });
+
+
+}
 
 //   void windowing::start()
 //   {
@@ -398,12 +410,12 @@ namespace windowing_x11
    }
 
 
-   void windowing::_message_handler(void * p)
-   {
-
-      XEvent * pevent = (XEvent *) p;
-
-   }
+//   void windowing::_message_handler(void * p)
+//   {
+//
+//      XEvent * pevent = (XEvent *) p;
+//
+//   }
 
 
    ::windowing::window * windowing::get_keyboard_focus(::thread *)
@@ -466,6 +478,61 @@ namespace windowing_x11
 
    }
 
+
+   void windowing::install_mouse_hook(::matter * pmatter)
+   {
+
+      auto psystem = m_psystem->m_paurasystem;
+
+      auto psession = psystem->get_session();
+
+      auto puser = psession->user();
+
+      auto pwindowing = (::windowing_x11::windowing *) puser->windowing1()->m_pWindowing4;
+
+      pwindowing->x11_register_extended_event_listener(pmatter, true, false);
+
+      //::x11_register_extended_event_listener(pdata, bMouse, bKeyboard);
+
+      //return ::success;
+
+   }
+
+
+   void windowing::install_keyboard_hook(::matter * pmatter)
+   {
+
+      auto psystem = m_psystem->m_paurasystem;
+
+      auto psession = psystem->get_session();
+
+      auto puser = psession->user();
+
+      auto pwindowing = (::windowing_x11::windowing *) puser->windowing1()->m_pWindowing4;
+
+      pwindowing->x11_register_extended_event_listener(pmatter, false, true);
+
+      //::x11_register_extended_event_listener(pdata, bMouse, bKeyboard);
+
+      //return ::success;
+
+   }
+
+
+   void windowing::uninstall_mouse_hook(::matter * pmatter)
+   {
+
+      //return ::error_failed;
+
+   }
+
+
+   void windowing::uninstall_keyboard_hook(::matter * pmatter)
+   {
+
+      //return ::error_failed;
+
+   }
 
 
 } // namespace windowing

@@ -6,7 +6,7 @@ list(APPEND library_source
    _.cpp
    _.h
    _factory.cpp
-   _windowing_xcb.h
+   _library.h
    buffer.cpp
    buffer.h
    cursor.cpp

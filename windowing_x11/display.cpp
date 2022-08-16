@@ -127,6 +127,11 @@ namespace windowing_x11
 
       }
 
+
+      bool bBranch = !m_psystem->m_paurasession->user()->m_pdesktopenvironment->m_bUnhook;
+
+//      m_px11display->m_bUnhook = bUnhook;
+
       //auto px11displayGdk = _get_system_default_display();
 
       //m_px11display = ::x11::display::get(this, false, px11displayGdk);
@@ -158,9 +163,11 @@ namespace windowing_x11
 
       }
 
-      m_iScreen = DefaultScreen(m_px11display->m_pdisplay);
+      ::Display * pdisplay = m_px11display->m_pdisplay;
 
-      m_windowRoot = RootWindow(m_px11display->m_pdisplay, m_iScreen);
+      m_iScreen = XDefaultScreen(pdisplay);
+
+      m_windowRoot = XRootWindow(pdisplay, m_iScreen);
 
       m_iDepth = m_visualinfo.depth;
 
@@ -169,6 +176,7 @@ namespace windowing_x11
       __zero(attr);
 
       m_colormap = XCreateColormap(m_px11display->m_pdisplay, m_windowRoot, m_pvisual, AllocNone);
+
 
       //return ::success;
 

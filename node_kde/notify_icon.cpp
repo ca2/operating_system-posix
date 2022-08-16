@@ -3,6 +3,7 @@
 //
 #include "framework.h"
 #include "aura/user/user/_user.h"
+#include "aura/graphics/image/_image.h"
 
 
 namespace node_kde

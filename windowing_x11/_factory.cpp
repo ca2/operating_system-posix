@@ -18,6 +18,9 @@ __FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory)
    pfactory->add_factory_item < ::windowing_x11::cursor, ::windowing::cursor > ();
    pfactory->add_factory_item < ::windowing_x11::keyboard, ::windowing::keyboard > ();
 
+
+   pfactory->add_factory_item < ::windowing::monitor > ();
+
 }
 
 

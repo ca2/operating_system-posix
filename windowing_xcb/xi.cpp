@@ -151,9 +151,7 @@ namespace windowing_xcb
 
                                     auto psystem = get_system();
 
-                                    auto pnode = psystem->node()->m_pNodeXcb;
-
-                                    auto pdisplay = pnode->_get_Display();
+                                    auto pdisplay = _get_Display();
 
                                     synchronous_lock synchronouslock(user_mutex());
 

@@ -4,6 +4,9 @@
 #pragma once
 
 
+#include "acme/operating_system/x11/nano/display.h"
+
+
 namespace windowing_xcb
 {
 
@@ -60,6 +63,13 @@ namespace windowing_xcb
       //virtual void _libsn_start_context()  override;
       virtual ::windowing::display * display() override;
 
+
+      Display * _get_Display();
+      ::x11::display * _get_display();
+      xcb_connection_t * _get_connection();
+
+
+
       virtual void windowing_main() override;
 
 
@@ -95,6 +105,18 @@ namespace windowing_xcb
 
       //void x_display_error_trap_pop(SnDisplay * sndisplay, xcb_connection_t * display);
       //void x_display_error_trap_pop(SnDisplay * sndisplay, xcb_connection_t * display);
+
+
+//      Display * _get_Display();
+//      ::x11::display * _get_display();
+//      xcb_connection_t * _get_connection();
+
+
+      void install_mouse_hook(::matter * pmatterListener) override;
+      void install_keyboard_hook(::matter * pmatterListener) override;
+
+      void uninstall_mouse_hook(::matter * pmatterListener) override;
+      void uninstall_keyboard_hook(::matter * pmatterListener) override;
 
 
       ::windowing::window * get_active_window(::thread * pthread) override;
@@ -138,6 +160,10 @@ namespace windowing_xcb
       bool xcb_process_event(xcb_connection_t * pdisplay, xcb_generic_event_t * pevent);
 
 #endif
+
+
+      bool _xcb_process_event(void * p) override;
+
 
 
    };
