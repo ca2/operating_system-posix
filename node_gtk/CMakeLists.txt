@@ -5,12 +5,12 @@ project(node_gtk CXX)
 list(APPEND library_source
    _.cpp
    _.h
-   _node_gtk.h
+   _factory.cpp
+   _library.h
    application.cpp
    application.h
    display.cpp
    display.h
-   _factory.cpp
    framework.cpp
    framework.h
    gconf.cpp
