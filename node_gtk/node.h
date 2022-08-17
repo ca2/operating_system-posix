@@ -18,7 +18,7 @@ namespace node_gtk
 
 
    class CLASS_DECL_ACME node :
-      virtual public ::windowing_x11::node
+      virtual public ::aura_posix::node
    {
    public:
 
