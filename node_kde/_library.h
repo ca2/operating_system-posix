@@ -23,7 +23,7 @@
 #define new ACME_NEW
 
 
-#include "windowing_xcb/_windowing_xcb.h"
+#include "aura_posix/_library.h"
 #include "acme/operating_system/ansi/_pthread.h"
 #include "aura/user/user/_user.h"
 #include "aura/operating_system/freebsd/appindicator.h"
@@ -38,6 +38,9 @@
 
 
 #include "display.h"
+
+
+#include "desktop_environment.h"
 
 
 #include "node.h"

@@ -7,33 +7,33 @@
 //
 #pragma once
 
-
-namespace windowing_x11
-{
-
-
-   class CLASS_DECL_ACME node :
-      virtual public ::aura_posix::node
-   {
-   public:
-
-
-
-      node();
-      ~node() override;
-
-
-      void install_mouse_hook(::matter * pmatter) override;
-      void install_keyboard_hook(::matter * pmatter) override;
-
-      void uninstall_mouse_hook(::matter * pmatter) override;
-      void uninstall_keyboard_hook(::matter * pmatter) override;
-
-
-   };
-
-
-} // namespace windowing_x11
-
-
-
+//
+//namespace windowing_x11
+//{
+//
+//
+//   class CLASS_DECL_ACME node :
+//      virtual public ::aura_posix::node
+//   {
+//   public:
+//
+//
+//
+//      node();
+//      ~node() override;
+//
+//
+//      void install_mouse_hook(::matter * pmatter) override;
+//      void install_keyboard_hook(::matter * pmatter) override;
+//
+//      void uninstall_mouse_hook(::matter * pmatter) override;
+//      void uninstall_keyboard_hook(::matter * pmatter) override;
+//
+//
+//   };
+//
+//
+//} // namespace windowing_x11
+//
+//
+//

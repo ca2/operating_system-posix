@@ -5,13 +5,15 @@ project(node_kde CXX)
 list(APPEND library_source
    _.cpp
    _.h
-   _node_kde.h
+   _library.h
    appindicator.cpp
    appindicator.h
    application.cpp
    application.h
    copydesk.cpp
    copydesk.h
+   desktop_environment.cpp
+   desktop_environment.h
    display.cpp
    display.h
    enum_display_monitors.cpp
@@ -28,8 +30,6 @@ list(APPEND library_source
    node.h
    notify_icon.cpp
    notify_icon.h
-   windowing.cpp
-   windowing.h
    )
 
 
@@ -42,6 +42,7 @@ list(APPEND library_references
    aura
    aura_posix
    windowing_xcb
+   windowing_x11
    )
 
 

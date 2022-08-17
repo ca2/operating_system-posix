@@ -39,17 +39,27 @@ namespace windowing_x11
 
       void initialize(::object * pobject) override;
 
+      void _initialize_windowing() override;
+
 
       bool is_branch_current() const override;
 
 
-      virtual void initialize_windowing();
+      //virtual void initialize_windowing();
 
       virtual void terminate_windowing();
 
       virtual void post_ui_message(const MESSAGE & message);
 
       virtual void post_ui_message(::message::message * pmessage);
+
+
+
+   void install_mouse_hook(::matter * pmatter) override;
+   void install_keyboard_hook(::matter * pmatter) override;
+
+   void uninstall_mouse_hook(::matter * pmatter) override;
+   void uninstall_keyboard_hook(::matter * pmatter) override;
 
       //void start() override;
 
@@ -84,7 +94,7 @@ namespace windowing_x11
       virtual ::windowing_x11::window * _window(Window window);
 
 
-      virtual void _message_handler(void * p);
+      //virtual void _message_handler(void * p);
 
 //      SnLauncheeContext* g_psncontext = nullptr;
 
@@ -109,6 +119,8 @@ namespace windowing_x11
       //virtual bool __x11_hook_process_event(XEvent * pevent, XGenericEventCookie * cookie);
 
       //virtual bool __x11_hook_list_is_empty();
+
+      virtual bool x11_message_loop();
 
       virtual bool x11_message_loop_step();
 

@@ -6,7 +6,7 @@ list(APPEND library_source
    x11/_x11.h
    _.cpp
    _.h
-   _aura_posix.h
+   _library.h
    appindicator.cpp
    appindicator.h
    _factory.cpp
@@ -47,6 +47,8 @@ if(WITH_X11 OR WITH_XCB)
       list(APPEND library_source
       x11/display_lock.cpp
       x11/display_lock.h
+     x11/startup-notification.cpp
+     x11/startup-notification.h
       x11/xim_keyboard.cpp
       x11/xim_keyboard.h
          )
@@ -56,7 +58,7 @@ if(WITH_X11 OR WITH_XCB)
 endif()
 
 
-add_library(aura_posix SHARED ${library_source} x11/startup-notification.cpp x11/startup-notification.h)
+add_library(aura_posix SHARED ${library_source})
 
 
 target_precompile_headers(aura_posix PRIVATE framework.h)

@@ -7,7 +7,15 @@
 
 #include "_.h"
 
-#include "_windowing_xcb.h"
+
+#if BROAD_PRECOMPILED_HEADER
+
+
+#include "_library.h"
+
+
+#endif
+
 
 #define new ACME_NEW
 

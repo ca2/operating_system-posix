@@ -44,6 +44,7 @@ namespace aura_posix
       void initialize(::object * pobject) override;
 
 
+
       //void on_initialize_object() override;
       //::string system_options_html() override;
       //void set_application_menu(application_menu * pmenu, ::application * papp) override;
@@ -81,6 +82,10 @@ namespace aura_posix
       virtual ::e_status _allocate_Display_and_connection();
 
       void * _get_Display();
+
+      void * get_os_xcb_connection() override;
+
+      bool has_xcb() const override;
 
 #endif // WITH_X11 || WITH_XCB
 

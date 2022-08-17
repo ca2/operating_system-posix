@@ -5,6 +5,7 @@
 //#include "gnome_shared.h"
 #include "appindicator.h"
 //#include "gdk.h"
+//#include "acme/operating_system/x11/nano/display.h"
 #undef new
 #include <kworkspace5/kworkspace.h>
 #include <KColorScheme>
@@ -15,6 +16,8 @@
 
 #include <QtGui/QDesktopServices>
 
+void initialize_x11_display(::object * pobject, void * pX11Display);
+void * initialize_x11_display(::object * pobject);
 
 void kde_open_local_file(QApplication * papplication, const char *psz, const char * pszMimeType);
 
@@ -418,29 +421,50 @@ namespace node_kde
    ::e_status node::_allocate_Display_and_connection()
    {
 
-      m_pX11Display = QX11Info::display();
-
-      if(!m_pX11Display)
+      if(QX11Info::isPlatformX11())
       {
 
-         return error_failed;
+         void *p = (void *) QX11Info::display();
+
+         output_debug_string("qx11info::display : " + hex::lower_from((iptr) p));
+
+         m_pX11Display = p;
+
+         if (!m_pX11Display)
+         {
+
+            return error_failed;
+
+         }
+
+         m_pxcbconnection = QX11Info::connection();
+
+//      if(!m_pxcbconnection)
+//      {
+//
+//         return error_failed;
+//
+//      }
+
+
+         initialize_x11_display(this, p);
+
+         return ::success;
 
       }
-
-      m_pxcbconnection = QX11Info::connection();
-
-      if(!m_pxcbconnection)
+      else
       {
 
-         return error_failed;
+         m_bUnhookX = false;
+
+         m_pX11Display = initialize_x11_display(this);
+
+         return ::success;
 
       }
-
-      ::x11::display::get(this, false, (Display *) m_pX11Display);
-
-      return ::success;
 
    }
+
 
 
    string node::os_get_user_theme()
@@ -833,24 +857,20 @@ namespace node_kde
 
          xcb_generic_event_t * pevent = (xcb_generic_event_t *) message;
 
-         auto pwindowing = (::windowing_xcb::windowing *) m_pwindowing->m_pWindowing4;
+         auto pwindowing = m_pwindowing;
 
-         if(pwindowing->xcb_process_event(pevent))
+         if(pwindowing->_xcb_process_event(pevent))
          {
 
             return true;
 
          }
 
-         auto pxcbdisplay = ::xcb::display::get(this);
-
-         pxcbdisplay->xcb_event(pevent);
-
       }
       else
       {
 
-         output_debug_string("");
+         output_debug_string(string(eventType.constData()) + " unhandled!!\n");
 
       }
 

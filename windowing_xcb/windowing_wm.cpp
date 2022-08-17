@@ -2,7 +2,9 @@
 // Created by camilo on 17/02/2021. 15:16 BRT <3TBS_!!
 //
 #include "framework.h"
-#include "_windowing_xcb.h"
+#if !BROAD_PRECOMPILED_HEADER
+#include "_library.h"
+#endif
 #include "windowing_xcb.h"
 #include "aura/user/user/_user.h"
 #include "acme/operating_system/_user.h"

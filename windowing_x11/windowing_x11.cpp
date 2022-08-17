@@ -1232,6 +1232,20 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
    }
 
+
+   bool windowing::x11_message_loop()
+   {
+
+      while(x11_message_loop_step())
+      {
+
+      }
+
+      return true;
+
+   }
+
+
 //gboolean x11_source_func(gpointer)
    bool windowing::x11_message_loop_step()
    {
@@ -3014,30 +3028,30 @@ else if(detail == 3)
 //
 
 
-   void windowing::initialize_windowing()
-   {
-
-      //acme_defer_os_init_windowing();
-
-      //g_pmutexX11Runnable = new ::mutex();
-
-      //g_prunnableptrlX11 = new list<__pointer(::matter) >();
-
-//      g_pmutexX11Sync = new ::mutex();
-
-//      g_peventX11Sync = new manual_reset_event();
-
-      //oswindow_data::s_pdataptra = new oswindow_dataptra;
-
-      //oswindow_data::s_pmutex = new ::mutex;
-
-      //osdisplay_data::s_pdataptra = new osdisplay_dataptra;
-
-      //osdisplay_data::s_pmutex = new ::mutex;
-
-      //return true;
-
-   }
+//   void windowing::_initialize_windowing()
+//   {
+//
+//      //acme_defer_os_init_windowing();
+//
+//      //g_pmutexX11Runnable = new ::mutex();
+//
+//      //g_prunnableptrlX11 = new list<__pointer(::matter) >();
+//
+////      g_pmutexX11Sync = new ::mutex();
+//
+////      g_peventX11Sync = new manual_reset_event();
+//
+//      //oswindow_data::s_pdataptra = new oswindow_dataptra;
+//
+//      //oswindow_data::s_pmutex = new ::mutex;
+//
+//      //osdisplay_data::s_pdataptra = new osdisplay_dataptra;
+//
+//      //osdisplay_data::s_pmutex = new ::mutex;
+//
+//      //return true;
+//
+//   }
 
 
    void windowing::terminate_windowing()

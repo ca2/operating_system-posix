@@ -2122,6 +2122,148 @@ namespace windowing_xcb
    }
 
 
+   Display * windowing::_get_Display()
+   {
+
+      return (Display *) m_psystem->m_pnode->m_pAuraPosix->_get_Display();
+
+   }
+
+
+   ::x11::display * windowing::_get_display()
+   {
+
+      return ::x11::display::get(this);
+
+   }
+
+
+   xcb_connection_t * windowing::_get_connection()
+   {
+
+      return (xcb_connection_t *) m_psystem->m_pnode->m_pAuraPosix->_get_connection();
+
+   }
+
+
+   void windowing::install_mouse_hook(::matter * pmatterListener)
+   {
+
+      auto psystem = m_psystem->m_paurasystem;
+
+      auto psession = psystem->get_session();
+
+      auto puser = psession->user();
+
+      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing1()->m_pWindowing4;
+
+      pwindowing->register_extended_event_listener(pmatterListener, true, false);
+
+      //auto estatus =
+
+//      if(!estatus)
+//      {
+//
+//         throw ::exception(estatus);
+//
+//      }
+
+      //return ::success;
+
+   }
+
+
+   void windowing::install_keyboard_hook(::matter * pmatterListener)
+   {
+
+      auto psystem = m_psystem->m_paurasystem;
+
+      auto psession = psystem->get_session();
+
+      auto puser = psession->user();
+
+      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing1()->m_pWindowing4;
+
+      //o estatus =
+      //
+      pwindowing->register_extended_event_listener(pmatterListener, false, true);
+
+//      if(!estatus)
+//      {
+//
+//         throw ::exception(estatus);
+//
+//      }
+
+      //return ::success;
+
+   }
+
+
+
+   void windowing::uninstall_keyboard_hook(::matter * pmatterListener)
+   {
+
+//      auto psystem = m_psystem->m_paurasystem;
+//
+//      auto psession = psystem->get_session();
+//
+//      auto puser = psession->user();
+//
+//      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing;
+//
+//      pwindowing->uninstall_keyboard_hook(pmatterListener);
+//
+//      //return ::success;
+
+   }
+
+
+   void windowing::uninstall_mouse_hook(::matter * pmatterListener)
+   {
+
+//      auto psystem = m_psystem->m_paurasystem;
+//
+//      auto psession = psystem->get_session();
+//
+//      auto puser = psession->user();
+//
+//      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing;
+//
+//      pwindowing->uninstall_mouse_hook(pmatterListener);
+
+      //return ::success;
+
+   }
+
+
+   bool windowing::_xcb_process_event(void * p)
+   {
+
+      xcb_generic_event_t *pgenericevent = (xcb_generic_event_t * )p;
+
+      if(xcb_process_event(pgenericevent))
+      {
+
+         return true;
+
+      }
+
+      auto pxcbdisplay = ::xcb::display::get(this);
+
+      if(pxcbdisplay->xcb_event(pgenericevent))
+      {
+
+         return true;
+
+      }
+
+      return false;
+
+   }
+
+
+
 } // namespace windowing
 
 
