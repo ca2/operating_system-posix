@@ -476,7 +476,15 @@ namespace aura_posix
    void * node::get_os_xcb_connection()
    {
 
+#if defined(WITH_XCB)
+
       return m_pxcbconnection;
+
+#else
+
+      return nullptr;
+
+#endif
 
    }
 
@@ -484,7 +492,15 @@ namespace aura_posix
    bool node::has_xcb() const
    {
 
+#if defined(WITH_XCB)
+
       return ::is_set(m_pxcbconnection);
+
+#else
+
+      return false;
+
+#endif
 
    }
 

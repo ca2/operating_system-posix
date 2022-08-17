@@ -9,7 +9,13 @@
 #include "_.h"
 
 
-#include "_node_gtk.h"
+#if BROAD_PRECOMPILED_HEADER
+
+
+#include "_library.h"
+
+
+#endif
 
 
 #include "aura/_defer.h"
