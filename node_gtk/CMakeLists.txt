@@ -40,20 +40,20 @@ list(APPEND library_references
    )
 
 
-add_library(node_gtk SHARED ${library_source})
+add_library(${PROJECT_NAME} SHARED ${library_source})
 
-target_precompile_headers(node_gtk PRIVATE framework.h)
+target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 
-set_target_properties(node_gtk PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 
 if (MSVC)
 
 
-   target_compile_options(node_gtk PRIVATE "/MD$<$<CONFIG:Debug>:d>")
-   target_link_options(node_gtk PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
-   target_link_options(node_gtk PRIVATE "/SUBSYSTEM:WINDOWS")
-   target_link_libraries(node_gtk PRIVATE ${library_references})
+   target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
+   target_link_options(${PROJECT_NAME} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
+   target_link_options(${PROJECT_NAME} PRIVATE "/SUBSYSTEM:WINDOWS")
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references})
 
 
 elseif(LINUX OR FREEBSD)
@@ -82,7 +82,7 @@ list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
 
 
-target_compile_definitions(node_gtk PRIVATE _NODE_GTK_LIBRARY)
+target_compile_definitions(${PROJECT_NAME} PRIVATE _NODE_GTK_LIBRARY)
 
 
 
