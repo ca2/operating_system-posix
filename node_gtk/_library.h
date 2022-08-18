@@ -32,4 +32,7 @@
 #include "windowing.h"
 
 
+#include "desktop_environment.h"
+
+
 

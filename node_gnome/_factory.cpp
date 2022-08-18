@@ -20,6 +20,7 @@ __FACTORY_EXPORT void node_gnome_factory(::factory::factory * pfactory)
 
    pfactory->add_factory_item < ::node_gnome::node, ::acme::node > ();
 
+   pfactory->add_factory_item < ::node_gnome::desktop_environment, ::windowing::desktop_environment > ();
 
 }
 

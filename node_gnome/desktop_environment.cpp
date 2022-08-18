@@ -1,5 +1,5 @@
 //
-// Created by camilo on 2022-08-17 22:39 <3ThomasBorregaardSorensen!!
+// Created by camilo on 2022-08-17 22:53 <3ThomasBorregaardSorensen!!
 //
 #include "framework.h"
 
@@ -12,7 +12,7 @@
 //mutex * user_mutex();
 
 
-namespace node_gtk
+namespace node_gnome
 {
 
 
@@ -199,7 +199,7 @@ namespace node_gtk
 //   }
 
 
-} // namespace node_gtk
+} // namespace node_gnome
 
 
 

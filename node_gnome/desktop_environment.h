@@ -1,14 +1,14 @@
 //
-// Created by camilo on 2022-08-17 22:39 <3ThomasBorregaardSorensen!!
+// Created by camilo on 2022-08-17 22:52 <3ThomasBorregaardSorensen!!
 //
 #pragma once
 
 
-namespace node_gtk
+namespace node_gnome
 {
 
 
-   class CLASS_DECL_NODE_GTK desktop_environment :
+   class CLASS_DECL_NODE_GNOME desktop_environment :
    virtual public ::windowing_posix::desktop_environment
 {
    public:
@@ -41,7 +41,7 @@ namespace node_gtk
 };
 
 
-} // namespace node_gtk
+} // namespace node_gnomes
 
 
 

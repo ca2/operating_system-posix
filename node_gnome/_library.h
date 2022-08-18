@@ -16,12 +16,6 @@
 #include "display.h"
 
 
-#include "node.h"
-
-
-#include "windowing.h"
-
-
 #include "copydesk.h"
 
 
@@ -29,6 +23,15 @@
 
 
 #include "notify_icon.h"
+
+
+#include "node.h"
+
+
+#include "windowing.h"
+
+
+#include "desktop_environment.h"
 
 
 

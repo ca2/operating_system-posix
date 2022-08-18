@@ -5,7 +5,7 @@ project(node_gnome CXX)
 list(APPEND library_source
    _.cpp
    _.h
-   _node_gnome.h
+   _library.h
    appindicator.cpp
    appindicator.h
    application.cpp
@@ -13,6 +13,8 @@ list(APPEND library_source
    clipboard_data.h
    copydesk.cpp
    copydesk.h
+   desktop_environment.cpp
+   desktop_environment.h
    display.cpp
    display.h
    enum_display_monitors.cpp
@@ -84,20 +86,20 @@ endif()
 
 
 
-add_library(node_gnome SHARED ${library_source} )
+add_library(${PROJECT_NAME} SHARED ${library_source} )
 
-target_precompile_headers(node_gnome PRIVATE framework.h)
+target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 
-set_target_properties(node_gnome PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 
 if (MSVC)
 
 
-   target_compile_options(node_gnome PRIVATE "/MD$<$<CONFIG:Debug>:d>")
-   target_link_options(node_gnome PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
-   target_link_options(node_gnome PRIVATE "/SUBSYSTEM:WINDOWS")
-   target_link_libraries(node_gnome PRIVATE ${library_references})
+   target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
+   target_link_options(${PROJECT_NAME} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
+   target_link_options(${PROJECT_NAME} PRIVATE "/SUBSYSTEM:WINDOWS")
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references})
 
 
 elseif(LINUX OR FREEBSD)
@@ -105,11 +107,11 @@ elseif(LINUX OR FREEBSD)
    if(NOT DONT_USE_PKG_CONFIG)
       pkg_check_modules(PKGCONFIG x11 glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
    endif()
-   target_compile_options(node_gnome PRIVATE -fpermissive)
-   target_compile_options(node_gnome PRIVATE ${PKGCONFIG_CFLAGS})
-   target_link_options(node_gnome PRIVATE ${PKGCONFIG_LDFLAGS})
-   target_link_libraries(node_gnome PRIVATE ${PKGCONFIG_LIBRARIES} ${library_references})
-   target_link_options(node_gnome PRIVATE -Wl,-z,defs)
+   target_compile_options(${PROJECT_NAME} PRIVATE -fpermissive)
+   target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+   target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LIBRARIES} ${library_references})
+   target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
 
 
 endif ()
@@ -123,7 +125,7 @@ list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
 
 
-target_compile_definitions(node_gnome PRIVATE _NODE_GNOME_LIBRARY)
+target_compile_definitions(${PROJECT_NAME} PRIVATE _NODE_GNOME_LIBRARY)
 
 
 

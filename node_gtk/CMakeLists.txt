@@ -9,6 +9,8 @@ list(APPEND library_source
    _library.h
    application.cpp
    application.h
+   desktop_environment.cpp
+   desktop_environment.h
    display.cpp
    display.h
    framework.cpp
