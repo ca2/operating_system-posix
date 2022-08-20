@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "shell.h"
+#include "acme/filesystem/filesystem/acme_directory.h"
 #include "aura/graphics/image/context_image.h"
 
 

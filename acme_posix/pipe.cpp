@@ -1,4 +1,7 @@
 #include "framework.h"
+#if !BROAD_PRECOMPILED_HEADER
+#include "_library.h"
+#endif
 #include "pipe.h"
 #include <stdlib.h>
 
@@ -15,6 +18,10 @@
 #endif
 
 #if defined(FREEBSD)
+#include <unistd.h>
+#endif
+
+#if defined(__APPLE__)
 #include <unistd.h>
 #endif
 
@@ -45,12 +52,16 @@ namespace acme_posix
 
       if (m_fd[0] != -1)
       {
+          
          ::close(m_fd[0]);
+          
       }
 
       if (m_fd[1] != -1)
       {
+          
          ::close(m_fd[1]);
+          
       }
 
    }

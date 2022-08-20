@@ -5,7 +5,7 @@
 #include "file_context.h"
 #include <sys/stat.h>
 
-#if defined(FREEBSD)
+#if defined(FREEBSD) || defined(__APPLE__)
 #include <unistd.h>
 #endif
 

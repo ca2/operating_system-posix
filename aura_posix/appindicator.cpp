@@ -2,38 +2,34 @@
 // Created by camilo on 16/02/2021. 15:51 BRT <3TBS_, Mummi and bilbo!!
 //
 #include "framework.h"
+#if !BROAD_PRECOMPILED_HEADER
+#include "_library.h"
+#endif
 
 
-namespace aura
+namespace aura_posix
 {
 
 
-   namespace posix
-   {
+    appindicator::appindicator()
+    {
 
 
-      appindicator::appindicator()
-      {
+    }
 
 
-      }
+    appindicator::~appindicator()
+    {
 
 
-      appindicator::~appindicator()
-      {
+    }
 
 
-      }
+    void appindicator::close()
+    {
 
 
-      void appindicator::close()
-      {
-
-
-      }
-
-
-   } // namespace posix
+    }
 
 
 } // namespace aura

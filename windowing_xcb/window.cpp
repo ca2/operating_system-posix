@@ -2,7 +2,7 @@
 // recreated by Camilo 2021-01-28 22:20 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
 #include "framework.h"
-#include "aura/user/user/_user.h"
+#include "aura/user/user/_component.h"
 #include "acme/operating_system/_user.h"
 #include "aura/user/user/interaction_prodevian.h"
 #include "aura/platform/message_queue.h"

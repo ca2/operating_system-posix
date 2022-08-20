@@ -5,8 +5,8 @@
 
 
 #include "aura/operating_system.h"
-#include "apex_posix/_apex_posix.h"
-#include "aura/user/user/_user.h"
+#include "apex_posix/_library.h"
+#include "aura/user/user/_component.h"
 
 
 #if !defined(ANDROID)

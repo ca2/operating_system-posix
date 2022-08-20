@@ -3,7 +3,7 @@
 // from aura/user/keyboard
 //
 #include "framework.h"
-#include "aura/user/user/_user.h"
+#include "aura/user/user/_component.h"
 
 
 //#if defined(LINUX) || defined(SOLARIS)

@@ -6,7 +6,7 @@
 #include "_library.h"
 #endif
 #include "windowing_xcb.h"
-#include "aura/user/user/_user.h"
+#include "aura/user/user/_component.h"
 #include "acme/operating_system/_user.h"
 #include "aura/user/user/interaction_prodevian.h"
 #include "aura/platform/message_queue.h"

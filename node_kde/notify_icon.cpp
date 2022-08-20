@@ -2,7 +2,7 @@
 // Created by camilo on 15/02/2021 <3ThomasBS_!!.
 //
 #include "framework.h"
-#include "aura/user/user/_user.h"
+#include "aura/user/user/_component.h"
 #include "aura/graphics/image/_image.h"
 
 

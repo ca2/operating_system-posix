@@ -10,7 +10,7 @@
 		9A0C1736264A2DAB00B5CC33 /* framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C171E264A2DAB00B5CC33 /* framework.cpp */; };
 		9A0C1738264A2DAB00B5CC33 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C1720264A2DAB00B5CC33 /* node.cpp */; };
 		9A0C173A264A2DAB00B5CC33 /* node.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1722264A2DAB00B5CC33 /* node.h */; };
-		9A0C173C264A2DAB00B5CC33 /* _apex_posix.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1724264A2DAB00B5CC33 /* _apex_posix.h */; };
+		9A0C173C264A2DAB00B5CC33 /* _library.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1724264A2DAB00B5CC33 /* _library.h */; };
 		9A0C173D264A2DAB00B5CC33 /* file_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C1725264A2DAB00B5CC33 /* file_context.cpp */; };
 		9A0C173E264A2DAB00B5CC33 /* file_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1726264A2DAB00B5CC33 /* file_context.h */; };
 		9A0C173F264A2DAB00B5CC33 /* _.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C1727264A2DAB00B5CC33 /* _.cpp */; };
@@ -26,7 +26,7 @@
 		9A8E9DFB282A2FCA005FF778 /* _.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1734264A2DAB00B5CC33 /* _.h */; };
 		9A8E9DFC282A2FCA005FF778 /* node.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1722264A2DAB00B5CC33 /* node.h */; };
 		9A8E9DFD282A2FCA005FF778 /* file_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1726264A2DAB00B5CC33 /* file_context.h */; };
-		9A8E9DFE282A2FCA005FF778 /* _apex_posix.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1724264A2DAB00B5CC33 /* _apex_posix.h */; };
+		9A8E9DFE282A2FCA005FF778 /* _library.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1724264A2DAB00B5CC33 /* _library.h */; };
 		9A8E9DFF282A2FCA005FF778 /* framework.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1730264A2DAB00B5CC33 /* framework.h */; };
 		9A8E9E01282A2FCA005FF778 /* file_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C1725264A2DAB00B5CC33 /* file_context.cpp */; };
 		9A8E9E02282A2FCA005FF778 /* framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C171E264A2DAB00B5CC33 /* framework.cpp */; };
@@ -100,7 +100,7 @@
 		9A0C171E264A2DAB00B5CC33 /* framework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = framework.cpp; sourceTree = "<group>"; };
 		9A0C1720264A2DAB00B5CC33 /* node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = node.cpp; sourceTree = "<group>"; };
 		9A0C1722264A2DAB00B5CC33 /* node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = node.h; sourceTree = "<group>"; };
-		9A0C1724264A2DAB00B5CC33 /* _apex_posix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _apex_posix.h; sourceTree = "<group>"; };
+		9A0C1724264A2DAB00B5CC33 /* _library.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _library.h; sourceTree = "<group>"; };
 		9A0C1725264A2DAB00B5CC33 /* file_context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file_context.cpp; sourceTree = "<group>"; };
 		9A0C1726264A2DAB00B5CC33 /* file_context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file_context.h; sourceTree = "<group>"; };
 		9A0C1727264A2DAB00B5CC33 /* _.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = _.cpp; sourceTree = "<group>"; };
@@ -156,7 +156,7 @@
 				9A226D4A27CE9D7C0042BAC2 /* os_context.h */,
 				9A0C1727264A2DAB00B5CC33 /* _.cpp */,
 				9A0C1734264A2DAB00B5CC33 /* _.h */,
-				9A0C1724264A2DAB00B5CC33 /* _apex_posix.h */,
+				9A0C1724264A2DAB00B5CC33 /* _library.h */,
 				9A0C172D264A2DAB00B5CC33 /* _factory.cpp */,
 				9A0C1725264A2DAB00B5CC33 /* file_context.cpp */,
 				9A0C1726264A2DAB00B5CC33 /* file_context.h */,
@@ -205,7 +205,7 @@
 				9A0C1748264A2DAB00B5CC33 /* _.h in Headers */,
 				9A0C173A264A2DAB00B5CC33 /* node.h in Headers */,
 				9A0C173E264A2DAB00B5CC33 /* file_context.h in Headers */,
-				9A0C173C264A2DAB00B5CC33 /* _apex_posix.h in Headers */,
+				9A0C173C264A2DAB00B5CC33 /* _library.h in Headers */,
 				9A0C1744264A2DAB00B5CC33 /* framework.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -218,7 +218,7 @@
 				9A8E9DFB282A2FCA005FF778 /* _.h in Headers */,
 				9A8E9DFC282A2FCA005FF778 /* node.h in Headers */,
 				9A8E9DFD282A2FCA005FF778 /* file_context.h in Headers */,
-				9A8E9DFE282A2FCA005FF778 /* _apex_posix.h in Headers */,
+				9A8E9DFE282A2FCA005FF778 /* _library.h in Headers */,
 				9A8E9DFF282A2FCA005FF778 /* framework.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -465,7 +465,7 @@
 					"$(WorkspaceDir)/source",
 					"$(WorkspaceDir)/source/include",
 					"$(WorkspaceDir)/source/app",
-					"$(WorkspaceDir)/source/app/_include",
+					"$(WorkspaceDir)/source/app/include",
 					"$(WorkspaceDir)/operating-system",
 					"$(WorkspaceDir)/operating-system/operating-system-$(PLATFORM_MODIFIER)",
 					"$(WorkspaceDir)/operating-system/operating-system-$(PLATFORM_MODIFIER)/_include",
@@ -550,7 +550,7 @@
 					"$(WorkspaceDir)/source",
 					"$(WorkspaceDir)/source/include",
 					"$(WorkspaceDir)/source/app",
-					"$(WorkspaceDir)/source/app/_include",
+					"$(WorkspaceDir)/source/app/include",
 					"$(WorkspaceDir)/operating-system",
 					"$(WorkspaceDir)/operating-system/operating-system-$(PLATFORM_MODIFIER)",
 					"$(WorkspaceDir)/operating-system/operating-system-$(PLATFORM_MODIFIER)/_include",
