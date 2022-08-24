@@ -3,6 +3,9 @@
 // on 2021-08-12
 // 18:20 BRT
 #include "framework.h"
+#if !BROAD_PRECOMPILED_HEADER
+#include "_library.h"
+#endif
 #include <sys/stat.h>
 
 
