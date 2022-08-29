@@ -1232,7 +1232,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
    image_drawing imagedrawing(imagedrawingoptions, imagesource);
 
-   //getfileimage.m_iImage = m_pil[16]->set(getfileimage.m_iImage, imagedrawing);
+   //getfileimage.m_iImage = m_pimagelist[16]->set(getfileimage.m_iImage, imagedrawing);
 
    d1->g()->draw(imagedrawing);
 
