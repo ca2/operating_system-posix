@@ -1,7 +1,5 @@
 #include "framework.h"
-#if !BROAD_PRECOMPILED_HEADER
-#include "_library.h"
-#endif
+
 #include "file_context.h"
 #if defined(INTERPROCESS_COMMUNICATION_SYSTEM_5)
 #include "system_5/interprocess_communication.h"
