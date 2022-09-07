@@ -2,7 +2,9 @@
 // Created by camilo on 19/01/2021. --<33ThomasBS!!
 //
 #include "framework.h"
-
+#include "node.h"
+#include "acme_file.h"
+#include "acme_directory.h"
 #include <signal.h>
 
 #ifdef FREEBSD

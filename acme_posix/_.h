@@ -2,6 +2,7 @@
 
 
 #include "acme/_.h"
+#include "acme/operating_system.h"
 
 
 #if defined(_ACME_POSIX_LIBRARY)

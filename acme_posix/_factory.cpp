@@ -1,5 +1,10 @@
 #include "framework.h"
-
+#include "node.h"
+#include "file_memory_map.h"
+#include "pipe.h"
+#include "acme_directory.h"
+#include "acme_file.h"
+#include "acme_path.h"
 
 
 __FACTORY_EXPORT void acme_posix_factory(::factory::factory * pfactory)

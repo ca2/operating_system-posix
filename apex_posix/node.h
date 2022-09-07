@@ -7,6 +7,9 @@
 #pragma once
 
 
+#include "acme_posix/node.h"
+
+
 namespace apex_posix
 {
 

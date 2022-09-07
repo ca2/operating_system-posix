@@ -2,7 +2,8 @@
 // on 2021-08-09 03:19 BRT
 // <3ThomasBorregaardSørensen!!
 #include "framework.h"
-
+#include "acme_directory.h"
+#include "acme_file.h"
 #include "acme/operating_system.h"
 
 
