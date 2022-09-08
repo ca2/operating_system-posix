@@ -2,7 +2,8 @@
 // Created by camilo on 15/02/2021.
 //
 #include "framework.h"
-#include "aura/user/user/_component.h"
+#include "notify_icon.h"
+#include "aura/windowing/icon.h"
 #include "acme/filesystem/filesystem/acme_directory.h"
 
 

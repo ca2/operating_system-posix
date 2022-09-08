@@ -2,6 +2,9 @@
 #pragma once
 
 
+#include "aura/windowing/monitor.h"
+
+
 namespace node_gtk
 {
 
@@ -21,8 +24,8 @@ namespace node_gtk
       ~monitor() override;
 
 
-      ::windowing_x11::windowing * x11_windowing() const {return (::windowing_x11::windowing *) m_pdisplay->m_pwindowing->m_pWindowing4; }
-      ::windowing_x11::display * x11_display() const {return (::windowing_x11::display *) m_pdisplay->m_pDisplay; }
+      ::windowing_x11::windowing * x11_windowing() const;
+      ::windowing_x11::display * x11_display() const;
 
 
       void update_cache() override;

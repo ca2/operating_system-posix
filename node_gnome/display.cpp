@@ -2,9 +2,7 @@
 // recreated by Camilo 2021-01-16 22:38 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
 #include "framework.h"
-//#include "apex/platform/app_core.h"
-//#include "_user.h"
-//#include <gdk/gdk.h>
+#include "display.h"
 
 
 extern ::app_core * g_pappcore;

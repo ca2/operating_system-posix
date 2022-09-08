@@ -4,6 +4,9 @@
 #pragma once
 
 
+#include "windowing_x11/windowing.h"
+
+
 namespace node_gtk
 {
 
@@ -12,8 +15,6 @@ namespace node_gtk
       virtual public ::windowing_x11::windowing
    {
    public:
-
-
 
 
       windowing();

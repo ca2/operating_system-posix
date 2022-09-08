@@ -1,8 +1,15 @@
 // created by Camilo <3CamiloSasukeThomasBorregaardSoerensen  - Honoring Thomas Borregaard Sørensen MY ONLY LORD
 // recreated by Camilo 2021-02-01 20:19
 #include "framework.h"
+#include "cursor.h"
 //#include "_windowing_x11.h"
 #include <X11/cursorfont.h>
+#include "aura/platform/session.h"
+#include "aura/user/user/user.h"
+#include "display.h"
+
+
+CLASS_DECL_ACME ::mutex * user_mutex();
 
 
 namespace windowing_x11

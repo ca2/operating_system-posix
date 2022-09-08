@@ -5,6 +5,9 @@
 #include "windowing_x11.h"
 #ifdef WITH_XI
 #include <X11/extensions/XInput2.h>
+#include "windowing_x11/window.h"
+#include "windowing_x11/windowing.h"
+#include "windowing_x11/display.h"
 
 
 namespace windowing_x11

@@ -10,6 +10,8 @@
 #include "apex/user/notify_icon_bridge.h"
 //namespace freebsd { class appindicator; }
 //#endif
+#include "aura/user/user/notify_icon.h"
+#include "aura_posix/appindicator.h"
 
 
 namespace node_gnome
@@ -36,7 +38,7 @@ namespace node_gnome
 //#ifdef WINDOWS_DESKTOP
 //      NOTIFYICONDATA m_nid;
 //#elif defined(LINUX)
-      __pointer(::aura::posix::appindicator)        m_pindicator;
+      __pointer(::aura_posix::appindicator)        m_pindicator;
 //#endif
       //__pointer(::user::notify_icon_listener)      m_plistener;
       //__pointer_array(::user::interaction)         m_wndptraHidden;

@@ -4,6 +4,8 @@
 #include "framework.h"
 #include "clipboard_data.h"
 #include <gtk/gtk.h>
+#include "aura/graphics/image/image.h"
+#include "aura/graphics/image/_image.h"
 
 
 void clipboard_targets_func(GtkClipboard *clipboard, GdkAtom *atoms, gint n_atoms, gpointer data)

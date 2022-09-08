@@ -4,6 +4,9 @@
 #pragma once
 
 
+#include "node_gtk/windowing.h"
+
+
 namespace node_gnome
 {
 

@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "interprocess_communication.h"
+#include "acme/filesystem/filesystem/acme_file.h"
 
 
 #include <sys/types.h>

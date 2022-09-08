@@ -2,14 +2,18 @@
 // recreated by Camilo 2021-01-28 22:20 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
 #include "framework.h"
-#include "aura/user/user/_component.h"
+#include "window.h"
 #include "windowing_x11.h"
-#include "acme/operating_system/_user.h"
+#include "windowing.h"
+#include "display.h"
+#include "cursor.h"
 #include "aura/user/user/interaction_prodevian.h"
+#include "aura/user/user/interaction_impl.h"
 #include "aura/platform/message_queue.h"
 #include <X11/Xatom.h>
 #include "aura/graphics/image/context_image.h"
 #include "aura/graphics/image/drawing.h"
+#include "aura/platform/application.h"
 
 
 void on_sn_launch_context(void * pSnContext, Window window);
@@ -1506,6 +1510,22 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
    {
 
       return m_pointCursor;
+
+   }
+
+
+   ::windowing_x11::windowing * window::x11_windowing() const
+   {
+
+      return (::windowing_x11::windowing *) m_pwindowing->m_pWindowing4;
+
+   }
+
+
+   ::windowing_x11::display * window::x11_display() const
+   {
+
+      return (::windowing_x11::display *) m_pdisplay->m_pDisplay;
 
    }
 

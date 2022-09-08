@@ -4,6 +4,8 @@
 #pragma once
 
 
+#include "aura/user/user/copydesk.h"
+
 
 //
 //enum enum_clipboard
@@ -20,35 +22,35 @@
 //};
 //
 
-//struct clipboard_data :
-//   virtual public ::object
-//{
-//public:
-//
-//
-//   clipboard_data(::object * pobject, enum_clipboard eclipboard) //:
-//      //object(pobject)
-//   {
-//
-//      m_eclipboard = eclipboard;
-//
-//      m_event.ResetEvent();
-//
-//      initialize(pobject);
-//
-//   }
-//
-//   ::user::copydesk::e_op     m_eop;
-//   enum_clipboard             m_eclipboard;
-//   manual_reset_event         m_event;
-//   string                     m_str;
-//   ::image_pointer            m_pimage;
-//   ::file::path_array              m_patha;
-//   int                        m_nTargets;
-//   //GtkImage *                 m_pgtkimage;
-//   void *                     m_pgtkimage;
-//
-//};
-//
+struct clipboard_data :
+   virtual public ::object
+{
+public:
+
+
+   clipboard_data(::object * pobject, enum_clipboard eclipboard) //:
+      //object(pobject)
+   {
+
+      m_eclipboard = eclipboard;
+
+      m_event.ResetEvent();
+
+      initialize(pobject);
+
+   }
+
+   ::user::copydesk::enum_op  m_eop;
+   enum_clipboard             m_eclipboard;
+   manual_reset_event         m_event;
+   string                     m_str;
+   ::image_pointer            m_pimage;
+   ::file::path_array              m_patha;
+   int                        m_nTargets;
+   //GtkImage *                 m_pgtkimage;
+   void *                     m_pgtkimage;
+
+};
+
 
 

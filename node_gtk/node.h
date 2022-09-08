@@ -13,6 +13,9 @@
 #endif
 
 
+#include "aura_posix/node.h"
+
+
 namespace node_gtk
 {
 

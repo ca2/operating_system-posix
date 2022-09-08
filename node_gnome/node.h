@@ -8,6 +8,9 @@
 #pragma once
 
 
+#include "node_gtk/node.h"
+
+
 namespace node_gnome
 {
 

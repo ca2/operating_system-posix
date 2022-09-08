@@ -2,9 +2,13 @@
 // recreated by Camilo 2021-01-28 22:20 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
 #include "framework.h"
-//#include "apex/platform/app_core.h"
+#include "display.h"
+#include "window.h"
 #include "windowing.h"
 #include "windowing_x11.h"
+#include "aura/platform/session.h"
+#include "aura/user/user/user.h"
+#include "aura/graphics/image/image.h"
 
 
 extern ::app_core * g_pappcore;

@@ -4,8 +4,12 @@
 #pragma once
 
 
+#include "aura/user/user/text_composition_client.h"
+
+
 namespace windowing_x11
 {
+
 
    class CLASS_DECL_WINDOWING_X11 text_composition_client :
       virtual public ::user::text_composition_client
@@ -13,8 +17,10 @@ namespace windowing_x11
    public:
 
 
+
       text_composition_client();
-      virtual ~text_composition_client();
+      ~text_composition_client() override;
+
 
    };
 

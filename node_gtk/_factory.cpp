@@ -1,4 +1,7 @@
 #include "framework.h"
+#include "display.h"
+#include "node.h"
+#include "desktop_environment.h"
 
 
 __FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory);

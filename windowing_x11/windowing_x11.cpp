@@ -22,10 +22,16 @@
 #include <X11/extensions/XInput2.h>
 #include <X11/XKBlib.h>
 #define new ACME_NEW
-#include "aura/operating_system/x11/_x11.h"
+//#include "aura/operating_system/x11/_x11.h"
 #include "acme/parallelization/message_queue.h"
 #include "windowing_x11.h"
-#include "acme/operating_system/_user.h"
+#include "windowing.h"
+#include "window.h"
+#include "display.h"
+#include "aura/user/user/interaction_impl.h"
+#include "aura/platform/session.h"
+#include "aura/platform/application.h"
+#include "aura/message/user.h"
 
 
 //bool x11_runnable_step();
@@ -1875,7 +1881,7 @@ else if(detail == 3)
                if (e.xmotion.state & Button1Mask)
                {
 
-                  wparam |= MK_LBUTTON;
+                  wparam |= ::user::e_mouse_middle_button;
 
                }
 

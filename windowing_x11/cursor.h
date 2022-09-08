@@ -3,6 +3,9 @@
 #pragma once
 
 
+#include "aura/windowing/cursor.h"
+
+
 namespace windowing_x11
 {
 
@@ -17,7 +20,7 @@ namespace windowing_x11
 
 
       cursor();
-      virtual ~cursor();
+      ~cursor() override;
 
 //      virtual ::e_status initialize_system_default();
 

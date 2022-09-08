@@ -4,6 +4,10 @@
 #pragma once
 
 
+#include "aura/windowing/windowing.h"
+#include "aura/windowing/desktop_environment.h"
+
+
 namespace windowing_posix
 {
 

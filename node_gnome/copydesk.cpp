@@ -1,9 +1,11 @@
 #include "framework.h"
-#include "_.h"
+#include "copydesk.h"
 #include "aura/operating_system.h"
 #include "clipboard_data.h"
 #include <gtk/gtk.h>
 #include "aura/graphics/image/context_image.h"
+#include "aura/platform/system.h"
+#include "aura/platform/node.h"
 
 
 gboolean clipboard_callback(gpointer data);

@@ -3,6 +3,8 @@
 //
 #include "framework.h"
 #include "windowing_x11.h"
+#include "display.h"
+#include "aura/graphics/image/image.h"
 
 
 namespace windowing_x11

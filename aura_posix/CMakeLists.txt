@@ -3,7 +3,6 @@ project(aura_posix CXX)
 
 
 list(APPEND library_source
-   x11/_x11.h
    _.cpp
    _.h
    _library.h
@@ -33,7 +32,9 @@ if(WITH_X11 OR WITH_XCB)
 
 
    list(APPEND library_source
-      x11/_.cpp
+           x11/_.h
+
+           x11/_.cpp
       x11/_constant.h
       x11/window.cpp
       x11/window.h
@@ -58,7 +59,7 @@ if(WITH_X11 OR WITH_XCB)
 endif()
 
 
-add_library(aura_posix SHARED ${library_source})
+add_library(aura_posix SHARED ${library_source} user_notify_icon_bridge.h)
 
 
 target_precompile_headers(aura_posix PRIVATE framework.h)

@@ -22,4 +22,27 @@ namespace aura_posix
 } // namespace aura_posix
 
 
+namespace xim
+{
+
+
+   class keyboard;
+
+
+} // namespace xim
+
+
+
+
+
+
+#if defined(LINUX)
+
+
+#include "x11/_.h"
+
+
+#endif
+
+
 

@@ -5,6 +5,7 @@
 
 
 #include "aura/graphics/image/image.h"
+#include "aura/user/user/copydesk.h"
 
 
 enum enum_clipboard

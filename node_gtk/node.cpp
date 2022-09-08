@@ -5,11 +5,12 @@
 #include "node.h"
 #include "acme/operating_system/ansi/pmutex_lock.h"
 #include "acme/operating_system/parallelization.h"
+#include "acme/filesystem/filesystem/acme_directory.h"
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 #include <glib.h>
-//#include <gtk/gtk.h>
-
+#include "aura/platform/session.h"
+#include "aura/user/user/user.h"
 
 
 bool x11_message_loop_step();

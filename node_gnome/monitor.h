@@ -2,6 +2,9 @@
 #pragma once
 
 
+#include "node_gtk/monitor.h"
+
+
 namespace node_gnome
 {
 

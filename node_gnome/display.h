@@ -4,6 +4,9 @@
 #pragma one
 
 
+#include "node_gtk/display.h"
+
+
 namespace node_gnome
 {
 

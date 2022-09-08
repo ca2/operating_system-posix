@@ -2,8 +2,16 @@
 // recreated by Camilo 2021-01-28 22:35 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
 #include "framework.h"
-#include "windowing_x11.h"
+#include "windowing.h"
+#include "window.h"
+#include "display.h"
+#include "cursor.h"
+#include "aura/windowing/cursor_manager.h"
 #include <X11/cursorfont.h>
+#include "aura/user/user/interaction_impl.h"
+#include "aura/platform/system.h"
+#include "aura/platform/session.h"
+#include "aura/user/user/user.h"
 
 
 namespace windowing_x11

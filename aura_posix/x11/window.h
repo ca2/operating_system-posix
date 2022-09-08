@@ -4,6 +4,9 @@
 #pragma once
 
 
+#include "aura/windowing/window.h"
+
+
 namespace windowing_posix
 {
 

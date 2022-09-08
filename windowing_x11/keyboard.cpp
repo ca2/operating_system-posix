@@ -3,7 +3,9 @@
 // from aura/user/keyboard
 //
 #include "framework.h"
-#include "aura/user/user/_component.h"
+#include "keyboard.h"
+#include "apex/user/primitive.h"
+#include "aura/user/user/key.h"
 
 
 //#if defined(LINUX) || defined(SOLARIS)

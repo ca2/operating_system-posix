@@ -9,6 +9,7 @@
 
 #include "acme/operating_system/x11/nano/event_listener.h"
 #include "acme/operating_system/x11/nano/display.h"
+#include "aura/windowing/display.h"
 
 
 namespace windowing_x11

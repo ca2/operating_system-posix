@@ -4,12 +4,15 @@
 #pragma once
 
 
+#include "aura_posix/appindicator.h"
+
+
 namespace node_gnome
 {
 
 
    class appindicator :
-      virtual public ::aura::posix::appindicator
+      virtual public ::aura_posix::appindicator
    {
    public:
 
@@ -17,7 +20,7 @@ namespace node_gnome
       AppIndicator * m_pindicator;
 
       appindicator();
-      virtual ~appindicator();
+      ~appindicator() override;
 
 
       virtual bool create(const char * pszId, const char * pszIcon, const char * pszFolder, user_notify_icon_bridge * pbridge);

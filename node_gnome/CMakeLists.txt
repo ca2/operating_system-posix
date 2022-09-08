@@ -86,7 +86,7 @@ endif()
 
 
 
-add_library(${PROJECT_NAME} SHARED ${library_source} )
+add_library(${PROJECT_NAME} SHARED ${library_source} _constant.h)
 
 target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 

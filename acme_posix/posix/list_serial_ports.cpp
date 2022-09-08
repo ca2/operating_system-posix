@@ -1,5 +1,7 @@
 #include "framework.h"
 #include "acme/operating_system/ansi/_ansi.h"
+#include "acme_file.h"
+#include "node.h"
 
 /*
  * Copyright (c) 2014 Craig Lilley <cralilley@gmail.com>

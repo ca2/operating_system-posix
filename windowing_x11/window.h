@@ -132,8 +132,8 @@ namespace windowing_x11
 
       //virtual ::Window get_parent_handle() const;
 
-      ::windowing_x11::windowing * x11_windowing() const {return (::windowing_x11::windowing *) m_pwindowing->m_pWindowing4; }
-      ::windowing_x11::display * x11_display() const {return (::windowing_x11::display *) m_pdisplay->m_pDisplay; }
+      ::windowing_x11::windowing * x11_windowing() const;
+      ::windowing_x11::display * x11_display() const;
 
       void set_parent(::windowing::window * pwindowNewParent);
       //virtual ::e_status set_parent(::windowing::window * pwindowNewParent) override;
@@ -281,8 +281,6 @@ namespace windowing_x11
 
    };
 
-
-   using window_map = map < ::Window, __pointer(window) >;
 
 
 } // namespace windowing_x11

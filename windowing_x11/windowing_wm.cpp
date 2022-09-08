@@ -2,8 +2,12 @@
 // Created by camilo on 17/02/2021. 15:16 BRT <3TBS_!!
 //
 #include "framework.h"
+#include "window.h"
 #include "windowing_x11.h"
+#include "display.h"
+#include "windowing.h"
 #include <X11/Xatom.h>
+#include "aura/user/user/interaction_impl.h"
 
 
 namespace windowing_x11

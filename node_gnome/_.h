@@ -21,6 +21,9 @@ namespace node_gnome
 } // namespace node_gnome
 
 
+#include "_constant.h"
+
+
 #define __matter(TYPE) __new(::matter<TYPE>)
 
 

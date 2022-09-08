@@ -4,6 +4,9 @@
 #pragma one
 
 
+#include "windowing_x11/display.h"
+
+
 namespace node_gtk
 {
 

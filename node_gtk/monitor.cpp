@@ -1,5 +1,8 @@
 // created by Camilo 2021-01-31 05:16 BRT <3CamiloSasukeThomasBorregaardSoerensen
 #include "framework.h"
+#include "monitor.h"
+#include "display.h"
+#include "windowing.h"
 
 
 mutex * user_mutex();
@@ -19,6 +22,22 @@ namespace node_gtk
    monitor::~monitor()
    {
 
+
+   }
+
+
+   ::windowing_x11::windowing * monitor::x11_windowing() const
+   {
+
+      return (::windowing_x11::windowing *) m_pdisplay->m_pwindowing->m_pWindowing4;
+
+   }
+
+
+   ::windowing_x11::display * monitor::x11_display() const
+   {
+
+      return (::windowing_x11::display *) m_pdisplay->m_pDisplay;
 
    }
 
