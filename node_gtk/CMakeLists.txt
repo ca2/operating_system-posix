@@ -6,7 +6,7 @@ list(APPEND library_source
    _.cpp
    _.h
    _factory.cpp
-   _library.h
+   #_library.h
    application.cpp
    application.h
    desktop_environment.cpp

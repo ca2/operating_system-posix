@@ -4,7 +4,7 @@
 #include "framework.h"
 
 #include "windowing_xcb.h"
-#include "aura/user/user/_component.h"
+////#include "aura/user/user/_component.h"
 #include "acme/operating_system/_user.h"
 #include "aura/user/user/interaction_prodevian.h"
 #include "aura/platform/message_queue.h"

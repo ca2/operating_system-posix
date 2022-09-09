@@ -9,7 +9,7 @@
 #include "aura/user/user/interaction_impl.h"
 //#if !BROAD_PRECOMPILED_HEADER
 #if !BROAD_PRECOMPILED_HEADER
-#include "aura/user/user/_component.h"
+////#include "aura/user/user/_component.h"
 #endif
 //#endif
 //#include "_user.h"

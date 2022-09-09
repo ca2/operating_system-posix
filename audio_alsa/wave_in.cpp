@@ -1,6 +1,8 @@
 #include "framework.h"
-
-
+#include "wave_in.h"
+#include "translation.h"
+#include "app-core/audio/audio/audio.h"
+#include "app-core/audio/decode/encoder.h"
 
 
 namespace multimedia
@@ -15,7 +17,7 @@ namespace multimedia
       {
 
          m_pencoder = NULL;
-         m_estate = e_state_initial;
+         m_einstate = ::wave::e_in_state_initial;
          m_bResetting = false;
 
 
@@ -56,7 +58,7 @@ namespace multimedia
 
          return;
 
-         if(m_ppcm != NULL && m_estate != e_state_initial)
+         if(m_ppcm != NULL && m_einstate != ::wave::e_in_state_initial)
          {
 
             in_initialize_encoder();
@@ -73,7 +75,7 @@ namespace multimedia
 
          ASSERT(m_ppcm == NULL);
 
-         ASSERT(m_estate == e_state_initial);
+         ASSERT(m_einstate == ::wave::e_in_state_initial);
 
          m_pwaveformat->m_waveformat.wFormatTag = 0;
          m_pwaveformat->m_waveformat.nChannels = 2;
@@ -228,7 +230,7 @@ Opened:
 
          }
 
-         m_estate = e_state_opened;
+         m_einstate = ::wave::e_in_state_opened;
 
          //return success;
 
@@ -242,7 +244,7 @@ Opened:
 
          ::e_status estatus;
 
-         if(m_estate != e_state_opened && m_estate != state_stopped)
+         if(m_einstate != ::wave::e_in_state_opened && m_einstate != ::wave::e_in_state_stopped)
          {
 
             return;
@@ -272,7 +274,7 @@ Opened:
 
          m_ppcm = NULL;
 
-         m_estate = e_state_initial;
+         m_einstate = ::wave::e_in_state_initial;
 
          if(!estatus)
          {
@@ -293,7 +295,7 @@ Opened:
 
          single_lock sLock(mutex(), TRUE);
 
-         if(m_estate == state_recording)
+         if(m_einstate == ::wave::e_in_state_recording)
          {
 
             //return success;
@@ -302,7 +304,7 @@ Opened:
 
          }
 
-         if(m_estate != e_state_opened && m_estate != state_stopped)
+         if(m_einstate != ::wave::e_in_state_opened && m_einstate != ::wave::e_in_state_stopped)
          {
 
             //return success;
@@ -324,7 +326,7 @@ Opened:
 
          }
 
-         m_estate = state_recording;
+         m_einstate = ::wave::e_in_state_recording;
 
          //return success;
 
@@ -336,7 +338,7 @@ Opened:
 
          synchronous_lock sl(mutex());
 
-         if(m_estate != state_recording)
+         if(m_einstate != ::wave::e_in_state_recording)
          {
 
             throw ::exception(error_failed);
@@ -345,7 +347,7 @@ Opened:
 
          ::e_status estatus;
 
-         m_estate = e_state_stopping;
+         m_einstate = ::wave::e_in_state_stopping;
 
          try
          {
@@ -365,7 +367,7 @@ Opened:
 
          }
 
-         m_estate = state_stopped;
+         m_einstate = ::wave::e_in_state_stopped;
 
          m_eventStopped.SetEvent();
 
@@ -467,7 +469,7 @@ Opened:
 
 
 
-         if(m_estate == state_recording)
+         if(m_einstate == ::wave::e_in_state_recording)
          {
 
             in_stop();
@@ -493,7 +495,7 @@ Opened:
          {
          }
 
-         m_estate = e_state_opened;
+         m_einstate = ::wave::e_in_state_opened;
 
          m_bResetting = false;
 

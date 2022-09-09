@@ -5,7 +5,7 @@ project(aura_posix CXX)
 list(APPEND library_source
    _.cpp
    _.h
-   _library.h
+   #_library.h
    appindicator.cpp
    appindicator.h
    _factory.cpp

@@ -1,6 +1,10 @@
 #pragma once
 
 
+#include "snd_pcm.h"
+#include "app-core/audio/wave/out.h"
+
+
 namespace multimedia
 {
 

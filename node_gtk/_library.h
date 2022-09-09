@@ -6,7 +6,7 @@
 
 //#include "windowing_x11/_library.h"
 //#include "acme/operating_system/ansi/_pthread.h"
-//#include "aura/user/user/_component.h"
+//////#include "aura/user/user/_component.h"
 //#include "aura_posix/appindicator.h"
 //
 //

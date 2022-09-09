@@ -1,5 +1,6 @@
 #include "framework.h"
-
+#include "wave_in.h"
+#include "wave_out.h"
 
 
 __FACTORY_EXPORT void audio_alsa_factory(::factory::factory * pfactory)

@@ -1,5 +1,5 @@
 #include "framework.h"
-
+#include "snd_pcm.h"
 
 
 namespace multimedia

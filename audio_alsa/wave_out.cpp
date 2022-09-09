@@ -2,6 +2,8 @@
 
 #include "aura/message.h"
 #include <sys/time.h>
+#include "wave_out.h"
+#include "translation.h"
 
 
 long long timestamp2ns(snd_htimestamp_t t)
@@ -42,7 +44,7 @@ namespace multimedia
       {
 
          m_bDirectOutput      = false;
-         m_estate             = e_state_initial;
+         m_eoutstate             = ::wave::e_out_state_initial;
          m_pthreadCallback    = NULL;
          m_estatusWave            = success;
          m_bWrite             = false;
@@ -105,7 +107,7 @@ namespace multimedia
 
          TRACE("multimedia::audio_alsa::out_open_ex");
 
-         if(m_ppcm != NULL && m_estate != e_state_initial)
+         if(m_ppcm != NULL && m_eoutstate != ::wave::e_out_state_initial)
          {
 
             ///return success;
@@ -118,7 +120,7 @@ namespace multimedia
 
 //         m_iBufferCountEffective = 4;
 
-         if(epurpose == ::wave::purpose_playback)
+         if(epurpose == ::wave::e_purpose_playback)
          {
 
   //          m_dwPeriodTime =  6 * 1000; /* period time in us */
@@ -151,7 +153,7 @@ namespace multimedia
 
          ASSERT(m_ppcm == NULL);
 
-         ASSERT(m_estate == e_state_initial);
+         ASSERT(m_eoutstate == ::wave::e_out_state_initial);
 
          m_pwaveformat->m_waveformat.wFormatTag        = 0;
          m_pwaveformat->m_waveformat.nChannels         = (::u16) uiChannelCount;
@@ -252,7 +254,7 @@ namespace multimedia
 
          m_psynthtask->m_iWaitBuffer = 1;
 
-         m_estate = e_state_opened;
+         m_eoutstate = ::wave::e_out_state_opened;
 
          m_epurpose = epurpose;
 
@@ -268,14 +270,14 @@ namespace multimedia
 
          TRACE("multimedia::audio_alsa::out_close");
 
-         if(m_estate == e_state_playing)
+         if(m_eoutstate == ::wave::e_out_state_playing)
          {
 
             out_stop();
 
          }
 
-         if(m_estate != e_state_opened)
+         if(m_eoutstate != ::wave::e_out_state_opened)
          {
 
             //return success;
@@ -292,7 +294,7 @@ namespace multimedia
 
          ::wave::out::out_close();
 
-         m_estate = e_state_initial;
+         m_eoutstate = ::wave::e_out_state_initial;
 
          //return success;
 
@@ -306,7 +308,7 @@ namespace multimedia
 
          TRACE("multimedia::audio_alsa::out_stop");
 
-         if(m_estate != e_state_playing && m_estate != e_state_paused)
+         if(m_eoutstate != ::wave::e_out_state_playing && m_eoutstate != ::wave::e_out_state_paused)
          {
 
             throw ::exception(error_wrong_state);
@@ -315,7 +317,7 @@ namespace multimedia
 
          //m_pprebuffer->stop();
 
-         m_estate = e_state_stopping;
+         m_eoutstate = ::wave::e_out_state_stopping;
 
          // waveOutReset
          // The waveOutReset function stops playback on the given
@@ -327,7 +329,7 @@ namespace multimedia
          if(m_estatusWave == success)
          {
 
-            m_estate = e_state_opened;
+            m_eoutstate = ::wave::e_out_state_opened;
 
          }
 
@@ -346,11 +348,11 @@ namespace multimedia
 
          synchronous_lock sl(mutex());
 
-         ASSERT(m_estate == e_state_playing);
+         ASSERT(m_eoutstate == ::wave::e_out_state_playing);
 
          TRACE("multimedia::audio_alsa::out_pause");
 
-         if(m_estate != e_state_playing)
+         if(m_eoutstate != ::wave::e_out_state_playing)
          {
 
             throw ::exception(error_wrong_state);
@@ -369,7 +371,7 @@ namespace multimedia
          if(m_estatusWave == success)
          {
 
-            m_estate = e_state_paused;
+            m_eoutstate = ::wave::e_out_state_paused;
 
          }
 
@@ -388,11 +390,11 @@ namespace multimedia
 
          synchronous_lock sl(mutex());
 
-         ASSERT(m_estate == e_state_paused);
+         ASSERT(m_eoutstate == ::wave::e_out_state_paused);
 
          TRACE("multimedia::audio_alsa::out_restart");
 
-         if(m_estate != e_state_paused)
+         if(m_eoutstate != ::wave::e_out_state_paused)
          {
 
             throw ::exception(error_wrong_state);
@@ -410,7 +412,7 @@ namespace multimedia
 
          if(m_estatusWave == success)
          {
-            m_estate = e_state_playing;
+            m_eoutstate = ::wave::e_out_state_playing;
          }
 
          if(!m_estatusWave)
@@ -544,7 +546,7 @@ namespace multimedia
 
          }
 
-         if(m_estate != ::wave::out::e_state_playing && m_estate != wave::out::e_state_stopping)
+         if(m_eoutstate != ::wave::e_out_state_playing && m_eoutstate != ::wave::e_out_state_stopping)
          {
 
             TRACE("alsa_out_buffer_ready failure: !playing && !stopping");
@@ -619,7 +621,7 @@ namespace multimedia
 
                   FORMATTED_TRACE("ALSA wave_out snd_pcm_avail minimum byte count %d\n", iFramesToWrite);
 
-                  m_estate = e_state_opened;
+                  m_eoutstate = ::wave::e_out_state_opened;
 
                   m_estatusWave = error_failed;
 
@@ -722,7 +724,7 @@ namespace multimedia
                if(iFramesJustWritten < 0 && iFramesJustWritten != -EAGAIN)
                {
 
-                  m_estate = e_state_opened;
+                  m_eoutstate = ::wave::e_out_state_opened;
 
                   m_estatusWave = error_failed;
 
@@ -808,7 +810,7 @@ namespace multimedia
 
          synchronous_lock sl(mutex());
 
-         if(m_estate == e_state_playing)
+         if(m_eoutstate == ::wave::e_out_state_playing)
          {
 
             //return success;
@@ -817,7 +819,7 @@ namespace multimedia
 
          }
 
-         if(m_estate != e_state_opened && m_estate != e_state_stopped)
+         if(m_eoutstate != ::wave::e_out_state_opened && m_eoutstate != ::wave::e_out_state_stopped)
          {
 
             //return error_failed;
