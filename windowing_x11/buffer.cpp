@@ -7,14 +7,8 @@
 #include "window.h"
 #include "display.h"
 #include "aura/user/user/interaction_impl.h"
-//#if !BROAD_PRECOMPILED_HEADER
-#if !BROAD_PRECOMPILED_HEADER
-////#include "aura/user/user/_component.h"
-#endif
-//#endif
-//#include "_user.h"
+#include "aura/graphics/image/image.h"
 
-//#define VERI_BASIC_TEST
 
 namespace windowing_x11
 {
