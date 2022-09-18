@@ -33,7 +33,7 @@ ApexApplication * apex_application_new (const char * pszAppName, const char * ps
 void apex_application_application_menu_activate_callback(GSimpleAction *action, GVariant      *parameter, gpointer       user_data)
 {
 
-   ::application * papp = (::application *) user_data;
+   ::application * papp = (::apex::application *) user_data;
 
    const gchar * name = g_action_get_name (G_ACTION(action));
 
@@ -50,7 +50,7 @@ void apex_application_application_menu_activate_callback(GSimpleAction *action, 
 
 
 
-void apex_application_set_application_menu(::application_menu * pappmenu, ::application * papp)
+void apex_application_set_application_menu(::application_menu * pappmenu, ::apex::application * papp)
 {
 
    GApplication * papp = G_APPLICATION(g_papexapplication);

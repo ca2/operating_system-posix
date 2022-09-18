@@ -51,7 +51,7 @@ namespace aura_posix
 
       //void on_initialize_object() override;
       //::string system_options_html() override;
-      //void set_application_menu(application_menu * pmenu, ::application * papp) override;
+      //void set_application_menu(application_menu * pmenu, ::apex::application * papp) override;
       //void call_async(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid = nullptr) override;
       //void call_sync(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, const ::duration & durationTimeout, ::property_set & set) override;
       //int node_init_check(int * pi, char *** ppz) override;
@@ -105,7 +105,7 @@ namespace aura_posix
 #endif // WITH_XCB
 
 
-      ::file::path get_desktop_file_path(::application * papp) const override;
+      ::file::path get_desktop_file_path(::apex::application * papp) const override;
 
 
       void main() override;

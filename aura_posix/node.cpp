@@ -232,7 +232,7 @@ namespace aura_posix
    //}
 
 
-   //void node::set_application_menu(application_menu * pmenu, ::application * papp)
+   //void node::set_application_menu(application_menu * pmenu, ::apex::application * papp)
    //{
 
    //   ::aura::node::set_application_menu(pmenu, papp);
@@ -520,7 +520,7 @@ namespace aura_posix
 #endif
    
 
-   ::file::path node::get_desktop_file_path(::application * papp) const
+   ::file::path node::get_desktop_file_path(::apex::application * papp) const
    {
 
       ::file::path path;

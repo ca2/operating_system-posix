@@ -109,7 +109,7 @@ namespace node_kde
 
       m_pstatusnotifieritem->setIconByName(pathIcon24.c_str());
 
-      string strFriendlyName = papp->m_papplication->get_app_user_friendly_task_bar_name();
+      string strFriendlyName = papp->m_papexapplication->get_app_user_friendly_task_bar_name();
 
       auto pmenu = new QMenu();
 
