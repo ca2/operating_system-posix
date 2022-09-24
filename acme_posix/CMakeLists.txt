@@ -42,7 +42,7 @@ endif()
 
 
 
-add_library(acme_posix SHARED ${library_source})
+add_library(${PROJECT_NAME} SHARED ${library_source})
 
 
 if(POSIX_LIST_SERIAL_PORTS)
@@ -88,12 +88,12 @@ elseif(LINUX OR FREEBSD)
 endif ()
 
 
-list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
-list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
 list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
-
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
+
 
 
 target_compile_definitions(acme_posix PRIVATE _ACME_POSIX_LIBRARY)

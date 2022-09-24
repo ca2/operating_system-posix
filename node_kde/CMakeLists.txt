@@ -80,14 +80,54 @@ elseif(LINUX OR FREEBSD)
    target_compile_options(node_kde PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(node_kde PRIVATE ${PKGCONFIG_LDFLAGS})
    if(KDE_DESKTOP)
-   target_include_directories(node_kde PRIVATE KF5::Notifications)
-   target_include_directories(node_kde PRIVATE KF5::ConfigWidgets)
-   target_include_directories(node_kde PRIVATE KF5::IconThemes)
-   target_include_directories(node_kde PRIVATE KF5::KIOCore)
-   target_include_directories(node_kde PRIVATE KF5::KIOFileWidgets)
-   target_include_directories(node_kde PRIVATE KF5::KIOWidgets)
-   target_include_directories(node_kde PRIVATE KF5::KIONTLM)
-   target_include_directories(node_kde PRIVATE PW::KWorkspace)
+   list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
+
+   list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
+
+   list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
+
+   list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
+
+   list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
+
+   list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
+
+   list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
+
+   list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
+
    endif()
    #target_link_options(node_kde PRIVATE -Wl,-rpath=$ORIGIN)
    target_link_libraries(node_kde PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
@@ -108,12 +148,12 @@ endif ()
 
 
 
-list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
-list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
 list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
-
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
+
 
 
 target_compile_definitions(node_kde PRIVATE _NODE_KDE_LIBRARY)

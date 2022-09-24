@@ -24,7 +24,7 @@ list(APPEND library_source
         write_text.h)
 
 
-add_library(write_text_pango SHARED ${library_source})
+add_library(${PROJECT_NAME} SHARED ${library_source})
 
 target_precompile_headers(write_text_pango PRIVATE framework.h)
 
@@ -58,12 +58,12 @@ endif()
 
 
 
-list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
-list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
 list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
-
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
+
 
 
 target_compile_definitions(write_text_pango PRIVATE _WRITE_TEXT_PANGO_LIBRARY)

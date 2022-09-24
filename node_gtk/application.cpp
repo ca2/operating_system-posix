@@ -37,7 +37,7 @@ NodeGtkApplication * node_gtk_application_new (const char * pszAppName, const ch
 void node_gtk_application_application_menu_activate_callback(GSimpleAction *action, GVariant * parameter, gpointer user_data)
 {
 
-   ::application * papp = (::apex::application *) user_data;
+   ::apex::application * papp = (::apex::application *) user_data;
 
    const gchar * name = g_action_get_name (G_ACTION(action));
 

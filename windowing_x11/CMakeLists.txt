@@ -52,7 +52,7 @@ list(APPEND library_references
    )
 
 
-add_library(windowing_x11 SHARED ${library_source})
+add_library(${PROJECT_NAME} SHARED ${library_source})
 
 target_precompile_headers(windowing_x11 PRIVATE framework.h)
 
@@ -88,10 +88,20 @@ elseif(LINUX OR FREEBSD)
 endif ()
 
 
-#target_include_directories(windowing_x11 PRIVATE .)
+#list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
 
 
-#target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
+
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
+
 
 
 target_compile_definitions(windowing_x11 PRIVATE _WINDOWING_X11_LIBRARY)
