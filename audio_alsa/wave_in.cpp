@@ -1,7 +1,7 @@
 #include "framework.h"
 #include "wave_in.h"
 #include "translation.h"
-#include "app-core/audio/audio/audio.h"
+#include "app-core/audio/audio.h"
 #include "app-core/audio/decode/encoder.h"
 
 
