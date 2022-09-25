@@ -3,6 +3,9 @@
 #pragma once
 
 
+#include "aura/windowing/icon.h"
+
+
 namespace windowing_xcb
 {
 

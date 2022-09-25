@@ -948,7 +948,7 @@
 
 //    RtlTimeToSecondsSince1970( NewTime, &sec );
 
-//    /* set the new time */
+//    /* set the memory_new time */
 //    tv.tv_sec = sec;
 //    tv.tv_usec = 0;
 

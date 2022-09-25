@@ -302,7 +302,7 @@ namespace draw2d_xlib
          m_pbitmap = nullptr;
       }
 
-      m_pbitmap = new ::Gdiplus::Bitmap(nWidth, nHeight, Gdiplus::PixelOffsetModeHighQuality);
+      m_pbitmap = normal_new ::Gdiplus::Bitmap(nWidth, nHeight, Gdiplus::PixelOffsetModeHighQuality);
 */
 
 //      return true;

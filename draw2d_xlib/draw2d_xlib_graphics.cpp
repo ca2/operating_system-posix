@@ -16,7 +16,7 @@ namespace draw2d_xlib
       //,     m_ui(pobject)
    {
 
-      mutex()                = new ::mutex(pobject);
+      mutex()                = memory_new ::mutex(pobject);
 
       m_bPrinting       = false;
       m_pimageAlphaBlend  = nullptr;
@@ -314,7 +314,7 @@ namespace draw2d_xlib
 
       //m_pdc = xlib_create((xlib_surface_t *) pbitmap->get_os_data());
 
-      m_pdc                = new device_context();
+      m_pdc                = memory_new device_context();
 
 //      m_pdc->m_pdisplay    = pbitmap->m_ui.m_window->display();
 
@@ -363,14 +363,14 @@ namespace draw2d_xlib
             if(m_pbitmap.is_null())
                return nullptr;
 
-            (dynamic_cast < ::win::bitmap * > (m_pbitmap.m_p))->m_pbitmap = new Gdiplus::Bitmap(hbitmap, nullptr);
+            (dynamic_cast < ::win::bitmap * > (m_pbitmap.m_p))->m_pbitmap = normal_new Gdiplus::Bitmap(hbitmap, nullptr);
 
             if(m_pgraphics != nullptr)
             {
                delete m_pgraphics;
             }
 
-            m_pgraphics = new Gdiplus::Graphics((Gdiplus::Bitmap *) m_pbitmap->get_os_data());
+            m_pgraphics = normal_new Gdiplus::Graphics((Gdiplus::Bitmap *) m_pbitmap->get_os_data());
 
             set_text_rendering_hint(::write_text::e_rendering_anti_alias_grid_fit);
 
@@ -1114,7 +1114,7 @@ namespace draw2d_xlib
       if(iCount <= 0)
          return true;
 
-      XPoint * xpa = new XPoint[iCount];
+      XPoint * xpa = memory_new XPoint[iCount];
 
       for(i32 i = 0; i < iCount; i++)
       {
@@ -1142,7 +1142,7 @@ namespace draw2d_xlib
       if(iCount <= 0)
          return true;
 
-      XPoint * xpa = new XPoint[iCount];
+      XPoint * xpa = memory_new XPoint[iCount];
 
       for(i32 i = 0; i < iCount; i++)
       {
@@ -1171,7 +1171,7 @@ namespace draw2d_xlib
       if(iCount <= 0)
          return true;
 
-      XPoint * xpa = new XPoint[iCount];
+      XPoint * xpa = memory_new XPoint[iCount];
 
       for(i32 i = 0; i < iCount; i++)
       {
@@ -1198,7 +1198,7 @@ namespace draw2d_xlib
       if(iCount <= 0)
          return true;
 
-      XPoint * xpa = new XPoint[iCount];
+      XPoint * xpa = memory_new XPoint[iCount];
 
       for(i32 i = 0; i < iCount; i++)
       {
@@ -1225,7 +1225,7 @@ namespace draw2d_xlib
       if(iCount <= 0)
          return true;
 
-      XPoint * xpa = new XPoint[iCount];
+      XPoint * xpa = memory_new XPoint[iCount];
 
       for(i32 i = 0; i < iCount; i++)
       {
@@ -2478,7 +2478,7 @@ namespace draw2d_xlib
             if(m_ppath != nullptr)
                delete m_ppath;
 
-            m_ppath = new Gdiplus::GraphicsPath;
+            m_ppath = normal_new Gdiplus::GraphicsPath;
 
             return m_ppath != nullptr;
       */
@@ -2658,7 +2658,7 @@ namespace draw2d_xlib
    {
       Graphics graphics(hdc);
       // Create a Metafile object from an existing disk metafile.
-      Metafile* pMeta = new Metafile(L"SampleMetafile.emf", hdc);
+      Metafile* pMeta = memory_new Metafile(L"SampleMetafile.emf", hdc);
       {
          // Fill a rectangle_i32 and an ellipse in pMeta.
          Graphics metaGraphics(pMeta);
@@ -2685,7 +2685,7 @@ namespace draw2d_xlib
 
       /*      Gdiplus::RectF rectangle_i32((Gdiplus::REAL) lpBounds->left, (Gdiplus::REAL) lpBounds->top, (Gdiplus::REAL) width(lpBounds), (Gdiplus::REAL) height(lpBounds));
 
-            Gdiplus::Metafile* pMeta = new Gdiplus::Metafile(hEnhMF, false);
+            Gdiplus::Metafile* pMeta = normal_new Gdiplus::Metafile(hEnhMF, false);
 
             //m_pgraphcis->EnumerateMetafile(pMeta, rectangle, metacallback, PMETAHEADER);
 
@@ -3224,7 +3224,7 @@ namespace draw2d_xlib
             ::draw2d::region rgnLast, rgnUpdate;
             if (lpRectLast != nullptr)
             {
-               // find difference between new region and old region
+               // find difference between memory_new region and old region
                rgnLast.CreateRectRgn(0, 0, 0, 0);
                rgnOutside.SetRectRgn(lpRectLast);
                rectangle = *lpRectLast;
@@ -3251,7 +3251,7 @@ namespace draw2d_xlib
                pBrushOld = nullptr;
             }
 
-            // draw into the update/new region
+            // draw into the update/memory_new region
             SelectClipRgn(rgnUpdate.get_os_data() != nullptr ? &rgnUpdate : &rgnNew);
             get_clip_box(&rectangle);
             pBrushOld = SelectObject(pBrush);
@@ -3340,7 +3340,7 @@ namespace draw2d_xlib
          if(hdc != nullptr)
          {
 
-            m_pgraphics = new ::Gdiplus::Graphics(hdc);
+            m_pgraphics = normal_new ::Gdiplus::Graphics(hdc);
 
             set_text_rendering_hint(::write_text::e_rendering_anti_alias_grid_fit);
 

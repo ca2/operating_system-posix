@@ -17,6 +17,7 @@ namespace aura_posix
 
 
    class node;
+   class appindicator;
 
 
 } // namespace aura_posix
@@ -34,15 +35,15 @@ namespace xim
 
 
 
-
-
-#if defined(LINUX)
-
-
-#include "x11/_.h"
-
-
-#endif
-
-
+//
+//
+//#if defined(LINUX)
+//
+//
+//#include "x11/_.h"
+//
+//
+//#endif
+//
+//
 

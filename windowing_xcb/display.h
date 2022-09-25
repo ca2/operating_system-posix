@@ -8,6 +8,7 @@
 
 
 #include "acme/operating_system/xcb/nano/_nano.h"
+#include "aura/windowing/display.h"
 
 
 namespace windowing_xcb
@@ -57,7 +58,7 @@ namespace windowing_xcb
 
       virtual ::windowing_xcb::window * _window(xcb_window_t window);
 
-      inline ::windowing_xcb::windowing * xcb_windowing() { return (::windowing_xcb::windowing *) m_pwindowing->m_pWindowing4; }
+      inline ::windowing_xcb::windowing * xcb_windowing();
 
       virtual void _on_capture_changed_to(::windowing_xcb::window * pwindowWithCapture);
 

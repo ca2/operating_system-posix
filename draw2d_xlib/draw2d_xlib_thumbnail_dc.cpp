@@ -363,7 +363,7 @@ void thumbnail_dc::MirrorFont()
    }
 
    AfxDeleteObject((HGDIOBJ*)&m_hFont);  // delete the old logical font
-   m_hFont = hNewFont;         // save the new one
+   m_hFont = hNewFont;         // save the memory_new one
 }
 
 ::write_text::font* thumbnail_dc::SelectObject(::write_text::font* pFont)
@@ -660,8 +660,8 @@ int_bool thumbnail_dc::ExtTextOut(i32 x, i32 y, ::u32 nOptions, const ::rectangl
 
       try
       {
-         pDeltas = new i32[nCount];
-         pOutputString = new char[nCount];
+         pDeltas = memory_new i32[nCount];
+         pOutputString = memory_new char[nCount];
       }
       catch(const ::exception & e)
       {
@@ -712,8 +712,8 @@ size_i32 thumbnail_dc::TabbedTextOut(i32 x, i32 y, const char * lpszString, i32 
 
    try
    {
-      pDeltas = new i32[nCount];
-      pOutputString = new char[nCount];
+      pDeltas = memory_new i32[nCount];
+      pOutputString = memory_new char[nCount];
    }
    catch(const ::exception & e)
    {

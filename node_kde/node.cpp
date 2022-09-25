@@ -2,19 +2,17 @@
 // Created by camilo on 19/01/2021. --<33ThomasBS!!
 //
 #include "framework.h"
-//#include "gnome_shared.h"
+#include "node.h"
 #include "appindicator.h"
-//#include "gdk.h"
-//#include "acme/operating_system/x11/nano/display.h"
-#undef new
+#include "aura/windowing/windowing.h"
+#include "acme/filesystem/filesystem/acme_directory.h"
 #include <kworkspace5/kworkspace.h>
 #include <KColorScheme>
 #include <KFileItem>
 #include <KIconLoader>
-#define new ACME_NEW
-
-
+#include <QX11Info>
 #include <QtGui/QDesktopServices>
+
 
 void initialize_x11_display(::object * pobject, void * pX11Display);
 void * initialize_x11_display(::object * pobject);
@@ -184,10 +182,10 @@ namespace node_kde
       //
       m_psystem->m_papexsystem->branch_synchronously();
 
-      /// new:platform_create_system:decrement_reference_count
-      /// begin_synch starts new thread
+      /// memory_new:platform_create_system:decrement_reference_count
+      /// begin_synch starts memory_new thread
       /// the framework will hold a reference to the system as this
-      /// new started thread
+      /// memory_new started thread
       /// now it is safe to release the platform_create_system
       /// creation reference.
 
@@ -385,7 +383,7 @@ namespace node_kde
 
       auto psystem = pobject->m_psystem;
 
-      m_pqapplication = new QApplication(psystem->m_argc, psystem->m_argv);
+      m_pqapplication = memory_new QApplication(psystem->m_argc, psystem->m_argv);
 
       if(!m_pqapplication)
       {
@@ -687,7 +685,7 @@ namespace node_kde
 //      if(::is_null(m_piconloader))
 //      {
 //
-//         m_piconloader = new KIconLoader();
+//         m_piconloader = memory_new KIconLoader();
 //
 //      }
 

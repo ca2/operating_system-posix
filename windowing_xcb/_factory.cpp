@@ -1,6 +1,15 @@
 #include "framework.h"
 #include "text_composition_client.h"
 #include "keyboard.h"
+#include "buffer.h"
+#include "display.h"
+#include "window.h"
+#include "windowing.h"
+#include "text_composition_client.h"
+#include "icon.h"
+#include "cursor.h"
+#include "keyboard.h"
+#include "aura/windowing/monitor.h"
 
 
 __FACTORY_EXPORT void windowing_xcb_factory(::factory::factory * pfactory)

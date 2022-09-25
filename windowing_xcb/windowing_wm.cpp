@@ -2,11 +2,12 @@
 // Created by camilo on 17/02/2021. 15:16 BRT <3TBS_!!
 //
 #include "framework.h"
-
+#include "window.h"
+#include "windowing.h"
 #include "windowing_xcb.h"
-////#include "aura/user/user/_component.h"
-#include "acme/operating_system/_user.h"
+#include "display.h"
 #include "aura/user/user/interaction_prodevian.h"
+#include "aura/user/user/interaction_impl.h"
 #include "aura/platform/message_queue.h"
 #include <X11/Xatom.h>
 //dnf install xcb-util-wm-devel

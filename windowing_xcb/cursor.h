@@ -3,6 +3,10 @@
 #pragma once
 
 
+#include "aura/windowing/cursor.h"
+#include <xcb/xcb.h>
+
+
 namespace windowing_xcb
 {
 

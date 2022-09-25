@@ -25,7 +25,7 @@ namespace draw2d_xlib
    //      delete m_pbrush;
    //   }
 
-   //   m_pbrush = new Gdiplus::SolidBrush(Gdiplus::Color(GetAValue(crColor), colorref_get_r_value(crColor), GetGValue(crColor), GetBValue(crColor)));
+   //   m_pbrush = normal_new Gdiplus::SolidBrush(Gdiplus::Color(GetAValue(crColor), colorref_get_r_value(crColor), GetGValue(crColor), GetBValue(crColor)));
 
    //   return m_pbrush != nullptr;
    //
@@ -132,7 +132,7 @@ namespace draw2d_xlib
          else if(m_etype == type_linear_gradient_point_color)
          {
 /*
-            ((brush *) this)->m_pbrush = new Gdiplus::LinearGradientBrush(
+            ((brush *) this)->m_pbrush = normal_new Gdiplus::LinearGradientBrush(
                Gdiplus::Point(m_point1.x, m_point1.y),
                Gdiplus::Point(m_point2.x, m_point2.y),
                Gdiplus::Color(GetAValue(m_color1), colorref_get_r_value(m_color1), GetGValue(m_color1), GetBValue(m_color1)),

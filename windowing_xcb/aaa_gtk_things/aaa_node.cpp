@@ -459,7 +459,7 @@ void node::os_calc_user_dark_mode()
    ::freebsd::appindicator * node::appindicator_allocate()
    {
 
-      return new ::node_gnome::appindicator();
+      return memory_new ::node_gnome::appindicator();
 
    }
 

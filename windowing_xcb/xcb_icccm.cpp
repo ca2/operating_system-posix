@@ -2,8 +2,7 @@
 // Created by camilo on 05/03/2021. 18:57 BRT ThomasBS_!!
 //
 #include "framework.h"
-
-
+#include "window.h"
 #include <xcb/xcb_icccm.h>
 
 

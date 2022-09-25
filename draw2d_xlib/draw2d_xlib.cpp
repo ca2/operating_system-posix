@@ -15,6 +15,6 @@ static ::mutex * s_pmutexDraw2dXlib = nullptr;
 void init_xlib_mutex(::object * pobject)
 {
 
-    s_pmutexDraw2dXlib = new ::mutex(pobject);
+    s_pmutexDraw2dXlib = memory_new ::mutex(pobject);
 
 }

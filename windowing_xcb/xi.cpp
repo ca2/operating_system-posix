@@ -2,6 +2,8 @@
 // Created by camilo on 17/02/2021. 00:45 BRT <3TBS_!!
 //
 #include "framework.h"
+#include "windowing.h"
+#include "display.h"
 #ifdef WITH_XI
 #include <xcb/xinput.h>
 #include "aura_posix/x11/display_lock.h"

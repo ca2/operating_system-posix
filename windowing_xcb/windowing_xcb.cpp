@@ -2,8 +2,10 @@
 // Created by camilo on 16/02/2021.
 //
 #include "framework.h"
-////#include "aura/user/user/_component.h"
+#include "windowing.h"
+#include "window.h"
 #include "aura/operating_system/xcb/_xcb.h"
+#include "aura/user/user/interaction_impl.h"
 #include "acme/id.h"
 #include "acme/constant/message.h"
 ////#include "sn/sn.h"
@@ -21,11 +23,10 @@
 //#include <Xcb/extensions/XInput2.h>
 //#include <Xcb/XKBlib.h>
 #include <X11/XKBlib.h>
-#define new ACME_NEW
+//#define memory_new ACME_NEW
 #include "aura/operating_system/xcb/_xcb.h"
 #include "acme/parallelization/message_queue.h"
 #include "windowing_xcb.h"
-#include "acme/operating_system/_user.h"
 
 
 
@@ -721,21 +722,21 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    bool windowing::initialize_windowing()
    {
 
-      //g_pmutexXcbRunnable = new ::mutex();
+      //g_pmutexXcbRunnable = memory_new ::mutex();
 
-      //g_prunnableptrlXcb = new list<__pointer(::matter) >();
+      //g_prunnableptrlXcb = memory_new list<__pointer(::matter) >();
 
-//      g_pmutexXcbSync = new ::mutex();
+//      g_pmutexXcbSync = memory_new ::mutex();
 
-//      g_peventXcbSync = new manual_reset_event();
+//      g_peventXcbSync = memory_new manual_reset_event();
 
-      //oswindow_data::s_pdataptra = new oswindow_dataptra;
+      //oswindow_data::s_pdataptra = memory_new oswindow_dataptra;
 
-      //oswindow_data::s_pmutex = new ::mutex;
+      //oswindow_data::s_pmutex = memory_new ::mutex;
 
-      //osdisplay_data::s_pdataptra = new osdisplay_dataptra;
+      //osdisplay_data::s_pdataptra = memory_new osdisplay_dataptra;
 
-      //osdisplay_data::s_pmutex = new ::mutex;
+      //osdisplay_data::s_pmutex = memory_new ::mutex;
 
       return true;
 

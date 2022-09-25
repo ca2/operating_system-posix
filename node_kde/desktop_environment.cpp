@@ -3,12 +3,21 @@
 // recreated by Camilo 2021-04-27 06:39 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
 #include "framework.h"
-//#include "windowing.h"
+#include "desktop_environment.h"
+#include "node.h"
+#include "aura/windowing/windowing.h"
+#include "aura/platform/node.h"
+#include "aura/platform/session.h"
+#include "aura/platform/system.h"
+#include "aura/user/user/user.h"
+#include <qdatastream.h>
 #include <QtX11Extras/QX11Info>
-#include <X11/Xlib-xcb.h>
 #include <QScreen>
+#include <QApplication>
+#include <X11/Xlib-xcb.h>
 
-mutex * user_mutex();
+
+::mutex * user_mutex();
 
 
 namespace node_kde

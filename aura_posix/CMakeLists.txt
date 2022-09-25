@@ -59,7 +59,7 @@ if(WITH_X11 OR WITH_XCB)
 endif()
 
 
-add_library(aura_posix SHARED ${library_source} user_notify_icon_bridge.h)
+add_library(aura_posix SHARED ${library_source} user_notify_icon_bridge.h x11/desktop_environment.h x11/desktop_environment.cpp)
 
 
 target_precompile_headers(aura_posix PRIVATE framework.h)

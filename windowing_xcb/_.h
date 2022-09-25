@@ -7,7 +7,7 @@
 #include "acme/operating_system/freebsd/_user.h"
 #include "acme/operating_system/x11/_.h"
 #include "aura_posix/_.h"
-//#include "aura_posix/x11/_x11.h"
+#include <xcb/xcb.h>
 
 
 #define WITH_XI
@@ -29,8 +29,15 @@ namespace windowing_xcb
    class display;
    class window;
 
+   using XCB_WINDOW_T = long;
+
+   using window_map = map < XCB_WINDOW_T , __pointer(window) >;
+
 
 } // namespace windowing_xcb
 
+
+
+extern ::mutex * user_mutex();
 
 

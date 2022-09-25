@@ -426,7 +426,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 //   ::os_theme_colors *node::_new_os_theme_colors(string strTheme)
 //   {
 //
-//      auto pthemecolors = new ::os_theme_colors;
+//      auto pthemecolors = memory_new ::os_theme_colors;
 //
 //      GtkStyleContext *pstylecontext = gtk_style_context_new();
 //

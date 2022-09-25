@@ -5,6 +5,9 @@
 
 
 #include "acme/operating_system/x11/nano/display.h"
+#include "aura_posix/x11/windowing.h"
+//#include <xcb/xcb.h>
+
 
 
 namespace windowing_xcb

@@ -35,14 +35,14 @@ namespace node_xfce
    {
 
       m_pDisplay2 = nullptr;
-      //m_pcsOsDisplayData = new critical_section();
+      //m_pcsOsDisplayData = memory_new critical_section();
       m_pdisplay = nullptr;
       m_atomLongType = None;
       m_atomLongStyle = None;
       m_atomNetWmState = None;
       m_atomLongStyleEx = 0;
       m_countReference = 1;
-//   m_pmutexInput           = new ::mutex();
+//   m_pmutexInput           = memory_new ::mutex();
 
    }
 
@@ -96,7 +96,7 @@ namespace node_xfce
 //
 //      }
 //
-//      display *pdisplaydata = new display;
+//      display *pdisplaydata = memory_new display;
 //
 //      pdisplaydata->m_pdisplay = pdisplay;
 //      pdisplaydata->m_atomLongType = XInternAtom(pdisplay, CA2_X11_WINDOW_LONG, False);

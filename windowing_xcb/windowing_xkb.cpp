@@ -2,7 +2,9 @@
 // Created by camilo on 05/03/2021. 16:30 BRT ThomasBS_!!
 //
 #include "framework.h"
-
+#include "window.h"
+#include "display.h"
+#include "aura_posix/x11/xim_keyboard.h"
 // apt install libxkbcommon-dev
 // dnf install libxkbcommon-devel
 #include <xkbcommon/xkbcommon.h>
@@ -10,6 +12,7 @@
 // dnf install libxkbcommon-x11-devel
 #include <xkbcommon/xkbcommon-x11.h>
 //#include <xcb/xkb.h>
+
 
 namespace windowing_xcb
 {

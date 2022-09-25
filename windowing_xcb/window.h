@@ -17,6 +17,11 @@ struct xkb_keymap;
 struct xkb_state;
 
 
+#include "aura_posix/_x11.h"
+#include "aura_posix/x11/window.h"
+#include <X11/XKBlib.h>
+
+
 namespace windowing_xcb
 {
 
@@ -61,8 +66,8 @@ namespace windowing_xcb
       virtual xcb_window_t xcb_window() const;
 
 
-      ::windowing_xcb::windowing * xcb_windowing() const {return (::windowing_xcb::windowing *) m_pwindowing->m_pWindowing4; }
-      ::windowing_xcb::display * xcb_display() const {return (::windowing_xcb::display *) m_pdisplay->m_pDisplay; }
+      ::windowing_xcb::windowing * xcb_windowing() const;
+      ::windowing_xcb::display * xcb_display() const;
 
 
       ::e_status get_wm_hints(void * p_xcb_icccm_wm_hints_t);
@@ -241,9 +246,6 @@ namespace windowing_xcb
 
 
    };
-
-
-   using window_map = map < ::xcb_window_t, __pointer(window) >;
 
 
 } // namespace windowing_xcb

@@ -4,6 +4,10 @@
 #pragma once
 
 
+#include "aura_posix/x11/windowing.h"
+#include "_x11.h"
+
+
 namespace windowing_x11
 {
 

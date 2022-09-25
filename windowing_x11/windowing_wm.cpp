@@ -8,6 +8,7 @@
 #include "windowing.h"
 #include <X11/Xatom.h>
 #include "aura/user/user/interaction_impl.h"
+#include "aura_posix/x11/display_lock.h"
 
 
 namespace windowing_x11

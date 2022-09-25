@@ -30,7 +30,7 @@ namespace system_5
    interprocess_communication_tx::interprocess_communication_tx()
    {
 
-      //mutex() = new ::mutex(pobject);
+      //mutex() = memory_new ::mutex(pobject);
 
    }
 

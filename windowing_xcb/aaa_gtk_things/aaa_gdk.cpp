@@ -466,7 +466,7 @@ namespace node_gnome
    ::user::os_theme_colors * new_os_theme_colors(string strTheme)
    {
 
-      auto pthemecolors = new ::user::os_theme_colors;
+      auto pthemecolors = memory_new ::user::os_theme_colors;
 
       GtkStyleContext *pstylecontext = gtk_style_context_new();
 

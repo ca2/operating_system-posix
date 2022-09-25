@@ -2,13 +2,11 @@
 // recreated by Camilo 2021-01-28 22:42 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
 #include "framework.h"
-//#include "windowing_xcb.h"
-//#if !BROAD_PRECOMPILED_HEADER
-#if !BROAD_PRECOMPILED_HEADER
-////#include "aura/user/user/_component.h"
-#endif
-//#endif
-//#include "_user.h"
+#include "buffer.h"
+#include "display.h"
+#include "window.h"
+#include "aura/graphics/image/image.h"
+#include "aura/user/user/interaction_impl.h"
 
 //#define VERI_BASIC_TEST
 
@@ -33,6 +31,14 @@ namespace windowing_xcb
    {
 
       destroy_os_buffer();
+
+   }
+
+
+   ::windowing_xcb::window * buffer::xcb_window()
+   {
+
+      return (::windowing_xcb::window *) (m_pwindow ? m_pwindow->m_pWindow4 : nullptr);
 
    }
 
@@ -128,7 +134,7 @@ namespace windowing_xcb
 //
 //         XGCValues gcvalues;
 //
-//   //      m_pdc = new device_context();
+//   //      m_pdc = memory_new device_context();
 //
 //         m_gc = XCreateGC(d, m_oswindow->window(), 0, &gcvalues);
 //

@@ -53,7 +53,7 @@ void kde_open_local_file(QApplication * papplication, const char *pszUrl, const 
 
    auto * pjob = new KIO::OpenUrlJob(url, strMimeType, papplication);
 
-   //pjob->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, nullptr));
+   //pjob->setUiDelegate(memory_new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, nullptr));
 
    ///QObject::connect(pjob, &KJob::finished, [](KJob * pjob) {
    //printf("finished launching url");

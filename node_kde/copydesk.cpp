@@ -1,7 +1,15 @@
 #include "framework.h"
-#include "_.h"
+#include "copydesk.h"
+#include "node.h"
+#include "aura/windowing/windowing.h"
 #include "aura/operating_system.h"
 #include "operating-system-posix/aura_posix/clipboard_data.h"
+#include "aura/platform/system.h"
+#include "aura/platform/session.h"
+#include "aura/user/user/user.h"
+#include <QApplication>
+#include <QClipboard>
+#include <QMimeData>
 
 
 namespace node_kde
@@ -120,14 +128,14 @@ namespace node_kde
 
       auto pnode = psystem->node();
 
-      pnode->node_send([=]()
-      {
-
-         //GtkClipboard* clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
-
-         //payload->m_var = gtk_clipboard_wait_is_text_available (clipboard);
-
-      });
+//      pnode->node_send([=]()
+//      {
+//
+//         //GtkClipboard* clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+//
+//         //payload->m_var = gtk_clipboard_wait_is_text_available (clipboard);
+//
+//      });
 
       return ppayload->m_payload.operator bool();
 

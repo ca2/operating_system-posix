@@ -14,6 +14,7 @@
 #include "aura/graphics/image/context_image.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
+#include "aura_posix/x11/display_lock.h"
 
 
 void on_sn_launch_context(void * pSnContext, Window window);
@@ -929,7 +930,7 @@ namespace windowing_x11
    //
    //      }
    //
-   //      ::window *pdata = new window;
+   //      ::window *pdata = memory_new window;
    //
    //      pdata->m_bMessageOnlyWindow = true;
    //      pdata->m_window = None;
@@ -980,7 +981,7 @@ namespace windowing_x11
       //
       //      }
       //
-      //      ::window *pdata = new ::window;
+      //      ::window *pdata = memory_new ::window;
 
       m_bMessageOnlyWindow = false;
       //m_osdisplay = osdisplay_get(Display());

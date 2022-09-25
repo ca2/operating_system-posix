@@ -6,7 +6,7 @@
 
 #include "aura/graphics/graphics/_.h"
 #include "aura/graphics/graphics/_graphics.h"
-
+#include <X11/Xlib.h>
 //#include <X11/extensions/Xrender.h>
 
 //#include "app/base/graphics/graphics_window_buffer.h"
@@ -35,7 +35,7 @@ namespace windowing_x11
       ~buffer() override;
 
 
-      ::windowing_x11::window * x11_window() { return (::windowing_x11::window *) (m_pwindow ? m_pwindow->m_pWindow4 : nullptr); }
+      virtual ::windowing_x11::window * x11_window();
 
 
       void initialize_graphics_graphics(::user::interaction_impl * pimpl) override;

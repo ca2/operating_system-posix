@@ -9,16 +9,16 @@
 #include "_.h"
 
 
-#undef new
 
 
 
 
 
-#define new ACME_NEW
+
+//#define memory_new ACME_NEW
 
 
-void copy(::color::color * pcolor, const QColor * pqcolor);
+//void copy(::color::color * pcolor, const QColor * pqcolor);
 
 
 #include "aura/_defer.h"

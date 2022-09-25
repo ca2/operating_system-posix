@@ -190,7 +190,7 @@ void xcb_wait_timer_or_event(xcb_connection_t * pdisplay)
 //
 //   int retval = fcntl(g_fdX11[0], F_SETFL, fcntl(g_fdX11[0], F_GETFL) | O_NONBLOCK);
 //
-//   g_pmutexX11 = new ::mutex();
+//   g_pmutexX11 = memory_new ::mutex();
 //
 //}
 //

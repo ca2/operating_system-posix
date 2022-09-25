@@ -2,7 +2,9 @@
 // recreated by Camilo 2021-02-01 20:19
 #include "framework.h"
 #include "cursor.h"
-//#include "_windowing_x11.h"
+#include "windowing.h"
+#include "aura_posix/_x11.h"
+#include "aura_posix/x11/display_lock.h"
 #include <X11/cursorfont.h>
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"

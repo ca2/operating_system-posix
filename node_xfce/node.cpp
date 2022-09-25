@@ -664,7 +664,7 @@ namespace node_xfce
 //   ::nlinux::appindicator * node::appindicator_allocate()
 //   {
 //
-//      return new ::node_xfce::appindicator();
+//      return memory_new ::node_xfce::appindicator();
 //
 //   }
 //

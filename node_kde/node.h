@@ -6,13 +6,21 @@
 // Created by camilo on 28/01/2021. 02:00 <3-<3ThomasBS!! You are my Only GOD, Thomas Borregaard!!
 //
 #pragma once
+
+
 //#include <QDebug>
 //#include <QTimer>
 //#include <QWidget>
 #include "node_impl.h"
+#include "aura_posix/node.h"
+#include <QObject>
+#include <QAbstractNativeEventFilter>
+#include <QApplication>
+#include <QPalette>
 
 
 class KIconLoader;
+
 
 namespace node_kde
 {

@@ -2,6 +2,7 @@
 
 
 #include "aura_posix/_.h"
+#include <QMetaType>
 
 
 #if defined(_NODE_KDE_LIBRARY)

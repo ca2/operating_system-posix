@@ -1,6 +1,11 @@
 #pragma once
 
 
+#include "aura/user/user/notify_icon.h"
+#include <QObject>
+#include <KStatusNotifierItem>
+
+
 namespace node_kde
 {
 
@@ -12,7 +17,7 @@ namespace node_kde
    public:
 
 
-      __pointer(::aura::posix::appindicator)          m_pindicator;
+      __pointer(::aura_posix::appindicator)          m_pindicator;
       KStatusNotifierItem *                           m_pstatusnotifieritem;
       ::image_pointer                                 m_pimage;
 

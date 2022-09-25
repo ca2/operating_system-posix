@@ -10,6 +10,7 @@
 #include "acme/operating_system/x11/nano/event_listener.h"
 #include "acme/operating_system/x11/nano/display.h"
 #include "aura/windowing/display.h"
+#include "_x11.h"
 
 
 namespace windowing_x11
@@ -72,7 +73,7 @@ namespace windowing_x11
 
       virtual ::windowing_x11::window * _window(Window window);
 
-      inline ::windowing_x11::windowing * x11_windowing() { return (::windowing_x11::windowing *) m_pwindowing->m_pWindowing4; }
+      virtual ::windowing_x11::windowing * x11_windowing();
 
       virtual void _on_capture_changed_to(::windowing_x11::window * pwindowWithCapture);
 

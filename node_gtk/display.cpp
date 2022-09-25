@@ -116,7 +116,7 @@ namespace node_gtk
 //
 //      }
 //
-//      display *pdisplaydata = new display;
+//      display *pdisplaydata = memory_new display;
 //
 //      pdisplaydata->m_pdisplay = pdisplay;
 //      pdisplaydata->m_atomLongType = XInternAtom(pdisplay, CA2_X11_WINDOW_LONG, False);

@@ -2,15 +2,21 @@
 // recreated by Camilo 2021-01-28 22:20 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
 #include "framework.h"
-////#include "aura/user/user/_component.h"
-#include "acme/operating_system/_user.h"
-#include "aura/user/user/interaction_prodevian.h"
+#include "window.h"
+#include "windowing.h"
+#include "display.h"
+#include "cursor.h"
+#include "aura/graphics/image/context_image.h"
+#include "aura/graphics/image/drawing.h"
+#include "aura/platform/application.h"
+#include "aura/platform/node.h"
+#include "aura/platform/system.h"
 #include "aura/platform/message_queue.h"
+#include "aura/user/user/interaction_prodevian.h"
+#include "aura/user/user/interaction_impl.h"
 #include <X11/Xatom.h>
 // dnf install xcb-util-devel
 #include <xcb/xcb_util.h>
-#include "aura/graphics/image/context_image.h"
-#include "aura/graphics/image/drawing.h"
 
 
 void on_sn_launch_context(void * pSnContext, Window window);
@@ -553,6 +559,23 @@ namespace windowing_xcb
    {
 
       return m_window;
+
+   }
+
+
+
+   ::windowing_xcb::windowing * window::xcb_windowing() const
+   {
+
+      return (::windowing_xcb::windowing *) m_pwindowing->m_pWindowing4;
+
+   }
+
+
+   ::windowing_xcb::display * window::xcb_display() const
+   {
+
+      return (::windowing_xcb::display *) m_pdisplay->m_pDisplay;
 
    }
 

@@ -9,9 +9,11 @@
 #include "aura/windowing/cursor_manager.h"
 #include <X11/cursorfont.h>
 #include "aura/user/user/interaction_impl.h"
+#include "aura/windowing/display.h"
 #include "aura/platform/system.h"
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
+#include "aura_posix/x11/display_lock.h"
 
 
 namespace windowing_x11

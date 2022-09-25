@@ -2,8 +2,13 @@
 // Created by camilo on 15/02/2021 <3ThomasBS_!!.
 //
 #include "framework.h"
-////#include "aura/user/user/_component.h"
-#include "aura/graphics/image/_image.h"
+#include "notify_icon.h"
+#include "node.h"
+#include "aura/graphics/image/drawing.h"
+#include "aura/graphics/image/context_image.h"
+#include "aura/platform/context.h"
+#include "aura/windowing/icon.h"
+#include <QMenu>
 
 
 namespace node_kde
@@ -79,7 +84,7 @@ namespace node_kde
    ::e_status notify_icon::_create_status_notifier_item()
    {
 
-      m_pstatusnotifieritem = new KStatusNotifierItem();
+      m_pstatusnotifieritem = memory_new KStatusNotifierItem();
 
       string strTrayIconName = m_piconCurrent->get_tray_icon_name();
 
@@ -111,7 +116,7 @@ namespace node_kde
 
       string strFriendlyName = papp->m_papexapplication->get_app_user_friendly_task_bar_name();
 
-      auto pmenu = new QMenu();
+      auto pmenu = memory_new QMenu();
 
       for (index i = 0; i < _get_notification_area_action_count(); i++)
       {
@@ -141,7 +146,7 @@ namespace node_kde
          else
          {
 
-            auto paction = new QAction(strName.c_str(), pmenu);
+            auto paction = memory_new QAction(strName.c_str(), pmenu);
 
             connect(paction, &QAction::triggered, this, [this, strId]()
             {

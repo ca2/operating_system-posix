@@ -7,7 +7,7 @@
 //void x11_hook_init()
 //{
 //
-//  g_px11hooka = new __pointer_array(x11_hook);
+//  g_px11hooka = memory_new __pointer_array(x11_hook);
 //
 //}
 

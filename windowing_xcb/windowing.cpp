@@ -2,9 +2,22 @@
 // recreated by Camilo 2021-01-28 22:35 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
 #include "framework.h"
+#include "windowing.h"
+#include "window.h"
+#include "display.h"
+#include "cursor.h"
+#include "aura/message/user.h"
+#include "aura/platform/application.h"
+#include "aura/platform/session.h"
+#include "aura/platform/system.h"
+#include "aura/user/user/interaction_impl.h"
+#include "aura/user/user/user.h"
+#include "aura/windowing/cursor_manager.h"
+#include "aura_posix/node.h"
 #include <X11/cursorfont.h>
 #include <xcb/xcb.h>
-#include "acme/operating_system/_user.h"
+
+
 
 int g_i135=0;
 //::e_status xcb_register_extended_event_listener(::matter * pdata, bool bMouse, bool bKeyboard);
@@ -1430,7 +1443,7 @@ namespace windowing_xcb
                      // we should let the flesh and the cake for the doctors,
                      // lawyers, politicians, google collaborators, drug-makers,
                      // ill-makers, sue-makers, idea-makers, religious-people,
-                     // that make new ammendments to ammendment itself,
+                     // that make memory_new ammendments to ammendment itself,
                      // people above-the-law... flesh save them...
                      // ... retired and poor, widow people, complaining of dead/gone people,
                      // must eat bird seed grains.... no redemption, only in paradise...

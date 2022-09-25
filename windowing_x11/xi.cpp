@@ -3,6 +3,7 @@
 //
 #include "framework.h"
 #include "windowing_x11.h"
+#include "aura_posix/x11/display_lock.h"
 #ifdef WITH_XI
 #include <X11/extensions/XInput2.h>
 #include "windowing_x11/window.h"

@@ -4,6 +4,9 @@
 #pragma once
 
 
+#include "aura/user/user/text_composition_client.h"
+
+
 namespace windowing_xcb
 {
 
@@ -15,7 +18,7 @@ namespace windowing_xcb
 
 
       text_composition_client();
-      virtual ~text_composition_client();
+      ~text_composition_client() override;
 
 
    };

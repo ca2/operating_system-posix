@@ -4,6 +4,7 @@
 
 
 #include "aura/windowing/cursor.h"
+#include "_x11.h"
 
 
 namespace windowing_x11

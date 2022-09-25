@@ -9,6 +9,9 @@
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
 #include "aura/graphics/image/image.h"
+#include "aura/windowing/desktop_environment.h"
+#include "aura_posix/x11/display_lock.h"
+#include <X11/extensions/Xrender.h>
 
 
 extern ::app_core * g_pappcore;
@@ -140,7 +143,7 @@ namespace windowing_x11
 
       //m_px11display = ::x11::display::get(this, false, px11displayGdk);
 
-      // Using another new and different X11 Display connection apart from Gtk.
+      // Using another memory_new and different X11 Display connection apart from Gtk.
       m_px11display = ::x11::display::get(this, false);
 
       if(::is_null(m_px11display))
@@ -349,6 +352,14 @@ namespace windowing_x11
       pwindowing->windowing_post(predicate);
 
       return ::success;
+
+   }
+
+
+   ::windowing_x11::windowing * display::x11_windowing()
+   {
+
+      return (::windowing_x11::windowing *) m_pwindowing->m_pWindowing4;
 
    }
 

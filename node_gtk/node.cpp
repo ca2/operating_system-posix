@@ -198,7 +198,7 @@ namespace node_gtk
 //
 //      }
 
-      // To pair freebsd.h/main platform_create_system new system
+      // To pair freebsd.h/main platform_create_system memory_new system
       // This should be safe here in this node_gtk::node
       // because just above m_psystem has begin_synch()
       // so the running thread is holding references to the m_psystem thread.
@@ -871,7 +871,7 @@ namespace node_gtk
    ::os_theme_colors *node::_new_os_theme_colors(string strTheme)
    {
 
-      auto pthemecolors = new ::os_theme_colors;
+      auto pthemecolors = memory_new ::os_theme_colors;
 
       GtkStyleContext *pstylecontext = gtk_style_context_new();
 

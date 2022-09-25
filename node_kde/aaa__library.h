@@ -4,7 +4,7 @@
 #pragma once
 
 
-#undef new
+
 #include <qmetatype.h>
 #include <qdatastream.h>
 #include <QApplication>
@@ -20,7 +20,7 @@
 #include <QImage>
 #include <QDesktopServices>
 #include <QUrl>
-#define new ACME_NEW
+//#define memory_new ACME_NEW
 
 
 #include "aura_posix/_library.h"

@@ -2,6 +2,7 @@
 // created by Camilo 2021-04-27 06:06 BRT <3CamiloSasukeThomasBorregaardSoerensen
 #include "framework.h"
 #include "monitor.h"
+#include <QMetaType>
 #include <QScreen>
 
 //mutex * user_mutex();

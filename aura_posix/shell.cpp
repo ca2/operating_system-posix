@@ -713,7 +713,7 @@ namespace aura_posix
 //
 //            }
 //
-//            image_key * pstore = new image_key(imagekey);
+//            image_key * pstore = memory_new image_key(imagekey);
 //
 //            {
 //

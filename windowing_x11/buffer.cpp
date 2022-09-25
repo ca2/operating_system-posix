@@ -6,6 +6,7 @@
 #include "buffer.h"
 #include "window.h"
 #include "display.h"
+#include "aura_posix/x11/display_lock.h"
 #include "aura/user/user/interaction_impl.h"
 #include "aura/graphics/image/image.h"
 
@@ -30,6 +31,14 @@ namespace windowing_x11
    {
 
       destroy_os_buffer();
+
+   }
+
+
+   ::windowing_x11::window * buffer::x11_window()
+   {
+
+      return (::windowing_x11::window *) (m_pwindow ? m_pwindow->m_pWindow4 : nullptr);
 
    }
 
@@ -119,7 +128,7 @@ namespace windowing_x11
 //
 //         XGCValues gcvalues;
 //
-//   //      m_pdc = new device_context();
+//   //      m_pdc = memory_new device_context();
 //
 //         m_gc = XCreateGC(d, m_oswindow->window(), 0, &gcvalues);
 //

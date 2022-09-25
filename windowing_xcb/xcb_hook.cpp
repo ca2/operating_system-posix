@@ -7,7 +7,7 @@
 //void xcb_hook_init()
 //{
 //
-//  g_pxcbhooka = new __pointer_array(xcb_hook);
+//  g_pxcbhooka = memory_new __pointer_array(xcb_hook);
 //
 //}
 

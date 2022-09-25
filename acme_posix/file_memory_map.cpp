@@ -123,7 +123,7 @@ namespace acme_posix
 
       strMutex = m_strName + "-mutex";
 
-      set_mutex(new ::mutex(m_psystem, false, strMutex));
+      set_mutex(memory_new ::mutex(m_psystem, false, strMutex));
 
       return true;
 
