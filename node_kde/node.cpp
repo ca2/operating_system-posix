@@ -19,18 +19,6 @@ void * initialize_x11_display(::object * pobject);
 
 void kde_open_local_file(QApplication * papplication, const char *psz, const char * pszMimeType);
 
-void kde_update_os_theme_colors(::os_theme_colors * pthemecolors)
-{
-
-   KColorScheme colorscheme;
-
-   auto pbrushBackground = colorscheme.background();
-
-   __copy(pthemecolors->m_colorBack, pbrushBackground.color());
-
-}
-
-
 
 
 void copy(::color::color * pcolor, const QColor * pqcolor)
@@ -39,6 +27,22 @@ void copy(::color::color * pcolor, const QColor * pqcolor)
    pcolor->set_double(pqcolor->redF(), pqcolor->greenF(), pqcolor->blueF(), pqcolor->alphaF());
 
 }
+
+
+void kde_update_os_theme_colors(::os_theme_colors * pthemecolors)
+{
+
+   KColorScheme colorscheme;
+
+   auto pbrushBackground = colorscheme.background();
+
+   copy(&pthemecolors->m_colorBack, &pbrushBackground.color());
+
+}
+
+
+
+
 
 
 namespace node_kde
@@ -267,16 +271,15 @@ namespace node_kde
 //
 //      return ::success;
 
-      auto psystem = m_psystem->m_papexsystem;
-
-      if (psystem->m_bGtkApp)
-      {
-
-         //apex_application_run(psystem->m_strAppId, psystem->m_strProgName);
-
-      }
-      else
-      {
+//      auto psystem = m_psystem->m_papexsystem;
+//
+//      if (psystem->m_bGtkApp)
+//      {
+//
+//         //apex_application_run(psystem->m_strAppId, psystem->m_strProgName);
+//
+//      } else
+//      {
 
          //g_set_application_name(System.m_XstrAppId);
 
@@ -371,7 +374,7 @@ namespace node_kde
 
          //x11_main();
 
-      }
+//      }
 
       //return ::success;
 

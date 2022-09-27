@@ -8,6 +8,8 @@
 #include <sys/msg.h>
 
 
+
+
 namespace system_5
 {
 
@@ -439,7 +441,7 @@ namespace system_5
                if(errno == ENOMSG)
                {
 
-                  sleep(100_ms);
+                  preempt(100_ms);
 
                   continue;
 
