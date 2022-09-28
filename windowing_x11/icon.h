@@ -40,7 +40,7 @@ namespace windowing_x11
       virtual void load_file(const ::string & strPath) override;
 
 
-      virtual image_pointer get_image(const concrete < ::size_i32 > & size);
+      virtual image_pointer get_image(const concrete < ::size_i32 > & size) override;
 
       
    };
