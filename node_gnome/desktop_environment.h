@@ -4,12 +4,15 @@
 #pragma once
 
 
+#include "node_gtk/desktop_environment.h"
+
+
 namespace node_gnome
 {
 
 
    class CLASS_DECL_NODE_GNOME desktop_environment :
-   virtual public ::windowing_posix::desktop_environment
+   virtual public ::node_gtk::desktop_environment
 {
    public:
 

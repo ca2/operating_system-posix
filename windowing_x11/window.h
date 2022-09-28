@@ -6,6 +6,8 @@
 
 #include "aura_posix/x11/window.h"
 #include "_x11.h"
+#include "acme/operating_system/x11/_atom.h"
+
 
 #define _NET_WM_STATE_REMOVE        0    // remove/unset property
 #define _NET_WM_STATE_ADD           1    // add/set property
@@ -127,9 +129,9 @@ namespace windowing_x11
       virtual ::e_status set_window_icon(const ::file::path & path);
 
       virtual bool is_child( WINDOWING_X11_WINDOW_MEMBER ::windowing::window * candidateChildOrDescendant); // or descendant
-      virtual ::windowing::window * get_parent() const;
+      ::windowing::window * get_parent() const override;
       //virtual ::Window get_parent_handle();
-      virtual ::oswindow get_parent_oswindow() const;
+      ::oswindow get_parent_oswindow() const override;
 
       ::point_i32 get_mouse_cursor_position() override;
 
@@ -138,24 +140,24 @@ namespace windowing_x11
       ::windowing_x11::windowing * x11_windowing() const;
       ::windowing_x11::display * x11_display() const;
 
-      void set_parent(::windowing::window * pwindowNewParent);
+      void set_parent(::windowing::window * pwindowNewParent) override;
       //virtual ::e_status set_parent(::windowing::window * pwindowNewParent) override;
       virtual long get_state();
-      virtual bool is_iconic();
-      virtual bool is_window_visible();
+      virtual bool is_iconic() override;
+      virtual bool is_window_visible() override;
       void show_window(const ::e_display & edisplay, const ::e_activation & eactivation) override;
       //virtual iptr get_window_long_ptr(i32 nIndex);
       //virtual iptr set_window_long_ptr(i32 nIndex, iptr l);
-      virtual bool client_to_screen(POINT_I32 * ppoint);
+      virtual bool client_to_screen(POINT_I32 * ppoint) override;
 
-      virtual bool screen_to_client(POINT_I32 * ppoint);
+      bool screen_to_client(POINT_I32 * ppoint) override;
 
 
       //virtual bool set_window_pos(class::zorder zorder, i32 x, i32 y, i32 cx, i32 cy,::u32 nFlags);
       //virtual bool _set_window_pos(class::zorder zorder, i32 x, i32 y, i32 cx, i32 cy,::u32 nFlags);
       
 
-      virtual bool is_destroying();
+      bool is_destroying() override;
       
 
       virtual bool bamf_set_icon();
@@ -205,7 +207,7 @@ namespace windowing_x11
 
       void destroy_window() override;
       //virtual int_bool destroy_window( WINDOWING_X11_WINDOW_MEMBER );
-      virtual bool is_window();
+      bool is_window() override;
       //virtual int_bool is_window( WINDOWING_X11_WINDOW_MEMBER );
 
 

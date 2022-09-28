@@ -5,6 +5,9 @@
 #include "acme/operating_system/ansi/pmutex_lock.h"
 
 
+::mutex * user_mutex();
+
+
 namespace node_gtk
 {
 

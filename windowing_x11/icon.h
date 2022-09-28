@@ -35,9 +35,9 @@ namespace windowing_x11
       void * get_os_data(const ::size_i32 & size) const override;
 
 
-      virtual void load_matter(const ::string & strPath);
-      virtual void load_app_tray_icon(const ::string & strPath);
-      virtual void load_file(const ::string & strPath);
+      virtual void load_matter(const ::string & strPath) override;
+      virtual void load_app_tray_icon(const ::string & strPath) override;
+      virtual void load_file(const ::string & strPath) override;
 
 
       virtual image_pointer get_image(const concrete < ::size_i32 > & size);

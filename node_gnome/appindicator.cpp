@@ -267,15 +267,7 @@ namespace node_gnome
 
       auto pindicator = m_pindicator;
 
-      auto pcontext = m_pcontext->m_papexcontext;
-
-      auto psession = pcontext->get_session()->m_paurasession;
-
-      auto puser = psession->user();
-
-      auto pwindowing = puser->windowing1();
-
-      pwindowing->windowing_post([pindicator]()
+      m_psystem->windowing_post([pindicator]()
                {
 
                   app_indicator_set_status(pindicator, APP_INDICATOR_STATUS_PASSIVE);

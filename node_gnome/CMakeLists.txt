@@ -79,7 +79,9 @@ elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 
 elseif(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
 
-    set(APPINDICATOR_PKG_MODULE "appindicator3-0.1")
+    add_compile_definitions(AYATANA_APPINDICATOR)
+
+    set(APPINDICATOR_PKG_MODULE "ayatana-appindicator3-0.1")
 
 endif()
 
@@ -104,9 +106,9 @@ if (MSVC)
 
 elseif(LINUX OR FREEBSD)
 
-   if(NOT DONT_USE_PKG_CONFIG)
+   #if(NOT DONT_USE_PKG_CONFIG)
       pkg_check_modules(PKGCONFIG x11 glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
-   endif()
+   #endif()
    target_compile_options(${PROJECT_NAME} PRIVATE -fpermissive)
    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})

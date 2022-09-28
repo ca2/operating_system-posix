@@ -4,13 +4,16 @@
 #pragma once
 
 
+#include "aura_posix/x11/desktop_environment.h"
+
+
 namespace node_gtk
 {
 
 
    class CLASS_DECL_NODE_GTK desktop_environment :
-   virtual public ::windowing_posix::desktop_environment
-{
+      virtual public ::windowing_posix::desktop_environment
+   {
    public:
 
 

@@ -61,10 +61,10 @@ if (MSVC)
 elseif(LINUX OR FREEBSD)
 
 
-   if(NOT DONT_USE_PKG_CONFIG)
+   #if(NOT DONT_USE_PKG_CONFIG)
       #pkg_check_modules(PKGCONFIG gconf-2.0 glib-2.0 gtk+-3.0 gdk-3.0)
       pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0)
-   endif()
+   #endif()
    target_compile_options(${PROJECT_NAME} PRIVATE -fpermissive)
    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})

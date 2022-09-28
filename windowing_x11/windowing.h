@@ -83,7 +83,7 @@ namespace windowing_x11
       virtual void x11_main();
 
       //virtual HCURSOR load_default_cursor(e_cursor ecursor) override;
-      virtual __pointer(::windowing::cursor) load_default_cursor(enum_cursor ecursor);
+      virtual __pointer(::windowing::cursor) load_default_cursor(enum_cursor ecursor) override;
 
       //virtual int_bool window_set_mouse_cursor(window * pwindow, HCURSOR hcursor) override;
 

@@ -60,9 +60,9 @@ namespace windowing_x11
 
 
       virtual i64 get_ref_count();
-      virtual i64 increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_PARAMETERS);
-      virtual i64 decrement_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_PARAMETERS);
-      virtual i64 release(OBJECT_REFERENCE_COUNT_DEBUG_PARAMETERS);
+      virtual i64 increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_PARAMETERS) override;
+      virtual i64 decrement_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_PARAMETERS) override;
+      virtual i64 release(OBJECT_REFERENCE_COUNT_DEBUG_PARAMETERS) override;
 
 
 #endif
@@ -101,9 +101,9 @@ namespace windowing_x11
 
       virtual bool is_null() const;
 
-      virtual bool get_monitor_rectangle(index iMonitor, RECTANGLE_I32 * prectangle);
+      virtual bool get_monitor_rectangle(index iMonitor, RECTANGLE_I32 * prectangle) override;
 
-      virtual bool get_workspace_rectangle(index iWorkspace, RECTANGLE_I32 * prectangle);
+      virtual bool get_workspace_rectangle(index iWorkspace, RECTANGLE_I32 * prectangle) override;
 
       virtual ::windowing::window * get_mouse_capture();
 

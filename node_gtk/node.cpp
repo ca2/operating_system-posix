@@ -11,6 +11,8 @@
 #include <glib.h>
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
+#include "windowing_x11/windowing_x11.h"
+#include "aura/windowing/windowing.h"
 
 
 bool x11_message_loop_step();
