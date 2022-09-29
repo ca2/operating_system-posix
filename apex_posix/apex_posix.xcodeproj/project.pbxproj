@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -96,7 +96,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9A0C1680264A29B800B5CC33 /* apex_posix.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; name = apex_posix.dylib; path = libapex_posix.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A0C1680264A29B800B5CC33 /* libapex_posix.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libapex_posix.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A0C171E264A2DAB00B5CC33 /* framework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = framework.cpp; sourceTree = "<group>"; };
 		9A0C1720264A2DAB00B5CC33 /* node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = node.cpp; sourceTree = "<group>"; };
 		9A0C1722264A2DAB00B5CC33 /* node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = node.h; sourceTree = "<group>"; };
@@ -143,7 +143,7 @@
 		9A0C1681264A29B800B5CC33 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9A0C1680264A29B800B5CC33 /* apex_posix.dylib */,
+				9A0C1680264A29B800B5CC33 /* libapex_posix.dylib */,
 				9A8E9E0E282A2FCA005FF778 /* libios_apex_posix.a */,
 			);
 			name = Products;
@@ -242,7 +242,7 @@
 			);
 			name = apex_posix;
 			productName = apex_posix;
-			productReference = 9A0C1680264A29B800B5CC33 /* apex_posix.dylib */;
+			productReference = 9A0C1680264A29B800B5CC33 /* libapex_posix.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		9A8E9DF4282A2FCA005FF778 /* ios_apex_posix */ = {
@@ -269,7 +269,7 @@
 		9A0C1678264A29B800B5CC33 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1300;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					9A0C167F264A29B800B5CC33 = {
 						CreatedOnToolsVersion = 12.5;
@@ -277,7 +277,7 @@
 				};
 			};
 			buildConfigurationList = 9A0C167B264A29B800B5CC33 /* Build configuration list for PBXProject "apex_posix" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -424,6 +424,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -517,6 +518,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -574,6 +576,7 @@
 		9A0C168A264A29B800B5CC33 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEAD_CODE_STRIPPING = YES;
 				PLATFORM_MODIFIER = macos;
 			};
 			name = Debug;
@@ -581,6 +584,7 @@
 		9A0C168B264A29B800B5CC33 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEAD_CODE_STRIPPING = YES;
 				PLATFORM_MODIFIER = macos;
 			};
 			name = Release;
