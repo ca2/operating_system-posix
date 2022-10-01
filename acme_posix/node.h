@@ -87,6 +87,7 @@ namespace acme_posix
 
       void node_post(const ::procedure & procedure) override;
 
+      ::string get_callstack() override;
 
    };
 

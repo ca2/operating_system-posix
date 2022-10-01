@@ -15,46 +15,49 @@
 
 #endif
 
+//
+//struct sigaction g_sigactionFpe;
+//
+//struct sigaction g_sigactionFpeOld;
 
-struct sigaction g_sigactionFpe;
-
-struct sigaction g_sigactionFpeOld;
-
-
-
-void sigfpe_sigaction(int signum, siginfo_t * psiginfo, void * p)
-{
-
-   throw standard_sigfpe(signum, psiginfo, p);
-
-}
+#ifdef __clang__
+::string clang_backtrace();
+#endif
 
 
-
-void install_sigfpe_handler()
-{
-
-   __zero(g_sigactionFpe);
-
-   __zero(g_sigactionFpeOld);
-
-   g_sigactionFpe.sa_sigaction = &sigfpe_sigaction;
-
-   sigemptyset(&g_sigactionFpe.sa_mask);
-    
-   g_sigactionFpe.sa_flags = SA_SIGINFO | SA_NODEFER;
-
-   sigaction(SIGFPE, &g_sigactionFpe, &g_sigactionFpeOld);
-   
-}
-
-
-void uninstall_sigfpe_handler()
-{
-
-   sigaction(SIGFPE, &g_sigactionFpeOld, nullptr);
-
-}
+//void sigfpe_sigaction(int signum, siginfo_t * psiginfo, void * p)
+//{
+//
+//   throw standard_sigfpe(signum, psiginfo, p);
+//
+//}
+//
+//
+//
+//void install_sigfpe_handler()
+//{
+//
+//   __zero(g_sigactionFpe);
+//
+//   __zero(g_sigactionFpeOld);
+//
+//   g_sigactionFpe.sa_sigaction = &sigfpe_sigaction;
+//
+//   sigemptyset(&g_sigactionFpe.sa_mask);
+//
+//   g_sigactionFpe.sa_flags = SA_SIGINFO | SA_NODEFER;
+//
+//   sigaction(SIGFPE, &g_sigactionFpe, &g_sigactionFpeOld);
+//
+//}
+//
+//
+//void uninstall_sigfpe_handler()
+//{
+//
+//   sigaction(SIGFPE, &g_sigactionFpeOld, nullptr);
+//
+//}
 
 
 
@@ -84,7 +87,7 @@ namespace acme_posix
 
       init_chldstatus_cs();
 
-      install_sigfpe_handler();
+      //install_sigfpe_handler();
 
    }
 
@@ -99,7 +102,7 @@ namespace acme_posix
       //
       //      }
 
-      uninstall_sigfpe_handler();
+      //uninstall_sigfpe_handler();
 
       term_chldstatus_cs();
 
@@ -1138,6 +1141,20 @@ namespace acme_posix
 
       return false;
 
+   }
+
+   
+   ::string node::get_callstack()
+   {
+   
+   #ifdef __clang__
+         return clang_backtrace();
+   #else
+      return acme::node::get_callstack();
+   #endif
+         
+      
+      
    }
 
 
