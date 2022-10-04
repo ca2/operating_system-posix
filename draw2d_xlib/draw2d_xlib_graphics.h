@@ -405,7 +405,7 @@ namespace draw2d_xlib
 //      bool DrawFrameControl(RECTANGLE_I32 * prectangle, ::u32 nType, ::u32 nState);
 
       // Scrolling Functions
-      bool ScrollDC(i32 dx, i32 dy, rectangle_i32 lpRectScroll, const ::rectangle_i32 & rectangleClip,
+      bool ScrollDC(i32 Δx, i32 Δy, rectangle_i32 lpRectScroll, const ::rectangle_i32 & rectangleClip,
                     ::draw2d::region* pRgnUpdate, RECTANGLE_I32 * lpRectUpdate);
 
       // font Functions
