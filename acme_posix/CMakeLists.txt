@@ -16,6 +16,8 @@ list(APPEND library_source
    acme_path.cpp
    acme_path.h
    dbus.cpp
+        exception_translator.cpp
+        exception_translator.h
    file_memory_map.cpp
    file_memory_map.h
    framework.cpp
@@ -33,7 +35,7 @@ list(APPEND library_source
 if(POSIX_LIST_SERIAL_PORTS)
 
 
-   list(APPEND library_source posix/list_serial_ports.cpp)
+   list(APPEND library_source list_serial_ports.cpp)
 
 
 endif()
