@@ -21,7 +21,7 @@
 //void copy(::color::color * pcolor, const QColor * pqcolor);
 
 
-#include "aura/_defer.h"
+//#include "aura/_defer.h"
 
 
 
