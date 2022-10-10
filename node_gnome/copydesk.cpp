@@ -97,7 +97,7 @@ namespace node_gnome
    bool copydesk::_get_plain_text(string & str)
    {
 
-      __pointer(clipboard_data) pdata = __new(clipboard_data(this, e_clipboard_get_plain_text));
+      ::pointer<clipboard_data>pdata = __new(clipboard_data(this, e_clipboard_get_plain_text));
 
       pdata->increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_P_NOTE(this, "copydesk::_get_plain_text"));
 
@@ -151,7 +151,7 @@ namespace node_gnome
    bool copydesk::_has_filea()
    {
 
-      __pointer(clipboard_data) pdata = __new(clipboard_data(this, e_clipboard_get_file_target_count));
+      ::pointer<clipboard_data>pdata = __new(clipboard_data(this, e_clipboard_get_file_target_count));
 
       pdata->increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_P_NOTE(this, "copydesk::_has_filea"));
 
@@ -176,7 +176,7 @@ namespace node_gnome
    bool copydesk::_get_filea(::file::path_array & patha, enum_op & eop)
    {
 
-      __pointer(clipboard_data) pdata = __new(clipboard_data(this, e_clipboard_get_patha));
+      ::pointer<clipboard_data>pdata = __new(clipboard_data(this, e_clipboard_get_patha));
 
       pdata->increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_P_NOTE(this, "copydesk::_get_filea"));
 
@@ -205,7 +205,7 @@ namespace node_gnome
    bool copydesk::_set_filea(const ::file::path_array & patha, enum_op eop)
    {
 
-      __pointer(clipboard_data) pdata = __new(clipboard_data(this, e_clipboard_set_patha));
+      ::pointer<clipboard_data>pdata = __new(clipboard_data(this, e_clipboard_set_patha));
 
       pdata->increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_P_NOTE(this, "copydesk::_set_filea"));
 
@@ -236,7 +236,7 @@ namespace node_gnome
    bool copydesk::_desk_to_image(::image * pimage)
    {
 
-      __pointer(clipboard_data) pdata = __new(clipboard_data(this, e_clipboard_get_image));
+      ::pointer<clipboard_data>pdata = __new(clipboard_data(this, e_clipboard_get_image));
 
       pdata->increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_P_NOTE(this, "copydesk::_desk_to_image"));
 

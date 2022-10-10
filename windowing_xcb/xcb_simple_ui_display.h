@@ -20,7 +20,7 @@ public:
    int                              m_iLineHeight;
    int                              m_iTextAscent;
 
-   __pointer_array(xcb_button)      m_buttona;
+   pointer_array < xcb_button >      m_buttona;
 
    int                              m_iButtonTop;
    int                              m_iButtonHeight;

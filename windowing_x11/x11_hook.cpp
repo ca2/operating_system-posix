@@ -2,12 +2,12 @@
 #include "_x11.h"
 
 
-//__pointer_array(x11_hook) * g_px11hooka;
+//pointer_array < x11_hook > * g_px11hooka;
 
 //void x11_hook_init()
 //{
 //
-//  g_px11hooka = memory_new __pointer_array(x11_hook);
+//  g_px11hooka = memory_new pointer_array < x11_hook >;
 //
 //}
 
@@ -28,7 +28,7 @@ x11_hook::x11_hook()
 }
 
 
-__pointer_array(x11_hook) g_x11hooka;
+pointer_array < x11_hook > g_x11hooka;
 
 
 ::e_status x11_hook::hook()

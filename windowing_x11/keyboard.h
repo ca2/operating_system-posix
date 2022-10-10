@@ -20,14 +20,14 @@ namespace windowing_x11
       public:
 
 
-      __pointer(::user::primitive)              m_pprimitiveSoftwareKeyboard;
+      ::pointer<::user::primitive>             m_pprimitiveSoftwareKeyboard;
       index                                     m_iSoftwareKeyboardEventId;
 
 
       ::i32_map < ::user::enum_key >              m_mapExt;
       ::i32_map < ::user::enum_key >              m_mapScan;
       ::i32_map < ::user::enum_key >              m_mapKey;
-      //__pointer(keyboard_layout)                    m_playout;
+      //::pointer<keyboard_layout>                   m_playout;
 
       keyboard();
       ~keyboard() override;
@@ -49,7 +49,7 @@ namespace windowing_x11
 
       //string process_escape(const char * pszChar);
 
-      //void process_escape(__pointer(::xml::node) pnode, property_set & set);
+      //void process_escape(::pointer<::xml::node>pnode, property_set & set);
 
       //string get_current_system_layout();
 

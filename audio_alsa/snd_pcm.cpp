@@ -60,7 +60,7 @@ namespace multimedia
 
          ASSERT(m_ppcm == NULL);
 
-         __pointer(::wave::format) pformat = m_pwaveformat;
+         ::pointer<::wave::format>pformat = m_pwaveformat;
 
          int err;
          short buf[128];

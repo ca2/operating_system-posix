@@ -70,7 +70,7 @@ namespace file
 
       }
 
-      __pointer(listener) plistener(plistenerParam);
+      ::pointer<listener>plistener(plistenerParam);
 
       synchronous_lock synchronouslock(mutex());
 

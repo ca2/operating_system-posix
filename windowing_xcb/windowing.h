@@ -23,7 +23,7 @@ namespace windowing_xcb
       bool                                      m_bFirstWindowMap : 1;
       bool                                      m_bFinishXcbThread;
 
-      __pointer(::windowing_xcb::display)       m_pdisplay;
+      ::pointer<::windowing_xcb::display>      m_pdisplay;
       //void *                                    m_pSnLauncheeContext;
       bool                                      m_bFinishX11Thread;
       bool                                      m_bInitX11Thread;
@@ -33,7 +33,7 @@ namespace windowing_xcb
 #ifdef WITH_XI
 
       int                                             m_xi_opcode = -1;
-      __pointer(object_array)                         m_pobjectaExtendedEventListener;
+      ::pointer<object_array>                        m_pobjectaExtendedEventListener;
 
 #endif
 
@@ -85,7 +85,7 @@ namespace windowing_xcb
       virtual void xcb_main();
 
       //virtual HCURSOR load_default_cursor(e_cursor ecursor) override;
-      virtual __pointer(::windowing::cursor) load_default_cursor(enum_cursor ecursor);
+      virtual ::pointer<::windowing::cursor>load_default_cursor(enum_cursor ecursor);
 
       //virtual int_bool window_set_mouse_cursor(window * pwindow, HCURSOR hcursor) override;
 

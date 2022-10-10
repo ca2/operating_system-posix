@@ -21,7 +21,7 @@ namespace windowing_xcb
 
 
       ::rectangle_i32                              m_rectangleLast;
-      __pointer(windowing_xcb::display)       m_pdisplay;
+      ::pointer<windowing_xcb::display>      m_pdisplay;
       xcb_gcontext_t                               m_gcontext;
 
 

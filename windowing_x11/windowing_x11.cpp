@@ -39,7 +39,7 @@
 
 
 //::mutex * g_pmutexX11Runnable = nullptr;
-//list < __pointer(::matter) > * g_prunnableptrlX11 = nullptr;
+//list < ::pointer<::matter >>* g_prunnableptrlX11 = nullptr;
 
 
 //::point_i32 g_pointX11Cursor;
@@ -155,10 +155,10 @@ bool is_space_key(XIRawEvent *event)
 
 // Tutor Exilius Q(t)List streaming contribution
 //::mutex * g_pmutexX11Runnable = nullptr;
-//list < __pointer(::matter) > * g_prunnableptrlX11 = nullptr;
+//list < ::pointer<::matter >>* g_prunnableptrlX11 = nullptr;
 //::mutex * g_pmutexX11Sync = nullptr;
 //manual_reset_event * g_peventX11Sync = nullptr;
-//__pointer(::matter) g_prunnableX11Sync;
+//::pointer<::matter>g_prunnableX11Sync;
 Window g_windowX11Client = 0;
 
 
@@ -167,10 +167,10 @@ int_bool _x11_get_cursor_pos(Display * d, POINT_I32 * ppointCursor);
 
 
 //extern ::mutex *g_pmutexX11Runnable;
-//extern list<__pointer(::matter) > *g_prunnableptrlX11;
+//extern list<::pointer<::matter >>*g_prunnableptrlX11;
 //extern ::mutex *g_pmutexX11Sync;
 //extern manual_reset_event *g_peventX11Sync;
-//extern __pointer(::matter) g_prunnableX11Sync;
+//extern ::pointer<::matter>g_prunnableX11Sync;
 
 
 //int get_best_ordered_monitor(::user::interaction * pinteraction, int & l, int & t, int & cx, int & cy);
@@ -1943,7 +1943,7 @@ else if(detail == 3)
 
                //msg.oswindow->m_pimpl->_001UpdateScreen();
 
-               //__pointer(::user::interaction) pinteraction = msg.oswindow->m_pimpl->m_puserinteraction;
+               //::pointer<::user::interaction>pinteraction = msg.oswindow->m_pimpl->m_puserinteraction;
 
                //pinteraction->set_need_redraw();
 
@@ -2551,7 +2551,7 @@ else if(detail == 3)
 
                   msg.m_atom = e_message_key_down;
 
-                  __pointer(::windowing_x11::window) pwindow = msg.oswindow;
+                  ::pointer<::windowing_x11::window>pwindow = msg.oswindow;
 
                   if (!pwindow->m_pximkeyboard)
                   {
@@ -2821,14 +2821,14 @@ else if(detail == 3)
 //
 //      XEvent * pevent = (XEvent *) pvoidEvent;
 //
-//      ___pointer < ::user::message > spbase;
+//      ::pointer<::user::message>spbase;
 //
 //      spbase = Session->get_message_base(pvoidEvent, m_puserinteraction);
 //
 //      try
 //      {
 //
-//         __pointer(::user::interaction) pinteraction = m_puserinteraction;
+//         ::pointer<::user::interaction>pinteraction = m_puserinteraction;
 //
 //         while(pinteraction != nullptr && pinteraction->get_parent() != nullptr)
 //         {
@@ -2888,7 +2888,7 @@ else if(detail == 3)
 ////{
 ////
 ////
-//__pointer(::user::message) channel::get_message_base(void * pevent,::user::interaction * pwnd)
+//::pointer<::user::message>channel::get_message_base(void * pevent,::user::interaction * pwnd)
 //{
 //
 //   throw ::exception(todo());
@@ -3042,7 +3042,7 @@ else if(detail == 3)
 //
 //      //g_pmutexX11Runnable = memory_new ::mutex();
 //
-//      //g_prunnableptrlX11 = memory_new list<__pointer(::matter) >();
+//      //g_prunnableptrlX11 = memory_new list<::pointer<::matter >>);
 //
 ////      g_pmutexX11Sync = memory_new ::mutex();
 //
@@ -3174,7 +3174,7 @@ else if(detail == 3)
 //void x11_thread(osdisplay_data * pdisplaydata);
 
 
-   __pointer(::thread) g_pthreadXlib;
+   ::pointer<::thread>g_pthreadXlib;
 
 
    itask_t g_itaskXlib;

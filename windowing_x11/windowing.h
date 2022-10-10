@@ -21,7 +21,7 @@ namespace windowing_x11
       bool                                            m_bRootSelectInput : 1;
       bool                                            m_bFirstWindowMap : 1;
 
-      __pointer(::windowing_x11::display)             m_pdisplay;
+      ::pointer<::windowing_x11::display>            m_pdisplay;
       bool                                            m_bFinishX11Thread;
       bool                                            m_bInitX11Thread;
 
@@ -30,7 +30,7 @@ namespace windowing_x11
 #ifdef WITH_XI
 
       int                                             m_xi_opcode = -1;
-      __pointer(object_array)                         m_pobjectaExtendedEventListener;
+      ::pointer<object_array>                        m_pobjectaExtendedEventListener;
 
 #endif
 
@@ -83,7 +83,7 @@ namespace windowing_x11
       virtual void x11_main();
 
       //virtual HCURSOR load_default_cursor(e_cursor ecursor) override;
-      virtual __pointer(::windowing::cursor) load_default_cursor(enum_cursor ecursor) override;
+      virtual ::pointer<::windowing::cursor>load_default_cursor(enum_cursor ecursor) override;
 
       //virtual int_bool window_set_mouse_cursor(window * pwindow, HCURSOR hcursor) override;
 

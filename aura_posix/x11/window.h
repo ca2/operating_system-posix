@@ -20,7 +20,7 @@ namespace windowing_posix
 //#if defined(WITH_X11)
 
 
-      __pointer(::xim::keyboard) m_pximkeyboard;
+      ::pointer<::xim::keyboard>m_pximkeyboard;
 
 
 //#endif

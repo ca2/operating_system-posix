@@ -36,11 +36,11 @@ namespace node_xfce
 //#ifdef WINDOWS_DESKTOP
 //      NOTIFYICONDATA m_nid;
 //#elif defined(LINUX)
-      __pointer(::aura::posix::appindicator)        m_pindicator;
+      ::pointer<::aura::posix::appindicator>       m_pindicator;
 //#endif
-      __pointer(::user::notify_icon_listener)      m_plistener;
-      __pointer_array(::user::interaction)         m_wndptraHidden;
-      __pointer(::windowing::icon)                 m_picon;
+      ::pointer<::user::notify_icon_listener>     m_plistener;
+      pointer_array < ::user::interaction >         m_wndptraHidden;
+      ::pointer<::windowing::icon>                m_picon;
 
 
       notify_icon();

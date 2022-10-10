@@ -2583,7 +2583,7 @@ namespace draw2d_xlib
    bool image::print_window(::user::user::interaction_impl * puserinteraction, ::message::message * pmessage)
    {
 
-      __pointer(::user::message) pusermessage(pmessage);
+      ::pointer<::user::message>pusermessage(pmessage);
 
       if(pusermessage->m_wparam == nullptr)
          return false;

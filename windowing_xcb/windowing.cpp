@@ -64,7 +64,7 @@ namespace windowing_xcb
    ::windowing::window * windowing::new_window(::user::interaction_impl * pimpl)
    {
 
-      __pointer(::windowing_xcb::window) pwindow = pimpl->__create < ::windowing::window >();
+      ::pointer<::windowing_xcb::window>pwindow = pimpl->__create < ::windowing::window >();
 
       if(!pwindow)
       {
@@ -249,7 +249,7 @@ namespace windowing_xcb
    }
 
 
-   __pointer(::windowing::cursor) windowing::load_default_cursor(enum_cursor ecursor)
+   ::pointer<::windowing::cursor>windowing::load_default_cursor(enum_cursor ecursor)
    {
 
       synchronous_lock synchronouslock(mutex());
@@ -844,7 +844,7 @@ namespace windowing_xcb
 
             bool bOk = true;
 
-            __pointer(::user::interaction) pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
+            ::pointer<::user::interaction>pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
 
             if (pinteraction.is_set())
             {
@@ -1150,7 +1150,7 @@ namespace windowing_xcb
 
                //msg.oswindow->m_pimpl->_001UpdateScreen();
 
-               //__pointer(::user::interaction) pinteraction = msg.oswindow->m_pimpl->m_puserinteraction;
+               //::pointer<::user::interaction>pinteraction = msg.oswindow->m_pimpl->m_puserinteraction;
 
                //pinteraction->set_need_redraw();
 

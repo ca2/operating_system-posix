@@ -31,19 +31,19 @@ namespace windowing_x11
       XWindowAttributes                            m_attr;
       XVisualInfo                                  m_visualinfo;
       void *                                       m_pgdkwindow;
-      __pointer(::windowing_x11::x11data)          m_px11data;
+      ::pointer<::windowing_x11::x11data>         m_px11data;
       ::Window                                     m_parent;
       Cursor                                       m_cursorLast;
       int                                          m_iXic;
       XIC                                          m_xic;
-      //__pointer(::windowing_x11::display)     m_pdisplay;
+      //::pointer<::windowing_x11::display>    m_pdisplay;
       ::Window                                     m_window;
       ::Visual                                     m_visual;
       int                                          m_iDepth;
       //int                                          m_iScreen;
       bool                                         m_bMessageOnlyWindow;
-      //__pointer(::user::interaction_impl)     m_pimpl;
-      //__pointer(::message_queue)              m_pmessagequeue;
+      //::pointer<::user::interaction_impl>    m_pimpl;
+      //::pointer<::message_queue>             m_pmessagequeue;
       htask_t                                    m_htask;
       //Colormap                                     m_colormap;
       ::duration                                       m_durationLastMouseMove;
@@ -59,7 +59,7 @@ namespace windowing_x11
       //static Atom                                s_atomLongStyle;
       //static Atom                                s_atomLongStyleEx;
 
-      __pointer(::xim::keyboard)                   m_pximkeyboard;
+      ::pointer<::xim::keyboard>                  m_pximkeyboard;
 
 
       window();

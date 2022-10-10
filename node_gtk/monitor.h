@@ -46,7 +46,7 @@ namespace node_gtk
    };
 
 
-   //using monitor_map = iptr_map < __pointer(monitor) >;
+   //using monitor_map = iptr_map < ::pointer<monitor >>
 
 
 } // namespace node_gtk

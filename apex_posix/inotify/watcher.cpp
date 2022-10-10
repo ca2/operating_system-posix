@@ -273,7 +273,7 @@ namespace inotify
 //      }
 //
 //
-//      __pointer(::file::listener) plistener(plistenerParam);
+//      ::pointer<::file::listener>plistener(plistenerParam);
 //
 //      synchronous_lock synchronouslock(mutex());
 //

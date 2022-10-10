@@ -141,10 +141,10 @@ CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const po
 
 // Tutor Exilius Q(t)List streaming contribution
 //::mutex * g_pmutexXcbRunnable = nullptr;
-//list < __pointer(::matter) > * g_prunnableptrlXcb = nullptr;
+//list < ::pointer<::matter >>* g_prunnableptrlXcb = nullptr;
 //::mutex * g_pmutexXcbSync = nullptr;
 //manual_reset_event * g_peventXcbSync = nullptr;
-//__pointer(::matter) g_prunnableXcbSync;
+//::pointer<::matter>g_prunnableXcbSync;
 xcb_window_t g_windowXcbClient = 0;
 
 
@@ -153,10 +153,10 @@ int_bool _xcb_get_cursor_pos(xcb_connection_t * d, POINT_I32 * ppointCursor);
 
 
 //extern ::mutex *g_pmutexXcbRunnable;
-//extern list<__pointer(::matter) > *g_prunnableptrlXcb;
+//extern list<::pointer<::matter >>*g_prunnableptrlXcb;
 //extern ::mutex *g_pmutexXcbSync;
 //extern manual_reset_event *g_peventXcbSync;
-//extern __pointer(::matter) g_prunnableXcbSync;
+//extern ::pointer<::matter>g_prunnableXcbSync;
 
 
 //int get_best_ordered_monitor(::user::interaction * pinteraction, int & l, int & t, int & cx, int & cy);
@@ -724,7 +724,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       //g_pmutexXcbRunnable = memory_new ::mutex();
 
-      //g_prunnableptrlXcb = memory_new list<__pointer(::matter) >();
+      //g_prunnableptrlXcb = memory_new list<::pointer<::matter >>);
 
 //      g_pmutexXcbSync = memory_new ::mutex();
 
@@ -856,7 +856,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //void xcb_thread(osdisplay_data * pdisplaydata);
 
 
-   __pointer(::thread) g_pthreadXlib;
+   ::pointer<::thread>g_pthreadXlib;
 
 
    itask_t g_itaskXlib;
@@ -1385,7 +1385,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //      while (g_prunnableptrlXcb->has_elements() && ::thread_get_run())
 //      {
 //
-//         __pointer(::matter) prunnable = g_prunnableptrlXcb->pop_front();
+//         ::pointer<::matter>prunnable = g_prunnableptrlXcb->pop_front();
 //
 //         synchronouslock.unlock();
 //

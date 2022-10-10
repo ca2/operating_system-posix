@@ -310,7 +310,7 @@ namespace node_xfce
    }
 
 
-   void notify_icon::AddHiddenWindow(__pointer(::user::interaction) pwnd)
+   void notify_icon::AddHiddenWindow(::pointer<::user::interaction>pwnd)
    {
 
       m_wndptraHidden.add_unique(pwnd);
@@ -420,7 +420,7 @@ namespace node_xfce
    //void notify_icon::_001OnNotifyIconMessage(::message::message * pmessage)
    //{
 
-   //   __pointer(::user::message) pusermessage(pmessage);
+   //   ::pointer<::user::message>pusermessage(pmessage);
 
    //   if (pusermessage->m_lparam == e_message_left_button_down)
    //   {
@@ -431,7 +431,7 @@ namespace node_xfce
    //         try
    //         {
 
-   //            __pointer(::user::interaction) pframe = (m_wndptraHidden.element_at(0));
+   //            ::pointer<::user::interaction>pframe = (m_wndptraHidden.element_at(0));
 
    //            if (pframe != nullptr)
    //            {

@@ -24,7 +24,7 @@ namespace windowing_x11
    using WINDOW = long;
 
 
-   using window_map = map < WINDOW, __pointer(window) >;
+   using window_map = map < WINDOW, ::pointer<window >>
 
 
 } // namespace node_gnome

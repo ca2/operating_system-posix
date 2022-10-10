@@ -84,7 +84,7 @@ namespace aura_posix
 
       //estatus =
       //
-      __compose(m_pcontextimage);
+      __construct(m_pcontextimage);
 
 //         if(!estatus)
 //         {
@@ -872,7 +872,7 @@ namespace aura_posix
 //         if (!m_pshell)
 //         {
 //
-//            estatus = __compose(m_pshell, __new(::freebsd::shell));
+//            estatus = __construct(m_pshell, __new(::freebsd::shell));
 //
 //            if (!estatus)
 //            {

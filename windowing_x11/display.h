@@ -30,7 +30,7 @@ namespace windowing_x11
       Atom                                         m_atoma[::x11::e_atom_count];
 
 
-      __pointer(::x11::display)                    m_px11display;
+      ::pointer<::x11::display>                   m_px11display;
       //::Display *                                m_pdisplay;
       XVisualInfo                                  m_visualinfo;
       ::Visual *                                   m_pvisual;
@@ -46,10 +46,10 @@ namespace windowing_x11
       Atom                                         m_atomWmState;
       Atom                                         m_atomNetWmState;
       iptr                                         m_countReference;
-      __pointer(class window)                      m_pwindowRoot;
-      __pointer(class window)                      m_pwindowKeyboardFocus;
-      __pointer(::windowing_x11::window)           m_pwindowActive;
-      __pointer(::windowing_x11::window)           m_pwindowMouseCapture;
+      ::pointer<class window>                      m_pwindowRoot;
+      ::pointer<class window>                      m_pwindowKeyboardFocus;
+      ::pointer<::windowing_x11::window>          m_pwindowActive;
+      ::pointer<::windowing_x11::window>          m_pwindowMouseCapture;
 
 
       display();

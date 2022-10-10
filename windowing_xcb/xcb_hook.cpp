@@ -2,12 +2,12 @@
 #include "_xcb.h"
 
 
-//__pointer_array(xcb_hook) * g_pxcbhooka;
+//pointer_array < xcb_hook > * g_pxcbhooka;
 
 //void xcb_hook_init()
 //{
 //
-//  g_pxcbhooka = memory_new __pointer_array(xcb_hook);
+//  g_pxcbhooka = memory_new pointer_array < xcb_hook >;
 //
 //}
 
@@ -28,7 +28,7 @@ xcb_hook::xcb_hook()
 }
 
 
-__pointer_array(xcb_hook) g_xcbhooka;
+pointer_array < xcb_hook > g_xcbhooka;
 
 
 ::e_status xcb_hook::hook()

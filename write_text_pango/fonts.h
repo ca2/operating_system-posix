@@ -15,7 +15,7 @@ namespace write_text_pango
    public:
 
 
-    /*  __pointer(::write_text::font_enumeration)   m_pfontenumeration;*/
+    /*  ::pointer<::write_text::font_enumeration>  m_pfontenumeration;*/
 
       //::write_text::font_pointer                m_pfontCaption;
       //::write_text::font_pointer                m_pfontMenu;
@@ -24,11 +24,11 @@ namespace write_text_pango
       //::write_text::font_pointer                m_pfontListCtrl;
       //::write_text::font_pointer                m_pfontMeshCtrl;
       //::write_text::font_pointer                m_pfontGridCtrl;
-      //__pointer(::write_text::font)                 m_lpSongLabelFont;
-      //__pointer(::write_text::font)                 m_lpSongListFont;
-      //__pointer(::write_text::font)                 m_pfontLyric;
-      //__pointer(::write_text::font)                 m_pfontLyricCompact;
-      //__pointer(::write_text::font)                 m_pxffontMidiTrackName;
+      //::pointer<::write_text::font>                m_lpSongLabelFont;
+      //::pointer<::write_text::font>                m_lpSongListFont;
+      //::pointer<::write_text::font>                m_pfontLyric;
+      //::pointer<::write_text::font>                m_pfontLyricCompact;
+      //::pointer<::write_text::font>                m_pxffontMidiTrackName;
       //draw2d_font_spa              m_pTitleFonts;
       //draw2d_font_spa              m_pSubTitleFonts;
       //draw2d_font_spa              m_pH3TitleFonts;

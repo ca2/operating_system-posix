@@ -3268,7 +3268,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       if (::is_set(m_puserinteractionimpl))
       {
 
-         __pointer(::user::interaction) pinteraction = m_puserinteractionimpl->m_puserinteraction;
+         ::pointer<::user::interaction>pinteraction = m_puserinteractionimpl->m_puserinteraction;
 
          if (pinteraction.is_set())
          {

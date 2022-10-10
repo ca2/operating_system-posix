@@ -63,7 +63,7 @@ namespace windowing_x11
    ::windowing::window *windowing::new_window(::user::interaction_impl *pimpl)
    {
 
-      __pointer(::windowing_x11::window) pwindow = pimpl->__create<::windowing::window>();
+      ::pointer<::windowing_x11::window>pwindow = pimpl->__create<::windowing::window>();
 
       if (!pwindow)
       {
@@ -306,7 +306,7 @@ _libsn_start_context();
    }
 
 
-   __pointer(::windowing::cursor) windowing::load_default_cursor(enum_cursor ecursor)
+   ::pointer<::windowing::cursor>windowing::load_default_cursor(enum_cursor ecursor)
    {
 
       synchronous_lock synchronouslock(mutex());

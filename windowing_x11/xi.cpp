@@ -21,7 +21,7 @@ namespace windowing_x11
 //int xi_opcode = -1;
 
 
-//__pointer(object_array) g_pobjectaExtendedEventListener;
+//::pointer<object_array>g_pobjectaExtendedEventListener;
 
 
    void windowing::x11_register_extended_event_listener(::matter *pdata, bool bMouse, bool bKeyboard)

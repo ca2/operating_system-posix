@@ -55,7 +55,7 @@ struct sig_companion
 
    public:
 
-      __pointer(address_to_line)       m_paddresstoline;
+      ::pointer<address_to_line>      m_paddresstoline;
       sig_companion        m_sig;
       sig_companion        m_sigOld;
       

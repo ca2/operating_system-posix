@@ -23,7 +23,7 @@ namespace windowing_xcb
 
 
       critical_section                                         m_criticalsectionWindowMap;
-      __pointer(::xcb::display)                                m_pxcbdisplay;
+      ::pointer<::xcb::display>                               m_pxcbdisplay;
       window_map                                               m_windowmap;
       i32_map < xcb_cursor_t>                                  m_mapGlyphCursor;
       xcb_atom_t                                               m_atoma[::x11::e_atom_count];
@@ -33,11 +33,11 @@ namespace windowing_xcb
       Display *                                                m_pX11Display;
       //xcb_connection_t *                                       m_pconnection;
 
-      __pointer(class window)                                  m_pwindowRoot;
-      __pointer(class window)                                  m_pwindowKeyboardFocus;
+      ::pointer<class window>                                  m_pwindowRoot;
+      ::pointer<class window>                                  m_pwindowKeyboardFocus;
 
-      __pointer(::windowing_xcb::window)                       m_pwindowActive;
-      __pointer(::windowing_xcb::window)                       m_pwindowMouseCapture;
+      ::pointer<::windowing_xcb::window>                      m_pwindowActive;
+      ::pointer<::windowing_xcb::window>                      m_pwindowMouseCapture;
 
 
       display();

@@ -126,7 +126,7 @@ namespace windowing_xcb
 //int xi_opcode = -1;
 
 
-//__pointer(object_array) g_pobjectaExtendedEventListener;
+//::pointer<object_array>g_pobjectaExtendedEventListener;
 
 
    void windowing::register_extended_event_listener(::matter *pdata, bool bMouse, bool bKeyboard)
