@@ -1,5 +1,5 @@
 #include "framework.h"
-#include "interprocess_communication.h"
+#include "interprocess_handler.h"
 #include "acme/filesystem/filesystem/acme_file.h"
 
 
@@ -29,7 +29,7 @@ namespace system_5
    }
 
 
-   interprocess_communication_tx::interprocess_communication_tx()
+   interprocess_caller::interprocess_caller()
    {
 
       //mutex() = memory_new ::mutex(pobject);
@@ -37,13 +37,13 @@ namespace system_5
    }
 
 
-   interprocess_communication_tx::~interprocess_communication_tx()
+   interprocess_caller::~interprocess_caller()
    {
 
    }
 
 
-   void interprocess_communication_tx::open(const ::string & strChannel,launcher * plauncher)
+   void interprocess_caller::open(const ::string & strChannel,launcher * plauncher)
    {
 
       if(m_iQueue >= 0)
@@ -83,7 +83,7 @@ namespace system_5
    }
 
 
-   void interprocess_communication_tx::close()
+   void interprocess_caller::close()
    {
 
       if(m_iQueue < 0)
@@ -102,7 +102,7 @@ namespace system_5
    }
 
 
-   void interprocess_communication_tx::send(const ::string & pszMessage, const duration &durationTimeout)
+   void interprocess_caller::send(const ::string & pszMessage, const duration &durationTimeout)
    {
 
       memory m;
@@ -136,7 +136,7 @@ namespace system_5
 
       }
 
-      ::output_debug_string("functon: \"interprocess_communication_tx::send\"\n");
+      ::output_debug_string("functon: \"interprocess_caller::send\"\n");
 
       ::output_debug_string("channel: \"" +m_strBaseChannel+ "\"\n");
 
@@ -147,7 +147,7 @@ namespace system_5
    }
 
 
-   void interprocess_communication_tx::send(i32 message,void * p,i32 iLen,const duration & durationTimeout)
+   void interprocess_caller::send(i32 message,void * p,i32 iLen,const duration & durationTimeout)
    {
 
       if(message == 1024)
@@ -206,7 +206,7 @@ namespace system_5
    }
 
 
-   bool interprocess_communication_tx::is_tx_ok()
+   bool interprocess_caller::is_tx_ok()
    {
 
       return m_iQueue != -1;
@@ -214,7 +214,7 @@ namespace system_5
    }
 
 
-   interprocess_communication_rx::interprocess_communication_rx()
+   interprocess_handler::interprocess_handler()
    {
 
       m_preceiver    = nullptr;
@@ -222,13 +222,13 @@ namespace system_5
    }
 
 
-   interprocess_communication_rx::~interprocess_communication_rx()
+   interprocess_handler::~interprocess_handler()
    {
 
    }
 
 
-   void interprocess_communication_rx::create(const ::string & strChannel)
+   void interprocess_handler::create(const ::string & strChannel)
    {
 
       if(!file_exists(strChannel))
@@ -270,7 +270,7 @@ namespace system_5
    }
 
 
-   void interprocess_communication_rx::destroy()
+   void interprocess_handler::destroy()
    {
 
       i32 iRetry = 23;
@@ -309,7 +309,7 @@ namespace system_5
    }
 
 
-      bool interprocess_communication_rx::start_receiving()
+      bool interprocess_handler::start_receiving()
       {
 
          m_bRunning = true;
@@ -328,25 +328,25 @@ namespace system_5
       }
 
 
-//      void interprocess_communication_rx::receiver::on_ipc_receive(interprocess_communication_rx * prx,const ::string & pszMessage)
+//      void interprocess_handler::receiver::on_ipc_receive(interprocess_handler * prx,const ::string & pszMessage)
 //      {
 //
 //      }
 //
 //
-//      void interprocess_communication_rx::receiver::on_ipc_receive(interprocess_communication_rx * prx,i32 message,void * pdata,memsize len)
+//      void interprocess_handler::receiver::on_ipc_receive(interprocess_handler * prx,i32 message,void * pdata,memsize len)
 //      {
 //
 //      }
 //
 
-//      void interprocess_communication_rx::receiver::on_ipc_post(interprocess_communication_rx * prx, i64 a, i64 b)
+//      void interprocess_handler::receiver::on_ipc_post(interprocess_handler * prx, i64 a, i64 b)
 //      {
 //
 //      }
 
 
-      void interprocess_communication_rx::on_interprocess_receive(::string && strMessage)
+      void interprocess_handler::on_interprocess_receive(::string && strMessage)
       {
 
          if(m_preceiver != nullptr)
@@ -363,7 +363,7 @@ namespace system_5
       }
 
 
-      void interprocess_communication_rx::on_interprocess_receive(i32 message, ::memory && memory)
+      void interprocess_handler::on_interprocess_receive(i32 message, ::memory && memory)
       {
 
          if(m_preceiver != nullptr)
@@ -380,7 +380,7 @@ namespace system_5
       }
 
 
-      void interprocess_communication_rx::on_interprocess_post(i64 a, i64 b)
+      void interprocess_handler::on_interprocess_post(i64 a, i64 b)
       {
 
          if(m_preceiver != nullptr)
@@ -397,7 +397,7 @@ namespace system_5
       }
 
 
-      bool interprocess_communication_rx::on_idle()
+      bool interprocess_handler::on_idle()
       {
 
          return false;
@@ -405,7 +405,7 @@ namespace system_5
       }
 
 
-      bool interprocess_communication_rx::is_rx_ok()
+      bool interprocess_handler::is_rx_ok()
       {
 
          return m_iQueue != -1;
@@ -413,7 +413,7 @@ namespace system_5
       }
 
 
-      void * interprocess_communication_rx::receive()
+      void * interprocess_handler::receive()
       {
 
          memory mem;
@@ -491,7 +491,7 @@ namespace system_5
       }
 
 
-//      interprocess_communication::interprocess_communication()
+//      interprocess_handler::interprocess_handler()
 //      {
 //
 //         m_millisTimeout = (5000) * 11;
@@ -499,13 +499,13 @@ namespace system_5
 //      }
 //
 //
-//      interprocess_communication::~interprocess_communication()
+//      interprocess_handler::~interprocess_handler()
 //      {
 //
 //
 //      }
 //
-//      bool interprocess_communication::open_ab(const ::string & pszChannel,launcher * plauncher)
+//      bool interprocess_handler::open_ab(const ::string & pszChannel,launcher * plauncher)
 //      {
 //
 //         m_strChannel = pszChannel;
@@ -521,7 +521,7 @@ namespace system_5
 //            return false;
 //         }
 //
-//         if(!interprocess_communication_tx::open(strChannelTx,plauncher))
+//         if(!interprocess_caller::open(strChannelTx,plauncher))
 //         {
 //            return false;
 //         }
@@ -531,7 +531,7 @@ namespace system_5
 //      }
 
 
-//      bool interprocess_communication::open_ba(const ::string & pszChannel,launcher * plauncher)
+//      bool interprocess_handler::open_ba(const ::string & pszChannel,launcher * plauncher)
 //      {
 //
 //         m_strChannel = pszChannel;
@@ -547,7 +547,7 @@ namespace system_5
 //            return false;
 //         }
 //
-//         if(!interprocess_communication_tx::open(strChannelTx,plauncher))
+//         if(!interprocess_caller::open(strChannelTx,plauncher))
 //         {
 //            return false;
 //         }
@@ -558,7 +558,7 @@ namespace system_5
 
 
 
-//      bool interprocess_communication::is_rx_tx_ok()
+//      bool interprocess_handler::is_rx_tx_ok()
 //      {
 //
 //         return m_prx->is_rx_ok() && m_ptx->is_tx_ok();

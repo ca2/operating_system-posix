@@ -7,7 +7,7 @@ namespace system_5
 
 
    class CLASS_DECL_APEX interprocess_communication_base :
-      virtual public interprocess_communication::base
+      virtual public interprocess_handler::base
    {
    public:
 
@@ -60,15 +60,15 @@ namespace system_5
    };
 
 
-   class CLASS_DECL_APEX interprocess_communication_tx :
+   class CLASS_DECL_APEX interprocess_caller :
       virtual public interprocess_communication_base,
-      virtual public interprocess_communication::tx
+      virtual public interprocess_handler::caller
    {
    public:
 
 
-      interprocess_communication_tx();
-      ~interprocess_communication_tx() override;
+      interprocess_caller();
+      ~interprocess_caller() override;
 
 
       void open(const ::string & strChannel, launcher * plauncher = nullptr) override;
@@ -88,15 +88,15 @@ namespace system_5
    class rx_private;
 
 
-   class CLASS_DECL_APEX interprocess_communication_rx :
+   class CLASS_DECL_APEX interprocess_handler :
       virtual public interprocess_communication_base,
-      virtual public interprocess_communication::rx
+      virtual public interprocess_handler::handler
    {
    public:
 
 
-      interprocess_communication_rx();
-      ~interprocess_communication_rx() override;
+      interprocess_handler();
+      ~interprocess_handler() override;
 
 
       void create(const ::string & strChannel) override;
@@ -122,15 +122,15 @@ namespace system_5
    };
 
 
-//   class CLASS_DECL_APEX interprocess_communication :
+//   class CLASS_DECL_APEX interprocess_handler :
 //      virtual public interprocess_communication_base,
-//      virtual public ::interprocess_communication::interprocess_communication
+//      virtual public ::interprocess_handler::interprocess_handler
 //   {
 //   public:
 //
 //
-//      interprocess_communication();
-//      virtual ~interprocess_communication();
+//      interprocess_handler();
+//      virtual ~interprocess_handler();
 //
 //
 //#if defined(_UWP)
