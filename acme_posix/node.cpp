@@ -1,4 +1,4 @@
-//
+﻿//
 // Created by camilo on 19/01/2021. --<33ThomasBS!!
 //
 #include "framework.h"
@@ -20,7 +20,9 @@
 //
 //struct sigaction g_sigactionFpeOld;
 
-#ifdef __clang__
+
+
+#if defined(__clang__) && !defined(ANDROID)
 ::string clang_backtrace();
 #endif
 
@@ -1143,19 +1145,15 @@ namespace acme_posix
 
    }
 
-   
+#if defined(__clang__) && !defined(ANDROID)
    ::string node::get_callstack()
    {
    
-   #ifdef __clang__
-         return clang_backtrace();
-   #else
-      return acme::node::get_callstack();
-   #endif
-         
-      
+      return clang_backtrace();
       
    }
+
+#endif
 
 
 } // namespace acme_posix

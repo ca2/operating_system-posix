@@ -1,4 +1,4 @@
-// Created on 2021-04-29 1:03 PM BRT <3TBS_!! Second celebration of Mummis Birthday 70!!
+﻿// Created on 2021-04-29 1:03 PM BRT <3TBS_!! Second celebration of Mummis Birthday 70!!
 #include "framework.h"
 #include "exception_translator.h"
 
@@ -89,6 +89,8 @@ namespace acme_posix
 
 #else
 
+#if !defined(ANDROID)
+
       install_sigsegv_handler();
 
       install_sigfpe_handler();
@@ -104,6 +106,8 @@ namespace acme_posix
    #endif
       
 #endif
+
+#endif // !defined(ANDROID)
       
       m_bSet = true;
 

@@ -1,4 +1,4 @@
-//
+﻿//
 //  node_clang_callstack.cpp
 //  acme_posix
 //
@@ -12,7 +12,11 @@
 #endif
 
 #define UNW_LOCAL_ONLY
+#ifdef ANDROID
+#include <unwind.h>
+#else
 #include <libunwind.h>
+#endif
 #include <stdio.h>
 
 // Call this function to get a backtrace.

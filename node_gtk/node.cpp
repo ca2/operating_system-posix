@@ -24,10 +24,10 @@ gboolean gtk_quit_callback(gpointer data);
 ///int gtk_launch (const char * pszDesktopFileTitle);
 
 
-void __copy(::color::color & color, const GdkRGBA & rgba)
+void copy(::color::color * pcolor, const GdkRGBA  * prgba)
 {
 
-   color.set(rgba.red, rgba.green, rgba.blue, rgba.alpha);
+   pcolor->set(rpgba->red, prgba->green, prgba->blue, prgba->alpha);
 
 }
 
@@ -41,7 +41,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 
    ::color::color color;
 
-   __copy(color, *prgba);
+   copy(&color, prgba);
 
    gdk_rgba_free (prgba);
 

@@ -31,6 +31,9 @@
     <ClInclude Include="pipe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="exception_translator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -69,6 +72,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pipe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="exception_translator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

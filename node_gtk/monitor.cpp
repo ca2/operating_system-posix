@@ -97,7 +97,7 @@ namespace node_gtk
 
       //sleep(15_s);
 
-      __copy(m_rectangle, rect);
+      copy(&m_rectangle, &rect);
 
       return ::success;
 
@@ -131,7 +131,7 @@ namespace node_gtk
 
       gdk_monitor_get_workarea(pmonitor, &rect);
 
-      __copy(m_rectangleWorkspace, rect);
+      copy(&m_rectangleWorkspace, &rect);
 
       return ::success;
 

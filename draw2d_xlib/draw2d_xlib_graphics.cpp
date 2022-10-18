@@ -3275,7 +3275,7 @@ namespace draw2d_xlib
    void graphics::FillSolidRect(const RECTANGLE_I64 * rectangle, color32_t clr)
    {
       ::rectangle_i32 rect32;
-      __copy(rect32, rectangle);
+      copy(&rect32, &rectangle);
       FillSolidRect(rect32, clr);
    }
 
