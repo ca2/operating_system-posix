@@ -33,9 +33,13 @@ endif()
 if(INTERPROCESS_COMMUNICATION_SYSTEM_5)
 
    list(APPEND library_source
-      system_5/interprocess_communication.cpp
-      system_5/interprocess_communication.h
-      )
+      system_5/interprocess_base.cpp
+      system_5/interprocess_base.h
+      system_5/interprocess_caller.cpp
+      system_5/interprocess_caller.h
+      system_5/interprocess_target.cpp
+      system_5/interprocess_target.h
+   )
 
 endif()
 
