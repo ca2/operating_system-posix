@@ -5,6 +5,7 @@
 #include "node.h"
 #include "acme_file.h"
 #include "acme_directory.h"
+#include "acme/primitive/primitive/memory.h"
 #include <signal.h>
 
 #ifdef FREEBSD

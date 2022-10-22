@@ -1,7 +1,10 @@
-//
+﻿//
 // Created by camilo on 26/04/2021. 00:02 BRT <3TBS_!!
 //
 #pragma once
+
+
+#include "apex/filesystem/filesystem/file_context.h"
 
 
 namespace apex_posix
