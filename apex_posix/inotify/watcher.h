@@ -1,46 +1,20 @@
 #pragma once
 
 
-#include "apex/filesystem/filesystem/file_watcher.h"
+#include "apex/filesystem/file/watcher.h"
 
 
 namespace inotify
 {
 
 
-   class watcher;
-
-
-   class watch :
-      virtual public ::file::watch
-   {
-   public:
-
-      i32                        m_iFd;
-      struct timeval             m_timevalTimeOut;
-      fd_set                     m_fdset;
-      int                        m_watchdescriptor;
-      //bool                 m_bOwn;
-
-
-      watch();
-      ~watch() override;
-
-      bool open(const ::file::path & pathFolder, bool bRecursive) override;
-
-
-      bool step() override;
-
-
-   };
+   class watch;
 
 
    class watcher :
       virtual public ::file::watcher
    {
    public:
-
-
 
 
       watcher();
@@ -56,7 +30,7 @@ namespace inotify
    };
 
 
-} // namespace file_watcher
+} // namespace inotify
 
 
 

@@ -4,11 +4,13 @@
 #include "node.h"
 #include "posix_spawn/process.h"
 #if defined(INTERPROCESS_COMMUNICATION_SYSTEM_5)
-#include "system_5/inteprocess_channel.h"
+#include "system_5/interprocess_caller.h"
+#include "system_5/interprocess_target.h"
 #endif
 
 #ifdef FILE_SYSTEM_INOTIFY
 
+#include "inotify/watch.h"
 #include "inotify/watcher.h"
 
 #endif
@@ -31,9 +33,9 @@ __FACTORY_EXPORT void apex_posix_factory(::factory::factory * pfactory)
 
 #if defined(INTERPROCESS_COMMUNICATION_SYSTEM_5)
 
-   pfactory->add_factory_item < ::system_5::interprocess_communication_base, ::inteprocess_channel::base >();
-   pfactory->add_factory_item < ::system_5::interprocess_handler, ::inteprocess::handler >();
-   pfactory->add_factory_item < ::system_5::interprocess_caller, ::inteprocess::caller >();
+   pfactory->add_factory_item < ::system_5::interprocess_base, ::interprocess::base >();
+   pfactory->add_factory_item < ::system_5::interprocess_caller, ::interprocess::caller >();
+   pfactory->add_factory_item < ::system_5::interprocess_target, ::interprocess::target >();
 
 #endif
 

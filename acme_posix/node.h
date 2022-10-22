@@ -8,6 +8,9 @@
 #pragma once
 
 
+#include "acme/platform/node.h"
+
+
 namespace acme_posix
 {
 
@@ -46,7 +49,7 @@ namespace acme_posix
 
       // defined at process.cpp
       string module_path_from_pid(u32 pid) override;
-      id_array module_path_get_pid(const ::string & pszModulePath, bool bModuleNameIsPropertyFormatted) override;
+      atom_array module_path_get_pid(const ::string & pszModulePath, bool bModuleNameIsPropertyFormatted) override;
       string command_line_from_pid(u32 pid) override;
       bool is_shared_library_busy(u32 processid, const string_array & stra) override;
       bool is_shared_library_busy(const string_array & stra) override;
@@ -58,7 +61,7 @@ namespace acme_posix
 
       bool load_modules_diff(string_array& straOld, string_array& straNew, const ::string & pszExceptDir) override;
 
-      id_array get_pids() override;
+      atom_array get_pids() override;
 
          
 

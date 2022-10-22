@@ -66,8 +66,8 @@ namespace aura_posix
       //void run_silent(const string_base<char> & str1, const string_base<char> & str2) override;
       //bool process_modules(string_array & stra, u32 processID) override;
       //bool load_modules_diff(string_array & straOld, string_array & straNew, const ::string & pszExceptDir) override;
-      //id_array get_pids() override;
-      //id_array module_path_get_pid(const ::string & pszModulePath, bool bModuleNameIsPropertyFormatted) override;
+      //atom_array get_pids() override;
+      //atom_array module_path_get_pid(const ::string & pszModulePath, bool bModuleNameIsPropertyFormatted) override;
       //string module_path_from_pid(u32 pid) override;
       //string command_line_from_pid(u32 pid) override;
       //bool is_shared_library_busy(u32 processid, const string_array & stra) override;

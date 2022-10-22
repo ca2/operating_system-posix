@@ -333,17 +333,17 @@ namespace acme_posix
    }
 
 
-   id_array node::get_pids()
+   atom_array node::get_pids()
    {
 
       throw ::interface_only();
 
-      return id_array();
+      return atom_array();
 
    }
 
 
-//      id_array node::module_path_get_pid(const char * pszModulePath, bool bModuleNameIsPropertyFormatted)
+//      atom_array node::module_path_get_pid(const char * pszModulePath, bool bModuleNameIsPropertyFormatted)
 //      {
 //
 //         return ::acme::node::module_path_get_pid(pszModulePath, bModuleNameIsPropertyFormatted);
@@ -960,12 +960,12 @@ namespace acme_posix
    //      }
 
 
-   id_array node::module_path_get_pid(const ::string & psz, bool bModuleNameIsPropertyFormatted)
+   atom_array node::module_path_get_pid(const ::string & psz, bool bModuleNameIsPropertyFormatted)
    {
 
       ::output_debug_string("os/linux_process.cpp app_get_pid (" + string(psz) + ")");
 
-      id_array ia;
+      atom_array ia;
 
       ::file::listing listing;
 

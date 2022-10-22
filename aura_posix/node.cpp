@@ -350,7 +350,7 @@ namespace aura_posix
    //   return ::apex::posix::node::load_modules_diff(straOld, straNew, pszExceptDir);
    //}
 
-   //   id_array node::get_pids()
+   //   atom_array node::get_pids()
    //{
 
    //   return ::apex::posix::node::get_pids();
@@ -358,7 +358,7 @@ namespace aura_posix
 
    //}
 
-   //id_array node::module_path_get_pid(const ::string & pszModulePath, bool bModuleNameIsPropertyFormatted)
+   //atom_array node::module_path_get_pid(const ::string & pszModulePath, bool bModuleNameIsPropertyFormatted)
    //{
 
    //   return ::apex::posix::node::module_path_get_pid(pszModulePath, bModuleNameIsPropertyFormatted);

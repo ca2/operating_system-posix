@@ -26,9 +26,11 @@ namespace system_5
       void destroy() override;
 
 
-      void on_interprocess_receive(::string && strMessage) override;
-      void on_interprocess_receive(int message, ::memory && memory) override;
-      void on_interprocess_post(i64 a, i64 b) override;
+
+      //bool _handle_uri(const block & blockUri) override;
+      //void on_interprocess_receive(::string && strMessage) override;
+      //void on_interprocess_receive(int message, ::memory && memory) override;
+      //void on_interprocess_post(i64 a, i64 b) override;
 
 
       bool on_idle() override;

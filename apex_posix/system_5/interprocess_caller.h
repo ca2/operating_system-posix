@@ -12,8 +12,8 @@ namespace system_5
 
 
    class CLASS_DECL_APEX interprocess_caller :
-      virtual public interprocess_communication_base,
-      virtual public interprocess_handler::caller
+      virtual public interprocess_base,
+      virtual public interprocess::caller
    {
    public:
 
@@ -26,8 +26,8 @@ namespace system_5
       void close() override;
 
 
-      void send(const ::string & pszMessage, const ::duration & durationTimeout) override;
-      void send(int message, void * pdata, int len, const ::duration & durationTimeout) override;
+      void call(const ::string & pszMessage, const ::duration & durationTimeout) override;
+      //void send(int message, void * pdata, int len, const ::duration & durationTimeout) override;
 
 
       bool is_caller_ok() override;

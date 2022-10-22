@@ -1,7 +1,8 @@
 // from interprocess_communication.cpp by Camilo 2021-10-19 18:58 BRT <3ThomasBorregaardSoerensen
 #include "framework.h"
-#include "interprocess_handler.h"
+#include "interprocess_target.h"
 #include "acme/filesystem/filesystem/acme_file.h"
+#include "acme/primitive/primitive/memory.h"
 
 
 #include <sys/types.h>
@@ -13,21 +14,21 @@ namespace system_5
 {
 
 
-   interprocess_handler::interprocess_handler()
+   interprocess_target::interprocess_target()
    {
 
-      m_preceiver = nullptr;
+      //m_preceiver = nullptr;
 
    }
 
 
-   interprocess_handler::~interprocess_handler()
+   interprocess_target::~interprocess_target()
    {
 
    }
 
 
-   void interprocess_handler::create(const ::string &strChannel)
+   void interprocess_target::create(const ::string &strChannel)
    {
 
       if (!file_exists(strChannel))
@@ -69,7 +70,7 @@ namespace system_5
    }
 
 
-   void interprocess_handler::destroy()
+   void interprocess_target::destroy()
    {
 
       i32 iRetry = 23;
@@ -108,7 +109,7 @@ namespace system_5
    }
 
 
-   bool interprocess_handler::start_receiving()
+   bool interprocess_target::start_receiving()
    {
 
       m_bRunning = true;
@@ -145,58 +146,58 @@ namespace system_5
 //      }
 
 
-   void interprocess_handler::on_interprocess_receive(::string &&strMessage)
-   {
-
-      if (m_preceiver != nullptr)
-      {
-
-         m_preceiver->on_interprocess_receive(this, ::move(strMessage));
-
-      }
-
-      // ODOW - on date of writing : return ignored by this windows implementation
-
-      //return nullptr;
-
-   }
-
-
-   void interprocess_handler::on_interprocess_receive(i32 message, ::memory &&memory)
-   {
-
-      if (m_preceiver != nullptr)
-      {
-
-         m_preceiver->on_interprocess_receive(this, message, ::move(memory));
-
-      }
-
-      // ODOW - on date of writing : return ignored by this windows implementation
-
-      //return nullptr;
-
-   }
+//   void interprocess_target::on_interprocess_receive(::string &&strMessage)
+//   {
+//
+//      if (m_preceiver != nullptr)
+//      {
+//
+//         m_preceiver->on_interprocess_receive(this, ::move(strMessage));
+//
+//      }
+//
+//      // ODOW - on date of writing : return ignored by this windows implementation
+//
+//      //return nullptr;
+//
+//   }
 
 
-   void interprocess_handler::on_interprocess_post(i64 a, i64 b)
-   {
+//   void interprocess_target::on_interprocess_receive(i32 message, ::memory &&memory)
+//   {
+//
+//      if (m_preceiver != nullptr)
+//      {
+//
+//         m_preceiver->on_interprocess_receive(this, message, ::move(memory));
+//
+//      }
+//
+//      // ODOW - on date of writing : return ignored by this windows implementation
+//
+//      //return nullptr;
+//
+//   }
+//
+//
+//   void interprocess_target::on_interprocess_post(i64 a, i64 b)
+//   {
+//
+//      if (m_preceiver != nullptr)
+//      {
+//
+//         m_preceiver->on_interprocess_post(this, a, b);
+//
+//      }
+//
+//      // ODOW - on date of writing : return ignored by this windows implementation
+//
+//      //return nullptr;
+//
+//   }
 
-      if (m_preceiver != nullptr)
-      {
 
-         m_preceiver->on_interprocess_post(this, a, b);
-
-      }
-
-      // ODOW - on date of writing : return ignored by this windows implementation
-
-      //return nullptr;
-
-   }
-
-
-   bool interprocess_handler::on_idle()
+   bool interprocess_target::on_idle()
    {
 
       return false;
@@ -204,7 +205,7 @@ namespace system_5
    }
 
 
-   bool interprocess_handler::is_rx_ok()
+   bool interprocess_target::is_target_ok()
    {
 
       return m_iQueue != -1;
@@ -212,7 +213,7 @@ namespace system_5
    }
 
 
-   void *interprocess_handler::receive()
+   void *interprocess_target::receive()
    {
 
       memory mem;
@@ -262,19 +263,21 @@ namespace system_5
 
             //
 
-            if (lRequest == 1024)
-            {
+            _handle_uri(mem);
 
-               dispatch_message(::move(__string(mem)));
-
-            } else
-            {
-
-               ::memory memoryCopy(mem);
-               //on_interprocess_receive(lRequest, ::move(m2));
-               dispatch_message(lRequest, ::move(memoryCopy));
-
-            }
+//            if (lRequest == 1024)
+//            {
+//
+//               dispatch_message(::move(__string(mem)));
+//
+//            } else
+//            {
+//
+//               ::memory memoryCopy(mem);
+//               //on_interprocess_receive(lRequest, ::move(m2));
+//               dispatch_message(lRequest, ::move(memoryCopy));
+//
+//            }
 
             //});
          }

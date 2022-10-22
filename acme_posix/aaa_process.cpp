@@ -470,12 +470,12 @@ namespace acme
       //      }
 
 
-      id_array node::module_path_get_pid(const ::string & psz, bool bModuleNameIsPropertyFormatted)
+      atom_array node::module_path_get_pid(const ::string & psz, bool bModuleNameIsPropertyFormatted)
       {
 
          ::output_debug_string("os/linux_process.cpp app_get_pid (" + string(psz) + ")");
 
-         id_array ia;
+         atom_array ia;
 
          ::file::listing listing;
 
