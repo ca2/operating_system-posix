@@ -3,6 +3,7 @@
 //
 #include "framework.h"
 #include "file_context.h"
+#include "acme/primitive/primitive/payload.h"
 #include <sys/stat.h>
 
 #if defined(FREEBSD) || defined(__APPLE__)

@@ -317,7 +317,7 @@ namespace node_gtk
 
       bool bOk = false;
 
-      auto pnode = m_psystem->m_pnode;
+      auto pnode = acmesystem()->m_pnode;
 
       auto edesktop = pnode->get_edesktop();
 

@@ -69,7 +69,7 @@
 //
 //      int iScreen = DefaultScreen(pdisplay);
 //
-//      auto papp = m_psystem->m_pacmeapplicationMain ? m_psystem->m_pacmeapplicationMain : m_psystem->m_pacmeapplicationStartup;
+//      auto papp = m_pcontext->m_pacmeapplicationMain ? m_pcontext->m_pacmeapplicationMain : m_pcontext->m_pacmeapplicationStartup;
 //
 //      string strAppName = papp->m_strAppId;
 //

@@ -1,6 +1,9 @@
 ﻿// Created on 2021-04-29 1:03 PM BRT <3TBS_!! Second celebration of Mummis Birthday 70!!
 #include "framework.h"
 #include "exception_translator.h"
+#include "acme/exception/standard.h"
+#include "acme/platform/sequencer.h"
+#include "acme/user/user/conversation.h"
 
 
 namespace acme_posix
@@ -22,10 +25,10 @@ namespace acme_posix
    }
 
 
-   void exception_translator::initialize(::object *pobject)
+   void exception_translator::initialize(::particle * pparticle)
    {
       
-      ::exception_translator::initialize(pobject);
+      ::exception_translator::initialize(pparticle);
       
    }
 

@@ -22,6 +22,7 @@
 #include <signal.h>
 
 
+#include "acme/exception/translator.h"
 
 
 namespace acme_posix
@@ -63,7 +64,7 @@ struct sig_companion
       exception_translator();
       ~exception_translator() override;
       
-      void initialize(::object * pobject) override;
+      void initialize(::particle * pparticle) override;
 
       
       static void sigsegv_handler(i32 signal, siginfo_t* psiginfo, void* pc);

@@ -29,7 +29,7 @@ namespace node_gnome
 
       void start_node() override;
 
-      void initialize(::object * pobject) override;
+      void initialize(::particle * pparticle) override;
 
       bool should_launch_on_node(::topic * ptopic) override;
 

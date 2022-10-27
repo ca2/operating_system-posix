@@ -45,11 +45,11 @@ namespace aura_posix
       ~node() override;
 
 
-      void initialize(::object * pobject) override;
+      void initialize(::particle * pparticle) override;
 
 
 
-      //void on_initialize_object() override;
+      //void on_initialize_particle() override;
       //::string system_options_html() override;
       //void set_application_menu(application_menu * pmenu, ::apex::application * papp) override;
       //void call_async(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid = nullptr) override;

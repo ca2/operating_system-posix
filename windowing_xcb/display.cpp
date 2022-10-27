@@ -354,7 +354,7 @@ namespace windowing_xcb
    xcb_cursor_t display::_create_font_cursor(uint16_t glyph)
    {
 
-      synchronous_lock synchronouslock(mutex());
+      synchronous_lock synchronouslock(this->synchronization());
 
       xcb_cursor_t & cursor = m_mapGlyphCursor[glyph];
 
@@ -998,7 +998,7 @@ namespace windowing_xcb
 
       bool bIsOrigin = false;
 
-      auto psystem = m_psystem;
+      auto psystem = acmesystem();
 
       auto pnode = psystem->node();
 

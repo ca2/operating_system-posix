@@ -14,8 +14,8 @@
 #include <QtGui/QDesktopServices>
 
 
-void initialize_x11_display(::object * pobject, void * pX11Display);
-void * initialize_x11_display(::object * pobject);
+void initialize_x11_display(::particle * pparticle, void * pX11Display);
+void * initialize_x11_display(::particle * pparticle);
 
 void kde_open_local_file(QApplication * papplication, const char *psz, const char * pszMimeType);
 
@@ -106,7 +106,7 @@ namespace node_kde
    }
 
 
-   bool node::eventFilter(QObject * pobject, QEvent * pevent)
+   bool node::eventFilter(QObject * pparticle, QEvent * pevent)
    {
 
       if(pevent->type() == QEvent::ApplicationPaletteChange)
@@ -184,7 +184,7 @@ namespace node_kde
 
       //auto estatus =
       //
-      m_psystem->m_papexsystem->branch_synchronously();
+      acmesystem()->m_papexsystem->branch_synchronously();
 
       /// memory_new:platform_create_system:decrement_reference_count
       /// begin_synch starts memory_new thread
@@ -193,7 +193,7 @@ namespace node_kde
       /// now it is safe to release the platform_create_system
       /// creation reference.
 
-      m_psystem->decrement_reference_count();
+      acmesystem()->decrement_reference_count();
 
 //      if (!estatus)
 //      {
@@ -224,7 +224,7 @@ namespace node_kde
 
       //auto idle_source = g_idle_source_new();
 
-      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) m_psystem, nullptr);
+      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) acmesystem(), nullptr);
 
       //g_source_attach(idle_source, g_main_context_default());
 
@@ -236,12 +236,12 @@ namespace node_kde
 
       {
 
-         ///auto psystem = m_psystem;
+         ///auto psystem = acmesystem();
 
          //auto pnode = psystem->node();
 
          //pnode->node_init_check(&m_argc, &m_argv);
-         node_init_check(&m_psystem->m_argc, &m_psystem->m_argv);
+         node_init_check(&acmesystem()->m_argc, &acmesystem()->m_argv);
 
       }
 
@@ -263,7 +263,7 @@ namespace node_kde
 
 
 //
-//      auto psystem = m_psystem;
+//      auto psystem = acmesystem();
 //
 //      auto pnode = psystem->node();
 //
@@ -271,7 +271,7 @@ namespace node_kde
 //
 //      return ::success;
 
-//      auto psystem = m_psystem->m_papexsystem;
+//      auto psystem = acmesystem()->m_papexsystem;
 //
 //      if (psystem->m_bGtkApp)
 //      {
@@ -287,7 +287,7 @@ namespace node_kde
          ////
          ////      //auto idle_source = g_idle_source_new();
          ////
-         ////      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) m_psystem, nullptr);
+         ////      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) acmesystem(), nullptr);
          ////
          ////      //g_source_attach(idle_source, g_main_context_default());
          ////
@@ -345,7 +345,7 @@ namespace node_kde
 //
 //                      //x11_add_idle_source(this);
 //
-//                      auto psystem = m_psystem->m_papexsystem;
+//                      auto psystem = acmesystem()->m_papexsystem;
 //
 //                      psystem->post_initial_request();
 //
@@ -366,7 +366,7 @@ namespace node_kde
 
          //x11_add_idle_source(this);
 
-         auto psystem = m_psystem->m_papexsystem;
+         auto psystem = acmesystem()->m_papexsystem;
 
          psystem->post_initial_request();
 
@@ -381,10 +381,10 @@ namespace node_kde
    }
 
 
-   void node::initialize(::object *pobject)
+   void node::initialize(::particle * pparticle)
    {
 
-      auto psystem = pobject->m_psystem;
+      auto psystem = pparticle->acmesystem();
 
       m_pqapplication = memory_new QApplication(psystem->m_argc, psystem->m_argv);
 
@@ -403,7 +403,7 @@ namespace node_kde
 
       //auto estatus =
       //
-      ::aura_posix::node::initialize(pobject);
+      ::aura_posix::node::initialize(pparticle);
 
 //      if(!estatus)
 //      {
@@ -484,7 +484,7 @@ namespace node_kde
 //
 //      // indirect wall-changer sourceforge.net contribution
 //
-//      auto psystem = m_psystem->m_paurasystem;
+//      auto psystem = acmesystem()->m_paurasystem;
 //
 //      auto edesktop = psystem->get_edesktop();
 //
@@ -570,7 +570,7 @@ namespace node_kde
       return false;
       // wall-changer sourceforge.net contribution
 
-//      auto psystem = m_psystem->m_paurasystem;
+//      auto psystem = acmesystem()->m_paurasystem;
 //
 //      auto pnode = psystem->node();
 //
@@ -625,7 +625,7 @@ namespace node_kde
    {
 
 //
-//      auto psystem = m_psystem->m_paurasystem;
+//      auto psystem = acmesystem()->m_paurasystem;
 //
 //      auto pnode = psystem->node();
 //
@@ -923,7 +923,7 @@ namespace node_kde
 
       ::file::path pathDesktop;
 
-      pathDesktop = m_psystem->m_pacmedirectory->home() / ".local/share/applications" / (strDesktopFileTitle + ".desktop");
+      pathDesktop = acmedirectory()->home() / ".local/share/applications" / (strDesktopFileTitle + ".desktop");
 
       kde_open_local_file(m_pqapplication, pathDesktop, "application/x-desktop");
 

@@ -428,7 +428,7 @@ Opened:
 
          m_iBuffer--;
 
-         auto psystem = m_psystem->m_paquasystem;
+         auto psystem = acmesystem()->m_paquasystem;
 
          auto paudio = psystem->audio()->m_paudio;
 

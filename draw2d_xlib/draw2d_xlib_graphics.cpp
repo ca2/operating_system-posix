@@ -10,13 +10,13 @@ namespace draw2d_xlib
 {
 
 
-   graphics::graphics(::object * pobject) :
-      ::object(pobject),
-      ::draw2d::graphics(pobject)
-      //,     m_ui(pobject)
+   graphics::graphics(::particle * pparticle) :
+      ::object(pparticle),
+      ::draw2d::graphics(pparticle)
+      //,     m_ui(pparticle)
    {
 
-      mutex()                = memory_new ::mutex(pobject);
+      mutex()                = memory_new ::pointer < ::mutex >(pparticle);
 
       m_bPrinting       = false;
       m_pimageAlphaBlend  = nullptr;
@@ -3164,7 +3164,7 @@ namespace draw2d_xlib
    /////////////////////////////////////////////////////////////////////////////
    // special graphics drawing primitives/helpers
 
-   ::draw2d::brush* PASCAL graphics::GetHalftoneBrush(::object * pobject)
+   ::draw2d::brush* PASCAL graphics::GetHalftoneBrush(::particle * pparticle)
    {
       /*      ::aura::LockGlobals(CRIT_HALFTONEBRUSH);
             if (gen_HalftoneBrush == nullptr)
@@ -3499,7 +3499,7 @@ namespace draw2d_xlib
 
    }
 
-//   object* PASCAL graphics::SelectGdiObject(::object * pobject, HDC hDC, HGDIOBJ h)
+//   object* PASCAL graphics::SelectGdiObject(::particle * pparticle, HDC hDC, HGDIOBJ h)
    // {
 //      return ::win::object::from_handle(papp, ::SelectObject(hDC, h));
    //}

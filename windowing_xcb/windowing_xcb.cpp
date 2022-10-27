@@ -140,9 +140,9 @@ CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const po
 
 
 // Tutor Exilius Q(t)List streaming contribution
-//::mutex * g_pmutexXcbRunnable = nullptr;
+//::pointer< ::mutex > g_pmutexXcbRunnable = nullptr;
 //list < ::pointer<::matter >>* g_prunnableptrlXcb = nullptr;
-//::mutex * g_pmutexXcbSync = nullptr;
+//::pointer< ::mutex > g_pmutexXcbSync = nullptr;
 //manual_reset_event * g_peventXcbSync = nullptr;
 //::pointer<::matter>g_prunnableXcbSync;
 xcb_window_t g_windowXcbClient = 0;
@@ -152,9 +152,9 @@ xcb_window_t g_windowXcbClient = 0;
 int_bool _xcb_get_cursor_pos(xcb_connection_t * d, POINT_I32 * ppointCursor);
 
 
-//extern ::mutex *g_pmutexXcbRunnable;
+//extern ::pointer< ::mutex >g_pmutexXcbRunnable;
 //extern list<::pointer<::matter >>*g_prunnableptrlXcb;
-//extern ::mutex *g_pmutexXcbSync;
+//extern ::pointer< ::mutex >g_pmutexXcbSync;
 //extern manual_reset_event *g_peventXcbSync;
 //extern ::pointer<::matter>g_prunnableXcbSync;
 
@@ -722,21 +722,21 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    bool windowing::initialize_windowing()
    {
 
-      //g_pmutexXcbRunnable = memory_new ::mutex();
+      //g_pmutexXcbRunnable = memory_new ::pointer < ::mutex >();
 
       //g_prunnableptrlXcb = memory_new list<::pointer<::matter >>);
 
-//      g_pmutexXcbSync = memory_new ::mutex();
+//      g_pmutexXcbSync = memory_new ::pointer < ::mutex >();
 
 //      g_peventXcbSync = memory_new manual_reset_event();
 
       //oswindow_data::s_pdataptra = memory_new oswindow_dataptra;
 
-      //oswindow_data::s_pmutex = memory_new ::mutex;
+      //oswindow_data::s_pmutex = memory_new ::pointer < ::mutex >;
 
       //osdisplay_data::s_pdataptra = memory_new osdisplay_dataptra;
 
-      //osdisplay_data::s_pmutex = memory_new ::mutex;
+      //osdisplay_data::s_pmutex = memory_new ::pointer < ::mutex >;
 
       return true;
 
@@ -1407,7 +1407,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //::e_status initialize_xcb();
 //
 //
-//::mutex * g_pmutexXcb = nullptr;
+//::pointer< ::mutex > g_pmutexXcb = nullptr;
 //
 //
 //::e_status g_estatusInitializeXcb = error_not_initialized;

@@ -44,7 +44,7 @@ namespace node_gtk
 
       void start_node() override;
 
-      void initialize(::object * pobject) override;
+      void initialize(::particle * pparticle) override;
 
       void fetch_user_color() override;
 

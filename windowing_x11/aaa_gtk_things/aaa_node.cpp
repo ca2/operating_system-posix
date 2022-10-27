@@ -127,7 +127,7 @@ namespace node_gnome
       ////
       ////      //auto idle_source = g_idle_source_new();
       ////
-      ////      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) m_psystem, nullptr);
+      ////      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) acmesystem(), nullptr);
       ////
       ////      //g_source_attach(idle_source, g_main_context_default());
       ////

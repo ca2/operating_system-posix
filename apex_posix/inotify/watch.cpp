@@ -1,7 +1,8 @@
 #include "framework.h"
 #include "watch.h"
 #include "watcher.h"
-
+#include "acme/parallelization/synchronous_lock.h"
+#include "apex/filesystem/file/action.h"
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <sys/inotify.h>
@@ -56,7 +57,7 @@ namespace inotify
       }
 
 
-      synchronous_lock synchronouslock(mutex());
+      synchronous_lock synchronouslock(this->synchronization());
 
       i32 wd = inotify_add_watch(m_iFd, pathFolder,
                                  IN_MODIFY | IN_CLOSE_WRITE | IN_MOVED_TO | IN_CREATE | IN_MOVED_FROM | IN_DELETE);
@@ -91,7 +92,7 @@ namespace inotify
 //
 //         listing.set_folder_listing(pathFolder, ::e_depth_recursively);
 //
-//         m_psystem->m_pacmedirectory->enumerate(listing);
+//         acmedirectory()->enumerate(listing);
 //
 //         for(index index = 0; index < listing.get_count(); index++)
 //         {

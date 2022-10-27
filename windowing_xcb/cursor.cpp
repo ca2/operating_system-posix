@@ -64,7 +64,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::x11_GetWindowRect 1");
 
-      auto psystem = m_psystem;
+      auto psystem = acmesystem();
 
       auto psession = psystem->get_session()->m_paurasession;
 

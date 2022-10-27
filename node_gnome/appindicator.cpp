@@ -267,7 +267,7 @@ namespace node_gnome
 
       auto pindicator = m_pindicator;
 
-      m_psystem->windowing_post([pindicator]()
+      acmesystem()->windowing_post([pindicator]()
                {
 
                   app_indicator_set_status(pindicator, APP_INDICATOR_STATUS_PASSIVE);

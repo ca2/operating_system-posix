@@ -1,7 +1,10 @@
 #include "framework.h"
-#include "acme/operating_system/ansi/_ansi.h"
 #include "acme_file.h"
 #include "node.h"
+#include "acme/operating_system/ansi/_ansi.h"
+#include "acme/platform/system.h"
+#include "acme/primitive/collection/string_array.h"
+
 
 /*
  * Copyright (c) 2014 Craig Lilley <cralilley@gmail.com>
@@ -34,12 +37,12 @@ namespace acme_posix
 
    static string realpath(const string & path);
 
-   static string usb_sysfs_friendly_name(::matter * pmatter, const string & sys_usb_path);
+   static string usb_sysfs_friendly_name(::particle * pparticle, const string & sys_usb_path);
 
-   static string_array get_sysfs_info(::matter * pmatter, const string & device_path);
+   static string_array get_sysfs_info(::particle * pparticle, const string & device_path);
 
 //static string read_line(const string& file);
-   static string usb_sysfs_hw_string(::matter * pmatter, const string & sysfs_path);
+   static string usb_sysfs_hw_string(::particle * pparticle, const string & sysfs_path);
 
    static string format(const char * format, ...);
 
@@ -152,12 +155,12 @@ namespace acme_posix
    }
 
 
-   string usb_sysfs_friendly_name(::matter * pmatter, const string & sys_usb_path)
+   string usb_sysfs_friendly_name(::particle * pparticle, const string & sys_usb_path)
    {
 
       unsigned int device_number = 0;
 
-      auto psystem = pmatter->m_psystem;
+      auto psystem = pparticle->acmesystem();
 
       auto pacmefile = psystem->m_pacmefile;
 
@@ -181,7 +184,7 @@ namespace acme_posix
    }
 
 
-   string_array get_sysfs_info(matter * pmatter, const string & device_path)
+   string_array get_sysfs_info(particle * pparticle, const string & device_path)
    {
 
       string device_name = basename(device_path);
@@ -200,9 +203,9 @@ namespace acme_posix
          if (path_exists(sys_device_path))
          {
 
-            friendly_name = usb_sysfs_friendly_name(pmatter, sys_device_path);
+            friendly_name = usb_sysfs_friendly_name(pparticle, sys_device_path);
 
-            hardware_id = usb_sysfs_hw_string(pmatter, sys_device_path);
+            hardware_id = usb_sysfs_hw_string(pparticle, sys_device_path);
 
          }
 
@@ -213,9 +216,9 @@ namespace acme_posix
 
          if (path_exists(sys_device_path))
          {
-            friendly_name = usb_sysfs_friendly_name(pmatter, sys_device_path);
+            friendly_name = usb_sysfs_friendly_name(pparticle, sys_device_path);
 
-            hardware_id = usb_sysfs_hw_string(pmatter, sys_device_path);
+            hardware_id = usb_sysfs_hw_string(pparticle, sys_device_path);
          }
 
       } else
@@ -224,7 +227,7 @@ namespace acme_posix
 
          string sys_id_path = sys_device_path + string("/atom");
 
-         auto psystem = pmatter->m_psystem;
+         auto psystem = pparticle->acmesystem();
 
          auto pacmefile = psystem->m_pacmefile;
 
@@ -347,10 +350,10 @@ namespace acme_posix
    }
 
 
-   string usb_sysfs_hw_string(::matter * pmatter, const string & sysfs_path)
+   string usb_sysfs_hw_string(::particle * pparticle, const string & sysfs_path)
    {
 
-      auto psystem = pmatter->m_psystem;
+      auto psystem = pparticle->acmesystem();
 
       auto pacmefile = psystem->m_pacmefile;
 

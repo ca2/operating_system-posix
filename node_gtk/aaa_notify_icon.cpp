@@ -108,7 +108,7 @@ namespace node_gtk
 
          pathFolder = path.folder();
 
-         auto psystem = m_psystem;
+         auto psystem = acmesystem();
 
          auto pnode = psystem->node();
 

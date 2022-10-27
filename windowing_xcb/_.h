@@ -38,6 +38,6 @@ namespace windowing_xcb
 
 
 
-extern ::mutex * user_mutex();
+extern ::pointer< ::mutex > user_mutex();
 
 

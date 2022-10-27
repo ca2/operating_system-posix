@@ -36,7 +36,7 @@ void gtk_settings_gtk_theme_name_callback(GObject* object, GParamSpec* pspec, gp
 
    }
 
-   pnode->m_psystem->m_papexsystem->process_subject(id_os_user_theme);
+   pnode->acmesystem()->m_papexsystem->process_subject(id_os_user_theme);
 
 }
 
@@ -122,7 +122,7 @@ namespace node_xfce
    void node::defer_notify_startup_complete()
    {
 
-      auto psystem = m_psystem->m_papexsystem;
+      auto psystem = acmesystem()->m_papexsystem;
 
       string strApplicationServerName = psystem->get_application_server_name();
 
@@ -136,7 +136,7 @@ namespace node_xfce
    ::e_status node::system_main()
    {
 
-      auto estatus = m_psystem->m_papexsystem->begin_synch();
+      auto estatus = acmesystem()->m_papexsystem->begin_synch();
 
       if (!estatus)
       {
@@ -166,7 +166,7 @@ namespace node_xfce
 
       //auto idle_source = g_idle_source_new();
 
-      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) m_psystem, nullptr);
+      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) acmesystem(), nullptr);
 
       //g_source_attach(idle_source, g_main_context_default());
 
@@ -178,12 +178,12 @@ namespace node_xfce
 
       {
 
-         ///auto psystem = m_psystem;
+         ///auto psystem = acmesystem();
 
          //auto pnode = psystem->node();
 
          //pnode->node_init_check(&m_argc, &m_argv);
-         node_init_check(&m_psystem->m_argc, &m_psystem->m_argv);
+         node_init_check(&acmesystem()->m_argc, &acmesystem()->m_argv);
 
       }
 
@@ -205,7 +205,7 @@ namespace node_xfce
 
 
 //
-//      auto psystem = m_psystem;
+//      auto psystem = acmesystem();
 //
 //      auto pnode = psystem->node();
 //
@@ -213,7 +213,7 @@ namespace node_xfce
 //
 //      return ::success;
 
-      auto psystem = m_psystem->m_papexsystem;
+      auto psystem = acmesystem()->m_papexsystem;
 
       if (psystem->m_bGtkApp)
       {
@@ -230,7 +230,7 @@ namespace node_xfce
       ////
       ////      //auto idle_source = g_idle_source_new();
       ////
-      ////      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) m_psystem, nullptr);
+      ////      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) acmesystem(), nullptr);
       ////
       ////      //g_source_attach(idle_source, g_main_context_default());
       ////
@@ -288,7 +288,7 @@ namespace node_xfce
 
             x11_add_idle_source(this);
 
-            auto psystem = m_psystem->m_papexsystem;
+            auto psystem = acmesystem()->m_papexsystem;
 
             psystem->post_initial_request();
 
@@ -333,7 +333,7 @@ namespace node_xfce
    }
 
 
-   ::e_status node::initialize(::object *pobject)
+   ::e_status node::initialize(::particle * pparticle)
    {
 
       //::node_xfce::g_defer_init();
@@ -416,7 +416,7 @@ namespace node_xfce
 //
 //      // indirect wall-changer sourceforge.net contribution
 //
-//      auto psystem = m_psystem->m_papexsystem;
+//      auto psystem = acmesystem()->m_papexsystem;
 //
 //      auto pnode = psystem->node();
 //
@@ -501,7 +501,7 @@ namespace node_xfce
 
       // wall-changer sourceforge.net contribution
 
-//      auto psystem = m_psystem->m_papexsystem;
+//      auto psystem = acmesystem()->m_papexsystem;
 //
 //      auto pnode = psystem->node();
 //
@@ -555,7 +555,7 @@ namespace node_xfce
 
       node_gtk::node::enable_wallpaper_change_notification();
 
-//      auto psystem = m_psystem->m_papexsystem;
+//      auto psystem = acmesystem()->m_papexsystem;
 //
 //      auto pnode = psystem->node();
 //

@@ -670,7 +670,7 @@ namespace multimedia
 
          synchronous_lock sl(mutex());
 
-         synchronous_lock synchronouslockBuffer(pbuffer ? pbuffer->mutex() : nullptr);
+         synchronous_lock synchronouslockBuffer(pbuffer ? pbuffer->synchronization() : nullptr);
 
          int iZero = 0;
 

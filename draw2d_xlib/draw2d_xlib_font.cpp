@@ -12,8 +12,8 @@ namespace draw2d_xlib
 {
 
 
-   font::font(::object * pobject) :
-   ::object(pobject)
+   font::font(::particle * pparticle) :
+   ::object(pparticle)
    {
 
       m_pdisplay = nullptr;

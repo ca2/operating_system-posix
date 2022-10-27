@@ -38,7 +38,7 @@ namespace draw2d_xlib
       return 0;
    }
 
-   object * graphics_object_allocator(::object * pobject, HANDLE h)
+   object * graphics_object_allocator(::particle * pparticle, HANDLE h)
    {
       return nullptr;
    }

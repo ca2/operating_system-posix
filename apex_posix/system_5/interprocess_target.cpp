@@ -34,7 +34,7 @@ namespace system_5
       if (!file_exists(strChannel))
       {
 
-         m_psystem->m_pacmefile->put_contents(strChannel, strChannel);
+         acmefile()->put_contents(strChannel, strChannel);
 
       }
 

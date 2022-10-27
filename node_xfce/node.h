@@ -33,7 +33,7 @@ namespace node_xfce
 
       virtual ::e_status start_node() override;
 
-      virtual ::e_status initialize(::object * pobject) override;
+      virtual ::e_status initialize(::particle * pparticle) override;
 
       virtual void os_calc_user_dark_mode() override;
 

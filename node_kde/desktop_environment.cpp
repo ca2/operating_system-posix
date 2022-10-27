@@ -17,7 +17,7 @@
 #include <X11/Xlib-xcb.h>
 
 
-::mutex * user_mutex();
+::pointer< ::mutex > user_mutex();
 
 
 namespace node_kde
@@ -162,7 +162,7 @@ namespace node_kde
    void desktop_environment::windowing_post(const ::procedure & procedure)
    {
 
-      auto psystem = m_psystem->m_paurasystem;
+      auto psystem = acmesystem()->m_paurasystem;
 
       auto pnode = psystem->node()->cast < node >();
 
@@ -187,7 +187,7 @@ namespace node_kde
    bool desktop_environment::message_loop_step()
    {
 
-      auto psystem = m_psystem->m_paurasystem;
+      auto psystem = acmesystem()->m_paurasystem;
 
       auto psession = psystem->session()->m_paurasession;
 

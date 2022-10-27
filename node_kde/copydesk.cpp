@@ -29,12 +29,12 @@ namespace node_kde
    }
 
 
-   void copydesk::initialize(::object * pobject)
+   void copydesk::initialize(::particle * pparticle)
    {
 
       //auto estatus =
       //
-      ::user::copydesk::initialize(pobject);
+      ::user::copydesk::initialize(pparticle);
 
 //      if(!estatus)
 //      {
@@ -70,7 +70,7 @@ namespace node_kde
    bool copydesk::_set_plain_text(const string & str)
    {
 
-      auto psystem = m_psystem->m_paurasystem;
+      auto psystem = acmesystem()->m_paurasystem;
 
       auto pnode = psystem->node();
 
@@ -124,7 +124,7 @@ namespace node_kde
 
       ppayload->m_payload = false;
 
-      auto psystem = m_psystem->m_paurasystem;
+      auto psystem = acmesystem()->m_paurasystem;
 
       auto pnode = psystem->node();
 
@@ -247,7 +247,7 @@ return false;
       pwindowing->windowing_send([this, pimage, &bOk]()
                 {
 
-                   auto psystem = m_psystem;
+                   auto psystem = acmesystem();
 
                    auto pnode = psystem->node()->m_pNodeKDE;
 
@@ -308,7 +308,7 @@ return false;
    bool copydesk::_has_image()
    {
 
-      auto psystem = m_psystem;
+      auto psystem = acmesystem();
 
       auto pnode = psystem->node()->m_pNodeKDE;
 

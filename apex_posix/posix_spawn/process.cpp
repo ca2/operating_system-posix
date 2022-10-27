@@ -1,6 +1,7 @@
 #include "framework.h"
 #include "acme_posix/pipe.h"
-//#include "apex/platform/static_start.h"
+#include "acme/primitive/collection/string_map.h"
+#include "acme/primitive/collection/string_array.h"
 #include "process.h"
 
 

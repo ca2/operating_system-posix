@@ -125,7 +125,7 @@ namespace acme
 
          argv.add(nullptr);
          
-         auto envp = m_psystem->m_envp;
+         auto envp = acmesystem()->m_envp;
 
          pid_t pid = 0;
 
@@ -198,7 +198,7 @@ namespace acme
 
          int status;
          
-         auto envp = m_psystem->m_envp;
+         auto envp = acmesystem()->m_envp;
 
          status = posix_spawn(&pid, argv[0], nullptr, nullptr, argv, envp);
 
@@ -481,7 +481,7 @@ namespace acme
 
          listing.set_folder_listing("/proc");
 
-         m_psystem->m_pacmedirectory->enumerate(listing);
+         acmedirectory()->enumerate(listing);
 
          string str(psz);
 
@@ -566,7 +566,7 @@ namespace acme
 
          str = "/proc/" + __string(iPid) + "/cmdline";
 
-         memory mem = m_psystem->m_pacmefile->as_memory(str);
+         memory mem = acmefile()->as_memory(str);
 
          string strArg;
 

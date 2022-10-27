@@ -5,7 +5,7 @@
 #include "acme/operating_system/ansi/pmutex_lock.h"
 
 
-::mutex * user_mutex();
+::pointer< ::mutex > user_mutex();
 
 
 namespace node_gtk
@@ -192,7 +192,7 @@ namespace node_gtk
 
       ::node_gtk::node * pnode = (::node_gtk::node *) pdata;
 
-      pnode->m_psystem->m_papexsystem->signal(id_wallpaper_change);
+      pnode->acmesystem()->m_papexsystem->signal(id_wallpaper_change);
 
    }
 
@@ -480,7 +480,7 @@ namespace node_gtk
    void gdk_branch(const ::procedure & procedure)
    {
 
-      ::element * pelement = procedure.m_p;
+      ::particle * pparticle = procedure.m_p;
 
       ::increment_reference_count(pelement);
 

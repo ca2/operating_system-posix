@@ -4,6 +4,8 @@
 #include "framework.h"
 #include "acme_directory.h"
 #include "acme_file.h"
+#include "acme/exception/exception.h"
+#include "acme/filesystem/filesystem/listing.h"
 #include "acme/operating_system.h"
 
 

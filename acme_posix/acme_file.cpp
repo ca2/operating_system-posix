@@ -4,8 +4,11 @@
 #include "framework.h"
 #include "acme_file.h"
 #include "acme_directory.h"
+#include "acme/exception/exception.h"
 #include "acme/operating_system/ansi/int_handle.h"
+#include "acme/platform/system.h"
 #include "acme/primitive/primitive/memory.h"
+#include "acme/primitive/datetime/earth_time.h"
 #include <sys/stat.h>
 //Copy file using mmap()
 #include <sys/mman.h>
@@ -223,13 +226,7 @@ namespace acme_posix
    void acme_file::put_contents(const char * path, const char * contents, ::count len)
    {
 
-      //bool bOk = false;
-
-      auto psystem = m_psystem;
-
-      auto pacmedirectory = psystem->m_pacmedirectory;
-
-      pacmedirectory->create(::file_path_folder(path));
+      acmedirectory()->create(::file_path_folder(path));
 
       wstring wstr(path);
 
@@ -274,7 +271,6 @@ namespace acme_posix
             throw ::exception(error_io);
 
          }
-
 
       }
 

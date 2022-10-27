@@ -43,7 +43,7 @@ namespace windowing_xcb
       ~windowing() override;
 
 
-      void initialize(::object * pobject) override;
+      void initialize(::particle * pparticle) override;
 
 
       virtual bool initialize_windowing();

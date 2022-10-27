@@ -11,7 +11,7 @@
 #include "display.h"
 
 
-CLASS_DECL_ACME ::mutex * user_mutex();
+CLASS_DECL_ACME ::pointer< ::mutex > user_mutex();
 
 
 namespace windowing_x11
@@ -164,7 +164,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::x11_GetWindowRect 1");
 
-      auto psystem = m_psystem;
+      auto psystem = acmesystem();
 
       auto psession = psystem->get_session()->m_paurasession;
 

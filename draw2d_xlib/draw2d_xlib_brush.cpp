@@ -5,8 +5,8 @@ namespace draw2d_xlib
 {
 
 
-   brush::brush(::object * pobject) :
-      ::object(pobject)
+   brush::brush(::particle * pparticle) :
+      ::object(pparticle)
    {
 
 

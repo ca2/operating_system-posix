@@ -76,7 +76,7 @@ namespace node_gnome
    void node::defer_notify_startup_complete()
    {
 
-      auto psystem = m_psystem->m_papexsystem;
+      auto psystem = acmesystem()->m_papexsystem;
 
       string strApplicationServerName = psystem->get_application_server_name();
 
@@ -100,7 +100,7 @@ namespace node_gnome
    }
 
 
-   void node::initialize(::object *pobject)
+   void node::initialize(::particle * pparticle)
    {
 
 //      ::node_gnome::g_defer_init();

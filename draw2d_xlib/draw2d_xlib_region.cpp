@@ -5,8 +5,8 @@ namespace draw2d_xlib
 {
 
 
-   region::region(::object * pobject) :
-      ::object(pobject)
+   region::region(::particle * pparticle) :
+      ::object(pparticle)
    {
 
    }
@@ -23,7 +23,7 @@ namespace draw2d_xlib
       {
          return (HRGN)(this == nullptr ? nullptr : get_os_data());
       }
-      region* PASCAL region::from_handle(::object * pobject, HRGN hRgn)
+      region* PASCAL region::from_handle(::particle * pparticle, HRGN hRgn)
       {
          return dynamic_cast < region * > (::win::object::from_handle(papp, hRgn));
       }

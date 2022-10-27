@@ -23,7 +23,7 @@ namespace windowing_x11
    windowing::windowing()
    {
 
-      defer_create_mutex();
+      defer_create_synchronization();
 
       m_bRootSelectInput = false;
 
@@ -93,12 +93,12 @@ namespace windowing_x11
    }
 
 
-   void windowing::initialize(::object *pobject)
+   void windowing::initialize(::particle * pparticle)
    {
 
       //auto estatus =
       //
-      ::windowing::windowing::initialize(pobject);
+      ::windowing::windowing::initialize(pparticle);
 
 //      if(!estatus)
 //      {
@@ -177,7 +177,7 @@ _libsn_start_context();
 //   void windowing::start()
 //   {
 //
-//      auto psystem = m_psystem->m_papexsystem;
+//      auto psystem = acmesystem()->m_papexsystem;
 //
 //      if (psystem->m_bUser)
 //      {
@@ -218,7 +218,7 @@ _libsn_start_context();
 
       }
 
-      synchronous_lock synchronouslock(mutex());
+      synchronous_lock synchronouslock(this->synchronization());
 
       m_procedurelist.add_tail(procedure);
 
@@ -249,7 +249,7 @@ _libsn_start_context();
 
       }
 
-      synchronous_lock synchronouslock(mutex());
+      synchronous_lock synchronouslock(this->synchronization());
 
       if(m_procedurelist.is_empty())
       {
@@ -309,7 +309,7 @@ _libsn_start_context();
    ::pointer<::windowing::cursor>windowing::load_default_cursor(enum_cursor ecursor)
    {
 
-      synchronous_lock synchronouslock(mutex());
+      synchronous_lock synchronouslock(this->synchronization());
 
       if (!m_pcursormanager)
       {
@@ -492,7 +492,7 @@ _libsn_start_context();
    void windowing::install_mouse_hook(::matter * pmatter)
    {
 
-      auto psystem = m_psystem->m_paurasystem;
+      auto psystem = acmesystem()->m_paurasystem;
 
       auto psession = psystem->get_session();
 
@@ -512,7 +512,7 @@ _libsn_start_context();
    void windowing::install_keyboard_hook(::matter * pmatter)
    {
 
-      auto psystem = m_psystem->m_paurasystem;
+      auto psystem = acmesystem()->m_paurasystem;
 
       auto psession = psystem->get_session();
 

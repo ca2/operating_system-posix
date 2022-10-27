@@ -2,10 +2,12 @@
 // Created by camilo on 13/02/2021. 22:55 BRT <3TBS_!!
 //
 #include "framework.h"
+#include "file_memory_map.h"
+#include "mutex.h"
 #include "acme_directory.h"
 #include "acme/operating_system/ansi/file_c.h"
 #include "acme/filesystem/filesystem/acme_file.h"
-#include "file_memory_map.h"
+#include "acme/platform/system.h"
 
 
 #include <sys/mman.h>
@@ -49,7 +51,7 @@ namespace acme_posix
       if (m_pdata != (void *)MAP_FAILED)
       {
          
-         auto size = m_psystem->m_pacmefile->get_size_fd(m_iFile);
+         auto size = ::get_system()->m_pacmefile->get_size_fd(m_iFile);
          
          ::munmap(m_pdata, size);
             
@@ -93,7 +95,7 @@ namespace acme_posix
 
       ::file::path path(get_path());
 
-      m_psystem->m_pacmedirectory->create(path.folder());
+      acmedirectory()->create(path.folder());
 
       m_iFile = ::open(path, iOpen, S_IRUSR | S_IWUSR);
 
@@ -106,7 +108,7 @@ namespace acme_posix
 
       }
 
-      m_psystem->m_pacmefile->set_size(m_iFile, m_size);
+      acmefile()->set_size(m_iFile, m_size);
 
       m_pdata = (color32_t *)mmap(nullptr, m_size, (m_bRead ? PROT_READ : 0) | (m_bWrite ? PROT_WRITE : 0), MAP_SHARED, m_iFile, 0);
 
@@ -123,7 +125,7 @@ namespace acme_posix
 
       strMutex = m_strName + "-mutex";
 
-      set_mutex(memory_new ::mutex(m_psystem, false, strMutex));
+      set_synchronization(__new(::acme_posix::mutex(m_pcontext, false, strMutex)));
 
       return true;
 

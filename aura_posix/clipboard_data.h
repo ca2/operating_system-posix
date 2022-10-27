@@ -37,10 +37,10 @@ public:
    int                           m_nTargets;
 
 
-   clipboard_data(::object * pobject, enum_clipboard eclipboard)
+   clipboard_data(::particle * pparticle, enum_clipboard eclipboard)
    {
 
-      initialize(pobject);
+      initialize(pparticle);
 
       m_eclipboard = eclipboard;
 

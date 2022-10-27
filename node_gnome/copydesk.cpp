@@ -42,12 +42,12 @@ namespace node_gnome
    }
 
 
-   void copydesk::initialize(::object * pobject)
+   void copydesk::initialize(::particle * pparticle)
    {
 
       //auto estatus =
       //
-      ::user::copydesk::initialize(pobject);
+      ::user::copydesk::initialize(pparticle);
 
 //      if(!estatus)
 //      {
@@ -76,7 +76,7 @@ namespace node_gnome
    bool copydesk::_set_plain_text(const string & str)
    {
 
-      auto psystem = m_psystem->m_paurasystem;
+      auto psystem = acmesystem()->m_paurasystem;
 
       auto pnode = psystem->node();
 
@@ -130,7 +130,7 @@ namespace node_gnome
 
       ppayload->m_payload = false;
 
-      auto psystem = m_psystem->m_paurasystem;
+      auto psystem = acmesystem()->m_paurasystem;
 
       auto pnode = psystem->node();
 
@@ -277,7 +277,7 @@ namespace node_gnome
 
       bool bIsImageAvailable = false;
 
-      auto psystem = m_psystem->m_papexsystem;
+      auto psystem = acmesystem()->m_papexsystem;
 
       auto pnode = psystem->node();
 

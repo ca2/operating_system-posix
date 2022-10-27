@@ -60,7 +60,7 @@ namespace node_gnome
 
       string strAppName = strAppId.Mid(iSlash + 1);
 
-      ::file::path pathFolder = m_psystem->m_pacmedirectory->roaming() / strMatterRoot / "matter/icon/128";
+      ::file::path pathFolder = acmedirectory()->roaming() / strMatterRoot / "matter/icon/128";
 
       ::file::path pathRoamingIcon = pathFolder / (strAppName + ".png");
 
@@ -68,7 +68,7 @@ namespace node_gnome
 
       get_app()->m_papexapplication->file().copy(pathRoamingIcon, "matter://main/icon-128.png");
 
-      auto psystem = m_psystem;
+      auto psystem = acmesystem();
 
       auto pnode = psystem->node();
 

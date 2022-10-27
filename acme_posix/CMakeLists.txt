@@ -44,7 +44,7 @@ endif()
 
 
 
-add_library(${PROJECT_NAME} SHARED ${library_source})
+add_library(${PROJECT_NAME} SHARED ${library_source} mutex.cpp mutex.h)
 
 
 if(POSIX_LIST_SERIAL_PORTS)

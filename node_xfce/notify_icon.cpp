@@ -167,7 +167,7 @@ namespace node_xfce
 
          pathFolder = path.folder();
 
-         auto psystem = m_psystem;
+         auto psystem = acmesystem();
 
          auto pnode = psystem->node();
 

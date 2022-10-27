@@ -1,6 +1,9 @@
 #pragma once
 
 
+#include "acme/operating_system/pipe.h"
+
+
 namespace acme_posix
 {
 

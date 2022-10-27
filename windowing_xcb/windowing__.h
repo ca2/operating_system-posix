@@ -23,7 +23,7 @@ bool __xcb_hook_process_event(xcb_connection_t * pdisplay, XEvent & e, XGenericE
 bool __xcb_hook_list_is_empty();
 
 
-extern ::mutex * user_mutex();
+extern ::pointer< ::mutex > user_mutex();
 
 
 xcb_connection_t * g_pdisplayX11= nullptr;
@@ -190,7 +190,7 @@ void xcb_wait_timer_or_event(xcb_connection_t * pdisplay)
 //
 //   int retval = fcntl(g_fdX11[0], F_SETFL, fcntl(g_fdX11[0], F_GETFL) | O_NONBLOCK);
 //
-//   g_pmutexX11 = memory_new ::mutex();
+//   g_pmutexX11 = memory_new ::pointer < ::mutex >();
 //
 //}
 //

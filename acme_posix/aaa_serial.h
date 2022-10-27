@@ -199,9 +199,9 @@ namespace serial
       enum_flow_control      m_eflowcontrol; // Flow Control
 
       // Mutex used to lock the read functions
-      pthread_mutex_t    m_mutexRead;
+      pthread_mutex_t    m_pmutexRead;
       // Mutex used to lock the write functions
-      pthread_mutex_t    m_mutexWrite;
+      pthread_mutex_t    m_pmutexWrite;
     };
 
 

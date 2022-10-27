@@ -5,8 +5,8 @@ namespace draw2d_xlib
 {
 
 
-   palette::palette(::object * pobject) :
-      ::object(pobject)
+   palette::palette(::particle * pparticle) :
+      ::object(pparticle)
    {
 
    }
@@ -31,7 +31,7 @@ namespace draw2d_xlib
    */
    /*
 
-      palette* PASCAL palette::from_handle(::object * pobject, HPALETTE hPalette)
+      palette* PASCAL palette::from_handle(::particle * pparticle, HPALETTE hPalette)
       {
 
          //return dynamic_cast < palette * > (::win::object::from_handle(papp, hPalette));

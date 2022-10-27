@@ -14,8 +14,8 @@ namespace draw2d_xlib
 
 
 
-   image::image_pointer(::object * pobject) :
-      ::object(pobject),
+   image::image_pointer(::particle * pparticle) :
+      ::object(pparticle),
       m_pbitmap(e_create),
       m_spgraphics(e_create)
    {

@@ -100,7 +100,7 @@ namespace aura_posix
 //         //      ////
 //         //      ////      //auto idle_source = g_idle_source_new();
 //         //      ////
-//         //      ////      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) m_psystem, nullptr);
+//         //      ////      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) acmesystem(), nullptr);
 //         //      ////
 //         //      ////      //g_source_attach(idle_source, g_main_context_default());
 //         //      ////
@@ -181,12 +181,12 @@ namespace aura_posix
 //      }
 
 
-   void node::initialize(::object * pobject)
+   void node::initialize(::particle * pparticle)
    {
 
       //auto estatus =
       //
-      ::apex_posix::node::initialize(pobject);
+      ::apex_posix::node::initialize(pparticle);
 
 //         if (!estatus)
 //         {
@@ -217,12 +217,12 @@ namespace aura_posix
    }
 
    
-   //void node::on_initialize_object()
+   //void node::on_initialize_particle()
    //{
 
-   //   ::aura::node::on_initialize_object();
+   //   ::aura::node::on_initialize_particle();
 
-   //   ::apex::posix::node::on_initialize_object();
+   //   ::apex::posix::node::on_initialize_particle();
 
    //}
 
@@ -528,7 +528,7 @@ namespace aura_posix
 
       ::file::path path;
 
-      auto psystem = m_psystem;
+      auto psystem = acmesystem();
 
       auto pacmedirectory = psystem->m_pacmedirectory;
 
@@ -564,7 +564,7 @@ namespace aura_posix
 //
 //         }
 //
-//         //auto psystem = m_psystem;
+//         //auto psystem = acmesystem();
 //
 //         //auto estatus = psystem->system_main();
 //

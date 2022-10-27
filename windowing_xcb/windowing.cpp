@@ -96,12 +96,12 @@ namespace windowing_xcb
    }
 
 
-   void windowing::initialize(::object *pobject)
+   void windowing::initialize(::particle * pparticle)
    {
 
       //auto estatus =
       //
-      ::windowing::windowing::initialize(pobject);
+      ::windowing::windowing::initialize(pparticle);
 
 //      if(!estatus)
 //      {
@@ -181,7 +181,7 @@ namespace windowing_xcb
 ////
 ////      }
 //
-//      auto psystem = m_psystem;
+//      auto psystem = acmesystem();
 //
 //      auto pnode = psystem->node();
 //
@@ -252,7 +252,7 @@ namespace windowing_xcb
    ::pointer<::windowing::cursor>windowing::load_default_cursor(enum_cursor ecursor)
    {
 
-      synchronous_lock synchronouslock(mutex());
+      synchronous_lock synchronouslock(this->synchronization());
 
       if (!m_pcursormanager)
       {
@@ -1338,7 +1338,7 @@ namespace windowing_xcb
 
                   m_bFirstWindowMap = true;
 
-                  auto psystem = m_psystem->m_papexsystem;
+                  auto psystem = acmesystem()->m_papexsystem;
 
                   auto pnode = psystem->node();
 
@@ -2138,7 +2138,7 @@ namespace windowing_xcb
    Display * windowing::_get_Display()
    {
 
-      return (Display *) m_psystem->m_pnode->m_pAuraPosix->_get_Display();
+      return (Display *) acmesystem()->m_pnode->m_pAuraPosix->_get_Display();
 
    }
 
@@ -2154,7 +2154,7 @@ namespace windowing_xcb
    xcb_connection_t * windowing::_get_connection()
    {
 
-      return (xcb_connection_t *) m_psystem->m_pnode->m_pAuraPosix->_get_connection();
+      return (xcb_connection_t *) acmesystem()->m_pnode->m_pAuraPosix->_get_connection();
 
    }
 
@@ -2162,7 +2162,7 @@ namespace windowing_xcb
    void windowing::install_mouse_hook(::matter * pmatterListener)
    {
 
-      auto psystem = m_psystem->m_paurasystem;
+      auto psystem = acmesystem()->m_paurasystem;
 
       auto psession = psystem->get_session();
 
@@ -2189,7 +2189,7 @@ namespace windowing_xcb
    void windowing::install_keyboard_hook(::matter * pmatterListener)
    {
 
-      auto psystem = m_psystem->m_paurasystem;
+      auto psystem = acmesystem()->m_paurasystem;
 
       auto psession = psystem->get_session();
 
@@ -2217,7 +2217,7 @@ namespace windowing_xcb
    void windowing::uninstall_keyboard_hook(::matter * pmatterListener)
    {
 
-//      auto psystem = m_psystem->m_paurasystem;
+//      auto psystem = acmesystem()->m_paurasystem;
 //
 //      auto psession = psystem->get_session();
 //
@@ -2235,7 +2235,7 @@ namespace windowing_xcb
    void windowing::uninstall_mouse_hook(::matter * pmatterListener)
    {
 
-//      auto psystem = m_psystem->m_paurasystem;
+//      auto psystem = acmesystem()->m_paurasystem;
 //
 //      auto psession = psystem->get_session();
 //

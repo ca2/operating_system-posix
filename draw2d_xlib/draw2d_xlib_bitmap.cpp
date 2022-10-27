@@ -4,9 +4,9 @@
 namespace draw2d_xlib
 {
 
-   bitmap::bitmap(::object * pobject) :
-      ::object(pobject) // ,
-//      m_ui(pobject)
+   bitmap::bitmap(::particle * pparticle) :
+      ::object(pparticle) // ,
+//      m_ui(pparticle)
    {
 
       m_pixmap = None;

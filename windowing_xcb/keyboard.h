@@ -34,7 +34,7 @@ namespace windowing_xcb
 
       //virtual class keyboard_layout & on_layout();
 
-      void initialize(::object * pobject) override;
+      void initialize(::particle * pparticle) override;
 
       //bool load_layout(const char * pszPath, const ::action_context & action_context);
 

@@ -26,8 +26,8 @@ struct clipboard_data :
 public:
 
 
-   clipboard_data(::object * pobject, enum_clipboard eclipboard) :
-      object(pobject)
+   clipboard_data(::particle * pparticle, enum_clipboard eclipboard) :
+      object(pparticle)
    {
 
       m_eclipboard = eclipboard;

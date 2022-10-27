@@ -3,7 +3,7 @@
 //
 #include <glib.h>
 #include <dbus/dbus-glib-lowlevel.h>
-
+#include "acme/primitive/string/string.h"
 
 #define GSM_SERVICE_DBUS   "org.gnome.SessionManager"
 #define GSM_PATH_DBUS      "/org/gnome/SessionManager"

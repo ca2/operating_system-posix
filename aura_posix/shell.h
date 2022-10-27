@@ -21,7 +21,7 @@ namespace aura_posix
       ~shell() override;
 
 
-      void initialize(::object * pobject) override;
+      void initialize(::particle * pparticle) override;
       //virtual void initialize() override;
 
       //virtual void defer_start();
@@ -38,8 +38,8 @@ namespace aura_posix
       bool _get_file_image(_get_file_image_ & getfileimage) override;
 
 
-      ::user::shell::enum_folder get_folder_type(::object * pobject, const ::wstring & lpcszPath) override;
-      ::user::shell::enum_folder get_folder_type(::object * pobject, const ::string & lpcszPath) override;
+      ::user::shell::enum_folder get_folder_type(::particle * pparticle, const ::wstring & lpcszPath) override;
+      ::user::shell::enum_folder get_folder_type(::particle * pparticle, const ::string & lpcszPath) override;
 
       int add_icon_path(::file::path path, color32_t crBk);
 

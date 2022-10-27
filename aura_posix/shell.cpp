@@ -33,7 +33,7 @@ namespace aura_posix
 
       //set_get_file_content_type_function(&core_linux_get_file_content_type);
 
-      defer_create_mutex();
+      defer_create_synchronization();
       //begin();
 
       m_bGetFileImageByIconPath = true;
@@ -67,13 +67,13 @@ namespace aura_posix
    }
 
 
-   void shell::initialize(::object * pobject)
+   void shell::initialize(::particle * pparticle)
    {
 
       //auto estatus =
       //
 
-      ::user::shell::initialize(pobject);
+      ::user::shell::initialize(pparticle);
 
 //         if(!estatus)
 //         {
@@ -132,7 +132,7 @@ namespace aura_posix
 //
 //         {
 //
-//            synchronous_lock synchronouslock(mutex());
+//            synchronous_lock synchronouslock(this->synchronization());
 //
 //            if (m_imagemap.lookup(imagekey, iImage))
 //            {
@@ -207,7 +207,7 @@ namespace aura_posix
 ////         if (!b48 && shfi48.hIcon != nullptr)
 ////         {
 ////            ::DestroyIcon(shfi48.hIcon);
-////         }         synchronous_lock synchronouslock(mutex());
+////         }         synchronous_lock synchronouslock(this->synchronization());
 ////
 ////         m_imagemap.set_at(imagekey, iImage);
 ////
@@ -534,22 +534,22 @@ namespace aura_posix
 //
 
 
-   shell::enum_folder shell::get_folder_type(::object * pobject, const ::string & str)
+   shell::enum_folder shell::get_folder_type(::particle * pparticle, const ::string & str)
    {
 
-      return get_folder_type(pobject, utf8_to_unicode(str));
+      return get_folder_type(pparticle, utf8_to_unicode(str));
 
    }
 
 
-   shell::enum_folder shell::get_folder_type(::object * pobject, const ::wstring & wstrPath)
+   shell::enum_folder shell::get_folder_type(::particle * pparticle, const ::wstring & wstrPath)
    {
 
       string strPath;
 
       unicode_to_utf8(strPath, wstrPath);
 
-      if (m_psystem->m_pacmedirectory->is(strPath))
+      if (acmedirectory()->is(strPath))
       {
 
          return e_folder_file_system;
@@ -568,7 +568,7 @@ namespace aura_posix
    void shell::on_update_sizes_interest()
    {
 
-      synchronous_lock synchronouslock(mutex());
+      synchronous_lock synchronouslock(this->synchronization());
 
       m_iaSize.erase_all();
 
@@ -623,7 +623,7 @@ namespace aura_posix
 //
 //
 //
-//         synchronous_lock synchronouslock(&m_mutexQueue);
+//         synchronous_lock synchronouslock(m_pmutexQueue);
 //
 //         while (task_get_run())
 //         {
@@ -702,7 +702,7 @@ namespace aura_posix
 //
 //            {
 //
-//               synchronous_lock synchronouslock(mutex());
+//               synchronous_lock synchronouslock(this->synchronization());
 //
 //               if (m_imagemap.lookup(imagekey, iImage))
 //               {
@@ -717,7 +717,7 @@ namespace aura_posix
 //
 //            {
 //
-//               synchronous_lock synchronouslock(&m_mutexQueue);
+//               synchronous_lock synchronouslock(m_pmutexQueue);
 //
 //               m_keyptra.add(pstore);
 //
@@ -727,7 +727,7 @@ namespace aura_posix
 //
 //            iImage = get_foo_image(nullptr, oswindow, imagekey, imagekey.m_cr);
 //
-//            synchronous_lock synchronouslock(mutex());
+//            synchronous_lock synchronouslock(this->synchronization());
 //
 //            m_imagemap.set_at(imagekey, iImage);
 //
@@ -780,7 +780,7 @@ namespace aura_posix
 
          {
 
-            synchronous_lock synchronouslock(mutex());
+            synchronous_lock synchronouslock(this->synchronization());
 
             if (m_imagemap.lookup(getfileimage.m_imagekey, getfileimage.m_iImage))
             {
@@ -793,7 +793,7 @@ namespace aura_posix
 
          getfileimage.m_iImage = get_file_image(getfileimage.m_imagekey);
 
-         synchronous_lock synchronouslock(mutex());
+         synchronous_lock synchronouslock(this->synchronization());
 
          m_imagemap.set_at(getfileimage.m_imagekey, getfileimage.m_iImage);
 

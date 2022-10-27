@@ -119,8 +119,8 @@ serial_impl::serial_impl(const string & port, unsigned long baudrate,
    m_ulBaudrate(baudrate), m_eparity(eparity),
    m_ebytesize(ebytesize), m_estopbit(estopbit), m_eflowcontrol(eflowcontrol)
 {
-   pthread_mutex_init(&this->m_mutexRead, nullptr);
-   pthread_mutex_init(&this->m_mutexWrite, nullptr);
+   pthread_mutex_init(&this->m_pmutexRead, nullptr);
+   pthread_mutex_init(&this->m_pmutexWrite, nullptr);
    if (m_strPort.has_char())
       open();
 }
@@ -128,8 +128,8 @@ serial_impl::serial_impl(const string & port, unsigned long baudrate,
 serial_impl::~serial_impl()
 {
    close();
-   pthread_mutex_destroy(&this->m_mutexRead);
-   pthread_mutex_destroy(&this->m_mutexWrite);
+   pthread_mutex_destroy(&this->m_pmutexRead);
+   pthread_mutex_destroy(&this->m_pmutexWrite);
 }
 
 void
@@ -1124,7 +1124,7 @@ serial_impl::getCD()
 void
 serial_impl::readLock()
 {
-   int result = pthread_mutex_lock(&this->m_mutexRead);
+   int result = pthread_mutex_lock(&this->m_pmutexRead);
    if (result)
    {
       throw error_number(error_serial, result);
@@ -1134,7 +1134,7 @@ serial_impl::readLock()
 void
 serial_impl::readUnlock()
 {
-   int result = pthread_mutex_unlock(&this->m_mutexRead);
+   int result = pthread_mutex_unlock(&this->m_pmutexRead);
    if (result)
    {
       throw error_number(error_serial, result);
@@ -1144,7 +1144,7 @@ serial_impl::readUnlock()
 void
 serial_impl::writeLock()
 {
-   int result = pthread_mutex_lock(&this->m_mutexWrite);
+   int result = pthread_mutex_lock(&this->m_pmutexWrite);
    if (result)
    {
       throw error_number(error_serial, result);
@@ -1154,7 +1154,7 @@ serial_impl::writeLock()
 void
 serial_impl::writeUnlock()
 {
-   int result = pthread_mutex_unlock(&this->m_mutexWrite);
+   int result = pthread_mutex_unlock(&this->m_pmutexWrite);
    if (result)
    {
       throw error_number(error_serial, result);

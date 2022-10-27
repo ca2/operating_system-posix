@@ -8,7 +8,7 @@ namespace draw2d_xlib
    factory_exchange::factory_exchange()
    {
 
-      init_xlib_mutex(pobject);
+      init_xlib_mutex(pparticle);
 
       add_factory_item < image                   >  (__type(pimage));
       add_factory_item < graphics              >  (__type(::draw2d::graphics));

@@ -43,11 +43,11 @@ stdio_file::~stdio_file()
    if ((eopen & ::file::e_open_defer_create_directory) && (eopen & ::file::e_open_write))
    {
 
-      auto psystem = m_psystem;
+      auto psystem = acmesystem();
 
       auto pacmedirectory = psystem->m_pacmedirectory;
 
-               auto psystem = m_psystem;
+               auto psystem = acmesystem();
 
          auto pacmedirectory = psystem->m_pacmedirectory;
 
@@ -55,7 +55,7 @@ pacmedirectory->create(::file::path(pszFileName).folder());
 
    }
 
-   if (eopen & ::file::e_open_no_truncate && m_psystem->m_pacmefile->exists(pszFileName))
+   if (eopen & ::file::e_open_no_truncate && acmefile()->exists(pszFileName))
    {
 
       str += "r";

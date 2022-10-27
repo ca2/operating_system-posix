@@ -18,8 +18,8 @@ class window;
 #endif
 
 
-::mutex & xlib_mutex();
-void init_xlib_mutex(::object * pobject);
+::pointer < ::mutex > & xlib_mutex();
+void init_xlib_mutex(::particle * pparticle);
 
 
 #include "([a-z0-9_]+)_factory.h"

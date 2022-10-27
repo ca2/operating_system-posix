@@ -20,7 +20,7 @@ bool __x11_hook_process_event(Display * pdisplay, XEvent & e, XGenericEventCooki
 bool __x11_hook_list_is_empty();
 
 
-extern ::mutex * user_mutex();
+extern ::pointer< ::mutex > user_mutex();
 
 
 Display * g_pdisplayX11= nullptr;
@@ -110,7 +110,7 @@ void x11_kick_idle()
 
 
 
-//::mutex * g_pmutexX11 = nullptr;
+//::pointer< ::mutex > g_pmutexX11 = nullptr;
 //
 //
 //bool g_bAcmeInitWindowing = false;
@@ -132,7 +132,7 @@ void x11_kick_idle()
 //
 //   int retval = fcntl(g_fdX11[0], F_SETFL, fcntl(g_fdX11[0], F_GETFL) | O_NONBLOCK);
 //
-//   g_pmutexX11 = memory_new ::mutex();
+//   g_pmutexX11 = memory_new ::pointer < ::mutex >();
 //
 //}
 
@@ -260,7 +260,7 @@ void x11_kick_idle()
 //
 //   XSetErrorHandler(_c_XErrorHandler);
 //
-//   g_pmutexX11 = memory_new ::mutex();
+//   g_pmutexX11 = memory_new ::pointer < ::mutex >();
 //
 //   return ::success;
 //

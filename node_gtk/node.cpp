@@ -173,7 +173,7 @@ namespace node_gtk
    void node::defer_notify_startup_complete()
    {
 
-      auto psystem = m_psystem->m_papexsystem;
+      auto psystem = acmesystem()->m_papexsystem;
 
       string strApplicationServerName = psystem->get_application_server_name();
 
@@ -189,7 +189,7 @@ namespace node_gtk
 
       //auto estatus =
       //
-      m_psystem->m_papexsystem->branch_synchronously();
+      acmesystem()->m_papexsystem->branch_synchronously();
 
 //      if (!estatus)
 //      {
@@ -202,9 +202,9 @@ namespace node_gtk
 
       // To pair freebsd.h/main platform_create_system memory_new system
       // This should be safe here in this node_gtk::node
-      // because just above m_psystem has begin_synch()
-      // so the running thread is holding references to the m_psystem thread.
-      m_psystem->release();
+      // because just above acmesystem() has begin_synch()
+      // so the running thread is holding references to the acmesystem() thread.
+      acmesystem()->release();
 
       //   ::e_status estatus = psystem->begin_synch();
       //
@@ -226,7 +226,7 @@ namespace node_gtk
 
       //auto idle_source = g_idle_source_new();
 
-      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) m_psystem, nullptr);
+      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) acmesystem(), nullptr);
 
       //g_source_attach(idle_source, g_main_context_default());
 
@@ -238,12 +238,12 @@ namespace node_gtk
 
       {
 
-         ///auto psystem = m_psystem;
+         ///auto psystem = acmesystem();
 
          //auto pnode = psystem->node();
 
          //pnode->node_init_check(&m_argc, &m_argv);
-         node_init_check(&m_psystem->m_argc, &m_psystem->m_argv);
+         node_init_check(&acmesystem()->m_argc, &acmesystem()->m_argv);
 
       }
 
@@ -265,7 +265,7 @@ namespace node_gtk
 
 
 //
-//      auto psystem = m_psystem;
+//      auto psystem = acmesystem();
 //
 //      auto pnode = psystem->node();
 //
@@ -273,7 +273,7 @@ namespace node_gtk
 //
 //      return ::success;
 
-      auto psystem = m_psystem->m_papexsystem;
+      auto psystem = acmesystem()->m_papexsystem;
 
       if (psystem->m_bGtkApp)
       {
@@ -290,7 +290,7 @@ namespace node_gtk
       ////
       ////      //auto idle_source = g_idle_source_new();
       ////
-      ////      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) m_psystem, nullptr);
+      ////      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) acmesystem(), nullptr);
       ////
       ////      //g_source_attach(idle_source, g_main_context_default());
       ////
@@ -347,7 +347,7 @@ namespace node_gtk
 
             x11_add_idle_source(this);
 
-            auto psystem = m_psystem->m_papexsystem;
+            auto psystem = acmesystem()->m_papexsystem;
 
             psystem->post_initial_request();
 
@@ -391,7 +391,7 @@ namespace node_gtk
    }
 
 
-   void node::initialize(::object *pobject)
+   void node::initialize(::particle * pparticle)
    {
 
       ::node_gtk::g_defer_init();
@@ -466,7 +466,7 @@ namespace node_gtk
 //   string node::_on_user_theme_changed()
 //   {
 //
-//      m_psystem->m_papexsystem->signal(id_os_user_theme);
+//      acmesystem()->m_papexsystem->signal(id_os_user_theme);
 //
 //   }
 
@@ -499,7 +499,7 @@ namespace node_gtk
 
       // indirect wall-changer sourceforge.net contribution
 
-      auto psystem = m_psystem->m_papexsystem;
+      auto psystem = acmesystem()->m_papexsystem;
 
       auto pnode = psystem->node();
 
@@ -578,7 +578,7 @@ namespace node_gtk
 
       // wall-changer sourceforge.net contribution
 
-      auto psystem = m_psystem->m_papexsystem;
+      auto psystem = acmesystem()->m_papexsystem;
 
       auto pnode = psystem->node();
 
@@ -630,7 +630,7 @@ namespace node_gtk
    void node::enable_wallpaper_change_notification()
    {
 
-      auto psystem = m_psystem->m_papexsystem;
+      auto psystem = acmesystem()->m_papexsystem;
 
       auto pnode = psystem->node();
 
@@ -759,7 +759,7 @@ namespace node_gtk
    {
 
       // TODO check if ptopic below is own topic or what else?
-      ::element * pelement = ptopic;
+      ::particle * pparticle = ptopic;
 
       node_post([pelement]()
       {
@@ -801,7 +801,7 @@ namespace node_gtk
 
          g_bInitializedUserTheme = true;
 
-         //auto psystem = m_psystem->m_papexsystem;
+         //auto psystem = acmesystem()->m_papexsystem;
 
          //psystem->start_subject_handling(id_os_user_theme);
 
@@ -816,7 +816,7 @@ namespace node_gtk
 
       bool bOk = false;
 
-      auto psystem = m_psystem->m_papexsystem;
+      auto psystem = acmesystem()->m_papexsystem;
 
       auto pnode = psystem->node();
 
@@ -1044,7 +1044,7 @@ namespace node_gtk
       try
       {
 
-         m_psystem->m_papexsystem->signal(id_operating_system_user_theme_change);
+         acmesystem()->m_papexsystem->signal(id_operating_system_user_theme_change);
 
       }
       catch(...)
@@ -1072,7 +1072,7 @@ namespace node_gtk
 
          ::user::os_set_theme_colors(pthemecolors);
 
-         m_psystem->m_papexsystem->signal(id_operating_system_user_color_change);
+         acmesystem()->m_papexsystem->signal(id_operating_system_user_color_change);
 
       }
       else
@@ -1135,7 +1135,7 @@ namespace node_gtk
 
       ::file::path pathDesktop;
 
-      pathDesktop = m_psystem->m_pacmedirectory->home() / ".local/share/applications" / (strDesktopFileTitle + ".desktop");
+      pathDesktop = acmedirectory()->home() / ".local/share/applications" / (strDesktopFileTitle + ".desktop");
 
       main_asynchronous([this,pathDesktop]()
       {
@@ -1199,7 +1199,7 @@ namespace node_gtk
 gboolean node_gtk_source_func(gpointer pUserdata)
 {
 
-   ::element * pelement = (::element *) pUserdata;
+   ::particle * pparticle = (::element *) pUserdata;
 
    if(!pelement->step())
    {
@@ -1262,7 +1262,7 @@ log_handler (const gchar   *log_domain,
 #endif
 
 
-::mutex * user_mutex();
+::pointer< ::mutex > user_mutex();
 
 
 ::e_status run_runnable(::element * pobjectTask);

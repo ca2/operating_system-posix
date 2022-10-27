@@ -5,7 +5,13 @@
 #include "node.h"
 #include "acme_file.h"
 #include "acme_directory.h"
+#include "mutex.h"
+#include "acme/exception/interface_only.h"
+#include "acme/filesystem/filesystem/listing.h"
+#include "acme/platform/system.h"
+#include "acme/primitive/collection/string_array.h"
 #include "acme/primitive/primitive/memory.h"
+#include "acme/primitive/primitive/payload.h"
 #include <signal.h>
 
 #ifdef FREEBSD
@@ -171,7 +177,7 @@ namespace acme_posix
 //         ////
 //         ////      //auto idle_source = g_idle_source_new();
 //         ////
-//         ////      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) m_psystem, nullptr);
+//         ////      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) acmesystem(), nullptr);
 //         ////
 //         ////      //g_source_attach(idle_source, g_main_context_default());
 //         ////
@@ -252,13 +258,13 @@ namespace acme_posix
 //      }
 
 
-   void node::initialize(::object * pobject)
+   void node::initialize(::particle * pparticle)
    {
 
       //auto estatus =
       //
       //
-      ::acme::node::initialize(pobject);
+      ::acme::node::initialize(pparticle);
 
 //         if(!estatus)
 //         {
@@ -342,6 +348,187 @@ namespace acme_posix
 
    }
 
+
+   ::pointer < ::mutex > node::create_local_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::string & strName)
+   {
+
+      return __new(mutex(pparticleContext, bInitialOwner, "Local\\" + strName));
+
+   }
+
+
+   ::pointer < ::mutex > node::create_global_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::string & strName)
+   {
+
+      return __new(mutex(pparticleContext, bInitialOwner, "Global\\" + strName));
+
+   }
+
+
+
+   ::pointer<::mutex>node::open_named_mutex(::particle * pparticle, const char * lpszName)
+{
+
+#ifdef WINDOWS
+
+   HANDLE h = ::OpenMutexW(SYNCHRONIZE, false, utf8_to_unicode(lpszName));
+
+   if (h == nullptr || h == INVALID_HANDLE_VALUE)
+   {
+
+      return nullptr;
+
+   }
+
+   auto pmutex  = __new(mutex(e_create_new, lpszName, h));
+
+   return pmutex;
+
+#elif defined(MUTEX_NAMED_POSIX)
+
+   string strName = pstrName;
+
+   sem_t * psem;
+
+   int isCreator = 0;
+
+   if ((psem = sem_open(strName, O_CREAT | O_EXCL, 0666, 1)) != SEM_FAILED)
+   {
+
+      isCreator = 1;
+
+   }
+   else
+   {
+
+      psem = sem_open(strName, 0);
+
+      if (psem == SEM_FAILED)
+      {
+
+         //throw ::exception(resource_exception(papp,"failed to create named mutex"));
+         throw ::exception(error_resource);
+
+      }
+
+   }
+
+   auto pmutex = __new(mutex(strName, psem, isCreator));
+
+   return pmutex;
+
+#elif defined(MUTEX_NAMED_FD)
+
+   if (lpszName == nullptr || *lpszName == '\0')
+   {
+
+      return nullptr;
+
+   }
+
+   set_last_status(::success);
+
+   ::file::path path;
+
+   if (::str().begins_ci(lpszName, "Global"))
+   {
+
+      path = "/payload/tmp/ca2/lock/mutex/named";
+
+   }
+   else
+   {
+
+#ifdef __APPLE__
+
+      path = getenv("HOME");
+
+      path /= "Library/ca2/lock/mutex/named";
+
+#else
+
+      path = getenv("HOME");
+
+      path /= ".config/ca2/lock/mutex/named";
+
+#endif
+
+   }
+
+   path /= lpszName;
+
+   auto pacmedirectory = pparticle->acmedirectory();
+
+   pacmedirectory->create(path.folder());
+
+   int iFd = open(path, O_RDWR, S_IRWXU);
+
+   if (iFd < 0)
+   {
+
+      throw ::exception(error_resource);
+
+   }
+
+   //m_pszName = strdup(path);
+
+   //pthread_mutexattr_t attr;
+
+   //pthread_mutexattr_init(&attr);
+
+   //pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);
+
+   //pthread_mutex_init(m_pmutex, &attr);
+
+   auto pmutex = __new(mutex(e_create_new, lpszName, iFd, false));
+
+   return pmutex;
+
+#elif defined(POSIX_NAMED_VSEM)
+
+   if(pstrName == nullptr || *pstrName == '\0')
+      return nullptr;
+
+   string strName = pstrName;
+
+   key_t key = ftok(strName, 0); //Generate a unique key or supply a value
+
+   i32 semid = semget(
+               key, // a unique identifier to identify semaphore set
+               1,  // number of semaphore in the semaphore set
+               0666 // permissions (rwxrwxrwx) on the memory_new
+               //semaphore set and creation flag
+               );
+   if(semid < 0)
+   {
+
+      return nullptr;
+
+   }
+
+   auto pmutex = __new(mutex(strName, key, semid));
+
+   return pmutex;
+
+#endif
+
+}
+
+
+   ::pointer < ::mutex > node::open_local_named_mutex(::particle * pparticleContext, const ::string & strName)
+   {
+
+      return open_named_mutex(pparticleContext, "Local/" + strName);
+
+   }
+
+
+   ::pointer < ::mutex > node::open_global_named_mutex(::particle * pparticleContext, const ::string & strName)
+   {
+
+      return open_named_mutex(pparticleContext, "Global/" + strName);
+
+   }
 
 //      atom_array node::module_path_get_pid(const char * pszModulePath, bool bModuleNameIsPropertyFormatted)
 //      {
@@ -451,7 +638,7 @@ namespace acme_posix
 
 #else
 
-      string str = m_psystem->m_pacmefile->as_string("/proc/stat");
+      string str = acmefile()->as_string("/proc/stat");
 
       string_array stra;
 
@@ -595,7 +782,7 @@ namespace acme_posix
 
       argv.add(nullptr);
 
-      auto envp = m_psystem->m_envp;
+      auto envp = acmesystem()->m_envp;
 
       pid_t pid = 0;
 
@@ -678,7 +865,7 @@ namespace acme_posix
 
       int status;
 
-      auto envp = m_psystem->m_envp;
+      auto envp = acmesystem()->m_envp;
 
 #ifdef ANDROID
 
@@ -971,7 +1158,7 @@ namespace acme_posix
 
       listing.set_folder_listing("/proc");
 
-      m_psystem->m_pacmedirectory->enumerate(listing);
+      acmedirectory()->enumerate(listing);
 
       string str(psz);
 
@@ -1056,7 +1243,7 @@ namespace acme_posix
 
       str = "/proc/" + __string(iPid) + "/cmdline";
 
-      memory mem = m_psystem->m_pacmefile->as_memory(str);
+      memory mem = acmefile()->as_memory(str);
 
       string strArg;
 

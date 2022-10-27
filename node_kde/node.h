@@ -58,11 +58,11 @@ namespace node_kde
 
       int node_init_check(int * pi, char *** ppz) override;
 
-      bool eventFilter(QObject * pobject, QEvent * pevent) override;
+      bool eventFilter(QObject * pparticle, QEvent * pevent) override;
 
       void system_main() override;
 
-      void initialize(::object * pobject) override;
+      void initialize(::particle * pparticle) override;
 
       ::e_status _allocate_Display_and_connection() override;
 

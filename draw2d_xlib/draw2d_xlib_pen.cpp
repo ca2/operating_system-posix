@@ -5,8 +5,8 @@ namespace draw2d_xlib
 {
 
 
-   pen::pen(::object * pobject) :
-      ::object(pobject)
+   pen::pen(::particle * pparticle) :
+      ::object(pparticle)
    {
    }
    pen::~pen()
@@ -16,7 +16,7 @@ namespace draw2d_xlib
    {
       return (HPEN)(this == nullptr ? nullptr : get_handle());
    }*/
-/*   pen* PASCAL pen::from_handle(::object * pobject, HPEN hPen)
+/*   pen* PASCAL pen::from_handle(::particle * pparticle, HPEN hPen)
    {
       return dynamic_cast < pen* > (::win::object::from_handle(papp, hPen));
    }*/

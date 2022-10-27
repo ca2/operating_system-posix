@@ -40,7 +40,7 @@ namespace draw2d_xlib
 
 
       //graphics();
-      graphics(::object * pobject);
+      graphics(::particle * pparticle);
       virtual ~graphics();
 
 
@@ -479,7 +479,7 @@ namespace draw2d_xlib
 
       // Misc Helper Functions
       using ::draw2d::graphics::GetHalftoneBrush;
-      static ::draw2d::brush* PASCAL GetHalftoneBrush(::object * pobject);
+      static ::draw2d::brush* PASCAL GetHalftoneBrush(::particle * pparticle);
       void DrawDragRect(const ::rectangle_i32 & rectangle, const ::size_i32 & size,
                         rectangle_i32 lpRectLast, const ::size_i32 & sizeLast,
                         ::draw2d::brush* pBrush = nullptr, ::draw2d::brush* pBrushLast = nullptr);
@@ -518,7 +518,7 @@ namespace draw2d_xlib
 
       //protected:
       // used for implementation of non-virtual SelectObject calls
-      //static ::draw2d_xlib::object* PASCAL SelectGdiObject(::object * pobject, HDC hDC, HGDIOBJ h);
+      //static ::draw2d_xlib::object* PASCAL SelectGdiObject(::particle * pparticle, HDC hDC, HGDIOBJ h);
 
 
       // operating-system-specific or operating-system-internals

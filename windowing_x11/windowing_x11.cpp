@@ -38,7 +38,7 @@
 //bool x11_runnable_step();
 
 
-//::mutex * g_pmutexX11Runnable = nullptr;
+//::pointer< ::mutex > g_pmutexX11Runnable = nullptr;
 //list < ::pointer<::matter >>* g_prunnableptrlX11 = nullptr;
 
 
@@ -154,9 +154,9 @@ bool is_space_key(XIRawEvent *event)
 
 
 // Tutor Exilius Q(t)List streaming contribution
-//::mutex * g_pmutexX11Runnable = nullptr;
+//::pointer< ::mutex > g_pmutexX11Runnable = nullptr;
 //list < ::pointer<::matter >>* g_prunnableptrlX11 = nullptr;
-//::mutex * g_pmutexX11Sync = nullptr;
+//::pointer< ::mutex > g_pmutexX11Sync = nullptr;
 //manual_reset_event * g_peventX11Sync = nullptr;
 //::pointer<::matter>g_prunnableX11Sync;
 Window g_windowX11Client = 0;
@@ -166,9 +166,9 @@ Window g_windowX11Client = 0;
 int_bool _x11_get_cursor_pos(Display * d, POINT_I32 * ppointCursor);
 
 
-//extern ::mutex *g_pmutexX11Runnable;
+//extern ::pointer< ::mutex >g_pmutexX11Runnable;
 //extern list<::pointer<::matter >>*g_prunnableptrlX11;
-//extern ::mutex *g_pmutexX11Sync;
+//extern ::pointer< ::mutex >g_pmutexX11Sync;
 //extern manual_reset_event *g_peventX11Sync;
 //extern ::pointer<::matter>g_prunnableX11Sync;
 
@@ -1527,7 +1527,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                auto prawevent = (XIRawEvent*)cookie->data;
 
-               auto psystem = m_psystem->m_papexsystem;
+               auto psystem = acmesystem()->m_papexsystem;
 
                // detail:
                // 1 - left button
@@ -3040,21 +3040,21 @@ else if(detail == 3)
 //
 //      //acme_defer_os_init_windowing();
 //
-//      //g_pmutexX11Runnable = memory_new ::mutex();
+//      //g_pmutexX11Runnable = memory_new ::pointer < ::mutex >();
 //
 //      //g_prunnableptrlX11 = memory_new list<::pointer<::matter >>);
 //
-////      g_pmutexX11Sync = memory_new ::mutex();
+////      g_pmutexX11Sync = memory_new ::pointer < ::mutex >();
 //
 ////      g_peventX11Sync = memory_new manual_reset_event();
 //
 //      //oswindow_data::s_pdataptra = memory_new oswindow_dataptra;
 //
-//      //oswindow_data::s_pmutex = memory_new ::mutex;
+//      //oswindow_data::s_pmutex = memory_new ::pointer < ::mutex >;
 //
 //      //osdisplay_data::s_pdataptra = memory_new osdisplay_dataptra;
 //
-//      //osdisplay_data::s_pmutex = memory_new ::mutex;
+//      //osdisplay_data::s_pmutex = memory_new ::pointer < ::mutex >;
 //
 //      //return true;
 //
@@ -3265,7 +3265,7 @@ else if(detail == 3)
 
       }
 
-      synchronous_lock ml(pmessagequeue->mutex());
+      synchronous_lock ml(pmessagequeue->synchronization());
 
       if (message.m_atom == e_message_quit)
       {
@@ -3747,7 +3747,7 @@ bool x11_get_window_rect(Display * d, Window window, RECTANGLE_I32 * prectangle)
 
    XSetErrorHandler(_c_XErrorHandler);
 
-   //g_pmutexX11 = memory_new ::mutex();
+   //g_pmutexX11 = memory_new ::pointer < ::mutex >();
 
    return ::success;
 

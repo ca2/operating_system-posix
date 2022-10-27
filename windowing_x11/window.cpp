@@ -360,7 +360,7 @@ namespace windowing_x11
       if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
       {
 
-         auto psystem = m_psystem->m_papexsystem;
+         auto psystem = acmesystem()->m_papexsystem;
 
          string strApplicationServerName = psystem->get_application_server_name();
 
@@ -368,7 +368,7 @@ namespace windowing_x11
 
          //         XClassHint * pupdate = XAllocClassHint();
          //
-         //         auto psystem = m_psystem->m_papexsystem;
+         //         auto psystem = acmesystem()->m_papexsystem;
          //
          //         string strApplicationServerName = psystem->get_application_server_name();
          //
@@ -785,7 +785,7 @@ namespace windowing_x11
 
          pwindowing->m_bFirstWindowMap = true;
 
-         auto psystem = m_psystem->m_papexsystem;
+         auto psystem = acmesystem()->m_papexsystem;
 
          auto pnode = psystem->node();
 
@@ -839,7 +839,7 @@ namespace windowing_x11
    //   oswindow_dataptra *window::s_pdataptra = nullptr;
    //
    //
-   //   ::mutex *window::s_pmutex = nullptr;
+   //   ::pointer< ::mutex >window::s_pmutex = nullptr;
 
 
    //   i32 oswindow_find_message_only_window(::user::interaction_impl *pimpl)
@@ -1108,7 +1108,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_mutex());
 
-      auto psystem = m_psystem->m_papexsystem;
+      auto psystem = acmesystem()->m_papexsystem;
 
       auto pnode = psystem->node();
 
@@ -2384,7 +2384,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       }
 
-      synchronous_lock ml(pmessagequeue->mutex());
+      synchronous_lock ml(pmessagequeue->synchronization());
 
       if (message.m_atom == e_message_quit)
       {
@@ -2445,7 +2445,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       }
 
-      synchronous_lock ml(pmq->mutex());
+      synchronous_lock ml(pmq->synchronization());
 
       pmq->m_messagea.predicate_erase([this](MESSAGE & item)
                                        {

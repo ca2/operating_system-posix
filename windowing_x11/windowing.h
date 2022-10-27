@@ -41,7 +41,7 @@ namespace windowing_x11
       ~windowing() override;
 
 
-      void initialize(::object * pobject) override;
+      void initialize(::particle * pparticle) override;
 
       void _initialize_windowing() override;
 

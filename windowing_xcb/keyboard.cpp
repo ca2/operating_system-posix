@@ -43,12 +43,12 @@ namespace windowing_xcb
    }
 
 
-   void keyboard::initialize(::object * pobject)
+   void keyboard::initialize(::particle * pparticle)
    {
 
       //auto estatus =
       //
-      ::object::initialize(pobject);
+      ::object::initialize(pparticle);
 
 //      if (!estatus)
 //      {
@@ -57,7 +57,7 @@ namespace windowing_xcb
 //
 //      }
 
-      auto psystem = m_psystem;
+      auto psystem = acmesystem();
 
 //      SET_ENUM_TEXT(::user::e_key_0);
 //      SET_ENUM_TEXT(::user::e_key_1);
@@ -699,7 +699,7 @@ namespace windowing_xcb
 //   void keyboard::show_software_keyboard(::user::primitive* pprimitive, string str, strsize iBeg, strsize iEnd)
 //   {
 //
-//      synchronous_lock synchronouslock(mutex());
+//      synchronous_lock synchronouslock(this->synchronization());
 //
 //      m_iSoftwareKeyboardEventId++;
 //
@@ -712,7 +712,7 @@ namespace windowing_xcb
 //
 //              sleep(400_ms);
 //
-//              synchronous_lock synchronouslock(mutex());
+//              synchronous_lock synchronouslock(this->synchronization());
 //
 //              if (iEventId == m_iSoftwareKeyboardEventId)
 //              {
@@ -744,7 +744,7 @@ namespace windowing_xcb
 //
 //      }
 //
-//      synchronous_lock synchronouslock(mutex());
+//      synchronous_lock synchronouslock(this->synchronization());
 //
 //      m_iSoftwareKeyboardEventId++;
 //
@@ -757,7 +757,7 @@ namespace windowing_xcb
 //
 //              sleep(400_ms);
 //
-//              synchronous_lock synchronouslock(mutex());
+//              synchronous_lock synchronouslock(this->synchronization());
 //
 //              if (iEventId == m_iSoftwareKeyboardEventId)
 //              {

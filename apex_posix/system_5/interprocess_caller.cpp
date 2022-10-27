@@ -17,7 +17,7 @@ namespace system_5
    interprocess_caller::interprocess_caller()
    {
 
-      //mutex() = memory_new ::mutex(pobject);
+      //mutex() = memory_new ::pointer < ::mutex >(pparticle);
 
    }
 
@@ -41,7 +41,7 @@ namespace system_5
       if (!file_exists(strChannel))
       {
 
-         m_psystem->m_pacmefile->put_contents(strChannel, strChannel);
+         acmefile()->put_contents(strChannel, strChannel);
 
       }
 

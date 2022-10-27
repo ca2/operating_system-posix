@@ -32,7 +32,7 @@ namespace acme_posix
 
       void dbus_init();
 
-      void initialize(::object * pobject) override;
+      void initialize(::particle * pparticle) override;
 
       void install_sigchld_handler() override;
 
@@ -63,8 +63,14 @@ namespace acme_posix
 
       atom_array get_pids() override;
 
-         
 
+      ::pointer < ::mutex > create_local_named_mutex(::particle * pparticleContext, bool bInitiallyOwned, const ::string & strName) override;
+      ::pointer < ::mutex > create_global_named_mutex(::particle * pparticleContext, bool bInitiallyOwned, const ::string & strName) override;
+
+      ::pointer<::mutex> open_named_mutex(::particle * pparticle, const char * lpszName);
+
+      ::pointer < ::mutex > open_local_named_mutex(::particle * pparticleContext, const ::string & strName) override;
+      ::pointer < ::mutex > open_global_named_mutex(::particle * pparticleContext, const ::string & strName) override;
 
       bool process_contains_module(string& strImage, ::u32 processID, const ::string & pszLibrary) override;
 

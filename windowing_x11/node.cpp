@@ -29,7 +29,7 @@
 //   void node::install_mouse_hook(::matter * pmatter)
 //   {
 //
-//      auto psystem = m_psystem->m_paurasystem;
+//      auto psystem = acmesystem()->m_paurasystem;
 //
 //      auto psession = psystem->get_session();
 //
@@ -49,7 +49,7 @@
 //   void node::install_keyboard_hook(::matter * pmatter)
 //   {
 //
-//      auto psystem = m_psystem->m_paurasystem;
+//      auto psystem = acmesystem()->m_paurasystem;
 //
 //      auto psession = psystem->get_session();
 //

@@ -18,7 +18,7 @@ namespace node_kde
       ~copydesk() override;
 
 
-      void initialize(::object * pobject) override;
+      void initialize(::particle * pparticle) override;
       void destroy() override;
 
       bool _set_filea(const ::file::path_array & patha, enum_op eop) override;
