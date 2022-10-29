@@ -17,7 +17,7 @@
 #include <X11/Xlib-xcb.h>
 
 
-::pointer< ::mutex > user_mutex();
+::particle * user_synchronization();
 
 
 namespace node_kde
@@ -44,7 +44,7 @@ namespace node_kde
    ::e_status desktop_environment::_get_monitor_rectangle(::index iIndex, ::RECTANGLE_I32 *prectangle)
    {
 
-      synchronous_lock sl(user_mutex());
+      synchronous_lock sl(user_synchronization());
 
       auto screens = QGuiApplication::screens();
 
@@ -84,7 +84,7 @@ namespace node_kde
    ::e_status desktop_environment::_get_workspace_rectangle(::index iIndex, ::RECTANGLE_I32 *prectangle)
    {
 
-      synchronous_lock sl(user_mutex());
+      synchronous_lock sl(user_synchronization());
 
       auto screens = QGuiApplication::screens();
 

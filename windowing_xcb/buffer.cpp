@@ -57,7 +57,7 @@ namespace windowing_xcb
 //
 //      }
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       m_pdisplay = xcb_window()->xcb_display();
 
@@ -86,7 +86,7 @@ namespace windowing_xcb
 
       }
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
 //      display_lock displaylock(xcb_window()->xcb_display());
 
@@ -336,7 +336,7 @@ namespace windowing_xcb
 
       pimage->map();
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       //display_lock displayLock(xcb_window()->xcb_display());
 

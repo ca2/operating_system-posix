@@ -5,7 +5,10 @@
 // Created by camilo on 17/02/2021. 00:32 BRT <3TBS_!!
 //
 #include "framework.h"
-#include "_.h"
+#include "startup-notification.h"
+#include "windowing.h"
+#include "acme/platform/application.h"
+#include "acme/platform/context.h"
 #ifdef WITH_SN
 #define SN_API_NOT_YET_FROZEN
 #include <libsn/sn.h>
@@ -46,7 +49,7 @@ void x_display_error_trap_push(SnDisplay * sndisplay, Display * display)
 void x_display_error_trap_pop(SnDisplay * sndisplay, Display * display)
 {
 
-   //synchronous_lock sl(user_mutex());
+   //synchronous_lock sl(user_synchronization());
 
    g_iIgnoreXDisplayError--;
 
@@ -73,7 +76,7 @@ namespace windowing_posix
 
       int iScreen = DefaultScreen(pdisplay);
 
-      auto papp = m_pcontext->m_pacmeapplicationMain ? m_pcontext->m_pacmeapplicationMain : m_pcontext->m_pacmeapplicationStartup;
+      auto papp = acmeapplication();
 
       string strWMClass = papp->m_strAppId;
 

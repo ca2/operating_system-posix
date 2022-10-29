@@ -88,7 +88,7 @@ namespace node_kde
 
       string strTrayIconName = m_piconCurrent->get_tray_icon_name();
 
-      auto pathHome = m_pcontext->m_papexcontext->dir().home();
+      auto pathHome = dir()->home();
 
       auto papp = get_app();
 

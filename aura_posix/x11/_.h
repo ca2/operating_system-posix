@@ -12,7 +12,7 @@
 #include "_constant.h"
 
 
-#include <X11/Xlib.h>
+//#include <X11/Xlib.h>
 
 
 #define WITH_SN
@@ -28,22 +28,22 @@ namespace x11
 } // namespace x11
 
 
-#include "display_lock.h"
-
-
-//#if defined(WITH_X11)
-
-
-#include "xim_keyboard.h"
-
-
-//#endif
-
-
-#include "window.h"
-
-
-#include "windowing.h"
-
-
-
+//#include "display_lock.h"
+//
+//
+////#if defined(WITH_X11)
+//
+//
+//#include "xim_keyboard.h"
+//
+//
+////#endif
+//
+//
+//#include "window.h"
+//
+//
+//#include "windowing.h"
+//
+//
+//

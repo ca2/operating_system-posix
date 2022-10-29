@@ -44,7 +44,7 @@ struct MWMHints
 CLASS_DECL_WINDOWING_X11 void x11_main();
 
 
-CLASS_DECL_WINDOWING_X11 ::pointer< ::mutex > user_mutex();
+CLASS_DECL_WINDOWING_X11 ::mutex * user_synchronization();
 
 
 //enum_net_wm_state net_wm_state(const char *pszText);
@@ -73,6 +73,9 @@ bool x11_get_client_rect(Display * d, Window window, RECTANGLE_I32 * prectangle)
 
 //int best_xinerama_monitor(::user::interaction * pinteraction, RECTANGLE_I32 * prectRet);
 //int best_xinerama_monitor(::user::interaction * pinteraction, const ::rectangle_i32 & rectangle, RECTANGLE_I32 * lprectRet);
+
+
+#include "acme/primitive/primitive/matter.h"
 
 
 namespace windowing_x11

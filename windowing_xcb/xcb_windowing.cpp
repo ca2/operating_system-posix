@@ -20,7 +20,7 @@ bool __xcb_hook_process_event(xcb_connection_t * pdisplay, xcb_generic_event_t *
 bool __xcb_hook_list_is_empty();
 
 
-extern ::pointer< ::mutex > user_mutex();
+extern ::particle * user_synchronization();
 
 
 xcb_connection_t * g_pdisplayX11= nullptr;

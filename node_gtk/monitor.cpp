@@ -5,7 +5,7 @@
 #include "windowing.h"
 
 
-mutex * user_mutex();
+mutex * user_synchronization();
 
 
 namespace node_gtk
@@ -69,7 +69,7 @@ namespace node_gtk
    ::e_status monitor::_get_monitor_rectangle()
    {
 
-      synchronous_lock sl(user_mutex());
+      synchronous_lock sl(user_synchronization());
 
       GdkDisplay * pdisplay = gdk_display_get_default();
 
@@ -107,7 +107,7 @@ namespace node_gtk
    ::e_status monitor::_get_workspace_rectangle()
    {
 
-      synchronous_lock sl(user_mutex());
+      synchronous_lock sl(user_synchronization());
 
       GdkDisplay * pdisplay = gdk_display_get_default();
 

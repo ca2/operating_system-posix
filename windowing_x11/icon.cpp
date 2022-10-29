@@ -73,7 +73,7 @@ namespace windowing_x11
 
       auto pcontext = m_pcontext->m_papexcontext;
 
-      string strPath = pcontext->dir().matter(strMatter);
+      string strPath = pcontext->dir()->matter(strMatter);
 
       load_file(strPath);
 

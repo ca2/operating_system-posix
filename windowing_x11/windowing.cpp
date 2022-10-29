@@ -401,7 +401,7 @@ _libsn_start_context();
 
       }
 
-      synchronous_lock sl(user_mutex());
+      synchronous_lock sl(user_synchronization());
 
       windowing_output_debug_string("\n::x11_GetWindowRect 1");
 

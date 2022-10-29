@@ -5,7 +5,7 @@
 #include "acme/operating_system/ansi/pmutex_lock.h"
 
 
-::pointer< ::mutex > user_mutex();
+::particle * user_synchronization();
 
 
 namespace node_gtk
@@ -484,7 +484,7 @@ namespace node_gtk
 
       ::increment_reference_count(pelement);
 
-      synchronous_lock synchronouslock (user_mutex());
+      synchronous_lock synchronouslock (user_synchronization());
 
       auto psource = g_idle_source_new();
 

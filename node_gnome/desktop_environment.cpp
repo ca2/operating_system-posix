@@ -9,7 +9,7 @@
 //#include <X11/Xlib-xcb.h>
 //#include <QScreen>
 //
-//mutex * user_mutex();
+//mutex * user_synchronization();
 
 
 namespace node_gnome
@@ -36,7 +36,7 @@ namespace node_gnome
 //   ::e_status desktop_environment::_get_monitor_rectangle(::index iIndex, ::RECTANGLE_I32 *prectangle)
 //   {
 //
-//      synchronous_lock sl(user_mutex());
+//      synchronous_lock sl(user_synchronization());
 //
 //      auto screens = QGuiApplication::screens();
 //
@@ -76,7 +76,7 @@ namespace node_gnome
 //   ::e_status desktop_environment::_get_workspace_rectangle(::index iIndex, ::RECTANGLE_I32 *prectangle)
 //   {
 //
-//      synchronous_lock sl(user_mutex());
+//      synchronous_lock sl(user_synchronization());
 //
 //      auto screens = QGuiApplication::screens();
 //

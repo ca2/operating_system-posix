@@ -6,10 +6,11 @@
 #include "acme_file.h"
 #include "acme_directory.h"
 #include "mutex.h"
+#include "exclusive.h"
 #include "acme/exception/interface_only.h"
 #include "acme/filesystem/filesystem/listing.h"
 #include "acme/platform/system.h"
-#include "acme/primitive/collection/string_array.h"
+#include "acme/primitive/string/command_line.h"
 #include "acme/primitive/primitive/memory.h"
 #include "acme/primitive/primitive/payload.h"
 #include <signal.h>
@@ -527,6 +528,14 @@ namespace acme_posix
    {
 
       return open_named_mutex(pparticleContext, "Global/" + strName);
+
+   }
+
+
+   ::pointer < ::acme::exclusive > node::get_exclusive(::particle * pparticleContext, const ::string & strName ARG_SEC_ATTRS_DEF)
+   {
+
+      return __new(exclusive(pparticleContext, strName));
 
    }
 

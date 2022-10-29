@@ -341,7 +341,7 @@ namespace windowing_xcb
 
       }
 
-      synchronous_lock sl(user_mutex());
+      synchronous_lock sl(user_synchronization());
 
       windowing_output_debug_string("\n::xcb_GetWindowRect 1");
 
@@ -378,7 +378,7 @@ namespace windowing_xcb
 
       }
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       //display_lock lock(m_pdisplay);
 
@@ -399,7 +399,7 @@ namespace windowing_xcb
 
       }
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       //display_lock lock(m_pdisplay);
 
@@ -517,7 +517,7 @@ namespace windowing_xcb
       try
       {
 
-         synchronous_lock synchronouslock(user_mutex());
+         synchronous_lock synchronouslock(user_synchronization());
 
          //display_lock displaylock(m_pdisplay);
 
@@ -593,7 +593,7 @@ namespace windowing_xcb
       try
       {
 
-         synchronous_lock synchronouslock(user_mutex());
+         synchronous_lock synchronouslock(user_synchronization());
 
          //display_lock displayLock(m_pdisplay);
 

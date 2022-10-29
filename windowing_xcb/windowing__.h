@@ -23,7 +23,7 @@ bool __xcb_hook_process_event(xcb_connection_t * pdisplay, XEvent & e, XGenericE
 bool __xcb_hook_list_is_empty();
 
 
-extern ::pointer< ::mutex > user_mutex();
+extern ::particle * user_synchronization();
 
 
 xcb_connection_t * g_pdisplayX11= nullptr;
@@ -195,7 +195,7 @@ void xcb_wait_timer_or_event(xcb_connection_t * pdisplay)
 //}
 //
 //
-//mutex * user_mutex() {return g_pmutexX11;}
+//mutex * user_synchronization() {return g_pmutexX11;}
 //
 //
 //void xcb_defer_handle_just_hooks()
@@ -230,7 +230,7 @@ void xcb_wait_timer_or_event(xcb_connection_t * pdisplay)
 //      try
 //      {
 //
-//         synchronous_lock sl(user_mutex());
+//         synchronous_lock sl(user_synchronization());
 //
 //         XLockDisplay(pdisplay);
 //

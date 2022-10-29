@@ -449,7 +449,7 @@ namespace windowing_x11
 //oswindow windowing::get_active_window()
 //{
 //
-//   synchronous_lock synchronouslock(user_mutex());
+//   synchronous_lock synchronouslock(user_synchronization());
 //
 //   oswindow oswindow = nullptr;
 //
@@ -574,7 +574,7 @@ namespace windowing_x11
 //
 //                  }
 //
-//                  synchronous_lock synchronouslock(user_mutex());
+//                  synchronous_lock synchronouslock(user_synchronization());
 //
 //                  windowing_output_debug_string("\n::GetFocus 1");
 //
@@ -656,7 +656,7 @@ namespace windowing_x11
 // int_bool is_window_occluded(oswindow oswindow)
 // {
 
-//    synchronous_lock synchronouslock(user_mutex());
+//    synchronous_lock synchronouslock(user_synchronization());
 
 //    windowing_output_debug_string("\n::GetFocus 1");
 
@@ -818,7 +818,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //void message_box_paint(::draw2d::graphics_pointer & pgraphics, string_array & stra, bool_array  & baTab, int_array  & ya,SIZE_I32 * psize)
 //{
 //
-//   synchronous_lock synchronouslock(user_mutex());
+//   synchronous_lock synchronouslock(user_synchronization());
 //
 //   pgraphics->fill_rectangle(::rectangle_i32(*psize), rgb(84, 90, 80));
 //
@@ -854,7 +854,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //int_bool IsWindowVisibleRaw(oswindow w)
 //{
 //
-//   synchronous_lock synchronouslock(user_mutex());
+//   synchronous_lock synchronouslock(user_synchronization());
 //
 //   Display * display = w->display();
 //
@@ -895,7 +895,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //::e_status x11_hook::hook()
 //{
 //
-//   synchronous_lock synchronouslock(user_mutex());
+//   synchronous_lock synchronouslock(user_synchronization());
 //
 //   g_x11hooka.add(this);
 //
@@ -906,7 +906,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //::e_status x11_hook::unhook()
 //{
 //
-//   synchronous_lock synchronouslock(user_mutex());
+//   synchronous_lock synchronouslock(user_synchronization());
 //
 //   g_x11hooka.remove(this);
 //
@@ -984,7 +984,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //   {
 //
-//      synchronous_lock synchronouslock(user_mutex());
+//      synchronous_lock synchronouslock(user_synchronization());
 //
 //      display_lock d(pdisplay);
 //
@@ -1135,7 +1135,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       try
       {
 
-         synchronous_lock synchronouslock(user_mutex());
+         synchronous_lock synchronouslock(user_synchronization());
 
          display_lock displaylock(m_pdisplay->Display());
 
@@ -1267,7 +1267,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //      g_bInitX11Thread = true;
 //
-//      synchronous_lock synchronouslock(user_mutex());
+//      synchronous_lock synchronouslock(user_synchronization());
 //
 //      display_lock d(pdisplay);
 //
@@ -1289,7 +1289,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       try
       {
 
-         synchronous_lock synchronouslock(user_mutex());
+         synchronous_lock synchronouslock(user_synchronization());
 
          display_lock displayLock(m_pdisplay->Display());
 
@@ -2904,7 +2904,7 @@ else if(detail == 3)
 //int_bool set_window_position(oswindow hwnd, oswindow hwndInsertAfter, i32 x, i32 y, i32 cx, i32 cy, ::u32 nFlags)
 //{
 //
-//   synchronous_lock synchronouslock(user_mutex());
+//   synchronous_lock synchronouslock(user_synchronization());
 //
 //   return hwnd->set_window_position(hwndInsertAfter, x, y, cx, cy, nFlags);
 //
@@ -2917,7 +2917,7 @@ else if(detail == 3)
 //int_bool get_window_rect(oswindow hwnd, RECTANGLE_I32 * prectangle)
 //{
 //
-//   synchronous_lock synchronouslock(user_mutex());
+//   synchronous_lock synchronouslock(user_synchronization());
 //
 //   display_lock d(hwnd->display());
 //
@@ -2959,7 +2959,7 @@ else if(detail == 3)
 //   x11_sync([&]()
 //            {
 //
-//               synchronous_lock synchronouslock(user_mutex());
+//               synchronous_lock synchronouslock(user_synchronization());
 //
 //               x11_get_cursor_pos(ppointCursor);
 //
@@ -3153,7 +3153,7 @@ else if(detail == 3)
 //   void defer_term_ui()
 //   {
 //
-//      synchronous_lock synchronouslock(user_mutex());
+//      synchronous_lock synchronouslock(user_synchronization());
 //
 //      g_iX11Ref--;
 //
@@ -3644,7 +3644,7 @@ const char *g_pszaNetWmState[] =
 bool x11_get_client_rect(Display * pdisplay, Window window, RECTANGLE_I32 *prectangle)
 {
 
-   synchronous_lock synchronouslock(user_mutex());
+   synchronous_lock synchronouslock(user_synchronization());
 
    XWindowAttributes attr;
 
@@ -3772,7 +3772,7 @@ bool x11_get_window_rect(Display * d, Window window, RECTANGLE_I32 * prectangle)
 }
 
 
-//mutex * user_mutex()
+//mutex * user_synchronization()
 //{
 //
 //   return g_pmutexX11;

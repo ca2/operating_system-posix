@@ -3,6 +3,8 @@
 #include "framework.h"
 #include "cursor.h"
 #include "windowing.h"
+#include "acme/parallelization/synchronous_lock.h"
+#include "acme/platform/system.h"
 #include "aura_posix/_x11.h"
 #include "aura_posix/x11/display_lock.h"
 #include <X11/cursorfont.h>
@@ -11,7 +13,7 @@
 #include "display.h"
 
 
-CLASS_DECL_ACME ::pointer< ::mutex > user_mutex();
+CLASS_DECL_ACME ::mutex * user_synchronization();
 
 
 namespace windowing_x11
@@ -160,7 +162,7 @@ namespace windowing_x11
 //
 //      }
 
-      synchronous_lock sl(user_mutex());
+      synchronous_lock sl(user_synchronization());
 
       windowing_output_debug_string("\n::x11_GetWindowRect 1");
 

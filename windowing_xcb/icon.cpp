@@ -71,7 +71,7 @@ namespace windowing_xcb
 
       auto pcontext = m_pcontext;
 
-      string strPath = pcontext->m_papexcontext->dir().matter(strMatter);
+      string strPath = pcontext->m_papexcontext->dir()->matter(strMatter);
 
       load_file(strPath);
 

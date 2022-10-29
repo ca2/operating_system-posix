@@ -5,6 +5,8 @@
 
 
 #include "aura_posix/x11/windowing.h"
+#include "acme/primitive/collection/list.h"
+#include "acme/primitive/collection/pointer_array.h"
 #include "_x11.h"
 
 
@@ -30,7 +32,7 @@ namespace windowing_x11
 #ifdef WITH_XI
 
       int                                             m_xi_opcode = -1;
-      ::pointer<object_array>                        m_pobjectaExtendedEventListener;
+      ::pointer<particle_array>                        m_pobjectaExtendedEventListener;
 
 #endif
 

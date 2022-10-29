@@ -23,7 +23,7 @@ bool __x11_hook_process_event(Display * pdisplay, XEvent & e, XGenericEventCooki
 bool __x11_hook_list_is_empty();
 
 
-extern ::pointer< ::mutex > user_mutex();
+extern ::particle * user_synchronization();
 
 
 Display * g_pdisplayX11= nullptr;
@@ -196,7 +196,7 @@ void x11_wait_timer_or_event(Display * pdisplay)
 //}
 //
 //
-//mutex * user_mutex() {return g_pmutexX11;}
+//mutex * user_synchronization() {return g_pmutexX11;}
 //
 //
 //void x11_defer_handle_just_hooks()
@@ -231,7 +231,7 @@ void x11_wait_timer_or_event(Display * pdisplay)
 //      try
 //      {
 //
-//         synchronous_lock sl(user_mutex());
+//         synchronous_lock sl(user_synchronization());
 //
 //         XLockDisplay(pdisplay);
 //

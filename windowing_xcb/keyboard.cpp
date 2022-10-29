@@ -170,23 +170,23 @@ namespace windowing_xcb
 //
 //#ifdef MACOS
 //
-//      strFile = Context.dir().matter("keyboard/windows/default.xml");
+//      strFile = Context.dir()->matter("keyboard/windows/default.xml");
 //
 //#elif defined( LINUX)
 //
 //    return true;
 //
-//      strFile = Context.dir().matter("keyboard/freebsd/default.xml");
+//      strFile = Context.dir()->matter("keyboard/freebsd/default.xml");
 //
 //#elif defined(__APPLE__)
 //
-//      strFile = Context.dir().matter("keyboard/macos/default.xml");
+//      strFile = Context.dir()->matter("keyboard/macos/default.xml");
 //
 //#elif defined(ANDROID)
 //
-//      //strPath = Context.dir().matter("keyboard/android/default.xml");
+//      //strPath = Context.dir()->matter("keyboard/android/default.xml");
 //
-//      strFile = Context.dir().matter("keyboard/windows/default.xml");
+//      strFile = Context.dir()->matter("keyboard/windows/default.xml");
 //
 //#else
 //
@@ -234,9 +234,9 @@ namespace windowing_xcb
 //
 //      string str = __string(w);
 //
-//      //strFile = Context.dir().matter("keyboard/windows/" + str + ".xml");
+//      //strFile = Context.dir()->matter("keyboard/windows/" + str + ".xml");
 //
-//      //if(Context.file().exists(strFile))
+//      //if(Context.file()->exists(strFile))
 //      //{
 //
 //      //   if (load_os_layout(strFile))
@@ -250,7 +250,7 @@ namespace windowing_xcb
 //
 //#endif
 //
-//      strFile = Context.dir().matter("keyboard/windows/default.xml");
+//      strFile = Context.dir()->matter("keyboard/windows/default.xml");
 //
 //#endif
 //
@@ -279,7 +279,7 @@ namespace windowing_xcb
 
       auto pcontext = m_pcontext;
 
-      string str = pcontext->m_papexcontext->file().as_string(pszPath);
+      string str = pcontext->m_papexcontext->file()->as_string(pszPath);
 
 
       output_debug_string(pszPath);
@@ -512,7 +512,7 @@ namespace windowing_xcb
 //
 //      ::file::path_array patha;
 //
-//      Context.dir().matter_ls_file("keyboard layout", patha);
+//      Context.dir()->matter_ls_file("keyboard layout", patha);
 //
 //      for(i32 i = 0; i < patha.get_count(); i++)
 //      {
@@ -542,9 +542,9 @@ namespace windowing_xcb
 //
 //         string strTest;
 //
-//         string strPath = Context.dir().matter("keyboard layout/" + strOverride + ".xml");
+//         string strPath = Context.dir()->matter("keyboard layout/" + strOverride + ".xml");
 //
-//         strTest = Context.file().as_string(strPath);
+//         strTest = Context.file()->as_string(strPath);
 //
 //         if(strTest.has_char())
 //         {
@@ -605,9 +605,9 @@ namespace windowing_xcb
 //
 //      {
 //
-//         string strPath = Context.dir().matter("keyboard layout/br_abnt2.xml");
+//         string strPath = Context.dir()->matter("keyboard layout/br_abnt2.xml");
 //
-//         if(Context.file().exists(strPath))
+//         if(Context.file()->exists(strPath))
 //         {
 //
 //            return strPath;
@@ -620,9 +620,9 @@ namespace windowing_xcb
 //
 //#endif
 //
-//      string strPath = Context.dir().matter("keyboard layout/en_us_international.xml");
+//      string strPath = Context.dir()->matter("keyboard layout/en_us_international.xml");
 //
-//      if(Context.file().exists(strPath))
+//      if(Context.file()->exists(strPath))
 //      {
 //
 //         return strPath;
@@ -637,10 +637,10 @@ namespace windowing_xcb
 //   bool keyboard::initialize(keyboard_layout_id * playoutid, const char * pszPath)
 //   {
 //
-//      if(!Context.file().exists(pszPath))
+//      if(!Context.file()->exists(pszPath))
 //         return false;
 //
-//      string str = Context.file().as_string(pszPath);
+//      string str = Context.file()->as_string(pszPath);
 //
 //      if(str.is_empty())
 //         return false;

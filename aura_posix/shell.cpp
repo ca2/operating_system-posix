@@ -1,6 +1,7 @@
 #include "framework.h"
 #include "shell.h"
 #include "acme/filesystem/filesystem/acme_directory.h"
+#include "acme/parallelization/synchronous_lock.h"
 #include "aura/graphics/image/context_image.h"
 
 
@@ -325,7 +326,7 @@ namespace aura_posix
    //         }
    //      }
    //   }
-   //   if (pcontext->m_papexcontext->dir().is(unicode_to_utf8(szFilePath)))
+   //   if (pcontext->m_papexcontext->dir()->is(unicode_to_utf8(szFilePath)))
    //   {
    //      if (imagekey.m_iIcon == 0x80000000)
    //      {

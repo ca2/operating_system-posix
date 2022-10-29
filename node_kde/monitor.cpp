@@ -5,7 +5,7 @@
 #include <QMetaType>
 #include <QScreen>
 
-//mutex * user_mutex();
+//mutex * user_synchronization();
 //
 //
 //namespace node_kde
@@ -53,7 +53,7 @@
 //   ::e_status monitor::_get_monitor_rectangle()
 //   {
 //
-//      synchronous_lock sl(user_mutex());
+//      synchronous_lock sl(user_synchronization());
 //
 //      auto screens = QGuiApplication::screens();
 //
@@ -93,7 +93,7 @@
 //   ::e_status monitor::_get_workspace_rectangle()
 //   {
 //
-//      synchronous_lock sl(user_mutex());
+//      synchronous_lock sl(user_synchronization());
 //
 //      auto screens = QGuiApplication::screens();
 //
@@ -193,7 +193,7 @@
 //   //      node_fork(__routine([psession]
 ////                           {
 ////
-////                              synchronous_lock sl(user_mutex());
+////                              synchronous_lock sl(user_synchronization());
 ////
 ////                              //xdisplay d(x11_get_display());
 ////

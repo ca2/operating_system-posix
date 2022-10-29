@@ -89,7 +89,7 @@ void x11_add_filter();
 void x11_main();
 
 
-mutex * user_mutex();
+mutex * user_synchronization();
 
 
 gboolean node_gtk_source_func(gpointer pUserdata);
@@ -1262,7 +1262,7 @@ log_handler (const gchar   *log_domain,
 #endif
 
 
-::pointer< ::mutex > user_mutex();
+::particle * user_synchronization();
 
 
 ::e_status run_runnable(::element * pobjectTask);

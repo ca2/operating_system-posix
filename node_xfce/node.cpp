@@ -56,7 +56,7 @@ void x11_add_filter();
 void x11_main();
 
 
-mutex * user_mutex();
+mutex * user_synchronization();
 
 
 gboolean node_xfce_source_func(gpointer pUserdata);
@@ -685,7 +685,7 @@ namespace node_xfce
 //      node_fork(__routine([psession]
 //                           {
 //
-//                              synchronous_lock sl(user_mutex());
+//                              synchronous_lock sl(user_synchronization());
 //
 //                              //xdisplay d(x11_get_display());
 //

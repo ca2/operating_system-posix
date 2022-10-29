@@ -101,9 +101,9 @@ namespace windowing_x11
 
       virtual bool is_null() const;
 
-      virtual bool get_monitor_rectangle(index iMonitor, RECTANGLE_I32 * prectangle) override;
+      bool get_monitor_rectangle(index iMonitor, RECTANGLE_I32 & rectangle) override;
 
-      virtual bool get_workspace_rectangle(index iWorkspace, RECTANGLE_I32 * prectangle) override;
+      bool get_workspace_rectangle(index iWorkspace, RECTANGLE_I32 & rectangle) override;
 
       virtual ::windowing::window * get_mouse_capture();
 

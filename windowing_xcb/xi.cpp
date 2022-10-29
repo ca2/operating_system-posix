@@ -155,7 +155,7 @@ namespace windowing_xcb
 
                                     auto pdisplay = _get_Display();
 
-                                    synchronous_lock synchronouslock(user_mutex());
+                                    synchronous_lock synchronouslock(user_synchronization());
 
                                     ::windowing_x11::display_lock lock(pdisplay);
 

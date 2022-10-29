@@ -10,12 +10,14 @@
 
 #define WITH_XI
 
-
+#define pointer x11_pointer
 
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/extensions/Xrender.h>
 #include <X11/Xatom.h>
+
+#undef pointer
 
 
 
@@ -29,7 +31,7 @@ void x11_wait_timer_or_event(Display * pdisplay);
 void __x11_hook_on_idle(Display * pdisplay);
 
 
-CLASS_DECL_ACME mutex * user_mutex();
+CLASS_DECL_ACME mutex * user_synchronization();
 
 
 //#include "x11_exception.h"

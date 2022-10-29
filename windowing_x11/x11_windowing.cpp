@@ -20,7 +20,7 @@ bool __x11_hook_process_event(Display * pdisplay, XEvent & e, XGenericEventCooki
 bool __x11_hook_list_is_empty();
 
 
-extern ::pointer< ::mutex > user_mutex();
+extern ::particle * user_synchronization();
 
 
 Display * g_pdisplayX11= nullptr;
@@ -169,7 +169,7 @@ void x11_kick_idle()
 //      try
 //      {
 //
-//         synchronous_lock sl(user_mutex());
+//         synchronous_lock sl(user_synchronization());
 //
 //         XLockDisplay(pdisplay);
 //

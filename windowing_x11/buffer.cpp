@@ -6,9 +6,11 @@
 #include "buffer.h"
 #include "window.h"
 #include "display.h"
-#include "aura_posix/x11/display_lock.h"
+#include "acme/parallelization/mutex.h"
+#include "acme/parallelization/synchronous_lock.h"
 #include "aura/user/user/interaction_impl.h"
 #include "aura/graphics/image/image.h"
+#include "aura_posix/x11/display_lock.h"
 
 
 namespace windowing_x11
@@ -57,7 +59,7 @@ namespace windowing_x11
 //
 //      }
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       display_lock displaylock(x11_window()->x11_display()->Display());
 
@@ -80,7 +82,7 @@ namespace windowing_x11
 
       }
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       display_lock displaylock(x11_window()->x11_display()->Display());
 
@@ -331,7 +333,7 @@ namespace windowing_x11
 
       pimage->map();
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       display_lock displayLock(x11_window()->x11_display()->Display());
 

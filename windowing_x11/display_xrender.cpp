@@ -17,7 +17,7 @@ namespace windowing_x11
    Cursor display::create_alpha_cursor(const ::image *pimage, int xHotSpot, int yHotSpot)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       windowing_output_debug_string("\n::CreateAlphaCursor 1");
 

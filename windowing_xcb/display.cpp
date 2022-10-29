@@ -14,7 +14,7 @@ extern ::app_core * g_pappcore;
 //xcb_connection_t * xcb_get_display();
 
 
-mutex * user_mutex();
+mutex * user_synchronization();
 
 
 void windowing_output_debug_string(const char *pszDebugString);
@@ -244,7 +244,7 @@ namespace windowing_xcb
    ::e_status display::release_mouse_capture()
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       _on_capture_changed_to(nullptr);
 
@@ -424,7 +424,7 @@ namespace windowing_xcb
    ::windowing_xcb::window * display::_get_keyboard_focus()
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       oswindow oswindow = nullptr;
 
@@ -467,7 +467,7 @@ namespace windowing_xcb
       i32 win_y_return;
       u32 mask_return;
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       windowing_output_debug_string("\n::GetCursorPos 1");
 
@@ -697,7 +697,7 @@ namespace windowing_xcb
    bool display::_window_has_atom_list_atom(xcb_window_t window, xcb_atom_t propertyList, xcb_atom_t propertyItem)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       array < xcb_atom_t > atoma;
 
@@ -749,7 +749,7 @@ namespace windowing_xcb
    comparable_array < xcb_atom_t > display::_window_get_atom_array(xcb_window_t window, xcb_atom_t property)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       comparable_array < xcb_atom_t > atoma;
 
@@ -895,7 +895,7 @@ namespace windowing_xcb
    ::rectangle_i32 display::_window_get_frame_extents(xcb_window_t window)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       ::rectangle_i32 r;
 
@@ -1014,7 +1014,7 @@ namespace windowing_xcb
 
          }
 
-         synchronous_lock synchronouslock(user_mutex());
+         synchronous_lock synchronouslock(user_synchronization());
 
          windowing_output_debug_string("\n::GetFocus 1");
 

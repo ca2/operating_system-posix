@@ -38,6 +38,6 @@ namespace windowing_xcb
 
 
 
-extern ::pointer< ::mutex > user_mutex();
+extern ::particle * user_synchronization();
 
 

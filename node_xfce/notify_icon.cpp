@@ -237,11 +237,11 @@ namespace node_xfce
 //
 //      string strUrl = "https://server.ca2.software/matter/" + strFolder + strFile;
 //
-//      strFile = Context.dir().appdata() / strFolder / strFile;
+//      strFile = Context.dir()->appdata() / strFolder / strFile;
 //
 //      int iRetry = 3;
 //
-//      while(iRetry >= 0 && (!Context.file().exists(strFile) || Context.file().length(strFile) <= 0))
+//      while(iRetry >= 0 && (!Context.file()->exists(strFile) || Context.file()->length(strFile) <= 0))
 //      {
 //
 //         ::property_set set;

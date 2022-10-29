@@ -41,7 +41,7 @@ struct MWMHints
 CLASS_DECL_WINDOWING_XCB void xcb_main();
 
 
-CLASS_DECL_WINDOWING_XCB ::pointer< ::mutex > user_mutex();
+CLASS_DECL_WINDOWING_XCB ::particle * user_synchronization();
 
 
 

@@ -2,7 +2,7 @@
 #include "framework.h"
 
 
-mutex * user_mutex();
+mutex * user_synchronization();
 
 
 namespace node_xfce
@@ -50,7 +50,7 @@ namespace node_xfce
    ::e_status monitor::_get_monitor_rectangle()
    {
 
-      synchronous_lock sl(user_mutex());
+      synchronous_lock sl(user_synchronization());
 
       GdkDisplay * pdisplay = gdk_display_get_default();
 
@@ -86,7 +86,7 @@ namespace node_xfce
    ::e_status monitor::_get_workspace_rectangle()
    {
 
-      synchronous_lock sl(user_mutex());
+      synchronous_lock sl(user_synchronization());
 
       GdkDisplay * pdisplay = gdk_display_get_default();
 
@@ -172,7 +172,7 @@ namespace node_xfce
    //      node_fork(__routine([psession]
 //                           {
 //
-//                              synchronous_lock sl(user_mutex());
+//                              synchronous_lock sl(user_synchronization());
 //
 //                              //xdisplay d(x11_get_display());
 //

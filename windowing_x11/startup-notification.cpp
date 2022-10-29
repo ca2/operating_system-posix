@@ -42,7 +42,7 @@
 //void x_display_error_trap_pop(SnDisplay * sndisplay, Display * display)
 //{
 //
-//   synchronous_lock sl(user_mutex());
+//   synchronous_lock sl(user_synchronization());
 //
 //   g_iIgnoreXDisplayError--;
 //

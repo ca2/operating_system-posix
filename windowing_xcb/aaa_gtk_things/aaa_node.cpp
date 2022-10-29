@@ -49,7 +49,7 @@ void xcb_add_filter();
 void xcb_main();
 
 
-mutex * user_mutex();
+mutex * user_synchronization();
 
 
 gboolean node_gnome_source_func(gpointer pUserdata);
@@ -480,7 +480,7 @@ void node::os_calc_user_dark_mode()
       node_fork(__routine([psession]
                            {
 
-                              synchronous_lock sl(user_mutex());
+                              synchronous_lock sl(user_synchronization());
 
                               xdisplay d(xcb_get_display());
 

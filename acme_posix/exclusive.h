@@ -1,15 +1,51 @@
 //
-// Created by camilo on 28/10/22.
+// Created by camilo on 2022-10-28 23:52 <3ThomasBorregaardSorensen!!
 //
-
-#ifndef BASIS_EXCLUSIVE_H
-#define BASIS_EXCLUSIVE_H
+#pragma once
 
 
-class exclusive
+#include "acme/platform/exclusive.h"
+
+
+namespace acme_posix
 {
 
-};
+
+   class CLASS_DECL_ACME exclusive :
+      virtual public ::acme::exclusive
+   {
+      public:
 
 
-#endif //BASIS_EXCLUSIVE_H
+   //   string                  m_strId;
+
+   // #ifdef WINDOWS
+
+   //       ::u32                   m_dwLastError;
+   //       bool                    m_bResourceException;
+
+   // #else
+
+          int                     m_iFile;
+          int                     m_iLock;
+
+   // #endif
+
+      // ::pointer < ::mutex >     m_pmutex;
+
+
+      exclusive(::particle * pparticle, string str ARG_SEC_ATTRS_DEF);
+      //exclusive();
+      ~exclusive() override;
+
+
+      bool exclusive_fails() const;
+
+
+   };
+
+
+} // namespace acme_posix
+
+
+

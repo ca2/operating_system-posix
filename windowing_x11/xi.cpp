@@ -39,7 +39,7 @@ namespace windowing_x11
       windowing_post([this, bMouse, bKeyboard]()
                           {
 
-                             synchronous_lock synchronouslock(user_mutex());
+                             synchronous_lock synchronouslock(user_synchronization());
 
                              ::windowing_x11::display_lock lock(m_pdisplay->Display());
 

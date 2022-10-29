@@ -22,7 +22,7 @@ namespace windowing_xcb
    ::e_status window::_mapped_add_net_wm_state(::x11::enum_atom eatomNetWmState)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       auto atomFlag = xcb_display()->m_pxcbdisplay->intern_atom(eatomNetWmState, false);
 
@@ -52,7 +52,7 @@ namespace windowing_xcb
    ::e_status window::_mapped_erase_net_wm_state(::x11::enum_atom eatomNetWmState)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       auto atomFlag = xcb_display()->m_pxcbdisplay->intern_atom(eatomNetWmState, false);
 
@@ -83,7 +83,7 @@ namespace windowing_xcb
    ::e_status window::_add_net_wm_state(::x11::enum_atom eatomNetWmState)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       //display_lock displaylock(xcb_display());
 
@@ -129,7 +129,7 @@ namespace windowing_xcb
    ::e_status window::_clear_net_wm_state()
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       xcb_display()->m_pxcbdisplay->_clear_net_wm_state(xcb_window());
 
@@ -155,7 +155,7 @@ namespace windowing_xcb
    ::e_status window::_add_net_wm_state_below()
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       auto estatus1 = _erase_net_wm_state_hidden();
 
@@ -179,7 +179,7 @@ namespace windowing_xcb
    ::e_status window::_add_net_wm_state_above()
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       auto estatus1 = _erase_net_wm_state_hidden();
       auto estatus2 = _add_net_wm_state(::x11::e_atom_net_wm_state_above);
@@ -201,7 +201,7 @@ namespace windowing_xcb
    ::e_status window::_add_net_wm_state_hidden()
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       auto estatus1 = _add_net_wm_state(::x11::e_atom_net_wm_state_hidden);
       auto estatus2 = _erase_net_wm_state_above();
@@ -225,7 +225,7 @@ namespace windowing_xcb
    ::e_status window::_unmapped_add_net_wm_state(::x11::enum_atom eatomNetWmState)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       auto atomNetWmState = xcb_display()->m_pxcbdisplay->intern_atom(::x11::e_atom_net_wm_state, false);
 
@@ -248,7 +248,7 @@ namespace windowing_xcb
    ::e_status window::_unmapped_erase_net_wm_state(::x11::enum_atom eatomNetWmState)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       auto atomNetWmState = xcb_display()->m_pxcbdisplay->intern_atom(::x11::e_atom_net_wm_state, false);
 
@@ -272,7 +272,7 @@ namespace windowing_xcb
    ::e_status window::_erase_net_wm_state_below()
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       auto estatus = _erase_net_wm_state(::x11::e_atom_net_wm_state_below);
 
@@ -292,7 +292,7 @@ namespace windowing_xcb
    ::e_status window::_erase_net_wm_state_above()
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       auto estatus = _erase_net_wm_state(::x11::e_atom_net_wm_state_above);
 
@@ -312,7 +312,7 @@ namespace windowing_xcb
    ::e_status window::_erase_net_wm_state_hidden()
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       auto estatus = _erase_net_wm_state(::x11::e_atom_net_wm_state_hidden);
 
@@ -334,7 +334,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::wm_toolwindow 1");
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       //display_lock displaylock(xcb_display());
 
@@ -413,7 +413,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::wm_hidden_state 1");
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       //display_lock displaylock(xcb_display());
 
@@ -454,7 +454,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::wm_desktopwindow 1");
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       //display_lock displaylock(xcb_display());
 
@@ -509,7 +509,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::wm_centerwindow 1");
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       //display_lock displaylock(xcb_display());
 
@@ -565,7 +565,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::wm_centerwindow 1");
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       //display_lock displaylock(xcb_display());
 
@@ -620,7 +620,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::wm_dockwindow 1");
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       //display_lock displaylock(xcb_display());
 
@@ -716,7 +716,7 @@ namespace windowing_xcb
    ::e_status window::_set_iconify_window()
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       windowing_output_debug_string("\n::wm_iconify_window 1");
       
@@ -787,7 +787,7 @@ namespace windowing_xcb
    int_bool window::IsWindowVisibleRaw()
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       auto estatus = _get_window_attributes();
 

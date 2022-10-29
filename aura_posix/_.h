@@ -33,17 +33,13 @@ namespace xim
 } // namespace xim
 
 
+#if defined(LINUX)
 
 
-//
-//
-//#if defined(LINUX)
-//
-//
-//#include "x11/_.h"
-//
-//
-//#endif
-//
-//
+#include "x11/_.h"
+
+
+#endif
+
+
 

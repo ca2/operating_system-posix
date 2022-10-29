@@ -6,6 +6,10 @@
 #include "window.h"
 #include "windowing.h"
 #include "windowing_x11.h"
+#include "acme/constant/message.h"
+#include "acme/parallelization/synchronous_lock.h"
+#include "apex/platform/node.h"
+#include "apex/platform/system.h"
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
 #include "aura/graphics/image/image.h"
@@ -18,7 +22,7 @@ extern ::app_core * g_pappcore;
 
 Display * x11_get_display();
 
-mutex * user_mutex();
+mutex * user_synchronization();
 
 
 void windowing_output_debug_string(const char *pszDebugString);
@@ -303,18 +307,18 @@ namespace windowing_x11
    }
 
 
-   bool display::get_monitor_rectangle(index iMonitor, RECTANGLE_I32 * prectangle)
+   bool display::get_monitor_rectangle(index iMonitor, RECTANGLE_I32 & rectangle)
    {
 
-      return ::windowing::display::get_monitor_rectangle(iMonitor, prectangle);
+      return ::windowing::display::get_monitor_rectangle(iMonitor, rectangle);
 
    }
 
 
-   bool display::get_workspace_rectangle(index iMonitor, RECTANGLE_I32 * prectangle)
+   bool display::get_workspace_rectangle(index iMonitor, RECTANGLE_I32 & rectangle)
    {
 
-      return ::windowing::display::get_workspace_rectangle(iMonitor, prectangle);
+      return ::windowing::display::get_workspace_rectangle(iMonitor, rectangle);
 
    }
 
@@ -333,7 +337,7 @@ namespace windowing_x11
       auto predicate = [this]()
       {
 
-        synchronous_lock synchronouslock(user_mutex());
+        synchronous_lock synchronouslock(user_synchronization());
 
         _on_capture_changed_to(nullptr);
 
@@ -517,7 +521,7 @@ namespace windowing_x11
       auto predicate = [this,ppropertyobject]()
       {
 
-         synchronous_lock synchronouslock(user_mutex());
+         synchronous_lock synchronouslock(user_synchronization());
 
          oswindow oswindow = nullptr;
 
@@ -614,7 +618,7 @@ namespace windowing_x11
 
 #endif
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       windowing_output_debug_string("\n::GetCursorPos 1");
 
@@ -664,7 +668,7 @@ namespace windowing_x11
    XImage *display::x11_create_image(::image_pointer pimage)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       windowing_output_debug_string("\n::x11_create_image 1");
 
@@ -714,7 +718,7 @@ namespace windowing_x11
    Pixmap display::x11_create_pixmap(::image_pointer pimage)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       windowing_output_debug_string("\n::x11_create_pixmap 1");
 
@@ -809,7 +813,7 @@ namespace windowing_x11
 
          }
 
-         synchronous_lock synchronouslock(user_mutex());
+         synchronous_lock synchronouslock(user_synchronization());
 
          windowing_output_debug_string("\n::GetFocus 1");
 

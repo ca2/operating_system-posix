@@ -72,6 +72,8 @@ namespace acme_posix
       ::pointer < ::mutex > open_local_named_mutex(::particle * pparticleContext, const ::string & strName) override;
       ::pointer < ::mutex > open_global_named_mutex(::particle * pparticleContext, const ::string & strName) override;
 
+      ::pointer < ::acme::exclusive > get_exclusive(::particle * pparticleContext, const ::string & strName ARG_SEC_ATTRS_DEF) override;
+
       bool process_contains_module(string& strImage, ::u32 processID, const ::string & pszLibrary) override;
 
       void shared_library_process(dword_array& dwa, string_array& straProcesses, const ::string & pszLibrary) override;

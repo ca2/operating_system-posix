@@ -18,7 +18,7 @@ namespace windowing_x11
    void window::wm_add_remove_state_mapped_raw(::x11::enum_atom eatomNetWmState, bool bSet)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       int iStateIndex = eatomNetWmState - ::x11::e_atom_net_wm_state_first;
 
@@ -83,7 +83,7 @@ namespace windowing_x11
    void window::wm_add_remove_state_mapped(::x11::enum_atom eatomNetWmState, bool bSet)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       windowing_output_debug_string("\n::wm_add_remove_state_mapped 1");
 
@@ -100,7 +100,7 @@ namespace windowing_x11
    void window::wm_add_remove_state_unmapped_raw(::x11::enum_atom eatomNetWmState, bool bSet)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       int iStateIndex = eatomNetWmState - ::x11::e_atom_net_wm_state_first;
 
@@ -130,7 +130,7 @@ namespace windowing_x11
    void window::wm_add_remove_state_unmapped(::x11::enum_atom eatomNetWmState, bool bSet)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       windowing_output_debug_string("\n::wm_add_remove_state_unmapped 1");
 
@@ -147,7 +147,7 @@ namespace windowing_x11
    void window::wm_add_remove_state_raw(::x11::enum_atom eatomNetWmState, bool bSet)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       if (IsWindowVisibleRaw())
       {
@@ -169,7 +169,7 @@ namespace windowing_x11
    void window::wm_add_remove_state(::x11::enum_atom eatomNetWmState, bool bSet)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       windowing_output_debug_string("\n::wm_add_remove_state 1");
 
@@ -186,7 +186,7 @@ namespace windowing_x11
    void window::wm_state_clear_raw(bool bSet)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       wm_add_remove_state_raw(::x11::e_atom_net_wm_state_above, false);
       wm_add_remove_state_raw(::x11::e_atom_net_wm_state_below, false);
@@ -204,7 +204,7 @@ namespace windowing_x11
    void window::wm_state_below_raw(bool bSet)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       wm_add_remove_state_raw(::x11::e_atom_net_wm_state_hidden, false);
       wm_add_remove_state_raw(::x11::e_atom_net_wm_state_above, false);
@@ -217,7 +217,7 @@ namespace windowing_x11
    void window::wm_state_above_raw(bool bSet)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       wm_add_remove_state_raw(::x11::e_atom_net_wm_state_hidden, false);
       wm_add_remove_state_raw(::x11::e_atom_net_wm_state_below, false);
@@ -230,7 +230,7 @@ namespace windowing_x11
    void window::wm_state_hidden_raw(bool bSet)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       wm_add_remove_state_raw(::x11::e_atom_net_wm_state_below, false);
       wm_add_remove_state_raw(::x11::e_atom_net_wm_state_above, false);
@@ -242,7 +242,7 @@ namespace windowing_x11
 //void wm_state_hidden(oswindow w, bool bSet)
 //{
 //
-//   synchronous_lock synchronouslock(user_mutex());
+//   synchronous_lock synchronouslock(user_synchronization());
 //
 //   windowing_output_debug_string("\n::wm_state_above 1");
 //
@@ -257,7 +257,7 @@ namespace windowing_x11
    void window::wm_state_above(bool bSet)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       windowing_output_debug_string("\n::wm_state_above 1");
 
@@ -274,7 +274,7 @@ namespace windowing_x11
    void window::wm_state_below(bool bSet)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       windowing_output_debug_string("\n::wm_state_below 1");
 
@@ -291,7 +291,7 @@ namespace windowing_x11
    void window::wm_state_hidden(bool bSet)
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       windowing_output_debug_string("\n::wm_state_hidden 1");
 
@@ -313,7 +313,7 @@ namespace windowing_x11
 
          windowing_output_debug_string("\n::wm_toolwindow 1");
 
-         synchronous_lock synchronouslock(user_mutex());
+         synchronous_lock synchronouslock(user_synchronization());
 
          display_lock displaylock(x11_display()->Display());
 
@@ -374,7 +374,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::wm_hidden_state 1");
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       display_lock displaylock(x11_display()->Display());
 
@@ -404,7 +404,7 @@ namespace windowing_x11
 //
 //               windowing_output_debug_string("\n::wm_arbitrarypositionwindow 1");
 //
-//               synchronous_lock synchronouslock(user_mutex());
+//               synchronous_lock synchronouslock(user_synchronization());
 //
 //               display_lock displaylock(x11_display()->Display());
 //
@@ -465,7 +465,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::wm_desktopwindow 1");
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       display_lock displaylock(x11_display()->Display());
 
@@ -523,7 +523,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::wm_centerwindow 1");
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       display_lock displaylock(x11_display()->Display());
 
@@ -581,7 +581,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::wm_centerwindow 1");
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       display_lock displaylock(x11_display()->Display());
 
@@ -639,7 +639,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::wm_dockwindow 1");
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       display_lock displaylock(x11_display()->Display());
 
@@ -699,7 +699,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\n::wm_nodecorations 1");
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       display_lock displaylock(x11_display()->Display());
 
@@ -763,7 +763,7 @@ namespace windowing_x11
    void window::wm_iconify_window()
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       display_lock displaylock(x11_display()->Display());
 
@@ -811,7 +811,7 @@ namespace windowing_x11
    int_bool window::IsWindowVisibleRaw()
    {
 
-      synchronous_lock synchronouslock(user_mutex());
+      synchronous_lock synchronouslock(user_synchronization());
 
       XWindowAttributes attr;
 

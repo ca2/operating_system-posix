@@ -34,7 +34,7 @@ pointer_array < x11_hook > g_x11hooka;
 ::e_status x11_hook::hook()
 {
 
-   synchronous_lock sl(user_mutex());
+   synchronous_lock sl(user_synchronization());
 
    g_x11hooka.add(this);
 
@@ -46,7 +46,7 @@ pointer_array < x11_hook > g_x11hooka;
 ::e_status x11_hook::unhook()
 {
 
-   synchronous_lock sl(user_mutex());
+   synchronous_lock sl(user_synchronization());
 
    g_x11hooka.remove(this);
 
