@@ -7,6 +7,7 @@
 #include "acme/constant/id.h"
 #include "acme/constant/message.h"
 #include "acme/parallelization/synchronous_lock.h"
+#include "acme/platform/system.h"
 #include "aura_posix/x11/display_lock.h"
 ////#include "sn/sn.h"
 #include <fcntl.h> // library for fcntl function
