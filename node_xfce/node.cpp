@@ -56,7 +56,7 @@ void x11_add_filter();
 void x11_main();
 
 
-mutex * user_synchronization();
+::particle * user_synchronization();
 
 
 gboolean node_xfce_source_func(gpointer pUserdata);

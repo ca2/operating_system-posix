@@ -17,6 +17,8 @@
 
 #define WITH_SN
 
+#define WITH_XI
+
 
 namespace x11
 {

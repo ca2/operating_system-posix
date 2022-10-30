@@ -1,7 +1,7 @@
 //
 // Created by camilo on 20/01/2021. ThomasBS!!
 //
-
+#include "acme/platform/system.h"
 
 //int uname(struct utsname *buf);
 //#ifndef RASPBIAN

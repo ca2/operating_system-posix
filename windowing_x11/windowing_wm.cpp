@@ -6,9 +6,10 @@
 #include "windowing_x11.h"
 #include "display.h"
 #include "windowing.h"
-#include <X11/Xatom.h>
+#include "acme/parallelization/synchronous_lock.h"
 #include "aura/user/user/interaction_impl.h"
 #include "aura_posix/x11/display_lock.h"
+#include <X11/Xatom.h>
 
 
 namespace windowing_x11

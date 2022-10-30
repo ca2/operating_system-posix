@@ -15,7 +15,7 @@
 //
 ////Display * x11_get_display();
 //
-////mutex * user_synchronization();
+////::particle * user_synchronization();
 //
 //
 ////void windowing_output_debug_string(const char * pszDebugString);

@@ -13,7 +13,7 @@
 #include "display.h"
 
 
-CLASS_DECL_ACME ::mutex * user_synchronization();
+CLASS_DECL_ACME ::particle * user_synchronization();
 
 
 namespace windowing_x11

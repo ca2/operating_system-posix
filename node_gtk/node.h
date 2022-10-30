@@ -12,7 +12,7 @@
 #include <gio/gdesktopappinfo.h>
 #endif
 
-
+#include "acme/primitive/collection/string_map.h"
 #include "aura_posix/node.h"
 
 

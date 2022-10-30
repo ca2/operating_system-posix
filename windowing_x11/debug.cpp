@@ -3,7 +3,7 @@
 ////#include "sn/sn.h"
 
 
-extern ::mutex * user_synchronization();
+extern ::particle * user_synchronization();
 
 
 //int g_iIgnoreXDisplayError = 0;

@@ -307,7 +307,7 @@ namespace windowing_x11
 
       }
 
-      synchronous_lock slGraphics(mutex());
+      synchronous_lock slGraphics(synchronization());
 
       if(m_gc == nullptr)
       {

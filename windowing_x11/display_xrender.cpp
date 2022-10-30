@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "windowing_x11.h"
 #include "display.h"
+#include "acme/parallelization/synchronous_lock.h"
 #include "aura/graphics/image/image.h"
 #include "aura_posix/x11/display_lock.h"
 #include "_x11.h"

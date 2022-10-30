@@ -2,13 +2,14 @@
 // Created by camilo on 17/02/2021. 00:45 BRT <3TBS_!!
 //
 #include "framework.h"
-#include "windowing_x11.h"
-#include "aura_posix/x11/display_lock.h"
 #ifdef WITH_XI
-#include <X11/extensions/XInput2.h>
+#include "windowing_x11.h"
+#include "acme/parallelization/synchronous_lock.h"
+#include "aura_posix/x11/display_lock.h"
 #include "windowing_x11/window.h"
 #include "windowing_x11/windowing.h"
 #include "windowing_x11/display.h"
+#include <X11/extensions/XInput2.h>
 
 
 namespace windowing_x11

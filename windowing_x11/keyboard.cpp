@@ -4,6 +4,8 @@
 //
 #include "framework.h"
 #include "keyboard.h"
+#include "acme/parallelization/synchronous_lock.h"
+#include "apex/filesystem/filesystem/file_context.h"
 #include "apex/user/primitive.h"
 #include "aura/user/user/key.h"
 
@@ -284,9 +286,7 @@ namespace windowing_x11
 
       //::type typeinfoKey = __type(::user::enum_key);
 
-      auto pcontext = m_pcontext->m_papexcontext;
-
-      string str = pcontext->file()->as_string(pszPath);
+      string str = file()->as_string(pszPath);
 
       output_debug_string(pszPath);
 

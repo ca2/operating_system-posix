@@ -28,7 +28,7 @@ namespace draw2d_xlib
       //bool operator==(const object& obj) const;
       //bool operator!=(const object& obj) const;
 
-      void dump(dump_context & dumpcontext) const override;
+      // void dump(dump_context & dumpcontext) const override;
       void assert_ok() const override;
 
    };

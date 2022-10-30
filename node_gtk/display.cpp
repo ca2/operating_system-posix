@@ -5,7 +5,7 @@
 
 #include "framework.h"
 #include "display.h"
-//#include "apex/platform/app_core.h"
+#include "acme/platform/node.h"
 //#include "_user.h"
 //#include <gdk/gdk.h>
 
@@ -14,7 +14,7 @@ extern ::app_core * g_pappcore;
 
 Display * x11_get_display();
 
-mutex * user_synchronization();
+::particle * user_synchronization();
 
 
 void windowing_output_debug_string(const char * pszDebugString);
@@ -317,9 +317,7 @@ namespace node_gtk
 
       bool bOk = false;
 
-      auto pnode = acmesystem()->m_pnode;
-
-      auto edesktop = pnode->get_edesktop();
+      auto edesktop = acmenode()->get_edesktop();
 
       if(edesktop & ::user::e_desktop_gnome)
       {

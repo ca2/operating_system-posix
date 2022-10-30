@@ -496,7 +496,7 @@ namespace draw2d_xlib
       // Implementation
    public:
       void assert_ok() const override;
-      void dump(dump_context & dumpcontext) const override;
+      // void dump(dump_context & dumpcontext) const override;
 
 //      HGDIOBJ SelectObject(HGDIOBJ);      // do not use for regions
 

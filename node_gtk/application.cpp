@@ -1,5 +1,8 @@
 #include "framework.h"
 #include "application.h"
+#include "acme/primitive/string/string.h"
+#include "apex/platform/application.h"
+#include "apex/platform/application_menu.h"
 #include <glib.h>
 
 

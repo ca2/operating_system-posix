@@ -21,7 +21,7 @@ void on_sn_launch_context(void * pSnContext, Window window);
 void on_sn_launch_complete(void * pSnContext);
 
 
-mutex * user_synchronization();
+::particle * user_synchronization();
 
 
 #undef ALOG_CONTEXT

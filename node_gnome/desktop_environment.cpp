@@ -9,7 +9,7 @@
 //#include <X11/Xlib-xcb.h>
 //#include <QScreen>
 //
-//mutex * user_synchronization();
+//::particle * user_synchronization();
 
 
 namespace node_gnome

@@ -3,6 +3,7 @@
 #include "framework.h"
 #include "node.h"
 #include "acme/operating_system/ansi/pmutex_lock.h"
+#include "apex/platform/system.h"
 
 
 ::particle * user_synchronization();

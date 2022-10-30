@@ -2,6 +2,9 @@
 // recreated by Camilo 2021-01-28 16:38
 #include "framework.h"
 #include "icon.h"
+#include "acme/exception/interface_only.h"
+#include "apex/filesystem/filesystem/dir_context.h"
+#include "apex/platform/context.h"
 //#include "_windowing_x11.h"
 
 

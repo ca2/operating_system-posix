@@ -3,9 +3,10 @@
 #include "monitor.h"
 #include "display.h"
 #include "windowing.h"
+#include "acme/parallelization/synchronous_lock.h"
 
 
-mutex * user_synchronization();
+::particle * user_synchronization();
 
 
 namespace node_gtk

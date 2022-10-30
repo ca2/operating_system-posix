@@ -49,7 +49,7 @@ void xcb_add_filter();
 void xcb_main();
 
 
-mutex * user_synchronization();
+::particle * user_synchronization();
 
 
 gboolean node_gnome_source_func(gpointer pUserdata);

@@ -5,7 +5,7 @@
 #include <QMetaType>
 #include <QScreen>
 
-//mutex * user_synchronization();
+//::particle * user_synchronization();
 //
 //
 //namespace node_kde

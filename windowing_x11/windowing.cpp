@@ -6,6 +6,8 @@
 #include "window.h"
 #include "display.h"
 #include "cursor.h"
+#include "acme/parallelization/synchronous_lock.h"
+#include "acme/primitive/primitive/function.h"
 #include "aura/windowing/cursor_manager.h"
 #include <X11/cursorfont.h>
 #include "aura/user/user/interaction_impl.h"
@@ -211,7 +213,7 @@ _libsn_start_context();
    void windowing::windowing_post(const ::procedure & procedure)
    {
 
-      if(::is_null(procedure))
+      if(!procedure)
       {
 
          throw ::exception(error_null_pointer);

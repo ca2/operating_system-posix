@@ -14,7 +14,7 @@ extern ::app_core * g_pappcore;
 //xcb_connection_t * xcb_get_display();
 
 
-mutex * user_synchronization();
+::particle * user_synchronization();
 
 
 void windowing_output_debug_string(const char *pszDebugString);

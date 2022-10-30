@@ -35,8 +35,8 @@ namespace node_gtk
       virtual bool adjust_monitor( ::u32 dwTemperature, double dBrightness, double dwGamma) override;
 
 
-      void get_monitor_rectangle(::RECTANGLE_I32 * prectangle) override;
-      void get_workspace_rectangle(::RECTANGLE_I32 * prectangle) override;
+      void get_monitor_rectangle(::RECTANGLE_I32 & rectangle) override;
+      void get_workspace_rectangle(::RECTANGLE_I32 & rectangle) override;
 
 
       virtual ::e_status _get_monitor_rectangle();
