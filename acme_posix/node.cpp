@@ -30,6 +30,10 @@
 
 
 
+#include <unistd.h>
+#include <stdio.h>
+#include <sys/select.h>
+
 #if defined(__clang__) && !defined(ANDROID)
 ::string clang_backtrace();
 #endif
@@ -1351,6 +1355,49 @@ namespace acme_posix
    }
 
 #endif
+
+
+   bool node::stdin_has_input_events()
+   {
+
+
+      // cc.byexamples.com calls this int kbhit(), to mirror the Windows console
+      //  function of the same name.  Otherwise, the code is the same.
+      struct timeval tv;
+      fd_set fds;
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+      FD_ZERO(&fds);
+      FD_SET(STDIN_FILENO, &fds);
+      select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv);
+      return (FD_ISSET(0, &fds));
+   }
+
+
+   bool node::stdin_wait_char(void)
+   {
+      struct timeval tv;
+      fd_set fds;
+      tv.tv_sec = INT_MAX; // Almost infinite wait
+      tv.tv_usec = 0;
+      FD_ZERO(&fds);
+      FD_SET(STDIN_FILENO, &fds);
+      select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv);
+      return (FD_ISSET(0, &fds));
+   }
+
+
+   void node::flush_stdin()
+   {
+
+      while (stdin_has_char())
+      {
+
+         getchar();
+
+      }
+
+   }
 
 
 } // namespace acme_posix
