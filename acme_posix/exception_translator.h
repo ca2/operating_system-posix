@@ -29,7 +29,7 @@ namespace acme_posix
 {
 
 class address_to_line :
-virtual public ::element
+virtual public ::particle
 {
 public:
    

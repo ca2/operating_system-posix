@@ -3,16 +3,22 @@
 //
 #include "framework.h"
 #include "node.h"
+#include "acme/constant/id.h"
 #include "acme/operating_system/ansi/pmutex_lock.h"
 #include "acme/operating_system/parallelization.h"
 #include "acme/filesystem/filesystem/acme_directory.h"
-#include <gio/gio.h>
-#include <gtk/gtk.h>
-#include <glib.h>
+#include "acme/user/user/os_theme_colors.h"
+#include "acme/user/user/theme_colors.h"
+#include "apex/platform/system.h"
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
 #include "windowing_x11/windowing_x11.h"
 #include "aura/windowing/windowing.h"
+
+
+#include <gio/gio.h>
+#include <gtk/gtk.h>
+#include <glib.h>
 
 
 bool x11_message_loop_step();
@@ -24,10 +30,10 @@ gboolean gtk_quit_callback(gpointer data);
 ///int gtk_launch (const char * pszDesktopFileTitle);
 
 
-void copy(::color::color * pcolor, const GdkRGBA  * prgba)
+void copy(::color::color & color, const GdkRGBA & rgba)
 {
 
-   pcolor->set(rpgba->red, prgba->green, prgba->blue, prgba->alpha);
+   color.set(rgba.red, rgba.green, rgba.blue, rgba.alpha);
 
 }
 
@@ -41,7 +47,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 
    ::color::color color;
 
-   copy(&color, prgba);
+   copy(color, *prgba);
 
    gdk_rgba_free (prgba);
 
@@ -759,18 +765,18 @@ namespace node_gtk
    {
 
       // TODO check if ptopic below is own topic or what else?
-      ::particle * pparticle = ptopic;
+      ::pointer <::particle > pparticle = ptopic;
 
-      node_post([pelement]()
+      node_post([pparticle]()
       {
 
-         auto ret = g_timeout_add(300, (GSourceFunc) &node_gtk_source_func, pelement);
+         auto ret = g_timeout_add(300, (GSourceFunc) &node_gtk_source_func, pparticle);
 
          printf("ret %d", ret);
 
          printf("ret %d", ret);
 
-         g_idle_add(&node_gtk_source_func, pelement);
+         g_idle_add(&node_gtk_source_func, pparticle);
 
       });
 
@@ -1199,9 +1205,9 @@ namespace node_gtk
 gboolean node_gtk_source_func(gpointer pUserdata)
 {
 
-   ::particle * pparticle = (::element *) pUserdata;
+   ::particle * pparticle = (::particle *) pUserdata;
 
-   if(!pelement->step())
+   if(!pparticle->step())
    {
 
       return false;
@@ -1265,7 +1271,7 @@ log_handler (const gchar   *log_domain,
 ::particle * user_synchronization();
 
 
-::e_status run_runnable(::element * pobjectTask);
+::e_status run_runnable(::particle * pobjectTask);
 
 
 

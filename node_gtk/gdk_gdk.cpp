@@ -4,6 +4,7 @@
 #include "node.h"
 #include "acme/constant/id.h"
 #include "acme/operating_system/ansi/pmutex_lock.h"
+#include "acme/parallelization/synchronous_lock.h"
 #include "apex/platform/system.h"
 
 
@@ -459,12 +460,12 @@ namespace node_gtk
    gboolean gdk_callback_run_runnable(gpointer pdata)
    {
 
-      auto pelement = (::element *) pdata;
+      auto pparticle = (::particle *) pdata;
 
       try
       {
 
-         pelement->run();
+         pparticle->run();
 
       }
       catch(...)
@@ -472,7 +473,7 @@ namespace node_gtk
 
       }
 
-      ::release(pelement);
+      ::release(pparticle);
 
       return FALSE;
 
@@ -484,7 +485,7 @@ namespace node_gtk
 
       ::particle * pparticle = procedure.m_p;
 
-      ::increment_reference_count(pelement);
+      ::increment_reference_count(pparticle);
 
       synchronous_lock synchronouslock (user_synchronization());
 
@@ -492,7 +493,7 @@ namespace node_gtk
 
       g_source_set_priority(psource, G_PRIORITY_DEFAULT);
 
-      g_source_set_callback(psource, &gdk_callback_run_runnable, pelement, nullptr);
+      g_source_set_callback(psource, &gdk_callback_run_runnable, pparticle, nullptr);
 
       g_source_attach(psource, g_main_context_default());
 

@@ -98,7 +98,7 @@ namespace node_gtk
 
       //sleep(15_s);
 
-      copy(&m_rectangle, &rect);
+      copy(m_rectangle, rect);
 
       return ::success;
 
@@ -132,14 +132,14 @@ namespace node_gtk
 
       gdk_monitor_get_workarea(pmonitor, &rect);
 
-      copy(&m_rectangleWorkspace, &rect);
+      copy(m_rectangleWorkspace, rect);
 
       return ::success;
 
    }
 
 
-   void monitor::get_monitor_rectangle(::RECTANGLE_I32 *prectangle)
+   void monitor::get_monitor_rectangle(::RECTANGLE_I32 & rectangle)
    {
 
       auto pwindowing = x11_windowing();
@@ -148,17 +148,17 @@ namespace node_gtk
 
       pwindowing->windowing_send(predicate);
 
-      ::windowing::monitor::get_monitor_rectangle(prectangle);
+      ::windowing::monitor::get_monitor_rectangle(rectangle);
 
    }
 
 
-   void monitor::get_workspace_rectangle(::RECTANGLE_I32 *prectangle)
+   void monitor::get_workspace_rectangle(::RECTANGLE_I32 & rectangle)
    {
 
       x11_windowing()->windowing_send([this]() { _get_workspace_rectangle(); });
 
-      ::windowing::monitor::get_workspace_rectangle(prectangle);
+      ::windowing::monitor::get_workspace_rectangle(rectangle);
 
    }
 

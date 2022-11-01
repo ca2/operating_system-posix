@@ -524,16 +524,12 @@ namespace aura_posix
 #endif
    
 
-   ::file::path node::get_desktop_file_path(::apex::application * papp) const
+   ::file::path node::get_desktop_file_path(::apex::application * papp)
    {
 
       ::file::path path;
 
-      auto psystem = acmesystem();
-
-      auto pacmedirectory = psystem->m_pacmedirectory;
-
-      path = pacmedirectory->home();
+      path = acmedirectory()->home();
 
       path /= ".local/share/applications";
 

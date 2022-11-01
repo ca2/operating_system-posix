@@ -1,4 +1,7 @@
 #include "framework.h"
+#include "fonts.h"
+#include "write_text.h"
+#include "font_enumeration.h"
 
 
 __FACTORY_EXPORT void write_text_pango_factory(::factory::factory * pfactory)

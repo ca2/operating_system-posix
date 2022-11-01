@@ -105,7 +105,7 @@ namespace aura_posix
 #endif // WITH_XCB
 
 
-      ::file::path get_desktop_file_path(::apex::application * papp) const override;
+      ::file::path get_desktop_file_path(::apex::application * papp) override;
 
 
       void main() override;

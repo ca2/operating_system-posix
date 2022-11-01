@@ -1793,8 +1793,7 @@ else if(detail == 3)
 
                   bool bOk = true;
 
-                  __pointer(
-                     ::user::interaction) pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
+                  ::pointer < ::user::interaction > pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
 
                   if (pinteraction.is_set())
                   {

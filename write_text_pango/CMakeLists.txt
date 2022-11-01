@@ -12,7 +12,7 @@ list(APPEND library_references
 list(APPEND library_source
         _.cpp
         _.h
-        _write_text_pango.h
+        #_write_text_pango.h
         _factory.cpp
     font_enumeration.cpp
     font_enumeration.h

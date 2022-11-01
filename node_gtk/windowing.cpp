@@ -3,6 +3,7 @@
 // hi5 contribution...
 #include "framework.h"
 #include "windowing.h"
+#include "acme/operating_system/process.h"
 
 
 namespace node_gtk

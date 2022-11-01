@@ -342,6 +342,13 @@ namespace windowing_x11
       XImage * pximage;
 
       //if(!pximage)
+      if(m_pimpl->m_sizeSetWindowSizeRequest != m_pimpl->m_sizeDrawn)
+      {
+
+         INFORMATION("test");
+
+      }
+      else
       {
 
          //color32_t colora[8];
@@ -360,8 +367,8 @@ namespace windowing_x11
                ZPixmap,
                0,
                (char *) pimage->get_data(),
-               pimage->width(),
-               pimage->height(),
+               m_pimpl->m_sizeDrawn.cx,
+               m_pimpl->m_sizeDrawn.cy,
                sizeof(color32_t) * 8,
                pimage->scan_size());
 

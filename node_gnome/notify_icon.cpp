@@ -3,8 +3,11 @@
 //
 #include "framework.h"
 #include "notify_icon.h"
-#include "aura/windowing/icon.h"
 #include "acme/filesystem/filesystem/acme_directory.h"
+#include "acme/platform/system.h"
+#include "apex/filesystem/filesystem/file_context.h"
+#include "apex/platform/application.h"
+#include "aura/windowing/icon.h"
 
 
 namespace node_gnome

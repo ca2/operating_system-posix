@@ -7,7 +7,7 @@
 #include "_.h"
 
 
-#include "_write_text_pango.h"
+//#include "_write_text_pango.h"
 
 
 //#include "aura/_defer.h"

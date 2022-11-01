@@ -4,6 +4,8 @@
 #include "framework.h"
 #include "node.h"
 #include "appindicator.h"
+#include "acme/constant/id.h"
+#include "apex/platform/system.h"
 #include "windowing_x11/windowing_x11.h"
 
 
