@@ -490,6 +490,32 @@ namespace acme_posix
 
    }
 
+#else
+
+
+::file::path acme_directory::program_files_x86()
+{
+
+   ::file::path path("/opt/ca2");
+
+   return path;
+
+}
+
+
+::file::path acme_directory::program_files()
+{
+
+   ::file::path path("/opt/ca2");
+
+   return path;
+
+}
+
+
+#endif
+
+
 
 } // namespace acme_posix
 
