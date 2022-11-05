@@ -514,6 +514,50 @@ namespace acme_posix
 
 
 #endif
+#ifdef LINUX
+
+
+::file::path acme_directory::home()
+{
+
+   return getenv("HOME");
+
+}
+
+
+#endif
+
+
+#if defined(_UWP) || defined(__APPLE__) || defined(LINUX) || defined(ANDROID)
+
+::file::path acme_directory::bookmark()
+{
+
+   auto psystem = acmesystem();
+
+   auto pacmedir = psystem->m_pacmedirectory;
+
+   return pacmedir->localconfig() / "bookmark";
+
+}
+
+
+#endif
+
+
+#ifdef _UWP
+
+
+::file::path acme_directory::home()
+{
+
+   return "";
+
+}
+
+
+#endif
+
 
 
 

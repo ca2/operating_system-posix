@@ -45,7 +45,7 @@ namespace system_5
 
          int iErrorNumber = errno;
 
-         auto estatus = errno_to_status(iErrorNumber);
+         auto estatus = errno_status(iErrorNumber);
 
          throw ::exception(estatus, "ftok(\"" + strChannel + "\", 'c') has failed");
 
@@ -57,7 +57,7 @@ namespace system_5
 
          int iErrorNumber = errno;
 
-         auto estatus = errno_to_status(iErrorNumber);
+         auto estatus = errno_status(iErrorNumber);
 
          throw ::exception(estatus, "msgget has failed");
 

@@ -172,7 +172,7 @@ namespace acme_posix
 
          int iErrNo = errno;
 
-         auto estatus = errno_to_status(iErrNo);
+         auto estatus = errno_status(iErrNo);
 
          throw ::exception(estatus, "::posix::acme_file::set_size");
 
@@ -840,7 +840,7 @@ namespace acme_posix
 
          int iErrNo = errno;
 
-         auto estatus = errno_to_status(iErrNo);
+         auto estatus = errno_status(iErrNo);
 
          string strMessage;
 
@@ -873,7 +873,7 @@ namespace acme_posix
 
          int iErrNo = errno;
 
-         auto estatus = errno_to_status(iErrNo);
+         auto estatus = errno_status(iErrNo);
 
          string strMessage;
 
@@ -894,7 +894,7 @@ namespace acme_posix
 
          int iErrNo = errno;
 
-         auto estatus = errno_to_status(iErrNo);
+         auto estatus = errno_status(iErrNo);
 
          string strMessage;
 
@@ -915,7 +915,7 @@ namespace acme_posix
 
             int iErrNo = errno;
 
-            auto estatus = errno_to_status(iErrNo);
+            auto estatus = errno_status(iErrNo);
 
             if(estatus != error_file_not_found)
             {
