@@ -59,8 +59,7 @@ namespace acme_posix
       mutex(::particle
       * pparticle,
       bool bInitiallyOwn,
-      const char *lpszName
-      ARG_SEC_ATTRS_DEF);
+      const char *lpszName);
 
       mutex(enum_create_new
       ecreatenew = e_create_new,

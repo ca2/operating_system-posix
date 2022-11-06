@@ -3,12 +3,14 @@
 //
 #include "framework.h"
 #include "exclusive.h"
-#include "acme/operating_system.h"
 #include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
 #include "acme/primitive/primitive/object.h"
 #include "exclusive.h"
+
+
+#include "acme/_operating_system.h"
 
 
 #if defined(LINUX) || defined(ANDROID) || defined(FREEBSD)
@@ -71,7 +73,7 @@ namespace acme_posix
 //#else
 //
 //
-   exclusive::exclusive(::particle * pparticle, string strId ARG_SEC_ATTRS)
+   exclusive::exclusive(::particle * pparticle, const string & strId)
    {
 
       initialize(pparticle);

@@ -40,7 +40,7 @@ namespace acme_posix
 
       // defined at process.cpp
       void call_async(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid = nullptr) override;
-      void call_sync(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, const ::duration & durationTimeout, ::property_set & set) override;
+      void call_sync(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, const ::duration & durationTimeout, ::property_set & set, int * piExitCode) override;
       void create_process(const ::string & pszCommandLine, u32 * pprocessID) override;
       virtual i32 _create_process3(const ::string & _cmd_line, i32 * pprocessId);
       void run_silent(const ::string & strFunct, const ::string & strstrParams) override;
@@ -64,15 +64,15 @@ namespace acme_posix
       atom_array get_pids() override;
 
 
-      ::pointer < ::mutex > create_local_named_mutex(::particle * pparticleContext, bool bInitiallyOwned, const ::string & strName) override;
-      ::pointer < ::mutex > create_global_named_mutex(::particle * pparticleContext, bool bInitiallyOwned, const ::string & strName) override;
+      ::pointer < ::mutex > create_local_named_mutex(::particle * pparticleContext, bool bInitiallyOwned, const ::string & strName, security_attributes * psecurityattributes = nullptr) override;
+      ::pointer < ::mutex > create_global_named_mutex(::particle * pparticleContext, bool bInitiallyOwned, const ::string & strName, security_attributes * psecurityattributes = nullptr) override;
 
       ::pointer<::mutex> open_named_mutex(::particle * pparticle, const char * lpszName);
 
       ::pointer < ::mutex > open_local_named_mutex(::particle * pparticleContext, const ::string & strName) override;
       ::pointer < ::mutex > open_global_named_mutex(::particle * pparticleContext, const ::string & strName) override;
 
-      ::pointer < ::acme::exclusive > get_exclusive(::particle * pparticleContext, const ::string & strName ARG_SEC_ATTRS_DEF) override;
+      ::pointer < ::acme::exclusive > get_exclusive(::particle * pparticleContext, const ::string & strName, security_attributes * psecurityattributes = nullptr) override;
 
       bool process_contains_module(string& strImage, ::u32 processID, const ::string & pszLibrary) override;
 
@@ -82,6 +82,11 @@ namespace acme_posix
 
       string expand_environment_variables(const ::string & str) override;
 
+      bool stdin_has_input_events() override;
+
+      //bool stdin_wait_char();
+
+      void flush_stdin() override;
 
 #ifdef POSIX_LIST_SERIAL_PORTS
 

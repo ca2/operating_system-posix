@@ -6,7 +6,7 @@
 #include "acme_file.h"
 #include "acme/exception/exception.h"
 #include "acme/filesystem/filesystem/listing.h"
-#include "acme/operating_system.h"
+#include "acme/_operating_system.h"
 
 
 #if defined(__APPLE__) || defined(ANDROID)
@@ -490,56 +490,50 @@ namespace acme_posix
 
    }
 
-#else
 
 
-::file::path acme_directory::program_files_x86()
-{
 
-   ::file::path path("/opt/ca2");
-
-   return path;
-
-}
-
-
-::file::path acme_directory::program_files()
-{
-
-   ::file::path path("/opt/ca2");
-
-   return path;
-
-}
-
-
-#endif
-#ifdef LINUX
+//::file::path acme_directory::program_files_x86()
+//{
+//
+//   ::file::path path("/opt/ca2");
+//
+//   return path;
+//
+//}
+//
+//
+//::file::path acme_directory::program_files()
+//{
+//
+//   ::file::path path("/opt/ca2");
+//
+//   return path;
+//
+//}
 
 
-::file::path acme_directory::home()
-{
-
-   return getenv("HOME");
-
-}
-
-
-#endif
+//
+//::file::path acme_directory::home()
+//{
+//
+//   return getenv("HOME");
+//
+//}
 
 
 #if defined(_UWP) || defined(__APPLE__) || defined(LINUX) || defined(ANDROID)
 
-::file::path acme_directory::bookmark()
-{
-
-   auto psystem = acmesystem();
-
-   auto pacmedir = psystem->m_pacmedirectory;
-
-   return pacmedir->localconfig() / "bookmark";
-
-}
+//::file::path acme_directory::bookmark()
+//{
+//
+//   auto psystem = acmesystem();
+//
+//   auto pacmedir = psystem->m_pacmedirectory;
+//
+//   return pacmedir->localconfig() / "bookmark";
+//
+//}
 
 
 #endif

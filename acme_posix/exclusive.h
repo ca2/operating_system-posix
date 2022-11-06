@@ -34,7 +34,7 @@ namespace acme_posix
       // ::pointer < ::mutex >     m_pmutex;
 
 
-      exclusive(::particle * pparticle, string str ARG_SEC_ATTRS_DEF);
+      exclusive(::particle * pparticle, const string & str);
       //exclusive();
       ~exclusive() override;
 

@@ -31,6 +31,7 @@
 
 
 #include <unistd.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <sys/select.h>
 
@@ -354,7 +355,7 @@ namespace acme_posix
    }
 
 
-   ::pointer < ::mutex > node::create_local_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::string & strName)
+   ::pointer < ::mutex > node::create_local_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::string & strName, security_attributes * psecurityattributes)
    {
 
       return __new(mutex(pparticleContext, bInitialOwner, "Local\\" + strName));
@@ -362,7 +363,7 @@ namespace acme_posix
    }
 
 
-   ::pointer < ::mutex > node::create_global_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::string & strName)
+   ::pointer < ::mutex > node::create_global_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::string & strName, security_attributes * psecurityattributes)
    {
 
       return __new(mutex(pparticleContext, bInitialOwner, "Global\\" + strName));
@@ -435,10 +436,12 @@ namespace acme_posix
 
    ::file::path path;
 
-   if (::str().begins_ci(lpszName, "Global"))
+   string strName(lpszName);
+
+   if (strName.begins_ci("Global"))
    {
 
-      path = "/payload/tmp/ca2/lock/mutex/named";
+      path = "/var/tmp/ca2/lock/mutex/named";
 
    }
    else
@@ -536,7 +539,7 @@ namespace acme_posix
    }
 
 
-   ::pointer < ::acme::exclusive > node::get_exclusive(::particle * pparticleContext, const ::string & strName ARG_SEC_ATTRS_DEF)
+   ::pointer < ::acme::exclusive > node::get_exclusive(::particle * pparticleContext, const ::string & strName, security_attributes * psecurityattributes)
    {
 
       return __new(exclusive(pparticleContext, strName));
@@ -657,7 +660,7 @@ namespace acme_posix
 
       stra.add_lines(str);
 
-      return (int) stra.predicate_get_count([](auto str) { return ::str().begins(str, "cpu"); });
+      return (int) stra.predicate_get_count([](auto str) { return str.begins("cpu"); });
 
 #endif
 
@@ -738,7 +741,7 @@ namespace acme_posix
 
 
    void node::call_sync(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay,
-      const ::duration & durationTimeout, ::property_set & set)
+      const ::duration & durationTimeout, ::property_set & set, int * piExitCode)
    {
 
       string strCmdLine;
@@ -795,7 +798,7 @@ namespace acme_posix
 
       argv.add(nullptr);
 
-      auto envp = acmesystem()->m_envp;
+      auto envp = subsystem()->m_envp;
 
       pid_t pid = 0;
 
@@ -878,7 +881,7 @@ namespace acme_posix
 
       int status;
 
-      auto envp = acmesystem()->m_envp;
+      auto envp = subsystem()->m_envp;
 
 #ifdef ANDROID
 
@@ -1212,7 +1215,7 @@ namespace acme_posix
 
             string strPath = path;
 
-            ::str().ends_eat_ci(strPath, " (deleted)");
+            strPath.ends_eat_ci(" (deleted)");
 
             //if (strTitle == strApp ||
                //  strTitle == strApp2)
@@ -1374,23 +1377,23 @@ namespace acme_posix
    }
 
 
-   bool node::stdin_wait_char(void)
-   {
-      struct timeval tv;
-      fd_set fds;
-      tv.tv_sec = INT_MAX; // Almost infinite wait
-      tv.tv_usec = 0;
-      FD_ZERO(&fds);
-      FD_SET(STDIN_FILENO, &fds);
-      select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv);
-      return (FD_ISSET(0, &fds));
-   }
+//   bool node::stdin_wait_char(void)
+//   {
+//      struct timeval tv;
+//      fd_set fds;
+//      tv.tv_sec = INT_MAX; // Almost infinite wait
+//      tv.tv_usec = 0;
+//      FD_ZERO(&fds);
+//      FD_SET(STDIN_FILENO, &fds);
+//      select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv);
+//      return (FD_ISSET(0, &fds));
+//   }
 
 
    void node::flush_stdin()
    {
 
-      while (stdin_has_char())
+      while (stdin_has_input_events())
       {
 
          getchar();

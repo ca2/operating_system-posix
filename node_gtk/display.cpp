@@ -60,7 +60,7 @@ namespace node_gtk
    ::Display * display::_get_system_default_display()
    {
 
-      if(!os_defer_init_gtk())
+      if(!os_defer_init_gtk(acmesystem()))
       {
 
          return nullptr;

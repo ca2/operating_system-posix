@@ -58,7 +58,7 @@ namespace acme_posix
    }
 
 
-   bool acme_file::exists(const char *filename)
+   bool acme_file::exists(const ::file::path & filename)
    {
 
 
@@ -332,7 +332,7 @@ namespace acme_posix
 
       str.release_string_buffer(iRead);
 
-      ::str().begins_eat_ci(str, "\xef\xbb\xbf");
+      str.begins_eat_ci("\xef\xbb\xbf");
 
       return str;
 

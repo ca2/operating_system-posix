@@ -185,7 +185,7 @@ namespace user
 
       }
 
-      ::str().begins_eat_ci(strWallpaper, "file://");
+      strWallpaper.begins_eat_ci("file://");
 
       return strWallpaper;
 

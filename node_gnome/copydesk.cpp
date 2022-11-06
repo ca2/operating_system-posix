@@ -1,6 +1,6 @@
 #include "framework.h"
 #include "copydesk.h"
-#include "acme/operating_system.h"
+//#include "acme/operating_system.h"
 #include "clipboard_data.h"
 #include <gtk/gtk.h>
 #include "aura/graphics/image/context_image.h"
@@ -449,7 +449,7 @@ namespace node_gnome
 //
 //      string strItem = stra[i];
 //
-//      ::str().begins_eat_ci(strItem, "file://");
+//      strItem.begins_eat_ci("file://");
 //
 //      pdata->m_patha.add(::file::path(strItem));
 //

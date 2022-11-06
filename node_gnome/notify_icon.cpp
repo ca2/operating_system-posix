@@ -5,6 +5,7 @@
 #include "notify_icon.h"
 #include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/platform/system.h"
+#include "acme/primitive/string/str.h"
 #include "apex/filesystem/filesystem/file_context.h"
 #include "apex/platform/application.h"
 #include "aura/windowing/icon.h"

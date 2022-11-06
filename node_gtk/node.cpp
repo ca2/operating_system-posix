@@ -164,7 +164,7 @@ namespace node_gtk
 
       //auto iResult = gtk_init_check(pi, ppz);
 
-      if(!os_defer_init_gtk())
+      if(!os_defer_init_gtk(acmesystem()))
       {
 
           return 0;
@@ -249,7 +249,8 @@ namespace node_gtk
          //auto pnode = psystem->node();
 
          //pnode->node_init_check(&m_argc, &m_argv);
-         node_init_check(&acmesystem()->m_argc, &acmesystem()->m_argv);
+         node_init_check(acmesystem()->subsystem()->get_pargc(),
+                         acmesystem()->subsystem()->get_pargv());
 
       }
 

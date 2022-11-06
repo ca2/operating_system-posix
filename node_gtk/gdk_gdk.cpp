@@ -86,7 +86,7 @@ namespace node_gtk
 
       }
 
-      if (!os_defer_init_gtk())
+      if (!os_defer_init_gtk(::get_system()))
       {
 
          return false;
@@ -152,7 +152,7 @@ namespace node_gtk
 
       }
 
-      if (!os_defer_init_gtk())
+      if (!os_defer_init_gtk(::get_system()))
       {
 
          return nullptr;

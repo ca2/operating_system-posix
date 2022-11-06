@@ -3,7 +3,7 @@
 //
 #include "framework.h"
 #include "mutex.h"
-#include "acme/operating_system.h"
+#include "acme/_operating_system.h"
 #include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/platform/system.h"
 #include "acme/exception/exception.h"
@@ -124,7 +124,7 @@ namespace acme_posix
    }
 
 
-   mutex::mutex(::particle * pparticle, bool bInitiallyOwn, const char * pstrName ARG_SEC_ATTRS)
+   mutex::mutex(::particle * pparticle, bool bInitiallyOwn, const char * pstrName)
    {
 
    #ifdef _DEBUG
@@ -191,7 +191,7 @@ namespace acme_posix
          strName.replace(":", "_");
          strName.replace("/", "_");
 
-         if(::str().begins_ci(pstrName, "Global"))
+         if(string_begins_ci(pstrName, "Global"))
          {
 
    #ifdef ANDROID
@@ -274,7 +274,9 @@ namespace acme_posix
 
          ::file::path path;
 
-         if(::str().begins_ci(pstrName, "Global"))
+         string strName(pstrName);
+
+         if(strName.begins("Global"))
          {
 
    #ifdef ANDROID
@@ -355,7 +357,7 @@ namespace acme_posix
 
          ::file::path path;
 
-         if(::str().begins_ci(pstrName, "Global"))
+         if(string_begins_ci(pstrName, "Global"))
          {
 
             path = "/::payload/lock/ca2/mutex/named";
@@ -1636,10 +1638,12 @@ namespace acme_posix
 
       ::file::path path;
 
-      if (::str().begins_ci(lpszName, "Global"))
+      string strName(lpszName);
+
+      if (strName.begins_ci("Global"))
       {
 
-         path = "/payload/tmp/ca2/lock/mutex/named";
+         path = "/var/tmp/ca2/lock/mutex/named";
 
       }
       else

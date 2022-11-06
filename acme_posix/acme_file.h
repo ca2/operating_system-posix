@@ -24,7 +24,7 @@ namespace acme_posix
       ~acme_file() noexcept override;
 
       
-      bool exists(const char * path) override;
+      bool exists(const ::file::path & path) override;
       
 
       void ensure_exists(const char* path) override;

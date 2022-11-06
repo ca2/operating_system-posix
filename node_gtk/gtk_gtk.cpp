@@ -4,6 +4,7 @@
 #include "apex/message/global.h"
 #include "acme/constant/id.h"
 #include "acme/operating_system/process.h"
+#include "acme/platform/system.h"
 
 
 #include <gtk/gtk.h>
@@ -258,7 +259,7 @@ bool g_bInitGtk = false;
 ::e_status g_estatusInitGtk = ::error_none;
 
 
-::e_status os_defer_init_gtk()
+::e_status os_defer_init_gtk(::acme::system * psystem)
 {
 
    if (!g_bInitGtk)
@@ -266,7 +267,8 @@ bool g_bInitGtk = false;
 
       g_bInitGtk = true;
 
-      if (!gtk_init_check(process_get_pargc(), process_get_pargv()))
+      if (!gtk_init_check(psystem->subsystem()->get_pargc(),
+                          psystem->subsystem()->get_pargv()))
       {
 
          g_estatusInitGtk = ::error_failed;

@@ -8,7 +8,7 @@ bool g_bInitGtk = false;
 ::e_status g_estatusInitGtk = ::error_none;
 
 
-::e_status os_defer_init_gtk()
+::e_status os_defer_init_gtk(::acme::system * psystem)
 {
 
    if (!g_bInitGtk)

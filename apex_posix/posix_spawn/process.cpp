@@ -2,6 +2,7 @@
 #include "acme_posix/pipe.h"
 #include "acme/primitive/collection/string_map.h"
 #include "acme/primitive/collection/string_array.h"
+#include "acme/primitive/collection/str_array.h"
 #include "process.h"
 
 
@@ -65,7 +66,7 @@ namespace ansios
 
       address_array < char * > argv;
 
-      straParam.explode_command_line(pszCmdLine, &argv);
+      explode_command_line(straParam, pszCmdLine, &argv);
 
       posix_spawnattr_t attr;
 
@@ -113,7 +114,7 @@ namespace ansios
 
       string strFallback;
 
-      if(::str().begins_ci(strFallback, "/Users/"))
+      if(strFallback.begins_ci("/Users/"))
       {
 
          index i = 0;
@@ -278,7 +279,7 @@ namespace ansios
 
       string pszCmdLine = "/usr/bin/gksu " + string(pszCmdLineParam);
 
-      straParam.explode_command_line(pszCmdLine, &argv);
+      explode_command_line(straParam, pszCmdLine, &argv);
 
       posix_spawnattr_t attr;
 

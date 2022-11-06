@@ -447,7 +447,7 @@ namespace node_gtk
 //
 //      string strItem = stra[i];
 //
-//      ::str().begins_eat_ci(strItem, "file://");
+//      strItem.begins_eat_ci("file://");
 //
 //      pdata->m_patha.add(::file::path(strItem));
 //

@@ -2,7 +2,7 @@
 #pragma once
 
 
-::e_status os_defer_init_gtk();
+//::e_status os_defer_init_gtk(::acme::system * psystem);
 
 
 typedef enum
@@ -23,7 +23,7 @@ bool gconf_set_as_wallpaper( const char *image_path, WallpaperAlign align );
 namespace node_gtk
 {
 
-   ::e_status os_defer_init_gtk();
+   ::e_status os_defer_init_gtk(::acme::system * psystem);
 
 
 
