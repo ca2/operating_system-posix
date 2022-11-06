@@ -409,7 +409,7 @@ namespace windowing_x11
       if (pwindowing->m_pSnLauncheeContext != nullptr && !papp->m_bSnLauncheeSetup)
       {
 
-         papp->os_on_start_application();
+         //papp->os_on_start_application();
 
          on_sn_launch_context(pwindowing->m_pSnLauncheeContext, window);
 

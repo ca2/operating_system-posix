@@ -3,6 +3,10 @@
 //
 #include "framework.h"
 #include "node.h"
+#include "acme/filesystem/filesystem/acme_file.h"
+#include "acme/platform/system.h"
+#include "apex/operating_system/freedesktop/desktop_file.h"
+#include "apex/platform/application.h"
 
 
 void os_post_quit();
@@ -33,6 +37,50 @@ namespace apex_posix
    {
 
       return ::acme_posix::node::node_init_check(pi, ppz);
+
+   }
+
+
+   void node::on_start_application(::apex::application *papplication)
+   {
+
+#ifndef RASPBIAN
+
+      try
+      {
+
+         auto psystem = acmesystem();
+
+         auto pnode = psystem->node()->m_papexnode;
+
+         auto papp = get_app()->m_papexapplication;
+
+         ::file::path path = pnode->get_desktop_file_path(papp);
+
+         if(path.has_char() && !acmefile()->exists(path))
+         {
+
+            auto pfile = __create_new< ::freedesktop::desktop_file >();
+
+            pfile->set_app_id(papp->m_strAppId);
+
+            pfile->set_file_path(path);
+
+            pfile->create();
+
+            pfile->write();
+
+         }
+
+      }
+      catch(...)
+      {
+
+         TRACE("Could not create .desktop shortcut file for the Linux papp for the current user.");
+
+      }
+
+#endif
 
    }
 
