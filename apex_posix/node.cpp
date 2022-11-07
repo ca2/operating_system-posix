@@ -53,14 +53,14 @@ namespace apex_posix
 
          auto pnode = psystem->node()->m_papexnode;
 
-         auto papp = get_app()->m_papexapplication;
+         auto papp = papplication;
 
          ::file::path path = pnode->get_desktop_file_path(papp);
 
          if(path.has_char() && !acmefile()->exists(path))
          {
 
-            auto pfile = __create_new< ::freedesktop::desktop_file >();
+            auto pfile = papp->__create_new< ::freedesktop::desktop_file >();
 
             pfile->set_app_id(papp->m_strAppId);
 
