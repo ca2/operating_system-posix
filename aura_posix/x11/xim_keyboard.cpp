@@ -71,7 +71,7 @@ namespace xim
 
             XIMStyles * pximstyles = nullptr;
 
-            __zero(pximstyles);
+            zero(pximstyles);
 
             XGetIMValues(m_xim, XNQueryInputStyle, &pximstyles, NULL, NULL);
 

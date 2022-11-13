@@ -1502,7 +1502,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       MESSAGE msg;
 
-      __zero(msg);
+      zero(msg);
 
       bool bRet = false;
 

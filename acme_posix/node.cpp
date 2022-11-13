@@ -52,9 +52,9 @@
 //void install_sigfpe_handler()
 //{
 //
-//   __zero(g_sigactionFpe);
+//   zero(g_sigactionFpe);
 //
-//   __zero(g_sigactionFpeOld);
+//   zero(g_sigactionFpeOld);
 //
 //   g_sigactionFpe.sa_sigaction = &sigfpe_sigaction;
 //
@@ -291,7 +291,7 @@ namespace acme_posix
 //
 //         struct sigaction sa;
 //
-//         __zero(sa);
+//         zero(sa);
 //
 //         sa.sa_handler = &ansios_sigchld_handler;
 //

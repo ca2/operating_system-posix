@@ -63,7 +63,7 @@ namespace windowing_x11
 
       XClientMessageEvent xclient;
 
-      __zero(xclient);
+      zero(xclient);
 
       xclient.type = ClientMessage;
       xclient.window = Window();

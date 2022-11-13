@@ -62,7 +62,7 @@ namespace windowing_x11
 
       m_bMessageOnlyWindow = false;
 
-      __zero(m_visual);
+      zero(m_visual);
 
       m_iDepth = -1;
 
@@ -234,7 +234,7 @@ namespace windowing_x11
       else
       {
 
-         __zero(m_visualinfo);
+         zero(m_visualinfo);
 
       }
 
@@ -242,7 +242,7 @@ namespace windowing_x11
 
       XSetWindowAttributes attr;
 
-      __zero(attr);
+      zero(attr);
 
       attr.colormap = pdisplayx11->m_colormap;
 
@@ -1612,7 +1612,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       va_start(argp, numArgs);
 
-      __zero(xevent);
+      zero(xevent);
 
       xevent.xclient.type = ClientMessage;
       xevent.xclient.serial = 0;
@@ -1651,7 +1651,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 #define _NET_WM_STATE_ADD           1    /* add/set property */
 #define _NET_WM_STATE_TOGGLE        2    /* toggle property  */
 
-      __zero(xclient);
+      zero(xclient);
       xclient.type = ClientMessage;
       xclient.window = Window();
       xclient.message_type = x11_display()->intern_atom("_NET_WM_STATE", False);
@@ -1681,7 +1681,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       va_start(argp, atom1);
 
-      __zero(xevent);
+      zero(xevent);
 
       array<Atom> atoms;
 
@@ -2980,7 +2980,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
          XEvent xev;
 
-         __zero(xev);
+         zero(xev);
 
          auto windowRoot = DefaultRootWindow(Display());
 

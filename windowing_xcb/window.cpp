@@ -132,7 +132,7 @@ namespace windowing_xcb
 
       xcb_params_cw_t  paramscw;
 
-      __zero(paramscw);
+      zero(paramscw);
 
       auto & back_pixmap = paramscw.back_pixmap = 0;
 

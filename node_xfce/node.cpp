@@ -728,13 +728,13 @@ namespace node_xfce
 //
 //                                 GdkRectangle rect;
 //
-//                                 __zero(rect);
+//                                 zero(rect);
 //
 //                                 gdk_monitor_get_workarea(pmonitor, &rect);
 //
 //                                 __copy(rectangleWorkspace, rect);
 //
-//                                 __zero(rect);
+//                                 zero(rect);
 //
 //                                 gdk_monitor_get_geometry(pmonitor, &rect);
 //

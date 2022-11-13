@@ -122,7 +122,7 @@ namespace acme_posix
    void exception_translator::install_sigsegv_handler()
    {
       
-      __zero(m_sig.m_saSeg);
+      zero(m_sig.m_saSeg);
 
       m_sig.m_saSeg.sa_flags = SA_SIGINFO;
 
@@ -149,7 +149,7 @@ namespace acme_posix
    void exception_translator::install_sigfpe_handler()
    {
       
-      __zero(m_sig.m_saFpe);
+      zero(m_sig.m_saFpe);
 
       m_sig.m_saSeg.sa_flags = SA_SIGINFO;
 
@@ -168,7 +168,7 @@ namespace acme_posix
    void exception_translator::install_sigpipe_handler()
    {
       
-      __zero(m_sig.m_saPipe);
+      zero(m_sig.m_saPipe);
 
       m_sig.m_saSeg.sa_flags = SA_SIGINFO;
 

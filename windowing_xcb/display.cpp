@@ -27,7 +27,7 @@ namespace windowing_xcb
    display::display()
    {
 
-      __zero(m_atoma);
+      zero(m_atoma);
       m_pDisplay = this;
 
       m_pxcbdisplay = nullptr;

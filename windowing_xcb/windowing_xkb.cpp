@@ -254,7 +254,7 @@ namespace windowing_xcb
 
       XKeyPressedEvent event;
 
-      __zero(event);
+      zero(event);
 
       Display * px11display = xcb_display()->m_pX11Display;
 

@@ -35,7 +35,7 @@ namespace windowing_x11
    display::display()
    {
 
-      __zero(m_atoma);
+      zero(m_atoma);
 
       m_pDisplay = this;
       m_colormap = None;
@@ -170,7 +170,7 @@ namespace windowing_x11
       else
       {
 
-         __zero(m_visualinfo);
+         zero(m_visualinfo);
 
       }
 
@@ -184,7 +184,7 @@ namespace windowing_x11
 
       XSetWindowAttributes attr;
 
-      __zero(attr);
+      zero(attr);
 
       m_colormap = XCreateColormap(m_px11display->m_pdisplay, m_windowRoot, m_pvisual, AllocNone);
 
