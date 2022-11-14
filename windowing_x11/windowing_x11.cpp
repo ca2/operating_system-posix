@@ -2940,7 +2940,7 @@ else if(detail == 3)
 //int_bool ca2_GetClientRect(oswindow window, RECTANGLE_I32 * prectangle)
 //{
 //
-//   synchronous_lock synchronouslock(window->m_pimpl->m_puserinteraction->mutex());
+//   synchronous_lock synchronouslock(window->m_pimpl->m_puserinteraction->synchronization());
 //
 //   window->m_pimpl->m_puserinteraction->get_window_rect(prectangle);
 //
@@ -3368,7 +3368,7 @@ else if(detail == 3)
 //
 //      }
 //
-//      synchronous_lock ml(pmq->mutex());
+//      synchronous_lock ml(pmq->synchronization());
 //
 //      if (message.m_atom == e_message_quit)
 //      {

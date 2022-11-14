@@ -951,7 +951,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       }
 
-      synchronous_lock ml(pmessagequeue->mutex());
+      synchronous_lock ml(pmessagequeue->synchronization());
 
       if (message.m_atom == e_message_quit)
       {
