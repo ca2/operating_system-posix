@@ -325,7 +325,7 @@ namespace windowing_xcb
 
       auto & pimage = get_screen_image();
 
-      if(!::is_ok(pimage))
+      if(pimage.nok())
       {
 
          return false;
