@@ -651,7 +651,7 @@ namespace aura_posix
 //
 //               {
 //
-//                  synchronous_lock s(mutex());
+//                  synchronous_lock s(synchronization());
 //
 //                  m_imagemap.set_at(*pkey, iImage);
 //

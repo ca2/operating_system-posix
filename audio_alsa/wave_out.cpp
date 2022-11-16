@@ -103,7 +103,7 @@ namespace multimedia
       void wave_out::out_open_ex(thread * pthreadCallback, ::u32 uiSamplesPerSec, ::u32 uiChannelCount, ::u32 uiBitsPerSample, ::wave::enum_purpose epurpose)
       {
 
-         synchronous_lock sl(mutex());
+         synchronous_lock sl(synchronization());
 
          TRACE("multimedia::audio_alsa::out_open_ex");
 
@@ -266,7 +266,7 @@ namespace multimedia
       void wave_out::out_close()
       {
 
-         synchronous_lock sl(mutex());
+         synchronous_lock sl(synchronization());
 
          TRACE("multimedia::audio_alsa::out_close");
 
@@ -304,7 +304,7 @@ namespace multimedia
       void wave_out::out_stop()
       {
 
-         synchronous_lock sl(mutex());
+         synchronous_lock sl(synchronization());
 
          TRACE("multimedia::audio_alsa::out_stop");
 
@@ -346,7 +346,7 @@ namespace multimedia
       void wave_out::out_pause()
       {
 
-         synchronous_lock sl(mutex());
+         synchronous_lock sl(synchronization());
 
          ASSERT(m_eoutstate == ::wave::e_out_state_playing);
 
@@ -388,7 +388,7 @@ namespace multimedia
       void wave_out::out_restart()
       {
 
-         synchronous_lock sl(mutex());
+         synchronous_lock sl(synchronization());
 
          ASSERT(m_eoutstate == ::wave::e_out_state_paused);
 
@@ -428,7 +428,7 @@ namespace multimedia
       ::duration wave_out::out_get_position()
       {
 
-         synchronous_lock sl(mutex());
+         synchronous_lock sl(synchronization());
 
          ::duration time;
 
@@ -573,7 +573,7 @@ namespace multimedia
 
          {
 
-            synchronous_lock sl(mutex());
+            synchronous_lock sl(synchronization());
 
             if (m_ppcm == NULL)
             {
@@ -591,7 +591,7 @@ namespace multimedia
 
             {
 
-               synchronous_lock sl(mutex());
+               synchronous_lock sl(synchronization());
 
                iFrameFreeCount = snd_pcm_avail_update(m_ppcm);
 
@@ -668,7 +668,7 @@ namespace multimedia
 
          }
 
-         synchronous_lock sl(mutex());
+         synchronous_lock sl(synchronization());
 
          synchronous_lock synchronouslockBuffer(pbuffer ? pbuffer->synchronization() : nullptr);
 
@@ -808,7 +808,7 @@ namespace multimedia
       void wave_out::out_start(const ::duration & time)
       {
 
-         synchronous_lock sl(mutex());
+         synchronous_lock sl(synchronization());
 
          if(m_eoutstate == ::wave::e_out_state_playing)
          {

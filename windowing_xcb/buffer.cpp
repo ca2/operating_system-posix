@@ -107,7 +107,7 @@ namespace windowing_xcb
    bool buffer::create_os_buffer(const ::size_i32 & size, int iStrideParam)
    {
 
-//      synchronous_lock sl(mutex());
+//      synchronous_lock sl(synchronization());
 //
 //      destroy_os_buffer();
 //
@@ -150,7 +150,7 @@ namespace windowing_xcb
    void buffer::destroy_os_buffer()
    {
 
-//      synchronous_lock sl(mutex());
+//      synchronous_lock sl(synchronization());
 //
 //      xdisplay d(m_oswindow->display());
 //
@@ -195,7 +195,7 @@ namespace windowing_xcb
 //   bool buffer::create_os_buffer(::image * pimage)
 //   {
 //
-//      //synchronous_lock sl(mutex());
+//      //synchronous_lock sl(synchronization());
 //
 ////      if(!pimage)
 ////      {
@@ -310,7 +310,7 @@ namespace windowing_xcb
 
       }
 
-      synchronous_lock slGraphics(mutex());
+      synchronous_lock slGraphics(synchronization());
 
 //      if(m_gc == nullptr)
 //      {
