@@ -327,7 +327,7 @@ namespace aura_posix
    //         }
    //      }
    //   }
-   //   if (pcontext->m_papexcontext->dir()->is(unicode_to_utf8(szFilePath)))
+   //   if (dir()->is(unicode_to_utf8(szFilePath)))
    //   {
    //      if (imagekey.m_iIcon == 0x80000000)
    //      {
