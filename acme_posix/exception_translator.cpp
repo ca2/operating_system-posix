@@ -135,7 +135,7 @@ namespace acme_posix
 
          output_debug_string("failed to install segmentation fault signal handler");
          
-         auto psequencer = create_message_box_sequencer("failed to install segmentation fault signal handler", "failed to install segmentation fault signal handler",
+         auto psequencer = nano()->message_box_sequencer("failed to install segmentation fault signal handler", "failed to install segmentation fault signal handler",
                                                         e_message_box_ok);
          
          psequencer->do_asynchronously();
