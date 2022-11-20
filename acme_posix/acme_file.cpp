@@ -4,7 +4,7 @@
 #include "framework.h"
 #include "acme_file.h"
 #include "acme_directory.h"
-#include "acme/exception/exception.h"
+////#include "acme/exception/exception.h"
 #include "acme/operating_system/ansi/int_handle.h"
 #include "acme/platform/system.h"
 #include "acme/primitive/primitive/memory.h"

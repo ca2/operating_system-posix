@@ -6,7 +6,7 @@
 #include "acme/_operating_system.h"
 #include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/platform/system.h"
-#include "acme/exception/exception.h"
+////#include "acme/exception/exception.h"
 
 
 #ifdef MACOS
