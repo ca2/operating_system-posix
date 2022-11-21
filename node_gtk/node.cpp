@@ -766,7 +766,7 @@ namespace node_gtk
    {
 
       // TODO check if ptopic below is own topic or what else?
-      ::particle_pointer pparticle = ptopic;
+      ::pointer < ::particle > pparticle = ptopic;
 
       node_post([pparticle]()
       {

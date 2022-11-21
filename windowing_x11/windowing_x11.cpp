@@ -1589,7 +1589,7 @@ else if(detail == 3)
 
                }
 
-               output_debug_string("\ndetail:" + as_string(prawevent->detail));
+               output_debug_string("\ndetail:" + ::as_string(prawevent->detail));
 
 
                if(emessage != e_message_null)
@@ -2541,7 +2541,7 @@ else if(detail == 3)
 
                char buf[32];
 
-               xxf_zeroa(buf);
+               zero(buf);
 
                string strText;
 

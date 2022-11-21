@@ -560,7 +560,7 @@ namespace windowing_x11
                //set_window_position(e_zorder_top, pusersystem->m_createstruct.x, pusersystem->m_createstruct.y,
                //                  pusersystem->m_createstruct.cx, pusersystem->m_createstruct.cy, SWP_SHOWWINDOW);
 
-               set_window_position(e_zorder_top, x, y, cx, cy, SWP_SHOWWINDOW);
+               set_window_position(e_zorder_top, x, y, cx, cy, e_activation_set_active, false, false, false, true, false);
 
             }
 
@@ -728,7 +728,7 @@ namespace windowing_x11
 
          pimpl->m_puserinteraction->m_ewindowflag |= e_window_flag_window_created;
 
-         pimpl->m_puserinteraction->set(e_flag_task_started);
+         pimpl->m_puserinteraction->set_flag(e_flag_task_started);
 
       }
 
@@ -1220,22 +1220,22 @@ if(status != 0)
 
 #elif 1
 
-auto d1 = m_pcontext->m_pauracontext->create_image({32, 32});
+auto image1 = m_pcontext->m_pauracontext->create_image({32, 32});
 
-if (!::is_ok(d1))
+if (image1.nok())
 {
 
    return false;
 
 }
 
-d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicubic);
+image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicubic);
 
 {
 
    image_source imagesource(pimage->g(), pimage->rectangle());
 
-   rectangle_f64 rectangle(d1->rectangle());
+   rectangle_f64 rectangle(image1->rectangle());
 
    image_drawing_options imagedrawingoptions(rectangle);
 
@@ -1243,28 +1243,28 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
    //getfileimage.m_iImage = m_pimagelist[16]->set(getfileimage.m_iImage, imagedrawing);
 
-   d1->g()->draw(imagedrawing);
+   image1->g()->draw(imagedrawing);
 
 }
 
       memory m(m_puserinteractionimpl->m_puserinteraction->get_app());
 
-      int length = 2 + d1->area();
+      int length = 2 + image1->area();
 
       m.set_size(length * 4);
 
       unsigned int * pcr = (unsigned int *) m.get_data();
 
-      pcr[0] = d1->width();
+      pcr[0] = image1->width();
 
-      pcr[1] = d1->height();
+      pcr[1] = image1->height();
 
-      int c = d1->area();
+      int c = image1->area();
 
       for (int i = 0; i < c; i++)
       {
 
-         pcr[i + 2] = d1->colorref()[i];
+         pcr[i + 2] = image1->colorref()[i];
 
       }
 
@@ -2463,7 +2463,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
    }
 
 
-   bool window::set_window_position(const class ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy, ::u32 nFlags)
+   bool window::set_window_position(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, bool bShow, bool bHide)
    {
 
       synchronous_lock sl(user_synchronization());
@@ -2483,7 +2483,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       }
 
-      if (nFlags & SWP_SHOWWINDOW)
+      if (bShow)
       {
 
          if (attrs.map_state == IsUnmapped)
@@ -2506,9 +2506,9 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       }
 
-      bool bMove = !(nFlags & SWP_NOMOVE);
+      bool bMove = !bNoMove;
 
-      bool bSize = !(nFlags & SWP_NOSIZE);
+      bool bSize = !bNoSize;
 
       if (bMove)
       {
@@ -2588,7 +2588,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       //   }
 
 
-      if ((nFlags & SWP_HIDEWINDOW) != 0U)
+      if (bHide)
       {
 
          if (attrs.map_state == IsViewable)
@@ -2611,10 +2611,10 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
 
       }
 
-      if (attrs.map_state == IsViewable || ((nFlags & SWP_SHOWWINDOW) != 0U))
+      if (attrs.map_state == IsViewable || bShow)
       {
 
-         if ((nFlags & SWP_NOZORDER) == 0U)
+         if (!bNoZorder)
          {
 
             if (zorder.m_ezorder == e_zorder_top_most)

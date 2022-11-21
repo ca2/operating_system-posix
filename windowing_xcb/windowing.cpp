@@ -1818,7 +1818,7 @@ namespace windowing_xcb
 
             char buf[32];
 
-            xxf_zeroa(buf);
+            zero(buf);
 
             string strText;
 

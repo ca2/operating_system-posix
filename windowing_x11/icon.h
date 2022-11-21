@@ -4,7 +4,7 @@
 
 
 #include "aura/windowing/icon.h"
-#include "acme/primitive/geometry2d/size.h"
+#include "acme/primitive/geometry2d/_geometry2d.h"
 
 
 namespace windowing_x11

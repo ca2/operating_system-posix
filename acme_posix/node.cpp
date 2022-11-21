@@ -1066,7 +1066,7 @@ namespace acme_posix
 
 #else
 
-      str = "/proc/" + as_string(iPid) + "/exe";
+      str = "/proc/" + ::as_string(iPid) + "/exe";
 
 #endif
 
@@ -1257,7 +1257,7 @@ namespace acme_posix
 
       string str;
 
-      str = "/proc/" + as_string(iPid) + "/cmdline";
+      str = "/proc/" + ::as_string(iPid) + "/cmdline";
 
       memory mem = acmefile()->as_memory(str);
 
