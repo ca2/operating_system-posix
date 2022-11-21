@@ -1062,11 +1062,11 @@ namespace acme_posix
 
 #if defined(FREEBSD)
 
-      str = "/proc/" + __string(iPid) + "/file";
+      str = "/proc/" + as_string(iPid) + "/file";
 
 #else
 
-      str = "/proc/" + __string(iPid) + "/exe";
+      str = "/proc/" + as_string(iPid) + "/exe";
 
 #endif
 
@@ -1257,7 +1257,7 @@ namespace acme_posix
 
       string str;
 
-      str = "/proc/" + __string(iPid) + "/cmdline";
+      str = "/proc/" + as_string(iPid) + "/cmdline";
 
       memory mem = acmefile()->as_memory(str);
 

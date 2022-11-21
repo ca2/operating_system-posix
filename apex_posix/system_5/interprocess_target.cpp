@@ -268,7 +268,7 @@ namespace system_5
 //            if (lRequest == 1024)
 //            {
 //
-//               dispatch_message(::move(__string(mem)));
+//               dispatch_message(::move(as_string(mem)));
 //
 //            } else
 //            {

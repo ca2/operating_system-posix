@@ -134,7 +134,7 @@ namespace acme_posix
 
          path /= lpszName;
 
-         path /= __string(i);
+         path /= as_string(i);
 
          path /= (string(lpszName) + "." + string(pszExtension));
 

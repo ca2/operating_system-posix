@@ -1372,7 +1372,7 @@ d1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicu
       if(status != 0)
       {
 
-         //file_put_contents("/home/camilo/window.txt", __string((int)w->Window()));
+         //file_put_contents("/home/camilo/window.txt", as_string((int)w->Window()));
          return false;
 
       }

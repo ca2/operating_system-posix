@@ -1589,7 +1589,7 @@ else if(detail == 3)
 
                }
 
-               output_debug_string("\ndetail:" + __string(prawevent->detail));
+               output_debug_string("\ndetail:" + as_string(prawevent->detail));
 
 
                if(emessage != e_message_null)
@@ -2704,7 +2704,7 @@ else if(detail == 3)
 //         else
 //         {
 //
-//            output_debug_string("B " + __string(wFocus));
+//            output_debug_string("B " + as_string(wFocus));
 //
 //            g_windowFocus = wFocus;
 //
@@ -2719,7 +2719,7 @@ else if(detail == 3)
 //         else
 //         {
 //
-//            output_debug_string("D " + __string(wFocus));
+//            output_debug_string("D " + as_string(wFocus));
 //
 //            g_windowFocus = wFocus;
 //

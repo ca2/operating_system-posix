@@ -1548,10 +1548,10 @@ namespace windowing_xcb
             //auto & screen_origin = window.screen_origin();
 
             //FORMATTED_INFORMATION("");
-            //::output_debug_string("\nwindow(origin=" + __string(origin.x) + ", " + __string(origin.y));
-            //::output_debug_string("\nwindow.screen_origin=" + __string(screen_origin.x) + ", " + __string(screen_origin.y));
-            //::output_debug_string("\nbutton.root_x=" + __string(pbutton->root_x));
-            //::output_debug_string("\nbutton.root_y=" + __string(pbutton->root_y));
+            //::output_debug_string("\nwindow(origin=" + as_string(origin.x) + ", " + as_string(origin.y));
+            //::output_debug_string("\nwindow.screen_origin=" + as_string(screen_origin.x) + ", " + as_string(screen_origin.y));
+            //::output_debug_string("\nbutton.root_x=" + as_string(pbutton->root_x));
+            //::output_debug_string("\nbutton.root_y=" + as_string(pbutton->root_y));
             //::output_debug_string("\n");
 
             msg.time = pbutton->time;

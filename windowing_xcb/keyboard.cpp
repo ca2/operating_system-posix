@@ -232,7 +232,7 @@ namespace windowing_xcb
 //
 //      }
 //
-//      string str = __string(w);
+//      string str = as_string(w);
 //
 //      //strFile = Context.dir()->matter("keyboard/windows/" + str + ".xml");
 //
