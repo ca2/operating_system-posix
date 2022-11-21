@@ -454,7 +454,7 @@ namespace acme_posix
 
       auto pszCurrentDirName = get_current_dir_name();
 
-      if(is_null(pszCurrentDirName))
+      if(::is_null(pszCurrentDirName))
       {
 
          auto iErrNo = errno;

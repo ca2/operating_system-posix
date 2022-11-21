@@ -6,7 +6,7 @@
 
 #include "aura_posix/x11/windowing.h"
 #include "acme/primitive/collection/list.h"
-#include "acme/primitive/collection/pointer_array.h"
+//#include "acme/primitive/collection/pointer_array.h"
 #include "_x11.h"
 
 

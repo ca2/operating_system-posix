@@ -4,6 +4,7 @@
 #include "acme/exception/standard.h"
 #include "acme/platform/sequencer.h"
 #include "acme/user/user/conversation.h"
+#include "acme/user/nano/nano.h"
 
 
 namespace acme_posix

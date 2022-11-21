@@ -12,7 +12,7 @@
 #include "acme/platform/system.h"
 #include "acme/primitive/string/command_line.h"
 #include "acme/primitive/primitive/memory.h"
-#include "acme/primitive/primitive/payload.h"
+//#include "acme/primitive/primitive/payload.h"
 #include <signal.h>
 
 #ifdef FREEBSD

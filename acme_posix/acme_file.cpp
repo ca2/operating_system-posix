@@ -8,7 +8,7 @@
 #include "acme/operating_system/ansi/int_handle.h"
 #include "acme/platform/system.h"
 #include "acme/primitive/primitive/memory.h"
-#include "acme/primitive/datetime/earth_time.h"
+////#include "acme/primitive/datetime/earth_time.h"
 #include <sys/stat.h>
 //Copy file using mmap()
 #include <sys/mman.h>
@@ -27,7 +27,7 @@
 //
 //#define PACKAGE "mmap"
 //#include <wchar.h>
-//#include <fcntl.h>
+#include <fcntl.h>
 //#include <sys/stat.h>
 //struct utimbuf {
 //   time_t actime;       /* access time */
@@ -732,12 +732,16 @@ namespace acme_posix
 
          int i = 0;
 
+#ifdef WINDOWS
+
          if (iFlag & ::file::e_open_binary)
          {
 
             i |= O_BINARY;
 
          }
+
+#endif
 
          if (iFlag & ::file::e_open_read)
          {

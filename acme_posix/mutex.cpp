@@ -66,7 +66,7 @@ namespace acme_posix
       m_itask = -1;
    #endif
 
-      set_own_synchronization();
+      set_own_synchronization_flag();
 
       //m_bAlreadyExists = false;
 
@@ -551,7 +551,7 @@ namespace acme_posix
    #endif
 
       m_strName = lpszName;
-      set_own_synchronization(bOwner);
+      set_own_synchronization_flag(bOwner);
       m_iFd = iFd;
 
    }
