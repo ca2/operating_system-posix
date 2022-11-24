@@ -3268,14 +3268,15 @@ else if(detail == 3)
 
       synchronous_lock ml(pmessagequeue->synchronization());
 
+      pmessagequeue->m_messagea.add(message);
+
       if (message.m_atom == e_message_quit)
       {
 
          output_debug_string("e_message_quit thread");
 
       }
-
-      if (message.m_atom == e_message_left_button_down)
+      else if (message.m_atom == e_message_left_button_down)
       {
 
          output_debug_string("post_ui_message::e_message_left_button_down\n");
@@ -3287,8 +3288,6 @@ else if(detail == 3)
          output_debug_string("post_ui_message::e_message_left_button_up\n");
 
       }
-
-      pmessagequeue->m_messagea.add(message);
 
       pmessagequeue->m_eventNewMessage.set_event();
 

@@ -4,7 +4,7 @@
 #include "framework.h"
 #include "acme_file.h"
 #include "acme_directory.h"
-////#include "acme/exception/exception.h"
+#include "acme/filesystem/file/exception.h"
 #include "acme/operating_system/ansi/int_handle.h"
 #include "acme/platform/system.h"
 #include "acme/primitive/primitive/memory.h"
@@ -96,8 +96,14 @@ namespace acme_posix
       
       if (rc)
       {
+
+         int iErrorNumber = errno;
+
+         auto estatus = errno_status(iErrorNumber);
+
+         auto errorcode = errno_error_code(iErrorNumber);
       
-         throw ::exception(error_failed, "posix::acme_file::touch");
+         throw ::file::exception(estatus, errorcode, path, "utimes");
 
       }
 

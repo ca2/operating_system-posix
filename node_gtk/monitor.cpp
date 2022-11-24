@@ -4,6 +4,7 @@
 #include "display.h"
 #include "windowing.h"
 #include "acme/parallelization/synchronous_lock.h"
+#include "acme/platform/node.h"
 
 
 ::particle * user_synchronization();
@@ -142,11 +143,9 @@ namespace node_gtk
    void monitor::get_monitor_rectangle(::RECTANGLE_I32 & rectangle)
    {
 
-      auto pwindowing = x11_windowing();
-
       auto predicate = [this]() { _get_monitor_rectangle(); };
 
-      pwindowing->windowing_send(predicate);
+      acmenode()->send_procedure(predicate);
 
       ::windowing::monitor::get_monitor_rectangle(rectangle);
 
@@ -156,7 +155,9 @@ namespace node_gtk
    void monitor::get_workspace_rectangle(::RECTANGLE_I32 & rectangle)
    {
 
-      x11_windowing()->windowing_send([this]() { _get_workspace_rectangle(); });
+      auto predicate = [this]() { _get_workspace_rectangle(); };
+
+      acmenode()->send_procedure(predicate);
 
       ::windowing::monitor::get_workspace_rectangle(rectangle);
 

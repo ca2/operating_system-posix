@@ -27,7 +27,7 @@ NodeGtkApplication * node_gtk_application_new (const char * pszAppName, const ch
 
    pnodegtkapplication = (NodeGtkApplication *) g_object_new (node_gtk_application_get_type (),
                                           "application-atom", pszProgName,
-                                          "flags", G_APPLICATION_FLAGS_NONE,
+                                          "flags", G_APPLICATION_DEFAULT_FLAGS,
                                           "inactivity-timeout", 30000,
                                           "register-session", TRUE,
                                           nullptr);

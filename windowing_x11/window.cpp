@@ -3782,7 +3782,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
    void window::update_screen()
    {
 
-      window_post([this]()
+      //window_post([this]()
                                         {
 
                                            auto pimpl = m_puserinteractionimpl;
@@ -3824,7 +3824,8 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
                                            }
 
-                                        });
+                                        }
+                                        //);
 
    }
 

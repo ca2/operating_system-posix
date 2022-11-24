@@ -1,6 +1,8 @@
 #include "framework.h"
 #include "wave_in.h"
 #include "translation.h"
+#include "acme/parallelization/synchronous_lock.h"
+#include "aqua/platform/system.h"
 #include "app-core/audio/audio.h"
 #include "app-core/audio/decode/encoder.h"
 
@@ -69,7 +71,7 @@ namespace multimedia
 
          }
 
-         single_lock sLock(mutex(), TRUE);
+         single_lock sLock(synchronization(), TRUE);
 
          ::e_status mmr = success;
 
@@ -240,7 +242,7 @@ Opened:
       void wave_in::in_close()
       {
 
-         single_lock sLock(mutex(), TRUE);
+         single_lock sLock(synchronization(), TRUE);
 
          ::e_status estatus;
 
@@ -293,7 +295,7 @@ Opened:
 
          return;
 
-         single_lock sLock(mutex(), TRUE);
+         single_lock sLock(synchronization(), TRUE);
 
          if(m_einstate == ::wave::e_in_state_recording)
          {

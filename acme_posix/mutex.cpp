@@ -1056,23 +1056,19 @@ namespace acme_posix
 
       {
 
-         timespec abs_time;
+         timespec timespecNow{};
 
-         clock_gettime(CLOCK_REALTIME, &abs_time);
+         clock_gettime(CLOCK_REALTIME, &timespecNow);
 
-         ::duration d;
+         timespec timespecWait{};
 
-         d.m_iSecond = abs_time.tv_sec + (::i64) (wait.m_d);
+         copy(timespecWait, wait);
 
-         d.m_iNanosecond = abs_time.tv_nsec + (fmod(wait.m_d, 1.0) * 1'000'000'000);
+         timespec timespecFinal{};
 
-         d.normalize();
+         timespecFinal = addition(timespecNow, timespecWait);
 
-         abs_time.tv_sec = d.m_iSecond;
-
-         abs_time.tv_nsec = d.m_iNanosecond;
-
-         int rc = pthread_mutex_timedlock (&m_mutex, &abs_time);
+         int rc = pthread_mutex_timedlock (&m_mutex, &timespecFinal);
 
          if (!rc)
          {

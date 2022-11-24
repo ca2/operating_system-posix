@@ -57,9 +57,29 @@ namespace system_5
 
          int iErrorNumber = errno;
 
-         auto estatus = errno_status(iErrorNumber);
+         if(iErrorNumber == EEXIST)
+         {
 
-         throw ::exception(estatus, "msgget has failed");
+            if ((m_iQueue = msgget(m_key,  0660)) == -1)
+            {
+
+               int iErrorNumber = errno;
+
+               auto estatus = errno_status(iErrorNumber);
+
+               throw ::exception(estatus, "msgget has failed");
+
+            }
+
+         }
+         else
+         {
+
+            auto estatus = errno_status(iErrorNumber);
+
+            throw ::exception(estatus, "msgget has failed");
+
+         }
 
       }
 
