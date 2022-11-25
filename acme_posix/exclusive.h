@@ -1,4 +1,4 @@
-//
+﻿//
 // Created by camilo on 2022-10-28 23:52 <3ThomasBorregaardSorensen!!
 //
 #pragma once
@@ -39,7 +39,7 @@ namespace acme_posix
       ~exclusive() override;
 
 
-      bool exclusive_fails() const;
+      bool exclusive_fails() const override;
 
 
    };

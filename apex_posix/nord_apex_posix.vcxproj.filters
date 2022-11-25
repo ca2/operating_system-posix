@@ -22,6 +22,9 @@
     <ClCompile Include="inotify\watcher.cpp">
       <Filter>Source Files\inotify</Filter>
     </ClCompile>
+    <ClCompile Include="inotify\watch.cpp">
+      <Filter>Source Files\inotify</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="os_context.h">

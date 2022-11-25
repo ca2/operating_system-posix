@@ -177,6 +177,7 @@
   <ItemGroup>
     <ClCompile Include="file_context.cpp" />
     <ClCompile Include="framework.cpp" />
+    <ClCompile Include="inotify\watch.cpp" />
     <ClCompile Include="inotify\watcher.cpp" />
     <ClCompile Include="node.cpp" />
     <ClCompile Include="_.cpp" />

@@ -29,7 +29,9 @@
 
 #include <sys/wait.h>
 #include <unistd.h>
+#if !defined(ANDROID)
 #include <wordexp.h>
+#endif
 #include <fcntl.h>
 
 
@@ -1491,6 +1493,14 @@ namespace acme_posix
 
          close(stderr_fds[1]);
 
+         int iErrNo = 0;
+
+#ifdef ANDROID
+
+         throw ::exception(todo);
+
+#else
+
          wordexp_t we{};
 
          wordexp(pszCommandLine, &we, 0);
@@ -1498,8 +1508,6 @@ namespace acme_posix
          char ** argv = memory_new char *[we.we_wordc+1];
 
          memcpy(argv, we.we_wordv, we.we_wordc * sizeof(char*));
-
-         int iErrNo = 0;
 
          int iChildExitCode = execvp(argv[0], &argv[0]);
 
@@ -1513,6 +1521,8 @@ namespace acme_posix
          delete []argv;
 
          wordfree(&we);
+
+#endif
 
          free(pszCommandLine);
 

@@ -1,4 +1,4 @@
-//
+﻿//
 // Created by camilo on 19/01/2021. --<33ThomasBS!!
 //
 #include "framework.h"
@@ -44,7 +44,7 @@ namespace apex_posix
    void node::on_start_application(::apex::application *papplication)
    {
 
-#ifndef RASPBIAN
+#if !defined(RASPBIAN) && !defined(ANDROID)
 
       try
       {

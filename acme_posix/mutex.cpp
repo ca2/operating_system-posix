@@ -1,4 +1,4 @@
-//
+﻿//
 // Created by camilo on 2022-10-25 13:42 <3ThomasBorregaardSorensen!!
 //
 #include "framework.h"
@@ -976,11 +976,13 @@ namespace acme_posix
 
    #endif
 
+
+
                ::duration d;
 
-               d.m_iSecond = abs_time.tv_sec + wait.m_d;
+               d.m_iSecond = abs_time.tv_sec + wait.m_iSecond;
 
-               d.m_iNanosecond = abs_time.tv_nsec + fmod(wait.m_d, 1.0) * 1'000'000'000;
+               d.m_iNanosecond = abs_time.tv_nsec + wait.m_iNanosecond;
 
                d.normalize();
 

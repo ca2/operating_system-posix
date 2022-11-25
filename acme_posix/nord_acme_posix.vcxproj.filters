@@ -34,6 +34,9 @@
     <ClInclude Include="exception_translator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="exclusive.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -75,6 +78,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="exception_translator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mutex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="exclusive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
