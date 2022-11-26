@@ -146,7 +146,7 @@ namespace acme_posix
 //      }
 
 
-//      ::e_status node::call_sync(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, const ::duration & durationTimeout, ::property_set & set)
+//      ::e_status node::call_sync(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, const class time & timeTimeout, ::property_set & set)
 //      {
 //
 //         throw ::interface_only();
@@ -753,7 +753,7 @@ namespace acme_posix
 
 
    void node::call_sync(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay,
-      const ::duration & durationTimeout, ::property_set & set, int * piExitCode)
+      const class time & timeTimeout, ::property_set & set, int * piExitCode)
    {
 
       string strCmdLine;
@@ -1051,12 +1051,12 @@ namespace acme_posix
    }
 
 
-   //::e_status node::shell_execute_sync(const ::string & pszFile, const ::string & pszParams, ::duration durationTimeout)
+   //::e_status node::shell_execute_sync(const ::string & pszFile, const ::string & pszParams, ::time timeTimeout)
    //{
 
    //   property_set set;
 
-   //   call_sync(pszFile, pszParams, ::file::path(pszFile).folder(), e_display_none, durationTimeout, set);
+   //   call_sync(pszFile, pszParams, ::file::path(pszFile).folder(), e_display_none, timeTimeout, set);
 
    //   return ::success;
 
@@ -1433,7 +1433,7 @@ namespace acme_posix
    }
 
 
-   void node::command_system(string_array & straOutput, int& iExitCode, const char* psz, enum_command_system ecommandsystem, const ::duration& durationTimeout, ::particle * pparticleSynchronization, ::file::file * pfileLog)
+   void node::command_system(string_array & straOutput, int& iExitCode, const char* psz, enum_command_system ecommandsystem, const class time & timeTimeout, ::particle * pparticleSynchronization, ::file::file * pfileLog)
    {
 
       single_lock singlelock(pparticleSynchronization);

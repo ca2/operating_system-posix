@@ -252,10 +252,10 @@ namespace aura_posix
    //}
 
    //
-   //void node::call_sync(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, const ::duration & durationTimeout, ::property_set & set)
+   //void node::call_sync(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, const class time & timeTimeout, ::property_set & set)
    //{
 
-   //   ::apex::posix::node::call_sync(pszPath, pszParam, pszDir, edisplay, durationTimeout, set);
+   //   ::apex::posix::node::call_sync(pszPath, pszParam, pszDir, edisplay, timeTimeout, set);
 
    //}
 

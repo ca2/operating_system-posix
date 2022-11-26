@@ -87,7 +87,7 @@ namespace system_5
    }
 
 
-   void interprocess_caller::call(const ::string &pszMessage, const duration &durationTimeout)
+   void interprocess_caller::call(const ::string &pszMessage, const time &timeTimeout)
    {
 
       memory m;
@@ -132,7 +132,7 @@ namespace system_5
    }
 
 
-//   void interprocess_caller::send(i32 message, void *p, i32 iLen, const duration &durationTimeout)
+//   void interprocess_caller::send(i32 message, void *p, i32 iLen, const time &timeTimeout)
 //   {
 //
 //      if (message == 1024)

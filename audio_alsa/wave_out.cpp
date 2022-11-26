@@ -427,12 +427,12 @@ namespace multimedia
       }
 
 
-      ::duration wave_out::out_get_position()
+      ::time wave_out::out_get_position()
       {
 
          synchronous_lock sl(synchronization());
 
-         ::duration time;
+         ::time time;
 
          if(m_ppcm != NULL)
          {
@@ -466,19 +466,19 @@ namespace multimedia
 ////
 ////               clock_gettime(CLOCK_REALTIME, &tnow);
 ////
-////               duration duratioNow;
+////               time duratioNow;
 ////
-////               durationNow.tv_sec = tnow.tv_sec;
+////               timeNow.tv_sec = tnow.tv_sec;
 ////
-////               durationNow.tv_nsec = tnow.tv_nsec;
+////               timeNow.tv_nsec = tnow.tv_nsec;
 //
-//               duration durationStart;
+//               time timeStart;
 //
-//               durationStart.m_iSecond = t.tv_sec;
+//               timeStart.m_iSecond = t.tv_sec;
 //
-//               durationStart.m_iNanosecond = t.tv_nsec;
+//               timeStart.m_iNanosecond = t.tv_nsec;
 //
-//               time = durationStart.elapsed();
+//               time = timeStart.elapsed();
 //
 //            }
 
@@ -779,7 +779,7 @@ namespace multimedia
       }
 
 
-      ::duration wave_out::out_get_time_for_synch()
+      ::time wave_out::out_get_time_for_synch()
       {
 
          if (m_pprebuffer.is_null())
@@ -807,7 +807,7 @@ namespace multimedia
       }
 
 
-      void wave_out::out_start(const ::duration & time)
+      void wave_out::out_start(const class time & time)
       {
 
          synchronous_lock sl(synchronization());

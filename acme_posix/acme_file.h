@@ -43,7 +43,7 @@ namespace acme_posix
 
       string get_temporary_file_name(const char * lpszName, const char * pszExtension) override;
       //bool write_memory_to_file(FILE * file, const void * pdata, memsize nCount, memsize * puiWritten) override;
-      //bool append_wait(const ::string & strFile, const block & block, const ::duration & duration) override;
+      //bool append_wait(const ::string & strFile, const block & block, const class time & time) override;
       //bool append(const ::string & strFile, const block & block) override;
 
       //bool exists(const char * path) override;

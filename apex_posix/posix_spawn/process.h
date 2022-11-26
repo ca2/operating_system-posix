@@ -22,7 +22,7 @@ namespace ansios
 
       bool has_exited() override;
 
-      bool synch_elevated(const ::string & pszCmdLine,int iShow,const ::duration & durationTimeOut,bool * pbTimeOut) override;
+      bool synch_elevated(const ::string & pszCmdLine,int iShow,const class time & timeTimeOut,bool * pbTimeOut) override;
 
    };
 

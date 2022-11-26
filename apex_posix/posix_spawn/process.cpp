@@ -259,7 +259,7 @@ namespace ansios
    }
 
 
-   bool process::synch_elevated(const ::string & pszCmdLineParam,int iShow,const ::duration & durationTimeOut,bool * pbTimeOut)
+   bool process::synch_elevated(const ::string & pszCmdLineParam,int iShow,const class time & timeTimeOut,bool * pbTimeOut)
    {
 
       string_array straParam;
@@ -305,9 +305,9 @@ namespace ansios
 
       debug_print("synch_elevated : posix_spawn return status %d", status);
 
-      auto tickStart = ::duration::now();
+      auto tickStart = ::time::now();
 
-      while(!has_exited() && tickStart.elapsed() < durationTimeOut)
+      while(!has_exited() && tickStart.elapsed() < timeTimeOut)
       {
 
          sleep(100_ms);

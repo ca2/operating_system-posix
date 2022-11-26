@@ -1798,7 +1798,7 @@ else if(detail == 3)
                   if (pinteraction.is_set())
                   {
 
-                     if (pinteraction->m_durationMouseMove.elapsed() < pinteraction->m_durationMouseMoveIgnore)
+                     if (pinteraction->m_timeMouseMove.elapsed() < pinteraction->m_timeMouseMoveIgnore)
                      {
 
                         bOk = false;
@@ -1808,7 +1808,7 @@ else if(detail == 3)
                      if (bOk)
                      {
 
-                        pinteraction->m_durationMouseMove.Now();
+                        pinteraction->m_timeMouseMove.Now();
 
                         pinteraction->m_pointMouseMove.x = e.xmotion.x_root;
 
@@ -1817,7 +1817,7 @@ else if(detail == 3)
                         if (false)
                         {
 
-                           if (pinteraction->m_durationMouseMovePeriod > 0_s)
+                           if (pinteraction->m_timeMouseMovePeriod > 0_s)
                            {
 
                               ::size_i32 sizeDistance(
@@ -1825,7 +1825,7 @@ else if(detail == 3)
                                  (pinteraction->m_pointMouseMoveSkip.y - pinteraction->m_pointMouseMove.y));
 
                               if (
-                                 !pinteraction->m_durationMouseMoveSkip.timeout(pinteraction->m_durationMouseMovePeriod)
+                                 !pinteraction->m_timeMouseMoveSkip.timeout(pinteraction->m_timeMouseMovePeriod)
                                  && sizeDistance.cx * sizeDistance.cx + sizeDistance.cy * sizeDistance.cy <
                                     pinteraction->m_iMouseMoveSkipSquareDistance)
                               {

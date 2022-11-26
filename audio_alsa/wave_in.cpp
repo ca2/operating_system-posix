@@ -434,7 +434,7 @@ Opened:
 
          auto paudio = psystem->audio()->m_paudio;
 
-         auto msSampleTime = ::duration::now();
+         auto msSampleTime = ::time::now();
 
          int iBuffer = dwParam1;
 

@@ -849,7 +849,7 @@ namespace windowing_xcb
             if (pinteraction.is_set())
             {
 
-               if (pinteraction->m_durationMouseMove.elapsed() < pinteraction->m_durationMouseMoveIgnore)
+               if (pinteraction->m_timeMouseMove.elapsed() < pinteraction->m_timeMouseMoveIgnore)
                {
 
                   bOk = false;
@@ -859,7 +859,7 @@ namespace windowing_xcb
                if (bOk)
                {
 
-                  pinteraction->m_durationMouseMove.Now();
+                  pinteraction->m_timeMouseMove.Now();
 
                   pinteraction->m_pointMouseMove.x = pmotion->root_x;
 
@@ -868,14 +868,14 @@ namespace windowing_xcb
                   if (false)
                   {
 
-                     if (pinteraction->m_durationMouseMovePeriod > 0_s)
+                     if (pinteraction->m_timeMouseMovePeriod > 0_s)
                      {
 
                         ::size_i32 sizeDistance(
                            (pinteraction->m_pointMouseMoveSkip.x - pinteraction->m_pointMouseMove.x),
                            (pinteraction->m_pointMouseMoveSkip.y - pinteraction->m_pointMouseMove.y));
 
-                        if (!pinteraction->m_durationMouseMoveSkip.timeout(pinteraction->m_durationMouseMovePeriod)
+                        if (!pinteraction->m_timeMouseMoveSkip.timeout(pinteraction->m_timeMouseMovePeriod)
                             && sizeDistance.cx * sizeDistance.cx + sizeDistance.cy * sizeDistance.cy <
                                pinteraction->m_iMouseMoveSkipSquareDistance)
                         {

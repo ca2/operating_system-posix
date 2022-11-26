@@ -679,7 +679,7 @@ namespace acme_posix
 //   }
 
    //      ANDROID
-   //      int irc = pthread_mutex_lock_timeout_np(&m_mutex, duration.get_total_milliseconds());
+   //      int irc = pthread_mutex_lock_timeout_np(&m_mutex, time.get_total_milliseconds());
    //
    //      if (!irc)
    //      {
@@ -699,7 +699,7 @@ namespace acme_posix
    #if !defined(WINDOWS)
 
 
-   bool mutex::_wait(const class ::wait & wait)
+   bool mutex::_wait(const class time & timeWait)
    {
 
       if(wait.is_infinite())
@@ -718,9 +718,9 @@ namespace acme_posix
 
          timespec delay;
 
-         delay.tv_sec = duration.m_i;
+         delay.tv_sec = time.m_i;
 
-         delay.tv_nsec = duration.m_i;
+         delay.tv_nsec = time.m_i;
 
          i32 ret = sem_timedwait(m_psem, &delay);
 
@@ -762,7 +762,7 @@ namespace acme_posix
 
          }
 
-         auto tickStart = ::duration::now();
+         auto tickStart = ::time::now();
 
          while (true)
          {
@@ -874,9 +874,9 @@ namespace acme_posix
 
          timespec timeout;
 
-         timeout.tv_sec = duration.m_i;
+         timeout.tv_sec = time.m_i;
 
-         timeout.tv_nsec = duration.m_i;
+         timeout.tv_nsec = time.m_i;
 
          struct sembuf operation[1] ;
 
@@ -978,7 +978,7 @@ namespace acme_posix
 
 
 
-               ::duration d;
+               ::time d;
 
                d.m_iSecond = abs_time.tv_sec + wait.m_iSecond;
 
