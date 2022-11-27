@@ -87,7 +87,7 @@ namespace system_5
    }
 
 
-   void interprocess_caller::call(const ::string &pszMessage, const time &timeTimeout)
+   void interprocess_caller::call(const ::string &pszMessage, const class ::time &timeTimeout)
    {
 
       memory m;
