@@ -702,7 +702,7 @@ namespace acme_posix
    bool mutex::_wait(const class time & timeWait)
    {
 
-      if(wait.is_infinite())
+      if(timeWait.is_infinite())
       {
 
          _wait();
@@ -834,14 +834,14 @@ namespace acme_posix
 
                auto tickElapsed = tickStart.elapsed();
 
-               if (tickElapsed >= wait)
+               if (tickElapsed >= timeWait)
                {
 
                   return false;
 
                }
 
-               preempt(minimum_maximum((wait - tickElapsed) / 50, 1, 1000));
+               preempt(minimum_maximum((timeWait - tickElapsed) / 50, 1, 1000));
 
                rc = pthread_mutex_lock(&m_mutex);
 
