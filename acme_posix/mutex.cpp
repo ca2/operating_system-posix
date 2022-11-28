@@ -841,7 +841,7 @@ namespace acme_posix
 
                }
 
-               preempt(minimum_maximum((timeWait - tickElapsed) / 50, 1, 1000));
+               preempt(minimum_maximum((timeWait - tickElapsed) / 50, 1_ms, 1000_ms));
 
                rc = pthread_mutex_lock(&m_mutex);
 
@@ -978,11 +978,11 @@ namespace acme_posix
 
 
 
-               ::time d;
+               class ::time d;
 
-               d.m_iSecond = abs_time.tv_sec + wait.m_iSecond;
+               d.m_iSecond = abs_time.tv_sec + timeWait.m_iSecond;
 
-               d.m_iNanosecond = abs_time.tv_nsec + wait.m_iNanosecond;
+               d.m_iNanosecond = abs_time.tv_nsec + timeWait.m_iNanosecond;
 
                d.normalize();
 
