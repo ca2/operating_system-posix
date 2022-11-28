@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "mutex.h"
 #include "acme/_operating_system.h"
+//#include "acme/primitive/time/time.h"
 #include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/platform/system.h"
 ////#include "acme/exception/exception.h"
@@ -1064,7 +1065,7 @@ namespace acme_posix
 
          timespec timespecWait{};
 
-         copy(timespecWait, wait);
+         copy(timespecWait, timeWait);
 
          timespec timespecFinal{};
 
