@@ -1,4 +1,4 @@
-﻿//
+//
 // Created by camilo on 19/01/2021. --<33ThomasBS!!
 //
 #include "framework.h"
@@ -1361,15 +1361,15 @@ namespace acme_posix
 
    }
 
-#if defined(__clang__) && !defined(ANDROID)
-   ::string node::get_callstack()
-   {
-   
-      return clang_backtrace();
-      
-   }
-
-#endif
+//#if defined(__clang__) && !defined(ANDROID)
+//   ::string node::get_callstack()
+//   {
+//
+//      return clang_backtrace();
+//
+//   }
+//
+//#endif
 
 
    bool node::stdin_has_input_events()

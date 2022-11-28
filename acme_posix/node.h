@@ -1,4 +1,4 @@
-﻿//
+//
 // Created by camilo on 19/01/2021. <33TBS!!
 //
 
@@ -103,9 +103,9 @@ namespace acme_posix
 
       void node_post(const ::procedure & procedure) override;
 
-#if defined(__clang__) && !defined(ANDROID)
-      ::string get_callstack() override;
-#endif
+//#if defined(__clang__) && !defined(ANDROID)
+//      ::string get_callstack() override;
+//#endif
 
       bool set_process_priority(::enum_priority epriority) override;
 
