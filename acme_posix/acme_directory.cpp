@@ -22,6 +22,7 @@ char * get_current_dir_name();
 #elif defined(__APPLE__)
 #include <sys/stat.h>
 #include <dirent.h>
+#include <unistd.h>
 #elif defined(LINUX)
 #include <dlfcn.h>
 #include <link.h>
@@ -459,7 +460,7 @@ namespace acme_posix
 
          auto iErrNo = errno;
 
-         auto estatus = failed_errno_to_status(iErrNo);
+         auto estatus = failed_errno_status(iErrNo);
 
          throw ::exception(estatus, "posix::acme_directory::get_current");
 
@@ -482,7 +483,7 @@ namespace acme_posix
 
          auto iErrNo = errno;
 
-         auto estatus = failed_errno_to_status(iErrNo);
+         auto estatus = failed_errno_status(iErrNo);
          
          throw ::exception(estatus, "posix::acme_directory::change_current");
 

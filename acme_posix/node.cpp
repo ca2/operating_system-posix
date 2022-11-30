@@ -1415,22 +1415,22 @@ namespace acme_posix
    }
 
 
-   bool node::set_process_priority(::enum_priority epriority)
-   {
-
-      i32 iPolicy = SCHED_OTHER;
-
-      sched_param schedparam;
-
-      schedparam.sched_priority = 0;
-
-      get_os_priority(&iPolicy, &schedparam, epriority);
-
-      sched_setscheduler(0, iPolicy, &schedparam);
-
-      return true;
-
-   }
+//   bool node::set_process_priority(::enum_priority epriority)
+//   {
+//
+//      i32 iPolicy = SCHED_OTHER;
+//
+//      sched_param schedparam;
+//
+//      schedparam.sched_priority = 0;
+//
+//      get_os_priority(&iPolicy, &schedparam, epriority);
+//
+//      sched_setscheduler(0, iPolicy, &schedparam);
+//
+//      return true;
+//
+//   }
 
 
    void node::command_system(string_array & straOutput, int& iExitCode, const char* psz, enum_command_system ecommandsystem, const class time & timeTimeout, ::particle * pparticleSynchronization, ::file::file * pfileLog)
@@ -1681,7 +1681,7 @@ namespace acme_posix
 //   if(iExitCode != 0)
 //   {
 //
-//      auto estatus = failed_errno_to_status(iExitCode);
+//      auto estatus = failed_errno_status(iExitCode);
 //
 //      throw ::exception(estatus);
 //

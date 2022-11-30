@@ -1,4 +1,4 @@
-﻿//
+//
 // Created by camilo on 2022-10-25 13:42 <3ThomasBorregaardSorensen!!
 //
 #include "framework.h"
@@ -12,6 +12,7 @@
 
 #ifdef MACOS
 void utc_timespec(timespec * ptimespec);
+#include <unistd.h>
 #endif
 
 
@@ -324,11 +325,15 @@ namespace acme_posix
          if(m_iFd < 0)
          {
 
-            int iErr = errno;
+            int iErrorNumber = errno;
 
-            const char * pszError = strerror(iErr);
+            //const char * pszError = strerror(iErr);
+            
+            auto estatus = errno_status(iErrorNumber);
+            
+            auto errorcode = errno_error_code(iErrorNumber);
 
-            throw ::exception(error_resource);
+            throw ::exception(estatus, {errorcode}, "Failed to create named mutex");
 
          }
 
@@ -1319,8 +1324,12 @@ namespace acme_posix
             {
 
                int iErrorUnlock1 = pthread_mutex_unlock(&m_mutex);
+               
+               string strMessage;
+               
+               strMessage.format("pthread_mutex_unlock (1) error = %d", iErrorUnlock1);
 
-               throw ::exception(error_failed);
+               throw ::exception(error_failed, strMessage);
 
             }
 
@@ -1529,8 +1538,12 @@ namespace acme_posix
 
                int iErrorUnlock2 = pthread_mutex_unlock(&m_mutex);
 
-               throw ::exception(error_failed);
+               string strMessage;
+               
+               strMessage.format("pthread_mutex_unlock (2) error = %d", iErrorUnlock2);
 
+               throw ::exception(error_failed, strMessage);
+               
             }
 
             m_thread = 0;

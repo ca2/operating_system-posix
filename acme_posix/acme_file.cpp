@@ -1,12 +1,14 @@
-﻿// Created by camilo
+// Created by camilo
 // on 2021-08-12 17:38 BRT
 // <3ThomasBorregaardSørensen!!
 #include "framework.h"
 #include "acme_file.h"
 #include "acme_directory.h"
+#include "acme/exception/interface_only.h"
 #include "acme/filesystem/file/exception.h"
 #include "acme/operating_system/ansi/int_handle.h"
 #include "acme/platform/system.h"
+#include "acme/primitive/primitive/holder.h"
 #include "acme/primitive/primitive/memory.h"
 ////#include "acme/primitive/datetime/earth_time.h"
 #include <sys/stat.h>
@@ -213,7 +215,7 @@ namespace acme_posix
 
          int iErrNo = errno;
 
-         auto estatus = failed_errno_to_status(iErrNo);
+         auto estatus = failed_errno_status(iErrNo);
 
          ::close(iFileDescriptor);
          
@@ -302,7 +304,7 @@ namespace acme_posix
 
          int iErrNo = errno;
          
-         auto estatus = failed_errno_to_status(iErrNo);
+         auto estatus = failed_errno_status(iErrNo);
 
          throw ::exception(estatus, "posix::acme_file::as_string");
 
@@ -322,7 +324,7 @@ namespace acme_posix
 
          int iErrNo = ferror(pfile);
 
-         auto estatus = failed_errno_to_status(iErrNo);
+         auto estatus = failed_errno_status(iErrNo);
 
          throw ::exception(estatus, "posix::acme_file::as_string");
          
@@ -442,7 +444,7 @@ namespace acme_posix
          
          int iErrNo = errno;
          
-         auto estatus = failed_errno_to_status(iErrNo);
+         auto estatus = failed_errno_status(iErrNo);
 
          throw ::exception(estatus, "posix::acme_file::as_memory");
 
@@ -476,7 +478,7 @@ namespace acme_posix
          
          int iErrNo = errno;
          
-         auto estatus = failed_errno_to_status(iErrNo);
+         auto estatus = failed_errno_status(iErrNo);
          
          return estatus;
          
@@ -564,7 +566,7 @@ namespace acme_posix
 
          int iErrNo = errno;
 
-         auto estatus = failed_errno_to_status(iErrNo);
+         auto estatus = failed_errno_status(iErrNo);
 
          throw ::exception(estatus, "Error opening file : \"" + string(pszNew) + "\"");
 
@@ -576,7 +578,7 @@ namespace acme_posix
 
          int iErrNo = errno;
 
-         auto estatus = failed_errno_to_status(iErrNo);
+         auto estatus = failed_errno_status(iErrNo);
 
          throw ::exception(estatus, "Error opening file : \"" + string(pszSrc) + "\"");
 
@@ -589,7 +591,7 @@ namespace acme_posix
 
          int iErrNo = errno;
 
-         auto estatus = failed_errno_to_status(iErrNo);
+         auto estatus = failed_errno_status(iErrNo);
 
          throw ::exception(estatus, "Error lseek file : \"" + string(pszSrc) + "\"");
 
@@ -600,7 +602,7 @@ namespace acme_posix
 
          int iErrNo = errno;
 
-         auto estatus = failed_errno_to_status(iErrNo);
+         auto estatus = failed_errno_status(iErrNo);
 
          throw ::exception(estatus, "Failed to set output file size : \"" + string(pszNew) + "\"");
 
@@ -611,7 +613,7 @@ namespace acme_posix
 
          int iErrNo = errno;
 
-         auto estatus = failed_errno_to_status(iErrNo);
+         auto estatus = failed_errno_status(iErrNo);
 
          throw ::exception(estatus, "Error mapping input file : \"" + string(pszSrc) + "\"");
 
@@ -623,7 +625,7 @@ namespace acme_posix
 
          int iErrNo = errno;
 
-         auto estatus = failed_errno_to_status(iErrNo);
+         auto estatus = failed_errno_status(iErrNo);
 
          throw ::exception(estatus, "Error mapping output file: \"" + string(pszNew) + "\"");
 
@@ -798,7 +800,7 @@ namespace acme_posix
          
          int iErrNo = errno;
          
-         auto estatus = failed_errno_to_status(iErrNo);
+         auto estatus = failed_errno_status(iErrNo);
 
          throw ::exception(estatus);
 

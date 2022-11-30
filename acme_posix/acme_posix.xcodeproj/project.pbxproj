@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A0841AF2935D51F009F7FF4 /* mutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0841AC2935D51D009F7FF4 /* mutex.h */; };
+		9A0841B02935D51F009F7FF4 /* mutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0841AC2935D51D009F7FF4 /* mutex.h */; };
+		9A0841B12935D51F009F7FF4 /* mutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0841AD2935D51E009F7FF4 /* mutex.cpp */; };
+		9A0841B22935D51F009F7FF4 /* mutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0841AD2935D51E009F7FF4 /* mutex.cpp */; };
+		9A0841B32935D51F009F7FF4 /* list_serial_ports.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0841AE2935D51E009F7FF4 /* list_serial_ports.cpp */; };
+		9A0841B42935D51F009F7FF4 /* list_serial_ports.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0841AE2935D51E009F7FF4 /* list_serial_ports.cpp */; };
+		9A0841B82935D566009F7FF4 /* exclusive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0841B52935D540009F7FF4 /* exclusive.cpp */; };
+		9A0841B92935D566009F7FF4 /* exclusive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0841B52935D540009F7FF4 /* exclusive.cpp */; };
+		9A0841BA2935D566009F7FF4 /* exclusive.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0841B62935D55E009F7FF4 /* exclusive.h */; };
+		9A0841BB2935D566009F7FF4 /* exclusive.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0841B62935D55E009F7FF4 /* exclusive.h */; };
+		9A0841BC2935D566009F7FF4 /* file_lock.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0841B72935D564009F7FF4 /* file_lock.h */; };
+		9A0841BD2935D566009F7FF4 /* file_lock.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0841B72935D564009F7FF4 /* file_lock.h */; };
 		9A0C16C5264A2C6D00B5CC33 /* pipe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16AF264A2C6C00B5CC33 /* pipe.cpp */; };
 		9A0C16C7264A2C6D00B5CC33 /* file_memory_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16B2264A2C6C00B5CC33 /* file_memory_map.cpp */; };
 		9A0C16C8264A2C6D00B5CC33 /* framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16B3264A2C6C00B5CC33 /* framework.cpp */; };
@@ -82,6 +94,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9A0841AC2935D51D009F7FF4 /* mutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mutex.h; sourceTree = "<group>"; };
+		9A0841AD2935D51E009F7FF4 /* mutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mutex.cpp; sourceTree = "<group>"; };
+		9A0841AE2935D51E009F7FF4 /* list_serial_ports.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = list_serial_ports.cpp; sourceTree = "<group>"; };
+		9A0841B52935D540009F7FF4 /* exclusive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exclusive.cpp; sourceTree = "<group>"; };
+		9A0841B62935D55E009F7FF4 /* exclusive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = exclusive.h; sourceTree = "<group>"; };
+		9A0841B72935D564009F7FF4 /* file_lock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file_lock.h; sourceTree = "<group>"; };
 		9A0C1638264A281D00B5CC33 /* libacme_posix.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libacme_posix.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A0C16AF264A2C6C00B5CC33 /* pipe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pipe.cpp; sourceTree = "<group>"; };
 		9A0C16B2264A2C6C00B5CC33 /* file_memory_map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file_memory_map.cpp; sourceTree = "<group>"; };
@@ -159,15 +177,21 @@
 				9A892E7F26CDDAA8008D6412 /* acme_path.h */,
 				9A78F40128E791B4007F62C0 /* exception_translator.cpp */,
 				9A78F40228E791B4007F62C0 /* exception_translator.h */,
+				9A0841B52935D540009F7FF4 /* exclusive.cpp */,
 				9A0C16B2264A2C6C00B5CC33 /* file_memory_map.cpp */,
 				9A0C16BF264A2C6C00B5CC33 /* file_memory_map.h */,
 				9A0C16B3264A2C6C00B5CC33 /* framework.cpp */,
 				9A0C16C2264A2C6C00B5CC33 /* framework.h */,
+				9A0841B62935D55E009F7FF4 /* exclusive.h */,
+				9A0841B72935D564009F7FF4 /* file_lock.h */,
+				9A0841AE2935D51E009F7FF4 /* list_serial_ports.cpp */,
+				9A0841AD2935D51E009F7FF4 /* mutex.cpp */,
+				9A0841AC2935D51D009F7FF4 /* mutex.h */,
+				9A78F44428E7E3E2007F62C0 /* node_clang_callstack.cpp */,
 				9A0C16B6264A2C6C00B5CC33 /* node.cpp */,
 				9A0C16B7264A2C6C00B5CC33 /* node.h */,
 				9A0C16AF264A2C6C00B5CC33 /* pipe.cpp */,
 				9A0C16C0264A2C6C00B5CC33 /* pipe.h */,
-				9A78F44428E7E3E2007F62C0 /* node_clang_callstack.cpp */,
 			);
 			name = acme_posix;
 			sourceTree = "<group>";
@@ -176,7 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				9A0C1798264A315100B5CC33 /* libacme.dylib */,
-				9A0C179A264A315100B5CC33 /* ios_acme.a */,
+				9A0C179A264A315100B5CC33 /* libios_acme.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -195,6 +219,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A0841AF2935D51F009F7FF4 /* mutex.h in Headers */,
 				9A0C16D5264A2C6D00B5CC33 /* _.h in Headers */,
 				9A0C16D1264A2C6D00B5CC33 /* pipe.h in Headers */,
 				9A78F40528E791B4007F62C0 /* exception_translator.h in Headers */,
@@ -202,6 +227,8 @@
 				9A892E8526CDDAA9008D6412 /* acme_path.h in Headers */,
 				9A0C16CB264A2C6D00B5CC33 /* node.h in Headers */,
 				9A892E8026CDDAA9008D6412 /* acme_directory.h in Headers */,
+				9A0841BA2935D566009F7FF4 /* exclusive.h in Headers */,
+				9A0841BC2935D566009F7FF4 /* file_lock.h in Headers */,
 				9A892E8326CDDAA9008D6412 /* acme_file.h in Headers */,
 				9A0C16D3264A2C6D00B5CC33 /* framework.h in Headers */,
 			);
@@ -211,6 +238,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A0841B02935D51F009F7FF4 /* mutex.h in Headers */,
 				9A8E9DBF282A2F7E005FF778 /* _.h in Headers */,
 				9A8E9DC0282A2F7E005FF778 /* pipe.h in Headers */,
 				9A78F40628E791B4007F62C0 /* exception_translator.h in Headers */,
@@ -218,6 +246,8 @@
 				9A8E9DC2282A2F7E005FF778 /* acme_path.h in Headers */,
 				9A8E9DC3282A2F7E005FF778 /* node.h in Headers */,
 				9A8E9DC4282A2F7E005FF778 /* acme_directory.h in Headers */,
+				9A0841BB2935D566009F7FF4 /* exclusive.h in Headers */,
+				9A0841BD2935D566009F7FF4 /* file_lock.h in Headers */,
 				9A8E9DC6282A2F7E005FF778 /* acme_file.h in Headers */,
 				9A8E9DC7282A2F7E005FF778 /* framework.h in Headers */,
 			);
@@ -308,10 +338,9 @@
 			remoteRef = 9A0C1797264A315100B5CC33 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9A0C179A264A315100B5CC33 /* ios_acme.a */ = {
+		9A0C179A264A315100B5CC33 /* libios_acme.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.dylib";
-			name = ios_acme.a;
 			path = libios_acme.a;
 			remoteRef = 9A0C1799264A315100B5CC33 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
@@ -328,9 +357,12 @@
 				9A0C16C8264A2C6D00B5CC33 /* framework.cpp in Sources */,
 				9A892E8226CDDAA9008D6412 /* acme_directory.cpp in Sources */,
 				9A0C16D2264A2C6D00B5CC33 /* _factory.cpp in Sources */,
+				9A0841B32935D51F009F7FF4 /* list_serial_ports.cpp in Sources */,
+				9A0841B12935D51F009F7FF4 /* mutex.cpp in Sources */,
 				9A78F40328E791B4007F62C0 /* exception_translator.cpp in Sources */,
 				9A0C16C5264A2C6D00B5CC33 /* pipe.cpp in Sources */,
 				9A892E8126CDDAA9008D6412 /* acme_file.cpp in Sources */,
+				9A0841B82935D566009F7FF4 /* exclusive.cpp in Sources */,
 				9A0C16C7264A2C6D00B5CC33 /* file_memory_map.cpp in Sources */,
 				9A0C16CA264A2C6D00B5CC33 /* node.cpp in Sources */,
 				9A78F44528E7E3E2007F62C0 /* node_clang_callstack.cpp in Sources */,
@@ -346,9 +378,12 @@
 				9A8E9DCB282A2F7E005FF778 /* framework.cpp in Sources */,
 				9A8E9DCC282A2F7E005FF778 /* acme_directory.cpp in Sources */,
 				9A8E9DCD282A2F7E005FF778 /* _factory.cpp in Sources */,
+				9A0841B42935D51F009F7FF4 /* list_serial_ports.cpp in Sources */,
+				9A0841B22935D51F009F7FF4 /* mutex.cpp in Sources */,
 				9A78F40428E791B4007F62C0 /* exception_translator.cpp in Sources */,
 				9A8E9DCE282A2F7E005FF778 /* pipe.cpp in Sources */,
 				9A8E9DCF282A2F7E005FF778 /* acme_file.cpp in Sources */,
+				9A0841B92935D566009F7FF4 /* exclusive.cpp in Sources */,
 				9A8E9DD0282A2F7E005FF778 /* file_memory_map.cpp in Sources */,
 				9A8E9DD1282A2F7E005FF778 /* node.cpp in Sources */,
 				9A78F44628E7E3E2007F62C0 /* node_clang_callstack.cpp in Sources */,

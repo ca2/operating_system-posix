@@ -107,7 +107,7 @@ namespace acme_posix
 //      ::string get_callstack() override;
 //#endif
 
-      bool set_process_priority(::enum_priority epriority) override;
+      //bool set_process_priority(::enum_priority epriority) override;
 
 
       void command_system(string_array & straOutput, int& iExitCode, const char* psz, enum_command_system ecommandsystem, const class ::time& timeTimeout, ::particle * pparticleSynchronization, ::file::file * pfileLog) override;
