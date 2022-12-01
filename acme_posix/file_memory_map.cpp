@@ -51,7 +51,7 @@ namespace acme_posix
       if (m_pdata != (void *)MAP_FAILED)
       {
          
-         auto size = ::get_system()->m_pacmefile->get_size_fd(m_iFile);
+         auto size = acmesystem()->m_pacmefile->get_size_fd(m_iFile);
          
          ::munmap(m_pdata, size);
             

@@ -151,7 +151,7 @@ namespace windowing_xcb
       windowing_post([this, bMouse, bKeyboard]()
                                  {
 
-                                    auto psystem = get_system();
+                                    auto psystem = acmesystem();
 
                                     auto pdisplay = _get_Display();
 

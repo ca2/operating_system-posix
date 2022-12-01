@@ -168,7 +168,7 @@ void apex_application_startup (GApplication *application)
 
    }
 
-   //::apex::system * psystem = papexapplication->get_system();
+   //::apex::system * psystem = papexapplication->acmesystem();
 
    //psystem->m_XstrAppId = psystem->m_pmaindata->m_XstrAppId;
 

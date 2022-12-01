@@ -139,7 +139,7 @@ namespace windowing_x11
       }
 
 
-      bool bBranch = !acmesystem()->m_paurasession->user()->m_pdesktopenvironment->m_bUnhook;
+      bool bBranch = !acmesession()->m_paurasession->user()->m_pdesktopenvironment->m_bUnhook;
 
 //      m_px11display->m_bUnhook = bUnhook;
 
