@@ -238,7 +238,7 @@ return false;
 
       bool bOk = false;
 
-      auto psession = get_session()->m_paurasession;
+      auto psession = acmesession()->m_paurasession;
 
       auto puser = psession->user();
 

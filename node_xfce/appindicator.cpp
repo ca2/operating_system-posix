@@ -254,7 +254,7 @@ namespace node_xfce
 
       auto pcontext = m_pcontext->m_papexcontext;
 
-      auto psession = pcontext->get_session()->m_paurasession;
+      auto psession = pcontext->acmesession()->m_paurasession;
 
       auto puser = psession->user();
 

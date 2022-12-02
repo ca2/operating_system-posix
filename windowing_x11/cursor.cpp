@@ -168,7 +168,7 @@ namespace windowing_x11
 
       auto psystem = acmesystem();
 
-      auto psession = psystem->get_session()->m_paurasession;
+      auto psession = psystem->acmesession()->m_paurasession;
 
       auto puser = psession->user();
 
