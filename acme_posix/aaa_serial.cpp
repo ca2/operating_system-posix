@@ -62,7 +62,7 @@
 //using io_exception;
 
 
-//::durationTimer::::durationTimer(const u32 ::duration)
+//::durationTimer::durationTimer(const u32 ::duration)
 //   : expiry(timespec_now())
 //{
 //   i64 tv_nsec = expiry.tv_nsec + (::duration * 1e6);

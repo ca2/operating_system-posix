@@ -80,7 +80,7 @@ namespace acme_posix
    basename(const string & path)
    {
 
-      strsize pos = path.rfind("/");
+      strsize pos = path.rear_find("/");
 
       if (pos < 0)
       {
@@ -98,7 +98,7 @@ namespace acme_posix
    dirname(const string & path)
    {
 
-      strsize pos = path.rfind("/");
+      strsize pos = path.rear_find("/");
 
       if (pos < 0)
       {

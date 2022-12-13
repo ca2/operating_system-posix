@@ -712,7 +712,7 @@
 
 // /*
 
-// static int_bool reg_query_value(HKEY hkey, const widechar * name, ::u32 type, void *data, ::u32 count)
+// static int_bool reg_query_value(HKEY hkey, const ::wide_character * name, ::u32 type, void *data, ::u32 count)
 // {
 //     UNICODE_STRING nameW;
 //     char buf[256];

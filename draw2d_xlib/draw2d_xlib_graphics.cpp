@@ -5072,7 +5072,7 @@ namespace draw2d_xlib
    }
 
 
-   void graphics::set_text_rendering_hint(::draw2d::::write_text::enum_rendering_hint etextrendering)
+   void graphics::set_text_rendering_hint(::draw2d::write_text::enum_rendering_hint etextrendering)
    {
       m_ewritetextrendering = etextrendering;
 

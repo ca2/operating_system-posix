@@ -502,7 +502,7 @@ namespace draw2d_xlib
 
       virtual void set_alpha_mode(::draw2d::enum_alpha_mode ealphamode);
 
-      virtual void set_text_rendering_hint(::draw2d::::write_text::enum_rendering_hint etextrendering);
+      virtual void set_text_rendering_hint(::draw2d::write_text::enum_rendering_hint etextrendering);
 
       virtual void * get_os_data() const;
 //      virtual HDC get_handle() const;

@@ -313,7 +313,7 @@ namespace aura_posix
    //         strPath = szPath;
    //         if (strPath == "*")
    //         {
-   //            strsize iFind = strFilePath.reverse_find('.');
+   //            strsize iFind = strFilePath.rear_find('.');
 
    //            imagekey.m_iIcon = 0x80000000;
    //            imagekey.m_pszExtension = (char*)&strFilePath[iFind];
