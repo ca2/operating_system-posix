@@ -325,7 +325,7 @@ namespace windowing_x11
 
       //   ::pointer<::xml::node>pnode = doc.root()->child_at(i);
 
-      //   if(pnode->get_name().compare_ci("item") == 0)
+      //   if(pnode->get_name().case_insensitive_order("item") == 0)
       //   {
 
       //      string strCode    = pnode->attribute("code");
@@ -677,7 +677,7 @@ namespace windowing_x11
 ////         string strHkl = straHkl[i];
 ////         HKL hkl;
 ////         strHkl.trim();
-////         if(strHkl.begins_eat_ci("0x"))
+////         if(strHkl.case_insensitive_begins_eat("0x"))
 ////         {
 ////            hkl = (HKL) ::hex::to_uptr(strHkl);
 ////         }

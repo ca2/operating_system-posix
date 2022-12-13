@@ -450,7 +450,7 @@ namespace acme_posix
 
    string strName(lpszName);
 
-   if (strName.begins_ci("Global"))
+   if (strName.case_insensitive_begins("Global"))
    {
 
       path = "/var/tmp/ca2/lock/mutex/named";
@@ -824,14 +824,14 @@ namespace acme_posix
 
 #else
 
-      int status = posix_spawn(&pid, argv[0], nullptr, nullptr, argv.get_data(), envp);
+      int status = posix_spawn(&pid, argv[0], nullptr, nullptr, argv.data(), envp);
 
 #endif
 
       if (status == 0)
       {
 
-         if (strExe.ends_ci("_app_core_clockverse"))
+         if (strExe.case_insensitive_ends("_app_core_clockverse"))
          {
 
             ::output_debug_string("app-core/clockverse");
@@ -851,7 +851,7 @@ namespace acme_posix
       else
       {
 
-         if (strExe.ends_ci("_app_core_clockverse"))
+         if (strExe.case_insensitive_ends("_app_core_clockverse"))
          {
 
             ::output_debug_string("app-core/clockverse");
@@ -1113,7 +1113,7 @@ namespace acme_posix
 #endif
       mem.set_size(iSize);
 
-      s = readlink(str, (char *)mem.get_data(), iSize);
+      s = readlink(str, (char *)mem.data(), iSize);
 
       if (s > sb.st_size)
       {
@@ -1133,9 +1133,9 @@ namespace acme_posix
 
       }
 
-      mem.get_data()[s] = '\0';
+      mem.data()[s] = '\0';
 
-      return (const char *)mem.get_data();
+      return (const char *)mem.data();
 
    }
 
@@ -1227,7 +1227,7 @@ namespace acme_posix
 
             string strPath = path;
 
-            strPath.ends_eat_ci(" (deleted)");
+            strPath.case_insensitive_ends_eat(" (deleted)");
 
             //if (strTitle == strApp ||
                //  strTitle == strApp2)
@@ -1277,15 +1277,15 @@ namespace acme_posix
 
       char ch;
 
-      for (int i = 0; i < mem.get_size(); i++)
+      for (int i = 0; i < mem.size(); i++)
       {
 
-         ch = (char)mem.get_data()[i];
+         ch = (char)mem.data()[i];
 
          if (ch == '\0')
          {
 
-            if (strArg.find_first_in(" \t\n") >= 0)
+            if (strArg.span(" \t\n") >= 0)
             {
 
                stra.add("\"" + strArg + "\"");
@@ -1314,7 +1314,7 @@ namespace acme_posix
       if (strArg.has_char())
       {
 
-         if (strArg.find_first_in(" \t\n") >= 0)
+         if (strArg.span(" \t\n") >= 0)
          {
 
             stra.add("\"" + strArg + "\"");

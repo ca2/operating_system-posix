@@ -208,13 +208,13 @@ namespace node_xfce
 //
 //      string str(str1);
 //
-//      if(str.begins_eat_ci("app_veriwell_"))
+//      if(str.case_insensitive_begins_eat("app_veriwell_"))
 //      {
 //
 //         strFolder+="app-veriwell";
 //
 //      }
-//      else if(str.begins_eat_ci("app_core_"))
+//      else if(str.case_insensitive_begins_eat("app_core_"))
 //      {
 //
 //         strFolder+="app-core";

@@ -4,7 +4,7 @@
 #include "framework.h"
 #include "mutex.h"
 #include "acme/_operating_system.h"
-//#include "acme/primitive/time/time.h"
+#include "acme/primitive/time/timespec.h"
 #include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/platform/system.h"
 ////#include "acme/exception/exception.h"
@@ -1074,7 +1074,7 @@ namespace acme_posix
 
          timespec timespecFinal{};
 
-         timespecFinal = addition(timespecNow, timespecWait);
+         timespecFinal = timespecNow + timespecWait;
 
          int rc = pthread_mutex_timedlock (&m_mutex, &timespecFinal);
 
@@ -1652,7 +1652,7 @@ namespace acme_posix
 
       string strName(lpszName);
 
-      if (strName.begins_ci("Global"))
+      if (strName.case_insensitive_begins("Global"))
       {
 
          path = "/var/tmp/ca2/lock/mutex/named";

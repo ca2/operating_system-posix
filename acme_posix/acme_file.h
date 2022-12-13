@@ -35,10 +35,10 @@ namespace acme_posix
       void set_file_normal(const char* path) override;
 
 
-      memory as_memory(const char * path, strsize iReadAtMostByteCount = -1) override;
+      memory as_memory(const char* path, strsize iReadAtMostByteCount = -1, bool bNoExceptionOnOpen = true) override;
       memsize as_memory(const char * path, void * p, memsize s) override;
       string as_string(const char * path, strsize iReadAtMostByteCount = -1, bool bNoExceptionOnOpen = true) override;
-      void as_memory(memory_base & memory, const char * path, strsize iReadAtMostByteCount) override;
+      void as_memory(memory_base & memory, const char * path, strsize iReadAtMostByteCount, bool bNoExceptionOnOpen = true) override;
 
 
       string get_temporary_file_name(const char * lpszName, const char * pszExtension) override;

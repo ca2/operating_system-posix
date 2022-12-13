@@ -16,6 +16,7 @@
 #include <glob.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+
 #undef USE_MISC
 
 #include <stdio.h>
@@ -27,27 +28,27 @@ namespace acme_posix
 {
 
 
-   static string_array glob(const string_array & patterns);
+   static string_array glob(const string_array &patterns);
 
-   static string basename(const string & path);
+   static string basename(const string &path);
 
-   static string dirname(const string & path);
+   static string dirname(const string &path);
 
-   static bool path_exists(const string & path);
+   static bool path_exists(const string &path);
 
-   static string realpath(const string & path);
+   static string realpath(const string &path);
 
-   static string usb_sysfs_friendly_name(::particle * pparticle, const string & sys_usb_path);
+   static string usb_sysfs_friendly_name(::particle *pparticle, const string &sys_usb_path);
 
-   static string_array get_sysfs_info(::particle * pparticle, const string & device_path);
+   static string_array get_sysfs_info(::particle *pparticle, const string &device_path);
 
 //static string read_line(const string& file);
-   static string usb_sysfs_hw_string(::particle * pparticle, const string & sysfs_path);
+   static string usb_sysfs_hw_string(::particle *pparticle, const string &sysfs_path);
 
-   static string format(const char * format, ...);
+   static string format(const char *format, ...);
 
    string_array
-   glob(const string_array & patterns)
+   glob(const string_array &patterns)
    {
       string_array paths_found;
 
@@ -59,7 +60,7 @@ namespace acme_posix
       int glob_retval = glob(patterns[0].c_str(), 0, nullptr, &glob_results);
 
 
-      for (auto item : patterns)
+      for (auto item: patterns)
       {
          glob_retval = glob(item, GLOB_APPEND, nullptr, &glob_results);
       }
@@ -77,7 +78,7 @@ namespace acme_posix
 
 
    string
-   basename(const string & path)
+   basename(const string &path)
    {
 
       strsize pos = path.rear_find("/");
@@ -95,7 +96,7 @@ namespace acme_posix
 
 
    string
-   dirname(const string & path)
+   dirname(const string &path)
    {
 
       strsize pos = path.rear_find("/");
@@ -117,7 +118,7 @@ namespace acme_posix
    }
 
 
-   bool path_exists(const string & path)
+   bool path_exists(const string &path)
    {
 
       struct stat sb;
@@ -134,10 +135,10 @@ namespace acme_posix
    }
 
 
-   string realpath(const string & path)
+   string realpath(const string &path)
    {
 
-      char * real_path = ::realpath(path.c_str(), nullptr);
+      char *real_path = ::realpath(path.c_str(), nullptr);
 
       string result;
 
@@ -155,7 +156,7 @@ namespace acme_posix
    }
 
 
-   string usb_sysfs_friendly_name(::particle * pparticle, const string & sys_usb_path)
+   string usb_sysfs_friendly_name(::particle *pparticle, const string &sys_usb_path)
    {
 
       unsigned int device_number = 0;
@@ -184,7 +185,7 @@ namespace acme_posix
    }
 
 
-   string_array get_sysfs_info(particle * pparticle, const string & device_path)
+   string_array get_sysfs_info(particle *pparticle, const string &device_path)
    {
 
       string device_name = basename(device_path);
@@ -195,7 +196,7 @@ namespace acme_posix
 
       string sys_device_path = format("/sys/class/tty/%s/device", device_name.c_str());
 
-      if (device_name.compare(0, 6, "ttyUSB") == 0)
+      if (device_name == "ttyUSB")
       {
 
          sys_device_path = dirname(dirname(realpath(sys_device_path)));
@@ -209,7 +210,7 @@ namespace acme_posix
 
          }
 
-      } else if (device_name.compare(0, 6, "ttyACM") == 0)
+      } else if (device_name == "ttyACM")
       {
 
          sys_device_path = dirname(realpath(sys_device_path));
@@ -225,7 +226,7 @@ namespace acme_posix
       {
          // Try to read ID string of PCI device
 
-         string sys_id_path = sys_device_path + string("/atom");
+         string sys_id_path = sys_device_path + string("/id");
 
          auto psystem = pparticle->acmesystem();
 
@@ -265,7 +266,7 @@ namespace acme_posix
    }
 
 
-   string format(const char * format, ...)
+   string format(const char *format, ...)
    {
 
       va_list ap;
@@ -274,7 +275,7 @@ namespace acme_posix
 
       string result;
 
-      ::acme::malloc < char * > buffer;
+      ::acme::malloc<char *> buffer;
 
       buffer.alloc(buffer_size_bytes);
 
@@ -301,31 +302,28 @@ namespace acme_posix
 
             done = true;
 
-         }
-         else if (return_value >= buffer_size_bytes)
+         } else if (return_value >= buffer_size_bytes)
          {
 
             // Realloc and try again.
 
             buffer_size_bytes = return_value + 1;
 
-            char * new_buffer_ptr = (char *) buffer.alloc(buffer_size_bytes);
+            char *new_buffer_ptr = (char *) buffer.alloc(buffer_size_bytes);
 
             if (new_buffer_ptr == nullptr)
             {
 
                done = true;
 
-            }
-            else
+            } else
             {
 
                buffer = new_buffer_ptr;
 
             }
 
-         }
-         else
+         } else
          {
 
             result = string(buffer.m_p, buffer.m_iSize);
@@ -350,7 +348,7 @@ namespace acme_posix
    }
 
 
-   string usb_sysfs_hw_string(::particle * pparticle, const string & sysfs_path)
+   string usb_sysfs_hw_string(::particle *pparticle, const string &sysfs_path)
    {
 
       auto psystem = pparticle->acmesystem();
@@ -393,7 +391,7 @@ namespace acme_posix
 
       string_array devices_found = glob(search_globs);
 
-      for (auto device : devices_found)
+      for (auto device: devices_found)
       {
 
          string_array sysfs_info = get_sysfs_info(this, device);

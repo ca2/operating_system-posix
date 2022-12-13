@@ -135,7 +135,7 @@ namespace os
 
       }
 
-      strWallpaper.begins_eat_ci("file://");
+      strWallpaper.case_insensitive_begins_eat("file://");
 
       return strWallpaper;
 

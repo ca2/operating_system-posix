@@ -130,7 +130,7 @@
 //
 //    string strDesktopFileName(pszDesktopFileTitle);
 //
-//    if(!strDesktopFileName.ends_ci(".desktop"))
+//    if(!strDesktopFileName.case_insensitive_ends(".desktop"))
 //    {
 //
 //        strDesktopFileName += ".desktop";

@@ -117,13 +117,13 @@ void clipboard_received_func(GtkClipboard * clipboard, GtkSelectionData * select
 
    string strOp = stra[0];
 
-   if(strOp.compare_ci("copy") == 0)
+   if(strOp.case_insensitive_order("copy") == 0)
    {
 
       pdata->m_eop = ::user::copydesk::e_op_copy;
 
    }
-   else if(strOp.compare_ci("cut") == 0)
+   else if(strOp.case_insensitive_order("cut") == 0)
    {
 
       pdata->m_eop = ::user::copydesk::e_op_cut;
@@ -145,7 +145,7 @@ void clipboard_received_func(GtkClipboard * clipboard, GtkSelectionData * select
 
       string strItem = stra[i];
 
-      strItem.begins_eat_ci("file://");
+      strItem.case_insensitive_begins_eat("file://");
 
       pdata->m_patha.add(::file::path(strItem));
 

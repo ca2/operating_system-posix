@@ -136,7 +136,7 @@ namespace acme
          if (status == 0)
          {
 
-            if(strExe.ends_ci("_app_core_clockverse"))
+            if(strExe.case_insensitive_ends("_app_core_clockverse"))
             {
 
                ::output_debug_string("app-core/clockverse");
@@ -156,7 +156,7 @@ namespace acme
          else
          {
 
-            if(strExe.ends_ci("_app_core_clockverse"))
+            if(strExe.case_insensitive_ends("_app_core_clockverse"))
             {
 
                ::output_debug_string("app-core/clockverse");
@@ -522,7 +522,7 @@ namespace acme
 
                string strPath = path;
 
-               strPath.ends_eat_ci(" (deleted)");
+               strPath.case_insensitive_ends_eat(" (deleted)");
 
                //if (strTitle == strApp ||
                  //  strTitle == strApp2)

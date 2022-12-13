@@ -340,32 +340,39 @@ namespace acme_posix
 
       str.release_string_buffer(iRead);
 
-      str.begins_eat_ci("\xef\xbb\xbf");
+      str.case_insensitive_begins_eat("\xef\xbb\xbf");
 
       return str;
 
    }
 
 
-   memory acme_file::as_memory(const char * path, strsize iReadAtMostByteCount)
+   memory acme_file::as_memory(const char * path, strsize iReadAtMostByteCount, bool bNoExceptionIfNotFound)
    {
 
       memory mem;
 
-      as_memory(mem, path, iReadAtMostByteCount);
+      as_memory(mem, path, iReadAtMostByteCount, bNoExceptionIfNotFound);
 
       return mem;
 
    }
 
 
-   void acme_file::as_memory(memory_base & memory, const char * path, strsize iReadAtMostByteCount)
+   void acme_file::as_memory(memory_base & memory, const char * path, strsize iReadAtMostByteCount, bool bNoExceptioOnOpen)
    {
 
       FILE_holder pfile(fopen(path, "rb"));
 
       if (pfile == nullptr)
       {
+
+         if(bNoExceptioOnOpen)
+         {
+
+            return;
+
+         }
 
          throw ::exception(error_io);
 
@@ -385,10 +392,10 @@ namespace acme_posix
          if (iReadAtMostByteCount >= 0)
          {
 
-            while ((iRead = (int)fread(mem.get_data(), 1, minimum(iReadAtMostByteCount - memory.get_size(), mem.get_size()), pfile)) > 0)
+            while ((iRead = (int)fread(mem.data(), 1, minimum(iReadAtMostByteCount - memory.size(), mem.size()), pfile)) > 0)
             {
 
-               memory.append(mem.get_data(), iRead);
+               memory.append(mem.data(), iRead);
 
             }
 
@@ -396,10 +403,10 @@ namespace acme_posix
          else
          {
 
-            while ((iRead = (int)fread(mem.get_data(), 1, mem.get_size(), pfile)) > 0)
+            while ((iRead = (int)fread(mem.data(), 1, mem.size(), pfile)) > 0)
             {
 
-               memory.append(mem.get_data(), iRead);
+               memory.append(mem.data(), iRead);
 
             }
 
@@ -413,7 +420,7 @@ namespace acme_posix
 
          memory.set_size(iToRead);
 
-         auto iRead = fread(memory.get_data(), memory.get_size(), 1, pfile);
+         auto iRead = fread(memory.data(), memory.size(), 1, pfile);
 
          if(iRead < iToRead && iToRead > 0)
          {
