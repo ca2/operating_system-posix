@@ -251,9 +251,9 @@ namespace system_5
 
          i32 length;
 
-         data_struct *pdata = (data_struct *) m.get_data();
+         data_struct *pdata = (data_struct *) m.data();
 
-         length = m.get_size() - sizeof(long);
+         length = m.size() - sizeof(long);
 
          if ((result = msgrcv(m_iQueue, pdata, length, 20170101, IPC_NOWAIT)) == -1)
          {
@@ -283,7 +283,7 @@ namespace system_5
 
             //
 
-            _handle_uri(mem);
+            _handle_uri(mem.as_string());
 
 //            if (lRequest == 1024)
 //            {

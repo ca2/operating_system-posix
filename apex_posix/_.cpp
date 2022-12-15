@@ -1,7 +1,7 @@
 #include "framework.h"
 
 
-IMPLEMENT_THIS_TYPE(apex_posix);
+//IMPLEMENT_THIS_TYPE(apex_posix);
 
 
 
