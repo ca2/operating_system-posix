@@ -647,7 +647,7 @@
 //    i32 wday, mday;
 
 //    /* find first day in the month matching week day of the date */
-//    __memset(&date, 0, sizeof(date));
+//    memory_set(&date, 0, sizeof(date));
 //    date.tm_year = year;
 //    date.tm_mon = mon;
 //    date.tm_mday = -1;
@@ -781,7 +781,7 @@
 //       return current_is_dst;
 //    }
 
-//    __memset(tzi, 0, sizeof(*tzi));
+//    memory_set(tzi, 0, sizeof(*tzi));
 
 // //xxx    FORMATTED_TRACE("tz data will be valid through year %d\n", tm->tm_year + 1900);
 //    current_year = tm->tm_year;

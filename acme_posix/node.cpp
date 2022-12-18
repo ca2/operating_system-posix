@@ -946,7 +946,7 @@ namespace acme_posix
 
       ULONG rc;
 
-      __memset(&StartupInfo, 0, sizeof(StartupInfo));
+      memory_set(&StartupInfo, 0, sizeof(StartupInfo));
 
       StartupInfo.cb = sizeof(STARTUPINFO);
 

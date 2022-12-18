@@ -275,7 +275,7 @@ namespace draw2d_xlib
 
       m_mem.set_size(cx * cy * 4);
 
-      __memset(m_mem.get_data(), 0, m_mem.get_size());
+      memory_set(m_mem.get_data(), 0, m_mem.get_size());
 
       if(!CreateBitmap(pgraphics, cx, cy, 1, 32, (color32_t *) m_mem.get_data(), cx * sizeof(color32_t)))
       {

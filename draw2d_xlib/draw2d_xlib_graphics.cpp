@@ -3457,7 +3457,7 @@ namespace draw2d_xlib
 
       /*
             DOCINFO di;
-            __memset(&di, 0, sizeof(DOCINFO));
+            memory_set(&di, 0, sizeof(DOCINFO));
             di.cbSize = sizeof(DOCINFO);
             di.lpszDocName = lpszDocName;
             return StartDoc(&di);

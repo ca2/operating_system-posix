@@ -88,7 +88,7 @@ namespace draw2d_xlib
       if(width <= 0 || height <= 0)
          return false;
 
-      __memset(&m_info, 0, sizeof (BITMAPINFO));
+      memory_set(&m_info, 0, sizeof (BITMAPINFO));
 
       m_info.bmiHeader.biSize          = sizeof (BITMAPINFOHEADER);
       m_info.bmiHeader.biWidth         = width;

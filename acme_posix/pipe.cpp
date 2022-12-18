@@ -145,7 +145,7 @@ namespace acme_posix
 
       for (;;)
       {
-         __memset(chBuf, 0, BUFSIZE);
+         memory_set(chBuf, 0, BUFSIZE);
 
          try
          {
@@ -193,7 +193,7 @@ namespace acme_posix
 
       char chBuf[BUFSIZE];
 
-      __memset(chBuf, 0, BUFSIZE);
+      memory_set(chBuf, 0, BUFSIZE);
 
       try
       {
