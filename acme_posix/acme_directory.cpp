@@ -81,7 +81,7 @@ namespace acme_posix
    }
 
 //
-//   ::e_status acme_directory::create(const char * path)
+//   ::e_status acme_directory::create(const ::file::path & path)
 //   {
 //
 //
@@ -94,7 +94,7 @@ namespace acme_posix
 //   }
 //
 //
-//   ::e_status acme_directory::_create(const char * path)
+//   ::e_status acme_directory::_create(const ::file::path & path)
 //   {
 //
 //      return ::create_directory_path(path);
@@ -102,7 +102,7 @@ namespace acme_posix
 //   }
 //
 //
-//   ::e_status acme_directory::create_directory(const char * path)
+//   ::e_status acme_directory::create_directory(const ::file::path & path)
 //   {
 //
 //      return ::create_directory(path);
@@ -120,7 +120,7 @@ namespace acme_posix
    }
 
 
-   bool acme_directory::is(const char * path)
+   bool acme_directory::is(const ::file::path & path)
    {
 
       bool bDir = false;
@@ -275,10 +275,10 @@ namespace acme_posix
    }
 
 
-   bool acme_directory::list(string_array & stra, const char * psz, ::file::e_flag eflag)
+   bool acme_directory::list(string_array & stra, const ::scoped_string & scopedstr, ::file::e_flag eflag)
    {
 
-      DIR * dirp = opendir(psz);
+      DIR * dirp = opendir(scopedstr.c_str());
 
       if (dirp == nullptr)
       {
@@ -473,10 +473,10 @@ namespace acme_posix
    }
 
 
-   void acme_directory::change_current(const char * psz)
+   void acme_directory::change_current(const ::scoped_string & scopedstr)
    {
 
-      auto iError = chdir(psz);
+      auto iError = chdir(scopedstr.c_str());
 
       if(iError)
       {

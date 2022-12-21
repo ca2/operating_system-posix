@@ -116,16 +116,16 @@ namespace acme_posix
    }
 
 
-   bool pipe::write(const char * psz)
+   bool pipe::write(const ::scoped_string & scopedstr)
    {
 
-      u32 dwLen = (u32)strlen(psz);
+      u32 dwLen = scopedstr.size();
 
       bool bSuccess = false;
 
       size_t dwWritten;
 
-      dwWritten = ::write(m_fd[1], (const char *)psz, dwLen);
+      dwWritten = ::write(m_fd[1], (const char *)scopedstr.begin(), dwLen);
 
       return bSuccess != false && dwWritten == dwLen;
 

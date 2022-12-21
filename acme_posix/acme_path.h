@@ -24,9 +24,9 @@ namespace acme_posix
       ~acme_path() override;
 
 
-      ::file::enum_type get_type(const char * path1) override;
+      ::file::enum_type get_type(const ::file::path & path1) override;
 
-      ::file::path _final(const char * path) override;
+      ::file::path _final(const ::file::path & path) override;
 
 
    };

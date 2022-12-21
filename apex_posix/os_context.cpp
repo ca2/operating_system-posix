@@ -22,7 +22,7 @@ namespace apex_posix
    }
 
 
-   bool os_context::is_alias(const char* path)
+   bool os_context::is_alias(const ::file::path & path)
    {
 
       if (::is_empty(path))

@@ -18,7 +18,7 @@ namespace acme_posix
    acme_path::~acme_path() = default;
 
 
-   ::file::enum_type acme_path::get_type(const char * path1)
+   ::file::enum_type acme_path::get_type(const ::file::path & path1)
    {
 
       struct stat st;
@@ -46,24 +46,17 @@ namespace acme_posix
    }
 
 
-   ::file::path acme_path::_final(const char * path)
+   ::file::path acme_path::_final(const ::file::path & path)
    {
 
-      if (::is_null(path))
+      if (path.is_empty())
       {
 
          return "";
 
       }
 
-      if(*path == '\0')
-      {
-
-         return "";
-
-      }
-
-      char * pszRealPath = ::realpath(path, NULL);
+      char * pszRealPath = ::realpath(path.c_str(), NULL);
 
       if (::is_null(pszRealPath))
       {

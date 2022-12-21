@@ -69,7 +69,7 @@ namespace acme_posix
    }
 
 
-   void acme_file::ensure_exists(const char* path)
+   void acme_file::ensure_exists(const ::file::path & path)
    {
       
       if(exists(path))
@@ -79,7 +79,7 @@ namespace acme_posix
          
       }
 
-      int_handle fd(::open(path, O_WRONLY | O_CREAT, 0666));
+      int_handle fd(::open(path.c_str(), O_WRONLY | O_CREAT, 0666));
       
       if (fd < 0)
       {
@@ -91,7 +91,7 @@ namespace acme_posix
    }
 
 
-   void acme_file::touch(const char* path)
+   void acme_file::touch(const ::file::path & path)
    {
 
       int rc = utimes(path, nullptr);
@@ -112,19 +112,19 @@ namespace acme_posix
    }
 
 
-   void acme_file::clear_read_only(const char* path)
+   void acme_file::clear_read_only(const ::file::path & path)
    {
 
    }
 
 
-   void acme_file::set_file_normal(const char* path)
+   void acme_file::set_file_normal(const ::file::path & path)
    {
 
    }
 
 
-   string  acme_file::get_temporary_file_name(const char * lpszName, const char * pszExtension)
+   string  acme_file::get_temporary_file_name(const ::scoped_string & scopedstrName, const ::scoped_string& scopedstrExtension)
    {
 
       char pPathBuffer[300 * 16];
@@ -140,11 +140,11 @@ namespace acme_posix
 
          path = pathFolder;
 
-         path /= lpszName;
+         path /= scopedstrName;
 
          path /= ::as_string(i);
 
-         path /= (string(lpszName) + "." + string(pszExtension));
+         path /= (string(scopedstrName) + "." + string(scopedstrExtension));
 
          if (!exists(path))
          {
@@ -162,10 +162,10 @@ namespace acme_posix
    }
 
 
-   void acme_file::set_size(const char * lpszName, filesize size)
+   void acme_file::set_size(const ::scoped_string & scopedstrName, filesize size)
    {
 
-      int_handle iFileDescriptor(::open(lpszName, O_RDONLY));
+      int_handle iFileDescriptor(::open(scopedstrName, O_RDONLY));
 
       set_size(iFileDescriptor, size);
 
@@ -231,7 +231,7 @@ namespace acme_posix
 
 
 
-   void acme_file::put_contents(const char * path, const char * contents, ::count len)
+   void acme_file::put_contents(const ::file::path & path, const ::scoped_string & scopedstrContents)
    {
 
       acmedirectory()->create(::file_path_folder(path));
@@ -249,20 +249,9 @@ namespace acme_posix
 
       size_t dwWrite;
 
-      if (len < 0)
-      {
+      dwWrite = scopedstrContents.size();
 
-         dwWrite = ansi_length(contents);
-
-      }
-      else
-      {
-
-         dwWrite = len;
-
-      }
-
-      size_t dwWritten = ::fwrite(contents, 1, (u32)dwWrite, pfile);
+      size_t dwWritten = ::fwrite(scopedstrContents.begin(), 1, (u32)dwWrite, pfile);
 
       if(dwWritten != dwWrite)
       {
@@ -285,7 +274,7 @@ namespace acme_posix
    }
 
 
-   string acme_file::as_string(const char * path, strsize iReadAtMostByteCount, bool bNoExceptionOnFail)
+   string acme_file::as_string(const ::file::path & path, strsize iReadAtMostByteCount, bool bNoExceptionOnFail)
    {
 
       string str;
@@ -347,7 +336,7 @@ namespace acme_posix
    }
 
 
-   memory acme_file::as_memory(const char * path, strsize iReadAtMostByteCount, bool bNoExceptionIfNotFound)
+   memory acme_file::as_memory(const ::file::path & path, strsize iReadAtMostByteCount, bool bNoExceptionIfNotFound)
    {
 
       memory mem;
@@ -359,7 +348,7 @@ namespace acme_posix
    }
 
 
-   void acme_file::as_memory(memory_base & memory, const char * path, strsize iReadAtMostByteCount, bool bNoExceptioOnOpen)
+   void acme_file::as_memory(memory_base & memory, const ::file::path & path, strsize iReadAtMostByteCount, bool bNoExceptioOnOpen)
    {
 
       FILE_holder pfile(fopen(path, "rb"));
@@ -441,7 +430,7 @@ namespace acme_posix
    }
 
 
-   memsize acme_file::as_memory(const char * path, void * p, memsize s)
+   memsize acme_file::as_memory(const ::file::path & path, void * p, memsize s)
    {
 
       FILE_holder pfile(fopen(path, "rb"));
@@ -475,7 +464,7 @@ namespace acme_posix
    }
 
 
-   filesize acme_file::get_size(const char * path)
+   filesize acme_file::get_size(const ::file::path & path)
    {
 
       struct stat st;
@@ -550,7 +539,7 @@ namespace acme_posix
    }
 
 
-   void acme_file::copy(const char * pszNew, const char * pszSrc, bool bOverwrite)
+   void acme_file::copy(const ::scoped_string & scopedstrNew, const ::scoped_string & scopedstrSrc, bool bOverwrite)
    {
 
       int_handle input;
@@ -568,26 +557,26 @@ namespace acme_posix
 
       }
 
-      if ((output.m_i = ::open(pszNew, flags, 0666)) == -1)
+      if ((output.m_i = ::open(scopedstrNew, flags, 0666)) == -1)
       {
 
          int iErrNo = errno;
 
          auto estatus = failed_errno_status(iErrNo);
 
-         throw ::exception(estatus, "Error opening file : \"" + string(pszNew) + "\"");
+         throw ::exception(estatus, "Error opening file : \"" + string(scopedstrNew) + "\"");
 
       }
 
 
-      if ((input.m_i = ::open(pszSrc, O_RDONLY)) == -1)
+      if ((input.m_i = ::open(scopedstrSrc, O_RDONLY)) == -1)
       {
 
          int iErrNo = errno;
 
          auto estatus = failed_errno_status(iErrNo);
 
-         throw ::exception(estatus, "Error opening file : \"" + string(pszSrc) + "\"");
+         throw ::exception(estatus, "Error opening file : \"" + string(scopedstrSrc) + "\"");
 
       }
 
@@ -600,7 +589,7 @@ namespace acme_posix
 
          auto estatus = failed_errno_status(iErrNo);
 
-         throw ::exception(estatus, "Error lseek file : \"" + string(pszSrc) + "\"");
+         throw ::exception(estatus, "Error lseek file : \"" + string(scopedstrSrc) + "\"");
 
       }
 
@@ -611,7 +600,7 @@ namespace acme_posix
 
          auto estatus = failed_errno_status(iErrNo);
 
-         throw ::exception(estatus, "Failed to set output file size : \"" + string(pszNew) + "\"");
+         throw ::exception(estatus, "Failed to set output file size : \"" + string(scopedstrNew) + "\"");
 
       }
 
@@ -622,7 +611,7 @@ namespace acme_posix
 
          auto estatus = failed_errno_status(iErrNo);
 
-         throw ::exception(estatus, "Error mapping input file : \"" + string(pszSrc) + "\"");
+         throw ::exception(estatus, "Error mapping input file : \"" + string(scopedstrSrc) + "\"");
 
       }
 
@@ -634,7 +623,7 @@ namespace acme_posix
 
          auto estatus = failed_errno_status(iErrNo);
 
-         throw ::exception(estatus, "Error mapping output file: \"" + string(pszNew) + "\"");
+         throw ::exception(estatus, "Error mapping output file: \"" + string(scopedstrNew) + "\"");
 
       }
 
@@ -676,7 +665,7 @@ namespace acme_posix
 
 
 
-//   ::e_status acme_file::delete_file(const char * path)
+//   ::e_status acme_file::delete_file(const ::file::path & path)
 //   {
 //
 //      return file_delete(path);
@@ -795,12 +784,12 @@ namespace acme_posix
    }
 
 
-   string acme_file::first_line(const char * strPath)
+   string acme_file::first_line(const ::file::path & path)
    {
 
       string line;
 
-      FILE_holder pfile(fopen(strPath, "r"));
+      FILE_holder pfile(fopen(path, "r"));
 
       if (pfile == nullptr)
       {
@@ -842,10 +831,10 @@ namespace acme_posix
    }
 
 
-   ::earth::time acme_file::modification_time(const char* pszPath)
+   ::earth::time acme_file::modification_time(const ::file::path & path)
    {
 
-      if(is_trimmed_empty(pszPath))
+      if(is_trimmed_empty(path))
       {
 
          throw ::exception(error_invalid_parameter);
@@ -854,7 +843,7 @@ namespace acme_posix
 
       struct stat statAttribute;
 
-      if(stat(pszPath, &statAttribute))
+      if(stat(path, &statAttribute))
       {
 
          int iErrNo = errno;
@@ -863,7 +852,7 @@ namespace acme_posix
 
          string strMessage;
 
-         strMessage.format("Failed to stat file \"%s\".", pszPath);
+         strMessage.format("Failed to stat file \"%s\".", path);
 
          throw ::exception(estatus, strMessage);
 
@@ -874,11 +863,11 @@ namespace acme_posix
    }
 
 
-   void acme_file::set_modification_time(const char* pszPath, const ::earth::time& time)
+   void acme_file::set_modification_time(const ::file::path & path, const ::earth::time& time)
    {
 
 
-      if(is_trimmed_empty(pszPath))
+      if(is_trimmed_empty(path))
       {
 
          throw ::exception(error_invalid_parameter);
@@ -887,7 +876,7 @@ namespace acme_posix
 
       struct stat statAttribute;
 
-      if(stat(pszPath, &statAttribute))
+      if(stat(path, &statAttribute))
       {
 
          int iErrNo = errno;
@@ -896,7 +885,7 @@ namespace acme_posix
 
          string strMessage;
 
-         strMessage.format("Failed to stat file \"%s\".", pszPath);
+         strMessage.format("Failed to stat file \"%s\".", path.c_str()b);
 
          throw ::exception(estatus, strMessage);
 
@@ -908,7 +897,7 @@ namespace acme_posix
 
       utimbuf.modtime = time.m_i;
 
-      if(utime(pszPath, &utimbuf))
+      if(utime(path, &utimbuf))
       {
 
          int iErrNo = errno;
@@ -917,7 +906,7 @@ namespace acme_posix
 
          string strMessage;
 
-         strMessage.format("Failed to set file modification time \"%s\".", pszPath);
+         strMessage.format("Failed to set file modification time \"%s\".", path.c_str());
 
          throw ::exception(estatus, strMessage);
 
@@ -926,7 +915,7 @@ namespace acme_posix
    }
 
 
-    void acme_file::_erase(const char *path)
+    void acme_file::_erase(const ::file::path & path)
     {
 
         if (::unlink(path) == -1)
