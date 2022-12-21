@@ -41,7 +41,7 @@ namespace acme_posix
       void as_memory(memory_base & memory, const ::file::path & path, strsize iReadAtMostByteCount, bool bNoExceptionOnOpen = true) override;
 
 
-      string get_temporary_file_name(const ::scoped_string & scopedstrName, const ::scoped_string & scopedstrExtension) override;
+      string get_temporary_file_name(const ::file::path & pathName, const ::scoped_string & scopedstrExtension) override;
       //bool write_memory_to_file(FILE * file, const void * pdata, memsize nCount, memsize * puiWritten) override;
       //bool append_wait(const ::string & strFile, const block & block, const class time & time) override;
       //bool append(const ::string & strFile, const block & block) override;
@@ -58,7 +58,7 @@ namespace acme_posix
       filesize get_size_fd(int iFileDescriptor) override;
 
 
-      void copy(const ::scoped_string & scopedstrNew, const ::scoped_string & scopedstrSrc, bool bOverwrite) override;
+      void copy(const ::file::path & pathNew, const ::file::path & pathSrc, bool bOverwrite) override;
 
 //   virtual FILE * FILE_open(const ::file::path & path, const char * attrs, int iShare);
 //   virtual i32 FILE_printf(FILE * fp, const char * s, ...);
@@ -90,7 +90,7 @@ namespace acme_posix
       string first_line(const ::file::path & path) override;
 
 
-      void set_size(const ::scoped_string & scopedstrName, filesize iSize) override;
+      void set_size(const ::file::path & pathName, filesize iSize) override;
       void set_size(int iFileDescriptor, filesize iSize) override;
       void set_size(FILE * pfile, filesize iSize) override;
 
@@ -100,9 +100,9 @@ namespace acme_posix
       //::e_status delete_file(const char * pszFileName) override;
 
 
-      ::earth::time modification_time(const ::scoped_string & scopedstr) override;
+      ::earth::time modification_time(const ::file::path & path) override;
 
-      void set_modification_time(const ::scoped_string & scopedstr, const ::earth::time& time) override;
+      void set_modification_time(const ::file::path & path, const ::earth::time& time) override;
 
 
       void _erase(const ::file::path & path) override;

@@ -973,7 +973,7 @@ namespace windowing_xcb
 
             auto list = m_pdisplay->_window_enumerate();
 
-            int iFind = -1;
+            auto pFind = -1;
 
             xcb_window_t wFound = 0;
 
@@ -1708,7 +1708,7 @@ namespace windowing_xcb
 
                auto list = m_pdisplay->_window_enumerate();
 
-               int iFind = -1;
+               auto pFind = -1;
 
                xcb_window_t wFound = 0;
 

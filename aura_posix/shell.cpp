@@ -280,7 +280,7 @@ namespace aura_posix
 
    //   unicode_to_utf8(strExtra, lpcszExtra);
 
-   //   if (strExtra.get_length() > 0)
+   //   if (strExtra.length() > 0)
    //   {
    //      strPathEx += ":" + strExtra;
    //   }
@@ -313,7 +313,7 @@ namespace aura_posix
    //         strPath = szPath;
    //         if (strPath == "*")
    //         {
-   //            strsize iFind = strFilePath.rear_find('.');
+   //            auto pFind = strFilePath.rear_find('.');
 
    //            imagekey.m_iIcon = 0x80000000;
    //            imagekey.m_pszExtension = (char*)&strFilePath[iFind];
@@ -381,7 +381,7 @@ namespace aura_posix
    //         strPath = imagekey.m_strPath;
    //         iIcon = imagekey.m_iIcon;
    //         bool bExtract = false;
-   //         //HGLOBAL hglobal = ::GlobalAlloc(GPTR, strPath.get_length() + 1);
+   //         //HGLOBAL hglobal = ::GlobalAlloc(GPTR, strPath.length() + 1);
    //         //char * lpsz = (char *) ::GlobalLock(hglobal);
    //         //strcpy(lpsz, strPath);
    //         try

@@ -372,7 +372,7 @@ namespace windowing_xcb
 
          string strFontName("cursor");
 
-         auto cookie = xcb_open_font(xcb_connection(), m_pfontCursor, strFontName.get_length(), strFontName.c_str());
+         auto cookie = xcb_open_font(xcb_connection(), m_pfontCursor, strFontName.length(), strFontName.c_str());
 
          auto estatus = _request_check(cookie);
 

@@ -925,9 +925,9 @@ namespace windowing_x11
    //
    //      single_lock slOsWindow(::window::s_pmutex, true);
    //
-   //      iptr iFind = oswindow_find_message_only_window(pinteraction);
+   //      auto pFind = oswindow_find_message_only_window(pinteraction);
    //
-   //      if (iFind >= 0)
+   //      if (::is_set(pFind))
    //      {
    //
    //         return ::window::s_pdataptra->element_at(iFind);
@@ -955,9 +955,9 @@ namespace windowing_x11
    //
    //      single_lock slOsWindow(::window::s_pmutex, true);
    //
-   //      iptr iFind = oswindow_find(Display(), window);
+   //      auto pFind = oswindow_find(Display(), window);
    //
-   //      if (iFind < 0)
+   //      if (::is_null(pFind))
    //      {
    //
    //         return nullptr;
@@ -976,9 +976,9 @@ namespace windowing_x11
 
       //single_lock slOsWindow(::window::s_pmutex, true);
 
-      //      iptr iFind = oswindow_find(Display(), window);
+      //      auto pFind = oswindow_find(Display(), window);
       //
-      //      if (iFind >= 0)
+      //      if (::is_set(pFind))
       //      {
       //
       //         return ::window::s_pdataptra->element_at(iFind);
@@ -1093,9 +1093,9 @@ namespace windowing_x11
                                  //
                                  //      single_lock slOsWindow(::window::s_pmutex, true);
                                  //
-                                 //      iptr iFind = oswindow_find(window);
+                                 //      auto pFind = oswindow_find(window);
                                  //
-                                 //      if (iFind < 0)
+                                 //      if (::is_null(pFind))
                                  //      {
                                  //
                                  //         return nullptr;
@@ -2929,9 +2929,9 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
       }
 
-      index iFind = windowa.find_last(Window());
+      auto pFind = windowa.find_last(Window());
 
-      if (iFind < 0)
+      if (::is_null(pFind))
       {
 
          return;
@@ -3528,7 +3528,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
          }
 
-         int iFind = -1;
+         auto pFind = -1;
 
          int i;
 
@@ -3546,7 +3546,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
          }
 
-         if (iFind >= 0)
+         if (::is_set(pFind))
          {
 
             atoma.erase_at(iFind);
