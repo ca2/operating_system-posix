@@ -24,21 +24,21 @@ namespace acme_posix
       ~acme_directory() override;
       
 
-      //virtual string name(const char * path1) override;
+      //virtual string name(const ::file::path & path1) override;
 
       ::file::path module() override;
 
-      //::e_status create(const char * path) override;
+      //::e_status create(const ::file::path & path) override;
 
-      //::e_status _create(const char * path) override;
+      //::e_status _create(const ::file::path & path) override;
 
-      //::e_status create_directory(const char * path) override;
+      //::e_status create_directory(const ::file::path & path) override;
 
       //::file::path module() override;
 
-      bool is(const char * path) override;
+      bool is(const ::file::path & path) override;
 
-      //bool _is(const char * path1) override;
+      //bool _is(const ::file::path & path1) override;
 
       //string name(string path) override;
 
@@ -52,7 +52,7 @@ namespace acme_posix
 
       bool enumerate(::file::listing & listing) override;
 
-      bool list(::string_array & stra, const char * psz, ::file::e_flag eflag = ::file::e_flag_file_or_folder) override;
+      bool list(::string_array & stra, const ::scoped_string & scopedstr, ::file::e_flag eflag = ::file::e_flag_file_or_folder) override;
 
       ::file::path pathfind(const string & pszEnv, const string & pszTopic, const string & pszMode) override;
 
@@ -62,7 +62,7 @@ namespace acme_posix
 
       string get_current() override;
 
-      void change_current(const char * psz) override;
+      void change_current(const ::scoped_string & scopedstr) override;
 
 
    };

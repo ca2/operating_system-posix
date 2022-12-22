@@ -1716,7 +1716,7 @@ namespace draw2d_xlib
 
       //ASSERT(get_handle1() != nullptr);
       //wstring wstr = utf8_to_unicode(str);
-      return text_out(x, y, str, (i32) str.get_length());
+      return text_out(x, y, str, (i32) str.length());
 
    } // call virtual
 
@@ -1771,7 +1771,7 @@ namespace draw2d_xlib
 
       //ASSERT(get_handle1() != nullptr);
       //wstring wstr = utf8_to_unicode(str);
-      return text_out(x, y, str, (i32) str.get_length());
+      return text_out(x, y, str, (i32) str.length());
 
    } // call virtual
 
@@ -1793,7 +1793,7 @@ namespace draw2d_xlib
       return false;
 
 //      ASSERT(get_handle1() != nullptr);
-//      return ::ExtTextOut(get_handle1(), x, y, nOptions, rectangle, str, (::u32)str.get_length(), lpDxWidths) != false;
+//      return ::ExtTextOut(get_handle1(), x, y, nOptions, rectangle, str, (::u32)str.length(), lpDxWidths) != false;
 
    }
 
@@ -1815,7 +1815,7 @@ namespace draw2d_xlib
       return ::size_i32(0, 0);
 
 //      ASSERT(get_handle1() != nullptr);
-//      return ::TabbedTextOut(get_handle1(), x, y, str, (i32)str.get_length(), nTabPositions, lpnTabStopPositions, nTabOrigin);
+//      return ::TabbedTextOut(get_handle1(), x, y, str, (i32)str.length(), nTabPositions, lpnTabStopPositions, nTabOrigin);
 
    }
 
@@ -1838,7 +1838,7 @@ namespace draw2d_xlib
       return ::size_i32(0, 0);
 
 //      ASSERT(get_handle2() != nullptr);
-//      return ::GetTabbedTextExtent(get_handle2(), str, (i32) str.get_length(), nTabPositions, lpnTabStopPositions);
+//      return ::GetTabbedTextExtent(get_handle2(), str, (i32) str.length(), nTabPositions, lpnTabStopPositions);
 
    }
 
@@ -1860,7 +1860,7 @@ namespace draw2d_xlib
       return ::size_i32(0, 0);
 
 //      ASSERT(get_handle1() != nullptr);
-//      return ::GetTabbedTextExtent(get_handle1(), str, (i32) str.get_length(), nTabPositions, lpnTabStopPositions);
+//      return ::GetTabbedTextExtent(get_handle1(), str, (i32) str.length(), nTabPositions, lpnTabStopPositions);
 
    }
 
@@ -1931,7 +1931,7 @@ namespace draw2d_xlib
       size_i32 sz1 = get_text_extent(str1);
       size_i32 sz2 = get_text_extent(str2);
 
-      lpMetrics->tmAveCharWidth = sz2.cx / (double) str2.get_length();
+      lpMetrics->tmAveCharWidth = sz2.cx / (double) str2.length();
       lpMetrics->tmAscent = sz1.cy;
       lpMetrics->tmDescent = sz2.cy - sz1.cy;
 
@@ -2042,7 +2042,7 @@ namespace draw2d_xlib
          return 0;
 
    //      ASSERT(get_handle1() != nullptr);
-   //      return ::GetCharacterPlacement(get_handle1(), (const char *)str, (i32) str.get_length(), nMaxExtent, lpResults, dwFlags);
+   //      return ::GetCharacterPlacement(get_handle1(), (const char *)str, (i32) str.length(), nMaxExtent, lpResults, dwFlags);
 
       }
 

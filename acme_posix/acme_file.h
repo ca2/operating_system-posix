@@ -27,40 +27,40 @@ namespace acme_posix
       bool exists(const ::file::path & path) override;
       
 
-      void ensure_exists(const char* path) override;
-      void touch(const char* path) override;
-      void clear_read_only(const char* path) override;
+      void ensure_exists(const ::file::path & path) override;
+      void touch(const ::file::path & path) override;
+      void clear_read_only(const ::file::path & path) override;
 
 
-      void set_file_normal(const char* path) override;
+      void set_file_normal(const ::file::path & path) override;
 
 
-      memory as_memory(const char* path, strsize iReadAtMostByteCount = -1, bool bNoExceptionOnOpen = true) override;
-      memsize as_memory(const char * path, void * p, memsize s) override;
-      string as_string(const char * path, strsize iReadAtMostByteCount = -1, bool bNoExceptionOnOpen = true) override;
-      void as_memory(memory_base & memory, const char * path, strsize iReadAtMostByteCount, bool bNoExceptionOnOpen = true) override;
+      memory as_memory(const ::file::path & path, strsize iReadAtMostByteCount = -1, bool bNoExceptionOnOpen = true) override;
+      memsize as_memory(const ::file::path & path, void * p, memsize s) override;
+      string as_string(const ::file::path & path, strsize iReadAtMostByteCount = -1, bool bNoExceptionOnOpen = true) override;
+      void as_memory(memory_base & memory, const ::file::path & path, strsize iReadAtMostByteCount, bool bNoExceptionOnOpen = true) override;
 
 
-      string get_temporary_file_name(const char * lpszName, const char * pszExtension) override;
+      string get_temporary_file_name(const ::file::path & pathName, const ::scoped_string & scopedstrExtension) override;
       //bool write_memory_to_file(FILE * file, const void * pdata, memsize nCount, memsize * puiWritten) override;
       //bool append_wait(const ::string & strFile, const block & block, const class time & time) override;
       //bool append(const ::string & strFile, const block & block) override;
 
-      //bool exists(const char * path) override;
+      //bool exists(const ::file::path & path) override;
 
 
       ::file::path module() override;
 
-      void put_contents(const char * path, const char * contents, strsize len) override;
+      void put_contents(const ::file::path & path, const ::scoped_string & scopedstrContents) override;
       //bool get_temporary_file_name_template(char * szRet, strsize iBufferSize, const char * lpszName, const char * pszExtension, const char * pszTemplate) override;
-      filesize get_size(const char * path) override;
+      filesize get_size(const ::file::path & path) override;
       filesize get_size(FILE * pfile) override;
       filesize get_size_fd(int iFileDescriptor) override;
 
 
-      void copy(const char * pszNew, const char * pszSrc, bool bOverwrite) override;
+      void copy(const ::file::path & pathNew, const ::file::path & pathSrc, bool bOverwrite) override;
 
-//   virtual FILE * FILE_open(const char * path, const char * attrs, int iShare);
+//   virtual FILE * FILE_open(const ::file::path & path, const char * attrs, int iShare);
 //   virtual i32 FILE_printf(FILE * fp, const char * s, ...);
 //   virtual i32 FILE_close(FILE * fp);
 //   virtual i32 FILE_eof(FILE * fp);
@@ -87,10 +87,10 @@ namespace acme_posix
    //virtual filesize FILE_get_size(FILE * fp);
 
 
-      string first_line(const char * path) override;
+      string first_line(const ::file::path & path) override;
 
 
-      void set_size(const char * lpszName, filesize iSize) override;
+      void set_size(const ::file::path & pathName, filesize iSize) override;
       void set_size(int iFileDescriptor, filesize iSize) override;
       void set_size(FILE * pfile, filesize iSize) override;
 
@@ -100,12 +100,12 @@ namespace acme_posix
       //::e_status delete_file(const char * pszFileName) override;
 
 
-      ::earth::time modification_time(const char* psz) override;
+      ::earth::time modification_time(const ::file::path & path) override;
 
-      void set_modification_time(const char* psz, const ::earth::time& time) override;
+      void set_modification_time(const ::file::path & path, const ::earth::time& time) override;
 
 
-      void _erase(const char * path) override;
+      void _erase(const ::file::path & path) override;
 
 
    };

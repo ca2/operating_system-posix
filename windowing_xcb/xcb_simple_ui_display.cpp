@@ -326,7 +326,7 @@ void simple_ui_display::on_expose(xcb_connection_t * pdisplay)
 
             str.trim_right();
 
-            XftDrawStringUtf8(m_pdraw, &m_colorFore, m_pfont, m_iMarginLeft, iY + m_iTextAscent, (FcChar8 *)str.c_str(), str.get_length());
+            XftDrawStringUtf8(m_pdraw, &m_colorFore, m_pfont, m_iMarginLeft, iY + m_iTextAscent, (FcChar8 *)str.c_str(), str.length());
 
             iY += m_iLineHeight;
 
@@ -439,7 +439,7 @@ void simple_ui_display::on_expose(xcb_connection_t * pdisplay)
             XftDrawStringUtf8(m_pdraw, &colorFore, m_pfont,
             rectangleText.left + (rectangleText.width() - rText.width) / 2,
             rectangleText.top + m_iTextAscent,
-            (FcChar8 *)pbutton->m_strLabel.c_str(), pbutton->m_strLabel.get_length());
+            (FcChar8 *)pbutton->m_strLabel.c_str(), pbutton->m_strLabel.length());
 
             right = rButton.left - m_iButtonHSpacing;
 
@@ -596,7 +596,7 @@ void simple_ui_display::on_layout(xcb_connection_t * pdisplay)
 
    strMeasure = "Áj";
 
-   XftTextExtentsUtf8(pdisplay, m_pfont, (FcChar8 *) strMeasure.c_str(), strMeasure.get_length(), &infoDummy);
+   XftTextExtentsUtf8(pdisplay, m_pfont, (FcChar8 *) strMeasure.c_str(), strMeasure.length(), &infoDummy);
 
    XGlyphInfo info;
 
@@ -605,7 +605,7 @@ void simple_ui_display::on_layout(xcb_connection_t * pdisplay)
 
       strMeasure = "Áj" + str;
 
-      XftTextExtentsUtf8(pdisplay, m_pfont, (FcChar8 *) strMeasure.c_str(), strMeasure.get_length(), &info);
+      XftTextExtentsUtf8(pdisplay, m_pfont, (FcChar8 *) strMeasure.c_str(), strMeasure.length(), &info);
 
       sizeLine.cx = max(sizeLine.cx, info.x + info.width - infoDummy.width);
 
@@ -631,7 +631,7 @@ void simple_ui_display::on_layout(xcb_connection_t * pdisplay)
 
          string strMeasure = "Áj" + pbutton->m_strLabel;
 
-         XftTextExtentsUtf8(pdisplay, m_pfont, (FcChar8 *) strMeasure.c_str(), strMeasure.get_length(), &infoText);
+         XftTextExtentsUtf8(pdisplay, m_pfont, (FcChar8 *) strMeasure.c_str(), strMeasure.length(), &infoText);
 
          infoText.width -=  infoDummy.width;
 

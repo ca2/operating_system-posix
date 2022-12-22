@@ -33,7 +33,7 @@ namespace acme_posix
       bool not_inherit_read() override;
       bool not_inherit_write() override;
 
-      bool write(const char * psz) override;
+      bool write(const ::scoped_string & scopedstr) override;
       string read() override;
       string one_pass_read() override;
 

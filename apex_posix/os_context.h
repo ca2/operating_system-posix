@@ -18,7 +18,7 @@ namespace apex_posix
       ~os_context() override;
 
 
-      bool is_alias(const char* path) override;
+      bool is_alias(const ::file::path & path) override;
       
       
       virtual int get_pid() override;

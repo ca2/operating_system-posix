@@ -110,7 +110,7 @@ namespace acme_posix
       //bool set_process_priority(::enum_priority epriority) override;
 
 
-      void command_system(string_array & straOutput, int& iExitCode, const char* psz, enum_command_system ecommandsystem, const class ::time& timeTimeout, ::particle * pparticleSynchronization, ::file::file * pfileLog) override;
+      void command_system(string_array & straOutput, int& iExitCode, const ::scoped_string & scopedstr, enum_command_system ecommandsystem, const class ::time& timeTimeout, ::particle * pparticleSynchronization, ::file::file * pfileLog) override;
 
 
    };

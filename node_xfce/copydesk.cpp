@@ -96,7 +96,7 @@ namespace node_xfce
 
          GtkClipboard * clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
 
-         gtk_clipboard_set_text(clipboard, str.c_str(), str.get_length());
+         gtk_clipboard_set_text(clipboard, str.c_str(), str.length());
 
       });
 
@@ -510,7 +510,7 @@ namespace node_xfce
 //
 //   GdkAtom target = gtk_selection_data_get_target(selection_data);
 //
-//   gtk_selection_data_set(selection_data, target, 8, (const guchar *) (const char *) str, str.get_length());
+//   gtk_selection_data_set(selection_data, target, 8, (const guchar *) (const char *) str, str.length());
 //
 //
 //}

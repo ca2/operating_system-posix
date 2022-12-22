@@ -1990,9 +1990,9 @@ namespace windowing_xcb
 
       }
 
-      index iFind = windowa.find_last(xcb_window());
+      auto pFind = windowa.find_last(xcb_window());
 
-      if (iFind < 0)
+      if (::is_null(pFind))
       {
 
          return recta;

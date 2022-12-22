@@ -1285,7 +1285,7 @@ namespace acme_posix
          if (ch == '\0')
          {
 
-            if (strArg.span(" \t\n") >= 0)
+            if (strArg.find_first_character_in(" \t\n") >= 0)
             {
 
                stra.add("\"" + strArg + "\"");
@@ -1314,7 +1314,7 @@ namespace acme_posix
       if (strArg.has_char())
       {
 
-         if (strArg.span(" \t\n") >= 0)
+         if (strArg.find_first_character_in(" \t\n") >= 0)
          {
 
             stra.add("\"" + strArg + "\"");

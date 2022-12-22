@@ -228,9 +228,9 @@ i32 _c_XErrorHandler(xcb_connection_t * display, XErrorEvent * perrorevent);
 //
 //   single_lock slOsWindow(::osdisplay_data::s_pmutex, true);
 //
-//   iptr iFind = oswindow_find(display, window);
+//   auto pFind = oswindow_find(display, window);
 //
-//   if(iFind < 0)
+//   if(::is_null(pFind))
 //   {
 //
 //      return false;
@@ -251,9 +251,9 @@ i32 _c_XErrorHandler(xcb_connection_t * display, XErrorEvent * perrorevent);
 //
 //   single_lock slOsWindow(::osdisplay_data::s_pmutex, true);
 //
-//   iptr iFind = oswindow_find_message_only_window(puibaseMessageOnlyWindow);
+//   auto pFind = oswindow_find_message_only_window(puibaseMessageOnlyWindow);
 //
-//   if(iFind < 0)
+//   if(::is_null(pFind))
 //   {
 //
 //      return false;
@@ -467,9 +467,9 @@ namespace windowing_xcb
 
 //    }
 
-//    index iFind = windowa.find_last(oswindow->window());
+//    auto pFind = windowa.find_last(oswindow->window());
 
-//    if(iFind < 0)
+//    if(::is_null(pFind))
 //    {
 
 //       return true;
