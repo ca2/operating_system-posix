@@ -500,7 +500,7 @@ namespace node_kde
 //
 //            bool bOk2 = true;
 //
-//            //if(::file::system_short_name().contains_ci("manjaro"))
+//            //if(::file::system_short_name().case_insensitive_contains("manjaro"))
 //            {
 //
 //               bOk2 = ::node_kde::aaa_gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme);

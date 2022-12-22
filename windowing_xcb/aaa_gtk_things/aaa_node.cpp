@@ -255,7 +255,7 @@ void node::os_calc_user_dark_mode()
 
       bool bOk2 = true;
 
-      //if(::file::system_short_name().contains_ci("manjaro"))
+      //if(::file::system_short_name().case_insensitive_contains("manjaro"))
       {
 
          bOk2 = ::node_gnome::gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme);

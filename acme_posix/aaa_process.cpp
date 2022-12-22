@@ -593,7 +593,7 @@ namespace acme
 
                }
 
-               strArg.Empty();
+               strArg.empty();
 
             }
             else

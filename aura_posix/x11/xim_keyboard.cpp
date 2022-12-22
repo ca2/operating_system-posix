@@ -145,7 +145,7 @@ namespace xim
          switch (status_return)
          {
             case XLookupNone:
-               strText.Empty();
+               strText.empty();
                *pkeysym = 0;
                break;
 
@@ -155,7 +155,7 @@ namespace xim
                break;
 
             case XLookupKeySym:
-               strText.Empty();
+               strText.empty();
                break;
 
             case XLookupBoth:
@@ -183,7 +183,7 @@ namespace xim
           || *pkeysym == XK_End)
       {
 
-         strText.Empty();
+         strText.empty();
 
       }
 

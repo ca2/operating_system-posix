@@ -589,7 +589,7 @@ namespace windowing_x11
 //
 //      for(i32 i = 0; i < layoutida.get_count(); i++)
 //      {
-//         if(layoutida[i].m_countrycode.contains_ci(strSymbol))
+//         if(layoutida[i].m_countrycode.case_insensitive_contains(strSymbol))
 //         {
 //            return layoutida[i].m_strPath;
 //         }

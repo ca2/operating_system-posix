@@ -1298,7 +1298,7 @@ namespace acme_posix
 
             }
 
-            strArg.Empty();
+            strArg.empty();
 
          }
          else

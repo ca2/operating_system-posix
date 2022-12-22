@@ -62,7 +62,7 @@ namespace node_gnome
 
       auto iSlash = strAppId.find('/');
 
-      string strAppName = strAppId.Mid(iSlash + 1);
+      string strAppName = strAppId.substr(iSlash + 1);
 
       ::file::path pathFolder = acmedirectory()->roaming() / strMatterRoot / "matter/icon/128";
 
