@@ -162,10 +162,10 @@ namespace acme_posix
    }
 
 
-   void acme_file::set_size(const ::scoped_string & scopedstrName, filesize size)
+   void acme_file::set_size(const ::file::path & pathName, filesize size)
    {
 
-      int_handle iFileDescriptor(::open(scopedstrName, O_RDONLY));
+      int_handle iFileDescriptor(::open(pathName, O_RDONLY));
 
       set_size(iFileDescriptor, size);
 
@@ -539,7 +539,7 @@ namespace acme_posix
    }
 
 
-   void acme_file::copy(const ::scoped_string & scopedstrNew, const ::scoped_string & scopedstrSrc, bool bOverwrite)
+   void acme_file::copy(const ::file::path & pathNew, const ::file::path & pathSrc, bool bOverwrite)
    {
 
       int_handle input;
@@ -557,26 +557,26 @@ namespace acme_posix
 
       }
 
-      if ((output.m_i = ::open(scopedstrNew, flags, 0666)) == -1)
+      if ((output.m_i = ::open(pathNew, flags, 0666)) == -1)
       {
 
          int iErrNo = errno;
 
          auto estatus = failed_errno_status(iErrNo);
 
-         throw ::exception(estatus, "Error opening file : \"" + string(scopedstrNew) + "\"");
+         throw ::exception(estatus, "Error opening file : \"" + string(pathNew) + "\"");
 
       }
 
 
-      if ((input.m_i = ::open(scopedstrSrc, O_RDONLY)) == -1)
+      if ((input.m_i = ::open(pathSrc, O_RDONLY)) == -1)
       {
 
          int iErrNo = errno;
 
          auto estatus = failed_errno_status(iErrNo);
 
-         throw ::exception(estatus, "Error opening file : \"" + string(scopedstrSrc) + "\"");
+         throw ::exception(estatus, "Error opening file : \"" + string(pathSrc) + "\"");
 
       }
 
@@ -589,7 +589,7 @@ namespace acme_posix
 
          auto estatus = failed_errno_status(iErrNo);
 
-         throw ::exception(estatus, "Error lseek file : \"" + string(scopedstrSrc) + "\"");
+         throw ::exception(estatus, "Error lseek file : \"" + string(pathSrc) + "\"");
 
       }
 
@@ -600,7 +600,7 @@ namespace acme_posix
 
          auto estatus = failed_errno_status(iErrNo);
 
-         throw ::exception(estatus, "Failed to set output file size : \"" + string(scopedstrNew) + "\"");
+         throw ::exception(estatus, "Failed to set output file size : \"" + string(pathNew) + "\"");
 
       }
 
@@ -611,7 +611,7 @@ namespace acme_posix
 
          auto estatus = failed_errno_status(iErrNo);
 
-         throw ::exception(estatus, "Error mapping input file : \"" + string(scopedstrSrc) + "\"");
+         throw ::exception(estatus, "Error mapping input file : \"" + string(pathSrc) + "\"");
 
       }
 
@@ -623,7 +623,7 @@ namespace acme_posix
 
          auto estatus = failed_errno_status(iErrNo);
 
-         throw ::exception(estatus, "Error mapping output file: \"" + string(scopedstrNew) + "\"");
+         throw ::exception(estatus, "Error mapping output file: \"" + string(pathNew) + "\"");
 
       }
 
@@ -885,7 +885,7 @@ namespace acme_posix
 
          string strMessage;
 
-         strMessage.format("Failed to stat file \"%s\".", path.c_str()b);
+         strMessage.format("Failed to stat file \"%s\".", path.c_str());
 
          throw ::exception(estatus, strMessage);
 

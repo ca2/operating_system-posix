@@ -1285,7 +1285,7 @@ namespace acme_posix
          if (ch == '\0')
          {
 
-            if (strArg.find_first_character_in(" \t\n") >= 0)
+            if (found(strArg.find_first_character_in(" \t\n")))
             {
 
                stra.add("\"" + strArg + "\"");
@@ -1314,7 +1314,7 @@ namespace acme_posix
       if (strArg.has_char())
       {
 
-         if (strArg.find_first_character_in(" \t\n") >= 0)
+         if (found(strArg.find_first_character_in(" \t\n")))
          {
 
             stra.add("\"" + strArg + "\"");
@@ -1433,7 +1433,7 @@ namespace acme_posix
 //   }
 
 
-   void node::command_system(string_array & straOutput, int& iExitCode, const char* psz, enum_command_system ecommandsystem, const class time & timeTimeout, ::particle * pparticleSynchronization, ::file::file * pfileLog)
+   void node::command_system(string_array & straOutput, int& iExitCode, const scoped_string & scopedstr, enum_command_system ecommandsystem, const class time & timeTimeout, ::particle * pparticleSynchronization, ::file::file * pfileLog)
    {
 
       single_lock singlelock(pparticleSynchronization);
@@ -1474,7 +1474,7 @@ namespace acme_posix
 
       string strError;
 
-      auto pszCommandLine = strdup(psz);
+      auto pszCommandLine = strdup(scopedstr);
 
       const pid_t pid = ::fork();
 

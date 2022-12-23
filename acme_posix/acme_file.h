@@ -41,7 +41,7 @@ namespace acme_posix
       void as_memory(memory_base & memory, const ::file::path & path, strsize iReadAtMostByteCount, bool bNoExceptionOnOpen = true) override;
 
 
-      string get_temporary_file_name(const ::file::path & pathName, const ::scoped_string & scopedstrExtension) override;
+      string get_temporary_file_name(const ::scoped_string & scopedstrName, const ::scoped_string & scopedstrExtension) override;
       //bool write_memory_to_file(FILE * file, const void * pdata, memsize nCount, memsize * puiWritten) override;
       //bool append_wait(const ::string & strFile, const block & block, const class time & time) override;
       //bool append(const ::string & strFile, const block & block) override;

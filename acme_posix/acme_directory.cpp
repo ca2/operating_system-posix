@@ -185,7 +185,6 @@ namespace acme_posix
    void defer_add(::file::listing & listing, const dirent * dp)
    {
 
-
       if (file_path_is_dots(dp->d_name))
       {
 
@@ -203,7 +202,7 @@ namespace acme_posix
       if(path.begins(listing.m_pathBasePath))
       {
 
-         path.m_iBasePathLength = listing.m_pathBasePath.get_length() + 1;
+         path.m_iBasePathLength = listing.m_pathBasePath.length() + 1;
 
       }
 
