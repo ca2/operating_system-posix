@@ -318,7 +318,11 @@ namespace acme_posix
 
          path /= pstrName;
 
-         acmesystem()->m_pacmedirectory->create(path.folder());
+         auto pacmesystem = acmesystem();
+
+         auto pacmedirectory = pacmesystem->acmedirectory();
+
+         pacmedirectory->create(path.folder());
 
          m_iFd = open(path, O_RDWR | O_CREAT, S_IRWXU);
 

@@ -283,7 +283,7 @@ namespace system_5
 
             //
 
-            _handle_uri(mem.as_string());
+            _handle_uri(mem.get_string());
 
 //            if (lRequest == 1024)
 //            {
