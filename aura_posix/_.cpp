@@ -2,7 +2,7 @@
 #include "acme/_library.h"
 
 
-IMPLEMENT_THIS_TYPE(aura_posix);
+//IMPLEMENT_THIS_TYPE(aura_posix);
 
 
 
