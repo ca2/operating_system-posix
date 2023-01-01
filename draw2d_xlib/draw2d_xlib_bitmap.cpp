@@ -331,25 +331,7 @@ namespace draw2d_xlib
       {
          object::dump(dumpcontext);
 
-/*         if (get_handle() == nullptr)
-            return;
 
-         if (!afxData.bWin95 && ::GetObjectType(get_handle()) != OBJ_BITMAP)
-         {
-            // not a valid object
-            dumpcontext << "has ILLEGAL HBITMAP!";
-            return;
-         }*/
-
-         /*BITMAP bm;
-         VERIFY(GetObject(sizeof(bm), &bm));
-         dumpcontext << "bm.bmType = " << bm.bmType;
-         dumpcontext << "\nbm.bmHeight = " << bm.bmHeight;
-         dumpcontext << "\nbm.bmWidth = " << bm.bmWidth;
-         dumpcontext << "\nbm.bmWidthBytes = " << bm.bmWidthBytes;
-         dumpcontext << "\nbm.bmPlanes = " << bm.bmPlanes;
-         dumpcontext << "\nbm.bmBitsPixel = " << bm.bmBitsPixel;
-         */
          dumpcontext << "\n";
       }
 

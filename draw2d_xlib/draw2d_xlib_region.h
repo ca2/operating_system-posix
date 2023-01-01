@@ -38,7 +38,7 @@ namespace draw2d_xlib
       bool CreateFromData(const XFORM* lpXForm, i32 nCount,
          const RGNDATA* pRgnData);*/
 
-      // Operations
+      
       //void SetRectRgn(i32 x1, i32 y1, i32 x2, i32 y2);
       //void SetRectRgn(const ::rectangle_i32 & rectangle);
       //i32 CombineRgn(const ::draw2d::region* pRgn1, const ::draw2d::region* pRgn2, i32 nCombineMode);

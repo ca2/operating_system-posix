@@ -3092,8 +3092,6 @@ namespace draw2d_xlib
                }
                else
                {
-      //            cxPerInch = afxData.cxPixelsPerInch;
-        //          cyPerInch = afxData.cyPixelsPerInch;
                }
                ASSERT(cxPerInch != 0 && cyPerInch != 0);
                LPSIZE32->cx = MulDiv(LPSIZE32->cx, HIMETRIC_INCH, cxPerInch);
@@ -3133,8 +3131,6 @@ namespace draw2d_xlib
                }
                else
                {
-      //            cxPerInch = afxData.cxPixelsPerInch;
-        //          cyPerInch = afxData.cyPixelsPerInch;
                }
                ASSERT(cxPerInch != 0 && cyPerInch != 0);
                LPSIZE32->cx = MulDiv(LPSIZE32->cx, cxPerInch, HIMETRIC_INCH);
@@ -3311,81 +3307,6 @@ namespace draw2d_xlib
 
 
 
-   //::draw2d::graphics * PASCAL ::win::graphics::from_handle(HDC hDC)
-   //{
-   //hdc_map* pMap = afxMapHDC(true); //create ::collection::map if not exist
-   //ASSERT(pMap != nullptr);
-//      ::draw2d::graphics * pgraphics = (::draw2d::graphics *)pMap->from_handle(hDC);
-   //    ASSERT(pgraphics == nullptr || (dynamic_cast<::win::graphics * >(pgraphics))->get_handle1() == hDC);
-   //  return pgraphics;
-   // return nullptr;
-   //}
-
-   /*
-
-      bool graphics::Attach(HDC hdc)
-      {
-
-         if(hdc == nullptr)
-            return false;
-
-         if(m_hdc == hdc)
-         {
-
-            if(m_pgraphics != nullptr)
-               return true;
-
-         }
-
-         if(hdc != nullptr)
-         {
-
-            m_pgraphics = normal_new ::Gdiplus::Graphics(hdc);
-
-            set_text_rendering_hint(::write_text::e_rendering_anti_alias_grid_fit);
-
-            m_hdc = hdc;
-
-         }
-
-         return m_pgraphics != nullptr;
-
-         /*ASSERT(get_handle1() == nullptr);      // only attach once, detach on destroy
-         ASSERT(get_handle2() == nullptr);    // only attach to an is_empty DC
-
-         if (hDC == nullptr)
-         {
-            return false;
-         }
-         // remember early to avoid leak
-         set_handle1(hDC);
-         hdc_map* pMap = afxMapHDC(true); // create ::collection::map if not exist
-         ASSERT(pMap != nullptr);
-         pMap->set_permanent(get_handle1(), this);
-
-         SetAttribDC(get_handle1());     // Default to same as output
-         return true;*/
-//   }
-
-   /* HDC graphics::Detach()
-    {
-
-       if(m_hdc == nullptr)
-          return nullptr;
-
-       if(m_pgraphics == nullptr)
-          return nullptr;
-
-       delete m_pgraphics;
-       m_pgraphics = nullptr;
-
-       HDC hdc = m_hdc;
-       m_hdc = nullptr;
-
-       return hdc;
-
-    }
-   */
 
    bool graphics::DeleteDC()
    {
@@ -3408,46 +3329,6 @@ namespace draw2d_xlib
    }
 
 
-   /*
-
-      void graphics::SetAttribDC(HDC hDC)  // Set the Attribute DC
-      {
-   //      set_handle2(hDC);
-      }
-
-      void graphics::SetOutputDC(HDC hDC)  // Set the Output DC
-      {
-   #ifdef _DEBUG
-   /*      hdc_map* pMap = afxMapHDC();
-         if (pMap != nullptr && pMap->lookup_permanent(get_handle1()) == this)
-         {
-            TRACE(::aura::trace::category_AppMsg, 0, "cannot Set Output hDC on Attached graphics.\n");
-            ASSERT(false);
-         }*/
-//#endif
-   //    set_handle1(hDC);
-   //}
-   /*
-      void graphics::ReleaseAttribDC()     // Release the Attribute DC
-      {
-   //      set_handle2(nullptr);
-      }
-
-      void graphics::ReleaseOutputDC()     // Release the Output DC
-      {
-   #ifdef _DEBUG
-   /*      hdc_map* pMap = afxMapHDC();
-         if (pMap != nullptr && pMap->lookup_permanent(get_handle1()) == this)
-         {
-            TRACE(::aura::trace::category_AppMsg, 0, "cannot Release Output hDC on Attached graphics.\n");
-            ASSERT(false);
-         }*/
-//#endif
-   //set_handle1(nullptr);
-   //
-
-   /////////////////////////////////////////////////////////////////////////////
-   // Out-of-line routines
 
    i32 graphics::StartDoc(const char * lpszDocName)
    {
