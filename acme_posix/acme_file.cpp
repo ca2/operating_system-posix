@@ -149,7 +149,7 @@ namespace acme_posix
          if (!exists(path))
          {
 
-            return ::move(path);
+            return ::transfer(path);
 
          }
 

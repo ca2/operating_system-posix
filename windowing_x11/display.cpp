@@ -25,7 +25,7 @@ Display * x11_get_display();
 ::particle * user_synchronization();
 
 
-void windowing_output_debug_string(const char *pszDebugString);
+void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString);
 
 
 namespace windowing_x11
@@ -208,7 +208,7 @@ namespace windowing_x11
 
       auto passociation = m_windowmap.plookup(window);
 
-      if(::is_null(passociation))
+      if(passociation.is_null())
       {
 
          return nullptr;
@@ -419,18 +419,20 @@ namespace windowing_x11
 
       }
 
-      Atom atom = m_atoma[eatom];
+      //Atom atom = m_atoma[eatom];
 
-      if (atom == None)
+      //if (atom == None)
       {
 
-         atom = intern_atom(atom_name(eatom), bCreate);
+         auto atom = intern_atom(atom_name(eatom), bCreate);
 
-         m_atoma[eatom] = atom;
+         return atom;
+
+        // m_atoma[eatom] = atom;
 
       }
 
-      return atom;
+      //return atom;
 
    }
 
@@ -783,7 +785,7 @@ namespace windowing_x11
 
       windowa.set_size(nchildren);
 
-      memcpy(windowa.get_data(), windowList, minimum(windowa.get_size_in_bytes(), ulBytesReturned));
+      memcpy(windowa.data(), windowList, minimum(windowa.get_size_in_bytes(), ulBytesReturned));
 
       XFree(windowList);
 

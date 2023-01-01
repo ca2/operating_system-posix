@@ -6,6 +6,7 @@
 #include "buffer.h"
 #include "window.h"
 #include "display.h"
+#include "windowing.h"
 #include "acme/parallelization/mutex.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/primitive/geometry2d/_text_stream.h"
@@ -340,7 +341,7 @@ namespace windowing_x11
 
       //XImage * pximage = (XImage *)pimage->payload("pximage").i64();
 
-      XImage * pximage;
+      XImage * pximage = nullptr;
 
       //if(!pximage)
       if(m_pimpl->m_sizeSetWindowSizeRequest != m_pimpl->m_sizeDrawn)
@@ -348,6 +349,18 @@ namespace windowing_x11
 
          INFORMATION("m_pimpl->m_sizeSetWindowSizeRequest != m_pimpl->m_sizeDrawn ("
          << m_pimpl->m_sizeSetWindowSizeRequest << ", " << m_pimpl->m_sizeDrawn << ")");
+
+         rectangle_i32 cry;
+
+         x11_window()->get_window_rect(cry);
+
+         x11_window()->x11_windowing()->_defer_size_message(x11_window()->m_oswindow, cry.size());
+
+         //m_pimpl->m_puserinteraction->set_need_layout();
+
+         //m_pimpl->m_puserinteraction->set_need_redraw();
+
+         //m_pimpl->m_puserinteraction->post_redraw();
 
       }
       else

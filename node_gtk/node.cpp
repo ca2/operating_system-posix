@@ -77,9 +77,22 @@ void gtk_settings_gtk_theme_name_callback(GObject* object, GParamSpec* pspec, gp
 
    string strTheme = theme_name;
 
+   ::output_debug_string("gtk_settings_gtk_theme_name_callback: \"" + strTheme + "\"\n");
+
    g_free(theme_name);
 
-   pnode->os_process_user_theme(strTheme);
+//   pnode->fork([pnode, strTheme]()
+//               {
+
+                  pnode->_set_os_user_theme(strTheme);
+
+//                  ::preempt(400_ms);
+//
+//                  pnode->_apply_os_user_theme(strTheme);
+//
+//                  //_os_user_theme(strTheme);
+//
+//               });
 
 }
 
@@ -282,7 +295,7 @@ namespace node_gtk
 
       auto psystem = acmesystem()->m_papexsystem;
 
-      if (psystem->m_bGtkApp)
+      if (psystem->acmeapplication()->m_bGtkApp)
       {
 
          //apex_application_run(psystem->m_strAppId, psystem->m_strProgName);
@@ -339,6 +352,7 @@ namespace node_gtk
                 auto preturn = g_signal_connect_data(
                    m_pGtkSettingsDefault,
                    "notify::gtk-theme-name",
+                   //"gtk-private-changed",
                    G_CALLBACK(gtk_settings_gtk_theme_name_callback),
                    this,
                    NULL,
@@ -356,7 +370,7 @@ namespace node_gtk
 
             auto psystem = acmesystem()->m_papexsystem;
 
-            psystem->post_initial_request();
+            psystem->defer_post_initial_request();
 
          });
 
@@ -419,7 +433,7 @@ namespace node_gtk
    bool node::windowing_message_loop_step()
    {
 
-      auto psession = get_session();
+      auto psession = acmesession();
 
       if(::is_null(psession))
       {
@@ -1036,17 +1050,71 @@ namespace node_gtk
    }
 
 
-   void node::os_process_user_theme(string strTheme)
+   void node::_set_os_theme_colors(::os_theme_colors * posthemecolors)
    {
 
-      if(strTheme == m_strTheme)
+      ::output_debug_string("_set_os_theme_colors\n");
+
+      ::user::os_set_theme_colors(posthemecolors);
+
+      background_color(posthemecolors->m_colorBack);
+
+   }
+
+
+   void node::_set_os_user_theme(const ::scoped_string & strOsUserTheme)
+   {
+
+      m_strOsUserTheme = strOsUserTheme;
+
+      if(!m_ptaskOsUserTheme)
       {
+
+         m_ptaskOsUserTheme = fork([this]()
+                                   {
+
+                                       preempt(1_s);
+
+                                       m_ptaskOsUserTheme = nullptr;
+
+                                       _apply_os_user_theme();
+
+                                   });
+
+      }
+
+   }
+
+
+    void node::_apply_os_user_theme()
+    {
+
+      ::output_debug_string("applying os user theme: \"" + m_strOsUserTheme + "\"\n");
+
+      os_process_user_theme(m_strOsUserTheme);
+
+    }
+
+
+    void node::os_process_user_theme(string strOsTheme)
+   {
+
+      ::output_debug_string("os_process_user_theme: is strTheme(" + strOsTheme + ") same as m_strTheme(" + m_strTheme + ")\n");
+
+      if(strOsTheme == m_strTheme)
+      {
+
+         ::output_debug_string("os_process_user_theme: same theme as before [new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
 
          return;
 
       }
 
-      m_strTheme = strTheme;
+      ::output_debug_string("os_process_user_theme: different theme [new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
+
+      m_strTheme = strOsTheme;
+
+      ::output_debug_string("os_process_user_theme m_strTheme = \"" + m_strTheme + "\"\n");
 
       try
       {
@@ -1060,7 +1128,7 @@ namespace node_gtk
 
       }
 
-      _os_process_user_theme_color(strTheme);
+      _os_process_user_theme_color(m_strTheme);
 
       fetch_user_color();
 
@@ -1077,9 +1145,9 @@ namespace node_gtk
       if (!pthemecolorsOld || memcmp(pthemecolors, pthemecolorsOld, sizeof(::os_theme_colors)))
       {
 
-         ::user::os_set_theme_colors(pthemecolors);
+         _set_os_theme_colors(pthemecolors);
 
-         acmesystem()->m_papexsystem->signal(id_operating_system_user_color_change);
+         //acmesystem()->m_papexsystem->signal(id_operating_system_user_color_change);
 
       }
       else
@@ -1106,11 +1174,9 @@ namespace node_gtk
 
          pthemecolors = _new_os_theme_colors(strTheme);
 
-         ::user::os_set_theme_colors(pthemecolors);
+         _set_os_theme_colors(pthemecolors);
 
       }
-
-      background_color(pthemecolors->m_colorBack);
 
    }
 

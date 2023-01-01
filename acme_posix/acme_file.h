@@ -95,7 +95,7 @@ namespace acme_posix
       void set_size(FILE * pfile, filesize iSize) override;
 
 
-      //bool move(const char * pszNewName, const char * pszOldName) override;
+      //bool transfer(const char * pszNewName, const char * pszOldName) override;
 
       //::e_status delete_file(const char * pszFileName) override;
 

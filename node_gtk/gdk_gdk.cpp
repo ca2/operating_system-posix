@@ -21,7 +21,7 @@ namespace node_gtk
    char *gsettings_get_malloc(const ::string & strSchema, const ::string & strKey);
 
 
-   CLASS_DECL_ACME void _os_process_user_theme_color(string strTheme);
+   //CLASS_DECL_ACME void _os_process_user_theme_color(string strTheme);
 
 
    ::e_status gsettings_get(string &str, const ::string & strSchema, const ::string & strKey)
@@ -86,7 +86,7 @@ namespace node_gtk
 
       }
 
-      if (!os_defer_init_gtk(acmesystem()))
+      if (!os_defer_init_gtk(::acme::acme::g_p->m_psubsystem->acmesystem()))
       {
 
          return false;
@@ -152,7 +152,7 @@ namespace node_gtk
 
       }
 
-      if (!os_defer_init_gtk(acmesystem()))
+      if (!os_defer_init_gtk(::acme::acme::g_p->m_psubsystem->acmesystem()))
       {
 
          return nullptr;

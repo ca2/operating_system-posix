@@ -529,7 +529,7 @@ namespace draw2d_xlib
       bool set(const ::draw2d::path * ppath);
       bool set(const ::draw2d::path::matter & e);
       bool set(const ::draw2d::path::arc & arc);
-      bool set(const ::draw2d::path::move & move);
+      bool set(const ::draw2d::path::transfer & transfer);
       bool set(const ::draw2d::path::line & line);
       bool fill_and_draw(::draw2d::brush * pbrush, ::draw2d::pen * ppen);
       bool fill(::draw2d::brush * pbrush);

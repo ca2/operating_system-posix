@@ -150,6 +150,11 @@ namespace windowing_x11
 #endif
 
 
+      void _defer_position_and_size_message(oswindow oswindow);
+      void _defer_position_message(oswindow oswindow, const ::point_i32 & point);
+      void _defer_size_message(oswindow oswindow, const ::size_i32 & size);
+
+
    };
 
 

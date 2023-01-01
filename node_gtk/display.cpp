@@ -17,7 +17,8 @@ Display * x11_get_display();
 ::particle * user_synchronization();
 
 
-void windowing_output_debug_string(const char * pszDebugString);
+void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString);
+
 
 namespace node_gtk
 {

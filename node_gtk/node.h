@@ -31,12 +31,21 @@ namespace node_gtk
       GdkAppLaunchContext * m_pgdkapplaunchcontext;
       string_map < GDesktopAppInfo * > m_mapGDesktopAppInfo;
 
+      ::string       m_strOsUserTheme;
+
+      ::task_pointer       m_ptaskOsUserTheme;
+
 
       node();
       ~node() override;
 
 
+      virtual void _set_os_user_theme(const ::scoped_string & strTheme);
+      virtual void _apply_os_user_theme();
+
+
       virtual ::os_theme_colors * _new_os_theme_colors(string strTheme);
+      virtual void _set_os_theme_colors(::os_theme_colors * posthemecolors);
 
       int node_init_check(int * pi, char *** ppz) override;
 

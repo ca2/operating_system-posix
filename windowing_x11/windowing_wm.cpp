@@ -76,6 +76,7 @@ namespace windowing_x11
       xclient.data.l[4] = 0;
 
       XSendEvent(Display(), windowRoot, False, SubstructureRedirectMask | SubstructureNotifyMask, (XEvent *) &xclient);
+      //XSendEvent(Display(), windowRoot, False, 0, (XEvent *) &xclient);
 
    }
 
@@ -192,6 +193,23 @@ namespace windowing_x11
       wm_add_remove_state_raw(::x11::e_atom_net_wm_state_above, false);
       wm_add_remove_state_raw(::x11::e_atom_net_wm_state_below, false);
       wm_add_remove_state_raw(::x11::e_atom_net_wm_state_hidden, false);
+      if (IsWindowVisibleRaw())
+      {
+
+         auto atomMaxH = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false);
+
+         auto atomMaxP = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_penn, false);
+
+         mapped_net_state_raw(false, x11_display()->m_iScreen, atomMaxH, atomMaxP);
+
+      }
+      else
+      {
+
+         wm_add_remove_state_raw(::x11::e_atom_net_wm_state_maximized_horz, false);
+         wm_add_remove_state_raw(::x11::e_atom_net_wm_state_maximized_penn, false);
+
+      }
 
    }
 
@@ -351,9 +369,9 @@ namespace windowing_x11
 
          Atom atomWindowTypeNormal;
 
-         //atomWindowTypeNormal = x11_display()->intern_atom("_NET_WM_WINDOW_TYPE_NORMAL", False);
+         atomWindowTypeNormal = x11_display()->intern_atom("_NET_WM_WINDOW_TYPE_NORMAL", False);
 
-         atomWindowTypeNormal = x11_display()->intern_atom("_NET_WM_WINDOW_TYPE_DIALOG", False);
+         //atomWindowTypeNormal = x11_display()->intern_atom("_NET_WM_WINDOW_TYPE_DIALOG", False);
 
          if(atomWindowTypeNormal != None)
          {

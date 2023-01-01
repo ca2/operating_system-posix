@@ -1140,7 +1140,7 @@ namespace windowing_x11
          8,
          PropModeReplace,
          (const unsigned char *) (const char *) path,
-         path.get_length());
+         path.length());
 
       output_debug_string("\nfreebsd::interaction_impl::bamf_set_icon END");
 
@@ -1253,7 +1253,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
       m.set_size(length * 4);
 
-      unsigned int * pcr = (unsigned int *) m.get_data();
+      unsigned int * pcr = (unsigned int *) m.data();
 
       pcr[0] = image1->width();
 
@@ -1664,6 +1664,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
       XSendEvent(Display(), RootWindow(Display(), iScreen), False, SubstructureRedirectMask | SubstructureNotifyMask,
                  (XEvent *) &xclient);
+  //     XSendEvent(Display(), RootWindow(Display(), iScreen), False, 0, (XEvent *) &xclient);
 
    }
 
@@ -1708,7 +1709,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
          XChangeProperty(Display(), Window(), x11_display()->intern_atom("_NET_WM_STATE", False),
                          XA_ATOM, 32, PropModeReplace,
-                         (const unsigned char *) atoms.get_data(), atoms.get_size());
+                         (const unsigned char *) atoms.data(), atoms.size());
       } else
       {
 
@@ -1721,11 +1722,12 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
    }
 
 
+   /// this function should be called in user/main thread
    void window::show_window(const ::e_display & edisplay, const ::e_activation & eactivation)
    {
 
-      x11_windowing()->windowing_post([this, edisplay, eactivation]()
-      {
+      //x11_windowing()->windowing_post([this, edisplay, eactivation]()
+      //{
 
          windowing_output_debug_string("\n::window::show_window 1");
 
@@ -1740,7 +1742,9 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
             windowing_output_debug_string("\n::window::show_window 1.2");
 
-            return false;
+            return;
+
+            //return false;
 
          }
 
@@ -1756,9 +1760,14 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
             }
 
-            mapped_net_state_raw(true, x11_display()->m_iScreen,
-                                 x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false),
-                                 x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_vert, false));
+            auto atomMaxH = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false);
+
+            auto atomMaxP = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_penn, false);
+
+            mapped_net_state_raw(true, x11_display()->m_iScreen, atomMaxH, atomMaxP);
+
+
+
 
          }
          else if (edisplay == e_display_iconic)
@@ -1777,6 +1786,8 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
             }
 
+            wm_state_clear_raw(false);
+
          }
          else
          {
@@ -1792,9 +1803,11 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
          windowing_output_debug_string("\n::window::show_window 2");
 
-         return true;
+         //return true;
 
-      });
+      //}
+
+      //);
 
       //return ::success;
 
@@ -1942,31 +1955,31 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
    void window::exit_zoomed()
    {
 
-      synchronous_lock sl(user_synchronization());
-
-      display_lock displaylock(x11_display()->Display());
-
-      XWindowAttributes attr;
-
-      if (!XGetWindowAttributes(Display(), Window(), &attr))
-      {
-
-         windowing_output_debug_string("\n::window::exit_zoomed 1.2");
-
-         fflush(stdout);
-
-         throw ::exception(error_failed);
-
-      }
-
-      if (attr.map_state == IsViewable)
-      {
-
-         mapped_net_state_raw(false, Screen(),
-                              x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false),
-                              x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_vert, false));
-
-      }
+//      synchronous_lock sl(user_synchronization());
+//
+//      display_lock displaylock(x11_display()->Display());
+//
+//      XWindowAttributes attr;
+//
+//      if (!XGetWindowAttributes(Display(), Window(), &attr))
+//      {
+//
+//         windowing_output_debug_string("\n::window::exit_zoomed 1.2");
+//
+//         fflush(stdout);
+//
+//         throw ::exception(error_failed);
+//
+//      }
+//
+//      if (attr.map_state == IsViewable)
+//      {
+//
+//         mapped_net_state_raw(false, Screen(),
+//                              x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false),
+//                              x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_penn, false));
+//
+//      }
 
       //return success;
 
@@ -2211,7 +2224,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
          8,
          PropModeReplace,
          (const unsigned char *) (const char *) path,
-         path.get_length());
+         path.length());
 
       output_debug_string("\nfreebsd::interaction_impl::bamf_set_icon END");
 
@@ -2541,6 +2554,14 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
             XMoveResizeWindow(Display(), Window(), x, y, cx, cy);
 
+//            if(m_puserinteractionimpl->m_puserinteraction->const_layout().design().display() == e_display_zoomed) {
+//
+//               x11_windowing()->_defer_position_and_size_message(m_oswindow);
+//
+//
+//            }
+
+
          }
          else
          {
@@ -2637,7 +2658,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
                    || net_wm_state(::x11::e_atom_net_wm_state_below) != 0
                    || net_wm_state(::x11::e_atom_net_wm_state_hidden) != 0
                    || net_wm_state(::x11::e_atom_net_wm_state_maximized_horz) != 0
-                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_vert) != 0
+                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_penn) != 0
                    || net_wm_state(::x11::e_atom_net_wm_state_fullscreen) != 0)
                {
 
@@ -2779,7 +2800,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
          8,
          PropModeReplace,
          (const unsigned char *) (const char *) path,
-         path.get_length());
+         path.length());
 
       output_debug_string("\nfreebsd::interaction_impl::bamf_set_icon END");
 
@@ -2929,9 +2950,9 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
       }
 
-      auto pFind = windowa.find_last(Window());
+      auto iFind = windowa.find_last(Window());
 
-      if (::is_null(pFind))
+      if (not_found(iFind))
       {
 
          return;
@@ -3387,7 +3408,8 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
       atoma.set_size(num_items);
 
-      memcpy(atoma.get_data(), patoms, atoma.get_size_in_bytes());
+      memcpy(atoma.data(), patoms, atoma.get_size_in_bytes());
+
       XFree(patoms);
 
       return atoma;
@@ -3528,7 +3550,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
          }
 
-         auto pFind = -1;
+         auto iFind = -1;
 
          int i;
 
@@ -3546,13 +3568,13 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
          }
 
-         if (::is_set(pFind))
+         if (::not_found(iFind))
          {
 
             atoma.erase_at(iFind);
 
-            XChangeProperty(Display(), Window(), atomList, XA_ATOM, 32, PropModeReplace, (unsigned char *) atoma.get_data(),
-                            atoma.get_size());
+            XChangeProperty(Display(), Window(), atomList, XA_ATOM, 32, PropModeReplace, (unsigned char *) atoma.data(),
+                            atoma.size());
 
          }
 

@@ -172,7 +172,7 @@ namespace system_5
 //      if (m_preceiver != nullptr)
 //      {
 //
-//         m_preceiver->on_interprocess_receive(this, ::move(strMessage));
+//         m_preceiver->on_interprocess_receive(this, ::transfer(strMessage));
 //
 //      }
 //
@@ -189,7 +189,7 @@ namespace system_5
 //      if (m_preceiver != nullptr)
 //      {
 //
-//         m_preceiver->on_interprocess_receive(this, message, ::move(memory));
+//         m_preceiver->on_interprocess_receive(this, message, ::transfer(memory));
 //
 //      }
 //
@@ -288,14 +288,14 @@ namespace system_5
 //            if (lRequest == 1024)
 //            {
 //
-//               dispatch_message(::move(as_string(mem)));
+//               dispatch_message(::transfer(as_string(mem)));
 //
 //            } else
 //            {
 //
 //               ::memory memoryCopy(mem);
-//               //on_interprocess_receive(lRequest, ::move(m2));
-//               dispatch_message(lRequest, ::move(memoryCopy));
+//               //on_interprocess_receive(lRequest, ::transfer(m2));
+//               dispatch_message(lRequest, ::transfer(memoryCopy));
 //
 //            }
 

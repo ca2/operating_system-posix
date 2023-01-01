@@ -5646,7 +5646,7 @@ ok:
    }
 
 
-   bool graphics::set(const ::draw2d_xlib::path::move & p)
+   bool graphics::set(const ::draw2d_xlib::path::transfer & p)
    {
 
       //xlib_move_to(m_pdc, p.m_x + 0.5, p.m_y + 0.5);

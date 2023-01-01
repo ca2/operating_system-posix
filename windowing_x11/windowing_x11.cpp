@@ -1491,6 +1491,263 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //    x11_
 
 
+void windowing::_defer_position_and_size_message(oswindow oswindow)
+{
+
+   //::rectangle_i32 rectangle;
+
+   //::x11_get_window_rect(m_pdisplay->Display(), (Window) oswindow->get_os_data(), &rectangle);
+
+   //_defer_position_message(oswindow, rectangle.top_left());
+
+   //_defer_size_message(oswindow, rectangle.size());
+
+}
+
+
+void windowing::_defer_position_message(oswindow oswindow, const ::point_i32 & point)
+{
+
+   ::user::primitive_impl *pimpl = oswindow->m_puserinteractionimpl;
+
+   if (pimpl != nullptr) {
+
+      ::user::interaction *pinteraction = pimpl->m_puserinteraction;
+
+      if (pinteraction != nullptr) {
+
+         auto pointWindow = pinteraction->screen_origin();
+
+//   auto sizeWindow = pinteraction->const_layout().window().size();
+
+         // Robbers -> Smart -> Tough Law
+         // Kids -> Soft Law
+         // 5 year smart
+         // 80 year kids
+         // big companies are?
+         // small companies are?
+         // big companies moved by auto sustainability...
+         // No human is auto sustainable, it currently needs iPhone or something....
+         // so?
+         // art as vanity and not for auto sustainability...
+         // not just for six... six... six...
+         // because sometimes we want cake and flesh and raw fish and not carrots with bread and oreo...
+         // now I imagine: sick of eating flesh-free carrots and bread, and getting drunk with cheetos and oreo
+         // we should let the flesh and the cake for the doctors,
+         // lawyers, politicians, google collaborators, drug-makers,
+         // ill-makers, sue-makers, idea-makers, religious-people,
+         // that make memory_new ammendments to ammendment itself,
+         // people above-the-law... flesh save them...
+         // ... retired and poor, widow people, complaining of dead/gone people,
+         // must eat bird seed grains.... no redemption, only in paradise...
+         // slaves of THEIR their, given by the GODs, laws ...
+
+         // X11 "knows" window manager can redirect a request
+         // (evidence: override_redirect flag - but that when set leave you outside of much more things)
+         // Lets not fight this X11 "thing"
+         // Accept-"stall" "authocratic" "top-down" window manager set position and size.
+         // This means setting same size_i32 and position to all three sketch and window states.
+         // The buffer may need to be resized so don't mess with current design state.
+
+         bool bPositionFix = pointWindow != point;
+
+#ifdef X11_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE
+
+         if(bPositionFix)
+                           {
+
+                              pinteraction->layout().sketch().origin() = point;
+
+                              pinteraction->layout().window().origin() = point;
+
+                              pinteraction->screen_origin() = point;
+
+                              pinteraction->screen_origin() = point;
+
+                              pinteraction->set_reposition(true);
+
+                           }
+
+#endif
+
+         //bool bSizeFix = sizeWindow != size;
+
+#ifdef X11_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE_FOR_AWESOME_FILE
+
+         if(bSizeFix)
+                           {
+
+                              pinteraction->layout().sketch().size() = size;
+
+                              pinteraction->layout().window().size() = size;
+
+                              pinteraction->set_need_layout();
+
+                           }
+
+#endif
+
+         if (bPositionFix) {
+
+
+            MESSAGE msg;
+
+            zero(msg);
+
+            msg.oswindow = oswindow;
+
+
+            msg.oswindow->m_point = point;
+
+            msg.m_atom = e_message_move;
+            msg.wParam = 0;
+            msg.lParam = point.lparam();
+
+            post_ui_message(msg);
+
+         }
+
+//   if (bSizeFix)
+//   {
+//
+//      msg.oswindow->m_size = size;
+//
+//      msg.m_atom = e_message_size;
+//      msg.wParam = 0;
+//      msg.lParam = size.lparam();
+//
+//      post_ui_message(msg);
+//
+//   }
+
+      }
+
+   }
+
+}
+
+
+void windowing::_defer_size_message(oswindow oswindow, const ::size_i32 & size)
+{
+
+   ::user::primitive_impl *pimpl = oswindow->m_puserinteractionimpl;
+
+   if (pimpl != nullptr) {
+
+      ::user::interaction *pinteraction = pimpl->m_puserinteraction;
+
+      if (pinteraction != nullptr) {
+
+
+         auto sizeWindow = pinteraction->const_layout().window().size();
+
+         // Robbers -> Smart -> Tough Law
+         // Kids -> Soft Law
+         // 5 year smart
+         // 80 year kids
+         // big companies are?
+         // small companies are?
+         // big companies moved by auto sustainability...
+         // No human is auto sustainable, it currently needs iPhone or something....
+         // so?
+         // art as vanity and not for auto sustainability...
+         // not just for six... six... six...
+         // because sometimes we want cake and flesh and raw fish and not carrots with bread and oreo...
+         // now I imagine: sick of eating flesh-free carrots and bread, and getting drunk with cheetos and oreo
+         // we should let the flesh and the cake for the doctors,
+         // lawyers, politicians, google collaborators, drug-makers,
+         // ill-makers, sue-makers, idea-makers, religious-people,
+         // that make memory_new ammendments to ammendment itself,
+         // people above-the-law... flesh save them...
+         // ... retired and poor, widow people, complaining of dead/gone people,
+         // must eat bird seed grains.... no redemption, only in paradise...
+         // slaves of THEIR their, given by the GODs, laws ...
+
+         // X11 "knows" window manager can redirect a request
+         // (evidence: override_redirect flag - but that when set leave you outside of much more things)
+         // Lets not fight this X11 "thing"
+         // Accept-"stall" "authocratic" "top-down" window manager set position and size.
+         // This means setting same size_i32 and position to all three sketch and window states.
+         // The buffer may need to be resized so don't mess with current design state.
+
+         //bool bPositionFix = pointWindow != point;
+
+#ifdef X11_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE
+
+         if(bPositionFix)
+                           {
+
+                              pinteraction->layout().sketch().origin() = point;
+
+                              pinteraction->layout().window().origin() = point;
+
+                              pinteraction->screen_origin() = point;
+
+                              pinteraction->screen_origin() = point;
+
+                              pinteraction->set_reposition(true);
+
+                           }
+
+#endif
+
+         bool bSizeFix = sizeWindow != size;
+
+#ifdef X11_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE_FOR_AWESOME_FILE
+
+         if(bSizeFix)
+                           {
+
+                              pinteraction->layout().sketch().size() = size;
+
+                              pinteraction->layout().window().size() = size;
+
+                              pinteraction->set_need_layout();
+
+                           }
+
+#endif
+
+//   if (bPositionFix)
+//   {
+//
+//      msg.oswindow->m_point = point;
+//
+//      msg.m_atom = e_message_move;
+//      msg.wParam = 0;
+//      msg.lParam = point.lparam();
+//
+//      post_ui_message(msg);
+//
+//   }
+
+         if (bSizeFix) {
+
+
+            MESSAGE msg;
+
+            zero(msg);
+
+            msg.oswindow = oswindow;
+
+            msg.oswindow->m_size = size;
+
+            msg.m_atom = e_message_size;
+            msg.wParam = 0;
+            msg.lParam = size.lparam();
+
+            post_ui_message(msg);
+
+         }
+
+      }
+
+      }
+
+   }
+
+
+
 #ifdef WITH_XI
    bool windowing::x11_process_event(XEvent * pevent, XGenericEventCookie *cookie)
 #else
@@ -2042,6 +2299,8 @@ else if(detail == 3)
             if (msg.oswindow != nullptr && msg.oswindow->m_puserinteractionimpl != nullptr)
             {
 
+               _defer_position_and_size_message(msg.oswindow);
+
                int iIconic = -1;
 
                if (e.xproperty.atom == m_pdisplay->m_atomWmState)
@@ -2083,18 +2342,7 @@ else if(detail == 3)
 
                                                     auto edisplayPrevious = pinteraction->window_previous_display();
 
-                                                    if (edisplayPrevious == ::e_display_iconic)
-                                                    {
-
-                                                       pinteraction->_001OnDeiconify(::e_display_restored);
-
-                                                    }
-                                                    else
-                                                    {
-
-                                                       pinteraction->_001OnDeiconify(edisplayPrevious);
-
-                                                    }
+                                                    pinteraction->_001OnDeiconify(edisplayPrevious);
 
                                                  });
 
@@ -2227,106 +2475,110 @@ else if(detail == 3)
 
                      ::size_i32 size(e.xconfigure.width, e.xconfigure.height);
 
+                     _defer_position_message(msg.oswindow, point);
+
+                     _defer_size_message(msg.oswindow, size);
+
                      //::point_i32 point(attrs.x, attrs.y);
 
                      //::size_i32 size(attrs.width, attrs.height);
 
-                     auto pointWindow = pinteraction->screen_origin();
-
-                     auto sizeWindow = pinteraction->const_layout().window().size();
-
-                     // Robbers -> Smart -> Tough Law
-                     // Kids -> Soft Law
-                     // 5 year smart
-                     // 80 year kids
-                     // big companies are?
-                     // small companies are?
-                     // big companies moved by auto sustainability...
-                     // No human is auto sustainable, it currently needs iPhone or something....
-                     // so?
-                     // art as vanity and not for auto sustainability...
-                     // not just for six... six... six...
-                     // because sometimes we want cake and flesh and raw fish and not carrots with bread and oreo...
-                     // now I imagine: sick of eating flesh-free carrots and bread, and getting drunk with cheetos and oreo
-                     // we should let the flesh and the cake for the doctors,
-                     // lawyers, politicians, google collaborators, drug-makers,
-                     // ill-makers, sue-makers, idea-makers, religious-people,
-                     // that make memory_new ammendments to ammendment itself,
-                     // people above-the-law... flesh save them...
-                     // ... retired and poor, widow people, complaining of dead/gone people,
-                     // must eat bird seed grains.... no redemption, only in paradise...
-                     // slaves of THEIR their, given by the GODs, laws ...
-
-                     // X11 "knows" window manager can redirect a request
-                     // (evidence: override_redirect flag - but that when set leave you outside of much more things)
-                     // Lets not fight this X11 "thing"
-                     // Accept-"stall" "authocratic" "top-down" window manager set position and size.
-                     // This means setting same size_i32 and position to all three sketch and window states.
-                     // The buffer may need to be resized so don't mess with current design state.
-
-                     bool bPositionFix = pointWindow != point;
-
-#ifdef X11_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE
-
-                     if(bPositionFix)
-                     {
-
-                        pinteraction->layout().sketch().origin() = point;
-
-                        pinteraction->layout().window().origin() = point;
-
-                        pinteraction->screen_origin() = point;
-
-                        pinteraction->screen_origin() = point;
-
-                        pinteraction->set_reposition(true);
-
-                     }
-
-#endif
-
-                     bool bSizeFix = sizeWindow != size;
-
-#ifdef X11_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE_FOR_AWESOME_FILE
-
-                     if(bSizeFix)
-                     {
-
-                        pinteraction->layout().sketch().size() = size;
-
-                        pinteraction->layout().window().size() = size;
-
-                        pinteraction->set_need_layout();
-
-                     }
-
-#endif
-
-                     if (bPositionFix)
-                     {
-
-                        msg.oswindow->m_point = point;
-
-                        msg.m_atom = e_message_move;
-                        msg.wParam = 0;
-                        msg.lParam = point.lparam();
-
-                        post_ui_message(msg);
-
-                     }
-
-                     if (bSizeFix)
-                     {
-
-                        msg.oswindow->m_size = size;
-
-                        msg.m_atom = e_message_size;
-                        msg.wParam = 0;
-                        msg.lParam = size.lparam();
-
-                        post_ui_message(msg);
-
-                     }
+//                     auto pointWindow = pinteraction->screen_origin();
+//
+//                     auto sizeWindow = pinteraction->const_layout().window().size();
+//
+//                     // Robbers -> Smart -> Tough Law
+//                     // Kids -> Soft Law
+//                     // 5 year smart
+//                     // 80 year kids
+//                     // big companies are?
+//                     // small companies are?
+//                     // big companies moved by auto sustainability...
+//                     // No human is auto sustainable, it currently needs iPhone or something....
+//                     // so?
+//                     // art as vanity and not for auto sustainability...
+//                     // not just for six... six... six...
+//                     // because sometimes we want cake and flesh and raw fish and not carrots with bread and oreo...
+//                     // now I imagine: sick of eating flesh-free carrots and bread, and getting drunk with cheetos and oreo
+//                     // we should let the flesh and the cake for the doctors,
+//                     // lawyers, politicians, google collaborators, drug-makers,
+//                     // ill-makers, sue-makers, idea-makers, religious-people,
+//                     // that make memory_new ammendments to ammendment itself,
+//                     // people above-the-law... flesh save them...
+//                     // ... retired and poor, widow people, complaining of dead/gone people,
+//                     // must eat bird seed grains.... no redemption, only in paradise...
+//                     // slaves of THEIR their, given by the GODs, laws ...
+//
+//                     // X11 "knows" window manager can redirect a request
+//                     // (evidence: override_redirect flag - but that when set leave you outside of much more things)
+//                     // Lets not fight this X11 "thing"
+//                     // Accept-"stall" "authocratic" "top-down" window manager set position and size.
+//                     // This means setting same size_i32 and position to all three sketch and window states.
+//                     // The buffer may need to be resized so don't mess with current design state.
+//
+//                     bool bPositionFix = pointWindow != point;
+//
+//#ifdef X11_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE
+//
+//                     if(bPositionFix)
+//                     {
+//
+//                        pinteraction->layout().sketch().origin() = point;
+//
+//                        pinteraction->layout().window().origin() = point;
+//
+//                        pinteraction->screen_origin() = point;
+//
+//                        pinteraction->screen_origin() = point;
+//
+//                        pinteraction->set_reposition(true);
+//
+//                     }
+//
+//#endif
+//
+//                     bool bSizeFix = sizeWindow != size;
+//
+//#ifdef X11_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE_FOR_AWESOME_FILE
+//
+//                     if(bSizeFix)
+//                     {
+//
+//                        pinteraction->layout().sketch().size() = size;
+//
+//                        pinteraction->layout().window().size() = size;
+//
+//                        pinteraction->set_need_layout();
+//
+//                     }
+//
+//#endif
+//
+//                     if (bPositionFix)
+//                     {
+//
+//                        msg.oswindow->m_point = point;
+//
+//                        msg.m_atom = e_message_move;
+//                        msg.wParam = 0;
+//                        msg.lParam = point.lparam();
+//
+//                        post_ui_message(msg);
+//
+//                     }
+//
+//                     if (bSizeFix)
+//                     {
+//
+//                        msg.oswindow->m_size = size;
+//
+//                        msg.m_atom = e_message_size;
+//                        msg.wParam = 0;
+//                        msg.lParam = size.lparam();
+//
+//                        post_ui_message(msg);
+//
+//                     }
 
                   }
 

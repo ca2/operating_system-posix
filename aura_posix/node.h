@@ -108,7 +108,10 @@ namespace aura_posix
       ::file::path get_desktop_file_path(::apex::application * papp) override;
 
 
-      void on_request(::request * prequest) override;
+      //void on_request(::request * prequest) override;
+
+
+      void main() override;
 
 
    };

@@ -51,7 +51,7 @@ namespace node_gnome
 
       string strId(strAppId);
 
-      string strMatterRoot = ::str().token(strId, "/");
+      string strMatterRoot = ::str::token(strId, "/");
 
       if (strMatterRoot.is_empty())
       {
