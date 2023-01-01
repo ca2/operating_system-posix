@@ -119,7 +119,7 @@ namespace acme_posix
    bool pipe::write(const ::scoped_string & scopedstr)
    {
 
-      u32 dwLen = scopedstr.size();
+      auto dwLen = scopedstr.size();
 
       bool bSuccess = false;
 

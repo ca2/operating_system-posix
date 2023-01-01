@@ -28,24 +28,24 @@ namespace acme_posix
 {
 
 
-   static string_array glob(const string_array &patterns);
+   string_array glob(const string_array &patterns);
 
-   static string basename(const string &path);
+   string basename(const string &path);
 
-   static string dirname(const string &path);
+   string dirname(const string &path);
 
-   static bool path_exists(const string &path);
+   bool path_exists(const string &path);
 
-   static string realpath(const string &path);
+   string realpath(const string &path);
 
-   static string usb_sysfs_friendly_name(::particle *pparticle, const string &sys_usb_path);
+   string usb_sysfs_friendly_name(::particle *pparticle, const string &sys_usb_path);
 
-   static string_array get_sysfs_info(::particle *pparticle, const string &device_path);
+   string_array get_sysfs_info(::particle *pparticle, const string &device_path);
 
 //static string read_line(const string& file);
-   static string usb_sysfs_hw_string(::particle *pparticle, const string &sysfs_path);
+   string usb_sysfs_hw_string(::particle *pparticle, const string &sysfs_path);
 
-   static string format(const char *format, ...);
+   string format(const char *format, ...);
 
    string_array
    glob(const string_array &patterns)

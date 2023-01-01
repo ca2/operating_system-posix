@@ -852,7 +852,7 @@ namespace acme_posix
 
          string strMessage;
 
-         strMessage.format("Failed to stat file \"%s\".", path);
+         strMessage.format("Failed to stat file \"%s\".", path.c_str());
 
          throw ::exception(estatus, strMessage);
 
