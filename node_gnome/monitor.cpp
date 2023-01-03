@@ -77,7 +77,7 @@ namespace node_gnome
 //
 //      ::rectangle_i32 rectangle;
 //
-//      __copy(m_rectangle, rect);
+//      copy(m_rectangle, rect);
 //
 //      return ::success;
 //
@@ -111,7 +111,7 @@ namespace node_gnome
 //
 //      gdk_monitor_get_workarea(pmonitor, &rect);
 //
-//      __copy(m_rectangleWorkspace, rect);
+//      copy(m_rectangleWorkspace, rect);
 //
 //      return ::success;
 //
@@ -220,13 +220,13 @@ namespace node_gnome
 //
 //                                 gdk_monitor_get_workarea(pmonitor, &rect);
 //
-//                                 __copy(rectangleWorkspace, rect);
+//                                 copy(rectangleWorkspace, rect);
 //
 //                                 zero(rect);
 //
 //                                 gdk_monitor_get_geometry(pmonitor, &rect);
 //
-//                                 __copy(rectangleMonitor, rect);
+//                                 copy(rectangleMonitor, rect);
 //
 //                              }
 //

@@ -2109,7 +2109,7 @@ namespace windowing_xcb
 
             msg.oswindow->m_point = pointWindow;
 
-            msg.m_atom = e_message_move;
+            msg.m_atom = e_message_reposition;
             msg.wParam = 0;
             msg.lParam = pointWindow.lparam();
 

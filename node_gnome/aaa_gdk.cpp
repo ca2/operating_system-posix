@@ -18,7 +18,7 @@ bool x11_message_loop_step();
 gboolean gtk_quit_callback(gpointer data);
 
 
-void __copy(::color::color & color, const GdkRGBA & rgba)
+void copy(::color::color & color, const GdkRGBA & rgba)
 {
 
    color.set(rgba.red, rgba.green, rgba.blue, rgba.alpha);
@@ -35,7 +35,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 
    ::color::color color;
 
-   __copy(color, *prgba);
+   copy(color, *prgba);
 
    gdk_rgba_free (prgba);
 

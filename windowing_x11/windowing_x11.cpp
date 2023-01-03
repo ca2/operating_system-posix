@@ -1599,7 +1599,7 @@ void windowing::_defer_position_message(oswindow oswindow, const ::point_i32 & p
 
             msg.oswindow->m_point = point;
 
-            msg.m_atom = e_message_move;
+            msg.m_atom = e_message_reposition;
             msg.wParam = 0;
             msg.lParam = point.lparam();
 
@@ -1713,7 +1713,7 @@ void windowing::_defer_size_message(oswindow oswindow, const ::size_i32 & size)
 //
 //      msg.oswindow->m_point = point;
 //
-//      msg.m_atom = e_message_move;
+//      msg.m_atom = e_message_reposition;
 //      msg.wParam = 0;
 //      msg.lParam = point.lparam();
 //
@@ -2559,7 +2559,7 @@ else if(detail == 3)
 //
 //                        msg.oswindow->m_point = point;
 //
-//                        msg.m_atom = e_message_move;
+//                        msg.m_atom = e_message_reposition;
 //                        msg.wParam = 0;
 //                        msg.lParam = point.lparam();
 //

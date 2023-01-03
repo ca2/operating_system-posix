@@ -9,7 +9,7 @@
 #include "exception_translator.h"
 
 
-__FACTORY_EXPORT void acme_posix_factory(::factory::factory * pfactory)
+IMPLEMENT_FACTORY(acme_posix)
 {
 
    pfactory->add_factory_item < ::acme_posix::node                   , ::acme::node > ();

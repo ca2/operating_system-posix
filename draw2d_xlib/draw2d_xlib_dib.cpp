@@ -699,7 +699,7 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image__copy(::image * pimage)
+   //void imagecopy(::image * pimage)
    //{
    //   // If DibSize Wrong Re-create image
    //   if ( (pimage->cx!=cx) || (pimage->cy!=cy) )

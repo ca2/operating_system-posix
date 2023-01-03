@@ -123,7 +123,7 @@ namespace draw2d_xlib
 
       //void Map (i32 ToRgb, i32 FromRgb );
 
-      /*void __copy( imageimage );
+      /*void copy( imageimage );
       void Paste ( imageimage );
 
       void Blend ( imageimage, i32 A );
