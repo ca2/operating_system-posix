@@ -1,11 +1,13 @@
-﻿//
+//
 // Created by camilo on 19/01/2021. --<33ThomasBS!!
 //
 #include "framework.h"
 #include "node.h"
 #include "acme/filesystem/filesystem/acme_file.h"
 #include "acme/platform/system.h"
+#ifndef __APPLE__
 #include "apex/operating_system/freedesktop/desktop_file.h"
+#endif
 #include "apex/platform/application.h"
 
 
@@ -44,7 +46,7 @@ namespace apex_posix
    void node::on_start_application(::apex::application *papplication)
    {
 
-#if !defined(RASPBIAN) && !defined(ANDROID)
+#if !defined(RASPBIAN) && !defined(ANDROID) && !defined(__APPLE__)
 
       try
       {
