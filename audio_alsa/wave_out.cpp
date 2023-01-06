@@ -802,7 +802,7 @@ namespace multimedia
 
          dwPosition /= m_pwaveformat->m_waveformat.nSamplesPerSec;
 
-         return INTEGRAL_MILLISECOND(dwPosition / 1000.0);
+         return integral_millisecond(dwPosition / 1000.0);
 
       }
 

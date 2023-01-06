@@ -581,7 +581,7 @@ serial_impl::read(u8 * buf, size_t size)
 
    // Calculate total timeout in ::durations t_c + (t_m * N)
    auto total_timeout_ms = m_timeout.m_durationReadTimeoutConstant;
-   total_timeout_ms += m_timeout.m_uReadTimeoutMultiplier * INTEGRAL_MILLISECOND(size);
+   total_timeout_ms += m_timeout.m_uReadTimeoutMultiplier * integral_millisecond(size);
    auto millisStart = ::duration::now();
 
    // Pre-fill buffer with available bytes
@@ -672,7 +672,7 @@ serial_impl::write(const u8 * data, size_t length)
 
    // Calculate total timeout in ::durations t_c + (t_m * N)
    auto total_timeout_ms = m_timeout.m_durationWriteTimeoutConstant;
-   total_timeout_ms += m_timeout.m_uWriteTimeoutMultiplier * INTEGRAL_MILLISECOND (length);
+   total_timeout_ms += m_timeout.m_uWriteTimeoutMultiplier * integral_millisecond (length);
    auto millisStart = ::duration::now();
 
    bool first_iteration = true;
