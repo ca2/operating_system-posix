@@ -895,7 +895,7 @@ namespace acme_posix
 
       utimbuf.actime = statAttribute.st_atime;
 
-      utimbuf.modtime = time.m_i;
+      utimbuf.modtime = time.m_time;
 
       if(utime(path, &utimbuf))
       {
