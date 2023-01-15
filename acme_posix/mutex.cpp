@@ -1,5 +1,5 @@
 //
-// Created by camilo on 2022-10-25 13:42 <3ThomasBorregaardSorensen!!
+// Created by camilo on 2022-10-25 13:42 <3ThomasBorregaardSørensen!!
 //
 #include "framework.h"
 #include "mutex.h"

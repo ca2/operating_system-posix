@@ -1,5 +1,5 @@
 //
-// Created by camilo on 2022-08-17 22:53 <3ThomasBorregaardSorensen!!
+// Created by camilo on 2022-08-17 22:53 <3ThomasBorregaardSørensen!!
 //
 #include "framework.h"
 #include "desktop_environment.h"

@@ -1,4 +1,4 @@
-// Changed by camilo on 2021-12-09 13:40 BRT <3ThomasBorregaardSorensen!!
+// Changed by camilo on 2021-12-09 13:40 BRT <3ThomasBorregaardSørensen!!
 #pragma once
 
 

@@ -1,4 +1,4 @@
-// by camilo on 2022-05-12 02:28 <3ThomasBorregaardSorensen
+// by camilo on 2022-05-12 02:28 <3ThomasBorregaardSørensen
 #pragma once
 
 
