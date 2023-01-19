@@ -476,7 +476,9 @@ namespace acme_posix
          
          auto estatus = failed_errno_status(iErrNo);
          
-         return estatus;
+         auto errorcode = errno_error_code(iErrNo);
+         
+         throw ::file::exception(estatus, errorcode, path, "stat != 0");
          
       }
       
