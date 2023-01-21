@@ -60,6 +60,33 @@
 		9A8E9DCF282A2F7E005FF778 /* acme_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A892E7B26CDDAA8008D6412 /* acme_file.cpp */; };
 		9A8E9DD0282A2F7E005FF778 /* file_memory_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16B2264A2C6C00B5CC33 /* file_memory_map.cpp */; };
 		9A8E9DD1282A2F7E005FF778 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16B6264A2C6C00B5CC33 /* node.cpp */; };
+		9AC14CBB297B3370006D9BD3 /* mutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0841AC2935D51D009F7FF4 /* mutex.h */; };
+		9AC14CBC297B3370006D9BD3 /* _.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C4264A2C6C00B5CC33 /* _.h */; };
+		9AC14CBD297B3370006D9BD3 /* pipe.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C0264A2C6C00B5CC33 /* pipe.h */; };
+		9AC14CBE297B3370006D9BD3 /* exception_translator.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A78F40228E791B4007F62C0 /* exception_translator.h */; };
+		9AC14CBF297B3370006D9BD3 /* file_memory_map.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16BF264A2C6C00B5CC33 /* file_memory_map.h */; };
+		9AC14CC0297B3370006D9BD3 /* acme_path.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A892E7F26CDDAA8008D6412 /* acme_path.h */; };
+		9AC14CC1297B3370006D9BD3 /* node.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16B7264A2C6C00B5CC33 /* node.h */; };
+		9AC14CC2297B3370006D9BD3 /* acme_directory.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A892E7926CDDAA7008D6412 /* acme_directory.h */; };
+		9AC14CC3297B3370006D9BD3 /* exclusive.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0841B62935D55E009F7FF4 /* exclusive.h */; };
+		9AC14CC4297B3370006D9BD3 /* file_lock.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0841B72935D564009F7FF4 /* file_lock.h */; };
+		9AC14CC5297B3370006D9BD3 /* acme_file.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A892E7D26CDDAA8008D6412 /* acme_file.h */; };
+		9AC14CC6297B3370006D9BD3 /* framework.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C2264A2C6C00B5CC33 /* framework.h */; };
+		9AC14CC8297B3370006D9BD3 /* acme_path.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A892E7E26CDDAA8008D6412 /* acme_path.cpp */; };
+		9AC14CC9297B3370006D9BD3 /* _.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16BA264A2C6C00B5CC33 /* _.cpp */; };
+		9AC14CCA297B3370006D9BD3 /* framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16B3264A2C6C00B5CC33 /* framework.cpp */; };
+		9AC14CCB297B3370006D9BD3 /* acme_directory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A892E7C26CDDAA8008D6412 /* acme_directory.cpp */; };
+		9AC14CCC297B3370006D9BD3 /* _factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16C1264A2C6C00B5CC33 /* _factory.cpp */; };
+		9AC14CCD297B3370006D9BD3 /* list_serial_ports.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0841AE2935D51E009F7FF4 /* list_serial_ports.cpp */; };
+		9AC14CCE297B3370006D9BD3 /* mutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0841AD2935D51E009F7FF4 /* mutex.cpp */; };
+		9AC14CCF297B3370006D9BD3 /* exception_translator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A78F40128E791B4007F62C0 /* exception_translator.cpp */; };
+		9AC14CD0297B3370006D9BD3 /* pipe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16AF264A2C6C00B5CC33 /* pipe.cpp */; };
+		9AC14CD1297B3370006D9BD3 /* acme_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A892E7B26CDDAA8008D6412 /* acme_file.cpp */; };
+		9AC14CD2297B3370006D9BD3 /* exclusive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0841B52935D540009F7FF4 /* exclusive.cpp */; };
+		9AC14CD3297B3370006D9BD3 /* file_memory_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16B2264A2C6C00B5CC33 /* file_memory_map.cpp */; };
+		9AC14CD4297B3370006D9BD3 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16B6264A2C6C00B5CC33 /* node.cpp */; };
+		9AC14CD5297B3370006D9BD3 /* node_clang_callstack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A78F44428E7E3E2007F62C0 /* node_clang_callstack.cpp */; };
+		9AC14CD7297B3370006D9BD3 /* libacme.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0C1798264A315100B5CC33 /* libacme.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +117,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 9AD68E39251A753A00C0EBD7;
 			remoteInfo = ios_acme;
+		};
+		9AC14CDD297B3371006D9BD3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A0C1792264A315100B5CC33 /* acme.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9AC14CB6297B3350006D9BD3;
+			remoteInfo = "acme copy";
+		};
+		9AC14D9A297B362D006D9BD3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A0C1792264A315100B5CC33 /* acme.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9AD68E39251A753A00C0EBD7;
+			remoteInfo = _acme;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -123,6 +164,7 @@
 		9A892E7E26CDDAA8008D6412 /* acme_path.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = acme_path.cpp; sourceTree = "<group>"; };
 		9A892E7F26CDDAA8008D6412 /* acme_path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = acme_path.h; sourceTree = "<group>"; };
 		9A8E9DD7282A2F7E005FF778 /* libios_acme_posix.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libios_acme_posix.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AC14CDB297B3370006D9BD3 /* lib_acme_posix.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = lib_acme_posix.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +180,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9AC14CD6297B3370006D9BD3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AC14CD7297B3370006D9BD3 /* libacme.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +209,7 @@
 			children = (
 				9A0C1638264A281D00B5CC33 /* libacme_posix.dylib */,
 				9A8E9DD7282A2F7E005FF778 /* libios_acme_posix.a */,
+				9AC14CDB297B3370006D9BD3 /* lib_acme_posix.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -200,7 +251,8 @@
 			isa = PBXGroup;
 			children = (
 				9A0C1798264A315100B5CC33 /* libacme.dylib */,
-				9A0C179A264A315100B5CC33 /* libios_acme.a */,
+				9A0C179A264A315100B5CC33 /* lib_acme.a */,
+				9AC14CDE297B3371006D9BD3 /* libacme copy.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -253,6 +305,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9AC14CBA297B3370006D9BD3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AC14CBB297B3370006D9BD3 /* mutex.h in Headers */,
+				9AC14CBC297B3370006D9BD3 /* _.h in Headers */,
+				9AC14CBD297B3370006D9BD3 /* pipe.h in Headers */,
+				9AC14CBE297B3370006D9BD3 /* exception_translator.h in Headers */,
+				9AC14CBF297B3370006D9BD3 /* file_memory_map.h in Headers */,
+				9AC14CC0297B3370006D9BD3 /* acme_path.h in Headers */,
+				9AC14CC1297B3370006D9BD3 /* node.h in Headers */,
+				9AC14CC2297B3370006D9BD3 /* acme_directory.h in Headers */,
+				9AC14CC3297B3370006D9BD3 /* exclusive.h in Headers */,
+				9AC14CC4297B3370006D9BD3 /* file_lock.h in Headers */,
+				9AC14CC5297B3370006D9BD3 /* acme_file.h in Headers */,
+				9AC14CC6297B3370006D9BD3 /* framework.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -292,13 +363,31 @@
 			productReference = 9A8E9DD7282A2F7E005FF778 /* libios_acme_posix.a */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
+		9AC14CB7297B3370006D9BD3 /* _acme_posix */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9AC14CD8297B3370006D9BD3 /* Build configuration list for PBXNativeTarget "_acme_posix" */;
+			buildPhases = (
+				9AC14CBA297B3370006D9BD3 /* Headers */,
+				9AC14CC7297B3370006D9BD3 /* Sources */,
+				9AC14CD6297B3370006D9BD3 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9AC14D9B297B362D006D9BD3 /* PBXTargetDependency */,
+			);
+			name = _acme_posix;
+			productName = acme_posix;
+			productReference = 9AC14CDB297B3370006D9BD3 /* lib_acme_posix.a */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		9A0C1630264A281D00B5CC33 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1410;
+				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					9A0C1637264A281D00B5CC33 = {
 						CreatedOnToolsVersion = 12.5;
@@ -325,6 +414,7 @@
 			projectRoot = "";
 			targets = (
 				9A0C1637264A281D00B5CC33 /* acme_posix */,
+				9AC14CB7297B3370006D9BD3 /* _acme_posix */,
 				9A8E9DBB282A2F7E005FF778 /* ios_acme_posix */,
 			);
 		};
@@ -338,11 +428,18 @@
 			remoteRef = 9A0C1797264A315100B5CC33 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9A0C179A264A315100B5CC33 /* libios_acme.a */ = {
+		9A0C179A264A315100B5CC33 /* lib_acme.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.dylib";
-			path = libios_acme.a;
+			path = lib_acme.a;
 			remoteRef = 9A0C1799264A315100B5CC33 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9AC14CDE297B3371006D9BD3 /* libacme copy.dylib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = "libacme copy.dylib";
+			remoteRef = 9AC14CDD297B3371006D9BD3 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -390,6 +487,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9AC14CC7297B3370006D9BD3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AC14CC8297B3370006D9BD3 /* acme_path.cpp in Sources */,
+				9AC14CC9297B3370006D9BD3 /* _.cpp in Sources */,
+				9AC14CCA297B3370006D9BD3 /* framework.cpp in Sources */,
+				9AC14CCB297B3370006D9BD3 /* acme_directory.cpp in Sources */,
+				9AC14CCC297B3370006D9BD3 /* _factory.cpp in Sources */,
+				9AC14CCD297B3370006D9BD3 /* list_serial_ports.cpp in Sources */,
+				9AC14CCE297B3370006D9BD3 /* mutex.cpp in Sources */,
+				9AC14CCF297B3370006D9BD3 /* exception_translator.cpp in Sources */,
+				9AC14CD0297B3370006D9BD3 /* pipe.cpp in Sources */,
+				9AC14CD1297B3370006D9BD3 /* acme_file.cpp in Sources */,
+				9AC14CD2297B3370006D9BD3 /* exclusive.cpp in Sources */,
+				9AC14CD3297B3370006D9BD3 /* file_memory_map.cpp in Sources */,
+				9AC14CD4297B3370006D9BD3 /* node.cpp in Sources */,
+				9AC14CD5297B3370006D9BD3 /* node_clang_callstack.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -402,6 +520,11 @@
 			isa = PBXTargetDependency;
 			name = ios_acme;
 			targetProxy = 9A8E9EF9282A3537005FF778 /* PBXContainerItemProxy */;
+		};
+		9AC14D9B297B362D006D9BD3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = _acme;
+			targetProxy = 9AC14D9A297B362D006D9BD3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -634,6 +757,30 @@
 			};
 			name = Release;
 		};
+		9AC14CD9297B3370006D9BD3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEAD_CODE_STRIPPING = YES;
+				EXECUTABLE_EXTENSION = "$(STATIC_LIBRARY_EXTENSION:default=a)";
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				PLATFORM_MODIFIER = macos;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		9AC14CDA297B3370006D9BD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEAD_CODE_STRIPPING = YES;
+				EXECUTABLE_EXTENSION = "$(STATIC_LIBRARY_EXTENSION:default=a)";
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				PLATFORM_MODIFIER = macos;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -660,6 +807,15 @@
 			buildConfigurations = (
 				9A8E9DD5282A2F7E005FF778 /* Debug */,
 				9A8E9DD6282A2F7E005FF778 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9AC14CD8297B3370006D9BD3 /* Build configuration list for PBXNativeTarget "_acme_posix" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9AC14CD9297B3370006D9BD3 /* Debug */,
+				9AC14CDA297B3370006D9BD3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
