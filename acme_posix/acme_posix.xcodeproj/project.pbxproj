@@ -583,6 +583,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(WorkspaceDir)/operating-system",
 					"$(WorkspaceDir)/operating-system/storage-$(PLATFORM_MODIFIER)/library",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
@@ -592,6 +593,15 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					"$(WorkspaceDir)/operating-system",
+					"$(WorkspaceDir)/operating-system/third-$(PLATFORM_MODIFIER)/include",
+					"$(WorkspaceDir)/operating-system/third-$(PLATFORM_MODIFIER)/third/include/include",
+					"$(WorkspaceDir)/operating-system/third-$(PLATFORM_MODIFIER)/third/include",
+					"$(WorkspaceDir)/source/port/include",
+					"$(WorkspaceDir)/source/port",
+					"$(WorkspaceDir)/source/app",
+				);
 				USER_HEADER_SEARCH_PATHS = (
 					.,
 					"$(WorkspaceDir)/source",
@@ -601,7 +611,6 @@
 					"$(WorkspaceDir)/operating-system",
 					"$(WorkspaceDir)/operating-system/operating-system-$(PLATFORM_MODIFIER)",
 					"$(WorkspaceDir)/operating-system/operating-system-$(PLATFORM_MODIFIER)/include",
-					"$(WorkspaceDir)/operating-system/operating-system-posix",
 					"$(WorkspaceDir)/source/port/include",
 					"$(WorkspaceDir)/source/port",
 					"$(WorkspaceDir)/operating-system/third-$(PLATFORM_MODIFIER)/third/include/include",
@@ -675,6 +684,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(WorkspaceDir)/operating-system",
 					"$(WorkspaceDir)/operating-system/storage-$(PLATFORM_MODIFIER)/library",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
@@ -683,6 +693,15 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					"$(WorkspaceDir)/operating-system",
+					"$(WorkspaceDir)/operating-system/third-$(PLATFORM_MODIFIER)/include",
+					"$(WorkspaceDir)/operating-system/third-$(PLATFORM_MODIFIER)/third/include/include",
+					"$(WorkspaceDir)/operating-system/third-$(PLATFORM_MODIFIER)/third/include",
+					"$(WorkspaceDir)/source/port/include",
+					"$(WorkspaceDir)/source/port",
+					"$(WorkspaceDir)/source/app",
+				);
 				USER_HEADER_SEARCH_PATHS = (
 					.,
 					"$(WorkspaceDir)/source",
@@ -692,7 +711,6 @@
 					"$(WorkspaceDir)/operating-system",
 					"$(WorkspaceDir)/operating-system/operating-system-$(PLATFORM_MODIFIER)",
 					"$(WorkspaceDir)/operating-system/operating-system-$(PLATFORM_MODIFIER)/include",
-					"$(WorkspaceDir)/operating-system/operating-system-posix",
 					"$(WorkspaceDir)/source/port/include",
 					"$(WorkspaceDir)/source/port",
 					"$(WorkspaceDir)/operating-system/third-$(PLATFORM_MODIFIER)/third/include/include",

@@ -2609,7 +2609,7 @@ namespace draw2d_xlib
 
          ::rectangle_i32 rectangleWindow;
 
-         puserinteraction->get_window_rect(rectangleWindow);
+         puserinteraction->window_rectangle(rectangleWindow);
 
          ::image_pointer pimage;
 

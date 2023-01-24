@@ -480,7 +480,7 @@ namespace windowing_xcb
 
 //    xcb_get_window_rect(display, oswindow->window(), rectangle);
 
-//    //r = oswindow->m_pimpl->m_puserinteraction->get_window_rect();
+//    //r = oswindow->m_pimpl->m_puserinteraction->window_rectangle();
 
 //    string strTopic = xcb_get_name(display, oswindow->window());
 
@@ -1286,7 +1286,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //   if (XGetWindowAttributes(pdisplay, window, &attr) == 0)
 //   {
 //
-//      windowing_output_debug_string("\n::get_client_rect 1.2 (xgetwindowattributes failed");
+//      windowing_output_debug_string("\n::client_rectangle 1.2 (xgetwindowattributes failed");
 //
 //      return false;
 //
@@ -1300,7 +1300,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //   prectangle->bottom = prectangle->top + attr.height;
 //
-//   windowing_output_debug_string("\n::get_client_rect 2");
+//   windowing_output_debug_string("\n::client_rectangle 2");
 //
 //   return true;
 //

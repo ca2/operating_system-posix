@@ -201,8 +201,8 @@ namespace windowing_xcb
 
       void xcb_post_message(MESSAGE & msg);
       void post_ui_message(const MESSAGE & message);
-      //virtual ::e_status get_window_rect(RECTANGLE_I32 * prectangle);
-      //virtual ::e_status get_client_rect(RECTANGLE_I32 * prectangle);
+      //virtual ::e_status window_rectangle(RECTANGLE_I32 * prectangle);
+      //virtual ::e_status client_rectangle(RECTANGLE_I32 * prectangle);
       void mq_erase_window_from_all_queues( );
 
 

@@ -352,7 +352,7 @@ namespace windowing_x11
 
          rectangle_i32 cry;
 
-         x11_window()->get_window_rect(cry);
+         x11_window()->window_rectangle(cry);
 
          x11_window()->x11_windowing()->_defer_size_message(x11_window()->m_oswindow, cry.size());
 
