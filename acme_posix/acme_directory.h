@@ -1,4 +1,4 @@
-// From acme/filesystem/file/dir.cpp by camilo 
+﻿// From acme/filesystem/file/dir.cpp by camilo 
 // on 2021-08-09 03:20 BRT
 // <3ThomasBorregaardSørensen!!
 #pragma once
@@ -59,8 +59,7 @@ namespace acme_posix
       ::file::path archive() override;
 
       //int make_path(const char * psz) override;
-
-      string get_current() override;
+      ::file::path home()override;string get_current()override;
 
       void change_current(const ::scoped_string & scopedstr) override;
 
