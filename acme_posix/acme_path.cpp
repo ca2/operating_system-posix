@@ -1,4 +1,4 @@
-/*****<3ThomasBorregaardSørensen!!Created by camilo*/
+﻿/*****<3ThomasBorregaardSørensen!!Created by camilo*/
 // From acme_posix/acme_file.h
 // on 2021-08-12
 // 18:20 BRT
@@ -75,6 +75,27 @@ namespace acme_posix
       ::free(pszRealPath);
 
       return filepath;
+
+   }
+
+
+   ::file::path acme_file::get_absolute_path(const ::scoped_string& scopedstr)
+   {
+
+      ::file::path path(scopedstr);
+
+      char* full_path = realpath(scopedstr.c_str(), nullptr);
+
+      if (full_path)
+      {
+
+         path = ::string(full_path);
+
+         free(full_path);
+
+      }
+
+      return path;
 
    }
 

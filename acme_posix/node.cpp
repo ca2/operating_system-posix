@@ -1,4 +1,4 @@
-//
+﻿//
 // Created by camilo on 19/01/2021. --<33ThomasBS!!
 //
 #include "framework.h"
@@ -1137,6 +1137,11 @@ namespace acme_posix
 
    }
 
+
+   ::file::path node::library_file_name(const ::string& str)
+   {
+      return "lib" + str + ".so";
+   }
 
 } // namespace acme_posix
 
