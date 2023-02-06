@@ -1,4 +1,4 @@
-﻿// From acme/filesystem/file/dir.cpp by camilo 
+// From acme/filesystem/file/dir.cpp by camilo 
 // on 2021-08-09 03:19 BRT
 // <3ThomasBorregaardSørensen!!
 #include "framework.h"
@@ -42,6 +42,9 @@ char * get_current_dir_name();
 #include <unistd.h>
 char * get_current_dir_name();
 #endif
+
+
+#include <pwd.h>
 
 
 namespace acme_posix
@@ -447,11 +450,14 @@ namespace acme_posix
       return home() / "archive";
 
 }::file::path acme_directory::home(){
-      ::file::path res;//Unix sys are generic ...
+      ::file::path path;//Unix sys are generic ...
    const char* homedir{ nullptr };
    if ((homedir = getenv("HOME")) == nullptr)
       homedir = getpwuid(getuid())->pw_dir;
-   res = ::string(homedir);
+   path = homedir;
+   
+   return path;
+   
 }string acme_directory::get_current(){
 
       auto pszCurrentDirName = get_current_dir_name();

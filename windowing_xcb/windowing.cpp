@@ -2168,7 +2168,7 @@ namespace windowing_xcb
 
       auto puser = psession->user();
 
-      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing1()->m_pWindowing4;
+      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing4;
 
       pwindowing->register_extended_event_listener(pmatterListener, true, false);
 
@@ -2195,7 +2195,7 @@ namespace windowing_xcb
 
       auto puser = psession->user();
 
-      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing1()->m_pWindowing4;
+      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing4;
 
       //o estatus =
       //

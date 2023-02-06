@@ -70,7 +70,7 @@ namespace windowing_xcb
 
       auto puser = psession->user();
 
-      auto pwindowing = puser->windowing1();
+      auto pwindowing = puser->windowing();
 
       auto pdisplay = (windowing_xcb::display *) pwindowing->display()->m_pDisplay;
 

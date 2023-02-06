@@ -185,7 +185,7 @@ namespace node_gnome
 //
 //      auto puser = psession->user();
 //
-//      auto pwindowing = puser->windowing1();
+//      auto pwindowing = puser->windowing();
 //
 //      if(!pwindowing->xcb_message_loop_step())
 //      {

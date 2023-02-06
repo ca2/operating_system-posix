@@ -242,7 +242,7 @@ return false;
 
       auto puser = psession->user();
 
-      auto pwindowing = puser->windowing1();
+      auto pwindowing = puser->windowing();
 
       pwindowing->windowing_send([this, pimage, &bOk]()
                 {
