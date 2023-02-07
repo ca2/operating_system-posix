@@ -5,6 +5,7 @@
 #include "acme/constant/id.h"
 #include "acme/operating_system/ansi/pmutex_lock.h"
 #include "acme/parallelization/synchronous_lock.h"
+#include "acme/platform/acme.h"
 #include "apex/platform/system.h"
 
 
@@ -32,7 +33,7 @@ namespace node_gtk
       if (psz == nullptr)
       {
 
-         return false;
+         return ::error_failed;
 
       }
 
@@ -58,7 +59,7 @@ namespace node_gtk
 
       }
 
-      return true;
+      return ::success;
 
    }
 
@@ -89,7 +90,7 @@ namespace node_gtk
       if (!os_defer_init_gtk(::acme::acme::g_p->m_psubsystem->acmesystem()))
       {
 
-         return false;
+         return ::error_failed;
 
       }
 
@@ -130,7 +131,7 @@ namespace node_gtk
 
       ::g_settings_sync();
 
-      return true;
+      return ::success;
 
    }
 
@@ -237,7 +238,7 @@ namespace node_gtk
 
       g_signal_connect (g_pactionWallpaper, "notify::state", G_CALLBACK(wallpaper_change_notification), pnode);
 
-      return true;
+      return ::success;
 
    }
 

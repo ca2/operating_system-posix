@@ -589,7 +589,7 @@ namespace windowing_x11
 
       }
 
-      Window window = (Window) ppropertyobject->payload("window").iptr();
+      Window window = (Window) ppropertyobject->payload("window").as_iptr();
 
       auto pwindow = _window(window);
 
