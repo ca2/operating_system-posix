@@ -500,7 +500,7 @@ _libsn_start_context();
 
       auto puser = psession->user();
 
-      auto pwindowing = (::windowing_x11::windowing *) puser->windowing1()->m_pWindowing4;
+      auto pwindowing = (::windowing_x11::windowing *) puser->windowing()->m_pWindowing4;
 
       pwindowing->x11_register_extended_event_listener(pmatter, true, false);
 
@@ -520,7 +520,7 @@ _libsn_start_context();
 
       auto puser = psession->user();
 
-      auto pwindowing = (::windowing_x11::windowing *) puser->windowing1()->m_pWindowing4;
+      auto pwindowing = (::windowing_x11::windowing *) puser->windowing()->m_pWindowing4;
 
       pwindowing->x11_register_extended_event_listener(pmatter, false, true);
 
