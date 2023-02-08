@@ -155,10 +155,10 @@ namespace node_gtk
 
       m_pGtkSettingsDefault = nullptr;
 
-      for(auto & pinfo : m_mapGDesktopAppInfo.values())
+      for(auto & pair : m_mapGDesktopAppInfo)
       {
 
-         g_object_unref(pinfo);
+         g_object_unref(pair.m_element2);
 
       }
 

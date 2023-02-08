@@ -2233,11 +2233,11 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
       if (status != 0)
       {
 
-         return false;
+         return ::error_failed;
 
       }
 
-      return true;
+      return ::success;
 
    }
 
@@ -2374,7 +2374,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
       if (::is_null(pthread))
       {
 
-         return false;
+         return ::error_failed;
 
       }
 
@@ -2386,7 +2386,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
          if (message.m_atom == e_message_quit)
          {
 
-            return false;
+            return ::error_failed;
 
          }
 
@@ -2397,7 +2397,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
       if (pmessagequeue == nullptr)
       {
 
-         return false;
+         return error_failed;
 
       }
 
@@ -2427,7 +2427,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
       pmessagequeue->m_eventNewMessage.set_event();
 
-      return true;
+      return ::success;
 
    }
 
@@ -2440,14 +2440,14 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
       if (pinteraction == nullptr)
       {
 
-         return false;
+         return error_failed;
 
       }
 
       if (pinteraction->get_app() == nullptr)
       {
 
-         return false;
+         return error_failed;
 
       }
 
@@ -2458,7 +2458,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
       if (pmq == nullptr)
       {
 
-         return false;
+         return error_failed;
 
       }
 
@@ -2471,7 +2471,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
                                        });
 
-      return true;
+      return ::success;
 
    }
 
@@ -2901,7 +2901,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
    ::e_status window::window_rectangle(RECTANGLE_I32 * prectangle)
    {
 
-      return x11_get_window_rect(prectangle);
+      return x11_get_window_rect(prectangle) ? ::success : ::error_failed;
 
    }
 
@@ -2917,7 +2917,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
    ::e_status window::client_rectangle(RECTANGLE_I32 * prectangle)
    {
 
-      return x11_get_client_rect(prectangle);
+      return x11_get_client_rect(prectangle) ? ::success : error_failed;
 
    }
 

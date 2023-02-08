@@ -31,6 +31,7 @@
 #include "windowing.h"
 #include "window.h"
 #include "display.h"
+#include "aura/message/user.h"
 #include "aura/user/user/interaction_impl.h"
 #include "aura/platform/session.h"
 #include "aura/platform/application.h"
@@ -1961,6 +1962,8 @@ else if(detail == 3)
 
       auto oswindow = m_pdisplay->_window(e.xany.window);
 
+      auto pwindow = oswindow;
+
 //      if (oswindow == nullptr)
 //      {
 //
@@ -2144,12 +2147,24 @@ else if(detail == 3)
 
                }
 
-               msg.m_atom = e_message_mouse_move;
-               msg.wParam = wparam;
-               msg.lParam = __MAKE_LONG(e.xmotion.x_root, e.xmotion.y_root);
-               msg.time = e.xmotion.time;
+               //msg.m_atom = e_message_mouse_move;
+               //msg.wParam = wparam;
+               //msg.lParam = __MAKE_LONG(e.xmotion.x_root, e.xmotion.y_root);
+               //msg.time = e.xmotion.time;
 
-               post_ui_message(msg);
+               //post_ui_message(msg);
+
+               auto pmouse = pwindow->__create_new<::message::mouse>();
+
+               pmouse->m_point.x = e.xmotion.x_root;
+
+               pmouse->m_point.x = e.xmotion.y_root;
+
+               pmouse->m_time.m_iSecond = e.xmotion.time / 1'000;
+
+               pmouse->m_time.m_iNanosecond = (e.xmotion.time % 1'000) * 1_gb;
+
+               post_ui_message(pmouse);
 
             }
 
@@ -2873,7 +2888,13 @@ else if(detail == 3)
 
                   auto pkey = __create_new<::message::key>();
 
-                  pkey->set(oswindow, oswindow, e_message_text_composition, 0, 0);
+                  pkey->m_oswindow = oswindow;
+
+                  pkey->m_pwindow = oswindow;
+
+                  //pkey->set(oswindow, oswindow, e_message_text_composition, 0, 0);
+
+                  pkey->m_atom = e_message_text_composition;
 
                   pkey->m_strText = strText;
 
