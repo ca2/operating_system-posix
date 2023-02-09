@@ -207,7 +207,11 @@ namespace multimedia
          //string strHw = "hw:0,0";
          string strHw = "default";
 
-         if ((err = ::snd_pcm_open(&m_ppcm, strHw, stream_type, SND_PCM_NONBLOCK | SND_PCM_ASYNC)) < 0)
+         //if ((err = ::snd_pcm_open(&m_ppcm, strHw, stream_type, SND_PCM_NONBLOCK | SND_PCM_ASYNC)) < 0)
+         //if ((err = ::snd_pcm_open(&m_ppcm, strHw, stream_type, SND_PCM_NONBLOCK)) < 0)
+         if ((err = ::snd_pcm_open(&m_ppcm, strHw, stream_type, 0)) < 0)
+         //if ((err = ::snd_pcm_open(&m_ppcm, strHw, stream_type, SND_PCM_ASYNC)) < 0)
+         //if ((err = ::snd_pcm_open(&m_ppcm, strHw, stream_type, 0)) < 0)
          {
 
             ERROR("cannot open audio device " << strHw << " (" << snd_strerror(err) << ")");
@@ -303,6 +307,8 @@ namespace multimedia
 
          }
 
+         TRACE("snd_pcm_hw_params_get_periods_min: " << uPeriodMin << " direction " << dirPeriodMin);
+
          unsigned int uPeriodMax = 0;
 
          int dirPeriodMax = 0;
@@ -314,28 +320,13 @@ namespace multimedia
 
             const char *pszError = snd_strerror(err);
 
-            ERROR("snd_pcm_hw_params_get_period_size failed: " << pszError);
+            ERROR("snd_pcm_hw_params_get_periods_max failed: " << pszError);
 
             return error_failed;
 
          }
 
-         m_iBufferCount = maximum(m_iBufferCount, uPeriodMin);
-
-         m_iBufferCount = minimum(m_iBufferCount, uPeriodMax);
-
-         err = snd_pcm_hw_params_set_periods(m_ppcm, m_phwparams, m_iBufferCount, 0);
-
-         if (err < 0)
-         {
-
-            const char *pszError = snd_strerror(err);
-
-            ERROR("snd_pcm_hw_params_get_periods failed: " << pszError);
-
-            return error_failed;
-
-         }
+         TRACE("snd_pcm_hw_params_get_periods_max: " << uPeriodMax << " direction " << dirPeriodMax);
 
          snd_pcm_uframes_t uPeriodSizeMin = 0;
 
@@ -354,6 +345,8 @@ namespace multimedia
 
          }
 
+         TRACE("snd_pcm_hw_params_get_period_size_min: " << uPeriodSizeMin << " direction " << dirPeriodSizeMin);
+
          snd_pcm_uframes_t uPeriodSizeMax = 0;
 
          int dirPeriodSizeMax = 0;
@@ -371,11 +364,102 @@ namespace multimedia
 
          }
 
+         TRACE("snd_pcm_hw_params_get_period_size_max: " << uPeriodSizeMax << " direction " << dirPeriodSizeMax);
+
+         TRACE("Buffer size hint in _µs " << m_timeBufferSizeHint.integral_microsecond());
+
+         int iFullFrameCount1 = m_timeBufferSizeHint.floating_second() * (double)(uiFreq);
+
+         TRACE("iFullFrameCount1 " << iFullFrameCount1);
+
+         int iBufferCount1 = dirPeriodMax < 0 ? uPeriodMax - 1: uPeriodMax;
+
+         int iPeriodSizeMin1 = uPeriodSizeMin;
+
+         int iPeriodSizeMax1 = dirPeriodSizeMax < 0 ? uPeriodSizeMax - 1 : uPeriodSizeMax;
+
+         m_frameCount = minimum(iPeriodSizeMax1, maximum(iPeriodSizeMin1, iFullFrameCount1 / iBufferCount1));
+
+         TRACE("m_frameCount " << m_frameCount);
+
+         m_iBufferCount = iFullFrameCount1 / m_frameCount;
+
+         TRACE("pre buffer count " << m_iBufferCount);
+
+         m_iBufferCount = maximum(m_iBufferCount, uPeriodMin);
+
+         m_iBufferCount = minimum(m_iBufferCount, uPeriodMax);
+
+         err = snd_pcm_hw_params_set_periods(m_ppcm, m_phwparams, m_iBufferCount, 0);
+
+         if (err < 0)
+         {
+
+            const char *pszError = snd_strerror(err);
+
+            ERROR("snd_pcm_hw_params_get_periods failed: " << pszError);
+
+            return error_failed;
+
+         }
+
+         int dirGetPeriods = 0;
+
+         unsigned int uBufferCount = 0;
+
+         err = snd_pcm_hw_params_get_periods(m_phwparams, &uBufferCount, &dirGetPeriods);
+
+         if (err < 0)
+         {
+
+            const char *pszError = snd_strerror(err);
+
+            ERROR("snd_pcm_hw_params_get_periods failed: " << pszError);
+
+            return error_failed;
+
+         }
+
+         TRACE("snd_pcm_hw_params_get_periods: " << uBufferCount << " direction " << dirGetPeriods);
+
+         m_iBufferCount = uBufferCount;
+
          m_frameCount = maximum(m_frameCount, uPeriodSizeMin);
 
-         m_frameCount = minimum(m_frameCount, uPeriodSizeMax / m_iBufferCount);
+         //m_frameCount = minimum(m_frameCount, uPeriodSizeMax / m_iBufferCount);
 
-         err = snd_pcm_hw_params_set_period_size(m_ppcm, m_phwparams, m_frameCount, 0);
+         m_frameCount = minimum(m_frameCount, uPeriodSizeMax);
+
+         int dirSetPeriodSize = 0;
+
+         if(m_frameCount == uPeriodSizeMin)
+         {
+
+            dirSetPeriodSize = dirPeriodSizeMin;
+
+         }
+
+         if(m_frameCount == uPeriodSizeMax)
+         {
+
+            dirSetPeriodSize = dirPeriodSizeMax;
+
+         }
+
+         err = snd_pcm_hw_params_set_period_size(m_ppcm, m_phwparams, m_frameCount, dirSetPeriodSize);
+
+         if (err < 0)
+         {
+
+            const char *pszError = snd_strerror(err);
+
+            ERROR("snd_pcm_hw_params_set_period_size(" << m_frameCount << ") failed: " << pszError);
+
+            return error_failed;
+
+         }
+
+         err = snd_pcm_hw_params_get_period_size(m_phwparams, &m_frameCount, 0);
 
          if (err < 0)
          {
@@ -387,6 +471,8 @@ namespace multimedia
             return error_failed;
 
          }
+
+         TRACE("snd_pcm_hw_params_get_period_size: " << m_frameCount);
 
          //m_framesPeriodSize = size;
 
@@ -419,86 +505,94 @@ namespace multimedia
 
          snd_pcm_sw_params_malloc(&m_pswparams);
 
-         err = snd_pcm_sw_params_current(m_ppcm, m_pswparams);
-
-         if (err < 0)
-         {
-
-            ERROR("Unable to determine current m_pswparams: " << snd_strerror(err));
-
-            return error_failed;
-
-         }
-
-         err = snd_pcm_sw_params_set_tstamp_mode(m_ppcm, m_pswparams, SND_PCM_TSTAMP_ENABLE);
-
-         if (err < 0)
-         {
-
-            ERROR("Unable to set tstamp mode : " << snd_strerror(err));
-
-            return error_failed;
-
-         }
-
-         err = snd_pcm_sw_params_set_tstamp_type(m_ppcm, m_pswparams, SND_PCM_TSTAMP_TYPE_MONOTONIC);
-
-         if (err < 0)
-         {
-
-            ERROR("Unable to set tstamp type : " << snd_strerror(err));
-
-            return error_failed;
-
-         }
-
-         err = snd_pcm_sw_params_set_start_threshold(m_ppcm, m_pswparams, m_frameCount * m_iBufferCount);
-
-         if (err < 0)
-         {
-
-            ERROR("Unable to set start threshold type : " << snd_strerror(err));
-
-            return error_failed;
-
-         }
-
-         snd_pcm_uframes_t u1 = 0;
-
-//         err = snd_pcm_sw_params_get_stop_threshold(m_ppcm, m_pswparams, &u1);
+//         err = snd_pcm_sw_params_current(m_ppcm, m_pswparams);
 //
 //         if (err < 0)
 //         {
 //
-//            printf("Unable to set start threshold type : %s\n", snd_strerror(err));
+//            ERROR("Unable to determine current m_pswparams: " << snd_strerror(err));
 //
 //            return error_failed;
 //
 //         }
 
-         snd_pcm_uframes_t u2 = 1;
+//         err = snd_pcm_sw_params_set_tstamp_mode(m_ppcm, m_pswparams, SND_PCM_TSTAMP_ENABLE);
+//
+//         if (err < 0)
+//         {
+//
+//            ERROR("Unable to set tstamp mode : " << snd_strerror(err));
+//
+//            return error_failed;
+//
+//         }
+//
+//         err = snd_pcm_sw_params_set_tstamp_type(m_ppcm, m_pswparams, SND_PCM_TSTAMP_TYPE_GETTIMEOFDAY);
+//
+//         if (err < 0)
+//         {
+//
+//            ERROR("Unable to set tstamp type : " << snd_strerror(err));
+//
+//            return error_failed;
+//
+//         }
 
-         err = snd_pcm_sw_params_set_stop_threshold(m_ppcm, m_pswparams, u2);
+         //snd_pcm_uframes_t uFrameCountStartThreshold = m_frameCount * (m_iBufferCount - 1);
 
-         if (err < 0)
-         {
-
-            ERROR("Unable to set start threshold type : " << snd_strerror(err));
-
-            return error_failed;
-
-         }
-
-         err = snd_pcm_sw_params(m_ppcm, m_pswparams);
-
-         if (err < 0)
-         {
-
-            ERROR("Unable to set swparams_p : " << snd_strerror(err));
-
-            return error_failed;
-
-         }
+//         snd_pcm_uframes_t uFrameCountStartThreshold = m_frameCount;
+//
+//         err = snd_pcm_sw_params_set_start_threshold(m_ppcm, m_pswparams, uFrameCountStartThreshold);
+//
+//         if (err < 0)
+//         {
+//
+//            ERROR("Unable to set start threshold type : " << snd_strerror(err));
+//
+//            return error_failed;
+//
+//         }
+//
+//         TRACE("snd_pcm_sw_params_set_start_threshold " << uFrameCountStartThreshold);
+//
+////         snd_pcm_uframes_t u1 = 0;
+//
+////         err = snd_pcm_sw_params_get_stop_threshold(m_ppcm, m_pswparams, &u1);
+////
+////         if (err < 0)
+////         {
+////
+////            printf("Unable to set start threshold type : %s\n", snd_strerror(err));
+////
+////            return error_failed;
+////
+////         }
+//
+//         snd_pcm_uframes_t uFrameCountStopThreshold = m_frameCount;
+//
+//         err = snd_pcm_sw_params_set_stop_threshold(m_ppcm, m_pswparams, uFrameCountStopThreshold);
+//
+//         if (err < 0)
+//         {
+//
+//            ERROR("Unable to set stop threshold : " << snd_strerror(err));
+//
+//            return error_failed;
+//
+//         }
+//
+//         TRACE("snd_pcm_sw_params_set_stop_threshold " << uFrameCountStopThreshold);
+//
+//         err = snd_pcm_sw_params(m_ppcm, m_pswparams);
+//
+//         if (err < 0)
+//         {
+//
+//            ERROR("Unable to set swparams_p : " << snd_strerror(err));
+//
+//            return error_failed;
+//
+//         }
 
 
 //         int dir = 0;
@@ -540,6 +634,62 @@ namespace multimedia
          }
 
          return success;
+
+      }
+
+
+      void snd_pcm::print_snd_pcm_status()
+      {
+
+         {
+
+            snd_pcm_status_t *status;
+
+            snd_pcm_status_alloca (&status);
+            snd_pcm_status(m_ppcm, status);
+            int iState = snd_pcm_status_get_state(status);
+
+            if (iState == SND_PCM_STATE_RUNNING)
+            {
+
+               TRACE("SND_PCM_STATE_RUNNING");
+
+            }
+            else if (iState == SND_PCM_STATE_XRUN)
+            {
+
+               TRACE("SND_PCM_STATE_XRUN");
+
+            }
+            else if (iState == SND_PCM_STATE_DRAINING)
+            {
+
+               TRACE("SND_PCM_STATE_DRAINING");
+
+            }
+            else if (iState == SND_PCM_STATE_PREPARED)
+            {
+
+               TRACE("SND_PCM_STATE_PREPARED");
+
+            }
+            else if (iState == SND_PCM_STATE_SETUP)
+            {
+
+               TRACE("SND_PCM_STATE_SETUP");
+
+            }
+            else if (iState == SND_PCM_STATE_OPEN)
+            {
+
+               TRACE("SND_PCM_STATE_OPEN");
+
+            }
+
+            auto avail = snd_pcm_status_get_avail(status);
+
+            TRACE("avail:" << avail);
+         }
 
       }
 

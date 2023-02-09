@@ -35,6 +35,9 @@ namespace multimedia
          ::e_status snd_pcm_close();
 
 
+         void print_snd_pcm_status();
+
+
       };
 
 

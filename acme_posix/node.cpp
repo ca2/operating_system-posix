@@ -1694,10 +1694,13 @@ namespace acme_posix
    }
 
 
-//   ::file::path node::library_file_name(const ::string& str)
-//   {
-//      return "lib" + str + ".so";
-//   }
+   ::file::path node::library_file_name(const ::scoped_string& scopedstr)
+   {
+
+      return "lib" + scopedstr + ".so";
+
+   }
+
 
 } // namespace acme_posix
 

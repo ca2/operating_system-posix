@@ -25,8 +25,11 @@ namespace multimedia
          bool                    m_bStarted;
          ::u64                   m_uStart;
          snd_pcm_status_t *      m_pstatus;
-         timeval                 m_timevalStart;
+         //timeval                 m_timevalStart;
+         class ::time            m_timeStart;
+         //::int_array             m_iaSent;
 
+         //snd_async_handler_t *   m_pcm_callback;
 
          wave_out();
          virtual ~wave_out();
@@ -60,6 +63,10 @@ namespace multimedia
          virtual int defer_underrun_recovery(int err);
 
          class ::time out_get_time_for_synch();
+
+         //void on_my_callback();
+
+         //void send_buffer(int iBuffer);
 
 
       };

@@ -10,7 +10,6 @@
 
 long long timestamp2ns(snd_htimestamp_t t)
 {
-
    long long nsec;
 
    nsec = t.tv_sec * 1000000000;
@@ -45,16 +44,16 @@ namespace multimedia
       wave_out::wave_out()
       {
 
-         m_bDirectOutput      = false;
-         m_eoutstate             = ::wave::e_out_state_initial;
-         m_pthreadCallback    = NULL;
-         m_estatusWave            = success;
-         m_bWrite             = false;
-         m_bStarted           = false;
+         m_bDirectOutput = false;
+         m_eoutstate = ::wave::e_out_state_initial;
+         m_pthreadCallback = NULL;
+         m_estatusWave = success;
+         m_bWrite = false;
+         m_bStarted = false;
 
-         m_pstatus            = NULL;
+         m_pstatus = NULL;
 
-         snd_pcm_status_malloc (&m_pstatus);
+         snd_pcm_status_malloc(&m_pstatus);
 
       }
 
@@ -62,12 +61,12 @@ namespace multimedia
       wave_out::~wave_out()
       {
 
-         snd_pcm_status_free (m_pstatus);
+         snd_pcm_status_free(m_pstatus);
 
       }
 
 
-      void wave_out::install_message_routing(::channel * pchannel)
+      void wave_out::install_message_routing(::channel *pchannel)
       {
 
          ::wave::out::install_message_routing(pchannel);
@@ -79,7 +78,7 @@ namespace multimedia
       {
 
          //if(!
-          ::wave::out::init_task();
+         ::wave::out::init_task();
 
 //         {
 //
@@ -102,14 +101,16 @@ namespace multimedia
       }
 
 
-      void wave_out::out_open_ex(thread * pthreadCallback, ::u32 uiSamplesPerSec, ::u32 uiChannelCount, ::u32 uiBitsPerSample, ::wave::enum_purpose epurpose)
+      void
+      wave_out::out_open_ex(thread *pthreadCallback, ::u32 uiSamplesPerSec, ::u32 uiChannelCount, ::u32 uiBitsPerSample,
+                            ::wave::enum_purpose epurpose)
       {
 
          synchronous_lock sl(synchronization());
 
          TRACE("multimedia::audio_alsa::out_open_ex");
 
-         if(m_ppcm != NULL && m_eoutstate != ::wave::e_out_state_initial)
+         if (m_ppcm != NULL && m_eoutstate != ::wave::e_out_state_initial)
          {
 
             ///return success;
@@ -122,12 +123,14 @@ namespace multimedia
 
 //         m_iBufferCountEffective = 4;
 
-         if(epurpose == ::wave::e_purpose_playback)
+         if (epurpose == ::wave::e_purpose_playback)
          {
 
-  //          m_dwPeriodTime =  6 * 1000; /* period time in us */
+            //          m_dwPeriodTime =  6 * 1000; /* period time in us */
 
             //m_iBufferCountEffective = 16;
+
+            m_timeBufferSizeHint = 400_ms;
 
             m_frameCount = uiSamplesPerSec / 20;
 
@@ -138,6 +141,8 @@ namespace multimedia
          }
          else
          {
+
+            m_timeBufferSizeHint = 100_ms;
 
             m_frameCount = 1024;
 
@@ -157,18 +162,20 @@ namespace multimedia
 
          ASSERT(m_eoutstate == ::wave::e_out_state_initial);
 
-         m_pwaveformat->m_waveformat.wFormatTag        = 0;
-         m_pwaveformat->m_waveformat.nChannels         = (::u16) uiChannelCount;
-         m_pwaveformat->m_waveformat.nSamplesPerSec    = uiSamplesPerSec;
-         m_pwaveformat->m_waveformat.wBitsPerSample    = (::u16) uiBitsPerSample;
-         m_pwaveformat->m_waveformat.nBlockAlign       = m_pwaveformat->m_waveformat.wBitsPerSample * m_pwaveformat->m_waveformat.nChannels / 8;
-         m_pwaveformat->m_waveformat.nAvgBytesPerSec   = m_pwaveformat->m_waveformat.nSamplesPerSec * m_pwaveformat->m_waveformat.nBlockAlign;
+         m_pwaveformat->m_waveformat.wFormatTag = 0;
+         m_pwaveformat->m_waveformat.nChannels = (::u16) uiChannelCount;
+         m_pwaveformat->m_waveformat.nSamplesPerSec = uiSamplesPerSec;
+         m_pwaveformat->m_waveformat.wBitsPerSample = (::u16) uiBitsPerSample;
+         m_pwaveformat->m_waveformat.nBlockAlign =
+                 m_pwaveformat->m_waveformat.wBitsPerSample * m_pwaveformat->m_waveformat.nChannels / 8;
+         m_pwaveformat->m_waveformat.nAvgBytesPerSec =
+                 m_pwaveformat->m_waveformat.nSamplesPerSec * m_pwaveformat->m_waveformat.nBlockAlign;
          //m_pwaveformat->cbSize            = 0;
 
-         if(!(m_estatusWave = this->snd_pcm_open(SND_PCM_STREAM_PLAYBACK)))
+         if (!(m_estatusWave = this->snd_pcm_open(SND_PCM_STREAM_PLAYBACK)))
          {
 
-             throw ::exception(m_estatusWave);
+            throw ::exception(m_estatusWave);
 
          }
 
@@ -183,9 +190,13 @@ namespace multimedia
 
 //         m_uiBufferTime = m_framesBuffer * 1000 * 1000 / uiSamplesPerSec;
 
-         printf("snd_pcm_frames_to_bytes %" PRIu64 "\n", m_frameCount);
+         TRACE("frame_count : " << m_frameCount);
 
          ::u32 uBufferSize = snd_pcm_frames_to_bytes(m_ppcm, m_frameCount);
+
+         TRACE("uBufferSize in bytes : " << uBufferSize);
+
+         TRACE("buffer count : " << m_iBufferCount);
 
          out_get_buffer()->PCMOutOpen(this, uBufferSize, m_iBufferCount, 128, m_pwaveformat, m_pwaveformat);
 
@@ -193,66 +204,124 @@ namespace multimedia
 
 //         m_pprebuffer->SetMinL1BufferCount(out_get_buffer()->GetBufferCount());
 
-         int err;
+//         int err;
+//
+//         if((err = snd_pcm_sw_params_current(m_ppcm, m_pswparams)) < 0)
+//         {
+//
+//            FORMATTED_TRACE("unable to determine current m_pswparams for playback: %s\n", snd_strerror(err));
+//
+//            throw ::exception(error_failed);
+//
+//         }
+//
+//         int errSet, errSave;
+//
+//         errSet = 0;
+//         errSave = 0;
+//
+//         snd_pcm_sframes_t framesThreshold = (m_iBufferCount - 1) * m_frameCount;
+//
+//         // start the transfer when the buffer is almost full:
+//         if((errSet = snd_pcm_sw_params_set_start_threshold(m_ppcm, m_pswparams, framesThreshold)) < 0
+//            || (errSave = snd_pcm_sw_params(m_ppcm, m_pswparams)) < 0)
+//         {
+//
+//            FORMATTED_TRACE("unable to set start threshold mode for playback: %s\n", snd_strerror(err));
+//
+//         }
+//
+//         if((err = snd_pcm_sw_params_current(m_ppcm, m_pswparams)) < 0)
+//         {
+//
+//            FORMATTED_TRACE("unable to determine current m_pswparams for playback (2): %s\n", snd_strerror(err));
+//
+//            throw ::exception(error_failed);
+//
+//         }
+//
+//         errSet = 0;
+//         errSave = 0;
+//
+//         // allow the transfer when at least m_framesPeriodSize samples can be processed
+//         if((err = snd_pcm_sw_params_set_avail_min(m_ppcm, m_pswparams, m_frameCount)) < 0
+//            || ((errSave = snd_pcm_sw_params(m_ppcm, m_pswparams)) < 0))
+//         {
+//
+//            FORMATTED_TRACE("unable to set avail min for playback: %s\n", snd_strerror(err));
+//
+//         }
+//
+//         if((err = snd_pcm_sw_params_current(m_ppcm, m_pswparams)) < 0)
+//         {
+//
+//            FORMATTED_TRACE("unable to determine current m_pswparams for playback (3): %s\n", snd_strerror(err));
+//
+//            throw ::exception(error_failed);
+//
+//         }
+//
+//         errSet = 0;
+//         errSave = 0;
+//
+//         if((err = snd_pcm_sw_params_set_tstamp_mode(m_ppcm, m_pswparams, SND_PCM_TSTAMP_ENABLE)) < 0
+//            || (errSave = snd_pcm_sw_params(m_ppcm, m_pswparams)) < 0
+//                 )
+//         {
+//
+//            FORMATTED_TRACE("unable to set time stamp mode: %s\n", snd_strerror(err));
+//
+//         }
+//
+//         if((err = snd_pcm_sw_params_current(m_ppcm, m_pswparams)) < 0)
+//         {
+//
+//            FORMATTED_TRACE("unable to determine current m_pswparams for playback (4): %s\n", snd_strerror(err));
+//
+//            throw ::exception(error_failed);
+//
+//         }
+//
+//         errSet = 0;
+//         errSave = 0;
+//
+//         if((err = snd_pcm_sw_params_set_tstamp_type(m_ppcm, m_pswparams,SND_PCM_TSTAMP_TYPE_GETTIMEOFDAY)) <0
+//            || (errSave = snd_pcm_sw_params(m_ppcm, m_pswparams)) < 0
+//                 )
+//         {
+//
+//            FORMATTED_TRACE("unable to set time stamp type (SND_PCM_TSTAMP_TYPE_GETTIMEOFDAY): %s\n", snd_strerror(err));
+//
+//            if((err = snd_pcm_sw_params_current(m_ppcm, m_pswparams)) < 0)
+//            {
+//
+//               FORMATTED_TRACE("unable to determine current m_pswparams for playback (3): %s\n", snd_strerror(err));
+//
+//               throw ::exception(error_failed);
+//
+//            }
+//
+//            if((err = snd_pcm_sw_params_set_tstamp_type(m_ppcm, m_pswparams,SND_PCM_TSTAMP_TYPE_MONOTONIC)) <0
+//               || (errSave = snd_pcm_sw_params(m_ppcm, m_pswparams)) < 0
+//                    )
+//            {
+//
+//               FORMATTED_TRACE("unable to set time stamp type (SND_PCM_TSTAMP_TYPE_MONOTONIC): %s\n", snd_strerror(err));
+//
+//            }
+//
+//         }
 
-         if((err = snd_pcm_sw_params_current(m_ppcm, m_pswparams)) < 0)
-         {
 
-            FORMATTED_TRACE("unable to determine current m_pswparams for playback: %s\n", snd_strerror(err));
-
-            throw ::exception(error_failed);
-
-         }
-
-         snd_pcm_sframes_t framesThreshold = (m_iBufferCount - 1) * m_frameCount;
-
-         // start the transfer when the buffer is almost full:
-         if((err = snd_pcm_sw_params_set_start_threshold(m_ppcm, m_pswparams, framesThreshold)) < 0)
-         {
-
-            FORMATTED_TRACE("unable to set start threshold mode for playback: %s\n", snd_strerror(err));
-
-            throw ::exception(error_failed);
-
-         }
-
-         // allow the transfer when at least m_framesPeriodSize samples can be processed
-         if((err = snd_pcm_sw_params_set_avail_min(m_ppcm, m_pswparams, m_frameCount)) < 0)
-         {
-
-            FORMATTED_TRACE("unable to set avail min for playback: %s\n", snd_strerror(err));
-
-            throw ::exception(error_failed);
-
-         }
-
-         if((err = snd_pcm_sw_params_set_tstamp_mode(m_ppcm, m_pswparams, SND_PCM_TSTAMP_ENABLE)) < 0)
-         {
-
-            FORMATTED_TRACE("unable to set time stamp mode: %s\n", snd_strerror(err));
-
-            throw ::exception(error_failed);
-
-         }
-
-         if((err = snd_pcm_sw_params_set_tstamp_type(m_ppcm, m_pswparams,SND_PCM_TSTAMP_TYPE_GETTIMEOFDAY)) <0)
-         {
-
-            FORMATTED_TRACE("unable to set time stamp type: %s\n", snd_strerror(err));
-
-            throw ::exception(error_failed);
-
-         }
-
-         // write the parameters to the playback device
-         if((err = snd_pcm_sw_params(m_ppcm, m_pswparams)) < 0)
-         {
-
-            FORMATTED_TRACE("unable to set sw params for playback: %s\n", snd_strerror(err));
-
-            throw ::exception(error_failed);
-
-         }
+//         // write the parameters to the playback device
+//         if((err = snd_pcm_sw_params(m_ppcm, m_pswparams)) < 0)
+//         {
+//
+//            FORMATTED_TRACE("unable to set sw params for playback: %s\n", snd_strerror(err));
+//
+//            throw ::exception(error_failed);
+//
+//         }
 
          m_psynthtask->m_iWaitBuffer = 1;
 
@@ -272,14 +341,14 @@ namespace multimedia
 
          TRACE("multimedia::audio_alsa::out_close");
 
-         if(m_eoutstate == ::wave::e_out_state_playing)
+         if (m_eoutstate == ::wave::e_out_state_playing)
          {
 
             out_stop();
 
          }
 
-         if(m_eoutstate != ::wave::e_out_state_opened)
+         if (m_eoutstate != ::wave::e_out_state_opened)
          {
 
             //return success;
@@ -310,7 +379,7 @@ namespace multimedia
 
          TRACE("multimedia::audio_alsa::out_stop");
 
-         if(m_eoutstate != ::wave::e_out_state_playing && m_eoutstate != ::wave::e_out_state_paused)
+         if (m_eoutstate != ::wave::e_out_state_playing && m_eoutstate != ::wave::e_out_state_paused)
          {
 
             throw ::exception(error_wrong_state);
@@ -328,14 +397,14 @@ namespace multimedia
          // returned to the application.
          m_estatusWave = translate_alsa(snd_pcm_drain(m_ppcm));
 
-         if(m_estatusWave == success)
+         if (m_estatusWave == success)
          {
 
             m_eoutstate = ::wave::e_out_state_opened;
 
          }
 
-         if(!m_estatusWave)
+         if (!m_estatusWave)
          {
 
             throw ::exception(m_estatusWave);
@@ -354,7 +423,7 @@ namespace multimedia
 
          TRACE("multimedia::audio_alsa::out_pause");
 
-         if(m_eoutstate != ::wave::e_out_state_playing)
+         if (m_eoutstate != ::wave::e_out_state_playing)
          {
 
             throw ::exception(error_wrong_state);
@@ -370,14 +439,14 @@ namespace multimedia
 
          ASSERT(m_estatusWave == success);
 
-         if(m_estatusWave == success)
+         if (m_estatusWave == success)
          {
 
             m_eoutstate = ::wave::e_out_state_paused;
 
          }
 
-         if(!m_estatusWave)
+         if (!m_estatusWave)
          {
 
             throw ::exception(m_estatusWave);
@@ -396,7 +465,7 @@ namespace multimedia
 
          TRACE("multimedia::audio_alsa::out_restart");
 
-         if(m_eoutstate != ::wave::e_out_state_paused)
+         if (m_eoutstate != ::wave::e_out_state_paused)
          {
 
             throw ::exception(error_wrong_state);
@@ -412,12 +481,12 @@ namespace multimedia
 
          ASSERT(m_estatusWave == success);
 
-         if(m_estatusWave == success)
+         if (m_estatusWave == success)
          {
             m_eoutstate = ::wave::e_out_state_playing;
          }
 
-         if(!m_estatusWave)
+         if (!m_estatusWave)
          {
 
             throw ::exception(m_estatusWave);
@@ -427,14 +496,14 @@ namespace multimedia
       }
 
 
-      ::time wave_out::out_get_position()
+      class ::time wave_out::out_get_position()
       {
 
          synchronous_lock sl(synchronization());
 
-         ::time time;
+         class ::time time;
 
-         if(m_ppcm != NULL)
+         if (m_ppcm != NULL)
          {
 
             snd_pcm_sframes_t frames;
@@ -484,7 +553,7 @@ namespace multimedia
 
          }
 
-         if(time > 0_s)
+         if (time > 0_s)
          {
 
             //output_debug_string("test");
@@ -514,10 +583,10 @@ namespace multimedia
       }
 
 
-      snd_pcm_t * wave_out::out_get_safe_PCM()
+      snd_pcm_t *wave_out::out_get_safe_PCM()
       {
 
-         if(::is_null(this))
+         if (::is_null(this))
          {
 
             return NULL;
@@ -532,14 +601,14 @@ namespace multimedia
       bool wave_out::alsa_should_play()
       {
 
-         if(!::task_get_run())
+         if (!::task_get_run())
          {
 
             return false;
 
          }
 
-         if(m_ppcm == NULL)
+         if (m_ppcm == NULL)
          {
 
             TRACE("alsa_out_buffer_ready m_ppcm == NULL");
@@ -548,7 +617,7 @@ namespace multimedia
 
          }
 
-         if(m_eoutstate != ::wave::e_out_state_playing && m_eoutstate != ::wave::e_out_state_stopping)
+         if (m_eoutstate != ::wave::e_out_state_playing && m_eoutstate != ::wave::e_out_state_stopping)
          {
 
             TRACE("alsa_out_buffer_ready failure: !playing && !stopping");
@@ -562,8 +631,48 @@ namespace multimedia
       }
 
 
+//      void wave_out::on_my_callback()
+//      {
+//
+//         int iBuffer = -1;
+//
+//         TRACE("on_my_callback");
+//
+//         {
+//
+//            synchronous_lock sl(synchronization());
+//
+//            if(m_iaSent.has_element())
+//            {
+//
+//               iBuffer = m_iaSent.pick_last();
+//
+//               TRACE("m_iaSent.pick_last(): " << iBuffer);
+//
+//            }
+//
+//         }
+//
+//         if (iBuffer >= 0)
+//         {
+//
+//            m_psynthtask->on_free(iBuffer);
+//
+//         }
+//
+//      }
+
+
       void wave_out::out_filled(index iBuffer)
       {
+
+//         static class ::time t;
+//
+//         TRACE("out_filled: " << iBuffer);
+//         TRACE("thread: " << pthread_self());
+//         TRACE("elapsed micros: " << t.elapsed().integral_microsecond());
+
+//         t.Now();
 
          snd_pcm_sframes_t iFramesToWrite = m_frameCount;
 
@@ -588,14 +697,16 @@ namespace multimedia
 
          }
 
-         while(::task_get_run())
+         while (::task_get_run())
          {
 
             {
 
                synchronous_lock sl(synchronization());
 
-               iFrameFreeCount = snd_pcm_avail_update(m_ppcm);
+               //print_snd_pcm_status();
+
+               iFrameFreeCount = snd_pcm_avail(m_ppcm);
 
                if (iFrameFreeCount == -EAGAIN)
                {
@@ -606,7 +717,7 @@ namespace multimedia
                else if (iFrameFreeCount < 0)
                {
 
-                  const char * pszError = snd_strerror(iFrameFreeCount);
+                  const char *pszError = snd_strerror(iFrameFreeCount);
 
                   FORMATTED_TRACE("ALSA wave_out snd_pcm_avail error: %s (%d)\n", pszError, iFrameFreeCount);
 
@@ -641,17 +752,24 @@ namespace multimedia
 
             }
 
-            usleep((iFramesToWrite - iFrameFreeCount) * 500'000 / m_pwaveformat->m_waveformat.nSamplesPerSec);
+            auto waitFrames = (iFramesToWrite - iFrameFreeCount);
+
+            auto µsecondsWait = waitFrames * 100'000 / m_pwaveformat->m_waveformat.nSamplesPerSec;
+
+//            TRACE("frames to write: " << iFramesToWrite << " frame free count : " << iFrameFreeCount
+//                                      << " frames to wait: " << waitFrames << " µs to wait : " << µsecondsWait);
+//
+            usleep(µsecondsWait);
 
          }
 
-         byte * pdata;
+         byte *pdata;
 
          memory m;
 
-         ::wave::buffer::item * pbuffer = nullptr;
+         ::wave::buffer::item *pbuffer = nullptr;
 
-         if(iBuffer >= 0)
+         if (iBuffer >= 0)
          {
 
             pbuffer = m_pwavebuffer->m_buffera[iBuffer];
@@ -666,11 +784,13 @@ namespace multimedia
 
             m.zero();
 
-            pdata = (byte *) m.get_data();
+            pdata = (byte *) m.data();
 
          }
 
          synchronous_lock sl(synchronization());
+
+         //m_iaSent.insert_at(0, iBuffer);
 
          synchronous_lock synchronouslockBuffer(pbuffer ? pbuffer->synchronization() : nullptr);
 
@@ -683,16 +803,20 @@ namespace multimedia
 
             iFramesJustWritten = snd_pcm_writei(m_ppcm, pdata, iFramesToWrite);
 
-            if(!m_bStarted)
+            //TRACE("snd_pcm_writei iFramesJustWritten " << iFramesJustWritten);
+
+            if (!m_bStarted)
             {
 
-               gettimeofday(&m_timevalStart, nullptr);
+               m_timeStart.Now();
+
+               //gettimeofday(&m_timevalStart, nullptr);
+
+               m_bStarted = true;
 
             }
 
-            m_bStarted = true;
-
-            if(iFramesJustWritten == -EINTR)
+            if (iFramesJustWritten == -EINTR)
             {
 
                TRACE("snd_pcm_writei -EINTR\n");
@@ -700,37 +824,39 @@ namespace multimedia
                continue;
 
             }
-            else if(iFramesJustWritten == -EAGAIN)
+            else if (iFramesJustWritten == -EAGAIN)
             {
 
                //TRACE("snd_pcm_writei -EAGAIN\n");
 
                sl.unlock();
 
-               snd_pcm_wait(m_ppcm, 100);
+               snd_pcm_wait(m_ppcm, 10);
 
                sl.lock();
 
                continue;
 
             }
-            else if(iFramesJustWritten < 0)
+            else if (iFramesJustWritten < 0)
             {
 
                TRACE("snd_pcm_writei Underrun\n");
 
-               FORMATTED_TRACE("ALSA wave_out snd_pcm_writei error: %s (%d)\n", snd_strerror(iFramesJustWritten), iFramesJustWritten);
+               FORMATTED_TRACE("ALSA wave_out snd_pcm_writei error: %s (%d)\n", snd_strerror(iFramesJustWritten),
+                               iFramesJustWritten);
 
                iFramesJustWritten = defer_underrun_recovery(iFramesJustWritten);
 
-               if(iFramesJustWritten < 0 && iFramesJustWritten != -EAGAIN)
+               if (iFramesJustWritten < 0 && iFramesJustWritten != -EAGAIN)
                {
 
                   m_eoutstate = ::wave::e_out_state_opened;
 
                   m_estatusWave = error_failed;
 
-                  FORMATTED_TRACE("ALSA wave_out snd_pcm_writei couldn't recover from error: %s\n", snd_strerror(iFramesJustWritten));
+                  FORMATTED_TRACE("ALSA wave_out snd_pcm_writei couldn't recover from error: %s\n",
+                                  snd_strerror(iFramesJustWritten));
 
                   return;
 
@@ -746,30 +872,32 @@ namespace multimedia
 
             int iBytesJustWritten = snd_pcm_frames_to_bytes(m_ppcm, iFramesJustWritten);
 
+            //TRACE("snd_pcm_frames_to_bytes iBytesJustWritten " << iBytesJustWritten);
+
+            //TRACE("m_pwaveformat->m_waveformat.nSamplesPerSec " << m_pwaveformat->m_waveformat.nSamplesPerSec);
+
             m_pprebuffer->m_iBytes += iBytesJustWritten;
 
             pdata += iBytesJustWritten;
 
             iBytesToWrite -= iBytesJustWritten;
 
-   //            if(iBytesToWrite > 0)
-   //            {
-   //
-   //               sl.unlock();
-   //
-   //               snd_pcm_wait(m_ppcm, 100);
-   //
-   //               sl.lock();
-   //
-   //            }
+            //            if(iBytesToWrite > 0)
+            //            {
+            //
+            //               sl.unlock();
+            //
+            //               snd_pcm_wait(m_ppcm, 100);
+            //
+            //               sl.lock();
+            //
+            //            }
 
          }
 
          m_iBufferedCount++;
 
-         sl.unlock();
-
-         if(iBuffer >= 0)
+         if (iBuffer >= 0)
          {
 
             m_psynthtask->on_free(iBuffer);
@@ -779,7 +907,7 @@ namespace multimedia
       }
 
 
-      ::time wave_out::out_get_time_for_synch()
+      class ::time wave_out::out_get_time_for_synch()
       {
 
          if (m_pprebuffer.is_null())
@@ -807,12 +935,32 @@ namespace multimedia
       }
 
 
-      void wave_out::out_start(const class time & time)
+      //void MyCallback(snd_async_handler_t *pcm_callback);
+      //What happens in the callback is fairly simple; this is simply and roughly what it will look like:
+
+
+//      void MyCallback(snd_async_handler_t *pcm_callback)
+//      {
+//         wave_out *p = (wave_out *) snd_async_handler_get_callback_private(pcm_callback);
+//         p->on_my_callback();
+////         snd_pcm_t *pcm_handle = snd_async_handler_get_pcm(pcm_callback);
+////         snd_pcm_sframes_t avail;
+////         int err;
+////
+////         avail = snd_pcm_avail_update(pcm_handle);
+////         while (avail >= period_size) {
+////            snd_pcm_writei(pcm_handle, MyBuffer, period_size);
+////            avail = snd_pcm_avail_update(handle);
+////         }
+//      }
+
+
+      void wave_out::out_start(const class time &time)
       {
 
          synchronous_lock sl(synchronization());
 
-         if(m_eoutstate == ::wave::e_out_state_playing)
+         if (m_eoutstate == ::wave::e_out_state_playing)
          {
 
             //return success;
@@ -821,7 +969,7 @@ namespace multimedia
 
          }
 
-         if(m_eoutstate != ::wave::e_out_state_opened && m_eoutstate != ::wave::e_out_state_stopped)
+         if (m_eoutstate != ::wave::e_out_state_opened && m_eoutstate != ::wave::e_out_state_stopped)
          {
 
             //return error_failed;
@@ -832,22 +980,26 @@ namespace multimedia
 
          int err = 0;
 
-         if ((err = snd_pcm_prepare (m_ppcm)) < 0)
+         if ((err = snd_pcm_prepare(m_ppcm)) < 0)
          {
 
-            FORMATTED_TRACE ("out_start: Cannot prepare audio interface for use (%s)\n",snd_strerror (err));
+            FORMATTED_TRACE ("out_start: Cannot prepare audio interface for use (%s)\n", snd_strerror(err));
 
             throw ::exception(error_failed);
 
          }
 
-         TRACE("out_start: snd_pcm_prepare OK");
+//         m_pcm_callback = nullptr;
+//
+//         snd_async_add_pcm_handler(&m_pcm_callback, m_ppcm, MyCallback, this);
+
+         //TRACE("out_start: snd_pcm_prepare OK");
 
          m_bStarted = false;
 
          ::wave::out::out_start(time);
 
-         if(!m_estatusWave)
+         if (!m_estatusWave)
          {
 
             TRACE("out_start: ::wave::out::out_start FAILED");
@@ -855,6 +1007,8 @@ namespace multimedia
             throw ::exception(m_estatusWave);
 
          }
+
+         snd_pcm_start(m_ppcm);
 
 //         m_pthreadWriter = fork([&]()
 //         {
