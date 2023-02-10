@@ -8,6 +8,7 @@
 #include "mutex.h"
 #include "exclusive.h"
 #include "acme/exception/interface_only.h"
+#include "acme/filesystem/file/exception.h"
 #include "acme/filesystem/filesystem/listing.h"
 #include "acme/parallelization/single_lock.h"
 #include "acme/platform/system.h"
@@ -450,6 +451,8 @@ namespace acme_posix
 
    string strName(lpszName);
 
+   strName.find_replace(":", "_");
+
    if (strName.case_insensitive_begins("Global"))
    {
 
@@ -475,18 +478,33 @@ namespace acme_posix
 
    }
 
-   path /= lpszName;
+   path /= strName;
 
-   auto pacmedirectory = pparticle->acmedirectory();
-
-   pacmedirectory->create(path.folder());
+//   auto pacmedirectory = pparticle->acmedirectory();
+//
+//   auto pathFolder = path.folder();
+//
+//   pacmedirectory->create(pathFolder);
+//
+//   if(!pacmedirectory->is(pathFolder))
+//   {
+//
+//      throw ::exception(error_failed, "Could not create folder for the named mutex: " + path.folder());
+//
+//   }
 
    int iFd = open(path, O_RDWR, S_IRWXU);
 
    if (iFd < 0)
    {
 
-      throw ::exception(error_resource);
+      auto iErrNo = errno;
+
+      auto estatus = errno_status(iErrNo);
+
+      auto errorcode = errno_error_code(iErrNo);
+
+      throw ::file::exception(estatus, errorcode, path, "open, O_RDWR, S_IRWXU");
 
    }
 
@@ -1273,59 +1291,69 @@ namespace acme_posix
 
       memory mem = acmefile()->as_memory(str);
 
-      string strArg;
-
-      char ch;
-
-      for (int i = 0; i < mem.size(); i++)
+      if(mem.is_empty())
       {
 
-         ch = (char)mem.data()[i];
-
-         if (ch == '\0')
-         {
-
-            if (found(strArg.find_first_character_in(" \t\n")))
-            {
-
-               stra.add("\"" + strArg + "\"");
-
-            }
-            else
-            {
-
-               stra.add(strArg);
-
-            }
-
-            strArg.empty();
-
-         }
-         else
-         {
-
-            strArg += ch;
-
-         }
-
+         return {};
 
       }
 
-      if (strArg.has_char())
+      const_ansi_range rangeArgument;
+
+      char ch;
+
+      rangeArgument.m_begin = (const char *) mem.begin();
+
+      rangeArgument.m_end = (const char *) mem.data();
+
+      bool bHasSpace = false;
+
+      while(true)
       {
 
-         if (found(strArg.find_first_character_in(" \t\n")))
+         if (rangeArgument.m_end >= (const char*) mem.end() || *rangeArgument.m_end == '\0')
          {
 
-            stra.add("\"" + strArg + "\"");
+            if(rangeArgument.has_char())
+            {
+
+               if (bHasSpace)
+               {
+
+                  stra.add("\"" + rangeArgument + "\"");
+
+               }
+               else
+               {
+
+                  stra.add(rangeArgument);
+
+               }
+
+            }
+
+            if(rangeArgument.m_end >= (const char *) mem.end())
+            {
+
+               break;
+
+            }
+
+            rangeArgument.m_end++;
+
+            rangeArgument.m_begin = rangeArgument.m_end;
+
+            bHasSpace = false;
 
          }
-         else
+         else if(!bHasSpace)
          {
 
-            stra.add(strArg);
+            bHasSpace = character_isspace(*rangeArgument.m_end);
 
          }
+
+         rangeArgument.m_end++;
 
       }
 
