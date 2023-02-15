@@ -30,7 +30,7 @@ gboolean gtk_quit_callback(gpointer data);
 ///int gtk_launch (const char * pszDesktopFileTitle);
 
 
-void copy(::color::color & color, const GdkRGBA & rgba)
+void copy(::color::color &color, const GdkRGBA &rgba)
 {
 
    color.set(rgba.red, rgba.green, rgba.blue, rgba.alpha);
@@ -38,40 +38,40 @@ void copy(::color::color & color, const GdkRGBA & rgba)
 }
 
 
-void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state, const char * pszProperty, ::u32 & u32)
+void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state, const char *pszProperty, ::u32 &u32)
 {
 
-   GdkRGBA * prgba = nullptr;
+   GdkRGBA *prgba = nullptr;
 
-   gtk_style_context_get (context, state, pszProperty, &prgba, NULL);
+   gtk_style_context_get(context, state, pszProperty, &prgba, NULL);
 
    ::color::color color;
 
    copy(color, *prgba);
 
-   gdk_rgba_free (prgba);
+   gdk_rgba_free(prgba);
 
    u32 = color.u32;
 
 }
 
 
-void x11_add_idle_source(::node_gtk::node * pnode);
+void x11_add_idle_source(::node_gtk::node *pnode);
 
 
-void gtk_settings_gtk_theme_name_callback(GObject* object, GParamSpec* pspec, gpointer data)
+void gtk_settings_gtk_theme_name_callback(GObject *object, GParamSpec *pspec, gpointer data)
 {
 
-   node_gtk::node * pnode = (node_gtk::node *) data;
+   node_gtk::node *pnode = (node_gtk::node *) data;
 
-   if(!pnode)
+   if (!pnode)
    {
 
       return;
 
    }
 
-   gchar * theme_name = nullptr;
+   gchar *theme_name = nullptr;
 
    g_object_get(pnode->m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
 
@@ -84,7 +84,7 @@ void gtk_settings_gtk_theme_name_callback(GObject* object, GParamSpec* pspec, gp
 //   pnode->fork([pnode, strTheme]()
 //               {
 
-                  pnode->_set_os_user_theme(strTheme);
+   pnode->_set_os_user_theme(strTheme);
 
 //                  ::preempt(400_ms);
 //
@@ -97,8 +97,6 @@ void gtk_settings_gtk_theme_name_callback(GObject* object, GParamSpec* pspec, gp
 }
 
 
-
-
 void x11_add_idle_source();
 
 
@@ -108,7 +106,7 @@ void x11_add_filter();
 void x11_main();
 
 
-::particle * user_synchronization();
+::particle *user_synchronization();
 
 
 gboolean node_gtk_source_func(gpointer pUserdata);
@@ -119,7 +117,7 @@ namespace node_gtk
 
    class appindicator;
 
-   void appindicator_destroy(appindicator * pindicator);
+   void appindicator_destroy(appindicator *pindicator);
 
 } // namespace node_gtk
 
@@ -127,7 +125,7 @@ namespace node_gtk
 
 void os_post_quit();
 
-void apex_application_run(const char * pszAppName, const char * pszProgName);
+void apex_application_run(const char *pszAppName, const char *pszProgName);
 
 namespace node_gtk
 {
@@ -155,17 +153,17 @@ namespace node_gtk
 
       m_pGtkSettingsDefault = nullptr;
 
-      for(auto & pair : m_mapGDesktopAppInfo)
+      for (auto &pair: m_mapGDesktopAppInfo)
       {
 
          g_object_unref(pair.m_element2);
 
       }
 
-      if(m_pgdkapplaunchcontext)
+      if (m_pgdkapplaunchcontext)
       {
 
-          g_object_unref(m_pgdkapplaunchcontext);
+         g_object_unref(m_pgdkapplaunchcontext);
 
       }
 
@@ -177,10 +175,10 @@ namespace node_gtk
 
       //auto iResult = gtk_init_check(pi, ppz);
 
-      if(!os_defer_init_gtk(acmesystem()))
+      if (!os_defer_init_gtk(acmesystem()))
       {
 
-          return 0;
+         return 0;
 
       }
 
@@ -196,7 +194,7 @@ namespace node_gtk
 
       string strApplicationServerName = psystem->get_application_server_name();
 
-      gdk_notify_startup_complete_with_id (strApplicationServerName);
+      gdk_notify_startup_complete_with_id(strApplicationServerName);
 
       gdk_notify_startup_complete();
 
@@ -307,72 +305,72 @@ namespace node_gtk
          //g_set_application_name(System.m_XstrAppId);
 
          //g_set_prgname(System.m_strProgName);
-      ////
-      ////      //auto idle_source = g_idle_source_new();
-      ////
-      ////      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) acmesystem(), nullptr);
-      ////
-      ////      //g_source_attach(idle_source, g_main_context_default());
-      ////
-      ////      //int c = 2;
-      ////
-      ////      //const char * argv[]={"app", "--g-fatal-warnings"};
-      ////
-      ////#if !defined(__SANITIZE_ADDRESS__)
-      ////
-      ////      gtk_init_check(&psystem->m_argc, &psystem->m_argv);
-      ////
-      ////#endif
+         ////
+         ////      //auto idle_source = g_idle_source_new();
+         ////
+         ////      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) acmesystem(), nullptr);
+         ////
+         ////      //g_source_attach(idle_source, g_main_context_default());
+         ////
+         ////      //int c = 2;
+         ////
+         ////      //const char * argv[]={"app", "--g-fatal-warnings"};
+         ////
+         ////#if !defined(__SANITIZE_ADDRESS__)
+         ////
+         ////      gtk_init_check(&psystem->m_argc, &psystem->m_argv);
+         ////
+         ////#endif
 
-            node_post([this]()
-            {
+         node_post([this]()
+                   {
 
-             // This seems not to work with "foreign" windows
-             // (X11 windows not created with Gdk)
-             //x11_add_filter();
+                      // This seems not to work with "foreign" windows
+                      // (X11 windows not created with Gdk)
+                      //x11_add_filter();
 
 
-             auto pgtksettingsDefault = gtk_settings_get_default();
+                      auto pgtksettingsDefault = gtk_settings_get_default();
 
-             if(pgtksettingsDefault)
-             {
+                      if (pgtksettingsDefault)
+                      {
 
-                m_pGtkSettingsDefault = G_OBJECT(pgtksettingsDefault);
+                         m_pGtkSettingsDefault = G_OBJECT(pgtksettingsDefault);
 
-                g_object_ref (m_pGtkSettingsDefault);
+                         g_object_ref (m_pGtkSettingsDefault);
 
-                gchar *theme_name = nullptr;
+                         gchar *theme_name = nullptr;
 
-                g_object_get(m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
+                         g_object_get(m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
 
-                m_strTheme = theme_name;
+                         m_strTheme = theme_name;
 
-                g_free(theme_name);
+                         g_free(theme_name);
 
-                auto preturn = g_signal_connect_data(
-                   m_pGtkSettingsDefault,
-                   "notify::gtk-theme-name",
-                   //"gtk-private-changed",
-                   G_CALLBACK(gtk_settings_gtk_theme_name_callback),
-                   this,
-                   NULL,
-                   G_CONNECT_AFTER);
+                         auto preturn = g_signal_connect_data(
+                                 m_pGtkSettingsDefault,
+                                 "notify::gtk-theme-name",
+                                 //"gtk-private-changed",
+                                 G_CALLBACK(gtk_settings_gtk_theme_name_callback),
+                                 this,
+                                 NULL,
+                                 G_CONNECT_AFTER);
 
-                //g_object_ref(preturn);
+                         //g_object_ref(preturn);
 
-                //printf("return %" PRIiPTR, preturn);
+                         //printf("return %" PRIiPTR, preturn);
 
-                //printf("return %" PRIiPTR, preturn);
+                         //printf("return %" PRIiPTR, preturn);
 
-             }
+                      }
 
-            x11_add_idle_source(this);
+                      x11_add_idle_source(this);
 
-            auto psystem = acmesystem()->m_papexsystem;
+                      auto psystem = acmesystem()->m_papexsystem;
 
-            psystem->defer_post_initial_request();
+                      psystem->defer_post_initial_request();
 
-         });
+                   });
 
 
          //x11_add_filter();
@@ -412,7 +410,7 @@ namespace node_gtk
    }
 
 
-   void node::initialize(::particle * pparticle)
+   void node::initialize(::particle *pparticle)
    {
 
       ::node_gtk::g_defer_init();
@@ -435,7 +433,7 @@ namespace node_gtk
 
       auto psession = acmesession();
 
-      if(::is_null(psession))
+      if (::is_null(psession))
       {
 
          return false;
@@ -444,7 +442,7 @@ namespace node_gtk
 
       auto paurasession = psession->m_paurasession;
 
-      if(::is_null(paurasession))
+      if (::is_null(paurasession))
       {
 
          return false;
@@ -453,7 +451,7 @@ namespace node_gtk
 
       auto puser = paurasession->user();
 
-      if(::is_null(puser))
+      if (::is_null(puser))
       {
 
          return false;
@@ -462,7 +460,7 @@ namespace node_gtk
 
       auto pwindowing = puser->windowing();
 
-      if(::is_null(pwindowing))
+      if (::is_null(pwindowing))
       {
 
          return false;
@@ -546,7 +544,7 @@ namespace node_gtk
 
          sleep(300_ms);
 
-         if(!bOk1 || !bOk2)
+         if (!bOk1 || !bOk2)
          {
 
             return error_failed;
@@ -612,7 +610,8 @@ namespace node_gtk
          case ::user::e_desktop_ubuntu_gnome:
          case ::user::e_desktop_unity_gnome:
 
-            return ::node_gtk::gsettings_set("org.gnome.desktop.background", "picture-uri", "file://" + strLocalImagePath);
+            return ::node_gtk::gsettings_set("org.gnome.desktop.background", "picture-uri",
+                                             "file://" + strLocalImagePath);
 
          case ::user::e_desktop_mate:
 
@@ -690,7 +689,7 @@ namespace node_gtk
 
          }
 
-         break;
+            break;
          default:
 
             WARNING("Failed to get wallpaper setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
@@ -701,7 +700,7 @@ namespace node_gtk
    }
 
 
-   string node::get_file_icon_path(const ::string & strPath, int iSize)
+   string node::get_file_icon_path(const ::string &strPath, int iSize)
    {
 
       return ::node_gtk::g_get_file_icon_path(strPath, iSize);
@@ -709,7 +708,7 @@ namespace node_gtk
    }
 
 
-   string node::get_file_content_type(const ::string & strPath)
+   string node::get_file_content_type(const ::string &strPath)
    {
 
       return ::node_gtk::g_get_file_content_type(strPath);
@@ -725,7 +724,7 @@ namespace node_gtk
    }
 
 
-   void node::node_post(const ::procedure & procedure)
+   void node::node_post(const ::procedure &procedure)
    {
 
       gdk_branch(procedure);
@@ -754,17 +753,17 @@ namespace node_gtk
 //
 //   }
 
-   bool node::should_launch_on_node(::topic * ptopic)
+   bool node::should_launch_on_node(::topic *ptopic)
    {
 
-      if(::is_null(ptopic))
+      if (::is_null(ptopic))
       {
 
          return false;
 
       }
 
-      if(ptopic->m_atom == id_operating_system_user_color_change)
+      if (ptopic->m_atom == id_operating_system_user_color_change)
       {
 
          return false;
@@ -776,24 +775,24 @@ namespace node_gtk
    }
 
 
-   bool node::launch_on_node(::topic * ptopic)
+   bool node::launch_on_node(::topic *ptopic)
    {
 
       // TODO check if ptopic below is own topic or what else?
-      ::pointer < ::particle > pparticle = ptopic;
+      ::pointer<::particle> pparticle = ptopic;
 
       node_post([pparticle]()
-      {
+                {
 
-         auto ret = g_timeout_add(300, (GSourceFunc) &node_gtk_source_func, pparticle);
+                   auto ret = g_timeout_add(300, (GSourceFunc) &node_gtk_source_func, pparticle);
 
-         printf("ret %d", ret);
+                   printf("ret %d", ret);
 
-         printf("ret %d", ret);
+                   printf("ret %d", ret);
 
-         g_idle_add(&node_gtk_source_func, pparticle);
+                   g_idle_add(&node_gtk_source_func, pparticle);
 
-      });
+                });
 
       return true;
 
@@ -881,7 +880,7 @@ namespace node_gtk
          default:
 
             WARNING(
-               "Failed to get user theme setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+                    "Failed to get user theme setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
             //return "";
 
       }
@@ -911,16 +910,16 @@ namespace node_gtk
          gtk_style_context_set_path(pstylecontext, ppath);
 
          __gtk_style_context_get_color(
-            pstylecontext,
-            GTK_STATE_FLAG_NORMAL,
-            GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
-            pthemecolors->m_colorBack.u32);
+                 pstylecontext,
+                 GTK_STATE_FLAG_NORMAL,
+                 GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
+                 pthemecolors->m_colorBack.u32);
 
          __gtk_style_context_get_color(
-            pstylecontext,
-            GTK_STATE_FLAG_NORMAL,
-            GTK_STYLE_PROPERTY_COLOR,
-            pthemecolors->m_colorFore.u32);
+                 pstylecontext,
+                 GTK_STATE_FLAG_NORMAL,
+                 GTK_STYLE_PROPERTY_COLOR,
+                 pthemecolors->m_colorFore.u32);
 
          gtk_widget_destroy(pdialog);
 
@@ -935,10 +934,10 @@ namespace node_gtk
          gtk_style_context_set_path(pstylecontext, ppath);
 
          __gtk_style_context_get_color(
-            pstylecontext,
-            GTK_STATE_FLAG_NORMAL,
-            GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
-            pthemecolors->m_colorFace.u32);
+                 pstylecontext,
+                 GTK_STATE_FLAG_NORMAL,
+                 GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
+                 pthemecolors->m_colorFace.u32);
 
          double dAlpha = pthemecolors->m_colorFace.get_a_rate();
 
@@ -950,10 +949,10 @@ namespace node_gtk
          }
 
          __gtk_style_context_get_color(
-            pstylecontext,
-            GTK_STATE_FLAG_PRELIGHT,
-            GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
-            pthemecolors->m_colorFaceHover.u32);
+                 pstylecontext,
+                 GTK_STATE_FLAG_PRELIGHT,
+                 GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
+                 pthemecolors->m_colorFaceHover.u32);
 
          dAlpha = pthemecolors->m_colorFaceHover.get_a_rate();
 
@@ -965,10 +964,10 @@ namespace node_gtk
          }
 
          __gtk_style_context_get_color(
-            pstylecontext,
-            GTK_STATE_FLAG_ACTIVE,
-            GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
-            pthemecolors->m_colorFacePress.u32);
+                 pstylecontext,
+                 GTK_STATE_FLAG_ACTIVE,
+                 GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
+                 pthemecolors->m_colorFacePress.u32);
 
          dAlpha = pthemecolors->m_colorFacePress.get_a_rate();
 
@@ -980,22 +979,22 @@ namespace node_gtk
          }
 
          __gtk_style_context_get_color(
-            pstylecontext,
-            GTK_STATE_FLAG_NORMAL,
-            GTK_STYLE_PROPERTY_COLOR,
-            pthemecolors->m_colorButton.u32);
+                 pstylecontext,
+                 GTK_STATE_FLAG_NORMAL,
+                 GTK_STYLE_PROPERTY_COLOR,
+                 pthemecolors->m_colorButton.u32);
 
          __gtk_style_context_get_color(
-            pstylecontext,
-            GTK_STATE_FLAG_PRELIGHT,
-            GTK_STYLE_PROPERTY_COLOR,
-            pthemecolors->m_colorButtonHover.u32);
+                 pstylecontext,
+                 GTK_STATE_FLAG_PRELIGHT,
+                 GTK_STYLE_PROPERTY_COLOR,
+                 pthemecolors->m_colorButtonHover.u32);
 
          __gtk_style_context_get_color(
-            pstylecontext,
-            GTK_STATE_FLAG_NORMAL,
-            GTK_STYLE_PROPERTY_BORDER_COLOR,
-            pthemecolors->m_colorBorder.u32);
+                 pstylecontext,
+                 GTK_STATE_FLAG_NORMAL,
+                 GTK_STYLE_PROPERTY_BORDER_COLOR,
+                 pthemecolors->m_colorBorder.u32);
 
 
 //         pthemecolors->m_colorBorderHover4 = pthemecolors->m_colorBorderHover;
@@ -1016,10 +1015,10 @@ namespace node_gtk
          gtk_style_context_set_path(pstylecontext, ppath);
 
          __gtk_style_context_get_color(
-            pstylecontext,
-            GTK_STATE_FLAG_SELECTED,
-            GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
-            pthemecolors->m_colorBorderHover.u32);
+                 pstylecontext,
+                 GTK_STATE_FLAG_SELECTED,
+                 GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
+                 pthemecolors->m_colorBorderHover.u32);
 
          pthemecolors->m_colorBorderPress = pthemecolors->m_colorBorderHover;
 
@@ -1036,10 +1035,10 @@ namespace node_gtk
          pthemecolors->m_colorBorderHover3.blend(pthemecolors->m_colorBack, 0.9);
 
          __gtk_style_context_get_color(
-            pstylecontext,
-            GTK_STATE_FLAG_SELECTED,
-            GTK_STYLE_PROPERTY_COLOR,
-            pthemecolors->m_colorButtonPress.u32);
+                 pstylecontext,
+                 GTK_STATE_FLAG_SELECTED,
+                 GTK_STYLE_PROPERTY_COLOR,
+                 pthemecolors->m_colorButtonPress.u32);
 
          gtk_widget_destroy(pwidget);
 
@@ -1050,7 +1049,7 @@ namespace node_gtk
    }
 
 
-   void node::_set_os_theme_colors(::os_theme_colors * posthemecolors)
+   void node::_set_os_theme_colors(::os_theme_colors *posthemecolors)
    {
 
       ::output_debug_string("_set_os_theme_colors\n");
@@ -1062,22 +1061,22 @@ namespace node_gtk
    }
 
 
-   void node::_set_os_user_theme(const ::scoped_string & strOsUserTheme)
+   void node::_set_os_user_theme(const ::scoped_string &strOsUserTheme)
    {
 
       m_strOsUserTheme = strOsUserTheme;
 
-      if(!m_ptaskOsUserTheme)
+      if (!m_ptaskOsUserTheme)
       {
 
          m_ptaskOsUserTheme = fork([this]()
                                    {
 
-                                       preempt(1_s);
+                                      preempt(1_s);
 
-                                       m_ptaskOsUserTheme = nullptr;
+                                      m_ptaskOsUserTheme = nullptr;
 
-                                       _apply_os_user_theme();
+                                      _apply_os_user_theme();
 
                                    });
 
@@ -1086,31 +1085,34 @@ namespace node_gtk
    }
 
 
-    void node::_apply_os_user_theme()
-    {
+   void node::_apply_os_user_theme()
+   {
 
       ::output_debug_string("applying os user theme: \"" + m_strOsUserTheme + "\"\n");
 
       os_process_user_theme(m_strOsUserTheme);
 
-    }
+   }
 
 
-    void node::os_process_user_theme(string strOsTheme)
+   void node::os_process_user_theme(string strOsTheme)
    {
 
-      ::output_debug_string("os_process_user_theme: is strTheme(" + strOsTheme + ") same as m_strTheme(" + m_strTheme + ")\n");
+      ::output_debug_string(
+              "os_process_user_theme: is strTheme(" + strOsTheme + ") same as m_strTheme(" + m_strTheme + ")\n");
 
-      if(strOsTheme == m_strTheme)
+      if (strOsTheme == m_strTheme)
       {
 
-         ::output_debug_string("os_process_user_theme: same theme as before [new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
+         ::output_debug_string(
+                 "os_process_user_theme: same theme as before [new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
 
          return;
 
       }
 
-      ::output_debug_string("os_process_user_theme: different theme [new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
+      ::output_debug_string(
+              "os_process_user_theme: different theme [new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
 
       m_strTheme = strOsTheme;
 
@@ -1122,7 +1124,7 @@ namespace node_gtk
          acmesystem()->m_papexsystem->signal(id_operating_system_user_theme_change);
 
       }
-      catch(...)
+      catch (...)
       {
 
 
@@ -1165,7 +1167,7 @@ namespace node_gtk
 
       auto pthemecolors = ::user::os_get_theme_colors();
 
-      if(!pthemecolors)
+      if (!pthemecolors)
       {
 
          string strTheme = _os_get_user_theme();
@@ -1189,7 +1191,7 @@ namespace node_gtk
    }
 
 
-   int node::os_launch_uri(const ::string & strUri, char * pszError, int iBufferSize)
+   int node::os_launch_uri(const ::string &strUri, char *pszError, int iBufferSize)
    {
 
       int iRet = gdk_launch_uri(strUri, pszError, iBufferSize);
@@ -1199,7 +1201,7 @@ namespace node_gtk
    }
 
 
-   void node::shell_launch(const ::string & strAppId)
+   void node::shell_launch(const ::string &strAppId)
    {
 
       string strDesktopFileTitle(strAppId);
@@ -1210,58 +1212,216 @@ namespace node_gtk
 
       pathDesktop = acmedirectory()->home() / ".local/share/applications" / (strDesktopFileTitle + ".desktop");
 
-      main_asynchronous([this,pathDesktop]()
-      {
+      main_asynchronous([this, pathDesktop]()
+                        {
 
-         GError * pgerror = NULL;
-         GDesktopAppInfo * pgdesktopappinfo;
-         GList * plistFiles = NULL;
+                           GError *pgerror = NULL;
+                           GDesktopAppInfo *pgdesktopappinfo;
+                           GList *plistFiles = NULL;
 
-         pgdesktopappinfo = g_desktop_app_info_new_from_filename (pathDesktop);
+                           pgdesktopappinfo = g_desktop_app_info_new_from_filename(pathDesktop);
 
-         if(!pgdesktopappinfo)
-         {
+                           if (!pgdesktopappinfo)
+                           {
 
-            throw exception(error_failed);
+                              throw exception(error_failed);
 
-         }
+                           }
 
-         m_mapGDesktopAppInfo[pathDesktop] = pgdesktopappinfo;
+                           m_mapGDesktopAppInfo[pathDesktop] = pgdesktopappinfo;
 
-         if(!m_pgdkapplaunchcontext)
-         {
+                           if (!m_pgdkapplaunchcontext)
+                           {
 
-            m_pgdkapplaunchcontext = gdk_display_get_app_launch_context (gdk_display_get_default ());
+                              m_pgdkapplaunchcontext = gdk_display_get_app_launch_context(gdk_display_get_default());
 
-         }
+                           }
 
-         if (!g_app_info_launch (G_APP_INFO(pgdesktopappinfo), plistFiles, G_APP_LAUNCH_CONTEXT(m_pgdkapplaunchcontext), &pgerror))
-         {
+                           if (!g_app_info_launch(G_APP_INFO(pgdesktopappinfo), plistFiles,
+                                                  G_APP_LAUNCH_CONTEXT(m_pgdkapplaunchcontext), &pgerror))
+                           {
 
-             throw exception(error_failed);
+                              throw exception(error_failed);
 
-         }
+                           }
 
-      });
+                        });
 
    }
 
 
-   void node::open_url(const ::string & strUrl)
+   void node::open_url(const ::string &strUrl)
    {
 
-      const char * pszUrl = strUrl;
+      const char *pszUrl = strUrl;
 
-      GError * perror = nullptr;
+      GError *perror = nullptr;
 
-      if(!g_app_info_launch_default_for_uri(pszUrl, nullptr, &perror))
+      if (!g_app_info_launch_default_for_uri(pszUrl, nullptr, &perror))
       {
 
-         fprintf (stderr, "Unable to read file: %s\n", perror->message);
+         fprintf(stderr, "Unable to read file: %s\n", perror->message);
 
-         g_error_free (perror);
+         g_error_free(perror);
 
       }
+
+   }
+
+//
+//   GtkWidget *create_filechooser_dialog(GtkFileChooserAction action)
+//   {
+//
+//      GtkWidget *pfilechooserdialog = nullptr;
+//
+//      switch (action)
+//      {
+//         case GTK_FILE_CHOOSER_ACTION_SAVE:
+//            pfilechooserdialog = gtk_file_chooser_dialog_new("Save file", NULL, action,
+//                                                             "Cancel", GTK_RESPONSE_CANCEL,
+//                                                             "Save", GTK_RESPONSE_OK,
+//                                                             NULL);
+//            break;
+//
+//         case GTK_FILE_CHOOSER_ACTION_OPEN:
+//            pfilechooserdialog = gtk_file_chooser_dialog_new("Open file", NULL, action,
+//                                                             "Cancel", GTK_RESPONSE_CANCEL,
+//                                                             "Open", GTK_RESPONSE_OK,
+//                                                             NULL);
+//            break;
+//
+//         case GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER:
+//         case GTK_FILE_CHOOSER_ACTION_CREATE_FOLDER:
+//            break;
+//      }
+//
+//      return pfilechooserdialog;
+//
+//   }
+
+   void on_file_chooser_destroy_event(GtkWidget *w, GdkEvent * pevent, gpointer data)
+   {
+
+      ::operating_system_file_dialog *pdialog = (::operating_system_file_dialog *) data;
+
+
+   }
+
+
+   void on_file_chooser_delete_event(GtkWidget *w, GdkEvent * pevent, gpointer data)
+   {
+
+      ::operating_system_file_dialog *pdialog = (::operating_system_file_dialog *) data;
+
+      ::release(pdialog);
+
+   }
+
+
+   void on_file_chooser_response(GtkDialog *pgtkdialog, int response_id, gpointer data)
+   {
+
+      if(response_id == GTK_RESPONSE_ACCEPT)
+      {
+
+         ::operating_system_file_dialog *pdialog = (::operating_system_file_dialog *) data;
+
+         ::file::path_array patha;
+
+         auto path = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(pgtkdialog));
+
+         patha.add(path);
+
+         pdialog->m_function(patha);
+
+      }
+
+      gtk_widget_destroy(GTK_WIDGET(pgtkdialog));
+
+   }
+
+
+   void node::operating_system_file_dialog(::operating_system_file_dialog *pdialog)
+   {
+
+      pdialog->increment_reference_count();
+
+      main_asynchronous([pdialog]()
+                        {
+
+                           GtkWidget *widget;
+
+//                           if (directory_chooser) {
+//                              gtk_widget_destroy(directory_chooser);
+//                              directory_chooser = NULL;
+//                           }
+
+                           widget = gtk_file_chooser_dialog_new("Open",
+                                                                NULL,
+                                                                GTK_FILE_CHOOSER_ACTION_OPEN,
+                                                                GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                                                GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+                                                                (void *) nullptr);
+
+                           pdialog->m_posdata = widget;
+                           //g_return_if_fail(NULL != widget);
+                           //directory_chooser = widget;
+
+                           //gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(widget), TRUE);
+
+                           if(pdialog->m_filetypes.has_element())
+                           {
+
+                              GtkFileFilter *filter = gtk_file_filter_new();
+
+                              for (auto &filetype: pdialog->m_filetypes)
+                              {
+
+                                 auto ppattern = filetype.element1().c_str();
+
+                                 gtk_file_filter_add_pattern(filter, ppattern);
+
+                                 auto pname = filetype.element2().c_str();
+
+                                 gtk_file_filter_set_name(filter, pname);
+
+                              }
+
+                              gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(widget),
+                                                          filter);   /* Display only directories */
+
+                           }
+
+                           //if (NULL != current_directory) {
+                           // gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(widget),
+                           //current_directory);
+                           //}
+
+                           g_signal_connect(G_OBJECT(widget), "destroy-event", G_CALLBACK(&on_file_chooser_destroy_event), pdialog);
+                           g_signal_connect(G_OBJECT(widget), "delete-event", G_CALLBACK(&on_file_chooser_delete_event), pdialog);
+                           g_signal_connect(G_OBJECT(widget), "response", G_CALLBACK(&on_file_chooser_response), pdialog);
+
+                           gtk_widget_show(widget);
+//      GtkWidget *pfilechooserdialog;
+//
+//      pfilechooserdialog = create_filechooser_dialog(GTK_FILE_CHOOSER_ACTION_OPEN);
+//
+//      if (gtk_dialog_run(GTK_DIALOG(pfilechooserdialog)) == GTK_RESPONSE_OK)
+//      {
+//
+//         ::file::path_array patha;
+//
+//         patha.add(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(pfilechooserdialog)));
+//
+//         pdialog->m_function(patha);
+//
+//      }
+//
+//
+//      gtk_di
+
+                        });
+
 
    }
 
@@ -1272,9 +1432,9 @@ namespace node_gtk
 gboolean node_gtk_source_func(gpointer pUserdata)
 {
 
-   ::particle * pparticle = (::particle *) pUserdata;
+   ::particle *pparticle = (::particle *) pUserdata;
 
-   if(!pparticle->step())
+   if (!pparticle->step())
    {
 
       return false;
@@ -1295,8 +1455,8 @@ gboolean node_gtk_source_func(gpointer pUserdata)
 
 
 
-   //void os_calc_user_theme()
-   //{
+//void os_calc_user_theme()
+//{
 
 //      string strTheme = _os_calc_user_theme();
 //
@@ -1320,26 +1480,26 @@ gboolean node_gtk_source_func(gpointer pUserdata)
 
 
 #ifdef LINUX
-static void
-log_handler (const gchar   *log_domain,
-             GLogLevelFlags log_level,
-             const gchar   *message,
-             gpointer       user_data)
-{
-   g_log_default_handler (log_domain, log_level, message, user_data);
 
-   g_on_error_query (nullptr);
+static void
+log_handler(const gchar *log_domain,
+            GLogLevelFlags log_level,
+            const gchar *message,
+            gpointer user_data)
+{
+   g_log_default_handler(log_domain, log_level, message, user_data);
+
+   g_on_error_query(nullptr);
 }
 
 
 #endif
 
 
-::particle * user_synchronization();
+::particle *user_synchronization();
 
 
-::e_status run_runnable(::particle * pobjectTask);
-
+::e_status run_runnable(::particle *pobjectTask);
 
 
 gboolean x11_source_func(gpointer p)
@@ -1359,7 +1519,7 @@ gboolean x11_source_func(gpointer p)
 }
 
 
-void x11_add_idle_source(::node_gtk::node * pnode)
+void x11_add_idle_source(::node_gtk::node *pnode)
 {
 
    gdk_threads_add_idle(&x11_source_func, pnode);
@@ -1367,15 +1527,15 @@ void x11_add_idle_source(::node_gtk::node * pnode)
 }
 
 
-bool x11_message_handler(XEvent * pevent);
+bool x11_message_handler(XEvent *pevent);
 
 
-GdkFilterReturn x11_event_func(GdkXEvent *xevent, GdkEvent *event, gpointer  data)
+GdkFilterReturn x11_event_func(GdkXEvent *xevent, GdkEvent *event, gpointer data)
 {
 
-   XEvent * pevent = (XEvent *) xevent;
+   XEvent *pevent = (XEvent *) xevent;
 
-   ::node_gtk::node * pnode = (::node_gtk::node *) data;
+   ::node_gtk::node *pnode = (::node_gtk::node *) data;
 
    auto pwindowing = pnode->windowing();
 

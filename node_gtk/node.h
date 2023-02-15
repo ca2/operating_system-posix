@@ -101,6 +101,9 @@ namespace node_gtk
 
       void open_url(const ::string & strUrl) override;
 
+      void operating_system_file_dialog(::operating_system_file_dialog * pdialog) override;
+
+
    };
 
 
