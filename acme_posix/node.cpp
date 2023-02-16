@@ -47,6 +47,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <sys/select.h>
+//#include <sched.h>
 
 #if defined(__clang__) && !defined(ANDROID)
 ::string clang_backtrace();
@@ -1300,7 +1301,7 @@ namespace acme_posix
 
       const_ansi_range rangeArgument;
 
-      char ch;
+      //char ch;
 
       rangeArgument.m_begin = (const char *) mem.begin();
 
@@ -1444,21 +1445,35 @@ namespace acme_posix
 
 
    bool node::set_process_priority(::enum_priority epriority)
-   {
-
-      i32 iPolicy = SCHED_OTHER;
-
-      sched_param schedparam;
-
-      schedparam.sched_priority = 0;
-
-      get_os_priority(&iPolicy, &schedparam, epriority);
-
-      sched_setscheduler(0, iPolicy, &schedparam);
-
-      return true;
-
+{
+      
+#ifdef LINUX
+      
+#error "please transfer the code commented below to linux-operating-system"
+      
+#else
+      
+      return ::acme::node::set_process_priority(epriority);
+      
+#endif
+      
+      
    }
+//   {
+//
+//      i32 iPolicy = SCHED_OTHER;
+//
+//      sched_param schedparam;
+//
+//      schedparam.sched_priority = 0;
+//
+//      get_os_priority(&iPolicy, &schedparam, epriority);
+//
+//      sched_setscheduler(0, iPolicy, &schedparam);
+//
+//      return true;
+//
+//   }
 
 
    void node::command_system(string_array & straOutput, int& iExitCode, const scoped_string & scopedstr, enum_command_system ecommandsystem, const class time & timeTimeout, ::particle * pparticleSynchronization, ::file::file * pfileLog)
