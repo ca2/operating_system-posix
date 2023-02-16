@@ -2042,6 +2042,8 @@ else if(detail == 3)
 
                m_pointCursor.y = e.xmotion.y_root;
 
+               msg.oswindow->set_cursor_position(m_pointCursor);
+
                //g_pointX11Cursor.x = e.xmotion.x_root;
 
                //g_pointX11Cursor.y = e.xmotion.y_root;
@@ -2764,6 +2766,14 @@ else if(detail == 3)
                int XRoot = e.xbutton.x_root;
 
                int YRoot = e.xbutton.y_root;
+
+               m_pointCursor.x = XRoot;
+
+               m_pointCursor.y = YRoot;
+
+               msg.oswindow->set_cursor_position(m_pointCursor);
+
+
 
 //      int l = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.x;
 //      int t = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.y;

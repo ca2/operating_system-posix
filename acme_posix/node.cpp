@@ -1255,21 +1255,21 @@ namespace acme_posix
                ia.add(iPid);
 
             }
-            else
-            {
-
-               string strCmdLine = command_line_from_pid(iPid);
-
-               auto args = get_c_args_from_string(strCmdLine);
-
-               if (args.find_first(str) > 0)
-               {
-
-                  ia.add(iPid);
-
-               }
-
-            }
+//            else
+//            {
+//
+//               string strCmdLine = command_line_from_pid(iPid);
+//
+//               auto args = get_c_args_from_string(strCmdLine);
+//
+//               if (args.find_first(str) > 0)
+//               {
+//
+//                  ia.add(iPid);
+//
+//               }
+//
+//            }
 
          }
 
