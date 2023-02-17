@@ -93,6 +93,13 @@
 			remoteGlobalIDString = 9AD692B7251A754800C0EBD7;
 			remoteInfo = ios_apex;
 		};
+		9A9C7E4929A0181600DBFD07 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A0C17C2264A31EA00B5CC33 /* acme_posix.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9AC14CDB297B3370006D9BD3;
+			remoteInfo = _acme_posix;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -181,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				9A0C17C7264A31EA00B5CC33 /* libacme_posix.dylib */,
+				9A9C7E4A29A0181600DBFD07 /* lib_acme_posix.a */,
 				9A8E9E11282A2FCA005FF778 /* libios_acme_posix.a */,
 			);
 			name = Products;
@@ -332,6 +340,13 @@
 			fileType = "compiled.mach-o.dylib";
 			path = libios_acme_posix.a;
 			remoteRef = 9A8E9E10282A2FCA005FF778 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9A9C7E4A29A0181600DBFD07 /* lib_acme_posix.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = lib_acme_posix.a;
+			remoteRef = 9A9C7E4929A0181600DBFD07 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -579,7 +594,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEAD_CODE_STRIPPING = YES;
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				PLATFORM_MODIFIER = macos;
 			};
 			name = Debug;
@@ -588,7 +602,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEAD_CODE_STRIPPING = YES;
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				PLATFORM_MODIFIER = macos;
 			};
 			name = Release;
