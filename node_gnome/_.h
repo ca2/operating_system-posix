@@ -4,7 +4,7 @@
 #include "node_gtk/_.h"
 
 
-#if defined(_NODE_GNOME_LIBRARY)
+#if defined(_node_gnome_project)
    #define CLASS_DECL_NODE_GNOME  CLASS_DECL_EXPORT
 #else
    #define CLASS_DECL_NODE_GNOME  CLASS_DECL_IMPORT

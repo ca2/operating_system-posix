@@ -4,7 +4,7 @@
 #include "aura_posix/_.h"
 
 
-#if defined(_WINDOWING_X11_LIBRARY)
+#if defined(_windowing_x11_project)
    #define CLASS_DECL_WINDOWING_X11  CLASS_DECL_EXPORT
 #else
    #define CLASS_DECL_WINDOWING_X11  CLASS_DECL_IMPORT

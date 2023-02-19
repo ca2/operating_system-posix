@@ -15,7 +15,7 @@
 #include "gtk_gtk.h"
 
 
-#if defined(_NODE_GTK_LIBRARY)
+#if defined(_node_gtk_project)
    #define CLASS_DECL_NODE_GTK  CLASS_DECL_EXPORT
 #else
    #define CLASS_DECL_NODE_GTK  CLASS_DECL_IMPORT

@@ -9,7 +9,7 @@
 #include <alsa/asoundlib.h>
 
 
-#if defined(_AUDIO_ALSA_LIBRARY)
+#if defined(_audio_alsa_project)
    #define CLASS_DECL_AUDIO_ALSA  CLASS_DECL_EXPORT
 #else
    #define  CLASS_DECL_AUDIO_ALSA  CLASS_DECL_IMPORT
