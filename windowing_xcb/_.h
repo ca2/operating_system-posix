@@ -14,7 +14,7 @@
 #define WITH_SN
 
 
-#if defined(_WINDOWING_XCB_LIBRARY)
+#if defined(_windowing_xcb_project)
    #define CLASS_DECL_WINDOWING_XCB  CLASS_DECL_EXPORT
 #else
    #define CLASS_DECL_WINDOWING_XCB  CLASS_DECL_IMPORT

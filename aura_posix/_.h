@@ -5,7 +5,7 @@
 #include "apex_posix/_.h"
 
 
-#if defined(_AURA_POSIX_LIBRARY)
+#if defined(_aura_posix_project)
    #define CLASS_DECL_AURA_POSIX  CLASS_DECL_EXPORT
 #else
    #define CLASS_DECL_AURA_POSIX  CLASS_DECL_IMPORT
