@@ -117,13 +117,6 @@
 			remoteGlobalIDString = 9AD68E39251A753A00C0EBD7;
 			remoteInfo = ios_acme;
 		};
-		9AC14CDD297B3371006D9BD3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9A0C1792264A315100B5CC33 /* acme.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 9AC14CB6297B3350006D9BD3;
-			remoteInfo = "acme copy";
-		};
 		9AC14D9A297B362D006D9BD3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9A0C1792264A315100B5CC33 /* acme.xcodeproj */;
@@ -243,7 +236,6 @@
 			children = (
 				9A0C1798264A315100B5CC33 /* libacme.dylib */,
 				9A0C179A264A315100B5CC33 /* lib_acme.a */,
-				9AC14CDE297B3371006D9BD3 /* libacme copy.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -425,13 +417,6 @@
 			remoteRef = 9A0C1799264A315100B5CC33 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9AC14CDE297B3371006D9BD3 /* libacme copy.dylib */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.dylib";
-			path = "libacme copy.dylib";
-			remoteRef = 9AC14CDD297B3371006D9BD3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -593,6 +578,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SYMROOT = "$(WorkspaceDir)/time-$(PLATFORM_MODIFIER)/build";
 				SYSTEM_HEADER_SEARCH_PATHS = (
 					"$(WorkspaceDir)/operating-system",
 					"$(WorkspaceDir)/operating-system/third-$(PLATFORM_MODIFIER)/include",
@@ -693,6 +679,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SYMROOT = "$(WorkspaceDir)/time-$(PLATFORM_MODIFIER)/build";
 				SYSTEM_HEADER_SEARCH_PATHS = (
 					"$(WorkspaceDir)/operating-system",
 					"$(WorkspaceDir)/operating-system/third-$(PLATFORM_MODIFIER)/include",

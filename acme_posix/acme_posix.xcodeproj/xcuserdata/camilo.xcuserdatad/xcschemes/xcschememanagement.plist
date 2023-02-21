@@ -4,11 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>_acme_posix.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>11</integer>
-		</dict>
 		<key>acme_posix copy.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -23,6 +18,11 @@
 			<true/>
 		</dict>
 		<key>9A8E9DBB282A2F7E005FF778</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9AC14CB7297B3370006D9BD3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
