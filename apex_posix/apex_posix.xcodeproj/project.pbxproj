@@ -593,7 +593,7 @@
 		9A0C168A264A29B800B5CC33 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEAD_CODE_STRIPPING = YES;
+				EXECUTABLE_PREFIX = lib;
 				PLATFORM_MODIFIER = macos;
 			};
 			name = Debug;
@@ -601,7 +601,7 @@
 		9A0C168B264A29B800B5CC33 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEAD_CODE_STRIPPING = YES;
+				EXECUTABLE_PREFIX = lib;
 				PLATFORM_MODIFIER = macos;
 			};
 			name = Release;
