@@ -1447,15 +1447,15 @@ namespace acme_posix
    bool node::set_process_priority(::enum_priority epriority)
 {
       
-#ifdef LINUX
+//#ifdef LINUX
       
-#error "please transfer the code commented below to linux-operating-system"
-      
-#else
+//#error "please transfer the code commented below to linux-operating-system"
+//
+//#else
       
       return ::acme::node::set_process_priority(epriority);
       
-#endif
+///#endif
       
       
    }

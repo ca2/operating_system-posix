@@ -4,6 +4,7 @@
 #include "cursor.h"
 #include "windowing.h"
 #include "display.h"
+#include "acme
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
 #include "aura_posix/_x11.h"
@@ -41,8 +42,6 @@ namespace windowing_xcb
 
       throw ::interface_only();
       
-      throw ::interface_only();
-
    }
 
 

@@ -5,8 +5,9 @@
 //#include <X11/extensions/Xrender.h>
 
 
-#include "aura/graphics/graphics/_.h"
-#include "aura/graphics/graphics/_graphics.h"
+//#include "aura/graphics/graphics/_.h"
+#include "aura/graphics/graphics/double_buffer.h"
+#include "aura/graphics/graphics/bitmap_source_buffer.h"
 
 
 namespace windowing_xcb

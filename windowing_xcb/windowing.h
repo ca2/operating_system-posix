@@ -23,7 +23,7 @@ namespace windowing_xcb
       bool                                      m_bFirstWindowMap : 1;
       bool                                      m_bFinishXcbThread;
 
-      ::pointer<::windowing_xcb::display>      m_pdisplay;
+      ::pointer<::windowing_xcb::display>       m_pdisplay;
       //void *                                    m_pSnLauncheeContext;
       bool                                      m_bFinishX11Thread;
       bool                                      m_bInitX11Thread;
@@ -32,8 +32,8 @@ namespace windowing_xcb
 
 #ifdef WITH_XI
 
-      int                                             m_xi_opcode = -1;
-      ::pointer<object_array>                        m_pobjectaExtendedEventListener;
+      int                                       m_xi_opcode = -1;
+      ::pointer < particle_array >              m_pparticleaExtendedEventListener;
 
 #endif
 

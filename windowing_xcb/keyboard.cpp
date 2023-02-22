@@ -5,6 +5,8 @@
 #include "framework.h"
 #include "keyboard.h"
 #include "aura/user/user/key.h"
+#include "apex/filesystem/filesystem/file_context.h"
+#include "apex/platform/context.h"
 
 
 //#if defined(LINUX) || defined(SOLARIS)
@@ -280,7 +282,6 @@ namespace windowing_xcb
       auto pcontext = m_pcontext;
 
       string str = pcontext->m_papexcontext->file()->as_string(pszPath);
-
 
       output_debug_string(pszPath);
 

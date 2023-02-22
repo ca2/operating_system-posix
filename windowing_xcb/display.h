@@ -7,8 +7,14 @@
 #define WINDOWING_X11_DISPLAY_MEMBER
 
 
-#include "acme/operating_system/xcb/nano/_nano.h"
+#include "acme/exception/status.h"
+#include "acme/operating_system/xcb/nano/_.h"
+#include "acme/primitive/collection/int_map.h"
 #include "aura/windowing/display.h"
+#include <xcb/xcb.h>
+#include <xcb/xcb_image.h>
+#include <xcb/render.h>
+#include <X11/Xlib.h>
 
 
 namespace windowing_xcb
@@ -23,7 +29,7 @@ namespace windowing_xcb
 
 
       critical_section                                         m_criticalsectionWindowMap;
-      ::pointer<::xcb::display>                               m_pxcbdisplay;
+      ::pointer<::xcb::display>                                m_pxcbdisplay;
       window_map                                               m_windowmap;
       i32_map < xcb_cursor_t>                                  m_mapGlyphCursor;
       xcb_atom_t                                               m_atoma[::x11::e_atom_count];
@@ -36,8 +42,8 @@ namespace windowing_xcb
       ::pointer<class window>                                  m_pwindowRoot;
       ::pointer<class window>                                  m_pwindowKeyboardFocus;
 
-      ::pointer<::windowing_xcb::window>                      m_pwindowActive;
-      ::pointer<::windowing_xcb::window>                      m_pwindowMouseCapture;
+      ::pointer<::windowing_xcb::window>                       m_pwindowActive;
+      ::pointer<::windowing_xcb::window>                       m_pwindowMouseCapture;
 
 
       display();

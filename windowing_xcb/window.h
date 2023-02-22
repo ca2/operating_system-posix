@@ -83,7 +83,7 @@ namespace windowing_xcb
       virtual void set_window_text(const char * pszString);
 
 
-      bool set_window_position(const class ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy, ::u32 nFlags) override;
+      bool set_window_position(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, bool bShow, bool bHide) override;
 
 
       virtual int_bool IsWindowVisibleRaw();

@@ -29,9 +29,11 @@ namespace windowing_xcb
    class display;
    class window;
 
+
    using XCB_WINDOW_T = long;
 
-   using window_map = map < XCB_WINDOW_T , ::pointer<window >>
+
+   using window_map = map < XCB_WINDOW_T , ::pointer<window > >;
 
 
 } // namespace windowing_xcb
