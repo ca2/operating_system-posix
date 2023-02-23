@@ -6,6 +6,9 @@
 #include "window.h"
 #include "display.h"
 #include "cursor.h"
+#include "acme/constant/message.h"
+#include "acme/operating_system/xcb/nano/display.h"
+#include "acme/parallelization/synchronous_lock.h"
 #include "aura/message/user.h"
 #include "aura/platform/application.h"
 #include "aura/platform/session.h"
@@ -13,6 +16,7 @@
 #include "aura/user/user/interaction_impl.h"
 #include "aura/user/user/user.h"
 #include "aura/windowing/cursor_manager.h"
+#include "aura/windowing/keyboard.h"
 #include "aura_posix/node.h"
 #include <X11/cursorfont.h>
 #include <xcb/xcb.h>
@@ -572,7 +576,7 @@ namespace windowing_xcb
 
 #ifdef WITH_XI
 
-         m_pobjectaExtendedEventListener.release();
+         m_pparticleaExtendedEventListener.release();
 
 #endif
 
@@ -661,7 +665,7 @@ namespace windowing_xcb
 
 #ifdef WITH_XI
 
-         m_pobjectaExtendedEventListener.release();
+         m_pparticleaExtendedEventListener.release();
 
 #endif
 
@@ -748,9 +752,9 @@ namespace windowing_xcb
    bool windowing::xcb_process_event(xcb_generic_event_t * pgenericevent)
    {
 
-      MESSAGE msg;
+      MESSAGE msg2;
 
-      msg.time = 0;
+      msg2.time = 0;
 
       bool bRet = true;
 
@@ -765,6 +769,8 @@ namespace windowing_xcb
 
       }
 
+      ::oswindow oswindow = nullptr;
+
       switch (pgenericevent->response_type)
       {
       case XCB_LEAVE_NOTIFY:
@@ -772,25 +778,29 @@ namespace windowing_xcb
 
          auto pevent = (xcb_leave_notify_event_t *) pgenericevent;
 
-         ::minimum(m_pointCursor.x);
+         //::minimum(m_pointCursor.x);
 
-         ::minimum(m_pointCursor.y);
+         //::minimum(m_pointCursor.y);
 
-         msg.oswindow = m_pdisplay->_window(pevent->event);
+         oswindow = m_pdisplay->_window(pevent->event);
 
-         if(::is_null(msg.oswindow))
+         if(::is_null(oswindow))
          {
 
             return false;
 
          }
 
-         msg.m_atom = e_message_mouse_leave;
-         msg.wParam = 0;
-         msg.lParam = 0;
-         msg.time = pevent->time;
+         auto pmessage = __create_new<::user::message>();
 
-         post_ui_message(msg);
+         pmessage->m_atom = e_message_mouse_leave;
+         pmessage->m_pwindow = oswindow;
+         pmessage->m_oswindow = oswindow;
+          pmessage->m_wparam = 0;
+          pmessage->m_lparam = 0;
+//          pmessage->m_time = pevent->time;
+
+         post_ui_message(pmessage);
 
       }
       break;
@@ -799,14 +809,14 @@ namespace windowing_xcb
 
          auto pevent = (xcb_enter_notify_event_t *) pgenericevent;
 
-         ::minimum(m_pointCursor.x);
+         //::minimum(m_pointCursor.x);
 
-         ::minimum(m_pointCursor.y);
+         //::minimum(m_pointCursor.y);
 
-         msg.oswindow = m_pdisplay->_window(pevent->event);
+         oswindow = m_pdisplay->_window(pevent->event);
 
 
-         if(::is_null(msg.oswindow))
+         if(::is_null(oswindow))
          {
 
             return false;
@@ -822,9 +832,9 @@ namespace windowing_xcb
 
          auto pmotion = (xcb_motion_notify_event_t *) pgenericevent;
 
-         msg.oswindow = m_pdisplay->_window(pmotion->event);
+         oswindow = m_pdisplay->_window(pmotion->event);
 
-         if(::is_null(msg.oswindow))
+         if(::is_null(oswindow))
          {
 
             return false;
@@ -835,16 +845,18 @@ namespace windowing_xcb
 
          m_pointCursor.y = pmotion->root_y;
 
+         oswindow->set_cursor_position(m_pointCursor);
+
          FORMATTED_INFORMATION("XCB_MOTION_NOTIFY %d,%d", pmotion->root_x, pmotion->root_y);
 
-         if (msg.oswindow != nullptr && msg.oswindow->m_puserinteractionimpl != nullptr)
+         if (oswindow != nullptr && oswindow->m_puserinteractionimpl != nullptr)
          {
 
-            ((class window *) msg.oswindow->m_pWindow4)->m_pointMouseCursor = m_pointCursor;
+            ((class window *) oswindow->m_pWindow4)->m_pointMouseCursor = m_pointCursor;
 
             bool bOk = true;
 
-            ::pointer<::user::interaction>pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
+            ::pointer<::user::interaction>pinteraction = oswindow->m_puserinteractionimpl->m_puserinteraction;
 
             if (pinteraction.is_set())
             {
@@ -926,18 +938,18 @@ namespace windowing_xcb
 
          }
 
-         wparam wparam(0);
+         ::user::e_button_state ebuttonstate = ::user::e_button_state_none;
 
          if (pmotion->state & XCB_BUTTON_MASK_1)
          {
 
-            wparam |= MK_LBUTTON;
+            ebuttonstate |= ::user::e_button_state_left;
 
          }
 
-         bool bMouseCapture = msg.oswindow->has_mouse_capture();
+         bool bMouseCapture = oswindow->has_mouse_capture();
 
-         bool bCompositeWindow = msg.oswindow->m_puserinteractionimpl->m_bComposite;
+         bool bCompositeWindow = oswindow->m_puserinteractionimpl->m_bComposite;
 
          ::color::color screen_pixel;
 
@@ -948,24 +960,29 @@ namespace windowing_xcb
          if(bCompositeWindow)
          {
 
-            screen_pixel = msg.oswindow->screen_pixel(pmotion->root_x, pmotion->root_y);
+            screen_pixel = oswindow->screen_pixel(pmotion->root_x, pmotion->root_y);
 
             alpha = screen_pixel.alpha;
 
-            bTransparentMouseEvents = msg.oswindow->m_puserinteractionimpl->m_bTransparentMouseEvents;
+            bTransparentMouseEvents = oswindow->m_puserinteractionimpl->m_bTransparentMouseEvents;
 
          }
 
          if (bRet && (!bCompositeWindow || bMouseCapture || alpha != 0 || bTransparentMouseEvents))
          {
 
-            //msg.oswindow = m_pdisplay->_window(pmotion->event);
-            msg.m_atom = e_message_mouse_move;
-            msg.wParam = wparam;
-            msg.lParam = __MAKE_LONG(pmotion->root_x, pmotion->root_y);
-            msg.time = pmotion->time;
+             auto pmessage = __create_new < ::message::mouse >();
 
-            post_ui_message(msg);
+             //msg.oswindow = m_pdisplay->_window(pmotion->event);
+             pmessage->m_pwindow = oswindow;
+             pmessage->m_oswindow = oswindow;
+            pmessage->m_atom = e_message_mouse_move;
+            //pmessage->.wParam = wparam;
+            pmessage->m_ebuttonstate = ebuttonstate;
+            pmessage->m_point = {pmotion->root_x, pmotion->root_y};
+            //pmessage->time = pmotion->time;
+
+            post_ui_message(pmessage);
 
          }
          else
@@ -973,7 +990,7 @@ namespace windowing_xcb
 
             auto list = m_pdisplay->_window_enumerate();
 
-            auto pFind = -1;
+            ::index iFind = -1;
 
             xcb_window_t wFound = 0;
 
@@ -1098,9 +1115,9 @@ namespace windowing_xcb
 
             auto pexpose = (xcb_expose_event_t *) pgenericevent;
 
-            msg.oswindow = m_pdisplay->_window(pexpose->window);
+            oswindow = m_pdisplay->_window(pexpose->window);
 
-            if(::is_null(msg.oswindow))
+            if(::is_null(oswindow))
             {
 
                return false;
@@ -1110,9 +1127,9 @@ namespace windowing_xcb
             if (pexpose->count == 0)
             {
 
-               auto oswindow = msg.oswindow;
-
-               if(oswindow)
+//               auto oswindow = msg.oswindow;
+//
+//               if(oswindow)
                {
 
                   auto pimpl = oswindow->m_puserinteractionimpl;
@@ -1134,11 +1151,14 @@ namespace windowing_xcb
                         else
                         {
 
-                           msg.m_atom = e_message_paint;
-                           msg.lParam = 0;
-                           msg.wParam = 0;
+                            auto pmessage = __create_new < ::user::message >();
+                            pmessage->m_pwindow = oswindow;
+                            pmessage->m_oswindow = oswindow;
+                           pmessage->m_atom = e_message_paint;
+                           pmessage->m_lparam = 0;
+                           pmessage->m_wparam = 0;
 
-                           post_ui_message(msg);
+                           post_ui_message(pmessage);
 
                         }
 
@@ -1210,18 +1230,18 @@ namespace windowing_xcb
 
             }
 
-            msg.oswindow = m_pdisplay->_window(pproperty->window);
+            oswindow = m_pdisplay->_window(pproperty->window);
 
-            if(::is_null(msg.oswindow))
+            if(::is_null(oswindow))
             {
 
                return false;
 
             }
 
-            msg.time = pproperty->time;
+            //msg.time = pproperty->time;
 
-            if (msg.oswindow != nullptr && msg.oswindow->m_puserinteractionimpl != nullptr)
+            if (oswindow != nullptr && oswindow->m_puserinteractionimpl != nullptr)
             {
 
                int iIconic = -1;
@@ -1229,11 +1249,11 @@ namespace windowing_xcb
                if (pproperty->atom == m_pdisplay->m_pxcbdisplay->intern_atom(::x11::e_atom_wm_state, false))
                {
 
-                  iIconic = msg.oswindow->is_iconic() ? 1 : 0;
+                  iIconic = oswindow->is_iconic() ? 1 : 0;
 
                }
 
-               ::user::interaction *pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
+               ::user::interaction *pinteraction = oswindow->m_puserinteractionimpl->m_puserinteraction;
 
                if (pinteraction != nullptr)
                {
@@ -1355,13 +1375,16 @@ namespace windowing_xcb
 
             //__defer_post_move_and_or_size(pmap->window);
 
-            msg.oswindow = pwindow;
-            msg.m_atom = e_message_show_window;
-            msg.wParam = pmap->response_type == XCB_MAP_NOTIFY;
-            msg.lParam = 0;
+            auto pmessage = __create_new < ::message::show_window >();
+
+             pmessage->m_pwindow = oswindow;
+            pmessage->m_oswindow = oswindow;
+            pmessage->m_atom = e_message_show_window;
+            pmessage->m_bShow = pmap->response_type == XCB_MAP_NOTIFY;
+            //msg.lParam = 0;
 
 
-            post_ui_message(msg);
+            post_ui_message(pmessage);
 
          }
          break;
@@ -1374,16 +1397,16 @@ namespace windowing_xcb
 
             ::size_i32 size(pconfigure->width, pconfigure->height);
 
-            msg.oswindow = m_pdisplay->_window(pconfigure->window);
+            oswindow = m_pdisplay->_window(pconfigure->window);
 
-            if(::is_null(msg.oswindow))
+            if(::is_null(oswindow))
             {
 
                return false;
 
             }
 
-            ::user::primitive_impl *pimpl = msg.oswindow ? msg.oswindow->m_puserinteractionimpl : nullptr;
+            ::user::primitive_impl *pimpl = oswindow ? oswindow->m_puserinteractionimpl : nullptr;
 
             if (pimpl != nullptr)
             {
@@ -1393,7 +1416,7 @@ namespace windowing_xcb
                if (pinteraction != nullptr)
                {
 
-                  if (pinteraction->const_layout().design().display() == ::e_display_iconic && !msg.oswindow->is_iconic())
+                  if (pinteraction->const_layout().design().display() == ::e_display_iconic && !oswindow->is_iconic())
                   {
 
                      pinteraction->fork([point,size,pinteraction]()
@@ -1526,16 +1549,23 @@ namespace windowing_xcb
 
             bRet = true;
 
-            msg.oswindow = m_pdisplay->_window(pbutton->event);
+            oswindow = m_pdisplay->_window(pbutton->event);
 
-            if(::is_null(msg.oswindow))
+            if(::is_null(oswindow))
             {
 
                return false;
 
             }
 
-            auto pimpl = msg.oswindow->m_puserinteractionimpl;
+
+             m_pointCursor.x = pbutton->root_x;
+
+             m_pointCursor.y = pbutton->root_y;
+
+             oswindow->set_cursor_position(m_pointCursor);
+
+             auto pimpl = oswindow->m_puserinteractionimpl;
 
             auto puserinteraction = pimpl->m_puserinteraction;
 
@@ -1554,9 +1584,11 @@ namespace windowing_xcb
             //::output_debug_string("\nbutton.root_y=" + as_string(pbutton->root_y));
             //::output_debug_string("\n");
 
-            msg.time = pbutton->time;
+            //msg.time = pbutton->time;
 
-            i32 iDelta = 0;
+            i32 Δ = 0;
+
+            ::enum_message emessage = e_message_null;
 
             if (pbutton->response_type == XCB_BUTTON_PRESS)
             {
@@ -1569,31 +1601,31 @@ namespace windowing_xcb
 
                   g_i135++;
 
-                  msg.m_atom = e_message_left_button_down;
+                  emessage = e_message_left_button_down;
 
                }
                else if (pbutton->detail == XCB_BUTTON_INDEX_2)
                {
 
-                  msg.m_atom = e_message_middle_button_down;
+                   emessage= e_message_middle_button_down;
 
                }
                else if (pbutton->detail == XCB_BUTTON_INDEX_3)
                {
 
-                  msg.m_atom = e_message_right_button_down;
+                   emessage = e_message_right_button_down;
 
                }
                else if (pbutton->detail == XCB_BUTTON_INDEX_4)
                {
 
-                  iDelta = 120;
+                   Δ = 120;
 
                }
                else if (pbutton->detail == XCB_BUTTON_INDEX_5)
                {
 
-                  iDelta = -120;
+                   Δ = -120;
 
                }
                else
@@ -1617,19 +1649,19 @@ namespace windowing_xcb
 
                   //::output_debug_string("ButtonRelease::Button1\n");
 
-                  msg.m_atom = e_message_left_button_up;
+                   emessage = e_message_left_button_up;
 
                }
                else if (pbutton->detail == XCB_BUTTON_INDEX_2)
                {
 
-                  msg.m_atom = e_message_middle_button_up;
+                   emessage = e_message_middle_button_up;
 
                }
                else if (pbutton->detail == XCB_BUTTON_INDEX_3)
                {
 
-                  msg.m_atom = e_message_right_button_up;
+                   emessage = e_message_right_button_up;
 
                }
                else
@@ -1656,9 +1688,9 @@ namespace windowing_xcb
 
             int YRoot = pbutton->root_y;
 
-            bool bMouseCapture = msg.oswindow->has_mouse_capture();
+            bool bMouseCapture = oswindow->has_mouse_capture();
 
-            bool bHasTranslucency = msg.oswindow->m_puserinteractionimpl->m_puserinteraction->has_translucency();
+            bool bHasTranslucency = oswindow->m_puserinteractionimpl->m_puserinteraction->has_translucency();
 
             ::color::color screen_pixel;
 
@@ -1669,37 +1701,57 @@ namespace windowing_xcb
             if(bHasTranslucency)
             {
 
-               screen_pixel = msg.oswindow->screen_pixel(pbutton->root_x, pbutton->root_y);
+               screen_pixel = oswindow->screen_pixel(pbutton->root_x, pbutton->root_y);
 
                FORMATTED_INFORMATION("pixel argb(%d,%d,%d,%d)", screen_pixel.alpha, screen_pixel.red, screen_pixel.green, screen_pixel.blue);
 
                alpha = screen_pixel.alpha;
 
-               bTransparentMouseEvents = msg.oswindow->m_puserinteractionimpl->m_bTransparentMouseEvents;
+               bTransparentMouseEvents = oswindow->m_puserinteractionimpl->m_bTransparentMouseEvents;
 
             }
 
             if (bRet && (!bHasTranslucency || bMouseCapture || alpha != 0 || bTransparentMouseEvents))
             {
 
-               if(iDelta != 0)
+               if(Δ != 0)
                {
 
-                  msg.m_atom = e_message_mouse_wheel;
+                   auto pmessage = __create_new < ::message::mouse_wheel >();
 
-                  msg.wParam = __MAKE_LONG(0, iDelta);
+                   pmessage->m_pwindow = oswindow;
+
+                   pmessage->m_oswindow = oswindow;
+
+
+                   pmessage->m_atom = e_message_mouse_wheel;
+
+                  pmessage->m_Δ = Δ;
+
+                   pmessage->m_point = {pbutton->root_x, pbutton->root_y};
+
+                   post_ui_message(pmessage);
 
                }
                else
                {
 
-                  msg.wParam = 0;
+                   auto pmessage = __create_new < ::message::mouse_wheel >();
+
+                   pmessage->m_pwindow = oswindow;
+
+                   pmessage->m_oswindow = oswindow;
+
+                   pmessage->m_atom = emessage;
+
+                   pmessage->m_Δ = Δ;
+
+                   pmessage->m_point = {pbutton->root_x, pbutton->root_y};
+
+                   post_ui_message(pmessage);
 
                }
 
-               msg.lParam = __MAKE_LONG(pbutton->root_x, pbutton->root_y);
-
-               post_ui_message(msg);
 
 
             }
@@ -1708,7 +1760,7 @@ namespace windowing_xcb
 
                auto list = m_pdisplay->_window_enumerate();
 
-               auto pFind = -1;
+               ::index iFind = -1;
 
                xcb_window_t wFound = 0;
 
@@ -1799,9 +1851,9 @@ namespace windowing_xcb
 
             auto pwindow = m_pdisplay->_window(pkeyevent->event);
 
-            msg.oswindow = pwindow;
+            oswindow = pwindow;
 
-            if(::is_null(msg.oswindow))
+            if(::is_null(oswindow))
             {
 
                return false;
@@ -1812,7 +1864,7 @@ namespace windowing_xcb
 
             ::u16 state = pkeyevent->state;
 
-            msg.time = pkeyevent->time;
+            //msg.time = pkeyevent->time;
 
             bRet = true;
 
@@ -1822,16 +1874,18 @@ namespace windowing_xcb
 
             string strText;
 
-            msg.wParam = code;
+            //msg.wParam = code;
 
             KeySym keysym = 0;
+
+            ::enum_message emessage = ::e_message_null;
 
             if (pkeyevent->response_type == XCB_KEY_PRESS)
             {
 
                strText = pwindow->_on_key_down(code, state, &keysym);
 
-               msg.m_atom = e_message_key_down;
+               emessage = e_message_key_down;
 
             }
             else if (pkeyevent->response_type == XCB_KEY_RELEASE)
@@ -1839,7 +1893,7 @@ namespace windowing_xcb
 
                keysym = pwindow->keycode_to_keysym(code);
 
-               msg.m_atom = e_message_key_up;
+               emessage = e_message_key_up;
 
             }
             else
@@ -1849,27 +1903,37 @@ namespace windowing_xcb
 
             }
 
+            ::user::enum_key ekey = keyboard()->wparam_to_userkey(keysym);
+
             if (bRet)
             {
 
-               msg.lParam = keysym;
+                auto pmessage = __create_new<::message::key>();
+                pmessage->m_oswindow = oswindow;
+                pmessage->m_pwindow = oswindow;
+                pmessage->m_atom = emessage;
+                pmessage->m_ekey = ekey;
+               //msg.lParam = keysym;
 
-               post_ui_message(msg);
+               post_ui_message(pmessage);
 
             }
 
             if (strText.has_char() && !(pkeyevent->state & XCB_MOD_MASK_CONTROL))
             {
 
-               auto pkey = __create_new < ::message::key >();
+               auto pmessage = __create_new < ::message::key >();
+                pmessage->m_oswindow = oswindow;
+                pmessage->m_pwindow = oswindow;
+                pmessage->m_atom = e_message_text_composition;
 
-               pkey->set(pwindow, pwindow, e_message_text_composition, 0, 0);
+               //pkey->set(pwindow, pwindow, e_message_text_composition, 0, 0);
 
-               pkey->m_strText = strText;
+               pmessage->m_strText = strText;
 
                printf("xcb_process_message e_message_text_composition\n");
 
-               post_ui_message(pkey);
+               post_ui_message(pmessage);
 
             }
 
@@ -1882,25 +1946,21 @@ namespace windowing_xcb
 
             ::output_debug_string("FocusIn\n");
 
-            msg.m_atom = e_message_set_focus;
+            oswindow = m_pdisplay->_window(pfocusin->event);
 
-            auto pwindow = m_pdisplay->_window(pfocusin->event);
-
-            msg.oswindow = pwindow;
-
-            if(::is_null(msg.oswindow))
+            if(::is_null(oswindow))
             {
 
                return false;
 
             }
 
-            if (::is_set(msg.oswindow))
+            if (::is_set(oswindow))
             {
 
-               m_pdisplay->m_pwindowKeyboardFocus = msg.oswindow;
+               m_pdisplay->m_pwindowKeyboardFocus = oswindow;
 
-               auto pimpl = msg.oswindow->m_puserinteractionimpl;
+               auto pimpl = oswindow->m_puserinteractionimpl;
 
                if (::is_set(pimpl))
                {
@@ -1910,11 +1970,15 @@ namespace windowing_xcb
                   if (::is_set(pinteraction))
                   {
 
-                     msg.m_atom = e_message_set_focus;
+                      auto pmessage = __create_new < ::message::set_keyboard_focus >();
+
+                      pmessage->m_pwindow = oswindow;
+                      pmessage->m_oswindow = oswindow;
+                     pmessage->m_atom = e_message_set_focus;
 
                      pinteraction->m_ewindowflag |= ::e_window_flag_focus;
 
-                     post_ui_message(msg);
+                     post_ui_message(pmessage);
 
                   }
 
@@ -1931,28 +1995,26 @@ namespace windowing_xcb
 
             ::output_debug_string("FocusOut\n");
 
-            auto pwindow = m_pdisplay->_window(pfocusout->event);
+            oswindow =  m_pdisplay->_window(pfocusout->event);
 
-            msg.oswindow = pwindow;
-
-            if(::is_null(msg.oswindow))
+            if(::is_null(oswindow))
             {
 
                return false;
 
             }
 
-            if (::is_set(msg.oswindow))
+            //if (::is_set(msg.oswindow))
             {
 
-               if(m_pdisplay->m_pwindowKeyboardFocus == msg.oswindow)
+               if(m_pdisplay->m_pwindowKeyboardFocus == oswindow)
                {
 
                   m_pdisplay->m_pwindowKeyboardFocus = nullptr;
 
                }
 
-               auto pimpl = msg.oswindow->m_puserinteractionimpl;
+               auto pimpl = oswindow->m_puserinteractionimpl;
 
                if (::is_set(pimpl))
                {
@@ -1962,7 +2024,12 @@ namespace windowing_xcb
                   if (::is_set(pinteraction))
                   {
 
-                     msg.m_atom = e_message_kill_focus;
+                      auto pmessage = __create_new < ::message::kill_keyboard_focus >();
+
+                      pmessage->m_pwindow = oswindow;
+                      pmessage->m_oswindow = oswindow;
+
+                     pmessage->m_atom = e_message_kill_focus;
 
                      pinteraction->m_ewindowflag -= ::e_window_flag_focus;
 
@@ -1981,11 +2048,11 @@ namespace windowing_xcb
 
                         auto pwindowFocus = m_pdisplay->_window(windowFocus);
 
-                        msg.wParam = (wparam) (iptr) pwindowFocus;
+                        pmessage->m_wparam = (wparam) (iptr) pwindowFocus;
 
                      }
 
-                     post_ui_message(msg);
+                     post_ui_message(pmessage);
 
                   }
 
@@ -2000,18 +2067,23 @@ namespace windowing_xcb
 
             auto pdestroy = (xcb_destroy_notify_event_t *)pgenericevent;
 
-            msg.oswindow = m_pdisplay->_window(pdestroy->window);
+            oswindow = m_pdisplay->_window(pdestroy->window);
 
-            if(::is_null(msg.oswindow))
+            if(::is_null(oswindow))
             {
 
                return false;
 
             }
 
-            msg.m_atom = e_message_destroy;
+             auto pmessage = __create_new < ::message::kill_keyboard_focus >();
 
-            post_ui_message(msg);
+             pmessage->m_pwindow = oswindow;
+             pmessage->m_oswindow = oswindow;
+
+             pmessage->m_atom = e_message_destroy;
+
+            post_ui_message(pmessage);
 
             return true;
 
@@ -2100,33 +2172,48 @@ namespace windowing_xcb
       if (bPositionFix || bSizeFix)
       {
 
-         MESSAGE msg;
+         //MESSAGE msg;
 
-         msg.oswindow = oswindow;
+         //msg.oswindow = oswindow;
 
          if (bPositionFix)
          {
 
-            msg.oswindow->m_point = pointWindow;
+             auto pmessage = __create_new < ::message::reposition >();
 
-            msg.m_atom = e_message_reposition;
-            msg.wParam = 0;
-            msg.lParam = pointWindow.lparam();
+             pmessage->m_pwindow = oswindow;
 
-            post_ui_message(msg);
+             pmessage->m_oswindow = oswindow;
+
+
+
+             oswindow->m_point = pointWindow;
+
+            pmessage->m_atom = e_message_reposition;
+            pmessage->m_wparam = 0;
+            pmessage->m_point = pointWindow;
+
+            post_ui_message(pmessage);
 
          }
 
          if (bSizeFix)
          {
 
-            msg.oswindow->m_size = sizeWindow;
+             auto pmessage = __create_new < ::message::size >();
 
-            msg.m_atom = e_message_size;
-            msg.wParam = 0;
-            msg.lParam = sizeWindow.lparam();
+             pmessage->m_pwindow = oswindow;
 
-            post_ui_message(msg);
+             pmessage->m_oswindow = oswindow;
+
+
+             oswindow->m_size = sizeWindow;
+
+            pmessage->m_atom = e_message_size;
+            pmessage->m_wparam = 0;
+            pmessage->m_size = sizeWindow;
+
+            post_ui_message(pmessage);
 
          }
 

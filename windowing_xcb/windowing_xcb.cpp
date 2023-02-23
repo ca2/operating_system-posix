@@ -4,6 +4,8 @@
 #include "framework.h"
 #include "windowing.h"
 #include "window.h"
+#include "acme/parallelization/synchronous_lock.h"
+#include "apex/parallelization/thread.h"
 #include "aura/operating_system/xcb/_xcb.h"
 #include "aura/user/user/interaction_impl.h"
 #include "acme/constant/id.h"

@@ -5,6 +5,7 @@
 #include "buffer.h"
 #include "display.h"
 #include "window.h"
+#include "acme/parallelization/synchronous_lock.h"
 #include "aura/graphics/image/image.h"
 #include "aura/user/user/interaction_impl.h"
 

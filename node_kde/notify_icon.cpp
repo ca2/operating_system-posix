@@ -4,6 +4,9 @@
 #include "framework.h"
 #include "notify_icon.h"
 #include "node.h"
+#include "acme/platform/system.h"
+#include "apex/filesystem/filesystem/dir_context.h"
+#include "apex/platform/application.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/graphics/image/context_image.h"
 #include "aura/platform/context.h"
@@ -49,7 +52,7 @@ namespace node_kde
 
       string strNotifyIcon;
 
-      strNotifyIcon = "notify_icon_" + atom.to_string();
+      strNotifyIcon = "notify_icon_" + atom.as_string();
 
       m_strId = "ca2-" + picon->get_tray_icon_name() + "-" + strNotifyIcon;
 
@@ -59,7 +62,7 @@ namespace node_kde
 
       m_puserinteractionNotify = puserinteractionNotify;
 
-      auto pnode = acmesystem()->m_pnode->m_pNodeKDE;
+      ::pointer < node > pnode = acmesystem()->acmenode();
 
       QObject::setParent(pnode->m_pqapplication);
 
