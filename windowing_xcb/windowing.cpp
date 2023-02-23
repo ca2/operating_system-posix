@@ -214,7 +214,23 @@ namespace windowing_xcb
 
       //auto estatus =
       //
-      procedure();
+      //procedure();
+
+
+      acmenode()->node_post(procedure);
+
+       //if(!procedure)
+       //{
+
+         //  throw ::exception(error_null_pointer);
+
+       //}
+
+       //synchronous_lock synchronouslock(this->synchronization());
+
+       //m_procedurelist.add_tail(procedure);
+
+
 
 //      if(!estatus)
 //      {

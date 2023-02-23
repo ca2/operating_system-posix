@@ -95,7 +95,7 @@ namespace node_kde
 
       auto papp = get_app();
 
-      auto pathIcon24 = pathHome / "application" / papp->m_strAppId / "main/icon-24-resized.png";
+      auto pathIcon24 = pathHome / ".config" / papp->m_strAppId / "main/icon-24-resized.png";
 
       auto pimage = m_pcontext->context_image()->get_image("matter://main/icon-256.png");
 
