@@ -5,6 +5,7 @@
 #include "framework.h"
 #include "desktop_environment.h"
 #include "node.h"
+#include "acme/parallelization/synchronous_lock.h"
 #include "aura/windowing/windowing.h"
 #include "aura/platform/node.h"
 #include "aura/platform/session.h"
@@ -164,7 +165,7 @@ namespace node_kde
 
       auto psystem = acmesystem()->m_paurasystem;
 
-      auto pnode = psystem->node()->cast < node >();
+      ::pointer < node > pnode = psystem->node();
 
       auto pqapplication = pnode->m_pqapplication;
 

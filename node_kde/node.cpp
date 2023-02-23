@@ -4,8 +4,12 @@
 #include "framework.h"
 #include "node.h"
 #include "appindicator.h"
-#include "aura/windowing/windowing.h"
+#include "acme/constant/id.h"
+#include "acme/user/user/os_theme_colors.h"
+#include "acme/user/user/theme_colors.h"
+#include "apex/platform/system.h"
 #include "acme/filesystem/filesystem/acme_directory.h"
+#include "aura/windowing/windowing.h"
 #include <kworkspace5/kworkspace.h>
 #include <KColorScheme>
 #include <KFileItem>
@@ -241,7 +245,7 @@ namespace node_kde
          //auto pnode = psystem->node();
 
          //pnode->node_init_check(&m_argc, &m_argv);
-         node_init_check(&acmesystem()->m_argc, &acmesystem()->m_argv);
+         node_init_check(&acmesystem()->m_psubsystem->m_argc, &acmesystem()->m_psubsystem->m_argv);
 
       }
 
@@ -368,7 +372,7 @@ namespace node_kde
 
          auto psystem = acmesystem()->m_papexsystem;
 
-         psystem->post_initial_request();
+         psystem->defer_post_initial_request();
 
          _qapplication_exec();
 
@@ -386,7 +390,7 @@ namespace node_kde
 
       auto psystem = pparticle->acmesystem();
 
-      m_pqapplication = memory_new QApplication(psystem->m_argc, psystem->m_argv);
+      m_pqapplication = memory_new QApplication(psystem->m_psubsystem->m_argc, psystem->m_psubsystem->m_argv);
 
       if(!m_pqapplication)
       {
@@ -427,7 +431,7 @@ namespace node_kde
 
          void *p = (void *) QX11Info::display();
 
-         output_debug_string("qx11info::display : " + hex::lower_from((iptr) p));
+         output_debug_string("qx11info::display : " + hex::lower_case_from((iptr) p));
 
          m_pX11Display = p;
 

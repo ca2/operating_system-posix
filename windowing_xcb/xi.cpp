@@ -4,6 +4,10 @@
 #include "framework.h"
 #include "windowing.h"
 #include "display.h"
+#include "acme/constant/message.h"
+#include "acme/operating_system/xcb/nano/display.h"
+#include "acme/parallelization/synchronous_lock.h"
+#include "apex/platform/system.h"
 #ifdef WITH_XI
 #include <xcb/xinput.h>
 #include "aura_posix/x11/display_lock.h"
@@ -132,10 +136,10 @@ namespace windowing_xcb
    void windowing::register_extended_event_listener(::matter *pdata, bool bMouse, bool bKeyboard)
    {
 
-      if (!m_pobjectaExtendedEventListener)
+      if (!m_pparticleaExtendedEventListener)
       {
 
-         __construct_new(m_pobjectaExtendedEventListener);
+         __construct_new(m_pparticleaExtendedEventListener);
 
 //         if(!estatus)
 //         {
@@ -146,7 +150,7 @@ namespace windowing_xcb
 
       }
 
-      m_pobjectaExtendedEventListener->add(pdata);
+      m_pparticleaExtendedEventListener->add(pdata);
 
       windowing_post([this, bMouse, bKeyboard]()
                                  {
@@ -463,7 +467,7 @@ namespace windowing_xcb
 
          //::topic::context context;
 
-         for (auto & p : *m_pobjectaExtendedEventListener)
+         for (auto & p : *m_pparticleaExtendedEventListener)
          {
 
             p->call(emessage, iWparam, iLparam);

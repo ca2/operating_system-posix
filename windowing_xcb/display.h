@@ -88,9 +88,9 @@ namespace windowing_xcb
 
       virtual bool is_null() const;
 
-      virtual bool get_monitor_rectangle(index iMonitor, RECTANGLE_I32 * prectangle);
+      virtual bool get_monitor_rectangle(index iMonitor, RECTANGLE_I32 & rectangle);
 
-      virtual bool get_workspace_rectangle(index iWorkspace, RECTANGLE_I32 * prectangle);
+      virtual bool get_workspace_rectangle(index iWorkspace, RECTANGLE_I32 & rectangle);
 
       virtual ::e_status release_mouse_capture();
 

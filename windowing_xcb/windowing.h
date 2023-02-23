@@ -38,6 +38,8 @@ namespace windowing_xcb
 #endif
 
 
+        //::procedure_list                                m_procedurelist;
+
 
       windowing();
       ~windowing() override;

@@ -4,6 +4,7 @@
 #include "appindicator.h"
 #include "desktop_environment.h"
 #include "node.h"
+//#include "windowing.h"
 
 
 __FACTORY_EXPORT void windowing_xcb_factory(::factory::factory * pfactory);

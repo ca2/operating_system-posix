@@ -16,6 +16,9 @@
 #include "aura/user/user/interaction_impl.h"
 #include <X11/Xatom.h>
 // dnf install xcb-util-devel
+#include "acme/constant/message.h"
+#include "acme/operating_system/xcb/nano/display.h"
+#include "acme/parallelization/synchronous_lock.h"
 #include <xcb/xcb_util.h>
 
 
@@ -267,7 +270,7 @@ namespace windowing_xcb
       if (pwindowing->m_pSnLauncheeContext != nullptr && !papp->m_bSnLauncheeSetup)
       {
 
-         papp->os_on_start_application();
+         //papp->os_on_start_application();
 
          on_sn_launch_context(pwindowing->m_pSnLauncheeContext, window);
 
@@ -411,7 +414,7 @@ namespace windowing_xcb
       if(bOk)
       {
 
-         auto lresult = pimpl->m_puserinteraction->send_message(e_message_create, 0, (lparam) pusersystem.m_p);
+         auto lresult = pimpl->m_puserinteraction->send_message(MESSAGE_CREATE, 0, (lparam) pusersystem.m_p);
 
          if(lresult == -1)
          {
@@ -424,7 +427,7 @@ namespace windowing_xcb
 
          pimpl->m_puserinteraction->m_ewindowflag |= e_window_flag_window_created;
 
-         pimpl->m_puserinteraction->set(e_flag_task_started);
+         pimpl->m_puserinteraction->set_flag(e_flag_task_started);
 
       }
 
@@ -701,8 +704,8 @@ namespace windowing_xcb
          XCB_ATOM_STRING,
          XCB_PROP_MODE_REPLACE,
          8,
-         block.get_size(),
-         block.get_data());
+         block.size(),
+         block.data());
 
       if(!estatus)
       {
@@ -729,7 +732,7 @@ namespace windowing_xcb
 
       auto d1 = m_pcontext->m_pauracontext->create_image({32, 32});
 
-      if (!::is_ok(d1))
+      if (d1.nok())
       {
 
          return false;
@@ -756,7 +759,7 @@ namespace windowing_xcb
 
       m.set_size(length * 4);
 
-      unsigned int *pcr = (unsigned int *) m.get_data();
+      unsigned int *pcr = (unsigned int *) m.data();
 
       pcr[0] = d1->width();
 
@@ -779,9 +782,9 @@ namespace windowing_xcb
 
       xcb_atom_t net_wm_icon = xcb_display()->intern_atom("_NET_WM_ICON", false);
 
-      int status = _change_property(net_wm_icon, XCB_ATOM_CARDINAL, XCB_PROP_MODE_REPLACE, 32, length, pcr);
+      auto status = _change_property(net_wm_icon, XCB_ATOM_CARDINAL, XCB_PROP_MODE_REPLACE, 32, length, pcr);
 
-      if (status != 0)
+      if (status.failed())
       {
 
          return false;
@@ -1067,7 +1070,7 @@ namespace windowing_xcb
          XCB_PROP_MODE_REPLACE,
          32,
          atoms.get_count(),
-         atoms.get_data()
+         atoms.data()
          );
 
       if(!estatus)
@@ -1113,7 +1116,7 @@ namespace windowing_xcb
          estatus = _mapped_net_state_raw(
             true,
             xcb_display()->m_pxcbdisplay->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false),
-            xcb_display()->m_pxcbdisplay->intern_atom(::x11::e_atom_net_wm_state_maximized_vert, false));
+            xcb_display()->m_pxcbdisplay->intern_atom(::x11::e_atom_net_wm_state_maximized_penn, false));
 
       }
       else if (edisplay == e_display_iconic)
@@ -1315,7 +1318,7 @@ namespace windowing_xcb
          estatus = _mapped_net_state_raw(
             false,
             xcb_display()->m_pxcbdisplay->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false),
-            xcb_display()->m_pxcbdisplay->intern_atom(::x11::e_atom_net_wm_state_maximized_vert, false)
+            xcb_display()->m_pxcbdisplay->intern_atom(::x11::e_atom_net_wm_state_maximized_penn, false)
             );
 
       }
@@ -1643,7 +1646,7 @@ namespace windowing_xcb
    }
 
 
-   bool window::set_window_position(const class ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy, ::u32 nFlags)
+   bool window::set_window_position(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, bool bShow, bool bHide)
    {
 
       synchronous_lock sl(user_synchronization());
@@ -1661,7 +1664,7 @@ namespace windowing_xcb
 
       }
 
-      if (nFlags & SWP_SHOWWINDOW)
+      if (bShow)
       {
 
          if (m_attributes.map_state != XCB_MAP_STATE_VIEWABLE)
@@ -1686,9 +1689,9 @@ namespace windowing_xcb
 
       }
 
-      bool bMove = !(nFlags & SWP_NOMOVE);
+      bool bMove = !bNoMove;
 
-      bool bSize = !(nFlags & SWP_NOSIZE);
+      bool bSize = !bNoSize;
 
       if (bMove)
       {
@@ -1728,7 +1731,7 @@ namespace windowing_xcb
 
       }
 
-      if (nFlags & SWP_HIDEWINDOW)
+      if (bHide)
       {
 
          if (m_attributes.map_state == XCB_MAP_STATE_VIEWABLE)
@@ -1753,10 +1756,10 @@ namespace windowing_xcb
 
       }
 
-      if (m_attributes.map_state == XCB_MAP_STATE_VIEWABLE || (nFlags & SWP_SHOWWINDOW))
+      if (m_attributes.map_state == XCB_MAP_STATE_VIEWABLE || (bShow))
       {
 
-         if (!(nFlags & SWP_NOZORDER))
+         if (!bNoZorder)
          {
 
             if (zorder.m_ezorder == e_zorder_top_most)
@@ -1990,9 +1993,9 @@ namespace windowing_xcb
 
       }
 
-      auto pFind = windowa.find_last(xcb_window());
+      auto iFind = windowa.find_last(xcb_window());
 
-      if (::is_null(pFind))
+      if (not_found(iFind))
       {
 
          return recta;
@@ -2408,14 +2411,14 @@ namespace windowing_xcb
       if (atomFlag == 0)
       {
 
-         return false;
+         return error_failed;
 
       }
 
       if (atomList == 0)
       {
 
-         return false;
+         return error_failed;
 
       }
 
@@ -2426,7 +2429,7 @@ namespace windowing_xcb
 
       }
 
-      return true;
+      return success;
 
    }
 
@@ -2439,14 +2442,14 @@ namespace windowing_xcb
       if (atomFlag == 0)
       {
 
-         return false;
+         return error_failed;
 
       }
 
       if (atomList == 0)
       {
 
-         return false;
+         return error_failed;
 
       }
 
@@ -2455,7 +2458,7 @@ namespace windowing_xcb
       if (atoma.is_empty())
       {
 
-         return true;
+         return success;
 
       }
 
@@ -2464,11 +2467,11 @@ namespace windowing_xcb
       if (cRemove > 0)
       {
 
-         _change_property(atomList, XCB_ATOM_ATOM, XCB_PROP_MODE_REPLACE, 32, atoma.get_count(), atoma.get_data());
+         _change_property(atomList, XCB_ATOM_ATOM, XCB_PROP_MODE_REPLACE, 32, atoma.get_count(), atoma.data());
 
       }
 
-      return true;
+      return success;
 
    }
 

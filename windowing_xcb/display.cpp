@@ -5,6 +5,12 @@
 #include "display.h"
 #include "windowing.h"
 #include "window.h"
+#include "acme/constant/message.h"
+#include "acme/parallelization/synchronous_lock.h"
+#include "acme/operating_system/xcb/nano/display.h"
+#include "acme/platform/node.h"
+#include "acme/platform/system.h"
+#include "aura/message/user.h"
 #include "aura/graphics/image/image.h"
 
 
@@ -17,7 +23,7 @@ extern ::app_core * g_pappcore;
 ::particle * user_synchronization();
 
 
-void windowing_output_debug_string(const char *pszDebugString);
+void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString);
 
 
 namespace windowing_xcb
@@ -225,18 +231,18 @@ namespace windowing_xcb
    }
 
 
-   bool display::get_monitor_rectangle(index iMonitor, RECTANGLE_I32 * prectangle)
+   bool display::get_monitor_rectangle(index iMonitor, RECTANGLE_I32 & rectangle)
    {
 
-      return ::windowing::display::get_monitor_rectangle(iMonitor, prectangle);
+      return ::windowing::display::get_monitor_rectangle(iMonitor, rectangle);
 
    }
 
 
-   bool display::get_workspace_rectangle(index iMonitor, RECTANGLE_I32 * prectangle)
+   bool display::get_workspace_rectangle(index iMonitor, RECTANGLE_I32 & rectangle)
    {
 
-      return ::windowing::display::get_workspace_rectangle(iMonitor, prectangle);
+      return ::windowing::display::get_workspace_rectangle(iMonitor, rectangle);
 
    }
 
@@ -271,16 +277,17 @@ namespace windowing_xcb
       if (pwindowMouseCaptureOld && pwindowMouseCaptureOld != pwindowMouseCaptureNew)
       {
 
-         MESSAGE msg;
+         auto pmessage = __create_new < ::user::message >();
 
-         msg.oswindow = pwindowMouseCaptureOld;
-         msg.m_atom = e_message_capture_changed;
-         msg.wParam = 0;
-         msg.lParam = pwindowMouseCaptureNew;
+         pmessage->m_pwindow = pwindowMouseCaptureOld;
+         pmessage->m_oswindow = pwindowMouseCaptureOld;
+         pmessage->m_atom = e_message_capture_changed;
+         pmessage->m_wparam = 0;
+         pmessage->m_lparam = pwindowMouseCaptureNew;
 
          auto pwindowing = xcb_windowing();
 
-         pwindowing->post_ui_message(msg);
+         pwindowing->post_ui_message(pmessage);
 
       }
 
@@ -649,7 +656,7 @@ namespace windowing_xcb
 
       comparable_raw_array < xcb_window_t > windowa;
 
-      auto property = atom(::x11::e_atom_net_client_list_stacking);
+      auto property = m_pxcbdisplay->intern_atom(::x11::e_atom_net_client_list_stacking);
 
       unsigned long remain;
 
@@ -719,7 +726,7 @@ namespace windowing_xcb
       if(!preply)
       {
 
-         return atoma;
+         return false;
 
       }
 
@@ -781,7 +788,7 @@ namespace windowing_xcb
 
       atoma.set_size(size / sizeof(xcb_atom_t));
 
-      memcpy(atoma.get_data(), patom, atoma.get_size_in_bytes());
+      memcpy(atoma.data(), patom, atoma.get_size_in_bytes());
 
       return atoma;
 
@@ -829,7 +836,7 @@ namespace windowing_xcb
    string display::_window_get_name(xcb_window_t window)
    {
 
-      return _window_get_string_property(window, atom(::x11::e_atom_wm_name));
+      return _window_get_string_property(window, m_pxcbdisplay->intern_atom(::x11::e_atom_wm_name));
 
    }
 
@@ -942,7 +949,7 @@ namespace windowing_xcb
 
       auto geometry = _window_get_geometry(window);
 
-      if(!geometry)
+      if(geometry.nok())
       {
 
          return geometry.estatus();
@@ -966,7 +973,7 @@ namespace windowing_xcb
 
       auto geometry = _window_get_geometry(window);
 
-      if(!geometry)
+      if(geometry.nok())
       {
 
          return geometry.estatus();
