@@ -4,6 +4,7 @@
 //
 #include "framework.h"
 #include "keyboard.h"
+#include "acme/operating_system/x11/keyboard.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "apex/filesystem/filesystem/file_context.h"
 #include "apex/user/primitive.h"
@@ -24,7 +25,7 @@ namespace windowing_x11
 
 #if defined(LINUX) || defined(FREEBSD)
 
-   CLASS_DECL_AURA ::user::enum_key keysym_to_userkey(const lparam & lparam);
+//   CLASS_DECL_AURA ::user::enum_key keysym_to_userkey(const lparam & lparam);
 
 #elif defined(MACOS)
 
@@ -794,7 +795,7 @@ namespace windowing_x11
       }
 
 
-      auto ekey = keysym_to_userkey(pkey->m_lparam);
+      auto ekey = ::x11::keysym_to_userkey(pkey->m_lparam);
 
       if(ekey != ::user::e_key_none)
       {

@@ -36,6 +36,8 @@ if(WITH_X11 OR WITH_XCB)
 
            x11/_.cpp
       x11/_constant.h
+           #x11/keyboard.cpp
+           #x11/keyboard.h
       x11/window.cpp
       x11/window.h
       x11/windowing.cpp

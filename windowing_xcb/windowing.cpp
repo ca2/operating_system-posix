@@ -7,6 +7,7 @@
 #include "display.h"
 #include "cursor.h"
 #include "acme/constant/message.h"
+#include "acme/operating_system/x11/keyboard.h"
 #include "acme/operating_system/xcb/nano/display.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "aura/message/user.h"
@@ -1919,7 +1920,7 @@ namespace windowing_xcb
 
             }
 
-            ::user::enum_key ekey = keyboard()->wparam_to_userkey(keysym);
+            ::user::enum_key ekey = ::x11::keysym_to_userkey(keysym);
 
             if (bRet)
             {
