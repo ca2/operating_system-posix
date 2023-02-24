@@ -156,7 +156,7 @@
 		9A892E7E26CDDAA8008D6412 /* acme_path.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = acme_path.cpp; sourceTree = "<group>"; };
 		9A892E7F26CDDAA8008D6412 /* acme_path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = acme_path.h; sourceTree = "<group>"; };
 		9A8E9DD7282A2F7E005FF778 /* libios_acme_posix.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libios_acme_posix.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9AC14CDB297B3370006D9BD3 /* lib_acme_posix.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = lib_acme_posix.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AC14CDB297B3370006D9BD3 /* libstatic_acme_posix.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libstatic_acme_posix.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,7 +193,7 @@
 			children = (
 				9A0C1638264A281D00B5CC33 /* libacme_posix.dylib */,
 				9A8E9DD7282A2F7E005FF778 /* libios_acme_posix.a */,
-				9AC14CDB297B3370006D9BD3 /* lib_acme_posix.a */,
+				9AC14CDB297B3370006D9BD3 /* libstatic_acme_posix.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -235,7 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				9A0C1798264A315100B5CC33 /* libacme.dylib */,
-				9A0C179A264A315100B5CC33 /* lib_acme.a */,
+				9A0C179A264A315100B5CC33 /* libstatic_acme.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -346,9 +346,9 @@
 			productReference = 9A8E9DD7282A2F7E005FF778 /* libios_acme_posix.a */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
-		9AC14CB7297B3370006D9BD3 /* _acme_posix */ = {
+		9AC14CB7297B3370006D9BD3 /* static_acme_posix */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9AC14CD8297B3370006D9BD3 /* Build configuration list for PBXNativeTarget "_acme_posix" */;
+			buildConfigurationList = 9AC14CD8297B3370006D9BD3 /* Build configuration list for PBXNativeTarget "static_acme_posix" */;
 			buildPhases = (
 				9AC14CBA297B3370006D9BD3 /* Headers */,
 				9AC14CC7297B3370006D9BD3 /* Sources */,
@@ -358,9 +358,9 @@
 			dependencies = (
 				9AC14D9B297B362D006D9BD3 /* PBXTargetDependency */,
 			);
-			name = _acme_posix;
+			name = static_acme_posix;
 			productName = acme_posix;
-			productReference = 9AC14CDB297B3370006D9BD3 /* lib_acme_posix.a */;
+			productReference = 9AC14CDB297B3370006D9BD3 /* libstatic_acme_posix.a */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
@@ -396,8 +396,8 @@
 			projectRoot = "";
 			targets = (
 				9A0C1637264A281D00B5CC33 /* acme_posix */,
-				9AC14CB7297B3370006D9BD3 /* _acme_posix */,
 				9A8E9DBB282A2F7E005FF778 /* ios_acme_posix */,
+				9AC14CB7297B3370006D9BD3 /* static_acme_posix */,
 			);
 		};
 /* End PBXProject section */
@@ -410,10 +410,10 @@
 			remoteRef = 9A0C1797264A315100B5CC33 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9A0C179A264A315100B5CC33 /* lib_acme.a */ = {
+		9A0C179A264A315100B5CC33 /* libstatic_acme.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.dylib";
-			path = lib_acme.a;
+			path = libstatic_acme.a;
 			remoteRef = 9A0C1799264A315100B5CC33 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -575,9 +575,11 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
 				SYSTEM_HEADER_SEARCH_PATHS = (
 					"$(WorkspaceDir)/operating-system",
 					"$(WorkspaceDir)/operating-system/third-$(PLATFORM_MODIFIER)/include",
@@ -675,9 +677,11 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
 				SYSTEM_HEADER_SEARCH_PATHS = (
 					"$(WorkspaceDir)/operating-system",
 					"$(WorkspaceDir)/operating-system/third-$(PLATFORM_MODIFIER)/include",
@@ -808,7 +812,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9AC14CD8297B3370006D9BD3 /* Build configuration list for PBXNativeTarget "_acme_posix" */ = {
+		9AC14CD8297B3370006D9BD3 /* Build configuration list for PBXNativeTarget "static_acme_posix" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9AC14CD9297B3370006D9BD3 /* Debug */,
