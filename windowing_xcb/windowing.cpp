@@ -864,7 +864,7 @@ namespace windowing_xcb
 
          oswindow->set_cursor_position(m_pointCursor);
 
-         FORMATTED_INFORMATION("XCB_MOTION_NOTIFY %d,%d", pmotion->root_x, pmotion->root_y);
+         //FORMATTED_INFORMATION("XCB_MOTION_NOTIFY %d,%d", pmotion->root_x, pmotion->root_y);
 
          if (oswindow != nullptr && oswindow->m_puserinteractionimpl != nullptr)
          {

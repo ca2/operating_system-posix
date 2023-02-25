@@ -4,6 +4,7 @@
 #pragma once
 
 
+#include "aura_posix/_.h"
 #include <X11/Xlib.h>
 
 
