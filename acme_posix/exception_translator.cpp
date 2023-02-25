@@ -1,4 +1,4 @@
-﻿// Created on 2021-04-29 1:03 PM BRT <3TBS_!! Second celebration of Mummis Birthday 70!!
+// Created on 2021-04-29 1:03 PM BRT <3TBS_!! Second celebration of Mummis Birthday 70!!
 #include "framework.h"
 #include "exception_translator.h"
 #include "acme/exception/standard.h"
@@ -85,7 +85,7 @@ namespace acme_posix
          
       }
 
-      output_debug_string("exception standard translator");
+      //output_debug_string("exception standard translator");
 
 #if defined(__SANITIZE_ADDRESS__) || defined(__FOR_PERF__)
 
