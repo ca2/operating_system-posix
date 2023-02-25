@@ -32,7 +32,7 @@ namespace node_gnome
    }
 
    
-   ::u32 monitor::get_monitor_color_temperature()
+   ::u32 monitor::monitor_color_temperature()
    {
 
       return 0;

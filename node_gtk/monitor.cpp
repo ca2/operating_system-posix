@@ -52,7 +52,7 @@ namespace node_gtk
    }
 
    
-   ::u32 monitor::get_monitor_color_temperature()
+   ::u32 monitor::monitor_color_temperature()
    {
 
       return 0;
@@ -140,26 +140,26 @@ namespace node_gtk
    }
 
 
-   void monitor::get_monitor_rectangle(::RECTANGLE_I32 & rectangle)
+   ::rectangle_i32 monitor::monitor_rectangle()
    {
 
       auto predicate = [this]() { _get_monitor_rectangle(); };
 
       acmenode()->send_procedure(predicate);
 
-      ::windowing::monitor::get_monitor_rectangle(rectangle);
+      return ::windowing::monitor::monitor_rectangle();
 
    }
 
 
-   void monitor::get_workspace_rectangle(::RECTANGLE_I32 & rectangle)
+   ::rectangle_i32 monitor::workspace_rectangle()
    {
 
       auto predicate = [this]() { _get_workspace_rectangle(); };
 
       acmenode()->send_procedure(predicate);
 
-      ::windowing::monitor::get_workspace_rectangle(rectangle);
+      return ::windowing::monitor::workspace_rectangle();
 
    }
 

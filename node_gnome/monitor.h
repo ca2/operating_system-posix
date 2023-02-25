@@ -32,7 +32,7 @@ namespace node_gnome
       void update_cache() override;
 
 
-      ::u32 get_monitor_color_temperature() override;
+      ::u32 monitor_color_temperature() override;
       bool adjust_monitor( ::u32 dwTemperature, double dBrightness, double dwGamma) override;
 
 

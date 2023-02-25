@@ -7,6 +7,8 @@
 #include "acme/operating_system/ansi/pmutex_lock.h"
 #include "acme/operating_system/parallelization.h"
 #include "acme/filesystem/filesystem/acme_directory.h"
+#include "acme/filesystem/filesystem/file_dialog.h"
+#include "acme/filesystem/filesystem/folder_dialog.h"
 #include "acme/user/user/os_theme_colors.h"
 #include "acme/user/user/theme_colors.h"
 #include "apex/platform/system.h"
@@ -1302,7 +1304,7 @@ namespace node_gtk
    void on_file_chooser_destroy_event(GtkWidget *w, GdkEvent * pevent, gpointer data)
    {
 
-      ::operating_system_file_dialog *pdialog = (::operating_system_file_dialog *) data;
+      auto *pdialog = (::file::file_dialog *) data;
 
 
    }
@@ -1311,7 +1313,7 @@ namespace node_gtk
    void on_file_chooser_delete_event(GtkWidget *w, GdkEvent * pevent, gpointer data)
    {
 
-      ::operating_system_file_dialog *pdialog = (::operating_system_file_dialog *) data;
+      auto *pdialog = (::file::file_dialog *) data;
 
       ::release(pdialog);
 
@@ -1324,15 +1326,13 @@ namespace node_gtk
       if(response_id == GTK_RESPONSE_ACCEPT)
       {
 
-         ::operating_system_file_dialog *pdialog = (::operating_system_file_dialog *) data;
-
-         ::file::path_array patha;
+         auto *pdialog = (::file::file_dialog *) data;
 
          auto path = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(pgtkdialog));
 
-         patha.add(path);
+         pdialog->m_patha.add(path);
 
-         pdialog->m_function(patha);
+         pdialog->m_function(pdialog);
 
       }
 
@@ -1341,7 +1341,7 @@ namespace node_gtk
    }
 
 
-   void node::operating_system_file_dialog(::operating_system_file_dialog *pdialog)
+   void node::_node_file_dialog(::file::file_dialog *pdialog)
    {
 
       pdialog->increment_reference_count();
@@ -1392,14 +1392,143 @@ namespace node_gtk
 
                            }
 
+                           g_signal_connect(G_OBJECT(widget), "destroy-event", G_CALLBACK(&on_file_chooser_destroy_event), pdialog);
+                           g_signal_connect(G_OBJECT(widget), "delete-event", G_CALLBACK(&on_file_chooser_delete_event), pdialog);
+                           g_signal_connect(G_OBJECT(widget), "response", G_CALLBACK(&on_file_chooser_response), pdialog);
+
                            //if (NULL != current_directory) {
                            // gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(widget),
                            //current_directory);
                            //}
 
-                           g_signal_connect(G_OBJECT(widget), "destroy-event", G_CALLBACK(&on_file_chooser_destroy_event), pdialog);
-                           g_signal_connect(G_OBJECT(widget), "delete-event", G_CALLBACK(&on_file_chooser_delete_event), pdialog);
-                           g_signal_connect(G_OBJECT(widget), "response", G_CALLBACK(&on_file_chooser_response), pdialog);
+
+                           gtk_widget_show(widget);
+//      GtkWidget *pfilechooserdialog;
+//
+//      pfilechooserdialog = create_filechooser_dialog(GTK_FILE_CHOOSER_ACTION_OPEN);
+//
+//      if (gtk_dialog_run(GTK_DIALOG(pfilechooserdialog)) == GTK_RESPONSE_OK)
+//      {
+//
+//         ::file::path_array patha;
+//
+//         patha.add(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(pfilechooserdialog)));
+//
+//         pdialog->m_function(patha);
+//
+//      }
+//
+//
+//      gtk_di
+
+                        });
+
+
+   }
+
+
+   void on_folder_chooser_destroy_event(GtkWidget *w, GdkEvent * pevent, gpointer data)
+   {
+
+      auto *pdialog = (::file::folder_dialog *) data;
+
+
+   }
+
+
+   void on_folder_chooser_delete_event(GtkWidget *w, GdkEvent * pevent, gpointer data)
+   {
+
+      auto *pdialog = (::file::folder_dialog *) data;
+
+      ::release(pdialog);
+
+   }
+
+
+   void on_folder_chooser_response(GtkDialog *pgtkdialog, int response_id, gpointer data)
+   {
+
+      if(response_id == GTK_RESPONSE_ACCEPT)
+      {
+
+         auto *pdialog = (::file::folder_dialog *) data;
+
+         auto path = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(pgtkdialog));
+
+         pdialog->m_path = path;
+
+         pdialog->m_function(pdialog);
+
+      }
+
+      gtk_widget_destroy(GTK_WIDGET(pgtkdialog));
+
+   }
+
+
+   void node::_node_folder_dialog(::file::folder_dialog *pdialog)
+   {
+
+      pdialog->increment_reference_count();
+
+      main_asynchronous([pdialog]()
+                        {
+
+                           GtkWidget *widget;
+
+//                           if (directory_chooser) {
+//                              gtk_widget_destroy(directory_chooser);
+//                              directory_chooser = NULL;
+//                           }
+
+
+
+                           widget = gtk_file_chooser_dialog_new("Open",
+                                                                NULL,
+                                                               pdialog->m_bCanCreateFolders ? GTK_FILE_CHOOSER_ACTION_CREATE_FOLDER
+                                                               : GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+                                                                GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                                                GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+                                                                (void *) nullptr);
+
+                           pdialog->m_posdata = widget;
+                           //g_return_if_fail(NULL != widget);
+                           //directory_chooser = widget;
+
+                           //gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(widget), TRUE);
+
+//                           if(pdialog->m_filetypes.has_element())
+//                           {
+//
+//                              GtkFileFilter *filter = gtk_file_filter_new();
+//
+//                              for (auto &filetype: pdialog->m_filetypes)
+//                              {
+//
+//                                 auto ppattern = filetype.element1().c_str();
+//
+//                                 gtk_file_filter_add_pattern(filter, ppattern);
+//
+//                                 auto pname = filetype.element2().c_str();
+//
+//                                 gtk_file_filter_set_name(filter, pname);
+//
+//                              }
+//
+//                              gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(widget),
+//                                                          filter);   /* Display only directories */
+//
+//                           }
+
+                           //if (NULL != current_directory) {
+                           // gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(widget),
+                           //current_directory);
+                           //}
+
+                           g_signal_connect(G_OBJECT(widget), "destroy-event", G_CALLBACK(&on_folder_chooser_destroy_event), pdialog);
+                           g_signal_connect(G_OBJECT(widget), "delete-event", G_CALLBACK(&on_folder_chooser_delete_event), pdialog);
+                           g_signal_connect(G_OBJECT(widget), "response", G_CALLBACK(&on_folder_chooser_response), pdialog);
 
                            gtk_widget_show(widget);
 //      GtkWidget *pfilechooserdialog;
