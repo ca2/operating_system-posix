@@ -63,8 +63,6 @@ elseif(LINUX OR FREEBSD)
 endif()
 
 
-add_dependencies(audio_alsa audio)
-
 
 list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
 list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
