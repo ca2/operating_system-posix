@@ -3,8 +3,8 @@
 #include "translation.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "aqua/platform/system.h"
-#include "app-core/audio/audio.h"
-#include "app-core/audio/decode/encoder.h"
+#include "audio/audio/audio.h"
+#include "audio/audio/decode/encoder.h"
 
 
 namespace multimedia

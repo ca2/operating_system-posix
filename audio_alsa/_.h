@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "app-core/audio/_.h"
+#include "audio/audio/_.h"
 
 // apt install libasound2-dev
 // dnf install alsa-lib-devel
