@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "app-core/audio/wave/base.h"
+#include "audio/audio/wave/base.h"
 
 
 namespace multimedia

@@ -5,7 +5,7 @@
 
 
 #include "apex/operating_system.h"
-#include "app-core/audio/_library.h"
+#include "audio/audio/_library.h"
 
 
 // apt install libasound2-dev
