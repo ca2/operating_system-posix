@@ -1,6 +1,6 @@
 dependencies: \
-  /Users/camilo/solution/main/operating-system/operating-system-posix/acme_posix/_.h \
-  /Users/camilo/solution/main/operating-system/operating-system-posix/apex_posix/_.h \
+  /Users/camilo/solution/main/operating_system/operating_system-posix/acme_posix/_.h \
+  /Users/camilo/solution/main/operating_system/operating_system-posix/apex_posix/_.h \
   /Users/camilo/solution/main/source/app/aura/platform/_.h \
   /Users/camilo/solution/main/source/app/aura/filesystem/filemanager/_.h \
   /Users/camilo/solution/main/source/app/aura/filesystem/_.h \
@@ -365,10 +365,10 @@ dependencies: \
   /Users/camilo/solution/main/source/app/apex/_.h \
   /Users/camilo/solution/main/source/app/aqua/_.h \
   /Users/camilo/solution/main/source/app/aura/_.h \
-  /Users/camilo/solution/main/operating-system/operating-system-posix/aura_posix/_.h \
+  /Users/camilo/solution/main/operating_system/operating_system-posix/aura_posix/_.h \
   /Users/camilo/solution/main/source/app/acme/memory/_new.h \
-  /Users/camilo/solution/main/operating-system/operating-system-macos/operating_system/system.h \
-  /Users/camilo/solution/main/operating-system/operating-system-macos/operating_system/types.h \
+  /Users/camilo/solution/main/operating_system/operating_system-macos/operating_system/system.h \
+  /Users/camilo/solution/main/operating_system/operating_system-macos/operating_system/types.h \
   /Users/camilo/solution/main/source/app/acme/constant/memory_heap.h \
   /Users/camilo/solution/main/source/app/acme/platform/object_reference_count_debug.h \
   /Users/camilo/solution/main/source/app/acme/include/_macro.h \
@@ -377,13 +377,13 @@ dependencies: \
   /Users/camilo/solution/main/source/app/include/_aura_type.h \
   /Users/camilo/solution/main/source/app/include/__/__inttypes.h \
   /Users/camilo/solution/main/source/app/include/__/__stdint.h \
-  /Users/camilo/solution/main/operating-system/operating-system-macos/include/__/__bit.h \
+  /Users/camilo/solution/main/operating_system/operating_system-macos/include/__/__bit.h \
   /Users/camilo/solution/main/source/app/include/__standard_type.h \
   /Users/camilo/solution/main/source/app/acme/include/__setup.h \
   /Users/camilo/solution/main/source/app/acme/include/_setup.h \
-  /Users/camilo/solution/main/operating-system/operating-system-macos/operating_system/config.h \
+  /Users/camilo/solution/main/operating_system/operating_system-macos/operating_system/config.h \
   /Users/camilo/solution/main/source/include/setup/debug.h \
-  /Users/camilo/solution/main/operating-system/operating-system-macos/operating_system/platform_setup.h \
+  /Users/camilo/solution/main/operating_system/operating_system-macos/operating_system/platform_setup.h \
   /Users/camilo/solution/main/source/port/debugbreak/debugbreak.h \
   /Users/camilo/solution/main/source/app/acme/platform/_features.h \
   /Users/camilo/solution/main/source/include/__build_settings.h \
@@ -392,11 +392,11 @@ dependencies: \
   /Users/camilo/solution/main/source/app/acme/version/version.h \
   /Users/camilo/solution/main/source/app/acme/include/_acme.h \
   /Users/camilo/solution/main/source/app/acme/_start.h \
-  /Users/camilo/solution/main/operating-system/operating-system-posix/aura_posix/framework.h \
-  /Users/camilo/solution/main/operating-system/operating-system-posix/aura_posix/node.cpp \
+  /Users/camilo/solution/main/operating_system/operating_system-posix/aura_posix/framework.h \
+  /Users/camilo/solution/main/operating_system/operating_system-posix/aura_posix/node.cpp \
   framework.h _.h node.h \
-  /Users/camilo/solution/main/operating-system/operating-system-posix/apex_posix/node.h \
-  /Users/camilo/solution/main/operating-system/operating-system-posix/acme_posix/node.h \
+  /Users/camilo/solution/main/operating_system/operating_system-posix/apex_posix/node.h \
+  /Users/camilo/solution/main/operating_system/operating_system-posix/acme_posix/node.h \
   /Users/camilo/solution/main/source/app/acme/platform/node.h \
   /Users/camilo/solution/main/source/app/acme/constant/element.h \
   /Users/camilo/solution/main/source/app/acme/platform/serial_shared.h \

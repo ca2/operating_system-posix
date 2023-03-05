@@ -1,5 +1,5 @@
 dependencies: \
-  /Users/camilo/solution/main/operating-system/operating-system-posix/aura_posix/framework.h \
+  /Users/camilo/solution/main/operating_system/operating_system-posix/aura_posix/framework.h \
   /Users/camilo/solution/main/source/app/acme/_start.h \
   /Users/camilo/solution/main/source/app/acme/include/_acme.h \
   /Users/camilo/solution/main/source/app/acme/version/version.h \
@@ -8,13 +8,13 @@ dependencies: \
   /Users/camilo/solution/main/source/include/__build_settings.h \
   /Users/camilo/solution/main/source/app/acme/platform/_features.h \
   /Users/camilo/solution/main/source/port/debugbreak/debugbreak.h \
-  /Users/camilo/solution/main/operating-system/operating-system-macos/operating_system/platform_setup.h \
+  /Users/camilo/solution/main/operating_system/operating_system-macos/operating_system/platform_setup.h \
   /Users/camilo/solution/main/source/include/setup/debug.h \
-  /Users/camilo/solution/main/operating-system/operating-system-macos/operating_system/config.h \
+  /Users/camilo/solution/main/operating_system/operating_system-macos/operating_system/config.h \
   /Users/camilo/solution/main/source/app/acme/include/_setup.h \
   /Users/camilo/solution/main/source/app/acme/include/__setup.h \
   /Users/camilo/solution/main/source/app/include/__standard_type.h \
-  /Users/camilo/solution/main/operating-system/operating-system-macos/include/__/__bit.h \
+  /Users/camilo/solution/main/operating_system/operating_system-macos/include/__/__bit.h \
   /Users/camilo/solution/main/source/app/include/__/__stdint.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/c++/v1/stdint.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/c++/v1/__config \
@@ -62,8 +62,8 @@ dependencies: \
   /Users/camilo/solution/main/source/app/acme/include/_macro.h \
   /Users/camilo/solution/main/source/app/acme/platform/object_reference_count_debug.h \
   /Users/camilo/solution/main/source/app/acme/constant/memory_heap.h \
-  /Users/camilo/solution/main/operating-system/operating-system-macos/operating_system/types.h \
-  /Users/camilo/solution/main/operating-system/operating-system-macos/operating_system/system.h \
+  /Users/camilo/solution/main/operating_system/operating_system-macos/operating_system/types.h \
+  /Users/camilo/solution/main/operating_system/operating_system-macos/operating_system/system.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/time.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/sys/_types/_clock_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/sys/_types/_null.h \
@@ -694,5 +694,5 @@ dependencies: \
   /Users/camilo/solution/main/source/app/aura/filesystem/_.h \
   /Users/camilo/solution/main/source/app/aura/filesystem/filemanager/_.h \
   /Users/camilo/solution/main/source/app/aura/platform/_.h \
-  /Users/camilo/solution/main/operating-system/operating-system-posix/apex_posix/_.h \
-  /Users/camilo/solution/main/operating-system/operating-system-posix/acme_posix/_.h
+  /Users/camilo/solution/main/operating_system/operating_system-posix/apex_posix/_.h \
+  /Users/camilo/solution/main/operating_system/operating_system-posix/acme_posix/_.h

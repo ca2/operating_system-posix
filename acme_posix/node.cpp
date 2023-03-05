@@ -1449,7 +1449,7 @@ namespace acme_posix
       
 //#ifdef LINUX
       
-//#error "please transfer the code commented below to linux-operating-system"
+//#error "please transfer the code commented below to linux-operating_system"
 //
 //#else
       

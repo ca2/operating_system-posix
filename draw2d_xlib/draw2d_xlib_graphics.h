@@ -521,7 +521,7 @@ namespace draw2d_xlib
       //static ::draw2d_xlib::object* PASCAL SelectGdiObject(::particle * pparticle, HDC hDC, HGDIOBJ h);
 
 
-      // operating-system-specific or operating-system-internals
+      // operating_system-specific or operating_system-internals
       bool set_os_color(color32_t cr);
       bool set(const ::draw2d::brush * pbrush);
       bool set(const ::draw2d::pen * ppen);
