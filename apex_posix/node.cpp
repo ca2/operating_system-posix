@@ -5,7 +5,7 @@
 #include "node.h"
 #include "acme/filesystem/filesystem/acme_file.h"
 #include "acme/platform/system.h"
-#ifndef __APPLE__
+#if defined(HAS_FREEDESKTOP)
 #include "apex/operating_system/freedesktop/desktop_file.h"
 #endif
 #include "acme/filesystem/filesystem/acme_directory.h"
