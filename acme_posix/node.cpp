@@ -1476,14 +1476,15 @@ namespace acme_posix
 //   }
 
 
-   void node::command_system(string_array & straOutput, int& iExitCode, const scoped_string & scopedstr, enum_command_system ecommandsystem, const class time & timeTimeout, ::particle * pparticleSynchronization, ::file::file * pfileLog)
+   //void node::command_system(string_array & straOutput, int& iExitCode, const scoped_string & scopedstr, enum_command_system ecommandsystem, const class time & timeTimeout, ::particle * pparticleSynchronization, ::file::file * pfileLog)
+   int node::command_system(const ::scoped_string & scopedstr, const ::function < void(enum_trace_level, const ::scoped_string & ) > & functionTrace)
    {
-
-      single_lock singlelock(pparticleSynchronization);
 
       ::e_status estatus = success;
 
       int stdout_fds[2] = {};
+
+      int iExitCode = 0;
 
       int iError = pipe(stdout_fds);
 
@@ -1623,14 +1624,20 @@ namespace acme_posix
 
                strOutput += strMessage;
 
-               if(ecommandsystem & e_command_system_inline_log)
+               if(functionTrace)
                {
 
-                  printf("%s", strMessage.c_str());
+                  ::str::get_lines(strOutput, false, [&](auto & str)
+                  {
+
+                     functionTrace(e_trace_level_information, str);
+
+                  });
+                 // functionTrace(e_trace_level_information, strMessage);
 
                }
 
-               ::str::get_lines(straOutput, strOutput, "I: ", false, &singlelock, pfileLog);
+               //::str::get_lines(straOutput, strOutput, "I: ", false, &singlelock, pfileLog);
 
             }
 
@@ -1645,14 +1652,20 @@ namespace acme_posix
 
                strError += strMessage;
 
-               if(ecommandsystem & e_command_system_inline_log)
+//               if(ecommandsystem & e_command_system_inline_log)
+//               {
+//
+//                  fprintf(stderr, "%s", strMessage.c_str());
+//
+//               }
+//
+//               ::str::get_lines(straOutput, strError, "E: ", false, &singlelock, pfileLog);
+               ::str::get_lines(strOutput, false, [&](auto & str)
                {
 
-                  fprintf(stderr, "%s", strMessage.c_str());
+                  functionTrace(e_trace_level_error, str);
 
-               }
-
-               ::str::get_lines(straOutput, strError, "E: ", false, &singlelock, pfileLog);
+               });
 
             }
 
@@ -1730,9 +1743,25 @@ namespace acme_posix
 //
 //   }
 
-      ::str::get_lines(straOutput, strOutput, "I: ", true, &singlelock, pfileLog);
+      ::str::get_lines(strOutput, true, [&](auto & str)
+      {
 
-      ::str::get_lines(straOutput, strError, "E: ", true, &singlelock, pfileLog);
+         functionTrace(e_trace_level_information, str);
+
+      });
+
+      ::str::get_lines(strError, true, [&](auto & str)
+      {
+
+         functionTrace(e_trace_level_error, str);
+
+      });
+
+      //::str::get_lines(straOutput, strOutput, "I: ", true, &singlelock, pfileLog);
+
+      //::str::get_lines(straOutput, strError, "E: ", true, &singlelock, pfileLog);
+
+      return iExitCode;
 
    }
 
