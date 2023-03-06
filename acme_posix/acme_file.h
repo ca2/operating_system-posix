@@ -108,6 +108,9 @@ namespace acme_posix
       void _erase(const ::file::path & path) override;
 
 
+      void put_block(const ::file::path & path, const block & block) override;
+
+
    };
 
 

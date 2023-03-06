@@ -1743,14 +1743,17 @@ namespace acme_posix
 //
 //   }
 
-      ::str::get_lines(strOutput, true, [&](auto & str)
+   if(functionTrace)
+   {
+
+      ::str::get_lines(strOutput, true, [&](auto &str)
       {
 
          functionTrace(e_trace_level_information, str);
 
       });
 
-      ::str::get_lines(strError, true, [&](auto & str)
+      ::str::get_lines(strError, true, [&](auto &str)
       {
 
          functionTrace(e_trace_level_error, str);
@@ -1760,6 +1763,8 @@ namespace acme_posix
       //::str::get_lines(straOutput, strOutput, "I: ", true, &singlelock, pfileLog);
 
       //::str::get_lines(straOutput, strError, "E: ", true, &singlelock, pfileLog);
+
+   }
 
       return iExitCode;
 
