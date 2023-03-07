@@ -942,6 +942,35 @@ namespace acme_posix
     }
 
 
+   void acme_file::put_block(const ::file::path & path, const block & block)
+   {
+
+      auto folder = path.folder();
+
+      if(!acmedirectory()->is(folder))
+      {
+
+         acmedirectory()->create(folder);
+
+      }
+
+      FILE_holder pfile(fopen(path, "w"));
+
+      if (pfile == nullptr)
+      {
+
+         int iErrNo = errno;
+
+         auto estatus = failed_errno_status(iErrNo);
+
+         throw ::exception(estatus);
+
+      }
+
+      fwrite(block.data(), 1, block.size(), pfile);
+
+   }
+
 
 }  // namespace acme_posix
 

@@ -1,1 +1,1 @@
-operating-system-posix/node_gtk
+operating_system-posix/node_gtk

@@ -31,6 +31,10 @@ namespace apex_posix
       void on_start_application(::apex::application *papplication) override;
 
 
+      bool shell_link_target(::file::path &pathTarget, const ::file::path &pathLnk) override;
+      bool shell_link_icon(::file::path& pathIcon, int& iIcon, const ::file::path& pathLnk) override;
+
+      void create_app_shortcut(::acme::application * papp) override;
    };
 
 
