@@ -90,6 +90,8 @@ namespace apex_posix
 
    bool node::shell_link_target(::file::path &pathTarget, const ::file::path &pathLnk)
    {
+      
+#if defined(HAS_FREEDESKTOP)
 
       if(pathLnk.case_insensitive_ends(".desktop"))
       {
@@ -113,6 +115,8 @@ namespace apex_posix
          return true;
 
       }
+      
+#endif // HAS_FREEDESKTOP
 
       return false;
 
@@ -130,6 +134,8 @@ namespace apex_posix
 
    bool node::shell_link_icon(::file::path& pathIcon, int& iIcon, const ::file::path& pathLnk)
    {
+      
+#if defined(HAS_FREEDESKTOP)
 
       if(pathLnk.case_insensitive_ends(".desktop"))
       {
@@ -147,10 +153,13 @@ namespace apex_posix
             iIcon = 0;
 
          }
-
+         
          return true;
 
       }
+
+#endif // HAS_FREEDESKTOP
+
 
       return false;
 
@@ -168,6 +177,8 @@ namespace apex_posix
 
    void node::create_app_shortcut(::acme::application * papp)
    {
+      
+#if defined(HAS_FREEDESKTOP)
 
       ::string strDesktopFileName;
 
@@ -184,6 +195,8 @@ namespace apex_posix
       pfile->create();
 
       pfile->write();
+      
+#endif
 
    }
 
