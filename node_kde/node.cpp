@@ -5,6 +5,8 @@
 #include "node.h"
 #include "appindicator.h"
 #include "acme/constant/id.h"
+#include "acme/filesystem/filesystem/file_dialog.h"
+#include "acme/filesystem/filesystem/folder_dialog.h"
 #include "acme/user/user/os_theme_colors.h"
 #include "acme/user/user/theme_colors.h"
 #include "apex/platform/system.h"
@@ -16,6 +18,7 @@
 #include <KIconLoader>
 #include <QX11Info>
 #include <QtGui/QDesktopServices>
+#include <QFileDialog>
 
 
 void initialize_x11_display(::particle * pparticle, void * pX11Display);
@@ -867,7 +870,7 @@ namespace node_kde
          if(pwindowing->_xcb_process_event(pevent))
          {
 
-            return true;
+            return false;
 
          }
 
@@ -940,6 +943,138 @@ namespace node_kde
       QUrl url(strUrl.c_str());
 
       QDesktopServices::openUrl(url);
+
+   }
+
+
+   void node::_node_file_dialog(::file::file_dialog * pdialog)
+   {
+
+      pdialog->increment_reference_count();
+
+      node_post([pdialog]()
+                {
+
+                   auto pqfiledialog = new QFileDialog();
+
+                   if (pdialog->m_bSave)
+                   {
+
+                      pqfiledialog->setAcceptMode(QFileDialog::AcceptMode::AcceptSave);
+
+                   }
+                   else
+                   {
+
+                      pqfiledialog->setAcceptMode(QFileDialog::AcceptMode::AcceptOpen);
+
+                      if (pdialog->m_bMultiple)
+                      {
+
+                         pqfiledialog->setFileMode(QFileDialog::FileMode::ExistingFiles);
+
+                      }
+                      else
+                      {
+
+                         pqfiledialog->setFileMode(QFileDialog::FileMode::ExistingFile);
+
+                      }
+
+                   }
+
+                   if(pdialog->m_pathStartFolder.has_char())
+                   {
+
+                      pqfiledialog->setDirectory(pdialog->m_pathStartFolder.c_str());
+
+                   }
+
+                   pqfiledialog->show();
+
+
+                   QObject::connect(pqfiledialog, &QDialog::finished,
+                                    [pdialog, pqfiledialog](int finished)
+                                    {
+
+                                       ::pointer<::file::file_dialog> pdialogTransfer(e_move_transfer, pdialog);
+
+                                       pdialog->m_pathStartFolder = (const char *) pqfiledialog->directory().absolutePath().toUtf8().data();
+
+                                       if(finished)
+                                       {
+
+
+                                          for(auto & file : pqfiledialog->selectedFiles())
+                                          {
+
+                                             pdialog->m_patha.add((const char *) file.toUtf8().data());
+
+                                          }
+
+                                       }
+
+                                       pdialog->m_function(::transfer(pdialogTransfer));
+
+                                       delete pqfiledialog;
+
+                                    });
+
+
+
+
+                });
+
+   }
+
+
+   void node::_node_folder_dialog(::file::folder_dialog * pdialog)
+   {
+
+      pdialog->increment_reference_count();
+
+      node_post([pdialog]()
+                {
+
+                   auto pqfiledialog = new QFileDialog();
+
+                   pqfiledialog->setAcceptMode(QFileDialog::AcceptMode::AcceptOpen);
+
+                   pqfiledialog->setFileMode(QFileDialog::FileMode::Directory);
+
+                   pqfiledialog->setOption(QFileDialog::Option::ShowDirsOnly);
+
+                   if(pdialog->m_path.has_char())
+                   {
+
+                      pqfiledialog->setDirectory(pdialog->m_path.c_str());
+
+                   }
+
+                   QObject::connect(pqfiledialog, &QDialog::finished,
+                                    [pdialog, pqfiledialog](int finished)
+                                    {
+
+                                       ::pointer<::file::folder_dialog> pdialogTransfer(e_move_transfer, pdialog);
+
+                                       if(finished)
+                                       {
+
+                                           pdialog->m_path = (const char *) pqfiledialog->directory().absolutePath().toUtf8().data();
+
+                                       }
+
+                                       pdialog->m_function(::transfer(pdialogTransfer));
+
+                                       delete pqfiledialog;
+
+                                    });
+
+
+                   pqfiledialog->show();
+
+
+                });
 
    }
 
