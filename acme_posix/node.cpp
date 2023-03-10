@@ -1660,7 +1660,7 @@ namespace acme_posix
 //               }
 //
 //               ::str::get_lines(straOutput, strError, "E: ", false, &singlelock, pfileLog);
-               ::str::get_lines(strOutput, false, [&](auto & str)
+               ::str::get_lines(strError, false, [&](auto & str)
                {
 
                   functionTrace(e_trace_level_error, str);
