@@ -404,6 +404,8 @@ namespace node_kde
 
       }
 
+      m_pqapplication->setQuitOnLastWindowClosed(false);
+
       //main_asynchronous([])
 
       m_pqapplication->installEventFilter(this);
