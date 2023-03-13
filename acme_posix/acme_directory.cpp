@@ -458,7 +458,10 @@ namespace acme_posix
    
    return path;
    
-}string acme_directory::get_current(){
+}
+
+
+::file::path acme_directory::get_current(){
 
       auto pszCurrentDirName = get_current_dir_name();
 
@@ -480,10 +483,10 @@ namespace acme_posix
    }
 
 
-   void acme_directory::change_current(const ::scoped_string & scopedstr)
+   void acme_directory::change_current(const ::file::path & path)
    {
 
-      auto iError = chdir(scopedstr.c_str());
+      auto iError = chdir(path.get_os_path());
 
       if(iError)
       {
@@ -497,8 +500,6 @@ namespace acme_posix
       }
 
    }
-
-
 
 
 //::file::path acme_directory::program_files_x86()
