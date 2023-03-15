@@ -3069,7 +3069,7 @@ namespace draw2d_xlib
       throw ::not_implemented();
 
       /*
-            ASSERT(__is_valid_address(LPSIZE32, sizeof(SIZE_I32)));
+            ASSERT(is_memory_segment_ok(LPSIZE32, sizeof(SIZE_I32)));
 
             i32 nMapMode;
             if (this != nullptr && (nMapMode = GetMapMode()) < MM_ISOTROPIC && nMapMode != MM_TEXT)
@@ -3107,7 +3107,7 @@ namespace draw2d_xlib
 
       throw ::not_implemented();
 
-      /*      ASSERT(__is_valid_address(LPSIZE32, sizeof(SIZE_I32)));
+      /*      ASSERT(is_memory_segment_ok(LPSIZE32, sizeof(SIZE_I32)));
 
             i32 nMapMode;
             if (this != nullptr && (nMapMode = GetMapMode()) < MM_ISOTROPIC &&
@@ -3143,7 +3143,7 @@ namespace draw2d_xlib
 
    void graphics::LPtoHIMETRIC(LPSIZE32 LPSIZE32) const
    {
-      ASSERT(__is_valid_address(LPSIZE32, sizeof(SIZE_I32)));
+      ASSERT(is_memory_segment_ok(LPSIZE32, sizeof(SIZE_I32)));
 
       LPtoDP(LPSIZE32);
       DPtoHIMETRIC(LPSIZE32);
@@ -3151,7 +3151,7 @@ namespace draw2d_xlib
 
    void graphics::HIMETRICtoLP(LPSIZE32 LPSIZE32) const
    {
-      ASSERT(__is_valid_address(LPSIZE32, sizeof(SIZE_I32)));
+      ASSERT(is_memory_segment_ok(LPSIZE32, sizeof(SIZE_I32)));
 
       HIMETRICtoDP(LPSIZE32);
       DPtoLP(LPSIZE32);
@@ -3189,9 +3189,9 @@ namespace draw2d_xlib
       throw ::not_implemented();
 
       /*
-            ASSERT(__is_valid_address(rectangle, sizeof(RECTANGLE_I32), false));
+            ASSERT(is_memory_segment_ok(rectangle, sizeof(RECTANGLE_I32), false));
             ASSERT(lpRectLast == nullptr ||
-               __is_valid_address(lpRectLast, sizeof(RECTANGLE_I32), false));
+               is_memory_segment_ok(lpRectLast, sizeof(RECTANGLE_I32), false));
 
             // first, determine the update region and select it
             ::draw2d::region rgnNew;
@@ -4359,7 +4359,7 @@ namespace draw2d_xlib
       return;
 
       /*
-            ASSERT(__is_valid_address(LPSIZE32, sizeof(SIZE_I32)));
+            ASSERT(is_memory_segment_ok(LPSIZE32, sizeof(SIZE_I32)));
 
             size_i32 sizeWinExt = GetWindowExt();
             size_i32 sizeVpExt = get_context_extents();
@@ -4376,7 +4376,7 @@ namespace draw2d_xlib
       return;
 
       /*
-            ASSERT(__is_valid_address(LPSIZE32, sizeof(SIZE_I32)));
+            ASSERT(is_memory_segment_ok(LPSIZE32, sizeof(SIZE_I32)));
 
             size_i32 sizeWinExt = GetWindowExt();
             size_i32 sizeVpExt = get_context_extents();
