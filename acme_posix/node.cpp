@@ -15,8 +15,12 @@
 #include "acme/primitive/string/command_line.h"
 #include "acme/primitive/string/str.h"
 #include "acme/primitive/primitive/memory.h"
+
+
+#include "acme/_operating_system.h"
 #include "acme/operating_system/ansi/_pthread.h"
-//#include "acme/primitive/primitive/payload.h"
+
+
 #include <signal.h>
 
 #ifdef FREEBSD
@@ -499,13 +503,7 @@ namespace acme_posix
    if (iFd < 0)
    {
 
-      auto iErrNo = errno;
-
-      auto estatus = errno_status(iErrNo);
-
-      auto errorcode = errno_error_code(iErrNo);
-
-      throw ::file::exception(estatus, errorcode, path, "open, O_RDWR, S_IRWXU");
+      throw_errno_exception(path, ::file::e_open_none, "open, O_RDWR, S_IRWXU");
 
    }
 
@@ -606,21 +604,18 @@ namespace acme_posix
    }
 
 
-
-
-
-   string node::get_environment_variable(const ::string & strEnvironmentVariable)
+   string node::get_environment_variable(const ::scoped_string & scopedstrEnvironmentVariable)
    {
 
-      return ::getenv(strEnvironmentVariable);
+      return ::getenv(scopedstrEnvironmentVariable);
 
    }
 
 
-   string node::expand_environment_variables(const ::string & str)
+   string node::expand_environment_variables(const ::scoped_string & scopedstr)
    {
 
-      return ::acme::node::expand_environment_variables(str);
+      return ::acme::node::expand_environment_variables(scopedstr);
 
    }
 

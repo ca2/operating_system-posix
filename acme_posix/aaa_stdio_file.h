@@ -47,7 +47,7 @@ namespace acme_posix
    override;
 
 
-   virtual ::extended::status open(const ::file::path & pszFileName, const ::file::e_open & eopen)
+   virtual ::extended::status open(const ::file::path & pszFileName, ::file::e_open eopen)
 
    override;
 

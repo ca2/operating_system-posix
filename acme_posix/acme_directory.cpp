@@ -486,7 +486,7 @@ namespace acme_posix
    void acme_directory::change_current(const ::file::path & path)
    {
 
-      auto iError = chdir(path.get_os_path());
+      auto iError = chdir(path);
 
       if(iError)
       {

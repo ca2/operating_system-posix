@@ -100,9 +100,9 @@ namespace acme_posix
       //::e_status delete_file(const char * pszFileName) override;
 
 
-      ::earth::time modification_time(const ::file::path & path) override;
+      class ::time modification_time(const ::file::path & path) override;
 
-      void set_modification_time(const ::file::path & path, const ::earth::time& time) override;
+      void set_modification_time(const ::file::path & path, const class ::time& time) override;
 
 
       void _erase(const ::file::path & path) override;

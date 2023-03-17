@@ -105,7 +105,7 @@ namespace acme_posix
 
          auto errorcode = errno_error_code(iErrorNumber);
       
-         throw ::file::exception(estatus, errorcode, path, "utimes");
+         throw ::file::exception(estatus, errorcode, path, ::file::e_open_none, "utimes");
 
       }
 
@@ -478,7 +478,7 @@ namespace acme_posix
          
          auto errorcode = errno_error_code(iErrNo);
          
-         throw ::file::exception(estatus, errorcode, path, "stat != 0");
+         throw ::file::exception(estatus, errorcode, path, ::file::e_open_none, "stat != 0");
          
       }
       
@@ -833,7 +833,7 @@ namespace acme_posix
    }
 
 
-   ::earth::time acme_file::modification_time(const ::file::path & path)
+   class ::time acme_file::modification_time(const ::file::path & path)
    {
 
       if(is_trimmed_empty(path))
@@ -860,12 +860,12 @@ namespace acme_posix
 
       }
 
-      return statAttribute.st_mtime;
+      return { statAttribute.st_mtim.tv_sec, statAttribute.st_mtim.tv_nsec };
 
    }
 
 
-   void acme_file::set_modification_time(const ::file::path & path, const ::earth::time& time)
+   void acme_file::set_modification_time(const ::file::path & path, const class ::time& time)
    {
 
 
@@ -876,31 +876,42 @@ namespace acme_posix
 
       }
 
-      struct stat statAttribute;
+      //struct stat statAttribute;
 
-      if(stat(path, &statAttribute))
+      //if(stat(path, &statAttribute))
+      //{
+
+      //   int iErrNo = errno;
+
+      //   auto estatus = errno_status(iErrNo);
+
+      //   string strMessage;
+
+      //   strMessage.format("Failed to stat file \"%s\".", path.c_str());
+
+      //   throw ::exception(estatus, strMessage);
+
+      //}
+
+      struct timespec times[2];
+
+      times[0].tv_sec = 0;
+      times[0].tv_nsec = UTIME_OMIT;
+      times[1].tv_sec = time.m_iSecond;
+      times[1].tv_nsec = time.m_iNanosecond;
+
+      if(utimensat(0, path, times, 0))
       {
 
-         int iErrNo = errno;
 
-         auto estatus = errno_status(iErrNo);
+      //utimbuf utimbuf;
 
-         string strMessage;
+      //utimbuf.actime = statAttribute.st_atime;
 
-         strMessage.format("Failed to stat file \"%s\".", path.c_str());
+      //utimbuf.modtime = time.m_time;
 
-         throw ::exception(estatus, strMessage);
-
-      }
-
-      utimbuf utimbuf;
-
-      utimbuf.actime = statAttribute.st_atime;
-
-      utimbuf.modtime = time.m_time;
-
-      if(utime(path, &utimbuf))
-      {
+      //if(utime(path, &utimbuf))
+      //{
 
          int iErrNo = errno;
 

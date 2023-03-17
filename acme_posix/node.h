@@ -78,9 +78,9 @@ namespace acme_posix
 
       void shared_library_process(dword_array& dwa, string_array& straProcesses, const ::string & pszLibrary) override;
 
-      string get_environment_variable(const ::string & pszEnvironmentVariable) override;
+      string get_environment_variable(const ::scoped_string & scopedstrEnvironmentVariable) override;
 
-      string expand_environment_variables(const ::string & str) override;
+      string expand_environment_variables(const ::scoped_string & scopedstr) override;
 
       bool stdin_has_input_events() override;
 
