@@ -1,4 +1,4 @@
-﻿#include "framework.h"
+#include "framework.h"
 #include "file.h"
 #include "acme_directory.h"
 #include "acme/filesystem/file/exception.h"
@@ -14,7 +14,9 @@
 #undef USE_MISC
 
 #include <dlfcn.h>
+#if defined(LINUX)
 #include <link.h>
+#endif
 #include <ctype.h>
 
 #include <sys/stat.h>
@@ -302,98 +304,124 @@ namespace acme_posix
    }
 
 
-   memsize file::read(void * lpBuf, memsize nCount)
+   memsize file::read(void * readData, memsize amountToRead)
    {
       ASSERT_VALID(this);
       ASSERT(m_iFile != hFileNull);
 
-      if (nCount == 0)
-         return 0;   // avoid Win32 "null-read"
-
-      ASSERT(lpBuf != nullptr);
-      ASSERT(is_memory_segment_ok(lpBuf, nCount));
-
-      memsize pos = 0;
-      memsize sizeRead = 0;
-      memsize readNow;
-      while(nCount > 0)
+      if (amountToRead <= 0)
       {
-         readNow = (size_t) minimum(0x7fffffff, nCount);
-         i32 iRead = ::read(m_iFile, &((byte *)lpBuf)[pos], readNow);
          
-         if(iRead < 0)
+         return 0;   // avoid Win32 "null-read"
+         
+      }
+
+      ASSERT(readData != nullptr);
+      ASSERT(is_memory_segment_ok(readData, amountToRead));
+
+      memsize readPosition = 0;
+      
+      memsize amountRead = 0;
+      
+      while(amountToRead > 0)
+      {
+          
+         ::i32 amountToReadNow = (::i32) minimum(INT_MAX, amountToRead);
+          
+         ::i32 amountReadNow = (::i32) ::read(m_iFile, &((byte *)readData)[readPosition], amountToReadNow);
+         
+         if(amountReadNow < 0)
          {
             
-            auto iErrNo = errno;
-
-            auto estatus = errno_status(iErrNo);
-
-            auto errorcode = errno_error_code(iErrNo);
-
-            throw ::file::exception(estatus, errorcode, m_path, m_eopen, "::read < 0");
+            throw_errno_exception("::read < 0");
+            
+//            auto iErrNo = errno;
+//
+//            auto estatus = errno_status(iErrNo);
+//
+//            auto errorcode = errno_error_code(iErrNo);
+//
+//            throw ::file::exception(estatus, errorcode, m_path, m_eopen, "::read < 0");
 
          }
-         else if(iRead == 0)
+         else if(amountReadNow == 0)
          {
             
             break;
 
          }
 
-         nCount -= iRead;
-         pos += iRead;
-         sizeRead += iRead;
+         amountToRead -= amountReadNow;
+         
+         readPosition += amountReadNow;
+         
+         amountRead += amountReadNow;
+         
       }
 
-      return sizeRead;
+      return amountRead;
+      
    }
 
    
-   void file::write(const void * lpBuf, memsize nCount)
+   memsize file::defer_write(const void * dataToWrite, memsize amountToWrite)
    {
 
       ASSERT_VALID(this);
 
       ASSERT(m_iFile != hFileNull);
 
-      if (nCount == 0)
+      if (amountToWrite <= 0)
       {
 
-         return;     // avoid Win32 "null-write" option
+         return 0;     // avoid Win32 "null-write" option
 
       }
 
-      ASSERT(lpBuf != nullptr);
+      ASSERT(dataToWrite != nullptr);
 
-      ASSERT(is_memory_segment_ok(lpBuf, nCount, false));
+      ASSERT(is_memory_segment_ok(dataToWrite, amountToWrite));
+      
+      memsize writePosition = 0;
 
-      memsize pos = 0;
+      memsize amountWritten = 0;
 
-      while(nCount > 0)
+      while(amountToWrite > 0)
       {
          
-         i32 iWrite = ::write(m_iFile, &((const byte *)lpBuf)[pos], (size_t) minimum(0x7fffffff, nCount));
+         ::i32 amountToWriteNow = (::i32) minimum(INT_MAX, amountToWrite);
          
-         if (iWrite < 0)
+         ::i32 amountWrittenNow = (::i32) ::write(m_iFile, &((const byte *)dataToWrite)[writePosition], amountToWriteNow);
+         
+         if (amountWrittenNow < 0)
          {
 
-            auto iErrNo = errno;
-
-            auto estatus = errno_status(iErrNo);
-
-            auto errorcode = errno_error_code(iErrNo);
-
-            throw ::file::exception(estatus, errorcode, m_path, m_eopen, "::write < 0");
+//            auto iErrNo = errno;
+//
+//            auto estatus = errno_status(iErrNo);
+//
+//            auto errorcode = errno_error_code(iErrNo);
+//
+//            throw ::file::exception(estatus, errorcode, m_path, m_eopen, "::write < 0");
+            
+            throw_errno_exception("::write < 0");
 
          }
 
-         nCount -= iWrite;
-         pos += iWrite;
+         amountToWrite -= amountWrittenNow;
+         
+         writePosition += amountWrittenNow;
+         
+         amountWritten += amountToWriteNow;
+         
       }
 
+      return amountWritten;
+      
       // Win32s will not return an error all the time (usually DISK_FULL)
       //if (iWrite != nCount)
       //vfxThrowFileexception(::error_disk_full, -1, m_strFileName);
+      
    }
 
    
@@ -403,7 +431,7 @@ namespace acme_posix
       if (m_iFile == hFileNull)
       {
 
-         throw_exception("m_iFile == hFileNull");
+         throw_errno_exception("m_iFile == hFileNull");
 
          //auto iErrNo = -1;
 
@@ -421,14 +449,21 @@ namespace acme_posix
       ASSERT(::e_seek_set == SEEK_SET && ::e_seek_from_end == SEEK_END && ::e_seek_current == SEEK_CUR);
 
       ::i32 lLoOffset = lOff & 0xffffffff;
+      
+#ifdef __APPLE__
 
+      filesize posNew = ::lseek(m_iFile, lLoOffset, (::u32)eseek);
+      
+#else
+      
       filesize posNew = ::lseek64(m_iFile, lLoOffset, (::u32)eseek);
+      
+#endif
 
       if (posNew < 0)
       {
 
-         throw_exception();
-
+         throw_errno_exception();
 
       }
 
@@ -439,18 +474,27 @@ namespace acme_posix
 
    filesize file::get_position() const
    {
+      
       ASSERT_VALID(this);
       ASSERT(m_iFile != hFileNull);
 
       ::i32 lLoOffset = 0;
 //      ::i32 lHiOffset = 0;
+      
+#ifdef __APPLE__
 
+      filesize pos = ::lseek(m_iFile, lLoOffset, SEEK_CUR);
+      
+#else
+      
       filesize pos = ::lseek64(m_iFile, lLoOffset, SEEK_CUR);
+      
+#endif
       //    pos |= ((filesize)lHiOffset) << 32;
       if (pos < 0)
       {
 
-         throw_exception("lseek64 < 0");
+         throw_errno_exception("lseek64 < 0");
        
          //auto iErrNo = errno;
 
@@ -468,21 +512,14 @@ namespace acme_posix
    void file::flush()
    {
 
-      /*      ::open
-            ::read
-            ::write
-
-            access the system directly no buffering : direct I/O - efficient for large writes - innefficient for lots of single byte writes
-
-            */
-
-      /*ASSERT_VALID(this);
-
-      /*  if (m_iFile == hFileNull)
-         return;
-
-      if (!::FlushFileBuffers((HANDLE)m_iFile))
-         ::file::throw_os_error( (::i32)::get_last_error());*/
+//      ASSERT_VALID(this);
+//
+//      if (m_iFile == hFileNull)
+//         return;
+//
+//      if (!::FlushFileBuffers((HANDLE)m_iFile))
+//         ::file::throw_os_error( (::i32)::get_last_error());
+       
    }
 
    void file::close()
@@ -508,7 +545,7 @@ namespace acme_posix
       if (bError)
       {
 
-         throw_exception("::close == -1", iErrNo);
+         throw_errno_exception("::close == -1", iErrNo);
 
          //auto iErrNo = errno;
 
@@ -569,7 +606,7 @@ namespace acme_posix
       if (iError == -1)
       {
 
-         throw_exception("ftruncate == -1");
+         throw_errno_exception("ftruncate == -1");
 
          //auto iErrNo = errno;
 
@@ -580,7 +617,9 @@ namespace acme_posix
          //throw ::file::exception(estatus, errorcode, m_path,  "ftruncate == -1", m_eopen);
 
       }
+      
 #endif
+      
    }
 
 
@@ -733,31 +772,33 @@ namespace acme_posix
          if (fstat(m_iFile, &st) != 0)
          {
 
-            throw_exception("fstat != 0");
+            throw_errno_exception("fstat != 0");
 
          }
          // get time ::e_seek_current file size_i32
          /*FILETIME ftCreate, ftAccess, ftModify;
          if (!::GetFileTime((HANDLE)m_iFile, &ftCreate, &ftAccess, &ftModify))
             return false;*/
+         
+         ::copy(&filestatus, &st);
 
-         filestatus.m_filesize = st.st_size;
-
-         filestatus.m_attribute = 0;
-
-         ::copy(&filestatus.m_timeModification, &st.st_mtim);
-         ::copy(&filestatus.m_timeAccess, &st.st_atim);
-         ::copy(&filestatus.m_timeCreation, &st.st_ctim);
-
-         if (filestatus.m_timeCreation <= 0_s)
-         {
-            filestatus.m_timeCreation = filestatus.m_timeModification;
-         }
-
-         if (filestatus.m_timeAccess <= 0_s)
-         {
-            filestatus.m_timeAccess = filestatus.m_timeModification;
-         }
+//         filestatus.m_filesize = st.st_size;
+//
+//         filestatus.m_attribute = 0;
+//
+//         ::copy(&filestatus.m_timeModification, &st.st_mtim);
+//         ::copy(&filestatus.m_timeAccess, &st.st_atim);
+//         ::copy(&filestatus.m_timeCreation, &st.st_ctim);
+//
+//         if (filestatus.m_timeCreation <= 0_s)
+//         {
+//            filestatus.m_timeCreation = filestatus.m_timeModification;
+//         }
+//
+//         if (filestatus.m_timeAccess <= 0_s)
+//         {
+//            filestatus.m_timeAccess = filestatus.m_timeModification;
+//         }
 
       }
       
@@ -782,10 +823,10 @@ namespace acme_posix
    //}
 
 
-   void file::throw_exception(const ::scoped_string & scopedstr, int iErrNo) const
+   void file::throw_errno_exception(const ::scoped_string & scopedstr, int iErrNo) const
    {
 
-      throw_errno_exception(m_path, m_eopen, scopedstr, iErrNo);
+      ::throw_errno_exception(m_path, m_eopen, scopedstr, iErrNo);
 
       //if (iErrNo == 0)
       //{

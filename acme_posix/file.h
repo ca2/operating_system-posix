@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 
 #include "acme/filesystem/file/file.h"
@@ -77,8 +77,11 @@ namespace acme_posix
       void set_size(filesize dwNewLen) override;
       filesize size() const override;
 
-      memsize read(void * lpBuf, memsize nCount) override;
-      void write(const void * lpBuf, memsize nCount) override;
+      using ::file::file::read;
+      memsize read(void * readData, memsize amountToRead) override;
+      
+      using ::file::file::defer_write;
+      memsize defer_write(const void * dataToWrite, memsize amountToWrite) override;
 
       void lock(filesize dwPos, filesize dwCount) override;
       void unlock(filesize dwPos, filesize dwCount) override;
@@ -91,7 +94,7 @@ namespace acme_posix
 
       //u64 GetBufferPtr(::u32 nCommand, u64 nCount = 0, void ** ppBufStart = nullptr, void ** ppBufMax = nullptr);
 
-      [[noreturn]]virtual void throw_exception(const ::scoped_string & scopedstr = nullptr, int iErrNo = 0) const;
+      [[noreturn]]virtual void throw_errno_exception(const ::scoped_string & scopedstr = nullptr, int iErrNo = 0) const;
 
 
    };

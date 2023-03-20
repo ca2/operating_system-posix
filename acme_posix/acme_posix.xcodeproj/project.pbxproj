@@ -30,6 +30,12 @@
 		9A0C16D2264A2C6D00B5CC33 /* _factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16C1264A2C6C00B5CC33 /* _factory.cpp */; };
 		9A0C16D3264A2C6D00B5CC33 /* framework.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C2264A2C6C00B5CC33 /* framework.h */; };
 		9A0C16D5264A2C6D00B5CC33 /* _.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C4264A2C6C00B5CC33 /* _.h */; };
+		9A3BFB9729C82721005DE2BF /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A3BFB9529C82721005DE2BF /* file.cpp */; };
+		9A3BFB9829C82721005DE2BF /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A3BFB9529C82721005DE2BF /* file.cpp */; };
+		9A3BFB9929C82721005DE2BF /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A3BFB9529C82721005DE2BF /* file.cpp */; };
+		9A3BFB9A29C82721005DE2BF /* file.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A3BFB9629C82721005DE2BF /* file.h */; };
+		9A3BFB9B29C82721005DE2BF /* file.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A3BFB9629C82721005DE2BF /* file.h */; };
+		9A3BFB9C29C82721005DE2BF /* file.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A3BFB9629C82721005DE2BF /* file.h */; };
 		9A787E3F264DCFCD003DF8A0 /* libacme.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0C1798264A315100B5CC33 /* libacme.dylib */; };
 		9A78F40328E791B4007F62C0 /* exception_translator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A78F40128E791B4007F62C0 /* exception_translator.cpp */; };
 		9A78F40428E791B4007F62C0 /* exception_translator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A78F40128E791B4007F62C0 /* exception_translator.cpp */; };
@@ -146,6 +152,8 @@
 		9A0C16C2264A2C6C00B5CC33 /* framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = framework.h; sourceTree = "<group>"; };
 		9A0C16C4264A2C6C00B5CC33 /* _.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _.h; sourceTree = "<group>"; };
 		9A0C1792264A315100B5CC33 /* acme.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = acme.xcodeproj; path = ../../../source/app/acme/acme.xcodeproj; sourceTree = "<group>"; };
+		9A3BFB9529C82721005DE2BF /* file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file.cpp; sourceTree = "<group>"; };
+		9A3BFB9629C82721005DE2BF /* file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file.h; sourceTree = "<group>"; };
 		9A78F40128E791B4007F62C0 /* exception_translator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exception_translator.cpp; sourceTree = "<group>"; };
 		9A78F40228E791B4007F62C0 /* exception_translator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = exception_translator.h; sourceTree = "<group>"; };
 		9A78F44428E7E3E2007F62C0 /* node_clang_callstack.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = node_clang_callstack.cpp; sourceTree = "<group>"; };
@@ -213,6 +221,8 @@
 				9A78F40128E791B4007F62C0 /* exception_translator.cpp */,
 				9A78F40228E791B4007F62C0 /* exception_translator.h */,
 				9A0841B52935D540009F7FF4 /* exclusive.cpp */,
+				9A3BFB9529C82721005DE2BF /* file.cpp */,
+				9A3BFB9629C82721005DE2BF /* file.h */,
 				9A0C16B2264A2C6C00B5CC33 /* file_memory_map.cpp */,
 				9A0C16BF264A2C6C00B5CC33 /* file_memory_map.h */,
 				9A0C16B3264A2C6C00B5CC33 /* framework.cpp */,
@@ -254,6 +264,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A3BFB9A29C82721005DE2BF /* file.h in Headers */,
 				9A0841AF2935D51F009F7FF4 /* mutex.h in Headers */,
 				9A0C16D5264A2C6D00B5CC33 /* _.h in Headers */,
 				9A0C16D1264A2C6D00B5CC33 /* pipe.h in Headers */,
@@ -273,6 +284,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A3BFB9B29C82721005DE2BF /* file.h in Headers */,
 				9A0841B02935D51F009F7FF4 /* mutex.h in Headers */,
 				9A8E9DBF282A2F7E005FF778 /* _.h in Headers */,
 				9A8E9DC0282A2F7E005FF778 /* pipe.h in Headers */,
@@ -292,6 +304,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A3BFB9C29C82721005DE2BF /* file.h in Headers */,
 				9AC14CBB297B3370006D9BD3 /* mutex.h in Headers */,
 				9AC14CBC297B3370006D9BD3 /* _.h in Headers */,
 				9AC14CBD297B3370006D9BD3 /* pipe.h in Headers */,
@@ -432,6 +445,7 @@
 				9A0841B32935D51F009F7FF4 /* list_serial_ports.cpp in Sources */,
 				9A0841B12935D51F009F7FF4 /* mutex.cpp in Sources */,
 				9A78F40328E791B4007F62C0 /* exception_translator.cpp in Sources */,
+				9A3BFB9729C82721005DE2BF /* file.cpp in Sources */,
 				9A0C16C5264A2C6D00B5CC33 /* pipe.cpp in Sources */,
 				9A892E8126CDDAA9008D6412 /* acme_file.cpp in Sources */,
 				9A0841B82935D566009F7FF4 /* exclusive.cpp in Sources */,
@@ -453,6 +467,7 @@
 				9A0841B42935D51F009F7FF4 /* list_serial_ports.cpp in Sources */,
 				9A0841B22935D51F009F7FF4 /* mutex.cpp in Sources */,
 				9A78F40428E791B4007F62C0 /* exception_translator.cpp in Sources */,
+				9A3BFB9829C82721005DE2BF /* file.cpp in Sources */,
 				9A8E9DCE282A2F7E005FF778 /* pipe.cpp in Sources */,
 				9A8E9DCF282A2F7E005FF778 /* acme_file.cpp in Sources */,
 				9A0841B92935D566009F7FF4 /* exclusive.cpp in Sources */,
@@ -474,6 +489,7 @@
 				9AC14CCD297B3370006D9BD3 /* list_serial_ports.cpp in Sources */,
 				9AC14CCE297B3370006D9BD3 /* mutex.cpp in Sources */,
 				9AC14CCF297B3370006D9BD3 /* exception_translator.cpp in Sources */,
+				9A3BFB9929C82721005DE2BF /* file.cpp in Sources */,
 				9AC14CD0297B3370006D9BD3 /* pipe.cpp in Sources */,
 				9AC14CD1297B3370006D9BD3 /* acme_file.cpp in Sources */,
 				9AC14CD2297B3370006D9BD3 /* exclusive.cpp in Sources */,
