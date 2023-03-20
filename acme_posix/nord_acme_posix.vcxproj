@@ -160,6 +160,7 @@
     <ClInclude Include="acme_path.h" />
     <ClInclude Include="exception_translator.h" />
     <ClInclude Include="exclusive.h" />
+    <ClInclude Include="file.h" />
     <ClInclude Include="file_lock.h" />
     <ClInclude Include="file_memory_map.h" />
     <ClInclude Include="framework.h" />
@@ -175,6 +176,7 @@
     <ClCompile Include="dbus.cpp" />
     <ClCompile Include="exception_translator.cpp" />
     <ClCompile Include="exclusive.cpp" />
+    <ClCompile Include="file.cpp" />
     <ClCompile Include="file_memory_map.cpp" />
     <ClCompile Include="framework.cpp" />
     <ClCompile Include="mutex.cpp" />
