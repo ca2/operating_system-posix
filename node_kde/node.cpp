@@ -999,7 +999,7 @@ namespace node_kde
                                     [pdialog, pqfiledialog](int finished)
                                     {
 
-                                       ::pointer<::file::file_dialog> pdialogTransfer(e_move_transfer, pdialog);
+                                       ::pointer<::file::file_dialog> pdialogTransfer(e_pointer_transfer, pdialog);
 
                                        pdialog->m_pathStartFolder = (const char *) pqfiledialog->directory().absolutePath().toUtf8().data();
 
@@ -1057,7 +1057,7 @@ namespace node_kde
                                     [pdialog, pqfiledialog](int finished)
                                     {
 
-                                       ::pointer<::file::folder_dialog> pdialogTransfer(e_move_transfer, pdialog);
+                                       ::pointer<::file::folder_dialog> pdialogTransfer(e_pointer_transfer, pdialog);
 
                                        if(finished)
                                        {

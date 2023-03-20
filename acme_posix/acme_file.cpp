@@ -860,7 +860,15 @@ namespace acme_posix
 
       }
 
-      return { statAttribute.st_mtim.tv_sec, statAttribute.st_mtim.tv_nsec };
+#ifdef __APPLE__
+   
+       return { statAttribute.st_mtimespec.tv_sec, statAttribute.st_mtimespec.tv_nsec };
+
+#else
+
+       return { statAttribute.st_mtim.tv_sec, statAttribute.st_mtim.tv_nsec };
+       
+#endif
 
    }
 
