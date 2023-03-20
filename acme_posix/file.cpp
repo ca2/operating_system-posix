@@ -198,12 +198,15 @@ namespace acme_posix
       if(hFile == -1)
       {
 
-//         set_last_errno_status();
          int iErrNo = errno;
 
          m_estatus = errno_status(iErrNo);
 
          auto errorcode = errno_error_code(iErrNo);
+         
+         m_iFile = (::u32)hFileNull;
+
+         m_path.clear();
 
          set_nok();
 
@@ -293,13 +296,9 @@ namespace acme_posix
 
       set_ok_flag();
 
-      m_iFile = (::u32)hFileNull;
-
-      m_path.clear();
-
       m_path = path;
-
-      //return ::success;
+      
+      m_eopen = eopen;
 
    }
 
