@@ -51,6 +51,13 @@ namespace acme_posix
       if (m_pdata != (void *)MAP_FAILED)
       {
          
+         if(m_bCreate)
+         {
+            
+            ::msync(m_pdata, m_size, MS_SYNC);
+            
+         }
+         
          auto size = acmesystem()->m_pacmefile->get_size_fd(m_iFile);
          
          ::munmap(m_pdata, size);
@@ -62,6 +69,13 @@ namespace acme_posix
       if (m_iFile != -1)
       {
 
+         if(m_bCreate)
+         {
+          
+            ::fsync(m_iFile);
+
+         }
+         
          ::close(m_iFile);
 
          m_iFile = -1;
@@ -94,8 +108,13 @@ namespace acme_posix
       }
 
       ::file::path path(get_path());
-
-      acmedirectory()->create(path.folder());
+      
+      if(m_bCreate)
+      {
+         
+         acmedirectory()->create(path.folder());
+         
+      }
 
       m_iFile = ::open(path, iOpen, S_IRUSR | S_IWUSR);
 
@@ -107,8 +126,20 @@ namespace acme_posix
          return false;
 
       }
-
-      acmefile()->set_size(m_iFile, m_size);
+      
+      if(m_bCreate && m_size > 0)
+      {
+         
+         acmefile()->set_size(m_iFile, m_size);
+         
+      }
+      
+      if(m_size < 0)
+      {
+       
+         m_size = acmefile()->get_size_fd(m_iFile);
+         
+      }
 
       m_pdata = (color32_t *)mmap(nullptr, m_size, (m_bRead ? PROT_READ : 0) | (m_bWrite ? PROT_WRITE : 0), MAP_SHARED, m_iFile, 0);
 

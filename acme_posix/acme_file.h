@@ -58,8 +58,11 @@ namespace acme_posix
       filesize get_size_fd(int iFileDescriptor) override;
 
 
-      void copy(const ::file::path & pathNew, const ::file::path & pathSrc, bool bOverwrite) override;
-
+//      void copy(const ::file::path & pathNew, const ::file::path & pathSrc, bool bOverwrite) override;
+//
+//      bool _memory_map_file_copy(const ::file::path & pathNew, const ::file::path & pathSrc) override;
+//      
+      
 //   virtual FILE * FILE_open(const ::file::path & path, const char * attrs, int iShare);
 //   virtual i32 FILE_printf(FILE * fp, const char * s, ...);
 //   virtual i32 FILE_close(FILE * fp);

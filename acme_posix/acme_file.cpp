@@ -541,105 +541,139 @@ namespace acme_posix
    }
 
 
-   void acme_file::copy(const ::file::path & pathNew, const ::file::path & pathSrc, bool bOverwrite)
-   {
+//   void acme_file::copy(const ::file::path & pathNew, const ::file::path & pathSrc, bool bOverwrite)
+//{
+//      
+//      auto pathTarget = pathNew;
+//      
+//      auto pathSource = m_pcontext->defer_process_path(pathSrc);
+//      
+//      auto pathTargetFolder = pathNew.folder();
+//      
+//      if(!acmedirectory()->is(pathTargetFolder))
+//      {
+//         
+//         acmedirectory()->create(pathTargetFolder);
+//         
+//      }
+//      
+//      try
+//      {
+//         
+//         _memory_map_file_copy(pathTarget, pathSource, bOverwrite);
+//         
+//         return;
+//         
+//      }
+//      catch (...)
+//      {
+//         
+//      }
+//      
+//      _read_write_file_copy(pathTarget, pathSource, bOverwrite);
+//      
+//   }
 
-      int_handle input;
-
-      int_handle output;
-
-      void * source, * target;
-
-      i32 flags = O_RDWR | O_CREAT | O_TRUNC;
-
-      if (!bOverwrite)
-      {
-
-         flags |= O_EXCL;
-
-      }
-
-      if ((output.m_i = ::open(pathNew, flags, 0666)) == -1)
-      {
-
-         int iErrNo = errno;
-
-         auto estatus = failed_errno_status(iErrNo);
-
-         throw ::exception(estatus, "Error opening file : \"" + string(pathNew) + "\"");
-
-      }
-
-
-      if ((input.m_i = ::open(pathSrc, O_RDONLY)) == -1)
-      {
-
-         int iErrNo = errno;
-
-         auto estatus = failed_errno_status(iErrNo);
-
-         throw ::exception(estatus, "Error opening file : \"" + string(pathSrc) + "\"");
-
-      }
-
-      off_t filesize = lseek(input.m_i, 0, SEEK_END);
-
-      if(filesize < 0)
-      {
-
-         int iErrNo = errno;
-
-         auto estatus = failed_errno_status(iErrNo);
-
-         throw ::exception(estatus, "Error lseek file : \"" + string(pathSrc) + "\"");
-
-      }
-
-      if(ftruncate(output.m_i, filesize) < 0)
-      {
-
-         int iErrNo = errno;
-
-         auto estatus = failed_errno_status(iErrNo);
-
-         throw ::exception(estatus, "Failed to set output file size : \"" + string(pathNew) + "\"");
-
-      }
-
-      if ((source = mmap(0, filesize, PROT_READ, MAP_PRIVATE, input.m_i, 0)) == (void *)-1)
-      {
-
-         int iErrNo = errno;
-
-         auto estatus = failed_errno_status(iErrNo);
-
-         throw ::exception(estatus, "Error mapping input file : \"" + string(pathSrc) + "\"");
-
-      }
-
-
-      if ((target = mmap(0, filesize, PROT_WRITE, MAP_SHARED, output.m_i, 0)) == (void *)-1)
-      {
-
-         int iErrNo = errno;
-
-         auto estatus = failed_errno_status(iErrNo);
-
-         throw ::exception(estatus, "Error mapping output file: \"" + string(pathNew) + "\"");
-
-      }
-
-      memcpy_dup(target, source, filesize);
-
-      msync(target, filesize, MS_SYNC);
-
-      munmap(source, filesize);
-
-      munmap(target, filesize);
-
-      fsync(output);
-
-   }
+      
+//   void acme_file::_memory_map_file(const ::file::path & pathNew, const ::file::path & pathSrc, bool bOverwrite)
+//   {
+//
+//      int_handle input;
+//
+//      int_handle output;
+//
+//      void * source, * target;
+//
+//      i32 flags = O_RDWR | O_CREAT | O_TRUNC;
+//
+//      if (!bOverwrite)
+//      {
+//
+//         flags |= O_EXCL;
+//
+//      }
+//
+//      if ((output.m_i = ::open(pathNew, flags, 0666)) == -1)
+//      {
+//
+//         int iErrNo = errno;
+//
+//         auto estatus = failed_errno_status(iErrNo);
+//
+//         throw ::exception(estatus, "Error opening file : \"" + string(pathNew) + "\"");
+//
+//      }
+//
+//
+//      if ((input.m_i = ::open(pathSrc, O_RDONLY)) == -1)
+//      {
+//
+//         int iErrNo = errno;
+//
+//         auto estatus = failed_errno_status(iErrNo);
+//
+//         throw ::exception(estatus, "Error opening file : \"" + string(pathSrc) + "\"");
+//
+//      }
+//
+//      off_t filesize = lseek(input.m_i, 0, SEEK_END);
+//
+//      if(filesize < 0)
+//      {
+//
+//         int iErrNo = errno;
+//
+//         auto estatus = failed_errno_status(iErrNo);
+//
+//         throw ::exception(estatus, "Error lseek file : \"" + string(pathSrc) + "\"");
+//
+//      }
+//
+//      if(ftruncate(output.m_i, filesize) < 0)
+//      {
+//
+//         int iErrNo = errno;
+//
+//         auto estatus = failed_errno_status(iErrNo);
+//
+//         throw ::exception(estatus, "Failed to set output file size : \"" + string(pathNew) + "\"");
+//
+//      }
+//
+//      if ((source = mmap(0, filesize, PROT_READ, MAP_PRIVATE, input.m_i, 0)) == (void *)-1)
+//      {
+//
+//         int iErrNo = errno;
+//
+//         auto estatus = failed_errno_status(iErrNo);
+//
+//         throw ::exception(estatus, "Error mapping input file : \"" + string(pathSrc) + "\"");
+//
+//      }
+//
+//
+//      if ((target = mmap(0, filesize, PROT_WRITE, MAP_PRIVATE, output.m_i, 0)) == (void *)-1)
+//      {
+//
+//         int iErrNo = errno;
+//
+//         auto estatus = failed_errno_status(iErrNo);
+//
+//         throw ::exception(estatus, "Error mapping output file: \"" + string(pathNew) + "\"");
+//
+//      }
+//
+//      memcpy_dup(target, source, filesize);
+//
+//      msync(target, filesize, MS_SYNC);
+//
+//      munmap(source, filesize);
+//
+//      munmap(target, filesize);
+//
+//      fsync(output);
+//
+//   }
 
 
 
