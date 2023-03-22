@@ -15,7 +15,10 @@ namespace acme_posix
    acme_path::acme_path() = default;
 
 
-   acme_path::~acme_path() = default;
+   acme_path::~acme_path()
+   {
+      
+   }
 
 
    ::file::enum_type acme_path::get_type(const ::file::path & path1)
@@ -61,7 +64,7 @@ namespace acme_posix
       if (::is_null(pszRealPath))
       {
 
-         return "";
+         return path;
 
       }
 

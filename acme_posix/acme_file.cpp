@@ -63,7 +63,6 @@ namespace acme_posix
    bool acme_file::exists(const ::file::path & filename)
    {
 
-
       return ::file_exists(filename);
          
    }
