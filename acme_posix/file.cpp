@@ -100,6 +100,7 @@ namespace acme_posix
    {
 
       m_iFile = (::u32) hFileNull;
+      m_iPutByteBackCount = 0;
 
    }
 
@@ -322,6 +323,21 @@ namespace acme_posix
       
       memsize amountRead = 0;
       
+      while(amountToRead > 0 && m_iPutByteBackCount > 0)
+      {
+
+         m_iPutByteBackCount--;
+         
+         ((byte *)readData)[readPosition] = m_byteaPutBack[m_iPutByteBackCount];
+         
+         amountToRead--;
+         
+         readPosition++;
+         
+         amountRead++;
+         
+      }
+      
       while(amountToRead > 0)
       {
           
@@ -421,6 +437,23 @@ namespace acme_posix
       //if (iWrite != nCount)
       //vfxThrowFileexception(::error_disk_full, -1, m_strFileName);
       
+   }
+
+
+   void file::put_byte_back(::byte b)
+   {
+      
+      if(m_iPutByteBackCount >= sizeof(m_byteaPutBack))
+      {
+       
+         throw exception(error_io, "put_byte_back buffer size would be exceeded");
+         
+      }
+      
+      m_byteaPutBack[m_iPutByteBackCount] = b;
+      
+      m_iPutByteBackCount++;
+
    }
 
    
