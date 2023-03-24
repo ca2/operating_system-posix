@@ -18,6 +18,8 @@ list(APPEND library_source
         dbus.cpp
         exception_translator.cpp
         exception_translator.h
+        file.cpp
+        file.h
         file_memory_map.cpp
         file_memory_map.h
         framework.cpp
