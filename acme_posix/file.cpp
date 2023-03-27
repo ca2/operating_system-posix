@@ -16,6 +16,7 @@
 #include <dlfcn.h>
 #if defined(LINUX)
 #include <link.h>
+#include <unistd.h>
 #endif
 #include <ctype.h>
 

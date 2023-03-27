@@ -104,7 +104,7 @@ void __xcb_hook_on_idle(xcb_connection_t * pdisplay)
 }
 
 
-#if !defined(RASPBIAN)
+#if !defined(RASPBERRYPIOS)
 
 bool xcb_process_event(xcb_connection_t * pdisplay, XEvent & e, XGenericEventCookie * cookie);
 

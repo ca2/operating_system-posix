@@ -95,7 +95,7 @@ namespace node_gtk
 //
 //      return InterlockedIncrement64(&m_countReference);
 //
-//#elif defined(RASPBIAN) && defined(OS32BIT)
+//#elif defined(RASPBERRYPIOS) && defined(OS32BIT)
 //
 //      return __sync_add_and_fetch_4(&m_countReference,1);
 //
@@ -115,7 +115,7 @@ namespace node_gtk
 //
 //      return InterlockedDecrement64(&m_countReference);
 //
-//#elif defined(RASPBIAN) && defined(OS32BIT)
+//#elif defined(RASPBERRYPIOS) && defined(OS32BIT)
 //
 //      return __sync_sub_and_fetch_4(&m_countReference,1);
 //

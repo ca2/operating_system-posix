@@ -21,7 +21,7 @@
 
 
 //int uname(struct utsname *buf);
-#ifndef RASPBIAN
+#ifndef RASPBERRYPIOS
 //#ifndef MANJARO
 // Manjaro libappindicator-gtk3
 #include <libappindicator3-0.1/libappindicator/app-indicator.h>
@@ -104,7 +104,7 @@
 
 void os_post_quit();
 
-#ifndef RASPBIAN
+#ifndef RASPBERRYPIOS
 
 GtkWidget * linux_g_direct_app_indicator_init(AppIndicator * pindicator, user_notify_icon_bridge * pbridge);
 
@@ -136,7 +136,7 @@ extern "C"
 
 
 
-#ifndef RASPBIAN
+#ifndef RASPBERRYPIOS
 
 
 class gnome_appindicator :
@@ -280,7 +280,7 @@ void g_safe_free(void * pfree)
 
 }
 
-#ifndef RASPBIAN
+#ifndef RASPBERRYPIOS
 
 
 bool gnome_appindicator::init(user_notify_icon_bridge * pbridge)
@@ -893,13 +893,13 @@ GdkFilterReturn xcb_gdk_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data
 ////
 ////            XEvent e = {};
 ////
-////#if !defined(RASPBIAN)
+////#if !defined(RASPBERRYPIOS)
 ////
 ////            XGenericEventCookie * cookie;
 ////
 ////#endif
 ////
-////#if !defined(RASPBIAN)
+////#if !defined(RASPBERRYPIOS)
 ////
 ////            if(g_pobjectaExtendedEventListener)
 ////            {
@@ -921,7 +921,7 @@ GdkFilterReturn xcb_gdk_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data
 //   if(!__xcb_hook_process_event(pdisplaydata->display(), e, cookie))
 //   {
 //
-//#if !defined(RASPBIAN)
+//#if !defined(RASPBERRYPIOS)
 //
 //      if(!xcb_process_event(pdisplaydata, e, cookie))
 //

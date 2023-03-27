@@ -26,7 +26,7 @@ void utc_timespec(timespec * ptimespec);
 #endif
 
 
-#ifdef RASPBIAN
+#ifdef RASPBERRYPIOS
 #include <sys/types.h>
 #include <unistd.h>
 #endif

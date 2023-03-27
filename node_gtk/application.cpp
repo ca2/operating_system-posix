@@ -27,7 +27,12 @@ NodeGtkApplication * node_gtk_application_new (const char * pszAppName, const ch
 
    pnodegtkapplication = (NodeGtkApplication *) g_object_new (node_gtk_application_get_type (),
                                           "application-atom", pszProgName,
+                                          
+                                          #if defined(RASPBERRYPIOS)
+                                          "flags", G_APPLICATION_FLAGS_NONE,
+                                          #else
                                           "flags", G_APPLICATION_DEFAULT_FLAGS,
+                                          #endif
                                           "inactivity-timeout", 30000,
                                           "register-session", TRUE,
                                           nullptr);
@@ -119,7 +124,7 @@ void node_gtk_application_activate(GApplication * application)
    //g_application_register(application, pc, &perror);
    //new_window(application, nullptr);
 
-#ifndef RASPBIAN
+#ifndef RASPBERRYPIOS
 
       throw ::exception(todo);
 

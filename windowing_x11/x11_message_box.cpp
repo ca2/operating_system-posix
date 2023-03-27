@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include "_x11.h"
 
-#if !defined(RASPBIAN)
+#if !defined(RASPBERRYPIOS)
 bool x11_message_box_process_event(Display * pdisplay, XEvent & e, XGenericEventCookie * cookie);
 #else
 bool x11_message_box_process_event(Display * pdisplay, XEvent & e);
@@ -324,7 +324,7 @@ void setWindowTitle(const char* title, const Window *win, Display *dpy){
 //    return res;
 //}
 //
-//#if !defined(RASPBIAN)
+//#if !defined(RASPBERRYPIOS)
 //bool x11_message_box_process_event(osdisplay_data * pdisplaydata, XEvent & e, XGenericEventCookie * cookie)
 //#else
 //bool x11_message_box_process_event(osdisplay_data * pdisplaydata, XEvent & e)

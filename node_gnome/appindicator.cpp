@@ -5,7 +5,7 @@
 #include "acme/platform/system.h"
 #include "apex/user/notify_icon_bridge.h"
 //int uname(struct utsname *buf);
-//#ifndef RASPBIAN
+//#ifndef RASPBERRYPIOS
 //#ifndef MANJARO
 // Manjaro libappindicator-gtk3
 //#include <libappindicator3-0.1/libappindicator/app-indicator.h>

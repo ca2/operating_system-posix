@@ -10,7 +10,7 @@
 
 #endif
 
-#if defined(RASPBIAN)
+#if defined(RASPBERRYPIOS)
 #include <sys/types.h>
 #include <unistd.h>
 #endif

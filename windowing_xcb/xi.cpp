@@ -124,7 +124,7 @@ namespace windowing_xcb
    }
 
 
-#if !defined(RASPBIAN)
+#if !defined(RASPBERRYPIOS)
 
 
 //int xi_opcode = -1;

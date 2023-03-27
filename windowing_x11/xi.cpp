@@ -16,7 +16,7 @@ namespace windowing_x11
 {
 
 
-//#if !defined(RASPBIAN)
+//#if !defined(RASPBERRYPIOS)
 
 
 //int xi_opcode = -1;

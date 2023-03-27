@@ -96,7 +96,7 @@
 //
 //void os_post_quit();
 //
-//#ifndef RASPBIAN
+//#ifndef RASPBERRYPIOS
 //
 //GtkWidget * linux_g_direct_app_indicator_init(AppIndicator * pindicator, user_notify_icon_bridge * pbridge);
 //
@@ -105,7 +105,7 @@
 //
 //
 //
-//#ifndef RASPBIAN
+//#ifndef RASPBERRYPIOS
 //
 //
 //class gnome_appindicator :
@@ -236,7 +236,7 @@
 //}
 //
 //
-//#ifndef RASPBIAN
+//#ifndef RASPBERRYPIOS
 //
 //
 //bool gnome_appindicator::init(user_notify_icon_bridge * pbridge)
@@ -849,13 +849,13 @@
 //////
 //////            XEvent e = {};
 //////
-//////#if !defined(RASPBIAN)
+//////#if !defined(RASPBERRYPIOS)
 //////
 //////            XGenericEventCookie * cookie;
 //////
 //////#endif
 //////
-//////#if !defined(RASPBIAN)
+//////#if !defined(RASPBERRYPIOS)
 //////
 //////            if(g_pobjectaExtendedEventListener)
 //////            {
@@ -877,7 +877,7 @@
 ////   if(!__x11_hook_process_event(pdisplaydata->display(), e, cookie))
 ////   {
 ////
-////#if !defined(RASPBIAN)
+////#if !defined(RASPBERRYPIOS)
 ////
 ////      if(!x11_process_event(pdisplaydata, e, cookie))
 ////

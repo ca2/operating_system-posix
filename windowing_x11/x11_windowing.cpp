@@ -157,7 +157,7 @@ void x11_kick_idle()
 //
 //   XEvent e = {};
 //
-//#if !defined(RASPBIAN)
+//#if !defined(RASPBERRYPIOS)
 //
 //   XGenericEventCookie * cookie;
 //

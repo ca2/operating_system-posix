@@ -48,7 +48,7 @@ namespace user
 }
 
 
-#ifndef RASPBIAN
+#ifndef RASPBERRYPIOS
 
 
 namespace node_gnome
