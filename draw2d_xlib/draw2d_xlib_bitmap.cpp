@@ -57,14 +57,14 @@ namespace draw2d_xlib
          for(i32 i = 0; i < cy; i++)
          {
 
-            ::memcpy_dup(&((byte *) m_mem.get_data())[iStride * i], &((byte *) pdata)[iStrideParam * i], iW);
+            ::memory_copy(&((byte *) m_mem.get_data())[iStride * i], &((byte *) pdata)[iStrideParam * i], iW);
 
          }
 
       }
       else
       {
-         ::memcpy_dup(m_mem.get_data(), pdata, iStride * cy);
+         ::memory_copy(m_mem.get_data(), pdata, iStride * cy);
       }
 
 //      if(m_ui.m_window == nullptr)
@@ -147,14 +147,14 @@ namespace draw2d_xlib
             for(i32 i = 0; i < cy; i++)
             {
 
-               ::memcpy_dup(&((byte *) m_mem.get_data())[iStride * i], &((byte *) *ppdata)[iW * i], iW);
+               ::memory_copy(&((byte *) m_mem.get_data())[iStride * i], &((byte *) *ppdata)[iW * i], iW);
 
             }
 
          }
          else
          {
-            ::memcpy_dup(m_mem.get_data(), *ppdata, iStride * cy);
+            ::memory_copy(m_mem.get_data(), *ppdata, iStride * cy);
          }
 
       }

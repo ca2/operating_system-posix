@@ -729,7 +729,7 @@
 
 //     if (info->Type != type) return false;
 
-//     ::memcpy_dup(data, info->Data, info->DataLength);
+//     ::memory_copy(data, info->Data, info->DataLength);
 //     return true;
 // }
 

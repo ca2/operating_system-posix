@@ -5076,7 +5076,7 @@ namespace draw2d_xlib
        const i32 MAX_ITERATIONS = 3;
        i32 iteration;
 
-       ::memcpy_dup( dst, src, width*height*4 );
+       ::memory_copy( dst, src, width*height*4 );
 
        for ( iteration = 0; iteration < MAX_ITERATIONS; iteration++ ) {
            for( channel = 0; channel < 4; channel++ ) {
@@ -5114,7 +5114,7 @@ namespace draw2d_xlib
                    pix += (i32)radius * 2 * 4;
                }
            }
-           ::memcpy_dup( src, dst, width*height*4 );
+           ::memory_copy( src, dst, width*height*4 );
        }
 
        free( dst );

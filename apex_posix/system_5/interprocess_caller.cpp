@@ -104,7 +104,7 @@ namespace system_5
 
       pdata->size = iLen;
 
-      ::memcpy_dup(pdata->data, pszMessage, iLen);
+      ::memory_copy(pdata->data, pszMessage, iLen);
 
       int result = 0;
 
@@ -165,7 +165,7 @@ namespace system_5
 //
 //               i32 result;
 //
-//               ::memcpy_dup(data.data, pszMessage, data.size_i32);
+//               ::memory_copy(data.data, pszMessage, data.size_i32);
 //
 //               if((result = msgsnd(m_iQueue,&data,length,0)) == -1)
 //               {
@@ -175,7 +175,7 @@ namespace system_5
 //
 //      //const ::string & pszMessage = (const ::string &)pdata;
 //
-//      ::memcpy_dup(pdata->data, p, iLen);
+//      ::memory_copy(pdata->data, p, iLen);
 //
 //      int result = 0;
 //

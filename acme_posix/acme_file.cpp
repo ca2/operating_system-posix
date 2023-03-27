@@ -662,7 +662,7 @@ namespace acme_posix
 //
 //      }
 //
-//      memcpy_dup(target, source, filesize);
+//      memory_copy(target, source, filesize);
 //
 //      msync(target, filesize, MS_SYNC);
 //

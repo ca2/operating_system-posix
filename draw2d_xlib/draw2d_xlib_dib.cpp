@@ -408,7 +408,7 @@ namespace draw2d_xlib
 //                     -1,
 //                     ZPixmap);
 
-      ::memcpy_dup(m_pcolorref, m_ppimage->data, m_iScan * m_size.cy);
+      ::memory_copy(m_pcolorref, m_ppimage->data, m_iScan * m_size.cy);
 
       m_bMapped = true;
 
@@ -430,7 +430,7 @@ namespace draw2d_xlib
 
       ::draw2d_xlib::graphics * pg = m_spgraphics.cast < ::draw2d_xlib::graphics >();
 
-      ::memcpy_dup(m_ppimage->data, m_pcolorref, m_iScan * m_size.cy);
+      ::memory_copy(m_ppimage->data, m_pcolorref, m_iScan * m_size.cy);
 
 //      XPutImage(
 //                     pb->m_ui.m_window->display(),
@@ -705,7 +705,7 @@ namespace draw2d_xlib
    //   if ( (pimage->cx!=cx) || (pimage->cy!=cy) )
    //      pimage = create_image ( cx, cy );
    //   // do copy
-   //   ::memcpy_dup ( pimage->get_data(), m_pcolorref, cx*cy*4 );
+   //   ::memory_copy ( pimage->get_data(), m_pcolorref, cx*cy*4 );
    //}
 
 
@@ -715,7 +715,7 @@ namespace draw2d_xlib
    //   if ( (cx!=pimage->cx) || (cy!=pimage->cy) )
    //      create ( pimage->cx, pimage->cy );
    //   // do Paste
-   //   ::memcpy_dup ( m_pcolorref, pimage->get_data(), cx*cy*4 );
+   //   ::memory_copy ( m_pcolorref, pimage->get_data(), cx*cy*4 );
    //}
 
    //bool image::color_blend(color32_t cr, byte bAlpha)
