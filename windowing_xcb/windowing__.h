@@ -218,7 +218,7 @@ void xcb_wait_timer_or_event(xcb_connection_t * pdisplay)
 //
 //   XEvent e = {};
 //
-//#if !defined(RASPBIAN)
+//#if !defined(RASPBERRYPIOS)
 //
 //   XGenericEventCookie * cookie;
 //

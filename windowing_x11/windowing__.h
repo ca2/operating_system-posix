@@ -219,7 +219,7 @@ void x11_wait_timer_or_event(Display * pdisplay)
 //
 //   XEvent e = {};
 //
-//#if !defined(RASPBIAN)
+//#if !defined(RASPBERRYPIOS)
 //
 //   XGenericEventCookie * cookie;
 //

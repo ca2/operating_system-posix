@@ -79,7 +79,7 @@ namespace node_gtk
 
       //}
 
-#elif defined(LINUX) && !defined(RASPBIAN)
+#elif defined(LINUX) && !defined(RASPBERRYPIOS)
 
       {
 
@@ -317,7 +317,7 @@ namespace node_gtk
 //      return true;
 //
 //
-//#elif defined(LINUX) && !defined(RASPBIAN)
+//#elif defined(LINUX) && !defined(RASPBERRYPIOS)
 //
 //      if(m_pindicator)
 //      {

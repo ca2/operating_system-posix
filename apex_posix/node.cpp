@@ -47,7 +47,7 @@ namespace apex_posix
    void node::on_start_application(::apex::application *papplication)
    {
 
-#if !defined(RASPBIAN) && !defined(ANDROID) && !defined(__APPLE__) && !defined(LINUX)
+#if !defined(RASPBERRYPIOS) && !defined(ANDROID) && !defined(__APPLE__) && !defined(LINUX)
 
       try
       {

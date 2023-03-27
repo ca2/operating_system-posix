@@ -23,11 +23,12 @@ char * get_current_dir_name();
 #include <sys/stat.h>
 #include <dirent.h>
 #include <unistd.h>
-#elif defined(LINUX)
+#elif defined(LINUX) || defined(RASPBERRYPIOS)
 #include <dlfcn.h>
 #include <link.h>
 #include <sys/stat.h>
 #include <dirent.h>
+#include <unistd.h>
 #elif defined(ANDROID)
 #include <sys/stat.h>
 #include <dirent.h>

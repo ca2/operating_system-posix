@@ -265,7 +265,7 @@ namespace windowing_xcb
 
       }
 
-#ifndef RASPBIAN
+#ifndef RASPBERRYPIOS
 
       if (pwindowing->m_pSnLauncheeContext != nullptr && !papp->m_bSnLauncheeSetup)
       {

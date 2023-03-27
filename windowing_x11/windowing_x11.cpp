@@ -920,7 +920,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 
 
-//#if !defined(RASPBIAN)
+//#if !defined(RASPBERRYPIOS)
 
 
    bool x11_process_event(Display *pdisplay, XEvent *pevent, XGenericEventCookie *cookie);
@@ -1147,7 +1147,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
             XEvent &e = *pevent;
 
-//#if !defined(RASPBIAN)
+//#if !defined(RASPBERRYPIOS)
 
             XGenericEventCookie * pcookie;
 
@@ -3420,7 +3420,7 @@ else if(detail == 3)
 
 
 //
-//#ifdef RASPBIAN
+//#ifdef RASPBERRYPIOS
 //
 //
 //HCURSOR imaging::CreateAlphaCursor(oswindow window, const ::image * pimage, int xHotSpot, int yHotSpot)
@@ -3437,7 +3437,7 @@ else if(detail == 3)
 
 
 
-//#endif // RASPBIAN
+//#endif // RASPBERRYPIOS
 
 
 //

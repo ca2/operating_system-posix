@@ -111,7 +111,7 @@ void sn_start_context();
 //   //g_application_register(application, pc, &perror);
 //   //new_window(application, nullptr);
 //
-//#ifndef RASPBIAN
+//#ifndef RASPBERRYPIOS
 //
 //   sn_start_context();
 //

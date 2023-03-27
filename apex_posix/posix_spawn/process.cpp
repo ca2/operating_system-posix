@@ -11,7 +11,7 @@
 
 #include <spawn.h>
 
-#ifdef RASPBIAN
+#ifdef RASPBERRYPIOS
 #include <sys/types.h>
 #include <unistd.h>
 #endif

@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include "_xcb.h"
 
-#if !defined(RASPBIAN)
+#if !defined(RASPBERRYPIOS)
 bool xcb_message_box_process_event(xcb_connection_t * pdisplay, XEvent & e, XGenericEventCookie * cookie);
 #else
 bool xcb_message_box_process_event(xcb_connection_t * pdisplay, XEvent & e);
@@ -324,7 +324,7 @@ void setWindowTitle(const char* title, const xcb_window_t *win, xcb_connection_t
 //    return res;
 //}
 //
-//#if !defined(RASPBIAN)
+//#if !defined(RASPBERRYPIOS)
 //bool xcb_message_box_process_event(osdisplay_data * pdisplaydata, XEvent & e, XGenericEventCookie * cookie)
 //#else
 //bool xcb_message_box_process_event(osdisplay_data * pdisplaydata, XEvent & e)

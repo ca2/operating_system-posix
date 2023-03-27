@@ -18,7 +18,7 @@
 
 
 //int uname(struct utsname *buf);
-#ifndef RASPBIAN
+#ifndef RASPBERRYPIOS
 //#ifndef MANJARO
 // Manjaro libappindicator-gtk3
 #include <libappindicator3-0.1/libappindicator/app-indicator.h>

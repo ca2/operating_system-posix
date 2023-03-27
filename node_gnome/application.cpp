@@ -112,7 +112,7 @@
 //   //g_application_register(application, pc, &perror);
 //   //new_window(application, nullptr);
 //
-//#ifndef RASPBIAN
+//#ifndef RASPBERRYPIOS
 //
 //      throw ::exception(todo);
 //

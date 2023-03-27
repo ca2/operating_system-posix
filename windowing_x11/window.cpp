@@ -404,7 +404,7 @@ namespace windowing_x11
       // fflush(stdout);
 
 
-#ifndef RASPBIAN
+#ifndef RASPBERRYPIOS
 
       if (pwindowing->m_pSnLauncheeContext != nullptr && !papp->m_bSnLauncheeSetup)
       {
@@ -692,10 +692,10 @@ namespace windowing_x11
 //       printf("_DEBUG not defined\n");
 //       #endif
 
-//       #ifdef RASPBIAN
-//       printf("RASPBIAN defined\n");
+//       #ifdef RASPBERRYPIOS
+//       printf("RASPBERRYPIOS defined\n");
 //       #else
-//       printf("RASPBIAN not defined\n");
+//       printf("RASPBERRYPIOS not defined\n");
 //       #endif
 
 
@@ -801,7 +801,7 @@ namespace windowing_x11
 
       }
 
-      //#endif // RASPBIAN
+      //#endif // RASPBERRYPIOS
 
       windowing_output_debug_string("\nwindow::map_window END");
 
