@@ -484,9 +484,9 @@ namespace node_gtk
    void gdk_branch(const ::procedure & procedure)
    {
 
-      ::particle * pparticle = procedure.m_p;
+      ::particle * pbase = procedure.m_pbase;
 
-      ::increment_reference_count(pparticle);
+      ::increment_reference_count(pbase);
 
       synchronous_lock synchronouslock (user_synchronization());
 
@@ -494,7 +494,7 @@ namespace node_gtk
 
       g_source_set_priority(psource, G_PRIORITY_DEFAULT);
 
-      g_source_set_callback(psource, &gdk_callback_run_runnable, pparticle, nullptr);
+      g_source_set_callback(psource, &gdk_callback_run_runnable, pbase, nullptr);
 
       g_source_attach(psource, g_main_context_default());
 
