@@ -32,7 +32,7 @@ char * get_current_dir_name();
 #elif defined(ANDROID)
 #include <sys/stat.h>
 #include <dirent.h>
-#elif defined(_UWP)
+#elif defined(UNIVERSAL_WINDOWS)
 #include "acme/os/universal_windows/file_winrt.h"
 #elif defined(FREEBSD)
 #define _GNU_SOURCE
@@ -532,7 +532,7 @@ namespace acme_posix
 //}
 
 
-#if defined(_UWP) || defined(__APPLE__) || defined(LINUX) || defined(ANDROID)
+#if defined(UNIVERSAL_WINDOWS) || defined(__APPLE__) || defined(LINUX) || defined(ANDROID)
 
 //::file::path acme_directory::bookmark()
 //{
@@ -549,7 +549,7 @@ namespace acme_posix
 #endif
 
 
-#ifdef _UWP
+#ifdef UNIVERSAL_WINDOWS
 
 
 ::file::path acme_directory::home()

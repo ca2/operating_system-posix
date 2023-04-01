@@ -77,7 +77,7 @@ namespace node_gtk
 
       virtual ::e_status step() override;
 
-//#if defined(APPLE_IOS) || defined(WINDOWS_DESKTOP) || defined(ANDROID) || defined(_UWP)
+//#if defined(APPLE_IOS) || defined(WINDOWS_DESKTOP) || defined(ANDROID) || defined(UNIVERSAL_WINDOWS)
 //      virtual void notify_icon_play(const char * action);
 //#else
 //#if defined(LINUX)

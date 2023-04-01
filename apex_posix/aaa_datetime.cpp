@@ -34,7 +34,7 @@
 
 // #endif
 
-// #ifdef _UWP
+// #ifdef UNIVERSAL_WINDOWS
 // #define STATUS_SUCCESS 0
 // #define STATUS_PRIVILEGE_NOT_HELD        ((NTSTATUS) 0xC0000061)
 // #endif
@@ -97,7 +97,7 @@
 //    CSHORT Millis;
 //    CSHORT Weekday;
 // } TIME_FIELDS, *PTIME_FIELDS;
-// //#ifdef _UWP
+// //#ifdef UNIVERSAL_WINDOWS
 // //#define STATUS_SUCCESS 0
 // //#define STATUS_PRIVILEGE_NOT_HELD 1
 // //#endif
@@ -520,7 +520,7 @@
 //    TimeFields->Hour = rem / 60;
 // }
 
-// #ifdef _UWP
+// #ifdef UNIVERSAL_WINDOWS
 
 
 // const ::i64 DELTA_EPOCH_IN_MICROSECS= 11644473600000000;
@@ -932,7 +932,7 @@
 // #define STATUS_INVALID_PARAMETER         (0xC000000D)
 
 
-// #ifndef _UWP
+// #ifndef UNIVERSAL_WINDOWS
 // int NtSetSystemTime(const u64 *NewTime, u64 *OldTime)
 // {
 //    struct timeval tv;
@@ -1100,7 +1100,7 @@
 // }
 
 
-// #endif // !defined(_UWP)
+// #endif // !defined(UNIVERSAL_WINDOWS)
 
 
 

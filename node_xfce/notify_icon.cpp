@@ -112,7 +112,7 @@ namespace node_xfce
 
 #elif defined(MACOS)
 
-      #elif defined(_UWP)
+      #elif defined(UNIVERSAL_WINDOWS)
 
 #elif defined(ANDROID)
 

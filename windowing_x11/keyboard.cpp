@@ -200,7 +200,7 @@ namespace windowing_x11
 //
 //#else
 //
-//#ifndef _UWP
+//#ifndef UNIVERSAL_WINDOWS
 //
 //      WCHAR wsz[KL_NAMELENGTH];
 //
