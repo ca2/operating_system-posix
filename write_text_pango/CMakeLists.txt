@@ -24,7 +24,7 @@ list(APPEND library_source
         write_text.h)
 
 
-add_library(${PROJECT_NAME} SHARED ${library_source})
+add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 target_precompile_headers(write_text_pango PRIVATE framework.h)
 

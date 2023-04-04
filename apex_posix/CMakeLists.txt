@@ -61,7 +61,7 @@ endif ()
 list(APPEND library_references acme acme_posix apex)
 
 
-add_library(${PROJECT_NAME} SHARED ${library_source})
+add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 
 if (FILE_SYSTEM_INOTIFY)
