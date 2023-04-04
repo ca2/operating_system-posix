@@ -54,7 +54,8 @@ set_source_files_properties(kde-open.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 add_library(node_kde SHARED ${library_source} set_wallpaper.cpp urlinfo.h kde-open.cpp)
 
 
-target_precompile_headers(node_kde PRIVATE framework.h)
+target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
+target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
 
 
 set_target_properties(node_kde PROPERTIES LINKER_LANGUAGE CXX)
@@ -77,8 +78,10 @@ elseif(LINUX OR FREEBSD)
       pkg_check_modules(PKGCONFIG Qt5Core Qt5UiTools Qt5X11Extras)
    endif()
    target_compile_options(node_kde PRIVATE -fpermissive)
-   target_compile_options(node_kde PRIVATE ${PKGCONFIG_CFLAGS})
-   target_link_options(node_kde PRIVATE ${PKGCONFIG_LDFLAGS})
+   target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+   target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
+   target_link_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
    if(KDE_DESKTOP)
    list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
 list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)

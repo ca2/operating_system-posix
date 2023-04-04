@@ -27,7 +27,8 @@ list(APPEND library_source
 add_library(${PROJECT_NAME} SHARED ${library_source})
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
-target_precompile_headers(write_text_pango PRIVATE framework.h)
+target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
+target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
 
 set_target_properties(write_text_pango PROPERTIES LINKER_LANGUAGE CXX)
 
@@ -47,8 +48,10 @@ elseif(LINUX OR FREEBSD)
     if(NOT DONT_USE_PKG_CONFIG)
         pkg_check_modules(PKGCONFIG pangocairo)
     endif()
-    target_compile_options(write_text_pango PRIVATE ${PKGCONFIG_CFLAGS})
-    target_link_options(write_text_pango PRIVATE ${PKGCONFIG_LDFLAGS})
+    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+    target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
+   target_link_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
     target_link_libraries(write_text_pango PRIVATE ${PKGCONFIG_LIBRARIES} ${library_references})
     target_link_options(write_text_pango PRIVATE -Wl,-z,defs)
     message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})

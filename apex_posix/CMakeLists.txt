@@ -88,7 +88,8 @@ if (POSIX_SPAWN)
 endif ()
 
 
-target_precompile_headers(apex_posix PRIVATE framework.h)
+target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
+target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
 
 
 set_target_properties(apex_posix PROPERTIES LINKER_LANGUAGE CXX)
@@ -109,9 +110,12 @@ elseif (LINUX OR FREEBSD)
 
     if (FILE_SYSTEM_INOTIFY AND NOT DEFINED DEBIAN_LIKE AND NOT DONT_USE_PKG_CONFIG)
         pkg_check_modules(PKGCONFIG libinotify)
-        target_compile_options(apex_posix PRIVATE ${PKGCONFIG_CFLAGS})
-        target_link_options(apex_posix PRIVATE ${PKGCONFIG_LDFLAGS})
-        target_link_libraries(apex_posix PRIVATE ${PKGCONFIG_LIBRARIES})
+        target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+        target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
+   target_link_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
+        target_link_libraries(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LIBRARIES})
+   target_link_libraries(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LIBRARIES})
     endif ()
 
     target_compile_options(apex_posix PRIVATE -fpermissive)

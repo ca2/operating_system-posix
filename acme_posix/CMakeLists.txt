@@ -61,7 +61,8 @@ endif ()
 list(APPEND library_references acme)
 
 
-target_precompile_headers(acme_posix PRIVATE framework.h)
+target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
+target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
 
 
 set_target_properties(acme_posix PROPERTIES LINKER_LANGUAGE CXX)
@@ -84,9 +85,12 @@ elseif (LINUX OR FREEBSD)
         pkg_check_modules(PKGCONFIG dbus-glib-1)
     endif ()
     target_compile_options(acme_posix PRIVATE -fpermissive)
-    target_compile_options(acme_posix PRIVATE ${PKGCONFIG_CFLAGS})
-    target_link_options(acme_posix PRIVATE ${PKGCONFIG_LDFLAGS})
-    target_link_libraries(acme_posix PRIVATE ${PKGCONFIG_LIBRARIES})
+    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+    target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
+   target_link_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LIBRARIES})
+   target_link_libraries(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LIBRARIES})
     target_link_libraries(acme_posix PRIVATE ${library_references})
     target_link_options(acme_posix PRIVATE -Wl,-z,defs)
 

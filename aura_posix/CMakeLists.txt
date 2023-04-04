@@ -69,7 +69,8 @@ add_library(${PROJECT_NAME} SHARED ${library_source})
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 
-target_precompile_headers(aura_posix PRIVATE framework.h)
+target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
+target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
 
 
 set_target_properties(aura_posix PROPERTIES LINKER_LANGUAGE CXX)
@@ -114,9 +115,12 @@ endif()
       pkg_check_modules(PKGCONFIG ${extra_pkg_modules})
    endif()
    target_compile_options(aura_posix PRIVATE -fpermissive)
-   target_compile_options(aura_posix PRIVATE ${PKGCONFIG_CFLAGS})
-   target_link_options(aura_posix PRIVATE ${PKGCONFIG_LDFLAGS})
-   target_link_libraries(aura_posix PRIVATE ${PKGCONFIG_LIBRARIES})
+   target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+   target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
+   target_link_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LIBRARIES})
+   target_link_libraries(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LIBRARIES})
    target_link_libraries(aura_posix PRIVATE ${library_references})
    target_link_options(aura_posix PRIVATE -Wl,-z,defs)
 
