@@ -18,6 +18,8 @@ list(APPEND library_source
         dbus.cpp
         exception_translator.cpp
         exception_translator.h
+        exclusive.cpp
+        exclusive.h
         file.cpp
         file.h
         file_memory_map.cpp
@@ -45,7 +47,8 @@ if (POSIX_LIST_SERIAL_PORTS)
 endif ()
 
 
-add_library(${PROJECT_NAME} SHARED ${library_source} exclusive.cpp exclusive.h)
+add_library(${PROJECT_NAME} SHARED ${library_source})
+add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 
 if (POSIX_LIST_SERIAL_PORTS)
@@ -97,6 +100,7 @@ list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
+target_include_directories(static_${PROJECT_NAME} PRIVATE ${library_include_directories})
 
 
 target_compile_definitions(acme_posix PRIVATE _ACME_POSIX_LIBRARY)

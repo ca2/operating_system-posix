@@ -3,6 +3,8 @@ project(aura_posix CXX)
 
 
 list(APPEND library_source
+        x11/desktop_environment.h
+        x11/desktop_environment.cpp
    _.cpp
    _.h
    #_library.h
@@ -15,6 +17,8 @@ list(APPEND library_source
    node.h
    shell.cpp
    shell.h
+        user_notify_icon_bridge.h
+
    )
 
 
@@ -61,7 +65,8 @@ if(WITH_X11 OR WITH_XCB)
 endif()
 
 
-add_library(aura_posix SHARED ${library_source} user_notify_icon_bridge.h x11/desktop_environment.h x11/desktop_environment.cpp)
+add_library(${PROJECT_NAME} SHARED ${library_source})
+add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 
 target_precompile_headers(aura_posix PRIVATE framework.h)
@@ -123,8 +128,9 @@ list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
 list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
 list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 
-target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
 
+target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
+target_include_directories(static_${PROJECT_NAME} PRIVATE ${library_include_directories})
 
 
 target_compile_definitions(aura_posix PRIVATE _AURA_POSIX_LIBRARY)
