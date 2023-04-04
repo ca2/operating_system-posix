@@ -5,71 +5,70 @@ project(aura_posix CXX)
 list(APPEND library_source
         x11/desktop_environment.h
         x11/desktop_environment.cpp
-   _.cpp
-   _.h
-   #_library.h
-   appindicator.cpp
-   appindicator.h
-   _factory.cpp
-   framework.cpp
-   framework.h
-   node.cpp
-   node.h
-   shell.cpp
-   shell.h
+        _.cpp
+        _.h
+        #_library.h
+        appindicator.cpp
+        appindicator.h
+        _factory.cpp
+        framework.cpp
+        framework.h
+        node.cpp
+        node.h
+        shell.cpp
+        shell.h
         user_notify_icon_bridge.h
-
-   )
+        )
 
 
 list(APPEND library_references
-   acme
-   acme_posix
-   apex
-   apex_posix
-   aqua
-   aura
-   )
+        acme
+        acme_posix
+        apex
+        apex_posix
+        aqua
+        aura
+        )
 
 
-if(WITH_X11 OR WITH_XCB)
+if (WITH_X11 OR WITH_XCB)
 
 
-   list(APPEND library_source
-           x11/_.h
+    list(APPEND library_source
+            x11/_.h
+            x11/_.cpp
+            x11/_constant.h
+            #x11/keyboard.cpp
+            #x11/keyboard.h
+            x11/window.cpp
+            x11/window.h
+            x11/windowing.cpp
+            x11/windowing.h
+            )
 
-           x11/_.cpp
-      x11/_constant.h
-           #x11/keyboard.cpp
-           #x11/keyboard.h
-      x11/window.cpp
-      x11/window.h
-      x11/windowing.cpp
-      x11/windowing.h
-   )
 
+    #   if(WITH_X11)
 
-#   if(WITH_X11)
+    list(APPEND library_source
+            x11/display_lock.cpp
+            x11/display_lock.h
+            x11/startup-notification.cpp
+            x11/startup-notification.h
+            x11/xim_keyboard.cpp
+            x11/xim_keyboard.h
+            )
 
-      list(APPEND library_source
-      x11/display_lock.cpp
-      x11/display_lock.h
-     x11/startup-notification.cpp
-     x11/startup-notification.h
-      x11/xim_keyboard.cpp
-      x11/xim_keyboard.h
-         )
+    #  endif()
 
- #  endif()
-
-endif()
+endif ()
 
 
 add_library(${PROJECT_NAME} SHARED ${library_source})
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 
-target_precompile_headers(aura_posix PRIVATE framework.h)
+target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
+target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
 
 
 set_target_properties(aura_posix PROPERTIES LINKER_LANGUAGE CXX)
@@ -78,47 +77,48 @@ set_target_properties(aura_posix PROPERTIES LINKER_LANGUAGE CXX)
 if (MSVC)
 
 
-   target_compile_options(aura_posix PRIVATE "/MD$<$<CONFIG:Debug>:d>")
-   target_link_options(aura_posix PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
-   target_link_options(aura_posix PRIVATE "/SUBSYSTEM:WINDOWS")
-   target_link_libraries(aura_posix PRIVATE ${library_references})
+    target_compile_options(aura_posix PRIVATE "/MD$<$<CONFIG:Debug>:d>")
+    target_link_options(aura_posix PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
+    target_link_options(aura_posix PRIVATE "/SUBSYSTEM:WINDOWS")
+    target_link_libraries(aura_posix PRIVATE ${library_references})
 
 
-elseif(LINUX OR FREEBSD)
+elseif (LINUX OR FREEBSD)
 
 
-   list(APPEND extra_pkg_modules
-      libstartup-notification-1.0
-      )
+    list(APPEND extra_pkg_modules
+            libstartup-notification-1.0
+            )
 
-if(WITH_XCB)
-
-
-   list(APPEND extra_pkg_modules
-               x11 x11-xcb
-      )
+    if (WITH_XCB)
 
 
-else()
+        list(APPEND extra_pkg_modules
+                x11 x11-xcb
+                )
 
 
-   list(APPEND extra_pkg_modules
-               x11
-      )
+    else ()
 
 
-endif()
+        list(APPEND extra_pkg_modules
+                x11
+                )
 
 
-   if(NOT DONT_USE_PKG_CONFIG)
-      pkg_check_modules(PKGCONFIG ${extra_pkg_modules})
-   endif()
-   target_compile_options(aura_posix PRIVATE -fpermissive)
-   target_compile_options(aura_posix PRIVATE ${PKGCONFIG_CFLAGS})
-   target_link_options(aura_posix PRIVATE ${PKGCONFIG_LDFLAGS})
-   target_link_libraries(aura_posix PRIVATE ${PKGCONFIG_LIBRARIES})
-   target_link_libraries(aura_posix PRIVATE ${library_references})
-   target_link_options(aura_posix PRIVATE -Wl,-z,defs)
+    endif ()
+
+
+    if (NOT DONT_USE_PKG_CONFIG)
+        pkg_check_modules(PKGCONFIG ${extra_pkg_modules})
+    endif ()
+    target_compile_options(aura_posix PRIVATE -fpermissive)
+    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+    target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+    target_link_options(aura_posix PRIVATE ${PKGCONFIG_LDFLAGS})
+    target_link_libraries(aura_posix PRIVATE ${PKGCONFIG_LIBRARIES})
+    target_link_libraries(aura_posix PRIVATE ${library_references})
+    target_link_options(aura_posix PRIVATE -Wl,-z,defs)
 
 
 endif ()

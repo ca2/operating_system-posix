@@ -53,7 +53,8 @@ add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 if (POSIX_LIST_SERIAL_PORTS)
 
-    target_compile_definitions(acme_posix PRIVATE POSIX_LIST_SERIAL_PORTS)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE POSIX_LIST_SERIAL_PORTS)
+    target_compile_definitions(static_${PROJECT_NAME} PRIVATE POSIX_LIST_SERIAL_PORTS)
 
 endif ()
 
@@ -61,7 +62,8 @@ endif ()
 list(APPEND library_references acme)
 
 
-target_precompile_headers(acme_posix PRIVATE framework.h)
+target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
+target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
 
 
 set_target_properties(acme_posix PROPERTIES LINKER_LANGUAGE CXX)
@@ -83,8 +85,12 @@ elseif (LINUX OR FREEBSD)
     if (NOT DONT_USE_PKG_CONFIG)
         pkg_check_modules(PKGCONFIG dbus-glib-1)
     endif ()
-    target_compile_options(acme_posix PRIVATE -fpermissive)
-    target_compile_options(acme_posix PRIVATE ${PKGCONFIG_CFLAGS})
+    target_compile_options(${PROJECT_NAME} PRIVATE -fpermissive)
+    target_compile_options(static_${PROJECT_NAME} PRIVATE -fpermissive)
+    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+    target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+    target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
     target_link_options(acme_posix PRIVATE ${PKGCONFIG_LDFLAGS})
     target_link_libraries(acme_posix PRIVATE ${PKGCONFIG_LIBRARIES})
     target_link_libraries(acme_posix PRIVATE ${library_references})

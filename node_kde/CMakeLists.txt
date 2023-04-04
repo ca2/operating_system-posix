@@ -54,7 +54,8 @@ set_source_files_properties(kde-open.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 add_library(node_kde SHARED ${library_source} set_wallpaper.cpp urlinfo.h kde-open.cpp)
 
 
-target_precompile_headers(node_kde PRIVATE framework.h)
+target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
+target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
 
 
 set_target_properties(node_kde PROPERTIES LINKER_LANGUAGE CXX)

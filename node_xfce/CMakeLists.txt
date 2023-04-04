@@ -46,9 +46,11 @@ list(APPEND library_references
    )
 
 
-add_library(node_xfce SHARED ${library_source} )
+add_library(${PROJECT_NAME} ${library_source})
+add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
-target_precompile_headers(node_xfce PRIVATE framework.h)
+target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
+target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
 
 set_target_properties(node_xfce PROPERTIES LINKER_LANGUAGE CXX)
 
@@ -66,7 +68,8 @@ elseif(LINUX OR FREEBSD)
       pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
    endif()
    target_compile_options(node_xfce PRIVATE -fpermissive)
-      target_compile_options(node_xfce PRIVATE ${PKGCONFIG_CFLAGS})
+      target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+    target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(node_xfce PRIVATE ${PKGCONFIG_LDFLAGS})
    #target_link_options(node_xfce PRIVATE -Wl,-rpath=$ORIGIN)
    target_link_libraries(node_xfce PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
