@@ -87,6 +87,8 @@ elseif (LINUX OR FREEBSD)
     endif ()
     target_compile_options(${PROJECT_NAME} PRIVATE -fpermissive)
     target_compile_options(static_${PROJECT_NAME} PRIVATE -fpermissive)
+    target_compile_definitions(static_${PROJECT_NAME} PRIVATE CUBE)
+
     target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
     target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
     target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
@@ -94,7 +96,9 @@ elseif (LINUX OR FREEBSD)
     target_link_options(acme_posix PRIVATE ${PKGCONFIG_LDFLAGS})
     target_link_libraries(acme_posix PRIVATE ${PKGCONFIG_LIBRARIES})
     target_link_libraries(acme_posix PRIVATE ${library_references})
-    target_link_options(acme_posix PRIVATE -Wl,-z,defs)
+    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
+    target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
+
 
 
 endif ()

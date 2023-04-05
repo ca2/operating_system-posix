@@ -52,7 +52,9 @@ elseif(LINUX OR FREEBSD)
     target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
     target_link_options(write_text_pango PRIVATE ${PKGCONFIG_LDFLAGS})
     target_link_libraries(write_text_pango PRIVATE ${PKGCONFIG_LIBRARIES} ${library_references})
-    target_link_options(write_text_pango PRIVATE -Wl,-z,defs)
+    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
+    target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
+
     message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
 
 
