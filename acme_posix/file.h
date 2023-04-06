@@ -100,7 +100,11 @@ namespace acme_posix
 
       [[noreturn]]virtual void throw_errno_exception(const ::scoped_string & scopedstr = nullptr, int iErrNo = 0) const;
 
-
+      class ::time modification_time() override;
+      
+      void set_modification_time(const class ::time & time) override;
+      
+      
    };
 
 

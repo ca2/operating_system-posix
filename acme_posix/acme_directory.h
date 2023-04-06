@@ -1,4 +1,4 @@
-﻿// From acme/filesystem/file/dir.cpp by camilo 
+// From acme/filesystem/file/dir.cpp by camilo 
 // on 2021-08-09 03:20 BRT
 // <3ThomasBorregaardSørensen!!
 #pragma once
@@ -49,6 +49,8 @@ namespace acme_posix
 
       //void ls_dir(::file::path_array & stra, const char * psz) override;
       //void ls_file(::file::path_array & stra, const char * psz) override;
+      
+      void erase_recursively(const ::file::path & path) override;
 
       bool enumerate(::file::listing & listing) override;
 

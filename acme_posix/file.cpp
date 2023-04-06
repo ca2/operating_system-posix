@@ -877,6 +877,104 @@ namespace acme_posix
    }
 
 
+   class ::time file::modification_time()
+   {
+
+      struct stat statAttribute;
+
+      if(fstat(m_iFile, &statAttribute))
+      {
+
+         int iErrNo = errno;
+
+         //auto estatus = errno_status(iErrNo);
+
+         string strMessage;
+
+         strMessage = "Failed to stat file";
+
+         //throw ::exception(estatus, strMessage);
+         
+         ::throw_errno_exception(m_path, m_eopen, strMessage, iErrNo);
+
+
+      }
+
+   #ifdef __APPLE__
+
+       return { statAttribute.st_mtimespec.tv_sec, statAttribute.st_mtimespec.tv_nsec };
+
+   #else
+
+       return { statAttribute.st_mtim.tv_sec, statAttribute.st_mtim.tv_nsec };
+       
+   #endif
+
+   }
+
+
+   void file::set_modification_time(const class ::time& time)
+   {
+
+
+//      if(is_trimmed_empty(path))
+//      {
+//
+//         throw ::exception(error_invalid_parameter);
+//
+//      }
+
+      //struct stat statAttribute;
+
+      //if(stat(path, &statAttribute))
+      //{
+
+      //   int iErrNo = errno;
+
+      //   auto estatus = errno_status(iErrNo);
+
+      //   string strMessage;
+
+      //   strMessage.format("Failed to stat file \"%s\".", path.c_str());
+
+      //   throw ::exception(estatus, strMessage);
+
+      //}
+
+      struct timespec times[2];
+
+      times[0].tv_sec = 0;
+      times[0].tv_nsec = UTIME_OMIT;
+      times[1].tv_sec = time.m_iSecond;
+      times[1].tv_nsec = time.m_iNanosecond;
+
+      if(futimens(m_iFile, times))
+      {
+
+
+      //utimbuf utimbuf;
+
+      //utimbuf.actime = statAttribute.st_atime;
+
+      //utimbuf.modtime = time.m_time;
+
+      //if(utime(path, &utimbuf))
+      //{
+
+         int iErrNo = errno;
+
+         //auto estatus = errno_status(iErrNo);
+
+         string strMessage;
+
+         strMessage = "Failed to set file modification time";
+
+         ::throw_errno_exception(m_path, m_eopen, strMessage, iErrNo);
+
+      }
+
+   }
+
 } // namespace acme_android
 
 //

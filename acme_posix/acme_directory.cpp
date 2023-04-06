@@ -9,6 +9,8 @@
 #include "acme/_operating_system.h"
 
 
+#include <ftw.h>
+
 #if defined(__APPLE__) || defined(ANDROID)
 
 char * get_current_dir_name();
@@ -219,6 +221,29 @@ namespace acme_posix
    }
 
 
+static int rmFiles(const char *pathname, const struct stat *sbuf, int type, struct FTW *ftwb)
+{
+    if(remove(pathname) < 0)
+    {
+       return -1;
+    }
+    return 0;
+}
+
+
+void acme_directory::erase_recursively(const ::file::path &path)
+{
+
+
+    // Delete the directory and its contents by traversing the tree in reverse order, without crossing mount boundaries and symbolic links
+
+    if (nftw(path.c_str(), rmFiles,10, FTW_DEPTH|FTW_MOUNT|FTW_PHYS) < 0)
+    {
+        //perror("ERROR: ntfw");
+       //exit(1);
+       throw ::exception(error_failed, "failed to erase");
+    }
+}
 
    bool acme_directory::enumerate(::file::listing& listing)
    {
