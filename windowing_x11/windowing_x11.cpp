@@ -2,7 +2,7 @@
 // Created by camilo on 16/02/2021.
 //
 #include "operating_system-posix/windowing_x11/framework.h"
-#include "aura/operating_system/x11/_x11.h"
+//#include "aura/operating_system/x11/_x11.h"
 #include "_x11.h"
 #include "acme/constant/id.h"
 #include "acme/constant/message.h"

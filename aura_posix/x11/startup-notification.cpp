@@ -15,7 +15,8 @@
 #include "_x11.h"
 #include "aura/windowing/display.h"
 
-extern int g_iIgnoreXDisplayError;
+
+static int g_iIgnoreXDisplayError = 0;
 
 
 void on_sn_launch_context(void * pSnContext , Window window)
