@@ -112,7 +112,13 @@ elseif (LINUX OR FREEBSD)
     if (NOT DONT_USE_PKG_CONFIG)
         pkg_check_modules(PKGCONFIG ${extra_pkg_modules})
     endif ()
-    target_compile_options(aura_posix PRIVATE -fpermissive)
+
+
+    target_compile_options(${PROJECT_NAME} PRIVATE -fpermissive)
+    target_compile_options(static_${PROJECT_NAME} PRIVATE -fpermissive)
+    target_compile_definitions(static_${PROJECT_NAME} PRIVATE CUBE)
+
+
     target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
     target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
     target_link_options(aura_posix PRIVATE ${PKGCONFIG_LDFLAGS})

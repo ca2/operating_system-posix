@@ -80,6 +80,12 @@ elseif(LINUX OR FREEBSD)
    target_compile_options(windowing_x11 PRIVATE -fpermissive)
    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
 target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+
+   target_compile_options(${PROJECT_NAME} PRIVATE -fpermissive)
+   target_compile_options(static_${PROJECT_NAME} PRIVATE -fpermissive)
+   target_compile_definitions(static_${PROJECT_NAME} PRIVATE CUBE)
+
+
    target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
    target_link_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
    target_link_libraries(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LIBRARIES})

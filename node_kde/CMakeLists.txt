@@ -77,9 +77,15 @@ elseif(LINUX OR FREEBSD)
       # dnf install qt5-qttools-devel qt5-qtx11extras-devel qt5-qttools-static
       pkg_check_modules(PKGCONFIG Qt5Core Qt5UiTools Qt5X11Extras)
    endif()
-   target_compile_options(node_kde PRIVATE -fpermissive)
+
+
+   target_compile_options(${PROJECT_NAME} PRIVATE -fpermissive)
+   target_compile_options(static_${PROJECT_NAME} PRIVATE -fpermissive)
+   target_compile_definitions(static_${PROJECT_NAME} PRIVATE CUBE)
+
+
    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
-target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+   target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
    target_link_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
    if(KDE_DESKTOP)
