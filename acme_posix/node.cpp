@@ -1774,6 +1774,41 @@ namespace acme_posix
    }
 
 
+   int node::unix_shell_command(const ::scoped_string& scopedstrCommand, const trace_function & tracefunction)
+   {
+
+      try
+      {
+
+         ::string strUnixShell;
+
+         strUnixShell = "/bin/bash";
+
+         ::string strCommand;
+
+         ::string strCommandInner;
+
+         strCommandInner = scopedstrCommand.c_str();
+
+         strCommandInner.find_replace("\"", "\\\"");
+
+         strCommand.format("\"%s\" -c \"%s\"", strUnixShell.c_str(), strCommandInner.c_str());
+
+         auto iExitCode = acmenode()->command_system(strCommand, tracefunction);
+
+         return iExitCode;
+
+      }
+      catch (...)
+      {
+
+      }
+
+      return -1;
+
+   }
+
+
 } // namespace acme_posix
 
 
