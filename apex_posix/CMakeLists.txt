@@ -69,6 +69,7 @@ if (FILE_SYSTEM_INOTIFY)
 
 
     target_compile_definitions(apex_posix PRIVATE FILE_SYSTEM_INOTIFY)
+    target_compile_definitions(static_apex_posix PRIVATE FILE_SYSTEM_INOTIFY)
 
 
 endif ()
@@ -77,6 +78,7 @@ endif ()
 if (INTERPROCESS_COMMUNICATION_SYSTEM_5)
 
     target_compile_definitions(apex_posix PRIVATE INTERPROCESS_COMMUNICATION_SYSTEM_5)
+    target_compile_definitions(static_apex_posix PRIVATE INTERPROCESS_COMMUNICATION_SYSTEM_5)
 
 endif ()
 
@@ -84,6 +86,7 @@ endif ()
 if (POSIX_SPAWN)
 
     target_compile_definitions(apex_posix PRIVATE POSIX_SPAWN)
+    target_compile_definitions(static_apex_posix PRIVATE POSIX_SPAWN)
 
 endif ()
 
