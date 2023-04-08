@@ -26,7 +26,9 @@ namespace acme_posix
 
       ::file::enum_type get_type(const ::file::path & path1) override;
 
-      ::file::path _final(const ::file::path & path) override;
+      ::file::path _safe_real_path(const ::file::path & path) override;
+
+      ::file::path _real_path(const ::file::path & path) override;
 
 
       ::file::path get_absolute_path(const ::scoped_string& scopedstr) override;

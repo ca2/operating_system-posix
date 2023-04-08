@@ -49,7 +49,35 @@ namespace acme_posix
    }
 
 
-   ::file::path acme_path::_final(const ::file::path & path)
+   ::file::path acme_path::_real_path(const ::file::path & path)
+   {
+
+      if (path.is_empty())
+      {
+
+         return "";
+
+      }
+
+      char * pszRealPath = ::realpath(path.c_str(), NULL);
+
+      if (::is_null(pszRealPath))
+      {
+
+         return path;
+
+      }
+
+      ::file::path filepath(pszRealPath);
+
+      ::free(pszRealPath);
+
+      return filepath;
+
+   }
+
+
+   ::file::path acme_path::_safe_real_path(const ::file::path & path)
    {
 
       if (path.is_empty())
