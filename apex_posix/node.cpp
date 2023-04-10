@@ -15,13 +15,19 @@
 #include "acme/_operating_system.h"
 
 
-#ifdef LINUX
+#if defined(LINUX) || defined(__APPLE__)
 
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
 #include <unistd.h>
 #include <limits.h>
+
+#if defined(__APPLE__)
+
+#define HOST_NAME_MAX 64
+
+#endif
 
 #endif
 
