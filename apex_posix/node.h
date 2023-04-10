@@ -35,6 +35,11 @@ namespace apex_posix
       bool shell_link_icon(::file::path& pathIcon, int& iIcon, const ::file::path& pathLnk) override;
 
       void create_app_shortcut(::acme::application * papp) override;
+
+
+      ::string get_host_name() override;
+
+
    };
 
 

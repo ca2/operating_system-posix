@@ -612,6 +612,14 @@ namespace acme_posix
    }
 
 
+   void node::set_environment_variable(const ::scoped_string & scopedstrEnvironmentVariable, const ::scoped_string & scopedstrPayload)
+   {
+
+      ::setenv(scopedstrEnvironmentVariable, scopedstrPayload, 1);
+
+   }
+
+
    string node::expand_environment_variables(const ::scoped_string & scopedstr)
    {
 
@@ -1655,12 +1663,18 @@ namespace acme_posix
 //               }
 //
 //               ::str::get_lines(straOutput, strError, "E: ", false, &singlelock, pfileLog);
-               ::str::get_lines(strError, false, [&](auto & str)
+
+               if(functionTrace)
                {
 
-                  functionTrace(e_trace_level_error, str);
+                  ::str::get_lines(strError, false, [&](auto &str)
+                  {
 
-               });
+                     functionTrace(e_trace_level_error, str);
+
+                  });
+
+               }
 
             }
 

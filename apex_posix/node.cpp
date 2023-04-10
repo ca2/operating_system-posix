@@ -12,6 +12,20 @@
 #include "apex/platform/application.h"
 
 
+#include "acme/_operating_system.h"
+
+
+#ifdef LINUX
+
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
+#include <unistd.h>
+#include <limits.h>
+
+#endif
+
+
 void os_post_quit();
 
 
@@ -200,6 +214,78 @@ namespace apex_posix
 
    }
 
+
+   ::string node::get_host_name()
+   {
+
+      //https://stackoverflow.com/questions/27914311/get-computer-name-and-logged-user-name
+      //https://stackoverflow.com/users/1155235/pezy
+      //char hostname[HOST_NAME_MAX];
+      //char username[LOGIN_NAME_MAX];
+      //gethostname(hostname, HOST_NAME_MAX);
+      //getlogin_r(username, LOGIN_NAME_MAX);
+
+      //return hostname;
+
+      ::string strHostname;
+
+      struct addrinfo hints, *info, *p;
+
+      char hostname[HOST_NAME_MAX + 1];
+      hostname[HOST_NAME_MAX ] = '\0';
+      gethostname(hostname, HOST_NAME_MAX);
+
+      strHostname = hostname;
+
+      //https://stackoverflow.com/questions/504810/how-do-i-find-the-current-machines-full-hostname-in-c-hostname-and-domain-info
+      //https://stackoverflow.com/users/4924/zxaos
+      memset(&hints, 0, sizeof hints);
+      hints.ai_family = AF_UNSPEC; /*either IPV4 or IPV6*/
+      hints.ai_socktype = SOCK_STREAM;
+      hints.ai_flags = AI_CANONNAME;
+
+      auto gai_result = getaddrinfo(hostname, "http", &hints, &info);
+
+      if (gai_result != 0)
+      {
+
+
+         FORMATTED_WARNING("getaddrinfo: %s", gai_strerror(gai_result));
+
+
+      }
+      else
+      {
+
+         for (p = info; p != NULL; p = p->ai_next)
+         {
+            ::string strCanonicalName = p->ai_canonname;
+
+            if(strCanonicalName.length() > strHostname.length())
+            {
+
+               strHostname = strCanonicalName;
+
+            }
+            //printf("hostname: %s\n", p->ai_canonname);
+         }
+
+         freeaddrinfo(info);
+
+      }
+//      else
+//      {
+//
+//
+//         //exit(1);
+//      }
+
+//   }
+
+      return strHostname;
+
+
+   }
 
 
 } // namespace apex_posix
