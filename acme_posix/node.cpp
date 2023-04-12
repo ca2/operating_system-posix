@@ -1591,10 +1591,12 @@ namespace acme_posix
 
       char chExitCode = 0;
 
+      bool bExit = false;
+
       while(true)
       {
 
-         if(!::task_get_run())
+         if(!::task_get_run() && !bExit)
          {
 
             close(stdout_fds[0]);
@@ -1693,6 +1695,14 @@ namespace acme_posix
 
          }
 
+         if(bExit)
+         {
+
+
+            break;
+
+         }
+
          {
 
             int status = 0;
@@ -1707,7 +1717,9 @@ namespace acme_posix
                if(iErrorNo != ECHILD)
                {
 
-                  break;
+                  //break;
+
+                  bExit = true;
 
                }
 
@@ -1722,7 +1734,9 @@ namespace acme_posix
 
                   iExitCode = chExitCode;
 
-                  break;
+                  //break;
+
+                  bExit = true;
 
                }
 
@@ -1730,7 +1744,7 @@ namespace acme_posix
 
          }
 
-         if(!bRead)
+         if(!bRead && !bExit)
          {
 
             preempt(25_ms);
