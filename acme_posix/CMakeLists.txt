@@ -62,6 +62,12 @@ endif ()
 list(APPEND library_references acme)
 
 
+list(APPEND static_library_references ${library_references})
+
+list(TRANSFORM static_library_references PREPEND static_)
+
+
+
 target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
 
@@ -97,8 +103,8 @@ elseif (LINUX OR FREEBSD)
     target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
     target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
     target_link_options(acme_posix PRIVATE ${PKGCONFIG_LDFLAGS})
-    target_link_libraries(acme_posix PRIVATE ${PKGCONFIG_LIBRARIES})
-    target_link_libraries(acme_posix PRIVATE ${library_references})
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
+    target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${PKGCONFIG_LIBRARIES})
     target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
     target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
 

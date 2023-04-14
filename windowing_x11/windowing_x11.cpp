@@ -191,7 +191,7 @@ int_bool _x11_get_cursor_pos(Display * d, POINT_I32 * ppointCursor);
 
 
 
-Window g_windowFocus = 0;
+//Window g_windowFocus = 0;
 
 i32 _c_XErrorHandler(Display * display, XErrorEvent * perrorevent);
 
@@ -281,17 +281,6 @@ i32 _c_XErrorHandler(Display * display, XErrorEvent * perrorevent);
 
 
 
-
-
-static oswindow g_oswindowCapture;
-
-
-oswindow get_capture()
-{
-
-   return g_oswindowCapture;
-
-}
 
 
 namespace windowing_x11

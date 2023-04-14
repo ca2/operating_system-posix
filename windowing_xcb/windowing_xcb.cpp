@@ -6,7 +6,7 @@
 #include "window.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "apex/parallelization/thread.h"
-#include "aura/operating_system/xcb/_xcb.h"
+#include "acme/operating_system/xcb/_xcb.h"
 #include "aura/user/user/interaction_impl.h"
 #include "acme/constant/id.h"
 #include "acme/constant/message.h"
@@ -26,7 +26,7 @@
 //#include <Xcb/XKBlib.h>
 #include <X11/XKBlib.h>
 //#define memory_new ACME_NEW
-#include "aura/operating_system/xcb/_xcb.h"
+#include "acme/operating_system/xcb/_xcb.h"
 #include "acme/parallelization/message_queue.h"
 #include "windowing_xcb.h"
 
@@ -176,7 +176,7 @@ int_bool _xcb_get_cursor_pos(xcb_connection_t * d, POINT_I32 * ppointCursor);
 
 
 
-xcb_window_t g_windowFocus = 0;
+//xcb_window_t g_windowFocus = 0;
 
 
 #ifdef LINUX
@@ -275,15 +275,15 @@ i32 _c_XErrorHandler(xcb_connection_t * display, XErrorEvent * perrorevent);
 
 
 
-static oswindow g_oswindowCapture;
-
-
-oswindow get_capture()
-{
-
-   return g_oswindowCapture;
-
-}
+//static oswindow g_oswindowCapture;
+//
+//
+//oswindow get_capture()
+//{
+//
+//   return g_oswindowCapture;
+//
+//}
 
 
 namespace windowing_xcb
