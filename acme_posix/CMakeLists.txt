@@ -47,7 +47,7 @@ if (POSIX_LIST_SERIAL_PORTS)
 endif ()
 
 
-add_library(${PROJECT_NAME} SHARED ${library_source})
+add_library(${PROJECT_NAME} SHARED ${library_source} process.cpp)
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 
