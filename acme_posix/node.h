@@ -41,27 +41,27 @@ namespace acme_posix
       // defined at process.cpp
       void call_async(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid = nullptr) override;
       void call_sync(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, const class time & timeTimeout, ::property_set & set, int * piExitCode) override;
-      void create_process(const ::string & pszCommandLine, u32 * pprocessID) override;
+      ::process_identifier create_process(const ::string & pszCommandLine) override;
       virtual i32 _create_process3(const ::string & _cmd_line, i32 * pprocessId);
       void run_silent(const ::string & strFunct, const ::string & strstrParams) override;
       //::e_status shell_execute_sync(const ::string & pszFile, const ::string & pszParams, class ::time timeTimeout) override;
 
 
       // defined at process.cpp
-      string module_path_from_pid(u32 pid) override;
-      atom_array module_path_get_pid(const ::string & pszModulePath, bool bModuleNameIsPropertyFormatted) override;
-      string command_line_from_pid(u32 pid) override;
-      bool is_shared_library_busy(u32 processid, const string_array & stra) override;
+      string process_identifier_module_path(::process_identifier pid) override;
+      ::process_identifier_array module_path_processes_identifiers(const ::string & pszModulePath, bool bModuleNameIsPropertyFormatted) override;
+      string process_identifier_command_line(process_identifier pid) override;
+      bool is_shared_library_busy(process_identifier processid, const string_array & stra) override;
       bool is_shared_library_busy(const string_array & stra) override;
 
 
-      bool is_process_running(::u32 pid) override;
+      bool is_process_running(process_identifier pid) override;
 
-      bool process_modules(string_array& stra, u32 processID) override;
+      bool process_modules(string_array& stra, process_identifier processID) override;
 
       bool load_modules_diff(string_array& straOld, string_array& straNew, const ::string & pszExceptDir) override;
 
-      atom_array get_pids() override;
+      ::process_identifier_array processes_identifiers() override;
 
 
       ::pointer < ::mutex > create_local_named_mutex(::particle * pparticleContext, bool bInitiallyOwned, const ::string & strName, security_attributes * psecurityattributes = nullptr) override;
@@ -74,9 +74,9 @@ namespace acme_posix
 
       ::pointer < ::acme::exclusive > get_exclusive(::particle * pparticleContext, const ::string & strName, security_attributes * psecurityattributes = nullptr) override;
 
-      bool process_contains_module(string& strImage, ::u32 processID, const ::string & pszLibrary) override;
+      bool process_contains_module(string& strImage, ::process_identifier processID, const ::string & pszLibrary) override;
 
-      void shared_library_process(dword_array& dwa, string_array& straProcesses, const ::string & pszLibrary) override;
+      ::process_identifier_array shared_library_process(string_array& straProcesses, const ::string & pszLibrary) override;
 
       string get_environment_variable(const ::scoped_string & scopedstrEnvironmentVariable) override;
 

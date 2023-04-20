@@ -335,7 +335,7 @@ namespace acme_posix
    // void node::is_shared_library_busy see process.cpp
    // void node::is_shared_library_busy see process.cpp
 
-   bool node::is_process_running(::u32 pid)
+   bool node::is_process_running(::process_identifier pid)
    {
 
       return ::acme::node::is_process_running(pid);
@@ -343,7 +343,7 @@ namespace acme_posix
    }
 
 
-   bool node::process_modules(string_array& stra, u32 processID)
+   bool node::process_modules(string_array& stra, ::process_identifier processID)
    {
 
       throw ::interface_only();
@@ -363,12 +363,12 @@ namespace acme_posix
    }
 
 
-   atom_array node::get_pids()
-   {
+::process_identifier_array node::processes_identifiers()
+{
 
       throw ::interface_only();
 
-      return atom_array();
+   return {};
 
    }
 
@@ -588,7 +588,7 @@ namespace acme_posix
 
    
 
-   bool node::process_contains_module(string& strImage, ::u32 processID, const ::string & strLibrary)
+   bool node::process_contains_module(string& strImage, ::process_identifier processID, const ::string & strLibrary)
    {
 
       return ::acme::node::process_contains_module(strImage, processID, strLibrary);
@@ -596,7 +596,7 @@ namespace acme_posix
    }
 
 
-   void node::shared_library_process(dword_array& dwa, string_array& straProcesses, const ::string & strLibrary)
+::process_identifier_array node::shared_library_process(string_array& straProcesses, const ::string & strLibrary)
    {
 
       throw ::interface_only();
@@ -760,14 +760,12 @@ namespace acme_posix
 
       }
 
-      u32 processId;
-
-      create_process(strCmdLine, &processId);
+      auto processId = create_process(strCmdLine);
 
       if (puiPid != nullptr)
       {
 
-         *puiPid = processId;
+         *puiPid = (unsigned int) processId;
 
       }
 
@@ -791,9 +789,7 @@ namespace acme_posix
 
       }
 
-      u32 processId;
-
-      create_process(strCmdLine, &processId);
+      auto processId = create_process(strCmdLine);
 
       while (true)
       {
@@ -814,7 +810,7 @@ namespace acme_posix
    }
 
 
-   void node::create_process(const ::string & pszCommandLine, u32 * pprocessId)
+::process_identifier node::create_process(const ::string & pszCommandLine)
    {
 
       string_array stra;
@@ -860,14 +856,14 @@ namespace acme_posix
 
          }
 
-         if (pprocessId != nullptr)
-         {
+//         if (pprocessId != nullptr)
+//         {
+//
+//            *pprocessId = pid;
+//
+//         }
 
-            *pprocessId = pid;
-
-         }
-
-         return;
+         return pid;
 
       }
       else
@@ -1043,9 +1039,9 @@ namespace acme_posix
 
       }
 
-      u32 processId;
+      //u32 processId;
 
-      create_process(strCmdLine, &processId);
+      auto processId = create_process(strCmdLine);
       //         {
       //
       //            return -1;
@@ -1085,7 +1081,7 @@ namespace acme_posix
    //}
 
 
-   string node::module_path_from_pid(unsigned int iPid)
+   string node::process_identifier_module_path(::process_identifier iPid)
    {
 
       struct stat sb;
@@ -1197,12 +1193,12 @@ namespace acme_posix
    //      }
 
 
-   atom_array node::module_path_get_pid(const ::string & psz, bool bModuleNameIsPropertyFormatted)
+::process_identifier_array node::module_path_processes_identifiers(const ::string & psz, bool bModuleNameIsPropertyFormatted)
    {
 
       ::output_debug_string("os/linux_process.cpp app_get_pid (" + string(psz) + ")");
 
-      atom_array ia;
+   ::process_identifier_array ia;
 
       ::file::listing listing;
 
@@ -1236,7 +1232,7 @@ namespace acme_posix
             //{
             //output_debug_string("22912");
             //}
-            ::file::path path = module_path_from_pid(iPid);
+            ::file::path path = process_identifier_module_path(iPid);
 
             if (path.has_char())
             {
@@ -1284,7 +1280,7 @@ namespace acme_posix
    }
 
 
-   string node::command_line_from_pid(unsigned int iPid)
+   string node::process_identifier_command_line(::process_identifier iPid)
    {
 
       string_array stra;
@@ -1378,7 +1374,7 @@ namespace acme_posix
    }
 
 
-   bool node::is_shared_library_busy(u32 processid, const string_array & stra)
+   bool node::is_shared_library_busy(::process_identifier processid, const string_array & stra)
    {
 
       return false;
