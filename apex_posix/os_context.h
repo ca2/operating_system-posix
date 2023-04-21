@@ -21,7 +21,7 @@ namespace apex_posix
       bool is_alias(const ::file::path & path) override;
       
       
-      virtual int get_pid() override;
+      ::process_identifier current_process_identifier() override;
 
 
    };

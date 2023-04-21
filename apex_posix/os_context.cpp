@@ -53,9 +53,9 @@ namespace apex_posix
    }
 
 
-   int os_context::get_pid()
+   ::process_identifier os_context::current_process_identifier()
    {
-      
+
       return ::getpid();
 
    }
