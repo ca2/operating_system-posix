@@ -88,9 +88,9 @@ if (MSVC)
 elseif (LINUX OR FREEBSD)
 
 
-    if (NOT DONT_USE_PKG_CONFIG)
+    #if (NOT DONT_USE_PKG_CONFIG)
         pkg_check_modules(PKGCONFIG dbus-glib-1)
-    endif ()
+    #endif ()
 
 
     target_compile_options(${PROJECT_NAME} PRIVATE -fpermissive)
