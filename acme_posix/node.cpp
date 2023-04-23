@@ -1476,7 +1476,7 @@ namespace acme_posix
 
 
    //void node::command_system(string_array & straOutput, int& iExitCode, const scoped_string & scopedstr, enum_command_system ecommandsystem, const class time & timeTimeout, ::particle * pparticleSynchronization, ::file::file * pfileLog)
-   int node::command_system(const ::scoped_string & scopedstr, const ::function < void(enum_trace_level, const ::scoped_string & ) > & functionTrace)
+   int node::command_system(const ::scoped_string & scopedstr, const ::scoped_string & scopedstrPipe, const ::function < void(enum_trace_level, const ::scoped_string & ) > & functionTrace)
    {
 
       ::e_status estatus = success;
@@ -1487,7 +1487,7 @@ namespace acme_posix
 
       int iError = pipe(stdout_fds);
 
-      if(iError != 0)
+      if (iError != 0)
       {
 
          int iErrNo = errno;
@@ -1502,7 +1502,7 @@ namespace acme_posix
 
       iError = pipe(stderr_fds);
 
-      if(iError != 0)
+      if (iError != 0)
       {
 
          int iErrNo = errno;
@@ -1510,6 +1510,26 @@ namespace acme_posix
          estatus = errno_status(iErrNo);
 
          throw ::exception(estatus);
+
+      }
+
+      int stdin_fds[2] = {};
+
+      if(scopedstrPipe.has_char())
+      {
+
+         iError = pipe(stdin_fds);
+
+         if (iError != 0)
+         {
+
+            int iErrNo = errno;
+
+            estatus = errno_status(iErrNo);
+
+            throw ::exception(estatus);
+
+         }
 
       }
 
@@ -1524,9 +1544,19 @@ namespace acme_posix
       if (!pid)
       {
 
-         while((dup2(stdout_fds[1], STDOUT_FILENO) == -1) && (errno==EINTR)){}
+         while ((dup2(stdout_fds[1], STDOUT_FILENO) == -1) && (errno == EINTR))
+         {}
 
-         while((dup2(stderr_fds[1], STDERR_FILENO) == -1) && (errno==EINTR)){}
+         while ((dup2(stderr_fds[1], STDERR_FILENO) == -1) && (errno == EINTR))
+         {}
+
+         if(scopedstrPipe.has_char())
+         {
+
+            while ((dup2(stdin_fds[0], STDIN_FILENO) == -1) && (errno == EINTR))
+            {}
+
+         }
 
          close(stdout_fds[0]);
 
@@ -1535,6 +1565,10 @@ namespace acme_posix
          close(stderr_fds[0]);
 
          close(stderr_fds[1]);
+
+         close(stdin_fds[0]);
+
+         close(stdin_fds[1]);
 
          int iErrNo = 0;
 
@@ -1548,20 +1582,20 @@ namespace acme_posix
 
          wordexp(pszCommandLine, &we, 0);
 
-         char ** argv = memory_new char *[we.we_wordc+1];
+         char **argv = memory_new char *[we.we_wordc + 1];
 
-         memcpy(argv, we.we_wordv, we.we_wordc * sizeof(char*));
+         memcpy(argv, we.we_wordv, we.we_wordc * sizeof(char *));
 
          int iChildExitCode = execvp(argv[0], &argv[0]);
 
-         if(iChildExitCode == -1)
+         if (iChildExitCode == -1)
          {
 
             iErrNo = errno;
 
          }
 
-         delete []argv;
+         delete[]argv;
 
          wordfree(&we);
 
@@ -1577,9 +1611,23 @@ namespace acme_posix
 
       close(stderr_fds[1]);
 
+      if(scopedstrPipe.has_char())
+      {
+
+         close(stdin_fds[0]);
+
+      }
+
       fcntl(stdout_fds[0], F_SETFL, fcntl(stdout_fds[0], F_GETFL) | O_NONBLOCK);
 
       fcntl(stderr_fds[0], F_SETFL, fcntl(stderr_fds[0], F_GETFL) | O_NONBLOCK);
+
+      if(scopedstrPipe.has_char())
+      {
+
+         fcntl(stdin_fds[1], F_SETFL, fcntl(stdin_fds[1], F_GETFL) | O_NONBLOCK);
+
+      }
 
       const int buf_size = 4096;
 
@@ -1588,6 +1636,17 @@ namespace acme_posix
       char chExitCode = 0;
 
       bool bExit = false;
+
+      if (scopedstrPipe.has_char())
+      {
+
+         preempt(2_s);
+
+         ::write(stdin_fds[1],  scopedstrPipe.data(), scopedstrPipe.size());
+
+         ::close(stdin_fds[1]);
+
+      }
 
       while(true)
       {
@@ -1598,6 +1657,8 @@ namespace acme_posix
             close(stdout_fds[0]);
 
             close(stderr_fds[0]);
+
+            //close(stdin_fds[1]);
 
             kill(pid, SIGKILL);
 
@@ -1752,6 +1813,15 @@ namespace acme_posix
       close(stdout_fds[0]);
 
       close(stderr_fds[0]);
+
+//      if (scopedstrPipe.has_char())
+//      {
+//
+//         ::close(stdin_fds[1]);
+//
+//      }
+
+
 
 //   if(iExitCode != 0)
 //   {
