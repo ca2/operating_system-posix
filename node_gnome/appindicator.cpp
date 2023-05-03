@@ -241,6 +241,8 @@ namespace node_gnome
 
                indicator_menu = gtk_ui_manager_get_widget (uim, "/ui/IndicatorPopup");
 
+               printf("appindicator::init /ui/IndicatorPopup = %" PRI0xPTR, indicator_menu);
+
                app_indicator_set_menu(m_pindicator, GTK_MENU (indicator_menu));
 
             }
