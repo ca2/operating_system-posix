@@ -87,7 +87,7 @@ namespace node_gtk
 
       }
 
-      if (!os_defer_init_gtk(::acme::acme::g_p->m_psubsystem->acmesystem()))
+      if (!os_defer_init_gtk(::acme::acme::g_pacme->m_psubsystem->acmesystem()))
       {
 
          return ::error_failed;
@@ -153,7 +153,7 @@ namespace node_gtk
 
       }
 
-      if (!os_defer_init_gtk(::acme::acme::g_p->m_psubsystem->acmesystem()))
+      if (!os_defer_init_gtk(::acme::acme::g_pacme->m_psubsystem->acmesystem()))
       {
 
          return nullptr;
