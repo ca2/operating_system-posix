@@ -54,7 +54,6 @@ namespace aura_posix
       //void set_application_menu(application_menu * pmenu, ::apex::application * papp) override;
       //void call_async(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid = nullptr) override;
       //void call_sync(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, const class time & timeTimeout, ::property_set & set) override;
-      //int node_init_check(int * pi, char *** ppz) override;
       //void reboot() override;
       //void start_node() override;
       //void install_sigchld_handler() override;

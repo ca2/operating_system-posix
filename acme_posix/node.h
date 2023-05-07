@@ -28,8 +28,6 @@ namespace acme_posix
       ~node() override;
 
 
-      int node_init_check(int * pi, char *** ppz) override;
-
       void dbus_init();
 
       void initialize(::particle * pparticle) override;

@@ -109,15 +109,6 @@ namespace node_xfce
    }
 
 
-   int node::node_init_check(int *pi, char ***ppz)
-   {
-
-      auto iResult = gtk_init_check(pi, ppz);
-
-      return iResult;
-
-   }
-
 
    void node::defer_notify_startup_complete()
    {
@@ -178,11 +169,6 @@ namespace node_xfce
 
       {
 
-         ///auto psystem = acmesystem();
-
-         //auto pnode = psystem->node();
-
-         //pnode->node_init_check(&m_argc, &m_argv);
          node_init_check(&acmesystem()->m_argc, &acmesystem()->m_argv);
 
       }
@@ -224,25 +210,6 @@ namespace node_xfce
       else
       {
 
-         //g_set_application_name(System.m_XstrAppId);
-
-         //g_set_prgname(System.m_strProgName);
-      ////
-      ////      //auto idle_source = g_idle_source_new();
-      ////
-      ////      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) acmesystem(), nullptr);
-      ////
-      ////      //g_source_attach(idle_source, g_main_context_default());
-      ////
-      ////      //int c = 2;
-      ////
-      ////      //const char * argv[]={"app", "--g-fatal-warnings"};
-      ////
-      ////#if !defined(__SANITIZE_ADDRESS__)
-      ////
-      ////      gtk_init_check(&psystem->m_argc, &psystem->m_argv);
-      ////
-      ////#endif
 
             node_fork([this]()
             {

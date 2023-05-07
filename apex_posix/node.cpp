@@ -56,14 +56,6 @@ namespace apex_posix
    }
 
 
-   int node::node_init_check(int * pi, char *** ppz)
-   {
-
-      return ::acme_posix::node::node_init_check(pi, ppz);
-
-   }
-
-
    void node::on_start_application(::apex::application *papplication)
    {
 

@@ -26,8 +26,6 @@ namespace apex_posix
       ~node() override;
 
 
-      int node_init_check(int * pi, char *** ppz) override;
-
       void on_start_application(::apex::application *papplication) override;
 
 

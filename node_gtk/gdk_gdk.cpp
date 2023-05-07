@@ -122,12 +122,12 @@ namespace node_gtk
    ::e_status gsettings_sync()
    {
 
-//         if (!os_defer_init_gtk())
-//         {
-//
-//            return false;
-//
-//         }
+      if (!os_defer_init_gtk(::acme::acme::g_pacme->m_psubsystem->acmesystem()))
+      {
+
+         return ::error_failed;
+
+      }
 
       ::g_settings_sync();
 
