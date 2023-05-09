@@ -1529,7 +1529,14 @@ namespace acme_posix
 
          preempt(2_s);
 
-         ::write(stdin_fds[1],  scopedstrPipe.data(), scopedstrPipe.size());
+         auto iWrittenByteCount = ::write(stdin_fds[1],  scopedstrPipe.data(), scopedstrPipe.size());
+
+         if(iWrittenByteCount != scopedstrPipe.size())
+         {
+
+            WARNING("Written amount of bytes different from requested one (::acme_posix::node::command_system)");
+
+         }
 
          ::close(stdin_fds[1]);
 
