@@ -64,7 +64,7 @@ namespace acme_posix
    mutex::mutex(enum_create_new, bool bInitiallyOwn)
    {
 
-   #ifdef _DEBUG
+   #ifdef ACME_MUTEX_DEBUG
       m_itask = -1;
    #endif
 
@@ -129,7 +129,7 @@ namespace acme_posix
    mutex::mutex(::particle * pparticle, bool bInitiallyOwn, const char * pstrName)
    {
 
-   #ifdef _DEBUG
+   #ifdef ACME_MUTEX_DEBUG
       m_itask = -1;
    #endif
 
@@ -556,7 +556,8 @@ namespace acme_posix
 
    mutex::mutex(enum_create_new, const char * lpszName, int iFd, bool bOwner)
    {
-   #ifdef _DEBUG
+
+   #ifdef ACME_MUTEX_DEBUG
       m_itask = -1;
    #endif
 

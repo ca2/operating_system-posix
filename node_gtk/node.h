@@ -65,6 +65,12 @@ namespace node_gtk
 
       bool is_branch_current() const override;
 
+      virtual void _dark_mode();
+
+      bool dark_mode() const override;
+
+      void set_dark_mode(bool bDarkMode) override;
+
       void os_set_user_theme(const string & strUserTheme) override;
 
       virtual ::e_status _os_set_user_theme(const string & strUserTheme);

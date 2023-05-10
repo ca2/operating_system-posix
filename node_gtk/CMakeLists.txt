@@ -20,7 +20,7 @@ list(APPEND library_source
         gdk_gdk.h
         gtk_gtk.cpp
         gtk_gtk.h
-        gtk-launch.cpp
+        #gtk-launch.cpp
         monitor.cpp
         monitor.h
         node.cpp

@@ -9,6 +9,7 @@
 #include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/filesystem/filesystem/file_dialog.h"
 #include "acme/filesystem/filesystem/folder_dialog.h"
+#include "acme/operating_system/summary.h"
 #include "acme/user/user/os_theme_colors.h"
 #include "acme/user/user/theme_colors.h"
 #include "apex/platform/system.h"
@@ -463,6 +464,83 @@ namespace node_gtk
 //      acmesystem()->m_papexsystem->signal(id_os_user_theme);
 //
 //   }
+
+   void node::_dark_mode()
+   {
+
+      ::string strColorTheme;
+
+      if(gsettings_get(strColorTheme, "org.gnome.desktop.interface", "color-scheme"))
+      {
+
+         strColorTheme.trim();
+
+         if(strColorTheme.case_insensitive_contains("dark"))
+         {
+
+            m_bDarkMode = true;
+
+         }
+         else
+         {
+
+            m_bDarkMode = false;
+
+         }
+
+      }
+      else
+      {
+
+         m_bDarkMode = false;
+
+      }
+
+   }
+
+
+   bool node::dark_mode() const
+   {
+
+      ((node*)this)->_dark_mode();
+
+      return ::aura_posix::node::dark_mode();
+
+   }
+
+
+   void node::set_dark_mode(bool bDarkMode)
+   {
+
+      if(bDarkMode)
+      {
+
+         gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-dark");
+
+      }
+      else
+      {
+
+         auto psummary = operating_system_summary();
+
+         if(psummary->m_strDistro.case_insensitive_equals("ubuntu"))
+         {
+
+            gsettings_set("org.gnome.desktop.interface", "color-scheme", "default");
+
+         }
+         else
+         {
+
+            gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-light");
+
+         }
+
+      }
+
+      ::aura_posix::node::set_dark_mode(bDarkMode);
+
+   }
 
 
    void node::os_set_user_theme(const ::string &strUserTheme)
@@ -1140,20 +1218,22 @@ namespace node_gtk
    void node::fetch_user_color()
    {
 
-      auto pthemecolors = ::user::os_get_theme_colors();
+      _dark_mode();
 
-      if (!pthemecolors)
-      {
-
-         string strTheme = _os_get_user_theme();
-
-         INFORMATION("node::fetch_user_color _os_get_user_theme(): " << strTheme);
-
-         pthemecolors = _new_os_theme_colors(strTheme);
-
-         _set_os_theme_colors(pthemecolors);
-
-      }
+//      auto pthemecolors = ::user::os_get_theme_colors();
+//
+//      if (!pthemecolors)
+//      {
+//
+//         string strTheme = _os_get_user_theme();
+//
+//         INFORMATION("node::fetch_user_color _os_get_user_theme(): " << strTheme);
+//
+//         pthemecolors = _new_os_theme_colors(strTheme);
+//
+//         _set_os_theme_colors(pthemecolors);
+//
+//      }
 
    }
 
