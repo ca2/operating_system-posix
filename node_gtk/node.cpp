@@ -468,31 +468,78 @@ namespace node_gtk
    void node::_dark_mode()
    {
 
-      ::string strColorTheme;
+      INFORMATION("::node_gtk::node::_dark_mode");
 
-      if(gsettings_get(strColorTheme, "org.gnome.desktop.interface", "color-scheme"))
+      if(gsettings_schema_exists("org.gnome.desktop.interface"))
       {
 
-         strColorTheme.trim();
+         INFORMATION("org.gnome.desktop.interface exists");
 
-         if(strColorTheme.case_insensitive_contains("dark"))
+         if(gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
          {
 
-            m_bDarkMode = true;
+            INFORMATION("org.gnome.desktop.interface contains \"color-scheme\"");
+
+            ::string strColorScheme;
+
+            if (gsettings_get(strColorScheme, "org.gnome.desktop.interface", "color-scheme"))
+            {
+
+               INFORMATION("color-scheme=\"" + strColorScheme + "\"");
+
+               strColorScheme.trim();
+
+               if (strColorScheme.case_insensitive_contains("dark"))
+               {
+
+                  m_bDarkMode = true;
+
+               }
+               else
+               {
+
+                  m_bDarkMode = false;
+
+               }
+
+            }
+            else
+            {
+
+               m_bDarkMode = false;
+
+            }
 
          }
-         else
+         else if(gsettings_schema_contains_key("org.gnome.desktop.interface", "gtk-theme"))
          {
 
-            m_bDarkMode = false;
+            INFORMATION("org.gnome.desktop.interface schema contains \"gtk-theme\"");
+
+            ::string strGtkTheme;
+
+            if (gsettings_get(strGtkTheme, "org.gnome.desktop.interface", "gtk-theme"))
+            {
+
+               INFORMATION("gtk-theme=\"" + strGtkTheme + "\"");
+
+               ::os_theme_colors * posthemecolor = _new_os_theme_colors(strGtkTheme);
+
+               auto dLuminance = posthemecolor->m_colorBack.get_luminance();
+
+               FORMATTED_INFORMATION("luminance=%0.2f", dLuminance);
+
+               m_bDarkMode = dLuminance < 0.5;
+
+            }
+            else
+            {
+
+               m_bDarkMode = false;
+
+            }
 
          }
-
-      }
-      else
-      {
-
-         m_bDarkMode = false;
 
       }
 
