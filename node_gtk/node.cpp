@@ -100,6 +100,44 @@ void gtk_settings_gtk_theme_name_callback(GObject *object, GParamSpec *pspec, gp
 }
 
 
+void gtk_settings_gtk_icon_theme_name_callback(GObject *object, GParamSpec *pspec, gpointer data)
+{
+
+   node_gtk::node *pnode = (node_gtk::node *) data;
+
+   if (!pnode)
+   {
+
+      return;
+
+   }
+
+   gchar *icon_theme_name = nullptr;
+
+   g_object_get(pnode->m_pGtkSettingsDefault, "gtk-icon-theme-name", &icon_theme_name, NULL);
+
+   string strIconTheme = icon_theme_name;
+
+   ::output_debug_string("gtk_settings_gtk_icon_theme_name_callback: \"" + strIconTheme + "\"\n");
+
+   g_free(icon_theme_name);
+
+//   pnode->fork([pnode, strTheme]()
+//               {
+
+   pnode->_set_os_user_icon_theme(strIconTheme);
+
+//                  ::preempt(400_ms);
+//
+//                  pnode->_apply_os_user_theme(strTheme);
+//
+//                  //_os_user_theme(strTheme);
+//
+//               });
+
+}
+
+
 void x11_add_idle_source();
 
 
@@ -315,19 +353,45 @@ namespace node_gtk
 
                          g_object_ref (m_pGtkSettingsDefault);
 
-                         gchar *theme_name = nullptr;
+                         {
 
-                         g_object_get(m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
+                            gchar *theme_name = nullptr;
 
-                         m_strTheme = theme_name;
+                            g_object_get(m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
 
-                         g_free(theme_name);
+                            m_strTheme = theme_name;
 
-                         auto preturn = g_signal_connect_data(
+                            g_free(theme_name);
+
+                         }
+
+                         {
+
+                            gchar *icon_theme_name = nullptr;
+
+                            g_object_get(m_pGtkSettingsDefault, "gtk-icon-theme-name", &icon_theme_name, NULL);
+
+                            m_strIconTheme = icon_theme_name;
+
+                            g_free(icon_theme_name);
+
+                         }
+
+
+                         auto preturnTheme = g_signal_connect_data(
                                  m_pGtkSettingsDefault,
                                  "notify::gtk-theme-name",
                                  //"gtk-private-changed",
                                  G_CALLBACK(gtk_settings_gtk_theme_name_callback),
+                                 this,
+                                 NULL,
+                                 G_CONNECT_AFTER);
+
+                         auto preturnIconTheme = g_signal_connect_data(
+                                 m_pGtkSettingsDefault,
+                                 "notify::gtk-icon-theme-name",
+                                 //"gtk-private-changed",
+                                 G_CALLBACK(gtk_settings_gtk_icon_theme_name_callback),
                                  this,
                                  NULL,
                                  G_CONNECT_AFTER);
@@ -559,6 +623,9 @@ namespace node_gtk
    void node::set_dark_mode(bool bDarkMode)
    {
 
+      post_procedure([this, bDarkMode]()
+                     {
+
       if(bDarkMode)
       {
 
@@ -585,7 +652,13 @@ namespace node_gtk
 
       }
 
+      _os_set_user_theme(m_strTheme);
+
+      _os_set_user_icon_theme(m_strIconTheme);
+
       ::aura_posix::node::set_dark_mode(bDarkMode);
+
+      });
 
    }
 
@@ -645,6 +718,81 @@ namespace node_gtk
          sleep(300_ms);
 
          if (!bOk1 || !bOk2)
+         {
+
+            return error_failed;
+
+         }
+
+      }
+      else if (edesktop & ::user::e_desktop_mate)
+      {
+
+         //return ::user::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
+
+      }
+      else if (edesktop & ::user::e_desktop_lxde)
+      {
+
+
+         //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+
+      }
+      else if (edesktop & ::user::e_desktop_xfce)
+      {
+         //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+         //          if(entry.contains("image-path") || entry.contains("last-image")){
+         //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+         //      }
+         //}
+
+         WARNING("Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+
+         return error_failed;
+
+      }
+
+      return ::success;
+
+   }
+
+
+   ::e_status node::_os_set_user_icon_theme(const ::string &strUserIconTheme)
+   {
+
+      // https://ubuntuforums.org/showthread.php?t=2140488
+      // gsettings set org.gnome.desktop.interface gtk-theme your_theme
+
+      // indirect wall-changer sourceforge.net contribution
+
+      auto psystem = acmesystem()->m_papexsystem;
+
+      auto pnode = psystem->node();
+
+      auto edesktop = pnode->get_edesktop();
+
+      if (edesktop & ::user::e_desktop_gnome)
+      {
+
+         bool bOk1 = gsettings_set("org.gnome.desktop.interface", "icon-theme", strUserIconTheme);
+
+         //bool bOk2 = true;
+
+//         //if(::file::system_short_name().case_insensitive_contains("manjaro"))
+//         {
+//
+//            bOk2 = gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme);
+//
+//         }
+
+         sleep(300_ms);
+
+         ::node_gtk::gsettings_sync();
+
+         sleep(300_ms);
+
+         //if (!bOk1 || !bOk2)
+         if (!bOk1)
          {
 
             return error_failed;
@@ -1185,12 +1333,48 @@ namespace node_gtk
    }
 
 
+
+   void node::_set_os_user_icon_theme(const ::scoped_string &strOsUserIconTheme)
+   {
+
+      m_strOsUserIconTheme = strOsUserIconTheme;
+
+      if (!m_ptaskOsUserTheme)
+      {
+
+         m_ptaskOsUserIconTheme = fork([this]()
+                                   {
+
+                                      preempt(1_s);
+
+                                      m_ptaskOsUserIconTheme = nullptr;
+
+                                      _apply_os_user_icon_theme();
+
+                                   });
+
+      }
+
+   }
+
+
+
    void node::_apply_os_user_theme()
    {
 
       ::output_debug_string("applying os user theme: \"" + m_strOsUserTheme + "\"\n");
 
       os_process_user_theme(m_strOsUserTheme);
+
+   }
+
+
+   void node::_apply_os_user_icon_theme()
+   {
+
+      ::output_debug_string("applying os user icon theme: \"" + m_strOsUserIconTheme + "\"\n");
+
+      os_process_user_icon_theme(m_strOsUserIconTheme);
 
    }
 
@@ -1230,9 +1414,61 @@ namespace node_gtk
 
       }
 
-      _os_process_user_theme_color(m_strTheme);
+      if(!gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
+      {
 
-      fetch_user_color();
+         _os_process_user_theme_color(m_strTheme);
+
+         fetch_user_color();
+
+      }
+
+   }
+
+
+   void node::os_process_user_icon_theme(string strOsIconTheme)
+   {
+
+      ::output_debug_string(
+              "os_process_user_icon_theme: is strIconTheme(" + strOsIconTheme + ") same as m_strIconTheme(" + m_strIconTheme + ")\n");
+
+      if (strOsIconTheme == m_strIconTheme)
+      {
+
+         ::output_debug_string(
+                 "os_process_user_icon_theme: same theme as before [new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
+
+         return;
+
+      }
+
+      ::output_debug_string(
+              "os_process_user_icon_theme: different theme [new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
+
+      m_strIconTheme = strOsIconTheme;
+
+      ::output_debug_string("os_process_user_icon_theme m_strIconTheme = \"" + m_strIconTheme + "\"\n");
+
+      try
+      {
+
+         acmesystem()->m_papexsystem->signal(id_operating_system_user_icon_theme_change);
+
+      }
+      catch (...)
+      {
+
+
+      }
+
+//      if(!gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
+//      {
+//
+//         _os_process_user_theme_color(m_strTheme);
+//
+//         fetch_user_color();
+//
+//      }
 
    }
 

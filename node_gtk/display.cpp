@@ -323,12 +323,21 @@ namespace node_gtk
       if(edesktop & ::user::e_desktop_gnome)
       {
 
-         string strColorScheme;
+         acmenode()->post_procedure([this, strWallpaper]()
+                                    {
 
-         gsettings_get(strColorScheme, "org.gnome.desktop.interface", "color-scheme");
+            bool bOk = false;
+
+         string strColorScheme = m_strDarkModeAnnotation;
+
+         //gsettings_get(strColorScheme, "org.gnome.desktop.interface", "color-scheme");
 
          if(strColorScheme.case_insensitive_contains("dark"))
          {
+
+            INFORMATION("org.gnome.desktop.background picture-uri-dark file://" + strWallpaper);
+
+            fflush(stdout);
 
             bOk = gsettings_set("org.gnome.desktop.background", "picture-uri-dark", "file://" + strWallpaper);
 
@@ -336,9 +345,21 @@ namespace node_gtk
          else
          {
 
+            INFORMATION("org.gnome.desktop.background picture-uri file://" + strWallpaper);
+
+            fflush(stdout);
+
             bOk = gsettings_set("org.gnome.desktop.background", "picture-uri", "file://" + strWallpaper);
 
+            INFORMATION("org.gnome.desktop.background picture-uri file://" + strWallpaper + (bOk ? " true" : " false"));
+
+            fflush(stdout);
+
+            INFORMATION(" ");
+
          }
+
+                                    });
 
       }
       else if(edesktop & ::user::e_desktop_mate)

@@ -21,9 +21,6 @@ namespace acme_posix
    public:
 
 
-      string m_strTheme;
-
-
       node();
       ~node() override;
 
