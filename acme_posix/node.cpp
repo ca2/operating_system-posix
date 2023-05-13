@@ -230,12 +230,12 @@ namespace acme_posix
    }
 
 
-   bool node::process_modules(string_array& stra, ::process_identifier processID)
+   ::file::path_array node::process_identifier_modules_paths(::process_identifier processidentifier)
    {
 
       throw ::interface_only();
 
-      return false;
+      return {};
 
    }
 
@@ -1261,20 +1261,20 @@ namespace acme_posix
    }
 
 
-   bool node::is_shared_library_busy(::process_identifier processid, const string_array & stra)
-   {
-
-      return false;
-
-   }
-
-
-   bool node::is_shared_library_busy(const string_array & stra)
-   {
-
-      return false;
-
-   }
+//   bool node::is_shared_library_busy(::process_identifier processid, const string_array & stra)
+//   {
+//
+//      return false;
+//
+//   }
+//
+//
+//   bool node::is_shared_library_busy(const string_array & stra)
+//   {
+//
+//      return false;
+//
+//   }
 
 //#if defined(__clang__) && !defined(ANDROID)
 //   ::string node::get_callstack()

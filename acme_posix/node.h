@@ -49,13 +49,13 @@ namespace acme_posix
       string process_identifier_module_path(::process_identifier pid) override;
       ::process_identifier_array module_path_processes_identifiers(const ::string & pszModulePath, bool bModuleNameIsPropertyFormatted) override;
       string process_identifier_command_line(process_identifier pid) override;
-      bool is_shared_library_busy(process_identifier processid, const string_array & stra) override;
-      bool is_shared_library_busy(const string_array & stra) override;
+      //bool is_shared_library_busy(process_identifier processid, const string_array & stra) override;
+      //bool is_shared_library_busy(const string_array & stra) override;
 
 
       bool is_process_running(process_identifier pid) override;
 
-      bool process_modules(string_array& stra, process_identifier processID) override;
+      ::file::path_array process_identifier_modules_paths(process_identifier processidentifier) override;
 
       bool load_modules_diff(string_array& straOld, string_array& straNew, const ::string & pszExceptDir) override;
 
