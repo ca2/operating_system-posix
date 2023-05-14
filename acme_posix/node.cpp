@@ -109,6 +109,32 @@ void ansios_sigchld_handler(int sig);
 void apex_application_run(const char * pszAppName, const char * pszProgName);
 
 
+//#include "_linux.h"
+//#include "acme/platform/app_core.h"
+#include <sys/types.h>
+#include <unistd.h>
+#include <signal.h>
+#undef USE_MISC
+
+#include <sys/wait.h>
+#include <spawn.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include "node.h"
+
+
+// int create_process6(const ::string & _cmd_line, int * pprocessId);
+
+CLASS_DECL_ACME void dll_processes(u32_array & dwa, string_array & straProcesses, const ::string & pszDll)
+{
+
+   __UNREFERENCED_PARAMETER(dwa);
+   __UNREFERENCED_PARAMETER(straProcesses);
+   __UNREFERENCED_PARAMETER(pszDll);
+
+}
+
+
 namespace acme_posix
 {
 
@@ -250,12 +276,12 @@ namespace acme_posix
    }
 
 
-::process_identifier_array node::processes_identifiers()
-{
+   ::process_identifier_array node::processes_identifiers()
+   {
 
       throw ::interface_only();
 
-   return {};
+      return {};
 
    }
 
@@ -595,39 +621,6 @@ namespace acme_posix
 
    }
 
-
-} // namespace acme_posix
-
-
-
-//#include "_linux.h"
-//#include "acme/platform/app_core.h"
-#include <sys/types.h>
-#include <unistd.h>
-#include <signal.h>
-#undef USE_MISC
-
-#include <sys/wait.h>
-#include <spawn.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include "node.h"
-
-
-// int create_process6(const ::string & _cmd_line, int * pprocessId);
-
-CLASS_DECL_ACME void dll_processes(u32_array & dwa, string_array & straProcesses, const ::string & pszDll)
-{
-
-__UNREFERENCED_PARAMETER(dwa);
-__UNREFERENCED_PARAMETER(straProcesses);
-__UNREFERENCED_PARAMETER(pszDll);
-
-}
-
-
-namespace acme_posix
-{
 
 
    void node::call_async(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay,
