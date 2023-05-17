@@ -320,13 +320,13 @@ namespace acme_posix
 
       filesize iToRead = minimum_non_negative((filesize)iSize, (filesize) iReadAtMostByteCount);
 
-      char * psz = str.get_string_buffer(iToRead);
+      char * psz = str.get_buffer(iToRead);
 
       ::count iRead = fread(psz, 1, iToRead, pfile);
 
       psz[iRead] = '\0';
 
-      str.release_string_buffer(iRead);
+      str.release_buffer(iRead);
 
       str.case_insensitive_begins_eat("\xef\xbb\xbf");
 
