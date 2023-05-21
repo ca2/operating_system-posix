@@ -344,17 +344,22 @@ namespace windowing_x11
       XImage * pximage = nullptr;
 
       //if(!pximage)
-      if(m_pimpl->m_sizeSetWindowSizeRequest != m_pimpl->m_sizeDrawn)
+      if(m_pimpl->m_sizeSetWindowSizeRequest.cx > m_pimpl->m_sizeDrawn.cx
+         || m_pimpl->m_sizeSetWindowSizeRequest.cy > m_pimpl->m_sizeDrawn.cy)
       {
 
          INFORMATION("m_pimpl->m_sizeSetWindowSizeRequest != m_pimpl->m_sizeDrawn ("
          << m_pimpl->m_sizeSetWindowSizeRequest << ", " << m_pimpl->m_sizeDrawn << ")");
 
-         rectangle_i32 cry;
+         rectangle_i32 rectangleActualWindow;
 
-         x11_window()->window_rectangle(cry);
+         x11_window()->window_rectangle(rectangleActualWindow);
 
-         x11_window()->x11_windowing()->_defer_size_message(x11_window()->m_oswindow, cry.size());
+         m_pimpl->m_puserinteraction->set_need_layout();
+
+         m_pimpl->m_puserinteraction->post_redraw();
+
+         //x11_window()->x11_windowing()->_defer_size_message(x11_window()->m_oswindow, cry.size());
 
          //m_pimpl->m_puserinteraction->set_need_layout();
 
