@@ -211,7 +211,7 @@ namespace windowing_x11
       //virtual int_bool is_window( WINDOWING_X11_WINDOW_MEMBER );
 
 
-      virtual void set_window_text(const char * pszString);
+      void set_window_text(const ::scoped_string & scopedstr) override;
 
 
       void set_tool_window(bool bSet) override;

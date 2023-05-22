@@ -113,9 +113,9 @@ elseif (LINUX OR FREEBSD)
     endif ()
 
 
-    if (NOT DONT_USE_PKG_CONFIG)
+    #if (USE_PKGCONFIG)
         pkg_check_modules(PKGCONFIG ${extra_pkg_modules})
-    endif ()
+    #endif ()
 
 
     target_compile_options(${PROJECT_NAME} PRIVATE -fpermissive)

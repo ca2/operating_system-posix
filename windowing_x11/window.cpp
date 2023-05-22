@@ -753,9 +753,9 @@ namespace windowing_x11
 
       XClassHint classHint;
 
-      classHint.res_name = m_strWMClass;
+      classHint.res_name = (char *) (const char *) m_strWMClass;
 
-      classHint.res_class = m_strWMClass;
+      classHint.res_class = (char *) (const char *) m_strWMClass;
 
       XSetClassHint(Display(), Window(), &classHint);
 
@@ -2747,7 +2747,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 //   }
 
 
-   void window::set_window_text(const char * pszString)
+   void window::set_window_text(const ::scoped_string & scopedstr)
    {
 
 //      m_strWindowText = pszString;
@@ -2758,7 +2758,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
       //x11_store_name(m_oswindow, m_strWindowText);
 
-      x11_store_name(pszString);
+      x11_store_name(scopedstr);
 
       //windowing_output_debug_string("\nfreebsd::interaction_impl::set_window_text END");
 

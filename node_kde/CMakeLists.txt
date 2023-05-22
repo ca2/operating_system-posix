@@ -112,7 +112,7 @@ elseif (LINUX OR FREEBSD)
     #    find_package(Qt5UiTools ${QT_MIN_VERSION} CONFIG REQUIRED)
 
 
-    #    if (NOT DONT_USE_PKG_CONFIG)
+    #    if (USE_PKGCONFIG)
     #        # dnf install qt5-qttools-devel qt5-qtx11extras-devel qt5-qttools-static
     #        #error("test")
     #        pkg_check_modules(PKGCONFIG Qt5Core Qt5UiTools Qt5X11Extras)

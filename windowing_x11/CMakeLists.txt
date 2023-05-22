@@ -80,10 +80,11 @@ elseif(LINUX OR FREEBSD)
 #         Xrender)
 #   endif()
 
-   pkg_check_modules(PKGCONFIG x11 xrender xi)
+
+   pkg_check_modules(PKGCONFIG x11 xrender xi libstartup-notification-1.0)
    target_compile_options(windowing_x11 PRIVATE -fpermissive)
    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
-target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+   target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
 
    target_compile_options(${PROJECT_NAME} PRIVATE -fpermissive)
    target_compile_options(static_${PROJECT_NAME} PRIVATE -fpermissive)
@@ -95,9 +96,11 @@ target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
    target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${PKGCONFIG_LIBRARIES})
    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
-    target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
+   target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
+
 
    #add_dependencies(windowing_x11 draw2d_cairo)
+
 
 endif ()
 
