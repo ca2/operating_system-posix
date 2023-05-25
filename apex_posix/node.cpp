@@ -15,7 +15,7 @@
 #include "acme/_operating_system.h"
 
 
-#if defined(LINUX) || defined(__APPLE__)
+#if defined(LINUX) || defined(__APPLE__) || defined(ANDROID)
 
 #include <sys/types.h>
 #include <sys/socket.h>
