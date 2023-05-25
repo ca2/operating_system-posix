@@ -231,7 +231,7 @@ namespace windowing_xcb
    }
 
 
-   bool display::get_monitor_rectangle(index iMonitor, RECTANGLE_I32 & rectangle)
+   bool display::get_monitor_rectangle(index iMonitor, ::rectangle_i32 & rectangle)
    {
 
       return ::windowing::display::get_monitor_rectangle(iMonitor, rectangle);
@@ -239,7 +239,7 @@ namespace windowing_xcb
    }
 
 
-   bool display::get_workspace_rectangle(index iMonitor, RECTANGLE_I32 & rectangle)
+   bool display::get_workspace_rectangle(index iMonitor, ::rectangle_i32 & rectangle)
    {
 
       return ::windowing::display::get_workspace_rectangle(iMonitor, rectangle);
@@ -465,7 +465,7 @@ namespace windowing_xcb
    }
 
 
-   bool display::get_cursor_position(POINT_I32 * ppointCursor)
+   bool display::get_cursor_position(::point_i32 * ppointCursor)
    {
 
       xcb_window_t root_return;
@@ -944,7 +944,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status display::_window_get_window_rectangle(xcb_window_t window, RECTANGLE_I32 * prectangle)
+   ::e_status display::_window_get_window_rectangle(xcb_window_t window, ::rectangle_i32 * prectangle)
    {
 
       auto geometry = _window_get_geometry(window);
@@ -968,7 +968,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status display::_window_get_client_rectangle(xcb_window_t window, RECTANGLE_I32 * prectangle)
+   ::e_status display::_window_get_client_rectangle(xcb_window_t window, ::rectangle_i32 * prectangle)
    {
 
       auto geometry = _window_get_geometry(window);
@@ -1000,7 +1000,7 @@ namespace windowing_xcb
    }
 
 
-   bool display::point_is_window_origin(POINT_I32 pointHitTest, ::windowing::window *pwindowExclude, int iMargin)
+   bool display::point_is_window_origin(::point_i32 pointHitTest, ::windowing::window *pwindowExclude, int iMargin)
    {
 
       bool bIsOrigin = false;

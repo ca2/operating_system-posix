@@ -1328,7 +1328,7 @@ namespace windowing_xcb
    }
 
 
-   bool window::client_to_screen(POINT_I32 *ppoint)
+   bool window::client_to_screen(::point_i32 *ppoint)
    {
 
       return true;
@@ -1336,7 +1336,7 @@ namespace windowing_xcb
    }
 
 
-   bool window::screen_to_client(POINT_I32 *ppoint)
+   bool window::screen_to_client(::point_i32 *ppoint)
    {
 
       return true;
@@ -1918,7 +1918,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status window::_get_window_rectangle(RECTANGLE_I32 *prectangle)
+   ::e_status window::_get_window_rectangle(::rectangle_i32 *prectangle)
    {
 
       auto estatus = _get_geometry();
@@ -1942,7 +1942,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status window::_get_client_rectangle(RECTANGLE_I32 *prectangle)
+   ::e_status window::_get_client_rectangle(::rectangle_i32 *prectangle)
    {
 
       auto estatus = _get_geometry();

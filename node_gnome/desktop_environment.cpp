@@ -33,7 +33,7 @@ namespace node_gnome
    }
 
 
-//   ::e_status desktop_environment::_get_monitor_rectangle(::index iIndex, ::RECTANGLE_I32 *prectangle)
+//   ::e_status desktop_environment::_get_monitor_rectangle(::index iIndex, ::rectangle_i32 *prectangle)
 //   {
 //
 //      synchronous_lock sl(user_synchronization());
@@ -73,7 +73,7 @@ namespace node_gnome
 //   }
 //
 //
-//   ::e_status desktop_environment::_get_workspace_rectangle(::index iIndex, ::RECTANGLE_I32 *prectangle)
+//   ::e_status desktop_environment::_get_workspace_rectangle(::index iIndex, ::rectangle_i32 *prectangle)
 //   {
 //
 //      synchronous_lock sl(user_synchronization());
@@ -113,7 +113,7 @@ namespace node_gnome
 //   }
 //
 //
-//   void desktop_environment::get_monitor_rectangle(::index iIndex, ::RECTANGLE_I32 *prectangle)
+//   void desktop_environment::get_monitor_rectangle(::index iIndex, ::rectangle_i32 *prectangle)
 //   {
 //
 //      if(m_bX11)
@@ -132,7 +132,7 @@ namespace node_gnome
 //   }
 //
 //
-//   void desktop_environment::get_workspace_rectangle(::index iIndex, ::RECTANGLE_I32 *prectangle)
+//   void desktop_environment::get_workspace_rectangle(::index iIndex, ::rectangle_i32 *prectangle)
 //   {
 //
 //      if(m_bX11)

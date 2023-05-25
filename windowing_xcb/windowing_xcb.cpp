@@ -151,7 +151,7 @@ xcb_window_t g_windowXcbClient = 0;
 
 
 
-int_bool _xcb_get_cursor_pos(xcb_connection_t * d, POINT_I32 * ppointCursor);
+int_bool _xcb_get_cursor_pos(xcb_connection_t * d, ::point_i32 * ppointCursor);
 
 
 //extern ::pointer< ::mutex >g_pmutexXcbRunnable;
@@ -172,7 +172,7 @@ int_bool _xcb_get_cursor_pos(xcb_connection_t * d, POINT_I32 * ppointCursor);
 //CLASS_DECL_AURA int_bool mq_remove_window_from_all_queues(oswindow oswindow);
 //
 //
-//int_bool xcb_get_cursor_pos(POINT_I32 * ppointCursor);
+//int_bool xcb_get_cursor_pos(::point_i32 * ppointCursor);
 
 
 
@@ -589,7 +589,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 #define SIZEY  50
 
 
-//void message_box_paint(::draw2d::graphics_pointer & pgraphics, string_array & stra, bool_array  & baTab, int_array  & ya,SIZE_I32 * psize)
+//void message_box_paint(::draw2d::graphics_pointer & pgraphics, string_array & stra, bool_array  & baTab, int_array  & ya,::size_i32 * psize)
 //{
 //
 //   synchronous_lock synchronouslock(user_synchronization());
@@ -1091,7 +1091,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //
 //
-//int_bool _xcb_get_cursor_pos(xcb_connection_t * d, POINT_I32 * ppointCursor);
+//int_bool _xcb_get_cursor_pos(xcb_connection_t * d, ::point_i32 * ppointCursor);
 //
 
 
@@ -1107,7 +1107,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //CLASS_DECL_AURA int_bool mq_remove_window_from_all_queues(oswindow oswindow);
 //
 //
-//int_bool xcb_get_cursor_pos(POINT_I32 * ppointCursor);
+//int_bool xcb_get_cursor_pos(::point_i32 * ppointCursor);
 //
 
 //
@@ -1278,7 +1278,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //}
 //
 //
-//bool xcb_get_client_rect(xcb_connection_t * pdisplay, xcb_window_t window, RECTANGLE_I32 *prectangle)
+//bool xcb_get_client_rect(xcb_connection_t * pdisplay, xcb_window_t window, ::rectangle_i32 *prectangle)
 //{
 //
 //   synchronous_lock synchronouslock(user_synchronization());
@@ -1313,7 +1313,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 //
 //
-//bool xcb_get_window_rect(xcb_connection_t * d, xcb_window_t window, RECTANGLE_I32 * prectangle)
+//bool xcb_get_window_rect(xcb_connection_t * d, xcb_window_t window, ::rectangle_i32 * prectangle)
 //{
 //
 //   XWindowAttributes attrs;

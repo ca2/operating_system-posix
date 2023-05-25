@@ -2020,7 +2020,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 //   }
 
 
-   bool window::client_to_screen(POINT_I32 * ppoint)
+   bool window::client_to_screen(::point_i32 * ppoint)
    {
 
       return true;
@@ -2028,7 +2028,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
    }
 
 
-   bool window::screen_to_client(POINT_I32 * ppoint)
+   bool window::screen_to_client(::point_i32 * ppoint)
    {
 
       return true;
@@ -2890,7 +2890,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
    }
 
 
-   bool window::x11_get_window_rect(RECTANGLE_I32 * prectangle)
+   bool window::x11_get_window_rect(::rectangle_i32 * prectangle)
    {
 
       return ::x11_get_window_rect(Display(), Window(), prectangle);
@@ -2898,7 +2898,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
    }
 
 
-   ::e_status window::window_rectangle(RECTANGLE_I32 * prectangle)
+   ::e_status window::window_rectangle(::rectangle_i32 * prectangle)
    {
 
       return x11_get_window_rect(prectangle) ? ::success : ::error_failed;
@@ -2906,7 +2906,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
    }
 
 
-   bool window::x11_get_client_rect(RECTANGLE_I32 * prectangle)
+   bool window::x11_get_client_rect(::rectangle_i32 * prectangle)
    {
 
       return ::x11_get_client_rect(Display(), Window(), prectangle);
@@ -2914,7 +2914,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
    }
 
 
-   ::e_status window::client_rectangle(RECTANGLE_I32 * prectangle)
+   ::e_status window::client_rectangle(::rectangle_i32 * prectangle)
    {
 
       return x11_get_client_rect(prectangle) ? ::success : error_failed;
@@ -3718,7 +3718,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 //   }
 
 //// should be called in user_thread
-//   int_bool window::x11_get_window_rect(RECTANGLE_I32 *prectangle)
+//   int_bool window::x11_get_window_rect(::rectangle_i32 *prectangle)
 //   {
 //
 //      XWindowAttributes attrs;
@@ -3759,7 +3759,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 //
 //   }
 
-//   int_bool window::client_rectangle(RECTANGLE_I32 *prectangle)
+//   int_bool window::client_rectangle(::rectangle_i32 *prectangle)
 //   {
 //
 //      synchronous_lock synchronouslock(user_synchronization());

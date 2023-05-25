@@ -495,24 +495,24 @@ namespace draw2d_xlib
       return ::size_i32(0, 0);
    }
 
-   void graphics::DPtoLP(POINT_I32 * lpPoints, i32 nCount) const
+   void graphics::DPtoLP(::point_i32 * lpPoints, i32 nCount) const
    {
       //::DPtoLP(get_handle2(), lpPoints, nCount);
    }
 
-   void graphics::DPtoLP(RECTANGLE_I32 * prectangle) const
+   void graphics::DPtoLP(::rectangle_i32 * prectangle) const
    {
-      //::DPtoLP(get_handle2(), (POINT_I32 *)rectangle, 2);
+      //::DPtoLP(get_handle2(), (::point_i32 *)rectangle, 2);
    }
 
-   void graphics::LPtoDP(POINT_I32 * lpPoints, i32 nCount) const
+   void graphics::LPtoDP(::point_i32 * lpPoints, i32 nCount) const
    {
       //::LPtoDP(get_handle2(), lpPoints, nCount);
    }
 
-   void graphics::LPtoDP(RECTANGLE_I32 * prectangle) const
+   void graphics::LPtoDP(::rectangle_i32 * prectangle) const
    {
-      //::LPtoDP(get_handle2(), (POINT_I32 *)rectangle, 2);
+      //::LPtoDP(get_handle2(), (::point_i32 *)rectangle, 2);
    }
 
    bool graphics::FillRgn(::draw2d::region* pRgn, ::draw2d::brush* pBrush)
@@ -645,7 +645,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::polyline(const POINT_I32* lpPoints, i32 nCount)
+   bool graphics::polyline(const ::point_i32* lpPoints, i32 nCount)
    {
 
       /*ASSERT(get_handle1() != nullptr);
@@ -943,7 +943,7 @@ namespace draw2d_xlib
 //
 //   */
 //
-//   bool graphics::DrawEdge(RECTANGLE_I32 * prectangle, ::u32 nEdge, ::u32 nFlags)
+//   bool graphics::DrawEdge(::rectangle_i32 * prectangle, ::u32 nEdge, ::u32 nFlags)
 //   {
 //
 //      throw ::not_implemented();
@@ -954,7 +954,7 @@ namespace draw2d_xlib
 //
 //   }
 //
-//   bool graphics::DrawFrameControl(RECTANGLE_I32 * prectangle, ::u32 nType, ::u32 nState)
+//   bool graphics::DrawFrameControl(::rectangle_i32 * prectangle, ::u32 nType, ::u32 nState)
 //   {
 //
 //      throw ::not_implemented();
@@ -1108,7 +1108,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::fill_polygon(const POINT_F64 * pa, i32 iCount)
+   bool graphics::fill_polygon(const ::point_f64 * pa, i32 iCount)
    {
 
       if(iCount <= 0)
@@ -1136,7 +1136,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::fill_polygon(const POINT_I32* pa, i32 iCount)
+   bool graphics::fill_polygon(const ::point_i32* pa, i32 iCount)
    {
 
       if(iCount <= 0)
@@ -1165,7 +1165,7 @@ namespace draw2d_xlib
    }
 
 
-   bool graphics::draw_polygon(const POINT_F64 * pa, i32 iCount)
+   bool graphics::draw_polygon(const ::point_f64 * pa, i32 iCount)
    {
 
       if(iCount <= 0)
@@ -1192,7 +1192,7 @@ namespace draw2d_xlib
    }
 
 
-   bool graphics::draw_polygon(const POINT_I32* pa, i32 iCount)
+   bool graphics::draw_polygon(const ::point_i32* pa, i32 iCount)
    {
 
       if(iCount <= 0)
@@ -1219,7 +1219,7 @@ namespace draw2d_xlib
    }
 
 
-   bool graphics::Polygon(const POINT_I32* pa, i32 iCount)
+   bool graphics::Polygon(const ::point_i32* pa, i32 iCount)
    {
 
       if(iCount <= 0)
@@ -1250,7 +1250,7 @@ namespace draw2d_xlib
    }
 
 
-   bool graphics::PolyPolygon(const POINT_I32* lpPoints, const ::i32* lpPolyCounts, i32 nCount)
+   bool graphics::PolyPolygon(const ::point_i32* lpPoints, const ::i32* lpPolyCounts, i32 nCount)
    {
 
       throw ::not_implemented();
@@ -2062,7 +2062,7 @@ namespace draw2d_xlib
    }
 
 
-   bool graphics::ScrollDC(i32 Δx, i32 Δy, rectangle_i32 lpRectScroll, const ::rectangle_i32 & rectangleClip, ::draw2d::region* pRgnUpdate, RECTANGLE_I32 * lpRectUpdate)
+   bool graphics::ScrollDC(i32 Δx, i32 Δy, rectangle_i32 lpRectScroll, const ::rectangle_i32 & rectangleClip, ::draw2d::region* pRgnUpdate, ::rectangle_i32 * lpRectUpdate)
    {
 
       throw ::not_implemented();
@@ -2097,7 +2097,7 @@ namespace draw2d_xlib
 
    }
 
-   ::u32 graphics::GetBoundsRect(RECTANGLE_I32 * rectangleBounds, ::u32 flags)
+   ::u32 graphics::GetBoundsRect(::rectangle_i32 * rectangleBounds, ::u32 flags)
    {
 
       throw ::not_implemented();
@@ -2264,7 +2264,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::PlgBlt(POINT_I32 * lpPoint, ::draw2d::graphics * pgraphicsSrc, i32 xSrc, i32 ySrc, i32 nWidth, i32 nHeight, ::draw2d::bitmap& maskBitmap, i32 xMask, i32 yMask)
+   bool graphics::PlgBlt(::point_i32 * lpPoint, ::draw2d::graphics * pgraphicsSrc, i32 xSrc, i32 ySrc, i32 nWidth, i32 nHeight, ::draw2d::bitmap& maskBitmap, i32 xMask, i32 yMask)
    {
 
       throw ::not_implemented();
@@ -2330,7 +2330,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::poly_polyline(const POINT_I32* lpPoints, const u32* lpPolyPoints, i32 nCount)
+   bool graphics::poly_polyline(const ::point_i32* lpPoints, const u32* lpPolyPoints, i32 nCount)
    {
 
       throw ::not_implemented();
@@ -2392,7 +2392,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::poly_bezier(const POINT_I32* lpPoints, i32 nCount)
+   bool graphics::poly_bezier(const ::point_i32* lpPoints, i32 nCount)
    {
 
       throw ::not_implemented();
@@ -2547,7 +2547,7 @@ namespace draw2d_xlib
 
    }
 
-   i32 graphics::GetPath(POINT_I32 * lpPoints, byte * lpTypes, i32 nCount) const
+   i32 graphics::GetPath(::point_i32 * lpPoints, byte * lpTypes, i32 nCount) const
    {
 
       throw ::not_implemented();
@@ -3069,7 +3069,7 @@ namespace draw2d_xlib
       throw ::not_implemented();
 
       /*
-            ASSERT(is_memory_segment_ok(LPSIZE32, sizeof(SIZE_I32)));
+            ASSERT(is_memory_segment_ok(LPSIZE32, sizeof(::size_i32)));
 
             i32 nMapMode;
             if (this != nullptr && (nMapMode = GetMapMode()) < MM_ISOTROPIC && nMapMode != MM_TEXT)
@@ -3107,7 +3107,7 @@ namespace draw2d_xlib
 
       throw ::not_implemented();
 
-      /*      ASSERT(is_memory_segment_ok(LPSIZE32, sizeof(SIZE_I32)));
+      /*      ASSERT(is_memory_segment_ok(LPSIZE32, sizeof(::size_i32)));
 
             i32 nMapMode;
             if (this != nullptr && (nMapMode = GetMapMode()) < MM_ISOTROPIC &&
@@ -3143,7 +3143,7 @@ namespace draw2d_xlib
 
    void graphics::LPtoHIMETRIC(LPSIZE32 LPSIZE32) const
    {
-      ASSERT(is_memory_segment_ok(LPSIZE32, sizeof(SIZE_I32)));
+      ASSERT(is_memory_segment_ok(LPSIZE32, sizeof(::size_i32)));
 
       LPtoDP(LPSIZE32);
       DPtoHIMETRIC(LPSIZE32);
@@ -3151,7 +3151,7 @@ namespace draw2d_xlib
 
    void graphics::HIMETRICtoLP(LPSIZE32 LPSIZE32) const
    {
-      ASSERT(is_memory_segment_ok(LPSIZE32, sizeof(SIZE_I32)));
+      ASSERT(is_memory_segment_ok(LPSIZE32, sizeof(::size_i32)));
 
       HIMETRICtoDP(LPSIZE32);
       DPtoLP(LPSIZE32);
@@ -3189,9 +3189,9 @@ namespace draw2d_xlib
       throw ::not_implemented();
 
       /*
-            ASSERT(is_memory_segment_ok(rectangle, sizeof(RECTANGLE_I32), false));
+            ASSERT(is_memory_segment_ok(rectangle, sizeof(::rectangle_i32), false));
             ASSERT(lpRectLast == nullptr ||
-               is_memory_segment_ok(lpRectLast, sizeof(RECTANGLE_I32), false));
+               is_memory_segment_ok(lpRectLast, sizeof(::rectangle_i32), false));
 
             // first, determine the update region and select it
             ::draw2d::region rgnNew;
@@ -3268,7 +3268,7 @@ namespace draw2d_xlib
       ::ExtTextOut(get_handle1(), 0, 0, ETO_OPAQUE, rectangle, nullptr, 0, nullptr);
    }*/
 
-   void graphics::FillSolidRect(const RECTANGLE_I64 * rectangle, color32_t clr)
+   void graphics::FillSolidRect(const ::rectangle_i64 * rectangle, color32_t clr)
    {
       ::rectangle_i32 rect32;
       copy(&rect32, &rectangle);
@@ -3744,7 +3744,7 @@ namespace draw2d_xlib
 
    }
 
-   i32 graphics::get_clip_box(RECTANGLE_I32 * prectangle) const
+   i32 graphics::get_clip_box(::rectangle_i32 * prectangle) const
    {
 
       //throw ::not_implemented();
@@ -4039,20 +4039,20 @@ namespace draw2d_xlib
 
    }
    /*
-   void window::screen_to_client(RECTANGLE_I32 * prectangle)
+   void window::screen_to_client(::rectangle_i32 * prectangle)
    {
    ASSERT(::IsWindow(get_handle1()));
-   ::screen_to_client(get_handle1(), (POINT_I32 *)rectangle_i32);
-   ::screen_to_client(get_handle1(), ((POINT_I32 *)rectangle_i32)+1);
+   ::screen_to_client(get_handle1(), (::point_i32 *)rectangle_i32);
+   ::screen_to_client(get_handle1(), ((::point_i32 *)rectangle_i32)+1);
    if (GetExStyle() & WS_EX_LAYOUTRTL)
    rectangle_i32::swap_left_right(rectangle);
    }
 
-   void window::client_to_screen(RECTANGLE_I32 * prectangle)
+   void window::client_to_screen(::rectangle_i32 * prectangle)
    {
    ASSERT(::IsWindow(get_handle1()));
-   ::client_to_screen(get_handle1(), (POINT_I32 *)rectangle_i32);
-   ::client_to_screen(get_handle1(), ((POINT_I32 *)rectangle_i32)+1);
+   ::client_to_screen(get_handle1(), (::point_i32 *)rectangle_i32);
+   ::client_to_screen(get_handle1(), ((::point_i32 *)rectangle_i32)+1);
    if (GetExStyle() & WS_EX_LAYOUTRTL)
    rectangle_i32::swap_left_right(rectangle);
    }*/
@@ -4100,7 +4100,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::PolyDraw(const POINT_I32* lpPoints, const byte* lpTypes, i32 nCount)
+   bool graphics::PolyDraw(const ::point_i32* lpPoints, const byte* lpTypes, i32 nCount)
    {
 
       throw ::not_implemented();
@@ -4120,7 +4120,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::polyline_to(const POINT_I32* lpPoints, i32 nCount)
+   bool graphics::polyline_to(const ::point_i32* lpPoints, i32 nCount)
    {
 
       throw ::not_implemented();
@@ -4159,7 +4159,7 @@ namespace draw2d_xlib
 
 //   }
 
-   bool graphics::poly_bezier_to(const POINT_I32* lpPoints, i32 nCount)
+   bool graphics::poly_bezier_to(const ::point_i32* lpPoints, i32 nCount)
    {
 
       throw ::not_implemented();
@@ -4359,7 +4359,7 @@ namespace draw2d_xlib
       return;
 
       /*
-            ASSERT(is_memory_segment_ok(LPSIZE32, sizeof(SIZE_I32)));
+            ASSERT(is_memory_segment_ok(LPSIZE32, sizeof(::size_i32)));
 
             size_i32 sizeWinExt = GetWindowExt();
             size_i32 sizeVpExt = get_context_extents();
@@ -4376,7 +4376,7 @@ namespace draw2d_xlib
       return;
 
       /*
-            ASSERT(is_memory_segment_ok(LPSIZE32, sizeof(SIZE_I32)));
+            ASSERT(is_memory_segment_ok(LPSIZE32, sizeof(::size_i32)));
 
             size_i32 sizeWinExt = GetWindowExt();
             size_i32 sizeVpExt = get_context_extents();
@@ -4388,7 +4388,7 @@ namespace draw2d_xlib
 
 
 
-   i32 graphics::draw_text(const char * lpszString, i32 nCount, RECTANGLE_I32 * prectangle, const ::e_align & ealign, const ::e_draw_text & edrawtext)
+   i32 graphics::draw_text(const char * lpszString, i32 nCount, ::rectangle_i32 * prectangle, const ::e_align & ealign, const ::e_draw_text & edrawtext)
    {
       /*if(get_handle1() == nullptr)
          return -1;
@@ -4403,7 +4403,7 @@ namespace draw2d_xlib
    }
 
 
-   i32 graphics::draw_text(const string & str, RECTANGLE_I32 * prectangle, const ::e_align & ealign, const ::e_draw_text & edrawtext)
+   i32 graphics::draw_text(const string & str, ::rectangle_i32 * prectangle, const ::e_align & ealign, const ::e_draw_text & edrawtext)
    {
 
       //synchronous_lock ml(&xlib_mutex());
@@ -4501,7 +4501,7 @@ namespace draw2d_xlib
 
    }
 
-   i32 graphics::draw_text_ex(char * lpszString, i32 nCount, RECTANGLE_I32 * prectangle, const ::e_align & ealign, const ::e_draw_text & edrawtext, LPDRAWTEXTPARAMS lpDTParams)
+   i32 graphics::draw_text_ex(char * lpszString, i32 nCount, ::rectangle_i32 * prectangle, const ::e_align & ealign, const ::e_draw_text & edrawtext, LPDRAWTEXTPARAMS lpDTParams)
    {
 
       throw ::not_implemented();
@@ -4518,7 +4518,7 @@ namespace draw2d_xlib
       */
    }
 
-   i32 graphics::draw_text_ex(const string & str, RECTANGLE_I32 * prectangle, const ::e_align & ealign, const ::e_draw_text & edrawtext, LPDRAWTEXTPARAMS lpDTParams)
+   i32 graphics::draw_text_ex(const string & str, ::rectangle_i32 * prectangle, const ::e_align & ealign, const ::e_draw_text & edrawtext, LPDRAWTEXTPARAMS lpDTParams)
    {
 
       throw ::not_implemented();

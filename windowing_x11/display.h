@@ -101,9 +101,9 @@ namespace windowing_x11
 
       virtual bool is_null() const;
 
-      bool get_monitor_rectangle(index iMonitor, RECTANGLE_I32 & rectangle) override;
+      bool get_monitor_rectangle(index iMonitor, ::rectangle_i32 & rectangle) override;
 
-      bool get_workspace_rectangle(index iWorkspace, RECTANGLE_I32 & rectangle) override;
+      bool get_workspace_rectangle(index iWorkspace, ::rectangle_i32 & rectangle) override;
 
       virtual ::windowing::window * get_mouse_capture();
 
@@ -121,7 +121,7 @@ namespace windowing_x11
 
       virtual ::windowing_x11::window * _get_active_window(::thread * pthread);
 
-      virtual bool get_cursor_position(POINT_I32 * ppointCursor);
+      virtual bool get_cursor_position(::point_i32 * ppointCursor);
 
       virtual comparable_array < Window > x11_window_list();
 
@@ -131,7 +131,7 @@ namespace windowing_x11
       virtual Pixmap x11_create_pixmap(::image_pointer pimage);
       virtual XImage * x11_create_image(::image_pointer pimage);
 
-      virtual bool point_is_window_origin(POINT_I32 pointHitTest, ::windowing::window * pwindowExclude, int iMargin);
+      virtual bool point_is_window_origin(::point_i32 pointHitTest, ::windowing::window * pwindowExclude, int iMargin);
 
       virtual Picture xrender_create_picture(::image_pointer pimage);
 
