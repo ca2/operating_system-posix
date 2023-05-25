@@ -67,7 +67,7 @@ namespace acme_posix
 
       for (int path_index = 0; path_index < glob_results.gl_pathc; path_index++)
       {
-         paths_found.push_back(glob_results.gl_pathv[path_index]);
+         paths_found.add(glob_results.gl_pathv[path_index]);
       }
 
       globfree(&glob_results);
@@ -257,9 +257,9 @@ namespace acme_posix
 
       string_array result;
 
-      result.push_back(friendly_name);
+      result.add(friendly_name);
 
-      result.push_back(hardware_id);
+      result.add(hardware_id);
 
       return result;
 
@@ -383,11 +383,11 @@ namespace acme_posix
 
       string_array search_globs;
 
-      search_globs.push_back("/dev/ttyACM*");
-      search_globs.push_back("/dev/ttyS*");
-      search_globs.push_back("/dev/ttyUSB*");
-      search_globs.push_back("/dev/tty.*");
-      search_globs.push_back("/dev/cu.*");
+      search_globs.add("/dev/ttyACM*");
+      search_globs.add("/dev/ttyS*");
+      search_globs.add("/dev/ttyUSB*");
+      search_globs.add("/dev/tty.*");
+      search_globs.add("/dev/cu.*");
 
       string_array devices_found = glob(search_globs);
 
@@ -406,7 +406,7 @@ namespace acme_posix
          portinfo.description = friendly_name;
          portinfo.hardware_id = hardware_id;
 
-         portinfoa.push_back(portinfo);
+         portinfoa.add(portinfo);
 
       }
 
