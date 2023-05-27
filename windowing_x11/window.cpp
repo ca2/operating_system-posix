@@ -3946,7 +3946,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
    }
 
 
-   void window::set_keyboard_focus()
+   void window(x11)::set_keyboard_focus()
    {
 
       synchronous_lock synchronouslock(user_synchronization());
@@ -3958,14 +3958,14 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
       }
 
-      windowing_output_debug_string("\noswindow_data::SetFocus 1");
+      windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1");
 
       display_lock displaylock(x11_display()->Display());
 
       if (!is_window())
       {
 
-         windowing_output_debug_string("\noswindow_data::SetFocus 1.1");
+         windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1.1");
 
          throw ::exception(error_failed);
 
@@ -3974,13 +3974,13 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
       if (!XSetInputFocus(Display(), Window(), RevertToNone, CurrentTime))
       {
 
-         windowing_output_debug_string("\noswindow_data::SetFocus 1.3");
+         windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1.3");
 
          throw ::exception(error_failed);
 
       }
 
-      windowing_output_debug_string("\noswindow_data::SetFocus 2");
+      windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 2");
 
       //return ::success;
 
@@ -4007,7 +4007,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
       }
 
-      windowing_output_debug_string("\noswindow_data::SetFocus 1");
+      windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1");
 
       display_lock displaylock(x11_display()->Display());
 

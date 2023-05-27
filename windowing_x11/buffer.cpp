@@ -344,8 +344,9 @@ namespace windowing_x11
       XImage * pximage = nullptr;
 
       //if(!pximage)
-      if(m_pimpl->m_sizeSetWindowSizeRequest.cx > m_pimpl->m_sizeDrawn.cx
-         || m_pimpl->m_sizeSetWindowSizeRequest.cy > m_pimpl->m_sizeDrawn.cy)
+      //if(m_pimpl->m_sizeSetWindowSizeRequest.cx > m_pimpl->m_sizeDrawn.cx
+        // || m_pimpl->m_sizeSetWindowSizeRequest.cy > m_pimpl->m_sizeDrawn.cy)
+      if(m_pimpl->m_sizeSetWindowSizeRequest != m_pimpl->m_sizeDrawn)
       {
 
          INFORMATION("m_pimpl->m_sizeSetWindowSizeRequest != m_pimpl->m_sizeDrawn ("

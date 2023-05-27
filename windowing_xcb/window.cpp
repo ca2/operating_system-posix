@@ -2771,7 +2771,7 @@ namespace windowing_xcb
    }
 
 
-   void window::set_keyboard_focus()
+   void window(xcb)::set_keyboard_focus()
    {
 
       synchronous_lock synchronouslock(user_synchronization());
@@ -2783,14 +2783,14 @@ namespace windowing_xcb
 
       }
 
-      windowing_output_debug_string("\noswindow_data::SetFocus 1");
+      windowing_output_debug_string("\nwindow(xcb)::set_keyboard_focus 1");
 
       //display_lock displaylock(xcb_display());
 
       if (!is_window())
       {
 
-         windowing_output_debug_string("\noswindow_data::SetFocus 1.1");
+         windowing_output_debug_string("\nwindow(xcb)::set_keyboard_focus 1.1");
 
          throw ::exception(error_failed);
 
@@ -2807,7 +2807,7 @@ namespace windowing_xcb
 
       }
 
-      windowing_output_debug_string("\noswindow_data::SetFocus 2");
+      windowing_output_debug_string("\nwindow(xcb)::set_keyboard_focus 2");
 
       //return ::success;
 
