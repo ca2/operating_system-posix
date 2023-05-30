@@ -670,11 +670,13 @@ namespace acme_posix
       }
 
       auto processId = create_process(strCmdLine);
+      
+      pid_t pid = (pid_t) processId;
 
       while (true)
       {
 
-         if (kill(processId, 0) == -1 && errno == ESRCH) // No process can be found corresponding to processId
+         if (kill(pid, 0) == -1 && errno == ESRCH) // No process can be found corresponding to processId
          {
 
             break;
@@ -927,11 +929,13 @@ namespace acme_posix
       //            return -1;
       //
       //         }
+      
+      pid_t pid = (pid_t) processId;
 
       while (true)
       {
 
-         if (kill(processId, 0) == -1 && errno == ESRCH) // No process can be found corresponding to processId
+         if (kill(pid, 0) == -1 && errno == ESRCH) // No process can be found corresponding to processId
          {
 
             break;

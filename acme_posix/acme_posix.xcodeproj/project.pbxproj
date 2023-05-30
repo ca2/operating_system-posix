@@ -154,6 +154,7 @@
 		9A0C1792264A315100B5CC33 /* acme.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = acme.xcodeproj; path = ../../../source/app/acme/acme.xcodeproj; sourceTree = "<group>"; };
 		9A3BFB9529C82721005DE2BF /* file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file.cpp; sourceTree = "<group>"; };
 		9A3BFB9629C82721005DE2BF /* file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file.h; sourceTree = "<group>"; };
+		9A77244E2A25688400B9A835 /* machine.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = machine.xcconfig; path = ../../../../operating_system/machine.xcconfig; sourceTree = "<group>"; };
 		9A78F40128E791B4007F62C0 /* exception_translator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exception_translator.cpp; sourceTree = "<group>"; };
 		9A78F40228E791B4007F62C0 /* exception_translator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = exception_translator.h; sourceTree = "<group>"; };
 		9A78F44428E7E3E2007F62C0 /* node_clang_callstack.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = node_clang_callstack.cpp; sourceTree = "<group>"; };
@@ -189,6 +190,7 @@
 		9A0C162F264A281D00B5CC33 = {
 			isa = PBXGroup;
 			children = (
+				9A77244E2A25688400B9A835 /* machine.xcconfig */,
 				9A0C1792264A315100B5CC33 /* acme.xcodeproj */,
 				9A0C16AE264A2C6C00B5CC33 /* acme_posix */,
 				9A0C1639264A281D00B5CC33 /* Products */,
@@ -522,6 +524,7 @@
 /* Begin XCBuildConfiguration section */
 		9A0C163F264A281D00B5CC33 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A77244E2A25688400B9A835 /* machine.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -602,6 +605,7 @@
 					"$(WorkspaceDir)/operating_system/operating_system-$(PLATFORM_MODIFIER)/include",
 					"$(WorkspaceDir)/port/_",
 					"$(WorkspaceDir)/port/include",
+					"$(WorkspaceDir)/../operating_system/include",
 					"$(WorkspaceDir)/source/app",
 				);
 				USER_HEADER_SEARCH_PATHS = (
@@ -615,6 +619,7 @@
 					"$(WorkspaceDir)/operating_system/operating_system-$(PLATFORM_MODIFIER)/include",
 					"$(WorkspaceDir)/port/_",
 					"$(WorkspaceDir)/port/include",
+					"$(WorkspaceDir)/../operating_system/include",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/..",
 					"$(PROJECT_DIR)/../..",
@@ -627,6 +632,7 @@
 		};
 		9A0C1640264A281D00B5CC33 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A77244E2A25688400B9A835 /* machine.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -701,6 +707,7 @@
 					"$(WorkspaceDir)/operating_system/operating_system-$(PLATFORM_MODIFIER)/include",
 					"$(WorkspaceDir)/port/_",
 					"$(WorkspaceDir)/port/include",
+					"$(WorkspaceDir)/../operating_system/include",
 					"$(WorkspaceDir)/source/app",
 				);
 				USER_HEADER_SEARCH_PATHS = (
@@ -714,6 +721,7 @@
 					"$(WorkspaceDir)/operating_system/operating_system-$(PLATFORM_MODIFIER)/include",
 					"$(WorkspaceDir)/port/_",
 					"$(WorkspaceDir)/port/include",
+					"$(WorkspaceDir)/../operating_system/include",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/..",
 					"$(PROJECT_DIR)/../..",

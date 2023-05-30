@@ -897,26 +897,26 @@ namespace draw2d_xlib
    //   // Clip Rect
    //   i32 px=(x>=0) ? x : 0;
    //   i32 py=(y>=0) ? y : 0;
-   //   i32 Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
-   //   i32 Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
-   //   Δx=(x>=0) ? Δx : Δx + x;
-   //   Δy=(y>=0) ? Δy : Δy + y;
+   //   i32 greekdeltax=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
+   //   i32 greekdeltay=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
+   //   greekdeltax=(x>=0) ? greekdeltax : greekdeltax + x;
+   //   greekdeltay=(y>=0) ? greekdeltay : greekdeltay + y;
 
    //   // If Nothing to copy return
-   //   if ( (Δx<=0) || (Δy<=0) )
+   //   if ( (greekdeltax<=0) || (greekdeltay<=0) )
    //      return;
    //   // If DibSize Wrong Re-create image
-   //   if ( (Δx!=pimage->cx) || (Δy!=pimage->cy) )
-   //      pimage = create_image ( Δx, Δy );
+   //   if ( (greekdeltax!=pimage->cx) || (greekdeltay!=pimage->cy) )
+   //      pimage = create_image ( greekdeltax, greekdeltay );
 
    //   // Prepare buffer Addresses
    //   color32_t *src=m_pcolorref+(py*cx)+px;
    //   color32_t *dst=pimage->get_data();
 
    //   // Do copy
-   //   while ( Δy-- )
+   //   while ( greekdeltay-- )
    //   {
-   //      for ( i32 i=0; i<Δx; i++ )
+   //      for ( i32 i=0; i<greekdeltax; i++ )
    //         dst[i]=src[i];
    //      src+=cx;
    //      dst+=pimage->cx;
@@ -928,13 +928,13 @@ namespace draw2d_xlib
    //   // Clip Rect
    //   i32 px=(x>=0) ? x : 0;
    //   i32 py=(y>=0) ? y : 0;
-   //   i32 Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
-   //   i32 Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
-   //   Δx=(x>=0) ? Δx : Δx + x;
-   //   Δy=(y>=0) ? Δy : Δy + y;
+   //   i32 greekdeltax=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
+   //   i32 greekdeltay=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
+   //   greekdeltax=(x>=0) ? greekdeltax : greekdeltax + x;
+   //   greekdeltay=(y>=0) ? greekdeltay : greekdeltay + y;
 
    //   // If Nothing to Paste return
-   //   if ( (Δx<=0) || (Δy<=0) )
+   //   if ( (greekdeltax<=0) || (greekdeltay<=0) )
    //      return;
 
    //   // Prepare buffer Addresses
@@ -942,9 +942,9 @@ namespace draw2d_xlib
    //   color32_t *dst=m_pcolorref+(py*cx)+px;
 
    //   // Do Paste
-   //   while ( Δy-- )
+   //   while ( greekdeltay-- )
    //   {
-   //      for ( i32 i=0; i<Δx; i++ )
+   //      for ( i32 i=0; i<greekdeltax; i++ )
    //         dst[i]=src[i];
    //      src+=pimage->cx;
    //      dst+=cx;
@@ -956,13 +956,13 @@ namespace draw2d_xlib
    //   // Clip Rect
    //   i32 px=(x>=0) ? x : 0;
    //   i32 py=(y>=0) ? y : 0;
-   //   i32 Δx=((x+w)<cx) ? w : cx-x;
-   //   i32 Δy=((y+h)<cy) ? h : cy-y;
-   //   Δx=(x>=0) ? Δx : Δx + x;
-   //   Δy=(y>=0) ? Δy : Δy + y;
+   //   i32 greekdeltax=((x+w)<cx) ? w : cx-x;
+   //   i32 greekdeltay=((y+h)<cy) ? h : cy-y;
+   //   greekdeltax=(x>=0) ? greekdeltax : greekdeltax + x;
+   //   greekdeltay=(y>=0) ? greekdeltay : greekdeltay + y;
 
    //   // If Nothing to Fill return
-   //   if ( (Δx<=0) || (Δy<=0) )
+   //   if ( (greekdeltax<=0) || (greekdeltay<=0) )
    //      return;
 
    //   // Prepare buffer Address
@@ -970,9 +970,9 @@ namespace draw2d_xlib
    //   color32_t color=rgb ( B, G, R );
 
    //   // Do Fill
-   //   while ( Δy-- )
+   //   while ( greekdeltay-- )
    //   {
-   //      for ( i32 i=0; i<Δx; i++ )
+   //      for ( i32 i=0; i<greekdeltax; i++ )
    //      {
    //         dst[i]=color;
    //      }
@@ -985,29 +985,29 @@ namespace draw2d_xlib
    //   // Clip Rect
    //   i32 px=(x>=0) ? x : 0;
    //   i32 py=(y>=0) ? y : 0;
-   //   i32 Δx=((x+w)<cx) ? w : cx-x;
-   //   i32 Δy=((y+h)<cy) ? h : cy-y;
-   //   Δx=(x>=0) ? Δx : Δx + x;
-   //   Δy=(y>=0) ? Δy : Δy + y;
+   //   i32 greekdeltax=((x+w)<cx) ? w : cx-x;
+   //   i32 greekdeltay=((y+h)<cy) ? h : cy-y;
+   //   greekdeltax=(x>=0) ? greekdeltax : greekdeltax + x;
+   //   greekdeltay=(y>=0) ? greekdeltay : greekdeltay + y;
 
    //   // If Nothing to FillGlass return
-   //   if ( (Δx<=0) || (Δy<=0) )
+   //   if ( (greekdeltax<=0) || (greekdeltay<=0) )
    //      return;
 
    //   // Prepare buffer Address
    //   byte *dst=(byte *)m_pcolorref+((py*cx)+px)*4;
 
    //   // Do FillGlass
-   //   while ( Δy-- )
+   //   while ( greekdeltay-- )
    //   {
-   //      for ( i32 i=0; i<Δx; i++ )
+   //      for ( i32 i=0; i<greekdeltax; i++ )
    //      {
    //         dst[0]=(byte)(((B-dst[0])*A+(dst[0]<<8))>>8);
    //         dst[1]=(byte)(((G-dst[1])*A+(dst[1]<<8))>>8);
    //         dst[2]=(byte)(((R-dst[2])*A+(dst[2]<<8))>>8);
    //         dst+=4;
    //      }
-   //      dst+=(cx-Δx)<<2;
+   //      dst+=(cx-greekdeltax)<<2;
    //   }
    //}
 
@@ -1016,13 +1016,13 @@ namespace draw2d_xlib
    //   // Clip Rect
    //   i32 px=(x>=0) ? x : 0;
    //   i32 py=(y>=0) ? y : 0;
-   //   i32 Δx=((x+w)<cx) ? w : cx-x;
-   //   i32 Δy=((y+h)<cy) ? h : cy-y;
-   //   Δx=(x>=0) ? Δx : Δx + x;
-   //   Δy=(y>=0) ? Δy : Δy + y;
+   //   i32 greekdeltax=((x+w)<cx) ? w : cx-x;
+   //   i32 greekdeltay=((y+h)<cy) ? h : cy-y;
+   //   greekdeltax=(x>=0) ? greekdeltax : greekdeltax + x;
+   //   greekdeltay=(y>=0) ? greekdeltay : greekdeltay + y;
 
    //   // If Nothing to FillStippledGlass return
-   //   if ( (Δx<=0) || (Δy<=0) )
+   //   if ( (greekdeltax<=0) || (greekdeltay<=0) )
    //      return;
 
    //   // Prepare buffer Address
@@ -1030,9 +1030,9 @@ namespace draw2d_xlib
    //   color32_t color=rgb ( B, G, R );
 
    //   // Do FillStippledGlass
-   //   for ( i32 j=0; j<Δy; j++ )
+   //   for ( i32 j=0; j<greekdeltay; j++ )
    //   {
-   //      for ( i32 i=0; i<Δx; i++ )
+   //      for ( i32 i=0; i<greekdeltax; i++ )
    //      {
    //         dst[i]=((i+j)&0x1) ? dst[i] : color;
    //      }
@@ -1045,13 +1045,13 @@ namespace draw2d_xlib
    //   // Clip Rect
    //   i32 px=(x>=0) ? x : 0;
    //   i32 py=(y>=0) ? y : 0;
-   //   i32 Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
-   //   i32 Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
-   //   Δx=(x>=0) ? Δx : Δx + x;
-   //   Δy=(y>=0) ? Δy : Δy + y;
+   //   i32 greekdeltax=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
+   //   i32 greekdeltay=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
+   //   greekdeltax=(x>=0) ? greekdeltax : greekdeltax + x;
+   //   greekdeltay=(y>=0) ? greekdeltay : greekdeltay + y;
 
    //   // If Nothing to Blend return
-   //   if ( (Δx<=0) || (Δy<=0) )
+   //   if ( (greekdeltax<=0) || (greekdeltay<=0) )
    //      return;
 
    //   // Prepare buffer Addresses
@@ -1059,9 +1059,9 @@ namespace draw2d_xlib
    //   byte *dst=(byte *)m_pcolorref+((py*cx)+px)*4;
 
    //   // Do Blend
-   //   while ( Δy-- )
+   //   while ( greekdeltay-- )
    //   {
-   //      for ( i32 i=0; i<Δx; i++ )
+   //      for ( i32 i=0; i<greekdeltax; i++ )
    //      {
    //         dst[0]=(byte)(((src[0]-dst[0])*A+(dst[0]<<8))>>8);
    //         dst[1]=(byte)(((src[1]-dst[1])*A+(dst[1]<<8))>>8);
@@ -1069,8 +1069,8 @@ namespace draw2d_xlib
    //         dst+=4;
    //         src+=4;
    //      }
-   //      dst+=(cx-Δx)<<2;
-   //      src+=(pimage->cx-Δx)<<2;
+   //      dst+=(cx-greekdeltax)<<2;
+   //      src+=(pimage->cx-greekdeltax)<<2;
    //   }
    //}
 
@@ -1079,13 +1079,13 @@ namespace draw2d_xlib
    //   // Clip Rect
    //   i32 px=(x>=0) ? x : 0;
    //   i32 py=(y>=0) ? y : 0;
-   //   i32 Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
-   //   i32 Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
-   //   Δx=(x>=0) ? Δx : Δx + x;
-   //   Δy=(y>=0) ? Δy : Δy + y;
+   //   i32 greekdeltax=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
+   //   i32 greekdeltay=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
+   //   greekdeltax=(x>=0) ? greekdeltax : greekdeltax + x;
+   //   greekdeltay=(y>=0) ? greekdeltay : greekdeltay + y;
 
    //   // If Nothing to Darken return
-   //   if ( (Δx<=0) || (Δy<=0) )
+   //   if ( (greekdeltax<=0) || (greekdeltay<=0) )
    //      return;
 
    //   // Prepare buffer Addresses
@@ -1093,9 +1093,9 @@ namespace draw2d_xlib
    //   byte *dst=(byte *)m_pcolorref+((py*cx)+px)*4;
 
    //   // Do Darken
-   //   while ( Δy-- )
+   //   while ( greekdeltay-- )
    //   {
-   //      for ( i32 i=0; i<Δx; i++ )
+   //      for ( i32 i=0; i<greekdeltax; i++ )
    //      {
    //         dst[0]=(byte)((src[0]<dst[0]) ? src[0] : dst[0]);
    //         dst[1]=(byte)((src[1]<dst[1]) ? src[1] : dst[1]);
@@ -1103,8 +1103,8 @@ namespace draw2d_xlib
    //         dst+=4;
    //         src+=4;
    //      }
-   //      dst+=(cx-Δx)<<2;
-   //      src+=(pimage->cx-Δx)<<2;
+   //      dst+=(cx-greekdeltax)<<2;
+   //      src+=(pimage->cx-greekdeltax)<<2;
    //   }
    //}
 
@@ -1113,13 +1113,13 @@ namespace draw2d_xlib
    //   // Clip Rect
    //   i32 px=(x>=0) ? x : 0;
    //   i32 py=(y>=0) ? y : 0;
-   //   i32 Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
-   //   i32 Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
-   //   Δx=(x>=0) ? Δx : Δx + x;
-   //   Δy=(y>=0) ? Δy : Δy + y;
+   //   i32 greekdeltax=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
+   //   i32 greekdeltay=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
+   //   greekdeltax=(x>=0) ? greekdeltax : greekdeltax + x;
+   //   greekdeltay=(y>=0) ? greekdeltay : greekdeltay + y;
 
    //   // If Nothing to Difference return
-   //   if ( (Δx<=0) || (Δy<=0) )
+   //   if ( (greekdeltax<=0) || (greekdeltay<=0) )
    //      return;
 
    //   // Prepare buffer Addresses
@@ -1127,9 +1127,9 @@ namespace draw2d_xlib
    //   byte *dst=(byte *)m_pcolorref+((py*cx)+px)*4;
 
    //   // Do Difference
-   //   while ( Δy-- )
+   //   while ( greekdeltay-- )
    //   {
-   //      for ( i32 i=0; i<Δx; i++ )
+   //      for ( i32 i=0; i<greekdeltax; i++ )
    //      {
    //         i32 Difference;
    //         Difference=src[0]-dst[0];
@@ -1141,8 +1141,8 @@ namespace draw2d_xlib
    //         dst+=4;
    //         src+=4;
    //      }
-   //      dst+=(cx-Δx)<<2;
-   //      src+=(pimage->cx-Δx)<<2;
+   //      dst+=(cx-greekdeltax)<<2;
+   //      src+=(pimage->cx-greekdeltax)<<2;
    //   }
    //}
 
@@ -1151,13 +1151,13 @@ namespace draw2d_xlib
    //   // Clip Rect
    //   i32 px=(x>=0) ? x : 0;
    //   i32 py=(y>=0) ? y : 0;
-   //   i32 Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
-   //   i32 Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
-   //   Δx=(x>=0) ? Δx : Δx + x;
-   //   Δy=(y>=0) ? Δy : Δy + y;
+   //   i32 greekdeltax=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
+   //   i32 greekdeltay=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
+   //   greekdeltax=(x>=0) ? greekdeltax : greekdeltax + x;
+   //   greekdeltay=(y>=0) ? greekdeltay : greekdeltay + y;
 
    //   // If Nothing to Lighten return
-   //   if ( (Δx<=0) || (Δy<=0) )
+   //   if ( (greekdeltax<=0) || (greekdeltay<=0) )
    //      return;
 
    //   // Prepare buffer Addresses
@@ -1165,9 +1165,9 @@ namespace draw2d_xlib
    //   byte *dst=(byte *)m_pcolorref+((py*cx)+px)*4;
 
    //   // Do Lighten
-   //   while ( Δy-- )
+   //   while ( greekdeltay-- )
    //   {
-   //      for ( i32 i=0; i<Δx; i++ )
+   //      for ( i32 i=0; i<greekdeltax; i++ )
    //      {
    //         dst[0]=(byte)((src[0]>dst[0]) ? src[0] : dst[0]);
    //         dst[1]=(byte)((src[1]>dst[1]) ? src[1] : dst[1]);
@@ -1175,8 +1175,8 @@ namespace draw2d_xlib
    //         dst+=4;
    //         src+=4;
    //      }
-   //      dst+=(cx-Δx)<<2;
-   //      src+=(pimage->cx-Δx)<<2;
+   //      dst+=(cx-greekdeltax)<<2;
+   //      src+=(pimage->cx-greekdeltax)<<2;
    //   }
    //}
 
@@ -1185,13 +1185,13 @@ namespace draw2d_xlib
    //   // Clip Rect
    //   i32 px=(x>=0) ? x : 0;
    //   i32 py=(y>=0) ? y : 0;
-   //   i32 Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
-   //   i32 Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
-   //   Δx=(x>=0) ? Δx : Δx + x;
-   //   Δy=(y>=0) ? Δy : Δy + y;
+   //   i32 greekdeltax=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
+   //   i32 greekdeltay=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
+   //   greekdeltax=(x>=0) ? greekdeltax : greekdeltax + x;
+   //   greekdeltay=(y>=0) ? greekdeltay : greekdeltay + y;
 
    //   // If Nothing to Multiply return
-   //   if ( (Δx<=0) || (Δy<=0) )
+   //   if ( (greekdeltax<=0) || (greekdeltay<=0) )
    //      return;
 
    //   // Prepare buffer Addresses
@@ -1199,9 +1199,9 @@ namespace draw2d_xlib
    //   byte *dst=(byte *)m_pcolorref+((py*cx)+px)*4;
 
    //   // Do Multiply
-   //   while ( Δy-- )
+   //   while ( greekdeltay-- )
    //   {
-   //      for ( i32 i=0; i<Δx; i++ )
+   //      for ( i32 i=0; i<greekdeltax; i++ )
    //      {
    //         dst[0]=(byte)(((src[0])*(dst[0]))>>8);
    //         dst[1]=(byte)(((src[1])*(dst[1]))>>8);
@@ -1209,8 +1209,8 @@ namespace draw2d_xlib
    //         dst+=4;
    //         src+=4;
    //      }
-   //      dst+=(cx-Δx)<<2;
-   //      src+=(pimage->cx-Δx)<<2;
+   //      dst+=(cx-greekdeltax)<<2;
+   //      src+=(pimage->cx-greekdeltax)<<2;
    //   }
    //}
 
@@ -1219,13 +1219,13 @@ namespace draw2d_xlib
    //   // Clip Rect
    //   i32 px=(x>=0) ? x : 0;
    //   i32 py=(y>=0) ? y : 0;
-   //   i32 Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
-   //   i32 Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
-   //   Δx=(x>=0) ? Δx : Δx + x;
-   //   Δy=(y>=0) ? Δy : Δy + y;
+   //   i32 greekdeltax=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
+   //   i32 greekdeltay=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
+   //   greekdeltax=(x>=0) ? greekdeltax : greekdeltax + x;
+   //   greekdeltay=(y>=0) ? greekdeltay : greekdeltay + y;
 
    //   // If Nothing to Screen return
-   //   if ( (Δx<=0) || (Δy<=0) )
+   //   if ( (greekdeltax<=0) || (greekdeltay<=0) )
    //      return;
 
    //   // Prepare buffer Addresses
@@ -1233,9 +1233,9 @@ namespace draw2d_xlib
    //   byte *dst=(byte *)m_pcolorref+((py*cx)+px)*4;
 
    //   // Do Screen
-   //   while ( Δy-- )
+   //   while ( greekdeltay-- )
    //   {
-   //      for ( i32 i=0; i<Δx; i++ )
+   //      for ( i32 i=0; i<greekdeltax; i++ )
    //      {
    //         dst[0]=(byte)(255-(((255-src[0])*(255-dst[0]))>>8));
    //         dst[1]=(byte)(255-(((255-src[1])*(255-dst[1]))>>8));
@@ -1243,8 +1243,8 @@ namespace draw2d_xlib
    //         dst+=4;
    //         src+=4;
    //      }
-   //      dst+=(cx-Δx)<<2;
-   //      src+=(pimage->cx-Δx)<<2;
+   //      dst+=(cx-greekdeltax)<<2;
+   //      src+=(pimage->cx-greekdeltax)<<2;
    //   }
    //}
 
@@ -1254,19 +1254,19 @@ namespace draw2d_xlib
 
    /*void image::Line ( i32 x1, i32 y1, i32 x2, i32 y2, i32 R, i32 G, i32 B )
    {
-      i32 Δx, Δy, k1, k2, d, x, y;
+      i32 greekdeltax, greekdeltay, k1, k2, d, x, y;
       color32_t color=rgb ( B, G, R );
 
-      Δx=x2-x1;
-      Δy=y2-y1;
-      d=(Δy<<1)-Δx;
-      k1=Δy<<1;
-      k2=(Δy-Δx)<<1;
+      greekdeltax=x2-x1;
+      greekdeltay=y2-y1;
+      d=(greekdeltay<<1)-greekdeltax;
+      k1=greekdeltay<<1;
+      k2=(greekdeltay-greekdeltax)<<1;
       x=x1;
       y=y1;
 
       m_pcolorref[y*cx+x]=color;
-      while (x<Δx)
+      while (x<greekdeltax)
       {
          if (d<=0)
          {
@@ -1285,15 +1285,15 @@ namespace draw2d_xlib
 
 //   void image::Line ( i32 x1, i32 y1, i32 x2, i32 y2, i32 R, i32 G, i32 B )
 //   {
-//      i32 d, x, y, ax, ay, sx, sy, Δx, Δy;
+//      i32 d, x, y, ax, ay, sx, sy, greekdeltax, greekdeltay;
 //      color32_t color=rgb ( B, G, R );
 //
-//      Δx=x2-x1;
-//      ax=abs ( Δx )<<1;
-//      sx=(Δx<0) ? -1 : 1;
-//      Δy=y2-y1;
-//      ay=abs ( Δy )<<1;
-//      sy=(Δy<0) ? -1 : 1;
+//      greekdeltax=x2-x1;
+//      ax=abs ( greekdeltax )<<1;
+//      sx=(greekdeltax<0) ? -1 : 1;
+//      greekdeltay=y2-y1;
+//      ay=abs ( greekdeltay )<<1;
+//      sy=(greekdeltay<0) ? -1 : 1;
 //      x=x1;
 //      y=y1;
 //
@@ -1331,16 +1331,16 @@ namespace draw2d_xlib
 //
 //   void image::LineGlass ( i32 x1, i32 y1, i32 x2, i32 y2, i32 R, i32 G, i32 B, i32 A )
 //   {
-//      i32 d, x, y, ax, ay, sx, sy, Δx, Δy;
+//      i32 d, x, y, ax, ay, sx, sy, greekdeltax, greekdeltay;
 ////      color32_t color=rgb ( B, G, R );
 //      byte *dst=(byte *)m_pcolorref;
 //
-//      Δx=x2-x1;
-//      ax=abs ( Δx )<<1;
-//      sx=(Δx<0) ? -1 : 1;
-//      Δy=y2-y1;
-//      ay=abs ( Δy )<<1;
-//      sy=(Δy<0) ? -1 : 1;
+//      greekdeltax=x2-x1;
+//      ax=abs ( greekdeltax )<<1;
+//      sx=(greekdeltax<0) ? -1 : 1;
+//      greekdeltay=y2-y1;
+//      ay=abs ( greekdeltay )<<1;
+//      sy=(greekdeltay<0) ? -1 : 1;
 //      x=x1;
 //      y=y1;
 //
@@ -1461,7 +1461,7 @@ namespace draw2d_xlib
 //         i32 size=m_Size.cx*m_Size.cy;
 //         double iLevel;
 //
-//         i32 Δx, Δy;
+//         i32 greekdeltax, greekdeltay;
 //         i32 dx0, dy0;
 //         i32 dx1, dy1;
 //         i32 dx2, dy2;
@@ -1504,9 +1504,9 @@ namespace draw2d_xlib
 //            {
 //               for(x = xL; x <= xU; x++)
 //               {
-//                  Δx = abs(x - xCenter);
-//                  Δy = abs(y - yCenter);
-//                  isqrt((Δx * Δx) + (Δy * Δy), &dr, &dq);
+//                  greekdeltax = abs(x - xCenter);
+//                  greekdeltay = abs(y - yCenter);
+//                  isqrt((greekdeltax * greekdeltax) + (greekdeltay * greekdeltay), &dr, &dq);
 //                  if(dr < iRadius)
 //                  {
 //                     iLevel = 1.0 - dr * 1.0 / iRadius;
@@ -1567,7 +1567,7 @@ namespace draw2d_xlib
 //         u32 dwAdd = ((cx - 1 - xU) + xL) * 4;
 ////         i32 size=cx*cy;
 //
-//         i32 Δx, Δy;
+//         i32 greekdeltax, greekdeltay;
 //
 //         // Top Left
 //
@@ -1575,9 +1575,9 @@ namespace draw2d_xlib
 //         {
 //            for(x = xL; x <= xU; x++)
 //            {
-//               Δx = abs(x - xCenter);
-//               Δy = abs(y - yCenter);
-//               b = lpb[Δx + Δy * iRadius];
+//               greekdeltax = abs(x - xCenter);
+//               greekdeltay = abs(y - yCenter);
+//               b = lpb[greekdeltax + greekdeltay * iRadius];
 //               dst[0] = (byte) (blue     * b / 255);
 //               dst[1] = (byte) (green    * b / 255);
 //               dst[2] = (byte) (red      * b / 255);
@@ -1621,7 +1621,7 @@ namespace draw2d_xlib
 //         i32 size=m_Size.cx*m_Size.cy;
 //         double iLevel;
 //
-//         i32 Δx, Δy;
+//         i32 greekdeltax, greekdeltay;
 //         i32 dx0, dy0;
 //         i32 dx1, dy1;
 //         i32 dx2, dy2;
@@ -1664,9 +1664,9 @@ namespace draw2d_xlib
 //            {
 //               for(x = xL; x <= xU; x++)
 //               {
-//                  Δx = abs(x - xCenter);
-//                  Δy = abs(y - yCenter);
-//                  isqrt((Δx * Δx) + (Δy * Δy), &dr, &dq);
+//                  greekdeltax = abs(x - xCenter);
+//                  greekdeltay = abs(y - yCenter);
+//                  isqrt((greekdeltax * greekdeltax) + (greekdeltay * greekdeltay), &dr, &dq);
 //                  if(dr < iRadius)
 //                  {
 //                     iLevel = 1.0 - dr * 1.0 / iRadius;
@@ -1727,7 +1727,7 @@ namespace draw2d_xlib
 //         u32 dwAdd = ((cx - 1 - xU) + xL) * 4;
 ////         i32 size=cx*cy;
 //
-//         i32 Δx, Δy;
+//         i32 greekdeltax, greekdeltay;
 //
 //         byte bComp;
 //
@@ -1737,9 +1737,9 @@ namespace draw2d_xlib
 //         {
 //            for(x = xL; x <= xU; x++)
 //            {
-//               Δx = abs(x - xCenter);
-//               Δy = abs(y - yCenter);
-//               b = lpb[Δx + Δy * iRadius];
+//               greekdeltax = abs(x - xCenter);
+//               greekdeltay = abs(y - yCenter);
+//               b = lpb[greekdeltax + greekdeltay * iRadius];
 //               bComp = (byte) ~b;
 //               dst[0] = (byte) (((blue1  * b) + (blue2  * bComp)) / 255);
 //               dst[1] = (byte) (((green1 * b) + (green2 * bComp)) / 255);
