@@ -167,9 +167,9 @@ namespace windowing_xcb
 
       m_point.y = y;
 
-      m_size.cx = cx;
+      m_size.cx() = cx;
 
-      m_size.cy = cy;
+      m_size.cy() = cy;
 
       auto cookie = xcb_aux_create_window(
          display,

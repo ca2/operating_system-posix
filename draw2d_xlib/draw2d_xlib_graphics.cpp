@@ -479,7 +479,7 @@ namespace draw2d_xlib
 
    size_i32 graphics::set_context_extents(const ::size_i32 & size)
    {
-      //return set_context_extents(size.cx, size.cy);
+      //return set_context_extents(size.cx(), size.cy());
       return ::size_i32(0, 0);
    }
 
@@ -491,7 +491,7 @@ namespace draw2d_xlib
 
    size_i32 graphics::set_window_ext(const ::size_i32 & size)
    {
-      //return set_window_ext(size.cx, size.cy);
+      //return set_window_ext(size.cx(), size.cy());
       return ::size_i32(0, 0);
    }
 
@@ -862,7 +862,7 @@ namespace draw2d_xlib
 //      throw ::not_implemented();
 //      return false;
 ////      ASSERT(get_handle1() != nullptr);
-////      return ::DrawState(get_handle1(), hBrush, nullptr, (LPARAM)hBitmap, 0, point.x, point.y, size.cx, size.cy, nFlags|DST_BITMAP) != false;
+////      return ::DrawState(get_handle1(), hBrush, nullptr, (LPARAM)hBitmap, 0, point.x, point.y, size.cx(), size.cy(), nFlags|DST_BITMAP) != false;
 //
 //   }
 //
@@ -872,7 +872,7 @@ namespace draw2d_xlib
 //      throw ::not_implemented();
 //      return false;
 ////      ASSERT(get_handle1() != nullptr);
-////      return ::DrawState(get_handle1(), (HBRUSH)pBrush->get_os_data(), nullptr, (LPARAM)pBitmap->get_os_data(), 0, point.x, point.y, size.cx, size.cy, nFlags|DST_BITMAP) != false;
+////      return ::DrawState(get_handle1(), (HBRUSH)pBrush->get_os_data(), nullptr, (LPARAM)pBitmap->get_os_data(), 0, point.x, point.y, size.cx(), size.cy(), nFlags|DST_BITMAP) != false;
 //
 //   }
 //
@@ -882,7 +882,7 @@ namespace draw2d_xlib
 //         throw ::not_implemented();
 //         return false;
 //   //      ASSERT(get_handle1() != nullptr);
-//   //      return ::DrawState(get_handle1(), hBrush, nullptr, (LPARAM)hIcon, 0, point.x, point.y, size.cx, size.cy, nFlags|DST_ICON) != false;
+//   //      return ::DrawState(get_handle1(), hBrush, nullptr, (LPARAM)hIcon, 0, point.x, point.y, size.cx(), size.cy(), nFlags|DST_ICON) != false;
 //
 //      }
 //
@@ -893,7 +893,7 @@ namespace draw2d_xlib
 //         throw ::not_implemented();
 //         return false;
 //   //      ASSERT(get_handle1() != nullptr);
-//   //      return ::DrawState(get_handle1(), (HBRUSH)pBrush->get_os_data(), nullptr, (LPARAM)hIcon, 0, point.x, point.y, size.cx, size.cy, nFlags|DST_ICON) != false;
+//   //      return ::DrawState(get_handle1(), (HBRUSH)pBrush->get_os_data(), nullptr, (LPARAM)hIcon, 0, point.x, point.y, size.cx(), size.cy(), nFlags|DST_ICON) != false;
 //
 //      }*/
 //
@@ -903,7 +903,7 @@ namespace draw2d_xlib
 //      throw ::not_implemented();
 //      return false;
 ////      ASSERT(get_handle1() != nullptr);
-////      return ::DrawState(get_handle1(), hBrush,  nullptr, (LPARAM)lpszText, (WPARAM)nTextLen, point.x, point.y, size.cx, size.cy, nFlags|(bPrefixText ? DST_PREFIXTEXT : DST_TEXT)) != false;
+////      return ::DrawState(get_handle1(), hBrush,  nullptr, (LPARAM)lpszText, (WPARAM)nTextLen, point.x, point.y, size.cx(), size.cy(), nFlags|(bPrefixText ? DST_PREFIXTEXT : DST_TEXT)) != false;
 //
 //   }
 //
@@ -913,7 +913,7 @@ namespace draw2d_xlib
 //      throw ::not_implemented();
 //      return false;
 ////      ASSERT(get_handle1() != nullptr);
-////      return ::DrawState(get_handle1(), (HBRUSH)pBrush->get_os_data(), nullptr, (LPARAM)lpszText, (WPARAM)nTextLen, point.x, point.y, size.cx, size.cy, nFlags|(bPrefixText ? DST_PREFIXTEXT : DST_TEXT)) != false;
+////      return ::DrawState(get_handle1(), (HBRUSH)pBrush->get_os_data(), nullptr, (LPARAM)lpszText, (WPARAM)nTextLen, point.x, point.y, size.cx(), size.cy(), nFlags|(bPrefixText ? DST_PREFIXTEXT : DST_TEXT)) != false;
 //
 //   }
 
@@ -926,7 +926,7 @@ namespace draw2d_xlib
 //         return false;
 //
 //   //      ASSERT(get_handle1() != nullptr);
-//   //      return ::DrawState(get_handle1(), hBrush, lpDrawProc, lData, 0, point.x, point.y, size.cx, size.cy, nFlags|DST_COMPLEX) != false;
+//   //      return ::DrawState(get_handle1(), hBrush, lpDrawProc, lData, 0, point.x, point.y, size.cx(), size.cy(), nFlags|DST_COMPLEX) != false;
 //
 //      }
 //
@@ -937,7 +937,7 @@ namespace draw2d_xlib
 //         return false;
 //
 //   //      ASSERT(get_handle1() != nullptr);
-//   //      return ::DrawState(get_handle1(), (HBRUSH)pBrush->get_os_data(), lpDrawProc, lData, 0, point.x, point.y, size.cx, size.cy, nFlags|DST_COMPLEX) != false;
+//   //      return ::DrawState(get_handle1(), (HBRUSH)pBrush->get_os_data(), lpDrawProc, lData, 0, point.x, point.y, size.cx(), size.cy(), nFlags|DST_COMPLEX) != false;
 //
 //      }
 //
@@ -1446,7 +1446,7 @@ namespace draw2d_xlib
 
          imageWork.from(point_i32(maximum(0, m_pointAlphaBlend.x - x), maximum(0, m_pointAlphaBlend.y - y)),
             m_pimageAlphaBlend->get_graphics(), point_i32(maximum(0, x - m_pointAlphaBlend.x), maximum(0, y - m_pointAlphaBlend.y)),
-                               ::size_i32(maximum(0, size.cx - maximum(0, x - m_pointAlphaBlend.x)), maximum(0, size.cy - maximum(0, y - m_pointAlphaBlend.y))));*/
+                               ::size_i32(maximum(0, size.cx() - maximum(0, x - m_pointAlphaBlend.x)), maximum(0, size.cy() - maximum(0, y - m_pointAlphaBlend.y))));*/
 
          //keeper < image > keep(&m_pimageAlphaBlend, nullptr, m_pimageAlphaBlend, true);
 
@@ -1931,9 +1931,9 @@ namespace draw2d_xlib
       size_i32 sz1 = get_text_extent(str1);
       size_i32 sz2 = get_text_extent(str2);
 
-      lpMetrics->tmAveCharWidth = sz2.cx / (double) str2.length();
-      lpMetrics->tmAscent = sz1.cy;
-      lpMetrics->tmDescent = sz2.cy - sz1.cy;
+      lpMetrics->tmAveCharWidth = sz2.cx() / (double) str2.length();
+      lpMetrics->tmAscent = sz1.cy();
+      lpMetrics->tmDescent = sz2.cy() - sz1.cy();
 
 
       //retry_single_lock slGdiplus(psystem->s_mutexGdiplus, ::time(1), ::time(1));
@@ -3198,7 +3198,7 @@ namespace draw2d_xlib
             ::draw2d::region rgnOutside, rgnInside;
             rgnOutside.CreateRectRgnIndirect(rectangle);
             const ::rectangle_i32 & rectangle = *rectangle;
-            rectangle.inflate(-size.cx, -size.cy);
+            rectangle.inflate(-size.cx(), -size.cy());
             rectangle.intersect(rectangle, rectangle);
             rgnInside.CreateRectRgnIndirect(rectangle);
             rgnNew.CreateRectRgn(0, 0, 0, 0);
@@ -3224,7 +3224,7 @@ namespace draw2d_xlib
                rgnLast.CreateRectRgn(0, 0, 0, 0);
                rgnOutside.SetRectRgn(lpRectLast);
                rectangle = *lpRectLast;
-               rectangle.inflate(-sizeLast.cx, -sizeLast.cy);
+               rectangle.inflate(-sizeLast.cx(), -sizeLast.cy());
                rectangle.intersect(rectangle, lpRectLast);
                rgnInside.SetRectRgn(rectangle);
                rgnLast.CombineRgn(&rgnOutside, &rgnInside, RGN_XOR);
@@ -3883,9 +3883,9 @@ namespace draw2d_xlib
       /*
             i32 nRetVal = ERROR;
             if(get_handle1() != nullptr && get_handle1() != get_handle2())
-               nRetVal = ::OffsetClipRgn(get_handle1(), size.cx, size.cy);
+               nRetVal = ::OffsetClipRgn(get_handle1(), size.cx(), size.cy());
             if(get_handle2() != nullptr)
-               nRetVal = ::OffsetClipRgn(get_handle2(), size.cx, size.cy);
+               nRetVal = ::OffsetClipRgn(get_handle2(), size.cx(), size.cy());
             return nRetVal;
       */
    }
@@ -4363,8 +4363,8 @@ namespace draw2d_xlib
 
             size_i32 sizeWinExt = GetWindowExt();
             size_i32 sizeVpExt = get_context_extents();
-            LPSIZE32->cx = MulDiv(LPSIZE32->cx, abs(sizeVpExt.cx), abs(sizeWinExt.cx));
-            LPSIZE32->cy = MulDiv(LPSIZE32->cy, abs(sizeVpExt.cy), abs(sizeWinExt.cy));
+            LPSIZE32->cx = MulDiv(LPSIZE32->cx, abs(sizeVpExt.cx()), abs(sizeWinExt.cx()));
+            LPSIZE32->cy = MulDiv(LPSIZE32->cy, abs(sizeVpExt.cy()), abs(sizeWinExt.cy()));
       */
 
    }
@@ -4380,8 +4380,8 @@ namespace draw2d_xlib
 
             size_i32 sizeWinExt = GetWindowExt();
             size_i32 sizeVpExt = get_context_extents();
-            LPSIZE32->cx = MulDiv(LPSIZE32->cx, abs(sizeWinExt.cx), abs(sizeVpExt.cx));
-            LPSIZE32->cy = MulDiv(LPSIZE32->cy, abs(sizeWinExt.cy), abs(sizeVpExt.cy));
+            LPSIZE32->cx = MulDiv(LPSIZE32->cx, abs(sizeWinExt.cx()), abs(sizeVpExt.cx()));
+            LPSIZE32->cy = MulDiv(LPSIZE32->cy, abs(sizeWinExt.cy()), abs(sizeVpExt.cy()));
       */
 
    }
@@ -4432,11 +4432,11 @@ namespace draw2d_xlib
 
       if(nFormat & e_align_right)
       {
-         greekdeltax = rectangle.right - rectangle.left - sz.cx;
+         greekdeltax = rectangle.right - rectangle.left - sz.cx();
       }
       else if(nFormat & e_align_horizontal_center)
       {
-         greekdeltax = ((rectangle.right - rectangle.left) - (sz.cx)) / 2.0;
+         greekdeltax = ((rectangle.right - rectangle.left) - (sz.cx())) / 2.0;
       }
       else
       {
@@ -4445,11 +4445,11 @@ namespace draw2d_xlib
 
       if(nFormat & e_align_bottom)
       {
-         greekdeltay = rectangle.bottom - rectangle.top - sz.cy;
+         greekdeltay = rectangle.bottom - rectangle.top - sz.cy();
       }
       else if(nFormat & e_align_vertical_center)
       {
-         greekdeltay = ((rectangle.bottom - rectangle.top) - (sz.cy)) / 2.0;
+         greekdeltay = ((rectangle.bottom - rectangle.top) - (sz.cy())) / 2.0;
       }
       else
       {
@@ -4640,9 +4640,9 @@ namespace draw2d_xlib
 
       ::size_i32  sz = get_text_extent(lpszString, nCount, iIndex);
 
-      size.cx = sz.cx;
+      size.cx() = sz.cx();
 
-      size.cy = sz.cy;
+      size.cy() = sz.cy();
 
       return true;
 
@@ -5583,7 +5583,7 @@ ok:
    {
 
       size_i32 sz = get_text_extent(L"Ac");
-      return sz.cy;
+      return sz.cy();
       /*
             ::draw2d_xlib::bitmap * pbitmap = dynamic_cast < ::draw2d_xlib::bitmap * > (m_pbitmap.m_p);
 

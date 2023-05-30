@@ -121,7 +121,7 @@ namespace windowing_xcb
 //
 //      //m_mem.m_bAligned = true;
 //
-//      m_mem.set_size((m_iGoodStride * size.cy) * sizeof(color32_t));
+//      m_mem.set_size((m_iGoodStride * size.cy()) * sizeof(color32_t));
 //
 //      m_pixmap.init(size, (color32_t *) m_mem.get_data(), m_iGoodStride);
 //
@@ -518,7 +518,7 @@ namespace windowing_xcb
    ::draw2d::graphics * buffer::on_begin_draw()
    {
 
-      m_iGoodStride = maximum(m_iGoodStride, window_size().cx);
+      m_iGoodStride = maximum(m_iGoodStride, window_size().cx());
 
       bitmap_source_buffer::on_begin_draw();
 

@@ -10,7 +10,6 @@
 		9A0C1736264A2DAB00B5CC33 /* framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C171E264A2DAB00B5CC33 /* framework.cpp */; };
 		9A0C1738264A2DAB00B5CC33 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C1720264A2DAB00B5CC33 /* node.cpp */; };
 		9A0C173A264A2DAB00B5CC33 /* node.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1722264A2DAB00B5CC33 /* node.h */; };
-		9A0C173C264A2DAB00B5CC33 /* _library.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1724264A2DAB00B5CC33 /* _library.h */; };
 		9A0C173D264A2DAB00B5CC33 /* file_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C1725264A2DAB00B5CC33 /* file_context.cpp */; };
 		9A0C173E264A2DAB00B5CC33 /* file_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1726264A2DAB00B5CC33 /* file_context.h */; };
 		9A0C173F264A2DAB00B5CC33 /* _.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C1727264A2DAB00B5CC33 /* _.cpp */; };
@@ -26,7 +25,6 @@
 		9A8E9DFB282A2FCA005FF778 /* _.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1734264A2DAB00B5CC33 /* _.h */; };
 		9A8E9DFC282A2FCA005FF778 /* node.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1722264A2DAB00B5CC33 /* node.h */; };
 		9A8E9DFD282A2FCA005FF778 /* file_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1726264A2DAB00B5CC33 /* file_context.h */; };
-		9A8E9DFE282A2FCA005FF778 /* _library.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1724264A2DAB00B5CC33 /* _library.h */; };
 		9A8E9DFF282A2FCA005FF778 /* framework.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C1730264A2DAB00B5CC33 /* framework.h */; };
 		9A8E9E01282A2FCA005FF778 /* file_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C1725264A2DAB00B5CC33 /* file_context.cpp */; };
 		9A8E9E02282A2FCA005FF778 /* framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C171E264A2DAB00B5CC33 /* framework.cpp */; };
@@ -103,11 +101,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9A03B8252A25BF3B00A0E33E /* debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; };
+		9A03B8262A25BF3B00A0E33E /* release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = release.xcconfig; sourceTree = "<group>"; };
 		9A0C1680264A29B800B5CC33 /* libapex_posix.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libapex_posix.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A0C171E264A2DAB00B5CC33 /* framework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = framework.cpp; sourceTree = "<group>"; };
 		9A0C1720264A2DAB00B5CC33 /* node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = node.cpp; sourceTree = "<group>"; };
 		9A0C1722264A2DAB00B5CC33 /* node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = node.h; sourceTree = "<group>"; };
-		9A0C1724264A2DAB00B5CC33 /* _library.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _library.h; sourceTree = "<group>"; };
 		9A0C1725264A2DAB00B5CC33 /* file_context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file_context.cpp; sourceTree = "<group>"; };
 		9A0C1726264A2DAB00B5CC33 /* file_context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file_context.h; sourceTree = "<group>"; };
 		9A0C1727264A2DAB00B5CC33 /* _.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = _.cpp; sourceTree = "<group>"; };
@@ -163,14 +162,15 @@
 				9A226D4A27CE9D7C0042BAC2 /* os_context.h */,
 				9A0C1727264A2DAB00B5CC33 /* _.cpp */,
 				9A0C1734264A2DAB00B5CC33 /* _.h */,
-				9A0C1724264A2DAB00B5CC33 /* _library.h */,
 				9A0C172D264A2DAB00B5CC33 /* _factory.cpp */,
+				9A03B8252A25BF3B00A0E33E /* debug.xcconfig */,
 				9A0C1725264A2DAB00B5CC33 /* file_context.cpp */,
 				9A0C1726264A2DAB00B5CC33 /* file_context.h */,
 				9A0C171E264A2DAB00B5CC33 /* framework.cpp */,
 				9A0C1730264A2DAB00B5CC33 /* framework.h */,
 				9A0C1720264A2DAB00B5CC33 /* node.cpp */,
 				9A0C1722264A2DAB00B5CC33 /* node.h */,
+				9A03B8262A25BF3B00A0E33E /* release.xcconfig */,
 			);
 			name = apex_posix;
 			sourceTree = "<group>";
@@ -188,8 +188,8 @@
 			isa = PBXGroup;
 			children = (
 				9A0C17C7264A31EA00B5CC33 /* libacme_posix.dylib */,
-				9A9C7E4A29A0181600DBFD07 /* lib_acme_posix.a */,
 				9A8E9E11282A2FCA005FF778 /* libios_acme_posix.a */,
+				9A9C7E4A29A0181600DBFD07 /* libstatic_acme_posix.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -213,7 +213,6 @@
 				9A0C1748264A2DAB00B5CC33 /* _.h in Headers */,
 				9A0C173A264A2DAB00B5CC33 /* node.h in Headers */,
 				9A0C173E264A2DAB00B5CC33 /* file_context.h in Headers */,
-				9A0C173C264A2DAB00B5CC33 /* _library.h in Headers */,
 				9A0C1744264A2DAB00B5CC33 /* framework.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,7 +225,6 @@
 				9A8E9DFB282A2FCA005FF778 /* _.h in Headers */,
 				9A8E9DFC282A2FCA005FF778 /* node.h in Headers */,
 				9A8E9DFD282A2FCA005FF778 /* file_context.h in Headers */,
-				9A8E9DFE282A2FCA005FF778 /* _library.h in Headers */,
 				9A8E9DFF282A2FCA005FF778 /* framework.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -342,10 +340,10 @@
 			remoteRef = 9A8E9E10282A2FCA005FF778 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9A9C7E4A29A0181600DBFD07 /* lib_acme_posix.a */ = {
+		9A9C7E4A29A0181600DBFD07 /* libstatic_acme_posix.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.dylib";
-			path = lib_acme_posix.a;
+			path = libstatic_acme_posix.a;
 			remoteRef = 9A9C7E4929A0181600DBFD07 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -406,6 +404,7 @@
 /* Begin XCBuildConfiguration section */
 		9A0C1687264A29B800B5CC33 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A03B8252A25BF3B00A0E33E /* debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -503,6 +502,7 @@
 		};
 		9A0C1688264A29B800B5CC33 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A03B8262A25BF3B00A0E33E /* release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;

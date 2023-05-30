@@ -32,7 +32,6 @@
 		9AC2D03F2653DB5C00CC8096 /* _factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D01E2653DB5B00CC8096 /* _factory.cpp */; };
 		9AC2D0412653DB5C00CC8096 /* framework.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D0242653DB5B00CC8096 /* framework.h */; };
 		9AC2D0432653DB5C00CC8096 /* appindicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D0262653DB5B00CC8096 /* appindicator.h */; };
-		9AC2D0452653DB5C00CC8096 /* _library.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D0282653DB5B00CC8096 /* _library.h */; };
 		9AC2D0462653DB5C00CC8096 /* shell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2D0292653DB5B00CC8096 /* shell.cpp */; };
 		9AC2D0492653DB5C00CC8096 /* _.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AC2D02C2653DB5B00CC8096 /* _.h */; };
 /* End PBXBuildFile section */
@@ -125,6 +124,8 @@
 /* Begin PBXFileReference section */
 		07B657B8190F3CBF002DAADE /* libios_aura_posix.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libios_aura_posix.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		07B657C7190F3CBF002DAADE /* music_midi_core_audio_iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = music_midi_core_audio_iosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A03B8282A25BF9D00A0E33E /* debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; };
+		9A03B8292A25BF9D00A0E33E /* release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = release.xcconfig; sourceTree = "<group>"; };
 		9A2BB87E2654F8FB00ABA8B9 /* apex_posix.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = apex_posix.xcodeproj; path = ../apex_posix/apex_posix.xcodeproj; sourceTree = "<group>"; };
 		9A412445266C3FC500C3FF0E /* libacme_posix.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libacme_posix.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A412447266C3FC500C3FF0E /* libapex.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libapex.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,7 +145,6 @@
 		9AC2D01E2653DB5B00CC8096 /* _factory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = _factory.cpp; sourceTree = "<group>"; };
 		9AC2D0242653DB5B00CC8096 /* framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = framework.h; sourceTree = "<group>"; };
 		9AC2D0262653DB5B00CC8096 /* appindicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = appindicator.h; sourceTree = "<group>"; };
-		9AC2D0282653DB5B00CC8096 /* _library.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _library.h; sourceTree = "<group>"; };
 		9AC2D0292653DB5B00CC8096 /* shell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shell.cpp; sourceTree = "<group>"; };
 		9AC2D02C2653DB5B00CC8096 /* _.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _.h; sourceTree = "<group>"; };
 		A1CFD778154F5EAA007447E2 /* libaura_posix.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libaura_posix.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -220,15 +220,16 @@
 			children = (
 				9AC2D01B2653DB5B00CC8096 /* _.cpp */,
 				9AC2D02C2653DB5B00CC8096 /* _.h */,
-				9AC2D0282653DB5B00CC8096 /* _library.h */,
 				9AC2D01E2653DB5B00CC8096 /* _factory.cpp */,
 				9AC2D01C2653DB5B00CC8096 /* appindicator.cpp */,
 				9AC2D0262653DB5B00CC8096 /* appindicator.h */,
 				9AC2D0142653DB5B00CC8096 /* clipboard_data.h */,
+				9A03B8282A25BF9D00A0E33E /* debug.xcconfig */,
 				9AC2D0152653DB5B00CC8096 /* framework.cpp */,
 				9AC2D0242653DB5B00CC8096 /* framework.h */,
 				9AC2D0192653DB5B00CC8096 /* node.cpp */,
 				9AC2D01A2653DB5B00CC8096 /* node.h */,
+				9A03B8292A25BF9D00A0E33E /* release.xcconfig */,
 				9AC2D0292653DB5B00CC8096 /* shell.cpp */,
 				9AC2D00D2653DB5B00CC8096 /* shell.h */,
 				9AC2D01D2653DB5B00CC8096 /* user.h */,
@@ -268,7 +269,6 @@
 				9AC2D03B2653DB5C00CC8096 /* node.h in Headers */,
 				9AC2D0432653DB5C00CC8096 /* appindicator.h in Headers */,
 				9AC2D03E2653DB5C00CC8096 /* user.h in Headers */,
-				9AC2D0452653DB5C00CC8096 /* _library.h in Headers */,
 				9AC2D0412653DB5C00CC8096 /* framework.h in Headers */,
 				9AC2D02F2653DB5C00CC8096 /* shell.h in Headers */,
 				9AC2D0352653DB5C00CC8096 /* clipboard_data.h in Headers */,
@@ -586,6 +586,7 @@
 		};
 		A1CFD77A154F5EAA007447E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A03B8282A25BF9D00A0E33E /* debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_DEADCODE_DEADSTORES = NO;
@@ -683,6 +684,7 @@
 		};
 		A1CFD77B154F5EAA007447E2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A03B8292A25BF9D00A0E33E /* release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_DEADCODE_DEADSTORES = NO;

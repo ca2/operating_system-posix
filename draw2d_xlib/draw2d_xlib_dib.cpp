@@ -70,7 +70,7 @@ namespace draw2d_xlib
 
    bool image::create(::size_i32 size)
    {
-      return create(size.cx, size.cy);
+      return create(size.cx(), size.cy());
    }
 
    bool image::create(i32 width, i32 height)
@@ -79,8 +79,8 @@ namespace draw2d_xlib
             && m_pbitmap->get_os_data() != nullptr
             && m_spgraphics.is_set()
             && m_spgraphics->get_os_data() != nullptr
-            && width == m_size.cx
-            && height == m_size.cy)
+            && width == m_size.cx()
+            && height == m_size.cy())
          return true;
 
       Destroy();
@@ -105,16 +105,16 @@ namespace draw2d_xlib
 
       if(m_pbitmap.m_p == nullptr)
       {
-         m_size.cx = 0;
-         m_size.cy = 0;
+         m_size.cx() = 0;
+         m_size.cy() = 0;
          m_iScan = 0;
          return false;
       }
 
       if(!m_pbitmap->CreateDIBSection(nullptr, &m_info, DIB_RGB_COLORS, (void **) &m_pcolorref, &m_iScan, nullptr, 0))
       {
-         m_size.cx = 0;
-         m_size.cy = 0;
+         m_size.cx() = 0;
+         m_size.cy() = 0;
          m_iScan = 0;
          return false;
       }
@@ -131,8 +131,8 @@ namespace draw2d_xlib
             return false;
          }
          ((Gdiplus::Bitmap *)pbitmap->get_os_data())->GetHBITMAP(Gdiplus::Color(0, 0, 0, 0), &m_hbitmapOriginal);*/
-         m_size.cx = width;
-         m_size.cy = height;
+         m_size.cx() = width;
+         m_size.cy() = height;
          return true;
       }
       else
@@ -161,7 +161,7 @@ namespace draw2d_xlib
       if(pbitmap == nullptr)
          return false;
       ::size_i32 size = pbitmap->get_size();
-      if(!create(size.cx, size.cy))
+      if(!create(size.cx(), size.cy()))
       {
          return false;
       }
@@ -184,8 +184,8 @@ namespace draw2d_xlib
 
       m_spgraphics.release();
 
-      m_size.cx               = 0;
-      m_size.cy               = 0;
+      m_size.cx()               = 0;
+      m_size.cy()               = 0;
       m_pcolorref             = nullptr;
       m_bMapped               = false;
 
@@ -195,12 +195,12 @@ namespace draw2d_xlib
    bool image::to(::draw2d::graphics * pgraphics, const ::point_i32 & point, ::size_i32 size, const ::point_i32 & pointSrc)
    {
 
-      return pgraphics->BitBlt(point.x, point.y, size.cx, size.cy, get_graphics(), pointSrc.x, pointSrc.y) != false;
+      return pgraphics->BitBlt(point.x, point.y, size.cx(), size.cy(), get_graphics(), pointSrc.x, pointSrc.y) != false;
 
       /*  return SetDIBitsToDevice(
            (dynamic_cast<::win::graphics * >(pgraphics))->get_handle1(),
            point.x, point.y,
-           size.cx, size.cy,
+           size.cx(), size.cy(),
            pointSrc.x, pointSrc.y, pointSrc.y, cy - pointSrc.y,
            m_pcolorref, &m_info, 0)
               != false; */
@@ -228,7 +228,7 @@ namespace draw2d_xlib
 
    bool image::from(point_i32 ptDest, ::draw2d::graphics * pgraphics, const ::point_i32 & point, ::size_i32 sz)
    {
-      return m_spgraphics->BitBlt(ptDest.x, ptDest.y, sz.cx, sz.cy, pgraphics, point.x, point.y) != false;
+      return m_spgraphics->BitBlt(ptDest.x, ptDest.y, sz.cx(), sz.cy(), pgraphics, point.x, point.y) != false;
    }
 
    //void image::Fill ( i32 R, i32 G, i32 B )
@@ -404,11 +404,11 @@ namespace draw2d_xlib
 //                     pb->m_ui.m_window->display(),
 //                     pb->m_pixmap,
 //                     0, 0,
-//                     m_size.cx, m_size.cy,
+//                     m_size.cx(), m_size.cy(),
 //                     -1,
 //                     ZPixmap);
 
-      ::memory_copy(m_pcolorref, m_ppimage->data, m_iScan * m_size.cy);
+      ::memory_copy(m_pcolorref, m_ppimage->data, m_iScan * m_size.cy());
 
       m_bMapped = true;
 
@@ -430,7 +430,7 @@ namespace draw2d_xlib
 
       ::draw2d_xlib::graphics * pg = m_spgraphics.cast < ::draw2d_xlib::graphics >();
 
-      ::memory_copy(m_ppimage->data, m_pcolorref, m_iScan * m_size.cy);
+      ::memory_copy(m_ppimage->data, m_pcolorref, m_iScan * m_size.cy());
 
 //      XPutImage(
 //                     pb->m_ui.m_window->display(),
@@ -439,7 +439,7 @@ namespace draw2d_xlib
 //                     m_pimage,
 //                     0, 0,
 //                     0, 0,
-//                     m_size.cx, m_size.cy);
+//                     m_size.cx(), m_size.cy());
 
       XDestroyImage(m_pimage);
 
@@ -1451,14 +1451,14 @@ namespace draw2d_xlib
 //
 //
 //         if(xL < 0) xL = 0;
-//         if(xU >= m_Size.cx) xU = m_Size.cx - 1;
+//         if(xU >= m_Size.cx()) xU = m_Size.cx() - 1;
 //         if(yL < 0) yL = 0;
-//         if(yU >= m_Size.cy) yU = m_Size.cy - 1;
+//         if(yU >= m_Size.cy()) yU = m_Size.cy() - 1;
 //
 //
-//         byte *dst = ((byte*)(m_pcolorref + xL + yL * m_Size.cx));
-//         u32 dwAdd = ((m_Size.cx - 1 - xU) + xL) * 4;
-//         i32 size=m_Size.cx*m_Size.cy;
+//         byte *dst = ((byte*)(m_pcolorref + xL + yL * m_Size.cx()));
+//         u32 dwAdd = ((m_Size.cx() - 1 - xU) + xL) * 4;
+//         i32 size=m_Size.cx()*m_Size.cy();
 //         double iLevel;
 //
 //         i32 greekdeltax, greekdeltay;
@@ -1611,14 +1611,14 @@ namespace draw2d_xlib
 //
 //
 //         if(xL < 0) xL = 0;
-//         if(xU >= m_Size.cx) xU = m_Size.cx - 1;
+//         if(xU >= m_Size.cx()) xU = m_Size.cx() - 1;
 //         if(yL < 0) yL = 0;
-//         if(yU >= m_Size.cy) yU = m_Size.cy - 1;
+//         if(yU >= m_Size.cy()) yU = m_Size.cy() - 1;
 //
 //
-//         byte *dst = ((byte*)(m_pcolorref + xL + yL * m_Size.cx));
-//         u32 dwAdd = ((m_Size.cx - 1 - xU) + xL) * 4;
-//         i32 size=m_Size.cx*m_Size.cy;
+//         byte *dst = ((byte*)(m_pcolorref + xL + yL * m_Size.cx()));
+//         u32 dwAdd = ((m_Size.cx() - 1 - xU) + xL) * 4;
+//         i32 size=m_Size.cx()*m_Size.cy();
 //         double iLevel;
 //
 //         i32 greekdeltax, greekdeltay;
@@ -2220,8 +2220,8 @@ namespace draw2d_xlib
    //void image::create_frame(::size_i32 size, i32 iFrameCount)
    //{
    //   i32 iSliceCount = (i32) sqrt((double) iFrameCount);
-   //   i32 iFrameWidth = size.cx / iSliceCount;
-   //   i32 iFrameHeight = size.cy / iSliceCount;
+   //   i32 iFrameWidth = size.cx() / iSliceCount;
+   //   i32 iFrameHeight = size.cy() / iSliceCount;
    //   create(iFrameWidth, iFrameHeight);
    //}
 
@@ -2601,8 +2601,8 @@ namespace draw2d_xlib
 
       rectx.left = 0;
       rectx.top = 0;
-      rectx.right = size.cx;
-      rectx.bottom = size.cy;
+      rectx.right = size.cx();
+      rectx.bottom = size.cy();
 
       try
       {

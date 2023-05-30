@@ -118,7 +118,7 @@ namespace windowing_x11
 //
 //      //m_mem.m_bAligned = true;
 //
-//      m_mem.set_size((m_iGoodStride * size.cy) * sizeof(color32_t));
+//      m_mem.set_size((m_iGoodStride * size.cy()) * sizeof(color32_t));
 //
 //      m_pixmap.init(size, (color32_t *) m_mem.get_data(), m_iGoodStride);
 //
@@ -344,8 +344,8 @@ namespace windowing_x11
       XImage * pximage = nullptr;
 
       //if(!pximage)
-      //if(m_pimpl->m_sizeSetWindowSizeRequest.cx > m_pimpl->m_sizeDrawn.cx
-        // || m_pimpl->m_sizeSetWindowSizeRequest.cy > m_pimpl->m_sizeDrawn.cy)
+      //if(m_pimpl->m_sizeSetWindowSizeRequest.cx() > m_pimpl->m_sizeDrawn.cx()
+        // || m_pimpl->m_sizeSetWindowSizeRequest.cy() > m_pimpl->m_sizeDrawn.cy())
       if(m_pimpl->m_sizeSetWindowSizeRequest != m_pimpl->m_sizeDrawn)
       {
 
@@ -388,8 +388,8 @@ namespace windowing_x11
                ZPixmap,
                0,
                (char *) pimage->get_data(),
-               m_pimpl->m_sizeDrawn.cx,
-               m_pimpl->m_sizeDrawn.cy,
+               m_pimpl->m_sizeDrawn.cx(),
+               m_pimpl->m_sizeDrawn.cy(),
                sizeof(color32_t) * 8,
                pimage->scan_size());
 
@@ -506,7 +506,7 @@ namespace windowing_x11
    ::draw2d::graphics * buffer::on_begin_draw()
    {
 
-      int cx = window_size().cx;
+      int cx = window_size().cx();
 
       m_iGoodStride = maximum(m_iGoodStride, cx);
 

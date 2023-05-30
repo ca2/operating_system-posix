@@ -94,9 +94,9 @@ namespace draw2d_xlib
 //
 //      }
 
-      m_size.cx = cx;
+      m_size.cx() = cx;
 
-      m_size.cy = cy;
+      m_size.cy() = cy;
 
       return true;
 
@@ -201,8 +201,8 @@ namespace draw2d_xlib
 
       }
 
-      m_size.cx = cx;
-      m_size.cy = cy;
+      m_size.cx() = cx;
+      m_size.cy() = cy;
 
 
 
@@ -381,7 +381,7 @@ namespace draw2d_xlib
 
 //      m_pixmap = (xlib_surface_t *) psurface;
 
-  //    get_surface_size((xlib_surface_t *) psurface, &m_size.cx, &m_size.cy);
+  //    get_surface_size((xlib_surface_t *) psurface, &m_size.cx(), &m_size.cy());
 
       return true;
 
