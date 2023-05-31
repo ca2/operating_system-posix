@@ -101,8 +101,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9A03B8252A25BF3B00A0E33E /* debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; };
-		9A03B8262A25BF3B00A0E33E /* release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = release.xcconfig; sourceTree = "<group>"; };
+		9A03B8252A25BF3B00A0E33E /* _____debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = _____debug.xcconfig; sourceTree = "<group>"; };
+		9A03B8262A25BF3B00A0E33E /* _____release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = _____release.xcconfig; sourceTree = "<group>"; };
 		9A0C1680264A29B800B5CC33 /* libapex_posix.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libapex_posix.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A0C171E264A2DAB00B5CC33 /* framework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = framework.cpp; sourceTree = "<group>"; };
 		9A0C1720264A2DAB00B5CC33 /* node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = node.cpp; sourceTree = "<group>"; };
@@ -163,14 +163,14 @@
 				9A0C1727264A2DAB00B5CC33 /* _.cpp */,
 				9A0C1734264A2DAB00B5CC33 /* _.h */,
 				9A0C172D264A2DAB00B5CC33 /* _factory.cpp */,
-				9A03B8252A25BF3B00A0E33E /* debug.xcconfig */,
+				9A03B8252A25BF3B00A0E33E /* _____debug.xcconfig */,
 				9A0C1725264A2DAB00B5CC33 /* file_context.cpp */,
 				9A0C1726264A2DAB00B5CC33 /* file_context.h */,
 				9A0C171E264A2DAB00B5CC33 /* framework.cpp */,
 				9A0C1730264A2DAB00B5CC33 /* framework.h */,
 				9A0C1720264A2DAB00B5CC33 /* node.cpp */,
 				9A0C1722264A2DAB00B5CC33 /* node.h */,
-				9A03B8262A25BF3B00A0E33E /* release.xcconfig */,
+				9A03B8262A25BF3B00A0E33E /* _____release.xcconfig */,
 			);
 			name = apex_posix;
 			sourceTree = "<group>";
@@ -404,7 +404,7 @@
 /* Begin XCBuildConfiguration section */
 		9A0C1687264A29B800B5CC33 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9A03B8252A25BF3B00A0E33E /* debug.xcconfig */;
+			baseConfigurationReference = 9A03B8252A25BF3B00A0E33E /* _____debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -501,7 +501,7 @@
 		};
 		9A0C1688264A29B800B5CC33 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9A03B8262A25BF3B00A0E33E /* release.xcconfig */;
+			baseConfigurationReference = 9A03B8262A25BF3B00A0E33E /* _____release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
