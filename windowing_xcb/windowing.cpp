@@ -1603,7 +1603,7 @@ namespace windowing_xcb
 
             //msg.time = pbutton->time;
 
-            i32 Δ = 0;
+            i32 greekdelta = 0;
 
             ::enum_message emessage = e_message_null;
 
@@ -1636,13 +1636,13 @@ namespace windowing_xcb
                else if (pbutton->detail == XCB_BUTTON_INDEX_4)
                {
 
-                   Δ = 120;
+                   greekdelta = 120;
 
                }
                else if (pbutton->detail == XCB_BUTTON_INDEX_5)
                {
 
-                   Δ = -120;
+                   greekdelta = -120;
 
                }
                else
@@ -1731,7 +1731,7 @@ namespace windowing_xcb
             if (bRet && (!bHasTranslucency || bMouseCapture || alpha != 0 || bTransparentMouseEvents))
             {
 
-               if(Δ != 0)
+               if(greekdelta != 0)
                {
 
                    auto pmessage = __create_new < ::message::mouse_wheel >();
@@ -1743,7 +1743,7 @@ namespace windowing_xcb
 
                    pmessage->m_atom = e_message_mouse_wheel;
 
-                  pmessage->m_Δ = Δ;
+                  pmessage->m_greekdelta = greekdelta;
 
                    pmessage->m_point = {pbutton->root_x, pbutton->root_y};
 
@@ -1761,7 +1761,7 @@ namespace windowing_xcb
 
                    pmessage->m_atom = emessage;
 
-                   pmessage->m_Δ = Δ;
+                   pmessage->m_greekdelta = greekdelta;
 
                    pmessage->m_point = {pbutton->root_x, pbutton->root_y};
 
