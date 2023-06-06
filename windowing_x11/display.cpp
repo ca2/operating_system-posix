@@ -626,8 +626,8 @@ namespace windowing_x11
 
       display_lock displaylock(Display());
 
-      XQueryPointer(Display(), DefaultRootWindow(Display()), &root_return, &child_return, &ppointCursor->x,
-                    &ppointCursor->y, &win_x_return, &win_y_return, &mask_return);
+      XQueryPointer(Display(), DefaultRootWindow(Display()), &root_return, &child_return, &ppointCursor->x(),
+                    &ppointCursor->y(), &win_x_return, &win_y_return, &mask_return);
 
 #ifdef display_lock_LOCK_LOG
 
