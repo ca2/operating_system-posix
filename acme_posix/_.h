@@ -2,7 +2,6 @@
 
 
 #include "acme/_.h"
-//#include "acme/operating_system.h"
 
 
 #if defined(_acme_posix_project)
@@ -12,21 +11,14 @@
 #endif
 
 
-namespace acme
+namespace acme_posix
 {
 
 
-   namespace posix
-   {
+   class node;
 
 
-      class node;
-
-
-   } // namespace posix
-
-
-} // namespace node_gnome
+} // namespace acme_posix
 
 
 
