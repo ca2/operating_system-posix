@@ -941,38 +941,74 @@ namespace acme_posix
 
       //}
 
-      struct timespec times[2];
-
-      times[0].tv_sec = 0;
-      times[0].tv_nsec = UTIME_OMIT;
-      times[1].tv_sec = time.m_iSecond;
-      times[1].tv_nsec = time.m_iNanosecond;
-
-      if(futimens(m_iFile, times))
+#ifdef __APPLE__
+      if (__builtin_available(macOS 10.13, *))
       {
+#endif
+         struct timespec times[2];
 
+         times[0].tv_sec = 0;
+         times[0].tv_nsec = UTIME_OMIT;
+         times[1].tv_sec = time.m_iSecond;
+         times[1].tv_nsec = time.m_iNanosecond;
+         if(futimens(m_iFile, times))
+         {
+            
+            
+            //utimbuf utimbuf;
+            
+            //utimbuf.actime = statAttribute.st_atime;
+            
+            //utimbuf.modtime = time.m_time;
+            
+            //if(utime(path, &utimbuf))
+            //{
+            
+            int iErrNo = errno;
+            
+            //auto estatus = errno_status(iErrNo);
+            
+            string strMessage;
+            
+            strMessage = "Failed to set file modification time";
+            
+            ::throw_errno_exception(m_path, m_eopen, strMessage, iErrNo);
+            
+         }
+#ifdef __APPLE__
+      } else {
+         struct timeval times[2];
 
-      //utimbuf utimbuf;
-
-      //utimbuf.actime = statAttribute.st_atime;
-
-      //utimbuf.modtime = time.m_time;
-
-      //if(utime(path, &utimbuf))
-      //{
-
-         int iErrNo = errno;
-
-         //auto estatus = errno_status(iErrNo);
-
-         string strMessage;
-
-         strMessage = "Failed to set file modification time";
-
-         ::throw_errno_exception(m_path, m_eopen, strMessage, iErrNo);
-
+         times[0].tv_sec = 0;
+         times[0].tv_usec = UTIME_OMIT;
+         times[1].tv_sec = time.m_iSecond;
+         times[1].tv_usec = (int) ( time.m_iNanosecond /1000);
+         if(futimes(m_iFile, times))
+         {
+            
+            
+            //utimbuf utimbuf;
+            
+            //utimbuf.actime = statAttribute.st_atime;
+            
+            //utimbuf.modtime = time.m_time;
+            
+            //if(utime(path, &utimbuf))
+            //{
+            
+            int iErrNo = errno;
+            
+            //auto estatus = errno_status(iErrNo);
+            
+            string strMessage;
+            
+            strMessage = "Failed to set file modification time";
+            
+            ::throw_errno_exception(m_path, m_eopen, strMessage, iErrNo);
+            
+         }
       }
-
+#endif
    }
 
 } // namespace acme_android
