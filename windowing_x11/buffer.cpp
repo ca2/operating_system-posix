@@ -355,7 +355,7 @@ namespace windowing_x11
 
          rectangle_i32 rectangleActualWindow;
 
-         x11_window()->window_rectangle(rectangleActualWindow);
+         x11_window()->window_rectangle(&rectangleActualWindow);
 
          m_pimpl->m_puserinteraction->set_need_layout();
 

@@ -144,9 +144,9 @@ namespace windowing_x11
 
       display_lock displaylock(pdisplayx11->Display());
 
-      int x = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().x;
+      int x = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().x();
 
-      int y = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().y;
+      int y = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().y();
 
       int cx = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().width();
 
@@ -2961,7 +2961,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
       ::rectangle_i32 rectangle;
 
-      x11_get_window_rect(rectangle);
+      x11_get_window_rect(&rectangle);
 
 //r = oswindow->m_puserinteractionimpl->m_puserinteraction->window_rectangle();
 
@@ -2976,7 +2976,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
          ::rectangle_i32 rectangleHigher;
 
-         if (::x11_get_window_rect(Display(), windowa[iFind], rectangleHigher))
+         if (::x11_get_window_rect(Display(), windowa[iFind], &rectangleHigher))
          {
 
             ra.add(rectangleHigher);
@@ -3946,7 +3946,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
    }
 
 
-   void window(x11)::set_keyboard_focus()
+   void window::set_keyboard_focus()
    {
 
       synchronous_lock synchronouslock(user_synchronization());

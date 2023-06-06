@@ -1591,7 +1591,7 @@ void windowing::_defer_position_message(oswindow oswindow, const ::point_i32 & p
 
             msg.m_atom = e_message_reposition;
             msg.wParam = 0;
-            msg.lParam = point.lparam();
+            msg.lParam = ::lparam(point);
 
             post_ui_message(msg);
 
@@ -1980,9 +1980,9 @@ else if(detail == 3)
             if(msg.oswindow)
             {
 
-               ::minimum(m_pointCursor.x);
+               ::minimum(m_pointCursor.x());
 
-               ::minimum(m_pointCursor.y);
+               ::minimum(m_pointCursor.y());
 
 //            if(e.xcrossing.mode == NotifyUngrab)
 //            {
@@ -2027,9 +2027,9 @@ else if(detail == 3)
             if(msg.oswindow)
             {
 
-               m_pointCursor.x = e.xmotion.x_root;
+               m_pointCursor.x() = e.xmotion.x_root;
 
-               m_pointCursor.y = e.xmotion.y_root;
+               m_pointCursor.y() = e.xmotion.y_root;
 
                msg.oswindow->set_cursor_position(m_pointCursor);
 
@@ -2153,9 +2153,9 @@ else if(detail == 3)
 
                pmouse->m_atom = e_message_mouse_move;
 
-               pmouse->m_point.x = e.xmotion.x_root;
+               pmouse->m_point.x() = e.xmotion.x_root;
 
-               pmouse->m_point.y = e.xmotion.y_root;
+               pmouse->m_point.y() = e.xmotion.y_root;
 
                pmouse->m_time.m_iSecond = e.xmotion.time / 1_k;
 
@@ -2756,9 +2756,9 @@ else if(detail == 3)
 
                int YRoot = e.xbutton.y_root;
 
-               m_pointCursor.x = XRoot;
+               m_pointCursor.x() = XRoot;
 
-               m_pointCursor.y = YRoot;
+               m_pointCursor.y() = YRoot;
 
                msg.oswindow->set_cursor_position(m_pointCursor);
 
@@ -2793,9 +2793,9 @@ else if(detail == 3)
 
                   //msg.lParam = __MAKE_LONG(e.xbutton.x_root, e.xbutton.y_root);
 
-                   pmousewheel->m_point.x = e.xbutton.x_root;
+                   pmousewheel->m_point.x() = e.xbutton.x_root;
 
-                   pmousewheel->m_point.y = e.xbutton.y_root;
+                   pmousewheel->m_point.y() = e.xbutton.y_root;
 
                    pmousewheel->m_time.m_iSecond = e.xbutton.time / 1_k;
 
@@ -2816,9 +2816,9 @@ else if(detail == 3)
 
                    pmouse->m_atom = emessage;
 
-                   pmouse->m_point.x = e.xbutton.x_root;
+                   pmouse->m_point.x() = e.xbutton.x_root;
 
-                   pmouse->m_point.y = e.xbutton.y_root;
+                   pmouse->m_point.y() = e.xbutton.y_root;
 
                    pmouse->m_time.m_iSecond = e.xbutton.time / 1_k;
 
