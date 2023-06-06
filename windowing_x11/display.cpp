@@ -856,7 +856,7 @@ namespace windowing_x11
 
             }
 
-            if (::x11_get_window_rect(Display(), windowa[i], rectangleHigher))
+            if (::x11_get_window_rect(Display(), windowa[i], &rectangleHigher))
             {
 
                ::rectangle_i32 rectangleHitTest;
