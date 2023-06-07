@@ -1,6 +1,6 @@
 // From acme/filesystem/file/dir.cpp by camilo 
 // on 2021-08-09 03:20 BRT
-// <3ThomasBorregaardSørensen!!
+// <3ThomasBorregaardSorensen!!
 #pragma once
 
 

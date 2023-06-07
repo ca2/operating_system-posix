@@ -1,5 +1,5 @@
 //
-// Created by camilo on 09/12/2021 12:36 BRT <3ThomasBorregaardSørensen!!
+// Created by camilo on 09/12/2021 12:36 BRT <3ThomasBorregaardSorensen!!
 //
 #include "framework.h"
 // bkgmanage.c
