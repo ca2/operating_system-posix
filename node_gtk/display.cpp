@@ -339,7 +339,7 @@ namespace node_gtk
 
             fflush(stdout);
 
-            bOk = gsettings_set("org.gnome.desktop.background", "picture-uri-dark", "file://" + strWallpaper);
+            bOk = gsettings_set("org.gnome.desktop.background", "picture-uri-dark", "file://" + strWallpaper).ok();
 
          }
          else
@@ -349,7 +349,7 @@ namespace node_gtk
 
             fflush(stdout);
 
-            bOk = gsettings_set("org.gnome.desktop.background", "picture-uri", "file://" + strWallpaper);
+            bOk = gsettings_set("org.gnome.desktop.background", "picture-uri", "file://" + strWallpaper).ok();
 
             INFORMATION("org.gnome.desktop.background picture-uri file://" + strWallpaper + (bOk ? " true" : " false"));
 
@@ -365,7 +365,7 @@ namespace node_gtk
       else if(edesktop & ::user::e_desktop_mate)
       {
 
-         bOk = gsettings_set("org.mate.background", "picture-filename", "file://" + strWallpaper);
+         bOk = gsettings_set("org.mate.background", "picture-filename", "file://" + strWallpaper).ok();
 
       }
       else if(edesktop & ::user::e_desktop_lxde)

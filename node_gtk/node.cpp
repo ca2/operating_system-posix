@@ -700,14 +700,14 @@ namespace node_gtk
       if (edesktop & ::user::e_desktop_gnome)
       {
 
-         bool bOk1 = gsettings_set("org.gnome.desktop.interface", "gtk-theme", strUserTheme);
+         bool bOk1 = gsettings_set("org.gnome.desktop.interface", "gtk-theme", strUserTheme).ok();
 
          bool bOk2 = true;
 
          //if(::file::system_short_name().case_insensitive_contains("manjaro"))
          {
 
-            bOk2 = gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme);
+            bOk2 = gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme).ok();
 
          }
 
@@ -774,7 +774,7 @@ namespace node_gtk
       if (edesktop & ::user::e_desktop_gnome)
       {
 
-         bool bOk1 = gsettings_set("org.gnome.desktop.interface", "icon-theme", strUserIconTheme);
+         bool bOk1 = gsettings_set("org.gnome.desktop.interface", "icon-theme", strUserIconTheme).ok();
 
          //bool bOk2 = true;
 
@@ -859,11 +859,11 @@ namespace node_gtk
          case ::user::e_desktop_unity_gnome:
 
             return ::node_gtk::gsettings_set("org.gnome.desktop.background", "picture-uri",
-                                             "file://" + strLocalImagePath);
+                                             "file://" + strLocalImagePath).ok();
 
          case ::user::e_desktop_mate:
 
-            return ::node_gtk::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
+            return ::node_gtk::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath).ok();
 
          case ::user::e_desktop_lxde:
 
@@ -1097,13 +1097,13 @@ namespace node_gtk
          case ::user::e_desktop_ubuntu_gnome:
          case ::user::e_desktop_unity_gnome:
 
-            bOk = gsettings_get(strTheme, "org.gnome.desktop.interface", "gtk-theme");
+            bOk = gsettings_get(strTheme, "org.gnome.desktop.interface", "gtk-theme").ok();
 
             break;
 
          case ::user::e_desktop_mate:
 
-            bOk = gsettings_get(strTheme, "org.mate.background", "picture-filename");
+            bOk = gsettings_get(strTheme, "org.mate.background", "picture-filename").ok();
 
             break;
 
