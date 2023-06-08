@@ -1,4 +1,5 @@
 #include "framework.h"
+#if 0
 #include "shell.h"
 #include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/parallelization/synchronous_lock.h"
@@ -901,3 +902,4 @@ namespace aura_posix
 
 
 
+#endif
