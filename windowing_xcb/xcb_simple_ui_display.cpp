@@ -594,7 +594,7 @@ void simple_ui_display::on_layout(xcb_connection_t * pdisplay)
 
    string strMeasure;
 
-   strMeasure = "Áj";
+   strMeasure = "Ap";
 
    XftTextExtentsUtf8(pdisplay, m_pfont, (FcChar8 *) strMeasure.c_str(), strMeasure.length(), &infoDummy);
 
