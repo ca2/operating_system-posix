@@ -2,7 +2,7 @@
 //  node_clang_callstack.cpp
 //  acme_posix
 //
-//  Created by Camilo Sasuke Thomas Borregaard Sørensen on 30/09/22 23:56.
+//  Created by Camilo Sasuke Thomas Borregaard Soerensen on 30/09/22 23:56.
 //
 // Code originally found at https://eli.thegreenplace.net/2015/programmatic-access-to-the-call-stack-in-c/ on 30/09/22
 #include "framework.h"

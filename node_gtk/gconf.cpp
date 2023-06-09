@@ -17,7 +17,7 @@
 //
 //   client = gconf_client_get_default();
 //
-//   // TODO: проверить, что image_path является файлом и вообще существует
+//   // TODO: check that image_path is a file and even exists(TranslatedFromRussian)
 //   if ( image_path == NULL )
 //   {
 //

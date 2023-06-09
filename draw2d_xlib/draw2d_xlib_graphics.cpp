@@ -1920,13 +1920,13 @@ namespace draw2d_xlib
       Gdiplus::PointF origin(0, 0);
       m_pgraphics->MeasureString(wstr.m_pwsz, -1, (Gdiplus::Font *) m_pfont->get_os_data(), origin, &rectangle);
 
-      wstr = L"123AWZwmcpQçg";
+      wstr = L"123AWZwmcpQqg";
       m_pgraphics->MeasureString(wstr.m_pwsz, -1, (Gdiplus::Font *) m_pfont->get_os_data(), origin, &rect2);*/
 
       string str1;
       str1 = L"WM123AWZwmciItf";
       string str2;
-      str2 = L"WWÜ123AWZwmcpQçgÁiItf";
+      str2 = L"WWU123AWZwmcpQqgAiItf";
 
       size_i32 sz1 = get_text_extent(str1);
       size_i32 sz2 = get_text_extent(str2);
