@@ -191,7 +191,7 @@ namespace serial
 
       struct timeout     m_timeout;           // Timeout for read operations
       unsigned long      m_ulBaudrate;    // Baudrate
-      u32           m_uiByteTimeNs;     // Nanoseconds to transmit/receive a single byte
+      u32           m_uiByteTimeNs;     // Nanoseconds to transmit/receive a single ::u8
 
       enum_parity           m_eparity;           // Parity
       enum_byte_size         m_ebytesize;       // Size of the bytes

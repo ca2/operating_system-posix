@@ -68,7 +68,7 @@ namespace acme_posix
    //    //VERIFY(FindClose(hFind));
 
    //    // strip attribute of NORMAL bit, our API doesn't have a "normal" bit.
-   //    //rStatus.m_attribute = (byte) (findFileData.dwFileAttributes & ~FILE_ATTRIBUTE_NORMAL);
+   //    //rStatus.m_attribute = (::u8) (findFileData.dwFileAttributes & ~FILE_ATTRIBUTE_NORMAL);
 
    //    rStatus.m_attribute = 0;
 
@@ -329,7 +329,7 @@ namespace acme_posix
 
          m_iPutByteBackCount--;
          
-         ((byte *)readData)[readPosition] = m_byteaPutBack[m_iPutByteBackCount];
+         ((::u8 *)readData)[readPosition] = m_byteaPutBack[m_iPutByteBackCount];
          
          amountToRead--;
          
@@ -344,7 +344,7 @@ namespace acme_posix
           
          ::i32 amountToReadNow = (::i32) minimum(INT_MAX, amountToRead);
           
-         ::i32 amountReadNow = (::i32) ::read(m_iFile, &((byte *)readData)[readPosition], amountToReadNow);
+         ::i32 amountReadNow = (::i32) ::read(m_iFile, &((::u8 *)readData)[readPosition], amountToReadNow);
          
          if(amountReadNow < 0)
          {
@@ -407,7 +407,7 @@ namespace acme_posix
          
          ::i32 amountToWriteNow = (::i32) minimum(INT_MAX, amountToWrite);
          
-         ::i32 amountWrittenNow = (::i32) ::write(m_iFile, &((const byte *)dataToWrite)[writePosition], amountToWriteNow);
+         ::i32 amountWrittenNow = (::i32) ::write(m_iFile, &((const ::u8 *)dataToWrite)[writePosition], amountToWriteNow);
          
          if (amountWrittenNow < 0)
          {
@@ -441,7 +441,7 @@ namespace acme_posix
    }
 
 
-   void file::put_byte_back(::byte b)
+   void file::put_byte_back(::u8 b)
    {
       
       if(m_iPutByteBackCount >= sizeof(m_byteaPutBack))
@@ -610,7 +610,7 @@ namespace acme_posix
       ASSERT_VALID(this);
       ASSERT(m_iFile != hFileNull);
 
-      /*if (!::LockFile((HANDLE)m_iFile, LODWORD(dwPos), HIDWORD(dwPos), LODWORD(dwCount), HIDWORD(dwCount)))
+      /*if (!::LockFile((HANDLE)m_iFile, lower_u32(dwPos), upper_u32(dwPos), lower_u32(dwCount), upper_u32(dwCount)))
          ::file::throw_os_error( (::i32)::get_last_error());*/
    }
 
@@ -619,7 +619,7 @@ namespace acme_posix
       ASSERT_VALID(this);
       ASSERT(m_iFile != hFileNull);
 
-      /*      if (!::UnlockFile((HANDLE)m_iFile,  LODWORD(dwPos), HIDWORD(dwPos), LODWORD(dwCount), HIDWORD(dwCount)))
+      /*      if (!::UnlockFile((HANDLE)m_iFile,  lower_u32(dwPos), upper_u32(dwPos), lower_u32(dwCount), upper_u32(dwCount)))
                ::file::throw_os_error( (::i32)::get_last_error());*/
    }
 
@@ -677,7 +677,7 @@ namespace acme_posix
    //                            void ** /*ppBufStart*/, void ** /*ppBufMax*/)
    //{
    //   ASSERT(nCommand == bufferCheck);
-   //   __UNREFERENCED_PARAMETER(nCommand);    // not used in retail build
+   //   UNREFERENCED_PARAMETER(nCommand);    // not used in retail build
 
    //   return 0;   // no support
    //}

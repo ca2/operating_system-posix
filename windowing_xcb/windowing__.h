@@ -49,7 +49,7 @@ xcb_connection_t * xcb_get_display()
 
 
 
-GC xcb_create_gc(Colormap colormap, xcb_connection_t* pdisplay, xcb_window_t window, byte a, byte r, byte g, byte b)
+GC xcb_create_gc(Colormap colormap, xcb_connection_t* pdisplay, xcb_window_t window, ::u8 a, ::u8 r, ::u8 g, ::u8 b)
 {
 
    GC gc = XCreateGC(pdisplay, window, 0, 0);

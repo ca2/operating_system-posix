@@ -732,7 +732,7 @@ namespace multimedia
 
                   }
 
-                  FORMATTED_TRACE("ALSA wave_out snd_pcm_avail minimum byte count %d\n", iFramesToWrite);
+                  FORMATTED_TRACE("ALSA wave_out snd_pcm_avail minimum ::u8 count %d\n", iFramesToWrite);
 
                   m_eoutstate = ::wave::e_out_state_opened;
 
@@ -763,7 +763,7 @@ namespace multimedia
 
          }
 
-         byte *pdata;
+         ::u8 *pdata;
 
          memory m;
 
@@ -774,7 +774,7 @@ namespace multimedia
 
             pbuffer = m_pwavebuffer->m_buffera[iBuffer];
 
-            pdata = (byte *) out_get_buffer_data(iBuffer);
+            pdata = (::u8 *) out_get_buffer_data(iBuffer);
 
          }
          else
@@ -784,7 +784,7 @@ namespace multimedia
 
             m.zero();
 
-            pdata = (byte *) m.data();
+            pdata = (::u8 *) m.data();
 
          }
 
