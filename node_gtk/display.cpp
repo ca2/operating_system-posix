@@ -335,7 +335,7 @@ namespace node_gtk
          if(strColorScheme.case_insensitive_contains("dark"))
          {
 
-            INFORMATION("org.gnome.desktop.background picture-uri-dark file://" + strWallpaper);
+            information() << "org.gnome.desktop.background picture-uri-dark file://" + strWallpaper;
 
             fflush(stdout);
 
@@ -345,17 +345,17 @@ namespace node_gtk
          else
          {
 
-            INFORMATION("org.gnome.desktop.background picture-uri file://" + strWallpaper);
+            information() << "org.gnome.desktop.background picture-uri file://" + strWallpaper;
 
             fflush(stdout);
 
             bOk = gsettings_set("org.gnome.desktop.background", "picture-uri", "file://" + strWallpaper).ok();
 
-            INFORMATION("org.gnome.desktop.background picture-uri file://" + strWallpaper + (bOk ? " true" : " false"));
+            information() << "org.gnome.desktop.background picture-uri file://" + strWallpaper + (bOk ? " true" : " false");
 
             fflush(stdout);
 
-            INFORMATION(" ");
+            information() << " ";
 
          }
 

@@ -1531,7 +1531,7 @@ namespace acme_posix
          if(iWrittenByteCount != scopedstrPipe.size())
          {
 
-            WARNING("Written amount of bytes different from requested one (::acme_posix::node::command_system)");
+            warning() <<"Written amount of bytes different from requested one (::acme_posix::node::command_system)";
 
          }
 
@@ -1922,7 +1922,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
 //      if(iWrittenByteCount != scopedstrPipe.size())
 //      {
 //
-//         WARNING("Written amount of bytes different from requested one (::acme_posix::node::command_system)");
+//         warning() <<"Written amount of bytes different from requested one (::acme_posix::node::command_system)";
 //
 //      }
 //

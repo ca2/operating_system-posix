@@ -296,7 +296,7 @@ namespace windowing_x11
 
          //bool bReallyNotVisible = !(m_pimpl->m_puserinteraction->GetStyle() & WS_VISIBLE);
 
-         INFORMATION("XPutImage not called. Ui is not visible.");
+         information() << "XPutImage not called. Ui is not visible.";
 
          return false;
 
@@ -350,7 +350,7 @@ namespace windowing_x11
       if(m_pimpl->m_sizeSetWindowSizeRequest != pimage->size())
       {
 
-         INFORMATION("m_pimpl->m_sizeSetWindowSizeRequest != m_pimpl->m_sizeDrawn ("
+         log_information(("m_pimpl->m_sizeSetWindowSizeRequest != m_pimpl->m_sizeDrawn ("
          << m_pimpl->m_sizeSetWindowSizeRequest << ", " << pimage->size() << ")");
 
          rectangle_i32 rectangleActualWindow;

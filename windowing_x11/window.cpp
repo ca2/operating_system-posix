@@ -261,7 +261,7 @@ namespace windowing_x11
 
       //attr.override_redirect = True;
 
-      FORMATTED_INFORMATION("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
+      information("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
 
       ::Window window = XCreateWindow(display, DefaultRootWindow(display),
                                       x, y,
@@ -471,7 +471,7 @@ namespace windowing_x11
       if (!XGetWindowAttributes(Display(), Window(), &m_px11data->m_attr))
       {
 
-         INFORMATION("freebsd::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.");
+         information() << "freebsd::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.";
 
       }
 
@@ -2533,7 +2533,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
 #ifdef SET_WINDOW_POS_LOG
 
-            FORMATTED_INFORMATION("XMoveResizeWindow (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
+            information("XMoveResizeWindow (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
 
 #endif
 
@@ -2546,7 +2546,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
 #ifdef SET_WINDOW_POS_LOG
 
-               FORMATTED_INFORMATION("Changing parameters... (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
+               information("Changing parameters... (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
 
 #endif
 
@@ -2598,7 +2598,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
       //            if(!XChangeWindowAttributes(Display(), Window(), CWOverrideRedirect, &set))
       //            {
       //
-      //               INFORMATION("freebsd::interaction_impl::_native_create_window_ex failed to clear override_redirect");
+      //               information() << "freebsd::interaction_impl::_native_create_window_ex failed to clear override_redirect";
       //
       //            }
       //

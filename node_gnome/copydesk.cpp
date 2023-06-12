@@ -291,13 +291,13 @@ namespace node_gnome
          if(bIsImageAvailable)
          {
 
-            INFORMATION("There is image in Selection Clipboard.");
+            information() << "There is image in Selection Clipboard.";
 
          }
          else
          {
 
-            INFORMATION("No image in Selection Clipboard.");
+            information() << "No image in Selection Clipboard.";
 
          }
 

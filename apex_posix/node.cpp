@@ -248,7 +248,7 @@ namespace apex_posix
       {
 
 
-         FORMATTED_WARNING("getaddrinfo: %s", gai_strerror(gai_result));
+         warning("getaddrinfo: %s", gai_strerror(gai_result));
 
 
       }

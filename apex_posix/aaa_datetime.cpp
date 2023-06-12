@@ -956,7 +956,7 @@
 //    if (!settimeofday(&tv, nullptr)) /* 0 is OK, -1 is error */
 //       return 0;
 //    //tm_t = sec;
-//    // xxx FORMATTED_ERROR("Cannot set time to %s, time adjustment %ld: %s\n",
+//    // xxx error("Cannot set time to %s, time adjustment %ld: %s\n",
 //    // xxx ctime(&tm_t), (long)(sec-oldsec), strerror(errno));
 //    if (errno == EPERM)
 //       return STATUS_PRIVILEGE_NOT_HELD;
