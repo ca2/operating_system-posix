@@ -350,8 +350,8 @@ namespace windowing_x11
       if(m_pimpl->m_sizeSetWindowSizeRequest != pimage->size())
       {
 
-         log_information(("m_pimpl->m_sizeSetWindowSizeRequest != m_pimpl->m_sizeDrawn ("
-         << m_pimpl->m_sizeSetWindowSizeRequest << ", " << pimage->size() << ")");
+         information() << "m_pimpl->m_sizeSetWindowSizeRequest != m_pimpl->m_sizeDrawn ("
+         << m_pimpl->m_sizeSetWindowSizeRequest << ", " << pimage->size() << ")";
 
          rectangle_i32 rectangleActualWindow;
 
