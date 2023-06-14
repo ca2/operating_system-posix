@@ -52,7 +52,7 @@ namespace multimedia
          else
          {
 
-            WARNING("Unknown stream_type!!");
+            warning("Unknown stream_type!!");
 
          }
 
@@ -84,7 +84,7 @@ namespace multimedia
             // fetches the first card
             if ((err = snd_card_next(&cardNum)) < 0)
             {
-               FORMATTED_TRACE("Can't get the next card number: %s\n", snd_strerror(err));
+               information("Can't get the next card number: %s\n", snd_strerror(err));
                break;
             }
 
@@ -103,7 +103,7 @@ namespace multimedia
                strFormat.format("hw:%i", cardNum);
                if ((err = snd_ctl_open(&cardHandle, strFormat, 0)) < 0)
                {
-                  FORMATTED_TRACE("Can't open card %i: %s\n", cardNum, snd_strerror(err));
+                  information("Can't open card %i: %s\n", cardNum, snd_strerror(err));
                   continue;
                }
 
@@ -117,7 +117,7 @@ namespace multimedia
                   // Get the number of the next wave device on this card
                   if ((err = snd_ctl_pcm_next_device(cardHandle, &devNum)) < 0)
                   {
-                     FORMATTED_TRACE("Can't get next wave device number: %s\n", snd_strerror(err));
+                     information("Can't get next wave device number: %s\n", snd_strerror(err));
                      break;
                   }
 
@@ -141,7 +141,7 @@ namespace multimedia
 
                   subDevCount = snd_pcm_info_get_subdevices_count(pcmInfo);
 
-                  FORMATTED_TRACE("\nFound %i wave output subdevices on card %i, %i : %s \n", subDevCount, cardNum, devNum, snd_strerror(err));
+                  information("\nFound %i wave output subdevices on card %i, %i : %s \n", subDevCount, cardNum, devNum, snd_strerror(err));
 
                   if (subDevCount <= 0)
                   {
@@ -165,7 +165,7 @@ namespace multimedia
                         if ((err = snd_ctl_pcm_info(cardHandle, pcmInfo)) < 0)
                         {
 
-                           FORMATTED_TRACE("No wave output subdevice hw:%i,%i : %s\n", cardNum, devNum, snd_strerror(err));
+                           information("No wave output subdevice hw:%i,%i : %s\n", cardNum, devNum, snd_strerror(err));
 
                            continue;
                         }
@@ -307,7 +307,7 @@ namespace multimedia
 
          }
 
-         TRACE("snd_pcm_hw_params_get_periods_min: " << uPeriodMin << " direction " << dirPeriodMin);
+         information("snd_pcm_hw_params_get_periods_min: " << uPeriodMin << " direction " << dirPeriodMin);
 
          unsigned int uPeriodMax = 0;
 
@@ -326,7 +326,7 @@ namespace multimedia
 
          }
 
-         TRACE("snd_pcm_hw_params_get_periods_max: " << uPeriodMax << " direction " << dirPeriodMax);
+         information("snd_pcm_hw_params_get_periods_max: " << uPeriodMax << " direction " << dirPeriodMax);
 
          snd_pcm_uframes_t uPeriodSizeMin = 0;
 
@@ -345,7 +345,7 @@ namespace multimedia
 
          }
 
-         TRACE("snd_pcm_hw_params_get_period_size_min: " << uPeriodSizeMin << " direction " << dirPeriodSizeMin);
+         information("snd_pcm_hw_params_get_period_size_min: " << uPeriodSizeMin << " direction " << dirPeriodSizeMin);
 
          snd_pcm_uframes_t uPeriodSizeMax = 0;
 
@@ -364,13 +364,13 @@ namespace multimedia
 
          }
 
-         TRACE("snd_pcm_hw_params_get_period_size_max: " << uPeriodSizeMax << " direction " << dirPeriodSizeMax);
+         information("snd_pcm_hw_params_get_period_size_max: " << uPeriodSizeMax << " direction " << dirPeriodSizeMax);
 
-         TRACE("Buffer size hint in _µs " << m_timeBufferSizeHint.integral_microsecond());
+         information("Buffer size hint in _µs " << m_timeBufferSizeHint.integral_microsecond());
 
          int iFullFrameCount1 = m_timeBufferSizeHint.floating_second() * (double)(uiFreq);
 
-         TRACE("iFullFrameCount1 " << iFullFrameCount1);
+         information("iFullFrameCount1 " << iFullFrameCount1);
 
          int iBufferCount1 = dirPeriodMax < 0 ? uPeriodMax - 1: uPeriodMax;
 
@@ -380,11 +380,11 @@ namespace multimedia
 
          m_frameCount = minimum(iPeriodSizeMax1, maximum(iPeriodSizeMin1, iFullFrameCount1 / iBufferCount1));
 
-         TRACE("m_frameCount " << m_frameCount);
+         information("m_frameCount " << m_frameCount);
 
          m_iBufferCount = iFullFrameCount1 / m_frameCount;
 
-         TRACE("pre buffer count " << m_iBufferCount);
+         information("pre buffer count " << m_iBufferCount);
 
          m_iBufferCount = maximum(m_iBufferCount, uPeriodMin);
 
@@ -420,7 +420,7 @@ namespace multimedia
 
          }
 
-         TRACE("snd_pcm_hw_params_get_periods: " << uBufferCount << " direction " << dirGetPeriods);
+         information("snd_pcm_hw_params_get_periods: " << uBufferCount << " direction " << dirGetPeriods);
 
          m_iBufferCount = uBufferCount;
 
@@ -472,7 +472,7 @@ namespace multimedia
 
          }
 
-         TRACE("snd_pcm_hw_params_get_period_size: " << m_frameCount);
+         information("snd_pcm_hw_params_get_period_size: " << m_frameCount);
 
          //m_framesPeriodSize = size;
 
@@ -553,7 +553,7 @@ namespace multimedia
 //
 //         }
 //
-//         TRACE("snd_pcm_sw_params_set_start_threshold " << uFrameCountStartThreshold);
+//         information("snd_pcm_sw_params_set_start_threshold " << uFrameCountStartThreshold);
 //
 ////         snd_pcm_uframes_t u1 = 0;
 //
@@ -581,7 +581,7 @@ namespace multimedia
 //
 //         }
 //
-//         TRACE("snd_pcm_sw_params_set_stop_threshold " << uFrameCountStopThreshold);
+//         information("snd_pcm_sw_params_set_stop_threshold " << uFrameCountStopThreshold);
 //
 //         err = snd_pcm_sw_params(m_ppcm, m_pswparams);
 //
@@ -628,7 +628,7 @@ namespace multimedia
          if ((err = ::snd_pcm_close(m_ppcm)) < 0)
          {
 
-            FORMATTED_TRACE("failed to close successfully sound interface (%s)\n", snd_strerror(err));
+            information("failed to close successfully sound interface (%s)\n", snd_strerror(err));
 
             return error_failed;
          }
@@ -652,43 +652,43 @@ namespace multimedia
             if (iState == SND_PCM_STATE_RUNNING)
             {
 
-               TRACE("SND_PCM_STATE_RUNNING");
+               information("SND_PCM_STATE_RUNNING");
 
             }
             else if (iState == SND_PCM_STATE_XRUN)
             {
 
-               TRACE("SND_PCM_STATE_XRUN");
+               information("SND_PCM_STATE_XRUN");
 
             }
             else if (iState == SND_PCM_STATE_DRAINING)
             {
 
-               TRACE("SND_PCM_STATE_DRAINING");
+               information("SND_PCM_STATE_DRAINING");
 
             }
             else if (iState == SND_PCM_STATE_PREPARED)
             {
 
-               TRACE("SND_PCM_STATE_PREPARED");
+               information("SND_PCM_STATE_PREPARED");
 
             }
             else if (iState == SND_PCM_STATE_SETUP)
             {
 
-               TRACE("SND_PCM_STATE_SETUP");
+               information("SND_PCM_STATE_SETUP");
 
             }
             else if (iState == SND_PCM_STATE_OPEN)
             {
 
-               TRACE("SND_PCM_STATE_OPEN");
+               information("SND_PCM_STATE_OPEN");
 
             }
 
             auto avail = snd_pcm_status_get_avail(status);
 
-            TRACE("avail:" << avail);
+            information("avail:" << avail);
          }
 
       }

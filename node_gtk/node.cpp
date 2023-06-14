@@ -250,7 +250,7 @@ namespace node_gtk
 //      if (!estatus)
 //      {
 //
-//         WARNING("Failed to begin_synch the system (::apex::system or ::apex::system derived)");
+//         warning("Failed to begin_synch the system (::apex::system or ::apex::system derived)");
 //
 //         return estatus;
 //
@@ -746,7 +746,7 @@ namespace node_gtk
          //      }
          //}
 
-         WARNING("Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+         warning("Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
 
          return error_failed;
 
@@ -821,7 +821,7 @@ namespace node_gtk
          //      }
          //}
 
-         WARNING("Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+         warning("Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
 
          return error_failed;
 
@@ -885,7 +885,7 @@ namespace node_gtk
 
          default:
 
-            WARNING("Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+            warning("Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
             return false;
 
       }
@@ -940,7 +940,7 @@ namespace node_gtk
             break;
          default:
 
-            WARNING("Failed to get wallpaper setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+            warning("Failed to get wallpaper setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
             //return "";
 
       }
@@ -1127,7 +1127,7 @@ namespace node_gtk
 
          default:
 
-            WARNING(
+            warning(
                     "Failed to get user theme setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
             //return "";
 

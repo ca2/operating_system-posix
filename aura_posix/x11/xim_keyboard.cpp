@@ -50,7 +50,7 @@ namespace xim
          if (!m_xim)
          {
 
-            TRACE("cannot Open Input Manager: Try default.\n");
+            information("cannot Open Input Manager: Try default.\n");
 
             XSetLocaleModifiers("@im=");
 
@@ -60,7 +60,7 @@ namespace xim
             if (!m_xim)
             {
 
-               TRACE("Couldn't Open Input Manager");
+               information("Couldn't Open Input Manager");
 
             }
 
@@ -88,7 +88,7 @@ namespace xim
                   i++, pstyle++)
                {
 
-                  TRACE("input style " <<  *pstyle);
+                  information("input style " <<  *pstyle);
 
                   if ((*
                           pstyle & XIMStatusNone

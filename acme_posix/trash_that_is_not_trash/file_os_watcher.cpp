@@ -79,7 +79,7 @@ namespace file
       if (wd < 0)
       {
 
-         FORMATTED_TRACE("Error: os_watcher::add_watch at directory %s : (%s)", pathFolder.c_str(), strerror(errno));
+         information("Error: os_watcher::add_watch at directory %s : (%s)", pathFolder.c_str(), strerror(errno));
 
          return -1;
 
