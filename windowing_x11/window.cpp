@@ -1264,7 +1264,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
       for (int i = 0; i < c; i++)
       {
 
-         pcr[i + 2] = image1->colorref()[i];
+         pcr[i + 2] = image1->image32()[i];
 
       }
 
