@@ -41,20 +41,18 @@ void copy(::color::color &color, const GdkRGBA &rgba)
 }
 
 
-void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state, const char *pszProperty, ::u32 &u32)
+bool __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state, const char *pszProperty, ::color::color & color)
 {
 
    GdkRGBA *prgba = nullptr;
 
    gtk_style_context_get(context, state, pszProperty, &prgba, NULL);
 
-   ::color::color color;
-
    copy(color, *prgba);
 
    gdk_rgba_free(prgba);
 
-   u32 = color.u32;
+   return true;
 
 }
 
