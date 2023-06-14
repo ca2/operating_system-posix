@@ -594,7 +594,7 @@ void simple_ui_display::on_layout(xcb_connection_t * pdisplay)
 
    string strMeasure;
 
-   strMeasure = "Áj";
+   strMeasure = "Ap";
 
    XftTextExtentsUtf8(pdisplay, m_pfont, (FcChar8 *) strMeasure.c_str(), strMeasure.length(), &infoDummy);
 
@@ -603,7 +603,7 @@ void simple_ui_display::on_layout(xcb_connection_t * pdisplay)
    for(auto & str : m_stra)
    {
 
-      strMeasure = "Áj" + str;
+      strMeasure = "Ap" + str;
 
       XftTextExtentsUtf8(pdisplay, m_pfont, (FcChar8 *) strMeasure.c_str(), strMeasure.length(), &info);
 
@@ -629,7 +629,7 @@ void simple_ui_display::on_layout(xcb_connection_t * pdisplay)
 
          pbutton->m_bTextRect = true;
 
-         string strMeasure = "Áj" + pbutton->m_strLabel;
+         string strMeasure = "Ap" + pbutton->m_strLabel;
 
          XftTextExtentsUtf8(pdisplay, m_pfont, (FcChar8 *) strMeasure.c_str(), strMeasure.length(), &infoText);
 

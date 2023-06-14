@@ -732,7 +732,7 @@ namespace multimedia
 
                   }
 
-                  information("ALSA wave_out snd_pcm_avail minimum byte count %d\n", iFramesToWrite);
+                  information("ALSA wave_out snd_pcm_avail minimum ::u8 count %d\n", iFramesToWrite);
 
                   m_eoutstate = ::wave::e_out_state_opened;
 
@@ -754,16 +754,16 @@ namespace multimedia
 
             auto waitFrames = (iFramesToWrite - iFrameFreeCount);
 
-            auto µsecondsWait = waitFrames * 100'000 / m_pwaveformat->m_waveformat.nSamplesPerSec;
+            auto mugreeklettersecondsWait = waitFrames * 100'000 / m_pwaveformat->m_waveformat.nSamplesPerSec;
 
 //            information("frames to write: " << iFramesToWrite << " frame free count : " << iFrameFreeCount
-//                                      << " frames to wait: " << waitFrames << " µs to wait : " << µsecondsWait);
+//                                      << " frames to wait: " << waitFrames << " greekmus to wait : " << mugreeklettersecondsWait);
 //
-            usleep(µsecondsWait);
+            usleep(mugreeklettersecondsWait);
 
          }
 
-         byte *pdata;
+         ::u8 *pdata;
 
          memory m;
 
@@ -774,7 +774,7 @@ namespace multimedia
 
             pbuffer = m_pwavebuffer->m_buffera[iBuffer];
 
-            pdata = (byte *) out_get_buffer_data(iBuffer);
+            pdata = (::u8 *) out_get_buffer_data(iBuffer);
 
          }
          else
@@ -784,7 +784,7 @@ namespace multimedia
 
             m.zero();
 
-            pdata = (byte *) m.data();
+            pdata = (::u8 *) m.data();
 
          }
 

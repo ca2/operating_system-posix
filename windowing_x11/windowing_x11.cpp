@@ -2140,7 +2140,7 @@ else if(detail == 3)
 
                //msg.m_atom = e_message_mouse_move;
                //msg.wParam = wparam;
-               //msg.lParam = __MAKE_LONG(e.xmotion.x_root, e.xmotion.y_root);
+               //msg.lParam = make_i32(e.xmotion.x_root, e.xmotion.y_root);
                //msg.time = e.xmotion.time;
 
                //post_ui_message(msg);
@@ -2789,9 +2789,9 @@ else if(detail == 3)
 
                    pmousewheel->m_atom = e_message_mouse_wheel;
 
-                  //msg.wParam = __MAKE_LONG(0, iDelta);
+                  //msg.wParam = make_i32(0, iDelta);
 
-                  //msg.lParam = __MAKE_LONG(e.xbutton.x_root, e.xbutton.y_root);
+                  //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
 
                    pmousewheel->m_point.x() = e.xbutton.x_root;
 
@@ -2826,7 +2826,7 @@ else if(detail == 3)
 
                    //msg.wParam = 0;
 
-                  //msg.lParam = __MAKE_LONG(e.xbutton.x_root, e.xbutton.y_root);
+                  //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
 
                   //post_ui_message(msg);
                    post_ui_message(pmouse);
@@ -3308,7 +3308,7 @@ else if(detail == 3)
 //CLASS_DECL_AURA void defer_dock_application(int_bool bDock)
 //{
 //
-//   __UNREFERENCED_PARAMETER(bDock);
+//   UNREFERENCED_PARAMETER(bDock);
 //
 //}
 

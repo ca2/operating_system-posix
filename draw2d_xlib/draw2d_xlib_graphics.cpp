@@ -766,7 +766,7 @@ namespace draw2d_xlib
          bool bOk = false;
 
          BITMAPINFO info;
-         color32_t * pcolorref;
+         color32_t * pimage32;
 
          ZeroMemory(&info, sizeof (BITMAPINFO));
 
@@ -778,7 +778,7 @@ namespace draw2d_xlib
          info.bmiHeader.biCompression   = BI_RGB;
          info.bmiHeader.biSizeImage     = cx * cy * 4;
 
-         HBITMAP hbitmap = ::CreateDIBSection(nullptr, &info, DIB_RGB_COLORS, (void **) &pcolorref, nullptr, 0);
+         HBITMAP hbitmap = ::CreateDIBSection(nullptr, &info, DIB_RGB_COLORS, (void **) &pimage32, nullptr, 0);
 
          HDC hdc = ::CreateCompatibleDC(nullptr);
 
@@ -792,11 +792,11 @@ namespace draw2d_xlib
             try
             {
 
-               //Gdiplus::Bitmap b(cx, cy, cx * 4 , PixelFormat32bppARGB, (byte *) pcolorref);
+               //Gdiplus::Bitmap b(cx, cy, cx * 4 , PixelFormat32bppARGB, (::u8 *) pimage32);
 
                ::draw2d::bitmap_pointer b(e_create);
 
-               b->CreateBitmap(this, cx, cy, 1, 32, pcolorref, cx * sizeof(color32_t));
+               b->CreateBitmap(this, cx, cy, 1, 32, pimage32, cx * sizeof(color32_t));
 
                xlib_surface_t * psurface = (xlib_surface_t *) b->get_os_data();
 
@@ -1440,7 +1440,7 @@ namespace draw2d_xlib
             m_pimageAlphaBlend->get_graphics(), point_i32(maximum(0, x - m_pointAlphaBlend.x), maximum(0, y - m_pointAlphaBlend.y)),
                                ::size_i32(maximum(0, m_pimageAlphaBlend->width() - maximum(0, x - m_pointAlphaBlend.x)), maximum(0, m_pimageAlphaBlend->height() - maximum(0, y - m_pointAlphaBlend.y))));
 
-         imageWork.channel_multiply(::color::e_channel_alpha, imageWork4);
+         imageWork.channel_multiply(::color::e_channel_opacity, imageWork4);
 
          /*imageWork.get_graphics()->set_alpha_mode(::draw2d::alpha_mode_blend);
 
@@ -1685,7 +1685,7 @@ namespace draw2d_xlib
                       pimage1->get_graphics()->SelectObject(&get_current_font());
                       pimage1->get_graphics()->SetBkMode(TRANSPARENT);
                       pimage1->get_graphics()->text_out(0, 0, str);
-                      //pimage1->channel_from(::color::e_channel_alpha, image0);
+                      //pimage1->channel_from(::color::e_channel_opacity, image0);
                       ::image_pointer pimage2(this);
                       pimage2 = create_image(rectangleText.size());
                       pimage2->Fill(255, 0, 0, 0);
@@ -1694,7 +1694,7 @@ namespace draw2d_xlib
                          m_pimageAlphaBlend->get_graphics(), point_i32(maximum(0, x - m_pointAlphaBlend.x), maximum(0, y - m_pointAlphaBlend.y)),
                          size_i32(maximum(0, m_pimageAlphaBlend->width()-maximum(0, x - m_pointAlphaBlend.x)),
                                maximum(0, m_pimageAlphaBlend->height()-maximum(0, y - m_pointAlphaBlend.y))));
-                      pimage1->channel_multiply(::color::e_channel_alpha, pimage2);
+                      pimage1->channel_multiply(::color::e_channel_opacity, pimage2);
                       /* p::image_pointer pimage3(this);
                       pimage1->mult_alpha(image3);*/
 
@@ -1743,13 +1743,13 @@ namespace draw2d_xlib
                pbrush->create_solid(m_pbrush->m_color);
                pimage1->get_graphics()->SelectObject(get_current_font());
                pimage1->get_graphics()->text_out(0, 0, str);
-               pimage1->channel_from(::color::e_channel_alpha, image0);
+               pimage1->channel_from(::color::e_channel_opacity, image0);
                ::image_pointer pimage2;
                pimage2 = create_image(rectangleText.size());
                pimage2->Fill(255, 0, 0, 0);
                pimage2->from(point_i32((i64) maximum(0, m_pointAlphaBlend.x - x), (i64) maximum(0, m_pointAlphaBlend.y - y)),
                            m_pimageAlphaBlend->get_graphics(), point_i32((i64) maximum(0, x - m_pointAlphaBlend.x), (i64) maximum(0, y - m_pointAlphaBlend.y)), rectangleText.size());
-               pimage1->channel_multiply(::color::e_channel_alpha, pimage2->m_p);
+               pimage1->channel_multiply(::color::e_channel_opacity, pimage2->m_p);
                /* p::image_pointer pimage3(this);
                pimage1->mult_alpha(image3);*/
 
@@ -1920,13 +1920,13 @@ namespace draw2d_xlib
       Gdiplus::PointF origin(0, 0);
       m_pgraphics->MeasureString(wstr.m_pwsz, -1, (Gdiplus::Font *) m_pfont->get_os_data(), origin, &rectangle);
 
-      wstr = L"123AWZwmcpQçg";
+      wstr = L"123AWZwmcpQqg";
       m_pgraphics->MeasureString(wstr.m_pwsz, -1, (Gdiplus::Font *) m_pfont->get_os_data(), origin, &rect2);*/
 
       string str1;
       str1 = L"WM123AWZwmciItf";
       string str2;
-      str2 = L"WWÜ123AWZwmcpQçgÁiItf";
+      str2 = L"WWU123AWZwmcpQqgAiItf";
 
       size_i32 sz1 = get_text_extent(str1);
       size_i32 sz2 = get_text_extent(str2);
@@ -2547,7 +2547,7 @@ namespace draw2d_xlib
 
    }
 
-   i32 graphics::GetPath(::point_i32 * lpPoints, byte * lpTypes, i32 nCount) const
+   i32 graphics::GetPath(::point_i32 * lpPoints, ::u8 * lpTypes, i32 nCount) const
    {
 
       throw ::not_implemented();
@@ -2625,7 +2625,7 @@ namespace draw2d_xlib
    }
 
 
-   bool graphics::AddMetaFileComment(::u32 nDataSize, const byte* pCommentData)
+   bool graphics::AddMetaFileComment(::u32 nDataSize, const ::u8* pCommentData)
    {
 
       throw ::not_implemented();
@@ -2779,7 +2779,7 @@ namespace draw2d_xlib
                   imageWork4.from(point_i32(maximum(0, m_pointAlphaBlend.x - xDest), maximum(0, m_pointAlphaBlend.y - yDest)),
                      m_pimageAlphaBlend->get_graphics(), point_i32(maximum(0, xDest - m_pointAlphaBlend.x), maximum(0, yDest - m_pointAlphaBlend.y)), size);
 
-                  imageWork.channel_multiply(::color::e_channel_alpha, imageWork4);
+                  imageWork.channel_multiply(::color::e_channel_opacity, imageWork4);
 
 
                   keeper < image > keep(&m_pimageAlphaBlend, nullptr, m_pimageAlphaBlend, true);
@@ -2912,7 +2912,7 @@ namespace draw2d_xlib
          imageWork4.from(point_i32(maximum(0, m_pointAlphaBlend.x - xDest), maximum(0, m_pointAlphaBlend.y - yDest)),
             m_pimageAlphaBlend->get_graphics(), point_i32(maximum(0, xDest - m_pointAlphaBlend.x), maximum(0, yDest - m_pointAlphaBlend.y)), size);
 
-         imageWork.channel_multiply(::color::e_channel_alpha, imageWork4);
+         imageWork.channel_multiply(::color::e_channel_opacity, imageWork4);
 
 
          keeper < image > keep(&m_pimageAlphaBlend, nullptr, m_pimageAlphaBlend, true);
@@ -4100,7 +4100,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::PolyDraw(const ::point_i32* lpPoints, const byte* lpTypes, i32 nCount)
+   bool graphics::PolyDraw(const ::point_i32* lpPoints, const ::u8* lpTypes, i32 nCount)
    {
 
       throw ::not_implemented();
@@ -4481,10 +4481,10 @@ namespace draw2d_xlib
 
       XRenderColor c;
 
-      c.red = colorref_get_r_value(m_pbrush->m_color) * 255;
-      c.green = colorref_get_g_value(m_pbrush->m_color) * 255;
-      c.blue = colorref_get_b_value(m_pbrush->m_color) * 255;
-      c.alpha = colorref_get_a_value(m_pbrush->m_color) * 255;
+      c.red = color32_u8_red(m_pbrush->m_color) * 255;
+      c.green = color32_u8_green(m_pbrush->m_color) * 255;
+      c.blue = color32_u8_blue(m_pbrush->m_color) * 255;
+      c.alpha = color32_u8_opacity(m_pbrush->m_color) * 255;
 
       XftColor ftc;
 //      XftColorAllocValue(m_pdc->m_pdisplay, pbitmap->m_ui.m_window->draw2d(), pbitmap->m_ui.m_window->m_colormap, &c, &ftc);
@@ -4867,9 +4867,9 @@ namespace draw2d_xlib
 
       XRenderColor c;
 
-      c.red = colorref_get_r_value(m_pbrush->m_color) * 255;
-      c.green = colorref_get_g_value(m_pbrush->m_color) * 255;
-      c.blue = colorref_get_b_value(m_pbrush->m_color) * 255;
+      c.red = color32_u8_red(m_pbrush->m_color) * 255;
+      c.green = color32_u8_green(m_pbrush->m_color) * 255;
+      c.blue = color32_u8_blue(m_pbrush->m_color) * 255;
       c.alpha = 0xffff;
 
       XftColor ftc;
@@ -5172,9 +5172,9 @@ namespace draw2d_xlib
 
          //xlib_pattern_t * ppattern = xlib_pattern_create_linear(pbrush->m_point1.x, pbrush.m_point1.y, pbrush.m_point2.x, pbrush.m_point2.y);
 
-         //xlib_pattern_add_color_stop_rgba(ppattern, 0., colorref_get_r_value(pbrush->m_color1) / 255.0, colorref_get_g_value(pbrush->m_color1) / 255.0, colorref_get_b_value(pbrush->m_color1) / 255.0, colorref_get_a_value(pbrush->m_color1) / 255.0);
+         //xlib_pattern_add_color_stop_rgba(ppattern, 0., color32_u8_red(pbrush->m_color1) / 255.0, color32_u8_green(pbrush->m_color1) / 255.0, color32_u8_blue(pbrush->m_color1) / 255.0, color32_u8_opacity(pbrush->m_color1) / 255.0);
 
-         //xlib_pattern_add_color_stop_rgba(ppattern, 1., colorref_get_r_value(pbrush->m_color2) / 255.0, colorref_get_g_value(pbrush->m_color2) / 255.0, colorref_get_b_value(pbrush->m_color2) / 255.0, colorref_get_a_value(pbrush->m_color2) / 255.0);
+         //xlib_pattern_add_color_stop_rgba(ppattern, 1., color32_u8_red(pbrush->m_color2) / 255.0, color32_u8_green(pbrush->m_color2) / 255.0, color32_u8_blue(pbrush->m_color2) / 255.0, color32_u8_opacity(pbrush->m_color2) / 255.0);
 
          //xlib_set_source(m_pdc, ppattern);
 
@@ -5185,10 +5185,10 @@ namespace draw2d_xlib
          pbrush->m_color.create(
          m_pdc->m_pdisplay,
          m_pdc->m_iScreen,
-         (colorref_get_r_value(pbrush->m_color1) + colorref_get_r_value(pbrush->m_color2)) / 2,
-         (colorref_get_g_value(pbrush->m_color1) + colorref_get_g_value(pbrush->m_color2)) / 2,
-         (colorref_get_b_value(pbrush->m_color1) + colorref_get_b_value(pbrush->m_color2)) / 2,
-         (colorref_get_a_value(pbrush->m_color1) + colorref_get_a_value(pbrush->m_color2)) / 2);
+         (color32_u8_red(pbrush->m_color1) + color32_u8_red(pbrush->m_color2)) / 2,
+         (color32_u8_green(pbrush->m_color1) + color32_u8_green(pbrush->m_color2)) / 2,
+         (color32_u8_blue(pbrush->m_color1) + color32_u8_blue(pbrush->m_color2)) / 2,
+         (color32_u8_opacity(pbrush->m_color1) + color32_u8_opacity(pbrush->m_color2)) / 2);
 
          XSetForeground(m_pdc->m_pdisplay, m_pdc->m_gc, pbrush->m_color.m_color.pixel);
 
@@ -5201,10 +5201,10 @@ namespace draw2d_xlib
          pbrush->m_color.create(
          m_pdc->m_pdisplay,
          m_pdc->m_iScreen,
-         colorref_get_r_value(pbrush->m_color),
-         colorref_get_g_value(pbrush->m_color),
-         colorref_get_b_value(pbrush->m_color),
-         colorref_get_a_value(pbrush->m_color));
+         color32_u8_red(pbrush->m_color),
+         color32_u8_green(pbrush->m_color),
+         color32_u8_blue(pbrush->m_color),
+         color32_u8_opacity(pbrush->m_color));
 
          XSetForeground(m_pdc->m_pdisplay, m_pdc->m_gc, pbrush->m_color.m_color.pixel);
 
@@ -5229,10 +5229,10 @@ namespace draw2d_xlib
       ppen->m_color.create(
       m_pdc->m_pdisplay,
       m_pdc->m_iScreen,
-      colorref_get_r_value(ppen->m_color),
-      colorref_get_g_value(ppen->m_color),
-      colorref_get_b_value(ppen->m_color),
-      colorref_get_a_value(ppen->m_color));
+      color32_u8_red(ppen->m_color),
+      color32_u8_green(ppen->m_color),
+      color32_u8_blue(ppen->m_color),
+      color32_u8_opacity(ppen->m_color));
 
       XSetForeground(m_pdc->m_pdisplay, m_pdc->m_gc, ppen->m_color.m_color.pixel);
 
@@ -5566,7 +5566,7 @@ ok:
    bool graphics::set_os_color(color32_t cr)
    {
 
-      //xlib_set_source_rgba(m_pdc, colorref_get_r_value(cr) / 255.0, colorref_get_g_value(cr) / 255.0, colorref_get_b_value(cr) / 255.0, colorref_get_a_value(cr) / 255.0);
+      //xlib_set_source_rgba(m_pdc, color32_u8_red(cr) / 255.0, color32_u8_green(cr) / 255.0, color32_u8_blue(cr) / 255.0, color32_u8_opacity(cr) / 255.0);
 
       return true;
 
@@ -5599,10 +5599,10 @@ ok:
 
             XRenderColor c;
 
-            c.red = colorref_get_r_value(m_pbrush->m_color);
-            c.green = colorref_get_g_value(m_pbrush->m_color);
-            c.blue = colorref_get_b_value(m_pbrush->m_color);
-            c.alpha = colorref_get_a_value(m_pbrush->m_color);
+            c.red = color32_u8_red(m_pbrush->m_color);
+            c.green = color32_u8_green(m_pbrush->m_color);
+            c.blue = color32_u8_blue(m_pbrush->m_color);
+            c.alpha = color32_u8_opacity(m_pbrush->m_color);
 
             XftColor ftc;
             XftColorAllocValue(m_pdc->m_pdisplay, pbitmap->m_ui.m_window->draw2d(), pbitmap->m_ui.m_window->m_colormap, &c, &ftc);

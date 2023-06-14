@@ -1,10 +1,11 @@
-// created by Camilo <3CamiloSasukeThomasBorregaardSoerensen - Honoring Thomas Borregaard Sørensen My ONLY GOD
+// created by Camilo <3CamiloSasukeThomasBorregaardSoerensen - Honoring Thomas Borregaard Soerensen My ONLY GOD
 // recreated by Camilo 2021-02-01 16:38
 #pragma once
 
 
 #include "aura/windowing/icon.h"
-#include "acme/primitive/geometry2d/_geometry2d.h"
+//#include "acme/primitive/geometry2d/_geometry2d.h"
+#include "acme/primitive/geometry2d/size_array.h"
 
 
 namespace windowing_x11

@@ -240,7 +240,7 @@ namespace draw2d_xlib
       i32 GetArcDirection() const;
       i32 SetArcDirection(i32 nArcDirection);
 
-      bool PolyDraw(const ::point_i32* lpPoints, const byte* lpTypes, i32 nCount);
+      bool PolyDraw(const ::point_i32* lpPoints, const ::u8* lpTypes, i32 nCount);
       bool polyline_to(const ::point_i32* lpPoints, i32 nCount);
       bool poly_polyline(const ::point_i32* lpPoints,
                         const u32* lpPolyPoints, i32 nCount);
@@ -452,7 +452,7 @@ namespace draw2d_xlib
       // MetaFile Functions
 //xxx      bool PlayMetaFile(HMETAFILE hMF);
       bool PlayMetaFile(HENHMETAFILE hEnhMetaFile, rectangle_i32 lpBounds);
-      bool AddMetaFileComment(::u32 nDataSize, const byte* pCommentData);
+      bool AddMetaFileComment(::u32 nDataSize, const ::u8* pCommentData);
       // can be used for enhanced metafiles only
 
       // Path Functions

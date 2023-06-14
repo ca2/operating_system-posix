@@ -607,12 +607,12 @@ serial_impl::read(u8 * buf, size_t size)
       }
       
       // Timeout for the next select is whichever is less of the remaining
-      // total read timeout and the inter-byte timeout.
+      // total read timeout and the inter-::u8 timeout.
       auto timeout = minimum(millisRemaining, m_timeout.m_durationInterByteTimeout);
       // Wait for the device to be readable, and then attempt to read.
       if (waitReadable(timeout))
       {
-         // If it's a fixed-length multi-byte read, insert a wait here so that
+         // If it's a fixed-length multi-::u8 read, insert a wait here so that
          // we can attempt to grab the whole thing in a single IO call. Skip
          // this wait if a non-maximum inter_byte_timeout is specified.
          if (size > 1 && m_timeout.m_durationInterByteTimeout.is_infinite())

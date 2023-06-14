@@ -88,7 +88,7 @@ namespace xim
                   i++, pstyle++)
                {
 
-                  information("input style " <<  *pstyle);
+                  information() << "input style " <<  *pstyle;
 
                   if ((*
                           pstyle & XIMStatusNone

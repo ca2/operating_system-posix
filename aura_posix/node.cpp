@@ -96,7 +96,7 @@ namespace aura_posix
 //         if(!estatus)
 //         {
 //
-//            INFORMATION("Failed to _allocate_Display_and_connection");
+//            information() << "Failed to _allocate_Display_and_connection";
 //
 //            return estatus;
 //

@@ -50,7 +50,7 @@ Display * x11_get_display()
 
 
 
-GC x11_create_gc(Colormap colormap, Display* pdisplay, Window window, byte a, byte r, byte g, byte b)
+GC x11_create_gc(Colormap colormap, Display* pdisplay, Window window, ::u8 a, ::u8 r, ::u8 g, ::u8 b)
 {
 
    GC gc = XCreateGC(pdisplay, window, 0, 0);

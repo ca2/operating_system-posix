@@ -8,7 +8,7 @@
 //#include "aura/graphics/graphics/_graphics.h"
 #include "aura/graphics/graphics/bitmap_source_buffer.h"
 #include "aura/graphics/graphics/double_buffer.h"
-//#include "acme/primitive/geometry2d/rectangle.h"
+#include "acme/primitive/geometry2d/rectangle.h"
 #include <X11/Xlib.h>
 //#include <X11/extensions/Xrender.h>
 

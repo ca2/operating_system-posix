@@ -282,7 +282,7 @@ return false;
 
                    int scanSource = imageClipboard.bytesPerLine();
 
-                   ::copy_colorref(pcolor32Target, width, height, scanTarget, pcolor32Source, scanSource);
+                   ::copy_image32(pcolor32Target, width, height, scanTarget, pcolor32Source, scanSource);
 
                    bOk = true;
 

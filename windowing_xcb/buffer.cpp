@@ -177,7 +177,7 @@ namespace windowing_xcb
 //      if(m_pimage != nullptr)
 //      {
 //
-//         if(m_mem.get_data() == (byte *) m_pimage->data)
+//         if(m_mem.get_data() == (::u8 *) m_pimage->data)
 //         {
 //
 //            m_pimage->data = nullptr;
@@ -237,7 +237,7 @@ namespace windowing_xcb
 //      if(m_pimage != nullptr)
 //      {
 //
-//         if((byte *) m_pimage->data == (byte *) pimage->get_data())
+//         if((::u8 *) m_pimage->data == (::u8 *) pimage->get_data())
 //         {
 //
 //            m_pimage->data = nullptr;
@@ -298,7 +298,7 @@ namespace windowing_xcb
 
          //bool bReallyNotVisible = !(m_pimpl->m_puserinteraction->GetStyle() & WS_VISIBLE);
 
-         INFORMATION("XPutImage not called. Ui is not visible.");
+         information() << "XPutImage not called. Ui is not visible.";
 
          return false;
 

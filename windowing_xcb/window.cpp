@@ -159,7 +159,7 @@ namespace windowing_xcb
 
       auto & colormap = paramscw.colormap = pdisplayxcb->m_pxcbdisplay->m_colormap;
 
-      FORMATTED_INFORMATION("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
+      information("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
 
       xcb_window_t window = xcb_generate_id(pdisplayxcb->m_pxcbdisplay->m_pconnection);
 
@@ -2857,7 +2857,7 @@ namespace windowing_xcb
       if(!preply)
       {
 
-         INFORMATION("freebsd::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.");
+         information() << "freebsd::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.";
 
          return error_failed;
 

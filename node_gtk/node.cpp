@@ -250,7 +250,7 @@ namespace node_gtk
 //      if (!estatus)
 //      {
 //
-//         warning("Failed to begin_synch the system (::apex::system or ::apex::system derived)");
+//         warning() <<"Failed to begin_synch the system (::apex::system or ::apex::system derived)";
 //
 //         return estatus;
 //
@@ -532,24 +532,24 @@ namespace node_gtk
    void node::_dark_mode()
    {
 
-      INFORMATION("::node_gtk::node::_dark_mode");
+      information() << "::node_gtk::node::_dark_mode";
 
       if(gsettings_schema_exists("org.gnome.desktop.interface"))
       {
 
-         INFORMATION("org.gnome.desktop.interface exists");
+         information() << "org.gnome.desktop.interface exists";
 
          if(gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
          {
 
-            INFORMATION("org.gnome.desktop.interface contains \"color-scheme\"");
+            information() << "org.gnome.desktop.interface contains \"color-scheme\"";
 
             ::string strColorScheme;
 
             if (gsettings_get(strColorScheme, "org.gnome.desktop.interface", "color-scheme"))
             {
 
-               INFORMATION("color-scheme=\"" + strColorScheme + "\"");
+               information() << "color-scheme=\"" + strColorScheme + "\"";
 
                strColorScheme.trim();
 
@@ -578,20 +578,20 @@ namespace node_gtk
          else if(gsettings_schema_contains_key("org.gnome.desktop.interface", "gtk-theme"))
          {
 
-            INFORMATION("org.gnome.desktop.interface schema contains \"gtk-theme\"");
+            information() << "org.gnome.desktop.interface schema contains \"gtk-theme\"";
 
             ::string strGtkTheme;
 
             if (gsettings_get(strGtkTheme, "org.gnome.desktop.interface", "gtk-theme"))
             {
 
-               INFORMATION("gtk-theme=\"" + strGtkTheme + "\"");
+               information() << "gtk-theme=\"" + strGtkTheme + "\"";
 
                ::os_theme_colors * posthemecolor = _new_os_theme_colors(strGtkTheme);
 
                auto dLuminance = posthemecolor->m_colorBack.get_luminance();
 
-               FORMATTED_INFORMATION("luminance=%0.2f", dLuminance);
+               information("luminance=%0.2f", dLuminance);
 
                m_bDarkMode = dLuminance < 0.5;
 
@@ -700,14 +700,14 @@ namespace node_gtk
       if (edesktop & ::user::e_desktop_gnome)
       {
 
-         bool bOk1 = gsettings_set("org.gnome.desktop.interface", "gtk-theme", strUserTheme);
+         bool bOk1 = gsettings_set("org.gnome.desktop.interface", "gtk-theme", strUserTheme).ok();
 
          bool bOk2 = true;
 
          //if(::file::system_short_name().case_insensitive_contains("manjaro"))
          {
 
-            bOk2 = gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme);
+            bOk2 = gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme).ok();
 
          }
 
@@ -746,7 +746,7 @@ namespace node_gtk
          //      }
          //}
 
-         warning("Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+         warning() <<"Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
 
          return error_failed;
 
@@ -774,7 +774,7 @@ namespace node_gtk
       if (edesktop & ::user::e_desktop_gnome)
       {
 
-         bool bOk1 = gsettings_set("org.gnome.desktop.interface", "icon-theme", strUserIconTheme);
+         bool bOk1 = gsettings_set("org.gnome.desktop.interface", "icon-theme", strUserIconTheme).ok();
 
          //bool bOk2 = true;
 
@@ -821,7 +821,7 @@ namespace node_gtk
          //      }
          //}
 
-         warning("Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+         warning() <<"Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
 
          return error_failed;
 
@@ -859,11 +859,11 @@ namespace node_gtk
          case ::user::e_desktop_unity_gnome:
 
             return ::node_gtk::gsettings_set("org.gnome.desktop.background", "picture-uri",
-                                             "file://" + strLocalImagePath);
+                                             "file://" + strLocalImagePath).ok();
 
          case ::user::e_desktop_mate:
 
-            return ::node_gtk::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
+            return ::node_gtk::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath).ok();
 
          case ::user::e_desktop_lxde:
 
@@ -885,7 +885,7 @@ namespace node_gtk
 
          default:
 
-            warning("Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+            warning() <<"Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
             return false;
 
       }
@@ -940,7 +940,7 @@ namespace node_gtk
             break;
          default:
 
-            warning("Failed to get wallpaper setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+            warning() <<"Failed to get wallpaper setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
             //return "";
 
       }
@@ -1097,13 +1097,13 @@ namespace node_gtk
          case ::user::e_desktop_ubuntu_gnome:
          case ::user::e_desktop_unity_gnome:
 
-            bOk = gsettings_get(strTheme, "org.gnome.desktop.interface", "gtk-theme");
+            bOk = gsettings_get(strTheme, "org.gnome.desktop.interface", "gtk-theme").ok();
 
             break;
 
          case ::user::e_desktop_mate:
 
-            bOk = gsettings_get(strTheme, "org.mate.background", "picture-filename");
+            bOk = gsettings_get(strTheme, "org.mate.background", "picture-filename").ok();
 
             break;
 
@@ -1127,7 +1127,7 @@ namespace node_gtk
 
          default:
 
-            warning(
+            log_warning(
                     "Failed to get user theme setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
             //return "";
 
@@ -1510,7 +1510,7 @@ namespace node_gtk
 //
 //         string strTheme = _os_get_user_theme();
 //
-//         INFORMATION("node::fetch_user_color _os_get_user_theme(): " << strTheme);
+//         information() << "node::fetch_user_color _os_get_user_theme(): " << strTheme;
 //
 //         pthemecolors = _new_os_theme_colors(strTheme);
 //

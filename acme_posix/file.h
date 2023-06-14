@@ -45,7 +45,7 @@ namespace acme_posix
 
       //::file::path   m_strFileName;
       i32         m_iFile;
-      ::byte      m_byteaPutBack[8];
+      ::u8      m_byteaPutBack[8];
       int         m_iPutByteBackCount;
 
 
@@ -85,7 +85,7 @@ namespace acme_posix
       using ::file::file::defer_write;
       memsize defer_write(const void * dataToWrite, memsize amountToWrite) override;
       
-      void put_byte_back(::byte b) override;
+      void put_byte_back(::u8 b) override;
 
       void lock(filesize dwPos, filesize dwCount) override;
       void unlock(filesize dwPos, filesize dwCount) override;
