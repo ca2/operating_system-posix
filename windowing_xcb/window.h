@@ -117,9 +117,9 @@ namespace windowing_xcb
 
       virtual long _get_wm_state();
 
-      bool client_to_screen(POINT_I32 * ppoint) override;
+      bool client_to_screen(::point_i32 * ppoint) override;
 
-      bool screen_to_client(POINT_I32 * ppoint) override;
+      bool screen_to_client(::point_i32 * ppoint) override;
 
       bool is_destroying() override;
       
@@ -150,8 +150,8 @@ namespace windowing_xcb
 
 
 
-      virtual ::e_status _get_window_rectangle(RECTANGLE_I32 * prectangle);
-      virtual ::e_status _get_client_rectangle(RECTANGLE_I32 * prectangle);
+      virtual ::e_status _get_window_rectangle(::rectangle_i32 * prectangle);
+      virtual ::e_status _get_client_rectangle(::rectangle_i32 * prectangle);
       virtual xcb_window_t _get_window_relative(enum_relative erelative, xcb_window_t * windowa, int numItems);
       virtual ::windowing::window * get_window(enum_relative erelative);
 
@@ -201,8 +201,8 @@ namespace windowing_xcb
 
       void xcb_post_message(MESSAGE & msg);
       void post_ui_message(const MESSAGE & message);
-      //virtual ::e_status window_rectangle(RECTANGLE_I32 * prectangle);
-      //virtual ::e_status client_rectangle(RECTANGLE_I32 * prectangle);
+      //virtual ::e_status window_rectangle(::rectangle_i32 * prectangle);
+      //virtual ::e_status client_rectangle(::rectangle_i32 * prectangle);
       void mq_erase_window_from_all_queues( );
 
 

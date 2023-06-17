@@ -8,7 +8,7 @@
 //#include "aura/graphics/graphics/_graphics.h"
 #include "aura/graphics/graphics/bitmap_source_buffer.h"
 #include "aura/graphics/graphics/double_buffer.h"
-//#include "acme/primitive/geometry2d/rectangle.h"
+#include "acme/primitive/geometry2d/rectangle.h"
 #include <X11/Xlib.h>
 //#include <X11/extensions/Xrender.h>
 
@@ -53,14 +53,14 @@ namespace windowing_x11
 //      virtual void destroy_os_buffer(::image::image * pimage);
 
       bool update_screen() override;
-      bool update_screen(::image * pimage) override;
+      bool on_update_screen(::graphics::buffer_item * pitem) override;
 
 
       bool buffer_lock_round_swap_key_buffers() override;
 
       //void update_window();
 
-      ::draw2d::graphics * on_begin_draw() override;
+      ::graphics::buffer_item * on_begin_draw() override;
 
 
    };

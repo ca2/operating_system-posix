@@ -41,24 +41,16 @@
 #include "aura_posix/user_notify_icon_bridge.h"
 
 
-static void ___extra_action(GtkAction * action, void * data)
-{
-
-   ::user_notify_icon_bridge * pi = (::user_notify_icon_bridge *) data;
-
-   pi->call_notification_area_action(gtk_action_get_stock_id(action));
-
-}
-
-
 extern "C"
 {
 
 
-   static void __extra_action(GtkAction * action, gpointer data)
+   static void user_notify_icon_bridge_extra_action(GtkMenuItem * pgtkmenuitem, gpointer data)
    {
 
-      ___extra_action(action, data);
+      auto pbridge = (::user_notify_icon_bridge *) data;
+
+      pbridge->call_notification_area_action(gtk_widget_get_name(GTK_WIDGET(pgtkmenuitem)));
 
    }
 
@@ -78,6 +70,7 @@ namespace node_gnome
    appindicator::appindicator()
    {
 
+      m_pindicator = nullptr;
 
    }
 
@@ -85,13 +78,18 @@ namespace node_gnome
    appindicator::~appindicator()
    {
 
-      //close();
-
    }
 
 
    bool appindicator::create(const char * pszId, const char * pszIcon, const char * pszFolder, user_notify_icon_bridge * pbridge)
    {
+
+      if (!::node_gtk::os_defer_init_gtk(acmesystem()))
+      {
+
+         return false;
+
+      }
 
       m_pindicator = app_indicator_new_with_path(pszId, pszIcon, APP_INDICATOR_CATEGORY_APPLICATION_STATUS, pszFolder);
 
@@ -121,133 +119,70 @@ namespace node_gnome
 
       int iCount = pbridge->_get_notification_area_action_count();
 
-      GtkWidget *  indicator_menu = nullptr;
-
-      if(iCount > 0)
+      if(iCount <= 0)
       {
 
+         return false;
 
-         GError * error = nullptr;
+      }
 
-         GtkActionGroup * action_group = gtk_action_group_new ("AppActions");
+      GtkWidget * pgtkwidgetMenu = gtk_menu_new();
 
-         if(action_group != nullptr)
+      for(int i = 0; i < iCount; i++)
+      {
+
+         const char * pszName = pbridge->_get_notification_area_action_name(i);
+         const char * pszId = pbridge->_get_notification_area_action_id(i);
+         const char * pszLabel = pbridge->_get_notification_area_action_label(i);
+         const char * pszAccelerator = pbridge->_get_notification_area_action_accelerator(i);
+         const char * pszDescription = pbridge->_get_notification_area_action_description(i);
+
+         GtkWidget * pgtkwidget = nullptr;
+
+         if(strcasecmp(pszName, "separator") == 0)
          {
 
-            GtkActionEntry * entries = memory_new GtkActionEntry[pbridge->_get_notification_area_action_count()];
+   	      pgtkwidget = gtk_separator_menu_item_new();
 
-            string strInfo;
+         }
+         else
+         {
 
-            strInfo += "<ui>";
+            pgtkwidget = gtk_menu_item_new_with_label(pszLabel);
 
-            strInfo += "  <popup name='IndicatorPopup'>";
+            gtk_widget_set_name(GTK_WIDGET(pgtkwidget), pszId);
 
-            int iEntry = 0;
+            g_signal_connect (G_OBJECT(pgtkwidget), "activate", G_CALLBACK (user_notify_icon_bridge_extra_action), pbridge);
 
-            for(int i = 0; i < iCount; i++)
-            {
+            // gtkactionentriea[iEntry].stock_id = g_strdup(pszId);
 
-               int iIndex = i;
+            // gtkactionentriea[iEntry].label = g_strdup(pszName);
 
-               const char * pszName = pbridge->_get_notification_area_action_name(iIndex);
-               const char * pszId = pbridge->_get_notification_area_action_id(iIndex);
-               const char * pszLabel = pbridge->_get_notification_area_action_label(iIndex);
-               const char * pszAccelerator = pbridge->_get_notification_area_action_accelerator(iIndex);
-               const char * pszDescription = pbridge->_get_notification_area_action_description(iIndex);
+            // //gtkactionentriea[iEntry].accelerator = g_strdup(pszAccelerator);
 
-               memset(&entries[iEntry], 0, sizeof(GtkActionEntry));
+            // //gtkactionentriea[iEntry].accelerator = nullptr;
 
-               if(strcasecmp(pszName, "separator") == 0)
-               {
+            // gtkactionentriea[iEntry].accelerator = g_strdup("");
 
-                  strInfo += "<separator/>\n";
+            // gtkactionentriea[iEntry].tooltip = g_strdup(pszDescription);
 
-               }
-               else
-               {
+            // gtkactionentriea[iEntry].callback = G_CALLBACK (user_notify_icon_bridge_extra_action);
 
-                  entries[iEntry].name = g_strdup(pszLabel);
-
-                  strInfo += "    <menuitem action='";
-                  strInfo += pszLabel;
-                  strInfo += "' />";
-
-                  entries[iEntry].stock_id = g_strdup(pszId);
-
-                  entries[iEntry].label = g_strdup(pszName);
-
-                  //entries[iEntry].accelerator = g_strdup(pszAccelerator);
-
-                  entries[iEntry].accelerator = nullptr;
-
-                  entries[iEntry].tooltip = g_strdup(pszDescription);
-
-                  entries[iEntry].callback = G_CALLBACK (__extra_action);
-
-                  iEntry++;
-
-               }
-
-            }
-
-            strInfo += "  </popup>";
-            strInfo += "</ui>";
-
-            gtk_action_group_add_actions (action_group, entries, iEntry, pbridge);
-
-            GtkUIManager * uim = gtk_ui_manager_new ();
-
-            bool bOk = false;
-
-            gchar * ui_info = (gchar *) g_strdup(strInfo);
-
-            if(uim != nullptr)
-            {
-
-               gtk_ui_manager_insert_action_group (uim, action_group, 0);
-
-               bOk = gtk_ui_manager_add_ui_from_string (uim, ui_info, -1, &error) != FALSE;
-
-               if(!bOk)
-               {
-
-                  g_message ("Failed to build menus: %s\n", error->message);
-
-                  g_error_free (error);
-
-                  error = nullptr;
-
-               }
-
-            }
-
-            for(int i = 0; i < iEntry; i++)
-            {
-
-               ::node_gtk::g_safe_free((void *) entries[i].name);
-               ::node_gtk::g_safe_free((void *) entries[i].stock_id);
-               ::node_gtk::g_safe_free((void *) entries[i].label);
-               ::node_gtk::g_safe_free((void *) entries[i].accelerator);
-               ::node_gtk::g_safe_free((void *) entries[i].tooltip);
-
-            }
-
-            delete [] entries;
-
-            ::node_gtk::g_safe_free(ui_info);
-
-            if(bOk)
-            {
-
-               indicator_menu = gtk_ui_manager_get_widget (uim, "/ui/IndicatorPopup");
-
-               app_indicator_set_menu(m_pindicator, GTK_MENU (indicator_menu));
-
-            }
+            // iEntry++;
 
          }
 
+         gtk_widget_show (pgtkwidget);
+   		
+         gtk_menu_shell_append (GTK_MENU_SHELL (pgtkwidgetMenu), pgtkwidget);
+
+  	      //gtk_container_add (GTK_CONTAINER (pgtkwidgetMenu), pgtkwidget);
+
       }
+
+      printf("appindicator::init GtkMenu = %" PRI0xPTR, (long unsigned int) pgtkwidgetMenu);
+
+      app_indicator_set_menu(m_pindicator, GTK_MENU(pgtkwidgetMenu));
 
       app_indicator_set_status(m_pindicator, APP_INDICATOR_STATUS_ACTIVE);
 

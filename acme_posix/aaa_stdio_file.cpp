@@ -1,4 +1,4 @@
-// by camilo on 2022-05-12 02:28 <3ThomasBorregaardSørensen
+// by camilo on 2022-05-12 02:28 <3ThomasBorregaardSorensen
 #include "framework.h"
 #include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/filesystem/filesystem/acme_file.h"
@@ -242,21 +242,21 @@ void stdio_file::write(const void * pdata,memsize nCount)
 
 void stdio_file::lock(filesize dwPos,filesize dwCount)
 {
-   __UNREFERENCED_PARAMETER(dwPos);
-   __UNREFERENCED_PARAMETER(dwCount);
+   UNREFERENCED_PARAMETER(dwPos);
+   UNREFERENCED_PARAMETER(dwCount);
 }
 
 void stdio_file::unlock(filesize dwPos,filesize dwCount)
 {
-   __UNREFERENCED_PARAMETER(dwPos);
-   __UNREFERENCED_PARAMETER(dwCount);
+   UNREFERENCED_PARAMETER(dwPos);
+   UNREFERENCED_PARAMETER(dwCount);
 }
 
 
 void stdio_file::set_size(filesize dwNewLen)
 {
 
-   __UNREFERENCED_PARAMETER(dwNewLen);
+   UNREFERENCED_PARAMETER(dwNewLen);
 
 }
 
@@ -278,7 +278,7 @@ void stdio_file::assert_ok() const
 void stdio_file::dump(dump_context & dumpcontext) const
 {
    
-   __UNREFERENCED_PARAMETER(dumpcontext);
+   UNREFERENCED_PARAMETER(dumpcontext);
 
 }
 
@@ -294,7 +294,7 @@ void stdio_file::dump(dump_context & dumpcontext) const
 bool stdio_file::get_status(::file::file_status & rStatus) const
 {
 
-   __UNREFERENCED_PARAMETER(rStatus);
+   UNREFERENCED_PARAMETER(rStatus);
 
    return false;
 

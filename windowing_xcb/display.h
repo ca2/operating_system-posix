@@ -88,9 +88,9 @@ namespace windowing_xcb
 
       virtual bool is_null() const;
 
-      virtual bool get_monitor_rectangle(index iMonitor, RECTANGLE_I32 & rectangle);
+      virtual bool get_monitor_rectangle(index iMonitor, ::rectangle_i32 & rectangle);
 
-      virtual bool get_workspace_rectangle(index iWorkspace, RECTANGLE_I32 & rectangle);
+      virtual bool get_workspace_rectangle(index iWorkspace, ::rectangle_i32 & rectangle);
 
       virtual ::e_status release_mouse_capture();
 
@@ -100,10 +100,10 @@ namespace windowing_xcb
 
       virtual ::windowing_xcb::window * _get_active_window(::thread * pthread);
 
-      virtual bool get_cursor_position(POINT_I32 * ppointCursor);
+      virtual bool get_cursor_position(::point_i32 * ppointCursor);
 
 
-      virtual bool point_is_window_origin(POINT_I32 pointHitTest, ::windowing::window * pwindowExclude, int iMargin);
+      virtual bool point_is_window_origin(::point_i32 pointHitTest, ::windowing::window * pwindowExclude, int iMargin);
 
 
       virtual ::e_status _request_check(xcb_void_cookie_t cookie);
@@ -130,8 +130,8 @@ namespace windowing_xcb
       virtual status < xcb_get_window_attributes_reply_t > _window_get_window_attributes(xcb_window_t window);
       virtual status < xcb_get_geometry_reply_t > _window_get_geometry(xcb_window_t window);
       virtual ::rectangle_i32 _window_get_frame_extents(xcb_window_t window);
-      virtual ::e_status _window_get_window_rectangle(xcb_window_t window, RECTANGLE_I32 * prectangle);
-      virtual ::e_status _window_get_client_rectangle(xcb_window_t window, RECTANGLE_I32 * prectangle);
+      virtual ::e_status _window_get_window_rectangle(xcb_window_t window, ::rectangle_i32 * prectangle);
+      virtual ::e_status _window_get_client_rectangle(xcb_window_t window, ::rectangle_i32 * prectangle);
 
 
       //virtual xcb_font_t _create_font_cursor(uint16_t glyph);

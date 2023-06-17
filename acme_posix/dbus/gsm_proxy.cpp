@@ -1,5 +1,5 @@
 //
-// Created by camilo on 6/26/21 12?31 BRT <3ThomasBorregaardSørensen__!!
+// Created by camilo on 6/26/21 12?31 BRT <3ThomasBorregaardSorensen__!!
 //
 #include <glib.h>
 #include <dbus/dbus-glib-lowlevel.h>

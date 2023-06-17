@@ -1,4 +1,4 @@
-/*****<3ThomasBorregaardSørensen!!Created by camilo*/
+/*****<3ThomasBorregaardSorensen!!Created by camilo*/
 // From acme_apple/acme_file.h
 // on 2021-08-09
 // 05:02 BRT

@@ -21,14 +21,9 @@ namespace acme_posix
    public:
 
 
-      string m_strTheme;
-
-
       node();
       ~node() override;
 
-
-      int node_init_check(int * pi, char *** ppz) override;
 
       void dbus_init();
 
@@ -51,13 +46,13 @@ namespace acme_posix
       string process_identifier_module_path(::process_identifier pid) override;
       ::process_identifier_array module_path_processes_identifiers(const ::string & pszModulePath, bool bModuleNameIsPropertyFormatted) override;
       string process_identifier_command_line(process_identifier pid) override;
-      bool is_shared_library_busy(process_identifier processid, const string_array & stra) override;
-      bool is_shared_library_busy(const string_array & stra) override;
+      //bool is_shared_library_busy(process_identifier processid, const string_array & stra) override;
+      //bool is_shared_library_busy(const string_array & stra) override;
 
 
       bool is_process_running(process_identifier pid) override;
 
-      bool process_modules(string_array& stra, process_identifier processID) override;
+      ::file::path_array process_identifier_modules_paths(process_identifier processidentifier) override;
 
       bool load_modules_diff(string_array& straOld, string_array& straNew, const ::string & pszExceptDir) override;
 
@@ -113,7 +108,8 @@ namespace acme_posix
 
 
       //void command_system(string_array & straOutput, int& iExitCode, const ::scoped_string & scopedstr, enum_command_system ecommandsystem, const class ::time& timeTimeout, ::particle * pparticleSynchronization, ::file::file * pfileLog) override;
-      int command_system(const ::scoped_string & scopedstr, const ::scoped_string & scopedstrPipe, const trace_function & tracefunction = nullptr) override;
+      virtual int __command_system(const ::scoped_string & scopedstr, const ::scoped_string & scopedstrPipe, const trace_function & tracefunction = nullptr);
+      int command_system(const ::scoped_string & scopedstr, const trace_function & tracefunction = nullptr) override;
 
 
       ::file::path library_file_name(const ::scoped_string& scopedstr) override;

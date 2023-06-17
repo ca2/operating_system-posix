@@ -307,7 +307,7 @@ namespace windowing_x11
    }
 
 
-   bool display::get_monitor_rectangle(index iMonitor, RECTANGLE_I32 & rectangle)
+   bool display::get_monitor_rectangle(index iMonitor, ::rectangle_i32 & rectangle)
    {
 
       return ::windowing::display::get_monitor_rectangle(iMonitor, rectangle);
@@ -315,7 +315,7 @@ namespace windowing_x11
    }
 
 
-   bool display::get_workspace_rectangle(index iMonitor, RECTANGLE_I32 & rectangle)
+   bool display::get_workspace_rectangle(index iMonitor, ::rectangle_i32 & rectangle)
    {
 
       return ::windowing::display::get_workspace_rectangle(iMonitor, rectangle);
@@ -605,7 +605,7 @@ namespace windowing_x11
    }
 
 
-   bool display::get_cursor_position(POINT_I32 *ppointCursor)
+   bool display::get_cursor_position(::point_i32 *ppointCursor)
    {
 
       Window root_return;
@@ -626,8 +626,8 @@ namespace windowing_x11
 
       display_lock displaylock(Display());
 
-      XQueryPointer(Display(), DefaultRootWindow(Display()), &root_return, &child_return, &ppointCursor->x,
-                    &ppointCursor->y, &win_x_return, &win_y_return, &mask_return);
+      XQueryPointer(Display(), DefaultRootWindow(Display()), &root_return, &child_return, &ppointCursor->x(),
+                    &ppointCursor->y(), &win_x_return, &win_y_return, &mask_return);
 
 #ifdef display_lock_LOCK_LOG
 
@@ -794,7 +794,7 @@ namespace windowing_x11
    }
 
 
-   bool display::point_is_window_origin(POINT_I32 pointHitTest, ::windowing::window *pwindowExclude, int iMargin)
+   bool display::point_is_window_origin(::point_i32 pointHitTest, ::windowing::window *pwindowExclude, int iMargin)
    {
 
       bool bIsOrigin = false;
@@ -856,7 +856,7 @@ namespace windowing_x11
 
             }
 
-            if (::x11_get_window_rect(Display(), windowa[i], rectangleHigher))
+            if (::x11_get_window_rect(Display(), windowa[i], &rectangleHigher))
             {
 
                ::rectangle_i32 rectangleHitTest;

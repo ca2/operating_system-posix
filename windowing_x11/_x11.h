@@ -1,7 +1,7 @@
 //
 // Created by camilo on 01/01/2021. 6:52 BRT <3Tbs, Mummi and bilbo!!
 //
-// From _.h by camilo on 2022-09-24 23:21 <3ThomasBorregaardSørensen!!
+// From _.h by camilo on 2022-09-24 23:21 <3ThomasBorregaardSorensen!!
 #pragma once
 
 
@@ -49,7 +49,33 @@ int x11_message_box(const string & str, const string & strTitle, const ::e_messa
 bool __x11_hook_process_event(Display * pdisplay, XEvent * pevent, XGenericEventCookie * cookie);
 
 
+class x11color32_t
+{
+public:
 
+   
+   ::u32 m_u32;
+
+
+   x11color32_t(){m_u32=0;}
+   x11color32_t(const ::color::color & color)
+   {
+
+      auto opacity = color.u8_opacity();
+
+      m_u32 = make_u32(
+              color.u8_blue() * opacity / 255,
+              color.u8_green() * opacity / 255,
+              color.u8_red() * opacity / 255,
+              opacity);
+
+   }
+
+
+   operator unsigned long () const { return m_u32; }
+
+
+};
 
 
 

@@ -1,6 +1,6 @@
 // Created by camilo
 // on 2021-08-12 17:38 BRT
-// <3ThomasBorregaardSørensen!!
+// <3ThomasBorregaardSorensen!!
 #include "framework.h"
 #include "acme_file.h"
 #include "acme_directory.h"
@@ -320,13 +320,13 @@ namespace acme_posix
 
       filesize iToRead = minimum_non_negative((filesize)iSize, (filesize) iReadAtMostByteCount);
 
-      char * psz = str.get_string_buffer(iToRead);
+      char * psz = str.get_buffer(iToRead);
 
       ::count iRead = fread(psz, 1, iToRead, pfile);
 
       psz[iRead] = '\0';
 
-      str.release_string_buffer(iRead);
+      str.release_buffer(iRead);
 
       str.case_insensitive_begins_eat("\xef\xbb\xbf");
 
@@ -934,38 +934,94 @@ namespace acme_posix
 
       //}
 
-      struct timespec times[2];
+#ifdef __APPLE__
+      if (__builtin_available(macOS 10.13, *)) {
+#endif
+         struct timespec times[2];
 
-      times[0].tv_sec = 0;
-      times[0].tv_nsec = UTIME_OMIT;
-      times[1].tv_sec = time.m_iSecond;
-      times[1].tv_nsec = time.m_iNanosecond;
+         times[0].tv_sec = 0;
+         times[0].tv_nsec = UTIME_OMIT;
+         times[1].tv_sec = time.m_iSecond;
+         times[1].tv_nsec = time.m_iNanosecond;
+         if(utimensat(0, path, times, 0))
+         {
+            
+            
+            //utimbuf utimbuf;
+            
+            //utimbuf.actime = statAttribute.st_atime;
+            
+            //utimbuf.modtime = time.m_time;
+            
+            //if(utime(path, &utimbuf))
+            //{
+            
+            int iErrNo = errno;
+            
+            auto estatus = errno_status(iErrNo);
+            
+            string strMessage;
+            
+            strMessage.format("Failed to set file modification time \"%s\".", path.c_str());
+            
+            throw ::exception(estatus, strMessage);
+            
+         }
+#ifdef __APPLE__
+      } else {
+         
+         
+         struct stat statAttribute;
 
-      if(utimensat(0, path, times, 0))
-      {
+         if(stat(path, &statAttribute))
+         {
 
+            int iErrNo = errno;
 
-      //utimbuf utimbuf;
+            auto estatus = errno_status(iErrNo);
 
-      //utimbuf.actime = statAttribute.st_atime;
+            string strMessage;
 
-      //utimbuf.modtime = time.m_time;
+            strMessage.format("Failed to stat for just setting modification time of file \"%s\".", path.c_str());
 
-      //if(utime(path, &utimbuf))
-      //{
+            throw ::exception(estatus, strMessage);
 
-         int iErrNo = errno;
+         }
 
-         auto estatus = errno_status(iErrNo);
+//   #ifdef __APPLE__
+      
+          //return { statAttribute.st_mtimespec.tv_sec, statAttribute.st_mtimespec.tv_nsec };
 
-         string strMessage;
+  // #else
 
-         strMessage.format("Failed to set file modification time \"%s\".", path.c_str());
+    //      return { statAttribute.st_mtim.tv_sec, statAttribute.st_mtim.tv_nsec };
+          
+  // #endif
 
-         throw ::exception(estatus, strMessage);
+         struct timeval times[2];
 
+         times[0].tv_sec = statAttribute.st_mtimespec.tv_sec;
+         times[0].tv_usec = (int) (statAttribute.st_mtimespec.tv_nsec / 1'000);
+         times[1].tv_sec = time.m_iSecond;
+         times[1].tv_usec = (int) (time.m_iNanosecond / 1'000);
+
+         if(utimes(path, times))
+         {
+            
+            int iErrNo = errno;
+            
+            auto estatus = errno_status(iErrNo);
+            
+            string strMessage;
+            
+            strMessage.format("Failed to set file modification time \"%s\".", path.c_str());
+            
+            throw ::exception(estatus, strMessage);
+          
+         }
+         // Fallback on earlier versions
       }
-
+#endif
    }
 
 

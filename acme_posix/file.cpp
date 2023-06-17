@@ -68,7 +68,7 @@ namespace acme_posix
    //    //VERIFY(FindClose(hFind));
 
    //    // strip attribute of NORMAL bit, our API doesn't have a "normal" bit.
-   //    //rStatus.m_attribute = (byte) (findFileData.dwFileAttributes & ~FILE_ATTRIBUTE_NORMAL);
+   //    //rStatus.m_attribute = (::u8) (findFileData.dwFileAttributes & ~FILE_ATTRIBUTE_NORMAL);
 
    //    rStatus.m_attribute = 0;
 
@@ -329,7 +329,7 @@ namespace acme_posix
 
          m_iPutByteBackCount--;
          
-         ((byte *)readData)[readPosition] = m_byteaPutBack[m_iPutByteBackCount];
+         ((::u8 *)readData)[readPosition] = m_byteaPutBack[m_iPutByteBackCount];
          
          amountToRead--;
          
@@ -344,7 +344,7 @@ namespace acme_posix
           
          ::i32 amountToReadNow = (::i32) minimum(INT_MAX, amountToRead);
           
-         ::i32 amountReadNow = (::i32) ::read(m_iFile, &((byte *)readData)[readPosition], amountToReadNow);
+         ::i32 amountReadNow = (::i32) ::read(m_iFile, &((::u8 *)readData)[readPosition], amountToReadNow);
          
          if(amountReadNow < 0)
          {
@@ -407,7 +407,7 @@ namespace acme_posix
          
          ::i32 amountToWriteNow = (::i32) minimum(INT_MAX, amountToWrite);
          
-         ::i32 amountWrittenNow = (::i32) ::write(m_iFile, &((const byte *)dataToWrite)[writePosition], amountToWriteNow);
+         ::i32 amountWrittenNow = (::i32) ::write(m_iFile, &((const ::u8 *)dataToWrite)[writePosition], amountToWriteNow);
          
          if (amountWrittenNow < 0)
          {
@@ -441,7 +441,7 @@ namespace acme_posix
    }
 
 
-   void file::put_byte_back(::byte b)
+   void file::put_byte_back(::u8 b)
    {
       
       if(m_iPutByteBackCount >= sizeof(m_byteaPutBack))
@@ -610,7 +610,7 @@ namespace acme_posix
       ASSERT_VALID(this);
       ASSERT(m_iFile != hFileNull);
 
-      /*if (!::LockFile((HANDLE)m_iFile, LODWORD(dwPos), HIDWORD(dwPos), LODWORD(dwCount), HIDWORD(dwCount)))
+      /*if (!::LockFile((HANDLE)m_iFile, lower_u32(dwPos), upper_u32(dwPos), lower_u32(dwCount), upper_u32(dwCount)))
          ::file::throw_os_error( (::i32)::get_last_error());*/
    }
 
@@ -619,7 +619,7 @@ namespace acme_posix
       ASSERT_VALID(this);
       ASSERT(m_iFile != hFileNull);
 
-      /*      if (!::UnlockFile((HANDLE)m_iFile,  LODWORD(dwPos), HIDWORD(dwPos), LODWORD(dwCount), HIDWORD(dwCount)))
+      /*      if (!::UnlockFile((HANDLE)m_iFile,  lower_u32(dwPos), upper_u32(dwPos), lower_u32(dwCount), upper_u32(dwCount)))
                ::file::throw_os_error( (::i32)::get_last_error());*/
    }
 
@@ -677,7 +677,7 @@ namespace acme_posix
    //                            void ** /*ppBufStart*/, void ** /*ppBufMax*/)
    //{
    //   ASSERT(nCommand == bufferCheck);
-   //   __UNREFERENCED_PARAMETER(nCommand);    // not used in retail build
+   //   UNREFERENCED_PARAMETER(nCommand);    // not used in retail build
 
    //   return 0;   // no support
    //}
@@ -941,38 +941,74 @@ namespace acme_posix
 
       //}
 
-      struct timespec times[2];
-
-      times[0].tv_sec = 0;
-      times[0].tv_nsec = UTIME_OMIT;
-      times[1].tv_sec = time.m_iSecond;
-      times[1].tv_nsec = time.m_iNanosecond;
-
-      if(futimens(m_iFile, times))
+#ifdef __APPLE__
+      if (__builtin_available(macOS 10.13, *))
       {
+#endif
+         struct timespec times[2];
 
+         times[0].tv_sec = 0;
+         times[0].tv_nsec = UTIME_OMIT;
+         times[1].tv_sec = time.m_iSecond;
+         times[1].tv_nsec = time.m_iNanosecond;
+         if(futimens(m_iFile, times))
+         {
+            
+            
+            //utimbuf utimbuf;
+            
+            //utimbuf.actime = statAttribute.st_atime;
+            
+            //utimbuf.modtime = time.m_time;
+            
+            //if(utime(path, &utimbuf))
+            //{
+            
+            int iErrNo = errno;
+            
+            //auto estatus = errno_status(iErrNo);
+            
+            string strMessage;
+            
+            strMessage = "Failed to set file modification time";
+            
+            ::throw_errno_exception(m_path, m_eopen, strMessage, iErrNo);
+            
+         }
+#ifdef __APPLE__
+      } else {
+         struct timeval times[2];
 
-      //utimbuf utimbuf;
-
-      //utimbuf.actime = statAttribute.st_atime;
-
-      //utimbuf.modtime = time.m_time;
-
-      //if(utime(path, &utimbuf))
-      //{
-
-         int iErrNo = errno;
-
-         //auto estatus = errno_status(iErrNo);
-
-         string strMessage;
-
-         strMessage = "Failed to set file modification time";
-
-         ::throw_errno_exception(m_path, m_eopen, strMessage, iErrNo);
-
+         times[0].tv_sec = 0;
+         times[0].tv_usec = UTIME_OMIT;
+         times[1].tv_sec = time.m_iSecond;
+         times[1].tv_usec = (int) ( time.m_iNanosecond /1000);
+         if(futimes(m_iFile, times))
+         {
+            
+            
+            //utimbuf utimbuf;
+            
+            //utimbuf.actime = statAttribute.st_atime;
+            
+            //utimbuf.modtime = time.m_time;
+            
+            //if(utime(path, &utimbuf))
+            //{
+            
+            int iErrNo = errno;
+            
+            //auto estatus = errno_status(iErrNo);
+            
+            string strMessage;
+            
+            strMessage = "Failed to set file modification time";
+            
+            ::throw_errno_exception(m_path, m_eopen, strMessage, iErrNo);
+            
+         }
       }
-
+#endif
    }
 
 } // namespace acme_android

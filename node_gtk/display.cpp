@@ -323,28 +323,49 @@ namespace node_gtk
       if(edesktop & ::user::e_desktop_gnome)
       {
 
-         string strColorScheme;
+         acmenode()->post_procedure([this, strWallpaper]()
+                                    {
 
-         gsettings_get(strColorScheme, "org.gnome.desktop.interface", "color-scheme");
+            bool bOk = false;
+
+         string strColorScheme = m_strDarkModeAnnotation;
+
+         //gsettings_get(strColorScheme, "org.gnome.desktop.interface", "color-scheme");
 
          if(strColorScheme.case_insensitive_contains("dark"))
          {
 
-            bOk = gsettings_set("org.gnome.desktop.background", "picture-uri-dark", "file://" + strWallpaper);
+            information() << "org.gnome.desktop.background picture-uri-dark file://" + strWallpaper;
+
+            fflush(stdout);
+
+            bOk = gsettings_set("org.gnome.desktop.background", "picture-uri-dark", "file://" + strWallpaper).ok();
 
          }
          else
          {
 
-            bOk = gsettings_set("org.gnome.desktop.background", "picture-uri", "file://" + strWallpaper);
+            information() << "org.gnome.desktop.background picture-uri file://" + strWallpaper;
+
+            fflush(stdout);
+
+            bOk = gsettings_set("org.gnome.desktop.background", "picture-uri", "file://" + strWallpaper).ok();
+
+            information() << "org.gnome.desktop.background picture-uri file://" + strWallpaper + (bOk ? " true" : " false");
+
+            fflush(stdout);
+
+            information() << " ";
 
          }
+
+                                    });
 
       }
       else if(edesktop & ::user::e_desktop_mate)
       {
 
-         bOk = gsettings_set("org.mate.background", "picture-filename", "file://" + strWallpaper);
+         bOk = gsettings_set("org.mate.background", "picture-filename", "file://" + strWallpaper).ok();
 
       }
       else if(edesktop & ::user::e_desktop_lxde)

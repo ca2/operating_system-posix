@@ -166,7 +166,7 @@ Window g_windowX11Client = 0;
 
 
 
-int_bool _x11_get_cursor_pos(Display * d, POINT_I32 * ppointCursor);
+int_bool _x11_get_cursor_pos(Display * d, ::point_i32 * ppointCursor);
 
 
 //extern ::pointer< ::mutex >g_pmutexX11Runnable;
@@ -187,7 +187,7 @@ int_bool _x11_get_cursor_pos(Display * d, POINT_I32 * ppointCursor);
 //CLASS_DECL_AURA int_bool mq_remove_window_from_all_queues(oswindow oswindow);
 //
 //
-//int_bool x11_get_cursor_pos(POINT_I32 * ppointCursor);
+//int_bool x11_get_cursor_pos(::point_i32 * ppointCursor);
 
 
 
@@ -547,7 +547,7 @@ namespace windowing_x11
 //   }
 
 
-//   bool display::point_is_window_origin(POINT_I32 pointHitTest, ::windowing::window *pwindowExclude, int iMargin)
+//   bool display::point_is_window_origin(::point_i32 pointHitTest, ::windowing::window *pwindowExclude, int iMargin)
 //   {
 //
 //      bool bIsOrigin = false;
@@ -807,7 +807,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 #define SIZEY  50
 
 
-//void message_box_paint(::draw2d::graphics_pointer & pgraphics, string_array & stra, bool_array  & baTab, int_array  & ya,SIZE_I32 * psize)
+//void message_box_paint(::draw2d::graphics_pointer & pgraphics, string_array & stra, bool_array  & baTab, int_array  & ya,::size_i32 * psize)
 //{
 //
 //   synchronous_lock synchronouslock(user_synchronization());
@@ -1591,7 +1591,7 @@ void windowing::_defer_position_message(oswindow oswindow, const ::point_i32 & p
 
             msg.m_atom = e_message_reposition;
             msg.wParam = 0;
-            msg.lParam = point.lparam();
+            msg.lParam = ::lparam(point);
 
             post_ui_message(msg);
 
@@ -1980,9 +1980,9 @@ else if(detail == 3)
             if(msg.oswindow)
             {
 
-               ::minimum(m_pointCursor.x);
+               ::minimum(m_pointCursor.x());
 
-               ::minimum(m_pointCursor.y);
+               ::minimum(m_pointCursor.y());
 
 //            if(e.xcrossing.mode == NotifyUngrab)
 //            {
@@ -2027,9 +2027,9 @@ else if(detail == 3)
             if(msg.oswindow)
             {
 
-               m_pointCursor.x = e.xmotion.x_root;
+               m_pointCursor.x() = e.xmotion.x_root;
 
-               m_pointCursor.y = e.xmotion.y_root;
+               m_pointCursor.y() = e.xmotion.y_root;
 
                msg.oswindow->set_cursor_position(m_pointCursor);
 
@@ -2077,7 +2077,7 @@ else if(detail == 3)
 //
 //                              if (
 //                                 !pinteraction->m_timeMouseMoveSkip.timeout(pinteraction->m_timeMouseMovePeriod)
-//                                 && sizeDistance.cx * sizeDistance.cx + sizeDistance.cy * sizeDistance.cy <
+//                                 && sizeDistance.cx() * sizeDistance.cx() + sizeDistance.cy() * sizeDistance.cy() <
 //                                    pinteraction->m_iMouseMoveSkipSquareDistance)
 //                              {
 //
@@ -2140,7 +2140,7 @@ else if(detail == 3)
 
                //msg.m_atom = e_message_mouse_move;
                //msg.wParam = wparam;
-               //msg.lParam = __MAKE_LONG(e.xmotion.x_root, e.xmotion.y_root);
+               //msg.lParam = make_i32(e.xmotion.x_root, e.xmotion.y_root);
                //msg.time = e.xmotion.time;
 
                //post_ui_message(msg);
@@ -2153,9 +2153,9 @@ else if(detail == 3)
 
                pmouse->m_atom = e_message_mouse_move;
 
-               pmouse->m_point.x = e.xmotion.x_root;
+               pmouse->m_point.x() = e.xmotion.x_root;
 
-               pmouse->m_point.y = e.xmotion.y_root;
+               pmouse->m_point.y() = e.xmotion.y_root;
 
                pmouse->m_time.m_iSecond = e.xmotion.time / 1_k;
 
@@ -2461,7 +2461,7 @@ else if(detail == 3)
                                            if (edisplayPrevious == ::e_display_iconic)
                                            {
 
-                                              pinteraction->_001OnDeiconify(::e_display_restored);
+                                              pinteraction->_001OnDeiconify(::e_display_normal);
 
                                            }
                                            else
@@ -2756,9 +2756,9 @@ else if(detail == 3)
 
                int YRoot = e.xbutton.y_root;
 
-               m_pointCursor.x = XRoot;
+               m_pointCursor.x() = XRoot;
 
-               m_pointCursor.y = YRoot;
+               m_pointCursor.y() = YRoot;
 
                msg.oswindow->set_cursor_position(m_pointCursor);
 
@@ -2766,8 +2766,8 @@ else if(detail == 3)
 
 //      int l = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.x;
 //      int t = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.y;
-//      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx;
-//      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy;
+//      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx();
+//      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy();
 //
 //      ::rectangle_i32 r;
 //
@@ -2789,13 +2789,13 @@ else if(detail == 3)
 
                    pmousewheel->m_atom = e_message_mouse_wheel;
 
-                  //msg.wParam = __MAKE_LONG(0, iDelta);
+                  //msg.wParam = make_i32(0, iDelta);
 
-                  //msg.lParam = __MAKE_LONG(e.xbutton.x_root, e.xbutton.y_root);
+                  //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
 
-                   pmousewheel->m_point.x = e.xbutton.x_root;
+                   pmousewheel->m_point.x() = e.xbutton.x_root;
 
-                   pmousewheel->m_point.y = e.xbutton.y_root;
+                   pmousewheel->m_point.y() = e.xbutton.y_root;
 
                    pmousewheel->m_time.m_iSecond = e.xbutton.time / 1_k;
 
@@ -2816,9 +2816,9 @@ else if(detail == 3)
 
                    pmouse->m_atom = emessage;
 
-                   pmouse->m_point.x = e.xbutton.x_root;
+                   pmouse->m_point.x() = e.xbutton.x_root;
 
-                   pmouse->m_point.y = e.xbutton.y_root;
+                   pmouse->m_point.y() = e.xbutton.y_root;
 
                    pmouse->m_time.m_iSecond = e.xbutton.time / 1_k;
 
@@ -2826,7 +2826,7 @@ else if(detail == 3)
 
                    //msg.wParam = 0;
 
-                  //msg.lParam = __MAKE_LONG(e.xbutton.x_root, e.xbutton.y_root);
+                  //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
 
                   //post_ui_message(msg);
                    post_ui_message(pmouse);
@@ -3230,7 +3230,7 @@ else if(detail == 3)
 
 
 
-//int_bool window_rectangle(oswindow hwnd, RECTANGLE_I32 * prectangle)
+//int_bool window_rectangle(oswindow hwnd, ::rectangle_i32 * prectangle)
 //{
 //
 //   synchronous_lock synchronouslock(user_synchronization());
@@ -3252,7 +3252,7 @@ else if(detail == 3)
 
 
 //
-//int_bool ca2_GetClientRect(oswindow window, RECTANGLE_I32 * prectangle)
+//int_bool ca2_GetClientRect(oswindow window, ::rectangle_i32 * prectangle)
 //{
 //
 //   synchronous_lock synchronouslock(window->m_pimpl->m_puserinteraction->synchronization());
@@ -3269,7 +3269,7 @@ else if(detail == 3)
 
 
 //
-//int_bool GetCursorPos(POINT_I32 * ppointCursor)
+//int_bool GetCursorPos(::point_i32 * ppointCursor)
 //{
 //
 //   x11_sync([&]()
@@ -3308,7 +3308,7 @@ else if(detail == 3)
 //CLASS_DECL_AURA void defer_dock_application(int_bool bDock)
 //{
 //
-//   __UNREFERENCED_PARAMETER(bDock);
+//   UNREFERENCED_PARAMETER(bDock);
 //
 //}
 
@@ -3783,7 +3783,7 @@ else if(detail == 3)
 //
 //
 //
-//int_bool _x11_get_cursor_pos(Display * d, POINT_I32 * ppointCursor);
+//int_bool _x11_get_cursor_pos(Display * d, ::point_i32 * ppointCursor);
 //
 
 
@@ -3799,7 +3799,7 @@ else if(detail == 3)
 //CLASS_DECL_AURA int_bool mq_remove_window_from_all_queues(oswindow oswindow);
 //
 //
-//int_bool x11_get_cursor_pos(POINT_I32 * ppointCursor);
+//int_bool x11_get_cursor_pos(::point_i32 * ppointCursor);
 //
 
 //
@@ -3956,7 +3956,7 @@ const char *g_pszaNetWmState[] =
 //}
 
 
-bool x11_get_client_rect(Display * pdisplay, Window window, RECTANGLE_I32 *prectangle)
+bool x11_get_client_rect(Display * pdisplay, Window window, ::rectangle_i32 *prectangle)
 {
 
    synchronous_lock synchronouslock(user_synchronization());
@@ -4006,7 +4006,7 @@ string x11_get_name(Display * display, Window w)
 
 
 
-bool x11_get_window_rect(Display * d, Window window, RECTANGLE_I32 * prectangle)
+bool x11_get_window_rect(Display * d, Window window, ::rectangle_i32 * prectangle)
 {
 
    XWindowAttributes attrs;

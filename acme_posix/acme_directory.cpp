@@ -1,6 +1,6 @@
 // From acme/filesystem/file/dir.cpp by camilo 
 // on 2021-08-09 03:19 BRT
-// <3ThomasBorregaardSørensen!!
+// <3ThomasBorregaardSorensen!!
 #include "framework.h"
 #include "acme_directory.h"
 #include "acme_file.h"

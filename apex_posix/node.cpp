@@ -15,7 +15,7 @@
 #include "acme/_operating_system.h"
 
 
-#if defined(LINUX) || defined(__APPLE__)
+#if defined(LINUX) || defined(__APPLE__) || defined(ANDROID)
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -56,14 +56,6 @@ namespace apex_posix
    }
 
 
-   int node::node_init_check(int * pi, char *** ppz)
-   {
-
-      return ::acme_posix::node::node_init_check(pi, ppz);
-
-   }
-
-
    void node::on_start_application(::apex::application *papplication)
    {
 
@@ -99,7 +91,7 @@ namespace apex_posix
       catch(...)
       {
 
-         TRACE("Could not create .desktop shortcut file for the Linux papp for the current user.");
+         information("Could not create .desktop shortcut file for the Linux papp for the current user.");
 
       }
 
@@ -143,7 +135,7 @@ namespace apex_posix
 //      catch(...)
 //      {
 //
-//         TRACE("Could not create .desktop shortcut file for the Linux papp for the current user.");
+//         information("Could not create .desktop shortcut file for the Linux papp for the current user.");
 //
 //      }
 
@@ -186,7 +178,7 @@ namespace apex_posix
 //      catch(...)
 //      {
 //
-//         TRACE("Could not create .desktop shortcut file for the Linux papp for the current user.");
+//         information("Could not create .desktop shortcut file for the Linux papp for the current user.");
 //
 //      }
 //
@@ -256,7 +248,7 @@ namespace apex_posix
       {
 
 
-         FORMATTED_WARNING("getaddrinfo: %s", gai_strerror(gai_result));
+         warning("getaddrinfo: %s", gai_strerror(gai_result));
 
 
       }

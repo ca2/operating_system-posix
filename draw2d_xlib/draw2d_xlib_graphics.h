@@ -100,7 +100,7 @@ namespace draw2d_xlib
       virtual bool RestoreDC(i32 nSavedDC);
       i32 GetDevicecaps(i32 nIndex) const;
       ::u32 SetBoundsRect(::rectangle_i32 rectangleBounds, ::u32 flags);
-      ::u32 GetBoundsRect(RECTANGLE_I32 * rectangleBounds, ::u32 flags);
+      ::u32 GetBoundsRect(::rectangle_i32 * rectangleBounds, ::u32 flags);
 // xxx      bool ResetDC(const DEVMODE* lpDevMode);
 
       // Drawing-Tool Functions
@@ -185,11 +185,11 @@ namespace draw2d_xlib
       virtual size_i32 scale_window_ext(i32 xNum, i32 xDenom, i32 yNum, i32 yDenom);
 
       // Coordinate Functions
-      void DPtoLP(POINT_I32 * lpPoints, i32 nCount = 1) const;
-      void DPtoLP(RECTANGLE_I32 * prectangle) const;
+      void DPtoLP(::point_i32 * lpPoints, i32 nCount = 1) const;
+      void DPtoLP(::rectangle_i32 * prectangle) const;
       void DPtoLP(LPSIZE32 LPSIZE32) const;
-      void LPtoDP(POINT_I32 * lpPoints, i32 nCount = 1) const;
-      void LPtoDP(RECTANGLE_I32 * prectangle) const;
+      void LPtoDP(::point_i32 * lpPoints, i32 nCount = 1) const;
+      void LPtoDP(::rectangle_i32 * prectangle) const;
       void LPtoDP(LPSIZE32 LPSIZE32) const;
 
       // Special Coordinate Functions (useful for dealing with metafiles and OLE)
@@ -206,7 +206,7 @@ namespace draw2d_xlib
 
       // Clipping Functions
       using draw2d::graphics::get_clip_box;
-      virtual i32 get_clip_box(RECTANGLE_I32 * prectangle) const;
+      virtual i32 get_clip_box(::rectangle_i32 * prectangle) const;
       virtual bool PtVisible(i32 x, i32 y) const;
       bool PtVisible(const ::point_i32 & point) const;
       virtual bool RectVisible(const ::rectangle_i32 & rectangle) const;
@@ -232,7 +232,7 @@ namespace draw2d_xlib
       using ::draw2d::graphics::Arc;
       bool Arc(i32 x1, i32 y1, i32 x2, i32 y2, i32 x3, i32 y3, i32 x4, i32 y4);
       bool Arc(const ::rectangle_i32 & rectangle, const ::point_i32 & pointStart, const ::point_i32 & pointEnd);
-      bool polyline(const POINT_I32* lpPoints, i32 nCount);
+      bool polyline(const ::point_i32* lpPoints, i32 nCount);
 
       bool AngleArc(i32 x, i32 y, i32 nRadius, float fStartAngle, float fSweepAngle);
       bool ArcTo(i32 x1, i32 y1, i32 x2, i32 y2, i32 x3, i32 y3, i32 x4, i32 y4);
@@ -240,13 +240,13 @@ namespace draw2d_xlib
       i32 GetArcDirection() const;
       i32 SetArcDirection(i32 nArcDirection);
 
-      bool PolyDraw(const POINT_I32* lpPoints, const byte* lpTypes, i32 nCount);
-      bool polyline_to(const POINT_I32* lpPoints, i32 nCount);
-      bool poly_polyline(const POINT_I32* lpPoints,
+      bool PolyDraw(const ::point_i32* lpPoints, const ::u8* lpTypes, i32 nCount);
+      bool polyline_to(const ::point_i32* lpPoints, i32 nCount);
+      bool poly_polyline(const ::point_i32* lpPoints,
                         const u32* lpPolyPoints, i32 nCount);
 
-      bool poly_bezier(const POINT_I32* lpPoints, i32 nCount);
-      bool poly_bezier_to(const POINT_I32* lpPoints, i32 nCount);
+      bool poly_bezier(const ::point_i32* lpPoints, i32 nCount);
+      bool poly_bezier_to(const ::point_i32* lpPoints, i32 nCount);
 
       // Simple Drawing Functions
       void FillRect(const ::rectangle_i32 & rectangle, ::draw2d::brush* pBrush);
@@ -289,16 +289,16 @@ namespace draw2d_xlib
       bool Pie(i32 x1, i32 y1, i32 x2, i32 y2, i32 x3, i32 y3, i32 x4, i32 y4);
       bool Pie(const ::rectangle_i32 & rectangle, const ::point_i32 & pointStart, const ::point_i32 & pointEnd);
 
-      virtual bool fill_polygon(const POINT_F64 * lpPoints, i32 nCount);
-      virtual bool fill_polygon(const POINT_I32* lpPoints, i32 nCount);
+      virtual bool fill_polygon(const ::point_f64 * lpPoints, i32 nCount);
+      virtual bool fill_polygon(const ::point_i32* lpPoints, i32 nCount);
 
-      virtual bool draw_polygon(const POINT_F64 * lpPoints, i32 nCount);
-      virtual bool draw_polygon(const POINT_I32* lpPoints, i32 nCount);
+      virtual bool draw_polygon(const ::point_f64 * lpPoints, i32 nCount);
+      virtual bool draw_polygon(const ::point_i32* lpPoints, i32 nCount);
 
 
       using ::draw2d::graphics::Polygon;
-      bool Polygon(const POINT_I32* lpPoints, i32 nCount);
-      bool PolyPolygon(const POINT_I32* lpPoints, const ::i32* lpPolyCounts, i32 nCount);
+      bool Polygon(const ::point_i32* lpPoints, i32 nCount);
+      bool PolyPolygon(const ::point_i32* lpPoints, const ::i32* lpPolyCounts, i32 nCount);
       bool Rectangle(i32 x1, i32 y1, i32 x2, i32 y2);
       bool Rectangle(const ::rectangle_i32 & rectangle);
       virtual bool DrawRectangle(i32 x1, i32 y1, i32 x2, i32 y2);
@@ -324,7 +324,7 @@ namespace draw2d_xlib
 //      bool MaskBlt(i32 x, i32 y, i32 nWidth, i32 nHeight, ::draw2d::graphics * pgraphicsSrc,
 //                   i32 xSrc, i32 ySrc, ::draw2d::bitmap& maskBitmap, i32 xMask, i32 yMask,
 //                   u32 dwRop);
-//      bool PlgBlt(POINT_I32 * lpPoint, ::draw2d::graphics * pgraphicsSrc, i32 xSrc, i32 ySrc,
+//      bool PlgBlt(::point_i32 * lpPoint, ::draw2d::graphics * pgraphicsSrc, i32 xSrc, i32 ySrc,
 //                  i32 nWidth, i32 nHeight, ::draw2d::bitmap& maskBitmap, i32 xMask, i32 yMask);
       bool SetPixelV(i32 x, i32 y, color32_t crColor);
       bool SetPixelV(const ::point_i32 & point, color32_t crColor);
@@ -356,12 +356,12 @@ namespace draw2d_xlib
                          i32 nTabPositions, LPINT lpnTabStopPositions, i32 nTabOrigin);
 
       using ::draw2d::graphics::draw_text;
-      virtual i32 draw_text(const char * lpszString, i32 nCount, RECTANGLE_I32 * prectangle, const ::e_align & ealign = e_align_top_left, const ::e_draw_text & edrawtext = e_draw_text_none);
-      virtual i32 draw_text(const string & str, RECTANGLE_I32 * prectangle, const ::e_align & ealign = e_align_top_left, const ::e_draw_text & edrawtext = e_draw_text_none);
+      virtual i32 draw_text(const char * lpszString, i32 nCount, ::rectangle_i32 * prectangle, const ::e_align & ealign = e_align_top_left, const ::e_draw_text & edrawtext = e_draw_text_none);
+      virtual i32 draw_text(const string & str, ::rectangle_i32 * prectangle, const ::e_align & ealign = e_align_top_left, const ::e_draw_text & edrawtext = e_draw_text_none);
 
       using ::draw2d::graphics::draw_text_ex;
-      virtual i32 draw_text_ex(char * lpszString, i32 nCount, RECTANGLE_I32 * prectangle, const ::e_align & ealign = e_align_top_left, const ::e_draw_text & edrawtext = e_draw_text_none, LPDRAWTEXTPARAMS lpDTParams);
-      virtual i32 draw_text_ex(const string & str, RECTANGLE_I32 * prectangle, const ::e_align & ealign = e_align_top_left, const ::e_draw_text & edrawtext = e_draw_text_none, LPDRAWTEXTPARAMS lpDTParams);
+      virtual i32 draw_text_ex(char * lpszString, i32 nCount, ::rectangle_i32 * prectangle, const ::e_align & ealign = e_align_top_left, const ::e_draw_text & edrawtext = e_draw_text_none, LPDRAWTEXTPARAMS lpDTParams);
+      virtual i32 draw_text_ex(const string & str, ::rectangle_i32 * prectangle, const ::e_align & ealign = e_align_top_left, const ::e_draw_text & edrawtext = e_draw_text_none, LPDRAWTEXTPARAMS lpDTParams);
 
       size_i32 get_text_extent(const char * lpszString, strsize nCount, i32 iIndex) const;
       size_i32 get_text_extent(const char * lpszString, strsize nCount) const;
@@ -401,12 +401,12 @@ namespace draw2d_xlib
 
 
 //      // Advanced Drawing
-//      bool DrawEdge(RECTANGLE_I32 * prectangle, ::u32 nEdge, ::u32 nFlags);
-//      bool DrawFrameControl(RECTANGLE_I32 * prectangle, ::u32 nType, ::u32 nState);
+//      bool DrawEdge(::rectangle_i32 * prectangle, ::u32 nEdge, ::u32 nFlags);
+//      bool DrawFrameControl(::rectangle_i32 * prectangle, ::u32 nType, ::u32 nState);
 
       // Scrolling Functions
-      bool ScrollDC(i32 Δx, i32 Δy, rectangle_i32 lpRectScroll, const ::rectangle_i32 & rectangleClip,
-                    ::draw2d::region* pRgnUpdate, RECTANGLE_I32 * lpRectUpdate);
+      bool ScrollDC(i32 greekdeltax, i32 greekdeltay, rectangle_i32 lpRectScroll, const ::rectangle_i32 & rectangleClip,
+                    ::draw2d::region* pRgnUpdate, ::rectangle_i32 * lpRectUpdate);
 
       // font Functions
       bool GetCharWidth(::u32 nFirstChar, ::u32 nLastChar, LPINT lpBuffer) const;
@@ -452,7 +452,7 @@ namespace draw2d_xlib
       // MetaFile Functions
 //xxx      bool PlayMetaFile(HMETAFILE hMF);
       bool PlayMetaFile(HENHMETAFILE hEnhMetaFile, rectangle_i32 lpBounds);
-      bool AddMetaFileComment(::u32 nDataSize, const byte* pCommentData);
+      bool AddMetaFileComment(::u32 nDataSize, const ::u8* pCommentData);
       // can be used for enhanced metafiles only
 
       // Path Functions
@@ -474,7 +474,7 @@ namespace draw2d_xlib
 
       float GetMiterLimit() const;
       bool SetMiterLimit(float fMiterLimit);
-      i32 GetPath(POINT_I32 * lpPoints, LPBYTE lpTypes, i32 nCount) const;
+      i32 GetPath(::point_i32 * lpPoints, LPBYTE lpTypes, i32 nCount) const;
       bool SelectClipPath(i32 nMode);
 
       // Misc Helper Functions
@@ -483,7 +483,7 @@ namespace draw2d_xlib
       void DrawDragRect(const ::rectangle_i32 & rectangle, const ::size_i32 & size,
                         rectangle_i32 lpRectLast, const ::size_i32 & sizeLast,
                         ::draw2d::brush* pBrush = nullptr, ::draw2d::brush* pBrushLast = nullptr);
-      void FillSolidRect(const RECTANGLE_I64 * rectangle, color32_t clr);
+      void FillSolidRect(const ::rectangle_i64 * rectangle, color32_t clr);
       void FillSolidRect(const ::rectangle_i32 & rectangle, color32_t clr);
       void FillSolidRect(i32 x, i32 y, i32 cx, i32 cy, color32_t clr);
       void Draw3dRect(const ::rectangle_i32 & rectangle, color32_t clrTopLeft, color32_t clrBottomRight);

@@ -1,5 +1,5 @@
 //
-// Created by camilo on 09/12/2021 15:06 BRT <3ThomasBorregaardSørensen!!
+// Created by camilo on 09/12/2021 15:06 BRT <3ThomasBorregaardSorensen!!
 //
 
 
@@ -20,6 +20,15 @@ namespace node_gtk
 
 
    ::e_status gsettings_sync();
+
+   
+   bool gsettings_schema_exists(const ::string & strSchema);
+
+
+   ::string_array gsettings_schema_keys(const ::string & strSchema);
+
+
+   bool gsettings_schema_contains_key(const ::string & strSchema, const ::string & strKey);
 
 
    ::e_status gsettings_set(const ::string & strSchema, const ::string & strKey, const ::string & strValue);

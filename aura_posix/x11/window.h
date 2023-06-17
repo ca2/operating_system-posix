@@ -27,7 +27,7 @@ namespace windowing_posix
 
 
       window();
-      virtual ~window();
+      ~window() override;
 
 
    };

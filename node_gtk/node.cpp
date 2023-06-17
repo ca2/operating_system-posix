@@ -9,6 +9,7 @@
 #include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/filesystem/filesystem/file_dialog.h"
 #include "acme/filesystem/filesystem/folder_dialog.h"
+#include "acme/operating_system/summary.h"
 #include "acme/user/user/os_theme_colors.h"
 #include "acme/user/user/theme_colors.h"
 #include "apex/platform/system.h"
@@ -40,20 +41,18 @@ void copy(::color::color &color, const GdkRGBA &rgba)
 }
 
 
-void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state, const char *pszProperty, ::u32 &u32)
+bool __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state, const char *pszProperty, ::color::color & color)
 {
 
    GdkRGBA *prgba = nullptr;
 
    gtk_style_context_get(context, state, pszProperty, &prgba, NULL);
 
-   ::color::color color;
-
    copy(color, *prgba);
 
    gdk_rgba_free(prgba);
 
-   u32 = color.u32;
+   return true;
 
 }
 
@@ -87,6 +86,44 @@ void gtk_settings_gtk_theme_name_callback(GObject *object, GParamSpec *pspec, gp
 //               {
 
    pnode->_set_os_user_theme(strTheme);
+
+//                  ::preempt(400_ms);
+//
+//                  pnode->_apply_os_user_theme(strTheme);
+//
+//                  //_os_user_theme(strTheme);
+//
+//               });
+
+}
+
+
+void gtk_settings_gtk_icon_theme_name_callback(GObject *object, GParamSpec *pspec, gpointer data)
+{
+
+   node_gtk::node *pnode = (node_gtk::node *) data;
+
+   if (!pnode)
+   {
+
+      return;
+
+   }
+
+   gchar *icon_theme_name = nullptr;
+
+   g_object_get(pnode->m_pGtkSettingsDefault, "gtk-icon-theme-name", &icon_theme_name, NULL);
+
+   string strIconTheme = icon_theme_name;
+
+   ::output_debug_string("gtk_settings_gtk_icon_theme_name_callback: \"" + strIconTheme + "\"\n");
+
+   g_free(icon_theme_name);
+
+//   pnode->fork([pnode, strTheme]()
+//               {
+
+   pnode->_set_os_user_icon_theme(strIconTheme);
 
 //                  ::preempt(400_ms);
 //
@@ -175,8 +212,6 @@ namespace node_gtk
    int node::node_init_check(int *pi, char ***ppz)
    {
 
-      //auto iResult = gtk_init_check(pi, ppz);
-
       if (!os_defer_init_gtk(acmesystem()))
       {
 
@@ -213,7 +248,7 @@ namespace node_gtk
 //      if (!estatus)
 //      {
 //
-//         WARNING("Failed to begin_synch the system (::apex::system or ::apex::system derived)");
+//         warning() <<"Failed to begin_synch the system (::apex::system or ::apex::system derived)";
 //
 //         return estatus;
 //
@@ -257,11 +292,6 @@ namespace node_gtk
 
       {
 
-         ///auto psystem = acmesystem();
-
-         //auto pnode = psystem->node();
-
-         //pnode->node_init_check(&m_argc, &m_argv);
          node_init_check(acmesystem()->subsystem()->get_pargc(),
                          acmesystem()->subsystem()->get_pargv());
 
@@ -304,26 +334,6 @@ namespace node_gtk
       else
       {
 
-         //g_set_application_name(System.m_XstrAppId);
-
-         //g_set_prgname(System.m_strProgName);
-         ////
-         ////      //auto idle_source = g_idle_source_new();
-         ////
-         ////      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) acmesystem(), nullptr);
-         ////
-         ////      //g_source_attach(idle_source, g_main_context_default());
-         ////
-         ////      //int c = 2;
-         ////
-         ////      //const char * argv[]={"app", "--g-fatal-warnings"};
-         ////
-         ////#if !defined(__SANITIZE_ADDRESS__)
-         ////
-         ////      gtk_init_check(&psystem->m_argc, &psystem->m_argv);
-         ////
-         ////#endif
-
          node_post([this]()
                    {
 
@@ -341,19 +351,45 @@ namespace node_gtk
 
                          g_object_ref (m_pGtkSettingsDefault);
 
-                         gchar *theme_name = nullptr;
+                         {
 
-                         g_object_get(m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
+                            gchar *theme_name = nullptr;
 
-                         m_strTheme = theme_name;
+                            g_object_get(m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
 
-                         g_free(theme_name);
+                            m_strTheme = theme_name;
 
-                         auto preturn = g_signal_connect_data(
+                            g_free(theme_name);
+
+                         }
+
+                         {
+
+                            gchar *icon_theme_name = nullptr;
+
+                            g_object_get(m_pGtkSettingsDefault, "gtk-icon-theme-name", &icon_theme_name, NULL);
+
+                            m_strIconTheme = icon_theme_name;
+
+                            g_free(icon_theme_name);
+
+                         }
+
+
+                         auto preturnTheme = g_signal_connect_data(
                                  m_pGtkSettingsDefault,
                                  "notify::gtk-theme-name",
                                  //"gtk-private-changed",
                                  G_CALLBACK(gtk_settings_gtk_theme_name_callback),
+                                 this,
+                                 NULL,
+                                 G_CONNECT_AFTER);
+
+                         auto preturnIconTheme = g_signal_connect_data(
+                                 m_pGtkSettingsDefault,
+                                 "notify::gtk-icon-theme-name",
+                                 //"gtk-private-changed",
+                                 G_CALLBACK(gtk_settings_gtk_icon_theme_name_callback),
                                  this,
                                  NULL,
                                  G_CONNECT_AFTER);
@@ -491,6 +527,139 @@ namespace node_gtk
 //
 //   }
 
+   void node::_dark_mode()
+   {
+
+      information() << "::node_gtk::node::_dark_mode";
+
+      if(gsettings_schema_exists("org.gnome.desktop.interface"))
+      {
+
+         information() << "org.gnome.desktop.interface exists";
+
+         if(gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
+         {
+
+            information() << "org.gnome.desktop.interface contains \"color-scheme\"";
+
+            ::string strColorScheme;
+
+            if (gsettings_get(strColorScheme, "org.gnome.desktop.interface", "color-scheme"))
+            {
+
+               information() << "color-scheme=\"" + strColorScheme + "\"";
+
+               strColorScheme.trim();
+
+               if (strColorScheme.case_insensitive_contains("dark"))
+               {
+
+                  m_bDarkMode = true;
+
+               }
+               else
+               {
+
+                  m_bDarkMode = false;
+
+               }
+
+            }
+            else
+            {
+
+               m_bDarkMode = false;
+
+            }
+
+         }
+         else if(gsettings_schema_contains_key("org.gnome.desktop.interface", "gtk-theme"))
+         {
+
+            information() << "org.gnome.desktop.interface schema contains \"gtk-theme\"";
+
+            ::string strGtkTheme;
+
+            if (gsettings_get(strGtkTheme, "org.gnome.desktop.interface", "gtk-theme"))
+            {
+
+               information() << "gtk-theme=\"" + strGtkTheme + "\"";
+
+               ::os_theme_colors * posthemecolor = _new_os_theme_colors(strGtkTheme);
+
+               auto dLuminance = posthemecolor->m_colorBack.get_luminance();
+
+               information("luminance=%0.2f", dLuminance);
+
+               m_bDarkMode = dLuminance < 0.5;
+
+            }
+            else
+            {
+
+               m_bDarkMode = false;
+
+            }
+
+         }
+
+      }
+
+   }
+
+
+   bool node::dark_mode() const
+   {
+
+      ((node*)this)->_dark_mode();
+
+      return ::aura_posix::node::dark_mode();
+
+   }
+
+
+   void node::set_dark_mode(bool bDarkMode)
+   {
+
+      post_procedure([this, bDarkMode]()
+                     {
+
+      if(bDarkMode)
+      {
+
+         gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-dark");
+
+      }
+      else
+      {
+
+         auto psummary = operating_system_summary();
+
+         if(psummary->m_strDistro.case_insensitive_equals("ubuntu"))
+         {
+
+            gsettings_set("org.gnome.desktop.interface", "color-scheme", "default");
+
+         }
+         else
+         {
+
+            gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-light");
+
+         }
+
+      }
+
+      _os_set_user_theme(m_strTheme);
+
+      _os_set_user_icon_theme(m_strIconTheme);
+
+      ::aura_posix::node::set_dark_mode(bDarkMode);
+
+      });
+
+   }
+
 
    void node::os_set_user_theme(const ::string &strUserTheme)
    {
@@ -529,14 +698,14 @@ namespace node_gtk
       if (edesktop & ::user::e_desktop_gnome)
       {
 
-         bool bOk1 = gsettings_set("org.gnome.desktop.interface", "gtk-theme", strUserTheme);
+         bool bOk1 = gsettings_set("org.gnome.desktop.interface", "gtk-theme", strUserTheme).ok();
 
          bool bOk2 = true;
 
          //if(::file::system_short_name().case_insensitive_contains("manjaro"))
          {
 
-            bOk2 = gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme);
+            bOk2 = gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme).ok();
 
          }
 
@@ -575,7 +744,82 @@ namespace node_gtk
          //      }
          //}
 
-         WARNING("Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+         warning() <<"Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
+
+         return error_failed;
+
+      }
+
+      return ::success;
+
+   }
+
+
+   ::e_status node::_os_set_user_icon_theme(const ::string &strUserIconTheme)
+   {
+
+      // https://ubuntuforums.org/showthread.php?t=2140488
+      // gsettings set org.gnome.desktop.interface gtk-theme your_theme
+
+      // indirect wall-changer sourceforge.net contribution
+
+      auto psystem = acmesystem()->m_papexsystem;
+
+      auto pnode = psystem->node();
+
+      auto edesktop = pnode->get_edesktop();
+
+      if (edesktop & ::user::e_desktop_gnome)
+      {
+
+         bool bOk1 = gsettings_set("org.gnome.desktop.interface", "icon-theme", strUserIconTheme).ok();
+
+         //bool bOk2 = true;
+
+//         //if(::file::system_short_name().case_insensitive_contains("manjaro"))
+//         {
+//
+//            bOk2 = gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme);
+//
+//         }
+
+         sleep(300_ms);
+
+         ::node_gtk::gsettings_sync();
+
+         sleep(300_ms);
+
+         //if (!bOk1 || !bOk2)
+         if (!bOk1)
+         {
+
+            return error_failed;
+
+         }
+
+      }
+      else if (edesktop & ::user::e_desktop_mate)
+      {
+
+         //return ::user::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
+
+      }
+      else if (edesktop & ::user::e_desktop_lxde)
+      {
+
+
+         //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+
+      }
+      else if (edesktop & ::user::e_desktop_xfce)
+      {
+         //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+         //          if(entry.contains("image-path") || entry.contains("last-image")){
+         //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+         //      }
+         //}
+
+         warning() <<"Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
 
          return error_failed;
 
@@ -613,11 +857,11 @@ namespace node_gtk
          case ::user::e_desktop_unity_gnome:
 
             return ::node_gtk::gsettings_set("org.gnome.desktop.background", "picture-uri",
-                                             "file://" + strLocalImagePath);
+                                             "file://" + strLocalImagePath).ok();
 
          case ::user::e_desktop_mate:
 
-            return ::node_gtk::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
+            return ::node_gtk::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath).ok();
 
          case ::user::e_desktop_lxde:
 
@@ -639,7 +883,7 @@ namespace node_gtk
 
          default:
 
-            WARNING("Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+            warning() <<"Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
             return false;
 
       }
@@ -694,7 +938,7 @@ namespace node_gtk
             break;
          default:
 
-            WARNING("Failed to get wallpaper setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+            warning() <<"Failed to get wallpaper setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
             //return "";
 
       }
@@ -851,13 +1095,13 @@ namespace node_gtk
          case ::user::e_desktop_ubuntu_gnome:
          case ::user::e_desktop_unity_gnome:
 
-            bOk = gsettings_get(strTheme, "org.gnome.desktop.interface", "gtk-theme");
+            bOk = gsettings_get(strTheme, "org.gnome.desktop.interface", "gtk-theme").ok();
 
             break;
 
          case ::user::e_desktop_mate:
 
-            bOk = gsettings_get(strTheme, "org.mate.background", "picture-filename");
+            bOk = gsettings_get(strTheme, "org.mate.background", "picture-filename").ok();
 
             break;
 
@@ -881,7 +1125,7 @@ namespace node_gtk
 
          default:
 
-            WARNING(
+            log_warning(
                     "Failed to get user theme setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
             //return "";
 
@@ -1087,12 +1331,48 @@ namespace node_gtk
    }
 
 
+
+   void node::_set_os_user_icon_theme(const ::scoped_string &strOsUserIconTheme)
+   {
+
+      m_strOsUserIconTheme = strOsUserIconTheme;
+
+      if (!m_ptaskOsUserTheme)
+      {
+
+         m_ptaskOsUserIconTheme = fork([this]()
+                                   {
+
+                                      preempt(1_s);
+
+                                      m_ptaskOsUserIconTheme = nullptr;
+
+                                      _apply_os_user_icon_theme();
+
+                                   });
+
+      }
+
+   }
+
+
+
    void node::_apply_os_user_theme()
    {
 
       ::output_debug_string("applying os user theme: \"" + m_strOsUserTheme + "\"\n");
 
       os_process_user_theme(m_strOsUserTheme);
+
+   }
+
+
+   void node::_apply_os_user_icon_theme()
+   {
+
+      ::output_debug_string("applying os user icon theme: \"" + m_strOsUserIconTheme + "\"\n");
+
+      os_process_user_icon_theme(m_strOsUserIconTheme);
 
    }
 
@@ -1132,9 +1412,61 @@ namespace node_gtk
 
       }
 
-      _os_process_user_theme_color(m_strTheme);
+      if(!gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
+      {
 
-      fetch_user_color();
+         _os_process_user_theme_color(m_strTheme);
+
+         fetch_user_color();
+
+      }
+
+   }
+
+
+   void node::os_process_user_icon_theme(string strOsIconTheme)
+   {
+
+      ::output_debug_string(
+              "os_process_user_icon_theme: is strIconTheme(" + strOsIconTheme + ") same as m_strIconTheme(" + m_strIconTheme + ")\n");
+
+      if (strOsIconTheme == m_strIconTheme)
+      {
+
+         ::output_debug_string(
+                 "os_process_user_icon_theme: same theme as before [new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
+
+         return;
+
+      }
+
+      ::output_debug_string(
+              "os_process_user_icon_theme: different theme [new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
+
+      m_strIconTheme = strOsIconTheme;
+
+      ::output_debug_string("os_process_user_icon_theme m_strIconTheme = \"" + m_strIconTheme + "\"\n");
+
+      try
+      {
+
+         acmesystem()->m_papexsystem->signal(id_operating_system_user_icon_theme_change);
+
+      }
+      catch (...)
+      {
+
+
+      }
+
+//      if(!gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
+//      {
+//
+//         _os_process_user_theme_color(m_strTheme);
+//
+//         fetch_user_color();
+//
+//      }
 
    }
 
@@ -1167,20 +1499,22 @@ namespace node_gtk
    void node::fetch_user_color()
    {
 
-      auto pthemecolors = ::user::os_get_theme_colors();
+      _dark_mode();
 
-      if (!pthemecolors)
-      {
-
-         string strTheme = _os_get_user_theme();
-
-         INFORMATION("node::fetch_user_color _os_get_user_theme(): " << strTheme);
-
-         pthemecolors = _new_os_theme_colors(strTheme);
-
-         _set_os_theme_colors(pthemecolors);
-
-      }
+//      auto pthemecolors = ::user::os_get_theme_colors();
+//
+//      if (!pthemecolors)
+//      {
+//
+//         string strTheme = _os_get_user_theme();
+//
+//         information() << "node::fetch_user_color _os_get_user_theme(): " << strTheme;
+//
+//         pthemecolors = _new_os_theme_colors(strTheme);
+//
+//         _set_os_theme_colors(pthemecolors);
+//
+//      }
 
    }
 

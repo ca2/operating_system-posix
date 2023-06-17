@@ -32,8 +32,10 @@ namespace node_gtk
       string_map < GDesktopAppInfo * > m_mapGDesktopAppInfo;
 
       ::string       m_strOsUserTheme;
+      ::string       m_strOsUserIconTheme;
 
       ::task_pointer       m_ptaskOsUserTheme;
+      ::task_pointer       m_ptaskOsUserIconTheme;
 
 
       node();
@@ -42,6 +44,10 @@ namespace node_gtk
 
       virtual void _set_os_user_theme(const ::scoped_string & strTheme);
       virtual void _apply_os_user_theme();
+
+
+      virtual void _set_os_user_icon_theme(const ::scoped_string & strIconTheme);
+      virtual void _apply_os_user_icon_theme();
 
 
       virtual ::os_theme_colors * _new_os_theme_colors(string strTheme);
@@ -65,11 +71,21 @@ namespace node_gtk
 
       bool is_branch_current() const override;
 
+      virtual void _dark_mode();
+
+      bool dark_mode() const override;
+
+      void set_dark_mode(bool bDarkMode) override;
+
       void os_set_user_theme(const string & strUserTheme) override;
 
       virtual ::e_status _os_set_user_theme(const string & strUserTheme);
 
+      virtual ::e_status _os_set_user_icon_theme(const string & strUserIconTheme);
+
       void os_process_user_theme(string strTheme) override;
+
+      void os_process_user_icon_theme(string strTheme) override;
 
       void enable_wallpaper_change_notification() override;
 

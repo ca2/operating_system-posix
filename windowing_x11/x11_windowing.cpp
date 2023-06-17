@@ -47,14 +47,14 @@ Display * x11_get_display()
 
 
 
-GC x11_create_gc(Colormap colormap, Display* pdisplay, Window window, byte a, byte r, byte g, byte b)
+GC x11_create_gc(Colormap colormap, Display* pdisplay, Window window, ::u8 a, ::u8 r, ::u8 g, ::u8 b)
 {
 
    GC gc = XCreateGC(pdisplay, window, 0, 0);
 
-   color32_t cr = argb(a, r * a / 255, g * a / 255, b * a / 255);
+   x11color32_t x11color32 = argb(a, r, g, b);
 
-   XSetForeground (pdisplay, gc, cr);
+   XSetForeground (pdisplay, gc, x11color32);
 
    return gc;
 

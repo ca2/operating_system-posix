@@ -864,7 +864,7 @@ namespace windowing_xcb
 
          oswindow->set_cursor_position(m_pointCursor);
 
-         //FORMATTED_INFORMATION("XCB_MOTION_NOTIFY %d,%d", pmotion->root_x, pmotion->root_y);
+         //information("XCB_MOTION_NOTIFY %d,%d", pmotion->root_x, pmotion->root_y);
 
          if (oswindow != nullptr && oswindow->m_puserinteractionimpl != nullptr)
          {
@@ -905,7 +905,7 @@ namespace windowing_xcb
                            (pinteraction->m_pointMouseMoveSkip.y - pinteraction->m_pointMouseMove.y));
 
                         if (!pinteraction->m_timeMouseMoveSkip.timeout(pinteraction->m_timeMouseMovePeriod)
-                            && sizeDistance.cx * sizeDistance.cx + sizeDistance.cy * sizeDistance.cy <
+                            && sizeDistance.cx() * sizeDistance.cx() + sizeDistance.cy() * sizeDistance.cy() <
                                pinteraction->m_iMouseMoveSkipSquareDistance)
                         {
 
@@ -1305,7 +1305,7 @@ namespace windowing_xcb
                                                     if (edisplayPrevious == ::e_display_iconic)
                                                     {
 
-                                                       pinteraction->_001OnDeiconify(::e_display_restored);
+                                                       pinteraction->_001OnDeiconify(::e_display_normal);
 
                                                     }
                                                     else
@@ -1444,7 +1444,7 @@ namespace windowing_xcb
                                            if (edisplayPrevious == ::e_display_iconic)
                                            {
 
-                                              pinteraction->_001OnDeiconify(::e_display_restored);
+                                              pinteraction->_001OnDeiconify(::e_display_normal);
 
                                            }
                                            else
@@ -1594,7 +1594,7 @@ namespace windowing_xcb
 
             //auto & screen_origin = window.screen_origin();
 
-            //FORMATTED_INFORMATION("");
+            //information("");
             //::output_debug_string("\nwindow(origin=" + as_string(origin.x) + ", " + as_string(origin.y));
             //::output_debug_string("\nwindow.screen_origin=" + as_string(screen_origin.x) + ", " + as_string(screen_origin.y));
             //::output_debug_string("\nbutton.root_x=" + as_string(pbutton->root_x));
@@ -1603,7 +1603,7 @@ namespace windowing_xcb
 
             //msg.time = pbutton->time;
 
-            i32 Δ = 0;
+            i32 greekdelta = 0;
 
             ::enum_message emessage = e_message_null;
 
@@ -1636,13 +1636,13 @@ namespace windowing_xcb
                else if (pbutton->detail == XCB_BUTTON_INDEX_4)
                {
 
-                   Δ = 120;
+                   greekdelta = 120;
 
                }
                else if (pbutton->detail == XCB_BUTTON_INDEX_5)
                {
 
-                   Δ = -120;
+                   greekdelta = -120;
 
                }
                else
@@ -1652,10 +1652,10 @@ namespace windowing_xcb
 
                }
 
-               FORMATTED_INFORMATION("XCB_BUTTON_PRESS %d,%d window %d,%d %d,%d",
+               information("XCB_BUTTON_PRESS %d,%d window %d,%d %d,%d",
                                      pbutton->root_x, pbutton->root_y,
                                      origin.x, origin.y,
-                                     origin.x + size.cx, origin.y + size.cy);
+                                     origin.x + size.cx(), origin.y + size.cy());
 
             }
             else if (pbutton->response_type == XCB_BUTTON_RELEASE)
@@ -1688,10 +1688,10 @@ namespace windowing_xcb
 
                }
 
-               FORMATTED_INFORMATION("XCB_BUTTON_RELEASE %d,%d window %d,%d %d,%d",
+               information("XCB_BUTTON_RELEASE %d,%d window %d,%d %d,%d",
                                      pbutton->root_x, pbutton->root_y,
                                      origin.x, origin.y,
-                                     origin.x + size.cx, origin.y + size.cy);
+                                     origin.x + size.cx(), origin.y + size.cy());
 
             }
             else
@@ -1720,7 +1720,7 @@ namespace windowing_xcb
 
                screen_pixel = oswindow->screen_pixel(pbutton->root_x, pbutton->root_y);
 
-               FORMATTED_INFORMATION("pixel argb(%d,%d,%d,%d)", screen_pixel.alpha, screen_pixel.red, screen_pixel.green, screen_pixel.blue);
+               information("pixel argb(%d,%d,%d,%d)", screen_pixel.alpha, screen_pixel.red, screen_pixel.green, screen_pixel.blue);
 
                alpha = screen_pixel.alpha;
 
@@ -1731,7 +1731,7 @@ namespace windowing_xcb
             if (bRet && (!bHasTranslucency || bMouseCapture || alpha != 0 || bTransparentMouseEvents))
             {
 
-               if(Δ != 0)
+               if(greekdelta != 0)
                {
 
                    auto pmessage = __create_new < ::message::mouse_wheel >();
@@ -1743,7 +1743,7 @@ namespace windowing_xcb
 
                    pmessage->m_atom = e_message_mouse_wheel;
 
-                  pmessage->m_Δ = Δ;
+                  pmessage->m_greekdelta = greekdelta;
 
                    pmessage->m_point = {pbutton->root_x, pbutton->root_y};
 
@@ -1761,7 +1761,7 @@ namespace windowing_xcb
 
                    pmessage->m_atom = emessage;
 
-                   pmessage->m_Δ = Δ;
+                   pmessage->m_greekdelta = greekdelta;
 
                    pmessage->m_point = {pbutton->root_x, pbutton->root_y};
 

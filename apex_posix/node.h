@@ -1,4 +1,4 @@
-﻿//
+//
 // Created by camilo on 19/01/2021. <33TBS!!
 //
 //
@@ -25,8 +25,6 @@ namespace apex_posix
       node();
       ~node() override;
 
-
-      int node_init_check(int * pi, char *** ppz) override;
 
       void on_start_application(::apex::application *papplication) override;
 

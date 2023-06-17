@@ -117,7 +117,7 @@ namespace node_xfce
    }
 
 
-   ::e_status monitor::get_monitor_rectangle(::RECTANGLE_I32 *prectangle)
+   ::e_status monitor::get_monitor_rectangle(::rectangle_i32 *prectangle)
    {
 
       auto estatus = x11_windowing()->windowing_sync(5_s, __routine([this]() { _get_monitor_rectangle(); }));
@@ -143,7 +143,7 @@ namespace node_xfce
    }
 
 
-   ::e_status monitor::get_workspace_rectangle(::RECTANGLE_I32 *prectangle)
+   ::e_status monitor::get_workspace_rectangle(::rectangle_i32 *prectangle)
    {
 
       auto estatus = x11_windowing()->windowing_sync(5_s, __routine([this]() { _get_workspace_rectangle(); }));

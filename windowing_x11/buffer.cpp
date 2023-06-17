@@ -118,7 +118,7 @@ namespace windowing_x11
 //
 //      //m_mem.m_bAligned = true;
 //
-//      m_mem.set_size((m_iGoodStride * size.cy) * sizeof(color32_t));
+//      m_mem.set_size((m_iGoodStride * size.cy()) * sizeof(color32_t));
 //
 //      m_pixmap.init(size, (color32_t *) m_mem.get_data(), m_iGoodStride);
 //
@@ -175,7 +175,7 @@ namespace windowing_x11
 //      if(m_pimage != nullptr)
 //      {
 //
-//         if(m_mem.get_data() == (byte *) m_pimage->data)
+//         if(m_mem.get_data() == (::u8 *) m_pimage->data)
 //         {
 //
 //            m_pimage->data = nullptr;
@@ -235,7 +235,7 @@ namespace windowing_x11
 //      if(m_pimage != nullptr)
 //      {
 //
-//         if((byte *) m_pimage->data == (byte *) pimage->get_data())
+//         if((::u8 *) m_pimage->data == (::u8 *) pimage->get_data())
 //         {
 //
 //            m_pimage->data = nullptr;
@@ -296,7 +296,7 @@ namespace windowing_x11
 
          //bool bReallyNotVisible = !(m_pimpl->m_puserinteraction->GetStyle() & WS_VISIBLE);
 
-         INFORMATION("XPutImage not called. Ui is not visible.");
+         information() << "XPutImage not called. Ui is not visible.";
 
          return false;
 
@@ -318,11 +318,11 @@ namespace windowing_x11
 
       }
 
-      auto psync = get_screen_sync();
+      auto pitem = get_screen_item();
 
-      synchronous_lock slImage(psync);
+      synchronous_lock slImage(pitem->m_pmutex);
 
-      auto & pimage = get_screen_image();
+      auto & pimage = pitem->m_pimage;
 
       if(pimage.nok())
       {
@@ -344,17 +344,24 @@ namespace windowing_x11
       XImage * pximage = nullptr;
 
       //if(!pximage)
-      if(m_pimpl->m_sizeSetWindowSizeRequest != m_pimpl->m_sizeDrawn)
+      //if(m_pimpl->m_sizeSetWindowSizeRequest.cx() > m_pimpl->m_sizeDrawn.cx()
+        // || m_pimpl->m_sizeSetWindowSizeRequest.cy() > m_pimpl->m_sizeDrawn.cy())
+      //if(m_pimpl->m_sizeSetWindowSizeRequest != m_pimpl->m_sizeDrawn)
+      if(m_pimpl->m_sizeSetWindowSizeRequest != pimage->size())
       {
 
-         INFORMATION("m_pimpl->m_sizeSetWindowSizeRequest != m_pimpl->m_sizeDrawn ("
-         << m_pimpl->m_sizeSetWindowSizeRequest << ", " << m_pimpl->m_sizeDrawn << ")");
+         information() << "m_pimpl->m_sizeSetWindowSizeRequest != m_pimpl->m_sizeDrawn ("
+         << m_pimpl->m_sizeSetWindowSizeRequest << ", " << pimage->size() << ")";
 
-         rectangle_i32 cry;
+         rectangle_i32 rectangleActualWindow;
 
-         x11_window()->window_rectangle(cry);
+         x11_window()->window_rectangle(&rectangleActualWindow);
 
-         x11_window()->x11_windowing()->_defer_size_message(x11_window()->m_oswindow, cry.size());
+         m_pimpl->m_puserinteraction->set_need_layout();
+
+         m_pimpl->m_puserinteraction->post_redraw();
+
+         //x11_window()->x11_windowing()->_defer_size_message(x11_window()->m_oswindow, cry.size());
 
          //m_pimpl->m_puserinteraction->set_need_layout();
 
@@ -382,8 +389,8 @@ namespace windowing_x11
                ZPixmap,
                0,
                (char *) pimage->get_data(),
-               m_pimpl->m_sizeDrawn.cx,
-               m_pimpl->m_sizeDrawn.cy,
+               pimage->width(),
+               pimage->height(),
                sizeof(color32_t) * 8,
                pimage->scan_size());
 
@@ -487,7 +494,7 @@ namespace windowing_x11
    }
 
 
-   bool buffer::update_screen(::image * pimage)
+   bool buffer::on_update_screen(::graphics::buffer_item * pitem)
    {
 
       throw("use update_window(void)");
@@ -497,12 +504,12 @@ namespace windowing_x11
    }
 
 
-   ::draw2d::graphics * buffer::on_begin_draw()
+   ::graphics::buffer_item * buffer::on_begin_draw()
    {
 
-      int cx = window_size().cx;
+      //int cx = window_size().cx();
 
-      m_iGoodStride = maximum(m_iGoodStride, cx);
+      //m_iGoodStride = maximum(m_iGoodStride, cx);
 
       bitmap_source_buffer::on_begin_draw();
 

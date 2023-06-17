@@ -1,5 +1,5 @@
 //
-// Created by camilo on 09/12/2021 12:36 BRT <3ThomasBorregaardSørensen!!
+// Created by camilo on 09/12/2021 12:36 BRT <3ThomasBorregaardSorensen!!
 //
 #include "framework.h"
 // bkgmanage.c
@@ -17,7 +17,7 @@
 //
 //   client = gconf_client_get_default();
 //
-//   // TODO: проверить, что image_path является файлом и вообще существует
+//   // TODO: check that image_path is a file and even exists(TranslatedFromRussian)
 //   if ( image_path == NULL )
 //   {
 //

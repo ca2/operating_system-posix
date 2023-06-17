@@ -1,4 +1,5 @@
 #include "framework.h"
+#if 0
 #include "shell.h"
 #include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/parallelization/synchronous_lock.h"
@@ -677,7 +678,7 @@ namespace aura_posix
 //         i32 iImage = 0x80000000;
 //
 //         {
-//            if (colorref_get_a_value(crBk) != 255)
+//            if (color32_u8_opacity(crBk) != 255)
 //            {
 //
 //               crBk = 0;
@@ -751,7 +752,7 @@ namespace aura_posix
 
       {
 
-//            if (colorref_get_a_value(imagekey.m_cr) != 255)
+//            if (color32_u8_opacity(imagekey.m_cr) != 255)
 //            {
 //
 //               imagekey.m_cr = 0;
@@ -832,7 +833,7 @@ namespace aura_posix
 //
 //               ::image_pointer pimage;
 //               pimage = create_image({iSize,  iSize});
-//               pimage->fill(255, colorref_get_r_value(crBk), colorref_get_g_value(crBk), colorref_get_b_value(crBk));
+//               pimage->fill(255, color32_u8_red(crBk), color32_u8_green(crBk), color32_u8_blue(crBk));
 //               pimage->get_graphics()->set_alpha_mode(::draw2d::alpha_mode_blend);
 //
 //               m_pimagelistHover[iSize]->draw(pimage->get_graphics(), iImage, ::point_i32(), 0);
@@ -847,10 +848,10 @@ namespace aura_posix
 //               size_i32 s = m_pimagelist[iSize]->m_pimage->get_size();
 //               ::image_pointer pimage;
 //               pimage = __create_image(d->size());
-//               pimage->fill(255, colorref_get_r_value(crBk), colorref_get_g_value(crBk), colorref_get_b_value(crBk));
+//               pimage->fill(255, color32_u8_red(crBk), color32_u8_green(crBk), color32_u8_blue(crBk));
 //               pimage->get_graphics()->set_alpha_mode(::draw2d::alpha_mode_blend);
 //               pimage->get_graphics()->draw(::point_i32(), d->size(), d->get_graphics());
-//               pimage->get_graphics()->fill_rectangle(rectangle_i32(d->size()), argb(123, colorref_get_r_value(crBk), colorref_get_g_value(crBk), colorref_get_b_value(crBk)));
+//               pimage->get_graphics()->fill_rectangle(rectangle_i32(d->size()), argb(123, color32_u8_red(crBk), color32_u8_green(crBk), color32_u8_blue(crBk)));
 //               m_pimagelist[iSize]->m_pimage->g()->set_alpha_mode(::draw2d::alpha_mode_set);
 //               m_pimagelist[iSize]->m_pimage->g()->draw(::point_i32(), d->size(), pimage->get_graphics());
 //               m_pimagelist[iSize]->m_pimage->g()->set_alpha_mode(::draw2d::alpha_mode_blend);
@@ -901,3 +902,4 @@ namespace aura_posix
 
 
 
+#endif

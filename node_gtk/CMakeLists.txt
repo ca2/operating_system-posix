@@ -20,7 +20,7 @@ list(APPEND library_source
         gdk_gdk.h
         gtk_gtk.cpp
         gtk_gtk.h
-        gtk-launch.cpp
+        #gtk-launch.cpp
         monitor.cpp
         monitor.h
         node.cpp
@@ -70,7 +70,7 @@ if (MSVC)
 elseif (LINUX OR FREEBSD)
 
 
-    #if(NOT DONT_USE_PKG_CONFIG)
+    #if(USE_PKGCONFIG)
     #pkg_check_modules(PKGCONFIG gconf-2.0 glib-2.0 gtk+-3.0 gdk-3.0)
     pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0)
     #endif()

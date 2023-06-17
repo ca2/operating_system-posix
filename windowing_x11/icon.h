@@ -1,10 +1,11 @@
-// created by Camilo <3CamiloSasukeThomasBorregaardSoerensen - Honoring Thomas Borregaard Sørensen My ONLY GOD
+// created by Camilo <3CamiloSasukeThomasBorregaardSoerensen - Honoring Thomas Borregaard Soerensen My ONLY GOD
 // recreated by Camilo 2021-02-01 16:38
 #pragma once
 
 
 #include "aura/windowing/icon.h"
-#include "acme/primitive/geometry2d/_geometry2d.h"
+//#include "acme/primitive/geometry2d/_geometry2d.h"
+#include "acme/primitive/geometry2d/size_array.h"
 
 
 namespace windowing_x11
@@ -17,7 +18,9 @@ namespace windowing_x11
    public:
 
 
-      array < concrete < ::size_i32 > >         m_sizea;
+      //array < concrete < ::size_i32 > >         m_sizea;
+
+      size_i32_array                               m_sizea;
 
 
       icon();
@@ -30,7 +33,7 @@ namespace windowing_x11
       void set_tray_icon_name(const string & strTrayIconName) override;
 
 
-      void get_sizes(array < concrete < ::size_i32 > > & a) override;
+      void get_sizes(::size_i32_array & a) override;
 
 
       void * get_os_data(const ::size_i32 & size) const override;
@@ -41,7 +44,7 @@ namespace windowing_x11
       virtual void load_file(const ::string & strPath) override;
 
 
-      virtual image_pointer get_image(const concrete < ::size_i32 > & size) override;
+      virtual image_pointer get_image(const ::size_i32 & size) override;
 
       
    };

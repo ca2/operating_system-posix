@@ -144,9 +144,9 @@ namespace windowing_x11
 
       display_lock displaylock(pdisplayx11->Display());
 
-      int x = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().x;
+      int x = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().x();
 
-      int y = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().y;
+      int y = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().y();
 
       int cx = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().width();
 
@@ -171,14 +171,14 @@ namespace windowing_x11
       //
       //         }
       //
-      //         if (pusersystem->m_createstruct.cx <= 0)
+      //         if (pusersystem->m_createstruct.cx() <= 0)
       //         {
       //
       //            cx = 1;
       //
       //         }
       //
-      //         if (pusersystem->m_createstruct.cy <= 0)
+      //         if (pusersystem->m_createstruct.cy() <= 0)
       //         {
       //
       //            cy = 1;
@@ -261,7 +261,7 @@ namespace windowing_x11
 
       //attr.override_redirect = True;
 
-      FORMATTED_INFORMATION("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
+      information("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
 
       ::Window window = XCreateWindow(display, DefaultRootWindow(display),
                                       x, y,
@@ -471,7 +471,7 @@ namespace windowing_x11
       if (!XGetWindowAttributes(Display(), Window(), &m_px11data->m_attr))
       {
 
-         INFORMATION("freebsd::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.");
+         information() << "freebsd::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.";
 
       }
 
@@ -558,7 +558,7 @@ namespace windowing_x11
                // so requesting the same change again in a effort to set the "docked/snapped" size_i32 and position.
 
                //set_window_position(e_zorder_top, pusersystem->m_createstruct.x, pusersystem->m_createstruct.y,
-               //                  pusersystem->m_createstruct.cx, pusersystem->m_createstruct.cy, SWP_SHOWWINDOW);
+               //                  pusersystem->m_createstruct.cx(), pusersystem->m_createstruct.cy(), SWP_SHOWWINDOW);
 
                set_window_position(e_zorder_top, x, y, cx, cy, e_activation_set_active, false, false, false, true, false);
 
@@ -753,9 +753,9 @@ namespace windowing_x11
 
       XClassHint classHint;
 
-      classHint.res_name = m_strWMClass;
+      classHint.res_name = (char *) (const char *) m_strWMClass;
 
-      classHint.res_class = m_strWMClass;
+      classHint.res_class = (char *) (const char *) m_strWMClass;
 
       XSetClassHint(Display(), Window(), &classHint);
 
@@ -1264,7 +1264,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
       for (int i = 0; i < c; i++)
       {
 
-         pcr[i + 2] = image1->colorref()[i];
+         pcr[i + 2] = image1->image32()[i];
 
       }
 
@@ -2020,7 +2020,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 //   }
 
 
-   bool window::client_to_screen(POINT_I32 * ppoint)
+   bool window::client_to_screen(::point_i32 * ppoint)
    {
 
       return true;
@@ -2028,7 +2028,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
    }
 
 
-   bool window::screen_to_client(POINT_I32 * ppoint)
+   bool window::screen_to_client(::point_i32 * ppoint)
    {
 
       return true;
@@ -2533,7 +2533,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
 #ifdef SET_WINDOW_POS_LOG
 
-            FORMATTED_INFORMATION("XMoveResizeWindow (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
+            information("XMoveResizeWindow (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
 
 #endif
 
@@ -2546,7 +2546,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
 #ifdef SET_WINDOW_POS_LOG
 
-               FORMATTED_INFORMATION("Changing parameters... (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
+               information("Changing parameters... (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
 
 #endif
 
@@ -2598,7 +2598,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
       //            if(!XChangeWindowAttributes(Display(), Window(), CWOverrideRedirect, &set))
       //            {
       //
-      //               INFORMATION("freebsd::interaction_impl::_native_create_window_ex failed to clear override_redirect");
+      //               information() << "freebsd::interaction_impl::_native_create_window_ex failed to clear override_redirect";
       //
       //            }
       //
@@ -2747,7 +2747,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 //   }
 
 
-   void window::set_window_text(const char * pszString)
+   void window::set_window_text(const ::scoped_string & scopedstr)
    {
 
 //      m_strWindowText = pszString;
@@ -2758,7 +2758,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
       //x11_store_name(m_oswindow, m_strWindowText);
 
-      x11_store_name(pszString);
+      x11_store_name(scopedstr);
 
       //windowing_output_debug_string("\nfreebsd::interaction_impl::set_window_text END");
 
@@ -2890,7 +2890,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
    }
 
 
-   bool window::x11_get_window_rect(RECTANGLE_I32 * prectangle)
+   bool window::x11_get_window_rect(::rectangle_i32 * prectangle)
    {
 
       return ::x11_get_window_rect(Display(), Window(), prectangle);
@@ -2898,7 +2898,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
    }
 
 
-   ::e_status window::window_rectangle(RECTANGLE_I32 * prectangle)
+   ::e_status window::window_rectangle(::rectangle_i32 * prectangle)
    {
 
       return x11_get_window_rect(prectangle) ? ::success : ::error_failed;
@@ -2906,7 +2906,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
    }
 
 
-   bool window::x11_get_client_rect(RECTANGLE_I32 * prectangle)
+   bool window::x11_get_client_rect(::rectangle_i32 * prectangle)
    {
 
       return ::x11_get_client_rect(Display(), Window(), prectangle);
@@ -2914,7 +2914,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
    }
 
 
-   ::e_status window::client_rectangle(RECTANGLE_I32 * prectangle)
+   ::e_status window::client_rectangle(::rectangle_i32 * prectangle)
    {
 
       return x11_get_client_rect(prectangle) ? ::success : error_failed;
@@ -2961,7 +2961,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
       ::rectangle_i32 rectangle;
 
-      x11_get_window_rect(rectangle);
+      x11_get_window_rect(&rectangle);
 
 //r = oswindow->m_puserinteractionimpl->m_puserinteraction->window_rectangle();
 
@@ -2976,7 +2976,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
          ::rectangle_i32 rectangleHigher;
 
-         if (::x11_get_window_rect(Display(), windowa[iFind], rectangleHigher))
+         if (::x11_get_window_rect(Display(), windowa[iFind], &rectangleHigher))
          {
 
             ra.add(rectangleHigher);
@@ -3718,7 +3718,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 //   }
 
 //// should be called in user_thread
-//   int_bool window::x11_get_window_rect(RECTANGLE_I32 *prectangle)
+//   int_bool window::x11_get_window_rect(::rectangle_i32 *prectangle)
 //   {
 //
 //      XWindowAttributes attrs;
@@ -3759,7 +3759,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 //
 //   }
 
-//   int_bool window::client_rectangle(RECTANGLE_I32 *prectangle)
+//   int_bool window::client_rectangle(::rectangle_i32 *prectangle)
 //   {
 //
 //      synchronous_lock synchronouslock(user_synchronization());
@@ -3958,14 +3958,14 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
       }
 
-      windowing_output_debug_string("\noswindow_data::SetFocus 1");
+      windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1");
 
       display_lock displaylock(x11_display()->Display());
 
       if (!is_window())
       {
 
-         windowing_output_debug_string("\noswindow_data::SetFocus 1.1");
+         windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1.1");
 
          throw ::exception(error_failed);
 
@@ -3974,13 +3974,13 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
       if (!XSetInputFocus(Display(), Window(), RevertToNone, CurrentTime))
       {
 
-         windowing_output_debug_string("\noswindow_data::SetFocus 1.3");
+         windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1.3");
 
          throw ::exception(error_failed);
 
       }
 
-      windowing_output_debug_string("\noswindow_data::SetFocus 2");
+      windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 2");
 
       //return ::success;
 
@@ -4007,7 +4007,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
       }
 
-      windowing_output_debug_string("\noswindow_data::SetFocus 1");
+      windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1");
 
       display_lock displaylock(x11_display()->Display());
 

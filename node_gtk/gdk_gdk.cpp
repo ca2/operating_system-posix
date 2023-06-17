@@ -24,6 +24,85 @@ namespace node_gtk
 
    //CLASS_DECL_ACME void _os_process_user_theme_color(string strTheme);
 
+   ::string_array gsettings_schema_keys(const ::string & strSchema)
+   {
+
+      GSettingsSchema * pschema = g_settings_schema_source_lookup (
+         g_settings_schema_source_get_default(), 
+         strSchema, FALSE);                                 
+  
+      if (::is_null(pschema))
+      {
+
+         return {};
+
+      }
+
+      auto ppchar = g_settings_schema_list_keys (pschema);
+
+      if(::is_null(ppchar))
+      {
+
+         g_settings_schema_unref (pschema);
+
+         return {};
+
+      }
+
+      ::string_array stra;
+
+      auto pp = ppchar;
+
+      while(*pp)
+      {
+
+         stra.add(*pp);
+
+         g_free(*pp);
+
+         pp++;
+
+      }
+
+      g_free(ppchar);
+
+      g_settings_schema_unref (pschema);
+  
+      return ::transfer(stra);
+
+   }
+
+
+   bool gsettings_schema_contains_key(const ::string & strSchema, const ::string & strKey)
+   {
+
+      auto stra = gsettings_schema_keys(strSchema);
+
+      return stra.contains(strKey);
+
+   }
+
+
+   bool gsettings_schema_exists(const ::string & strSchema)
+   { 
+  
+      GSettingsSchema * pschema = g_settings_schema_source_lookup (
+         g_settings_schema_source_get_default(), 
+         strSchema, FALSE);                                 
+  
+      if (::is_null(pschema))
+      {
+
+         return false;
+
+      }
+
+      g_settings_schema_unref (pschema);
+  
+      return true;
+
+   }
+
 
    ::e_status gsettings_get(string &str, const ::string & strSchema, const ::string & strKey)
    {
@@ -87,7 +166,7 @@ namespace node_gtk
 
       }
 
-      if (!os_defer_init_gtk(::acme::acme::g_p->m_psubsystem->acmesystem()))
+      if (!os_defer_init_gtk(::acme::acme::g_pacme->m_psubsystem->acmesystem()))
       {
 
          return ::error_failed;
@@ -122,12 +201,12 @@ namespace node_gtk
    ::e_status gsettings_sync()
    {
 
-//         if (!os_defer_init_gtk())
-//         {
-//
-//            return false;
-//
-//         }
+      if (!os_defer_init_gtk(::acme::acme::g_pacme->m_psubsystem->acmesystem()))
+      {
+
+         return ::error_failed;
+
+      }
 
       ::g_settings_sync();
 
@@ -153,7 +232,7 @@ namespace node_gtk
 
       }
 
-      if (!os_defer_init_gtk(::acme::acme::g_p->m_psubsystem->acmesystem()))
+      if (!os_defer_init_gtk(::acme::acme::g_pacme->m_psubsystem->acmesystem()))
       {
 
          return nullptr;

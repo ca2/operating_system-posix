@@ -236,11 +236,11 @@ namespace windowing_xcb
 //      if (size <= 1)
 //      {
 //
-//         auto psz = strText.get_string_buffer(size);
+//         auto psz = strText.get_buffer(size);
 //
 //         xkb_state_key_get_utf8(m_pkeystate, code, psz, size);
 //
-//         strText.release_string_buffer(size);
+//         strText.release_buffer(size);
 //
 //      }
 //

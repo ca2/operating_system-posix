@@ -159,7 +159,7 @@ namespace windowing_xcb
 
       auto & colormap = paramscw.colormap = pdisplayxcb->m_pxcbdisplay->m_colormap;
 
-      FORMATTED_INFORMATION("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
+      information("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
 
       xcb_window_t window = xcb_generate_id(pdisplayxcb->m_pxcbdisplay->m_pconnection);
 
@@ -167,9 +167,9 @@ namespace windowing_xcb
 
       m_point.y = y;
 
-      m_size.cx = cx;
+      m_size.cx() = cx;
 
-      m_size.cy = cy;
+      m_size.cy() = cy;
 
       auto cookie = xcb_aux_create_window(
          display,
@@ -1328,7 +1328,7 @@ namespace windowing_xcb
    }
 
 
-   bool window::client_to_screen(POINT_I32 *ppoint)
+   bool window::client_to_screen(::point_i32 *ppoint)
    {
 
       return true;
@@ -1336,7 +1336,7 @@ namespace windowing_xcb
    }
 
 
-   bool window::screen_to_client(POINT_I32 *ppoint)
+   bool window::screen_to_client(::point_i32 *ppoint)
    {
 
       return true;
@@ -1918,7 +1918,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status window::_get_window_rectangle(RECTANGLE_I32 *prectangle)
+   ::e_status window::_get_window_rectangle(::rectangle_i32 *prectangle)
    {
 
       auto estatus = _get_geometry();
@@ -1942,7 +1942,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status window::_get_client_rectangle(RECTANGLE_I32 *prectangle)
+   ::e_status window::_get_client_rectangle(::rectangle_i32 *prectangle)
    {
 
       auto estatus = _get_geometry();
@@ -2771,7 +2771,7 @@ namespace windowing_xcb
    }
 
 
-   void window::set_keyboard_focus()
+   void window(xcb)::set_keyboard_focus()
    {
 
       synchronous_lock synchronouslock(user_synchronization());
@@ -2783,14 +2783,14 @@ namespace windowing_xcb
 
       }
 
-      windowing_output_debug_string("\noswindow_data::SetFocus 1");
+      windowing_output_debug_string("\nwindow(xcb)::set_keyboard_focus 1");
 
       //display_lock displaylock(xcb_display());
 
       if (!is_window())
       {
 
-         windowing_output_debug_string("\noswindow_data::SetFocus 1.1");
+         windowing_output_debug_string("\nwindow(xcb)::set_keyboard_focus 1.1");
 
          throw ::exception(error_failed);
 
@@ -2807,7 +2807,7 @@ namespace windowing_xcb
 
       }
 
-      windowing_output_debug_string("\noswindow_data::SetFocus 2");
+      windowing_output_debug_string("\nwindow(xcb)::set_keyboard_focus 2");
 
       //return ::success;
 
@@ -2857,7 +2857,7 @@ namespace windowing_xcb
       if(!preply)
       {
 
-         INFORMATION("freebsd::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.");
+         information() << "freebsd::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.";
 
          return error_failed;
 
