@@ -2062,14 +2062,14 @@ namespace draw2d_xlib
    }
 
 
-   bool graphics::ScrollDC(i32 greekdeltax, i32 greekdeltay, rectangle_i32 lpRectScroll, const ::rectangle_i32 & rectangleClip, ::draw2d::region* pRgnUpdate, ::rectangle_i32 * lpRectUpdate)
+   bool graphics::ScrollDC(i32 Δx, i32 Δy, rectangle_i32 lpRectScroll, const ::rectangle_i32 & rectangleClip, ::draw2d::region* pRgnUpdate, ::rectangle_i32 * lpRectUpdate)
    {
 
       throw ::not_implemented();
       return false;
 
 //      ASSERT(get_handle1() != nullptr);
-//      return ::ScrollDC(get_handle1(), greekdeltax, greekdeltay, lpRectScroll, lpRectClip, (HRGN)pRgnUpdate->get_os_data(), lpRectUpdate) != false;
+//      return ::ScrollDC(get_handle1(), Δx, Δy, lpRectScroll, lpRectClip, (HRGN)pRgnUpdate->get_os_data(), lpRectUpdate) != false;
 
    }
 
@@ -4426,34 +4426,34 @@ namespace draw2d_xlib
 
       xlib_keep keep(this);
 
-      double greekdeltax;
+      double Δx;
 
-      double greekdeltay;
+      double Δy;
 
       if(nFormat & e_align_right)
       {
-         greekdeltax = rectangle.right - rectangle.left - sz.cx();
+         Δx = rectangle.right - rectangle.left - sz.cx();
       }
       else if(nFormat & e_align_horizontal_center)
       {
-         greekdeltax = ((rectangle.right - rectangle.left) - (sz.cx())) / 2.0;
+         Δx = ((rectangle.right - rectangle.left) - (sz.cx())) / 2.0;
       }
       else
       {
-         greekdeltax = 0.;
+         Δx = 0.;
       }
 
       if(nFormat & e_align_bottom)
       {
-         greekdeltay = rectangle.bottom - rectangle.top - sz.cy();
+         Δy = rectangle.bottom - rectangle.top - sz.cy();
       }
       else if(nFormat & e_align_vertical_center)
       {
-         greekdeltay = ((rectangle.bottom - rectangle.top) - (sz.cy())) / 2.0;
+         Δy = ((rectangle.bottom - rectangle.top) - (sz.cy())) / 2.0;
       }
       else
       {
-         greekdeltay = 0.;
+         Δy = 0.;
       }
 
       /*      array < XChar2b > xa = utf8toXChar2b(str);
@@ -4462,8 +4462,8 @@ namespace draw2d_xlib
                m_pdc->m_pdisplay,
                m_pdc->m_drawable,
                m_pdc->m_gc,
-               rectangle.left + greekdeltax + m_pdc->m_pointOffset.x,
-               rectangle.top + h + greekdeltay + m_pdc->m_pointOffset.y,
+               rectangle.left + Δx + m_pdc->m_pointOffset.x,
+               rectangle.top + h + Δy + m_pdc->m_pointOffset.y,
                xa.get_data(),
                xa.get_count());*/
 
@@ -4490,8 +4490,8 @@ namespace draw2d_xlib
 //      XftColorAllocValue(m_pdc->m_pdisplay, pbitmap->m_ui.m_window->draw2d(), pbitmap->m_ui.m_window->m_colormap, &c, &ftc);
 
       XftDrawStringUtf8(pdraw, &ftc, pfont->m_pft,
-                        rectangle.left + greekdeltax + m_pdc->m_pointOffset.x,
-                        rectangle.top + h + greekdeltay + m_pdc->m_pointOffset.y, (const FcChar8 *) (const char *) str);
+                        rectangle.left + Δx + m_pdc->m_pointOffset.x,
+                        rectangle.top + h + Δy + m_pdc->m_pointOffset.y, (const FcChar8 *) (const char *) str);
 
 //      XftColorFree(m_pdc->m_pdisplay, pbitmap->m_ui.m_window->draw2d(), pbitmap->m_ui.m_window->m_colormap, &ftc);
 
@@ -5608,8 +5608,8 @@ ok:
             XftColorAllocValue(m_pdc->m_pdisplay, pbitmap->m_ui.m_window->draw2d(), pbitmap->m_ui.m_window->m_colormap, &c, &ftc);
 
             XftDrawString8(pdraw, &ftc, pfont->m_pft,
-            rectangle.left + greekdeltax + m_pdc->m_pointOffset.x,
-            rectangle.top + h + greekdeltay + m_pdc->m_pointOffset.y, (FcChar8 *) (const char *) str);
+            rectangle.left + Δx + m_pdc->m_pointOffset.x,
+            rectangle.top + h + Δy + m_pdc->m_pointOffset.y, (FcChar8 *) (const char *) str);
 
             XftColorFree(m_pdc->m_pdisplay, pbitmap->m_ui.m_window->draw2d(), pbitmap->m_ui.m_window->m_colormap, &ftc);
 

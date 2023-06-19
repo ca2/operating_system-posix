@@ -366,7 +366,7 @@ namespace multimedia
 
          information("snd_pcm_hw_params_get_period_size_max: " << uPeriodSizeMax << " direction " << dirPeriodSizeMax);
 
-         information("Buffer size hint in _greekmus " << m_timeBufferSizeHint.integral_microsecond());
+         information("Buffer size hint in _μs " << m_timeBufferSizeHint.integral_microsecond());
 
          int iFullFrameCount1 = m_timeBufferSizeHint.floating_second() * (double)(uiFreq);
 

@@ -757,7 +757,7 @@ namespace multimedia
             auto mugreeklettersecondsWait = waitFrames * 100'000 / m_pwaveformat->m_waveformat.nSamplesPerSec;
 
 //            information("frames to write: " << iFramesToWrite << " frame free count : " << iFrameFreeCount
-//                                      << " frames to wait: " << waitFrames << " greekmus to wait : " << mugreeklettersecondsWait);
+//                                      << " frames to wait: " << waitFrames << " μs to wait : " << mugreeklettersecondsWait);
 //
             usleep(mugreeklettersecondsWait);
 
