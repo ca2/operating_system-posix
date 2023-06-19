@@ -1125,7 +1125,7 @@ namespace node_gtk
 
          default:
 
-            log_warning(
+            warning(
                     "Failed to get user theme setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
             //return "";
 
@@ -1159,13 +1159,13 @@ namespace node_gtk
                  pstylecontext,
                  GTK_STATE_FLAG_NORMAL,
                  GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
-                 pthemecolors->m_colorBack.u32);
+                 pthemecolors->m_colorBack);
 
          __gtk_style_context_get_color(
                  pstylecontext,
                  GTK_STATE_FLAG_NORMAL,
                  GTK_STYLE_PROPERTY_COLOR,
-                 pthemecolors->m_colorFore.u32);
+                 pthemecolors->m_colorFore);
 
          gtk_widget_destroy(pdialog);
 
@@ -1183,9 +1183,9 @@ namespace node_gtk
                  pstylecontext,
                  GTK_STATE_FLAG_NORMAL,
                  GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
-                 pthemecolors->m_colorFace.u32);
+                 pthemecolors->m_colorFace);
 
-         double dAlpha = pthemecolors->m_colorFace.get_a_rate();
+         double dAlpha = pthemecolors->m_colorFace.f64_opacity();
 
          if (dAlpha < 0.95)
          {
@@ -1198,9 +1198,9 @@ namespace node_gtk
                  pstylecontext,
                  GTK_STATE_FLAG_PRELIGHT,
                  GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
-                 pthemecolors->m_colorFaceHover.u32);
+                 pthemecolors->m_colorFaceHover);
 
-         dAlpha = pthemecolors->m_colorFaceHover.get_a_rate();
+         dAlpha = pthemecolors->m_colorFaceHover.f64_opacity();
 
          if (dAlpha < 0.95)
          {
@@ -1213,9 +1213,9 @@ namespace node_gtk
                  pstylecontext,
                  GTK_STATE_FLAG_ACTIVE,
                  GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
-                 pthemecolors->m_colorFacePress.u32);
+                 pthemecolors->m_colorFacePress);
 
-         dAlpha = pthemecolors->m_colorFacePress.get_a_rate();
+         dAlpha = pthemecolors->m_colorFacePress.f64_opacity();
 
          if (dAlpha < 0.95)
          {
@@ -1228,19 +1228,19 @@ namespace node_gtk
                  pstylecontext,
                  GTK_STATE_FLAG_NORMAL,
                  GTK_STYLE_PROPERTY_COLOR,
-                 pthemecolors->m_colorButton.u32);
+                 pthemecolors->m_colorButton);
 
          __gtk_style_context_get_color(
                  pstylecontext,
                  GTK_STATE_FLAG_PRELIGHT,
                  GTK_STYLE_PROPERTY_COLOR,
-                 pthemecolors->m_colorButtonHover.u32);
+                 pthemecolors->m_colorButtonHover);
 
          __gtk_style_context_get_color(
                  pstylecontext,
                  GTK_STATE_FLAG_NORMAL,
                  GTK_STYLE_PROPERTY_BORDER_COLOR,
-                 pthemecolors->m_colorBorder.u32);
+                 pthemecolors->m_colorBorder);
 
 
 //         pthemecolors->m_colorBorderHover4 = pthemecolors->m_colorBorderHover;
@@ -1264,7 +1264,7 @@ namespace node_gtk
                  pstylecontext,
                  GTK_STATE_FLAG_SELECTED,
                  GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
-                 pthemecolors->m_colorBorderHover.u32);
+                 pthemecolors->m_colorBorderHover);
 
          pthemecolors->m_colorBorderPress = pthemecolors->m_colorBorderHover;
 
@@ -1284,7 +1284,7 @@ namespace node_gtk
                  pstylecontext,
                  GTK_STATE_FLAG_SELECTED,
                  GTK_STYLE_PROPERTY_COLOR,
-                 pthemecolors->m_colorButtonPress.u32);
+                 pthemecolors->m_colorButtonPress);
 
          gtk_widget_destroy(pwidget);
 

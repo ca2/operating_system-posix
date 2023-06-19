@@ -190,13 +190,13 @@ namespace multimedia
 
 //         m_uiBufferTime = m_framesBuffer * 1000 * 1000 / uiSamplesPerSec;
 
-         information("frame_count : " << m_frameCount);
+         information() << "frame_count : " << m_frameCount;
 
          ::u32 uBufferSize = snd_pcm_frames_to_bytes(m_ppcm, m_frameCount);
 
-         information("uBufferSize in bytes : " << uBufferSize);
+         information() << "uBufferSize in bytes : " << uBufferSize;
 
-         information("buffer count : " << m_iBufferCount);
+         information() << "buffer count : " << m_iBufferCount;
 
          out_get_buffer()->PCMOutOpen(this, uBufferSize, m_iBufferCount, 128, m_pwaveformat, m_pwaveformat);
 

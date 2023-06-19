@@ -307,7 +307,7 @@ namespace multimedia
 
          }
 
-         information("snd_pcm_hw_params_get_periods_min: " << uPeriodMin << " direction " << dirPeriodMin);
+         information() << "snd_pcm_hw_params_get_periods_min: " << uPeriodMin << " direction " << dirPeriodMin;
 
          unsigned int uPeriodMax = 0;
 
@@ -326,7 +326,7 @@ namespace multimedia
 
          }
 
-         information("snd_pcm_hw_params_get_periods_max: " << uPeriodMax << " direction " << dirPeriodMax);
+         information() << "snd_pcm_hw_params_get_periods_max: " << uPeriodMax << " direction " << dirPeriodMax;
 
          snd_pcm_uframes_t uPeriodSizeMin = 0;
 
@@ -345,7 +345,7 @@ namespace multimedia
 
          }
 
-         information("snd_pcm_hw_params_get_period_size_min: " << uPeriodSizeMin << " direction " << dirPeriodSizeMin);
+         information() << "snd_pcm_hw_params_get_period_size_min: " << uPeriodSizeMin << " direction " << dirPeriodSizeMin;
 
          snd_pcm_uframes_t uPeriodSizeMax = 0;
 
@@ -364,13 +364,13 @@ namespace multimedia
 
          }
 
-         information("snd_pcm_hw_params_get_period_size_max: " << uPeriodSizeMax << " direction " << dirPeriodSizeMax);
+         information() << "snd_pcm_hw_params_get_period_size_max: " << uPeriodSizeMax << " direction " << dirPeriodSizeMax;
 
-         information("Buffer size hint in _μs " << m_timeBufferSizeHint.integral_microsecond());
+         information() << "Buffer size hint in _μs " << m_timeBufferSizeHint.integral_microsecond();
 
          int iFullFrameCount1 = m_timeBufferSizeHint.floating_second() * (double)(uiFreq);
 
-         information("iFullFrameCount1 " << iFullFrameCount1);
+         information() << "iFullFrameCount1 " << iFullFrameCount1;
 
          int iBufferCount1 = dirPeriodMax < 0 ? uPeriodMax - 1: uPeriodMax;
 
@@ -380,11 +380,11 @@ namespace multimedia
 
          m_frameCount = minimum(iPeriodSizeMax1, maximum(iPeriodSizeMin1, iFullFrameCount1 / iBufferCount1));
 
-         information("m_frameCount " << m_frameCount);
+         information() << "m_frameCount " << m_frameCount;
 
          m_iBufferCount = iFullFrameCount1 / m_frameCount;
 
-         information("pre buffer count " << m_iBufferCount);
+         information() << "pre buffer count " << m_iBufferCount;
 
          m_iBufferCount = maximum(m_iBufferCount, uPeriodMin);
 
@@ -420,7 +420,7 @@ namespace multimedia
 
          }
 
-         information("snd_pcm_hw_params_get_periods: " << uBufferCount << " direction " << dirGetPeriods);
+         information() << "snd_pcm_hw_params_get_periods: " << uBufferCount << " direction " << dirGetPeriods;
 
          m_iBufferCount = uBufferCount;
 
@@ -472,7 +472,7 @@ namespace multimedia
 
          }
 
-         information("snd_pcm_hw_params_get_period_size: " << m_frameCount);
+         information() << "snd_pcm_hw_params_get_period_size: " << m_frameCount;
 
          //m_framesPeriodSize = size;
 
@@ -688,7 +688,8 @@ namespace multimedia
 
             auto avail = snd_pcm_status_get_avail(status);
 
-            information("avail:" << avail);
+            information() << "avail:" << avail;
+
          }
 
       }

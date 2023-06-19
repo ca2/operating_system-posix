@@ -58,7 +58,7 @@ void clipboard_image_received_func(GtkClipboard * clipboard, GdkPixbuf * pixbuf,
 
       int h = gdk_pixbuf_get_height(pixbuf);
 
-      color32_t * pimage32Src = (color32_t *) gdk_pixbuf_read_pixels(pixbuf);
+      image32_t * pimage32Src = (image32_t *) gdk_pixbuf_read_pixels(pixbuf);
 
       int iSrcScan = gdk_pixbuf_get_rowstride(pixbuf);
 
