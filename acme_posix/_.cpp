@@ -4,7 +4,7 @@
 void millis_sleep(::u64 uMillis)
 {
    
-   preempt(second_time(uMillis));
+   preempt(millisecond_time(uMillis));
    
 }
 
