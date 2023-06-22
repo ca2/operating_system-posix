@@ -930,7 +930,7 @@ namespace multimedia
 
          dwPosition /= m_pwaveformat->m_waveformat.nSamplesPerSec;
 
-         return integral_millisecond(dwPosition / 1000.0);
+         return millisecond_time(dwPosition / 1000.0);
 
       }
 
