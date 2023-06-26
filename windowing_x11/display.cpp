@@ -226,7 +226,7 @@ namespace windowing_x11
       if(!is_main_thread())
       {
 
-         output_debug_string("not main thread");
+         infomration("not main thread");
 
       }
 
@@ -775,7 +775,7 @@ namespace windowing_x11
          (unsigned char **) &windowList) != Success)
       {
 
-         output_debug_string("winlist() -- GetWinProp");
+         infomration("winlist() -- GetWinProp");
 
          return windowa;
 

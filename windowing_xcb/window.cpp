@@ -596,7 +596,7 @@ namespace windowing_xcb
 
       ::file::path path = pnode->get_desktop_file_path(papp);
 
-      output_debug_string("\nfreebsd::interaction_impl::set_window_text");
+      infomration("\nfreebsd::interaction_impl::set_window_text");
 
       fflush(stdout);
 
@@ -606,7 +606,7 @@ namespace windowing_xcb
 
       auto estatus = _replace_string_property(net_wm_icon, path);
 
-      output_debug_string("\nfreebsd::interaction_impl::bamf_set_icon END");
+      infomration("\nfreebsd::interaction_impl::bamf_set_icon END");
 
       fflush(stdout);
 
@@ -1470,7 +1470,7 @@ namespace windowing_xcb
 
       auto estatus = _replace_string_property(net_wm_icon, path);
 
-      output_debug_string("\nfreebsd::interaction_impl::bamf_set_icon END");
+      infomration("\nfreebsd::interaction_impl::bamf_set_icon END");
 
       fflush(stdout);
 
@@ -1576,20 +1576,20 @@ namespace windowing_xcb
       if(message.m_atom == e_message_quit)
       {
 
-         output_debug_string("e_message_quit thread");
+         infomration("e_message_quit thread");
 
       }
 
       if(message.m_atom == e_message_left_button_down)
       {
 
-         output_debug_string("post_ui_message::e_message_left_button_down\n");
+         infomration("post_ui_message::e_message_left_button_down\n");
 
       }
       else if(message.m_atom == e_message_left_button_up)
       {
 
-         output_debug_string("post_ui_message::e_message_left_button_up\n");
+         infomration("post_ui_message::e_message_left_button_up\n");
 
       }
 
@@ -1832,7 +1832,7 @@ namespace windowing_xcb
 
       auto estatus = _replace_string_property(net_wm_icon, path);
 
-      output_debug_string("\nfreebsd::interaction_impl::bamf_set_icon END");
+      infomration("\nfreebsd::interaction_impl::bamf_set_icon END");
 
       fflush(stdout);
 
@@ -2876,7 +2876,7 @@ namespace windowing_xcb
       if(x <= 0 || y <= 0)
       {
 
-         output_debug_string("_move_resize x <= 0 and/or y <= 0");
+         infomration("_move_resize x <= 0 and/or y <= 0");
 
       }
 
@@ -2918,7 +2918,7 @@ namespace windowing_xcb
       if(x <= 0 || y <= 0)
       {
 
-         output_debug_string("_move x <= 0 and/or y <= 0");
+         infomration("_move x <= 0 and/or y <= 0");
 
       }
 

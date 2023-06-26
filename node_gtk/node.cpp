@@ -78,7 +78,7 @@ void gtk_settings_gtk_theme_name_callback(GObject *object, GParamSpec *pspec, gp
 
    string strTheme = theme_name;
 
-   ::output_debug_string("gtk_settings_gtk_theme_name_callback: \"" + strTheme + "\"\n");
+   ::infomration("gtk_settings_gtk_theme_name_callback: \"" + strTheme + "\"\n");
 
    g_free(theme_name);
 
@@ -116,7 +116,7 @@ void gtk_settings_gtk_icon_theme_name_callback(GObject *object, GParamSpec *pspe
 
    string strIconTheme = icon_theme_name;
 
-   ::output_debug_string("gtk_settings_gtk_icon_theme_name_callback: \"" + strIconTheme + "\"\n");
+   ::infomration("gtk_settings_gtk_icon_theme_name_callback: \"" + strIconTheme + "\"\n");
 
    g_free(icon_theme_name);
 
@@ -1298,7 +1298,7 @@ namespace node_gtk
    void node::_set_os_theme_colors(::os_theme_colors *posthemecolors)
    {
 
-      ::output_debug_string("_set_os_theme_colors\n");
+      ::infomration("_set_os_theme_colors\n");
 
       ::user::os_set_theme_colors(posthemecolors);
 
@@ -1360,7 +1360,7 @@ namespace node_gtk
    void node::_apply_os_user_theme()
    {
 
-      ::output_debug_string("applying os user theme: \"" + m_strOsUserTheme + "\"\n");
+      ::infomration("applying os user theme: \"" + m_strOsUserTheme + "\"\n");
 
       os_process_user_theme(m_strOsUserTheme);
 
@@ -1370,7 +1370,7 @@ namespace node_gtk
    void node::_apply_os_user_icon_theme()
    {
 
-      ::output_debug_string("applying os user icon theme: \"" + m_strOsUserIconTheme + "\"\n");
+      ::infomration("applying os user icon theme: \"" + m_strOsUserIconTheme + "\"\n");
 
       os_process_user_icon_theme(m_strOsUserIconTheme);
 
@@ -1380,25 +1380,25 @@ namespace node_gtk
    void node::os_process_user_theme(string strOsTheme)
    {
 
-      ::output_debug_string(
+      ::infomration(
               "os_process_user_theme: is strTheme(" + strOsTheme + ") same as m_strTheme(" + m_strTheme + ")\n");
 
       if (strOsTheme == m_strTheme)
       {
 
-         ::output_debug_string(
+         ::infomration(
                  "os_process_user_theme: same theme as before [new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
 
          return;
 
       }
 
-      ::output_debug_string(
+      ::infomration(
               "os_process_user_theme: different theme [new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
 
       m_strTheme = strOsTheme;
 
-      ::output_debug_string("os_process_user_theme m_strTheme = \"" + m_strTheme + "\"\n");
+      ::infomration("os_process_user_theme m_strTheme = \"" + m_strTheme + "\"\n");
 
       try
       {
@@ -1427,25 +1427,25 @@ namespace node_gtk
    void node::os_process_user_icon_theme(string strOsIconTheme)
    {
 
-      ::output_debug_string(
+      ::infomration(
               "os_process_user_icon_theme: is strIconTheme(" + strOsIconTheme + ") same as m_strIconTheme(" + m_strIconTheme + ")\n");
 
       if (strOsIconTheme == m_strIconTheme)
       {
 
-         ::output_debug_string(
+         ::infomration(
                  "os_process_user_icon_theme: same theme as before [new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
 
          return;
 
       }
 
-      ::output_debug_string(
+      ::infomration(
               "os_process_user_icon_theme: different theme [new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
 
       m_strIconTheme = strOsIconTheme;
 
-      ::output_debug_string("os_process_user_icon_theme m_strIconTheme = \"" + m_strIconTheme + "\"\n");
+      ::infomration("os_process_user_icon_theme m_strIconTheme = \"" + m_strIconTheme + "\"\n");
 
       try
       {

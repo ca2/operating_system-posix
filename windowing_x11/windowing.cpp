@@ -120,7 +120,7 @@ namespace windowing_x11
 //      if(!pdisplay)
 //      {
 //
-//         output_debug_string("\nFailed to __create < ::windowing::display > at windowing_x11::windowing::initialize");
+//         infomration("\nFailed to __create < ::windowing::display > at windowing_x11::windowing::initialize");
 //
 //         return ::error_no_factory;
 //
@@ -133,7 +133,7 @@ namespace windowing_x11
 //      if(!estatus)
 //      {
 //
-//         output_debug_string("\nFailed to initialize_display at windowing_x11::windowing::initialize");
+//         infomration("\nFailed to initialize_display at windowing_x11::windowing::initialize");
 //
 //         return estatus;
 //
@@ -157,7 +157,7 @@ _libsn_start_context();
 //      if(!estatus)
 //      {
 //
-//         output_debug_string("\nFailed to m_pdisplay->open at windowing_x11::windowing::initialize");
+//         infomration("\nFailed to m_pdisplay->open at windowing_x11::windowing::initialize");
 //
 //         return estatus;
 //

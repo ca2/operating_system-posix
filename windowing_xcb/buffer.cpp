@@ -289,7 +289,7 @@ namespace windowing_xcb
       if(bComboList)
       {
 
-         //output_debug_string("combo_list update_window");
+         //infomration("combo_list update_window");
 
       }
 

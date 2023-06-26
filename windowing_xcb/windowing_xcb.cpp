@@ -958,20 +958,20 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       if (message.m_atom == e_message_quit)
       {
 
-         output_debug_string("e_message_quit thread");
+         infomration("e_message_quit thread");
 
       }
 
       if (message.m_atom == e_message_left_button_down)
       {
 
-         output_debug_string("post_ui_message::e_message_left_button_down\n");
+         infomration("post_ui_message::e_message_left_button_down\n");
 
       }
       else if (message.m_atom == e_message_left_button_up)
       {
 
-         output_debug_string("post_ui_message::e_message_left_button_up\n");
+         infomration("post_ui_message::e_message_left_button_up\n");
 
       }
 

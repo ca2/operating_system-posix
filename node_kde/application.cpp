@@ -242,7 +242,7 @@ void sn_start_context();
 //   if(g_papexapplication == nullptr)
 //   {
 //
-//      output_debug_string("Failed to initialize GtkApplication (gtk_application_new return nullptr)");
+//      infomration("Failed to initialize GtkApplication (gtk_application_new return nullptr)");
 //
 //      return;
 //

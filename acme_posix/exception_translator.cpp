@@ -1,10 +1,11 @@
 // Created on 2021-04-29 1:03 PM BRT <3TBS_!! Second celebration of Mummis Birthday 70!!
 #include "framework.h"
 #include "exception_translator.h"
-#include "acme/exception/standard.h"
+//#include "acme/exception/standard.h"
 #include "acme/platform/sequencer.h"
 #include "acme/user/user/conversation.h"
 #include "acme/user/nano/nano.h"
+#include "acme/operating_system/linux/standard_exception.h"
 
 
 namespace acme_posix
@@ -26,28 +27,28 @@ namespace acme_posix
    }
 
 
-   void exception_translator::initialize(::particle * pparticle)
+   void exception_translator::initialize(::particle *pparticle)
    {
-      
+
       ::exception_translator::initialize(pparticle);
-      
+
    }
 
 
-   void exception_translator::sigsegv_handler(i32 signal, siginfo_t * psiginfo, void * pc)
+   void exception_translator::sigsegv_handler(i32 signal, siginfo_t *psiginfo, void *pc)
    {
 
-         sigset_t set;
-         sigemptyset(&set);
-         sigaddset(&set, SIGSEGV);
-         pthread_sigmask(SIG_UNBLOCK, &set, nullptr);
+      sigset_t set;
+      sigemptyset(&set);
+      sigaddset(&set, SIGSEGV);
+      pthread_sigmask(SIG_UNBLOCK, &set, nullptr);
 
       throw standard_access_violation(signal, psiginfo, pc);
 
    }
 
 
-   void exception_translator::sigfpe_handler(i32 signal, siginfo_t * psiginfo, void * pc)
+   void exception_translator::sigfpe_handler(i32 signal, siginfo_t *psiginfo, void *pc)
    {
 
       //sigset_t set;
@@ -56,21 +57,21 @@ namespace acme_posix
       //sigprocmask(SIG_UNBLOCK, &set, nullptr);
 
       //throw standard_sigfpe(signal, psiginfo, pc);
-      
+
       printf("We are now here (with lowluds) inspecting exception_translator::sigfpe_handler");
 
    }
 
 
-   void exception_translator::sigpipe_handler(i32 signal, siginfo_t * psiginfo, void * pc)
+   void exception_translator::sigpipe_handler(i32 signal, siginfo_t *psiginfo, void *pc)
    {
 
-   //      sigset_t set;
-   //      sigemptyset(&set);
-   //      sigaddset(&set, SIGSEGV);
-   //      sigprocmask(SIG_UNBLOCK, &set, nullptr);
+      //      sigset_t set;
+      //      sigemptyset(&set);
+      //      sigaddset(&set, SIGSEGV);
+      //      sigprocmask(SIG_UNBLOCK, &set, nullptr);
 
-         ///throw standard_sigfpe(signal, psiginfo, pc);
+      ///throw standard_sigfpe(signal, psiginfo, pc);
 
    }
 
@@ -80,12 +81,12 @@ namespace acme_posix
 
       if (m_bSet)
       {
-       
+
          return true;
-         
+
       }
 
-      //output_debug_string("exception standard translator");
+      //infomration("exception standard translator");
 
 #if defined(__SANITIZE_ADDRESS__) || defined(__FOR_PERF__)
 
@@ -99,20 +100,20 @@ namespace acme_posix
 
       install_sigfpe_handler();
 
-   #if !defined(__APPLE__) && !defined(FREEBSD) || defined(__arm__)
+#if !defined(__APPLE__) && !defined(FREEBSD) || defined(__arm__)
 
       install_sigsegv_handler();
 
       install_sigfpe_handler();
-      
+
       install_sigpipe_handler();
 
-   #endif
-      
+#endif
+
 #endif
 
 //#endif // !defined(ANDROID)
-      
+
       m_bSet = true;
 
       return true;
@@ -122,7 +123,7 @@ namespace acme_posix
 
    void exception_translator::install_sigsegv_handler()
    {
-      
+
       zero(m_sig.m_saSeg);
 
       m_sig.m_saSeg.sa_flags = SA_SIGINFO;
@@ -130,36 +131,37 @@ namespace acme_posix
       m_sig.m_saSeg.sa_sigaction = &sigsegv_handler;
 
       int iSigactionResult = sigaction(SIGSEGV, &m_sig.m_saSeg, &m_sigOld.m_saSeg);
-      
-      if(iSigactionResult != 0)
+
+      if (iSigactionResult != 0)
       {
 
-         output_debug_string("failed to install segmentation fault signal handler");
-         
-         auto psequencer = nano()->message_box("failed to install segmentation fault signal handler", "failed to install segmentation fault signal handler",
-                                                        e_message_box_ok);
-         
+         infomration("failed to install segmentation fault signal handler");
+
+         auto psequencer = nano()->message_box("failed to install segmentation fault signal handler",
+                                               "failed to install segmentation fault signal handler",
+                                               e_message_box_ok);
+
          psequencer->do_asynchronously();
 
 
       }
-      
+
    }
 
 
    void exception_translator::install_sigfpe_handler()
    {
-      
+
       zero(m_sig.m_saFpe);
 
       m_sig.m_saSeg.sa_flags = SA_SIGINFO;
 
       m_sig.m_saFpe.sa_sigaction = &sigfpe_handler;
 
-      if(sigaction(SIGFPE, &m_sig.m_saFpe, &m_sigOld.m_saFpe) < 0)
+      if (sigaction(SIGFPE, &m_sig.m_saFpe, &m_sigOld.m_saFpe) < 0)
       {
 
-         output_debug_string("failed to install floating point exception signal handler");
+         infomration("failed to install floating point exception signal handler");
 
       }
 
@@ -168,17 +170,17 @@ namespace acme_posix
 
    void exception_translator::install_sigpipe_handler()
    {
-      
+
       zero(m_sig.m_saPipe);
 
       m_sig.m_saSeg.sa_flags = SA_SIGINFO;
 
       m_sig.m_saPipe.sa_sigaction = &sigpipe_handler;
 
-      if(sigaction(SIGPIPE,&m_sig.m_saPipe,&m_sigOld.m_saPipe) < 0)
+      if (sigaction(SIGPIPE, &m_sig.m_saPipe, &m_sigOld.m_saPipe) < 0)
       {
 
-         output_debug_string("failed to install pipe signal handler");
+         infomration("failed to install pipe signal handler");
 
       }
 
@@ -190,9 +192,9 @@ namespace acme_posix
 
       if (!m_bSet)
       {
-         
+
          return false;
-         
+
       }
 
 #if defined(__SANITIZE_ADDRESS__) || defined(__FOR_PERF__)
@@ -202,7 +204,7 @@ namespace acme_posix
       sigaction(SIGFPE,&m_sigOld.m_saFpe,nullptr);
 
 #endif
-      
+
       m_bSet = false;
 
       return true;

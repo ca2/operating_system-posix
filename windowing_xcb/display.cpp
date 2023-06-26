@@ -1128,7 +1128,7 @@ namespace windowing_xcb
 //      auto cookie = (xcb_get_property(xcb_connection(), 0,  m_windowRoot, prop, 0, 1024, False, XA_WINDOW,
 //                                      &type, &form, len, &remain, &list) != Success)
 //      {
-//         output_debug_string("winlist() -- GetWinProp");
+//         infomration("winlist() -- GetWinProp");
 //         return nullptr;
 //      }
 //

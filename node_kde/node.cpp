@@ -205,7 +205,7 @@ namespace node_kde
 //      if (!estatus)
 //      {
 //
-//         output_debug_string("Failed to begin_synch the system (::apex::system or ::apex::system derived)");
+//         infomration("Failed to begin_synch the system (::apex::system or ::apex::system derived)");
 //
 //         return estatus;
 //
@@ -306,7 +306,7 @@ namespace node_kde
 
          void *p = (void *) QX11Info::display();
 
-         output_debug_string("qx11info::display : " + hex::lower_case_from((iptr) p));
+         infomration("qx11info::display : " + hex::lower_case_from((iptr) p));
 
          m_pX11Display = p;
 
@@ -421,7 +421,7 @@ namespace node_kde
 //
 //         default:
 //
-//            output_debug_string(
+//            infomration(
 //               "Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
 //            return false;
 //
@@ -489,7 +489,7 @@ namespace node_kde
 //
 //         default:
 //
-//            output_debug_string(
+//            infomration(
 //               "Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
 //            return false;
 //
@@ -546,7 +546,7 @@ namespace node_kde
 //            break;
 //         default:
 //
-//            output_debug_string(
+//            infomration(
 //               "Failed to get wallpaper setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
 //            //return "";
 //
@@ -750,7 +750,7 @@ namespace node_kde
       else
       {
 
-         output_debug_string(string(eventType.constData()) + " unhandled!!\n");
+         infomration(string(eventType.constData()) + " unhandled!!\n");
 
       }
 

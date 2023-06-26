@@ -734,7 +734,7 @@ namespace acme_posix
          if (strExe.case_insensitive_ends("_app_core_clockverse"))
          {
 
-            ::output_debug_string("app-core/clockverse");
+            ::infomration("app-core/clockverse");
 
          }
 
@@ -754,7 +754,7 @@ namespace acme_posix
          if (strExe.case_insensitive_ends("_app_core_clockverse"))
          {
 
-            ::output_debug_string("app-core/clockverse");
+            ::infomration("app-core/clockverse");
 
          }
 
@@ -1080,7 +1080,7 @@ namespace acme_posix
 ::process_identifier_array node::module_path_processes_identifiers(const ::string & psz, bool bModuleNameIsPropertyFormatted)
    {
 
-      ::output_debug_string("os/linux_process.cpp app_get_pid (" + string(psz) + ")");
+      ::infomration("os/linux_process.cpp app_get_pid (" + string(psz) + ")");
 
    ::process_identifier_array ia;
 
@@ -1114,14 +1114,14 @@ namespace acme_posix
 
             //if(iPid == 22912)
             //{
-            //output_debug_string("22912");
+            //infomration("22912");
             //}
             ::file::path path = process_identifier_module_path(iPid);
 
             if (path.has_char())
             {
 
-               //output_debug_string(path + "\n");
+               //infomration(path + "\n");
 
             }
 

@@ -132,7 +132,7 @@ namespace node_xfce
       if (!estatus)
       {
 
-         output_debug_string("Failed to begin_synch the system (::apex::system or ::apex::system derived)");
+         infomration("Failed to begin_synch the system (::apex::system or ::apex::system derived)");
 
          return estatus;
 
@@ -443,7 +443,7 @@ namespace node_xfce
 //
 //      default:
 //
-//      output_debug_string("Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+//      infomration("Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
 //      return false;
 //
 //      }
@@ -507,7 +507,7 @@ namespace node_xfce
 //
 //         default:
 //
-//            output_debug_string("Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+//            infomration("Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
 //            return false;
 //
 //      }
@@ -564,7 +564,7 @@ namespace node_xfce
 //         break;
 //         default:
 //
-//            output_debug_string("Failed to get wallpaper setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+//            infomration("Failed to get wallpaper setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
 //            //return "";
 //
 //      }

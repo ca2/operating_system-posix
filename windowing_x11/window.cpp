@@ -273,6 +273,20 @@ namespace windowing_x11
                                       CWColormap | CWEventMask | CWBackPixmap | CWBorderPixel
                                       | CWOverrideRedirect, &attr);
 
+      {
+
+         XSizeHints sizehints = {0};
+
+         sizehints.flags = PPosition | PSize;     /* I want to specify position and size */
+         sizehints.x = x;       /* The origin and size coords I want */
+         sizehints.y = y;
+         sizehints.width = cx;
+         sizehints.height = cy;
+
+         XSetNormalHints(display, window, &sizehints);  /* Where new_window is the new window */
+
+      }
+
 
       // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
       // {
@@ -567,6 +581,7 @@ namespace windowing_x11
          }
 
       }
+
 
       displaylock.unlock();
 
@@ -1120,7 +1135,7 @@ namespace windowing_x11
 
       ::file::path path = pnode->get_desktop_file_path(papp);
 
-      output_debug_string("\nfreebsd::interaction_impl::set_window_text");
+      infomration("\nfreebsd::interaction_impl::set_window_text");
 
       fflush(stdout);
 
@@ -1142,7 +1157,7 @@ namespace windowing_x11
          (const unsigned char *) (const char *) path,
          path.length());
 
-      output_debug_string("\nfreebsd::interaction_impl::bamf_set_icon END");
+      infomration("\nfreebsd::interaction_impl::bamf_set_icon END");
 
       fflush(stdout);
 
@@ -2226,7 +2241,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
          (const unsigned char *) (const char *) path,
          path.length());
 
-      output_debug_string("\nfreebsd::interaction_impl::bamf_set_icon END");
+      infomration("\nfreebsd::interaction_impl::bamf_set_icon END");
 
       fflush(stdout);
 
@@ -2406,20 +2421,20 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
       if (message.m_atom == e_message_quit)
       {
 
-         output_debug_string("e_message_quit thread");
+         infomration("e_message_quit thread");
 
       }
 
       if (message.m_atom == e_message_left_button_down)
       {
 
-         output_debug_string("post_ui_message::e_message_left_button_down\n");
+         infomration("post_ui_message::e_message_left_button_down\n");
 
       }
       else if (message.m_atom == e_message_left_button_up)
       {
 
-         output_debug_string("post_ui_message::e_message_left_button_up\n");
+         infomration("post_ui_message::e_message_left_button_up\n");
 
       }
 
@@ -2546,11 +2561,20 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
 #ifdef SET_WINDOW_POS_LOG
 
-               information("Changing parameters... (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
+               information("Changing parameters... (%d, %d) - (%d, %d)", x, y, cx, cy);
 
 #endif
 
             }
+
+            if (x < 100 || y < 100)
+            {
+
+               information("XMoveResizeWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
+
+            }
+
+            information("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
 
             XMoveResizeWindow(Display(), Window(), x, y, cx, cy);
 
@@ -2565,6 +2589,13 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
          }
          else
          {
+
+            if (x < 100 || y < 100)
+            {
+
+               information("XMoveWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
+
+            }
 
             windowing_output_debug_string("\n::window::set_window_pos Move Window 1.4.1");
 
@@ -2802,7 +2833,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
          (const unsigned char *) (const char *) path,
          path.length());
 
-      output_debug_string("\nfreebsd::interaction_impl::bamf_set_icon END");
+      infomration("\nfreebsd::interaction_impl::bamf_set_icon END");
 
       fflush(stdout);
 
@@ -3822,7 +3853,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
                                                  if(strType.contains("menu"))
                                                  {
 
-                                                   output_debug_string("menu");
+                                                   infomration("menu");
 
                                                  }
 

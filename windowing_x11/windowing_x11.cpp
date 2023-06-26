@@ -510,7 +510,7 @@ namespace windowing_x11
 //      if (XGetWindowProperty(Display(), DefaultRootWindow(Display()), prop, 0, 1024, False, XA_WINDOW,
 //                             &type, &form, len, &remain, &list) != Success)
 //      {
-//         output_debug_string("winlist() -- GetWinProp");
+//         infomration("winlist() -- GetWinProp");
 //         return nullptr;
 //      }
 //
@@ -1221,7 +1221,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 #endif
 
-         output_debug_string("x11_thread end thread");
+         infomration("x11_thread end thread");
 
          return false;
 
@@ -1401,7 +1401,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 #endif
 
-         output_debug_string("x11_thread end thread");
+         infomration("x11_thread end thread");
 
          return false;
 
@@ -1580,6 +1580,8 @@ void windowing::_defer_position_message(oswindow oswindow, const ::point_i32 & p
          if (bPositionFix) {
 
 
+            pinteraction->set_position(point, ::user::e_layout_window);
+
             MESSAGE msg;
 
             zero(msg);
@@ -1588,6 +1590,8 @@ void windowing::_defer_position_message(oswindow oswindow, const ::point_i32 & p
 
 
             msg.oswindow->m_point = point;
+
+            information() << "X11 bPositionFix " << point.x() << ", " << point.y();
 
             msg.m_atom = e_message_reposition;
             msg.wParam = 0;
@@ -1713,6 +1717,7 @@ void windowing::_defer_size_message(oswindow oswindow, const ::size_i32 & size)
 
          if (bSizeFix) {
 
+            pinteraction->set_size(size, ::user::e_layout_window);
 
             MESSAGE msg;
 
@@ -1836,7 +1841,7 @@ else if(detail == 3)
 
                }
 
-               output_debug_string("\ndetail:" + ::as_string(prawevent->detail));
+               infomration("\ndetail:" + ::as_string(prawevent->detail));
 
 
                if(emessage != e_message_null)
@@ -1966,7 +1971,7 @@ else if(detail == 3)
           && e.xclient.message_type == g_atomKickIdle)
       {
 
-         output_debug_string("\nkick idle received\n");
+         infomration("\nkick idle received\n");
 
          return true;
 
@@ -2088,19 +2093,19 @@ else if(detail == 3)
 //                                 if (pinteraction->m_iMouseMoveSkipCount == 2)
 //                                 {
 //
-//                                    //output_debug_string("\nmmv>skip 2!");
+//                                    //infomration("\nmmv>skip 2!");
 //
 //                                 }
 //                                 else if (pinteraction->m_iMouseMoveSkipCount == 5)
 //                                 {
 //
-//                                    //output_debug_string("\nmmv>Skip 5!!!");
+//                                    //infomration("\nmmv>Skip 5!!!");
 //
 //                                 }
 //                                 else if (pinteraction->m_iMouseMoveSkipCount == 10)
 //                                 {
 //
-//                                    //output_debug_string("\nmmv>SKIP 10 !!!!!!!!!");
+//                                    //infomration("\nmmv>SKIP 10 !!!!!!!!!");
 //
 //                                 }
 //
@@ -2485,6 +2490,8 @@ else if(detail == 3)
 
                      ::point_i32 point(e.xconfigure.x, e.xconfigure.y);
 
+                     information() << "X11 ConfigureNotify Win,x,y " << e.xconfigure.window << ", " << e.xconfigure.x << ", " << e.xconfigure.y;
+
                      ::size_i32 size(e.xconfigure.width, e.xconfigure.height);
 
                      _defer_position_message(msg.oswindow, point);
@@ -2677,7 +2684,7 @@ else if(detail == 3)
                   if (e.xbutton.button == Button1)
                   {
 
-                     ::output_debug_string("ButtonPress::Button1\n");
+                     ::infomration("ButtonPress::Button1\n");
 
                      emessage = e_message_left_button_down;
 
@@ -2720,7 +2727,7 @@ else if(detail == 3)
                   if (e.xbutton.button == Button1)
                   {
 
-                     ::output_debug_string("ButtonRelease::Button1\n");
+                     ::infomration("ButtonRelease::Button1\n");
 
                       emessage = e_message_left_button_up;
 
@@ -2965,7 +2972,7 @@ else if(detail == 3)
          case FocusIn:
          {
 
-            ::output_debug_string("FocusIn\n");
+            ::infomration("FocusIn\n");
 
             msg.m_atom = e_message_set_focus;
 
@@ -3013,13 +3020,13 @@ else if(detail == 3)
 //         if(wFocus == e.xfocus.window)
 //         {
 //
-//            output_debug_string("A\n");
+//            infomration("A\n");
 //
 //         }
 //         else
 //         {
 //
-//            output_debug_string("B " + as_string(wFocus));
+//            infomration("B " + as_string(wFocus));
 //
 //            g_windowFocus = wFocus;
 //
@@ -3028,13 +3035,13 @@ else if(detail == 3)
 //         if(wFocus == g_windowFocus)
 //         {
 //
-//            output_debug_string("C\n");
+//            infomration("C\n");
 //
 //         }
 //         else
 //         {
 //
-//            output_debug_string("D " + as_string(wFocus));
+//            infomration("D " + as_string(wFocus));
 //
 //            g_windowFocus = wFocus;
 //
@@ -3052,7 +3059,7 @@ else if(detail == 3)
          case FocusOut:
          {
 
-            ::output_debug_string("FocusOut\n");
+            ::infomration("FocusOut\n");
 
             auto oswindow = msg.oswindow;
 
@@ -3117,7 +3124,7 @@ else if(detail == 3)
          break;
          default:
          {
-            output_debug_string("axis_x11 case default:");
+            infomration("axis_x11 case default:");
          }
       }
 
@@ -3588,19 +3595,19 @@ else if(detail == 3)
       if (message.m_atom == e_message_quit)
       {
 
-         output_debug_string("e_message_quit thread");
+         infomration("e_message_quit thread");
 
       }
       else if (message.m_atom == e_message_left_button_down)
       {
 
-         output_debug_string("post_ui_message::e_message_left_button_down\n");
+         infomration("post_ui_message::e_message_left_button_down\n");
 
       }
       else if (message.m_atom == e_message_left_button_up)
       {
 
-         output_debug_string("post_ui_message::e_message_left_button_up\n");
+         infomration("post_ui_message::e_message_left_button_up\n");
 
       }
 
@@ -3687,20 +3694,20 @@ else if(detail == 3)
 //      if (message.m_atom == e_message_quit)
 //      {
 //
-//         output_debug_string("e_message_quit thread");
+//         infomration("e_message_quit thread");
 //
 //      }
 //
 //      if (message.m_atom == e_message_left_button_down)
 //      {
 //
-//         output_debug_string("post_ui_message::e_message_left_button_down\n");
+//         infomration("post_ui_message::e_message_left_button_down\n");
 //
 //      }
 //      else if (message.m_atom == e_message_left_button_up)
 //      {
 //
-//         output_debug_string("post_ui_message::e_message_left_button_up\n");
+//         infomration("post_ui_message::e_message_left_button_up\n");
 //
 //      }
 //

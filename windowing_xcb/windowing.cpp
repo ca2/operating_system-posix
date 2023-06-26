@@ -122,7 +122,7 @@ namespace windowing_xcb
 //      if(!pdisplay)
 //      {
 //
-//         output_debug_string("\nFailed to __create < ::windowing::display > at windowing_xcb::windowing::initialize");
+//         infomration("\nFailed to __create < ::windowing::display > at windowing_xcb::windowing::initialize");
 //
 //         //return ::error_no_factory;
 //
@@ -137,7 +137,7 @@ namespace windowing_xcb
 //      if(!estatus)
 //      {
 //
-//         output_debug_string("\nFailed to initialize_display at windowing_xcb::windowing::initialize");
+//         infomration("\nFailed to initialize_display at windowing_xcb::windowing::initialize");
 //
 //         return estatus;
 //
@@ -148,7 +148,7 @@ namespace windowing_xcb
 //      if(!pdisplay)
 //      {
 //
-//         output_debug_string("\nFailed to cast pdisplay to m_pdisplay at windowing_xcb::windowing::initialize");
+//         infomration("\nFailed to cast pdisplay to m_pdisplay at windowing_xcb::windowing::initialize");
 //
 //         return error_no_interface;
 //
@@ -165,7 +165,7 @@ namespace windowing_xcb
 //      if(!estatus)
 //      {
 //
-//         output_debug_string("\nFailed to m_pdisplay->open at windowing_xcb::windowing::initialize");
+//         infomration("\nFailed to m_pdisplay->open at windowing_xcb::windowing::initialize");
 //
 //         return estatus;
 //
@@ -597,7 +597,7 @@ namespace windowing_xcb
 
 #endif
 
-         output_debug_string("xcb_thread end thread");
+         infomration("xcb_thread end thread");
 
          return false;
 
@@ -686,7 +686,7 @@ namespace windowing_xcb
 
 #endif
 
-         output_debug_string("xcb_thread end thread");
+         infomration("xcb_thread end thread");
 
          return false;
 
@@ -916,17 +916,17 @@ namespace windowing_xcb
                            if (pinteraction->m_iMouseMoveSkipCount == 2)
                            {
 
-                              //output_debug_string("\nmmv>skip 2!");
+                              //infomration("\nmmv>skip 2!");
 
                            } else if (pinteraction->m_iMouseMoveSkipCount == 5)
                            {
 
-                              //output_debug_string("\nmmv>Skip 5!!!");
+                              //infomration("\nmmv>Skip 5!!!");
 
                            } else if (pinteraction->m_iMouseMoveSkipCount == 10)
                            {
 
-                              //output_debug_string("\nmmv>SKIP 10 !!!!!!!!!");
+                              //infomration("\nmmv>SKIP 10 !!!!!!!!!");
 
                            }
 
@@ -1121,7 +1121,7 @@ namespace windowing_xcb
 
             auto estatus = m_pdisplay->_request_check(cookie);
 
-            output_debug_string("");
+            infomration("");
 
          }
 
@@ -1595,11 +1595,11 @@ namespace windowing_xcb
             //auto & screen_origin = window.screen_origin();
 
             //information("");
-            //::output_debug_string("\nwindow(origin=" + as_string(origin.x) + ", " + as_string(origin.y));
-            //::output_debug_string("\nwindow.screen_origin=" + as_string(screen_origin.x) + ", " + as_string(screen_origin.y));
-            //::output_debug_string("\nbutton.root_x=" + as_string(pbutton->root_x));
-            //::output_debug_string("\nbutton.root_y=" + as_string(pbutton->root_y));
-            //::output_debug_string("\n");
+            //::infomration("\nwindow(origin=" + as_string(origin.x) + ", " + as_string(origin.y));
+            //::infomration("\nwindow.screen_origin=" + as_string(screen_origin.x) + ", " + as_string(screen_origin.y));
+            //::infomration("\nbutton.root_x=" + as_string(pbutton->root_x));
+            //::infomration("\nbutton.root_y=" + as_string(pbutton->root_y));
+            //::infomration("\n");
 
             //msg.time = pbutton->time;
 
@@ -1614,7 +1614,7 @@ namespace windowing_xcb
                if (pbutton->detail == XCB_BUTTON_INDEX_1)
                {
 
-                  //::output_debug_string("ButtonPress::Button1\n");
+                  //::infomration("ButtonPress::Button1\n");
 
                   g_i135++;
 
@@ -1664,7 +1664,7 @@ namespace windowing_xcb
                if (pbutton->detail == XCB_BUTTON_INDEX_1)
                {
 
-                  //::output_debug_string("ButtonRelease::Button1\n");
+                  //::infomration("ButtonRelease::Button1\n");
 
                    emessage = e_message_left_button_up;
 
@@ -1961,7 +1961,7 @@ namespace windowing_xcb
 
             auto pfocusin = (xcb_focus_in_event_t *)pgenericevent;
 
-            ::output_debug_string("FocusIn\n");
+            ::infomration("FocusIn\n");
 
             oswindow = m_pdisplay->_window(pfocusin->event);
 
@@ -2010,7 +2010,7 @@ namespace windowing_xcb
 
             auto pfocusout = (xcb_focus_out_event_t *)pgenericevent;
 
-            ::output_debug_string("FocusOut\n");
+            ::infomration("FocusOut\n");
 
             oswindow =  m_pdisplay->_window(pfocusout->event);
 
@@ -2139,7 +2139,7 @@ namespace windowing_xcb
          default:
          {
 
-            output_debug_string("axis_xcb case default:");
+            infomration("axis_xcb case default:");
 
          }
          break;

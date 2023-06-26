@@ -556,7 +556,7 @@ namespace multimedia
          if (time > 0_s)
          {
 
-            //output_debug_string("test");
+            //infomration("test");
 
          }
 
@@ -819,7 +819,7 @@ namespace multimedia
             if (iFramesJustWritten == -EINTR)
             {
 
-               information("snd_pcm_writei -EINTR\n");
+               information("snd_pcm_writei -EINTR");
 
                continue;
 
@@ -827,7 +827,7 @@ namespace multimedia
             else if (iFramesJustWritten == -EAGAIN)
             {
 
-               //information("snd_pcm_writei -EAGAIN\n");
+               //information("snd_pcm_writei -EAGAIN");
 
                sl.unlock();
 
@@ -841,7 +841,7 @@ namespace multimedia
             else if (iFramesJustWritten < 0)
             {
 
-               information("snd_pcm_writei Underrun\n");
+               information("snd_pcm_writei Underrun");
 
                information("ALSA wave_out snd_pcm_writei error: %s (%d)\n", snd_strerror(iFramesJustWritten),
                                iFramesJustWritten);

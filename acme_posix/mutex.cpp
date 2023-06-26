@@ -1410,7 +1410,7 @@ namespace acme_posix
 
       m_strThread.empty();
       m_itask = -1;
-      ::output_debug_string("");
+      ::infomration("");
 
    #endif
 

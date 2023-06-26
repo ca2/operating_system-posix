@@ -139,7 +139,7 @@ namespace acme
             if(strExe.case_insensitive_ends("_app_core_clockverse"))
             {
 
-               ::output_debug_string("app-core/clockverse");
+               ::infomration("app-core/clockverse");
 
             }
 
@@ -159,7 +159,7 @@ namespace acme
             if(strExe.case_insensitive_ends("_app_core_clockverse"))
             {
 
-               ::output_debug_string("app-core/clockverse");
+               ::infomration("app-core/clockverse");
 
             }
 
@@ -473,7 +473,7 @@ namespace acme
       atom_array node::module_path_get_pid(const ::string & psz, bool bModuleNameIsPropertyFormatted)
       {
 
-         ::output_debug_string("os/linux_process.cpp app_get_pid (" + string(psz) + ")");
+         ::infomration("os/linux_process.cpp app_get_pid (" + string(psz) + ")");
 
          atom_array ia;
 
@@ -507,14 +507,14 @@ namespace acme
 
                //if(iPid == 22912)
                //{
-               //output_debug_string("22912");
+               //infomration("22912");
                //}
                ::file::path path = module_path_from_pid(iPid);
 
                if (path.has_char())
                {
 
-                  //output_debug_string(path + "\n");
+                  //infomration(path + "\n");
 
                }
 
