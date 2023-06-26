@@ -246,6 +246,7 @@ namespace acme_posix
             else
             {*/
 
+            warning("file::exception \"%s\"", path.c_str());
 
             //return __new(::file::exception(::error_os_error_to_exception(dwLastError), dwLastError, m_strFileName, nOpenFlags));
             throw ::file::exception(m_estatus, errorcode, path, m_eopen, "::open == -1");
