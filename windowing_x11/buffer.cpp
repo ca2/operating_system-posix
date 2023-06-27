@@ -337,7 +337,7 @@ namespace windowing_x11
 
       auto pitem = get_screen_item();
 
-      auto & pimage = pitem->m_pimage;
+      auto & pimage = pitem->m_pimage2;
 
       pimage->map();
 
