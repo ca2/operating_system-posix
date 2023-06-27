@@ -2195,7 +2195,7 @@ else if(detail == 3)
 
 //               auto oswindow = msg.oswindow;
 //
-//               if(oswindow)
+//              if(oswindow)
 //               {
 //
 //                  auto pimpl = oswindow->m_puserinteractionimpl;
@@ -2234,35 +2234,41 @@ else if(detail == 3)
 //               //msg.oswindow->m_pimpl->_001UpdateScreen();
 //
 //               //::pointer<::user::interaction>pinteraction = msg.oswindow->m_pimpl->m_puserinteraction;
-                  auto pimpl = oswindow->m_puserinteractionimpl;
-
-                  if(pimpl)
-                  {
-
-                     ::pointer < ::windowing_x11::buffer > pbuffer= pimpl->m_pgraphics;
-
-                     if(pbuffer)
-                     {
-
-                        pbuffer->_update_screen_lesser_lock();
-
-                     }
-
-
-                  }
-
-                  pwindow->m_rectangleaRedraw.clear();
-
+//                  auto pimpl = oswindow->m_puserinteractionimpl;
 //
-//                     auto puserinteraction = pimpl->m_puserinteraction;
+//                  if(pimpl)
+//                  {
 //
-//                     if (puserinteraction)
+//                     ::pointer < ::windowing_x11::buffer > pbuffer= pimpl->m_pgraphics;
+//
+//                     if(pbuffer)
 //                     {
 //
-//                        puserinteraction->set_need_redraw(pwindow->m_rectangleaRedraw);
-//                        pwindow->m_rectangleaRedraw.clear();
-//                        puserinteraction->post_redraw();
+//                        pbuffer->_update_screen_lesser_lock();
+//
 //                     }
+//
+//
+//                  }
+
+                pwindow->m_rectangleaRedraw.clear();
+
+//
+
+                auto pimpl = oswindow->m_puserinteractionimpl;
+
+                auto puserinteraction = pimpl->m_puserinteraction;
+
+                if (puserinteraction)
+                {
+
+                    puserinteraction->set_need_redraw(pwindow->m_rectangleaRedraw);
+
+                    pwindow->m_rectangleaRedraw.clear();
+
+                    puserinteraction->post_redraw();
+
+                }
 //                  }
 
             }

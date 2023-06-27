@@ -11,6 +11,7 @@
 #include "acme/parallelization/synchronous_lock.h"
 #include "apex/platform/node.h"
 #include "apex/platform/system.h"
+#include "aura/graphics/graphics/graphics.h"
 #include "aura/user/user/interaction_prodevian.h"
 #include "aura/user/user/interaction_impl.h"
 #include "aura/platform/message_queue.h"
@@ -2567,14 +2568,14 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
             }
 
-            if (x < 100 || y < 100)
-            {
+//            if (x < 100 || y < 100)
+//            {
+//
+//               information("XMoveResizeWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
+//
+//            }
 
-               information("XMoveResizeWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
-
-            }
-
-            information("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
+            information("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
 
             XMoveResizeWindow(Display(), Window(), x, y, cx, cy);
 
@@ -3835,50 +3836,43 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
    void window::update_screen()
    {
 
-      //window_post([this]()
-                                        {
+       m_pwindowing->windowing_post([this]() {
 
-                                           auto pimpl = m_puserinteractionimpl;
+           auto pimpl = m_puserinteractionimpl;
 
-                                           if (::is_set(pimpl))
-                                           {
+           if (::is_set(pimpl)) {
 
-                                              auto puserinteraction = pimpl->m_puserinteraction;
+               auto puserinteraction = pimpl->m_puserinteraction;
 
-                                              if (::is_set(puserinteraction))
-                                              {
+               if (::is_set(puserinteraction)) {
 
-                                                 string strType = __type_name(puserinteraction);
+                   string strType = __type_name(puserinteraction);
 
-                                                 if(strType.contains("menu"))
-                                                 {
+                   if (strType.contains("menu")) {
 
-                                                   information("menu");
+                       information("menu");
 
-                                                 }
+                   }
 
-                                                 auto pimpl2 = puserinteraction->m_pinteractionimpl;
+                   auto pimpl2 = puserinteraction->m_pinteractionimpl;
 
-                                                 if (::is_set(pimpl2))
-                                                 {
+                   if (::is_set(pimpl2)) {
 
-                                                    auto pprodevian = pimpl2->m_pprodevian;
 
-                                                    if (::is_set(pprodevian))
-                                                    {
+                       pimpl2->m_pgraphics->update_screen();
 
-                                                       pprodevian->update_screen();
+                       //}
 
-                                                    }
+                   }
 
-                                                 }
+               }
 
-                                              }
+           }
 
-                                           }
+       });
 
-                                        }
-                                        //);
+    //}
+    //);
 
    }
 
