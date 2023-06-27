@@ -387,7 +387,7 @@ namespace node_gtk
       else
       {
 
-         infomration("Failed to set wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+         information("Failed to set wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
 
       }
 

@@ -15,6 +15,9 @@
 #include "aura_posix/x11/display_lock.h"
 
 
+//#define VERI_BASIC_TEST
+
+
 namespace windowing_x11
 {
 
@@ -263,11 +266,15 @@ namespace windowing_x11
    }
 
 
-   bool buffer::update_screen(void)
+   bool buffer::update_screen()
    {
+
+      //information("windowing_x11::buffer::update_screen");
 
       if(m_pimpl == nullptr)
       {
+
+         warning("windowing_x11::buffer::update_screen !m_pimpl!!");
 
          return false;
 
@@ -276,27 +283,16 @@ namespace windowing_x11
       if(!m_pimpl->m_pwindow)
       {
 
+         warning("windowing_x11::buffer::update_screen !m_pimpl->m_pwindow!!");
+
          return false;
-
-      }
-
-      string strType = __type_name(m_pimpl->m_puserinteraction);
-
-      bool bComboList = strType.case_insensitive_contains("combo_list");
-
-      if(bComboList)
-      {
-
-         //infomration("combo_list update_window");
 
       }
 
       if(!m_pimpl->m_puserinteraction->is_window_screen_visible())
       {
 
-         //bool bReallyNotVisible = !(m_pimpl->m_puserinteraction->GetStyle() & WS_VISIBLE);
-
-         information() << "XPutImage not called. Ui is not visible.";
+         information() << "windowing_x11::buffer::update_screen XPutImage not called. Ui is not visible.";
 
          return false;
 
@@ -305,112 +301,82 @@ namespace windowing_x11
       if(!m_pwindow)
       {
 
+         warning("windowing_x11::buffer::update_screen !m_pwindow!");
+
          return false;
 
       }
 
-      synchronous_lock slGraphics(synchronization());
+      _synchronous_lock synchronouslock(user_synchronization());
+
+      display_lock displayLock(x11_window()->x11_display()->Display());
+
+      return _update_screen_lesser_lock();
+
+   }
+
+
+   bool buffer::_update_screen_lesser_lock()
+   {
+
+      _synchronous_lock slGraphics(synchronization());
+
+      auto pitem = get_screen_item();
+
+      _synchronous_lock slImage(pitem->m_pmutex);
+
+      slGraphics.unlock();
+
+      return _update_screen_unlocked();
+
+   }
+
+
+   bool buffer::_update_screen_unlocked()
+   {
+
+      auto pitem = get_screen_item();
+
+      auto & pimage = pitem->m_pimage;
+
+      pimage->map();
+
+      XImage * pximage = nullptr;
+
+      int iWidth = pitem->m_size.cx();
+
+      int iHeight = pitem->m_size.cy();
+
+      int iDefaultDepth = DefaultDepth(x11_window()->Display(), x11_window()->Screen());
+
+      int iWindowDepth = x11_window()->m_iDepth;
+
+      pximage =
+              XCreateImage(
+                      x11_window()->Display(),
+                      x11_window()->Visual(),
+                      iWindowDepth,
+                      ZPixmap,
+                      0,
+                      (char *) pimage->get_data(),
+                      iWidth,
+                      iHeight,
+                      sizeof(color32_t) * 8,
+                      pimage->scan_size());
+
+      if(!pximage || pximage->width <= 0 || pximage->height <= 0)
+      {
+
+         warning("windowing_x11::buffer::update_screen X11 image null or empty!!");
+
+         return false;
+
+      }
 
       if(m_gc == nullptr)
       {
 
-         return false;
-
-      }
-
-      auto pitem = get_screen_item();
-
-      synchronous_lock slImage(pitem->m_pmutex);
-
-      auto & pimage = pitem->m_pimage;
-
-      if(pimage.nok())
-      {
-
-         return false;
-
-      }
-
-      slGraphics.unlock();
-
-      pimage->map();
-
-      synchronous_lock synchronouslock(user_synchronization());
-
-      display_lock displayLock(x11_window()->x11_display()->Display());
-
-      //XImage * pximage = (XImage *)pimage->payload("pximage").i64();
-
-      XImage * pximage = nullptr;
-
-      //if(!pximage)
-      //if(m_pimpl->m_sizeSetWindowSizeRequest.cx() > m_pimpl->m_sizeDrawn.cx()
-        // || m_pimpl->m_sizeSetWindowSizeRequest.cy() > m_pimpl->m_sizeDrawn.cy())
-      //if(m_pimpl->m_sizeSetWindowSizeRequest != m_pimpl->m_sizeDrawn)
-      //if(m_pimpl->m_sizeSetWindowSizeRequest != pimage->size())
-//      if(m_pimpl->m_sizeSetWindowSizeRequest != pimage->m_sizeDrawn)
-//      {
-//
-//         information() << "m_pimpl->m_sizeSetWindowSizeRequest != m_pimpl->m_sizeDrawn ("
-//         << m_pimpl->m_sizeSetWindowSizeRequest << ", " << pimage->size() << ")";
-//
-//         rectangle_i32 rectangleActualWindow;
-//
-//         x11_window()->window_rectangle(&rectangleActualWindow);
-//
-//         m_pimpl->m_puserinteraction->place(rectangleActualWindow);
-//
-//         information() << "actual window rectangle : " << rectangleActualWindow;
-//
-//         m_pimpl->m_puserinteraction->set_need_layout();
-//
-//         m_pimpl->m_puserinteraction->set_need_redraw();
-//
-//         m_pimpl->m_puserinteraction->post_redraw();
-//
-//         return false;
-//
-//         //x11_window()->x11_windowing()->_defer_size_message(x11_window()->m_oswindow, cry.size());
-//
-//         //m_pimpl->m_puserinteraction->set_need_layout();
-//
-//         //m_pimpl->m_puserinteraction->set_need_redraw();
-//
-//         //m_pimpl->m_puserinteraction->post_redraw();
-//
-//      }
-//      else
-      {
-
-         //color32_t colora[8];
-
-         //memcpy(colora, pimage->get_data(), sizeof(colora));
-
-         int iDefaultDepth = DefaultDepth(x11_window()->Display(), x11_window()->Screen());
-
-         int iWindowDepth = x11_window()->m_iDepth;
-
-         pximage =
-            XCreateImage(
-               x11_window()->Display(),
-               x11_window()->Visual(),
-               iWindowDepth,
-               ZPixmap,
-               0,
-               (char *) pimage->get_data(),
-               pimage->width(),
-               pimage->height(),
-               sizeof(color32_t) * 8,
-               pimage->scan_size());
-
-         //pimage->payload("pximage") = (::i64) pximage;
-
-      }
-
-      //printf("pimage (%d, %d, %d)\n", pimage->width(), pimage->height(), pimage->get_pixel(100, 600));
-
-      if(!pximage || pximage->width <= 0 || pximage->height <= 0)
-      {
+         warning("windowing_x11::buffer::update_screen m_gc nullptr!!");
 
          return false;
 
@@ -419,49 +385,9 @@ namespace windowing_x11
       try
       {
 
-         //XGCValues gcvalues = {};
+         XPutImage(x11_window()->Display(), x11_window()->Window(), m_gc, pximage, 0, 0, 0, 0, iWidth, iHeight);
 
-//       auto gc = XCreateGC(m_oswindow->display(), m_oswindow->window(), 0, &gcvalues);
-
-         int iWidth = pximage->width;
-
-         int iHeight = pximage->height;
-
-         //if(!bComboList)
-         //{
-
-            XPutImage(x11_window()->Display(), x11_window()->Window(), m_gc, pximage, 0, 0, 0, 0, iWidth, iHeight);
-
-
-
-         //}
-
-  //     XFreeGC(m_oswindow->display(), gc);
-
-//         if(bComboList)
-//         {
-//
-//            XColor xcolour;
-//
-//            // I guess XParseColor will work here
-//
-//            xcolour.red = 32000;
-//
-//            xcolour.green = 65000;
-//
-//            xcolour.blue = 32000;
-//
-//            xcolour.flags = DoRed | DoGreen | DoBlue;
-//
-//            XAllocColor(m_oswindow->display(), m_oswindow->m_colormap, &xcolour);
-//
-//            XSetForeground(m_oswindow->display(), m_gc, xcolour.pixel);
-//
-//            XFillRectangle(m_oswindow->display(), m_oswindow->window(), m_gc, 0, 0, iWidth, iHeight);
-//
-//         }
-
-         #ifdef VERI_BASIC_TEST
+#ifdef VERI_BASIC_TEST
 
          XColor xcolour;
 
@@ -471,13 +397,15 @@ namespace windowing_x11
 
          xcolour.flags = DoRed | DoGreen | DoBlue;
 
-         XAllocColor(m_oswindow->display(), m_oswindow->m_colormap, &xcolour);
+         XAllocColor(x11_window()->Display(), x11_window()->x11_display()->m_colormap, &xcolour);
 
-         XSetForeground(m_oswindow->display(), m_gc, xcolour.pixel);
+         XSetForeground(x11_window()->Display(), m_gc, xcolour.pixel);
 
-         XFillRectangle(m_oswindow->display(), m_oswindow->window(), m_gc, 0, 0, iWidth, iHeight);
+         XFillRectangle(x11_window()->Display(), x11_window()->Window(), m_gc, 0, 0, iWidth, iHeight);
 
-         #endif
+         information("windowing_x11::buffer::update_screen BASIC_TEST FillRectangle(%d, %d)", iWidth, iHeight);
+
+#endif
 
       }
       catch(...)
@@ -489,14 +417,14 @@ namespace windowing_x11
 
       XDestroyImage(pximage);
 
-      if(m_pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning)
-      {
+      //if(m_pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning)
+      //{
 
-         //XFlush(m_oswindow->display());
+      XFlush(x11_window()->Display());
 
-         //XSync(m_oswindow->display(), false);
+      XSync(x11_window()->Display(), false);
 
-      }
+      //}
 
       return true;
 
@@ -520,7 +448,7 @@ namespace windowing_x11
 
       //m_iGoodStride = maximum(m_iGoodStride, cx);
 
-      bitmap_source_buffer::on_begin_draw();
+      //bitmap_source_buffer::on_begin_draw();
 
       return double_buffer::on_begin_draw();
 

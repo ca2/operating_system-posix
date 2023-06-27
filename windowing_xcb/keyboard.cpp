@@ -284,9 +284,9 @@ namespace windowing_xcb
 
       string str = pcontext->m_papexcontext->file()->as_string(pszPath);
 
-      infomration(pszPath);
+      information(pszPath);
 
-      infomration(str);
+      information(str);
 
       if(str.is_empty())
       {

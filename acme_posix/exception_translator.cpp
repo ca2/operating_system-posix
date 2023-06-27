@@ -86,7 +86,7 @@ namespace acme_posix
 
       }
 
-      //infomration("exception standard translator");
+      //information("exception standard translator");
 
 #if defined(__SANITIZE_ADDRESS__) || defined(__FOR_PERF__)
 
@@ -135,7 +135,7 @@ namespace acme_posix
       if (iSigactionResult != 0)
       {
 
-         infomration("failed to install segmentation fault signal handler");
+         information("failed to install segmentation fault signal handler");
 
          auto psequencer = nano()->message_box("failed to install segmentation fault signal handler",
                                                "failed to install segmentation fault signal handler",
@@ -161,7 +161,7 @@ namespace acme_posix
       if (sigaction(SIGFPE, &m_sig.m_saFpe, &m_sigOld.m_saFpe) < 0)
       {
 
-         infomration("failed to install floating point exception signal handler");
+         information("failed to install floating point exception signal handler");
 
       }
 
@@ -180,7 +180,7 @@ namespace acme_posix
       if (sigaction(SIGPIPE, &m_sig.m_saPipe, &m_sigOld.m_saPipe) < 0)
       {
 
-         infomration("failed to install pipe signal handler");
+         information("failed to install pipe signal handler");
 
       }
 

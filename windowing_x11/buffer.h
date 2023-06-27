@@ -53,6 +53,8 @@ namespace windowing_x11
 //      virtual void destroy_os_buffer(::image::image * pimage);
 
       bool update_screen() override;
+      virtual bool _update_screen_lesser_lock();
+      virtual bool _update_screen_unlocked();
       bool on_update_screen(::graphics::buffer_item * pitem) override;
 
 

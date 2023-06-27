@@ -556,7 +556,7 @@ namespace multimedia
          if (time > 0_s)
          {
 
-            //infomration("test");
+            //information("test");
 
          }
 

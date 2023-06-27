@@ -297,7 +297,7 @@ void node::os_calc_user_dark_mode()
 
       default:
 
-      infomration("Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+      information("Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
       return false;
 
       }
@@ -357,7 +357,7 @@ void node::os_calc_user_dark_mode()
 
          default:
 
-            infomration("Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+            information("Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
             return false;
 
       }
@@ -408,7 +408,7 @@ void node::os_calc_user_dark_mode()
          break;
          default:
 
-            infomration("Failed to get wallpaper setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+            information("Failed to get wallpaper setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
             //return "";
 
       }

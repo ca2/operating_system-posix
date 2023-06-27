@@ -7,6 +7,7 @@
 #include "aura_posix/x11/window.h"
 #include "_x11.h"
 #include "acme/operating_system/x11/_atom.h"
+#include "acme/primitive/geometry2d/rectangle_array.h"
 
 
 #define _NET_WM_STATE_REMOVE        0    // remove/unset property
@@ -58,7 +59,7 @@ namespace windowing_x11
       //static Atom                                s_atomLongType;
       //static Atom                                s_atomLongStyle;
       //static Atom                                s_atomLongStyleEx;
-
+      ::rectangle_i32_array                        m_rectangleaRedraw;
       ::pointer<::xim::keyboard>                  m_pximkeyboard;
 
 

@@ -31,6 +31,7 @@
 #include "windowing.h"
 #include "window.h"
 #include "display.h"
+#include "buffer.h"
 #include "aura/message/user.h"
 #include "aura/user/user/interaction_impl.h"
 #include "aura/platform/session.h"
@@ -510,7 +511,7 @@ namespace windowing_x11
 //      if (XGetWindowProperty(Display(), DefaultRootWindow(Display()), prop, 0, 1024, False, XA_WINDOW,
 //                             &type, &form, len, &remain, &list) != Success)
 //      {
-//         infomration("winlist() -- GetWinProp");
+//         information("winlist() -- GetWinProp");
 //         return nullptr;
 //      }
 //
@@ -1221,7 +1222,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 #endif
 
-         infomration("x11_thread end thread");
+         information("x11_thread end thread");
 
          return false;
 
@@ -1281,7 +1282,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       try
       {
 
-         synchronous_lock synchronouslock(user_synchronization());
+         _synchronous_lock synchronouslock(user_synchronization());
 
          display_lock displayLock(m_pdisplay->Display());
 
@@ -1401,7 +1402,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 #endif
 
-         infomration("x11_thread end thread");
+         information("x11_thread end thread");
 
          return false;
 
@@ -1506,7 +1507,7 @@ void windowing::_defer_position_message(oswindow oswindow, const ::point_i32 & p
 
       if (pinteraction != nullptr) {
 
-         auto pointWindow = pinteraction->screen_origin();
+         auto pointWindow = pinteraction->const_layout().window().origin();
 
 //   auto sizeWindow = pinteraction->const_layout().window().size();
 
@@ -1841,7 +1842,7 @@ else if(detail == 3)
 
                }
 
-               infomration("\ndetail:" + ::as_string(prawevent->detail));
+               information("\ndetail:" + ::as_string(prawevent->detail));
 
 
                if(emessage != e_message_null)
@@ -1971,7 +1972,7 @@ else if(detail == 3)
           && e.xclient.message_type == g_atomKickIdle)
       {
 
-         infomration("\nkick idle received\n");
+         information("\nkick idle received\n");
 
          return true;
 
@@ -2093,19 +2094,19 @@ else if(detail == 3)
 //                                 if (pinteraction->m_iMouseMoveSkipCount == 2)
 //                                 {
 //
-//                                    //infomration("\nmmv>skip 2!");
+//                                    //information("\nmmv>skip 2!");
 //
 //                                 }
 //                                 else if (pinteraction->m_iMouseMoveSkipCount == 5)
 //                                 {
 //
-//                                    //infomration("\nmmv>Skip 5!!!");
+//                                    //information("\nmmv>Skip 5!!!");
 //
 //                                 }
 //                                 else if (pinteraction->m_iMouseMoveSkipCount == 10)
 //                                 {
 //
-//                                    //infomration("\nmmv>SKIP 10 !!!!!!!!!");
+//                                    //information("\nmmv>SKIP 10 !!!!!!!!!");
 //
 //                                 }
 //
@@ -2175,54 +2176,94 @@ else if(detail == 3)
          case Expose:
          {
 
+            //information("windowing_11 Expose");
+
+            ::rectangle_i32 rectangleRedraw;
+
+            rectangleRedraw.left = e.xexpose.x;
+            rectangleRedraw.top = e.xexpose.y;
+            rectangleRedraw.right = rectangleRedraw.left + e.xexpose.width;
+            rectangleRedraw.bottom = rectangleRedraw.top + e.xexpose.height;
+
+            pwindow->m_rectangleaRedraw.add(rectangleRedraw);
+
+            //pinteraction->set_need_redraw();
+
+
             if (e.xexpose.count == 0)
             {
 
-               auto oswindow = msg.oswindow;
-
-               if(oswindow)
-               {
-
+//               auto oswindow = msg.oswindow;
+//
+//               if(oswindow)
+//               {
+//
+//                  auto pimpl = oswindow->m_puserinteractionimpl;
+//
+//                  if(pimpl)
+//                  {
+//
+//                     auto puserinteraction = pimpl->m_puserinteraction;
+//
+//                     if(puserinteraction)
+//                     {
+//
+//                        if (puserinteraction->m_ewindowflag & ::e_window_flag_arbitrary_positioning)
+//                        {
+//
+//                           pimpl->_001UpdateScreen();
+//
+//                        }
+//                        else
+//                        {
+//
+//                           msg.m_atom = e_message_paint;
+//                           msg.lParam = 0;
+//                           msg.wParam = 0;
+//
+//                           post_ui_message(msg);
+//
+//                        }
+//
+//                     }
+//
+//                  }
+//
+//               }
+//
+//               //msg.oswindow->m_pimpl->_001UpdateScreen();
+//
+//               //::pointer<::user::interaction>pinteraction = msg.oswindow->m_pimpl->m_puserinteraction;
                   auto pimpl = oswindow->m_puserinteractionimpl;
 
                   if(pimpl)
                   {
 
-                     auto puserinteraction = pimpl->m_puserinteraction;
+                     ::pointer < ::windowing_x11::buffer > pbuffer= pimpl->m_pgraphics;
 
-                     if(puserinteraction)
+                     if(pbuffer)
                      {
 
-                        if (puserinteraction->m_ewindowflag & ::e_window_flag_arbitrary_positioning)
-                        {
-
-                           pimpl->_001UpdateScreen();
-
-                        }
-                        else
-                        {
-
-                           msg.m_atom = e_message_paint;
-                           msg.lParam = 0;
-                           msg.wParam = 0;
-
-                           post_ui_message(msg);
-
-                        }
+                        pbuffer->_update_screen_lesser_lock();
 
                      }
 
+
                   }
 
-               }
+                  pwindow->m_rectangleaRedraw.clear();
 
-               //msg.oswindow->m_pimpl->_001UpdateScreen();
-
-               //::pointer<::user::interaction>pinteraction = msg.oswindow->m_pimpl->m_puserinteraction;
-
-               //pinteraction->set_need_redraw();
-
-               //pinteraction->post_redraw();
+//
+//                     auto puserinteraction = pimpl->m_puserinteraction;
+//
+//                     if (puserinteraction)
+//                     {
+//
+//                        puserinteraction->set_need_redraw(pwindow->m_rectangleaRedraw);
+//                        pwindow->m_rectangleaRedraw.clear();
+//                        puserinteraction->post_redraw();
+//                     }
+//                  }
 
             }
 
@@ -2401,6 +2442,8 @@ else if(detail == 3)
          case MapNotify:
          {
 
+            information("windowing_x11 MapNotify");
+
             if(msg.oswindow)
             {
 
@@ -2416,6 +2459,8 @@ else if(detail == 3)
          break;
          case UnmapNotify:
          {
+
+            information("windowing_x11 UnmapNotify");
 
             if(msg.oswindow)
             {
@@ -2490,7 +2535,7 @@ else if(detail == 3)
 
                      ::point_i32 point(e.xconfigure.x, e.xconfigure.y);
 
-                     information() << "X11 ConfigureNotify Win,x,y " << e.xconfigure.window << ", " << e.xconfigure.x << ", " << e.xconfigure.y;
+                     //information() << "X11 ConfigureNotify Win,x,y " << e.xconfigure.window << ", " << e.xconfigure.x << ", " << e.xconfigure.y;
 
                      ::size_i32 size(e.xconfigure.width, e.xconfigure.height);
 
@@ -2684,7 +2729,7 @@ else if(detail == 3)
                   if (e.xbutton.button == Button1)
                   {
 
-                     ::infomration("ButtonPress::Button1\n");
+                     ::information("ButtonPress::Button1\n");
 
                      emessage = e_message_left_button_down;
 
@@ -2727,7 +2772,7 @@ else if(detail == 3)
                   if (e.xbutton.button == Button1)
                   {
 
-                     ::infomration("ButtonRelease::Button1\n");
+                     ::information("ButtonRelease::Button1\n");
 
                       emessage = e_message_left_button_up;
 
@@ -2972,7 +3017,7 @@ else if(detail == 3)
          case FocusIn:
          {
 
-            ::infomration("FocusIn\n");
+            ::information("FocusIn\n");
 
             msg.m_atom = e_message_set_focus;
 
@@ -3020,13 +3065,13 @@ else if(detail == 3)
 //         if(wFocus == e.xfocus.window)
 //         {
 //
-//            infomration("A\n");
+//            information("A\n");
 //
 //         }
 //         else
 //         {
 //
-//            infomration("B " + as_string(wFocus));
+//            information("B " + as_string(wFocus));
 //
 //            g_windowFocus = wFocus;
 //
@@ -3035,13 +3080,13 @@ else if(detail == 3)
 //         if(wFocus == g_windowFocus)
 //         {
 //
-//            infomration("C\n");
+//            information("C\n");
 //
 //         }
 //         else
 //         {
 //
-//            infomration("D " + as_string(wFocus));
+//            information("D " + as_string(wFocus));
 //
 //            g_windowFocus = wFocus;
 //
@@ -3059,7 +3104,7 @@ else if(detail == 3)
          case FocusOut:
          {
 
-            ::infomration("FocusOut\n");
+            ::information("FocusOut\n");
 
             auto oswindow = msg.oswindow;
 
@@ -3124,7 +3169,7 @@ else if(detail == 3)
          break;
          default:
          {
-            infomration("axis_x11 case default:");
+            information("axis_x11 case default:");
          }
       }
 
@@ -3595,19 +3640,19 @@ else if(detail == 3)
       if (message.m_atom == e_message_quit)
       {
 
-         infomration("e_message_quit thread");
+         information("e_message_quit thread");
 
       }
       else if (message.m_atom == e_message_left_button_down)
       {
 
-         infomration("post_ui_message::e_message_left_button_down\n");
+         information("post_ui_message::e_message_left_button_down\n");
 
       }
       else if (message.m_atom == e_message_left_button_up)
       {
 
-         infomration("post_ui_message::e_message_left_button_up\n");
+         information("post_ui_message::e_message_left_button_up\n");
 
       }
 
@@ -3694,20 +3739,20 @@ else if(detail == 3)
 //      if (message.m_atom == e_message_quit)
 //      {
 //
-//         infomration("e_message_quit thread");
+//         information("e_message_quit thread");
 //
 //      }
 //
 //      if (message.m_atom == e_message_left_button_down)
 //      {
 //
-//         infomration("post_ui_message::e_message_left_button_down\n");
+//         information("post_ui_message::e_message_left_button_down\n");
 //
 //      }
 //      else if (message.m_atom == e_message_left_button_up)
 //      {
 //
-//         infomration("post_ui_message::e_message_left_button_up\n");
+//         information("post_ui_message::e_message_left_button_up\n");
 //
 //      }
 //

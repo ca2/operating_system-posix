@@ -242,7 +242,7 @@ void apex_application_run(const char * pszAppName, const char * pszProgName)
    if(g_papexapplication == nullptr)
    {
 
-      infomration("Failed to initialize GtkApplication (gtk_application_new return nullptr)");
+      information("Failed to initialize GtkApplication (gtk_application_new return nullptr)");
 
       return;
 

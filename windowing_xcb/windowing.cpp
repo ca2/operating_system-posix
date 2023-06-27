@@ -122,7 +122,7 @@ namespace windowing_xcb
 //      if(!pdisplay)
 //      {
 //
-//         infomration("\nFailed to __create < ::windowing::display > at windowing_xcb::windowing::initialize");
+//         information("\nFailed to __create < ::windowing::display > at windowing_xcb::windowing::initialize");
 //
 //         //return ::error_no_factory;
 //
@@ -137,7 +137,7 @@ namespace windowing_xcb
 //      if(!estatus)
 //      {
 //
-//         infomration("\nFailed to initialize_display at windowing_xcb::windowing::initialize");
+//         information("\nFailed to initialize_display at windowing_xcb::windowing::initialize");
 //
 //         return estatus;
 //
@@ -148,7 +148,7 @@ namespace windowing_xcb
 //      if(!pdisplay)
 //      {
 //
-//         infomration("\nFailed to cast pdisplay to m_pdisplay at windowing_xcb::windowing::initialize");
+//         information("\nFailed to cast pdisplay to m_pdisplay at windowing_xcb::windowing::initialize");
 //
 //         return error_no_interface;
 //
@@ -165,7 +165,7 @@ namespace windowing_xcb
 //      if(!estatus)
 //      {
 //
-//         infomration("\nFailed to m_pdisplay->open at windowing_xcb::windowing::initialize");
+//         information("\nFailed to m_pdisplay->open at windowing_xcb::windowing::initialize");
 //
 //         return estatus;
 //
@@ -597,7 +597,7 @@ namespace windowing_xcb
 
 #endif
 
-         infomration("xcb_thread end thread");
+         information("xcb_thread end thread");
 
          return false;
 
@@ -686,7 +686,7 @@ namespace windowing_xcb
 
 #endif
 
-         infomration("xcb_thread end thread");
+         information("xcb_thread end thread");
 
          return false;
 
@@ -916,17 +916,17 @@ namespace windowing_xcb
                            if (pinteraction->m_iMouseMoveSkipCount == 2)
                            {
 
-                              //infomration("\nmmv>skip 2!");
+                              //information("\nmmv>skip 2!");
 
                            } else if (pinteraction->m_iMouseMoveSkipCount == 5)
                            {
 
-                              //infomration("\nmmv>Skip 5!!!");
+                              //information("\nmmv>Skip 5!!!");
 
                            } else if (pinteraction->m_iMouseMoveSkipCount == 10)
                            {
 
-                              //infomration("\nmmv>SKIP 10 !!!!!!!!!");
+                              //information("\nmmv>SKIP 10 !!!!!!!!!");
 
                            }
 
@@ -1121,7 +1121,7 @@ namespace windowing_xcb
 
             auto estatus = m_pdisplay->_request_check(cookie);
 
-            infomration("");
+            information("");
 
          }
 
@@ -1595,11 +1595,11 @@ namespace windowing_xcb
             //auto & screen_origin = window.screen_origin();
 
             //information("");
-            //::infomration("\nwindow(origin=" + as_string(origin.x) + ", " + as_string(origin.y));
-            //::infomration("\nwindow.screen_origin=" + as_string(screen_origin.x) + ", " + as_string(screen_origin.y));
-            //::infomration("\nbutton.root_x=" + as_string(pbutton->root_x));
-            //::infomration("\nbutton.root_y=" + as_string(pbutton->root_y));
-            //::infomration("\n");
+            //::information("\nwindow(origin=" + as_string(origin.x) + ", " + as_string(origin.y));
+            //::information("\nwindow.screen_origin=" + as_string(screen_origin.x) + ", " + as_string(screen_origin.y));
+            //::information("\nbutton.root_x=" + as_string(pbutton->root_x));
+            //::information("\nbutton.root_y=" + as_string(pbutton->root_y));
+            //::information("\n");
 
             //msg.time = pbutton->time;
 
@@ -1614,7 +1614,7 @@ namespace windowing_xcb
                if (pbutton->detail == XCB_BUTTON_INDEX_1)
                {
 
-                  //::infomration("ButtonPress::Button1\n");
+                  //::information("ButtonPress::Button1\n");
 
                   g_i135++;
 
@@ -1664,7 +1664,7 @@ namespace windowing_xcb
                if (pbutton->detail == XCB_BUTTON_INDEX_1)
                {
 
-                  //::infomration("ButtonRelease::Button1\n");
+                  //::information("ButtonRelease::Button1\n");
 
                    emessage = e_message_left_button_up;
 
@@ -1961,7 +1961,7 @@ namespace windowing_xcb
 
             auto pfocusin = (xcb_focus_in_event_t *)pgenericevent;
 
-            ::infomration("FocusIn\n");
+            ::information("FocusIn\n");
 
             oswindow = m_pdisplay->_window(pfocusin->event);
 
@@ -2010,7 +2010,7 @@ namespace windowing_xcb
 
             auto pfocusout = (xcb_focus_out_event_t *)pgenericevent;
 
-            ::infomration("FocusOut\n");
+            ::information("FocusOut\n");
 
             oswindow =  m_pdisplay->_window(pfocusout->event);
 
@@ -2139,7 +2139,7 @@ namespace windowing_xcb
          default:
          {
 
-            infomration("axis_xcb case default:");
+            information("axis_xcb case default:");
 
          }
          break;

@@ -412,7 +412,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 //
 //         default:
 //
-//            infomration(
+//            information(
 //               "Failed to get wallpaper setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
 //            //return "";
 //

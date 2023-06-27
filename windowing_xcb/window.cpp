@@ -596,7 +596,7 @@ namespace windowing_xcb
 
       ::file::path path = pnode->get_desktop_file_path(papp);
 
-      infomration("\nfreebsd::interaction_impl::set_window_text");
+      information("\nfreebsd::interaction_impl::set_window_text");
 
       fflush(stdout);
 
@@ -606,7 +606,7 @@ namespace windowing_xcb
 
       auto estatus = _replace_string_property(net_wm_icon, path);
 
-      infomration("\nfreebsd::interaction_impl::bamf_set_icon END");
+      information("\nfreebsd::interaction_impl::bamf_set_icon END");
 
       fflush(stdout);
 
@@ -1470,7 +1470,7 @@ namespace windowing_xcb
 
       auto estatus = _replace_string_property(net_wm_icon, path);
 
-      infomration("\nfreebsd::interaction_impl::bamf_set_icon END");
+      information("\nfreebsd::interaction_impl::bamf_set_icon END");
 
       fflush(stdout);
 
@@ -1576,20 +1576,20 @@ namespace windowing_xcb
       if(message.m_atom == e_message_quit)
       {
 
-         infomration("e_message_quit thread");
+         information("e_message_quit thread");
 
       }
 
       if(message.m_atom == e_message_left_button_down)
       {
 
-         infomration("post_ui_message::e_message_left_button_down\n");
+         information("post_ui_message::e_message_left_button_down\n");
 
       }
       else if(message.m_atom == e_message_left_button_up)
       {
 
-         infomration("post_ui_message::e_message_left_button_up\n");
+         information("post_ui_message::e_message_left_button_up\n");
 
       }
 
@@ -1832,7 +1832,7 @@ namespace windowing_xcb
 
       auto estatus = _replace_string_property(net_wm_icon, path);
 
-      infomration("\nfreebsd::interaction_impl::bamf_set_icon END");
+      information("\nfreebsd::interaction_impl::bamf_set_icon END");
 
       fflush(stdout);
 
@@ -2876,7 +2876,7 @@ namespace windowing_xcb
       if(x <= 0 || y <= 0)
       {
 
-         infomration("_move_resize x <= 0 and/or y <= 0");
+         information("_move_resize x <= 0 and/or y <= 0");
 
       }
 
@@ -2918,7 +2918,7 @@ namespace windowing_xcb
       if(x <= 0 || y <= 0)
       {
 
-         infomration("_move x <= 0 and/or y <= 0");
+         information("_move x <= 0 and/or y <= 0");
 
       }
 
