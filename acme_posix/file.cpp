@@ -14,7 +14,7 @@
 #undef USE_MISC
 
 #include <dlfcn.h>
-#if defined(LINUX)
+#if defined(LINUX) || defined(FREEBSD)
 #include <link.h>
 #include <unistd.h>
 #endif
@@ -484,7 +484,7 @@ namespace acme_posix
 
       ::i32 lLoOffset = lOff & 0xffffffff;
       
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(FREEBSD)
 
       filesize posNew = ::lseek(m_iFile, lLoOffset, (::u32)eseek);
       
@@ -515,7 +515,7 @@ namespace acme_posix
       ::i32 lLoOffset = 0;
 //      ::i32 lHiOffset = 0;
       
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(FREEBSD)
 
       filesize pos = ::lseek(m_iFile, lLoOffset, SEEK_CUR);
       

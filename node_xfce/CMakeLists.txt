@@ -49,8 +49,12 @@ list(APPEND library_references
 add_library(${PROJECT_NAME} ${library_source})
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
-target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
-target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
+if (NOT ${NO_PRECOMPILED_HEADER})
+
+    target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
+    target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
+
+endif ()
 
 set_target_properties(node_xfce PROPERTIES LINKER_LANGUAGE CXX)
 
@@ -61,7 +65,7 @@ if (MSVC)
    target_link_options(node_xfce PRIVATE "/SUBSYSTEM:WINDOWS")
    target_link_libraries(node_xfce PRIVATE ${library_references})
    add_dependencies(node_xfce draw2d_gdiplus)
-elseif(LINUX OR FREEBSD)
+elseif(${LINUX} OR ${FREEBSD})
 
 
    if(USE_PKGCONFIG)

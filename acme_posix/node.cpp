@@ -976,7 +976,7 @@ namespace acme_posix
 
 #if defined(FREEBSD)
 
-      str = "/proc/" + as_string(iPid) + "/file";
+      str = "/proc/" + ::as_string(iPid) + "/file";
 
 #else
 

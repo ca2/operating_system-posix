@@ -42,7 +42,7 @@ get_sm_proxy (void)
 
    connection = get_session_bus ();
    if (connection == NULL) {
-      display_error (_("Could not connect to the session manager"));
+      display_error ("Could not connect to the session manager");
       return NULL;
    }
 
@@ -52,7 +52,7 @@ get_sm_proxy (void)
                                          GSM_INTERFACE_DBUS);
 
    if (sm_proxy == NULL) {
-      display_error (_("Could not connect to the session manager"));
+      display_error ("Could not connect to the session manager");
       return NULL;
    }
 

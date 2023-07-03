@@ -32,8 +32,12 @@ add_library(${PROJECT_NAME} SHARED ${library_source})
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 
-target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
-target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
+if (NOT ${NO_PRECOMPILED_HEADER})
+
+    target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
+    target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
+
+endif ()
 
 
 set_target_properties(audio_alsa PROPERTIES LINKER_LANGUAGE CXX)
@@ -48,7 +52,7 @@ if (MSVC)
    target_link_libraries(audio_alsa PRIVATE ${library_references})
 
 
-elseif(LINUX OR FREEBSD)
+elseif(${LINUX} OR ${FREEBSD})
 
 
    if(USE_PKGCONFIG)
