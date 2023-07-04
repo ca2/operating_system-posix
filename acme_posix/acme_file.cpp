@@ -41,8 +41,8 @@
 #include <fcntl.h>
 //#include <sys/stat.h>
 //struct utimbuf {
-//   time_t actime;       /* access time */
-//   time_t modtime;      /* modification time */
+//   posix_time actime;       /* access time */
+//   posix_time modtime;      /* modification time */
 //};
 
 #ifdef MACOS

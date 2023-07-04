@@ -331,10 +331,10 @@
 //  */
 // ::i32 TIME_GetBias(void)
 // {
-//    static time_t last_utc;
+//    static posix_time last_utc;
 //    static ::i32 last_bias;
 //    ::i32 ret;
-//    time_t utc;
+//    posix_time utc;
 
 //    utc = time( nullptr );
 
@@ -643,7 +643,7 @@
 // static i32 weekday_to_mday(i32 year, i32 day, i32 mon, i32 day_of_week)
 // {
 //    struct tm date;
-//    time_t tmp;
+//    posix_time tmp;
 //    i32 wday, mday;
 
 //    /* find first day in the month matching week day of the date */
@@ -736,9 +736,9 @@
 // */
 
 
-// static time_t find_dst_change(time_t minimum, time_t maximum, i32 *is_dst)
+// static posix_time find_dst_change(posix_time minimum, posix_time maximum, i32 *is_dst)
 // {
-//    time_t start;
+//    posix_time start;
 //    struct tm *tm;
 
 //    start = minimum;
@@ -748,7 +748,7 @@
 
 //    while (minimum <= maximum)
 //    {
-//       time_t pos = (minimum + maximum) / 2;
+//       posix_time pos = (minimum + maximum) / 2;
 //       tm = localtime(&pos);
 
 //       if (tm->tm_isdst != *is_dst)
@@ -764,7 +764,7 @@
 //    static RTL_TIME_ZONE_INFORMATION cached_tzi;
 //    static i32 current_year = -1;
 //    struct tm *tm;
-//    time_t year_start, year_end, tmp, dlt = 0, iStandard = 0;
+//    posix_time year_start, year_end, tmp, dlt = 0, iStandard = 0;
 //    i32 is_dst, current_is_dst;
 
 //    synchronous_lock ml(g_pmutexTz);
@@ -936,7 +936,7 @@
 // int NtSetSystemTime(const u64 *NewTime, u64 *OldTime)
 // {
 //    struct timeval tv;
-//    //time_t tm_t;
+//    //posix_time tm_t;
 //    ::u32 sec, oldsec;
 //    u64 tm;
 
