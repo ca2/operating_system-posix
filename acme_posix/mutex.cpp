@@ -1004,15 +1004,15 @@ namespace acme_posix
 
                class ::time d;
 
-               d.m_iSecond = abs_time.tv_sec + timeWait.m_iSecond;
+               d.m_posixtime.m_iSecond = abs_time.tv_sec + timeWait.m_posixtime.m_iSecond;
 
-               d.m_iNanosecond = abs_time.tv_nsec + timeWait.m_iNanosecond;
+               d.m_nanosecond.m_iNanosecond = abs_time.tv_nsec + timeWait.m_nanosecond.m_iNanosecond;
 
                d.normalize();
 
-               abs_time.tv_sec = d.m_iSecond;
+               abs_time.tv_sec = d.m_posixtime.m_iSecond;
 
-               abs_time.tv_nsec = d.m_iNanosecond;
+               abs_time.tv_nsec = d.m_nanosecond.m_iNanosecond;
 
                bFirst = false;
 

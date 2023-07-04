@@ -950,8 +950,8 @@ namespace acme_posix
 
          times[0].tv_sec = 0;
          times[0].tv_nsec = UTIME_OMIT;
-         times[1].tv_sec = time.m_iSecond;
-         times[1].tv_nsec = time.m_iNanosecond;
+         times[1].tv_sec = time.m_posixtime.m_iSecond;
+         times[1].tv_nsec = time.m_nanosecond.m_iNanosecond;
          if(utimensat(0, path, times, 0))
          {
             
@@ -1011,8 +1011,8 @@ namespace acme_posix
 
          times[0].tv_sec = statAttribute.st_mtimespec.tv_sec;
          times[0].tv_usec = (int) (statAttribute.st_mtimespec.tv_nsec / 1'000);
-         times[1].tv_sec = time.m_iSecond;
-         times[1].tv_usec = (int) (time.m_iNanosecond / 1'000);
+         times[1].tv_sec = time.m_posixtime.m_iSecond;
+         times[1].tv_usec = (int) (time.m_nanosecond.m_iNanosecond / 1'000);
 
          if(utimes(path, times))
          {
