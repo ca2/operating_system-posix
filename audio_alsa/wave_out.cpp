@@ -518,9 +518,9 @@ namespace multimedia
 
             double dSecond = (double) (iFrame - frames) / (double) m_pwaveformat->m_waveformat.nSamplesPerSec;
 
-            time.m_posixtime.m_iSecond = floor(dSecond);
+            time.m_iSecond = floor(dSecond);
 
-            time.m_nanosecond.m_iNanosecond = fmod(dSecond, 1.0) * 1'000'000'000.0;
+            time.m_iNanosecond = fmod(dSecond, 1.0) * 1'000'000'000.0;
 
             //}
 
@@ -543,9 +543,9 @@ namespace multimedia
 //
 //               time timeStart;
 //
-//               timeStart.m_posixtime.m_iSecond = t.tv_sec;
+//               timeStart.m_iSecond = t.tv_sec;
 //
-//               timeStart.m_nanosecond.m_iNanosecond = t.tv_nsec;
+//               timeStart.m_iNanosecond = t.tv_nsec;
 //
 //               time = timeStart.elapsed();
 //

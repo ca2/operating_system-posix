@@ -2163,9 +2163,9 @@ else if(detail == 3)
 
                pmouse->m_point.y() = e.xmotion.y_root;
 
-               pmouse->m_time.m_posixtime.m_iSecond = e.xmotion.time / 1_k;
+               pmouse->m_time.m_iSecond = e.xmotion.time / 1_k;
 
-               pmouse->m_time.m_nanosecond.m_iNanosecond = (e.xmotion.time % 1_k) * 1_M;
+               pmouse->m_time.m_iNanosecond = (e.xmotion.time % 1_k) * 1_M;
 
                post_ui_message(pmouse);
 
@@ -2855,9 +2855,9 @@ else if(detail == 3)
 
                    pmousewheel->m_point.y() = e.xbutton.y_root;
 
-                   pmousewheel->m_time.m_posixtime.m_iSecond = e.xbutton.time / 1_k;
+                   pmousewheel->m_time.m_iSecond = e.xbutton.time / 1_k;
 
-                   pmousewheel->m_time.m_nanosecond.m_iNanosecond = (e.xbutton.time % 1_k) * 1_M;
+                   pmousewheel->m_time.m_iNanosecond = (e.xbutton.time % 1_k) * 1_M;
 
                   post_ui_message(pmousewheel);
 
@@ -2878,9 +2878,9 @@ else if(detail == 3)
 
                    pmouse->m_point.y() = e.xbutton.y_root;
 
-                   pmouse->m_time.m_posixtime.m_iSecond = e.xbutton.time / 1_k;
+                   pmouse->m_time.m_iSecond = e.xbutton.time / 1_k;
 
-                   pmouse->m_time.m_nanosecond.m_iNanosecond = (e.xbutton.time % 1_k) * 1_M;
+                   pmouse->m_time.m_iNanosecond = (e.xbutton.time % 1_k) * 1_M;
 
                    //msg.wParam = 0;
 
