@@ -114,7 +114,7 @@ namespace aura_posix
 //      i32 freebsd::get_image_by_extension(per_fork * pfork, oswindow oswindow, image_key & key, color32_t crBk)
 //      {
 //
-//         return 0x80000000;
+//         return I32_MINIMUM;
 //
 //      }
 
@@ -266,7 +266,7 @@ namespace aura_posix
 
    //   char szPath[_MAX_PATH * 10];
    //   string strPath;
-   //   //   i32 iImage = 0x80000000;
+   //   //   i32 iImage = I32_MINIMUM;
 
    //   HICON hicon16 = nullptr;
    //   HICON hicon48 = nullptr;
@@ -287,7 +287,7 @@ namespace aura_posix
 
 
 
-   //   i32 iIcon = 0x80000000;
+   //   i32 iIcon = I32_MINIMUM;
    //   ::u32 uFlags = 0;
 
    //   SHFILEINFO shfi16;
@@ -315,7 +315,7 @@ namespace aura_posix
    //         {
    //            auto pFind = strFilePath.rear_find('.');
 
-   //            imagekey.m_iIcon = 0x80000000;
+   //            imagekey.m_iIcon = I32_MINIMUM;
    //            imagekey.m_pszExtension = (char*)&strFilePath[iFind];
    //            imagekey.m_strPath = "";
    //         }
@@ -329,7 +329,7 @@ namespace aura_posix
    //   }
    //   if (dir()->is(unicode_to_utf8(szFilePath)))
    //   {
-   //      if (imagekey.m_iIcon == 0x80000000)
+   //      if (imagekey.m_iIcon == I32_MINIMUM)
    //      {
    //         SHGetFileInfo(
    //            "foo",
@@ -674,7 +674,7 @@ namespace aura_posix
 //      i32 freebsd::get_image(oswindow oswindow, const string & strPath, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
 //      {
 //
-//         i32 iImage = 0x80000000;
+//         i32 iImage = I32_MINIMUM;
 //
 //         {
 //            if (color32_u8_opacity(crBk) != 255)
@@ -747,7 +747,7 @@ namespace aura_posix
    //i32 freebsd::get_image_foo(oswindow oswindow, const string & strExtension, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
    {
 
-      getfileimage.m_iImage = 0x80000000;
+      getfileimage.m_iImage = I32_MINIMUM;
 
       {
 

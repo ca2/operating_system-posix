@@ -455,7 +455,7 @@ namespace windowing_x11
 
    //   if(psession->is_key_pressed(::user::e_key_shift))
    //   {
-   //      pkey->m_iCode |= 0x80000000;
+   //      pkey->m_iCode |= I32_MINIMUM;
    //   }
    //   if(psession->is_key_pressed(::user::e_key_ralt))
    //   {
@@ -482,7 +482,7 @@ namespace windowing_x11
 
    //   if(psession->is_key_pressed(::user::e_key_shift))
    //   {
-   //      iCode |= 0x80000000;
+   //      iCode |= I32_MINIMUM;
    //   }
    //   if(psession->is_key_pressed(::user::e_key_ralt))
    //   {
