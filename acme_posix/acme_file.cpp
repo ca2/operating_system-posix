@@ -7,6 +7,7 @@
 #include "acme/exception/interface_only.h"
 #include "acme/filesystem/file/exception.h"
 #include "acme/operating_system/ansi/int_handle.h"
+#include "acme/platform/node.h"
 #include "acme/platform/system.h"
 #include "acme/primitive/primitive/holder.h"
 #include "acme/primitive/primitive/memory.h"
@@ -18,13 +19,21 @@
 #include <sys/time.h>
 
 
-#if defined(ANDROID) || defined(LINUX) || defined(FREEBSD)
+#if defined(ANDROID) || defined(LINUX)
 #include "acme/operating_system/ansi/binreloc.h"
+#elif defined(FREEBSD)
+::file::path get_module_path();
 #endif
+
+
+
 
 
 #include <fcntl.h>
 #include <utime.h>
+
+
+
 
 //
 //#define PACKAGE "mmap"
@@ -533,7 +542,7 @@ namespace acme_posix
 
    #else
 
-      throw ::interface_only();
+      return ::get_module_path();
 
    #endif
 
