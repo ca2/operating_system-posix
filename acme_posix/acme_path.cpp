@@ -4,6 +4,9 @@
 // 18:20 BRT
 #include "framework.h"
 #include "acme_path.h"
+#if defined( FREEBSD)
+#define __XSI_VISIBLE 1
+#endif
 //#include "acme/filesystem/filesystem/path.h"
 #include <sys/stat.h>
 

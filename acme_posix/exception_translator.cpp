@@ -1,11 +1,15 @@
 // Created on 2021-04-29 1:03 PM BRT <3TBS_!! Second celebration of Mummis Birthday 70!!
 #include "framework.h"
+#if defined(FREEBSD)
+#define __XSI_VISIBLE 1
+#endif
 #include "exception_translator.h"
 //#include "acme/exception/standard.h"
 #include "acme/platform/sequencer.h"
 #include "acme/user/user/conversation.h"
 #include "acme/user/nano/nano.h"
 #include "acme/operating_system/linux/standard_exception.h"
+
 
 
 namespace acme_posix
@@ -58,7 +62,7 @@ namespace acme_posix
 
       //throw standard_sigfpe(signal, psiginfo, pc);
 
-      printf("We are now here (with lowluds) inspecting exception_translator::sigfpe_handler");
+      output_debug_string("We are now here (with lowluds) inspecting exception_translator::sigfpe_handler");
 
    }
 

@@ -54,7 +54,7 @@ namespace acme_posix
       void put_contents(const ::file::path & path, const ::scoped_string & scopedstrContents) override;
       //bool get_temporary_file_name_template(char * szRet, strsize iBufferSize, const char * lpszName, const char * pszExtension, const char * pszTemplate) override;
       filesize get_size(const ::file::path & path) override;
-      filesize get_size(FILE * pfile) override;
+      //filesize get_size(FILE * pfile) override;
       filesize get_size_fd(int iFileDescriptor) override;
 
 
@@ -95,7 +95,7 @@ namespace acme_posix
 
       void set_size(const ::file::path & pathName, filesize iSize) override;
       void set_size(int iFileDescriptor, filesize iSize) override;
-      void set_size(FILE * pfile, filesize iSize) override;
+      //void set_size(FILE * pfile, filesize iSize) override;
 
 
       //bool transfer(const char * pszNewName, const char * pszOldName) override;

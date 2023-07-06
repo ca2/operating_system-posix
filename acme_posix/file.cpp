@@ -17,6 +17,7 @@
 #if defined(LINUX) || defined(FREEBSD)
 #include <link.h>
 #include <unistd.h>
+#include <errno.h>
 #endif
 #include <ctype.h>
 
