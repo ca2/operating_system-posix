@@ -10,6 +10,11 @@
 ////#include "acme/exception/exception.h"
 
 
+#ifdef FREEBSD
+#define __XSI_VISIBLE 1
+#endif
+
+
 #ifdef MACOS
 void utc_timespec(timespec * ptimespec);
 #include <unistd.h>
@@ -37,6 +42,7 @@ void utc_timespec(timespec * ptimespec);
 #include <sys/sem.h>
 #include <fcntl.h>
 #include "acme/operating_system/ansi/_pthread.h"
+#include <errno.h>
 #undef USE_MISC
 
 

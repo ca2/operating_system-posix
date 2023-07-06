@@ -7,6 +7,11 @@
 #include "acme/parallelization/mutex.h"
 
 
+#ifdef PARALLELIZATION_PTHREAD
+#include <pthread.h>
+#endif
+
+
 namespace acme_posix
 {
 

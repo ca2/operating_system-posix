@@ -204,7 +204,7 @@ i32 create_process4(const ::string & pszCommandLine, i32 * pprocessId)
    for (auto & str : stra)
    {
 
-      argv[argc] = strdup((char *)str.c_str());
+      argv[argc] = ansi_dup((char *)str.c_str());
 
       argc++;
 
@@ -282,7 +282,7 @@ int create_process2(const ::string & pszCommandLine, int * pprocessId)
    for (auto & str : stra)
    {
 
-      argv[argc] = strdup((char *)str.c_str());
+      argv[argc] = ansi_dup((char *)str.c_str());
 
       argc++;
 

@@ -11,8 +11,9 @@
 
 
 #include "acme/_operating_system.h"
-
-
+#ifdef FREEBSD
+#define __XSI_VISIBLE 1
+#endif
 #if defined(LINUX) || defined(ANDROID) || defined(FREEBSD) || defined(__APPLE__)
 #include <sys/stat.h>
 #include <fcntl.h>
