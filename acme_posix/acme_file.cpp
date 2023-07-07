@@ -290,7 +290,7 @@ namespace acme_posix
 
       auto pfile = __create_new <stdio_file >();
 
-      pfile->open(path, "rb");
+      pfile->open(path, ::file::e_open_read | ::file::e_open_binary);
 
       if (!pfile.ok())
       {
@@ -322,9 +322,9 @@ namespace acme_posix
 
          }
 
-         int iErrNo = pfile->get_c_error_number();
+         auto cerrornumber = pfile->c_error_number();
 
-         auto estatus = failed_errno_status(iErrNo);
+         auto estatus = failed_errno_status(cerrornumber);
 
          throw ::exception(estatus, "posix::acme_file::as_string");
          
