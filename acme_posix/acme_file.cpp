@@ -22,6 +22,7 @@
 #if defined(ANDROID) || defined(LINUX)
 #include "acme/operating_system/ansi/binreloc.h"
 #elif defined(FREEBSD)
+#include <errno.h>
 ::file::path get_module_path();
 #endif
 
@@ -137,7 +138,7 @@ namespace acme_posix
 
       char pPathBuffer[300 * 16];
 
-      strcpy(pPathBuffer, "/tmp/");
+      ansi_cpy(pPathBuffer, "/tmp/");
 
       ::file::path pathFolder(pPathBuffer);
 
@@ -197,20 +198,20 @@ namespace acme_posix
    }
 
 
-   void acme_file::set_size(FILE * pfile, filesize size)
-   {
+//   void acme_file::set_size(FILE * pfile, filesize size)
+//   {
+//
+//      set_size(fileno(pfile), size);
+//
+//   }
 
-      set_size(fileno(pfile), size);
 
-   }
-
-
-   filesize acme_file::get_size(FILE * pfile)
-   {
-
-      return get_size_fd(fileno(pfile));
-
-   }
+//   filesize acme_file::get_size(FILE * pfile)
+//   {
+//
+//      return get_size_fd(fileno(pfile));
+//
+//   }
 
 
    filesize acme_file::get_size_fd(i32 iFileDescriptor)
