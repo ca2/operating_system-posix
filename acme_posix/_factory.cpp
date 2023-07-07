@@ -23,7 +23,7 @@ IMPLEMENT_FACTORY(acme_posix)
    pfactory->add_factory_item < ::acme_posix::acme_path              , ::acme_path >();
 
 
-   pfactory->add_factory_item < ::acme_posix::file, ::file::file >();
+   pfactory->add_factory_item < ::acme_posix::file,                  ::file::file >();
 
 
    pfactory->add_factory_item < ::acme_posix::exception_translator   , ::exception_translator >();
