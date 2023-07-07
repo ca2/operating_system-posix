@@ -507,7 +507,7 @@ void acme_directory::erase_recursively(const ::file::path &path)
 
          auto cerrornumber = c_error_number();
 
-         auto estatus = failed_errno_status(iErrNo);
+         auto estatus = cerrornumber.failed_estatus();
 
          throw ::exception(estatus, "posix::acme_directory::get_current");
 
@@ -530,7 +530,7 @@ void acme_directory::erase_recursively(const ::file::path &path)
 
          auto cerrornumber = c_error_number();
 
-         auto estatus = failed_errno_status(iErrNo);
+         auto estatus = cerrornumber.failed_estatus();
          
          throw ::exception(estatus, "posix::acme_directory::change_current");
 

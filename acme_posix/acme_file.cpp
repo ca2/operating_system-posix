@@ -224,7 +224,7 @@ namespace acme_posix
 
          auto cerrornumber = c_error_number();
 
-         auto estatus = failed_errno_status(iErrNo);
+         auto estatus = cerrornumber.failed_estatus();
 
          ::close(iFileDescriptor);
          
@@ -304,7 +304,7 @@ namespace acme_posix
 
          auto cerrornumber = c_error_number();
          
-         auto estatus = failed_errno_status(iErrNo);
+         auto estatus = cerrornumber.failed_estatus();
 
          throw ::exception(estatus, "posix::acme_file::as_string");
 
@@ -451,7 +451,7 @@ namespace acme_posix
          
          auto cerrornumber = c_error_number();
          
-         auto estatus = failed_errno_status(iErrNo);
+         auto estatus = cerrornumber.failed_estatus();
 
          throw ::exception(estatus, "posix::acme_file::as_memory");
 
@@ -485,7 +485,7 @@ namespace acme_posix
          
          auto cerrornumber = c_error_number();
          
-         auto estatus = failed_errno_status(iErrNo);
+         auto estatus = cerrornumber.failed_estatus();
          
          auto errorcode = cerrornumber.error_code();
          
@@ -609,7 +609,7 @@ namespace acme_posix
 //
 //         auto cerrornumber = c_error_number();
 //
-//         auto estatus = failed_errno_status(iErrNo);
+//         auto estatus = cerrornumber.failed_estatus();
 //
 //         throw ::exception(estatus, "Error opening file : \"" + string(pathNew) + "\"");
 //
@@ -621,7 +621,7 @@ namespace acme_posix
 //
 //         auto cerrornumber = c_error_number();
 //
-//         auto estatus = failed_errno_status(iErrNo);
+//         auto estatus = cerrornumber.failed_estatus();
 //
 //         throw ::exception(estatus, "Error opening file : \"" + string(pathSrc) + "\"");
 //
@@ -634,7 +634,7 @@ namespace acme_posix
 //
 //         auto cerrornumber = c_error_number();
 //
-//         auto estatus = failed_errno_status(iErrNo);
+//         auto estatus = cerrornumber.failed_estatus();
 //
 //         throw ::exception(estatus, "Error lseek file : \"" + string(pathSrc) + "\"");
 //
@@ -645,7 +645,7 @@ namespace acme_posix
 //
 //         auto cerrornumber = c_error_number();
 //
-//         auto estatus = failed_errno_status(iErrNo);
+//         auto estatus = cerrornumber.failed_estatus();
 //
 //         throw ::exception(estatus, "Failed to set output file size : \"" + string(pathNew) + "\"");
 //
@@ -656,7 +656,7 @@ namespace acme_posix
 //
 //         auto cerrornumber = c_error_number();
 //
-//         auto estatus = failed_errno_status(iErrNo);
+//         auto estatus = cerrornumber.failed_estatus();
 //
 //         throw ::exception(estatus, "Error mapping input file : \"" + string(pathSrc) + "\"");
 //
@@ -668,7 +668,7 @@ namespace acme_posix
 //
 //         auto cerrornumber = c_error_number();
 //
-//         auto estatus = failed_errno_status(iErrNo);
+//         auto estatus = cerrornumber.failed_estatus();
 //
 //         throw ::exception(estatus, "Error mapping output file: \"" + string(pathNew) + "\"");
 //
@@ -843,7 +843,7 @@ namespace acme_posix
          
          auto cerrornumber = c_error_number();
          
-         auto estatus = failed_errno_status(iErrNo);
+         auto estatus = cerrornumber.failed_estatus();
 
          throw ::exception(estatus);
 
@@ -1081,7 +1081,7 @@ namespace acme_posix
 
          auto cerrornumber = c_error_number();
 
-         auto estatus = failed_errno_status(iErrNo);
+         auto estatus = cerrornumber.failed_estatus();
 
          throw ::exception(estatus);
 
