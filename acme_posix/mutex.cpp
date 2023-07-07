@@ -335,15 +335,15 @@ namespace acme_posix
          if(m_iFd < 0)
          {
 
-            int iErrorNumber = errno;
+            auto cerrornumber = c_error_number();
 
             //const char * pszError = strerror(iErr);
             
-            auto estatus = errno_status(iErrorNumber);
+            auto estatus = cerrornumber.estatus();
             
-            auto errorcode = errno_error_code(iErrorNumber);
+            auto error_code = cerrornumber.error_code();
 
-            throw ::exception(estatus, {errorcode}, "Failed to create named mutex");
+            throw ::exception(estatus, {error_code}, "Failed to create named mutex");
 
          }
 

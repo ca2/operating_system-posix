@@ -203,7 +203,7 @@ namespace acme_posix
 
          auto cerrornumber = c_error_number();
 
-         m_estatus = errno_status(iErrNo);
+         m_estatus = cerrornumber.estatus();
 
          auto errorcode = cerrornumber.error_code();
          
@@ -580,7 +580,7 @@ namespace acme_posix
       if (bError)
       {
 
-         throw_errno_exception("::close == -1", iErrNo);
+         throw_errno_exception("::close == -1", {c_error_number_t{}, iErrNo});
 
          //auto cerrornumber = c_error_number();
 
@@ -858,10 +858,10 @@ namespace acme_posix
    //}
 
 
-   void file::throw_errno_exception(const ::scoped_string & scopedstr, int iErrNo) const
+   void file::throw_errno_exception(const ::scoped_string & scopedstr, c_error_number cerrornumber) const
    {
 
-      ::throw_errno_exception(m_path, m_eopen, scopedstr, iErrNo);
+      ::throw_errno_exception(m_path, m_eopen, scopedstr, cerrornumber);
 
       //if (iErrNo == 0)
       //{
@@ -897,7 +897,7 @@ namespace acme_posix
 
          //throw ::exception(estatus, strMessage);
          
-         ::throw_errno_exception(m_path, m_eopen, strMessage, iErrNo);
+         ::throw_errno_exception(m_path, m_eopen, strMessage, cerrornumber);
 
 
       }
@@ -974,7 +974,7 @@ namespace acme_posix
             
             strMessage = "Failed to set file modification time";
             
-            ::throw_errno_exception(m_path, m_eopen, strMessage, iErrNo);
+            ::throw_errno_exception(m_path, m_eopen, strMessage, cerrornumber);
             
          }
 #ifdef __APPLE__

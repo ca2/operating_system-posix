@@ -98,7 +98,7 @@ namespace acme_posix
 
       //u64 GetBufferPtr(::u32 nCommand, u64 nCount = 0, void ** ppBufStart = nullptr, void ** ppBufMax = nullptr);
 
-      [[noreturn]]virtual void throw_errno_exception(const ::scoped_string & scopedstr = nullptr, int iErrNo = 0) const;
+      [[noreturn]]virtual void throw_errno_exception(const ::scoped_string & scopedstr = nullptr, c_error_number cerrornumber = {}) const;
 
       class ::time modification_time() override;
       

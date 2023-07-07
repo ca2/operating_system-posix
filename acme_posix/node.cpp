@@ -28,6 +28,7 @@
 
 #include <sys/types.h>
 #include <sys/sysctl.h>
+#include <errno.h>
 
 #endif
 
@@ -676,10 +677,17 @@ namespace acme_posix
       while (true)
       {
 
-         if (kill(pid, 0) == -1 && errno == ESRCH) // No process can be found corresponding to processId
+         if (kill(pid, 0) == -1)
          {
 
-            break;
+            auto cerrornumber = c_error_number();
+
+            if (cerrornumber == ESRCH) // No process can be found corresponding to processId
+            {
+
+               break;
+
+            }
 
          }
 
@@ -774,7 +782,7 @@ namespace acme_posix
 
       //char *   cmd_line2;
 
-      cmd_line = strdup(_cmd_line);
+      cmd_line = ansi_dup(_cmd_line);
 
       if (cmd_line == nullptr)
       {

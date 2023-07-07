@@ -108,13 +108,13 @@ namespace acme_posix
       if (rc)
       {
 
-         int iErrorNumber = errno;
+         auto cerrornumber = c_error_number();
 
-         auto estatus = errno_status(iErrorNumber);
+         auto estatus = cerrornumber.estatus();
 
-         auto errorcode = errno_error_code(iErrorNumber);
+         auto error_code = cerrornumber.error_code();
       
-         throw ::file::exception(estatus, errorcode, path, ::file::e_open_none, "utimes");
+         throw ::file::exception(estatus, error_code, path, ::file::e_open_none, "utimes");
 
       }
 
@@ -324,7 +324,7 @@ namespace acme_posix
 
          auto cerrornumber = pfile->c_error_number();
 
-         auto estatus = failed_errno_status(cerrornumber);
+         auto estatus = cerrornumber.failed_estatus();
 
          throw ::exception(estatus, "posix::acme_file::as_string");
          
@@ -334,7 +334,7 @@ namespace acme_posix
 
       char * psz = str.get_buffer(iToRead);
 
-      ::count iRead = fread(psz, 1, iToRead, pfile);
+      auto iRead = pfile->read(psz, iToRead);
 
       psz[iRead] = '\0';
 
@@ -362,9 +362,11 @@ namespace acme_posix
    void acme_file::as_memory(memory_base & memory, const ::file::path & path, strsize iReadAtMostByteCount, bool bNoExceptioOnOpen)
    {
 
-      FILE_holder pfile(fopen(path, "rb"));
+      auto pfile = __create_new <stdio_file >();
 
-      if (pfile == nullptr)
+      pfile->open(path, ::file::e_open_read | ::file::e_open_binary);
+
+      if (!pfile.ok())
       {
 
          if(bNoExceptioOnOpen)
@@ -378,7 +380,7 @@ namespace acme_posix
 
       }
 
-      auto iSize = get_size(pfile);
+      auto iSize = pfile->size();
 
       if (!iSize)
       {
@@ -392,7 +394,7 @@ namespace acme_posix
          if (iReadAtMostByteCount >= 0)
          {
 
-            while ((iRead = (int)fread(mem.data(), 1, minimum(iReadAtMostByteCount - memory.size(), mem.size()), pfile)) > 0)
+            while ((iRead = (int)pfile->read(mem.data(), minimum(iReadAtMostByteCount - memory.size(), mem.size()))) > 0)
             {
 
                memory.append(mem.data(), iRead);
@@ -403,7 +405,7 @@ namespace acme_posix
          else
          {
 
-            while ((iRead = (int)fread(mem.data(), 1, mem.size(), pfile)) > 0)
+            while ((iRead = (int)pfile->read(mem.data(), mem.size())) > 0)
             {
 
                memory.append(mem.data(), iRead);
@@ -420,14 +422,14 @@ namespace acme_posix
 
          memory.set_size(iToRead);
 
-         auto iRead = fread(memory.data(), memory.size(), 1, pfile);
+         auto iRead = pfile->read(memory.data(), memory.size());
 
          if(iRead < iToRead && iToRead > 0)
          {
 
-            auto iFError = ferror(pfile);
+            auto cerrornumber = pfile->c_error_number();
 
-            if(iFError)
+            if(cerrornumber.m_iErrorNumber)
             {
 
                throw ::exception(error_io);

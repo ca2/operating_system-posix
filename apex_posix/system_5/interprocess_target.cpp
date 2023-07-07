@@ -43,9 +43,9 @@ namespace system_5
       if (m_key == 0)
       {
 
-         int iErrorNumber = errno;
+         auto cerrornumber = c_error_number();
 
-         auto estatus = errno_status(iErrorNumber);
+         auto estatus = cerrornumber.estatus();
 
          throw ::exception(estatus, "ftok(\"" + strChannel + "\", 'c') has failed");
 
@@ -55,7 +55,7 @@ namespace system_5
       if ((m_iQueue = msgget(m_key, IPC_CREAT | IPC_EXCL | 0660)) == -1)
       {
 
-         int iErrorNumber = errno;
+         auto cerrornumber = c_error_number();
 
          if(iErrorNumber == EEXIST)
          {
@@ -63,9 +63,9 @@ namespace system_5
             if ((m_iQueue = msgget(m_key,  0660)) == -1)
             {
 
-               int iErrorNumber = errno;
+               auto cerrornumber = c_error_number();
 
-               auto estatus = errno_status(iErrorNumber);
+               auto estatus = cerrornumber.estatus();
 
                throw ::exception(estatus, "msgget has failed");
 
@@ -75,7 +75,7 @@ namespace system_5
          else
          {
 
-            auto estatus = errno_status(iErrorNumber);
+            auto estatus = cerrornumber.estatus();
 
             throw ::exception(estatus, "msgget has failed");
 
