@@ -288,9 +288,11 @@ namespace acme_posix
 
       string str;
 
-      FILE_holder pfile(fopen(path, "rb"));
+      auto pfile = __create_new <stdio_file >();
 
-      if (pfile == nullptr)
+      pfile->open(path, "rb");
+
+      if (!pfile.ok())
       {
 
          if(bNoExceptionOnFail)
@@ -308,7 +310,7 @@ namespace acme_posix
 
       }
 
-      auto iSize = get_size(pfile);
+      auto iSize = pfile->size();
       
       if(!iSize)
       {
@@ -320,7 +322,7 @@ namespace acme_posix
 
          }
 
-         int iErrNo = ferror(pfile);
+         int iErrNo = pfile->get_c_error_number();
 
          auto estatus = failed_errno_status(iErrNo);
 
