@@ -355,7 +355,7 @@ namespace acme_posix
             
 //            auto iErrNo = errno;
 //
-//            auto estatus = errno_status(iErrNo);
+//            auto estatus = cerrornumber.estatus();
 //
 //            auto errorcode = errno_error_code(iErrNo);
 //
@@ -416,7 +416,7 @@ namespace acme_posix
 
 //            auto iErrNo = errno;
 //
-//            auto estatus = errno_status(iErrNo);
+//            auto estatus = cerrornumber.estatus();
 //
 //            auto errorcode = errno_error_code(iErrNo);
 //
@@ -533,7 +533,7 @@ namespace acme_posix
        
          //auto iErrNo = errno;
 
-         //auto estatus = errno_status(iErrNo);
+         //auto estatus = cerrornumber.estatus();
 
          //auto errorcode = errno_error_code(iErrNo);
 
@@ -584,7 +584,7 @@ namespace acme_posix
 
          //auto iErrNo = errno;
 
-         //auto estatus = errno_status(iErrNo);
+         //auto estatus = cerrornumber.estatus();
 
          //auto errorcode = errno_error_code(iErrNo);
 
@@ -645,7 +645,7 @@ namespace acme_posix
 
          //auto iErrNo = errno;
 
-         //auto estatus = errno_status(iErrNo);
+         //auto estatus = cerrornumber.estatus();
 
          //auto errorcode = errno_error_code(iErrNo);
 
@@ -870,7 +870,7 @@ namespace acme_posix
 
       //}
 
-      //auto estatus = errno_status(iErrNo);
+      //auto estatus = cerrornumber.estatus();
 
       //auto errorcode = errno_error_code(iErrNo);
 
@@ -889,7 +889,7 @@ namespace acme_posix
 
          auto cerrornumber = c_error_number();
 
-         //auto estatus = errno_status(iErrNo);
+         //auto estatus = cerrornumber.estatus();
 
          string strMessage;
 
@@ -933,7 +933,7 @@ namespace acme_posix
 
       //   auto cerrornumber = c_error_number();
 
-      //   auto estatus = errno_status(iErrNo);
+      //   auto estatus = cerrornumber.estatus();
 
       //   string strMessage;
 
@@ -968,7 +968,7 @@ namespace acme_posix
             
             auto cerrornumber = c_error_number();
             
-            //auto estatus = errno_status(iErrNo);
+            //auto estatus = cerrornumber.estatus();
             
             string strMessage;
             
@@ -1000,7 +1000,7 @@ namespace acme_posix
             
             auto cerrornumber = c_error_number();
             
-            //auto estatus = errno_status(iErrNo);
+            //auto estatus = cerrornumber.estatus();
             
             string strMessage;
             
