@@ -1374,7 +1374,7 @@ namespace acme_posix
       if (iError != 0)
       {
 
-         int iErrNo = errno;
+         auto cerrornumber = c_error_number();
 
          estatus = errno_status(iErrNo);
 
@@ -1389,7 +1389,7 @@ namespace acme_posix
       if (iError != 0)
       {
 
-         int iErrNo = errno;
+         auto cerrornumber = c_error_number();
 
          estatus = errno_status(iErrNo);
 
@@ -1407,7 +1407,7 @@ namespace acme_posix
          if (iError != 0)
          {
 
-            int iErrNo = errno;
+            auto cerrornumber = c_error_number();
 
             estatus = errno_status(iErrNo);
 
@@ -1765,7 +1765,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
    if (iError != 0)
    {
 
-      int iErrNo = errno;
+      auto cerrornumber = c_error_number();
 
       estatus = errno_status(iErrNo);
 
@@ -1780,7 +1780,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
    if (iError != 0)
    {
 
-      int iErrNo = errno;
+      auto cerrornumber = c_error_number();
 
       estatus = errno_status(iErrNo);
 
@@ -1798,7 +1798,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
 //      if (iError != 0)
 //      {
 //
-//         int iErrNo = errno;
+//         auto cerrornumber = c_error_number();
 //
 //         estatus = errno_status(iErrNo);
 //

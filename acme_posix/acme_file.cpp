@@ -187,7 +187,7 @@ namespace acme_posix
       if (ftruncate(iFileDescriptor, size) == -1)
       {
 
-         int iErrNo = errno;
+         auto cerrornumber = c_error_number();
 
          auto estatus = errno_status(iErrNo);
 
@@ -222,7 +222,7 @@ namespace acme_posix
       if (fstat(iFileDescriptor, &st) == -1)
       {
 
-         int iErrNo = errno;
+         auto cerrornumber = c_error_number();
 
          auto estatus = failed_errno_status(iErrNo);
 
@@ -302,7 +302,7 @@ namespace acme_posix
 
          }
 
-         int iErrNo = errno;
+         auto cerrornumber = c_error_number();
          
          auto estatus = failed_errno_status(iErrNo);
 
@@ -449,7 +449,7 @@ namespace acme_posix
       if (pfile == nullptr)
       {
          
-         int iErrNo = errno;
+         auto cerrornumber = c_error_number();
          
          auto estatus = failed_errno_status(iErrNo);
 
@@ -483,7 +483,7 @@ namespace acme_posix
       if(stat(path, &st) != 0)
       {
          
-         int iErrNo = errno;
+         auto cerrornumber = c_error_number();
          
          auto estatus = failed_errno_status(iErrNo);
          
@@ -607,7 +607,7 @@ namespace acme_posix
 //      if ((output.m_i = ::open(pathNew, flags, 0666)) == -1)
 //      {
 //
-//         int iErrNo = errno;
+//         auto cerrornumber = c_error_number();
 //
 //         auto estatus = failed_errno_status(iErrNo);
 //
@@ -619,7 +619,7 @@ namespace acme_posix
 //      if ((input.m_i = ::open(pathSrc, O_RDONLY)) == -1)
 //      {
 //
-//         int iErrNo = errno;
+//         auto cerrornumber = c_error_number();
 //
 //         auto estatus = failed_errno_status(iErrNo);
 //
@@ -632,7 +632,7 @@ namespace acme_posix
 //      if(filesize < 0)
 //      {
 //
-//         int iErrNo = errno;
+//         auto cerrornumber = c_error_number();
 //
 //         auto estatus = failed_errno_status(iErrNo);
 //
@@ -643,7 +643,7 @@ namespace acme_posix
 //      if(ftruncate(output.m_i, filesize) < 0)
 //      {
 //
-//         int iErrNo = errno;
+//         auto cerrornumber = c_error_number();
 //
 //         auto estatus = failed_errno_status(iErrNo);
 //
@@ -654,7 +654,7 @@ namespace acme_posix
 //      if ((source = mmap(0, filesize, PROT_READ, MAP_PRIVATE, input.m_i, 0)) == (void *)-1)
 //      {
 //
-//         int iErrNo = errno;
+//         auto cerrornumber = c_error_number();
 //
 //         auto estatus = failed_errno_status(iErrNo);
 //
@@ -666,7 +666,7 @@ namespace acme_posix
 //      if ((target = mmap(0, filesize, PROT_WRITE, MAP_PRIVATE, output.m_i, 0)) == (void *)-1)
 //      {
 //
-//         int iErrNo = errno;
+//         auto cerrornumber = c_error_number();
 //
 //         auto estatus = failed_errno_status(iErrNo);
 //
@@ -841,7 +841,7 @@ namespace acme_posix
       if (pfile == nullptr)
       {
          
-         int iErrNo = errno;
+         auto cerrornumber = c_error_number();
          
          auto estatus = failed_errno_status(iErrNo);
 
@@ -893,7 +893,7 @@ namespace acme_posix
       if(stat(path, &statAttribute))
       {
 
-         int iErrNo = errno;
+         auto cerrornumber = c_error_number();
 
          auto estatus = errno_status(iErrNo);
 
@@ -934,7 +934,7 @@ namespace acme_posix
       //if(stat(path, &statAttribute))
       //{
 
-      //   int iErrNo = errno;
+      //   auto cerrornumber = c_error_number();
 
       //   auto estatus = errno_status(iErrNo);
 
@@ -968,7 +968,7 @@ namespace acme_posix
             //if(utime(path, &utimbuf))
             //{
             
-            int iErrNo = errno;
+            auto cerrornumber = c_error_number();
             
             auto estatus = errno_status(iErrNo);
             
@@ -988,7 +988,7 @@ namespace acme_posix
          if(stat(path, &statAttribute))
          {
 
-            int iErrNo = errno;
+            auto cerrornumber = c_error_number();
 
             auto estatus = errno_status(iErrNo);
 
@@ -1020,7 +1020,7 @@ namespace acme_posix
          if(utimes(path, times))
          {
             
-            int iErrNo = errno;
+            auto cerrornumber = c_error_number();
             
             auto estatus = errno_status(iErrNo);
             
@@ -1043,7 +1043,7 @@ namespace acme_posix
         if (::unlink(path) == -1)
         {
 
-            int iErrNo = errno;
+            auto cerrornumber = c_error_number();
 
             auto estatus = errno_status(iErrNo);
 
@@ -1079,7 +1079,7 @@ namespace acme_posix
       if (pfile == nullptr)
       {
 
-         int iErrNo = errno;
+         auto cerrornumber = c_error_number();
 
          auto estatus = failed_errno_status(iErrNo);
 
