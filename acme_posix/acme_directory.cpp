@@ -505,7 +505,7 @@ void acme_directory::erase_recursively(const ::file::path &path)
       if(::is_null(pszCurrentDirName))
       {
 
-         auto iErrNo = errno;
+         auto cerrornumber = c_error_number();
 
          auto estatus = failed_errno_status(iErrNo);
 
@@ -528,7 +528,7 @@ void acme_directory::erase_recursively(const ::file::path &path)
       if(iError)
       {
 
-         auto iErrNo = errno;
+         auto cerrornumber = c_error_number();
 
          auto estatus = failed_errno_status(iErrNo);
          

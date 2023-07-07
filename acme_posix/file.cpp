@@ -205,7 +205,7 @@ namespace acme_posix
 
          m_estatus = errno_status(iErrNo);
 
-         auto errorcode = errno_error_code(iErrNo);
+         auto errorcode = cerrornumber.error_code();
          
          m_iFile = (::u32)hFileNull;
 
@@ -353,11 +353,11 @@ namespace acme_posix
             
             throw_errno_exception("::read < 0");
             
-//            auto iErrNo = errno;
+//            auto cerrornumber = c_error_number();
 //
 //            auto estatus = cerrornumber.estatus();
 //
-//            auto errorcode = errno_error_code(iErrNo);
+//            auto errorcode = cerrornumber.error_code();
 //
 //            throw ::file::exception(estatus, errorcode, m_path, m_eopen, "::read < 0");
 
@@ -414,11 +414,11 @@ namespace acme_posix
          if (amountWrittenNow < 0)
          {
 
-//            auto iErrNo = errno;
+//            auto cerrornumber = c_error_number();
 //
 //            auto estatus = cerrornumber.estatus();
 //
-//            auto errorcode = errno_error_code(iErrNo);
+//            auto errorcode = cerrornumber.error_code();
 //
 //            throw ::file::exception(estatus, errorcode, m_path, m_eopen, "::write < 0");
             
@@ -472,7 +472,7 @@ namespace acme_posix
 
          //auto estatus = error_bad_argument;
 
-         //auto errorcode = errno_error_code(iErrNo);
+         //auto errorcode = cerrornumber.error_code();
 
          //throw ::file::exception(estatus, errorcode, m_path, m_eopen, "m_iFile == hFileNull");
 
@@ -531,11 +531,11 @@ namespace acme_posix
 
          throw_errno_exception("lseek64 < 0");
        
-         //auto iErrNo = errno;
+         //auto cerrornumber = c_error_number();
 
          //auto estatus = cerrornumber.estatus();
 
-         //auto errorcode = errno_error_code(iErrNo);
+         //auto errorcode = cerrornumber.error_code();
 
          //throw ::file::exception(estatus, errorcode, m_path, "lseek64 < 0", m_eopen);
 
@@ -582,11 +582,11 @@ namespace acme_posix
 
          throw_errno_exception("::close == -1", iErrNo);
 
-         //auto iErrNo = errno;
+         //auto cerrornumber = c_error_number();
 
          //auto estatus = cerrornumber.estatus();
 
-         //auto errorcode = errno_error_code(iErrNo);
+         //auto errorcode = cerrornumber.error_code();
 
          //throw ::file::exception(estatus, errorcode, m_path, , m_eopen);
 
@@ -643,11 +643,11 @@ namespace acme_posix
 
          throw_errno_exception("ftruncate == -1");
 
-         //auto iErrNo = errno;
+         //auto cerrornumber = c_error_number();
 
          //auto estatus = cerrornumber.estatus();
 
-         //auto errorcode = errno_error_code(iErrNo);
+         //auto errorcode = cerrornumber.error_code();
 
          //throw ::file::exception(estatus, errorcode, m_path,  "ftruncate == -1", m_eopen);
 
@@ -872,7 +872,7 @@ namespace acme_posix
 
       //auto estatus = cerrornumber.estatus();
 
-      //auto errorcode = errno_error_code(iErrNo);
+      //auto errorcode = cerrornumber.error_code();
 
       //throw ::file::exception(estatus, errorcode, m_path, m_eopen, scopedstr);
 
