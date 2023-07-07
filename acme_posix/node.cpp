@@ -1384,7 +1384,7 @@ namespace acme_posix
 
          auto cerrornumber = c_error_number();
 
-         estatus = errno_status(iErrNo);
+         estatus = cerrornumber.estatus();
 
          throw ::exception(estatus);
 
@@ -1399,7 +1399,7 @@ namespace acme_posix
 
          auto cerrornumber = c_error_number();
 
-         estatus = errno_status(iErrNo);
+         estatus = cerrornumber.estatus();
 
          throw ::exception(estatus);
 
@@ -1417,7 +1417,7 @@ namespace acme_posix
 
             auto cerrornumber = c_error_number();
 
-            estatus = errno_status(iErrNo);
+            estatus = cerrornumber.estatus();
 
             throw ::exception(estatus);
 
@@ -1429,7 +1429,7 @@ namespace acme_posix
 
       string strError;
 
-      auto pszCommandLine = strdup(scopedstr);
+      auto pszCommandLine = ansi_dup(scopedstr);
 
       const pid_t pid = ::fork();
 
@@ -1476,7 +1476,7 @@ namespace acme_posix
 
          char **argv = memory_new char *[we.we_wordc + 1];
 
-         memcpy(argv, we.we_wordv, we.we_wordc * sizeof(char *));
+         memory_copy(argv, we.we_wordv, we.we_wordc * sizeof(char *));
 
          int iChildExitCode = execvp(argv[0], &argv[0]);
 
@@ -1775,7 +1775,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
 
       auto cerrornumber = c_error_number();
 
-      estatus = errno_status(iErrNo);
+      estatus = cerrornumber.estatus();
 
       throw ::exception(estatus);
 
@@ -1790,7 +1790,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
 
       auto cerrornumber = c_error_number();
 
-      estatus = errno_status(iErrNo);
+      estatus = cerrornumber.estatus();
 
       throw ::exception(estatus);
 
@@ -1820,7 +1820,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
 
    string strError;
 
-   auto pszCommandLine = strdup(scopedstr);
+   auto pszCommandLine = ansi_dup(scopedstr);
 
    const pid_t pid = ::fork();
 
@@ -1867,7 +1867,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
 
       char **argv = memory_new char *[we.we_wordc + 1];
 
-      memcpy(argv, we.we_wordv, we.we_wordc * sizeof(char *));
+      memory_copy(argv, we.we_wordv, we.we_wordc * sizeof(char *));
 
       int iChildExitCode = execvp(argv[0], &argv[0]);
 
