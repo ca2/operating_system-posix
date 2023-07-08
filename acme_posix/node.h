@@ -118,6 +118,10 @@ namespace acme_posix
       int unix_shell_command(const ::scoped_string& scopedstrCommand, const trace_function & tracefunction = nullptr) override;
 
 
+      //::user::enum_desktop calculate_edesktop() override;
+
+
+
    };
 
    

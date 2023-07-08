@@ -2192,6 +2192,16 @@ if(functionTrace)
 
    }
 
+//
+//   ::user::enum_desktop node::calculate_edesktop()
+//   {
+//
+//      return _get_edesktop();
+//
+//   }
+
+
+
 
 } // namespace acme_posix
 
