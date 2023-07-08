@@ -290,7 +290,8 @@ namespace acme_posix
 
       auto pfile = __create_new <stdio_file >();
 
-      pfile->open(path, ::file::e_open_read | ::file::e_open_binary);
+      pfile->open(path, ::file::e_open_read | ::file::e_open_binary
+      | (bNoExceptionOnFail ? ::file::e_open_no_exception_on_open : 0));
 
       if (!pfile.ok())
       {
