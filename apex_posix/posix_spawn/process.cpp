@@ -14,6 +14,8 @@
 #ifdef RASPBERRYPIOS
 #include <sys/types.h>
 #include <unistd.h>
+#elif defined(FREEBSD)
+#include <sched.h>
 #endif
 
 critical_section * get_pid_cs();
