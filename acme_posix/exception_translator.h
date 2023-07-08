@@ -52,8 +52,6 @@ struct sig_companion
    {
    protected:
 
-      bool    m_bSet;
-
    public:
 
       ::pointer<address_to_line>      m_paddresstoline;
