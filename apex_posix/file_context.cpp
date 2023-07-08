@@ -8,6 +8,7 @@
 
 #if defined(FREEBSD) || defined(__APPLE__) || defined(LINUX)
 #include <unistd.h>
+#include <errno.h>
 #endif
 
 
@@ -97,14 +98,14 @@ bool file_context::is_read_only(const ::file::path &psz)
       if (unlink(psz) != 0)
       {
       
-         i32 err = errno;
+         auto cerrornumber = c_error_number();
       
-         if (err != ENOENT) // already does not exist - consider removal successful - does not issue an exception
+         if (cerrornumber.m_iErrorNumber != ENOENT) // already does not exist - consider removal successful - does not issue an exception
          {
          
             string strError;
          
-            strError.format("Failed to delete file error=%d", err);
+            strError.format("Failed to delete file error=%d", cerrornumber.m_iErrorNumber);
          
             throw ::exception(error_failed, strError);
       

@@ -115,7 +115,7 @@ namespace system_5
       if ((result = msgsnd(m_iQueue, pdata, m.size() - sizeof(long), 0)) == -1)
       {
 
-         int iError = errno;
+         auto cerrornumber = c_error_number();
 
          throw ::exception(error_failed);
 

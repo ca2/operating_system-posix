@@ -57,7 +57,7 @@ namespace system_5
 
          auto cerrornumber = c_error_number();
 
-         if(iErrorNumber == EEXIST)
+         if(cerrornumber.m_iErrorNumber == EEXIST)
          {
 
             if ((m_iQueue = msgget(m_key,  0660)) == -1)
