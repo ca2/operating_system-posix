@@ -23,7 +23,7 @@
 #include <unistd.h>
 #include <limits.h>
 
-#if defined(__APPLE__)
+#if defined(__APPLE__) || defined(FREEBSD)
 
 #define HOST_NAME_MAX 64
 
