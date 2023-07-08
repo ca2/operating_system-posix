@@ -15,7 +15,7 @@
 #include <unistd.h>
 #endif
 
-#if defined(FREEBSD) || defined(__APPLE__)
+#if defined(FREEBSD) || defined(__APPLE__) || defined(LINUX)
 #include <unistd.h>
 #endif
 
