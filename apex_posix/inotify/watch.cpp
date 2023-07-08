@@ -11,6 +11,7 @@
 
 #include <unistd.h>
 #include <errno.h>
+#include <stdio.h>
 
 #define BUFF_SIZE ((sizeof(struct inotify_event)+FILENAME_MAX)*1024)
 
