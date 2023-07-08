@@ -19,14 +19,6 @@ namespace inotify
 
    watch::watch()
    {
-      m_iFd = inotify_init();
-
-      if (m_iFd < 0)
-      {
-
-         fprintf(stderr, "Error: %s\n", strerror(errno));
-
-      }
 
       m_timevalTimeOut.tv_sec = 1;
 
@@ -41,6 +33,21 @@ namespace inotify
    {
 
       inotify_rm_watch(m_iFd, m_watchdescriptor);
+
+   }
+
+
+   void watch::on_initialize_particle()
+   {
+
+      m_iFd = inotify_init();
+
+      if (m_iFd < 0)
+      {
+
+         error("Error: %s", c_error_number().get_error_description().c_str());
+
+      }
 
    }
 

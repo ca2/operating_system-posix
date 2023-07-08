@@ -2,7 +2,9 @@
 
 
 #include "apex/filesystem/file/watch.h"
-
+#if defined(FREEBSD)
+#include <sys/time.h>
+#endif
 
 namespace inotify
 {

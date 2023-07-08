@@ -16,6 +16,8 @@
 #include <unistd.h>
 #elif defined(FREEBSD)
 #include <sched.h>
+#include <unistd.h>
+extern char **environ;
 #endif
 
 critical_section * get_pid_cs();
