@@ -87,7 +87,7 @@ namespace acme_posix
 
 #ifdef POSIX_LIST_SERIAL_PORTS
 
-      virtual array <::serial::port_info> list_serial_ports();
+      virtual array <::serial::port_info> list_serial_ports() override;
 
 
 #endif
