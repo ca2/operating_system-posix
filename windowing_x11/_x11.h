@@ -7,8 +7,9 @@
 
 
 
-
+#ifndef WITH_XI
 #define WITH_XI
+#endif
 
 #define pointer x11_pointer
 

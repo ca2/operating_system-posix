@@ -2869,12 +2869,16 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
       }
 
-      if(!pcursorx11->m_cursor)
-      {
 
-         //auto estatus =
-         //
-         pcursorx11->_create_os_cursor();
+      m_pwindowing->windowing_post([this, pcursorx11]()
+                                          {
+
+                                             if(!pcursorx11->m_cursor)
+                                             {
+
+                                                //auto estatus =
+                                                //
+                                                pcursorx11->_create_os_cursor();
 
 //         if(!estatus)
 //         {
@@ -2883,19 +2887,16 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 //
 //         }
 
-      }
+                                             }
 
-      if (m_cursorLast == pcursorx11->m_cursor)
-      {
+                                             if (m_cursorLast == pcursorx11->m_cursor)
+                                             {
 
-         //return true;
+                                                //return true;
 
-         return;
+                                                return;
 
-      }
-
-      m_pwindowing->windowing_post([this, pcursorx11]()
-                                          {
+                                             }
 
                                              synchronous_lock sl(user_synchronization());
 

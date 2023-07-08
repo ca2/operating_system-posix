@@ -62,10 +62,10 @@ namespace node_gnome
 //      return ::is_null(this) ? 0 : m_atomLongStyleEx;
 //   }
 
-   bool is_null() const
-   {
-      return ::is_null(this);
-   }
+//   bool is_null() const
+//   {
+//      return ::is_null(this);
+//   }
 
 //   Atom get_window_long_atom(i32 nIndex);
 //

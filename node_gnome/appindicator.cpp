@@ -139,7 +139,7 @@ namespace node_gnome
 
          GtkWidget * pgtkwidget = nullptr;
 
-         if(strcasecmp(pszName, "separator") == 0)
+         if(ansi_icmp(pszName, "separator") == 0)
          {
 
    	      pgtkwidget = gtk_separator_menu_item_new();
