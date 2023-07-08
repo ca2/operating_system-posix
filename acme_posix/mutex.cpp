@@ -10,13 +10,12 @@
 ////#include "acme/exception/exception.h"
 
 
-#ifdef FREEBSD
+#if defined(FREEBSD)
 #define __XSI_VISIBLE 1
-#endif
-
-
-#ifdef MACOS
+#elif defined(MACOS)
 void utc_timespec(timespec * ptimespec);
+#include <unistd.h>
+#elif defined(LINUX)
 #include <unistd.h>
 #endif
 
