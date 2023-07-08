@@ -15,7 +15,7 @@
 #include "acme/_operating_system.h"
 
 
-#if defined(LINUX) || defined(__APPLE__) || defined(ANDROID)
+#if defined(LINUX) || defined(__APPLE__) || defined(ANDROID) || defined(FREEBSD)
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -23,7 +23,7 @@
 #include <unistd.h>
 #include <limits.h>
 
-#if defined(__APPLE__)
+#if defined(__APPLE__) || defined(FREEBSD)
 
 #define HOST_NAME_MAX 64
 
