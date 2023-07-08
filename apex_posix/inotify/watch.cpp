@@ -10,6 +10,7 @@
 #undef USE_MISC
 
 #include <unistd.h>
+#include <errno.h>
 
 #define BUFF_SIZE ((sizeof(struct inotify_event)+FILENAME_MAX)*1024)
 

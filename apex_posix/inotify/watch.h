@@ -28,6 +28,10 @@ namespace inotify
       watch();
       ~watch() override;
 
+
+      void on_initialize_particle() override;
+
+
       bool open(const ::file::path & pathFolder, bool bRecursive) override;
 
 
