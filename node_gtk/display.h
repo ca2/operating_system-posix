@@ -65,10 +65,10 @@ namespace node_gtk
 
    ::Display * _get_system_default_display() override;
 
-   bool is_null() const
-   {
-      return ::is_null(this);
-   }
+//   bool is_null() const
+//   {
+//      return ::is_null(this);
+//   }
 
 //   Atom get_window_long_atom(i32 nIndex);
 //
