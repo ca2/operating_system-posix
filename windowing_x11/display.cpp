@@ -757,7 +757,7 @@ namespace windowing_x11
       unsigned long remain;
       unsigned char *list;
       unsigned long ulBytesReturned = 0;
-      errno = 0;
+      //errno = 0;
 
       Atom actual_type;
 

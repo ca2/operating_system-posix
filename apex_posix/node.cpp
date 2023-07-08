@@ -237,7 +237,7 @@ namespace apex_posix
 
       //https://stackoverflow.com/questions/504810/how-do-i-find-the-current-machines-full-hostname-in-c-hostname-and-domain-info
       //https://stackoverflow.com/users/4924/zxaos
-      memset(&hints, 0, sizeof hints);
+      memory_set(&hints, 0, sizeof hints);
       hints.ai_family = AF_UNSPEC; /*either IPV4 or IPV6*/
       hints.ai_socktype = SOCK_STREAM;
       hints.ai_flags = AI_CANONNAME;

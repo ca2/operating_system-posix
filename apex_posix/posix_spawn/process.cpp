@@ -1,7 +1,7 @@
 #include "framework.h"
 #include "acme_posix/pipe.h"
+#include "acme/platform/system.h"
 #include "acme/primitive/collection/string_map.h"
-//#include "acme/primitive/collection/string_array.h"
 #include "acme/primitive/collection/str_array.h"
 #include "process.h"
 
@@ -17,7 +17,6 @@
 #elif defined(FREEBSD)
 #include <sched.h>
 #include <unistd.h>
-extern char **environ;
 #endif
 
 critical_section * get_pid_cs();
@@ -114,7 +113,7 @@ namespace ansios
 
       address_array < char * > env;
 
-      char * const * e = environ;
+      char * const * e = acmesystem()->m_psubsystem->m_envp;
 
       string strFallback;
 
@@ -127,7 +126,7 @@ namespace ansios
 
          const char * psz;
 
-         while((psz = environ[i]) != nullptr)
+         while((psz = e[i]) != nullptr)
          {
             if(i <= iPrevious)
                break;
@@ -295,11 +294,13 @@ namespace ansios
 
       int status= 0;
 
+      char * const * e = acmesystem()->m_psubsystem->m_envp;
+
       {
 
          critical_section_lock synchronouslock(get_pid_cs());
 
-         status = posix_spawn(&m_iPid,argv[0],&actions,&attr,(char * const *)argv.get_data(),environ);
+         status = posix_spawn(&m_iPid,argv[0],&actions,&attr,(char * const *)argv.get_data(),e);
 
          init_chldstatus(m_iPid);
 

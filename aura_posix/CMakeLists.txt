@@ -35,7 +35,7 @@ list(APPEND static_library_references ${library_references})
 list(TRANSFORM static_library_references PREPEND static_)
 
 
-if (WITH_X11 OR WITH_XCB)
+if (${WITH_X11} OR ${WITH_XCB})
 
 
     list(APPEND library_source
@@ -98,7 +98,7 @@ elseif (${LINUX} OR ${FREEBSD})
             libstartup-notification-1.0
             )
 
-    if (WITH_XCB)
+    if (${WITH_XCB})
 
 
         list(APPEND extra_pkg_modules
