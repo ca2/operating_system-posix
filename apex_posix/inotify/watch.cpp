@@ -72,7 +72,11 @@ namespace inotify
       if (wd < 0)
       {
 
-         information("Error: os_watcher::add_watch at directory %s : (%s)", pathFolder.c_str(), strerror(errno));
+         auto cerrornumber = c_error_number();
+
+         auto strErrorDescription = cerrornumber.get_error_description();
+
+         information("Error: os_watcher::add_watch at directory %s : (%s)", pathFolder.c_str(), strErrorDescription.c_str());
 
          return false;
 
@@ -173,7 +177,9 @@ namespace inotify
       if (ret < 0)
       {
 
-         if (errno == EINTR)
+         auto cerrornumber = c_error_number();
+
+         if (cerrornumber == EINTR)
          {
 
             sleep(200_ms);
