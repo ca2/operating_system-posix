@@ -32,7 +32,7 @@
 ///*********************************************************************
 // *      SystemTimeToFileTime                            (KERNEL32.@)
 // */
-//CLASS_DECL_APEX_POSIX int_bool SystemTimeToFileTime(const system_time_t * psystemtime, file_time_t * pfile_time);
+//CLASS_DECL_APEX_POSIX int_bool SystemTimeToFileTime(const system_time & systemtime, file_time_t * pfile_time);
 //
 //
 ///***********************************************************************

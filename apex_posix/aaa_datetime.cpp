@@ -1010,7 +1010,7 @@
 // /*********************************************************************
 //  *      FileTimeToSystemTime                            (KERNEL32.@)
 //  */
-// int_bool FileTimeToSystemTime( const file_time_t *ft, system_time_t * syst )
+// int_bool FileTimeToSystemTime( const file_time_t *ft, system_time * syst )
 // {
 
 //    TIME_FIELDS tf;
@@ -1032,7 +1032,7 @@
 // /*********************************************************************
 //  *      SystemTimeToFileTime                            (KERNEL32.@)
 //  */
-// int_bool SystemTimeToFileTime( const system_time_t *syst, file_time_t * ft )
+// int_bool SystemTimeToFileTime( const system_time *syst, file_time_t * ft )
 // {
 //    TIME_FIELDS tf;
 //    u64 t;
@@ -1088,7 +1088,7 @@
 //  * RETURNS
 //  *  Nothing.
 //  */
-// CLASS_DECL_ACME void GetSystemTime(system_time_t * systime)
+// CLASS_DECL_ACME void GetSystemTime(system_time * systime)
 // {
 //    //file_time_t ft;
 //    u64 t;
@@ -1110,7 +1110,7 @@
 // //{
 // //
 // //
-// //   ::e_status node::get_system_time(system_time_t * psystemtime)
+// //   ::e_status node::get_system_time(system_time * psystemtime)
 // //   {
 // //
 // //      GetSystemTime(psystemtime);
