@@ -1718,7 +1718,7 @@ void windowing::_defer_size_message(oswindow oswindow, const ::size_i32 & size)
 
          if (bSizeFix) {
 
-            pinteraction->set_size(size, ::user::e_layout_window);
+            //pinteraction->set_size(size, ::user::e_layout_window);
 
             MESSAGE msg;
 
