@@ -417,7 +417,7 @@ namespace acme_posix
    if (iFd < 0)
    {
 
-      throw_errno_exception(path, ::file::e_open_none, "open, O_RDWR, S_IRWXU");
+      throw_file_errno_exception(path, ::file::e_open_none, "open, O_RDWR, S_IRWXU");
 
    }
 
