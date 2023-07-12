@@ -87,8 +87,8 @@ namespace node_gtk
                                                                 NULL,
                                                                pdialog->m_bCanCreateFolders ? GTK_FILE_CHOOSER_ACTION_CREATE_FOLDER
                                                                : GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
-                                                                GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                                                GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+                                                                "_Cancel", GTK_RESPONSE_CANCEL,
+                                                                "_Open", GTK_RESPONSE_ACCEPT,
                                                                 (void *) nullptr);
 
                            pdialog->m_posdata = widget;
