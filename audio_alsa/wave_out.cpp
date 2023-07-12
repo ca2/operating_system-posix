@@ -754,12 +754,13 @@ namespace multimedia
 
             auto waitFrames = (iFramesToWrite - iFrameFreeCount);
 
-            auto mugreeklettersecondsWait = waitFrames * 100'000 / m_pwaveformat->m_waveformat.nSamplesPerSec;
+            auto mugreeklettersecondsWait =
+               microsecond_time(waitFrames * 100'000 / m_pwaveformat->m_waveformat.nSamplesPerSec);
 
 //            information("frames to write: " << iFramesToWrite << " frame free count : " << iFrameFreeCount
 //                                      << " frames to wait: " << waitFrames << " μs to wait : " << mugreeklettersecondsWait);
 //
-            usleep(mugreeklettersecondsWait);
+            preempt(mugreeklettersecondsWait);
 
          }
 

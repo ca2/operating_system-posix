@@ -216,7 +216,7 @@ namespace acme_posix
          if (eopen & ::file::e_open_no_exception_on_open)
          {
 
-            if (!::failed(m_estatus))
+            if (m_estatus.succeeded())
             {
 
                m_estatus = error_failed;

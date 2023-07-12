@@ -2,6 +2,35 @@
 #include "snd_pcm.h"
 
 
+struct alloca_array
+{
+public:
+
+   ::pointer_array < ::memory > m_memorya;
+
+
+   void * allocate(memsize s)
+   {
+
+      auto pmemory = __new(memory);
+
+      m_memorya.add(pmemory);
+
+      pmemory->set_size(s);
+
+      auto p = pmemory->data();
+
+      return p;
+
+
+   }
+
+};
+
+#define use_alloca() alloca_array __alloca
+#define alloca(s) __alloca.allocate(s)
+
+
 namespace multimedia
 {
 
@@ -34,6 +63,8 @@ namespace multimedia
 
       ::e_status snd_pcm::snd_pcm_open(snd_pcm_stream_t stream_type)
       {
+
+         use_alloca();
 
          information() << "snd_pcm::snd_pcm_open";
 
@@ -640,6 +671,8 @@ namespace multimedia
 
       void snd_pcm::print_snd_pcm_status()
       {
+
+         use_alloca();
 
          {
 
