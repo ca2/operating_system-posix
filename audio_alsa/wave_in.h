@@ -24,7 +24,7 @@ namespace multimedia
          ~wave_in() override;
 
 
-         virtual void in_initialize_encoder();
+         virtual void in_initialize_encoder() override;
 
          //virtual ::e_status in_add_buffer(int32_t iBuffer);
          //virtual ::e_status in_add_buffer(LPWAVEHDR lpwavehdr);
@@ -32,11 +32,11 @@ namespace multimedia
          snd_pcm_t * in_get_safe_PCM();
          virtual void * get_os_data();
 
-         void in_open(int32_t iBufferCount, int32_t iBufferSampleCount);
-         void in_close();
-         void in_stop();
-         void in_start();
-         void in_reset();
+         void in_open(int32_t iBufferCount, int32_t iBufferSampleCount) override;
+         void in_close() override;
+         void in_stop() override;
+         void in_start() override;
+         void in_reset() override;
 
          //virtual void translate_in_message(::signal_details * pobj);
 
