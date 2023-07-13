@@ -132,6 +132,8 @@ namespace multimedia
 
             m_timeBufferSizeHint = 400_ms;
 
+            m_iBufferCountHint = 8;
+
             m_frameCount = uiSamplesPerSec / 20;
 
             m_iBufferCount = 8;
@@ -147,6 +149,8 @@ namespace multimedia
             m_frameCount = 1024;
 
             //m_frameCount = uiSamplesPerSec / 20;
+
+            m_iBufferCountHint = 4;
 
             m_iBufferCount = 4;
 

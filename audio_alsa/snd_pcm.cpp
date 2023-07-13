@@ -321,11 +321,11 @@ namespace multimedia
 
          }
 
-         unsigned int uPeriodMin = 0;
+         unsigned int uBufferCountMin = 0;
 
-         int dirPeriodMin = 0;
+         int dirBufferCountMin = 0;
 
-         err = snd_pcm_hw_params_get_periods_min(m_phwparams, &uPeriodMin, &dirPeriodMin);
+         err = snd_pcm_hw_params_get_periods_min(m_phwparams, &uBufferCountMin, &dirBufferCountMin);
 
          if (err < 0)
          {
@@ -338,13 +338,13 @@ namespace multimedia
 
          }
 
-         information() << "snd_pcm_hw_params_get_periods_min: " << uPeriodMin << " direction " << dirPeriodMin;
+         information() << "snd_pcm_hw_params_get_periods_min: " << uBufferCountMin << " direction " << dirBufferCountMin;
 
-         unsigned int uPeriodMax = 0;
+         unsigned int uBufferCountMax = 0;
 
-         int dirPeriodMax = 0;
+         int dirBufferCountMax = 0;
 
-         err = snd_pcm_hw_params_get_periods_max(m_phwparams, &uPeriodMax, &dirPeriodMax);
+         err = snd_pcm_hw_params_get_periods_max(m_phwparams, &uBufferCountMax, &dirBufferCountMax);
 
          if (err < 0)
          {
@@ -357,7 +357,7 @@ namespace multimedia
 
          }
 
-         information() << "snd_pcm_hw_params_get_periods_max: " << uPeriodMax << " direction " << dirPeriodMax;
+         information() << "snd_pcm_hw_params_get_periods_max: " << uBufferCountMax << " direction " << dirBufferCountMax;
 
          snd_pcm_uframes_t uPeriodSizeMin = 0;
 
@@ -403,13 +403,17 @@ namespace multimedia
 
          information() << "iFullFrameCount1 " << iFullFrameCount1;
 
-         int iBufferCount1 = dirPeriodMax < 0 ? uPeriodMax - 1: uPeriodMax;
+         int iBufferCountMin = dirBufferCountMax > 0 ? uBufferCountMin + 1: uBufferCountMin;
+
+         int iBufferCountMax = dirBufferCountMax < 0 ? uBufferCountMax - 1: uBufferCountMin;
+
+         int iBufferCount1 = minimum_maximum(m_iBufferCountHint, iBufferCountMin, iBufferCountMax);
 
          int iPeriodSizeMin1 = uPeriodSizeMin;
 
          int iPeriodSizeMax1 = dirPeriodSizeMax < 0 ? uPeriodSizeMax - 1 : uPeriodSizeMax;
 
-         m_frameCount = minimum(iPeriodSizeMax1, maximum(iPeriodSizeMin1, iFullFrameCount1 / iBufferCount1));
+         m_frameCount = minimum_maximum(iFullFrameCount1 / iBufferCount1, iPeriodSizeMin1, iPeriodSizeMax1);
 
          information() << "m_frameCount " << m_frameCount;
 
@@ -417,9 +421,9 @@ namespace multimedia
 
          information() << "pre buffer count " << m_iBufferCount;
 
-         m_iBufferCount = maximum(m_iBufferCount, uPeriodMin);
+         m_iBufferCount = maximum(m_iBufferCount, iBufferCountMin);
 
-         m_iBufferCount = minimum(m_iBufferCount, uPeriodMax);
+         m_iBufferCount = minimum(m_iBufferCount, iBufferCountMax);
 
          err = snd_pcm_hw_params_set_periods(m_ppcm, m_phwparams, m_iBufferCount, 0);
 
