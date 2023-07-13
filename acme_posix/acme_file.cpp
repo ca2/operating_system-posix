@@ -24,6 +24,9 @@
 #elif defined(FREEBSD)
 #include <errno.h>
 ::file::path get_module_path();
+#elif defined(MACOS)
+#include <errno.h>
+::file::path get_module_path();
 #endif
 
 

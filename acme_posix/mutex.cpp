@@ -14,6 +14,7 @@
 #define __XSI_VISIBLE 1
 #elif defined(MACOS)
 void utc_timespec(timespec * ptimespec);
+#include <sys/time.h>
 #include <unistd.h>
 #elif defined(LINUX)
 #include <unistd.h>
