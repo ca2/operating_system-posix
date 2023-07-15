@@ -403,9 +403,9 @@ namespace multimedia
 
          information() << "iFullFrameCount1 " << iFullFrameCount1;
 
-         int iBufferCountMin = dirBufferCountMax > 0 ? uBufferCountMin + 1: uBufferCountMin;
+         int iBufferCountMin = dirBufferCountMin > 0 ? uBufferCountMin + 1: uBufferCountMin;
 
-         int iBufferCountMax = dirBufferCountMax < 0 ? uBufferCountMax - 1: uBufferCountMin;
+         int iBufferCountMax = dirBufferCountMax < 0 ? uBufferCountMax - 1: uBufferCountMax;
 
          int iBufferCount1 = minimum_maximum(m_iBufferCountHint, iBufferCountMin, iBufferCountMax);
 
