@@ -27,6 +27,7 @@ public:
 
 };
 
+#undef alloca
 #define use_alloca() alloca_array __alloca
 #define alloca(s) __alloca.allocate(s)
 

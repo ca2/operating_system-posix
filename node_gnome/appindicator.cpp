@@ -3,7 +3,7 @@
 //
 #include "framework.h"
 #include "acme/platform/system.h"
-#include "apex/user/notify_icon_bridge.h"
+#include "apex/user/user/notify_icon_bridge.h"
 //int uname(struct utsname *buf);
 //#ifndef RASPBERRYPIOS
 //#ifndef MANJARO
