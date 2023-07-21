@@ -2267,22 +2267,22 @@ else if(detail == 3)
 
                     pwindow->m_rectangleaRedraw.clear();
 
-                   {
+//                   {
+//
+//                      _synchronous_lock synchronouslockProcedureListPriority(this->synchronization());
+//
+//                      m_procedurelistPriority.add([pimpl]()
+//                                                  {
+//
+//                      pimpl->m_pprodevian->prodevian_update_buffer();
+//
+//                      pimpl->m_pprodevian->prodevian_update_screen();
+//
+//                                                  });
+//
+//                   }
 
-                      _synchronous_lock synchronouslockProcedureListPriority(this->synchronization());
-
-                      m_procedurelistPriority.add([pimpl]()
-                                                  {
-
-                      pimpl->m_pprodevian->prodevian_update_buffer();
-
-                      pimpl->m_pprodevian->prodevian_update_screen();
-
-                                                  });
-
-                   }
-
-                    //puserinteraction->post_redraw();
+                    puserinteraction->post_redraw();
 
                 }
 //                  }
