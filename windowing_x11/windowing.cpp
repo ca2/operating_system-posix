@@ -62,10 +62,10 @@ namespace windowing_x11
    }
 
 
-   ::windowing::window *windowing::new_window(::user::interaction_impl *pimpl)
+   ::windowing::window * windowing::new_window(::user::interaction_impl * pimpl)
    {
 
-      ::pointer<::windowing_x11::window>pwindow = pimpl->__create<::windowing::window>();
+      ::pointer<::windowing_x11::window> pwindow = pimpl->__create<::windowing::window>();
 
       if (!pwindow)
       {
@@ -87,7 +87,7 @@ namespace windowing_x11
    }
 
 
-   void windowing::erase_window(::windowing::window *pwindow)
+   void windowing::erase_window(::windowing::window * pwindow)
    {
 
       m_pdisplay->erase_window(pwindow);
@@ -115,7 +115,7 @@ namespace windowing_x11
    void windowing::_initialize_windowing()
    {
 
-   auto pdisplay = __create < ::windowing::display >();
+      auto pdisplay = __create<::windowing::display>();
 
 //      if(!pdisplay)
 //      {
@@ -126,9 +126,9 @@ namespace windowing_x11
 //
 //      }
 
-   //estatus =
-   //
-   pdisplay->initialize_display(this);
+      //estatus =
+      //
+      pdisplay->initialize_display(this);
 
 //      if(!estatus)
 //      {
@@ -139,19 +139,20 @@ namespace windowing_x11
 //
 //      }
 
-   m_pdisplay = pdisplay;
+      m_pdisplay = pdisplay;
 
-   if(!pdisplay)
-{
+      if (!pdisplay)
+      {
 
-   throw ::exception(error_no_interface, "Failed to cast pdisplay to m_pdisplay at windowing_x11::windowing::initialize");
+         throw ::exception(error_no_interface,
+                           "Failed to cast pdisplay to m_pdisplay at windowing_x11::windowing::initialize");
 
-}
+      }
 
-m_pdisplay->open();
+      m_pdisplay->open();
 
 
-_libsn_start_context();
+      _libsn_start_context();
 
 
 //      if(!estatus)
@@ -174,7 +175,7 @@ _libsn_start_context();
            });
 
 
-}
+   }
 
 //   void windowing::start()
 //   {
@@ -213,7 +214,7 @@ _libsn_start_context();
    void windowing::windowing_post(const ::procedure & procedure)
    {
 
-      if(!procedure)
+      if (!procedure)
       {
 
          throw ::exception(error_null_pointer);
@@ -234,13 +235,15 @@ _libsn_start_context();
 
       bool bHandled = false;
 
-      if(m_pdisplay)
+      process_owned_procedure_list(m_procedurelistPriority, bHandled);
+
+      if (m_pdisplay)
       {
 
-         if(m_pdisplay->m_px11display)
+         if (m_pdisplay->m_px11display)
          {
 
-            while(m_pdisplay->m_px11display->x11_posted())
+            while (m_pdisplay->m_px11display->x11_posted())
             {
 
                bHandled = true;
@@ -251,36 +254,44 @@ _libsn_start_context();
 
       }
 
-      synchronous_lock synchronouslock(this->synchronization());
+      process_owned_procedure_list(m_procedurelist, bHandled);
 
-      if(m_procedurelist.is_empty())
-      {
-
-         return bHandled;
-
-      }
-
-      do
-      {
-
-         {
-
-            auto routine = m_procedurelist.pick_head();
-
-            synchronouslock.unlock();
-
-            routine();
-
-         }
-
-         synchronouslock.lock();
-
-      }
-      while(m_procedurelist.has_element());
-
-      return true;
+      return bHandled;
 
    }
+
+
+//   void windowing::process_procedure_list(::procedure_list & procedurelist, bool & bHandled)
+//   {
+//
+//      _synchronous_lock synchronouslock(this->synchronization());
+//
+//      if(procedurelist.is_empty())
+//      {
+//
+//         return;
+//
+//      }
+//
+//      do
+//      {
+//
+//         {
+//
+//            auto routine = procedurelist.pick_head();
+//
+//            synchronouslock.unlock();
+//
+//            routine();
+//
+//         }
+//
+//         synchronouslock.lock();
+//
+//      }
+//      while(procedurelist.has_element());
+//
+//   }
 
 
    ::windowing::display * windowing::display()

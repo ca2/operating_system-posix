@@ -37,7 +37,7 @@ namespace windowing_x11
 #endif
 
       ::procedure_list                                m_procedurelist;
-
+      ::procedure_list                                m_procedurelistPriority;
 
       windowing();
       ~windowing() override;

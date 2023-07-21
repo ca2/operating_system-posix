@@ -8,6 +8,7 @@
 #include "acme/constant/message.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/system.h"
+#include "aura/user/user/interaction_prodevian.h"
 #include "aura_posix/x11/display_lock.h"
 ////#include "sn/sn.h"
 #include <fcntl.h> // library for fcntl function
@@ -2266,7 +2267,22 @@ else if(detail == 3)
 
                     pwindow->m_rectangleaRedraw.clear();
 
-                    puserinteraction->post_redraw();
+                   {
+
+                      _synchronous_lock synchronouslockProcedureListPriority(this->synchronization());
+
+                      m_procedurelistPriority.add([pimpl]()
+                                                  {
+
+                      pimpl->m_pprodevian->prodevian_update_buffer();
+
+                      pimpl->m_pprodevian->prodevian_update_screen();
+
+                                                  });
+
+                   }
+
+                    //puserinteraction->post_redraw();
 
                 }
 //                  }
@@ -2727,7 +2743,7 @@ else if(detail == 3)
 
                //msg.time = e.xbutton.time;
 
-               int iDelta = 0;
+               int Δ = 0;
 
                if (e.xbutton.type == ButtonPress)
                {
@@ -2755,13 +2771,13 @@ else if(detail == 3)
                   else if (e.xbutton.button == Button4)
                   {
 
-                     iDelta = 120;
+                     Δ = 120;
 
                   }
                   else if (e.xbutton.button == Button5)
                   {
 
-                     iDelta = -120;
+                     Δ = -120;
 
                   }
                   else
@@ -2836,7 +2852,7 @@ else if(detail == 3)
 //      int w1 = r.width();
 //      int h1 = r.height();
 
-               if(iDelta != 0)
+               if(Δ != 0)
                {
 
                    auto pmousewheel = pwindow->__create_new<::message::mouse_wheel>();
@@ -2850,6 +2866,8 @@ else if(detail == 3)
                   //msg.wParam = make_i32(0, iDelta);
 
                   //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+
+                  pmousewheel->m_Δ = Δ;
 
                    pmousewheel->m_point.x() = e.xbutton.x_root;
 
