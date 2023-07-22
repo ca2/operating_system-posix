@@ -3834,39 +3834,18 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 //   }
 
 
-   void window::update_screen()
+   void window::window_update_screen_buffer()
    {
 
-       m_pwindowing->windowing_post([this]() {
+       m_pwindowing->windowing_post([this]()
+       {
 
            auto pimpl = m_puserinteractionimpl;
 
-           if (::is_set(pimpl)) {
+           if (::is_set(pimpl))
+           {
 
-               auto puserinteraction = pimpl->m_puserinteraction;
-
-               if (::is_set(puserinteraction)) {
-
-                   string strType = __type_name(puserinteraction);
-
-                   if (strType.contains("menu")) {
-
-                       information("menu");
-
-                   }
-
-                   auto pimpl2 = puserinteraction->m_pinteractionimpl;
-
-                   if (::is_set(pimpl2)) {
-
-
-                       pimpl2->m_pgraphics->update_screen();
-
-                       //}
-
-                   }
-
-               }
+               pimpl->m_pgraphics->update_screen();
 
            }
 
@@ -3878,37 +3857,17 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
    }
 
 
-   void window::window_show()
+   void window::_window_request_presentation()
    {
 
-      m_pwindowing->windowing_post([this]()
-                                        {
+      auto pimpl = m_puserinteractionimpl;
 
-                                           auto pimpl = m_puserinteractionimpl;
+      if (::is_set(pimpl))
+      {
 
-                                           if (::is_set(pimpl))
-                                           {
+         pimpl->window_show();
 
-                                              auto puserinteraction = pimpl->m_puserinteraction;
-
-                                              if (::is_set(puserinteraction))
-                                              {
-
-                                                 auto pimpl2 = puserinteraction->m_pinteractionimpl;
-
-                                                 if (::is_set(pimpl2))
-                                                 {
-
-                                                    pimpl2->window_show();
-
-                                                 }
-
-                                              }
-
-                                           }
-
-                                        });
-
+      }
 
    }
 
