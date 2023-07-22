@@ -276,8 +276,8 @@ namespace windowing_x11
       //virtual void wm_state_hidden_raw( WINDOWING_X11_WINDOW_MEMBER bool bSet);
       virtual ::e_status mq_remove_window_from_all_queues( WINDOWING_X11_WINDOW_MEMBER );
 
-      void update_screen() override;
-      void window_show() override;
+      void window_update_screen_buffer() override;
+      void _window_request_presentation() override;
 
       bool is_active_window() const override;
 
