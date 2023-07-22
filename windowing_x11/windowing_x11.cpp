@@ -8,6 +8,7 @@
 #include "acme/constant/message.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/system.h"
+#include "acme/primitive/geometry2d/_text_stream.h"
 #include "aura/user/user/interaction_prodevian.h"
 #include "aura_posix/x11/display_lock.h"
 ////#include "sn/sn.h"
@@ -1593,7 +1594,7 @@ void windowing::_defer_position_message(oswindow oswindow, const ::point_i32 & p
 
             msg.oswindow->m_point = point;
 
-            information() << "X11 bPositionFix " << point.x() << ", " << point.y();
+            //information() << "X11 bPositionFix " << point.x() << ", " << point.y();
 
             msg.m_atom = e_message_reposition;
             msg.wParam = 0;
@@ -2040,6 +2041,8 @@ else if(detail == 3)
 
                msg.oswindow->set_cursor_position(m_pointCursor);
 
+               //information() << "MotionNotify " << m_pointCursor;
+
                //g_pointX11Cursor.x = e.xmotion.x_root;
 
                //g_pointX11Cursor.y = e.xmotion.y_root;
@@ -2167,6 +2170,8 @@ else if(detail == 3)
                pmouse->m_time.m_iSecond = e.xmotion.time / 1_k;
 
                pmouse->m_time.m_iNanosecond = (e.xmotion.time % 1_k) * 1_M;
+
+               //pwindow->message_handler(pmouse);
 
                post_ui_message(pmouse);
 
