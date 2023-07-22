@@ -3865,7 +3865,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
       if (::is_set(pimpl))
       {
 
-         pimpl->window_show();
+         pimpl->_window_request_presentation();
 
       }
 
