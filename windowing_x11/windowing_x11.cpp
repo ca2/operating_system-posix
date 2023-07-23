@@ -2184,6 +2184,7 @@ else if(detail == 3)
 
             //information("windowing_11 Expose");
 
+#ifdef FREEBSD
             ::rectangle_i32 rectangleRedraw;
 
             rectangleRedraw.left = e.xexpose.x;
@@ -2261,6 +2262,7 @@ else if(detail == 3)
 
 //
 
+
                 auto pimpl = oswindow->m_puserinteractionimpl;
 
                 auto puserinteraction = pimpl->m_puserinteraction;
@@ -2268,9 +2270,9 @@ else if(detail == 3)
                 if (puserinteraction)
                 {
 
-                    puserinteraction->set_need_redraw(pwindow->m_rectangleaRedraw);
+                   puserinteraction->set_need_redraw(pwindow->m_rectangleaRedraw);
 
-                    pwindow->m_rectangleaRedraw.clear();
+                   pwindow->m_rectangleaRedraw.clear();
 
 //                   {
 //
@@ -2287,13 +2289,14 @@ else if(detail == 3)
 //
 //                   }
 
-                    puserinteraction->post_redraw();
+                   puserinteraction->post_redraw();
 
+                }
                 }
 //                  }
 
             }
-
+#endif
          }
          break;
          case PropertyNotify:

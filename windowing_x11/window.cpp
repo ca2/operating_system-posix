@@ -2497,9 +2497,19 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
       synchronous_lock sl(user_synchronization());
 
-      windowing_output_debug_string("\n::window::set_window_pos 1");
-
       display_lock displaylock(x11_display()->Display());
+
+      information() << "windowing_x11 window::set_window_position ";
+
+      return _set_window_position(zorder, x, y, cx, cy, eactivation, bNoZorder, bNoMove, bNoSize, bShow, bHide);
+
+   }
+
+
+   bool window::_set_window_position(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, bool bShow, bool bHide)
+   {
+
+      windowing_output_debug_string("\n::window::set_window_pos 1");
 
       XWindowAttributes attrs = {};
 
@@ -2577,7 +2587,10 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
             //information("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
 
+            //information() << acmenode()->get_callstack();
+
             XMoveResizeWindow(Display(), Window(), x, y, cx, cy);
+
 
 //            if(m_puserinteractionimpl->m_puserinteraction->const_layout().design().display() == e_display_zoomed) {
 //
