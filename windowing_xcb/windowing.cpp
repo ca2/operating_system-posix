@@ -858,9 +858,9 @@ namespace windowing_xcb
 
          }
 
-         m_pointCursor.x = pmotion->root_x;
+         m_pointCursor.x() = pmotion->root_x;
 
-         m_pointCursor.y = pmotion->root_y;
+         m_pointCursor.y() = pmotion->root_y;
 
          oswindow->set_cursor_position(m_pointCursor);
 
@@ -890,9 +890,9 @@ namespace windowing_xcb
 
                   pinteraction->m_timeMouseMove.Now();
 
-                  pinteraction->m_pointMouseMove.x = pmotion->root_x;
+                  pinteraction->m_pointMouseMove.x() = pmotion->root_x;
 
-                  pinteraction->m_pointMouseMove.y = pmotion->root_y;
+                  pinteraction->m_pointMouseMove.y() = pmotion->root_y;
 
                   if (false)
                   {
@@ -901,8 +901,8 @@ namespace windowing_xcb
                      {
 
                         ::size_i32 sizeDistance(
-                           (pinteraction->m_pointMouseMoveSkip.x - pinteraction->m_pointMouseMove.x),
-                           (pinteraction->m_pointMouseMoveSkip.y - pinteraction->m_pointMouseMove.y));
+                           (pinteraction->m_pointMouseMoveSkip.x() - pinteraction->m_pointMouseMove.x()),
+                           (pinteraction->m_pointMouseMoveSkip.y() - pinteraction->m_pointMouseMove.y()));
 
                         if (!pinteraction->m_timeMouseMoveSkip.timeout(pinteraction->m_timeMouseMovePeriod)
                             && sizeDistance.cx() * sizeDistance.cx() + sizeDistance.cy() * sizeDistance.cy() <
@@ -979,7 +979,7 @@ namespace windowing_xcb
 
             screen_pixel = oswindow->screen_pixel(pmotion->root_x, pmotion->root_y);
 
-            alpha = screen_pixel.alpha;
+            alpha = screen_pixel.u8_opacity();
 
             bTransparentMouseEvents = oswindow->m_puserinteractionimpl->m_bTransparentMouseEvents;
 

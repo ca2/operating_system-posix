@@ -108,7 +108,7 @@ namespace windowing_xcb
       void show_window(const ::e_display & edisplay, const ::e_activation & eactivation) override;
 
       void exit_iconify()override;
-      void full_screen(const ::rectangle_i32 & rect = nullptr)override;
+      void full_screen(const ::rectangle_i32 & rect = {})override;
       void exit_full_screen()override;
       void exit_zoomed() override;
 
@@ -206,8 +206,8 @@ namespace windowing_xcb
       void mq_erase_window_from_all_queues( );
 
 
-      void update_screen() override;
-      void window_show() override;
+      void window_update_screen_buffer() override;
+      void _window_request_presentation() override;
 
 
       virtual ::e_status defer_update_keyboard_context();
