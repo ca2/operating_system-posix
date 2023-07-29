@@ -412,7 +412,7 @@ namespace acme_posix
 //
 //   }
 
-   int iFd = open(path, O_RDWR, S_IRWXU);
+   int iFd = open(path, O_RDWR | O_CLOEXEC, S_IRWXU);
 
    if (iFd < 0)
    {
@@ -531,6 +531,13 @@ namespace acme_posix
 
       ::setenv(scopedstrEnvironmentVariable, scopedstrPayload, 1);
 
+   }
+
+   void node::unset_environment_variable(const ::scoped_string & scopedstrEnvironmentVariable)
+   {
+   
+      ::unsetenv(scopedstrEnvironmentVariable);
+      
    }
 
 
@@ -1815,6 +1822,13 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
 //      }
 //
 //   }
+   
+   fcntl(stdout_fds[0], F_SETFL, fcntl(stdout_fds[0], F_GETFL) | O_CLOEXEC);
+   fcntl(stdout_fds[1], F_SETFL, fcntl(stdout_fds[1], F_GETFL) | O_CLOEXEC);
+   fcntl(stderr_fds[0], F_SETFL, fcntl(stderr_fds[0], F_GETFL) | O_CLOEXEC);
+   fcntl(stderr_fds[1], F_SETFL, fcntl(stderr_fds[1], F_GETFL) | O_CLOEXEC);
+   fcntl(stdin_fds[0], F_SETFL, fcntl(stdin_fds[0], F_GETFL) | O_CLOEXEC);
+   fcntl(stdin_fds[1], F_SETFL, fcntl(stdin_fds[1], F_GETFL) | O_CLOEXEC);
 
    string strOutput;
 
@@ -1841,17 +1855,17 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
 //
 //      }
 
-      close(stdout_fds[0]);
+      //close(stdout_fds[0]);
 
-      close(stdout_fds[1]);
+//      close(stdout_fds[1]);
+//
+//      //close(stderr_fds[0]);
+//
+//      close(stderr_fds[1]);
+//
+//      close(stdin_fds[0]);
 
-      close(stderr_fds[0]);
-
-      close(stderr_fds[1]);
-
-      close(stdin_fds[0]);
-
-      close(stdin_fds[1]);
+      //close(stdin_fds[1]);
 
       int iErrNo = 0;
 

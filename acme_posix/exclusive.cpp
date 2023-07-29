@@ -100,7 +100,7 @@ namespace acme_posix
 
       acmedirectory()->create(path.folder());
 
-      m_iFile = open(path, O_WRONLY | O_CREAT, 0777);
+      m_iFile = open(path, O_WRONLY | O_CREAT | O_CLOEXEC, 0777);
 
       m_iLock = lockf(m_iFile, F_TLOCK, 0);
 

@@ -77,7 +77,11 @@ namespace acme_posix
 
       void set_environment_variable(const ::scoped_string & scopedstrEnvironmentVariable, const ::scoped_string & scopedstrPayload) override;
 
+      void unset_environment_variable(const ::scoped_string & scopedstrEnvironmentVariable) override;
+
       string expand_environment_variables(const ::scoped_string & scopedstr) override;
+      
+
 
       bool stdin_has_input_events() override;
 

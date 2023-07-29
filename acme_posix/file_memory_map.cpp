@@ -116,7 +116,7 @@ namespace acme_posix
          
       }
 
-      m_iFile = ::open(path, iOpen, S_IRUSR | S_IWUSR);
+      m_iFile = ::open(path, iOpen | O_CLOEXEC, S_IRUSR | S_IWUSR);
 
       if (m_iFile == -1)
       {
