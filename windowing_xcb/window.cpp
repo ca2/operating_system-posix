@@ -6,6 +6,7 @@
 #include "windowing.h"
 #include "display.h"
 #include "cursor.h"
+#include "aura/graphics/graphics/graphics.h"
 #include "aura/graphics/image/context_image.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
@@ -109,9 +110,9 @@ namespace windowing_xcb
 
       //display_lock displaylock(pdisplayxcb);
 
-      int x = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().x;
+      int x = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().x();
 
-      int y = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().y;
+      int y = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().y();
 
       int cx = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().width();
 
@@ -163,9 +164,9 @@ namespace windowing_xcb
 
       xcb_window_t window = xcb_generate_id(pdisplayxcb->m_pxcbdisplay->m_pconnection);
 
-      m_point.x = x;
+      m_point.x() = x;
 
-      m_point.y = y;
+      m_point.y() = y;
 
       m_size.cx() = cx;
 
@@ -770,7 +771,7 @@ namespace windowing_xcb
       for (int i = 0; i < c; i++)
       {
 
-         pcr[i + 2] = d1->colorref()[i];
+         pcr[i + 2] = d1->image32()[i].m_u32;
 
       }
 
@@ -2018,7 +2019,7 @@ namespace windowing_xcb
 
          ::rectangle_i32 rectangleHigher;
 
-         if (xcb_display()->_window_get_window_rectangle(windowa[iFind], rectangleHigher))
+         if (xcb_display()->_window_get_window_rectangle(windowa[iFind], &rectangleHigher))
          {
 
             recta.add(rectangleHigher);
@@ -2623,7 +2624,7 @@ namespace windowing_xcb
    }
 
 
-   void window::update_screen()
+   void window::window_update_screen_buffer()
    {
 
       m_pwindowing->windowing_post([this]()
@@ -2634,28 +2635,30 @@ namespace windowing_xcb
          if(::is_set(pimpl))
          {
 
-            auto puserinteraction = pimpl->m_puserinteraction;
+            pimpl->m_pgraphics->update_screen();
 
-            if(::is_set(puserinteraction))
-            {
-
-               auto pimpl2 = puserinteraction->m_pinteractionimpl;
-
-               if(::is_set(pimpl2))
-               {
-
-                  auto pprodevian = pimpl2->m_pprodevian;
-
-                  if(::is_set(pprodevian))
-                  {
-
-                     pprodevian->update_screen();
-
-                  }
-
-               }
-
-            }
+//            auto puserinteraction = pimpl->m_puserinteraction;
+//
+//            if(::is_set(puserinteraction))
+//            {
+//
+//               auto pimpl2 = puserinteraction->m_pinteractionimpl;
+//
+//               if(::is_set(pimpl2))
+//               {
+//
+//                  auto pprodevian = pimpl2->m_pprodevian;
+//
+//                  if(::is_set(pprodevian))
+//                  {
+//
+//                     pprodevian->window_update_screen();
+//
+//                  }
+//
+//               }
+//
+//            }
 
          }
 
@@ -2664,38 +2667,50 @@ namespace windowing_xcb
    }
 
 
-   void window::window_show()
+   void window::_window_request_presentation()
    {
 
-      m_pwindowing->windowing_post([this]()
+      auto pimpl = m_puserinteractionimpl;
+
+      if (::is_set(pimpl))
       {
 
-         auto pimpl = m_puserinteractionimpl;
+         pimpl->_window_request_presentation();
 
-         if(::is_set(pimpl))
-         {
-
-            auto puserinteraction = pimpl->m_puserinteraction;
-
-            if(::is_set(puserinteraction))
-            {
-
-               auto pimpl2 = puserinteraction->m_pinteractionimpl;
-
-               if(::is_set(pimpl2))
-               {
-
-                  pimpl2->window_show();
-
-               }
-
-            }
-
-         }
-
-      });
+      }
 
    }
+
+
+//      m_pwindowing->windowing_post([this]()
+//      {
+//
+//         auto pimpl = m_puserinteractionimpl;
+//
+//         if(::is_set(pimpl))
+//         {
+//
+//            auto puserinteraction = pimpl->m_puserinteraction;
+//
+//            if(::is_set(puserinteraction))
+//            {
+//
+//               auto pimpl2 = puserinteraction->m_pinteractionimpl;
+//
+//               if(::is_set(pimpl2))
+//               {
+//
+//                  pimpl2->window_show();
+//
+//               }
+//
+//            }
+//
+//         }
+//
+//      });
+
+//   }
 
 
    void window::set_mouse_capture()
@@ -2771,7 +2786,7 @@ namespace windowing_xcb
    }
 
 
-   void window(xcb)::set_keyboard_focus()
+   void window::set_keyboard_focus()
    {
 
       synchronous_lock synchronouslock(user_synchronization());
