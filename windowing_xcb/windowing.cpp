@@ -1162,7 +1162,7 @@ namespace windowing_xcb
                         if (puserinteraction->m_ewindowflag & ::e_window_flag_arbitrary_positioning)
                         {
 
-                           pimpl->_001UpdateScreen();
+                           pimpl->m_pwindow->window_update_screen_buffer();
 
                         }
                         else
@@ -1576,9 +1576,9 @@ namespace windowing_xcb
             }
 
 
-             m_pointCursor.x = pbutton->root_x;
+             m_pointCursor.x() = pbutton->root_x;
 
-             m_pointCursor.y = pbutton->root_y;
+             m_pointCursor.y() = pbutton->root_y;
 
              oswindow->set_cursor_position(m_pointCursor);
 
@@ -1654,8 +1654,8 @@ namespace windowing_xcb
 
                information("XCB_BUTTON_PRESS %d,%d window %d,%d %d,%d",
                                      pbutton->root_x, pbutton->root_y,
-                                     origin.x, origin.y,
-                                     origin.x + size.cx(), origin.y + size.cy());
+                                     origin.x(), origin.y(),
+                                     origin.x() + size.cx(), origin.y() + size.cy());
 
             }
             else if (pbutton->response_type == XCB_BUTTON_RELEASE)
@@ -1690,8 +1690,8 @@ namespace windowing_xcb
 
                information("XCB_BUTTON_RELEASE %d,%d window %d,%d %d,%d",
                                      pbutton->root_x, pbutton->root_y,
-                                     origin.x, origin.y,
-                                     origin.x + size.cx(), origin.y + size.cy());
+                                     origin.x(), origin.y(),
+                                     origin.x() + size.cx(), origin.y() + size.cy());
 
             }
             else
@@ -1720,9 +1720,9 @@ namespace windowing_xcb
 
                screen_pixel = oswindow->screen_pixel(pbutton->root_x, pbutton->root_y);
 
-               information("pixel argb(%d,%d,%d,%d)", screen_pixel.alpha, screen_pixel.red, screen_pixel.green, screen_pixel.blue);
+               information("pixel argb(%d,%d,%d,%d)", screen_pixel.u8_opacity(), screen_pixel.u8_red(), screen_pixel.u8_green(), screen_pixel.u8_blue());
 
-               alpha = screen_pixel.alpha;
+               alpha = screen_pixel.u8_opacity();
 
                bTransparentMouseEvents = oswindow->m_puserinteractionimpl->m_bTransparentMouseEvents;
 

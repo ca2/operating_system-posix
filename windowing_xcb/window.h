@@ -206,8 +206,8 @@ namespace windowing_xcb
       void mq_erase_window_from_all_queues( );
 
 
-      void window_update_screen_buffer() override;
-      void _window_request_presentation() override;
+      //void window_update_screen_buffer() override;
+      //void _window_request_presentation() override;
 
 
       virtual ::e_status defer_update_keyboard_context();

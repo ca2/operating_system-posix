@@ -274,11 +274,11 @@ return false;
 //
 //                   }
 
-                   color32_t * pcolor32Target = (color32_t *) pimage->get_data();
+                   auto pcolor32Target = pimage->get_data();
 
                    int scanTarget = pimage->scan_size();
 
-                   color32_t * pcolor32Source = (color32_t *) imageClipboard.bits();
+                   auto pcolor32Source = (image32_t *) imageClipboard.bits();
 
                    int scanSource = imageClipboard.bytesPerLine();
 
