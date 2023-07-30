@@ -274,15 +274,15 @@ return false;
 //
 //                   }
 
-                   auto pcolor32Target = pimage->get_data();
+                   auto pimage32Target = pimage->get_data();
 
                    int scanTarget = pimage->scan_size();
 
-                   auto pcolor32Source = (image32_t *) imageClipboard.bits();
+                   auto pimage32Source = (::image32_t *) imageClipboard.bits();
 
                    int scanSource = imageClipboard.bytesPerLine();
 
-                   ::copy_image32(pcolor32Target, width, height, scanTarget, pcolor32Source, scanSource);
+                   ::copy_image32(pimage32Target, width, height, scanTarget, pimage32Source, scanSource);
 
                    bOk = true;
 

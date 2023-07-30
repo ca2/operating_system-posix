@@ -196,7 +196,7 @@ namespace acme_posix
 
       // attempt file creation
       //HANDLE hFile = shell::CreateFile(utf8_to_unicode(m_strFileName), dwAccess, dwShareMode, &sa, dwCreateFlag, FILE_ATTRIBUTE_NORMAL, nullptr);
-      i32 hFile = ::open(path, dwFlags, dwPermission); //::open(m_strFileName, dwAccess, dwShareMode, &sa, dwCreateFlag, FILE_ATTRIBUTE_NORMAL, nullptr);
+      i32 hFile = ::open(path, dwFlags | O_CLOEXEC, dwPermission); //::open(m_strFileName, dwAccess, dwShareMode, &sa, dwCreateFlag, FILE_ATTRIBUTE_NORMAL, nullptr);
 
       if(hFile == -1)
       {
@@ -267,7 +267,7 @@ namespace acme_posix
 
          m_strFileName = unicode_to_utf8(m_wstrFileName);
 
-         hFile = ::open(m_strFileName, nOpenFlags);*/
+         hFile = ::open(m_strFileName, nOpenFlags | O_CLOEXEC);*/
 
          if (hFile == -1)
          {

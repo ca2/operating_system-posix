@@ -144,7 +144,7 @@ serial_impl::open()
       throw ::exception(error_serial, "serial port already open.");
    }
 
-   m_iFd = ::open(m_strPort.c_str(), O_RDWR | O_NOCTTY | O_NONBLOCK);
+   m_iFd = ::open(m_strPort.c_str(), O_RDWR | O_NOCTTY | O_NONBLOCK | O_CLOEXEC);
 
    if (m_iFd == -1)
    {

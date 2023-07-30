@@ -6,6 +6,7 @@
 #include "windowing.h"
 #include "display.h"
 #include "cursor.h"
+#include "aura/graphics/graphics/graphics.h"
 #include "aura/graphics/image/context_image.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
@@ -2665,8 +2666,8 @@ namespace windowing_xcb
 
 
 //   void window::window_show()
-//   {
-//
+
+
 //      m_pwindowing->windowing_post([this]()
 //      {
 //
@@ -2694,7 +2695,7 @@ namespace windowing_xcb
 //         }
 //
 //      });
-//
+
 //   }
 
 
