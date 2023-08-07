@@ -31,7 +31,7 @@ void kde_open_local_file(QApplication * papplication, const char *psz, const cha
 void copy(::color::color * pcolor, const QColor * pqcolor)
 {
 
-   pcolor->set_double(pqcolor->redF(), pqcolor->greenF(), pqcolor->blueF(), pqcolor->alphaF());
+   *pcolor = rgba(pqcolor->redF(), pqcolor->greenF(), pqcolor->blueF(), pqcolor->alphaF());
 
 }
 

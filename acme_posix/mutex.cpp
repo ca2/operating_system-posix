@@ -330,7 +330,7 @@ namespace acme_posix
 
          pacmedirectory->create(path.folder());
 
-         m_iFd = open(path, O_RDWR | O_CREAT, S_IRWXU);
+         m_iFd = open(path, O_RDWR | O_CREAT | O_CLOEXEC, S_IRWXU);
 
          if(m_iFd < 0)
          {
@@ -1725,7 +1725,7 @@ namespace acme_posix
 
       pacmedirectory->create(path.folder());
 
-      int iFd = open(path, O_RDWR, S_IRWXU);
+      int iFd = open(path, O_RDWR | O_CLOEXEC, S_IRWXU);
 
       if (iFd < 0)
       {

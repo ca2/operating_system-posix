@@ -320,11 +320,11 @@ namespace windowing_xcb
 //
 //      }
 
-      auto psync = get_screen_sync();
+      auto pbufferitem = get_screen_item();
 
-      synchronous_lock sl(psync);
+      synchronous_lock sl(pbufferitem->synchronization());
 
-      auto & pimage = get_screen_image();
+      auto & pimage = pbufferitem->m_pimage2;
 
       if(pimage.nok())
       {
@@ -505,7 +505,7 @@ namespace windowing_xcb
    }
 
 
-   bool buffer::update_screen(::image * pimage)
+   bool buffer::on_update_screen(::graphics::buffer_item * pitem)
    {
 
       throw("use update_window(void)");
@@ -515,14 +515,18 @@ namespace windowing_xcb
    }
 
 
-   ::draw2d::graphics * buffer::on_begin_draw()
+   ::graphics::buffer_item * buffer::on_begin_draw()
    {
 
-      m_iGoodStride = maximum(m_iGoodStride, window_size().cx());
+//      m_iGoodStride = maximum(m_iGoodStride, window_size().cx());
 
       bitmap_source_buffer::on_begin_draw();
 
-      return double_buffer::on_begin_draw();
+      auto pitem = double_buffer::on_begin_draw();
+
+      m_iGoodStride = pitem->m_pimage2->scan_size();
+
+      return pitem;
 
    }
 

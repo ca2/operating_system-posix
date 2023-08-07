@@ -8,6 +8,7 @@
 #include <stdio.h>
 
 #include <string.h>
+#include <unistd.h>
 
 
 //bool __xcb_hook_process_event(xcb_connection_t * pdisplay, XEvent & e, XGenericEventCookie * cookie);

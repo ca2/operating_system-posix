@@ -91,7 +91,7 @@ namespace acme_posix
          
       }
 
-      int_handle fd(::open(path.c_str(), O_WRONLY | O_CREAT, 0666));
+      int_handle fd(::open(path.c_str(), O_WRONLY | O_CREAT | O_CLOEXEC, 0666));
       
       if (fd < 0)
       {
@@ -177,7 +177,7 @@ namespace acme_posix
    void acme_file::set_size(const ::file::path & pathName, filesize size)
    {
 
-      int_handle iFileDescriptor(::open(pathName, O_RDONLY));
+      int_handle iFileDescriptor(::open(pathName, O_RDONLY | O_CLOEXEC));
 
       set_size(iFileDescriptor, size);
 
@@ -767,7 +767,7 @@ namespace acme_posix
    i32 ansi_open(const char * psz, i32 i)
    {
 
-         return open(psz, i);
+         return open(psz, i | O_CLOEXEC);
 
    }
 

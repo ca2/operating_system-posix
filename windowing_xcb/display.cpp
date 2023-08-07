@@ -493,9 +493,9 @@ namespace windowing_xcb
 
       windowing_output_debug_string("\n::GetCursorPos 2");
 
-      ppointCursor->x = preply->root_x;
+      ppointCursor->x() = preply->root_x;
 
-      ppointCursor->y = preply->root_y;
+      ppointCursor->y() = preply->root_y;
 
       return true;
 
@@ -1064,7 +1064,7 @@ namespace windowing_xcb
 
             }
 
-            if (_window_get_window_rectangle(windowa[i], rectangleHigher))
+            if (_window_get_window_rectangle(windowa[i], &rectangleHigher))
             {
 
                ::rectangle_i32 rectangleHitTest;
