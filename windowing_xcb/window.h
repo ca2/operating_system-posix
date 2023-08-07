@@ -80,11 +80,12 @@ namespace windowing_xcb
       bool is_window() override;
 
 
-      virtual void set_window_text(const char * pszString);
+      virtual void set_window_text(const ::scoped_string & scopedstrText);
 
 
       bool set_window_position(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, bool bShow, bool bHide) override;
 
+      bool _set_window_position_unlocked(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, bool bShow, bool bHide) override;
 
       virtual int_bool IsWindowVisibleRaw();
 
@@ -206,7 +207,7 @@ namespace windowing_xcb
       void mq_erase_window_from_all_queues( );
 
 
-      //void window_update_screen_buffer() override;
+      void window_update_screen_buffer() override;
       //void _window_request_presentation() override;
 
 
@@ -244,6 +245,9 @@ namespace windowing_xcb
       virtual ::e_status _move(int x, int y);
       virtual ::e_status _resize(int cx, int cy);
 
+      virtual ::e_status _move_resize_unlocked(int x, int y, int cx, int cy);
+      virtual ::e_status _move_unlocked(int x, int y);
+      virtual ::e_status _resize_unlocked(int cx, int cy);
 
    };
 

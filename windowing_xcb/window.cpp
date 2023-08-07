@@ -210,6 +210,8 @@ namespace windowing_xcb
       if (!estatus)
       {
 
+         information() << "Failed to create xcb window (1)";
+
          bOk = false;
 
          //return error_failed;
@@ -228,6 +230,8 @@ namespace windowing_xcb
       {
 
          //return estatus;
+
+         information() << "Failed to initialize xcb window (2)";
 
          throw ::exception(estatus);
 
@@ -330,6 +334,8 @@ namespace windowing_xcb
 
          //return estatus;
 
+         information() << "Failed to get window attributes just after creating window (3)";
+
          throw ::exception(estatus);
 
       }
@@ -338,6 +344,8 @@ namespace windowing_xcb
 
       if(!estatus)
       {
+
+         information() << "Failed to get window geometry just after creating window (4)";
 
          //return estatus;
 
@@ -421,6 +429,8 @@ namespace windowing_xcb
          {
 
             //return false;
+
+            information() << "send_message e_message_create handling returned failure status just after creating window (5)";
 
             throw ::exception(error_failed);
 
@@ -1812,10 +1822,175 @@ namespace windowing_xcb
    }
 
 
-   void window::set_window_text(const char *pszString)
+   bool window::_set_window_position_unlocked(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, bool bShow, bool bHide)
    {
 
-      auto estatus = _store_name(pszString);
+      synchronous_lock sl(user_synchronization());
+
+      windowing_output_debug_string("\n::window::set_window_pos 1");
+
+      //display_lock displaylock(xcb_display());
+
+      auto estatus = _get_window_attributes();
+
+      if (!estatus)
+      {
+
+         return false;
+
+      }
+
+      if (bShow)
+      {
+
+         if (m_attributes.map_state != XCB_MAP_STATE_VIEWABLE)
+         {
+
+            windowing_output_debug_string("\n::window::set_window_pos Mapping xcb_window_t 1.2");
+
+            estatus = _map_window();
+
+         }
+
+         estatus = _get_window_attributes();
+
+         if (!estatus)
+         {
+
+            windowing_output_debug_string("\n::window::set_window_pos 1.3 xgetwindowattr failed");
+
+            return false;
+
+         }
+
+      }
+
+      bool bMove = !bNoMove;
+
+      bool bSize = !bNoSize;
+
+      if (bMove)
+      {
+
+         if (bSize)
+         {
+
+            windowing_output_debug_string("\n::window::set_window_pos Move Resize xcb_window_t 1.4");
+
+            if (cx <= 0 || cy <= 0)
+            {
+
+               cx = 1;
+
+               cy = 1;
+
+            }
+
+            estatus = _move_resize_unlocked(x, y, cx, cy);
+
+         } else
+         {
+
+            windowing_output_debug_string("\n::window::set_window_pos Move xcb_window_t 1.4.1");
+
+            estatus = _move_unlocked(x, y);
+
+         }
+
+      }
+      else if (bSize)
+      {
+
+         windowing_output_debug_string("\n::window::set_window_pos Resize xcb_window_t 1.4.2");
+
+         estatus = _resize_unlocked(cx, cy);
+
+      }
+
+      if (bHide)
+      {
+
+         if (m_attributes.map_state == XCB_MAP_STATE_VIEWABLE)
+         {
+
+            windowing_output_debug_string("\n::window::set_window_pos Withdraw xcb_window_t 1.4.3");
+
+            estatus = _withdraw_window();
+
+         }
+
+      }
+
+      estatus = _get_window_attributes();
+
+      if (!estatus)
+      {
+
+         windowing_output_debug_string("\n::window::set_window_pos xgetwndattr 1.4.4");
+
+         return false;
+
+      }
+
+      if (m_attributes.map_state == XCB_MAP_STATE_VIEWABLE || (bShow))
+      {
+
+         if (!bNoZorder)
+         {
+
+            if (zorder.m_ezorder == e_zorder_top_most)
+            {
+
+               estatus = _add_net_wm_state_above();
+
+               xcb_circulate_window(xcb_connection(), XCB_CIRCULATE_RAISE_LOWEST, xcb_window());
+
+            }
+            else if (zorder.m_ezorder == e_zorder_top)
+            {
+
+               estatus = _clear_net_wm_state();
+
+               auto cookie = xcb_circulate_window(xcb_connection(), XCB_CIRCULATE_RAISE_LOWEST, xcb_window());
+
+               estatus = _request_check(cookie);
+
+            }
+            else if (zorder.m_ezorder == e_zorder_bottom)
+            {
+
+//               estatus = _add_net_wm_state_below();
+               estatus = _clear_net_wm_state();
+
+               auto cookie = xcb_circulate_window(xcb_connection(), XCB_CIRCULATE_LOWER_HIGHEST, xcb_window());
+
+               estatus = _request_check(cookie);
+
+            }
+
+         }
+
+         m_puserinteractionimpl->m_puserinteraction->m_bVisible = true;
+
+      }
+      else
+      {
+
+         m_puserinteractionimpl->m_puserinteraction->m_bVisible = false;
+
+      }
+
+      windowing_output_debug_string("\n::window::set_window_pos 2");
+
+      return true;
+
+   }
+
+
+   void window::set_window_text(const scoped_string & scopedstrText)
+   {
+
+      auto estatus = _store_name(scopedstrText);
 
    }
 
@@ -2624,6 +2799,30 @@ namespace windowing_xcb
    }
 
 
+   void window::window_update_screen_buffer()
+   {
+
+      m_pwindowing->windowing_post([this]()
+                                   {
+
+                                      auto pimpl = m_puserinteractionimpl;
+
+                                      if (::is_set(pimpl))
+                                      {
+
+                                         pimpl->m_pgraphics->update_screen();
+
+                                      }
+
+                                   });
+
+      //}
+      //);
+
+   }
+
+
+
 //   void window::window_update_screen_buffer()
 //   {
 //
@@ -2884,27 +3083,7 @@ namespace windowing_xcb
       m_pwindowing->windowing_post([x, y, cx, cy, this]
                                                {
 
-                                                  uint16_t mask = 0;
-
-                                                  mask |= XCB_CONFIG_WINDOW_X;
-                                                  mask |= XCB_CONFIG_WINDOW_Y;
-                                                  mask |= XCB_CONFIG_WINDOW_WIDTH;
-                                                  mask |= XCB_CONFIG_WINDOW_HEIGHT;
-
-                                                  ::u32 ua[] = {(::u32) x, (::u32) y, (::u32) cx, (::u32) cy};
-
-                                                  auto cookie = xcb_configure_window(xcb_connection(), m_window, mask, ua);
-
-                                                  auto estatus = _request_check(cookie);
-
-                                                  if (!estatus)
-                                                  {
-
-                                                     return estatus;
-
-                                                  }
-
-                                                  return estatus;
+                                                  _move_resize_unlocked(x, y, cx, cy);
 
                                                });
 
@@ -2926,25 +3105,7 @@ namespace windowing_xcb
       m_pwindowing->windowing_post([x, y,  this]
                                                {
 
-                                                  uint16_t mask = 0;
-
-                                                  mask |= XCB_CONFIG_WINDOW_X;
-                                                  mask |= XCB_CONFIG_WINDOW_Y;
-
-                                                  ::u32 ua[] = { (::u32) x, (::u32) y};
-
-                                                  auto cookie = xcb_configure_window(xcb_connection(), m_window, mask, ua);
-
-                                                  auto estatus = _request_check(cookie);
-
-                                                  if (!estatus)
-                                                  {
-
-                                                     return estatus;
-
-                                                  }
-
-                                                  return estatus;
+                                                  _move_unlocked(x, y);
 
                                                });
 
@@ -2960,29 +3121,107 @@ namespace windowing_xcb
       m_pwindowing->windowing_post([cx, cy, this]
                                                {
 
-                                                  uint16_t mask = 0;
-
-                                                  mask |= XCB_CONFIG_WINDOW_WIDTH;
-                                                  mask |= XCB_CONFIG_WINDOW_HEIGHT;
-
-                                                  ::u32 ua[] = { (::u32) cx, (::u32) cy };
-
-                                                  auto cookie = xcb_configure_window(xcb_connection(), m_window, mask, ua);
-
-                                                  auto estatus = _request_check(cookie);
-
-                                                  if (!estatus)
-                                                  {
-
-                                                     return estatus;
-
-                                                  }
-
-                                                  return estatus;
+         return _resize_unlocked(cx, cy);
 
                                                });
 
       return ::success;
+
+   }
+
+
+   ::e_status window::_move_resize_unlocked(int x, int y, int cx, int cy)
+   {
+
+      if(x <= 0 || y <= 0)
+      {
+
+         information("_move_resize x <= 0 and/or y <= 0");
+
+      }
+
+     uint16_t mask = 0;
+
+     mask |= XCB_CONFIG_WINDOW_X;
+     mask |= XCB_CONFIG_WINDOW_Y;
+     mask |= XCB_CONFIG_WINDOW_WIDTH;
+     mask |= XCB_CONFIG_WINDOW_HEIGHT;
+
+     ::u32 ua[] = {(::u32) x, (::u32) y, (::u32) cx, (::u32) cy};
+
+     auto cookie = xcb_configure_window(xcb_connection(), m_window, mask, ua);
+
+     auto estatus = _request_check(cookie);
+
+     if (!estatus)
+     {
+
+        return estatus;
+
+     }
+
+     return estatus;
+
+
+   }
+
+
+   ::e_status window::_move_unlocked(int x, int y)
+   {
+
+      if(x <= 0 || y <= 0)
+      {
+
+         information("_move x <= 0 and/or y <= 0");
+
+      }
+
+     uint16_t mask = 0;
+
+     mask |= XCB_CONFIG_WINDOW_X;
+     mask |= XCB_CONFIG_WINDOW_Y;
+
+     ::u32 ua[] = { (::u32) x, (::u32) y};
+
+     auto cookie = xcb_configure_window(xcb_connection(), m_window, mask, ua);
+
+     auto estatus = _request_check(cookie);
+
+     if (!estatus)
+     {
+
+        return estatus;
+
+     }
+
+     return estatus;
+
+   }
+
+
+   ::e_status window::_resize_unlocked(int cx, int cy)
+   {
+
+
+     uint16_t mask = 0;
+
+     mask |= XCB_CONFIG_WINDOW_WIDTH;
+     mask |= XCB_CONFIG_WINDOW_HEIGHT;
+
+     ::u32 ua[] = { (::u32) cx, (::u32) cy };
+
+     auto cookie = xcb_configure_window(xcb_connection(), m_window, mask, ua);
+
+     auto estatus = _request_check(cookie);
+
+     if (!estatus)
+     {
+
+        return estatus;
+
+     }
+
+     return estatus;
 
    }
 

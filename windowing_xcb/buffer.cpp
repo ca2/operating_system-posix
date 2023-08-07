@@ -5,6 +5,7 @@
 #include "buffer.h"
 #include "display.h"
 #include "window.h"
+#include "acme/parallelization/mutex.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "aura/graphics/image/image.h"
 #include "aura/user/user/interaction_impl.h"
@@ -311,8 +312,6 @@ namespace windowing_xcb
 
       }
 
-      synchronous_lock slGraphics(synchronization());
-
 //      if(m_gc == nullptr)
 //      {
 //
@@ -320,9 +319,36 @@ namespace windowing_xcb
 //
 //      }
 
+      try
+      {
+
+         xcb_window()->set_window_position_unlocked();
+
+      }
+      catch(...)
+      {
+
+      }
+
+      synchronous_lock slGraphics(synchronization());
+
       auto pbufferitem = get_screen_item();
 
-      synchronous_lock sl(pbufferitem->synchronization());
+      synchronous_lock sl(pbufferitem->m_pmutex);
+
+      if(pbufferitem->m_pmutex)
+      {
+
+         //information() << "the buffer item has synchronization";
+
+      }
+      else
+      {
+
+         information() << "the buffer item doesn't have synchronization";
+
+      }
+
 
       auto & pimage = pbufferitem->m_pimage2;
 
@@ -338,6 +364,14 @@ namespace windowing_xcb
       pimage->map();
 
       synchronous_lock synchronouslock(user_synchronization());
+
+//      m_memoryImage.set_size(pimage->scan_area_in_bytes());
+//
+//      m_sizeImage.cx() = pimage->width();
+//
+//      m_sizeImage.cy() = pimage->height();
+//
+//      memcpy(m_memoryImage.data(), pimage->data(), m_memoryImage.size());
 
       //display_lock displayLock(xcb_window()->xcb_display());
 
@@ -398,6 +432,7 @@ namespace windowing_xcb
 
       //}
 
+
       try
       {
 
@@ -407,10 +442,13 @@ namespace windowing_xcb
 
 //       auto gc = XCreateGC(m_oswindow->display(), m_oswindow->window(), 0, &gcvalues);
 
+         //int iWidth = m_sizeImage.cx();
+
+         //int iHeight = m_sizeImage.cy();
+
          int iWidth = pimage->width();
 
          int iHeight = pimage->height();
-
          //if(!bComboList)
          //{
          int xTotalOffsetInBytes = 0;
@@ -421,9 +459,9 @@ namespace windowing_xcb
 
          auto xcbwindow = pxcbwindow->xcb_window();
 
-         auto pdata = pimage->get_data();
+         auto pdata = pimage->data();
 
-         xcb_put_image(
+         auto cookie = xcb_put_image_checked(
             pxcbconnection,
             XCB_IMAGE_FORMAT_Z_PIXMAP,
             xcbwindow,
@@ -434,7 +472,15 @@ namespace windowing_xcb
             iWidth * iHeight * 4,
             (uint8_t *) pdata);
 
-            //XPutImage(xcb_window()->xcb_connection(), xcb_window()->xcb_window(), m_gc, pximage, 0, 0, 0, 0, iWidth, iHeight);
+         auto errorp = xcb_request_check(pxcbconnection, cookie);
+         if (errorp)
+         {
+            information() << "error during xcb put image";
+         }
+
+         xcb_flush(pxcbconnection);
+
+         //XPutImage(xcb_window()->xcb_connection(), xcb_window()->xcb_window(), m_gc, pximage, 0, 0, 0, 0, iWidth, iHeight);
 
          //}
 

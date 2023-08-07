@@ -2501,12 +2501,12 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
       information() << "windowing_x11 window::set_window_position ";
 
-      return _set_window_position(zorder, x, y, cx, cy, eactivation, bNoZorder, bNoMove, bNoSize, bShow, bHide);
+      return _set_window_position_unlocked(zorder, x, y, cx, cy, eactivation, bNoZorder, bNoMove, bNoSize, bShow, bHide);
 
    }
 
 
-   bool window::_set_window_position(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, bool bShow, bool bHide)
+   bool window::_set_window_position_unlocked(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, bool bShow, bool bHide)
    {
 
       windowing_output_debug_string("\n::window::set_window_pos 1");

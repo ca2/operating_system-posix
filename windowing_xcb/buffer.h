@@ -22,9 +22,10 @@ namespace windowing_xcb
 
 
       ::rectangle_i32                              m_rectangleLast;
-      ::pointer<windowing_xcb::display>      m_pdisplay;
+      ::pointer<windowing_xcb::display>            m_pdisplay;
       xcb_gcontext_t                               m_gcontext;
-
+      //::size_i32                                   m_sizeImage;
+      //::memory                                     m_memoryImage;
 
       buffer();
       ~buffer() override;
