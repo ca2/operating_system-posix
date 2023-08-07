@@ -43,7 +43,7 @@ namespace windowing_xcb
 
 
       bool update_screen() override;
-      bool update_screen(::image * pimage) override;
+      bool on_update_screen(::image * pimage) override;
 
 
       bool buffer_lock_round_swap_key_buffers() override;
