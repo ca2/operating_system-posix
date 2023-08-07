@@ -44,14 +44,14 @@ namespace windowing_xcb
 
 
       bool update_screen() override;
-      bool on_update_screen(::graphics::buffer_item * pitem) override;
+      bool on_update_screen(::image * pimage) override;
 
 
       bool buffer_lock_round_swap_key_buffers() override;
 
       //void update_window();
 
-      ::graphics::buffer_item * on_begin_draw() override;
+      ::draw2d::graphics * on_begin_draw() override;
 
 
    };
