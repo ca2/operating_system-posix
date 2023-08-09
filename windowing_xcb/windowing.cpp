@@ -1213,18 +1213,46 @@ namespace windowing_xcb
                      if (::is_set(pwindowActiveNew))
                      {
 
-                        pwindowActiveNew->m_puserinteractionimpl->m_puserinteraction->set_need_redraw();
+                        auto pimpl = pwindowActiveNew->m_puserinteractionimpl;
 
-                        pwindowActiveNew->m_puserinteractionimpl->m_puserinteraction->post_redraw();
+                        if(::is_set(pimpl))
+                        {
+
+                           auto pinteraction = pimpl->m_puserinteraction;
+
+                           if (::is_set(pinteraction))
+                           {
+
+                              pinteraction->set_need_redraw();
+
+                              pinteraction->post_redraw();
+
+                           }
+
+                        }
 
                      }
 
                      if (::is_set(pwindowActiveOld))
                      {
 
-                        pwindowActiveOld->m_puserinteractionimpl->m_puserinteraction->set_need_redraw();
+                        auto pimpl = pwindowActiveOld->m_puserinteractionimpl;
 
-                        pwindowActiveOld->m_puserinteractionimpl->m_puserinteraction->post_redraw();
+                        if(::is_set(pimpl))
+                        {
+
+                           auto pinteraction = pimpl->m_puserinteraction;
+
+                           if (::is_set(pinteraction))
+                           {
+
+                              pinteraction->set_need_redraw();
+
+                              pinteraction->post_redraw();
+
+                           }
+
+                        }
 
                      }
 
