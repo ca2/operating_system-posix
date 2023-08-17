@@ -5,7 +5,7 @@
 #include "notify_icon.h"
 #include "node.h"
 #include "acme/platform/system.h"
-#include "apex/filesystem/filesystem/dir_context.h"
+#include "acme/filesystem/filesystem/dir_context.h"
 #include "apex/platform/application.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/graphics/image/context_image.h"
