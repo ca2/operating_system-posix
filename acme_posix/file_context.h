@@ -7,7 +7,7 @@
 #include "acme/filesystem/filesystem/file_context.h"
 
 
-namespace apex_posix
+namespace acme_posix
 {
 
 
@@ -27,7 +27,7 @@ namespace apex_posix
    };
 
 
-} // namespace apex_posix
+} // namespace acme_posix
 
 
 

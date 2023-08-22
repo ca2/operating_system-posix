@@ -2281,9 +2281,9 @@ else if(detail == 3)
 //                      m_procedurelistPriority.add([pimpl]()
 //                                                  {
 //
-//                      pimpl->m_pprodevian->prodevian_update_buffer();
+//                      pimpl->m_pgraphicsthread->prodevian_update_buffer();
 //
-//                      pimpl->m_pprodevian->prodevian_update_screen();
+//                      pimpl->m_pgraphicsthread->prodevian_update_screen();
 //
 //                                                  });
 //

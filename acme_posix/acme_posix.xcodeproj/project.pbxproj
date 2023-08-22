@@ -66,6 +66,12 @@
 		9A8E9DCF282A2F7E005FF778 /* acme_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A892E7B26CDDAA8008D6412 /* acme_file.cpp */; };
 		9A8E9DD0282A2F7E005FF778 /* file_memory_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16B2264A2C6C00B5CC33 /* file_memory_map.cpp */; };
 		9A8E9DD1282A2F7E005FF778 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16B6264A2C6C00B5CC33 /* node.cpp */; };
+		9AA3F96A2A949CDD004283CA /* file_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AA3F9682A949CDD004283CA /* file_context.cpp */; };
+		9AA3F96B2A949CDD004283CA /* file_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AA3F9682A949CDD004283CA /* file_context.cpp */; };
+		9AA3F96C2A949CDD004283CA /* file_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AA3F9682A949CDD004283CA /* file_context.cpp */; };
+		9AA3F96D2A949CDD004283CA /* file_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AA3F9692A949CDD004283CA /* file_context.h */; };
+		9AA3F96E2A949CDD004283CA /* file_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AA3F9692A949CDD004283CA /* file_context.h */; };
+		9AA3F96F2A949CDD004283CA /* file_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AA3F9692A949CDD004283CA /* file_context.h */; };
 		9AC14CBB297B3370006D9BD3 /* mutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0841AC2935D51D009F7FF4 /* mutex.h */; };
 		9AC14CBC297B3370006D9BD3 /* _.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C4264A2C6C00B5CC33 /* _.h */; };
 		9AC14CBD297B3370006D9BD3 /* pipe.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C0264A2C6C00B5CC33 /* pipe.h */; };
@@ -164,6 +170,8 @@
 		9A892E7E26CDDAA8008D6412 /* acme_path.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = acme_path.cpp; sourceTree = "<group>"; };
 		9A892E7F26CDDAA8008D6412 /* acme_path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = acme_path.h; sourceTree = "<group>"; };
 		9A8E9DD7282A2F7E005FF778 /* libios_acme_posix.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libios_acme_posix.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AA3F9682A949CDD004283CA /* file_context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file_context.cpp; sourceTree = "<group>"; };
+		9AA3F9692A949CDD004283CA /* file_context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file_context.h; sourceTree = "<group>"; };
 		9AB5228B2A4C0781001EB2F0 /* _____debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "_____debug.xcconfig"; sourceTree = "<group>"; };
 		9AB5228C2A4C0781001EB2F0 /* _____release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "_____release.xcconfig"; sourceTree = "<group>"; };
 		9AC14CDB297B3370006D9BD3 /* libstatic_acme_posix.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libstatic_acme_posix.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -225,14 +233,16 @@
 				9A78F40128E791B4007F62C0 /* exception_translator.cpp */,
 				9A78F40228E791B4007F62C0 /* exception_translator.h */,
 				9A0841B52935D540009F7FF4 /* exclusive.cpp */,
-				9A3BFB9529C82721005DE2BF /* file.cpp */,
-				9A3BFB9629C82721005DE2BF /* file.h */,
+				9A0841B62935D55E009F7FF4 /* exclusive.h */,
+				9AA3F9682A949CDD004283CA /* file_context.cpp */,
+				9AA3F9692A949CDD004283CA /* file_context.h */,
+				9A0841B72935D564009F7FF4 /* file_lock.h */,
 				9A0C16B2264A2C6C00B5CC33 /* file_memory_map.cpp */,
 				9A0C16BF264A2C6C00B5CC33 /* file_memory_map.h */,
+				9A3BFB9529C82721005DE2BF /* file.cpp */,
+				9A3BFB9629C82721005DE2BF /* file.h */,
 				9A0C16B3264A2C6C00B5CC33 /* framework.cpp */,
 				9A0C16C2264A2C6C00B5CC33 /* framework.h */,
-				9A0841B62935D55E009F7FF4 /* exclusive.h */,
-				9A0841B72935D564009F7FF4 /* file_lock.h */,
 				9A0841AE2935D51E009F7FF4 /* list_serial_ports.cpp */,
 				9A0841AD2935D51E009F7FF4 /* mutex.cpp */,
 				9A0841AC2935D51D009F7FF4 /* mutex.h */,
@@ -268,6 +278,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AA3F96D2A949CDD004283CA /* file_context.h in Headers */,
 				9A3BFB9A29C82721005DE2BF /* file.h in Headers */,
 				9A0841AF2935D51F009F7FF4 /* mutex.h in Headers */,
 				9A0C16D5264A2C6D00B5CC33 /* _.h in Headers */,
@@ -288,6 +299,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AA3F96E2A949CDD004283CA /* file_context.h in Headers */,
 				9A3BFB9B29C82721005DE2BF /* file.h in Headers */,
 				9A0841B02935D51F009F7FF4 /* mutex.h in Headers */,
 				9A8E9DBF282A2F7E005FF778 /* _.h in Headers */,
@@ -308,6 +320,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AA3F96F2A949CDD004283CA /* file_context.h in Headers */,
 				9A3BFB9C29C82721005DE2BF /* file.h in Headers */,
 				9AC14CBB297B3370006D9BD3 /* mutex.h in Headers */,
 				9AC14CBC297B3370006D9BD3 /* _.h in Headers */,
@@ -446,6 +459,7 @@
 				9A0C16C8264A2C6D00B5CC33 /* framework.cpp in Sources */,
 				9A892E8226CDDAA9008D6412 /* acme_directory.cpp in Sources */,
 				9A0C16D2264A2C6D00B5CC33 /* _factory.cpp in Sources */,
+				9AA3F96A2A949CDD004283CA /* file_context.cpp in Sources */,
 				9A0841B32935D51F009F7FF4 /* list_serial_ports.cpp in Sources */,
 				9A0841B12935D51F009F7FF4 /* mutex.cpp in Sources */,
 				9A78F40328E791B4007F62C0 /* exception_translator.cpp in Sources */,
@@ -468,6 +482,7 @@
 				9A8E9DCB282A2F7E005FF778 /* framework.cpp in Sources */,
 				9A8E9DCC282A2F7E005FF778 /* acme_directory.cpp in Sources */,
 				9A8E9DCD282A2F7E005FF778 /* _factory.cpp in Sources */,
+				9AA3F96B2A949CDD004283CA /* file_context.cpp in Sources */,
 				9A0841B42935D51F009F7FF4 /* list_serial_ports.cpp in Sources */,
 				9A0841B22935D51F009F7FF4 /* mutex.cpp in Sources */,
 				9A78F40428E791B4007F62C0 /* exception_translator.cpp in Sources */,
@@ -490,6 +505,7 @@
 				9AC14CCA297B3370006D9BD3 /* framework.cpp in Sources */,
 				9AC14CCB297B3370006D9BD3 /* acme_directory.cpp in Sources */,
 				9AC14CCC297B3370006D9BD3 /* _factory.cpp in Sources */,
+				9AA3F96C2A949CDD004283CA /* file_context.cpp in Sources */,
 				9AC14CCD297B3370006D9BD3 /* list_serial_ports.cpp in Sources */,
 				9AC14CCE297B3370006D9BD3 /* mutex.cpp in Sources */,
 				9AC14CCF297B3370006D9BD3 /* exception_translator.cpp in Sources */,
