@@ -6,8 +6,6 @@ list(APPEND library_source
         _.h
         _.cpp
         _factory.cpp
-        file_context.cpp
-        file_context.h
         framework.cpp
         framework.h
         node.cpp
