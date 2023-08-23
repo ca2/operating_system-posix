@@ -2,7 +2,7 @@
 #include "watch.h"
 #include "watcher.h"
 #include "acme/parallelization/synchronous_lock.h"
-#include "apex/filesystem/file/action.h"
+#include "acme/filesystem/watcher/action.h"
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <sys/inotify.h>

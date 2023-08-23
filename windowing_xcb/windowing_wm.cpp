@@ -6,7 +6,7 @@
 #include "windowing.h"
 #include "windowing_xcb.h"
 #include "display.h"
-#include "aura/user/user/interaction_prodevian.h"
+#include "aura/user/user/interaction_graphics_thread.h"
 #include "aura/user/user/interaction_impl.h"
 #include "aura/platform/message_queue.h"
 #include <X11/Xatom.h>

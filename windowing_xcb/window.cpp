@@ -13,7 +13,7 @@
 #include "aura/platform/node.h"
 #include "aura/platform/system.h"
 #include "aura/platform/message_queue.h"
-#include "aura/user/user/interaction_prodevian.h"
+#include "aura/user/user/interaction_graphics_thread.h"
 #include "aura/user/user/interaction_impl.h"
 #include <X11/Xatom.h>
 // dnf install xcb-util-devel
