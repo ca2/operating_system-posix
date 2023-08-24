@@ -286,6 +286,9 @@ namespace windowing_x11
       void bring_to_front() override;
 
 
+
+      void do_update_screen() override;
+
    };
 
 

@@ -3870,6 +3870,29 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
    }
 
 
+   void window::do_update_screen()
+   {
+
+      m_pwindowing->windowing_post([this]()
+                                   {
+
+                                      auto pimpl = m_puserinteractionimpl;
+
+                                      if (::is_set(pimpl))
+                                      {
+
+                                         pimpl->m_puserinteraction->_window_request_presentation();
+
+                                         pimpl->m_pgraphics->update_screen();
+
+                                      }
+
+                                   });
+
+
+   }
+
+
    void window::_window_request_presentation()
    {
 
@@ -3880,7 +3903,7 @@ image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_
 
          pimpl->_window_request_presentation();
 
-      }
+      }r
 
    }
 
