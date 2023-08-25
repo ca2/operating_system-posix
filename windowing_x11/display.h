@@ -113,6 +113,10 @@ namespace windowing_x11
 
       Atom intern_atom(::x11::enum_atom eatom, bool bCreate);
 
+      Atom _intern_atom_unlocked(const char * pszAtomName, bool bCreate);
+
+      Atom _intern_atom_unlocked(::x11::enum_atom eatom, bool bCreate);
+
       Atom net_wm_state_atom(bool bCreate);
 
       virtual ::windowing_x11::window * get_keyboard_focus();

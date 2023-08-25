@@ -6,10 +6,12 @@
 
 //#include "aura/graphics/graphics/_.h"
 //#include "aura/graphics/graphics/_graphics.h"
+#include "acme/primitive/geometry2d/rectangle.h"
 #include "aura/graphics/graphics/bitmap_source_buffer.h"
 #include "aura/graphics/graphics/double_buffer.h"
-#include "acme/primitive/geometry2d/rectangle.h"
+#include "aura/graphics/image/pixmap.h"
 #include <X11/Xlib.h>
+#include <X11/extensions/XShm.h>
 //#include <X11/extensions/Xrender.h>
 
 //#include "app/base/graphics/graphics_window_buffer.h"
@@ -22,8 +24,13 @@ namespace windowing_x11
       virtual public ::graphics::bitmap_source_buffer
    {
    public:
-
-
+      //int m_shmid;		/* kernel id */
+      //char *m_shmaddr;	/* address in client */
+      //::pixmap m_pixmap;
+      //XImage * m_pximage;
+      //bool              m_bXShmChecked;
+      //bool              m_bXShm;
+      //XShmSegmentInfo     m_xshmsegmentinfo;
       //::pointer < ::mutex >                         m_pmutexPixmap;
       //pixmap                        m_pixmap;
       GC                            m_gc;
@@ -32,6 +39,10 @@ namespace windowing_x11
       //bool                          m_bMapped;
       ::rectangle_i32                 m_rectangleLast;
       //::image_pointer                         m_pimage;
+      interlocked_i64                              m_interlockedPostedScreenUpdate;
+//manual_reset_event m_evXshm;
+      bool m_bXShmComplete;
+      interlocked_i64                              m_interlockedXShmPutImage;
 
 
       buffer();
@@ -44,6 +55,8 @@ namespace windowing_x11
       void initialize_graphics_graphics(::user::interaction_impl * pimpl) override;
       void destroy() override;
 
+
+      bool update_buffer(::graphics::buffer_item * pbufferitem) override;
 
       virtual bool create_os_buffer(const ::size_i32 & size, int iStride = -1);
       virtual void destroy_os_buffer();
@@ -63,6 +76,9 @@ namespace windowing_x11
       //void update_window();
 
       ::graphics::buffer_item * on_begin_draw() override;
+
+      //bool presentation_complete() override;
+
 
 
    };

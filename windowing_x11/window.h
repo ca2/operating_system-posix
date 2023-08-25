@@ -63,6 +63,7 @@ namespace windowing_x11
       ::pointer<::xim::keyboard>                  m_pximkeyboard;
 
 
+
       window();
       //oswindow_data(::user::interaction * puibaseMessageOnlyWindow);
       //oswindow_data(const void * p);
@@ -83,6 +84,8 @@ namespace windowing_x11
          return m_iaNetWmState2[eatom - ::x11::e_atom_net_wm_state_first];
 
       }
+
+      //bool presentation_complete() override;
 
 
       virtual ::Display * Display();
@@ -144,9 +147,11 @@ namespace windowing_x11
       void set_parent(::windowing::window * pwindowNewParent) override;
       //virtual ::e_status set_parent(::windowing::window * pwindowNewParent) override;
       virtual long get_state();
-      virtual bool is_iconic() override;
-      virtual bool is_window_visible() override;
+      bool is_iconic() override;
+      bool is_window_visible() override;
+      bool _is_window_visible_unlocked() override;
       void show_window(const ::e_display & edisplay, const ::e_activation & eactivation) override;
+      void _show_window_unlocked(const ::e_display & edisplay, const ::e_activation & eactivation) override;
       //virtual iptr get_window_long_ptr(i32 nIndex);
       //virtual iptr set_window_long_ptr(i32 nIndex, iptr l);
       virtual bool client_to_screen(::point_i32 * ppoint) override;
@@ -173,11 +178,16 @@ namespace windowing_x11
       virtual void set_mouse_cursor2(::windowing::cursor * pcursor);
 
       void set_keyboard_focus() override;
+      void _set_keyboard_focus_unlocked() override;
       void set_mouse_capture() override;
+
+
       void set_active_window() override;
+      void _set_active_window_unlocked() override;
 
 
       void set_foreground_window() override;
+      void _set_foreground_window_unlocked() override;
 
 
       bool has_mouse_capture() const override;
@@ -188,7 +198,7 @@ namespace windowing_x11
 
 
       //virtual Atom get_window_long_atom(i32 nIndex);
-      virtual void mapped_net_state_raw(bool add,  WINDOWING_X11_WINDOW_MEMBER int iScreen, Atom state1, Atom state2);
+      virtual void _mapped_net_state_unlocked(bool add,  WINDOWING_X11_WINDOW_MEMBER int iScreen, Atom state1, Atom state2);
       //virtual void unmapped_net_state_raw( WINDOWING_X11_WINDOW_MEMBER ...);
       virtual bool x11_get_window_rect(  WINDOWING_X11_WINDOW_MEMBER  ::rectangle_i32 * prectangle);
       virtual bool x11_get_client_rect(  WINDOWING_X11_WINDOW_MEMBER  ::rectangle_i32 * prectangle);
@@ -220,24 +230,27 @@ namespace windowing_x11
 
       bool set_window_position(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, bool bShow, bool bHide) override;
 
-      virtual bool _set_window_position_unlocked(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, bool bShow, bool bHide);
+
+      bool _set_window_position_unlocked(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, bool bShow, bool bHide);
+      bool _configure_window_unlocked(const class ::zorder& zorder, const ::e_activation& eactivation, bool bNoZorder, bool bShow, bool bHide);
+      bool _strict_set_window_position_unlocked(i32 x, i32 y, i32 cx, i32 cy, bool bNoMove, bool bNoSize);
 
 
-      virtual comparable_array < Atom > wm_get_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList);
+      virtual comparable_array < Atom > _wm_get_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList);
       virtual int wm_test_state( WINDOWING_X11_WINDOW_MEMBER const char * pszNetStateFlag);
-      virtual int wm_test_state_raw( WINDOWING_X11_WINDOW_MEMBER const char * pszNetStateFlag);
-      virtual int wm_test_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag);
-      virtual bool wm_add_remove_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag, bool bSet);
-      virtual void wm_add_remove_state_mapped_raw( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
+      virtual int _wm_test_state_unlocked( WINDOWING_X11_WINDOW_MEMBER const char * pszNetStateFlag);
+      virtual int _wm_test_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag);
+      virtual bool _wm_add_remove_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag, bool bSet);
+      virtual void _wm_add_remove_state_mapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
       virtual void wm_add_remove_state_mapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
-      virtual void wm_add_remove_state_unmapped_raw( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
+      virtual void _wm_add_remove_state_unmapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
       virtual void wm_add_remove_state_unmapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
-      virtual void wm_add_remove_state_raw( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
+      virtual void _wm_add_remove_state_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
       virtual void wm_add_remove_state( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
-      virtual void wm_state_clear_raw( WINDOWING_X11_WINDOW_MEMBER bool bSet);
-      virtual void wm_state_below_raw( WINDOWING_X11_WINDOW_MEMBER bool bSet);
-      virtual void wm_state_above_raw( WINDOWING_X11_WINDOW_MEMBER bool bSet);
-      virtual void wm_state_hidden_raw( WINDOWING_X11_WINDOW_MEMBER bool bSet);
+      virtual void _wm_state_clear_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);
+      virtual void _wm_state_below_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);
+      virtual void _wm_state_above_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);
+      virtual void _wm_state_hidden_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);
       virtual void wm_state_above( WINDOWING_X11_WINDOW_MEMBER bool bSet);
       virtual void wm_state_below( WINDOWING_X11_WINDOW_MEMBER bool bSet);
       virtual void wm_state_hidden( WINDOWING_X11_WINDOW_MEMBER bool bSet);
@@ -250,7 +263,7 @@ namespace windowing_x11
       virtual void wm_dockwindow( WINDOWING_X11_WINDOW_MEMBER bool bDockWindow);
       virtual void wm_nodecorations( WINDOWING_X11_WINDOW_MEMBER int bMap);
       virtual void _wm_nodecorations( WINDOWING_X11_WINDOW_MEMBER int bMap);
-      virtual int_bool IsWindowVisibleRaw( WINDOWING_X11_WINDOW_MEMBER);
+      virtual int_bool _wm_is_window_visible_unlocked( WINDOWING_X11_WINDOW_MEMBER);
       virtual void wm_iconify_window( WINDOWING_X11_WINDOW_MEMBER );
       //virtual int_bool IsWindowVisibleRaw( WINDOWING_X11_WINDOW_MEMBER);
       //virtual int_bool IsWindowVisibleRaw(oswindow w);
@@ -278,7 +291,8 @@ namespace windowing_x11
       virtual ::e_status mq_remove_window_from_all_queues( WINDOWING_X11_WINDOW_MEMBER );
 
       void window_update_screen_buffer() override;
-      void _window_request_presentation() override;
+      void _window_request_presentation_locked() override;
+      void _on_visual_changed_unlocked() override;
 
       bool is_active_window() const override;
 
@@ -286,8 +300,8 @@ namespace windowing_x11
       void bring_to_front() override;
 
 
+      void window_do_update_screen() override;
 
-      void do_update_screen() override;
 
    };
 

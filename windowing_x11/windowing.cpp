@@ -167,12 +167,12 @@ namespace windowing_x11
 //      return ::success;
 
 
-      fork([this]()
-           {
-
-              x11_message_loop();
-
-           });
+//      fork([this]()
+//           {
+//
+//              x11_message_loop();
+//
+//           });
 
 
    }

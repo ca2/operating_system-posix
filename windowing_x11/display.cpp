@@ -437,6 +437,49 @@ namespace windowing_x11
    }
 
 
+   Atom display::_intern_atom_unlocked(const char *pszAtomName, bool bCreate)
+   {
+
+      if (m_px11display == nullptr)
+      {
+
+         return 0;
+
+      }
+
+      return m_px11display->_intern_atom_unlocked(pszAtomName, bCreate);
+
+   }
+
+
+   Atom display::_intern_atom_unlocked(::x11::enum_atom eatom, bool bCreate)
+   {
+
+      if (eatom < 0 || eatom >= ::x11::e_atom_count)
+      {
+
+         return None;
+
+      }
+
+      //Atom atom = m_atoma[eatom];
+
+      //if (atom == None)
+      {
+
+         auto atom = _intern_atom_unlocked(atom_name(eatom), bCreate);
+
+         return atom;
+
+         // m_atoma[eatom] = atom;
+
+      }
+
+      //return atom;
+
+   }
+
+
    ::e_status display::erase_window(::windowing::window * pwindow)
    {
 

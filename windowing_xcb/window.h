@@ -87,6 +87,10 @@ namespace windowing_xcb
 
       bool _set_window_position_unlocked(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, bool bShow, bool bHide) override;
 
+      bool _configure_window_unlocked(const class ::zorder& zorder, const ::e_activation& eactivation, bool bNoZorder, bool bShow, bool bHide) override;
+
+      bool _strict_set_window_position_unlocked(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize) override;
+
       virtual int_bool IsWindowVisibleRaw();
 
       virtual void set_user_interaction(::user::interaction_impl * pinteraction);
@@ -208,7 +212,7 @@ namespace windowing_xcb
 
 
       void window_update_screen_buffer() override;
-      //void _window_request_presentation() override;
+      void _window_request_presentation_locked() override;
 
 
       virtual ::e_status defer_update_keyboard_context();

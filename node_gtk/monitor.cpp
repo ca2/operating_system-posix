@@ -71,7 +71,7 @@ namespace node_gtk
    ::e_status monitor::_get_monitor_rectangle()
    {
 
-      synchronous_lock sl(user_synchronization());
+      //synchronous_lock sl(user_synchronization());
 
       GdkDisplay * pdisplay = gdk_display_get_default();
 
@@ -109,7 +109,7 @@ namespace node_gtk
    ::e_status monitor::_get_workspace_rectangle()
    {
 
-      synchronous_lock sl(user_synchronization());
+      //synchronous_lock sl(user_synchronization());
 
       GdkDisplay * pdisplay = gdk_display_get_default();
 
@@ -143,9 +143,16 @@ namespace node_gtk
    ::rectangle_i32 monitor::monitor_rectangle()
    {
 
-      auto predicate = [this]() { _get_monitor_rectangle(); };
+    //  auto predicate = [this]()
+      //   {
 
-      acmenode()->send_procedure(predicate);
+            synchronous_lock sl(user_synchronization());
+
+            _get_monitor_rectangle();
+
+  //       };
+
+//      acmenode()->send_procedure(predicate);
 
       return ::windowing::monitor::monitor_rectangle();
 
@@ -155,9 +162,16 @@ namespace node_gtk
    ::rectangle_i32 monitor::workspace_rectangle()
    {
 
-      auto predicate = [this]() { _get_workspace_rectangle(); };
+      //auto predicate = [this]()
+        // {
 
-      acmenode()->send_procedure(predicate);
+            synchronous_lock sl(user_synchronization());
+
+            _get_workspace_rectangle();
+
+        // };
+
+      //acmenode()->send_procedure(predicate);
 
       return ::windowing::monitor::workspace_rectangle();
 
