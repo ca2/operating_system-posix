@@ -4069,7 +4069,7 @@ bool x11_get_client_rect(Display * pdisplay, Window window, ::rectangle_i32 * pr
    if (XGetWindowAttributes(pdisplay, window, &attr) == 0)
    {
 
-      windowing_output_debug_string("\n::client_rectangle 1.2 (xgetwindowattributes failed");
+      windowing_output_debug_string("\n::this->rectangle 1.2 (xgetwindowattributes failed");
 
       return false;
 
@@ -4083,7 +4083,7 @@ bool x11_get_client_rect(Display * pdisplay, Window window, ::rectangle_i32 * pr
 
    prectangle->bottom = prectangle->top + attr.height;
 
-   windowing_output_debug_string("\n::client_rectangle 2");
+   windowing_output_debug_string("\n::this->rectangle 2");
 
    return true;
 

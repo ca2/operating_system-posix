@@ -207,7 +207,7 @@ namespace windowing_xcb
       void xcb_post_message(MESSAGE & msg);
       void post_ui_message(const MESSAGE & message);
       //virtual ::e_status window_rectangle(::rectangle_i32 * prectangle);
-      //virtual ::e_status client_rectangle(::rectangle_i32 * prectangle);
+      //virtual ::e_status this->rectangle(::rectangle_i32 * prectangle);
       void mq_erase_window_from_all_queues( );
 
 

@@ -1288,7 +1288,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //   if (XGetWindowAttributes(pdisplay, window, &attr) == 0)
 //   {
 //
-//      windowing_output_debug_string("\n::client_rectangle 1.2 (xgetwindowattributes failed");
+//      windowing_output_debug_string("\n::this->rectangle 1.2 (xgetwindowattributes failed");
 //
 //      return false;
 //
@@ -1302,7 +1302,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //   prectangle->bottom = prectangle->top + attr.height;
 //
-//   windowing_output_debug_string("\n::client_rectangle 2");
+//   windowing_output_debug_string("\n::this->rectangle 2");
 //
 //   return true;
 //

@@ -3742,7 +3742,7 @@ namespace windowing_x11
    }
 
 
-   ::e_status window::client_rectangle(::rectangle_i32 * prectangle)
+   ::e_status window::this->rectangle(::rectangle_i32 * prectangle)
    {
 
       return x11_get_client_rect(prectangle) ? ::success : error_failed;
@@ -4660,7 +4660,7 @@ namespace windowing_x11
 //
 //   }
 
-//   int_bool window::client_rectangle(::rectangle_i32 *prectangle)
+//   int_bool window::this->rectangle(::rectangle_i32 *prectangle)
 //   {
 //
 //      synchronous_lock synchronouslock(user_synchronization());
@@ -4670,7 +4670,7 @@ namespace windowing_x11
 //      if (x11_display()->is_null())
 //      {
 //
-//         windowing_output_debug_string("\n::client_rectangle 1.1 (display is null)");
+//         windowing_output_debug_string("\n::this->rectangle 1.1 (display is null)");
 //
 //         return false;
 //
@@ -4681,7 +4681,7 @@ namespace windowing_x11
 //      if (XGetWindowAttributes(Display(), Window(), &attr) == 0)
 //      {
 //
-//         windowing_output_debug_string("\n::client_rectangle 1.2 (xgetwindowattributes failed");
+//         windowing_output_debug_string("\n::this->rectangle 1.2 (xgetwindowattributes failed");
 //
 //         return false;
 //
@@ -4695,7 +4695,7 @@ namespace windowing_x11
 //
 //      prectangle->bottom = prectangle->top + attr.height;
 //
-//      windowing_output_debug_string("\n::client_rectangle 2");
+//      windowing_output_debug_string("\n::this->rectangle 2");
 //
 //      return true;
 //
