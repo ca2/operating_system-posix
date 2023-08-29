@@ -266,7 +266,73 @@ namespace windowing_xcb
    }
 
 
-   bool buffer::update_screen(void)
+   bool buffer::update_screen()
+   {
+
+      //information("windowing_x11::buffer::update_screen");
+
+      if (m_pimpl == nullptr)
+      {
+
+         warning("windowing_x11::buffer::update_screen !m_pimpl!!");
+
+         return false;
+
+      }
+
+      if (!m_pimpl->m_pwindow)
+      {
+
+         warning("windowing_x11::buffer::update_screen !m_pimpl->m_pwindow!!");
+
+         return false;
+
+      }
+
+      if (!m_pimpl->m_puserinteraction->is_window_screen_visible())
+      {
+
+         information() << "windowing_x11::buffer::update_screen XPutImage not called. Ui is not visible.";
+
+         return false;
+
+      }
+
+      if (!m_pwindow)
+      {
+
+         warning("windowing_x11::buffer::update_screen !m_pwindow!");
+
+         return false;
+
+      }
+
+      _synchronous_lock synchronouslock(user_synchronization());
+
+//      display_lock displayLock(x11_window()->x11_display()->Display());
+
+      return _update_screen_lesser_lock();
+
+   }
+
+
+   bool buffer::_update_screen_lesser_lock()
+   {
+
+      _synchronous_lock slGraphics(synchronization());
+
+      auto pitem = get_screen_item();
+
+      _synchronous_lock slImage(pitem->m_pmutex);
+
+      slGraphics.unlock();
+
+      return _update_screen_unlocked(pitem);
+
+   }
+
+
+   bool buffer::_update_screen_unlocked(::graphics::buffer_item * pitem)
    {
 
       if(m_pimpl == nullptr)
@@ -322,7 +388,7 @@ namespace windowing_xcb
       try
       {
 
-         xcb_window()->set_window_position_unlocked();
+         xcb_window()->strict_set_window_position_unlocked();
 
       }
       catch(...)
@@ -352,18 +418,18 @@ namespace windowing_xcb
 
       auto & pimage = pbufferitem->m_pimage2;
 
-      if(pimage.nok())
-      {
+//      if(pimage.nok())
+//      {
+//
+//         return false;
+//
+//      }
+//
+//      slGraphics.unlock();
+//
+//      pimage->map();
 
-         return false;
-
-      }
-
-      slGraphics.unlock();
-
-      pimage->map();
-
-      synchronous_lock synchronouslock(user_synchronization());
+  //    synchronous_lock synchronouslock(user_synchronization());
 
 //      m_memoryImage.set_size(pimage->scan_area_in_bytes());
 //

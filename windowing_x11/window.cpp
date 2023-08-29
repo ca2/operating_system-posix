@@ -1169,7 +1169,7 @@ namespace windowing_x11
          (const unsigned char *) (const char *) path,
          path.length());
 
-      information("\nfreebsd::interaction_impl::bamf_set_icon END");
+      information("windowing_x11::window::bamf_set_icon END");
 
       fflush(stdout);
 

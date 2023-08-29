@@ -532,15 +532,15 @@ namespace windowing_x11
 
       slGraphics.unlock();
 
-      return _update_screen_unlocked();
+      return _update_screen_unlocked(pitem);
 
    }
 
 
-   bool buffer::_update_screen_unlocked()
+   bool buffer::_update_screen_unlocked(::graphics::buffer_item * pitem)
    {
 
-      auto pitem = get_screen_item();
+      //auto pitem = get_screen_item();
 
       int iWidth = pitem->m_size.cx();
 

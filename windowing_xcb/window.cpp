@@ -617,7 +617,7 @@ namespace windowing_xcb
 
       auto estatus = _replace_string_property(net_wm_icon, path);
 
-      information("\nfreebsd::interaction_impl::bamf_set_icon END");
+      information("windowing_xcb::window::bamf_set_icon END");
 
       fflush(stdout);
 
@@ -1481,7 +1481,7 @@ namespace windowing_xcb
 
       auto estatus = _replace_string_property(net_wm_icon, path);
 
-      information("\nfreebsd::interaction_impl::bamf_set_icon END");
+      information("windowing_xcb::window::set_window_icon END");
 
       fflush(stdout);
 
@@ -1657,7 +1657,7 @@ namespace windowing_xcb
    }
 
 
-   bool window::set_window_position(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, bool bShow, bool bHide)
+   bool window::set_window_position(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay)
    {
 
       synchronous_lock sl(user_synchronization());
@@ -1675,7 +1675,7 @@ namespace windowing_xcb
 
       }
 
-      if (bShow)
+      if (windowing()->is_screen_visible(edisplay))
       {
 
          if (m_attributes.map_state != XCB_MAP_STATE_VIEWABLE)
@@ -1742,7 +1742,15 @@ namespace windowing_xcb
 
       }
 
-      if (bHide)
+      if(edisplay == e_display_iconic)
+      {
+
+         _set_iconify_window();
+
+         return true;
+
+      }
+      else if (!windowing()->is_screen_visible(edisplay))
       {
 
          if (m_attributes.map_state == XCB_MAP_STATE_VIEWABLE)
@@ -1767,7 +1775,7 @@ namespace windowing_xcb
 
       }
 
-      if (m_attributes.map_state == XCB_MAP_STATE_VIEWABLE || (bShow))
+      if (m_attributes.map_state == XCB_MAP_STATE_VIEWABLE || windowing()->is_screen_visible(edisplay))
       {
 
          if (!bNoZorder)
@@ -1822,7 +1830,7 @@ namespace windowing_xcb
    }
 
 
-   bool window::_set_window_position_unlocked(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, bool bShow, bool bHide)
+   bool window::_set_window_position_unlocked(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay)
    {
 
       synchronous_lock sl(user_synchronization());
@@ -1840,7 +1848,7 @@ namespace windowing_xcb
 
       }
 
-      if (bShow)
+      if (windowing()->is_screen_visible(edisplay))
       {
 
          if (m_attributes.map_state != XCB_MAP_STATE_VIEWABLE)
@@ -1907,7 +1915,15 @@ namespace windowing_xcb
 
       }
 
-      if (bHide)
+      if(edisplay == e_display_iconic)
+      {
+
+         _set_iconify_window();
+
+         return true;
+
+      }
+      else if (!windowing()->is_screen_visible(edisplay))
       {
 
          if (m_attributes.map_state == XCB_MAP_STATE_VIEWABLE)
@@ -1932,7 +1948,7 @@ namespace windowing_xcb
 
       }
 
-      if (m_attributes.map_state == XCB_MAP_STATE_VIEWABLE || (bShow))
+      if (m_attributes.map_state == XCB_MAP_STATE_VIEWABLE || windowing()->is_screen_visible(edisplay))
       {
 
          if (!bNoZorder)
@@ -1987,6 +2003,372 @@ namespace windowing_xcb
    }
 
 
+   bool window::_configure_window_unlocked(const class ::zorder & zorder, const ::e_activation & eactivation,
+                                           bool bNoZorder, ::e_display edisplay)
+   {
+
+      synchronous_lock sl(user_synchronization());
+
+      windowing_output_debug_string("\n::window::_configure_window_unlocked 1");
+
+      //display_lock displaylock(xcb_display());
+
+      auto estatus = _get_window_attributes();
+
+      if (!estatus)
+      {
+
+         return false;
+
+      }
+
+      if (windowing()->is_screen_visible(edisplay))
+      {
+
+         if (m_attributes.map_state != XCB_MAP_STATE_VIEWABLE)
+         {
+
+            windowing_output_debug_string("\n::window::set_window_pos Mapping xcb_window_t 1.2");
+
+            estatus = _map_window();
+
+         }
+
+         estatus = _get_window_attributes();
+
+         if (!estatus)
+         {
+
+            windowing_output_debug_string("\n::window::set_window_pos 1.3 xgetwindowattr failed");
+
+            return false;
+
+         }
+
+      }
+
+//      bool bMove = !bNoMove;
+//
+//      bool bSize = !bNoSize;
+//
+//      if (bMove)
+//      {
+//
+//         if (bSize)
+//         {
+//
+//            windowing_output_debug_string("\n::window::set_window_pos Move Resize xcb_window_t 1.4");
+//
+//            if (cx <= 0 || cy <= 0)
+//            {
+//
+//               cx = 1;
+//
+//               cy = 1;
+//
+//            }
+//
+//            estatus = _move_resize_unlocked(x, y, cx, cy);
+//
+//         } else
+//         {
+//
+//            windowing_output_debug_string("\n::window::set_window_pos Move xcb_window_t 1.4.1");
+//
+//            estatus = _move_unlocked(x, y);
+//
+//         }
+//
+//      }
+//      else if (bSize)
+//      {
+//
+//         windowing_output_debug_string("\n::window::set_window_pos Resize xcb_window_t 1.4.2");
+//
+//         estatus = _resize_unlocked(cx, cy);
+//
+//      }
+
+      if(edisplay == e_display_iconic)
+      {
+
+         _set_iconify_window();
+
+         return true;
+
+      }
+      else if (!windowing()->is_screen_visible(edisplay))
+      {
+
+         if (m_attributes.map_state == XCB_MAP_STATE_VIEWABLE)
+         {
+
+            windowing_output_debug_string("\n::window::set_window_pos Withdraw xcb_window_t 1.4.3");
+
+            estatus = _withdraw_window();
+
+         }
+
+      }
+
+      estatus = _get_window_attributes();
+
+      if (!estatus)
+      {
+
+         windowing_output_debug_string("\n::window::set_window_pos xgetwndattr 1.4.4");
+
+         return false;
+
+      }
+
+      if (m_attributes.map_state == XCB_MAP_STATE_VIEWABLE || windowing()->is_screen_visible(edisplay))
+      {
+
+         if (!bNoZorder)
+         {
+
+            if (zorder.m_ezorder == e_zorder_top_most)
+            {
+
+               estatus = _add_net_wm_state_above();
+
+               xcb_circulate_window(xcb_connection(), XCB_CIRCULATE_RAISE_LOWEST, xcb_window());
+
+            }
+            else if (zorder.m_ezorder == e_zorder_top)
+            {
+
+               estatus = _clear_net_wm_state();
+
+               auto cookie = xcb_circulate_window(xcb_connection(), XCB_CIRCULATE_RAISE_LOWEST, xcb_window());
+
+               estatus = _request_check(cookie);
+
+            }
+            else if (zorder.m_ezorder == e_zorder_bottom)
+            {
+
+//               estatus = _add_net_wm_state_below();
+               estatus = _clear_net_wm_state();
+
+               auto cookie = xcb_circulate_window(xcb_connection(), XCB_CIRCULATE_LOWER_HIGHEST, xcb_window());
+
+               estatus = _request_check(cookie);
+
+            }
+
+         }
+
+         m_puserinteractionimpl->m_puserinteraction->m_bVisible = true;
+
+      }
+      else
+      {
+
+         m_puserinteractionimpl->m_puserinteraction->m_bVisible = false;
+
+      }
+
+      windowing_output_debug_string("\n::window::set_window_pos 2");
+
+      return true;
+
+   }
+
+
+   bool window::_strict_set_window_position_unlocked(i32 x, i32 y, i32 cx, i32 cy, bool bNoMove, bool bNoSize)
+   {
+
+      synchronous_lock sl(user_synchronization());
+
+      windowing_output_debug_string("\n::window::_strict_set_window_position_unlocked 1");
+
+      //display_lock displaylock(xcb_display());
+
+      auto estatus = _get_window_attributes();
+
+      if (!estatus)
+      {
+
+         return false;
+
+      }
+
+//      if (windowing()->is_screen_visible(edisplay))
+//      {
+//
+//         if (m_attributes.map_state != XCB_MAP_STATE_VIEWABLE)
+//         {
+//
+//            windowing_output_debug_string("\n::window::set_window_pos Mapping xcb_window_t 1.2");
+//
+//            estatus = _map_window();
+//
+//         }
+//
+//         estatus = _get_window_attributes();
+//
+//         if (!estatus)
+//         {
+//
+//            windowing_output_debug_string("\n::window::set_window_pos 1.3 xgetwindowattr failed");
+//
+//            return false;
+//
+//         }
+//
+//      }
+
+      bool bMove = !bNoMove;
+
+      bool bSize = !bNoSize;
+
+      if (bMove)
+      {
+
+         if (bSize)
+         {
+
+            windowing_output_debug_string("\n::window::set_window_pos Move Resize xcb_window_t 1.4");
+
+            if (cx <= 0 || cy <= 0)
+            {
+
+               cx = 1;
+
+               cy = 1;
+
+            }
+
+            estatus = _move_resize_unlocked(x, y, cx, cy);
+
+         } else
+         {
+
+            windowing_output_debug_string("\n::window::set_window_pos Move xcb_window_t 1.4.1");
+
+            estatus = _move_unlocked(x, y);
+
+         }
+
+      }
+      else if (bSize)
+      {
+
+         windowing_output_debug_string("\n::window::set_window_pos Resize xcb_window_t 1.4.2");
+
+         estatus = _resize_unlocked(cx, cy);
+
+      }
+
+//      if(edisplay == e_display_iconic)
+//      {
+//
+//         _set_iconify_window();
+//
+//         return true;
+//
+//      }
+//      else if (!windowing()->is_screen_visible(edisplay))
+//      {
+//
+//         if (m_attributes.map_state == XCB_MAP_STATE_VIEWABLE)
+//         {
+//
+//            windowing_output_debug_string("\n::window::set_window_pos Withdraw xcb_window_t 1.4.3");
+//
+//            estatus = _withdraw_window();
+//
+//         }
+//
+//      }
+//
+//      estatus = _get_window_attributes();
+//
+//      if (!estatus)
+//      {
+//
+//         windowing_output_debug_string("\n::window::set_window_pos xgetwndattr 1.4.4");
+//
+//         return false;
+//
+//      }
+//
+//      if (m_attributes.map_state == XCB_MAP_STATE_VIEWABLE || windowing()->is_screen_visible(edisplay))
+//      {
+//
+//         if (!bNoZorder)
+//         {
+//
+//            if (zorder.m_ezorder == e_zorder_top_most)
+//            {
+//
+//               estatus = _add_net_wm_state_above();
+//
+//               xcb_circulate_window(xcb_connection(), XCB_CIRCULATE_RAISE_LOWEST, xcb_window());
+//
+//            }
+//            else if (zorder.m_ezorder == e_zorder_top)
+//            {
+//
+//               estatus = _clear_net_wm_state();
+//
+//               auto cookie = xcb_circulate_window(xcb_connection(), XCB_CIRCULATE_RAISE_LOWEST, xcb_window());
+//
+//               estatus = _request_check(cookie);
+//
+//            }
+//            else if (zorder.m_ezorder == e_zorder_bottom)
+//            {
+//
+////               estatus = _add_net_wm_state_below();
+//               estatus = _clear_net_wm_state();
+//
+//               auto cookie = xcb_circulate_window(xcb_connection(), XCB_CIRCULATE_LOWER_HIGHEST, xcb_window());
+//
+//               estatus = _request_check(cookie);
+//
+//            }
+//
+//         }
+//
+//         m_puserinteractionimpl->m_puserinteraction->m_bVisible = true;
+//
+//      }
+//      else
+//      {
+//
+//         m_puserinteractionimpl->m_puserinteraction->m_bVisible = false;
+//
+//      }
+//
+//      windowing_output_debug_string("\n::window::set_window_pos 2");
+
+      return true;
+
+   }
+
+
+   void window::_window_request_presentation_locked()
+   {
+
+      _synchronous_lock synchronouslock(user_synchronization());
+
+//      display_lock displayLock(x11_display()->Display());
+
+      auto pimpl = m_puserinteractionimpl;
+
+      if (::is_set(pimpl))
+      {
+
+         pimpl->_window_request_presentation_unlocked();
+
+      }
+
+   }
+
+
    void window::set_window_text(const scoped_string & scopedstrText)
    {
 
@@ -2008,7 +2390,7 @@ namespace windowing_xcb
 
       auto estatus = _replace_string_property(net_wm_icon, path);
 
-      information("\nfreebsd::interaction_impl::bamf_set_icon END");
+      information("windowing_xcb::window::set_mouse_cursor2 END");
 
       fflush(stdout);
 
