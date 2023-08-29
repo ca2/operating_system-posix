@@ -3742,7 +3742,7 @@ namespace windowing_x11
    }
 
 
-   ::e_status window::this->rectangle(::rectangle_i32 * prectangle)
+   ::e_status window::rectangle(::rectangle_i32 * prectangle)
    {
 
       return x11_get_client_rect(prectangle) ? ::success : error_failed;

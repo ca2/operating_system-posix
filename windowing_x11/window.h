@@ -279,7 +279,7 @@ namespace windowing_x11
       //virtual bool x11_process_event(osdisplay_data * pdisplaydata, XEvent * pevent, XGenericEventCookie *cookie);
       //virtual ::e_status set_window_position( WINDOWING_X11_WINDOW_MEMBER const ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy, ::u32 nFlags);
       virtual ::e_status window_rectangle( WINDOWING_X11_WINDOW_MEMBER ::rectangle_i32 * prectangle);
-      virtual ::e_status this->rectangle(  WINDOWING_X11_WINDOW_MEMBER  ::rectangle_i32 * prectangle);
+      virtual ::e_status rectangle(  WINDOWING_X11_WINDOW_MEMBER  ::rectangle_i32 * prectangle);
       //virtual ::e_status wm_full_screen( WINDOWING_X11_WINDOW_MEMBER const ::rectangle_i32 & rectangle);
 
       virtual ::e_status x11_store_name(const char * pszName);
