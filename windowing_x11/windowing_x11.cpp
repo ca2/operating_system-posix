@@ -2428,62 +2428,66 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                   iIconic = msg.oswindow->is_iconic() ? 1 : 0;
 
-               }
+                  information() << "PropertyNotify is_iconic : " << iIconic;
 
-               ::user::interaction * pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
+                  ::user::interaction *pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
 
-               if (pinteraction != nullptr)
-               {
-
-                  auto pimpl = pinteraction->m_pprimitiveimpl;
-
-                  bool bHandled = false;
-
-                  if (pimpl != nullptr)
+                  if (pinteraction != nullptr)
                   {
 
-                     if (iIconic >= 0)
+                     auto pimpl = pinteraction->m_pprimitiveimpl;
+
+                     bool bHandled = false;
+
+                     if (pimpl != nullptr)
                      {
 
-                        if (iIconic == 0)
+                        if (iIconic >= 0)
                         {
 
-                           if (pinteraction->const_layout().design().display() == ::e_display_iconic)
+                           if (iIconic == 0)
                            {
 
-                              //file_put_contents("/home/camilo/xxx.txt", "");
+                              if (pinteraction->const_layout().design().display() == ::e_display_iconic)
+                              {
 
-                              // 1111111111111111111111111111111111111111111
+                                 //file_put_contents("/home/camilo/xxx.txt", "");
 
-                              //pinteraction->hide();
+                                 // 1111111111111111111111111111111111111111111
 
-                              pinteraction->fork([=]()
-                                                 {
+                                 //pinteraction->hide();
 
-                                                    auto edisplayPrevious = pinteraction->window_previous_display();
+                                 pinteraction->fork([=]()
+                                                    {
 
-                                                    pinteraction->_001OnDeiconify(edisplayPrevious);
+                                                       auto edisplayPrevious = pinteraction->window_previous_display();
 
-                                                 });
+                                                       pinteraction->_001OnDeiconify(edisplayPrevious);
 
-                              bHandled = true;
+                                                    });
 
-                           } else if (pinteraction->const_layout().sketch().display() == ::e_display_full_screen
-                                      && pinteraction->const_layout().design().display() != ::e_display_full_screen)
-                           {
+                                 bHandled = true;
 
-                              pinteraction->display(::e_display_full_screen);
+                              }
+                              else if (pinteraction->const_layout().sketch().display() == ::e_display_full_screen
+                                       && pinteraction->const_layout().design().display() != ::e_display_full_screen)
+                              {
+
+                                 pinteraction->display(::e_display_full_screen);
+
+                              }
 
                            }
-
-                        } else
-                        {
-
-                           if (pinteraction->const_layout().design().display() != ::e_display_iconic
-                               && pinteraction->const_layout().design().display() != ::e_display_none)
+                           else
                            {
 
-                              pinteraction->display(::e_display_iconic);
+                              if (pinteraction->const_layout().design().display() != ::e_display_iconic
+                                  && pinteraction->const_layout().design().display() != ::e_display_none)
+                              {
+
+                                 pinteraction->display(::e_display_iconic);
+
+                              }
 
                            }
 

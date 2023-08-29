@@ -10,6 +10,7 @@
 #include "cursor.h"
 #include "acme/constant/message.h"
 #include "acme/parallelization/synchronous_lock.h"
+#include "acme/user/user/_text_stream.h"
 #include "apex/platform/node.h"
 #include "apex/platform/system.h"
 #include "aura/graphics/graphics/graphics.h"
@@ -570,7 +571,9 @@ namespace windowing_x11
             if (!attr.override_redirect)
             {
 
-               if (is_docking_appearance(pimpl->m_puserinteraction->const_layout().sketch().display()))
+               auto edisplay = pimpl->m_puserinteraction->const_layout().sketch().display();
+
+               if (is_docking_appearance(edisplay))
                {
 
                   // window managers generally "don't like" windows that starts "docked/snapped".
@@ -580,8 +583,8 @@ namespace windowing_x11
                   //set_window_position(e_zorder_top, pusersystem->m_createstruct.x, pusersystem->m_createstruct.y,
                   //                  pusersystem->m_createstruct.cx(), pusersystem->m_createstruct.cy(), SWP_SHOWWINDOW);
 
-                  set_window_position(e_zorder_top, x, y, cx, cy, e_activation_set_active, false, false, false, true,
-                                      false);
+                  set_window_position(e_zorder_top, x, y, cx, cy, e_activation_set_active, false, false, false,
+                                      edisplay);
 
                }
 
@@ -2150,7 +2153,7 @@ namespace windowing_x11
    }
 
 
-   long window::get_state()
+   bool window::get_state(long & lState)
    {
 
       windowing_output_debug_string("\n::window::get_state 1");
@@ -2159,21 +2162,15 @@ namespace windowing_x11
 
       display_lock displaylock(x11_display()->Display());
 
+      return _get_state_unlocked(lState);
+
+   }
+
+
+   bool window::_get_state_unlocked(long & lState)
+   {
+
       static const long WM_STATE_ELEMENTS = 2L;
-
-      unsigned long nitems = 0;
-
-      unsigned long leftover = 0;
-
-      Atom atomWmState = 0;
-
-      Atom actual_type = 0;
-
-      i32 actual_format = 0;
-
-      i32 status = 0;
-
-      unsigned char * point = nullptr;
 
       if (x11_display()->m_atomWmState == None)
       {
@@ -2182,35 +2179,47 @@ namespace windowing_x11
 
       }
 
-      atomWmState = x11_display()->m_atomWmState;
+      Atom actual_type = 0;
 
-      status = XGetWindowProperty(Display(), Window(), atomWmState, 0L, WM_STATE_ELEMENTS, False, AnyPropertyType,
+      i32 actual_format = 0;
+
+      unsigned long nitems = 0;
+
+      unsigned long leftover = 0;
+
+      unsigned char * p = nullptr;
+
+      auto atomWmState = x11_display()->m_atomWmState;
+
+      ::i32 status = XGetWindowProperty(Display(), Window(), atomWmState, 0L, WM_STATE_ELEMENTS, False, AnyPropertyType,
                                   &actual_type,
-                                  &actual_format, &nitems, &leftover, &point);
+                                  &actual_format, &nitems, &leftover, &p);
 
-      if (status == 0)
+      if (status != 0)
       {
 
-         long lStatus = -1;
+         windowing_output_debug_string("::window::_get_state_unlocked 2");
 
-         if (point != nullptr)
-         {
-
-            lStatus = (long) *point;
-
-         }
-
-         XFree(point);
-
-         windowing_output_debug_string("\n::window::get_state 1.1");
-
-         return lStatus;
+         return false;
 
       }
 
-      windowing_output_debug_string("\n::window::get_state 2");
+      long lStatus = -1;
 
-      return -1;
+      if (p != nullptr)
+      {
+
+         lStatus = (long) *p;
+
+      }
+
+      XFree(p);
+
+      windowing_output_debug_string("::window::_get_state_unlocked 1.1");
+
+      lState = lStatus;
+
+      return true;
 
    }
 
@@ -2224,7 +2233,16 @@ namespace windowing_x11
 
 #endif
 
-      bool b = get_state() == IconicState;
+      long lState = -1;
+
+      if(!get_state(lState))
+      {
+
+         return false;
+
+      }
+
+      bool bIconic = lState == IconicState;
 
 #ifdef XDISPLAY_LOCK_LOG
 
@@ -2232,7 +2250,38 @@ namespace windowing_x11
 
 #endif
 
-      return b;
+      return lState;
+
+   }
+
+
+   bool window::_is_iconic_unlocked()
+   {
+
+#ifdef XDISPLAY_LOCK_LOG
+
+      b_prevent_xdisplay_lock_log = true;
+
+#endif
+
+      long lState = -1;
+
+      if(!_get_state_unlocked(lState))
+      {
+
+         return false;
+
+      }
+
+      bool bIconic = lState == IconicState;
+
+#ifdef XDISPLAY_LOCK_LOG
+
+      b_prevent_xdisplay_lock_log = false;
+
+#endif
+
+      return lState;
 
    }
 
@@ -2629,7 +2678,7 @@ namespace windowing_x11
 
    bool window::set_window_position(const class ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy,
                                     const ::e_activation & eactivation, bool bNoZorder, bool bNoMove, bool bNoSize,
-                                    bool bShow, bool bHide)
+                                    ::e_display edisplay)
    {
 
       synchronous_lock sl(user_synchronization());
@@ -2638,15 +2687,15 @@ namespace windowing_x11
 
       information() << "windowing_x11 window::set_window_position ";
 
-      return _set_window_position_unlocked(zorder, x, y, cx, cy, eactivation, bNoZorder, bNoMove, bNoSize, bShow,
-                                           bHide);
+      return _set_window_position_unlocked(zorder, x, y, cx, cy, eactivation, bNoZorder, bNoMove, bNoSize,
+                                           edisplay);
 
    }
 
 
    bool window::_set_window_position_unlocked(const class ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy,
                                               const ::e_activation & eactivation, bool bNoZorder, bool bNoMove,
-                                              bool bNoSize, bool bShow, bool bHide)
+                                              bool bNoSize, ::e_display edisplay)
    {
 
       windowing_output_debug_string("\n::window::set_window_pos 1");
@@ -2662,7 +2711,7 @@ namespace windowing_x11
 
       }
 
-      if (bShow)
+      if (windowing()->is_screen_visible(edisplay))
       {
 
          if (attrs.map_state == IsUnmapped)
@@ -2792,7 +2841,7 @@ namespace windowing_x11
       //   }
 
 
-      if (bHide)
+      if (!windowing()->is_screen_visible(edisplay))
       {
 
          if (attrs.map_state == IsViewable)
@@ -2815,7 +2864,7 @@ namespace windowing_x11
 
       }
 
-      if (attrs.map_state == IsViewable || bShow)
+      if (attrs.map_state == IsViewable || windowing()->is_screen_visible(edisplay))
       {
 
          if (!bNoZorder)
@@ -3127,23 +3176,25 @@ namespace windowing_x11
 
 
    bool window::_configure_window_unlocked(const class ::zorder & zorder,
-                                              const ::e_activation & eactivation, bool bNoZorder, bool bShow, bool bHide)
+                                              const ::e_activation & eactivation, bool bNoZorder, ::e_display edisplay)
    {
 
-      windowing_output_debug_string("\n::window::set_window_pos 1");
+      windowing_output_debug_string("\n::window::_configure_window_unlocked 1");
+
+      information() << "_configure_window_unlocked bNoZorder " << bNoZorder << ", edisplay " << edisplay;
 
       XWindowAttributes attrs = {};
 
       if (!XGetWindowAttributes(Display(), Window(), &attrs))
       {
 
-         windowing_output_debug_string("\n::window::set_window_pos 1.1 xgetwindowattr failed");
+         windowing_output_debug_string("\n::window::_configure_window_unlocked 1.1 xgetwindowattr failed");
 
          return false;
 
       }
 
-      if (bShow)
+      if (windowing()->is_screen_visible(edisplay))
       {
 
          if (attrs.map_state == IsUnmapped)
@@ -3193,7 +3244,15 @@ namespace windowing_x11
       //   }
 
 
-      if (bHide)
+      if(edisplay == e_display_iconic)
+      {
+
+         XIconifyWindow(Display(), Window(), Screen());
+
+         return true;
+
+      }
+      else if (!windowing()->is_screen_visible(edisplay))
       {
 
          if (attrs.map_state == IsViewable)
@@ -3216,7 +3275,7 @@ namespace windowing_x11
 
       }
 
-      if (attrs.map_state == IsViewable || bShow)
+      if (attrs.map_state == IsViewable || windowing()->is_screen_visible(edisplay))
       {
 
          if (!bNoZorder)
