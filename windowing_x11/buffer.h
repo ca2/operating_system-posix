@@ -24,25 +24,28 @@ namespace windowing_x11
       virtual public ::graphics::bitmap_source_buffer
    {
    public:
-      //int m_shmid;		/* kernel id */
-      //char *m_shmaddr;	/* address in client */
-      //::pixmap m_pixmap;
-      //XImage * m_pximage;
-      //bool              m_bXShmChecked;
-      //bool              m_bXShm;
-      //XShmSegmentInfo     m_xshmsegmentinfo;
+
+      int                  m_shmid;		/* kernel id */
+      void *               m_shmaddr;	/* address in client */
+      ::pixmap             m_pixmap;
+      XImage *             m_pximage;
+      bool                 m_bXShmChecked;
+      bool                 m_bXShm;
+      XShmSegmentInfo      m_xshmsegmentinfo;
+      ::size_i32           m_sizeLastBitBlitting;
+      bool                 m_bUseXShmIfAvailable;
       //::pointer < ::mutex >                         m_pmutexPixmap;
       //pixmap                        m_pixmap;
-      GC                            m_gc;
+      GC                   m_gc;
       //memory                        m_mem;
       //XImage *                      m_pimage;
       //bool                          m_bMapped;
-      ::rectangle_i32                 m_rectangleLast;
+      ::rectangle_i32      m_rectangleLast;
       //::image_pointer                         m_pimage;
-      interlocked_i64                              m_interlockedPostedScreenUpdate;
+      //interlocked_i64                              m_interlockedPostedScreenUpdate;
 //manual_reset_event m_evXshm;
-      bool m_bXShmComplete;
-      interlocked_i64                              m_interlockedXShmPutImage;
+      //bool m_bXShmComplete;
+      //interlocked_i64                              m_interlockedXShmPutImage;
 
 
       buffer();
@@ -60,6 +63,10 @@ namespace windowing_x11
 
       virtual bool create_os_buffer(const ::size_i32 & size, int iStride = -1);
       virtual void destroy_os_buffer();
+
+
+      virtual void _map_shared_memory(const ::size_i32 & size);
+      virtual void _destroy_shared_memory();
 
 
 //      virtual bool create_os_buffer(::image::image * pimage);

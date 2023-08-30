@@ -18,6 +18,7 @@
 #include "aura/user/user/interaction_impl.h"
 #include "aura/platform/message_queue.h"
 #include <X11/Xatom.h>
+#include <X11/extensions/sync.h>
 #include "aura/graphics/image/context_image.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
@@ -267,6 +268,10 @@ namespace windowing_x11
 
          //attr.override_redirect = True;
 
+         m_xsynccounterNetWmSync = None;
+         XSyncIntToValue(&m_xsyncvalueNetWmSync, 0);
+         XSyncIntToValue(&m_xsyncvalueNetWmSyncPending, 0);
+
          information("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
 
          ::Window window = XCreateWindow(display, DefaultRootWindow(display),
@@ -292,6 +297,7 @@ namespace windowing_x11
             XSetNormalHints(display, window, &sizehints);  /* Where new_window is the new window */
 
          }
+
 
 
          // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
@@ -368,6 +374,8 @@ namespace windowing_x11
          set_oswindow(this);
 
          set_os_data((void *) window);
+
+         _enable_net_wm_sync();
 
          //pimpl->set_os_data((::windowing::window *)this);
 
@@ -1749,184 +1757,184 @@ namespace windowing_x11
 
    }
 
-
-   /// this function should be called in user/main thread
-   void window::show_window(const ::e_display & edisplay, const ::e_activation & eactivation)
-   {
-
-      x11_windowing()->windowing_post([this, edisplay, eactivation]()
-                                      {
-
-                                         windowing_output_debug_string("\n::window::show_window 1");
-
-                                         synchronous_lock synchronouslock(user_synchronization());
-
-                                         display_lock displaylock(x11_display()->Display());
-
-                                         _show_window_unlocked(edisplay, eactivation);
-
-//         XWindowAttributes attr;
 //
-//         if (!XGetWindowAttributes(Display(), Window(), &attr))
+//   /// this function should be called in user/main thread
+//   void window::show_window(const ::e_display & edisplay, const ::e_activation & eactivation)
+//   {
+//
+//      x11_windowing()->windowing_post([this, edisplay, eactivation]()
+//                                      {
+//
+//                                         windowing_output_debug_string("\n::window::show_window 1");
+//
+//                                         synchronous_lock synchronouslock(user_synchronization());
+//
+//                                         display_lock displaylock(x11_display()->Display());
+//
+//                                         _show_window_unlocked(edisplay, eactivation);
+//
+////         XWindowAttributes attr;
+////
+////         if (!XGetWindowAttributes(Display(), Window(), &attr))
+////         {
+////
+////            windowing_output_debug_string("\n::window::show_window 1.2");
+////
+////            return;
+////
+////            //return false;
+////
+////         }
+////
+////         if (edisplay == e_display_zoomed)
+////         {
+////
+////            int iMapState = attr.map_state;
+////
+////            if (iMapState != IsViewable)
+////            {
+////
+////               XMapWindow(Display(), Window());
+////
+////            }
+////
+////            auto atomMaxH = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false);
+////
+////            auto atomMaxP = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_penn, false);
+////
+////            mapped_net_state_raw(true, x11_display()->m_iScreen, atomMaxH, atomMaxP);
+////
+////
+////
+////
+////         }
+////         else if (edisplay == e_display_iconic)
+////         {
+////
+////            wm_iconify_window();
+////
+////         }
+////         else if (::is_visible(edisplay))
+////         {
+////
+////            if (attr.map_state == IsUnmapped)
+////            {
+////
+////               XMapWindow(Display(), Window());
+////
+////            }
+////
+////            wm_state_clear_raw(false);
+////
+////         }
+////         else
+////         {
+////
+////            if (attr.map_state != IsUnmapped)
+////            {
+////
+////               XWithdrawWindow(Display(), Window(), Screen());
+////
+////            }
+////
+////         }
+////
+////         windowing_output_debug_string("\n::window::show_window 2");
+//
+//                                         //return true;
+//
+//                                      }
+//
+//      );
+//
+//      //return ::success;
+//
+//   }
+//
+//
+//   void window::_show_window_unlocked(const ::e_display & edisplay, const ::e_activation & eactivation)
+//   {
+//
+//      //x11_windowing()->windowing_post([this, edisplay, eactivation]()
+//      //{
+//
+//      windowing_output_debug_string("\n::window::show_window 1");
+//
+////      synchronous_lock synchronouslock(user_synchronization());
+////
+////      display_lock displaylock(x11_display()->Display());
+//
+//      XWindowAttributes attr;
+//
+//      if (!XGetWindowAttributes(Display(), Window(), &attr))
+//      {
+//
+//         windowing_output_debug_string("\n::window::show_window 1.2");
+//
+//         return;
+//
+//         //return false;
+//
+//      }
+//
+//      if (edisplay == e_display_zoomed)
+//      {
+//
+//         int iMapState = attr.map_state;
+//
+//         if (iMapState != IsViewable)
 //         {
 //
-//            windowing_output_debug_string("\n::window::show_window 1.2");
-//
-//            return;
-//
-//            //return false;
+//            XMapWindow(Display(), Window());
 //
 //         }
 //
-//         if (edisplay == e_display_zoomed)
+//         auto atomMaxH = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false);
+//
+//         auto atomMaxP = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_penn, false);
+//
+//         _mapped_net_state_unlocked(true, x11_display()->m_iScreen, atomMaxH, atomMaxP);
+//
+//      } else if (edisplay == e_display_iconic)
+//      {
+//
+//         wm_iconify_window();
+//
+//      } else if (::is_visible(edisplay))
+//      {
+//
+//         if (attr.map_state == IsUnmapped)
 //         {
 //
-//            int iMapState = attr.map_state;
-//
-//            if (iMapState != IsViewable)
-//            {
-//
-//               XMapWindow(Display(), Window());
-//
-//            }
-//
-//            auto atomMaxH = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false);
-//
-//            auto atomMaxP = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_penn, false);
-//
-//            mapped_net_state_raw(true, x11_display()->m_iScreen, atomMaxH, atomMaxP);
-//
-//
-//
-//
-//         }
-//         else if (edisplay == e_display_iconic)
-//         {
-//
-//            wm_iconify_window();
-//
-//         }
-//         else if (::is_visible(edisplay))
-//         {
-//
-//            if (attr.map_state == IsUnmapped)
-//            {
-//
-//               XMapWindow(Display(), Window());
-//
-//            }
-//
-//            wm_state_clear_raw(false);
-//
-//         }
-//         else
-//         {
-//
-//            if (attr.map_state != IsUnmapped)
-//            {
-//
-//               XWithdrawWindow(Display(), Window(), Screen());
-//
-//            }
+//            XMapWindow(Display(), Window());
 //
 //         }
 //
-//         windowing_output_debug_string("\n::window::show_window 2");
-
-                                         //return true;
-
-                                      }
-
-      );
-
-      //return ::success;
-
-   }
-
-
-   void window::_show_window_unlocked(const ::e_display & edisplay, const ::e_activation & eactivation)
-   {
-
-      //x11_windowing()->windowing_post([this, edisplay, eactivation]()
-      //{
-
-      windowing_output_debug_string("\n::window::show_window 1");
-
-//      synchronous_lock synchronouslock(user_synchronization());
+//         _wm_state_clear_unlocked(false);
 //
-//      display_lock displaylock(x11_display()->Display());
-
-      XWindowAttributes attr;
-
-      if (!XGetWindowAttributes(Display(), Window(), &attr))
-      {
-
-         windowing_output_debug_string("\n::window::show_window 1.2");
-
-         return;
-
-         //return false;
-
-      }
-
-      if (edisplay == e_display_zoomed)
-      {
-
-         int iMapState = attr.map_state;
-
-         if (iMapState != IsViewable)
-         {
-
-            XMapWindow(Display(), Window());
-
-         }
-
-         auto atomMaxH = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false);
-
-         auto atomMaxP = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_penn, false);
-
-         _mapped_net_state_unlocked(true, x11_display()->m_iScreen, atomMaxH, atomMaxP);
-
-      } else if (edisplay == e_display_iconic)
-      {
-
-         wm_iconify_window();
-
-      } else if (::is_visible(edisplay))
-      {
-
-         if (attr.map_state == IsUnmapped)
-         {
-
-            XMapWindow(Display(), Window());
-
-         }
-
-         _wm_state_clear_unlocked(false);
-
-      } else
-      {
-
-         if (attr.map_state != IsUnmapped)
-         {
-
-            XWithdrawWindow(Display(), Window(), Screen());
-
-         }
-
-      }
-
-      windowing_output_debug_string("\n::window::show_window 2");
-
-      //return true;
-
-      //}
-
-      //);
-
-      //return ::success;
-
-   }
+//      } else
+//      {
+//
+//         if (attr.map_state != IsUnmapped)
+//         {
+//
+//            XWithdrawWindow(Display(), Window(), Screen());
+//
+//         }
+//
+//      }
+//
+//      windowing_output_debug_string("\n::window::show_window 2");
+//
+//      //return true;
+//
+//      //}
+//
+//      //);
+//
+//      //return ::success;
+//
+//   }
 
 
    void window::full_screen(const ::rectangle_i32 & rectangle)
@@ -3243,6 +3251,15 @@ namespace windowing_x11
       //
       //   }
 
+      if (edisplay != e_display_zoomed)
+      {
+         auto atomMaxH = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false);
+
+         auto atomMaxP = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_penn, false);
+
+         _wm_state_clear_unlocked(false);
+
+      }
 
       if(edisplay == e_display_iconic)
       {
@@ -3250,6 +3267,38 @@ namespace windowing_x11
          XIconifyWindow(Display(), Window(), Screen());
 
          return true;
+
+      }
+                  else if (edisplay == e_display_zoomed)
+         {
+
+            int iMapState = attrs.map_state;
+
+            if (iMapState != IsViewable)
+            {
+
+               XMapWindow(Display(), Window());
+
+            }
+
+            auto atomMaxH = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false);
+
+            auto atomMaxP = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_penn, false);
+
+            _mapped_net_state_unlocked(true, x11_display()->m_iScreen, atomMaxH, atomMaxP);
+
+         }
+      else if (equivalence_sink(edisplay) == equivalence_sink(e_display_normal))
+      {
+
+         int iMapState = attrs.map_state;
+
+         if (iMapState != IsViewable)
+         {
+
+            XMapWindow(Display(), Window());
+
+         }
 
       }
       else if (!windowing()->is_screen_visible(edisplay))
@@ -3293,7 +3342,8 @@ namespace windowing_x11
 
                XRaiseWindow(Display(), Window());
 
-            } else if (zorder.m_ezorder == e_zorder_top)
+            }
+            else if (zorder.m_ezorder == e_zorder_top)
             {
 
                if (net_wm_state(::x11::e_atom_net_wm_state_above) != 0
@@ -3310,7 +3360,8 @@ namespace windowing_x11
 
                XRaiseWindow(Display(), Window());
 
-            } else if (zorder.m_ezorder == e_zorder_bottom)
+            }
+            else if (zorder.m_ezorder == e_zorder_bottom)
             {
 
                if (net_wm_state(::x11::e_atom_net_wm_state_below) != 1)
@@ -3347,44 +3398,6 @@ namespace windowing_x11
 
    bool window::_strict_set_window_position_unlocked(i32 x, i32 y, i32 cx, i32 cy, bool bNoMove, bool bNoSize)
    {
-
-
-
-//      windowing_output_debug_string("\n::window::set_window_pos 1");
-//
-//      XWindowAttributes attrs = {};
-//
-//      if (!XGetWindowAttributes(Display(), Window(), &attrs))
-//      {
-//
-//         windowing_output_debug_string("\n::window::set_window_pos 1.1 xgetwindowattr failed");
-//
-//         return false;
-//
-//      }
-
-//      if (bShow)
-//      {
-//
-//         if (attrs.map_state == IsUnmapped)
-//         {
-//
-//            windowing_output_debug_string("\n::window::set_window_pos Mapping Window 1.2");
-//
-//            XMapWindow(Display(), Window());
-//
-//         }
-//
-//         if (!XGetWindowAttributes(Display(), Window(), &attrs))
-//         {
-//
-//            windowing_output_debug_string("\n::window::set_window_pos 1.3 xgetwindowattr failed");
-//
-//            return false;
-//
-//         }
-//
-//      }
 
       bool bMove = !bNoMove;
 
@@ -3426,7 +3439,7 @@ namespace windowing_x11
 //
 //            }
 
-            //information("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
+            information("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
 
             //information() << acmenode()->get_callstack();
 
@@ -4359,8 +4372,6 @@ namespace windowing_x11
 
       comparable_array<Atom> atoma;
 
-      //synchronous_lock synchronouslock(user_synchronization());
-
       if (atomList == None)
       {
 
@@ -4483,8 +4494,6 @@ namespace windowing_x11
    bool window::_wm_add_remove_list_unlocked(Atom atomList, Atom atomFlag, bool bSet)
    {
 
-      //synchronous_lock synchronouslock(user_synchronization());
-
       if (atomFlag == None)
       {
 
@@ -4499,10 +4508,6 @@ namespace windowing_x11
 
       }
 
-      int scr = DefaultScreen(Display());
-
-      auto defaultRootWindow = RootWindow(Display(), DefaultScreen(Display()));
-
       if (bSet)
       {
 
@@ -4513,7 +4518,8 @@ namespace windowing_x11
 
          }
 
-      } else
+      }
+      else
       {
 
          unsigned long num_items;
@@ -4799,35 +4805,25 @@ namespace windowing_x11
       //windowing()->windowing_post([this]()
         //                          {
 
+      {
 
-                                     {
+         _synchronous_lock synchronouslock(user_synchronization());
 
-                                        _synchronous_lock synchronouslock(user_synchronization());
+         display_lock displayLock(x11_display()->Display());
 
-                                        display_lock displayLock(x11_display()->Display());
+         auto pimpl = m_puserinteractionimpl;
 
-                                        auto pimpl = m_puserinteractionimpl;
+         configure_window_unlocked();
 
-                                        {
+         ::pointer<buffer> pbuffer = pimpl->m_pgraphics;
 
-                                           //printf("a");
-                                           //fflush(stdout);
+         pbuffer->_update_screen_lesser_lock();
 
-                                           //information() << acme node()->get_callstack();
+      }
 
-                                           configure_window_unlocked();
+      auto pimpl = m_puserinteractionimpl;
 
-                                           ::pointer<buffer> pbuffer = pimpl->m_pgraphics;
-
-                                           pbuffer->_update_screen_lesser_lock();
-
-                                        }
-
-                                     }
-
-                                     auto pimpl = m_puserinteractionimpl;
-
-                                     pimpl->m_pgraphicsthread->on_graphics_thread_iteration_end();
+      pimpl->m_pgraphicsthread->on_graphics_thread_iteration_end();
 
 //                                  });
 
@@ -4836,23 +4832,23 @@ namespace windowing_x11
    }
 
 
-   void window::_window_request_presentation_locked()
-   {
-
-      _synchronous_lock synchronouslock(user_synchronization());
-
-      display_lock displayLock(x11_display()->Display());
-
-      auto pimpl = m_puserinteractionimpl;
-
-      if (::is_set(pimpl))
-      {
-
-         pimpl->_window_request_presentation_unlocked();
-
-      }
-
-   }
+//   void window::_window_request_presentation_locked()
+//   {
+//
+//      _synchronous_lock synchronouslock(user_synchronization());
+//
+//      display_lock displayLock(x11_display()->Display());
+//
+//      auto pimpl = m_puserinteractionimpl;
+//
+//      if (::is_set(pimpl))
+//      {
+//
+//         pimpl->_window_request_presentation_unlocked();
+//
+//      }
+//
+//   }
 
 
    void window::_on_visual_changed_unlocked()
@@ -5041,6 +5037,76 @@ namespace windowing_x11
 //      return m_puserinteractionimpl->m_pgraphics->presentation_complete();
 //
 //   }
+
+
+   void window::_on_end_paint()
+   {
+
+      if(m_enetwmsync == window::e_net_wm_sync_wait_paint)
+      {
+
+         m_enetwmsync == window::e_net_wm_sync_none;
+
+         if (!XSyncValueIsZero(m_xsyncvalueNetWmSync))
+         {
+
+            x_change_property(
+               x11_display()->m_atomNetWmSyncRequestCounter,
+               XA_CARDINAL,
+               32,
+               PropModeReplace,
+               (const unsigned char *) &m_xsyncvalueNetWmSync, 1);
+
+            XSyncIntToValue(&m_xsyncvalueNetWmSync, 0);
+
+         }
+
+      }
+
+   }
+
+
+   void window::_enable_net_wm_sync()
+   {
+
+      if (m_xsynccounterNetWmSync != None)
+      {
+
+         return;
+
+      }
+
+      //return;
+
+      auto atomWmProtocols = x11_display()->m_atomWmProtocols;
+
+      auto atomNetWmSyncRequest = x11_display()->m_atomNetWmSyncRequest;
+
+      m_enetwmsync = e_net_wm_sync_none;
+
+      _wm_add_remove_list_unlocked(atomWmProtocols, atomNetWmSyncRequest, true);
+
+      {
+
+         XSyncValue xsyncvalue;
+
+         XSyncIntToValue(&xsyncvalue, 1);
+
+         m_xsynccounterNetWmSync = XSyncCreateCounter(x11_display()->Display(), xsyncvalue);
+
+      }
+
+      auto atomNetWmSyncRequestCounter = x11_display()->m_atomNetWmSyncRequestCounter;
+
+      x_change_property(atomNetWmSyncRequestCounter,
+                        XA_CARDINAL, 32, PropModeReplace, (const unsigned char *) &m_xsynccounterNetWmSync,
+                        1);
+
+      XSyncIntToValue(&m_xsyncvalueNetWmSyncPending, 0);
+
+      XSyncIntToValue(&m_xsyncvalueNetWmSync, 0);
+
+   }
 
 
 } // namespace windowing_x11

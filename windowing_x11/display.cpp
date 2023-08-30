@@ -44,8 +44,12 @@ namespace windowing_x11
       m_atomLongType = None;
       m_atomLongStyle = None;
       m_atomNetWmState = None;
+      m_atomWmProtocols = None;
+      m_atomNetWmSyncRequest = None;
+      m_atomNetWmSyncRequestCounter = None;
       m_atomLongStyleEx = 0;
       m_countReference = 1;
+      m_bHasXSync = true;
 
    }
 
@@ -188,6 +192,43 @@ namespace windowing_x11
 
       m_colormap = XCreateColormap(m_px11display->m_pdisplay, m_windowRoot, m_pvisual, AllocNone);
 
+      m_bHasXSync = false;
+
+#ifdef HAVE_XSYNC
+
+      {
+
+         int error_base, event_base;
+
+         if (XSyncQueryExtension(m_px11display->m_pdisplay, &event_base, &error_base) &&
+             XSyncInitialize(m_px11display->m_pdisplay, &m_iXSyncMajor, &m_iXSyncMinor))
+         {
+
+            m_bHasXSync = true;
+
+         }
+
+      }
+
+#endif
+
+      if(m_bHasXSync)
+      {
+
+         information() << "Display supports XSync";
+
+      }
+      else
+      {
+
+         information() << "Display doesn't support XSync";
+
+      }
+
+      //m_atomCardinal = intern_atom("CARDINAL", True);
+      m_atomWmProtocols = intern_atom("WM_PROTOCOLS", True);
+      m_atomNetWmSyncRequest = intern_atom("_NET_WM_SYNC_REQUEST", True);
+      m_atomNetWmSyncRequestCounter = intern_atom("_NET_WM_SYNC_REQUEST_COUNTER", True);
 
       //return ::success;
 

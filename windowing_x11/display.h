@@ -43,13 +43,20 @@ namespace windowing_x11
       Atom                                         m_atomLongType;
       Atom                                         m_atomLongStyle;
       Atom                                         m_atomLongStyleEx;
+      //Atom                                         m_atomCardinal;
       Atom                                         m_atomWmState;
       Atom                                         m_atomNetWmState;
+      Atom                                         m_atomWmProtocols;
+      Atom                                         m_atomNetWmSyncRequest;
+      Atom                                         m_atomNetWmSyncRequestCounter;
       iptr                                         m_countReference;
       ::pointer<class window>                      m_pwindowRoot;
       ::pointer<class window>                      m_pwindowKeyboardFocus;
-      ::pointer<::windowing_x11::window>          m_pwindowActive;
-      ::pointer<::windowing_x11::window>          m_pwindowMouseCapture;
+      ::pointer<::windowing_x11::window>           m_pwindowActive;
+      ::pointer<::windowing_x11::window>           m_pwindowMouseCapture;
+      bool                                         m_bHasXSync;
+      int                                          m_iXSyncMajor;
+      int                                          m_iXSyncMinor;
 
 
       display();

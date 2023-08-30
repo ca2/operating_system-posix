@@ -8,7 +8,10 @@
 #include "_x11.h"
 #include "acme/operating_system/x11/_atom.h"
 #include "acme/primitive/geometry2d/rectangle_array.h"
+#include <X11/extensions/sync.h>
 
+
+#define HAVE_XSYNC 1
 
 #define _NET_WM_STATE_REMOVE        0    // remove/unset property
 #define _NET_WM_STATE_ADD           1    // add/set property
@@ -29,39 +32,53 @@ namespace windowing_x11
    public:
 
 
+      enum enum_net_wm_sync
+      {
+
+         e_net_wm_sync_none,
+         e_net_wm_sync_wait_configure,
+         e_net_wm_sync_wait_paint,
+
+      };
+
+
       XWindowAttributes                            m_attr;
       XVisualInfo                                  m_visualinfo;
       void *                                       m_pgdkwindow;
-      ::pointer<::windowing_x11::x11data>         m_px11data;
+      ::pointer<::windowing_x11::x11data>          m_px11data;
       ::Window                                     m_parent;
       Cursor                                       m_cursorLast;
       int                                          m_iXic;
       XIC                                          m_xic;
-      //::pointer<::windowing_x11::display>    m_pdisplay;
+      //::pointer<::windowing_x11::display>        m_pdisplay;
       ::Window                                     m_window;
       ::Visual                                     m_visual;
       int                                          m_iDepth;
-      //int                                          m_iScreen;
+      //int                                        m_iScreen;
       bool                                         m_bMessageOnlyWindow;
-      //::pointer<::user::interaction_impl>    m_pimpl;
-      //::pointer<::message_queue>             m_pmessagequeue;
-      htask_t                                    m_htask;
-      //Colormap                                     m_colormap;
-      class ::time                                       m_timeLastMouseMove;
-      //Window                                       m_parent;
+      //::pointer<::user::interaction_impl>        m_pimpl;
+      //::pointer<::message_queue>                 m_pmessagequeue;
+      htask_t                                      m_htask;
+      //Colormap                                   m_colormap;
+      class ::time                                 m_timeLastMouseMove;
+      //Window                                     m_parent;
       ::rectangle_i32                              m_rect;
       string                                       m_strWMClass;
       int                                          m_iaNetWmState2[::x11::e_atom_net_wm_state_last-::x11::e_atom_net_wm_state_first+1];
-      //::point_i32                                  m_pointCursor;
+      //::point_i32                                m_pointCursor;
+      XSyncCounter                                 m_xsynccounterNetWmSync;
+      XSyncValue                                   m_xsyncvalueNetWmSync;
+      XSyncValue                                   m_xsyncvalueNetWmSyncPending;
+      enum_net_wm_sync                             m_enetwmsync;
       //static oswindow_dataptra *                 s_pdataptra;
-      //static::pointer< ::mutex >                            s_pmutex;
+      //static::pointer< ::mutex >                 s_pmutex;
 
       //static Atom                                s_atomLongType;
       //static Atom                                s_atomLongStyle;
       //static Atom                                s_atomLongStyleEx;
       ::rectangle_i32_array                        m_rectangleaRedraw;
-      ::pointer<::xim::keyboard>                  m_pximkeyboard;
-
+      ::pointer<::xim::keyboard>                   m_pximkeyboard;
+      //::u64                                        m_uLastNetWmSyncRequest;
 
 
       window();
@@ -152,8 +169,8 @@ namespace windowing_x11
       bool is_window_visible() override;
       bool _is_iconic_unlocked() override;
       bool _is_window_visible_unlocked() override;
-      void show_window(const ::e_display & edisplay, const ::e_activation & eactivation) override;
-      void _show_window_unlocked(const ::e_display & edisplay, const ::e_activation & eactivation) override;
+      //void show_window(const ::e_display & edisplay, const ::e_activation & eactivation) override;
+      //void _show_window_unlocked(const ::e_display & edisplay, const ::e_activation & eactivation) override;
       //virtual iptr get_window_long_ptr(i32 nIndex);
       //virtual iptr set_window_long_ptr(i32 nIndex, iptr l);
       virtual bool client_to_screen(::point_i32 * ppoint) override;
@@ -293,7 +310,7 @@ namespace windowing_x11
       virtual ::e_status mq_remove_window_from_all_queues( WINDOWING_X11_WINDOW_MEMBER );
 
       void window_update_screen_buffer() override;
-      void _window_request_presentation_locked() override;
+      //void _window_request_presentation_locked() override;
       void _on_visual_changed_unlocked() override;
 
       bool is_active_window() const override;
@@ -303,6 +320,10 @@ namespace windowing_x11
 
 
       void window_do_update_screen() override;
+
+
+      virtual void _on_end_paint();
+      virtual void _enable_net_wm_sync();
 
 
    };

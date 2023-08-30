@@ -1508,112 +1508,20 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
             auto pointWindow = pinteraction->const_layout().window().origin();
 
-//   auto sizeWindow = pinteraction->const_layout().window().size();
+            information() << "const_layout().window().origin() : " << pointWindow;
 
-            // Robbers -> Smart -> Tough Law
-            // Kids -> Soft Law
-            // 5 year smart
-            // 80 year kids
-            // big companies are?
-            // small companies are?
-            // big companies moved by auto sustainability...
-            // No human is auto sustainable, it currently needs iPhone or something....
-            // so?
-            // art as vanity and not for auto sustainability...
-            // not just for six... six... six...
-            // because sometimes we want cake and flesh and raw fish and not carrots with bread and oreo...
-            // now I imagine: sick of eating flesh-free carrots and bread, and getting drunk with cheetos and oreo
-            // we should let the flesh and the cake for the doctors,
-            // lawyers, politicians, google collaborators, drug-makers,
-            // ill-makers, sue-makers, idea-makers, religious-people,
-            // that make memory_new ammendments to ammendment itself,
-            // people above-the-law... flesh save them...
-            // ... retired and poor, widow people, complaining of dead/gone people,
-            // must eat bird seed grains.... no redemption, only in paradise...
-            // slaves of THEIR their, given by the GODs, laws ...
-
-            // X11 "knows" window manager can redirect a request
-            // (evidence: override_redirect flag - but that when set leave you outside of much more things)
-            // Lets not fight this X11 "thing"
-            // Accept-"stall" "authocratic" "top-down" window manager set position and size.
-            // This means setting same size_i32 and position to all three sketch and window states.
-            // The buffer may need to be resized so don't mess with current design state.
+            information() << "pointNew                         : " << point;
 
             bool bPositionFix = pointWindow != point;
-
-#ifdef X11_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE
-
-            if(bPositionFix)
-                              {
-
-                                 pinteraction->layout().sketch().origin() = point;
-
-                                 pinteraction->layout().window().origin() = point;
-
-                                 pinteraction->screen_origin() = point;
-
-                                 pinteraction->screen_origin() = point;
-
-                                 pinteraction->set_reposition(true);
-
-                              }
-
-#endif
-
-            //bool bSizeFix = sizeWindow != size;
-
-#ifdef X11_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE_FOR_AWESOME_FILE
-
-            if(bSizeFix)
-                              {
-
-                                 pinteraction->layout().sketch().size() = size;
-
-                                 pinteraction->layout().window().size() = size;
-
-                                 pinteraction->set_need_layout();
-
-                              }
-
-#endif
 
             if (bPositionFix)
             {
 
+               information() << "calling on_reposition...";
 
-               pinteraction->set_position(point, ::user::e_layout_window);
-
-               MESSAGE msg;
-
-               zero(msg);
-
-               msg.oswindow = oswindow;
-
-
-               msg.oswindow->m_point = point;
-
-               //information() << "X11 bPositionFix " << point.x() << ", " << point.y();
-
-               msg.m_atom = e_message_reposition;
-               msg.wParam = 0;
-               msg.lParam = ::lparam(point);
-
-               post_ui_message(msg);
+               pinteraction->m_pprimitiveimpl->on_reposition(point);
 
             }
-
-//   if (bSizeFix)
-//   {
-//
-//      msg.oswindow->m_size = size;
-//
-//      msg.m_atom = e_message_size;
-//      msg.wParam = 0;
-//      msg.lParam = size.lparam();
-//
-//      post_ui_message(msg);
-//
-//   }
 
          }
 
@@ -1635,107 +1543,20 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          if (pinteraction != nullptr)
          {
 
-
             auto sizeWindow = pinteraction->const_layout().window().size();
 
-            // Robbers -> Smart -> Tough Law
-            // Kids -> Soft Law
-            // 5 year smart
-            // 80 year kids
-            // big companies are?
-            // small companies are?
-            // big companies moved by auto sustainability...
-            // No human is auto sustainable, it currently needs iPhone or something....
-            // so?
-            // art as vanity and not for auto sustainability...
-            // not just for six... six... six...
-            // because sometimes we want cake and flesh and raw fish and not carrots with bread and oreo...
-            // now I imagine: sick of eating flesh-free carrots and bread, and getting drunk with cheetos and oreo
-            // we should let the flesh and the cake for the doctors,
-            // lawyers, politicians, google collaborators, drug-makers,
-            // ill-makers, sue-makers, idea-makers, religious-people,
-            // that make memory_new ammendments to ammendment itself,
-            // people above-the-law... flesh save them...
-            // ... retired and poor, widow people, complaining of dead/gone people,
-            // must eat bird seed grains.... no redemption, only in paradise...
-            // slaves of THEIR their, given by the GODs, laws ...
+            information() << "const_layout().window().size() : " << sizeWindow;
 
-            // X11 "knows" window manager can redirect a request
-            // (evidence: override_redirect flag - but that when set leave you outside of much more things)
-            // Lets not fight this X11 "thing"
-            // Accept-"stall" "authocratic" "top-down" window manager set position and size.
-            // This means setting same size_i32 and position to all three sketch and window states.
-            // The buffer may need to be resized so don't mess with current design state.
-
-            //bool bPositionFix = pointWindow != point;
-
-#ifdef X11_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE
-
-            if(bPositionFix)
-                              {
-
-                                 pinteraction->layout().sketch().origin() = point;
-
-                                 pinteraction->layout().window().origin() = point;
-
-                                 pinteraction->screen_origin() = point;
-
-                                 pinteraction->screen_origin() = point;
-
-                                 pinteraction->set_reposition(true);
-
-                              }
-
-#endif
+            information() << "sizeNew                        : " << size;
 
             bool bSizeFix = sizeWindow != size;
-
-#ifdef X11_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE_FOR_AWESOME_FILE
-
-            if(bSizeFix)
-                              {
-
-                                 pinteraction->layout().sketch().size() = size;
-
-                                 pinteraction->layout().window().size() = size;
-
-                                 pinteraction->set_need_layout();
-
-                              }
-
-#endif
-
-//   if (bPositionFix)
-//   {
-//
-//      msg.oswindow->m_point = point;
-//
-//      msg.m_atom = e_message_reposition;
-//      msg.wParam = 0;
-//      msg.lParam = point.lparam();
-//
-//      post_ui_message(msg);
-//
-//   }
 
             if (bSizeFix)
             {
 
-               //pinteraction->set_size(size, ::user::e_layout_window);
+               information() << "calling on_resize...";
 
-               MESSAGE msg;
-
-               zero(msg);
-
-               msg.oswindow = oswindow;
-
-               msg.oswindow->m_size = size;
-
-               msg.m_atom = e_message_size;
-               msg.wParam = 0;
-               msg.lParam = size.lparam();
-
-               post_ui_message(msg);
+               pinteraction->m_pprimitiveimpl->on_resize(size);
 
             }
 
@@ -1756,39 +1577,57 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       XEvent & e = *pevent;
 
-//      int iXShmEventBase = XShmGetEventBase(m_pdisplay->Display());
+      int iXShmEventBase = XShmGetEventBase(m_pdisplay->Display());
+
+      int iXShmEvent = iXShmEventBase + ShmCompletion;
+
+      if (e.type == iXShmEvent)
+      {
+
+         auto pcompletionevent = (XShmCompletionEvent *) &e;
+
+         auto pwindow = m_pdisplay->_window(pcompletionevent->drawable);
+
+         if (pwindow)
+         {
+
+            ::pointer<::windowing_x11::window> px11window = pwindow;
+
+            if (px11window)
+            {
+
+//               try
+//               {
 //
-//      int iXShmEvent = iXShmEventBase + ShmCompletion;
+//                  px11window->strict_set_window_position_unlocked();
 //
-//      if (e.type == iXShmEvent)
-//      {
+//               }
+//               catch (...)
+//               {
 //
-//         //if(e.type == iXShmEventBase)
-//         //{
-//
-//         auto pcompletionevent = (XShmCompletionEvent *) &e;
-//
-//         auto pwindow = m_pdisplay->_window(pcompletionevent->drawable);
-//
-//         if (pwindow)
-//         {
-//
-//            ::pointer<::windowing_x11::window> px11window = pwindow;
-//
-//            if (px11window)
-//            {
-//
-//               px11window->m_bXShmComplete = true;
-//
-//               px11window->m_interlockedXShmPutImage--;
-//
-//            }
-//
-//         }
-//
-//         return true;
-//
-//      }
+//               }
+
+               ::pointer < buffer > pbuffer = px11window->m_puserinteractionimpl->m_pgraphics;
+
+               auto pbufferitem = pbuffer->get_buffer_item();
+
+               auto sizeBitBlitting = pbuffer->m_sizeLastBitBlitting;
+
+               //px11window->m_puserinteractionimpl->m_puserinteraction->_set_size(sizeBitBlitting, ::user::e_layout_window);
+
+               pbufferitem->m_manualresetevent.SetEvent();
+
+               information() << "Got XShmCompletionEvent";
+
+               px11window->_on_end_paint();
+
+            }
+
+         }
+
+         return true;
+
+      }
 
       MESSAGE msg;
 
@@ -2421,12 +2260,15 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                _defer_position_and_size_message(msg.oswindow);
 
-               int iIconic = -1;
+               long lState = -1;
 
-               if (e.xproperty.atom == m_pdisplay->m_atomWmState)
+               ::pointer < ::windowing_x11::window > px11window = msg.oswindow;
+
+               if (e.xproperty.atom == m_pdisplay->m_atomWmState
+               && px11window->_get_state_unlocked(lState))
                {
 
-                  iIconic = msg.oswindow->is_iconic() ? 1 : 0;
+                  int iIconic = lState == IconicState ? 1 : 0;
 
                   information() << "PropertyNotify is_iconic : " << iIconic;
 
@@ -2506,6 +2348,20 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          case MapNotify:
          {
 
+//            auto px11window = m_pdisplay->_window(e.xmap.window);
+//
+//            if(m_pdisplay->m_bHasXSync)
+//            {
+//
+//               if(px11window->m_xsynccounterNetWmSync == None)
+//               {
+//
+//                  px11window->_enable_net_wm_sync();
+//
+//               }
+//
+//            }
+
             information("windowing_x11 MapNotify");
 
             if (msg.oswindow)
@@ -2541,6 +2397,29 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
             break;
          case ConfigureNotify:
          {
+
+            if(m_pdisplay->m_bHasXSync)
+            {
+
+               auto oswindow = m_pdisplay->_window(e.xconfigure.window);
+
+               if(oswindow)
+               {
+
+                  if (oswindow->m_enetwmsync == window::e_net_wm_sync_wait_configure)
+                  {
+
+                     oswindow->m_xsyncvalueNetWmSync = oswindow->m_xsyncvalueNetWmSyncPending;
+
+                     XSyncIntToValue(&oswindow->m_xsyncvalueNetWmSyncPending, 0);
+
+                     oswindow->m_enetwmsync = window::e_net_wm_sync_wait_paint;
+
+                  }
+
+               }
+
+            }
 
             ::user::primitive_impl * pimpl = msg.oswindow ? msg.oswindow->m_puserinteractionimpl : nullptr;
 
@@ -2599,13 +2478,15 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                      //_x11_defer_check_configuration(msg.oswindow);
 
+                     information() << "X11 ConfigureNotify Win,  x,  y : " << e.xconfigure.window << ", " << e.xconfigure.x << ", " << e.xconfigure.y;
+
+                     information() << "X11 ConfigureNotify Win, cx, cy : " << e.xconfigure.window << ", " << e.xconfigure.width << ", " << e.xconfigure.height;
+
                      ::point_i32 point(e.xconfigure.x, e.xconfigure.y);
 
-                     //information() << "X11 ConfigureNotify Win,x,y " << e.xconfigure.window << ", " << e.xconfigure.x << ", " << e.xconfigure.y;
+                     _defer_position_message(msg.oswindow, point);
 
                      ::size_i32 size(e.xconfigure.width, e.xconfigure.height);
-
-                     _defer_position_message(msg.oswindow, point);
 
                      _defer_size_message(msg.oswindow, size);
 
@@ -3222,6 +3103,47 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
          }
             break;
+      case ClientMessage:
+      {
+
+         if(m_pdisplay->m_bHasXSync)
+         {
+
+            auto atomWmProtocols = m_pdisplay->m_atomWmProtocols;
+
+            if (e.xclient.message_type == atomWmProtocols)
+            {
+
+               auto atomNetWmRequest = m_pdisplay->m_atomNetWmSyncRequest;
+
+               Atom atomProtocol = (Atom) e.xclient.data.l[0];
+
+               if (atomProtocol == atomNetWmRequest)
+               {
+
+                  auto px11window = m_pdisplay->_window(e.xclient.window);
+
+                  if (px11window)
+                  {
+
+                     XSyncIntsToValue(
+                        &px11window->m_xsyncvalueNetWmSyncPending,
+                        e.xclient.data.l[2],
+                        e.xclient.data.l[3]);
+
+                     oswindow->m_enetwmsync = window::e_net_wm_sync_wait_configure;
+
+                  }
+
+               }
+
+            }
+
+         }
+
+      }
+
+      break;
          default:
          {
 
