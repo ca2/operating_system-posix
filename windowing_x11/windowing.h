@@ -118,9 +118,9 @@ namespace windowing_x11
 
       void clear_active_window(::thread * pthread, ::windowing::window * pwindow) override;
 
-      virtual bool x11_on_event(XEvent * pevent);
+      //virtual bool x11_on_event(XEvent * pevent);
 
-      virtual bool x11_message_handler(XEvent * pevent);
+      //virtual bool x11_message_handler(XEvent * pevent);
 
       //virtual bool __x11_hook_process_event(XEvent * pevent, XGenericEventCookie * cookie);
 
@@ -150,9 +150,9 @@ namespace windowing_x11
 #endif
 
 
-      void _defer_position_and_size_message(oswindow oswindow);
-      void _defer_position_message(oswindow oswindow, const ::point_i32 & point);
-      void _defer_size_message(oswindow oswindow, const ::size_i32 & size);
+      //void _defer_position_and_size_message(oswindow oswindow);
+      void _position_message(oswindow oswindow, const ::point_i32 & point);
+      void _size_message(oswindow oswindow, const ::size_i32 & size);
 
 
    };

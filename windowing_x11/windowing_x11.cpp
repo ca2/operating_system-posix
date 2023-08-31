@@ -1016,77 +1016,78 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 
 
-   bool windowing::x11_on_event(XEvent * pevent)
-   {
-
-      if (!m_pdisplay)
-      {
-
-         return false;
-
-      }
-
-      auto pdisplay = m_pdisplay->Display();
-
-      if (pdisplay == nullptr)
-      {
-
-         return false;
-
-      }
-
-      XGenericEventCookie * cookie;
-
-
-#ifdef WITH_XI
-
-
-      if (m_pobjectaExtendedEventListener)
-      {
-
-         cookie = &pevent->xcookie;
-
-      } else
-      {
-
-         cookie = nullptr;
-
-      }
-
-      // WITH_XI
-
-#else
-
-      // !WITH_XI
-
-      cookie = nullptr;
-
-#endif
-
-//      if (!__x11_hook_process_event(pevent, cookie))
-      {
-
-#ifdef WITH_XI
-
-         if (!x11_process_event(pevent, cookie))
-
-#else
-
-            if (!x11_process_event(pdisplay, pevent))
-
-#endif
-         {
-
-            return false;
-
-         }
-
-
-      }
-
-      return true;
-
-   }
+//   bool windowing::x11_on_event(XEvent * pevent)
+//   {
+//
+//      if (!m_pdisplay)
+//      {
+//
+//         return false;
+//
+//      }
+//
+//      auto pdisplay = m_pdisplay->Display();
+//
+//      if (pdisplay == nullptr)
+//      {
+//
+//         return false;
+//
+//      }
+//
+//      XGenericEventCookie * cookie;
+//
+//
+//#ifdef WITH_XI
+//
+//
+//      if (m_pobjectaExtendedEventListener)
+//      {
+//
+//         cookie = &pevent->xcookie;
+//
+//      }
+//      else
+//      {
+//
+//         cookie = nullptr;
+//
+//      }
+//
+//      // WITH_XI
+//
+//#else
+//
+//      // !WITH_XI
+//
+//      cookie = nullptr;
+//
+//#endif
+//
+////      if (!__x11_hook_process_event(pevent, cookie))
+//      {
+//
+//#ifdef WITH_XI
+//
+//         if (!x11_process_event(pevent, cookie))
+//
+//#else
+//
+//            if (!x11_process_event(pdisplay, pevent))
+//
+//#endif
+//         {
+//
+//            return false;
+//
+//         }
+//
+//
+//      }
+//
+//      return true;
+//
+//   }
 
 
 
@@ -1112,123 +1113,124 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 //}
 
-   bool windowing::x11_message_handler(XEvent * pevent)
-   {
-
-      Display * pdisplay = m_pdisplay->Display();
-
-      if (pdisplay == nullptr)
-      {
-
-         return false;
-
-      }
-
-      try
-      {
-
-         synchronous_lock synchronouslock(user_synchronization());
-
-         display_lock displaylock(m_pdisplay->Display());
-
-         try
-         {
-
-            XEvent & e = *pevent;
-
-//#if !defined(RASPBERRYPIOS)
-
-            XGenericEventCookie * pcookie;
-
+//   bool windowing::x11_message_handler(XEvent * pevent)
+//   {
+//
+//      Display * pdisplay = m_pdisplay->Display();
+//
+//      if (pdisplay == nullptr)
+//      {
+//
+//         return false;
+//
+//      }
+//
+//      try
+//      {
+//
+//         synchronous_lock synchronouslock(user_synchronization());
+//
+//         display_lock displaylock(m_pdisplay->Display());
+//
+//         try
+//         {
+//
+//            XEvent & e = *pevent;
+//
+////#if !defined(RASPBERRYPIOS)
+//
+//            XGenericEventCookie * pcookie;
+//
+////#endif
+//
+//#ifdef WITH_XI
+//
+//            if (m_pobjectaExtendedEventListener)
+//            {
+//
+//               pcookie = &e.xcookie;
+//
+//            }
+//            else
+//            {
+//
+//               pcookie = nullptr;
+//
+//            }
+//
 //#endif
-
-#ifdef WITH_XI
-
-            if (m_pobjectaExtendedEventListener)
-            {
-
-               pcookie = &e.xcookie;
-
-            } else
-            {
-
-               pcookie = nullptr;
-
-            }
-
-#endif
-
-            //if (!__x11_hook_process_event(&e, cookie))
-            {
-
-#ifdef WITH_XI
-
-               if (!x11_process_event(&e, pcookie))
-
-#else
-
-                  if (!x11_process_event(m_pdisplay->Display(), pevent))
-
-#endif
-               {
-
-
-               }
-
-
-            }
-
-         }
-         catch (...)
-         {
-
-         }
-
-      }
-      catch (...)
-      {
-
-      }
-
-      while (!m_bFinishX11Thread)
-      {
-
-         try
-         {
-
-            if (!x11_runnable_step())
-            {
-
-               break;
-
-            }
-
-         }
-         catch (...)
-         {
-
-         }
-
-      }
-
-      if (m_bFinishX11Thread)
-      {
-
-#ifdef WITH_XI
-
-         m_pobjectaExtendedEventListener.release();
-
-#endif
-
-         information("x11_thread end thread");
-
-         return false;
-
-      }
-
-      return true;
-
-   }
+//
+//            //if (!__x11_hook_process_event(&e, cookie))
+//            {
+//
+//#ifdef WITH_XI
+//
+//               if (!x11_process_event(&e, pcookie))
+//
+//#else
+//
+//                  if (!x11_process_event(m_pdisplay->Display(), pevent))
+//
+//#endif
+//               {
+//
+//
+//               }
+//
+//
+//            }
+//
+//         }
+//         catch (...)
+//         {
+//
+//         }
+//
+//      }
+//      catch (...)
+//      {
+//
+//      }
+//
+//      while (!m_bFinishX11Thread)
+//      {
+//
+//         try
+//         {
+//
+//            if (!x11_runnable_step())
+//            {
+//
+//               break;
+//
+//            }
+//
+//         }
+//         catch (...)
+//         {
+//
+//         }
+//
+//      }
+//
+//      if (m_bFinishX11Thread)
+//      {
+//
+//#ifdef WITH_XI
+//
+//         m_pobjectaExtendedEventListener.release();
+//
+//#endif
+//
+//         information("x11_thread end thread");
+//
+//         return false;
+//
+//      }
+//
+//      return true;
+//
+//   }
 
 
    bool windowing::x11_message_loop()
@@ -1321,7 +1323,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                   pcookie = &e.xcookie;
 
-               } else
+               }
+               else
                {
 
                   pcookie = nullptr;
@@ -1479,21 +1482,21 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //    x11_
 
 
-   void windowing::_defer_position_and_size_message(oswindow oswindow)
-   {
+//   void windowing::_defer_position_and_size_message(oswindow oswindow)
+//   {
+//
+//      //::rectangle_i32 rectangle;
+//
+//      //::x11_get_window_rect(m_pdisplay->Display(), (Window) oswindow->get_os_data(), &rectangle);
+//
+//      //_defer_position_message(oswindow, rectangle.top_left());
+//
+//      //_defer_size_message(oswindow, rectangle.size());
+//
+//   }
 
-      //::rectangle_i32 rectangle;
 
-      //::x11_get_window_rect(m_pdisplay->Display(), (Window) oswindow->get_os_data(), &rectangle);
-
-      //_defer_position_message(oswindow, rectangle.top_left());
-
-      //_defer_size_message(oswindow, rectangle.size());
-
-   }
-
-
-   void windowing::_defer_position_message(oswindow oswindow, const ::point_i32 & point)
+   void windowing::_position_message(oswindow oswindow, const ::point_i32 & point)
    {
 
       ::user::primitive_impl * pimpl = oswindow->m_puserinteractionimpl;
@@ -1506,15 +1509,15 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          if (pinteraction != nullptr)
          {
 
-            auto pointWindow = pinteraction->const_layout().window().origin();
-
-            information() << "const_layout().window().origin() : " << pointWindow;
-
-            information() << "pointNew                         : " << point;
-
-            bool bPositionFix = pointWindow != point;
-
-            if (bPositionFix)
+//            auto pointWindow = pinteraction->const_layout().window().origin();
+//
+//            information() << "const_layout().window().origin() : " << pointWindow;
+//
+//            information() << "pointNew                         : " << point;
+//
+//            //bool bPositionFix = pointWindow != point;
+//
+//            //if (bPositionFix)
             {
 
                information() << "calling on_reposition...";
@@ -1530,33 +1533,38 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    }
 
 
-   void windowing::_defer_size_message(oswindow oswindow, const ::size_i32 & size)
+   void windowing::_size_message(oswindow oswindow, const ::size_i32 & size)
    {
 
-      ::user::primitive_impl * pimpl = oswindow->m_puserinteractionimpl;
-
-      if (pimpl != nullptr)
+      if(oswindow->m_size != size)
       {
 
-         ::user::interaction * pinteraction = pimpl->m_puserinteraction;
+         ::user::primitive_impl * pimpl = oswindow->m_puserinteractionimpl;
 
-         if (pinteraction != nullptr)
+         if (pimpl != nullptr)
          {
 
-            auto sizeWindow = pinteraction->const_layout().window().size();
+            ::user::interaction * pinteraction = pimpl->m_puserinteraction;
 
-            information() << "const_layout().window().size() : " << sizeWindow;
-
-            information() << "sizeNew                        : " << size;
-
-            bool bSizeFix = sizeWindow != size;
-
-            if (bSizeFix)
+            if (pinteraction != nullptr)
             {
 
-               information() << "calling on_resize...";
+//               auto sizeDesign = pinteraction->const_layout().design().size();
+//
+//               information() << "const_layout().design().size() : " << sizeDesign;
+//
+//               information() << "sizeNew                        : " << size;
+//
+//               bool bSizeFix = sizeDesign != size;
+//
+//               if (bSizeFix)
+               {
 
-               pinteraction->m_pprimitiveimpl->on_resize(size);
+                  information() << "calling on_resize...";
+
+                  pinteraction->m_pprimitiveimpl->on_resize(size);
+
+               }
 
             }
 
@@ -1607,7 +1615,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //               }
 
-               ::pointer < buffer > pbuffer = px11window->m_puserinteractionimpl->m_pgraphics;
+               ::pointer<buffer> pbuffer = px11window->m_puserinteractionimpl->m_pgraphics;
 
                auto pbufferitem = pbuffer->get_buffer_item();
 
@@ -1684,11 +1692,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                      if (detail == 1)
                      {
                         emessage = e_message_left_button_down;
-                     } else if (detail == 2)
+                     }
+                     else if (detail == 2)
                      {
                         emessage = e_message_middle_button_down;
 
-                     } else if (detail == 3)
+                     }
+                     else if (detail == 3)
                      {
                         emessage = e_message_right_button_down;
                      }
@@ -1702,11 +1712,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                      if (detail == 1)
                      {
                         emessage = e_message_left_button_up;
-                     } else if (detail == 2)
+                     }
+                     else if (detail == 2)
                      {
                         emessage = e_message_middle_button_up;
 
-                     } else if (detail == 3)
+                     }
+                     else if (detail == 3)
                      {
                         emessage = e_message_right_button_up;
                      }
@@ -1735,7 +1747,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                         iLparam = XK_Return;
 
-                     } else if (is_space_key((XIRawEvent *) cookie->data))
+                     }
+                     else if (is_space_key((XIRawEvent *) cookie->data))
                      {
 
                         iWparam = ' ';
@@ -2173,73 +2186,62 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          case PropertyNotify:
          {
 
-            if (m_pdisplay->m_atomWmState == None)
+            if (e.xany.window == DefaultRootWindow(m_pdisplay->Display()))
             {
 
-               m_pdisplay->m_atomWmState = m_pdisplay->intern_atom("WM_STATE", false);
+               Atom atom = m_pdisplay->intern_atom("_NET_ACTIVE_WINDOW", False);
 
-            }
-
-            {
-
-               if (e.xany.window == DefaultRootWindow(m_pdisplay->Display()))
+               if (atom == e.xproperty.atom)
                {
 
-                  Atom atom = m_pdisplay->intern_atom("_NET_ACTIVE_WINDOW", False);
+                  auto pwindowActiveOld = m_pdisplay->m_pwindowActive;
 
-                  if (atom == e.xproperty.atom)
+                  auto pwindowActiveNew = m_pdisplay->_get_active_window(nullptr);
+
+                  if (pwindowActiveNew != pwindowActiveOld)
                   {
 
-                     auto pwindowActiveOld = m_pdisplay->m_pwindowActive;
+                     m_pdisplay->m_pwindowActive = pwindowActiveNew;
 
-                     auto pwindowActiveNew = m_pdisplay->_get_active_window(nullptr);
-
-                     if (pwindowActiveNew != pwindowActiveOld)
+                     if (::is_set(pwindowActiveNew))
                      {
 
-                        m_pdisplay->m_pwindowActive = pwindowActiveNew;
+                        auto pimplNew = pwindowActiveNew->m_puserinteractionimpl;
 
-                        if (::is_set(pwindowActiveNew))
+                        if (::is_set(pimplNew))
                         {
 
-                           auto pimplNew = pwindowActiveNew->m_puserinteractionimpl;
+                           auto puserinteractionNew = pimplNew->m_puserinteraction;
 
-                           if (::is_set(pimplNew))
+                           if (::is_set(puserinteractionNew))
                            {
 
-                              auto puserinteractionNew = pimplNew->m_puserinteraction;
+                              puserinteractionNew->set_need_redraw();
 
-                              if (::is_set(puserinteractionNew))
-                              {
-
-                                 puserinteractionNew->set_need_redraw();
-
-                                 puserinteractionNew->post_redraw();
-
-                              }
+                              puserinteractionNew->post_redraw();
 
                            }
 
                         }
 
-                        if (::is_set(pwindowActiveOld))
+                     }
+
+                     if (::is_set(pwindowActiveOld))
+                     {
+
+                        auto pimplOld = pwindowActiveOld->m_puserinteractionimpl;
+
+                        if (::is_set(pimplOld))
                         {
 
-                           auto pimplOld = pwindowActiveOld->m_puserinteractionimpl;
+                           auto puserinteractionOld = pimplOld->m_puserinteraction;
 
-                           if (::is_set(pimplOld))
+                           if (::is_set(puserinteractionOld))
                            {
 
-                              auto puserinteractionOld = pimplOld->m_puserinteraction;
+                              puserinteractionOld->set_need_redraw();
 
-                              if (::is_set(puserinteractionOld))
-                              {
-
-                                 puserinteractionOld->set_need_redraw();
-
-                                 puserinteractionOld->post_redraw();
-
-                              }
+                              puserinteractionOld->post_redraw();
 
                            }
 
@@ -2252,86 +2254,60 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                }
 
             }
-
-            msg.time = e.xproperty.time;
-
-            if (msg.oswindow != nullptr && msg.oswindow->m_puserinteractionimpl != nullptr)
+            else if (pwindow)
             {
 
-               _defer_position_and_size_message(msg.oswindow);
+               msg.time = e.xproperty.time;
 
-               long lState = -1;
+               ::user::interaction * pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
 
-               ::pointer < ::windowing_x11::window > px11window = msg.oswindow;
-
-               if (e.xproperty.atom == m_pdisplay->m_atomWmState
-               && px11window->_get_state_unlocked(lState))
+               if (::is_set(pinteraction))
                {
 
-                  int iIconic = lState == IconicState ? 1 : 0;
-
-                  information() << "PropertyNotify is_iconic : " << iIconic;
-
-                  ::user::interaction *pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
-
-                  if (pinteraction != nullptr)
+                  if (e.xproperty.atom == m_pdisplay->m_atomNetWmState)
                   {
 
-                     auto pimpl = pinteraction->m_pprimitiveimpl;
+                     bool bNetWmStateHidden = false;
 
-                     bool bHandled = false;
+                     bool bNetWmStateMaximized = false;
 
-                     if (pimpl != nullptr)
+                     bool bNetWmStateFocused = false;
+
+                     pwindow->_wm_get_net_state_unlocked(
+                        bNetWmStateHidden,
+                        bNetWmStateMaximized,
+                        bNetWmStateFocused
+                     );
+
+                     auto edisplayDesign = pinteraction->const_layout().design().display();
+
+                     if (bNetWmStateHidden && is_different(bNetWmStateHidden, pwindow->m_bNetWmStateHidden))
                      {
 
-                        if (iIconic >= 0)
+                        if (edisplayDesign != e_display_iconic
+                            && edisplayDesign != e_display_notify_icon
+                            && is_screen_visible(edisplayDesign))
                         {
 
-                           if (iIconic == 0)
-                           {
+                           information()
+                              << "X11::ConfigureNotify trying to fix state to hidden state by asking e_display_iconic";
 
-                              if (pinteraction->const_layout().design().display() == ::e_display_iconic)
-                              {
+                           pinteraction->display(e_display_iconic);
 
-                                 //file_put_contents("/home/camilo/xxx.txt", "");
+                        }
 
-                                 // 1111111111111111111111111111111111111111111
+                     }
+                     else if (bNetWmStateMaximized &&
+                              is_different(bNetWmStateMaximized, pwindow->m_bNetWmStateMaximized))
+                     {
 
-                                 //pinteraction->hide();
+                        if (edisplayDesign != e_display_zoomed)
+                        {
 
-                                 pinteraction->fork([=]()
-                                                    {
+                           information()
+                              << "X11::ConfigureNotify trying to fix state to zoomed state by asking e_display_zoomed";
 
-                                                       auto edisplayPrevious = pinteraction->window_previous_display();
-
-                                                       pinteraction->_001OnDeiconify(edisplayPrevious);
-
-                                                    });
-
-                                 bHandled = true;
-
-                              }
-                              else if (pinteraction->const_layout().sketch().display() == ::e_display_full_screen
-                                       && pinteraction->const_layout().design().display() != ::e_display_full_screen)
-                              {
-
-                                 pinteraction->display(::e_display_full_screen);
-
-                              }
-
-                           }
-                           else
-                           {
-
-                              if (pinteraction->const_layout().design().display() != ::e_display_iconic
-                                  && pinteraction->const_layout().design().display() != ::e_display_none)
-                              {
-
-                                 pinteraction->display(::e_display_iconic);
-
-                              }
-
-                           }
+                           pinteraction->display(e_display_zoomed);
 
                         }
 
@@ -2342,6 +2318,96 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                }
 
             }
+
+//
+//               long lState = -1;
+//
+//               ::pointer<::windowing_x11::window> px11window = msg.oswindow;
+//
+//               if (e.xproperty.atom == m_pdisplay->m_atomWmState
+//                   && px11window->_get_state_unlocked(lState))
+//               {
+//
+//                  bool bIconic = lState == IconicState ? 1 : 0;
+//
+//                  information() << "PropertyNotify is_iconic : " << bIconic;
+//
+//                  ::user::interaction * pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
+//
+//                  if (pinteraction != nullptr)
+//                  {
+//
+//                     auto pimpl = pinteraction->m_pprimitiveimpl;
+//
+//                     bool bHandled = false;
+//
+//                     if (pimpl != nullptr)
+//                     {
+//
+//                        if (bIconic)
+//                        {
+//
+//                           if (pinteraction->const_layout().design().display() == ::e_display_iconic
+//                               || pinteraction->const_layout().design().display() == ::e_display_notify_icon)
+//                           {
+//
+////                                 //file_put_contents("/home/camilo/xxx.txt", "");
+////
+////                                 // 1111111111111111111111111111111111111111111
+////
+////                                 //pinteraction->hide();
+////
+////                                 pinteraction->fork([=]()
+////                                                    {
+////
+////                                                       auto edisplayPrevious = pinteraction->window_previous_display();
+////
+////                                                       pinteraction->_001OnDeiconify(edisplayPrevious);
+////
+////                                                    });
+////
+////                                 bHandled = true;
+//
+//                           }
+//                           else
+//                           {
+////                           else if (pinteraction->const_layout().sketch().display() == ::e_display_full_screen
+////                                       && pinteraction->const_layout().design().display() != ::e_display_full_screen)
+////                              {
+//
+//                              //pinteraction->display(::e_display_full_screen);
+//
+//                              // maybe todo: remove x11 window iconic state
+//                              // as there seems to be a request to set to non-iconic state
+//                              // to the user::interaction associated with this window at this point
+//
+//                           }
+//
+//                        }
+//                        else
+//                        {
+//
+//                           if (pinteraction->const_layout().design().display() != ::e_display_iconic
+//                               && pinteraction->const_layout().design().display() != ::e_display_notify_icon
+//                               && windowing().is_screen_visible(pinteraction->const_layout().design().display()))
+//                           {
+//
+//                              information() << "X11::ConfigureNotify trying to fix state to iconic state";
+//
+//                              pinteraction->display(::e_display_iconic);
+//
+//                           }
+//
+//                        }
+//
+//                     }
+//
+//                  }
+//
+//               }
+//
+//            }
+
 
          }
             break;
@@ -2398,205 +2464,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          case ConfigureNotify:
          {
 
-            if(m_pdisplay->m_bHasXSync)
-            {
-
-               auto oswindow = m_pdisplay->_window(e.xconfigure.window);
-
-               if(oswindow)
-               {
-
-                  if (oswindow->m_enetwmsync == window::e_net_wm_sync_wait_configure)
-                  {
-
-                     oswindow->m_xsyncvalueNetWmSync = oswindow->m_xsyncvalueNetWmSyncPending;
-
-                     XSyncIntToValue(&oswindow->m_xsyncvalueNetWmSyncPending, 0);
-
-                     oswindow->m_enetwmsync = window::e_net_wm_sync_wait_paint;
-
-                  }
-
-               }
-
-            }
-
-            ::user::primitive_impl * pimpl = msg.oswindow ? msg.oswindow->m_puserinteractionimpl : nullptr;
-
-            if (pimpl != nullptr)
-            {
-
-               ::user::interaction * pinteraction = pimpl->m_puserinteraction;
-
-               if (pinteraction != nullptr)
-               {
-
-                  pinteraction->_on_visual_changed_unlocked();
-
-                  if (pinteraction->const_layout().design().display() == ::e_display_iconic &&
-                      !msg.oswindow->is_iconic())
-                  {
-
-//               ::enum_display edisplayPrevious = pinteraction->window_previous_display();
-//
-//               pinteraction->layout().sketch() = edisplayPrevious;
-//
-//               pinteraction->layout().design() = edisplayPrevious;
-//
-//               pinteraction->layout().output() = edisplayPrevious;
-//
-//               pinteraction->layout().window() = edisplayPrevious;
-//
-//               pinteraction->m_windowrect.m_edisplay = edisplayPrevious;
-
-                     pinteraction->fork([=]()
-                                        {
-
-                                           auto edisplayPrevious = pinteraction->window_previous_display();
-
-                                           if (edisplayPrevious == ::e_display_iconic)
-                                           {
-
-                                              pinteraction->_001OnDeiconify(::e_display_normal);
-
-                                           } else
-                                           {
-
-                                              pinteraction->_001OnDeiconify(edisplayPrevious);
-
-                                           }
-
-                                        });
-
-                  }
-
-                  {
-
-                     //XWindowAttributes attrs;
-
-                     //XGetWindowAttributes(m_pdisplay->Display(), e.xconfigure.window, &attrs);
-
-                     //_x11_defer_check_configuration(msg.oswindow);
-
-                     information() << "X11 ConfigureNotify Win,  x,  y : " << e.xconfigure.window << ", " << e.xconfigure.x << ", " << e.xconfigure.y;
-
-                     information() << "X11 ConfigureNotify Win, cx, cy : " << e.xconfigure.window << ", " << e.xconfigure.width << ", " << e.xconfigure.height;
-
-                     ::point_i32 point(e.xconfigure.x, e.xconfigure.y);
-
-                     _defer_position_message(msg.oswindow, point);
-
-                     ::size_i32 size(e.xconfigure.width, e.xconfigure.height);
-
-                     _defer_size_message(msg.oswindow, size);
-
-                     //::point_i32 point(attrs.x, attrs.y);
-
-                     //::size_i32 size(attrs.width, attrs.height);
-
-//                     auto pointWindow = pinteraction->screen_origin();
-//
-//                     auto sizeWindow = pinteraction->const_layout().window().size();
-//
-//                     // Robbers -> Smart -> Tough Law
-//                     // Kids -> Soft Law
-//                     // 5 year smart
-//                     // 80 year kids
-//                     // big companies are?
-//                     // small companies are?
-//                     // big companies moved by auto sustainability...
-//                     // No human is auto sustainable, it currently needs iPhone or something....
-//                     // so?
-//                     // art as vanity and not for auto sustainability...
-//                     // not just for six... six... six...
-//                     // because sometimes we want cake and flesh and raw fish and not carrots with bread and oreo...
-//                     // now I imagine: sick of eating flesh-free carrots and bread, and getting drunk with cheetos and oreo
-//                     // we should let the flesh and the cake for the doctors,
-//                     // lawyers, politicians, google collaborators, drug-makers,
-//                     // ill-makers, sue-makers, idea-makers, religious-people,
-//                     // that make memory_new ammendments to ammendment itself,
-//                     // people above-the-law... flesh save them...
-//                     // ... retired and poor, widow people, complaining of dead/gone people,
-//                     // must eat bird seed grains.... no redemption, only in paradise...
-//                     // slaves of THEIR their, given by the GODs, laws ...
-//
-//                     // X11 "knows" window manager can redirect a request
-//                     // (evidence: override_redirect flag - but that when set leave you outside of much more things)
-//                     // Lets not fight this X11 "thing"
-//                     // Accept-"stall" "authocratic" "top-down" window manager set position and size.
-//                     // This means setting same size_i32 and position to all three sketch and window states.
-//                     // The buffer may need to be resized so don't mess with current design state.
-//
-//                     bool bPositionFix = pointWindow != point;
-//
-//#ifdef X11_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE
-//
-//                     if(bPositionFix)
-//                     {
-//
-//                        pinteraction->layout().sketch().origin() = point;
-//
-//                        pinteraction->layout().window().origin() = point;
-//
-//                        pinteraction->screen_origin() = point;
-//
-//                        pinteraction->screen_origin() = point;
-//
-//                        pinteraction->set_reposition(true);
-//
-//                     }
-//
-//#endif
-//
-//                     bool bSizeFix = sizeWindow != size;
-//
-//#ifdef X11_PERMISSIVE_WITH_WINDOW_MANAGERS_THE_LAW_MAKERS_BECAUSE_YEAH_KNOW_WHAT_IS_BETTER_FOR_THE_USER_BUTT_DEV_STAKE_IS_MONEY_MONEY_MONEY_COMMODITY_THEY_ARE_BURNING_VALUE_AND_BURYING_MONEY_AND_TREASURES_BELOW_THE_DEAD_LAKE_OF_AVERAGING_BUT_GOD_WILL_SHAKE_THIS_FOR_LIFE_FOR_AWESOME_FILE
-//
-//                     if(bSizeFix)
-//                     {
-//
-//                        pinteraction->layout().sketch().size() = size;
-//
-//                        pinteraction->layout().window().size() = size;
-//
-//                        pinteraction->set_need_layout();
-//
-//                     }
-//
-//#endif
-//
-//                     if (bPositionFix)
-//                     {
-//
-//                        msg.oswindow->m_point = point;
-//
-//                        msg.m_atom = e_message_reposition;
-//                        msg.wParam = 0;
-//                        msg.lParam = point.lparam();
-//
-//                        post_ui_message(msg);
-//
-//                     }
-//
-//                     if (bSizeFix)
-//                     {
-//
-//                        msg.oswindow->m_size = size;
-//
-//                        msg.m_atom = e_message_size;
-//                        msg.wParam = 0;
-//                        msg.lParam = size.lparam();
-//
-//                        post_ui_message(msg);
-//
-//                     }
-
-                  }
-
-               }
-
-            }
-
             if (e.xconfigure.window == DefaultRootWindow(m_pdisplay->Display()))
             {
 
@@ -2648,9 +2515,80 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                }
 
             }
+            else
+            {
+
+               if (m_pdisplay->m_bHasXSync)
+               {
+
+                  auto oswindow = m_pdisplay->_window(e.xconfigure.window);
+
+                  if (oswindow)
+                  {
+
+                     if (oswindow->m_enetwmsync == window::e_net_wm_sync_wait_configure)
+                     {
+
+                        oswindow->m_xsyncvalueNetWmSync = oswindow->m_xsyncvalueNetWmSyncPending;
+
+                        XSyncIntToValue(&oswindow->m_xsyncvalueNetWmSyncPending, 0);
+
+                        oswindow->m_enetwmsync = window::e_net_wm_sync_wait_paint;
+
+                     }
+
+                  }
+
+               }
+
+               ::user::primitive_impl * pimpl = msg.oswindow ? msg.oswindow->m_puserinteractionimpl : nullptr;
+
+               if (pimpl != nullptr)
+               {
+
+                  ::user::interaction * pinteraction = pimpl->m_puserinteraction;
+
+                  if (pinteraction != nullptr)
+                  {
+
+                     pinteraction->_on_visual_changed_unlocked();
+
+                     information() << "X11 ConfigureNotify Win,  x,  y : " << e.xconfigure.window << ", "
+                                   << e.xconfigure.x << ", " << e.xconfigure.y;
+
+                     information() << "X11 ConfigureNotify Win, cx, cy : " << e.xconfigure.window << ", "
+                                   << e.xconfigure.width << ", " << e.xconfigure.height;
+
+                     ::point_i32 point(e.xconfigure.x, e.xconfigure.y);
+
+                     if(point != msg.oswindow->m_point)
+                     {
+
+                        msg.oswindow->m_point = point;
+
+                        _position_message(msg.oswindow, point);
+
+                     }
+
+                     ::size_i32 size(e.xconfigure.width, e.xconfigure.height);
+
+                     if(size != msg.oswindow->m_size)
+                     {
+
+                        msg.oswindow->m_size = size;
+
+                        _size_message(msg.oswindow, size);
+
+                     }
+
+                  }
+
+               }
+
+            }
 
          }
-            break;
+         break;
          case ButtonPress:
          case ButtonRelease:
          {
@@ -2680,34 +2618,40 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                      emessage = e_message_left_button_down;
 
-                  } else if (e.xbutton.button == Button2)
+                  }
+                  else if (e.xbutton.button == Button2)
                   {
 
                      emessage = e_message_middle_button_down;
 
-                  } else if (e.xbutton.button == Button3)
+                  }
+                  else if (e.xbutton.button == Button3)
                   {
 
                      emessage = e_message_right_button_down;
 
-                  } else if (e.xbutton.button == Button4)
+                  }
+                  else if (e.xbutton.button == Button4)
                   {
 
                      Δ = 120;
 
-                  } else if (e.xbutton.button == Button5)
+                  }
+                  else if (e.xbutton.button == Button5)
                   {
 
                      Δ = -120;
 
-                  } else
+                  }
+                  else
                   {
 
                      bRet = false;
 
                   }
 
-               } else if (e.xbutton.type == ButtonRelease)
+               }
+               else if (e.xbutton.type == ButtonRelease)
                {
 
                   if (e.xbutton.button == Button1)
@@ -2717,24 +2661,28 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                      emessage = e_message_left_button_up;
 
-                  } else if (e.xbutton.button == Button2)
+                  }
+                  else if (e.xbutton.button == Button2)
                   {
 
                      emessage = e_message_middle_button_up;
 
-                  } else if (e.xbutton.button == Button3)
+                  }
+                  else if (e.xbutton.button == Button3)
                   {
 
                      emessage = e_message_right_button_up;
 
-                  } else
+                  }
+                  else
                   {
 
                      bRet = false;
 
                   }
 
-               } else
+               }
+               else
                {
 
                   bRet = false;
@@ -2795,7 +2743,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                   post_ui_message(pmousewheel);
 
 
-               } else if (bRet)
+               }
+               else if (bRet)
                {
 
                   auto pmouse = pwindow->__create_new<::message::mouse>();
@@ -2887,7 +2836,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //            default:
 //                break;
 //            }
-               } else if (e.xkey.type == KeyRelease)
+               }
+               else if (e.xkey.type == KeyRelease)
                {
 
                   keysym = XkbKeycodeToKeysym(m_pdisplay->Display(), e.xkey.keycode, 0,
@@ -2895,7 +2845,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                   msg.m_atom = e_message_key_up;
 
-               } else
+               }
+               else
                {
 
                   bRet = false;
@@ -3103,35 +3054,37 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
          }
             break;
-      case ClientMessage:
-      {
-
-         if(m_pdisplay->m_bHasXSync)
+         case ClientMessage:
          {
 
-            auto atomWmProtocols = m_pdisplay->m_atomWmProtocols;
-
-            if (e.xclient.message_type == atomWmProtocols)
+            if (m_pdisplay->m_bHasXSync)
             {
 
-               auto atomNetWmRequest = m_pdisplay->m_atomNetWmSyncRequest;
+               auto atomWmProtocols = m_pdisplay->m_atomWmProtocols;
 
-               Atom atomProtocol = (Atom) e.xclient.data.l[0];
-
-               if (atomProtocol == atomNetWmRequest)
+               if (e.xclient.message_type == atomWmProtocols)
                {
 
-                  auto px11window = m_pdisplay->_window(e.xclient.window);
+                  auto atomNetWmRequest = m_pdisplay->m_atomNetWmSyncRequest;
 
-                  if (px11window)
+                  Atom atomProtocol = (Atom) e.xclient.data.l[0];
+
+                  if (atomProtocol == atomNetWmRequest)
                   {
 
-                     XSyncIntsToValue(
-                        &px11window->m_xsyncvalueNetWmSyncPending,
-                        e.xclient.data.l[2],
-                        e.xclient.data.l[3]);
+                     auto px11window = m_pdisplay->_window(e.xclient.window);
 
-                     oswindow->m_enetwmsync = window::e_net_wm_sync_wait_configure;
+                     if (px11window)
+                     {
+
+                        XSyncIntsToValue(
+                           &px11window->m_xsyncvalueNetWmSyncPending,
+                           e.xclient.data.l[2],
+                           e.xclient.data.l[3]);
+
+                        oswindow->m_enetwmsync = window::e_net_wm_sync_wait_configure;
+
+                     }
 
                   }
 
@@ -3141,9 +3094,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
          }
 
-      }
-
-      break;
+            break;
          default:
          {
 
@@ -3158,195 +3109,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
    }
 
-
-//namespace user
-//{
-//
-//
-//   lresult interaction_child::send_x11_event(void * pvoidEvent)
-//   {
-//
-//      XEvent * pevent = (XEvent *) pvoidEvent;
-//
-//      ::pointer<::user::message>spbase;
-//
-//      spbase = Session->get_message_base(pvoidEvent, m_puserinteraction);
-//
-//      try
-//      {
-//
-//         ::pointer<::user::interaction>pinteraction = m_puserinteraction;
-//
-//         while(pinteraction != nullptr && pinteraction->get_parent() != nullptr)
-//         {
-//
-//            try
-//            {
-//
-//               pinteraction->pre_translate_message(spbase);
-//
-//            }
-//            catch(...)
-//            {
-//
-//               break;
-//
-//            }
-//
-//            if(spbase->m_bRet)
-//            {
-//
-//               return spbase->m_lresult;
-//
-//            }
-//
-//            try
-//            {
-//
-//               pinteraction = pinteraction->get_parent();
-//
-//            }
-//            catch(...)
-//            {
-//
-//               break;
-//
-//            }
-//
-//         }
-//
-//      }
-//      catch(...)
-//      {
-//
-//      }
-//
-//      message_handler(spbase);
-//
-//      return spbase->m_lresult;
-//
-//   }
-//
-//
-//} // namespace user
-
-
-////namespace aura
-////{
-////
-////
-//::pointer<::user::message>channel::get_message_base(void * pevent,::user::interaction * pwnd)
-//{
-//
-//   throw ::exception(todo());
-//
-//   return nullptr;
-//
-//}
-////
-////
-////} // namespace aura
-////
-
-//int_bool set_window_position(oswindow hwnd, oswindow hwndInsertAfter, i32 x, i32 y, i32 cx, i32 cy, ::u32 nFlags)
-//{
-//
-//   synchronous_lock synchronouslock(user_synchronization());
-//
-//   return hwnd->set_window_position(hwndInsertAfter, x, y, cx, cy, nFlags);
-//
-//}
-
-
-
-
-
-//int_bool window_rectangle(oswindow hwnd, ::rectangle_i32 * prectangle)
-//{
-//
-//   synchronous_lock synchronouslock(user_synchronization());
-//
-//   display_lock d(hwnd->display());
-//
-//   if(d.is_null())
-//   {
-//
-//      windowing_output_debug_string("\n::window_rectangle 1.1");
-//
-//      return false;
-//
-//   }
-//
-//   return x11_get_window_rect(d, hwnd->window(), prectangle);
-//
-//}
-
-
-//
-//int_bool ca2_GetClientRect(oswindow window, ::rectangle_i32 * prectangle)
-//{
-//
-//   synchronous_lock synchronouslock(window->m_pimpl->m_puserinteraction->synchronization());
-//
-//   window->m_pimpl->m_puserinteraction->window_rectangle(prectangle);
-//
-//   offset_rect(prectangle, -prectangle->left, -prectangle->top);
-//
-//   return true;
-//
-//}
-
-
-
-
-//
-//int_bool GetCursorPos(::point_i32 * ppointCursor)
-//{
-//
-//   x11_sync([&]()
-//            {
-//
-//               synchronous_lock synchronouslock(user_synchronization());
-//
-//               x11_get_cursor_pos(ppointCursor);
-//
-//            });
-//
-//   return true;
-//
-//}
-//
-
-//::user::interaction * get_system_window_interaction(::os_system_window * psystemwindow)
-//{
-//
-//   return nullptr;
-//
-//}
-
-//
-//void wm_full_screen(oswindow w, const ::rectangle_i32 & rectangle)
-//
-//{
-//
-//   w->full_screen(rectangle);
-//
-//
-//}
-
-
-//
-//CLASS_DECL_AURA void defer_dock_application(int_bool bDock)
-//{
-//
-//   UNREFERENCED_PARAMETER(bDock);
-//
-//}
-
-//
-//void sn_start_context();
-//
-//void acme_defer_os_init_windowing();
 
    int xlib_error_handler(Display * d, XErrorEvent * e)
    {
@@ -3370,119 +3132,17 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       abort();
 
    }
-//
-//
-//i64 oswindow_id(oswindow w)
-//{
-//
-//   return w->window();
-//
-//}
-//
-//
-
-
-//   void windowing::_initialize_windowing()
-//   {
-//
-//      //acme_defer_os_init_windowing();
-//
-//      //g_pmutexX11Runnable = memory_new ::pointer < ::mutex >();
-//
-//      //g_prunnableptrlX11 = memory_new list<::pointer<::matter >>);
-//
-////      g_pmutexX11Sync = memory_new ::pointer < ::mutex >();
-//
-////      g_peventX11Sync = memory_new manual_reset_event();
-//
-//      //oswindow_data::s_pdataptra = memory_new oswindow_dataptra;
-//
-//      //oswindow_data::s_pmutex = memory_new ::pointer < ::mutex >;
-//
-//      //osdisplay_data::s_pdataptra = memory_new osdisplay_dataptra;
-//
-//      //osdisplay_data::s_pmutex = memory_new ::pointer < ::mutex >;
-//
-//      //return true;
-//
-//   }
 
 
    void windowing::terminate_windowing()
    {
 
-      //::acme::del(osdisplay_data::s_pmutex);
-
-      //::acme::del(osdisplay_data::s_pdataptra);
-
-      //::acme::del(oswindow_data::s_pmutex);
-
-      //::acme::del(oswindow_data::s_pdataptra);
-
-//      {
-//
-//         synchronous_lock synchronouslock(g_pmutexX11Runnable);
-//
-//         ::acme::del(g_prunnableptrlX11);
-//
-//      }
-
-      //::acme::del(g_pmutexX11Runnable);
-
-//      ::acme::del(g_peventX11Sync);
-
-//      ::acme::del(g_pmutexX11Sync);
-
-      //return false;
 
    }
 
 
-
-//
-//#ifdef RASPBERRYPIOS
-//
-//
-//HCURSOR imaging::CreateAlphaCursor(oswindow window, const ::image * pimage, int xHotSpot, int yHotSpot)
-//{
-//
-//   return hcursor_null;
-//
-//}
-//
-//
-//#else
-
-
-
-
-
-//#endif // RASPBERRYPIOS
-
-
-//
-//int_bool WINAPI SetWindowPos(oswindow hWnd,oswindow hWndInsertAfter,i32 X,i32 Y,i32 cx,i32 cy,::u32 uFlags)
-//{
-//
-//   return hWnd->set_window_position(hWndInsertAfter, X, Y, cx, cy, uFlags);
-//
-//}
-
-
-
-
-
-
    void x11_async_runnable(::matter * prunnable)
    {
-
-//      {
-//
-//         synchronous_lock synchronouslock(g_pmutexX11Runnable);
-//
-//         g_prunnableptrlX11->add_tail(prunnable);
-//
-//      }
 
       x11_kick_idle();
 
@@ -3495,37 +3155,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
    void x11_start();
 
-   //void ui_post_quit();
-
-//   void defer_term_ui()
-//   {
-//
-//      synchronous_lock synchronouslock(user_synchronization());
-//
-//      g_iX11Ref--;
-//
-//      if (g_iX11Ref <= 0)
-//      {
-//
-//         auto
-//
-//         windowing_post_quit();
-//
-//         //ui_post_quit();
-//
-//      }
-//
-//   }
-
-
-//void x11_thread(osdisplay_data * pdisplaydata);
-
-
    ::pointer<::thread> g_pthreadXlib;
 
-
    itask_t g_itaskXlib;
-
 
    itask_t x11_get_itask()
    {
@@ -3541,11 +3173,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       return g_pthreadXlib;
 
    }
-
-//
-//osdisplay_data * x11_main_display();
-//
-
 
    void windowing::post_ui_message(const MESSAGE & message)
    {
@@ -3621,12 +3248,14 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
          information("e_message_quit thread");
 
-      } else if (message.m_atom == e_message_left_button_down)
+      }
+      else if (message.m_atom == e_message_left_button_down)
       {
 
          information("post_ui_message::e_message_left_button_down\n");
 
-      } else if (message.m_atom == e_message_left_button_up)
+      }
+      else if (message.m_atom == e_message_left_button_up)
       {
 
          information("post_ui_message::e_message_left_button_up\n");
@@ -3665,116 +3294,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       }
 
-      //auto result =
-      //
       puserinteraction->post(pmessage);
 
-      //return result;
-
-
-//      ::thread *pthread = nullptr;
-//
-//      if (::is_set(pinteraction))
-//      {
-//
-//         pthread = pinteraction->m_pthreadUserInteraction;
-//
-//      }
-//
-//      if (::is_null(pthread))
-//      {
-//
-//         return false;
-//
-//      }
-//
-//      class ::message_queue *pmq = pthread->m_pmq;
-//
-//      if (pmq == nullptr)
-//      {
-//
-//         if (message.m_atom == e_message_quit)
-//         {
-//
-//            return false;
-//
-//         }
-//
-//         pmq = pthread->get_message_queue();
-//
-//      }
-//
-//      if (pmq == nullptr)
-//      {
-//
-//         return false;
-//
-//      }
-//
-//      synchronous_lock ml(pmq->synchronization());
-//
-//      if (message.m_atom == e_message_quit)
-//      {
-//
-//         information("e_message_quit thread");
-//
-//      }
-//
-//      if (message.m_atom == e_message_left_button_down)
-//      {
-//
-//         information("post_ui_message::e_message_left_button_down\n");
-//
-//      }
-//      else if (message.m_atom == e_message_left_button_up)
-//      {
-//
-//         information("post_ui_message::e_message_left_button_up\n");
-//
-//      }
-//
-//      pmq->m_messagea.add(message);
-//
-//      pmq->m_eventNewMessage.set_event();
-//
-//      return true;
-
    }
-
-
-//
-//int_bool set_foreground_window(oswindow oswindow)
-//{
-//
-//   if(!::is_window(oswindow))
-//   {
-//
-//      return false;
-//
-//   }
-//
-//   x11_fork([oswindow]()
-//            {
-//
-//               display_lock d(Display());
-//
-//               if(d.is_null())
-//               {
-//
-//                  return;
-//
-//               }
-//
-//               XRaiseWindow(d, oswindow->window());
-//
-//               XSetInputFocus(d, oswindow->window(), RevertToNone, CurrentTime);
-//
-//            });
-//
-//   return true;
-//
-//}
-//
 
 
    void windowing::windowing_main()
@@ -3798,191 +3320,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    }
 
 
-//
-//
-//
-//message_queue * get_message_queue(itask_t idthread, bool bCreate);
-//
-//
-//void oswindow_set_active_window(oswindow oswindow);
-//
-//
-//CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const point_i32 & pointCursor);
-//
-//
-//
-//
-//int_bool _x11_get_cursor_pos(Display * d, ::point_i32 * ppointCursor);
-//
-
-
-
-//int get_best_ordered_monitor(::user::interaction * pinteraction, int & l, int & t, int & cx, int & cy);
-//int get_best_monitor(::user::interaction * pinteraction, int & l, int & t, int & cx, int & cy);
-
-//extern SnLauncheeContext *g_psncontext;
-//Display * Display();
-//void wm_toolwindow(oswindow w, bool bToolWindow);
-//void wm_state_hidden(oswindow w, bool bSet);
-//void wm_state_hidden_raw(oswindow w, bool bSet);
-//CLASS_DECL_AURA int_bool mq_remove_window_from_all_queues(oswindow oswindow);
-//
-//
-//int_bool x11_get_cursor_pos(::point_i32 * ppointCursor);
-//
-
-//
-//
-//void ui_post_quit();
-//
-//
-//
-//
-//
-//
-//void x11_thread(osdisplay_data * pdisplaydata);
-
-//void __axis_x11_input_thread(osdisplay_data * pdisplaydata);
-
-
-
-
-//
-//osdisplay_data * x11_main_display();
-//
-//
-//
-//void ui_post_quit()
-//{
-//
-//}
-//
-
-//
-//
-//void os_menu_item_enable(void * pitem, bool bEnable)
-//{
-//
-//}
-//
-//
-//void os_menu_item_check(void * pitem, bool bCheck)
-//{
-//
-//}
-//
-//
-//oswindow get_parent(oswindow oswindow)
-//{
-//111
-//   return nullptr;
-//
-//}
-
-
-
-
-
-
-
 } // namespace windowing_x11
-
-
-
-const char * g_pszaNetWmState[] =
-   {
-      "_NET_WM_STATE_ABOVE",
-      "_NET_WM_STATE_BELOW",
-      "_NET_WM_STATE_HIDDEN",
-      "_NET_WM_STATE_MAXIMIZED_HORZ",
-      "_NET_WM_STATE_MAXIMIZED_VERT",
-      "_NET_WM_STATE_FULLSCREEN",
-      "_NET_WM_STATE_SKIP_TASKBAR",
-      NULL
-   };
-
-
-
-
-//const char *net_wm_state_text(enum_net_wm_state estate)
-//{
-//
-//   if (estate < e_net_wm_state_first || estate >= e_net_wm_state_count)
-//   {
-//
-//      return "";
-//
-//   }
-//
-//   return g_pszaNetWmState[estate];
-//
-//}
-//
-//
-//enum_net_wm_state net_wm_state(const char *pszText)
-//{
-//
-//   if (::is_null(pszText))
-//   {
-//
-//      return e_net_wm_state_count;
-//
-//   }
-//
-//   auto ppsz = g_pszaNetWmState;
-//
-//   int i = 0;
-//
-//   while (ppsz[i] != NULL)
-//   {
-//
-//      if (!ansi_compare_ci(pszText, ppsz[i]))
-//      {
-//
-//         break;
-//
-//      }
-//
-//      i++;
-//
-//   }
-//
-//   return (enum_net_wm_state) i;
-//
-//}
-
-
-
-
-//#define MAXSTR 1000
-
-//unsigned char *x11_get_string_property(Display *display, Window window, char *property_name)
-//{
-//
-//   unsigned char *prop;
-//   Atom actual_type, filter_atom;
-//   int actual_format, status;
-//   unsigned long nitems, bytes_after;
-//
-//   filter_atom = XInternAtom(display, property_name, True);
-//   status = XGetWindowProperty(display, window, filter_atom, 0, MAXSTR, False, AnyPropertyType,
-//                               &actual_type, &actual_format, &nitems, &bytes_after, &prop);
-//   x11_check_status(status, window);
-//   return prop;
-//
-//}
-//
-//
-//unsigned long x11_get_long_property(Display *d, Window w, char *property_name)
-//{
-//
-//   unsigned char *prop = x11_get_string_property(d, w, property_name);
-//
-//   unsigned long long_property = prop[0] + (prop[1] << 8) + (prop[2] << 16) + (prop[3] << 24);
-//
-//   return long_property;
-//
-//}
 
 
 bool x11_get_client_rect(Display * pdisplay, Window window, ::rectangle_i32 * prectangle)
@@ -4110,15 +3448,5 @@ bool x11_get_window_rect(Display * d, Window window, ::rectangle_i32 * prectangl
    return g_estatusInitializeX11;
 
 }
-
-
-//mutex * user_synchronization()
-//{
-//
-//   return g_pmutexX11;
-//
-//
-//}
-
 
 

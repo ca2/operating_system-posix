@@ -45,6 +45,10 @@ namespace windowing_x11
       Atom                                         m_atomLongStyleEx;
       //Atom                                         m_atomCardinal;
       Atom                                         m_atomWmState;
+      Atom                                         m_atomNetWmStateFocused;
+      Atom                                         m_atomNetWmStateHidden;
+      Atom                                         m_atomNetWmStateMaximizedHorz;
+      Atom                                         m_atomNetWmStateMaximizedVert;
       Atom                                         m_atomNetWmState;
       Atom                                         m_atomWmProtocols;
       Atom                                         m_atomNetWmSyncRequest;

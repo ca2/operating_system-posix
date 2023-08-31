@@ -45,6 +45,10 @@ namespace windowing_x11
       m_atomLongStyle = None;
       m_atomNetWmState = None;
       m_atomWmProtocols = None;
+      m_atomNetWmStateFocused = None;
+      m_atomNetWmStateHidden = None;
+      m_atomNetWmStateMaximizedHorz = None;
+      m_atomNetWmStateMaximizedVert = None;
       m_atomNetWmSyncRequest = None;
       m_atomNetWmSyncRequestCounter = None;
       m_atomLongStyleEx = 0;
@@ -227,8 +231,14 @@ namespace windowing_x11
 
       //m_atomCardinal = intern_atom("CARDINAL", True);
       m_atomWmProtocols = intern_atom("WM_PROTOCOLS", True);
+      m_atomWmState = intern_atom("WM_STATE", false);
       m_atomNetWmSyncRequest = intern_atom("_NET_WM_SYNC_REQUEST", True);
       m_atomNetWmSyncRequestCounter = intern_atom("_NET_WM_SYNC_REQUEST_COUNTER", True);
+      m_atomNetWmStateFocused = intern_atom("_NET_WM_STATE_FOCUSED", True);
+      m_atomNetWmStateHidden = intern_atom("_NET_WM_STATE_HIDDEN", True);
+      m_atomNetWmStateMaximizedHorz = intern_atom("_NET_WM_STATE_MAXIMIZED_HORZ", True);
+      m_atomNetWmStateMaximizedVert = intern_atom("_NET_WM_STATE_MAXIMIZED_VERT", True);
+
 
       //return ::success;
 

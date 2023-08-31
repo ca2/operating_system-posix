@@ -51,6 +51,12 @@ namespace windowing_x11
 
       m_xic = nullptr;
 
+
+      m_bNetWmStateHidden = false;
+      m_bNetWmStateMaximized = false;
+      m_bNetWmStateFocused = false;
+
+
       //      for (auto & i : m_iaNetWmState)
       //      {
       //
@@ -273,6 +279,10 @@ namespace windowing_x11
          XSyncIntToValue(&m_xsyncvalueNetWmSyncPending, 0);
 
          information("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
+
+         m_bNetWmStateHidden = false;
+         m_bNetWmStateMaximized = false;
+         m_bNetWmStateFocused = false;
 
          ::Window window = XCreateWindow(display, DefaultRootWindow(display),
                                          x, y,
@@ -4401,6 +4411,23 @@ namespace windowing_x11
       XFree(patoms);
 
       return atoma;
+
+   }
+
+
+   void window::_wm_get_net_state_unlocked(bool & bNetWmStateHidden, bool & bNetWmStateMaximized, bool & bNetWmStateFocused)
+   {
+
+      auto pdisplay = x11_display();
+
+      auto atoma = _wm_get_list_unlocked(pdisplay->m_atomNetWmState);
+
+      bNetWmStateHidden = atoma.contains(pdisplay->m_atomNetWmStateHidden);
+
+      bNetWmStateMaximized = atoma.contains(pdisplay->m_atomNetWmStateMaximizedHorz)
+         || atoma.contains(pdisplay->m_atomNetWmStateMaximizedVert);
+
+      bNetWmStateFocused = atoma.contains(pdisplay->m_atomNetWmStateFocused);
 
    }
 

@@ -726,21 +726,21 @@ void x11_add_idle_source()
 bool x11_message_handler(XEvent * pevent);
 
 
-GdkFilterReturn x11_event_func(GdkXEvent *xevent, GdkEvent *event, gpointer  data)
-{
-
-   XEvent * pevent = (XEvent *) xevent;
-
-   if(x11_message_handler(pevent))
-   {
-
-      //return GDK_FILTER_REMOVE;
-
-   }
-
-   return GDK_FILTER_CONTINUE;
-
-}
+//GdkFilterReturn x11_event_func(GdkXEvent *xevent, GdkEvent *event, gpointer  data)
+//{
+//
+//   XEvent * pevent = (XEvent *) xevent;
+//
+//   if(x11_message_handler(pevent))
+//   {
+//
+//      //return GDK_FILTER_REMOVE;
+//
+//   }
+//
+//   return GDK_FILTER_CONTINUE;
+//
+//}
 
 
 
