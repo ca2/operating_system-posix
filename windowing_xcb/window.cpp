@@ -3569,6 +3569,9 @@ namespace windowing_xcb
 
      }
 
+     xcb_windowing()->_position_message(this, {x, y});
+     xcb_windowing()->_size_message(this, {cx, cy});
+
      return estatus;
 
 
@@ -3603,7 +3606,10 @@ namespace windowing_xcb
 
      }
 
-     return estatus;
+      xcb_windowing()->_position_message(this, {x, y});
+      //xcb_windowing()->_size_message(this, {cx, cy});
+
+      return estatus;
 
    }
 
@@ -3632,6 +3638,10 @@ namespace windowing_xcb
         return estatus;
 
      }
+
+      //xcb_windowing()->_position_message(this, {x, y});
+      xcb_windowing()->_size_message(this, {cx, cy});
+
 
       //information() << "resize succeeded";
 

@@ -42,15 +42,20 @@ namespace windowing_posix
    void windowing::_position_message(::windowing::window * pwindow, const ::point_i32 & point)
    {
 
-      ::user::primitive_impl * pimpl = pwindow->m_puserinteractionimpl;
-
-      if (pimpl != nullptr)
+      //if(pwindow->m_point != point)
       {
 
-         ::user::interaction * pinteraction = pimpl->m_puserinteraction;
+         pwindow->m_point = point;
 
-         if (pinteraction != nullptr)
+         ::user::primitive_impl * pimpl = pwindow->m_puserinteractionimpl;
+
+         if (pimpl != nullptr)
          {
+
+            ::user::interaction * pinteraction = pimpl->m_puserinteraction;
+
+            if (pinteraction != nullptr)
+            {
 
 //            auto pointWindow = pinteraction->const_layout().window().origin();
 //
@@ -61,11 +66,13 @@ namespace windowing_posix
 //            //bool bPositionFix = pointWindow != point;
 //
 //            //if (bPositionFix)
-            {
+               {
 
-               information() << "calling on_reposition...";
+                  information() << "calling on_reposition...";
 
-               pinteraction->m_pprimitiveimpl->on_reposition(point);
+                  pinteraction->m_pprimitiveimpl->on_reposition(point);
+
+               }
 
             }
 
@@ -79,8 +86,10 @@ namespace windowing_posix
    void windowing::_size_message(::windowing::window * pwindow, const ::size_i32 & size)
    {
 
-      if(pwindow->m_size != size)
+      //if(pwindow->m_size != size)
       {
+
+         pwindow->m_size = size;
 
          ::user::primitive_impl * pimpl = pwindow->m_puserinteractionimpl;
 
