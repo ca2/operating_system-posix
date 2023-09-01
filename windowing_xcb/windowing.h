@@ -75,7 +75,7 @@ namespace windowing_xcb
 
 
 
-      virtual void windowing_main() override;
+      //virtual void windowing_main() override;
 
 
       //virtual void windowing_post_quit() override;
@@ -84,7 +84,7 @@ namespace windowing_xcb
       void release_mouse_capture() override;
 
 
-      virtual void xcb_main();
+      //virtual void xcb_main();
 
       //virtual HCURSOR load_default_cursor(e_cursor ecursor) override;
       virtual ::pointer<::windowing::cursor>load_default_cursor(enum_cursor ecursor);
@@ -132,15 +132,15 @@ namespace windowing_xcb
 
       void clear_active_window(::thread * pthread, ::windowing::window * pwindow) override;
 
-      virtual bool xcb_on_event(xcb_generic_event_t * pevent);
+      //virtual bool xcb_on_event(xcb_generic_event_t * pevent);
 
-      virtual bool xcb_message_handler(xcb_generic_event_t * pevent);
+      //virtual bool xcb_message_handler(xcb_generic_event_t * pevent);
 
       //virtual bool __xcb_hook_process_event(xcb_generic_event_t * pevent, XGenericEventCookie * cookie);
 
       //virtual bool __xcb_hook_list_is_empty();
 
-      virtual bool xcb_message_loop_step();
+      //virtual bool xcb_message_loop_step();
 
       virtual ::windowing::window * window(oswindow oswindow) override;
 

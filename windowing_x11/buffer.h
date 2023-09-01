@@ -10,6 +10,7 @@
 #include "aura/graphics/graphics/bitmap_source_buffer.h"
 #include "aura/graphics/graphics/double_buffer.h"
 #include "aura/graphics/image/pixmap.h"
+#include "acme_posix/shmem.h"
 #include <X11/Xlib.h>
 #include <X11/extensions/XShm.h>
 //#include <X11/extensions/Xrender.h>
@@ -21,12 +22,11 @@ namespace windowing_x11
 
    class CLASS_DECL_AURA buffer :
       virtual public ::graphics::double_buffer,
-      virtual public ::graphics::bitmap_source_buffer
+      virtual public ::graphics::bitmap_source_buffer,
+      virtual public ::acme_posix::shmem
    {
    public:
 
-      int                  m_shmid;		/* kernel id */
-      void *               m_shmaddr;	/* address in client */
       ::pixmap             m_pixmap;
       XImage *             m_pximage;
       bool                 m_bXShmChecked;
@@ -34,6 +34,7 @@ namespace windowing_x11
       XShmSegmentInfo      m_xshmsegmentinfo;
       ::size_i32           m_sizeLastBitBlitting;
       bool                 m_bUseXShmIfAvailable;
+
       //::pointer < ::mutex >                         m_pmutexPixmap;
       //pixmap                        m_pixmap;
       GC                   m_gc;
@@ -66,7 +67,6 @@ namespace windowing_x11
 
 
       virtual void _map_shared_memory(const ::size_i32 & size);
-      virtual void _destroy_shared_memory();
 
 
 //      virtual bool create_os_buffer(::image::image * pimage);

@@ -687,7 +687,7 @@ namespace windowing_xcb
 
          //XChangeProperty(xcb_connection(), xcb_window(), atomMotifHints, atomMotifHints, 32, PropModeReplace,
          //              (unsigned char *) &hints, sizeof(MWMHints) / 4);
-         estatus = _change_property(atomMotifHints, atomMotifHints, XCB_PROP_MODE_REPLACE, 32, 5, &hints);
+         estatus = _change_property(atomMotifHints, atomMotifHints, XCB_PROP_MODE_REPLACE, 32, sizeof(hints) / 4, &hints);
 
       }
 

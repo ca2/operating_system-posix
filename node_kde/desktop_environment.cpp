@@ -128,7 +128,11 @@ namespace node_kde
       if(m_bX11)
       {
 
-         m_pwindowing->windowing_send([this, iIndex, prectangle]() { _get_monitor_rectangle(iIndex, prectangle); });
+         synchronous_lock sl(user_synchronization());
+
+         _get_monitor_rectangle(iIndex, prectangle);
+
+         //m_pwindowing->windowing_send([this, iIndex, prectangle]() { _get_monitor_rectangle(iIndex, prectangle); });
 
       }
       else
@@ -147,7 +151,11 @@ namespace node_kde
       if(m_bX11)
       {
 
-         m_pwindowing->windowing_send([this, iIndex, prectangle]() { _get_workspace_rectangle(iIndex, prectangle); });
+         synchronous_lock sl(user_synchronization());
+
+         _get_workspace_rectangle(iIndex, prectangle);
+
+         //m_pwindowing->windowing_send([this, iIndex, prectangle]() { _get_workspace_rectangle(iIndex, prectangle); });
 
       }
       else

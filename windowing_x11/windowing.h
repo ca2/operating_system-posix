@@ -73,7 +73,7 @@ namespace windowing_x11
 
       ::windowing::display * display() override;
 
-      void windowing_main() override;
+      //void windowing_main() override;
 
 
       void windowing_post_quit() override;
@@ -82,7 +82,7 @@ namespace windowing_x11
       void release_mouse_capture() override;
 
 
-      virtual void x11_main();
+      //virtual void x11_main();
 
       //virtual HCURSOR load_default_cursor(e_cursor ecursor) override;
       virtual ::pointer<::windowing::cursor>load_default_cursor(enum_cursor ecursor) override;
@@ -150,9 +150,6 @@ namespace windowing_x11
 #endif
 
 
-      //void _defer_position_and_size_message(oswindow oswindow);
-      void _position_message(oswindow oswindow, const ::point_i32 & point);
-      void _size_message(oswindow oswindow, const ::size_i32 & size);
 
 
    };

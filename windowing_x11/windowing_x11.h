@@ -41,7 +41,7 @@ struct MWMHints
 #define MWM_DECOR_MAXIMIZE      (1L << 6)
 
 
-CLASS_DECL_WINDOWING_X11 void x11_main();
+//CLASS_DECL_WINDOWING_X11 void x11_main();
 
 
 CLASS_DECL_WINDOWING_X11 ::particle * user_synchronization();

@@ -19,7 +19,7 @@ void x11_add_idle_source();
 void x11_add_filter();
 
 
-void x11_main();
+//void x11_main();
 
 
 ::particle * user_synchronization();

@@ -38,7 +38,7 @@ struct MWMHints
 #define MWM_DECOR_MAXIMIZE      (1L << 6)
 
 
-CLASS_DECL_WINDOWING_XCB void xcb_main();
+//CLASS_DECL_WINDOWING_XCB void xcb_main();
 
 
 CLASS_DECL_WINDOWING_XCB ::particle * user_synchronization();

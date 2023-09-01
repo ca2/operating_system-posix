@@ -43,8 +43,19 @@ namespace windowing_xcb
       //m_colormap = 0;
       m_pfontCursor = 0;
       //m_windowRoot = 0;
+      m_atomNetWmState = None;
+      m_atomNetWmStateFocused = None;
+      m_atomNetWmStateHidden = None;
+      m_atomNetWmStateMaximizedHorz = None;
+      m_atomNetWmStateMaximizedVert = None;
+
+      m_atomWmProtocols = None;
+      m_atomNetWmSyncRequest = None;
+      m_atomNetWmSyncRequestCounter = None;
 
       m_pfontCursor = 0;
+
+      m_iXcbShmCompletionTypeId = -1;
 
    }
 
@@ -138,6 +149,8 @@ namespace windowing_xcb
 
       }
 
+
+
       for (::index iAtomName = 0; iAtomName < ::x11::e_atom_count; iAtomName++)
       {
 
@@ -153,6 +166,16 @@ namespace windowing_xcb
          }
 
       }
+
+
+      m_atomWmProtocols = intern_atom("WM_PROTOCOLS", True);
+      //m_atomWmState = intern_atom("WM_STATE", false);
+      m_atomNetWmSyncRequest = intern_atom("_NET_WM_SYNC_REQUEST", True);
+      m_atomNetWmSyncRequestCounter = intern_atom("_NET_WM_SYNC_REQUEST_COUNTER", True);
+      m_atomNetWmStateFocused = intern_atom("_NET_WM_STATE_FOCUSED", True);
+      m_atomNetWmStateHidden = intern_atom("_NET_WM_STATE_HIDDEN", True);
+      m_atomNetWmStateMaximizedHorz = intern_atom("_NET_WM_STATE_MAXIMIZED_HORZ", True);
+      m_atomNetWmStateMaximizedVert = intern_atom("_NET_WM_STATE_MAXIMIZED_VERT", True);
 
       //return ::success;
 

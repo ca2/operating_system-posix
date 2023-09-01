@@ -1056,25 +1056,25 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 
 
-   void windowing::windowing_main()
-   {
+//   void windowing::windowing_main()
+//   {
+//
+//      xcb_main();
+//
+//   }
 
-      xcb_main();
 
-   }
-
-
-   void windowing::xcb_main()
-   {
-
-      while (!m_bFinishXcbThread)
-      {
-
-         xcb_message_loop_step();
-
-      }
-
-   }
+//   void windowing::xcb_main()
+//   {
+//
+//      while (!m_bFinishXcbThread)
+//      {
+//
+//         xcb_message_loop_step();
+//
+//      }
+//
+//   }
 
 
 //

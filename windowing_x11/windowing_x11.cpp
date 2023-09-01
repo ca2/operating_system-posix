@@ -1482,99 +1482,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //    x11_
 
 
-//   void windowing::_defer_position_and_size_message(oswindow oswindow)
-//   {
-//
-//      //::rectangle_i32 rectangle;
-//
-//      //::x11_get_window_rect(m_pdisplay->Display(), (Window) oswindow->get_os_data(), &rectangle);
-//
-//      //_defer_position_message(oswindow, rectangle.top_left());
-//
-//      //_defer_size_message(oswindow, rectangle.size());
-//
-//   }
-
-
-   void windowing::_position_message(oswindow oswindow, const ::point_i32 & point)
-   {
-
-      ::user::primitive_impl * pimpl = oswindow->m_puserinteractionimpl;
-
-      if (pimpl != nullptr)
-      {
-
-         ::user::interaction * pinteraction = pimpl->m_puserinteraction;
-
-         if (pinteraction != nullptr)
-         {
-
-//            auto pointWindow = pinteraction->const_layout().window().origin();
-//
-//            information() << "const_layout().window().origin() : " << pointWindow;
-//
-//            information() << "pointNew                         : " << point;
-//
-//            //bool bPositionFix = pointWindow != point;
-//
-//            //if (bPositionFix)
-            {
-
-               information() << "calling on_reposition...";
-
-               pinteraction->m_pprimitiveimpl->on_reposition(point);
-
-            }
-
-         }
-
-      }
-
-   }
-
-
-   void windowing::_size_message(oswindow oswindow, const ::size_i32 & size)
-   {
-
-      if(oswindow->m_size != size)
-      {
-
-         ::user::primitive_impl * pimpl = oswindow->m_puserinteractionimpl;
-
-         if (pimpl != nullptr)
-         {
-
-            ::user::interaction * pinteraction = pimpl->m_puserinteraction;
-
-            if (pinteraction != nullptr)
-            {
-
-//               auto sizeDesign = pinteraction->const_layout().design().size();
-//
-//               information() << "const_layout().design().size() : " << sizeDesign;
-//
-//               information() << "sizeNew                        : " << size;
-//
-//               bool bSizeFix = sizeDesign != size;
-//
-//               if (bSizeFix)
-               {
-
-                  information() << "calling on_resize...";
-
-                  pinteraction->m_pprimitiveimpl->on_resize(size);
-
-               }
-
-            }
-
-         }
-
-      }
-
-   }
-
-
 #ifdef WITH_XI
 
    bool windowing::x11_process_event(XEvent * pevent, XGenericEventCookie * cookie)
@@ -3299,25 +3206,25 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    }
 
 
-   void windowing::windowing_main()
-   {
+//   void windowing::windowing_main()
+//   {
+//
+//      x11_main();
+//
+//   }
 
-      x11_main();
 
-   }
-
-
-   void windowing::x11_main()
-   {
-
-      while (!m_bFinishX11Thread)
-      {
-
-         x11_message_loop_step();
-
-      }
-
-   }
+//   void windowing::x11_main()
+//   {
+//
+//      while (!m_bFinishX11Thread)
+//      {
+//
+//         x11_message_loop_step();
+//
+//      }
+//
+//   }
 
 
 } // namespace windowing_x11

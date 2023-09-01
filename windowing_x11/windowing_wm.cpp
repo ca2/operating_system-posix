@@ -335,7 +335,7 @@ namespace windowing_x11
 
             windowing_output_debug_string("\n::wm_toolwindow 1.1");
 
-            fflush(stdout);
+            //fflush(stdout);
 
             return;
 
@@ -710,7 +710,7 @@ namespace windowing_x11
    void window::wm_nodecorations(int bMap)
    {
 
-      windowing_output_debug_string("\n::wm_nodecorations 1");
+      windowing_output_debug_string("::wm_nodecorations 1");
 
       synchronous_lock synchronouslock(user_synchronization());
 
@@ -732,9 +732,7 @@ namespace windowing_x11
    void window::_wm_nodecorations(int bMap)
    {
 
-      
-
-      auto windowRoot = DefaultRootWindow(Display());
+      //auto windowRoot = DefaultRootWindow(Display());
 
       bool bCreateAtom = false;
 

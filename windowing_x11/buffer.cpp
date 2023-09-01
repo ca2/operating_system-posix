@@ -14,8 +14,6 @@
 #include "aura/graphics/image/image.h"
 #include "aura_posix/x11/display_lock.h"
 
-#include <sys/ipc.h>
-#include <sys/shm.h>
 //#define VERI_BASIC_TEST
 
 
@@ -35,10 +33,6 @@ namespace windowing_x11
 
       m_pximage = nullptr;
 
-      m_shmid = -1;
-
-      m_shmaddr = nullptr;
-
       //m_pimage = nullptr;
 
       m_iGoodStride = 0;
@@ -49,8 +43,8 @@ namespace windowing_x11
    buffer::~buffer()
    {
 
-      _destroy_shared_memory();
-
+//      _destroy_shared_memory();
+//
       destroy_os_buffer();
 
    }
@@ -59,8 +53,6 @@ namespace windowing_x11
    void buffer::_map_shared_memory(const ::size_i32 & size)
    {
 
-      _destroy_shared_memory();
-
       if(!m_bUseXShmIfAvailable)
       {
 
@@ -68,35 +60,33 @@ namespace windowing_x11
 
       }
 
-      m_shmid = shmget(IPC_PRIVATE, size.cx() * size.cy() * 4, IPC_CREAT | 0777); /* kernel id */
-
-      m_shmaddr = shmat(m_shmid, 0, 0); /* address in client */
+      map_shared_memory(size.cx() * size.cy() * 4);
 
    }
 
 
-   void buffer::_destroy_shared_memory()
-   {
-
-      if (m_shmaddr)
-      {
-
-         shmdt(m_shmaddr);
-
-         m_shmaddr = nullptr;
-
-      }
-
-      if (m_shmid >= 0)
-      {
-
-         shmctl(m_shmid, IPC_RMID, NULL);
-
-         m_shmid = -1;
-
-      }
-
-   }
+//   void buffer::_destroy_shared_memory()
+//   {
+//
+//      if (m_shmaddr)
+//      {
+//
+//         shmdt(m_shmaddr);
+//
+//         m_shmaddr = nullptr;
+//
+//      }
+//
+//      if (m_shmid >= 0)
+//      {
+//
+//         shmctl(m_shmid, IPC_RMID, NULL);
+//
+//         m_shmid = -1;
+//
+//      }
+//
+//   }
 
 
    ::windowing_x11::window * buffer::x11_window()

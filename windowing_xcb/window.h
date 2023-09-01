@@ -47,8 +47,12 @@ namespace windowing_xcb
       xcb_window_t                                 m_window;
       xcb_visualid_t                               m_visualid;
       htask_t                                      m_htask;
-      class ::time                                       m_timeLastMouseMove;
+      class ::time                                 m_timeLastMouseMove;
       ::point_i32                                  m_pointMouseCursor;
+
+      bool                                         m_bNetWmStateHidden;
+      bool                                         m_bNetWmStateMaximized;
+      bool                                         m_bNetWmStateFocused;
 
 
       window();
@@ -98,7 +102,7 @@ namespace windowing_xcb
       virtual void post_nc_destroy();
 
 
-      virtual void set_window_icon(const ::file::path & path);
+      virtual ::e_status set_bamf_desktop_file(const ::file::path & path);
 
 
       virtual bool is_child( ::windowing::window * candidateChildOrDescendant); // or descendant
@@ -110,7 +114,7 @@ namespace windowing_xcb
       bool is_window_visible() override;
 
 
-      void show_window(const ::e_display & edisplay, const ::e_activation & eactivation) override;
+      //void _configure_window_unlocked(const class ::zorder& zorder, const ::e_activation& eactivation, bool bNoZorder, ::e_display edisplay) override;
 
       void exit_iconify()override;
       void full_screen(const ::rectangle_i32 & rect = {})override;
@@ -168,6 +172,7 @@ namespace windowing_xcb
 
 
       virtual comparable_array < xcb_atom_t > _list_atom(xcb_atom_t atomList);
+      virtual void _get_net_wm_state_unlocked(bool & bNetWmStateHidden, bool & bNetWmStateMaximized, bool & bNetWmStateFocused);
       virtual bool _has_net_wm_state(xcb_atom_t propertyItem);
       virtual bool _list_has_atom(xcb_atom_t propertyList, xcb_atom_t propertyItem);
       virtual ::e_status _list_add_atom(xcb_atom_t atomList, xcb_atom_t atomFlag);
@@ -212,7 +217,7 @@ namespace windowing_xcb
 
 
       void window_update_screen_buffer() override;
-      void _window_request_presentation_locked() override;
+      //void _window_request_presentation_locked() override;
 
 
       virtual ::e_status defer_update_keyboard_context();
@@ -252,6 +257,16 @@ namespace windowing_xcb
       virtual ::e_status _move_resize_unlocked(int x, int y, int cx, int cy);
       virtual ::e_status _move_unlocked(int x, int y);
       virtual ::e_status _resize_unlocked(int cx, int cy);
+
+
+      void window_do_update_screen() override;
+
+
+      virtual void _on_end_paint();
+
+
+//      bool _strict_set_window_position_unlocked(i32 x, i32 y, i32 cx, i32 cy, bool bNoMove, bool bNoSize) override;
+
 
    };
 

@@ -8,6 +8,9 @@
 //#include "aura/graphics/graphics/_.h"
 #include "aura/graphics/graphics/double_buffer.h"
 #include "aura/graphics/graphics/bitmap_source_buffer.h"
+#include "acme_posix/shmem.h"
+#include <xcb/shm.h>
+#include <xcb/xcb_image.h>
 
 
 namespace windowing_xcb
@@ -16,14 +19,25 @@ namespace windowing_xcb
 
    class CLASS_DECL_AURA buffer :
       virtual public ::graphics::double_buffer,
-      virtual public ::graphics::bitmap_source_buffer
+      virtual public ::graphics::bitmap_source_buffer,
+      virtual public ::acme_posix::shmem
    {
    public:
 
 
+
+      xcb_image_t *                                m_pxcbimage;
+      bool                                         m_bXShmChecked;
+      bool                                         m_bXShm;
+      xcb_shm_seg_t                                m_xcbshmseg;
+      ::size_i32                                   m_sizeXcbShm;
       ::rectangle_i32                              m_rectangleLast;
+      ::size_i32                                   m_sizeLastBitBlitting;
+      bool                                         m_bUseXShmIfAvailable;
       ::pointer<windowing_xcb::display>            m_pdisplay;
       xcb_gcontext_t                               m_gcontext;
+      bool                                         m_bShmAttached;
+
       //::size_i32                                   m_sizeImage;
       //::memory                                     m_memoryImage;
 
@@ -37,6 +51,15 @@ namespace windowing_xcb
       void initialize_graphics_graphics(::user::interaction_impl * pimpl) override;
       void destroy() override;
 
+
+      virtual void _map_shared_memory(const ::size_i32 & size);
+
+      bool attach_shm();
+      bool query_shm();
+      bool detach_shm();
+      int shm_completion_type_id();
+
+      bool update_buffer(::graphics::buffer_item * pbufferitem) override;
 
 
       virtual bool create_os_buffer(const ::size_i32 & size, int iStride = -1) ;

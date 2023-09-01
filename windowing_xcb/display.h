@@ -35,7 +35,15 @@ namespace windowing_xcb
       xcb_atom_t                                               m_atoma[::x11::e_atom_count];
 
       xcb_font_t                                               m_pfontCursor;
-
+      int                                                      m_iXcbShmCompletionTypeId;
+      Atom                                                     m_atomNetWmStateFocused;
+      Atom                                                     m_atomNetWmStateHidden;
+      Atom                                                     m_atomNetWmStateMaximizedHorz;
+      Atom                                                     m_atomNetWmStateMaximizedVert;
+      Atom                                                     m_atomWmProtocols;
+      Atom                                                     m_atomNetWmSyncRequest;
+      Atom                                                     m_atomNetWmSyncRequestCounter;
+      Atom                                                     m_atomNetWmState;
       Display *                                                m_pX11Display;
       //xcb_connection_t *                                       m_pconnection;
 

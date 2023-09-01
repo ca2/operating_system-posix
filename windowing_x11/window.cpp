@@ -1165,23 +1165,21 @@ namespace windowing_x11
 
       ::file::path path = pnode->get_desktop_file_path(papp);
 
-      information("\nfreebsd::interaction_impl::set_window_text");
+      information("windowing_x11::interaction_impl::set_window_text");
 
-      fflush(stdout);
+      //fflush(stdout);
 
       display_lock displaylock(x11_display()->Display());
 
-      Atom net_wm_icon = x11_display()->intern_atom("_BAMF_DESKTOP_FILE", False);
+      Atom atomBamfDesktopFile = x11_display()->intern_atom("_BAMF_DESKTOP_FILE", False);
 
-      Atom cardinal = x11_display()->intern_atom("STRING", False);
-
-      int ixa = XA_STRING;
+      //Atom cardinal = x11_display()->intern_atom("STRING", False);
 
       int status = XChangeProperty(
          Display(),
          Window(),
-         net_wm_icon,
-         ixa,
+         atomBamfDesktopFile,
+         XA_STRING,
          8,
          PropModeReplace,
          (const unsigned char *) (const char *) path,
@@ -1189,7 +1187,7 @@ namespace windowing_x11
 
       information("windowing_x11::window::bamf_set_icon END");
 
-      fflush(stdout);
+      //fflush(stdout);
 
       if (status != 0)
       {
@@ -1203,29 +1201,12 @@ namespace windowing_x11
    }
 
 
-   int
-   window::x_change_property(Atom property, Atom type, int format, int mode, const unsigned char * data, int nelements)
+   int window::x_change_property(Atom property, Atom type, int format, int mode, const unsigned char * data, int nelements)
    {
 
       return XChangeProperty(Display(), Window(), property, type, format, mode, data, nelements);
 
    }
-
-
-   //   Atom window::x11_display()->intern_atom(const char *pszAtomName, bool bCreate)
-   //   {
-   //
-   //      return m_osdisplay->x11_display()->intern_atom(pszAtomName, bCreate);
-   //
-   //   }
-
-
-   //   Atom window::x11_display()->intern_atom(e_net_wm_state estate, bool bCreate)
-   //   {
-   //
-   //      return m_osdisplay->x11_display()->intern_atom(estate, bCreate);
-   //
-   //   }
 
 
    bool window::set_icon(::image * pimage)
