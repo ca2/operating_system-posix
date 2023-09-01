@@ -1978,10 +1978,10 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 #ifdef FREEBSD
             ::rectangle_i32 rectangleRedraw;
 
-            rectangleRedraw.left = e.xexpose.x;
-            rectangleRedraw.top = e.xexpose.y;
-            rectangleRedraw.right = rectangleRedraw.left + e.xexpose.width;
-            rectangleRedraw.bottom = rectangleRedraw.top + e.xexpose.height;
+            rectangleRedraw.left() = e.xexpose.x;
+            rectangleRedraw.top() = e.xexpose.y;
+            rectangleRedraw.right() = rectangleRedraw.left() + e.xexpose.width;
+            rectangleRedraw.bottom() = rectangleRedraw.top() + e.xexpose.height;
 
             pwindow->m_rectangleaRedraw.add(rectangleRedraw);
 
@@ -2617,8 +2617,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //      window_rectangle(msg.oswindow, &r);
 //
-//      int l1 = r.left;
-//      int t1 = r.top;
+//      int l1 = r.left();
+//      int t1 = r.top();
 //      int w1 = r.width();
 //      int h1 = r.height();
 
@@ -3246,13 +3246,13 @@ bool x11_get_client_rect(Display * pdisplay, Window window, ::rectangle_i32 * pr
 
    }
 
-   prectangle->left = 0;
+   prectangle->left() = 0;
 
-   prectangle->top = 0;
+   prectangle->top() = 0;
 
-   prectangle->right = prectangle->left + attr.width;
+   prectangle->right() = prectangle->left() + attr.width;
 
-   prectangle->bottom = prectangle->top + attr.height;
+   prectangle->bottom() = prectangle->top() + attr.height;
 
    windowing_output_debug_string("\n::this->rectangle 2");
 
@@ -3304,13 +3304,13 @@ bool x11_get_window_rect(Display * d, Window window, ::rectangle_i32 * prectangl
 
    XTranslateCoordinates(d, window, windowRoot, 0, 0, &x, &y, &child);
 
-   prectangle->left = x + attrs.x;
+   prectangle->left() = x + attrs.x;
 
-   prectangle->top = y + attrs.y;
+   prectangle->top() = y + attrs.y;
 
-   prectangle->right = x + attrs.x + attrs.width;
+   prectangle->right() = x + attrs.x + attrs.width;
 
-   prectangle->bottom = y + attrs.y + attrs.height;
+   prectangle->bottom() = y + attrs.y + attrs.height;
 
 
    windowing_output_debug_string("\n::x11_get_window_rect 2");
