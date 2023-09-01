@@ -150,6 +150,7 @@ namespace windowing_x11
 #endif
 
 
+      //void _on_wm_state_change(::windowing::window * pwindow) override;
 
 
    };

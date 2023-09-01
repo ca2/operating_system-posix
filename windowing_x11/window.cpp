@@ -2161,12 +2161,12 @@ namespace windowing_x11
 
       display_lock displaylock(x11_display()->Display());
 
-      return _get_state_unlocked(lState);
+      return _get_wm_state_unlocked(lState);
 
    }
 
 
-   bool window::_get_state_unlocked(long & lState)
+   bool window::_get_wm_state_unlocked(long & lState)
    {
 
       static const long WM_STATE_ELEMENTS = 2L;
@@ -2190,7 +2190,8 @@ namespace windowing_x11
 
       auto atomWmState = x11_display()->m_atomWmState;
 
-      ::i32 status = XGetWindowProperty(Display(), Window(), atomWmState, 0L, WM_STATE_ELEMENTS, False, AnyPropertyType,
+      ::i32 status = XGetWindowProperty(Display(), Window(), atomWmState, 0L,
+                                        WM_STATE_ELEMENTS, False, AnyPropertyType,
                                   &actual_type,
                                   &actual_format, &nitems, &leftover, &p);
 
@@ -2254,35 +2255,6 @@ namespace windowing_x11
    }
 
 
-   bool window::_is_iconic_unlocked()
-   {
-
-#ifdef XDISPLAY_LOCK_LOG
-
-      b_prevent_xdisplay_lock_log = true;
-
-#endif
-
-      long lState = -1;
-
-      if(!_get_state_unlocked(lState))
-      {
-
-         return false;
-
-      }
-
-      bool bIconic = lState == IconicState;
-
-#ifdef XDISPLAY_LOCK_LOG
-
-      b_prevent_xdisplay_lock_log = false;
-
-#endif
-
-      return lState;
-
-   }
 
 
    bool window::is_window_visible()
@@ -3456,7 +3428,9 @@ namespace windowing_x11
 
             }
 
-            windowing_output_debug_string("\n::window::set_window_pos Move Window 1.4.1");
+            windowing_output_debug_string("::window::set_window_pos Move Window 1.4.1");
+
+            information("XMoveWindow (Win=%d) (%d, %d)", Window(), x, y);
 
             XMoveWindow(Display(), Window(), x, y);
 
@@ -3466,7 +3440,9 @@ namespace windowing_x11
       else if (bSize)
       {
 
-         windowing_output_debug_string("\n::window::set_window_pos Resize Window 1.4.2");
+         windowing_output_debug_string("::window::set_window_pos Resize Window 1.4.2");
+
+         information("XResizeWindow (Win=%d) (%d, %d)", Window(), cx, cy);
 
          XResizeWindow(Display(), Window(), cx, cy);
 

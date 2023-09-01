@@ -5,6 +5,7 @@
 #include "windowing.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/node.h"
+#include <gdk/x11/gdkx11monitor.h>
 
 
 ::particle * user_synchronization();

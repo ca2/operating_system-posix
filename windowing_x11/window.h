@@ -167,10 +167,10 @@ namespace windowing_x11
       void set_parent(::windowing::window * pwindowNewParent) override;
       //virtual ::e_status set_parent(::windowing::window * pwindowNewParent) override;
       virtual bool get_state(long & lState);
-      virtual bool _get_state_unlocked(long & lState);
+      bool _get_wm_state_unlocked(long & lState) override;
       bool is_iconic() override;
       bool is_window_visible() override;
-      bool _is_iconic_unlocked() override;
+//      bool _is_iconic_unlocked() override;
       bool _is_window_visible_unlocked() override;
       //void show_window(const ::e_display & edisplay, const ::e_activation & eactivation) override;
       //void _show_window_unlocked(const ::e_display & edisplay, const ::e_activation & eactivation) override;

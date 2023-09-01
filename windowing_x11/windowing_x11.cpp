@@ -2219,6 +2219,27 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                         }
 
                      }
+                     else if (bNetWmStateFocused &&
+                              is_different(bNetWmStateFocused, pwindow->m_bNetWmStateFocused))
+                     {
+
+                        //if (edisplayDesign != e_display_zoomed)
+                        {
+
+                           information()
+                              << "X11::ConfigureNotify trying to fix state to previous state by calling display_previous";
+
+                           pinteraction->display_previous();
+
+                        }
+
+                     }
+
+                  }
+                  else if (e.xproperty.atom == m_pdisplay->m_atomWmState)
+                  {
+
+                     _on_wm_state_change(pwindow);
 
                   }
 
@@ -2468,7 +2489,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                      ::point_i32 point(e.xconfigure.x, e.xconfigure.y);
 
-                     if(point != msg.oswindow->m_point)
+                     //if(point != msg.oswindow->m_point)
                      {
 
                         msg.oswindow->m_point = point;
@@ -2479,7 +2500,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                      ::size_i32 size(e.xconfigure.width, e.xconfigure.height);
 
-                     if(size != msg.oswindow->m_size)
+                     //if(size != msg.oswindow->m_size)
                      {
 
                         msg.oswindow->m_size = size;
@@ -2487,6 +2508,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                         _size_message(msg.oswindow, size);
 
                      }
+
+                     //_handle_configure_iconic_state(msg.oswindow);
 
                   }
 
@@ -3039,6 +3062,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       abort();
 
    }
+
+
 
 
    void windowing::terminate_windowing()
