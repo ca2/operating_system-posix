@@ -634,10 +634,10 @@ namespace draw2d_xlib
    {
 
       return Arc(
-             rectangle.left,
-             rectangle.top,
-             rectangle.right,
-             rectangle.bottom,
+             rectangle.left(),
+             rectangle.top(),
+             rectangle.right(),
+             rectangle.bottom(),
              ptStart.x,
              ptStart.y,
              ptEnd.x,
@@ -663,7 +663,7 @@ namespace draw2d_xlib
       set(pBrush);
 
       XFillRectangle(m_pdc->m_pdisplay, m_pdc->m_drawable, m_pdc->m_gc,
-                     rectangle.left + m_pdc->m_pointOffset.x, rectangle.top + m_pdc.m_pointOffset.y,
+                     rectangle.left() + m_pdc->m_pointOffset.x, rectangle.top() + m_pdc.m_pointOffset.y,
                      width(rectangle), height(rectangle));
 //      throw ::not_implemented();
       //    return;
@@ -685,7 +685,7 @@ namespace draw2d_xlib
    bool graphics::DrawRect(const ::rectangle_i32 & rectangle, ::draw2d::pen * ppen)
    {
 
-      return DrawRect(rectangle.left, rectangle.top, rectangle.right, rectangle.bottom, ppen);
+      return DrawRect(rectangle.left(), rectangle.top(), rectangle.right(), rectangle.bottom(), ppen);
 
    }
 
@@ -980,7 +980,7 @@ namespace draw2d_xlib
       return false;
 
       //ASSERT(get_handle1() != nullptr);
-      //return ::Chord(get_handle1(), rectangle.left, rectangle.top, rectangle.right, rectangle.bottom, ptStart.x, ptStart.y, ptEnd.x, ptEnd.y) != false;
+      //return ::Chord(get_handle1(), rectangle.left(), rectangle.top(), rectangle.right(), rectangle.bottom(), ptStart.x, ptStart.y, ptEnd.x, ptEnd.y) != false;
 
    }
 
@@ -1030,10 +1030,10 @@ namespace draw2d_xlib
    bool graphics::DrawEllipse(rectangle_i32 lprect)
    {
 
-      return DrawEllipse(lprect->left, lprect->top, lprect->right, lprect->bottom);
+      return DrawEllipse(lprect->left(), lprect->top(), lprect->right(), lprect->bottom());
 
-      /*return ::Ellipse(get_handle1(), rectangle.left, rectangle.top,
-      rectangle.right, rectangle.bottom); */
+      /*return ::Ellipse(get_handle1(), rectangle.left(), rectangle.top(),
+      rectangle.right(), rectangle.bottom()); */
 
 
    }
@@ -1078,10 +1078,10 @@ namespace draw2d_xlib
    bool graphics::FillEllipse(const ::rectangle_i32 & rectangle)
    {
 
-      /*return ::Ellipse(get_handle1(), rectangle.left, rectangle.top,
-      rectangle.right, rectangle.bottom); */
+      /*return ::Ellipse(get_handle1(), rectangle.left(), rectangle.top(),
+      rectangle.right(), rectangle.bottom()); */
 
-      return FillEllipse(rectangle.left, rectangle.top, rectangle.right, rectangle.bottom);
+      return FillEllipse(rectangle.left(), rectangle.top(), rectangle.right(), rectangle.bottom());
 
    }
 
@@ -1104,7 +1104,7 @@ namespace draw2d_xlib
 
 
       /*      ASSERT(get_handle1() != nullptr);
-            return ::Pie(get_handle1(), rectangle.left, rectangle.top, rectangle.right, rectangle.bottom, ptStart.x, ptStart.y, ptEnd.x, ptEnd.y) != false;*/
+            return ::Pie(get_handle1(), rectangle.left(), rectangle.top(), rectangle.right(), rectangle.bottom(), ptStart.x, ptStart.y, ptEnd.x, ptEnd.y) != false;*/
 
    }
 
@@ -1288,7 +1288,7 @@ namespace draw2d_xlib
    bool graphics::rectangle(const ::rectangle_i32 & rectangle)
    {
 
-      return Rectangle(rectangle.left, rectangle.top, rectangle.right, rectangle.bottom);
+      return Rectangle(rectangle.left(), rectangle.top(), rectangle.right(), rectangle.bottom());
 
    }
 
@@ -1308,7 +1308,7 @@ namespace draw2d_xlib
    bool graphics::DrawRectangle(const ::rectangle_i32 & rectangle)
    {
 
-      return DrawRectangle(rectangle.left, rectangle.top, rectangle.right, rectangle.bottom);
+      return DrawRectangle(rectangle.left(), rectangle.top(), rectangle.right(), rectangle.bottom());
 
    }
 
@@ -1328,7 +1328,7 @@ namespace draw2d_xlib
    bool graphics::FillRectangle(const ::rectangle_i32 & rectangle)
    {
 
-      return FillRectangle(rectangle.left, rectangle.top, rectangle.right, rectangle.bottom);
+      return FillRectangle(rectangle.left(), rectangle.top(), rectangle.right(), rectangle.bottom());
 
    }
 
@@ -1347,7 +1347,7 @@ namespace draw2d_xlib
    {
 
       //ASSERT(get_handle1() != nullptr);
-      //return ::RoundRect(get_handle1(), rectangle.left, rectangle.top, rectangle.right, rectangle.bottom, point.x, point.y) != false;
+      //return ::RoundRect(get_handle1(), rectangle.left(), rectangle.top(), rectangle.right(), rectangle.bottom(), point.x, point.y) != false;
       throw ::not_implemented();
       return false;
 
@@ -2315,7 +2315,7 @@ namespace draw2d_xlib
       return false;
 
 //      ASSERT(get_handle1() != nullptr);
-//      return ArcTo(rectangle.left, rectangle.top, rectangle.right, rectangle.bottom, ptStart.x, ptStart.y, ptEnd.x, ptEnd.y);
+//      return ArcTo(rectangle.left(), rectangle.top(), rectangle.right(), rectangle.bottom(), ptStart.x, ptStart.y, ptEnd.x, ptEnd.y);
 
    }
 
@@ -2683,7 +2683,7 @@ namespace draw2d_xlib
       return false;
 
 
-      /*      Gdiplus::RectF rectangle_i32((Gdiplus::REAL) lpBounds->left, (Gdiplus::REAL) lpBounds->top, (Gdiplus::REAL) width(lpBounds), (Gdiplus::REAL) height(lpBounds));
+      /*      Gdiplus::RectF rectangle_i32((Gdiplus::REAL) lpBounds->left(), (Gdiplus::REAL) lpBounds->top(), (Gdiplus::REAL) width(lpBounds), (Gdiplus::REAL) height(lpBounds));
 
             Gdiplus::Metafile* pMeta = normal_new Gdiplus::Metafile(hEnhMF, false);
 
@@ -3242,7 +3242,7 @@ namespace draw2d_xlib
                SelectClipRgn(&rgnLast);
                get_clip_box(&rectangle);
                pBrushOld = SelectObject(pBrushLast);
-               PatBlt(rectangle.left, rectangle.top, rectangle.width(), rectangle.height(), PATINVERT);
+               PatBlt(rectangle.left(), rectangle.top(), rectangle.width(), rectangle.height(), PATINVERT);
                SelectObject(pBrushOld);
                pBrushOld = nullptr;
             }
@@ -3251,7 +3251,7 @@ namespace draw2d_xlib
             SelectClipRgn(rgnUpdate.get_os_data() != nullptr ? &rgnUpdate : &rgnNew);
             get_clip_box(&rectangle);
             pBrushOld = SelectObject(pBrush);
-            PatBlt(rectangle.left, rectangle.top, rectangle.width(), rectangle.height(), PATINVERT);
+            PatBlt(rectangle.left(), rectangle.top(), rectangle.width(), rectangle.height(), PATINVERT);
 
             // cleanup DC
             if (pBrushOld != nullptr)
@@ -3290,8 +3290,8 @@ namespace draw2d_xlib
    void graphics::Draw3dRect(const ::rectangle_i32 & rectangle,
                              color32_t clrTopLeft, color32_t clrBottomRight)
    {
-      Draw3dRect(rectangle.left, rectangle.top, rectangle.right - rectangle.left,
-                 rectangle.bottom - rectangle.top, clrTopLeft, clrBottomRight);
+      Draw3dRect(rectangle.left(), rectangle.top(), rectangle.right() - rectangle.left(),
+                 rectangle.bottom() - rectangle.top(), clrTopLeft, clrBottomRight);
    }
 
    void graphics::Draw3dRect(i32 x, i32 y, i32 cx, i32 cy,
@@ -3814,11 +3814,11 @@ namespace draw2d_xlib
       /*
             i32 nRetVal = ERROR;
             if(get_handle1() != nullptr && get_handle1() != get_handle2())
-               nRetVal = ::ExcludeClipRect(get_handle1(), rectangle.left, rectangle.top,
-               rectangle.right, rectangle.bottom);
+               nRetVal = ::ExcludeClipRect(get_handle1(), rectangle.left(), rectangle.top(),
+               rectangle.right(), rectangle.bottom());
             if(get_handle2() != nullptr)
-               nRetVal = ::ExcludeClipRect(get_handle2(), rectangle.left, rectangle.top,
-               rectangle.right, rectangle.bottom);
+               nRetVal = ::ExcludeClipRect(get_handle2(), rectangle.left(), rectangle.top(),
+               rectangle.right(), rectangle.bottom());
             return nRetVal;
       */
 
@@ -3849,9 +3849,9 @@ namespace draw2d_xlib
 
       /*      i32 nRetVal = ERROR;
             if(get_handle1() != nullptr && get_handle1() != get_handle2())
-               nRetVal = ::IntersectClipRect(get_handle1(), rectangle.left, rectangle.top, rectangle.right, rectangle.bottom);
+               nRetVal = ::IntersectClipRect(get_handle1(), rectangle.left(), rectangle.top(), rectangle.right(), rectangle.bottom());
             if(get_handle2() != nullptr)
-               nRetVal = ::IntersectClipRect(get_handle2(), rectangle.left, rectangle.top, rectangle.right, rectangle.bottom);
+               nRetVal = ::IntersectClipRect(get_handle2(), rectangle.left(), rectangle.top(), rectangle.right(), rectangle.bottom());
             return nRetVal;
       */
 
@@ -4432,11 +4432,11 @@ namespace draw2d_xlib
 
       if(nFormat & e_align_right)
       {
-         Δx = rectangle.right - rectangle.left - sz.cx();
+         Δx = rectangle.right() - rectangle.left() - sz.cx();
       }
       else if(nFormat & e_align_horizontal_center)
       {
-         Δx = ((rectangle.right - rectangle.left) - (sz.cx())) / 2.0;
+         Δx = ((rectangle.right() - rectangle.left()) - (sz.cx())) / 2.0;
       }
       else
       {
@@ -4445,11 +4445,11 @@ namespace draw2d_xlib
 
       if(nFormat & e_align_bottom)
       {
-         Δy = rectangle.bottom - rectangle.top - sz.cy();
+         Δy = rectangle.bottom() - rectangle.top() - sz.cy();
       }
       else if(nFormat & e_align_vertical_center)
       {
-         Δy = ((rectangle.bottom - rectangle.top) - (sz.cy())) / 2.0;
+         Δy = ((rectangle.bottom() - rectangle.top()) - (sz.cy())) / 2.0;
       }
       else
       {
@@ -4462,8 +4462,8 @@ namespace draw2d_xlib
                m_pdc->m_pdisplay,
                m_pdc->m_drawable,
                m_pdc->m_gc,
-               rectangle.left + Δx + m_pdc->m_pointOffset.x,
-               rectangle.top + h + Δy + m_pdc->m_pointOffset.y,
+               rectangle.left() + Δx + m_pdc->m_pointOffset.x,
+               rectangle.top() + h + Δy + m_pdc->m_pointOffset.y,
                xa.get_data(),
                xa.get_count());*/
 
@@ -4490,8 +4490,8 @@ namespace draw2d_xlib
 //      XftColorAllocValue(m_pdc->m_pdisplay, pbitmap->m_ui.m_window->draw2d(), pbitmap->m_ui.m_window->m_colormap, &c, &ftc);
 
       XftDrawStringUtf8(pdraw, &ftc, pfont->m_pft,
-                        rectangle.left + Δx + m_pdc->m_pointOffset.x,
-                        rectangle.top + h + Δy + m_pdc->m_pointOffset.y, (const FcChar8 *) (const char *) str);
+                        rectangle.left() + Δx + m_pdc->m_pointOffset.x,
+                        rectangle.top() + h + Δy + m_pdc->m_pointOffset.y, (const FcChar8 *) (const char *) str);
 
 //      XftColorFree(m_pdc->m_pdisplay, pbitmap->m_ui.m_window->draw2d(), pbitmap->m_ui.m_window->m_colormap, &ftc);
 
@@ -4800,7 +4800,7 @@ namespace draw2d_xlib
    void graphics::FillSolidRect(const ::rectangle_i32 & rectangle, color32_t clr)
    {
 
-      FillSolidRect(rectangle.left, rectangle.top, width(rectangle), height(rectangle), clr);
+      FillSolidRect(rectangle.left(), rectangle.top(), width(rectangle), height(rectangle), clr);
 
    }
 
@@ -5136,7 +5136,7 @@ namespace draw2d_xlib
 
       /*
 
-      xlib_surface_t * psurface = xlib_surface_create_for_rectangle(psurfaceSrc, rectangle.left, rectangle.top, width(rectangle), height(rectangle));
+      xlib_surface_t * psurface = xlib_surface_create_for_rectangle(psurfaceSrc, rectangle.left(), rectangle.top(), width(rectangle), height(rectangle));
 
       xlib_image_surface_blur(psurface, dRadius);
 
@@ -5608,8 +5608,8 @@ ok:
             XftColorAllocValue(m_pdc->m_pdisplay, pbitmap->m_ui.m_window->draw2d(), pbitmap->m_ui.m_window->m_colormap, &c, &ftc);
 
             XftDrawString8(pdraw, &ftc, pfont->m_pft,
-            rectangle.left + Δx + m_pdc->m_pointOffset.x,
-            rectangle.top + h + Δy + m_pdc->m_pointOffset.y, (FcChar8 *) (const char *) str);
+            rectangle.left() + Δx + m_pdc->m_pointOffset.x,
+            rectangle.top() + h + Δy + m_pdc->m_pointOffset.y, (FcChar8 *) (const char *) str);
 
             XftColorFree(m_pdc->m_pdisplay, pbitmap->m_ui.m_window->draw2d(), pbitmap->m_ui.m_window->m_colormap, &ftc);
 

@@ -80,10 +80,10 @@
 //
 //      pscreen->geometry().getCoords(&left, &top, &right, &bottom);
 //
-//      m_rectangle.left     = left;
-//      m_rectangle.top      = top;
-//      m_rectangle.right    = right;
-//      m_rectangle.bottom   = bottom;
+//      m_rectangle.left()     = left;
+//      m_rectangle.top()      = top;
+//      m_rectangle.right()    = right;
+//      m_rectangle.bottom()   = bottom;
 //
 //      return ::success;
 //
@@ -120,10 +120,10 @@
 //
 //      pscreen->availableGeometry().getCoords(&left, &top, &right, &bottom);
 //
-//      m_rectangleWorkspace.left     = left;
-//      m_rectangleWorkspace.top      = top;
-//      m_rectangleWorkspace.right    = right;
-//      m_rectangleWorkspace.bottom   = bottom;
+//      m_rectangleWorkspace.left()     = left;
+//      m_rectangleWorkspace.top()      = top;
+//      m_rectangleWorkspace.right()    = right;
+//      m_rectangleWorkspace.bottom()   = bottom;
 //
 //      return ::success;
 //

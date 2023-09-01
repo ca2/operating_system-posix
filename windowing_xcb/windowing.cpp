@@ -1124,9 +1124,9 @@ namespace windowing_xcb
                if (motion.same_screen)
                {
 
-                  //motion.event_x = motion.root_x - (geometryFound.x - rectangleFoundFrameExtents.left);
+                  //motion.event_x = motion.root_x - (geometryFound.x - rectangleFoundFrameExtents.left());
 
-                  //motion.event_y = motion.root_y - (geometryFound.y - rectangleFoundFrameExtents.top);
+                  //motion.event_y = motion.root_y - (geometryFound.y - rectangleFoundFrameExtents.top());
 
                   auto cookie = xcb_translate_coordinates(
                      m_pdisplay->m_pxcbdisplay->m_pconnection,

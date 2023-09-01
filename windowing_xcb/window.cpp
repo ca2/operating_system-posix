@@ -1216,17 +1216,17 @@ namespace windowing_xcb
 
       ::rectangle_i32 rWindow;
 
-      rWindow.left = m_geometry.x;
-      rWindow.top = m_geometry.y;
-      rWindow.right = m_geometry.x + m_geometry.width;
-      rWindow.bottom = m_geometry.y + m_geometry.height;
+      rWindow.left() = m_geometry.x;
+      rWindow.top() = m_geometry.y;
+      rWindow.right() = m_geometry.x + m_geometry.width;
+      rWindow.bottom() = m_geometry.y + m_geometry.height;
 
       if (rBest != rWindow)
       {
 
          m_puserinteractionimpl->m_puserinteraction->place(rBest);
 
-         estatus = _move_resize(rBest.left, rBest.top, rBest.width(), rBest.height());
+         estatus = _move_resize(rBest.left(), rBest.top(), rBest.width(), rBest.height());
 
       }
 
@@ -2500,10 +2500,10 @@ namespace windowing_xcb
 
       auto pgeometry = &m_geometry;
 
-      prectangle->left = pgeometry->x;
-      prectangle->top = pgeometry->y;
-      prectangle->right = pgeometry->x + pgeometry->width;
-      prectangle->top = pgeometry->y + pgeometry->height;
+      prectangle->left() = pgeometry->x;
+      prectangle->top() = pgeometry->y;
+      prectangle->right() = pgeometry->x + pgeometry->width;
+      prectangle->top() = pgeometry->y + pgeometry->height;
 
       return estatus;
 
@@ -2522,10 +2522,10 @@ namespace windowing_xcb
 
       }
 
-      prectangle->left = 0;
-      prectangle->top = 0;
-      prectangle->right = m_geometry.width;
-      prectangle->top = m_geometry.height;
+      prectangle->left() = 0;
+      prectangle->top() = 0;
+      prectangle->right() = m_geometry.width;
+      prectangle->top() = m_geometry.height;
 
       return estatus;
 
