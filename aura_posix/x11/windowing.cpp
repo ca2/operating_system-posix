@@ -6,6 +6,7 @@
 #include "framework.h"
 #include "windowing.h"
 #include "window.h"
+#include "acme/primitive/geometry2d/_text_stream.h"
 #include "aura/user/user/interaction_impl.h"
 #include <X11/Xutil.h>
 
@@ -42,13 +43,15 @@ namespace windowing_posix
 //   }
 
 
-   void windowing::_position_message(::windowing::window * pwindow, const ::point_i32 & point)
+   void windowing::_configure_message(::windowing::window * pwindow, const ::rectangle_i32 & rectangle)
    {
 
       //if(pwindow->m_point != point)
       {
 
-         pwindow->m_point = point;
+//         pwindow->m_pointWindow = rectangle.origin();
+//
+//         pwindow->m_sizeWindow = rectangle.size();
 
          ::user::primitive_impl * pimpl = pwindow->m_puserinteractionimpl;
 
@@ -71,53 +74,9 @@ namespace windowing_posix
 //            //if (bPositionFix)
                {
 
-                  information() << "calling on_reposition...";
+                  //information() << "calling on_configure..." << rectangle;
 
-                  pinteraction->m_pprimitiveimpl->on_reposition(point);
-
-               }
-
-            }
-
-         }
-
-      }
-
-   }
-
-
-   void windowing::_size_message(::windowing::window * pwindow, const ::size_i32 & size)
-   {
-
-      //if(pwindow->m_size != size)
-      {
-
-         pwindow->m_size = size;
-
-         ::user::primitive_impl * pimpl = pwindow->m_puserinteractionimpl;
-
-         if (pimpl != nullptr)
-         {
-
-            ::user::interaction * pinteraction = pimpl->m_puserinteraction;
-
-            if (pinteraction != nullptr)
-            {
-
-//               auto sizeDesign = pinteraction->const_layout().design().size();
-//
-//               information() << "const_layout().design().size() : " << sizeDesign;
-//
-//               information() << "sizeNew                        : " << size;
-//
-//               bool bSizeFix = sizeDesign != size;
-//
-//               if (bSizeFix)
-               {
-
-                  information() << "calling on_resize...";
-
-                  pinteraction->m_pprimitiveimpl->on_resize(size);
+                  pinteraction->m_pprimitiveimpl->on_configure(rectangle);
 
                }
 
@@ -128,6 +87,50 @@ namespace windowing_posix
       }
 
    }
+
+
+//   void windowing::_size_message(::windowing::window * pwindow, const ::size_i32 & size)
+//   {
+//
+//      //if(pwindow->m_size != size)
+//      {
+//
+//         pwindow->m_size = size;
+//
+//         ::user::primitive_impl * pimpl = pwindow->m_puserinteractionimpl;
+//
+//         if (pimpl != nullptr)
+//         {
+//
+//            ::user::interaction * pinteraction = pimpl->m_puserinteraction;
+//
+//            if (pinteraction != nullptr)
+//            {
+//
+////               auto sizeDesign = pinteraction->const_layout().design().size();
+////
+////               information() << "const_layout().design().size() : " << sizeDesign;
+////
+////               information() << "sizeNew                        : " << size;
+////
+////               bool bSizeFix = sizeDesign != size;
+////
+////               if (bSizeFix)
+//               {
+//
+//                  information() << "calling on_resize...";
+//
+//                  pinteraction->m_pprimitiveimpl->on_resize(size);
+//
+//               }
+//
+//            }
+//
+//         }
+//
+//      }
+//
+//   }
 
 
    void windowing::_on_wm_state_change(::windowing::window * pwindow)

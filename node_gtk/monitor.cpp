@@ -107,38 +107,41 @@ namespace node_gtk
    }
 
 
-   ::e_status monitor::_get_workspace_rectangle()
-   {
-
-      //synchronous_lock sl(user_synchronization());
-
-      GdkDisplay * pdisplay = gdk_display_get_default();
-
-      if (pdisplay == nullptr)
-      {
-
-         return error_failed;
-
-      }
-
-      GdkMonitor * pmonitor = gdk_display_get_monitor(pdisplay, m_iIndex);
-
-      if (pmonitor == nullptr)
-      {
-
-         return error_failed;
-
-      }
-
-      GdkRectangle rect;
-
-      gdk_monitor_get_workarea(pmonitor, &rect);
-
-      copy(m_rectangleWorkspace, rect);
-
-      return ::success;
-
-   }
+//   ::e_status monitor::_get_workspace_rectangle()
+//   {
+//
+//      synchronous_lock sl(user_synchronization());
+//
+//      ::pointer auto pdisplay = m_pdisplay->
+//
+////
+////      GdkDisplay * pdisplay = gdk_display_get_default();
+////
+////      if (pdisplay == nullptr)
+////      {
+////
+////         return error_failed;
+////
+////      }
+////
+////      GdkMonitor * pmonitor = gdk_display_get_monitor(pdisplay, m_iIndex);
+////
+////      if (pmonitor == nullptr)
+////      {
+////
+////         return error_failed;
+////
+////      }
+////
+////      GdkRectangle rect;
+////
+////      gdk_monitor_get_workarea(pmonitor, &rect);
+////
+////      copy(m_rectangleWorkspace, rect);
+//
+//      return ::success;
+//
+//   }
 
 
    ::rectangle_i32 monitor::monitor_rectangle()
@@ -160,23 +163,25 @@ namespace node_gtk
    }
 
 
-   ::rectangle_i32 monitor::workspace_rectangle()
-   {
-
-      //auto predicate = [this]()
-        // {
-
-            synchronous_lock sl(user_synchronization());
-
-            _get_workspace_rectangle();
-
-        // };
-
-      //acmenode()->send_procedure(predicate);
-
-      return ::windowing::monitor::workspace_rectangle();
-
-   }
+//   ::rectangle_i32 monitor::_workspace_rectangle()
+//   {
+//
+//      //auto predicate = [this]()
+//        // {
+//
+//            synchronous_lock sl(user_synchronization());
+//
+//            _get_workspace_rectangle();
+//
+//            return m_rectangleWorkspace;
+//
+//        // };
+//
+//      //acmenode()->send_procedure(predicate);
+//
+//      //return ::windowing::monitor::workspace_rectangle();
+//
+//   }
 
 
 } // namespace node_gtk

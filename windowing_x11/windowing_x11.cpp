@@ -1747,18 +1747,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       msg.time = 0;
 
-      auto oswindow = m_pdisplay->_window(e.xany.window);
+      auto px11window = m_pdisplay->_window(e.xany.window);
 
-      auto pwindow = oswindow;
-
-//      if (oswindow == nullptr)
-//      {
-//
-//         return false;
-//
-//      }
-
-      msg.oswindow = oswindow;
+      msg.oswindow = px11window;
 
       if (e.xany.type == ClientMessage && e.xany.window == g_windowX11Client
           && e.xclient.message_type == g_atomKickIdle)
@@ -1769,7 +1760,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          return true;
 
       }
-
 
       switch (e.type)
       {
@@ -1782,6 +1772,14 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                ::minimum(m_pointCursor.x());
 
                ::minimum(m_pointCursor.y());
+
+
+               if(e.xcrossing.mode == NotifyUngrab)
+               {
+
+                  information() << "X11 LeaveNotify NotifyUngrab";
+
+               }
 
 //            if(e.xcrossing.mode == NotifyUngrab)
 //            {
@@ -1812,7 +1810,12 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          case EnterNotify:
          {
 
+            if(e.xcrossing.mode == NotifyGrab)
+            {
 
+               information() << "X11 EnterNotify NotifyGrab";
+
+            }
 
             //::minimum(m_pointCursor.x);
 
@@ -1946,11 +1949,11 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                //post_ui_message(msg);
 
-               auto pmouse = pwindow->__create_new<::message::mouse>();
+               auto pmouse = px11window->__create_new<::message::mouse>();
 
-               pmouse->m_oswindow = oswindow;
+               pmouse->m_oswindow = px11window;
 
-               pmouse->m_pwindow = oswindow;
+               pmouse->m_pwindow = px11window;
 
                pmouse->m_atom = e_message_mouse_move;
 
@@ -2161,7 +2164,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                }
 
             }
-            else if (pwindow)
+            else if (px11window)
             {
 
                msg.time = e.xproperty.time;
@@ -2174,21 +2177,29 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                   if (e.xproperty.atom == m_pdisplay->m_atomNetWmState)
                   {
 
-                     bool bNetWmStateHidden = false;
+                     auto bNetWmStateHiddenOld = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateHidden);
 
-                     bool bNetWmStateMaximized = false;
+                     auto bNetWmStateMaximizedHorzOld = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateMaximizedHorz);
 
-                     bool bNetWmStateFocused = false;
+                     auto bNetWmStateMaximizedVertOld = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateMaximizedVert);
 
-                     pwindow->_wm_get_net_state_unlocked(
-                        bNetWmStateHidden,
-                        bNetWmStateMaximized,
-                        bNetWmStateFocused
-                     );
+                     auto bNetWmStateFocusedOld = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateFocused);
+
+                     px11window->m_atomaNetWmState = px11window->_get_net_wm_state_unlocked();
+
+                     auto bNetWmStateHidden = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateHidden);
+
+                     auto bNetWmStateMaximizedHorz = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateMaximizedHorz);
+
+                     auto bNetWmStateMaximizedVert = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateMaximizedVert);
+
+                     auto bNetWmStateFocused = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateFocused);
+
+                     information() << "PropertyNotify Hidden : " << bNetWmStateHidden << ", Zoomed : " << (bNetWmStateMaximizedHorz || bNetWmStateMaximizedVert) << ", Focused : " << bNetWmStateFocused;
 
                      auto edisplayDesign = pinteraction->const_layout().design().display();
 
-                     if (bNetWmStateHidden && is_different(bNetWmStateHidden, pwindow->m_bNetWmStateHidden))
+                     if (bNetWmStateHidden && is_different(bNetWmStateHidden, bNetWmStateHiddenOld))
                      {
 
                         if (edisplayDesign != e_display_iconic
@@ -2204,8 +2215,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                         }
 
                      }
-                     else if (bNetWmStateMaximized &&
-                              is_different(bNetWmStateMaximized, pwindow->m_bNetWmStateMaximized))
+                     else if ((bNetWmStateMaximizedHorz || bNetWmStateMaximizedVert) &&
+                              is_different((bNetWmStateMaximizedHorz || bNetWmStateMaximizedVert), (bNetWmStateMaximizedHorzOld && bNetWmStateMaximizedVertOld)))
                      {
 
                         if (edisplayDesign != e_display_zoomed)
@@ -2220,7 +2231,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                      }
                      else if (bNetWmStateFocused &&
-                              is_different(bNetWmStateFocused, pwindow->m_bNetWmStateFocused))
+                              is_different(bNetWmStateFocused, bNetWmStateFocusedOld))
                      {
 
                         //if (edisplayDesign != e_display_zoomed)
@@ -2239,7 +2250,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                   else if (e.xproperty.atom == m_pdisplay->m_atomWmState)
                   {
 
-                     _on_wm_state_change(pwindow);
+                     _on_wm_state_change(px11window);
 
                   }
 
@@ -2342,6 +2353,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          case MapNotify:
          {
 
+
+
 //            auto px11window = m_pdisplay->_window(e.xmap.window);
 //
 //            if(m_pdisplay->m_bHasXSync)
@@ -2358,8 +2371,17 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
             information("windowing_x11 MapNotify");
 
-            if (msg.oswindow)
+            if (px11window)
             {
+
+               if (!XGetWindowAttributes(m_pdisplay->Display(), px11window->Window(), &px11window->m_xwindowattributes))
+               {
+
+                  information("X11 MapNotify XGetWindowAttributes failed");
+
+                  return false;
+
+               }
 
                msg.m_atom = e_message_show_window;
                msg.wParam = 1;
@@ -2378,6 +2400,16 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
             if (msg.oswindow)
             {
+
+               if (!XGetWindowAttributes(m_pdisplay->Display(), px11window->Window(), &px11window->m_xwindowattributes))
+               {
+
+                  information("X11 MapNotify XGetWindowAttributes failed");
+
+                  return false;
+
+               }
+
 
                msg.m_atom = e_message_show_window;
                msg.wParam = 0;
@@ -2469,47 +2501,68 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                }
 
-               ::user::primitive_impl * pimpl = msg.oswindow ? msg.oswindow->m_puserinteractionimpl : nullptr;
-
-               if (pimpl != nullptr)
+               if(px11window)
                {
 
-                  ::user::interaction * pinteraction = pimpl->m_puserinteraction;
-
-                  if (pinteraction != nullptr)
+                  if (!XGetWindowAttributes(m_pdisplay->Display(), px11window->Window(),
+                                            &px11window->m_xwindowattributes))
                   {
 
-                     pinteraction->_on_visual_changed_unlocked();
+                     information("X11 MapNotify XGetWindowAttributes failed");
 
-                     information() << "X11 ConfigureNotify Win,  x,  y : " << e.xconfigure.window << ", "
-                                   << e.xconfigure.x << ", " << e.xconfigure.y;
+                     return false;
 
-                     information() << "X11 ConfigureNotify Win, cx, cy : " << e.xconfigure.window << ", "
-                                   << e.xconfigure.width << ", " << e.xconfigure.height;
+                  }
 
-                     ::point_i32 point(e.xconfigure.x, e.xconfigure.y);
 
-                     //if(point != msg.oswindow->m_point)
+                  ::user::primitive_impl * pimpl = px11window->m_puserinteractionimpl;
+
+                  if (pimpl != nullptr)
+                  {
+
+                     ::user::interaction * pinteraction = pimpl->m_puserinteraction;
+
+                     if (pinteraction != nullptr)
                      {
 
-                        msg.oswindow->m_point = point;
+                        pinteraction->_on_visual_changed_unlocked();
 
-                        _position_message(msg.oswindow, point);
+                        information() << "X11 ConfigureNotify Win, xy : " << e.xconfigure.window << ", "
+                                      << e.xconfigure.x << ", " << e.xconfigure.y << ", wh :"
+                                      << e.xconfigure.width << ", " << e.xconfigure.height;
+
+                        //information() << "X11 ConfigureNotify Win, cx, cy : " << e.xconfigure.window << ", "
+                          //            <<  ;
+
+                        ::point_i32 point(e.xconfigure.x, e.xconfigure.y);
+
+//                     //if(point != msg.oswindow->m_point)
+//                     {
+//
+//                        msg.oswindow->m_point = point;
+//
+//                        _position_message(msg.oswindow, point);
+//
+//                     }
+
+                        ::size_i32 size(e.xconfigure.width, e.xconfigure.height);
+
+                        ::rectangle_i32 rectangle(point, size);
+
+                        //if(size != msg.oswindow->m_size)
+                        {
+
+//                        msg.oswindow->m_pointWindow = point;
+//
+//                        msg.oswindow->m_sizeWindow = size;
+//
+                           _configure_message(msg.oswindow, rectangle);
+
+                        }
+
+                        //_handle_configure_iconic_state(msg.oswindow);
 
                      }
-
-                     ::size_i32 size(e.xconfigure.width, e.xconfigure.height);
-
-                     //if(size != msg.oswindow->m_size)
-                     {
-
-                        msg.oswindow->m_size = size;
-
-                        _size_message(msg.oswindow, size);
-
-                     }
-
-                     //_handle_configure_iconic_state(msg.oswindow);
 
                   }
 
@@ -2648,11 +2701,11 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                if (Δ != 0)
                {
 
-                  auto pmousewheel = pwindow->__create_new<::message::mouse_wheel>();
+                  auto pmousewheel = px11window->__create_new<::message::mouse_wheel>();
 
-                  pmousewheel->m_oswindow = oswindow;
+                  pmousewheel->m_oswindow = px11window;
 
-                  pmousewheel->m_pwindow = oswindow;
+                  pmousewheel->m_pwindow = px11window;
 
                   pmousewheel->m_atom = e_message_mouse_wheel;
 
@@ -2677,11 +2730,11 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                else if (bRet)
                {
 
-                  auto pmouse = pwindow->__create_new<::message::mouse>();
+                  auto pmouse = px11window->__create_new<::message::mouse>();
 
-                  pmouse->m_oswindow = oswindow;
+                  pmouse->m_oswindow = px11window;
 
-                  pmouse->m_pwindow = oswindow;
+                  pmouse->m_pwindow = px11window;
 
                   pmouse->m_atom = emessage;
 
@@ -2799,9 +2852,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                   auto pkey = __create_new<::message::key>();
 
-                  pkey->m_oswindow = oswindow;
+                  pkey->m_oswindow = px11window;
 
-                  pkey->m_pwindow = oswindow;
+                  pkey->m_pwindow = px11window;
 
                   //pkey->set(oswindow, oswindow, e_message_text_composition, 0, 0);
 
@@ -2838,14 +2891,12 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
             msg.m_atom = e_message_set_focus;
 
-            auto oswindow = msg.oswindow;
-
-            if (::is_set(oswindow))
+            if (::is_set(px11window))
             {
 
-               m_pdisplay->m_pwindowKeyboardFocus = oswindow;
+               m_pdisplay->m_pwindowKeyboardFocus = px11window;
 
-               auto pimpl = msg.oswindow->m_puserinteractionimpl;
+               auto pimpl = px11window->m_puserinteractionimpl;
 
                if (::is_set(pimpl))
                {
@@ -2923,19 +2974,17 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
             ::information("FocusOut\n");
 
-            auto oswindow = msg.oswindow;
-
-            if (::is_set(oswindow))
+            if (::is_set(px11window))
             {
 
-               if (m_pdisplay->m_pwindowKeyboardFocus == oswindow)
+               if (m_pdisplay->m_pwindowKeyboardFocus == px11window)
                {
 
                   m_pdisplay->m_pwindowKeyboardFocus = nullptr;
 
                }
 
-               auto pimpl = msg.oswindow->m_puserinteractionimpl;
+               auto pimpl = px11window->m_puserinteractionimpl;
 
                if (::is_set(pimpl))
                {
@@ -3012,7 +3061,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                            e.xclient.data.l[2],
                            e.xclient.data.l[3]);
 
-                        oswindow->m_enetwmsync = window::e_net_wm_sync_wait_configure;
+                        px11window->m_enetwmsync = window::e_net_wm_sync_wait_configure;
 
                      }
 

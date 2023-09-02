@@ -36,11 +36,11 @@ namespace node_gtk
 
 
       ::rectangle_i32 monitor_rectangle() override;
-      ::rectangle_i32 workspace_rectangle() override;
+      //::rectangle_i32 _workspace_rectangle() override;
 
 
       virtual ::e_status _get_monitor_rectangle();
-      virtual ::e_status _get_workspace_rectangle();
+      //virtual ::e_status _get_workspace_rectangle();
 
 
    };

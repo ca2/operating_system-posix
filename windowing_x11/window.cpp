@@ -52,9 +52,9 @@ namespace windowing_x11
       m_xic = nullptr;
 
 
-      m_bNetWmStateHidden = false;
-      m_bNetWmStateMaximized = false;
-      m_bNetWmStateFocused = false;
+      //m_bNetWmStateHidden = false;
+      //m_bNetWmStateMaximized = false;
+      //m_bNetWmStateFocused = false;
 
 
       //      for (auto & i : m_iaNetWmState)
@@ -280,9 +280,11 @@ namespace windowing_x11
 
          information("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
 
-         m_bNetWmStateHidden = false;
-         m_bNetWmStateMaximized = false;
-         m_bNetWmStateFocused = false;
+         //m_bNetWmStateHidden = false;
+         //m_bNetWmStateMaximized = false;
+         //m_bNetWmStateFocused = false;
+
+         m_atomaNetWmState.clear();
 
          ::Window window = XCreateWindow(display, DefaultRootWindow(display),
                                          x, y,
@@ -1689,9 +1691,38 @@ namespace windowing_x11
       xclient.data.l[3] = 1; /* source indication */
       xclient.data.l[4] = 0;
 
+      if(add)
+      {
+
+         if(state1 != None)
+         {
+            m_atomaNetWmState.add_unique(state1);
+         }
+         if(state2 != None)
+         {
+            m_atomaNetWmState.add_unique(state2);
+         }
+
+      }
+      else
+      {
+         if(state1 != None)
+         {
+            m_atomaNetWmState.erase(state1);
+         }
+         if(state2 != None)
+         {
+            m_atomaNetWmState.erase(state2);
+         }
+
+      }
       XSendEvent(Display(), RootWindow(Display(), iScreen), False, SubstructureRedirectMask | SubstructureNotifyMask,
                  (XEvent *) &xclient);
       //     XSendEvent(Display(), RootWindow(Display(), iScreen), False, 0, (XEvent *) &xclient);
+
+
+
+
 
    }
 
@@ -3150,144 +3181,146 @@ namespace windowing_x11
                                               const ::e_activation & eactivation, bool bNoZorder, ::e_display edisplay)
    {
 
-      windowing_output_debug_string("\n::window::_configure_window_unlocked 1");
+      windowing_output_debug_string("::window::_configure_window_unlocked 1");
 
-      information() << "_configure_window_unlocked bNoZorder " << bNoZorder << ", edisplay " << edisplay;
-
-      XWindowAttributes attrs = {};
-
-      if (!XGetWindowAttributes(Display(), Window(), &attrs))
-      {
-
-         windowing_output_debug_string("\n::window::_configure_window_unlocked 1.1 xgetwindowattr failed");
-
-         return false;
-
-      }
+      m_atomaNetWmState = _get_net_wm_state_unlocked();
 
       if (windowing()->is_screen_visible(edisplay))
       {
 
-         if (attrs.map_state == IsUnmapped)
+         if (m_xwindowattributes.map_state == IsUnmapped)
          {
+
+            information() << "_configure_window_unlocked XMapWindow";
 
             windowing_output_debug_string("\n::window::set_window_pos Mapping Window 1.2");
 
             XMapWindow(Display(), Window());
 
-         }
+            if (!XGetWindowAttributes(Display(), Window(), &m_xwindowattributes))
+            {
 
-         if (!XGetWindowAttributes(Display(), Window(), &attrs))
-         {
+               windowing_output_debug_string("\n::window::set_window_pos 1.3 xgetwindowattr failed");
 
-            windowing_output_debug_string("\n::window::set_window_pos 1.3 xgetwindowattr failed");
+               return false;
 
-            return false;
+            }
 
          }
 
       }
 
-      //   if(bMove || bSize)
-      //   {
-      //
-      //      if(attrs.override_redirect)
-      //      {
-      //
-      //         if(!(m_puserinteractionimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning))
-      //         {
-      //
-      //            XSetWindowAttributes set;
-      //
-      //            set.override_redirect = False;
-      //
-      //            if(!XChangeWindowAttributes(Display(), Window(), CWOverrideRedirect, &set))
-      //            {
-      //
-      //               information() << "freebsd::interaction_impl::_native_create_window_ex failed to clear override_redirect";
-      //
-      //            }
-      //
-      //         }
-      //
-      //      }
-      //
-      //   }
-
       if (edisplay != e_display_zoomed)
       {
-         auto atomMaxH = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false);
 
-         auto atomMaxP = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_penn, false);
+         auto atomMaxH = x11_display()->m_atomNetWmStateMaximizedHorz;
 
-         _wm_state_clear_unlocked(false);
+         auto atomMaxP = x11_display()->m_atomNetWmStateMaximizedVert;
+
+         for(auto & a : m_atomaNetWmState)
+         {
+
+            information("atom_name: %s", XGetAtomName(Display(), a));
+
+         }
+
+         if(m_atomaNetWmState.contains(atomMaxH) || m_atomaNetWmState.contains(atomMaxP))
+         {
+
+            information() << "_configure_window_unlocked Clearing Maximized States";
+
+            _wm_state_clear_unlocked(false);
+
+         }
 
       }
 
       if(edisplay == e_display_iconic)
       {
 
+         information() << "_configure_window_unlocked XIconifyWindow";
+
          XIconifyWindow(Display(), Window(), Screen());
 
          return true;
 
       }
-                  else if (edisplay == e_display_zoomed)
+      else if (edisplay == e_display_zoomed)
+      {
+
+         auto atomMaxH = x11_display()->m_atomNetWmStateMaximizedHorz;
+
+         auto atomMaxP = x11_display()->m_atomNetWmStateMaximizedVert;
+
+         if (!m_atomaNetWmState.contains(atomMaxH) || !m_atomaNetWmState.contains(atomMaxP))
          {
 
-            int iMapState = attrs.map_state;
-
-            if (iMapState != IsViewable)
-            {
-
-               XMapWindow(Display(), Window());
-
-            }
-
-            auto atomMaxH = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false);
-
-            auto atomMaxP = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_penn, false);
+            information() << "_configure_window_unlocked Setting Maximized States";
 
             _mapped_net_state_unlocked(true, x11_display()->m_iScreen, atomMaxH, atomMaxP);
 
-         }
-      else if (equivalence_sink(edisplay) == equivalence_sink(e_display_normal))
-      {
+//            comparable_array<Atom> atoma;
+//
+//            auto atomList = x11_display()->m_atomNetWmState;
+//
+//            if (atomList != None)
+//            {
+//
+//               Atom actual_type;
+//
+//               int actual_format;
+//
+//               unsigned long int bytes_after;
+//
+//               Atom * patoms = nullptr;
+//
+//               long unsigned int num_items = 0;
+//
+//               XGetWindowProperty(Display(), Window(), atomList, 0, 1024,
+//                                  False, XA_ATOM, &actual_type, &actual_format,
+//                                  &num_items,
+//                                  &bytes_after, (unsigned char **) &patoms);
+//
+//               atoma.set_size(num_items);
+//
+//               memcpy(atoma.data(), patoms, atoma.get_size_in_bytes());
+//
+//               XFree(patoms);
+//
+//
+//            }
 
-         int iMapState = attrs.map_state;
-
-         if (iMapState != IsViewable)
-         {
-
-            XMapWindow(Display(), Window());
 
          }
 
       }
-      else if (!windowing()->is_screen_visible(edisplay))
+
+      if (!windowing()->is_screen_visible(edisplay))
       {
 
-         if (attrs.map_state == IsViewable)
+         if (m_xwindowattributes.map_state == IsViewable)
          {
+
+            information() << "_configure_window_unlocked XWithdrawWindow";
 
             windowing_output_debug_string("\n::window::set_window_pos Withdraw Window 1.4.3");
 
             XWithdrawWindow(Display(), Window(), Screen());
 
+            if (XGetWindowAttributes(Display(), Window(), &m_xwindowattributes) == 0)
+            {
+
+               windowing_output_debug_string("\n::window::set_window_pos xgetwndattr 1.4.4");
+
+               return false;
+
+            }
+
          }
 
       }
 
-      if (XGetWindowAttributes(Display(), Window(), &attrs) == 0)
-      {
-
-         windowing_output_debug_string("\n::window::set_window_pos xgetwndattr 1.4.4");
-
-         return false;
-
-      }
-
-      if (attrs.map_state == IsViewable || windowing()->is_screen_visible(edisplay))
+      if (m_xwindowattributes.map_state == IsViewable || windowing()->is_screen_visible(edisplay))
       {
 
          if (!bNoZorder)
@@ -3302,6 +3335,8 @@ namespace windowing_x11
                   _wm_state_above_unlocked(true);
 
                }
+
+               information() << "_configure_window_unlocked XRaiseWindow";
 
                XRaiseWindow(Display(), Window());
 
@@ -3321,6 +3356,8 @@ namespace windowing_x11
 
                }
 
+               information() << "_configure_window_unlocked XRaiseWindow";
+
                XRaiseWindow(Display(), Window());
 
             }
@@ -3334,23 +3371,15 @@ namespace windowing_x11
 
                }
 
+               information() << "_configure_window_unlocked XLowerWindow";
+
                XLowerWindow(Display(), Window());
 
             }
 
          }
 
-         //m_puserinteractionimpl->m_puserinteraction->ModifyStyle(0, WS_VISIBLE, 0);
-
       }
-//      else
-//      {
-//
-//         //m_puserinteractionimpl->m_puserinteraction->ModifyStyle(WS_VISIBLE, 0, 0);
-//
-//      }
-
-      //m_puserinteractionimpl->on_change_visibility();
 
       windowing_output_debug_string("\n::window::set_window_pos 2");
 
@@ -3564,6 +3593,14 @@ namespace windowing_x11
       windowing_output_debug_string("\n::window::_strict_set_window_position_unlocked 2");
 
       //information() << "::windowing_x11::window::_strict_set_window_position_unlocked";
+
+      m_pointWindow.x() = x;
+
+      m_pointWindow.y() = y;
+
+      m_sizeWindow.cx() = cx;
+
+      m_sizeWindow.cy() = cy;
 
       return true;
 
@@ -4372,19 +4409,19 @@ namespace windowing_x11
    }
 
 
-   void window::_wm_get_net_state_unlocked(bool & bNetWmStateHidden, bool & bNetWmStateMaximized, bool & bNetWmStateFocused)
+   ::comparable_array < Atom > window::_get_net_wm_state_unlocked()
    {
 
       auto pdisplay = x11_display();
 
-      auto atoma = _wm_get_list_unlocked(pdisplay->m_atomNetWmState);
+      return _wm_get_list_unlocked(pdisplay->m_atomNetWmState);
 
-      bNetWmStateHidden = atoma.contains(pdisplay->m_atomNetWmStateHidden);
-
-      bNetWmStateMaximized = atoma.contains(pdisplay->m_atomNetWmStateMaximizedHorz)
-         || atoma.contains(pdisplay->m_atomNetWmStateMaximizedVert);
-
-      bNetWmStateFocused = atoma.contains(pdisplay->m_atomNetWmStateFocused);
+//      bNetWmStateHidden = atoma.contains(pdisplay->m_atomNetWmStateHidden);
+//
+//      bNetWmStateMaximized = atoma.contains(pdisplay->m_atomNetWmStateMaximizedHorz)
+//         || atoma.contains(pdisplay->m_atomNetWmStateMaximizedVert);
+//
+//      bNetWmStateFocused = atoma.contains(pdisplay->m_atomNetWmStateFocused);
 
    }
 
@@ -4844,28 +4881,14 @@ namespace windowing_x11
    void window::set_mouse_capture()
    {
 
-      synchronous_lock synchronouslock(user_synchronization());
-
-      if (Display() == nullptr)
-      {
-
-         throw ::exception(error_failed);
-
-      }
-
-      if (Window() == None)
-      {
-
-         throw ::exception(error_failed);
-
-      }
-
-      windowing_output_debug_string("\noswindow_data::SetCapture 1");
-
       m_pwindowing->windowing_post([this]()
                                    {
 
+                                      synchronous_lock synchronouslock(user_synchronization());
+
                                       display_lock displaylock(x11_display()->Display());
+
+                                      information() << "XGrabPointer";
 
                                       auto grabStatus = XGrabPointer(Display(), Window(), False,
                                                                      ButtonPressMask | ButtonReleaseMask |

@@ -72,9 +72,11 @@ namespace windowing_x11
       enum_net_wm_sync                             m_enetwmsync;
       //static oswindow_dataptra *                 s_pdataptra;
       //static::pointer< ::mutex >                 s_pmutex;
-      bool                                         m_bNetWmStateHidden;
-      bool                                         m_bNetWmStateMaximized;
-      bool                                         m_bNetWmStateFocused;
+      //bool                                         m_bNetWmStateHidden;
+      //bool                                         m_bNetWmStateMaximized;
+      //bool                                         m_bNetWmStateFocused;
+      ::comparable_array < Atom >                  m_atomaNetWmState;
+      XWindowAttributes                            m_xwindowattributes;
 
       //static Atom                                s_atomLongType;
       //static Atom                                s_atomLongStyle;
@@ -259,7 +261,7 @@ namespace windowing_x11
 
 
       virtual comparable_array < Atom > _wm_get_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList);
-      virtual void _wm_get_net_state_unlocked(bool & bNetWmStateHidden, bool & bNetWmStateMaximized, bool & bNetWmStateFocused);
+      virtual ::comparable_array < Atom > _get_net_wm_state_unlocked();
       virtual int wm_test_state( WINDOWING_X11_WINDOW_MEMBER const char * pszNetStateFlag);
       virtual int _wm_test_state_unlocked( WINDOWING_X11_WINDOW_MEMBER const char * pszNetStateFlag);
       virtual int _wm_test_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag);

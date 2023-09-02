@@ -14,6 +14,7 @@
 #include "aura/user/user/user.h"
 #include "aura/graphics/image/image.h"
 #include "aura/windowing/desktop_environment.h"
+#include "aura/windowing/monitor.h"
 #include "aura_posix/x11/display_lock.h"
 #include <X11/extensions/Xrender.h>
 
@@ -139,7 +140,7 @@ namespace windowing_x11
    void display::open()
    {
 
-      if(::is_set(m_px11display))
+      if (::is_set(m_px11display))
       {
 
          return;
@@ -158,7 +159,7 @@ namespace windowing_x11
       // Using another memory_new and different X11 Display connection apart from Gtk.
       m_px11display = ::x11::display::get(this, false);
 
-      if(::is_null(m_px11display))
+      if (::is_null(m_px11display))
       {
 
          throw ::exception(error_failed);
@@ -169,7 +170,8 @@ namespace windowing_x11
 
       m_px11display->m_bUnhook = true;
 
-      if (XMatchVisualInfo(m_px11display->m_pdisplay, DefaultScreen(m_px11display->m_pdisplay), 32, TrueColor, &m_visualinfo))
+      if (XMatchVisualInfo(m_px11display->m_pdisplay, DefaultScreen(m_px11display->m_pdisplay), 32, TrueColor,
+                           &m_visualinfo))
       {
 
          m_pvisual = m_visualinfo.visual;
@@ -216,7 +218,7 @@ namespace windowing_x11
 
 #endif
 
-      if(m_bHasXSync)
+      if (m_bHasXSync)
       {
 
          information() << "Display supports XSync";
@@ -232,6 +234,7 @@ namespace windowing_x11
       //m_atomCardinal = intern_atom("CARDINAL", True);
       m_atomWmProtocols = intern_atom("WM_PROTOCOLS", True);
       m_atomWmState = intern_atom("WM_STATE", false);
+      m_atomNetWmState = intern_atom("_NET_WM_STATE", false);
       m_atomNetWmSyncRequest = intern_atom("_NET_WM_SYNC_REQUEST", True);
       m_atomNetWmSyncRequestCounter = intern_atom("_NET_WM_SYNC_REQUEST_COUNTER", True);
       m_atomNetWmStateFocused = intern_atom("_NET_WM_STATE_FOCUSED", True);
@@ -240,7 +243,43 @@ namespace windowing_x11
       m_atomNetWmStateMaximizedVert = intern_atom("_NET_WM_STATE_MAXIMIZED_VERT", True);
 
 
-      //return ::success;
+      long *workArea;
+      int format;
+      unsigned long items, bytesAfter;
+      uint8_t *prop;
+      Atom type;
+      Atom _NET_WORKAREA = XInternAtom(pdisplay, "_NET_WORKAREA", 0);
+      m_rectangleaWorkAreas.clear();
+      if(XGetWindowProperty(pdisplay, m_windowRoot,
+                            _NET_WORKAREA, 0, ~0, False,
+                            XA_CARDINAL, &type, &format, &items, &bytesAfter, (uint8_t **)&workArea) || !workArea)
+      {
+         warning("error getting desktop work area, using root window size");
+      }
+      else
+      {
+         //logMsg("work area: %ld:%ld:%ld:%ld", workArea[0], workArea[1], workArea[2], workArea[3]);
+         for(int iPos = 0; iPos + 3 < items; iPos+=4)
+         {
+            m_rectangleaWorkAreas.add(::rectangle_i32_dimension(
+               workArea[iPos], workArea[iPos+1],
+               workArea[iPos+2], workArea[iPos+3]));
+         }
+         XFree(workArea);
+      }
+
+//      for(auto & r : rectanglea)
+//      {
+//         auto pmonitor = get_best_monitor(r);
+//
+//         if(::is_set(pmonitor))
+//         {
+//
+//            pmonitor->set_workspace_rectangle(r);
+//
+//         }
+//
+//      }
 
    }
 
@@ -259,7 +298,7 @@ namespace windowing_x11
 
       auto passociation = m_windowmap.plookup(window);
 
-      if(passociation.is_null())
+      if (passociation.is_null())
       {
 
          return nullptr;
@@ -274,7 +313,7 @@ namespace windowing_x11
    void display::lock_display()
    {
 
-      if(!is_main_thread())
+      if (!is_main_thread())
       {
 
          information("not main thread");
@@ -294,7 +333,7 @@ namespace windowing_x11
    }
 
 
-   ::Display *display::Display()
+   ::Display * display::Display()
    {
 
       return ::is_null(this) ? nullptr : m_px11display->m_pdisplay;
@@ -302,7 +341,7 @@ namespace windowing_x11
    }
 
 
-   ::Display *display::Display() const
+   ::Display * display::Display() const
    {
 
       return ::is_null(this) ? nullptr : m_px11display->m_pdisplay;
@@ -385,20 +424,20 @@ namespace windowing_x11
    ::e_status display::release_mouse_capture()
    {
 
+      information() << "windowing_x11::display::release_mouse_capture";
+
       auto predicate = [this]()
       {
 
-        synchronous_lock synchronouslock(user_synchronization());
+         synchronous_lock synchronouslock(user_synchronization());
 
-        _on_capture_changed_to(nullptr);
+         display_lock displaylock(Display());
 
-        windowing_output_debug_string("\noswindow_data::ReleaseCapture 1");
+         information() << "XUngrabPointer";
 
-        display_lock displaylock(Display());
+         int_bool bRet = XUngrabPointer(Display(), CurrentTime) != false;
 
-        int_bool bRet = XUngrabPointer(Display(), CurrentTime) != false;
-
-        windowing_output_debug_string("\noswindow_data::ReleaseCapture 2");
+         _on_capture_changed_to(nullptr);
 
       };
 
@@ -445,7 +484,7 @@ namespace windowing_x11
    }
 
 
-   Atom display::intern_atom(const char *pszAtomName, bool bCreate)
+   Atom display::intern_atom(const char * pszAtomName, bool bCreate)
    {
 
       if (m_px11display == nullptr)
@@ -479,7 +518,7 @@ namespace windowing_x11
 
          return atom;
 
-        // m_atoma[eatom] = atom;
+         // m_atoma[eatom] = atom;
 
       }
 
@@ -488,7 +527,7 @@ namespace windowing_x11
    }
 
 
-   Atom display::_intern_atom_unlocked(const char *pszAtomName, bool bCreate)
+   Atom display::_intern_atom_unlocked(const char * pszAtomName, bool bCreate)
    {
 
       if (m_px11display == nullptr)
@@ -570,7 +609,7 @@ namespace windowing_x11
 
       auto vis = Visual();
 
-      XRenderPictFormat *pformat = XRenderFindVisualFormat(dpy, &vis);
+      XRenderPictFormat * pformat = XRenderFindVisualFormat(dpy, &vis);
 
       bool hasAlpha = (pformat->type == PictTypeDirect && pformat->direct.alphaMask);
       int x = 0;
@@ -587,7 +626,7 @@ namespace windowing_x11
    }
 
 
-   ::windowing_x11::window *display::_get_active_window(::thread *pthread)
+   ::windowing_x11::window * display::_get_active_window(::thread * pthread)
    {
 
       auto window = m_px11display->_get_active_window();
@@ -601,7 +640,7 @@ namespace windowing_x11
    }
 
 
-   ::windowing_x11::window *display::get_keyboard_focus()
+   ::windowing_x11::window * display::get_keyboard_focus()
    {
 
       return m_pwindowKeyboardFocus;
@@ -609,12 +648,12 @@ namespace windowing_x11
    }
 
 
-   ::windowing_x11::window *display::_get_keyboard_focus()
+   ::windowing_x11::window * display::_get_keyboard_focus()
    {
 
       auto ppropertyobject = __new(::property_object);
 
-      auto predicate = [this,ppropertyobject]()
+      auto predicate = [this, ppropertyobject]()
       {
 
          synchronous_lock synchronouslock(user_synchronization());
@@ -623,11 +662,11 @@ namespace windowing_x11
 
          windowing_output_debug_string("\n::GetFocus 1");
 
-   #ifdef display_lock_LOCK_LOG
+#ifdef display_lock_LOCK_LOG
 
          b_prevent_display_lock_lock_log = false;
 
-   #endif
+#endif
 
          display_lock displaylock(Display());
 
@@ -676,7 +715,7 @@ namespace windowing_x11
 //
 //      }
 
-      if(ppropertyobject->payload("window").is_new())
+      if (ppropertyobject->payload("window").is_new())
       {
 
          return nullptr;
@@ -687,7 +726,7 @@ namespace windowing_x11
 
       auto pwindow = _window(window);
 
-      if(!pwindow)
+      if (!pwindow)
       {
 
          return nullptr;
@@ -699,7 +738,7 @@ namespace windowing_x11
    }
 
 
-   bool display::get_cursor_position(::point_i32 *ppointCursor)
+   bool display::get_cursor_position(::point_i32 * ppointCursor)
    {
 
       Window root_return;
@@ -736,12 +775,12 @@ namespace windowing_x11
    }
 
 
-   XImage *display::_x11_create_image(::image_pointer pimage)
+   XImage * display::_x11_create_image(::image_pointer pimage)
    {
 
       pimage->map();
 
-      char *image32 = (char *) pimage->get_data();
+      char * image32 = (char *) pimage->get_data();
 
       int width = pimage->width();
 
@@ -753,15 +792,15 @@ namespace windowing_x11
 
       int bytes_per_line = pimage->scan_size(); // number of bytes in the client image between the start of one scanline and the start of the next
 
-      XImage *pximage = XCreateImage(Display(), CopyFromParent, depth, ZPixmap, 0, image32, width, height,
-                                     bitmap_pad, bytes_per_line);
+      XImage * pximage = XCreateImage(Display(), CopyFromParent, depth, ZPixmap, 0, image32, width, height,
+                                      bitmap_pad, bytes_per_line);
 
       return pximage;
 
    }
 
 
-   XImage *display::x11_create_image(::image_pointer pimage)
+   XImage * display::x11_create_image(::image_pointer pimage)
    {
 
       synchronous_lock synchronouslock(user_synchronization());
@@ -785,7 +824,7 @@ namespace windowing_x11
 
       }
 
-      XImage *pximage = _x11_create_image(pimage);
+      XImage * pximage = _x11_create_image(pimage);
 
       if (pximage == nullptr)
       {
@@ -825,10 +864,10 @@ namespace windowing_x11
    }
 
 
-   comparable_array < Window > display::x11_window_list()
+   comparable_array<Window> display::x11_window_list()
    {
 
-      comparable_array < Window > windowa;
+      comparable_array<Window> windowa;
 
       auto atomWindowList = intern_atom("_NET_CLIENT_LIST_STACKING", False);
 
@@ -849,7 +888,7 @@ namespace windowing_x11
       Atom type;
       int form;
       unsigned long remain;
-      unsigned char *list;
+      unsigned char * list;
       unsigned long ulBytesReturned = 0;
       //errno = 0;
 
@@ -861,7 +900,7 @@ namespace windowing_x11
 
       Window * windowList = nullptr;
 
-      if(XGetWindowProperty(
+      if (XGetWindowProperty(
          Display(),
          Window(),
          atomWindowList, 0, 1024, False, XA_WINDOW,
@@ -888,7 +927,7 @@ namespace windowing_x11
    }
 
 
-   bool display::point_is_window_origin(::point_i32 pointHitTest, ::windowing::window *pwindowExclude, int iMargin)
+   bool display::point_is_window_origin(::point_i32 pointHitTest, ::windowing::window * pwindowExclude, int iMargin)
    {
 
       bool bIsOrigin = false;
@@ -898,81 +937,81 @@ namespace windowing_x11
       auto pnode = psystem->node();
 
       pnode->node_send([this, pointHitTest, pwindowExclude, iMargin, &bIsOrigin]()
-      {
+                       {
 
-         ::windowing_x11::window *pwindowxcbExclude = nullptr;
+                          ::windowing_x11::window * pwindowxcbExclude = nullptr;
 
-         if (pwindowExclude)
-         {
+                          if (pwindowExclude)
+                          {
 
-            pwindowxcbExclude = dynamic_cast < ::windowing_x11::window * >(pwindowExclude);
+                             pwindowxcbExclude = dynamic_cast < ::windowing_x11::window * >(pwindowExclude);
 
-         }
+                          }
 
-         synchronous_lock synchronouslock(user_synchronization());
+                          synchronous_lock synchronouslock(user_synchronization());
 
-         windowing_output_debug_string("\n::GetFocus 1");
+                          windowing_output_debug_string("\n::GetFocus 1");
 
 #ifdef display_lock_LOCK_LOG
 
-         b_prevent_display_lock_lock_log = false;
+                          b_prevent_display_lock_lock_log = false;
 
 #endif
 
-         if (!Display())
-         {
+                          if (!Display())
+                          {
 
-            windowing_output_debug_string("\n::GetFocus 1.1");
+                             windowing_output_debug_string("\n::GetFocus 1.1");
 
-            return;
+                             return;
 
-         }
+                          }
 
-         display_lock displaylock(Display());
+                          display_lock displaylock(Display());
 
-         windowing_output_debug_string("\n::GetFocus 1.01");
+                          windowing_output_debug_string("\n::GetFocus 1.01");
 
-         auto windowa = x11_window_list();
+                          auto windowa = x11_window_list();
 
-         ::rectangle_i32 rectangleTest;
+                          ::rectangle_i32 rectangleTest;
 
-         for (index i = 0; i < windowa.get_size(); i++)
-         {
+                          for (index i = 0; i < windowa.get_size(); i++)
+                          {
 
-            string strItem = ::x11_get_name(Display(), windowa[i]);
+                             string strItem = ::x11_get_name(Display(), windowa[i]);
 
-            ::rectangle_i32 rectangleHigher;
+                             ::rectangle_i32 rectangleHigher;
 
-            if (::is_set(pwindowxcbExclude) && windowa[i] == pwindowxcbExclude->Window())
-            {
+                             if (::is_set(pwindowxcbExclude) && windowa[i] == pwindowxcbExclude->Window())
+                             {
 
-               continue;
+                                continue;
 
-            }
+                             }
 
-            if (::x11_get_window_rect(Display(), windowa[i], &rectangleHigher))
-            {
+                             if (::x11_get_window_rect(Display(), windowa[i], &rectangleHigher))
+                             {
 
-               ::rectangle_i32 rectangleHitTest;
+                                ::rectangle_i32 rectangleHitTest;
 
-               rectangleHitTest.set(rectangleHigher.origin(), ::size_i32());
+                                rectangleHitTest.set(rectangleHigher.origin(), ::size_i32());
 
-               rectangleHitTest.inflate(iMargin + 1);
+                                rectangleHitTest.inflate(iMargin + 1);
 
-               if (rectangleHitTest.contains(pointHitTest))
-               {
+                                if (rectangleHitTest.contains(pointHitTest))
+                                {
 
-                  bIsOrigin = true;
+                                   bIsOrigin = true;
 
-                  return;
+                                   return;
 
-               }
+                                }
 
-            }
+                             }
 
-         }
+                          }
 
-      });
+                       });
 
       return bIsOrigin;
 
