@@ -34,6 +34,8 @@ list(APPEND library_source
         node.h
         pipe.cpp
         pipe.h
+        shmem.cpp
+        shmem.h
         #stdio_file.cpp
         #stdio_file.h
         #process.cpp
