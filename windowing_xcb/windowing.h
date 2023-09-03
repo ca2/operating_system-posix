@@ -62,7 +62,7 @@ namespace windowing_xcb
       void windowing_post(const ::procedure & procedure) override;
 
 
-      virtual void __defer_post_move_and_or_size(xcb_window_t window);
+      //virtual void __defer_post_move_and_or_size(xcb_window_t window);
 
 
       //virtual void _libsn_start_context()  override;

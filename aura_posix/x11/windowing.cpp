@@ -46,41 +46,17 @@ namespace windowing_posix
    void windowing::_configure_message(::windowing::window * pwindow, const ::rectangle_i32 & rectangle)
    {
 
-      //if(pwindow->m_point != point)
+      ::user::primitive_impl * pimpl = pwindow->m_puserinteractionimpl;
+
+      if (pimpl != nullptr)
       {
 
-//         pwindow->m_pointWindow = rectangle.origin();
-//
-//         pwindow->m_sizeWindow = rectangle.size();
+         ::user::interaction * pinteraction = pimpl->m_puserinteraction;
 
-         ::user::primitive_impl * pimpl = pwindow->m_puserinteractionimpl;
-
-         if (pimpl != nullptr)
+         if (pinteraction != nullptr)
          {
 
-            ::user::interaction * pinteraction = pimpl->m_puserinteraction;
-
-            if (pinteraction != nullptr)
-            {
-
-//            auto pointWindow = pinteraction->const_layout().window().origin();
-//
-//            information() << "const_layout().window().origin() : " << pointWindow;
-//
-//            information() << "pointNew                         : " << point;
-//
-//            //bool bPositionFix = pointWindow != point;
-//
-//            //if (bPositionFix)
-               {
-
-                  //information() << "calling on_configure..." << rectangle;
-
-                  pinteraction->m_pprimitiveimpl->on_configure(rectangle);
-
-               }
-
-            }
+            pinteraction->m_pprimitiveimpl->on_configure(rectangle);
 
          }
 

@@ -16,7 +16,7 @@ namespace windowing_posix
    window::window()
    {
 
-
+      m_enetwmsync = e_net_wm_sync_none;
    }
 
 

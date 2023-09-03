@@ -88,13 +88,13 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_synchronization());
 
-      windowing_output_debug_string("\n::wm_add_remove_state_mapped 1");
+      windowing_output_debug_string("::wm_add_remove_state_mapped 1");
 
       display_lock displaylock(x11_display()->Display());
 
       _wm_add_remove_state_mapped_unlocked(eatomNetWmState, bSet);
 
-      windowing_output_debug_string("\n::wm_add_remove_state_mapped 2");
+      windowing_output_debug_string("::wm_add_remove_state_mapped 2");
 
    }
 
@@ -135,13 +135,13 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_synchronization());
 
-      windowing_output_debug_string("\n::wm_add_remove_state_unmapped 1");
+      windowing_output_debug_string("::wm_add_remove_state_unmapped 1");
 
       display_lock displaylock(x11_display()->Display());
 
       _wm_add_remove_state_unmapped_unlocked(eatomNetWmState, bSet);
 
-      windowing_output_debug_string("\n::wm_add_remove_state_unmapped 2");
+      windowing_output_debug_string("::wm_add_remove_state_unmapped 2");
 
    }
 
@@ -172,13 +172,13 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_synchronization());
 
-      windowing_output_debug_string("\n::wm_add_remove_state 1");
+      windowing_output_debug_string("::wm_add_remove_state 1");
 
       display_lock displaylock(x11_display()->Display());
 
       _wm_add_remove_state_unlocked(eatomNetWmState, bSet);
 
-      windowing_output_debug_string("\n::wm_add_remove_state 2");
+      windowing_output_debug_string("::wm_add_remove_state 2");
 
    }
 
@@ -257,7 +257,7 @@ namespace windowing_x11
 //
 //   synchronous_lock synchronouslock(user_synchronization());
 //
-//   windowing_output_debug_string("\n::wm_state_above 1");
+//   windowing_output_debug_string("::wm_state_above 1");
 //
 //   display_lock displaylock(x11_display()->Display());
 //
@@ -272,13 +272,13 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_synchronization());
 
-      windowing_output_debug_string("\n::wm_state_above 1");
+      windowing_output_debug_string("::wm_state_above 1");
 
       display_lock displaylock(x11_display()->Display());
 
       _wm_state_above_unlocked(bSet);
 
-      windowing_output_debug_string("\n::wm_state_above 2");
+      windowing_output_debug_string("::wm_state_above 2");
 
    }
 
@@ -289,13 +289,13 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_synchronization());
 
-      windowing_output_debug_string("\n::wm_state_below 1");
+      windowing_output_debug_string("::wm_state_below 1");
 
       display_lock displaylock(x11_display()->Display());
 
       _wm_state_above_unlocked(bSet);
 
-      windowing_output_debug_string("\n::wm_state_below 2");
+      windowing_output_debug_string("::wm_state_below 2");
 
    }
 
@@ -306,13 +306,13 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_synchronization());
 
-      windowing_output_debug_string("\n::wm_state_hidden 1");
+      windowing_output_debug_string("::wm_state_hidden 1");
 
       display_lock displaylock(x11_display()->Display());
 
       _wm_state_hidden_unlocked(bSet);
 
-      windowing_output_debug_string("\n::wm_state_hidden 2");
+      windowing_output_debug_string("::wm_state_hidden 2");
 
    }
 
@@ -324,7 +324,7 @@ namespace windowing_x11
       x11_windowing()->windowing_post([this, bToolWindow]()
       {
 
-         windowing_output_debug_string("\n::wm_toolwindow 1");
+         windowing_output_debug_string("::wm_toolwindow 1");
 
          synchronous_lock synchronouslock(user_synchronization());
 
@@ -333,7 +333,7 @@ namespace windowing_x11
          if (!m_pdisplay)
          {
 
-            windowing_output_debug_string("\n::wm_toolwindow 1.1");
+            windowing_output_debug_string("::wm_toolwindow 1.1");
 
             //fflush(stdout);
 
@@ -343,7 +343,7 @@ namespace windowing_x11
 
          _wm_add_remove_state_unlocked(::x11::e_atom_net_wm_state_skip_taskbar, bToolWindow);
 
-         windowing_output_debug_string("\n::wm_toolwindow 2");
+         windowing_output_debug_string("::wm_toolwindow 2");
 
       });
 
@@ -376,7 +376,7 @@ namespace windowing_x11
 
       }
 
-      windowing_output_debug_string("\n::windowing_x11::window::wm_normalwindow");
+      windowing_output_debug_string("::windowing_x11::window::wm_normalwindow");
 
    }
 
@@ -385,7 +385,7 @@ namespace windowing_x11
    void window::wm_hidden_state(bool bHidden)
    {
 
-      windowing_output_debug_string("\n::wm_hidden_state 1");
+      windowing_output_debug_string("::wm_hidden_state 1");
 
       synchronous_lock synchronouslock(user_synchronization());
 
@@ -394,7 +394,7 @@ namespace windowing_x11
       if (!m_pdisplay)
       {
 
-         windowing_output_debug_string("\n::wm_hidden_state 1.1");
+         windowing_output_debug_string("::wm_hidden_state 1.1");
 
          fflush(stdout);
 
@@ -404,7 +404,7 @@ namespace windowing_x11
 
       _wm_add_remove_state_unlocked(::x11::e_atom_net_wm_state_skip_taskbar, bHidden);
 
-      windowing_output_debug_string("\n::wm_hidden_state 2");
+      windowing_output_debug_string("::wm_hidden_state 2");
 
    }
 
@@ -415,7 +415,7 @@ namespace windowing_x11
 //   x11_fork([=]()
 //            {
 //
-//               windowing_output_debug_string("\n::wm_arbitrarypositionwindow 1");
+//               windowing_output_debug_string("::wm_arbitrarypositionwindow 1");
 //
 //               synchronous_lock synchronouslock(user_synchronization());
 //
@@ -424,7 +424,7 @@ namespace windowing_x11
 //               if(!m_pdisplay)
 //               {
 //
-//                  windowing_output_debug_string("\n::wm_arbitrarypositionwindow 1.1");
+//                  windowing_output_debug_string("::wm_arbitrarypositionwindow 1.1");
 //
 //                  fflush(stdout);
 //
@@ -465,7 +465,7 @@ namespace windowing_x11
 //
 //               }
 //
-//               windowing_output_debug_string("\n::wm_arbitrarypositionwindow 2");
+//               windowing_output_debug_string("::wm_arbitrarypositionwindow 2");
 //
 //            });
 //
@@ -476,7 +476,7 @@ namespace windowing_x11
    void window::wm_desktopwindow(bool bDesktopWindow)
    {
 
-      windowing_output_debug_string("\n::wm_desktopwindow 1");
+      windowing_output_debug_string("::wm_desktopwindow 1");
 
       synchronous_lock synchronouslock(user_synchronization());
 
@@ -485,7 +485,7 @@ namespace windowing_x11
       if (!m_pdisplay)
       {
 
-         windowing_output_debug_string("\n::wm_desktopwindow 1.1");
+         windowing_output_debug_string("::wm_desktopwindow 1.1");
 
          fflush(stdout);
 
@@ -525,7 +525,7 @@ namespace windowing_x11
 
       }
 
-      windowing_output_debug_string("\n::wm_desktopwindow 2");
+      windowing_output_debug_string("::wm_desktopwindow 2");
 
    }
 
@@ -534,7 +534,7 @@ namespace windowing_x11
    void window::wm_centerwindow(bool bCenterWindow)
    {
 
-      windowing_output_debug_string("\n::wm_centerwindow 1");
+      windowing_output_debug_string("::wm_centerwindow 1");
 
       synchronous_lock synchronouslock(user_synchronization());
 
@@ -543,7 +543,7 @@ namespace windowing_x11
       if (!m_pdisplay)
       {
 
-         windowing_output_debug_string("\n::wm_centerwindow 1.1");
+         windowing_output_debug_string("::wm_centerwindow 1.1");
 
          fflush(stdout);
 
@@ -583,7 +583,7 @@ namespace windowing_x11
 
       }
 
-      windowing_output_debug_string("\n::wm_centerwindow 2");
+      windowing_output_debug_string("::wm_centerwindow 2");
 
    }
 
@@ -592,7 +592,7 @@ namespace windowing_x11
    void window::wm_splashwindow(bool bCenterWindow)
    {
 
-      windowing_output_debug_string("\n::wm_centerwindow 1");
+      windowing_output_debug_string("::wm_centerwindow 1");
 
       synchronous_lock synchronouslock(user_synchronization());
 
@@ -601,7 +601,7 @@ namespace windowing_x11
       if (!m_pdisplay)
       {
 
-         windowing_output_debug_string("\n::wm_centerwindow 1.1");
+         windowing_output_debug_string("::wm_centerwindow 1.1");
 
          fflush(stdout);
 
@@ -641,7 +641,7 @@ namespace windowing_x11
 
       }
 
-      windowing_output_debug_string("\n::wm_centerwindow 2");
+      windowing_output_debug_string("::wm_centerwindow 2");
 
    }
 
@@ -650,7 +650,7 @@ namespace windowing_x11
    void window::wm_dockwindow( bool bDockWindow)
    {
 
-      windowing_output_debug_string("\n::wm_dockwindow 1");
+      windowing_output_debug_string("::wm_dockwindow 1");
 
       synchronous_lock synchronouslock(user_synchronization());
 
@@ -659,7 +659,7 @@ namespace windowing_x11
       if (!m_pdisplay)
       {
 
-         windowing_output_debug_string("\n::wm_dockwindow 1.1");
+         windowing_output_debug_string("::wm_dockwindow 1.1");
 
          fflush(stdout);
 
@@ -701,7 +701,7 @@ namespace windowing_x11
 
       }
 
-      windowing_output_debug_string("\n::wm_dockwindow 2");
+      windowing_output_debug_string("::wm_dockwindow 2");
 
    }
 
@@ -762,7 +762,7 @@ namespace windowing_x11
 
       }
 
-      windowing_output_debug_string("\n::wm_nodecorations 2");
+      windowing_output_debug_string("::wm_nodecorations 2");
 
    }
 
@@ -778,12 +778,12 @@ namespace windowing_x11
 
       display_lock displaylock(x11_display()->Display());
 
-      windowing_output_debug_string("\n::wm_iconify_window 1");
+      windowing_output_debug_string("::wm_iconify_window 1");
 
       if (!m_pdisplay)
       {
 
-         windowing_output_debug_string("\n::wm_iconify_window 1.1");
+         windowing_output_debug_string("::wm_iconify_window 1.1");
 
          return;
 
@@ -813,7 +813,7 @@ namespace windowing_x11
 
       }
 
-      windowing_output_debug_string("\n::wm_iconify_window 2");
+      windowing_output_debug_string("::wm_iconify_window 2");
 
    }
 

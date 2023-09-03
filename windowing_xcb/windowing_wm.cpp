@@ -9,7 +9,7 @@
 #include "aura/user/user/interaction_graphics_thread.h"
 #include "aura/user/user/interaction_impl.h"
 #include "aura/platform/message_queue.h"
-#include <X11/Xatom.h>
+//#include <X11/Xatom.h>
 //dnf install xcb-util-wm-devel
 #include "acme/operating_system/xcb/nano/display.h"
 #include "acme/parallelization/synchronous_lock.h"
@@ -334,7 +334,7 @@ namespace windowing_xcb
    ::e_status window::_set_tool_window(bool bToolWindow)
    {
 
-      windowing_output_debug_string("\n::wm_toolwindow 1");
+      windowing_output_debug_string("::wm_toolwindow 1");
 
       synchronous_lock synchronouslock(user_synchronization());
 
@@ -355,7 +355,7 @@ namespace windowing_xcb
 
       }
 
-      windowing_output_debug_string("\n::wm_toolwindow 2");
+      windowing_output_debug_string("::wm_toolwindow 2");
 
       if(!estatus)
       {
@@ -377,14 +377,14 @@ namespace windowing_xcb
 
       xcb_atom_t atomWindowType;
 
-      atomWindowType = xcb_display()->m_pxcbdisplay->intern_atom(::x11::e_atom_net_wm_window_type_normal, false);
+      atomWindowType = xcb_display()->m_pxcbdisplay->intern_atom("_NET_WM_WINDOW_TYPE", false);
 
       if(atomWindowType != XCB_ATOM_NONE)
       {
 
          xcb_atom_t atomWindowTypeValue;
 
-         atomWindowTypeValue = xcb_display()->m_pxcbdisplay->intern_atom(::x11::e_atom_net_wm_window_type_normal, false);
+         atomWindowTypeValue = xcb_display()->m_pxcbdisplay->intern_atom("_NET_WM_WINDOW_TYPE_NORMAL", false);
 
          if(atomWindowTypeValue != XCB_ATOM_NONE)
          {
@@ -395,14 +395,16 @@ namespace windowing_xcb
 
       }
 
-      windowing_output_debug_string("\n::windowing_x11::window::wm_normalwindow");
-
       if(!estatus)
       {
+
+         information("windowing_xcb::window::_set_normal_window failed");
 
          return estatus;
 
       }
+
+      information("windowing_xcb::window::_set_normal_window succeeded");
 
       return estatus;
 
@@ -413,7 +415,9 @@ namespace windowing_xcb
    ::e_status window::_set_hidden_state(bool bHidden)
    {
 
-      windowing_output_debug_string("\n::wm_hidden_state 1");
+      windowing_output_debug_string("::wm_hidden_state 1");
+
+      information() << "windowing_xcb::window::_set_hidden_state";
 
       synchronous_lock synchronouslock(user_synchronization());
 
@@ -424,17 +428,17 @@ namespace windowing_xcb
       if(bHidden)
       {
 
-         estatus = _add_net_wm_state(::x11::e_atom_net_wm_state_skip_taskbar);
+         estatus = _add_net_wm_state(::x11::e_atom_net_wm_state_hidden);
 
       }
       else
       {
 
-         estatus = _erase_net_wm_state(::x11::e_atom_net_wm_state_skip_taskbar);
+         estatus = _erase_net_wm_state(::x11::e_atom_net_wm_state_hidden);
 
       }
 
-      windowing_output_debug_string("\n::wm_hidden_state 2");
+      windowing_output_debug_string("::wm_hidden_state 2");
 
       if(!estatus)
       {
@@ -454,7 +458,7 @@ namespace windowing_xcb
 
       ::e_status estatus = ::error_failed;
 
-      windowing_output_debug_string("\n::wm_desktopwindow 1");
+      windowing_output_debug_string("::wm_desktopwindow 1");
 
       synchronous_lock synchronouslock(user_synchronization());
 
@@ -489,7 +493,7 @@ namespace windowing_xcb
 
       }
 
-      windowing_output_debug_string("\n::wm_desktopwindow 2");
+      windowing_output_debug_string("::wm_desktopwindow 2");
 
       if(!estatus)
       {
@@ -509,7 +513,7 @@ namespace windowing_xcb
 
       ::e_status estatus = ::error_failed;
 
-      windowing_output_debug_string("\n::wm_centerwindow 1");
+      windowing_output_debug_string("::wm_centerwindow 1");
 
       synchronous_lock synchronouslock(user_synchronization());
 
@@ -544,7 +548,7 @@ namespace windowing_xcb
 
       }
 
-      windowing_output_debug_string("\n::wm_centerwindow 2");
+      windowing_output_debug_string("::wm_centerwindow 2");
 
       if(!estatus)
       {
@@ -565,7 +569,7 @@ namespace windowing_xcb
 
       ::e_status estatus = ::error_failed;
 
-      windowing_output_debug_string("\n::wm_centerwindow 1");
+      windowing_output_debug_string("::wm_centerwindow 1");
 
       synchronous_lock synchronouslock(user_synchronization());
 
@@ -600,7 +604,7 @@ namespace windowing_xcb
 
       }
 
-      windowing_output_debug_string("\n::wm_centerwindow 2");
+      windowing_output_debug_string("::wm_centerwindow 2");
 
       if(!estatus)
       {
@@ -620,7 +624,7 @@ namespace windowing_xcb
 
       ::e_status estatus = ::error_failed;
 
-      windowing_output_debug_string("\n::wm_dockwindow 1");
+      windowing_output_debug_string("::wm_dockwindow 1");
 
       synchronous_lock synchronouslock(user_synchronization());
 
@@ -655,7 +659,7 @@ namespace windowing_xcb
 
       }
 
-      windowing_output_debug_string("\n::wm_dockwindow 2");
+      windowing_output_debug_string("::wm_dockwindow 2");
 
       if(!estatus)
       {
@@ -700,7 +704,7 @@ namespace windowing_xcb
 
       }
 
-      windowing_output_debug_string("\n::wm_nodecorations 2");
+      windowing_output_debug_string("::wm_nodecorations 2");
 
       if(!estatus)
       {
@@ -720,58 +724,164 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_synchronization());
 
-      windowing_output_debug_string("\n::wm_iconify_window 1");
-      
-      ::e_status estatus;
+      information() << "_set_iconify_window";
 
-      xcb_client_message_event_t event;
-      event.response_type = XCB_CLIENT_MESSAGE;
-      event.format = 32;
-      event.sequence = 0;
-      event.window = m_window;
-      event.type = xcb_display()->intern_atom("WM_CHANGE_STATE", true);
-      event.data.data32[0] = XCB_ICCCM_WM_STATE_ICONIC;
-      event.data.data32[1] = 0;
-      event.data.data32[2] = 0;
-      event.data.data32[3] = 0;
-      event.data.data32[4] = 0;
-      xcb_send_event(xcb_connection(), 0, xcb_windowing()->m_pdisplay->m_pxcbdisplay->m_windowRoot,
-                     XCB_EVENT_MASK_STRUCTURE_NOTIFY | XCB_EVENT_MASK_SUBSTRUCTURE_REDIRECT,
-                     (const char *)&event);
+      windowing_output_debug_string("_set_iconify_window 1");
 
-      if (IsWindowVisibleRaw())
+//      _set_keyboard_focus(XCB_NONE);
+
+//      ::u32 uaState[] = {XCB_ICCCM_WM_STATE_ICONIC, XCB_NONE};
+//
+//      auto estatus  = _change_property(
+//         xcb_display()->intern_atom("WM_STATE", true),
+//         xcb_display()->intern_atom("WM_STATE", true),
+//         XCB_PROP_MODE_REPLACE,
+//         32,
+//         2,
+//         uaState
+//         );
+//
+//      if(estatus.succeeded())
+//      {
+//
+//         information() << "WM_STATE property set to iconic";
+//
+//      }
+//      else
+//      {
+//
+//         information() << "Failed to set WM_STATE property to iconic";
+//
+//      }
+
+      //_set_hidden_state(true);
+
+      ::e_status estatus = ::success;
+
+//      _unmap_window();
+//
+//
+//      {
+//
+//         xcb_client_message_event_t event{};
+//
+//         event.response_type = XCB_CLIENT_MESSAGE;
+//         event.format = 32;
+//         event.sequence = 0;
+//         event.window = m_window;
+//         event.type = xcb_display()->intern_atom("_NET_WM_STATE", true);
+//         event.data.data32[0] = xcb_display()->intern_atom("_NET_WM_STATE_ADD", true);
+//         event.data.data32[1] = xcb_display()->intern_atom("_NET_WM_STATE_HIDDEN", true);
+//         event.data.data32[2] = 0;
+//         event.data.data32[3] = 0;
+//         event.data.data32[4] = 0;
+//
+//         auto cookie = xcb_send_event(xcb_connection(), 0, xcb_windowing()->m_pdisplay->m_pxcbdisplay->m_windowRoot,
+//                                      XCB_EVENT_MASK_SUBSTRUCTURE_NOTIFY | XCB_EVENT_MASK_SUBSTRUCTURE_REDIRECT,
+//                                      (const char *) &event);
+//
+//         auto estatus1 = xcb_display()->_request_check(cookie);
+//
+//         if (estatus1.succeeded())
+//         {
+//
+//            information() << "Sent _NET_WM_STATE event with Add Hidden";
+//
+//         }
+//         else
+//         {
+//
+//            information() << "Failed to send _NET_WM_STATE event with Add Hidden";
+//
+//         }
+//
+//         if(estatus1.failed())
+//         {
+//
+//            estatus = estatus1;
+//
+//         }
+//
+//      }
+
       {
 
-         estatus = _mapped_net_state_raw(1, xcb_display()->intern_atom("_NET_WM_STATE_HIDDEN", false), 0);
+         xcb_client_message_event_t event{};
 
-      }
-      else
-      {
+         event.response_type = XCB_CLIENT_MESSAGE;
+         event.format = 32;
+         event.sequence = 0;
+         event.window = m_window;
+         event.type = xcb_display()->intern_atom("WM_CHANGE_STATE", true);
+         event.data.data32[0] = XCB_ICCCM_WM_STATE_ICONIC;
+         event.data.data32[1] = 0;
+         event.data.data32[2] = 0;
+         event.data.data32[3] = 0;
+         event.data.data32[4] = 0;
 
-         if (m_puserinteractionimpl->m_puserinteraction->const_layout().design().display() != ::e_display_iconic)
+         auto cookie = xcb_send_event(xcb_connection(), 0, xcb_windowing()->m_pdisplay->m_pxcbdisplay->m_windowRoot,
+                                      XCB_EVENT_MASK_SUBSTRUCTURE_NOTIFY | XCB_EVENT_MASK_SUBSTRUCTURE_REDIRECT,
+                                      (const char *) &event);
+
+         auto estatus2 = xcb_display()->_request_check(cookie);
+
+         if (estatus2.succeeded())
          {
 
-            m_puserinteractionimpl->m_puserinteraction->display(::e_display_iconic);
+            information() << "Sent WM_CHANGE_STATE event with iconic";
+
+         }
+         else
+         {
+
+            information() << "Failed to send WM_CHANGE_STATE event with iconic";
 
          }
 
-         estatus = _unmapped_net_state_raw(xcb_display()->intern_atom("_NET_WM_STATE_HIDDEN", false));
+         if(estatus2.failed())
+         {
+
+            estatus = ::minimum(estatus.m_eenum, estatus2.m_eenum);
+
+         }
 
       }
 
-      xcb_get_property_cookie_t cookie = xcb_icccm_get_wm_hints_unchecked(xcb_connection(), m_window);
-      xcb_icccm_wm_hints_t hints;
-      if (xcb_icccm_get_wm_hints_reply(xcb_connection(), cookie, &hints, nullptr))
-      {
-         //if (state & Qt::WindowMinimized)
-            xcb_icccm_wm_hints_set_iconic(&hints);
-         //else
-           // xcb_icccm_wm_hints_set_normal(&hints);
-         xcb_icccm_set_wm_hints(xcb_connection(), m_window, &hints);
-      }
 
+      xcb_flush(xcb_connection());
 
-      windowing_output_debug_string("\n::wm_iconify_window 2");
+//      if (IsWindowVisibleRaw())
+//      {
+//
+//         estatus = _mapped_net_state_raw(1, xcb_display()->intern_atom("_NET_WM_STATE_HIDDEN", false), 0);
+//
+//      }
+//      else
+//      {
+//
+//         if (m_puserinteractionimpl->m_puserinteraction->const_layout().design().display() != ::e_display_iconic)
+//         {
+//
+//            m_puserinteractionimpl->m_puserinteraction->display(::e_display_iconic);
+//
+//         }
+//
+//         estatus = _unmapped_net_state_raw(xcb_display()->intern_atom("_NET_WM_STATE_HIDDEN", false));
+//
+//      }
+
+//      xcb_get_property_cookie_t cookie = xcb_icccm_get_wm_hints_unchecked(xcb_connection(), m_window);
+//      xcb_icccm_wm_hints_t hints{};
+//      if (xcb_icccm_get_wm_hints_reply(xcb_connection(), cookie, &hints, nullptr))
+//      {
+//         //if (state & Qt::WindowMinimized)
+//            xcb_icccm_wm_hints_set_iconic(&hints);
+//         //else
+//           // xcb_icccm_wm_hints_set_normal(&hints);
+//         xcb_icccm_set_wm_hints(xcb_connection(), m_window, &hints);
+//      }
+
+      windowing_output_debug_string("::wm_iconify_window 2");
 
       if(!estatus)
       {

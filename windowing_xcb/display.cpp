@@ -35,7 +35,7 @@ namespace windowing_xcb
 
       zero(m_atoma);
       m_pDisplay = this;
-
+m_bHasXSync = false;
       m_pxcbdisplay = nullptr;
       //m_pdepth = nullptr;
       //m_pvisualtype = nullptr;
@@ -43,6 +43,7 @@ namespace windowing_xcb
       //m_colormap = 0;
       m_pfontCursor = 0;
       //m_windowRoot = 0;
+      m_atomWmState = None;
       m_atomNetWmState = None;
       m_atomNetWmStateFocused = None;
       m_atomNetWmStateHidden = None;
@@ -150,11 +151,10 @@ namespace windowing_xcb
       }
 
 
-
       for (::index iAtomName = 0; iAtomName < ::x11::e_atom_count; iAtomName++)
       {
 
-         if(!m_atoma[iAtomName])
+         if (!m_atoma[iAtomName])
          {
 
             auto pszWindowName = ::x11::atom_name((::x11::enum_atom) iAtomName);
@@ -167,9 +167,9 @@ namespace windowing_xcb
 
       }
 
-
       m_atomWmProtocols = intern_atom("WM_PROTOCOLS", True);
-      //m_atomWmState = intern_atom("WM_STATE", false);
+      m_atomWmState = intern_atom("WM_STATE", false);
+      m_atomNetWmState = intern_atom("_NET_WM_STATE", false);
       m_atomNetWmSyncRequest = intern_atom("_NET_WM_SYNC_REQUEST", True);
       m_atomNetWmSyncRequestCounter = intern_atom("_NET_WM_SYNC_REQUEST_COUNTER", True);
       m_atomNetWmStateFocused = intern_atom("_NET_WM_STATE_FOCUSED", True);
@@ -177,7 +177,25 @@ namespace windowing_xcb
       m_atomNetWmStateMaximizedHorz = intern_atom("_NET_WM_STATE_MAXIMIZED_HORZ", True);
       m_atomNetWmStateMaximizedVert = intern_atom("_NET_WM_STATE_MAXIMIZED_VERT", True);
 
-      //return ::success;
+      m_bHasXSync = false;
+
+#ifdef HAVE_XSYNC
+
+      {
+
+         int error_base, event_base;
+
+         if (XSyncQueryExtension(m_px11display->m_pdisplay, &event_base, &error_base) &&
+             XSyncInitialize(m_px11display->m_pdisplay, &m_iXSyncMajor, &m_iXSyncMinor))
+         {
+
+            m_bHasXSync = true;
+
+         }
+
+      }
+
+#endif
 
    }
 
@@ -290,6 +308,14 @@ namespace windowing_xcb
    }
 
 
+   ::windowing_xcb::window * display::get_mouse_capture()
+   {
+
+      return m_pwindowMouseCapture;
+
+   }
+
+
    void display::_on_capture_changed_to(::windowing_xcb::window * pwindowMouseCaptureNew)
    {
 
@@ -300,7 +326,7 @@ namespace windowing_xcb
       if (pwindowMouseCaptureOld && pwindowMouseCaptureOld != pwindowMouseCaptureNew)
       {
 
-         auto pmessage = __create_new < ::user::message >();
+         auto pmessage = __create_new<::user::message>();
 
          pmessage->m_pwindow = pwindowMouseCaptureOld;
          pmessage->m_oswindow = pwindowMouseCaptureOld;
@@ -347,6 +373,58 @@ namespace windowing_xcb
    }
 
 
+   ::string display::atom_name(xcb_atom_t atom)
+   {
+
+      auto & strName = m_mapAtomName[atom];
+
+      if (strName.is_empty())
+      {
+
+         strName = _atom_name(atom);
+
+      }
+
+      return strName;
+
+   }
+
+
+   ::string display::_atom_name(xcb_atom_t atom)
+   {
+
+      ::string strName;
+
+      xcb_get_atom_name_cookie_t cookie = xcb_get_atom_name(xcb_connection(), atom);
+
+      xcb_get_atom_name_reply_t * reply = xcb_get_atom_name_reply(xcb_connection(), cookie, NULL);
+
+      if (reply)
+      {
+
+         int len = xcb_get_atom_name_name_length(reply);
+
+         auto pszName = strName.get_buffer(len);
+
+         memcpy(pszName, xcb_get_atom_name_name(reply), len);
+
+         strName.release_buffer(len);
+
+         free(reply);
+
+      }
+      else
+      {
+
+         strName = "(x)";
+
+      }
+
+      return strName;
+
+   }
+
+
    xcb_atom_t display::intern_atom(::x11::enum_atom eatom, bool bCreate)
    {
 
@@ -372,12 +450,11 @@ namespace windowing_xcb
 
       auto pwindow = _window(window);
 
-      windowing_output_debug_string("\n::GetActiveWindow 2");
+      windowing_output_debug_string("::GetActiveWindow 2");
 
       return pwindow;
 
    }
-
 
 
    //// recreated on 2021-04-28 19:32 https://lists.freedesktop.org/archives/xcb/2010-June/006111.html
@@ -406,7 +483,7 @@ namespace windowing_xcb
 
          auto estatus = _request_check(cookie);
 
-         if(!estatus)
+         if (!estatus)
          {
 
             throw ::exception(estatus, "could not create default cursor font");
@@ -431,7 +508,7 @@ namespace windowing_xcb
 
       auto estatus = _request_check(cookie);
 
-      if(!estatus)
+      if (!estatus)
       {
 
          throw ::exception(estatus, "could not create a default cursor with the specified/\"or any\" glyph");
@@ -458,11 +535,11 @@ namespace windowing_xcb
 
       oswindow oswindow = nullptr;
 
-      windowing_output_debug_string("\n::GetFocus 1");
+      windowing_output_debug_string("::GetFocus 1");
 
       //display_lock displaylock(this);
 
-      windowing_output_debug_string("\n::GetFocus 1.01");
+      windowing_output_debug_string("::GetFocus 1.01");
 
       xcb_window_t window = 0;
 
@@ -481,7 +558,7 @@ namespace windowing_xcb
 
       auto pwindowFocus = _window(preply->focus);
 
-      windowing_output_debug_string("\n::GetFocus 2");
+      windowing_output_debug_string("::GetFocus 2");
 
       return pwindowFocus;
 
@@ -499,7 +576,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_synchronization());
 
-      windowing_output_debug_string("\n::GetCursorPos 1");
+      windowing_output_debug_string("::GetCursorPos 1");
 
       //display_lock displaylock(this);
 
@@ -514,7 +591,7 @@ namespace windowing_xcb
 
       }
 
-      windowing_output_debug_string("\n::GetCursorPos 2");
+      windowing_output_debug_string("::GetCursorPos 2");
 
       ppointCursor->x() = preply->root_x;
 
@@ -654,7 +731,8 @@ namespace windowing_xcb
 
       {
 
-         auto cookie = xcb_render_create_picture(m_pxcbdisplay->m_pconnection, picture, pixmap, pformat->id, 0, nullptr);
+         auto cookie = xcb_render_create_picture(m_pxcbdisplay->m_pconnection, picture, pixmap, pformat->id, 0,
+                                                 nullptr);
 
          auto estatus = _request_check(cookie);
 
@@ -674,10 +752,10 @@ namespace windowing_xcb
    }
 
 
-   comparable_raw_array < xcb_window_t > display::_window_enumerate()
+   comparable_raw_array<xcb_window_t> display::_window_enumerate()
    {
 
-      comparable_raw_array < xcb_window_t > windowa;
+      comparable_raw_array<xcb_window_t> windowa;
 
       auto property = m_pxcbdisplay->intern_atom(::x11::e_atom_net_client_list_stacking);
 
@@ -702,9 +780,9 @@ namespace windowing_xcb
          xcb_connection(),
          cookie,
          nullptr
-         );
+      );
 
-      if(!preply)
+      if (!preply)
       {
 
          return windowa;
@@ -715,7 +793,7 @@ namespace windowing_xcb
 
       xcb_window_t * p = (xcb_window_t *) xcb_get_property_value(preply);
 
-      windowa.set_size(len/sizeof(xcb_window_t));
+      windowa.set_size(len / sizeof(xcb_window_t));
 
       memcpy(windowa.get_data(), p, windowa.get_size_in_bytes());
 
@@ -729,7 +807,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_synchronization());
 
-      array < xcb_atom_t > atoma;
+      array<xcb_atom_t> atoma;
 
       auto cookie = xcb_get_property(
          m_pxcbdisplay->m_pconnection,
@@ -746,7 +824,7 @@ namespace windowing_xcb
          nullptr
       ));
 
-      if(!preply)
+      if (!preply)
       {
 
          return false;
@@ -759,10 +837,10 @@ namespace windowing_xcb
 
       auto count = len / sizeof(xcb_atom_t);
 
-      for(int i = 0; i < count; i++)
+      for (int i = 0; i < count; i++)
       {
 
-         if(patom[i] == propertyItem)
+         if (patom[i] == propertyItem)
          {
 
             return true;
@@ -776,12 +854,12 @@ namespace windowing_xcb
    }
 
 
-   comparable_array < xcb_atom_t > display::_window_get_atom_array(xcb_window_t window, xcb_atom_t property)
+   comparable_array<xcb_atom_t> display::_window_get_atom_array(xcb_window_t window, xcb_atom_t property)
    {
 
       synchronous_lock synchronouslock(user_synchronization());
 
-      comparable_array < xcb_atom_t > atoma;
+      comparable_array<xcb_atom_t> atoma;
 
       auto cookie = xcb_get_property(
          m_pxcbdisplay->m_pconnection,
@@ -796,9 +874,9 @@ namespace windowing_xcb
          m_pxcbdisplay->m_pconnection,
          cookie,
          nullptr
-         ));
+      ));
 
-      if(!preply)
+      if (!preply)
       {
 
          return atoma;
@@ -818,9 +896,6 @@ namespace windowing_xcb
    }
 
 
-
-
-
    string display::_window_get_string_property(xcb_window_t window, xcb_atom_t property)
    {
 
@@ -830,7 +905,7 @@ namespace windowing_xcb
 
       ::acme::malloc preply(xcb_get_property_reply(m_pxcbdisplay->m_pconnection, cookie, nullptr));
 
-      if(!preply)
+      if (!preply)
       {
 
          return "";
@@ -864,14 +939,14 @@ namespace windowing_xcb
    }
 
 
-   status < xcb_get_window_attributes_reply_t > display::_window_get_window_attributes(xcb_window_t window)
+   status<xcb_get_window_attributes_reply_t> display::_window_get_window_attributes(xcb_window_t window)
    {
 
       auto cookie = xcb_get_window_attributes(m_pxcbdisplay->m_pconnection, window);
 
       ::acme::malloc preply(xcb_get_window_attributes_reply(m_pxcbdisplay->m_pconnection, cookie, nullptr));
 
-      if(!preply)
+      if (!preply)
       {
 
          return error_failed;
@@ -883,28 +958,28 @@ namespace windowing_xcb
    }
 
 
-   status < xcb_get_geometry_reply_t > display::_window_get_geometry(xcb_window_t window)
+   status<xcb_get_geometry_reply_t> display::_window_get_geometry(xcb_window_t window)
    {
 
       auto cookie = xcb_get_geometry(m_pxcbdisplay->m_pconnection, window);
 
       ::acme::malloc preply(xcb_get_geometry_reply(m_pxcbdisplay->m_pconnection, cookie, nullptr));
 
-      if(!preply)
+      if (!preply)
       {
 
          return error_failed;
 
       }
 
-      auto trans = xcb_translate_coordinates_reply (
+      auto trans = xcb_translate_coordinates_reply(
          m_pxcbdisplay->m_pconnection,
-         xcb_translate_coordinates (
+         xcb_translate_coordinates(
             m_pxcbdisplay->m_pconnection,
             window,
             m_pxcbdisplay->m_windowRoot,
             0, 0),
-            NULL);
+         NULL);
       if (trans)
       {
 
@@ -914,7 +989,6 @@ namespace windowing_xcb
          free(trans);
 
       }
-
 
 
       return *preply;
@@ -946,7 +1020,7 @@ namespace windowing_xcb
          nullptr
       ));
 
-      if(!preply)
+      if (!preply)
       {
 
          return r;
@@ -972,7 +1046,7 @@ namespace windowing_xcb
 
       auto geometry = _window_get_geometry(window);
 
-      if(geometry.nok())
+      if (geometry.nok())
       {
 
          return geometry.estatus();
@@ -996,7 +1070,7 @@ namespace windowing_xcb
 
       auto geometry = _window_get_geometry(window);
 
-      if(geometry.nok())
+      if (geometry.nok())
       {
 
          return geometry.estatus();
@@ -1023,7 +1097,7 @@ namespace windowing_xcb
    }
 
 
-   bool display::point_is_window_origin(::point_i32 pointHitTest, ::windowing::window *pwindowExclude, int iMargin)
+   bool display::point_is_window_origin(::point_i32 pointHitTest, ::windowing::window * pwindowExclude, int iMargin)
    {
 
       bool bIsOrigin = false;
@@ -1033,83 +1107,83 @@ namespace windowing_xcb
       auto pnode = psystem->node();
 
       pnode->node_send([this, pointHitTest, pwindowExclude, iMargin, &bIsOrigin]()
-      {
+                       {
 
-         ::windowing_xcb::window *pwindowxcbExclude = nullptr;
+                          ::windowing_xcb::window * pwindowxcbExclude = nullptr;
 
-         if (pwindowExclude)
-         {
+                          if (pwindowExclude)
+                          {
 
-            pwindowxcbExclude = dynamic_cast < ::windowing_xcb::window * >(pwindowExclude);
+                             pwindowxcbExclude = dynamic_cast < ::windowing_xcb::window * >(pwindowExclude);
 
-         }
+                          }
 
-         synchronous_lock synchronouslock(user_synchronization());
+                          synchronous_lock synchronouslock(user_synchronization());
 
-         windowing_output_debug_string("\n::GetFocus 1");
+                          windowing_output_debug_string("::GetFocus 1");
 
 #ifdef display_lock_LOCK_LOG
 
-         b_prevent_display_lock_lock_log = false;
+                          b_prevent_display_lock_lock_log = false;
 
 #endif
 
-         if (!xcb_connection())
-         {
+                          if (!xcb_connection())
+                          {
 
-            windowing_output_debug_string("\n::GetFocus 1.1");
+                             windowing_output_debug_string("::GetFocus 1.1");
 
-            return;
+                             return;
 
-         }
+                          }
 
-         //display_lock display(this);
+                          //display_lock display(this);
 
-         windowing_output_debug_string("\n::GetFocus 1.01");
+                          windowing_output_debug_string("::GetFocus 1.01");
 
-         comparable_raw_array < xcb_window_t > windowa;
+                          comparable_raw_array<xcb_window_t> windowa;
 
-         windowa = _window_enumerate();
+                          windowa = _window_enumerate();
 
-         ::rectangle_i32 rectangleTest;
+                          ::rectangle_i32 rectangleTest;
 
-         for (index i = 0; i < windowa.get_size(); i++)
-         {
+                          for (index i = 0; i < windowa.get_size(); i++)
+                          {
 
-            //string strItem = ::_window_get(xcb_connection(), windowa[i]);
+                             //string strItem = ::_window_get(xcb_connection(), windowa[i]);
 
-            ::rectangle_i32 rectangleHigher;
+                             ::rectangle_i32 rectangleHigher;
 
-            if (::is_set(pwindowxcbExclude) && windowa[i] == pwindowxcbExclude->xcb_window())
-            {
+                             if (::is_set(pwindowxcbExclude) && windowa[i] == pwindowxcbExclude->xcb_window())
+                             {
 
-               continue;
+                                continue;
 
-            }
+                             }
 
-            if (_window_get_window_rectangle(windowa[i], &rectangleHigher))
-            {
+                             if (_window_get_window_rectangle(windowa[i], &rectangleHigher))
+                             {
 
-               ::rectangle_i32 rectangleHitTest;
+                                ::rectangle_i32 rectangleHitTest;
 
-               rectangleHitTest.set(rectangleHigher.origin(), ::size_i32());
+                                rectangleHitTest.set(rectangleHigher.origin(), ::size_i32());
 
-               rectangleHitTest.inflate(iMargin + 1);
+                                rectangleHitTest.inflate(iMargin + 1);
 
-               if (rectangleHitTest.contains(pointHitTest))
-               {
+                                if (rectangleHitTest.contains(pointHitTest))
+                                {
 
-                  bIsOrigin = true;
+                                   bIsOrigin = true;
 
-                  return;
+                                   return;
 
-               }
+                                }
 
-            }
+                             }
 
-         }
+                          }
 
-      });
+                       });
 //
 //            });
 

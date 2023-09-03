@@ -63,7 +63,7 @@ namespace windowing_xcb
 
       synchronous_lock sl(user_synchronization());
 
-      windowing_output_debug_string("\n::x11_GetWindowRect 1");
+      windowing_output_debug_string("::x11_GetWindowRect 1");
 
       auto psystem = acmesystem();
 

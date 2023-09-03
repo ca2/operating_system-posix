@@ -32,14 +32,6 @@ namespace windowing_x11
    public:
 
 
-      enum enum_net_wm_sync
-      {
-
-         e_net_wm_sync_none,
-         e_net_wm_sync_wait_configure,
-         e_net_wm_sync_wait_paint,
-
-      };
 
 
       XWindowAttributes                            m_attr;
@@ -69,7 +61,6 @@ namespace windowing_x11
       XSyncCounter                                 m_xsynccounterNetWmSync;
       XSyncValue                                   m_xsyncvalueNetWmSync;
       XSyncValue                                   m_xsyncvalueNetWmSyncPending;
-      enum_net_wm_sync                             m_enetwmsync;
       //static oswindow_dataptra *                 s_pdataptra;
       //static::pointer< ::mutex >                 s_pmutex;
       //bool                                         m_bNetWmStateHidden;

@@ -30,7 +30,7 @@ namespace windowing_x11
       Atom                                         m_atoma[::x11::e_atom_count];
 
 
-      ::pointer<::x11::display>                   m_px11display;
+      ::pointer<::x11::display>                    m_px11display;
       //::Display *                                m_pdisplay;
       XVisualInfo                                  m_visualinfo;
       ::Visual *                                   m_pvisual;
@@ -43,7 +43,7 @@ namespace windowing_x11
       Atom                                         m_atomLongType;
       Atom                                         m_atomLongStyle;
       Atom                                         m_atomLongStyleEx;
-      //Atom                                         m_atomCardinal;
+      //Atom                                       m_atomCardinal;
       Atom                                         m_atomWmState;
       Atom                                         m_atomNetWmStateFocused;
       Atom                                         m_atomNetWmStateHidden;

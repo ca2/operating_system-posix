@@ -44,8 +44,11 @@ namespace windowing_xcb
       Atom                                                     m_atomNetWmSyncRequest;
       Atom                                                     m_atomNetWmSyncRequestCounter;
       Atom                                                     m_atomNetWmState;
+      Atom                                                     m_atomWmState;
       Display *                                                m_pX11Display;
       //xcb_connection_t *                                       m_pconnection;
+      map < xcb_atom_t, ::string >                             m_mapAtomName;
+      bool                                                     m_bHasXSync;
 
       ::pointer<class window>                                  m_pwindowRoot;
       ::pointer<class window>                                  m_pwindowKeyboardFocus;
@@ -74,6 +77,8 @@ namespace windowing_xcb
 
       inline ::windowing_xcb::windowing * xcb_windowing();
 
+      virtual ::windowing_xcb::window * get_mouse_capture();
+
       virtual void _on_capture_changed_to(::windowing_xcb::window * pwindowWithCapture);
 
       virtual void lock_display();
@@ -87,6 +92,9 @@ namespace windowing_xcb
       virtual xcb_atom_t intern_atom(const char * pszAtomName, bool bCreate = true);
 
       virtual xcb_atom_t intern_atom(::x11::enum_atom eatom, bool bCreate = true);
+
+      virtual ::string atom_name(xcb_atom_t atom);
+      virtual ::string _atom_name(xcb_atom_t atom);
 
       virtual xcb_cursor_t _create_font_cursor (uint16_t glyph);
 

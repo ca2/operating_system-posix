@@ -633,7 +633,7 @@ namespace windowing_x11
 
       auto pwindow = _window(window);
 
-      windowing_output_debug_string("\n::GetActiveWindow 2");
+      windowing_output_debug_string("::GetActiveWindow 2");
 
       return pwindow;
 
@@ -660,7 +660,7 @@ namespace windowing_x11
 
          oswindow oswindow = nullptr;
 
-         windowing_output_debug_string("\n::GetFocus 1");
+         windowing_output_debug_string("::GetFocus 1");
 
 #ifdef display_lock_LOCK_LOG
 
@@ -670,7 +670,7 @@ namespace windowing_x11
 
          display_lock displaylock(Display());
 
-         windowing_output_debug_string("\n::GetFocus 1.01");
+         windowing_output_debug_string("::GetFocus 1.01");
 
          Window window = None;
 
@@ -681,7 +681,7 @@ namespace windowing_x11
          if (!bOk)
          {
 
-            windowing_output_debug_string("\n::GetFocus 1.2");
+            windowing_output_debug_string("::GetFocus 1.2");
 
             return;
 
@@ -690,7 +690,7 @@ namespace windowing_x11
          if (window == None || window == PointerRoot)
          {
 
-            windowing_output_debug_string("\n::GetFocus 1.3");
+            windowing_output_debug_string("::GetFocus 1.3");
 
             return;
 
@@ -698,7 +698,7 @@ namespace windowing_x11
 
          ppropertyobject->payload("window") = (::iptr) window;
 
-         windowing_output_debug_string("\n::GetFocus 2");
+         windowing_output_debug_string("::GetFocus 2");
 
       };
 
@@ -755,7 +755,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_synchronization());
 
-      windowing_output_debug_string("\n::GetCursorPos 1");
+      windowing_output_debug_string("::GetCursorPos 1");
 
       display_lock displaylock(Display());
 
@@ -768,7 +768,7 @@ namespace windowing_x11
 
 #endif
 
-      windowing_output_debug_string("\n::GetCursorPos 2");
+      windowing_output_debug_string("::GetCursorPos 2");
 
       return true;
 
@@ -805,7 +805,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_synchronization());
 
-      windowing_output_debug_string("\n::x11_create_image 1");
+      windowing_output_debug_string("::x11_create_image 1");
 
       display_lock displaylock(Display());
 
@@ -855,7 +855,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_synchronization());
 
-      windowing_output_debug_string("\n::x11_create_pixmap 1");
+      windowing_output_debug_string("::x11_create_pixmap 1");
 
       display_lock displaylock(Display());
 
@@ -950,7 +950,7 @@ namespace windowing_x11
 
                           synchronous_lock synchronouslock(user_synchronization());
 
-                          windowing_output_debug_string("\n::GetFocus 1");
+                          windowing_output_debug_string("::GetFocus 1");
 
 #ifdef display_lock_LOCK_LOG
 
@@ -961,7 +961,7 @@ namespace windowing_x11
                           if (!Display())
                           {
 
-                             windowing_output_debug_string("\n::GetFocus 1.1");
+                             windowing_output_debug_string("::GetFocus 1.1");
 
                              return;
 
@@ -969,7 +969,7 @@ namespace windowing_x11
 
                           display_lock displaylock(Display());
 
-                          windowing_output_debug_string("\n::GetFocus 1.01");
+                          windowing_output_debug_string("::GetFocus 1.01");
 
                           auto windowa = x11_window_list();
 

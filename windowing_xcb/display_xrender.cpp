@@ -18,7 +18,7 @@ namespace windowing_xcb
 
       synchronous_lock synchronouslock(user_synchronization());
 
-      windowing_output_debug_string("\n::CreateAlphaCursor 1");
+      windowing_output_debug_string("::CreateAlphaCursor 1");
 
       //display_lock displaylock(this);
 

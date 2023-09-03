@@ -21,6 +21,16 @@ namespace windowing_posix
 
 //#if defined(WITH_X11)
 
+      enum enum_net_wm_sync
+      {
+
+         e_net_wm_sync_none,
+         e_net_wm_sync_wait_configure,
+         e_net_wm_sync_wait_paint,
+
+      };
+
+      enum_net_wm_sync                             m_enetwmsync;
 
       ::pointer<::xim::keyboard>m_pximkeyboard;
 

@@ -20,6 +20,7 @@ struct xkb_state;
 #include "aura_posix/_x11.h"
 #include "aura_posix/x11/window.h"
 #include <X11/XKBlib.h>
+#include <xcb/sync.h>
 
 
 namespace windowing_xcb
@@ -41,7 +42,9 @@ namespace windowing_xcb
       xcb_get_window_attributes_reply_t            m_attributes;
       xcb_get_geometry_reply_t                     m_geometry;
 
-
+      xcb_sync_counter_t                           m_xsynccounterNetWmSync;
+      xcb_sync_int64_t                             m_xsyncintNetWmSync;
+      xcb_sync_int64_t                             m_xsyncintNetWmSyncPending;
       xcb_window_t                                 m_parent;
       xcb_cursor_t                                 m_cursorLast;
       xcb_window_t                                 m_window;
@@ -69,6 +72,7 @@ namespace windowing_xcb
       virtual xcb_window_t xcb_window();
       virtual xcb_window_t xcb_window() const;
 
+      virtual void _enable_net_wm_sync();
 
       ::windowing_xcb::windowing * xcb_windowing() const;
       ::windowing_xcb::display * xcb_display() const;
@@ -145,6 +149,10 @@ namespace windowing_xcb
       void set_keyboard_focus() override;
       void set_mouse_capture() override;
       void set_active_window() override;
+
+      virtual ::string atom_name(xcb_atom_t atom);
+
+      virtual void _set_keyboard_focus(xcb_window_t window);
 
 
       void set_foreground_window() override;

@@ -388,7 +388,7 @@ namespace windowing_xcb
 //
 //   oswindow oswindow = nullptr;
 //
-//   windowing_output_debug_string("\n::GetFocus 1");
+//   windowing_output_debug_string("::GetFocus 1");
 //
 //#ifdef display_lock_LOCK_LOG
 //
@@ -398,12 +398,12 @@ namespace windowing_xcb
 //
 //   display_lock displaylock(xcb_display());
 //
-//   windowing_output_debug_string("\n::GetFocus 1.01");
+//   windowing_output_debug_string("::GetFocus 1.01");
 //
 //   if(!m_pdisplay)
 //   {
 //
-//      windowing_output_debug_string("\n::GetFocus 1.1");
+//      windowing_output_debug_string("::GetFocus 1.1");
 //
 //      return pwindow;
 //
@@ -418,7 +418,7 @@ namespace windowing_xcb
 //
 //   ///pwindow = oswindow_defer_get(window);
 //
-//   // windowing_output_debug_string("\n::GetActiveWindow 2");
+//   // windowing_output_debug_string("::GetActiveWindow 2");
 //
 ////   return pwindow;
 //
@@ -432,7 +432,7 @@ namespace windowing_xcb
 
 //    synchronous_lock synchronouslock(user_synchronization());
 
-//    windowing_output_debug_string("\n::GetFocus 1");
+//    windowing_output_debug_string("::GetFocus 1");
 
 // #ifdef display_lock_LOCK_LOG
 
@@ -442,12 +442,12 @@ namespace windowing_xcb
 
 //    display_lock display(xcb_connection_t());
 
-//    windowing_output_debug_string("\n::GetFocus 1.01");
+//    windowing_output_debug_string("::GetFocus 1.01");
 
 //    if(display.is_null())
 //    {
 
-//       windowing_output_debug_string("\n::GetFocus 1.1");
+//       windowing_output_debug_string("::GetFocus 1.1");
 
 //       return false;
 
@@ -1288,7 +1288,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //   if (XGetWindowAttributes(pdisplay, window, &attr) == 0)
 //   {
 //
-//      windowing_output_debug_string("\n::this->rectangle 1.2 (xgetwindowattributes failed");
+//      windowing_output_debug_string("::this->rectangle 1.2 (xgetwindowattributes failed");
 //
 //      return false;
 //
@@ -1302,7 +1302,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //   prectangle->bottom() = prectangle->top() + attr.height;
 //
-//   windowing_output_debug_string("\n::this->rectangle 2");
+//   windowing_output_debug_string("::this->rectangle 2");
 //
 //   return true;
 //
@@ -1321,7 +1321,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //   if(!XGetWindowAttributes(d, window, &attrs))
 //   {
 //
-//      windowing_output_debug_string("\n::xcb_get_window_rect 1.1 (xgetwindowattributes failed)");
+//      windowing_output_debug_string("::xcb_get_window_rect 1.1 (xgetwindowattributes failed)");
 //
 //      return false;
 //
@@ -1349,7 +1349,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //
 //
-//   windowing_output_debug_string("\n::xcb_get_window_rect 2");
+//   windowing_output_debug_string("::xcb_get_window_rect 2");
 //
 //   return true;
 //
