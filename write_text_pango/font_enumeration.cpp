@@ -9,6 +9,7 @@
 namespace write_text_pango
 {
 
+
    font_enumeration::font_enumeration()
    {
 
@@ -51,7 +52,7 @@ namespace write_text_pango
 
          string strFileName = pango_font_family_get_name(pfamily);
 
-         pitem->m_mapFileName[0] = strFileName;
+         //pitem->m_mapFileName[0] = strFileName;
 
          pitem->m_strName = strFileName;
 
