@@ -2236,7 +2236,7 @@ if(bSentResponse)
 
             pxcbwindow = m_pdisplay->_window(pfocusin->event);
 
-            if(pxcbwindow == pxcbwindow)
+            if(pxcbwindow)
             {
 
                auto pimpl = pxcbwindow->m_puserinteractionimpl;
