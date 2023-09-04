@@ -15,6 +15,8 @@
 __FACTORY_EXPORT void windowing_xcb_factory(::factory::factory * pfactory)
 {
 
+   printf("windowing_xcb factory\n");
+
    pfactory->add_factory_item < ::windowing_xcb::buffer, ::graphics::graphics > ();
 
    pfactory->add_factory_item < ::windowing_xcb::display, ::windowing::display > ();

@@ -14,6 +14,8 @@
 __FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory)
 {
 
+   printf("windowing_x11 factory\n");
+
    pfactory->add_factory_item < ::windowing_x11::buffer, ::graphics::graphics > ();
 
    pfactory->add_factory_item < ::windowing_x11::display, ::windowing::display > ();

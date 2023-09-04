@@ -14,7 +14,6 @@ __FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory);
 __FACTORY_EXPORT void node_kde_factory(::factory::factory * pfactory)
 {
 
-
    ::string strSessionType = getenv("XDG_SESSION_TYPE");
 
    strSessionType.make_lower();
@@ -35,6 +34,8 @@ __FACTORY_EXPORT void node_kde_factory(::factory::factory * pfactory)
       windowing_xcb_factory(pfactory);
 
    }
+
+   printf("node_kde factory\n");
 
    //pfactory->add_factory_item < ::node_kde::display, ::windowing::display > ();
 

@@ -23,6 +23,8 @@ __FACTORY_EXPORT void apex_posix_factory(::factory::factory * pfactory)
 
    acme_posix_factory(pfactory);
 
+   printf("apex_posix factory\n");
+
 #ifdef FILE_SYSTEM_INOTIFY
    
    pfactory->add_factory_item < ::inotify::watcher, ::file::watcher >();

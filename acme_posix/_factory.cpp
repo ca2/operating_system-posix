@@ -14,6 +14,8 @@
 IMPLEMENT_FACTORY(acme_posix)
 {
 
+   printf("acme_posix factory\n");
+
    pfactory->add_factory_item < ::acme_posix::node                   , ::acme::node > ();
    pfactory->add_factory_item < ::acme_posix::file_memory_map        , ::file::memory_map >();
 
