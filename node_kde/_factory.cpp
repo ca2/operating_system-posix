@@ -19,6 +19,8 @@ __FACTORY_EXPORT void node_kde_factory(::factory::factory * pfactory)
 
    strSessionType.make_lower();
 
+   printf("XDG_SESSION_TYPE %s\n", strSessionType.c_str());
+
    if(strSessionType == "x11")
    {
 
@@ -28,7 +30,9 @@ __FACTORY_EXPORT void node_kde_factory(::factory::factory * pfactory)
    else
    {
 
-      windowing_x11_factory(pfactory);
+      //windowing_x11_factory(pfactory);
+
+      windowing_xcb_factory(pfactory);
 
    }
 
