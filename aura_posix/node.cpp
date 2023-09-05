@@ -25,14 +25,14 @@ namespace aura_posix
 #if defined(WITH_X11) || defined(WITH_XCB)
          
          
-      m_pX11Display = nullptr;
+      m_pAuraPosixX11Display = nullptr;
 
 #endif // WITH_X11 || WITH_XCB
 
 
 #if defined(WITH_XCB)
 
-      m_pxcbconnection = nullptr;
+      m_pAuraPosixXcbConnection = nullptr;
          
 #endif
 
@@ -327,25 +327,30 @@ namespace aura_posix
    ::e_status node::_allocate_Display_and_connection()
    {
 
-      m_pX11Display = XOpenDisplay(nullptr);
+      m_pAuraPosixX11Display = XOpenDisplay(nullptr);
 
-      if(!m_pX11Display)
+      if(!m_pAuraPosixX11Display)
       {
 
          return error_failed;
 
       }
+
+      information() << "aura_posix::node::_allocate_Display_and_connection m_pAuraPosixX11Display : " << (::iptr)m_pAuraPosixX11Display;
+
 
 #if defined(WITH_XCB)
 
-      m_pxcbconnection = XGetXCBConnection((Display *) m_pX11Display);
+      m_pAuraPosixXcbConnection = XGetXCBConnection((Display *) m_pAuraPosixX11Display);
 
-      if(!m_pxcbconnection)
+      if(!m_pAuraPosixXcbConnection)
       {
 
          return error_failed;
 
       }
+
+      information() << "aura_posix::node::_allocate_Display_and_connection m_pAuraPosixXcbConnection : " << (::iptr)m_pAuraPosixXcbConnection;
 
 #endif
 
@@ -357,7 +362,7 @@ namespace aura_posix
    void * node::_get_Display()
    {
 
-      return m_pX11Display;
+      return m_pAuraPosixX11Display;
 
    }
 
@@ -367,7 +372,7 @@ namespace aura_posix
 
 #if defined(WITH_XCB)
 
-      return m_pxcbconnection;
+      return m_pAuraPosixXcbConnection;
 
 #else
 
@@ -383,7 +388,7 @@ namespace aura_posix
 
 #if defined(WITH_XCB)
 
-      return ::is_set(m_pxcbconnection);
+      return ::is_set(m_pAuraPosixXcbConnection);
 
 #else
 
@@ -399,7 +404,7 @@ namespace aura_posix
    void * node::_get_connection()
    {
 
-      return m_pxcbconnection;
+      return m_pAuraPosixXcbConnection;
 
    }
 

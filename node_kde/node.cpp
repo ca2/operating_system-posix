@@ -301,6 +301,8 @@ namespace node_kde
    ::e_status node::_allocate_Display_and_connection()
    {
 
+      information() << "node_kde _allocate_Display_and_connection";
+
       if(QX11Info::isPlatformX11())
       {
 
@@ -308,16 +310,18 @@ namespace node_kde
 
          information("qx11info::display : " + hex::lower_case_from((iptr) p));
 
-         m_pX11Display = p;
+         m_pAuraPosixX11Display = p;
 
-         if (!m_pX11Display)
+         if (!m_pAuraPosixX11Display)
          {
 
             return error_failed;
 
          }
 
-         m_pxcbconnection = QX11Info::connection();
+         m_pAuraPosixXcbConnection = QX11Info::connection();
+
+         information("qx11info::connection : " + hex::lower_case_from((iptr) m_pAuraPosixXcbConnection));
 
 //      if(!m_pxcbconnection)
 //      {
@@ -337,7 +341,7 @@ namespace node_kde
 
          m_bUnhookX = false;
 
-         m_pX11Display = initialize_x11_display(this);
+         m_pAuraPosixX11Display = initialize_x11_display(this);
 
          return ::success;
 

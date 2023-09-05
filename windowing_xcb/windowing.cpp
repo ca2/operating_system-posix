@@ -2590,6 +2590,19 @@ if(bSentResponse)
 
       return (xcb_connection_t *) acmesystem()->m_pnode->m_pAuraPosix->_get_connection();
 
+//      auto pdisplay = ::xcb::display::get(this);
+//
+//      if(::is_null(pdisplay))
+//      {
+//
+//         information() << "windowing::_get_connection xcb::display is NULL";
+//
+//         throw ::exception(error_failed);
+//
+//      }
+//
+//      return pdisplay->m_pconnection;
+
    }
 
 

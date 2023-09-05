@@ -26,7 +26,7 @@ namespace aura_posix
 #if defined(WITH_X11) || defined(WITH_XCB)
 
 
-      void *                                 m_pX11Display;
+      void *                                 m_pAuraPosixX11Display;
 
 
 #endif
@@ -35,7 +35,7 @@ namespace aura_posix
 #if defined(WITH_XCB)
 
 
-      void *                                 m_pxcbconnection;
+      void *                                 m_pAuraPosixXcbConnection;
 
 
 #endif
