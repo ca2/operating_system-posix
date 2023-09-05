@@ -48,7 +48,8 @@ namespace windowing_xcb
       void initialize(::particle * pparticle) override;
 
 
-      virtual bool initialize_windowing();
+      void initialize_windowing(::user::user * puser) override;
+
 
       virtual bool terminate_windowing();
 

@@ -45,7 +45,7 @@ namespace windowing_x11
 
       void initialize(::particle * pparticle) override;
 
-      void _initialize_windowing() override;
+      void initialize_windowing(::user::user * puser) override;
 
 
       bool is_branch_current() const override;

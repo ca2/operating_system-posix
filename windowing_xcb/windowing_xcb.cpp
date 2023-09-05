@@ -2,6 +2,7 @@
 // Created by camilo on 16/02/2021.
 //
 #include "framework.h"
+#include "display.h"
 #include "windowing.h"
 #include "window.h"
 #include "acme/parallelization/synchronous_lock.h"
@@ -721,8 +722,55 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    bool post_ui_message(const MESSAGE &message);
 
 
-   bool windowing::initialize_windowing()
+   void windowing::initialize_windowing(::user::user * puser)
    {
+
+      ::windowing_posix::windowing::initialize_windowing(puser);
+
+      auto pdisplay = __create<::windowing::display>();
+
+//      if(!pdisplay)
+//      {
+//
+//         information("\nFailed to __create < ::windowing::display > at windowing_xcb::windowing::initialize");
+//
+//         //return ::error_no_factory;
+//
+//         throw ::exception(error_fac)
+//
+//      }
+
+      //estatus =
+      //
+      pdisplay->initialize_display(this);
+
+//      if(!estatus)
+//      {
+//
+//         information("\nFailed to initialize_display at windowing_xcb::windowing::initialize");
+//
+//         return estatus;
+//
+//      }
+
+      m_pdisplay = pdisplay;
+
+//      if(!pdisplay)
+//      {
+//
+//         information("\nFailed to cast pdisplay to m_pdisplay at windowing_xcb::windowing::initialize");
+//
+//         return error_no_interface;
+//
+//      }
+
+      ///estatus =
+      ///
+      m_pdisplay->open();
+
+
+      _libsn_start_context();
+
 
       //g_pmutexXcbRunnable = memory_new ::pointer < ::mutex >();
 
@@ -740,14 +788,15 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       //osdisplay_data::s_pmutex = memory_new ::pointer < ::mutex >;
 
-      return true;
+      //return true;
 
    }
 
 
-   bool windowing::terminate_windowing()
+   void windowing::terminate_windowing()
    {
 
+      ::windowing::windowing::terminate_windowing();
       //::acme::del(osdisplay_data::s_pmutex);
 
       //::acme::del(osdisplay_data::s_pdataptra);
@@ -770,7 +819,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 //      ::acme::del(g_pmutexXcbSync);
 
-      return false;
+      //return false;
 
    }
 

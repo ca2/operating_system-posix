@@ -118,52 +118,52 @@ namespace windowing_xcb
 //
 //      }
 
-      initialize_windowing();
+      //initialize_windowing();
 
-      auto pdisplay = __create<::windowing::display>();
-
-//      if(!pdisplay)
-//      {
+//      auto pdisplay = __create<::windowing::display>();
 //
-//         information("\nFailed to __create < ::windowing::display > at windowing_xcb::windowing::initialize");
+////      if(!pdisplay)
+////      {
+////
+////         information("\nFailed to __create < ::windowing::display > at windowing_xcb::windowing::initialize");
+////
+////         //return ::error_no_factory;
+////
+////         throw ::exception(error_fac)
+////
+////      }
 //
-//         //return ::error_no_factory;
+//      //estatus =
+//      //
+//      pdisplay->initialize_display(this);
 //
-//         throw ::exception(error_fac)
+////      if(!estatus)
+////      {
+////
+////         information("\nFailed to initialize_display at windowing_xcb::windowing::initialize");
+////
+////         return estatus;
+////
+////      }
 //
-//      }
-
-      //estatus =
-      //
-      pdisplay->initialize_display(this);
-
-//      if(!estatus)
-//      {
+//      m_pdisplay = pdisplay;
 //
-//         information("\nFailed to initialize_display at windowing_xcb::windowing::initialize");
+////      if(!pdisplay)
+////      {
+////
+////         information("\nFailed to cast pdisplay to m_pdisplay at windowing_xcb::windowing::initialize");
+////
+////         return error_no_interface;
+////
+////      }
 //
-//         return estatus;
+//      ///estatus =
+//      ///
+//      m_pdisplay->open();
 //
-//      }
-
-      m_pdisplay = pdisplay;
-
-//      if(!pdisplay)
-//      {
 //
-//         information("\nFailed to cast pdisplay to m_pdisplay at windowing_xcb::windowing::initialize");
+//      _libsn_start_context();
 //
-//         return error_no_interface;
-//
-//      }
-
-      ///estatus =
-      ///
-      m_pdisplay->open();
-
-
-      _libsn_start_context();
-
 
 //      if(!estatus)
 //      {

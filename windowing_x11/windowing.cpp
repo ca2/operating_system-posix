@@ -98,46 +98,19 @@ namespace windowing_x11
    void windowing::initialize(::particle * pparticle)
    {
 
-      //auto estatus =
-      //
       ::windowing::windowing::initialize(pparticle);
-
-//      if(!estatus)
-//      {
-//
-//         return estatus;
-//
-//      }
 
    }
 
 
-   void windowing::_initialize_windowing()
+   void windowing::initialize_windowing(::user::user * puser)
    {
+
+      ::windowing_posix::windowing::initialize_windowing(puser);
 
       auto pdisplay = __create<::windowing::display>();
 
-//      if(!pdisplay)
-//      {
-//
-//         information("\nFailed to __create < ::windowing::display > at windowing_x11::windowing::initialize");
-//
-//         return ::error_no_factory;
-//
-//      }
-
-      //estatus =
-      //
       pdisplay->initialize_display(this);
-
-//      if(!estatus)
-//      {
-//
-//         information("\nFailed to initialize_display at windowing_x11::windowing::initialize");
-//
-//         return estatus;
-//
-//      }
 
       m_pdisplay = pdisplay;
 
@@ -151,31 +124,10 @@ namespace windowing_x11
 
       m_pdisplay->open();
 
-
       _libsn_start_context();
 
-
-//      if(!estatus)
-//      {
-//
-//         information("\nFailed to m_pdisplay->open at windowing_x11::windowing::initialize");
-//
-//         return estatus;
-//
-//      }
-//
-//      return ::success;
-
-
-//      fork([this]()
-//           {
-//
-//              x11_message_loop();
-//
-//           });
-
-
    }
+
 
 //   void windowing::start()
 //   {
