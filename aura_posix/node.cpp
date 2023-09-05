@@ -76,39 +76,17 @@ namespace aura_posix
    void node::initialize(::particle * pparticle)
    {
 
-
       information() << "aura_posix::node initialize";
-      //auto estatus =
-      //
-      ::apex_posix::node::initialize(pparticle);
 
-//         if (!estatus)
-//         {
-//
-//            return estatus;
-//
-//         }
+      ::apex_posix::node::initialize(pparticle);
 
 #if defined(WITH_X11) || defined(WITH_XCB)
 
       information() << "aura_posix::node initialize going to call _allocate_Display_and_connection";
 
-      //estatus =
-      //
       _allocate_Display_and_connection();
 
-//         if(!estatus)
-//         {
-//
-//            information() << "Failed to _allocate_Display_and_connection";
-//
-//            return estatus;
-//
-//         }
-         
 #endif // WITH_X11
-
-      //return estatus;
 
    }
 
