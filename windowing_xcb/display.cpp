@@ -132,32 +132,43 @@ namespace windowing_xcb
 
       auto pwindowing = (::windowing_xcb::windowing *) m_pwindowing->m_pWindowing4;
 
-      m_pX11Display = pwindowing->_get_Display();
+      if(pwindowing->_get_connection() && pwindowing->_get_Display())
+      {
 
-      _m_pX11Display = m_pX11Display;
+         information() << "windowing_xcb::display::open (1.1) using existing connection and display";
 
-      information() << "windowing_xcb::display::open (2) _m_pX11Display : " << (::iptr) _m_pX11Display;
+         m_pX11Display = pwindowing->_get_Display();
 
-      m_pxcbdisplay = ::xcb::display::get(this, false, m_pX11Display);
+         _m_pX11Display = m_pX11Display;
 
-      information() << "windowing_xcb::display::open (2.1)";
+         m_pxcbdisplay = ::xcb::display::get(this, false, m_pX11Display, pwindowing->_get_connection());
 
-      m_pxcbdisplay->m_pconnection = pwindowing->_get_connection();
+      }
+      else
+      {
 
-      information() << "windowing_xcb::display::open (2.2) m_pxcbdisplay->m_pconnection : " << (::iptr) m_pxcbdisplay->m_pconnection;
+         m_pX11Display = pwindowing->_get_Display();
 
-//      m_pxcbdisplay->m_pconnection = xcb_connect(nullptr, nullptr);
+         _m_pX11Display = m_pX11Display;
+
+         information() << "windowing_xcb::display::open (2) _m_pX11Display : " << (::iptr) _m_pX11Display;
+
+         m_pxcbdisplay = ::xcb::display::get(this, false, m_pX11Display);
+
+         information() << "windowing_xcb::display::open (2.1)";
+
+         m_pxcbdisplay->m_pconnection = pwindowing->_get_connection();
+
+         information() << "windowing_xcb::display::open (2.2) m_pxcbdisplay->m_pconnection : " << (::iptr) m_pxcbdisplay->m_pconnection;
+
+      }
 
       if (::is_null(m_pxcbdisplay->m_pconnection))
       {
 
-         //return ::error_failed;
-
          error() << "windowing_xcb::display::open m_pxcbdisplay->m_pconnection is NULL!!";
 
          throw ::exception(error_failed);
-
-         //return;
 
       }
 
