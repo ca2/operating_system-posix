@@ -136,10 +136,15 @@ namespace windowing_xcb
 
       _m_pX11Display = m_pX11Display;
 
+      information() << "windowing_xcb::display::open (2) _m_pX11Display : " << (::iptr) _m_pX11Display;
+
       m_pxcbdisplay = ::xcb::display::get(this, false, m_pX11Display);
+
+      information() << "windowing_xcb::display::open (2.1)";
 
       m_pxcbdisplay->m_pconnection = pwindowing->_get_connection();
 
+      information() << "windowing_xcb::display::open (2.2) m_pxcbdisplay->m_pconnection : " << (::iptr) m_pxcbdisplay->m_pconnection;
 
 //      m_pxcbdisplay->m_pconnection = xcb_connect(nullptr, nullptr);
 
@@ -148,12 +153,15 @@ namespace windowing_xcb
 
          //return ::error_failed;
 
+         error() << "windowing_xcb::display::open m_pxcbdisplay->m_pconnection is NULL!!";
+
          throw ::exception(error_failed);
 
          //return;
 
       }
 
+      error() << "windowing_xcb::display::open creating_atoms (1)";
 
       for (::index iAtomName = 0; iAtomName < ::x11::e_atom_count; iAtomName++)
       {
@@ -171,6 +179,8 @@ namespace windowing_xcb
 
       }
 
+      error() << "windowing_xcb::display::open creating_atoms (2)";
+
       m_atomWmProtocols = intern_atom("WM_PROTOCOLS", True);
       m_atomWmState = intern_atom("WM_STATE", false);
       m_atomNetWmState = intern_atom("_NET_WM_STATE", false);
@@ -183,23 +193,23 @@ namespace windowing_xcb
 
       m_bHasXSync = false;
 
-#ifdef HAVE_XSYNC
-
-      {
-
-         int error_base, event_base;
-
-         if (XSyncQueryExtension(m_px11display->m_pdisplay, &event_base, &error_base) &&
-             XSyncInitialize(m_px11display->m_pdisplay, &m_iXSyncMajor, &m_iXSyncMinor))
-         {
-
-            m_bHasXSync = true;
-
-         }
-
-      }
-
-#endif
+//#ifdef HAVE_XSYNC
+//
+//      {
+//
+//         int error_base, event_base;
+//
+//         if (XSyncQueryExtension(m_px11display->m_pdisplay, &event_base, &error_base) &&
+//             XSyncInitialize(m_px11display->m_pdisplay, &m_iXSyncMajor, &m_iXSyncMinor))
+//         {
+//
+//            m_bHasXSync = true;
+//
+//         }
+//
+//      }
+//
+//#endif
 
    }
 
