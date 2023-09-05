@@ -35,7 +35,7 @@ namespace windowing_xcb
 
       zero(m_atoma);
       m_pDisplay = this;
-m_bHasXSync = false;
+      m_bHasXSync = false;
       m_pxcbdisplay = nullptr;
       //m_pdepth = nullptr;
       //m_pvisualtype = nullptr;
@@ -117,6 +117,8 @@ m_bHasXSync = false;
    void display::open()
    {
 
+      information() << "windowing_xcb::display::open";
+
       if (::is_set(m_pxcbdisplay))
       {
 
@@ -125,6 +127,8 @@ m_bHasXSync = false;
          return;
 
       }
+
+      information() << "windowing_xcb::display::open (1)";
 
       auto pwindowing = (::windowing_xcb::windowing *) m_pwindowing->m_pWindowing4;
 

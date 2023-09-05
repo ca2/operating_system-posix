@@ -725,7 +725,14 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    void windowing::initialize_windowing(::user::user * puser)
    {
 
+
+      information("windowing_xcb::initialize_windowing");
+
+
       ::windowing_posix::windowing::initialize_windowing(puser);
+
+
+      information("windowing_xcb::initialize_windowing starting");
 
       auto pdisplay = __create<::windowing::display>();
 
@@ -739,6 +746,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //         throw ::exception(error_fac)
 //
 //      }
+
+      information("windowing_xcb::initialize_windowing (1)");
 
       //estatus =
       //
@@ -764,10 +773,14 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //      }
 
+
+      information("windowing_xcb::initialize_windowing (1.1)");
       ///estatus =
       ///
       m_pdisplay->open();
 
+
+      information("windowing_xcb::initialize_windowing (2)");
 
       _libsn_start_context();
 
@@ -789,6 +802,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       //osdisplay_data::s_pmutex = memory_new ::pointer < ::mutex >;
 
       //return true;
+
+      information("windowing_xcb::initialize_windowing end");
 
    }
 

@@ -14,8 +14,8 @@ list(APPEND library_source
         copydesk.h
         desktop_environment.cpp
         desktop_environment.h
-        display.cpp
-        display.h
+        #display.cpp
+        #display.h
         enum_display_monitors.cpp
         _factory.cpp
         framework.cpp
@@ -24,8 +24,8 @@ list(APPEND library_source
         #gdk.h
         #gnome_direct.cpp
         #gtk_clipboard.cpp
-        monitor.cpp
-        monitor.h
+        #monitor.cpp
+        #monitor.h
         node.cpp
         node.h
         notify_icon.cpp

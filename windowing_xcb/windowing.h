@@ -51,7 +51,7 @@ namespace windowing_xcb
       void initialize_windowing(::user::user * puser) override;
 
 
-      virtual bool terminate_windowing();
+      void terminate_windowing() override;
 
       virtual bool post_ui_message(const MESSAGE & message);
 
