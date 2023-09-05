@@ -76,6 +76,8 @@ namespace aura_posix
    void node::initialize(::particle * pparticle)
    {
 
+
+      information() << "aura_posix::node initialize";
       //auto estatus =
       //
       ::apex_posix::node::initialize(pparticle);
@@ -88,6 +90,8 @@ namespace aura_posix
 //         }
 
 #if defined(WITH_X11) || defined(WITH_XCB)
+
+      information() << "aura_posix::node _allocate_Display_and_connection";
 
       //estatus =
       //

@@ -261,6 +261,8 @@ namespace node_kde
    void node::initialize(::particle * pparticle)
    {
 
+      information() << "node_kde::node initialize";
+
       auto psystem = pparticle->acmesystem();
 
       m_pqapplication = memory_new QApplication(psystem->m_psubsystem->m_argc, psystem->m_psubsystem->m_argv);
@@ -273,6 +275,8 @@ namespace node_kde
          throw ::exception(error_failed);
 
       }
+
+      information() << "node_kde::node initialize QApplication : " << (::iptr) m_pqapplication;
 
       m_pqapplication->setQuitOnLastWindowClosed(false);
 
