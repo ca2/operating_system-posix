@@ -17,7 +17,10 @@ namespace windowing_wayland
    public:
 
 
-      ::Cursor                   m_cursor;
+      //::Cursor                   m_cursor;
+      ::wl_cursor *m_pwlcursor;
+      wayland_buffer m_waylandbuffer;
+      ::wl_cursor_image * m_pwlcursorimage;
 
 
       cursor();

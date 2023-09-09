@@ -15,6 +15,7 @@
 #include "aura/graphics/image/image.h"
 #include "aura/windowing/desktop_environment.h"
 #include "aura/windowing/monitor.h"
+#include "aura_posix/node.h"
 #include "aura_posix/x11/display_lock.h"
 #include <X11/extensions/Xrender.h>
 #include <wayland-client-protocol.h>
@@ -97,26 +98,27 @@ namespace windowing_wayland
       zero(m_atoma);
 
       m_pDisplay = this;
-      m_colormap = None;
-      m_windowRoot = None;
+      //m_colormap = None;
+      //m_windowRoot = None;
       //m_px11display = nullptr;
       m_pwldisplay = nullptr;
       m_pwlshm = nullptr;
       m_pwlcompositor = nullptr;
       m_pwlshell = nullptr;
-      m_atomLongType = None;
-      m_atomLongStyle = None;
-      m_atomNetWmState = None;
-      m_atomWmProtocols = None;
-      m_atomNetWmStateFocused = None;
-      m_atomNetWmStateHidden = None;
-      m_atomNetWmStateMaximizedHorz = None;
-      m_atomNetWmStateMaximizedVert = None;
-      m_atomNetWmSyncRequest = None;
-      m_atomNetWmSyncRequestCounter = None;
-      m_atomLongStyleEx = 0;
+      m_pwlcursorSurface = nullptr;
+//      m_atomLongType = None;
+//      m_atomLongStyle = None;
+//      m_atomNetWmState = None;
+//      m_atomWmProtocols = None;
+//      m_atomNetWmStateFocused = None;
+//      m_atomNetWmStateHidden = None;
+//      m_atomNetWmStateMaximizedHorz = None;
+//      m_atomNetWmStateMaximizedVert = None;
+//      m_atomNetWmSyncRequest = None;
+//      m_atomNetWmSyncRequestCounter = None;
+//      m_atomLongStyleEx = 0;
       m_countReference = 1;
-      m_bHasXSync = true;
+      //m_bHasXSync = true;
 
    }
 
@@ -222,6 +224,9 @@ namespace windowing_wayland
       wl_display_dispatch(m_pwldisplay);
 
       wl_display_roundtrip(m_pwldisplay);
+
+
+      m_pwlcursorSurface = wl_compositor_create_surface(m_pwlcompositor);
 
       bool bBranch = !acmesession()->m_paurasession->user()->m_pdesktopenvironment->m_bUnhook;
 
@@ -395,7 +400,7 @@ namespace windowing_wayland
 
       }
 
-      XLockDisplay(m_px11display->m_pdisplay);
+      //XLockDisplay(m_px11display->m_pdisplay);
 
    }
 
@@ -403,7 +408,7 @@ namespace windowing_wayland
    void display::unlock_display()
    {
 
-      XUnlockDisplay(m_px11display->m_pdisplay);
+      //XUnlockDisplay(m_px11display->m_pdisplay);
 
    }
 
@@ -1092,6 +1097,53 @@ namespace windowing_wayland
 
    }
 
+
+
+   wayland_buffer display::create_wayland_buffer(const ::size_i32 & size)
+   {
+      struct wl_shm_pool *pool;
+      int stride = size.cx() * 4; // 4 bytes per pixel
+      int strided_area = stride * size.cy();
+      int fd;
+      struct wl_buffer *buff;
+
+      fd = os_create_anonymous_file(strided_area);
+      if (fd < 0) {
+         fprintf(stderr, "creating a buffer file for %d B failed: %m\n",
+                 size);
+         exit(1);
+      }
+
+      void * shm_data = mmap(NULL, strided_area, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+      if (shm_data == MAP_FAILED) {
+         fprintf(stderr, "mmap failed: %m\n");
+         close(fd);
+         exit(1);
+      }
+
+      pool = wl_shm_create_pool(m_pwlshm, fd, size);
+      buff = wl_shm_pool_create_buffer(pool, 0,
+                                       size.cx(), size.cy(),
+                                       stride,
+                                       WL_SHM_FORMAT_XRGB8888);
+      //wl_buffer_add_listener(buffer, &buffer_listener, buffer);
+      wl_shm_pool_destroy(pool);
+      return buff;
+   }
+
+
+   wayland_buffer display::create_wayland_buffer(::image * pimage)
+   {
+
+      auto waylandbuffer = create_wayland_buffer(pimage->size());
+
+      pimage->map();
+
+      copy_image32((::image32_t*)waylandbuffer.m_pdata, pimage->size(), pimage->width() * 4, pimage->data(), pimage->scan_size());
+
+      return waylandbuffer;
+
+   }
 
 } // namespace windowing_wayland
 

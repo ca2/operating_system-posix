@@ -3,6 +3,7 @@
 //
 #include "framework.h"
 #include "windowing_wayland.h"
+#include "cursor.h"
 #include "display.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "aura/graphics/image/image.h"
@@ -15,20 +16,27 @@ namespace windowing_wayland
 
 
    /// should be run at user_thread (x11_thread)
-   Cursor display::create_alpha_cursor(const ::image *pimage, int xHotSpot, int yHotSpot)
+   ::wl_cursor * display::create_alpha_cursor(const ::image *pimage, int xHotSpot, int yHotSpot)
    {
 
       synchronous_lock synchronouslock(user_synchronization());
 
-      windowing_output_debug_string("::CreateAlphaCursor 1");
+//      windowing_output_debug_string("::CreateAlphaCursor 1");
+//
+//      //display_lock displaylock(Display());
+//
+//      Picture picture = xrender_create_picture(pimage);
+//
+//      auto cursor = XRenderCreateCursor(Display(), picture, xHotSpot, yHotSpot);
 
-      //display_lock displaylock(Display());
+   auto pcursor = __create_new< ::windowing_wayland::cursor>();
 
-      Picture picture = xrender_create_picture(pimage);
+   pcursor->m_szHotspotOffset.cx() = xHotSpot;
+   pcursor->m_szHotspotOffset.cy() = yHotSpot;
+   pcursor->m_pimage = pimage;
+   pcursor->m_waylandbuffer = create_wayland_buffer(pimage);
 
-      auto cursor = XRenderCreateCursor(Display(), picture, xHotSpot, yHotSpot);
-
-      return cursor;
+      return nullptr;
 
    }
 

@@ -7,10 +7,11 @@
 #define WINDOWING_X11_DISPLAY_MEMBER
 
 
-#include "acme/operating_system/x11/nano/event_listener.h"
-#include "acme/operating_system/x11/nano/display.h"
+//#include "acme/operating_system/x11/nano/event_listener.h"
+//#include "acme/operating_system/x11/nano/display.h"
 #include "aura/windowing/display.h"
-#include "_x11.h"
+//#include "_x11.h"
+
 
 
 namespace windowing_wayland
@@ -29,32 +30,32 @@ namespace windowing_wayland
       window_map                                   m_windowmap;
 
 
-      Atom                                         m_atoma[::x11::e_atom_count];
+      //Atom                                         m_atoma[::x11::e_atom_count];
 
 
       //::pointer<::x11::display>                    m_px11display;
       //::Display *                                m_pdisplay;
-      XVisualInfo                                  m_visualinfo;
-      ::Visual *                                   m_pvisual;
-      Colormap                                     m_colormap;
-      int                                          m_iScreen;
-      int                                          m_iDepth;
-      Window                                       m_windowRoot;
+      //XVisualInfo                                  m_visualinfo;
+      //::Visual *                                   m_pvisual;
+      //Colormap                                     m_colormap;
+      //int                                          m_iScreen;
+      //int                                          m_iDepth;
+      //Window                                       m_windowRoot;
 
 
-      Atom                                         m_atomLongType;
-      Atom                                         m_atomLongStyle;
-      Atom                                         m_atomLongStyleEx;
-      //Atom                                       m_atomCardinal;
-      Atom                                         m_atomWmState;
-      Atom                                         m_atomNetWmStateFocused;
-      Atom                                         m_atomNetWmStateHidden;
-      Atom                                         m_atomNetWmStateMaximizedHorz;
-      Atom                                         m_atomNetWmStateMaximizedVert;
-      Atom                                         m_atomNetWmState;
-      Atom                                         m_atomWmProtocols;
-      Atom                                         m_atomNetWmSyncRequest;
-      Atom                                         m_atomNetWmSyncRequestCounter;
+//      Atom                                         m_atomLongType;
+//      Atom                                         m_atomLongStyle;
+//      Atom                                         m_atomLongStyleEx;
+//      //Atom                                       m_atomCardinal;
+//      Atom                                         m_atomWmState;
+//      Atom                                         m_atomNetWmStateFocused;
+//      Atom                                         m_atomNetWmStateHidden;
+//      Atom                                         m_atomNetWmStateMaximizedHorz;
+//      Atom                                         m_atomNetWmStateMaximizedVert;
+//      Atom                                         m_atomNetWmState;
+//      Atom                                         m_atomWmProtocols;
+//      Atom                                         m_atomNetWmSyncRequest;
+//      Atom                                         m_atomNetWmSyncRequestCounter;
       iptr                                         m_countReference;
       ::pointer<class window>                      m_pwindowRoot;
       ::pointer<class window>                      m_pwindowKeyboardFocus;
@@ -66,6 +67,10 @@ namespace windowing_wayland
    ::wl_shm *m_pwlshm;
    ::wl_shell *m_pwlshell;
    ::wl_compositor * m_pwlcompositor;
+      ::wl_surface *       m_pwlcursorSurface;
+
+  //    wl_compositor_create_surface(compositor);
+//
 
       display();
       ~display() override;
@@ -83,10 +88,10 @@ namespace windowing_wayland
 #endif
 
 
-      virtual ::Display * _get_system_default_display();
+      //virtual ::Display * _get_system_default_display();
 
 
-      virtual ::windowing_wayland::window * _window(Window window);
+      virtual ::windowing_wayland::window * _window(::wl_surface * pwlsurface);
 
       virtual ::windowing_wayland::windowing * x11_windowing();
 
@@ -100,19 +105,19 @@ namespace windowing_wayland
 
       virtual ::e_status erase_window(::windowing::window * pwindow);
 
-      virtual ::Display * Display();
+      virtual ::wl_display * _wl_display();
 
-      virtual ::Display * Display() const;
+      virtual ::wl_display * _wl_display() const;
 
-      virtual int Screen();
-
-      virtual int Screen() const;
-
-      virtual Atom atom_long_type();
-
-      virtual Atom atom_long_style();
-
-      virtual Atom atom_long_style_ex();
+//      virtual int Screen();
+//
+//      virtual int Screen() const;
+//
+//      virtual Atom atom_long_type();
+//
+//      virtual Atom atom_long_style();
+//
+//      virtual Atom atom_long_style_ex();
 
       virtual bool is_null() const;
 
@@ -124,15 +129,19 @@ namespace windowing_wayland
 
       virtual ::e_status release_mouse_capture();
 
-      Atom intern_atom(const char * pszAtomName, bool bCreate);
+//      Atom intern_atom(const char * pszAtomName, bool bCreate);
+//
+//      Atom intern_atom(::x11::enum_atom eatom, bool bCreate);
+//
+//      Atom _intern_atom_unlocked(const char * pszAtomName, bool bCreate);
+//
+//      Atom _intern_atom_unlocked(::x11::enum_atom eatom, bool bCreate);
+//
+//      Atom net_wm_state_atom(bool bCreate);
 
-      Atom intern_atom(::x11::enum_atom eatom, bool bCreate);
 
-      Atom _intern_atom_unlocked(const char * pszAtomName, bool bCreate);
-
-      Atom _intern_atom_unlocked(::x11::enum_atom eatom, bool bCreate);
-
-      Atom net_wm_state_atom(bool bCreate);
+      wayland_buffer create_wayland_buffer(const ::size_i32 & size);
+      wayland_buffer create_wayland_buffer(::image * pimage);
 
       virtual ::windowing_wayland::window * get_keyboard_focus();
 
@@ -142,17 +151,17 @@ namespace windowing_wayland
 
       virtual bool get_cursor_position(::point_i32 * ppointCursor);
 
-      virtual comparable_array < Window > x11_window_list();
+      //virtual comparable_array < Window > x11_window_list();
 
-      virtual Cursor create_alpha_cursor(const ::image *pimage, int xHotSpot, int yHotSpot);
-      virtual Pixmap _x11_create_pixmap(::image_pointer pimage);
-      virtual XImage * _x11_create_image(::image_pointer pimage);
-      virtual Pixmap x11_create_pixmap(::image_pointer pimage);
-      virtual XImage * x11_create_image(::image_pointer pimage);
+      virtual ::wl_cursor * create_alpha_cursor(const ::image *pimage, int xHotSpot, int yHotSpot);
+//      virtual Pixmap _x11_create_pixmap(::image_pointer pimage);
+//      virtual XImage * _x11_create_image(::image_pointer pimage);
+//      virtual Pixmap x11_create_pixmap(::image_pointer pimage);
+//      virtual XImage * x11_create_image(::image_pointer pimage);
 
       virtual bool point_is_window_origin(::point_i32 pointHitTest, ::windowing::window * pwindowExclude, int iMargin);
 
-      virtual Picture xrender_create_picture(::image_pointer pimage);
+      ///virtual Picture xrender_create_picture(::image_pointer pimage);
 
 
    };

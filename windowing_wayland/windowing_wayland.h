@@ -84,7 +84,6 @@ namespace windowing_wayland
 {
 
 
-   ::wl_buffer * _create_buffer(const ::size_i32 & size);
 
 
    class x11data :

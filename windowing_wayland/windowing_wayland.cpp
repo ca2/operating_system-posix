@@ -3402,37 +3402,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       return fd;
    }
 
-   ::wl_buffer * _create_buffer(const ::size_i32 & size)
-   {
-      struct wl_shm_pool *pool;
-      int stride = size.cx() * 4; // 4 bytes per pixel
-      int strided_area = stride * size.cy();
-      int fd;
-      struct wl_buffer *buff;
-
-      fd = os_create_anonymous_file(strided_area);
-      if (fd < 0) {
-         fprintf(stderr, "creating a buffer file for %d B failed: %m\n",
-                 size);
-         exit(1);
-      }
-
-      void * shm_data = mmap(NULL, strided_area, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-      if (shm_data == MAP_FAILED) {
-         fprintf(stderr, "mmap failed: %m\n");
-         close(fd);
-         exit(1);
-      }
-
-      pool = wl_shm_create_pool(shm, fd, size);
-      buff = wl_shm_pool_create_buffer(pool, 0,
-                                       WIDTH, HEIGHT,
-                                       stride,
-                                       WL_SHM_FORMAT_XRGB8888);
-      //wl_buffer_add_listener(buffer, &buffer_listener, buffer);
-      wl_shm_pool_destroy(pool);
-      return buff;
-   }
 
 
 } // namespace windowing_wayland
@@ -3563,5 +3532,4 @@ bool x11_get_window_rect(Display * d, Window window, ::rectangle_i32 * prectangl
    return g_estatusInitializeX11;
 
 }
-
 

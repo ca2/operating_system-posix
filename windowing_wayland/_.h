@@ -35,3 +35,13 @@ struct wl_compositor;
 struct wl_display;
 struct wl_shm;
 struct wl_shell;
+struct wl_cursor;
+struct wl_cursor_image;
+
+
+struct wayland_buffer
+{
+   ::wl_buffer *  m_pwlbuffer;
+   void *         m_pdata;
+
+};
