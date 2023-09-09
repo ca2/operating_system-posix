@@ -41,7 +41,7 @@ namespace windowing_wayland
 
       m_bFinishX11Thread = false;
 
-      defer_initialize_x11();
+      //defer_initialize_x11();
 
    }
 
@@ -258,7 +258,7 @@ namespace windowing_wayland
    }
 
 
-   ::windowing_wayland::window * windowing::_window(Window window)
+   ::windowing_wayland::window * windowing::_window(::wl_surface * pwlsurface)
    {
 
       if (!m_pdisplay)
@@ -268,7 +268,7 @@ namespace windowing_wayland
 
       }
 
-      auto pwindow = m_pdisplay->_window(window);
+      auto pwindow = m_pdisplay->_window(pwlsurface);
 
       return pwindow;
 

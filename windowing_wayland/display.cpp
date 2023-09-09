@@ -17,8 +17,8 @@
 #include "aura/windowing/desktop_environment.h"
 #include "aura/windowing/monitor.h"
 #include "aura_posix/node.h"
-#include "aura_posix/x11/display_lock.h"
-#include <X11/extensions/Xrender.h>
+//#include "aura_posix/x11/display_lock.h"
+//#include <X11/extensions/Xrender.h>
 #include <wayland-client-protocol.h>
 #include <linux/input.h> // for BTN_LEFT
 extern ::app_core * g_pappcore;
@@ -29,7 +29,7 @@ os_create_anonymous_file(off_t size);
 #include <errno.h>
 #include <unistd.h>
 
-Display * x11_get_display();
+//Display * x11_get_display();
 
 ::particle * user_synchronization();
 
@@ -1021,8 +1021,8 @@ return nullptr;
    bool display::get_cursor_position(::point_i32 * ppointCursor)
    {
 
-      Window root_return;
-      Window child_return;
+//      Window root_return;
+//      Window child_return;
       i32 win_x_return;
       i32 win_y_return;
       u32 mask_return;

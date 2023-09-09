@@ -11,67 +11,67 @@
 #include <string.h>
 
 
-bool __x11_hook_process_event(Display * pdisplay, XEvent & e, XGenericEventCookie * cookie);
+//bool __x11_hook_process_event(Display * pdisplay, XEvent & e, XGenericEventCookie * cookie);
 
 
 #define SIMPLE_UI_MAX_BUTTON_COUNT 8
 
 
-bool __x11_hook_list_is_empty();
+//bool __x11_hook_list_is_empty();
 
 
 extern ::particle * user_synchronization();
 
 
-Display * g_pdisplayX11= nullptr;
+//Display * g_pdisplayX11= nullptr;
 
 
-int g_fdX11[2] = {};
+//int g_fdX11[2] = {};
 
 
-Display * x11_get_display()
-{
-
-   if(g_pdisplayX11 == NULL)
-   {
-
-      g_pdisplayX11 =  XOpenDisplay(NULL);
-
-   }
-
-   return g_pdisplayX11;
-
-}
-
-
-
-
-
-GC x11_create_gc(Colormap colormap, Display* pdisplay, Window window, ::u8 a, ::u8 r, ::u8 g, ::u8 b)
-{
-
-   GC gc = XCreateGC(pdisplay, window, 0, 0);
-
-   x11color32_t x11color32 = argb(a, r, g, b);
-
-   XSetForeground (pdisplay, gc, x11color32);
-
-   return gc;
-
-}
-
-
-//int x11_message_box(const string & str, const string & strTitle, const ::e_message_box & emessagebox)
+//Display * x11_get_display()
 //{
 //
-//   //defer_initialize_x11();
+//   if(g_pdisplayX11 == NULL)
+//   {
 //
-//   auto pdisplay = __new(simple_ui_display(str, strTitle, emessagebox));
+//      g_pdisplayX11 =  XOpenDisplay(NULL);
 //
-//   return pdisplay->show();
+//   }
+//
+//   return g_pdisplayX11;
 //
 //}
-
+//
+//
+//
+//
+//
+//GC x11_create_gc(Colormap colormap, Display* pdisplay, Window window, ::u8 a, ::u8 r, ::u8 g, ::u8 b)
+//{
+//
+//   GC gc = XCreateGC(pdisplay, window, 0, 0);
+//
+//   x11color32_t x11color32 = argb(a, r, g, b);
+//
+//   XSetForeground (pdisplay, gc, x11color32);
+//
+//   return gc;
+//
+//}
+//
+//
+////int x11_message_box(const string & str, const string & strTitle, const ::e_message_box & emessagebox)
+////{
+////
+////   //defer_initialize_x11();
+////
+////   auto pdisplay = __new(simple_ui_display(str, strTitle, emessagebox));
+////
+////   return pdisplay->show();
+////
+////}
+//
 
 
 CLASS_DECL_ACME string message_box_result_to_string(int iResult);

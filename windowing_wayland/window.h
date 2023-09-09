@@ -149,8 +149,8 @@ namespace windowing_wayland
 
       virtual ::e_status set_window_icon(const ::file::path & path);
 
-      virtual bool is_child( WINDOWING_X11_WINDOW_MEMBER ::windowing::window * candidateChildOrDescendant); // or descendant
-      ::windowing::window * get_parent() const override;
+      //virtual bool is_child( WINDOWING_X11_WINDOW_MEMBER ::windowing::window * candidateChildOrDescendant); // or descendant
+      //;::windowing::window * get_parent() const override;
       //virtual ::Window get_parent_handle();
       ::oswindow get_parent_oswindow() const override;
 
@@ -298,8 +298,8 @@ namespace windowing_wayland
 //      virtual ::e_status post_ui_message(const MESSAGE & message);
       //virtual bool x11_process_event(osdisplay_data * pdisplaydata, XEvent * pevent, XGenericEventCookie *cookie);
       //virtual ::e_status set_window_position( WINDOWING_X11_WINDOW_MEMBER const ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy, ::u32 nFlags);
-      virtual ::e_status window_rectangle( WINDOWING_X11_WINDOW_MEMBER ::rectangle_i32 * prectangle);
-      virtual ::e_status rectangle(  WINDOWING_X11_WINDOW_MEMBER  ::rectangle_i32 * prectangle);
+      virtual ::e_status window_rectangle( ::rectangle_i32 * prectangle);
+      virtual ::e_status rectangle(::rectangle_i32 * prectangle);
       //virtual ::e_status wm_full_screen( WINDOWING_X11_WINDOW_MEMBER const ::rectangle_i32 & rectangle);
 
       //virtual ::e_status x11_store_name(const char * pszName);

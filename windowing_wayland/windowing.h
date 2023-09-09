@@ -97,7 +97,7 @@ namespace windowing_wayland
 
       void erase_window(::windowing::window * pwindow) override;
 
-      virtual ::windowing_wayland::window * _window(Window window);
+      virtual ::windowing_wayland::window * _window(::wl_surface * pwlsurface);
 
 
       //virtual void _message_handler(void * p);

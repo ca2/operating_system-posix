@@ -5,29 +5,29 @@
 //
 #include "operating_system-posix/windowing_wayland/framework.h"
 //#include "aura/operating_system/x11/_x11.h"
-#include "_x11.h"
+#include "_wayland.h"
 #include "acme/constant/id.h"
 #include "acme/constant/message.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/system.h"
 #include "acme/primitive/geometry2d/_text_stream.h"
 #include "aura/user/user/interaction_graphics_thread.h"
-#include "aura_posix/x11/display_lock.h"
+//#include "aura_posix/x11/display_lock.h"
 ////#include "sn/sn.h"
 #include <fcntl.h> // library for fcntl function
-#include <sys/stat.h>
+//#include <sys/stat.h>
 // apt install libxxf86vm-dev
-#include <X11/extensions/xf86vmode.h>
-#include <X11/Xatom.h>
+//#include <X11/extensions/xf86vmode.h>
+//#include <X11/Xatom.h>
 //!!!#define pointer x11_pointer
 //!!!#include <X11/extensions/Xrender.h>
 //!!!#undef pointer
 #include <unistd.h>
 //#include <X11/XKBlib.h>
-#include <X11/cursorfont.h>
-#include <X11/extensions/XInput.h>
-#include <X11/extensions/XInput2.h>
-#include <X11/XKBlib.h>
+//#include <X11/cursorfont.h>
+//#include <X11/extensions/XInput.h>
+//#include <X11/extensions/XInput2.h>
+//#include <X11/XKBlib.h>
 //#define memory_new ACME_NEW
 //#include "aura/operating_system/x11/_x11.h"
 #include "acme/parallelization/message_queue.h"
@@ -40,8 +40,8 @@
 #include "aura/user/user/interaction_impl.h"
 #include "aura/platform/session.h"
 #include "aura/platform/application.h"
-#include "aura/message/user.h"
-#include "aura_posix/x11/xim_keyboard.h"
+//#include "aura/message/user.h"
+//#include "aura_posix/x11/xim_keyboard.h"
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <errno.h>
