@@ -126,13 +126,13 @@ namespace windowing_wayland
 
       //virtual bool __x11_hook_list_is_empty();
 
-      virtual bool x11_message_loop();
+      //virtual bool x11_message_loop();
 
-      virtual bool x11_message_loop_step();
+      //virtual bool x11_message_loop_step();
 
       void windowing_post(const ::procedure & procedure) override;
 
-      virtual bool x11_runnable_step();
+      //virtual bool x11_runnable_step();
 
       virtual ::windowing::window * window(oswindow oswindow) override;
 
@@ -140,12 +140,12 @@ namespace windowing_wayland
 
 #ifdef WITH_XI
 
-      void x11_register_extended_event_listener(::matter * pdata, bool bMouse, bool bKeyboard);
-      bool x11_process_event(XEvent * pevent, XGenericEventCookie *cookie);
+      //void x11_register_extended_event_listener(::matter * pdata, bool bMouse, bool bKeyboard);
+      //bool x11_process_event(XEvent * pevent, XGenericEventCookie *cookie);
 
 #else
 
-      bool x11_process_event(Display * pdisplay, XEvent * pevent);
+      //bool x11_process_event(Display * pdisplay, XEvent * pevent);
 
 #endif
 

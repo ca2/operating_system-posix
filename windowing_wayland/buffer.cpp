@@ -32,9 +32,9 @@ namespace windowing_wayland
       m_bXShm = false;
       m_bXShmChecked = false;
 
-      m_gc = nullptr;
+      //m_gc = nullptr;
 
-      m_pximage = nullptr;
+      //m_pximage = nullptr;
 
       //m_pimage = nullptr;
 
@@ -109,9 +109,9 @@ namespace windowing_wayland
 
       //display_lock displaylock(x11_window()->x11_display()->Display());
 
-      XGCValues gcvalues = {};
+      //XGCValues gcvalues = {};
 
-      m_gc = XCreateGC(x11_window()->Display(), x11_window()->Window(), 0, &gcvalues);
+      //m_gc = XCreateGC(x11_window()->Display(), x11_window()->Window(), 0, &gcvalues);
 
    }
 
@@ -450,272 +450,272 @@ namespace windowing_wayland
 //
 //      }
 
-      int iWindowDepth = x11_window()->m_iDepth;
-
-      if (m_bUseXShmIfAvailable)
-      {
-
-         if (!m_bXShmChecked)
-         {
-
-            //m_bXShm = XShmQueryExtension(x11_window()->Display());
-
-            m_bXShm = false;
-
-            m_bXShmChecked = true;
-
-         }
-
-      }
-
-      if (m_bXShm && m_shmid >= 0 && m_shmaddr)
-      {
-
-         if (!m_pximage
-             || m_pximage->width != pitem->m_sizeInternal.cx()
-             || m_pximage->height != pitem->m_sizeInternal.cy())
-         {
-
-            if (m_pximage)
-            {
-
-               XShmDetach(x11_window()->Display(), &m_xshmsegmentinfo);
-
-               m_pximage->data = nullptr;
-
-               XDestroyImage(m_pximage);
-
-            }
-
-            m_pximage = XShmCreateImage(
-               x11_window()->Display(),
-               x11_window()->Visual(),
-               iWindowDepth,
-               ZPixmap,
-               NULL,
-               &m_xshmsegmentinfo,
-               pitem->m_sizeInternal.cx(),
-               pitem->m_sizeInternal.cy());
-
-            pitem->m_iScan = pitem->m_sizeInternal.cx() * 4;
-
-            m_xshmsegmentinfo.shmid = m_shmid;
-
-            m_xshmsegmentinfo.shmaddr = (char *) m_shmaddr;
-
-            m_pximage->data = m_xshmsegmentinfo.shmaddr;
-
-            m_xshmsegmentinfo.readOnly = False;
-
-            XShmAttach(x11_window()->Display(), &m_xshmsegmentinfo);
-
-         }
-
-      }
-      else
-      {
-
-         if (!m_pximage
-             || m_pximage->width != sizeBitBlitting.cx()
-             || m_pximage->height != sizeBitBlitting.cy()
-             || m_pximage->data != (char *) pimage->get_data())
-         {
-
-            if (m_pximage)
-            {
-
-               m_pximage->data = nullptr;
-
-               XDestroyImage(m_pximage);
-
-            }
-
-            m_pximage =
-               XCreateImage(
-                  x11_window()->Display(),
-                  x11_window()->Visual(),
-                  iWindowDepth,
-                  ZPixmap,
-                  0,
-                  (char *) pimage->get_data(),
-                  sizeBitBlitting.cx(),
-                  sizeBitBlitting.cy(),
-                  sizeof(color32_t) * 8,
-                  pimage->scan_size());
-
-         }
-
-      }
-
-      if (!m_pximage || !m_pximage->data || m_pximage->width <= 0 || m_pximage->height <= 0)
-      {
-
-         warning("windowing_wayland::buffer::update_screen X11 image null or empty!!");
-
-         return false;
-
-      }
-
-      if (m_gc == nullptr)
-      {
-
-         warning("windowing_wayland::buffer::update_screen m_gc nullptr!!");
-
-         return false;
-
-      }
-
-      ::size_i32 sizeDesign = m_pimpl->m_puserinteraction->const_layout().design().size();
-
-      if (sizeDesign != sizeBitBlitting)
-      {
-
-         warning() << "What!! Drawn Buffer different from window design size";
-
-      }
-
-      if (sizeBitBlitting.any_gt(pitem->m_sizeInternal))
-      {
-
-         warning() << "What!! Drawn Buffer doesn't fit internal buffer (that should be at least same size as the buffer size)";
-
-      }
-
-      try
-      {
-
-         if (m_bXShm)
-         {
-
-            if (!pitem->m_manualresetevent._wait(200_ms))
-            {
-
-               x11_window()->_on_end_paint();
-
-               information() << "XShmCompletionEvent timeout";
-
-               ::pointer<::windowing_wayland::window> px11window = m_pimpl->m_pwindow;
-
-               try
-               {
-
-                  px11window->strict_set_window_position_unlocked();
-
-               }
-               catch (...)
-               {
-
-               }
-
-            }
-
-            copy_image32((::image32_t *) m_pximage->data, sizeBitBlitting,
-                         pitem->m_iScan, pimage->get_data(), pimage->scan_size());
-
-            pitem->m_manualresetevent.ResetEvent();
-
-            m_sizeLastBitBlitting = sizeBitBlitting;
-
-            x11_window()->m_rectangleXShm = x11_window()->m_puserinteractionimpl->m_puserinteraction->const_layout().parent_raw_rectangle(::user::e_layout_design);
-
-            m_bXShmPutImagePending = true;
-
-            XShmPutImage(
-               x11_window()->Display(),
-               x11_window()->Window(),
-               m_gc, m_pximage,
-               0, 0, 0, 0,
-               sizeBitBlitting.cx(),
-               sizeBitBlitting.cy(), true);
-
-            information() << "XShmPutImage : " << sizeBitBlitting;
-
-         }
-         else
-         {
-
-            ::pointer<::windowing_wayland::window> px11window = m_pimpl->m_pwindow;
-
-            try
-            {
-
-               px11window->strict_set_window_position_unlocked();
-
-            }
-            catch (...)
-            {
-
-            }
-
-            m_sizeLastBitBlitting = sizeBitBlitting;
-
-            XPutImage(
-               x11_window()->Display(),
-               x11_window()->Window(),
-               m_gc, m_pximage,
-               0, 0, 0, 0,
-               sizeBitBlitting.cx(),
-               sizeBitBlitting.cy());
-
-            information() << "XPutImage : " << sizeBitBlitting;
-
-            //information() << acmenode()->get_callstack();
-
+//      int iWindowDepth = x11_window()->m_iDepth;
+//
+//      if (m_bUseXShmIfAvailable)
+//      {
+//
+//         if (!m_bXShmChecked)
+//         {
+//
+//            //m_bXShm = XShmQueryExtension(x11_window()->Display());
+//
+//            m_bXShm = false;
+//
+//            m_bXShmChecked = true;
+//
+//         }
+//
+//      }
+//
+//      if (m_bXShm && m_shmid >= 0 && m_shmaddr)
+//      {
+//
+//         if (!m_pximage
+//             || m_pximage->width != pitem->m_sizeInternal.cx()
+//             || m_pximage->height != pitem->m_sizeInternal.cy())
+//         {
+//
+//            if (m_pximage)
+//            {
+//
+//               XShmDetach(x11_window()->Display(), &m_xshmsegmentinfo);
+//
+//               m_pximage->data = nullptr;
+//
+//               XDestroyImage(m_pximage);
+//
+//            }
+//
+//            m_pximage = XShmCreateImage(
+//               x11_window()->Display(),
+//               x11_window()->Visual(),
+//               iWindowDepth,
+//               ZPixmap,
+//               NULL,
+//               &m_xshmsegmentinfo,
+//               pitem->m_sizeInternal.cx(),
+//               pitem->m_sizeInternal.cy());
+//
+//            pitem->m_iScan = pitem->m_sizeInternal.cx() * 4;
+//
+//            m_xshmsegmentinfo.shmid = m_shmid;
+//
+//            m_xshmsegmentinfo.shmaddr = (char *) m_shmaddr;
+//
+//            m_pximage->data = m_xshmsegmentinfo.shmaddr;
+//
+//            m_xshmsegmentinfo.readOnly = False;
+//
+//            XShmAttach(x11_window()->Display(), &m_xshmsegmentinfo);
+//
+//         }
+//
+//      }
+//      else
+//      {
+//
+//         if (!m_pximage
+//             || m_pximage->width != sizeBitBlitting.cx()
+//             || m_pximage->height != sizeBitBlitting.cy()
+//             || m_pximage->data != (char *) pimage->get_data())
+//         {
+//
+//            if (m_pximage)
+//            {
+//
+//               m_pximage->data = nullptr;
+//
+//               XDestroyImage(m_pximage);
+//
+//            }
+//
+//            m_pximage =
+//               XCreateImage(
+//                  x11_window()->Display(),
+//                  x11_window()->Visual(),
+//                  iWindowDepth,
+//                  ZPixmap,
+//                  0,
+//                  (char *) pimage->get_data(),
+//                  sizeBitBlitting.cx(),
+//                  sizeBitBlitting.cy(),
+//                  sizeof(color32_t) * 8,
+//                  pimage->scan_size());
+//
+//         }
+//
+//      }
+//
+//      if (!m_pximage || !m_pximage->data || m_pximage->width <= 0 || m_pximage->height <= 0)
+//      {
+//
+//         warning("windowing_wayland::buffer::update_screen X11 image null or empty!!");
+//
+//         return false;
+//
+//      }
+//
+//      if (m_gc == nullptr)
+//      {
+//
+//         warning("windowing_wayland::buffer::update_screen m_gc nullptr!!");
+//
+//         return false;
+//
+//      }
+//
+//      ::size_i32 sizeDesign = m_pimpl->m_puserinteraction->const_layout().design().size();
+//
+//      if (sizeDesign != sizeBitBlitting)
+//      {
+//
+//         warning() << "What!! Drawn Buffer different from window design size";
+//
+//      }
+//
+//      if (sizeBitBlitting.any_gt(pitem->m_sizeInternal))
+//      {
+//
+//         warning() << "What!! Drawn Buffer doesn't fit internal buffer (that should be at least same size as the buffer size)";
+//
+//      }
+//
+//      try
+//      {
+//
+//         if (m_bXShm)
+//         {
+//
+//            if (!pitem->m_manualresetevent._wait(200_ms))
+//            {
+//
+//               x11_window()->_on_end_paint();
+//
+//               information() << "XShmCompletionEvent timeout";
+//
+//               ::pointer<::windowing_wayland::window> px11window = m_pimpl->m_pwindow;
+//
+//               try
+//               {
+//
+//                  px11window->strict_set_window_position_unlocked();
+//
+//               }
+//               catch (...)
+//               {
+//
+//               }
+//
+//            }
+//
+//            copy_image32((::image32_t *) m_pximage->data, sizeBitBlitting,
+//                         pitem->m_iScan, pimage->get_data(), pimage->scan_size());
+//
+//            pitem->m_manualresetevent.ResetEvent();
+//
+//            m_sizeLastBitBlitting = sizeBitBlitting;
+//
+//            x11_window()->m_rectangleXShm = x11_window()->m_puserinteractionimpl->m_puserinteraction->const_layout().parent_raw_rectangle(::user::e_layout_design);
+//
+//            m_bXShmPutImagePending = true;
+//
+//            XShmPutImage(
+//               x11_window()->Display(),
+//               x11_window()->Window(),
+//               m_gc, m_pximage,
+//               0, 0, 0, 0,
+//               sizeBitBlitting.cx(),
+//               sizeBitBlitting.cy(), true);
+//
+//            information() << "XShmPutImage : " << sizeBitBlitting;
+//
+//         }
+//         else
+//         {
+//
+//            ::pointer<::windowing_wayland::window> px11window = m_pimpl->m_pwindow;
+//
 //            try
 //            {
 //
-//               x11_window()->strict_set_window_position_unlocked();
+//               px11window->strict_set_window_position_unlocked();
 //
 //            }
 //            catch (...)
 //            {
 //
 //            }
-
-            //x11_window()->m_puserinteractionimpl->m_puserinteraction->_set_size(sizeBitBlitting, ::user::e_layout_window);
-
-            x11_window()->_on_end_paint();
-
-            XFlush(x11_window()->Display());
-
-            XSync(x11_window()->Display(), false);
-
-         }
-
-      }
-      catch (...)
-      {
-
-      }
-
-#ifdef VERI_BASIC_TEST
-
-      XColor xcolour;
-
-      // I guess XParseColor will work here
-
-      xcolour.red = 32000; xcolour.green = 65000; xcolour.blue = 32000;
-
-      xcolour.flags = DoRed | DoGreen | DoBlue;
-
-      XAllocColor(x11_window()->Display(), x11_window()->x11_display()->m_colormap, &xcolour);
-
-      XSetForeground(x11_window()->Display(), m_gc, xcolour.pixel);
-
-      XFillRectangle(x11_window()->Display(), x11_window()->Window(), m_gc, 0, 0, iWidth, iHeight);
-
-      information("windowing_wayland::buffer::update_screen BASIC_TEST FillRectangle(%d, %d)", iWidth, iHeight);
-
-#endif
-
-      // pximage->data = nullptr;
-
-      // if(m_pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning)
-      // {
-
-// //     x11_window()->m_puserinteractionimpl->m_puserinteraction->_set_size({ iWidth, iHeight }, ::user::e_layout_window);
-
-      // }
+//
+//            m_sizeLastBitBlitting = sizeBitBlitting;
+//
+//            XPutImage(
+//               x11_window()->Display(),
+//               x11_window()->Window(),
+//               m_gc, m_pximage,
+//               0, 0, 0, 0,
+//               sizeBitBlitting.cx(),
+//               sizeBitBlitting.cy());
+//
+//            information() << "XPutImage : " << sizeBitBlitting;
+//
+//            //information() << acmenode()->get_callstack();
+//
+////            try
+////            {
+////
+////               x11_window()->strict_set_window_position_unlocked();
+////
+////            }
+////            catch (...)
+////            {
+////
+////            }
+//
+//            //x11_window()->m_puserinteractionimpl->m_puserinteraction->_set_size(sizeBitBlitting, ::user::e_layout_window);
+//
+//            x11_window()->_on_end_paint();
+//
+//            XFlush(x11_window()->Display());
+//
+//            XSync(x11_window()->Display(), false);
+//
+//         }
+//
+//      }
+//      catch (...)
+//      {
+//
+//      }
+//
+//#ifdef VERI_BASIC_TEST
+//
+//      XColor xcolour;
+//
+//      // I guess XParseColor will work here
+//
+//      xcolour.red = 32000; xcolour.green = 65000; xcolour.blue = 32000;
+//
+//      xcolour.flags = DoRed | DoGreen | DoBlue;
+//
+//      XAllocColor(x11_window()->Display(), x11_window()->x11_display()->m_colormap, &xcolour);
+//
+//      XSetForeground(x11_window()->Display(), m_gc, xcolour.pixel);
+//
+//      XFillRectangle(x11_window()->Display(), x11_window()->Window(), m_gc, 0, 0, iWidth, iHeight);
+//
+//      information("windowing_wayland::buffer::update_screen BASIC_TEST FillRectangle(%d, %d)", iWidth, iHeight);
+//
+//#endif
+//
+//      // pximage->data = nullptr;
+//
+//      // if(m_pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning)
+//      // {
+//
+//// //     x11_window()->m_puserinteractionimpl->m_puserinteraction->_set_size({ iWidth, iHeight }, ::user::e_layout_window);
+//
+//      // }
 
       return true;
 

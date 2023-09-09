@@ -2,6 +2,7 @@
 // recreated by Camilo 2021-01-28 22:20 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
 #include "framework.h"
+#include "cursor.h"
 #include "display.h"
 #include "window.h"
 #include "windowing.h"
@@ -19,7 +20,7 @@
 #include "aura_posix/x11/display_lock.h"
 #include <X11/extensions/Xrender.h>
 #include <wayland-client-protocol.h>
-
+#include <linux/input.h> // for BTN_LEFT
 extern ::app_core * g_pappcore;
 
 Display * x11_get_display();
@@ -32,6 +33,86 @@ void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString)
 
 namespace windowing_wayland
 {
+
+
+
+
+   void
+   pointer_handle_enter(void *data, struct wl_pointer *pwlpointer,
+                        uint32_t serial, struct wl_surface *pwlsurface,
+                        wl_fixed_t sx, wl_fixed_t sy)
+   {
+      struct wl_buffer *buffer;
+      struct wl_cursor_image *image;
+
+      //fprintf(stderr, "Pointer entered surface %p at %d %d\n", pwlsurface, sx, sy);
+
+      auto pdisplay = (display *) data;
+
+      auto pwindow = pdisplay->_window(pwlsurface);
+
+      auto pcursor = pwindow->get_mouse_cursor();
+
+      auto pwlsurfaceCursor =  pdisplay->m_pwlsurfaceCursor;
+
+      ::pointer < ::windowing_wayland::cursor > pwaylandcursor = pcursor;
+
+      //image = default_cursor->images[0];
+      //buffer = wl_cursor_image_get_buffer(image);
+
+      wl_pointer_set_cursor(pwlpointer, serial,
+                            pwlsurfaceCursor,
+                            pwaylandcursor->m_szHotspotOffset.cx(),
+                            pwaylandcursor->m_szHotspotOffset.cy());
+      wl_surface_attach(pwlsurfaceCursor, pwaylandcursor->m_waylandbuffer.m_pwlbuffer, 0, 0);
+      wl_surface_damage(pwlsurfaceCursor, 0, 0, pwaylandcursor->m_pimage->width(), pwaylandcursor->m_pimage->height());
+      wl_surface_commit(pwlsurfaceCursor);
+   }
+
+   void
+   pointer_handle_leave(void *data, struct wl_pointer *pointer,
+                        uint32_t serial, struct wl_surface *surface)
+   {
+      fprintf(stderr, "Pointer left surface %p\n", surface);
+   }
+
+   void
+   pointer_handle_motion(void *data, struct wl_pointer *pointer,
+                         uint32_t time, wl_fixed_t sx, wl_fixed_t sy)
+   {
+      printf("Pointer moved at %d %d\n", sx, sy);
+   }
+
+   void
+   pointer_handle_button(void *data, struct wl_pointer *wl_pointer,
+                         uint32_t serial, uint32_t time, uint32_t button,
+                         uint32_t state)
+   {
+      printf("Pointer button\n");
+
+
+      auto pdisplay = (display *) data;
+
+      if (button == BTN_LEFT && state == WL_POINTER_BUTTON_STATE_PRESSED)
+         wl_shell_surface_move(pdisplay->m_pwlshellsurface,
+                               pdisplay->m_pwlseat, serial);
+
+   }
+
+   void
+   pointer_handle_axis(void *data, struct wl_pointer *wl_pointer,
+                       uint32_t time, uint32_t axis, wl_fixed_t value)
+   {
+      printf("Pointer handle axis\n");
+   }
+
+   static const struct wl_pointer_listener pointer_listener = {
+      pointer_handle_enter,
+      pointer_handle_leave,
+      pointer_handle_motion,
+      pointer_handle_button,
+      pointer_handle_axis,
+   };
 
    void shm_format(void *data, struct wl_shm *wl_shm, uint32_t format)
    {
@@ -49,6 +130,100 @@ namespace windowing_wayland
       shm_format
    };
 
+
+
+   static void
+   keyboard_handle_keymap(void *data, struct wl_keyboard *keyboard,
+                          uint32_t format, int fd, uint32_t size)
+   {
+   }
+
+   static void
+   keyboard_handle_enter(void *data, struct wl_keyboard *keyboard,
+                         uint32_t serial, struct wl_surface *surface,
+                         struct wl_array *keys)
+   {
+      fprintf(stderr, "Keyboard gained focus\n");
+   }
+
+   static void
+   keyboard_handle_leave(void *data, struct wl_keyboard *keyboard,
+                         uint32_t serial, struct wl_surface *surface)
+   {
+      fprintf(stderr, "Keyboard lost focus\n");
+   }
+
+   static void
+   keyboard_handle_key(void *data, struct wl_keyboard *keyboard,
+                       uint32_t serial, uint32_t time, uint32_t key,
+                       uint32_t state)
+   {
+      fprintf(stderr, "Key is %d state is %d\n", key, state);
+   }
+
+   static void
+   keyboard_handle_modifiers(void *data, struct wl_keyboard *keyboard,
+                             uint32_t serial, uint32_t mods_depressed,
+                             uint32_t mods_latched, uint32_t mods_locked,
+                             uint32_t group)
+   {
+      fprintf(stderr, "Modifiers depressed %d, latched %d, locked %d, group %d\n",
+              mods_depressed, mods_latched, mods_locked, group);
+   }
+
+   static const struct wl_keyboard_listener keyboard_listener = {
+      keyboard_handle_keymap,
+      keyboard_handle_enter,
+      keyboard_handle_leave,
+      keyboard_handle_key,
+      keyboard_handle_modifiers,
+   };
+
+   void
+   seat_handle_capabilities(void *data, struct wl_seat *seat,
+                            uint32_t caps)
+   {
+      auto pdisplay = (display*)data;
+
+      if (caps & WL_SEAT_CAPABILITY_KEYBOARD && !pdisplay->m_pwlkeyboard)
+      {
+
+         pdisplay->m_pwlkeyboard = wl_seat_get_keyboard(seat);
+
+         wl_keyboard_add_listener(pdisplay->m_pwlkeyboard, &keyboard_listener, data);
+
+      }
+      else if (!(caps & WL_SEAT_CAPABILITY_KEYBOARD) && pdisplay->m_pwlkeyboard)
+      {
+
+         wl_keyboard_destroy(pdisplay->m_pwlkeyboard);
+
+         pdisplay->m_pwlkeyboard = NULL;
+
+      }
+
+      if ((caps & WL_SEAT_CAPABILITY_POINTER) && !pdisplay->m_pwlpointer)
+      {
+
+         pdisplay->m_pwlpointer = wl_seat_get_pointer(seat);
+
+         wl_pointer_add_listener(pdisplay->m_pwlpointer, &pointer_listener, data);
+
+      }
+      else if (!(caps & WL_SEAT_CAPABILITY_POINTER) && pdisplay->m_pwlpointer)
+      {
+
+         wl_pointer_destroy(pdisplay->m_pwlpointer);
+
+         pdisplay->m_pwlpointer = NULL;
+
+      }
+
+   }
+
+   const struct wl_seat_listener seat_listener = {
+      seat_handle_capabilities,
+   };
 
    void global_registry_handler(void *data, struct wl_registry *pwlregistry, uint32_t id,
                            const char *interface, uint32_t version)
@@ -76,8 +251,17 @@ namespace windowing_wayland
          wl_shm_add_listener(pdisplay->m_pwlshm, &shm_listener, NULL);
 
       }
+      else if (strcmp(interface, "wl_seat") == 0)
+      {
 
-   }
+         pdisplay->m_pwlseat = (::wl_seat*)wl_registry_bind(pwlregistry, id, &wl_seat_interface, 1);
+
+         wl_seat_add_listener(pdisplay->m_pwlseat, &seat_listener, NULL);
+
+      }
+
+
+}
 
    void global_registry_remover(void *data, struct wl_registry *registry, uint32_t id)
    {
@@ -95,7 +279,7 @@ namespace windowing_wayland
    display::display()
    {
 
-      zero(m_atoma);
+      //zero(m_atoma);
 
       m_pDisplay = this;
       //m_colormap = None;
@@ -105,7 +289,11 @@ namespace windowing_wayland
       m_pwlshm = nullptr;
       m_pwlcompositor = nullptr;
       m_pwlshell = nullptr;
-      m_pwlcursorSurface = nullptr;
+      m_pwlseat = nullptr;
+      m_pwlpointer = nullptr;
+      m_pwlsurfaceCursor = nullptr;
+      m_pwlsurfacePointerEnter = nullptr;
+      m_pwlshellsurface = nullptr;
 //      m_atomLongType = None;
 //      m_atomLongStyle = None;
 //      m_atomNetWmState = None;
@@ -192,13 +380,13 @@ namespace windowing_wayland
 
 #endif // DEBUG
 
-
-   Display * display::_get_system_default_display()
-   {
-
-      return nullptr;
-
-   }
+//
+//   Display * display::_get_system_default_display()
+//   {
+//
+//      return nullptr;
+//
+//   }
 
 
    void display::open()
@@ -226,7 +414,7 @@ namespace windowing_wayland
       wl_display_roundtrip(m_pwldisplay);
 
 
-      m_pwlcursorSurface = wl_compositor_create_surface(m_pwlcompositor);
+      m_pwlsurfaceCursor = wl_compositor_create_surface(m_pwlcompositor);
 
       bool bBranch = !acmesession()->m_paurasession->user()->m_pdesktopenvironment->m_bUnhook;
 
@@ -364,10 +552,10 @@ namespace windowing_wayland
    }
 
 
-   ::windowing_wayland::window * display::_window(Window window)
+   ::windowing_wayland::window * display::_window(::wl_surface * pwlsurface)
    {
 
-      if (!window)
+      if (!pwlsurface)
       {
 
          return nullptr;
@@ -376,7 +564,7 @@ namespace windowing_wayland
 
       critical_section_lock synchronouslock(&m_criticalsectionWindowMap);
 
-      auto passociation = m_windowmap.plookup(window);
+      auto passociation = m_windowmap.plookup(pwlsurface);
 
       if (passociation.is_null())
       {
@@ -413,60 +601,60 @@ namespace windowing_wayland
    }
 
 
-   ::Display * display::Display()
+   ::wl_display * display::_wl_display()
    {
 
-      return ::is_null(this) ? nullptr : m_px11display->m_pdisplay;
+      return ::is_null(this) ? nullptr : m_pwldisplay;
 
    }
 
 
-   ::Display * display::Display() const
+   ::wl_display * display::_wl_display() const
    {
 
-      return ::is_null(this) ? nullptr : m_px11display->m_pdisplay;
+      return ::is_null(this) ? nullptr : m_pdisplay;
 
    }
 
 
-   int display::Screen()
-   {
-
-      return ::is_null(this) ? 0 : m_iScreen;
-
-   }
-
-
-   int display::Screen() const
-   {
-
-      return ::is_null(this) ? 0 : m_iScreen;
-
-   }
-
-
-   Atom display::atom_long_type()
-   {
-
-      return ::is_null(this) ? 0 : m_atomLongType;
-
-   }
-
-
-   Atom display::atom_long_style()
-   {
-
-      return ::is_null(this) ? 0 : m_atomLongStyle;
-
-   }
-
-
-   Atom display::atom_long_style_ex()
-   {
-
-      return ::is_null(this) ? 0 : m_atomLongStyleEx;
-
-   }
+//   int display::Screen()
+//   {
+//
+//      return ::is_null(this) ? 0 : m_iScreen;
+//
+//   }
+//
+//
+//   int display::Screen() const
+//   {
+//
+//      return ::is_null(this) ? 0 : m_iScreen;
+//
+//   }
+//
+//
+//   Atom display::atom_long_type()
+//   {
+//
+//      return ::is_null(this) ? 0 : m_atomLongType;
+//
+//   }
+//
+//
+//   Atom display::atom_long_style()
+//   {
+//
+//      return ::is_null(this) ? 0 : m_atomLongStyle;
+//
+//   }
+//
+//
+//   Atom display::atom_long_style_ex()
+//   {
+//
+//      return ::is_null(this) ? 0 : m_atomLongStyleEx;
+//
+//   }
 
 
    bool display::is_null() const
@@ -506,24 +694,24 @@ namespace windowing_wayland
 
       information() << "windowing_wayland::display::release_mouse_capture";
 
-      auto predicate = [this]()
-      {
-
-         synchronous_lock synchronouslock(user_synchronization());
-
-         //display_lock displaylock(Display());
-
-         information() << "XUngrabPointer";
-
-         int_bool bRet = XUngrabPointer(Display(), CurrentTime) != false;
-
-         _on_capture_changed_to(nullptr);
-
-      };
-
-      auto pwindowing = x11_windowing();
-
-      pwindowing->windowing_post(predicate);
+//      auto predicate = [this]()
+//      {
+//
+//         synchronous_lock synchronouslock(user_synchronization());
+//
+//         //display_lock displaylock(Display());
+//
+//         information() << "XUngrabPointer";
+//
+//         int_bool bRet = XUngrabPointer(Display(), CurrentTime) != false;
+//
+//         _on_capture_changed_to(nullptr);
+//
+//      };
+//
+//      auto pwindowing = x11_windowing();
+//
+//      pwindowing->windowing_post(predicate);
 
       return ::success;
 

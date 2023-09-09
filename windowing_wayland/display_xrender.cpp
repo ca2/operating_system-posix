@@ -16,7 +16,7 @@ namespace windowing_wayland
 
 
    /// should be run at user_thread (x11_thread)
-   ::wl_cursor * display::create_alpha_cursor(const ::image *pimage, int xHotSpot, int yHotSpot)
+   ::wl_cursor * display::create_alpha_cursor(::image *pimage, int xHotSpot, int yHotSpot)
    {
 
       synchronous_lock synchronouslock(user_synchronization());

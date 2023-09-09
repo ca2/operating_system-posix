@@ -67,8 +67,13 @@ namespace windowing_wayland
    ::wl_shm *m_pwlshm;
    ::wl_shell *m_pwlshell;
    ::wl_compositor * m_pwlcompositor;
-      ::wl_surface *       m_pwlcursorSurface;
-
+      ::wl_surface *       m_pwlsurfaceCursor;
+      ::wl_seat *             m_pwlseat;
+      ::wl_keyboard * m_pwlkeyboard;
+      ::wl_pointer * m_pwlpointer;
+      ::wl_surface * m_pwlsurfacePointerEnter;
+      ::wl_shell_surface * m_pwlshellsurface;
+      ::pointer < ::windowing_wayland::window > m_pwindowPointerEnter;
   //    wl_compositor_create_surface(compositor);
 //
 
@@ -153,7 +158,7 @@ namespace windowing_wayland
 
       //virtual comparable_array < Window > x11_window_list();
 
-      virtual ::wl_cursor * create_alpha_cursor(const ::image *pimage, int xHotSpot, int yHotSpot);
+      virtual ::wl_cursor * create_alpha_cursor(::image *pimage, int xHotSpot, int yHotSpot);
 //      virtual Pixmap _x11_create_pixmap(::image_pointer pimage);
 //      virtual XImage * _x11_create_image(::image_pointer pimage);
 //      virtual Pixmap x11_create_pixmap(::image_pointer pimage);

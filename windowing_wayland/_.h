@@ -24,9 +24,6 @@ namespace windowing_wayland
    using WINDOW = long;
 
 
-   using window_map = map < WINDOW, ::pointer< window > >;
-
-
 } // namespace node_gnome
 
 struct wl_buffer;
@@ -37,6 +34,10 @@ struct wl_shm;
 struct wl_shell;
 struct wl_cursor;
 struct wl_cursor_image;
+struct wl_seat;
+struct wl_keyboard;
+struct wl_pointer;
+struct wl_shell_surface;
 
 
 struct wayland_buffer
@@ -45,3 +46,12 @@ struct wayland_buffer
    void *         m_pdata;
 
 };
+
+
+namespace windowing_wayland
+{
+
+   using window_map = map<::wl_surface *, ::pointer<window> >;
+
+} // namespace windowing_wayland
+

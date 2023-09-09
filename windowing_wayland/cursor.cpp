@@ -6,6 +6,7 @@
 #include "windowing.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/system.h"
+#include "aura/graphics/image/image.h"
 #include "aura_posix/_x11.h"
 #include "aura_posix/x11/display_lock.h"
 //#include <X11/cursorfont.h>
@@ -16,6 +17,7 @@
 #include "display.h"
 #include <wayland-server.h>
 
+
 CLASS_DECL_ACME ::particle * user_synchronization();
 
 
@@ -23,96 +25,69 @@ namespace windowing_wayland
 {
 
 
-   static void
-   pointer_handle_enter(void *data, struct wl_pointer *pwlpointer,
-                        uint32_t serial, struct wl_surface *pwlsurface,
-                        wl_fixed_t sx, wl_fixed_t sy)
-   {
-      struct wl_buffer *buffer;
-      struct wl_cursor_image *image;
+//   static void
+//   pointer_handle_leave(void *data, struct wl_pointer *pointer,
+//                        uint32_t serial, struct wl_surface *surface)
+//   {
+//      fprintf(stderr, "Pointer left surface %p\n", surface);
+//   }
+//
+//   static void
+//   pointer_handle_motion(void *data, struct wl_pointer *pointer,
+//                         uint32_t time, wl_fixed_t sx, wl_fixed_t sy)
+//   {
+//      printf("Pointer moved at %d %d\n", sx, sy);
+//   }
+//
+//   static void
+//   pointer_handle_button(void *data, struct wl_pointer *wl_pointer,
+//                         uint32_t serial, uint32_t time, uint32_t button,
+//                         uint32_t state)
+//   {
+//      printf("Pointer button\n");
+//
+//      auto pdisplay = (display *) data;
+//
+//      auto pwindow = pdisplay->_window(pwlsurface);
+//
+//
+//      if (button == BTN_LEFT && state == WL_POINTER_BUTTON_STATE_PRESSED)
+//         wl_shell_surface_move(shell_surface,
+//                               seat, serial);
+//
+//   }
+//
+//   static void
+//   pointer_handle_axis(void *data, struct wl_pointer *wl_pointer,
+//                       uint32_t time, uint32_t axis, wl_fixed_t value)
+//   {
+//      printf("Pointer handle axis\n");
+//   }
 
-      //fprintf(stderr, "Pointer entered surface %p at %d %d\n", pwlsurface, sx, sy);
+//   static const struct wl_pointer_listener pointer_listener = {
+//      pointer_handle_enter,
+//      pointer_handle_leave,
+//      pointer_handle_motion,
+//      pointer_handle_button,
+//      pointer_handle_axis,
+//   };
 
-      auto pdisplay = (display *) data;
-
-      auto pwindow = pdisplay->_window(pwlsurface);
-
-      auto pcursor = pwindow->get_cursor();
-
-      auto pwlcursorSurface =  pdisplay->m_pwlcursorSurface;
-
-      ::pointer < ::windowing_wayland::cursor > pwaylandcursor = pcursor;
-
-      //image = default_cursor->images[0];
-      //buffer = wl_cursor_image_get_buffer(image);
-
-      wl_pointer_set_cursor(pwlpointer, serial,
-                            pwlcursorSurface,
-                            pwaylandcursor->m_szHotspotOffset.cx(),
-                            pwaylandcursor->m_szHotspotOffset.cy());
-      wl_surface_attach(pwlcursorSurface, pwaylandcursor->m_pwlbuffer, 0, 0);
-      wl_surface_damage(pwlcursorSurface, 0, 0, pwaylandcursor->m_pimage->width(), pwaylandcursor->m_pimage->height());
-      wl_surface_commit(pwlcursorSurface);
-   }
-
-   static void
-   pointer_handle_leave(void *data, struct wl_pointer *pointer,
-                        uint32_t serial, struct wl_surface *surface)
-   {
-      fprintf(stderr, "Pointer left surface %p\n", surface);
-   }
-
-   static void
-   pointer_handle_motion(void *data, struct wl_pointer *pointer,
-                         uint32_t time, wl_fixed_t sx, wl_fixed_t sy)
-   {
-      printf("Pointer moved at %d %d\n", sx, sy);
-   }
-
-   static void
-   pointer_handle_button(void *data, struct wl_pointer *wl_pointer,
-                         uint32_t serial, uint32_t time, uint32_t button,
-                         uint32_t state)
-   {
-      printf("Pointer button\n");
-
-      if (button == BTN_LEFT && state == WL_POINTER_BUTTON_STATE_PRESSED)
-         wl_shell_surface_move(shell_surface,
-                               seat, serial);
-
-   }
-
-   static void
-   pointer_handle_axis(void *data, struct wl_pointer *wl_pointer,
-                       uint32_t time, uint32_t axis, wl_fixed_t value)
-   {
-      printf("Pointer handle axis\n");
-   }
-
-   static const struct wl_pointer_listener pointer_listener = {
-      pointer_handle_enter,
-      pointer_handle_leave,
-      pointer_handle_motion,
-      pointer_handle_button,
-      pointer_handle_axis,
-   };
-
-   static void
-   seat_handle_capabilities(void *data, struct wl_seat *seat,
-                            enum wl_seat_capability caps)
-   {
-      if ((caps & WL_SEAT_CAPABILITY_POINTER) && !pointer) {
-         pointer = wl_seat_get_pointer(seat);
-         wl_pointer_add_listener(pointer, &pointer_listener, NULL);
-      } else if (!(caps & WL_SEAT_CAPABILITY_POINTER) && pointer) {
-         wl_pointer_destroy(pointer);
-         pointer = NULL;
-      }
-   }
-
-   static const struct wl_seat_listener seat_listener = {
-      seat_handle_capabilities,
-   };
+//   static void
+//   seat_handle_capabilities(void *data, struct wl_seat *seat,
+//                            enum wl_seat_capability caps)
+//   {
+//      if ((caps & WL_SEAT_CAPABILITY_POINTER) && !pointer) {
+//         pointer = wl_seat_get_pointer(seat);
+//         wl_pointer_add_listener(pointer, &pointer_listener, NULL);
+//      } else if (!(caps & WL_SEAT_CAPABILITY_POINTER) && pointer) {
+//         wl_pointer_destroy(pointer);
+//         pointer = NULL;
+//      }
+//   }
+//
+//   static const struct wl_seat_listener seat_listener = {
+//      seat_handle_capabilities,
+//   };
 //
 //   void
 //   global_registry_handler(void *data, struct wl_registry *registry, uint32_t id,
@@ -328,7 +303,8 @@ namespace windowing_wayland
    {
 
       m_pwlcursor = nullptr;
-      m_pwlbuffer = nullptr;
+      m_waylandbuffer.m_pwlbuffer  = nullptr;
+      m_waylandbuffer.m_pwlbuffer = nullptr;
    }
 
 
@@ -412,7 +388,8 @@ namespace windowing_wayland
 
       m_pwlcursor = pwlcursor;
       m_pwlcursorimage = m_pwlcursor->images[0];
-      m_pwlbuffer = wl_cursor_image_get_buffer(m_pwlcursorimage);
+      m_waylandbuffer.m_pwlbuffer = wl_cursor_image_get_buffer(m_pwlcursorimage);
+
       //m_pwlbuffer
 
       //iCursor = ::x11::get_default_system_cursor_glyph(ecursor);

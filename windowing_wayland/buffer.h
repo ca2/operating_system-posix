@@ -11,8 +11,8 @@
 #include "aura/graphics/graphics/double_buffer.h"
 #include "aura/graphics/image/pixmap.h"
 #include "acme_posix/shmem.h"
-#include <X11/Xlib.h>
-#include <X11/extensions/XShm.h>
+//#include <X11/Xlib.h>
+//#include <X11/extensions/XShm.h>
 //#include <X11/extensions/Xrender.h>
 
 //#include "app/base/graphics/graphics_window_buffer.h"
@@ -28,16 +28,16 @@ namespace windowing_wayland
    public:
 
       ::pixmap             m_pixmap;
-      XImage *             m_pximage;
+      //XImage *             m_pximage;
       bool                 m_bXShmChecked;
       bool                 m_bXShm;
-      XShmSegmentInfo      m_xshmsegmentinfo;
+      //XShmSegmentInfo      m_xshmsegmentinfo;
       ::size_i32           m_sizeLastBitBlitting;
       bool                 m_bUseXShmIfAvailable;
       bool                 m_bXShmPutImagePending;
       //::pointer < ::mutex >                         m_pmutexPixmap;
       //pixmap                        m_pixmap;
-      GC                   m_gc;
+      //GC                   m_gc;
       //memory                        m_mem;
       //XImage *                      m_pimage;
       //bool                          m_bMapped;
