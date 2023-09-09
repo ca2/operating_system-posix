@@ -182,35 +182,35 @@ namespace windowing_wayland
    }
 
 
-   bool windowing::x11_runnable_step()
-   {
-
-      bool bHandled = false;
-
-      process_owned_procedure_list(m_procedurelistPriority, bHandled);
-
-      if (m_pdisplay)
-      {
-
-         if (m_pdisplay->m_px11display)
-         {
-
-            while (m_pdisplay->m_px11display->x11_posted())
-            {
-
-               bHandled = true;
-
-            }
-
-         }
-
-      }
-
-      process_owned_procedure_list(m_procedurelist, bHandled);
-
-      return bHandled;
-
-   }
+//   bool windowing::x11_runnable_step()
+//   {
+//
+//      bool bHandled = false;
+//
+//      process_owned_procedure_list(m_procedurelistPriority, bHandled);
+//
+//      if (m_pdisplay)
+//      {
+//
+//         if (m_pdisplay->m_px11display)
+//         {
+//
+//            while (m_pdisplay->m_px11display->x11_posted())
+//            {
+//
+//               bHandled = true;
+//
+//            }
+//
+//         }
+//
+//      }
+//
+//      process_owned_procedure_list(m_procedurelist, bHandled);
+//
+//      return bHandled;
+//
+//   }
 
 
 //   void windowing::process_procedure_list(::procedure_list & procedurelist, bool & bHandled)
@@ -372,15 +372,18 @@ namespace windowing_wayland
 
       //display_lock lock(m_pdisplay->Display());
 
-      auto cursor = XCreateFontCursor(m_pdisplay->Display(), iCursor);
+//      auto cursor = XCreateFontCursor(m_pdisplay->Display(), iCursor);
+//
+//      auto pcursorX11 = __create < ::windowing_wayland::cursor >();
+//
+//      pcursor = pcursorX11;
+//
+//      pcursorX11->m_cursor = cursor;
 
-      auto pcursorX11 = __create < ::windowing_wayland::cursor >();
+      //return pcursor;
 
-      pcursor = pcursorX11;
+      return nullptr;
 
-      pcursorX11->m_cursor = cursor;
-
-      return pcursor;
 
    }
 
@@ -457,19 +460,19 @@ namespace windowing_wayland
    void windowing::install_mouse_hook(::matter * pmatter)
    {
 
-      auto psystem = acmesystem()->m_paurasystem;
-
-      auto psession = psystem->get_session();
-
-      auto puser = psession->user();
-
-      auto pwindowing = (::windowing_wayland::windowing *) puser->windowing()->m_pWindowing4;
-
-      pwindowing->x11_register_extended_event_listener(pmatter, true, false);
-
-      //::x11_register_extended_event_listener(pdata, bMouse, bKeyboard);
-
-      //return ::success;
+//      auto psystem = acmesystem()->m_paurasystem;
+//
+//      auto psession = psystem->get_session();
+//
+//      auto puser = psession->user();
+//
+//      auto pwindowing = (::windowing_wayland::windowing *) puser->windowing()->m_pWindowing4;
+//
+//      pwindowing->x11_register_extended_event_listener(pmatter, true, false);
+//
+//      //::x11_register_extended_event_listener(pdata, bMouse, bKeyboard);
+//
+//      //return ::success;
 
    }
 
@@ -477,19 +480,19 @@ namespace windowing_wayland
    void windowing::install_keyboard_hook(::matter * pmatter)
    {
 
-      auto psystem = acmesystem()->m_paurasystem;
-
-      auto psession = psystem->get_session();
-
-      auto puser = psession->user();
-
-      auto pwindowing = (::windowing_wayland::windowing *) puser->windowing()->m_pWindowing4;
-
-      pwindowing->x11_register_extended_event_listener(pmatter, false, true);
-
-      //::x11_register_extended_event_listener(pdata, bMouse, bKeyboard);
-
-      //return ::success;
+//      auto psystem = acmesystem()->m_paurasystem;
+//
+//      auto psession = psystem->get_session();
+//
+//      auto puser = psession->user();
+//
+//      auto pwindowing = (::windowing_wayland::windowing *) puser->windowing()->m_pWindowing4;
+//
+//      pwindowing->x11_register_extended_event_listener(pmatter, false, true);
+//
+//      //::x11_register_extended_event_listener(pdata, bMouse, bKeyboard);
+//
+//      //return ::success;
 
    }
 

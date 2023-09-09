@@ -33,7 +33,7 @@ namespace windowing_wayland
 
 
 
-      ::wl_buffer *                                m_pwlbuffer;
+      wayland_buffer                               m_waylandbuffer;
       ::wl_surface *                               m_pwlsurface;
       //XWindowAttributes                            m_attr;
       //XVisualInfo                                  m_visualinfo;
@@ -163,8 +163,8 @@ namespace windowing_wayland
 
       void set_parent(::windowing::window * pwindowNewParent) override;
       //virtual ::e_status set_parent(::windowing::window * pwindowNewParent) override;
-      virtual bool get_state(long & lState);
-      bool _get_wm_state_unlocked(long & lState) override;
+      //virtual bool get_state(long & lState);
+      //bool _get_wm_state_unlocked(long & lState) override;
       bool is_iconic() override;
       bool is_window_visible() override;
 //      bool _is_iconic_unlocked() override;
@@ -190,7 +190,7 @@ namespace windowing_wayland
 
       virtual bool set_icon(::image * pimage);
 
-      virtual int x_change_property(Atom property, Atom type, int format, int mode, const unsigned char * data, int nelements);
+      //virtual int x_change_property(Atom property, Atom type, int format, int mode, const unsigned char * data, int nelements);
 
       void set_mouse_cursor(::windowing::cursor * pcursor) override;
 
@@ -216,24 +216,24 @@ namespace windowing_wayland
 
 
 
-      //virtual Atom get_window_long_atom(i32 nIndex);
-      virtual void _mapped_net_state_unlocked(bool add,  WINDOWING_X11_WINDOW_MEMBER int iScreen, Atom state1, Atom state2);
-      //virtual void unmapped_net_state_raw( WINDOWING_X11_WINDOW_MEMBER ...);
-      virtual bool x11_get_window_rect(  WINDOWING_X11_WINDOW_MEMBER  ::rectangle_i32 * prectangle);
-      virtual bool x11_get_client_rect(  WINDOWING_X11_WINDOW_MEMBER  ::rectangle_i32 * prectangle);
-      //virtual oswindow set_capture( WINDOWING_X11_WINDOW_MEMBER );
-      //virtual int_bool release_capture();
-      //virtual oswindow set_focus( WINDOWING_X11_WINDOW_MEMBER );
-      //virtual void x11_check_status(int status, unsigned long window);
-      //virtual unsigned long x11_get_long_property( WINDOWING_X11_WINDOW_MEMBER char* property_name);
-      virtual string x11_get_name( WINDOWING_X11_WINDOW_MEMBER );
-      //virtual ::e_status set_active_window();
-      virtual void upper_window_rects( WINDOWING_X11_WINDOW_MEMBER  rectangle_i32_array & ra);
-      //virtual oswindow set_active_window( WINDOWING_X11_WINDOW_MEMBER );
-//      virtual  WINDOWING_X11_WINDOW_MEMBER _get_if_found(Window w);
-      //virtual oswindow get_parent( WINDOWING_X11_WINDOW_MEMBER );
-      virtual ::Window _get_window_relative( WINDOWING_X11_WINDOW_MEMBER enum_relative erelative, ::Window * windowa, int numItems);
-      virtual ::windowing::window * get_window( WINDOWING_X11_WINDOW_MEMBER enum_relative erelative);
+//      //virtual Atom get_window_long_atom(i32 nIndex);
+//      virtual void _mapped_net_state_unlocked(bool add,  WINDOWING_X11_WINDOW_MEMBER int iScreen, Atom state1, Atom state2);
+//      //virtual void unmapped_net_state_raw( WINDOWING_X11_WINDOW_MEMBER ...);
+//      virtual bool x11_get_window_rect(  WINDOWING_X11_WINDOW_MEMBER  ::rectangle_i32 * prectangle);
+//      virtual bool x11_get_client_rect(  WINDOWING_X11_WINDOW_MEMBER  ::rectangle_i32 * prectangle);
+//      //virtual oswindow set_capture( WINDOWING_X11_WINDOW_MEMBER );
+//      //virtual int_bool release_capture();
+//      //virtual oswindow set_focus( WINDOWING_X11_WINDOW_MEMBER );
+//      //virtual void x11_check_status(int status, unsigned long window);
+//      //virtual unsigned long x11_get_long_property( WINDOWING_X11_WINDOW_MEMBER char* property_name);
+//      virtual string x11_get_name( WINDOWING_X11_WINDOW_MEMBER );
+//      //virtual ::e_status set_active_window();
+//      virtual void upper_window_rects( WINDOWING_X11_WINDOW_MEMBER  rectangle_i32_array & ra);
+//      //virtual oswindow set_active_window( WINDOWING_X11_WINDOW_MEMBER );
+////      virtual  WINDOWING_X11_WINDOW_MEMBER _get_if_found(Window w);
+//      //virtual oswindow get_parent( WINDOWING_X11_WINDOW_MEMBER );
+//      virtual ::Window _get_window_relative( WINDOWING_X11_WINDOW_MEMBER enum_relative erelative, ::Window * windowa, int numItems);
+//      virtual ::windowing::window * get_window( WINDOWING_X11_WINDOW_MEMBER enum_relative erelative);
 
       void destroy_window() override;
       //virtual int_bool destroy_window( WINDOWING_X11_WINDOW_MEMBER );
@@ -294,8 +294,8 @@ namespace windowing_wayland
 ////      virtual bool wm_add_remove_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag, bool bSet);
 
 
-      virtual ::e_status x11_post_message(MESSAGE & msg);
-      virtual ::e_status post_ui_message(const MESSAGE & message);
+//      virtual ::e_status x11_post_message(MESSAGE & msg);
+//      virtual ::e_status post_ui_message(const MESSAGE & message);
       //virtual bool x11_process_event(osdisplay_data * pdisplaydata, XEvent * pevent, XGenericEventCookie *cookie);
       //virtual ::e_status set_window_position( WINDOWING_X11_WINDOW_MEMBER const ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy, ::u32 nFlags);
       virtual ::e_status window_rectangle( WINDOWING_X11_WINDOW_MEMBER ::rectangle_i32 * prectangle);
@@ -308,7 +308,7 @@ namespace windowing_wayland
       //virtual void wm_toolwindow( WINDOWING_X11_WINDOW_MEMBER bool bToolWindow);
       //virtual void wm_state_hidden( WINDOWING_X11_WINDOW_MEMBER bool bSet);
       //virtual void wm_state_hidden_raw( WINDOWING_X11_WINDOW_MEMBER bool bSet);
-      virtual ::e_status mq_remove_window_from_all_queues( WINDOWING_X11_WINDOW_MEMBER );
+//      virtual ::e_status mq_remove_window_from_all_queues( WINDOWING_X11_WINDOW_MEMBER );
 
       void window_update_screen_buffer() override;
       //void _window_request_presentation_locked() override;
@@ -324,7 +324,7 @@ namespace windowing_wayland
 
 
       virtual void _on_end_paint();
-      virtual void _enable_net_wm_sync();
+      //virtual void _enable_net_wm_sync();
 
 
    };

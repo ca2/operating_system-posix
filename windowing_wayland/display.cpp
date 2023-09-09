@@ -22,6 +22,12 @@
 #include <wayland-client-protocol.h>
 #include <linux/input.h> // for BTN_LEFT
 extern ::app_core * g_pappcore;
+int
+os_create_anonymous_file(off_t size);
+#include <fcntl.h>
+#include <sys/mman.h>
+#include <errno.h>
+#include <unistd.h>
 
 Display * x11_get_display();
 
@@ -612,7 +618,7 @@ namespace windowing_wayland
    ::wl_display * display::_wl_display() const
    {
 
-      return ::is_null(this) ? nullptr : m_pdisplay;
+      return ::is_null(this) ? nullptr : m_pwldisplay;
 
    }
 
@@ -752,90 +758,90 @@ namespace windowing_wayland
    }
 
 
-   Atom display::intern_atom(const char * pszAtomName, bool bCreate)
-   {
-
-      if (m_px11display == nullptr)
-      {
-
-         return 0;
-
-      }
-
-      return m_px11display->intern_atom(pszAtomName, bCreate);
-
-   }
-
-
-   Atom display::intern_atom(::x11::enum_atom eatom, bool bCreate)
-   {
-
-      if (eatom < 0 || eatom >= ::x11::e_atom_count)
-      {
-
-         return None;
-
-      }
-
-      //Atom atom = m_atoma[eatom];
-
-      //if (atom == None)
-      {
-
-         auto atom = intern_atom(atom_name(eatom), bCreate);
-
-         return atom;
-
-         // m_atoma[eatom] = atom;
-
-      }
-
-      //return atom;
-
-   }
-
-
-   Atom display::_intern_atom_unlocked(const char * pszAtomName, bool bCreate)
-   {
-
-      if (m_px11display == nullptr)
-      {
-
-         return 0;
-
-      }
-
-      return m_px11display->_intern_atom_unlocked(pszAtomName, bCreate);
-
-   }
-
-
-   Atom display::_intern_atom_unlocked(::x11::enum_atom eatom, bool bCreate)
-   {
-
-      if (eatom < 0 || eatom >= ::x11::e_atom_count)
-      {
-
-         return None;
-
-      }
-
-      //Atom atom = m_atoma[eatom];
-
-      //if (atom == None)
-      {
-
-         auto atom = _intern_atom_unlocked(atom_name(eatom), bCreate);
-
-         return atom;
-
-         // m_atoma[eatom] = atom;
-
-      }
-
-      //return atom;
-
-   }
+//   Atom display::intern_atom(const char * pszAtomName, bool bCreate)
+//   {
+//
+//      if (m_px11display == nullptr)
+//      {
+//
+//         return 0;
+//
+//      }
+//
+//      return m_px11display->intern_atom(pszAtomName, bCreate);
+//
+//   }
+//
+//
+//   Atom display::intern_atom(::x11::enum_atom eatom, bool bCreate)
+//   {
+//
+//      if (eatom < 0 || eatom >= ::x11::e_atom_count)
+//      {
+//
+//         return None;
+//
+//      }
+//
+//      //Atom atom = m_atoma[eatom];
+//
+//      //if (atom == None)
+//      {
+//
+//         auto atom = intern_atom(atom_name(eatom), bCreate);
+//
+//         return atom;
+//
+//         // m_atoma[eatom] = atom;
+//
+//      }
+//
+//      //return atom;
+//
+//   }
+//
+//
+//   Atom display::_intern_atom_unlocked(const char * pszAtomName, bool bCreate)
+//   {
+//
+//      if (m_px11display == nullptr)
+//      {
+//
+//         return 0;
+//
+//      }
+//
+//      return m_px11display->_intern_atom_unlocked(pszAtomName, bCreate);
+//
+//   }
+//
+//
+//   Atom display::_intern_atom_unlocked(::x11::enum_atom eatom, bool bCreate)
+//   {
+//
+//      if (eatom < 0 || eatom >= ::x11::e_atom_count)
+//      {
+//
+//         return None;
+//
+//      }
+//
+//      //Atom atom = m_atoma[eatom];
+//
+//      //if (atom == None)
+//      {
+//
+//         auto atom = _intern_atom_unlocked(atom_name(eatom), bCreate);
+//
+//         return atom;
+//
+//         // m_atoma[eatom] = atom;
+//
+//      }
+//
+//      //return atom;
+//
+//   }
 
 
    ::e_status display::erase_window(::windowing::window * pwindow)
@@ -846,64 +852,66 @@ namespace windowing_wayland
    }
 
 
-   Atom display::net_wm_state_atom(bool bCreate)
-   {
+//   Atom display::net_wm_state_atom(bool bCreate)
+//   {
+//
+//      if (m_atomNetWmState == None)
+//      {
+//
+//         m_atomNetWmState = intern_atom(::x11::e_atom_net_wm_state, bCreate);
+//
+//      }
+//
+//      return m_atomNetWmState;
+//
+//   }
 
-      if (m_atomNetWmState == None)
-      {
 
-         m_atomNetWmState = intern_atom(::x11::e_atom_net_wm_state, bCreate);
-
-      }
-
-      return m_atomNetWmState;
-
-   }
-
-
-   Picture display::xrender_create_picture(::image_pointer pimage)
-   {
-
-      Pixmap pixmap = _x11_create_pixmap(pimage);
-
-      if (pixmap == 0)
-      {
-
-         return 0;
-
-      }
-
-      auto dpy = Display();
-
-      auto vis = Visual();
-
-      XRenderPictFormat * pformat = XRenderFindVisualFormat(dpy, &vis);
-
-      bool hasAlpha = (pformat->type == PictTypeDirect && pformat->direct.alphaMask);
-      int x = 0;
-      int y = 0;
-      int width = pimage->width();
-      int height = pimage->height();
-
-      XRenderPictureAttributes pa = {};
-
-      Picture picture = XRenderCreatePicture(Display(), pixmap, pformat, CPSubwindowMode, &pa);
-
-      return picture;
-
-   }
+//   Picture display::xrender_create_picture(::image_pointer pimage)
+//   {
+//
+//      Pixmap pixmap = _x11_create_pixmap(pimage);
+//
+//      if (pixmap == 0)
+//      {
+//
+//         return 0;
+//
+//      }
+//
+//      auto dpy = Display();
+//
+//      auto vis = Visual();
+//
+//      XRenderPictFormat * pformat = XRenderFindVisualFormat(dpy, &vis);
+//
+//      bool hasAlpha = (pformat->type == PictTypeDirect && pformat->direct.alphaMask);
+//      int x = 0;
+//      int y = 0;
+//      int width = pimage->width();
+//      int height = pimage->height();
+//
+//      XRenderPictureAttributes pa = {};
+//
+//      Picture picture = XRenderCreatePicture(Display(), pixmap, pformat, CPSubwindowMode, &pa);
+//
+//      return picture;
+//
+//   }
 
 
    ::windowing_wayland::window * display::_get_active_window(::thread * pthread)
    {
 
-      auto window = m_px11display->_get_active_window();
+//      auto window = m_px11display->_get_active_window();
+//
+//      auto pwindow = _window(window);
+//
+//      windowing_output_debug_string("::GetActiveWindow 2");
+//
+//      return pwindow;
 
-      auto pwindow = _window(window);
-
-      windowing_output_debug_string("::GetActiveWindow 2");
-
-      return pwindow;
+return nullptr;
 
    }
 
@@ -919,89 +927,91 @@ namespace windowing_wayland
    ::windowing_wayland::window * display::_get_keyboard_focus()
    {
 
-      auto ppropertyobject = __new(::property_object);
-
-      auto predicate = [this, ppropertyobject]()
-      {
-
-         synchronous_lock synchronouslock(user_synchronization());
-
-         oswindow oswindow = nullptr;
-
-         windowing_output_debug_string("::GetFocus 1");
-
-#ifdef display_lock_LOCK_LOG
-
-         b_prevent_display_lock_lock_log = false;
-
-#endif
-
-         //display_lock displaylock(Display());
-
-         windowing_output_debug_string("::GetFocus 1.01");
-
-         Window window = None;
-
-         int revert_to = 0;
-
-         bool bOk = XGetInputFocus(Display(), &window, &revert_to) != 0;
-
-         if (!bOk)
-         {
-
-            windowing_output_debug_string("::GetFocus 1.2");
-
-            return;
-
-         }
-
-         if (window == None || window == PointerRoot)
-         {
-
-            windowing_output_debug_string("::GetFocus 1.3");
-
-            return;
-
-         }
-
-         ppropertyobject->payload("window") = (::iptr) window;
-
-         windowing_output_debug_string("::GetFocus 2");
-
-      };
-
-      auto pwindowing = x11_windowing();
-
-      //proutine->set_timeout(5_s);
-
-      pwindowing->windowing_send(predicate);
-
-//      if(proutine->has_timed_out())
+//      auto ppropertyobject = __new(::property_object);
+//
+//      auto predicate = [this, ppropertyobject]()
+//      {
+//
+//         synchronous_lock synchronouslock(user_synchronization());
+//
+//         oswindow oswindow = nullptr;
+//
+//         windowing_output_debug_string("::GetFocus 1");
+//
+//#ifdef display_lock_LOCK_LOG
+//
+//         b_prevent_display_lock_lock_log = false;
+//
+//#endif
+//
+//         //display_lock displaylock(Display());
+//
+//         windowing_output_debug_string("::GetFocus 1.01");
+//
+//         Window window = None;
+//
+//         int revert_to = 0;
+//
+//         bool bOk = XGetInputFocus(Display(), &window, &revert_to) != 0;
+//
+//         if (!bOk)
+//         {
+//
+//            windowing_output_debug_string("::GetFocus 1.2");
+//
+//            return;
+//
+//         }
+//
+//         if (window == None || window == PointerRoot)
+//         {
+//
+//            windowing_output_debug_string("::GetFocus 1.3");
+//
+//            return;
+//
+//         }
+//
+//         ppropertyobject->payload("window") = (::iptr) window;
+//
+//         windowing_output_debug_string("::GetFocus 2");
+//
+//      };
+//
+//      auto pwindowing = x11_windowing();
+//
+//      //proutine->set_timeout(5_s);
+//
+//      pwindowing->windowing_send(predicate);
+//
+////      if(proutine->has_timed_out())
+////      {
+////
+////         return nullptr;
+////
+////      }
+//
+//      if (ppropertyobject->payload("window").is_new())
 //      {
 //
 //         return nullptr;
 //
 //      }
+//
+//      Window window = (Window) ppropertyobject->payload("window").as_iptr();
+//
+//      auto pwindow = _window(window);
+//
+//      if (!pwindow)
+//      {
+//
+//         return nullptr;
+//
+//      }
+//
+//      return pwindow;
 
-      if (ppropertyobject->payload("window").is_new())
-      {
-
-         return nullptr;
-
-      }
-
-      Window window = (Window) ppropertyobject->payload("window").as_iptr();
-
-      auto pwindow = _window(window);
-
-      if (!pwindow)
-      {
-
-         return nullptr;
-
-      }
-
-      return pwindow;
+return nullptr;
 
    }
 
@@ -1027,8 +1037,8 @@ namespace windowing_wayland
 
       //display_lock displaylock(Display());
 
-      XQueryPointer(Display(), DefaultRootWindow(Display()), &root_return, &child_return, &ppointCursor->x(),
-                    &ppointCursor->y(), &win_x_return, &win_y_return, &mask_return);
+//      XQueryPointer(Display(), DefaultRootWindow(Display()), &root_return, &child_return, &ppointCursor->x(),
+//                    &ppointCursor->y(), &win_x_return, &win_y_return, &mask_return);
 
 #ifdef display_lock_LOCK_LOG
 
@@ -1043,280 +1053,300 @@ namespace windowing_wayland
    }
 
 
-   XImage * display::_x11_create_image(::image_pointer pimage)
-   {
-
-      pimage->map();
-
-      char * image32 = (char *) pimage->get_data();
-
-      int width = pimage->width();
-
-      int height = pimage->height();
-
-      int depth = 32; // works fine with depth = 24
-
-      int bitmap_pad = 32; // 32 for 24 and 32 bpp, 16, for 15&16
-
-      int bytes_per_line = pimage->scan_size(); // number of bytes in the client image between the start of one scanline and the start of the next
-
-      XImage * pximage = XCreateImage(Display(), CopyFromParent, depth, ZPixmap, 0, image32, width, height,
-                                      bitmap_pad, bytes_per_line);
-
-      return pximage;
-
-   }
-
-
-   XImage * display::x11_create_image(::image_pointer pimage)
-   {
-
-      synchronous_lock synchronouslock(user_synchronization());
-
-      windowing_output_debug_string("::x11_create_image 1");
-
-      //display_lock displaylock(Display());
-
-      return _x11_create_image(pimage);
-
-   }
-
-
-   Pixmap display::_x11_create_pixmap(::image_pointer pimage)
-   {
-
-      if (!pimage)
-      {
-
-         return 0;
-
-      }
-
-      XImage * pximage = _x11_create_image(pimage);
-
-      if (pximage == nullptr)
-      {
-
-         return 0;
-
-      }
-
-      int depth = 32; // works fine with depth = 24
-
-      Pixmap pixmap = XCreatePixmap(Display(), DefaultRootWindow(Display()), pimage->width(), pimage->height(), depth);
-
-      XGCValues gcvalues = {};
-
-      GC gc = XCreateGC(Display(), pixmap, 0, &gcvalues);
-
-      XPutImage(Display(), pixmap, gc, pximage, 0, 0, 0, 0, pimage->width(), pimage->height());
-
-      XFreeGC(Display(), gc);
-
-      return pixmap;
-
-   }
-
-
-   Pixmap display::x11_create_pixmap(::image_pointer pimage)
-   {
-
-      synchronous_lock synchronouslock(user_synchronization());
-
-      windowing_output_debug_string("::x11_create_pixmap 1");
-
-      //display_lock displaylock(Display());
-
-      return _x11_create_pixmap(pimage);
-
-   }
-
-
-   comparable_array<Window> display::x11_window_list()
-   {
-
-      comparable_array<Window> windowa;
-
-      auto atomWindowList = intern_atom("_NET_CLIENT_LIST_STACKING", False);
-
-      if (atomWindowList == 0)
-      {
-
-         atomWindowList = intern_atom("_NET_CLIENT_LIST", False);
-
-      }
-
-      if (atomWindowList == 0)
-      {
-
-         return windowa;
-
-      }
-
-      Atom type;
-      int form;
-      unsigned long remain;
-      unsigned char * list;
-      unsigned long ulBytesReturned = 0;
-      //errno = 0;
-
-      Atom actual_type;
-
-      int actual_format;
-
-      unsigned long int bytes_after;
-
-      Window * windowList = nullptr;
-
-      if (XGetWindowProperty(
-         Display(),
-         Window(),
-         atomWindowList, 0, 1024, False, XA_WINDOW,
-         &actual_type, &actual_format, &ulBytesReturned, &bytes_after,
-         (unsigned char **) &windowList) != Success)
-      {
-
-         information("winlist() -- GetWinProp");
-
-         return windowa;
-
-      }
-
-      unsigned long nchildren = ulBytesReturned / sizeof(Window);
-
-      windowa.set_size(nchildren);
-
-      memcpy(windowa.data(), windowList, minimum(windowa.get_size_in_bytes(), ulBytesReturned));
-
-      XFree(windowList);
-
-      return windowa;
-
-   }
-
-
-   bool display::point_is_window_origin(::point_i32 pointHitTest, ::windowing::window * pwindowExclude, int iMargin)
-   {
-
-      bool bIsOrigin = false;
-
-      auto psystem = acmesystem()->m_papexsystem;
-
-      auto pnode = psystem->node();
-
-      pnode->node_send([this, pointHitTest, pwindowExclude, iMargin, &bIsOrigin]()
-                       {
-
-                          ::windowing_wayland::window * pwindowxcbExclude = nullptr;
-
-                          if (pwindowExclude)
-                          {
-
-                             pwindowxcbExclude = dynamic_cast < ::windowing_wayland::window * >(pwindowExclude);
-
-                          }
-
-                          synchronous_lock synchronouslock(user_synchronization());
-
-                          windowing_output_debug_string("::GetFocus 1");
-
-#ifdef display_lock_LOCK_LOG
-
-                          b_prevent_display_lock_lock_log = false;
-
-#endif
-
-                          if (!Display())
-                          {
-
-                             windowing_output_debug_string("::GetFocus 1.1");
-
-                             return;
-
-                          }
-
-                          //display_lock displaylock(Display());
-
-                          windowing_output_debug_string("::GetFocus 1.01");
-
-                          auto windowa = x11_window_list();
-
-                          ::rectangle_i32 rectangleTest;
-
-                          for (index i = 0; i < windowa.get_size(); i++)
-                          {
-
-                             string strItem = ::x11_get_name(Display(), windowa[i]);
-
-                             ::rectangle_i32 rectangleHigher;
-
-                             if (::is_set(pwindowxcbExclude) && windowa[i] == pwindowxcbExclude->Window())
-                             {
-
-                                continue;
-
-                             }
-
-                             if (::x11_get_window_rect(Display(), windowa[i], &rectangleHigher))
-                             {
-
-                                ::rectangle_i32 rectangleHitTest;
-
-                                rectangleHitTest.set(rectangleHigher.origin(), ::size_i32());
-
-                                rectangleHitTest.inflate(iMargin + 1);
-
-                                if (rectangleHitTest.contains(pointHitTest))
-                                {
-
-                                   bIsOrigin = true;
-
-                                   return;
-
-                                }
-
-                             }
-
-                          }
-
-                       });
-
-      return bIsOrigin;
-
-   }
+//   XImage * display::_x11_create_image(::image_pointer pimage)
+//   {
+//
+//      pimage->map();
+//
+//      char * image32 = (char *) pimage->get_data();
+//
+//      int width = pimage->width();
+//
+//      int height = pimage->height();
+//
+//      int depth = 32; // works fine with depth = 24
+//
+//      int bitmap_pad = 32; // 32 for 24 and 32 bpp, 16, for 15&16
+//
+//      int bytes_per_line = pimage->scan_size(); // number of bytes in the client image between the start of one scanline and the start of the next
+//
+//      XImage * pximage = XCreateImage(Display(), CopyFromParent, depth, ZPixmap, 0, image32, width, height,
+//                                      bitmap_pad, bytes_per_line);
+//
+//      return pximage;
+//
+//   }
+//
+//
+//   XImage * display::x11_create_image(::image_pointer pimage)
+//   {
+//
+//      synchronous_lock synchronouslock(user_synchronization());
+//
+//      windowing_output_debug_string("::x11_create_image 1");
+//
+//      //display_lock displaylock(Display());
+//
+//      return _x11_create_image(pimage);
+//
+//   }
+//
+//
+//   Pixmap display::_x11_create_pixmap(::image_pointer pimage)
+//   {
+//
+//      if (!pimage)
+//      {
+//
+//         return 0;
+//
+//      }
+//
+//      XImage * pximage = _x11_create_image(pimage);
+//
+//      if (pximage == nullptr)
+//      {
+//
+//         return 0;
+//
+//      }
+//
+//      int depth = 32; // works fine with depth = 24
+//
+//      Pixmap pixmap = XCreatePixmap(Display(), DefaultRootWindow(Display()), pimage->width(), pimage->height(), depth);
+//
+//      XGCValues gcvalues = {};
+//
+//      GC gc = XCreateGC(Display(), pixmap, 0, &gcvalues);
+//
+//      XPutImage(Display(), pixmap, gc, pximage, 0, 0, 0, 0, pimage->width(), pimage->height());
+//
+//      XFreeGC(Display(), gc);
+//
+//      return pixmap;
+//
+//   }
+//
+//
+//   Pixmap display::x11_create_pixmap(::image_pointer pimage)
+//   {
+//
+//      synchronous_lock synchronouslock(user_synchronization());
+//
+//      windowing_output_debug_string("::x11_create_pixmap 1");
+//
+//      //display_lock displaylock(Display());
+//
+//      return _x11_create_pixmap(pimage);
+//
+//   }
+//
+//
+//   comparable_array<Window> display::x11_window_list()
+//   {
+//
+//      comparable_array<Window> windowa;
+//
+//      auto atomWindowList = intern_atom("_NET_CLIENT_LIST_STACKING", False);
+//
+//      if (atomWindowList == 0)
+//      {
+//
+//         atomWindowList = intern_atom("_NET_CLIENT_LIST", False);
+//
+//      }
+//
+//      if (atomWindowList == 0)
+//      {
+//
+//         return windowa;
+//
+//      }
+//
+//      Atom type;
+//      int form;
+//      unsigned long remain;
+//      unsigned char * list;
+//      unsigned long ulBytesReturned = 0;
+//      //errno = 0;
+//
+//      Atom actual_type;
+//
+//      int actual_format;
+//
+//      unsigned long int bytes_after;
+//
+//      Window * windowList = nullptr;
+//
+//      if (XGetWindowProperty(
+//         Display(),
+//         Window(),
+//         atomWindowList, 0, 1024, False, XA_WINDOW,
+//         &actual_type, &actual_format, &ulBytesReturned, &bytes_after,
+//         (unsigned char **) &windowList) != Success)
+//      {
+//
+//         information("winlist() -- GetWinProp");
+//
+//         return windowa;
+//
+//      }
+//
+//      unsigned long nchildren = ulBytesReturned / sizeof(Window);
+//
+//      windowa.set_size(nchildren);
+//
+//      memcpy(windowa.data(), windowList, minimum(windowa.get_size_in_bytes(), ulBytesReturned));
+//
+//      XFree(windowList);
+//
+//      return windowa;
+//
+//   }
+
+
+//   bool display::point_is_window_origin(::point_i32 pointHitTest, ::windowing::window * pwindowExclude, int iMargin)
+//   {
+//
+//      bool bIsOrigin = false;
+//
+//      auto psystem = acmesystem()->m_papexsystem;
+//
+//      auto pnode = psystem->node();
+//
+//      pnode->node_send([this, pointHitTest, pwindowExclude, iMargin, &bIsOrigin]()
+//                       {
+//
+//                          ::windowing_wayland::window * pwindowxcbExclude = nullptr;
+//
+//                          if (pwindowExclude)
+//                          {
+//
+//                             pwindowxcbExclude = dynamic_cast < ::windowing_wayland::window * >(pwindowExclude);
+//
+//                          }
+//
+//                          synchronous_lock synchronouslock(user_synchronization());
+//
+//                          windowing_output_debug_string("::GetFocus 1");
+//
+//#ifdef display_lock_LOCK_LOG
+//
+//                          b_prevent_display_lock_lock_log = false;
+//
+//#endif
+//
+//                          if (!Display())
+//                          {
+//
+//                             windowing_output_debug_string("::GetFocus 1.1");
+//
+//                             return;
+//
+//                          }
+//
+//                          //display_lock displaylock(Display());
+//
+//                          windowing_output_debug_string("::GetFocus 1.01");
+//
+//                          auto windowa = x11_window_list();
+//
+//                          ::rectangle_i32 rectangleTest;
+//
+//                          for (index i = 0; i < windowa.get_size(); i++)
+//                          {
+//
+//                             string strItem = ::x11_get_name(Display(), windowa[i]);
+//
+//                             ::rectangle_i32 rectangleHigher;
+//
+//                             if (::is_set(pwindowxcbExclude) && windowa[i] == pwindowxcbExclude->Window())
+//                             {
+//
+//                                continue;
+//
+//                             }
+//
+//                             if (::x11_get_window_rect(Display(), windowa[i], &rectangleHigher))
+//                             {
+//
+//                                ::rectangle_i32 rectangleHitTest;
+//
+//                                rectangleHitTest.set(rectangleHigher.origin(), ::size_i32());
+//
+//                                rectangleHitTest.inflate(iMargin + 1);
+//
+//                                if (rectangleHitTest.contains(pointHitTest))
+//                                {
+//
+//                                   bIsOrigin = true;
+//
+//                                   return;
+//
+//                                }
+//
+//                             }
+//
+//                          }
+//
+//                       });
+//
+//      return bIsOrigin;
+//
+//   }
 
 
 
    wayland_buffer display::create_wayland_buffer(const ::size_i32 & size)
    {
+
       struct wl_shm_pool *pool;
+
       int stride = size.cx() * 4; // 4 bytes per pixel
+
       int strided_area = stride * size.cy();
-      int fd;
-      struct wl_buffer *buff;
 
-      fd = os_create_anonymous_file(strided_area);
-      if (fd < 0) {
-         fprintf(stderr, "creating a buffer file for %d B failed: %m\n",
-                 size);
-         exit(1);
+      wayland_buffer waylandbuffer{};
+
+      int fd = os_create_anonymous_file(strided_area);
+
+      if (fd < 0)
+      {
+
+         error () << "creating a buffer file for  B failed: ";
+
+         return waylandbuffer;
+
       }
 
-      void * shm_data = mmap(NULL, strided_area, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-      if (shm_data == MAP_FAILED) {
-         fprintf(stderr, "mmap failed: %m\n");
+      waylandbuffer.m_pdata = mmap(NULL, strided_area, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+
+      if (waylandbuffer.m_pdata == MAP_FAILED)
+      {
+
+         error() << "mmap failed";
+
          close(fd);
-         exit(1);
+
+         waylandbuffer.m_pdata = nullptr;
+
+         return waylandbuffer;
+
       }
 
-      pool = wl_shm_create_pool(m_pwlshm, fd, size);
-      buff = wl_shm_pool_create_buffer(pool, 0,
+      pool = wl_shm_create_pool(m_pwlshm, fd, strided_area);
+
+      waylandbuffer.m_pwlbuffer = wl_shm_pool_create_buffer(pool, 0,
                                        size.cx(), size.cy(),
                                        stride,
                                        WL_SHM_FORMAT_XRGB8888);
+
       //wl_buffer_add_listener(buffer, &buffer_listener, buffer);
+
       wl_shm_pool_destroy(pool);
-      return buff;
+
+      return waylandbuffer;
+
    }
 
 

@@ -1238,184 +1238,184 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //   }
 
 
-   bool windowing::x11_message_loop()
-   {
-
-      while (x11_message_loop_step())
-      {
-
-      }
-
-      return true;
-
-   }
-
-
-//gboolean x11_source_func(gpointer)
-   bool windowing::x11_message_loop_step()
-   {
-
-//   osdisplay_data * pdisplaydata = (osdisplay_data *) x11_main_display();
-
-
-
-
-//   if(!g_bInitX11Thread)
+//   bool windowing::x11_message_loop()
 //   {
 //
-//      g_bInitX11Thread = true;
+//      while (x11_message_loop_step())
+//      {
 //
-//      synchronous_lock synchronouslock(user_synchronization());
+//      }
 //
-//      display_lock d(pdisplay);
-//
-//      g_atomKickIdle = m_pdisplay->intern_atom("__WM_KICKIDLE", False);
-//
-//      g_windowX11Client = XCreateSimpleWindow(pdisplay, DefaultRootWindow(pdisplay), 10, 10, 10, 10, 0, 0, 0);
-//
-//      XSelectInput(pdisplay, g_windowX11Client, StructureNotifyMask);
-//
-//      g_oswindowDesktop = oswindow_get(pdisplay, DefaultRootWindow(pdisplay));
-//
-//      g_oswindowDesktop->m_pimpl = nullptr;
-//
-//      XSelectInput(pdisplay, g_oswindowDesktop->window(), StructureNotifyMask | PropertyChangeMask);
+//      return true;
 //
 //   }
 
 
-      try
-      {
-
-         _synchronous_lock synchronouslock(user_synchronization());
-
-         //display_lock displayLock(m_pdisplay->Display());
-
-         Display * pdisplay = m_pdisplay->Display();
-
-         if (pdisplay == nullptr)
-         {
-
-            return true;
-
-         }
-
-         if (!m_bRootSelectInput)
-         {
-
-            m_bRootSelectInput = true;
-
-            auto windowRoot = DefaultRootWindow(pdisplay);
-
-            XSelectInput(pdisplay, windowRoot, PropertyChangeMask);
-
-         }
-
-         while (XPending(pdisplay) && !m_bFinishX11Thread)
-         {
-
-            try
-            {
-
-               XEvent e = {};
-
-               XGenericEventCookie * pcookie;
-
-#ifdef WITH_XI
-
-               if (m_pobjectaExtendedEventListener)
-               {
-
-                  pcookie = &e.xcookie;
-
-               }
-               else
-               {
-
-                  pcookie = nullptr;
-
-               }
-
-#endif
-
-               XNextEvent(pdisplay, &e);
-
-               if (!m_pdisplay->m_px11display->x11_event(&e))
-               {
-
-#ifdef WITH_XI
-
-                  if (!x11_process_event(&e, pcookie))
-
-#else
-
-                     if (!x11_process_event(m_pdisplay->Display(), &e))
-
-#endif
-                  {
-
-                     //XPutBackEvent(pdisplay, &e);
-
-                     //break;
-
-                  }
-
-
-               }
-
-            }
-            catch (...)
-            {
-
-            }
-
-         }
-
-      }
-      catch (...)
-      {
-
-      }
-
-      while (!m_bFinishX11Thread)
-      {
-
-         try
-         {
-
-            if (!x11_runnable_step())
-            {
-
-               break;
-
-            }
-
-         }
-         catch (...)
-         {
-
-         }
-
-      }
-
-      if (m_bFinishX11Thread)
-      {
-
-#ifdef WITH_XI
-
-         m_pobjectaExtendedEventListener.release();
-
-#endif
-
-         information("x11_thread end thread");
-
-         return false;
-
-      }
-
-      return true;
-
-   }
+//gboolean x11_source_func(gpointer)
+//   bool windowing::x11_message_loop_step()
+//   {
+//
+////   osdisplay_data * pdisplaydata = (osdisplay_data *) x11_main_display();
+//
+//
+//
+//
+////   if(!g_bInitX11Thread)
+////   {
+////
+////      g_bInitX11Thread = true;
+////
+////      synchronous_lock synchronouslock(user_synchronization());
+////
+////      display_lock d(pdisplay);
+////
+////      g_atomKickIdle = m_pdisplay->intern_atom("__WM_KICKIDLE", False);
+////
+////      g_windowX11Client = XCreateSimpleWindow(pdisplay, DefaultRootWindow(pdisplay), 10, 10, 10, 10, 0, 0, 0);
+////
+////      XSelectInput(pdisplay, g_windowX11Client, StructureNotifyMask);
+////
+////      g_oswindowDesktop = oswindow_get(pdisplay, DefaultRootWindow(pdisplay));
+////
+////      g_oswindowDesktop->m_pimpl = nullptr;
+////
+////      XSelectInput(pdisplay, g_oswindowDesktop->window(), StructureNotifyMask | PropertyChangeMask);
+////
+////   }
+//
+//
+//      try
+//      {
+//
+//         _synchronous_lock synchronouslock(user_synchronization());
+//
+//         //display_lock displayLock(m_pdisplay->Display());
+//
+//         Display * pdisplay = m_pdisplay->Display();
+//
+//         if (pdisplay == nullptr)
+//         {
+//
+//            return true;
+//
+//         }
+//
+//         if (!m_bRootSelectInput)
+//         {
+//
+//            m_bRootSelectInput = true;
+//
+//            auto windowRoot = DefaultRootWindow(pdisplay);
+//
+//            XSelectInput(pdisplay, windowRoot, PropertyChangeMask);
+//
+//         }
+//
+//         while (XPending(pdisplay) && !m_bFinishX11Thread)
+//         {
+//
+//            try
+//            {
+//
+//               XEvent e = {};
+//
+//               XGenericEventCookie * pcookie;
+//
+//#ifdef WITH_XI
+//
+//               if (m_pobjectaExtendedEventListener)
+//               {
+//
+//                  pcookie = &e.xcookie;
+//
+//               }
+//               else
+//               {
+//
+//                  pcookie = nullptr;
+//
+//               }
+//
+//#endif
+//
+//               XNextEvent(pdisplay, &e);
+//
+//               if (!m_pdisplay->m_px11display->x11_event(&e))
+//               {
+//
+//#ifdef WITH_XI
+//
+//                  if (!x11_process_event(&e, pcookie))
+//
+//#else
+//
+//                     if (!x11_process_event(m_pdisplay->Display(), &e))
+//
+//#endif
+//                  {
+//
+//                     //XPutBackEvent(pdisplay, &e);
+//
+//                     //break;
+//
+//                  }
+//
+//
+//               }
+//
+//            }
+//            catch (...)
+//            {
+//
+//            }
+//
+//         }
+//
+//      }
+//      catch (...)
+//      {
+//
+//      }
+//
+//      while (!m_bFinishX11Thread)
+//      {
+//
+//         try
+//         {
+//
+//            if (!x11_runnable_step())
+//            {
+//
+//               break;
+//
+//            }
+//
+//         }
+//         catch (...)
+//         {
+//
+//         }
+//
+//      }
+//
+//      if (m_bFinishX11Thread)
+//      {
+//
+//#ifdef WITH_XI
+//
+//         m_pobjectaExtendedEventListener.release();
+//
+//#endif
+//
+//         information("x11_thread end thread");
+//
+//         return false;
+//
+//      }
+//
+//      return true;
+//
+//   }
 
 
 //#ifdef display_lock_LOCK_LOG
@@ -1487,1666 +1487,1666 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //    x11_
 
 
-#ifdef WITH_XI
-
-   bool windowing::x11_process_event(XEvent * pevent, XGenericEventCookie * cookie)
-#else
-   bool windowing::x11_process_event(XEvent *pevent)
-#endif
-   {
-
-      XEvent & e = *pevent;
-
-      int iXShmEventBase = XShmGetEventBase(m_pdisplay->Display());
-
-      int iXShmEvent = iXShmEventBase + ShmCompletion;
-
-      if (e.type == iXShmEvent)
-      {
-
-         auto pcompletionevent = (XShmCompletionEvent *) &e;
-
-         auto pwindow = m_pdisplay->_window(pcompletionevent->drawable);
-
-         if (pwindow)
-         {
-
-            ::pointer<::windowing_wayland::window> px11window = pwindow;
-
-            if (px11window)
-            {
-
+//#ifdef WITH_XI
+//
+//   bool windowing::x11_process_event(XEvent * pevent, XGenericEventCookie * cookie)
+//#else
+//   bool windowing::x11_process_event(XEvent *pevent)
+//#endif
+//   {
+//
+//      XEvent & e = *pevent;
+//
+//      int iXShmEventBase = XShmGetEventBase(m_pdisplay->Display());
+//
+//      int iXShmEvent = iXShmEventBase + ShmCompletion;
+//
+//      if (e.type == iXShmEvent)
+//      {
+//
+//         auto pcompletionevent = (XShmCompletionEvent *) &e;
+//
+//         auto pwindow = m_pdisplay->_window(pcompletionevent->drawable);
+//
+//         if (pwindow)
+//         {
+//
+//            ::pointer<::windowing_wayland::window> px11window = pwindow;
+//
+//            if (px11window)
+//            {
+//
+////               try
+////               {
+////
+////                  px11window->strict_set_window_position_unlocked();
+////
+////               }
+////               catch (...)
+////               {
+////
+////               }
+//
+//               ::pointer<buffer> pbuffer = px11window->m_puserinteractionimpl->m_pgraphics;
+//
+//               auto pbufferitem = pbuffer->get_buffer_item();
+//
+//               auto sizeBitBlitting = pbuffer->m_sizeLastBitBlitting;
+//
+//               //px11window->m_puserinteractionimpl->m_puserinteraction->_set_size(sizeBitBlitting, ::user::e_layout_window);
+//
+//               information() << "Got XShmCompletionEvent";
+//
+//               //::pointer<::windowing_wayland::window> px11window = m_pimpl->m_pwindow;
+//
 //               try
 //               {
 //
-//                  px11window->strict_set_window_position_unlocked();
+//                  //m_rectangleXShm
+//
+//                  px11window->strict_set_window_position_unlocked(px11window->m_rectangleXShm);
 //
 //               }
 //               catch (...)
 //               {
 //
 //               }
-
-               ::pointer<buffer> pbuffer = px11window->m_puserinteractionimpl->m_pgraphics;
-
-               auto pbufferitem = pbuffer->get_buffer_item();
-
-               auto sizeBitBlitting = pbuffer->m_sizeLastBitBlitting;
-
-               //px11window->m_puserinteractionimpl->m_puserinteraction->_set_size(sizeBitBlitting, ::user::e_layout_window);
-
-               information() << "Got XShmCompletionEvent";
-
-               //::pointer<::windowing_wayland::window> px11window = m_pimpl->m_pwindow;
-
-               try
-               {
-
-                  //m_rectangleXShm
-
-                  px11window->strict_set_window_position_unlocked(px11window->m_rectangleXShm);
-
-               }
-               catch (...)
-               {
-
-               }
-
-               px11window->_on_end_paint();
-
-               pbuffer->m_bXShmPutImagePending = false;
-
-               pbufferitem->m_manualresetevent.SetEvent();
-
-            }
-
-         }
-
-         return true;
-
-      }
-
-      MESSAGE msg;
-
-      zero(msg);
-
-      bool bRet = false;
-
-#ifdef display_lock_LOCK_LOG
-
-      b_prevent_display_lock_lock_log = false;
-
-#endif
-
-#ifdef WITH_XI
-
-      if (cookie)
-      {
-
-         bool bProcessed = false;
-
-         if (XGetEventData(m_pdisplay->Display(), cookie) && cookie->type == GenericEvent &&
-             cookie->extension == m_xi_opcode)
-         {
-
-            if (m_pobjectaExtendedEventListener && m_pobjectaExtendedEventListener->get_count() > 0)
-            {
-
-               enum_message emessage = e_message_null;
-
-               auto prawevent = (XIRawEvent *) cookie->data;
-
-               auto psystem = acmesystem()->m_papexsystem;
-
-               // detail:
-               // 1 - left button
-               // 2 - middle button
-               // 3 - right button
-               // 4 - wheel down(orup)
-               // 5 - wheel up(ordown)
-
-               auto detail = prawevent->detail;
-
-               switch (cookie->evtype)
-               {
-
-                  case XI_RawKeyPress:
-                     emessage = e_message_key_down;
-                     break;
-                  case XI_RawKeyRelease:
-                     emessage = e_message_key_up;
-                     break;
-                  case XI_RawButtonPress:
-                  {
-                     if (detail == 1)
-                     {
-                        emessage = e_message_left_button_down;
-                     }
-                     else if (detail == 2)
-                     {
-                        emessage = e_message_middle_button_down;
-
-                     }
-                     else if (detail == 3)
-                     {
-                        emessage = e_message_right_button_down;
-                     }
-                     //eid = detail == 5 || detail == 4 ? id_none : id_raw_buttondown;
-
-                  }
-                     break;
-                  case XI_RawButtonRelease:
-//                     eid = detail == 5 || detail == 4 ? id_none : id_raw_buttonup;
-
-                     if (detail == 1)
-                     {
-                        emessage = e_message_left_button_up;
-                     }
-                     else if (detail == 2)
-                     {
-                        emessage = e_message_middle_button_up;
-
-                     }
-                     else if (detail == 3)
-                     {
-                        emessage = e_message_right_button_up;
-                     }
-
-                     break;
-
-               }
-
-               information("\ndetail:" + ::as_string(prawevent->detail));
-
-
-               if (emessage != e_message_null)
-               {
-
-                  ::i64 iWparam = 'a';
-
-                  ::i64 iLparam = XK_a;
-
-                  if (emessage == e_message_key_down || emessage == e_message_key_up)
-                  {
-
-                     if (is_return_key((XIRawEvent *) cookie->data))
-                     {
-
-                        iWparam = '\n';
-
-                        iLparam = XK_Return;
-
-                     }
-                     else if (is_space_key((XIRawEvent *) cookie->data))
-                     {
-
-                        iWparam = ' ';
-
-                        iLparam = XK_space;
-
-                     }
-
-                     //ptopic->payload("return") = is_return_key(pgeevent);
-
-                     //ptopic->payload("space") = is_space_key(pgeevent);
-
-                  }
-
-                  //::topic::context context;
-
-                  for (auto & p: *m_pobjectaExtendedEventListener)
-                  {
-
-                     p->call(emessage, iWparam, iLparam);
-
-                     //p->on_subject(ptopic, &context);
-
-                  }
-
-//                  if(emessage != e_message_null)
+//
+//               px11window->_on_end_paint();
+//
+//               pbuffer->m_bXShmPutImagePending = false;
+//
+//               pbufferitem->m_manualresetevent.SetEvent();
+//
+//            }
+//
+//         }
+//
+//         return true;
+//
+//      }
+//
+//      MESSAGE msg;
+//
+//      zero(msg);
+//
+//      bool bRet = false;
+//
+//#ifdef display_lock_LOCK_LOG
+//
+//      b_prevent_display_lock_lock_log = false;
+//
+//#endif
+//
+//#ifdef WITH_XI
+//
+//      if (cookie)
+//      {
+//
+//         bool bProcessed = false;
+//
+//         if (XGetEventData(m_pdisplay->Display(), cookie) && cookie->type == GenericEvent &&
+//             cookie->extension == m_xi_opcode)
+//         {
+//
+//            if (m_pobjectaExtendedEventListener && m_pobjectaExtendedEventListener->get_count() > 0)
+//            {
+//
+//               enum_message emessage = e_message_null;
+//
+//               auto prawevent = (XIRawEvent *) cookie->data;
+//
+//               auto psystem = acmesystem()->m_papexsystem;
+//
+//               // detail:
+//               // 1 - left button
+//               // 2 - middle button
+//               // 3 - right button
+//               // 4 - wheel down(orup)
+//               // 5 - wheel up(ordown)
+//
+//               auto detail = prawevent->detail;
+//
+//               switch (cookie->evtype)
 //               {
-////                  auto ptopic = psystem->topic(eid);
 //
-//  //                ::topic::context context;
-//
-//                  int iKey = XK_A;
-//
-//                  if(is_return_key((XIRawEvent*)cookie->data))
+//                  case XI_RawKeyPress:
+//                     emessage = e_message_key_down;
+//                     break;
+//                  case XI_RawKeyRelease:
+//                     emessage = e_message_key_up;
+//                     break;
+//                  case XI_RawButtonPress:
 //                  {
+//                     if (detail == 1)
+//                     {
+//                        emessage = e_message_left_button_down;
+//                     }
+//                     else if (detail == 2)
+//                     {
+//                        emessage = e_message_middle_button_down;
 //
-//                     iKey = XK_Return;
+//                     }
+//                     else if (detail == 3)
+//                     {
+//                        emessage = e_message_right_button_down;
+//                     }
+//                     //eid = detail == 5 || detail == 4 ? id_none : id_raw_buttondown;
 //
 //                  }
-//                  else if(is_space_key((XIRawEvent*)cookie->data))
+//                     break;
+//                  case XI_RawButtonRelease:
+////                     eid = detail == 5 || detail == 4 ? id_none : id_raw_buttonup;
+//
+//                     if (detail == 1)
+//                     {
+//                        emessage = e_message_left_button_up;
+//                     }
+//                     else if (detail == 2)
+//                     {
+//                        emessage = e_message_middle_button_up;
+//
+//                     }
+//                     else if (detail == 3)
+//                     {
+//                        emessage = e_message_right_button_up;
+//                     }
+//
+//                     break;
+//
+//               }
+//
+//               information("\ndetail:" + ::as_string(prawevent->detail));
+//
+//
+//               if (emessage != e_message_null)
+//               {
+//
+//                  ::i64 iWparam = 'a';
+//
+//                  ::i64 iLparam = XK_a;
+//
+//                  if (emessage == e_message_key_down || emessage == e_message_key_up)
 //                  {
 //
-//                     iKey = XK_space;
+//                     if (is_return_key((XIRawEvent *) cookie->data))
+//                     {
+//
+//                        iWparam = '\n';
+//
+//                        iLparam = XK_Return;
+//
+//                     }
+//                     else if (is_space_key((XIRawEvent *) cookie->data))
+//                     {
+//
+//                        iWparam = ' ';
+//
+//                        iLparam = XK_space;
+//
+//                     }
+//
+//                     //ptopic->payload("return") = is_return_key(pgeevent);
+//
+//                     //ptopic->payload("space") = is_space_key(pgeevent);
 //
 //                  }
-//
-//
-////                  ptopic->payload("return") = is_return_key(prawevent);
-////
-////                  ptopic->payload("space") = is_space_key(prawevent);
 //
 //                  //::topic::context context;
 //
+//                  for (auto & p: *m_pobjectaExtendedEventListener)
+//                  {
+//
+//                     p->call(emessage, iWparam, iLparam);
+//
+//                     //p->on_subject(ptopic, &context);
+//
+//                  }
+//
+////                  if(emessage != e_message_null)
+////               {
+//////                  auto ptopic = psystem->topic(eid);
+////
+////  //                ::topic::context context;
+////
+////                  int iKey = XK_A;
+////
+////                  if(is_return_key((XIRawEvent*)cookie->data))
+////                  {
+////
+////                     iKey = XK_Return;
+////
+////                  }
+////                  else if(is_space_key((XIRawEvent*)cookie->data))
+////                  {
+////
+////                     iKey = XK_space;
+////
+////                  }
+////
+////
+//////                  ptopic->payload("return") = is_return_key(prawevent);
+//////
+//////                  ptopic->payload("space") = is_space_key(prawevent);
+////
+////                  //::topic::context context;
+////
+//////                  for(auto & p : *m_pobjectaExtendedEventListener)
+//////                  {
+//////
+//////                     p->on_subject(ptopic, &context);
+//////
+//////                  }
+////
+////
 ////                  for(auto & p : *m_pobjectaExtendedEventListener)
 ////                  {
 ////
-////                     p->on_subject(ptopic, &context);
+////                     p->call(emessage, iKey);
 ////
 ////                  }
 //
-//
-//                  for(auto & p : *m_pobjectaExtendedEventListener)
-//                  {
-//
-//                     p->call(emessage, iKey);
-//
-//                  }
-
-               }
-
-               bProcessed = true;
-
-            }
-
-         }
-
-         XFreeEventData(m_pdisplay->Display(), cookie);
-
-         if (bProcessed)
-         {
-
-            return true;
-
-         }
-
-      }
-
-#endif
-
-      msg.time = 0;
-
-      auto px11window = m_pdisplay->_window(e.xany.window);
-
-      msg.oswindow = px11window;
-
-      if (e.xany.type == ClientMessage && e.xany.window == g_windowX11Client
-          && e.xclient.message_type == g_atomKickIdle)
-      {
-
-         information("\nkick idle received\n");
-
-         return true;
-
-      }
-
-      switch (e.type)
-      {
-         case LeaveNotify:
-         {
-
-            if (msg.oswindow)
-            {
-
-               ::minimum(m_pointCursor.x());
-
-               ::minimum(m_pointCursor.y());
-
-
-               if(e.xcrossing.mode == NotifyUngrab)
-               {
-
-                  information() << "X11 LeaveNotify NotifyUngrab";
-
-               }
-
-//            if(e.xcrossing.mode == NotifyUngrab)
-//            {
-//
-//  //             MESSAGE msgCaptureChanged;
-//
-////               msgCaptureChanged.oswindow = m_pwindowCapture;
-//               msg.m_atom = e_message_capture_changed;
-//               msg.wParam = 0;
-//               msg.lParam = (lparam) (oswindow) (msg.oswindow == m_pwindowCapture ? nullptr : m_pwindowCapture.m_p);
-//               msg.time = e.xcrossing.time;
-//
-//               post_ui_message(msg);
-//
-//            }
-
-               msg.m_atom = e_message_mouse_leave;
-               msg.wParam = 0;
-               msg.lParam = 0;
-               msg.time = e.xcrossing.time;
-
-               post_ui_message(msg);
-
-            }
-
-         }
-            break;
-         case EnterNotify:
-         {
-
-            if(e.xcrossing.mode == NotifyGrab)
-            {
-
-               information() << "X11 EnterNotify NotifyGrab";
-
-            }
-
-            //::minimum(m_pointCursor.x);
-
-            //::minimum(m_pointCursor.y);
-
-         }
-            break;
-         case MotionNotify:
-         {
-
-            if (msg.oswindow)
-            {
-
-               m_pointCursor.x() = e.xmotion.x_root;
-
-               m_pointCursor.y() = e.xmotion.y_root;
-
-               msg.oswindow->set_cursor_position(m_pointCursor);
-
-               //information() << "MotionNotify " << m_pointCursor;
-
-               //g_pointX11Cursor.x = e.xmotion.x_root;
-
-               //g_pointX11Cursor.y = e.xmotion.y_root;
-
-//               if (msg.oswindow != nullptr && msg.oswindow->m_puserinteractionimpl != nullptr)
-//               {
-//
-//                  ((::windowing_wayland::window *) msg.oswindow->m_pWindow4)->m_pointCursor = m_pointCursor;
-//
-//                  bool bOk = true;
-//
-//                  ::pointer < ::user::interaction > pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
-//
-//                  if (pinteraction.is_set())
-//                  {
-//
-//                     if (pinteraction->m_timeMouseMove.elapsed() < pinteraction->m_timeMouseMoveIgnore)
-//                     {
-//
-//                        bOk = false;
-//
-//                     }
-//
-//                     if (bOk)
-//                     {
-//
-//                        pinteraction->m_timeMouseMove.Now();
-//
-//                        pinteraction->m_pointMouseMove.x = e.xmotion.x_root;
-//
-//                        pinteraction->m_pointMouseMove.y = e.xmotion.y_root;
-//
-//                        if (false)
-//                        {
-//
-//                           if (pinteraction->m_timeMouseMovePeriod > 0_s)
-//                           {
-//
-//                              ::size_i32 sizeDistance(
-//                                 (pinteraction->m_pointMouseMoveSkip.x - pinteraction->m_pointMouseMove.x),
-//                                 (pinteraction->m_pointMouseMoveSkip.y - pinteraction->m_pointMouseMove.y));
-//
-//                              if (
-//                                 !pinteraction->m_timeMouseMoveSkip.timeout(pinteraction->m_timeMouseMovePeriod)
-//                                 && sizeDistance.cx() * sizeDistance.cx() + sizeDistance.cy() * sizeDistance.cy() <
-//                                    pinteraction->m_iMouseMoveSkipSquareDistance)
-//                              {
-//
-//                                 pinteraction->m_iMouseMoveSkipCount++;
-//
-//                                 pinteraction->m_bMouseMovePending = true;
-//
-//                                 if (pinteraction->m_iMouseMoveSkipCount == 2)
-//                                 {
-//
-//                                    //information("\nmmv>skip 2!");
-//
-//                                 }
-//                                 else if (pinteraction->m_iMouseMoveSkipCount == 5)
-//                                 {
-//
-//                                    //information("\nmmv>Skip 5!!!");
-//
-//                                 }
-//                                 else if (pinteraction->m_iMouseMoveSkipCount == 10)
-//                                 {
-//
-//                                    //information("\nmmv>SKIP 10 !!!!!!!!!");
-//
-//                                 }
-//
-//                                 return true;
-//
-//                              }
-//
-//                              pinteraction->m_iMouseMoveSkipCount = 0;
-//
-//                              pinteraction->m_pointMouseMoveSkip = pinteraction->m_pointMouseMove;
-//
-//                           }
-//
-//                        }
-//
-//                     }
-//
-//                  }
-//
-//                  if (!bOk)
-//                  {
-//
-//                     return true;
-//
-//                  }
-//
-//               }
-
-               wparam wparam(0);
-
-               if (e.xmotion.state & Button1Mask)
-               {
-
-                  wparam |= ::user::e_mouse_middle_button;
-
-               }
-
-               //msg.m_atom = e_message_mouse_move;
-               //msg.wParam = wparam;
-               //msg.lParam = make_i32(e.xmotion.x_root, e.xmotion.y_root);
-               //msg.time = e.xmotion.time;
-
-               //post_ui_message(msg);
-
-               auto pmouse = px11window->__create_new<::message::mouse>();
-
-               pmouse->m_oswindow = px11window;
-
-               pmouse->m_pwindow = px11window;
-
-               pmouse->m_atom = e_message_mouse_move;
-
-               pmouse->m_point.x() = e.xmotion.x_root;
-
-               pmouse->m_point.y() = e.xmotion.y_root;
-
-               pmouse->m_time.m_iSecond = e.xmotion.time / 1_k;
-
-               pmouse->m_time.m_iNanosecond = (e.xmotion.time % 1_k) * 1_M;
-
-               //pwindow->message_handler(pmouse);
-
-               post_ui_message(pmouse);
-
-            }
-
-         }
-            break;
-         case Expose:
-         {
-
-            //information("windowing_11 Expose");
-
-//#ifdef FREEBSD
-            ::rectangle_i32 rectangleRedraw;
-
-            rectangleRedraw.left() = e.xexpose.x;
-            rectangleRedraw.top() = e.xexpose.y;
-            rectangleRedraw.right() = rectangleRedraw.left() + e.xexpose.width;
-            rectangleRedraw.bottom() = rectangleRedraw.top() + e.xexpose.height;
-
-            px11window->m_rectangleaRedraw.add(rectangleRedraw);
-
-            //pinteraction->set_need_redraw();
-
-
-            if (e.xexpose.count == 0)
-            {
-
-//               auto oswindow = msg.oswindow;
-//
-//              if(oswindow)
-//               {
-//
-//                  auto pimpl = oswindow->m_puserinteractionimpl;
-//
-//                  if(pimpl)
-//                  {
-//
-//                     auto puserinteraction = pimpl->m_puserinteraction;
-//
-//                     if(puserinteraction)
-//                     {
-//
-//                        if (puserinteraction->m_ewindowflag & ::e_window_flag_arbitrary_positioning)
-//                        {
-//
-//                           pimpl->_001UpdateScreen();
-//
-//                        }
-//                        else
-//                        {
-//
-//                           msg.m_atom = e_message_paint;
-//                           msg.lParam = 0;
-//                           msg.wParam = 0;
-//
-//                           post_ui_message(msg);
-//
-//                        }
-//
-//                     }
-//
-//                  }
-//
 //               }
 //
-//               //msg.oswindow->m_pimpl->_001UpdateScreen();
-//
-//               //::pointer<::user::interaction>pinteraction = msg.oswindow->m_pimpl->m_puserinteraction;
-//                  auto pimpl = oswindow->m_puserinteractionimpl;
-//
-//                  if(pimpl)
-//                  {
-//
-//                     ::pointer < ::windowing_wayland::buffer > pbuffer= pimpl->m_pgraphics;
-//
-//                     if(pbuffer)
-//                     {
-//
-//                        pbuffer->_update_screen_lesser_lock();
-//
-//                     }
-//
-//
-//                  }
-
-                px11window->m_rectangleaRedraw.clear();
-
-//
-
-//px11window->
-
-
-                auto pimpl = px11window->m_puserinteractionimpl;
-
-                //auto puserinteraction = pimpl->m_puserinteraction;
-               ::pointer<buffer> pbuffer = pimpl->m_pgraphics;
-
-               if(!pbuffer->m_bXShm || !pbuffer->m_bXShmPutImagePending)
-               {
-
-
-                  pbuffer->_update_screen_lesser_lock();
-
-               }
-
-  //              if (puserinteraction)
-    //            {
-
-      //             puserinteraction->set_need_redraw(px11window->m_rectangleaRedraw);
-
-//                   px11window->m_rectangleaRedraw.clear();
-
-//                   {
-//
-//                      _synchronous_lock synchronouslockProcedureListPriority(this->synchronization());
-//
-//                      m_procedurelistPriority.add([pimpl]()
-//                                                  {
-//
-//                      pimpl->m_pgraphicsthread->prodevian_update_buffer();
-//
-//                      pimpl->m_pgraphicsthread->prodevian_update_screen();
-//
-//                                                  });
-//
-//                   }
-
-//                   puserinteraction->post_redraw();
-
-                //}
-                //}
-//                  }
-
-            }
-//#endif
-         }
-            break;
-         case PropertyNotify:
-         {
-
-            if (e.xany.window == DefaultRootWindow(m_pdisplay->Display()))
-            {
-
-               Atom atom = m_pdisplay->intern_atom("_NET_ACTIVE_WINDOW", False);
-
-               if (atom == e.xproperty.atom)
-               {
-
-                  auto pwindowActiveOld = m_pdisplay->m_pwindowActive;
-
-                  auto pwindowActiveNew = m_pdisplay->_get_active_window(nullptr);
-
-                  if (pwindowActiveNew != pwindowActiveOld)
-                  {
-
-                     m_pdisplay->m_pwindowActive = pwindowActiveNew;
-
-                     if (::is_set(pwindowActiveNew))
-                     {
-
-                        auto pimplNew = pwindowActiveNew->m_puserinteractionimpl;
-
-                        if (::is_set(pimplNew))
-                        {
-
-                           auto puserinteractionNew = pimplNew->m_puserinteraction;
-
-                           if (::is_set(puserinteractionNew))
-                           {
-
-                              puserinteractionNew->set_need_redraw();
-
-                              puserinteractionNew->post_redraw();
-
-                           }
-
-                        }
-
-                     }
-
-                     if (::is_set(pwindowActiveOld))
-                     {
-
-                        auto pimplOld = pwindowActiveOld->m_puserinteractionimpl;
-
-                        if (::is_set(pimplOld))
-                        {
-
-                           auto puserinteractionOld = pimplOld->m_puserinteraction;
-
-                           if (::is_set(puserinteractionOld))
-                           {
-
-                              puserinteractionOld->set_need_redraw();
-
-                              puserinteractionOld->post_redraw();
-
-                           }
-
-                        }
-
-                     }
-
-                  }
-
-               }
-
-            }
-            else if (px11window)
-            {
-
-               msg.time = e.xproperty.time;
-
-               ::user::interaction * pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
-
-               if (::is_set(pinteraction))
-               {
-
-                  if (e.xproperty.atom == m_pdisplay->m_atomNetWmState)
-                  {
-
-                     auto bNetWmStateHiddenOld = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateHidden);
-
-                     auto bNetWmStateMaximizedHorzOld = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateMaximizedHorz);
-
-                     auto bNetWmStateMaximizedVertOld = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateMaximizedVert);
-
-                     auto bNetWmStateFocusedOld = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateFocused);
-
-                     px11window->m_atomaNetWmState = px11window->_get_net_wm_state_unlocked();
-
-                     auto bNetWmStateHidden = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateHidden);
-
-                     auto bNetWmStateMaximizedHorz = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateMaximizedHorz);
-
-                     auto bNetWmStateMaximizedVert = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateMaximizedVert);
-
-                     auto bNetWmStateFocused = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateFocused);
-
-                     information() << "PropertyNotify Hidden : " << bNetWmStateHidden << ", Zoomed : " << (bNetWmStateMaximizedHorz || bNetWmStateMaximizedVert) << ", Focused : " << bNetWmStateFocused;
-
-                     auto edisplayDesign = pinteraction->const_layout().design().display();
-
-                     if (bNetWmStateHidden && is_different(bNetWmStateHidden, bNetWmStateHiddenOld))
-                     {
-
-                        if (edisplayDesign != e_display_iconic
-                            && edisplayDesign != e_display_notify_icon
-                            && is_screen_visible(edisplayDesign))
-                        {
-
-                           information()
-                              << "X11::ConfigureNotify trying to fix state to hidden state by asking e_display_iconic";
-
-                           pinteraction->display(e_display_iconic);
-
-                        }
-
-                     }
-                     else if ((bNetWmStateMaximizedHorz || bNetWmStateMaximizedVert) &&
-                              is_different((bNetWmStateMaximizedHorz || bNetWmStateMaximizedVert), (bNetWmStateMaximizedHorzOld && bNetWmStateMaximizedVertOld)))
-                     {
-
-                        if (edisplayDesign != e_display_zoomed)
-                        {
-
-                           information()
-                              << "X11::ConfigureNotify trying to fix state to zoomed state by asking e_display_zoomed";
-
-                           pinteraction->display(e_display_zoomed);
-
-                        }
-
-                     }
-                     else if (bNetWmStateFocused &&
-                              is_different(bNetWmStateFocused, bNetWmStateFocusedOld))
-                     {
-
-                        //if (edisplayDesign != e_display_zoomed)
-                        {
-
-                           information()
-                              << "X11::ConfigureNotify trying to fix state to previous state by calling display_previous";
-
-                           pinteraction->display_previous();
-
-                        }
-
-                     }
-
-                  }
-                  else if (e.xproperty.atom == m_pdisplay->m_atomWmState)
-                  {
-
-                     _on_wm_state_change(px11window);
-
-                  }
-
-               }
-
-            }
-
-//
-//               long lState = -1;
-//
-//               ::pointer<::windowing_wayland::window> px11window = msg.oswindow;
-//
-//               if (e.xproperty.atom == m_pdisplay->m_atomWmState
-//                   && px11window->_get_state_unlocked(lState))
-//               {
-//
-//                  bool bIconic = lState == IconicState ? 1 : 0;
-//
-//                  information() << "PropertyNotify is_iconic : " << bIconic;
-//
-//                  ::user::interaction * pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
-//
-//                  if (pinteraction != nullptr)
-//                  {
-//
-//                     auto pimpl = pinteraction->m_pprimitiveimpl;
-//
-//                     bool bHandled = false;
-//
-//                     if (pimpl != nullptr)
-//                     {
-//
-//                        if (bIconic)
-//                        {
-//
-//                           if (pinteraction->const_layout().design().display() == ::e_display_iconic
-//                               || pinteraction->const_layout().design().display() == ::e_display_notify_icon)
-//                           {
-//
-////                                 //file_put_contents("/home/camilo/xxx.txt", "");
-////
-////                                 // 1111111111111111111111111111111111111111111
-////
-////                                 //pinteraction->hide();
-////
-////                                 pinteraction->fork([=]()
-////                                                    {
-////
-////                                                       auto edisplayPrevious = pinteraction->window_previous_display();
-////
-////                                                       pinteraction->_001OnDeiconify(edisplayPrevious);
-////
-////                                                    });
-////
-////                                 bHandled = true;
-//
-//                           }
-//                           else
-//                           {
-////                           else if (pinteraction->const_layout().sketch().display() == ::e_display_full_screen
-////                                       && pinteraction->const_layout().design().display() != ::e_display_full_screen)
-////                              {
-//
-//                              //pinteraction->display(::e_display_full_screen);
-//
-//                              // maybe todo: remove x11 window iconic state
-//                              // as there seems to be a request to set to non-iconic state
-//                              // to the user::interaction associated with this window at this point
-//
-//                           }
-//
-//                        }
-//                        else
-//                        {
-//
-//                           if (pinteraction->const_layout().design().display() != ::e_display_iconic
-//                               && pinteraction->const_layout().design().display() != ::e_display_notify_icon
-//                               && windowing().is_screen_visible(pinteraction->const_layout().design().display()))
-//                           {
-//
-//                              information() << "X11::ConfigureNotify trying to fix state to iconic state";
-//
-//                              pinteraction->display(::e_display_iconic);
-//
-//                           }
-//
-//                        }
-//
-//                     }
-//
-//                  }
-//
-//               }
+//               bProcessed = true;
 //
 //            }
-
-
-         }
-            break;
-         case MapNotify:
-         {
-
-
-
-//            auto px11window = m_pdisplay->_window(e.xmap.window);
-//
-//            if(m_pdisplay->m_bHasXSync)
-//            {
-//
-//               if(px11window->m_xsynccounterNetWmSync == None)
-//               {
-//
-//                  px11window->_enable_net_wm_sync();
-//
-//               }
-//
-//            }
-
-            information("windowing_wayland MapNotify");
-
-            if (px11window)
-            {
-
-               if (!XGetWindowAttributes(m_pdisplay->Display(), px11window->Window(), &px11window->m_xwindowattributes))
-               {
-
-                  information("X11 MapNotify XGetWindowAttributes failed");
-
-                  return false;
-
-               }
-
-               msg.m_atom = e_message_show_window;
-               msg.wParam = 1;
-               msg.lParam = 0;
-
-               post_ui_message(msg);
-
-            }
-
-         }
-            break;
-         case UnmapNotify:
-         {
-
-            information("windowing_wayland UnmapNotify");
-
-            if (msg.oswindow)
-            {
-
-               if (!XGetWindowAttributes(m_pdisplay->Display(), px11window->Window(), &px11window->m_xwindowattributes))
-               {
-
-                  information("X11 MapNotify XGetWindowAttributes failed");
-
-                  return false;
-
-               }
-
-
-               msg.m_atom = e_message_show_window;
-               msg.wParam = 0;
-               msg.lParam = 0;
-
-               post_ui_message(msg);
-
-            }
-
-         }
-            break;
-         case ConfigureNotify:
-         {
-
-            if (e.xconfigure.window == DefaultRootWindow(m_pdisplay->Display()))
-            {
-
-               auto psession = get_session()->m_papexsession;
-
-               auto applicationa = psession->m_applicationa;
-
-               try
-               {
-
-                  for (auto & papp: applicationa)
-                  {
-
-                     try
-                     {
-
-                        auto pauraapplication = papp->m_pauraapplication;
-
-                        auto userinteractionaFrame = pauraapplication->m_puserinteractionaFrame->interactiona();
-
-                        for (auto & puserinteractionFrame: userinteractionaFrame)
-                        {
-
-                           try
-                           {
-
-                              puserinteractionFrame->post_message(e_message_display_change);
-
-                           }
-                           catch (...)
-                           {
-
-                           }
-
-                        }
-
-                     }
-                     catch (...)
-                     {
-
-                     }
-
-                  }
-
-               }
-               catch (...)
-               {
-
-               }
-
-            }
-            else
-            {
-
-               if (m_pdisplay->m_bHasXSync)
-               {
-
-                  auto oswindow = m_pdisplay->_window(e.xconfigure.window);
-
-                  if (oswindow)
-                  {
-
-                     if (oswindow->m_enetwmsync == window::e_net_wm_sync_wait_configure)
-                     {
-
-                        oswindow->m_xsyncvalueNetWmSync = oswindow->m_xsyncvalueNetWmSyncPending;
-
-                        XSyncIntToValue(&oswindow->m_xsyncvalueNetWmSyncPending, 0);
-
-                        oswindow->m_enetwmsync = window::e_net_wm_sync_wait_paint;
-
-                     }
-
-                  }
-
-               }
-
-               if(px11window)
-               {
-
-                  if (!XGetWindowAttributes(m_pdisplay->Display(), px11window->Window(),
-                                            &px11window->m_xwindowattributes))
-                  {
-
-                     information("X11 MapNotify XGetWindowAttributes failed");
-
-                     return false;
-
-                  }
-
-
-                  ::user::primitive_impl * pimpl = px11window->m_puserinteractionimpl;
-
-                  if (pimpl != nullptr)
-                  {
-
-                     ::user::interaction * pinteraction = pimpl->m_puserinteraction;
-
-                     if (pinteraction != nullptr)
-                     {
-
-                        pinteraction->_on_visual_changed_unlocked();
-
-                        information() << "X11 ConfigureNotify Win, xy : " << e.xconfigure.window << ", "
-                                      << e.xconfigure.x << ", " << e.xconfigure.y << ", wh :"
-                                      << e.xconfigure.width << ", " << e.xconfigure.height;
-
-                        //information() << "X11 ConfigureNotify Win, cx, cy : " << e.xconfigure.window << ", "
-                          //            <<  ;
-
-                        ::point_i32 point(e.xconfigure.x, e.xconfigure.y);
-
-//                     //if(point != msg.oswindow->m_point)
-//                     {
-//
-//                        msg.oswindow->m_point = point;
-//
-//                        _position_message(msg.oswindow, point);
-//
-//                     }
-
-                        ::size_i32 size(e.xconfigure.width, e.xconfigure.height);
-
-                        ::rectangle_i32 rectangle(point, size);
-
-                        //if(size != msg.oswindow->m_size)
-                        {
-
-//                        msg.oswindow->m_pointWindow = point;
-//
-//                        msg.oswindow->m_sizeWindow = size;
-//
-                           _configure_message(msg.oswindow, rectangle);
-
-                        }
-
-                        //_handle_configure_iconic_state(msg.oswindow);
-
-                     }
-
-                  }
-
-               }
-
-            }
-
-         }
-         break;
-         case ButtonPress:
-         case ButtonRelease:
-         {
-
-            if (msg.oswindow)
-            {
-
-
-               enum_message emessage = e_message_undefined;
-               //msg.m_atom = e_message_mouse_wheel;
-
-               //post_ui_message(pmouse);
-
-               bRet = true;
-
-               //msg.time = e.xbutton.time;
-
-               int Δ = 0;
-
-               if (e.xbutton.type == ButtonPress)
-               {
-
-                  if (e.xbutton.button == Button1)
-                  {
-
-                     ::information("ButtonPress::Button1\n");
-
-                     emessage = e_message_left_button_down;
-
-                  }
-                  else if (e.xbutton.button == Button2)
-                  {
-
-                     emessage = e_message_middle_button_down;
-
-                  }
-                  else if (e.xbutton.button == Button3)
-                  {
-
-                     emessage = e_message_right_button_down;
-
-                  }
-                  else if (e.xbutton.button == Button4)
-                  {
-
-                     Δ = 120;
-
-                  }
-                  else if (e.xbutton.button == Button5)
-                  {
-
-                     Δ = -120;
-
-                  }
-                  else
-                  {
-
-                     bRet = false;
-
-                  }
-
-               }
-               else if (e.xbutton.type == ButtonRelease)
-               {
-
-                  if (e.xbutton.button == Button1)
-                  {
-
-                     ::information("ButtonRelease::Button1\n");
-
-                     emessage = e_message_left_button_up;
-
-                  }
-                  else if (e.xbutton.button == Button2)
-                  {
-
-                     emessage = e_message_middle_button_up;
-
-                  }
-                  else if (e.xbutton.button == Button3)
-                  {
-
-                     emessage = e_message_right_button_up;
-
-                  }
-                  else
-                  {
-
-                     bRet = false;
-
-                  }
-
-               }
-               else
-               {
-
-                  bRet = false;
-
-               }
-
-               int XRoot = e.xbutton.x_root;
-
-               int YRoot = e.xbutton.y_root;
-
-               m_pointCursor.x() = XRoot;
-
-               m_pointCursor.y() = YRoot;
-
-               msg.oswindow->set_cursor_position(m_pointCursor);
-
-
-
-//      int l = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.x;
-//      int t = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.y;
-//      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx();
-//      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy();
-//
-//      ::rectangle_i32 r;
-//
-//      window_rectangle(msg.oswindow, &r);
-//
-//      int l1 = r.left();
-//      int t1 = r.top();
-//      int w1 = r.width();
-//      int h1 = r.height();
-
-               if (Δ != 0)
-               {
-
-                  auto pmousewheel = px11window->__create_new<::message::mouse_wheel>();
-
-                  pmousewheel->m_oswindow = px11window;
-
-                  pmousewheel->m_pwindow = px11window;
-
-                  pmousewheel->m_atom = e_message_mouse_wheel;
-
-                  //msg.wParam = make_i32(0, iDelta);
-
-                  //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
-
-                  pmousewheel->m_Δ = Δ;
-
-                  pmousewheel->m_point.x() = e.xbutton.x_root;
-
-                  pmousewheel->m_point.y() = e.xbutton.y_root;
-
-                  pmousewheel->m_time.m_iSecond = e.xbutton.time / 1_k;
-
-                  pmousewheel->m_time.m_iNanosecond = (e.xbutton.time % 1_k) * 1_M;
-
-                  post_ui_message(pmousewheel);
-
-
-               }
-               else if (bRet)
-               {
-
-                  auto pmouse = px11window->__create_new<::message::mouse>();
-
-                  pmouse->m_oswindow = px11window;
-
-                  pmouse->m_pwindow = px11window;
-
-                  pmouse->m_atom = emessage;
-
-                  pmouse->m_point.x() = e.xbutton.x_root;
-
-                  pmouse->m_point.y() = e.xbutton.y_root;
-
-                  pmouse->m_time.m_iSecond = e.xbutton.time / 1_k;
-
-                  pmouse->m_time.m_iNanosecond = (e.xbutton.time % 1_k) * 1_M;
-
-                  //msg.wParam = 0;
-
-                  //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
-
-                  //post_ui_message(msg);
-                  post_ui_message(pmouse);
-
-               }
-
-            }
-
-         }
-            break;
-         case KeyPress:
-         case KeyRelease:
-         {
-
-            if (msg.oswindow)
-            {
-
-               msg.time = e.xkey.time;
-
-               bRet = true;
-
-               char buf[32];
-
-               zero(buf);
-
-               string strText;
-
-               KeySym keysym = 0;
-
-               if (e.xkey.type == KeyPress)
-               {
-
-                  msg.m_atom = e_message_key_down;
-
-                  ::pointer<::windowing_wayland::window> pwindow = msg.oswindow;
-
-                  if (!pwindow->m_pximkeyboard)
-                  {
-
-                     pwindow->m_pximkeyboard = memory_new ::xim::keyboard(m_pdisplay->Display(), e.xkey.window);
-
-                     pwindow->m_pximkeyboard->initialize(pwindow);
-
-                  }
-
-                  strText = pwindow->m_pximkeyboard->get_key_press_text(&e.xkey, &keysym);
-
-                  //case XK_Escape:
-//                dv_dpy->dontdraw = 1;
-//                xv_pause=0;
-//                XvStopVideo(dv_dpy->dpy, dv_dpy->port, dv_dpy->win);
-//                XDestroyWindow(dv_dpy->dpy, dv_dpy->win);
-//                break;
-//
-//            case XK_Q:
-//            case XK_q:
-//                xv_pause=0;
-//                dv_dpy->dontdraw = (dv_dpy->dontdraw) ? 0:1;
-//                break;
-//
-//            case XK_space:
-//                xv_pause = (xv_pause)?0:1;
-//                while(xv_pause) {
-//                    dv_display_event(dv_dpy);
-//                    usleep(10000_ms);
-//                }
-//
-//            default:
-//                break;
-//            }
-               }
-               else if (e.xkey.type == KeyRelease)
-               {
-
-                  keysym = XkbKeycodeToKeysym(m_pdisplay->Display(), e.xkey.keycode, 0,
-                                              e.xkey.state & ShiftMask ? 1 : 0);
-
-                  msg.m_atom = e_message_key_up;
-
-               }
-               else
-               {
-
-                  bRet = false;
-
-               }
-
-               if (bRet)
-               {
-
-                  msg.wParam = e.xkey.keycode;
-
-                  msg.lParam = keysym;
-
-                  post_ui_message(msg);
-
-               }
-
-               if (strText.has_char() && !(e.xkey.state & ControlMask))
-               {
-
-                  auto pkey = __create_new<::message::key>();
-
-                  pkey->m_oswindow = px11window;
-
-                  pkey->m_pwindow = px11window;
-
-                  //pkey->set(oswindow, oswindow, e_message_text_composition, 0, 0);
-
-                  pkey->m_atom = e_message_text_composition;
-
-                  pkey->m_strText = strText;
-
-//               MESSAGE msgText(msg);
-//
-//               msgText.m_atom = e_message_text_composition;
-//
-//               msgText.wParam = 0;
-//
-//               string *pstringText = memory_new string(strText);
-//
-//               msgText.lParam = (lparam) (iptr) (string *) (pstringText);
-
-                  printf("x11_process_message e_message_text_composition\n");
-
-                  //post_ui_message(msgText);
-                  post_ui_message(pkey);
-
-               }
-
-            }
-
-         }
-            break;
-
-         case FocusIn:
-         {
-
-            ::information("FocusIn\n");
-
-            msg.m_atom = e_message_set_focus;
-
-            if (::is_set(px11window))
-            {
-
-               m_pdisplay->m_pwindowKeyboardFocus = px11window;
-
-               auto pimpl = px11window->m_puserinteractionimpl;
-
-               if (::is_set(pimpl))
-               {
-
-                  auto pinteraction = pimpl->m_puserinteraction;
-
-                  if (::is_set(pinteraction))
-                  {
-
-                     msg.m_atom = e_message_set_focus;
-
-                     pinteraction->m_ewindowflag |= ::e_window_flag_focus;
-
-                     post_ui_message(msg);
-
-                  }
-
-               }
-
-            }
-
-            //msg.wParam = (WPARAM) oswindow_get(display(), e.xfocus.window);
-
-//      Window wFocus = 0;
-//
-//      int revert_to_return = 0;
-//
-//      int iStatus = XGetInputFocus(display, &wFocus, &revert_to_return);
-//
-//      //if(iStatus == Success)
-//      if(iStatus)
-//      {
-//
-//         if(wFocus == e.xfocus.window)
-//         {
-//
-//            information("A\n");
-//
-//         }
-//         else
-//         {
-//
-//            information("B " + as_string(wFocus));
-//
-//            g_windowFocus = wFocus;
 //
 //         }
 //
-//         if(wFocus == g_windowFocus)
+//         XFreeEventData(m_pdisplay->Display(), cookie);
+//
+//         if (bProcessed)
 //         {
 //
-//            information("C\n");
-//
-//         }
-//         else
-//         {
-//
-//            information("D " + as_string(wFocus));
-//
-//            g_windowFocus = wFocus;
+//            return true;
 //
 //         }
 //
 //      }
 //
-//      synchronous_lock synchronouslock(pdata->m_pmutexInput);
+//#endif
 //
-//      pdata->m_messsageaInput.add(msg);
+//      msg.time = 0;
+//
+//      auto px11window = m_pdisplay->_window(e.xany.window);
+//
+//      msg.oswindow = px11window;
+//
+//      if (e.xany.type == ClientMessage && e.xany.window == g_windowX11Client
+//          && e.xclient.message_type == g_atomKickIdle)
+//      {
+//
+//         information("\nkick idle received\n");
+//
+//         return true;
+//
+//      }
+//
+//      switch (e.type)
+//      {
+//         case LeaveNotify:
+//         {
+//
+//            if (msg.oswindow)
+//            {
+//
+//               ::minimum(m_pointCursor.x());
+//
+//               ::minimum(m_pointCursor.y());
+//
+//
+//               if(e.xcrossing.mode == NotifyUngrab)
+//               {
+//
+//                  information() << "X11 LeaveNotify NotifyUngrab";
+//
+//               }
+//
+////            if(e.xcrossing.mode == NotifyUngrab)
+////            {
+////
+////  //             MESSAGE msgCaptureChanged;
+////
+//////               msgCaptureChanged.oswindow = m_pwindowCapture;
+////               msg.m_atom = e_message_capture_changed;
+////               msg.wParam = 0;
+////               msg.lParam = (lparam) (oswindow) (msg.oswindow == m_pwindowCapture ? nullptr : m_pwindowCapture.m_p);
+////               msg.time = e.xcrossing.time;
+////
+////               post_ui_message(msg);
+////
+////            }
+//
+//               msg.m_atom = e_message_mouse_leave;
+//               msg.wParam = 0;
+//               msg.lParam = 0;
+//               msg.time = e.xcrossing.time;
+//
+//               post_ui_message(msg);
+//
+//            }
+//
+//         }
+//            break;
+//         case EnterNotify:
+//         {
+//
+//            if(e.xcrossing.mode == NotifyGrab)
+//            {
+//
+//               information() << "X11 EnterNotify NotifyGrab";
+//
+//            }
+//
+//            //::minimum(m_pointCursor.x);
+//
+//            //::minimum(m_pointCursor.y);
+//
+//         }
+//            break;
+//         case MotionNotify:
+//         {
+//
+//            if (msg.oswindow)
+//            {
+//
+//               m_pointCursor.x() = e.xmotion.x_root;
+//
+//               m_pointCursor.y() = e.xmotion.y_root;
+//
+//               msg.oswindow->set_cursor_position(m_pointCursor);
+//
+//               //information() << "MotionNotify " << m_pointCursor;
+//
+//               //g_pointX11Cursor.x = e.xmotion.x_root;
+//
+//               //g_pointX11Cursor.y = e.xmotion.y_root;
+//
+////               if (msg.oswindow != nullptr && msg.oswindow->m_puserinteractionimpl != nullptr)
+////               {
+////
+////                  ((::windowing_wayland::window *) msg.oswindow->m_pWindow4)->m_pointCursor = m_pointCursor;
+////
+////                  bool bOk = true;
+////
+////                  ::pointer < ::user::interaction > pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
+////
+////                  if (pinteraction.is_set())
+////                  {
+////
+////                     if (pinteraction->m_timeMouseMove.elapsed() < pinteraction->m_timeMouseMoveIgnore)
+////                     {
+////
+////                        bOk = false;
+////
+////                     }
+////
+////                     if (bOk)
+////                     {
+////
+////                        pinteraction->m_timeMouseMove.Now();
+////
+////                        pinteraction->m_pointMouseMove.x = e.xmotion.x_root;
+////
+////                        pinteraction->m_pointMouseMove.y = e.xmotion.y_root;
+////
+////                        if (false)
+////                        {
+////
+////                           if (pinteraction->m_timeMouseMovePeriod > 0_s)
+////                           {
+////
+////                              ::size_i32 sizeDistance(
+////                                 (pinteraction->m_pointMouseMoveSkip.x - pinteraction->m_pointMouseMove.x),
+////                                 (pinteraction->m_pointMouseMoveSkip.y - pinteraction->m_pointMouseMove.y));
+////
+////                              if (
+////                                 !pinteraction->m_timeMouseMoveSkip.timeout(pinteraction->m_timeMouseMovePeriod)
+////                                 && sizeDistance.cx() * sizeDistance.cx() + sizeDistance.cy() * sizeDistance.cy() <
+////                                    pinteraction->m_iMouseMoveSkipSquareDistance)
+////                              {
+////
+////                                 pinteraction->m_iMouseMoveSkipCount++;
+////
+////                                 pinteraction->m_bMouseMovePending = true;
+////
+////                                 if (pinteraction->m_iMouseMoveSkipCount == 2)
+////                                 {
+////
+////                                    //information("\nmmv>skip 2!");
+////
+////                                 }
+////                                 else if (pinteraction->m_iMouseMoveSkipCount == 5)
+////                                 {
+////
+////                                    //information("\nmmv>Skip 5!!!");
+////
+////                                 }
+////                                 else if (pinteraction->m_iMouseMoveSkipCount == 10)
+////                                 {
+////
+////                                    //information("\nmmv>SKIP 10 !!!!!!!!!");
+////
+////                                 }
+////
+////                                 return true;
+////
+////                              }
+////
+////                              pinteraction->m_iMouseMoveSkipCount = 0;
+////
+////                              pinteraction->m_pointMouseMoveSkip = pinteraction->m_pointMouseMove;
+////
+////                           }
+////
+////                        }
+////
+////                     }
+////
+////                  }
+////
+////                  if (!bOk)
+////                  {
+////
+////                     return true;
+////
+////                  }
+////
+////               }
+//
+//               wparam wparam(0);
+//
+//               if (e.xmotion.state & Button1Mask)
+//               {
+//
+//                  wparam |= ::user::e_mouse_middle_button;
+//
+//               }
+//
+//               //msg.m_atom = e_message_mouse_move;
+//               //msg.wParam = wparam;
+//               //msg.lParam = make_i32(e.xmotion.x_root, e.xmotion.y_root);
+//               //msg.time = e.xmotion.time;
+//
+//               //post_ui_message(msg);
+//
+//               auto pmouse = px11window->__create_new<::message::mouse>();
+//
+//               pmouse->m_oswindow = px11window;
+//
+//               pmouse->m_pwindow = px11window;
+//
+//               pmouse->m_atom = e_message_mouse_move;
+//
+//               pmouse->m_point.x() = e.xmotion.x_root;
+//
+//               pmouse->m_point.y() = e.xmotion.y_root;
+//
+//               pmouse->m_time.m_iSecond = e.xmotion.time / 1_k;
+//
+//               pmouse->m_time.m_iNanosecond = (e.xmotion.time % 1_k) * 1_M;
+//
+//               //pwindow->message_handler(pmouse);
+//
+//               post_ui_message(pmouse);
+//
+//            }
+//
+//         }
+//            break;
+//         case Expose:
+//         {
+//
+//            //information("windowing_11 Expose");
+//
+////#ifdef FREEBSD
+//            ::rectangle_i32 rectangleRedraw;
+//
+//            rectangleRedraw.left() = e.xexpose.x;
+//            rectangleRedraw.top() = e.xexpose.y;
+//            rectangleRedraw.right() = rectangleRedraw.left() + e.xexpose.width;
+//            rectangleRedraw.bottom() = rectangleRedraw.top() + e.xexpose.height;
+//
+//            px11window->m_rectangleaRedraw.add(rectangleRedraw);
+//
+//            //pinteraction->set_need_redraw();
+//
+//
+//            if (e.xexpose.count == 0)
+//            {
+//
+////               auto oswindow = msg.oswindow;
+////
+////              if(oswindow)
+////               {
+////
+////                  auto pimpl = oswindow->m_puserinteractionimpl;
+////
+////                  if(pimpl)
+////                  {
+////
+////                     auto puserinteraction = pimpl->m_puserinteraction;
+////
+////                     if(puserinteraction)
+////                     {
+////
+////                        if (puserinteraction->m_ewindowflag & ::e_window_flag_arbitrary_positioning)
+////                        {
+////
+////                           pimpl->_001UpdateScreen();
+////
+////                        }
+////                        else
+////                        {
+////
+////                           msg.m_atom = e_message_paint;
+////                           msg.lParam = 0;
+////                           msg.wParam = 0;
+////
+////                           post_ui_message(msg);
+////
+////                        }
+////
+////                     }
+////
+////                  }
+////
+////               }
+////
+////               //msg.oswindow->m_pimpl->_001UpdateScreen();
+////
+////               //::pointer<::user::interaction>pinteraction = msg.oswindow->m_pimpl->m_puserinteraction;
+////                  auto pimpl = oswindow->m_puserinteractionimpl;
+////
+////                  if(pimpl)
+////                  {
+////
+////                     ::pointer < ::windowing_wayland::buffer > pbuffer= pimpl->m_pgraphics;
+////
+////                     if(pbuffer)
+////                     {
+////
+////                        pbuffer->_update_screen_lesser_lock();
+////
+////                     }
+////
+////
+////                  }
+//
+//                px11window->m_rectangleaRedraw.clear();
+//
+////
+//
+////px11window->
+//
+//
+//                auto pimpl = px11window->m_puserinteractionimpl;
+//
+//                //auto puserinteraction = pimpl->m_puserinteraction;
+//               ::pointer<buffer> pbuffer = pimpl->m_pgraphics;
+//
+//               if(!pbuffer->m_bXShm || !pbuffer->m_bXShmPutImagePending)
+//               {
+//
+//
+//                  pbuffer->_update_screen_lesser_lock();
+//
+//               }
+//
+//  //              if (puserinteraction)
+//    //            {
+//
+//      //             puserinteraction->set_need_redraw(px11window->m_rectangleaRedraw);
+//
+////                   px11window->m_rectangleaRedraw.clear();
+//
+////                   {
+////
+////                      _synchronous_lock synchronouslockProcedureListPriority(this->synchronization());
+////
+////                      m_procedurelistPriority.add([pimpl]()
+////                                                  {
+////
+////                      pimpl->m_pgraphicsthread->prodevian_update_buffer();
+////
+////                      pimpl->m_pgraphicsthread->prodevian_update_screen();
+////
+////                                                  });
+////
+////                   }
+//
+////                   puserinteraction->post_redraw();
+//
+//                //}
+//                //}
+////                  }
+//
+//            }
+////#endif
+//         }
+//            break;
+//         case PropertyNotify:
+//         {
+//
+//            if (e.xany.window == DefaultRootWindow(m_pdisplay->Display()))
+//            {
+//
+//               Atom atom = m_pdisplay->intern_atom("_NET_ACTIVE_WINDOW", False);
+//
+//               if (atom == e.xproperty.atom)
+//               {
+//
+//                  auto pwindowActiveOld = m_pdisplay->m_pwindowActive;
+//
+//                  auto pwindowActiveNew = m_pdisplay->_get_active_window(nullptr);
+//
+//                  if (pwindowActiveNew != pwindowActiveOld)
+//                  {
+//
+//                     m_pdisplay->m_pwindowActive = pwindowActiveNew;
+//
+//                     if (::is_set(pwindowActiveNew))
+//                     {
+//
+//                        auto pimplNew = pwindowActiveNew->m_puserinteractionimpl;
+//
+//                        if (::is_set(pimplNew))
+//                        {
+//
+//                           auto puserinteractionNew = pimplNew->m_puserinteraction;
+//
+//                           if (::is_set(puserinteractionNew))
+//                           {
+//
+//                              puserinteractionNew->set_need_redraw();
+//
+//                              puserinteractionNew->post_redraw();
+//
+//                           }
+//
+//                        }
+//
+//                     }
+//
+//                     if (::is_set(pwindowActiveOld))
+//                     {
+//
+//                        auto pimplOld = pwindowActiveOld->m_puserinteractionimpl;
+//
+//                        if (::is_set(pimplOld))
+//                        {
+//
+//                           auto puserinteractionOld = pimplOld->m_puserinteraction;
+//
+//                           if (::is_set(puserinteractionOld))
+//                           {
+//
+//                              puserinteractionOld->set_need_redraw();
+//
+//                              puserinteractionOld->post_redraw();
+//
+//                           }
+//
+//                        }
+//
+//                     }
+//
+//                  }
+//
+//               }
+//
+//            }
+//            else if (px11window)
+//            {
+//
+//               msg.time = e.xproperty.time;
+//
+//               ::user::interaction * pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
+//
+//               if (::is_set(pinteraction))
+//               {
+//
+//                  if (e.xproperty.atom == m_pdisplay->m_atomNetWmState)
+//                  {
+//
+//                     auto bNetWmStateHiddenOld = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateHidden);
+//
+//                     auto bNetWmStateMaximizedHorzOld = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateMaximizedHorz);
+//
+//                     auto bNetWmStateMaximizedVertOld = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateMaximizedVert);
+//
+//                     auto bNetWmStateFocusedOld = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateFocused);
+//
+//                     px11window->m_atomaNetWmState = px11window->_get_net_wm_state_unlocked();
+//
+//                     auto bNetWmStateHidden = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateHidden);
+//
+//                     auto bNetWmStateMaximizedHorz = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateMaximizedHorz);
+//
+//                     auto bNetWmStateMaximizedVert = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateMaximizedVert);
+//
+//                     auto bNetWmStateFocused = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateFocused);
+//
+//                     information() << "PropertyNotify Hidden : " << bNetWmStateHidden << ", Zoomed : " << (bNetWmStateMaximizedHorz || bNetWmStateMaximizedVert) << ", Focused : " << bNetWmStateFocused;
+//
+//                     auto edisplayDesign = pinteraction->const_layout().design().display();
+//
+//                     if (bNetWmStateHidden && is_different(bNetWmStateHidden, bNetWmStateHiddenOld))
+//                     {
+//
+//                        if (edisplayDesign != e_display_iconic
+//                            && edisplayDesign != e_display_notify_icon
+//                            && is_screen_visible(edisplayDesign))
+//                        {
+//
+//                           information()
+//                              << "X11::ConfigureNotify trying to fix state to hidden state by asking e_display_iconic";
+//
+//                           pinteraction->display(e_display_iconic);
+//
+//                        }
+//
+//                     }
+//                     else if ((bNetWmStateMaximizedHorz || bNetWmStateMaximizedVert) &&
+//                              is_different((bNetWmStateMaximizedHorz || bNetWmStateMaximizedVert), (bNetWmStateMaximizedHorzOld && bNetWmStateMaximizedVertOld)))
+//                     {
+//
+//                        if (edisplayDesign != e_display_zoomed)
+//                        {
+//
+//                           information()
+//                              << "X11::ConfigureNotify trying to fix state to zoomed state by asking e_display_zoomed";
+//
+//                           pinteraction->display(e_display_zoomed);
+//
+//                        }
+//
+//                     }
+//                     else if (bNetWmStateFocused &&
+//                              is_different(bNetWmStateFocused, bNetWmStateFocusedOld))
+//                     {
+//
+//                        //if (edisplayDesign != e_display_zoomed)
+//                        {
+//
+//                           information()
+//                              << "X11::ConfigureNotify trying to fix state to previous state by calling display_previous";
+//
+//                           pinteraction->display_previous();
+//
+//                        }
+//
+//                     }
+//
+//                  }
+//                  else if (e.xproperty.atom == m_pdisplay->m_atomWmState)
+//                  {
+//
+//                     _on_wm_state_change(px11window);
+//
+//                  }
+//
+//               }
+//
+//            }
+//
+////
+////               long lState = -1;
+////
+////               ::pointer<::windowing_wayland::window> px11window = msg.oswindow;
+////
+////               if (e.xproperty.atom == m_pdisplay->m_atomWmState
+////                   && px11window->_get_state_unlocked(lState))
+////               {
+////
+////                  bool bIconic = lState == IconicState ? 1 : 0;
+////
+////                  information() << "PropertyNotify is_iconic : " << bIconic;
+////
+////                  ::user::interaction * pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
+////
+////                  if (pinteraction != nullptr)
+////                  {
+////
+////                     auto pimpl = pinteraction->m_pprimitiveimpl;
+////
+////                     bool bHandled = false;
+////
+////                     if (pimpl != nullptr)
+////                     {
+////
+////                        if (bIconic)
+////                        {
+////
+////                           if (pinteraction->const_layout().design().display() == ::e_display_iconic
+////                               || pinteraction->const_layout().design().display() == ::e_display_notify_icon)
+////                           {
+////
+//////                                 //file_put_contents("/home/camilo/xxx.txt", "");
+//////
+//////                                 // 1111111111111111111111111111111111111111111
+//////
+//////                                 //pinteraction->hide();
+//////
+//////                                 pinteraction->fork([=]()
+//////                                                    {
+//////
+//////                                                       auto edisplayPrevious = pinteraction->window_previous_display();
+//////
+//////                                                       pinteraction->_001OnDeiconify(edisplayPrevious);
+//////
+//////                                                    });
+//////
+//////                                 bHandled = true;
+////
+////                           }
+////                           else
+////                           {
+//////                           else if (pinteraction->const_layout().sketch().display() == ::e_display_full_screen
+//////                                       && pinteraction->const_layout().design().display() != ::e_display_full_screen)
+//////                              {
+////
+////                              //pinteraction->display(::e_display_full_screen);
+////
+////                              // maybe todo: remove x11 window iconic state
+////                              // as there seems to be a request to set to non-iconic state
+////                              // to the user::interaction associated with this window at this point
+////
+////                           }
+////
+////                        }
+////                        else
+////                        {
+////
+////                           if (pinteraction->const_layout().design().display() != ::e_display_iconic
+////                               && pinteraction->const_layout().design().display() != ::e_display_notify_icon
+////                               && windowing().is_screen_visible(pinteraction->const_layout().design().display()))
+////                           {
+////
+////                              information() << "X11::ConfigureNotify trying to fix state to iconic state";
+////
+////                              pinteraction->display(::e_display_iconic);
+////
+////                           }
+////
+////                        }
+////
+////                     }
+////
+////                  }
+////
+////               }
+////
+////            }
+//
+//
+//         }
+//            break;
+//         case MapNotify:
+//         {
+//
+//
+//
+////            auto px11window = m_pdisplay->_window(e.xmap.window);
+////
+////            if(m_pdisplay->m_bHasXSync)
+////            {
+////
+////               if(px11window->m_xsynccounterNetWmSync == None)
+////               {
+////
+////                  px11window->_enable_net_wm_sync();
+////
+////               }
+////
+////            }
+//
+//            information("windowing_wayland MapNotify");
+//
+//            if (px11window)
+//            {
+//
+//               if (!XGetWindowAttributes(m_pdisplay->Display(), px11window->Window(), &px11window->m_xwindowattributes))
+//               {
+//
+//                  information("X11 MapNotify XGetWindowAttributes failed");
+//
+//                  return false;
+//
+//               }
+//
+//               msg.m_atom = e_message_show_window;
+//               msg.wParam = 1;
+//               msg.lParam = 0;
+//
+//               post_ui_message(msg);
+//
+//            }
+//
+//         }
+//            break;
+//         case UnmapNotify:
+//         {
+//
+//            information("windowing_wayland UnmapNotify");
+//
+//            if (msg.oswindow)
+//            {
+//
+//               if (!XGetWindowAttributes(m_pdisplay->Display(), px11window->Window(), &px11window->m_xwindowattributes))
+//               {
+//
+//                  information("X11 MapNotify XGetWindowAttributes failed");
+//
+//                  return false;
+//
+//               }
+//
+//
+//               msg.m_atom = e_message_show_window;
+//               msg.wParam = 0;
+//               msg.lParam = 0;
+//
+//               post_ui_message(msg);
+//
+//            }
+//
+//         }
+//            break;
+//         case ConfigureNotify:
+//         {
+//
+//            if (e.xconfigure.window == DefaultRootWindow(m_pdisplay->Display()))
+//            {
+//
+//               auto psession = get_session()->m_papexsession;
+//
+//               auto applicationa = psession->m_applicationa;
+//
+//               try
+//               {
+//
+//                  for (auto & papp: applicationa)
+//                  {
+//
+//                     try
+//                     {
+//
+//                        auto pauraapplication = papp->m_pauraapplication;
+//
+//                        auto userinteractionaFrame = pauraapplication->m_puserinteractionaFrame->interactiona();
+//
+//                        for (auto & puserinteractionFrame: userinteractionaFrame)
+//                        {
+//
+//                           try
+//                           {
+//
+//                              puserinteractionFrame->post_message(e_message_display_change);
+//
+//                           }
+//                           catch (...)
+//                           {
+//
+//                           }
+//
+//                        }
+//
+//                     }
+//                     catch (...)
+//                     {
+//
+//                     }
+//
+//                  }
+//
+//               }
+//               catch (...)
+//               {
+//
+//               }
+//
+//            }
+//            else
+//            {
+//
+//               if (m_pdisplay->m_bHasXSync)
+//               {
+//
+//                  auto oswindow = m_pdisplay->_window(e.xconfigure.window);
+//
+//                  if (oswindow)
+//                  {
+//
+//                     if (oswindow->m_enetwmsync == window::e_net_wm_sync_wait_configure)
+//                     {
+//
+//                        oswindow->m_xsyncvalueNetWmSync = oswindow->m_xsyncvalueNetWmSyncPending;
+//
+//                        XSyncIntToValue(&oswindow->m_xsyncvalueNetWmSyncPending, 0);
+//
+//                        oswindow->m_enetwmsync = window::e_net_wm_sync_wait_paint;
+//
+//                     }
+//
+//                  }
+//
+//               }
+//
+//               if(px11window)
+//               {
+//
+//                  if (!XGetWindowAttributes(m_pdisplay->Display(), px11window->Window(),
+//                                            &px11window->m_xwindowattributes))
+//                  {
+//
+//                     information("X11 MapNotify XGetWindowAttributes failed");
+//
+//                     return false;
+//
+//                  }
+//
+//
+//                  ::user::primitive_impl * pimpl = px11window->m_puserinteractionimpl;
+//
+//                  if (pimpl != nullptr)
+//                  {
+//
+//                     ::user::interaction * pinteraction = pimpl->m_puserinteraction;
+//
+//                     if (pinteraction != nullptr)
+//                     {
+//
+//                        pinteraction->_on_visual_changed_unlocked();
+//
+//                        information() << "X11 ConfigureNotify Win, xy : " << e.xconfigure.window << ", "
+//                                      << e.xconfigure.x << ", " << e.xconfigure.y << ", wh :"
+//                                      << e.xconfigure.width << ", " << e.xconfigure.height;
+//
+//                        //information() << "X11 ConfigureNotify Win, cx, cy : " << e.xconfigure.window << ", "
+//                          //            <<  ;
+//
+//                        ::point_i32 point(e.xconfigure.x, e.xconfigure.y);
+//
+////                     //if(point != msg.oswindow->m_point)
+////                     {
+////
+////                        msg.oswindow->m_point = point;
+////
+////                        _position_message(msg.oswindow, point);
+////
+////                     }
+//
+//                        ::size_i32 size(e.xconfigure.width, e.xconfigure.height);
+//
+//                        ::rectangle_i32 rectangle(point, size);
+//
+//                        //if(size != msg.oswindow->m_size)
+//                        {
+//
+////                        msg.oswindow->m_pointWindow = point;
+////
+////                        msg.oswindow->m_sizeWindow = size;
+////
+//                           _configure_message(msg.oswindow, rectangle);
+//
+//                        }
+//
+//                        //_handle_configure_iconic_state(msg.oswindow);
+//
+//                     }
+//
+//                  }
+//
+//               }
+//
+//            }
+//
+//         }
+//         break;
+//         case ButtonPress:
+//         case ButtonRelease:
+//         {
+//
+//            if (msg.oswindow)
+//            {
+//
+//
+//               enum_message emessage = e_message_undefined;
+//               //msg.m_atom = e_message_mouse_wheel;
+//
+//               //post_ui_message(pmouse);
+//
+//               bRet = true;
+//
+//               //msg.time = e.xbutton.time;
+//
+//               int Δ = 0;
+//
+//               if (e.xbutton.type == ButtonPress)
+//               {
+//
+//                  if (e.xbutton.button == Button1)
+//                  {
+//
+//                     ::information("ButtonPress::Button1\n");
+//
+//                     emessage = e_message_left_button_down;
+//
+//                  }
+//                  else if (e.xbutton.button == Button2)
+//                  {
+//
+//                     emessage = e_message_middle_button_down;
+//
+//                  }
+//                  else if (e.xbutton.button == Button3)
+//                  {
+//
+//                     emessage = e_message_right_button_down;
+//
+//                  }
+//                  else if (e.xbutton.button == Button4)
+//                  {
+//
+//                     Δ = 120;
+//
+//                  }
+//                  else if (e.xbutton.button == Button5)
+//                  {
+//
+//                     Δ = -120;
+//
+//                  }
+//                  else
+//                  {
+//
+//                     bRet = false;
+//
+//                  }
+//
+//               }
+//               else if (e.xbutton.type == ButtonRelease)
+//               {
+//
+//                  if (e.xbutton.button == Button1)
+//                  {
+//
+//                     ::information("ButtonRelease::Button1\n");
+//
+//                     emessage = e_message_left_button_up;
+//
+//                  }
+//                  else if (e.xbutton.button == Button2)
+//                  {
+//
+//                     emessage = e_message_middle_button_up;
+//
+//                  }
+//                  else if (e.xbutton.button == Button3)
+//                  {
+//
+//                     emessage = e_message_right_button_up;
+//
+//                  }
+//                  else
+//                  {
+//
+//                     bRet = false;
+//
+//                  }
+//
+//               }
+//               else
+//               {
+//
+//                  bRet = false;
+//
+//               }
+//
+//               int XRoot = e.xbutton.x_root;
+//
+//               int YRoot = e.xbutton.y_root;
+//
+//               m_pointCursor.x() = XRoot;
+//
+//               m_pointCursor.y() = YRoot;
+//
+//               msg.oswindow->set_cursor_position(m_pointCursor);
+//
+//
+//
+////      int l = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.x;
+////      int t = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.y;
+////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx();
+////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy();
+////
+////      ::rectangle_i32 r;
+////
+////      window_rectangle(msg.oswindow, &r);
+////
+////      int l1 = r.left();
+////      int t1 = r.top();
+////      int w1 = r.width();
+////      int h1 = r.height();
+//
+//               if (Δ != 0)
+//               {
+//
+//                  auto pmousewheel = px11window->__create_new<::message::mouse_wheel>();
+//
+//                  pmousewheel->m_oswindow = px11window;
+//
+//                  pmousewheel->m_pwindow = px11window;
+//
+//                  pmousewheel->m_atom = e_message_mouse_wheel;
+//
+//                  //msg.wParam = make_i32(0, iDelta);
+//
+//                  //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+//
+//                  pmousewheel->m_Δ = Δ;
+//
+//                  pmousewheel->m_point.x() = e.xbutton.x_root;
+//
+//                  pmousewheel->m_point.y() = e.xbutton.y_root;
+//
+//                  pmousewheel->m_time.m_iSecond = e.xbutton.time / 1_k;
+//
+//                  pmousewheel->m_time.m_iNanosecond = (e.xbutton.time % 1_k) * 1_M;
+//
+//                  post_ui_message(pmousewheel);
+//
+//
+//               }
+//               else if (bRet)
+//               {
+//
+//                  auto pmouse = px11window->__create_new<::message::mouse>();
+//
+//                  pmouse->m_oswindow = px11window;
+//
+//                  pmouse->m_pwindow = px11window;
+//
+//                  pmouse->m_atom = emessage;
+//
+//                  pmouse->m_point.x() = e.xbutton.x_root;
+//
+//                  pmouse->m_point.y() = e.xbutton.y_root;
+//
+//                  pmouse->m_time.m_iSecond = e.xbutton.time / 1_k;
+//
+//                  pmouse->m_time.m_iNanosecond = (e.xbutton.time % 1_k) * 1_M;
+//
+//                  //msg.wParam = 0;
+//
+//                  //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+//
+//                  //post_ui_message(msg);
+//                  post_ui_message(pmouse);
+//
+//               }
+//
+//            }
+//
+//         }
+//            break;
+//         case KeyPress:
+//         case KeyRelease:
+//         {
+//
+//            if (msg.oswindow)
+//            {
+//
+//               msg.time = e.xkey.time;
+//
+//               bRet = true;
+//
+//               char buf[32];
+//
+//               zero(buf);
+//
+//               string strText;
+//
+//               KeySym keysym = 0;
+//
+//               if (e.xkey.type == KeyPress)
+//               {
+//
+//                  msg.m_atom = e_message_key_down;
+//
+//                  ::pointer<::windowing_wayland::window> pwindow = msg.oswindow;
+//
+//                  if (!pwindow->m_pximkeyboard)
+//                  {
+//
+//                     pwindow->m_pximkeyboard = memory_new ::xim::keyboard(m_pdisplay->Display(), e.xkey.window);
+//
+//                     pwindow->m_pximkeyboard->initialize(pwindow);
+//
+//                  }
+//
+//                  strText = pwindow->m_pximkeyboard->get_key_press_text(&e.xkey, &keysym);
+//
+//                  //case XK_Escape:
+////                dv_dpy->dontdraw = 1;
+////                xv_pause=0;
+////                XvStopVideo(dv_dpy->dpy, dv_dpy->port, dv_dpy->win);
+////                XDestroyWindow(dv_dpy->dpy, dv_dpy->win);
+////                break;
+////
+////            case XK_Q:
+////            case XK_q:
+////                xv_pause=0;
+////                dv_dpy->dontdraw = (dv_dpy->dontdraw) ? 0:1;
+////                break;
+////
+////            case XK_space:
+////                xv_pause = (xv_pause)?0:1;
+////                while(xv_pause) {
+////                    dv_display_event(dv_dpy);
+////                    usleep(10000_ms);
+////                }
+////
+////            default:
+////                break;
+////            }
+//               }
+//               else if (e.xkey.type == KeyRelease)
+//               {
+//
+//                  keysym = XkbKeycodeToKeysym(m_pdisplay->Display(), e.xkey.keycode, 0,
+//                                              e.xkey.state & ShiftMask ? 1 : 0);
+//
+//                  msg.m_atom = e_message_key_up;
+//
+//               }
+//               else
+//               {
+//
+//                  bRet = false;
+//
+//               }
+//
+//               if (bRet)
+//               {
+//
+//                  msg.wParam = e.xkey.keycode;
+//
+//                  msg.lParam = keysym;
+//
+//                  post_ui_message(msg);
+//
+//               }
+//
+//               if (strText.has_char() && !(e.xkey.state & ControlMask))
+//               {
+//
+//                  auto pkey = __create_new<::message::key>();
+//
+//                  pkey->m_oswindow = px11window;
+//
+//                  pkey->m_pwindow = px11window;
+//
+//                  //pkey->set(oswindow, oswindow, e_message_text_composition, 0, 0);
+//
+//                  pkey->m_atom = e_message_text_composition;
+//
+//                  pkey->m_strText = strText;
+//
+////               MESSAGE msgText(msg);
+////
+////               msgText.m_atom = e_message_text_composition;
+////
+////               msgText.wParam = 0;
+////
+////               string *pstringText = memory_new string(strText);
+////
+////               msgText.lParam = (lparam) (iptr) (string *) (pstringText);
+//
+//                  printf("x11_process_message e_message_text_composition\n");
+//
+//                  //post_ui_message(msgText);
+//                  post_ui_message(pkey);
+//
+//               }
+//
+//            }
+//
+//         }
+//            break;
+//
+//         case FocusIn:
+//         {
+//
+//            ::information("FocusIn\n");
+//
+//            msg.m_atom = e_message_set_focus;
+//
+//            if (::is_set(px11window))
+//            {
+//
+//               m_pdisplay->m_pwindowKeyboardFocus = px11window;
+//
+//               auto pimpl = px11window->m_puserinteractionimpl;
+//
+//               if (::is_set(pimpl))
+//               {
+//
+//                  auto pinteraction = pimpl->m_puserinteraction;
+//
+//                  if (::is_set(pinteraction))
+//                  {
+//
+//                     msg.m_atom = e_message_set_focus;
+//
+//                     pinteraction->m_ewindowflag |= ::e_window_flag_focus;
+//
+//                     post_ui_message(msg);
+//
+//                  }
+//
+//               }
+//
+//            }
+//
+//            //msg.wParam = (WPARAM) oswindow_get(display(), e.xfocus.window);
+//
+////      Window wFocus = 0;
+////
+////      int revert_to_return = 0;
+////
+////      int iStatus = XGetInputFocus(display, &wFocus, &revert_to_return);
+////
+////      //if(iStatus == Success)
+////      if(iStatus)
+////      {
+////
+////         if(wFocus == e.xfocus.window)
+////         {
+////
+////            information("A\n");
+////
+////         }
+////         else
+////         {
+////
+////            information("B " + as_string(wFocus));
+////
+////            g_windowFocus = wFocus;
+////
+////         }
+////
+////         if(wFocus == g_windowFocus)
+////         {
+////
+////            information("C\n");
+////
+////         }
+////         else
+////         {
+////
+////            information("D " + as_string(wFocus));
+////
+////            g_windowFocus = wFocus;
+////
+////         }
+////
+////      }
+////
+////      synchronous_lock synchronouslock(pdata->m_pmutexInput);
+////
+////      pdata->m_messsageaInput.add(msg);
+//
+//         }
+//
+//            break;
+//         case FocusOut:
+//         {
+//
+//            ::information("FocusOut\n");
+//
+//            if (::is_set(px11window))
+//            {
+//
+//               if (m_pdisplay->m_pwindowKeyboardFocus == px11window)
+//               {
+//
+//                  m_pdisplay->m_pwindowKeyboardFocus = nullptr;
+//
+//               }
+//
+//               auto pimpl = px11window->m_puserinteractionimpl;
+//
+//               if (::is_set(pimpl))
+//               {
+//
+//                  auto pinteraction = pimpl->m_puserinteraction;
+//
+//                  if (::is_set(pinteraction))
+//                  {
+//
+//                     msg.m_atom = e_message_kill_focus;
+//
+//                     pinteraction->m_ewindowflag -= ::e_window_flag_focus;
+//
+//                     Window wFocus = 0;
+//
+//                     int revert_to_return = 0;
+//
+//                     XGetInputFocus(m_pdisplay->Display(), &wFocus, &revert_to_return);
+//
+//                     msg.wParam = (wparam) (iptr) m_pdisplay->_window(wFocus);
+//
+//                     post_ui_message(msg);
+//
+//                  }
+//
+//               }
+//
+//            }
+//
+//         }
+//            break;
+//
+//         case DestroyNotify:
+//         {
+//
+//            if (msg.oswindow)
+//            {
+//               msg.oswindow = m_pdisplay->_window(e.xdestroywindow.window);
+//               msg.m_atom = e_message_destroy;
+//
+//               post_ui_message(msg);
+//
+//            }
+//
+//            return true;
+//
+//         }
+//            break;
+//         case ClientMessage:
+//         {
+//
+//            if (m_pdisplay->m_bHasXSync)
+//            {
+//
+//               auto atomWmProtocols = m_pdisplay->m_atomWmProtocols;
+//
+//               if (e.xclient.message_type == atomWmProtocols)
+//               {
+//
+//                  auto atomNetWmRequest = m_pdisplay->m_atomNetWmSyncRequest;
+//
+//                  Atom atomProtocol = (Atom) e.xclient.data.l[0];
+//
+//                  if (atomProtocol == atomNetWmRequest)
+//                  {
+//
+//                     auto px11window = m_pdisplay->_window(e.xclient.window);
+//
+//                     if (px11window)
+//                     {
+//
+//                        XSyncIntsToValue(
+//                           &px11window->m_xsyncvalueNetWmSyncPending,
+//                           e.xclient.data.l[2],
+//                           e.xclient.data.l[3]);
+//
+//                        px11window->m_enetwmsync = window::e_net_wm_sync_wait_configure;
+//
+//                     }
+//
+//                  }
+//
+//               }
+//
+//            }
+//
+//         }
+//
+//            break;
+//         default:
+//         {
+//
+//
+//            information("axis_x11 case default:");
+//         }
+//      }
+//
+//      // processed
+//
+//      return true;
+//
+//   }
 
-         }
 
-            break;
-         case FocusOut:
-         {
-
-            ::information("FocusOut\n");
-
-            if (::is_set(px11window))
-            {
-
-               if (m_pdisplay->m_pwindowKeyboardFocus == px11window)
-               {
-
-                  m_pdisplay->m_pwindowKeyboardFocus = nullptr;
-
-               }
-
-               auto pimpl = px11window->m_puserinteractionimpl;
-
-               if (::is_set(pimpl))
-               {
-
-                  auto pinteraction = pimpl->m_puserinteraction;
-
-                  if (::is_set(pinteraction))
-                  {
-
-                     msg.m_atom = e_message_kill_focus;
-
-                     pinteraction->m_ewindowflag -= ::e_window_flag_focus;
-
-                     Window wFocus = 0;
-
-                     int revert_to_return = 0;
-
-                     XGetInputFocus(m_pdisplay->Display(), &wFocus, &revert_to_return);
-
-                     msg.wParam = (wparam) (iptr) m_pdisplay->_window(wFocus);
-
-                     post_ui_message(msg);
-
-                  }
-
-               }
-
-            }
-
-         }
-            break;
-
-         case DestroyNotify:
-         {
-
-            if (msg.oswindow)
-            {
-               msg.oswindow = m_pdisplay->_window(e.xdestroywindow.window);
-               msg.m_atom = e_message_destroy;
-
-               post_ui_message(msg);
-
-            }
-
-            return true;
-
-         }
-            break;
-         case ClientMessage:
-         {
-
-            if (m_pdisplay->m_bHasXSync)
-            {
-
-               auto atomWmProtocols = m_pdisplay->m_atomWmProtocols;
-
-               if (e.xclient.message_type == atomWmProtocols)
-               {
-
-                  auto atomNetWmRequest = m_pdisplay->m_atomNetWmSyncRequest;
-
-                  Atom atomProtocol = (Atom) e.xclient.data.l[0];
-
-                  if (atomProtocol == atomNetWmRequest)
-                  {
-
-                     auto px11window = m_pdisplay->_window(e.xclient.window);
-
-                     if (px11window)
-                     {
-
-                        XSyncIntsToValue(
-                           &px11window->m_xsyncvalueNetWmSyncPending,
-                           e.xclient.data.l[2],
-                           e.xclient.data.l[3]);
-
-                        px11window->m_enetwmsync = window::e_net_wm_sync_wait_configure;
-
-                     }
-
-                  }
-
-               }
-
-            }
-
-         }
-
-            break;
-         default:
-         {
-
-
-            information("axis_x11 case default:");
-         }
-      }
-
-      // processed
-
-      return true;
-
-   }
-
-
-   int xlib_error_handler(Display * d, XErrorEvent * e)
-   {
-
-      if (e->request_code == 12)
-      {
-
-         if (e->error_code == BadValue)
-         {
-
-         }
-
-      }
-
-      char sz[1024];
-
-      XGetErrorText(d, e->error_code, sz, sizeof(sz));
-
-      fputs(sz, stderr);
-
-      abort();
-
-   }
-
-
-
+//   int xlib_error_handler(Display * d, XErrorEvent * e)
+//   {
+//
+//      if (e->request_code == 12)
+//      {
+//
+//         if (e->error_code == BadValue)
+//         {
+//
+//         }
+//
+//      }
+//
+//      char sz[1024];
+//
+//      XGetErrorText(d, e->error_code, sz, sizeof(sz));
+//
+//      fputs(sz, stderr);
+//
+//      abort();
+//
+//   }
+//
+//
+//
 
    void windowing::terminate_windowing()
    {
@@ -3154,39 +3154,39 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
    }
 
-
-   void x11_async_runnable(::matter * prunnable)
-   {
-
-      x11_kick_idle();
-
-   }
-
-
-   int g_iX11Ref = 0;
-
-   void x11_term();
-
-   void x11_start();
-
-   ::pointer<::thread> g_pthreadXlib;
-
-   itask_t g_itaskXlib;
-
-   itask_t x11_get_itask()
-   {
-
-      return g_itaskXlib;
-
-   }
-
-
-   CLASS_DECL_ACME ::thread * x11_get_thread()
-   {
-
-      return g_pthreadXlib;
-
-   }
+//
+//   void x11_async_runnable(::matter * prunnable)
+//   {
+//
+//      x11_kick_idle();
+//
+//   }
+//
+//
+//   int g_iX11Ref = 0;
+//
+//   void x11_term();
+//
+//   void x11_start();
+//
+//   ::pointer<::thread> g_pthreadXlib;
+//
+//   itask_t g_itaskXlib;
+//
+//   itask_t x11_get_itask()
+//   {
+//
+//      return g_itaskXlib;
+//
+//   }
+//
+//
+//   CLASS_DECL_ACME ::thread * x11_get_thread()
+//   {
+//
+//      return g_pthreadXlib;
+//
+//   }
 
    void windowing::post_ui_message(const MESSAGE & message)
    {
@@ -3333,76 +3333,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //   }
 
-   int create_tmpfile_cloexec(char *tmpname)
-   {
-      int fd;
-
-#ifdef HAVE_MKOSTEMP
-      fd = mkostemp(tmpname, O_CLOEXEC);
-        if (fd >= 0)
-                unlink(tmpname);
-#else
-      fd = mkstemp(tmpname);
-      if (fd >= 0) {
-         fd = set_cloexec_or_close(fd);
-         unlink(tmpname);
-      }
-#endif
-
-      return fd;
-   }
-/*
- * Create a new, unique, anonymous file of the given size, and
- * return the file descriptor for it. The file descriptor is set
- * CLOEXEC. The file is immediately suitable for mmap()'ing
- * the given size at offset zero.
- *
- * The file should not have a permanent backing store like a disk,
- * but may have if XDG_RUNTIME_DIR is not properly implemented in OS.
- *
- * The file name is deleted from the file system.
- *
- * The file is suitable for buffer sharing between processes by
- * transmitting the file descriptor over Unix sockets using the
- * SCM_RIGHTS methods.
- */
-   int
-   os_create_anonymous_file(off_t size)
-   {
-      static const char pszTemplate[] = "/weston-shared-XXXXXX";
-      const char *path;
-      char *name;
-      int fd;
-
-      path = getenv("XDG_RUNTIME_DIR");
-      if (!path) {
-         errno = ENOENT;
-         return -1;
-      }
-
-      ::file::path filepath;
-
-      filepath = path;
-      filepath /= pszTemplate;
-
-      ::string strPath;
-
-      fd = create_tmpfile_cloexec(strPath.get_buffer(strPath.length()));
-
-      strPath.release_buffer();
-
-      if (fd < 0)
-         return -1;
-
-      if (ftruncate(fd, size) < 0) {
-         close(fd);
-         return -1;
-      }
-
-      return fd;
-   }
-
-
 
 } // namespace windowing_wayland
 
@@ -3532,4 +3462,76 @@ bool x11_get_window_rect(Display * d, Window window, ::rectangle_i32 * prectangl
    return g_estatusInitializeX11;
 
 }
+
+
+
+int create_tmpfile_cloexec(char *tmpname)
+{
+   int fd;
+
+#ifdef HAVE_MKOSTEMP
+   fd = mkostemp(tmpname, O_CLOEXEC);
+   if (fd >= 0)
+      unlink(tmpname);
+#else
+   fd = mkstemp(tmpname);
+      if (fd >= 0) {
+         fd = set_cloexec_or_close(fd);
+         unlink(tmpname);
+      }
+#endif
+
+   return fd;
+}
+/*
+ * Create a new, unique, anonymous file of the given size, and
+ * return the file descriptor for it. The file descriptor is set
+ * CLOEXEC. The file is immediately suitable for mmap()'ing
+ * the given size at offset zero.
+ *
+ * The file should not have a permanent backing store like a disk,
+ * but may have if XDG_RUNTIME_DIR is not properly implemented in OS.
+ *
+ * The file name is deleted from the file system.
+ *
+ * The file is suitable for buffer sharing between processes by
+ * transmitting the file descriptor over Unix sockets using the
+ * SCM_RIGHTS methods.
+ */
+int
+os_create_anonymous_file(off_t size)
+{
+   static const char pszTemplate[] = "/weston-shared-XXXXXX";
+   const char *path;
+   char *name;
+   int fd;
+
+   path = getenv("XDG_RUNTIME_DIR");
+   if (!path) {
+      errno = ENOENT;
+      return -1;
+   }
+
+   ::file::path filepath;
+
+   filepath = path;
+   filepath /= pszTemplate;
+
+   ::string strPath;
+
+   fd = create_tmpfile_cloexec(strPath.get_buffer(strPath.length()));
+
+   strPath.release_buffer();
+
+   if (fd < 0)
+      return -1;
+
+   if (ftruncate(fd, size) < 0) {
+      close(fd);
+      return -1;
+   }
+
+   return fd;
+}
+
 

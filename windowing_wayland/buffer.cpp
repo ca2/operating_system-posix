@@ -126,18 +126,18 @@ namespace windowing_wayland
 
       }
 
-      synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization());
 
       //display_lock displaylock(x11_window()->x11_display()->Display());
 
-      if (m_gc != nullptr)
-      {
-
-         XFreeGC(x11_window()->Display(), m_gc);
-
-         m_gc = nullptr;
-
-      }
+//      if (m_gc != nullptr)
+//      {
+//
+//         XFreeGC(x11_window()->Display(), m_gc);
+//
+//         m_gc = nullptr;
+//
+//      }
 
    }
 

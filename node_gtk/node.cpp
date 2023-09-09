@@ -1640,14 +1640,14 @@ namespace node_gtk
    }
 
 
-   struct wl_compositor * node::get_wayland_compositor()
+   ::wl_display * node::get_wayland_display()
    {
 
       GdkDisplay * pgdkdisplay = gdk_display_get_default();
 
-      auto pwlcompositor = gdk_wayland_display_get_wl_compositor   (pgdkdisplay);
+      auto pwldisplay = gdk_wayland_display_get_wl_display   (pgdkdisplay);
 
-      return pwlcompositor;
+      return pwldisplay;
 
    }
 
