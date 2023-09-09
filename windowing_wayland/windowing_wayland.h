@@ -10,37 +10,37 @@
 
 #include "_wayland.h"
 
-::e_status defer_initialize_x11();
+//::e_status defer_initialize_x11();
 
 
 //::e_status acme_defer_os_init_windowing();
 ::e_status sn_start_context();
 
-
-struct MWMHints
-{
-
-   unsigned long flags;
-   unsigned long functions;
-   unsigned long decorations;
-   long input_mode;
-   unsigned long status;
-
-};
-
-
-#define MWM_HINTS_DECORATIONS   (1L << 1)
-
-
-/* MWM decorations values */
-#define MWM_DECOR_NONE          0
-#define MWM_DECOR_ALL           (1L << 0)
-#define MWM_DECOR_BORDER        (1L << 1)
-#define MWM_DECOR_RESIZEH       (1L << 2)
-#define MWM_DECOR_TITLE         (1L << 3)
-#define MWM_DECOR_MENU          (1L << 4)
-#define MWM_DECOR_MINIMIZE      (1L << 5)
-#define MWM_DECOR_MAXIMIZE      (1L << 6)
+//
+//struct MWMHints
+//{
+//
+//   unsigned long flags;
+//   unsigned long functions;
+//   unsigned long decorations;
+//   long input_mode;
+//   unsigned long status;
+//
+//};
+////
+//
+//#define MWM_HINTS_DECORATIONS   (1L << 1)
+//
+//
+///* MWM decorations values */
+//#define MWM_DECOR_NONE          0
+//#define MWM_DECOR_ALL           (1L << 0)
+//#define MWM_DECOR_BORDER        (1L << 1)
+//#define MWM_DECOR_RESIZEH       (1L << 2)
+//#define MWM_DECOR_TITLE         (1L << 3)
+//#define MWM_DECOR_MENU          (1L << 4)
+//#define MWM_DECOR_MINIMIZE      (1L << 5)
+//#define MWM_DECOR_MAXIMIZE      (1L << 6)
 
 
 //CLASS_DECL_WINDOWING_X11 void x11_main();
@@ -80,21 +80,21 @@ CLASS_DECL_WINDOWING_X11 ::particle * user_synchronization();
 //#include "acme/primitive/primitive/matter.h"
 
 
-namespace windowing_wayland
-{
-
-
-
-
-   class x11data :
-      virtual public matter
-   {
-   public:
-
-      XWindowAttributes m_attr;
-      //GdkWindow *                   m_pgdkwindow;
-
-   };
-
-
-} // namespace windowing_wayland
+//namespace windowing_wayland
+//{
+//
+//
+//
+//
+//   class x11data :
+//      virtual public matter
+//   {
+//   public:
+//
+//      XWindowAttributes m_attr;
+//      //GdkWindow *                   m_pgdkwindow;
+//
+//   };
+//
+//
+//} // namespace windowing_wayland
