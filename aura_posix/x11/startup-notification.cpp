@@ -73,6 +73,13 @@ namespace windowing_posix
 
       Display * pdisplay = (Display *) display()->_m_pX11Display;
 
+      if(::is_null(pdisplay))
+      {
+
+         return;
+
+      }
+
       SnDisplay * psndisplay = sn_display_new(pdisplay, &x_display_error_trap_push, &x_display_error_trap_pop);
 
       int iScreen = DefaultScreen(pdisplay);

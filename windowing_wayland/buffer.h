@@ -22,8 +22,8 @@ namespace windowing_wayland
 
    class CLASS_DECL_AURA buffer :
       virtual public ::graphics::double_buffer,
-      virtual public ::graphics::bitmap_source_buffer,
-      virtual public ::acme_posix::shmem
+      virtual public ::graphics::bitmap_source_buffer//,
+      //virtual public ::acme_posix::shmem
    {
    public:
 
@@ -42,6 +42,7 @@ namespace windowing_wayland
       //XImage *                      m_pimage;
       //bool                          m_bMapped;
       ::rectangle_i32      m_rectangleLast;
+      ::wl_callback*m_pwlcallbackFrame;
       //::image_pointer                         m_pimage;
       //interlocked_i64                              m_interlockedPostedScreenUpdate;
 //manual_reset_event m_evXshm;
@@ -86,7 +87,7 @@ namespace windowing_wayland
 
       //bool presentation_complete() override;
 
-
+      void __redraw(struct wl_callback *pwlcallback, uint32_t time);
 
    };
 

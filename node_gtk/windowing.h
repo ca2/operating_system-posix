@@ -4,33 +4,33 @@
 #pragma once
 
 
-#include "windowing_x11/windowing.h"
+//#include "windowing_x11/windowing.h"
 
-
-namespace node_gtk
-{
-
-
-   class CLASS_DECL_WINDOWING_X11 windowing :
-      virtual public ::windowing_x11::windowing
-   {
-   public:
-
-
-      windowing();
-      ~windowing() override;
-
-
-      //virtual ::e_status windowing_post(const ::procedure & procedure) override;
-
-
-      bool message_loop_step() override;
-
-
-   };
-
-
-} // namespace node_gtk
-
-
+//
+//namespace node_gtk
+//{
+//
+//
+//   class CLASS_DECL_WINDOWING_X11 windowing :
+//      virtual public ::windowing_x11::windowing
+//   {
+//   public:
+//
+//
+//      windowing();
+//      ~windowing() override;
+//
+//
+//      //virtual ::e_status windowing_post(const ::procedure & procedure) override;
+//
+//
+//      bool message_loop_step() override;
+//
+//
+//   };
+//
+//
+//} // namespace node_gtk
+//
+//
 

@@ -14,6 +14,7 @@
 #include "apex/platform/node.h"
 #include "apex/platform/system.h"
 #include "aura/graphics/graphics/graphics.h"
+#include "aura/message/user.h"
 #include "aura/user/user/interaction_graphics_thread.h"
 #include "aura/user/user/interaction_impl.h"
 #include "aura/platform/message_queue.h"
@@ -21,13 +22,15 @@
 //#include <X11/Xatom.h>
 //#include <X11/extensions/sync.h>
 #include <wayland-client.h>
+#include <linux/input.h> // for BTN_LEFT,...
 #include "aura/graphics/image/context_image.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
+
 //#include "aura_posix/x11/display_lock.h"
 
 
-void on_sn_launch_context(void * pSnContext, Window window);
+//void on_sn_launch_context(void * pSnContext, Window window);
 
 void on_sn_launch_complete(void * pSnContext);
 
@@ -42,9 +45,165 @@ void on_sn_launch_complete(void * pSnContext);
 namespace windowing_wayland
 {
 
+   void xdg_surface_configure(void * data,
+                              struct xdg_surface * xdg_surface,
+                              uint32_t serial)
+   {
+
+      auto pwaylandwindow = (window*)data;
+      pwaylandwindow->__handle_xdg_surface_configure(serial);
+   }
+
+   /**
+    * close - surface wants to be closed
+    *
+    * The close event is sent by the compositor when the user wants
+    * the surface to be closed. This should be equivalent to the user
+    * clicking the close button in client-side decorations, if your
+    * application has any...
+    *
+    * This is only a request that the user intends to close your
+    * window. The client may choose to ignore this request, or show a
+    * dialog to ask the user to save their data...
+    */
+   void xdg_surface_close(void * data,
+                          struct xdg_surface * xdg_surface)
+   {
+
+   }
+
+   static const struct xdg_surface_listener xdg_surface_listener = {
+      xdg_surface_configure,
+   };
+
+   /**
+    * suggest a surface change
+    *
+    * This configure event asks the client to resize its toplevel
+    * surface or to change its state. The configured state should not
+    * be applied immediately. See xdg_surface.configure for details.
+    *
+    * The width and height arguments specify a hint to the window
+    * about how its surface should be resized in window geometry
+    * coordinates. See set_window_geometry.
+    *
+    * If the width or height arguments are zero, it means the client
+    * should decide its own window dimension. This may happen when the
+    * compositor needs to configure the state of the surface but
+    * doesn't have any information about any previous or expected
+    * dimension.
+    *
+    * The states listed in the event specify how the width/height
+    * arguments should be interpreted, and possibly how it should be
+    * drawn.
+    *
+    * Clients must send an ack_configure in response to this event.
+    * See xdg_surface.configure and xdg_surface.ack_configure for
+    * details.
+    */
+   void xdg_toplevel_configure(void * data,
+                               struct xdg_toplevel * xdg_toplevel,
+                               int32_t width,
+                               int32_t height,
+                               struct wl_array * states)
+   {
+
+   }
+
+
+   /**
+    * surface wants to be closed
+    *
+    * The close event is sent by the compositor when the user wants
+    * the surface to be closed. This should be equivalent to the user
+    * clicking the close button in client-side decorations, if your
+    * application has any.
+    *
+    * This is only a request that the user intends to close the
+    * window. The client may choose to ignore this request, or show a
+    * dialog to ask the user to save their data, etc.
+    */
+   void xdg_toplevel_close(void * data,
+                           struct xdg_toplevel * xdg_toplevel)
+   {
+
+
+   }
+
+   /**
+    * recommended window geometry bounds
+    *
+    * The configure_bounds event may be sent prior to a
+    * xdg_toplevel.configure event to communicate the bounds a window
+    * geometry size is recommended to constrain to.
+    *
+    * The passed width and height are in surface coordinate space. If
+    * width and height are 0, it means bounds is unknown and
+    * equivalent to as if no configure_bounds event was ever sent for
+    * this surface.
+    *
+    * The bounds can for example correspond to the size of a monitor
+    * excluding any panels or other shell components, so that a
+    * surface isn't created in a way that it cannot fit.
+    *
+    * The bounds may change at any point, and in such a case, a new
+    * xdg_toplevel.configure_bounds will be sent, followed by
+    * xdg_toplevel.configure and xdg_surface.configure.
+    * @since 4
+    */
+   void xdg_toplevel_configure_bounds(void * data,
+                                      struct xdg_toplevel * xdg_toplevel,
+                                      int32_t width,
+                                      int32_t height)
+   {
+
+
+   }
+
+   /**
+    * compositor capabilities
+    *
+    * This event advertises the capabilities supported by the
+    * compositor. If a capability isn't supported, clients should hide
+    * or disable the UI elements that expose this functionality. For
+    * instance, if the compositor doesn't advertise support for
+    * minimized toplevels, a button triggering the set_minimized
+    * request should not be displayed.
+    *
+    * The compositor will ignore requests it doesn't support. For
+    * instance, a compositor which doesn't advertise support for
+    * minimized will ignore set_minimized requests.
+    *
+    * Compositors must send this event once before the first
+    * xdg_surface.configure event. When the capabilities change,
+    * compositors must send this event again and then send an
+    * xdg_surface.configure event.
+    *
+    * The configured state should not be applied immediately. See
+    * xdg_surface.configure for details.
+    *
+    * The capabilities are sent as an array of 32-bit unsigned
+    * integers in native endianness.
+    * @param capabilities array of 32-bit capabilities
+    * @since 5
+    */
+   void xdg_toplevel_capabilities(void * data,
+                                  struct xdg_toplevel * xdg_toplevel,
+                                  struct wl_array * capabilities)
+   {
+
+   }
+
+   static const struct xdg_toplevel_listener xdg_toplevel_listener = {
+      xdg_toplevel_configure,
+      xdg_toplevel_close,
+      xdg_toplevel_configure_bounds,
+      xdg_toplevel_capabilities
+   };
 
    static void
-   redraw(void *data, struct wl_callback *callback, uint32_t time) {
+   redraw(void * data, struct wl_callback * callback, uint32_t time)
+   {
       printf("Redrawing\n");
    }
 
@@ -53,7 +212,7 @@ namespace windowing_wayland
    };
 
    static void
-   configure_callback(void *data, struct wl_callback *callback, uint32_t  time)
+   configure_callback(void * data, struct wl_callback * callback, uint32_t time)
    {
       if (callback == NULL)
          redraw(data, NULL, time);
@@ -62,31 +221,31 @@ namespace windowing_wayland
    static struct wl_callback_listener configure_callback_listener = {
       configure_callback,
    };
-   static void
-   handle_ping(void *data, struct wl_shell_surface *shell_surface,
-               uint32_t serial)
-   {
-      wl_shell_surface_pong(shell_surface, serial);
-      fprintf(stderr, "Pinged and ponged\n");
-   }
-
-   static void
-   handle_configure(void *data, struct wl_shell_surface *shell_surface,
-                    uint32_t edges, int32_t width, int32_t height)
-   {
-   }
-
-   static void
-   handle_popup_done(void *data, struct wl_shell_surface *shell_surface)
-   {
-   }
-
-
-   static const struct wl_shell_surface_listener shell_surface_listener = {
-      handle_ping,
-      handle_configure,
-      handle_popup_done
-   };
+//   static void
+//   handle_ping(void *data, struct wl_shell_surface *shell_surface,
+//               uint32_t serial)
+//   {
+//      wl_shell_surface_pong(shell_surface, serial);
+//      fprintf(stderr, "Pinged and ponged\n");
+//   }
+//
+//   static void
+//   handle_configure(void *data, struct wl_shell_surface *shell_surface,
+//                    uint32_t edges, int32_t width, int32_t height)
+//   {
+//   }
+//
+//   static void
+//   handle_popup_done(void *data, struct wl_shell_surface *shell_surface)
+//   {
+//   }
+//
+//
+//   static const struct wl_shell_surface_listener shell_surface_listener = {
+//      handle_ping,
+//      handle_configure,
+//      handle_popup_done
+//   };
 
 
    window::window()
@@ -96,10 +255,13 @@ namespace windowing_wayland
 
       //m_bXShmComplete = false;
       m_pWindow4 = this;
-
+      m_uLastConfigureSerial = 0;
       //m_iXic = 0;
 
       //m_xic = nullptr;
+      m_pxdgsurface = nullptr;
+      m_pwlsurface = nullptr;
+      m_pxdgtoplevel = nullptr;
 
 
       //m_bNetWmStateHidden = false;
@@ -274,8 +436,8 @@ namespace windowing_wayland
 
          //::Window rootwin = RootWindow(display, pdisplayx11->m_iScreen);
 
-         XEvent e;
-
+         //       XEvent e;
+//
          // query Visual for "TrueColor" and 32 bits depth (RGBA)
 
 //         ::Visual * visual = DefaultVisual(display, DefaultScreen(display));
@@ -355,10 +517,56 @@ namespace windowing_wayland
 
          }
 
-         m_waylandbuffer = pdisplaywayaland->create_wayland_buffer({cx, cy});
+         pdisplaywayaland->m_windowmap[m_pwlsurface] = this;
 
-         wl_surface_attach(m_pwlsurface, m_waylandbuffer.m_pwlbuffer, 0, 0);
-         //wl_surface_damage(surface, 0, 0, WIDTH, HEIGHT);
+
+         auto pxdgwmbase = pdisplaywayaland->m_pxdgwmbase;
+
+         information() << "pxdgwmbase : " << (::iptr) pxdgwmbase;
+
+         m_pxdgsurface = xdg_wm_base_get_xdg_surface(pxdgwmbase, m_pwlsurface);
+         if (m_pxdgsurface == NULL)
+         {
+            pdisplaywayaland->m_windowmap.erase_item(m_pwlsurface);
+            error() << "Can't create shell surface";
+            throw ::exception(::error_failed);
+         }
+         else
+         {
+            information() << "Created shell surface";
+         }
+         xdg_surface_add_listener(m_pxdgsurface,
+                                  &xdg_surface_listener, this);
+
+         m_pxdgtoplevel = xdg_surface_get_toplevel(m_pxdgsurface);
+
+         if (m_pxdgtoplevel == NULL)
+         {
+            pdisplaywayaland->m_windowmap.erase_item(m_pwlsurface);
+            error() << "Can't create toplevel";
+            throw ::exception(::error_failed);
+         }
+         else
+         {
+            information() << "Created toplevel";
+         }
+
+         xdg_toplevel_add_listener(m_pxdgtoplevel,
+                                   &xdg_toplevel_listener, this);
+
+
+         m_bFirstConfigure = true;
+
+         m_pointWindow.x() = x;
+
+         m_pointWindow.y() = y;
+
+         m_sizeWindow.cx() = cx;
+
+         m_sizeWindow.cy() = cy;
+
+         xdg_surface_set_window_geometry(m_pxdgsurface, x, y, cx, cy);
+
          wl_surface_commit(m_pwlsurface);
 
 //         ::Window window = XCreateWindow(display, DefaultRootWindow(display),
@@ -461,6 +669,7 @@ namespace windowing_wayland
          set_oswindow(this);
 
          set_os_data((void *) m_pwlsurface);
+
 
          //_enable_net_wm_sync();
 
@@ -653,7 +862,8 @@ namespace windowing_wayland
 
             map_window();
 
-         } else
+         }
+         else
          {
 
             pimpl->m_puserinteraction->const_layout().window().display() = e_display_none;
@@ -1575,35 +1785,35 @@ namespace windowing_wayland
    }
 
 
-   bool window::is_child(::oswindow oswindow)
-   {
-
-      if (oswindow == nullptr || oswindow->m_puserinteractionimpl == nullptr ||
-          oswindow->m_puserinteractionimpl->m_puserinteraction == nullptr)
-      {
-
-         return false;
-
-      }
-
-      if (m_puserinteractionimpl == nullptr || m_puserinteractionimpl->m_puserinteraction == nullptr)
-      {
-
-         return false;
-
-      }
-
-      return m_puserinteractionimpl->m_puserinteraction->is_child(oswindow->m_puserinteractionimpl->m_puserinteraction);
-
-   }
-
-
-   ::windowing::window * window::get_parent() const
-   {
-
-      return nullptr;
-
-   }
+//   bool window::is_child(::oswindow oswindow)
+//   {
+//
+//      if (oswindow == nullptr || oswindow->m_puserinteractionimpl == nullptr ||
+//          oswindow->m_puserinteractionimpl->m_puserinteraction == nullptr)
+//      {
+//
+//         return false;
+//
+//      }
+//
+//      if (m_puserinteractionimpl == nullptr || m_puserinteractionimpl->m_puserinteraction == nullptr)
+//      {
+//
+//         return false;
+//
+//      }
+//
+//      return m_puserinteractionimpl->m_puserinteraction->is_child(oswindow->m_puserinteractionimpl->m_puserinteraction);
+//
+//   }
+//
+//
+//   ::windowing::window * window::get_parent() const
+//   {
+//
+//      return nullptr;
+//
+//   }
 
 
    //virtual ::Window get_parent_handle();
@@ -2357,11 +2567,9 @@ namespace windowing_wayland
 //#endif
 //
 //      return lState;
-return false;
+      return false;
 
    }
-
-
 
 
    bool window::is_window_visible()
@@ -2385,7 +2593,7 @@ return false;
 //      return _is_window_visible_unlocked();
 
 
-return true;
+      return true;
 //      XWindowAttributes attr;
 //
 //      if (!XGetWindowAttributes(Display(), Window(), &attr))
@@ -2437,7 +2645,7 @@ return true;
 //
 //      return attr.map_state == IsViewable;
 
-return true;
+      return true;
 
    }
 
@@ -3009,6 +3217,9 @@ return true;
 //
 //      //m_puserinteractionimpl->on_change_visibility();
 
+
+
+
       windowing_output_debug_string("::window::set_window_pos 2");
 
       return true;
@@ -3258,7 +3469,7 @@ return true;
 
 
    bool window::_configure_window_unlocked(const class ::zorder & zorder,
-                                              const ::e_activation & eactivation, bool bNoZorder, ::e_display edisplay)
+                                           const ::e_activation & eactivation, bool bNoZorder, ::e_display edisplay)
    {
 
       windowing_output_debug_string("::window::_configure_window_unlocked 1");
@@ -3511,7 +3722,7 @@ return true;
 //
 //            }
 
-            information("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
+            //information("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
 
             //information() << acmenode()->get_callstack();
 
@@ -3539,7 +3750,7 @@ return true;
 
             windowing_output_debug_string("::window::set_window_pos Move Window 1.4.1");
 
-            information("XMoveWindow (Win=%d) (%d, %d)", Window(), x, y);
+            //information("XMoveWindow (Win=%d) (%d, %d)", Window(), x, y);
 
             //XMoveWindow(Display(), Window(), x, y);
 
@@ -3551,7 +3762,7 @@ return true;
 
          windowing_output_debug_string("::window::set_window_pos Resize Window 1.4.2");
 
-         information("XResizeWindow (Win=%d) (%d, %d)", Window(), cx, cy);
+         //information("XResizeWindow (Win=%d) (%d, %d)", Window(), cx, cy);
 
          //information() << acmenode()->get_callstack();
 
@@ -3675,6 +3886,7 @@ return true;
       windowing_output_debug_string("::window::_strict_set_window_position_unlocked 2");
 
       //information() << "::windowing_wayland::window::_strict_set_window_position_unlocked";
+      xdg_surface_set_window_geometry(m_pxdgsurface, x, y, cx, cy);
 
       m_pointWindow.x() = x;
 
@@ -3683,6 +3895,7 @@ return true;
       m_sizeWindow.cx() = cx;
 
       m_sizeWindow.cy() = cy;
+
 
       return true;
 
@@ -4046,9 +4259,9 @@ return true;
 
          //display_lock displaylock(x11_display()->Display());
 
-         XEvent xev;
-
-         zero(xev);
+//         XEvent xev;
+//
+//         zero(xev);
 
 //         auto windowRoot = DefaultRootWindow(Display());
 //
@@ -4387,7 +4600,8 @@ return true;
 
             pinteraction->send_message(e_message_non_client_destroy, 0, 0);
 
-         } else
+         }
+         else
          {
 
             try
@@ -4705,7 +4919,7 @@ return true;
 //
 //      }
 //
-     return true;
+      return true;
 
    }
 
@@ -4912,7 +5126,7 @@ return true;
 //      m_interlockedPostedScreenUpdate++;
 
       //windowing()->windowing_post([this]()
-        //                          {
+      //                          {
 
       {
 
@@ -4969,44 +5183,49 @@ return true;
    void window::set_mouse_capture()
    {
 
-      m_pwindowing->windowing_post([this]()
-                                   {
+      ::pointer < ::windowing_wayland::display > pwaylanddisplay = m_pdisplay;
 
-                                      synchronous_lock synchronouslock(user_synchronization());
+      pwaylanddisplay->__capture_mouse(this, pwaylanddisplay->m_uLastButtonSerial);
 
-//                                      display_lock displaylock(x11_display()->Display());
 
-                                      information() << "XGrabPointer";
+//      m_pwindowing->windowing_post([this]()
+//                                   {
 //
-//                                      auto grabStatus = XGrabPointer(Display(), Window(), False,
-//                                                                     ButtonPressMask | ButtonReleaseMask |
-//                                                                     PointerMotionMask,
-//                                                                     GrabModeAsync, GrabModeAsync, None, None,
-//                                                                     CurrentTime);
-
-//                                      if (grabStatus != GrabSuccess)
-//                                      {
+//                                      synchronous_lock synchronouslock(user_synchronization());
 //
-//                                         windowing_output_debug_string("\noswindow_data::SetCapture 2.1");
+////                                      display_lock displaylock(x11_display()->Display());
 //
-//                                         return;
+//                                      information() << "XGrabPointer";
+////
+////                                      auto grabStatus = XGrabPointer(Display(), Window(), False,
+////                                                                     ButtonPressMask | ButtonReleaseMask |
+////                                                                     PointerMotionMask,
+////                                                                     GrabModeAsync, GrabModeAsync, None, None,
+////                                                                     CurrentTime);
 //
-//                                      }
-
-//                                      auto pdisplay = x11_display();
+////                                      if (grabStatus != GrabSuccess)
+////                                      {
+////
+////                                         windowing_output_debug_string("\noswindow_data::SetCapture 2.1");
+////
+////                                         return;
+////
+////                                      }
 //
-//                                      if (pdisplay)
-//                                      {
+////                                      auto pdisplay = x11_display();
+////
+////                                      if (pdisplay)
+////                                      {
+////
+////                                         pdisplay->_on_capture_changed_to(this);
+////
+////                                      }
 //
-//                                         pdisplay->_on_capture_changed_to(this);
+//                                      windowing_output_debug_string("\noswindow_data::SetCapture 2");
 //
-//                                      }
-
-                                      windowing_output_debug_string("\noswindow_data::SetCapture 2");
-
-                                   });
-
-      //return ::success;
+//                                   });
+//
+//      //return ::success;
 
    }
 
@@ -5016,7 +5235,7 @@ return true;
 
       synchronous_lock synchronouslock(user_synchronization());
 
-      if (Window() == 0)
+      if (m_pwlsurface == nullptr)
       {
 
          throw ::exception(error_failed);
@@ -5059,7 +5278,7 @@ return true;
 
       //synchronous_lock synchronouslock(user_synchronization());
 
-      if (Window() == 0)
+      if (m_pwlsurface == 0)
       {
 
          throw ::exception(error_failed);
@@ -5108,7 +5327,7 @@ return true;
 
       synchronous_lock synchronouslock(user_synchronization());
 
-      if (Window() == 0)
+      if (m_pwlsurface == 0)
       {
 
          throw ::exception(error_failed);
@@ -5204,6 +5423,312 @@ return true;
 //      XSyncIntToValue(&m_xsyncvalueNetWmSync, 0);
 //
 //   }
+
+
+   void window::__handle_pointer_enter()
+   {
+
+      m_pointCursor = m_pointPointer;
+
+   }
+
+
+   void window::__handle_pointer_motion(::u32 millis)
+   {
+
+      m_pointCursor = m_pointPointer;
+
+      auto pmouse = __create_new<::message::mouse>();
+
+      pmouse->m_oswindow = this;
+
+      pmouse->m_pwindow = this;
+
+      pmouse->m_atom = e_message_mouse_move;
+
+      pmouse->m_point = m_pointCursor;
+
+      pmouse->m_time.m_iSecond = millis / 1_k;
+
+      pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+
+      //pwindow->message_handler(pmouse);
+
+      wayland_windowing()->post_ui_message(pmouse);
+
+   }
+
+
+
+
+
+   void window::__handle_pointer_leave(::windowing_wayland::window * pwaylandwindowLeave)
+   {
+
+//            if (msg.oswindow)
+//            {
+//
+//               ::minimum(m_pointCursor.x());
+//
+//               ::minimum(m_pointCursor.y());
+//
+//
+//               if(e.xcrossing.mode == NotifyUngrab)
+//               {
+//
+//                  information() << "X11 LeaveNotify NotifyUngrab";
+//
+//               }
+//
+////            if(e.xcrossing.mode == NotifyUngrab)
+////            {
+////
+////  //             MESSAGE msgCaptureChanged;
+////
+//////               msgCaptureChanged.oswindow = m_pwindowCapture;
+////               msg.m_atom = e_message_capture_changed;
+////               msg.wParam = 0;
+////               msg.lParam = (lparam) (oswindow) (msg.oswindow == m_pwindowCapture ? nullptr : m_pwindowCapture.m_p);
+////               msg.time = e.xcrossing.time;
+////
+////               post_ui_message(msg);
+////
+////            }
+
+
+//
+
+      MESSAGE msg;
+      msg.oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
+      msg.m_atom = e_message_mouse_leave;
+      msg.wParam = 0;
+      msg.lParam = 0;
+      //   msg.time = e.xcrossing.time;
+      msg.time = 0;
+
+      wayland_windowing()->post_ui_message(msg);
+
+//            }
+
+   }
+
+
+   void window::__handle_pointer_button(::u32 linux_button, ::u32 pressed, ::u32 millis)
+   {
+      enum_message emessage = e_message_undefined;
+      //msg.m_atom = e_message_mouse_wheel;
+
+      //post_ui_message(pmouse);
+
+      bool bRet = true;
+
+      //msg.time = e.xbutton.time;
+
+      int Δ = 0;
+
+      if (pressed == WL_POINTER_BUTTON_STATE_PRESSED)
+      {
+
+         if (linux_button == BTN_LEFT)
+         {
+
+            ::information("ButtonPress::Button1\n");
+
+            emessage = e_message_left_button_down;
+
+         }
+         else if (linux_button == BTN_MIDDLE)
+         {
+
+            emessage = e_message_middle_button_down;
+
+         }
+         else if (linux_button == BTN_RIGHT)
+         {
+
+            emessage = e_message_right_button_down;
+
+         }
+         else if (linux_button == BTN_GEAR_DOWN)
+         {
+
+            Δ = 120;
+
+         }
+         else if (linux_button == BTN_GEAR_UP)
+         {
+
+            Δ = -120;
+
+         }
+         else
+         {
+
+            bRet = false;
+
+         }
+
+      }
+      else if (pressed == WL_POINTER_BUTTON_STATE_RELEASED)
+      {
+
+         if (linux_button == BTN_LEFT)
+         {
+
+            ::information("ButtonRelease::Button1\n");
+
+            emessage = e_message_left_button_up;
+
+         }
+         else if (linux_button == BTN_MIDDLE)
+         {
+
+            emessage = e_message_middle_button_up;
+
+         }
+         else if (linux_button == BTN_RIGHT)
+         {
+
+            emessage = e_message_right_button_up;
+
+         }
+         else
+         {
+
+            bRet = false;
+
+         }
+
+      }
+      else
+      {
+
+         bRet = false;
+
+      }
+
+      m_pointCursor = m_pointPointer;
+
+//      MESSAGE msg;
+//
+//      msg.oswindow = this;
+//
+//      msg.oswindow->set_cursor_position(m_pointCursor);
+
+
+
+//      int l = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.x;
+//      int t = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.y;
+//      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx();
+//      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy();
+//
+//      ::rectangle_i32 r;
+//
+//      window_rectangle(msg.oswindow, &r);
+//
+//      int l1 = r.left();
+//      int t1 = r.top();
+//      int w1 = r.width();
+//      int h1 = r.height();
+
+      if (Δ != 0)
+      {
+
+         auto pmousewheel = __create_new<::message::mouse_wheel>();
+
+         pmousewheel->m_oswindow = this;
+
+         pmousewheel->m_pwindow = this;
+
+         pmousewheel->m_atom = e_message_mouse_wheel;
+
+         //msg.wParam = make_i32(0, iDelta);
+
+         //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+
+         pmousewheel->m_Δ = Δ;
+
+         pmousewheel->m_point = m_pointCursor;
+
+         pmousewheel->m_time.m_iSecond =millis / 1_k;
+
+         pmousewheel->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+
+         wayland_windowing()->post_ui_message(pmousewheel);
+
+
+      }
+      else if (bRet)
+      {
+
+         auto pmouse = __create_new<::message::mouse>();
+
+         pmouse->m_oswindow = this;
+
+         pmouse->m_pwindow = this;
+
+         pmouse->m_atom = emessage;
+
+         pmouse->m_point = m_pointCursor;
+
+         pmouse->m_time.m_iSecond = millis / 1_k;
+
+         pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+
+         //msg.wParam = 0;
+
+         //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+
+         //post_ui_message(msg);
+         wayland_windowing()->post_ui_message(pmouse);
+
+      }
+
+   }
+
+
+   void window::__continue_initialization_after_configure()
+   {
+
+      if(m_waylandbuffer.m_size != m_sizeWindow)
+      {
+
+         auto pdisplaywayaland = dynamic_cast < ::windowing_wayland::display * > (m_pdisplay.m_p);
+
+         pdisplaywayaland->destroy_wayland_buffer(m_waylandbuffer);
+
+         m_waylandbuffer = pdisplaywayaland->create_wayland_buffer(m_sizeWindow);
+
+         //wl_surface_attach(m_pwlsurface, m_waylandbuffer.m_pwlbuffer, 0, 0);
+
+         m_puserinteractionimpl->m_puserinteraction->set_need_redraw();
+
+         m_puserinteractionimpl->m_puserinteraction->post_redraw();
+
+      }
+      //wl_surface_damage(surface, 0, 0, WIDTH, HEIGHT);
+      //wl_surface_commit(m_pwlsurface);
+
+   }
+
+
+   void window::__handle_xdg_surface_configure(::u32 serial)
+   {
+
+      m_uLastConfigureSerial = serial;
+
+      xdg_surface_ack_configure(m_pxdgsurface, m_uLastConfigureSerial);
+
+      if(m_bFirstConfigure)
+      {
+
+         m_bFirstConfigure = false;
+
+         __continue_initialization_after_configure();
+
+      }
+
+   }
 
 
 } // namespace windowing_wayland

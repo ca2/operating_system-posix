@@ -63,7 +63,7 @@ namespace windowing_wayland
 
       }
 
-      map_shared_memory(size.cx() * size.cy() * 4);
+      //map_shared_memory(size.cx() * size.cy() * 4);
 
    }
 
@@ -145,54 +145,54 @@ namespace windowing_wayland
    bool buffer::update_buffer(::graphics::buffer_item * pbufferitem)
    {
 
-      auto pwindowing = m_pimpl->m_puserinteraction->windowing();
-
-      auto pdisplay = pwindowing->display();
-
-      auto sizeLargeInternalBitmap = pdisplay->get_monitor_union_size();
-
-      if (pbufferitem->m_size.cx() > sizeLargeInternalBitmap.cx())
-      {
-
-         sizeLargeInternalBitmap.cx() = pbufferitem->m_size.cx();
-
-      }
-
-      if (pbufferitem->m_size.cy() > sizeLargeInternalBitmap.cy())
-      {
-
-         sizeLargeInternalBitmap.cy() = pbufferitem->m_size.cy();
-
-      }
-
-      if (pbufferitem->m_sizeInternal.cx() > sizeLargeInternalBitmap.cx())
-      {
-
-         sizeLargeInternalBitmap.cx() = pbufferitem->m_sizeInternal.cx();
-
-      }
-
-      if (pbufferitem->m_sizeInternal.cy() > sizeLargeInternalBitmap.cy())
-      {
-
-         sizeLargeInternalBitmap.cy() = pbufferitem->m_sizeInternal.cy();
-
-      }
-
-      if (pbufferitem->m_sizeInternal.cx() < sizeLargeInternalBitmap.cx()
-          || pbufferitem->m_sizeInternal.cy() < sizeLargeInternalBitmap.cy())
-      {
-
-         _map_shared_memory(sizeLargeInternalBitmap);
-
-         if (m_shmaddr)
-         {
-
-            pbufferitem->m_sizeInternal = sizeLargeInternalBitmap;
-
-         }
-
-      }
+//      auto pwindowing = m_pimpl->m_puserinteraction->windowing();
+//
+//      auto pdisplay = pwindowing->display();
+//
+//      auto sizeLargeInternalBitmap = pdisplay->get_monitor_union_size();
+//
+//      if (pbufferitem->m_size.cx() > sizeLargeInternalBitmap.cx())
+//      {
+//
+//         sizeLargeInternalBitmap.cx() = pbufferitem->m_size.cx();
+//
+//      }
+//
+//      if (pbufferitem->m_size.cy() > sizeLargeInternalBitmap.cy())
+//      {
+//
+//         sizeLargeInternalBitmap.cy() = pbufferitem->m_size.cy();
+//
+//      }
+//
+//      if (pbufferitem->m_sizeInternal.cx() > sizeLargeInternalBitmap.cx())
+//      {
+//
+//         sizeLargeInternalBitmap.cx() = pbufferitem->m_sizeInternal.cx();
+//
+//      }
+//
+//      if (pbufferitem->m_sizeInternal.cy() > sizeLargeInternalBitmap.cy())
+//      {
+//
+//         sizeLargeInternalBitmap.cy() = pbufferitem->m_sizeInternal.cy();
+//
+//      }
+//
+//      if (pbufferitem->m_sizeInternal.cx() < sizeLargeInternalBitmap.cx()
+//          || pbufferitem->m_sizeInternal.cy() < sizeLargeInternalBitmap.cy())
+//      {
+//
+//         _map_shared_memory(sizeLargeInternalBitmap);
+//
+//         if (m_shmaddr)
+//         {
+//
+//            pbufferitem->m_sizeInternal = sizeLargeInternalBitmap;
+//
+//         }
+//
+//      }
 
       return ::graphics::double_buffer::update_buffer(pbufferitem);
 
@@ -422,6 +422,20 @@ namespace windowing_wayland
 
    }
 
+//   static void
+//   redraw(void *data, struct wl_callback *pwlcallback, uint32_t time)
+//   {
+//      auto pbuffer = (buffer *) data;
+//      pbuffer->redraw(pwlcallback, time);
+//   }
+//   static const struct wl_callback_listener frame_listener = {
+//      redraw
+//   };
+
+   void buffer::__redraw(struct wl_callback *pwlcallback, uint32_t time)
+   {
+
+   }
 
    bool buffer::_update_screen_unlocked(::graphics::buffer_item * pitem)
    {
@@ -438,6 +452,77 @@ namespace windowing_wayland
       auto & pimage = pitem->m_pimage2;
 
       pimage->map();
+
+//
+//      uint32_t pixel_value = 0x0; // black
+//
+//      static void
+//      paint_pixels() {
+//         int n;
+//         uint32_t *pixel = shm_data;
+//
+//         for (n =0; n < WIDTH*HEIGHT; n++) {
+//            *pixel++ = pixel_value;
+//         }
+//
+//         // increase each RGB component by one
+//         pixel_value += 0x10101;
+//
+//         // if it's reached 0xffffff (white) reset to zero
+//         if (pixel_value > 0xffffff) {
+//            pixel_value = 0x0;
+//         }
+//      }
+
+      //static const struct wl_callback_listener frame_listener;
+
+      //int ht;
+
+      ::pointer < ::windowing_wayland::window > pwaylandwindow = m_pimpl->m_pwindow;
+
+      //static void
+      //redraw(void *data, struct wl_callback *callback, uint32_t time)
+      //{
+         // fprintf(stderr, "Redrawing\n");
+    //     wl_callback_destroy(m_pwlcallbackFrame);
+        // if (ht == 0) ht = HEIGHT;
+
+      bool bChangedPosition = false;
+
+      bool bChangedSize = false;
+
+      try
+      {
+
+         pwaylandwindow->strict_set_window_position_unlocked(bChangedPosition, bChangedSize);
+
+      }
+      catch (...)
+      {
+
+      }
+
+      if(!pwaylandwindow->m_bFirstConfigure
+      && pwaylandwindow->m_sizeWindow == pwaylandwindow->m_waylandbuffer.m_size
+      && pwaylandwindow->m_sizeWindow == pitem->m_size)
+      {
+
+         wl_surface_damage(pwaylandwindow->m_pwlsurface, 0, 0, pitem->m_size.cx(), pitem->m_size.cy());
+
+         ::copy_image32((const ::image32_t*) pwaylandwindow->m_waylandbuffer.m_pdata,
+                  pwaylandwindow->m_waylandbuffer.m_size,
+                  pwaylandwindow->m_waylandbuffer.m_stride, pitem->m_pimage2->data(), pitem->m_pimage2->scan_size());
+
+         information() << "_update_screen_unlocked data : " << (::iptr)pwaylandwindow->m_waylandbuffer.m_pdata;
+      //memset(pwindow->m_waylandbuffer.m_pdata, 127,pitem->m_size.cx() * 4 * pitem->m_size.cy());
+//      m_pwlcallbackFrame = wl_surface_frame(pwindow->m_pwlsurface);
+         wl_surface_attach(pwaylandwindow->m_pwlsurface, pwaylandwindow->m_waylandbuffer.m_pwlbuffer, 0, 0);
+  //       wl_callback_add_listener(m_pwlcallbackFrame, &frame_listener, NULL);
+         wl_surface_commit(pwaylandwindow->m_pwlsurface);
+
+         information() << "wl_surface_commit";
+
+      }
 
 //      try
 //      {

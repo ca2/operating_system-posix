@@ -36,6 +36,8 @@ list(APPEND library_source
    windowing_wayland.cpp
    windowing.h
    wayland_windowing.cpp
+   wayland-xdg_wm_base.c
+   wayland-xdg_wm_base.h
    xi.cpp
    )
 

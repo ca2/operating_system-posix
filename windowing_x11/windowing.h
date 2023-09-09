@@ -75,6 +75,7 @@ namespace windowing_x11
 
       //void windowing_main() override;
 
+      bool message_loop_step() override;
 
       void windowing_post_quit() override;
 

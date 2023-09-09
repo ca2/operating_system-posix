@@ -509,6 +509,19 @@ namespace windowing_x11
 
    }
 
+   bool windowing::message_loop_step()
+   {
+
+      if(!x11_message_loop_step())
+      {
+
+         return false;
+
+      }
+
+      return true;
+
+   }
 
 } // namespace windowing
 

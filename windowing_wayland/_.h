@@ -38,12 +38,39 @@ struct wl_seat;
 struct wl_keyboard;
 struct wl_pointer;
 struct wl_shell_surface;
+struct wl_callback;
+struct wl_shm_pool;
+
+struct xdg_wm_base;
+struct xdg_surface;
+struct xdg_toplevel;
+struct xdg_output;
+struct xdg_popup;
 
 
 struct wayland_buffer
 {
+
+
    ::wl_buffer *  m_pwlbuffer;
    void *         m_pdata;
+   int            m_iFd;
+   memsize        m_memsize;
+   ::size_i32     m_size;
+   ::i32          m_stride;
+
+
+   wayland_buffer(const wayland_buffer & waylandbuffer) = default;
+   wayland_buffer()
+   {
+      m_pwlbuffer = nullptr;
+      m_pdata = nullptr;
+      m_iFd = -1;
+      m_memsize = 0;
+      m_stride = 0;
+   }
+
+
 
 };
 

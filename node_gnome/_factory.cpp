@@ -24,7 +24,7 @@ __FACTORY_EXPORT void node_gnome_factory(::factory::factory * pfactory)
    pfactory->add_factory_item < ::node_gnome::notify_icon, ::user::notify_icon > ();
    pfactory->add_factory_item < ::node_gnome::appindicator, ::aura_posix::appindicator >();
 
-   pfactory->add_factory_item < ::node_gnome::windowing, ::windowing::windowing >();
+   //pfactory->add_factory_item < ::node_gnome::windowing, ::windowing::windowing >();
 
    pfactory->add_factory_item < ::node_gnome::node, ::acme::node > ();
 

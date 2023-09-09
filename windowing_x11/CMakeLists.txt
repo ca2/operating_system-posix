@@ -24,8 +24,8 @@ list(APPEND library_source
    keyboard.h
    node.cpp
    node.h
-   startup-notification.cpp
-   startup-notification.h
+   #startup-notification.cpp
+   #startup-notification.h
    text_composition_client.cpp
    text_composition_client.h
    user.cpp

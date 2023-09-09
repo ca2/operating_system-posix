@@ -10,6 +10,7 @@
 //#include "acme/operating_system/x11/nano/event_listener.h"
 //#include "acme/operating_system/x11/nano/display.h"
 #include "aura/windowing/display.h"
+
 //#include "_x11.h"
 
 
@@ -65,15 +66,31 @@ namespace windowing_wayland
       //int                                          m_iXSyncMajor;
       //int                                          m_iXSyncMinor;
    ::wl_shm *m_pwlshm;
-   ::wl_shell *m_pwlshell;
+   ::xdg_wm_base *m_pxdgwmbase;
    ::wl_compositor * m_pwlcompositor;
       ::wl_surface *       m_pwlsurfaceCursor;
       ::wl_seat *             m_pwlseat;
       ::wl_keyboard * m_pwlkeyboard;
       ::wl_pointer * m_pwlpointer;
+      //::wl_shm_pool * m_pwlshmpool;
       ::wl_surface * m_pwlsurfacePointerEnter;
-      ::wl_shell_surface * m_pwlshellsurface;
+      ::wl_surface * m_pwlsurfaceMouseCapture;
+      ::xdg_surface * m_pxdgsurfaceMouseCapture;
+      ::xdg_toplevel * m_pxdgtoplevelMouseCapture;
+      wayland_buffer m_waylandbufferMouseCapture;
+      bool m_bMouseCaptured ;
+      ::rectangle_i32 m_rectangleMouseCapture;
+      ::u32 m_uLastButtonSerial;
+      //::comparable_array < ::wl_output * > m_wloutputa;
+      //::comparable_array < ::xdg_output * > m_xdgoutputa;
+
+      //::point_f64 m_pointPointer;
+
+      //::u32 m_uLastPointerButton;
+      //::u32 m_uLastPointerState;
+
       ::pointer < ::windowing_wayland::window > m_pwindowPointerEnter;
+      ::pointer < ::windowing_wayland::window > m_pwindowPointerCapture;
   //    wl_compositor_create_surface(compositor);
 //
 
@@ -134,6 +151,7 @@ namespace windowing_wayland
 
       virtual ::e_status release_mouse_capture();
 
+
 //      Atom intern_atom(const char * pszAtomName, bool bCreate);
 //
 //      Atom intern_atom(::x11::enum_atom eatom, bool bCreate);
@@ -144,7 +162,7 @@ namespace windowing_wayland
 //
 //      Atom net_wm_state_atom(bool bCreate);
 
-
+      void destroy_wayland_buffer(wayland_buffer & waylandbuffer);
       wayland_buffer create_wayland_buffer(const ::size_i32 & size);
       wayland_buffer create_wayland_buffer(::image * pimage);
 
@@ -167,6 +185,16 @@ namespace windowing_wayland
       //virtual bool point_is_window_origin(::point_i32 pointHitTest, ::windowing::window * pwindowExclude, int iMargin);
 
       ///virtual Picture xrender_create_picture(::image_pointer pimage);
+
+
+      virtual void __handle_pointer_enter(double x, double y, ::windowing_wayland::window * pwindowPointerEnter);
+      virtual void __handle_pointer_motion(double x, double y, ::u32 time);
+      virtual void __handle_pointer_leave(::windowing_wayland::window * pwindowPointerLeave);
+
+      virtual void __handle_pointer_button(::u32 linux_button, ::u32 pressed, ::u32 time);
+
+
+      virtual void __capture_mouse(::windowing_wayland::window * pwindowMouseCapture, ::u32 serial);
 
 
    };

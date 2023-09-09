@@ -17,6 +17,7 @@
 #include <wayland-server.h>
 #include <wayland-cursor.h>
 #include <wayland-client-protocol.h>
+#include "wayland-xdg_wm_base.h"
 //#include <X11/Xutil.h>
 //#include <X11/extensions/Xrender.h>
 //#include <X11/Xatom.h>

@@ -3397,6 +3397,14 @@ namespace windowing_x11
 
       bool bSize = !bNoSize;
 
+      m_pointWindow.x() = x;
+
+      m_pointWindow.y() = y;
+
+      m_sizeWindow.cx() = cx;
+
+      m_sizeWindow.cy() = cy;
+
       if (bMove)
       {
 
@@ -3597,14 +3605,6 @@ namespace windowing_x11
       windowing_output_debug_string("::window::_strict_set_window_position_unlocked 2");
 
       //information() << "::windowing_x11::window::_strict_set_window_position_unlocked";
-
-      m_pointWindow.x() = x;
-
-      m_pointWindow.y() = y;
-
-      m_sizeWindow.cx() = cx;
-
-      m_sizeWindow.cy() = cy;
 
       return true;
 

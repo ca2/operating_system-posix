@@ -834,20 +834,20 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //}
 //
-#define _NET_WM_STATE_REMOVE        0    // remove/unset property
-#define _NET_WM_STATE_ADD           1    // add/set property
-#define _NET_WM_STATE_TOGGLE        2    // toggle property
-
-   Atom * wm_get_list_raw(oswindow w, Atom atomList, unsigned long int * items);
-
-   int wm_test_state(oswindow w, const char * pszNetStateFlag);
-
-   int wm_test_state_raw(oswindow w, const char * pszNetStateFlag);
-
-   int wm_test_list_raw(oswindow w, Atom atomList, Atom atomFlag);
-
-   bool wm_add_remove_list_raw(oswindow w, Atom atomList, Atom atomFlag, bool bSet);
-
+//#define _NET_WM_STATE_REMOVE        0    // remove/unset property
+//#define _NET_WM_STATE_ADD           1    // add/set property
+//#define _NET_WM_STATE_TOGGLE        2    // toggle property
+//
+//   Atom * wm_get_list_raw(oswindow w, Atom atomList, unsigned long int * items);
+//
+//   int wm_test_state(oswindow w, const char * pszNetStateFlag);
+//
+//   int wm_test_state_raw(oswindow w, const char * pszNetStateFlag);
+//
+//   int wm_test_list_raw(oswindow w, Atom atomList, Atom atomFlag);
+//
+//   bool wm_add_remove_list_raw(oswindow w, Atom atomList, Atom atomFlag, bool bSet);
+//
 
 
 //int_bool IsWindowVisibleRaw(oswindow w)
@@ -919,7 +919,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //#if !defined(RASPBERRYPIOS)
 
 
-   bool x11_process_event(Display * pdisplay, XEvent * pevent, XGenericEventCookie * cookie);
+   //bool x11_process_event(Display * pdisplay, XEvent * pevent, XGenericEventCookie * cookie);
 
 
 //#else
@@ -959,7 +959,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //gboolean x11_source_func(gpointer ppointer);
 
 
-   Atom g_atomKickIdle = 0;
+   //Atom g_atomKickIdle = 0
 
 
 
@@ -3337,131 +3337,131 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 } // namespace windowing_wayland
 
 
-bool x11_get_client_rect(Display * pdisplay, Window window, ::rectangle_i32 * prectangle)
-{
-
-   synchronous_lock synchronouslock(user_synchronization());
-
-   XWindowAttributes attr;
-
-   if (XGetWindowAttributes(pdisplay, window, &attr) == 0)
-   {
-
-      windowing_output_debug_string("::this->rectangle 1.2 (xgetwindowattributes failed");
-
-      return false;
-
-   }
-
-   prectangle->left() = 0;
-
-   prectangle->top() = 0;
-
-   prectangle->right() = prectangle->left() + attr.width;
-
-   prectangle->bottom() = prectangle->top() + attr.height;
-
-   windowing_output_debug_string("::this->rectangle 2");
-
-   return true;
-
-}
-
-
-string x11_get_name(Display * display, Window w)
-{
-
-   string str;
-
-   char * name = NULL;
-   int status = XFetchName(display, w, &name);
-   if (status >= Success)
-   {
-      str = name;
-   }
-   XFree(name);
-   return str;
-
-}
-
-
-bool x11_get_window_rect(Display * d, Window window, ::rectangle_i32 * prectangle)
-{
-
-   XWindowAttributes attrs;
-
-   if (!XGetWindowAttributes(d, window, &attrs))
-   {
-
-      windowing_output_debug_string("::x11_get_window_rect 1.1 (xgetwindowattributes failed)");
-
-      return false;
-
-   }
-
-   int x = 0;
-
-   int y = 0;
-
-   int screen = XDefaultScreen((Display *) d);
-
-   Window windowRoot = RootWindow((Display *) d, screen);
-
-   Window child;
-
-   XTranslateCoordinates(d, window, windowRoot, 0, 0, &x, &y, &child);
-
-   prectangle->left() = x + attrs.x;
-
-   prectangle->top() = y + attrs.y;
-
-   prectangle->right() = x + attrs.x + attrs.width;
-
-   prectangle->bottom() = y + attrs.y + attrs.height;
-
-
-   windowing_output_debug_string("::x11_get_window_rect 2");
-
-   return true;
-
-}
-
-
-::e_status initialize_x11()
-{
-
-   if (!XInitThreads())
-   {
-
-      return ::error_failed;
-
-   }
-
-   XSetErrorHandler(_c_XErrorHandler);
-
-   //g_pmutexX11 = memory_new ::pointer < ::mutex >();
-
-   return ::success;
-
-}
-
-
-::e_status g_estatusInitializeX11 = error_not_initialized;
-
-
-::e_status defer_initialize_x11()
-{
-
-   if (g_estatusInitializeX11 == error_not_initialized)
-   {
-
-      g_estatusInitializeX11 = initialize_x11();
-
-   }
-
-   return g_estatusInitializeX11;
-
-}
+//bool x11_get_client_rect(Display * pdisplay, Window window, ::rectangle_i32 * prectangle)
+//{
+//
+//   synchronous_lock synchronouslock(user_synchronization());
+//
+//   XWindowAttributes attr;
+//
+//   if (XGetWindowAttributes(pdisplay, window, &attr) == 0)
+//   {
+//
+//      windowing_output_debug_string("::this->rectangle 1.2 (xgetwindowattributes failed");
+//
+//      return false;
+//
+//   }
+//
+//   prectangle->left() = 0;
+//
+//   prectangle->top() = 0;
+//
+//   prectangle->right() = prectangle->left() + attr.width;
+//
+//   prectangle->bottom() = prectangle->top() + attr.height;
+//
+//   windowing_output_debug_string("::this->rectangle 2");
+//
+//   return true;
+//
+//}
+//
+//
+//string x11_get_name(Display * display, Window w)
+//{
+//
+//   string str;
+//
+//   char * name = NULL;
+//   int status = XFetchName(display, w, &name);
+//   if (status >= Success)
+//   {
+//      str = name;
+//   }
+//   XFree(name);
+//   return str;
+//
+//}
+//
+//
+//bool x11_get_window_rect(Display * d, Window window, ::rectangle_i32 * prectangle)
+//{
+//
+//   XWindowAttributes attrs;
+//
+//   if (!XGetWindowAttributes(d, window, &attrs))
+//   {
+//
+//      windowing_output_debug_string("::x11_get_window_rect 1.1 (xgetwindowattributes failed)");
+//
+//      return false;
+//
+//   }
+//
+//   int x = 0;
+//
+//   int y = 0;
+//
+//   int screen = XDefaultScreen((Display *) d);
+//
+//   Window windowRoot = RootWindow((Display *) d, screen);
+//
+//   Window child;
+//
+//   XTranslateCoordinates(d, window, windowRoot, 0, 0, &x, &y, &child);
+//
+//   prectangle->left() = x + attrs.x;
+//
+//   prectangle->top() = y + attrs.y;
+//
+//   prectangle->right() = x + attrs.x + attrs.width;
+//
+//   prectangle->bottom() = y + attrs.y + attrs.height;
+//
+//
+//   windowing_output_debug_string("::x11_get_window_rect 2");
+//
+//   return true;
+//
+//}
+//
+//
+//::e_status initialize_x11()
+//{
+//
+//   if (!XInitThreads())
+//   {
+//
+//      return ::error_failed;
+//
+//   }
+//
+//   XSetErrorHandler(_c_XErrorHandler);
+//
+//   //g_pmutexX11 = memory_new ::pointer < ::mutex >();
+//
+//   return ::success;
+//
+//}
+//
+//
+//::e_status g_estatusInitializeX11 = error_not_initialized;
+//
+//
+//::e_status defer_initialize_x11()
+//{
+//
+//   if (g_estatusInitializeX11 == error_not_initialized)
+//   {
+//
+//      g_estatusInitializeX11 = initialize_x11();
+//
+//   }
+//
+//   return g_estatusInitializeX11;
+//
+//}
 
 
 
@@ -3517,7 +3517,7 @@ os_create_anonymous_file(off_t size)
    filepath = path;
    filepath /= pszTemplate;
 
-   ::string strPath;
+   ::string strPath = filepath;
 
    fd = create_tmpfile_cloexec(strPath.get_buffer(strPath.length()));
 

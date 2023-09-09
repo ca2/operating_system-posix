@@ -35,11 +35,16 @@ namespace windowing_wayland
 
       wayland_buffer                               m_waylandbuffer;
       ::wl_surface *                               m_pwlsurface;
+      ::xdg_surface *                              m_pxdgsurface;
+      ::xdg_toplevel *                             m_pxdgtoplevel;
+      ::wl_shm_pool *                              m_pwlshmpool;
+      ::point_i32                                  m_pointPointer;
       //XWindowAttributes                            m_attr;
       //XVisualInfo                                  m_visualinfo;
       void *                                       m_pgdkwindow;
       //::pointer<::windowing_wayland::x11data>          m_px11data;
       ::pointer<::windowing_wayland::display>          m_pwaylanddisplay;
+      ::u32 m_uLastConfigureSerial;
       //::Window                                     m_parent;
       //Cursor                                       m_cursorLast;
       //int                                          m_iXic;
@@ -78,6 +83,7 @@ namespace windowing_wayland
       ::pointer<::xim::keyboard>                   m_pximkeyboard;
       //::u64                                        m_uLastNetWmSyncRequest;
       ::rectangle_i32                              m_rectangleXShm;
+      bool                                         m_bFirstConfigure;
       //bool                                         m_bXShmPutImagePending;
 
 
@@ -325,6 +331,18 @@ namespace windowing_wayland
 
       virtual void _on_end_paint();
       //virtual void _enable_net_wm_sync();
+
+
+      virtual void __handle_pointer_enter();
+      virtual void __handle_pointer_motion(::u32 millis);
+      virtual void __handle_pointer_leave(::windowing_wayland::window * pwaylandwindowLeave);
+
+      virtual void __handle_pointer_button(::u32 linux_button, ::u32 pressed, ::u32 millis);
+
+
+      virtual void __continue_initialization_after_configure();
+
+      virtual void __handle_xdg_surface_configure(::u32 serial);
 
 
    };

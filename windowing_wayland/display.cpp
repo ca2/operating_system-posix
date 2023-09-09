@@ -9,6 +9,7 @@
 #include "windowing_wayland.h"
 #include "acme/constant/message.h"
 #include "acme/parallelization/synchronous_lock.h"
+#include "acme/primitive/geometry2d/_text_stream.h"
 #include "apex/platform/node.h"
 #include "apex/platform/system.h"
 #include "aura/platform/session.h"
@@ -40,7 +41,229 @@ void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString)
 namespace windowing_wayland
 {
 
+//   /**
+//* properties of the output
+//*
+//* The geometry event describes geometric properties of the
+//* output. The event is sent when binding to the output object and
+//* whenever any of the properties change.
+//*
+//* The physical size can be set to zero if it doesn't make sense
+//* for this output (e.g. for projectors or virtual outputs).
+//*
+//* The geometry event will be followed by a done event (starting
+//* from version 2).
+//*
+//* Note: wl_output only advertises partial information about the
+//* output position and identification. Some compositors, for
+//* instance those not implementing a desktop-style output layout or
+//* those exposing virtual outputs, might fake this information.
+//* Instead of using x and y, clients should use
+//* xdg_output.logical_position. Instead of using make and model,
+//* clients should use name and description.
+//* @param x x position within the global compositor space
+//* @param y y position within the global compositor space
+//* @param physical_width width in millimeters of the output
+//* @param physical_height height in millimeters of the output
+//* @param subpixel subpixel orientation of the output
+//* @param make textual description of the manufacturer
+//* @param model textual description of the model
+//* @param transform transform that maps framebuffer to output
+//*/
+//   void wl_output_geometry(void *data,
+//                           struct wl_output *wl_output,
+//                           int32_t x,
+//                           int32_t y,
+//                           int32_t physical_width,
+//                           int32_t physical_height,
+//                           int32_t subpixel,
+//                           const char *make,
+//                           const char *model,
+//                           int32_t transform)
+//   {
+//
+//   }
+//   /**
+//    * advertise available modes for the output
+//    *
+//    * The mode event describes an available mode for the output.
+//    *
+//    * The event is sent when binding to the output object and there
+//    * will always be one mode, the current mode. The event is sent
+//    * again if an output changes mode, for the mode that is now
+//    * current. In other words, the current mode is always the last
+//    * mode that was received with the current flag set.
+//    *
+//    * Non-current modes are deprecated. A compositor can decide to
+//    * only advertise the current mode and never send other modes.
+//    * Clients should not rely on non-current modes.
+//    *
+//    * The size of a mode is given in physical hardware units of the
+//    * output device. This is not necessarily the same as the output
+//    * size in the global compositor space. For instance, the output
+//    * may be scaled, as described in wl_output.scale, or transformed,
+//    * as described in wl_output.transform. Clients willing to retrieve
+//    * the output size in the global compositor space should use
+//    * xdg_output.logical_size instead.
+//    *
+//    * The vertical refresh rate can be set to zero if it doesn't make
+//    * sense for this output (e.g. for virtual outputs).
+//    *
+//    * The mode event will be followed by a done event (starting from
+//    * version 2).
+//    *
+//    * Clients should not use the refresh rate to schedule frames.
+//    * Instead, they should use the wl_surface.frame event or the
+//    * presentation-time protocol.
+//    *
+//    * Note: this information is not always meaningful for all outputs.
+//    * Some compositors, such as those exposing virtual outputs, might
+//    * fake the refresh rate or the size.
+//    * @param flags bitfield of mode flags
+//    * @param width width of the mode in hardware units
+//    * @param height height of the mode in hardware units
+//    * @param refresh vertical refresh rate in mHz
+//    */
+//   void wl_output_mode(void *data,
+//                struct wl_output *wl_output,
+//                uint32_t flags,
+//                int32_t width,
+//                int32_t height,
+//                int32_t refresh);
+//   /**
+//    * sent all information about output
+//    *
+//    * This event is sent after all other properties have been sent
+//    * after binding to the output object and after any other property
+//    * changes done after that. This allows changes to the output
+//    * properties to be seen as atomic, even if they happen via
+//    * multiple events.
+//    * @since 2
+//    */
+//   void wl_output_done(void *data,
+//                struct wl_output *wl_output)
+//   {
+//
+//   }
+//   /**
+//    * output scaling properties
+//    *
+//    * This event contains scaling geometry information that is not
+//    * in the geometry event. It may be sent after binding the output
+//    * object or if the output scale changes later. If it is not sent,
+//    * the client should assume a scale of 1.
+//    *
+//    * A scale larger than 1 means that the compositor will
+//    * automatically scale surface buffers by this amount when
+//    * rendering. This is used for very high resolution displays where
+//    * applications rendering at the native resolution would be too
+//    * small to be legible.
+//    *
+//    * It is intended that scaling aware clients track the current
+//    * output of a surface, and if it is on a scaled output it should
+//    * use wl_surface.set_buffer_scale with the scale of the output.
+//    * That way the compositor can avoid scaling the surface, and the
+//    * client can supply a higher detail image.
+//    *
+//    * The scale event will be followed by a done event.
+//    * @param factor scaling factor of output
+//    * @since 2
+//    */
+//   void wl_output_scale(void *data,
+//                 struct wl_output *wl_output,
+//                 int32_t factor)
+//   {
+//
+//   }
+//   /**
+//    * name of this output
+//    *
+//    * Many compositors will assign user-friendly names to their
+//    * outputs, show them to the user, allow the user to refer to an
+//    * output, etc. The client may wish to know this name as well to
+//    * offer the user similar behaviors.
+//    *
+//    * The name is a UTF-8 string with no convention defined for its
+//    * contents. Each name is unique among all wl_output globals. The
+//    * name is only guaranteed to be unique for the compositor
+//    * instance.
+//    *
+//    * The same output name is used for all clients for a given
+//    * wl_output global. Thus, the name can be shared across processes
+//    * to refer to a specific wl_output global.
+//    *
+//    * The name is not guaranteed to be persistent across sessions,
+//    * thus cannot be used to reliably identify an output in e.g.
+//    * configuration files.
+//    *
+//    * Examples of names include 'HDMI-A-1', 'WL-1', 'X11-1', etc.
+//    * However, do not assume that the name is a reflection of an
+//    * underlying DRM connector, X11 connection, etc.
+//    *
+//    * The name event is sent after binding the output object. This
+//    * event is only sent once per output object, and the name does not
+//    * change over the lifetime of the wl_output global.
+//    *
+//    * Compositors may re-use the same output name if the wl_output
+//    * global is destroyed and re-created later. Compositors should
+//    * avoid re-using the same name if possible.
+//    *
+//    * The name event will be followed by a done event.
+//    * @param name output name
+//    * @since 4
+//    */
+//   void wl_output_name(void *data,
+//                struct wl_output *wl_output,
+//                const char *name);
+//   /**
+//    * human-readable description of this output
+//    *
+//    * Many compositors can produce human-readable descriptions of
+//    * their outputs. The client may wish to know this description as
+//    * well, e.g. for output selection purposes.
+//    *
+//    * The description is a UTF-8 string with no convention defined for
+//    * its contents. The description is not guaranteed to be unique
+//    * among all wl_output globals. Examples might include 'Foocorp 11"
+//    * Display' or 'Virtual X11 output via :1'.
+//    *
+//    * The description event is sent after binding the output object
+//    * and whenever the description changes. The description is
+//    * optional, and may not be sent at all.
+//    *
+//    * The description event will be followed by a done event.
+//    * @param description output description
+//    * @since 4
+//    */
+//   void wl_output_description(void *data,
+//                       struct wl_output *wl_output,
+//                       const char *description);
+//
+//   const static struct wl_output_listener g_wl_output_listener =
+//      {
+//wl_output_geometry,
+//wl_output_mode,
+//wl_output_done,
+//wl_output_scale,
+//wl_output_description
+//
+//      };
+   void xdg_surface_mouse_capture_configure(void * data,
+                              struct xdg_surface * xdg_surface,
+                              uint32_t serial)
+   {
 
+      auto pdisplay = (display *) data;
+      xdg_surface_ack_configure(xdg_surface, serial);
+      wl_surface_attach(pdisplay->m_pwlsurfaceMouseCapture, pdisplay->m_waylandbufferMouseCapture.m_pwlbuffer, 0, 0);
+
+      wl_surface_commit(pdisplay->m_pwlsurfaceMouseCapture);
+   }
+
+
+   static const struct xdg_surface_listener xdg_surface_mouse_capture_listener = {
+      xdg_surface_mouse_capture_configure,
+   };
 
 
    void
@@ -48,16 +271,33 @@ namespace windowing_wayland
                         uint32_t serial, struct wl_surface *pwlsurface,
                         wl_fixed_t sx, wl_fixed_t sy)
    {
+
+      auto x = wl_fixed_to_double(sx);
+      auto y = wl_fixed_to_double(sy);
+
       struct wl_buffer *buffer;
       struct wl_cursor_image *image;
 
-      //fprintf(stderr, "Pointer entered surface %p at %d %d\n", pwlsurface, sx, sy);
+      fprintf(stderr, "Pointer entered surface %p at %0.0f %0.0f\n", pwlsurface, x, y);
 
       auto pdisplay = (display *) data;
 
-      auto pwindow = pdisplay->_window(pwlsurface);
+      if(pwlsurface == pdisplay->m_pwlsurfaceMouseCapture)
+      {
 
-      auto pcursor = pwindow->get_mouse_cursor();
+         fprintf(stderr, "entered Mouse Capture surface at %0.0f %0.0f!!\n", pwlsurface, x, y);
+
+         pdisplay->m_bMouseCaptured = true;
+
+         ///pdisplay->__handle_pointer_enter(x, y, pwaylandwindow);
+
+         return;
+
+      }
+
+      auto pwaylandwindow = pdisplay->_window(pwlsurface);
+
+      auto pcursor = pwaylandwindow->get_mouse_cursor();
 
       auto pwlsurfaceCursor =  pdisplay->m_pwlsurfaceCursor;
 
@@ -66,42 +306,101 @@ namespace windowing_wayland
       //image = default_cursor->images[0];
       //buffer = wl_cursor_image_get_buffer(image);
 
-      wl_pointer_set_cursor(pwlpointer, serial,
-                            pwlsurfaceCursor,
-                            pwaylandcursor->m_szHotspotOffset.cx(),
-                            pwaylandcursor->m_szHotspotOffset.cy());
-      wl_surface_attach(pwlsurfaceCursor, pwaylandcursor->m_waylandbuffer.m_pwlbuffer, 0, 0);
-      wl_surface_damage(pwlsurfaceCursor, 0, 0, pwaylandcursor->m_pimage->width(), pwaylandcursor->m_pimage->height());
-      wl_surface_commit(pwlsurfaceCursor);
+      if(pwaylandcursor)
+      {
+
+         wl_pointer_set_cursor(pwlpointer, serial,
+                               pwlsurfaceCursor,
+                               pwaylandcursor->m_szHotspotOffset.cx(),
+                               pwaylandcursor->m_szHotspotOffset.cy());
+         wl_surface_attach(pwlsurfaceCursor, pwaylandcursor->m_waylandbuffer.m_pwlbuffer, 0, 0);
+         wl_surface_damage(pwlsurfaceCursor, 0, 0, pwaylandcursor->m_pimage->width(),
+                           pwaylandcursor->m_pimage->height());
+         wl_surface_commit(pwlsurfaceCursor);
+
+      }
+
+      pdisplay->__handle_pointer_enter(x, y, pwaylandwindow);
+
    }
 
    void
-   pointer_handle_leave(void *data, struct wl_pointer *pointer,
-                        uint32_t serial, struct wl_surface *surface)
+   pointer_handle_leave(void *data, struct wl_pointer *pwlpointer,
+                        uint32_t serial, struct wl_surface *pwlsurface)
    {
-      fprintf(stderr, "Pointer left surface %p\n", surface);
+
+      fprintf(stderr, "Pointer left surface %p\n", pwlsurface);
+
+      auto pdisplay = (display *) data;
+
+      if(pdisplay->m_pwlsurfaceMouseCapture && pwlsurface == pdisplay->m_pwlsurfaceMouseCapture)
+      {
+
+         fprintf(stderr, "pointer left Mouse Capture surface\n", pwlsurface);
+
+         pdisplay->m_bMouseCaptured = false;
+
+         ///pdisplay->__handle_pointer_enter(x, y, pwaylandwindow);
+
+         return;
+
+      }
+
+      auto pwaylandwindowLeave = pdisplay->_window(pwlsurface);
+
+      pdisplay->__handle_pointer_leave(pwaylandwindowLeave);
+
+
    }
 
    void
    pointer_handle_motion(void *data, struct wl_pointer *pointer,
-                         uint32_t time, wl_fixed_t sx, wl_fixed_t sy)
+                         uint32_t millis, wl_fixed_t sx, wl_fixed_t sy)
    {
-      printf("Pointer moved at %d %d\n", sx, sy);
+      auto x = wl_fixed_to_double(sx);
+      auto y = wl_fixed_to_double(sy);
+      printf("Pointer moved at %0.0f %0.0f\n", x, y);
+
+      auto pdisplay = (display *) data;
+
+//      if(pdisplay->m_bMouseCaptured)
+//      {
+//
+//         printf("Mouse Capture motion at %0.0f %0.0f!!\n", x, y);
+//
+//         ///pdisplay->__handle_pointer_enter(x, y, pwaylandwindow);
+//
+//         //return;
+//
+//      }
+//
+
+      pdisplay->__handle_pointer_motion(x, y, millis);
+
    }
 
    void
    pointer_handle_button(void *data, struct wl_pointer *wl_pointer,
-                         uint32_t serial, uint32_t time, uint32_t button,
-                         uint32_t state)
+                         uint32_t serial, uint32_t millis, uint32_t linux_button,
+                         uint32_t pressed)
    {
       printf("Pointer button\n");
 
 
       auto pdisplay = (display *) data;
 
-      if (button == BTN_LEFT && state == WL_POINTER_BUTTON_STATE_PRESSED)
-         wl_shell_surface_move(pdisplay->m_pwlshellsurface,
-                               pdisplay->m_pwlseat, serial);
+      pdisplay->m_uLastButtonSerial = serial;
+
+      if(pdisplay->m_pwindowKeyboardFocus)
+      {
+
+//         if (linux_button == BTN_LEFT && pressed == WL_POINTER_BUTTON_STATE_PRESSED)
+//            xdg_toplevel_move(pdisplay->m_pwindowKeyboardFocus->m_pxdgtoplevel,
+//                                  pdisplay->m_pwlseat, serial);
+
+      }
+
+      pdisplay->__handle_pointer_button(linux_button, pressed, millis);
 
    }
 
@@ -112,7 +411,7 @@ namespace windowing_wayland
       printf("Pointer handle axis\n");
    }
 
-   static const struct wl_pointer_listener pointer_listener = {
+   static const struct wl_pointer_listener g_wl_pointer_listener = {
       pointer_handle_enter,
       pointer_handle_leave,
       pointer_handle_motion,
@@ -127,12 +426,13 @@ namespace windowing_wayland
          case WL_SHM_FORMAT_ARGB8888: s = "ARGB8888"; break;
          case WL_SHM_FORMAT_XRGB8888: s = "XRGB8888"; break;
          case WL_SHM_FORMAT_RGB565: s = "RGB565"; break;
+         case WL_SHM_FORMAT_RGBA8888: s = "RGBA8888"; break;
          default: s = "other format"; break;
       }
       fprintf(stderr, "Possible shmem format %s\n", s);
    }
 
-   struct wl_shm_listener shm_listener = {
+   static const struct wl_shm_listener shm_listener = {
       shm_format
    };
 
@@ -177,7 +477,7 @@ namespace windowing_wayland
               mods_depressed, mods_latched, mods_locked, group);
    }
 
-   static const struct wl_keyboard_listener keyboard_listener = {
+   static const  struct wl_keyboard_listener g_wl_keyboard_listener = {
       keyboard_handle_keymap,
       keyboard_handle_enter,
       keyboard_handle_leave,
@@ -196,7 +496,7 @@ namespace windowing_wayland
 
          pdisplay->m_pwlkeyboard = wl_seat_get_keyboard(seat);
 
-         wl_keyboard_add_listener(pdisplay->m_pwlkeyboard, &keyboard_listener, data);
+         wl_keyboard_add_listener(pdisplay->m_pwlkeyboard, &g_wl_keyboard_listener, data);
 
       }
       else if (!(caps & WL_SEAT_CAPABILITY_KEYBOARD) && pdisplay->m_pwlkeyboard)
@@ -213,7 +513,7 @@ namespace windowing_wayland
 
          pdisplay->m_pwlpointer = wl_seat_get_pointer(seat);
 
-         wl_pointer_add_listener(pdisplay->m_pwlpointer, &pointer_listener, data);
+         wl_pointer_add_listener(pdisplay->m_pwlpointer, &g_wl_pointer_listener, data);
 
       }
       else if (!(caps & WL_SEAT_CAPABILITY_POINTER) && pdisplay->m_pwlpointer)
@@ -227,9 +527,25 @@ namespace windowing_wayland
 
    }
 
-   const struct wl_seat_listener seat_listener = {
+   static const struct wl_seat_listener g_wl_seat_listener = {
       seat_handle_capabilities,
    };
+
+   void xdg_wm_base_ping(void *data,
+                         struct xdg_wm_base *xdg_wm_base,
+                         uint32_t serial)
+   {
+
+      xdg_wm_base_pong(xdg_wm_base, serial);
+
+   }
+
+   static const struct  xdg_wm_base_listener g_xdg_wm_base_listener=
+      {
+         xdg_wm_base_ping
+
+      };
+
 
    void global_registry_handler(void *data, struct wl_registry *pwlregistry, uint32_t id,
                            const char *interface, uint32_t version)
@@ -243,10 +559,12 @@ namespace windowing_wayland
          pdisplay->m_pwlcompositor = (::wl_compositor*)wl_registry_bind(pwlregistry, id, &wl_compositor_interface, 1);
 
       }
-      else if (strcmp(interface, "wl_shell") == 0)
+      else if (strcmp(interface, "xdg_wm_base") == 0)
       {
 
-         pdisplay->m_pwlshell = (::wl_shell*)wl_registry_bind(pwlregistry, id, &wl_shell_interface, 1);
+         pdisplay->m_pxdgwmbase = (::xdg_wm_base*)wl_registry_bind(pwlregistry, id, &xdg_wm_base_interface, 1);
+
+         xdg_wm_base_add_listener(pdisplay->m_pxdgwmbase, &g_xdg_wm_base_listener, data);
 
       }
       else if (strcmp(interface, "wl_shm") == 0)
@@ -254,7 +572,7 @@ namespace windowing_wayland
 
          pdisplay->m_pwlshm = (::wl_shm*)wl_registry_bind(pwlregistry, id, &wl_shm_interface, 1);
 
-         wl_shm_add_listener(pdisplay->m_pwlshm, &shm_listener, NULL);
+         wl_shm_add_listener(pdisplay->m_pwlshm, &shm_listener, data);
 
       }
       else if (strcmp(interface, "wl_seat") == 0)
@@ -262,9 +580,25 @@ namespace windowing_wayland
 
          pdisplay->m_pwlseat = (::wl_seat*)wl_registry_bind(pwlregistry, id, &wl_seat_interface, 1);
 
-         wl_seat_add_listener(pdisplay->m_pwlseat, &seat_listener, NULL);
+         wl_seat_add_listener(pdisplay->m_pwlseat, &g_wl_seat_listener, data);
 
       }
+      else if (strcmp(interface, "wl_output") == 0)
+      {
+
+         auto pwloutput =  (::wl_output*)wl_registry_bind(pwlregistry, id, &wl_output_interface, 1);
+
+//         if(pdisplay->m_wloutputa.add_unique(pwloutput) >= 0)
+//         {
+//
+//            wl_output_add_listener(pwloutput, )
+//
+//
+//         }
+
+      }
+
+      pdisplay->information("registry interface : %s", interface);
 
 
 }
@@ -276,14 +610,18 @@ namespace windowing_wayland
 
    }
 
-   const struct wl_registry_listener registry_listener =
+   static const struct wl_registry_listener g_wl_registry_listener =
       {
       global_registry_handler,
       global_registry_remover
    };
 
+
+
    display::display()
    {
+
+      //m_bMouseCaptured = false;
 
       //zero(m_atoma);
 
@@ -294,12 +632,15 @@ namespace windowing_wayland
       m_pwldisplay = nullptr;
       m_pwlshm = nullptr;
       m_pwlcompositor = nullptr;
-      m_pwlshell = nullptr;
+      m_pxdgwmbase = nullptr;
       m_pwlseat = nullptr;
       m_pwlpointer = nullptr;
       m_pwlsurfaceCursor = nullptr;
       m_pwlsurfacePointerEnter = nullptr;
-      m_pwlshellsurface = nullptr;
+//      m_pxdgsurfaceMouseCapture = nullptr;
+//      m_pxdgtoplevelMouseCapture = nullptr;
+      //m_pwlshmpool = null;
+
 //      m_atomLongType = None;
 //      m_atomLongStyle = None;
 //      m_atomNetWmState = None;
@@ -413,9 +754,11 @@ namespace windowing_wayland
 
       m_pwldisplay = pwldisplay;
 
+      information() << "windowing_wayland::display::open pwldisplay : " << (::iptr) pwldisplay;
+
       auto pwlregistry = wl_display_get_registry(m_pwldisplay);
 
-      wl_registry_add_listener(pwlregistry, &registry_listener, this);
+      wl_registry_add_listener(pwlregistry, &g_wl_registry_listener, this);
 
       wl_display_dispatch(m_pwldisplay);
 
@@ -423,6 +766,25 @@ namespace windowing_wayland
 
 
       m_pwlsurfaceCursor = wl_compositor_create_surface(m_pwlcompositor);
+
+
+      fork([this]()
+           {
+
+
+//              redraw(NULL, NULL, 0);
+
+              while (wl_display_dispatch(m_pwldisplay) != -1)
+              {
+
+
+              }
+
+              wl_display_disconnect(m_pwldisplay);
+              //printf("disconnected from display\n");
+
+
+           });
 
       bool bBranch = !acmesession()->m_paurasession->user()->m_pdesktopenvironment->m_bUnhook;
 
@@ -1298,37 +1660,86 @@ return nullptr;
 //   }
 
 
+   void display::destroy_wayland_buffer(wayland_buffer & waylandbuffer)
+   {
+
+      if(waylandbuffer.m_pwlbuffer)
+      {
+
+         wl_buffer_destroy(waylandbuffer.m_pwlbuffer);
+
+         waylandbuffer.m_pwlbuffer = nullptr;
+
+      }
+
+      if(waylandbuffer.m_pdata && waylandbuffer.m_memsize > 0)
+      {
+
+         munmap(waylandbuffer.m_pdata, waylandbuffer.m_memsize);
+
+         waylandbuffer.m_pdata = nullptr;
+
+         waylandbuffer.m_memsize = 0;
+
+      }
+
+      if(waylandbuffer.m_iFd >= 0)
+      {
+
+         ::close(waylandbuffer.m_iFd);
+
+         waylandbuffer.m_iFd = -1;
+
+      }
+
+      waylandbuffer.m_size.cx() = 0;
+
+      waylandbuffer.m_size.cy() = 0;
+
+      waylandbuffer.m_stride = 0;
+
+   }
+
 
    wayland_buffer display::create_wayland_buffer(const ::size_i32 & size)
    {
 
-      struct wl_shm_pool *pool;
-
-      int stride = size.cx() * 4; // 4 bytes per pixel
-
-      int strided_area = stride * size.cy();
-
       wayland_buffer waylandbuffer{};
 
-      int fd = os_create_anonymous_file(strided_area);
+      waylandbuffer.m_stride = size.cx() * 4; // 4 bytes per pixel
 
-      if (fd < 0)
+      waylandbuffer.m_memsize = waylandbuffer.m_stride * size.cy();
+
+      waylandbuffer.m_iFd = os_create_anonymous_file(waylandbuffer.m_memsize);
+
+      if (waylandbuffer.m_iFd < 0)
       {
 
          error () << "creating a buffer file for  B failed: ";
+
+         waylandbuffer.m_stride = 0;
+
+         waylandbuffer.m_memsize = 0;
 
          return waylandbuffer;
 
       }
 
-      waylandbuffer.m_pdata = mmap(NULL, strided_area, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+      waylandbuffer.m_pdata = mmap(
+         NULL, waylandbuffer.m_memsize,
+         PROT_READ | PROT_WRITE, MAP_SHARED,
+         waylandbuffer.m_iFd, 0);
 
       if (waylandbuffer.m_pdata == MAP_FAILED)
       {
 
          error() << "mmap failed";
 
-         close(fd);
+         ::close(waylandbuffer.m_iFd);
+
+         waylandbuffer.m_stride = 0;
+
+         waylandbuffer.m_memsize = 0;
 
          waylandbuffer.m_pdata = nullptr;
 
@@ -1336,16 +1747,18 @@ return nullptr;
 
       }
 
-      pool = wl_shm_create_pool(m_pwlshm, fd, strided_area);
+      auto pwlshmpool = wl_shm_create_pool(m_pwlshm, waylandbuffer.m_iFd, waylandbuffer.m_memsize);
 
-      waylandbuffer.m_pwlbuffer = wl_shm_pool_create_buffer(pool, 0,
+      waylandbuffer.m_pwlbuffer = wl_shm_pool_create_buffer(pwlshmpool, 0,
                                        size.cx(), size.cy(),
-                                       stride,
-                                       WL_SHM_FORMAT_XRGB8888);
+                                       waylandbuffer.m_stride,
+                                       WL_SHM_FORMAT_ARGB8888);
 
       //wl_buffer_add_listener(buffer, &buffer_listener, buffer);
 
-      wl_shm_pool_destroy(pool);
+      wl_shm_pool_destroy(pwlshmpool);
+
+      waylandbuffer.m_size = size;
 
       return waylandbuffer;
 
@@ -1359,9 +1772,191 @@ return nullptr;
 
       pimage->map();
 
-      copy_image32((::image32_t*)waylandbuffer.m_pdata, pimage->size(), pimage->width() * 4, pimage->data(), pimage->scan_size());
+      copy_image32((::image32_t*)waylandbuffer.m_pdata,
+                   waylandbuffer.m_size,
+                   waylandbuffer.m_stride,
+                   pimage->data(), pimage->scan_size());
 
       return waylandbuffer;
+
+   }
+
+
+   void display::__handle_pointer_enter(double x, double y, ::windowing_wayland::window * pwindowPointerEnter)
+   {
+
+      m_pwindowPointerEnter = pwindowPointerEnter;
+
+      if(m_pwindowPointerEnter)
+      {
+
+         m_pwindowPointerEnter->m_pointPointer.x() = (double) m_pwindowPointerEnter->m_pointWindow.x() + x;
+
+         m_pwindowPointerEnter->m_pointPointer.y() = (double) m_pwindowPointerEnter->m_pointWindow.y() + y;
+
+         m_pwindowPointerEnter->__handle_pointer_enter();
+
+      }
+
+   }
+
+
+   void display::__handle_pointer_motion(double x, double y, ::u32 millis)
+   {
+
+      if(m_pwindowPointerCapture)
+      {
+
+         m_pwindowPointerCapture->m_pointPointer.x() = x;
+
+         m_pwindowPointerCapture->m_pointPointer.y() = y;
+
+         if(m_pwindowPointerEnter)
+         {
+
+            m_pwindowPointerEnter->m_pointPointer.x() = x;
+
+            m_pwindowPointerEnter->m_pointPointer.y() = y;
+
+         }
+
+      }
+      else if(m_pwindowPointerEnter)
+      {
+
+         m_pwindowPointerEnter->m_pointPointer.x() = (double) m_pwindowPointerEnter->m_pointWindow.x() + x;
+
+         m_pwindowPointerEnter->m_pointPointer.y() = (double) m_pwindowPointerEnter->m_pointWindow.y() + y;
+
+      }
+
+
+      if(m_pwindowPointerCapture)
+      {
+
+         m_pwindowPointerCapture->__handle_pointer_motion(millis);
+
+      }
+      else if(m_pwindowPointerEnter)
+      {
+
+         m_pwindowPointerEnter->__handle_pointer_motion(millis);
+
+      }
+
+   }
+
+
+   void display::__handle_pointer_leave(::windowing_wayland::window * pwaylandwindowLeave)
+   {
+
+      if(m_pwindowPointerCapture)
+      {
+
+         m_pwindowPointerCapture->__handle_pointer_leave(pwaylandwindowLeave);
+
+      }
+      else if(m_pwindowPointerEnter)
+      {
+
+         m_pwindowPointerEnter->__handle_pointer_leave(pwaylandwindowLeave);
+
+      }
+
+      if(m_pwindowPointerEnter == pwaylandwindowLeave)
+      {
+
+         m_pwindowPointerEnter.release();
+
+      }
+
+   }
+
+
+   void display::__handle_pointer_button(::u32 linux_button, ::u32 pressed, ::u32 millis)
+   {
+
+      if(m_pwindowPointerCapture)
+      {
+
+         m_pwindowPointerCapture->__handle_pointer_button(linux_button, pressed, millis);
+
+      }
+      else if(m_pwindowPointerEnter)
+      {
+
+         m_pwindowPointerEnter->__handle_pointer_button(linux_button, pressed, millis);
+
+      }
+
+
+   }
+
+
+   void display::__capture_mouse(::windowing_wayland::window * pwindowMouseCapture, ::u32 serial)
+   {
+
+      if(::is_null(pwindowMouseCapture))
+      {
+
+         return;
+
+      }
+
+      m_pwindowMouseCapture = pwindowMouseCapture;
+
+      m_rectangleMouseCapture = get_monitor_union_rectangle();
+
+      destroy_wayland_buffer(m_waylandbufferMouseCapture);
+
+      m_waylandbufferMouseCapture = create_wayland_buffer(m_rectangleMouseCapture.size());
+
+      memset(m_waylandbufferMouseCapture.m_pdata, 0, m_waylandbufferMouseCapture.m_memsize);
+
+      information() << "__capture_mouse : " << m_rectangleMouseCapture;
+
+      m_pwlsurfaceMouseCapture = wl_compositor_create_surface(m_pwlcompositor);
+
+      m_pxdgsurfaceMouseCapture = xdg_wm_base_get_xdg_surface(m_pxdgwmbase, m_pwlsurfaceMouseCapture);
+
+      xdg_surface_set_window_geometry(m_pxdgsurfaceMouseCapture,
+                                      m_rectangleMouseCapture.left(),
+                                      m_rectangleMouseCapture.top(),
+                                      m_rectangleMouseCapture.width(),
+                                      m_rectangleMouseCapture.height());
+
+      xdg_surface_add_listener(m_pxdgsurfaceMouseCapture,
+                               &xdg_surface_mouse_capture_listener, this);
+
+      m_pxdgtoplevelMouseCapture = xdg_surface_get_toplevel(m_pxdgsurfaceMouseCapture);
+
+      if (m_pxdgtoplevelMouseCapture == NULL)
+      {
+
+         error() << "Can't create Mouse Capture top level window";
+
+         throw ::exception(::error_failed);
+
+      }
+      else
+      {
+
+         information() << "Created Mouse Capture top level window";
+
+      }
+
+      xdg_surface_set_window_geometry(m_pxdgsurfaceMouseCapture,
+         m_rectangleMouseCapture.left(),
+         m_rectangleMouseCapture.top(),
+         m_rectangleMouseCapture.width(),
+         m_rectangleMouseCapture.height());
+
+      //xdg_toplevel_add_listener(m_pxdgtoplevel,
+        //                        &xdg_toplevel_listener, this);
+
+        //xdg_popup_grab(m_pxdgtoplevelMouseCapture, m_pwlseat, serial);
+
+      wl_surface_commit(m_pwlsurfaceMouseCapture);
 
    }
 

@@ -149,7 +149,7 @@ namespace windowing_x11
 
       auto pdisplay = pwindowing->display();
 
-      auto sizeLargeInternalBitmap = pdisplay->get_monitor_union_size();
+      auto sizeLargeInternalBitmap = pdisplay->get_monitor_union_rectangle().size();
 
       if (pbufferitem->m_size.cx() > sizeLargeInternalBitmap.cx())
       {
@@ -584,6 +584,10 @@ namespace windowing_x11
       try
       {
 
+         bool bChangedPosition = false;
+
+         bool bChangedSize = false;
+
          if (m_bXShm)
          {
 
@@ -599,7 +603,7 @@ namespace windowing_x11
                try
                {
 
-                  px11window->strict_set_window_position_unlocked();
+                  px11window->strict_set_window_position_unlocked(bChangedPosition, bChangedSize);
 
                }
                catch (...)
@@ -639,7 +643,7 @@ namespace windowing_x11
             try
             {
 
-               px11window->strict_set_window_position_unlocked();
+               px11window->strict_set_window_position_unlocked(bChangedPosition, bChangedSize);
 
             }
             catch (...)
@@ -649,17 +653,20 @@ namespace windowing_x11
 
             m_sizeLastBitBlitting = sizeBitBlitting;
 
-            XPutImage(
-               x11_window()->Display(),
-               x11_window()->Window(),
-               m_gc, m_pximage,
-               0, 0, 0, 0,
-               sizeBitBlitting.cx(),
-               sizeBitBlitting.cy());
+            if(!bChangedSize)
+            {
 
-            information() << "XPutImage : " << sizeBitBlitting;
+               XPutImage(
+                  x11_window()->Display(),
+                  x11_window()->Window(),
+                  m_gc, m_pximage,
+                  0, 0, 0, 0,
+                  sizeBitBlitting.cx(),
+                  sizeBitBlitting.cy());
 
-            //information() << acmenode()->get_callstack();
+               information() << "XPutImage : " << sizeBitBlitting;
+
+               //information() << acmenode()->get_callstack();
 
 //            try
 //            {
@@ -672,13 +679,15 @@ namespace windowing_x11
 //
 //            }
 
-            //x11_window()->m_puserinteractionimpl->m_puserinteraction->_set_size(sizeBitBlitting, ::user::e_layout_window);
+               //x11_window()->m_puserinteractionimpl->m_puserinteraction->_set_size(sizeBitBlitting, ::user::e_layout_window);
 
-            x11_window()->_on_end_paint();
+               x11_window()->_on_end_paint();
 
-            XFlush(x11_window()->Display());
+               XFlush(x11_window()->Display());
 
-            XSync(x11_window()->Display(), false);
+               XSync(x11_window()->Display(), false);
+
+            }
 
          }
 

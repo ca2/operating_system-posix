@@ -1534,12 +1534,16 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                //::pointer<::windowing_x11::window> px11window = m_pimpl->m_pwindow;
 
+               bool bChangedPosition = false;
+
+               bool bChangedSize = false;
+
                try
                {
 
                   //m_rectangleXShm
 
-                  px11window->strict_set_window_position_unlocked(px11window->m_rectangleXShm);
+                  px11window->strict_set_window_position_unlocked(bChangedPosition, bChangedSize, px11window->m_rectangleXShm);
 
                }
                catch (...)
@@ -2083,7 +2087,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                if(!pbuffer->m_bXShm || !pbuffer->m_bXShmPutImagePending)
                {
-
 
                   pbuffer->_update_screen_lesser_lock();
 

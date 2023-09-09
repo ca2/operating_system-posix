@@ -123,6 +123,7 @@ namespace node_gtk
 
       void _node_folder_dialog(::file::folder_dialog * pdialog) override;
 
+      ::e_status _allocate_Display_and_connection() override;
 
       virtual void _on_gtk_init();
 

@@ -1608,6 +1608,27 @@ namespace node_gtk
    }
 
 
+   ::e_status node::_allocate_Display_and_connection()
+   {
+
+      if(!os_defer_init_gtk(this))
+      {
+
+         return ::error_failed;
+
+      }
+
+      if(m_edisplaytype == e_display_type_x11)
+      {
+
+         ::aura_posix::node::_allocate_Display_and_connection();
+
+      }
+
+      return ::success;
+
+   }
+
    void node::_on_gtk_init()
    {
 
