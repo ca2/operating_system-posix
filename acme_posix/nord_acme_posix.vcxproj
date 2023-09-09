@@ -177,6 +177,7 @@
     <ClCompile Include="exception_translator.cpp" />
     <ClCompile Include="exclusive.cpp" />
     <ClCompile Include="file.cpp" />
+    <ClCompile Include="file_context.cpp" />
     <ClCompile Include="file_memory_map.cpp" />
     <ClCompile Include="framework.cpp" />
     <ClCompile Include="mutex.cpp" />

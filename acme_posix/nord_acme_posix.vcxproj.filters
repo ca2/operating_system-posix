@@ -48,6 +48,9 @@
     <Filter Include="Source Files">
       <UniqueIdentifier>{0b0cf043-af2b-45fa-98bd-1e586474c4ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\inotify">
+      <UniqueIdentifier>{b69a7de0-5705-4989-a957-ea25b2e5a698}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_.cpp">
@@ -90,6 +93,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="file.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="file_context.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

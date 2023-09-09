@@ -10,20 +10,11 @@
     <ClCompile Include="_factory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="file_context.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="framework.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="node.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="inotify\watcher.cpp">
-      <Filter>Source Files\inotify</Filter>
-    </ClCompile>
-    <ClCompile Include="inotify\watch.cpp">
-      <Filter>Source Files\inotify</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -39,14 +30,8 @@
     <ClInclude Include="_apex_posix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="file_context.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="node.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="inotify\watcher.h">
-      <Filter>Header Files\inotify</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -55,12 +40,6 @@
     </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{0f77a17d-4279-4f2e-96ac-fccf7df61b45}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\inotify">
-      <UniqueIdentifier>{c7362cbe-1bd8-4687-8fb1-db293827c5a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\inotify">
-      <UniqueIdentifier>{fcde1ede-ebd0-4cb5-b8f3-44ac2d7ce48d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
