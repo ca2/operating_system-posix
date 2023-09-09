@@ -36,6 +36,8 @@ namespace aura_posix
          
 #endif
 
+      m_edisplaytype = e_display_type_none;
+
       m_pAuraPosix = this;
 
    }
@@ -90,7 +92,15 @@ namespace aura_posix
 
    }
 
-   
+
+   ::wl_display * node::get_wayland_display()
+   {
+
+      return nullptr;
+
+   }
+
+
    //void node::on_initialize_particle()
    //{
 

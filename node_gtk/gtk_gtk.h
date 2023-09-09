@@ -23,8 +23,8 @@ bool gconf_set_as_wallpaper( const char *image_path, WallpaperAlign align );
 namespace node_gtk
 {
 
-   ::e_status os_defer_init_gtk(::acme::system * psystem);
 
+   ::e_status os_defer_init_gtk(::node_gtk::node * pgtknode);
 
 
 } // namespace node_gtk

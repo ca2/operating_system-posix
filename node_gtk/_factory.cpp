@@ -5,12 +5,32 @@
 
 
 __FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory);
+__FACTORY_EXPORT void windowing_wayland_factory(::factory::factory * pfactory);
 
 
 __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
 {
 
-   windowing_x11_factory(pfactory);
+   ::string strSessionType = getenv("XDG_SESSION_TYPE");
+
+   strSessionType.make_lower();
+
+   printf("XDG_SESSION_TYPE %s\n", strSessionType.c_str());
+
+   if(strSessionType == "wayland")
+   {
+
+      windowing_wayland_factory(pfactory);
+
+   }
+   else
+   {
+
+      //windowing_xcb_factory(pfactory);
+
+      windowing_x11_factory(pfactory);
+
+   }
 
    pfactory->add_factory_item < ::node_gtk::display, ::windowing::display > ();
 //

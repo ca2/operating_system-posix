@@ -22,6 +22,9 @@
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 #include <glib.h>
+#include <gdk/gdkdisplay.h>
+#include <gdk/gdkwayland.h>
+#include <gdk/gdkx.h>
 
 
 bool x11_message_loop_step();
@@ -212,7 +215,7 @@ namespace node_gtk
    int node::node_init_check(int *pi, char ***ppz)
    {
 
-      if (!os_defer_init_gtk(acmesystem()))
+      if (!os_defer_init_gtk(this))
       {
 
          return 0;
@@ -1601,6 +1604,50 @@ namespace node_gtk
          g_error_free(perror);
 
       }
+
+   }
+
+
+   void node::_on_gtk_init()
+   {
+
+      if(m_edisplaytype == e_display_type_none)
+      {
+
+         GdkDisplay * pgdkdisplay = gdk_display_get_default();
+
+         information() << "Display name : " << gdk_display_get_name(pgdkdisplay);
+
+         if (GDK_IS_X11_DISPLAY (pgdkdisplay))
+         {
+
+            m_edisplaytype = e_display_type_x11;
+
+            information() << "e_display_type_x11";
+
+         }
+         else if (GDK_IS_WAYLAND_DISPLAY (pgdkdisplay))
+         {
+
+            m_edisplaytype = e_display_type_wayland;
+
+            information() << "e_display_type_wayland";
+
+         }
+
+      }
+
+   }
+
+
+   struct wl_compositor * node::get_wayland_compositor()
+   {
+
+      GdkDisplay * pgdkdisplay = gdk_display_get_default();
+
+      auto pwlcompositor = gdk_wayland_display_get_wl_compositor   (pgdkdisplay);
+
+      return pwlcompositor;
 
    }
 

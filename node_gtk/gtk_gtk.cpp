@@ -1,5 +1,6 @@
 // Changed by camilo on 2021-12-09 13:40 BRT <3ThomasBorregaardSorensen!!
 #include "framework.h"
+#include "node.h"
 #include "__standard_type.h"
 #include "apex/message/global.h"
 #include "acme/constant/id.h"
@@ -14,7 +15,6 @@
 // and restart codeblocks/IDE
 #include <gtk/gtk.h>
 #include <sys/utsname.h>
-
 
 platform_char *** process_get_pargv();
 
@@ -60,7 +60,7 @@ namespace node_gtk
    ::e_status g_estatusInitGtk = ::error_none;
 
 
-   ::e_status os_defer_init_gtk(::acme::system * psystem)
+   ::e_status os_defer_init_gtk(::node_gtk::node * pgtknode)
    {
 
       if (!g_bInitGtk)
@@ -68,8 +68,8 @@ namespace node_gtk
 
          g_bInitGtk = true;
 
-         if (!gtk_init_check(psystem->subsystem()->get_pargc(),
-                           psystem->subsystem()->get_pargv()))
+         if (!gtk_init_check(pgtknode->acmesystem()->subsystem()->get_pargc(),
+                             pgtknode->acmesystem()->subsystem()->get_pargv()))
          {
 
             g_estatusInitGtk = ::error_failed;
@@ -81,6 +81,8 @@ namespace node_gtk
             g_estatusInitGtk = ::success;
 
          }
+
+         pgtknode->_on_gtk_init();
 
       }
 

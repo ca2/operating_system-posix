@@ -12,6 +12,17 @@
 #include "aura/platform/node.h"
 
 
+struct wl_display;
+
+enum enum_display_type
+{
+
+   e_display_type_none,
+   e_display_type_x11,
+   e_display_type_wayland,
+
+};
+
 namespace aura_posix
 {
 
@@ -40,6 +51,8 @@ namespace aura_posix
 
 #endif
 
+      enum_display_type       m_edisplaytype;
+
 
       node();
       ~node() override;
@@ -48,7 +61,7 @@ namespace aura_posix
       void initialize(::particle * pparticle) override;
 
 
-
+      virtual ::wl_display * get_wayland_display();
       //void on_initialize_particle() override;
       //::string system_options_html() override;
       //void set_application_menu(application_menu * pmenu, ::apex::application * papp) override;

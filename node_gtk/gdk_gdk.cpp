@@ -166,7 +166,9 @@ namespace node_gtk
 
       }
 
-      if (!os_defer_init_gtk(::acme::acme::g_pacme->m_psubsystem->acmesystem()))
+      ::pointer < ::node_gtk::node > pgtknode = ::acme::acme::g_pacme->m_psubsystem->acmesystem()->acmenode();
+
+      if (!os_defer_init_gtk(pgtknode))
       {
 
          return ::error_failed;
@@ -201,7 +203,9 @@ namespace node_gtk
    ::e_status gsettings_sync()
    {
 
-      if (!os_defer_init_gtk(::acme::acme::g_pacme->m_psubsystem->acmesystem()))
+      ::pointer < ::node_gtk::node > pgtknode = ::acme::acme::g_pacme->m_psubsystem->acmesystem()->acmenode();
+
+      if (!os_defer_init_gtk(pgtknode))
       {
 
          return ::error_failed;
@@ -232,7 +236,9 @@ namespace node_gtk
 
       }
 
-      if (!os_defer_init_gtk(::acme::acme::g_pacme->m_psubsystem->acmesystem()))
+      ::pointer < ::node_gtk::node > pgtknode = ::acme::acme::g_pacme->m_psubsystem->acmesystem()->acmenode();
+
+      if (!os_defer_init_gtk(pgtknode))
       {
 
          return nullptr;

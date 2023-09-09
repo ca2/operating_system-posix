@@ -5,6 +5,7 @@
 
 #include "framework.h"
 #include "display.h"
+#include "node.h"
 #include "acme/platform/node.h"
 //#include "_user.h"
 //#include <gdk/gdk.h>
@@ -61,7 +62,9 @@ namespace node_gtk
    ::Display * display::_get_system_default_display()
    {
 
-      if(!os_defer_init_gtk(acmesystem()))
+      ::pointer < ::node_gtk::node > pgtknode = acmenode();
+
+      if(!os_defer_init_gtk(pgtknode))
       {
 
          return nullptr;

@@ -2,6 +2,7 @@
 // Created by camilo on 20/01/2021. ThomasBS!!
 //
 #include "framework.h"
+#include "node.h"
 #include "acme/platform/system.h"
 #include "apex/user/user/notify_icon_bridge.h"
 //int uname(struct utsname *buf);
@@ -84,7 +85,9 @@ namespace node_gnome
    bool appindicator::create(const char * pszId, const char * pszIcon, const char * pszFolder, user_notify_icon_bridge * pbridge)
    {
 
-      if (!::node_gtk::os_defer_init_gtk(acmesystem()))
+      ::pointer < ::node_gtk::node > pgtknode = acmenode();
+
+      if (!::node_gtk::os_defer_init_gtk(pgtknode))
       {
 
          return false;

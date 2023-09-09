@@ -16,6 +16,8 @@
 #include "aura_posix/node.h"
 
 
+
+
 namespace node_gtk
 {
 
@@ -120,6 +122,12 @@ namespace node_gtk
       void _node_file_dialog(::file::file_dialog * pdialog) override;
 
       void _node_folder_dialog(::file::folder_dialog * pdialog) override;
+
+
+      virtual void _on_gtk_init();
+
+
+      ::wl_display * get_wayland_display() override;
 
 
    };
