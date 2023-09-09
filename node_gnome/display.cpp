@@ -13,54 +13,54 @@ Display * x11_get_display();
 
 
 void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString);
-
-
-namespace node_gnome
-{
-
-
-   display::display()
-   {
-
-      m_pDisplay2 = nullptr;
-      m_atomLongType = None;
-      m_atomLongStyle = None;
-      m_atomNetWmState = None;
-      m_atomLongStyleEx = 0;
-      m_countReference = 1;
-
-   }
-
-
-   display::~ display()
-   {
-
-
-   }
-
-
-   /// should be run in user thread
-   ::count display::get_monitor_count()
-   {
-
-
-      GdkDisplay * pdisplay = gdk_display_get_default();
-
-         if (pdisplay == nullptr)
-         {
-
-            return 0;
-
-         }
-
-        ::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
-
-        return iMonitorCount;
-
-   }
-
-
-} // namespace node_gnome
-
-
-
+//
+//
+//namespace node_gnome
+//{
+//
+//
+//   display::display()
+//   {
+//
+//      m_pDisplay2 = nullptr;
+//      m_atomLongType = None;
+//      m_atomLongStyle = None;
+//      m_atomNetWmState = None;
+//      m_atomLongStyleEx = 0;
+//      m_countReference = 1;
+//
+//   }
+//
+//
+//   display::~ display()
+//   {
+//
+//
+//   }
+//
+//
+//   /// should be run in user thread
+//   ::count display::get_monitor_count()
+//   {
+//
+//
+//      GdkDisplay * pdisplay = gdk_display_get_default();
+//
+//         if (pdisplay == nullptr)
+//         {
+//
+//            return 0;
+//
+//         }
+//
+//        ::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
+//
+//        return iMonitorCount;
+//
+//   }
+//
+//
+//} // namespace node_gnome
+//
+//
+//

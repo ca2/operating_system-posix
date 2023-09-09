@@ -8,7 +8,7 @@
 #include "acme/parallelization/synchronous_lock.h"
 #include "aura/graphics/image/image.h"
 #include "aura_posix/x11/display_lock.h"
-#include "_x11.h"
+#include "_wayland.h"
 
 
 namespace windowing_wayland

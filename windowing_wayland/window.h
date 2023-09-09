@@ -5,21 +5,21 @@
 
 
 #include "aura_posix/x11/window.h"
-#include "_x11.h"
-#include "acme/operating_system/x11/_atom.h"
+#include "_wayland.h"
+//#include "acme/operating_system/x11/_atom.h"
 #include "acme/primitive/geometry2d/rectangle_array.h"
-#include <X11/extensions/sync.h>
+//#include <X11/extensions/sync.h>
 
 
-#define HAVE_XSYNC 1
-
-#define _NET_WM_STATE_REMOVE        0    // remove/unset property
-#define _NET_WM_STATE_ADD           1    // add/set property
-#define _NET_WM_STATE_TOGGLE        2    // toggle property
-
-
-#define WINDOWING_X11_WINDOW_MEMBER
-//using htask_t = pthread_t;
+//#define HAVE_XSYNC 1
+//
+//#define _NET_WM_STATE_REMOVE        0    // remove/unset property
+//#define _NET_WM_STATE_ADD           1    // add/set property
+//#define _NET_WM_STATE_TOGGLE        2    // toggle property
+//
+//
+//#define WINDOWING_X11_WINDOW_MEMBER
+////using htask_t = pthread_t;
 
 
 namespace windowing_wayland
@@ -302,7 +302,7 @@ namespace windowing_wayland
       virtual ::e_status rectangle(  WINDOWING_X11_WINDOW_MEMBER  ::rectangle_i32 * prectangle);
       //virtual ::e_status wm_full_screen( WINDOWING_X11_WINDOW_MEMBER const ::rectangle_i32 & rectangle);
 
-      virtual ::e_status x11_store_name(const char * pszName);
+      //virtual ::e_status x11_store_name(const char * pszName);
       //virtual ::e_status set_foreground_window();
       //virtual ::e_status set_active_window();
       //virtual void wm_toolwindow( WINDOWING_X11_WINDOW_MEMBER bool bToolWindow);

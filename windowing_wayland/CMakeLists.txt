@@ -35,7 +35,7 @@ list(APPEND library_source
    windowing_wm.cpp
    windowing_wayland.cpp
    windowing.h
-   x11_windowing.cpp
+   wayland_windowing.cpp
    xi.cpp
    )
 
@@ -85,8 +85,8 @@ elseif(${LINUX} OR ${FREEBSD})
 #   endif()
 
 
-   pkg_check_modules(PKGCONFIG x11 xrender xi xext libstartup-notification-1.0)
-   target_compile_options(windowing_wayland PRIVATE -fpermissive)
+   pkg_check_modules(PKGCONFIG x11 xrender xi xext libstartup-notification-1.0 wayland-client wayland-server wayland-cursor)
+   target_compile_options(${PROJECT_NAME} PRIVATE -fpermissive)
    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
    target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
 

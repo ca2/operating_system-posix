@@ -25,6 +25,8 @@ namespace windowing_wayland
    windowing::windowing()
    {
 
+      printf("windowing_wayland::windowing::windowing()");
+
       defer_create_synchronization();
 
       m_bRootSelectInput = false;
@@ -107,6 +109,8 @@ namespace windowing_wayland
    {
 
       ::windowing_posix::windowing::initialize_windowing(puser);
+
+      information() << "windowing_wayland::windowing::initialize_windowing";
 
       auto pdisplay = __create<::windowing::display>();
 

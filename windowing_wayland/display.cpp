@@ -405,6 +405,8 @@ namespace windowing_wayland
 
       }
 
+      information() << "windowing_wayland::display::open";
+
       ::pointer < ::aura_posix::node > pauraposixnode = acmenode();
 
       auto pwldisplay = pauraposixnode->get_wayland_display();

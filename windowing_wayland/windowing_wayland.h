@@ -8,7 +8,7 @@
 
 #include "acme/operating_system/freebsd/_user.h"
 
-#include "_x11.h"
+#include "_wayland.h"
 
 ::e_status defer_initialize_x11();
 
@@ -53,11 +53,11 @@ CLASS_DECL_WINDOWING_X11 ::particle * user_synchronization();
 //const char * net_wm_state_text(enum_net_wm_state estate);
 //void x11_check_status(int status, unsigned long window);
 
-string x11_get_name(Display * display, Window w);
+//string x11_get_name(Display * display, Window w);
 
 
-bool x11_get_window_rect(Display * d, Window window, ::rectangle_i32 * prectangle);
-bool x11_get_client_rect(Display * d, Window window, ::rectangle_i32 * prectangle);
+//bool x11_get_window_rect(Display * d, Window window, ::rectangle_i32 * prectangle);
+//bool x11_get_client_rect(Display * d, Window window, ::rectangle_i32 * prectangle);
 
 //CLASS_DECL_WINDOWING_X11 ::Display * x11_get_display();
 

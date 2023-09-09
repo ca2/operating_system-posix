@@ -32,7 +32,7 @@ __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
 
    }
 
-   pfactory->add_factory_item < ::node_gtk::display, ::windowing::display > ();
+   //pfactory->add_factory_item < ::node_gtk::display, ::windowing::display > ();
 //
 //   pfactory->add_factory_item < ::node_gtk::monitor, ::windowing::monitor > ();
 //   pfactory->add_factory_item < ::node_gtk::copydesk, ::user::copydesk > ();

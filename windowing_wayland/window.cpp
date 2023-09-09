@@ -3743,7 +3743,7 @@ return true;
 
       //x11_store_name(m_oswindow, m_strWindowText);
 
-      x11_store_name(scopedstr);
+      //x11_store_name(scopedstr);
 
       //windowing_output_debug_string("\nfreebsd::interaction_impl::set_window_text END");
 
@@ -3894,14 +3894,14 @@ return true;
    }
 
 
-   bool window::x11_get_client_rect(::rectangle_i32 * prectangle)
-   {
-
-      //return ::x11_get_client_rect(Display(), Window(), prectangle);
-
-      return ::success;
-
-   }
+//   bool window::x11_get_client_rect(::rectangle_i32 * prectangle)
+//   {
+//
+//      //return ::x11_get_client_rect(Display(), Window(), prectangle);
+//
+//      return ::success;
+//
+//   }
 
 
    ::e_status window::rectangle(::rectangle_i32 * prectangle)
@@ -3914,70 +3914,70 @@ return true;
    }
 
 
-   void window::upper_window_rects(rectangle_i32_array & ra)
-   {
-
-      synchronous_lock synchronouslock(user_synchronization());
-
-//      ra.erase_all();
+//   void window::upper_window_rects(rectangle_i32_array & ra)
+//   {
 //
-//      windowing_output_debug_string("::GetFocus 1");
+//      synchronous_lock synchronouslock(user_synchronization());
 //
-//#ifdef display_lock_LOCK_LOG
+////      ra.erase_all();
+////
+////      windowing_output_debug_string("::GetFocus 1");
+////
+////#ifdef display_lock_LOCK_LOG
+////
+////      b_prevent_display_lock_lock_log = false;
+////
+////#endif
+////
+////      display_lock displaylock(x11_display()->Display());
+////
+////      windowing_output_debug_string("::GetFocus 1.01");
+////
+////      auto windowa = x11_display()->x11_window_list();
+////
+////      if (windowa.last() == Window())
+////      {
+////
+////         return;
+////
+////      }
+////
+////      auto iFind = windowa.find_last(Window());
+////
+////      if (not_found(iFind))
+////      {
+////
+////         return;
+////
+////      }
+////
+////      ::rectangle_i32 rectangle;
+////
+////      x11_get_window_rect(&rectangle);
+////
+//////r = oswindow->m_puserinteractionimpl->m_puserinteraction->window_rectangle();
+////
+//////string strTopic = x11_get_name(x11_display(), Window());
+////
+////      ::rectangle_i32 rectangleTest;
+////
+////      for (iFind++; iFind < windowa.get_size(); iFind++)
+////      {
+////
+//////string strItem = x11_get_name(x11_display(), windowa[iFind]);
+////
+////         ::rectangle_i32 rectangleHigher;
+////
+////         if (::x11_get_window_rect(Display(), windowa[iFind], &rectangleHigher))
+////         {
+////
+////            ra.add(rectangleHigher);
+////
+////         }
+////
+////      }
 //
-//      b_prevent_display_lock_lock_log = false;
-//
-//#endif
-//
-//      display_lock displaylock(x11_display()->Display());
-//
-//      windowing_output_debug_string("::GetFocus 1.01");
-//
-//      auto windowa = x11_display()->x11_window_list();
-//
-//      if (windowa.last() == Window())
-//      {
-//
-//         return;
-//
-//      }
-//
-//      auto iFind = windowa.find_last(Window());
-//
-//      if (not_found(iFind))
-//      {
-//
-//         return;
-//
-//      }
-//
-//      ::rectangle_i32 rectangle;
-//
-//      x11_get_window_rect(&rectangle);
-//
-////r = oswindow->m_puserinteractionimpl->m_puserinteraction->window_rectangle();
-//
-////string strTopic = x11_get_name(x11_display(), Window());
-//
-//      ::rectangle_i32 rectangleTest;
-//
-//      for (iFind++; iFind < windowa.get_size(); iFind++)
-//      {
-//
-////string strItem = x11_get_name(x11_display(), windowa[iFind]);
-//
-//         ::rectangle_i32 rectangleHigher;
-//
-//         if (::x11_get_window_rect(Display(), windowa[iFind], &rectangleHigher))
-//         {
-//
-//            ra.add(rectangleHigher);
-//
-//         }
-//
-//      }
-
-   }
+//   }
 
 
    void window::set_active_window()
@@ -4677,8 +4677,8 @@ return true;
 //   }
 //
 //
-//   bool window::has_mouse_capture() const
-//   {
+   bool window::has_mouse_capture() const
+   {
 //
 //      auto pdisplay = x11_display();
 //
@@ -4705,14 +4705,14 @@ return true;
 //
 //      }
 //
-//      return true;
-//
-//   }
-//
-//
-//   bool window::has_keyboard_focus() const
-//   {
-//
+     return true;
+
+   }
+
+
+   bool window::has_keyboard_focus() const
+   {
+
 //      auto pdisplay = x11_display();
 //
 //      if (::is_null(pdisplay))
@@ -4756,9 +4756,9 @@ return true;
 //
 //      }
 //
-//      return true;
-//
-//   }
+      return true;
+
+   }
 //
 //
 //   /// should be run in user thread
