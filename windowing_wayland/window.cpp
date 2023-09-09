@@ -18,13 +18,13 @@
 #include "aura/user/user/interaction_impl.h"
 #include "aura/platform/message_queue.h"
 #include "aura_posix/node.h"
-#include <X11/Xatom.h>
-#include <X11/extensions/sync.h>
+//#include <X11/Xatom.h>
+//#include <X11/extensions/sync.h>
 #include <wayland-client.h>
 #include "aura/graphics/image/context_image.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
-#include "aura_posix/x11/display_lock.h"
+//#include "aura_posix/x11/display_lock.h"
 
 
 void on_sn_launch_context(void * pSnContext, Window window);

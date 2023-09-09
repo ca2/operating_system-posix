@@ -64,226 +64,226 @@ void oswindow_set_active_window(oswindow oswindow);
 
 CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const point_i32 & pointCursor);
 
-bool is_return_key(XIRawEvent * event)
-{
-
-   int i;
-   double * val, * raw_val;
-
-   switch (event->evtype)
-   {
-      case XI_RawKeyPress:
-      case XI_RawKeyRelease:
-      {
-
-         val = event->valuators.values;
-
-         raw_val = event->raw_values;
-
-         if (event->detail == 36)
-         {
-
-            return true;
-
-         }
-
-         printf("is_return_key    detail: %d\n", event->detail);
-
-         for (i = 0; i < event->valuators.mask_len * 8; i++)
-         {
-
-            if (XIMaskIsSet(event->valuators.mask, i))
-            {
-
-               printf("is_return_key    %2d: %.2f (%.2f)\n", i, *val++, *raw_val++);
-
-            }
-
-         }
-
-         printf("\n");
-
-      }
-
-         break;
-
-   }
-
-   return false;
-
-}
-
-
-bool is_space_key(XIRawEvent * event)
-{
-
-   int i;
-   double * val, * raw_val;
-
-   switch (event->evtype)
-   {
-      case XI_RawKeyPress:
-      case XI_RawKeyRelease:
-      {
-
-         val = event->valuators.values;
-
-         raw_val = event->raw_values;
-
-         if (event->detail == 65)
-         {
-
-            return true;
-
-         }
-
-         printf("is_space_key    detail: %d\n", event->detail);
-
-         for (i = 0; i < event->valuators.mask_len * 8; i++)
-         {
-
-            if (XIMaskIsSet(event->valuators.mask, i))
-            {
-
-               printf("is_space_key    %2d: %.2f (%.2f)\n", i, *val++, *raw_val++);
-
-            }
-
-         }
-
-         printf("\n");
-
-      }
-
-         break;
-
-   }
-
-   return false;
-
-}
-
-
-// Tutor Exilius Q(t)List streaming contribution
-//::pointer< ::mutex > g_pmutexX11Runnable = nullptr;
-//list < ::pointer<::matter >>* g_prunnableptrlX11 = nullptr;
-//::pointer< ::mutex > g_pmutexX11Sync = nullptr;
-//manual_reset_event * g_peventX11Sync = nullptr;
-//::pointer<::matter>g_prunnableX11Sync;
-Window g_windowX11Client = 0;
-
-
-int_bool _x11_get_cursor_pos(Display * d, ::point_i32 * ppointCursor);
-
-
-//extern ::pointer< ::mutex >g_pmutexX11Runnable;
-//extern list<::pointer<::matter >>*g_prunnableptrlX11;
-//extern ::pointer< ::mutex >g_pmutexX11Sync;
-//extern manual_reset_event *g_peventX11Sync;
-//extern ::pointer<::matter>g_prunnableX11Sync;
-
-
-//int get_best_ordered_monitor(::user::interaction * pinteraction, int & l, int & t, int & cx, int & cy);
-//int get_best_monitor(::user::interaction * pinteraction, int & l, int & t, int & cx, int & cy);
-
-//extern SnLauncheeContext* g_psncontext;
-//Display * Display();
-//void wm_toolwindow(oswindow w, bool bToolWindow);
-//void wm_state_hidden(oswindow w, bool bSet);
-//void wm_state_hidden_raw(oswindow w, bool bSet);
-//CLASS_DECL_AURA int_bool mq_remove_window_from_all_queues(oswindow oswindow);
-//
-//
-//int_bool x11_get_cursor_pos(::point_i32 * ppointCursor);
-
-
-
-//Window g_windowFocus = 0;
-
-i32 _c_XErrorHandler(Display * display, XErrorEvent * perrorevent);
-
-
-//struct MWMHints
+//bool is_return_key(XIRawEvent * event)
 //{
 //
-//   unsigned long flags;
-//   unsigned long functions;
-//   unsigned long decorations;
-//   long input_mode;
-//   unsigned long status;
+//   int i;
+//   double * val, * raw_val;
 //
-//};
-//
-//
-//#define MWM_HINTS_DECORATIONS   (1L << 1)
-//
-//
-///* MWM decorations values */
-//#define MWM_DECOR_NONE          0
-//#define MWM_DECOR_ALL           (1L << 0)
-//#define MWM_DECOR_BORDER        (1L << 1)
-//#define MWM_DECOR_RESIZEH       (1L << 2)
-//#define MWM_DECOR_TITLE         (1L << 3)
-//#define MWM_DECOR_MENU          (1L << 4)
-//#define MWM_DECOR_MINIMIZE      (1L << 5)
-//#define MWM_DECOR_MAXIMIZE      (1L << 6)
-
-
-//
-//
-//oswindow oswindow_defer_get(Window window)
-//{
-//
-//   return oswindow_get(window);
-//
-//}
-
-
-//
-//bool oswindow_remove(Display * display, Window window)
-//{
-//
-//   single_lock slOsWindow(::osdisplay_data::s_pmutex, true);
-//
-//   auto pFind = oswindow_find(display, window);
-//
-//   if(::is_null(pFind))
+//   switch (event->evtype)
 //   {
+//      case XI_RawKeyPress:
+//      case XI_RawKeyRelease:
+//      {
 //
-//      return false;
+//         val = event->valuators.values;
+//
+//         raw_val = event->raw_values;
+//
+//         if (event->detail == 36)
+//         {
+//
+//            return true;
+//
+//         }
+//
+//         printf("is_return_key    detail: %d\n", event->detail);
+//
+//         for (i = 0; i < event->valuators.mask_len * 8; i++)
+//         {
+//
+//            if (XIMaskIsSet(event->valuators.mask, i))
+//            {
+//
+//               printf("is_return_key    %2d: %.2f (%.2f)\n", i, *val++, *raw_val++);
+//
+//            }
+//
+//         }
+//
+//         printf("\n");
+//
+//      }
+//
+//         break;
 //
 //   }
 //
-//   delete ::oswindow_data::s_pdataptra->element_at(iFind);
-//
-//   ::oswindow_data::s_pdataptra->erase_at(iFind);
-//
-//   return true;
+//   return false;
 //
 //}
-
 //
-//bool oswindow_remove_message_only_window(::user::interaction_impl * puibaseMessageOnlyWindow)
+//
+//bool is_space_key(XIRawEvent * event)
 //{
 //
-//   single_lock slOsWindow(::osdisplay_data::s_pmutex, true);
+//   int i;
+//   double * val, * raw_val;
 //
-//   auto pFind = oswindow_find_message_only_window(puibaseMessageOnlyWindow);
-//
-//   if(::is_null(pFind))
+//   switch (event->evtype)
 //   {
+//      case XI_RawKeyPress:
+//      case XI_RawKeyRelease:
+//      {
 //
-//      return false;
+//         val = event->valuators.values;
+//
+//         raw_val = event->raw_values;
+//
+//         if (event->detail == 65)
+//         {
+//
+//            return true;
+//
+//         }
+//
+//         printf("is_space_key    detail: %d\n", event->detail);
+//
+//         for (i = 0; i < event->valuators.mask_len * 8; i++)
+//         {
+//
+//            if (XIMaskIsSet(event->valuators.mask, i))
+//            {
+//
+//               printf("is_space_key    %2d: %.2f (%.2f)\n", i, *val++, *raw_val++);
+//
+//            }
+//
+//         }
+//
+//         printf("\n");
+//
+//      }
+//
+//         break;
 //
 //   }
 //
-//   delete ::oswindow_data::s_pdataptra->element_at(iFind);
-//
-//   ::oswindow_data::s_pdataptra->erase_at(iFind);
-//
-//   return true;
+//   return false;
 //
 //}
+//
+//
+//// Tutor Exilius Q(t)List streaming contribution
+////::pointer< ::mutex > g_pmutexX11Runnable = nullptr;
+////list < ::pointer<::matter >>* g_prunnableptrlX11 = nullptr;
+////::pointer< ::mutex > g_pmutexX11Sync = nullptr;
+////manual_reset_event * g_peventX11Sync = nullptr;
+////::pointer<::matter>g_prunnableX11Sync;
+//Window g_windowX11Client = 0;
+//
+//
+//int_bool _x11_get_cursor_pos(Display * d, ::point_i32 * ppointCursor);
+//
+//
+////extern ::pointer< ::mutex >g_pmutexX11Runnable;
+////extern list<::pointer<::matter >>*g_prunnableptrlX11;
+////extern ::pointer< ::mutex >g_pmutexX11Sync;
+////extern manual_reset_event *g_peventX11Sync;
+////extern ::pointer<::matter>g_prunnableX11Sync;
+//
+//
+////int get_best_ordered_monitor(::user::interaction * pinteraction, int & l, int & t, int & cx, int & cy);
+////int get_best_monitor(::user::interaction * pinteraction, int & l, int & t, int & cx, int & cy);
+//
+////extern SnLauncheeContext* g_psncontext;
+////Display * Display();
+////void wm_toolwindow(oswindow w, bool bToolWindow);
+////void wm_state_hidden(oswindow w, bool bSet);
+////void wm_state_hidden_raw(oswindow w, bool bSet);
+////CLASS_DECL_AURA int_bool mq_remove_window_from_all_queues(oswindow oswindow);
+////
+////
+////int_bool x11_get_cursor_pos(::point_i32 * ppointCursor);
+//
+//
+//
+////Window g_windowFocus = 0;
+//
+//i32 _c_XErrorHandler(Display * display, XErrorEvent * perrorevent);
+//
+//
+////struct MWMHints
+////{
+////
+////   unsigned long flags;
+////   unsigned long functions;
+////   unsigned long decorations;
+////   long input_mode;
+////   unsigned long status;
+////
+////};
+////
+////
+////#define MWM_HINTS_DECORATIONS   (1L << 1)
+////
+////
+/////* MWM decorations values */
+////#define MWM_DECOR_NONE          0
+////#define MWM_DECOR_ALL           (1L << 0)
+////#define MWM_DECOR_BORDER        (1L << 1)
+////#define MWM_DECOR_RESIZEH       (1L << 2)
+////#define MWM_DECOR_TITLE         (1L << 3)
+////#define MWM_DECOR_MENU          (1L << 4)
+////#define MWM_DECOR_MINIMIZE      (1L << 5)
+////#define MWM_DECOR_MAXIMIZE      (1L << 6)
+//
+//
+////
+////
+////oswindow oswindow_defer_get(Window window)
+////{
+////
+////   return oswindow_get(window);
+////
+////}
+//
+//
+////
+////bool oswindow_remove(Display * display, Window window)
+////{
+////
+////   single_lock slOsWindow(::osdisplay_data::s_pmutex, true);
+////
+////   auto pFind = oswindow_find(display, window);
+////
+////   if(::is_null(pFind))
+////   {
+////
+////      return false;
+////
+////   }
+////
+////   delete ::oswindow_data::s_pdataptra->element_at(iFind);
+////
+////   ::oswindow_data::s_pdataptra->erase_at(iFind);
+////
+////   return true;
+////
+////}
+//
+////
+////bool oswindow_remove_message_only_window(::user::interaction_impl * puibaseMessageOnlyWindow)
+////{
+////
+////   single_lock slOsWindow(::osdisplay_data::s_pmutex, true);
+////
+////   auto pFind = oswindow_find_message_only_window(puibaseMessageOnlyWindow);
+////
+////   if(::is_null(pFind))
+////   {
+////
+////      return false;
+////
+////   }
+////
+////   delete ::oswindow_data::s_pdataptra->element_at(iFind);
+////
+////   ::oswindow_data::s_pdataptra->erase_at(iFind);
+////
+////   return true;
+////
+////}
 
 
 
