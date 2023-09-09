@@ -34,7 +34,7 @@ namespace windowing_x11
       XShmSegmentInfo      m_xshmsegmentinfo;
       ::size_i32           m_sizeLastBitBlitting;
       bool                 m_bUseXShmIfAvailable;
-
+      bool                 m_bXShmPutImagePending;
       //::pointer < ::mutex >                         m_pmutexPixmap;
       //pixmap                        m_pixmap;
       GC                   m_gc;

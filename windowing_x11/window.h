@@ -75,6 +75,8 @@ namespace windowing_x11
       ::rectangle_i32_array                        m_rectangleaRedraw;
       ::pointer<::xim::keyboard>                   m_pximkeyboard;
       //::u64                                        m_uLastNetWmSyncRequest;
+      ::rectangle_i32                              m_rectangleXShm;
+      //bool                                         m_bXShmPutImagePending;
 
 
       window();

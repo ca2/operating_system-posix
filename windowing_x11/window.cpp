@@ -44,6 +44,8 @@ namespace windowing_x11
    window::window()
    {
 
+      //m_bXShmPutImagePending = false;
+
       //m_bXShmComplete = false;
       m_pWindow4 = this;
 
@@ -3473,6 +3475,8 @@ namespace windowing_x11
 
          information("XResizeWindow (Win=%d) (%d, %d)", Window(), cx, cy);
 
+         //information() << acmenode()->get_callstack();
+
          XResizeWindow(Display(), Window(), cx, cy);
 
       }
@@ -5069,6 +5073,8 @@ namespace windowing_x11
          }
 
       }
+
+
 
    }
 

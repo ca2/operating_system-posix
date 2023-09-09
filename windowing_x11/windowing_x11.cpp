@@ -1530,11 +1530,28 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                //px11window->m_puserinteractionimpl->m_puserinteraction->_set_size(sizeBitBlitting, ::user::e_layout_window);
 
-               pbufferitem->m_manualresetevent.SetEvent();
-
                information() << "Got XShmCompletionEvent";
 
+               //::pointer<::windowing_x11::window> px11window = m_pimpl->m_pwindow;
+
+               try
+               {
+
+                  //m_rectangleXShm
+
+                  px11window->strict_set_window_position_unlocked(px11window->m_rectangleXShm);
+
+               }
+               catch (...)
+               {
+
+               }
+
                px11window->_on_end_paint();
+
+               pbuffer->m_bXShmPutImagePending = false;
+
+               pbufferitem->m_manualresetevent.SetEvent();
 
             }
 
@@ -1978,7 +1995,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
             //information("windowing_11 Expose");
 
-#ifdef FREEBSD
+//#ifdef FREEBSD
             ::rectangle_i32 rectangleRedraw;
 
             rectangleRedraw.left() = e.xexpose.x;
@@ -1986,7 +2003,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
             rectangleRedraw.right() = rectangleRedraw.left() + e.xexpose.width;
             rectangleRedraw.bottom() = rectangleRedraw.top() + e.xexpose.height;
 
-            pwindow->m_rectangleaRedraw.add(rectangleRedraw);
+            px11window->m_rectangleaRedraw.add(rectangleRedraw);
 
             //pinteraction->set_need_redraw();
 
@@ -2052,21 +2069,32 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                  }
 
-                pwindow->m_rectangleaRedraw.clear();
+                px11window->m_rectangleaRedraw.clear();
 
 //
 
+//px11window->
 
-                auto pimpl = oswindow->m_puserinteractionimpl;
 
-                auto puserinteraction = pimpl->m_puserinteraction;
+                auto pimpl = px11window->m_puserinteractionimpl;
 
-                if (puserinteraction)
-                {
+                //auto puserinteraction = pimpl->m_puserinteraction;
+               ::pointer<buffer> pbuffer = pimpl->m_pgraphics;
 
-                   puserinteraction->set_need_redraw(pwindow->m_rectangleaRedraw);
+               if(!pbuffer->m_bXShm || !pbuffer->m_bXShmPutImagePending)
+               {
 
-                   pwindow->m_rectangleaRedraw.clear();
+
+                  pbuffer->_update_screen_lesser_lock();
+
+               }
+
+  //              if (puserinteraction)
+    //            {
+
+      //             puserinteraction->set_need_redraw(px11window->m_rectangleaRedraw);
+
+//                   px11window->m_rectangleaRedraw.clear();
 
 //                   {
 //
@@ -2083,14 +2111,14 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                   }
 
-                   puserinteraction->post_redraw();
+//                   puserinteraction->post_redraw();
 
-                }
-                }
+                //}
+                //}
 //                  }
 
             }
-#endif
+//#endif
          }
             break;
          case PropertyNotify:

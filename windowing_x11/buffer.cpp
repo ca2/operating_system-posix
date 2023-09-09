@@ -9,6 +9,7 @@
 #include "windowing.h"
 #include "acme/parallelization/mutex.h"
 #include "acme/parallelization/synchronous_lock.h"
+#include "acme/platform/node.h"
 #include "acme/primitive/geometry2d/_text_stream.h"
 #include "aura/user/user/interaction_impl.h"
 #include "aura/graphics/image/image.h"
@@ -23,6 +24,8 @@ namespace windowing_x11
 
    buffer::buffer()
    {
+
+      m_bXShmPutImagePending = false;
 
       m_bUseXShmIfAvailable = true;
 
@@ -455,7 +458,9 @@ namespace windowing_x11
          if (!m_bXShmChecked)
          {
 
-            m_bXShm = XShmQueryExtension(x11_window()->Display());
+            //m_bXShm = XShmQueryExtension(x11_window()->Display());
+
+            m_bXShm = false;
 
             m_bXShmChecked = true;
 
@@ -576,19 +581,6 @@ namespace windowing_x11
 
       }
 
-      ::pointer<::windowing_x11::window> px11window = m_pimpl->m_pwindow;
-
-      try
-      {
-
-         px11window->strict_set_window_position_unlocked();
-
-      }
-      catch (...)
-      {
-
-      }
-
       try
       {
 
@@ -602,6 +594,19 @@ namespace windowing_x11
 
                information() << "XShmCompletionEvent timeout";
 
+               ::pointer<::windowing_x11::window> px11window = m_pimpl->m_pwindow;
+
+               try
+               {
+
+                  px11window->strict_set_window_position_unlocked();
+
+               }
+               catch (...)
+               {
+
+               }
+
             }
 
             copy_image32((::image32_t *) m_pximage->data, sizeBitBlitting,
@@ -610,6 +615,10 @@ namespace windowing_x11
             pitem->m_manualresetevent.ResetEvent();
 
             m_sizeLastBitBlitting = sizeBitBlitting;
+
+            x11_window()->m_rectangleXShm = x11_window()->m_puserinteractionimpl->m_puserinteraction->const_layout().parent_raw_rectangle(::user::e_layout_design);
+
+            m_bXShmPutImagePending = true;
 
             XShmPutImage(
                x11_window()->Display(),
@@ -625,6 +634,19 @@ namespace windowing_x11
          else
          {
 
+            ::pointer<::windowing_x11::window> px11window = m_pimpl->m_pwindow;
+
+            try
+            {
+
+               px11window->strict_set_window_position_unlocked();
+
+            }
+            catch (...)
+            {
+
+            }
+
             m_sizeLastBitBlitting = sizeBitBlitting;
 
             XPutImage(
@@ -636,6 +658,8 @@ namespace windowing_x11
                sizeBitBlitting.cy());
 
             information() << "XPutImage : " << sizeBitBlitting;
+
+            //information() << acmenode()->get_callstack();
 
 //            try
 //            {
