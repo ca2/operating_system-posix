@@ -20,9 +20,9 @@ __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
    if(strSessionType == "wayland")
    {
 
-      windowing_x11_factory(pfactory);
+      //windowing_x11_factory(pfactory);
 
-      //windowing_wayland_factory(pfactory);
+      windowing_wayland_factory(pfactory);
 
    }
    else

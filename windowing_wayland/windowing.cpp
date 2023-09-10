@@ -275,7 +275,7 @@ namespace windowing_wayland
    }
 
 
-   ::pointer<::windowing::cursor>windowing::load_default_cursor(enum_cursor ecursor)
+   ::pointer<::windowing::cursor> windowing::load_default_cursor(enum_cursor ecursor)
    {
 
       synchronous_lock synchronouslock(this->synchronization());
@@ -299,7 +299,7 @@ namespace windowing_wayland
 
       auto & pcursor = m_pcursormanager->m_cursormap[ecursor];
 
-      if(pcursor)
+      if (pcursor)
       {
 
          return pcursor;
@@ -308,62 +308,62 @@ namespace windowing_wayland
 
       int iCursor = 0;
 
-      if(ecursor == e_cursor_size_top_left)
+      if (ecursor == e_cursor_size_top_left)
       {
 
          iCursor = XC_top_left_corner;
 
       }
-      else if(ecursor == e_cursor_size_top_right)
+      else if (ecursor == e_cursor_size_top_right)
       {
 
          iCursor = XC_top_right_corner;
 
       }
-      else if(ecursor == e_cursor_size_top)
+      else if (ecursor == e_cursor_size_top)
       {
 
          iCursor = XC_top_side;
 
       }
-      else if(ecursor == e_cursor_size_right)
+      else if (ecursor == e_cursor_size_right)
       {
 
          iCursor = XC_right_side;
 
       }
-      else if(ecursor == e_cursor_size_left)
+      else if (ecursor == e_cursor_size_left)
       {
 
          iCursor = XC_left_side;
 
       }
-      else if(ecursor == e_cursor_size_bottom)
+      else if (ecursor == e_cursor_size_bottom)
       {
 
          iCursor = XC_bottom_side;
 
       }
-      else if(ecursor == e_cursor_size_bottom_left)
+      else if (ecursor == e_cursor_size_bottom_left)
       {
 
          iCursor = XC_bottom_left_corner;
 
       }
-      else if(ecursor == e_cursor_size_bottom_right)
+      else if (ecursor == e_cursor_size_bottom_right)
       {
 
          iCursor = XC_bottom_right_corner;
 
       }
-      else if(ecursor == e_cursor_arrow)
+      else if (ecursor == e_cursor_arrow)
       {
 
          iCursor = XC_arrow;
 
       }
 
-      if(iCursor == 0)
+      if (iCursor == 0)
       {
 
          return nullptr;
@@ -403,7 +403,7 @@ namespace windowing_wayland
    ::windowing::window * windowing::get_keyboard_focus(::thread *)
    {
 
-      if(!m_pdisplay)
+      if (!m_pdisplay)
       {
 
          return nullptr;
@@ -420,7 +420,7 @@ namespace windowing_wayland
    ::windowing::window * windowing::get_mouse_capture(::thread *)
    {
 
-      if(!m_pdisplay)
+      if (!m_pdisplay)
       {
 
          return nullptr;
@@ -457,6 +457,105 @@ namespace windowing_wayland
 //      }
 //
 //      return estatus;
+
+   }
+
+
+   void windowing::set_mouse_cursor(::windowing::cursor * pcursor)
+   {
+
+      if (
+         ::is_null(pcursor)
+         )
+      {
+
+         return;
+
+      }
+
+      ::pointer < ::windowing_wayland::cursor > pwaylandcursor = pcursor;
+
+      if (!pwaylandcursor)
+      {
+
+         throw
+            ::exception(error_null_pointer);
+
+      }
+
+      pwaylandcursor->_create_os_cursor();
+
+      auto pwaylanddisplay = m_pdisplay;
+
+      auto pwlpointer = pwaylanddisplay->m_pwlpointer;
+
+      if (pwlpointer && pwaylandcursor->m_waylandbuffer.m_pwlbuffer)
+      {
+
+         auto pwlsurfaceCursor = pwaylanddisplay->m_pwlsurfaceCursor;
+
+         wl_pointer_set_cursor(pwlpointer, pwaylanddisplay->m_uLastPointerSerial,
+                               pwlsurfaceCursor,
+                               pwaylandcursor->m_szHotspotOffset.cx(),
+                               pwaylandcursor->m_szHotspotOffset.cy()
+
+         );
+
+         wl_surface_attach(pwlsurfaceCursor, pwaylandcursor->m_waylandbuffer.m_pwlbuffer, 0, 0);
+
+         wl_surface_damage(pwlsurfaceCursor, 0, 0,
+                           pwaylandcursor->m_waylandbuffer.m_size.cx(),
+                           pwaylandcursor->m_waylandbuffer.m_size.cy()
+
+         );
+
+         wl_surface_commit(pwlsurfaceCursor);
+
+      }
+
+
+//
+//      m_pwindowing->windowing_post([this, pcursorx11]()
+//                                   {
+//
+//                                      if (!pcursorx11->m_cursor)
+//                                      {
+//
+//                                         //auto estatus =
+//                                         //
+//                                         pcursorx11->_create_os_cursor();
+//
+////         if(!estatus)
+////         {
+////
+////            return estatus;
+////
+////         }
+//
+//                                      }
+//
+//                                      if (m_cursorLast == pcursorx11->m_cursor)
+//                                      {
+//
+//                                         //return true;
+//
+//                                         return;
+//
+//                                      }
+//
+//                                      synchronous_lock sl(user_synchronization());
+//
+//                                      windowing_output_debug_string("::SetCursor 1");
+//
+//                                      display_lock displaylock(x11_display()->Display());;
+//
+//                                      XDefineCursor(Display(), Window(), pcursorx11->m_cursor);
+//
+//                                      m_cursorLast = pcursorx11->m_cursor;
+//
+//                                   });
+//
+//return true;
 
    }
 

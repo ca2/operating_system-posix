@@ -1673,6 +1673,16 @@ namespace node_gtk
    }
 
 
+   bool node::defer_windowing_post(const ::procedure & procedure)
+   {
+
+      node_post(procedure);
+
+      return true;
+
+   }
+
+
 } // namespace node_gtk
 
 

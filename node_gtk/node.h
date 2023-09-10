@@ -131,6 +131,9 @@ namespace node_gtk
       ::wl_display * get_wayland_display() override;
 
 
+      bool defer_windowing_post(const ::procedure & procedure) override;
+
+
    };
 
 

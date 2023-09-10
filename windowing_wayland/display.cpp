@@ -248,22 +248,25 @@ namespace windowing_wayland
 //wl_output_description
 //
 //      };
-   void xdg_surface_mouse_capture_configure(void * data,
-                              struct xdg_surface * xdg_surface,
-                              uint32_t serial)
-   {
-
-      auto pdisplay = (display *) data;
-      xdg_surface_ack_configure(xdg_surface, serial);
-      wl_surface_attach(pdisplay->m_pwlsurfaceMouseCapture, pdisplay->m_waylandbufferMouseCapture.m_pwlbuffer, 0, 0);
-
-      wl_surface_commit(pdisplay->m_pwlsurfaceMouseCapture);
-   }
 
 
-   static const struct xdg_surface_listener xdg_surface_mouse_capture_listener = {
-      xdg_surface_mouse_capture_configure,
-   };
+  // void xdg_surface_mouse_capture_configure(void * data, struct xdg_surface * xdg_surface, uint32_t serial)
+//   {
+//
+//      auto pdisplay = (display *) data;
+//
+//      xdg_surface_ack_configure(xdg_surface, serial);
+//
+//      wl_surface_attach(pdisplay->m_pwlsurfaceMouseCapture, pdisplay->m_waylandbufferMouseCapture.m_pwlbuffer, 0, 0);
+//
+//      wl_surface_commit(pdisplay->m_pwlsurfaceMouseCapture);
+//
+//   }
+
+
+//   static const struct xdg_surface_listener xdg_surface_mouse_capture_listener = {
+//      xdg_surface_mouse_capture_configure,
+//   };
 
 
    void
@@ -282,10 +285,14 @@ namespace windowing_wayland
 
       auto pdisplay = (display *) data;
 
+      pdisplay->m_uLastPointerSerial = serial;
+
+      pdisplay->m_uLastSeatSerial = serial;
+
       if(pwlsurface == pdisplay->m_pwlsurfaceMouseCapture)
       {
 
-         fprintf(stderr, "entered Mouse Capture surface at %0.0f %0.0f!!\n", pwlsurface, x, y);
+         fprintf(stderr, "entered Mouse Capture surface at %0.0f %0.0f!!\n", x, y);
 
          pdisplay->m_bMouseCaptured = true;
 
@@ -297,30 +304,30 @@ namespace windowing_wayland
 
       auto pwaylandwindow = pdisplay->_window(pwlsurface);
 
-      auto pcursor = pwaylandwindow->get_mouse_cursor();
+      //auto pcursor = pwaylandwindow->get_mouse_cursor();
 
-      auto pwlsurfaceCursor =  pdisplay->m_pwlsurfaceCursor;
-
-      ::pointer < ::windowing_wayland::cursor > pwaylandcursor = pcursor;
+//      auto pwlsurfaceCursor =  pdisplay->m_pwlsurfaceCursor;
+//
+//      ::pointer < ::windowing_wayland::cursor > pwaylandcursor = pcursor;
 
       //image = default_cursor->images[0];
       //buffer = wl_cursor_image_get_buffer(image);
 
-      if(pwaylandcursor)
-      {
+//      if(pwaylandcursor)
+//      {
+//
+//         wl_pointer_set_cursor(pwlpointer, serial,
+//                               pwlsurfaceCursor,
+//                               pwaylandcursor->m_szHotspotOffset.cx(),
+//                               pwaylandcursor->m_szHotspotOffset.cy());
+//         wl_surface_attach(pwlsurfaceCursor, pwaylandcursor->m_waylandbuffer.m_pwlbuffer, 0, 0);
+//         wl_surface_damage(pwlsurfaceCursor, 0, 0, pwaylandcursor->m_pimage->width(),
+//                           pwaylandcursor->m_pimage->height());
+//         wl_surface_commit(pwlsurfaceCursor);
+//
+//      }
 
-         wl_pointer_set_cursor(pwlpointer, serial,
-                               pwlsurfaceCursor,
-                               pwaylandcursor->m_szHotspotOffset.cx(),
-                               pwaylandcursor->m_szHotspotOffset.cy());
-         wl_surface_attach(pwlsurfaceCursor, pwaylandcursor->m_waylandbuffer.m_pwlbuffer, 0, 0);
-         wl_surface_damage(pwlsurfaceCursor, 0, 0, pwaylandcursor->m_pimage->width(),
-                           pwaylandcursor->m_pimage->height());
-         wl_surface_commit(pwlsurfaceCursor);
-
-      }
-
-      pdisplay->__handle_pointer_enter(x, y, pwaylandwindow);
+      pdisplay->__handle_pointer_enter(pwlpointer, x, y, pwaylandwindow);
 
    }
 
@@ -333,10 +340,14 @@ namespace windowing_wayland
 
       auto pdisplay = (display *) data;
 
+      pdisplay->m_uLastPointerSerial = serial;
+
+      pdisplay->m_uLastSeatSerial = serial;
+
       if(pdisplay->m_pwlsurfaceMouseCapture && pwlsurface == pdisplay->m_pwlsurfaceMouseCapture)
       {
 
-         fprintf(stderr, "pointer left Mouse Capture surface\n", pwlsurface);
+         fprintf(stderr, "pointer left Mouse Capture surface\n");
 
          pdisplay->m_bMouseCaptured = false;
 
@@ -348,13 +359,13 @@ namespace windowing_wayland
 
       auto pwaylandwindowLeave = pdisplay->_window(pwlsurface);
 
-      pdisplay->__handle_pointer_leave(pwaylandwindowLeave);
+      pdisplay->__handle_pointer_leave(pwlpointer, pwaylandwindowLeave);
 
 
    }
 
    void
-   pointer_handle_motion(void *data, struct wl_pointer *pointer,
+   pointer_handle_motion(void *data, struct wl_pointer *pwlpointer,
                          uint32_t millis, wl_fixed_t sx, wl_fixed_t sy)
    {
       auto x = wl_fixed_to_double(sx);
@@ -375,12 +386,12 @@ namespace windowing_wayland
 //      }
 //
 
-      pdisplay->__handle_pointer_motion(x, y, millis);
+      pdisplay->__handle_pointer_motion(pwlpointer, x, y, millis);
 
    }
 
    void
-   pointer_handle_button(void *data, struct wl_pointer *wl_pointer,
+   pointer_handle_button(void *data, struct wl_pointer *pwlpointer,
                          uint32_t serial, uint32_t millis, uint32_t linux_button,
                          uint32_t pressed)
    {
@@ -391,6 +402,28 @@ namespace windowing_wayland
 
       pdisplay->m_uLastButtonSerial = serial;
 
+      pdisplay->m_uLastPointerSerial = serial;
+
+      pdisplay->m_uLastSeatSerial = serial;
+
+      if (linux_button == BTN_LEFT)
+      {
+
+         if(pressed == WL_POINTER_BUTTON_STATE_PRESSED)
+         {
+
+            pdisplay->m_pwlsurfaceLastLButtonDown = pdisplay->m_pwlsurfacePointerEnter;
+
+         }
+         else
+         {
+
+            //pdisplay->m_pwlsurfacePointerLButtonDown = null
+
+         }
+
+      }
+
       if(pdisplay->m_pwindowKeyboardFocus)
       {
 
@@ -400,7 +433,7 @@ namespace windowing_wayland
 
       }
 
-      pdisplay->__handle_pointer_button(linux_button, pressed, millis);
+      pdisplay->__handle_pointer_button(pwlpointer, linux_button, pressed, millis);
 
    }
 
@@ -445,18 +478,34 @@ namespace windowing_wayland
    }
 
    static void
-   keyboard_handle_enter(void *data, struct wl_keyboard *keyboard,
-                         uint32_t serial, struct wl_surface *surface,
+   keyboard_handle_enter(void *data, struct wl_keyboard *pwlkeyboard,
+                         uint32_t serial, struct wl_surface *pwlsurface,
                          struct wl_array *keys)
    {
       fprintf(stderr, "Keyboard gained focus\n");
+      auto pdisplay = (display *) data;
+      pdisplay->m_pwlkeyboard = pwlkeyboard;
+      pdisplay->m_pwlsurfaceKeyboardEnter = pwlsurface;
+
+      pdisplay->m_uLastSeatSerial = serial;
+
    }
 
    static void
-   keyboard_handle_leave(void *data, struct wl_keyboard *keyboard,
-                         uint32_t serial, struct wl_surface *surface)
+   keyboard_handle_leave(void *data, struct wl_keyboard *pwlkeyboard,
+                         uint32_t serial, struct wl_surface *pwlsurface)
    {
       fprintf(stderr, "Keyboard lost focus\n");
+      auto pdisplay = (display *) data;
+      if(pwlkeyboard == pdisplay->m_pwlkeyboard)
+      {
+         pdisplay->m_pwlkeyboard = nullptr;
+      }
+      if(pwlsurface == pdisplay->m_pwlsurfaceKeyboardEnter)
+      {
+         pdisplay->m_pwlsurfaceKeyboardEnter = nullptr;
+      }
+      pdisplay->m_uLastSeatSerial = serial;
    }
 
    static void
@@ -465,6 +514,8 @@ namespace windowing_wayland
                        uint32_t state)
    {
       fprintf(stderr, "Key is %d state is %d\n", key, state);
+      auto pdisplay = (display *) data;
+      pdisplay->m_uLastSeatSerial = serial;
    }
 
    static void
@@ -475,6 +526,9 @@ namespace windowing_wayland
    {
       fprintf(stderr, "Modifiers depressed %d, latched %d, locked %d, group %d\n",
               mods_depressed, mods_latched, mods_locked, group);
+      auto pdisplay = (display *) data;
+      pdisplay->m_uLastSeatSerial = serial;
+
    }
 
    static const  struct wl_keyboard_listener g_wl_keyboard_listener = {
@@ -597,6 +651,17 @@ namespace windowing_wayland
 //         }
 
       }
+      else if (strcmp(interface, "xdg_activation_v1") == 0)
+      {
+         pdisplay->m_pxdgactivationv1=  (::xdg_activation_v1*)wl_registry_bind(pwlregistry, id, &xdg_activation_v1_interface, 1);
+
+      }
+      else if (strcmp(interface, "gtk_shell1") == 0)
+      {
+         pdisplay->m_pgtkshell1=  (::gtk_shell1*)wl_registry_bind(pwlregistry, id, &gtk_shell1_interface, 1);
+
+      }
+
 
       pdisplay->information("registry interface : %s", interface);
 
@@ -637,6 +702,14 @@ namespace windowing_wayland
       m_pwlpointer = nullptr;
       m_pwlsurfaceCursor = nullptr;
       m_pwlsurfacePointerEnter = nullptr;
+
+      m_pgtkshell1 = nullptr;
+      m_pxdgactivationv1 = nullptr;
+
+      m_pwlkeyboard = nullptr;
+      m_pwlsurfaceLastLButtonDown = nullptr;
+      m_pwlsurfaceKeyboardEnter = nullptr;
+
 //      m_pxdgsurfaceMouseCapture = nullptr;
 //      m_pxdgtoplevelMouseCapture = nullptr;
       //m_pwlshmpool = null;
@@ -758,33 +831,32 @@ namespace windowing_wayland
 
       auto pwlregistry = wl_display_get_registry(m_pwldisplay);
 
+
       wl_registry_add_listener(pwlregistry, &g_wl_registry_listener, this);
 
       wl_display_dispatch(m_pwldisplay);
 
       wl_display_roundtrip(m_pwldisplay);
 
-
       m_pwlsurfaceCursor = wl_compositor_create_surface(m_pwlcompositor);
 
-
-      fork([this]()
-           {
-
-
-//              redraw(NULL, NULL, 0);
-
-              while (wl_display_dispatch(m_pwldisplay) != -1)
-              {
-
-
-              }
-
-              wl_display_disconnect(m_pwldisplay);
-              //printf("disconnected from display\n");
-
-
-           });
+//      fork([this]()
+//           {
+//
+//
+////              redraw(NULL, NULL, 0);
+//
+//              while (wl_display_dispatch(m_pwldisplay) != -1)
+//              {
+//
+//
+//              }
+//
+//              wl_display_disconnect(m_pwldisplay);
+//              //printf("disconnected from display\n");
+//
+//
+//           });
 
       bool bBranch = !acmesession()->m_paurasession->user()->m_pdesktopenvironment->m_bUnhook;
 
@@ -983,6 +1055,27 @@ namespace windowing_wayland
    {
 
       return ::is_null(this) ? nullptr : m_pwldisplay;
+
+   }
+
+
+   ::wl_surface * display::_wl_surface_focus()
+   {
+
+      if(m_pwlsurfaceKeyboardEnter)
+      {
+
+         return m_pwlsurfaceKeyboardEnter;
+
+      }
+      else if(m_pwlsurfaceLastLButtonDown)
+      {
+
+         return m_pwlsurfaceLastLButtonDown;
+
+      }
+
+      return nullptr;
 
    }
 
@@ -1672,14 +1765,25 @@ return nullptr;
 
       }
 
-      if(waylandbuffer.m_pdata && waylandbuffer.m_memsize > 0)
+      if(waylandbuffer.m_pwlshmpool)
       {
 
-         munmap(waylandbuffer.m_pdata, waylandbuffer.m_memsize);
+         wl_shm_pool_destroy(waylandbuffer.m_pwlshmpool);
+
+         waylandbuffer.m_pwlshmpool = nullptr;
+
+      }
+
+      if(waylandbuffer.m_pdata && waylandbuffer.m_memsizeStorage > 0)
+      {
+
+         munmap(waylandbuffer.m_pdata, waylandbuffer.m_memsizeStorage);
 
          waylandbuffer.m_pdata = nullptr;
 
-         waylandbuffer.m_memsize = 0;
+         waylandbuffer.m_memsizeStorage = 0;
+
+         waylandbuffer.m_memsize2 = 0;
 
       }
 
@@ -1701,74 +1805,106 @@ return nullptr;
    }
 
 
-   wayland_buffer display::create_wayland_buffer(const ::size_i32 & size)
+   void display::update_wayland_buffer(wayland_buffer &waylandbuffer, const ::size_i32 & size)
    {
 
-      wayland_buffer waylandbuffer{};
+      //wayland_buffer waylandbuffer{};
 
-      waylandbuffer.m_stride = size.cx() * 4; // 4 bytes per pixel
+      ::i32 iNewStride = size.cx() * 4; // 4 bytes per pixel;
 
-      waylandbuffer.m_memsize = waylandbuffer.m_stride * size.cy();
+      ::memsize memsizeNew = iNewStride * size.cy();
 
-      waylandbuffer.m_iFd = os_create_anonymous_file(waylandbuffer.m_memsize);
-
-      if (waylandbuffer.m_iFd < 0)
+      if(memsizeNew > waylandbuffer.m_memsizeStorage)
       {
 
-         error () << "creating a buffer file for  B failed: ";
+         destroy_wayland_buffer(waylandbuffer);
 
-         waylandbuffer.m_stride = 0;
+         waylandbuffer.m_memsizeStorage = memsizeNew * 2;
 
-         waylandbuffer.m_memsize = 0;
+         //waylandbuffer
 
-         return waylandbuffer;
+         //}
+
+         //waylandbuffer.m_stride =
+
+         //waylandbuffer.m_memsize = waylandbuffer.m_stride * size.cy();
+
+         waylandbuffer.m_iFd = os_create_anonymous_file(waylandbuffer.m_memsizeStorage);
+
+         if (waylandbuffer.m_iFd < 0)
+         {
+
+            error() << "creating a buffer file for wl_buffer failed: ";
+
+            waylandbuffer.m_stride = 0;
+
+            waylandbuffer.m_memsize2 = 0;
+
+            waylandbuffer.m_memsizeStorage = 0;
+
+            return;
+
+         }
+
+         waylandbuffer.m_pdata = mmap(
+            NULL, waylandbuffer.m_memsizeStorage,
+            PROT_READ | PROT_WRITE, MAP_SHARED,
+            waylandbuffer.m_iFd, 0);
+
+         if (waylandbuffer.m_pdata == MAP_FAILED)
+         {
+
+            error() << "mmap failed";
+
+            ::close(waylandbuffer.m_iFd);
+
+            waylandbuffer.m_stride = 0;
+
+            waylandbuffer.m_memsize2 = 0;
+
+            waylandbuffer.m_memsizeStorage = 0;
+
+            waylandbuffer.m_pdata = nullptr;
+
+            return;
+
+         }
+
+         waylandbuffer.m_pwlshmpool = wl_shm_create_pool(m_pwlshm, waylandbuffer.m_iFd, waylandbuffer.m_memsizeStorage);
 
       }
 
-      waylandbuffer.m_pdata = mmap(
-         NULL, waylandbuffer.m_memsize,
-         PROT_READ | PROT_WRITE, MAP_SHARED,
-         waylandbuffer.m_iFd, 0);
+      waylandbuffer.m_stride = iNewStride;
 
-      if (waylandbuffer.m_pdata == MAP_FAILED)
+      waylandbuffer.m_memsize2 = memsizeNew;
+
+      if(waylandbuffer.m_pwlbuffer)
       {
 
-         error() << "mmap failed";
+         wl_buffer_destroy(waylandbuffer.m_pwlbuffer);
 
-         ::close(waylandbuffer.m_iFd);
-
-         waylandbuffer.m_stride = 0;
-
-         waylandbuffer.m_memsize = 0;
-
-         waylandbuffer.m_pdata = nullptr;
-
-         return waylandbuffer;
+         waylandbuffer.m_pwlbuffer = nullptr;
 
       }
 
-      auto pwlshmpool = wl_shm_create_pool(m_pwlshm, waylandbuffer.m_iFd, waylandbuffer.m_memsize);
-
-      waylandbuffer.m_pwlbuffer = wl_shm_pool_create_buffer(pwlshmpool, 0,
+      waylandbuffer.m_pwlbuffer = wl_shm_pool_create_buffer(waylandbuffer.m_pwlshmpool, 0,
                                        size.cx(), size.cy(),
                                        waylandbuffer.m_stride,
                                        WL_SHM_FORMAT_ARGB8888);
 
       //wl_buffer_add_listener(buffer, &buffer_listener, buffer);
 
-      wl_shm_pool_destroy(pwlshmpool);
-
       waylandbuffer.m_size = size;
 
-      return waylandbuffer;
+      //return waylandbuffer;
 
    }
 
 
-   wayland_buffer display::create_wayland_buffer(::image * pimage)
+   void display::update_wayland_buffer(wayland_buffer &waylandbuffer, ::image * pimage)
    {
 
-      auto waylandbuffer = create_wayland_buffer(pimage->size());
+      update_wayland_buffer(waylandbuffer, pimage->size());
 
       pimage->map();
 
@@ -1777,12 +1913,12 @@ return nullptr;
                    waylandbuffer.m_stride,
                    pimage->data(), pimage->scan_size());
 
-      return waylandbuffer;
+      //return waylandbuffer;
 
    }
 
 
-   void display::__handle_pointer_enter(double x, double y, ::windowing_wayland::window * pwindowPointerEnter)
+   void display::__handle_pointer_enter(::wl_pointer * pwlpointer, double x, double y, ::windowing_wayland::window * pwindowPointerEnter)
    {
 
       m_pwindowPointerEnter = pwindowPointerEnter;
@@ -1790,18 +1926,22 @@ return nullptr;
       if(m_pwindowPointerEnter)
       {
 
-         m_pwindowPointerEnter->m_pointPointer.x() = (double) m_pwindowPointerEnter->m_pointWindow.x() + x;
+         //m_pwindowPointerEnter->m_pointPointer.x() = (double) m_pwindowPointerEnter->m_pointWindow.x() + x;
 
-         m_pwindowPointerEnter->m_pointPointer.y() = (double) m_pwindowPointerEnter->m_pointWindow.y() + y;
+         //m_pwindowPointerEnter->m_pointPointer.y() = (double) m_pwindowPointerEnter->m_pointWindow.y() + y;
 
-         m_pwindowPointerEnter->__handle_pointer_enter();
+         m_pwindowPointerEnter->m_pointPointer.x() = x;
+
+         m_pwindowPointerEnter->m_pointPointer.y() = y;
+
+         m_pwindowPointerEnter->__handle_pointer_enter(pwlpointer);
 
       }
 
    }
 
 
-   void display::__handle_pointer_motion(double x, double y, ::u32 millis)
+   void display::__handle_pointer_motion(::wl_pointer * pwlpointer, double x, double y, ::u32 millis)
    {
 
       if(m_pwindowPointerCapture)
@@ -1824,9 +1964,9 @@ return nullptr;
       else if(m_pwindowPointerEnter)
       {
 
-         m_pwindowPointerEnter->m_pointPointer.x() = (double) m_pwindowPointerEnter->m_pointWindow.x() + x;
+         m_pwindowPointerEnter->m_pointPointer.x() = x;
 
-         m_pwindowPointerEnter->m_pointPointer.y() = (double) m_pwindowPointerEnter->m_pointWindow.y() + y;
+         m_pwindowPointerEnter->m_pointPointer.y() = y;
 
       }
 
@@ -1834,32 +1974,32 @@ return nullptr;
       if(m_pwindowPointerCapture)
       {
 
-         m_pwindowPointerCapture->__handle_pointer_motion(millis);
+         m_pwindowPointerCapture->__handle_pointer_motion(pwlpointer, millis);
 
       }
       else if(m_pwindowPointerEnter)
       {
 
-         m_pwindowPointerEnter->__handle_pointer_motion(millis);
+         m_pwindowPointerEnter->__handle_pointer_motion(pwlpointer, millis);
 
       }
 
    }
 
 
-   void display::__handle_pointer_leave(::windowing_wayland::window * pwaylandwindowLeave)
+   void display::__handle_pointer_leave(::wl_pointer * pwlpointer, ::windowing_wayland::window * pwaylandwindowLeave)
    {
 
       if(m_pwindowPointerCapture)
       {
 
-         m_pwindowPointerCapture->__handle_pointer_leave(pwaylandwindowLeave);
+         m_pwindowPointerCapture->__handle_pointer_leave(pwlpointer, pwaylandwindowLeave);
 
       }
       else if(m_pwindowPointerEnter)
       {
 
-         m_pwindowPointerEnter->__handle_pointer_leave(pwaylandwindowLeave);
+         m_pwindowPointerEnter->__handle_pointer_leave(pwlpointer, pwaylandwindowLeave);
 
       }
 
@@ -1873,22 +2013,21 @@ return nullptr;
    }
 
 
-   void display::__handle_pointer_button(::u32 linux_button, ::u32 pressed, ::u32 millis)
+   void display::__handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis)
    {
 
       if(m_pwindowPointerCapture)
       {
 
-         m_pwindowPointerCapture->__handle_pointer_button(linux_button, pressed, millis);
+         m_pwindowPointerCapture->__handle_pointer_button(pwlpointer, linux_button, pressed, millis);
 
       }
       else if(m_pwindowPointerEnter)
       {
 
-         m_pwindowPointerEnter->__handle_pointer_button(linux_button, pressed, millis);
+         m_pwindowPointerEnter->__handle_pointer_button(pwlpointer, linux_button, pressed, millis);
 
       }
-
 
    }
 
@@ -1905,58 +2044,58 @@ return nullptr;
 
       m_pwindowMouseCapture = pwindowMouseCapture;
 
-      m_rectangleMouseCapture = get_monitor_union_rectangle();
-
-      destroy_wayland_buffer(m_waylandbufferMouseCapture);
-
-      m_waylandbufferMouseCapture = create_wayland_buffer(m_rectangleMouseCapture.size());
-
-      memset(m_waylandbufferMouseCapture.m_pdata, 0, m_waylandbufferMouseCapture.m_memsize);
-
-      information() << "__capture_mouse : " << m_rectangleMouseCapture;
-
-      m_pwlsurfaceMouseCapture = wl_compositor_create_surface(m_pwlcompositor);
-
-      m_pxdgsurfaceMouseCapture = xdg_wm_base_get_xdg_surface(m_pxdgwmbase, m_pwlsurfaceMouseCapture);
-
-      xdg_surface_set_window_geometry(m_pxdgsurfaceMouseCapture,
-                                      m_rectangleMouseCapture.left(),
-                                      m_rectangleMouseCapture.top(),
-                                      m_rectangleMouseCapture.width(),
-                                      m_rectangleMouseCapture.height());
-
-      xdg_surface_add_listener(m_pxdgsurfaceMouseCapture,
-                               &xdg_surface_mouse_capture_listener, this);
-
-      m_pxdgtoplevelMouseCapture = xdg_surface_get_toplevel(m_pxdgsurfaceMouseCapture);
-
-      if (m_pxdgtoplevelMouseCapture == NULL)
-      {
-
-         error() << "Can't create Mouse Capture top level window";
-
-         throw ::exception(::error_failed);
-
-      }
-      else
-      {
-
-         information() << "Created Mouse Capture top level window";
-
-      }
-
-      xdg_surface_set_window_geometry(m_pxdgsurfaceMouseCapture,
-         m_rectangleMouseCapture.left(),
-         m_rectangleMouseCapture.top(),
-         m_rectangleMouseCapture.width(),
-         m_rectangleMouseCapture.height());
-
-      //xdg_toplevel_add_listener(m_pxdgtoplevel,
-        //                        &xdg_toplevel_listener, this);
-
-        //xdg_popup_grab(m_pxdgtoplevelMouseCapture, m_pwlseat, serial);
-
-      wl_surface_commit(m_pwlsurfaceMouseCapture);
+//      m_rectangleMouseCapture = get_monitor_union_rectangle();
+//
+//      destroy_wayland_buffer(m_waylandbufferMouseCapture);
+//
+//      m_waylandbufferMouseCapture = create_wayland_buffer(m_rectangleMouseCapture.size());
+//
+//      memset(m_waylandbufferMouseCapture.m_pdata, 0, m_waylandbufferMouseCapture.m_memsize);
+//
+//      information() << "__capture_mouse : " << m_rectangleMouseCapture;
+//
+//      m_pwlsurfaceMouseCapture = wl_compositor_create_surface(m_pwlcompositor);
+//
+//      m_pxdgsurfaceMouseCapture = xdg_wm_base_get_xdg_surface(m_pxdgwmbase, m_pwlsurfaceMouseCapture);
+//
+//      xdg_surface_set_window_geometry(m_pxdgsurfaceMouseCapture,
+//                                      m_rectangleMouseCapture.left(),
+//                                      m_rectangleMouseCapture.top(),
+//                                      m_rectangleMouseCapture.width(),
+//                                      m_rectangleMouseCapture.height());
+//
+//      xdg_surface_add_listener(m_pxdgsurfaceMouseCapture,
+//                               &xdg_surface_mouse_capture_listener, this);
+//
+//      m_pxdgtoplevelMouseCapture = xdg_surface_get_toplevel(m_pxdgsurfaceMouseCapture);
+//
+//      if (m_pxdgtoplevelMouseCapture == NULL)
+//      {
+//
+//         error() << "Can't create Mouse Capture top level window";
+//
+//         throw ::exception(::error_failed);
+//
+//      }
+//      else
+//      {
+//
+//         information() << "Created Mouse Capture top level window";
+//
+//      }
+//
+//      xdg_surface_set_window_geometry(m_pxdgsurfaceMouseCapture,
+//         m_rectangleMouseCapture.left(),
+//         m_rectangleMouseCapture.top(),
+//         m_rectangleMouseCapture.width(),
+//         m_rectangleMouseCapture.height());
+//
+//      //xdg_toplevel_add_listener(m_pxdgtoplevel,
+//        //                        &xdg_toplevel_listener, this);
+//
+//        //xdg_popup_grab(m_pxdgtoplevelMouseCapture, m_pwlseat, serial);
+//
+//      wl_surface_commit(m_pwlsurfaceMouseCapture);
 
    }
 

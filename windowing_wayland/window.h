@@ -32,12 +32,14 @@ namespace windowing_wayland
    public:
 
 
-
+      xdg_toplevel_resize_edge                     m_resizeedge;
       wayland_buffer                               m_waylandbuffer;
       ::wl_surface *                               m_pwlsurface;
       ::xdg_surface *                              m_pxdgsurface;
       ::xdg_toplevel *                             m_pxdgtoplevel;
+      ::wl_pointer *                               m_pwlpointer;
       ::wl_shm_pool *                              m_pwlshmpool;
+      ::xdg_activation_token_v1 *                  m_pxdgactivationtokenv1;
       ::point_i32                                  m_pointPointer;
       //XWindowAttributes                            m_attr;
       //XVisualInfo                                  m_visualinfo;
@@ -45,6 +47,8 @@ namespace windowing_wayland
       //::pointer<::windowing_wayland::x11data>          m_px11data;
       ::pointer<::windowing_wayland::display>          m_pwaylanddisplay;
       ::u32 m_uLastConfigureSerial;
+      ::string m_strActivationToken;
+      bool                                            m_bDoneFirstMapping;
       //::Window                                     m_parent;
       //Cursor                                       m_cursorLast;
       //int                                          m_iXic;
@@ -83,7 +87,7 @@ namespace windowing_wayland
       ::pointer<::xim::keyboard>                   m_pximkeyboard;
       //::u64                                        m_uLastNetWmSyncRequest;
       ::rectangle_i32                              m_rectangleXShm;
-      bool                                         m_bFirstConfigure;
+      //bool                                         m_bFirstConfigure;
       //bool                                         m_bXShmPutImagePending;
 
 
@@ -198,7 +202,7 @@ namespace windowing_wayland
 
       //virtual int x_change_property(Atom property, Atom type, int format, int mode, const unsigned char * data, int nelements);
 
-      void set_mouse_cursor(::windowing::cursor * pcursor) override;
+      //void set_mouse_cursor(::windowing::cursor * pcursor) override;
 
       virtual void set_mouse_cursor2(::windowing::cursor * pcursor);
 
@@ -207,6 +211,10 @@ namespace windowing_wayland
       void set_mouse_capture() override;
 
 
+      void set_mouse_cursor(::windowing::cursor * pcursor) override;
+
+
+      virtual void __activate_window(bool bNormalPriority);
       void set_active_window() override;
       void _set_active_window_unlocked() override;
 
@@ -333,16 +341,27 @@ namespace windowing_wayland
       //virtual void _enable_net_wm_sync();
 
 
-      virtual void __handle_pointer_enter();
-      virtual void __handle_pointer_motion(::u32 millis);
-      virtual void __handle_pointer_leave(::windowing_wayland::window * pwaylandwindowLeave);
+      virtual void __handle_pointer_enter(::wl_pointer * pwlpointer);
+      virtual void __handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis);
+      virtual void __handle_pointer_leave(::wl_pointer * pwlpointer, ::windowing_wayland::window * pwaylandwindowLeave);
 
-      virtual void __handle_pointer_button(::u32 linux_button, ::u32 pressed, ::u32 millis);
+      virtual void __handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis);
 
 
-      virtual void __continue_initialization_after_configure();
+      virtual void __defer_update_wayland_buffer();
 
       virtual void __handle_xdg_surface_configure(::u32 serial);
+
+      virtual void __handle_xdg_toplevel_configure(::i32 width, ::i32 height);
+
+      virtual void __defer_xdg_surface_ack_configure();
+
+
+      bool defer_perform_entire_reposition_process() override;
+
+      bool defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing) override;
+
+      void on_destruct_mouse_message(::message::mouse * pmouse) override;
 
 
    };

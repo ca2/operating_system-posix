@@ -82,6 +82,7 @@ namespace windowing_wayland
       void release_mouse_capture() override;
 
 
+      void set_mouse_cursor(::windowing::cursor * pcursor)override;
       //virtual void x11_main();
 
       //virtual HCURSOR load_default_cursor(e_cursor ecursor) override;

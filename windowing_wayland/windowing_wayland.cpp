@@ -3535,3 +3535,45 @@ os_create_anonymous_file(off_t size)
 }
 
 
+void copy(xdg_toplevel_resize_edge * presizeedge, ::experience::enum_frame * peframeSizing)
+{
+
+   auto & resizeedge = *presizeedge;
+
+   auto & eframeSizing = *peframeSizing;
+
+   switch(eframeSizing)
+   {
+      case ::experience::e_frame_sizing_left:
+         resizeedge = XDG_TOPLEVEL_RESIZE_EDGE_LEFT;
+         break;
+      case ::experience::e_frame_sizing_top:
+         resizeedge = XDG_TOPLEVEL_RESIZE_EDGE_TOP;
+         break;
+      case ::experience::e_frame_sizing_right:
+         resizeedge = XDG_TOPLEVEL_RESIZE_EDGE_RIGHT;
+         break;
+      case ::experience::e_frame_sizing_bottom:
+         resizeedge = XDG_TOPLEVEL_RESIZE_EDGE_BOTTOM;
+         break;
+      case ::experience::e_frame_sizing_top_left:
+         resizeedge = XDG_TOPLEVEL_RESIZE_EDGE_TOP_LEFT;
+         break;
+      case ::experience::e_frame_sizing_top_right:
+         resizeedge = XDG_TOPLEVEL_RESIZE_EDGE_TOP_RIGHT;
+         break;
+      case ::experience::e_frame_sizing_bottom_left:
+         resizeedge = XDG_TOPLEVEL_RESIZE_EDGE_BOTTOM_LEFT;
+         break;
+      case ::experience::e_frame_sizing_bottom_right:
+         resizeedge = XDG_TOPLEVEL_RESIZE_EDGE_BOTTOM_RIGHT;
+         break;
+      default:
+         resizeedge = XDG_TOPLEVEL_RESIZE_EDGE_NONE;
+         break;
+   }
+
+}
+
+
+

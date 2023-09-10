@@ -34,7 +34,7 @@ namespace windowing_wayland
    pcursor->m_szHotspotOffset.cx() = xHotSpot;
    pcursor->m_szHotspotOffset.cy() = yHotSpot;
    pcursor->m_pimage = pimage;
-   pcursor->m_waylandbuffer = create_wayland_buffer(pimage);
+   update_wayland_buffer(pcursor->m_waylandbuffer, pimage);
 
       return nullptr;
 

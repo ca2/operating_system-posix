@@ -6,16 +6,18 @@
 #include "windowing.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/system.h"
+#include "acme/primitive/geometry2d/_text_stream.h"
 #include "aura/graphics/image/image.h"
 #include "aura_posix/_x11.h"
 #include "aura_posix/x11/display_lock.h"
 //#include <X11/cursorfont.h>
 #include <wayland-cursor.h>
 #include <wayland-client.h>
+#include <wayland-server.h>
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
 #include "display.h"
-#include <wayland-server.h>
+
 
 
 CLASS_DECL_ACME ::particle * user_synchronization();
@@ -345,7 +347,7 @@ namespace windowing_wayland
    void cursor::_create_os_cursor()
    {
 
-      if(m_pwlcursor)
+      if(m_waylandbuffer.m_pwlbuffer)
       {
 
          return;
@@ -383,12 +385,54 @@ namespace windowing_wayland
 
       ::pointer < ::windowing_wayland::display> pwaylanddisplay =  pdisplay;
 
+      const char * cursor_name = "left_ptr";
+
+      switch(ecursor)
+      {
+         case e_cursor_system: cursor_name = "left_ptr"; break;
+         case e_cursor_arrow: cursor_name = "left_ptr"; break;
+         case e_cursor_hand: cursor_name = "hand1"; break;
+         case e_cursor_text_select: cursor_name = "xterm"; break;
+         case e_cursor_size_top_left: cursor_name = "top_left_corner"; break;
+         case e_cursor_size_top: cursor_name = "top_side"; break;
+         case e_cursor_size_top_right: cursor_name = "top_right_corner"; break;
+         case e_cursor_size_right: cursor_name = "right_side"; break;
+         case e_cursor_size_bottom_right: cursor_name = "bottom_right_corner"; break;
+         case e_cursor_size_bottom: cursor_name = "bottom_side"; break;
+         case e_cursor_size_bottom_left: cursor_name = "bottom_left_corner"; break;
+         case e_cursor_size_left: cursor_name = "left_side"; break;
+         case e_cursor_size_vertical: cursor_name = "sb_v_double_arrow"; break;
+         case e_cursor_size_horizontal: cursor_name = "sb_h_double_arrow"; break;
+         case e_cursor_move: cursor_name = "move"; break;
+         case e_cursor_wait: cursor_name = "watch"; break;
+         case e_cursor_wait_arrow: cursor_name = "wait"; break;
+         default:
+            break;
+      }
+
+      information() << "_load_default_cursor cursor_name : " << cursor_name;
+
       auto pwlcursortheme = wl_cursor_theme_load(NULL, 32, pwaylanddisplay->m_pwlshm);
-      auto pwlcursor = wl_cursor_theme_get_cursor(pwlcursortheme, "right_ptr");
+
+      information() << "_load_default_cursor pwlcursortheme : " << (::iptr) pwlcursortheme;
+
+      auto pwlcursor = wl_cursor_theme_get_cursor(pwlcursortheme, cursor_name);
+
+      information() << "_load_default_cursor pwlcursor : " << (::iptr) pwlcursor;
 
       m_pwlcursor = pwlcursor;
       m_pwlcursorimage = m_pwlcursor->images[0];
       m_waylandbuffer.m_pwlbuffer = wl_cursor_image_get_buffer(m_pwlcursorimage);
+
+      information() << "_load_default_cursor m_pwlbuffer : " << (::iptr) m_waylandbuffer.m_pwlbuffer;
+      m_waylandbuffer.m_size.cx() = m_pwlcursor->images[0]->width;
+      m_waylandbuffer.m_size.cy() = m_pwlcursor->images[0]->height;
+      information() << "_load_default_cursor size : " << m_waylandbuffer.m_size;
+
+      m_szHotspotOffset.cx() = m_pwlcursor->images[0]->hotspot_x;
+      m_szHotspotOffset.cy() = m_pwlcursor->images[0]->hotspot_y;
+
+      information() << "_load_default_cursor hotspot : " << m_szHotspotOffset;
 
       //m_pwlbuffer
 

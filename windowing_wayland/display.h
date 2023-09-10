@@ -74,6 +74,7 @@ namespace windowing_wayland
       ::wl_pointer * m_pwlpointer;
       //::wl_shm_pool * m_pwlshmpool;
       ::wl_surface * m_pwlsurfacePointerEnter;
+      ::wl_surface * m_pwlsurfaceLastLButtonDown;
       ::wl_surface * m_pwlsurfaceMouseCapture;
       ::xdg_surface * m_pxdgsurfaceMouseCapture;
       ::xdg_toplevel * m_pxdgtoplevelMouseCapture;
@@ -81,6 +82,12 @@ namespace windowing_wayland
       bool m_bMouseCaptured ;
       ::rectangle_i32 m_rectangleMouseCapture;
       ::u32 m_uLastButtonSerial;
+      ::u32 m_uLastPointerSerial;
+      ::u32 m_uLastSeatSerial;
+      ::gtk_shell1 * m_pgtkshell1;
+      ::xdg_activation_v1 *m_pxdgactivationv1;
+      //::wl_keyboard * m_pwlkeyboard;
+      ::wl_surface * m_pwlsurfaceKeyboardEnter;
       //::comparable_array < ::wl_output * > m_wloutputa;
       //::comparable_array < ::xdg_output * > m_xdgoutputa;
 
@@ -131,6 +138,8 @@ namespace windowing_wayland
 
       virtual ::wl_display * _wl_display() const;
 
+      virtual ::wl_surface * _wl_surface_focus();
+
 //      virtual int Screen();
 //
 //      virtual int Screen() const;
@@ -163,8 +172,8 @@ namespace windowing_wayland
 //      Atom net_wm_state_atom(bool bCreate);
 
       void destroy_wayland_buffer(wayland_buffer & waylandbuffer);
-      wayland_buffer create_wayland_buffer(const ::size_i32 & size);
-      wayland_buffer create_wayland_buffer(::image * pimage);
+      void update_wayland_buffer(wayland_buffer & waylandbuffer, const ::size_i32 & size);
+      void update_wayland_buffer(wayland_buffer & waylandbuffer, ::image * pimage);
 
       virtual ::windowing_wayland::window * get_keyboard_focus();
 
@@ -187,11 +196,11 @@ namespace windowing_wayland
       ///virtual Picture xrender_create_picture(::image_pointer pimage);
 
 
-      virtual void __handle_pointer_enter(double x, double y, ::windowing_wayland::window * pwindowPointerEnter);
-      virtual void __handle_pointer_motion(double x, double y, ::u32 time);
-      virtual void __handle_pointer_leave(::windowing_wayland::window * pwindowPointerLeave);
+      virtual void __handle_pointer_enter(::wl_pointer * pwlpointer, double x, double y, ::windowing_wayland::window * pwindowPointerEnter);
+      virtual void __handle_pointer_motion(::wl_pointer * pwlpointer, double x, double y, ::u32 time);
+      virtual void __handle_pointer_leave(::wl_pointer * pwlpointer, ::windowing_wayland::window * pwindowPointerLeave);
 
-      virtual void __handle_pointer_button(::u32 linux_button, ::u32 pressed, ::u32 time);
+      virtual void __handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 time);
 
 
       virtual void __capture_mouse(::windowing_wayland::window * pwindowMouseCapture, ::u32 serial);

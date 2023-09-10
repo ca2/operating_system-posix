@@ -10,6 +10,7 @@
 #include "cursor.h"
 #include "acme/constant/message.h"
 #include "acme/parallelization/synchronous_lock.h"
+#include "acme/primitive/geometry2d/_text_stream.h"
 #include "acme/user/user/_text_stream.h"
 #include "apex/platform/node.h"
 #include "apex/platform/system.h"
@@ -45,14 +46,61 @@ void on_sn_launch_complete(void * pSnContext);
 namespace windowing_wayland
 {
 
-   void xdg_surface_configure(void * data,
-                              struct xdg_surface * xdg_surface,
-                              uint32_t serial)
+
+   //struct  {
+      /**
+       * the exported activation token
+       *
+       * The 'done' event contains the unique token of this activation
+       * request and notifies that the provider is done.
+       * @param token the exported activation token
+       */
+      void xdg_activation_token_v1_done(void *data,
+                   ::xdg_activation_token_v1 *pxdgactivationtokenv1,
+                   const char *token)
+      {
+
+         auto pwaylandwindow = (window *) data;
+
+         if (pxdgactivationtokenv1 == pwaylandwindow->m_pxdgactivationtokenv1)
+         {
+
+            pwaylandwindow->m_strActivationToken = token;
+
+            pwaylandwindow->information() <<  "Got Activation Token : " << token;
+//            xdg_activation_v1_activate(pwaylandwindow->wayland_display()->m_pxdgactivationv1,
+//                                       token,
+//                                       pwaylandwindow->m_pwlsurface);
+//            xdg_activation_token_v1_destroy(pwaylandwindow->m_pxdgactivationtokenv1);
+//            pwaylandwindow->m_pxdgactivationtokenv1 = NULL;
+
+//            wl_display_dispatch(pwaylandwindow->wayland_display()->m_pwldisplay);
+//
+//            wl_display_roundtrip(pwaylandwindow->wayland_display()->m_pwldisplay);
+
+         }
+      }
+   //};
+   const static struct xdg_activation_token_v1_listener g_xdg_activation_token_v1_listener =
+      {
+         xdg_activation_token_v1_done
+      };
+
+//   const static struct wl_surface_listener g_wl_surface_listener =
+//      {
+//
+//
+//      };
+
+   void xdg_surface_configure(void * data, struct xdg_surface * xdg_surface, uint32_t serial)
    {
 
       auto pwaylandwindow = (window*)data;
+
       pwaylandwindow->__handle_xdg_surface_configure(serial);
+
    }
+
 
    /**
     * close - surface wants to be closed
@@ -66,15 +114,19 @@ namespace windowing_wayland
     * window. The client may choose to ignore this request, or show a
     * dialog to ask the user to save their data...
     */
-   void xdg_surface_close(void * data,
-                          struct xdg_surface * xdg_surface)
+   void xdg_surface_close(void * data, struct xdg_surface * xdg_surface)
    {
 
    }
 
-   static const struct xdg_surface_listener xdg_surface_listener = {
+
+   static const struct xdg_surface_listener xdg_surface_listener =
+   {
+
       xdg_surface_configure,
+
    };
+
 
    /**
     * suggest a surface change
@@ -102,11 +154,43 @@ namespace windowing_wayland
     * details.
     */
    void xdg_toplevel_configure(void * data,
-                               struct xdg_toplevel * xdg_toplevel,
+                               struct xdg_toplevel * pxdgtoplevel,
                                int32_t width,
                                int32_t height,
                                struct wl_array * states)
    {
+
+      auto pwaylandwindow = (window *) data;
+
+      if(pwaylandwindow->m_resizeedge != 0)
+      {
+         if (states->size == 0)
+         {
+
+            pwaylandwindow->m_resizeedge= 0;
+
+         }
+         else{
+
+            if(pwaylandwindow->m_resizeedge == XDG_TOPLEVEL_RESIZE_EDGE_BOTTOM
+            || pwaylandwindow->m_resizeedge == XDG_TOPLEVEL_RESIZE_EDGE_TOP)
+            {
+
+               width = 0;
+
+            }
+            else if(pwaylandwindow->m_resizeedge == XDG_TOPLEVEL_RESIZE_EDGE_LEFT
+               || pwaylandwindow->m_resizeedge == XDG_TOPLEVEL_RESIZE_EDGE_RIGHT)
+            {
+
+               height = 0;
+
+            }
+
+         }
+      }
+
+      pwaylandwindow->__handle_xdg_toplevel_configure(width, height);
 
    }
 
@@ -194,12 +278,17 @@ namespace windowing_wayland
 
    }
 
-   static const struct xdg_toplevel_listener xdg_toplevel_listener = {
+
+   static const struct xdg_toplevel_listener g_xdg_toplevel_listener =
+   {
+
       xdg_toplevel_configure,
       xdg_toplevel_close,
       xdg_toplevel_configure_bounds,
       xdg_toplevel_capabilities
+
    };
+
 
    static void
    redraw(void * data, struct wl_callback * callback, uint32_t time)
@@ -252,7 +341,7 @@ namespace windowing_wayland
    {
 
       //m_bXShmPutImagePending = false;
-
+      m_bDoneFirstMapping = false;
       //m_bXShmComplete = false;
       m_pWindow4 = this;
       m_uLastConfigureSerial = 0;
@@ -263,6 +352,7 @@ namespace windowing_wayland
       m_pwlsurface = nullptr;
       m_pxdgtoplevel = nullptr;
 
+      m_pxdgactivationtokenv1 = nullptr;
 
       //m_bNetWmStateHidden = false;
       //m_bNetWmStateMaximized = false;
@@ -517,49 +607,63 @@ namespace windowing_wayland
 
          }
 
-         pdisplaywayaland->m_windowmap[m_pwlsurface] = this;
+         //wl_surface_add_listener(m_pwlsurface, &g_wl_surface_listener, this);
 
+         pdisplaywayaland->m_windowmap[m_pwlsurface] = this;
 
          auto pxdgwmbase = pdisplaywayaland->m_pxdgwmbase;
 
          information() << "pxdgwmbase : " << (::iptr) pxdgwmbase;
 
          m_pxdgsurface = xdg_wm_base_get_xdg_surface(pxdgwmbase, m_pwlsurface);
+
          if (m_pxdgsurface == NULL)
          {
+
             pdisplaywayaland->m_windowmap.erase_item(m_pwlsurface);
+
             error() << "Can't create shell surface";
+
             throw ::exception(::error_failed);
+
          }
          else
          {
+
             information() << "Created shell surface";
+
          }
-         xdg_surface_add_listener(m_pxdgsurface,
-                                  &xdg_surface_listener, this);
+
+         xdg_surface_add_listener(m_pxdgsurface, &xdg_surface_listener, this);
 
          m_pxdgtoplevel = xdg_surface_get_toplevel(m_pxdgsurface);
 
          if (m_pxdgtoplevel == NULL)
          {
+
             pdisplaywayaland->m_windowmap.erase_item(m_pwlsurface);
+
             error() << "Can't create toplevel";
+
             throw ::exception(::error_failed);
+
          }
          else
          {
+
             information() << "Created toplevel";
+
          }
 
-         xdg_toplevel_add_listener(m_pxdgtoplevel,
-                                   &xdg_toplevel_listener, this);
+         xdg_toplevel_add_listener(m_pxdgtoplevel, &g_xdg_toplevel_listener, this);
 
+         //m_pointWindow.x() = x;
 
-         m_bFirstConfigure = true;
+         //m_pointWindow.y() = y;
 
-         m_pointWindow.x() = x;
+         m_pointWindow.x() = 0;
 
-         m_pointWindow.y() = y;
+         m_pointWindow.y() = 0;
 
          m_sizeWindow.cx() = cx;
 
@@ -567,7 +671,41 @@ namespace windowing_wayland
 
          xdg_surface_set_window_geometry(m_pxdgsurface, x, y, cx, cy);
 
+
+        if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
+        {
+
+           auto psystem = acmesystem()->m_papexsystem;
+
+           string strApplicationServerName = psystem->get_application_server_name();
+
+           xdg_toplevel_set_app_id(m_pxdgtoplevel, strApplicationServerName);
+
+        }
+
+         string strWindowText = pimpl->m_puserinteraction->get_window_text();
+
+//         if (strWindowText.has_char())
+//         {
+//
+//            strName = strWindowText;
+//
+//         }
+
+         //}
+
+         if (strWindowText.has_char())
+         {
+
+            xdg_toplevel_set_title(m_pxdgtoplevel, strWindowText);
+
+         }
+
          wl_surface_commit(m_pwlsurface);
+
+         wl_display_dispatch(pdisplaywayaland->m_pwldisplay);
+
+         wl_display_roundtrip(pdisplaywayaland->m_pwldisplay);
 
 //         ::Window window = XCreateWindow(display, DefaultRootWindow(display),
 //                                         x, y,
@@ -3472,6 +3610,13 @@ namespace windowing_wayland
                                            const ::e_activation & eactivation, bool bNoZorder, ::e_display edisplay)
    {
 
+      if(!(m_puserinteractionimpl->m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
+      {
+
+         return false;
+
+      }
+
       windowing_output_debug_string("::window::_configure_window_unlocked 1");
 
 //      m_atomaNetWmState = _get_net_wm_state_unlocked();
@@ -3614,6 +3759,64 @@ namespace windowing_wayland
 //      if (m_xwindowattributes.map_state == IsViewable || windowing()->is_screen_visible(edisplay))
 //      {
 //
+
+      if (!bNoZorder)
+      {
+
+         if (zorder.m_ezorder == e_zorder_top_most)
+         {
+
+//               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 1)
+//               {
+//
+//                  _wm_state_above_unlocked(true);
+//
+//               }
+
+            //             XRaiseWindow(Display(), Window());
+
+            __activate_window(true);
+
+         } else if (zorder.m_ezorder == e_zorder_top)
+         {
+
+//               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 0
+//                   || net_wm_state(::x11::e_atom_net_wm_state_below) != 0
+//                   || net_wm_state(::x11::e_atom_net_wm_state_hidden) != 0
+//                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_horz) != 0
+//                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_penn) != 0
+//                   || net_wm_state(::x11::e_atom_net_wm_state_fullscreen) != 0)
+//               {
+//
+//                  _wm_state_clear_unlocked(false);
+//
+//               }
+//
+//               XRaiseWindow(Display(), Window());
+            __activate_window(true);
+
+         } else if (zorder.m_ezorder == e_zorder_bottom)
+         {
+
+//               if (net_wm_state(::x11::e_atom_net_wm_state_below) != 1)
+//               {
+//
+//                  _wm_state_below_unlocked(true);
+//
+//               }
+//
+//               XLowerWindow(Display(), Window());
+
+         }
+
+      }
+      else if(eactivation != e_activation_default)
+      {
+
+         __activate_window(true);
+
+      }
+
 //         if (!bNoZorder)
 //         {
 //
@@ -3673,6 +3876,11 @@ namespace windowing_wayland
 //      }
 
       windowing_output_debug_string("::window::set_window_pos 2");
+
+//      ::pointer < ::windowing_wayland::display > pwaylanddisplay = m_pdisplay;
+//      wl_display_dispatch(pwaylanddisplay->m_pwldisplay);
+//
+//      wl_display_roundtrip(pwaylanddisplay->m_pwldisplay);
 
       return true;
 
@@ -3829,45 +4037,54 @@ namespace windowing_wayland
 //            if (zorder.m_ezorder == e_zorder_top_most)
 //            {
 //
-//               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 1)
-//               {
+////               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 1)
+////               {
+////
+////                  _wm_state_above_unlocked(true);
+////
+////               }
 //
-//                  _wm_state_above_unlocked(true);
+//  //             XRaiseWindow(Display(), Window());
 //
-//               }
-//
-//               XRaiseWindow(Display(), Window());
+//               __activate_window(false);
 //
 //            } else if (zorder.m_ezorder == e_zorder_top)
 //            {
 //
-//               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 0
-//                   || net_wm_state(::x11::e_atom_net_wm_state_below) != 0
-//                   || net_wm_state(::x11::e_atom_net_wm_state_hidden) != 0
-//                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_horz) != 0
-//                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_penn) != 0
-//                   || net_wm_state(::x11::e_atom_net_wm_state_fullscreen) != 0)
-//               {
-//
-//                  _wm_state_clear_unlocked(false);
-//
-//               }
-//
-//               XRaiseWindow(Display(), Window());
+////               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 0
+////                   || net_wm_state(::x11::e_atom_net_wm_state_below) != 0
+////                   || net_wm_state(::x11::e_atom_net_wm_state_hidden) != 0
+////                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_horz) != 0
+////                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_penn) != 0
+////                   || net_wm_state(::x11::e_atom_net_wm_state_fullscreen) != 0)
+////               {
+////
+////                  _wm_state_clear_unlocked(false);
+////
+////               }
+////
+////               XRaiseWindow(Display(), Window());
+//               __activate_window(false);
 //
 //            } else if (zorder.m_ezorder == e_zorder_bottom)
 //            {
 //
-//               if (net_wm_state(::x11::e_atom_net_wm_state_below) != 1)
-//               {
-//
-//                  _wm_state_below_unlocked(true);
-//
-//               }
-//
-//               XLowerWindow(Display(), Window());
+////               if (net_wm_state(::x11::e_atom_net_wm_state_below) != 1)
+////               {
+////
+////                  _wm_state_below_unlocked(true);
+////
+////               }
+////
+////               XLowerWindow(Display(), Window());
 //
 //            }
+//
+//         }
+//         else if(eactivation != e_activation_default)
+//         {
+//
+//            __activate_window(false);
 //
 //         }
 //
@@ -4011,6 +4228,8 @@ namespace windowing_wayland
 //
 //      }
 
+
+
       //return true;
 
    }
@@ -4019,64 +4238,7 @@ namespace windowing_wayland
    void window::set_mouse_cursor(::windowing::cursor * pcursor)
    {
 
-      if (::is_null(pcursor))
-      {
-
-         throw ::exception(error_null_pointer);
-
-      }
-
-      auto pcursorx11 = dynamic_cast < ::windowing_wayland::cursor * >(pcursor);
-
-      if (::is_null(pcursorx11))
-      {
-
-         throw ::exception(error_null_pointer);
-
-      }
-
-//
-//      m_pwindowing->windowing_post([this, pcursorx11]()
-//                                   {
-//
-//                                      if (!pcursorx11->m_cursor)
-//                                      {
-//
-//                                         //auto estatus =
-//                                         //
-//                                         pcursorx11->_create_os_cursor();
-//
-////         if(!estatus)
-////         {
-////
-////            return estatus;
-////
-////         }
-//
-//                                      }
-//
-//                                      if (m_cursorLast == pcursorx11->m_cursor)
-//                                      {
-//
-//                                         //return true;
-//
-//                                         return;
-//
-//                                      }
-//
-//                                      synchronous_lock sl(user_synchronization());
-//
-//                                      windowing_output_debug_string("::SetCursor 1");
-//
-//                                      display_lock displaylock(x11_display()->Display());;
-//
-//                                      XDefineCursor(Display(), Window(), pcursorx11->m_cursor);
-//
-//                                      m_cursorLast = pcursorx11->m_cursor;
-//
-//                                   });
-//
-      //return true;
+      ::windowing::window::set_mouse_cursor(pcursor);
 
    }
 
@@ -4248,8 +4410,137 @@ namespace windowing_wayland
    }
 
 
+   void window::__activate_window(bool bNormalPriority)
+   {
+
+      ::pointer < ::windowing_wayland::display > pwaylanddisplay = m_pdisplay;
+
+      if (pwaylanddisplay->m_pxdgactivationv1)
+      {
+
+         /* If the focus request does not have a startup ID associated, get a
+* new token to activate the window.
+*/
+         if(m_strActivationToken.is_empty())
+         {
+
+//         if (m_pxdgactivationtokenv1 != NULL) {
+//            /* We're about to overwrite this with a new request */
+//            xdg_activation_token_v1_destroy(m_pxdgactivationtokenv1);
+//         }
+            information() << "__activate_window getting activation token";
+
+               //struct xdg_activation_token_v1 *token;
+               //struct wl_event_queue *event_queue;
+               //struct wl_surface *wl_surface = NULL;
+               //GdkSurface *focus_surface;
+
+               auto pwleventqueue = wl_display_create_queue (pwaylanddisplay->m_pwldisplay);
+
+            information() << "wl_display_create_queue : " << (::iptr) pwleventqueue;
+
+               m_pxdgactivationtokenv1 = xdg_activation_v1_get_activation_token (pwaylanddisplay->m_pxdgactivationv1);
+
+            information() << "xdg_activation_v1_get_activation_token : " << (::iptr) m_pxdgactivationtokenv1;
+
+               wl_proxy_set_queue ((struct wl_proxy *) m_pxdgactivationtokenv1, pwleventqueue);
+
+               xdg_activation_token_v1_add_listener (m_pxdgactivationtokenv1,
+                                                     &g_xdg_activation_token_v1_listener,
+                                                     this);
+
+
+
+               xdg_activation_token_v1_set_serial (m_pxdgactivationtokenv1,
+                                                   pwaylanddisplay->m_uLastPointerSerial,
+                                                   pwaylanddisplay->m_pwlseat);
+
+               //focus_surface = gdk_wayland_device_get_focus (gdk_seat_get_keyboard (GDK_SEAT (seat)));
+               //if (focus_surface)
+                 // wl_surface = gdk_wayland_surface_get_wl_surface (focus_surface);
+
+                 auto pwlsurfaceFocus = pwaylanddisplay->_wl_surface_focus();
+
+               if (pwlsurfaceFocus)
+                  xdg_activation_token_v1_set_surface (m_pxdgactivationtokenv1, pwlsurfaceFocus);
+
+               xdg_activation_token_v1_commit (m_pxdgactivationtokenv1);
+
+               while (m_strActivationToken.is_empty())
+               {
+                  wl_display_dispatch_queue(pwaylanddisplay->m_pwldisplay,
+                                                      pwleventqueue);
+               }
+
+               xdg_activation_token_v1_destroy (m_pxdgactivationtokenv1);
+               wl_event_queue_destroy (pwleventqueue);
+            }
+
+            xdg_activation_v1_activate (pwaylanddisplay->m_pxdgactivationv1,
+                                        m_strActivationToken,
+                                        m_pwlsurface);
+
+         information() << "xdg_activation_v1_activate activating with token : " << m_strActivationToken;
+
+//            m_pxdgactivationtokenv1 = xdg_activation_v1_get_activation_token(pwaylanddisplay->m_pxdgactivationv1);
+//
+//         information() << "m_pxdgactivationtokenv1 : " << (::iptr) m_pxdgactivationtokenv1;
+//         xdg_activation_token_v1_add_listener(m_pxdgactivationtokenv1,
+//                                              &g_xdg_activation_token_v1_listener,
+//                                              this);
+//
+//         auto psystem = acmesystem()->m_papexsystem;
+//
+//         string strApplicationServerName = psystem->get_application_server_name();
+//
+//         xdg_activation_token_v1_set_app_id(m_pxdgactivationtokenv1, strApplicationServerName);
+//
+//         information() << "xdg_activation_token_v1_set_app_id : " << strApplicationServerName;
+//
+//         /* Note that we are not setting the app_id here.
+//          *
+//          * Hypothetically we could set the app_id from data->classname, but
+//          * that part of the API is for _external_ programs, not ourselves.
+//          *
+//          * -flibit
+//          */
+//         if (m_pwlsurface != NULL) {
+//            /* This specifies the surface from which the activation request is originating, not the activation target surface. */
+//            xdg_activation_token_v1_set_surface(m_pxdgactivationtokenv1, m_pwlsurface);
+//            information() << "xdg_activation_token_v1_set_surface : " << (::iptr) m_pwlsurface;
+//         }
+//         if (bNormalPriority && pwaylanddisplay->m_pwlseat) {
+//            /* Not setting the serial will specify 'urgency' without switching focus as per
+// * https://gitlab.freedesktop.org/wayland/wayland-protocols/-/merge_requests/9#note_854977
+// */
+//            xdg_activation_token_v1_set_serial(m_pxdgactivationtokenv1,
+//                                               pwaylanddisplay->m_uLastPointerSerial,
+//                                               pwaylanddisplay->m_pwlseat);
+//            information() << "xdg_activation_token_v1_set_serial : " << (::iptr) pwaylanddisplay->m_uLastPointerSerial << ", pwlseat : " << (::iptr) pwaylanddisplay->m_pwlseat;
+//         }
+//         xdg_activation_token_v1_commit(m_pxdgactivationtokenv1);
+      }
+
+   }
+
+
    void window::_set_active_window_unlocked()
    {
+
+      if(!(m_puserinteractionimpl->m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
+      {
+
+         if(m_puserinteractionimpl->m_puserinteraction->const_layout().design().activation() == e_activation_default)
+         {
+
+            m_puserinteractionimpl->m_puserinteraction->layout().m_statea[::user::e_layout_sketch].activation() == e_activation_set_active;
+
+         }
+
+         return;
+
+      }
+
 
       //synchronous_lock synchronouslock(user_synchronization());
 
@@ -4288,6 +4579,12 @@ namespace windowing_wayland
       //auto estatus =
       //
       set_keyboard_focus();
+
+      //struct SDL_WaylandInput * input = data->input;
+      //SDL_Window *focus = SDL_GetKeyboardFocus();
+      //struct wl_surface *requesting_surface = focus ? focus->driverdata->surface : NULL;
+
+      __activate_window(true);
 
 //      if (!estatus)
 //      {
@@ -5136,7 +5433,12 @@ namespace windowing_wayland
 
          auto pimpl = m_puserinteractionimpl;
 
-         configure_window_unlocked();
+         if(m_bDoneFirstMapping)
+         {
+
+            configure_window_unlocked();
+
+         }
 
          ::pointer<buffer> pbuffer = pimpl->m_pgraphics;
 
@@ -5425,16 +5727,20 @@ namespace windowing_wayland
 //   }
 
 
-   void window::__handle_pointer_enter()
+   void window::__handle_pointer_enter(::wl_pointer * pwlpointer)
    {
+
+      m_pwlpointer = pwlpointer;
 
       m_pointCursor = m_pointPointer;
 
    }
 
 
-   void window::__handle_pointer_motion(::u32 millis)
+   void window::__handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis)
    {
+
+      m_pwlpointer = pwlpointer;
 
       m_pointCursor = m_pointPointer;
 
@@ -5462,8 +5768,10 @@ namespace windowing_wayland
 
 
 
-   void window::__handle_pointer_leave(::windowing_wayland::window * pwaylandwindowLeave)
+   void window::__handle_pointer_leave(::wl_pointer * pwlpointer, ::windowing_wayland::window * pwaylandwindowLeave)
    {
+
+      m_pwlpointer = pwlpointer;
 
 //            if (msg.oswindow)
 //            {
@@ -5513,8 +5821,11 @@ namespace windowing_wayland
    }
 
 
-   void window::__handle_pointer_button(::u32 linux_button, ::u32 pressed, ::u32 millis)
+   void window::__handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis)
    {
+
+      m_pwlpointer = pwlpointer;
+
       enum_message emessage = e_message_undefined;
       //msg.m_atom = e_message_mouse_wheel;
 
@@ -5680,30 +5991,32 @@ namespace windowing_wayland
          //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
 
          //post_ui_message(msg);
-         wayland_windowing()->post_ui_message(pmouse);
+         //wayland_windowing()->post_ui_message(pmouse);
+
+         m_puserinteractionimpl->message_handler(pmouse);
 
       }
 
    }
 
 
-   void window::__continue_initialization_after_configure()
+   void window::__defer_update_wayland_buffer()
    {
 
-      if(m_waylandbuffer.m_size != m_sizeWindow)
+      if(m_uLastConfigureSerial && m_waylandbuffer.m_size != m_sizeWindow)
       {
 
          auto pdisplaywayaland = dynamic_cast < ::windowing_wayland::display * > (m_pdisplay.m_p);
 
          pdisplaywayaland->destroy_wayland_buffer(m_waylandbuffer);
 
-         m_waylandbuffer = pdisplaywayaland->create_wayland_buffer(m_sizeWindow);
+         pdisplaywayaland->update_wayland_buffer(m_waylandbuffer, m_sizeWindow);
 
          //wl_surface_attach(m_pwlsurface, m_waylandbuffer.m_pwlbuffer, 0, 0);
 
-         m_puserinteractionimpl->m_puserinteraction->set_need_redraw();
+         //m_puserinteractionimpl->m_puserinteraction->set_need_redraw();
 
-         m_puserinteractionimpl->m_puserinteraction->post_redraw();
+         //m_puserinteractionimpl->m_puserinteraction->post_redraw();
 
       }
       //wl_surface_damage(surface, 0, 0, WIDTH, HEIGHT);
@@ -5712,21 +6025,169 @@ namespace windowing_wayland
    }
 
 
+   void window::__defer_xdg_surface_ack_configure()
+   {
+
+      if(m_uLastConfigureSerial)
+      {
+
+         auto uSerial = m_uLastConfigureSerial;
+
+         m_uLastConfigureSerial = 0;
+
+         xdg_surface_ack_configure(m_pxdgsurface, uSerial);
+
+      }
+
+   }
+
+
    void window::__handle_xdg_surface_configure(::u32 serial)
    {
 
+      information() << "__handle_xdg_surface_configure : " << serial;
+
       m_uLastConfigureSerial = serial;
 
-      xdg_surface_ack_configure(m_pxdgsurface, m_uLastConfigureSerial);
+      m_puserinteractionimpl->m_puserinteraction->set_need_redraw();
 
-      if(m_bFirstConfigure)
+      m_puserinteractionimpl->m_puserinteraction->post_redraw();
+
+//
+//
+//      if(m_bFirstConfigure)
+//      {
+//
+//         m_bFirstConfigure = false;
+//
+//         __continue_initialization_after_configure();
+//
+//      }
+
+   }
+
+
+   void window::__handle_xdg_toplevel_configure(::i32 width, ::i32 height)
+   {
+
+      ::size_i32 size(width, height);
+
+      if(size.cx() > 0)
       {
 
-         m_bFirstConfigure = false;
-
-         __continue_initialization_after_configure();
+         m_sizeWindow.cx() = size.cx();
 
       }
+
+      if(size.cy() > 0)
+      {
+
+         m_sizeWindow.cy() = size.cy();
+
+      }
+
+      information() << "__handle_xdg_toplevel_configure size actually used : " << m_sizeWindow;
+
+      m_puserinteractionimpl->m_puserinteraction->set_size(m_sizeWindow);
+
+   }
+
+
+   bool window::defer_perform_entire_reposition_process()
+   {
+
+      //windowing()->windowing_post([this]()
+        //                          {
+
+      auto pxdgtoplevel = m_pxdgtoplevel;
+
+      auto pwlseat = wayland_display()->m_pwlseat;
+
+      auto uSerial = wayland_display()->m_uLastButtonSerial;
+
+      xdg_toplevel_move(
+         pxdgtoplevel,
+         pwlseat,
+         uSerial);
+
+          //                        });
+//      while (wl_display_dispatch(wayland_display()->m_pwldisplay) != -1)
+//      {
+//
+//
+//      }
+
+      return true;
+
+   }
+
+
+   bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing)
+   {
+
+      xdg_toplevel_resize_edge resizeedge = XDG_TOPLEVEL_RESIZE_EDGE_NONE;
+
+      ::copy(&resizeedge, &eframeSizing);
+
+      if(resizeedge == XDG_TOPLEVEL_RESIZE_EDGE_NONE)
+      {
+
+         return true;
+
+      }
+
+      information() << "defer_perform_entire_resizing_process resizeedge : " << (::iptr) resizeedge;
+
+      //windowing()->windowing_post([this, resizeedge]()
+        //                          {
+      m_resizeedge = resizeedge;
+
+                                     xdg_toplevel_resize(
+                                        m_pxdgtoplevel,
+                                        wayland_display()->m_pwlseat,
+                                        wayland_display()->m_uLastButtonSerial,
+                                        resizeedge);
+
+                                  //});
+
+      return true;
+
+   }
+
+
+   void window::on_destruct_mouse_message(::message::mouse * pmouse)
+   {
+
+      ::windowing::window::on_destruct_mouse_message(pmouse);
+
+//      if(::is_null(pmouse))
+//      {
+//
+//         return;
+//
+//      }
+//
+//      try
+//      {
+//
+//         if(pmouse->m_pcursor)
+//         {
+//
+//            windowing()->set_mouse_cursor(pmouse->m_pcursor);
+//
+//         }
+//         else
+//         {
+//
+//            windowing()->set_mouse_cursor(get_mouse_cursor());
+//
+//         }
+//
+//      }
+//      catch(...)
+//      {
+//
+//      }
 
    }
 

@@ -11,6 +11,7 @@
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/node.h"
 #include "acme/primitive/geometry2d/_text_stream.h"
+#include "apex/platform/system.h"
 #include "aura/user/user/interaction_impl.h"
 #include "aura/graphics/image/image.h"
 #include "aura_posix/x11/display_lock.h"
@@ -502,16 +503,24 @@ namespace windowing_wayland
 
       }
 
-      if(!pwaylandwindow->m_bFirstConfigure
-      && pwaylandwindow->m_sizeWindow == pwaylandwindow->m_waylandbuffer.m_size
+      pwaylandwindow->__defer_update_wayland_buffer();
+
+      information() << "m_sizeWindow : " << pwaylandwindow->m_sizeWindow;
+      information() << "m_waylandbuffer.m_size : " << pwaylandwindow->m_waylandbuffer.m_size;
+      information() << "pitem->m_size : " << pitem->m_size;
+
+      bool bCommit = false;
+
+      if(pwaylandwindow->m_sizeWindow == pwaylandwindow->m_waylandbuffer.m_size
       && pwaylandwindow->m_sizeWindow == pitem->m_size)
       {
 
          wl_surface_damage(pwaylandwindow->m_pwlsurface, 0, 0, pitem->m_size.cx(), pitem->m_size.cy());
 
-         ::copy_image32((const ::image32_t*) pwaylandwindow->m_waylandbuffer.m_pdata,
+         ::copy_image32(( ::image32_t*) pwaylandwindow->m_waylandbuffer.m_pdata,
                   pwaylandwindow->m_waylandbuffer.m_size,
-                  pwaylandwindow->m_waylandbuffer.m_stride, pitem->m_pimage2->data(), pitem->m_pimage2->scan_size());
+                  pwaylandwindow->m_waylandbuffer.m_stride,
+                  pitem->m_pimage2->data(), pitem->m_pimage2->scan_size());
 
          information() << "_update_screen_unlocked data : " << (::iptr)pwaylandwindow->m_waylandbuffer.m_pdata;
       //memset(pwindow->m_waylandbuffer.m_pdata, 127,pitem->m_size.cx() * 4 * pitem->m_size.cy());
@@ -522,7 +531,54 @@ namespace windowing_wayland
 
          information() << "wl_surface_commit";
 
+         bCommit = true;
+
       }
+
+      pwaylandwindow->__defer_xdg_surface_ack_configure();
+
+      if(bCommit && !pwaylandwindow->m_bDoneFirstMapping)
+      {
+
+         pwaylandwindow->m_bDoneFirstMapping = true;
+
+         information() << "DOING FIRST Mapping...";
+
+         pwaylandwindow->configure_window_unlocked();
+
+         wl_display_dispatch(pwaylandwindow->wayland_display()->m_pwldisplay);
+
+         wl_display_roundtrip(pwaylandwindow->wayland_display()->m_pwldisplay);
+
+      }
+
+      if (!pwaylandwindow->wayland_windowing()->m_bFirstWindowMap)
+      {
+
+         pwaylandwindow->wayland_windowing()->m_bFirstWindowMap = true;
+
+         //auto psystem = acmesystem()->m_papexsystem;
+
+         //string strApplicationServerName = psystem->get_application_server_name();
+
+         //::pointer < ::windowing_wayland::display > pwaylanddisplay = pwaylandwindow->m_pdisplay;
+
+         //gtk_shell1_set_startup_id(pwaylanddisplay->m_pgtkshell1, strApplicationServerName);
+
+         ///information() << "gtk_shell1_set_startup_id : " << strApplicationServerName;
+
+         //auto psystem = acmesystem()->m_papexsystem;
+
+         //auto pnode = psystem->node();
+
+         //pnode->defer_notify_startup_complete();
+
+         //on_sn_launch_complete(pwindowing->m_pSnLauncheeContext);
+
+         //pwindowing->m_pSnLauncheeContext = nullptr;
+
+      }
+
 
 //      try
 //      {

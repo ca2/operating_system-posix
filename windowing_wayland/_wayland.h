@@ -17,12 +17,15 @@
 #include <wayland-server.h>
 #include <wayland-cursor.h>
 #include <wayland-client-protocol.h>
+#include "wayland-gtk_shell1.h"
+#include "wayland-xdg_activation_v1.h"
 #include "wayland-xdg_wm_base.h"
 //#include <X11/Xutil.h>
 //#include <X11/extensions/Xrender.h>
 //#include <X11/Xatom.h>
 
 //#undef pointer
+void copy(xdg_toplevel_resize_edge * presizeedge, ::experience::enum_frame * peframeSizing);
 
 
 
