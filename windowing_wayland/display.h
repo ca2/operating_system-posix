@@ -61,7 +61,7 @@ namespace windowing_wayland
       ::pointer<class window>                      m_pwindowRoot;
       ::pointer<class window>                      m_pwindowKeyboardFocus;
       ::pointer<::windowing_wayland::window>           m_pwindowActive;
-      ::pointer<::windowing_wayland::window>           m_pwindowMouseCapture;
+      ///::pointer<::windowing_wayland::window>           m_pwindowMouseCapture;
       //bool                                         m_bHasXSync;
       //int                                          m_iXSyncMajor;
       //int                                          m_iXSyncMinor;
@@ -124,8 +124,6 @@ namespace windowing_wayland
 
       virtual ::windowing_wayland::windowing * x11_windowing();
 
-      virtual void _on_capture_changed_to(::windowing_wayland::window * pwindowWithCapture);
-
       virtual void lock_display();
 
       virtual void unlock_display();
@@ -156,7 +154,7 @@ namespace windowing_wayland
 
       bool get_workspace_rectangle(index iWorkspace, ::rectangle_i32 & rectangle) override;
 
-      virtual ::windowing::window * get_mouse_capture();
+      //virtual ::windowing::window * get_mouse_capture();
 
       virtual ::e_status release_mouse_capture();
 
@@ -203,7 +201,7 @@ namespace windowing_wayland
       virtual void __handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 time);
 
 
-      virtual void __capture_mouse(::windowing_wayland::window * pwindowMouseCapture, ::u32 serial);
+      //virtual void __capture_mouse(::windowing_wayland::window * pwindowMouseCapture, ::u32 serial);
 
 
    };

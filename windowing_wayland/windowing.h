@@ -38,6 +38,8 @@ namespace windowing_wayland
 
       ::procedure_list                                m_procedurelist;
       ::procedure_list                                m_procedurelistPriority;
+      ::pointer < ::windowing_wayland::window >       m_pwindowMouseCapture;
+
 
       windowing();
       ~windowing() override;
@@ -79,8 +81,15 @@ namespace windowing_wayland
       void windowing_post_quit() override;
 
 
-      void release_mouse_capture() override;
+      void set_mouse_capture(::thread * pthread, ::windowing::window * pwindow) override;
 
+      ::windowing::window * get_mouse_capture(::thread * pthread) override;
+
+      void release_mouse_capture(::thread * pthread) override;
+
+      bool defer_release_mouse_capture(::thread * pthread, ::windowing::window * pwindow) override;
+
+      virtual void _on_capture_changed_to(::windowing_wayland::window * pwindowWithCapture);
 
       void set_mouse_cursor(::windowing::cursor * pcursor)override;
       //virtual void x11_main();
@@ -115,7 +124,7 @@ namespace windowing_wayland
 
       ::windowing::window * get_keyboard_focus(::thread * pthread) override;
 
-      ::windowing::window * get_mouse_capture(::thread * pthread) override;
+      //::windowing::window * get_mouse_capture(::thread * pthread) override;
 
       void clear_active_window(::thread * pthread, ::windowing::window * pwindow) override;
 

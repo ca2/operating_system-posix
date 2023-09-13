@@ -435,7 +435,7 @@ namespace windowing_x11
    }
 
 
-   void windowing::release_mouse_capture()
+   void windowing::release_mouse_capture(::thread * pthread)
    {
 
       //auto estatus =
@@ -450,6 +450,16 @@ namespace windowing_x11
 //      }
 //
 //      return estatus;
+
+   }
+
+
+   bool windowing::defer_release_mouse_capture(::thread * pthread, ::windowing::window * pwindow)
+   {
+
+      release_mouse_capture(pthread);
+
+      return true;
 
    }
 

@@ -6,6 +6,7 @@
 #include "window.h"
 #include "display.h"
 #include "cursor.h"
+#include "acme/constant/message.h"
 #include "acme/parallelization/synchronous_lock.h"
 //#include "acme/primitive/primitive/function.h"
 #include "aura/windowing/cursor_manager.h"
@@ -427,9 +428,11 @@ namespace windowing_wayland
 
       }
 
-      auto pwindow = m_pdisplay->get_mouse_capture();
+      //auto pwindow = m_pdisplay->get_mouse_capture();
 
-      return pwindow;
+      //return pwindow;
+
+      return m_pwindowMouseCapture;
 
    }
 
@@ -442,23 +445,66 @@ namespace windowing_wayland
    }
 
 
-   void windowing::release_mouse_capture()
+   void windowing::set_mouse_capture(::thread * pthread, ::windowing::window * pwindow)
    {
 
-      //auto estatus =
-      //
-      m_pdisplay->release_mouse_capture();
-
-//      if(!estatus)
-//      {
-//
-//         return estatus;
-//
-//      }
-//
-//      return estatus;
+      m_pwindowMouseCapture = pwindow;
 
    }
+
+
+   void windowing::release_mouse_capture(::thread * pthread)
+   {
+
+      m_pdisplay->release_mouse_capture();
+
+   }
+
+
+   bool windowing::defer_release_mouse_capture(::thread * pthread, ::windowing::window * pwindow)
+   {
+
+      if(m_pwindowMouseCapture != pwindow)
+      {
+
+         return false;
+
+      }
+
+      release_mouse_capture(pthread);
+
+      m_pwindowMouseCapture.release();
+
+      return true;
+
+   }
+
+
+   void windowing::_on_capture_changed_to(::windowing_wayland::window * pwindowMouseCaptureNew)
+   {
+
+      auto pwindowMouseCaptureOld = m_pwindowMouseCapture;
+
+      m_pwindowMouseCapture = pwindowMouseCaptureNew;
+
+      if (pwindowMouseCaptureOld && pwindowMouseCaptureOld != pwindowMouseCaptureNew)
+      {
+
+         MESSAGE msg;
+
+         msg.oswindow = pwindowMouseCaptureOld;
+         msg.m_atom = e_message_capture_changed;
+         msg.wParam = 0;
+         msg.lParam = pwindowMouseCaptureNew;
+
+         //auto pwindowing = x11_windowing();
+
+         post_ui_message(msg);
+
+      }
+
+   }
+
 
 
    void windowing::set_mouse_cursor(::windowing::cursor * pcursor)

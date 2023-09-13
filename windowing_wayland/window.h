@@ -208,7 +208,10 @@ namespace windowing_wayland
 
       void set_keyboard_focus() override;
       void _set_keyboard_focus_unlocked() override;
-      void set_mouse_capture() override;
+
+
+      //void set_mouse_capture() override;
+      //void release_mouse_capture() override;
 
 
       void set_mouse_cursor(::windowing::cursor * pcursor) override;

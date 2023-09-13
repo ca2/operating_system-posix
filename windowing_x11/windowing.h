@@ -80,7 +80,9 @@ namespace windowing_x11
       void windowing_post_quit() override;
 
 
-      void release_mouse_capture() override;
+      void release_mouse_capture(::thread * pthread) override;
+
+      bool defer_release_mouse_capture(::thread * pthread, ::windowing::window * pwindow) override;
 
 
       //virtual void x11_main();

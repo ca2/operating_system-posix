@@ -370,7 +370,7 @@ namespace windowing_wayland
    {
       auto x = wl_fixed_to_double(sx);
       auto y = wl_fixed_to_double(sy);
-      printf("Pointer moved at %0.0f %0.0f\n", x, y);
+      //printf("Pointer moved at %0.0f %0.0f\n", x, y);
 
       auto pdisplay = (display *) data;
 
@@ -1144,12 +1144,12 @@ namespace windowing_wayland
    }
 
 
-   ::windowing::window * display::get_mouse_capture()
-   {
-
-      return m_pwindowMouseCapture;
-
-   }
+//   ::windowing::window * display::get_mouse_capture()
+//   {
+//
+//      return m_pwindowMouseCapture;
+//
+//   }
 
 
    ::e_status display::release_mouse_capture()
@@ -1189,30 +1189,6 @@ namespace windowing_wayland
    }
 
 
-   void display::_on_capture_changed_to(::windowing_wayland::window * pwindowMouseCaptureNew)
-   {
-
-      auto pwindowMouseCaptureOld = m_pwindowMouseCapture;
-
-      m_pwindowMouseCapture = pwindowMouseCaptureNew;
-
-      if (pwindowMouseCaptureOld && pwindowMouseCaptureOld != pwindowMouseCaptureNew)
-      {
-
-         MESSAGE msg;
-
-         msg.oswindow = pwindowMouseCaptureOld;
-         msg.m_atom = e_message_capture_changed;
-         msg.wParam = 0;
-         msg.lParam = pwindowMouseCaptureNew;
-
-         auto pwindowing = x11_windowing();
-
-         pwindowing->post_ui_message(msg);
-
-      }
-
-   }
 
 
 //   Atom display::intern_atom(const char * pszAtomName, bool bCreate)
@@ -2032,72 +2008,72 @@ return nullptr;
    }
 
 
-   void display::__capture_mouse(::windowing_wayland::window * pwindowMouseCapture, ::u32 serial)
-   {
-
-      if(::is_null(pwindowMouseCapture))
-      {
-
-         return;
-
-      }
-
-      m_pwindowMouseCapture = pwindowMouseCapture;
-
-//      m_rectangleMouseCapture = get_monitor_union_rectangle();
+//   void display::__capture_mouse(::windowing_wayland::window * pwindowMouseCapture, ::u32 serial)
+//   {
 //
-//      destroy_wayland_buffer(m_waylandbufferMouseCapture);
-//
-//      m_waylandbufferMouseCapture = create_wayland_buffer(m_rectangleMouseCapture.size());
-//
-//      memset(m_waylandbufferMouseCapture.m_pdata, 0, m_waylandbufferMouseCapture.m_memsize);
-//
-//      information() << "__capture_mouse : " << m_rectangleMouseCapture;
-//
-//      m_pwlsurfaceMouseCapture = wl_compositor_create_surface(m_pwlcompositor);
-//
-//      m_pxdgsurfaceMouseCapture = xdg_wm_base_get_xdg_surface(m_pxdgwmbase, m_pwlsurfaceMouseCapture);
-//
-//      xdg_surface_set_window_geometry(m_pxdgsurfaceMouseCapture,
-//                                      m_rectangleMouseCapture.left(),
-//                                      m_rectangleMouseCapture.top(),
-//                                      m_rectangleMouseCapture.width(),
-//                                      m_rectangleMouseCapture.height());
-//
-//      xdg_surface_add_listener(m_pxdgsurfaceMouseCapture,
-//                               &xdg_surface_mouse_capture_listener, this);
-//
-//      m_pxdgtoplevelMouseCapture = xdg_surface_get_toplevel(m_pxdgsurfaceMouseCapture);
-//
-//      if (m_pxdgtoplevelMouseCapture == NULL)
+//      if(::is_null(pwindowMouseCapture))
 //      {
 //
-//         error() << "Can't create Mouse Capture top level window";
-//
-//         throw ::exception(::error_failed);
-//
-//      }
-//      else
-//      {
-//
-//         information() << "Created Mouse Capture top level window";
+//         return;
 //
 //      }
 //
-//      xdg_surface_set_window_geometry(m_pxdgsurfaceMouseCapture,
-//         m_rectangleMouseCapture.left(),
-//         m_rectangleMouseCapture.top(),
-//         m_rectangleMouseCapture.width(),
-//         m_rectangleMouseCapture.height());
+//      m_pwindowMouseCapture = pwindowMouseCapture;
 //
-//      //xdg_toplevel_add_listener(m_pxdgtoplevel,
-//        //                        &xdg_toplevel_listener, this);
+////      m_rectangleMouseCapture = get_monitor_union_rectangle();
+////
+////      destroy_wayland_buffer(m_waylandbufferMouseCapture);
+////
+////      m_waylandbufferMouseCapture = create_wayland_buffer(m_rectangleMouseCapture.size());
+////
+////      memset(m_waylandbufferMouseCapture.m_pdata, 0, m_waylandbufferMouseCapture.m_memsize);
+////
+////      information() << "__capture_mouse : " << m_rectangleMouseCapture;
+////
+////      m_pwlsurfaceMouseCapture = wl_compositor_create_surface(m_pwlcompositor);
+////
+////      m_pxdgsurfaceMouseCapture = xdg_wm_base_get_xdg_surface(m_pxdgwmbase, m_pwlsurfaceMouseCapture);
+////
+////      xdg_surface_set_window_geometry(m_pxdgsurfaceMouseCapture,
+////                                      m_rectangleMouseCapture.left(),
+////                                      m_rectangleMouseCapture.top(),
+////                                      m_rectangleMouseCapture.width(),
+////                                      m_rectangleMouseCapture.height());
+////
+////      xdg_surface_add_listener(m_pxdgsurfaceMouseCapture,
+////                               &xdg_surface_mouse_capture_listener, this);
+////
+////      m_pxdgtoplevelMouseCapture = xdg_surface_get_toplevel(m_pxdgsurfaceMouseCapture);
+////
+////      if (m_pxdgtoplevelMouseCapture == NULL)
+////      {
+////
+////         error() << "Can't create Mouse Capture top level window";
+////
+////         throw ::exception(::error_failed);
+////
+////      }
+////      else
+////      {
+////
+////         information() << "Created Mouse Capture top level window";
+////
+////      }
+////
+////      xdg_surface_set_window_geometry(m_pxdgsurfaceMouseCapture,
+////         m_rectangleMouseCapture.left(),
+////         m_rectangleMouseCapture.top(),
+////         m_rectangleMouseCapture.width(),
+////         m_rectangleMouseCapture.height());
+////
+////      //xdg_toplevel_add_listener(m_pxdgtoplevel,
+////        //                        &xdg_toplevel_listener, this);
+////
+////        //xdg_popup_grab(m_pxdgtoplevelMouseCapture, m_pwlseat, serial);
+////
+////      wl_surface_commit(m_pwlsurfaceMouseCapture);
 //
-//        //xdg_popup_grab(m_pxdgtoplevelMouseCapture, m_pwlseat, serial);
-//
-//      wl_surface_commit(m_pwlsurfaceMouseCapture);
-
-   }
+//   }
 
 } // namespace windowing_wayland
 

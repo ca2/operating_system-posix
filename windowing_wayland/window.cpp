@@ -167,7 +167,7 @@ namespace windowing_wayland
          if (states->size == 0)
          {
 
-            pwaylandwindow->m_resizeedge= 0;
+            pwaylandwindow->m_resizeedge= XDG_TOPLEVEL_RESIZE_EDGE_NONE;
 
          }
          else{
@@ -5482,54 +5482,68 @@ namespace windowing_wayland
    }
 
 
-   void window::set_mouse_capture()
-   {
-
-      ::pointer < ::windowing_wayland::display > pwaylanddisplay = m_pdisplay;
-
-      pwaylanddisplay->__capture_mouse(this, pwaylanddisplay->m_uLastButtonSerial);
-
-
-//      m_pwindowing->windowing_post([this]()
-//                                   {
+//   void window::set_mouse_capture()
+//   {
 //
-//                                      synchronous_lock synchronouslock(user_synchronization());
+//      auto pthread = m_puserinteractionimpl->m_puserinteraction->m_pthreadUserInteraction;
 //
-////                                      display_lock displaylock(x11_display()->Display());
+//      windowing()->set_mouse_capture(pthread, this);
 //
-//                                      information() << "XGrabPointer";
+//      //::pointer < ::windowing_wayland::display > pwaylanddisplay = m_pdisplay;
+//
+//      //pwaylanddisplay->__capture_mouse(this, pwaylanddisplay->m_uLastButtonSerial);
+//
+//
+////      m_pwindowing->windowing_post([this]()
+////                                   {
 ////
-////                                      auto grabStatus = XGrabPointer(Display(), Window(), False,
-////                                                                     ButtonPressMask | ButtonReleaseMask |
-////                                                                     PointerMotionMask,
-////                                                                     GrabModeAsync, GrabModeAsync, None, None,
-////                                                                     CurrentTime);
+////                                      synchronous_lock synchronouslock(user_synchronization());
+////
+//////                                      display_lock displaylock(x11_display()->Display());
+////
+////                                      information() << "XGrabPointer";
+//////
+//////                                      auto grabStatus = XGrabPointer(Display(), Window(), False,
+//////                                                                     ButtonPressMask | ButtonReleaseMask |
+//////                                                                     PointerMotionMask,
+//////                                                                     GrabModeAsync, GrabModeAsync, None, None,
+//////                                                                     CurrentTime);
+////
+//////                                      if (grabStatus != GrabSuccess)
+//////                                      {
+//////
+//////                                         windowing_output_debug_string("\noswindow_data::SetCapture 2.1");
+//////
+//////                                         return;
+//////
+//////                                      }
+////
+//////                                      auto pdisplay = x11_display();
+//////
+//////                                      if (pdisplay)
+//////                                      {
+//////
+//////                                         pdisplay->_on_capture_changed_to(this);
+//////
+//////                                      }
+////
+////                                      windowing_output_debug_string("\noswindow_data::SetCapture 2");
+////
+////                                   });
+////
+////      //return ::success;
 //
-////                                      if (grabStatus != GrabSuccess)
-////                                      {
-////
-////                                         windowing_output_debug_string("\noswindow_data::SetCapture 2.1");
-////
-////                                         return;
-////
-////                                      }
+//   }
 //
-////                                      auto pdisplay = x11_display();
-////
-////                                      if (pdisplay)
-////                                      {
-////
-////                                         pdisplay->_on_capture_changed_to(this);
-////
-////                                      }
 //
-//                                      windowing_output_debug_string("\noswindow_data::SetCapture 2");
+//   void window::release_mouse_capture()
+//   {
 //
-//                                   });
+//      auto pthread = m_puserinteractionimpl->m_puserinteraction->m_pthreadUserInteraction;
 //
-//      //return ::success;
-
-   }
+//      windowing()->release_mouse_capture(pthread);
+//
+//   }
 
 
    void window::set_keyboard_focus()
