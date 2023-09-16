@@ -346,7 +346,7 @@ namespace windowing_xcb
 
       u32 ncount = 0;
 
-      htask_t htask = ::get_current_htask();
+      htask_t htask = ::current_htask();
 
       m_htask = htask;
 

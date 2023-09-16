@@ -1525,7 +1525,7 @@ namespace node_gtk
    bool node::is_branch_current() const
    {
 
-      return get_current_itask() == get_main_user_itask();
+      return current_itask() == get_main_user_itask();
 
    }
 
