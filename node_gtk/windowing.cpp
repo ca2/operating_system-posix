@@ -5,67 +5,67 @@
 #include "windowing.h"
 #include "acme/operating_system/process.h"
 
-
-namespace node_gtk
-{
-
-
-   windowing::windowing()
-   {
-
-      //m_pWindowing4 = this;
-
-   }
-
-
-   windowing::~windowing()
-   {
-
-
-   }
-
-
-//   ::e_status windowing::windowing_post(const ::procedure & procedure)
+//
+//namespace node_gtk
+//{
+//
+//
+//   windowing::windowing()
 //   {
 //
 //      //m_pWindowing4 = this;
 //
 //   }
-//      gdk_fork([routine]()
-//               {
 //
-//                  routine();
 //
-//               });
+//   windowing::~windowing()
+//   {
 //
-//      return success;
 //
 //   }
-
-
-   bool windowing::message_loop_step()
-   {
-
-      if(m_itask == -1)
-      {
-
-         m_itask = current_itask();
-
-      }
-
-      if(!x11_message_loop_step())
-      {
-
-         return false;
-
-      }
-
-      return true;
-
-   }
-
-
-} // namespace node_gtk
-
-
-
+//
+//
+////   ::e_status windowing::windowing_post(const ::procedure & procedure)
+////   {
+////
+////      //m_pWindowing4 = this;
+////
+////   }
+////      gdk_fork([routine]()
+////               {
+////
+////                  routine();
+////
+////               });
+////
+////      return success;
+////
+////   }
+//
+//
+//   bool windowing::message_loop_step()
+//   {
+//
+//      if(m_itask == -1)
+//      {
+//
+//         m_itask = current_itask();
+//
+//      }
+//
+//      if(!x11_message_loop_step())
+//      {
+//
+//         return false;
+//
+//      }
+//
+//      return true;
+//
+//   }
+//
+//
+//} // namespace node_gtk
+//
+//
+//
