@@ -10,10 +10,12 @@
 #include "acme/parallelization/mutex.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/node.h"
+#include "acme/platform/scoped_restore.h"
 #include "acme/primitive/geometry2d/_text_stream.h"
 #include "apex/platform/system.h"
-#include "aura/user/user/interaction_impl.h"
 #include "aura/graphics/image/image.h"
+#include "aura/user/user/interaction_graphics_thread.h"
+#include "aura/user/user/interaction_impl.h"
 #include "aura_posix/x11/display_lock.h"
 
 //#define VERI_BASIC_TEST
@@ -22,6 +24,22 @@
 namespace windowing_wayland
 {
 
+
+
+   //static const struct wl_callback_listener frame_listener;
+
+   static void
+   window_redraw(void *data, struct wl_callback *pwlcallback, uint32_t time)
+   {
+      // fprintf(stderr, "Redrawing\n");
+      auto pbuffer = (buffer *) data;
+      pbuffer->__handle_window_redraw(pwlcallback, time);
+   }
+
+
+   static const struct wl_callback_listener frame_listener = {
+      window_redraw
+   };
 
    buffer::buffer()
    {
@@ -359,7 +377,184 @@ namespace windowing_wayland
 
    }
 
+//
+//   bool buffer::update_screen()
+//   {
+//
+//      if (m_pimpl == nullptr)
+//      {
+//
+//         warning("windowing_wayland::buffer::update_screen !m_pimpl!!");
+//
+//         return false;
+//
+//      }
+//
+//      if (!m_pimpl->m_pwindow)
+//      {
+//
+//         warning("windowing_wayland::buffer::update_screen !m_pimpl->m_pwindow!!");
+//
+//         return false;
+//
+//      }
+//
+//      if (!m_pimpl->m_puserinteraction->is_window_screen_visible())
+//      {
+//
+//         information() << "windowing_wayland::buffer::update_screen XPutImage not called. Ui is not visible.";
+//
+//         return false;
+//
+//      }
+//
+//      if (!m_pwindow)
+//      {
+//
+//         warning("windowing_wayland::buffer::update_screen !m_pwindow!");
+//
+//         return false;
+//
+//      }
+//
+//      //_synchronous_lock synchronouslock(user_synchronization());
+//
+//      //display_lock displayLock(x11_window()->x11_display()->Display());
+//
+//      //return _update_screen_lesser_lock();
+//      return _post_update_screen();
+//
+//   }
 
+
+//   bool buffer::_update_screen_lesser_lock()
+//   {
+//
+////      _synchronous_lock slGraphics(synchronization());
+////
+////      auto pitem = get_screen_item();
+////
+////      _synchronous_lock slImage(pitem->m_pmutex);
+////
+////      slGraphics.unlock();
+////
+////      return _update_screen_unlocked(pitem);
+//
+//      return _update_screen_unlocked(nullptr);
+//
+//   }
+
+//   static void
+//   redraw(void *data, struct wl_callback *pwlcallback, uint32_t time)
+//   {
+//      auto pbuffer = (buffer *) data;
+//      pbuffer->redraw(pwlcallback, time);
+//   }
+//   static const struct wl_callback_listener frame_listener = {
+//      redraw
+//   };
+
+   void buffer::__redraw(struct wl_callback *pwlcallback, uint32_t time)
+   {
+
+   }
+
+
+
+   void buffer::__handle_window_redraw(::wl_callback *pwlcallback, uint32_t time)
+   {
+
+//       fprintf(stdout, "Redrawing\n");
+//      //auto pbuffer = (buffer *) data;
+//      //pbuffer->__handle_window_redraw(pwlcallback, time);
+//      wl_callback_destroy(m_pwlcallbackFrame);
+//      ::pointer < ::windowing_wayland::window > pwaylandwindow = m_pimpl->m_pwindow;
+//      //paint_pixels();
+//      //frame_callback = wl_surface_frame(surface);
+//
+//      {
+//         _synchronous_lock slGraphics(synchronization());
+//
+//         auto pitem = get_screen_item();
+//
+//         _synchronous_lock slImage(pitem->m_pmutex);
+//
+//         slGraphics.unlock();
+//         wl_surface_damage(pwaylandwindow->m_pwlsurface, 0, 0, pitem->m_size.cx(), pitem->m_size.cy());
+//         ::copy_image32((::image32_t *) pwaylandwindow->m_waylandbuffer.m_pdata,
+//                        pwaylandwindow->m_waylandbuffer.m_size,
+//                        pwaylandwindow->m_waylandbuffer.m_stride,
+//                        pitem->m_pimage2->data(), pitem->m_pimage2->scan_size());
+//
+//      }
+////      wl_surface_attach(surface, buffer, 0, 0);
+//      //wl_callback_add_listener(frame_callback, &frame_listener, NULL);
+//      //wl_surface_commit(surface);
+//
+//
+//
+//      information() << "_update_screen_unlocked data : " << (::iptr) pwaylandwindow->m_waylandbuffer.m_pdata;
+//      //memset(pwindow->m_waylandbuffer.m_pdata, 127,pitem->m_size.cx() * 4 * pitem->m_size.cy());
+////      m_pwlcallbackFrame = wl_surface_frame(pwindow->m_pwlsurface);
+//      wl_surface_attach(pwaylandwindow->m_pwlsurface, pwaylandwindow->m_waylandbuffer.m_pwlbuffer, 0, 0);
+//      //       wl_callback_add_listener(m_pwlcallbackFrame, &frame_listener, NULL);
+//      wl_surface_commit(pwaylandwindow->m_pwlsurface);
+//
+//      information() << "wl_surface_commit";
+//
+//      if (!pwaylandwindow->m_bDoneFirstMapping)
+//      {
+//
+//         pwaylandwindow->m_bDoneFirstMapping = true;
+//
+//         information() << "DOING FIRST Mapping...";
+//
+//         pwaylandwindow->configure_window_unlocked();
+//
+//         wl_display_dispatch(pwaylandwindow->wayland_display()->m_pwldisplay);
+//
+//         wl_display_roundtrip(pwaylandwindow->wayland_display()->m_pwldisplay);
+//
+//      }
+//
+//      if (!pwaylandwindow->wayland_windowing()->m_bFirstWindowMap)
+//      {
+//
+//         pwaylandwindow->wayland_windowing()->m_bFirstWindowMap = true;
+//
+//         //auto psystem = acmesystem()->m_papexsystem;
+//
+//         //string strApplicationServerName = psystem->get_application_server_name();
+//
+//         //::pointer < ::windowing_wayland::display > pwaylanddisplay = pwaylandwindow->m_pdisplay;
+//
+//         //gtk_shell1_set_startup_id(pwaylanddisplay->m_pgtkshell1, strApplicationServerName);
+//
+//         ///information() << "gtk_shell1_set_startup_id : " << strApplicationServerName;
+//
+//         //auto psystem = acmesystem()->m_papexsystem;
+//
+//         //auto pnode = psystem->node();
+//
+//         //pnode->defer_notify_startup_complete();
+//
+//         //on_sn_launch_complete(pwindowing->m_pSnLauncheeContext);
+//
+//         //pwindowing->m_pSnLauncheeContext = nullptr;
+//
+//      }
+//
+//      ::minimum(pwaylandwindow->m_sizeConfigure.cx());
+//
+//      ::minimum(pwaylandwindow->m_sizeConfigure.cy());
+//
+   }
+
+
+//   bool buffer::_update_screen_unlocked(::graphics::buffer_item * pitem)
+//   bool buffer::_update_screen_unlocked(::graphics::buffer_item * pitem)
+   //bool buffer::_post_update_screen()
+   //{
    bool buffer::update_screen()
    {
 
@@ -381,78 +576,33 @@ namespace windowing_wayland
 
       }
 
-      if (!m_pimpl->m_puserinteraction->is_window_screen_visible())
-      {
+//      if (!m_pimpl->m_puserinteraction->is_window_screen_visible())
+//      {
+//
+//         information() << "windowing_wayland::buffer::update_screen XPutImage not called. Ui is not visible.";
+//
+//         return false;
+//
+//      }
 
-         information() << "windowing_wayland::buffer::update_screen XPutImage not called. Ui is not visible.";
+//      if (!m_pwindow)
+//      {
+//
+//         warning("windowing_wayland::buffer::update_screen !m_pwindow!");
+//
+//         return false;
+//
+//      }
 
-         return false;
+//      auto sizeBitBlitting = pitem->m_size;
+//
+//      if (sizeBitBlitting.is_empty())
+//      {
+//
+//         return false;
+//
+//      }
 
-      }
-
-      if (!m_pwindow)
-      {
-
-         warning("windowing_wayland::buffer::update_screen !m_pwindow!");
-
-         return false;
-
-      }
-
-      _synchronous_lock synchronouslock(user_synchronization());
-
-      //display_lock displayLock(x11_window()->x11_display()->Display());
-
-      return _update_screen_lesser_lock();
-
-   }
-
-
-   bool buffer::_update_screen_lesser_lock()
-   {
-
-      _synchronous_lock slGraphics(synchronization());
-
-      auto pitem = get_screen_item();
-
-      _synchronous_lock slImage(pitem->m_pmutex);
-
-      slGraphics.unlock();
-
-      return _update_screen_unlocked(pitem);
-
-   }
-
-//   static void
-//   redraw(void *data, struct wl_callback *pwlcallback, uint32_t time)
-//   {
-//      auto pbuffer = (buffer *) data;
-//      pbuffer->redraw(pwlcallback, time);
-//   }
-//   static const struct wl_callback_listener frame_listener = {
-//      redraw
-//   };
-
-   void buffer::__redraw(struct wl_callback *pwlcallback, uint32_t time)
-   {
-
-   }
-
-   bool buffer::_update_screen_unlocked(::graphics::buffer_item * pitem)
-   {
-
-      auto sizeBitBlitting = pitem->m_size;
-
-      if (sizeBitBlitting.is_empty())
-      {
-
-         return false;
-
-      }
-
-      auto & pimage = pitem->m_pimage2;
-
-      pimage->map();
 
 //
 //      uint32_t pixel_value = 0x0; // black
@@ -479,7 +629,7 @@ namespace windowing_wayland
 
       //int ht;
 
-      ::pointer < ::windowing_wayland::window > pwaylandwindow = m_pimpl->m_pwindow;
+      //::pointer < ::windowing_wayland::window > pwaylandwindow = m_pimpl->m_pwindow;
 
       //static void
       //redraw(void *data, struct wl_callback *callback, uint32_t time)
@@ -488,96 +638,244 @@ namespace windowing_wayland
     //     wl_callback_destroy(m_pwlcallbackFrame);
         // if (ht == 0) ht = HEIGHT;
 
-      bool bChangedPosition = false;
+//      if((pwaylandwindow->m_sizeConfigure.cx() == I32_MINIMUM
+//          || pwaylandwindow->m_sizeConfigure.cy() == I32_MINIMUM)
+//          && (pwaylandwindow->m_timeLastConfigureRequest.elapsed() > 5_s
+//         || pwaylandwindow->m_uLastConfigureSerial > pwaylandwindow->m_uLastRequestSerial))
+//      {
 
-      bool bChangedSize = false;
+      ::pointer<::windowing_wayland::window> pwaylandwindow = m_pimpl->m_pwindow;
+if(pwaylandwindow->m_pxdgtoplevel == nullptr)
+{
 
-      try
-      {
+   auto edisplay = pwaylandwindow->m_puserinteractionimpl->m_puserinteraction->const_layout().design().display();
 
-         pwaylandwindow->strict_set_window_position_unlocked(bChangedPosition, bChangedSize);
+   if(!pwaylandwindow->windowing()->is_screen_visible(edisplay)
+   && edisplay != e_display_iconic)
+   {
 
-      }
-      catch (...)
-      {
+      return false;
 
-      }
+   }
+   //auto x = m_pointWindowBestEffort.x();
 
-      pwaylandwindow->__defer_update_wayland_buffer();
+}
 
-      information() << "m_sizeWindow : " << pwaylandwindow->m_sizeWindow;
-      information() << "m_waylandbuffer.m_size : " << pwaylandwindow->m_waylandbuffer.m_size;
-      information() << "pitem->m_size : " << pitem->m_size;
+manual_reset_event e;
 
-      bool bCommit = false;
+      e.ResetEvent();
 
-      if(pwaylandwindow->m_sizeWindow == pwaylandwindow->m_waylandbuffer.m_size
-      && pwaylandwindow->m_sizeWindow == pitem->m_size)
-      {
+         user_post([this, &e]()
+                                    {
+at_end_of_scope
+                                       {
 
-         wl_surface_damage(pwaylandwindow->m_pwlsurface, 0, 0, pitem->m_size.cx(), pitem->m_size.cy());
+                                          e.SetEvent();
+                                       };
+            try
+            {
 
-         ::copy_image32(( ::image32_t*) pwaylandwindow->m_waylandbuffer.m_pdata,
-                  pwaylandwindow->m_waylandbuffer.m_size,
-                  pwaylandwindow->m_waylandbuffer.m_stride,
-                  pitem->m_pimage2->data(), pitem->m_pimage2->scan_size());
+               ::pointer<::windowing_wayland::window> pwaylandwindow = m_pimpl->m_pwindow;
 
-         information() << "_update_screen_unlocked data : " << (::iptr)pwaylandwindow->m_waylandbuffer.m_pdata;
-      //memset(pwindow->m_waylandbuffer.m_pdata, 127,pitem->m_size.cx() * 4 * pitem->m_size.cy());
+               //::pointer<::windowing_wayland::window> pwaylandwindow = m_pimpl->m_pwindow;
+               if(::is_null(pwaylandwindow->m_pxdgtoplevel))
+               {
+
+                  auto edisplay = pwaylandwindow->m_puserinteractionimpl->m_puserinteraction->const_layout().design().display();
+
+                  if(!pwaylandwindow->windowing()->is_screen_visible(edisplay)
+                     && edisplay != e_display_iconic)
+                  {
+
+                     return;
+
+                  }
+                  //auto x = m_pointWindowBestEffort.x();
+                  pwaylandwindow->__map();
+               }
+
+//                                       auto pimpl = m_puserinteractionimpl;
+
+                                       if(pwaylandwindow->m_bDoneFirstMapping && ::is_set(pwaylandwindow->m_pxdgtoplevel))
+                                                    {
+
+               pwaylandwindow->configure_window_unlocked();
+
+                                                  }
+
+//                                       ::pointer<buffer> pbuffer = pimpl->m_pgraphics;
+//
+//                                       pbuffer->_update_screen_lesser_lock();
+
+//                                    }
+
+
+               bool bChangedPosition = false;
+
+               bool bChangedSize = false;
+
+               if (::is_set(pwaylandwindow->m_pxdgtoplevel)
+                      && (pwaylandwindow->m_sizeConfigure.cx() == I32_MINIMUM
+                    || pwaylandwindow->m_sizeConfigure.cy() == I32_MINIMUM)
+                   && (pwaylandwindow->m_timeLastConfigureRequest.elapsed() > 5_s
+                       || pwaylandwindow->m_uLastConfigureSerial > pwaylandwindow->m_uLastRequestSerial))
+               {
+
+                  try
+                  {
+
+                     pwaylandwindow->strict_set_window_position_unlocked(bChangedPosition,
+                                                                         bChangedSize);
+
+                  }
+                  catch (...)
+                  {
+
+                  }
+
+               }
+
+               //}
+               _synchronous_lock slGraphics(synchronization());
+
+               auto pitem = get_screen_item();
+
+               _synchronous_lock slImage(pitem->m_pmutex);
+
+               slGraphics.unlock();
+
+               information() << "m_sizeConfigure : " << pwaylandwindow->m_sizeConfigure
+                             << " m_sizeWindow : " << pwaylandwindow->m_sizeWindow
+                             << " pitem->m_size : " << pitem->m_size;
+
+               information() << "m_pxdgtoplevel : " << (::iptr) pwaylandwindow->m_pxdgtoplevel;
+
+               //if(pwaylandwindow->m_sizeWindow == pwaylandwindow->m_waylandbuffer.m_size
+               if (::is_set(pwaylandwindow->m_pxdgtoplevel)
+                  && pwaylandwindow->m_sizeWindow == pitem->m_size
+                   && ((pwaylandwindow->m_sizeConfigure.cx() == I32_MINIMUM
+                        || pwaylandwindow->m_sizeConfigure.cy() == I32_MINIMUM)
+                       || pwaylandwindow->m_sizeWindow == pwaylandwindow->m_sizeConfigure)
+                   &&
+                   (pwaylandwindow->m_timeLastConfigureRequest.elapsed() > 5_s
+                    || pwaylandwindow->m_uLastConfigureSerial > pwaylandwindow->m_uLastRequestSerial))
+               {
+
+                  pwaylandwindow->__defer_update_wayland_buffer();
+
+                  pwaylandwindow->__defer_xdg_surface_ack_configure();
+
+
+//         m_pwlcallbackFrame = wl_surface_frame(pwaylandwindow->m_pwlsurface);
+//         wl_callback_add_listener(m_pwlcallbackFrame, &frame_listener, this);
+
+
+                  wl_surface_damage(pwaylandwindow->m_pwlsurface, 0, 0, pitem->m_size.cx(),
+                                    pitem->m_size.cy());
+                  auto & pimage = pitem->m_pimage2;
+
+                  pimage->map();
+
+                  ::copy_image32((::image32_t *) pwaylandwindow->m_waylandbuffer.m_pdata,
+                                 pwaylandwindow->m_waylandbuffer.m_size,
+                                 pwaylandwindow->m_waylandbuffer.m_stride,
+                                 pitem->m_pimage2->data(), pitem->m_pimage2->scan_size());
+
+                  information() << "_update_screen_unlocked data : "
+                                << (::iptr) pwaylandwindow->m_waylandbuffer.m_pdata;
+                  //memset(pwindow->m_waylandbuffer.m_pdata, 127,pitem->m_size.cx() * 4 * pitem->m_size.cy());
 //      m_pwlcallbackFrame = wl_surface_frame(pwindow->m_pwlsurface);
-         wl_surface_attach(pwaylandwindow->m_pwlsurface, pwaylandwindow->m_waylandbuffer.m_pwlbuffer, 0, 0);
-  //       wl_callback_add_listener(m_pwlcallbackFrame, &frame_listener, NULL);
-         wl_surface_commit(pwaylandwindow->m_pwlsurface);
+                  wl_surface_attach(pwaylandwindow->m_pwlsurface,
+                                    pwaylandwindow->m_waylandbuffer.m_pwlbuffer, 0, 0);
+                  //       wl_callback_add_listener(m_pwlcallbackFrame, &frame_listener, NULL);
+                  wl_surface_commit(pwaylandwindow->m_pwlsurface);
 
-         information() << "wl_surface_commit";
+                  information() << "wl_surface_commit";
 
-         bCommit = true;
+                                             if (!pwaylandwindow->m_bDoneFirstMapping)
+                                             {
 
-      }
+                                                pwaylandwindow->m_bDoneFirstMapping = true;
+//
+//                                                information() << "DOING FIRST Mapping...";
+//
+//                                                pwaylandwindow->configure_window_unlocked();
+//
+//                                                wl_display_dispatch(pwaylandwindow->wayland_display()->m_pwldisplay);
+//
+//                                                wl_display_roundtrip(pwaylandwindow->wayland_display()->m_pwldisplay);
+//
+                                             }
 
-      pwaylandwindow->__defer_xdg_surface_ack_configure();
+//                                             if (!pwaylandwindow->wayland_windowing()->m_bFirstWindowMap)
+//                                             {
+//
+//                                                pwaylandwindow->wayland_windowing()->m_bFirstWindowMap = true;
+//
+//                                                //auto psystem = acmesystem()->m_papexsystem;
+//
+//                                                //string strApplicationServerName = psystem->get_application_server_name();
+//
+//                                                //::pointer < ::windowing_wayland::display > pwaylanddisplay = pwaylandwindow->m_pdisplay;
+//
+//                                                //gtk_shell1_set_startup_id(pwaylanddisplay->m_pgtkshell1, strApplicationServerName);
+//
+//                                                ///information() << "gtk_shell1_set_startup_id : " << strApplicationServerName;
+//
+//                                                //auto psystem = acmesystem()->m_papexsystem;
+//
+//                                                //auto pnode = psystem->node();
+//
+//                                                //pnode->defer_notify_startup_complete();
+//
+//                                                //on_sn_launch_complete(pwindowing->m_pSnLauncheeContext);
+//
+//                                                //pwindowing->m_pSnLauncheeContext = nullptr;
+//
+//                                             }
 
-      if(bCommit && !pwaylandwindow->m_bDoneFirstMapping)
-      {
+                  ::minimum(pwaylandwindow->m_sizeConfigure.cx());
 
-         pwaylandwindow->m_bDoneFirstMapping = true;
+                  ::minimum(pwaylandwindow->m_sizeConfigure.cy());
 
-         information() << "DOING FIRST Mapping...";
+               }
 
-         pwaylandwindow->configure_window_unlocked();
 
-         wl_display_dispatch(pwaylandwindow->wayland_display()->m_pwldisplay);
+            }
+            catch(...)
+            {
 
-         wl_display_roundtrip(pwaylandwindow->wayland_display()->m_pwldisplay);
 
-      }
+            }
 
-      if (!pwaylandwindow->wayland_windowing()->m_bFirstWindowMap)
-      {
+            try
+            {
 
-         pwaylandwindow->wayland_windowing()->m_bFirstWindowMap = true;
+               ::pointer<::windowing_wayland::window> pwaylandwindow = m_pimpl->m_pwindow;
 
-         //auto psystem = acmesystem()->m_papexsystem;
+               auto pimpl = pwaylandwindow->m_puserinteractionimpl;
 
-         //string strApplicationServerName = psystem->get_application_server_name();
+               pimpl->m_pgraphicsthread->on_graphics_thread_iteration_end();
 
-         //::pointer < ::windowing_wayland::display > pwaylanddisplay = pwaylandwindow->m_pdisplay;
+            }
+            catch(...)
+            {
 
-         //gtk_shell1_set_startup_id(pwaylanddisplay->m_pgtkshell1, strApplicationServerName);
 
-         ///information() << "gtk_shell1_set_startup_id : " << strApplicationServerName;
+            }
 
-         //auto psystem = acmesystem()->m_papexsystem;
 
-         //auto pnode = psystem->node();
 
-         //pnode->defer_notify_startup_complete();
+                                    });
 
-         //on_sn_launch_complete(pwindowing->m_pSnLauncheeContext);
 
-         //pwindowing->m_pSnLauncheeContext = nullptr;
+         e._wait(20_s);
 
-      }
+         information() << "finished waiting for procedure to run";
+
+      //}
+
+      //});
 
 
 //      try

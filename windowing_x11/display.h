@@ -120,6 +120,8 @@ namespace windowing_x11
 
       virtual ::e_status release_mouse_capture();
 
+      ::point_i32 _get_mouse_cursor_position() override;
+
       Atom intern_atom(const char * pszAtomName, bool bCreate);
 
       Atom intern_atom(::x11::enum_atom eatom, bool bCreate);
@@ -136,7 +138,7 @@ namespace windowing_x11
 
       virtual ::windowing_x11::window * _get_active_window(::thread * pthread);
 
-      virtual bool get_cursor_position(::point_i32 * ppointCursor);
+      //virtual bool get_cursor_position(::point_i32 * ppointCursor);
 
       virtual comparable_array < Window > x11_window_list();
 

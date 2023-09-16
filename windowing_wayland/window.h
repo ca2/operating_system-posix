@@ -39,15 +39,23 @@ namespace windowing_wayland
       ::xdg_toplevel *                             m_pxdgtoplevel;
       ::wl_pointer *                               m_pwlpointer;
       ::wl_shm_pool *                              m_pwlshmpool;
+      ::point_i32                                  m_pointWindowBestEffort;
       ::xdg_activation_token_v1 *                  m_pxdgactivationtokenv1;
-      ::point_i32                                  m_pointPointer;
+      ::wl_callback *                              m_pwlcallbackFrame;
+      //::point_i32                                  m_pointPointer;
       //XWindowAttributes                            m_attr;
       //XVisualInfo                                  m_visualinfo;
       void *                                       m_pgdkwindow;
+      //bool                                         m_bPendingConfigureRequest;
+      class ::time                                 m_timeLastConfigureRequest;
+      bool                                         m_bXdgInitialConfigure;
       //::pointer<::windowing_wayland::x11data>          m_px11data;
       ::pointer<::windowing_wayland::display>          m_pwaylanddisplay;
       ::u32 m_uLastConfigureSerial;
+      ::u32 m_uLastRequestSerial;
+      ::u32 m_uLastAckSerial;
       ::string m_strActivationToken;
+      ::size_i32                                      m_sizeConfigure;
       bool                                            m_bDoneFirstMapping;
       //::Window                                     m_parent;
       //Cursor                                       m_cursorLast;
@@ -65,7 +73,7 @@ namespace windowing_wayland
       //Colormap                                   m_colormap;
       class ::time                                 m_timeLastMouseMove;
       //Window                                     m_parent;
-      ::rectangle_i32                              m_rect;
+      //::rectangle_i32                              m_rect;
       //string                                       m_strWMClass;
       //int                                          m_iaNetWmState2[::x11::e_atom_net_wm_state_last-::x11::e_atom_net_wm_state_first+1];
       //::point_i32                                m_pointCursor;
@@ -164,7 +172,10 @@ namespace windowing_wayland
       //virtual ::Window get_parent_handle();
       ::oswindow get_parent_oswindow() const override;
 
-      ::point_i32 get_mouse_cursor_position() override;
+
+//      ::point_i32 get_mouse_cursor_host_position() override;
+//      ::point_i32 get_mouse_cursor_absolute_position() override;
+
 
       //virtual ::Window get_parent_handle() const;
 
@@ -344,6 +355,11 @@ namespace windowing_wayland
       //virtual void _enable_net_wm_sync();
 
 
+      virtual void __map();
+
+      virtual void __unmap();
+
+
       virtual void __handle_pointer_enter(::wl_pointer * pwlpointer);
       virtual void __handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis);
       virtual void __handle_pointer_leave(::wl_pointer * pwlpointer, ::windowing_wayland::window * pwaylandwindowLeave);
@@ -355,7 +371,7 @@ namespace windowing_wayland
 
       virtual void __handle_xdg_surface_configure(::u32 serial);
 
-      virtual void __handle_xdg_toplevel_configure(::i32 width, ::i32 height);
+      virtual void __handle_xdg_toplevel_configure(::i32 width, ::i32 height, ::wl_array * pwlarrayState);
 
       virtual void __defer_xdg_surface_ack_configure();
 

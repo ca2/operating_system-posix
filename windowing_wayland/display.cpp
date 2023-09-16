@@ -331,6 +331,7 @@ namespace windowing_wayland
 
    }
 
+
    void
    pointer_handle_leave(void *data, struct wl_pointer *pwlpointer,
                         uint32_t serial, struct wl_surface *pwlsurface)
@@ -353,7 +354,7 @@ namespace windowing_wayland
 
          ///pdisplay->__handle_pointer_enter(x, y, pwaylandwindow);
 
-         return;
+         //return;
 
       }
 
@@ -361,15 +362,18 @@ namespace windowing_wayland
 
       pdisplay->__handle_pointer_leave(pwlpointer, pwaylandwindowLeave);
 
-
    }
+
 
    void
    pointer_handle_motion(void *data, struct wl_pointer *pwlpointer,
                          uint32_t millis, wl_fixed_t sx, wl_fixed_t sy)
    {
+
       auto x = wl_fixed_to_double(sx);
+
       auto y = wl_fixed_to_double(sy);
+
       //printf("Pointer moved at %0.0f %0.0f\n", x, y);
 
       auto pdisplay = (display *) data;
@@ -389,6 +393,7 @@ namespace windowing_wayland
       pdisplay->__handle_pointer_motion(pwlpointer, x, y, millis);
 
    }
+
 
    void
    pointer_handle_button(void *data, struct wl_pointer *pwlpointer,
@@ -819,6 +824,9 @@ namespace windowing_wayland
 
       }
 
+      acmenode()->post_procedure([this]()
+                                 {
+
       information() << "windowing_wayland::display::open";
 
       ::pointer < ::aura_posix::node > pauraposixnode = acmenode();
@@ -990,6 +998,16 @@ namespace windowing_wayland
 ////         }
 ////
 ////      }
+
+                                 });
+
+   }
+
+
+   bool display::has_readily_gettable_absolute_pointer_position() const
+   {
+
+      return false;
 
    }
 
@@ -1906,9 +1924,9 @@ return nullptr;
 
          //m_pwindowPointerEnter->m_pointPointer.y() = (double) m_pwindowPointerEnter->m_pointWindow.y() + y;
 
-         m_pwindowPointerEnter->m_pointPointer.x() = x;
+         m_pwindowPointerEnter->m_pointCursor2.x() = x;
 
-         m_pwindowPointerEnter->m_pointPointer.y() = y;
+         m_pwindowPointerEnter->m_pointCursor2.y() = y;
 
          m_pwindowPointerEnter->__handle_pointer_enter(pwlpointer);
 
@@ -1923,16 +1941,16 @@ return nullptr;
       if(m_pwindowPointerCapture)
       {
 
-         m_pwindowPointerCapture->m_pointPointer.x() = x;
+         m_pwindowPointerCapture->m_pointCursor2.x() = x;
 
-         m_pwindowPointerCapture->m_pointPointer.y() = y;
+         m_pwindowPointerCapture->m_pointCursor2.y() = y;
 
          if(m_pwindowPointerEnter)
          {
 
-            m_pwindowPointerEnter->m_pointPointer.x() = x;
+            m_pwindowPointerEnter->m_pointCursor2.x() = x;
 
-            m_pwindowPointerEnter->m_pointPointer.y() = y;
+            m_pwindowPointerEnter->m_pointCursor2.y() = y;
 
          }
 
@@ -1940,9 +1958,9 @@ return nullptr;
       else if(m_pwindowPointerEnter)
       {
 
-         m_pwindowPointerEnter->m_pointPointer.x() = x;
+         m_pwindowPointerEnter->m_pointCursor2.x() = x;
 
-         m_pwindowPointerEnter->m_pointPointer.y() = y;
+         m_pwindowPointerEnter->m_pointCursor2.y() = y;
 
       }
 
@@ -1965,6 +1983,32 @@ return nullptr;
 
    void display::__handle_pointer_leave(::wl_pointer * pwlpointer, ::windowing_wayland::window * pwaylandwindowLeave)
    {
+
+      if(m_pwindowPointerCapture)
+      {
+
+         ::minimum(m_pwindowPointerCapture->m_pointCursor2.x());
+
+         ::minimum(m_pwindowPointerCapture->m_pointCursor2.y());
+
+         if(m_pwindowPointerEnter)
+         {
+
+            ::minimum(m_pwindowPointerEnter->m_pointCursor2.x());
+
+            ::minimum(m_pwindowPointerEnter->m_pointCursor2.y());
+
+         }
+
+      }
+      else if(m_pwindowPointerEnter)
+      {
+
+         ::minimum(m_pwindowPointerEnter->m_pointCursor2.x());
+
+         ::minimum(m_pwindowPointerEnter->m_pointCursor2.y());
+
+      }
 
       if(m_pwindowPointerCapture)
       {

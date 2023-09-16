@@ -37,7 +37,7 @@ namespace windowing_x11
 
       m_pobjectaExtendedEventListener->add(pdata);
 
-      windowing_post([this, bMouse, bKeyboard]()
+      user_post([this, bMouse, bKeyboard]()
                           {
 
                              synchronous_lock synchronouslock(user_synchronization());

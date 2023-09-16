@@ -119,6 +119,8 @@ namespace windowing_wayland
 
       //virtual ::Display * _get_system_default_display();
 
+      bool has_readily_gettable_absolute_pointer_position() const override;
+
 
       virtual ::windowing_wayland::window * _window(::wl_surface * pwlsurface);
 

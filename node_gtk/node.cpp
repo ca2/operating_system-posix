@@ -337,7 +337,7 @@ namespace node_gtk
       else
       {
 
-         node_post([this]()
+         user_post([this]()
                    {
 
                       // This seems not to work with "foreign" windows
@@ -973,7 +973,7 @@ namespace node_gtk
    }
 
 
-   void node::node_post(const ::procedure &procedure)
+   void node::user_post(const ::procedure &procedure)
    {
 
       gdk_branch(procedure);
@@ -981,7 +981,7 @@ namespace node_gtk
    }
 
 
-   void node::node_quit()
+   void node::user_post_quit()
    {
 
       ::os_post_quit();
@@ -1030,7 +1030,7 @@ namespace node_gtk
       // TODO check if ptopic below is own topic or what else?
       ::pointer<::particle> pparticle = ptopic;
 
-      node_post([pparticle]()
+      user_post([pparticle]()
                 {
 
                    auto ret = g_timeout_add(300, (GSourceFunc) &node_gtk_source_func, pparticle);
@@ -1551,7 +1551,7 @@ namespace node_gtk
 
       pathDesktop = acmedirectory()->home() / ".local/share/applications" / (strDesktopFileTitle + ".desktop");
 
-      main_asynchronous([this, pathDesktop]()
+      user_post([this, pathDesktop]()
                         {
 
                            GError *pgerror = NULL;
@@ -1676,7 +1676,7 @@ namespace node_gtk
    bool node::defer_windowing_post(const ::procedure & procedure)
    {
 
-      node_post(procedure);
+      user_post(procedure);
 
       return true;
 

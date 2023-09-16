@@ -99,15 +99,15 @@ namespace node_gtk
 
       string get_wallpaper(index iScreen) override;
 
-      using ::aura::node::node_post;
+//      using ::aura::node::node_post;
 
       virtual bool windowing_message_loop_step();
 
-      void node_post(const ::procedure & procedure) override;
+      void user_post(const ::procedure & procedure) override;
 
       virtual void _os_process_user_theme_color(string strTheme);
 
-      void node_quit() override;
+      void user_post_quit() override;
 
       bool should_launch_on_node(::topic * ptopic) override;
 

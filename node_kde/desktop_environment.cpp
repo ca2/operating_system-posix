@@ -168,7 +168,7 @@ namespace node_kde
    }
 
 
-   void desktop_environment::windowing_post(const ::procedure & procedure)
+   void desktop_environment::user_post(const ::procedure & procedure)
    {
 
       auto psystem = acmesystem()->m_paurasystem;

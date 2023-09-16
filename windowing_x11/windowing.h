@@ -133,7 +133,7 @@ namespace windowing_x11
 
       virtual bool x11_message_loop_step();
 
-      void windowing_post(const ::procedure & procedure) override;
+      //void windowing_post(const ::procedure & procedure) override;
 
       virtual bool x11_runnable_step();
 

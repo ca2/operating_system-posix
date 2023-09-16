@@ -50,6 +50,9 @@ namespace windowing_wayland
       void initialize_windowing(::user::user * puser) override;
 
 
+      bool has_readily_gettable_absolute_coordinates() const override;
+
+
       bool is_branch_current() const override;
 
 
@@ -140,7 +143,7 @@ namespace windowing_wayland
 
       //virtual bool x11_message_loop_step();
 
-      void windowing_post(const ::procedure & procedure) override;
+      //void windowing_post(const ::procedure & procedure) override;
 
       //virtual bool x11_runnable_step();
 

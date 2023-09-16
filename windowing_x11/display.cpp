@@ -441,9 +441,9 @@ namespace windowing_x11
 
       };
 
-      auto pwindowing = x11_windowing();
+      //auto pwindowing = x11_windowing();
 
-      pwindowing->windowing_post(predicate);
+      user_post(predicate);
 
       return ::success;
 
@@ -702,11 +702,11 @@ namespace windowing_x11
 
       };
 
-      auto pwindowing = x11_windowing();
+      //auto pwindowing = x11_windowing();
 
       //proutine->set_timeout(5_s);
 
-      pwindowing->windowing_send(predicate);
+      user_send(predicate);
 
 //      if(proutine->has_timed_out())
 //      {
@@ -738,7 +738,7 @@ namespace windowing_x11
    }
 
 
-   bool display::get_cursor_position(::point_i32 * ppointCursor)
+   ::point_i32 display::_get_mouse_cursor_position()
    {
 
       Window root_return;
@@ -759,8 +759,14 @@ namespace windowing_x11
 
       display_lock displaylock(Display());
 
-      XQueryPointer(Display(), DefaultRootWindow(Display()), &root_return, &child_return, &ppointCursor->x(),
-                    &ppointCursor->y(), &win_x_return, &win_y_return, &mask_return);
+      ::point_i32 pointCursor;
+
+      XQueryPointer(
+         Display(), DefaultRootWindow(Display()),
+         &root_return, &child_return,
+         &pointCursor.x(), &pointCursor.y(),
+         &win_x_return, &win_y_return,
+         &mask_return);
 
 #ifdef display_lock_LOCK_LOG
 
@@ -932,11 +938,11 @@ namespace windowing_x11
 
       bool bIsOrigin = false;
 
-      auto psystem = acmesystem()->m_papexsystem;
+      //auto psystem = acmesystem()->m_papexsystem;
 
-      auto pnode = psystem->node();
+      //auto pnode = psystem->node();
 
-      pnode->node_send([this, pointHitTest, pwindowExclude, iMargin, &bIsOrigin]()
+      user_send([this, pointHitTest, pwindowExclude, iMargin, &bIsOrigin]()
                        {
 
                           ::windowing_x11::window * pwindowxcbExclude = nullptr;

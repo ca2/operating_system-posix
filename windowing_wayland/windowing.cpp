@@ -54,6 +54,14 @@ namespace windowing_wayland
    }
 
 
+   bool windowing::has_readily_gettable_absolute_coordinates() const
+   {
+
+      return false;
+
+   }
+
+
    bool windowing::is_branch_current() const
    {
 
@@ -168,23 +176,23 @@ namespace windowing_wayland
 //   }
 
 
-   void windowing::windowing_post(const ::procedure & procedure)
-   {
-
-      if (!procedure)
-      {
-
-         throw ::exception(error_null_pointer);
-
-      }
-
-      synchronous_lock synchronouslock(this->synchronization());
-
-      m_procedurelist.add_tail(procedure);
-
-      //return ::success_scheduled;
-
-   }
+//   void windowing::windowing_post(const ::procedure & procedure)
+//   {
+//
+//      if (!procedure)
+//      {
+//
+//         throw ::exception(error_null_pointer);
+//
+//      }
+//
+//      synchronous_lock synchronouslock(this->synchronization());
+//
+//      m_procedurelist.add_tail(procedure);
+//
+//      //return ::success_scheduled;
+//
+//   }
 
 
 //   bool windowing::x11_runnable_step()

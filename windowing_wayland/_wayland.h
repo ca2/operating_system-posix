@@ -86,5 +86,23 @@ CLASS_DECL_ACME ::particle * user_synchronization();
 //};
 
 
+inline bool xdg_toplevel_state_array_contains(::wl_array * pwlarray, xdg_toplevel_state state)
+{
 
+   ::count c = pwlarray->size / sizeof(state);
 
+   for(::index i = 0; i < c; i++)
+   {
+
+      if(((xdg_toplevel_state *)pwlarray->data)[i] == state)
+      {
+
+         return true;
+
+      }
+
+   }
+
+   return false;
+
+}

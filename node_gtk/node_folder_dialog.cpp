@@ -71,7 +71,7 @@ namespace node_gtk
 
       pdialog->increment_reference_count();
 
-      node_post([pdialog]()
+      user_post([pdialog]()
                         {
 
                            GtkWidget *widget;

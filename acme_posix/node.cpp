@@ -622,12 +622,12 @@ namespace acme_posix
    }
 
 
-   void node::node_post(const ::procedure & procedure)
-   {
-
-      ::acme::node::node_post(procedure);
-
-   }
+//   void node::user_post(const ::procedure & procedure)
+//   {
+//
+//      ::acme::node::node_post(procedure);
+//
+//   }
 
 
 

@@ -157,20 +157,22 @@ namespace windowing_wayland
                                struct xdg_toplevel * pxdgtoplevel,
                                int32_t width,
                                int32_t height,
-                               struct wl_array * states)
+                               ::wl_array * pwlarrayState)
    {
 
       auto pwaylandwindow = (window *) data;
 
       if(pwaylandwindow->m_resizeedge != 0)
       {
-         if (states->size == 0)
+
+         if (pwlarrayState->size == 0)
          {
 
-            pwaylandwindow->m_resizeedge= XDG_TOPLEVEL_RESIZE_EDGE_NONE;
+            pwaylandwindow->m_resizeedge = XDG_TOPLEVEL_RESIZE_EDGE_NONE;
 
          }
-         else{
+         else
+         {
 
             if(pwaylandwindow->m_resizeedge == XDG_TOPLEVEL_RESIZE_EDGE_BOTTOM
             || pwaylandwindow->m_resizeedge == XDG_TOPLEVEL_RESIZE_EDGE_TOP)
@@ -188,9 +190,10 @@ namespace windowing_wayland
             }
 
          }
+
       }
 
-      pwaylandwindow->__handle_xdg_toplevel_configure(width, height);
+      pwaylandwindow->__handle_xdg_toplevel_configure(width, height, pwlarrayState);
 
    }
 
@@ -296,10 +299,6 @@ namespace windowing_wayland
       printf("Redrawing\n");
    }
 
-   static const struct wl_callback_listener frame_listener = {
-      redraw
-   };
-
    static void
    configure_callback(void * data, struct wl_callback * callback, uint32_t time)
    {
@@ -345,6 +344,8 @@ namespace windowing_wayland
       //m_bXShmComplete = false;
       m_pWindow4 = this;
       m_uLastConfigureSerial = 0;
+      m_uLastRequestSerial = 0;
+      m_uLastAckSerial = 0;
       //m_iXic = 0;
 
       //m_xic = nullptr;
@@ -357,7 +358,6 @@ namespace windowing_wayland
       //m_bNetWmStateHidden = false;
       //m_bNetWmStateMaximized = false;
       //m_bNetWmStateFocused = false;
-
 
       //      for (auto & i : m_iaNetWmState)
       //      {
@@ -590,122 +590,19 @@ namespace windowing_wayland
 //
 //
 //         x
-         m_pwlsurface = wl_compositor_create_surface(pdisplaywayaland->m_pwlcompositor);
-
-         if (m_pwlsurface == NULL)
-         {
-
-            error() << "Can't create wayland surface";
-
-            throw ::exception(::error_failed);
-
-         }
-         else
-         {
-
-            information() << "Created wayland surface";
-
-         }
-
-         //wl_surface_add_listener(m_pwlsurface, &g_wl_surface_listener, this);
-
-         pdisplaywayaland->m_windowmap[m_pwlsurface] = this;
-
-         auto pxdgwmbase = pdisplaywayaland->m_pxdgwmbase;
-
-         information() << "pxdgwmbase : " << (::iptr) pxdgwmbase;
-
-         m_pxdgsurface = xdg_wm_base_get_xdg_surface(pxdgwmbase, m_pwlsurface);
-
-         if (m_pxdgsurface == NULL)
-         {
-
-            pdisplaywayaland->m_windowmap.erase_item(m_pwlsurface);
-
-            error() << "Can't create shell surface";
-
-            throw ::exception(::error_failed);
-
-         }
-         else
-         {
-
-            information() << "Created shell surface";
-
-         }
-
-         xdg_surface_add_listener(m_pxdgsurface, &xdg_surface_listener, this);
-
-         m_pxdgtoplevel = xdg_surface_get_toplevel(m_pxdgsurface);
-
-         if (m_pxdgtoplevel == NULL)
-         {
-
-            pdisplaywayaland->m_windowmap.erase_item(m_pwlsurface);
-
-            error() << "Can't create toplevel";
-
-            throw ::exception(::error_failed);
-
-         }
-         else
-         {
-
-            information() << "Created toplevel";
-
-         }
-
-         xdg_toplevel_add_listener(m_pxdgtoplevel, &g_xdg_toplevel_listener, this);
-
-         //m_pointWindow.x() = x;
-
-         //m_pointWindow.y() = y;
 
          m_pointWindow.x() = 0;
 
          m_pointWindow.y() = 0;
 
+         m_pointWindowBestEffort.x() = x;
+
+         m_pointWindowBestEffort.y() = y;
+
          m_sizeWindow.cx() = cx;
 
          m_sizeWindow.cy() = cy;
 
-         xdg_surface_set_window_geometry(m_pxdgsurface, x, y, cx, cy);
-
-
-        if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
-        {
-
-           auto psystem = acmesystem()->m_papexsystem;
-
-           string strApplicationServerName = psystem->get_application_server_name();
-
-           xdg_toplevel_set_app_id(m_pxdgtoplevel, strApplicationServerName);
-
-        }
-
-         string strWindowText = pimpl->m_puserinteraction->get_window_text();
-
-//         if (strWindowText.has_char())
-//         {
-//
-//            strName = strWindowText;
-//
-//         }
-
-         //}
-
-         if (strWindowText.has_char())
-         {
-
-            xdg_toplevel_set_title(m_pxdgtoplevel, strWindowText);
-
-         }
-
-         wl_surface_commit(m_pwlsurface);
-
-         wl_display_dispatch(pdisplaywayaland->m_pwldisplay);
-
-         wl_display_roundtrip(pdisplaywayaland->m_pwldisplay);
 
 //         ::Window window = XCreateWindow(display, DefaultRootWindow(display),
 //                                         x, y,
@@ -1040,44 +937,44 @@ namespace windowing_wayland
 
       //displaylock.unlock();
 
-      //if(pshowwindow->m_bShow)
-      {
-
-         //::rectangle_i32 rect32;
-
-         //(::window_rectangle((oswindow) get_handle(), rect32))
-         {
-
-
-            if (get_session() != nullptr)
-            {
-
-               // Initial position of window below the cursor position
-               // with invalid (empty) size.
-               // (Hinting for monitor placement, if no stored information
-               // available).
-
-               if (pimpl->m_puserinteraction->const_layout().sketch().display() == e_display_undefined)
-               {
-
-                  auto pointCursor = get_cursor_position();
-
-                  pimpl->m_puserinteraction->set_position(pointCursor);
-
-                  pimpl->m_puserinteraction->set_size({0, 0});
-
-               }
-
-            }
-
-         }
-
-         //   }
-
-         //});
-         //}
-
-      }
+//      //if(pshowwindow->m_bShow)
+//      {
+//
+//         //::rectangle_i32 rect32;
+//
+//         //(::window_rectangle((oswindow) get_handle(), rect32))
+//         {
+//
+//
+//            if (get_session() != nullptr)
+//            {
+//
+//               // Initial position of window below the cursor position
+//               // with invalid (empty) size.
+//               // (Hinting for monitor placement, if no stored information
+//               // available).
+//
+//               if (pimpl->m_puserinteraction->const_layout().sketch().display() == e_display_undefined)
+//               {
+//
+//                  auto pointCursor = get_cursor_position();
+//
+//                  pimpl->m_puserinteraction->set_position(pointCursor);
+//
+//                  pimpl->m_puserinteraction->set_size({0, 0});
+//
+//               }
+//
+//            }
+//
+//         }
+//
+//         //   }
+//
+//         //});
+//         //}
+//
+//      }
 
       // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
       // {
@@ -1211,6 +1108,215 @@ namespace windowing_wayland
 
    }
 
+
+   void window::__map()
+   {
+
+      if(m_pxdgtoplevel != nullptr)
+      {
+
+         return;
+
+      }
+
+      ::minimum(m_sizeConfigure.cx());
+
+      ::minimum(m_sizeConfigure.cy());
+
+      m_bDoneFirstMapping = false;
+
+      //m_bXdgInitialConfigure = false;
+
+      m_uLastRequestSerial = 0;
+
+      m_uLastConfigureSerial = 0;
+
+      m_uLastAckSerial = 0;
+
+      auto pdisplaywayaland = dynamic_cast < ::windowing_wayland::display * > (m_pdisplay.m_p);
+
+      m_pwlsurface = wl_compositor_create_surface(pdisplaywayaland->m_pwlcompositor);
+
+      if (m_pwlsurface == NULL)
+      {
+
+         error() << "Can't create wayland surface";
+
+         throw ::exception(::error_failed);
+
+      }
+      else
+      {
+
+         information() << "Created wayland surface";
+
+      }
+
+      //wl_surface_add_listener(m_pwlsurface, &g_wl_surface_listener, this);
+
+      pdisplaywayaland->m_windowmap[m_pwlsurface] = this;
+
+
+      auto pxdgwmbase = pdisplaywayaland->m_pxdgwmbase;
+
+      information() << "pxdgwmbase : " << (::iptr) pxdgwmbase;
+
+      m_pxdgsurface = xdg_wm_base_get_xdg_surface(pxdgwmbase, m_pwlsurface);
+
+      if (m_pxdgsurface == NULL)
+      {
+
+         pdisplaywayaland->m_windowmap.erase_item(m_pwlsurface);
+
+         error() << "Can't create shell surface";
+
+         throw ::exception(::error_failed);
+
+      }
+      else
+      {
+
+         information() << "Created shell surface";
+
+      }
+
+      xdg_surface_add_listener(m_pxdgsurface, &xdg_surface_listener, this);
+
+      m_pxdgtoplevel = xdg_surface_get_toplevel(m_pxdgsurface);
+
+      if (m_pxdgtoplevel == NULL)
+      {
+
+         pdisplaywayaland->m_windowmap.erase_item(m_pwlsurface);
+
+         error() << "Can't create toplevel";
+
+         throw ::exception(::error_failed);
+
+      }
+      else
+      {
+
+         information() << "Created toplevel";
+
+      }
+
+      xdg_toplevel_add_listener(m_pxdgtoplevel, &g_xdg_toplevel_listener, this);
+
+      //m_pointWindow.x() = x;
+
+      //m_pointWindow.y() = y;
+
+      auto x = m_pointWindowBestEffort.x();
+
+      auto y = m_pointWindowBestEffort.y();
+
+      auto cx = m_sizeWindow.cx();
+
+      auto cy = m_sizeWindow.cy();
+
+      xdg_surface_set_window_geometry(m_pxdgsurface, x, y, cx, cy);
+
+      auto pimpl = m_puserinteractionimpl;
+
+      if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
+      {
+
+         auto psystem = acmesystem()->m_papexsystem;
+
+         string strApplicationServerName = psystem->get_application_server_name();
+
+         xdg_toplevel_set_app_id(m_pxdgtoplevel, strApplicationServerName);
+
+      }
+
+      string strWindowText = pimpl->m_puserinteraction->get_window_text();
+
+//         if (strWindowText.has_char())
+//         {
+//
+//            strName = strWindowText;
+//
+//         }
+
+      //}
+
+      if (strWindowText.has_char())
+      {
+
+         xdg_toplevel_set_title(m_pxdgtoplevel, strWindowText);
+
+      }
+
+      m_timeLastConfigureRequest.Now();
+
+      m_uLastRequestSerial = m_uLastConfigureSerial;
+
+      wl_surface_commit(m_pwlsurface);
+
+      //m_timeLastConfigureRequest += 1_s;
+
+      while(!m_bXdgInitialConfigure)
+      {
+
+         //wl_display_flush(pdisplaywayaland->m_pwldisplay);
+
+         wl_display_dispatch(pdisplaywayaland->m_pwldisplay);
+
+         //wl_display_dispatch(pdisplaywayaland->m_pwldisplay);
+
+         //wl_display_roundtrip(pdisplaywayaland->m_pwldisplay);
+
+      }
+
+   }
+
+
+   void window::__unmap()
+   {
+
+      if(m_pwlsurface != nullptr)
+      {
+
+         /* Detach any previous buffers before resetting everything, otherwise when
+         * calling this a second time you'll get an annoying protocol error
+         */
+         wl_surface_attach(m_pwlsurface, NULL, 0, 0);
+         wl_surface_commit(m_pwlsurface);
+
+      }
+
+
+
+      if(m_pxdgtoplevel != nullptr)
+      {
+
+         xdg_toplevel_destroy(m_pxdgtoplevel);
+
+         m_pxdgtoplevel = nullptr;
+
+      }
+
+      if(m_pxdgsurface != nullptr)
+      {
+
+         xdg_surface_destroy(m_pxdgsurface);
+
+         m_pxdgsurface = nullptr;
+
+      }
+
+      if(m_pwlsurface != nullptr)
+      {
+
+         wl_surface_destroy(m_pwlsurface);
+
+         m_pwlsurface = nullptr;
+
+
+      }
+
+   }
 
    void window::set_wm_class(const char * psz)
    {
@@ -1963,12 +2069,20 @@ namespace windowing_wayland
    }
 
 
-   ::point_i32 window::get_mouse_cursor_position()
-   {
-
-      return m_pointCursor;
-
-   }
+//   ::point_i32 window::get_mouse_cursor_host_position()
+//   {
+//
+//      return m_pointCursor;
+//
+//   }
+//
+//
+//   ::point_i32 window::get_mouse_cursor_absolute_position()
+//   {
+//
+//      return m_pointCursorHost;
+//
+//   }
 
 
    ::windowing_wayland::windowing * window::wayland_windowing() const
@@ -2207,7 +2321,7 @@ namespace windowing_wayland
 //   void window::show_window(const ::e_display & edisplay, const ::e_activation & eactivation)
 //   {
 //
-//      x11_windowing()->windowing_post([this, edisplay, eactivation]()
+//      user_post([this, edisplay, eactivation]()
 //                                      {
 //
 //                                         windowing_output_debug_string("::window::show_window 1");
@@ -2253,12 +2367,13 @@ namespace windowing_wayland
 ////
 ////
 ////         }
-////         else if (edisplay == e_display_iconic)
-////         {
-////
-////            wm_iconify_window();
-////
-////         }
+//         if (edisplay == e_display_iconic)
+//         {
+//
+//            //wm_iconify_window();
+//            xdg_toplevel_set_minimized(m_pxdgtoplevel);
+//
+//        }
 ////         else if (::is_visible(edisplay))
 ////         {
 ////
@@ -2300,7 +2415,7 @@ namespace windowing_wayland
 //   void window::_show_window_unlocked(const ::e_display & edisplay, const ::e_activation & eactivation)
 //   {
 //
-//      //x11_windowing()->windowing_post([this, edisplay, eactivation]()
+//      //user_post([this, edisplay, eactivation]()
 //      //{
 //
 //      windowing_output_debug_string("::window::show_window 1");
@@ -3617,7 +3732,32 @@ namespace windowing_wayland
 
       }
 
-      windowing_output_debug_string("::window::_configure_window_unlocked 1");
+      if(m_uLastRequestSerial == m_uLastConfigureSerial)
+      {
+
+         return false;
+
+      }
+
+      if(::is_null(m_pxdgtoplevel))
+      {
+
+         return false;
+
+      }
+
+//      acmenode()->post_procedure([this, zorder, eactivation, bNoZorder, edisplay]()
+//                                 {
+
+//                                    if(m_uLastRequestSerial == m_uLastConfigureSerial)
+//                                    {
+//
+//                                       return;
+//
+//                                    }
+
+
+                                    windowing_output_debug_string("::window::_configure_window_unlocked 1");
 
 //      m_atomaNetWmState = _get_net_wm_state_unlocked();
 //
@@ -3646,9 +3786,22 @@ namespace windowing_wayland
 //
 //      }
 //
-//      if (edisplay != e_display_zoomed)
-//      {
-//
+
+
+      if (edisplay != e_display_zoomed && m_puserinteractionimpl->m_puserinteraction->const_layout().window().display() == e_display_zoomed)
+      {
+
+         information() << "xdg_toplevel_unset_maximized";
+
+         m_uLastRequestSerial = m_uLastConfigureSerial;
+
+         m_timeLastConfigureRequest.Now();
+
+         xdg_toplevel_unset_maximized(m_pxdgtoplevel);
+
+      }
+
+
 //         auto atomMaxH = x11_display()->m_atomNetWmStateMaximizedHorz;
 //
 //         auto atomMaxP = x11_display()->m_atomNetWmStateMaximizedVert;
@@ -3671,18 +3824,52 @@ namespace windowing_wayland
 //
 //      }
 //
-//      if(edisplay == e_display_iconic)
-//      {
-//
-//         information() << "_configure_window_unlocked XIconifyWindow";
-//
+
+      if(edisplay == e_display_iconic)
+      {
+
+         information() << "xdg_toplevel_set_minimized";
+
 //         XIconifyWindow(Display(), Window(), Screen());
-//
-//         return true;
-//
-//      }
-//      else if (edisplay == e_display_zoomed)
-//      {
+//         if (edisplay == e_display_iconic)
+//         {
+
+         m_uLastRequestSerial = m_uLastConfigureSerial;
+
+         m_timeLastConfigureRequest.Now();
+
+
+            //wm_iconify_window();
+            xdg_toplevel_set_minimized(m_pxdgtoplevel);
+
+         //wl_surface_commit(m_pwlsurface);
+
+
+//         m_timeLastConfigureRequest.Now();
+
+//         }
+
+         //return true;
+
+      }
+      else if (edisplay == e_display_zoomed)
+      {
+
+         information() << "xdg_toplevel_set_maximized";
+
+         m_uLastRequestSerial = m_uLastConfigureSerial;
+
+         m_timeLastConfigureRequest.Now();
+
+         xdg_toplevel_set_maximized(m_pxdgtoplevel);
+
+         //wl_surface_commit(m_pwlsurface);
+//         m_timeLastConfigureRequest.Now();
+
+         //wl_display_dispatch(wayland_display()->m_pwldisplay);
+
+         //wl_display_roundtrip(wayland_display()->m_pwldisplay);
+
 //
 //         auto atomMaxH = x11_display()->m_atomNetWmStateMaximizedHorz;
 //
@@ -3729,10 +3916,16 @@ namespace windowing_wayland
 //
 //         }
 //
-//      }
-//
-//      if (!windowing()->is_screen_visible(edisplay))
-//      {
+      }
+else
+      if (!windowing()->is_screen_visible(edisplay))
+      {
+
+         xdg_toplevel_destroy(m_pxdgtoplevel);
+
+         m_pxdgtoplevel = nullptr;
+
+      }
 //
 //         if (m_xwindowattributes.map_state == IsViewable)
 //         {
@@ -3876,11 +4069,24 @@ namespace windowing_wayland
 //      }
 
       windowing_output_debug_string("::window::set_window_pos 2");
+//                                    ::pointer < ::windowing_wayland::display > pwaylanddisplay = m_pdisplay;
+  //                                  wl_display_flush(pwaylanddisplay->m_pwldisplay);
 
-//      ::pointer < ::windowing_wayland::display > pwaylanddisplay = m_pdisplay;
-//      wl_display_dispatch(pwaylanddisplay->m_pwldisplay);
-//
-//      wl_display_roundtrip(pwaylanddisplay->m_pwldisplay);
+                                    //wl_surface_commit(m_pwlsurface);
+
+//                                    acmenode()->post_procedure([this]()
+//                                                               {
+//                                                                  ::pointer < ::windowing_wayland::display > pwaylanddisplay = m_pdisplay;
+//                                                                  wl_display_flush(pwaylanddisplay->m_pwldisplay);
+////
+////      ::pointer < ::windowing_wayland::display > pwaylanddisplay = m_pdisplay;
+////      wl_display_dispatch(pwaylanddisplay->m_pwldisplay);
+////
+////      wl_display_roundtrip(pwaylanddisplay->m_pwldisplay);
+////
+//                                                               });
+
+//                                 });
 
       return true;
 
@@ -4102,17 +4308,33 @@ namespace windowing_wayland
 
       windowing_output_debug_string("::window::_strict_set_window_position_unlocked 2");
 
-      //information() << "::windowing_wayland::window::_strict_set_window_position_unlocked";
-      xdg_surface_set_window_geometry(m_pxdgsurface, x, y, cx, cy);
+      if(bMove || bSize)
+      {
 
-      m_pointWindow.x() = x;
+         if(bMove)
+         {
 
-      m_pointWindow.y() = y;
+            m_pointWindow.x() = x;
+            m_pointWindow.y() = y;
 
-      m_sizeWindow.cx() = cx;
+         }
 
-      m_sizeWindow.cy() = cy;
+         if(bSize)
+         {
 
+            m_sizeWindow.cx() = cx;
+            m_sizeWindow.cy() = cy;
+
+         }
+
+         information() << "xdg_surface_set_window_geometry";
+
+         xdg_surface_set_window_geometry(
+            m_pxdgsurface,
+            m_pointWindow.x(), m_pointWindow.y(),
+            m_sizeWindow.cx(), m_sizeWindow.cy());
+
+      }
 
       return true;
 
@@ -4239,6 +4461,8 @@ namespace windowing_wayland
    {
 
       ::windowing::window::set_mouse_cursor(pcursor);
+
+      windowing()->set_mouse_cursor(pcursor);
 
    }
 
@@ -4938,11 +5162,29 @@ namespace windowing_wayland
 
       windowing_output_debug_string("::DestroyWindow 1");
 
+      information() << "windowing_wayland::window::destroy_window";
+
 //      display_lock displaylock(x11_display()->Display());
 //
 //      XUnmapWindow(Display(), Window());
 //
 //      XDestroyWindow(Display(), Window());
+
+if(::is_set(m_pxdgtoplevel))
+{
+
+   xdg_toplevel_destroy(m_pxdgtoplevel);
+
+   m_pxdgtoplevel = nullptr;
+
+}
+
+if(::is_set(m_pwlsurface))
+{
+
+   wl_surface_destroy(m_pwlsurface);
+
+}
 
       windowing_output_debug_string("::DestroyWindow 2");
 //
@@ -5390,7 +5632,7 @@ namespace windowing_wayland
    void window::window_update_screen_buffer()
    {
 
-      m_pwindowing->windowing_post([this]()
+      user_post([this]()
                                    {
 
                                       auto pimpl = m_puserinteractionimpl;
@@ -5433,22 +5675,22 @@ namespace windowing_wayland
 
          auto pimpl = m_puserinteractionimpl;
 
-         if(m_bDoneFirstMapping)
-         {
+//         if(m_bDoneFirstMapping)
+//         {
+//
+//            configure_window_unlocked();
+//
+//         }
 
-            configure_window_unlocked();
+         pimpl->m_pgraphics->update_screen();
 
-         }
-
-         ::pointer<buffer> pbuffer = pimpl->m_pgraphics;
-
-         pbuffer->_update_screen_lesser_lock();
+         //pbuffer->update_screen();
 
       }
 
-      auto pimpl = m_puserinteractionimpl;
-
-      pimpl->m_pgraphicsthread->on_graphics_thread_iteration_end();
+//      auto pimpl = m_puserinteractionimpl;
+//
+//      pimpl->m_pgraphicsthread->on_graphics_thread_iteration_end();
 
 //                                  });
 
@@ -5746,7 +5988,7 @@ namespace windowing_wayland
 
       m_pwlpointer = pwlpointer;
 
-      m_pointCursor = m_pointPointer;
+      //m_pointCursor2 = m_pointPointer;
 
    }
 
@@ -5756,7 +5998,7 @@ namespace windowing_wayland
 
       m_pwlpointer = pwlpointer;
 
-      m_pointCursor = m_pointPointer;
+      //m_pointCursor2 = m_pointPointer;
 
       auto pmouse = __create_new<::message::mouse>();
 
@@ -5766,7 +6008,9 @@ namespace windowing_wayland
 
       pmouse->m_atom = e_message_mouse_move;
 
-      pmouse->m_point = m_pointCursor;
+      pmouse->m_pointHost = m_pointCursor2;
+
+      pmouse->m_pointAbsolute = m_pointCursor2;
 
       pmouse->m_time.m_iSecond = millis / 1_k;
 
@@ -5774,16 +6018,18 @@ namespace windowing_wayland
 
       //pwindow->message_handler(pmouse);
 
-      wayland_windowing()->post_ui_message(pmouse);
+      //wayland_windowing()->post_ui_message(pmouse);
+
+      m_puserinteractionimpl->message_handler(pmouse);
 
    }
 
 
 
-
-
    void window::__handle_pointer_leave(::wl_pointer * pwlpointer, ::windowing_wayland::window * pwaylandwindowLeave)
    {
+
+      information() << "__handle_pointer_leave";
 
       m_pwlpointer = pwlpointer;
 
@@ -5820,15 +6066,44 @@ namespace windowing_wayland
 
 //
 
-      MESSAGE msg;
-      msg.oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
-      msg.m_atom = e_message_mouse_leave;
-      msg.wParam = 0;
-      msg.lParam = 0;
-      //   msg.time = e.xcrossing.time;
-      msg.time = 0;
+      ::minimum(m_pointCursor2.x());
 
-      wayland_windowing()->post_ui_message(msg);
+      ::minimum(m_pointCursor2.y());
+
+//      MESSAGE msg;
+//      msg.oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
+//      msg.m_atom = e_message_mouse_leave;
+//      msg.wParam = 0;
+//      msg.lParam = 0;
+//      //   msg.time = e.xcrossing.time;
+//      msg.time = 0;
+//
+//      wayland_windowing()->post_ui_message(msg);
+
+      auto pmouse = __create_new<::message::mouse>();
+
+      pmouse->m_oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
+
+      pmouse->m_pwindow = pmouse->m_oswindow;
+
+      pmouse->m_atom = e_message_mouse_leave;
+
+      pmouse->m_pointHost = m_pointCursor2;
+
+      pmouse->m_pointAbsolute = m_pointCursor2;
+
+      //pmouse->m_time.m_iSecond = millis / 1_k;
+
+      //pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+
+      //msg.wParam = 0;
+
+      //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+
+      //post_ui_message(msg);
+      //wayland_windowing()->post_ui_message(pmouse);
+
+      m_puserinteractionimpl->message_handler(pmouse);
 
 //            }
 
@@ -5932,7 +6207,7 @@ namespace windowing_wayland
 
       }
 
-      m_pointCursor = m_pointPointer;
+      //m_pointCursor2 = m_pointPointer;
 
 //      MESSAGE msg;
 //
@@ -5973,14 +6248,17 @@ namespace windowing_wayland
 
          pmousewheel->m_Δ = Δ;
 
-         pmousewheel->m_point = m_pointCursor;
+         pmousewheel->m_pointHost = m_pointCursor2;
+
+         pmousewheel->m_pointAbsolute = m_pointCursor2;
 
          pmousewheel->m_time.m_iSecond =millis / 1_k;
 
          pmousewheel->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
 
-         wayland_windowing()->post_ui_message(pmousewheel);
+         //wayland_windowing()->post_ui_message(pmousewheel);
 
+         m_puserinteractionimpl->message_handler(pmousewheel);
 
       }
       else if (bRet)
@@ -5994,7 +6272,9 @@ namespace windowing_wayland
 
          pmouse->m_atom = emessage;
 
-         pmouse->m_point = m_pointCursor;
+         pmouse->m_pointHost = m_pointCursor2;
+
+         pmouse->m_pointAbsolute = m_pointCursor2;
 
          pmouse->m_time.m_iSecond = millis / 1_k;
 
@@ -6042,14 +6322,14 @@ namespace windowing_wayland
    void window::__defer_xdg_surface_ack_configure()
    {
 
-      if(m_uLastConfigureSerial)
+      if(m_uLastAckSerial < m_uLastConfigureSerial)
       {
 
-         auto uSerial = m_uLastConfigureSerial;
+         m_uLastAckSerial = m_uLastConfigureSerial;
 
-         m_uLastConfigureSerial = 0;
+         xdg_surface_ack_configure(m_pxdgsurface, m_uLastAckSerial);
 
-         xdg_surface_ack_configure(m_pxdgsurface, uSerial);
+         information() << "xdg_surface_ack_configure : " << m_uLastAckSerial;
 
       }
 
@@ -6060,6 +6340,13 @@ namespace windowing_wayland
    {
 
       information() << "__handle_xdg_surface_configure : " << serial;
+
+      if(!m_bXdgInitialConfigure)
+      {
+
+         m_bXdgInitialConfigure = true;
+
+      }
 
       m_uLastConfigureSerial = serial;
 
@@ -6081,10 +6368,12 @@ namespace windowing_wayland
    }
 
 
-   void window::__handle_xdg_toplevel_configure(::i32 width, ::i32 height)
+   void window::__handle_xdg_toplevel_configure(::i32 width, ::i32 height, ::wl_array * pwlarrayState)
    {
 
       ::size_i32 size(width, height);
+
+      information() << "__handle_xdg_toplevel_configure input size : " << size;
 
       if(size.cx() > 0)
       {
@@ -6100,7 +6389,69 @@ namespace windowing_wayland
 
       }
 
-      information() << "__handle_xdg_toplevel_configure size actually used : " << m_sizeWindow;
+      m_sizeConfigure = m_sizeWindow;
+
+      information() << "__handle_xdg_toplevel_configure effective size : " << m_sizeWindow;
+
+      if(pwlarrayState->size == 0)
+      {
+
+         information() << "pwlarrayState is EMPTY";
+
+      }
+      else
+      {
+
+         if (xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_MAXIMIZED))
+         {
+
+            information() << "pwlarrayState contains XDG_TOPLEVEL_STATE_MAXIMIZED";
+
+         }
+
+         if (xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_FULLSCREEN))
+         {
+
+            information() << "pwlarrayState contains XDG_TOPLEVEL_STATE_FULLSCREEN";
+
+         }
+
+         if (xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_ACTIVATED))
+         {
+
+            information() << "pwlarrayState contains XDG_TOPLEVEL_STATE_ACTIVATED";
+
+            if(m_puserinteractionimpl->m_puserinteraction->const_layout().window().display() == ::e_display_iconic)
+            {
+
+               ::string strType = ::type(m_puserinteractionimpl->m_puserinteraction).name();
+
+               information() << "Window was iconic type : " << strType;
+
+               if (xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_MAXIMIZED))
+               {
+
+                  m_puserinteractionimpl->m_puserinteraction->display(::e_display_zoomed);
+
+               }
+               else if (xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_FULLSCREEN))
+               {
+
+                  m_puserinteractionimpl->m_puserinteraction->display(::e_display_full_screen);
+
+               }
+               else
+               {
+
+                  m_puserinteractionimpl->m_puserinteraction->display(::e_display_normal);
+
+               }
+
+            }
+
+         }
+
+      }
 
       m_puserinteractionimpl->m_puserinteraction->set_size(m_sizeWindow);
 
@@ -6115,14 +6466,19 @@ namespace windowing_wayland
 
       auto pxdgtoplevel = m_pxdgtoplevel;
 
-      auto pwlseat = wayland_display()->m_pwlseat;
+      if(::is_set(pxdgtoplevel))
+      {
 
-      auto uSerial = wayland_display()->m_uLastButtonSerial;
+         auto pwlseat = wayland_display()->m_pwlseat;
 
-      xdg_toplevel_move(
-         pxdgtoplevel,
-         pwlseat,
-         uSerial);
+         auto uSerial = wayland_display()->m_uLastButtonSerial;
+
+         xdg_toplevel_move(
+            pxdgtoplevel,
+            pwlseat,
+            uSerial);
+
+      }
 
           //                        });
 //      while (wl_display_dispatch(wayland_display()->m_pwldisplay) != -1)
@@ -6154,15 +6510,19 @@ namespace windowing_wayland
 
       //windowing()->windowing_post([this, resizeedge]()
         //                          {
-      m_resizeedge = resizeedge;
 
-                                     xdg_toplevel_resize(
-                                        m_pxdgtoplevel,
-                                        wayland_display()->m_pwlseat,
-                                        wayland_display()->m_uLastButtonSerial,
-                                        resizeedge);
+       if(::is_set(m_pxdgtoplevel))
+       {
+          m_resizeedge = resizeedge;
 
-                                  //});
+          xdg_toplevel_resize(
+             m_pxdgtoplevel,
+             wayland_display()->m_pwlseat,
+             wayland_display()->m_uLastButtonSerial,
+             resizeedge);
+
+          //});
+       }
 
       return true;
 

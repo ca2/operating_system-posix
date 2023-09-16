@@ -33,7 +33,7 @@ namespace node_kde
       void get_workspace_rectangle(::index iMonitor, ::rectangle_i32 * prectangle) override;
 
 
-      void windowing_post(const ::procedure & procedure) override;
+      void user_post(const ::procedure & procedure) override;
 
 
       bool message_loop_step() override;

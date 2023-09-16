@@ -163,23 +163,23 @@ namespace windowing_x11
 //   }
 
 
-   void windowing::windowing_post(const ::procedure & procedure)
-   {
-
-      if (!procedure)
-      {
-
-         throw ::exception(error_null_pointer);
-
-      }
-
-      synchronous_lock synchronouslock(this->synchronization());
-
-      m_procedurelist.add_tail(procedure);
-
-      //return ::success_scheduled;
-
-   }
+//   void windowing::windowing_post(const ::procedure & procedure)
+//   {
+//
+//      if (!procedure)
+//      {
+//
+//         throw ::exception(error_null_pointer);
+//
+//      }
+//
+//      synchronous_lock synchronouslock(this->synchronization());
+//
+//      m_procedurelist.add_tail(procedure);
+//
+//      //return ::success_scheduled;
+//
+//   }
 
 
    bool windowing::x11_runnable_step()

@@ -76,11 +76,7 @@ namespace node_gnome
    bool copydesk::_set_plain_text(const string & str)
    {
 
-      auto psystem = acmesystem()->m_paurasystem;
-
-      auto pnode = psystem->node();
-
-      pnode->node_post([str]
+      user_post([str]
       {
 
          GtkClipboard * clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
@@ -130,11 +126,7 @@ namespace node_gnome
 
       ppayload->m_payload = false;
 
-      auto psystem = acmesystem()->m_paurasystem;
-
-      auto pnode = psystem->node();
-
-      pnode->node_send([ppayload]()
+      user_send([ppayload]()
       {
 
          GtkClipboard* clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
@@ -277,11 +269,7 @@ namespace node_gnome
 
       bool bIsImageAvailable = false;
 
-      auto psystem = acmesystem()->m_papexsystem;
-
-      auto pnode = psystem->node();
-
-      pnode->node_send([&]()
+      user_send([&]()
       {
 
          GtkClipboard* clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);

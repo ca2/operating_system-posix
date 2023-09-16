@@ -321,7 +321,7 @@ namespace windowing_wayland
 //   void window::wm_toolwindow(bool bToolWindow)
 //   {
 //
-//      x11_windowing()->windowing_post([this, bToolWindow]()
+//      user_post([this, bToolWindow]()
 //      {
 //
 //         windowing_output_debug_string("::wm_toolwindow 1");

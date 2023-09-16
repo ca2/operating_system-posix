@@ -617,46 +617,46 @@ namespace windowing_x11
 
       }
 
-      //displaylock.unlock();
-
-      //if(pshowwindow->m_bShow)
-      {
-
-         //::rectangle_i32 rect32;
-
-         //(::window_rectangle((oswindow) get_handle(), rect32))
-         {
-
-
-            if (get_session() != nullptr)
-            {
-
-               // Initial position of window below the cursor position
-               // with invalid (empty) size.
-               // (Hinting for monitor placement, if no stored information
-               // available).
-
-               if (pimpl->m_puserinteraction->const_layout().sketch().display() == e_display_undefined)
-               {
-
-                  auto pointCursor = get_cursor_position();
-
-                  pimpl->m_puserinteraction->set_position(pointCursor);
-
-                  pimpl->m_puserinteraction->set_size({0, 0});
-
-               }
-
-            }
-
-         }
+//      //displaylock.unlock();
+//
+//      //if(pshowwindow->m_bShow)
+//      {
+//
+//         //::rectangle_i32 rect32;
+//
+//         //(::window_rectangle((oswindow) get_handle(), rect32))
+//         {
+//
+//
+//            if (get_session() != nullptr)
+//            {
+//
+//               // Initial position of window below the cursor position
+//               // with invalid (empty) size.
+//               // (Hinting for monitor placement, if no stored information
+//               // available).
+//
+//               if (pimpl->m_puserinteraction->const_layout().sketch().display() == e_display_undefined)
+//               {
+//
+//                  auto pointCursor = get_cursor_position();
+//
+//                  pimpl->m_puserinteraction->set_position(pointCursor);
+//
+//                  pimpl->m_puserinteraction->set_size({0, 0});
+//
+//               }
+//
+//            }
+//
+//         }
 
          //   }
 
          //});
          //}
 
-      }
+//      }
 
       // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
       // {
@@ -1542,12 +1542,12 @@ namespace windowing_x11
    }
 
 
-   ::point_i32 window::get_mouse_cursor_position()
-   {
-
-      return m_pointCursor;
-
-   }
+//   ::point_i32 window::get_mouse_cursor_position()
+//   {
+//
+//      return m_pointCursor;
+//
+//   }
 
 
    ::windowing_x11::windowing * window::x11_windowing() const
@@ -1786,7 +1786,7 @@ namespace windowing_x11
 //   void window::show_window(const ::e_display & edisplay, const ::e_activation & eactivation)
 //   {
 //
-//      x11_windowing()->windowing_post([this, edisplay, eactivation]()
+//      user_post([this, edisplay, eactivation]()
 //                                      {
 //
 //                                         windowing_output_debug_string("::window::show_window 1");
@@ -1879,7 +1879,7 @@ namespace windowing_x11
 //   void window::_show_window_unlocked(const ::e_display & edisplay, const ::e_activation & eactivation)
 //   {
 //
-//      //x11_windowing()->windowing_post([this, edisplay, eactivation]()
+//      //user_post([this, edisplay, eactivation]()
 //      //{
 //
 //      windowing_output_debug_string("::window::show_window 1");
@@ -3745,7 +3745,7 @@ namespace windowing_x11
       }
 
 
-      m_pwindowing->windowing_post([this, pcursorx11]()
+      user_post([this, pcursorx11]()
                                    {
 
                                       if (!pcursorx11->m_cursor)
@@ -4795,7 +4795,7 @@ namespace windowing_x11
    void window::window_update_screen_buffer()
    {
 
-      m_pwindowing->windowing_post([this]()
+      user_post([this]()
                                    {
 
                                       auto pimpl = m_puserinteractionimpl;
@@ -4885,7 +4885,7 @@ namespace windowing_x11
    void window::set_mouse_capture()
    {
 
-      m_pwindowing->windowing_post([this]()
+      user_post([this]()
                                    {
 
                                       synchronous_lock synchronouslock(user_synchronization());

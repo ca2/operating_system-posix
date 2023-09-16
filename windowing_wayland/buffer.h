@@ -59,7 +59,7 @@ namespace windowing_wayland
 
       void initialize_graphics_graphics(::user::interaction_impl * pimpl) override;
       void destroy() override;
-
+      virtual void __handle_window_redraw(::wl_callback *pwlcallback, uint32_t time);
 
       bool update_buffer(::graphics::buffer_item * pbufferitem) override;
 
@@ -74,8 +74,8 @@ namespace windowing_wayland
 //      virtual void destroy_os_buffer(::image::image * pimage);
 
       bool update_screen() override;
-      virtual bool _update_screen_lesser_lock();
-      virtual bool _update_screen_unlocked(::graphics::buffer_item * pitem);
+      //virtual bool _post_update_screen();
+      //virtual bool _update_screen_unlocked(::graphics::buffer_item * pitem);
       bool on_update_screen(::graphics::buffer_item * pitem) override;
 
 

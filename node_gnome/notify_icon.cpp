@@ -39,6 +39,8 @@ namespace node_gnome
 
       }
 
+      information() << "node_gnome::notify_icon::create_notify_icon";
+
       m_strId = atom;
 
       m_atom = atom;

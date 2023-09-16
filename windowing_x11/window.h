@@ -152,7 +152,8 @@ namespace windowing_x11
       //virtual ::Window get_parent_handle();
       ::oswindow get_parent_oswindow() const override;
 
-      ::point_i32 get_mouse_cursor_position() override;
+//      ::point_i32 get_mouse_cursor_host_position() override;
+//      ::point_i32 get_mouse_cursor_absolute_position() override;
 
       //virtual ::Window get_parent_handle() const;
 
