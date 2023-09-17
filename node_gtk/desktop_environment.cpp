@@ -71,47 +71,65 @@ namespace node_gtk
 //      return ::success;
 //
 //   }
-//
-//
-//   ::e_status desktop_environment::_get_workspace_rectangle(::index iIndex, ::rectangle_i32 *prectangle)
-//   {
-//
-//      synchronous_lock sl(user_synchronization());
-//
-//      auto screens = QGuiApplication::screens();
-//
-//      if (iIndex < 0 || iIndex >= screens.size())
+
+
+   void desktop_environment::get_workspace_rectangle(::index iIndex, ::rectangle_i32 *prectangle)
+   {
+
+//      if(m_bX11)
 //      {
 //
-//         return ::error_failed;
+//         synchronous_lock sl(user_synchronization());
+//
+//         _get_workspace_rectangle(iIndex, prectangle);
+//
+//         //m_pwindowing->windowing_send([this, iIndex, prectangle]() { _get_workspace_rectangle(iIndex, prectangle); });
 //
 //      }
-//
-//      auto pscreen = screens.at(iIndex);
-//
-//      if (pscreen == nullptr)
-//      {
-//
-//         return error_failed;
-//
-//      }
-//
-//      int left             = 0;
-//      int top              = 0;
-//      int right            = 0;
-//      int bottom           = 0;
-//
-//      pscreen->availableGeometry().getCoords(&left, &top, &right, &bottom);
-//
-//      prectangle->left()     = left;
-//      prectangle->top()      = top;
-//      prectangle->right()    = right + 1;
-//      prectangle->bottom()   = bottom + 1;
-//
-//      return ::success;
-//
-//   }
-//
+//      else
+      {
+
+         _get_workspace_rectangle(iIndex, prectangle);
+
+      }
+
+   }
+
+
+   ::e_status desktop_environment::_get_workspace_rectangle(::index iIndex, ::rectangle_i32 *prectangle)
+   {
+
+      //synchronous_lock sl(user_synchronization());
+
+      GdkDisplay * pdisplay = gdk_display_get_default();
+
+      if (pdisplay == nullptr)
+      {
+
+         return ::error_failed;
+
+      }
+
+      GdkMonitor * pmonitor = gdk_display_get_monitor(pdisplay, iIndex);
+
+      if (pmonitor != nullptr)
+      {
+
+         GdkRectangle  rect;
+
+         gdk_monitor_get_workarea(pmonitor, &rect);
+
+         copy(prectangle, &rect);
+
+         return ::success;
+
+      }
+
+      return ::error_failed;
+
+
+   }
+
 //
 //   void desktop_environment::get_monitor_rectangle(::index iIndex, ::rectangle_i32 *prectangle)
 //   {

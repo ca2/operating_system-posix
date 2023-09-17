@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "cursor.h"
 #include "display.h"
+#include "keyboard.h"
 #include "window.h"
 #include "windowing.h"
 #include "windowing_wayland.h"
@@ -374,7 +375,7 @@ namespace windowing_wayland
 
       auto y = wl_fixed_to_double(sy);
 
-      //printf("Pointer moved at %0.0f %0.0f\n", x, y);
+      printf("Pointer moved at %0.0f %0.0f\n", x, y);
 
       auto pdisplay = (display *) data;
 
@@ -480,59 +481,70 @@ namespace windowing_wayland
    keyboard_handle_keymap(void *data, struct wl_keyboard *keyboard,
                           uint32_t format, int fd, uint32_t size)
    {
+
+      auto pdisplay = (display *) data;
+
+      pdisplay->__handle_keyboard_keymap(keyboard, format, fd, size);
+
    }
 
    static void
    keyboard_handle_enter(void *data, struct wl_keyboard *pwlkeyboard,
                          uint32_t serial, struct wl_surface *pwlsurface,
-                         struct wl_array *keys)
+                         struct wl_array *pwlarrayKeys)
    {
-      fprintf(stderr, "Keyboard gained focus\n");
-      auto pdisplay = (display *) data;
-      pdisplay->m_pwlkeyboard = pwlkeyboard;
-      pdisplay->m_pwlsurfaceKeyboardEnter = pwlsurface;
 
-      pdisplay->m_uLastSeatSerial = serial;
+      fprintf(stderr, "Keyboard gained focus\n");
+
+      auto pdisplay = (display *) data;
+
+      pdisplay->__handle_keyboard_enter(pwlkeyboard, serial, pwlsurface, pwlarrayKeys);
 
    }
+
 
    static void
    keyboard_handle_leave(void *data, struct wl_keyboard *pwlkeyboard,
                          uint32_t serial, struct wl_surface *pwlsurface)
    {
+
       fprintf(stderr, "Keyboard lost focus\n");
+
       auto pdisplay = (display *) data;
-      if(pwlkeyboard == pdisplay->m_pwlkeyboard)
-      {
-         pdisplay->m_pwlkeyboard = nullptr;
-      }
-      if(pwlsurface == pdisplay->m_pwlsurfaceKeyboardEnter)
-      {
-         pdisplay->m_pwlsurfaceKeyboardEnter = nullptr;
-      }
-      pdisplay->m_uLastSeatSerial = serial;
+
+      pdisplay->__handle_keyboard_leave(pwlkeyboard, serial, pwlsurface);
+
    }
 
+
    static void
-   keyboard_handle_key(void *data, struct wl_keyboard *keyboard,
+   keyboard_handle_key(void *data, ::wl_keyboard *pwlkeyboard,
                        uint32_t serial, uint32_t time, uint32_t key,
-                       uint32_t state)
+                       uint32_t pressed)
    {
-      fprintf(stderr, "Key is %d state is %d\n", key, state);
+
+      fprintf(stderr, "Key is %d state is %d\n", key, pressed);
+
       auto pdisplay = (display *) data;
-      pdisplay->m_uLastSeatSerial = serial;
+
+      pdisplay->__handle_keyboard_key(pwlkeyboard, serial, time, key, pressed);
+
    }
 
+
    static void
-   keyboard_handle_modifiers(void *data, struct wl_keyboard *keyboard,
+   keyboard_handle_modifiers(void *data, ::wl_keyboard *pwlkeyboard,
                              uint32_t serial, uint32_t mods_depressed,
                              uint32_t mods_latched, uint32_t mods_locked,
                              uint32_t group)
    {
+
       fprintf(stderr, "Modifiers depressed %d, latched %d, locked %d, group %d\n",
               mods_depressed, mods_latched, mods_locked, group);
+
       auto pdisplay = (display *) data;
-      pdisplay->m_uLastSeatSerial = serial;
+
+      pdisplay->__handle_keyboard_modifiers(pwlkeyboard, serial, mods_depressed, mods_latched, mods_locked, group);
 
    }
 
@@ -714,6 +726,11 @@ namespace windowing_wayland
       m_pwlkeyboard = nullptr;
       m_pwlsurfaceLastLButtonDown = nullptr;
       m_pwlsurfaceKeyboardEnter = nullptr;
+
+      m_uLastKeyboardSerial = 0;
+      m_uLastKeyboardEnterSerial = 0;
+      m_uLastKeyboardLeaveSerial = 0;
+
 
 //      m_pxdgsurfaceMouseCapture = nullptr;
 //      m_pxdgtoplevelMouseCapture = nullptr;
@@ -1938,19 +1955,21 @@ return nullptr;
    void display::__handle_pointer_motion(::wl_pointer * pwlpointer, double x, double y, ::u32 millis)
    {
 
+      ::point_i32 pointCursor((::i32)x, (::i32)y);
+
       if(m_pwindowPointerCapture)
       {
 
-         m_pwindowPointerCapture->m_pointCursor2.x() = x;
+         m_pwindowPointerCapture->m_sizeDrag = pointCursor - m_pwindowPointerCapture->m_pointCursor2;
 
-         m_pwindowPointerCapture->m_pointCursor2.y() = y;
+         m_pwindowPointerCapture->m_pointCursor2 = pointCursor;
 
          if(m_pwindowPointerEnter)
          {
 
-            m_pwindowPointerEnter->m_pointCursor2.x() = x;
+            m_pwindowPointerEnter->m_sizeDrag = pointCursor - m_pwindowPointerEnter->m_pointCursor2;
 
-            m_pwindowPointerEnter->m_pointCursor2.y() = y;
+            m_pwindowPointerEnter->m_pointCursor2 = pointCursor;
 
          }
 
@@ -1958,9 +1977,9 @@ return nullptr;
       else if(m_pwindowPointerEnter)
       {
 
-         m_pwindowPointerEnter->m_pointCursor2.x() = x;
+         m_pwindowPointerEnter->m_sizeDrag = pointCursor - m_pwindowPointerEnter->m_pointCursor2;
 
-         m_pwindowPointerEnter->m_pointCursor2.y() = y;
+         m_pwindowPointerEnter->m_pointCursor2 = pointCursor;
 
       }
 
@@ -2118,6 +2137,124 @@ return nullptr;
 ////      wl_surface_commit(m_pwlsurfaceMouseCapture);
 //
 //   }
+
+
+   void display::__handle_keyboard_keymap(::wl_keyboard *pwlkeyboard, uint32_t format, int fd, uint32_t size)
+   {
+
+      ::pointer < ::windowing_wayland::keyboard > pkeyboard = m_pwindowing->keyboard();
+
+      pkeyboard->__handle_keyboard_keymap(pwlkeyboard, format, fd, size);
+
+   }
+
+
+   void display::__handle_keyboard_enter(::wl_keyboard *pwlkeyboard, uint32_t serial, ::wl_surface *pwlsurface, ::wl_array *pwlarrayKeys)
+   {
+
+      m_pwlkeyboard = pwlkeyboard;
+
+      m_pwlsurfaceKeyboardEnter = pwlsurface;
+
+      m_uLastSeatSerial = serial;
+      m_uLastKeyboardSerial = serial;
+      m_uLastKeyboardEnterSerial = serial;
+
+      auto pwaylandwindow = _window(pwlsurface);
+
+      if(!pwaylandwindow)
+      {
+
+         error() << "Could not find pwaylandwindow from pwlsurface";
+
+         return;
+
+      }
+
+      m_pwindowKeyboardFocus = pwaylandwindow;
+
+      m_pwindowKeyboardFocus->__handle_keyboard_enter(pwlkeyboard, serial, pwlarrayKeys);
+
+   }
+
+
+   void display::__handle_keyboard_leave(::wl_keyboard *pwlkeyboard, uint32_t serial, ::wl_surface *pwlsurface)
+   {
+
+      if(pwlkeyboard == m_pwlkeyboard)
+      {
+
+         m_pwlkeyboard = nullptr;
+
+      }
+
+      if(pwlsurface == m_pwlsurfaceKeyboardEnter)
+      {
+
+         m_pwlsurfaceKeyboardEnter = nullptr;
+
+      }
+
+      m_uLastSeatSerial = serial;
+      m_uLastKeyboardSerial = serial;
+      m_uLastKeyboardLeaveSerial = serial;
+
+      auto pwaylandwindow = _window(pwlsurface);
+
+      if(!pwaylandwindow)
+      {
+
+         error() << "Could not find pwaylandwindow from pwlsurface (2)";
+
+         return;
+
+      }
+
+      if(m_pwindowKeyboardFocus != pwaylandwindow)
+      {
+
+         error() << "What!! but ignoring what seems to be an error";
+
+      }
+
+      m_pwindowKeyboardFocus->__handle_keyboard_leave(pwlkeyboard, serial);
+
+   }
+
+
+   void display::__handle_keyboard_key(::wl_keyboard *pwlkeyboard, uint32_t serial, uint32_t time, uint32_t key, uint32_t state)
+   {
+
+      if(!m_pwindowKeyboardFocus)
+      {
+
+         error() << "Keyboard key with no window with focus!!";
+
+         return;
+
+      }
+
+      m_pwindowKeyboardFocus->__handle_keyboard_key(pwlkeyboard, serial, time, key, state);
+
+   }
+
+
+   void display::__handle_keyboard_modifiers(::wl_keyboard *pwlkeyboard, uint32_t serial, uint32_t mods_depressed, uint32_t mods_latched, uint32_t mods_locked, uint32_t group)
+   {
+
+      if(!m_pwindowKeyboardFocus)
+      {
+
+         error() << "Keyboard modifiers with no window with focus!!";
+
+         return;
+
+      }
+
+      m_pwindowKeyboardFocus->__handle_keyboard_modifiers(pwlkeyboard, serial, mods_depressed, mods_latched, mods_locked, group);
+
+   }
+
 
 } // namespace windowing_wayland
 

@@ -64,7 +64,8 @@ list(TRANSFORM static_library_references PREPEND static_)
 
 add_library(${PROJECT_NAME} SHARED ${library_source}
    wayland-xdg_activation_v1.h
-   wayland-xdg_activation_v1.c)
+   wayland-xdg_activation_v1.c
+   xfree86_scancode.h)
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 if (NOT ${NO_PRECOMPILED_HEADER})
@@ -93,7 +94,7 @@ elseif(${LINUX} OR ${FREEBSD})
 #   endif()
 
 
-   pkg_check_modules(PKGCONFIG x11 xrender xi xext libstartup-notification-1.0 wayland-client wayland-server wayland-cursor)
+   pkg_check_modules(PKGCONFIG xkbcommon x11 xrender xi xext libstartup-notification-1.0 wayland-client wayland-server wayland-cursor)
    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
    target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
 

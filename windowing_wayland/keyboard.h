@@ -28,6 +28,10 @@ namespace windowing_wayland
       ::i32_map < ::user::enum_key >              m_mapScan;
       ::i32_map < ::user::enum_key >              m_mapKey;
       //::pointer<keyboard_layout>                   m_playout;
+      ::xkb_keymap *                            m_pxkbkeymap;
+      ::xkb_context *                           m_pxkbcontext;
+      ::xkb_state *                             m_pxkbstate;
+
 
       keyboard();
       ~keyboard() override;
@@ -62,6 +66,9 @@ namespace windowing_wayland
       void show_software_keyboard(::user::primitive * pprimitive, string str, strsize iBeg, strsize iEnd);
 
       void hide_software_keyboard(::user::primitive * pprimitive);
+
+
+      virtual void __handle_keyboard_keymap(struct wl_keyboard *keyboard, uint32_t format, int fd, uint32_t size);
 
 
    };

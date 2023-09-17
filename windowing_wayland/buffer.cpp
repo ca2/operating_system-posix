@@ -714,15 +714,25 @@ at_end_of_scope
 
                bool bChangedSize = false;
 
+//               information() << "(1) m_sizeConfigure : " << pwaylandwindow->m_sizeConfigure
+//                             << " m_sizeWindow : " << pwaylandwindow->m_sizeWindow
+//                             << " pitem->m_size : " << pitem->m_size;
+//
+//               information() << "(1) m_pxdgtoplevel : " << (::iptr) pwaylandwindow->m_pxdgtoplevel;
+//
+//               information() << "(1) m_uLastConfigureSerial : " << pwaylandwindow->m_uLastConfigureSerial;
+
                if (::is_set(pwaylandwindow->m_pxdgtoplevel)
-                      && (pwaylandwindow->m_sizeConfigure.cx() == I32_MINIMUM
-                    || pwaylandwindow->m_sizeConfigure.cy() == I32_MINIMUM)
+//                      && (pwaylandwindow->m_sizeConfigure.cx() == I32_MINIMUM
+//                    || pwaylandwindow->m_sizeConfigure.cy() == I32_MINIMUM)
                    && (pwaylandwindow->m_timeLastConfigureRequest.elapsed() > 5_s
                        || pwaylandwindow->m_uLastConfigureSerial > pwaylandwindow->m_uLastRequestSerial))
                {
 
                   try
                   {
+
+                     information() << "pwaylandwindow->strict_set_window_position_unlocked";
 
                      pwaylandwindow->strict_set_window_position_unlocked(bChangedPosition,
                                                                          bChangedSize);
@@ -736,6 +746,7 @@ at_end_of_scope
                }
 
                //}
+
                _synchronous_lock slGraphics(synchronization());
 
                auto pitem = get_screen_item();
@@ -743,6 +754,7 @@ at_end_of_scope
                _synchronous_lock slImage(pitem->m_pmutex);
 
                slGraphics.unlock();
+
 
                information() << "m_sizeConfigure : " << pwaylandwindow->m_sizeConfigure
                              << " m_sizeWindow : " << pwaylandwindow->m_sizeWindow
@@ -763,15 +775,11 @@ at_end_of_scope
 
                   pwaylandwindow->__defer_update_wayland_buffer();
 
-                  pwaylandwindow->__defer_xdg_surface_ack_configure();
 
 
 //         m_pwlcallbackFrame = wl_surface_frame(pwaylandwindow->m_pwlsurface);
 //         wl_callback_add_listener(m_pwlcallbackFrame, &frame_listener, this);
 
-
-                  wl_surface_damage(pwaylandwindow->m_pwlsurface, 0, 0, pitem->m_size.cx(),
-                                    pitem->m_size.cy());
                   auto & pimage = pitem->m_pimage2;
 
                   pimage->map();
@@ -788,6 +796,11 @@ at_end_of_scope
                   wl_surface_attach(pwaylandwindow->m_pwlsurface,
                                     pwaylandwindow->m_waylandbuffer.m_pwlbuffer, 0, 0);
                   //       wl_callback_add_listener(m_pwlcallbackFrame, &frame_listener, NULL);
+                  wl_surface_damage(pwaylandwindow->m_pwlsurface, 0, 0, pitem->m_size.cx(),
+                                    pitem->m_size.cy());
+
+
+                  pwaylandwindow->__defer_xdg_surface_ack_configure();
                   wl_surface_commit(pwaylandwindow->m_pwlsurface);
 
                   information() << "wl_surface_commit";

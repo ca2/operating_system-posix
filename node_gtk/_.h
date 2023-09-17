@@ -38,3 +38,14 @@ namespace node_gtk
 
 //#include "gtk.h"
 
+inline void copy(::rectangle_i32 * prectTarget, const GdkRectangle * prectSource)
+{
+
+   prectTarget->left() = prectSource->x;
+   prectTarget->top() = prectSource->y;
+   prectTarget->right() = prectSource->x + prectSource->width;
+   prectTarget->bottom() = prectSource->y + prectSource->height;
+
+}
+
+

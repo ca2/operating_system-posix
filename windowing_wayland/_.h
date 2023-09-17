@@ -41,6 +41,7 @@ struct wl_shell_surface;
 struct wl_callback;
 struct wl_shm_pool;
 struct wl_keyboard;
+struct wl_array;
 
 struct xdg_wm_base;
 struct xdg_surface;
@@ -50,6 +51,10 @@ struct xdg_popup;
 
 struct xdg_activation_v1;
 struct xdg_activation_token_v1;
+
+struct xkb_keymap;
+struct xkb_context;
+struct xkb_state;
 
 struct gtk_shell1;
 

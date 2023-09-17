@@ -130,7 +130,7 @@ namespace node_gnome
 //      }
 //
 //   }
-//
+
 //
 //   void desktop_environment::get_workspace_rectangle(::index iIndex, ::rectangle_i32 *prectangle)
 //   {
@@ -149,8 +149,8 @@ namespace node_gnome
 //      }
 //
 //   }
-//
-//
+
+
 //   void desktop_environment::windowing_post(const ::procedure & procedure)
 //   {
 //

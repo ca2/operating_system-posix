@@ -148,14 +148,15 @@ namespace node_gtk
    ::rectangle_i32 monitor::monitor_rectangle()
    {
 
-    //  auto predicate = [this]()
-      //   {
-
-            synchronous_lock sl(user_synchronization());
+      user_send([this]()
+                {
+//      //   {
+//
+//            synchronous_lock sl(user_synchronization());
 
             _get_monitor_rectangle();
 
-  //       };
+         });
 
 //      acmenode()->send_procedure(predicate);
 

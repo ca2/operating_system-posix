@@ -9,7 +9,10 @@
 #include "acme/filesystem/filesystem/file_context.h"
 #include "apex/user/user/primitive.h"
 #include "aura/user/user/key.h"
-
+#include <wayland-server-protocol.h>
+#include <xkbcommon/xkbcommon.h>
+#include <sys/mman.h>
+#include <unistd.h>
 
 //#if defined(LINUX) || defined(SOLARIS)
 ////#include "base/base/os/x11/x11_keyboard.h"
@@ -37,13 +40,23 @@ namespace windowing_wayland
    keyboard::keyboard()
    {
 
-
+      m_pxkbkeymap = nullptr;
+      m_pxkbstate = nullptr;
 
    }
 
 
    keyboard::~keyboard()
    {
+
+      if(m_pxkbcontext)
+      {
+
+         ::xkb_context_unref(m_pxkbcontext);
+
+         m_pxkbcontext = nullptr;
+
+      }
 
    }
 
@@ -173,6 +186,15 @@ namespace windowing_wayland
 //      }
 
       enum_init(acmesystem());
+
+      m_pxkbcontext = xkb_context_new({});
+
+      if(!m_pxkbcontext)
+      {
+
+         throw ::exception(error_failed, "Failed to xkb_context_new");
+
+      }
 
       //return ::success;
 
@@ -794,7 +816,6 @@ namespace windowing_wayland
 
       }
 
-
       auto ekey = ::x11::keysym_to_userkey(pkey->m_lparam);
 
       if(ekey != ::user::e_key_none)
@@ -811,6 +832,49 @@ namespace windowing_wayland
 
          pkey->m_ekey = m_mapKey[(i32) pkey->m_iVirtualKey];
 
+      }
+
+   }
+
+
+   void keyboard::__handle_keyboard_keymap(struct wl_keyboard *keyboard, uint32_t format, int fd, uint32_t size)
+   {
+
+      if(format != WL_KEYBOARD_KEYMAP_FORMAT_XKB_V1)
+      {
+
+         error() << "Only supported format is WL_KEYBOARD_KEYMAP_FORMAT_XKB_V1";
+
+         return;
+
+      }
+
+      void * p = ::mmap(NULL, size, PROT_READ, MAP_PRIVATE, fd, 0);
+
+      if(p != MAP_FAILED)
+      {
+
+         error() << "wl_keyboard keymap mmap Failed";
+
+      }
+
+      synchronous_lock synchronouslock(this->synchronization());
+
+      m_pxkbkeymap = ::xkb_keymap_new_from_string(
+         m_pxkbcontext, (const char *) p, XKB_KEYMAP_FORMAT_TEXT_V1,
+         XKB_KEYMAP_COMPILE_NO_FLAGS);
+
+      ::munmap(p, size);
+
+      ::close(fd);
+
+      m_pxkbstate = ::xkb_state_new(m_pxkbkeymap);
+      if (!m_pxkbstate)
+      {
+         fprintf(stderr, "failed to create XKB state\n");
+         ::xkb_keymap_unref(m_pxkbkeymap);
+         m_pxkbkeymap = NULL;
+         return;
       }
 
    }

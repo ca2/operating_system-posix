@@ -42,6 +42,7 @@ namespace windowing_wayland
       ::point_i32                                  m_pointWindowBestEffort;
       ::xdg_activation_token_v1 *                  m_pxdgactivationtokenv1;
       ::wl_callback *                              m_pwlcallbackFrame;
+      ::size_i32                                   m_sizeDrag;
       //::point_i32                                  m_pointPointer;
       //XWindowAttributes                            m_attr;
       //XVisualInfo                                  m_visualinfo;
@@ -67,6 +68,7 @@ namespace windowing_wayland
       //int                                          m_iDepth;
       //int                                        m_iScreen;
       bool                                         m_bMessageOnlyWindow;
+      bool                                         m_bHasKeyboardFocus;
       //::pointer<::user::interaction_impl>        m_pimpl;
       //::pointer<::message_queue>                 m_pmessagequeue;
       htask_t                                      m_htask;
@@ -381,6 +383,12 @@ namespace windowing_wayland
       bool defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing) override;
 
       void on_destruct_mouse_message(::message::mouse * pmouse) override;
+
+
+      virtual void __handle_keyboard_enter(::wl_keyboard *pwlkeyboard, uint32_t serial, ::wl_array *pwlarrayKeys);
+      virtual void __handle_keyboard_leave(::wl_keyboard *pwlkeyboard, uint32_t serial);
+      virtual void __handle_keyboard_key(::wl_keyboard *pwlkeyboard, uint32_t serial, uint32_t time, uint32_t key, uint32_t state);
+      virtual void __handle_keyboard_modifiers(::wl_keyboard *keyboard, uint32_t serial, uint32_t mods_depressed, uint32_t mods_latched, uint32_t mods_locked, uint32_t group);
 
 
    };

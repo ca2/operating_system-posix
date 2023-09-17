@@ -59,7 +59,7 @@ namespace windowing_wayland
 //      Atom                                         m_atomNetWmSyncRequestCounter;
       iptr                                         m_countReference;
       ::pointer<class window>                      m_pwindowRoot;
-      ::pointer<class window>                      m_pwindowKeyboardFocus;
+      //::pointer<class window>                      m_pwindowKeyboardFocus;
       ::pointer<::windowing_wayland::window>           m_pwindowActive;
       ///::pointer<::windowing_wayland::window>           m_pwindowMouseCapture;
       //bool                                         m_bHasXSync;
@@ -84,6 +84,9 @@ namespace windowing_wayland
       ::u32 m_uLastButtonSerial;
       ::u32 m_uLastPointerSerial;
       ::u32 m_uLastSeatSerial;
+      ::u32 m_uLastKeyboardSerial;
+      ::u32 m_uLastKeyboardEnterSerial;
+      ::u32 m_uLastKeyboardLeaveSerial;
       ::gtk_shell1 * m_pgtkshell1;
       ::xdg_activation_v1 *m_pxdgactivationv1;
       //::wl_keyboard * m_pwlkeyboard;
@@ -98,6 +101,7 @@ namespace windowing_wayland
 
       ::pointer < ::windowing_wayland::window > m_pwindowPointerEnter;
       ::pointer < ::windowing_wayland::window > m_pwindowPointerCapture;
+      ::pointer < ::windowing_wayland::window > m_pwindowKeyboardFocus;
   //    wl_compositor_create_surface(compositor);
 //
 
@@ -204,6 +208,13 @@ namespace windowing_wayland
 
 
       //virtual void __capture_mouse(::windowing_wayland::window * pwindowMouseCapture, ::u32 serial);
+
+
+      virtual void __handle_keyboard_keymap(struct wl_keyboard *keyboard, uint32_t format, int fd, uint32_t size);
+      virtual void __handle_keyboard_enter(::wl_keyboard *pwlkeyboard, uint32_t serial, ::wl_surface *pwlsurface, ::wl_array *pwlarrayKeys);
+      virtual void __handle_keyboard_leave(::wl_keyboard *pwlkeyboard, uint32_t serial, ::wl_surface *pwlsurface);
+      virtual void __handle_keyboard_key(::wl_keyboard *pwlkeyboard, uint32_t serial, uint32_t time, uint32_t key, uint32_t state);
+      virtual void __handle_keyboard_modifiers(::wl_keyboard *keyboard, uint32_t serial, uint32_t mods_depressed, uint32_t mods_latched, uint32_t mods_locked, uint32_t group);
 
 
    };

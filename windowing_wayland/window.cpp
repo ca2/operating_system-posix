@@ -3,6 +3,7 @@
 // hi5 contribution...
 #include "framework.h"
 #include "buffer.h"
+#include "keyboard.h"
 #include "window.h"
 #include "windowing_wayland.h"
 #include "windowing.h"
@@ -24,9 +25,11 @@
 //#include <X11/extensions/sync.h>
 #include <wayland-client.h>
 #include <linux/input.h> // for BTN_LEFT,...
+#include <xkbcommon/xkbcommon.h>
 #include "aura/graphics/image/context_image.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
+#include "xfree86_key.h"
 
 //#include "aura_posix/x11/display_lock.h"
 
@@ -348,6 +351,9 @@ namespace windowing_wayland
       m_uLastAckSerial = 0;
       //m_iXic = 0;
 
+
+      m_bHasKeyboardFocus = false;
+
       //m_xic = nullptr;
       m_pxdgsurface = nullptr;
       m_pwlsurface = nullptr;
@@ -595,13 +601,17 @@ namespace windowing_wayland
 
          m_pointWindow.y() = 0;
 
-         m_pointWindowBestEffort.x() = x;
+         //m_pointWindowBestEffort.x() = x;
 
-         m_pointWindowBestEffort.y() = y;
+         //m_pointWindowBestEffort.y() = y;
 
          m_sizeWindow.cx() = cx;
 
          m_sizeWindow.cy() = cy;
+
+         //auto rectangleWindow = ::rectangle_i32_dimension(x, y, cx, cy);
+
+         //m_puserinteractionimpl->m_puserinteraction->place(rectangleWindow);
 
 
 //         ::Window window = XCreateWindow(display, DefaultRootWindow(display),
@@ -1207,9 +1217,13 @@ namespace windowing_wayland
 
       //m_pointWindow.y() = y;
 
-      auto x = m_pointWindowBestEffort.x();
+      //auto x = m_pointWindowBestEffort.x();
 
-      auto y = m_pointWindowBestEffort.y();
+      //auto y = m_pointWindowBestEffort.y();
+
+      auto x = m_pointWindow.x();
+
+      auto y = m_pointWindow.y();
 
       auto cx = m_sizeWindow.cx();
 
@@ -4327,12 +4341,14 @@ else
 
          }
 
-         information() << "xdg_surface_set_window_geometry";
+         auto frame = m_puserinteractionimpl->m_puserinteraction->outer_frame();
+
+         information() << "xdg_surface_set_window_geometry : " << frame;
 
          xdg_surface_set_window_geometry(
             m_pxdgsurface,
-            m_pointWindow.x(), m_pointWindow.y(),
-            m_sizeWindow.cx(), m_sizeWindow.cy());
+            frame.left(), frame.top(),
+            frame.width(), frame.height());
 
       }
 
@@ -5509,7 +5525,7 @@ if(::is_set(m_pwlsurface))
 //
 //      }
 //
-      return true;
+      return m_bHasKeyboardFocus;
 
    }
 //
@@ -6129,6 +6145,10 @@ if(::is_set(m_pwlsurface))
       if (pressed == WL_POINTER_BUTTON_STATE_PRESSED)
       {
 
+
+         ::point_i32                                  m_pointWindowDragStart;
+
+
          if (linux_button == BTN_LEFT)
          {
 
@@ -6562,6 +6582,138 @@ if(::is_set(m_pwlsurface))
 //      {
 //
 //      }
+
+   }
+
+
+   void window::__handle_keyboard_enter(::wl_keyboard *pwlkeyboard, uint32_t serial, ::wl_array *pwlarrayKeys)
+   {
+
+      m_bHasKeyboardFocus = true;
+
+   }
+
+
+   void window::__handle_keyboard_leave(::wl_keyboard *pwlkeyboard, uint32_t serial)
+   {
+
+      m_bHasKeyboardFocus = false;
+
+   }
+
+
+   void window::__handle_keyboard_key(::wl_keyboard *pwlkeyboard, uint32_t serial, uint32_t time, uint32_t key, uint32_t pressed)
+   {
+
+      if (key < ARRAY_SIZE(xfree86_key_table2))
+      {
+
+         auto ekey = xfree86_key_table2[key];
+
+         // TODO when do we get WL_KEYBOARD_KEY_STATE_REPEAT?
+         if (ekey != ::user::e_key_none)
+         {
+
+            auto pkey = __create_new<::message::key>();
+
+            pkey->m_oswindow = this;
+
+            pkey->m_pwindow = this;
+
+            pkey->m_ekey = ekey;
+
+            if(pressed == WL_KEYBOARD_KEY_STATE_PRESSED)
+            {
+
+               pkey->m_atom = e_message_key_down;
+
+               information() << "e_message_key_down";
+
+            }
+            else
+            {
+
+               pkey->m_atom = e_message_key_up;
+
+               //information() << "e_message_key_up : " << (iptr) ekey;
+
+               information() << "e_message_key_up";
+
+            }
+
+            m_puserinteractionimpl->message_handler(pkey);
+
+         }
+
+      }
+
+      ::pointer < ::windowing_wayland::keyboard > pkeyboard = windowing()->keyboard();
+
+      if (!pkeyboard->m_pxkbstate)
+      {
+
+         return;
+
+      }
+
+      const xkb_keysym_t *syms = nullptr;
+
+      // TODO can this happen?
+      if (::xkb_state_key_get_syms(pkeyboard->m_pxkbstate, key + 8, &syms) != 1)
+      {
+
+         return;
+
+      }
+
+      if (pressed)
+      {
+
+         char text[8];
+
+         auto size = ::xkb_keysym_to_utf8(syms[0], text, sizeof text);
+
+         if (size > 0)
+         {
+
+            text[size] = 0;
+
+            //Wayland_data_device_set_serial(input->data_device, serial);
+
+            auto pkey = __create_new<::message::key>();
+
+            pkey->m_oswindow = this;
+
+            pkey->m_pwindow = this;
+
+            pkey->m_atom = e_message_text_composition;
+
+            pkey->m_strText = text;
+
+            information() << "e_message_text_composition";
+
+            m_puserinteractionimpl->message_handler(pkey);
+
+         }
+
+      }
+
+   }
+
+
+   void window::__handle_keyboard_modifiers(::wl_keyboard *keyboard, uint32_t serial, uint32_t mods_depressed, uint32_t mods_latched, uint32_t mods_locked, uint32_t group)
+   {
+
+      ::pointer < ::windowing_wayland::keyboard > pkeyboard = windowing()->keyboard();
+
+      if (!pkeyboard->m_pxkbstate)
+      {
+
+         return;
+
+      }
+
+      ::xkb_state_update_mask(pkeyboard->m_pxkbstate, mods_depressed, mods_latched, mods_locked, 0, 0, group);
 
    }
 
