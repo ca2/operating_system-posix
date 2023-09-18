@@ -9,6 +9,7 @@
 //#include "acme/primitive/collection/pointer_array.h"
 #include "_wayland.h"
 
+struct libinput_event;
 
 namespace windowing_wayland
 {
@@ -29,12 +30,12 @@ namespace windowing_wayland
 
       itask_t                                         m_itask;
 
-#ifdef WITH_XI
-
-      int                                             m_xi_opcode = -1;
-      ::pointer<particle_array>                        m_pobjectaExtendedEventListener;
-
-#endif
+//#ifdef WITH_XI
+//
+//      int                                             m_xi_opcode = -1;
+//      ::pointer<particle_array>                        m_pobjectaExtendedEventListener;
+//
+//#endif
 
       ::procedure_list                                m_procedurelist;
       ::procedure_list                                m_procedurelistPriority;
@@ -65,12 +66,6 @@ namespace windowing_wayland
       virtual void post_ui_message(::message::message * pmessage);
 
 
-
-   void install_mouse_hook(::matter * pmatter) override;
-   void install_keyboard_hook(::matter * pmatter) override;
-
-   void uninstall_mouse_hook(::matter * pmatter) override;
-   void uninstall_keyboard_hook(::matter * pmatter) override;
 
       //void start() override;
 
@@ -126,6 +121,9 @@ namespace windowing_wayland
       ::windowing::window * get_active_window(::thread * pthread) override;
 
       ::windowing::window * get_keyboard_focus(::thread * pthread) override;
+
+
+      ::pointer < ::input::input > get_input() override;
 
       //::windowing::window * get_mouse_capture(::thread * pthread) override;
 

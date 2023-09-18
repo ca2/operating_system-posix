@@ -17,6 +17,7 @@
 #include "aura/user/user/user.h"
 #include "windowing_x11/windowing_x11.h"
 #include "aura/windowing/windowing.h"
+#include "aura_posix/x11/windowing.h"
 
 
 #include <gio/gio.h>
@@ -1679,6 +1680,20 @@ namespace node_gtk
       user_post(procedure);
 
       return true;
+
+   }
+
+
+   ::pointer<::input::input > node::get_input()
+   {
+
+      auto psession = acmesession()->m_paurasession;
+
+      auto puser = psession->user();
+
+      ::pointer < ::windowing_posix::windowing > pwindowing = puser->windowing();
+
+      return pwindowing->get_input();
 
    }
 

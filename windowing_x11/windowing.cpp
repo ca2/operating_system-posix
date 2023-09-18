@@ -464,60 +464,61 @@ namespace windowing_x11
    }
 
 
-   void windowing::install_mouse_hook(::matter * pmatter)
-   {
+//   void windowing::add_mouse_message_handler(::particle * pparticle)
+//   {
+//
+//      auto psystem = acmesystem()->m_paurasystem;
+//
+//      auto psession = psystem->get_session();
+//
+//      auto puser = psession->user();
+//
+//      auto pwindowing = (::windowing_x11::windowing *) puser->windowing()->m_pWindowing4;
+//
+//      pwindowing->x11_register_extended_event_listener(pparticle, true, false);
+//
+//      //::x11_register_extended_event_listener(pdata, bMouse, bKeyboard);
+//
+//      //return ::success;
+//
+//   }
+//
+//
+//   void windowing::add_keyboard_message_handler(::particle * pparticle)
+//   {
+//
+//      auto psystem = acmesystem()->m_paurasystem;
+//
+//      auto psession = psystem->get_session();
+//
+//      auto puser = psession->user();
+//
+//      auto pwindowing = (::windowing_x11::windowing *) puser->windowing()->m_pWindowing4;
+//
+//      pwindowing->x11_register_extended_event_listener(pparticle, false, true);
+//
+//      //::x11_register_extended_event_listener(pdata, bMouse, bKeyboard);
+//
+//      //return ::success;
+//
+//   }
+//
+//
+//   void windowing::erase_mouse_message_handler(::particle * pparticle)
+//   {
+//
+//      //return ::error_failed;
+//
+//   }
+//
+//
+//   void windowing::erase_keyboard_message_handler(::particle * pparticle)
+//   {
+//
+//      //return ::error_failed;
+//
+//   }
 
-      auto psystem = acmesystem()->m_paurasystem;
-
-      auto psession = psystem->get_session();
-
-      auto puser = psession->user();
-
-      auto pwindowing = (::windowing_x11::windowing *) puser->windowing()->m_pWindowing4;
-
-      pwindowing->x11_register_extended_event_listener(pmatter, true, false);
-
-      //::x11_register_extended_event_listener(pdata, bMouse, bKeyboard);
-
-      //return ::success;
-
-   }
-
-
-   void windowing::install_keyboard_hook(::matter * pmatter)
-   {
-
-      auto psystem = acmesystem()->m_paurasystem;
-
-      auto psession = psystem->get_session();
-
-      auto puser = psession->user();
-
-      auto pwindowing = (::windowing_x11::windowing *) puser->windowing()->m_pWindowing4;
-
-      pwindowing->x11_register_extended_event_listener(pmatter, false, true);
-
-      //::x11_register_extended_event_listener(pdata, bMouse, bKeyboard);
-
-      //return ::success;
-
-   }
-
-
-   void windowing::uninstall_mouse_hook(::matter * pmatter)
-   {
-
-      //return ::error_failed;
-
-   }
-
-
-   void windowing::uninstall_keyboard_hook(::matter * pmatter)
-   {
-
-      //return ::error_failed;
-
-   }
 
    bool windowing::message_loop_step()
    {

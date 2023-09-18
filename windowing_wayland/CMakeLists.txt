@@ -42,6 +42,7 @@ list(APPEND library_source
    wayland-xdg_activation_v1.h
    wayland-xdg_wm_base.c
    wayland-xdg_wm_base.h
+   xfree86_key.h
    xi.cpp
    )
 
@@ -62,10 +63,7 @@ list(APPEND static_library_references ${library_references})
 list(TRANSFORM static_library_references PREPEND static_)
 
 
-add_library(${PROJECT_NAME} SHARED ${library_source}
-   wayland-xdg_activation_v1.h
-   wayland-xdg_activation_v1.c
-   xfree86_scancode.h)
+add_library(${PROJECT_NAME} SHARED ${library_source})
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 if (NOT ${NO_PRECOMPILED_HEADER})

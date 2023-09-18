@@ -6,7 +6,7 @@
 
 #include "aura_posix/x11/windowing.h"
 #include "acme/primitive/collection/list.h"
-//#include "acme/primitive/collection/pointer_array.h"
+#include "apex/input/input.h"
 #include "_x11.h"
 
 
@@ -15,7 +15,8 @@ namespace windowing_x11
 
 
    class CLASS_DECL_WINDOWING_X11 windowing :
-      virtual public ::windowing_posix::windowing
+      virtual public ::windowing_posix::windowing,
+      virtual public ::input::input
    {
    public:
 
@@ -61,11 +62,11 @@ namespace windowing_x11
 
 
 
-   void install_mouse_hook(::matter * pmatter) override;
-   void install_keyboard_hook(::matter * pmatter) override;
+      //void add_mouse_message_handler(::particle * pparticle) override;
+      //void add_keyboard_message_handler(::particle * pparticle) override;
 
-   void uninstall_mouse_hook(::matter * pmatter) override;
-   void uninstall_keyboard_hook(::matter * pmatter) override;
+      //void erase_mouse_message_handler(::particle * pparticle) override;
+      //void erase_keyboard_message_handler(::particle * pparticle) override;
 
       //void start() override;
 
@@ -143,7 +144,7 @@ namespace windowing_x11
 
 #ifdef WITH_XI
 
-      void x11_register_extended_event_listener(::matter * pdata, bool bMouse, bool bKeyboard);
+      //void x11_register_extended_event_listener(::particle * pdata, bool bMouse, bool bKeyboard);
       bool x11_process_event(XEvent * pevent, XGenericEventCookie *cookie);
 
 #else

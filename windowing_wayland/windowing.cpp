@@ -445,6 +445,17 @@ namespace windowing_wayland
    }
 
 
+   ::pointer < ::input::input > windowing::get_input()
+   {
+
+      acmesystem()->factory("input", "libinput");
+
+      return windowing_posix::windowing::get_input();
+
+   }
+
+
+
    ::windowing::window * windowing::window(oswindow oswindow)
    {
 
@@ -614,60 +625,291 @@ namespace windowing_wayland
    }
 
 
-   void windowing::install_mouse_hook(::matter * pmatter)
-   {
-
-//      auto psystem = acmesystem()->m_paurasystem;
+//   static int open_restricted(const char *path, int flags, void *user_data)
+//   {
+//      int fd = ::open(path, flags);
+//      return fd < 0 ? -errno : fd;
+//   }
 //
-//      auto psession = psystem->get_session();
+//   static void close_restricted(int fd, void *user_data)
+//   {
+//      ::close(fd);
+//   }
 //
-//      auto puser = psession->user();
+//   const static struct libinput_interface interface = {
+//      .open_restricted = open_restricted,
+//      .close_restricted = close_restricted,
+//   };
 //
-//      auto pwindowing = (::windowing_wayland::windowing *) puser->windowing()->m_pWindowing4;
 //
-//      pwindowing->x11_register_extended_event_listener(pmatter, true, false);
+//   void windowing::__handle_pointer_button(libinput_event * p)
+//   {
 //
-//      //::x11_register_extended_event_listener(pdata, bMouse, bKeyboard);
+//      auto ppointer = libinput_event_get_pointer_event(p);
+//      auto button = libinput_event_pointer_get_button(ppointer);
+//      auto state = libinput_event_pointer_get_button_state(ppointer);
 //
-//      //return ::success;
-
-   }
-
-
-   void windowing::install_keyboard_hook(::matter * pmatter)
-   {
-
-//      auto psystem = acmesystem()->m_paurasystem;
+//      enum_message emessage = e_message_undefined;
 //
-//      auto psession = psystem->get_session();
+//      if(button == BTN_LEFT)
+//      {
 //
-//      auto puser = psession->user();
+//         if(state == LIBINPUT_BUTTON_STATE_PRESSED)
+//         {
 //
-//      auto pwindowing = (::windowing_wayland::windowing *) puser->windowing()->m_pWindowing4;
+//            emessage = e_message_left_button_down;
 //
-//      pwindowing->x11_register_extended_event_listener(pmatter, false, true);
+//         }
+//         else if(state == LIBINPUT_BUTTON_STATE_PRESSED)
+//         {
 //
-//      //::x11_register_extended_event_listener(pdata, bMouse, bKeyboard);
+//            emessage = e_message_left_button_up;
 //
-//      //return ::success;
-
-   }
-
-
-   void windowing::uninstall_mouse_hook(::matter * pmatter)
-   {
-
-      //return ::error_failed;
-
-   }
-
-
-   void windowing::uninstall_keyboard_hook(::matter * pmatter)
-   {
-
-      //return ::error_failed;
-
-   }
+//         }
+//
+//      }
+//
+//      if(emessage != e_message_undefined)
+//      {
+//
+//         auto pmouse = __create_new < ::message::mouse >();
+//
+//         pmouse->m_atom = emessage;
+//
+//         //pmouse->m_pointAbsolute.x() =
+//
+//         for(auto & pparticle : m_particleaMouseHandler)
+//         {
+//
+//            pparticle->handle(pmouse);
+//
+//         }
+//
+//      }
+//
+//
+//   }
+//
+//
+//   void windowing::__handle_keyboard_key(libinput_event * p)
+//   {
+//
+//      auto pkeyboard = libinput_event_get_keyboard_event(p);
+//      auto key = libinput_event_keyboard_get_key(pkeyboard);
+//      auto state = libinput_event_keyboard_get_key_state(pkeyboard);
+//
+//      enum_message emessage = e_message_undefined;
+//
+//      //if(button == BTN_LEFT)
+//      {
+//
+//         if(state == LIBINPUT_BUTTON_STATE_PRESSED)
+//         {
+//
+//            emessage = e_message_key_down;
+//
+//         }
+//         else if(state == LIBINPUT_BUTTON_STATE_PRESSED)
+//         {
+//
+//            emessage = e_message_key_up;
+//
+//         }
+//
+//      }
+//
+//      if(emessage != e_message_undefined)
+//      {
+//
+//         auto pkey = __create_new < ::message::key >();
+//
+//         pkey->m_atom = emessage;
+//
+//         //pmouse->m_pointAbsolute.x() =
+//
+//         for(auto & pparticle : m_particleaKeyboardHandler)
+//         {
+//
+//            pparticle->handle(pkey);
+//
+//         }
+//
+//      }
+//
+//   }
+//
+//   void windowing::__libinput()
+//   {
+//
+//      if(__needs_libinput())
+//      {
+//
+//         if (m_ptaskLibInput)
+//         {
+//
+//            return;
+//
+//         }
+//
+//         m_ptaskLibInput = app_fork([this]()
+//                                    {
+//
+//                                       ::libinput_event * p;
+//
+//                                       auto pudev = udev_new();
+//
+//                                       auto plibinput = libinput_udev_create_context(&interface, NULL, pudev);
+//
+//                                       libinput_udev_assign_seat(plibinput, "seat0");
+//
+//                                       while (true)
+//                                       {
+//
+//                                          libinput_dispatch(plibinput);
+//
+//                                          auto p = libinput_get_event(plibinput);
+//
+//                                          if (!p)
+//                                          {
+//
+//                                             break;
+//
+//                                          }
+//
+//                                          __handle(p);
+//
+//                                       }
+//
+//                                       libinput_unref(plibinput);
+//
+//                                       udev_unref(pudev);
+//
+//
+//                                    });
+//
+//      }
+//      else
+//      {
+//
+//         if (m_ptaskLibInput)
+//         {
+//
+//            m_ptaskLibInput->set_finish();
+//
+//            m_ptaskLibInput.release();
+//
+//         }
+//
+//      }
+//
+//   }
+//
+//void windowing::__handle(::libinput_event * p)
+//{
+//auto etype = libinput_event_get_type(p);
+//
+//if (m_particleaMouseHandler.has_element())
+//{
+//
+//if (etype == LIBINPUT_EVENT_POINTER_BUTTON)
+//{
+//
+//__handle_pointer_button(p);
+//
+//}
+//
+//}
+//if (m_particleaMouseHandler.has_element())
+//{
+//
+//if (etype == LIBINPUT_EVENT_KEYBOARD_KEY)
+//{
+//
+//__handle_keyboard_key(p);
+//
+//}
+//
+//}
+//
+//libinput_event_destroy(p);
+//
+//}
+//
+//}
+//
+//
+//
+//
+//bool windowing::__needs_libinput()
+//   {
+//
+//      return m_particleaMouseHandler.has_element() || m_particleaKeyboardHandler.has_element();
+//
+//   }
+//
+//
+//   void windowing::install_mouse_message_handler(::particle * pparticle)
+//   {
+//
+//      {
+//
+//         synchronous_lock synchronouslock(this->synchronization());
+//
+//         m_particleaMouseHandler.add(pparticle);
+//
+//      }
+//
+//      __libinput();
+//
+//   }
+//
+//
+//   void windowing::install_keyboard_message_handler(::particle * pparticle)
+//   {
+//
+//      {
+//
+//         synchronous_lock synchronouslock(this->synchronization());
+//
+//         m_particleaKeyboardHandler.add(pparticle);
+//
+//      }
+//
+//      __libinput();
+//
+//   }
+//
+//
+//   void windowing::erase_mouse_message_handling(::particle * pparticle)
+//   {
+//
+//      {
+//
+//         synchronous_lock synchronouslock(this->synchronization());
+//
+//         m_particleaMouseHandler.erase(pparticle);
+//
+//      }
+//
+//      __libinput();
+//
+//   }
+//
+//
+//   void windowing::erase_keyboard_message_handling(::particle * pparticle)
+//   {
+//
+//      {
+//
+//         synchronous_lock synchronouslock(this->synchronization());
+//
+//         m_particleaKeyboardHandler.erase(pparticle);
+//
+//      }
+//
+//      __libinput();
+//
+//   }
 
 
 } // namespace windowing

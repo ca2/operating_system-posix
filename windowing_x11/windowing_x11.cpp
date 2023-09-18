@@ -7,9 +7,10 @@
 #include "acme/constant/id.h"
 #include "acme/constant/message.h"
 #include "acme/parallelization/synchronous_lock.h"
-#include "acme/platform/system.h"
 #include "acme/primitive/geometry2d/_text_stream.h"
+#include "apex/platform/system.h"
 #include "aura/user/user/interaction_graphics_thread.h"
+#include "aura_posix/x11/input.h"
 #include "aura_posix/x11/display_lock.h"
 ////#include "sn/sn.h"
 #include <fcntl.h> // library for fcntl function
@@ -1582,183 +1583,19 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       if (cookie)
       {
 
-         bool bProcessed = false;
+         auto pxinput = dynamic_cast < ::xinput::xinput * >(acmesystem()->m_papexsystem->input());
 
-         if (XGetEventData(m_pdisplay->Display(), cookie) && cookie->type == GenericEvent &&
-             cookie->extension == m_xi_opcode)
+         if(pxinput)
          {
 
-            if (m_pobjectaExtendedEventListener && m_pobjectaExtendedEventListener->get_count() > 0)
+            bool bProcessed = pxinput->__handle_xinput(pevent, cookie);
+
+            if (bProcessed)
             {
 
-               enum_message emessage = e_message_null;
-
-               auto prawevent = (XIRawEvent *) cookie->data;
-
-               auto psystem = acmesystem()->m_papexsystem;
-
-               // detail:
-               // 1 - left button
-               // 2 - middle button
-               // 3 - right button
-               // 4 - wheel down(orup)
-               // 5 - wheel up(ordown)
-
-               auto detail = prawevent->detail;
-
-               switch (cookie->evtype)
-               {
-
-                  case XI_RawKeyPress:
-                     emessage = e_message_key_down;
-                     break;
-                  case XI_RawKeyRelease:
-                     emessage = e_message_key_up;
-                     break;
-                  case XI_RawButtonPress:
-                  {
-                     if (detail == 1)
-                     {
-                        emessage = e_message_left_button_down;
-                     }
-                     else if (detail == 2)
-                     {
-                        emessage = e_message_middle_button_down;
-
-                     }
-                     else if (detail == 3)
-                     {
-                        emessage = e_message_right_button_down;
-                     }
-                     //eid = detail == 5 || detail == 4 ? id_none : id_raw_buttondown;
-
-                  }
-                     break;
-                  case XI_RawButtonRelease:
-//                     eid = detail == 5 || detail == 4 ? id_none : id_raw_buttonup;
-
-                     if (detail == 1)
-                     {
-                        emessage = e_message_left_button_up;
-                     }
-                     else if (detail == 2)
-                     {
-                        emessage = e_message_middle_button_up;
-
-                     }
-                     else if (detail == 3)
-                     {
-                        emessage = e_message_right_button_up;
-                     }
-
-                     break;
-
-               }
-
-               information("\ndetail:" + ::as_string(prawevent->detail));
-
-
-               if (emessage != e_message_null)
-               {
-
-                  ::i64 iWparam = 'a';
-
-                  ::i64 iLparam = XK_a;
-
-                  if (emessage == e_message_key_down || emessage == e_message_key_up)
-                  {
-
-                     if (is_return_key((XIRawEvent *) cookie->data))
-                     {
-
-                        iWparam = '\n';
-
-                        iLparam = XK_Return;
-
-                     }
-                     else if (is_space_key((XIRawEvent *) cookie->data))
-                     {
-
-                        iWparam = ' ';
-
-                        iLparam = XK_space;
-
-                     }
-
-                     //ptopic->payload("return") = is_return_key(pgeevent);
-
-                     //ptopic->payload("space") = is_space_key(pgeevent);
-
-                  }
-
-                  //::topic::context context;
-
-                  for (auto & p: *m_pobjectaExtendedEventListener)
-                  {
-
-                     p->call(emessage, iWparam, iLparam);
-
-                     //p->on_subject(ptopic, &context);
-
-                  }
-
-//                  if(emessage != e_message_null)
-//               {
-////                  auto ptopic = psystem->topic(eid);
-//
-//  //                ::topic::context context;
-//
-//                  int iKey = XK_A;
-//
-//                  if(is_return_key((XIRawEvent*)cookie->data))
-//                  {
-//
-//                     iKey = XK_Return;
-//
-//                  }
-//                  else if(is_space_key((XIRawEvent*)cookie->data))
-//                  {
-//
-//                     iKey = XK_space;
-//
-//                  }
-//
-//
-////                  ptopic->payload("return") = is_return_key(prawevent);
-////
-////                  ptopic->payload("space") = is_space_key(prawevent);
-//
-//                  //::topic::context context;
-//
-////                  for(auto & p : *m_pobjectaExtendedEventListener)
-////                  {
-////
-////                     p->on_subject(ptopic, &context);
-////
-////                  }
-//
-//
-//                  for(auto & p : *m_pobjectaExtendedEventListener)
-//                  {
-//
-//                     p->call(emessage, iKey);
-//
-//                  }
-
-               }
-
-               bProcessed = true;
+               return true;
 
             }
-
-         }
-
-         XFreeEventData(m_pdisplay->Display(), cookie);
-
-         if (bProcessed)
-         {
-
-            return true;
 
          }
 

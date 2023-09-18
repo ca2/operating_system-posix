@@ -6,7 +6,7 @@
 #include "framework.h"
 #include "windowing.h"
 #include "window.h"
-#include "acme/primitive/geometry2d/_text_stream.h"
+#include "apex/input/input.h"
 #include "aura/user/user/interaction_impl.h"
 #include <X11/Xutil.h>
 
@@ -211,6 +211,13 @@ namespace windowing_posix
 
    }
 
+
+   ::pointer < ::input::input > windowing::get_input()
+   {
+
+      return __create < ::input::input >();
+
+   }
 
 
 } // namespace windowing_posix

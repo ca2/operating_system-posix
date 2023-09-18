@@ -36,7 +36,7 @@ list(APPEND library_source
    windowing_x11.cpp
    windowing.h
    x11_windowing.cpp
-   xi.cpp
+   #xi.cpp
    )
 
 

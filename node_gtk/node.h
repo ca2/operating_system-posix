@@ -134,6 +134,9 @@ namespace node_gtk
       bool defer_windowing_post(const ::procedure & procedure) override;
 
 
+      ::pointer < ::input::input > get_input() override;
+
+
    };
 
 

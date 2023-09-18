@@ -67,7 +67,8 @@ if (${WITH_X11} OR ${WITH_XCB})
 endif ()
 
 
-add_library(${PROJECT_NAME} SHARED ${library_source})
+add_library(${PROJECT_NAME} SHARED ${library_source}
+   x11/input.h)
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 
