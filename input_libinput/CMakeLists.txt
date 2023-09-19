@@ -87,7 +87,7 @@ elseif(${LINUX} OR ${FREEBSD})
 #   endif()
 
 
-   pkg_check_modules(PKGCONFIG libinput libudev)
+   pkg_check_modules(PKGCONFIG libinput libudev xkbcommon)
    target_compile_options(windowing_x11 PRIVATE -fpermissive)
    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
    target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})

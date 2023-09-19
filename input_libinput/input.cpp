@@ -5,11 +5,17 @@
 #include "input.h"
 #include "acme/constant/message.h"
 #include "aura/message/user.h"
+#include "aura/platform/session.h"
+#include "aura/user/user/user.h"
+#include "aura/windowing/keyboard.h"
+#include "aura/windowing/windowing.h"
+#include "aura_posix/xkb_input.h"
 #include <libinput.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <linux/input.h> // for BTN_LEFT
 #include <sys/poll.h>
+#include <xkbcommon/xkbcommon.h>
 
 
 int poll_for_read(int iFd, const class ::time & time)
@@ -36,6 +42,10 @@ namespace input_libinput
 
       defer_create_synchronization();
 
+      m_pxkbkeymap = nullptr;
+
+      m_pxkbstate = nullptr;
+
    }
 
 
@@ -44,7 +54,6 @@ namespace input_libinput
 
 
    }
-
 
 
    static int open_restricted(const char *path, int flags, void *user_data)
@@ -174,7 +183,7 @@ namespace input_libinput
 
       }
 
-      if (m_particleaMouseHandler.has_element())
+      if (m_particleaKeyboardHandler.has_element())
       {
 
          if (etype == LIBINPUT_EVENT_KEYBOARD_KEY)
@@ -282,17 +291,87 @@ namespace input_libinput
 
       auto key = libinput_event_keyboard_get_key(pkeyboard);
 
+      information() << "libinput key : " << key;
+
       auto state = libinput_event_keyboard_get_key_state(pkeyboard);
+
+      information() << "libinput key state : " << (::iptr) state;
+
+      // XBMC_Event event = {};
+
+      //defer_update_xkb_keymap();
+
+      ::user::e_key ekey = ::user::e_key_a;
+
+      auto paurasession = acmesession()->m_paurasession;
+
+      auto puser = paurasession->user();
+
+      auto pwindowing = puser->windowing();
+
+      auto pwindowingkeyboard = pwindowing->keyboard();
+
+      ::pointer < ::xkb_input::xkb_input > pxkbinput = pwindowingkeyboard;
+
+      if(pxkbinput && pxkbinput->m_pxkbkeymap)
+      {
+
+
+         if(m_pxkbkeymap != pxkbinput->m_pxkbkeymap || !m_pxkbstate)
+         {
+
+            if(m_pxkbstate)
+            {
+
+               xkb_state_unref(m_pxkbstate);
+
+               m_pxkbstate = nullptr;
+
+            }
+
+            m_pxkbkeymap = pxkbinput->m_pxkbkeymap;
+
+            m_pxkbstate = xkb_state_new(m_pxkbkeymap);
+
+         }
+
+         if(m_pxkbstate)
+         {
+
+            const uint32_t xkbkey = key + 8;
+
+            const bool pressed = state == LIBINPUT_KEY_STATE_PRESSED;
+
+            xkb_state_update_key(m_pxkbstate, xkbkey, pressed ? XKB_KEY_DOWN : XKB_KEY_UP);
+
+            const xkb_keysym_t keysym = xkb_state_key_get_one_sym(m_pxkbstate, xkbkey);
+
+            if (keysym == XKB_KEY_Return)
+            {
+
+               ekey = ::user::e_key_return;
+
+            }
+            else if (keysym == XKB_KEY_space)
+            {
+
+               ekey = ::user::e_key_space;
+
+            }
+
+         }
+
+      }
 
       enum_message emessage = e_message_undefined;
 
-      if(state == LIBINPUT_BUTTON_STATE_PRESSED)
+      if(state == LIBINPUT_KEY_STATE_PRESSED)
       {
 
          emessage = e_message_key_down;
 
       }
-      else if(state == LIBINPUT_BUTTON_STATE_PRESSED)
+      else if(state == LIBINPUT_KEY_STATE_RELEASED)
       {
 
          emessage = e_message_key_up;
@@ -305,6 +384,8 @@ namespace input_libinput
          auto pkey = __create_new < ::message::key >();
 
          pkey->m_atom = emessage;
+
+         pkey->m_ekey = ekey;
 
          for(auto & pparticle : m_particleaKeyboardHandler)
          {

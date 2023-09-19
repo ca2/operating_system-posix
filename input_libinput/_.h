@@ -26,4 +26,9 @@ struct libinput_event_pointer;
 struct libinput_event_keyboard;
 
 
+struct xkb_context;
+struct xkb_keymap;
+struct xkb_state;
+
+
 

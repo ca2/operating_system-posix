@@ -7,8 +7,11 @@
 #include "acme/operating_system/x11/keyboard.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/filesystem/filesystem/file_context.h"
+#include "apex/input/input.h"
+#include "apex/platform/system.h"
 #include "apex/user/user/primitive.h"
 #include "aura/user/user/key.h"
+#include "aura_posix/xkb_input.h"
 #include <wayland-server-protocol.h>
 #include <xkbcommon/xkbcommon.h>
 #include <sys/mman.h>
@@ -859,6 +862,16 @@ namespace windowing_wayland
       }
 
       synchronous_lock synchronouslock(this->synchronization());
+
+//      ::pointer < ::xkb_input::xkb_input > pxkbinput = acmesystem()->m_papexsystem->m_pinput;
+//
+//      if(pxkbinput)
+//      {
+//
+//         pxkbinput->xkb_keymap_new_from_string((const char *) p, XKB_KEYMAP_FORMAT_TEXT_V1,
+//                                             XKB_KEYMAP_COMPILE_NO_FLAGS);
+//
+//      }
 
       m_pxkbkeymap = ::xkb_keymap_new_from_string(
          m_pxkbcontext, (const char *) p, XKB_KEYMAP_FORMAT_TEXT_V1,

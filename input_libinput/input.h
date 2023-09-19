@@ -5,6 +5,7 @@
 
 
 #include "apex/input/input.h"
+//#include "aura_posix/xkb_input.h"
 
 
 namespace input_libinput
@@ -12,10 +13,14 @@ namespace input_libinput
 
 
    class CLASS_DECL_INPUT_LIBINPUT input :
-      virtual public ::input::input
+      virtual public ::input::input //,
+      //virtual public ::xkb_input::xkb_input
    {
    public:
 
+
+      ::xkb_keymap *       m_pxkbkeymap;
+      ::xkb_state *        m_pxkbstate;
 
 
 
@@ -23,11 +28,9 @@ namespace input_libinput
       ~input() override;
 
 
-      //void initialize(::particle * pparticle) override;
-
-
-
       void __input_task() override;
+
+
 
 
       virtual bool __handle(libinput_event * p);
