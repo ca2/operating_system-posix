@@ -1129,6 +1129,8 @@ namespace windowing_wayland
 
       }
 
+      information() << "windowing_wayland::window::__map";
+
       ::minimum(m_sizeConfigure.cx());
 
       ::minimum(m_sizeConfigure.cy());
@@ -1165,7 +1167,6 @@ namespace windowing_wayland
       //wl_surface_add_listener(m_pwlsurface, &g_wl_surface_listener, this);
 
       pdisplaywayaland->m_windowmap[m_pwlsurface] = this;
-
 
       auto pxdgwmbase = pdisplaywayaland->m_pxdgwmbase;
 
@@ -1289,6 +1290,8 @@ namespace windowing_wayland
    void window::__unmap()
    {
 
+      information() << "windowing_wayland::window::__unmap";
+
       if(m_pwlsurface != nullptr)
       {
 
@@ -1299,8 +1302,6 @@ namespace windowing_wayland
          wl_surface_commit(m_pwlsurface);
 
       }
-
-
 
       if(m_pxdgtoplevel != nullptr)
       {
@@ -1327,10 +1328,10 @@ namespace windowing_wayland
 
          m_pwlsurface = nullptr;
 
-
       }
 
    }
+
 
    void window::set_wm_class(const char * psz)
    {
@@ -3982,9 +3983,12 @@ else
 
             //             XRaiseWindow(Display(), Window());
 
+            information() << "::windowing_wayland::window::_configure_window_unlocked e_zorder_top_most";
+
             __activate_window(true);
 
-         } else if (zorder.m_ezorder == e_zorder_top)
+         }
+         else if (zorder.m_ezorder == e_zorder_top)
          {
 
 //               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 0
@@ -4000,9 +4004,13 @@ else
 //               }
 //
 //               XRaiseWindow(Display(), Window());
+
+            information() << "::windowing_wayland::window::_configure_window_unlocked e_zorder_top";
+
             __activate_window(true);
 
-         } else if (zorder.m_ezorder == e_zorder_bottom)
+         }
+         else if (zorder.m_ezorder == e_zorder_bottom)
          {
 
 //               if (net_wm_state(::x11::e_atom_net_wm_state_below) != 1)
@@ -4019,6 +4027,8 @@ else
       }
       else if(eactivation != e_activation_default)
       {
+
+         information() << "::windowing_wayland::window::_configure_window_unlocked eactivation : " << (::iptr) eactivation;
 
          __activate_window(true);
 
@@ -4600,6 +4610,9 @@ else
 
       synchronous_lock synchronouslock(user_synchronization());
 
+      information() << "::windowing_wayland::window::set_active_window";
+
+      user_post([this]()
       {
 
          windowing_output_debug_string("::set_active_window 1");
@@ -4632,7 +4645,7 @@ else
 //
 //         windowing_output_debug_string("::set_active_window 2");
 
-      }
+      });
 
 //      //auto estatus =
 //      //
@@ -4654,6 +4667,8 @@ else
    {
 
       ::pointer < ::windowing_wayland::display > pwaylanddisplay = m_pdisplay;
+
+      information() << "::windowing_wayland::window::__activate_window bNormalPriority : " << bNormalPriority;
 
       if (pwaylanddisplay->m_pxdgactivationv1)
       {
@@ -6370,9 +6385,23 @@ if(::is_set(m_pwlsurface))
 
       m_uLastConfigureSerial = serial;
 
-      m_puserinteractionimpl->m_puserinteraction->set_need_redraw();
+      auto puserinteractionimpl = m_puserinteractionimpl;
 
-      m_puserinteractionimpl->m_puserinteraction->post_redraw();
+      if(puserinteractionimpl)
+      {
+
+         auto puserinteraction = m_puserinteractionimpl->m_puserinteraction;
+
+         if(puserinteraction)
+         {
+
+            puserinteraction->set_need_redraw();
+
+            puserinteraction->post_redraw();
+
+         }
+
+      }
 
 //
 //
@@ -6493,10 +6522,7 @@ if(::is_set(m_pwlsurface))
 
          auto uSerial = wayland_display()->m_uLastButtonSerial;
 
-         xdg_toplevel_move(
-            pxdgtoplevel,
-            pwlseat,
-            uSerial);
+         xdg_toplevel_move(pxdgtoplevel, pwlseat, uSerial);
 
       }
 
@@ -6533,6 +6559,7 @@ if(::is_set(m_pwlsurface))
 
        if(::is_set(m_pxdgtoplevel))
        {
+
           m_resizeedge = resizeedge;
 
           xdg_toplevel_resize(

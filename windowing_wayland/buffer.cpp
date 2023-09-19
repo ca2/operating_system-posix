@@ -645,63 +645,74 @@ namespace windowing_wayland
 //      {
 
       ::pointer<::windowing_wayland::window> pwaylandwindow = m_pimpl->m_pwindow;
-if(pwaylandwindow->m_pxdgtoplevel == nullptr)
-{
 
-   auto edisplay = pwaylandwindow->m_puserinteractionimpl->m_puserinteraction->const_layout().design().display();
+      if(pwaylandwindow->m_pxdgtoplevel == nullptr)
+      {
 
-   if(!pwaylandwindow->windowing()->is_screen_visible(edisplay)
-   && edisplay != e_display_iconic)
-   {
+         auto edisplay = pwaylandwindow->m_puserinteractionimpl->m_puserinteraction->const_layout().design().display();
 
-      return false;
+         if(!pwaylandwindow->windowing()->is_screen_visible(edisplay) && edisplay != e_display_iconic)
+         {
 
-   }
-   //auto x = m_pointWindowBestEffort.x();
+            information() << "::windowing_wayland::buffer::update_screen this is not visible";
 
-}
+            return false;
 
-manual_reset_event e;
+         }
 
-      e.ResetEvent();
+         //auto x = m_pointWindowBestEffort.x();
 
-         user_post([this, &e]()
-                                    {
-at_end_of_scope
-                                       {
+      }
 
-                                          e.SetEvent();
-                                       };
-            try
+      auto pevent = __create_new < manual_reset_event >();
+
+      pevent->ResetEvent();
+
+      user_post([this, pevent]()
+      {
+
+         at_end_of_scope
+         {
+
+            pevent->SetEvent();
+
+         };
+
+         try
+         {
+
+            ::pointer<::windowing_wayland::window> pwaylandwindow = m_pimpl->m_pwindow;
+
+            //::pointer<::windowing_wayland::window> pwaylandwindow = m_pimpl->m_pwindow;
+            if(::is_null(pwaylandwindow->m_pxdgtoplevel))
             {
 
-               ::pointer<::windowing_wayland::window> pwaylandwindow = m_pimpl->m_pwindow;
+               auto edisplay = pwaylandwindow->m_puserinteractionimpl->m_puserinteraction->const_layout().design().display();
 
-               //::pointer<::windowing_wayland::window> pwaylandwindow = m_pimpl->m_pwindow;
-               if(::is_null(pwaylandwindow->m_pxdgtoplevel))
+               if(!pwaylandwindow->windowing()->is_screen_visible(edisplay) && edisplay != e_display_iconic)
                {
 
-                  auto edisplay = pwaylandwindow->m_puserinteractionimpl->m_puserinteraction->const_layout().design().display();
+                  information() << "::windowing_wayland::buffer::update_screen this is not visible (2)";
 
-                  if(!pwaylandwindow->windowing()->is_screen_visible(edisplay)
-                     && edisplay != e_display_iconic)
-                  {
+                  return;
 
-                     return;
-
-                  }
-                  //auto x = m_pointWindowBestEffort.x();
-                  pwaylandwindow->__map();
                }
 
-//                                       auto pimpl = m_puserinteractionimpl;
+               //auto x = m_pointWindowBestEffort.x();
 
-                                       if(pwaylandwindow->m_bDoneFirstMapping && ::is_set(pwaylandwindow->m_pxdgtoplevel))
-                                                    {
+               pwaylandwindow->__map();
+
+            }
+
+            //          auto pimpl = m_puserinteractionimpl;
+
+            //if(pwaylandwindow->m_bDoneFirstMapping && ::is_set(pwaylandwindow->m_pxdgtoplevel))
+            if(::is_set(pwaylandwindow->m_pxdgtoplevel))
+            {
 
                pwaylandwindow->configure_window_unlocked();
 
-                                                  }
+            }
 
 //                                       ::pointer<buffer> pbuffer = pimpl->m_pgraphics;
 //
@@ -734,8 +745,7 @@ at_end_of_scope
 
                      information() << "pwaylandwindow->strict_set_window_position_unlocked";
 
-                     pwaylandwindow->strict_set_window_position_unlocked(bChangedPosition,
-                                                                         bChangedSize);
+                     pwaylandwindow->strict_set_window_position_unlocked(bChangedPosition, bChangedSize);
 
                   }
                   catch (...)
@@ -882,7 +892,7 @@ at_end_of_scope
                                     });
 
 
-         e._wait(20_s);
+      pevent->_wait(20_s);
 
          information() << "finished waiting for procedure to run";
 
