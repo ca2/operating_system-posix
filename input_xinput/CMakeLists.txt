@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(input_libinput CXX)
+project(input_xinput CXX)
 
 
 list(APPEND library_source
@@ -38,7 +38,7 @@ list(APPEND library_source
 #   x11_windowing.cpp
    input.cpp
    input.h
-   xi.cpp
+   #xi.cpp
    )
 
 
@@ -87,7 +87,7 @@ elseif(${LINUX} OR ${FREEBSD})
 #   endif()
 
 
-   pkg_check_modules(PKGCONFIG x11 xrender xi xext libstartup-notification-1.0)
+   pkg_check_modules(PKGCONFIG x11 xi)
    target_compile_options(windowing_x11 PRIVATE -fpermissive)
    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
    target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
@@ -128,8 +128,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories
 target_include_directories(static_${PROJECT_NAME} PRIVATE ${library_include_directories})
 
 
-
-target_compile_definitions(windowing_x11 PRIVATE _WINDOWING_X11_LIBRARY)
+target_compile_definitions(${PROJECT_NAME} PRIVATE _INPUT_XINPUT_LIBRARY)
 
 
 

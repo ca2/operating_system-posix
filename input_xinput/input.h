@@ -8,24 +8,26 @@
 #include "aura_posix/x11/input.h"
 
 
-namespace input_libinput
+namespace input_xinput
 {
 
 
-   class CLASS_DECL_INPUT_LIBINPUT input :
+   class CLASS_DECL_INPUT_XINPUT input :
       virtual public ::input::input,
       virtual public ::xinput::xinput
    {
    public:
 
 
-      ::pointer_array<::particle> m_particleaMouseHandler;
-      ::pointer_array<::particle> m_particleaKeyboardHandler;
+      //::pointer_array<::particle> m_particleaMouseHandler;
+      //::pointer_array<::particle> m_particleaKeyboardHandler;
 
 
 //#ifdef WITH_XI
 
    int                                             m_xi_opcode = -1;
+      bool                                         m_bMouseEnabled;
+   bool                                            m_bKeyboardEnabled;
       //::pointer<particle_array>                        m_pobjectaExtendedEventListener;
 
 //#endif
@@ -35,33 +37,35 @@ namespace input_libinput
       ~input() override;
 
 
-      void initialize(::particle * pparticle) override;
+      //void initialize(::particle * pparticle) override;
 
 
-      virtual void __xinput();
-      virtual bool __needs_xinput();
+      virtual void defer_input();
+      //virtual bool __needs_xinput();
 
 
-      virtual bool __handle(libinput_event * p);
-      virtual bool __handle_pointer_button(libinput_event * p);
-      virtual bool __handle_keyboard_key(libinput_event * p);
+//      virtual bool __handle(libinput_event * p);
+//      virtual bool __handle_pointer_button(libinput_event * p);
+//      virtual bool __handle_keyboard_key(libinput_event * p);
 
 
-      void add_mouse_message_handler(::particle * pparticle) override;
-      void add_keyboard_message_handler(::particle * pparticle)override;
-
-      void erase_mouse_message_handler(::particle * pparticle) override;
-      void erase_keyboard_message_handler(::particle * pparticle) override;
+//      void add_mouse_message_handler(::particle * pparticle) override;
+//      void add_keyboard_message_handler(::particle * pparticle)override;
+//
+//      void erase_mouse_message_handler(::particle * pparticle) override;
+//      void erase_keyboard_message_handler(::particle * pparticle) override;
+//
 
 
       bool __handle_xinput(void * p, void *cookie) override;
-      virtual bool __handle_xinput(XEvent * pevent, XGenericEventCookie *cookie);
+
+      //virtual bool __handle_xinput(XEvent * pevent, XGenericEventCookie *cookie);
 
 
    };
 
 
-} // namespace input
+} // namespace input_xinput
 
 
 

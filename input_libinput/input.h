@@ -17,22 +17,17 @@ namespace input_libinput
    public:
 
 
-      ::pointer_array<::particle> m_particleaMouseHandler;
-      ::pointer_array<::particle> m_particleaKeyboardHandler;
-
-
-      ::task_pointer                                  m_ptaskLibInput;
 
 
       input();
       ~input() override;
 
 
-      void initialize(::particle * pparticle) override;
+      //void initialize(::particle * pparticle) override;
 
 
-      virtual void __libinput();
-      virtual bool __needs_libinput();
+
+      void __input_task() override;
 
 
       virtual bool __handle(libinput_event * p);
@@ -40,11 +35,12 @@ namespace input_libinput
       virtual bool __handle_keyboard_key(libinput_event * p);
 
 
-      void add_mouse_message_handler(::particle * pparticle) override;
-      void add_keyboard_message_handler(::particle * pparticle)override;
-
-      void erase_mouse_message_handler(::particle * pparticle) override;
-      void erase_keyboard_message_handler(::particle * pparticle) override;
+//      void add_mouse_message_handler(::particle * pparticle) override;
+//      void add_keyboard_message_handler(::particle * pparticle)override;
+//
+//
+//      void erase_mouse_message_handler(::particle * pparticle) override;
+//      void erase_keyboard_message_handler(::particle * pparticle) override;
 
 
    };

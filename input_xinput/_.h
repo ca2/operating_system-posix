@@ -4,28 +4,21 @@
 #include "aura_posix/_.h"
 
 
-#if defined(_windowing_x11_project)
-   #define CLASS_DECL_WINDOWING_X11  CLASS_DECL_EXPORT
+#if defined(_input_xinput_project)
+   #define CLASS_DECL_INPUT_XINPUT  CLASS_DECL_EXPORT
 #else
-   #define CLASS_DECL_WINDOWING_X11  CLASS_DECL_IMPORT
+   #define CLASS_DECL_INPUT_XINPUT CLASS_DECL_IMPORT
 #endif
 
 
-namespace windowing_x11
+namespace input_xinput
 {
 
 
-   class windowing;
-   class display;
-   class window;
-   class x11data;
+   class input;
 
 
-   using WINDOW = long;
+} // namespace input_xinput
 
 
-   using window_map = map < WINDOW, ::pointer< window > >;
-
-
-} // namespace node_gnome
 

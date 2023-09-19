@@ -87,7 +87,7 @@ elseif(${LINUX} OR ${FREEBSD})
 #   endif()
 
 
-   pkg_check_modules(PKGCONFIG x11 xrender xi xext libstartup-notification-1.0)
+   pkg_check_modules(PKGCONFIG libinput libudev)
    target_compile_options(windowing_x11 PRIVATE -fpermissive)
    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
    target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
@@ -129,7 +129,7 @@ target_include_directories(static_${PROJECT_NAME} PRIVATE ${library_include_dire
 
 
 
-target_compile_definitions(windowing_x11 PRIVATE _WINDOWING_X11_LIBRARY)
+target_compile_definitions(${PROJECT_NAME} PRIVATE _INPUT_LIBINPUT_LIBRARY)
 
 
 

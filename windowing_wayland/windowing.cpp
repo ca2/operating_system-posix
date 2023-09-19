@@ -448,7 +448,9 @@ namespace windowing_wayland
    ::pointer < ::input::input > windowing::get_input()
    {
 
-      acmesystem()->factory("input", "libinput");
+      auto & pfactory = acmesystem()->factory("input", "libinput");
+
+      pfactory->merge_to_global_factory();
 
       return windowing_posix::windowing::get_input();
 
