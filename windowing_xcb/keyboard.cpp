@@ -278,7 +278,7 @@ namespace windowing_xcb
 
       //::user::enum_key ekey;
 
-      //::type typeinfoKey = __type(::user::enum_key);
+      //::type typeinfoKey = ::type < ::user::enum_key >();
 
       auto pcontext = m_pcontext;
 
