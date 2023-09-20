@@ -5,7 +5,7 @@
 
 
 #include "apex/input/input.h"
-#include "aura_posix/x11/input.h"
+#include "aura_posix/xinput.h"
 
 
 namespace input_xinput
