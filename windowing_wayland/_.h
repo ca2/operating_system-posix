@@ -42,6 +42,8 @@ struct wl_callback;
 struct wl_shm_pool;
 struct wl_keyboard;
 struct wl_array;
+struct wl_subsurface;
+struct wl_subcompositor;
 
 struct xdg_wm_base;
 struct xdg_surface;

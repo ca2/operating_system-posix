@@ -35,6 +35,7 @@ namespace windowing_wayland
       xdg_toplevel_resize_edge                     m_resizeedge;
       wayland_buffer                               m_waylandbuffer;
       ::wl_surface *                               m_pwlsurface;
+      ::wl_subsurface *                            m_pwlsubsurface;
       ::xdg_surface *                              m_pxdgsurface;
       ::xdg_toplevel *                             m_pxdgtoplevel;
       ::wl_pointer *                               m_pwlpointer;

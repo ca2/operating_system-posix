@@ -375,7 +375,7 @@ namespace windowing_wayland
 
       auto y = wl_fixed_to_double(sy);
 
-      printf("Pointer moved at %0.0f %0.0f\n", x, y);
+      //printf("Pointer moved at %0.0f %0.0f\n", x, y);
 
       auto pdisplay = (display *) data;
 
@@ -401,7 +401,7 @@ namespace windowing_wayland
                          uint32_t serial, uint32_t millis, uint32_t linux_button,
                          uint32_t pressed)
    {
-      printf("Pointer button\n");
+///      printf("Pointer button\n");
 
 
       auto pdisplay = (display *) data;
@@ -442,6 +442,7 @@ namespace windowing_wayland
       pdisplay->__handle_pointer_button(pwlpointer, linux_button, pressed, millis);
 
    }
+
 
    void
    pointer_handle_axis(void *data, struct wl_pointer *wl_pointer,
@@ -638,6 +639,12 @@ namespace windowing_wayland
          xdg_wm_base_add_listener(pdisplay->m_pxdgwmbase, &g_xdg_wm_base_listener, data);
 
       }
+      else if (strcmp(interface, "wl_subcompositor") == 0)
+      {
+
+         pdisplay->m_pwlsubcompositor = (::wl_subcompositor*)wl_registry_bind(pwlregistry, id, &wl_subcompositor_interface, 1);
+
+      }
       else if (strcmp(interface, "wl_shm") == 0)
       {
 
@@ -719,6 +726,7 @@ namespace windowing_wayland
       m_pwlpointer = nullptr;
       m_pwlsurfaceCursor = nullptr;
       m_pwlsurfacePointerEnter = nullptr;
+      m_pwlsubcompositor = nullptr;
 
       m_pgtkshell1 = nullptr;
       m_pxdgactivationv1 = nullptr;
@@ -2065,6 +2073,12 @@ return nullptr;
       {
 
          m_pwindowPointerEnter->__handle_pointer_button(pwlpointer, linux_button, pressed, millis);
+
+      }
+      else
+      {
+
+         information() << "MISSED BUTTON PRESS/RELEASE: at display::__handle_pointer_button";
 
       }
 

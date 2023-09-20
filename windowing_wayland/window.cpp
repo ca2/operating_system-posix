@@ -357,6 +357,7 @@ namespace windowing_wayland
       //m_xic = nullptr;
       m_pxdgsurface = nullptr;
       m_pwlsurface = nullptr;
+      m_pwlsubsurface = nullptr;
       m_pxdgtoplevel = nullptr;
 
       m_pxdgactivationtokenv1 = nullptr;
@@ -1164,6 +1165,25 @@ namespace windowing_wayland
 
       }
 
+      auto puserinteractionParent = m_puserinteractionimpl->m_puserinteraction->m_puserinteractionParent;
+
+      if(puserinteractionParent)
+      {
+
+         ::pointer < window > pwindowParent = puserinteractionParent->m_pinteractionimpl->window();
+
+         if(pwindowParent->m_pwlsurface)
+         {
+
+            m_pwlsubsurface = wl_subcompositor_get_subsurface(
+               pdisplaywayaland->m_pwlsubcompositor,
+               m_pwlsurface,
+               pwindowParent->m_pwlsurface);
+
+         }
+
+      }
+
       //wl_surface_add_listener(m_pwlsurface, &g_wl_surface_listener, this);
 
       pdisplaywayaland->m_windowmap[m_pwlsurface] = this;
@@ -1318,6 +1338,15 @@ namespace windowing_wayland
          xdg_surface_destroy(m_pxdgsurface);
 
          m_pxdgsurface = nullptr;
+
+      }
+
+      if(m_pwlsubsurface != nullptr)
+      {
+
+         wl_subsurface_destroy(m_pwlsubsurface);
+
+         m_pwlsubsurface = nullptr;
 
       }
 
@@ -4360,6 +4389,15 @@ else
             frame.left(), frame.top(),
             frame.width(), frame.height());
 
+         if(m_pwlsubsurface)
+         {
+
+            wl_subsurface_set_position(
+               m_pwlsubsurface,
+               m_pointWindow.x(), m_pointWindow.y());
+
+         }
+
       }
 
       return true;
@@ -6060,7 +6098,11 @@ if(::is_set(m_pwlsurface))
    void window::__handle_pointer_leave(::wl_pointer * pwlpointer, ::windowing_wayland::window * pwaylandwindowLeave)
    {
 
-      information() << "__handle_pointer_leave";
+      ::string strType = ::type(m_puserinteractionimpl->m_puserinteraction).name();
+
+      information()
+
+         << "__handle_pointer_leave";
 
       m_pwlpointer = pwlpointer;
 
@@ -6144,6 +6186,10 @@ if(::is_set(m_pwlsurface))
    void window::__handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis)
    {
 
+      ::string strType = ::type(m_puserinteractionimpl->m_puserinteraction).name();
+
+
+
       m_pwlpointer = pwlpointer;
 
       enum_message emessage = e_message_undefined;
@@ -6167,7 +6213,8 @@ if(::is_set(m_pwlsurface))
          if (linux_button == BTN_LEFT)
          {
 
-            ::information("ButtonPress::Button1\n");
+            information()
+               << "LeftButtonDown";
 
             emessage = e_message_left_button_down;
 
@@ -6210,7 +6257,8 @@ if(::is_set(m_pwlsurface))
          if (linux_button == BTN_LEFT)
          {
 
-            ::information("ButtonRelease::Button1\n");
+            information()
+               << "LeftButtonUp";
 
             emessage = e_message_left_button_up;
 
@@ -6364,7 +6412,11 @@ if(::is_set(m_pwlsurface))
 
          xdg_surface_ack_configure(m_pxdgsurface, m_uLastAckSerial);
 
-         information() << "xdg_surface_ack_configure : " << m_uLastAckSerial;
+         ::string strType = ::type(m_puserinteractionimpl->m_puserinteraction).name();
+
+         information()
+
+            << "xdg_surface_ack_configure : " << m_uLastAckSerial;
 
       }
 
@@ -6374,7 +6426,11 @@ if(::is_set(m_pwlsurface))
    void window::__handle_xdg_surface_configure(::u32 serial)
    {
 
-      information() << "__handle_xdg_surface_configure : " << serial;
+      ::string strType = ::type(m_puserinteractionimpl->m_puserinteraction).name();
+
+      information()
+
+         << "__handle_xdg_surface_configure : " << serial;
 
       if(!m_bXdgInitialConfigure)
       {
@@ -6420,9 +6476,13 @@ if(::is_set(m_pwlsurface))
    void window::__handle_xdg_toplevel_configure(::i32 width, ::i32 height, ::wl_array * pwlarrayState)
    {
 
+      ::string strType = ::type(m_puserinteractionimpl->m_puserinteraction).name();
+
       ::size_i32 size(width, height);
 
-      information() << "__handle_xdg_toplevel_configure input size : " << size;
+      information()
+
+         << "__handle_xdg_toplevel_configure input size : " << size;
 
       if(size.cx() > 0)
       {
@@ -6440,12 +6500,16 @@ if(::is_set(m_pwlsurface))
 
       m_sizeConfigure = m_sizeWindow;
 
-      information() << "__handle_xdg_toplevel_configure effective size : " << m_sizeWindow;
+      information()
+
+         << "__handle_xdg_toplevel_configure effective size : " << m_sizeWindow;
 
       if(pwlarrayState->size == 0)
       {
 
-         information() << "pwlarrayState is EMPTY";
+         information()
+
+            << "pwlarrayState is EMPTY";
 
       }
       else

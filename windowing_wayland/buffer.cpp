@@ -646,6 +646,8 @@ namespace windowing_wayland
 
       ::pointer<::windowing_wayland::window> pwaylandwindow = m_pimpl->m_pwindow;
 
+      ::string strType = ::type(pwaylandwindow->m_puserinteractionimpl->m_puserinteraction).name();
+
       if(pwaylandwindow->m_pxdgtoplevel == nullptr)
       {
 
@@ -654,7 +656,8 @@ namespace windowing_wayland
          if(!pwaylandwindow->windowing()->is_screen_visible(edisplay) && edisplay != e_display_iconic)
          {
 
-            information() << "::windowing_wayland::buffer::update_screen this is not visible";
+            information()
+               << "::windowing_wayland::buffer::update_screen this is not visible";
 
             return false;
 
@@ -682,6 +685,8 @@ namespace windowing_wayland
          {
 
             ::pointer<::windowing_wayland::window> pwaylandwindow = m_pimpl->m_pwindow;
+
+            ::string strType = ::type(pwaylandwindow->m_puserinteractionimpl->m_puserinteraction).name();
 
             //::pointer<::windowing_wayland::window> pwaylandwindow = m_pimpl->m_pwindow;
             if(::is_null(pwaylandwindow->m_pxdgtoplevel))
@@ -743,7 +748,9 @@ namespace windowing_wayland
                   try
                   {
 
-                     information() << "pwaylandwindow->strict_set_window_position_unlocked";
+                     information()
+
+                        << "pwaylandwindow->strict_set_window_position_unlocked";
 
                      pwaylandwindow->strict_set_window_position_unlocked(bChangedPosition, bChangedSize);
 
@@ -765,12 +772,15 @@ namespace windowing_wayland
 
                slGraphics.unlock();
 
+               information()
 
-               information() << "m_sizeConfigure : " << pwaylandwindow->m_sizeConfigure
-                             << " m_sizeWindow : " << pwaylandwindow->m_sizeWindow
-                             << " pitem->m_size : " << pitem->m_size;
+                  << "m_sizeConfigure : " << pwaylandwindow->m_sizeConfigure
+                  << " m_sizeWindow : " << pwaylandwindow->m_sizeWindow
+                  << " pitem->m_size : " << pitem->m_size;
 
-               information() << "m_pxdgtoplevel : " << (::iptr) pwaylandwindow->m_pxdgtoplevel;
+               information()
+
+                  << "m_pxdgtoplevel : " << (::iptr) pwaylandwindow->m_pxdgtoplevel;
 
                //if(pwaylandwindow->m_sizeWindow == pwaylandwindow->m_waylandbuffer.m_size
                if (::is_set(pwaylandwindow->m_pxdgtoplevel)
@@ -799,7 +809,9 @@ namespace windowing_wayland
                                  pwaylandwindow->m_waylandbuffer.m_stride,
                                  pitem->m_pimage2->data(), pitem->m_pimage2->scan_size());
 
-                  information() << "_update_screen_unlocked data : "
+                  information()
+
+                     << "_update_screen_unlocked data : "
                                 << (::iptr) pwaylandwindow->m_waylandbuffer.m_pdata;
                   //memset(pwindow->m_waylandbuffer.m_pdata, 127,pitem->m_size.cx() * 4 * pitem->m_size.cy());
 //      m_pwlcallbackFrame = wl_surface_frame(pwindow->m_pwlsurface);
@@ -813,7 +825,9 @@ namespace windowing_wayland
                   pwaylandwindow->__defer_xdg_surface_ack_configure();
                   wl_surface_commit(pwaylandwindow->m_pwlsurface);
 
-                  information() << "wl_surface_commit";
+                  information()
+
+                     << "wl_surface_commit";
 
                                              if (!pwaylandwindow->m_bDoneFirstMapping)
                                              {
@@ -894,7 +908,9 @@ namespace windowing_wayland
 
       pevent->_wait(20_s);
 
-         information() << "finished waiting for procedure to run";
+         information()
+
+            << "finished waiting for procedure to run";
 
       //}
 

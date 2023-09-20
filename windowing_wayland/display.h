@@ -72,6 +72,7 @@ namespace windowing_wayland
       ::wl_seat *             m_pwlseat;
       ::wl_keyboard * m_pwlkeyboard;
       ::wl_pointer * m_pwlpointer;
+      ::wl_subcompositor * m_pwlsubcompositor;
       //::wl_shm_pool * m_pwlshmpool;
       ::wl_surface * m_pwlsurfacePointerEnter;
       ::wl_surface * m_pwlsurfaceLastLButtonDown;
