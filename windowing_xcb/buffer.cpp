@@ -552,7 +552,7 @@ namespace windowing_xcb
 
       }
 
-      string strType = __type_name(m_pimpl->m_puserinteraction);
+      string strType = ::type(m_pimpl->m_puserinteraction).name();
 
       bool bComboList = strType.case_insensitive_contains("combo_list");
 
