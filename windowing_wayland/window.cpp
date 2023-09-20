@@ -46,6 +46,7 @@ void on_sn_launch_complete(void * pSnContext);
 #define ALOG_CONTEXT ::trace_object(::trace_category_windowing)
 
 
+
 namespace windowing_wayland
 {
 
@@ -338,6 +339,37 @@ namespace windowing_wayland
 //      handle_popup_done
 //   };
 
+   static void handle_configure_xdg_popup(void *data,
+                                          struct xdg_popup *xdg_popup,
+                                          int32_t x,
+                                          int32_t y,
+                                          int32_t width,
+                                          int32_t height)
+   {
+      /* No-op, we don't use x/y and width/height are fixed-size */
+   }
+
+   static void handle_done_xdg_popup(void *data, struct xdg_popup *xdg_popup)
+   {
+      auto pwindow = (window *)data;
+      pwindow->m_puserinteractionimpl->m_puserinteraction->post_message(e_message_close);
+      //SDL_SendWindowEvent(window->sdlwindow, SDL_WINDOWEVENT_CLOSE, 0, 0);
+   }
+
+   static void handle_repositioned_xdg_popup(void *data,
+                                             struct xdg_popup *xdg_popup,
+                                             uint32_t token)
+   {
+      /* No-op, configure does all the work we care about */
+   }
+
+   static const struct xdg_popup_listener popup_listener_xdg = {
+      handle_configure_xdg_popup,
+      handle_done_xdg_popup,
+      handle_repositioned_xdg_popup
+   };
+
+
 
    window::window()
    {
@@ -359,6 +391,8 @@ namespace windowing_wayland
       m_pwlsurface = nullptr;
       m_pwlsubsurface = nullptr;
       m_pxdgtoplevel = nullptr;
+      m_pxdgpopup = nullptr;
+      m_pxdgpositioner = nullptr;
 
       m_pxdgactivationtokenv1 = nullptr;
 
@@ -598,9 +632,22 @@ namespace windowing_wayland
 //
 //         x
 
-         m_pointWindow.x() = 0;
 
-         m_pointWindow.y() = 0;
+//   if(m_puserinteractionimpl->m_puserinteraction->m_puserinteractionOwner)
+//   {
+//
+//      m_pointWindow.x() = x;
+//
+//      m_pointWindow.y() = y;
+//   }
+//   else
+   {
+
+      m_pointWindow.x() = 0;
+
+      m_pointWindow.y() = 0;
+
+   }
 
          //m_pointWindowBestEffort.x() = x;
 
@@ -1123,7 +1170,7 @@ namespace windowing_wayland
    void window::__map()
    {
 
-      if(m_pxdgtoplevel != nullptr)
+      if(m_pxdgtoplevel != nullptr || m_pxdgpopup != nullptr)
       {
 
          return;
@@ -1165,24 +1212,39 @@ namespace windowing_wayland
 
       }
 
-      auto puserinteractionParent = m_puserinteractionimpl->m_puserinteraction->m_puserinteractionParent;
+      auto puserinteractionOwner = m_puserinteractionimpl->m_puserinteraction->m_puserinteractionOwner;
 
-      if(puserinteractionParent)
-      {
-
-         ::pointer < window > pwindowParent = puserinteractionParent->m_pinteractionimpl->window();
-
-         if(pwindowParent->m_pwlsurface)
-         {
-
-            m_pwlsubsurface = wl_subcompositor_get_subsurface(
-               pdisplaywayaland->m_pwlsubcompositor,
-               m_pwlsurface,
-               pwindowParent->m_pwlsurface);
-
-         }
-
-      }
+//      if(puserinteractionOwner)
+//      {
+//
+//         ::pointer < window > pwindowOwner = puserinteractionOwner->window();
+//
+//         if(pwindowOwner->m_pwlsurface)
+//         {
+//
+//            m_pwlsubsurface = wl_subcompositor_get_subsurface(
+//               pdisplaywayaland->m_pwlsubcompositor,
+//               m_pwlsurface,
+//               pwindowOwner->m_pwlsurface);
+//
+//            if(m_pwlsubsurface)
+//            {
+//
+//               information() << "Created wayland subsurface";
+//
+//            }
+//            else
+//            {
+//
+//               information() << "Failed to create wayland subsurface";
+//
+//               wl_subsurface_set_desync(m_pwlsubsurface);
+//
+//            }
+//
+//         }
+//
+//      }
 
       //wl_surface_add_listener(m_pwlsurface, &g_wl_surface_listener, this);
 
@@ -1192,47 +1254,101 @@ namespace windowing_wayland
 
       information() << "pxdgwmbase : " << (::iptr) pxdgwmbase;
 
-      m_pxdgsurface = xdg_wm_base_get_xdg_surface(pxdgwmbase, m_pwlsurface);
-
-      if (m_pxdgsurface == NULL)
+      if(!m_pwlsubsurface)
       {
 
-         pdisplaywayaland->m_windowmap.erase_item(m_pwlsurface);
+         m_pxdgsurface = xdg_wm_base_get_xdg_surface(pxdgwmbase, m_pwlsurface);
 
-         error() << "Can't create shell surface";
+         if (m_pxdgsurface == NULL)
+         {
 
-         throw ::exception(::error_failed);
+            pdisplaywayaland->m_windowmap.erase_item(m_pwlsurface);
+
+            error() << "Can't create shell surface";
+
+            throw ::exception(::error_failed);
+
+         }
+         else
+         {
+
+            information() << "Created shell surface";
+
+         }
+
+         xdg_surface_add_listener(m_pxdgsurface, &xdg_surface_listener, this);
+
+      }
+
+      if(puserinteractionOwner)
+      {
+
+         m_pxdgpositioner = xdg_wm_base_create_positioner(pxdgwmbase);
+
+         auto p = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin();
+
+         if(m_puserinteractionimpl->m_puserinteraction)
+         {
+
+            if (m_puserinteractionimpl->m_puserinteraction->get_parent())
+            {
+
+               m_puserinteractionimpl->m_puserinteraction->get_parent()->client_to_host()(p);
+
+            }
+
+         }
+
+         m_pointWindow = p;
+
+         xdg_positioner_set_offset(m_pxdgpositioner,
+                                   m_pointWindow.x(),
+                                   m_pointWindow.y());
+
+         information() << "xdg_positioner_set_offset " << m_pointWindow;
+
+         ::pointer < window > pwindowOwner = puserinteractionOwner->window();
+
+//         if(pwindowOwner->m_pwlsurface)
+  //       {
+
+         /* Assign the popup role */
+         //data->shell_surface.xdg.roleobj.popup.popup = xdg_surface_get_popup(data->shell_surface.xdg.surface,
+           //                                                                  focuseddata->shell_surface.xdg.surface,
+             //                                                                data->shell_surface.xdg.roleobj.popup.positioner);
+
+
+         m_pxdgpopup = xdg_surface_get_popup(m_pxdgsurface, pwindowOwner->m_pxdgsurface, m_pxdgpositioner);
+
+         xdg_popup_add_listener(m_pxdgpopup, &popup_listener_xdg, this);
 
       }
       else
       {
 
-         information() << "Created shell surface";
+
+         m_pxdgtoplevel = xdg_surface_get_toplevel(m_pxdgsurface);
+
+         if (m_pxdgtoplevel == NULL)
+         {
+
+            pdisplaywayaland->m_windowmap.erase_item(m_pwlsurface);
+
+            error() << "Can't create toplevel";
+
+            throw ::exception(::error_failed);
+
+         }
+         else
+         {
+
+            information() << "Created toplevel";
+
+         }
+
+         xdg_toplevel_add_listener(m_pxdgtoplevel, &g_xdg_toplevel_listener, this);
 
       }
-
-      xdg_surface_add_listener(m_pxdgsurface, &xdg_surface_listener, this);
-
-      m_pxdgtoplevel = xdg_surface_get_toplevel(m_pxdgsurface);
-
-      if (m_pxdgtoplevel == NULL)
-      {
-
-         pdisplaywayaland->m_windowmap.erase_item(m_pwlsurface);
-
-         error() << "Can't create toplevel";
-
-         throw ::exception(::error_failed);
-
-      }
-      else
-      {
-
-         information() << "Created toplevel";
-
-      }
-
-      xdg_toplevel_add_listener(m_pxdgtoplevel, &g_xdg_toplevel_listener, this);
 
       //m_pointWindow.x() = x;
 
@@ -1250,18 +1366,30 @@ namespace windowing_wayland
 
       auto cy = m_sizeWindow.cy();
 
-      xdg_surface_set_window_geometry(m_pxdgsurface, x, y, cx, cy);
+      if(m_pxdgsurface)
+      {
+
+         xdg_surface_set_window_geometry(m_pxdgsurface, x, y, cx, cy);
+
+      }
 
       auto pimpl = m_puserinteractionimpl;
 
-      if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
+
+
+      if(m_pxdgtoplevel)
       {
 
-         auto psystem = acmesystem()->m_papexsystem;
+         if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
+         {
 
-         string strApplicationServerName = psystem->get_application_server_name();
+            auto psystem = acmesystem()->m_papexsystem;
 
-         xdg_toplevel_set_app_id(m_pxdgtoplevel, strApplicationServerName);
+            string strApplicationServerName = psystem->get_application_server_name();
+
+            xdg_toplevel_set_app_id(m_pxdgtoplevel, strApplicationServerName);
+
+         }
 
       }
 
@@ -1329,6 +1457,25 @@ namespace windowing_wayland
          xdg_toplevel_destroy(m_pxdgtoplevel);
 
          m_pxdgtoplevel = nullptr;
+
+      }
+
+
+      if(m_pxdgpopup != nullptr)
+      {
+
+         xdg_popup_destroy(m_pxdgpopup);
+
+         m_pxdgpopup = nullptr;
+
+      }
+
+      if(m_pxdgpositioner != nullptr)
+      {
+
+         xdg_positioner_destroy(m_pxdgpositioner);
+
+         m_pxdgpositioner = nullptr;
 
       }
 
@@ -3831,19 +3978,22 @@ namespace windowing_wayland
 //      }
 //
 
+if(m_pxdgtoplevel)
+{
+   if (edisplay != e_display_zoomed &&
+       m_puserinteractionimpl->m_puserinteraction->const_layout().window().display() == e_display_zoomed)
+   {
 
-      if (edisplay != e_display_zoomed && m_puserinteractionimpl->m_puserinteraction->const_layout().window().display() == e_display_zoomed)
-      {
+      information() << "xdg_toplevel_unset_maximized";
 
-         information() << "xdg_toplevel_unset_maximized";
+      m_uLastRequestSerial = m_uLastConfigureSerial;
 
-         m_uLastRequestSerial = m_uLastConfigureSerial;
+      m_timeLastConfigureRequest.Now();
 
-         m_timeLastConfigureRequest.Now();
+      xdg_toplevel_unset_maximized(m_pxdgtoplevel);
 
-         xdg_toplevel_unset_maximized(m_pxdgtoplevel);
-
-      }
+   }
+}
 
 
 //         auto atomMaxH = x11_display()->m_atomNetWmStateMaximizedHorz;
@@ -3872,47 +4022,54 @@ namespace windowing_wayland
       if(edisplay == e_display_iconic)
       {
 
-         information() << "xdg_toplevel_set_minimized";
+         if(m_pxdgtoplevel)
+         {
+
+            information() << "xdg_toplevel_set_minimized";
 
 //         XIconifyWindow(Display(), Window(), Screen());
 //         if (edisplay == e_display_iconic)
 //         {
 
-         m_uLastRequestSerial = m_uLastConfigureSerial;
+            m_uLastRequestSerial = m_uLastConfigureSerial;
 
-         m_timeLastConfigureRequest.Now();
+            m_timeLastConfigureRequest.Now();
 
 
             //wm_iconify_window();
             xdg_toplevel_set_minimized(m_pxdgtoplevel);
 
-         //wl_surface_commit(m_pwlsurface);
+            //wl_surface_commit(m_pwlsurface);
 
 
 //         m_timeLastConfigureRequest.Now();
 
 //         }
 
-         //return true;
+            //return true;
+         }
 
       }
       else if (edisplay == e_display_zoomed)
       {
 
-         information() << "xdg_toplevel_set_maximized";
+         if(m_pxdgtoplevel)
+         {
 
-         m_uLastRequestSerial = m_uLastConfigureSerial;
+            information() << "xdg_toplevel_set_maximized";
 
-         m_timeLastConfigureRequest.Now();
+            m_uLastRequestSerial = m_uLastConfigureSerial;
 
-         xdg_toplevel_set_maximized(m_pxdgtoplevel);
+            m_timeLastConfigureRequest.Now();
 
-         //wl_surface_commit(m_pwlsurface);
+            xdg_toplevel_set_maximized(m_pxdgtoplevel);
+
+            //wl_surface_commit(m_pwlsurface);
 //         m_timeLastConfigureRequest.Now();
 
-         //wl_display_dispatch(wayland_display()->m_pwldisplay);
+            //wl_display_dispatch(wayland_display()->m_pwldisplay);
 
-         //wl_display_roundtrip(wayland_display()->m_pwldisplay);
+            //wl_display_roundtrip(wayland_display()->m_pwldisplay);
 
 //
 //         auto atomMaxH = x11_display()->m_atomNetWmStateMaximizedHorz;
@@ -3959,15 +4116,24 @@ namespace windowing_wayland
 //
 //
 //         }
+
+
 //
+
+         }
       }
 else
       if (!windowing()->is_screen_visible(edisplay))
       {
 
-         xdg_toplevel_destroy(m_pxdgtoplevel);
+         if(m_pxdgtoplevel)
+         {
 
-         m_pxdgtoplevel = nullptr;
+            xdg_toplevel_destroy(m_pxdgtoplevel);
+
+            m_pxdgtoplevel = nullptr;
+
+         }
 
       }
 //
@@ -5723,6 +5889,8 @@ if(::is_set(m_pwlsurface))
 
    void window::window_do_update_screen()
    {
+
+      information() << "window_do_update_screen";
 
 //      if(m_interlockedPostedScreenUpdate > 0)
 //      {

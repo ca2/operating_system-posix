@@ -50,6 +50,7 @@ struct xdg_surface;
 struct xdg_toplevel;
 struct xdg_output;
 struct xdg_popup;
+struct xdg_positioner;
 
 struct xdg_activation_v1;
 struct xdg_activation_token_v1;

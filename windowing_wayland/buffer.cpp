@@ -648,7 +648,8 @@ namespace windowing_wayland
 
       ::string strType = ::type(pwaylandwindow->m_puserinteractionimpl->m_puserinteraction).name();
 
-      if(pwaylandwindow->m_pxdgtoplevel == nullptr)
+      if(pwaylandwindow->m_pxdgtoplevel == nullptr
+      && pwaylandwindow->m_pxdgpopup == nullptr)
       {
 
          auto edisplay = pwaylandwindow->m_puserinteractionimpl->m_puserinteraction->const_layout().design().display();
@@ -689,7 +690,8 @@ namespace windowing_wayland
             ::string strType = ::type(pwaylandwindow->m_puserinteractionimpl->m_puserinteraction).name();
 
             //::pointer<::windowing_wayland::window> pwaylandwindow = m_pimpl->m_pwindow;
-            if(::is_null(pwaylandwindow->m_pxdgtoplevel))
+            if(::is_null(pwaylandwindow->m_pxdgtoplevel)
+            && ::is_null(pwaylandwindow->m_pxdgpopup))
             {
 
                auto edisplay = pwaylandwindow->m_puserinteractionimpl->m_puserinteraction->const_layout().design().display();
@@ -708,6 +710,21 @@ namespace windowing_wayland
                pwaylandwindow->__map();
 
             }
+            else
+            {
+
+               auto edisplay = pwaylandwindow->m_puserinteractionimpl->m_puserinteraction->const_layout().design().display();
+
+               if(!pwaylandwindow->windowing()->is_screen_visible(edisplay) && edisplay != e_display_iconic)
+               {
+
+                  pwaylandwindow->__unmap();
+
+                  return;
+
+               }
+
+               }
 
             //          auto pimpl = m_puserinteractionimpl;
 
@@ -738,7 +755,8 @@ namespace windowing_wayland
 //
 //               information() << "(1) m_uLastConfigureSerial : " << pwaylandwindow->m_uLastConfigureSerial;
 
-               if (::is_set(pwaylandwindow->m_pxdgtoplevel)
+               if ((::is_set(pwaylandwindow->m_pxdgtoplevel)
+               || ::is_set(pwaylandwindow->m_pxdgpopup))
 //                      && (pwaylandwindow->m_sizeConfigure.cx() == I32_MINIMUM
 //                    || pwaylandwindow->m_sizeConfigure.cy() == I32_MINIMUM)
                    && (pwaylandwindow->m_timeLastConfigureRequest.elapsed() > 5_s
@@ -780,10 +798,12 @@ namespace windowing_wayland
 
                information()
 
-                  << "m_pxdgtoplevel : " << (::iptr) pwaylandwindow->m_pxdgtoplevel;
+                  << "m_pxdgtoplevel : " << (::iptr) pwaylandwindow->m_pxdgtoplevel
+            << ", m_pxdgpopup : " << (::iptr) pwaylandwindow->m_pxdgpopup;
 
                //if(pwaylandwindow->m_sizeWindow == pwaylandwindow->m_waylandbuffer.m_size
-               if (::is_set(pwaylandwindow->m_pxdgtoplevel)
+               if ((::is_set(pwaylandwindow->m_pxdgtoplevel)
+               || ::is_set(pwaylandwindow->m_pxdgpopup))
                   && pwaylandwindow->m_sizeWindow == pitem->m_size
                    && ((pwaylandwindow->m_sizeConfigure.cx() == I32_MINIMUM
                         || pwaylandwindow->m_sizeConfigure.cy() == I32_MINIMUM)

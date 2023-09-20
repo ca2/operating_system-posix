@@ -38,6 +38,8 @@ namespace windowing_wayland
       ::wl_subsurface *                            m_pwlsubsurface;
       ::xdg_surface *                              m_pxdgsurface;
       ::xdg_toplevel *                             m_pxdgtoplevel;
+      ::xdg_popup *                                m_pxdgpopup;
+      ::xdg_positioner *                           m_pxdgpositioner;
       ::wl_pointer *                               m_pwlpointer;
       ::wl_shm_pool *                              m_pwlshmpool;
       ::point_i32                                  m_pointWindowBestEffort;
