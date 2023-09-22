@@ -1698,6 +1698,27 @@ namespace node_gtk
    }
 
 
+   void node::launch_app_by_app_id(const ::scoped_string & scopedstrAppId)
+   {
+
+      ::string strAppId = scopedstrAppId;
+
+      strAppId.find_replace("/", ".");
+
+      ::string strCommand = "sh -c \"nohup gtk-launch " + strAppId + " &\"";
+
+      int iExitCode = acmenode()->command_system(strCommand, 10_minutes);
+
+      if(iExitCode != 0)
+      {
+
+         throw ::exception(error_failed, "Failed to launch application \"" + strAppId + "\" using gtk_launch");
+
+      }
+
+   }
+
+
 } // namespace node_gtk
 
 
