@@ -225,7 +225,7 @@ namespace windowing_xcb
 
       auto pdisplay = pwindowing->display();
 
-      auto sizeLargeInternalBitmap = pdisplay->get_monitor_union_size();
+      auto sizeLargeInternalBitmap = pdisplay->get_monitor_union_rectangle().size();
 
       if (pbufferitem->m_size.cx() > sizeLargeInternalBitmap.cx())
       {
@@ -777,12 +777,15 @@ namespace windowing_xcb
          }
 
       }
-      //else
+
+      bool bChangedPosition = false;
+
+      bool bChangedSize = false;
 
       try
       {
 
-         xcb_window()->strict_set_window_position_unlocked();
+         xcb_window()->strict_set_window_position_unlocked(bChangedPosition, bChangedSize);
 
       }
       catch (...)

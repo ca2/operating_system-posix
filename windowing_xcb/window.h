@@ -50,8 +50,8 @@ namespace windowing_xcb
       xcb_window_t                                 m_window;
       xcb_visualid_t                               m_visualid;
       htask_t                                      m_htask;
-      class ::time                                 m_timeLastMouseMove;
-      ::point_i32                                  m_pointMouseCursor;
+      //class ::time                                 m_timeLastMouseMove;
+      //::point_i32                                  m_pointMouseCursor;
 
       bool                                         m_bNetWmStateHidden;
       bool                                         m_bNetWmStateMaximized;
@@ -144,7 +144,7 @@ namespace windowing_xcb
 
       virtual ::e_status set_mouse_cursor2(::windowing::cursor * pcursor);
 
-      ::point_i32 get_mouse_cursor_position() override;
+      //::point_i32 get_mouse_cursor_position() override;
 
       void set_keyboard_focus() override;
       void set_mouse_capture() override;

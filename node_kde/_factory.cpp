@@ -9,10 +9,17 @@
 
 __FACTORY_EXPORT void windowing_xcb_factory(::factory::factory * pfactory);
 __FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory);
+__FACTORY_EXPORT void windowing_wayland_factory(::factory::factory * pfactory);
 
 
 __FACTORY_EXPORT void node_kde_factory(::factory::factory * pfactory)
 {
+
+//   __FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory);
+//
+//
+//   __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
+//   {
 
    ::string strSessionType = getenv("XDG_SESSION_TYPE");
 
@@ -20,20 +27,42 @@ __FACTORY_EXPORT void node_kde_factory(::factory::factory * pfactory)
 
    printf("XDG_SESSION_TYPE %s\n", strSessionType.c_str());
 
-   if(strSessionType == "x11")
+   if(strSessionType == "wayland")
    {
 
-      windowing_xcb_factory(pfactory);
+      //windowing_x11_factory(pfactory);
+
+      windowing_wayland_factory(pfactory);
 
    }
    else
    {
 
-      //windowing_x11_factory(pfactory);
+      //windowing_xcb_factory(pfactory);
 
       windowing_xcb_factory(pfactory);
 
    }
+//   ::string strSessionType = getenv("XDG_SESSION_TYPE");
+//
+//   strSessionType.make_lower();
+//
+//   printf("XDG_SESSION_TYPE %s\n", strSessionType.c_str());
+//
+//   if(strSessionType == "x11")
+//   {
+//
+//      windowing_xcb_factory(pfactory);
+//
+//   }
+//   else
+//   {
+//
+//      //windowing_x11_factory(pfactory);
+//
+//      windowing_xcb_factory(pfactory);
+//
+//   }
 
    printf("node_kde factory\n");
 

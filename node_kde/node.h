@@ -50,7 +50,7 @@ namespace node_kde
       ~node() override;
 
 
-      void node_quit() override;
+      void user_post_quit() override;
 
       ::os_theme_colors * new_os_theme_colors();
 
@@ -88,7 +88,7 @@ namespace node_kde
 
       //using ::aura::node::node_fork;
 
-      void node_post(const ::procedure & procedure) override;
+      void user_post(const ::procedure & procedure) override;
 
       //void node_post_quit() override;
 
@@ -119,6 +119,9 @@ namespace node_kde
       void _node_file_dialog(::file::file_dialog * pdialog) override;
 
       void _node_folder_dialog(::file::folder_dialog * pdialog) override;
+
+
+      ::wl_display * get_wayland_display() override;
 
 
    };

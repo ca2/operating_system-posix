@@ -211,42 +211,42 @@ namespace windowing_xcb
 //      //return ::success;
 //
 //   }
-
-
-   void windowing::windowing_post(const ::procedure & procedure)
-   {
-
-      //auto estatus =
-      //
-      //procedure();
-
-
-      acmenode()->node_post(procedure);
-
-      //if(!procedure)
-      //{
-
-      //  throw ::exception(error_null_pointer);
-
-      //}
-
-      //synchronous_lock synchronouslock(this->synchronization());
-
-      //m_procedurelist.add_tail(procedure);
-
-
-
-//      if(!estatus)
-//      {
 //
-//         return estatus;
 //
-//      }
+//   void windowing::windowing_post(const ::procedure & procedure)
+//   {
 //
-//      return estatus;
-
-   }
-
+//      //auto estatus =
+//      //
+//      //procedure();
+//
+//
+//      acmenode()->node_post(procedure);
+//
+//      //if(!procedure)
+//      //{
+//
+//      //  throw ::exception(error_null_pointer);
+//
+//      //}
+//
+//      //synchronous_lock synchronouslock(this->synchronization());
+//
+//      //m_procedurelist.add_tail(procedure);
+//
+//
+//
+////      if(!estatus)
+////      {
+////
+////         return estatus;
+////
+////      }
+////
+////      return estatus;
+//
+//   }
+//
 
    ::windowing::display * windowing::display()
    {
@@ -442,23 +442,23 @@ namespace windowing_xcb
    }
 
 
-   void windowing::release_mouse_capture()
-   {
-
-      ///auto estatus =
-      ///
-      m_pdisplay->release_mouse_capture();
-
-//      if(!estatus)
-//      {
+//   void windowing::release_mouse_capture()
+//   {
 //
-//         return estatus;
+//      ///auto estatus =
+//      ///
+//      m_pdisplay->release_mouse_capture();
 //
-//      }
+////      if(!estatus)
+////      {
+////
+////         return estatus;
+////
+////      }
+////
+////      return estatus;
 //
-//      return estatus;
-
-   }
+//   }
 
 
    ::windowing::window * windowing::get_active_window(::thread * pthread)
@@ -909,27 +909,31 @@ namespace windowing_xcb
 
             }
 
-            m_pointCursor.x() = pmotion->root_x;
+            m_pdisplay->m_pointCursor2.x() = pmotion->root_x;
 
-            m_pointCursor.y() = pmotion->root_y;
+            m_pdisplay->m_pointCursor2.y() = pmotion->root_y;
 
-            pxcbwindow->set_cursor_position(m_pointCursor);
+            pxcbwindow->m_pointCursor2.x() = pmotion->event_x;
+
+            pxcbwindow->m_pointCursor2.y() = pmotion->event_y;
 
             //information("XCB_MOTION_NOTIFY %d,%d", pmotion->root_x, pmotion->root_y);
 
-            if (pxcbwindow != nullptr && pxcbwindow->m_puserinteractionimpl != nullptr)
+            //if (pxcbwindow->m_puserinteractionimpl != nullptr)
             {
 
-               ((class window *) pxcbwindow->m_pWindow4)->m_pointMouseCursor = m_pointCursor;
+//               ((class window *) pxcbwindow->m_pWindow4)->m_pointMouseCursor = m_pointCursor;
 
                bool bOk = true;
 
-               ::pointer<::user::interaction> pinteraction = pxcbwindow->m_puserinteractionimpl->m_puserinteraction;
 
-               if (pinteraction.is_set())
+
+               //if (pinteraction.is_set())
                {
 
-                  if (pinteraction->m_timeMouseMove.elapsed() < pinteraction->m_timeMouseMoveIgnore)
+                  auto & throttling = pxcbwindow->m_mouserepositionthrottling;
+
+                  if (throttling.m_timeMouseMove.elapsed() < throttling.m_timeMouseMoveIgnore)
                   {
 
                      bOk = false;
@@ -939,44 +943,51 @@ namespace windowing_xcb
                   if (bOk)
                   {
 
-                     pinteraction->m_timeMouseMove.Now();
+                     throttling.m_timeMouseMove.Now();
 
-                     pinteraction->m_pointMouseMove.x() = pmotion->root_x;
+                     throttling.m_pointMouseMove.x() = pmotion->root_x;
 
-                     pinteraction->m_pointMouseMove.y() = pmotion->root_y;
+                     throttling.m_pointMouseMove.y() = pmotion->root_y;
 
                      if (false)
                      {
 
-                        if (pinteraction->m_timeMouseMovePeriod > 0_s)
+                        if (throttling.m_timeMouseMovePeriod > 0_s)
                         {
 
                            ::size_i32 sizeDistance(
-                              (pinteraction->m_pointMouseMoveSkip.x() - pinteraction->m_pointMouseMove.x()),
-                              (pinteraction->m_pointMouseMoveSkip.y() - pinteraction->m_pointMouseMove.y()));
+                              (throttling.m_pointMouseMoveSkip.x() - throttling.m_pointMouseMove.x()),
+                              (throttling.m_pointMouseMoveSkip.y() - throttling.m_pointMouseMove.y()));
 
-                           if (!pinteraction->m_timeMouseMoveSkip.timeout(pinteraction->m_timeMouseMovePeriod)
+                           if (!throttling.m_timeMouseMoveSkip.timeout(throttling.m_timeMouseMovePeriod)
                                && sizeDistance.cx() * sizeDistance.cx() + sizeDistance.cy() * sizeDistance.cy() <
-                                  pinteraction->m_iMouseMoveSkipSquareDistance)
+                                                                    throttling.m_iMouseMoveSkipSquareDistance)
                            {
 
-                              pinteraction->m_iMouseMoveSkipCount++;
+                              throttling.m_iMouseMoveSkipCount++;
 
-                              pinteraction->m_bMouseMovePending = true;
+                              ::pointer<::user::interaction> pinteraction = pxcbwindow->m_puserinteractionimpl->m_puserinteraction;
 
-                              if (pinteraction->m_iMouseMoveSkipCount == 2)
+                              if(pinteraction)
+                              {
+
+                                 pinteraction->m_bMouseMovePending = true;
+
+                              }
+
+                              if (throttling.m_iMouseMoveSkipCount == 2)
                               {
 
                                  //information("\nmmv>skip 2!");
 
                               }
-                              else if (pinteraction->m_iMouseMoveSkipCount == 5)
+                              else if (throttling.m_iMouseMoveSkipCount == 5)
                               {
 
                                  //information("\nmmv>Skip 5!!!");
 
                               }
-                              else if (pinteraction->m_iMouseMoveSkipCount == 10)
+                              else if (throttling.m_iMouseMoveSkipCount == 10)
                               {
 
                                  //information("\nmmv>SKIP 10 !!!!!!!!!");
@@ -987,9 +998,9 @@ namespace windowing_xcb
 
                            }
 
-                           pinteraction->m_iMouseMoveSkipCount = 0;
+                           throttling.m_iMouseMoveSkipCount = 0;
 
-                           pinteraction->m_pointMouseMoveSkip = pinteraction->m_pointMouseMove;
+                           throttling.m_pointMouseMoveSkip = throttling.m_pointMouseMove;
 
                         }
 
@@ -1049,7 +1060,8 @@ namespace windowing_xcb
                pmessage->m_atom = e_message_mouse_move;
                //pmessage->.wParam = wparam;
                pmessage->m_ebuttonstate = ebuttonstate;
-               pmessage->m_point = {pmotion->root_x, pmotion->root_y};
+               pmessage->m_pointAbsolute = {pmotion->root_x, pmotion->root_y};
+               pmessage->m_pointHost = {pmotion->event_x, pmotion->event_y};
                //pmessage->time = pmotion->time;
 
                post_ui_message(pmessage);
@@ -1847,11 +1859,15 @@ if(bSentResponse)
 
             }
 
-            m_pointCursor.x() = pbutton->root_x;
+            m_pdisplay->m_pointCursor2.x() = pbutton->root_x;
 
-            m_pointCursor.y() = pbutton->root_y;
+            m_pdisplay->m_pointCursor2.y() = pbutton->root_y;
 
-            pxcbwindow->set_cursor_position(m_pointCursor);
+            pxcbwindow->m_pointCursor2.x() = pbutton->event_x;
+
+            pxcbwindow->m_pointCursor2.y() = pbutton->event_y;
+
+            //pxcbwindow->set_cursor_position(m_pointCursor);
 
             auto pimpl = pxcbwindow->m_puserinteractionimpl;
 
@@ -2018,7 +2034,9 @@ if(bSentResponse)
 
                   pmessage->m_Δ = Δ;
 
-                  pmessage->m_point = {pbutton->root_x, pbutton->root_y};
+                  pmessage->m_pointAbsolute = {pbutton->root_x, pbutton->root_y};
+
+                  pmessage->m_pointHost = {pbutton->event_x, pbutton->event_y};
 
                   post_ui_message(pmessage);
 
@@ -2036,12 +2054,13 @@ if(bSentResponse)
 
                   pmessage->m_Δ = Δ;
 
-                  pmessage->m_point = {pbutton->root_x, pbutton->root_y};
+                  pmessage->m_pointAbsolute = {pbutton->root_x, pbutton->root_y};
+
+                  pmessage->m_pointHost = {pbutton->event_x, pbutton->event_y};
 
                   post_ui_message(pmessage);
 
                }
-
 
             }
             else
@@ -2096,6 +2115,7 @@ if(bSentResponse)
                }
 
                xcb_button_press_event_t button(*pbutton);
+
                if (button.same_screen)
                {
 
@@ -2110,9 +2130,13 @@ if(bSentResponse)
 
                   if (trans)
                   {
+
                      button.event_x = trans->dst_x;
+
                      button.event_y = trans->dst_y;
+
                      free(trans);
+
                   }
 
                }
@@ -2606,94 +2630,94 @@ if(bSentResponse)
    }
 
 
-   void windowing::install_mouse_hook(::matter * pmatterListener)
-   {
-
-      auto psystem = acmesystem()->m_paurasystem;
-
-      auto psession = psystem->get_session();
-
-      auto puser = psession->user();
-
-      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing4;
-
-      pwindowing->register_extended_event_listener(pmatterListener, true, false);
-
-      //auto estatus =
-
-//      if(!estatus)
-//      {
+//   void windowing::install_mouse_hook(::matter * pmatterListener)
+//   {
 //
-//         throw ::exception(estatus);
-//
-//      }
-
-      //return ::success;
-
-   }
-
-
-   void windowing::install_keyboard_hook(::matter * pmatterListener)
-   {
-
-      auto psystem = acmesystem()->m_paurasystem;
-
-      auto psession = psystem->get_session();
-
-      auto puser = psession->user();
-
-      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing4;
-
-      //o estatus =
-      //
-      pwindowing->register_extended_event_listener(pmatterListener, false, true);
-
-//      if(!estatus)
-//      {
-//
-//         throw ::exception(estatus);
-//
-//      }
-
-      //return ::success;
-
-   }
-
-
-   void windowing::uninstall_keyboard_hook(::matter * pmatterListener)
-   {
-
 //      auto psystem = acmesystem()->m_paurasystem;
 //
 //      auto psession = psystem->get_session();
 //
 //      auto puser = psession->user();
 //
-//      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing;
+//      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing4;
 //
-//      pwindowing->uninstall_keyboard_hook(pmatterListener);
+//      pwindowing->register_extended_event_listener(pmatterListener, true, false);
+//
+//      //auto estatus =
+//
+////      if(!estatus)
+////      {
+////
+////         throw ::exception(estatus);
+////
+////      }
 //
 //      //return ::success;
-
-   }
-
-
-   void windowing::uninstall_mouse_hook(::matter * pmatterListener)
-   {
-
+//
+//   }
+//
+//
+//   void windowing::install_keyboard_hook(::matter * pmatterListener)
+//   {
+//
 //      auto psystem = acmesystem()->m_paurasystem;
 //
 //      auto psession = psystem->get_session();
 //
 //      auto puser = psession->user();
 //
-//      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing;
+//      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing4;
 //
-//      pwindowing->uninstall_mouse_hook(pmatterListener);
-
-      //return ::success;
-
-   }
+//      //o estatus =
+//      //
+//      pwindowing->register_extended_event_listener(pmatterListener, false, true);
+//
+////      if(!estatus)
+////      {
+////
+////         throw ::exception(estatus);
+////
+////      }
+//
+//      //return ::success;
+//
+//   }
+//
+//
+//   void windowing::uninstall_keyboard_hook(::matter * pmatterListener)
+//   {
+//
+////      auto psystem = acmesystem()->m_paurasystem;
+////
+////      auto psession = psystem->get_session();
+////
+////      auto puser = psession->user();
+////
+////      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing;
+////
+////      pwindowing->uninstall_keyboard_hook(pmatterListener);
+////
+////      //return ::success;
+//
+//   }
+//
+//
+//   void windowing::uninstall_mouse_hook(::matter * pmatterListener)
+//   {
+//
+////      auto psystem = acmesystem()->m_paurasystem;
+////
+////      auto psession = psystem->get_session();
+////
+////      auto puser = psession->user();
+////
+////      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing;
+////
+////      pwindowing->uninstall_mouse_hook(pmatterListener);
+//
+//      //return ::success;
+//
+//   }
 
 
    bool windowing::_xcb_process_event(void * p)

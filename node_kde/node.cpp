@@ -19,6 +19,7 @@
 #include <QX11Info>
 #include <QtGui/QDesktopServices>
 #include <QFileDialog>
+#include <qpa/qplatformnativeinterface.h>
 
 
 void initialize_x11_display(::particle * pparticle, void * pX11Display);
@@ -105,7 +106,7 @@ namespace node_kde
    }
 
 
-   void node::node_quit()
+   void node::user_post_quit()
    {
 
       m_pqapplication->quit();
@@ -610,7 +611,7 @@ namespace node_kde
    }
 
 
-   void node::node_post(const ::procedure & procedure)
+   void node::user_post(const ::procedure & procedure)
    {
 
       // invoke on the main thread
@@ -832,7 +833,7 @@ namespace node_kde
 
       pdialog->increment_reference_count();
 
-      node_post([pdialog]()
+      user_post([pdialog]()
                 {
 
                    auto pqfiledialog = new QFileDialog();
@@ -913,7 +914,7 @@ namespace node_kde
 
       pdialog->increment_reference_count();
 
-      node_post([pdialog]()
+      user_post([pdialog]()
                 {
 
                    auto pqfiledialog = new QFileDialog();
@@ -955,6 +956,19 @@ namespace node_kde
 
 
                 });
+
+   }
+
+
+   ::wl_display * node::get_wayland_display()
+   {
+
+
+      QPlatformNativeInterface *native =  QGuiApplication::platformNativeInterface();
+
+      auto pwldisplay = (::wl_display *) native->nativeResourceForWindow("display", NULL);
+
+      return pwldisplay;
 
    }
 

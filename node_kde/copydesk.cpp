@@ -238,13 +238,7 @@ return false;
 
       bool bOk = false;
 
-      auto psession = acmesession()->m_paurasession;
-
-      auto puser = psession->user();
-
-      auto pwindowing = puser->windowing();
-
-      pwindowing->windowing_send([this, pimage, &bOk]()
+      user_send([this, pimage, &bOk]()
                 {
 
                    auto psystem = acmesystem();

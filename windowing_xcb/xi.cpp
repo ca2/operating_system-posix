@@ -152,7 +152,7 @@ namespace windowing_xcb
 
       m_pparticleaExtendedEventListener->add(pdata);
 
-      windowing_post([this, bMouse, bKeyboard]()
+      user_post([this, bMouse, bKeyboard]()
                                  {
 
                                     auto psystem = acmesystem();

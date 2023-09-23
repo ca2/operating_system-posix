@@ -60,7 +60,7 @@ namespace windowing_xcb
       //void start() override;
 
 
-      void windowing_post(const ::procedure & procedure) override;
+      //void windowing_post(const ::procedure & procedure) override;
 
 
       //virtual void __defer_post_move_and_or_size(xcb_window_t window);
@@ -82,7 +82,7 @@ namespace windowing_xcb
       //virtual void windowing_post_quit() override;
 
 
-      void release_mouse_capture() override;
+      ///void defer_release_mouse_capture() override;
 
 
       //virtual void xcb_main();
@@ -118,11 +118,11 @@ namespace windowing_xcb
 //      xcb_connection_t * _get_connection();
 
 
-      void install_mouse_hook(::matter * pmatterListener) override;
-      void install_keyboard_hook(::matter * pmatterListener) override;
-
-      void uninstall_mouse_hook(::matter * pmatterListener) override;
-      void uninstall_keyboard_hook(::matter * pmatterListener) override;
+//      void install_mouse_hook(::matter * pmatterListener) override;
+//      void install_keyboard_hook(::matter * pmatterListener) override;
+//
+//      void uninstall_mouse_hook(::matter * pmatterListener) override;
+//      void uninstall_keyboard_hook(::matter * pmatterListener) override;
 
 
       ::windowing::window * get_active_window(::thread * pthread) override;

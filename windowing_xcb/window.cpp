@@ -2560,12 +2560,12 @@ namespace windowing_xcb
    }
 
 
-   ::point_i32 window::get_mouse_cursor_position()
-   {
-
-      return m_pointMouseCursor;
-
-   }
+//   ::point_i32 window::get_mouse_cursor_position()
+//   {
+//
+//      return m_pointMouseCursor;
+//
+//   }
 
 
    void window::set_mouse_cursor(::windowing::cursor * pcursor)
@@ -3457,7 +3457,7 @@ namespace windowing_xcb
    void window::set_mouse_capture()
    {
 
-      m_pwindowing->windowing_post([this]
+      user_post([this]
                                    {
 
                                       synchronous_lock synchronouslock(user_synchronization());
@@ -3672,7 +3672,7 @@ namespace windowing_xcb
 
       information() << "window::_move_resize " << ::rectangle_i32_dimension(x, y, cx, cy);
 
-      m_pwindowing->windowing_post([x, y, cx, cy, this]
+      user_post([x, y, cx, cy, this]
                                    {
 
                                       _move_resize_unlocked(x, y, cx, cy);
@@ -3696,7 +3696,7 @@ namespace windowing_xcb
 
       information() << "window::_move " << ::point_i32(x, y);
 
-      m_pwindowing->windowing_post([x, y, this]
+      user_post([x, y, this]
                                    {
 
                                       _move_unlocked(x, y);
@@ -3713,7 +3713,7 @@ namespace windowing_xcb
 
       information() << "window::_resize " << ::size_i32(cx, cy);
 
-      m_pwindowing->windowing_post([cx, cy, this]
+      user_post([cx, cy, this]
                                    {
 
                                       return _resize_unlocked(cx, cy);
@@ -3888,7 +3888,7 @@ namespace windowing_xcb
    void window::bring_to_front()
    {
 
-      m_pwindowing->windowing_post([this]()
+      user_post([this]()
                                    {
 
                                       _raise_window();

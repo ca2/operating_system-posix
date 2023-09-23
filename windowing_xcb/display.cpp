@@ -1127,11 +1127,7 @@ namespace windowing_xcb
 
       bool bIsOrigin = false;
 
-      auto psystem = acmesystem();
-
-      auto pnode = psystem->node();
-
-      pnode->node_send([this, pointHitTest, pwindowExclude, iMargin, &bIsOrigin]()
+      user_send([this, pointHitTest, pwindowExclude, iMargin, &bIsOrigin]()
                        {
 
                           ::windowing_xcb::window * pwindowxcbExclude = nullptr;
