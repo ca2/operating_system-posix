@@ -311,7 +311,7 @@ namespace windowing_x11
 
       void window_update_screen_buffer() override;
       //void _window_request_presentation_locked() override;
-      void _on_visual_changed_unlocked() override;
+      //void _on_configure_notify_unlocked(const ::rectangle_i32 & rectangle) override;
 
       bool is_active_window() const override;
 

@@ -3274,16 +3274,16 @@ namespace windowing_xcb
    bool window::has_mouse_capture() const
    {
 
-      auto pdisplay = xcb_display();
+      auto pwindowing = xcb_windowing();
 
-      if (::is_null(pdisplay))
+      if (::is_null(pwindowing))
       {
 
          return false;
 
       }
 
-      auto pwindowCapture = pdisplay->m_pwindowMouseCapture;
+      auto pwindowCapture = pwindowing->m_pwindowMouseCapture;
 
       if (::is_null(pwindowCapture))
       {
@@ -3462,65 +3462,71 @@ namespace windowing_xcb
 
                                       synchronous_lock synchronouslock(user_synchronization());
 
-                                      if (xcb_connection() == nullptr)
-                                      {
-
-                                         return error_failed;
-
-                                      }
-
-                                      if (xcb_window() == 0)
-                                      {
-
-                                         return error_failed;
-
-                                      }
-
-                                      windowing_output_debug_string("\noswindow_data::SetCapture 1");
-
-                                      //display_lock displaylock(xcb_display());
-
-                                      int owner_events = 0;
-
-                                      xcb_window_t confine_to = XCB_WINDOW_NONE;
-
-                                      xcb_cursor_t cursor = XCB_CURSOR_NONE;
-
-                                      auto cookie = xcb_grab_pointer(
-                                         xcb_connection(),
-                                         owner_events,
-                                         xcb_window(),
-                                         XCB_EVENT_MASK_BUTTON_PRESS | XCB_EVENT_MASK_BUTTON_RELEASE |
-                                         XCB_EVENT_MASK_POINTER_MOTION,
-                                         XCB_GRAB_MODE_ASYNC,
-                                         XCB_GRAB_MODE_ASYNC,
-                                         confine_to,
-                                         cursor,
-                                         XCB_CURRENT_TIME);
-
-                                      ::acme::malloc preply(xcb_grab_pointer_reply(xcb_connection(), cookie, nullptr));
-
-                                      if (!preply)
-                                      {
-
-                                         return error_failed;
-
-                                      }
-
-                                      auto pdisplay = xcb_display();
-
-                                      if (pdisplay)
-                                      {
-
-                                         pdisplay->_on_capture_changed_to(this);
-
-                                      }
-
-                                      windowing_output_debug_string("\noswindow_data::SetCapture 2");
-
-                                      return ::success;
+                                      _set_mouse_capture_unlocked();
 
                                    });
+
+   }
+
+
+   void window::_set_mouse_capture_unlocked()
+   {
+
+      if (xcb_connection() == nullptr)
+      {
+
+         return;
+
+      }
+
+      if (xcb_window() == 0)
+      {
+
+         return;
+
+      }
+
+      windowing_output_debug_string("\noswindow_data::SetCapture 1");
+
+      //display_lock displaylock(xcb_display());
+
+      int owner_events = 0;
+
+      xcb_window_t confine_to = XCB_WINDOW_NONE;
+
+      xcb_cursor_t cursor = XCB_CURSOR_NONE;
+
+      auto cookie = xcb_grab_pointer(
+         xcb_connection(),
+         owner_events,
+         xcb_window(),
+         XCB_EVENT_MASK_BUTTON_PRESS | XCB_EVENT_MASK_BUTTON_RELEASE |
+         XCB_EVENT_MASK_POINTER_MOTION,
+         XCB_GRAB_MODE_ASYNC,
+         XCB_GRAB_MODE_ASYNC,
+         confine_to,
+         cursor,
+         XCB_CURRENT_TIME);
+
+      ::acme::malloc preply(xcb_grab_pointer_reply(xcb_connection(), cookie, nullptr));
+
+      if (!preply)
+      {
+
+         return;
+
+      }
+
+      auto pwindowing = xcb_windowing();
+
+      if (pwindowing)
+      {
+
+         pwindowing->_on_capture_changed_to(this);
+
+      }
+
+      windowing_output_debug_string("\noswindow_data::SetCapture 2");
 
    }
 
@@ -3778,7 +3784,7 @@ namespace windowing_xcb
       if (x <= 0 || y <= 0)
       {
 
-         information("_move x <= 0 and/or y <= 0");
+         information("_move_unlocked x <= 0 and/or y <= 0");
 
       }
 
@@ -3788,9 +3794,9 @@ namespace windowing_xcb
 
       mask |= XCB_CONFIG_WINDOW_Y;
 
-      ::u32 ua[] = {(::u32) x, (::u32) y};
+      ::i32 ia[] = {(::i32) x, (::i32) y};
 
-      auto cookie = xcb_configure_window(xcb_connection(), m_window, mask, ua);
+      auto cookie = xcb_configure_window(xcb_connection(), m_window, mask, ia);
 
       auto estatus = _request_check(cookie);
 

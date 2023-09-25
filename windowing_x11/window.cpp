@@ -4876,10 +4876,10 @@ namespace windowing_x11
 //   }
 
 
-   void window::_on_visual_changed_unlocked()
-   {
-
-   }
+//   void window::_on_configure_notify_unlocked(const ::rectangle_i32 & rectangle)
+//   {
+//
+//   }
 
 
    void window::set_mouse_capture()

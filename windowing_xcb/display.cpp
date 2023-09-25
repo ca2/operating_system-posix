@@ -313,59 +313,12 @@ namespace windowing_xcb
    }
 
 
-   ::e_status display::release_mouse_capture()
-   {
-
-      synchronous_lock synchronouslock(user_synchronization());
-
-      _on_capture_changed_to(nullptr);
-
-      windowing_output_debug_string("\noswindow_data::ReleaseCapture 1");
-
-      //display_lock displaylock(this);
-
-      xcb_ungrab_pointer(xcb_connection(), XCB_CURRENT_TIME);
-
-      windowing_output_debug_string("\noswindow_data::ReleaseCapture 2");
-
-      return ::success;
-
-   }
 
 
-   ::windowing_xcb::window * display::get_mouse_capture()
-   {
-
-      return m_pwindowMouseCapture;
-
-   }
 
 
-   void display::_on_capture_changed_to(::windowing_xcb::window * pwindowMouseCaptureNew)
-   {
 
-      auto pwindowMouseCaptureOld = m_pwindowMouseCapture;
 
-      m_pwindowMouseCapture = pwindowMouseCaptureNew;
-
-      if (pwindowMouseCaptureOld && pwindowMouseCaptureOld != pwindowMouseCaptureNew)
-      {
-
-         auto pmessage = __create_new<::user::message>();
-
-         pmessage->m_pwindow = pwindowMouseCaptureOld;
-         pmessage->m_oswindow = pwindowMouseCaptureOld;
-         pmessage->m_atom = e_message_capture_changed;
-         pmessage->m_wparam = 0;
-         pmessage->m_lparam = pwindowMouseCaptureNew;
-
-         auto pwindowing = xcb_windowing();
-
-         pwindowing->post_ui_message(pmessage);
-
-      }
-
-   }
 
 
    xcb_atom_t display::intern_atom(const char * pszAtomName, bool bCreate)
@@ -590,7 +543,7 @@ namespace windowing_xcb
    }
 
 
-   bool display::get_cursor_position(::point_i32 * ppointCursor)
+   ::point_i32 display::_get_mouse_cursor_position()
    {
 
       xcb_window_t root_return;
@@ -612,17 +565,19 @@ namespace windowing_xcb
       if (!preply)
       {
 
-         return false;
+         return {};
 
       }
 
       windowing_output_debug_string("::GetCursorPos 2");
 
-      ppointCursor->x() = preply->root_x;
+      ::point_i32 pointCursor;
 
-      ppointCursor->y() = preply->root_y;
+      pointCursor.x() = preply->root_x;
 
-      return true;
+      pointCursor.y() = preply->root_y;
+
+      return pointCursor;
 
    }
 
@@ -1336,7 +1291,6 @@ namespace windowing_xcb
 //
 //   }
 //
-
 
 } // namespace windowing_xcb
 

@@ -5955,10 +5955,10 @@ if(::is_set(m_pwlsurface))
 //   }
 
 
-   void window::_on_visual_changed_unlocked()
-   {
-
-   }
+//   void window::_on_visual_changed_unlocked()
+//   {
+//
+//   }
 
 
 //   void window::set_mouse_capture()

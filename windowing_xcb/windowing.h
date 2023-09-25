@@ -37,8 +37,10 @@ namespace windowing_xcb
 
 #endif
 
+      ::pointer<::windowing_xcb::window>        m_pwindowMouseCapture;
 
-        //::procedure_list                                m_procedurelist;
+
+      //::procedure_list                                m_procedurelist;
 
 
       windowing();
@@ -131,6 +133,12 @@ namespace windowing_xcb
 
       ::windowing::window * get_mouse_capture(::thread * pthread) override;
 
+      void release_mouse_capture(::thread * pthread) override;
+
+      bool defer_release_mouse_capture(::thread * pthread, ::windowing::window * pwindow) override;
+
+      virtual void _on_capture_changed_to(::windowing_xcb::window * pwindowWithCapture);
+
       void clear_active_window(::thread * pthread, ::windowing::window * pwindow) override;
 
       //virtual bool xcb_on_event(xcb_generic_event_t * pevent);
@@ -166,7 +174,6 @@ namespace windowing_xcb
       bool xcb_process_event(xcb_connection_t * pdisplay, xcb_generic_event_t * pevent);
 
 #endif
-
 
       bool _xcb_process_event(void * p) override;
 

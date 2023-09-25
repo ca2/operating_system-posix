@@ -54,6 +54,7 @@ list(APPEND static_library_references ${library_references})
 list(TRANSFORM static_library_references PREPEND static_)
 
 
+
 list(APPEND system_libraries
    KF5::ConfigWidgets
    KF5::IconThemes
@@ -61,6 +62,8 @@ list(APPEND system_libraries
    KF5::KIOGui
    KF5::KIOWidgets
    KF5::Notifications
+   KF5::Plasma
+   KF5::PlasmaQuick
    PW::KWorkspace
    Qt5::Core
    Qt5::Widgets

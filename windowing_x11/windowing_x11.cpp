@@ -2306,7 +2306,14 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                      if (pinteraction != nullptr)
                      {
 
-                        pinteraction->_on_visual_changed_unlocked();
+                        ::rectangle_i32 rectangleWindow;
+
+                        rectangleWindow.left() = e.xconfigure.x;
+                        rectangleWindow.top() = e.xconfigure.y;
+                        rectangleWindow.right() = e.xconfigure.x + e.xconfigure.width;
+                        rectangleWindow.bottom() = e.xconfigure.y + e.xconfigure.height;
+
+                        pinteraction->_on_configure_notify_unlocked(rectangleWindow);
 
                         information() << "X11 ConfigureNotify Win, xy : " << e.xconfigure.window << ", "
                                       << e.xconfigure.x << ", " << e.xconfigure.y << ", wh :"

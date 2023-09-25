@@ -19,7 +19,11 @@
 #include <QX11Info>
 #include <QtGui/QDesktopServices>
 #include <QFileDialog>
+#include <QTextStream>
+#include <QDBusInterface>
 #include <qpa/qplatformnativeinterface.h>
+//#include <KF5/plasma/applet.h>
+//#include <KF5/plasma/containment.h>
 
 
 void initialize_x11_display(::particle * pparticle, void * pX11Display);
@@ -454,8 +458,56 @@ namespace node_kde
    bool node::set_wallpaper(index iScreen, string strLocalImagePath)
    {
 
+//      Plasma::Applet applet;
 
-      return false;
+//      auto pcontainment = applet.containment();
+
+//      pcontainment->setWallpaper("org.kde.image");
+
+//      Wall
+
+      QString script;
+
+      QTextStream out(&script);
+
+      out << "for (var key in desktops()) {"
+          << "var d = desktops()[key];"
+          << "d.wallpaperPlugin = 'org.kde.image';"
+          << "d.currentConfigGroup = ['Wallpaper', 'org.kde.image', 'General'];"
+          << "d.writeConfig('Image', 'file://" << strLocalImagePath.c_str() << "');"
+          << "}";
+
+      auto message = QDBusMessage::createMethodCall(QStringLiteral("org.kde.plasmashell"),
+                                                    QStringLiteral("/PlasmaShell"),
+                                                    QStringLiteral("org.kde.PlasmaShell"),
+                                                    QStringLiteral("evaluateScript"));
+      message.setArguments(QVariantList() << QVariant(script));
+      auto reply = QDBusConnection::sessionBus().call(message);
+
+      if (reply.type() == QDBusMessage::ErrorMessage)
+      {
+
+         return false;
+//         ts << i18n("An error occurred while attempting to set the Plasma wallpaper:\n") << reply.errorMessage() << Qt::endl;
+//         errorCode = -1;
+      }
+//      else {
+//         if (isKPackage) {
+//            ts << i18n("Successfully set the wallpaper for all desktops to the KPackage based %1", wallpaperFile) << Qt::endl;
+//         } else {
+//            ts << i18n("Successfully set the wallpaper for all desktops to the image %1", wallpaperFile) << Qt::endl;
+//         }
+//      }
+
+
+//      QDBusInterface qdbusinterface("org.kde.plasma-desktop",
+//                                                     "/App",
+//                                                     "local.PlasmaApp");
+//
+//      qdbusinterface.call("setWallpaper", "image", "SingleImage", strLocalImagePath.c_str());
+//
+      return true;
+
       // wall-changer sourceforge.net contribution
 
 //      auto psystem = acmesystem()->m_paurasystem;
@@ -962,7 +1014,6 @@ namespace node_kde
 
    ::wl_display * node::get_wayland_display()
    {
-
 
       QPlatformNativeInterface *native =  QGuiApplication::platformNativeInterface();
 

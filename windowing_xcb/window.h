@@ -150,6 +150,9 @@ namespace windowing_xcb
       void set_mouse_capture() override;
       void set_active_window() override;
 
+
+      virtual void _set_mouse_capture_unlocked();
+
       virtual ::string atom_name(xcb_atom_t atom);
 
       virtual void _set_keyboard_focus(xcb_window_t window);

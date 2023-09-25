@@ -54,7 +54,6 @@ namespace windowing_xcb
       ::pointer<class window>                                  m_pwindowKeyboardFocus;
 
       ::pointer<::windowing_xcb::window>                       m_pwindowActive;
-      ::pointer<::windowing_xcb::window>                       m_pwindowMouseCapture;
 
 
       display();
@@ -76,10 +75,6 @@ namespace windowing_xcb
       virtual ::windowing_xcb::window * _window(xcb_window_t window);
 
       inline ::windowing_xcb::windowing * xcb_windowing();
-
-      virtual ::windowing_xcb::window * get_mouse_capture();
-
-      virtual void _on_capture_changed_to(::windowing_xcb::window * pwindowWithCapture);
 
       virtual void lock_display();
 
@@ -108,7 +103,7 @@ namespace windowing_xcb
 
       virtual bool get_workspace_rectangle(index iWorkspace, ::rectangle_i32 & rectangle);
 
-      virtual ::e_status release_mouse_capture();
+      //virtual ::e_status release_mouse_capture();
 
       virtual ::windowing_xcb::window * get_keyboard_focus();
 
@@ -116,7 +111,11 @@ namespace windowing_xcb
 
       virtual ::windowing_xcb::window * _get_active_window(::thread * pthread);
 
-      virtual bool get_cursor_position(::point_i32 * ppointCursor);
+      //virtual bool get_cursor_position(::point_i32 * ppointCursor);
+
+      ::point_i32 _get_mouse_cursor_position() override;
+
+
 
 
       virtual bool point_is_window_origin(::point_i32 pointHitTest, ::windowing::window * pwindowExclude, int iMargin);
@@ -151,6 +150,8 @@ namespace windowing_xcb
 
 
       //virtual xcb_font_t _create_font_cursor(uint16_t glyph);
+
+
 
 
    };
