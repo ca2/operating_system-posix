@@ -1230,7 +1230,7 @@ namespace windowing_wayland
    }
 
 
-   ::graphics::buffer_item * buffer::on_begin_draw()
+   bool buffer::_on_begin_draw(::graphics::buffer_item * pbufferitem)
    {
 
 //      auto pbufferitem = get_buffer_item();
