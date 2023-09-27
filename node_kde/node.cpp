@@ -5,12 +5,14 @@
 #include "node.h"
 #include "appindicator.h"
 #include "acme/constant/id.h"
+#include "acme/filesystem/filesystem/acme_directory.h"
+#include "acme/filesystem/filesystem/file_context.h"
 #include "acme/filesystem/filesystem/file_dialog.h"
 #include "acme/filesystem/filesystem/folder_dialog.h"
 #include "acme/user/user/os_theme_colors.h"
 #include "acme/user/user/theme_colors.h"
 #include "apex/platform/system.h"
-#include "acme/filesystem/filesystem/acme_directory.h"
+#include "acme/platform/ini.h"
 #include "aura/windowing/windowing.h"
 #include <kworkspace5/kworkspace.h>
 #include <KColorScheme>
@@ -22,6 +24,8 @@
 #include <QTextStream>
 #include <QDBusInterface>
 #include <qpa/qplatformnativeinterface.h>
+#include <KPackage/Package>
+#include <KPackage/PackageLoader>
 //#include <KF5/plasma/applet.h>
 //#include <KF5/plasma/containment.h>
 
@@ -121,27 +125,35 @@ namespace node_kde
    bool node::eventFilter(QObject * pparticle, QEvent * pevent)
    {
 
-      if(pevent->type() == QEvent::ApplicationPaletteChange)
-      {
+//      if(pevent->type() == QEvent::ApplicationPaletteChange)
+//      {
+//
+//         auto pthemecolors = ::user::os_get_theme_colors();
+//
+//         if(!pthemecolors)
+//         {
+//
+//            pthemecolors = new_os_theme_colors();
+//
+//            ::user::os_set_theme_colors(pthemecolors);
+//
+//         }
+//
+//         kde_update_os_theme_colors(pthemecolors);
+//
+//         fetch_user_color();
+//
+//         return false;
+//
+//      }
 
-         auto pthemecolors = ::user::os_get_theme_colors();
-
-         if(!pthemecolors)
-         {
-
-            pthemecolors = new_os_theme_colors();
-
-            ::user::os_set_theme_colors(pthemecolors);
-
-         }
-
-         kde_update_os_theme_colors(pthemecolors);
-
-         fetch_user_color();
-
-         return false;
-
-      }
+//      if(pevent->type() == QEvent::ThemeChange)
+//      {
+//
+//
+//
+//
+//      }
 
       return false;
 
@@ -363,7 +375,32 @@ namespace node_kde
    string node::os_get_user_theme()
    {
 
-      return m_strTheme;
+      ::file::path pathKdeGlobals;
+
+      pathKdeGlobals = acmedirectory()->home() /".config/kdeglobals";
+
+      auto lines = file()->lines(pathKdeGlobals);
+
+      ::string str;
+
+      lines.find_first_begins_eat_ci(str, "LookAndFeelPackage");
+
+      if(str.is_empty())
+      {
+
+         return {};
+
+      }
+
+      str.trim_left(" =");
+      str.trim_right();
+      str.trim();
+
+      auto strTheme = str;
+
+      information() << "Current LookAndFeelPackage is : " << strTheme;
+
+      return strTheme;
 
    }
 
@@ -371,78 +408,7 @@ namespace node_kde
    void node::os_set_user_theme(const ::string &strUserTheme)
    {
 
-//      // https://ubuntuforums.org/showthread.php?t=2140488
-//      // gsettings set org.gnome.desktop.interface gtk-theme your_theme
-//
-//      // indirect wall-changer sourceforge.net contribution
-//
-//      auto psystem = acmesystem()->m_paurasystem;
-//
-//      auto edesktop = psystem->get_edesktop();
-//
-//      switch (edesktop)
-//      {
-//
-//         case ::user::e_desktop_gnome:
-//         case ::user::e_desktop_ubuntu_gnome:
-//         case ::user::e_desktop_unity_gnome:
-//         {
-//
-//            bool bOk1 = ::node_kde::aaa_gsettings_set("org.gnome.desktop.interface", "gtk-theme", strUserTheme);
-//
-//            bool bOk2 = true;
-//
-//            //if(::file::system_short_name().case_insensitive_contains("manjaro"))
-//            {
-//
-//               bOk2 = ::node_kde::aaa_gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme);
-//
-//            }
-//
-//            sleep(300_ms);
-//
-//            ::node_kde::gsettings_sync();
-//
-//            sleep(300_ms);
-//
-//            return
-//               bOk1 && bOk2;
-//
-//         }
-//
-//         case ::user::e_desktop_mate:
-//
-//            //return ::user::aaa_gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
-//
-//         case ::user::e_desktop_lxde:
-//
-//            //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
-//
-//            break;
-//
-//         case ::user::e_desktop_xfce:
-//         {
-//            //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
-//            //          if(entry.contains("image-path") || entry.contains("last-image")){
-//            //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
-//            //      }
-//            //}
-//
-//         }
-//
-//            //break;
-//
-//         default:
-//
-//            information(
-//               "Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
-//            return false;
-//
-//      }
-//
-//      return true;
-
-      //return false;
+      command_system("lookandfeeltool -a " + strUserTheme);
 
    }
 
@@ -455,108 +421,125 @@ namespace node_kde
    }
 
 
-   bool node::set_wallpaper(index iScreen, string strLocalImagePath)
+   bool node::set_wallpaper(index , string strLocalImagePath)
    {
 
-//      Plasma::Applet applet;
+      ::string strCommand;
 
-//      auto pcontainment = applet.containment();
+      strCommand = "plasma-apply-wallpaperimage";
 
-//      pcontainment->setWallpaper("org.kde.image");
+      strCommand += " \"" + strLocalImagePath + "\"";
 
-//      Wall
+      auto iError = command_system(strCommand);
 
-      QString script;
-
-      QTextStream out(&script);
-
-      out << "for (var key in desktops()) {"
-          << "var d = desktops()[key];"
-          << "d.wallpaperPlugin = 'org.kde.image';"
-          << "d.currentConfigGroup = ['Wallpaper', 'org.kde.image', 'General'];"
-          << "d.writeConfig('Image', 'file://" << strLocalImagePath.c_str() << "');"
-          << "}";
-
-      auto message = QDBusMessage::createMethodCall(QStringLiteral("org.kde.plasmashell"),
-                                                    QStringLiteral("/PlasmaShell"),
-                                                    QStringLiteral("org.kde.PlasmaShell"),
-                                                    QStringLiteral("evaluateScript"));
-      message.setArguments(QVariantList() << QVariant(script));
-      auto reply = QDBusConnection::sessionBus().call(message);
-
-      if (reply.type() == QDBusMessage::ErrorMessage)
+      if(iError)
       {
 
          return false;
-//         ts << i18n("An error occurred while attempting to set the Plasma wallpaper:\n") << reply.errorMessage() << Qt::endl;
-//         errorCode = -1;
+
       }
-//      else {
-//         if (isKPackage) {
-//            ts << i18n("Successfully set the wallpaper for all desktops to the KPackage based %1", wallpaperFile) << Qt::endl;
-//         } else {
-//            ts << i18n("Successfully set the wallpaper for all desktops to the image %1", wallpaperFile) << Qt::endl;
-//         }
-//      }
 
-
-//      QDBusInterface qdbusinterface("org.kde.plasma-desktop",
-//                                                     "/App",
-//                                                     "local.PlasmaApp");
-//
-//      qdbusinterface.call("setWallpaper", "image", "SingleImage", strLocalImagePath.c_str());
-//
       return true;
 
-      // wall-changer sourceforge.net contribution
-
-//      auto psystem = acmesystem()->m_paurasystem;
+////      Plasma::Applet applet;
 //
-//      auto pnode = psystem->node();
+////      auto pcontainment = applet.containment();
 //
-//      auto edesktop = psystem->get_edesktop();
+////      pcontainment->setWallpaper("org.kde.image");
 //
-//      switch (edesktop)
+////      Wall
+//
+//      QString script;
+//
+//      QTextStream out(&script);
+//
+//      out << "for (var key in desktops()) {"
+//          << "var d = desktops()[key];"
+//          << "d.wallpaperPlugin = 'org.kde.image';"
+//          << "d.currentConfigGroup = ['Wallpaper', 'org.kde.image', 'General'];"
+//          << "d.writeConfig('Image', 'file://" << strLocalImagePath.c_str() << "');"
+//          << "}";
+//
+//      auto message = QDBusMessage::createMethodCall(QStringLiteral("org.kde.plasmashell"),
+//                                                    QStringLiteral("/PlasmaShell"),
+//                                                    QStringLiteral("org.kde.PlasmaShell"),
+//                                                    QStringLiteral("evaluateScript"));
+//      message.setArguments(QVariantList() << QVariant(script));
+//      auto reply = QDBusConnection::sessionBus().call(message);
+//
+//      if (reply.type() == QDBusMessage::ErrorMessage)
 //      {
 //
-//         case ::user::e_desktop_gnome:
-//         case ::user::e_desktop_ubuntu_gnome:
-//         case ::user::e_desktop_unity_gnome:
-//
-//            return ::node_kde::aaa_gsettings_set("org.gnome.desktop.background", "picture-uri",
-//                                               "file://" + strLocalImagePath);
-//
-//         case ::user::e_desktop_mate:
-//
-//            return ::node_kde::aaa_gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
-//
-//         case ::user::e_desktop_lxde:
-//
-//            call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
-//
-//            break;
-//
-//         case ::user::e_desktop_xfce:
-//         {
-//            //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
-//            //          if(entry.contains("image-path") || entry.contains("last-image")){
-//            //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
-//            //      }
-//            //}
-//
-//         }
-//
-//            //break;
-//
-//         default:
-//
-//            information(
-//               "Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
-//            return false;
-//
+//         return false;
+////         ts << i18n("An error occurred while attempting to set the Plasma wallpaper:\n") << reply.errorMessage() << Qt::endl;
+////         errorCode = -1;
 //      }
+////      else {
+////         if (isKPackage) {
+////            ts << i18n("Successfully set the wallpaper for all desktops to the KPackage based %1", wallpaperFile) << Qt::endl;
+////         } else {
+////            ts << i18n("Successfully set the wallpaper for all desktops to the image %1", wallpaperFile) << Qt::endl;
+////         }
+////      }
 //
+//
+////      QDBusInterface qdbusinterface("org.kde.plasma-desktop",
+////                                                     "/App",
+////                                                     "local.PlasmaApp");
+////
+////      qdbusinterface.call("setWallpaper", "image", "SingleImage", strLocalImagePath.c_str());
+////
 //      return true;
+//
+//      // wall-changer sourceforge.net contribution
+//
+////      auto psystem = acmesystem()->m_paurasystem;
+////
+////      auto pnode = psystem->node();
+////
+////      auto edesktop = psystem->get_edesktop();
+////
+////      switch (edesktop)
+////      {
+////
+////         case ::user::e_desktop_gnome:
+////         case ::user::e_desktop_ubuntu_gnome:
+////         case ::user::e_desktop_unity_gnome:
+////
+////            return ::node_kde::aaa_gsettings_set("org.gnome.desktop.background", "picture-uri",
+////                                               "file://" + strLocalImagePath);
+////
+////         case ::user::e_desktop_mate:
+////
+////            return ::node_kde::aaa_gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
+////
+////         case ::user::e_desktop_lxde:
+////
+////            call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+////
+////            break;
+////
+////         case ::user::e_desktop_xfce:
+////         {
+////            //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+////            //          if(entry.contains("image-path") || entry.contains("last-image")){
+////            //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+////            //      }
+////            //}
+////
+////         }
+////
+////            //break;
+////
+////         default:
+////
+////            information(
+////               "Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+////            return false;
+////
+////      }
+////
+////      return true;
 
    }
 
