@@ -741,23 +741,35 @@ namespace windowing_x11
    }
 
 
-   ::graphics::buffer_item * buffer::on_begin_draw()
+   bool buffer::_on_begin_draw(::graphics::buffer_item * pbufferitem)
    {
 
-      auto pbufferitem = get_buffer_item();
-
-      buffer_size_and_position(pbufferitem);
+//      auto pbufferitem = get_buffer_item();
+//
+//      buffer_size_and_position(pbufferitem);
 
       auto pimageBuffer = pbufferitem->m_pimage2;
 
       if (pimageBuffer->m_size != pbufferitem->m_size)
       {
 
-         update_buffer(pbufferitem);
+         if(!update_buffer(pbufferitem))
+         {
+
+            return false;
+
+         }
 
       }
 
-      return double_buffer::on_begin_draw();
+      if(!double_buffer::_on_begin_draw(pbufferitem))
+      {
+
+         return false;
+
+      }
+
+      return true;
 
    }
 
