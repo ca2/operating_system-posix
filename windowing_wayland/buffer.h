@@ -83,7 +83,7 @@ namespace windowing_wayland
 
       //void update_window();
 
-      ::graphics::buffer_item * on_begin_draw() override;
+      bool _on_begin_draw(::graphics::buffer_item * pbufferitem) override;
 
       //bool presentation_complete() override;
 
