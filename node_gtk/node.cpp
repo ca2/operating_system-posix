@@ -1701,43 +1701,43 @@ namespace node_gtk
    void node::launch_app_by_app_id(const ::scoped_string & scopedstrAppId)
    {
 
-      information() << "node::launch_app_by_app_id : " << scopedstrAppId;
-
-      auto pathDesktopFile = get_desktop_file_path_by_app_id(scopedstrAppId);
-
-      if(!acmefile()->exists(pathDesktopFile))
-      {
-
-         information() << "Desktop file (\"" << pathDesktopFile << "\") doesn't exist. Going to try to launch with executable path.";
+//      information() << "node::launch_app_by_app_id : " << scopedstrAppId;
+//
+//      auto pathDesktopFile = get_desktop_file_path_by_app_id(scopedstrAppId);
+//
+//      if(!acmefile()->exists(pathDesktopFile))
+//      {
+//
+//         information() << "Desktop file (\"" << pathDesktopFile << "\") doesn't exist. Going to try to launch with executable path.";
 
          ::aura_posix::node::launch_app_by_app_id(scopedstrAppId);
 
-         return;
-
-      }
-
-      ::string strAppId = scopedstrAppId;
-
-      strAppId.find_replace("/", ".");
-
-      ::string strCommand = "sh -c \"nohup gtk-launch " + strAppId + " &\"";
-
-      int iExitCode = acmenode()->command_system(strCommand, 10_minutes);
-
-      if(iExitCode == 0)
-      {
-
-         information() << "Successfully launched \"" << scopedstrAppId << "\"";
-
-         return;
-
-      }
-
-      warning() << "Failed to launch application \"" + scopedstrAppId + "\" using gtk-launch";
-
-      information() << "Going to try to launch with executable path.";
-
-      ::aura_posix::node::launch_app_by_app_id(scopedstrAppId);
+//         return;
+//
+//      }
+//
+//      ::string strAppId = scopedstrAppId;
+//
+//      strAppId.find_replace("/", ".");
+//
+//      ::string strCommand = "sh -c \"nohup gtk-launch " + strAppId + " &\"";
+//
+//      int iExitCode = acmenode()->command_system(strCommand, 10_minutes);
+//
+//      if(iExitCode == 0)
+//      {
+//
+//         information() << "Successfully launched \"" << scopedstrAppId << "\"";
+//
+//         return;
+//
+//      }
+//
+//      warning() << "Failed to launch application \"" + scopedstrAppId + "\" using gtk-launch";
+//
+//      information() << "Going to try to launch with executable path.";
+//
+//      ::aura_posix::node::launch_app_by_app_id(scopedstrAppId);
 
    }
 

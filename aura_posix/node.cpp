@@ -5,6 +5,7 @@
 #include "node.h"
 #include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/platform/system.h"
+#include "acme/primitive/datetime/datetime.h"
 #include "apex/platform/application.h"
 #ifdef WITH_X11
 #include <X11/Xlib.h>
@@ -481,7 +482,23 @@ namespace aura_posix
 
       acmedirectory()->change_current(pathFolder);
 
-      strCommand = "sh -c \"nohup ./" + strName + " &\"";
+      ::file::path pathLogFolder;
+
+      pathLogFolder = acmedirectory()->home() / "application" / scopedstrAppId / "log";
+
+      acmedirectory()->create(pathLogFolder);
+
+      ::string strLogFileName;
+
+      strLogFileName = acmesystem()->datetime()->international().get_date_time(INTERNATIONAL_DATE_TIME_FORMAT_FOR_FILE_WITH_NO_SPACES) ;
+
+      strLogFileName += ".txt";
+
+      ::file::path pathLog;
+
+      pathLog = pathLogFolder / strLogFileName;
+
+      strCommand = "sh -c \"nohup ./\\\"" + strName + "\\\" > \\\"" + pathLog +"\\\"\"";
 
       int iExitCode = acmenode()->command_system(strCommand, 10_minutes);
 

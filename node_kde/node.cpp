@@ -1011,39 +1011,39 @@ namespace node_kde
    void node::launch_app_by_app_id(const ::scoped_string & scopedstrAppId)
    {
 
-      information() << "node::launch_app_by_app_id : " << scopedstrAppId;
-
-      auto pathDesktopFile = get_desktop_file_path_by_app_id(scopedstrAppId);
-
-      if(!acmefile()->exists(pathDesktopFile))
-      {
-
-         information() << "Desktop file (\"" << pathDesktopFile << "\") doesn't exist. Going to try to launch with executable path.";
+//      information() << "node::launch_app_by_app_id : " << scopedstrAppId;
+//
+//      auto pathDesktopFile = get_desktop_file_path_by_app_id(scopedstrAppId);
+//
+//      if(!acmefile()->exists(pathDesktopFile))
+//      {
+//
+//         information() << "Desktop file (\"" << pathDesktopFile << "\") doesn't exist. Going to try to launch with executable path.";
 
          ::aura_posix::node::launch_app_by_app_id(scopedstrAppId);
 
-         return;
-
-      }
-
-      ::string strCommand = "sh -c \"nohup kioclient exec " + pathDesktopFile + " &\"";
-
-      int iExitCode = acmenode()->command_system(strCommand, 10_minutes);
-
-      if(iExitCode == 0)
-      {
-
-         information() << "Successfully launched \"" << scopedstrAppId << "\"";
-
-         return;
-
-      }
-
-      warning() << "Failed to launch application \"" + scopedstrAppId + "\" using kioclient exec";
-
-      information() << "Going to try to launch with executable path.";
-
-      ::aura_posix::node::launch_app_by_app_id(scopedstrAppId);
+//         return;
+//
+//      }
+//
+//      ::string strCommand = "sh -c \"nohup kioclient exec " + pathDesktopFile + " &\"";
+//
+//      int iExitCode = acmenode()->command_system(strCommand, 10_minutes);
+//
+//      if(iExitCode == 0)
+//      {
+//
+//         information() << "Successfully launched \"" << scopedstrAppId << "\"";
+//
+//         return;
+//
+//      }
+//
+//      warning() << "Failed to launch application \"" + scopedstrAppId + "\" using kioclient exec";
+//
+//      information() << "Going to try to launch with executable path.";
+//
+//      ::aura_posix::node::launch_app_by_app_id(scopedstrAppId);
 
    }
 
