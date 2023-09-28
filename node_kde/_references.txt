@@ -1,1 +1,2 @@
+operating_system-posix/windowing_wayland
 operating_system-posix/aura_posix
