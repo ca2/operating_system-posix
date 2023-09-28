@@ -1007,6 +1007,36 @@ namespace node_kde
    }
 
 
+   void node::launch_app_by_app_id(const ::scoped_string & scopedstrAppId)
+   {
+
+      ::string strAppId = scopedstrAppId;
+
+      strAppId.find_replace("/", ".");
+
+      ::file::path pathDesktop;
+
+      pathDesktop = acmedirectory()->home();
+
+      pathDesktop /= ".local/share/applications";
+
+      pathDesktop /= (strAppId + ".desktop");
+
+      ::string strCommand = "sh -c \"nohup kioclient exec " + pathDesktop + " &\"";
+
+      int iExitCode = acmenode()->command_system(strCommand, 10_minutes);
+
+      if(iExitCode != 0)
+      {
+
+         throw ::exception(error_failed, "Failed to launch application \"" + strAppId + "\" using gtk_launch");
+
+      }
+
+   }
+
+
+
 } // namespace node_kde
 
 
