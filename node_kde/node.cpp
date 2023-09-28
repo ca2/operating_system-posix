@@ -6,6 +6,7 @@
 #include "appindicator.h"
 #include "acme/constant/id.h"
 #include "acme/filesystem/filesystem/acme_directory.h"
+#include "acme/filesystem/filesystem/acme_file.h"
 #include "acme/filesystem/filesystem/file_context.h"
 #include "acme/filesystem/filesystem/file_dialog.h"
 #include "acme/filesystem/filesystem/folder_dialog.h"
@@ -1010,31 +1011,41 @@ namespace node_kde
    void node::launch_app_by_app_id(const ::scoped_string & scopedstrAppId)
    {
 
-      ::string strAppId = scopedstrAppId;
+      information() << "node::launch_app_by_app_id : " << scopedstrAppId;
 
-      strAppId.find_replace("/", ".");
+      auto pathDesktopFile = get_desktop_file_path_by_app_id(scopedstrAppId);
 
-      ::file::path pathDesktop;
-
-      pathDesktop = acmedirectory()->home();
-
-      pathDesktop /= ".local/share/applications";
-
-      pathDesktop /= (strAppId + ".desktop");
-
-      ::string strCommand = "sh -c \"nohup kioclient exec " + pathDesktop + " &\"";
-
-      int iExitCode = acmenode()->command_system(strCommand, 10_minutes);
-
-      if(iExitCode != 0)
+      if(!acmefile()->exists(pathDesktopFile))
       {
 
-         throw ::exception(error_failed, "Failed to launch application \"" + strAppId + "\" using gtk_launch");
+         information() << "Desktop file (\"" << pathDesktopFile << "\") doesn't exist. Going to try to launch with executable path.";
+
+         ::aura_posix::node::launch_app_by_app_id(scopedstrAppId);
+
+         return;
 
       }
 
-   }
+      ::string strCommand = "sh -c \"nohup kioclient exec " + pathDesktopFile + " &\"";
 
+      int iExitCode = acmenode()->command_system(strCommand, 10_minutes);
+
+      if(iExitCode == 0)
+      {
+
+         information() << "Successfully launched \"" << scopedstrAppId << "\"";
+
+         return;
+
+      }
+
+      warning() << "Failed to launch application \"" + scopedstrAppId + "\" using kioclient exec";
+
+      information() << "Going to try to launch with executable path.";
+
+      ::aura_posix::node::launch_app_by_app_id(scopedstrAppId);
+
+   }
 
 
 } // namespace node_kde

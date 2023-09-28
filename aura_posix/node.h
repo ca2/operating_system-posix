@@ -118,12 +118,16 @@ namespace aura_posix
 
 
       ::file::path get_desktop_file_path(::apex::application * papp) override;
+      virtual ::file::path get_desktop_file_path_by_app_id(const ::scoped_string & scopedstrAppId);
 
 
       //void on_request(::request * prequest) override;
 
 
       void main() override;
+
+
+      virtual void launch_app_by_app_id(const ::scoped_string & scopedstrAppId) override;
 
 
    };

@@ -408,24 +408,31 @@ namespace aura_posix
    ::file::path node::get_desktop_file_path(::apex::application * papp)
    {
 
+      return get_desktop_file_path_by_app_id(papp->m_strAppId);
+
+   }
+
+
+   ::file::path node::get_desktop_file_path_by_app_id(const ::scoped_string & scopedstrAppId)
+   {
+
       ::file::path path;
 
       path = acmedirectory()->home();
 
       path /= ".local/share/applications";
 
-      string strApplicationServerName = papp->m_strAppId;
+      string strDesktopFileName = scopedstrAppId;
 
-      strApplicationServerName.find_replace("/", ".");
+      strDesktopFileName.find_replace("/", ".");
 
-      strApplicationServerName.find_replace("_", "-");
+      strDesktopFileName.find_replace("_", "-");
 
-      path /= (strApplicationServerName + ".desktop");
+      path /= (strDesktopFileName + ".desktop");
 
       return path;
 
    }
-
 
 
    void node::main()
@@ -455,6 +462,37 @@ namespace aura_posix
 //         //}
 //
 //         return estatus;
+
+   }
+
+
+   void node::launch_app_by_app_id(const ::scoped_string & scopedstrAppId)
+   {
+
+#if defined(LINUX)
+
+      ::file::path path = get_executable_path_by_app_id(scopedstrAppId);
+
+      ::file::path pathFolder = path.folder();
+
+      string strName = path.name();
+
+      ::string strCommand;
+
+      acmedirectory()->change_current(pathFolder);
+
+      strCommand = "sh -c \"nohup ./" + strName + " &\"";
+
+      int iExitCode = acmenode()->command_system(strCommand, 10_minutes);
+
+      if(iExitCode != 0)
+      {
+
+         throw ::exception(error_failed);
+
+      }
+
+#endif
 
    }
 
