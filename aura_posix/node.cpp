@@ -500,6 +500,8 @@ namespace aura_posix
 
       strCommand = "sh -c \"nohup ./\\\"" + strName + "\\\" > \\\"" + pathLog +"\\\"\"";
 
+      information() << "node::launch_app_by_app_id : " << strCommand;
+
       int iExitCode = acmenode()->command_system(strCommand, 10_minutes);
 
       if(iExitCode != 0)
