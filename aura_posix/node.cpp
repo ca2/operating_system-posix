@@ -467,12 +467,12 @@ namespace aura_posix
    }
 
 
-   void node::launch_app_by_app_id(const ::scoped_string & scopedstrAppId)
+   void node::launch_app_by_app_id(const ::scoped_string & scopedstrAppId, bool bSingleExecutableVersion)
    {
 
 #if defined(LINUX)
 
-      ::file::path path = get_executable_path_by_app_id(scopedstrAppId);
+      ::file::path path = get_executable_path_by_app_id(scopedstrAppId, bSingleExecutableVersion);
 
       ::file::path pathFolder = path.folder();
 

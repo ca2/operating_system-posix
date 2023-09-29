@@ -127,7 +127,7 @@ namespace aura_posix
       void main() override;
 
 
-      virtual void launch_app_by_app_id(const ::scoped_string & scopedstrAppId) override;
+      void launch_app_by_app_id(const ::scoped_string & scopedstrAppId, bool bSingleExecutableVersion) override;
 
 
    };

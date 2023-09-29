@@ -1008,7 +1008,7 @@ namespace node_kde
    }
 
 
-   void node::launch_app_by_app_id(const ::scoped_string & scopedstrAppId)
+   void node::launch_app_by_app_id(const ::scoped_string & scopedstrAppId, bool bSingleeExecutableVersion)
    {
 
 //      information() << "node::launch_app_by_app_id : " << scopedstrAppId;
@@ -1020,7 +1020,7 @@ namespace node_kde
 //
 //         information() << "Desktop file (\"" << pathDesktopFile << "\") doesn't exist. Going to try to launch with executable path.";
 
-         ::aura_posix::node::launch_app_by_app_id(scopedstrAppId);
+         ::aura_posix::node::launch_app_by_app_id(scopedstrAppId, bSingleExecutableVersion);
 
 //         return;
 //
