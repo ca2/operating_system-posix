@@ -137,7 +137,7 @@ namespace node_gtk
       ::pointer < ::input::input > get_input() override;
 
 
-      void launch_app_by_app_id(const ::scoped_string & scopedstrAppId) override;
+      void launch_app_by_app_id(const ::scoped_string & scopedstrAppId, bool bSingleExecutableVersion) override;
 
 
    };
