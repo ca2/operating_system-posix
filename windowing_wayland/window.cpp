@@ -6033,7 +6033,9 @@ if(::is_set(m_pwlsurface))
       if (m_pwlsurface == nullptr)
       {
 
-         throw ::exception(error_failed);
+         return;
+
+         //throw ::exception(error_failed);
 
       }
 
