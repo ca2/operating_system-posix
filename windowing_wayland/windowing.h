@@ -7,6 +7,7 @@
 #include "aura_posix/x11/windowing.h"
 #include "acme/primitive/collection/list.h"
 //#include "acme/primitive/collection/pointer_array.h"
+#include "_.h"
 #include "_wayland.h"
 
 struct libinput_event;
@@ -15,7 +16,7 @@ namespace windowing_wayland
 {
 
 
-   class CLASS_DECL_WINDOWING_X11 windowing :
+   class CLASS_DECL_WINDOWING_WAYLAND windowing :
       virtual public ::windowing_posix::windowing
    {
    public:
@@ -105,7 +106,7 @@ namespace windowing_wayland
 
       void erase_window(::windowing::window * pwindow) override;
 
-      virtual ::windowing_wayland::window * _window(::wl_surface * pwlsurface);
+      virtual ::wayland::nano_window_base * _window(::wl_surface * pwlsurface);
 
 
       //virtual void _message_handler(void * p);
@@ -120,7 +121,7 @@ namespace windowing_wayland
 
       ::windowing::window * get_active_window(::thread * pthread) override;
 
-      ::windowing::window * get_keyboard_focus(::thread * pthread) override;
+      ::windowing::window_base * get_keyboard_focus(::thread * pthread) override;
 
 
       ::pointer < ::input::input > get_input() override;

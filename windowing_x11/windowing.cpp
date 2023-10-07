@@ -393,7 +393,7 @@ namespace windowing_x11
 //   }
 
 
-   ::windowing::window * windowing::get_keyboard_focus(::thread *)
+   ::windowing::window_base * windowing::get_keyboard_focus(::thread *)
    {
 
       if(!m_pdisplay)

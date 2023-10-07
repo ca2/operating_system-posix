@@ -12,7 +12,7 @@ namespace windowing_wayland
 {
 
 
-   class CLASS_DECL_WINDOWING_X11 icon :
+   class CLASS_DECL_WINDOWING_WAYLAND icon :
       virtual public ::windowing::icon
    {
    public:

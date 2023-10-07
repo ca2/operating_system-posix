@@ -20,8 +20,8 @@ list(APPEND library_source
    user_notify_icon_bridge.h
    xinput.cpp
    xinput.h
-   xkb_input.cpp
-   xkb_input.h
+   #xkb_input.cpp
+   #xkb_input.h
 
 )
 

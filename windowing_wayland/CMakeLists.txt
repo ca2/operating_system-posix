@@ -36,13 +36,7 @@ list(APPEND library_source
    windowing_wayland.cpp
    windowing.h
    wayland_windowing.cpp
-   wayland-gtk_shell1.c
-   wayland-gtk_shell1.h
-   wayland-xdg_activation_v1.c
-   wayland-xdg_activation_v1.h
-   wayland-xdg_wm_base.c
-   wayland-xdg_wm_base.h
-   xfree86_key.h
+   #xfree86_key.h
    xi.cpp
    )
 

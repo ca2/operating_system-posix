@@ -3,6 +3,7 @@
 #pragma once
 
 
+#include "acme/operating_system/wayland/nano/_.h"
 #include "aura/windowing/cursor.h"
 #include "_wayland.h"
 
@@ -11,7 +12,7 @@ namespace windowing_wayland
 {
 
 
-   class CLASS_DECL_WINDOWING_X11 cursor :
+   class CLASS_DECL_WINDOWING_WAYLAND cursor :
       virtual public ::windowing::cursor
    {
    public:

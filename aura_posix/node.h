@@ -103,6 +103,8 @@ namespace aura_posix
 
       bool has_xcb() const override;
 
+      //bool is_wayland() const override;
+
 #endif // WITH_X11 || WITH_XCB
 
 

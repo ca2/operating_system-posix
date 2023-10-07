@@ -392,6 +392,8 @@ namespace aura_posix
    }
 
 
+
+
 #if defined(WITH_XCB)
 
    void * node::_get_connection()

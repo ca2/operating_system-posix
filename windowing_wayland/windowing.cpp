@@ -267,7 +267,7 @@ namespace windowing_wayland
    }
 
 
-   ::windowing_wayland::window * windowing::_window(::wl_surface * pwlsurface)
+   ::wayland::nano_window_base * windowing::_window(::wl_surface * pwlsurface)
    {
 
       if (!m_pdisplay)
@@ -409,7 +409,7 @@ namespace windowing_wayland
 //   }
 
 
-   ::windowing::window * windowing::get_keyboard_focus(::thread *)
+   ::windowing::window_base * windowing::get_keyboard_focus(::thread *)
    {
 
       if (!m_pdisplay)

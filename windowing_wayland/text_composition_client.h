@@ -11,7 +11,7 @@ namespace windowing_wayland
 {
 
 
-   class CLASS_DECL_WINDOWING_X11 text_composition_client :
+   class CLASS_DECL_WINDOWING_WAYLAND text_composition_client :
       virtual public ::user::text_composition_client
    {
    public:

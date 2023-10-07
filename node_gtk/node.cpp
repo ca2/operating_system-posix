@@ -245,6 +245,9 @@ namespace node_gtk
    void node::system_main()
    {
 
+      acmesystem()->m_itask = 0;
+
+      acmesystem()->m_htask = nullptr;
       //auto estatus =
       //
       acmesystem()->m_papexsystem->branch_synchronously();

@@ -7,7 +7,7 @@
 
 
 #include "aura/windowing/keyboard.h"
-#include "aura_posix/xkb_input.h"
+#include "acme/operating_system/wayland/xkb_input.h"
 
 
 namespace windowing_wayland
@@ -15,9 +15,10 @@ namespace windowing_wayland
 
    //class keyboard_layout;
 
-   class CLASS_DECL_WINDOWING_X11 keyboard :
-      virtual public ::windowing::keyboard,
-      virtual public ::xkb_input::xkb_input
+   class CLASS_DECL_WINDOWING_WAYLAND keyboard :
+      virtual public ::windowing::keyboard
+      //,
+      //virtual public ::xkb_input::xkb_input
    {
       public:
 
@@ -70,7 +71,7 @@ namespace windowing_wayland
       void hide_software_keyboard(::user::primitive * pprimitive);
 
 
-      virtual void __handle_keyboard_keymap(struct wl_keyboard *keyboard, uint32_t format, int fd, uint32_t size);
+      //virtual void __handle_keyboard_keymap(struct wl_keyboard *keyboard, uint32_t format, int fd, uint32_t size);
 
 
    };

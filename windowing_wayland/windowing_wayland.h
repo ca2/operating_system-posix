@@ -43,10 +43,10 @@
 //#define MWM_DECOR_MAXIMIZE      (1L << 6)
 
 
-//CLASS_DECL_WINDOWING_X11 void x11_main();
+//CLASS_DECL_WINDOWING_WAYLAND void x11_main();
 
 
-CLASS_DECL_WINDOWING_X11 ::particle * user_synchronization();
+CLASS_DECL_WINDOWING_WAYLAND ::particle * user_synchronization();
 
 
 //enum_net_wm_state net_wm_state(const char *pszText);
@@ -59,13 +59,13 @@ CLASS_DECL_WINDOWING_X11 ::particle * user_synchronization();
 //bool x11_get_window_rect(Display * d, Window window, ::rectangle_i32 * prectangle);
 //bool x11_get_client_rect(Display * d, Window window, ::rectangle_i32 * prectangle);
 
-//CLASS_DECL_WINDOWING_X11 ::Display * x11_get_display();
+//CLASS_DECL_WINDOWING_WAYLAND ::Display * x11_get_display();
 
 
-//CLASS_DECL_WINDOWING_X11 enum_net_wm_state net_wm_state(const char * pszText);
+//CLASS_DECL_WINDOWING_WAYLAND enum_net_wm_state net_wm_state(const char * pszText);
 //
 //
-//CLASS_DECL_WINDOWING_X11 const char * net_wm_state_text(enum_net_wm_state estate);
+//CLASS_DECL_WINDOWING_WAYLAND const char * net_wm_state_text(enum_net_wm_state estate);
 
 
 //CLASS_DECL_ACME int xinerama_get_monitor_count();
