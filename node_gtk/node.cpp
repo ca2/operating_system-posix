@@ -250,7 +250,8 @@ namespace node_gtk
       acmesystem()->m_htask = nullptr;
       //auto estatus =
       //
-      acmesystem()->m_papexsystem->branch_synchronously();
+      //acmesystem()->m_papexsystem->branch_synchronously();
+      acmesystem()->m_papexsystem->branch();
 
 //      if (!estatus)
 //      {
@@ -1529,7 +1530,7 @@ namespace node_gtk
    bool node::is_branch_current() const
    {
 
-      return current_itask() == get_main_user_itask();
+      return current_itask() == main_user_itask();
 
    }
 

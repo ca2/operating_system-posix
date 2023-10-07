@@ -187,11 +187,29 @@ namespace windowing_wayland
    ::wl_display * display::__get_wayland_display()
    {
 
+      if(m_pwldisplay)
+      {
+
+         return m_pwldisplay;
+
+      }
+
       ::pointer<::aura_posix::node> pauraposixnode = acmenode();
 
-      auto pwldisplay = pauraposixnode->get_wayland_display();
+      m_pwldisplay = pauraposixnode->get_wayland_display();
 
-      return pwldisplay;
+      if (m_pwldisplay == NULL)
+      {
+
+         error() << "Can't connect to display";
+
+         throw ::exception(error_failed);
+
+      }
+
+      information() << "connected to display\n";
+
+      return m_pwldisplay;
 
    }
 

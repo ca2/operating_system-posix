@@ -98,7 +98,7 @@ namespace windowing_wayland
 
       virtual void unlock_display();
 
-      ::wl_display * __get_wayland_display();
+      ::wl_display * __get_wayland_display() override;
 
       void open() override;
 

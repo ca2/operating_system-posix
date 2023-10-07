@@ -376,7 +376,7 @@ namespace aura_posix
    }
 
 
-   bool node::has_xcb() const
+   bool node::has_xcb()
    {
 
 #if defined(WITH_XCB)

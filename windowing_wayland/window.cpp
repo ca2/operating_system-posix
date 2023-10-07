@@ -114,13 +114,11 @@ namespace windowing_wayland
 
          auto pwindowing = wayland_windowing();
 
-         auto pwindowingdisplay = pwindowing->display();
+         auto pdisplay = pwindowing->m_pdisplay;
 
-         auto pdisplaywayaland = dynamic_cast < ::windowing_wayland::display * > (pwindowingdisplay);
+         auto pwldisplay = pdisplay->m_pwldisplay;
 
-         auto display = pdisplaywayaland->_wl_display();
-
-         if (display == nullptr)
+         if (pwldisplay == nullptr)
          {
 
             fprintf(stderr, "ERROR: Could not open display\n");
@@ -155,9 +153,13 @@ namespace windowing_wayland
 
          m_puserinteractionimpl->m_puserinteraction->m_puserinteractionTopLevel = m_puserinteractionimpl->m_puserinteraction;
 
-         m_pdisplay = pwindowing->display();
+         m_pdisplay = pdisplay;
 
-         m_pdisplaybase = m_pdisplay;
+         m_pdisplaybase = pdisplay;
+
+         information() << "window::create_window m_pdisplay : " << (::iptr) m_pdisplay.m_p;
+
+         information() << "window::create_window m_pdisplaybase : " << (::iptr) m_pdisplaybase.m_p;
 
          pimpl->m_pwindow = this;
 
@@ -831,6 +833,15 @@ namespace windowing_wayland
 
    }
 
+
+   void window::destroy()
+   {
+
+      ::windowing_posix::window::destroy();
+
+      ::wayland::nano_window_base::destroy();
+
+   }
 
 //   void window::__map()
 //   {

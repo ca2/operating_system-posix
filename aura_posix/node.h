@@ -101,7 +101,7 @@ namespace aura_posix
 
       void * get_os_xcb_connection() override;
 
-      bool has_xcb() const override;
+      bool has_xcb() override;
 
       //bool is_wayland() const override;
 

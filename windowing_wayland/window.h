@@ -93,6 +93,9 @@ namespace windowing_wayland
       void create_window(::user::interaction_impl * pimpl) override;
 
 
+      void destroy() override;
+
+
 //      static Atom get_window_long_atom(i32 nIndex);
 //
 //
