@@ -1656,13 +1656,13 @@ namespace windowing_xcb
       if (message.m_atom == e_message_left_button_down)
       {
 
-         information("post_ui_message::e_message_left_button_down\n");
+         information("post_ui_message::e_message_left_button_down");
 
       }
       else if (message.m_atom == e_message_left_button_up)
       {
 
-         information("post_ui_message::e_message_left_button_up\n");
+         information("post_ui_message::e_message_left_button_up");
 
       }
 
