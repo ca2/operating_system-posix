@@ -376,8 +376,8 @@ namespace windowing_wayland
       void _on_windowing_close_window() override;
 
 
-//      virtual void __handle_keyboard_enter(::wl_keyboard *pwlkeyboard, uint32_t serial, ::wl_array *pwlarrayKeys);
-//      virtual void __handle_keyboard_leave(::wl_keyboard *pwlkeyboard, uint32_t serial);
+      void __handle_keyboard_enter(::wl_keyboard *pwlkeyboard, uint32_t serial, ::wl_array *pwlarrayKeys) override;
+      void __handle_keyboard_leave(::wl_keyboard *pwlkeyboard, uint32_t serial) override;
 //      virtual void __handle_keyboard_key(::wl_keyboard *pwlkeyboard, uint32_t serial, uint32_t time, uint32_t key, uint32_t state);
 //      virtual void __handle_keyboard_modifiers(::wl_keyboard *keyboard, uint32_t serial, uint32_t mods_depressed, uint32_t mods_latched, uint32_t mods_locked, uint32_t group);
       ::particle * get_interface_client_particle() override; // m_puserinteractionimpl->m_puserinteraction

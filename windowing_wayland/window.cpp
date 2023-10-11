@@ -5787,6 +5787,8 @@ namespace windowing_wayland
    void window::__handle_pointer_enter(::wl_pointer * pwlpointer)
    {
 
+      information() << "__handle_pointer_enter";
+
       nano_window_base::__handle_pointer_enter(pwlpointer);
 
       //m_pointCursor2 = m_pointPointer;
@@ -5919,12 +5921,12 @@ namespace windowing_wayland
    void window::__handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis)
    {
 
-      ::string strType = ::type(m_puserinteractionimpl->m_puserinteraction).name();
-
+      //::string strType = ::type(m_puserinteractionimpl->m_puserinteraction).name();
 
       m_pwlpointer = pwlpointer;
 
       enum_message emessage = e_message_undefined;
+
       //msg.m_atom = e_message_mouse_wheel;
 
       //post_ui_message(pmouse);
@@ -5938,15 +5940,12 @@ namespace windowing_wayland
       if (pressed == WL_POINTER_BUTTON_STATE_PRESSED)
       {
 
-
          ::point_i32 m_pointWindowDragStart;
-
 
          if (linux_button == BTN_LEFT)
          {
 
-            information()
-               << "LeftButtonDown";
+            information() << "LeftButtonDown";
 
             emessage = e_message_left_button_down;
 
@@ -6500,23 +6499,27 @@ namespace windowing_wayland
 
    }
 
-//
-//   void window::__handle_keyboard_enter(::wl_keyboard *pwlkeyboard, uint32_t serial, ::wl_array *pwlarrayKeys)
-//   {
-//
-//      m_bHasKeyboardFocus = true;
-//
-//   }
-//
-//
-//   void window::__handle_keyboard_leave(::wl_keyboard *pwlkeyboard, uint32_t serial)
-//   {
-//
-//      m_bHasKeyboardFocus = false;
-//
-//   }
-//
-//
+
+   void window::__handle_keyboard_enter(::wl_keyboard *pwlkeyboard, uint32_t serial, ::wl_array *pwlarrayKeys)
+   {
+
+      information() << "__handle_keyboard_enter";
+
+      nano_window_base::__handle_keyboard_enter(pwlkeyboard, serial, pwlarrayKeys);
+
+   }
+
+
+   void window::__handle_keyboard_leave(::wl_keyboard *pwlkeyboard, uint32_t serial)
+   {
+
+      information() << "__handle_keyboard_leave";
+
+      nano_window_base::__handle_keyboard_leave(pwlkeyboard, serial);
+
+   }
+
+
 //   void window::__handle_keyboard_key(::wl_keyboard *pwlkeyboard, uint32_t serial, uint32_t time, uint32_t key, uint32_t pressed)
 //   {
 //

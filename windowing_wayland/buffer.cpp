@@ -891,9 +891,9 @@ namespace windowing_wayland
 //
 //                                             }
 
-                  ::minimum(pwaylandwindow->m_sizeConfigure.cx());
+//                  ::minimum(pwaylandwindow->m_sizeConfigure.cx());
 
-                  ::minimum(pwaylandwindow->m_sizeConfigure.cy());
+//                  ::minimum(pwaylandwindow->m_sizeConfigure.cy());
 
                }
 
@@ -926,11 +926,18 @@ namespace windowing_wayland
                                     });
 
 
-      pevent->_wait(20_s);
+      if(pevent->wait(20_s).ok())
+      {
 
-         information()
+         information() << "buffer::update_screen end";
 
-            << "finished waiting for procedure to run";
+      }
+      else
+      {
+
+         information() << "buffer::update_screen timeout";
+
+      }
 
       //}
 
