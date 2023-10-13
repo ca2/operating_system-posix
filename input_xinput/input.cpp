@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "input.h"
 #include "acme/constant/message.h"
+#include "acme/constant/user_key.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "aura/message/user.h"
 #include "aura_posix/node.h"
