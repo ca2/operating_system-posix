@@ -122,8 +122,8 @@ elseif (${LINUX} OR ${FREEBSD})
         target_link_libraries(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LIBRARIES})
     endif ()
 
-    target_compile_options(${PROJECT_NAME} PRIVATE -fpermissive)
-    target_compile_options(static_${PROJECT_NAME} PRIVATE -fpermissive)
+    target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive>)
+    target_compile_options(static_${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive>)
     target_compile_definitions(static_${PROJECT_NAME} PRIVATE CUBE)
 
     target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references})

@@ -209,7 +209,12 @@ namespace node_kde
 
       //auto estatus =
       //
-      acmesystem()->m_papexsystem->branch_synchronously();
+
+      acmesystem()->m_itask = 0;
+
+      acmesystem()->m_htask = (htask_t) 0;
+
+      acmesystem()->m_papexsystem->branch();
 
       /// memory_new:platform_create_system:decrement_reference_count
       /// begin_synch starts memory_new thread

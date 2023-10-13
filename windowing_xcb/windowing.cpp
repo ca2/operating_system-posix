@@ -392,7 +392,7 @@ namespace windowing_xcb
    }
 
 
-   ::windowing::window * windowing::get_keyboard_focus(::thread *)
+   ::windowing::window_base * windowing::get_keyboard_focus(::thread *)
    {
 
       if (!m_pdisplay)

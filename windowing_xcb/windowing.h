@@ -129,7 +129,7 @@ namespace windowing_xcb
 
       ::windowing::window * get_active_window(::thread * pthread) override;
 
-      ::windowing::window * get_keyboard_focus(::thread * pthread) override;
+      ::windowing::window_base * get_keyboard_focus(::thread * pthread) override;
 
       ::windowing::window * get_mouse_capture(::thread * pthread) override;
 

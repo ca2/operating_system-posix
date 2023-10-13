@@ -131,8 +131,8 @@ elseif (${LINUX} OR ${FREEBSD})
    #   target_compile_options(static_${PROJECT_NAME} PRIVATE -I/usr/include/KF5/KNotifications)
 
 
-   target_compile_options(${PROJECT_NAME} PRIVATE -fpermissive)
-   target_compile_options(static_${PROJECT_NAME} PRIVATE -fpermissive)
+   target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive>)
+   target_compile_options(static_${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive>)
    target_compile_definitions(static_${PROJECT_NAME} PRIVATE CUBE)
 
 
