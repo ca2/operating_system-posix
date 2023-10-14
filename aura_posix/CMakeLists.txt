@@ -99,6 +99,9 @@ if (MSVC)
 
 elseif (${LINUX} OR ${FREEBSD})
 
+   target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
+
+
 
    list(APPEND extra_pkg_modules
       libstartup-notification-1.0
@@ -129,8 +132,8 @@ elseif (${LINUX} OR ${FREEBSD})
    #endif ()
 
 
-   target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive>)
-   target_compile_options(static_${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive>)
+   target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive  ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
+   target_compile_options(static_${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive  ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
    target_compile_definitions(static_${PROJECT_NAME} PRIVATE CUBE)
 
 

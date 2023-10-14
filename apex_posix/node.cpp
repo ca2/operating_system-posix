@@ -192,13 +192,7 @@ namespace apex_posix
       
 #if defined(HAS_FREEDESKTOP)
 
-      ::string strDesktopFileName;
-
-      strDesktopFileName = papp->m_strAppId;
-
-      strDesktopFileName.find_replace("/", ".");
-
-      auto pathShortcut = acmedirectory()->home() / ".local/share/applications"/ (strDesktopFileName +".desktop");
+      auto pathShortcut = app_shortcut_path(papp);
 
       auto pfile = papp->__create_new< ::freedesktop::desktop_file >();
 
