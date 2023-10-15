@@ -787,7 +787,14 @@ namespace node_kde
 
          xcb_generic_event_t * pevent = (xcb_generic_event_t *) message;
 
-         auto pwindowing = m_pwindowing;
+         auto pwindowing = m_pwindowingAuraNode;
+
+         if(!pwindowing)
+         {
+
+            return false;
+
+         }
 
          if(pwindowing->_xcb_process_event(pevent))
          {
