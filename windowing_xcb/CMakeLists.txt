@@ -55,14 +55,6 @@ list(APPEND library_references
 list(APPEND static_library_references ${library_references})
 
 list(TRANSFORM static_library_references PREPEND static_)
-if(WIN32)
-
-    #list(APPEND audio_source
-       #${PROJECT_NAME}/windows/tts_speaker.cpp
-       #${PROJECT_NAME}/windows/tts_speaker.h
-     #  )
-
-
 
 
 add_library(${PROJECT_NAME} SHARED ${library_source})
