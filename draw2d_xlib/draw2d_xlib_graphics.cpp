@@ -83,7 +83,7 @@ namespace draw2d_xlib
                bool bDeleted = ::DeleteDC(hdc) != false;
                if(!bDeleted)
                {
-                  information("Failed to delete GDI device context");
+                  informationf("Failed to delete GDI device context");
                }
             }*/
 

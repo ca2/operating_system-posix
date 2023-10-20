@@ -125,7 +125,7 @@ namespace windowing_xcb
 ////      if(!pdisplay)
 ////      {
 ////
-////         information("\nFailed to __create < ::windowing::display > at windowing_xcb::windowing::initialize");
+////         informationf("\nFailed to __create < ::windowing::display > at windowing_xcb::windowing::initialize");
 ////
 ////         //return ::error_no_factory;
 ////
@@ -140,7 +140,7 @@ namespace windowing_xcb
 ////      if(!estatus)
 ////      {
 ////
-////         information("\nFailed to initialize_display at windowing_xcb::windowing::initialize");
+////         informationf("\nFailed to initialize_display at windowing_xcb::windowing::initialize");
 ////
 ////         return estatus;
 ////
@@ -151,7 +151,7 @@ namespace windowing_xcb
 ////      if(!pdisplay)
 ////      {
 ////
-////         information("\nFailed to cast pdisplay to m_pdisplay at windowing_xcb::windowing::initialize");
+////         informationf("\nFailed to cast pdisplay to m_pdisplay at windowing_xcb::windowing::initialize");
 ////
 ////         return error_no_interface;
 ////
@@ -168,7 +168,7 @@ namespace windowing_xcb
 //      if(!estatus)
 //      {
 //
-//         information("\nFailed to m_pdisplay->open at windowing_xcb::windowing::initialize");
+//         informationf("\nFailed to m_pdisplay->open at windowing_xcb::windowing::initialize");
 //
 //         return estatus;
 //
@@ -663,7 +663,7 @@ namespace windowing_xcb
 //
 //#endif
 //
-//         information("xcb_thread end thread");
+//         informationf("xcb_thread end thread");
 //
 //         return false;
 //
@@ -752,7 +752,7 @@ namespace windowing_xcb
 //
 //#endif
 //
-//         information("xcb_thread end thread");
+//         informationf("xcb_thread end thread");
 //
 //         return false;
 //
@@ -980,7 +980,7 @@ namespace windowing_xcb
 
             pxcbwindow->m_pointCursor2.y() = pmotion->event_y;
 
-            information("XCB_MOTION_NOTIFY %d,%d", pmotion->root_x, pmotion->root_y);
+            informationf("XCB_MOTION_NOTIFY %d,%d", pmotion->root_x, pmotion->root_y);
 
 //            //if (pxcbwindow->m_puserinteractionimpl != nullptr)
 //            {
@@ -1041,19 +1041,19 @@ namespace windowing_xcb
 //                              if (throttling.m_iMouseMoveSkipCount == 2)
 //                              {
 //
-//                                 //information("\nmmv>skip 2!");
+//                                 //informationf("\nmmv>skip 2!");
 //
 //                              }
 //                              else if (throttling.m_iMouseMoveSkipCount == 5)
 //                              {
 //
-//                                 //information("\nmmv>Skip 5!!!");
+//                                 //informationf("\nmmv>Skip 5!!!");
 //
 //                              }
 //                              else if (throttling.m_iMouseMoveSkipCount == 10)
 //                              {
 //
-//                                 //information("\nmmv>SKIP 10 !!!!!!!!!");
+//                                 //informationf("\nmmv>SKIP 10 !!!!!!!!!");
 //
 //                              }
 //
@@ -1253,7 +1253,7 @@ namespace windowing_xcb
 
                auto estatus = m_pdisplay->_request_check(cookie);
 
-               //information("");
+               //informationf("");
 
             }
 
@@ -1955,12 +1955,12 @@ if(bSentResponse)
 
             //auto & screeny_origin = window.screen_origin();
 
-            //information("");
-            //::information("\nwindow(origin=" + as_string(origin.x) + ", " + as_string(origin.y));
-            //::information("\nwindow.screen_origin=" + as_string(screen_origin.x) + ", " + as_string(screen_origin.y));
-            //::information("\nbutton.root_x=" + as_string(pbutton->root_x));
-            //::information("\nbutton.root_y=" + as_string(pbutton->root_y));
-            //::information("\n");
+            //informationf("");
+            //::informationf("\nwindow(origin=" + as_string(origin.x) + ", " + as_string(origin.y));
+            //::informationf("\nwindow.screen_origin=" + as_string(screen_origin.x) + ", " + as_string(screen_origin.y));
+            //::informationf("\nbutton.root_x=" + as_string(pbutton->root_x));
+            //::informationf("\nbutton.root_y=" + as_string(pbutton->root_y));
+            //::informationf("\n");
 
             //msg.time = pbutton->time;
 
@@ -1975,7 +1975,7 @@ if(bSentResponse)
                if (pbutton->detail == XCB_BUTTON_INDEX_1)
                {
 
-                  //::information("ButtonPress::Button1\n");
+                  //::informationf("ButtonPress::Button1\n");
 
                   g_i135++;
 
@@ -2013,7 +2013,7 @@ if(bSentResponse)
 
                }
 
-               information("XCB_BUTTON_PRESS %d,%d window %d,%d %d,%d",
+               informationf("XCB_BUTTON_PRESS %d,%d window %d,%d %d,%d",
                            pbutton->root_x, pbutton->root_y,
                            origin.x(), origin.y(),
                            origin.x() + size.cx(), origin.y() + size.cy());
@@ -2026,7 +2026,7 @@ if(bSentResponse)
                if (pbutton->detail == XCB_BUTTON_INDEX_1)
                {
 
-                  //::information("ButtonRelease::Button1\n");
+                  //::informationf("ButtonRelease::Button1\n");
 
                   emessage = e_message_left_button_up;
 
@@ -2050,7 +2050,7 @@ if(bSentResponse)
 
                }
 
-               information("XCB_BUTTON_RELEASE %d,%d window %d,%d %d,%d",
+               informationf("XCB_BUTTON_RELEASE %d,%d window %d,%d %d,%d",
                            pbutton->root_x, pbutton->root_y,
                            origin.x(), origin.y(),
                            origin.x() + size.cx(), origin.y() + size.cy());

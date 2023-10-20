@@ -288,7 +288,7 @@ namespace windowing_wayland
 //         XSyncIntToValue(&m_xsyncvalueNetWmSync, 0);
 //         XSyncIntToValue(&m_xsyncvalueNetWmSyncPending, 0);
 //
-//         information("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
+//         informationf("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
 
          //m_bNetWmStateHidden = false;
          //m_bNetWmStateMaximized = false;
@@ -1562,7 +1562,7 @@ namespace windowing_wayland
 //
 //      ::file::path path = pnode->get_desktop_file_path(papp);
 //
-//      information("windowing_wayland::interaction_impl::set_window_text");
+//      informationf("windowing_wayland::interaction_impl::set_window_text");
 //
 //      //fflush(stdout);
 //
@@ -1582,7 +1582,7 @@ namespace windowing_wayland
 //         (const unsigned char *) (const char *) path,
 //         path.length());
 //
-//      information("windowing_wayland::window::bamf_set_icon END");
+//      informationf("windowing_wayland::window::bamf_set_icon END");
 //
 //      //fflush(stdout);
 //
@@ -2836,7 +2836,7 @@ namespace windowing_wayland
 //         (const unsigned char *) (const char *) path,
 //         path.length());
 //
-//      information("\nfreebsd::interaction_impl::bamf_set_icon END");
+//      informationf("\nfreebsd::interaction_impl::bamf_set_icon END");
 //
 //      fflush(stdout);
 //
@@ -3016,19 +3016,19 @@ namespace windowing_wayland
 //      if (message.m_atom == e_message_quit)
 //      {
 //
-//         information("e_message_quit thread");
+//         informationf("e_message_quit thread");
 //
 //      }
 //
 //      if (message.m_atom == e_message_left_button_down)
 //      {
 //
-//         information("post_ui_message::e_message_left_button_down\n");
+//         informationf("post_ui_message::e_message_left_button_down\n");
 //
 //      } else if (message.m_atom == e_message_left_button_up)
 //      {
 //
-//         information("post_ui_message::e_message_left_button_up\n");
+//         informationf("post_ui_message::e_message_left_button_up\n");
 //
 //      }
 //
@@ -3157,7 +3157,7 @@ namespace windowing_wayland
 //
 //#ifdef SET_WINDOW_POS_LOG
 //
-//            information("XMoveResizeWindow (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
+//            informationf("XMoveResizeWindow (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
 //
 //#endif
 //
@@ -3170,7 +3170,7 @@ namespace windowing_wayland
 //
 //#ifdef SET_WINDOW_POS_LOG
 //
-//               information("Changing parameters... (%d, %d) - (%d, %d)", x, y, cx, cy);
+//               informationf("Changing parameters... (%d, %d) - (%d, %d)", x, y, cx, cy);
 //
 //#endif
 //
@@ -3179,11 +3179,11 @@ namespace windowing_wayland
 ////            if (x < 100 || y < 100)
 ////            {
 ////
-////               information("XMoveResizeWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
+////               informationf("XMoveResizeWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
 ////
 ////            }
 //
-//            //information("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
+//            //informationf("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
 //
 //            //information() << acmenode()->get_callstack();
 //
@@ -3204,7 +3204,7 @@ namespace windowing_wayland
 //            if (x < 100 || y < 100)
 //            {
 //
-//               information("XMoveWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
+//               informationf("XMoveWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
 //
 //            }
 //
@@ -3401,7 +3401,7 @@ namespace windowing_wayland
 //
 //#ifdef SET_WINDOW_POS_LOG
 //
-//            information("XMoveResizeWindow (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
+//            informationf("XMoveResizeWindow (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
 //
 //#endif
 //
@@ -3414,7 +3414,7 @@ namespace windowing_wayland
 //
 //#ifdef SET_WINDOW_POS_LOG
 //
-//               information("Changing parameters... (%d, %d) - (%d, %d)", x, y, cx, cy);
+//               informationf("Changing parameters... (%d, %d) - (%d, %d)", x, y, cx, cy);
 //
 //#endif
 //
@@ -3423,11 +3423,11 @@ namespace windowing_wayland
 ////            if (x < 100 || y < 100)
 ////            {
 ////
-////               information("XMoveResizeWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
+////               informationf("XMoveResizeWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
 ////
 ////            }
 //
-//            //information("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
+//            //informationf("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
 //
 //            //information() << acmenode()->get_callstack();
 //
@@ -3448,7 +3448,7 @@ namespace windowing_wayland
 //            if (x < 100 || y < 100)
 //            {
 //
-//               information("XMoveWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
+//               informationf("XMoveWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
 //
 //            }
 //
@@ -3678,7 +3678,7 @@ namespace windowing_wayland
 //         for(auto & a : m_atomaNetWmState)
 //         {
 //
-//            information("atom_name: %s", XGetAtomName(Display(), a));
+//            informationf("atom_name: %s", XGetAtomName(Display(), a));
 //
 //         }
 //
@@ -4004,7 +4004,7 @@ namespace windowing_wayland
 
 #ifdef SET_WINDOW_POS_LOG
 
-            information("XMoveResizeWindow (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
+            informationf("XMoveResizeWindow (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
 
 #endif
 
@@ -4017,7 +4017,7 @@ namespace windowing_wayland
 
 #ifdef SET_WINDOW_POS_LOG
 
-               //information("Changing parameters... (%d, %d) - (%d, %d)", x, y, cx, cy);
+               //informationf("Changing parameters... (%d, %d) - (%d, %d)", x, y, cx, cy);
 
 #endif
 
@@ -4026,11 +4026,11 @@ namespace windowing_wayland
 //            if (x < 100 || y < 100)
 //            {
 //
-//               information("XMoveResizeWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
+//               informationf("XMoveResizeWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
 //
 //            }
 
-            //information("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
+            //informationf("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
 
             //information() << acmenode()->get_callstack();
 
@@ -4052,13 +4052,13 @@ namespace windowing_wayland
             if (x < 100 || y < 100)
             {
 
-               //information("XMoveWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
+               //informationf("XMoveWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
 
             }
 
             windowing_output_debug_string("::window::set_window_pos Move Window 1.4.1");
 
-            //information("XMoveWindow (Win=%d) (%d, %d)", Window(), x, y);
+            //informationf("XMoveWindow (Win=%d) (%d, %d)", Window(), x, y);
 
             //XMoveWindow(Display(), Window(), x, y);
 
@@ -4070,7 +4070,7 @@ namespace windowing_wayland
 
          windowing_output_debug_string("::window::set_window_pos Resize Window 1.4.2");
 
-         //information("XResizeWindow (Win=%d) (%d, %d)", Window(), cx, cy);
+         //informationf("XResizeWindow (Win=%d) (%d, %d)", Window(), cx, cy);
 
          //information() << acmenode()->get_callstack();
 
@@ -4344,7 +4344,7 @@ namespace windowing_wayland
 //         (const unsigned char *) (const char *) path,
 //         path.length());
 //
-//      information("\nfreebsd::interaction_impl::bamf_set_icon END");
+//      informationf("\nfreebsd::interaction_impl::bamf_set_icon END");
 //
 //      fflush(stdout);
 //

@@ -164,7 +164,7 @@ namespace windowing_xcb
 
       auto & colormap = paramscw.colormap = pdisplayxcb->m_pxcbdisplay->m_colormap;
 
-      information("xcb_aux_create_window (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
+      informationf("xcb_aux_create_window (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
 
       information() << "create_window colormap : " << (::iptr) colormap;
 
@@ -641,7 +641,7 @@ namespace windowing_xcb
 
       return estatus;
 
-//      information("windowing_xcb::window::bamf_set_icon");
+//      informationf("windowing_xcb::window::bamf_set_icon");
 //
 //      //fflush(stdout);
 //
@@ -651,7 +651,7 @@ namespace windowing_xcb
 
 //      auto estatus = _replace_string_property(atomBamfDesktopFile, path);
 //
-//      information("windowing_xcb::window::bamf_set_icon END");
+//      informationf("windowing_xcb::window::bamf_set_icon END");
 //
 //      fflush(stdout);
 //
@@ -1546,7 +1546,7 @@ namespace windowing_xcb
 
       auto estatus = _replace_string_property(atomBamfDesktopFile, path);
 
-      information("windowing_xcb::window::set_window_icon END");
+      informationf("windowing_xcb::window::set_window_icon END");
 
       if (!estatus)
       {
@@ -1649,20 +1649,20 @@ namespace windowing_xcb
       if (message.m_atom == e_message_quit)
       {
 
-         information("e_message_quit thread");
+         informationf("e_message_quit thread");
 
       }
 
       if (message.m_atom == e_message_left_button_down)
       {
 
-         information("post_ui_message::e_message_left_button_down");
+         informationf("post_ui_message::e_message_left_button_down");
 
       }
       else if (message.m_atom == e_message_left_button_up)
       {
 
-         information("post_ui_message::e_message_left_button_up");
+         informationf("post_ui_message::e_message_left_button_up");
 
       }
 
@@ -2544,7 +2544,7 @@ namespace windowing_xcb
 
       auto estatus = _replace_string_property(net_wm_icon, path);
 
-      information("windowing_xcb::window::set_mouse_cursor2 END");
+      informationf("windowing_xcb::window::set_mouse_cursor2 END");
 
       fflush(stdout);
 
@@ -3672,7 +3672,7 @@ namespace windowing_xcb
       if (x <= 0 || y <= 0)
       {
 
-         information("_move_resize x <= 0 and/or y <= 0");
+         informationf("_move_resize x <= 0 and/or y <= 0");
 
       }
 
@@ -3696,7 +3696,7 @@ namespace windowing_xcb
       if (x <= 0 || y <= 0)
       {
 
-         information("_move x <= 0 and/or y <= 0");
+         informationf("_move x <= 0 and/or y <= 0");
 
       }
 
@@ -3784,7 +3784,7 @@ namespace windowing_xcb
       if (x <= 0 || y <= 0)
       {
 
-         information("_move_unlocked x <= 0 and/or y <= 0");
+         informationf("_move_unlocked x <= 0 and/or y <= 0");
 
       }
 
@@ -3997,7 +3997,7 @@ namespace windowing_xcb
 //
 //#ifdef SET_WINDOW_POS_LOG
 //
-//            information("XMoveResizeWindow (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
+//            informationf("XMoveResizeWindow (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
 //
 //#endif
 //
@@ -4010,7 +4010,7 @@ namespace windowing_xcb
 //
 //#ifdef SET_WINDOW_POS_LOG
 //
-//               //information("Changing parameters... (%d, %d) - (%d, %d)", x, y, cx, cy);
+//               //informationf("Changing parameters... (%d, %d) - (%d, %d)", x, y, cx, cy);
 //
 //#endif
 //
@@ -4019,11 +4019,11 @@ namespace windowing_xcb
 ////            if (x < 100 || y < 100)
 ////            {
 ////
-////               information("XMoveResizeWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
+////               informationf("XMoveResizeWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
 ////
 ////            }
 //
-//            information("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
+//            informationf("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
 //
 //            //information() << acmenode()->get_callstack();
 //
@@ -4045,7 +4045,7 @@ namespace windowing_xcb
 //            if (x < 100 || y < 100)
 //            {
 //
-//               //information("XMoveWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
+//               //informationf("XMoveWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
 //
 //            }
 //

@@ -254,7 +254,7 @@ namespace windowing_x11
                             _NET_WORKAREA, 0, ~0, False,
                             XA_CARDINAL, &type, &format, &items, &bytesAfter, (uint8_t **)&workArea) || !workArea)
       {
-         warning("error getting desktop work area, using root window size");
+         warningf("error getting desktop work area, using root window size");
       }
       else
       {
@@ -316,7 +316,7 @@ namespace windowing_x11
       if (!is_main_thread())
       {
 
-         information("not main thread");
+         informationf("not main thread");
 
       }
 
@@ -914,7 +914,7 @@ namespace windowing_x11
          (unsigned char **) &windowList) != Success)
       {
 
-         information("winlist() -- GetWinProp");
+         informationf("winlist() -- GetWinProp");
 
          return windowa;
 

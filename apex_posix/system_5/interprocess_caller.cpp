@@ -121,11 +121,11 @@ namespace system_5
 
       }
 
-      ::information("functon: \"interprocess_caller::send\"\n");
+      ::informationf("functon: \"interprocess_caller::send\"\n");
 
-      ::information("channel: \"" + m_strBaseChannel + "\"\n");
+      ::informationf("channel: \"" + m_strBaseChannel + "\"\n");
 
-      ::information("message: \"" + string(pszMessage) + "\"\n");
+      ::informationf("message: \"" + string(pszMessage) + "\"\n");
 
       //return true;
 

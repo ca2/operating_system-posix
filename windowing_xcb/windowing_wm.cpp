@@ -398,13 +398,13 @@ namespace windowing_xcb
       if(!estatus)
       {
 
-         information("windowing_xcb::window::_set_normal_window failed");
+         informationf("windowing_xcb::window::_set_normal_window failed");
 
          return estatus;
 
       }
 
-      information("windowing_xcb::window::_set_normal_window succeeded");
+      informationf("windowing_xcb::window::_set_normal_window succeeded");
 
       return estatus;
 

@@ -50,7 +50,7 @@ namespace xim
          if (!m_xim)
          {
 
-            information("cannot Open Input Manager: Try default.");
+            informationf("cannot Open Input Manager: Try default.");
 
             XSetLocaleModifiers("@im=");
 
@@ -60,7 +60,7 @@ namespace xim
             if (!m_xim)
             {
 
-               information("Couldn't Open Input Manager");
+               informationf("Couldn't Open Input Manager");
 
             }
 

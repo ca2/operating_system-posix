@@ -56,7 +56,7 @@ namespace inotify
 //      if (wd < 0)
 //      {
 //
-//         information("Error: os_watcher::add_watch at directory %s : (%s)", pathFolder.c_str(), strerror(errno));
+//         informationf("Error: os_watcher::add_watch at directory %s : (%s)", pathFolder.c_str(), strerror(errno));
 //
 //         return -1;
 //

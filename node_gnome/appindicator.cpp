@@ -183,7 +183,7 @@ namespace node_gnome
 
       }
 
-      information("appindicator::init GtkMenu = %" PRI0xPTR, (long unsigned int) pgtkwidgetMenu);
+      informationf("appindicator::init GtkMenu = %" PRI0xPTR, (long unsigned int) pgtkwidgetMenu);
 
       app_indicator_set_menu(m_pindicator, GTK_MENU(pgtkwidgetMenu));
 

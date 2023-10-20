@@ -436,7 +436,7 @@ namespace music
             //               if ((err = snd_card_next(&card)) < 0)
             //               {
             //
-            //                  information("cannot determine card number: %s", snd_strerror(err));
+            //                  informationf("cannot determine card number: %s", snd_strerror(err));
             //
             //                  break;
             //
@@ -565,7 +565,7 @@ namespace music
 //            if ((err = snd_ctl_open(&ctl, name, 0)) < 0)
 //            {
 //
-//               information("cannot open control for card %d: %s", card, snd_strerror(err));
+//               informationf("cannot open control for card %d: %s", card, snd_strerror(err));
 //
 //               return false;
 //            }
@@ -600,7 +600,7 @@ namespace music
 //               if ((err = snd_ctl_rawmidi_next_device(ctl, &device)) < 0)
 //               {
 //
-//                  information("cannot determine device number: %s", snd_strerror(err));
+//                  informationf("cannot determine device number: %s", snd_strerror(err));
 //
 //                  break;
 //
@@ -700,7 +700,7 @@ namespace music
 //
 //               const char * pszError = snd_strerror(err);
 //
-//               information("cannot not get snd_ctl_rawmidi_info: %s", pszError);
+//               informationf("cannot not get snd_ctl_rawmidi_info: %s", pszError);
 //
 //               subs = 0;
 //
@@ -725,7 +725,7 @@ namespace music
 //               if (err < 0)
 //               {
 //
-//                  information("cannot get rawmidi information %d:%d:%d: %s\n", card, device, sub, snd_strerror(err));
+//                  informationf("cannot get rawmidi information %d:%d:%d: %s\n", card, device, sub, snd_strerror(err));
 //
 //                  return false;
 //

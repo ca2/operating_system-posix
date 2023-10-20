@@ -116,7 +116,7 @@ namespace multimedia
             // fetches the first card
             if ((err = snd_card_next(&cardNum)) < 0)
             {
-               information("Can't get the next card number: %s\n", snd_strerror(err));
+               informationf("Can't get the next card number: %s\n", snd_strerror(err));
                break;
             }
 
@@ -135,7 +135,7 @@ namespace multimedia
                strFormat.format("hw:%i", cardNum);
                if ((err = snd_ctl_open(&cardHandle, strFormat, 0)) < 0)
                {
-                  information("Can't open card %i: %s\n", cardNum, snd_strerror(err));
+                  informationf("Can't open card %i: %s\n", cardNum, snd_strerror(err));
                   continue;
                }
 
@@ -149,7 +149,7 @@ namespace multimedia
                   // Get the number of the next wave device on this card
                   if ((err = snd_ctl_pcm_next_device(cardHandle, &devNum)) < 0)
                   {
-                     information("Can't get next wave device number: %s\n", snd_strerror(err));
+                     informationf("Can't get next wave device number: %s\n", snd_strerror(err));
                      break;
                   }
 
@@ -173,7 +173,7 @@ namespace multimedia
 
                   subDevCount = snd_pcm_info_get_subdevices_count(pcmInfo);
 
-                  information("\nFound %i wave output subdevices on card %i, %i : %s \n", subDevCount, cardNum, devNum, snd_strerror(err));
+                  informationf("\nFound %i wave output subdevices on card %i, %i : %s \n", subDevCount, cardNum, devNum, snd_strerror(err));
 
                   if (subDevCount <= 0)
                   {
@@ -197,7 +197,7 @@ namespace multimedia
                         if ((err = snd_ctl_pcm_info(cardHandle, pcmInfo)) < 0)
                         {
 
-                           information("No wave output subdevice hw:%i,%i : %s\n", cardNum, devNum, snd_strerror(err));
+                           informationf("No wave output subdevice hw:%i,%i : %s\n", cardNum, devNum, snd_strerror(err));
 
                            continue;
                         }
@@ -589,7 +589,7 @@ namespace multimedia
 //
 //         }
 //
-//         information("snd_pcm_sw_params_set_start_threshold " << uFrameCountStartThreshold);
+//         informationf("snd_pcm_sw_params_set_start_threshold " << uFrameCountStartThreshold);
 //
 ////         snd_pcm_uframes_t u1 = 0;
 //
@@ -617,7 +617,7 @@ namespace multimedia
 //
 //         }
 //
-//         information("snd_pcm_sw_params_set_stop_threshold " << uFrameCountStopThreshold);
+//         informationf("snd_pcm_sw_params_set_stop_threshold " << uFrameCountStopThreshold);
 //
 //         err = snd_pcm_sw_params(m_ppcm, m_pswparams);
 //
@@ -664,7 +664,7 @@ namespace multimedia
          if ((err = ::snd_pcm_close(m_ppcm)) < 0)
          {
 
-            information("failed to close successfully sound interface (%s)\n", snd_strerror(err));
+            informationf("failed to close successfully sound interface (%s)\n", snd_strerror(err));
 
             return error_failed;
          }
@@ -690,37 +690,37 @@ namespace multimedia
             if (iState == SND_PCM_STATE_RUNNING)
             {
 
-               information("SND_PCM_STATE_RUNNING");
+               informationf("SND_PCM_STATE_RUNNING");
 
             }
             else if (iState == SND_PCM_STATE_XRUN)
             {
 
-               information("SND_PCM_STATE_XRUN");
+               informationf("SND_PCM_STATE_XRUN");
 
             }
             else if (iState == SND_PCM_STATE_DRAINING)
             {
 
-               information("SND_PCM_STATE_DRAINING");
+               informationf("SND_PCM_STATE_DRAINING");
 
             }
             else if (iState == SND_PCM_STATE_PREPARED)
             {
 
-               information("SND_PCM_STATE_PREPARED");
+               informationf("SND_PCM_STATE_PREPARED");
 
             }
             else if (iState == SND_PCM_STATE_SETUP)
             {
 
-               information("SND_PCM_STATE_SETUP");
+               informationf("SND_PCM_STATE_SETUP");
 
             }
             else if (iState == SND_PCM_STATE_OPEN)
             {
 
-               information("SND_PCM_STATE_OPEN");
+               informationf("SND_PCM_STATE_OPEN");
 
             }
 

@@ -350,12 +350,12 @@ namespace windowing_xcb
    bool buffer::update_screen()
    {
 
-      //information("windowing_x11::buffer::update_screen");
+      //informationf("windowing_x11::buffer::update_screen");
 
       if (m_pimpl == nullptr)
       {
 
-         warning("windowing_x11::buffer::update_screen !m_pimpl!!");
+         warningf("windowing_x11::buffer::update_screen !m_pimpl!!");
 
          return false;
 
@@ -364,7 +364,7 @@ namespace windowing_xcb
       if (!m_pimpl->m_pwindow)
       {
 
-         warning("windowing_x11::buffer::update_screen !m_pimpl->m_pwindow!!");
+         warningf("windowing_x11::buffer::update_screen !m_pimpl->m_pwindow!!");
 
          return false;
 
@@ -382,7 +382,7 @@ namespace windowing_xcb
       if (!m_pwindow)
       {
 
-         warning("windowing_x11::buffer::update_screen !m_pwindow!");
+         warningf("windowing_x11::buffer::update_screen !m_pwindow!");
 
          return false;
 
@@ -433,12 +433,12 @@ namespace windowing_xcb
 
       }
 
-      warning("SHM verision %i.%i\n", rep->major_version, rep->minor_version);
+      warningf("SHM verision %i.%i\n", rep->major_version, rep->minor_version);
 
       if (rep->shared_pixmaps)
       {
 
-         warning("Pixmaps are shared\n");
+         warningf("Pixmaps are shared\n");
 
       }
 
@@ -559,7 +559,7 @@ namespace windowing_xcb
       if (bComboList)
       {
 
-         //information("combo_list update_window");
+         //informationf("combo_list update_window");
 
       }
 

@@ -766,7 +766,7 @@ namespace music
 //      {
 //         UNREFERENCED_PARAMETER(tickMax);
 //         UNREFERENCED_PARAMETER(cbPrerollNominalMax);
-//         //   information("file::StreamEvent tickDelta %d\n", tickDelta);
+//         //   informationf("file::StreamEvent tickDelta %d\n", tickDelta);
 //
 //         ::u32                   dwTempo;
 //         LPDWORD                 lpdw;
@@ -792,7 +792,7 @@ namespace music
 //            if(pEvent->GetTrack() == 9 ||
 //               pEvent->GetTrack() == 15)
 //            {
-//               //         information("ReadEvents Track %d Program %d", pEvent->GetTrack(), m_keyframe.rbProgram[pEvent->GetTrack()]);
+//               //         informationf("ReadEvents Track %d Program %d", pEvent->GetTrack(), m_keyframe.rbProgram[pEvent->GetTrack()]);
 //            }
 //            if((pEvent->GetType() == ::music::midi::NoteOn ||
 //               pEvent->GetType() == ::music::midi::NoteOff)
@@ -1150,9 +1150,9 @@ namespace music
 //            #ifdef _DEBUG
 //            //         if(pEventsV1->m_iType == 1)
 //            //         {
-//            //            information("ReadEvents pEventsV1->m_iCurrentToken = %d\n", pEventsV1->m_iCurrentToken);
-//            //            information("ReadEvents pEventsV1->m_iType = %d\n", pEventsV1->m_iType);
-//            //            information("ReadEvents m_ptracks->m_tkPosition = %d\n", m_ptracks->m_tkPosition);
+//            //            informationf("ReadEvents pEventsV1->m_iCurrentToken = %d\n", pEventsV1->m_iCurrentToken);
+//            //            informationf("ReadEvents pEventsV1->m_iType = %d\n", pEventsV1->m_iType);
+//            //            informationf("ReadEvents m_ptracks->m_tkPosition = %d\n", m_ptracks->m_tkPosition);
 //            //         }
 //            #endif
 //            tickDelta = tickMin - m_ptracks->m_tkPosition;
@@ -1956,7 +1956,7 @@ namespace music
 //
 //         if (pTrkMidi->m_smti.m_cbLength > (::u32) iLeft)
 //         {
-//         information("Track longer than file!");
+//         informationf("Track longer than file!");
 //         return ::music::EInvalidFile;
 //         }
 //
@@ -2397,7 +2397,7 @@ namespace music
 //      {
 //      if(!allocate(m_cbImage + iAddUp))
 //      {
-//      information("DeleteEvent No Memory for deleting\n");
+//      informationf("DeleteEvent No Memory for deleting\n");
 //      return ::music::ENoMemory;
 //      }
 //      }
@@ -2758,14 +2758,14 @@ namespace music
 //               }
 //               /*         if(pevent->get_type() == NoteOn)
 //               {
-//               information("WorkStreamRender: NoteOn     position %d Delta %d Track %d\n",
+//               informationf("WorkStreamRender: NoteOn     position %d Delta %d Track %d\n",
 //               m_ptracks->GetPosition(),
 //               tickDelta,
 //               pevent->GetTrack());
 //               }
 //               else
 //               {
-//               information("WorkStreamRender: Type Other position %d Delta %d\n",
+//               informationf("WorkStreamRender: Type Other position %d Delta %d\n",
 //               m_ptracks->GetPosition(),
 //               tickDelta);
 //               }*/
@@ -3148,7 +3148,7 @@ namespace music
 //         }
 //         if (0 == m_tempomap.get_size())
 //         {
-//            information("File contains no tempo map! Insert default tempo.");
+//            informationf("File contains no tempo map! Insert default tempo.");
 //
 //            ::music::midi::tempo_map_entry * ptempo = &m_tempomap.add_new();
 //            ptempo->tickTempo = 0;

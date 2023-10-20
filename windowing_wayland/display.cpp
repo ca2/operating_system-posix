@@ -262,7 +262,7 @@ namespace windowing_wayland
       if (!is_main_thread())
       {
 
-         information("not main thread");
+         informationf("not main thread");
 
       }
 
@@ -841,7 +841,7 @@ namespace windowing_wayland
 //         (unsigned char **) &windowList) != Success)
 //      {
 //
-//         information("winlist() -- GetWinProp");
+//         informationf("winlist() -- GetWinProp");
 //
 //         return windowa;
 //

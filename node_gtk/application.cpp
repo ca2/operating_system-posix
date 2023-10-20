@@ -267,7 +267,7 @@ void node_gtk_application_class_init (NodeGtkApplicationClass * pclass)
 //   if(g_papexapplication == nullptr)
 //   {
 //
-//      information("Failed to initialize GtkApplication (gtk_application_new return nullptr)");
+//      informationf("Failed to initialize GtkApplication (gtk_application_new return nullptr)");
 //
 //      return;
 //

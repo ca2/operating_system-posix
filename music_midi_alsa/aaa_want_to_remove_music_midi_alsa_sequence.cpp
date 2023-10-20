@@ -707,7 +707,7 @@ namespace music
    //         if (err < 0)
    //         {
    //
-   //            ::information("Could not connect to port "+::unicode_from(m_iClient)+":"+::unicode_from(m_iPort)+"\n");
+   //            ::informationf("Could not connect to port "+::unicode_from(m_iClient)+":"+::unicode_from(m_iPort)+"\n");
    //
    //            return ::error_failed;
    //
@@ -1022,7 +1022,7 @@ namespace music
    //               snd_seq_tick_time_t ticks;
    //               if(m_pseq == NULL)
    //               {
-   //                  information("m_hmidi == NULL!!!!");
+   //                  informationf("m_hmidi == NULL!!!!");
    //                  return ::multimedia::result_not_ready;
    //               }
    //               else
@@ -1096,7 +1096,7 @@ namespace music
    //               //          slStream.lock();
    //               if(m_pseq == NULL)
    //               {
-   //                  information("m_hmidi == NULL!!!!");
+   //                  informationf("m_hmidi == NULL!!!!");
    //                  return ::multimedia::result_not_ready;
    //               }
    //               else
@@ -1220,7 +1220,7 @@ namespace music
                if(bSpecialModeV001End)
                {
                   m_flags.unsignalize(e_flag_operation_end);
-                  information("void CALLBACK ::music::midi::sequence::MidiOutProc m_flags.is_signalized(FlagSpecialModeV001End\n");
+                  informationf("void CALLBACK ::music::midi::sequence::MidiOutProc m_flags.is_signalized(FlagSpecialModeV001End\n");
                   pthread->PostMidiSequenceEvent(
                      this,
                      ::music::midi::sequence::e_event_operation,
@@ -1230,7 +1230,7 @@ namespace music
                {
    /*               if(m_uBuffersInMMSYSTEM == 0)
                   {
-                     information("void CALLBACK ::music::midi::sequence::MidiOutProc e_state_stopping == pSeq->get_state()\n");
+                     informationf("void CALLBACK ::music::midi::sequence::MidiOutProc e_state_stopping == pSeq->get_state()\n");
                      pthread->PostMidiSequenceEvent(
                         this,
                         ::music::midi::sequence::EventStopped,
@@ -1241,7 +1241,7 @@ namespace music
                {
                   if(m_flags.is_signalized(e_flag_end_of_file))
                   {
-                     information("void CALLBACK ::music::midi::sequence::MidiOutProc m_flags.is_signalized(e_flag_end_of_file\n");
+                     informationf("void CALLBACK ::music::midi::sequence::MidiOutProc m_flags.is_signalized(e_flag_end_of_file\n");
                   }
                   //       if (lpmidihdr != m_lpmhPreroll)
                   //     {

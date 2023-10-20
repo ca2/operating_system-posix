@@ -353,7 +353,7 @@ namespace node_gtk
 //   void notify_icon::_001OnDestroy(::message::message* pmessage)
 //   {
 //
-//      information("notify_icon::_001OnDestroy");
+//      informationf("notify_icon::_001OnDestroy");
 //
 //   }
 

@@ -1416,7 +1416,7 @@ namespace acme_posix
 
       m_strThread.empty();
       m_itask = -1;
-      ::information("");
+      ::informationf("");
 
    #endif
 

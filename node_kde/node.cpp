@@ -228,7 +228,7 @@ namespace node_kde
 //      if (!estatus)
 //      {
 //
-//         information("Failed to begin_synch the system (::apex::system or ::apex::system derived)");
+//         informationf("Failed to begin_synch the system (::apex::system or ::apex::system derived)");
 //
 //         return estatus;
 //
@@ -335,7 +335,7 @@ namespace node_kde
 
          void *p = (void *) QX11Info::display();
 
-         information("qx11info::display : " + hex::lower_case_from((iptr) p));
+         informationf("qx11info::display : " + hex::lower_case_from((iptr) p));
 
          m_pAuraPosixX11Display = p;
 
@@ -348,7 +348,7 @@ namespace node_kde
 
          m_pAuraPosixXcbConnection = QX11Info::connection();
 
-         information("qx11info::connection : " + hex::lower_case_from((iptr) m_pAuraPosixXcbConnection));
+         informationf("qx11info::connection : " + hex::lower_case_from((iptr) m_pAuraPosixXcbConnection));
 
 //      if(!m_pxcbconnection)
 //      {

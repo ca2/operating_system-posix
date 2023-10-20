@@ -47,7 +47,7 @@ namespace inotify
       if (m_iFd < 0)
       {
 
-         error("Error: %s", c_error_number().get_error_description().c_str());
+         errorf("Error: %s", c_error_number().get_error_description().c_str());
 
       }
 
@@ -78,7 +78,7 @@ namespace inotify
 
          auto strErrorDescription = cerrornumber.get_error_description();
 
-         information("Error: os_watcher::add_watch at directory %s : (%s)", pathFolder.c_str(), strErrorDescription.c_str());
+         informationf("Error: os_watcher::add_watch at directory %s : (%s)", pathFolder.c_str(), strErrorDescription.c_str());
 
          return false;
 

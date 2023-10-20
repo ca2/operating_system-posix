@@ -365,7 +365,7 @@ namespace windowing_x11
       if (m_pimpl == nullptr)
       {
 
-         warning("windowing_x11::buffer::update_screen !m_pimpl!!");
+         warningf("windowing_x11::buffer::update_screen !m_pimpl!!");
 
          return false;
 
@@ -374,7 +374,7 @@ namespace windowing_x11
       if (!m_pimpl->m_pwindow)
       {
 
-         warning("windowing_x11::buffer::update_screen !m_pimpl->m_pwindow!!");
+         warningf("windowing_x11::buffer::update_screen !m_pimpl->m_pwindow!!");
 
          return false;
 
@@ -392,7 +392,7 @@ namespace windowing_x11
       if (!m_pwindow)
       {
 
-         warning("windowing_x11::buffer::update_screen !m_pwindow!");
+         warningf("windowing_x11::buffer::update_screen !m_pwindow!");
 
          return false;
 
@@ -550,7 +550,7 @@ namespace windowing_x11
       if (!m_pximage || !m_pximage->data || m_pximage->width <= 0 || m_pximage->height <= 0)
       {
 
-         warning("windowing_x11::buffer::update_screen X11 image null or empty!!");
+         warningf("windowing_x11::buffer::update_screen X11 image null or empty!!");
 
          return false;
 
@@ -559,7 +559,7 @@ namespace windowing_x11
       if (m_gc == nullptr)
       {
 
-         warning("windowing_x11::buffer::update_screen m_gc nullptr!!");
+         warningf("windowing_x11::buffer::update_screen m_gc nullptr!!");
 
          return false;
 
@@ -713,7 +713,7 @@ namespace windowing_x11
 
       XFillRectangle(x11_window()->Display(), x11_window()->Window(), m_gc, 0, 0, iWidth, iHeight);
 
-      information("windowing_x11::buffer::update_screen BASIC_TEST FillRectangle(%d, %d)", iWidth, iHeight);
+      informationf("windowing_x11::buffer::update_screen BASIC_TEST FillRectangle(%d, %d)", iWidth, iHeight);
 
 #endif
 

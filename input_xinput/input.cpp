@@ -631,7 +631,7 @@ namespace input_xinput
 
             }
 
-            information("\ndetail:" + ::as_string(prawevent->detail));
+            informationf("\ndetail:" + ::as_string(prawevent->detail));
 
             if (emessage != e_message_null)
             {

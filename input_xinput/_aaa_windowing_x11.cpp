@@ -512,7 +512,7 @@ namespace windowing_x11
 //      if (XGetWindowProperty(Display(), DefaultRootWindow(Display()), prop, 0, 1024, False, XA_WINDOW,
 //                             &type, &form, len, &remain, &list) != Success)
 //      {
-//         information("winlist() -- GetWinProp");
+//         informationf("winlist() -- GetWinProp");
 //         return nullptr;
 //      }
 //
@@ -1222,7 +1222,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //#endif
 //
-//         information("x11_thread end thread");
+//         informationf("x11_thread end thread");
 //
 //         return false;
 //
@@ -1402,7 +1402,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 #endif
 
-         information("x11_thread end thread");
+         informationf("x11_thread end thread");
 
          return false;
 
@@ -1655,7 +1655,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                }
 
-               information("\ndetail:" + ::as_string(prawevent->detail));
+               informationf("\ndetail:" + ::as_string(prawevent->detail));
 
 
                if (emessage != e_message_null)
@@ -1776,7 +1776,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
           && e.xclient.message_type == g_atomKickIdle)
       {
 
-         information("\nkick idle received\n");
+         informationf("\nkick idle received\n");
 
          return true;
 
@@ -1920,19 +1920,19 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //                                 if (pinteraction->m_iMouseMoveSkipCount == 2)
 //                                 {
 //
-//                                    //information("\nmmv>skip 2!");
+//                                    //informationf("\nmmv>skip 2!");
 //
 //                                 }
 //                                 else if (pinteraction->m_iMouseMoveSkipCount == 5)
 //                                 {
 //
-//                                    //information("\nmmv>Skip 5!!!");
+//                                    //informationf("\nmmv>Skip 5!!!");
 //
 //                                 }
 //                                 else if (pinteraction->m_iMouseMoveSkipCount == 10)
 //                                 {
 //
-//                                    //information("\nmmv>SKIP 10 !!!!!!!!!");
+//                                    //informationf("\nmmv>SKIP 10 !!!!!!!!!");
 //
 //                                 }
 //
@@ -2008,7 +2008,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          case Expose:
          {
 
-            //information("windowing_11 Expose");
+            //informationf("windowing_11 Expose");
 
 //#ifdef FREEBSD
             ::rectangle_i32 rectangleRedraw;
@@ -2411,7 +2411,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //            }
 
-            information("windowing_x11 MapNotify");
+            informationf("windowing_x11 MapNotify");
 
             if (px11window)
             {
@@ -2419,7 +2419,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                if (!XGetWindowAttributes(m_pdisplay->Display(), px11window->Window(), &px11window->m_xwindowattributes))
                {
 
-                  information("X11 MapNotify XGetWindowAttributes failed");
+                  informationf("X11 MapNotify XGetWindowAttributes failed");
 
                   return false;
 
@@ -2438,7 +2438,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          case UnmapNotify:
          {
 
-            information("windowing_x11 UnmapNotify");
+            informationf("windowing_x11 UnmapNotify");
 
             if (msg.oswindow)
             {
@@ -2446,7 +2446,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                if (!XGetWindowAttributes(m_pdisplay->Display(), px11window->Window(), &px11window->m_xwindowattributes))
                {
 
-                  information("X11 MapNotify XGetWindowAttributes failed");
+                  informationf("X11 MapNotify XGetWindowAttributes failed");
 
                   return false;
 
@@ -2550,7 +2550,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                                             &px11window->m_xwindowattributes))
                   {
 
-                     information("X11 MapNotify XGetWindowAttributes failed");
+                     informationf("X11 MapNotify XGetWindowAttributes failed");
 
                      return false;
 
@@ -2646,7 +2646,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                   if (e.xbutton.button == Button1)
                   {
 
-                     ::information("ButtonPress::Button1\n");
+                     ::informationf("ButtonPress::Button1\n");
 
                      emessage = e_message_left_button_down;
 
@@ -2689,7 +2689,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                   if (e.xbutton.button == Button1)
                   {
 
-                     ::information("ButtonRelease::Button1\n");
+                     ::informationf("ButtonRelease::Button1\n");
 
                      emessage = e_message_left_button_up;
 
@@ -2944,7 +2944,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          case FocusIn:
          {
 
-            ::information("FocusIn\n");
+            ::informationf("FocusIn\n");
 
             msg.m_atom = e_message_set_focus;
 
@@ -2990,13 +2990,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //         if(wFocus == e.xfocus.window)
 //         {
 //
-//            information("A\n");
+//            informationf("A\n");
 //
 //         }
 //         else
 //         {
 //
-//            information("B " + as_string(wFocus));
+//            informationf("B " + as_string(wFocus));
 //
 //            g_windowFocus = wFocus;
 //
@@ -3005,13 +3005,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //         if(wFocus == g_windowFocus)
 //         {
 //
-//            information("C\n");
+//            informationf("C\n");
 //
 //         }
 //         else
 //         {
 //
-//            information("D " + as_string(wFocus));
+//            informationf("D " + as_string(wFocus));
 //
 //            g_windowFocus = wFocus;
 //
@@ -3029,7 +3029,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          case FocusOut:
          {
 
-            ::information("FocusOut\n");
+            ::informationf("FocusOut\n");
 
             if (::is_set(px11window))
             {
@@ -3135,7 +3135,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          {
 
 
-            information("axis_x11 case default:");
+            informationf("axis_x11 case default:");
          }
       }
 
@@ -3284,19 +3284,19 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       if (message.m_atom == e_message_quit)
       {
 
-         information("e_message_quit thread");
+         informationf("e_message_quit thread");
 
       }
       else if (message.m_atom == e_message_left_button_down)
       {
 
-         information("post_ui_message::e_message_left_button_down\n");
+         informationf("post_ui_message::e_message_left_button_down\n");
 
       }
       else if (message.m_atom == e_message_left_button_up)
       {
 
-         information("post_ui_message::e_message_left_button_up\n");
+         informationf("post_ui_message::e_message_left_button_up\n");
 
       }
 

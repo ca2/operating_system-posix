@@ -33,7 +33,7 @@ namespace multimedia
       void wave_in::init_task()
       {
 
-         information("wave_in::initialize_instance %X\n", get_itask());
+         informationf("wave_in::initialize_instance %X\n", get_itask());
          //SetMainWnd(NULL);
          //ASSERT(GetMainWnd() == NULL);
          set_thread_priority(::e_priority_highest);
@@ -145,17 +145,17 @@ namespace multimedia
          {
             if(mmr == MMSYSERR_ALLOCATED)
             {
-               information("Specified resource is already allocated.");
+               informationf("Specified resource is already allocated.");
             }
             else if(mmr == MMSYSERR_BADDEVICEID)
             {
-               information("Specified device identifier is out of range.");
+               informationf("Specified device identifier is out of range.");
             }
             else if(mmr == WAVERR_BADFORMAT)
             {
-               information("Attempted to open with an unsupported waveform-audio_alsa format.");
+               informationf("Attempted to open with an unsupported waveform-audio_alsa format.");
             }
-            information("ERROR OPENING WAVE INPUT DEVICE");
+            informationf("ERROR OPENING WAVE INPUT DEVICE");
             return mmr;
          }*/
 
@@ -217,7 +217,7 @@ Opened:
 
             if(success != (mmr =  waveInPrepareHeader(m_hwavein, create_new_WAVEHDR(in_get_buffer(), i), sizeof(WAVEHDR))))
             {
-               information("ERROR OPENING Preparing INPUT DEVICE buffer");
+               informationf("ERROR OPENING Preparing INPUT DEVICE buffer");
                return mmr;
             }
 
@@ -264,7 +264,7 @@ Opened:
 
             if(success != (mmr = waveInUnprepareHeader(m_hwavein, wave_hdr(i), sizeof(WAVEHDR))))
             {
-               information("ERROR OPENING Unpreparing INPUT DEVICE buffer");
+               informationf("ERROR OPENING Unpreparing INPUT DEVICE buffer");
                //return mmr;
             }
 
@@ -320,7 +320,7 @@ Opened:
          if((estatus = translate_alsa(snd_pcm_start(m_ppcm))) != success)
          {
 
-            information("ERROR starting INPUT DEVICE ");
+            informationf("ERROR starting INPUT DEVICE ");
 
             //return mmr;
 
@@ -357,7 +357,7 @@ Opened:
             if(success != (estatus = translate_alsa(snd_pcm_drain(m_ppcm))))
             {
 
-               information("wave_in::in_stop : ERROR OPENING stopping INPUT DEVICE ");
+               informationf("wave_in::in_stop : ERROR OPENING stopping INPUT DEVICE ");
 
             }
 
@@ -365,7 +365,7 @@ Opened:
          catch(...)
          {
 
-            information("wave_in::in_stop : Exception OPENING stopping INPUT DEVICE ");
+            informationf("wave_in::in_stop : Exception OPENING stopping INPUT DEVICE ");
 
          }
 
@@ -405,7 +405,7 @@ Opened:
                   }
                   else
                   {
-                     information("read from audio interface failed (%s)\n", snd_strerror (err));
+                     informationf("read from audio interface failed (%s)\n", snd_strerror (err));
                   }
 
                }
@@ -486,7 +486,7 @@ Opened:
             if(!(estatus = translate_alsa(snd_pcm_drop(m_ppcm))))
             {
 
-               information("wave_in::Reset error resetting input device");
+               informationf("wave_in::Reset error resetting input device");
 
                throw ::exception(estatus);
 
@@ -524,7 +524,7 @@ Opened:
 //         if(success != (mmr = waveInAddBuffer(m_hwavein, lpwavehdr, sizeof(WAVEHDR))))
 //         {
 //
-//            information("ERROR OPENING Adding INPUT DEVICE buffer");
+//            informationf("ERROR OPENING Adding INPUT DEVICE buffer");
 //
 //         }
 //

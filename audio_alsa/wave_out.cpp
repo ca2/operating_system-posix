@@ -108,7 +108,7 @@ namespace multimedia
 
          synchronous_lock sl(synchronization());
 
-         information("multimedia::audio_alsa::out_open_ex");
+         informationf("multimedia::audio_alsa::out_open_ex");
 
          if (m_ppcm != NULL && m_eoutstate != ::wave::e_out_state_initial)
          {
@@ -213,7 +213,7 @@ namespace multimedia
 //         if((err = snd_pcm_sw_params_current(m_ppcm, m_pswparams)) < 0)
 //         {
 //
-//            information("unable to determine current m_pswparams for playback: %s\n", snd_strerror(err));
+//            informationf("unable to determine current m_pswparams for playback: %s\n", snd_strerror(err));
 //
 //            throw ::exception(error_failed);
 //
@@ -231,14 +231,14 @@ namespace multimedia
 //            || (errSave = snd_pcm_sw_params(m_ppcm, m_pswparams)) < 0)
 //         {
 //
-//            information("unable to set start threshold mode for playback: %s\n", snd_strerror(err));
+//            informationf("unable to set start threshold mode for playback: %s\n", snd_strerror(err));
 //
 //         }
 //
 //         if((err = snd_pcm_sw_params_current(m_ppcm, m_pswparams)) < 0)
 //         {
 //
-//            information("unable to determine current m_pswparams for playback (2): %s\n", snd_strerror(err));
+//            informationf("unable to determine current m_pswparams for playback (2): %s\n", snd_strerror(err));
 //
 //            throw ::exception(error_failed);
 //
@@ -252,14 +252,14 @@ namespace multimedia
 //            || ((errSave = snd_pcm_sw_params(m_ppcm, m_pswparams)) < 0))
 //         {
 //
-//            information("unable to set avail min for playback: %s\n", snd_strerror(err));
+//            informationf("unable to set avail min for playback: %s\n", snd_strerror(err));
 //
 //         }
 //
 //         if((err = snd_pcm_sw_params_current(m_ppcm, m_pswparams)) < 0)
 //         {
 //
-//            information("unable to determine current m_pswparams for playback (3): %s\n", snd_strerror(err));
+//            informationf("unable to determine current m_pswparams for playback (3): %s\n", snd_strerror(err));
 //
 //            throw ::exception(error_failed);
 //
@@ -273,14 +273,14 @@ namespace multimedia
 //                 )
 //         {
 //
-//            information("unable to set time stamp mode: %s\n", snd_strerror(err));
+//            informationf("unable to set time stamp mode: %s\n", snd_strerror(err));
 //
 //         }
 //
 //         if((err = snd_pcm_sw_params_current(m_ppcm, m_pswparams)) < 0)
 //         {
 //
-//            information("unable to determine current m_pswparams for playback (4): %s\n", snd_strerror(err));
+//            informationf("unable to determine current m_pswparams for playback (4): %s\n", snd_strerror(err));
 //
 //            throw ::exception(error_failed);
 //
@@ -294,12 +294,12 @@ namespace multimedia
 //                 )
 //         {
 //
-//            information("unable to set time stamp type (SND_PCM_TSTAMP_TYPE_GETTIMEOFDAY): %s\n", snd_strerror(err));
+//            informationf("unable to set time stamp type (SND_PCM_TSTAMP_TYPE_GETTIMEOFDAY): %s\n", snd_strerror(err));
 //
 //            if((err = snd_pcm_sw_params_current(m_ppcm, m_pswparams)) < 0)
 //            {
 //
-//               information("unable to determine current m_pswparams for playback (3): %s\n", snd_strerror(err));
+//               informationf("unable to determine current m_pswparams for playback (3): %s\n", snd_strerror(err));
 //
 //               throw ::exception(error_failed);
 //
@@ -310,7 +310,7 @@ namespace multimedia
 //                    )
 //            {
 //
-//               information("unable to set time stamp type (SND_PCM_TSTAMP_TYPE_MONOTONIC): %s\n", snd_strerror(err));
+//               informationf("unable to set time stamp type (SND_PCM_TSTAMP_TYPE_MONOTONIC): %s\n", snd_strerror(err));
 //
 //            }
 //
@@ -321,7 +321,7 @@ namespace multimedia
 //         if((err = snd_pcm_sw_params(m_ppcm, m_pswparams)) < 0)
 //         {
 //
-//            information("unable to set sw params for playback: %s\n", snd_strerror(err));
+//            informationf("unable to set sw params for playback: %s\n", snd_strerror(err));
 //
 //            throw ::exception(error_failed);
 //
@@ -343,7 +343,7 @@ namespace multimedia
 
          synchronous_lock sl(synchronization());
 
-         information("multimedia::audio_alsa::out_close");
+         informationf("multimedia::audio_alsa::out_close");
 
          if (m_eoutstate == ::wave::e_out_state_playing)
          {
@@ -381,7 +381,7 @@ namespace multimedia
 
          synchronous_lock sl(synchronization());
 
-         information("multimedia::audio_alsa::out_stop");
+         informationf("multimedia::audio_alsa::out_stop");
 
          if (m_eoutstate != ::wave::e_out_state_playing && m_eoutstate != ::wave::e_out_state_paused)
          {
@@ -425,7 +425,7 @@ namespace multimedia
 
          ASSERT(m_eoutstate == ::wave::e_out_state_playing);
 
-         information("multimedia::audio_alsa::out_pause");
+         informationf("multimedia::audio_alsa::out_pause");
 
          if (m_eoutstate != ::wave::e_out_state_playing)
          {
@@ -467,7 +467,7 @@ namespace multimedia
 
          ASSERT(m_eoutstate == ::wave::e_out_state_paused);
 
-         information("multimedia::audio_alsa::out_restart");
+         informationf("multimedia::audio_alsa::out_restart");
 
          if (m_eoutstate != ::wave::e_out_state_paused)
          {
@@ -560,7 +560,7 @@ namespace multimedia
          if (time > 0_s)
          {
 
-            //information("test");
+            //informationf("test");
 
          }
 
@@ -580,7 +580,7 @@ namespace multimedia
       void wave_out::out_on_playback_end()
       {
 
-         information("multimedia::audio_alsa::out_on_playback_end");
+         informationf("multimedia::audio_alsa::out_on_playback_end");
 
          ::wave::out::out_on_playback_end();
 
@@ -615,7 +615,7 @@ namespace multimedia
          if (m_ppcm == NULL)
          {
 
-            information("alsa_out_buffer_ready m_ppcm == NULL");
+            informationf("alsa_out_buffer_ready m_ppcm == NULL");
 
             return false;
 
@@ -624,7 +624,7 @@ namespace multimedia
          if (m_eoutstate != ::wave::e_out_state_playing && m_eoutstate != ::wave::e_out_state_stopping)
          {
 
-            information("alsa_out_buffer_ready failure: !playing && !stopping");
+            informationf("alsa_out_buffer_ready failure: !playing && !stopping");
 
             return false;
 
@@ -640,7 +640,7 @@ namespace multimedia
 //
 //         int iBuffer = -1;
 //
-//         information("on_my_callback");
+//         informationf("on_my_callback");
 //
 //         {
 //
@@ -651,7 +651,7 @@ namespace multimedia
 //
 //               iBuffer = m_iaSent.pick_last();
 //
-//               information("m_iaSent.pick_last(): " << iBuffer);
+//               informationf("m_iaSent.pick_last(): " << iBuffer);
 //
 //            }
 //
@@ -672,9 +672,9 @@ namespace multimedia
 
 //         static class ::time t;
 //
-//         information("out_filled: " << iBuffer);
-//         information("thread: " << pthread_self());
-//         information("elapsed micros: " << t.elapsed().integral_microsecond());
+//         informationf("out_filled: " << iBuffer);
+//         informationf("thread: " << pthread_self());
+//         informationf("elapsed micros: " << t.elapsed().integral_microsecond());
 
 //         t.Now();
 
@@ -723,26 +723,26 @@ namespace multimedia
 
                   const char *pszError = snd_strerror(iFrameFreeCount);
 
-                  information("ALSA wave_out snd_pcm_avail error: %s (%d)\n", pszError, iFrameFreeCount);
+                  informationf("ALSA wave_out snd_pcm_avail error: %s (%d)\n", pszError, iFrameFreeCount);
 
                   iFrameFreeCount = defer_underrun_recovery(iFrameFreeCount);
 
                   if (iFrameFreeCount >= 0)
                   {
 
-                     information("ALSA wave_out snd_pcm_avail underrun recovery success (snd_pcm_avail)");
+                     informationf("ALSA wave_out snd_pcm_avail underrun recovery success (snd_pcm_avail)");
 
                      break;
 
                   }
 
-                  information("ALSA wave_out snd_pcm_avail minimum ::u8 count %d\n", iFramesToWrite);
+                  informationf("ALSA wave_out snd_pcm_avail minimum ::u8 count %d\n", iFramesToWrite);
 
                   m_eoutstate = ::wave::e_out_state_opened;
 
                   m_estatusWave = error_failed;
 
-                  information("ALSA wave_out snd_pcm_avail error: %s\n", snd_strerror(iFrameFreeCount));
+                  informationf("ALSA wave_out snd_pcm_avail error: %s\n", snd_strerror(iFrameFreeCount));
 
                   return;
 
@@ -761,7 +761,7 @@ namespace multimedia
             auto mugreeklettersecondsWait =
                microsecond_time(waitFrames * 100'000 / m_pwaveformat->m_waveformat.nSamplesPerSec);
 
-//            information("frames to write: " << iFramesToWrite << " frame free count : " << iFrameFreeCount
+//            informationf("frames to write: " << iFramesToWrite << " frame free count : " << iFrameFreeCount
 //                                      << " frames to wait: " << waitFrames << " μs to wait : " << mugreeklettersecondsWait);
 //
             preempt(mugreeklettersecondsWait);
@@ -808,7 +808,7 @@ namespace multimedia
 
             iFramesJustWritten = snd_pcm_writei(m_ppcm, pdata, iFramesToWrite);
 
-            //information("snd_pcm_writei iFramesJustWritten " << iFramesJustWritten);
+            //informationf("snd_pcm_writei iFramesJustWritten " << iFramesJustWritten);
 
             if (!m_bStarted)
             {
@@ -824,7 +824,7 @@ namespace multimedia
             if (iFramesJustWritten == -EINTR)
             {
 
-               information("snd_pcm_writei -EINTR");
+               informationf("snd_pcm_writei -EINTR");
 
                continue;
 
@@ -832,7 +832,7 @@ namespace multimedia
             else if (iFramesJustWritten == -EAGAIN)
             {
 
-               //information("snd_pcm_writei -EAGAIN");
+               //informationf("snd_pcm_writei -EAGAIN");
 
                sl.unlock();
 
@@ -846,9 +846,9 @@ namespace multimedia
             else if (iFramesJustWritten < 0)
             {
 
-               information("snd_pcm_writei Underrun");
+               informationf("snd_pcm_writei Underrun");
 
-               information("ALSA wave_out snd_pcm_writei error: %s (%d)\n", snd_strerror(iFramesJustWritten),
+               informationf("ALSA wave_out snd_pcm_writei error: %s (%d)\n", snd_strerror(iFramesJustWritten),
                                iFramesJustWritten);
 
                iFramesJustWritten = defer_underrun_recovery(iFramesJustWritten);
@@ -860,7 +860,7 @@ namespace multimedia
 
                   m_estatusWave = error_failed;
 
-                  information("ALSA wave_out snd_pcm_writei couldn't recover from error: %s\n",
+                  informationf("ALSA wave_out snd_pcm_writei couldn't recover from error: %s\n",
                                   snd_strerror(iFramesJustWritten));
 
                   return;
@@ -877,9 +877,9 @@ namespace multimedia
 
             int iBytesJustWritten = snd_pcm_frames_to_bytes(m_ppcm, iFramesJustWritten);
 
-            //information("snd_pcm_frames_to_bytes iBytesJustWritten " << iBytesJustWritten);
+            //informationf("snd_pcm_frames_to_bytes iBytesJustWritten " << iBytesJustWritten);
 
-            //information("m_pwaveformat->m_waveformat.nSamplesPerSec " << m_pwaveformat->m_waveformat.nSamplesPerSec);
+            //informationf("m_pwaveformat->m_waveformat.nSamplesPerSec " << m_pwaveformat->m_waveformat.nSamplesPerSec);
 
             m_pprebuffer->m_iBytes += iBytesJustWritten;
 
@@ -998,7 +998,7 @@ namespace multimedia
 //
 //         snd_async_add_pcm_handler(&m_pcm_callback, m_ppcm, MyCallback, this);
 
-         //information("out_start: snd_pcm_prepare OK");
+         //informationf("out_start: snd_pcm_prepare OK");
 
          m_bStarted = false;
 
@@ -1007,7 +1007,7 @@ namespace multimedia
          if (!m_estatusWave)
          {
 
-            information("out_start: ::wave::out::out_start FAILED");
+            informationf("out_start: ::wave::out::out_start FAILED");
 
             throw ::exception(m_estatusWave);
 
@@ -1022,7 +1022,7 @@ namespace multimedia
 //
 //         });
 
-         information("out_start: ::wave::out::out_start OK");
+         informationf("out_start: ::wave::out::out_start OK");
 
          //return success;
 
@@ -1037,14 +1037,14 @@ namespace multimedia
 //         if (err == -EPIPE)
 //         {
 //
-//            information("underrun_recovery, going to snd_pcm_prepare: %s\n", snd_strerror(err));
+//            informationf("underrun_recovery, going to snd_pcm_prepare: %s\n", snd_strerror(err));
 //
 //
 //
 //            if (err < 0)
 //            {
 //
-//               information("Can't recover from underrun, snd_pcm_prepare failed: %s\n", snd_strerror(err));
+//               informationf("Can't recover from underrun, snd_pcm_prepare failed: %s\n", snd_strerror(err));
 //
 //            }
 //
@@ -1052,12 +1052,12 @@ namespace multimedia
 //         else if (err == -ESTRPIPE)
 //         {
 //
-//            information("underrun_recovery, snd_pcm_prepare returned -ESTRPIPE: %s\n", snd_strerror(err));
+//            informationf("underrun_recovery, snd_pcm_prepare returned -ESTRPIPE: %s\n", snd_strerror(err));
 //
 //            while ((err = snd_pcm_resume(m_ppcm)) == -EAGAIN)
 //            {
 //
-//               information("underrun_recovery, snd_pcm_resume returned -EAGAIN: %s\n", snd_strerror(err));
+//               informationf("underrun_recovery, snd_pcm_resume returned -EAGAIN: %s\n", snd_strerror(err));
 //
 //               sleep(1); /* wait until the suspend flag is released */
 //
@@ -1071,7 +1071,7 @@ namespace multimedia
 //               if (err < 0)
 //               {
 //
-//                  information("Can't recovery from suspend, snd_pcm_prepare failed: %s\n", snd_strerror(err));
+//                  informationf("Can't recovery from suspend, snd_pcm_prepare failed: %s\n", snd_strerror(err));
 //
 //               }
 //

@@ -82,7 +82,7 @@ void gtk_settings_gtk_theme_name_callback(GObject *object, GParamSpec *pspec, gp
 
    string strTheme = theme_name;
 
-   ::information("gtk_settings_gtk_theme_name_callback: \"" + strTheme + "\"\n");
+   ::informationf("gtk_settings_gtk_theme_name_callback: \"" + strTheme + "\"\n");
 
    g_free(theme_name);
 
@@ -120,7 +120,7 @@ void gtk_settings_gtk_icon_theme_name_callback(GObject *object, GParamSpec *pspe
 
    string strIconTheme = icon_theme_name;
 
-   ::information("gtk_settings_gtk_icon_theme_name_callback: \"" + strIconTheme + "\"\n");
+   ::informationf("gtk_settings_gtk_icon_theme_name_callback: \"" + strIconTheme + "\"\n");
 
    g_free(icon_theme_name);
 
@@ -597,7 +597,7 @@ namespace node_gtk
 
                auto dLuminance = posthemecolor->m_colorBack.get_luminance();
 
-               information("luminance=%0.2f", dLuminance);
+               informationf("luminance=%0.2f", dLuminance);
 
                m_bDarkMode = dLuminance < 0.5;
 
@@ -1306,7 +1306,7 @@ namespace node_gtk
    void node::_set_os_theme_colors(::os_theme_colors *posthemecolors)
    {
 
-      ::information("_set_os_theme_colors\n");
+      ::informationf("_set_os_theme_colors\n");
 
       ::user::os_set_theme_colors(posthemecolors);
 
@@ -1368,7 +1368,7 @@ namespace node_gtk
    void node::_apply_os_user_theme()
    {
 
-      ::information("applying os user theme: \"" + m_strOsUserTheme + "\"\n");
+      ::informationf("applying os user theme: \"" + m_strOsUserTheme + "\"\n");
 
       os_process_user_theme(m_strOsUserTheme);
 
@@ -1378,7 +1378,7 @@ namespace node_gtk
    void node::_apply_os_user_icon_theme()
    {
 
-      ::information("applying os user icon theme: \"" + m_strOsUserIconTheme + "\"\n");
+      ::informationf("applying os user icon theme: \"" + m_strOsUserIconTheme + "\"\n");
 
       os_process_user_icon_theme(m_strOsUserIconTheme);
 
@@ -1406,7 +1406,7 @@ namespace node_gtk
 
       m_strTheme = strOsTheme;
 
-      ::information("os_process_user_theme m_strTheme = \"" + m_strTheme + "\"\n");
+      ::informationf("os_process_user_theme m_strTheme = \"" + m_strTheme + "\"\n");
 
       try
       {
@@ -1453,7 +1453,7 @@ namespace node_gtk
 
       m_strIconTheme = strOsIconTheme;
 
-      ::information("os_process_user_icon_theme m_strIconTheme = \"" + m_strIconTheme + "\"\n");
+      ::informationf("os_process_user_icon_theme m_strIconTheme = \"" + m_strIconTheme + "\"\n");
 
       try
       {

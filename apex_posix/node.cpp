@@ -91,7 +91,7 @@ namespace apex_posix
       catch(...)
       {
 
-         information("Could not create .desktop shortcut file for the Linux papp for the current user.");
+         informationf("Could not create .desktop shortcut file for the Linux papp for the current user.");
 
       }
 
@@ -135,7 +135,7 @@ namespace apex_posix
 //      catch(...)
 //      {
 //
-//         information("Could not create .desktop shortcut file for the Linux papp for the current user.");
+//         informationf("Could not create .desktop shortcut file for the Linux papp for the current user.");
 //
 //      }
 
@@ -178,7 +178,7 @@ namespace apex_posix
 //      catch(...)
 //      {
 //
-//         information("Could not create .desktop shortcut file for the Linux papp for the current user.");
+//         informationf("Could not create .desktop shortcut file for the Linux papp for the current user.");
 //
 //      }
 //
@@ -242,7 +242,7 @@ namespace apex_posix
       {
 
 
-         warning("getaddrinfo: %s", gai_strerror(gai_result));
+         warningf("getaddrinfo: %s", gai_strerror(gai_result));
 
 
       }

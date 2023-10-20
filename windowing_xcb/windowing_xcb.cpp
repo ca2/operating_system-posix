@@ -726,20 +726,20 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    {
 
 
-      information("windowing_xcb::initialize_windowing");
+      informationf("windowing_xcb::initialize_windowing");
 
 
       ::windowing_posix::windowing::initialize_windowing(puser);
 
 
-      information("windowing_xcb::initialize_windowing starting");
+      informationf("windowing_xcb::initialize_windowing starting");
 
       auto pdisplay = __create<::windowing::display>();
 
 //      if(!pdisplay)
 //      {
 //
-//         information("\nFailed to __create < ::windowing::display > at windowing_xcb::windowing::initialize");
+//         informationf("\nFailed to __create < ::windowing::display > at windowing_xcb::windowing::initialize");
 //
 //         //return ::error_no_factory;
 //
@@ -747,7 +747,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //      }
 
-      information("windowing_xcb::initialize_windowing (1)");
+      informationf("windowing_xcb::initialize_windowing (1)");
 
       //estatus =
       //
@@ -756,7 +756,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //      if(!estatus)
 //      {
 //
-//         information("\nFailed to initialize_display at windowing_xcb::windowing::initialize");
+//         informationf("\nFailed to initialize_display at windowing_xcb::windowing::initialize");
 //
 //         return estatus;
 //
@@ -767,20 +767,20 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //      if(!pdisplay)
 //      {
 //
-//         information("\nFailed to cast pdisplay to m_pdisplay at windowing_xcb::windowing::initialize");
+//         informationf("\nFailed to cast pdisplay to m_pdisplay at windowing_xcb::windowing::initialize");
 //
 //         return error_no_interface;
 //
 //      }
 
 
-      information("windowing_xcb::initialize_windowing (1.1)");
+      informationf("windowing_xcb::initialize_windowing (1.1)");
       ///estatus =
       ///
       m_pdisplay->open();
 
 
-      information("windowing_xcb::initialize_windowing (2)");
+      informationf("windowing_xcb::initialize_windowing (2)");
 
       _libsn_start_context();
 
@@ -803,7 +803,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       //return true;
 
-      information("windowing_xcb::initialize_windowing end");
+      informationf("windowing_xcb::initialize_windowing end");
 
    }
 
@@ -1022,20 +1022,20 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       if (message.m_atom == e_message_quit)
       {
 
-         information("e_message_quit thread");
+         informationf("e_message_quit thread");
 
       }
 
       if (message.m_atom == e_message_left_button_down)
       {
 
-         information("post_ui_message::e_message_left_button_down\n");
+         informationf("post_ui_message::e_message_left_button_down\n");
 
       }
       else if (message.m_atom == e_message_left_button_up)
       {
 
-         information("post_ui_message::e_message_left_button_up\n");
+         informationf("post_ui_message::e_message_left_button_up\n");
 
       }
 

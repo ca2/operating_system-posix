@@ -369,8 +369,8 @@ namespace music
                               snd_seq_queue_tempo_set_ppq(tempo, 15 * dwTempoDivision);
                               break;
                               default:
-                                 //information("Invalid SMPTE frames " + ::unicode_from((::i32)uSMPTE));
-                                 information("Invalid SMPTE frames ");
+                                 //informationf("Invalid SMPTE frames " + ::unicode_from((::i32)uSMPTE));
+                                 informationf("Invalid SMPTE frames ");
                      throw ::exception(error_failed);
 
                }
