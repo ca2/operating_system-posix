@@ -905,7 +905,7 @@ namespace acme_posix
 
          string strMessage;
 
-         strMessage.format("Failed to stat file \"%s\".", path.c_str());
+         strMessage.formatf("Failed to stat file \"%s\".", path.c_str());
 
          throw ::exception(estatus, strMessage);
 
@@ -946,7 +946,7 @@ namespace acme_posix
 
       //   string strMessage;
 
-      //   strMessage.format("Failed to stat file \"%s\".", path.c_str());
+      //   strMessage.formatf("Failed to stat file \"%s\".", path.c_str());
 
       //   throw ::exception(estatus, strMessage);
 
@@ -980,7 +980,7 @@ namespace acme_posix
             
             string strMessage;
             
-            strMessage.format("Failed to set file modification time \"%s\".", path.c_str());
+            strMessage.formatf("Failed to set file modification time \"%s\".", path.c_str());
             
             throw ::exception(estatus, strMessage);
             
@@ -1000,7 +1000,7 @@ namespace acme_posix
 
             string strMessage;
 
-            strMessage.format("Failed to stat for just setting modification time of file \"%s\".", path.c_str());
+            strMessage.formatf("Failed to stat for just setting modification time of file \"%s\".", path.c_str());
 
             throw ::exception(estatus, strMessage);
 
@@ -1032,7 +1032,7 @@ namespace acme_posix
             
             string strMessage;
             
-            strMessage.format("Failed to set file modification time \"%s\".", path.c_str());
+            strMessage.formatf("Failed to set file modification time \"%s\".", path.c_str());
             
             throw ::exception(estatus, strMessage);
           

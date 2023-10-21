@@ -132,7 +132,7 @@ namespace multimedia
 
                string strFormat;
 
-               strFormat.format("hw:%i", cardNum);
+               strFormat.formatf("hw:%i", cardNum);
                if ((err = snd_ctl_open(&cardHandle, strFormat, 0)) < 0)
                {
                   informationf("Can't open card %i: %s\n", cardNum, snd_strerror(err));
@@ -178,7 +178,7 @@ namespace multimedia
                   if (subDevCount <= 0)
                   {
 
-                     strFormat.format("hw:%d,%d", cardNum, devNum);
+                     strFormat.formatf("hw:%d,%d", cardNum, devNum);
 
                      // NOTE: If there's only one subdevice, then the subdevice number is immaterial,
                      // and can be omitted when you specify the hardware name
@@ -202,7 +202,7 @@ namespace multimedia
                            continue;
                         }
 
-                        strFormat.format("hw:%d,%d,%d", cardNum, devNum, subDevNum);
+                        strFormat.formatf("hw:%d,%d,%d", cardNum, devNum, subDevNum);
 
                         straName.add(snd_pcm_info_get_name(pcmInfo));
 

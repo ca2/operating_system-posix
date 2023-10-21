@@ -207,11 +207,11 @@ namespace music
                   string strName;
                   if (caps.szPname != NULL)
                   {
-                     strName.format("%s (%d)", caps.szPname, i);
+                     strName.formatf("%s (%d)", caps.szPname, i);
                   }
                   else
                   {
-                     strName.format("(no name midi In device) (%d)", i);
+                     strName.formatf("(no name midi In device) (%d)", i);
                   }
                   m_straIn.add(strName);*/
          //}
@@ -260,11 +260,11 @@ namespace music
                   string strName;
                   if (caps.szPname != NULL)
                   {
-                     strName.format("%S (%d)", caps.szPname, i);
+                     strName.formatf("%S (%d)", caps.szPname, i);
                   }
                   else
                   {
-                     strName.format("(no name midi Out device) (%d)", i);
+                     strName.formatf("(no name midi Out device) (%d)", i);
                   }
                   m_straOut.add(strName);*/
          //}
@@ -648,11 +648,11 @@ namespace music
 
             string strDevicePrefix;
 
-            strDevicePrefix.format("alsa:%s,%d,%d", strDev.c_str(), iClient, iPort);
+            strDevicePrefix.formatf("alsa:%s,%d,%d", strDev.c_str(), iClient, iPort);
 
             string strName;
 
-            strName.format("%s (%d:%d)", strDev.c_str(), iClient, iPort);
+            strName.formatf("%s (%d:%d)", strDev.c_str(), iClient, iPort);
 
             add_midi_out_device(strName, strDevicePrefix);
 
@@ -740,7 +740,7 @@ namespace music
 //
 //                  string strDev;
 //
-//                  strDev.format("hw:%d,%d", card, device);
+//                  strDev.formatf("hw:%d,%d", card, device);
 //
 //                  printf("hw:%d,%d    %s", card, device, name);
 //
@@ -754,7 +754,7 @@ namespace music
 //
 //                  string strDev;
 //
-//                  strDev.format("hw:%d,%d,%d", card, device, sub);
+//                  strDev.formatf("hw:%d,%d,%d", card, device, sub);
 //
 //                  printf("hw:%d,%d,%d  %s\n",  card, device, sub, sub_name);
 //

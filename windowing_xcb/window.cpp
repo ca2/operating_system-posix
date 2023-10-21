@@ -3578,7 +3578,7 @@ namespace windowing_xcb
       else
       {
 
-         strWindow.format("%" PRIiPTR, (iptr) window);
+         strWindow.formatf("%" PRIiPTR, (iptr) window);
 
       }
 

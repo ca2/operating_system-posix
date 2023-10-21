@@ -2190,7 +2190,7 @@ if(functionTrace)
 
          strCommandInner.find_replace("\"", "\\\"");
 
-         strCommand.format("\"%s\" -c \"%s\"", strUnixShell.c_str(), strCommandInner.c_str());
+         strCommand.formatf("\"%s\" -c \"%s\"", strUnixShell.c_str(), strCommandInner.c_str());
 
          auto iExitCode = acmenode()->command_system(strCommand, tracefunction);
 

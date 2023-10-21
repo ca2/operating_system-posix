@@ -1356,7 +1356,7 @@ namespace acme_posix
                
                string strMessage;
                
-               strMessage.format("pthread_mutex_unlock (1) error = %d", iErrorUnlock1);
+               strMessage.formatf("pthread_mutex_unlock (1) error = %d", iErrorUnlock1);
 
                throw ::exception(error_failed, strMessage);
 
@@ -1582,7 +1582,7 @@ namespace acme_posix
 
                string strMessage;
                
-               strMessage.format("pthread_mutex_unlock (2) error = %d", iErrorUnlock2);
+               strMessage.formatf("pthread_mutex_unlock (2) error = %d", iErrorUnlock2);
 
                throw ::exception(error_failed, strMessage);
                

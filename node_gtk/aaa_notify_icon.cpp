@@ -33,7 +33,7 @@ namespace node_gtk
 
       }
 
-      m_strId.format("notify_icon_%d", uId);
+      m_strId.formatf("notify_icon_%d", uId);
 
       m_strId = "ca2-" + picon->get_tray_icon_name() + "-" + m_strId;
 

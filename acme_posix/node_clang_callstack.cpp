@@ -36,13 +36,13 @@
     if (pc == 0) {
       break;
     }
-    str.append_format("0x%lx:", pc);
+    str.append_formatf("0x%lx:", pc);
 
     char sym[256];
     if (unw_get_proc_name(&cursor, sym, sizeof(sym), &offset) == 0) {
-      str.append_format(" (%s+0x%lx)\n", sym, offset);
+      str.append_formatf(" (%s+0x%lx)\n", sym, offset);
     } else {
-      str.append_format(" -- error: unable to obtain symbol name for this frame\n");
+      str.append_formatf(" -- error: unable to obtain symbol name for this frame\n");
     }
   }
    return str;

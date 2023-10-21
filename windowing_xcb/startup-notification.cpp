@@ -18,7 +18,7 @@ void on_sn_launch_context(void * pSnContext , Window window)
 
 //   string str;
 //
-//   str.format("Is this the window id %08x?\n", window);
+//   str.formatf("Is this the window id %08x?\n", window);
 //
 //   information(str);
 
