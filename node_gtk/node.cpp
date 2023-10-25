@@ -1133,7 +1133,7 @@ namespace node_gtk
 
          default:
 
-            warning(
+            warningf(
                     "Failed to get user theme setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
             //return "";
 
@@ -1388,20 +1388,20 @@ namespace node_gtk
    void node::os_process_user_theme(string strOsTheme)
    {
 
-      ::information(
+      ::informationf(
               "os_process_user_theme: is strTheme(" + strOsTheme + ") same as m_strTheme(" + m_strTheme + ")\n");
 
       if (strOsTheme == m_strTheme)
       {
 
-         ::information(
+         ::informationf(
                  "os_process_user_theme: same theme as before [new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
 
          return;
 
       }
 
-      ::information(
+      ::informationf(
               "os_process_user_theme: different theme [new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
 
       m_strTheme = strOsTheme;
@@ -1435,20 +1435,20 @@ namespace node_gtk
    void node::os_process_user_icon_theme(string strOsIconTheme)
    {
 
-      ::information(
+      ::informationf(
               "os_process_user_icon_theme: is strIconTheme(" + strOsIconTheme + ") same as m_strIconTheme(" + m_strIconTheme + ")\n");
 
       if (strOsIconTheme == m_strIconTheme)
       {
 
-         ::information(
+         ::informationf(
                  "os_process_user_icon_theme: same theme as before [new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
 
          return;
 
       }
 
-      ::information(
+      ::informationf(
               "os_process_user_icon_theme: different theme [new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
 
       m_strIconTheme = strOsIconTheme;

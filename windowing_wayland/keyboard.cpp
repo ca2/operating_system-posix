@@ -315,9 +315,9 @@ namespace windowing_wayland
 
       string str = file()->as_string(pszPath);
 
-      information(pszPath);
+      informationf(pszPath);
 
-      information(str);
+      informationf(str);
 
       if(str.is_empty())
       {

@@ -988,7 +988,7 @@ namespace multimedia
          if ((err = snd_pcm_prepare(m_ppcm)) < 0)
          {
 
-            information ("out_start: Cannot prepare audio interface for use (%s)\n", snd_strerror(err));
+            informationf("out_start: Cannot prepare audio interface for use (%s)\n", snd_strerror(err));
 
             throw ::exception(error_failed);
 

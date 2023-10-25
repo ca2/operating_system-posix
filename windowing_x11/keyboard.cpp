@@ -290,9 +290,9 @@ namespace windowing_x11
 
       string str = file()->as_string(pszPath);
 
-      information(pszPath);
+      informationf(pszPath);
 
-      information(str);
+      informationf(str);
 
       if(str.is_empty())
       {
