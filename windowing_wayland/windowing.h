@@ -124,7 +124,7 @@ namespace windowing_wayland
       ::windowing::window_base * get_keyboard_focus(::thread * pthread) override;
 
 
-      ::pointer < ::input::input > get_input() override;
+      ///::pointer < ::input::input > get_input() override;
 
       //::windowing::window * get_mouse_capture(::thread * pthread) override;
 

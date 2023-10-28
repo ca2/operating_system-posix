@@ -34,7 +34,7 @@ namespace windowing_posix
 
       virtual void _on_wm_state_change(::windowing::window * pxwindow);
 
-      virtual ::pointer <::input::input>get_input();
+      //virtual ::pointer <::input::input>get_input();
 
 
    };
