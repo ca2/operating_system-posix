@@ -212,12 +212,6 @@ namespace windowing_posix
    }
 
 
-   ::pointer < ::input::input > windowing::get_input()
-   {
-
-      return __create < ::input::input >();
-
-   }
 
 
 } // namespace windowing_posix

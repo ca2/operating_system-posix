@@ -31,6 +31,6 @@ void apex_application_run(const char * pszAppName, const char * pszProgName);
 
 
 
-void apex_application_set_application_menu(::application_menu * pappmenu, ::apex::application * papp);
+void apex_application_set_application_menu(::apex::menu * pmenu, ::apex::application * papp);
 
 

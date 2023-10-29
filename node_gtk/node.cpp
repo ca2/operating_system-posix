@@ -1688,18 +1688,18 @@ namespace node_gtk
    }
 
 
-   ::pointer<::input::input > node::get_input()
-   {
-
-      auto psession = acmesession()->m_paurasession;
-
-      auto puser = psession->user();
-
-      ::pointer < ::windowing_posix::windowing > pwindowing = puser->windowing();
-
-      return pwindowing->get_input();
-
-   }
+//   ::pointer<::input::input > node::get_input()
+//   {
+//
+//      auto psession = acmesession()->m_paurasession;
+//
+//      auto puser = psession->user();
+//
+//      ::pointer < ::windowing_posix::windowing > pwindowing = puser->windowing();
+//
+//      return pwindowing->get_input();
+//
+//   }
 
 
    void node::launch_app_by_app_id(const ::scoped_string & scopedstrAppId, bool bSingleExecutableVersion)

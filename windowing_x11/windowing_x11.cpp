@@ -3078,7 +3078,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       }
 
-      puserinteraction->post(pmessage);
+      puserinteraction->post_message(pmessage);
 
    }
 
