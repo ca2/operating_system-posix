@@ -286,6 +286,14 @@ namespace acme_posix
 
    }
 
+   /// by camilo on 2023-11-01 06:17 <3ThomasBorregaardSorensen!!
+   ::process_identifier node::current_process_identifier()
+   {
+
+      return ::getpid();
+
+   }
+
 
    ::pointer < ::mutex > node::create_local_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::string & strName, security_attributes * psecurityattributes)
    {
@@ -2215,8 +2223,7 @@ if(functionTrace)
 //   }
 
 
-
-
 } // namespace acme_posix
+
 
 

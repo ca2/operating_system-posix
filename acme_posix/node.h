@@ -58,7 +58,8 @@ namespace acme_posix
 
       ::process_identifier_array processes_identifiers() override;
 
-
+      ::process_identifier current_process_identifier() override;
+      
       ::pointer < ::mutex > create_local_named_mutex(::particle * pparticleContext, bool bInitiallyOwned, const ::string & strName, security_attributes * psecurityattributes = nullptr) override;
       ::pointer < ::mutex > create_global_named_mutex(::particle * pparticleContext, bool bInitiallyOwned, const ::string & strName, security_attributes * psecurityattributes = nullptr) override;
 

@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "os_context.h"
+#include "acme/platform/node.h"
 #include <sys/stat.h>
 #include <unistd.h>
 
@@ -56,10 +57,9 @@ namespace apex_posix
    ::process_identifier os_context::current_process_identifier()
    {
 
-      return ::getpid();
+      return acmenode()->current_process_identifier();
 
    }
-
 
 
 } // namespace apex_posix
