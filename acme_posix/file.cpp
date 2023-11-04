@@ -196,7 +196,24 @@ namespace acme_posix
 
       // attempt file creation
       //HANDLE hFile = shell::CreateFile(utf8_to_unicode(m_strFileName), dwAccess, dwShareMode, &sa, dwCreateFlag, FILE_ATTRIBUTE_NORMAL, nullptr);
-      i32 hFile = ::open(path, dwFlags | O_CLOEXEC, dwPermission); //::open(m_strFileName, dwAccess, dwShareMode, &sa, dwCreateFlag, FILE_ATTRIBUTE_NORMAL, nullptr);
+      i32 hFile = -1;
+
+      if(eopen & ::file::e_open_create)
+      {
+
+         ::information() << "file::open with permission : " << path;
+
+         hFile = ::open(path, dwFlags | O_CLOEXEC, dwPermission); //::open(m_strFileName, dwAccess, dwShareMode, &sa, dwCreateFlag, FILE_ATTRIBUTE_NORMAL, nullptr);
+
+      }
+      else
+      {
+
+         ::information() << "file::open : " << path;
+
+         hFile = ::open(path, dwFlags | O_CLOEXEC); //::open(m_strFileName, dwAccess, dwShareMode, &sa, dwCreateFlag, FILE_ATTRIBUTE_NORMAL, nullptr);
+
+      }
 
       if(hFile == -1)
       {
