@@ -324,7 +324,7 @@ namespace windowing_wayland
       //virtual void wm_state_hidden_raw( WINDOWING_X11_WINDOW_MEMBER bool bSet);
 //      virtual ::e_status mq_remove_window_from_all_queues( WINDOWING_X11_WINDOW_MEMBER );
 
-      void window_update_screen_buffer() override;
+      void __update_graphics_buffer() override;
       //void _window_request_presentation_locked() override;
 
       //void _on_configure_notify_unlocked(const ::rectangle_i32 & rectangle) override;
@@ -336,7 +336,7 @@ namespace windowing_wayland
       void bring_to_front() override;
 
 
-      void window_do_update_screen() override;
+      void window_update_screen() override;
 
 
       virtual void _on_end_paint();

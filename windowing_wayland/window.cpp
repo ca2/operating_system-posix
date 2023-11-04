@@ -5426,7 +5426,7 @@ namespace windowing_wayland
 //   }
 
 
-   void window::window_update_screen_buffer()
+   void window::__update_graphics_buffer()
    {
 
       user_post([this]()
@@ -5449,7 +5449,7 @@ namespace windowing_wayland
    }
 
 
-   void window::window_do_update_screen()
+   void window::window_update_screen()
    {
 
       information() << "window_do_update_screen";

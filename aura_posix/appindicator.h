@@ -7,7 +7,8 @@
 ////#include "acme/primitive/primitive/object.h"
 
 
-struct user_notify_icon_bridge;
+class application_menu_callback;
+
 
 
 namespace aura_posix
@@ -24,7 +25,7 @@ namespace aura_posix
         ~appindicator() override;
 
 
-        virtual bool create(const char * pszId, const char * pszIcon, const char * pszFolder, user_notify_icon_bridge * pbridge) = 0;
+        virtual bool create(const char * pszId, const char * pszIcon, const char * pszFolder, application_menu * papplicationmenu, application_menu_callback * pcallback) = 0;
 
         virtual void close();
 

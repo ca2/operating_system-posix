@@ -5,6 +5,7 @@
 
 
 #include "aura_posix/appindicator.h"
+#include "acme/platform/application_menu_callback.h"
 
 
 namespace node_gnome
@@ -23,7 +24,7 @@ namespace node_gnome
       ~appindicator() override;
 
 
-      bool create(const char * pszId, const char * pszIcon, const char * pszFolder, user_notify_icon_bridge * pbridge) override;
+      bool create(const char * pszId, const char * pszIcon, const char * pszFolder, application_menu * papplicationmenu, application_menu_callback * pcallback) override;
 
 
 
@@ -33,7 +34,7 @@ namespace node_gnome
 //
 
       //virtual bool create(const char * pszId, const char * pszIcon, const char * pszFolder, user_notify_icon_bridge * pbridge) override;
-      virtual bool init(user_notify_icon_bridge * pbridge);
+      virtual bool init(application_menu * papplicationmenu, application_menu_callback * pcallback);
       void close() override;
 
 

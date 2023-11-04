@@ -2,7 +2,7 @@
 #include "application.h"
 
 #include "apex/platform/application.h"
-#include "apex/user/menu/menu.h"
+#include "apex/platform/application_menu.h"
 #include <glib.h>
 
 
@@ -42,10 +42,10 @@ NodeGtkApplication * node_gtk_application_new (const char * pszAppName, const ch
 }
 
 
-void node_gtk_application_application_menu_activate_callback(GSimpleAction *action, GVariant * parameter, gpointer user_data)
+void node_gtk_application_application_menu_activate_callback(GSimpleAction *action, GVariant * parameter, gpointer p)
 {
 
-   ::apex::application * papp = (::apex::application *) user_data;
+   auto * pcallback = (::application_menu_callback *) p;
 
    const gchar * name = g_action_get_name (G_ACTION(action));
 
@@ -54,46 +54,67 @@ void node_gtk_application_application_menu_activate_callback(GSimpleAction *acti
    if(strName.has_char())
    {
 
-      papp->on_application_menu_action(strName);
+      pcallback->on_application_menu_action(strName);
 
    }
 
 }
 
 
-
-void node_gtk_application_set_application_menu(::apex::menu * pmenuApp, ::apex::application * papp)
+GMenu * g_menu_from_application_menu(GApplication * pgapplication, ::application_menu * papplicationmenu, ::application_menu_callback * pcallback)
 {
 
-   GApplication * pgapplication = G_APPLICATION(g_pnodegtkapplication);
+   GMenu * pmenu = g_menu_new();
 
-   GMenu * pmenu = g_menu_new ();
-
-   for(::index i = 0; i < pmenuApp->get_count(); i++)
+   for(::index i = 0; i < papplicationmenu->get_count(); i++)
    {
 
-      string strId = pmenuApp->element_at(i)->m_strId;
+      auto pitem = papplicationmenu->element_at(i);
 
-      string strName = pmenuApp->element_at(i)->m_strName;
+      string strName = pitem->m_strName;
 
-      auto ptopic = g_simple_action_new (strId, NULL);
+      if(pitem->is_popup())
+      {
 
-      g_signal_connect (
-         papp,
-         "activate",
-         G_CALLBACK (node_gtk_application_application_menu_activate_callback),
-         papp);
+         auto pmenuSub = g_menu_from_application_menu(pgapplication, pitem, pcallback);
 
-      g_action_map_add_action(G_ACTION_MAP(pgapplication), G_ACTION (ptopic));
+         g_menu_append_submenu(pmenu, strName, G_MENU_MODEL(pmenuSub));
 
-      g_menu_append (pmenu, strName, strId);
+      }
+      else
+      {
+
+         string strId = pitem->m_atom;
+
+         auto psimpleaction = g_simple_action_new (strId, NULL);
+
+         g_signal_connect (
+            pcallback,
+            "activate",
+            G_CALLBACK (node_gtk_application_application_menu_activate_callback),
+            pcallback);
+
+         g_action_map_add_action(G_ACTION_MAP(pgapplication), G_ACTION (psimpleaction));
+
+         g_menu_append (pmenu, strName, strId);
+
+      }
 
    }
+
+   return pmenu;
+
+}
+
+
+void node_gtk_application_set_application_menu(GApplication * pgapplication, ::application_menu * papplicationmenu, ::application_menu_callback * pcallback)
+{
+
+   GMenu * pmenu = g_menu_from_application_menu (pgapplication, papplicationmenu, pcallback);
 
    gtk_application_set_app_menu (GTK_APPLICATION (pgapplication), G_MENU_MODEL (pmenu));
 
 }
-
 
 
 gboolean linux_start_system(gpointer data)

@@ -4,6 +4,7 @@
 #include <gtk/gtk.h>
 
 
+class application_menu_callback;
 
 
 typedef struct
@@ -28,9 +29,6 @@ void apex_application_run(const char * pszAppName, const char * pszProgName);
 
 
 
-
-
-
-void apex_application_set_application_menu(::apex::menu * pmenu, ::apex::application * papp);
+void node_gtk_application_set_application_menu(GApplication * pgapplication, ::application_menu * pmenu, ::application_menu_callback * pcallback);
 
 
