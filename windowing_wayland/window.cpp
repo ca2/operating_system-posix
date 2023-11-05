@@ -611,6 +611,7 @@ namespace windowing_wayland
 
          // fflush(stdout);
 
+         m_puserinteractionimpl->m_puserinteraction->__defer_set_owner_to_impl();
 
          bamf_set_icon();
 
