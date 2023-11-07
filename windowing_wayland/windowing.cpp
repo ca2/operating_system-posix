@@ -8,7 +8,7 @@
 #include "cursor.h"
 #include "acme/constant/message.h"
 #include "acme/parallelization/synchronous_lock.h"
-//#include "acme/primitive/primitive/function.h"
+#include "apex/input/input.h"
 #include "aura/windowing/cursor_manager.h"
 #include <X11/cursorfont.h>
 #include "aura/user/user/interaction_impl.h"
@@ -130,7 +130,7 @@ namespace windowing_wayland
 
       auto & pfactory = acmesystem()->factory("input", "libinput");
 
-      auto pinput = pfactory->__create<::input::input>(this);
+      auto pinput = pfactory->create<::input::input>(this);
 
       return pinput;
 
