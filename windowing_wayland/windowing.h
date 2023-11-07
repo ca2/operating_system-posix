@@ -67,6 +67,8 @@ namespace windowing_wayland
       virtual void post_ui_message(::message::message * pmessage);
 
 
+      ::pointer <::input::input> _get_input() override;
+
 
       //void start() override;
 

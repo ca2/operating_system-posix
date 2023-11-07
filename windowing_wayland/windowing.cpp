@@ -114,13 +114,25 @@ namespace windowing_wayland
 //      ::pointer < ::input::input > windowing::get_input()
 //      {
 
-      auto & pfactory = acmesystem()->factory("input", "libinput");
-
-      pfactory->merge_to_global_factory();
+//      auto & pfactory = acmesystem()->factory("input", "libinput");
+//
+//      pfactory->merge_to_global_factory();
 
 //         return windowing_posix::windowing::get_input();
 //
 //      }
+
+   }
+
+
+   ::pointer <::input::input> windowing::_get_input()
+   {
+
+      auto & pfactory = acmesystem()->factory("input", "libinput");
+
+      auto pinput = pfactory->__create<::input::input>(this);
+
+      return pinput;
 
    }
 
