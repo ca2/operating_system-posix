@@ -116,7 +116,7 @@ if (MSVC)
    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references})
 
 
-elseif(${LINUX} OR ${FREEBSD})
+elseif(${LINUX} OR ${FREEBSD} OR ${OPENBSD} OR ${NETBSD})
 
    #if(USE_PKGCONFIG)
       pkg_check_modules(PKGCONFIG x11 glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
