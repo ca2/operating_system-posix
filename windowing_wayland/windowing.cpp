@@ -128,7 +128,7 @@ namespace windowing_wayland
    ::pointer <::input::input> windowing::_get_input()
    {
 
-      auto & pfactory = acmesystem()->factory("input", "libinput");
+      auto & pfactory = platform()->factory("input", "libinput");
 
       auto pinput = pfactory->create<::input::input>(this);
 

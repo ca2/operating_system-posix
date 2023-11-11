@@ -68,8 +68,8 @@ namespace node_gtk
 
          g_bInitGtk = true;
 
-         if (!gtk_init_check(pgtknode->system()->subsystem()->get_pargc(),
-                             pgtknode->system()->subsystem()->get_pargv()))
+         if (!gtk_init_check(pgtknode->platform()->get_pargc(),
+                             pgtknode->platform()->get_pargv()))
          {
 
             g_estatusInitGtk = ::error_failed;

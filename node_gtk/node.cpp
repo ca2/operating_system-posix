@@ -300,8 +300,8 @@ namespace node_gtk
 
       {
 
-         node_init_check(system()->subsystem()->get_pargc(),
-                         system()->subsystem()->get_pargv());
+         node_init_check(platform()->get_pargc(),
+                         platform()->get_pargv());
 
       }
 

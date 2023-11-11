@@ -113,7 +113,7 @@ namespace ansios
 
       address_array < char * > env;
 
-      char * const * e = system()->m_psubsystem->m_envp;
+      char * const * e = platform()->m_envp;
 
       string strFallback;
 
@@ -294,7 +294,7 @@ namespace ansios
 
       int status= 0;
 
-      char * const * e = system()->m_psubsystem->m_envp;
+      char * const * e = platform()->m_envp;
 
       {
 
