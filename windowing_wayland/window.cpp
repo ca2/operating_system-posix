@@ -5453,7 +5453,9 @@ namespace windowing_wayland
    void window::window_update_screen()
    {
 
+#ifdef MORE_LOG
       information() << "window_do_update_screen";
+#endif
 
 //      if(m_interlockedPostedScreenUpdate > 0)
 //      {

@@ -765,11 +765,11 @@ namespace windowing_wayland
 
                   try
                   {
-
+#ifdef MORE_LOG
                      information()
 
                         << "pwaylandwindow->strict_set_window_position_unlocked";
-
+#endif
                      pwaylandwindow->strict_set_window_position_unlocked(bChangedPosition, bChangedSize);
 
                   }
@@ -790,6 +790,8 @@ namespace windowing_wayland
 
                slGraphics.unlock();
 
+#ifdef MORE_LOG
+
                information()
 
                   << "m_sizeConfigure : " << pwaylandwindow->m_sizeConfigure
@@ -800,6 +802,8 @@ namespace windowing_wayland
 
                   << "m_pxdgtoplevel : " << (::iptr) pwaylandwindow->m_pxdgtoplevel
             << ", m_pxdgpopup : " << (::iptr) pwaylandwindow->m_pxdgpopup;
+
+#endif
 
                //if(pwaylandwindow->m_sizeWindow == pwaylandwindow->m_waylandbuffer.m_size
                if ((::is_set(pwaylandwindow->m_pxdgtoplevel)
@@ -829,10 +833,16 @@ namespace windowing_wayland
                                  pwaylandwindow->m_waylandbuffer.m_stride,
                                  pitem->m_pimage2->data(), pitem->m_pimage2->scan_size());
 
+#ifdef MORE_LOG
                   information()
 
                      << "_update_screen_unlocked data : "
                                 << (::iptr) pwaylandwindow->m_waylandbuffer.m_pdata;
+
+
+#endif
+
+
                   //memset(pwindow->m_waylandbuffer.m_pdata, 127,pitem->m_size.cx() * 4 * pitem->m_size.cy());
 //      m_pwlcallbackFrame = wl_surface_frame(pwindow->m_pwlsurface);
                   wl_surface_attach(pwaylandwindow->m_pwlsurface,
@@ -845,9 +855,13 @@ namespace windowing_wayland
                   pwaylandwindow->__defer_xdg_surface_ack_configure();
                   wl_surface_commit(pwaylandwindow->m_pwlsurface);
 
+#ifdef MORE_LOG
+
                   information()
 
                      << "wl_surface_commit";
+
+#endif
 
                                              if (!pwaylandwindow->m_bDoneFirstMapping)
                                              {
@@ -929,7 +943,9 @@ namespace windowing_wayland
       if(pevent->wait(20_s).ok())
       {
 
+#ifdef MORE_LOG
          information() << "buffer::update_screen end";
+#endif
 
       }
       else
