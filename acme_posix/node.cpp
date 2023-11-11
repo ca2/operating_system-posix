@@ -733,7 +733,7 @@ namespace acme_posix
 
       argv.add(nullptr);
 
-      auto envp = subsystem()->m_envp;
+      auto envp = platform()->m_envp;
 
       pid_t pid = 0;
 
@@ -816,7 +816,7 @@ namespace acme_posix
 
       int status;
 
-      auto envp = subsystem()->m_envp;
+      auto envp = platform()->m_envp;
 
 #ifdef ANDROID
 

@@ -288,7 +288,7 @@ namespace node_kde
 
       auto psystem = pparticle->system();
 
-      m_pqapplication = memory_new QApplication(psystem->m_psubsystem->m_argc, psystem->m_psubsystem->m_argv);
+      m_pqapplication = memory_new QApplication(psystem->m_pplatform->m_argc, psystem->m_pplatform->m_argv);
 
       if(!m_pqapplication)
       {

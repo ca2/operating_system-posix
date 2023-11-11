@@ -212,6 +212,12 @@ namespace windowing_posix
    }
 
 
+   ::pointer <::input::input> windowing::_get_input()
+   {
+
+      return nullptr;
+
+   }
 
 
 } // namespace windowing_posix

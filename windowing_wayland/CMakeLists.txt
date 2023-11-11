@@ -22,8 +22,8 @@ list(APPEND library_source
    icon.h
    keyboard.cpp
    keyboard.h
-   node.cpp
-   node.h
+   #node.cpp
+   #node.h
    startup-notification.cpp
    startup-notification.h
    text_composition_client.cpp
@@ -76,7 +76,7 @@ if (MSVC)
    target_link_options(windowing_wayland PRIVATE "/SUBSYSTEM:WINDOWS")
    target_link_libraries(windowing_wayland PRIVATE ${library_references})
    #add_dependencies(windowing_wayland draw2d_gdiplus)
-elseif(${LINUX} OR ${FREEBSD})
+elseif(${LINUX} OR ${FREEBSD} OR ${OPENBSD} OR ${NETBSD})
 
 
 #   if(UBUNTU)

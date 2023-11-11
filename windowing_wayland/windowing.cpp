@@ -8,7 +8,7 @@
 #include "cursor.h"
 #include "acme/constant/message.h"
 #include "acme/parallelization/synchronous_lock.h"
-//#include "acme/primitive/primitive/function.h"
+#include "apex/input/input.h"
 #include "aura/windowing/cursor_manager.h"
 #include <X11/cursorfont.h>
 #include "aura/user/user/interaction_impl.h"
@@ -114,13 +114,25 @@ namespace windowing_wayland
 //      ::pointer < ::input::input > windowing::get_input()
 //      {
 
-      auto & pfactory = system()->factory("input", "libinput");
-
-      pfactory->merge_to_global_factory();
+//      auto & pfactory = acmesystem()->factory("input", "libinput");
+//
+//      pfactory->merge_to_global_factory();
 
 //         return windowing_posix::windowing::get_input();
 //
 //      }
+
+   }
+
+
+   ::pointer <::input::input> windowing::_get_input()
+   {
+
+      auto & pfactory = acmesystem()->factory("input", "libinput");
+
+      auto pinput = pfactory->create<::input::input>(this);
+
+      return pinput;
 
    }
 
