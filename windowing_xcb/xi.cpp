@@ -155,7 +155,7 @@ namespace windowing_xcb
       user_post([this, bMouse, bKeyboard]()
                                  {
 
-                                    auto psystem = acmesystem();
+                                    auto psystem = system();
 
                                     auto pdisplay = _get_Display();
 
@@ -428,7 +428,7 @@ namespace windowing_xcb
 
       }
 
-      auto psystem = acmesystem()->m_papexsystem;
+      auto psystem = system()->m_papexsystem;
 
       //auto ptopic = psystem->topic(eid);
 

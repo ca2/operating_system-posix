@@ -61,7 +61,7 @@ namespace windowing_xcb
 //
 //      }
 
-      auto psystem = acmesystem();
+      auto psystem = system();
 
 //      SET_ENUM_TEXT(::user::e_key_0);
 //      SET_ENUM_TEXT(::user::e_key_1);

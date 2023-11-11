@@ -36,7 +36,7 @@ void gtk_settings_gtk_theme_name_callback(GObject* object, GParamSpec* pspec, gp
 
    }
 
-   pnode->acmesystem()->m_papexsystem->process_subject(id_os_user_theme);
+   pnode->system()->m_papexsystem->process_subject(id_os_user_theme);
 
 }
 
@@ -113,7 +113,7 @@ namespace node_xfce
    void node::defer_notify_startup_complete()
    {
 
-      auto psystem = acmesystem()->m_papexsystem;
+      auto psystem = system()->m_papexsystem;
 
       string strApplicationServerName = psystem->get_application_server_name();
 
@@ -127,7 +127,7 @@ namespace node_xfce
    ::e_status node::system_main()
    {
 
-      auto estatus = acmesystem()->m_papexsystem->begin_synch();
+      auto estatus = system()->m_papexsystem->begin_synch();
 
       if (!estatus)
       {
@@ -157,7 +157,7 @@ namespace node_xfce
 
       //auto idle_source = g_idle_source_new();
 
-      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) acmesystem(), nullptr);
+      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) system(), nullptr);
 
       //g_source_attach(idle_source, g_main_context_default());
 
@@ -169,7 +169,7 @@ namespace node_xfce
 
       {
 
-         node_init_check(&acmesystem()->m_argc, &acmesystem()->m_argv);
+         node_init_check(&system()->m_argc, &system()->m_argv);
 
       }
 
@@ -191,7 +191,7 @@ namespace node_xfce
 
 
 //
-//      auto psystem = acmesystem();
+//      auto psystem = system();
 //
 //      auto pnode = psystem->node();
 //
@@ -199,7 +199,7 @@ namespace node_xfce
 //
 //      return ::success;
 
-      auto psystem = acmesystem()->m_papexsystem;
+      auto psystem = system()->m_papexsystem;
 
       if (psystem->m_bGtkApp)
       {
@@ -255,7 +255,7 @@ namespace node_xfce
 
             x11_add_idle_source(this);
 
-            auto psystem = acmesystem()->m_papexsystem;
+            auto psystem = system()->m_papexsystem;
 
             psystem->post_initial_request();
 
@@ -383,7 +383,7 @@ namespace node_xfce
 //
 //      // indirect wall-changer sourceforge.net contribution
 //
-//      auto psystem = acmesystem()->m_papexsystem;
+//      auto psystem = system()->m_papexsystem;
 //
 //      auto pnode = psystem->node();
 //
@@ -468,7 +468,7 @@ namespace node_xfce
 
       // wall-changer sourceforge.net contribution
 
-//      auto psystem = acmesystem()->m_papexsystem;
+//      auto psystem = system()->m_papexsystem;
 //
 //      auto pnode = psystem->node();
 //
@@ -522,7 +522,7 @@ namespace node_xfce
 
       node_gtk::node::enable_wallpaper_change_notification();
 
-//      auto psystem = acmesystem()->m_papexsystem;
+//      auto psystem = system()->m_papexsystem;
 //
 //      auto pnode = psystem->node();
 //

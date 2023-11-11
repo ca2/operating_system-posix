@@ -566,7 +566,7 @@ void acme_directory::erase_recursively(const ::file::path &path)
 //::file::path acme_directory::bookmark()
 //{
 //
-//   auto psystem = acmesystem();
+//   auto psystem = system();
 //
 //   auto pacmedir = psystem->m_pacmedirectory;
 //

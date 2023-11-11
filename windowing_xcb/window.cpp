@@ -281,7 +281,7 @@ namespace windowing_xcb
       if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
       {
 
-         string strApplicationServerName = acmesystem()->m_papexsystem->get_application_server_name();
+         string strApplicationServerName = system()->m_papexsystem->get_application_server_name();
 
          string strClass = strApplicationServerName;
 
@@ -504,7 +504,7 @@ namespace windowing_xcb
 ////
 ////         pwindowing->m_bFirstWindowMap = true;
 ////
-////         auto psystem = acmesystem()->m_paurasystem;
+////         auto psystem = system()->m_paurasystem;
 ////
 ////         auto pnode = psystem->node();
 ////
@@ -629,7 +629,7 @@ namespace windowing_xcb
 
       //synchronous_lock synchronouslock(user_synchronization());
 
-      auto psystem = acmesystem()->m_paurasystem;
+      auto psystem = system()->m_paurasystem;
 
       auto pnode = psystem->node();
 
@@ -1569,7 +1569,7 @@ namespace windowing_xcb
          if (msg.oswindow == nullptr)
          {
 
-            acmesystem()->m_papexsystem->post_message(msg.m_atom, msg.wParam, msg.lParam);
+            system()->m_papexsystem->post_message(msg.m_atom, msg.wParam, msg.lParam);
 
          }
          else

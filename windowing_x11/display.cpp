@@ -148,7 +148,7 @@ namespace windowing_x11
       }
 
 
-      bool bBranch = !acmesession()->m_paurasession->user()->m_pdesktopenvironment->m_bUnhook;
+      bool bBranch = !session()->m_paurasession->user()->m_pdesktopenvironment->m_bUnhook;
 
 //      m_px11display->m_bUnhook = bUnhook;
 
@@ -938,7 +938,7 @@ namespace windowing_x11
 
       bool bIsOrigin = false;
 
-      //auto psystem = acmesystem()->m_papexsystem;
+      //auto psystem = system()->m_papexsystem;
 
       //auto pnode = psystem->node();
 

@@ -70,7 +70,7 @@ namespace node_kde
    bool copydesk::_set_plain_text(const string & str)
    {
 
-      auto psystem = acmesystem()->m_paurasystem;
+      auto psystem = system()->m_paurasystem;
 
       auto pnode = psystem->node();
 
@@ -124,7 +124,7 @@ namespace node_kde
 
       ppayload->m_payload = false;
 
-      auto psystem = acmesystem()->m_paurasystem;
+      auto psystem = system()->m_paurasystem;
 
       auto pnode = psystem->node();
 
@@ -241,7 +241,7 @@ return false;
       user_send([this, pimage, &bOk]()
                 {
 
-                   auto psystem = acmesystem();
+                   auto psystem = system();
 
                    auto pnode = psystem->node()->m_pNodeKDE;
 
@@ -302,7 +302,7 @@ return false;
    bool copydesk::_has_image()
    {
 
-      auto psystem = acmesystem();
+      auto psystem = system();
 
       auto pnode = psystem->node()->m_pNodeKDE;
 

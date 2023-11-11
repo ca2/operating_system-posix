@@ -114,7 +114,7 @@ namespace windowing_wayland
 //      ::pointer < ::input::input > windowing::get_input()
 //      {
 
-      auto & pfactory = acmesystem()->factory("input", "libinput");
+      auto & pfactory = system()->factory("input", "libinput");
 
       pfactory->merge_to_global_factory();
 
@@ -156,7 +156,7 @@ namespace windowing_wayland
 //   void windowing::start()
 //   {
 //
-//      auto psystem = acmesystem()->m_papexsystem;
+//      auto psystem = system()->m_papexsystem;
 //
 //      if (psystem->m_bUser)
 //      {

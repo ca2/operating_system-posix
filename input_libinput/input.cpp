@@ -304,7 +304,7 @@ namespace input_libinput
 
       ::user::e_key ekey = ::user::e_key_a;
 
-      auto paurasession = acmesession()->m_paurasession;
+      auto paurasession = session()->m_paurasession;
 
       auto puser = paurasession->user();
 

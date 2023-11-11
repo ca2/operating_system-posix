@@ -522,7 +522,7 @@ namespace windowing_wayland
 //
 //         pwaylandwindow->wayland_windowing()->m_bFirstWindowMap = true;
 //
-//         //auto psystem = acmesystem()->m_papexsystem;
+//         //auto psystem = system()->m_papexsystem;
 //
 //         //string strApplicationServerName = psystem->get_application_server_name();
 //
@@ -532,7 +532,7 @@ namespace windowing_wayland
 //
 //         ///information() << "gtk_shell1_set_startup_id : " << strApplicationServerName;
 //
-//         //auto psystem = acmesystem()->m_papexsystem;
+//         //auto psystem = system()->m_papexsystem;
 //
 //         //auto pnode = psystem->node();
 //
@@ -869,7 +869,7 @@ namespace windowing_wayland
 //
 //                                                pwaylandwindow->wayland_windowing()->m_bFirstWindowMap = true;
 //
-//                                                //auto psystem = acmesystem()->m_papexsystem;
+//                                                //auto psystem = system()->m_papexsystem;
 //
 //                                                //string strApplicationServerName = psystem->get_application_server_name();
 //
@@ -879,7 +879,7 @@ namespace windowing_wayland
 //
 //                                                ///information() << "gtk_shell1_set_startup_id : " << strApplicationServerName;
 //
-//                                                //auto psystem = acmesystem()->m_papexsystem;
+//                                                //auto psystem = system()->m_papexsystem;
 //
 //                                                //auto pnode = psystem->node();
 //

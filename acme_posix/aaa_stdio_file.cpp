@@ -43,11 +43,11 @@ stdio_file::~stdio_file()
    if ((eopen & ::file::e_open_defer_create_directory) && (eopen & ::file::e_open_write))
    {
 
-      auto psystem = acmesystem();
+      auto psystem = system();
 
       auto pacmedirectory = psystem->m_pacmedirectory;
 
-               auto psystem = acmesystem();
+               auto psystem = system();
 
          auto pacmedirectory = psystem->m_pacmedirectory;
 

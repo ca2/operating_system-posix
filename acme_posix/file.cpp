@@ -275,7 +275,7 @@ namespace acme_posix
 
          /*try
          {
-            get_app()->acmesystem()->m_spfilesystem.m_p->FullPath(m_wstrFileName, m_wstrFileName);
+            get_app()->system()->m_spfilesystem.m_p->FullPath(m_wstrFileName, m_wstrFileName);
          }
          catch(...)
          {

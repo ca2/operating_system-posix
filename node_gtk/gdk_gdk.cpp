@@ -166,7 +166,7 @@ namespace node_gtk
 
       }
 
-      ::pointer < ::node_gtk::node > pgtknode = ::acme::acme::g_pacme->m_pplatform->acmesystem()->acmenode();
+      ::pointer < ::node_gtk::node > pgtknode = ::platform::get()->system()->acmenode();
 
       if (!os_defer_init_gtk(pgtknode))
       {
@@ -203,7 +203,7 @@ namespace node_gtk
    ::e_status gsettings_sync()
    {
 
-      ::pointer < ::node_gtk::node > pgtknode = ::acme::acme::g_pacme->m_pplatform->acmesystem()->acmenode();
+      ::pointer < ::node_gtk::node > pgtknode = ::platform::get()->system()->acmenode();
 
       if (!os_defer_init_gtk(pgtknode))
       {
@@ -236,7 +236,7 @@ namespace node_gtk
 
       }
 
-      ::pointer < ::node_gtk::node > pgtknode = ::acme::acme::g_pacme->m_pplatform->acmesystem()->acmenode();
+      ::pointer < ::node_gtk::node > pgtknode = ::platform::get()->system()->acmenode();
 
       if (!os_defer_init_gtk(pgtknode))
       {
@@ -281,7 +281,7 @@ namespace node_gtk
 
       ::node_gtk::node * pnode = (::node_gtk::node *) pdata;
 
-      pnode->acmesystem()->m_papexsystem->signal(id_wallpaper_change);
+      pnode->system()->m_papexsystem->signal(id_wallpaper_change);
 
    }
 

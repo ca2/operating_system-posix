@@ -87,7 +87,7 @@ namespace node_xfce
    bool copydesk::_set_plain_text(const string & str)
    {
 
-      auto psystem = acmesystem()->m_paurasystem;
+      auto psystem = system()->m_paurasystem;
 
       auto pnode = psystem->node();
 
@@ -141,7 +141,7 @@ namespace node_xfce
 
       payload->m_var = false;
 
-      auto psystem = acmesystem()->m_paurasystem;
+      auto psystem = system()->m_paurasystem;
 
       auto pnode = psystem->node();
 
@@ -288,7 +288,7 @@ namespace node_xfce
 
       bool b = false;
 
-      auto psystem = acmesystem()->m_papexsystem;
+      auto psystem = system()->m_papexsystem;
 
       auto pnode = psystem->node();
 

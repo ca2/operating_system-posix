@@ -62,7 +62,7 @@ namespace node_kde
 
       m_puserinteractionNotify = puserinteractionNotify;
 
-      ::pointer < node > pnode = acmesystem()->acmenode();
+      ::pointer < node > pnode = system()->acmenode();
 
       QObject::setParent(pnode->m_pqapplication);
 

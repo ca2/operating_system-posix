@@ -74,7 +74,7 @@ namespace node_gnome
 
       get_app()->m_papexapplication->file()->copy(pathRoamingIcon, "matter://main/icon-128.png");
 
-      auto psystem = acmesystem();
+      auto psystem = system();
 
       auto pnode = psystem->node();
 

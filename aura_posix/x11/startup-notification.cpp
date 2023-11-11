@@ -84,7 +84,7 @@ namespace windowing_posix
 
       int iScreen = DefaultScreen(pdisplay);
 
-      auto papp = acmeapplication();
+      auto papp = application();
 
       string strWMClass = papp->m_strAppId;
 

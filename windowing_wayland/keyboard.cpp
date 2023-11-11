@@ -189,7 +189,7 @@ namespace windowing_wayland
 //
 //      }
 
-      enum_init(acmesystem());
+      enum_init(system());
 
 //      m_pxkbcontext = xkb_context_new({});
 //
@@ -864,7 +864,7 @@ namespace windowing_wayland
 ////
 ////      synchronous_lock synchronouslock(this->synchronization());
 ////
-//////      ::pointer < ::xkb_input::xkb_input > pxkbinput = acmesystem()->m_papexsystem->m_pinput;
+//////      ::pointer < ::xkb_input::xkb_input > pxkbinput = system()->m_papexsystem->m_pinput;
 //////
 //////      if(pxkbinput)
 //////      {

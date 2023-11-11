@@ -449,7 +449,7 @@ namespace windowing_wayland
 //         if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
 //         {
 //
-//            auto psystem = acmesystem()->m_papexsystem;
+//            auto psystem = system()->m_papexsystem;
 //
 //            string strApplicationServerName = psystem->get_application_server_name();
 //
@@ -457,7 +457,7 @@ namespace windowing_wayland
 //
 //            //         XClassHint * pupdate = XAllocClassHint();
 //            //
-//            //         auto psystem = acmesystem()->m_papexsystem;
+//            //         auto psystem = system()->m_papexsystem;
 //            //
 //            //         string strApplicationServerName = psystem->get_application_server_name();
 //            //
@@ -1059,7 +1059,7 @@ namespace windowing_wayland
 //         if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
 //         {
 //
-//            auto psystem = acmesystem()->m_papexsystem;
+//            auto psystem = system()->m_papexsystem;
 //
 //            string strApplicationServerName = psystem->get_application_server_name();
 //
@@ -1232,7 +1232,7 @@ namespace windowing_wayland
 //
 //         pwindowing->m_bFirstWindowMap = true;
 //
-//         auto psystem = acmesystem()->m_papexsystem;
+//         auto psystem = system()->m_papexsystem;
 //
 //         auto pnode = psystem->node();
 //
@@ -1555,7 +1555,7 @@ namespace windowing_wayland
 
       synchronous_lock synchronouslock(user_synchronization());
 
-//      auto psystem = acmesystem()->m_papexsystem;
+//      auto psystem = system()->m_papexsystem;
 //
 //      auto pnode = psystem->node();
 //

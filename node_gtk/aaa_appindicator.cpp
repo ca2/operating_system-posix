@@ -255,7 +255,7 @@ namespace node_gtk
 
       auto pcontext = m_pcontext->m_papexcontext;
 
-      auto psession = pcontext->acmesession()->m_paurasession;
+      auto psession = pcontext->session()->m_paurasession;
 
       auto puser = psession->user();
 

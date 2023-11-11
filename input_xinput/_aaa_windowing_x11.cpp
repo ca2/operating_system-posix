@@ -1595,7 +1595,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                auto prawevent = (XIRawEvent *) cookie->data;
 
-               auto psystem = acmesystem()->m_papexsystem;
+               auto psystem = system()->m_papexsystem;
 
                // detail:
                // 1 - left button

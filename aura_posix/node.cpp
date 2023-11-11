@@ -453,7 +453,7 @@ namespace aura_posix
 //
 //         }
 //
-//         //auto psystem = acmesystem();
+//         //auto psystem = system();
 //
 //         //auto estatus = psystem->system_main();
 //
@@ -492,7 +492,7 @@ namespace aura_posix
 
       ::string strLogFileName;
 
-      strLogFileName = acmesystem()->datetime()->international().get_date_time(INTERNATIONAL_DATE_TIME_FORMAT_FOR_FILE_WITH_NO_SPACES) ;
+      strLogFileName = system()->datetime()->international().get_date_time(INTERNATIONAL_DATE_TIME_FORMAT_FOR_FILE_WITH_NO_SPACES) ;
 
       strLogFileName += ".txt";
 

@@ -189,7 +189,7 @@ namespace windowing_xcb
 ////
 ////      }
 //
-//      auto psystem = acmesystem();
+//      auto psystem = system();
 //
 //      auto pnode = psystem->node();
 //
@@ -1675,7 +1675,7 @@ namespace windowing_xcb
 
                   m_bFirstWindowMap = true;
 
-                  auto psystem = acmesystem()->m_papexsystem;
+                  auto psystem = system()->m_papexsystem;
 
                   auto pnode = psystem->node();
 
@@ -2670,7 +2670,7 @@ if(bSentResponse)
    Display * windowing::_get_Display()
    {
 
-      return (Display *) acmesystem()->m_pnode->m_pAuraPosix->_get_Display();
+      return (Display *) system()->m_pnode->m_pAuraPosix->_get_Display();
 
    }
 
@@ -2686,7 +2686,7 @@ if(bSentResponse)
    xcb_connection_t * windowing::_get_connection()
    {
 
-      return (xcb_connection_t *) acmesystem()->m_pnode->m_pAuraPosix->_get_connection();
+      return (xcb_connection_t *) system()->m_pnode->m_pAuraPosix->_get_connection();
 
 //      auto pdisplay = ::xcb::display::get(this);
 //
@@ -2707,7 +2707,7 @@ if(bSentResponse)
 //   void windowing::install_mouse_hook(::matter * pmatterListener)
 //   {
 //
-//      auto psystem = acmesystem()->m_paurasystem;
+//      auto psystem = system()->m_paurasystem;
 //
 //      auto psession = psystem->get_session();
 //
@@ -2734,7 +2734,7 @@ if(bSentResponse)
 //   void windowing::install_keyboard_hook(::matter * pmatterListener)
 //   {
 //
-//      auto psystem = acmesystem()->m_paurasystem;
+//      auto psystem = system()->m_paurasystem;
 //
 //      auto psession = psystem->get_session();
 //
@@ -2761,7 +2761,7 @@ if(bSentResponse)
 //   void windowing::uninstall_keyboard_hook(::matter * pmatterListener)
 //   {
 //
-////      auto psystem = acmesystem()->m_paurasystem;
+////      auto psystem = system()->m_paurasystem;
 ////
 ////      auto psession = psystem->get_session();
 ////
@@ -2779,7 +2779,7 @@ if(bSentResponse)
 //   void windowing::uninstall_mouse_hook(::matter * pmatterListener)
 //   {
 //
-////      auto psystem = acmesystem()->m_paurasystem;
+////      auto psystem = system()->m_paurasystem;
 ////
 ////      auto psession = psystem->get_session();
 ////

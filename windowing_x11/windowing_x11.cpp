@@ -1485,7 +1485,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       if (cookie)
       {
 
-         auto pxinput = dynamic_cast < ::xinput::xinput * >(acmesystem()->m_papexsystem->input());
+         auto pxinput = dynamic_cast < ::xinput::xinput * >(system()->m_papexsystem->input());
 
          if(pxinput)
          {

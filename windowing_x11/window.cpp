@@ -407,7 +407,7 @@ namespace windowing_x11
          if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
          {
 
-            auto psystem = acmesystem()->m_papexsystem;
+            auto psystem = system()->m_papexsystem;
 
             string strApplicationServerName = psystem->get_application_server_name();
 
@@ -415,7 +415,7 @@ namespace windowing_x11
 
             //         XClassHint * pupdate = XAllocClassHint();
             //
-            //         auto psystem = acmesystem()->m_papexsystem;
+            //         auto psystem = system()->m_papexsystem;
             //
             //         string strApplicationServerName = psystem->get_application_server_name();
             //
@@ -838,7 +838,7 @@ namespace windowing_x11
 
          pwindowing->m_bFirstWindowMap = true;
 
-         auto psystem = acmesystem()->m_papexsystem;
+         auto psystem = system()->m_papexsystem;
 
          auto pnode = psystem->node();
 
@@ -1161,7 +1161,7 @@ namespace windowing_x11
 
       synchronous_lock synchronouslock(user_synchronization());
 
-      auto psystem = acmesystem()->m_papexsystem;
+      auto psystem = system()->m_papexsystem;
 
       auto pnode = psystem->node();
 

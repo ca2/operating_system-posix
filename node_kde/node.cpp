@@ -210,11 +210,11 @@ namespace node_kde
       //auto estatus =
       //
 
-      acmesystem()->m_itask = 0;
+      system()->m_itask = 0;
 
-      acmesystem()->m_htask = (htask_t) 0;
+      system()->m_htask = (htask_t) 0;
 
-      acmesystem()->m_papexsystem->branch();
+      system()->m_papexsystem->branch();
 
       /// memory_new:platform_create_system:decrement_reference_count
       /// begin_synch starts memory_new thread
@@ -223,7 +223,7 @@ namespace node_kde
       /// now it is safe to release the platform_create_system
       /// creation reference.
 
-      acmesystem()->decrement_reference_count();
+      system()->decrement_reference_count();
 
 //      if (!estatus)
 //      {
@@ -254,7 +254,7 @@ namespace node_kde
 
       //auto idle_source = g_idle_source_new();
 
-      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) acmesystem(), nullptr);
+      //g_source_set_callback(idle_source, &linux_start_system, (::apex::system *) system(), nullptr);
 
       //g_source_attach(idle_source, g_main_context_default());
 
@@ -266,13 +266,13 @@ namespace node_kde
 
       {
 
-         node_init_check(&acmesystem()->m_psubsystem->m_argc, &acmesystem()->m_psubsystem->m_argv);
+         node_init_check(&system()->m_psubsystem->m_argc, &system()->m_psubsystem->m_argv);
 
       }
 
 #endif
 
-      auto psystem = acmesystem()->m_papexsystem;
+      auto psystem = system()->m_papexsystem;
 
       psystem->defer_post_initial_request();
 
@@ -286,7 +286,7 @@ namespace node_kde
 
       information() << "node_kde::node initialize";
 
-      auto psystem = pparticle->acmesystem();
+      auto psystem = pparticle->system();
 
       m_pqapplication = memory_new QApplication(psystem->m_psubsystem->m_argc, psystem->m_psubsystem->m_argv);
 
@@ -499,7 +499,7 @@ namespace node_kde
 //
 //      // wall-changer sourceforge.net contribution
 //
-////      auto psystem = acmesystem()->m_paurasystem;
+////      auto psystem = system()->m_paurasystem;
 ////
 ////      auto pnode = psystem->node();
 ////
@@ -554,7 +554,7 @@ namespace node_kde
    {
 
 //
-//      auto psystem = acmesystem()->m_paurasystem;
+//      auto psystem = system()->m_paurasystem;
 //
 //      auto pnode = psystem->node();
 //

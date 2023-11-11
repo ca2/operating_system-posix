@@ -125,7 +125,7 @@ namespace acme
 
          argv.add(nullptr);
          
-         auto envp = acmesystem()->m_envp;
+         auto envp = system()->m_envp;
 
          pid_t pid = 0;
 
@@ -198,7 +198,7 @@ namespace acme
 
          int status;
          
-         auto envp = acmesystem()->m_envp;
+         auto envp = system()->m_envp;
 
          status = posix_spawn(&pid, argv[0], nullptr, nullptr, argv, envp);
 

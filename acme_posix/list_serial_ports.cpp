@@ -161,7 +161,7 @@ namespace acme_posix
 
       unsigned int device_number = 0;
 
-      auto psystem = pparticle->acmesystem();
+      auto psystem = pparticle->system();
 
       auto pacmefile = psystem->m_pacmefile;
 
@@ -228,7 +228,7 @@ namespace acme_posix
 
          string sys_id_path = sys_device_path + string("/id");
 
-         auto psystem = pparticle->acmesystem();
+         auto psystem = pparticle->system();
 
          auto pacmefile = psystem->m_pacmefile;
 
@@ -351,7 +351,7 @@ namespace acme_posix
    string usb_sysfs_hw_string(::particle *pparticle, const string &sysfs_path)
    {
 
-      auto psystem = pparticle->acmesystem();
+      auto psystem = pparticle->system();
 
       auto pacmefile = psystem->m_pacmefile;
 

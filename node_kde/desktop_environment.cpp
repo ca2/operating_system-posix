@@ -171,7 +171,7 @@ namespace node_kde
    void desktop_environment::user_post(const ::procedure & procedure)
    {
 
-      auto psystem = acmesystem()->m_paurasystem;
+      auto psystem = system()->m_paurasystem;
 
       ::pointer < node > pnode = psystem->node();
 
@@ -196,7 +196,7 @@ namespace node_kde
    bool desktop_environment::message_loop_step()
    {
 
-      auto psystem = acmesystem()->m_paurasystem;
+      auto psystem = system()->m_paurasystem;
 
       auto psession = psystem->session()->m_paurasession;
 

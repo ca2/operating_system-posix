@@ -166,9 +166,9 @@ namespace windowing_x11
 
       windowing_output_debug_string("::x11_GetWindowRect 1");
 
-      auto psystem = acmesystem();
+      auto psystem = system();
 
-      auto psession = psystem->acmesession()->m_paurasession;
+      auto psession = psystem->session()->m_paurasession;
 
       auto puser = psession->user();
 

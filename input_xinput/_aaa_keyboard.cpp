@@ -172,7 +172,7 @@ namespace windowing_x11
 //
 //      }
 
-      enum_init(acmesystem());
+      enum_init(system());
 
       //return ::success;
 

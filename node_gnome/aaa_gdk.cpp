@@ -231,7 +231,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 //
 //      ::node_gnome::node * pnode = (::node_gnome::node *) data;
 //
-//      pnode->acmesystem()->m_papexsystem->signal(id_wallpaper_change);
+//      pnode->system()->m_papexsystem->signal(id_wallpaper_change);
 //
 //   }
 //
@@ -354,7 +354,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 //
 //         g_bInitializedUserTheme = true;
 //
-////         auto psystem = acmesystem()->m_papexsystem;
+////         auto psystem = system()->m_papexsystem;
 ////
 ////         psystem->start_subject_handling(id_os_user_theme);
 //
@@ -369,7 +369,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 //
 //      bool bOk = false;
 //
-//      auto psystem = acmesystem()->m_papexsystem;
+//      auto psystem = system()->m_papexsystem;
 //
 //      auto pnode = psystem->node();
 //

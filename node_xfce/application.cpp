@@ -116,7 +116,7 @@ void apex_application_activate(GApplication * application)
 
       throw ::exception(todo);
 
-//   auto psystem = acmesystem()->m_papexsystem;
+//   auto psystem = system()->m_papexsystem;
 //
 //   auto pnode = psystem->node();
 //
@@ -168,7 +168,7 @@ void apex_application_startup (GApplication *application)
 
    }
 
-   //::apex::system * psystem = papexapplication->acmesystem();
+   //::apex::system * psystem = papexapplication->system();
 
    //psystem->m_XstrAppId = psystem->m_pmaindata->m_XstrAppId;
 

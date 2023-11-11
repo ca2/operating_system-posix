@@ -64,7 +64,7 @@ namespace apex_posix
       try
       {
 
-         auto psystem = acmesystem();
+         auto psystem = system();
 
          auto pnode = psystem->node()->m_papexnode;
 

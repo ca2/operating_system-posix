@@ -163,7 +163,7 @@ namespace music
 
             }
 
-            string clientName = acmeapplication()->m_strAppId;
+            string clientName = application()->m_strAppId;
 
             int result = snd_seq_open(&m_pseq, "default", SND_SEQ_OPEN_DUPLEX, 0);
 
