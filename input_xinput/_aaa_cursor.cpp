@@ -60,7 +60,7 @@ namespace windowing_x11
 //   }
 
 
-   void cursor::_create_os_cursor()
+   void cursor::aaa_create_os_cursor()
    {
 
       if(m_cursor)
@@ -72,7 +72,7 @@ namespace windowing_x11
 
       //auto estatus =
       //
-      _load_default_cursor(m_ecursor);
+      aaa_load_default_cursor(m_ecursor);
 
 //      if(!estatus)
 //      {

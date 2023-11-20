@@ -191,7 +191,7 @@ namespace windowing_x11
 
       virtual int x_change_property(Atom property, Atom type, int format, int mode, const unsigned char * data, int nelements);
 
-      void set_mouse_cursor(::windowing::cursor * pcursor) override;
+      void aaa_set_mouse_cursor(::windowing::cursor * pcursor) override;
 
       virtual void set_mouse_cursor2(::windowing::cursor * pcursor);
 

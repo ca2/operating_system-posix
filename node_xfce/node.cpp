@@ -47,7 +47,7 @@ const char * linux_g_direct_get_file_icon_path(const char * pszPath, int iSize);
 const char * linux_g_direct_get_file_content_type(const char * pszPath);
 
 
-void x11_add_idle_source();
+//void aaa_x11_add_idle_source();
 
 
 void x11_add_filter();
@@ -272,13 +272,13 @@ namespace node_xfce
 //
 //         });
 
-         //x11_add_idle_source(this);
+         //aaa_x11_add_idle_source(this);
 
-         //x11_add_idle_source(this);
+         //aaa_x11_add_idle_source(this);
 
          gtk_main();
 
-         //x11_main();
+         //aaa_x11_main();
 
       }
 

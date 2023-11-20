@@ -10,10 +10,10 @@
 
 
 
-void x11_add_idle_source(::node_gnome::node * pnode);
+//void aaa_x11_add_idle_source(::node_gnome::node * pnode);
 
 
-void x11_add_idle_source();
+//void aaa_x11_add_idle_source();
 
 
 void x11_add_filter();

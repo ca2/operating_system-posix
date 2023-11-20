@@ -443,7 +443,7 @@ namespace windowing_x11
 
       //auto pwindowing = x11_windowing();
 
-      user_post(predicate);
+      aaa_user_post(predicate);
 
       return ::success;
 

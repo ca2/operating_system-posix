@@ -194,7 +194,7 @@ namespace node_gtk
 //   }
 //
 //
-//   bool desktop_environment::message_loop_step()
+//   bool desktop_environment::aaa_message_loop_step()
 //   {
 //
 //      auto psystem = system()->m_paurasystem;

@@ -2188,7 +2188,7 @@ namespace windowing_wayland
 //   void window::show_window(const ::e_display & edisplay, const ::e_activation & eactivation)
 //   {
 //
-//      user_post([this, edisplay, eactivation]()
+//      aaa_user_post([this, edisplay, eactivation]()
 //                                      {
 //
 //                                         windowing_output_debug_string("::window::show_window 1");
@@ -2282,7 +2282,7 @@ namespace windowing_wayland
 //   void window::_show_window_unlocked(const ::e_display & edisplay, const ::e_activation & eactivation)
 //   {
 //
-//      //user_post([this, edisplay, eactivation]()
+//      //aaa_user_post([this, edisplay, eactivation]()
 //      //{
 //
 //      windowing_output_debug_string("::window::show_window 1");
@@ -6484,13 +6484,13 @@ namespace windowing_wayland
 //         if(pmouse->m_pcursor)
 //         {
 //
-//            windowing()->set_mouse_cursor(pmouse->m_pcursor);
+//            windowing()->aaa_set_mouse_cursor(pmouse->m_pcursor);
 //
 //         }
 //         else
 //         {
 //
-//            windowing()->set_mouse_cursor(get_mouse_cursor());
+//            windowing()->aaa_set_mouse_cursor(get_mouse_cursor());
 //
 //         }
 //

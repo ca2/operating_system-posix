@@ -35,7 +35,7 @@ namespace node_gnome
 //   void windowing_post(const ::procedure & procedure) override;
 //
 //
-//   bool message_loop_step() override;
+//   bool aaa_message_loop_step() override;
 //
 //
 //   //virtual xcb_connection_t * _get_connection() override;

@@ -130,7 +130,7 @@ namespace windowing_x11
 
       //virtual bool __x11_hook_list_is_empty();
 
-      virtual bool x11_message_loop();
+      //virtual bool aaa_x11_message_loop();
 
       virtual bool x11_message_loop_step();
 

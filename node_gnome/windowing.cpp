@@ -39,12 +39,12 @@
 ////   }
 //
 //
-//   bool windowing::message_loop_step()
+//   bool windowing::aaa_message_loop_step()
 //   {
 //
-//      return ::node_gtk::windowing::message_loop_step();
+//      return ::node_gtk::windowing::aaa_message_loop_step();
 //
-////      if(!x11_message_loop_step())
+////      if(!aaa_x11_message_loop_step())
 ////      {
 ////
 ////         return false;

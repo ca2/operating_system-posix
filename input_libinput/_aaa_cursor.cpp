@@ -60,7 +60,7 @@ namespace windowing_x11
 //   }
 
 
-   void cursor::_create_os_cursor()
+   void cursor::aaa_create_os_cursor()
    {
 
       if(m_cursor)

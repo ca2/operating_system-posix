@@ -42,7 +42,7 @@
 #include "aura/message/user.h"
 #include "aura_posix/x11/xim_keyboard.h"
 
-//bool x11_runnable_step();
+//bool aaa_x11_runnable_step();
 
 
 //::pointer< ::mutex > g_pmutexX11Runnable = nullptr;
@@ -854,7 +854,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 
 
-//gboolean x11_source_func(gpointer ppointer);
+//gboolean aaa_x11_source_func(gpointer ppointer);
 
 
    Atom g_atomKickIdle = 0;
@@ -898,7 +898,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //   }
 //
-//   g_idle_add(x11_source_func, pdisplaydata);
+//   g_idle_add(aaa_x11_source_func, pdisplaydata);
 //
 //}
 
@@ -1009,7 +1009,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 
 
-//gboolean x11_source_func(gpointer)
+//gboolean aaa_x11_source_func(gpointer)
 //{
 
 // return false;
@@ -1101,7 +1101,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //         try
 //         {
 //
-//            if (!x11_runnable_step())
+//            if (!aaa_x11_runnable_step())
 //            {
 //
 //               break;
@@ -1136,20 +1136,20 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //   }
 
 
-   bool windowing::x11_message_loop()
-   {
+   // bool windowing::aaa_x11_message_loop()
+   // {
 
-      while (x11_message_loop_step())
-      {
+   //    while (aaa_x11_message_loop_step())
+   //    {
 
-      }
+   //    }
 
-      return true;
+   //    return true;
 
-   }
+   // }
 
 
-//gboolean x11_source_func(gpointer)
+//gboolean aaa_x11_source_func(gpointer)
    bool windowing::x11_message_loop_step()
    {
 
@@ -1186,6 +1186,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       {
 
          _synchronous_lock synchronouslock(user_synchronization());
+
+         if(!m_pdisplay)
+         {
+
+            return true;
+
+         }
 
          display_lock displayLock(m_pdisplay->Display());
 
@@ -1392,6 +1399,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    bool windowing::x11_process_event(XEvent *pevent)
 #endif
    {
+
+      //information() << "x";
 
       XEvent & e = *pevent;
 
@@ -1602,7 +1611,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                //msg.oswindow->set_cursor_position(m_pointCursor);
 
-               //information() << "MotionNotify " << m_pointCursor;
+               information() << "MotionNotify " << m_pdisplay->m_pointCursor2;
 
                //g_pointX11Cursor.x = e.xmotion.x_root;
 
@@ -3078,6 +3087,17 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       }
 
+      information() << "windowing::post_ui_message oswindow : " << (::iptr) pmessage->m_oswindow;
+
+      ::pointer < ::user::message > pusermessage = pmessage;
+
+      if(pusermessage)
+      {
+
+         information() << "windowing::post_ui_message pwindow : " << (::iptr) pusermessage->m_pwindow.m_p;
+
+      }
+
       puserinteraction->post_message(pmessage);
 
    }
@@ -3097,7 +3117,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //      while (!m_bFinishX11Thread)
 //      {
 //
-//         x11_message_loop_step();
+//         aaa_x11_message_loop_step();
 //
 //      }
 //

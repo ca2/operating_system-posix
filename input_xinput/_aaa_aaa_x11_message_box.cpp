@@ -254,9 +254,9 @@ void setWindowTitle(const char* title, const Window *win, Display *dpy){
 //
 //        switch (e.type){
 //
-//            case MotionNotify:
-//            case ButtonPress:
-//            case ButtonRelease:
+//            case aaaMotionNotify:
+//            case aaaButtonPress:
+//            case aaaButtonRelease:
 //                for(int i = 0; i < numButtons; i++) {
 //                    btsData[i].gc = &buttonGC;
 //                    if (isInside(e.xmotion.x, e.xmotion.y, btsData[i].rect)) {
@@ -269,7 +269,7 @@ void setWindowTitle(const char* title, const Window *win, Display *dpy){
 //                    }
 //                }
 //
-//            case Expose:
+//            case aaaExpose:
 //                //draw the text in multiply lines----------------------------------------------------------------------
 //                for(int i = 0; i < textLines; i++){
 //

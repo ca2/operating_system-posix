@@ -187,6 +187,8 @@ namespace windowing_x11
 
       bool bHandled = false;
 
+      //information() << "windowing_x11::windowing::x11_runnable_step";
+
       process_owned_procedure_list(m_procedurelistPriority, bHandled);
 
       if (m_pdisplay)

@@ -630,10 +630,10 @@ namespace acme_posix
    }
 
 
-//   void node::user_post(const ::procedure & procedure)
+//   void node::aaa_user_post(const ::procedure & procedure)
 //   {
 //
-//      ::acme::node::node_post(procedure);
+//      ::acme::node::aaa_node_post(procedure);
 //
 //   }
 

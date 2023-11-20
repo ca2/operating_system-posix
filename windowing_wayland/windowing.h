@@ -142,11 +142,11 @@ namespace windowing_wayland
 
       //virtual bool x11_message_loop();
 
-      //virtual bool x11_message_loop_step();
+      //virtual bool aaa_x11_message_loop_step();
 
       //void windowing_post(const ::procedure & procedure) override;
 
-      //virtual bool x11_runnable_step();
+      //virtual bool aaa_x11_runnable_step();
 
       virtual ::windowing::window * window(oswindow oswindow) override;
 

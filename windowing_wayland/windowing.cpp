@@ -218,7 +218,7 @@ namespace windowing_wayland
 //   }
 
 
-//   bool windowing::x11_runnable_step()
+//   bool windowing::aaa_x11_runnable_step()
 //   {
 //
 //      bool bHandled = false;
@@ -231,7 +231,7 @@ namespace windowing_wayland
 //         if (m_pdisplay->m_px11display)
 //         {
 //
-//            while (m_pdisplay->m_px11display->x11_posted())
+//            while (m_pdisplay->m_px11display->aaa_x11_posted())
 //            {
 //
 //               bHandled = true;
@@ -603,7 +603,7 @@ namespace windowing_wayland
 //
 //                                         //auto estatus =
 //                                         //
-//                                         pcursorx11->_create_os_cursor();
+//                                         pcursorx11->aaa_create_os_cursor();
 //
 ////         if(!estatus)
 ////         {

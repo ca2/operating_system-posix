@@ -43,7 +43,7 @@
 ////   }
 //
 //
-//   bool windowing::message_loop_step()
+//   bool windowing::aaa_message_loop_step()
 //   {
 //
 //      if(m_itask == -1)
@@ -53,7 +53,7 @@
 //
 //      }
 //
-//      if(!x11_message_loop_step())
+//      if(!aaa_x11_message_loop_step())
 //      {
 //
 //         return false;

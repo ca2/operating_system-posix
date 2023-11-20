@@ -36,7 +36,7 @@ namespace input_xinput
 
          bool bKeyboard = m_particleaMouseHandler.has_element();
 
-         user_post([this, bMouse, bKeyboard]()
+        aaa_user_post([this, bMouse, bKeyboard]()
          {
 
             synchronous_lock synchronouslock(this->synchronization());

@@ -12,7 +12,7 @@
 //::e_status aaa_os_defer_init_gtk();
 
 
-bool x11_message_loop_step();
+bool aaa_x11_message_loop_step();
 
 
 gboolean gtk_quit_callback(gpointer data);

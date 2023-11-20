@@ -717,7 +717,7 @@ bool simple_ui_display::process_event(Display * pdisplay, XEvent & e, XGenericEv
    if(e.xany.window == m_window)
    {
 
-      if (e.type == Expose)
+      if (e.type == aaaExpose)
       {
 
          call_expose(pdisplay);
@@ -725,7 +725,7 @@ bool simple_ui_display::process_event(Display * pdisplay, XEvent & e, XGenericEv
          XFlush(pdisplay);
 
       }
-      else if (e.type == MotionNotify)
+      else if (e.type == aaaMotionNotify)
       {
 
          ::point_i32 point(e.xmotion.x, e.xmotion.y);

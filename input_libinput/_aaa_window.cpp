@@ -1786,7 +1786,7 @@ namespace windowing_x11
 //   void window::show_window(const ::e_display & edisplay, const ::e_activation & eactivation)
 //   {
 //
-//      user_post([this, edisplay, eactivation]()
+//      aaa_user_post([this, edisplay, eactivation]()
 //                                      {
 //
 //                                         windowing_output_debug_string("::window::show_window 1");
@@ -1879,7 +1879,7 @@ namespace windowing_x11
 //   void window::_show_window_unlocked(const ::e_display & edisplay, const ::e_activation & eactivation)
 //   {
 //
-//      //user_post([this, edisplay, eactivation]()
+//      //aaa_user_post([this, edisplay, eactivation]()
 //      //{
 //
 //      windowing_output_debug_string("::window::show_window 1");
@@ -3725,7 +3725,7 @@ namespace windowing_x11
    }
 
 
-   void window::set_mouse_cursor(::windowing::cursor * pcursor)
+   void window::aaa_set_mouse_cursor(::windowing::cursor * pcursor)
    {
 
       if (::is_null(pcursor))
@@ -3745,7 +3745,7 @@ namespace windowing_x11
       }
 
 
-      user_post([this, pcursorx11]()
+      aaa_user_post([this, pcursorx11]()
                                    {
 
                                       if (!pcursorx11->m_cursor)
@@ -3753,7 +3753,7 @@ namespace windowing_x11
 
                                          //auto estatus =
                                          //
-                                         pcursorx11->_create_os_cursor();
+                                         pcursorx11->aaa_create_os_cursor();
 
 //         if(!estatus)
 //         {
@@ -4795,7 +4795,7 @@ namespace windowing_x11
    void window::window_update_screen_buffer()
    {
 
-      user_post([this]()
+      aaa_user_post([this]()
                                    {
 
                                       auto pimpl = m_puserinteractionimpl;
@@ -4885,7 +4885,7 @@ namespace windowing_x11
    void window::set_mouse_capture()
    {
 
-      user_post([this]()
+      aaa_user_post([this]()
                                    {
 
                                       synchronous_lock synchronouslock(user_synchronization());

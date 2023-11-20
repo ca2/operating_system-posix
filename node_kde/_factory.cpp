@@ -9,8 +9,9 @@
 
 __FACTORY_EXPORT void windowing_xcb_factory(::factory::factory * pfactory);
 __FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory);
+#if !defined(RASPBERRYPIOS)
 __FACTORY_EXPORT void windowing_wayland_factory(::factory::factory * pfactory);
-
+#endif
 
 __FACTORY_EXPORT void node_kde_factory(::factory::factory * pfactory)
 {
@@ -27,6 +28,8 @@ __FACTORY_EXPORT void node_kde_factory(::factory::factory * pfactory)
 
    printf("XDG_SESSION_TYPE %s\n", strSessionType.c_str());
 
+#if !defined(RASPBERRYPIOS)
+
    if(strSessionType == "wayland")
    {
 
@@ -36,6 +39,7 @@ __FACTORY_EXPORT void node_kde_factory(::factory::factory * pfactory)
 
    }
    else
+   #endif
    {
 
       //windowing_xcb_factory(pfactory);

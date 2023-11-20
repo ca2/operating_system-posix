@@ -321,7 +321,7 @@ namespace windowing_x11
    void window::wm_toolwindow(bool bToolWindow)
    {
 
-      user_post([this, bToolWindow]()
+      aaa_user_post([this, bToolWindow]()
       {
 
          windowing_output_debug_string("::wm_toolwindow 1");

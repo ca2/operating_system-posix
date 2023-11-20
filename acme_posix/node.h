@@ -103,7 +103,7 @@ namespace acme_posix
       virtual int _get_proc_stat_core_count();
 
 
-      //void user_post(const ::procedure & procedure) override;
+      //void aaa_user_post(const ::procedure & procedure) override;
 
 //#if defined(__clang__) && !defined(ANDROID)
 //      ::string get_callstack() override;

@@ -664,7 +664,7 @@ namespace windowing_x11
                   sizeBitBlitting.cx(),
                   sizeBitBlitting.cy());
 
-               information() << "XPutImage : " << sizeBitBlitting;
+               //information() << "XPutImage : " << sizeBitBlitting;
 
                //information() << acmenode()->get_callstack();
 

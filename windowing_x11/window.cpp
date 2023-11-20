@@ -1786,7 +1786,7 @@ namespace windowing_x11
 //   void window::show_window(const ::e_display & edisplay, const ::e_activation & eactivation)
 //   {
 //
-//      user_post([this, edisplay, eactivation]()
+//      aaa_user_post([this, edisplay, eactivation]()
 //                                      {
 //
 //                                         windowing_output_debug_string("::window::show_window 1");
@@ -1879,7 +1879,7 @@ namespace windowing_x11
 //   void window::_show_window_unlocked(const ::e_display & edisplay, const ::e_activation & eactivation)
 //   {
 //
-//      //user_post([this, edisplay, eactivation]()
+//      //aaa_user_post([this, edisplay, eactivation]()
 //      //{
 //
 //      windowing_output_debug_string("::window::show_window 1");
@@ -3744,12 +3744,22 @@ namespace windowing_x11
 
       }
 
+      information() << "windowing_x11::window::set_mouse_cursor";
+
+      if(pcursor->m_ecursor == e_cursor_size_bottom_right)
+      {
+
+         information() << "e_cursor_size_bottom_right";
+
+      }
 
       user_post([this, pcursorx11]()
                                    {
 
                                       if (!pcursorx11->m_cursor)
                                       {
+
+                                       information() << "_create_os_cursor";
 
                                          //auto estatus =
                                          //
@@ -3778,6 +3788,8 @@ namespace windowing_x11
                                       windowing_output_debug_string("::SetCursor 1");
 
                                       display_lock displaylock(x11_display()->Display());;
+
+                                      information() << "XDefineCursor : " << pcursorx11->m_cursor;
 
                                       XDefineCursor(Display(), Window(), pcursorx11->m_cursor);
 

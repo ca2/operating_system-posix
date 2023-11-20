@@ -182,14 +182,25 @@ namespace windowing_x11
 
       auto cursor = XCreateFontCursor(px11display->Display(), iCursor);
 
+      if(iCursor == XC_bottom_right_corner)
+      {
+
+         information() << "XC_bottom_right_corner";
+
+      }
+
       if(!cursor)
       {
+
+         information() << "XC_bottom_right_corner !cursor";
 
          return error_failed;
 
       }
 
       m_cursor = cursor;
+
+      information() << "XC_bottom_right_corner cursor : " << cursor;
 
       return ::success;
 

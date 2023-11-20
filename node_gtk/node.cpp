@@ -28,7 +28,7 @@
 #include <gdk/gdkx.h>
 
 
-bool x11_message_loop_step();
+bool aaa_x11_message_loop_step();
 
 
 gboolean gtk_quit_callback(gpointer data);
@@ -140,7 +140,7 @@ void gtk_settings_gtk_icon_theme_name_callback(GObject *object, GParamSpec *pspe
 }
 
 
-void x11_add_idle_source();
+//void aaa_x11_add_idle_source();
 
 
 void x11_add_filter();
@@ -342,12 +342,16 @@ namespace node_gtk
       else
       {
 
+         information() << "node_gtk::system_main going to user_post";
+
          user_post([this]()
                    {
 
                       // This seems not to work with "foreign" windows
                       // (X11 windows not created with Gdk)
                       //x11_add_filter();
+
+                      information() << "node_gtk::system_main on user_post";
 
 
                       auto pgtksettingsDefault = gtk_settings_get_default();
@@ -428,13 +432,13 @@ namespace node_gtk
 //
 //         });
 
-         //x11_add_idle_source(this);
+         //aaa_x11_add_idle_source(this);
 
-         //x11_add_idle_source(this);
+         //aaa_x11_add_idle_source(this);
 
          gtk_main();
 
-         //x11_main();
+         //aaa_x11_main();
 
       }
 
@@ -477,12 +481,16 @@ namespace node_gtk
    bool node::windowing_message_loop_step()
    {
 
+      //information() << "node::windowing_message_loop_step";
+
       auto psession = session();
 
       if (::is_null(psession))
       {
 
-         return false;
+         //information() << "node::windowing_message_loop_step NO SESSION";
+
+         return true;
 
       }
 
@@ -491,7 +499,9 @@ namespace node_gtk
       if (::is_null(paurasession))
       {
 
-         return false;
+         //information() << "node::windowing_message_loop_step NO AURA SESSION";
+
+         return true;
 
       }
 
@@ -500,7 +510,9 @@ namespace node_gtk
       if (::is_null(puser))
       {
 
-         return false;
+         //information() << "node::windowing_message_loop_step NO SESSION USER";
+
+         return true;
 
       }
 
@@ -509,9 +521,13 @@ namespace node_gtk
       if (::is_null(pwindowing))
       {
 
-         return false;
+         //information() << "node::windowing_message_loop_step NO USER WINDOWING";
+
+         return true;
 
       }
+
+      //information() << "node::windowing_message_loop_step at windowing";
 
       bool bRet = pwindowing->message_loop_step();
 

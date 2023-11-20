@@ -26,7 +26,7 @@
 //      //virtual ::e_status windowing_post(const ::procedure & procedure) override;
 //
 //
-//      virtual bool message_loop_step() override;
+//      virtual bool aaa_message_loop_step() override;
 //
 //
 //   };
