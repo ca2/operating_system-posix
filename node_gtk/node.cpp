@@ -242,31 +242,16 @@ namespace node_gtk
    }
 
 
-   void node::system_main()
+   void node::on_start_system()
    {
 
-      system()->m_itask = 0;
+      system()->on_branch_system_from_main_thread_startup();
 
-      system()->m_htask = nullptr;
-      //auto estatus =
-      //
-      //system()->m_papexsystem->branch_synchronously();
-      system()->m_papexsystem->branch();
+   }
 
-//      if (!estatus)
-//      {
-//
-//         warning() <<"Failed to begin_synch the system (::apex::system or ::apex::system derived)";
-//
-//         return estatus;
-//
-//      }
 
-      // To pair freebsd.h/main platform_create_system memory_new system
-      // This should be safe here in this node_gtk::node
-      // because just above system() has begin_synch()
-      // so the running thread is holding references to the system() thread.
-      system()->release();
+   void node::on_system_main()
+   {
 
       //   ::e_status estatus = psystem->begin_synch();
       //

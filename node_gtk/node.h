@@ -69,7 +69,9 @@ namespace node_gtk
 
       virtual string _os_get_user_theme();
 
-      void system_main() override;
+      void on_start_system() override;
+
+      void on_system_main() override;
 
       bool is_branch_current() const override;
 
