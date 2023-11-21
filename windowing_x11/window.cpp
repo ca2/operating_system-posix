@@ -3744,14 +3744,14 @@ namespace windowing_x11
 
       }
 
-      information() << "windowing_x11::window::set_mouse_cursor";
+      //information() << "windowing_x11::window::set_mouse_cursor";
 
-      if(pcursor->m_ecursor == e_cursor_size_bottom_right)
-      {
+      // if(pcursor->m_ecursor == e_cursor_size_bottom_right)
+      // {
 
-         information() << "e_cursor_size_bottom_right";
+      //    information() << "e_cursor_size_bottom_right";
 
-      }
+      // }
 
       user_post([this, pcursorx11]()
                                    {
@@ -3789,7 +3789,7 @@ namespace windowing_x11
 
                                       display_lock displaylock(x11_display()->Display());;
 
-                                      information() << "XDefineCursor : " << pcursorx11->m_cursor;
+                                      //information() << "XDefineCursor : " << pcursorx11->m_cursor;
 
                                       XDefineCursor(Display(), Window(), pcursorx11->m_cursor);
 

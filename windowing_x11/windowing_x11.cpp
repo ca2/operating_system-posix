@@ -1611,7 +1611,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                //msg.oswindow->set_cursor_position(m_pointCursor);
 
-               information() << "MotionNotify " << m_pdisplay->m_pointCursor2;
+               //information() << "MotionNotify " << m_pdisplay->m_pointCursor2;
 
                //g_pointX11Cursor.x = e.xmotion.x_root;
 
@@ -3087,26 +3087,26 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       }
 
-      information() << "windowing::post_ui_message oswindow : " << (::iptr) pmessage->m_oswindow;
-      information() << "windowing::post_ui_message cntRef (A1) : " << (::iptr) pmessage->m_countReference;
+      // information() << "windowing::post_ui_message oswindow : " << (::iptr) pmessage->m_oswindow;
+      // information() << "windowing::post_ui_message cntRef (A1) : " << (::iptr) pmessage->m_countReference;
 
       {
 
          ::pointer < ::user::message > pusermessage = pmessage;
 
-         if(pusermessage)
-         {
+         // if(pusermessage)
+         // {
 
-            information() << "windowing::post_ui_message pwindow : " << (::iptr) pusermessage->m_pwindow.m_p;
-            information() << "windowing::post_ui_message cntRef (A2) : " << (::iptr) pmessage->m_countReference;
+         //    information() << "windowing::post_ui_message pwindow : " << (::iptr) pusermessage->m_pwindow.m_p;
+         //    information() << "windowing::post_ui_message cntRef (A2) : " << (::iptr) pmessage->m_countReference;
 
-         }
+         // }
 
          puserinteraction->post_message(pmessage);
 
       }
 
-      information() << "windowing::post_ui_message cntRef (A3) : " << (::iptr) pmessage->m_countReference;
+//      information() << "windowing::post_ui_message cntRef (A3) : " << (::iptr) pmessage->m_countReference;
 
    }
 
