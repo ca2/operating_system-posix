@@ -46,7 +46,7 @@ namespace write_text_pango
       for (int i = 0; i < n_families; i++)
       {
 
-         auto pitem = __new(::write_text::font_enumeration_item);
+         auto pitem = __allocate< ::write_text::font_enumeration_item >();
 
          PangoFontFamily * pfamily = families[i];
 

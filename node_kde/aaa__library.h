@@ -20,7 +20,7 @@
 #include <QImage>
 #include <QDesktopServices>
 #include <QUrl>
-//#define memory_new ACME_NEW
+
 
 
 #include "aura_posix/_library.h"

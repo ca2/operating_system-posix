@@ -17,7 +17,7 @@ namespace system_5
    interprocess_caller::interprocess_caller()
    {
 
-      //mutex() = memory_new ::pointer < ::mutex >(pparticle);
+      //mutex() = __new< ::pointer < ::mutex > >(pparticle);
 
    }
 
@@ -121,11 +121,11 @@ namespace system_5
 
       }
 
-      ::informationf("functon: \"interprocess_caller::send\"\n");
+      ::acme::get()->platform()->informationf("functon: \"interprocess_caller::send\"\n");
 
-      ::informationf("channel: \"" + m_strBaseChannel + "\"\n");
+      ::acme::get()->platform()->informationf("channel: \"" + m_strBaseChannel + "\"\n");
 
-      ::informationf("message: \"" + string(pszMessage) + "\"\n");
+      ::acme::get()->platform()->informationf("message: \"" + string(pszMessage) + "\"\n");
 
       //return true;
 

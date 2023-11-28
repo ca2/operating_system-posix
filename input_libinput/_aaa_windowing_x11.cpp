@@ -26,7 +26,7 @@
 #include <X11/extensions/XInput.h>
 #include <X11/extensions/XInput2.h>
 #include <X11/XKBlib.h>
-//#define memory_new ACME_NEW
+
 //#include "aura/operating_system/x11/_x11.h"
 #include "acme/parallelization/message_queue.h"
 #include "windowing_x11.h"
@@ -51,7 +51,7 @@
 //::point_i32 g_pointX11Cursor;
 
 
-message_queue * get_message_queue(itask_t idthread, bool bCreate);
+//message_queue * aaa_get_message_queue(itask_t idthread, bool bCreate);
 
 
 void oswindow_set_active_window(oswindow oswindow);
@@ -2646,7 +2646,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                   if (e.xbutton.button == Button1)
                   {
 
-                     ::informationf("ButtonPress::Button1\n");
+                     ::acme::get()->platform()->informationf("ButtonPress::Button1\n");
 
                      emessage = e_message_left_button_down;
 
@@ -2689,7 +2689,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                   if (e.xbutton.button == Button1)
                   {
 
-                     ::informationf("ButtonRelease::Button1\n");
+                     ::acme::get()->platform()->informationf("ButtonRelease::Button1\n");
 
                      emessage = e_message_left_button_up;
 
@@ -2845,7 +2845,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                   if (!pwindow->m_pximkeyboard)
                   {
 
-                     pwindow->m_pximkeyboard = memory_new ::xim::keyboard(m_pdisplay->Display(), e.xkey.window);
+                     pwindow->m_pximkeyboard = __new< ::xim::keyboard(m_pdisplay->Display >(), e.xkey.window);
 
                      pwindow->m_pximkeyboard->initialize(pwindow);
 
@@ -2925,7 +2925,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //               msgText.wParam = 0;
 //
-//               string *pstringText = memory_new string(strText);
+//               string *pstringText = __new< string >(strText);
 //
 //               msgText.lParam = (lparam) (iptr) (string *) (pstringText);
 
@@ -2944,7 +2944,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          case FocusIn:
          {
 
-            ::informationf("FocusIn\n");
+            ::acme::get()->platform()->informationf("FocusIn\n");
 
             msg.m_atom = e_message_set_focus;
 
@@ -3029,7 +3029,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          case FocusOut:
          {
 
-            ::informationf("FocusOut\n");
+            ::acme::get()->platform()->informationf("FocusOut\n");
 
             if (::is_set(px11window))
             {
@@ -3266,7 +3266,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
          }
 
-         pmessagequeue = pthread->get_message_queue();
+         pmessagequeue = pthread->aaa_get_message_queue();
 
       }
 
@@ -3463,7 +3463,7 @@ bool x11_get_window_rect(Display * d, Window window, ::rectangle_i32 * prectangl
 
    XSetErrorHandler(_c_XErrorHandler);
 
-   //g_pmutexX11 = memory_new ::pointer < ::mutex >();
+   //g_pmutexX11 = __new< ::pointer < ::mutex > >();
 
    return ::success;
 

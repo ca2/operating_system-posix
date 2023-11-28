@@ -68,7 +68,7 @@ GC xcb_create_gc(Colormap colormap, xcb_connection_t* pdisplay, xcb_window_t win
 //
 //   defer_initialize_xcb();
 //
-//   auto pdisplay = __new(simple_ui_display(str, strTitle, emessagebox));
+//   auto pdisplay = __allocate< simple_ui_display >(str, strTitle, emessagebox);
 //
 //   return pdisplay->show();
 //
@@ -190,7 +190,7 @@ void xcb_wait_timer_or_event(xcb_connection_t * pdisplay)
 //
 //   int retval = fcntl(g_fdX11[0], F_SETFL, fcntl(g_fdX11[0], F_GETFL) | O_NONBLOCK);
 //
-//   g_pmutexX11 = memory_new ::pointer < ::mutex >();
+//   g_pmutexX11 = __new< ::pointer < ::mutex > >();
 //
 //}
 //

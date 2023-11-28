@@ -33,7 +33,7 @@ namespace node_gtk
 } // namespace node_gtk
 
 
-#define __matter(TYPE) __new(::matter<TYPE>)
+#define __matter(TYPE) __allocate< ::matter<TYPE> >()
 
 
 //#include "gtk.h"

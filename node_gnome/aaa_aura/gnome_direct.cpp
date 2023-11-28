@@ -180,7 +180,7 @@
 //   appindicator * allocate_appindicator()
 //   {
 //
-//      return memory_new ::gnome_appindicator();
+//      return __new< ::gnome_appindicator >();
 //
 //   }
 //
@@ -257,7 +257,7 @@
 //      if(action_group != nullptr)
 //      {
 //
-//         GtkActionEntry * entries = memory_new GtkActionEntry[pbridge->_get_notification_area_action_count()];
+//         GtkActionEntry * entries = __new< GtkActionEntry[pbridge->_get_notification_area_action_count >()];
 //
 //         string strInfo;
 //

@@ -24,7 +24,7 @@ namespace node_gnome
 #include "_constant.h"
 
 
-#define __matter(TYPE) __new(::matter<TYPE>)
+#define __matter(TYPE) __allocate< ::matter<TYPE> >()
 
 
 namespace user

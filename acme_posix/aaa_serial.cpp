@@ -469,7 +469,7 @@ serial_impl::reconfigurePort()
    // activate settings
    ::tcsetattr(m_iFd, TCSANOW, &options);
 
-   // Update byte_time_ based on the memory_new settings.
+   // Update byte_time_ based on the aaa_primitive_new settings.
    u32 bit_time_ns = 1e9 / m_ulBaudrate;
    m_uiByteTimeNs = bit_time_ns * (1 + (int)m_ebytesize + (int)m_eparity + (int)m_estopbit);
 
@@ -572,7 +572,7 @@ serial_impl::waitByteTimes(size_t count)
 size_t
 serial_impl::read(u8 * buf, size_t size)
 {
-   // If the port is not open, throw ::exception(memory_new
+   // If the port is not open, throw ::exception(aaa_primitive_new
    if (!m_bOpened)
    {
       throw port_not_opened_exception("read");

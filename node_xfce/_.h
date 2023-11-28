@@ -21,7 +21,7 @@ namespace node_xfce
 } // namespace node_xfce
 
 
-#define __matter(TYPE) __new(::matter<TYPE>)
+#define __matter(TYPE) __allocate< ::matter<TYPE> >()
 
 
 namespace user

@@ -15,6 +15,6 @@ static ::pointer< ::mutex > s_pmutexDraw2dXlib = nullptr;
 void init_xlib_mutex(::particle * pparticle)
 {
 
-    s_pmutexDraw2dXlib = memory_new ::pointer < ::mutex >(pparticle);
+    s_pmutexDraw2dXlib = __new< ::pointer < ::mutex > >(pparticle);
 
 }

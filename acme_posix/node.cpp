@@ -298,7 +298,7 @@ namespace acme_posix
    ::pointer < ::mutex > node::create_local_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::string & strName, security_attributes * psecurityattributes)
    {
 
-      return __new(mutex(pparticleContext, bInitialOwner, "Local\\" + strName));
+      return __allocate< mutex >(pparticleContext, bInitialOwner, "Local\\" + strName);
 
    }
 
@@ -306,7 +306,7 @@ namespace acme_posix
    ::pointer < ::mutex > node::create_global_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::string & strName, security_attributes * psecurityattributes)
    {
 
-      return __new(mutex(pparticleContext, bInitialOwner, "Global\\" + strName));
+      return __allocate< mutex >(pparticleContext, bInitialOwner, "Global\\" + strName);
 
    }
 
@@ -326,7 +326,7 @@ namespace acme_posix
 
    }
 
-   auto pmutex  = __new(mutex(e_create_new, lpszName, h));
+   auto pmutex  = __allocate< mutex >(e_create_new, lpszName, h);
 
    return pmutex;
 
@@ -359,7 +359,7 @@ namespace acme_posix
 
    }
 
-   auto pmutex = __new(mutex(strName, psem, isCreator));
+   auto pmutex = __allocate< mutex >(strName, psem, isCreator);
 
    return pmutex;
 
@@ -439,7 +439,7 @@ namespace acme_posix
 
    //pthread_mutex_init(m_pmutex, &attr);
 
-   auto pmutex = __new(mutex(e_create_new, lpszName, iFd, false));
+   auto pmutex = __allocate< mutex >(e_create_new, lpszName, iFd, false);
 
    return pmutex;
 
@@ -455,7 +455,7 @@ namespace acme_posix
    i32 semid = semget(
                key, // a unique identifier to identify semaphore set
                1,  // number of semaphore in the semaphore set
-               0666 // permissions (rwxrwxrwx) on the memory_new
+               0666 // permissions (rwxrwxrwx) on the new
                //semaphore set and creation flag
                );
    if(semid < 0)
@@ -465,7 +465,7 @@ namespace acme_posix
 
    }
 
-   auto pmutex = __new(mutex(strName, key, semid));
+   auto pmutex = __allocate< mutex >(strName, key, semid);
 
    return pmutex;
 
@@ -493,7 +493,7 @@ namespace acme_posix
    ::pointer < ::acme::exclusive > node::get_exclusive(::particle * pparticleContext, const ::string & strName, security_attributes * psecurityattributes)
    {
 
-      return __new(exclusive(pparticleContext, strName));
+      return __allocate< exclusive >(pparticleContext, strName);
 
    }
 
@@ -757,7 +757,7 @@ namespace acme_posix
          if (strExe.case_insensitive_ends("_app_core_clockverse"))
          {
 
-            ::informationf("app-core/clockverse");
+            ::acme::get()->platform()->informationf("app-core/clockverse");
 
          }
 
@@ -777,7 +777,7 @@ namespace acme_posix
          if (strExe.case_insensitive_ends("_app_core_clockverse"))
          {
 
-            ::informationf("app-core/clockverse");
+            ::acme::get()->platform()->informationf("app-core/clockverse");
 
          }
 
@@ -1103,7 +1103,7 @@ namespace acme_posix
 ::process_identifier_array node::module_path_processes_identifiers(const ::string & psz, bool bModuleNameIsPropertyFormatted)
    {
 
-      ::informationf("os/linux_process.cpp app_get_pid (" + string(psz) + ")");
+      ::acme::get()->platform()->informationf("os/linux_process.cpp app_get_pid (" + string(psz) + ")");
 
    ::process_identifier_array ia;
 
@@ -1489,7 +1489,7 @@ namespace acme_posix
 
          wordexp(pszCommandLine, &we, 0);
 
-         char **argv = memory_new char *[we.we_wordc + 1];
+         char **argv = __new_array< char * >(we.we_wordc + 1);
 
          memory_copy(argv, we.we_wordv, we.we_wordc * sizeof(char *));
 
@@ -1887,7 +1887,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
 
       wordexp(pszCommandLine, &we, 0);
 
-      char **argv = memory_new char *[we.we_wordc + 1];
+      char **argv = __new_array< char * >(we.we_wordc + 1);
 
       memory_copy(argv, we.we_wordv, we.we_wordc * sizeof(char *));
 

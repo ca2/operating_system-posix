@@ -292,7 +292,7 @@ namespace draw2d_xlib
 /*
       if(m_pdata != nullptr)
       {
-         memory_free(m_pdata);
+         ::heap::management::memory(::heap::e_memory_main)->free(m_pdata);
          m_pdata = nullptr;
       }
 

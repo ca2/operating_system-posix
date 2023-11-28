@@ -274,7 +274,7 @@ namespace windowing_xcb
       pimpl->m_puserinteraction->m_pinteractionimpl = pimpl;
 
       pimpl->m_puserinteraction->increment_reference_count(
-         OBJECT_REFERENCE_COUNT_DEBUG_P_NOTE(this, "native_create_window"));
+         REFERENCING_DEBUGGING_P_NOTE(this, "native_create_window"));
 
       auto papp = pimpl->m_puserinteraction->get_app();
 

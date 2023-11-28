@@ -166,7 +166,7 @@ namespace node_gtk
 
       }
 
-      ::pointer < ::node_gtk::node > pgtknode = ::platform::get()->system()->acmenode();
+      ::pointer < ::node_gtk::node > pgtknode = this->platform()->system()->acmenode();
 
       if (!os_defer_init_gtk(pgtknode))
       {
@@ -203,7 +203,7 @@ namespace node_gtk
    ::e_status gsettings_sync()
    {
 
-      ::pointer < ::node_gtk::node > pgtknode = ::platform::get()->system()->acmenode();
+      ::pointer < ::node_gtk::node > pgtknode = this->platform()->system()->acmenode();
 
       if (!os_defer_init_gtk(pgtknode))
       {
@@ -236,7 +236,7 @@ namespace node_gtk
 
       }
 
-      ::pointer < ::node_gtk::node > pgtknode = ::platform::get()->system()->acmenode();
+      ::pointer < ::node_gtk::node > pgtknode = this->platform()->system()->acmenode();
 
       if (!os_defer_init_gtk(pgtknode))
       {

@@ -26,7 +26,7 @@
 //#include <Xcb/extensions/XInput2.h>
 //#include <Xcb/XKBlib.h>
 #include <X11/XKBlib.h>
-//#define memory_new ACME_NEW
+
 #include "acme/operating_system/xcb/_xcb.h"
 #include "acme/parallelization/message_queue.h"
 #include "windowing_xcb.h"
@@ -34,7 +34,7 @@
 
 
 
-message_queue * get_message_queue(itask_t idthread, bool bCreate);
+//message_queue * aaa_get_message_queue(itask_t idthread, bool bCreate);
 
 
 void oswindow_set_active_window(oswindow oswindow);
@@ -785,21 +785,21 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       _libsn_start_context();
 
 
-      //g_pmutexXcbRunnable = memory_new ::pointer < ::mutex >();
+      //g_pmutexXcbRunnable = __new< ::pointer < ::mutex > >();
 
-      //g_prunnableptrlXcb = memory_new list<::pointer<::matter >>);
+      //g_prunnableptrlXcb = aaa_memory_new list<::pointer<::matter >>);
 
-//      g_pmutexXcbSync = memory_new ::pointer < ::mutex >();
+//      g_pmutexXcbSync = __new< ::pointer < ::mutex > >();
 
-//      g_peventXcbSync = memory_new manual_reset_event();
+//      g_peventXcbSync = __new< manual_reset_event >();
 
-      //oswindow_data::s_pdataptra = memory_new oswindow_dataptra;
+      //oswindow_data::s_pdataptra = __new< oswindow_dataptra >();
 
-      //oswindow_data::s_pmutex = memory_new ::pointer < ::mutex >;
+      //oswindow_data::s_pmutex = aaa_memory_new ::pointer < ::mutex >;
 
-      //osdisplay_data::s_pdataptra = memory_new osdisplay_dataptra;
+      //osdisplay_data::s_pdataptra = __new< osdisplay_dataptra >();
 
-      //osdisplay_data::s_pmutex = memory_new ::pointer < ::mutex >;
+      //osdisplay_data::s_pmutex = aaa_memory_new ::pointer < ::mutex >;
 
       //return true;
 
@@ -1144,7 +1144,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //
 //
-//message_queue * get_message_queue(itask_t idthread, bool bCreate);
+//message_queue * aaa_get_message_queue(itask_t idthread, bool bCreate);
 //
 //
 //void oswindow_set_active_window(oswindow oswindow);

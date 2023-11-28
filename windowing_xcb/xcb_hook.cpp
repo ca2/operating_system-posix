@@ -7,7 +7,7 @@
 //void xcb_hook_init()
 //{
 //
-//  g_pxcbhooka = memory_new pointer_array < xcb_hook >;
+//  g_pxcbhooka = aaa_memory_new pointer_array < xcb_hook >;
 //
 //}
 

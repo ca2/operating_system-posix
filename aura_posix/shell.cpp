@@ -715,7 +715,7 @@ namespace aura_posix
 //
 //            }
 //
-//            image_key * pstore = memory_new image_key(imagekey);
+//            image_key * pstore = __new< image_key >(imagekey);
 //
 //            {
 //
@@ -874,7 +874,7 @@ namespace aura_posix
 //         if (!m_pshell)
 //         {
 //
-//            estatus = __construct(m_pshell, __new(::freebsd::shell));
+//            estatus = __construct(m_pshell, __allocate< ::freebsd::shell >());
 //
 //            if (!estatus)
 //            {

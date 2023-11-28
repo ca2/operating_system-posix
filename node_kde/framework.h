@@ -15,7 +15,7 @@
 
 
 
-//#define memory_new ACME_NEW
+
 
 
 //void copy(::color::color * pcolor, const QColor * pqcolor);

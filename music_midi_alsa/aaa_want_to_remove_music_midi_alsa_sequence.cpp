@@ -318,7 +318,7 @@ namespace music
    //
    //         //    sofs.pstrName     = m_pstrFile;
    //
-   //         //PSMF pSmf = memory_new SMF();
+   //         //PSMF pSmf = aaa_primitive_new SMF();
    //
    //         //smfrc = file()->OpenFile(&sofs);
    //         smfrc = file()->OpenFile(ar, openMode);
@@ -527,7 +527,7 @@ namespace music
    //               /*if(bThrow)
    //               {
    //               set_state(e_state_opened);
-   //               throw memory_new exception(mmrc, MIDIPLAYERPRERROLLREADEVENTSEXCEPTION);
+   //               throw aaa_primitive_new exception(mmrc, MIDIPLAYERPRERROLLREADEVENTSEXCEPTION);
    //               }*/
    ///*               goto seq_Preroll_Cleanup;
    //            }
@@ -550,7 +550,7 @@ namespace music
    //            if(bThrow)
    //            {
    //               set_state(e_state_opened);
-   //               throw memory_new exception(get_app(), mmrc, MIDIPLAYERPRERROLLPREPAREHEADEREXCEPTION);
+   //               throw aaa_primitive_new exception(get_app(), mmrc, MIDIPLAYERPRERROLLPREPAREHEADEREXCEPTION);
    //            }
    //            else
    //            {
@@ -567,7 +567,7 @@ namespace music
    //            if(bThrow)
    //            {
    //               set_state(e_state_opened);
-   //               throw memory_new exception(get_app(), ::music::EMidiPlayerPrerollPrepareHeader);
+   //               throw aaa_primitive_new exception(get_app(), ::music::EMidiPlayerPrerollPrepareHeader);
    //            }
    //            else
    //            {
@@ -664,7 +664,7 @@ namespace music
 
                //}
 
-               m_pmidiout = __sp(memory_new midi_out(get_app(), strDriver));
+               m_pmidiout = __sp(aaa_primitive_new midi_out(get_app(), strDriver));
 
             }
 
@@ -707,7 +707,7 @@ namespace music
    //         if (err < 0)
    //         {
    //
-   //            ::informationf("Could not connect to port "+::unicode_from(m_iClient)+":"+::unicode_from(m_iPort)+"\n");
+   //            ::acme::get()->platform()->informationf("Could not connect to port "+::unicode_from(m_iClient)+":"+::unicode_from(m_iPort)+"\n");
    //
    //            return ::error_failed;
    //
@@ -1334,7 +1334,7 @@ namespace music
                         {
                            if(plyriceventa == NULL)
                            {
-                              plyriceventa = memory_new array <::ikaraoke::lyric_event_v1, ::ikaraoke::lyric_event_v1 &>;
+                              plyriceventa = aaa_primitive_new array <::ikaraoke::lyric_event_v1, ::ikaraoke::lyric_event_v1 &>;
                            }
                            ::file::memory_buffer memFile(get_app(), (LPBYTE) &lpdwParam[1], pheader->m_dwLength - sizeof(::u32));
                            /* x2x                  CArchive ar(&memFile, CArchive::load);
@@ -1752,10 +1752,10 @@ namespace music
    //         int32_t i;
    //         for(i = 0; i < tickaaTokensTicks.get_size(); i++)
    //         {
-   //            pLyricEventsV2 = memory_new ::ikaraoke::lyric_events_v2();
-   //            pLyricEventsV2B = memory_new ::ikaraoke::lyric_events_v2();
-   //            pLyricEventsV2C = memory_new ::ikaraoke::lyric_events_v2();
-   //            pLyricEventsV2_ = memory_new ::ikaraoke::lyric_events_v2();
+   //            pLyricEventsV2 = aaa_primitive_new ::ikaraoke::lyric_events_v2();
+   //            pLyricEventsV2B = aaa_primitive_new ::ikaraoke::lyric_events_v2();
+   //            pLyricEventsV2C = aaa_primitive_new ::ikaraoke::lyric_events_v2();
+   //            pLyricEventsV2_ = aaa_primitive_new ::ikaraoke::lyric_events_v2();
    //            staticdata.m_eventsv1.add(pLyricEventsV2);
    //            staticdata.m_eventsv1.add(pLyricEventsV2B);
    //            staticdata.m_eventsv1.add(pLyricEventsV2C);
@@ -1930,7 +1930,7 @@ namespace music
    //
    //         for(i = 0; i < tickaaTokensTicks.get_size(); i++)
    //         {
-   //            pLyricEventsV1 = memory_new ::ikaraoke::lyric_events_v1();
+   //            pLyricEventsV1 = aaa_primitive_new ::ikaraoke::lyric_events_v1();
    //            pLyricEventsV1->m_iType = ikaraoke::EventAdvanceShow;
    //            pLyricEventsV1->m_iOrder = i;
    //            //staticdata.m_eventsTracksForPositionCB.add(pLyricEventsV1);
@@ -2425,7 +2425,7 @@ namespace music
 
             ASSERT(this != NULL);
 
-            event * pevent          = memory_new event();
+            event * pevent          = aaa_primitive_new event();
 
             pevent->m_eevent        = eevent;
             pevent->m_psequence     = this;

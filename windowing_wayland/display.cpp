@@ -113,7 +113,7 @@ namespace windowing_wayland
    }
 
 
-   i64 display::increment_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_PARAMETERS)
+   i64 display::increment_reference_count(REFERENCING_DEBUGGING_PARAMETERS)
    {
 
 #ifdef WINDOWS
@@ -133,7 +133,7 @@ namespace windowing_wayland
    }
 
 
-   i64 display::decrement_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_PARAMETERS)
+   i64 display::decrement_reference_count(REFERENCING_DEBUGGING_PARAMETERS)
    {
 
 #ifdef WINDOWS
@@ -153,10 +153,10 @@ namespace windowing_wayland
    }
 
 
-   i64 display::release(OBJECT_REFERENCE_COUNT_DEBUG_PARAMETERS)
+   i64 display::release(REFERENCING_DEBUGGING_PARAMETERS)
    {
 
-      i64 i = decrement_reference_count(OBJECT_REFERENCE_COUNT_DEBUG_ARGS);
+      i64 i = decrement_reference_count(REFERENCING_DEBUGGING_ARGS);
 
       return i;
 
@@ -582,7 +582,7 @@ namespace windowing_wayland
 //   ::windowing_wayland::window * display::_get_keyboard_focus()
 //   {
 //
-////      auto ppropertyobject = __new(::property_object);
+////      auto ppropertyobject = __allocate< ::property_object >();
 ////
 ////      auto predicate = [this, ppropertyobject]()
 ////      {

@@ -240,7 +240,7 @@ namespace music
             if(m_pplayer != NULL)
             {
 
-               auto pdata = __sp(memory_new ::music::midi::notify_event());
+               auto pdata = __sp(aaa_primitive_new ::music::midi::notify_event());
 
                pdata->m_enotifyevent = eevent;
 
@@ -485,7 +485,7 @@ namespace music
                   if(::success != (mmrc = get_sequence()->Stop()))
                   {
 
-                     __throw(memory_new ::multimedia::exception(multimedia::exception_music, mmrc));
+                     __throw(aaa_primitive_new ::multimedia::exception(multimedia::exception_music, mmrc));
 
                   }
 
@@ -507,7 +507,7 @@ namespace music
                   if(::success != (mmrc = get_sequence()->Stop()))
                   {
 
-                     __throw(memory_new ::multimedia::exception(multimedia::exception_music, mmrc));
+                     __throw(aaa_primitive_new ::multimedia::exception(multimedia::exception_music, mmrc));
 
                   }
 

@@ -69,7 +69,7 @@ int x11_message_box(const string & str, const string & strTitle, const ::e_messa
 
    defer_initialize_x11();
 
-   auto pdisplay = __new(simple_ui_display(str, strTitle, emessagebox));
+   auto pdisplay = __allocate< simple_ui_display >(str, strTitle, emessagebox);
 
    return pdisplay->show();
 
@@ -191,7 +191,7 @@ void x11_wait_timer_or_event(Display * pdisplay)
 //
 //   int retval = fcntl(g_fdX11[0], F_SETFL, fcntl(g_fdX11[0], F_GETFL) | O_NONBLOCK);
 //
-//   g_pmutexX11 = memory_new ::pointer < ::mutex >();
+//   g_pmutexX11 = __new< ::pointer < ::mutex > >();
 //
 //}
 //

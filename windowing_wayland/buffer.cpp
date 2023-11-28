@@ -248,7 +248,7 @@ namespace windowing_wayland
 //
 //         XGCValues gcvalues;
 //
-//   //      m_pdc = memory_new device_context();
+//   //      m_pdc = __new< device_context >();
 //
 //         m_gc = XCreateGC(d, m_oswindow->window(), 0, &gcvalues);
 //

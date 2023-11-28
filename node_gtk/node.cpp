@@ -82,7 +82,7 @@ void gtk_settings_gtk_theme_name_callback(GObject *object, GParamSpec *pspec, gp
 
    string strTheme = theme_name;
 
-   ::informationf("gtk_settings_gtk_theme_name_callback: \"" + strTheme + "\"\n");
+   ::acme::get()->platform()->informationf("gtk_settings_gtk_theme_name_callback: \"" + strTheme + "\"\n");
 
    g_free(theme_name);
 
@@ -120,7 +120,7 @@ void gtk_settings_gtk_icon_theme_name_callback(GObject *object, GParamSpec *pspe
 
    string strIconTheme = icon_theme_name;
 
-   ::informationf("gtk_settings_gtk_icon_theme_name_callback: \"" + strIconTheme + "\"\n");
+   ::acme::get()->platform()->informationf("gtk_settings_gtk_icon_theme_name_callback: \"" + strIconTheme + "\"\n");
 
    g_free(icon_theme_name);
 
@@ -1148,7 +1148,7 @@ namespace node_gtk
    ::os_theme_colors *node::_new_os_theme_colors(string strTheme)
    {
 
-      auto pthemecolors = memory_new ::os_theme_colors;
+      auto pthemecolors = __new< ::os_theme_colors >();
 
       GtkStyleContext *pstylecontext = gtk_style_context_new();
 
@@ -1307,7 +1307,7 @@ namespace node_gtk
    void node::_set_os_theme_colors(::os_theme_colors *posthemecolors)
    {
 
-      ::informationf("_set_os_theme_colors\n");
+      ::acme::get()->platform()->informationf("_set_os_theme_colors\n");
 
       ::user::os_set_theme_colors(posthemecolors);
 
@@ -1369,7 +1369,7 @@ namespace node_gtk
    void node::_apply_os_user_theme()
    {
 
-      ::informationf("applying os user theme: \"" + m_strOsUserTheme + "\"\n");
+      ::acme::get()->platform()->informationf("applying os user theme: \"" + m_strOsUserTheme + "\"\n");
 
       os_process_user_theme(m_strOsUserTheme);
 
@@ -1379,7 +1379,7 @@ namespace node_gtk
    void node::_apply_os_user_icon_theme()
    {
 
-      ::informationf("applying os user icon theme: \"" + m_strOsUserIconTheme + "\"\n");
+      ::acme::get()->platform()->informationf("applying os user icon theme: \"" + m_strOsUserIconTheme + "\"\n");
 
       os_process_user_icon_theme(m_strOsUserIconTheme);
 
@@ -1389,25 +1389,25 @@ namespace node_gtk
    void node::os_process_user_theme(string strOsTheme)
    {
 
-      ::informationf(
+      ::acme::get()->platform()->informationf(
               "os_process_user_theme: is strTheme(" + strOsTheme + ") same as m_strTheme(" + m_strTheme + ")\n");
 
       if (strOsTheme == m_strTheme)
       {
 
-         ::informationf(
+         ::acme::get()->platform()->informationf(
                  "os_process_user_theme: same theme as before [new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
 
          return;
 
       }
 
-      ::informationf(
+      ::acme::get()->platform()->informationf(
               "os_process_user_theme: different theme [new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
 
       m_strTheme = strOsTheme;
 
-      ::informationf("os_process_user_theme m_strTheme = \"" + m_strTheme + "\"\n");
+      ::acme::get()->platform()->informationf("os_process_user_theme m_strTheme = \"" + m_strTheme + "\"\n");
 
       try
       {
@@ -1436,25 +1436,25 @@ namespace node_gtk
    void node::os_process_user_icon_theme(string strOsIconTheme)
    {
 
-      ::informationf(
+      ::acme::get()->platform()->informationf(
               "os_process_user_icon_theme: is strIconTheme(" + strOsIconTheme + ") same as m_strIconTheme(" + m_strIconTheme + ")\n");
 
       if (strOsIconTheme == m_strIconTheme)
       {
 
-         ::informationf(
+         ::acme::get()->platform()->informationf(
                  "os_process_user_icon_theme: same theme as before [new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
 
          return;
 
       }
 
-      ::informationf(
+      ::acme::get()->platform()->informationf(
               "os_process_user_icon_theme: different theme [new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
 
       m_strIconTheme = strOsIconTheme;
 
-      ::informationf("os_process_user_icon_theme m_strIconTheme = \"" + m_strIconTheme + "\"\n");
+      ::acme::get()->platform()->informationf("os_process_user_icon_theme m_strIconTheme = \"" + m_strIconTheme + "\"\n");
 
       try
       {

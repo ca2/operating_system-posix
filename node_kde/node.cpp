@@ -216,10 +216,10 @@ namespace node_kde
 
       system()->m_papexsystem->branch();
 
-      /// memory_new:platform_create_system:decrement_reference_count
-      /// begin_synch starts memory_new thread
+      /// new:platform_create_system:decrement_reference_count
+      /// begin_synch starts new thread
       /// the framework will hold a reference to the system as this
-      /// memory_new started thread
+      /// new started thread
       /// now it is safe to release the platform_create_system
       /// creation reference.
 
@@ -288,7 +288,7 @@ namespace node_kde
 
       auto psystem = pparticle->system();
 
-      m_pqapplication = memory_new QApplication(psystem->m_pplatform->m_argc, psystem->m_pplatform->m_argv);
+      m_pqapplication = __new< QApplication >(psystem->m_pplatform->m_argc, psystem->m_pplatform->m_argv);
 
       if(!m_pqapplication)
       {
@@ -617,7 +617,7 @@ namespace node_kde
 //      if(::is_null(m_piconloader))
 //      {
 //
-//         m_piconloader = memory_new KIconLoader();
+//         m_piconloader = __new< KIconLoader >();
 //
 //      }
 

@@ -237,7 +237,7 @@ namespace windowing_x11
          if (m_px11data.is_null())
          {
 
-            m_px11data = __new(x11data);
+            m_px11data = __allocate< x11data >();
 
          }
 
@@ -400,7 +400,7 @@ namespace windowing_x11
          pimpl->m_puserinteraction->m_pinteractionimpl = pimpl;
 
          pimpl->m_puserinteraction->increment_reference_count(
-            OBJECT_REFERENCE_COUNT_DEBUG_P_NOTE(this, "native_create_window"));
+            REFERENCING_DEBUGGING_P_NOTE(this, "native_create_window"));
 
          auto papp = get_app();
 
@@ -983,7 +983,7 @@ namespace windowing_x11
    //
    //      }
    //
-   //      ::window *pdata = memory_new window;
+   //      ::window *pdata = __new< window >();
    //
    //      pdata->m_bMessageOnlyWindow = true;
    //      pdata->m_window = None;
@@ -1034,7 +1034,7 @@ namespace windowing_x11
       //
       //      }
       //
-      //      ::window *pdata = memory_new ::window;
+      //      ::window *pdata = __new< ::window >();
 
       m_bMessageOnlyWindow = false;
       //m_osdisplay = osdisplay_get(Display());
@@ -1495,7 +1495,7 @@ namespace windowing_x11
 
       m_htask = pimpl->get_app()->get_os_handle();
 
-      m_pmessagequeue = pimpl->m_puserinteraction->m_pthreadUserInteraction->get_message_queue();
+      m_pmessagequeue = pimpl->m_puserinteraction->m_pthreadUserInteraction->aaa_get_message_queue();
 
       //oswindow_assign(this, pimpl);
 
@@ -2595,7 +2595,7 @@ namespace windowing_x11
 
          }
 
-         pmessagequeue = pthread->get_message_queue();
+         pmessagequeue = pthread->aaa_get_message_queue();
 
       }
 
@@ -2657,7 +2657,7 @@ namespace windowing_x11
 
       itask_t idthread = pinteraction->get_app()->get_itask();
 
-      message_queue * pmq = get_message_queue(idthread, false);
+      message_queue * pmq = aaa_get_message_queue(idthread, false);
 
       if (pmq == nullptr)
       {

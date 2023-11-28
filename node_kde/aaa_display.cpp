@@ -39,14 +39,14 @@
 //   {
 //
 //      m_pDisplay2 = this;
-//      //m_pcsOsDisplayData = memory_new critical_section();
+//      //m_pcsOsDisplayData = aaa_primitive_new critical_section();
 ////      m_pdisplay = nullptr;
 ////      m_atomLongType = None;
 ////      m_atomLongStyle = None;
 ////      m_atomNetWmState = None;
 ////      m_atomLongStyleEx = 0;
 ////      m_countReference = 1;
-////   m_pmutexInput           = memory_new ::pointer < ::mutex >();
+////   m_pmutexInput           = aaa_primitive_new ::pointer < ::mutex >();
 //
 //   }
 //
@@ -100,7 +100,7 @@
 ////
 ////      }
 ////
-////      display *pdisplaydata = memory_new display;
+////      display *pdisplaydata = aaa_primitive_new display;
 ////
 ////      pdisplaydata->m_pdisplay = pdisplay;
 ////      pdisplaydata->m_atomLongType = XInternAtom(pdisplay, CA2_X11_WINDOW_LONG, False);

@@ -87,7 +87,7 @@ namespace node_kde
    ::e_status notify_icon::_create_status_notifier_item()
    {
 
-      m_pstatusnotifieritem = memory_new KStatusNotifierItem();
+      m_pstatusnotifieritem = __new< KStatusNotifierItem >();
 
       string strTrayIconName = m_piconCurrent->get_tray_icon_name();
 
@@ -119,7 +119,7 @@ namespace node_kde
 
       string strFriendlyName = papp->m_papexapplication->get_app_user_friendly_task_bar_name();
 
-      auto pmenu = memory_new QMenu();
+      auto pmenu = __new< QMenu >();
 
       for (index i = 0; i < _get_notification_area_action_count(); i++)
       {
@@ -149,7 +149,7 @@ namespace node_kde
          else
          {
 
-            auto paction = memory_new QAction(strName.c_str(), pmenu);
+            auto paction = __new< QAction(strName.c_str >(), pmenu);
 
             connect(paction, &QAction::triggered, this, [this, strId]()
             {
