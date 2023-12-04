@@ -85,7 +85,7 @@
 ////   }
 ////
 ////
-////   inline i64 increment_reference_count(REFERENCING_DEBUGGING_PARAMETERS)
+////   inline i64 increment_reference_count()
 ////   {
 ////
 ////#ifdef WINDOWS
@@ -105,7 +105,7 @@
 ////   }
 ////
 ////
-////   inline i64 decrement_reference_count(REFERENCING_DEBUGGING_PARAMETERS)
+////   inline i64 decrement_reference_count()
 ////   {
 ////
 ////#ifdef WINDOWS
@@ -125,10 +125,10 @@
 ////   }
 ////
 ////
-////   inline i64 release(REFERENCING_DEBUGGING_PARAMETERS)
+////   inline i64 release()
 ////   {
 ////
-////      i64 i = decrement_reference_count(REFERENCING_DEBUGGING_ARGS);
+////      i64 i = decrement_reference_count();
 ////
 ////      if (i == 0)
 ////      {

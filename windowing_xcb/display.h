@@ -64,9 +64,9 @@ namespace windowing_xcb
 
 
       virtual i64 get_ref_count();
-      virtual i64 increment_reference_count(REFERENCING_DEBUGGING_PARAMETERS);
-      virtual i64 decrement_reference_count(REFERENCING_DEBUGGING_PARAMETERS);
-      virtual i64 release(REFERENCING_DEBUGGING_PARAMETERS);
+      virtual i64 increment_reference_count();
+      virtual i64 decrement_reference_count();
+      virtual i64 release();
 
 
 #endif

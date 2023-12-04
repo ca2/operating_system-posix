@@ -87,26 +87,26 @@ namespace windowing_xcb
    }
 
 
-   i64 display::increment_reference_count(REFERENCING_DEBUGGING_PARAMETERS)
+   i64 display::increment_reference_count()
    {
 
-      return ::windowing::display::increment_reference_count(REFERENCING_DEBUGGING_ARGS);
+      return ::windowing::display::increment_reference_count();
 
    }
 
 
-   i64 display::decrement_reference_count(REFERENCING_DEBUGGING_PARAMETERS)
+   i64 display::decrement_reference_count()
    {
 
-      return ::windowing::display::increment_reference_count(REFERENCING_DEBUGGING_ARGS);
+      return ::windowing::display::increment_reference_count();
 
    }
 
 
-   i64 display::release(REFERENCING_DEBUGGING_PARAMETERS)
+   i64 display::release()
    {
 
-      return ::windowing::display::release(REFERENCING_DEBUGGING_ARGS);
+      return ::windowing::display::release();
 
    }
 

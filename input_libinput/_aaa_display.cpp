@@ -76,7 +76,7 @@ namespace windowing_x11
    }
 
 
-   i64 display::increment_reference_count(REFERENCING_DEBUGGING_PARAMETERS)
+   i64 display::increment_reference_count()
    {
 
 #ifdef WINDOWS
@@ -96,7 +96,7 @@ namespace windowing_x11
    }
 
 
-   i64 display::decrement_reference_count(REFERENCING_DEBUGGING_PARAMETERS)
+   i64 display::decrement_reference_count()
    {
 
 #ifdef WINDOWS
@@ -116,10 +116,10 @@ namespace windowing_x11
    }
 
 
-   i64 display::release(REFERENCING_DEBUGGING_PARAMETERS)
+   i64 display::release()
    {
 
-      i64 i = decrement_reference_count(REFERENCING_DEBUGGING_ARGS);
+      i64 i = decrement_reference_count();
 
       return i;
 

@@ -65,26 +65,26 @@ simple_ui_display::simple_ui_display(const string & strMessageParam, const strin
 }
 
 
-i64 simple_ui_display::increment_reference_count(REFERENCING_DEBUGGING_PARAMETERS_DEF)
+i64 simple_ui_display::increment_reference_count()
 {
 
-   return xcb_hook::increment_reference_count(REFERENCING_DEBUGGING_ARGS);
+   return xcb_hook::increment_reference_count();
 
 }
 
 
-i64 simple_ui_display::decrement_reference_count(REFERENCING_DEBUGGING_PARAMETERS_DEF)
+i64 simple_ui_display::decrement_reference_count()
 {
 
-   return xcb_hook::decrement_reference_count(REFERENCING_DEBUGGING_ARGS);
+   return xcb_hook::decrement_reference_count();
 
 }
 
 
-i64 simple_ui_display::release(REFERENCING_DEBUGGING_PARAMETERS_DEF)
+i64 simple_ui_display::release()
 {
 
-   return xcb_hook::release(REFERENCING_DEBUGGING_ARGS);
+   return xcb_hook::release();
 
 }
 
