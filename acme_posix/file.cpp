@@ -201,7 +201,7 @@ namespace acme_posix
       if(eopen & ::file::e_open_create)
       {
 
-         ::information() << "file::open with permission : " << path;
+         information() << "file::open with permission : " << path;
 
          hFile = ::open(path, dwFlags | O_CLOEXEC, dwPermission); //::open(m_strFileName, dwAccess, dwShareMode, &sa, dwCreateFlag, FILE_ATTRIBUTE_NORMAL, nullptr);
 
@@ -209,7 +209,7 @@ namespace acme_posix
       else
       {
 
-         ::information() << "file::open : " << path;
+         information() << "file::open : " << path;
 
          hFile = ::open(path, dwFlags | O_CLOEXEC); //::open(m_strFileName, dwAccess, dwShareMode, &sa, dwCreateFlag, FILE_ATTRIBUTE_NORMAL, nullptr);
 

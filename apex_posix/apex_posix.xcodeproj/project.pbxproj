@@ -182,8 +182,6 @@
 		9A0C171B264A2DAB00B5CC33 /* apex_posix */ = {
 			isa = PBXGroup;
 			children = (
-				9A226D4827CE9D7C0042BAC2 /* os_context.cpp */,
-				9A226D4A27CE9D7C0042BAC2 /* os_context.h */,
 				9A0C1727264A2DAB00B5CC33 /* _.cpp */,
 				9A0C1734264A2DAB00B5CC33 /* _.h */,
 				9A0C172D264A2DAB00B5CC33 /* _factory.cpp */,
@@ -191,6 +189,8 @@
 				9A0C1730264A2DAB00B5CC33 /* framework.h */,
 				9A0C1720264A2DAB00B5CC33 /* node.cpp */,
 				9A0C1722264A2DAB00B5CC33 /* node.h */,
+				9A226D4827CE9D7C0042BAC2 /* os_context.cpp */,
+				9A226D4A27CE9D7C0042BAC2 /* os_context.h */,
 			);
 			name = apex_posix;
 			sourceTree = "<group>";

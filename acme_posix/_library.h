@@ -4,13 +4,10 @@
 #pragma once
 
 
-#include "acme/operating_system.h"
+#include "acme/_.h"
 
-//
-//
-//critical_section * get_pid_cs();
-//chldstatus get_chldstatus(int iPid);
-//void init_chldstatus(int iPid);
+
+#if !defined(__MM)
 
 
 #include "file_memory_map.h"
@@ -29,6 +26,9 @@
 
 
 #include "node.h"
+
+
+#endif // !defined(__MM)
 
 
 
