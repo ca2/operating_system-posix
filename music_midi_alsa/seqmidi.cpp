@@ -263,7 +263,7 @@
 //
 //	seq_write(ctxp, ep);
 //
-//	::heap::management::memory(::heap::e_memory_main)->free(ndata);
+//	::acme::get()->m_pheapmanagement->memory(::heap::e_memory_main)->free(ndata);
 //}
 //
 ///*
