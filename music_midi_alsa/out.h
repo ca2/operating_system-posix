@@ -63,7 +63,7 @@ void tempo(int iTempo) override;
             void send_short_message(::music::midi::enum_midi_message etype, int iChannel, int iData1, int iData2) override;
 
 
-            bool step() override;
+            bool midi_message_step() override;
 
 
             class ::time get_time_position() override;

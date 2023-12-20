@@ -10,6 +10,7 @@
 #include "cursor.h"
 #include "acme/constant/message.h"
 #include "acme/parallelization/synchronous_lock.h"
+#include "acme/parallelization/task_message_queue.h"
 #include "acme/user/user/_text_stream.h"
 #include "apex/platform/node.h"
 #include "apex/platform/system.h"
@@ -4815,7 +4816,7 @@ namespace windowing_x11
                                       if (::is_set(pimpl))
                                       {
 
-                                         pimpl->m_pgraphics->update_screen();
+                                         pimpl->m_pgraphicsgraphics->update_screen();
 
                                       }
 
@@ -4852,7 +4853,7 @@ namespace windowing_x11
 
          configure_window_unlocked();
 
-         ::pointer<buffer> pbuffer = pimpl->m_pgraphics;
+         ::pointer<buffer> pbuffer = pimpl->m_pgraphicsgraphics;
 
          pbuffer->_update_screen_lesser_lock();
 

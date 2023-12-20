@@ -137,7 +137,7 @@ namespace windowing_x11
    }
 
 
-   void display::open()
+   void display::open_display()
    {
 
       if (::is_set(m_px11display))

@@ -163,7 +163,7 @@ namespace music
          }
 
 
-         bool message_out::step()
+         bool message_out::midi_message_step()
          {
 
             if(m_iWrite > 0)

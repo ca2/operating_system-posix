@@ -140,7 +140,7 @@ namespace node_gnome
    }
 
 
-   bool notify_icon::step()
+   bool notify_icon::notify_icon_step()
    {
 
       //return ::success;

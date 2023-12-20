@@ -27,7 +27,7 @@ namespace write_text_pango
    void font_enumeration::on_enumerate_fonts()
    {
 
-      //synchronous_lock ml(cairo_mutex());
+      //synchronous_lock ml(::draw2d_cairo::mutex());
 
       __defer_construct_new(m_pfontenumerationitema);
 

@@ -42,7 +42,7 @@ namespace music
             void pitch_bend(int iChannel, unsigned short ushBend) override;
             void sysex(const ::block & block) override;
 
-            bool step() override;
+            bool midi_message_step() override;
 
             void general_midi_reset() override;
 

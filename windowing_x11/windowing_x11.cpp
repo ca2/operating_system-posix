@@ -1434,7 +1434,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //               }
 
-               ::pointer<buffer> pbuffer = px11window->m_puserinteractionimpl->m_pgraphics;
+               ::pointer<buffer> pbuffer = px11window->m_puserinteractionimpl->m_pgraphicsgraphics;
 
                auto pbufferitem = pbuffer->get_buffer_item();
 
@@ -1842,7 +1842,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                 auto pimpl = px11window->m_puserinteractionimpl;
 
                 //auto puserinteraction = pimpl->m_puserinteraction;
-               ::pointer<buffer> pbuffer = pimpl->m_pgraphics;
+               ::pointer<buffer> pbuffer = pimpl->m_pgraphicsgraphics;
 
                if(!pbuffer->m_bXShm || !pbuffer->m_bXShmPutImagePending)
                {
@@ -2600,7 +2600,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                   if (!pwindow->m_pximkeyboard)
                   {
 
-                     pwindow->m_pximkeyboard = __new< ::xim::keyboard(m_pdisplay->Display >(), e.xkey.window);
+                     pwindow->m_pximkeyboard = __new< ::xim::keyboard> (m_pdisplay->Display(), e.xkey.window);
 
                      pwindow->m_pximkeyboard->initialize(pwindow);
 

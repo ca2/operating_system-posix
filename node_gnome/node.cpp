@@ -5,6 +5,7 @@
 #include "node.h"
 #include "appindicator.h"
 #include "acme/constant/id.h"
+#include "acme/handler/topic.h"
 #include "apex/platform/system.h"
 #include "windowing_x11/windowing_x11.h"
 
@@ -169,21 +170,21 @@ namespace node_gnome
 } // namespace node_gnome
 
 
-gboolean node_gnome_source_func(gpointer pUserdata)
-{
-
-   ::matter * pmatter = (::matter *) pUserdata;
-
-   if(!pmatter->step())
-   {
-
-      return false;
-
-   }
-
-   return true;
-
-}
+//gboolean node_gnome_source_func(gpointer pUserdata)
+//{
+//
+//   ::matter * pmatter = (::matter *) pUserdata;
+//
+//   if(!pmatter->step())
+//   {
+//
+//      return false;
+//
+//   }
+//
+//   return true;
+//
+//}
 
 
 

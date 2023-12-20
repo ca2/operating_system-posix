@@ -122,7 +122,7 @@ namespace windowing_x11
 
       }
 
-      m_pdisplay->open();
+      m_pdisplay->open_display();
 
       _libsn_start_context();
 

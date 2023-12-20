@@ -35,7 +35,7 @@ namespace inotify
       bool open(const ::file::path & pathFolder, bool bRecursive) override;
 
 
-      bool step() override;
+      bool file_watch_step() override;
 
 
    };

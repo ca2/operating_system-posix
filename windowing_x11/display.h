@@ -92,7 +92,7 @@ namespace windowing_x11
 
       virtual void unlock_display();
 
-      void open() override;
+      void open_display() override;
 
       virtual ::e_status erase_window(::windowing::window * pwindow);
 

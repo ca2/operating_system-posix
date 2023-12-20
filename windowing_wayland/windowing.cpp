@@ -125,16 +125,16 @@ namespace windowing_wayland
    }
 
 
-   ::pointer <::input::input> windowing::_get_input()
-   {
-
-      auto & pfactory = platform()->factory("input", "libinput");
-
-      auto pinput = pfactory->create<::input::input>(this);
-
-      return pinput;
-
-   }
+//   ::pointer <::input::input> windowing::_get_input()
+//   {
+//
+//      auto & pfactory = platform()->factory("input", "libinput");
+//
+//      auto pinput = __create<::input::input>(pfactory);
+//
+//      return pinput;
+//
+//   }
 
 
    void windowing::initialize_windowing(::user::user * puser)

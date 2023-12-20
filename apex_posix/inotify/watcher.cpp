@@ -143,13 +143,13 @@ namespace inotify
 //   }
 
 
-   bool watcher::step()
+   bool watcher::file_watcher_step()
    {
 
       for (auto & pair: m_watchmap)
       {
 
-         pair.payload()->step();
+         pair.payload()->file_watch_step();
 
       }
 

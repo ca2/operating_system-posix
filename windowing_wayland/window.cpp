@@ -4905,68 +4905,21 @@ namespace windowing_wayland
 
       bool bOk = false;
 
-      if (::is_set(m_puserinteractionimpl))
+      auto puserinteractionimpl = m_puserinteractionimpl;
+
+      if (::is_set(puserinteractionimpl))
       {
 
-         ::pointer<::user::interaction> pinteraction = m_puserinteractionimpl->m_puserinteraction;
+         ::pointer<::user::interaction> pinteraction = puserinteractionimpl->m_puserinteraction;
 
          if (pinteraction.is_set())
          {
 
             pinteraction->send_message(e_message_destroy, 0, 0);
 
-            //mq_remove_window_from_all_queues();
-
-            pinteraction->send_message(e_message_non_client_destroy, 0, 0);
-
          }
-         else
-         {
-
-            try
-            {
-
-//window->m_puserinteractionimpl->release();
-
-            }
-            catch (...)
-            {
-
-            }
-
-         }
-
-         //oswindow_remove_impl(window->m_puserinteractionimpl);
-
-         m_pwindowing->erase_window(this);
 
       }
-
-//      x11_fork([window]()
-//               {
-
-      synchronous_lock synchronouslock(user_synchronization());
-
-      //Display *Display() = Display();
-
-      //Window win = window->window();
-
-      //oswindow_data * pdata = (oswindow_data * )(void * )
-      //window;
-
-      bool bIs = is_window();
-
-      m_pwindowing->erase_window(this);
-
-      windowing_output_debug_string("::DestroyWindow 1");
-
-      information() << "windowing_wayland::window::destroy_window";
-
-//      display_lock displaylock(x11_display()->Display());
-//
-//      XUnmapWindow(Display(), Window());
-//
-//      XDestroyWindow(Display(), Window());
 
       if (::is_set(m_pxdgtoplevel))
       {
@@ -4984,11 +4937,21 @@ namespace windowing_wayland
 
       }
 
-      windowing_output_debug_string("::DestroyWindow 2");
-//
-//               });
+      ::windowing::window::destroy_window();
 
-      //return ::success;
+      if (::is_set(puserinteractionimpl))
+      {
+
+         ::pointer<::user::interaction> pinteraction = puserinteractionimpl->m_puserinteraction;
+
+         if (pinteraction.is_set())
+         {
+
+            pinteraction->send_message(e_message_non_client_destroy, 0, 0);
+
+         }
+
+      }
 
    }
 
@@ -5438,7 +5401,7 @@ namespace windowing_wayland
                    if (::is_set(pimpl))
                    {
 
-                      pimpl->m_pgraphics->update_screen();
+                      pimpl->m_pgraphicsgraphics->update_screen();
 
                    }
 
@@ -5484,7 +5447,7 @@ namespace windowing_wayland
 //
 //         }
 
-         pimpl->m_pgraphics->update_screen();
+         pimpl->m_pgraphicsgraphics->update_screen();
 
          //pbuffer->update_screen();
 
@@ -5808,27 +5771,34 @@ namespace windowing_wayland
 
       //m_pointCursor2 = m_pointPointer;
 
-      auto pmouse = __create_new<::message::mouse>();
+      auto puserinteractionimpl = m_puserinteractionimpl;
 
-      pmouse->m_oswindow = this;
+      if(::is_set(puserinteractionimpl))
+      {
 
-      pmouse->m_pwindow = this;
+         auto pmouse = __create_new<::message::mouse>();
 
-      pmouse->m_atom = e_message_mouse_move;
+         pmouse->m_oswindow = this;
 
-      pmouse->m_pointHost = m_pointCursor2;
+         pmouse->m_pwindow = this;
 
-      pmouse->m_pointAbsolute = m_pointCursor2;
+         pmouse->m_atom = e_message_mouse_move;
 
-      pmouse->m_time.m_iSecond = millis / 1_k;
+         pmouse->m_pointHost = m_pointCursor2;
 
-      pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+         pmouse->m_pointAbsolute = m_pointCursor2;
 
-      //pwindow->message_handler(pmouse);
+         pmouse->m_time.m_iSecond = millis / 1_k;
 
-      //wayland_windowing()->post_ui_message(pmouse);
+         pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
 
-      m_puserinteractionimpl->message_handler(pmouse);
+         //pwindow->message_handler(pmouse);
+
+         //wayland_windowing()->post_ui_message(pmouse);
+
+         puserinteractionimpl->message_handler(pmouse);
+
+      }
 
    }
 
@@ -6649,6 +6619,13 @@ namespace windowing_wayland
 
    ::particle * window::get_interface_client_particle() // m_puserinteractionimpl->m_puserinteraction
    {
+
+      if(::is_null(m_puserinteractionimpl))
+      {
+
+         return nullptr;
+
+      }
 
       return m_puserinteractionimpl->m_puserinteraction;
 

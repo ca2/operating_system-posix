@@ -710,7 +710,7 @@ namespace music
          }
 
 
-         bool out::step()
+         bool out::midi_message_step()
          {
 
 //            if(::is_null(m_pseq))

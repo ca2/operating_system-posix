@@ -107,6 +107,8 @@ namespace node_gtk
 
       void user_post(const ::procedure & procedure) override;
 
+      void defer_do_main_tasks() override;
+
       virtual void _os_process_user_theme_color(string strTheme);
 
       void user_post_quit() override;
@@ -136,7 +138,7 @@ namespace node_gtk
       bool defer_windowing_post(const ::procedure & procedure) override;
 
 
-      //::pointer < ::input::input > get_input() override;
+      ::pointer < ::input::input > create_input() override;
 
 
       void launch_app_by_app_id(const ::scoped_string & scopedstrAppId, bool bSingleExecutableVersion) override;

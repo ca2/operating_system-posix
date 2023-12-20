@@ -165,7 +165,7 @@ namespace inotify
    }
 
 
-   bool watch::step()
+   bool watch::file_watch_step()
    {
 
       FD_ZERO(&m_fdset);

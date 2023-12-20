@@ -9,9 +9,11 @@
 #include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/filesystem/filesystem/file_dialog.h"
 #include "acme/filesystem/filesystem/folder_dialog.h"
+#include "acme/handler/topic.h"
 #include "acme/operating_system/summary.h"
 #include "acme/user/user/os_theme_colors.h"
 #include "acme/user/user/theme_colors.h"
+#include "apex/input/input.h"
 #include "apex/platform/system.h"
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
@@ -32,6 +34,8 @@ bool aaa_x11_message_loop_step();
 
 
 gboolean gtk_quit_callback(gpointer data);
+
+void gtk_defer_do_main_tasks();
 
 //void gio_open_url(const char * pszUrl);
 ///int gtk_launch (const char * pszDesktopFileTitle);
@@ -987,6 +991,14 @@ namespace node_gtk
    }
 
 
+   void node::defer_do_main_tasks()
+   {
+
+      gtk_defer_do_main_tasks();
+
+   }
+
+
    void node::user_post_quit()
    {
 
@@ -1034,18 +1046,18 @@ namespace node_gtk
    {
 
       // TODO check if ptopic below is own topic or what else?
-      ::pointer<::particle> pparticle = ptopic;
+      ::pointer<::topic> ptopicHold = ptopic;
 
-      user_post([pparticle]()
+      user_post([ptopicHold]()
                 {
 
-                   auto ret = g_timeout_add(300, (GSourceFunc) &node_gtk_source_func, pparticle);
+                   auto ret = g_timeout_add(300, (GSourceFunc) &node_gtk_source_func, ptopicHold.m_p);
 
                    printf("ret %d", ret);
 
                    printf("ret %d", ret);
 
-                   g_idle_add(&node_gtk_source_func, pparticle);
+                   g_idle_add(&node_gtk_source_func, ptopicHold.m_p);
 
                 });
 
@@ -1689,18 +1701,16 @@ namespace node_gtk
    }
 
 
-//   ::pointer<::input::input > node::get_input()
-//   {
-//
-//      auto psession = session()->m_paurasession;
-//
-//      auto puser = psession->user();
-//
-//      ::pointer < ::windowing_posix::windowing > pwindowing = puser->windowing();
-//
-//      return pwindowing->get_input();
-//
-//   }
+   ::pointer<::input::input > node::create_input()
+   {
+
+      auto & pfactory = platform()->factory("input", "libinput");
+
+      auto pinput = __create<::input::input>(pfactory);
+
+      return pinput;
+
+   }
 
 
    void node::launch_app_by_app_id(const ::scoped_string & scopedstrAppId, bool bSingleExecutableVersion)
@@ -1753,9 +1763,9 @@ namespace node_gtk
 gboolean node_gtk_source_func(gpointer pUserdata)
 {
 
-   ::particle *pparticle = (::particle *) pUserdata;
+   ::topic *ptopic = (::topic *) pUserdata;
 
-   if (!pparticle->step())
+   if (!ptopic->topic_step())
    {
 
       return false;
@@ -1765,15 +1775,6 @@ gboolean node_gtk_source_func(gpointer pUserdata)
    return true;
 
 }
-
-
-
-
-
-
-
-
-
 
 
 //void os_calc_user_theme()
