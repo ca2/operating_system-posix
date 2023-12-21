@@ -60,7 +60,7 @@ namespace node_kde
 
       bool eventFilter(QObject * pparticle, QEvent * pevent) override;
 
-      void system_main() override;
+      void on_system_main() override;
 
       void initialize(::particle * pparticle) override;
 

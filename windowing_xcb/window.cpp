@@ -10,6 +10,7 @@
 #include "acme/constant/message.h"
 #include "acme/operating_system/xcb/nano/display.h"
 #include "acme/parallelization/synchronous_lock.h"
+#include "acme/parallelization/task_message_queue.h"
 #include "acme/primitive/geometry2d/_text_stream.h"
 #include "aura/graphics/graphics/graphics.h"
 #include "aura/graphics/image/context_image.h"
@@ -1696,7 +1697,7 @@ namespace windowing_xcb
 
       itask_t idthread = pinteraction->get_app()->get_itask();
 
-      message_queue * pmq = get_message_queue(idthread, false);
+      message_queue * pmq = ::acme::get()->m_ptaskmessagequeue->get_message_queue(idthread, false);
 
       if (pmq == nullptr)
       {
@@ -1884,13 +1885,13 @@ namespace windowing_xcb
 
          }
 
-         m_puserinteractionimpl->m_puserinteraction->m_bVisible = true;
+         //m_bVisible = true;
 
       }
       else
       {
 
-         m_puserinteractionimpl->m_puserinteraction->m_bVisible = false;
+//         m_bVisible = false;
 
       }
 
@@ -2067,13 +2068,13 @@ namespace windowing_xcb
 
          }
 
-         m_puserinteractionimpl->m_puserinteraction->m_bVisible = true;
+         //m_puserinteractionimpl->m_puserinteraction->m_bVisible = true;
 
       }
       else
       {
 
-         m_puserinteractionimpl->m_puserinteraction->m_bVisible = false;
+         //m_puserinteractionimpl->m_puserinteraction->m_bVisible = false;
 
       }
 
@@ -2245,13 +2246,13 @@ namespace windowing_xcb
 
          }
 
-         m_puserinteractionimpl->m_puserinteraction->m_bVisible = true;
+         //m_puserinteractionimpl->m_puserinteraction->m_bVisible = true;
 
       }
       else
       {
 
-         m_puserinteractionimpl->m_puserinteraction->m_bVisible = false;
+         //m_puserinteractionimpl->m_puserinteraction->m_bVisible = false;
 
       }
 
@@ -3040,6 +3041,8 @@ namespace windowing_xcb
    void window::destroy_window()
    {
 
+      _unmap_window();
+
       bool bOk = false;
 
       if (::is_set(m_puserinteractionimpl))
@@ -3054,29 +3057,30 @@ namespace windowing_xcb
 
             mq_erase_window_from_all_queues();
 
+            _destroy_window();
+
+            ::windowing::window::destroy_window();
+
+            windowing_output_debug_string("::DestroyWindow 2");
+
             pinteraction->send_message(e_message_non_client_destroy, 0, 0);
 
          }
 
-         m_pwindowing->erase_window(this);
+         //m_pwindowing->erase_window(this);
 
       }
 
-      synchronous_lock synchronouslock(user_synchronization());
-
-      bool bIs = is_window();
-
-      m_pwindowing->erase_window(this);
-
-      windowing_output_debug_string("::DestroyWindow 1");
+//      synchronous_lock synchronouslock(user_synchronization());
+//
+//      bool bIs = is_window();
+//
+//      m_pwindowing->erase_window(this);
+//
+//      windowing_output_debug_string("::DestroyWindow 1");
 
       //display_lock displaylock(xcb_display());
 
-      _unmap_window();
-
-      _destroy_window();
-
-      windowing_output_debug_string("::DestroyWindow 2");
 
       //return ::success;
 
@@ -3355,7 +3359,7 @@ namespace windowing_xcb
    }
 
 
-   void window::window_update_screen_buffer()
+   void window::__update_graphics_buffer()
    {
 
       //m_pwindowing->windowing_post([this]()
@@ -3366,7 +3370,7 @@ namespace windowing_xcb
       if (::is_set(pimpl))
       {
 
-         pimpl->m_pgraphics->update_screen();
+         pimpl->m_pgraphicsgraphics->update_screen();
 
       }
 
@@ -3904,7 +3908,7 @@ namespace windowing_xcb
    }
 
 
-   void window::window_do_update_screen()
+   void window::window_update_screen()
    {
 
       //window_update_screen_buffer();
@@ -3933,7 +3937,7 @@ namespace windowing_xcb
 
             configure_window_unlocked();
 
-            ::pointer<::windowing_xcb::buffer> pbuffer = pimpl->m_pgraphics;
+            ::pointer<::windowing_xcb::buffer> pbuffer = pimpl->m_pgraphicsgraphics;
 
             pbuffer->_update_screen_lesser_lock();
 

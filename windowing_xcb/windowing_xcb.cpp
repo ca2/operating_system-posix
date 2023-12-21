@@ -777,7 +777,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       informationf("windowing_xcb::initialize_windowing (1.1)");
       ///estatus =
       ///
-      m_pdisplay->open();
+      m_pdisplay->open_display();
 
 
       informationf("windowing_xcb::initialize_windowing (2)");
@@ -1078,7 +1078,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       }
 
-      puserinteraction->post(pmessage);
+      puserinteraction->post_message(pmessage);
 
       return true;
 
