@@ -5,6 +5,7 @@
 #include "node.h"
 #include "appindicator.h"
 #include "acme/constant/id.h"
+#include "acme/handler/topic.h"
 #include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/filesystem/filesystem/acme_file.h"
 #include "acme/filesystem/filesystem/file_context.h"
@@ -204,7 +205,7 @@ namespace node_kde
    }
 
 
-   void node::system_main()
+   void node::on_system_main()
    {
 
       //auto estatus =
@@ -266,7 +267,7 @@ namespace node_kde
 
       {
 
-         node_init_check(&system()->m_psubsystem->m_argc, &system()->m_psubsystem->m_argv);
+         node_init_check(&platform()->m_argc, &platform()->m_argv);
 
       }
 
@@ -288,7 +289,7 @@ namespace node_kde
 
       auto psystem = pparticle->system();
 
-      m_pqapplication = __new< QApplication >(psystem->m_pplatform->m_argc, psystem->m_pplatform->m_argv);
+      m_pqapplication = __new < QApplication >(psystem->m_pplatform->m_argc, psystem->m_pplatform->m_argv);
 
       if(!m_pqapplication)
       {
@@ -926,7 +927,7 @@ namespace node_kde
                                     [pdialog, pqfiledialog](int finished)
                                     {
 
-                                       ::pointer<::file::file_dialog> pdialogTransfer(e_pointer_transfer, pdialog);
+                                       ::pointer<::file::file_dialog> pdialogTransfer(transfer_t{}, pdialog);
 
                                        pdialog->m_pathStartFolder = (const char *) pqfiledialog->directory().absolutePath().toUtf8().data();
 
@@ -984,7 +985,7 @@ namespace node_kde
                                     [pdialog, pqfiledialog](int finished)
                                     {
 
-                                       ::pointer<::file::folder_dialog> pdialogTransfer(e_pointer_transfer, pdialog);
+                                       ::pointer<::file::folder_dialog> pdialogTransfer(transfer_t{}, pdialog);
 
                                        if(finished)
                                        {

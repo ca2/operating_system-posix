@@ -34,7 +34,7 @@ namespace node_kde
 
       virtual ::e_status _create_status_notifier_item();
 
-      bool step() override;
+      bool notify_icon_step() override;
 
 
    };

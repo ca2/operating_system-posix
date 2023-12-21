@@ -227,7 +227,7 @@ namespace windowing_xcb
       void mq_erase_window_from_all_queues( );
 
 
-      void window_update_screen_buffer() override;
+      void __update_graphics_buffer() override;
       //void _window_request_presentation_locked() override;
 
 
@@ -270,7 +270,7 @@ namespace windowing_xcb
       virtual ::e_status _resize_unlocked(int cx, int cy);
 
 
-      void window_do_update_screen() override;
+      void window_update_screen() override;
 
 
       virtual void _on_end_paint();
