@@ -23,7 +23,7 @@ extern ::app_core * g_pappcore;
 
 Display * x11_get_display();
 
-::particle * user_synchronization();
+//::particle * user_synchronization();
 
 
 void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString);
@@ -429,7 +429,7 @@ namespace windowing_x11
       auto predicate = [this]()
       {
 
-         synchronous_lock synchronouslock(user_synchronization());
+         //synchronous_lock synchronouslock(user_synchronization());
 
          display_lock displaylock(Display());
 
@@ -656,7 +656,7 @@ namespace windowing_x11
       auto predicate = [this, ppropertyobject]()
       {
 
-         synchronous_lock synchronouslock(user_synchronization());
+         //synchronous_lock synchronouslock(user_synchronization());
 
          oswindow oswindow = nullptr;
 
@@ -753,7 +753,7 @@ namespace windowing_x11
 
 #endif
 
-      synchronous_lock synchronouslock(user_synchronization());
+      //_synchronous_lock synchronouslock(user_synchronization());
 
       windowing_output_debug_string("::GetCursorPos 1");
 
@@ -809,7 +809,7 @@ namespace windowing_x11
    XImage * display::x11_create_image(::image_pointer pimage)
    {
 
-      synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization());
 
       windowing_output_debug_string("::x11_create_image 1");
 
@@ -859,7 +859,7 @@ namespace windowing_x11
    Pixmap display::x11_create_pixmap(::image_pointer pimage)
    {
 
-      synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization());
 
       windowing_output_debug_string("::x11_create_pixmap 1");
 
@@ -954,7 +954,7 @@ namespace windowing_x11
 
                           }
 
-                          synchronous_lock synchronouslock(user_synchronization());
+                          //synchronous_lock synchronouslock(user_synchronization());
 
                           windowing_output_debug_string("::GetFocus 1");
 

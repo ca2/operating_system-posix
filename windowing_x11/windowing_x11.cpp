@@ -1245,6 +1245,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                XNextEvent(pdisplay, &e);
 
+               displayLock.unlock();
+
                if (!m_pdisplay->m_px11display->x11_event(&e))
                {
 
@@ -1267,6 +1269,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 
                }
+
+               displayLock.lock();
 
             }
             catch (...)
@@ -2279,6 +2283,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                      if (oswindow->m_enetwmsync == window::e_net_wm_sync_wait_configure)
                      {
 
+                        display_lock displayLock(m_pdisplay->Display());
+
                         oswindow->m_xsyncvalueNetWmSync = oswindow->m_xsyncvalueNetWmSyncPending;
 
                         XSyncIntToValue(&oswindow->m_xsyncvalueNetWmSyncPending, 0);
@@ -2294,16 +2300,21 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                if(px11window)
                {
 
-                  if (!XGetWindowAttributes(m_pdisplay->Display(), px11window->Window(),
-                                            &px11window->m_xwindowattributes))
                   {
 
-                     informationf("X11 MapNotify XGetWindowAttributes failed");
+                     display_lock displayLock(m_pdisplay->Display());
 
-                     return false;
+                     if (!XGetWindowAttributes(m_pdisplay->Display(), px11window->Window(),
+                                               &px11window->m_xwindowattributes))
+                     {
+
+                        informationf("X11 MapNotify XGetWindowAttributes failed");
+
+                        return false;
+
+                     }
 
                   }
-
 
                   ::user::primitive_impl * pimpl = px11window->m_puserinteractionimpl;
 
@@ -3032,7 +3043,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       }
 
-      synchronous_lock ml(pmessagequeue->synchronization());
+      _synchronous_lock ml(pmessagequeue->synchronization());
 
       pmessagequeue->m_messagea.add(message);
 
