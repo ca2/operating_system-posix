@@ -227,17 +227,20 @@ namespace node_kde
 //
 //      return estatus;
 
+    }
+
+
    }
 
 
    bool notify_icon::notify_icon_step()
    {
 
-      //return ::success;
+        //return ::success;
 
-      return true;
+        return true;
 
-   }
+    }
 
 
 } // namespace node_kde

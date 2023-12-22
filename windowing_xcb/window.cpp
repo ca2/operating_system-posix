@@ -1885,7 +1885,7 @@ namespace windowing_xcb
 
          }
 
-         //m_bVisible = true;
+         //m_puserinteractionimpl->m_puserinteraction->m_bVisible = true;
 
       }
       else
