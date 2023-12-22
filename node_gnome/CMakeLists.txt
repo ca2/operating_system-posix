@@ -52,45 +52,45 @@ list(APPEND static_library_references ${library_references})
 list(TRANSFORM static_library_references PREPEND static_)
 
 
-
-if(${DISTRO} STREQUAL "raspbian")
-
-   set(APPINDICATOR_PKG_MODULE "ayatana-appindicator3-0.1")
-
-   add_compile_definitions(AYATANA_APPINDICATOR)
-
-elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
-
-   message(STATUS "DISTRO is ${DISTRO}")
-
-   if("${DISTRO}" STREQUAL "ubuntu")
-
-      #set(APPINDICATOR_PKG_MODULE "appindicator3-0.1")
-
-      set(APPINDICATOR_PKG_MODULE "ayatana-appindicator3-0.1")
-
-      add_compile_definitions(AYATANA_APPINDICATOR)
-
-   elseif(${DISTRO} STREQUAL "debian")
-
-      add_compile_definitions(AYATANA_APPINDICATOR)
-
-      set(APPINDICATOR_PKG_MODULE "ayatana-appindicator3-0.1")
-
-   else()
-
-      set(APPINDICATOR_PKG_MODULE "appindicator3-0.1")
-
-   endif()
-
-elseif(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
-
-    add_compile_definitions(AYATANA_APPINDICATOR)
-
-    set(APPINDICATOR_PKG_MODULE "ayatana-appindicator3-0.1")
-
-endif()
-
+#
+#if(${DISTRO} STREQUAL "raspbian")
+#
+#   set(APPINDICATOR_PKG_MODULE "ayatana-appindicator3-0.1")
+#
+#   add_compile_definitions(AYATANA_APPINDICATOR)
+#
+#elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+#
+#   message(STATUS "DISTRO is ${DISTRO}")
+#
+#   if("${DISTRO}" STREQUAL "ubuntu")
+#
+#      #set(APPINDICATOR_PKG_MODULE "appindicator3-0.1")
+#
+#      set(APPINDICATOR_PKG_MODULE "ayatana-appindicator3-0.1")
+#
+#      add_compile_definitions(AYATANA_APPINDICATOR)
+#
+#   elseif(${DISTRO} STREQUAL "debian")
+#
+#      add_compile_definitions(AYATANA_APPINDICATOR)
+#
+#      set(APPINDICATOR_PKG_MODULE "ayatana-appindicator3-0.1")
+#
+#   else()
+#
+#      set(APPINDICATOR_PKG_MODULE "appindicator3-0.1")
+#
+#   endif()
+#
+#elseif(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
+#
+#    add_compile_definitions(AYATANA_APPINDICATOR)
+#
+#    set(APPINDICATOR_PKG_MODULE "ayatana-appindicator3-0.1")
+#
+#endif()
+#
 
 
 add_library(${PROJECT_NAME} SHARED ${library_source})
