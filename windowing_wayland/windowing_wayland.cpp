@@ -1287,7 +1287,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //      try
 //      {
 //
-//         _synchronous_lock synchronouslock(user_synchronization());
+//         synchronous_lock synchronouslock(user_synchronization());
 //
 //         //display_lock displayLock(m_pdisplay->Display());
 //
@@ -2103,7 +2103,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 ////                   {
 ////
-////                      _synchronous_lock synchronouslockProcedureListPriority(this->synchronization());
+////                      synchronous_lock synchronouslockProcedureListPriority(this->synchronization());
 ////
 ////                      m_procedurelistPriority.add([pimpl]()
 ////                                                  {

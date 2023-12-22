@@ -388,7 +388,7 @@ namespace windowing_xcb
 
       }
 
-      _synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization());
 
 //      display_lock displayLock(x11_window()->x11_display()->Display());
 
@@ -400,11 +400,11 @@ namespace windowing_xcb
    bool buffer::_update_screen_lesser_lock()
    {
 
-      _synchronous_lock slGraphics(synchronization());
+      synchronous_lock slGraphics(synchronization());
 
       auto pitem = get_screen_item();
 
-      _synchronous_lock slImage(pitem->m_pmutex);
+      synchronous_lock slImage(pitem->m_pmutex);
 
       slGraphics.unlock();
 

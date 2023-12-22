@@ -3,7 +3,7 @@
 #include "monitor.h"
 
 
-::particle * user_synchronization();
+//::particle * user_synchronization();
 
 
 namespace node_gnome

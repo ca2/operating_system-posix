@@ -23,7 +23,7 @@ void x11_add_filter();
 //void x11_main();
 
 
-::particle * user_synchronization();
+//::particle * user_synchronization();
 
 
 gboolean node_gnome_source_func(gpointer pUserdata);

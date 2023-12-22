@@ -23,7 +23,7 @@ bool __x11_hook_process_event(Display * pdisplay, XEvent & e, XGenericEventCooki
 bool __x11_hook_list_is_empty();
 
 
-extern ::particle * user_synchronization();
+//extern ::particle * user_synchronization();
 
 
 Display * g_pdisplayX11= nullptr;

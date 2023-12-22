@@ -2508,7 +2508,7 @@ namespace windowing_xcb
 //   void window::_window_request_presentation_locked()
 //   {
 //
-//      _synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization());
 //
 ////      display_lock displayLock(x11_display()->Display());
 //
@@ -3929,7 +3929,7 @@ namespace windowing_xcb
 
          {
 
-            _synchronous_lock synchronouslock(user_synchronization());
+            synchronous_lock synchronouslock(user_synchronization());
 
             //display_lock displayLock(xcb_display()->xcb_connection());
 

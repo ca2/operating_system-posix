@@ -9,7 +9,7 @@
 #include "apex/platform/system.h"
 
 
-::particle * user_synchronization();
+//::particle * user_synchronization();
 
 
 namespace node_gtk
@@ -573,7 +573,7 @@ namespace node_gtk
 
       ::increment_reference_count(pbase);
 
-      synchronous_lock synchronouslock (user_synchronization());
+      //synchronous_lock synchronouslock (user_synchronization());
 
       auto psource = g_idle_source_new();
 

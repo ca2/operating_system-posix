@@ -18,7 +18,7 @@
 #include <X11/Xlib-xcb.h>
 
 
-::particle * user_synchronization();
+//::particle * user_synchronization();
 
 
 namespace node_kde

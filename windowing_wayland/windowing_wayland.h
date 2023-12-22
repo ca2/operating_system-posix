@@ -46,7 +46,7 @@
 //CLASS_DECL_WINDOWING_WAYLAND void x11_main();
 
 
-CLASS_DECL_WINDOWING_WAYLAND ::particle * user_synchronization();
+//CLASS_DECL_WINDOWING_WAYLAND ::particle * user_synchronization();
 
 
 //enum_net_wm_state net_wm_state(const char *pszText);
