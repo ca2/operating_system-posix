@@ -34,7 +34,7 @@ void x11_wait_timer_or_event(Display * pdisplay);
 void __x11_hook_on_idle(Display * pdisplay);
 
 
-CLASS_DECL_ACME ::particle * user_synchronization();
+//CLASS_DECL_ACME ::particle * user_synchronization();
 
 
 //#include "x11_exception.h"
