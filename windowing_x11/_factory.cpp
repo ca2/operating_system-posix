@@ -11,6 +11,11 @@
 #include "aura/windowing/monitor.h"
 
 
+#ifdef FREEBSD
+#include <stdio.h>
+#endif
+
+
 __FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory)
 {
 

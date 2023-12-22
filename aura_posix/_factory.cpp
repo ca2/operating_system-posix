@@ -3,6 +3,11 @@
 #include "shell.h"
 
 
+#ifdef FREEBSD
+#include <stdio.h>
+#endif
+
+
 __FACTORY_EXPORT void aura_posix_factory(::factory::factory * pfactory)
 {
 

@@ -8,6 +8,10 @@
 #include "system_5/interprocess_target.h"
 #endif
 
+#ifdef FREEBSD
+#include <stdio.h>
+#endif
+
 #ifdef FILE_SYSTEM_INOTIFY
 
 #include "inotify/watch.h"
