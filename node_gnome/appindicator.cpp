@@ -12,7 +12,7 @@
 //#include <libappindicator3-0.1/libappindicator/app-indicator.h>
 #include "acme/platform/application_menu_callback.h"
 #include "apex/platform/application_menu.h"
-#if defined(FREEBSD)
+#if defined(FREEBSD) || defined(FEDORA_LINUX)
 #include <libappindicator3-0.1/libappindicator/app-indicator.h>
 #elif defined(LINUX)
 #include <libayatana-appindicator/app-indicator.h>
