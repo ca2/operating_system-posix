@@ -124,7 +124,7 @@ namespace windowing_wayland
 
       double_buffer::initialize_graphics_graphics(pimpl);
 
-      synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization());
 
       //display_lock displaylock(x11_window()->x11_display()->Display());
 

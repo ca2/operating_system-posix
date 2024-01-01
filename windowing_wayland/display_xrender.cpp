@@ -19,7 +19,7 @@ namespace windowing_wayland
    ::wl_cursor * display::create_alpha_cursor(::image *pimage, int xHotSpot, int yHotSpot)
    {
 
-      synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization());
 
 //      windowing_output_debug_string("::CreateAlphaCursor 1");
 //

@@ -402,7 +402,7 @@ namespace windowing_wayland
 
       }
 
-      synchronous_lock sl(user_synchronization());
+      //synchronous_lock sl(user_synchronization());
 
       windowing_output_debug_string("::x11_GetWindowRect 1");
 
