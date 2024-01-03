@@ -45,7 +45,7 @@ namespace node_kde
    ::e_status desktop_environment::_get_monitor_rectangle(::index iIndex, ::rectangle_i32 *prectangle)
    {
 
-      synchronous_lock sl(user_synchronization());
+      //synchronous_lock sl(user_synchronization());
 
       auto screens = QGuiApplication::screens();
 
@@ -85,7 +85,7 @@ namespace node_kde
    ::e_status desktop_environment::_get_workspace_rectangle(::index iIndex, ::rectangle_i32 *prectangle)
    {
 
-      synchronous_lock sl(user_synchronization());
+      //synchronous_lock sl(user_synchronization());
 
       auto screens = QGuiApplication::screens();
 
@@ -128,7 +128,7 @@ namespace node_kde
       if(m_bX11)
       {
 
-         synchronous_lock sl(user_synchronization());
+         //synchronous_lock sl(user_synchronization());
 
          _get_monitor_rectangle(iIndex, prectangle);
 
@@ -151,7 +151,7 @@ namespace node_kde
       if(m_bX11)
       {
 
-         synchronous_lock sl(user_synchronization());
+         //synchronous_lock sl(user_synchronization());
 
          _get_workspace_rectangle(iIndex, prectangle);
 
