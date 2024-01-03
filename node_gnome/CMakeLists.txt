@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.16)
 project(node_gnome CXX)
 
 
+message(STATUS "PROJECT_NAME is ${PROJECT_NAME}")
+
+
 list(APPEND library_source
    _.cpp
    _.h
