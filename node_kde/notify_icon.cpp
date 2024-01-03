@@ -24,7 +24,7 @@ namespace node_kde
 
       m_pstatusnotifieritem = nullptr;
 
-      m_pindicator = nullptr;
+      //m_pindicator = nullptr;
 
       m_bCreated = false;
 
@@ -227,7 +227,7 @@ namespace node_kde
 //
 //      return estatus;
 
-    }
+//    }
 
 
    }

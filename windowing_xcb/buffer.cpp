@@ -68,7 +68,7 @@ namespace windowing_xcb
 //
 //      }
 
-      synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization());
 
       m_pdisplay = xcb_window()->xcb_display();
 
@@ -97,7 +97,7 @@ namespace windowing_xcb
 
       }
 
-      synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization());
 
 //      display_lock displaylock(xcb_window()->xcb_display());
 
@@ -388,7 +388,7 @@ namespace windowing_xcb
 
       }
 
-      synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization());
 
 //      display_lock displayLock(x11_window()->x11_display()->Display());
 

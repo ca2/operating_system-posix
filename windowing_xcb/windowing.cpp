@@ -365,7 +365,7 @@ namespace windowing_xcb
 
       }
 
-      synchronous_lock sl(user_synchronization());
+      //synchronous_lock sl(user_synchronization());
 
       windowing_output_debug_string("::xcb_GetWindowRect 1");
 
@@ -402,7 +402,7 @@ namespace windowing_xcb
 
       }
 
-      synchronous_lock synchronouslock(user_synchronization());
+      ///synchronous_lock synchronouslock(user_synchronization());
 
       //display_lock lock(m_pdisplay);
 
@@ -431,7 +431,7 @@ namespace windowing_xcb
    void windowing::release_mouse_capture(::thread * pthread)
    {
 
-      synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization());
 
       _on_capture_changed_to(nullptr);
 
