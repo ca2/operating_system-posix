@@ -48,15 +48,18 @@ if (MSVC)
 elseif (LINUX)
 
 
+   pkg_check_modules(PKGCONFIG alsa)
+
+
+   target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
    target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive  ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
    target_compile_options(static_${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive  ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
    target_compile_definitions(static_${PROJECT_NAME} PRIVATE CUBE)
 
 
-   #target_link_options(music_midi_alsa PRIVATE -Wl,-rpath=$ORIGIN)
-   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references})
-   target_link_libraries(${PROJECT_NAME} PRIVATE asound)
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LIBRARIES} ${library_references})
    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
+   target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
    target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
 
 endif ()

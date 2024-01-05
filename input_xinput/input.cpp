@@ -18,6 +18,10 @@
 
 //Display * x11_get_display();
 
+#ifdef FREEBSD
+#include <stdio.h>
+#endif
+
 
 namespace input_xinput
 {
@@ -46,7 +50,7 @@ namespace input_xinput
 
             }
 
-            printf("is_return_key    detail: %d\n", event->detail);
+            printf("is_return_key detail: %d\n", event->detail);
 
             for (i = 0; i < event->valuators.mask_len * 8; i++)
             {

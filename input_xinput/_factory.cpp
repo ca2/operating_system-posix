@@ -11,6 +11,10 @@
 //#include "keyboard.h"
 //#include "aura/windowing/monitor.h"
 
+#ifdef FREEBSD
+#include <stdio.h>
+#endif
+
 
 __FACTORY_EXPORT void input_xinput_factory(::factory::factory * pfactory)
 {
