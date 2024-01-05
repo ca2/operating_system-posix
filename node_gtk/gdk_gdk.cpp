@@ -614,7 +614,7 @@ void gtk_defer_do_main_tasks()
 
    }
 
-   while(gtk_events_pending())
+   for(::i32 i = 0; i < 10 && gtk_events_pending(); i++)
    {
 
       gtk_main_iteration();
