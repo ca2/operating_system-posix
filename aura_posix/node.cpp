@@ -472,7 +472,7 @@ namespace aura_posix
    void node::launch_app_by_app_id(const ::scoped_string & scopedstrAppId, bool bSingleExecutableVersion)
    {
 
-#if defined(LINUX)
+#if defined(LINUX) || defined(__BSD__)
 
       ::file::path path = get_executable_path_by_app_id(scopedstrAppId, bSingleExecutableVersion);
 
