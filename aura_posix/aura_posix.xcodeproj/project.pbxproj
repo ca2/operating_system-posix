@@ -130,7 +130,7 @@
 
 /* Begin PBXFileReference section */
 		07B657B8190F3CBF002DAADE /* libios_aura_posix.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libios_aura_posix.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		07B657C7190F3CBF002DAADE /* music_midi_core_audio_iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = music_midi_core_audio_iosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		07B657C7190F3CBF002DAADE /* aura_posix_iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = aura_posix_iosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A2BB87E2654F8FB00ABA8B9 /* apex_posix.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = apex_posix.xcodeproj; path = ../apex_posix/apex_posix.xcodeproj; sourceTree = "<group>"; };
 		9A412445266C3FC500C3FF0E /* libacme_posix.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libacme_posix.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A412447266C3FC500C3FF0E /* libapex.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libapex.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -261,7 +261,7 @@
 			children = (
 				A1CFD778154F5EAA007447E2 /* libaura_posix.dylib */,
 				07B657B8190F3CBF002DAADE /* libios_aura_posix.a */,
-				07B657C7190F3CBF002DAADE /* music_midi_core_audio_iosTests.xctest */,
+				07B657C7190F3CBF002DAADE /* aura_posix_iosTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -305,9 +305,9 @@
 			productReference = 07B657B8190F3CBF002DAADE /* libios_aura_posix.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		07B657C6190F3CBF002DAADE /* music_midi_core_audio_iosTests */ = {
+		07B657C6190F3CBF002DAADE /* aura_posix_iosTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 07B657DD190F3CBF002DAADE /* Build configuration list for PBXNativeTarget "music_midi_core_audio_iosTests" */;
+			buildConfigurationList = 07B657DD190F3CBF002DAADE /* Build configuration list for PBXNativeTarget "aura_posix_iosTests" */;
 			buildPhases = (
 				07B657C3190F3CBF002DAADE /* Sources */,
 				07B657C4190F3CBF002DAADE /* Frameworks */,
@@ -318,9 +318,9 @@
 			dependencies = (
 				07B657CE190F3CBF002DAADE /* PBXTargetDependency */,
 			);
-			name = music_midi_core_audio_iosTests;
+			name = aura_posix_iosTests;
 			productName = music_midi_core_audio_iosTests;
-			productReference = 07B657C7190F3CBF002DAADE /* music_midi_core_audio_iosTests.xctest */;
+			productReference = 07B657C7190F3CBF002DAADE /* aura_posix_iosTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		A1CFD777154F5EAA007447E2 /* aura_posix */ = {
@@ -382,7 +382,7 @@
 			targets = (
 				A1CFD777154F5EAA007447E2 /* aura_posix */,
 				07B657B7190F3CBF002DAADE /* ios_aura_posix */,
-				07B657C6190F3CBF002DAADE /* music_midi_core_audio_iosTests */,
+				07B657C6190F3CBF002DAADE /* aura_posix_iosTests */,
 			);
 		};
 /* End PBXProject section */
@@ -811,7 +811,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		07B657DD190F3CBF002DAADE /* Build configuration list for PBXNativeTarget "music_midi_core_audio_iosTests" */ = {
+		07B657DD190F3CBF002DAADE /* Build configuration list for PBXNativeTarget "aura_posix_iosTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				07B657DA190F3CBF002DAADE /* Debug */,
