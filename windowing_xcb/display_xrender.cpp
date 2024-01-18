@@ -16,7 +16,7 @@ namespace windowing_xcb
    xcb_cursor_t display::_create_alpha_cursor(const ::image *pimage, int xHotSpot, int yHotSpot)
    {
 
-      synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization());
 
       windowing_output_debug_string("::CreateAlphaCursor 1");
 

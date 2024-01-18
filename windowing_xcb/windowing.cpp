@@ -365,7 +365,7 @@ namespace windowing_xcb
 
       }
 
-      synchronous_lock sl(user_synchronization());
+      //synchronous_lock sl(user_synchronization());
 
       windowing_output_debug_string("::xcb_GetWindowRect 1");
 
@@ -402,7 +402,7 @@ namespace windowing_xcb
 
       }
 
-      synchronous_lock synchronouslock(user_synchronization());
+      ///synchronous_lock synchronouslock(user_synchronization());
 
       //display_lock lock(m_pdisplay);
 
@@ -431,7 +431,7 @@ namespace windowing_xcb
    void windowing::release_mouse_capture(::thread * pthread)
    {
 
-      synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization());
 
       _on_capture_changed_to(nullptr);
 
@@ -883,7 +883,7 @@ namespace windowing_xcb
 //
 //               }
 
-                  ::pointer<::windowing_xcb::buffer> pbuffer = px11window->m_puserinteractionimpl->m_pgraphics;
+                  ::pointer<::windowing_xcb::buffer> pbuffer = px11window->m_puserinteractionimpl->m_pgraphicsgraphics;
 
                   auto pbufferitem = pbuffer->get_buffer_item();
 
@@ -1294,7 +1294,7 @@ namespace windowing_xcb
                         if (puserinteraction->m_ewindowflag & ::e_window_flag_arbitrary_positioning)
                         {
 
-                           pxcbwindow->window_update_screen_buffer();
+                           pxcbwindow->__update_graphics_buffer();
 
                         }
                         else
@@ -2330,7 +2330,7 @@ if(bSentResponse)
 
             auto pfocusin = (xcb_focus_in_event_t *) pgenericevent;
 
-            ::information() << "XCB_FOCUS_IN event_window : " << (iptr) pfocusin->event;
+            information() << "XCB_FOCUS_IN event_window : " << (iptr) pfocusin->event;
 
             pxcbwindow = m_pdisplay->_window(pfocusin->event);
 
@@ -2381,7 +2381,7 @@ if(bSentResponse)
 
             auto pfocusout = (xcb_focus_out_event_t *) pgenericevent;
 
-            ::information() << "XCB_FOCUS_OUT";
+            information() << "XCB_FOCUS_OUT";
 
             pxcbwindow = m_pdisplay->_window(pfocusout->event);
 

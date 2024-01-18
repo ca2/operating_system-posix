@@ -24,7 +24,7 @@ namespace node_kde
 
       m_pstatusnotifieritem = nullptr;
 
-      m_pindicator = nullptr;
+      //m_pindicator = nullptr;
 
       m_bCreated = false;
 
@@ -121,19 +121,21 @@ namespace node_kde
 
       auto pmenu = __new< QMenu >();
 
-      for (index i = 0; i < _get_notification_area_action_count(); i++)
+      for (index i = 0; i < m_papplicationmenu->get_count(); i++)
       {
 
-         string strLabel = _get_notification_area_action_label(i);
+         auto pitem = m_papplicationmenu->element_at(i);
 
-         string strId = _get_notification_area_action_id(i);
+         string strLabel = pitem->m_strLabel;
 
-         string strName = _get_notification_area_action_name(i);
+         string strId = pitem->m_atom;
+
+         string strName = pitem->m_strLabel;
 
          if (strId == "separator")
          {
 
-            if (i + 1 < _get_notification_area_action_count() && string(_get_notification_area_action_id(i + 1)) == "app_exit")
+            if (i + 1 < m_papplicationmenu->get_count() && string(m_papplicationmenu->element_at(i + 1)->m_atom) == "app_exit")
             {
 
 
@@ -149,12 +151,12 @@ namespace node_kde
          else
          {
 
-            auto paction = __new< QAction(strName.c_str >(), pmenu);
+            auto paction = __new< QAction >(strName.c_str(), pmenu);
 
             connect(paction, &QAction::triggered, this, [this, strId]()
             {
 
-               call_notification_area_action(strId);
+               application()->on_application_menu_action(strId);
 
             });
 
@@ -225,17 +227,20 @@ namespace node_kde
 //
 //      return estatus;
 
+//    }
+
+
    }
 
 
-   bool notify_icon::step()
+   bool notify_icon::notify_icon_step()
    {
 
-      //return ::success;
+        //return ::success;
 
-      return true;
+        return true;
 
-   }
+    }
 
 
 } // namespace node_kde

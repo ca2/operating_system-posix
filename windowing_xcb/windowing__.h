@@ -23,7 +23,7 @@ bool __xcb_hook_process_event(xcb_connection_t * pdisplay, XEvent & e, XGenericE
 bool __xcb_hook_list_is_empty();
 
 
-extern ::particle * user_synchronization();
+//extern ::particle * user_synchronization();
 
 
 xcb_connection_t * g_pdisplayX11= nullptr;

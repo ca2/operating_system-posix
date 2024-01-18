@@ -13,7 +13,7 @@
 #include "display.h"
 
 
-CLASS_DECL_ACME ::particle * user_synchronization();
+//CLASS_DECL_ACME ::particle * user_synchronization();
 
 
 namespace windowing_x11
@@ -162,7 +162,7 @@ namespace windowing_x11
 //
 //      }
 
-      synchronous_lock sl(user_synchronization());
+      //synchronous_lock sl(user_synchronization());
 
       windowing_output_debug_string("::x11_GetWindowRect 1");
 

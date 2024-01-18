@@ -105,7 +105,7 @@ namespace windowing_x11
 
       double_buffer::initialize_graphics_graphics(pimpl);
 
-      synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization());
 
       display_lock displaylock(x11_window()->x11_display()->Display());
 
@@ -126,7 +126,7 @@ namespace windowing_x11
 
       }
 
-      synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization());
 
       display_lock displaylock(x11_window()->x11_display()->Display());
 
@@ -398,7 +398,7 @@ namespace windowing_x11
 
       }
 
-      _synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization());
 
       display_lock displayLock(x11_window()->x11_display()->Display());
 
@@ -414,9 +414,9 @@ namespace windowing_x11
 
       auto pitem = get_screen_item();
 
-      _synchronous_lock slImage(pitem->m_pmutex);
-
       slGraphics.unlock();
+
+      _synchronous_lock slImage(pitem->m_pmutex);
 
       return _update_screen_unlocked(pitem);
 
@@ -643,6 +643,8 @@ namespace windowing_x11
             try
             {
 
+               display_lock displayLock(x11_window()->Display());
+
                px11window->strict_set_window_position_unlocked(bChangedPosition, bChangedSize);
 
             }
@@ -655,6 +657,8 @@ namespace windowing_x11
 
             if(!bChangedSize)
             {
+
+               display_lock displayLock(x11_window()->Display());
 
                XPutImage(
                   x11_window()->Display(),

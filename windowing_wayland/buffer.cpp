@@ -124,7 +124,7 @@ namespace windowing_wayland
 
       double_buffer::initialize_graphics_graphics(pimpl);
 
-      synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization());
 
       //display_lock displaylock(x11_window()->x11_display()->Display());
 
@@ -417,7 +417,7 @@ namespace windowing_wayland
 //
 //      }
 //
-//      //_synchronous_lock synchronouslock(user_synchronization());
+//      //synchronous_lock synchronouslock(user_synchronization());
 //
 //      //display_lock displayLock(x11_window()->x11_display()->Display());
 //
@@ -430,11 +430,11 @@ namespace windowing_wayland
 //   bool buffer::_update_screen_lesser_lock()
 //   {
 //
-////      _synchronous_lock slGraphics(synchronization());
+////      synchronous_lock slGraphics(synchronization());
 ////
 ////      auto pitem = get_screen_item();
 ////
-////      _synchronous_lock slImage(pitem->m_pmutex);
+////      synchronous_lock slImage(pitem->m_pmutex);
 ////
 ////      slGraphics.unlock();
 ////
@@ -473,11 +473,11 @@ namespace windowing_wayland
 //      //frame_callback = wl_surface_frame(surface);
 //
 //      {
-//         _synchronous_lock slGraphics(synchronization());
+//         synchronous_lock slGraphics(synchronization());
 //
 //         auto pitem = get_screen_item();
 //
-//         _synchronous_lock slImage(pitem->m_pmutex);
+//         synchronous_lock slImage(pitem->m_pmutex);
 //
 //         slGraphics.unlock();
 //         wl_surface_damage(pwaylandwindow->m_pwlsurface, 0, 0, pitem->m_size.cx(), pitem->m_size.cy());
@@ -782,11 +782,11 @@ namespace windowing_wayland
 
                //}
 
-               _synchronous_lock slGraphics(synchronization());
+               synchronous_lock slGraphics(synchronization());
 
                auto pitem = get_screen_item();
 
-               _synchronous_lock slImage(pitem->m_pmutex);
+               synchronous_lock slImage(pitem->m_pmutex);
 
                slGraphics.unlock();
 

@@ -17,7 +17,7 @@ void xcb_wait_timer_or_event(xcb_connection_t * pdisplay);
 void __xcb_hook_on_idle(xcb_connection_t * pdisplay);
 
 
-CLASS_DECL_ACME ::particle * user_synchronization();
+//CLASS_DECL_ACME ::particle * user_synchronization();
 
 
 //#include "xcb_exception.h"

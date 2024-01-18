@@ -114,7 +114,7 @@ namespace windowing_xcb
 #endif // DEBUG
 
 
-   void display::open()
+   void display::open_display()
    {
 
       information() << "windowing_xcb::display::open";

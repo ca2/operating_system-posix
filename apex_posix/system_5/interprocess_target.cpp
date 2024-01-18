@@ -41,7 +41,7 @@ namespace system_5
 
       m_key = ftok(strChannel, 'c');
 
-      if (m_key == 0)
+      if (m_key == -1)
       {
 
          auto cerrornumber = c_error_number();
@@ -68,7 +68,7 @@ namespace system_5
 
                auto estatus = cerrornumber.estatus();
 
-               throw ::exception(estatus, "msgget has failed");
+               throw ::exception(estatus, "msgget has failed (1) channel : " + strChannel);
 
             }
 
@@ -78,7 +78,7 @@ namespace system_5
 
             auto estatus = cerrornumber.estatus();
 
-            throw ::exception(estatus, "msgget has failed");
+            throw ::exception(estatus, {cerrornumber},  "msgget has failed (2) channel : " + strChannel);
 
          }
 

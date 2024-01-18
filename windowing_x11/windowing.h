@@ -54,7 +54,7 @@ namespace windowing_x11
 
       //virtual void initialize_windowing();
 
-      virtual void terminate_windowing();
+      void terminate_windowing() override;
 
       virtual void post_ui_message(const MESSAGE & message);
 

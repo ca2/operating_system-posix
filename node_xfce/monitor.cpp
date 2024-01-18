@@ -2,7 +2,7 @@
 #include "framework.h"
 
 
-::particle * user_synchronization();
+//::particle * user_synchronization();
 
 
 namespace node_xfce

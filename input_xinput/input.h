@@ -40,7 +40,7 @@ namespace input_xinput
       //void initialize(::particle * pparticle) override;
 
 
-      virtual void defer_input();
+      void defer_input() override;
       //virtual bool __needs_xinput();
 
 

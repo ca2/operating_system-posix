@@ -11,6 +11,9 @@
 #include "exception_translator.h"
 
 
+#include <stdio.h>
+
+
 IMPLEMENT_FACTORY(acme_posix)
 {
 
