@@ -1848,10 +1848,15 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                 //auto puserinteraction = pimpl->m_puserinteraction;
                ::pointer<buffer> pbuffer = pimpl->m_pgraphicsgraphics;
 
-               if(!pbuffer->m_bXShm || !pbuffer->m_bXShmPutImagePending)
+               if(pbuffer)
                {
 
-                  pbuffer->_update_screen_lesser_lock();
+                  if (!pbuffer->m_bXShm || !pbuffer->m_bXShmPutImagePending)
+                  {
+
+                     pbuffer->_update_screen_lesser_lock();
+
+                  }
 
                }
 

@@ -1,5 +1,7 @@
 #include "framework.h"
 #include "os_context.h"
+#include "acme/filesystem/filesystem/acme_directory.h"
+#include "acme/filesystem/filesystem/acme_file.h"
 #include "acme/platform/node.h"
 #include "apex/operating_system/freedesktop/desktop_file.h"
 #include <sys/stat.h>
