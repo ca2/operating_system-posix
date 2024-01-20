@@ -207,6 +207,8 @@ namespace acme_posix
 
       string strFilename(dp->d_name);
 
+      const char * psz = dp->d_name;
+
       path = listing.m_pathFinal / strFilename;
 
       if (path.begins(listing.m_pathBasePath))
