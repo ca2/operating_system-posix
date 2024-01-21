@@ -87,7 +87,7 @@ namespace apex_posix
 
 #else
 
-      throw interface_only_exception();
+      throw interface_only();
 
 #endif
 
