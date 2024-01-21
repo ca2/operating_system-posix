@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "os_context.h"
+#include "acme/exception/interface_only.h"
 #include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/filesystem/filesystem/acme_file.h"
 #include "acme/platform/node.h"
