@@ -127,7 +127,7 @@ namespace apex_posix
 
 #else
 
-      ::os_context::register_user_auto_start(strAppId, pathExecutable);
+      ::os_context::register_user_auto_start(strAppId, pathExecutable, strArguments, bRegister);
 
 #endif
 
@@ -142,6 +142,10 @@ namespace apex_posix
       ::file::path pathAutoStartDesktopFilePath = _get_auto_start_desktop_file_path(strAppId);
 
       return pathAutoStartDesktopFilePath.has_char() && acmefile()->exists(pathAutoStartDesktopFilePath);
+      
+#else
+      
+      return ::os_context::is_user_auto_start(strAppId);
 
 #endif
 
