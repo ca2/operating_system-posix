@@ -14,10 +14,8 @@
 #include "apex/platform/application_menu.h"
 #if defined(FREEBSD) || defined(FEDORA_LINUX)
 #include <libappindicator3-0.1/libappindicator/app-indicator.h>
-#elif defined(LINUX)
-#include <libayatana-appindicator/app-indicator.h>
 #else
-#include <libappindicator/app-indicator.h>
+#include <libayatana-appindicator/app-indicator.h>
 #endif
 //#include <libappindicator-0.1/libappindicator/app-indicator.h>
 //#else // MANJARO
