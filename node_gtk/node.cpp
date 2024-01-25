@@ -17,6 +17,7 @@
 #include "apex/platform/system.h"
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
+#include "aura/windowing/display.h"
 #include "windowing_x11/windowing_x11.h"
 #include "aura/windowing/windowing.h"
 #include "aura_posix/x11/windowing.h"
@@ -851,7 +852,7 @@ namespace node_gtk
 //   }
 
 
-   bool node::set_wallpaper(index iScreen, string strLocalImagePath)
+   bool node::set_wallpaper(index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay)
    {
 
       // wall-changer sourceforge.net contribution
@@ -862,16 +863,32 @@ namespace node_gtk
 
       auto edesktop = pnode->get_edesktop();
 
+      bool bDark = pwindowingdisplay->m_strDarkModeAnnotation.case_insensitive_contains("dark");
+
       switch (edesktop)
       {
 
          case ::user::e_desktop_gnome:
          case ::user::e_desktop_ubuntu_gnome:
          case ::user::e_desktop_unity_gnome:
+         {
 
-            return ::node_gtk::gsettings_set("org.gnome.desktop.background", "picture-uri",
-                                             "file://" + strLocalImagePath).ok();
+            if(bDark)
+            {
 
+               return ::node_gtk::gsettings_set("org.gnome.desktop.background", "picture-uri-dark",
+                                                "file://" + strLocalImagePath).ok();
+
+            }
+            else
+            {
+
+               return ::node_gtk::gsettings_set("org.gnome.desktop.background", "picture-uri",
+                                                "file://" + strLocalImagePath).ok();
+
+            }
+
+         }
          case ::user::e_desktop_mate:
 
             return ::node_gtk::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath).ok();

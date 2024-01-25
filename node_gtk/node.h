@@ -97,7 +97,7 @@ namespace node_gtk
 
       string get_file_content_type(const ::string & strPath) override;
 
-      bool set_wallpaper(index iScreen, string strLocalImagePath) override;
+      bool set_wallpaper(index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay) override;
 
       string get_wallpaper(index iScreen) override;
 
