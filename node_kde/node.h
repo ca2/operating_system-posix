@@ -82,7 +82,7 @@ namespace node_kde
 
       string get_file_content_type(const ::string & pszPath) override;
 
-      bool set_wallpaper(index iScreen, string strLocalImagePath) override;
+      bool set_wallpaper(index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay) override;
 
       string get_wallpaper(index iScreen) override;
 

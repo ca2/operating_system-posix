@@ -428,7 +428,7 @@ namespace node_kde
    }
 
 
-   bool node::set_wallpaper(index , string strLocalImagePath)
+   bool node::set_wallpaper(index , string strLocalImagePath, ::windowing::display * pwindowingdisplay)
    {
 
       ::string strCommand;
