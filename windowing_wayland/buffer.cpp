@@ -924,9 +924,26 @@ namespace windowing_wayland
 
                ::pointer<::windowing_wayland::window> pwaylandwindow = m_pimpl->m_pwindow;
 
-               auto pimpl = pwaylandwindow->m_puserinteractionimpl;
+               if(pwaylandwindow)
+               {
 
-               pimpl->m_pgraphicsthread->on_graphics_thread_iteration_end();
+                  auto pimpl = pwaylandwindow->m_puserinteractionimpl;
+
+                  if (pimpl)
+                  {
+
+                     auto pgraphicsthread = pimpl->m_pgraphicsthread;
+
+                     if(pgraphicsthread)
+                     {
+
+                        pgraphicsthread->on_graphics_thread_iteration_end();
+
+                     }
+
+                  }
+
+               }
 
             }
             catch(...)

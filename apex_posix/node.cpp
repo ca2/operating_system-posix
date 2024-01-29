@@ -198,6 +198,8 @@ namespace apex_posix
 
       pfile->set_file_path(pathShortcut);
 
+      pfile->set_get_file_extension_mime_type(papp->get_get_file_extension_mime_type());
+
       pfile->create();
 
       pfile->write();

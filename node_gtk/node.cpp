@@ -852,6 +852,7 @@ namespace node_gtk
 //   }
 
 
+
    bool node::set_wallpaper(index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay)
    {
 

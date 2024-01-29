@@ -425,8 +425,12 @@ namespace acme_posix
       {
          
          ::i32 amountToWriteNow = (::i32) minimum(INT_MAX, amountToWrite);
+
+         auto p = ((const char *) dataToWrite) + writePosition;
+
+         auto pEndMinus5 = p + amountToWriteNow - 5;
          
-         ::i32 amountWrittenNow = (::i32) ::write(m_iFile, &((const ::u8 *)dataToWrite)[writePosition], amountToWriteNow);
+         ::i32 amountWrittenNow = (::i32) ::write(m_iFile, p, amountToWriteNow);
          
          if (amountWrittenNow < 0)
          {
