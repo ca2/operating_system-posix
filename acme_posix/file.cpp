@@ -428,7 +428,11 @@ namespace acme_posix
 
          auto p = ((const char *) dataToWrite) + writePosition;
 
-         auto pEndMinus5 = p + amountToWriteNow - 5;
+//#ifdef _DEBUG
+//         
+//         auto pEndMinus5 = p + amountToWriteNow - 5;
+//         
+//#endif
          
          ::i32 amountWrittenNow = (::i32) ::write(m_iFile, p, amountToWriteNow);
          
