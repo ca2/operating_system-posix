@@ -103,7 +103,14 @@ namespace node_gtk
 
       file()->put_text(path, strXml);
 
-      ::system("update-mime-database \"" + path + "\"");
+      int iUpdateMimeDatabaseError = ::system("update-mime-database \"" + path + "\"");
+
+      if(iUpdateMimeDatabaseError)
+      {
+
+         information() << "Error while update-mime-database \"" << path << "\".";
+
+      }
 
    }
 
