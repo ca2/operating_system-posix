@@ -29,8 +29,7 @@ namespace node_gtk
    }
 
 
-
-   void os_context::add_default_program(string_array & straExtension, string_array & straMimeType)
+   void os_context::set_file_extension_mime_type(string_array & straExtension, string_array & straMimeType)
    {
 
       auto c = minimum(straExtension.size(), straMimeType.size());
@@ -42,53 +41,35 @@ namespace node_gtk
 
          ::string strMimeType = straMimeType[i];
 
-         _add_default_program(strExtension, strMimeType);
+         _set_file_extension_mime_type(strExtension, strMimeType);
 
       }
 
+   }
+
+
+   void os_context::_set_file_extension_mime_type(const scoped_string & scopedstrExtension, const scoped_string & scopedstrMimeType)
+   {
+
+      _defer_set_file_extension_mime_type(scopedstrExtension, scopedstrMimeType);
 
    }
 
 
-   void os_context::_add_default_program(const scoped_string & scopedstrExtension, const scoped_string & scopedstrMimeType)
+   void os_context::_defer_set_file_extension_mime_type(const scoped_string & scopedstrExtension, const scoped_string & scopedstrMimeType)
    {
 
-      _defer_add_mime_type(scopedstrExtension, scopedstrMimeType);
-
-   }
-
-
-   void os_context::_defer_add_mime_type(const scoped_string & scopedstrExtension, const scoped_string & scopedstrMimeType)
-   {
-
-      ::string_array straMimeTypes;
-
-      straMimeTypes = file()->lines("/etc/mime.types");
-
-      ::index iLine = 0;
-
-      while(true)
+      if(_system_is_set_file_extension_mime_type(scopedstrExtension, scopedstrMimeType))
       {
 
-         ::string strExtensions;
+         return;
 
-         iLine = straMimeTypes.find_first_begins_eat(strExtensions, scopedstrMimeType, iLine);
+      }
 
-         if (iLine < 0)
-         {
+      if(_user_is_set_file_extension_mime_type(scopedstrExtension, scopedstrMimeType))
+      {
 
-            break;
-
-         }
-
-         strExtensions.trim();
-
-         if(strExtensions.contains(scopedstrExtension))
-         {
-
-            return;
-
-         }
+         return;
 
       }
 
@@ -121,6 +102,98 @@ namespace node_gtk
       path /= (strNewTypeFileName + ".xml");
 
       file()->put_text(path, strXml);
+
+      ::system("update-mime-database \"" + path + "\"");
+
+   }
+
+
+   bool os_context::_system_is_set_file_extension_mime_type(const scoped_string & scopedstrExtension, const scoped_string & scopedstrMimeType)
+   {
+
+      ::string_array straMimeTypes;
+
+      straMimeTypes = file()->lines("/etc/mime.types");
+
+      ::index iLine = 0;
+
+      while(true)
+      {
+
+         ::string strExtensions;
+
+         iLine = straMimeTypes.find_first_with_starting_word_eat(strExtensions, scopedstrMimeType, iLine);
+
+         if (iLine < 0)
+         {
+
+            break;
+
+         }
+
+         information() << "strExtensions : \"" << strExtensions << "\"";
+
+         ::string_array straExtensions;
+
+         straExtensions.add_words(strExtensions);
+
+         for(auto & str1 : straExtensions)
+         {
+
+            information() << "a extension : \"" << str1 << "\"";
+
+         }
+
+         if(straExtensions.contains(scopedstrExtension))
+         {
+
+            return true;
+
+         }
+
+         iLine++;
+
+      }
+
+      return false;
+
+//      ::string strNewTypeFileName;
+//
+//      strNewTypeFileName = scopedstrMimeType;
+//
+//      strNewTypeFileName.find_replace("/", "-");
+//
+//      ::string strXml = R"====(
+//<?xml version="1.0" encoding="UTF-8"?>
+//<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+//   <mime-type type="#mime_type#">
+//      <comment>#comment#</comment>
+//      <glob pattern="#glob_pattern#"/>
+//   </mime-type>
+//</mime-info>
+//)====";
+//
+//      strXml.find_replace("#mime_type#", scopedstrMimeType);
+//      strXml.find_replace("#comment#", "\"" + scopedstrMimeType + "\" Mime Type recognized by \"" + scopedstrExtension + "\" file extension.");
+//      strXml.find_replace("#glob_pattern#", "*." + scopedstrExtension);
+//
+//      ::file::path path;
+//
+//      path = acmedirectory()->home();
+//
+//      path /= ".local/share/mime/packages";
+//
+//      path /= (strNewTypeFileName + ".xml");
+//
+//      file()->put_text(path, strXml);
+
+   }
+
+
+   bool os_context::_user_is_set_file_extension_mime_type(const scoped_string & scopedstrExtension, const scoped_string & scopedstrMimeType)
+   {
+
+      return false;
 
    }
 
