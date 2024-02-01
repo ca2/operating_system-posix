@@ -548,6 +548,12 @@ namespace acme_posix
       ::free(pszModule);
 
       return path;
+      
+   #elif defined(APPLE_IOS)
+      
+      throw ::interface_only();
+      
+      return {};
 
    #else
 

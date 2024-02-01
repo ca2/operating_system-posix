@@ -1444,8 +1444,6 @@ namespace acme_posix
 
       string strError;
 
-      auto pszCommandLine = ansi_dup(scopedstr);
-
       const pid_t pid = ::fork();
 
       if (!pid)
@@ -1477,13 +1475,15 @@ namespace acme_posix
 
          close(stdin_fds[1]);
 
-         int iErrNo = 0;
-
-#ifdef ANDROID
+#if defined(ANDROID) || defined(APPLE_IOS)
 
          throw ::exception(todo);
 
 #else
+
+         auto pszCommandLine = ansi_dup(scopedstr);
+
+         int iErrNo = 0;
 
          wordexp_t we{};
 
@@ -1506,11 +1506,11 @@ namespace acme_posix
 
          wordfree(&we);
 
-#endif
-
          free(pszCommandLine);
 
          _exit(iErrNo);
+
+#endif
 
       }
 
@@ -1842,8 +1842,6 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
 
    string strError;
 
-   auto pszCommandLine = ansi_dup(scopedstr);
-
    const pid_t pid = ::fork();
 
    if (!pid)
@@ -1875,13 +1873,15 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
 
       //close(stdin_fds[1]);
 
-      int iErrNo = 0;
-
-#ifdef ANDROID
+#if defined(ANDROID) || defined(APPLE_IOS)
 
       throw ::exception(todo);
 
 #else
+
+      auto pszCommandLine = ansi_dup(scopedstr);
+
+      int iErrNo = 0;
 
       wordexp_t we{};
 
@@ -1904,11 +1904,11 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
 
       wordfree(&we);
 
-#endif
-
       free(pszCommandLine);
 
       _exit(iErrNo);
+
+#endif
 
    }
 

@@ -125,11 +125,18 @@
 			remoteGlobalIDString = 9A68A41325114352008DABD2;
 			remoteInfo = acme;
 		};
-		9A8E9EF9282A3537005FF778 /* PBXContainerItemProxy */ = {
+		9AC1073F2B6ACB790053DB45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A0C1792264A315100B5CC33 /* acme.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9AC1067D2B6AC9BD0053DB45;
+			remoteInfo = ios_acme;
+		};
+		9AC107412B6ACB840053DB45 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9A0C1792264A315100B5CC33 /* acme.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 9AD68E39251A753A00C0EBD7;
+			remoteGlobalIDString = 9AC100A72B6AC9BD0053DB45;
 			remoteInfo = ios_acme;
 		};
 		9AC14D9A297B362D006D9BD3 /* PBXContainerItemProxy */ = {
@@ -265,6 +272,7 @@
 			children = (
 				9A0C1798264A315100B5CC33 /* libacme.dylib */,
 				9A0C179A264A315100B5CC33 /* libstatic_acme.a */,
+				9AC107402B6ACB790053DB45 /* libios_acme.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -377,7 +385,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				9A8E9EFA282A3537005FF778 /* PBXTargetDependency */,
+				9AC107422B6ACB840053DB45 /* PBXTargetDependency */,
 			);
 			name = ios_acme_posix;
 			productName = acme_posix;
@@ -408,7 +416,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					9A0C1637264A281D00B5CC33 = {
 						CreatedOnToolsVersion = 12.5;
@@ -454,6 +462,13 @@
 			fileType = "compiled.mach-o.dylib";
 			path = libstatic_acme.a;
 			remoteRef = 9A0C1799264A315100B5CC33 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9AC107402B6ACB790053DB45 /* libios_acme.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = libios_acme.a;
+			remoteRef = 9AC1073F2B6ACB790053DB45 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -536,10 +551,10 @@
 			name = acme;
 			targetProxy = 9A0C179B264A316000B5CC33 /* PBXContainerItemProxy */;
 		};
-		9A8E9EFA282A3537005FF778 /* PBXTargetDependency */ = {
+		9AC107422B6ACB840053DB45 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ios_acme;
-			targetProxy = 9A8E9EF9282A3537005FF778 /* PBXContainerItemProxy */;
+			targetProxy = 9AC107412B6ACB840053DB45 /* PBXContainerItemProxy */;
 		};
 		9AC14D9B297B362D006D9BD3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -599,9 +614,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = framework.h;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -776,6 +789,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_EXTENSION = "$(STATIC_LIBRARY_EXTENSION:default=a)";
+				EXECUTABLE_PREFIX = lib;
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				PLATFORM_MODIFIER = ios;
@@ -787,6 +801,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_EXTENSION = "$(STATIC_LIBRARY_EXTENSION:default=a)";
+				EXECUTABLE_PREFIX = lib;
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				PLATFORM_MODIFIER = ios;
