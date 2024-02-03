@@ -1812,6 +1812,33 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
    }
 
    int stdin_fds[2] = {};
+   
+   auto range = scopedstr();
+   
+   ::string strExecutable(range.consume_command_line_argument());
+   
+   auto pszExecutable = strdup(strExecutable);
+   
+   auto pszCommandLine = ansi_dup(scopedstr);
+
+   int iErrNo = 0;
+
+   wordexp_t we{};
+
+   wordexp(pszCommandLine, &we, 0);
+
+   char **argv = __new_array< char * >(we.we_wordc + 1);
+   
+   for(::index i = 0; i < we.we_wordc; i++)
+   {
+      
+      auto arg = we.we_wordv[i];
+      
+      argv[i] = arg;
+      
+   }
+   
+   argv[we.we_wordc] = nullptr;
 
 //   if(scopedstrPipe.has_char())
 //   {
@@ -1879,19 +1906,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
 
 #else
 
-      auto pszCommandLine = ansi_dup(scopedstr);
-
-      int iErrNo = 0;
-
-      wordexp_t we{};
-
-      wordexp(pszCommandLine, &we, 0);
-
-      char **argv = __new_array< char * >(we.we_wordc + 1);
-
-      memory_copy(argv, we.we_wordv, we.we_wordc * sizeof(char *));
-
-      int iChildExitCode = execvp(argv[0], &argv[0]);
+      int iChildExitCode = execvp(pszExecutable, argv);
 
       if (iChildExitCode == -1)
       {
@@ -1905,6 +1920,8 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
       wordfree(&we);
 
       free(pszCommandLine);
+      
+      free(pszExecutable);
 
       _exit(iErrNo);
 
@@ -2221,6 +2238,27 @@ if(functionTrace)
 //      return get_edesktop();
 //
 //   }
+
+   
+   bool node::is_executable_in_path(const ::scoped_string &scopedstr)
+   {
+      
+      ::string strPath;
+   
+      int iError = get_unix_shell_command_output(strPath, "command -v " + scopedstr);
+      
+      information() << "command -v : " << scopedstr << " output => " << strPath;
+      
+      if(strPath.is_empty())
+      {
+         
+         return false;
+         
+      }
+      
+      return true;
+      
+   }
 
 
 } // namespace acme_posix

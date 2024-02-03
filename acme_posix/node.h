@@ -125,6 +125,7 @@ namespace acme_posix
 
       //::user::enum_desktop calculate_edesktop() override;
 
+      bool is_executable_in_path(const ::scoped_string & scopedstr) override;
 
 
    };
