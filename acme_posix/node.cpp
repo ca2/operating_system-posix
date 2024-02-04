@@ -1817,12 +1817,20 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
    
    ::string strExecutable(range.consume_command_line_argument());
    
+   char **argv;
+   
+#if defined(APPLE_IOS)
+   
+   argv = nullptr;
+   
+#else
+
    auto pszExecutable = strdup(strExecutable);
    
    auto pszCommandLine = ansi_dup(scopedstr);
 
    int iErrNo = 0;
-
+   
    wordexp_t we{};
 
    wordexp(pszCommandLine, &we, 0);
@@ -1839,6 +1847,8 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
    }
    
    argv[we.we_wordc] = nullptr;
+   
+#endif
 
 //   if(scopedstrPipe.has_char())
 //   {
