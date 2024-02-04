@@ -2255,7 +2255,7 @@ if(functionTrace)
       
       ::string strPath;
    
-      int iError = get_unix_shell_command_output(strPath, "command -v " + scopedstr);
+      get_unix_shell_command_output(strPath, "command -v " + scopedstr);
       
       information() << "command -v : " << scopedstr << " output => " << strPath;
       
