@@ -7,7 +7,7 @@
 #include "acme/_.h"
 
 
-#if !defined(__MM)
+#if !defined(__OBJECTIVE_CPP__)
 
 
 #include "file_memory_map.h"
@@ -28,7 +28,7 @@
 #include "node.h"
 
 
-#endif // !defined(__MM)
+#endif // !defined(__OBJECTIVE_CPP__)
 
 
 
