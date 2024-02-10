@@ -61,7 +61,7 @@ namespace apex_posix
    ::process_identifier os_context::current_process_identifier()
    {
 
-      return acmenode()->current_process_identifier();
+      return node()->current_process_identifier();
 
    }
 

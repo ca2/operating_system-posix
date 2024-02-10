@@ -321,12 +321,12 @@ void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString)
 //
 //      bool bOk = false;
 //
-//      auto edesktop = acmenode()->get_edesktop();
+//      auto edesktop = node()->get_edesktop();
 //
 //      if(edesktop & ::user::e_desktop_gnome)
 //      {
 //
-//         acmenode()->post_procedure([this, strWallpaper]()
+//         node()->post_procedure([this, strWallpaper]()
 //                                    {
 //
 //            bool bOk = false;

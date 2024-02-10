@@ -2780,7 +2780,7 @@ namespace windowing_x11
 
             //informationf("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
 
-            //information() << acmenode()->get_callstack();
+            //information() << node()->get_callstack();
 
             XMoveResizeWindow(Display(), Window(), x, y, cx, cy);
 
@@ -3021,7 +3021,7 @@ namespace windowing_x11
 //
 //            //informationf("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
 //
-//            //information() << acmenode()->get_callstack();
+//            //information() << node()->get_callstack();
 //
 //            XMoveResizeWindow(Display(), Window(), x, y, cx, cy);
 //
@@ -3443,7 +3443,7 @@ namespace windowing_x11
 
             informationf("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
 
-            //information() << acmenode()->get_callstack();
+            //information() << node()->get_callstack();
 
             XMoveResizeWindow(Display(), Window(), x, y, cx, cy);
 
@@ -3483,7 +3483,7 @@ namespace windowing_x11
 
          informationf("XResizeWindow (Win=%d) (%d, %d)", Window(), cx, cy);
 
-         //information() << acmenode()->get_callstack();
+         //information() << node()->get_callstack();
 
          XResizeWindow(Display(), Window(), cx, cy);
 

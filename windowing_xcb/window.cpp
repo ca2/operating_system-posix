@@ -4031,7 +4031,7 @@ namespace windowing_xcb
 //
 //            informationf("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
 //
-//            //information() << acmenode()->get_callstack();
+//            //information() << node()->get_callstack();
 //
 //            _move_resize_unlocked(x, y, cx, cy);
 //

@@ -1755,7 +1755,7 @@ namespace node_gtk
 //
 //      ::string strCommand = "sh -c \"nohup gtk-launch " + strAppId + " &\"";
 //
-//      int iExitCode = acmenode()->command_system(strCommand, 10_minutes);
+//      int iExitCode = node()->command_system(strCommand, 10_minutes);
 //
 //      if(iExitCode == 0)
 //      {

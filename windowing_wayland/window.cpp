@@ -3188,7 +3188,7 @@ namespace windowing_wayland
 //
 //            //informationf("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
 //
-//            //information() << acmenode()->get_callstack();
+//            //information() << node()->get_callstack();
 //
 //            XMoveResizeWindow(Display(), Window(), x, y, cx, cy);
 //
@@ -3432,7 +3432,7 @@ namespace windowing_wayland
 //
 //            //informationf("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
 //
-//            //information() << acmenode()->get_callstack();
+//            //information() << node()->get_callstack();
 //
 //            XMoveResizeWindow(Display(), Window(), x, y, cx, cy);
 //
@@ -3615,7 +3615,7 @@ namespace windowing_wayland
 
       }
 
-//      acmenode()->post_procedure([this, zorder, eactivation, bNoZorder, edisplay]()
+//      node()->post_procedure([this, zorder, eactivation, bNoZorder, edisplay]()
 //                                 {
 
 //                                    if(m_uLastRequestSerial == m_uLastConfigureSerial)
@@ -3971,7 +3971,7 @@ namespace windowing_wayland
 
       //wl_surface_commit(m_pwlsurface);
 
-//                                    acmenode()->post_procedure([this]()
+//                                    node()->post_procedure([this]()
 //                                                               {
 //                                                                  ::pointer < ::windowing_wayland::display > pwaylanddisplay = m_pdisplay;
 //                                                                  wl_display_flush(pwaylanddisplay->m_pwldisplay);
@@ -4035,7 +4035,7 @@ namespace windowing_wayland
 
             //informationf("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
 
-            //information() << acmenode()->get_callstack();
+            //information() << node()->get_callstack();
 
 //            XMoveResizeWindow(Display(), Window(), x, y, cx, cy);
 
@@ -4075,7 +4075,7 @@ namespace windowing_wayland
 
          //informationf("XResizeWindow (Win=%d) (%d, %d)", Window(), cx, cy);
 
-         //information() << acmenode()->get_callstack();
+         //information() << node()->get_callstack();
 
          //XResizeWindow(Display(), Window(), cx, cy);
 

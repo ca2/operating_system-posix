@@ -221,7 +221,7 @@ namespace windowing_xcb
 //      //procedure();
 //
 //
-//      acmenode()->node_post(procedure);
+//      node()->node_post(procedure);
 //
 //      //if(!procedure)
 //      //{

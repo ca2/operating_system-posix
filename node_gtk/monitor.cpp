@@ -158,7 +158,7 @@ namespace node_gtk
 
          });
 
-//      acmenode()->send_procedure(predicate);
+//      node()->send_procedure(predicate);
 
       return ::windowing::monitor::monitor_rectangle();
 
@@ -179,7 +179,7 @@ namespace node_gtk
 //
 //        // };
 //
-//      //acmenode()->send_procedure(predicate);
+//      //node()->send_procedure(predicate);
 //
 //      //return ::windowing::monitor::workspace_rectangle();
 //

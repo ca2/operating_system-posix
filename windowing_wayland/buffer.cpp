@@ -1197,7 +1197,7 @@ namespace windowing_wayland
 //
 //            information() << "XPutImage : " << sizeBitBlitting;
 //
-//            //information() << acmenode()->get_callstack();
+//            //information() << node()->get_callstack();
 //
 ////            try
 ////            {

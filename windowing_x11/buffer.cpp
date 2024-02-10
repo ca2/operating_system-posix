@@ -670,7 +670,7 @@ namespace windowing_x11
 
                //information() << "XPutImage : " << sizeBitBlitting;
 
-               //information() << acmenode()->get_callstack();
+               //information() << node()->get_callstack();
 
 //            try
 //            {
