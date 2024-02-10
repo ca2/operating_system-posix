@@ -2227,7 +2227,7 @@ if(functionTrace)
 
          strCommand.formatf("\"%s\" -c \"%s\"", strUnixShell.c_str(), strCommandInner.c_str());
 
-         auto iExitCode = node()->command_system(strCommand, tracefunction);
+         auto iExitCode = this->command_system(strCommand, tracefunction);
 
          return iExitCode;
 
