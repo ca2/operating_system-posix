@@ -194,7 +194,7 @@ namespace windowing_wayland
 
       }
 
-      ::pointer<::aura_posix::node> pauraposixnode = acmenode();
+      ::pointer<::aura_posix::node> pauraposixnode = node();
 
       m_pwldisplay = pauraposixnode->get_wayland_display();
 

@@ -180,7 +180,7 @@ namespace node_gnome
    bool appindicator::create(const char * pszId, const char * pszIcon, const char * pszFolder, application_menu * papplicationmenu, application_menu_callback * pcallback)
    {
 
-      ::pointer < ::node_gtk::node > pgtknode = acmenode();
+      ::pointer < ::node_gtk::node > pgtknode = node();
 
       if (!::node_gtk::os_defer_init_gtk(pgtknode))
       {

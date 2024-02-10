@@ -170,7 +170,7 @@ namespace input_xinput
 
                       synchronous_lock synchronouslock(this->synchronization());
 
-                      ::pointer < ::aura_posix::node > pnode = acmenode();
+                      ::pointer < ::aura_posix::node > pnode = node();
 
                       auto pDisplay = (Display *) pnode->_get_Display();
 
@@ -556,7 +556,7 @@ namespace input_xinput
       auto pevent = (XEvent *) p;
       auto cookie = (XGenericEventCookie *) pcookie;
 
-      ::pointer < ::aura_posix::node > pnode = acmenode();
+      ::pointer < ::aura_posix::node > pnode = node();
 
       auto pDisplay = (Display *) pnode->_get_Display();
 

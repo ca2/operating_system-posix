@@ -62,7 +62,7 @@ void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString)
 //   ::Display * display::_get_system_default_display()
 //   {
 //
-//      ::pointer < ::node_gtk::node > pgtknode = acmenode();
+//      ::pointer < ::node_gtk::node > pgtknode = node();
 //
 //      if(!os_defer_init_gtk(pgtknode))
 //      {
