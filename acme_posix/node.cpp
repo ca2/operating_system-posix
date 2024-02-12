@@ -1835,7 +1835,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
 
    wordexp(pszCommandLine, &we, 0);
 
-   char **argv = __new_array< char * >(we.we_wordc + 1);
+   argv = __new_array< char * >(we.we_wordc + 1);
    
    for(::index i = 0; i < we.we_wordc; i++)
    {
