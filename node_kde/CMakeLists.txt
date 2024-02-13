@@ -125,6 +125,8 @@ elseif(${LINUX} OR ${FREEBSD} OR ${OPENBSD} OR ${NETBSD})
 
 
 
+
+
    #    find_package(Qt5Core ${QT_MIN_VERSION} CONFIG REQUIRED)
    #    find_package(Qt5UiTools ${QT_MIN_VERSION} CONFIG REQUIRED)
 
