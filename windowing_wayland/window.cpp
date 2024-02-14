@@ -99,14 +99,17 @@ namespace windowing_wayland
    }
 
 
-   void window::create_window(::user::interaction_impl * pimpl)
+   //void window::create_window(::user::interaction_impl * pimpl)
+   void window::create_window()
    {
 
       bool bOk = true;
 
+      ::user::interaction_impl * pimpl = m_puserinteractionimpl;
+
       {
 
-         synchronous_lock synchronouslock(user_synchronization());
+         _synchronous_lock synchronouslock(user_synchronization());
 
          auto pusersystem = pimpl->m_puserinteraction->m_pusersystem;
 
@@ -823,7 +826,7 @@ namespace windowing_wayland
 
          pimpl->m_puserinteraction->set_flag(e_flag_task_started);
 
-         auto lresult2 = pimpl->m_puserinteraction->send_message(e_message_pos_create, 0, 0);
+         //auto lresult2 = pimpl->m_puserinteraction->send_message(e_message_pos_create, 0, 0);
 
       }
 

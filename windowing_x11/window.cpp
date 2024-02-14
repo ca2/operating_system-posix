@@ -96,10 +96,13 @@ namespace windowing_x11
    }
 
 
-   void window::create_window(::user::interaction_impl * pimpl)
+   //void window::create_window(::user::interaction_impl * pimpl)
+   void window::create_window()
    {
 
       bool bOk = true;
+
+      auto pimpl = m_puserinteractionimpl;
 
       {
 
@@ -129,9 +132,9 @@ namespace windowing_x11
 
          }
 
-         m_puserinteractionimpl = pimpl;
+         //m_puserinteractionimpl = pimpl;
 
-         m_puserinteractionimpl->m_puserinteraction->m_pwindow = this;
+         //m_puserinteractionimpl->m_puserinteraction->m_pwindow = this;
 
          // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
          // {
@@ -780,7 +783,7 @@ namespace windowing_x11
 
          pimpl->m_puserinteraction->set_flag(e_flag_task_started);
 
-         auto lresult2 = pimpl->m_puserinteraction->send_message(e_message_pos_create, 0, 0);
+         //auto lresult2 = pimpl->m_puserinteraction->send_message(e_message_pos_create, 0, 0);
 
       }
 

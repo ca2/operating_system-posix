@@ -504,7 +504,11 @@ namespace aura_posix
 
       information() << "node::launch_app_by_app_id : " << strCommand;
 
-      int iExitCode = node()->command_system(strCommand, 10_minutes);
+      auto inlinelog = std_inline_log();
+
+      inlinelog.m_timeTimeout = 10_minutes;
+
+      int iExitCode = this->command_system(strCommand, inlinelog);
 
       if(iExitCode != 0)
       {

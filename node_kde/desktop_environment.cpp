@@ -173,7 +173,7 @@ namespace node_kde
 
       auto psystem = system()->m_paurasystem;
 
-      ::pointer < node > pnode = psystem->node();
+      ::pointer < ::node_kde::node > pnode = psystem->node();
 
       auto pqapplication = pnode->m_pqapplication;
 

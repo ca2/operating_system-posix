@@ -62,7 +62,9 @@ namespace windowing_xcb
       ~window() override;
 
 
-      void create_window(::user::interaction_impl * pimpl) override;
+      //void create_window(::user::interaction_impl * pimpl) override;
+
+      void create_window() override;
 
 
       virtual xcb_connection_t * xcb_connection();

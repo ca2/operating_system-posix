@@ -87,7 +87,10 @@ namespace windowing_x11
       ~window() override;
 
 
-      void create_window(::user::interaction_impl * pimpl) override;
+      //void create_window(::user::interaction_impl * pimpl) override;
+
+
+      void create_window() override;
 
 
       static Atom get_window_long_atom(i32 nIndex);

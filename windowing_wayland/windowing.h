@@ -104,7 +104,7 @@ namespace windowing_wayland
 
       //virtual ::windowing::window * new_message_window(::user::interaction_impl * pimpl) override;
 
-      ::windowing::window * new_window(::user::interaction_impl * pimpl) override;
+      //::windowing::window * new_window(::user::interaction_impl * pimpl) override;
 
       void erase_window(::windowing::window * pwindow) override;
 

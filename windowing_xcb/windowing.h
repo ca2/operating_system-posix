@@ -98,7 +98,7 @@ namespace windowing_xcb
 
       //virtual ::windowing::window * new_message_window(::user::interaction_impl * pimpl) override;
 
-      virtual ::windowing::window * new_window(::user::interaction_impl * pimpl) override;
+      //virtual ::windowing::window * new_window(::user::interaction_impl * pimpl) override;
 
       void erase_window(::windowing::window * pwindow);
 

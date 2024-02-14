@@ -69,29 +69,29 @@ namespace windowing_xcb
    }
 
 
-   ::windowing::window * windowing::new_window(::user::interaction_impl * pimpl)
-   {
-
-      ::pointer<::windowing_xcb::window> pwindow = pimpl->__create<::windowing::window>();
-
-      if (!pwindow)
-      {
-
-         return nullptr;
-
-      }
-
-      pwindow->m_pwindowing = this;
-
-      pwindow->m_puserinteractionimpl = pimpl;
-
-      pimpl->m_pwindow = pwindow;
-
-      pwindow->create_window(pimpl);
-
-      return pwindow;
-
-   }
+//   ::windowing::window * windowing::new_window(::user::interaction_impl * pimpl)
+//   {
+//
+//      ::pointer<::windowing_xcb::window> pwindow = pimpl->__create<::windowing::window>();
+//
+//      if (!pwindow)
+//      {
+//
+//         return nullptr;
+//
+//      }
+//
+//      pwindow->m_pwindowing = this;
+//
+//      pwindow->m_puserinteractionimpl = pimpl;
+//
+//      pimpl->m_pwindow = pwindow;
+//
+//      pwindow->create_window(pimpl);
+//
+//      return pwindow;
+//
+//   }
 
 
    void windowing::erase_window(::windowing::window * pwindow)

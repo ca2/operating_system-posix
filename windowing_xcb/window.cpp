@@ -74,10 +74,13 @@ namespace windowing_xcb
    }
 
 
-   void window::create_window(::user::interaction_impl * pimpl)
+   //void window::create_window(::user::interaction_impl * pimpl)
+   void window::create_window()
    {
 
       synchronous_lock synchronouslock(user_synchronization());
+
+      ::user::interaction_impl * pimpl = m_puserinteractionimpl;
 
       bool bOk = true;
 
@@ -108,9 +111,9 @@ namespace windowing_xcb
 
       pimpl->m_puserinteraction->m_puserinteractionTopLevel = pimpl->m_puserinteraction;
 
-      pimpl->m_puserinteraction->m_pwindow = this;
+//      pimpl->m_puserinteraction->m_pwindow = this;
 
-      pimpl->m_pwindow = this;
+//      pimpl->m_pwindow = this;
 
       //display_lock displaylock(pdisplayxcb);
 
@@ -467,7 +470,7 @@ namespace windowing_xcb
 
          pimpl->m_puserinteraction->set_flag(e_flag_task_started);
 
-         auto lresult2 = pimpl->m_puserinteraction->send_message(e_message_pos_create, 0, 0);
+         //auto lresult2 = pimpl->m_puserinteraction->send_message(e_message_pos_create, 0, 0);
 
       }
 
