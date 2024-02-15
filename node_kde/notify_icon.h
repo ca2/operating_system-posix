@@ -4,6 +4,7 @@
 #include "aura/user/user/notify_icon.h"
 #include <QObject>
 #include <KStatusNotifierItem>
+#include <QMenu>
 
 
 namespace node_kde
@@ -33,6 +34,10 @@ namespace node_kde
       void create_notify_icon(const ::atom & atom, ::user::interaction * puserinteractionNotify, ::windowing::icon * picon) override;
 
       virtual ::e_status _create_status_notifier_item();
+
+      virtual ::e_status _populate_qmenu_popup(QMenu * pmenu, application_menu * papplicationmenu);
+
+      virtual ::e_status _populate_qmenu(QMenu * pmenu, ::index i, application_menu * papplicationmenu);
 
       bool notify_icon_step() override;
 

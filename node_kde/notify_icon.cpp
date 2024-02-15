@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "notify_icon.h"
 #include "node.h"
+#include "acme/constant/id.h"
 #include "acme/platform/system.h"
 #include "acme/filesystem/filesystem/dir_context.h"
 #include "apex/platform/application.h"
@@ -12,6 +13,7 @@
 #include "aura/platform/context.h"
 #include "aura/windowing/icon.h"
 #include <QMenu>
+//#include <QMe>
 
 
 namespace node_kde
@@ -84,6 +86,97 @@ namespace node_kde
    }
 
 
+   ::e_status notify_icon::_populate_qmenu_popup(QMenu * pmenuPopup, application_menu * papplicationmenu)
+   {
+
+      for (::index i = 0; i < papplicationmenu->count(); i++)
+      {
+
+         auto pitem = papplicationmenu->element_at(i);
+
+         _populate_qmenu(pmenuPopup, i, pitem);
+
+      }
+
+      return ::success;
+
+   }
+
+
+   ::e_status notify_icon::_populate_qmenu(QMenu * pmenu, ::index i, application_menu * papplicationmenu)
+   {
+
+      string strLabel = papplicationmenu->m_strName;
+
+      auto atom = papplicationmenu->m_atom;
+
+      string strName = papplicationmenu->m_strName;
+
+      information() << "Item::name : " << strName;
+      information() << "Item::id : " << atom.as_string();
+      information() << "Item::label : " << strLabel;
+
+      if(papplicationmenu->m_bPopup)
+      {
+
+         pmenu->setTitle(strLabel.c_str());
+
+         QMenu * pmenuPopup = __new<QMenu>();
+
+         _populate_qmenu_popup(pmenuPopup, papplicationmenu);
+
+         pmenu->addMenu(pmenuPopup);
+
+      }
+      else
+      {
+//      for (index i = 0; i < m_papplicationmenu->get_count(); i++)
+//      {
+//
+//         auto pitem = m_papplicationmenu->element_at(i);
+
+         if (atom == id_separator)
+         {
+
+            if (i + 1 < m_papplicationmenu->get_count() && string(m_papplicationmenu->element_at(i + 1)->m_atom) == "app_exit")
+            {
+
+
+            }
+            else
+            {
+
+               pmenu->addSeparator();
+
+            }
+
+         }
+         else
+         {
+
+            auto paction = pmenu->addAction(strName.c_str());
+            //openAct->setShortcut(tr("Ctrl+O"));
+            connect(paction, &QAction::triggered, [this, atom]()
+            {
+
+               application()->on_application_menu_action(atom);
+
+            });
+
+            //rauto paction =
+            //auto paction =  pmenu->addAction(strId.c_str(), );
+
+            //paction->setText(strName.c_str());
+
+         }
+
+      }
+
+      return ::success;
+
+   }
+
+
    ::e_status notify_icon::_create_status_notifier_item()
    {
 
@@ -119,52 +212,11 @@ namespace node_kde
 
       string strFriendlyName = papp->m_papexapplication->get_app_user_friendly_task_bar_name();
 
-      auto pmenu = __new< QMenu >();
+      //auto pmenu = __new< QMenu >();
 
-      for (index i = 0; i < m_papplicationmenu->get_count(); i++)
-      {
+      auto pmenu = m_pstatusnotifieritem->contextMenu();
 
-         auto pitem = m_papplicationmenu->element_at(i);
-
-         string strLabel = pitem->m_strLabel;
-
-         string strId = pitem->m_atom;
-
-         string strName = pitem->m_strLabel;
-
-         if (strId == "separator")
-         {
-
-            if (i + 1 < m_papplicationmenu->get_count() && string(m_papplicationmenu->element_at(i + 1)->m_atom) == "app_exit")
-            {
-
-
-            }
-            else
-            {
-
-               pmenu->addSeparator();
-
-            }
-
-         }
-         else
-         {
-
-            auto paction = __new< QAction >(strName.c_str(), pmenu);
-
-            connect(paction, &QAction::triggered, this, [this, strId]()
-            {
-
-               application()->on_application_menu_action(strId);
-
-            });
-
-            pmenu->addAction(paction);
-
-         }
-
-      }
+      _populate_qmenu_popup(pmenu, m_papplicationmenu);
 
       m_pstatusnotifieritem->setTitle(strFriendlyName.c_str());
 
