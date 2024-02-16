@@ -166,7 +166,7 @@ namespace node_gtk
 
       }
 
-      ::pointer < ::node_gtk::node > pgtknode = ::platform::get()->system()->acmenode();
+      ::pointer < ::node_gtk::node > pgtknode = ::platform::get()->system()->node();
 
       if (!os_defer_init_gtk(pgtknode))
       {
@@ -203,7 +203,7 @@ namespace node_gtk
    ::e_status gsettings_sync()
    {
 
-      ::pointer < ::node_gtk::node > pgtknode = ::platform::get()->system()->acmenode();
+      ::pointer < ::node_gtk::node > pgtknode = ::platform::get()->system()->node();
 
       if (!os_defer_init_gtk(pgtknode))
       {
@@ -236,7 +236,7 @@ namespace node_gtk
 
       }
 
-      ::pointer < ::node_gtk::node > pgtknode = ::platform::get()->system()->acmenode();
+      ::pointer < ::node_gtk::node > pgtknode = ::platform::get()->system()->node();
 
       if (!os_defer_init_gtk(pgtknode))
       {
@@ -546,7 +546,7 @@ namespace node_gtk
    gboolean gdk_callback_run_runnable(gpointer pdata)
    {
 
-      auto pparticle = (::particle *) pdata;
+      auto pparticle = (::subparticle *) pdata;
 
       try
       {
@@ -569,7 +569,7 @@ namespace node_gtk
    void gdk_branch(const ::procedure & procedure)
    {
 
-      ::particle * pbase = procedure.m_pbase;
+      ::subparticle * pbase = procedure.m_pbase;
 
       ::increment_reference_count(pbase);
 
