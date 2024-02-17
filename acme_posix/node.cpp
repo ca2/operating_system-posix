@@ -1825,7 +1825,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
    
 #else
 
-   auto pszExecutable = strdup(strExecutable);
+   auto pszExecutable = ::c::strdup(strExecutable);
    
    auto pszCommandLine = ansi_dup(scopedstr);
 
