@@ -2,7 +2,7 @@
 #include "display.h"
 #include "node.h"
 #include "desktop_environment.h"
-#include "os_context.h"
+//#include "os_context.h"
 
 
 __FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory);
@@ -54,7 +54,7 @@ __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
    pfactory->add_factory_item < ::node_gtk::desktop_environment, ::windowing::desktop_environment > ();
 
 
-   pfactory->add_factory_item < ::node_gtk::os_context, ::os_context >();
+   //pfactory->add_factory_item < ::node_gtk::os_context, ::os_context >();
 
 
 }

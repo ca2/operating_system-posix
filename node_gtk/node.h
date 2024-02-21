@@ -121,7 +121,7 @@ namespace node_gtk
 
       void shell_launch(const ::string & strAppId) override;
 
-      void open_url(const ::string & strUrl) override;
+      void open_url_link_at_system_browser(const string & strUrl, const string & strProfile = {}) override;
 
       void _node_file_dialog(::file::file_dialog * pdialog) override;
 
@@ -142,6 +142,17 @@ namespace node_gtk
 
 
       void launch_app_by_app_id(const ::scoped_string & scopedstrAppId, bool bSingleExecutableVersion) override;
+
+
+      void set_file_extension_mime_type(string_array & straExtension, string_array & straMimeType) override;
+
+      void _set_file_extension_mime_type(const scoped_string & scopedstrExtension, const scoped_string & scopedstrMimeType);
+
+      void _defer_set_file_extension_mime_type(const scoped_string & scopedstrExtension, const scoped_string & scopedstrMimeType);
+
+      bool _system_is_set_file_extension_mime_type(const scoped_string & scopedstrExtension, const scoped_string & scopedstrMimeType);
+
+      bool _user_is_set_file_extension_mime_type(const scoped_string & scopedstrExtension, const scoped_string & scopedstrMimeType);
 
 
    };

@@ -1,6 +1,6 @@
 #include "framework.h"
 //#include "file_context.h"
-#include "os_context.h"
+//#include "os_context.h"
 #include "node.h"
 #include "posix_spawn/process.h"
 #if defined(INTERPROCESS_COMMUNICATION_SYSTEM_5)
@@ -55,7 +55,7 @@ __FACTORY_EXPORT void apex_posix_factory(::factory::factory * pfactory)
 
    pfactory->add_factory_item < ::apex_posix::node, ::acme::node > ();
 
-   pfactory->add_factory_item < ::apex_posix::os_context, ::os_context >();
+   //pfactory->add_factory_item < ::apex_posix::os_context, ::os_context >();
 
 }
 

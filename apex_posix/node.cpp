@@ -17,6 +17,7 @@
 
 #if defined(LINUX) || defined(__APPLE__) || defined(ANDROID) || defined(FREEBSD)
 
+#include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
@@ -280,6 +281,133 @@ namespace apex_posix
 
 
    }
+
+
+
+   bool node::is_alias(const ::file::path & path)
+   {
+
+      if (::is_empty(path))
+      {
+
+         return false;
+
+      }
+
+      struct stat st;
+
+      if (lstat(path, &st) == -1)
+      {
+
+         return false;
+
+      }
+
+      if (S_ISLNK(st.st_mode))
+      {
+
+         return true;
+
+      }
+
+      return false;
+
+   }
+
+
+   ::process_identifier node::current_process_identifier()
+   {
+
+      return ::acme_posix::node::current_process_identifier();
+
+   }
+
+
+   ::file::path node::_get_auto_start_desktop_file_path(const ::string & strAppId)
+   {
+
+#if defined(LINUX) || defined(FREEBSD)
+
+      auto pathHome = acmedirectory()->home();
+
+      string strDesktopFileName(strAppId);
+
+      strDesktopFileName.find_replace("/", ".");
+
+      strDesktopFileName += ".desktop";
+
+      ::file::path pathDesktopFile;
+
+      pathDesktopFile = pathHome / ".config/autostart" / strDesktopFileName;
+
+      return pathDesktopFile;
+
+#else
+
+      throw interface_only();
+
+#endif
+
+   }
+
+
+
+   void node::register_user_auto_start(const string & strAppId, const ::file::path & pathExecutable, const string & strArguments, bool bRegister)
+   {
+
+#if defined(LINUX) || defined(FREEBSD)
+
+      ::file::path pathAutoStartDesktopFilePath = _get_auto_start_desktop_file_path(strAppId);
+
+      if(bRegister)
+      {
+
+         auto pfile = __create_new < ::freedesktop::desktop_file >();
+
+         pfile->set_app_id(strAppId);
+
+         pfile->set_file_path(pathAutoStartDesktopFilePath);
+
+         pfile->create();
+
+         pfile->m_straLine._007SetLine("[Desktop Entry]", "X-GNOME-Autostart-enabled", "true");
+
+         pfile->write();
+
+      }
+      else
+      {
+
+         acmefile()->erase(pathAutoStartDesktopFilePath);
+
+      }
+
+#else
+
+      ::node::register_user_auto_start(strAppId, pathExecutable, strArguments, bRegister);
+
+#endif
+
+   }
+
+
+   bool node::is_user_auto_start(const string & strAppId)
+   {
+
+#if defined(LINUX) || defined(FREEBSD)
+
+      ::file::path pathAutoStartDesktopFilePath = _get_auto_start_desktop_file_path(strAppId);
+
+      return pathAutoStartDesktopFilePath.has_char() && acmefile()->exists(pathAutoStartDesktopFilePath);
+
+#else
+
+      return ::node::is_user_auto_start(strAppId);
+
+#endif
+
+   }
+
 
 
 } // namespace apex_posix

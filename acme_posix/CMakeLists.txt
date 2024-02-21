@@ -44,13 +44,13 @@ list(APPEND library_source
 )
 
 
-if (POSIX_LIST_SERIAL_PORTS)
+#if (POSIX_LIST_SERIAL_PORTS)
 
 
    list(APPEND library_source list_serial_ports.cpp)
 
 
-endif ()
+#endif ()
 
 
 add_library(${PROJECT_NAME} SHARED ${library_source} process.cpp
@@ -59,12 +59,12 @@ add_library(${PROJECT_NAME} SHARED ${library_source} process.cpp
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 
-if (POSIX_LIST_SERIAL_PORTS)
-
-   target_compile_definitions(${PROJECT_NAME} PRIVATE POSIX_LIST_SERIAL_PORTS)
-   target_compile_definitions(static_${PROJECT_NAME} PRIVATE POSIX_LIST_SERIAL_PORTS)
-
-endif ()
+#if (POSIX_LIST_SERIAL_PORTS)
+#
+#   target_compile_definitions(${PROJECT_NAME} PRIVATE POSIX_LIST_SERIAL_PORTS)
+#   target_compile_definitions(static_${PROJECT_NAME} PRIVATE POSIX_LIST_SERIAL_PORTS)
+#
+#endif ()
 
 
 list(APPEND library_references acme)

@@ -43,7 +43,7 @@ namespace acme_posix
 
 
       // defined at process.cpp
-      string process_identifier_module_path(::process_identifier pid) override;
+      ::file::path process_identifier_module_path(::process_identifier pid) override;
       ::process_identifier_array module_path_processes_identifiers(const ::string & pszModulePath, bool bModuleNameIsPropertyFormatted) override;
       string process_identifier_command_line(process_identifier pid) override;
       //bool is_shared_library_busy(process_identifier processid, const string_array & stra) override;
@@ -90,12 +90,7 @@ namespace acme_posix
 
       void flush_stdin() override;
 
-#ifdef POSIX_LIST_SERIAL_PORTS
-
       virtual array <::serial::port_info> list_serial_ports() override;
-
-
-#endif
 
       void reboot() override;
 

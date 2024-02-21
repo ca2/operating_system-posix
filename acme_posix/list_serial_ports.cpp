@@ -373,13 +373,15 @@ namespace acme_posix
    }
 
 
-#ifdef POSIX_LIST_SERIAL_PORTS
+//#ifdef POSIX_LIST_SERIAL_PORTS
 
 
    array<::serial::port_info> node::list_serial_ports()
    {
 
       array<::serial::port_info> portinfoa;
+
+#ifdef LINUX
 
       string_array search_globs;
 
@@ -410,12 +412,14 @@ namespace acme_posix
 
       }
 
+#endif
+
       return portinfoa;
 
    }
 
 
-#endif // POSIX_LIST_SERIAL_PORTS
+//#endif // POSIX_LIST_SERIAL_PORTS
 
 
 } // namespace acme_posix

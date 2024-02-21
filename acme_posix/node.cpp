@@ -988,7 +988,7 @@ namespace acme_posix
    //}
 
 
-   string node::process_identifier_module_path(::process_identifier iPid)
+   ::file::path node::process_identifier_module_path(::process_identifier iPid)
    {
 
       struct stat sb;
