@@ -83,10 +83,18 @@ namespace acme_posix
 
       ::file::path path;
 
-      if(strId.case_insensitive_begins("Local\\"))
+      ::string str = strId;
+
+      if(str.case_insensitive_begins_eat("Local\\"))
       {
 
          path = pparticle->acmedirectory()->home() / ".config/acme";
+
+      }
+      else if(str.case_insensitive_begins_eat("Global\\"))
+      {
+
+         path = "/var/tmp/acme";
 
       }
       else
@@ -96,7 +104,7 @@ namespace acme_posix
 
       }
 
-      path /= strId;
+      path /= str;
 
       acmedirectory()->create(path.folder());
 
@@ -121,7 +129,7 @@ namespace acme_posix
 
       //return m_pmutex->already_exists();
 
-      return false;
+      //return false;
 
 //#ifdef WINDOWS
 //
