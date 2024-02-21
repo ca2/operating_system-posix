@@ -28,6 +28,7 @@ solution.vc.db*
 *.expand_fileset.spa
 *.cmake
 Thumbs.db
+deployment.rc
 Makefile
 _packages.txt
 
