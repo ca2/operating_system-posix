@@ -113,7 +113,7 @@ namespace node_kde
       void shell_launch(const ::string & strAppId);
 
 
-      void open_url(const ::string & strUrl) override;
+      void open_url_link_at_system_browser(const ::string & strUrl, const ::string & strProfile) override;
 
 
       void _node_file_dialog(::file::file_dialog * pdialog) override;
