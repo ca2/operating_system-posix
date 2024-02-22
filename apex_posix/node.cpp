@@ -5,6 +5,7 @@
 #include "node.h"
 #include "acme/filesystem/filesystem/acme_file.h"
 #include "acme/platform/system.h"
+#include "acme/exception/interface_only.h"
 #if defined(HAS_FREEDESKTOP)
 #include "apex/operating_system/freedesktop/desktop_file.h"
 #endif
@@ -384,7 +385,7 @@ namespace apex_posix
 
 #else
 
-      ::node::register_user_auto_start(strAppId, pathExecutable, strArguments, bRegister);
+      ::acme_posix::node::register_user_auto_start(strAppId, pathExecutable, strArguments, bRegister);
 
 #endif
 
@@ -402,7 +403,7 @@ namespace apex_posix
 
 #else
 
-      return ::node::is_user_auto_start(strAppId);
+      return ::acme_posix::node::is_user_auto_start(strAppId);
 
 #endif
 
