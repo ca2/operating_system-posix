@@ -30,6 +30,8 @@ list(APPEND library_source
    file_memory_map.h
    framework.cpp
    framework.h
+        integration_context.cpp
+        integration_context.h
    mutex.cpp
    mutex.h
    node.cpp

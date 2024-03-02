@@ -122,6 +122,8 @@ namespace acme_posix
 
       bool is_executable_in_path(const ::scoped_string & scopedstr) override;
 
+      void integration_factory() override;
+
 
    };
 
