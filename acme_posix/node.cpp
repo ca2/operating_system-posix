@@ -2215,7 +2215,15 @@ if(functionTrace)
 
          ::string strUnixShell;
 
+#ifdef FREEBSD
+
+         strUnixShell = "/usr/local/bin/bash";
+
+#else
+
          strUnixShell = "/bin/bash";
+
+#endif
 
          ::string strCommand;
 

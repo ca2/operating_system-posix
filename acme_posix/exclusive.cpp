@@ -110,7 +110,7 @@ namespace acme_posix
 
       const char * pszPath = path.c_str();
 
-      printf("\nGoing to create exclusive at path : %s\n", pszPath);
+      pparticle->informationf("Going to create exclusive at path : %s", pszPath);
 
       m_iFile = open(pszPath, O_WRONLY | O_CREAT | O_CLOEXEC, 0777);
 
