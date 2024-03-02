@@ -125,7 +125,7 @@ namespace acme_posix
       void integration_factory() override;
 
 
-      void integration_factory() override;
+      //void integration_factory() override;
 
 
 
