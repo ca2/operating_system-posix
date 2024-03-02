@@ -108,7 +108,11 @@ namespace acme_posix
 
       acmedirectory()->create(path.folder());
 
-      m_iFile = open(path, O_WRONLY | O_CREAT | O_CLOEXEC, 0777);
+      const char * pszPath = path.c_str();
+
+      printf("\nGoing to create exclusive at path : %s\n", pszPath);
+
+      m_iFile = open(pszPath, O_WRONLY | O_CREAT | O_CLOEXEC, 0777);
 
       m_iLock = lockf(m_iFile, F_TLOCK, 0);
 

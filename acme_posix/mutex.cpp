@@ -330,6 +330,8 @@ namespace acme_posix
 
          pacmedirectory->create(path.folder());
 
+         printf("\nGoing to create named mutex at path : %s\n", path.c_str());
+
          m_iFd = open(path, O_RDWR | O_CREAT | O_CLOEXEC, S_IRWXU);
 
          if(m_iFd < 0)
