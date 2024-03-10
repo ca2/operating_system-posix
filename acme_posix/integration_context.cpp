@@ -29,7 +29,7 @@ namespace acme_posix
       context::context()
       {
 
-         m_bMsys = false;
+         //m_bMsys = false;
 
       }
 
@@ -170,10 +170,10 @@ namespace acme_posix
       }
 
 
-      int context::command_system(const ::scoped_string &scopedstrCommand)
+      int context::command_system(const ::scoped_string &scopedstrCommand, const class ::time & timeOut)
       {
 
-         auto functionTrace = [&](auto etracelevel, auto & str)
+         ::trace_function functionTrace = [&](auto etracelevel, auto & str)
          {
 
             m_straOutput.add_trace(etracelevel, str);
@@ -181,6 +181,8 @@ namespace acme_posix
             ::std_inline_log()(etracelevel, str);
 
          };
+
+         functionTrace.m_timeTimeout = timeOut;
 
          auto iExitCode = node()->command_system(scopedstrCommand, functionTrace);
 
@@ -277,7 +279,7 @@ namespace acme_posix
       void context::git_clone()
       {
 
-         command_system("git clone " + m_pathDownloadURL + " .");
+         command_system("git clone " + m_pathDownloadURL + " .", 30_minutes);
 
       }
 
@@ -289,22 +291,22 @@ namespace acme_posix
 
          ::string strCommand;
 
-         if (m_bMsys)
+         //if (m_bMsys)
+         //{
+
+           // strCommand = "\"C:\\msys64\\usr\\bin\\bash.exe\" -c \'" + strEscaped + "\'";
+
+         //}
+         //else
          {
 
-            strCommand = "\"C:\\msys64\\usr\\bin\\bash.exe\" -c \'" + strEscaped + "\'";
-
-         }
-         else
-         {
-
-            strCommand = "\"C:\\Program Files\\Git\\bin\\bash.exe\" -c \'" + strEscaped + "\'";
+            strCommand = "/usr/bin/bash -c \'" + strEscaped + "\'";
 
          }
 
          //
 
-         auto iExitCode = command_system(strCommand);
+         auto iExitCode = command_system(strCommand, 12_h);
 
          ///command_system("cmd.exe -c \"C:\\msys64\\msys2_shell.cmd\" \"" + strEscaped + "\"");
 
