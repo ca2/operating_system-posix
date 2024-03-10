@@ -80,7 +80,7 @@ namespace node_gnome
 
       __construct(m_pindicator);
 
-      m_pindicator->create(m_strId, strAppName, pathFolder, get_app()->application_menu(), get_app());
+      m_pindicator->create(m_strId, strAppName, pathFolder, this->menu(), get_app());
 
 //      if (m_pindicator == nullptr)
 //      {
