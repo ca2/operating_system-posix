@@ -79,7 +79,7 @@ namespace acme_posix
 
       void git_clone() override;
 
-      i32 bash(const ::scoped_string &scopedstr) override;
+      i32 bash(const ::scoped_string &scopedstr, const class ::time & timeTimeout) override;
 
       ::string prepare_path(const ::file::path &path) override;
 

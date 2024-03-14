@@ -207,7 +207,7 @@ namespace acme_posix
 
                   ::string strCommand = "shopt -s dotglob; rm -Rf " + strPath + "/*";
 
-                  this->bash(strCommand);
+                  this->bash(strCommand, 5_min);
 
                }
 
@@ -228,7 +228,7 @@ namespace acme_posix
 
                   ::string strCommand = "shopt -s dotglob; rm -Rf " + strPath + "/*";
 
-                  this->bash(strCommand);
+                  this->bash(strCommand, 5_min);
 
                }
 
@@ -284,7 +284,7 @@ namespace acme_posix
       }
 
 
-      ::i32 context::bash(const ::scoped_string &scopedstr)
+      ::i32 context::bash(const ::scoped_string &scopedstr, const class ::time & timeTimeout)
       {
 
          string strEscaped = scopedstr;
