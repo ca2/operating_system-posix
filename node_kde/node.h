@@ -56,6 +56,8 @@ namespace node_kde
 
       void fetch_user_color() override;
 
+      virtual void _fetch_user_color();
+
       int node_init_check(int * pi, char *** ppz) override;
 
       bool eventFilter(QObject * pparticle, QEvent * pevent) override;
@@ -125,6 +127,9 @@ namespace node_kde
 
 
       void launch_app_by_app_id(const ::scoped_string & scopedstrAppId, bool bSingleExecutableVersion) override;
+
+
+      bool dark_mode() const override;
 
 
    };
