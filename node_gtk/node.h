@@ -75,7 +75,7 @@ namespace node_gtk
 
       bool is_branch_current() const override;
 
-      virtual void _dark_mode();
+      virtual void _fetch_dark_mode();
 
       bool dark_mode() const override;
 

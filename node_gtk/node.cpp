@@ -547,6 +547,7 @@ namespace node_gtk
 //
 //   }
 
+
    void node::_dark_mode()
    {
 
@@ -574,13 +575,13 @@ namespace node_gtk
                if (strColorScheme.case_insensitive_contains("dark"))
                {
 
-                  m_bDarkMode = true;
+                  m_bOperatingSystemDarkMode = true;
 
                }
                else
                {
 
-                  m_bDarkMode = false;
+                  m_bOperatingSystemDarkMode = false;
 
                }
 
@@ -588,7 +589,7 @@ namespace node_gtk
             else
             {
 
-               m_bDarkMode = false;
+               m_bOperatingSystemDarkMode = false;
 
             }
 
@@ -611,13 +612,13 @@ namespace node_gtk
 
                informationf("luminance=%0.2f", dLuminance);
 
-               m_bDarkMode = dLuminance < 0.5;
+               m_bOperatingSystemDarkMode = dLuminance < 0.5;
 
             }
             else
             {
 
-               m_bDarkMode = false;
+               m_bOperatingSystemDarkMode = false;
 
             }
 
@@ -631,7 +632,9 @@ namespace node_gtk
    bool node::dark_mode() const
    {
 
-      ((node*)this)->_dark_mode();
+      auto pnodeThisMutable = (node *) this;
+
+      pnodeThisMutable->_fetch_dark_mode();
 
       return ::aura_posix::node::dark_mode();
 
