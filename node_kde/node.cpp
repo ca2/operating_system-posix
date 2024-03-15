@@ -200,7 +200,7 @@ namespace node_kde
 
       ::color::color colorBack(pthemecolors->m_colorBack);
 
-      background_color(colorBack);
+      system()->background_color(colorBack);
 
    }
 
