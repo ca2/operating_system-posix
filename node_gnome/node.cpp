@@ -167,6 +167,14 @@ namespace node_gnome
    }
 
 
+   bool node::dark_mode() const
+   {
+
+      return false;
+
+   }
+
+
 } // namespace node_gnome
 
 

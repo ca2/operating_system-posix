@@ -39,6 +39,8 @@ namespace node_gnome
 
       void handle(::topic * ptopic, ::context * pcontext) override;
 
+      bool dark_mode() const override;
+
 
    };
 

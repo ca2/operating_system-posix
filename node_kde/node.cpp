@@ -184,7 +184,7 @@ namespace node_kde
    }
 
 
-   void node::fetch_user_color()
+   void node::_fetch_user_color()
    {
 
       auto pthemecolors = ::user::os_get_theme_colors();
@@ -198,7 +198,17 @@ namespace node_kde
 
       }
 
-      ::color::color colorBack(pthemecolors->m_colorBack);
+   }
+
+
+   void node::fetch_user_color()
+   {
+
+      _fetch_user_color();
+
+      auto pthemecolors = ::user::os_get_theme_colors();
+
+      auto colorBack = pthemecolors->m_colorBack;
 
       system()->background_color(colorBack);
 
@@ -1057,6 +1067,22 @@ namespace node_kde
 //      information() << "Going to try to launch with executable path.";
 //
 //      ::aura_posix::node::launch_app_by_app_id(scopedstrAppId);
+
+   }
+
+
+   bool node::dark_mode() const
+   {
+
+      auto pnodeThisMutable = (node *) this;
+
+      pnodeThisMutable->_fetch_user_color();
+
+      auto pthemecolors = ::user::os_get_theme_colors();
+
+      auto bDarkMode = pthemecolors->m_colorBack.get_luminance() < 0.5;
+
+      return bDarkMode;
 
    }
 
