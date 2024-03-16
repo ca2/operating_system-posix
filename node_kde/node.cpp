@@ -172,45 +172,10 @@ namespace node_kde
    }
 
 
-   ::os_theme_colors * node::new_os_theme_colors()
+   void node::_fill_os_theme_colors(::os_theme_colors * pthemecolors)
    {
-
-      auto pthemecolors = ::new_os_theme_colors();
 
       kde_update_os_theme_colors(pthemecolors);
-
-      return pthemecolors;
-
-   }
-
-
-   void node::_fetch_user_color()
-   {
-
-      auto pthemecolors = ::user::os_get_theme_colors();
-
-      if(!pthemecolors)
-      {
-
-         pthemecolors = new_os_theme_colors();
-
-         ::user::os_set_theme_colors(pthemecolors);
-
-      }
-
-   }
-
-
-   void node::fetch_user_color()
-   {
-
-      _fetch_user_color();
-
-      auto pthemecolors = ::user::os_get_theme_colors();
-
-      auto colorBack = pthemecolors->m_colorBack;
-
-      system()->background_color(colorBack);
 
    }
 

@@ -52,11 +52,11 @@ namespace node_kde
 
       void user_post_quit() override;
 
-      ::os_theme_colors * new_os_theme_colors();
+      void _fill_os_theme_colors(::os_theme_colors * pthemecolors) override;
 
-      void fetch_user_color() override;
+      //void fetch_user_color() override;
 
-      virtual void _fetch_user_color();
+      //virtual void _fetch_user_color();
 
       int node_init_check(int * pi, char *** ppz) override;
 
