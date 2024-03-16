@@ -4,7 +4,12 @@
 #pragma once
 
 
-#include "node_gtk/desktop_environment.h"
+
+#if defined(HAS_GTK4)
+#include "node_gtk4/desktop_environment.h"
+#elif defined(HAS_GTK3)
+#include "node_gtk3/desktop_environment.h"
+#endif
 
 
 namespace node_gnome
@@ -12,9 +17,13 @@ namespace node_gnome
 
 
    class CLASS_DECL_NODE_GNOME desktop_environment :
-   virtual public ::node_gtk::desktop_environment
-{
-   public:
+#if defined(HAS_GTK4)
+           virtual public ::node_gtk4::desktop_environment
+#elif defined(HAS_GTK3)
+      virtual public ::node_gtk3::desktop_environment
+#endif
+   {
+      public:
 
 
    //bool        m_bX11;

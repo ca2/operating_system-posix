@@ -2,7 +2,11 @@
 #pragma once
 
 
-#include "node_gtk/monitor.h"
+#if defined(HAS_GTK4)
+#include "node_gtk4/monitor.h"
+#elif defined(HAS_GTK3)
+#include "node_gtk3/monitor.h"
+#endif
 
 
 namespace node_gnome
@@ -10,7 +14,11 @@ namespace node_gnome
 
 
    class CLASS_DECL_AURA monitor :
-         virtual public ::node_gtk::monitor
+#if defined(HAS_GTK4)
+   virtual public ::node_gtk4::monitor
+#elif defined(HAS_GTK3)
+   virtual public ::node_gtk3::monitor
+#endif
    {
    public:
 

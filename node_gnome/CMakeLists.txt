@@ -35,6 +35,7 @@ list(APPEND library_source
    )
 
 
+
 list(APPEND library_references
    acme
    acme_posix
@@ -44,8 +45,13 @@ list(APPEND library_references
    aura
    aura_posix
    windowing_x11
-   node_gtk
    )
+
+if(${HAS_GTK4})
+    list(APPEND library_references node_gtk4)
+elseif(${HAS_GTK3})
+    list(APPEND library_references node_gtk3)
+endif()
 
 list(APPEND static_library_references ${library_references})
 
@@ -118,9 +124,11 @@ if (MSVC)
 
 elseif(${LINUX} OR ${FREEBSD} OR ${OPENBSD} OR ${NETBSD})
 
-   #if(USE_PKGCONFIG)
-      pkg_check_modules(PKGCONFIG x11 glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
-   #endif()
+   if(${HAS_GTK4})
+      pkg_check_modules(PKGCONFIG x11 glib-2.0 gtk4 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
+   elseif(${HAS_GTK3})
+       pkg_check_modules(PKGCONFIG x11 glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
+   endif()
 
 
     target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive  ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)

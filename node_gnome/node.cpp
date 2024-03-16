@@ -145,7 +145,11 @@ namespace node_gnome
    bool node::launch_on_node(::topic * ptopic)
    {
 
-      return ::node_gtk::node::launch_on_node(ptopic);
+#if defined(HAS_GTK4)
+      return ::node_gtk4::node::launch_on_node(ptopic);
+#elif defined(HAS_GTK3)
+      return ::node_gtk3::node::launch_on_node(ptopic);
+#endif
 
 //      ::matter * pmatter = ptopic->get_extended_topic();
 //
@@ -170,7 +174,11 @@ namespace node_gnome
    bool node::dark_mode() const
    {
 
-      return false;
+#if defined(HAS_GTK4)
+      return ::node_gtk4::node::dark_mode();
+#elif defined(HAS_GTK3)
+      return ::node_gtk3::node::dark_mode();
+#endif
 
    }
 

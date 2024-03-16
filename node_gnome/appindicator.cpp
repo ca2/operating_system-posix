@@ -180,9 +180,13 @@ namespace node_gnome
    bool appindicator::create(const char * pszId, const char * pszIcon, const char * pszFolder, application_menu * papplicationmenu, application_menu_callback * pcallback)
    {
 
-      ::pointer < ::node_gtk::node > pgtknode = node();
+#if defined(HAS_GTK4)
+      ::pointer < ::node_gtk4::node > pgtknode = node();
+#elif defined(HAS_GTK3)
+      ::pointer < ::node_gtk3::node > pgtknode = node();
+#endif
 
-      if (!::node_gtk::os_defer_init_gtk(pgtknode))
+      if(!pgtknode->os_defer_init_gtk())
       {
 
          return false;

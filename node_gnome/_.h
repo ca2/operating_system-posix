@@ -1,7 +1,11 @@
 #pragma once
 
 
-#include "node_gtk/_.h"
+#if defined(HAS_GTK4)
+#include "node_gtk4/_.h"
+#elif defined(HAS_GTK3)
+#include "node_gtk3/_.h"
+#endif
 
 
 #if defined(_node_gnome_project)

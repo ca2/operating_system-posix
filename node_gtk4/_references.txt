@@ -1,0 +1,2 @@
+default_windowing_gtk1
+default_windowing_gtk2

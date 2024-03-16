@@ -8,7 +8,11 @@
 #pragma once
 
 
-#include "node_gtk/node.h"
+#if defined(HAS_GTK4)
+#include "node_gtk4/node.h"
+#elif defined(HAS_GTK3)
+#include "node_gtk3/node.h"
+#endif
 
 
 namespace node_gnome
@@ -16,7 +20,11 @@ namespace node_gnome
 
 
    class CLASS_DECL_ACME node :
-      virtual public ::node_gtk::node
+#if defined(HAS_GTK4)
+      virtual public ::node_gtk4::node
+#elif defined(HAS_GTK3)
+      virtual public ::node_gtk3::node
+#endif
    {
    public:
 
