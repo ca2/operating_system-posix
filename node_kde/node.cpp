@@ -1043,7 +1043,7 @@ namespace node_kde
 
       pnodeThisMutable->_fetch_user_color();
 
-      auto pthemecolors = ::user::os_get_theme_colors();
+      auto pthemecolors = pnodeThisMutable->_get_os_theme_colors();
 
       auto bDarkMode = pthemecolors->m_colorBack.get_luminance() < 0.5;
 
