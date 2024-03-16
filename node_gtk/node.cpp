@@ -548,7 +548,30 @@ namespace node_gtk
 //   }
 
 
-   void node::_dark_mode()
+   void node::_fill_os_theme_colors(::os_theme_colors * pthemecolors)
+   {
+
+      ::string strGtkTheme;
+
+      strGtkTheme = _get_os_user_theme();
+
+      if(strGtkTheme.has_char())
+      {
+
+         _fill_os_theme_colors(pthemecolors, strGtkTheme);
+
+      }
+      else
+      {
+
+         ::acme_posix::node::_fill_os_theme_colors(pthemecolors);
+
+      }
+
+   }
+
+
+   void node::_fetch_dark_mode()
    {
 
       information() << "::node_gtk::node::_dark_mode";
@@ -594,33 +617,16 @@ namespace node_gtk
             }
 
          }
-         else if(gsettings_schema_contains_key("org.gnome.desktop.interface", "gtk-theme"))
+         else
          {
 
-            information() << "org.gnome.desktop.interface schema contains \"gtk-theme\"";
+            _fetch_user_color();
 
-            ::string strGtkTheme;
-
-            if (gsettings_get(strGtkTheme, "org.gnome.desktop.interface", "gtk-theme"))
-            {
-
-               information() << "gtk-theme=\"" + strGtkTheme + "\"";
-
-               ::os_theme_colors * posthemecolor = _new_os_theme_colors(strGtkTheme);
-
-               auto dLuminance = posthemecolor->m_colorBack.get_luminance();
-
-               informationf("luminance=%0.2f", dLuminance);
-
-               m_bOperatingSystemDarkMode = dLuminance < 0.5;
-
-            }
-            else
-            {
-
-               m_bOperatingSystemDarkMode = false;
-
-            }
+//            {
+//
+//               m_bOperatingSystemDarkMode = false;
+//
+//            }
 
          }
 
@@ -1184,14 +1190,14 @@ namespace node_gtk
    }
 
 
-   ::os_theme_colors *node::_new_os_theme_colors(string strTheme)
+   void node::_fill_os_theme_colors(::os_theme_colors * pthemecolors, const ::scoped_string & scopedstrTheme)
    {
-
-      auto pthemecolors = __new< ::os_theme_colors >();
 
       GtkStyleContext *pstylecontext = gtk_style_context_new();
 
-      GtkCssProvider *pprovider = gtk_css_provider_get_named(strTheme, nullptr);
+      ::string strTheme(scopedstrTheme);
+
+      GtkCssProvider *pprovider = gtk_css_provider_get_named(strTheme.c_str(), nullptr);
 
       gtk_style_context_add_provider(pstylecontext, GTK_STYLE_PROVIDER(pprovider), GTK_STYLE_PROVIDER_PRIORITY_USER);
 
@@ -1338,21 +1344,21 @@ namespace node_gtk
 
       }
 
-      return pthemecolors;
+//      return pthemecolors;
 
    }
 
 
-   void node::_set_os_theme_colors(::os_theme_colors *posthemecolors)
-   {
-
-      ::acme::get()->platform()->informationf("_set_os_theme_colors\n");
-
-      ::user::os_set_theme_colors(posthemecolors);
-
-      background_color(posthemecolors->m_colorBack);
-
-   }
+//   void node::_set_os_theme_colors(::os_theme_colors *posthemecolors)
+//   {
+//
+//      ::acme::get()->platform()->informationf("_set_os_theme_colors\n");
+//
+//      ::user::os_set_theme_colors(posthemecolors);
+//
+//      background_color(posthemecolors->m_colorBack);
+//
+//   }
 
 
    void node::_set_os_user_theme(const ::scoped_string &strOsUserTheme)
@@ -1415,6 +1421,30 @@ namespace node_gtk
    }
 
 
+   ::string node::_get_os_user_theme()
+   {
+
+      ::string strGtkTheme;
+
+      if(gsettings_schema_contains_key("org.gnome.desktop.interface", "gtk-theme"))
+      {
+
+         information() << "org.gnome.desktop.interface schema contains \"gtk-theme\"";
+
+         if (gsettings_get(strGtkTheme, "org.gnome.desktop.interface", "gtk-theme"))
+         {
+
+            information() << "gtk-theme=\"" + strGtkTheme + "\"";
+
+         }
+
+      }
+
+      return strGtkTheme;
+
+   }
+
+
    void node::_apply_os_user_icon_theme()
    {
 
@@ -1460,14 +1490,16 @@ namespace node_gtk
 
       }
 
-      if(!gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
-      {
+      _fetch_user_color();
 
-         _os_process_user_theme_color(m_strTheme);
-
-         fetch_user_color();
-
-      }
+//      if(!gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
+//      {
+//
+//         _os_process_user_theme_color(m_strTheme);
+//
+//         fetch_user_color();
+//
+//      }
 
    }
 
@@ -1519,35 +1551,35 @@ namespace node_gtk
    }
 
 
-   void node::_os_process_user_theme_color(string strTheme)
-   {
-
-      auto pthemecolors = _new_os_theme_colors(strTheme);
-
-      auto pthemecolorsOld = ::user::os_get_theme_colors();
-
-      if (!pthemecolorsOld || memcmp(pthemecolors, pthemecolorsOld, sizeof(::os_theme_colors)))
-      {
-
-         _set_os_theme_colors(pthemecolors);
-
-         //system()->m_papexsystem->signal(id_operating_system_user_color_change);
-
-      }
-      else
-      {
-
-         ::acme::del(pthemecolors);
-
-      }
-
-   }
+//   void node::_os_process_user_theme_color(string strTheme)
+//   {
+//
+//      auto pthemecolors = _new_os_theme_colors(strTheme);
+//
+//      auto pthemecolorsOld = ::user::os_get_theme_colors();
+//
+//      if (!pthemecolorsOld || memcmp(pthemecolors, pthemecolorsOld, sizeof(::os_theme_colors)))
+//      {
+//
+//         _set_os_theme_colors(pthemecolors);
+//
+//         //system()->m_papexsystem->signal(id_operating_system_user_color_change);
+//
+//      }
+//      else
+//      {
+//
+//         ::acme::del(pthemecolors);
+//
+//      }
+//
+//   }
 
 
    void node::fetch_user_color()
    {
 
-      _dark_mode();
+      _fetch_dark_mode();
 
 //      auto pthemecolors = ::user::os_get_theme_colors();
 //

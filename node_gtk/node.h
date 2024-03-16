@@ -46,14 +46,16 @@ namespace node_gtk
 
       virtual void _set_os_user_theme(const ::scoped_string & strTheme);
       virtual void _apply_os_user_theme();
+      virtual ::string _get_os_user_theme();
 
 
       virtual void _set_os_user_icon_theme(const ::scoped_string & strIconTheme);
       virtual void _apply_os_user_icon_theme();
 
 
-      virtual ::os_theme_colors * _new_os_theme_colors(string strTheme);
-      virtual void _set_os_theme_colors(::os_theme_colors * posthemecolors);
+      void _fill_os_theme_colors(::os_theme_colors * pthemecolors) override;
+      virtual void _fill_os_theme_colors(::os_theme_colors * pthemecolors, const ::scoped_string & scopedstrTheme);
+      //virtual void _set_os_theme_colors(::os_theme_colors * posthemecolors);
 
       int node_init_check(int * pi, char *** ppz) override;
 
@@ -109,7 +111,7 @@ namespace node_gtk
 
       void defer_do_main_tasks() override;
 
-      virtual void _os_process_user_theme_color(string strTheme);
+      //virtual void _os_process_user_theme_color(string strTheme);
 
       void user_post_quit() override;
 
