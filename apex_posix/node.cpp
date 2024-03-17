@@ -363,6 +363,8 @@ namespace apex_posix
       if(bRegister)
       {
 
+         informationf("register_user_auto_start true : %s", pathAutoStartDesktopFilePath.c_str());
+
          auto pfile = __create_new < ::freedesktop::desktop_file >();
 
          pfile->set_app_id(strAppId);
@@ -374,6 +376,10 @@ namespace apex_posix
          pfile->m_straLine._007SetLine("[Desktop Entry]", "X-GNOME-Autostart-enabled", "true");
 
          pfile->write();
+
+         informationf("register_user_auto_start wrote file : %s", pathAutoStartDesktopFilePath.c_str());
+
+         informationf("register_user_auto_start end");
 
       }
       else
