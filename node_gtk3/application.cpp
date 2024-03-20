@@ -28,10 +28,10 @@ NodeGtkApplication * node_gtk_application_new (const char * pszAppName, const ch
    pnodegtkapplication = (NodeGtkApplication *) g_object_new (node_gtk_application_get_type (),
                                           "application-atom", pszProgName,
                                           
-                                          #if defined(RASPBERRYPIOS)
-                                          "flags", G_APPLICATION_FLAGS_NONE,
+                                          #if GLIB_CHECK_VERSION(2, 74, 0)
+                                            "flags", G_APPLICATION_DEFAULT_FLAGS,
                                           #else
-                                          "flags", G_APPLICATION_DEFAULT_FLAGS,
+                                            "flags", G_APPLICATION_FLAGS_NONE,
                                           #endif
                                           "inactivity-timeout", 30000,
                                           "register-session", TRUE,
