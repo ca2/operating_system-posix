@@ -677,7 +677,7 @@ namespace input_xinput
                   for (auto & pparticle: m_particleaKeyboardHandler)
                   {
 
-                     pparticle->handle(pkey);
+                     pparticle->handle_message(pkey);
 
                   }
 
@@ -701,7 +701,7 @@ namespace input_xinput
                   for (auto & pparticle: m_particleaMouseHandler)
                   {
 
-                     pparticle->handle(pmouse);
+                     pparticle->handle_message(pmouse);
 
                   }
 
