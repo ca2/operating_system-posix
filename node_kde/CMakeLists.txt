@@ -68,14 +68,23 @@ list(APPEND system_libraries
    KF5::KIOGui
    KF5::KIOWidgets
    KF5::Notifications
-   KF5::Plasma
-   KF5::PlasmaQuick
    PW::KWorkspace
    Qt5::Core
    Qt5::Widgets
    Qt5::X11Extras
    Qt5::GuiPrivate
 )
+
+if(${FREEBSD})
+   list(APPEND system_libraries
+      KF5Package
+   )
+else()
+   list(APPEND system_libraries
+      KF5::Plasma
+      KF5::PlasmaQuick
+   )
+endif()
 
 #Qt5::Core
 #Qt5::UiTools

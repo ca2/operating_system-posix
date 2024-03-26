@@ -26,8 +26,8 @@
 #include <QTextStream>
 #include <QDBusInterface>
 #include <qpa/qplatformnativeinterface.h>
-#include <KPackage/Package>
-#include <KPackage/PackageLoader>
+//#include <KPackage/Package>
+//#include <KPackage/PackageLoader>
 //#include <KF5/plasma/applet.h>
 //#include <KF5/plasma/containment.h>
 

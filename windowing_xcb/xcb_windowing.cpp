@@ -2,6 +2,9 @@
 #include <fcntl.h> // library for fcntl function
 #include <sys/stat.h>
 
+#ifdef FREEBSD
+#include <sys/time.h>
+#endif
 
 //http://rosettacode.org/wiki/Window_creation/X11
 

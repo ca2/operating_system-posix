@@ -112,7 +112,7 @@ namespace node_kde
       virtual ::e_status _qapplication_exec();
 
 
-      void shell_launch(const ::string & strAppId);
+      void shell_launch(const ::string & strAppId) override;
 
 
       void open_url_link_at_system_browser(const ::string & strUrl, const ::string & strProfile) override;
