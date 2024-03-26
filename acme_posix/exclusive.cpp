@@ -110,11 +110,15 @@ namespace acme_posix
 
       const char * pszPath = path.c_str();
 
-      pparticle->informationf("Going to create exclusive at path : %s", pszPath);
+      pparticle->informationf("exclusive::exlusive Going to create exclusive at path : %s", pszPath);
 
       m_iFile = open(pszPath, O_WRONLY | O_CREAT | O_CLOEXEC, 0777);
 
       m_iLock = lockf(m_iFile, F_TLOCK, 0);
+
+      pparticle->informationf("exclusive::exlusive file %d lock %d", m_iFile, m_iLock);
+
+      pparticle->informationf("exclusive::exlusive end");
 
    }
 //
