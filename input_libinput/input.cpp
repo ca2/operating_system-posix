@@ -274,7 +274,7 @@ namespace input_libinput
          for(auto & pparticle : m_particleaMouseHandler)
          {
 
-            pparticle->handle(pmouse);
+            pparticle->handle_message(pmouse);
 
          }
 
@@ -391,7 +391,7 @@ namespace input_libinput
          for(auto & pparticle : m_particleaKeyboardHandler)
          {
 
-            pparticle->handle(pkey);
+            pparticle->handle_message(pkey);
 
          }
 
