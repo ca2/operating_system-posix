@@ -3,6 +3,12 @@
 #include "node.h"
 #include "desktop_environment.h"
 //#include "os_context.h"
+#include "copydesk.h"
+#include "notify_icon.h"
+#include "appindicator.h"
+
+
+
 
 
 __FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory);
@@ -20,7 +26,7 @@ __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
 
    printf("XDG_SESSION_TYPE %s\n", strSessionType.c_str());
 
-#if !defined(RASPBERRYPIOS) && !defined(FREEBSD)
+#if !defined(RASPBERRYPIOS) && !defined(FREEBSD) && !defined(__XFCE)
    if(strSessionType == "wayland")
    {
 
@@ -42,9 +48,9 @@ __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
    //pfactory->add_factory_item < ::node_gtk3::display, ::windowing::display > ();
 //
 //   pfactory->add_factory_item < ::node_gtk3::monitor, ::windowing::monitor > ();
-//   pfactory->add_factory_item < ::node_gtk3::copydesk, ::user::copydesk > ();
-//   pfactory->add_factory_item < ::node_gtk3::notify_icon, ::user::notify_icon > ();
-//   pfactory->add_factory_item < ::node_gtk3::appindicator, ::aura::posix::appindicator >();
+   pfactory->add_factory_item < ::node_gtk3::copydesk, ::user::copydesk > ();
+   pfactory->add_factory_item < ::node_gtk3::notify_icon, ::user::notify_icon > ();
+   pfactory->add_factory_item < ::node_gtk3::appindicator, ::aura_posix::appindicator >();
 //
 //   pfactory->add_factory_item < ::node_gtk3::windowing, ::windowing::windowing >();
 

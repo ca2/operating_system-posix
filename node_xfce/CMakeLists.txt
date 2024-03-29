@@ -5,16 +5,16 @@ project(node_xfce CXX)
 list(APPEND library_source
    _.cpp
    _.h
-   _node_xfce.h
-   appindicator.cpp
-   appindicator.h
-   application.cpp
-   application.h
-   clipboard_data.h
-   copydesk.cpp
-   copydesk.h
-   display.cpp
-   display.h
+   #_node_xfce.h
+   #appindicator.cpp
+   #appindicator.h
+   #application.cpp
+   #application.h
+   #clipboard_data.h
+   #copydesk.cpp
+   #copydesk.h
+   #display.cpp
+   #display.h
    enum_display_monitors.cpp
    _factory.cpp
    framework.cpp
@@ -23,13 +23,13 @@ list(APPEND library_source
    #gdk.h
    #xfce_direct.cpp
    #gtk_clipboard.cpp
-   monitor.cpp
-   monitor.h
+   #monitor.cpp
+   #monitor.h
    node.cpp
    node.h
-   notify_icon.cpp
-   windowing.cpp
-   windowing.h
+   #notify_icon.cpp
+   #windowing.cpp
+   #windowing.h
    )
 
 
@@ -42,7 +42,7 @@ list(APPEND library_references
    aura
    aura_posix
    windowing_x11
-   node_gtk
+   node_gtk3
    )
 
 

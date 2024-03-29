@@ -7,12 +7,15 @@
 
 
 //#ifdef LINUX
-#include "apex/user/notify_icon_bridge.h"
+//#include "apex/user/user/notify_icon_bridge.h"
+//#include "apex/plat
 //namespace freebsd { class appindicator; }
 //#endif
+#include "aura/user/user/notify_icon.h"
+#include "aura_posix/appindicator.h"
 
 
-namespace node_xfce
+namespace node_gtk3
 {
 
 
@@ -22,29 +25,29 @@ namespace node_xfce
    public:
 
 
-      enum e_message
-      {
+//      enum e_message
+//      {
+//
+//         MessageNotifyIcon = WM_USER + 100,
+//
+//      };
 
-         MessageNotifyIcon = WM_USER + 100,
 
-      };
-
-
-      ::u32                                             m_uiId;
-      bool                                              m_bCreated;
-      string                                            m_strId;
+      //::u32                                             m_uiId;
+      //bool                                              m_bCreated;
+      //string                                            m_strId;
 //#ifdef WINDOWS_DESKTOP
 //      NOTIFYICONDATA m_nid;
 //#elif defined(LINUX)
-      ::pointer<::aura::posix::appindicator>       m_pindicator;
+      ::pointer<::aura_posix::appindicator>       m_pindicator;
 //#endif
-      ::pointer<::user::notify_icon_listener>     m_plistener;
-      pointer_array < ::user::interaction >         m_wndptraHidden;
-      ::pointer<::windowing::icon>                m_picon;
+      //::pointer<::user::notify_icon_listener>     m_plistener;
+      //pointer_array < ::user::interaction >         m_wndptraHidden;
+      //::pointer<::windowing::icon>                m_picon;
 
 
       notify_icon();
-      virtual ~notify_icon();
+      ~notify_icon() override;
 
 
       void add_hidden_window(::user::interaction * puserinteraction) override;
@@ -66,16 +69,18 @@ namespace node_xfce
 
       //#endif
 
-      ::e_status modify_icon(::windowing::icon * picon) override;
+      void modify_icon(::windowing::icon * picon) override;
 
-      ::e_status create_notify_icon(::u32 atom, ::user::notify_icon_listener * plistener, ::windowing::icon * picon) override;
+      void create_notify_icon(const ::atom & atom, ::user::interaction * puserinteractionNotify, ::windowing::icon * picon) override;
+
+      void destroy_notify_icon() override;
 
       //DECLARE_MESSAGE_HANDLER(_001OnNotifyIconMessage);
       //DECLARE_MESSAGE_HANDLER(_001OnDestroy);
 
       //void install_message_routing(::channel * pchannel) override;
 
-      virtual ::e_status step() override;
+      bool notify_icon_step() override;
 
 //#if defined(APPLE_IOS) || defined(WINDOWS_DESKTOP) || defined(ANDROID) || defined(UNIVERSAL_WINDOWS)
 //      virtual void notify_icon_play(const char * action);
@@ -102,6 +107,6 @@ namespace node_xfce
    };
 
 
-} // namespace user
+} // namespace node_gtk3
 
 

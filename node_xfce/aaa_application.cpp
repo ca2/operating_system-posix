@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "application.h"
+#include "apex/platform/application.h"
 #include <glib.h>
 
 
@@ -33,7 +34,7 @@ ApexApplication * apex_application_new (const char * pszAppName, const char * ps
 void apex_application_application_menu_activate_callback(GSimpleAction *action, GVariant      *parameter, gpointer       user_data)
 {
 
-   ::application * papp = (::apex::application *) user_data;
+   ::apex::application * papp = (::apex::application *) user_data;
 
    const gchar * name = g_action_get_name (G_ACTION(action));
 

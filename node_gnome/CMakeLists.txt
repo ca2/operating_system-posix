@@ -6,17 +6,17 @@ list(APPEND library_source
    _.cpp
    _.h
    #_library.h
-   appindicator.cpp
-   appindicator.h
+   #appindicator.cpp
+   #appindicator.h
    application.cpp
    application.h
    clipboard_data.h
-   copydesk.cpp
-   copydesk.h
+   #copydesk.cpp
+   #copydesk.h
    desktop_environment.cpp
    desktop_environment.h
-   display.cpp
-   display.h
+   #display.cpp
+   #display.h
    enum_display_monitors.cpp
    _factory.cpp
    framework.cpp
@@ -24,14 +24,14 @@ list(APPEND library_source
    #gdk.cpp
    #gdk.h
    #gnome_direct.cpp
-   gtk_clipboard.cpp
-   monitor.cpp
-   monitor.h
+   #gtk_clipboard.cpp
+   #monitor.cpp
+   #monitor.h
    node.cpp
    node.h
-   notify_icon.cpp
-   windowing.cpp
-   windowing.h
+   #notify_icon.cpp
+   #windowing.cpp
+   #windowing.h
    )
 
 

@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "node_gtk/_.h"
+#include "node_gtk3/_.h"
 
 
 #if defined(_node_xfce_project)

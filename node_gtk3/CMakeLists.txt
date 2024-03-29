@@ -7,8 +7,12 @@ list(APPEND library_source
    _.h
    _factory.cpp
    #_library.h
+        appindicator.cpp
+        appindicator.h
    application.cpp
    application.h
+        copydesk.cpp
+        copydesk.h
    desktop_environment.cpp
    desktop_environment.h
    display.cpp
@@ -18,6 +22,7 @@ list(APPEND library_source
    gconf.cpp
    gdk_gdk.cpp
    gdk_gdk.h
+        gtk_clipboard.cpp
    gtk3_gtk3.cpp
    gtk3_gtk3.h
    #gtk-launch.cpp
@@ -27,6 +32,8 @@ list(APPEND library_source
    node.h
    node_file_dialog.cpp
    node_folder_dialog.cpp
+        notify_icon.cpp
+        notify_icon.h
    windowing.cpp
    windowing.h
 )
@@ -88,8 +95,9 @@ elseif(${LINUX} OR ${FREEBSD} OR ${OPENBSD} OR ${NETBSD})
 
    #if(USE_PKGCONFIG)
    #pkg_check_modules(PKGCONFIG gconf-2.0 glib-2.0 gtk+-3.0 gdk-3.0)
-   pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0)
+#   pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0)
    #endif()
+   pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
 
 
    target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive  ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)

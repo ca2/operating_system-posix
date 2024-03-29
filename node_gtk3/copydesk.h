@@ -1,6 +1,9 @@
 #pragma once
 
 
+#include "aura/user/user/copydesk.h"
+
+
 namespace node_gtk3
 {
 
@@ -14,31 +17,32 @@ namespace node_gtk3
 
 
       copydesk();
-      virtual ~copydesk();
+      ~copydesk() override;
 
 
-      virtual ::e_status initialize(::particle * pparticle) override;
-      virtual ::e_status finalize() override;
+      void initialize(::particle * pparticle) override;
+      void destroy() override;
 
-      virtual bool _set_filea(const ::file::path_array & patha, e_op eop) override;
-      virtual bool _get_filea(::file::path_array & patha, e_op & eop) override;
-      virtual bool _has_filea() override;
+
+      bool _set_filea(const ::file::path_array & patha, enum_op eop) override;
+      bool _get_filea(::file::path_array & patha, enum_op & eop) override;
+      bool _has_filea() override;
 
 
       //virtual bool set_plain_text(const string & str) override;
-      virtual bool _set_plain_text(const string & str) override;
-      virtual bool _get_plain_text(string & str) override;
-      virtual bool _has_plain_text() override;
+      bool _set_plain_text(const string & str) override;
+      bool _get_plain_text(string & str) override;
+      bool _has_plain_text() override;
 
-      virtual bool _desk_to_image(::image * pimage) override;
-      virtual bool _image_to_desk(const ::image * pimage) override;
-      virtual bool _has_image() override;
+      bool _desk_to_image(::image * pimage) override;
+      bool _image_to_desk(const ::image * pimage) override;
+      bool _has_image() override;
+
 
    };
 
 
 } // namespace node_gtk3
-
 
 
 

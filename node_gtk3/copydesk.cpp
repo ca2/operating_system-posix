@@ -1,10 +1,11 @@
 #include "framework.h"
-#include "_.h"
-#include "aura/os/freebsd/_linux.h"
-//#include "apex/os/freebsd/gnome_gnome.h"
-#include "aura/node/freebsd/_linux.h"
-#include "clipboard_data.h"
+#include "copydesk.h"
+//#include "acme/operating_system.h"
+#include "aura_posix/clipboard_data.h"
 #include <gtk/gtk.h>
+#include "aura/graphics/image/context_image.h"
+#include "aura/platform/system.h"
+#include "aura/platform/node.h"
 
 
 gboolean clipboard_callback(gpointer data);
@@ -41,57 +42,41 @@ namespace node_gtk3
    }
 
 
-   ::e_status copydesk::initialize(::particle * pparticle)
+   void copydesk::initialize(::particle * pparticle)
    {
 
-      auto estatus = ::user::copydesk::initialize(pparticle);
+      //auto estatus =
+      //
+      ::user::copydesk::initialize(pparticle);
 
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
+//      if(!estatus)
+//      {
+//
+//         return estatus;
+//
+//      }
+//
+//      return estatus;
 
    }
 
 
-   ::e_status copydesk::finalize()
+   void copydesk::destroy()
    {
 
-      auto estatus = ::user::copydesk::finalize();
+      //auto estatus =
+      //
+      ::user::copydesk::destroy();
 
-      return ::success;
+      //return ::success;
 
    }
-
-
-   //bool copydesk::set_plain_text(const string & strParam)
-   //{
-
-   //   string str(strParam);
-
-   //      string strText(str);
-
-   //      ::user::copydesk::set_plain_text(strText);
-
-   //   });
-
-   //   return true;
-
-   //}
 
 
    bool copydesk::_set_plain_text(const string & str)
    {
 
-      auto psystem = system()->m_paurasystem;
-
-      auto pnode = psystem->node();
-
-      pnode->node_fork([this, str]
+      user_post([str]
       {
 
          GtkClipboard * clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
@@ -118,7 +103,7 @@ namespace node_gtk3
 
       g_source_attach(idle_source, g_main_context_default());
 
-      if(!pdata->m_event.wait(seconds(5)).succeeded())
+      if(!pdata->m_event.wait(5_s))
       {
 
          return false;
@@ -137,24 +122,20 @@ namespace node_gtk3
    bool copydesk::_has_plain_text()
    {
 
-      ::pointer<ovar>payload(__allocate< ovar >());
+      auto ppayload = __allocate< payload_object >();
 
-      payload->m_var = false;
+      ppayload->m_payload = false;
 
-      auto psystem = system()->m_paurasystem;
-
-      auto pnode = psystem->node();
-
-      pnode->node_send(seconds(5), [=]()
+      user_send([ppayload]()
       {
 
          GtkClipboard* clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
 
-         payload->m_var = gtk_clipboard_wait_is_text_available (clipboard);
+         ppayload->m_payload = gtk_clipboard_wait_is_text_available (clipboard);
 
       });
 
-      return payload->m_var.operator bool();
+      return ppayload->m_payload.operator bool();
 
    }
 
@@ -172,7 +153,7 @@ namespace node_gtk3
 
       g_source_attach(idle_source, g_main_context_default());
 
-      if(!pdata->m_event.wait(seconds(5)).succeeded())
+      if(!pdata->m_event.wait(5_s))
       {
 
          return false;
@@ -184,7 +165,7 @@ namespace node_gtk3
    }
 
 
-   bool copydesk::_get_filea(::file::path_array & patha, e_op & eop)
+   bool copydesk::_get_filea(::file::path_array & patha, enum_op & eop)
    {
 
       ::pointer<clipboard_data>pdata = __allocate< clipboard_data >(this, e_clipboard_get_patha);
@@ -197,7 +178,7 @@ namespace node_gtk3
 
       g_source_attach(idle_source, g_main_context_default());
 
-      if(!pdata->m_event.wait(seconds(5)).succeeded() || pdata->m_eclipboard == e_clipboard_error)
+      if(!pdata->m_event.wait(5_s) || pdata->m_eclipboard == e_clipboard_error)
       {
 
          return false;
@@ -213,7 +194,7 @@ namespace node_gtk3
    }
 
 
-   bool copydesk::_set_filea(const ::file::path_array & patha, e_op eop)
+   bool copydesk::_set_filea(const ::file::path_array & patha, enum_op eop)
    {
 
       ::pointer<clipboard_data>pdata = __allocate< clipboard_data >(this, e_clipboard_set_patha);
@@ -230,7 +211,7 @@ namespace node_gtk3
 
       g_source_attach(idle_source, g_main_context_default());
 
-      if(!pdata->m_event.wait(seconds(5)).succeeded())
+      if(!pdata->m_event.wait(5_s))
       {
 
          return false;
@@ -251,7 +232,7 @@ namespace node_gtk3
 
       pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_desk_to_image"));
 
-      pdata->m_pimage = create_image();
+      pdata->m_pimage = m_pcontext->m_pauracontext->create_image();
 
       auto idle_source = g_idle_source_new();
 
@@ -259,14 +240,14 @@ namespace node_gtk3
 
       g_source_attach(idle_source, g_main_context_default());
 
-      if(!pdata->m_event.wait(seconds(5)).succeeded() || pdata->m_eclipboard == e_clipboard_error)
+      if(!pdata->m_event.wait(5_s) || pdata->m_eclipboard == e_clipboard_error)
       {
 
          return false;
 
       }
 
-      pimage->copy(pdata->m_pimage);
+      pimage->copy_from(pdata->m_pimage);
 
       return true;
 
@@ -286,22 +267,31 @@ namespace node_gtk3
    bool copydesk::_has_image()
    {
 
-      bool b = false;
+      bool bIsImageAvailable = false;
 
-      auto psystem = system()->m_papexsystem;
-
-      auto pnode = psystem->node();
-
-      pnode->node_send(10_s, __routine([&]()
+      user_send([&]()
       {
 
          GtkClipboard* clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
 
-         b = gtk_clipboard_wait_is_image_available (clipboard);
+         bIsImageAvailable = gtk_clipboard_wait_is_image_available (clipboard);
 
-      }));
+         if(bIsImageAvailable)
+         {
 
-      return b;
+            information() << "There is image in Selection Clipboard.";
+
+         }
+         else
+         {
+
+            information() << "No image in Selection Clipboard.";
+
+         }
+
+      });
+
+      return bIsImageAvailable;
 
    }
 
