@@ -15,9 +15,11 @@
 // and restart codeblocks/IDE
 #include <gtk/gtk.h>
 #include <sys/utsname.h>
+#include <gdk/gdkwayland.h>
 
 platform_char *** process_get_pargv();
 
+void initialize_display_type(enum_display_type edisplaytype);
 
 ////int uname(struct utsname *buf);
 //#ifndef RASPBERRYPIOS
@@ -54,22 +56,52 @@ namespace node_gtk3
 {
 
 
-   bool g_bInitGtk = false;
-
-
-   ::e_status g_estatusInitGtk = ::error_none;
-
-
-   ::e_status os_defer_init_gtk(::node_gtk3::node * pgtknode)
+   void node::initialize_window_manager()
    {
 
-      if (!g_bInitGtk)
+
+   }
+
+
+   enum_display_type calculate_display_type()
+   {
+
+      GdkDisplay * pgdkdisplay = gdk_display_get_default();
+
+      if (GDK_IS_WAYLAND_DISPLAY (pgdkdisplay))
       {
 
-         g_bInitGtk = true;
+         return e_display_type_wayland;
 
-         if (!gtk_init_check(pgtknode->platform()->get_pargc(),
-                             pgtknode->platform()->get_pargv()))
+      }
+      else if (GDK_IS_X11_DISPLAY (pgdkdisplay))
+      {
+
+         return e_display_type_x11;
+
+      }
+      else
+      {
+
+         return e_display_type_none;
+
+      }
+
+   }
+
+   ::e_status g_estatusInitGtk = error_not_initialized;
+
+   void initialize_gtk()
+   {
+
+      if (g_estatusInitGtk == error_not_initialized)
+      {
+
+         auto pargc = ::platform::get()->get_pargc();
+
+         auto pargv = ::platform::get()->get_pargv();
+
+         if (!gtk_init_check(pargc, pargv))
          {
 
             g_estatusInitGtk = ::error_failed;
@@ -82,12 +114,9 @@ namespace node_gtk3
 
          }
 
-         pgtknode->_on_gtk_init();
+         initialize_display_type(calculate_display_type());
 
       }
-
-      return g_estatusInitGtk;
-
 
    }
 

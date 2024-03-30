@@ -475,7 +475,7 @@ namespace node_gtk4
 
       m_pNodeGtk4 = this;
 
-      defer_initialize_x11();
+      //defer_initialize_x11();
 
       m_pGtkSettingsDefault = nullptr;
 

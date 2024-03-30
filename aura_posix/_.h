@@ -41,5 +41,3 @@ namespace xim
 
 #endif
 
-
-

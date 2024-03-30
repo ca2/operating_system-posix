@@ -8,6 +8,7 @@
 #include "acme/platform/acme.h"
 #include "apex/platform/system.h"
 
+#include <gdk/gdkwayland.h>
 
 //::particle * user_synchronization();
 
@@ -166,14 +167,14 @@ namespace node_gtk3
 
       }
 
-      ::pointer < ::node_gtk3::node > pgtknode = ::platform::get()->system()->node();
-
-      if (!os_defer_init_gtk(pgtknode))
-      {
-
-         return ::error_failed;
-
-      }
+//      ::pointer < ::node_gtk3::node > pgtknode = ::platform::get()->system()->node();
+//
+//      if (!os_defer_init_gtk(pgtknode))
+//      {
+//
+//         return ::error_failed;
+//
+//      }
 
       GSettings *settings = g_settings_new(strSchema);
 
@@ -203,14 +204,14 @@ namespace node_gtk3
    ::e_status gsettings_sync()
    {
 
-      ::pointer < ::node_gtk3::node > pgtknode = ::platform::get()->system()->node();
-
-      if (!os_defer_init_gtk(pgtknode))
-      {
-
-         return ::error_failed;
-
-      }
+//      ::pointer < ::node_gtk3::node > pgtknode = ::platform::get()->system()->node();
+//
+//      if (!os_defer_init_gtk(pgtknode))
+//      {
+//
+//         return ::error_failed;
+//
+//      }
 
       ::g_settings_sync();
 
@@ -236,14 +237,14 @@ namespace node_gtk3
 
       }
 
-      ::pointer < ::node_gtk3::node > pgtknode = ::platform::get()->system()->node();
-
-      if (!os_defer_init_gtk(pgtknode))
-      {
-
-         return nullptr;
-
-      }
+//      ::pointer < ::node_gtk3::node > pgtknode = ::platform::get()->system()->node();
+//
+//      if (!os_defer_init_gtk(pgtknode))
+//      {
+//
+//         return nullptr;
+//
+//      }
 
       GSettings *settings = g_settings_new(strSchema);
 
@@ -623,6 +624,8 @@ void gtk_defer_do_main_tasks()
 
 
 }
+
+
 
 
 

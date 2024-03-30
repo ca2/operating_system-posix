@@ -3,7 +3,7 @@
 //
 #include "framework.h"
 #include "node.h"
-#include "appindicator.h"
+//#include "appindicator.h"
 #include "acme/constant/id.h"
 #include "acme/handler/topic.h"
 #include "apex/platform/system.h"
@@ -56,7 +56,7 @@ namespace node_gnome
 
       m_pNodeGnome = this;
 
-      defer_initialize_x11();
+      //defer_initialize_x11();
 
       m_pGtkSettingsDefault = nullptr;
 
@@ -106,9 +106,15 @@ namespace node_gnome
    void node::initialize(::particle * pparticle)
    {
 
-//      ::node_gnome::g_defer_init();
+#if defined(HAS_GTK4)
 
-      //return ::success;
+      return ::node_gtk4::node::initialize(pparticle);
+
+#elif defined(HAS_GTK3)
+
+      return ::node_gtk3::node::initialize(pparticle);
+
+#endif
 
    }
 

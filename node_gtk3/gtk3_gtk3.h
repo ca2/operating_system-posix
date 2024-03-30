@@ -24,7 +24,7 @@ namespace node_gtk3
 {
 
 
-   ::e_status os_defer_init_gtk(::node_gtk3::node * pgtknode);
+   void initialize_gtk();
 
 
 } // namespace node_gtk3

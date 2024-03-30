@@ -56,9 +56,9 @@ namespace node_gtk3
       virtual void _fill_os_theme_colors(::os_theme_colors * pthemecolors, const ::scoped_string & scopedstrTheme, bool bDark);
       //virtual void _set_os_theme_colors(::os_theme_colors * posthemecolors);
 
-      int node_init_check(int * pi, char *** ppz) override;
+      //int node_init_check(int * pi, char *** ppz) override;
 
-      virtual bool os_defer_init_gtk();
+      void initialize_window_manager() override;
 
       void defer_notify_startup_complete() override;
 

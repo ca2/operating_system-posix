@@ -40,6 +40,9 @@
 #include <cairo/cairo.h>
 
 
+enum_display_type calculate_display_type();
+
+
 bool aaa_x11_message_loop_step();
 
 
@@ -475,8 +478,6 @@ namespace node_gtk3
 
       m_pNodeGtk3 = this;
 
-      defer_initialize_x11();
-
       m_pGtkSettingsDefault = nullptr;
 
       m_pgdkapplaunchcontext = nullptr;
@@ -506,27 +507,27 @@ namespace node_gtk3
    }
 
 
-   int node::node_init_check(int *pi, char ***ppz)
-   {
-
-      if (!::node_gtk3::os_defer_init_gtk(this))
-      {
-
-         return 0;
-
-      }
-
-      return 1;
-
-   }
-
-
-   bool node::os_defer_init_gtk()
-   {
-
-      return ::node_gtk3::os_defer_init_gtk(this);
-
-   }
+//   int node::node_init_check(int *pi, char ***ppz)
+//   {
+//
+//      if (!::node_gtk3::os_defer_init_gtk(this))
+//      {
+//
+//         return 0;
+//
+//      }
+//
+//      return 1;
+//
+//   }
+//
+//
+//   bool node::os_defer_init_gtk()
+//   {
+//
+//      return ::node_gtk3::os_defer_init_gtk(this);
+//
+//   }
 
 
    void node::defer_notify_startup_complete()
@@ -749,7 +750,11 @@ namespace node_gtk3
    void node::initialize(::particle *pparticle)
    {
 
-      ::node_gtk3::g_defer_init();
+      ::aura_posix::node::initialize(pparticle);
+
+      //initialize_window_manager();
+
+      //::node_gtk3::g_defer_init();
 
       //return ::success;
 
@@ -2123,14 +2128,14 @@ namespace node_gtk3
    ::e_status node::_allocate_Display_and_connection()
    {
 
-      if(!::node_gtk3::os_defer_init_gtk(this))
-      {
-
-         return ::error_failed;
-
-      }
-
-      if(m_edisplaytype == e_display_type_x11)
+//      if(!::node_gtk3::os_defer_init_gtk(this))
+//      {
+//
+//         return ::error_failed;
+//
+//      }
+//
+      if(get_display_type() == e_display_type_x11)
       {
 
          ::aura_posix::node::_allocate_Display_and_connection();
@@ -2141,34 +2146,16 @@ namespace node_gtk3
 
    }
 
+
    void node::_on_gtk_init()
    {
 
-      if(m_edisplaytype == e_display_type_none)
-      {
-
-         GdkDisplay * pgdkdisplay = gdk_display_get_default();
-
-         information() << "Display name : " << gdk_display_get_name(pgdkdisplay);
-
-         if (GDK_IS_X11_DISPLAY (pgdkdisplay))
-         {
-
-            m_edisplaytype = e_display_type_x11;
-
-            information() << "e_display_type_x11";
-
-         }
-         else if (GDK_IS_WAYLAND_DISPLAY (pgdkdisplay))
-         {
-
-            m_edisplaytype = e_display_type_wayland;
-
-            information() << "e_display_type_wayland";
-
-         }
-
-      }
+//      if(m_edisplaytype == e_display_type_none)
+//      {
+//
+//         m_edisplaytype = calculate_display_type();
+//
+//      }
 
    }
 

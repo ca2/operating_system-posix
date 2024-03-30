@@ -37,8 +37,6 @@ namespace aura_posix
          
 #endif
 
-      m_edisplaytype = e_display_type_none;
-
       m_pAuraPosix = this;
 
    }
@@ -82,6 +80,14 @@ namespace aura_posix
       information() << "aura_posix::node initialize";
 
       ::apex_posix::node::initialize(pparticle);
+
+      initialize_window_manager();
+
+   }
+
+
+   void node::initialize_window_manager()
+   {
 
 #if defined(WITH_X11) || defined(WITH_XCB)
 
@@ -523,6 +529,10 @@ namespace aura_posix
 
 
 } // namespace aura_posix
+
+
+
+
 
 
 

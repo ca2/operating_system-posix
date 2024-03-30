@@ -17,17 +17,19 @@ __FACTORY_EXPORT void windowing_wayland_factory(::factory::factory * pfactory);
 #endif
 
 
+enum_display_type get_display_type();
+
+
 __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
 {
 
-   ::string strSessionType = getenv("XDG_SESSION_TYPE");
+   ::node_gtk3::initialize_gtk();
 
-   strSessionType.make_lower();
-
-   printf("XDG_SESSION_TYPE %s\n", strSessionType.c_str());
+   auto edisplaytype = get_display_type();
 
 #if !defined(RASPBERRYPIOS) && !defined(FREEBSD) && !defined(__XFCE)
-   if(strSessionType == "wayland")
+
+   if(edisplaytype == e_display_type_wayland)
    {
 
       //windowing_x11_factory(pfactory);

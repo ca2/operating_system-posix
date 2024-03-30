@@ -180,18 +180,18 @@ namespace node_gtk3
    bool appindicator::create(const char * pszId, const char * pszIcon, const char * pszFolder, application_menu * papplicationmenu, application_menu_callback * pcallback)
    {
 
-#if defined(HAS_GTK4)
-      ::pointer < ::node_gtk4::node > pgtknode = node();
-#elif defined(HAS_GTK3)
-      ::pointer < ::node_gtk3::node > pgtknode = node();
-#endif
-
-      if(!pgtknode->os_defer_init_gtk())
-      {
-
-         return false;
-
-      }
+//#if defined(HAS_GTK4)
+//      ::pointer < ::node_gtk4::node > pgtknode = node();
+//#elif defined(HAS_GTK3)
+//      ::pointer < ::node_gtk3::node > pgtknode = node();
+//#endif
+//
+//      if(!pgtknode->os_defer_init_gtk())
+//      {
+//
+//         return false;
+//
+//      }
 
       m_pindicator = app_indicator_new_with_path(pszId, pszIcon, APP_INDICATOR_CATEGORY_APPLICATION_STATUS, pszFolder);
 

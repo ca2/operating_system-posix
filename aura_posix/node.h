@@ -14,14 +14,6 @@
 
 struct wl_display;
 
-enum enum_display_type
-{
-
-   e_display_type_none,
-   e_display_type_x11,
-   e_display_type_wayland,
-
-};
 
 namespace aura_posix
 {
@@ -51,7 +43,7 @@ namespace aura_posix
 
 #endif
 
-      enum_display_type       m_edisplaytype;
+
 
 
       node();
@@ -60,7 +52,7 @@ namespace aura_posix
 
       void initialize(::particle * pparticle) override;
 
-
+virtual void initialize_window_manager();
       virtual ::wl_display * get_wayland_display();
       //void on_initialize_particle() override;
       //::string system_options_html() override;
@@ -136,6 +128,8 @@ namespace aura_posix
 
 
 } // namespace aura_posix
+
+
 
 
 
