@@ -209,7 +209,7 @@ namespace acme_posix
       else
       {
 
-         information() << "file::open : " << path;
+         //information() << "file::open : " << path;
 
          hFile = ::open(path, dwFlags | O_CLOEXEC); //::open(m_strFileName, dwAccess, dwShareMode, &sa, dwCreateFlag, FILE_ATTRIBUTE_NORMAL, nullptr);
 

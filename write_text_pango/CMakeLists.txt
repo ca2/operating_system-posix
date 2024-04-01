@@ -64,7 +64,7 @@ elseif(${LINUX} OR ${FREEBSD} OR ${OPENBSD} OR ${NETBSD})
     target_link_options(write_text_pango PRIVATE ${PKGCONFIG_LDFLAGS})
     target_link_libraries(write_text_pango PRIVATE ${PKGCONFIG_LIBRARIES} ${library_references})
     target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
-    target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
+    # target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
 
     message(STATUS "(2) PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
 
