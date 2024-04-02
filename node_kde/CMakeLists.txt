@@ -75,7 +75,7 @@ list(APPEND system_libraries
    Qt5::GuiPrivate
 )
 
-if(${FREEBSD})
+if(${FREEBSD} OR ${DEBIAN})
    list(APPEND system_libraries
       KF5Package
    )
