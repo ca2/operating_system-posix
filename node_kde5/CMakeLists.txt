@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(node_kde CXX)
+project(node_kde5 CXX)
 message("--------------- node_kde -------------------")
 
 list(APPEND library_source
