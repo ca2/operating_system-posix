@@ -16,7 +16,7 @@
 //#include <QMe>
 
 
-namespace node_kde
+namespace node_kde5
 {
 
 
@@ -64,7 +64,7 @@ namespace node_kde
 
       m_puserinteractionNotify = puserinteractionNotify;
 
-      ::pointer < ::node_kde::node > pnode = system()->node();
+      ::pointer < ::node_kde5::node > pnode = system()->node();
 
       QObject::setParent(pnode->m_pqapplication);
 
@@ -295,7 +295,7 @@ namespace node_kde
     }
 
 
-} // namespace node_kde
+} // namespace node_kde5
 
 
 

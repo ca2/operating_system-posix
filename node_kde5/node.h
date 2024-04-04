@@ -11,7 +11,7 @@
 //#include <QDebug>
 //#include <QTimer>
 //#include <QWidget>
-#include "node_impl.h"
+//#include "node_impl.h"
 #include "aura_posix/node.h"
 #include <QObject>
 #include <QAbstractNativeEventFilter>
@@ -22,7 +22,7 @@
 class KIconLoader;
 
 
-namespace node_kde
+namespace node_kde5
 {
 
 
@@ -135,7 +135,7 @@ namespace node_kde
    };
 
 
-} // namespace node_kde
+} // namespace node_kde5
 
 
 

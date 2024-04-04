@@ -8,7 +8,7 @@
 #include "aura_posix/x11/desktop_environment.h"
 
 
-namespace node_kde
+namespace node_kde5
 {
 
 
@@ -45,7 +45,7 @@ namespace node_kde
    };
 
 
-} // namespace node_kde
+} // namespace node_kde5
 
 
 

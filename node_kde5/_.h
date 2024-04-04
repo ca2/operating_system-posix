@@ -12,14 +12,14 @@
 #endif
 
 
-namespace node_kde
+namespace node_kde5
 {
 
 
    class node;
 
 
-} // namespace node_kde
+} // namespace node_kde5
 
 
 

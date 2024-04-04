@@ -5,7 +5,8 @@
 #include "appindicator.h"
 
 
-namespace node_kde{
+namespace node_kde5
+{
 
 
    appindicator::appindicator()
@@ -30,7 +31,7 @@ namespace node_kde{
    }
 
 
-} // namespace node_kde
+} // namespace node_kde5
 
 
 

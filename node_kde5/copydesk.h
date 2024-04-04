@@ -4,7 +4,7 @@
 #include "aura/user/user/copydesk.h"
 
 
-namespace node_kde
+namespace node_kde5
 {
 
 
@@ -38,7 +38,7 @@ namespace node_kde
    };
 
 
-} // namespace node_kde
+} // namespace node_kde5
 
 
 

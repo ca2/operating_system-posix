@@ -5,7 +5,7 @@
 #include "node_gtk/windowing.h"
 
 
-namespace node_kde
+namespace node_kde5
 {
 
 
@@ -30,7 +30,7 @@ namespace node_kde
    };
 
 
-} // namespace node_kde
+} // namespace node_kde5
 
 
 

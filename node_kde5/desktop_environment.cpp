@@ -21,7 +21,7 @@
 //::particle * user_synchronization();
 
 
-namespace node_kde
+namespace node_kde5
 {
 
 
@@ -173,7 +173,7 @@ namespace node_kde
 
       auto psystem = system()->m_paurasystem;
 
-      ::pointer < ::node_kde::node > pnode = psystem->node();
+      ::pointer < ::node_kde5::node > pnode = psystem->node();
 
       auto pqapplication = pnode->m_pqapplication;
 
@@ -216,7 +216,7 @@ namespace node_kde
    }
 
 
-} // namespace node_kde
+} // namespace node_kde5
 
 
 

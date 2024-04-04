@@ -12,7 +12,7 @@
 #include <QMimeData>
 
 
-namespace node_kde
+namespace node_kde5
 {
 
 
@@ -243,7 +243,7 @@ return false;
 
                    auto psystem = system();
 
-                   auto pnode = psystem->node()->m_pNodeKDE;
+                   auto pnode = psystem->node()->m_pNodeKDE5;
 
                    auto pqapplication = pnode->m_pqapplication;
 
@@ -304,7 +304,7 @@ return false;
 
       auto psystem = system();
 
-      auto pnode = psystem->node()->m_pNodeKDE;
+      auto pnode = psystem->node()->m_pNodeKDE5;
 
       auto pqapplication = pnode->m_pqapplication;
 
@@ -319,7 +319,7 @@ return false;
    }
 
 
-} // namespace node_kde
+} // namespace node_kde5
 
 
 

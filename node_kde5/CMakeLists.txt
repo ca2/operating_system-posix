@@ -8,8 +8,8 @@ list(APPEND library_source
    #_library.h
    appindicator.cpp
    appindicator.h
-   application.cpp
-   application.h
+   #application.cpp
+   #application.h
    copydesk.cpp
    copydesk.h
    desktop_environment.cpp

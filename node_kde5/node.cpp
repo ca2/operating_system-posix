@@ -63,14 +63,14 @@ void kde_update_os_theme_colors(::os_theme_colors * pthemecolors)
 
 
 
-namespace node_kde
+namespace node_kde5
 {
 
 
    node::node()
    {
 
-      m_pNodeKDE = this;
+      m_pNodeKDE5 = this;
 
       m_pqapplication = nullptr;
 
@@ -1052,7 +1052,7 @@ namespace node_kde
    }
 
 
-} // namespace node_kde
+} // namespace node_kde5
 
 
 
