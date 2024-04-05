@@ -723,6 +723,8 @@ namespace node_gtk3
 
          //aaa_x11_add_idle_source(this);
 
+         ::set_main_user_thread(::current_htask());
+
          gtk_main();
 
          //aaa_x11_main();

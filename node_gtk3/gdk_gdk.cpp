@@ -622,7 +622,6 @@ void gtk_defer_do_main_tasks()
 
    }
 
-
 }
 
 
