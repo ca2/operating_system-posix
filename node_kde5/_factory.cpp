@@ -7,6 +7,9 @@
 //#include "windowing.h"
 
 
+void initialize_display_type(enum_display_type edisplaytype);
+
+
 __FACTORY_EXPORT void windowing_xcb_factory(::factory::factory * pfactory);
 __FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory);
 #if !defined(RASPBERRYPIOS)
@@ -35,6 +38,8 @@ __FACTORY_EXPORT void node_kde_factory(::factory::factory * pfactory)
 
       //windowing_x11_factory(pfactory);
 
+      initialize_display_type(e_display_type_wayland);
+
       windowing_wayland_factory(pfactory);
 
    }
@@ -43,6 +48,8 @@ __FACTORY_EXPORT void node_kde_factory(::factory::factory * pfactory)
    {
 
       //windowing_xcb_factory(pfactory);
+
+      initialize_display_type(e_display_type_xcb);
 
       windowing_xcb_factory(pfactory);
 
