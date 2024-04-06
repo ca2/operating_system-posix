@@ -782,11 +782,11 @@ namespace windowing_wayland
 
                //}
 
-               synchronous_lock slGraphics(synchronization());
+               _synchronous_lock slGraphics(synchronization());
 
                auto pitem = get_screen_item();
 
-               synchronous_lock slImage(pitem->m_pmutex);
+               _synchronous_lock slImage(pitem->m_pmutex);
 
                slGraphics.unlock();
 

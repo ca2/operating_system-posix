@@ -357,7 +357,7 @@ bool __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 }
 
 
-void x11_add_idle_source(::node_gtk3::node *pnode);
+void windowing_message_loop_add_idle_source(::node_gtk3::node *pnode);
 
 
 void gtk_settings_gtk_theme_name_callback(GObject *object, GParamSpec *pspec, gpointer data)
@@ -701,7 +701,7 @@ namespace node_gtk3
 
                       }
 
-                      x11_add_idle_source(this);
+                      windowing_message_loop_add_idle_source(this);
 
                       auto psystem = system()->m_papexsystem;
 
@@ -2484,7 +2484,7 @@ log_handler(const gchar *log_domain,
 ::e_status run_runnable(::particle *pobjectTask);
 
 
-gboolean x11_source_func(gpointer p)
+gboolean windowing_message_loop_source_function(gpointer p)
 {
 
    ::node_gtk3::node *pnode = (::node_gtk3::node *) p;
@@ -2501,10 +2501,10 @@ gboolean x11_source_func(gpointer p)
 }
 
 
-void x11_add_idle_source(::node_gtk3::node *pnode)
+void windowing_message_loop_add_idle_source(::node_gtk3::node *pnode)
 {
 
-   gdk_threads_add_idle(&x11_source_func, pnode);
+   gdk_threads_add_idle(&windowing_message_loop_source_function, pnode);
 
 }
 
