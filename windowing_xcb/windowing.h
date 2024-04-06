@@ -90,7 +90,7 @@ namespace windowing_xcb
       //virtual void xcb_main();
 
       //virtual HCURSOR load_default_cursor(e_cursor ecursor) override;
-      virtual ::pointer<::windowing::cursor>load_default_cursor(enum_cursor ecursor);
+      ::pointer<::windowing::cursor>load_default_cursor(enum_cursor ecursor) override;
 
       //virtual int_bool window_set_mouse_cursor(window * pwindow, HCURSOR hcursor) override;
 
@@ -100,12 +100,12 @@ namespace windowing_xcb
 
       //virtual ::windowing::window * new_window(::user::interaction_impl * pimpl) override;
 
-      void erase_window(::windowing::window * pwindow);
+      void erase_window(::windowing::window * pwindow) override;
 
       virtual ::windowing_xcb::window * _window(xcb_window_t window);
 
 
-      virtual void _message_handler(void * p);
+      void _message_handler(void * p) override;
 
 //      SnLauncheeContext* g_psncontext = nullptr;
 

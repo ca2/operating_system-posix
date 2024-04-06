@@ -90,7 +90,7 @@ namespace windowing_xcb
       bool is_window() override;
 
 
-      virtual void set_window_text(const ::scoped_string & scopedstrText);
+      void set_window_text(const ::scoped_string & scopedstrText) override;
 
 
       bool set_window_position(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;

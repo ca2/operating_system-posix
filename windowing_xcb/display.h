@@ -64,9 +64,9 @@ namespace windowing_xcb
 
 
       virtual i64 get_ref_count();
-      virtual i64 increment_reference_count();
-      virtual i64 decrement_reference_count();
-      virtual i64 release();
+      i64 increment_reference_count() override;
+      i64 decrement_reference_count() override;
+      i64 release() override;
 
 
 #endif
@@ -99,9 +99,9 @@ namespace windowing_xcb
 
       virtual bool is_null() const;
 
-      virtual bool get_monitor_rectangle(index iMonitor, ::rectangle_i32 & rectangle);
+      bool get_monitor_rectangle(index iMonitor, ::rectangle_i32 & rectangle) override;
 
-      virtual bool get_workspace_rectangle(index iWorkspace, ::rectangle_i32 & rectangle);
+      bool get_workspace_rectangle(index iWorkspace, ::rectangle_i32 & rectangle) override;
 
       //virtual ::e_status release_mouse_capture();
 

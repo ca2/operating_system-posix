@@ -10,8 +10,8 @@
 #include <xcb/xcb.h>
 
 
-#define WITH_XI
-#define WITH_SN
+//#define WITH_XI
+//#define WITH_SN
 
 
 #if defined(_windowing_xcb_project)

@@ -26,7 +26,7 @@ namespace windowing_xcb
       ~icon() override;
 
 
-      string get_tray_icon_name() const;
+      string get_tray_icon_name() const override;
 
 
       void set_tray_icon_name(const string & strTrayIconName) override;
@@ -35,7 +35,7 @@ namespace windowing_xcb
       void get_sizes(::size_i32_array & a) override;
 
 
-      void * get_os_data(const ::size_i32 & size) const;
+      void * get_os_data(const ::size_i32 & size) const override;
 
 
       void load_matter(string strPath);
