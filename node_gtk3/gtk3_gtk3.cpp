@@ -68,13 +68,19 @@ namespace node_gtk3
 
       GdkDisplay * pgdkdisplay = gdk_display_get_default();
 
+#if HAS_WAYLAND
+
       if (GDK_IS_WAYLAND_DISPLAY (pgdkdisplay))
       {
 
          return e_display_type_wayland;
 
       }
-      else if (GDK_IS_X11_DISPLAY (pgdkdisplay))
+      else
+
+#endif
+
+      if (GDK_IS_X11_DISPLAY (pgdkdisplay))
       {
 
          return e_display_type_x11;
