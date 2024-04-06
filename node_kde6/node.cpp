@@ -77,6 +77,8 @@ namespace node_kde6
 
       m_piconloader = nullptr;
 
+      m_qpalette = QApplication::palette();
+
    }
 
 
