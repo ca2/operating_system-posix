@@ -1565,25 +1565,6 @@ namespace acme_posix
       while(true)
       {
 
-         if(!::task_get_run() && !bExit)
-         {
-
-            close(stdout_fds[0]);
-
-            close(stderr_fds[0]);
-
-            //close(stdin_fds[1]);
-
-            kill(pid, SIGKILL);
-
-            int iStatus = 0;
-
-            waitpid(pid, &iStatus, 0);
-
-            break;
-
-         }
-
          bool bRead = false;
 
          while(true)
@@ -1666,59 +1647,82 @@ namespace acme_posix
 
          }
 
-         if(bExit)
+         if(bRead)
          {
 
-
-            break;
-
-         }
-
-         {
-
-            int status = 0;
-
-            int iWaitPid = waitpid(pid, &status, WNOHANG | WUNTRACED | WCONTINUED);
-
-            if(iWaitPid == -1)
             {
 
-               int iErrorNo = errno;
+               int status = 0;
 
-               if(iErrorNo != ECHILD)
+               int iWaitPid = waitpid(pid, &status, WNOHANG | WUNTRACED | WCONTINUED);
+
+               if (iWaitPid == -1)
                {
 
-                  //break;
+                  int iErrorNo = errno;
 
-                  bExit = true;
+                  if (iErrorNo != ECHILD)
+                  {
+
+                     //break;
+
+                     bExit = true;
+
+                  }
+
+               }
+               else if (iWaitPid == pid)
+               {
+
+                  if (WIFEXITED(status))
+                  {
+
+                     chExitCode = WEXITSTATUS(status);
+
+                     iExitCode = chExitCode;
+
+                     //break;
+
+                     bExit = true;
+
+                  }
 
                }
 
             }
-            else if(iWaitPid == pid)
+
+            if (!::task_get_run() && !bExit)
             {
 
-               if (WIFEXITED(status))
-               {
+               close(stdout_fds[0]);
 
-                  chExitCode = WEXITSTATUS(status);
+               close(stderr_fds[0]);
 
-                  iExitCode = chExitCode;
+               //close(stdin_fds[1]);
 
-                  //break;
+               kill(pid, SIGKILL);
 
-                  bExit = true;
+               int iStatus = 0;
 
-               }
+               waitpid(pid, &iStatus, 0);
+
+               break;
 
             }
 
-         }
+            if (bExit)
+            {
 
-         if(!bRead && !bExit)
-         {
+               break;
 
-            preempt(25_ms);
+            }
+
+            if (!bRead && !bExit)
+            {
+
+               preempt(25_ms);
+
+            }
 
          }
 
