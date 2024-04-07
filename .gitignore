@@ -30,7 +30,6 @@ Thumbs.db
 deployment.rc
 Makefile
 _packages.txt
-
 application_build_helper_input.txt
 application_build_helper_output.txt
 matter_output.txt
