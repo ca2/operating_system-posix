@@ -235,7 +235,7 @@ namespace node_xfce
 //
 //      string strFile = "menubar-icon-22.png";
 //
-//      string strUrl = "https://server.ca2.software/matter/" + strFolder + strFile;
+//      string strUrl = "https://ca2.network/matter/" + strFolder + strFile;
 //
 //      strFile = Context.dir()->appdata() / strFolder / strFile;
 //
