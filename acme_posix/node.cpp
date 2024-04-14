@@ -36,7 +36,11 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #if !defined(ANDROID)
+#if defined(OPENBSD)
+#include <glob.h>
+#else
 #include <wordexp.h>
+#endif
 #endif
 #include <fcntl.h>
 
@@ -1479,6 +1483,37 @@ namespace acme_posix
 
          throw ::exception(todo);
 
+#elif defined(OPENBSD)
+
+         auto pszCommandLine = ansi_dup(scopedstr);
+
+         int iErrNo = 0;
+
+         glob_t gl{};
+
+	 ::glob(pszCommandLine, 0, nullptr, &gl);
+
+         char **argv = __new_array< char * >(gl.gl_pathc + 1);
+
+         memory_copy(argv, gl.gl_pathv, gl.gl_pathc * sizeof(char *));
+
+         int iChildExitCode = execvp(argv[0], &argv[0]);
+
+         if (iChildExitCode == -1)
+         {
+
+            iErrNo = errno;
+
+         }
+
+         delete[]argv;
+
+         ::globfree(&gl);
+
+         free(pszCommandLine);
+
+         _exit(iErrNo);
+
 #else
 
          auto pszCommandLine = ansi_dup(scopedstr);
@@ -1829,6 +1864,33 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
    
 #else
 
+  auto pszExecutable = ::c::strdup(strExecutable);
+   
+  auto pszCommandLine = ansi_dup(scopedstr);
+ 
+  int iErrNo = 0;
+  
+ #if defined(OPENBSD)
+
+   glob_t gl{};
+
+   ::glob(pszCommandLine, 0, nullptr, &gl);
+
+   argv = __new_array< char * >(gl.gl_pathc + 1);
+   
+   for(::index i = 0; i < gl.gl_pathc; i++)
+   {
+      
+      auto arg = gl.gl_pathv[i];
+      
+      argv[i] = arg;
+      
+   }
+   
+   argv[gl.gl_pathc] = nullptr;
+
+#else
+
    auto pszExecutable = ::c::strdup(strExecutable);
    
    auto pszCommandLine = ansi_dup(scopedstr);
@@ -1851,6 +1913,8 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
    }
    
    argv[we.we_wordc] = nullptr;
+   
+#endif
    
 #endif
 
@@ -1930,8 +1994,16 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
       }
 
       delete[]argv;
+      
+#if defined(OPENBSD)
+      
+      globfree(&gl);
+
+#else      
 
       wordfree(&we);
+
+#endif
 
       free(pszCommandLine);
       
@@ -2238,6 +2310,8 @@ if(functionTrace)
          strCommandInner.find_replace("\"", "\\\"");
 
          strCommand.formatf("\"%s\" -c \"%s\"", strUnixShell.c_str(), strCommandInner.c_str());
+         
+         printf("acme_posix::node::unix_shell_command command: %s", strCommand.c_str());
 
          auto iExitCode = this->command_system(strCommand, tracefunction);
 

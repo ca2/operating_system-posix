@@ -37,9 +37,9 @@
 
 #include <sys/wait.h>
 #include <unistd.h>
-#if !defined(ANDROID)
-#include <wordexp.h>
-#endif
+//#if !defined(ANDROID)
+//#include <wordexp.h>
+//#endif
 #include <fcntl.h>
 
 

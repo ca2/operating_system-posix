@@ -8,8 +8,13 @@
 #include "acme/platform/sequencer.h"
 #include "acme/user/user/conversation.h"
 #include "acme/user/nano/nano.h"
+#if defined(LINUX)
 #include "acme/operating_system/linux/standard_exception.h"
-
+#elif defined(FREEBSD)
+#include "acme/operating_system/freebsd/standard_exception.h"
+#elif defined(OPENBSD)
+#include "acme/operating_system/openbsd/standard_exception.h"
+#endif
 
 
 namespace acme_posix

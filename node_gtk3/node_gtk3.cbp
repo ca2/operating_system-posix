@@ -2,29 +2,29 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6"/>
 	<Project>
-		<Option title="aura_posix"/>
+		<Option title="node_gtk3"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="clang"/>
 		<Option virtualFolders="CMake Files\;CMake Files\source\;CMake Files\source\app\;CMake Files\source\app\acme\;CMake Files\source\app\apex\;CMake Files\source\app\aqua\;CMake Files\source\app\aura\;CMake Files\source\app\axis\;CMake Files\source\app\base\;CMake Files\source\app\bred\;CMake Files\source\app\core\;CMake Files\source\app\experience_anthill\;CMake Files\source\app\experience_core\;CMake Files\source\app\experience_nanoui\;CMake Files\source\app\experience_tranquillum\;CMake Files\source\app\networking_bsd\;CMake Files\source\app\crypto_openssl\;CMake Files\source\app\compress_bzip2\;CMake Files\source\app\compress_zlib\;CMake Files\source\app\folder_zip\;CMake Files\source\app\database_sqlite3\;CMake Files\source\app\regular_expression_pcre2\;CMake Files\source\app\draw2d_cairo\;CMake Files\source\app\imaging_freeimage\;CMake Files\source\integration\;CMake Files\source\integration\application_build_helper\;CMake Files\source\integration\code\;CMake Files\source\integration\code\__implement\;CMake Files\source\integration\integration\;CMake Files\source\integration\integration\__implement\;CMake Files\source\integration\launch_store\;CMake Files\source\audio\;CMake Files\source\audio\audio\;CMake Files\source\audio\audio_decode_wave\;CMake Files\source\audio\audio_decode_youtube_player_api_for_iframe\;CMake Files\source\audio\audio_resample_swresample\;CMake Files\source\audio-generation1\;CMake Files\source\audio-generation1\audio_decode_libmpg123\;CMake Files\operating_system\;CMake Files\operating_system\operating_system-openbsd\;CMake Files\operating_system\operating_system-openbsd\acme_openbsd\;CMake Files\operating_system\operating_system-openbsd\apex_openbsd\;CMake Files\operating_system\operating_system-openbsd\aura_openbsd\;CMake Files\operating_system\operating_system-openbsd\desktop_environment_gnome\;CMake Files\operating_system\operating_system-openbsd\node_openbsd\;CMake Files\operating_system\operating_system-posix\;CMake Files\operating_system\operating_system-posix\acme_posix\;CMake Files\operating_system\operating_system-posix\apex_posix\;CMake Files\operating_system\operating_system-posix\audio_sndio\;CMake Files\operating_system\operating_system-posix\aura_posix\;CMake Files\operating_system\operating_system-posix\node_gnome\;CMake Files\operating_system\operating_system-posix\node_gtk3\;CMake Files\operating_system\operating_system-posix\windowing_x11\;CMake Files\operating_system\operating_system-posix\write_text_pango\;CMake Files\port\;CMake Files\port\base\;CMake Files\port\base\id3lib\;CMake Files\port\base\unac\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix"/>
+				<Option working_dir="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="aura_posix">
-				<Option output="/home/camilo/cmake/integration/output/libaura_posix.so" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix"/>
+			<Target title="node_gtk3">
+				<Option output="/home/camilo/cmake/integration/output/libnode_gtk3.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3"/>
 				<Option object_output="./"/>
 				<Option type="3"/>
 				<Option compiler="clang"/>
 				<Compiler>
-					<Add option="-D_AURA_POSIX_LIBRARY"/>
+					<Add option="-D_NODE_GTK_LIBRARY"/>
 					<Add option="-DHAS_GTK3"/>
 					<Add option="-DDEBUG"/>
 					<Add option="-DOPENBSD"/>
@@ -53,28 +53,28 @@
 					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-openbsd/include/configuration_selection/Debug"/>
 					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-openbsd/operating_system/openbsd/gnome/7.3"/>
 					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-openbsd/operating_system"/>
-					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix"/>
-					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/.."/>
-					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/../.."/>
+					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3"/>
+					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/.."/>
+					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/../.."/>
 					<Add directory="/usr/include/c++/v1"/>
 					<Add directory="/usr/lib/clang/16/include"/>
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/Makefile&quot;  VERBOSE=1 aura_posix"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/Makefile&quot;  VERBOSE=1 node_gtk3"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="aura_posix/fast">
-				<Option output="/home/camilo/cmake/integration/output/libaura_posix.so" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix"/>
+			<Target title="node_gtk3/fast">
+				<Option output="/home/camilo/cmake/integration/output/libnode_gtk3.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3"/>
 				<Option object_output="./"/>
 				<Option type="3"/>
 				<Option compiler="clang"/>
 				<Compiler>
-					<Add option="-D_AURA_POSIX_LIBRARY"/>
+					<Add option="-D_NODE_GTK_LIBRARY"/>
 					<Add option="-DHAS_GTK3"/>
 					<Add option="-DDEBUG"/>
 					<Add option="-DOPENBSD"/>
@@ -103,23 +103,23 @@
 					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-openbsd/include/configuration_selection/Debug"/>
 					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-openbsd/operating_system/openbsd/gnome/7.3"/>
 					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-openbsd/operating_system"/>
-					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix"/>
-					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/.."/>
-					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/../.."/>
+					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3"/>
+					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/.."/>
+					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/../.."/>
 					<Add directory="/usr/include/c++/v1"/>
 					<Add directory="/usr/lib/clang/16/include"/>
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/Makefile&quot;  VERBOSE=1 aura_posix/fast"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/Makefile&quot;  VERBOSE=1 node_gtk3/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="static_aura_posix">
-				<Option output="/home/camilo/cmake/integration/library/libstatic_aura_posix.a" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix"/>
+			<Target title="static_node_gtk3">
+				<Option output="/home/camilo/cmake/integration/library/libstatic_node_gtk3.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3"/>
 				<Option object_output="./"/>
 				<Option type="2"/>
 				<Option compiler="clang"/>
@@ -153,23 +153,23 @@
 					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-openbsd/include/configuration_selection/Debug"/>
 					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-openbsd/operating_system/openbsd/gnome/7.3"/>
 					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-openbsd/operating_system"/>
-					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix"/>
-					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/.."/>
-					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/../.."/>
+					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3"/>
+					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/.."/>
+					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/../.."/>
 					<Add directory="/usr/include/c++/v1"/>
 					<Add directory="/usr/lib/clang/16/include"/>
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/Makefile&quot;  VERBOSE=1 static_aura_posix"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/Makefile&quot;  VERBOSE=1 static_node_gtk3"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="static_aura_posix/fast">
-				<Option output="/home/camilo/cmake/integration/library/libstatic_aura_posix.a" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix"/>
+			<Target title="static_node_gtk3/fast">
+				<Option output="/home/camilo/cmake/integration/library/libstatic_node_gtk3.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3"/>
 				<Option object_output="./"/>
 				<Option type="2"/>
 				<Option compiler="clang"/>
@@ -203,136 +203,144 @@
 					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-openbsd/include/configuration_selection/Debug"/>
 					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-openbsd/operating_system/openbsd/gnome/7.3"/>
 					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-openbsd/operating_system"/>
-					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix"/>
-					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/.."/>
-					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/../.."/>
+					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3"/>
+					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/.."/>
+					<Add directory="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/../.."/>
 					<Add directory="/usr/include/c++/v1"/>
 					<Add directory="/usr/lib/clang/16/include"/>
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/Makefile&quot;  VERBOSE=1 static_aura_posix/fast"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/Makefile&quot;  VERBOSE=1 static_node_gtk3/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/_.cpp">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/_.cpp">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/_.h">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/_.h">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/_factory.cpp">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/_factory.cpp">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/appindicator.cpp">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/appindicator.cpp">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/appindicator.h">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/appindicator.h">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/framework.cpp">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/application.cpp">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/framework.h">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/application.h">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/node.cpp">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/copydesk.cpp">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/node.h">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/copydesk.h">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/shell.cpp">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/desktop_environment.cpp">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/shell.h">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/desktop_environment.h">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/user_notify_icon_bridge.h">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/display.cpp">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/x11/_.cpp">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/display.h">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/x11/_.h">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/framework.cpp">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/x11/_constant.h">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/framework.h">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/x11/desktop_environment.cpp">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/gconf.cpp">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/x11/desktop_environment.h">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/gdk_gdk.cpp">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/x11/display_lock.cpp">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/gdk_gdk.h">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/x11/display_lock.h">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/gtk3_gtk3.cpp">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/x11/startup-notification.cpp">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/gtk3_gtk3.h">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/x11/startup-notification.h">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/gtk_clipboard.cpp">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/x11/window.cpp">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/monitor.cpp">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/x11/window.h">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/monitor.h">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/x11/windowing.cpp">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/node.cpp">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/x11/windowing.h">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/node.h">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/x11/xim_keyboard.cpp">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/node_file_dialog.cpp">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/x11/xim_keyboard.h">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/node_folder_dialog.cpp">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/xinput.cpp">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/notify_icon.cpp">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/xinput.h">
-			<Option target="aura_posix"/>
-			<Option target="static_aura_posix"/>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/notify_icon.h">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
+		</Unit>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/windowing.cpp">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
+		</Unit>
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/windowing.h">
+			<Option target="node_gtk3"/>
+			<Option target="static_node_gtk3"/>
 		</Unit>
 		<Unit filename="/home/camilo/cmake/integration/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
