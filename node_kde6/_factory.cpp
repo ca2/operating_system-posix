@@ -28,7 +28,7 @@ __FACTORY_EXPORT void node_kde_factory(::factory::factory * pfactory)
 
    printf("XDG_SESSION_TYPE %s\n", strSessionType.c_str());
 
-#if !defined(RASPBERRYPIOS) && !defined(FREEBSD)
+#if !defined(RASPBERRYPIOS) && !defined(FREEBSD) && !defined(OPENBSD)
 
    if(strSessionType == "wayland")
    {

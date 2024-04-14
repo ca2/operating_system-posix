@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 
-#if defined(LINUX) || defined(ANDROID) || defined(FREEBSD) || defined(__APPLE__)
+#if defined(LINUX) || defined(ANDROID) || defined(FREEBSD) || defined(__APPLE__) || defined(OPENBSD)
 #include <fcntl.h>
 #undef USE_MISC
 
@@ -15,7 +15,7 @@
 #include <unistd.h>
 #endif
 
-#if defined(FREEBSD) || defined(__APPLE__) || defined(LINUX)
+#if defined(FREEBSD) || defined(__APPLE__) || defined(LINUX) || defined(OPENBSD)
 #include <unistd.h>
 #endif
 

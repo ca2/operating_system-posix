@@ -106,7 +106,7 @@ namespace node_xfce
       //m_nid.uFlags               = NIF_ICON | NIF_MESSAGE;
       //m_nid.uCallbackMessage     = MessageNotifyIcon;
 
-#elif defined(LINUX) || defined(FREEBSD)
+#elif defined(LINUX) || defined(FREEBSD) || defined(OPENBSD)
 
       m_picon = picon;
 

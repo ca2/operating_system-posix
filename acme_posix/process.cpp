@@ -26,7 +26,7 @@
 
 #include <signal.h>
 
-#ifdef FREEBSD
+#if defined(FREEBSD) || defined(OPENBSD)
 
 
 #include <sys/types.h>

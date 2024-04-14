@@ -6,7 +6,7 @@
 #include "apex/interprocess/base.h"
 
 
-#ifdef FREEBSD
+#if defined(FREEBSD) || defined(OPENBSD)
 # include <sys/types.h>
 # include <sys/ipc.h>
 #endif

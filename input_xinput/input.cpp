@@ -18,7 +18,7 @@
 
 //Display * x11_get_display();
 
-#ifdef FREEBSD
+#if defined(FREEBSD) || defined(OPENBSD)
 #include <stdio.h>
 #endif
 

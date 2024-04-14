@@ -23,7 +23,7 @@
 
 #include <signal.h>
 
-#ifdef FREEBSD
+#if defined(FREEBSD) || defined(OPENBSD)
 
 
 #include <sys/types.h>
@@ -587,7 +587,7 @@ namespace acme_posix
    int node::_get_proc_stat_core_count()
    {
 
-#ifdef FREEBSD
+#if defined(FREEBSD) || defined(OPENBSD)
 
       int mib[4];
       int numCPU;
@@ -595,7 +595,7 @@ namespace acme_posix
 
 /* set the mib for hw.ncpu */
       mib[0] = CTL_HW;
-#ifdef FREEBSD
+#if defined(FREEBSD)  || defined(OPENBSD)
       mib[1] = HW_NCPU;  // alternatively, try HW_NCPU;
 #else
       mib[1] = HW_AVAILCPU;  // alternatively, try HW_NCPU;
@@ -997,7 +997,7 @@ namespace acme_posix
 
       string str;
 
-#if defined(FREEBSD)
+#if defined(FREEBSD) || defined(OPENBSD)
 
       str = "/proc/" + ::as_string(iPid) + "/file";
 
@@ -2219,7 +2219,7 @@ if(functionTrace)
 
          ::string strUnixShell;
 
-#ifdef FREEBSD
+#if defined(FREEBSD) || defined(OPENBSD)
 
          strUnixShell = "/usr/local/bin/bash";
 

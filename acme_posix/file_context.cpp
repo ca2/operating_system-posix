@@ -6,7 +6,7 @@
 //#include "acme/primitive/primitive/payload.h"
 #include <sys/stat.h>
 
-#if defined(FREEBSD) || defined(__APPLE__) || defined(LINUX)
+#if defined(FREEBSD) || defined(__APPLE__) || defined(LINUX) || defined(OPENBSD)
 #include <unistd.h>
 #include <errno.h>
 #endif

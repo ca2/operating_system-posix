@@ -27,7 +27,7 @@ __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
 
    auto edisplaytype = get_display_type();
 
-#if !defined(RASPBERRYPIOS) && !defined(FREEBSD) && !defined(__XFCE)
+#if !defined(RASPBERRYPIOS) && !defined(FREEBSD) && !defined(__XFCE) && !defined(OPENBSD)
 
    if(edisplaytype == e_display_type_wayland)
    {

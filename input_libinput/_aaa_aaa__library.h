@@ -7,7 +7,7 @@
 #include "aura_posix/_library.h"
 ////#include "aura/user/user/_component.h"
 #include "acme/operating_system/x11/_.h"
-#ifdef FREEBSD
+#if defined(FREEBSD) || defined(OPENBSD)
 #include "aura/operating_system/freebsd/appindicator.h"
 #include "acme/operating_system/freebsd/_user.h"
 #endif

@@ -2,7 +2,7 @@
 #include <fcntl.h> // library for fcntl function
 #include <sys/stat.h>
 
-#ifdef FREEBSD
+#if defined(FREEBSD) || defined(OPENBSD)
 #include <sys/time.h>
 #endif
 

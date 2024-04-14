@@ -4,7 +4,7 @@
 // 18:20 BRT
 #include "framework.h"
 #include "acme_path.h"
-#if defined( FREEBSD)
+#if defined( FREEBSD) || defined(OPENBSD)
 #define __XSI_VISIBLE 1
 #include <unistd.h>
 #endif

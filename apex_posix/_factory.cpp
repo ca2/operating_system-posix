@@ -8,7 +8,7 @@
 #include "system_5/interprocess_target.h"
 #endif
 
-#ifdef FREEBSD
+#if defined(FREEBSD) || defined(OPENBSD)
 #include <stdio.h>
 #endif
 
