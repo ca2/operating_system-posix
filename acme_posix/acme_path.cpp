@@ -6,6 +6,7 @@
 #include "acme_path.h"
 #if defined( FREEBSD)
 #define __XSI_VISIBLE 1
+#include <unistd.h>
 #endif
 //#include "acme/filesystem/filesystem/path.h"
 #include <sys/stat.h>
@@ -39,13 +40,13 @@ namespace acme_posix
       if ((st.st_mode & S_IFDIR))
       {
 
-         return ::file::e_type_folder;
+         return ::file::e_type_existent_folder;
 
       }
       else
       {
 
-         return ::file::e_type_file;
+         return ::file::e_type_existent_file;
 
       }
 
@@ -108,6 +109,40 @@ namespace acme_posix
    }
 
 
+   ::string acme_path::get_default_path()
+   {
+
+      return "/bin:/usr/bin:/usr/local/bin";
+
+   }
+
+
+   /// Test if the given path can be executed.
+   /// \return 0 on success, an errno value on failure.
+   ::file::e_type acme_path::executable_type(const ::file::path & scopedstrCommand)
+   {
+
+      struct stat buff;
+
+      if (stat(scopedstrCommand.c_str(), &buff))
+      {
+
+         return ::file::e_type_doesnt_exist;
+
+      }
+
+      if(access(scopedstrCommand.c_str(), X_OK))
+      {
+
+         return ::file::e_type_non_executable;
+
+      }
+
+      return S_ISREG(buff.st_mode) ? ::file::e_type_executable : ::file::e_type_folder2;
+
+   }
+
+
    ::file::path acme_path::get_absolute_path(const ::scoped_string& scopedstr)
    {
 
@@ -127,6 +162,8 @@ namespace acme_posix
       return path;
 
    }
+
+
 
 
 } // namespace acme_posix

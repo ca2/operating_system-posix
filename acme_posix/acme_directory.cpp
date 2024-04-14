@@ -218,7 +218,18 @@ namespace acme_posix
 
       }
 
-      path.m_iDir = dp->d_type & DT_DIR ? 1 : 0;
+      if(dp->d_type & DT_DIR)
+      {
+
+         path.set_folder_path();
+
+      }
+      else
+      {
+
+         path.set_file_path();
+
+      }
 
       //path.m_iSize = make64_from32(finddata.nFileSizeLow, finddata.nFileSizeHigh);
 
@@ -594,6 +605,12 @@ void acme_directory::erase_recursively(const ::file::path &path)
 #endif
 
 
+   bool acme_directory::is_accessible(const ::file::path & path)
+   {
+
+      return ::access(path, X_OK) == 0;
+
+   }
 
 
 } // namespace acme_posix

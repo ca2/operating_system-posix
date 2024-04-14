@@ -68,6 +68,9 @@ namespace acme_posix
       void change_current(const ::file::path & path) override;
 
 
+      bool is_accessible(const ::file::path & path) override;
+
+
    };
 
 

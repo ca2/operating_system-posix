@@ -31,11 +31,15 @@ namespace acme_posix
 
       ::file::path _real_path(const ::file::path & path) override;
 
+      ::string get_default_path() override;
+
+      ::file::e_type executable_type(const ::file::path & path) override;
 
       ::file::path get_absolute_path(const ::scoped_string& scopedstr) override;
 
 
    };
+
 
 
 } // namespace acme_posix

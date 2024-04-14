@@ -18,6 +18,8 @@ list(APPEND library_source
    dbus.cpp
    dir_context.cpp
    dir_context.h
+   environment.cpp
+   environment.h
    exception_translator.cpp
    exception_translator.h
    exclusive.cpp
@@ -55,7 +57,9 @@ list(APPEND library_source
 #endif ()
 
 
-add_library(${PROJECT_NAME} SHARED ${library_source})
+add_library(${PROJECT_NAME} SHARED ${library_source}
+   environment.cpp
+   environment.h)
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 
