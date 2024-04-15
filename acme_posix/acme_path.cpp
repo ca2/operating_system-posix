@@ -7,6 +7,8 @@
 #if defined( FREEBSD) || defined(OPENBSD)
 #define __XSI_VISIBLE 1
 #include <unistd.h>
+#else
+#include <unistd.h>
 #endif
 //#include "acme/filesystem/filesystem/path.h"
 #include <sys/stat.h>

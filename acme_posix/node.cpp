@@ -1945,7 +1945,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
 	auto p = strdupa_from_command_arguments(stra);
 	
 	
-	printf("command count: %lld\n", p->size());
+	printf("command count: %ld\n", p->size());
 
 for(int i = 0; i < p->size(); i++)
 {
@@ -2417,6 +2417,8 @@ if(functionTrace)
          ::string strCommandInner;
 
          strCommandInner = scopedstrCommand.c_str();
+
+         strCommandInner.find_replace("\\", "\\\\");
 
          strCommandInner.find_replace("\"", "\\\"");
 
