@@ -9,7 +9,7 @@
 #include "acme_path.h"
 #include "mutex.h"
 #include "exception_translator.h"
-#include "environment.h"
+//#include "environment.h"
 
 #include <stdio.h>
 
@@ -42,7 +42,7 @@ IMPLEMENT_FACTORY(acme_posix)
    pfactory->add_factory_item < ::acme_posix::mutex                  , ::mutex >();
 
 
-   pfactory->add_factory_item < ::acme_posix::environment            , ::operating_system::environment >();
+//   pfactory->add_factory_item < ::acme_posix::environment            , ::operating_system::environment >();
 
 }
 

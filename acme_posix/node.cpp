@@ -1923,13 +1923,13 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
 
   auto pszExecutable = ::c::strdup(strExecutable);
   
-  printf("\n\n");
+//  printf("\n\n");
   
-  printf("pszExecutable : %s\n", pszExecutable);
+//  printf("pszExecutable : %s\n", pszExecutable);
    
   auto pszCommandLine = ansi_dup(scopedstr);
  
-  printf("pszCommandLine : %s\n", pszCommandLine);
+//  printf("pszCommandLine : %s\n", pszCommandLine);
 
   int iErrNo = 0;
   
@@ -1945,14 +1945,14 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
 	auto p = strdupa_from_command_arguments(stra);
 	
 	
-	printf("command count: %ld\n", p->size());
+//	printf("command count: %ld\n", p->size());
 
-for(int i = 0; i < p->size(); i++)
-{
+//for(int i = 0; i < p->size(); i++)
+//{
 
-printf("command[%d] = : \"%s\"\n", i, p->element_at(i));
+//printf("command[%d] = : \"%s\"\n", i, p->element_at(i));
 
-}	
+//}	
 
 //         memory_copy(argv, gl.gl_pathv, gl.gl_pathc * sizeof(char *));
 
@@ -2424,7 +2424,7 @@ if(functionTrace)
 
          strCommand.formatf("\"%s\" -c \"%s\"", strUnixShell.c_str(), strCommandInner.c_str());
          
-         printf("\nacme_posix::node::unix_shell_command command: %s\n", strCommand.c_str());
+//         printf("\nacme_posix::node::unix_shell_command command: %s\n", strCommand.c_str());
 
          auto iExitCode = this->command_system(strCommand, tracefunction);
 

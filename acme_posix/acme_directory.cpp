@@ -210,6 +210,10 @@ namespace acme_posix
       //const char * psz = dp->d_name;
 
       path = listing.m_pathFinal / strFilename;
+      
+//      printf("pathFinal   : %s\n", listing.m_pathFinal.c_str());
+//      printf("strFilename : %s\n", strFilename.c_str());
+//      printf("path        : %s\n", path.c_str());
 
       if (path.begins(listing.m_pathBasePath))
       {
@@ -221,13 +225,13 @@ namespace acme_posix
       if(dp->d_type & DT_DIR)
       {
 
-         path.set_folder_path();
+         path.set_existent_folder();
 
       }
       else
       {
 
-         path.set_file_path();
+         path.set_existent_file();
 
       }
 
