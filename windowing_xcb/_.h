@@ -4,7 +4,6 @@
 #include "aura/_.h"
 //#include "aura/operating_system/freebsd/appindicator.h"
 #include "acme/operating_system/ansi/_pthread.h"
-#include "acme/operating_system/freebsd/_user.h"
 #include "acme/operating_system/x11/_.h"
 #include "aura_posix/_.h"
 #include <xcb/xcb.h>
