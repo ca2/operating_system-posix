@@ -20,6 +20,53 @@
 #include "acme/_operating_system.h"
 #include "acme/operating_system/ansi/_pthread.h"
 
+template < typename POINTER_TYPE >
+class array_of_malloced_pointer :
+virtual public ::numeric_array < POINTER_TYPE >
+	{
+	public:
+	
+	array_of_malloced_pointer()
+	{
+	}
+	~array_of_malloced_pointer() override
+	{
+	deallocate();
+	}
+	
+	void	deallocate()
+	{
+		for(auto & p : *this)
+		{
+			if(::is_set(p)) 
+			{
+				::free(p);
+				p=nullptr;
+			}
+		}
+	}
+	
+	
+	};
+	
+	
+::pointer < ::array_of_malloced_pointer < char * > > strdupa_from_command_arguments(const ::string_array & stra)
+{
+
+	::pointer < ::array_of_malloced_pointer < char * > > p;
+	
+	p = __allocate < ::array_of_malloced_pointer < char * > > ();
+	
+	for(auto & str:stra)
+	{
+	
+		p->add_item(::c::strdup(str));
+		
+	}
+	
+	return p;
+	
+}
 
 #include <signal.h>
 
@@ -35,13 +82,13 @@
 
 #include <sys/wait.h>
 #include <unistd.h>
-#if !defined(ANDROID)
-#if defined(OPENBSD)
-#include <glob.h>
-#else
-#include <wordexp.h>
-#endif
-#endif
+//#if !defined(ANDROID)
+//#if defined(OPENBSD)
+//#include <glob.h>
+//#else
+//#include <wordexp.h>
+//#endif
+//#endif
 #include <fcntl.h>
 
 
@@ -1483,21 +1530,29 @@ namespace acme_posix
 
          throw ::exception(todo);
 
-#elif defined(OPENBSD)
+#else
+
+// defined(OPENBSD)
 
          auto pszCommandLine = ansi_dup(scopedstr);
 
          int iErrNo = 0;
+         
+	auto stra = command_arguments_from_command_line(pszCommandLine);
 
-         glob_t gl{};
+//         glob_t gl{};
 
-	 ::glob(pszCommandLine, 0, nullptr, &gl);
+//	 ::glob(pszCommandLine, 0, nullptr, &gl);
 
-         char **argv = __new_array< char * >(gl.gl_pathc + 1);
+//         char **argv = __new_array< char * >(gl.gl_pathc + 1);
 
-         memory_copy(argv, gl.gl_pathv, gl.gl_pathc * sizeof(char *));
+	auto p = strdupa_from_command_arguments(stra);
 
-         int iChildExitCode = execvp(argv[0], &argv[0]);
+//         memory_copy(argv, gl.gl_pathv, gl.gl_pathc * sizeof(char *));
+
+         p->add(nullptr);
+
+         int iChildExitCode = execvp(p->element_at(0), (char **) p->data());
 
          if (iChildExitCode == -1)
          {
@@ -1506,16 +1561,18 @@ namespace acme_posix
 
          }
 
-         delete[]argv;
+//         delete[]argv;
 
-         ::globfree(&gl);
+//	for(auto p :arga) if(::is_set(p)) ::free(p);
+
+//         ::globfree(&gl);
 
          free(pszCommandLine);
 
          _exit(iErrNo);
 
-#else
-
+//#else
+/*
          auto pszCommandLine = ansi_dup(scopedstr);
 
          int iErrNo = 0;
@@ -1544,7 +1601,7 @@ namespace acme_posix
          free(pszCommandLine);
 
          _exit(iErrNo);
-
+*/
 #endif
 
       }
@@ -1865,18 +1922,66 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
 #else
 
   auto pszExecutable = ::c::strdup(strExecutable);
+  
+  printf("\n\n");
+  
+  printf("pszExecutable : %s\n", pszExecutable);
    
   auto pszCommandLine = ansi_dup(scopedstr);
  
+  printf("pszCommandLine : %s\n", pszCommandLine);
+
   int iErrNo = 0;
   
- #if defined(OPENBSD)
+           
+	auto stra = command_arguments_from_command_line(pszCommandLine);
 
+//         glob_t gl{};
+
+//	 ::glob(pszCommandLine, 0, nullptr, &gl);
+
+//         char **argv = __new_array< char * >(gl.gl_pathc + 1);
+
+	auto p = strdupa_from_command_arguments(stra);
+	
+	
+	printf("command count: %lld\n", p->size());
+
+for(int i = 0; i < p->size(); i++)
+{
+
+printf("command[%d] = : \"%s\"\n", i, p->element_at(i));
+
+}	
+
+//         memory_copy(argv, gl.gl_pathv, gl.gl_pathc * sizeof(char *));
+
+	p->add(nullptr);
+	
+	p->increment_reference_count();
+
+//         int iChildExitCode = execvp(arga[0], arga.data());
+
+  //       if (iChildExitCode == -1)
+    //     {
+
+      //      iErrNo = errno;
+
+        // }
+
+//         delete[]argv;
+
+
+  
+// #if defined(OPENBSD)
+/*
    glob_t gl{};
 
    ::glob(pszCommandLine, 0, nullptr, &gl);
 
-   argv = __new_array< char * >(gl.gl_pathc + 1);
+   argv = new char * [gl.gl_pathc + 1];
+
+   printf("glob count : %lu\n", gl.gl_pathc);
    
    for(::index i = 0; i < gl.gl_pathc; i++)
    {
@@ -1885,12 +1990,14 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
       
       argv[i] = arg;
       
+      printf("glob path[%lld] : %s\n", i, arg);
+      
    }
    
    argv[gl.gl_pathc] = nullptr;
-
-#else
-
+*/
+//#else
+/*
    auto pszExecutable = ::c::strdup(strExecutable);
    
    auto pszCommandLine = ansi_dup(scopedstr);
@@ -1901,7 +2008,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
 
    wordexp(pszCommandLine, &we, 0);
 
-   argv = __new_array< char * >(we.we_wordc + 1);
+   argv = new char * [we.we_wordc + 1];
    
    for(::index i = 0; i < we.we_wordc; i++)
    {
@@ -1914,7 +2021,9 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
    
    argv[we.we_wordc] = nullptr;
    
-#endif
+   */
+   
+//#endif
    
 #endif
 
@@ -1984,7 +2093,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
 
 #else
 
-      int iChildExitCode = execvp(pszExecutable, argv);
+      int iChildExitCode = execvp(pszExecutable, (char **) p->data());
 
       if (iChildExitCode == -1)
       {
@@ -1993,8 +2102,10 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
 
       }
 
-      delete[]argv;
-      
+      p.release();
+
+  //    delete[]argv;
+/*      
 #if defined(OPENBSD)
       
       globfree(&gl);
@@ -2004,7 +2115,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
       wordfree(&we);
 
 #endif
-
+*/
       free(pszCommandLine);
       
       free(pszExecutable);
@@ -2311,7 +2422,7 @@ if(functionTrace)
 
          strCommand.formatf("\"%s\" -c \"%s\"", strUnixShell.c_str(), strCommandInner.c_str());
          
-         printf("acme_posix::node::unix_shell_command command: %s", strCommand.c_str());
+         printf("\nacme_posix::node::unix_shell_command command: %s\n", strCommand.c_str());
 
          auto iExitCode = this->command_system(strCommand, tracefunction);
 
