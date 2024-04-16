@@ -37,7 +37,7 @@ namespace multimedia
 {
 
 
-   namespace audio_alsa
+   namespace audio_sndio
    {
 
 
@@ -1084,7 +1084,7 @@ namespace multimedia
       }
 
 
-   } // namespace audio_alsa
+   } // namespace audio_sndio
 
 
 } // namespace multimedia

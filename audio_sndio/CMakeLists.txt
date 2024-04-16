@@ -7,14 +7,19 @@ list(APPEND library_source
    #_library.h
    _factory.cpp
    audio_mmsystem_wave_in.h
+   cmus_sndio.cpp
    framework.cpp
    framework.h
-   snd_pcm.cpp
-   snd_pcm.h
+#   snd_pcm.cpp
+#   snd_pcm.h
+   timo_mixer.h
+   timo_output_plugin.cpp
+   timo_output_plugin.h
+   timo_sample_format.h
    translation.cpp
    translation.h
-   wave_in.cpp
-   wave_in.h
+#   wave_in.cpp
+#   wave_in.h
    wave_out.cpp
    wave_out.h
    )

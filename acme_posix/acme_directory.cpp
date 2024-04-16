@@ -37,6 +37,9 @@ char * get_current_dir_name();
 #elif defined(UNIVERSAL_WINDOWS)
 #include "acme/os/universal_windows/file_winrt.h"
 #elif defined(FREEBSD) || defined(OPENBSD)
+#if defined(OPENBSD)
+#include "clear_cstddef"
+#endif
 #define _GNU_SOURCE
 #define __BSD_VISIBLE 1
 #include <dlfcn.h>

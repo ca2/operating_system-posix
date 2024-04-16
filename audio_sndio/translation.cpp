@@ -7,25 +7,25 @@ namespace multimedia
 {
 
 
-   namespace audio_alsa
+   namespace audio_sndio
    {
 
 
-      void translate(WAVEFORMATEX & waveformatex, ::wave::format * pwaveformat)
-      {
-
-
-         waveformatex.wFormatTag        = pwaveformat->m_waveformat.wFormatTag;           /* format type */
-         waveformatex.nChannels         = pwaveformat->m_waveformat.nChannels;            /* number of channels (i.e. mono, stereo...) */
-         waveformatex.nSamplesPerSec    = pwaveformat->m_waveformat.nSamplesPerSec;       /* sample rate */
-         waveformatex.nAvgBytesPerSec   = pwaveformat->m_waveformat.nAvgBytesPerSec;      /* for buffer estimation */
-         waveformatex.nBlockAlign       = pwaveformat->m_waveformat.nBlockAlign;          /* block size of data */
-         waveformatex.wBitsPerSample    = pwaveformat->m_waveformat.wBitsPerSample;       /* number of bits per sample of mono data */
-         //waveformatex.cbSize          = pwaveformat->cbSize;               /* the count in bytes of the size of */
-         waveformatex.cbSize            = sizeof(waveformatex);               /* the count in bytes of the size of */
-                                                                                 /* extra information (after cbSize) */
-
-      }
+      // void translate(WAVEFORMATEX & waveformatex, ::wave::format * pwaveformat)
+      // {
+      //
+      //
+      //    waveformatex.wFormatTag        = pwaveformat->m_waveformat.wFormatTag;           /* format type */
+      //    waveformatex.nChannels         = pwaveformat->m_waveformat.nChannels;            /* number of channels (i.e. mono, stereo...) */
+      //    waveformatex.nSamplesPerSec    = pwaveformat->m_waveformat.nSamplesPerSec;       /* sample rate */
+      //    waveformatex.nAvgBytesPerSec   = pwaveformat->m_waveformat.nAvgBytesPerSec;      /* for buffer estimation */
+      //    waveformatex.nBlockAlign       = pwaveformat->m_waveformat.nBlockAlign;          /* block size of data */
+      //    waveformatex.wBitsPerSample    = pwaveformat->m_waveformat.wBitsPerSample;       /* number of bits per sample of mono data */
+      //    //waveformatex.cbSize          = pwaveformat->cbSize;               /* the count in bytes of the size of */
+      //    waveformatex.cbSize            = sizeof(waveformatex);               /* the count in bytes of the size of */
+      //                                                                            /* extra information (after cbSize) */
+      //
+      // }
 
 
 /*      void translate(WAVEHDR & wavehdr, ::multimedia::audio::wave_buffer * pwavebuffer, int iBuffer)
@@ -67,7 +67,7 @@ namespace multimedia
       }*/
 
 
-      CLASS_DECL_AUDIO_ALSA ::e_status translate_alsa(int err)
+      CLASS_DECL_AUDIO_SNDIO ::e_status translate_sndio(int err)
       {
 
          if(err < 0)
@@ -81,7 +81,7 @@ namespace multimedia
 
             return success;
 
-         };
+         }
 
       }
 

@@ -9,12 +9,13 @@ namespace multimedia
 {
 
 
-   namespace audio_alsa
+   namespace audio_sndio
    {
 
 
-      class  CLASS_DECL_AUDIO_ALSA wave_out :
-         virtual public snd_pcm,
+      class  CLASS_DECL_AUDIO_SNDIO wave_out :
+         //virtual public snd_pcm
+         //,
          virtual public ::wave::out
       {
       public:
@@ -72,7 +73,7 @@ namespace multimedia
       };
 
 
-   } // namespace audio_alsa
+   } // namespace audio_sndio
 
 
 } // namespace multimedia
