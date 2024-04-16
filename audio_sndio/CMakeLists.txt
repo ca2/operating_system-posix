@@ -13,7 +13,7 @@ list(APPEND library_source
 #   snd_pcm.cpp
 #   snd_pcm.h
    timo_mixer.h
-   timo_output_plugin.cpp
+   #timo_output_plugin.cpp
    timo_output_plugin.h
    timo_sample_format.h
    translation.cpp

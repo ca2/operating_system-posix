@@ -18,6 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "framework.h"
+#include "cmus_sndio.h"
 #include <sys/types.h>
 #include <sys/ioctl.h>
 #include <sys/stat.h>
@@ -32,13 +33,22 @@
 #include "timo_sample_format.h"
 //#include "../xmalloc.h"
 
-static sample_format_t sndio_sf;
-static struct sio_par par;
-static struct sio_hdl *hdl;
-static int sndio_volume = SIO_MAXVOL;
-static int sndio_paused;
+// static sample_format_t sndio_sf;
+// static struct sio_par par;
+// static struct sio_hdl *hdl;
+// int cmus_sndio::sndio_volume = SIO_MAXVOL;
+// int cmus_sndio::sndio_paused;
 
-static int sndio_mixer_set_volume(int l, int r)
+
+namespace multimedia
+{
+
+
+   namespace audio_sndio
+   {
+
+
+int cmus_sndio::sndio_mixer_set_volume(int l, int r)
 {
 	sndio_volume = l > r ? l : r;
 
@@ -51,14 +61,14 @@ static int sndio_mixer_set_volume(int l, int r)
 	return OP_ERROR_SUCCESS;
 }
 
-static int sndio_mixer_get_volume(int *l, int *r)
+int cmus_sndio::sndio_mixer_get_volume(int *l, int *r)
 {
 	*l = *r = sndio_volume;
 
 	return OP_ERROR_SUCCESS;
 }
 
-static int sndio_set_sf(sample_format_t sf)
+int cmus_sndio::sndio_set_sf(sample_format_t sf)
 {
 	struct sio_par apar;
 
@@ -120,17 +130,17 @@ static int sndio_set_sf(sample_format_t sf)
 	return OP_ERROR_SUCCESS;
 }
 
-static int sndio_init(void)
+int cmus_sndio::sndio_init(void)
 {
 	return OP_ERROR_SUCCESS;
 }
 
-static int sndio_exit(void)
+int cmus_sndio::sndio_exit(void)
 {
 	return OP_ERROR_SUCCESS;
 }
 
-static int sndio_close(void)
+int cmus_sndio::sndio_close(void)
 {
 	if (hdl != NULL) {
 		sio_close(hdl);
@@ -140,7 +150,7 @@ static int sndio_close(void)
 	return OP_ERROR_SUCCESS;
 }
 
-static int sndio_open(sample_format_t sf, const channel_position_t *channel_map)
+int cmus_sndio::sndio_open(sample_format_t sf, const channel_position_t *channel_map)
 {
 	int ret = 0;
 
@@ -156,7 +166,7 @@ static int sndio_open(sample_format_t sf, const channel_position_t *channel_map)
 	return OP_ERROR_SUCCESS;
 }
 
-static int sndio_write(const char *buf, int cnt)
+int cmus_sndio::sndio_write(const char *buf, int cnt)
 {
 	size_t rc;
 
@@ -167,7 +177,7 @@ static int sndio_write(const char *buf, int cnt)
 	return rc;
 }
 
-static int sndio_pause(void)
+int cmus_sndio::sndio_pause(void)
 {
 	if (!sndio_paused) {
 		if (!sio_stop(hdl))
@@ -178,7 +188,7 @@ static int sndio_pause(void)
 	return OP_ERROR_SUCCESS;
 }
 
-static int sndio_unpause(void)
+int cmus_sndio::sndio_unpause(void)
 {
 	if (sndio_paused) {
 		if (!sio_start(hdl))
@@ -189,7 +199,7 @@ static int sndio_unpause(void)
 	return OP_ERROR_SUCCESS;
 }
 
-static int sndio_buffer_space(void)
+int cmus_sndio::sndio_buffer_space(void)
 {
 	/*
 	 * Do as if there's always some space and let sio_write() block.
@@ -197,28 +207,28 @@ static int sndio_buffer_space(void)
 	return par.bufsz * par.bps * par.pchan;
 }
 
-static int sndio_mixer_init(void)
+int cmus_sndio::sndio_mixer_init(void)
 {
 	return OP_ERROR_SUCCESS;
 }
 
-static int sndio_mixer_exit(void)
+int cmus_sndio::sndio_mixer_exit(void)
 {
 	return OP_ERROR_SUCCESS;
 }
 
-static int sndio_mixer_open(int *volume_max)
+int cmus_sndio::sndio_mixer_open(int *volume_max)
 {
 	*volume_max = SIO_MAXVOL;
 
 	return OP_ERROR_SUCCESS;
 }
 
-static int sndio_mixer_close(void)
+int cmus_sndio::sndio_mixer_close(void)
 {
 	return OP_ERROR_SUCCESS;
 }
-
+/*
 const struct output_plugin_ops op_pcm_ops = {
 	.init = sndio_init,
 	.exit = sndio_exit,
@@ -249,3 +259,15 @@ const struct mixer_plugin_opt op_mixer_options[] = {
 
 const int op_priority = 2;
 const unsigned op_abi_version = OP_ABI_VERSION;
+
+*/
+
+
+
+
+   } // namespace audio_sndio
+
+
+} // namespace multimedia
+
+

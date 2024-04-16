@@ -14,8 +14,7 @@ namespace multimedia
 
 
       class  CLASS_DECL_AUDIO_SNDIO wave_out :
-         //virtual public snd_pcm
-         //,
+         virtual public sndio,
          virtual public ::wave::out
       {
       public:
