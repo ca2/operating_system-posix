@@ -18,8 +18,8 @@ list(APPEND library_source
    dbus.cpp
    dir_context.cpp
    dir_context.h
-#   environment.cpp
-#   environment.h
+   #environment.cpp
+   #environment.h
    exception_translator.cpp
    exception_translator.h
    exclusive.cpp
@@ -32,8 +32,8 @@ list(APPEND library_source
    file_memory_map.h
    framework.cpp
    framework.h
-        integration_context.cpp
-        integration_context.h
+   integration_context.cpp
+   integration_context.h
    mutex.cpp
    mutex.h
    node.cpp
@@ -71,7 +71,6 @@ add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 list(APPEND library_references acme)
 
-
 list(APPEND static_library_references ${library_references})
 
 list(TRANSFORM static_library_references PREPEND static_)
@@ -103,14 +102,10 @@ elseif (${LINUX} OR ${FREEBSD} OR ${OPENBSD} OR ${NETBSD})
 
 
    target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
-   #set_target_properties(${PROJECT_NAME} PROPERTIES CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
    target_compile_features(static_${PROJECT_NAME} PRIVATE cxx_std_20)
 
 
-
-   #if (USE_PKGCONFIG)
    pkg_check_modules(PKGCONFIG dbus-glib-1)
-   #endif ()
 
 
    target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
@@ -123,7 +118,16 @@ elseif (${LINUX} OR ${FREEBSD} OR ${OPENBSD} OR ${NETBSD})
    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES} ${global_library_references})
    target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${PKGCONFIG_LIBRARIES})
    target_link_options(${PROJECT_NAME} PRIVATE ${GLOBAL_EXTRA_LINKER_FLAGS} -Wl${GLOBAL_EXTRA_LINK_FLAGS},-z,defs)
-   ## target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
+
+
+   message(STATUS "(acme_posix) pkg_config_modules_here is " ${pkg_config_modules_here})
+
+   message(STATUS "(acme_posix) PKGCONFIG_CFLAGS is " ${PKGCONFIG_CFLAGS})
+
+   message(STATUS "(acme_posix) PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
+
+   message(STATUS "(acme_posix) PKGCONFIG_LIBRARY_DIRS is " ${PKGCONFIG_LIBRARY_DIRS})
+
 
 
 endif ()

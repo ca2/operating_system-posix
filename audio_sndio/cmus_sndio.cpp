@@ -28,16 +28,16 @@
 #include <unistd.h>
 #include <sndio.h>
 
-#include "timo_output_plugin.h"
+//#include "timo_output_plugin.h"
 #include "timo_mixer.h"
-#include "timo_sample_format.h"
+//#include "timo_sample_format.h"
 //#include "../xmalloc.h"
 
-// static sample_format_t sndio_sf;
-// static struct sio_par par;
-// static struct sio_hdl *hdl;
-// int cmus_sndio::sndio_volume = SIO_MAXVOL;
-// int cmus_sndio::sndio_paused;
+// static sample_format_t m_sampleformat;
+// static struct sio_par m_par;
+// static struct sio_hdl *m_hdl;
+// int cmus_sndio::m_iSndioVolume = SIO_MAXVOL;
+// int cmus_sndio::m_bSndioPaused;
 
 
 namespace multimedia
@@ -50,12 +50,12 @@ namespace multimedia
 
 int cmus_sndio::sndio_mixer_set_volume(int l, int r)
 {
-	sndio_volume = l > r ? l : r;
+	m_iSndioVolume = l > r ? l : r;
 
-	if (hdl == NULL)
+	if (m_hdl == NULL)
 		return -OP_ERROR_NOT_INITIALIZED;
 
-	if (!sio_setvol(hdl, sndio_volume))
+	if (!sio_setvol(m_hdl, m_iSndioVolume))
 		return -OP_ERROR_INTERNAL;
 
 	return OP_ERROR_SUCCESS;
@@ -63,7 +63,7 @@ int cmus_sndio::sndio_mixer_set_volume(int l, int r)
 
 int cmus_sndio::sndio_mixer_get_volume(int *l, int *r)
 {
-	*l = *r = sndio_volume;
+	*l = *r = m_iSndioVolume;
 
 	return OP_ERROR_SUCCESS;
 }
@@ -72,59 +72,59 @@ int cmus_sndio::sndio_set_sf(sample_format_t sf)
 {
 	struct sio_par apar;
 
-	sndio_sf = sf;
+	m_sampleformat = sf;
 
-	sio_initpar(&par);
+	sio_initpar(&m_par);
 
-	par.pchan = sf_get_channels(sndio_sf);
-	par.rate = sf_get_rate(sndio_sf);
-	sndio_paused = 0;
+	m_par.pchan = sf_get_channels(m_sampleformat);
+	m_par.rate = sf_get_rate(m_sampleformat);
+	m_bSndioPaused = 0;
 
-	if (sf_get_signed(sndio_sf))
-		par.sig = 1;
+	if (sf_get_signed(m_sampleformat))
+		m_par.sig = 1;
 	else
-		par.sig = 0;
+		m_par.sig = 0;
 
-	if (sf_get_bigendian(sndio_sf))
-		par.le = 0;
+	if (sf_get_bigendian(m_sampleformat))
+		m_par.le = 0;
 	else
-		par.le = 1;
+		m_par.le = 1;
 
-	switch (sf_get_bits(sndio_sf)) {
+	switch (sf_get_bits(m_sampleformat)) {
 	case 32:
-		par.bits = 32;
+		m_par.bits = 32;
 		break;
 	case 24:
-		par.bits = 24;
-		par.bps = 3;
+		m_par.bits = 24;
+		m_par.bps = 3;
 		break;
 	case 16:
-		par.bits = 16;
+		m_par.bits = 16;
 		break;
 	case 8:
-		par.bits = 8;
+		m_par.bits = 8;
 		break;
 	default:
 		return -OP_ERROR_SAMPLE_FORMAT;
 	}
 
-	par.appbufsz = par.rate * 300 / 1000;
-	apar = par;
+	m_par.appbufsz = m_par.rate * 300 / 1000;
+	apar = m_par;
 
-	if (!sio_setpar(hdl, &par))
+	if (!sio_setpar(m_hdl, &m_par))
 		return -OP_ERROR_INTERNAL;
 
-	if (!sio_getpar(hdl, &par))
+	if (!sio_getpar(m_hdl, &m_par))
 		return -OP_ERROR_INTERNAL;
 
-	if (apar.rate != par.rate || apar.pchan != par.pchan ||
-	    apar.bits != par.bits || (par.bits > 8 && apar.le != par.le) ||
-	    apar.sig != par.sig)
+	if (apar.rate != m_par.rate || apar.pchan != m_par.pchan ||
+	    apar.bits != m_par.bits || (m_par.bits > 8 && apar.le != m_par.le) ||
+	    apar.sig != m_par.sig)
 		return -OP_ERROR_INTERNAL;
 
-	sndio_mixer_set_volume(sndio_volume, sndio_volume);
+	sndio_mixer_set_volume(m_iSndioVolume, m_iSndioVolume);
 
-	if (!sio_start(hdl))
+	if (!sio_start(m_hdl))
 		return -OP_ERROR_INTERNAL;
 
 	return OP_ERROR_SUCCESS;
@@ -142,9 +142,9 @@ int cmus_sndio::sndio_exit(void)
 
 int cmus_sndio::sndio_close(void)
 {
-	if (hdl != NULL) {
-		sio_close(hdl);
-		hdl = NULL;
+	if (m_hdl != NULL) {
+		sio_close(m_hdl);
+		m_hdl = NULL;
 	}
 
 	return OP_ERROR_SUCCESS;
@@ -154,8 +154,8 @@ int cmus_sndio::sndio_open(sample_format_t sf, const channel_position_t *channel
 {
 	int ret = 0;
 
-	hdl = sio_open(NULL, SIO_PLAY, 0);
-	if (hdl == NULL)
+	m_hdl = sio_open(NULL, SIO_PLAY, 0);
+	if (m_hdl == NULL)
 		return -OP_ERROR_INTERNAL;
 
 	if ((ret = sndio_set_sf(sf)) < 0) {
@@ -170,7 +170,7 @@ int cmus_sndio::sndio_write(const char *buf, int cnt)
 {
 	size_t rc;
 
-	rc = sio_write(hdl, buf, cnt);
+	rc = sio_write(m_hdl, buf, cnt);
 	if (rc == 0)
 		return -OP_ERROR_INTERNAL;
 
@@ -179,10 +179,10 @@ int cmus_sndio::sndio_write(const char *buf, int cnt)
 
 int cmus_sndio::sndio_pause(void)
 {
-	if (!sndio_paused) {
-		if (!sio_stop(hdl))
+	if (!m_bSndioPaused) {
+		if (!sio_stop(m_hdl))
 			return -OP_ERROR_INTERNAL;
-		sndio_paused = 1;
+		m_bSndioPaused = 1;
 	}
 
 	return OP_ERROR_SUCCESS;
@@ -190,10 +190,10 @@ int cmus_sndio::sndio_pause(void)
 
 int cmus_sndio::sndio_unpause(void)
 {
-	if (sndio_paused) {
-		if (!sio_start(hdl))
+	if (m_bSndioPaused) {
+		if (!sio_start(m_hdl))
 			return -OP_ERROR_INTERNAL;
-		sndio_paused = 0;
+		m_bSndioPaused = 0;
 	}
 
 	return OP_ERROR_SUCCESS;
@@ -204,7 +204,7 @@ int cmus_sndio::sndio_buffer_space(void)
 	/*
 	 * Do as if there's always some space and let sio_write() block.
 	 */
-	return par.bufsz * par.bps * par.pchan;
+	return m_par.bufsz * m_par.bps * m_par.pchan;
 }
 
 int cmus_sndio::sndio_mixer_init(void)

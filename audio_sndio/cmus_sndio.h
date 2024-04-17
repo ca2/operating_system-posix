@@ -25,11 +25,11 @@
 // #include <fcntl.h>
 // #include <string.h>
 // #include <unistd.h>
-// #include <sndio.h>
+#include <sndio.h>
 //
-// #include "timo_output_plugin.h"
-// #include "timo_mixer.h"
-// #include "timo_sample_format.h"
+#include "timo_output_plugin.h"
+//#include "timo_mixer.h"
+#include "timo_sample_format.h"
 
 
 namespace multimedia
@@ -45,11 +45,13 @@ virtual public ::particle
 {
 public:
 
-sample_format_t m_sndio_sf;
+sample_format_t m_sampleformat;
 struct sio_par m_par;
 struct sio_hdl *m_hdl;
-int m_sndio_volume = SIO_MAXVOL;
-int m_sndio_paused;
+int m_iSndioVolume = SIO_MAXVOL;
+int m_bSndioPaused;
+int m_iFrameByteCount;
+int m_iBufferCount;
 
 int sndio_mixer_set_volume(int l, int r);
 int sndio_mixer_get_volume(int *l, int *r);
