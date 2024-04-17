@@ -133,21 +133,21 @@ namespace acme_posix
    }
 
 
-   bool acme_directory::is(const ::file::path & path)
-   {
-
-      bool bDir = false;
-
-      if(!_is(bDir, path))
-      {
-
-         return false;
-
-      }
-
-      return bDir;
-
-   }
+//   ::filebool acme_directory::_file_type(const ::file::path & path)
+//   {
+//
+//      bool bDir = false;
+//
+//      if(!_is(bDir, path))
+//      {
+//
+//         return false;
+//
+//      }
+//
+//      return bDir;
+//
+//   }
 
 
    //   void acme_directory::rls(::file::path_array & stra, const char * psz)

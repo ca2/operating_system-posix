@@ -2,6 +2,7 @@
 
 
 #include "acme/filesystem/file/file.h"
+#include "acme/operating_system/shared_posix/c_error_number.h"
 
 
 namespace acme_posix

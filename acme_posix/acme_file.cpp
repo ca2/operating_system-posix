@@ -7,6 +7,7 @@
 #include "acme/exception/interface_only.h"
 #include "acme/filesystem/file/exception.h"
 #include "acme/operating_system/ansi/int_handle.h"
+#include "acme/operating_system/shared_posix/c_error_number.h"
 #include "acme/operating_system/shared_posix/stdio_file.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"

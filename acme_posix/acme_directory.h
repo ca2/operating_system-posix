@@ -36,7 +36,7 @@ namespace acme_posix
 
       //::file::path module() override;
 
-      bool is(const ::file::path & path) override;
+      //::file::e_type _file_type(const ::file::path & path) override;
 
       //bool _is(const ::file::path & path1) override;
 
