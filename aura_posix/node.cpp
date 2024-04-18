@@ -498,7 +498,7 @@ namespace aura_posix
 
       ::string strLogFileName;
 
-      strLogFileName = system()->datetime()->date_time_text(INTERNATIONAL_DATE_TIME_FORMAT_FOR_FILE_WITH_NO_SPACES) ;
+      strLogFileName = datetime()->date_time_text_for_file_with_no_spaces();
 
       strLogFileName += ".txt";
 

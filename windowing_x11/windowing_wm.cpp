@@ -396,7 +396,7 @@ namespace windowing_x11
 
          windowing_output_debug_string("::wm_hidden_state 1.1");
 
-         fflush(stdout);
+         //fflush(stdout);
 
          return;
 
@@ -487,7 +487,7 @@ namespace windowing_x11
 
          windowing_output_debug_string("::wm_desktopwindow 1.1");
 
-         fflush(stdout);
+         //fflush(stdout);
 
          return;
 
@@ -545,7 +545,7 @@ namespace windowing_x11
 
          windowing_output_debug_string("::wm_centerwindow 1.1");
 
-         fflush(stdout);
+         //fflush(stdout);
 
          return;
 
@@ -603,7 +603,7 @@ namespace windowing_x11
 
          windowing_output_debug_string("::wm_centerwindow 1.1");
 
-         fflush(stdout);
+         //fflush(stdout);
 
          return;
 
@@ -661,7 +661,7 @@ namespace windowing_x11
 
          windowing_output_debug_string("::wm_dockwindow 1.1");
 
-         fflush(stdout);
+         //fflush(stdout);
 
          return;
 

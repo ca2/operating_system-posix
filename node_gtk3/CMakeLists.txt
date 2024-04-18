@@ -7,8 +7,6 @@ list(APPEND library_source
    _.h
    _factory.cpp
    #_library.h
-        appindicator.cpp
-        appindicator.h
    application.cpp
    application.h
         copydesk.cpp
@@ -37,6 +35,16 @@ list(APPEND library_source
    windowing.cpp
    windowing.h
 )
+
+if(NOT ${OPENBSD})
+
+list(APPEND library_source
+        appindicator.cpp
+        appindicator.h
+
+        )
+
+endif()
 
 
 list(APPEND library_references

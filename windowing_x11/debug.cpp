@@ -3,6 +3,13 @@
 ////#include "sn/sn.h"
 
 
+#ifdef OPENBSD
+
+#include <stdio.h>
+
+#endif
+
+
 extern ::particle * user_synchronization();
 
 

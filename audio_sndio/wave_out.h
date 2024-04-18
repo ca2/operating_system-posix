@@ -48,6 +48,10 @@ namespace multimedia
          void out_pause() override;
          void out_restart() override;
 
+
+         virtual int _frames_to_bytes(int iFrameCount);
+
+
          //snd_pcm_t * out_get_safe_PCM();
 
          //virtual void alsa_write_thread();
@@ -61,7 +65,7 @@ namespace multimedia
 
          void out_start(const class time & time) override;
 
-         virtual int defer_underrun_recovery(int err);
+         //virtual int defer_underrun_recovery(int err);
 
          class ::time out_get_time_for_synch();
 

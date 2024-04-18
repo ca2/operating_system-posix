@@ -37,7 +37,7 @@ void initialize_display_type(enum_display_type edisplaytype);
 ////#endif
 //#endif
 
-#include <malloc.h>
+//#include <malloc.h>
 
 #include <time.h>
 

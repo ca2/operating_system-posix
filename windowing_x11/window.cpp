@@ -123,7 +123,7 @@ namespace windowing_x11
          if (display == nullptr)
          {
 
-            fprintf(stderr, "ERROR: Could not open display\n");
+            err_line("ERROR: Could not open display");
 
             bOk = false;
 
@@ -1329,7 +1329,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\nwindow::set_icon END");
 
-      fflush(stdout);
+      //fflush(stdout);
 
 #else
 
@@ -1996,7 +1996,7 @@ namespace windowing_x11
 
          windowing_output_debug_string("::window::full_screen 1.2");
 
-         fflush(stdout);
+         //fflush(stdout);
 
          throw ::exception(error_failed);
 
@@ -2035,7 +2035,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("::window::full_screen 2");
 
-      ::fflush(stdout);
+      //::fflush(stdout);
 
       //return ::success;
 
@@ -2056,7 +2056,7 @@ namespace windowing_x11
 
          windowing_output_debug_string("::window::exit_full_screen 1.2");
 
-         fflush(stdout);
+         //fflush(stdout);
 
          throw ::exception(error_failed);
 
@@ -2089,7 +2089,7 @@ namespace windowing_x11
 
          windowing_output_debug_string("::window::exit_full_screen 1.2");
 
-         fflush(stdout);
+         //fflush(stdout);
 
          throw ::exception(error_failed);
 
@@ -2439,7 +2439,7 @@ namespace windowing_x11
 
       informationf("\nfreebsd::interaction_impl::bamf_set_icon END");
 
-      fflush(stdout);
+      //fflush(stdout);
 
       if (status != 0)
       {
@@ -3717,7 +3717,7 @@ namespace windowing_x11
 
       informationf("\nfreebsd::interaction_impl::bamf_set_icon END");
 
-      fflush(stdout);
+      //fflush(stdout);
 
       if (status != 0)
       {
@@ -4422,7 +4422,7 @@ namespace windowing_x11
 
       atoma.set_size(num_items);
 
-      memcpy(atoma.data(), patoms, atoma.get_size_in_bytes());
+      ::memory_copy(atoma.data(), patoms, atoma.get_size_in_bytes());
 
       XFree(patoms);
 

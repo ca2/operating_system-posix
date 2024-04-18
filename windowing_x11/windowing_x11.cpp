@@ -42,6 +42,14 @@
 #include "aura/message/user.h"
 #include "aura_posix/x11/xim_keyboard.h"
 
+#ifdef OPENBSD
+
+#include <stdio.h>
+
+#endif
+
+
+
 //bool aaa_x11_runnable_step();
 
 
@@ -2700,7 +2708,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //               msgText.lParam = (lparam) (iptr) (string *) (pstringText);
 
-                  printf("x11_process_message e_message_text_composition\n");
+                  print_line("x11_process_message e_message_text_composition");
 
                   //post_ui_message(msgText);
                   post_ui_message(pkey);

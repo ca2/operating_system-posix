@@ -2,6 +2,7 @@
 #include "framework.h"
 #include "interprocess_caller.h"
 #include "acme/filesystem/filesystem/acme_file.h"
+#include "acme/operating_system/shared_posix/c_error_number.h"
 #include "acme/primitive/primitive/memory.h"
 
 

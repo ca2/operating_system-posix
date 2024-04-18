@@ -1,8 +1,9 @@
 #include "framework.h"
 #include "watch.h"
 #include "watcher.h"
-#include "acme/parallelization/synchronous_lock.h"
 #include "acme/filesystem/watcher/action.h"
+#include "acme/operating_system/shared_posix/c_error_number.h"
+#include "acme/parallelization/synchronous_lock.h"
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <sys/inotify.h>
