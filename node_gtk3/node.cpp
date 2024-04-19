@@ -2489,10 +2489,20 @@ gboolean windowing_message_loop_source_function(gpointer p)
 
    ::node_gtk3::node *pnode = (::node_gtk3::node *) p;
 
-   if (!pnode->windowing_message_loop_step())
+   try
    {
 
-      return FALSE;
+      if (!pnode->windowing_message_loop_step())
+      {
+
+         return FALSE;
+
+      }
+
+   }
+   catch(...)
+   {
+
 
    }
 

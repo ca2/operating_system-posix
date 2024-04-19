@@ -11,6 +11,7 @@
 
 
 
+#define DISABLE_APPINDICATOR
 
 //#if defined(OPENBSD)
 #if 0
@@ -64,7 +65,7 @@ __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
 //   pfactory->add_factory_item < ::node_gtk3::monitor, ::windowing::monitor > ();
    pfactory->add_factory_item < ::node_gtk3::copydesk, ::user::copydesk > ();
    pfactory->add_factory_item < ::node_gtk3::notify_icon, ::user::notify_icon > ();
-#if !defined(OPENBSD)
+#if !defined(OPENBSD) && !defined(DISABLE_APPINDICATOR)
    pfactory->add_factory_item < ::node_gtk3::appindicator, ::aura_posix::appindicator >();
 #endif
 //
