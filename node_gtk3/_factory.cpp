@@ -11,7 +11,7 @@
 
 
 
-#define DISABLE_APPINDICATOR
+//#define DISABLE_APPINDICATOR
 
 //#if defined(OPENBSD)
 #if 0
