@@ -12,8 +12,12 @@
 
 
 
-
+//#if defined(OPENBSD)
+#if 0
+__FACTORY_EXPORT void windowing_xcb_factory(::factory::factory * pfactory);
+#else
 __FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory);
+#endif
 #if !defined(RASPBERRYPIOS)
 __FACTORY_EXPORT void windowing_wayland_factory(::factory::factory * pfactory);
 #endif
@@ -43,9 +47,15 @@ __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
 #endif
    {
 
-      //windowing_xcb_factory(pfactory);
+// #if defined(OPENBSD)
+//
+//       windowing_xcb_factory(pfactory);
+//
+// #else
 
       windowing_x11_factory(pfactory);
+
+// #endif
 
    }
 

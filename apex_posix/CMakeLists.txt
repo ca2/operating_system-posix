@@ -120,12 +120,16 @@ elseif(${LINUX} OR ${FREEBSD} OR ${OPENBSD} OR ${NETBSD})
 
 
     if (FILE_SYSTEM_INOTIFY AND NOT DEFINED DEBIAN_LIKE AND NOT DONT_USE_PKG_CONFIG)
+
         pkg_check_modules(PKGCONFIG libinotify)
         target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
         target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
         target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
+        target_link_directories(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LIBRARY_DIRS})
         target_link_libraries(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LIBRARIES})
         target_link_libraries(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LIBRARIES})
+        message(STATUS "${PROJECT_NAME} PKGCONFIG_LDFLAGS is ${PKGCONFIG_LDFLAGS}")
+
     endif ()
 
     target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive  ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
@@ -149,7 +153,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories
 target_include_directories(static_${PROJECT_NAME} PRIVATE ${library_include_directories})
 
 
-target_compile_definitions(apex_posix PRIVATE _APEX_POSIX_LIBRARY)
+target_compile_definitions(apex_posix PRIVATE _${PROJECT_NAME}_project)
 
 
 

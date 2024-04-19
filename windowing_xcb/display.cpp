@@ -14,6 +14,12 @@
 #include "aura/graphics/image/image.h"
 
 
+#ifdef OPENBSD
+
+#include <stdio.h>
+
+#endif
+
 extern ::app_core * g_pappcore;
 
 
@@ -384,7 +390,7 @@ namespace windowing_xcb
 
          auto pszName = strName.get_buffer(len);
 
-         memcpy(pszName, xcb_get_atom_name_name(reply), len);
+         ::memory_copy(pszName, xcb_get_atom_name_name(reply), len);
 
          strName.release_buffer(len);
 
@@ -775,7 +781,7 @@ namespace windowing_xcb
 
       windowa.set_size(len / sizeof(xcb_window_t));
 
-      memcpy(windowa.get_data(), p, windowa.get_size_in_bytes());
+      memory_copy(windowa.get_data(), p, windowa.get_size_in_bytes());
 
       return windowa;
 
@@ -869,7 +875,7 @@ namespace windowing_xcb
 
       atoma.set_size(size / sizeof(xcb_atom_t));
 
-      memcpy(atoma.data(), patom, atoma.get_size_in_bytes());
+      memory_copy(atoma.data(), patom, atoma.get_size_in_bytes());
 
       return atoma;
 

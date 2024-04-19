@@ -55,8 +55,19 @@ list(APPEND library_references
    aqua
    aura
    aura_posix
+)
+
+
+#if(${OPENBSD})
+if(FALSE)
+list(APPEND library_references
+   windowing_xcb
+)
+else()
+list(APPEND library_references
    windowing_x11
 )
+endif()
 
 if(${HAS_WAYLAND})
 list(APPEND library_references

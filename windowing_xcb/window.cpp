@@ -26,6 +26,12 @@
 #include <xcb/xcb_util.h>
 #include <inttypes.h>
 
+#ifdef OPENBSD
+
+#include <stdio.h>
+
+#endif
+
 
 void on_sn_launch_context(void * pSnContext, Window window);
 //void on_sn_launch_complete(void * pSnContext);

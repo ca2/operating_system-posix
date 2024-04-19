@@ -26,6 +26,12 @@
 #include <xcb/xcb.h>
 #include <xcb/shm.h>
 
+#ifdef OPENBSD
+
+#include <stdio.h>
+
+#endif
+
 
 int g_i135 = 0;
 //::e_status xcb_register_extended_event_listener(::matter * pdata, bool bMouse, bool bKeyboard);

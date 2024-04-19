@@ -13,6 +13,11 @@
 #include "aura_posix/x11/display_lock.h"
 #include <X11/keysym.h>
 
+#ifdef OPENBSD
+
+#include <stdio.h>
+
+#endif
 
 namespace windowing_xcb
 {
