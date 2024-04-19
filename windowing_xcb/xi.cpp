@@ -10,7 +10,7 @@
 #include "apex/platform/system.h"
 #ifdef WITH_XI
 #include <xcb/xinput.h>
-#include "aura_posix/x11/display_lock.h"
+#include "acme/operating_system/x11/display_lock.h"
 #include <X11/keysym.h>
 
 #ifdef OPENBSD

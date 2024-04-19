@@ -15,7 +15,7 @@
 #include "aura/graphics/image/image.h"
 #include "aura/windowing/desktop_environment.h"
 #include "aura/windowing/monitor.h"
-#include "aura_posix/x11/display_lock.h"
+#include "acme/operating_system/x11/display_lock.h"
 #include <X11/extensions/Xrender.h>
 
 
@@ -165,6 +165,8 @@ namespace windowing_x11
          throw ::exception(error_failed);
 
       }
+
+      ::x11::display_lock displaylock(m_px11display->m_pdisplay);
 
       _m_pX11Display = m_px11display->m_pdisplay;
 
@@ -431,7 +433,7 @@ namespace windowing_x11
 
          //synchronous_lock synchronouslock(user_synchronization());
 
-         display_lock displaylock(Display());
+         ::x11::display_lock displaylock(Display());
 
          information() << "XUngrabPointer";
 
@@ -607,6 +609,8 @@ namespace windowing_x11
 
       auto dpy = Display();
 
+      ::x11::display_lock displaylock(dpy);
+
       auto vis = Visual();
 
       XRenderPictFormat * pformat = XRenderFindVisualFormat(dpy, &vis);
@@ -664,11 +668,11 @@ namespace windowing_x11
 
 #ifdef display_lock_LOCK_LOG
 
-         b_prevent_display_lock_lock_log = false;
+         b_prevent_::x11::display_lock_lock_log = false;
 
 #endif
 
-         display_lock displaylock(Display());
+         ::x11::display_lock displaylock(Display());
 
          windowing_output_debug_string("::GetFocus 1.01");
 
@@ -749,7 +753,7 @@ namespace windowing_x11
 
 #ifdef display_lock_LOCK_LOG
 
-      b_prevent_display_lock_lock_log = true;
+      b_prevent_::x11::display_lock_lock_log = true;
 
 #endif
 
@@ -757,7 +761,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("::GetCursorPos 1");
 
-      display_lock displaylock(Display());
+      ::x11::display_lock displaylock(Display());
 
       ::point_i32 pointCursor;
 
@@ -770,7 +774,7 @@ namespace windowing_x11
 
 #ifdef display_lock_LOCK_LOG
 
-      b_prevent_display_lock_lock_log = false;
+      b_prevent_::x11::display_lock_lock_log = false;
 
 #endif
 
@@ -813,7 +817,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("::x11_create_image 1");
 
-      display_lock displaylock(Display());
+      ::x11::display_lock displaylock(Display());
 
       return _x11_create_image(pimage);
 
@@ -863,7 +867,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("::x11_create_pixmap 1");
 
-      display_lock displaylock(Display());
+      ::x11::display_lock displaylock(Display());
 
       return _x11_create_pixmap(pimage);
 
@@ -905,6 +909,8 @@ namespace windowing_x11
       unsigned long int bytes_after;
 
       Window * windowList = nullptr;
+
+      ::x11::display_lock displaylock(Display());
 
       if (XGetWindowProperty(
          Display(),
@@ -960,7 +966,7 @@ namespace windowing_x11
 
 #ifdef display_lock_LOCK_LOG
 
-                          b_prevent_display_lock_lock_log = false;
+                          b_prevent_::x11::display_lock_lock_log = false;
 
 #endif
 
@@ -973,7 +979,7 @@ namespace windowing_x11
 
                           }
 
-                          display_lock displaylock(Display());
+                          ::x11::display_lock displaylock(Display());
 
                           windowing_output_debug_string("::GetFocus 1.01");
 

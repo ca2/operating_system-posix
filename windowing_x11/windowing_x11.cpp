@@ -11,7 +11,7 @@
 #include "apex/platform/system.h"
 #include "aura/user/user/interaction_graphics_thread.h"
 #include "aura_posix/xinput.h"
-#include "aura_posix/x11/display_lock.h"
+#include "acme/operating_system/x11/display_lock.h"
 ////#include "sn/sn.h"
 #include <fcntl.h> // library for fcntl function
 #include <sys/stat.h>
@@ -106,7 +106,7 @@ int_bool _x11_get_cursor_pos(Display * d, ::point_i32 * ppointCursor);
 
 //Window g_windowFocus = 0;
 
-i32 _c_XErrorHandler(Display * display, XErrorEvent * perrorevent);
+//i32 _cx_XErrorHandler(Display * display, XErrorEvent * perrorevent);
 
 
 //struct MWMHints
@@ -1202,7 +1202,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
          }
 
-         display_lock displayLock(m_pdisplay->Display());
+         ::x11::display_lock displayLock(m_pdisplay->Display());
 
          Display * pdisplay = m_pdisplay->Display();
 
@@ -1415,6 +1415,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       //information() << "x";
 
       XEvent & e = *pevent;
+
+      ::x11::display_lock displaylock(m_pdisplay->Display());
 
       int iXShmEventBase = XShmGetEventBase(m_pdisplay->Display());
 
@@ -2296,7 +2298,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                      if (oswindow->m_enetwmsync == window::e_net_wm_sync_wait_configure)
                      {
 
-                        display_lock displayLock(m_pdisplay->Display());
+                        ::x11::display_lock displayLock(m_pdisplay->Display());
 
                         oswindow->m_xsyncvalueNetWmSync = oswindow->m_xsyncvalueNetWmSyncPending;
 
@@ -2315,7 +2317,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                   {
 
-                     display_lock displayLock(m_pdisplay->Display());
+                     ::x11::display_lock displayLock(m_pdisplay->Display());
 
                      if (!XGetWindowAttributes(m_pdisplay->Display(), px11window->Window(),
                                                &px11window->m_xwindowattributes))
@@ -3164,6 +3166,8 @@ bool x11_get_client_rect(Display * pdisplay, Window window, ::rectangle_i32 * pr
 
    //synchronous_lock synchronouslock(user_synchronization());
 
+   ::x11::display_lock displaylock(pdisplay);
+
    XWindowAttributes attr;
 
    if (XGetWindowAttributes(pdisplay, window, &attr) == 0)
@@ -3211,6 +3215,8 @@ bool x11_get_window_rect(Display * d, Window window, ::rectangle_i32 * prectangl
 {
 
    XWindowAttributes attrs;
+
+   ::x11::display_lock displaylock(d);
 
    if (!XGetWindowAttributes(d, window, &attrs))
    {

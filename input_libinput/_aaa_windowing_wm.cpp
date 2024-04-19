@@ -8,7 +8,7 @@
 #include "windowing.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "aura/user/user/interaction_impl.h"
-#include "aura_posix/x11/display_lock.h"
+#include "acme/operating_system/x11/display_lock.h"
 #include <X11/Xatom.h>
 
 

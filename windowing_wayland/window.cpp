@@ -31,7 +31,7 @@
 #include "aura/platform/application.h"
 #include "acme/operating_system/wayland/xfree86_key.h"
 
-//#include "aura_posix/x11/display_lock.h"
+//#include "acme/operating_system/x11/display_lock.h"
 
 
 //void on_sn_launch_context(void * pSnContext, Window window);

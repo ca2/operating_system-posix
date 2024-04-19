@@ -9,7 +9,7 @@
 #include "apex/platform/application.h"
 #ifdef WITH_X11
 #include <X11/Xlib.h>
-//::e_status deferx_initialize_x11();
+//::e_status deferx_initializex_x11();
 Display * x11_get_display();
 #endif
 #ifdef WITH_XCB
@@ -328,7 +328,7 @@ namespace aura_posix
    ::e_status node::_allocate_Display_and_connection()
    {
 
-      //deferx_initialize_x11();
+      //deferx_initializex_x11();
 
       m_pAuraPosixX11Display = x11_get_display();
 

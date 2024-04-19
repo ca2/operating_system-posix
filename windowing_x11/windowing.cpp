@@ -15,7 +15,7 @@
 #include "aura/platform/system.h"
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
-#include "aura_posix/x11/display_lock.h"
+#include "acme/operating_system/x11/display_lock.h"
 
 
 namespace windowing_x11
@@ -39,7 +39,7 @@ namespace windowing_x11
 
       m_bFinishX11Thread = false;
 
-      //deferx_initialize_x11();
+      //deferx_initializex_x11();
 
    }
 
@@ -137,7 +137,7 @@ namespace windowing_x11
 //      if (psystem->m_bUser)
 //      {
 //
-//         deferx_initialize_x11();
+//         deferx_initializex_x11();
 //
 //      }
 //
@@ -372,7 +372,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("::x11_GetWindowRect 1");
 
-      display_lock lock(m_pdisplay->Display());
+      ::x11::display_lock lock(m_pdisplay->Display());
 
       auto cursor = XCreateFontCursor(m_pdisplay->Display(), iCursor);
 

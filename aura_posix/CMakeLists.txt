@@ -60,8 +60,8 @@ if (${WITH_X11} OR ${WITH_XCB})
    #   if(WITH_X11)
 
    list(APPEND library_source
-      x11/display_lock.cpp
-      x11/display_lock.h
+      #x11/display_lock.cpp
+      #x11/display_lock.h
       x11/startup-notification.cpp
       x11/startup-notification.h
       x11/xim_keyboard.cpp

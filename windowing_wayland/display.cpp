@@ -19,7 +19,7 @@
 #include "aura/windowing/desktop_environment.h"
 #include "aura/windowing/monitor.h"
 #include "aura_posix/node.h"
-//#include "aura_posix/x11/display_lock.h"
+//#include "acme/operating_system/x11/display_lock.h"
 //#include <X11/extensions/Xrender.h>
 #include <wayland-client-protocol.h>
 extern ::app_core * g_pappcore;

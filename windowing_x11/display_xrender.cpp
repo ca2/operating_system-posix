@@ -6,7 +6,7 @@
 #include "display.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "aura/graphics/image/image.h"
-#include "aura_posix/x11/display_lock.h"
+#include "acme/operating_system/x11/display_lock.h"
 #include "_x11.h"
 
 
@@ -22,7 +22,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("::CreateAlphaCursor 1");
 
-      display_lock displaylock(Display());
+      ::x11::display_lock displaylock(Display());
 
       Picture picture = xrender_create_picture(pimage);
 

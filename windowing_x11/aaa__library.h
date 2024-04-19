@@ -45,7 +45,7 @@ void __x11_hook_on_idle(Display * pdisplay);
 //#include "x11_message_box.h"
 
 
-::e_status deferx_initialize_x11();
+::e_status deferx_initializex_x11();
 void x11_handle_just_hooks();
 void x11_defer_handle_just_hooks();
 int x11_message_box(const string & str, const string & strTitle, const ::e_message_box & emessagebox);
@@ -73,7 +73,7 @@ bool __x11_hook_process_event(Display * pdisplay, XEvent * pevent, XGenericEvent
 #include "windowing.h"
 
 
-#include "operating_system-posix/aura_posix/x11/display_lock.h"
+#include "operating_system-posix/acme/operating_system/x11/display_lock.h"
 
 
 #include "node.h"

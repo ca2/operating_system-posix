@@ -8,7 +8,7 @@
 
 #include "_wayland.h"
 
-//::e_status deferx_initialize_x11();
+//::e_status deferx_initializex_x11();
 
 
 //::e_status acme_defer_os_init_windowing();

@@ -183,7 +183,7 @@ int_bool _xcb_get_cursor_pos(xcb_connection_t * d, ::point_i32 * ppointCursor);
 #ifdef LINUX
 
 
-i32 _c_XErrorHandler(xcb_connection_t * display, XErrorEvent * perrorevent);
+i32 _cx_XErrorHandler(xcb_connection_t * display, XErrorEvent * perrorevent);
 
 
 #endif

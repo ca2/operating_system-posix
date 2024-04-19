@@ -13,7 +13,7 @@
 #include "acme/primitive/geometry2d/_text_stream.h"
 #include "aura/user/user/interaction_impl.h"
 #include "aura/graphics/image/image.h"
-#include "aura_posix/x11/display_lock.h"
+#include "acme/operating_system/x11/display_lock.h"
 
 //#define VERI_BASIC_TEST
 
@@ -107,7 +107,7 @@ namespace windowing_x11
 
       //synchronous_lock synchronouslock(user_synchronization());
 
-      display_lock displaylock(x11_window()->x11_display()->Display());
+      ::x11::display_lock displaylock(x11_window()->x11_display()->Display());
 
       XGCValues gcvalues = {};
 
@@ -128,7 +128,7 @@ namespace windowing_x11
 
       //synchronous_lock synchronouslock(user_synchronization());
 
-      display_lock displaylock(x11_window()->x11_display()->Display());
+      ::x11::display_lock displaylock(x11_window()->x11_display()->Display());
 
       if (m_gc != nullptr)
       {
@@ -400,7 +400,7 @@ namespace windowing_x11
 
       //synchronous_lock synchronouslock(user_synchronization());
 
-      display_lock displayLock(x11_window()->x11_display()->Display());
+      ::x11::display_lock displayLock(x11_window()->x11_display()->Display());
 
       return _update_screen_lesser_lock();
 
@@ -643,7 +643,7 @@ namespace windowing_x11
             try
             {
 
-               display_lock displayLock(x11_window()->Display());
+               ::x11::display_lock displayLock(x11_window()->Display());
 
                px11window->strict_set_window_position_unlocked(bChangedPosition, bChangedSize);
 
@@ -658,7 +658,7 @@ namespace windowing_x11
             if(!bChangedSize)
             {
 
-               display_lock displayLock(x11_window()->Display());
+               ::x11::display_lock displayLock(x11_window()->Display());
 
                XPutImage(
                   x11_window()->Display(),

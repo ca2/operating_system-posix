@@ -5,7 +5,7 @@
 #ifdef WITH_XI
 #include "windowing_wayland.h"
 #include "acme/parallelization/synchronous_lock.h"
-#include "aura_posix/x11/display_lock.h"
+#include "acme/operating_system/x11/display_lock.h"
 #include "windowing_wayland/window.h"
 #include "windowing_wayland/windowing.h"
 #include "windowing_wayland/display.h"

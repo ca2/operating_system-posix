@@ -8,7 +8,7 @@
 #include "windowing.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "aura/user/user/interaction_impl.h"
-#include "aura_posix/x11/display_lock.h"
+#include "acme/operating_system/x11/display_lock.h"
 #include <X11/Xatom.h>
 
 
@@ -90,7 +90,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("::wm_add_remove_state_mapped 1");
 
-      display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->Display());
 
       _wm_add_remove_state_mapped_unlocked(eatomNetWmState, bSet);
 
@@ -137,7 +137,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("::wm_add_remove_state_unmapped 1");
 
-      display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->Display());
 
       _wm_add_remove_state_unmapped_unlocked(eatomNetWmState, bSet);
 
@@ -174,7 +174,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("::wm_add_remove_state 1");
 
-      display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->Display());
 
       _wm_add_remove_state_unlocked(eatomNetWmState, bSet);
 
@@ -259,7 +259,7 @@ namespace windowing_x11
 //
 //   windowing_output_debug_string("::wm_state_above 1");
 //
-//   display_lock displaylock(x11_display()->Display());
+//   ::x11::display_lock displaylock(x11_display()->Display());
 //
 //   wm_state_hidden_raw(bSet);
 //
@@ -274,7 +274,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("::wm_state_above 1");
 
-      display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->Display());
 
       _wm_state_above_unlocked(bSet);
 
@@ -291,7 +291,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("::wm_state_below 1");
 
-      display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->Display());
 
       _wm_state_above_unlocked(bSet);
 
@@ -308,7 +308,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("::wm_state_hidden 1");
 
-      display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->Display());
 
       _wm_state_hidden_unlocked(bSet);
 
@@ -328,7 +328,7 @@ namespace windowing_x11
 
          //synchronous_lock synchronouslock(user_synchronization());
 
-         display_lock displaylock(x11_display()->Display());
+         ::x11::display_lock displaylock(x11_display()->Display());
 
          if (!m_pdisplay)
          {
@@ -355,6 +355,8 @@ namespace windowing_x11
    {
 
       Atom atomWindowType;
+
+      ::x11::display_lock displaylock(x11_display()->Display());
 
       atomWindowType = x11_display()->intern_atom("_NET_WM_WINDOW_TYPE", False);
 
@@ -389,7 +391,7 @@ namespace windowing_x11
 
       //synchronous_lock synchronouslock(user_synchronization());
 
-      display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->Display());
 
       if (!m_pdisplay)
       {
@@ -419,7 +421,7 @@ namespace windowing_x11
 //
 //               synchronous_lock synchronouslock(user_synchronization());
 //
-//               display_lock displaylock(x11_display()->Display());
+//               ::x11::display_lock displaylock(x11_display()->Display());
 //
 //               if(!m_pdisplay)
 //               {
@@ -480,7 +482,7 @@ namespace windowing_x11
 
       //synchronous_lock synchronouslock(user_synchronization());
 
-      display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->Display());
 
       if (!m_pdisplay)
       {
@@ -538,7 +540,7 @@ namespace windowing_x11
 
       //synchronous_lock synchronouslock(user_synchronization());
 
-      display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->Display());
 
       if (!m_pdisplay)
       {
@@ -596,7 +598,7 @@ namespace windowing_x11
 
       //synchronous_lock synchronouslock(user_synchronization());
 
-      display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->Display());
 
       if (!m_pdisplay)
       {
@@ -654,7 +656,7 @@ namespace windowing_x11
 
       //synchronous_lock synchronouslock(user_synchronization());
 
-      display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->Display());
 
       if (!m_pdisplay)
       {
@@ -714,7 +716,7 @@ namespace windowing_x11
 
       //synchronous_lock synchronouslock(user_synchronization());
 
-      display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->Display());
 
       if (!m_pdisplay)
       {
@@ -733,6 +735,8 @@ namespace windowing_x11
    {
 
       //auto windowRoot = DefaultRootWindow(Display());
+
+      ::x11::display_lock displaylock(Display());
 
       bool bCreateAtom = false;
 
@@ -776,7 +780,7 @@ namespace windowing_x11
 
       //synchronous_lock synchronouslock(user_synchronization());
 
-      display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->Display());
 
       windowing_output_debug_string("::wm_iconify_window 1");
 

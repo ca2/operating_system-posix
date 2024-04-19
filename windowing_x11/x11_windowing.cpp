@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "windowing_x11.h"
+#include "acme/operating_system/x11/display_lock.h"
 #include <fcntl.h> // library for fcntl function
 #include <sys/stat.h>
 
@@ -29,6 +30,8 @@ extern ::particle * user_synchronization();
 GC x11_create_gc(Colormap colormap, Display* pdisplay, Window window, ::u8 a, ::u8 r, ::u8 g, ::u8 b)
 {
 
+   ::x11::display_lock displaylock(pdisplay);
+
    GC gc = XCreateGC(pdisplay, window, 0, 0);
 
    x11color32_t x11color32 = argb(a, r, g, b);
@@ -43,7 +46,7 @@ GC x11_create_gc(Colormap colormap, Display* pdisplay, Window window, ::u8 a, ::
 //int x11_message_box(const string & str, const string & strTitle, const ::e_message_box & emessagebox)
 //{
 //
-//   //deferx_initialize_x11();
+//   //deferx_initializex_x11();
 //
 //   auto pdisplay = __allocate< simple_ui_display >(str, strTitle, emessagebox);
 //
@@ -207,7 +210,7 @@ void x11_kick_idle()
 //
 //::e_status g_estatusInitializeX11 = ::error_not_initialized;
 //
-//::e_status deferx_initialize_x11()
+//::e_status deferx_initializex_x11()
 //{
 //
 //   if(!g_bInitializeX11)
@@ -224,7 +227,7 @@ void x11_kick_idle()
 //}
 //
 //
-//i32 _c_XErrorHandler(Display * display, XErrorEvent * perrorevent);
+//i32 _cx_XErrorHandler(Display * display, XErrorEvent * perrorevent);
 //
 //
 //::e_status initialize_x11()
@@ -237,7 +240,7 @@ void x11_kick_idle()
 //
 //   }
 //
-//   XSetErrorHandler(_c_XErrorHandler);
+//   XSetErrorHandler(_cx_XErrorHandler);
 //
 //   g_pmutexX11 = __new< ::pointer < ::mutex > >();
 //

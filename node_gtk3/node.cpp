@@ -597,7 +597,7 @@ namespace node_gtk3
 //      if (m_bUser)
 //      {
 //
-//         estatus = deferx_initialize_x11();
+//         estatus = deferx_initializex_x11();
 //
 //         if(!estatus)
 //         {

@@ -35,7 +35,7 @@ extern ::particle * user_synchronization();
 //
 
 
-//i32 _c_XErrorHandler(xcb_connection_t * display, XErrorEvent * perrorevent)
+//i32 _cx_XErrorHandler(xcb_connection_t * display, XErrorEvent * perrorevent)
 //{
 //
 //   const char * pszError;
@@ -352,7 +352,7 @@ extern ::particle * user_synchronization();
 //
 //   }
 //
-//   fprintf(stderr, "_c_XErrorHandler error=%d (%s) request =%d (%s)\n", perrorevent->error_code, pszError, perrorevent->request_code, pszRequest);
+//   fprintf(stderr, "_cx_XErrorHandler error=%d (%s) request =%d (%s)\n", perrorevent->error_code, pszError, perrorevent->request_code, pszRequest);
 //
 //   return 0;
 //

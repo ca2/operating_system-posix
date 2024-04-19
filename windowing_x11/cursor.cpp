@@ -6,7 +6,7 @@
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/system.h"
 #include "aura_posix/_x11.h"
-#include "aura_posix/x11/display_lock.h"
+#include "acme/operating_system/x11/display_lock.h"
 #include <X11/cursorfont.h>
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
@@ -178,7 +178,7 @@ namespace windowing_x11
 
       auto px11display = (::windowing_x11::display *) pwindowing->display()->m_pDisplay;
 
-      display_lock lock(px11display->Display());
+      ::x11::display_lock lock(px11display->Display());
 
       auto cursor = XCreateFontCursor(px11display->Display(), iCursor);
 

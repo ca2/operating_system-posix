@@ -16,7 +16,7 @@
 #include "aura/platform/system.h"
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
-#include "aura_posix/x11/display_lock.h"
+#include "acme/operating_system/x11/display_lock.h"
 
 
 namespace windowing_wayland
@@ -42,7 +42,7 @@ namespace windowing_wayland
 
       m_bFinishX11Thread = false;
 
-      //deferx_initialize_x11();
+      //deferx_initializex_x11();
 
    }
 
@@ -173,7 +173,7 @@ namespace windowing_wayland
 //      if (psystem->m_bUser)
 //      {
 //
-//         deferx_initialize_x11();
+//         deferx_initializex_x11();
 //
 //      }
 //

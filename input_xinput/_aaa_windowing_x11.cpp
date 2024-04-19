@@ -10,7 +10,7 @@
 #include "acme/platform/system.h"
 #include "acme/primitive/geometry2d/_text_stream.h"
 #include "aura/user/user/interaction_graphics_thread.h"
-#include "aura_posix/x11/display_lock.h"
+#include "acme/operating_system/x11/display_lock.h"
 ////#include "sn/sn.h"
 #include <fcntl.h> // library for fcntl function
 #include <sys/stat.h>
@@ -195,7 +195,7 @@ int_bool _x11_get_cursor_pos(Display * d, ::point_i32 * ppointCursor);
 
 //Window g_windowFocus = 0;
 
-i32 _c_XErrorHandler(Display * display, XErrorEvent * perrorevent);
+i32 _cx_XErrorHandler(Display * display, XErrorEvent * perrorevent);
 
 
 //struct MWMHints
@@ -3461,7 +3461,7 @@ bool x11_get_window_rect(Display * d, Window window, ::rectangle_i32 * prectangl
 
    }
 
-   XSetErrorHandler(_c_XErrorHandler);
+   XSetErrorHandler(_cx_XErrorHandler);
 
    //g_pmutexX11 = __new< ::pointer < ::mutex > >();
 
@@ -3473,7 +3473,7 @@ bool x11_get_window_rect(Display * d, Window window, ::rectangle_i32 * prectangl
 ::e_status g_estatusInitializeX11 = error_not_initialized;
 
 
-::e_status deferx_initialize_x11()
+::e_status deferx_initializex_x11()
 {
 
    if (g_estatusInitializeX11 == error_not_initialized)

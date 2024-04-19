@@ -12,7 +12,7 @@
 #include "acme/platform/system.h"
 #include "acme/primitive/geometry2d/_text_stream.h"
 #include "aura/user/user/interaction_graphics_thread.h"
-//#include "aura_posix/x11/display_lock.h"
+//#include "acme/operating_system/x11/display_lock.h"
 ////#include "sn/sn.h"
 #include <fcntl.h> // library for fcntl function
 //#include <sys/stat.h>
@@ -200,7 +200,7 @@ CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const po
 //
 ////Window g_windowFocus = 0;
 //
-//i32 _c_XErrorHandler(Display * display, XErrorEvent * perrorevent);
+//i32 _cx_XErrorHandler(Display * display, XErrorEvent * perrorevent);
 //
 //
 ////struct MWMHints
@@ -3437,7 +3437,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //   }
 //
-//   XSetErrorHandler(_c_XErrorHandler);
+//   XSetErrorHandler(_cx_XErrorHandler);
 //
 //   //g_pmutexX11 = __new< ::pointer < ::mutex > >();
 //
@@ -3449,7 +3449,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //::e_status g_estatusInitializeX11 = error_not_initialized;
 //
 //
-//::e_status deferx_initialize_x11()
+//::e_status deferx_initializex_x11()
 //{
 //
 //   if (g_estatusInitializeX11 == error_not_initialized)

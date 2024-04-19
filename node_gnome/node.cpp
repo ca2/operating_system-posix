@@ -56,7 +56,7 @@ namespace node_gnome
 
       m_pNodeGnome = this;
 
-      //deferx_initialize_x11();
+      //deferx_initializex_x11();
 
       m_pGtkSettingsDefault = nullptr;
 
