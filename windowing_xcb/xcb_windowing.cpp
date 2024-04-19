@@ -39,7 +39,7 @@ int g_fdX11[2] = {};
 //   if(g_pdisplayX11 == NULL)
 //   {
 //
-//      g_pdisplayX11 =  XOpenDisplay(NULL);
+//      g_pdisplayX11 =  XOpenxDisplay(NULL);
 //
 //   }
 //

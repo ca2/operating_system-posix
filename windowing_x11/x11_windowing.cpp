@@ -23,27 +23,6 @@ bool __x11_hook_list_is_empty();
 extern ::particle * user_synchronization();
 
 
-Display * g_pdisplayX11= nullptr;
-
-
-int g_fdX11[2] = {};
-
-
-Display * x11_get_display()
-{
-
-   if(g_pdisplayX11 == NULL)
-   {
-
-      g_pdisplayX11 =  XOpenDisplay(NULL);
-
-   }
-
-   return g_pdisplayX11;
-
-}
-
-
 
 
 
@@ -64,7 +43,7 @@ GC x11_create_gc(Colormap colormap, Display* pdisplay, Window window, ::u8 a, ::
 //int x11_message_box(const string & str, const string & strTitle, const ::e_message_box & emessagebox)
 //{
 //
-//   //defer_initialize_x11();
+//   //deferx_initialize_x11();
 //
 //   auto pdisplay = __allocate< simple_ui_display >(str, strTitle, emessagebox);
 //
@@ -228,7 +207,7 @@ void x11_kick_idle()
 //
 //::e_status g_estatusInitializeX11 = ::error_not_initialized;
 //
-//::e_status defer_initialize_x11()
+//::e_status deferx_initialize_x11()
 //{
 //
 //   if(!g_bInitializeX11)
@@ -251,7 +230,7 @@ void x11_kick_idle()
 //::e_status initialize_x11()
 //{
 //
-//   if(!XInitThreads())
+//   if(!XInitxThreads())
 //   {
 //
 //      return ::error_failed;

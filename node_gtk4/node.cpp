@@ -475,7 +475,7 @@ namespace node_gtk4
 
       m_pNodeGtk4 = this;
 
-      //defer_initialize_x11();
+      //deferx_initialize_x11();
 
       m_pGtkSettingsDefault = nullptr;
 
@@ -596,7 +596,7 @@ namespace node_gtk4
 //      if (m_bUser)
 //      {
 //
-//         estatus = defer_initialize_x11();
+//         estatus = deferx_initialize_x11();
 //
 //         if(!estatus)
 //         {

@@ -3454,7 +3454,7 @@ bool x11_get_window_rect(Display * d, Window window, ::rectangle_i32 * prectangl
 ::e_status initialize_x11()
 {
 
-   if (!XInitThreads())
+   if (!XInitxThreads())
    {
 
       return ::error_failed;
@@ -3473,7 +3473,7 @@ bool x11_get_window_rect(Display * d, Window window, ::rectangle_i32 * prectangl
 ::e_status g_estatusInitializeX11 = error_not_initialized;
 
 
-::e_status defer_initialize_x11()
+::e_status deferx_initialize_x11()
 {
 
    if (g_estatusInitializeX11 == error_not_initialized)

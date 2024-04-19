@@ -3249,40 +3249,4 @@ bool x11_get_window_rect(Display * d, Window window, ::rectangle_i32 * prectangl
 }
 
 
-::e_status initialize_x11()
-{
-
-   if (!XInitThreads())
-   {
-
-      return ::error_failed;
-
-   }
-
-   XSetErrorHandler(_c_XErrorHandler);
-
-   //g_pmutexX11 = __new< ::pointer < ::mutex > >();
-
-   return ::success;
-
-}
-
-
-::e_status g_estatusInitializeX11 = error_not_initialized;
-
-
-::e_status defer_initialize_x11()
-{
-
-   if (g_estatusInitializeX11 == error_not_initialized)
-   {
-
-      g_estatusInitializeX11 = initialize_x11();
-
-   }
-
-   return g_estatusInitializeX11;
-
-}
-
 

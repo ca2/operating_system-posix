@@ -42,7 +42,7 @@ namespace windowing_wayland
 
       m_bFinishX11Thread = false;
 
-      //defer_initialize_x11();
+      //deferx_initialize_x11();
 
    }
 
@@ -173,7 +173,7 @@ namespace windowing_wayland
 //      if (psystem->m_bUser)
 //      {
 //
-//         defer_initialize_x11();
+//         deferx_initialize_x11();
 //
 //      }
 //

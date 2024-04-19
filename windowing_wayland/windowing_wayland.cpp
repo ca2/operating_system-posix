@@ -3430,7 +3430,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //::e_status initialize_x11()
 //{
 //
-//   if (!XInitThreads())
+//   if (!XInitxThreads())
 //   {
 //
 //      return ::error_failed;
@@ -3449,7 +3449,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //::e_status g_estatusInitializeX11 = error_not_initialized;
 //
 //
-//::e_status defer_initialize_x11()
+//::e_status deferx_initialize_x11()
 //{
 //
 //   if (g_estatusInitializeX11 == error_not_initialized)

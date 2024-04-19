@@ -90,7 +90,7 @@ namespace node_xfce
 
       m_pNodeXfce = this;
 
-      defer_initialize_x11();
+      //deferx_initialize_x11();
 
       m_pGtkSettingsDefault = nullptr;
 
@@ -179,7 +179,7 @@ namespace node_xfce
 ////      if (m_bUser)
 ////      {
 ////
-////         estatus = defer_initialize_x11();
+////         estatus = deferx_initialize_x11();
 ////
 ////         if(!estatus)
 ////         {

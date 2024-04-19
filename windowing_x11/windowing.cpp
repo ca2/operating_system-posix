@@ -39,7 +39,7 @@ namespace windowing_x11
 
       m_bFinishX11Thread = false;
 
-      defer_initialize_x11();
+      //deferx_initialize_x11();
 
    }
 
@@ -137,7 +137,7 @@ namespace windowing_x11
 //      if (psystem->m_bUser)
 //      {
 //
-//         defer_initialize_x11();
+//         deferx_initialize_x11();
 //
 //      }
 //
