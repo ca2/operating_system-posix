@@ -34,6 +34,9 @@ void on_sn_launch_complete(void * pSnContext);
 //::particle * user_synchronization();
 
 
+void x11_sync(const ::procedure & procedure);
+
+
 #undef ALOG_CONTEXT
 #define ALOG_CONTEXT ::trace_object(::trace_category_windowing)
 
@@ -793,7 +796,7 @@ namespace windowing_x11
       });
 
 
-      if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
+      if (!(m_puserinteractionimpl->m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
       {
 
          throw ::exception(error_failed);
@@ -889,7 +892,7 @@ namespace windowing_x11
       //synchronous_lock synchronouslock(user_synchronization());
       int i = 0;
 
-            x11_sync([this,&i]()
+            x11_sync([this,&i, bWithdraw]()
       {
 
 
@@ -1192,9 +1195,11 @@ namespace windowing_x11
 
       bool bOk = false;
 
+      int status = -1;
+
       //synchronous_lock synchronouslock(user_synchronization());
 
-            x11_sync([this,&bOk]()
+            x11_sync([this, &status]()
       {
 
 
@@ -1216,7 +1221,7 @@ namespace windowing_x11
 
       //Atom cardinal = x11_display()->intern_atom("STRING", False);
 
-      int status = XChangeProperty(
+      status = XChangeProperty(
          Display(),
          Window(),
          atomBamfDesktopFile,
@@ -1245,8 +1250,6 @@ namespace windowing_x11
 
       }
 
-   });
-
       return bOk;
 
    }
@@ -1257,13 +1260,15 @@ namespace windowing_x11
 
       int i = -1;
 
-            x11_sync([this,&i]()
+      ::memory memory(data, nelements * format / 8);
+
+            x11_sync([this,&i, memory, property, type, format, mode, nelements]()
       {
 
 
       ::x11::display_lock displaylock(Display());
 
-      i= XChangeProperty(Display(), Window(), property, type, format, mode, data, nelements);
+      i= XChangeProperty(Display(), Window(), property, type, format, mode, memory.data(), nelements);
 
       });
 
@@ -1276,7 +1281,10 @@ namespace windowing_x11
    {
 
       bool bOk = false;
-            x11_sync([this,&bOk]()
+
+      ::image_pointer pimageTransport(pimage);
+
+      x11_sync([this,&bOk, pimageTransport]()
       {
 
       // http://stackoverflow.com/questions/10699927/xlib-argb-window-icon
@@ -1328,7 +1336,7 @@ namespace windowing_x11
 
       {
 
-         image_source imagesource(pimage->g(), pimage->rectangle());
+         image_source imagesource(pimageTransport->g(), pimageTransport->rectangle());
 
          rectangle_f64 rectangle(image1->rectangle());
 
@@ -1491,7 +1499,9 @@ namespace windowing_x11
 
       int i = 0;
 
-            x11_sync([this,&i]()
+      ::string str(psz);
+
+            x11_sync([this,&i, str]()
       {
 
 
@@ -1501,7 +1511,7 @@ namespace windowing_x11
 
       ::x11::display_lock displaylock(x11_display()->Display());
 
-      i = XStoreName(Display(), Window(), psz);
+      i = XStoreName(Display(), Window(), str);
 
       windowing_output_debug_string("\nwindow::store_name END");
 
@@ -1517,7 +1527,7 @@ namespace windowing_x11
 
       int i = 0;
 
-            x11_sync([this,&i]()
+            x11_sync([this,&i, iInput]()
       {
 
 
@@ -1557,7 +1567,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("\nwindow::select_all_input");
 
-      }
+      });
 
       return i;
 
@@ -1718,7 +1728,10 @@ namespace windowing_x11
 
       }
 
-            x11_sync([this]()
+
+      ::Window windowParent = pwindowx11NewParent->Window();
+
+      x11_sync([this, windowParent]()
       {
 
 
@@ -1726,7 +1739,7 @@ namespace windowing_x11
 
       ::x11::display_lock displaylock(x11_display()->Display());
 
-      XReparentWindow(Display(), Window(), pwindowx11NewParent->Window(), 0, 0);
+      XReparentWindow(Display(), Window(), windowParent, 0, 0);
 
       });
 
@@ -1769,11 +1782,15 @@ namespace windowing_x11
             x11_sync([this, xevent]()
       {
 
+               XEvent eventCopy;
+
+               eventCopy = xevent;
+
 
       ::x11::display_lock displaylock(Display());
 
       XSendEvent(Display(), RootWindow(Display(), x11_display()->m_iScreen), False,
-                 SubstructureRedirectMask | SubstructureNotifyMask, &xevent);
+                 SubstructureRedirectMask | SubstructureNotifyMask, &eventCopy);
 
       });
 
@@ -1817,7 +1834,7 @@ namespace windowing_x11
       }
 
 
-                  x11_sync([this]()
+                  x11_sync([this, add, iScreen, state1, state2]()
       {
 
       XClientMessageEvent xclient;
@@ -2102,7 +2119,7 @@ namespace windowing_x11
 
       ::rectangle_i32 rBest;
 
-      int iMonitor = m_pdisplay->get_best_monitor(&rBest, rectangle);
+      int iMonitor = m_pdisplay->get_best_monitor(&rBest, r);
 
       windowing_output_debug_string("::window::full_screen 1");
 
@@ -2340,11 +2357,9 @@ namespace windowing_x11
    bool window::get_state(long & lState)
    {
 
-      auto l = lState;
-
       bool bOk = false;
 
-                  x11_sync([this, &bOk]()
+                  x11_sync([this, &bOk, &lState]()
       {
 
 
@@ -2354,11 +2369,11 @@ namespace windowing_x11
 
       ::x11::display_lock displaylock(x11_display()->Display());
 
-      bOk = _get_wm_state_unlocked(l);
+      bOk = _get_wm_state_unlocked(lState);
 
       });
 
-                  return bOk;
+      return bOk;
 
    }
 
@@ -2592,9 +2607,9 @@ namespace windowing_x11
 
       auto pathIcon =  path;
 
-      bool bOk = false;
+      ::e_status estatus = error_failed;
 
-                  x11_sync([this, pathIcon, & bOk]()
+                  x11_sync([this, pathIcon, & estatus]()
       {
 
 
@@ -2614,8 +2629,8 @@ namespace windowing_x11
          ixa,
          8,
          PropModeReplace,
-         (const unsigned char *) (const char *) path,
-         path.length());
+         (const unsigned char *) (const char *) pathIcon,
+         pathIcon.length());
 
       informationf("\nfreebsd::interaction_impl::bamf_set_icon END");
 
@@ -2624,19 +2639,19 @@ namespace windowing_x11
       if (status != 0)
       {
 
-         bOk = false;
+         estatus = ::error_failed;
 
       }
       else
       {
 
-         bOk = true;
+         estatus = ::success;
 
       }
 
       });
 
-                  return bOk;
+                  return estatus;
 
    }
 
@@ -2883,7 +2898,10 @@ namespace windowing_x11
 
       bool bOk = false;
 
-                  x11_sync([this, & bOk]()
+      auto zorderCopy = zorder;
+      auto eactivationCopy = eactivation;
+
+                  x11_sync([this, & bOk,zorderCopy, x, y, cx, cy,eactivationCopy, bNoZorder, bNoMove, bNoSize, edisplay]()
       {
 
 
@@ -2893,7 +2911,7 @@ namespace windowing_x11
 
       information() << "windowing_x11 window::set_window_position ";
 
-      bOk =  _set_window_position_unlocked(zorder, x, y, cx, cy, eactivation, bNoZorder, bNoMove, bNoSize,
+      bOk =  _set_window_position_unlocked(zorderCopy, x, y, cx, cy, eactivationCopy, bNoZorder, bNoMove, bNoSize,
                                            edisplay);
 
       });
@@ -2908,10 +2926,6 @@ namespace windowing_x11
                                               bool bNoSize, ::e_display edisplay)
    {
 
-            bool bOk = false;
-
-                  x11_sync([this, & bOk]()
-      {
 
       windowing_output_debug_string("::window::set_window_pos 1");
 
@@ -2922,9 +2936,7 @@ namespace windowing_x11
 
          windowing_output_debug_string("::window::set_window_pos 1.1 xgetwindowattr failed");
 
-         bOk = false;
-
-         return;
+         return false;
 
       }
 
@@ -2945,9 +2957,7 @@ namespace windowing_x11
 
             windowing_output_debug_string("::window::set_window_pos 1.3 xgetwindowattr failed");
 
-            bOk =  false;
-
-            return;
+            return false;
 
          }
 
@@ -3079,9 +3089,7 @@ namespace windowing_x11
 
          windowing_output_debug_string("::window::set_window_pos xgetwndattr 1.4.4");
 
-         bOk = false;
-
-         return;
+         return false;
 
       }
 
@@ -3150,11 +3158,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("::window::set_window_pos 2");
 
-      bOk = true;
-
-      });
-
-      return bOk;
+      return true;
 
    }
 
@@ -3404,11 +3408,6 @@ namespace windowing_x11
                                               const ::e_activation & eactivation, bool bNoZorder, ::e_display edisplay)
    {
 
-            bool bOk = false;
-
-                  x11_sync([this, & bOk]()
-      {
-
 
       windowing_output_debug_string("::window::_configure_window_unlocked 1");
 
@@ -3431,9 +3430,7 @@ namespace windowing_x11
 
                windowing_output_debug_string("::window::set_window_pos 1.3 xgetwindowattr failed");
 
-               bOk = false;
-
-               return;
+               return false;
 
             }
 
@@ -3473,9 +3470,7 @@ namespace windowing_x11
 
          XIconifyWindow(Display(), Window(), Screen());
 
-         bOk = true;
-
-         return;
+         return true;
 
       }
       else if (edisplay == e_display_zoomed)
@@ -3545,9 +3540,7 @@ namespace windowing_x11
 
                windowing_output_debug_string("::window::set_window_pos xgetwndattr 1.4.4");
 
-               bOk =  false;
-
-               return;
+               return false;
 
             }
 
@@ -3618,11 +3611,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("::window::set_window_pos 2");
 
-      bOk =  true;
-
-      });
-
-                  return bOk;
+      return true;
 
    }
 
@@ -3632,9 +3621,6 @@ namespace windowing_x11
 
 
             bool bOk = false;
-
-                  x11_sync([this, & bOk]()
-      {
 
 
       bool bMove = !bNoMove;
@@ -3850,11 +3836,7 @@ namespace windowing_x11
 
       //information() << "::windowing_x11::window::_strict_set_window_position_unlocked";
 
-      bOk = true;
-
-      });
-
-                  return bOk;
+      return true;
 
    }
 
@@ -3936,7 +3918,9 @@ namespace windowing_x11
    {
 
 
-                  x11_sync([this]()
+      ::pointer < ::windowing::cursor > pcursorTransport(pcursor);
+
+                  x11_sync([this, pcursorTransport]()
       {
 
       //synchronous_lock synchronouslock(user_synchronization());
@@ -3949,7 +3933,7 @@ namespace windowing_x11
 
       int ixa = XA_STRING;
 
-      ::file::path path = pcursor->get_file_path();
+      ::file::path path = pcursorTransport->get_file_path();
 
       int status = XChangeProperty(
          Display(),
@@ -4227,7 +4211,7 @@ namespace windowing_x11
 ////
 ////      }
 ////
-////  */    return estatus;
+////  */    //return estatus;
 
    }
 
@@ -4787,29 +4771,30 @@ namespace windowing_x11
    {
 
       ::string strNetStateFlag;
+
       int i = 0;
 
-            x11_sync([this, &i, & strNetStateFlag]()
+      x11_sync([this, &i, strNetStateFlag]()
       {
 
-      //synchronous_lock synchronouslock(user_synchronization());
+         //synchronous_lock synchronouslock(user_synchronization());
 
-      windowing_output_debug_string("::wm_test_state 1");
+         windowing_output_debug_string("::wm_test_state 1");
 
-      ::x11::display_lock displaylock(x11_display()->Display());
+         ::x11::display_lock displaylock(x11_display()->Display());
 
-      if (x11_display()->is_null())
-      {
+         if (x11_display()->is_null())
+         {
 
-         windowing_output_debug_string("::wm_test_state 1.1");
+            windowing_output_debug_string("::wm_test_state 1.1");
 
-         return 0;
+            return 0;
 
-      }
+         }
 
-      int i = _wm_test_state_unlocked(pszNetStateFlag);
+         i = _wm_test_state_unlocked(strNetStateFlag);
 
-      windowing_output_debug_string("::wm_test_state 2");
+         windowing_output_debug_string("::wm_test_state 2");
 
       });
 
@@ -4983,14 +4968,16 @@ namespace windowing_x11
    ::e_status window::x11_store_name(const char * pszName)
    {
 
-            x11_sync([this]()
+      ::string strName(pszName);
+
+            x11_sync([this, strName]()
       {
 
       //synchronous_lock synchronouslock(user_synchronization());
 
       ::x11::display_lock displaylock(x11_display()->Display());
 
-      XStoreName(Display(), Window(), pszName);
+      XStoreName(Display(), Window(), strName);
 
       });
 
