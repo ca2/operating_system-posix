@@ -21,6 +21,11 @@
 #endif
 
 
+#if defined(OPENBSD)
+#include <stdio.h>
+#endif
+
+
 namespace acme_posix
 {
 
@@ -106,6 +111,8 @@ namespace acme_posix
 
       path /= str;
 
+      m_path = path;
+
       acmedirectory()->create(path.folder());
 
       const char * pszPath = path.c_str();
@@ -114,9 +121,22 @@ namespace acme_posix
 
       m_iFile = open(pszPath, O_WRONLY | O_CREAT | O_CLOEXEC, 0777);
 
-      m_iLock = lockf(m_iFile, F_TLOCK, 0);
+      if(m_iFile >= 0)
+      {
 
-      pparticle->informationf("exclusive::exlusive file %d lock %d", m_iFile, m_iLock);
+         m_iLock = lockf(m_iFile, F_TLOCK, 0);
+
+         pparticle->informationf("exclusive::exlusive file %d lock %d", m_iFile, m_iLock);
+
+      }
+      else
+      {
+
+         pparticle->informationf("exclusive::exlusive Failed to create lock file");
+
+         m_iLock = -1;
+
+      }
 
       pparticle->informationf("exclusive::exlusive end");
 
@@ -128,6 +148,34 @@ namespace acme_posix
 
    exclusive::~exclusive()
    {
+
+      if(m_iFile >= 0)
+      {
+
+         if(m_iLock >= 0)
+         {
+
+            int iUnlock = lockf(m_iFile, F_ULOCK, 0);
+
+            printf("exclusive::~exclusive Unlock m_iLock");
+
+         }
+
+         ::close(m_iFile);
+
+         if(m_iLock >= 0)
+         {
+
+            if(m_path.has_char() && file_exists(m_path))
+            {
+
+               ::remove(m_path);
+
+            }
+
+         }
+
+      }
 
    }
 

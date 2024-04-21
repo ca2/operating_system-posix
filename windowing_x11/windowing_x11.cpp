@@ -8,6 +8,7 @@
 #include "acme/constant/message.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/primitive/geometry2d/_text_stream.h"
+#include "apex/platform/node.h"
 #include "apex/platform/system.h"
 #include "aura/user/user/interaction_graphics_thread.h"
 #include "aura_posix/xinput.h"
@@ -48,6 +49,8 @@
 
 #endif
 
+
+void on_sn_launch_complete(void * pSnContext);
 
 
 //bool aaa_x11_runnable_step();
@@ -949,7 +952,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //      XGenericEventCookie * cookie;
 //
 //
-//#ifdef WITH_XI
+// #ifdef WITH_XI
 //
 //
 //      if (m_pobjectaExtendedEventListener)
@@ -967,26 +970,26 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //      // WITH_XI
 //
-//#else
+// #else
 //
 //      // !WITH_XI
 //
 //      cookie = nullptr;
 //
-//#endif
+// #endif
 //
-////      if (!__x11_hook_process_event(pevent, cookie))
+// //      if (!__x11_hook_process_event(pevent, cookie))
 //      {
 //
-//#ifdef WITH_XI
+// #ifdef WITH_XI
 //
 //         if (!x11_process_event(pevent, cookie))
 //
-//#else
+// #else
 //
 //            if (!x11_process_event(pdisplay, pevent))
 //
-//#endif
+// #endif
 //         {
 //
 //            return false;
@@ -1039,7 +1042,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //      try
 //      {
 //
-//         synchronous_lock synchronouslock(user_synchronization());
+//         //synchronous_lock synchronouslock(user_synchronization());
 //
 //         display_lock displaylock(m_pdisplay->Display());
 //
@@ -1048,13 +1051,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //            XEvent & e = *pevent;
 //
-////#if !defined(RASPBERRYPIOS)
+// //#if !defined(RASPBERRYPIOS)
 //
 //            XGenericEventCookie * pcookie;
 //
-////#endif
+// //#endif
 //
-//#ifdef WITH_XI
+// #ifdef WITH_XI
 //
 //            if (m_pobjectaExtendedEventListener)
 //            {
@@ -1069,20 +1072,20 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //            }
 //
-//#endif
+// #endif
 //
 //            //if (!__x11_hook_process_event(&e, cookie))
 //            {
 //
-//#ifdef WITH_XI
+// #ifdef WITH_XI
 //
 //               if (!x11_process_event(&e, pcookie))
 //
-//#else
+// #else
 //
 //                  if (!x11_process_event(m_pdisplay->Display(), pevent))
 //
-//#endif
+// #endif
 //               {
 //
 //
@@ -1127,11 +1130,11 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //      if (m_bFinishX11Thread)
 //      {
 //
-//#ifdef WITH_XI
+// #ifdef WITH_XI
 //
 //         m_pobjectaExtendedEventListener.release();
 //
-//#endif
+// #endif
 //
 //         informationf("x11_thread end thread");
 //
@@ -1157,13 +1160,67 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    // }
 
 
+   void windowing::_message_handler(void * p)
+   {
+
+      XEvent * pevent = (XEvent *) p;
+
+
+               XGenericEventCookie * pcookie = nullptr;
+
+#ifdef WITH_XI
+
+               if (m_pobjectaExtendedEventListener)
+               {
+
+                  pcookie = &pevent->xcookie;
+
+               }
+               else
+               {
+
+                  pcookie = nullptr;
+
+               }
+
+#endif
+
+               //XNextEvent(pdisplay, &e);
+
+               //displayLock.unlock();
+
+               if (!m_pdisplay->m_px11display->x11_event(pevent))
+               {
+
+#ifdef WITH_XI
+
+                  if (!x11_process_event(pevent, pcookie))
+
+#else
+
+                     if (!x11_process_event(m_pdisplay->Display(), pevent))
+
+#endif
+                  {
+
+                     //XPutBackEvent(pdisplay, &e);
+
+                     //break;
+
+                  }
+
+
+               }
+
+   }
+
 //gboolean aaa_x11_source_func(gpointer)
    bool windowing::x11_message_loop_step()
    {
 
 //   osdisplay_data * pdisplaydata = (osdisplay_data *) x11_main_display();
 
-
+   information() << "windowing_x11::windowing::x11_message_loop_step";
 
 
 //   if(!g_bInitX11Thread)
@@ -1198,16 +1255,23 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          if(!m_pdisplay)
          {
 
+            information() << "windowing_x11::windowing::x11_message_loop_step NODISPLAY";
+
             return true;
 
          }
 
          ::x11::display_lock displayLock(m_pdisplay->Display());
 
+
+         information() << "windowing_x11::windowing::x11_message_loop_step display_lock";
+
          Display * pdisplay = m_pdisplay->Display();
 
          if (pdisplay == nullptr)
          {
+
+            information() << "windowing_x11::windowing::x11_message_loop_step NODISPLAY (2)";
 
             return true;
 
@@ -1222,10 +1286,14 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
             XSelectInput(pdisplay, windowRoot, PropertyChangeMask);
 
+            information() << "windowing_x11::windowing::x11_message_loop_step select root";
+
          }
 
          while (XPending(pdisplay) && !m_bFinishX11Thread)
          {
+
+            information() << "windowing_x11::windowing::x11_message_loop_step Pending event";
 
             try
             {
@@ -1407,12 +1475,20 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 #ifdef WITH_XI
 
    bool windowing::x11_process_event(XEvent * pevent, XGenericEventCookie * cookie)
+   #pragma message("WITH_XI")
 #else
    bool windowing::x11_process_event(XEvent *pevent)
+#pragma message("No XI")
 #endif
    {
 
-      //information() << "x";
+      information() << "x11_process_event XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+      information() << "x11_process_event -----------------------------------------------";
+      information() << "x11_process_event -----------------------------------------------";
+      information() << "x11_process_event -----------------------------------------------";
+      information() << "x11_process_event -----------------------------------------------";
+      information() << "x11_process_event -----------------------------------------------";
+      information() << "x11_process_event -----------------------------------------------";
 
       XEvent & e = *pevent;
 
@@ -2158,10 +2234,78 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 
          }
-            break;
+         break;
          case MapNotify:
          {
 
+            informationf("windowing_x11::windowing MapNotify");
+
+            if (!m_bFirstWindowMap && px11window->m_pSnLauncheeContextSetup)
+            {
+
+               m_bFirstWindowMap = true;
+
+               auto pSnLauncheeContextSetup = px11window->m_pSnLauncheeContextSetup;
+
+               px11window->m_pSnLauncheeContextSetup = nullptr;
+
+               auto pdisplay = m_pdisplay->Display();
+
+               node()->x11_async([this, pdisplay, pSnLauncheeContextSetup]()
+               {
+
+                  ::x11::display_lock displaylock(pdisplay);
+
+                  informationf("windowing_x11::windowing MapNotify async first_window_map");
+
+                  informationf("windowing_x11::windowing MapNotify async on_sn_launch_complete : %" PRIXPTR, pSnLauncheeContextSetup);
+
+                  on_sn_launch_complete(pSnLauncheeContextSetup);
+
+                  informationf("window::finishing create_window on_sn_launch_complete END");
+
+               });
+
+            }
+
+         //});
+
+      //}
+
+
+     //#ifdef WITH_SN
+
+      //auto pwindowing = x11_windowing();
+
+      // informationf("MapNotify windowing : %" PRIXPTR, (::uptr) this);
+      //
+      // //  if (pwindowing->m_pSnLauncheeContext != nullptr)
+      // if (!m_bFirstWindowMap)
+      // {
+      //
+      //    informationf("MapNotify first_window_map");
+      //
+      //    m_bFirstWindowMap = true;
+      //
+      //    auto psystem = system()->m_papexsystem;
+      //
+      //    auto pnode = psystem->node();
+      //
+      //    informationf("MapNotify defer_notify_startup_complete");
+      //
+      //    informationf("MapNotify pnode : %" PRIXPTR, pnode);
+      //
+      //    pnode->defer_notify_startup_complete();
+      //
+      //    informationf("MapNotify on_sn_launch_complete : %" PRIXPTR, m_pSnLauncheeContext);
+      //
+      //    on_sn_launch_complete(m_pSnLauncheeContext);
+      //
+      //    m_pSnLauncheeContext = nullptr;
+      //
+      //    informationf("MapNotify on_sn_launch_complete END");
+      //
+      // }
 
 
 //            auto px11window = m_pdisplay->_window(e.xmap.window);

@@ -60,7 +60,7 @@ namespace node_gtk3
 
       void initialize_window_manager() override;
 
-      void defer_notify_startup_complete() override;
+      //void defer_notify_startup_complete() override;
 
       void start_node() override;
 
@@ -156,6 +156,13 @@ namespace node_gtk3
       bool _system_is_set_file_extension_mime_type(const scoped_string & scopedstrExtension, const scoped_string & scopedstrMimeType);
 
       bool _user_is_set_file_extension_mime_type(const scoped_string & scopedstrExtension, const scoped_string & scopedstrMimeType);
+
+      ::e_status x11_initialize() override;
+      void * x11_get_display() override;
+      void x11_sync(const ::procedure & procedure) override;
+      void x11_async(const ::procedure & procedure) override;
+      void x11_display_error_trap_push(int i) override;
+      void x11_display_error_trap_pop_ignored(int i) override;
 
 
    };

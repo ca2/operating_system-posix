@@ -70,7 +70,7 @@ namespace windowing_x11
 
       //void start() override;
 
-      //void _libsn_start_context()  override;
+      //void _libsnx_start_context()  override;
 
       ::windowing::display * display() override;
 
@@ -104,7 +104,7 @@ namespace windowing_x11
       virtual ::windowing_x11::window * _window(Window window);
 
 
-      //virtual void _message_handler(void * p);
+      void _message_handler(void * p) override;
 
 //      SnLauncheeContext* g_psncontext = nullptr;
 
@@ -140,7 +140,7 @@ namespace windowing_x11
 
       virtual ::windowing::window * window(oswindow oswindow) override;
 
-      //virtual void _libsn_start_context() override;
+      //virtual void _libsnx_start_context() override;
 
 #ifdef WITH_XI
 

@@ -76,18 +76,33 @@ namespace node_gnome
    }
 
 
-   void node::defer_notify_startup_complete()
-   {
-
-      auto psystem = system()->m_papexsystem;
-
-      string strApplicationServerName = psystem->get_application_server_name();
-
-      gdk_notify_startup_complete_with_id (strApplicationServerName);
-
-      gdk_notify_startup_complete();
-
-   }
+   // void node::defer_notify_startup_complete()
+   // {
+   //
+   //    // auto psystem = system()->m_papexsystem;
+   //    //
+   //    // string strApplicationServerName = psystem->get_application_server_name();
+   //    //
+   //    // if(strApplicationServerName.has_char())
+   //    // {
+   //    //
+   //    //    informationf("node::defer_notify_startup_complete application server name : %s", strApplicationServerName.c_str());
+   //    //
+   //    //    gdk_notify_startup_complete_with_id (strApplicationServerName);
+   //    //
+   //    // }
+   //    // else
+   //    // {
+   //    //
+   //    //    informationf("node::defer_notify_startup_complete gdk_notify_startup_complete");
+   //    //
+   //    //    gdk_notify_startup_complete();
+   //    //
+   //    // }
+   //    //
+   //    // informationf("node::defer_notify_startup_complete END");
+   //
+   // }
 
 
    void node::start_node()

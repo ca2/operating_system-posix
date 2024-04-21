@@ -10,7 +10,7 @@
 #ifdef WITH_X11
 #include <X11/Xlib.h>
 //::e_status deferx_initializex_x11();
-Display * x11_get_display();
+//Display * x11_get_display();
 #endif
 #ifdef WITH_XCB
 #include <X11/Xlib-xcb.h>

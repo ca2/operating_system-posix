@@ -69,6 +69,8 @@ namespace node_gtk3
 
       //#endif
 
+      void initialize(::particle * pparticle) override;
+
       void modify_icon(::windowing::icon * picon) override;
 
       void create_notify_icon(const ::atom & atom, ::user::interaction * puserinteractionNotify, ::windowing::icon * picon) override;

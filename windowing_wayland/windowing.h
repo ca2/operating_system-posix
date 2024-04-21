@@ -72,7 +72,7 @@ namespace windowing_wayland
 
       //void start() override;
 
-      //void _libsn_start_context()  override;
+      //void _libsnx_start_context()  override;
 
       ::windowing::display * display() override;
 

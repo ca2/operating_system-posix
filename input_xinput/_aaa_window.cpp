@@ -1189,7 +1189,7 @@ namespace windowing_x11
          (const unsigned char *) (const char *) path,
          path.length());
 
-      informationf("windowing_x11::window::bamf_set_icon END");
+      informationf("windowingx_x11::windoxw::bamfx_set_icon END");
 
       //fflush(stdout);
 

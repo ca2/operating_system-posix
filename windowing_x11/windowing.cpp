@@ -146,7 +146,7 @@ namespace windowing_x11
 //      if(pnode)
 //      {
 //
-//         _libsn_start_context();
+//         _libsnx_start_context();
 //
 //         branch_element(pnode);
 //
@@ -387,13 +387,6 @@ namespace windowing_x11
    }
 
 
-//   void windowing::_message_handler(void * p)
-//   {
-//
-//      XEvent * pevent = (XEvent *) p;
-//
-//   }
-
 
    ::windowing::window_base * windowing::get_keyboard_focus(::thread *)
    {
@@ -524,6 +517,8 @@ namespace windowing_x11
 
    bool windowing::message_loop_step()
    {
+
+      information() << "windowing_x11::windowing::message_loop_step";
 
       if(!x11_message_loop_step())
       {

@@ -61,6 +61,7 @@ namespace windowing_x11
       XSyncCounter                                 m_xsynccounterNetWmSync;
       XSyncValue                                   m_xsyncvalueNetWmSync;
       XSyncValue                                   m_xsyncvalueNetWmSyncPending;
+      void *                                       m_pSnLauncheeContextSetup;
       //static oswindow_dataptra *                 s_pdataptra;
       //static::pointer< ::mutex >                 s_pmutex;
       //bool                                         m_bNetWmStateHidden;
@@ -91,6 +92,9 @@ namespace windowing_x11
 
 
       void create_window() override;
+
+
+      void on_finished_window_creation() override;
 
 
       static Atom get_window_long_atom(i32 nIndex);
@@ -187,7 +191,7 @@ namespace windowing_x11
       bool is_destroying() override;
       
 
-      virtual bool bamf_set_icon();
+      virtual ::e_status _bamf_set_icon_unlocked(const ::file::path & path);
 
 
       virtual bool set_icon(::image * pimage);

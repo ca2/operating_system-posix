@@ -145,6 +145,8 @@ namespace windowing_x11
    bool buffer::update_buffer(::graphics::buffer_item * pbufferitem)
    {
 
+      information() << "x11 buffer::update_buffer";
+
       auto pwindowing = m_pimpl->m_puserinteraction->windowing();
 
       auto pdisplay = pwindowing->display();
@@ -193,6 +195,8 @@ namespace windowing_x11
          }
 
       }
+
+      information() << "x11 buffer::update_buffer sizeLargeInternalBitmap : " << sizeLargeInternalBitmap;
 
       return ::graphics::double_buffer::update_buffer(pbufferitem);
 
@@ -362,6 +366,8 @@ namespace windowing_x11
    bool buffer::update_screen()
    {
 
+      information() << "x11 buffer::update_screen";
+
       if (m_pimpl == nullptr)
       {
 
@@ -426,6 +432,8 @@ namespace windowing_x11
    bool buffer::_update_screen_unlocked(::graphics::buffer_item * pitem)
    {
 
+      information() << "x11 buffer::_update_screen_unlocked";
+
       auto sizeBitBlitting = pitem->m_size;
 
       if (sizeBitBlitting.is_empty())
@@ -434,6 +442,8 @@ namespace windowing_x11
          return false;
 
       }
+
+      information() << "x11 buffer::_update_screen_unlocked sizeBitBlitting : " << sizeBitBlitting;
 
       auto & pimage = pitem->m_pimage2;
 
@@ -454,6 +464,8 @@ namespace windowing_x11
 
       if (m_bUseXShmIfAvailable)
       {
+
+         information() << "x11 buffer::_update_screen_unlocked m_bUseXShmIfAvailable";
 
          if (!m_bXShmChecked)
          {
@@ -509,6 +521,8 @@ namespace windowing_x11
 
             XShmAttach(x11_window()->Display(), &m_xshmsegmentinfo);
 
+            information() << "x11 buffer::_update_screen_unlocked Created SHM!!";
+
          }
 
       }
@@ -542,6 +556,9 @@ namespace windowing_x11
                   sizeBitBlitting.cy(),
                   sizeof(color32_t) * 8,
                   pimage->scan_size());
+
+
+            information() << "x11 buffer::_update_screen_unlocked Created XImage!!";
 
          }
 
@@ -760,11 +777,15 @@ namespace windowing_x11
          if(!update_buffer(pbufferitem))
          {
 
+            information() << "::windowing_x11::buffer::_on_begin_draw !update_buffer";
+
             return false;
 
          }
 
       }
+
+      information() << "going to call double_buffer::_on_begin_draw";
 
       if(!double_buffer::_on_begin_draw(pbufferitem))
       {

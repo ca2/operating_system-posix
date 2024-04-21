@@ -13,8 +13,8 @@ list(APPEND library_source
         copydesk.h
    desktop_environment.cpp
    desktop_environment.h
-   display.cpp
-   display.h
+   #display.cpp
+   #display.h
    framework.cpp
    framework.h
    gconf.cpp

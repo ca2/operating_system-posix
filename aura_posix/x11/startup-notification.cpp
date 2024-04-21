@@ -9,6 +9,8 @@
 #include "windowing.h"
 #include "acme/platform/application.h"
 #include "acme/platform/context.h"
+#include "acme/platform/node.h"
+#include "acme/platform/system.h"
 #ifdef WITH_SN
 #define SN_API_NOT_YET_FROZEN
 #include <libsn/sn.h>
@@ -39,10 +41,30 @@ void on_sn_launch_complete(void * pSnContext)
 }
 
 
+// static void
+// sn_error_trap_push (SnDisplay *display,
+// 		    Display   *xdisplay)
+// {
+// 	GdkDisplay *gdkdisplay;
+//
+// 	gdkdisplay = gdk_display_get_default ();
+// 	gdk_x11_display_error_trap_push (gdkdisplay);
+// }
+//
+// static void
+// sn_error_trap_pop (SnDisplay *display,
+// 		   Display   *xdisplay)
+// {
+// 	GdkDisplay *gdkdisplay;
+//
+// }
+
 void x_display_error_trap_push(SnDisplay * sndisplay, Display * display)
 {
 
    g_iIgnoreXDisplayError++;
+
+   ::platform::get()->system()->node()->x11_display_error_trap_push(g_iIgnoreXDisplayError);
 
 }
 
@@ -54,12 +76,15 @@ void x_display_error_trap_pop(SnDisplay * sndisplay, Display * display)
 
    g_iIgnoreXDisplayError--;
 
-   if(g_iIgnoreXDisplayError == 0)
-   {
+   ::platform::get()->system()->node()->x11_display_error_trap_pop_ignored(g_iIgnoreXDisplayError);
 
-      XSync(display, false);
+   // if(g_iIgnoreXDisplayError == 0)
+   // {
+   //
+   //    XSync(display, false);
+   //
+   // }
 
-   }
 
 }
 
@@ -71,14 +96,20 @@ namespace windowing_posix
    void windowing::_libsn_start_context()
    {
 
-      Display * pdisplay = (Display *) display()->_m_pX11Display;
+      information() << "_libsn_start_context Starting";
+
+      Display * pdisplay = (Display *) node()->x11_get_display();
 
       if(::is_null(pdisplay))
       {
 
+         information() << "Couldn't start startup notification context. Display is not set!!";
+
          return;
 
       }
+
+      informationf("_libsn_start_context Starting : %llX", (::uptr) pdisplay);
 
       SnDisplay * psndisplay = sn_display_new(pdisplay, &x_display_error_trap_push, &x_display_error_trap_pop);
 
@@ -91,6 +122,8 @@ namespace windowing_posix
       strWMClass.find_replace("/", ".");
 
       m_pSnLauncheeContext = sn_launchee_context_new(psndisplay, iScreen, strWMClass);
+
+      informationf("_libsn_start_context Starting m_pSnLauncheeContext: %llX", (::uptr) m_pSnLauncheeContext);
 
    }
 

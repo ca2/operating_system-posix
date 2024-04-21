@@ -24,11 +24,11 @@ namespace node_gtk3
    ~desktop_environment() override;
 
 
-   //virtual ::e_status _get_monitor_rectangle(::index iMonitor, ::rectangle_i32 * prectangle);
+   virtual ::e_status _get_monitor_rectangle(::index iMonitor, ::rectangle_i32 * prectangle);
    virtual ::e_status _get_workspace_rectangle(::index iMonitor, ::rectangle_i32 * prectangle);
 //
 //
-//   void get_monitor_rectangle(::index iMonitor, ::rectangle_i32 * prectangle) override;
+   void get_monitor_rectangle(::index iMonitor, ::rectangle_i32 * prectangle) override;
    void get_workspace_rectangle(::index iMonitor, ::rectangle_i32 * prectangle) override;
 //
 //

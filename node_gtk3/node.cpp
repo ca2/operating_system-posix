@@ -14,6 +14,7 @@
 #include "apex/operating_system/freedesktop/desktop_file.h"
 #include "acme/handler/topic.h"
 #include "acme/operating_system/summary.h"
+#include "acme/parallelization/manual_reset_event.h"
 #include "acme/user/user/os_theme_colors.h"
 #include "acme/user/user/theme_colors.h"
 #include "apex/input/input.h"
@@ -38,6 +39,10 @@
 
 
 #include <cairo/cairo.h>
+
+
+CLASS_DECL_ACME void set_x11_thread();
+CLASS_DECL_ACME int x11_init_threads();
 
 
 enum_display_type calculate_display_type();
@@ -439,7 +444,7 @@ void gtk_settings_gtk_icon_theme_name_callback(GObject *object, GParamSpec *pspe
 //void aaa_x11_add_idle_source();
 
 
-void x11_add_filter();
+void x11_add_filter(void * p);
 
 
 //void x11_main();
@@ -530,18 +535,18 @@ namespace node_gtk3
 //   }
 
 
-   void node::defer_notify_startup_complete()
-   {
-
-      auto psystem = system()->m_papexsystem;
-
-      string strApplicationServerName = psystem->get_application_server_name();
-
-      gdk_notify_startup_complete_with_id(strApplicationServerName);
-
-      gdk_notify_startup_complete();
-
-   }
+   // void node::defer_notify_startup_complete()
+   // {
+   //
+   //    // auto psystem = system()->m_papexsystem;
+   //    //
+   //    // string strApplicationServerName = psystem->get_application_server_name();
+   //    //
+   //    // gdk_notify_startup_complete_with_id(strApplicationServerName);
+   //    //
+   //    // gdk_notify_startup_complete();
+   //
+   // }
 
 
    void node::on_start_system()
@@ -636,7 +641,7 @@ namespace node_gtk3
 
                       // This seems not to work with "foreign" windows
                       // (X11 windows not created with Gdk)
-                      //x11_add_filter();
+                      x11_add_filter(this);
 
                       information() << "node_gtk3::system_main on user_post";
 
@@ -701,7 +706,9 @@ namespace node_gtk3
 
                       }
 
-                      windowing_message_loop_add_idle_source(this);
+                      information() << "node_gtk3::system_main going to windowing_message_loop_add_idle_source";
+
+                      //windowing_message_loop_add_idle_source(this);
 
                       auto psystem = system()->m_papexsystem;
 
@@ -724,6 +731,14 @@ namespace node_gtk3
          //aaa_x11_add_idle_source(this);
 
          ::set_main_user_thread(::current_htask());
+
+#if defined(WITH_X11)
+
+         set_x11_thread();
+
+#endif
+
+         information() << "node_gtk3::system_main GTK_MAIN";
 
          gtk_main();
 
@@ -774,14 +789,14 @@ namespace node_gtk3
    bool node::windowing_message_loop_step()
    {
 
-      //information() << "node::windowing_message_loop_step";
+      information() << "node::windowing_message_loop_step";
 
       auto psession = session();
 
       if (::is_null(psession))
       {
 
-         //information() << "node::windowing_message_loop_step NO SESSION";
+         information() << "node::windowing_message_loop_step NO SESSION";
 
          return true;
 
@@ -792,7 +807,7 @@ namespace node_gtk3
       if (::is_null(paurasession))
       {
 
-         //information() << "node::windowing_message_loop_step NO AURA SESSION";
+         information() << "node::windowing_message_loop_step NO AURA SESSION";
 
          return true;
 
@@ -803,7 +818,7 @@ namespace node_gtk3
       if (::is_null(puser))
       {
 
-         //information() << "node::windowing_message_loop_step NO SESSION USER";
+         information() << "node::windowing_message_loop_step NO SESSION USER";
 
          return true;
 
@@ -814,13 +829,13 @@ namespace node_gtk3
       if (::is_null(pwindowing))
       {
 
-         //information() << "node::windowing_message_loop_step NO USER WINDOWING";
+         information() << "node::windowing_message_loop_step NO USER WINDOWING";
 
          return true;
 
       }
 
-      //information() << "node::windowing_message_loop_step at windowing";
+      information() << "node::windowing_message_loop_step at windowing";
 
       bool bRet = pwindowing->message_loop_step();
 
@@ -2417,6 +2432,141 @@ namespace node_gtk3
    }
 
 
+   ::e_status node::x11_initialize()
+   {
+
+      informationf("node_gtk3::node::x11_initialize");
+
+      informationf("node_gtk3::node::x11_initialize going to call x11_init_threads");
+
+      if (!x11_init_threads())
+      {
+
+          return ::error_failed;
+
+      }
+
+      // gdk_x11 does error handling?!?!?!
+      //XSetErrorHandler(_c_XErrorHandler);
+
+      //g_pmutexX11 = __new< ::pointer < ::mutex > >();
+
+      return ::success;
+
+   }
+
+
+
+   void * node::x11_get_display()
+   {
+
+      //return ::acme::node::x11_get_display();
+
+      x11_defer_initialize();
+
+      if(m_pvoidX11Display == NULL)
+      {
+
+         GdkDisplay *gdkdisplay;
+
+         gdkdisplay = gdk_display_get_default ();
+
+         m_pvoidX11Display =  gdk_x11_display_get_xdisplay(gdkdisplay);
+
+         printf("Got this Display from gdk_x11 display : %llX", (::uptr) m_pvoidX11Display);
+
+      }
+
+      return m_pvoidX11Display;
+
+   }
+
+
+   void node::x11_sync(const ::procedure & procedure)
+   {
+
+      if(::is_main_thread())
+      {
+
+         procedure();
+
+         return;
+
+      }
+
+      //__matter_send_procedure(this, this, &node::node_post, procedure);
+
+//      CLASS_DECL_ACME bool main_synchronous(const class time & time, const ::procedure & function)
+//      {
+
+         auto pevent = __allocate< manual_reset_event >();
+
+         user_post([ procedure, pevent ]
+                           {
+
+                                 procedure();
+
+                                    pevent->SetEvent();
+
+                           });
+
+         if(!pevent->wait(procedure.m_timeTimeout))
+         {
+
+            throw ::exception(error_timeout);
+            //pevent.release();
+
+            //return false;
+
+         }
+
+         ///return true;
+//
+//      }
+
+
+   }
+
+
+   void node::x11_async(const ::procedure & procedure)
+   {
+
+      gdk_branch(procedure);
+
+   }
+
+
+   void node::x11_display_error_trap_push(int i)
+   {
+
+      if(system()->m_ewindowing == e_windowing_x11)
+      {
+
+         GdkDisplay *gdkdisplay;
+
+         gdkdisplay = gdk_display_get_default ();
+         gdk_x11_display_error_trap_push (gdkdisplay);
+
+      }
+
+   }
+
+
+   void node::x11_display_error_trap_pop_ignored(int i)
+   {
+
+      if(system()->m_ewindowing == e_windowing_x11)
+      {
+
+         GdkDisplay *gdkdisplay;
+         gdkdisplay = gdk_display_get_default ();
+         gdk_x11_display_error_trap_pop_ignored (gdkdisplay);
+
+      }
+
+   }
+
+
 } // namespace node_gtk3
 
 
@@ -2540,12 +2690,12 @@ GdkFilterReturn x11_event_func(GdkXEvent *xevent, GdkEvent *event, gpointer data
 
 // This seems not to work with "foreign" windows
 // (X11 windows not created with Gdk)
-void x11_add_filter()
+void x11_add_filter(void * p)
 {
 
    // This seems not to work with "foreign" windows
    // (X11 windows not created with Gdk)
-   gdk_window_add_filter(nullptr, &x11_event_func, nullptr);
+   gdk_window_add_filter(nullptr, &x11_event_func, p);
 
 }
 

@@ -635,7 +635,7 @@ namespace node_gtk4
 
                       // This seems not to work with "foreign" windows
                       // (X11 windows not created with Gdk)
-                      //x11_add_filter();
+                      x11_add_filter();
 
                       information() << "node_gtk4::system_main on user_post";
 

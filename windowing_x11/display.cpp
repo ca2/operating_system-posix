@@ -147,6 +147,7 @@ namespace windowing_x11
 
       }
 
+      information() << "::windowing_x11::display::open_display";
 
       bool bBranch = !session()->m_paurasession->user()->m_pdesktopenvironment->m_bUnhook;
 
@@ -157,7 +158,7 @@ namespace windowing_x11
       //m_px11display = ::x11::display::get(this, false, px11displayGdk);
 
       // Using another new and different X11 Display connection apart from Gtk.
-      m_px11display = ::x11::display::get(this, false);
+      m_px11display = ::x11::display::_nano_get_x11_display(this, false);
 
       if (::is_null(m_px11display))
       {

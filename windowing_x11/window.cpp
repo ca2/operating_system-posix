@@ -26,6 +26,9 @@
 #include "acme/operating_system/x11/display_lock.h"
 
 
+#include <inttypes.h>
+
+
 void on_sn_launch_context(void * pSnContext, Window window);
 
 void on_sn_launch_complete(void * pSnContext);
@@ -35,6 +38,7 @@ void on_sn_launch_complete(void * pSnContext);
 
 
 void x11_sync(const ::procedure & procedure);
+void x11_async(const ::procedure & procedure);
 
 
 #undef ALOG_CONTEXT
@@ -56,6 +60,8 @@ namespace windowing_x11
       m_iXic = 0;
 
       m_xic = nullptr;
+
+      m_pSnLauncheeContextSetup = nullptr;
 
 
       //m_bNetWmStateHidden = false;
@@ -103,520 +109,533 @@ namespace windowing_x11
    void window::create_window()
    {
 
-      x11_sync([this]()
+      ::e_status estatus = error_failed;
+
+      x11_sync([this, &estatus]()
       {
 
-      bool bOk = true;
+         //bool bOk = true;
 
-      auto pimpl = m_puserinteractionimpl;
-
-      {
-
-         //synchronous_lock synchronouslock(user_synchronization());
-
-         auto pusersystem = pimpl->m_puserinteraction->m_pusersystem;
-
-         pimpl->m_puserinteraction->m_bMessageWindow = false;
-
-         auto pwindowing = x11_windowing();
-
-         auto pwindowingdisplay = pwindowing->display();
-
-         auto pdisplayx11 = dynamic_cast < ::windowing_x11::display * > (pwindowingdisplay);
-
-         ::Display * display = pdisplayx11->Display();
-
-         if (display == nullptr)
-         {
-
-            err_line("ERROR: Could not open display");
-
-            bOk = false;
-
-            //return ::success;
-            throw ::exception(error_failed);
-
-         }
-
-         //m_puserinteractionimpl = pimpl;
-
-         //m_puserinteractionimpl->m_puserinteraction->m_pwindow = this;
-
-         // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
-         // {
-
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
-
-         // }
-         // else
-         // {
-
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
-
-         // }
-
-         // fflush(stdout);
-
-         m_puserinteractionimpl->m_puserinteraction->m_puserinteractionTopLevel = m_puserinteractionimpl->m_puserinteraction;
-
-         m_pdisplay = pwindowing->display();
-
-         pimpl->m_pwindow = this;
-
-         // printf("pimpl->m_pwindow.m_p (0x%x)\n", pimpl->m_pwindow.m_p);
-         // printf("pimpl->m_pwindow.m_pelement (0x%x)\n", pimpl->m_pwindow.m_pelement);
-
-         ::x11::display_lock displaylock(pdisplayx11->Display());
-
-         int x = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().x();
-
-         int y = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().y();
-
-         int cx = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().width();
-
-         int cy = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().height();
-
-         bool bVisible = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().is_screen_visible();
-
-         //      if(pusersystem)
-         //      {
-         //
-         //         if (pusersystem->m_createstruct.x <= 0)
-         //         {
-         //
-         //            x = pusersystem->m_createstruct.x;
-         //
-         //         }
-         //
-         //         if (pusersystem->m_createstruct.y <= 0)
-         //         {
-         //
-         //            y = pusersystem->m_createstruct.y;
-         //
-         //         }
-         //
-         //         if (pusersystem->m_createstruct.cx() <= 0)
-         //         {
-         //
-         //            cx = 1;
-         //
-         //         }
-         //
-         //         if (pusersystem->m_createstruct.cy() <= 0)
-         //         {
-         //
-         //            cy = 1;
-         //
-         //         }
-         //
-         //         if (pusersystem->m_createstruct.style & WS_VISIBLE)
-         //         {
-         //
-         //            bVisible = true;
-         //
-         //         }
-         //
-         //      }
-
-         if (cx <= 0)
-         {
-
-            cx = 1;
-
-         }
-
-         if (cy <= 0)
-         {
-
-            cy = 1;
-
-         }
-
-         ::Window rootwin = RootWindow(display, pdisplayx11->m_iScreen);
-
-         XEvent e;
-
-         // query Visual for "TrueColor" and 32 bits depth (RGBA)
-
-         ::Visual * visual = DefaultVisual(display, DefaultScreen(display));
-
-         m_iDepth = 0;
-
-         if (m_px11data.is_null())
-         {
-
-            m_px11data = __allocate< x11data >();
-
-         }
-
-         if (XMatchVisualInfo(display, DefaultScreen(display), 32, TrueColor, &m_visualinfo))
-         {
-
-            visual = m_visualinfo.visual;
-
-         } else
-         {
-
-            zero(m_visualinfo);
-
-         }
-
-         m_iDepth = m_visualinfo.depth;
-
-         XSetWindowAttributes attr;
-
-         zero(attr);
-
-         attr.colormap = pdisplayx11->m_colormap;
-
-         attr.event_mask =
-            PropertyChangeMask | ExposureMask | ButtonPressMask | ButtonReleaseMask | KeyPressMask | KeyReleaseMask |
-            PointerMotionMask | StructureNotifyMask | FocusChangeMask | LeaveWindowMask | EnterWindowMask;
-
-         attr.background_pixmap = None;
-
-         attr.border_pixmap = None;
-
-         attr.border_pixel = 0;
-
-         attr.override_redirect =
-            pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning ? True : False;
-
-         //attr.override_redirect = True;
-
-         m_xsynccounterNetWmSync = None;
-         XSyncIntToValue(&m_xsyncvalueNetWmSync, 0);
-         XSyncIntToValue(&m_xsyncvalueNetWmSyncPending, 0);
-
-         informationf("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
-
-         //m_bNetWmStateHidden = false;
-         //m_bNetWmStateMaximized = false;
-         //m_bNetWmStateFocused = false;
-
-         m_atomaNetWmState.clear();
-
-         ::Window window = XCreateWindow(display, DefaultRootWindow(display),
-                                         x, y,
-                                         cx, cy,
-                                         0,
-                                         m_iDepth,
-                                         InputOutput,
-                                         visual,
-                                         CWColormap | CWEventMask | CWBackPixmap | CWBorderPixel
-                                         | CWOverrideRedirect, &attr);
+         auto pimpl = m_puserinteractionimpl;
 
          {
 
-            XSizeHints sizehints = {0};
+            //synchronous_lock synchronouslock(user_synchronization());
 
-            sizehints.flags = PPosition | PSize;     /* I want to specify position and size */
-            sizehints.x = x;       /* The origin and size coords I want */
-            sizehints.y = y;
-            sizehints.width = cx;
-            sizehints.height = cy;
+            auto pusersystem = pimpl->m_puserinteraction->m_pusersystem;
 
-            XSetNormalHints(display, window, &sizehints);  /* Where new_window is the new window */
+            pimpl->m_puserinteraction->m_bMessageWindow = false;
 
-         }
+            auto pwindowing = x11_windowing();
+
+            auto pwindowingdisplay = pwindowing->display();
+
+            auto pdisplayx11 = dynamic_cast < ::windowing_x11::display * > (pwindowingdisplay);
+
+            ::Display * display = pdisplayx11->Display();
+
+            if (display == nullptr)
+            {
+
+               err_line("ERROR: Could not open display");
+
+               //bOk = false;
+
+               //return ::success;
+               estatus = error_failed;
+
+               return;
+
+            }
+
+            //m_puserinteractionimpl = pimpl;
+
+            //m_puserinteractionimpl->m_puserinteraction->m_pwindow = this;
+
+            // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+            // {
+
+            //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+            //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+
+            // }
+            // else
+            // {
+
+            //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+            //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+
+            // }
+
+            // fflush(stdout);
+
+            m_puserinteractionimpl->m_puserinteraction->m_puserinteractionTopLevel = m_puserinteractionimpl->m_puserinteraction;
+
+            m_pdisplay = pwindowing->display();
+
+            pimpl->m_pwindow = this;
+
+            // printf("pimpl->m_pwindow.m_p (0x%x)\n", pimpl->m_pwindow.m_p);
+            // printf("pimpl->m_pwindow.m_pelement (0x%x)\n", pimpl->m_pwindow.m_pelement);
+
+            ::x11::display_lock displaylock(pdisplayx11->Display());
+
+            int x = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().x();
+
+            int y = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().y();
+
+            int cx = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().width();
+
+            int cy = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().height();
+
+            bool bVisible = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().is_screen_visible();
+
+            //      if(pusersystem)
+            //      {
+            //
+            //         if (pusersystem->m_createstruct.x <= 0)
+            //         {
+            //
+            //            x = pusersystem->m_createstruct.x;
+            //
+            //         }
+            //
+            //         if (pusersystem->m_createstruct.y <= 0)
+            //         {
+            //
+            //            y = pusersystem->m_createstruct.y;
+            //
+            //         }
+            //
+            //         if (pusersystem->m_createstruct.cx() <= 0)
+            //         {
+            //
+            //            cx = 1;
+            //
+            //         }
+            //
+            //         if (pusersystem->m_createstruct.cy() <= 0)
+            //         {
+            //
+            //            cy = 1;
+            //
+            //         }
+            //
+            //         if (pusersystem->m_createstruct.style & WS_VISIBLE)
+            //         {
+            //
+            //            bVisible = true;
+            //
+            //         }
+            //
+            //      }
+
+            if (cx <= 0)
+            {
+
+               cx = 1;
+
+            }
+
+            if (cy <= 0)
+            {
+
+               cy = 1;
+
+            }
+
+            ::Window rootwin = RootWindow(display, pdisplayx11->m_iScreen);
+
+            XEvent e;
+
+            // query Visual for "TrueColor" and 32 bits depth (RGBA)
+
+            ::Visual * visual = DefaultVisual(display, DefaultScreen(display));
+
+            m_iDepth = 0;
+
+            if (m_px11data.is_null())
+            {
+
+               m_px11data = __allocate< x11data >();
+
+            }
+
+            if (XMatchVisualInfo(display, DefaultScreen(display), 32, TrueColor, &m_visualinfo))
+            {
+
+               visual = m_visualinfo.visual;
+
+            } else
+            {
+
+               zero(m_visualinfo);
+
+            }
+
+            m_iDepth = m_visualinfo.depth;
+
+            XSetWindowAttributes attr;
+
+            zero(attr);
+
+            attr.colormap = pdisplayx11->m_colormap;
+
+            attr.event_mask =
+               PropertyChangeMask | ExposureMask | ButtonPressMask | ButtonReleaseMask | KeyPressMask | KeyReleaseMask |
+               PointerMotionMask | StructureNotifyMask | FocusChangeMask | LeaveWindowMask | EnterWindowMask;
+
+            attr.background_pixmap = None;
+
+            attr.border_pixmap = None;
+
+            attr.border_pixel = 0;
+
+            attr.override_redirect =
+               pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning ? True : False;
+
+            //attr.override_redirect = True;
+
+            m_xsynccounterNetWmSync = None;
+            XSyncIntToValue(&m_xsyncvalueNetWmSync, 0);
+            XSyncIntToValue(&m_xsyncvalueNetWmSyncPending, 0);
+
+            informationf("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
+
+            //m_bNetWmStateHidden = false;
+            //m_bNetWmStateMaximized = false;
+            //m_bNetWmStateFocused = false;
+
+            m_atomaNetWmState.clear();
+
+            ::Window window = XCreateWindow(display, DefaultRootWindow(display),
+                                          x, y,
+                                          cx, cy,
+                                          0,
+                                          m_iDepth,
+                                          InputOutput,
+                                          visual,
+                                          CWColormap | CWEventMask | CWBackPixmap | CWBorderPixel
+                                          | CWOverrideRedirect, &attr);
+
+            {
+
+               XSizeHints sizehints = {0};
+
+               sizehints.flags = PPosition | PSize;     /* I want to specify position and size */
+               sizehints.x = x;       /* The origin and size coords I want */
+               sizehints.y = y;
+               sizehints.width = cx;
+               sizehints.height = cy;
+
+               XSetNormalHints(display, window, &sizehints);  /* Where new_window is the new window */
+
+            }
 
 
 
-         // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
-         // {
+            // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+            // {
 
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (2)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+            //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (2)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+            //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
 
-         // }
-         // else
-         // {
+            // }
+            // else
+            // {
 
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (2)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+            //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (2)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+            //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
 
-         // }
+            // }
 
-         // fflush(stdout);
-
-
-         //auto & windowstate3 = pimpl->m_puserinteraction->m_layout.window();
-
-         //windowstate3.origin() = {INT_MIN, INT_MIN};
-
-         //windowstate3.size() = {INT_MIN, INT_MIN};
-
-         //windowstate3.screen_origin() = {INT_MIN, INT_MIN};
-
-         //auto & state = pimpl->m_puserinteraction->m_layout.design();
-
-         //state.origin() = {x, y};
-
-         //state.size() = {cx, cy};
-
-         //state.screen_origin() = state.origin();
-
-         if (window == 0)
-         {
-
-            bOk = false;
-
-            throw ::exception(error_failed);
-
-         }
-
-         auto estatus = initialize_x11_window(pdisplayx11, window, visual, m_iDepth, pdisplayx11->m_iScreen,
-                                              attr.colormap);
-
-         if (!estatus)
-         {
-
-            throw ::exception(error_failed);
-
-         }
-
-         // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
-         // {
-
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (3)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
-
-         // }
-         // else
-         // {
-
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (3)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
-
-         // }
-
-         //fflush(stdout);
+            // fflush(stdout);
 
 
-         set_oswindow(this);
+            //auto & windowstate3 = pimpl->m_puserinteraction->m_layout.window();
 
-         set_os_data((void *) window);
+            //windowstate3.origin() = {INT_MIN, INT_MIN};
 
-         _enable_net_wm_sync();
+            //windowstate3.size() = {INT_MIN, INT_MIN};
 
-         //pimpl->set_os_data((::windowing::window *)this);
+            //windowstate3.screen_origin() = {INT_MIN, INT_MIN};
 
-         //set_os_data(LAYERED_X11, (::windowing_x11::window *)this);
+            //auto & state = pimpl->m_puserinteraction->m_layout.design();
 
-         //pimpl->set_os_data(LAYERED_X11, (::windowing_x11::window *)this);
+            //state.origin() = {x, y};
 
-         pimpl->m_puserinteraction->m_pinteractionimpl = pimpl;
+            //state.size() = {cx, cy};
 
-         pimpl->m_puserinteraction->increment_reference_count(
-            REFERENCING_DEBUGGING_P_NOTE(this, "native_create_window"));
+            //state.screen_origin() = state.origin();
 
-         auto papp = get_app();
+            if (window == 0)
+            {
 
-         if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
-         {
+               //bOk = false;
+
+               estatus = error_failed;
+
+               return;
+
+            }
+
+            auto estatus = initialize_x11_window(pdisplayx11, window, visual, m_iDepth, pdisplayx11->m_iScreen,
+                                                attr.colormap);
+
+            if (!estatus)
+            {
+
+               estatus = error_failed;
+
+               return;
+
+            }
+
+            // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+            // {
+
+            //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (3)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+            //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+
+            // }
+            // else
+            // {
+
+            //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (3)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+            //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+
+            // }
+
+            //fflush(stdout);
+
+
+            set_oswindow(this);
+
+            set_os_data((void *) window);
+
+            _enable_net_wm_sync();
+
+            //pimpl->set_os_data((::windowing::window *)this);
+
+            //set_os_data(LAYERED_X11, (::windowing_x11::window *)this);
+
+            //pimpl->set_os_data(LAYERED_X11, (::windowing_x11::window *)this);
+
+            pimpl->m_puserinteraction->m_pinteractionimpl = pimpl;
+
+            pimpl->m_puserinteraction->increment_reference_count(
+               REFERENCING_DEBUGGING_P_NOTE(this, "native_create_window"));
+
+            auto papp = get_app();
+
+            if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
+            {
+
+               auto psystem = system()->m_papexsystem;
+
+               string strApplicationServerName = psystem->get_application_server_name();
+
+               set_wm_class(strApplicationServerName);
+
+               //         XClassHint * pupdate = XAllocClassHint();
+               //
+               //         auto psystem = system()->m_papexsystem;
+               //
+               //         string strApplicationServerName = psystem->get_application_server_name();
+               //
+               //         pupdate->res_class = (char *) (const char *) strApplicationServerName;
+               //
+               //         pupdate->res_name = (char *) (const char *) strApplicationServerName;
+               //
+               //         XSetClassHint(display, window, pupdate);
+               //
+               //         XFree(pupdate);
+
+            }
+
+            // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+            // {
+
+            //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (4) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+            //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+
+            // }
+            // else
+            // {
+
+            //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (4) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+            //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+
+            // }
+
+            // fflush(stdout);
+
+
+            if (pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_dock_window)
+            {
+
+               wm_dockwindow(true);
+
+            } else if (pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_desktop_window)
+            {
+
+               wm_desktopwindow(true);
+
+            } else if (pimpl->m_puserinteraction->const_layout().sketch().activation() & e_activation_on_center_of_screen)
+            {
+
+               wm_centerwindow(true);
+
+            } else if (pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window
+                     || pimpl->m_puserinteraction->m_bToolWindow)
+            {
+
+               wm_toolwindow(true);
+
+            } else
+            {
+
+               wm_normalwindow();
+
+            }
+
+            //m_px11data->m_pgdkwindow = gdk_x11_window_foreign_new_for_display(gdk_display_get_default(), window);
+
+            ::Window root = 0;
+
+            ::Window * pchildren = nullptr;
+
+            u32 ncount = 0;
+
+            XQueryTree(display, window, &root, &m_parent, &pchildren, &ncount);
+
+            if (pchildren != nullptr)
+            {
+
+               XFree(pchildren);
+
+            }
+
+            htask_t htask = ::current_htask();
+
+            m_htask = htask;
+
+            if (!XGetWindowAttributes(Display(), Window(), &m_px11data->m_attr))
+            {
+
+               information() << "freebsd::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.";
+
+            }
+
+            int event_base, error_base, major_version, minor_version;
+
+            pimpl->m_bComposite = XGetSelectionOwner(Display(), x11_display()->intern_atom("_NET_WM_CM_S0", True));
+
+            string strName;
+
+            //      if (pusersystem && pusersystem->m_createstruct.lpszName != nullptr && strlen(pusersystem->m_createstruct.lpszName) > 0)
+            //      {
+            //
+            //         strName = pusersystem->m_createstruct.lpszName;
+            //
+            //      }
+
+            //if(strName.is_empty())
+            //{
+
+            string strWindowText = pimpl->m_puserinteraction->get_window_text();
+
+            if (strWindowText.has_char())
+            {
+
+               strName = strWindowText;
+
+            }
+
+            //}
+
+            if (strName.has_char())
+            {
+
+               XStoreName(Display(), Window(), strName);
+
+            }
+
+            // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+            // {
+
+            //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!!(5) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+            //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+
+            // }
+            // else
+            // {
+
+            //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!!(5) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+            //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+
+            // }
+
+            // fflush(stdout);
 
             auto psystem = system()->m_papexsystem;
 
-            string strApplicationServerName = psystem->get_application_server_name();
+            auto pnode = psystem->node();
 
-            set_wm_class(strApplicationServerName);
+   //         auto papp = get_app();
 
-            //         XClassHint * pupdate = XAllocClassHint();
-            //
-            //         auto psystem = system()->m_papexsystem;
-            //
-            //         string strApplicationServerName = psystem->get_application_server_name();
-            //
-            //         pupdate->res_class = (char *) (const char *) strApplicationServerName;
-            //
-            //         pupdate->res_name = (char *) (const char *) strApplicationServerName;
-            //
-            //         XSetClassHint(display, window, pupdate);
-            //
-            //         XFree(pupdate);
+            ::file::path pathDesktop = pnode->get_desktop_file_path(papp);
 
-         }
+            _bamf_set_icon_unlocked(pathDesktop);
 
-         // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
-         // {
+            informationf("windowing_x11::window::create_window _wm_nodecorations");
 
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (4) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+            _wm_nodecorations(0);
 
-         // }
-         // else
-         // {
-
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (4) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
-
-         // }
-
-         // fflush(stdout);
-
-
-#ifndef RASPBERRYPIOS
-
-         if (pwindowing->m_pSnLauncheeContext != nullptr && !papp->m_bSnLauncheeSetup)
-         {
-
-            //papp->os_on_start_application();
-
-            on_sn_launch_context(pwindowing->m_pSnLauncheeContext, window);
-
-            papp->m_bSnLauncheeSetup = true;
-
-         }
-
-#endif
-
-         if (pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_dock_window)
-         {
-
-            wm_dockwindow(true);
-
-         } else if (pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_desktop_window)
-         {
-
-            wm_desktopwindow(true);
-
-         } else if (pimpl->m_puserinteraction->const_layout().sketch().activation() & e_activation_on_center_of_screen)
-         {
-
-            wm_centerwindow(true);
-
-         } else if (pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window
-                    || pimpl->m_puserinteraction->m_bToolWindow)
-         {
-
-            wm_toolwindow(true);
-
-         } else
-         {
-
-            wm_normalwindow();
-
-         }
-
-         //m_px11data->m_pgdkwindow = gdk_x11_window_foreign_new_for_display(gdk_display_get_default(), window);
-
-         ::Window root = 0;
-
-         ::Window * pchildren = nullptr;
-
-         u32 ncount = 0;
-
-         XQueryTree(display, window, &root, &m_parent, &pchildren, &ncount);
-
-         if (pchildren != nullptr)
-         {
-
-            XFree(pchildren);
-
-         }
-
-         htask_t htask = ::current_htask();
-
-         m_htask = htask;
-
-         if (!XGetWindowAttributes(Display(), Window(), &m_px11data->m_attr))
-         {
-
-            information() << "freebsd::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.";
-
-         }
-
-         int event_base, error_base, major_version, minor_version;
-
-         pimpl->m_bComposite = XGetSelectionOwner(Display(), x11_display()->intern_atom("_NET_WM_CM_S0", True));
-
-         string strName;
-
-         //      if (pusersystem && pusersystem->m_createstruct.lpszName != nullptr && strlen(pusersystem->m_createstruct.lpszName) > 0)
-         //      {
-         //
-         //         strName = pusersystem->m_createstruct.lpszName;
-         //
-         //      }
-
-         //if(strName.is_empty())
-         //{
-
-         string strWindowText = pimpl->m_puserinteraction->get_window_text();
-
-         if (strWindowText.has_char())
-         {
-
-            strName = strWindowText;
-
-         }
-
-         //}
-
-         if (strName.has_char())
-         {
-
-            XStoreName(Display(), Window(), strName);
-
-         }
-
-         // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
-         // {
-
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!!(5) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
-
-         // }
-         // else
-         // {
-
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!!(5) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
-
-         // }
-
-         // fflush(stdout);
-
-
-         bamf_set_icon();
-
-         _wm_nodecorations(0);
-
-         //if (pusersystem->m_createstruct.style & WS_VISIBLE)
-         if (bVisible)
-         {
-
-            map_window();
-
-         } else
-         {
-
-            pimpl->m_puserinteraction->const_layout().window().display() = e_display_none;
-
-         }
-
-         //if(m_px11data->m_attr.map_state != IsUnmapped)
-         {
-
-            if (!attr.override_redirect)
+            //if (pusersystem->m_createstruct.style & WS_VISIBLE)
+            if (bVisible)
             {
 
-               auto edisplay = pimpl->m_puserinteraction->const_layout().sketch().display();
+               informationf("windowing_x11::window::create_window map_window");
 
-               if (is_docking_appearance(edisplay))
+               map_window();
+
+            }
+            else
+            {
+
+               informationf("windowing_x11::window::create_window e_display_none");
+
+               pimpl->m_puserinteraction->const_layout().window().display() = e_display_none;
+
+            }
+
+            //if(m_px11data->m_attr.map_state != IsUnmapped)
+            {
+
+               if (!attr.override_redirect)
                {
 
-                  // window managers generally "don't like" windows that starts "docked/snapped".
-                  // initial (XCreateWindow) size_i32 and position maybe not be honored.
-                  // so requesting the same change again in a effort to set the "docked/snapped" size_i32 and position.
+                  informationf("windowing_x11::window::create_window !override_redirect");
 
-                  //set_window_position(e_zorder_top, pusersystem->m_createstruct.x, pusersystem->m_createstruct.y,
-                  //                  pusersystem->m_createstruct.cx(), pusersystem->m_createstruct.cy(), SWP_SHOWWINDOW);
+                  auto edisplay = pimpl->m_puserinteraction->const_layout().sketch().display();
 
-                  set_window_position(e_zorder_top, x, y, cx, cy, e_activation_set_active, false, false, false,
-                                      edisplay);
+                  if (is_docking_appearance(edisplay))
+                  {
+
+                     informationf("windowing_x11::window::create_window docking appearance");
+
+                     // window managers generally "don't like" windows that starts "docked/snapped".
+                     // initial (XCreateWindow) size_i32 and position maybe not be honored.
+                     // so requesting the same change again in a effort to set the "docked/snapped" size_i32 and position.
+
+                     //set_window_position(e_zorder_top, pusersystem->m_createstruct.x, pusersystem->m_createstruct.y,
+                     //                  pusersystem->m_createstruct.cx(), pusersystem->m_createstruct.cy(), SWP_SHOWWINDOW);
+
+                     set_window_position(e_zorder_top, x, y, cx, cy, e_activation_set_active, false, false, false,
+                                       edisplay);
+
+                  }
 
                }
 
@@ -624,8 +643,7 @@ namespace windowing_x11
 
          }
 
-
-      }
+         estatus = ::success;
 
 //      //displaylock.unlock();
 //
@@ -686,7 +704,7 @@ namespace windowing_x11
       // fflush(stdout);
 
 
-      if (bOk)
+      if (estatus.succeeded())
       {
 
          //auto lresult = pimpl->m_puserinteraction->send_message(e_message_create, 0, (lparam) &pusersystem->m_createstruct);
@@ -776,32 +794,166 @@ namespace windowing_x11
 
 #endif
 
+         informationf("windowing_x11::window::create_window e_message_create");
+
          auto lresult = pimpl->m_puserinteraction->send_message(e_message_create, 0, 0);
 
          if (lresult == -1)
          {
 
-            throw ::exception(error_failed);
+            informationf("windowing_x11::window::create_window e_message_create failed");
+
+            estatus = error_failed;
+
+            return;
 
          }
 
-         pimpl->m_puserinteraction->m_ewindowflag |= e_window_flag_window_created;
-
-         pimpl->m_puserinteraction->set_flag(e_flag_task_started);
-
-         //auto lresult2 = pimpl->m_puserinteraction->send_message(e_message_pos_create, 0, 0);
+         informationf("windowing_x11::window::create_window window created");
 
       }
 
-      });
+   });
+
+   if(estatus.failed())
+   {
+
+      throw ::exception(estatus, "::windowing_x11::window::create_window() Failed!!");
+
+   }
 
 
-      if (!(m_puserinteractionimpl->m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
-      {
+      // // if (!(m_puserinteractionimpl->m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
+      // // {
+      // //
+      // //    throw ::exception(error_failed);
+      // //
+      // // }
+      // // else
+      // // {
+      //
+      //                // //#ifdef WITH_SN
+      //
+      // auto pwindowing = x11_windowing();
+      //
+      // informationf("windowing : %" PRIXPTR, (::uptr) pwindowing);
+      //
+      // //  if (pwindowing->m_pSnLauncheeContext != nullptr)
+      // if (!pwindowing->m_bFirstWindowMap)
+      // {
+      //    x11_async([this]()
+      //    {
+      //
+      // auto pwindowing = x11_windowing();
+      //
+      // informationf("windowing : %" PRIXPTR, (::uptr) pwindowing);
+      // if (!pwindowing->m_bFirstWindowMap)
+      // {
+      //    informationf("window::finishing create_window first_window_map");
+      //
+      //    pwindowing->m_bFirstWindowMap = true;
+      //
+      //    auto psystem = system()->m_papexsystem;
+      //
+      //    auto pnode = psystem->node();
+      //
+      //    informationf("window::finishing create_window defer_notify_startup_complete");
+      //
+      //    informationf("window::finishing create_window pnode : %" PRIXPTR, pnode);
+      //
+      //    //pnode->defer_notify_startup_complete();
+      //
+      //    informationf("window::finishing create_window on_sn_launch_complete : %" PRIXPTR, pwindowing->m_pSnLauncheeContext);
+      //
+      //    on_sn_launch_complete(pwindowing->m_pSnLauncheeContext);
+      //
+      //    informationf("window::finishing create_window on_sn_launch_complete END");
+      //    pwindowing->m_pSnLauncheeContext = nullptr;
+      //
+      // }
+      //
+      //    });
+      //
+      // }
+      //
+      //
+      //
+      // }
 
-         throw ::exception(error_failed);
+   }
 
-      }
+
+   void window::on_finished_window_creation()
+   {
+
+//       auto pwindowing = x11_windowing();
+//
+//       informationf("windowing : %" PRIXPTR, (::uptr) pwindowing);
+//
+//       if (!pwindowing->m_bFirstWindowMap && m_pSnLauncheeContextSetup)
+//       {
+//
+//          auto pSnLauncheeContextSetup = m_pSnLauncheeContextSetup;
+//
+//          m_pSnLauncheeContextSetup = nullptr;
+//
+//          x11_async([this]()
+//          {
+//
+//             auto pwindowing = x11_windowing();
+//
+//             informationf("windowing : %" PRIXPTR, (::uptr) pwindowing);
+//
+//             if (!pwindowing->m_bFirstWindowMap && m_pSnLauncheeContextSetup)
+//             {
+//
+//
+//
+//                informationf("window::finishing create_window first_window_map");
+//
+//                pwindowing->m_bFirstWindowMap = true;
+//
+//                //auto psystem = system()->m_papexsystem;
+//
+//                //auto pnode = psystem->node();
+//
+//                // try
+//                // {
+//
+//                //    throw "";
+//
+//                // }
+//                // catch(...)
+//                // {
+//
+//                // }
+//
+//                //informationf("window::finishing create_window defer_notify_startup_complete");
+//
+//                //informationf("window::finishing create_window pnode : %" PRIXPTR, pnode);
+//
+//                //pnode->defer_notify_startup_complete();
+//
+//                informationf("window::finishing create_window on_sn_launch_complete : %" PRIXPTR, pSnLauncheeContextSetup);
+//
+//
+//                ::x11::display_lock displaylock(x11_display()->Display());
+//
+//                //#if !defined(OPENBSD)
+//
+//                on_sn_launch_complete(pSnLauncheeContextSetup);
+//
+//                //#endif
+//
+//                informationf("window::finishing create_window on_sn_launch_complete END");
+//
+//             }
+//
+//          });
+//
+//       }
+
+      ::windowing::window::on_finished_window_creation();
 
    }
 
@@ -840,46 +992,80 @@ namespace windowing_x11
       x11_sync([this,&i]()
       {
 
+         ::x11::display_lock displaylock(x11_display()->Display());
+
+#ifndef RASPBERRYPIOS
+
+         auto pwindowing = x11_windowing();
+
+         if (pwindowing->m_pSnLauncheeContext != nullptr && !m_pSnLauncheeContextSetup)
+         {
+
+            auto pSnLauncheeContextSetup = pwindowing->m_pSnLauncheeContext;
+
+            pwindowing->m_pSnLauncheeContext = nullptr;
+
+            informationf("window::create_window on_sn_launch_context Window : %d", Window());
+
+            on_sn_launch_context(pSnLauncheeContextSetup, Window());
+
+            m_pSnLauncheeContextSetup = pSnLauncheeContextSetup;
+
+         }
+
+#endif
+
+
 
       //synchronous_lock synchronouslock(user_synchronization());
 
       {
 
-         windowing_output_debug_string("\nwindow::map_window");
+         informationf("window::map_window");
 
-         ::x11::display_lock displaylock(x11_display()->Display());
 
          i = XMapWindow(Display(), Window());
 
       }
 
-      //#ifdef WITH_SN
-
-      auto pwindowing = x11_windowing();
-
-      //  if (pwindowing->m_pSnLauncheeContext != nullptr)
-      if (!pwindowing->m_bFirstWindowMap)
-      {
-
-         pwindowing->m_bFirstWindowMap = true;
-
-         auto psystem = system()->m_papexsystem;
-
-         auto pnode = psystem->node();
-
-         pnode->defer_notify_startup_complete();
-
-         on_sn_launch_complete(pwindowing->m_pSnLauncheeContext);
-
-         pwindowing->m_pSnLauncheeContext = nullptr;
-
-      }
+      // //#ifdef WITH_SN
+      //
+      // auto pwindowing = x11_windowing();
+      //
+      // informationf("windowing : %" PRIXPTR, (::uptr) pwindowing);
+      //
+      // //  if (pwindowing->m_pSnLauncheeContext != nullptr)
+      // if (!pwindowing->m_bFirstWindowMap)
+      // {
+      //
+      //    informationf("window::map_window first_window_map");
+      //
+      //    pwindowing->m_bFirstWindowMap = true;
+      //
+      //    auto psystem = system()->m_papexsystem;
+      //
+      //    auto pnode = psystem->node();
+      //
+      //    informationf("window::map_window defer_notify_startup_complete");
+      //
+      //    informationf("window::map_window pnode : %" PRIXPTR, pnode);
+      //
+      //    pnode->defer_notify_startup_complete();
+      //
+      //    informationf("window::map_window on_sn_launch_complete : %" PRIXPTR, pwindowing->m_pSnLauncheeContext);
+      //
+      //    on_sn_launch_complete(pwindowing->m_pSnLauncheeContext);
+      //
+      //    pwindowing->m_pSnLauncheeContext = nullptr;
+      //
+      // }
 
       //#endif // RASPBERRYPIOS
 
       windowing_output_debug_string("\nwindow::map_window END");
 
       });
+
 
       return i;
 
@@ -1190,67 +1376,67 @@ namespace windowing_x11
    //   }
 
 
-   bool window::bamf_set_icon()
+   ::e_status window::_bamf_set_icon_unlocked(const ::file::path & path)
    {
 
-      bool bOk = false;
+      //bool bOk = false;
 
-      int status = -1;
+      //int status = -1;
 
       //synchronous_lock synchronouslock(user_synchronization());
 
-            x11_sync([this, &status]()
-      {
+      //x11_sync([this, &status]()
+      //{
 
+         //auto psystem = system()->m_papexsystem;
 
-      auto psystem = system()->m_papexsystem;
+         //auto pnode = psystem->node();
 
-      auto pnode = psystem->node();
+         //auto papp = get_app();
 
-      auto papp = get_app();
+         //::file::path path = pnode->get_desktop_file_path(papp);
 
-      ::file::path path = pnode->get_desktop_file_path(papp);
+         informationf("windowing_x11::interaction_impl::bamf_set_icon : %s", path.c_str());
 
-      informationf("windowing_x11::interaction_impl::set_window_text");
+         //fflush(stdout);
 
-      //fflush(stdout);
+         //::x11::display_lock displaylock(x11_display()->Display());
 
-      ::x11::display_lock displaylock(x11_display()->Display());
+         Atom atomBamfDesktopFile = x11_display()->intern_atom("_BAMF_DESKTOP_FILE", False);
 
-      Atom atomBamfDesktopFile = x11_display()->intern_atom("_BAMF_DESKTOP_FILE", False);
+         //Atom cardinal = x11_display()->intern_atom("STRING", False);
 
-      //Atom cardinal = x11_display()->intern_atom("STRING", False);
+         int status = XChangeProperty(
+            Display(),
+            Window(),
+            atomBamfDesktopFile,
+            XA_STRING,
+            8,
+            PropModeReplace,
+            (const unsigned char *) (const char *) path,
+            path.length());
 
-      status = XChangeProperty(
-         Display(),
-         Window(),
-         atomBamfDesktopFile,
-         XA_STRING,
-         8,
-         PropModeReplace,
-         (const unsigned char *) (const char *) path,
-         path.length());
+         informationf("windowing_x11::window::bamf_set_icon END");
 
-      informationf("windowing_x11::window::bamf_set_icon END");
+         //fflush(stdout);
 
-      //fflush(stdout);
-
-      });
+      //}
+      //);
 
       if (status != 0)
       {
 
-         bOk= false;
+         return ::error_failed;
 
       }
       else
       {
 
-         bOk = true;
+         return ::success;
 
       }
 
-      return bOk;
+      //return bOk;
 
    }
 
@@ -2609,49 +2795,49 @@ namespace windowing_x11
 
       ::e_status estatus = error_failed;
 
-                  x11_sync([this, pathIcon, & estatus]()
+      x11_sync([this, pathIcon, &estatus]()
       {
 
+         estatus = _bamf_set_icon_unlocked(pathIcon);
 
-      ::x11::display_lock displaylock(Display());
-
-
-      Atom net_wm_icon = x11_display()->intern_atom("_BAMF_DESKTOP_FILE", False);
-
-      Atom cardinal = x11_display()->intern_atom("STRING", False);
-
-      int ixa = XA_STRING;
-
-      int status = XChangeProperty(
-         Display(),
-         Window(),
-         net_wm_icon,
-         ixa,
-         8,
-         PropModeReplace,
-         (const unsigned char *) (const char *) pathIcon,
-         pathIcon.length());
-
-      informationf("\nfreebsd::interaction_impl::bamf_set_icon END");
-
-      //fflush(stdout);
-
-      if (status != 0)
-      {
-
-         estatus = ::error_failed;
-
-      }
-      else
-      {
-
-         estatus = ::success;
-
-      }
+      // ::x11::display_lock displaylock(Display());
+      //
+      // Atom net_wm_icon = x11_display()->intern_atom("_BAMF_DESKTOP_FILE", False);
+      //
+      // Atom cardinal = x11_display()->intern_atom("STRING", False);
+      //
+      // int ixa = XA_STRING;
+      //
+      // int status = XChangeProperty(
+      //    Display(),
+      //    Window(),
+      //    net_wm_icon,
+      //    ixa,
+      //    8,
+      //    PropModeReplace,
+      //    (const unsigned char *) (const char *) pathIcon,
+      //    pathIcon.length());
+      //
+      // informationf("\nfreebsd::interaction_impl::bamf_set_icon END");
+      //
+      // //fflush(stdout);
+      //
+      // if (status != 0)
+      // {
+      //
+      //    estatus = ::error_failed;
+      //
+      // }
+      // else
+      // {
+      //
+      //    estatus = ::success;
+      //
+      // }
 
       });
 
-                  return estatus;
+      return estatus;
 
    }
 
@@ -3917,48 +4103,47 @@ namespace windowing_x11
    void window::set_mouse_cursor2(::windowing::cursor * pcursor)
    {
 
-
-      ::pointer < ::windowing::cursor > pcursorTransport(pcursor);
-
-                  x11_sync([this, pcursorTransport]()
-      {
-
-      //synchronous_lock synchronouslock(user_synchronization());
-
-      ::x11::display_lock displaylock(x11_display()->Display());
-
-      Atom net_wm_icon = x11_display()->intern_atom("_BAMF_DESKTOP_FILE", False);
-
-      Atom cardinal = x11_display()->intern_atom("STRING", False);
-
-      int ixa = XA_STRING;
-
-      ::file::path path = pcursorTransport->get_file_path();
-
-      int status = XChangeProperty(
-         Display(),
-         Window(),
-         net_wm_icon,
-         ixa,
-         8,
-         PropModeReplace,
-         (const unsigned char *) (const char *) path,
-         path.length());
-
-      informationf("\nfreebsd::interaction_impl::bamf_set_icon END");
-
-      //fflush(stdout);
-
-      if (status != 0)
-      {
-
-         throw ::exception(error_failed);
-
-      }
-
-      });
-
-      //return true;
+      // ::pointer < ::windowing::cursor > pcursorTransport(pcursor);
+      //
+      // x11_sync([this, pcursorTransport]()
+      // {
+      //
+      // //synchronous_lock synchronouslock(user_synchronization());
+      //
+      // // ::x11::display_lock displaylock(x11_display()->Display());
+      // //
+      // // Atom net_wm_icon = x11_display()->intern_atom("_BAMF_DESKTOP_FILE", False);
+      // //
+      // // Atom cardinal = x11_display()->intern_atom("STRING", False);
+      // //
+      // // int ixa = XA_STRING;
+      // //
+      // // ::file::path path = pcursorTransport->get_file_path();
+      // //
+      // // int status = XChangeProperty(
+      // //    Display(),
+      // //    Window(),
+      // //    net_wm_icon,
+      // //    ixa,
+      // //    8,
+      // //    PropModeReplace,
+      // //    (const unsigned char *) (const char *) path,
+      // //    path.length());
+      // //
+      // // informationf("\nfreebsd::interaction_impl::bamf_set_icon END");
+      // //
+      // // //fflush(stdout);
+      // //
+      // // if (status != 0)
+      // // {
+      // //
+      // //    throw ::exception(error_failed);
+      // //
+      // // }
+      //
+      // });
+      //
+      // //return true;
 
    }
 
@@ -4788,7 +4973,9 @@ namespace windowing_x11
 
             windowing_output_debug_string("::wm_test_state 1.1");
 
-            return 0;
+            i = 0;
+
+            return;
 
          }
 
@@ -4970,14 +5157,18 @@ namespace windowing_x11
 
       ::string strName(pszName);
 
-            x11_sync([this, strName]()
+      x11_sync([this, strName]()
       {
 
-      //synchronous_lock synchronouslock(user_synchronization());
+         informationf("::windowing_x11::window::x11_store_name : %s", strName.c_str());
 
-      ::x11::display_lock displaylock(x11_display()->Display());
+         //synchronous_lock synchronouslock(user_synchronization());
 
-      XStoreName(Display(), Window(), strName);
+         ::x11::display_lock displaylock(x11_display()->Display());
+
+         XStoreName(Display(), Window(), strName);
+
+         informationf("::windowing_x11::window::x11_store_name END");
 
       });
 

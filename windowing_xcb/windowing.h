@@ -68,7 +68,7 @@ namespace windowing_xcb
       //virtual void __defer_post_move_and_or_size(xcb_window_t window);
 
 
-      //virtual void _libsn_start_context()  override;
+      //virtual void _libsnx_start_context()  override;
       virtual ::windowing::display * display() override;
 
 
@@ -153,7 +153,7 @@ namespace windowing_xcb
 
       virtual ::windowing::window * window(oswindow oswindow) override;
 
-      //virtual void _libsn_start_context() override;
+      //virtual void _libsnx_start_context() override;
 
 
 #ifdef WITH_XI

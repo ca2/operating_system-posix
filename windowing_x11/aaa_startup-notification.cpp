@@ -61,7 +61,7 @@ void on_sn_launch_complete(void * pSnContext)
 //{
 //
 //
-//   void windowing::_libsn_start_context()
+//   void windowing::_libsnx_start_context()
 //   {
 //
 //      Display * pdisplay = m_pdisplay->Display();

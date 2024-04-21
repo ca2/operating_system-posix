@@ -123,7 +123,7 @@ void apex_application_activate(GApplication * application)
 //
 //   auto pwindowing = pnode->windowing();
 //
-//   pwindowing->_libsn_start_context();
+//   pwindowing->_libsnx_start_context();
 
 #endif
 

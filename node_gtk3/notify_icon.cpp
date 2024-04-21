@@ -29,6 +29,18 @@ namespace node_gtk3
    }
 
 
+   void notify_icon::initialize(::particle * pparticle)
+   {
+
+      ::user::notify_icon::initialize(pparticle);
+
+
+      __construct(m_pindicator);
+
+
+   }
+
+
    void notify_icon::create_notify_icon(const ::atom & atom, ::user::interaction * puserinteractionNotify, ::windowing::icon * picon)
    {
 
@@ -74,11 +86,9 @@ namespace node_gtk3
 
       get_app()->m_papexapplication->file()->copy(pathRoamingIcon, "matter://main/icon-128.png");
 
-      auto psystem = system();
-
-      auto pnode = psystem->node();
-
-      __construct(m_pindicator);
+      //auto psystem = system();
+//
+  //    auto pnode = psystem->node();
 
       m_pindicator->create(m_strId, strAppName, pathFolder, this->menu(), get_app());
 

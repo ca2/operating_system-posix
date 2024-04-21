@@ -61,6 +61,13 @@ void utc_timespec(timespec * ptimespec);
 #endif
 
 
+#if defined(MUTEX_COND_TIMED)
+#pragma message("MUTEX_COND_TIMED defined")
+#else
+#pragma message("MUTEX_COND_TIMED not defined")
+#endif
+
+
 //static int g_iMutex = 0;
 
 namespace acme_posix
@@ -97,7 +104,7 @@ namespace acme_posix
       //m_count = 0;
       m_count = 0;
 
-   #elif defined(MUTEX_NAMED_POSIX)
+   #elif defined(MUTEX_NAMED_VSEM)
 
       m_key = 0;
 
@@ -362,7 +369,7 @@ namespace acme_posix
       }
       else
 
-   #elif defined(MUTEX_NAMED_POSIX)
+   #elif defined(MUTEX_NAMED_VSEM)
 
          m_key = 0;
 
@@ -675,13 +682,13 @@ namespace acme_posix
       else
       {
 
-         pthread_mutex_destroy(&m_mutex);
-
    #ifdef MUTEX_COND_TIMED
 
          pthread_cond_destroy(&m_cond);
 
    #endif
+
+         pthread_mutex_destroy(&m_mutex);
 
       }
 
@@ -1095,13 +1102,15 @@ namespace acme_posix
 
       {
 
-         timespec timespecNow{};
-
-         clock_gettime(CLOCK_REALTIME, &timespecNow);
-
          timespec timespecWait{};
 
          copy(timespecWait, timeWait);
+
+         //informationf("mutex::_wait pthread_mutex_timedlock timeSpecWait%lld,%lld",timespecWait.tv_sec, timespecWait.tv_nsec);
+
+         timespec timespecNow{};
+
+         clock_gettime(CLOCK_REALTIME, &timespecNow);
 
          timespec timespecFinal{};
 
@@ -1118,6 +1127,8 @@ namespace acme_posix
          else if(rc == EINVAL)
          {
 
+            informationf("mutex::_wait pthread_mutex_timedlock EINVAL timeWait%lld,%lld",timespecWait.tv_sec, timespecWait.tv_nsec);
+
             return false;
 
          }
@@ -1129,6 +1140,7 @@ namespace acme_posix
          }
          else
          {
+            informationf("mutex::_wait pthread_mutex_timedlock ERRORFAILED timeWait%lld,%lld",timespecWait.tv_sec, timespecWait.tv_nsec);
 
             throw ::exception(error_failed);
 
@@ -1394,6 +1406,8 @@ namespace acme_posix
 
          if (irc)
          {
+
+            informationf("mutex::_wait pthread_mutex_lock %i",irc);
 
             throw ::exception(error_failed);
 

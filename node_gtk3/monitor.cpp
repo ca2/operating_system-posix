@@ -1,10 +1,12 @@
 // created by Camilo 2021-01-31 05:16 BRT <3CamiloSasukeThomasBorregaardSoerensen
 #include "framework.h"
 #include "monitor.h"
-#include "display.h"
+//#include "display.h"
 #include "windowing.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/node.h"
+#include "acme/primitive/geometry2d/_text_stream.h"
+#include "aura/windowing/display.h"
 #include "aura/windowing/windowing.h"
 #include <gdk/x11/gdkx11monitor.h>
 
@@ -73,7 +75,9 @@ namespace node_gtk3
    ::e_status monitor::_get_monitor_rectangle()
    {
 
-      //synchronous_lock sl(user_synchronization());
+//      _synchronous_lock sl(user_synchronization());
+
+      information() << "::node_gtk3::monitor::_get_monitor_rectangle : " << m_iIndex;
 
       GdkDisplay * pdisplay = gdk_display_get_default();
 
@@ -102,6 +106,8 @@ namespace node_gtk3
       //sleep(15_s);
 
       copy(m_rectangle, rect);
+
+      information() << "::node_gtk3::monitor::_get_monitor_rectangle : " << m_rectangle;
 
       return ::success;
 
@@ -148,15 +154,15 @@ namespace node_gtk3
    ::rectangle_i32 monitor::monitor_rectangle()
    {
 
-      user_send([this]()
-                {
-//      //   {
+//       user_send([this]()
+//                 {
+// //      //   {
+// //
+// //            synchronous_lock sl(user_synchronization());
 //
-//            synchronous_lock sl(user_synchronization());
-
-            _get_monitor_rectangle();
-
-         });
+//             _get_monitor_rectangle();
+//
+//          });
 
 //      node()->send_procedure(predicate);
 

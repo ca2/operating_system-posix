@@ -168,7 +168,7 @@ namespace windowing_xcb
 //      m_pdisplay->open();
 //
 //
-//      _libsn_start_context();
+//      _libsnx_start_context();
 //
 
 //      if(!estatus)
@@ -202,7 +202,7 @@ namespace windowing_xcb
 //      if(pnode)
 //      {
 //
-//         _libsn_start_context();
+//         _libsnx_start_context();
 //
 //         pnode->start_node();
 //

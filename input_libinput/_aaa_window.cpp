@@ -569,8 +569,15 @@ namespace windowing_x11
 
          // fflush(stdout);
 
+         auto psystem = system()->m_papexsystem;
 
-         bamf_set_icon();
+         auto pnode = psystem->node();
+
+         auto papp = get_app();
+
+         ::file::path pathDesktop = pnode->get_desktop_file_path(papp);
+
+         _bamf_set_icon_unlocked(pathDesktop);
 
          _wm_nodecorations(0);
 
@@ -1189,7 +1196,7 @@ namespace windowing_x11
          (const unsigned char *) (const char *) path,
          path.length());
 
-      informationf("windowing_x11::window::bamf_set_icon END");
+      informationf("windowingx_x11::windoxw::bamfx_set_icon END");
 
       //fflush(stdout);
 

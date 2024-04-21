@@ -29,6 +29,8 @@ namespace acme_posix
           int                     m_iFile;
           int                     m_iLock;
 
+          ::file::path           m_path;
+
    // #endif
 
       // ::pointer < ::mutex >     m_pmutex;
