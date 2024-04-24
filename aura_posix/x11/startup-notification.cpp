@@ -96,34 +96,41 @@ namespace windowing_posix
    void windowing::_libsn_start_context()
    {
 
-      information() << "_libsn_start_context Starting";
+      auto ewindowing = system()->m_ewindowing;
 
-      Display * pdisplay = (Display *) node()->x11_get_display();
-
-      if(::is_null(pdisplay))
+      if(ewindowing == e_windowing_x11 && ewindowing == e_windowing_xcb)
       {
 
-         information() << "Couldn't start startup notification context. Display is not set!!";
+         information() << "_libsn_start_context Starting";
 
-         return;
+         Display *pdisplay = (Display *) node()->x11_get_display();
+
+         if (::is_null(pdisplay))
+         {
+
+            information() << "Couldn't start startup notification context. Display is not set!!";
+
+            return;
+
+         }
+
+         informationf("_libsn_start_context Starting : %llX", (::uptr) pdisplay);
+
+         SnDisplay *psndisplay = sn_display_new(pdisplay, &x_display_error_trap_push, &x_display_error_trap_pop);
+
+         int iScreen = DefaultScreen(pdisplay);
+
+         auto papp = application();
+
+         string strWMClass = papp->m_strAppId;
+
+         strWMClass.find_replace("/", ".");
+
+         m_pSnLauncheeContext = sn_launchee_context_new(psndisplay, iScreen, strWMClass);
+
+         informationf("_libsn_start_context Starting m_pSnLauncheeContext: %llX", (::uptr) m_pSnLauncheeContext);
 
       }
-
-      informationf("_libsn_start_context Starting : %llX", (::uptr) pdisplay);
-
-      SnDisplay * psndisplay = sn_display_new(pdisplay, &x_display_error_trap_push, &x_display_error_trap_pop);
-
-      int iScreen = DefaultScreen(pdisplay);
-
-      auto papp = application();
-
-      string strWMClass = papp->m_strAppId;
-
-      strWMClass.find_replace("/", ".");
-
-      m_pSnLauncheeContext = sn_launchee_context_new(psndisplay, iScreen, strWMClass);
-
-      informationf("_libsn_start_context Starting m_pSnLauncheeContext: %llX", (::uptr) m_pSnLauncheeContext);
 
    }
 
