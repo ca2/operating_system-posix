@@ -45,7 +45,7 @@ namespace apex_posix
 
       virtual ::file::path _get_auto_start_desktop_file_path(const ::string & strAppId);
 
-      void register_user_auto_start(const string & strAppId, const ::file::path & pathExecutable, const string & strArguments,
+      void register_user_auto_start(::acme::application * papplication, const string & strArguments,
                                     bool bRegister) override;
 
       bool is_user_auto_start(const string & strAppId) override;
