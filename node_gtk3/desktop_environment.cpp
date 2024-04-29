@@ -40,8 +40,8 @@ namespace node_gtk3
    }
 
 
-  ::e_status desktop_environment::_get_monitor_rectangle(::index iIndex, ::rectangle_i32 *prectangle)
-  {
+   ::e_status desktop_environment::_get_monitor_rectangle(::index iIndex, ::rectangle_i32 *prectangle)
+   {
 
       //synchronous_lock sl(user_synchronization());
 

@@ -19,7 +19,9 @@ namespace system_5
    interprocess_target::interprocess_target()
    {
 
-      //m_preceiver = nullptr;
+      m_key = -1;
+
+      m_iQueue = -1;
 
    }
 
@@ -27,16 +29,24 @@ namespace system_5
    interprocess_target::~interprocess_target()
    {
 
+      destroy();
+
    }
 
 
    void interprocess_target::create(const ::string &strChannel)
    {
 
+      information() << "interprocess_target::create";
+
       if (!file_exists(strChannel))
       {
 
+         information() << "interprocess_target::create file doesnt exist, going to create : " << strChannel;
+
          acmefile()->put_contents(strChannel, strChannel);
+
+         m_strCreatedFile = strChannel;
 
       }
 
@@ -44,6 +54,8 @@ namespace system_5
 
       if (m_key == -1)
       {
+
+         information() << "interprocess_target::create ftok failed";
 
          auto cerrornumber = c_error_number();
 
@@ -53,9 +65,13 @@ namespace system_5
 
       }
 
+      information() << "interprocess_target::create ftok succeeded";
+
       //if((m_iQueue = msgget(m_key,IPC_CREAT | IPC_EXCL | 0660)) == -1)
       if ((m_iQueue = msgget(m_key, IPC_CREAT | IPC_EXCL | 0660)) == -1)
       {
+
+         information() << "interprocess_target::create msgget failed (1)";
 
          auto cerrornumber = c_error_number();
 
@@ -65,11 +81,13 @@ namespace system_5
             if ((m_iQueue = msgget(m_key,  0660)) == -1)
             {
 
+               information() << "interprocess_target::create msgget failed(2)";
+
                auto cerrornumber = c_error_number();
 
                auto estatus = cerrornumber.estatus();
 
-               throw ::exception(estatus, "msgget has failed (1) channel : " + strChannel);
+               throw ::exception(estatus, "msgget has failed (2) channel : " + strChannel);
 
             }
 
@@ -77,9 +95,22 @@ namespace system_5
          else
          {
 
+            if(cerrornumber.m_iErrorNumber == ENOSPC)
+            {
+
+               information() << "interprocess_target::create msgget failed (3) : ENOSPC - A message queue has to be created but the system limit for the maximum number of message queues (MSGMNI) would be exceeded.";
+
+            }
+            else
+            {
+
+               information() << "interprocess_target::create msgget failed (3) : " << cerrornumber.m_iErrorNumber << " (" << cerrornumber.name() << ", " << cerrornumber.get_error_description() << ")";
+
+            }
+
             auto estatus = cerrornumber.estatus();
 
-            throw ::exception(estatus, {cerrornumber},  "msgget has failed (2) channel : " + strChannel);
+            throw ::exception(estatus, {cerrornumber},  "msgget has failed (3) channel : " + strChannel);
 
          }
 
@@ -102,31 +133,66 @@ namespace system_5
 
          m_bRun = false;
 
-         sleep(1_ms);
+         preempt(100_ms);
 
          iRetry--;
 
       }
 
-      if (m_iQueue < 0)
+      if(m_iQueue > 0)
       {
 
-         //return true;
+         auto rc = msgctl(m_iQueue, IPC_RMID, nullptr);
 
-         return;
+         if(rc < 0)
+         {
+
+            warning("interprocess_target::~interprocess_target failed to remove message queue");
+
+         }
+
+         m_iQueue = -1;
 
       }
 
-      if (msgctl(m_iQueue, IPC_RMID, 0) == -1)
+      if (file_exists(m_strCreatedFile))
       {
 
-         throw ::exception(error_failed);
+         information() << "interprocess_target::~interprocess_target file exist, going to delete it : " << m_strCreatedFile;
+
+         bool bOk = false;
+
+         try
+         {
+
+            acmefile()->erase(m_strCreatedFile);
+
+            bOk = true;
+
+         }
+         catch(...)
+         {
+
+            bOk = true;
+
+         }
+
+         if(bOk)
+         {
+
+            information() << "interprocess_target::~interprocess_target deleted file : " << m_strCreatedFile;
+
+            m_strCreatedFile.empty();
+
+         }
+         else
+         {
+
+            information() << "interprocess_target::~interprocess_target failed to delete file : " << m_strCreatedFile;
+
+         }
 
       }
-
-      m_iQueue = -1;
-
-      //return ::success;
 
    }
 
@@ -140,6 +206,8 @@ namespace system_5
 
       m_pthread = fork([&]()
                        {
+
+                          information() << "interprocess_target receiving";
 
                           receive();
 

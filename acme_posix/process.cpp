@@ -212,6 +212,11 @@ i32 create_process4(const ::string & pszCommandLine, i32 * pprocessId)
 
    argv[argc] = nullptr;
 
+   printf("create_process4 -------------------------");
+   printf("-----------ess4 -------------------------");
+   printf("-----------ess4 -------------------------");
+   printf("-----------ess4 -------------------------");
+
    if ((*pprocessId = fork()) == 0)
    {
 
@@ -291,6 +296,11 @@ int create_process2(const ::string & pszCommandLine, int * pprocessId)
    argv[argc] = nullptr;
 
    pid_t pid = 0;
+
+   printf("create_process2 -------------------------");
+   printf("-----------ess2 -------------------------");
+   printf("-----------ess2 -------------------------");
+   printf("-----------ess2 -------------------------");
 
    if ((pid = fork()) == 0) // child
    {

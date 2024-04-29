@@ -18,6 +18,9 @@ namespace system_5
    public:
 
 
+      ::string m_strCreatedFile;
+
+
    interprocess_target();
       ~interprocess_target() override;
 
