@@ -57,7 +57,7 @@
 //
 //   GMenu * pmenu = g_menu_new ();
 //
-//   for(::index i = 0; i < pappmenu->get_count(); i++)
+//   for(::raw::index i = 0; i < pappmenu->get_count(); i++)
 //   {
 //
 //      string strId = pappmenu->element_at(i).m_strId;

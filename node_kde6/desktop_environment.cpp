@@ -67,7 +67,7 @@ namespace node_kde6
    }
 
 
-   ::e_status desktop_environment::_get_monitor_rectangle(::index iIndex, ::rectangle_i32 *prectangle)
+   ::e_status desktop_environment::_get_monitor_rectangle(::raw::index iIndex, ::rectangle_i32 *prectangle)
    {
 
       //synchronous_lock sl(user_synchronization());
@@ -107,7 +107,7 @@ namespace node_kde6
    }
 
 
-   ::e_status desktop_environment::_get_workspace_rectangle(::index iIndex, ::rectangle_i32 *prectangle)
+   ::e_status desktop_environment::_get_workspace_rectangle(::raw::index iIndex, ::rectangle_i32 *prectangle)
    {
 
       //synchronous_lock sl(user_synchronization());
@@ -147,7 +147,7 @@ namespace node_kde6
    }
 
 
-   void desktop_environment::get_monitor_rectangle(::index iIndex, ::rectangle_i32 *prectangle)
+   void desktop_environment::get_monitor_rectangle(::raw::index iIndex, ::rectangle_i32 *prectangle)
    {
 
       if(is_x11())
@@ -170,7 +170,7 @@ namespace node_kde6
    }
 
 
-   void desktop_environment::get_workspace_rectangle(::index iIndex, ::rectangle_i32 *prectangle)
+   void desktop_environment::get_workspace_rectangle(::raw::index iIndex, ::rectangle_i32 *prectangle)
    {
 
       if(is_x11())

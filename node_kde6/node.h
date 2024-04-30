@@ -88,9 +88,9 @@ namespace node_kde6
 
       string get_file_content_type(const ::string & pszPath) override;
 
-      bool set_wallpaper(index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay) override;
+      bool set_wallpaper(::raw::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay) override;
 
-      string get_wallpaper(index iScreen) override;
+      string get_wallpaper(::raw::index iScreen) override;
 
       //using ::aura::node::node_fork;
 

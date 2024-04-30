@@ -141,7 +141,7 @@ namespace node_xfce
 //
 //   Window default_root_window();
 
-      virtual ::count get_monitor_count() override;
+      virtual ::raw::count get_monitor_count() override;
 
 
 };

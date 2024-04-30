@@ -270,7 +270,7 @@ namespace node_xfce
 //   }
 
    /// should be run in user thread
-   ::count display::get_monitor_count()
+   ::raw::count display::get_monitor_count()
    {
 
 
@@ -283,7 +283,7 @@ namespace node_xfce
 
          }
 
-        ::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
+        ::raw::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
 
         return iMonitorCount;
 

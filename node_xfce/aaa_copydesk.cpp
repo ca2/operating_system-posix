@@ -442,7 +442,7 @@ namespace node_xfce
 //
 //   }
 //
-//   for(index i = 1; i < stra.get_size(); i++)
+//   for(::raw::index i = 1; i < stra.get_size(); i++)
 //   {
 //
 //      string strItem = stra[i];

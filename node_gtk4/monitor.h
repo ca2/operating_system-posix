@@ -15,7 +15,7 @@ namespace node_gtk4
    public:
 
 
-      //::index                                               m_iIndex;
+      //::raw::index                                               m_iIndex;
       //::rectangle_i32                                       m_rectangle;
       //::rectangle_i32                                       m_rectangleWorkspace;
 

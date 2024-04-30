@@ -293,7 +293,7 @@ void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString)
 ////   }
 //
 //   /// should be run in user thread
-//   ::count display::get_monitor_count()
+//   ::raw::count display::get_monitor_count()
 //   {
 //
 //
@@ -306,7 +306,7 @@ void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString)
 //
 //         }
 //
-//        ::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
+//        ::raw::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
 //
 //        return iMonitorCount;
 //
@@ -314,7 +314,7 @@ void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString)
 //
 //
 //
-//   bool display::impl_set_wallpaper(::index, string strWallpaper)
+//   bool display::impl_set_wallpaper(::raw::index, string strWallpaper)
 //   {
 //
 //      // wall-changer sourceforge.net contribution

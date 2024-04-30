@@ -212,7 +212,7 @@ namespace windowing_x11
 //         if(wcslen(wsz) == 8)
 //         {
 //
-//            index i = 0;
+//            ::raw::index i = 0;
 //
 //            for(; i < 8; i++)
 //            {
@@ -710,7 +710,7 @@ namespace windowing_x11
 
       m_iSoftwareKeyboardEventId++;
 
-      index iEventId = m_iSoftwareKeyboardEventId;
+      ::raw::index iEventId = m_iSoftwareKeyboardEventId;
 
       m_pprimitiveSoftwareKeyboard = pprimitive;
 
@@ -756,7 +756,7 @@ namespace windowing_x11
 
       m_iSoftwareKeyboardEventId++;
 
-      index iEventId = m_iSoftwareKeyboardEventId;
+      ::raw::index iEventId = m_iSoftwareKeyboardEventId;
 
       m_pprimitiveSoftwareKeyboard = nullptr;
 

@@ -432,7 +432,7 @@ namespace node_gtk3
 //
 //   }
 //
-//   for(index i = 1; i < stra.get_size(); i++)
+//   for(::raw::index i = 1; i < stra.get_size(); i++)
 //   {
 //
 //      string strItem = stra[i];

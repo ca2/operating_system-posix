@@ -667,7 +667,7 @@ namespace multimedia
 //      }
 
 
-      void wave_out::out_filled(index iBuffer)
+      void wave_out::out_filled(::raw::index iBuffer)
       {
 
 //         static class ::time t;

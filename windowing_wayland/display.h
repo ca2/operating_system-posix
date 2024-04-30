@@ -122,9 +122,9 @@ namespace windowing_wayland
 
       virtual bool is_null() const;
 
-      bool get_monitor_rectangle(index iMonitor, ::rectangle_i32 & rectangle) override;
+      bool get_monitor_rectangle(::raw::index iMonitor, ::rectangle_i32 & rectangle) override;
 
-      bool get_workspace_rectangle(index iWorkspace, ::rectangle_i32 & rectangle) override;
+      bool get_workspace_rectangle(::raw::index iWorkspace, ::rectangle_i32 & rectangle) override;
 
       //virtual ::windowing::window * get_mouse_capture();
 

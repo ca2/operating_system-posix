@@ -104,7 +104,7 @@ namespace file
 
          ::dir::rls_dir(stra, pathFolder);
 
-         for(index index = 0; index < stra.get_count(); index++)
+         for(::raw::index index = 0; index < stra.get_count(); index++)
          {
 
             string strDirPath = stra[index];

@@ -132,7 +132,7 @@ namespace user
    }
 
 
-   string get_wallpaper(::index iIndex)
+   string get_wallpaper(::raw::index iIndex)
    {
 
       // wall-changer sourceforge.net contribution

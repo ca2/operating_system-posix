@@ -37,7 +37,7 @@ namespace node_kde6
 
       virtual ::e_status _populate_qmenu_popup(QMenu * pmenu, application_menu * papplicationmenu);
 
-      virtual ::e_status _populate_qmenu(QMenu * pmenu, ::index i, application_menu * papplicationmenu);
+      virtual ::e_status _populate_qmenu(QMenu * pmenu, ::raw::index i, application_menu * papplicationmenu);
 
       bool notify_icon_step() override;
 
