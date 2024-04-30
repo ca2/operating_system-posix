@@ -331,7 +331,7 @@ namespace music
 //      ::e_status FillTypeCombo(::user::combo_box * lpcombo)
 //      {
 //
-//         UNREFERENCED_PARAMETER(lpcombo);
+//         __UNREFERENCED_PARAMETER(lpcombo);
 //         /*   lpcombo->ResetContent();
 //
 //         string str;
@@ -362,7 +362,7 @@ namespace music
 //      ::e_status FillPitchCombo(::user::combo_box * lpcombo)
 //      {
 //
-//         UNREFERENCED_PARAMETER(lpcombo);
+//         __UNREFERENCED_PARAMETER(lpcombo);
 //         /*    lpcombo->ResetContent();
 //
 //         for(int32_t i = 0; i < 128; i++)

@@ -319,7 +319,7 @@ namespace music
 
          ::e_status player::Initialize(thread * pthread)
          {
-            UNREFERENCED_PARAMETER(pthread);
+            __UNREFERENCED_PARAMETER(pthread);
             return ::success;
          }
 
@@ -340,7 +340,7 @@ namespace music
 
          bool player::SetMidiOutDevice(::u32 uiDevice)
          {
-            UNREFERENCED_PARAMETER(uiDevice);
+            __UNREFERENCED_PARAMETER(uiDevice);
             OnMidiOutDeviceChange();
             return true;
          }
@@ -563,8 +563,8 @@ End:
 
          void player::OnMmsgDone(::music::midi::sequence *pSeq, ::music::midi::LPMIDIDONEDATA lpmdd)
          {
-            UNREFERENCED_PARAMETER(pSeq);
-            UNREFERENCED_PARAMETER(lpmdd);
+            __UNREFERENCED_PARAMETER(pSeq);
+            __UNREFERENCED_PARAMETER(lpmdd);
          }
 
 //         void player::OnMidiPlayerNotifyEvent(::music::midi::notify_event * pdata)
@@ -579,7 +579,7 @@ End:
 
          void player::OnMidiLyricEvent(array<::ikaraoke::lyric_event_v1, ::ikaraoke::lyric_event_v1&> * pevents)
          {
-            UNREFERENCED_PARAMETER(pevents);
+            __UNREFERENCED_PARAMETER(pevents);
          }
          bool player::Initialize(sp(::music::midi::midi) pcentral)
          {

@@ -696,8 +696,8 @@ namespace music
 //         ::u32 cbPrerollNomimalMax
 //         )
 //      {
-//         UNREFERENCED_PARAMETER(tickMax);
-//         UNREFERENCED_PARAMETER(cbPrerollNomimalMax);
+//         __UNREFERENCED_PARAMETER(tickMax);
+//         __UNREFERENCED_PARAMETER(cbPrerollNomimalMax);
 //         ::e_status               smfrc;
 //
 //         if(eventptra.get_size() <= 0)
@@ -764,8 +764,8 @@ namespace music
 //         imedia::position                   tickMax,
 //         ::u32                   cbPrerollNominalMax)
 //      {
-//         UNREFERENCED_PARAMETER(tickMax);
-//         UNREFERENCED_PARAMETER(cbPrerollNominalMax);
+//         __UNREFERENCED_PARAMETER(tickMax);
+//         __UNREFERENCED_PARAMETER(cbPrerollNominalMax);
 //         //   informationf("file::StreamEvent tickDelta %d\n", tickDelta);
 //
 //         ::u32                   dwTempo;
@@ -1266,8 +1266,8 @@ namespace music
 //         ::ikaraoke::lyric_event_v1 *      pLyricEvent,
 //         LPMIDIHDR         lpmh)
 //      {
-//         UNREFERENCED_PARAMETER(pLyricEvent);
-//         UNREFERENCED_PARAMETER(lpmh);
+//         __UNREFERENCED_PARAMETER(pLyricEvent);
+//         __UNREFERENCED_PARAMETER(lpmh);
 //         /*    LPDWORD                 lpdw;
 //         ::u32                   dwRounded;
 //         ::u32               dwLength;
@@ -2268,7 +2268,7 @@ namespace music
 //         ::music::midi::event  * pPreviousEvent,
 //         ::music::midi::event  * pEvent)
 //      {
-//         UNREFERENCED_PARAMETER(pPreviousEvent);
+//         __UNREFERENCED_PARAMETER(pPreviousEvent);
 //
 //         ::e_status               smfrc;
 //         ::music::midi::event *           pevent;

@@ -426,7 +426,7 @@ namespace music
    //      ::e_status sequence::Preroll(::thread * pthread, ::music::midi::LPPREROLL lpPreroll, bool bThrow)
    //      {
    //
-   //         UNREFERENCED_PARAMETER(pthread);
+   //         __UNREFERENCED_PARAMETER(pthread);
    //         single_lock sl(m_pmutex, TRUE);
    //         int32_t i;
    //         ::e_status     smfrc;
@@ -1174,7 +1174,7 @@ namespace music
 
          void sequence::OnDone(seq_context_t * hmidistream, LPMIDIHDR lpmidihdr)
          {
-            UNREFERENCED_PARAMETER(hmidistream);
+            __UNREFERENCED_PARAMETER(hmidistream);
             ::e_status               smfrc;
             midi_callback_data *      lpData;
             ASSERT(lpmidihdr != NULL);
@@ -1378,9 +1378,9 @@ namespace music
          //void CALLBACK sequence::MidiOutProc(HMIDIOUT hmo, ::u32 wMsg, ::u32 dwInstance, ::u32 dwParam1, ::u32 dwParam2)
          //{
 
-            /*UNREFERENCED_PARAMETER(hmo);
-            UNREFERENCED_PARAMETER(dwInstance);
-            UNREFERENCED_PARAMETER(dwParam2);
+            /*__UNREFERENCED_PARAMETER(hmo);
+            __UNREFERENCED_PARAMETER(dwInstance);
+            __UNREFERENCED_PARAMETER(dwParam2);
 
             LPMIDIHDR               lpmh         = (LPMIDIHDR) dwParam1;
 
@@ -1548,7 +1548,7 @@ namespace music
 
          void sequence::OnMidiPlaybackEnd(::music::midi::sequence::event * pevent)
          {
-            UNREFERENCED_PARAMETER(pevent);
+            __UNREFERENCED_PARAMETER(pevent);
             single_lock sl(m_pmutex, TRUE);
             //   LPMIDIHDR lpmh = pevent->m_lpmh;
             //   midi_callback_data * lpData = &m_midicallbackdata;
@@ -1677,7 +1677,7 @@ namespace music
    //         int2a & ia2TokenLine,
    //         ::ikaraoke::data & data)
    //      {
-   //         UNREFERENCED_PARAMETER(straa);
+   //         __UNREFERENCED_PARAMETER(straa);
    //         ::music::midi::alsa::file & file = *this->file();
    //         ::music::midi::tracks & tracks = file.GetTracks();
    //
