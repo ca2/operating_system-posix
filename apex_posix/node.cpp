@@ -356,7 +356,7 @@ namespace apex_posix
    void node::register_user_auto_start(::acme::application * papplication, const string & strArguments, bool bRegister)
    {
 
-#if defined(LINUX) || defined(FREEBSD)
+#if defined(LINUX) || defined(FREEBSD) || defined(OPENBSD)
 
       ::file::path pathAutoStartDesktopFilePath = _get_auto_start_desktop_file_path(papplication->m_strAppId);
 
