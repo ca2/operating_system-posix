@@ -71,7 +71,7 @@ namespace acme_posix
 
       void prepare_linking_script(::string &str) override;
 
-      int command_system(const ::scoped_string &scopedstr, const class ::time & timeOut) override;
+      int command_system(const ::scoped_string &scopedstr, const class ::time & timeOut, const ::file::path & pathWorkingDirectory = {}, ::e_display edisplay = e_display_none) override;
 
       void clean() override;
 

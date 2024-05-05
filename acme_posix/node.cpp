@@ -1434,7 +1434,7 @@ namespace acme_posix
 
 
    //void node::command_system(string_array & straOutput, int& iExitCode, const scoped_string & scopedstr, enum_command_system ecommandsystem, const class time & timeTimeout, ::particle * pparticleSynchronization, ::file::file * pfileLog)
-   int node::__command_system(const ::scoped_string & scopedstr, const ::scoped_string & scopedstrPipe, const ::function < void(enum_trace_level, const ::scoped_string & ) > & functionTrace)
+   int node::__command_system(const ::scoped_string & scopedstr, const ::scoped_string & scopedstrPipe, const ::trace_function & functionTrace)
    {
 
       ::e_status estatus = success;
@@ -1676,10 +1676,10 @@ namespace acme_posix
                if(functionTrace)
                {
 
-                  ::str::get_lines(strOutput, false, [&](auto & str)
+                  ::str::get_lines(strOutput, false, [&](auto & str, bool bCarriage)
                   {
 
-                     functionTrace(e_trace_level_information, str);
+                     functionTrace(e_trace_level_information, str, bCarriage);
 
                   });
                  // functionTrace(e_trace_level_information, strMessage);
@@ -1713,10 +1713,10 @@ namespace acme_posix
                if(functionTrace)
                {
 
-                  ::str::get_lines(strError, false, [&](auto &str)
+                  ::str::get_lines(strError, false, [&](auto &str, bool bCarriage)
                   {
 
-                     functionTrace(e_trace_level_error, str);
+                     functionTrace(e_trace_level_error, str, bCarriage);
 
                   });
 
@@ -1845,17 +1845,17 @@ namespace acme_posix
    if(functionTrace)
    {
 
-      ::str::get_lines(strOutput, true, [&](auto &str)
+      ::str::get_lines(strOutput, true, [&](auto &str, bool bCarriage)
       {
 
-         functionTrace(e_trace_level_information, str);
+         functionTrace(e_trace_level_information, str, bCarriage);
 
       });
 
-      ::str::get_lines(strError, true, [&](auto &str)
+      ::str::get_lines(strError, true, [&](auto &str, bool bCarriage)
       {
 
-         functionTrace(e_trace_level_error, str);
+         functionTrace(e_trace_level_error, str, bCarriage);
 
       });
 
@@ -1870,7 +1870,7 @@ namespace acme_posix
    }
 
 
-int node::command_system(const ::scoped_string & scopedstr,  const ::function < void(enum_trace_level, const ::scoped_string & ) > & functionTrace)
+int node::command_system(const ::scoped_string & scopedstr,  const ::trace_function & functionTrace, const ::file::path & pathWorkingDirectory, ::e_display edisplay)
 {
 
    ::e_status estatus = success;
@@ -2215,10 +2215,10 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
             if(functionTrace)
             {
 
-               ::str::get_lines(strOutput, false, [&](auto & str)
+               ::str::get_lines(strOutput, false, [&](auto & str, bool bCarriage)
                {
 
-                  functionTrace(e_trace_level_information, str);
+                  functionTrace(e_trace_level_information, str, bCarriage);
 
                });
               // functionTrace(e_trace_level_information, strMessage);
@@ -2252,10 +2252,10 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
             if(functionTrace)
             {
 
-               ::str::get_lines(strError, false, [&](auto &str)
+               ::str::get_lines(strError, false, [&](auto &str, bool bCarriage)
                {
 
-                  functionTrace(e_trace_level_error, str);
+                  functionTrace(e_trace_level_error, str, bCarriage);
 
                });
 
@@ -2361,17 +2361,17 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::function < 
 if(functionTrace)
 {
 
-   ::str::get_lines(strOutput, true, [&](auto &str)
+   ::str::get_lines(strOutput, true, [&](auto &str, bool bCarriage)
    {
 
-      functionTrace(e_trace_level_information, str);
+      functionTrace(e_trace_level_information, str, bCarriage);
 
    });
 
-   ::str::get_lines(strError, true, [&](auto &str)
+   ::str::get_lines(strError, true, [&](auto &str, bool bCarriage)
    {
 
-      functionTrace(e_trace_level_error, str);
+      functionTrace(e_trace_level_error, str, bCarriage);
 
    });
 

@@ -170,21 +170,21 @@ namespace acme_posix
       }
 
 
-      int context::command_system(const ::scoped_string &scopedstrCommand, const class ::time & timeOut)
+      int context::command_system(const ::scoped_string &scopedstrCommand, const class ::time & timeOut, const ::file::path & pathWorkingDirectory, ::e_display edisplay)
       {
 
-         ::trace_function functionTrace = [&](auto etracelevel, auto & str)
+         ::trace_function functionTrace = [&](auto etracelevel, auto & str, bool bCarriage)
          {
 
             m_straOutput.add_trace(etracelevel, str);
 
-            ::std_inline_log()(etracelevel, str);
+            ::std_inline_log()(etracelevel, str, bCarriage);
 
          };
 
          functionTrace.m_timeTimeout = timeOut;
 
-         auto iExitCode = node()->command_system(scopedstrCommand, functionTrace);
+         auto iExitCode = node()->command_system(scopedstrCommand, functionTrace, pathWorkingDirectory, edisplay);
 
          return iExitCode;
 
