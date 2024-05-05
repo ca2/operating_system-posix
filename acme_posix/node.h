@@ -109,7 +109,7 @@ namespace acme_posix
 
       //void command_system(string_array & straOutput, int& iExitCode, const ::scoped_string & scopedstr, enum_command_system ecommandsystem, const class ::time& timeTimeout, ::particle * pparticleSynchronization, ::file::file * pfileLog) override;
       virtual int __command_system(const ::scoped_string & scopedstr, const ::scoped_string & scopedstrPipe, const trace_function & tracefunction = nullptr);
-      int command_system(const ::scoped_string & scopedstr, const trace_function & tracefunction = nullptr) override;
+      int command_system(const ::scoped_string & scopedstr, const trace_function & tracefunction = nullptr, const ::file::path & pathWorkingDirectory ={}, ::e_display edisplay = e_display_none) override;
 
 
       ::file::path library_file_name(const ::scoped_string& scopedstr) override;
