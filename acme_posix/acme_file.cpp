@@ -25,7 +25,7 @@
 #elif defined(FREEBSD) || defined(OPENBSD)
 #include <errno.h>
 ::file::path get_module_path();
-#elif defined(MACOS)
+#elif defined(__APPLE__)
 #include <errno.h>
 ::file::path get_module_path();
 #endif

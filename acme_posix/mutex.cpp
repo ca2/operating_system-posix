@@ -12,7 +12,7 @@
 
 #if defined(FREEBSD)
 #define __XSI_VISIBLE 1
-#elif defined(MACOS)
+#elif defined(__APPLE__)
 void utc_timespec(timespec * ptimespec);
 #include <sys/time.h>
 #include <unistd.h>
