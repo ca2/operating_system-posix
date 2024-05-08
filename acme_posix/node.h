@@ -115,8 +115,7 @@ namespace acme_posix
       ::file::path library_file_name(const ::scoped_string& scopedstr) override;
 
 
-      int unix_shell_command(const ::scoped_string& scopedstrCommand, const trace_function & tracefunction = nullptr) override;
-
+      int posix_shell_command(const ::scoped_string& scopedstrCommand, enum_posix_shell eposixshell = e_posix_shell_system_default, const trace_function& tracefunction = nullptr) override;
 
       //::user::enum_desktop calculate_edesktop() override;
 
