@@ -2394,7 +2394,7 @@ if(functionTrace)
    }
 
 
-   int node::unix_shell_command(const ::scoped_string& scopedstrCommand, const trace_function & tracefunction)
+   int node::posix_shell_command(const ::scoped_string& scopedstrCommand, enum_posix_shell eposixshell, const trace_function& tracefunction)
    {
 
       try
@@ -2454,11 +2454,11 @@ if(functionTrace)
       
       ::string strPath;
    
-      get_unix_shell_command_output(strPath, "command -v " + scopedstr);
+      ::i32 iExitCode = get_posix_shell_command_output(strPath, "command -v " + scopedstr, e_posix_shell_system_default);
       
       information() << "command -v : " << scopedstr << " output => " << strPath;
       
-      if(strPath.is_empty())
+      if(iExitCode != 0 || strPath.is_empty())
       {
          
          return false;
