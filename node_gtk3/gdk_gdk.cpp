@@ -17,7 +17,7 @@ namespace node_gtk3
 {
 
 
-   ::boolean g_bitLastDarkMode;
+   ::logic::boolean g_bitLastDarkMode;
 
 
    char *gsettings_get_malloc(const ::string & strSchema, const ::string & strKey);
