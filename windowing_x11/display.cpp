@@ -400,7 +400,7 @@ namespace windowing_x11
    }
 
 
-   bool display::get_monitor_rectangle(::raw::index iMonitor, ::rectangle_i32 & rectangle)
+   bool display::get_monitor_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangle)
    {
 
       return ::windowing::display::get_monitor_rectangle(iMonitor, rectangle);
@@ -408,7 +408,7 @@ namespace windowing_x11
    }
 
 
-   bool display::get_workspace_rectangle(::raw::index iMonitor, ::rectangle_i32 & rectangle)
+   bool display::get_workspace_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangle)
    {
 
       return ::windowing::display::get_workspace_rectangle(iMonitor, rectangle);
@@ -988,7 +988,7 @@ namespace windowing_x11
 
                           ::rectangle_i32 rectangleTest;
 
-                          for (::raw::index i = 0; i < windowa.get_size(); i++)
+                          for (::collection::index i = 0; i < windowa.get_size(); i++)
                           {
 
                              string strItem = ::x11_get_name(Display(), windowa[i]);

@@ -83,7 +83,7 @@ namespace os
 //   }
 
 
-//   string get_wallpaper(::raw::index iIndex)
+//   string get_wallpaper(::collection::index iIndex)
 //   {
 //
 //      // wall-changer sourceforge.net contribution

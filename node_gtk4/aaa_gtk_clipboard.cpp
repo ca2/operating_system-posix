@@ -138,7 +138,7 @@ void clipboard_received_func(GtkClipboard * clipboard, GtkSelectionData * select
 
    }
 
-   for(::raw::index i = 1; i < stra.get_size(); i++)
+   for(::collection::index i = 1; i < stra.get_size(); i++)
    {
 
       string strItem = stra[i];

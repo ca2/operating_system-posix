@@ -65,7 +65,7 @@ bool x11_get_client_rect(Display * d, Window window, ::rectangle_i32 * prectangl
 
 
 //CLASS_DECL_ACME int xinerama_get_monitor_count();
-//CLASS_DECL_ACME int xinerama_get_monitor_rect(::raw::index i, ::rectangle_i32 * prectangle);
+//CLASS_DECL_ACME int xinerama_get_monitor_rect(::collection::index i, ::rectangle_i32 * prectangle);
 //CLASS_DECL_ACME int xinerama_get_screen_size(int& width, int& height);
 
 

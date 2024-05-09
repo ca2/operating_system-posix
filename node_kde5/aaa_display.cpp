@@ -273,7 +273,7 @@
 ////   }
 //
 //   /// should be run in user thread
-//   ::raw::count display::get_monitor_count()
+//   ::collection::count display::get_monitor_count()
 //   {
 //
 //

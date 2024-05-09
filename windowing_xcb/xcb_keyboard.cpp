@@ -336,7 +336,7 @@ void XkbSymbolParser::parse(const string& symbols, StringVector& symbolList)
 }
 
 bool XkbSymbolParser::isXkbLayoutSymbol(const string& symbol) {
-    ::raw::index result = _nonSymbols.find_first(symbol);
+    ::collection::index result = _nonSymbols.find_first(symbol);
     return result < 0;
 }
 
@@ -344,8 +344,8 @@ bool XkbSymbolParser::isXkbLayoutSymbol(const string& symbol) {
 
 int compareNoCase(const string& s1, const string& s2)
 {
-    ::raw::index it1 = 0;
-    ::raw::index it2 = 0;
+    ::collection::index it1 = 0;
+    ::collection::index it2 = 0;
 
     //Has the end of at least one of the strings been reached?
     while (it1 < s1.length() && it2 < s2.length()) {

@@ -66,7 +66,7 @@ GMenu * g_menu_from_application_menu(GApplication * pgapplication, ::application
 
    GMenu * pmenu = g_menu_new();
 
-   for(::raw::index i = 0; i < papplicationmenu->get_count(); i++)
+   for(::collection::index i = 0; i < papplicationmenu->get_count(); i++)
    {
 
       auto pitem = papplicationmenu->element_at(i);

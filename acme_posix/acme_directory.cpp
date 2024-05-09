@@ -153,13 +153,13 @@ namespace acme_posix
    //   void acme_directory::rls(::file::path_array & stra, const char * psz)
    //   {
    //
-   //      ::raw::count start = stra.get_count();
+   //      ::collection::count start = stra.get_count();
    //
    //      ls(stra, psz);
    //
-   //      ::raw::count end = stra.get_count();
+   //      ::collection::count end = stra.get_count();
    //
-   //      for (::raw::index i = start; i < end; i++)
+   //      for (::collection::index i = start; i < end; i++)
    //      {
    //
    //         if (is(stra[i]))
@@ -177,13 +177,13 @@ namespace acme_posix
    //   void acme_directory::rls_dir(::file::path_array & stra, const char * psz)
    //   {
    //
-   //      ::raw::count start = stra.get_count();
+   //      ::collection::count start = stra.get_count();
    //
    //      ls_dir(stra, psz);
    //
-   //      ::raw::count end = stra.get_count();
+   //      ::collection::count end = stra.get_count();
    //
-   //      for (::raw::index i = start; i < end; i++)
+   //      for (::collection::index i = start; i < end; i++)
    //      {
    //
    //         ::file::path path = stra[i];

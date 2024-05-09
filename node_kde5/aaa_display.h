@@ -142,7 +142,7 @@
 ////
 ////   Window default_root_window();
 //
-//      ::raw::count get_monitor_count() override;
+//      ::collection::count get_monitor_count() override;
 //
 //      void set_wallpaper(const string_array & strWallpaper) override;
 //

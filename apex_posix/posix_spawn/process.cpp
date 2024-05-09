@@ -120,7 +120,7 @@ namespace ansios
       if(strFallback.case_insensitive_begins("/Users/"))
       {
 
-         ::raw::index i = 0;
+         ::collection::index i = 0;
 
          int iPrevious = -1;
 

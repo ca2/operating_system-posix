@@ -1145,7 +1145,7 @@ namespace windowing_xcb
 
                auto list = m_pdisplay->_window_enumerate();
 
-               ::raw::index iFind = -1;
+               ::collection::index iFind = -1;
 
                xcb_window_t wFound = 0;
 
@@ -2148,7 +2148,7 @@ if(bSentResponse)
 
                auto list = m_pdisplay->_window_enumerate();
 
-               ::raw::index iFind = -1;
+               ::collection::index iFind = -1;
 
                xcb_window_t wFound = 0;
 

@@ -654,7 +654,7 @@ namespace node_kde6
    }
 
 
-   string node::get_wallpaper(::raw::index iScreen)
+   string node::get_wallpaper(::collection::index iScreen)
    {
 
       return "";

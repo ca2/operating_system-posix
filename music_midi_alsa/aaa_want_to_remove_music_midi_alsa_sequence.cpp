@@ -734,7 +734,7 @@ namespace music
    //
    //         }
    //
-   //         for (::raw::index idxChannel = 0; idxChannel < 16; idxChannel++)
+   //         for (::collection::index idxChannel = 0; idxChannel < 16; idxChannel++)
    //         {
    //
    //            if (KF_EMPTY != keyframe.rbProgram[idxChannel])
@@ -748,10 +748,10 @@ namespace music
    //
    //         }
    //
-   //         for (::raw::index idxChannel = 0; idxChannel < 16; idxChannel++)
+   //         for (::collection::index idxChannel = 0; idxChannel < 16; idxChannel++)
    //         {
    //
-   //            for (::raw::index idxController = 0; idxController < 120; idxController++)
+   //            for (::collection::index idxController = 0; idxController < 120; idxController++)
    //            {
    //
    //               if (KF_EMPTY != keyframe.rbControl[idxChannel][idxController])
@@ -2481,7 +2481,7 @@ namespace music
    //
    ////         int iBufferIter = 1;
    ////
-   ////         for(::raw::index iBuffer = 0; iBuffer < iBufferIter && m_bPlay; iBuffer++)
+   ////         for(::collection::index iBuffer = 0; iBuffer < iBufferIter && m_bPlay; iBuffer++)
    ////         {
    ////
    ////            int iCount = 0;
@@ -2498,7 +2498,7 @@ namespace music
    //
    //                  bool bFound = false;
    //
-   //                  for(::raw::index i = 0; i < evptra.get_size(); i++)
+   //                  for(::collection::index i = 0; i < evptra.get_size(); i++)
    //                  {
    //
    //                     peventOff = evptra[i];

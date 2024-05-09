@@ -3209,7 +3209,7 @@ namespace windowing_xcb
 
       }
 
-      ::raw::count cRemove = atoma.erase(atomFlag);
+      ::collection::count cRemove = atoma.erase(atomFlag);
 
       if (cRemove > 0)
       {

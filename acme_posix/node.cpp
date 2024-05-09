@@ -1983,7 +1983,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 
    printf("glob count : %lu\n", gl.gl_pathc);
    
-   for(::raw::index i = 0; i < gl.gl_pathc; i++)
+   for(::collection::index i = 0; i < gl.gl_pathc; i++)
    {
       
       auto arg = gl.gl_pathv[i];
@@ -2010,7 +2010,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 
    argv = new char * [we.we_wordc + 1];
    
-   for(::raw::index i = 0; i < we.we_wordc; i++)
+   for(::collection::index i = 0; i < we.we_wordc; i++)
    {
       
       auto arg = we.we_wordv[i];

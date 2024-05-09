@@ -432,7 +432,7 @@ namespace node_gnome
 //
 //   }
 //
-//   for(::raw::index i = 1; i < stra.get_size(); i++)
+//   for(::collection::index i = 1; i < stra.get_size(); i++)
 //   {
 //
 //      string strItem = stra[i];
