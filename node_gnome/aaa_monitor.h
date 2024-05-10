@@ -23,7 +23,7 @@ namespace node_gnome
    public:
 
 
-      //::collection::index                                               m_iIndex;
+      //::collection::collection::index                                               m_iIndex;
       //::rectangle_i32                                       m_rectangle;
       //::rectangle_i32                                       m_rectangleWorkspace;
 

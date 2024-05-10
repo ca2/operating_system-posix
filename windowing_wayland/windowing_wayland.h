@@ -67,7 +67,7 @@
 
 
 //CLASS_DECL_ACME int xinerama_get_monitor_count();
-//CLASS_DECL_ACME int xinerama_get_monitor_rect(::collection::index i, ::rectangle_i32 * prectangle);
+//CLASS_DECL_ACME int xinerama_get_monitor_rect(::collection::collection::index i, ::rectangle_i32 * prectangle);
 //CLASS_DECL_ACME int xinerama_get_screen_size(int& width, int& height);
 
 

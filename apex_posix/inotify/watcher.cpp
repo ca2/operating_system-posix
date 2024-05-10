@@ -85,7 +85,7 @@ namespace inotify
 //
 //         acmedirectory()->enumerate(listing);
 //
-//         for(::collection::index index = 0; index < listing.get_count(); index++)
+//         for(::collection::collection::index index = 0; index < listing.get_count(); index++)
 //         {
 //
 //            string strDirPath = listing[index];

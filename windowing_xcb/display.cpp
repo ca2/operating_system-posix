@@ -180,7 +180,7 @@ namespace windowing_xcb
 
       error() << "windowing_xcb::display::open creating_atoms (1)";
 
-      for (::collection::index iAtomName = 0; iAtomName < ::x11::e_atom_count; iAtomName++)
+      for (::collection::collection::index iAtomName = 0; iAtomName < ::x11::e_atom_count; iAtomName++)
       {
 
          if (!m_atoma[iAtomName])
@@ -303,7 +303,7 @@ namespace windowing_xcb
    }
 
 
-   bool display::get_monitor_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangle)
+   bool display::get_monitor_rectangle(::collection::collection::index iMonitor, ::rectangle_i32 & rectangle)
    {
 
       return ::windowing::display::get_monitor_rectangle(iMonitor, rectangle);
@@ -311,7 +311,7 @@ namespace windowing_xcb
    }
 
 
-   bool display::get_workspace_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangle)
+   bool display::get_workspace_rectangle(::collection::collection::index iMonitor, ::rectangle_i32 & rectangle)
    {
 
       return ::windowing::display::get_workspace_rectangle(iMonitor, rectangle);
@@ -1129,7 +1129,7 @@ namespace windowing_xcb
 
                           ::rectangle_i32 rectangleTest;
 
-                          for (::collection::index i = 0; i < windowa.get_size(); i++)
+                          for (::collection::collection::index i = 0; i < windowa.get_size(); i++)
                           {
 
                              //string strItem = ::_window_get(xcb_connection(), windowa[i]);

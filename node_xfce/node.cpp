@@ -462,7 +462,7 @@ namespace node_xfce
 //   }
 
 
-//   bool node::set_wallpaper(::collection::index iScreen, string strLocalImagePath)
+//   bool node::set_wallpaper(::collection::collection::index iScreen, string strLocalImagePath)
 //   {
 //
 //      return ::node_gtk::node::set_wallpaper(iScreen, strLocalImagePath);
@@ -589,7 +589,7 @@ namespace node_xfce
 //   }
 //
 //
-//   string node::get_wallpaper(::collection::index iScreen)
+//   string node::get_wallpaper(::collection::collection::index iScreen)
 //   {
 //
 //      return "";
@@ -668,13 +668,13 @@ namespace node_xfce
 //
 //                              synchronous_lock slSession(psession->synchronization());
 //
-//                              ::collection::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
+//                              ::collection::collection::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
 //
 //                              psession->m_rectangleaWorkspace.set_size(iMonitorCount);
 //
 //                              psession->m_rectangleaMonitor.set_size(iMonitorCount);
 //
-//                              for (::collection::index iMonitor = 0; iMonitor < iMonitorCount; iMonitor++)
+//                              for (::collection::collection::index iMonitor = 0; iMonitor < iMonitorCount; iMonitor++)
 //                              {
 //
 //                                 GdkMonitor *pmonitor = gdk_display_get_monitor(pdisplay, iMonitor);

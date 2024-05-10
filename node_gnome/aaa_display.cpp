@@ -40,7 +40,7 @@ void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString)
 //
 //
 //   /// should be run in user thread
-//   ::collection::count display::get_monitor_count()
+//   ::collection::collection::count display::get_monitor_count()
 //   {
 //
 //
@@ -53,7 +53,7 @@ void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString)
 //
 //         }
 //
-//        ::collection::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
+//        ::collection::collection::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
 //
 //        return iMonitorCount;
 //

@@ -609,7 +609,7 @@ namespace windowing_wayland
 //
 //                  ::rectangle_i32 rectangleTest;
 //
-//                  for (::collection::index i = 0; i < windowa.get_size(); i++)
+//                  for (::collection::collection::index i = 0; i < windowa.get_size(); i++)
 //                  {
 //
 //                     string strItem = ::x11_get_name(Display(), windowa[i]);
@@ -825,7 +825,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //   ppen->create_solid(0);
 //
-//   for(::collection::index i = 0; i < stra.get_count(); i++)
+//   for(::collection::collection::index i = 0; i < stra.get_count(); i++)
 //   {
 //
 //      pgraphics->text_out(10.0 + 50.0 + (baTab[i] ? 25.0 : 0), 10.0 + 50.0 + ya[i], stra[i]);

@@ -1158,7 +1158,7 @@ namespace node_gtk4
 
 
 
-   bool node::set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay)
+   bool node::set_wallpaper(::collection::collection::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay)
    {
 
       // wall-changer sourceforge.net contribution
@@ -1298,7 +1298,7 @@ namespace node_gtk4
    }
 
 
-   string node::get_wallpaper(::collection::index iScreen)
+   string node::get_wallpaper(::collection::collection::index iScreen)
    {
 
       return "";
@@ -2257,7 +2257,7 @@ namespace node_gtk4
 
       auto c = minimum(straExtension.size(), straMimeType.size());
 
-      for(::collection::index i = 0; i < c; i++)
+      for(::collection::collection::index i = 0; i < c; i++)
       {
 
          ::string strExtension = straExtension[i];
@@ -2345,7 +2345,7 @@ namespace node_gtk4
 
       straMimeTypes = file()->lines("/etc/mime.types");
 
-      ::collection::index iLine = 0;
+      ::collection::collection::index iLine = 0;
 
       while(true)
       {

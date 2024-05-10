@@ -238,7 +238,7 @@ namespace windowing_wayland
 //         if(wcslen(wsz) == 8)
 //         {
 //
-//            ::collection::index i = 0;
+//            ::collection::collection::index i = 0;
 //
 //            for(; i < 8; i++)
 //            {
@@ -736,7 +736,7 @@ namespace windowing_wayland
 
       m_iSoftwareKeyboardEventId++;
 
-      ::collection::index iEventId = m_iSoftwareKeyboardEventId;
+      ::collection::collection::index iEventId = m_iSoftwareKeyboardEventId;
 
       m_pprimitiveSoftwareKeyboard = pprimitive;
 
@@ -782,7 +782,7 @@ namespace windowing_wayland
 
       m_iSoftwareKeyboardEventId++;
 
-      ::collection::index iEventId = m_iSoftwareKeyboardEventId;
+      ::collection::collection::index iEventId = m_iSoftwareKeyboardEventId;
 
       m_pprimitiveSoftwareKeyboard = nullptr;
 

@@ -57,9 +57,9 @@ namespace node_xfce
 
       //string get_file_content_type(const ::string & strPath) override;
 
-      //bool set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay) override;
+      //bool set_wallpaper(::collection::collection::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay) override;
 
-      //string get_wallpaper(::collection::index iScreen) override;
+      //string get_wallpaper(::collection::collection::index iScreen) override;
 
       //using ::aura::node::node_fork;
 

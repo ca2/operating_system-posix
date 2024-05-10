@@ -340,7 +340,7 @@ void simple_ui_display::on_expose(xcb_connection_t * pdisplay)
          XftColor colorBack;
          XftColor colorBorder;
 
-         for(::collection::index iButton = m_buttona.get_upper_bound(); iButton >= 0; iButton--)
+         for(::collection::collection::index iButton = m_buttona.get_upper_bound(); iButton >= 0; iButton--)
          {
 
             auto pbutton = m_buttona[iButton];
@@ -617,7 +617,7 @@ void simple_ui_display::on_layout(xcb_connection_t * pdisplay)
 
    int iMaxButtonTextWidth = 50;
 
-   for(::collection::index iButton = m_buttona.get_upper_bound(); iButton >= 0; iButton--)
+   for(::collection::collection::index iButton = m_buttona.get_upper_bound(); iButton >= 0; iButton--)
    {
 
       auto pbutton = m_buttona[iButton];

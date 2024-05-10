@@ -622,7 +622,7 @@ namespace node_kde5
    }
 
 
-   string node::get_wallpaper(::collection::index iScreen)
+   string node::get_wallpaper(::collection::collection::index iScreen)
    {
 
       return "";
