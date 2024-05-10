@@ -56,7 +56,7 @@ void sn_start_context();
 //
 //   GMenu * pmenu = g_menu_new ();
 //
-//   for(::collection::collection::index i = 0; i < pappmenu->get_count(); i++)
+//   for(::collection::index i = 0; i < pappmenu->get_count(); i++)
 //   {
 //
 //      string strId = pappmenu->element_at(i).m_strId;

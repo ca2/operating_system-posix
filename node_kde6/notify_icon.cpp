@@ -89,7 +89,7 @@ namespace node_kde6
    ::e_status notify_icon::_populate_qmenu_popup(QMenu * pmenuPopup, application_menu * papplicationmenu)
    {
 
-      for (::collection::collection::index i = 0; i < papplicationmenu->count(); i++)
+      for (::collection::index i = 0; i < papplicationmenu->count(); i++)
       {
 
          auto pitem = papplicationmenu->element_at(i);
@@ -103,7 +103,7 @@ namespace node_kde6
    }
 
 
-   ::e_status notify_icon::_populate_qmenu(QMenu * pmenu, ::collection::collection::index i, application_menu * papplicationmenu)
+   ::e_status notify_icon::_populate_qmenu(QMenu * pmenu, ::collection::index i, application_menu * papplicationmenu)
    {
 
       string strLabel = papplicationmenu->m_strName;
@@ -130,7 +130,7 @@ namespace node_kde6
       }
       else
       {
-//      for (::collection::collection::index i = 0; i < m_papplicationmenu->get_count(); i++)
+//      for (::collection::index i = 0; i < m_papplicationmenu->get_count(); i++)
 //      {
 //
 //         auto pitem = m_papplicationmenu->element_at(i);

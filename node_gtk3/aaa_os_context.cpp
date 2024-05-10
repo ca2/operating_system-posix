@@ -34,7 +34,7 @@ namespace node_gtk3
 
       auto c = minimum(straExtension.size(), straMimeType.size());
 
-      for(::collection::collection::index i = 0; i < c; i++)
+      for(::collection::index i = 0; i < c; i++)
       {
 
          ::string strExtension = straExtension[i];
@@ -122,7 +122,7 @@ namespace node_gtk3
 
       straMimeTypes = file()->lines("/etc/mime.types");
 
-      ::collection::collection::index iLine = 0;
+      ::collection::index iLine = 0;
 
       while(true)
       {

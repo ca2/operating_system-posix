@@ -144,7 +144,7 @@
 ////
 ////   Window default_root_window();
 //
-//      virtual ::collection::collection::count get_monitor_count() override;
+//      virtual ::collection::count get_monitor_count() override;
 //
 //
 //};

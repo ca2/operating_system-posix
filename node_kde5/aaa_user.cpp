@@ -67,7 +67,7 @@
 //   }
 //
 //
-//   string get_wallpaper(::collection::collection::index iIndex)
+//   string get_wallpaper(::collection::index iIndex)
 //   {
 //
 //      // wall-changer sourceforge.net contribution

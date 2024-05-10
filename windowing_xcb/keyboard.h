@@ -21,7 +21,7 @@ namespace windowing_xcb
 
 
       ::pointer<::user::primitive>             m_pprimitiveSoftwareKeyboard;
-      ::collection::collection::index                                     m_iSoftwareKeyboardEventId;
+      ::collection::index                                     m_iSoftwareKeyboardEventId;
 
 
       ::i32_map < ::user::enum_key >              m_mapExt;

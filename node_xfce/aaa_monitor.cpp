@@ -187,13 +187,13 @@ namespace node_xfce
 //
 //                              synchronous_lock slSession(psession->synchronization());
 //
-//                              ::collection::collection::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
+//                              ::collection::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
 //
 //                              psession->m_rectangleaWorkspace.set_size(iMonitorCount);
 //
 //                              psession->m_rectangleaMonitor.set_size(iMonitorCount);
 //
-//                              for (::collection::collection::index iMonitor = 0; iMonitor < iMonitorCount; iMonitor++)
+//                              for (::collection::index iMonitor = 0; iMonitor < iMonitorCount; iMonitor++)
 //                              {
 //
 //                                 GdkMonitor *pmonitor = gdk_display_get_monitor(pdisplay, iMonitor);

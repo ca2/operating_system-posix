@@ -46,7 +46,7 @@ namespace aura_posix
       //SHGetImageList(SHIL_JUMBO, IID_IImageList, m_pimagelistJumbo);
       /// SHGetMalloc(&m_pmalloc);
 
-//         for (::collection::collection::index i = 0; i < get_processor_count() * 2; i++)
+//         for (::collection::index i = 0; i < get_processor_count() * 2; i++)
 //         {
 //
 //            m_threadaGetImage.add(fork([&]()

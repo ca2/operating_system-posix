@@ -29,12 +29,12 @@ namespace node_kde6
       virtual bool is_x11();
 
 
-      virtual ::e_status _get_monitor_rectangle(::collection::collection::index iMonitor, ::rectangle_i32 * prectangle);
-      virtual ::e_status _get_workspace_rectangle(::collection::collection::index iMonitor, ::rectangle_i32 * prectangle);
+      virtual ::e_status _get_monitor_rectangle(::collection::index iMonitor, ::rectangle_i32 * prectangle);
+      virtual ::e_status _get_workspace_rectangle(::collection::index iMonitor, ::rectangle_i32 * prectangle);
 
 
-      void get_monitor_rectangle(::collection::collection::index iMonitor, ::rectangle_i32 * prectangle) override;
-      void get_workspace_rectangle(::collection::collection::index iMonitor, ::rectangle_i32 * prectangle) override;
+      void get_monitor_rectangle(::collection::index iMonitor, ::rectangle_i32 * prectangle) override;
+      void get_workspace_rectangle(::collection::index iMonitor, ::rectangle_i32 * prectangle) override;
 
 
       void user_post(const ::procedure & procedure) override;

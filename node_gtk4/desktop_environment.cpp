@@ -35,7 +35,7 @@ namespace node_gtk4
    }
 
 
-//   ::e_status desktop_environment::_get_monitor_rectangle(::collection::collection::index iIndex, ::rectangle_i32 *prectangle)
+//   ::e_status desktop_environment::_get_monitor_rectangle(::collection::index iIndex, ::rectangle_i32 *prectangle)
 //   {
 //
 //      synchronous_lock sl(user_synchronization());
@@ -75,7 +75,7 @@ namespace node_gtk4
 //   }
 
 
-   void desktop_environment::get_workspace_rectangle(::collection::collection::index iIndex, ::rectangle_i32 *prectangle)
+   void desktop_environment::get_workspace_rectangle(::collection::index iIndex, ::rectangle_i32 *prectangle)
    {
 
 //      if(m_bX11)
@@ -98,7 +98,7 @@ namespace node_gtk4
    }
 
 
-   ::e_status desktop_environment::_get_workspace_rectangle(::collection::collection::index iIndex, ::rectangle_i32 *prectangle)
+   ::e_status desktop_environment::_get_workspace_rectangle(::collection::index iIndex, ::rectangle_i32 *prectangle)
    {
 
       //synchronous_lock sl(user_synchronization());
@@ -149,7 +149,7 @@ namespace node_gtk4
    }
 
 //
-//   void desktop_environment::get_monitor_rectangle(::collection::collection::index iIndex, ::rectangle_i32 *prectangle)
+//   void desktop_environment::get_monitor_rectangle(::collection::index iIndex, ::rectangle_i32 *prectangle)
 //   {
 //
 //      if(m_bX11)
@@ -168,7 +168,7 @@ namespace node_gtk4
 //   }
 //
 //
-//   void desktop_environment::get_workspace_rectangle(::collection::collection::index iIndex, ::rectangle_i32 *prectangle)
+//   void desktop_environment::get_workspace_rectangle(::collection::index iIndex, ::rectangle_i32 *prectangle)
 //   {
 //
 //      if(m_bX11)

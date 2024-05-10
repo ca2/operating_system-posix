@@ -442,7 +442,7 @@ namespace node_gtk4
 //
 //   }
 //
-//   for(::collection::collection::index i = 1; i < stra.get_size(); i++)
+//   for(::collection::index i = 1; i < stra.get_size(); i++)
 //   {
 //
 //      string strItem = stra[i];

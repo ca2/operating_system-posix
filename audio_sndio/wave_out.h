@@ -41,7 +41,7 @@ namespace multimedia
          class ::time out_get_position() override;
          //imedia_position out_get_position();
 
-         //virtual ::e_status wave_out_open(::thread * pthreadCallback, ::collection::collection::count iBufferCount, ::collection::collection::count iBufferSampleCount) override;
+         //virtual ::e_status wave_out_open(::thread * pthreadCallback, ::collection::count iBufferCount, ::collection::count iBufferSampleCount) override;
          void out_open_ex(::thread * pthreadCallback, ::u32 uiSamplesPerSec, ::u32 uiChannelCount, ::u32 uiBitsPerSample, ::wave::enum_purpose epurpose) override;
          void out_stop() override;
          void out_close() override;
@@ -57,7 +57,7 @@ namespace multimedia
          //virtual void alsa_write_thread();
 
          void out_on_playback_end() override;
-         void out_filled(::collection::collection::index iBuffer) override;
+         void out_filled(::collection::index iBuffer) override;
          virtual bool alsa_should_play();
 
          void init_task() override;
