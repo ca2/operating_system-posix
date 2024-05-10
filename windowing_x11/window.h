@@ -202,6 +202,10 @@ namespace windowing_x11
 
       virtual void set_mouse_cursor2(::windowing::cursor * pcursor);
 
+      virtual void _x11_defer_set_mouse_cursor(::Cursor cursor);
+
+      virtual void _x11_set_mouse_cursor(::Cursor cursor);
+
       void set_keyboard_focus() override;
       void _set_keyboard_focus_unlocked() override;
       void set_mouse_capture() override;
@@ -331,6 +335,11 @@ namespace windowing_x11
 
       virtual void _on_end_paint();
       virtual void _enable_net_wm_sync();
+
+
+      void user_send(const ::procedure & procedure) override;
+
+      void user_post(const ::procedure & procedure) override;
 
 
    };

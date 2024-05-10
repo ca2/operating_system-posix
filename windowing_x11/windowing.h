@@ -61,6 +61,8 @@ namespace windowing_x11
       virtual void post_ui_message(::message::message * pmessage);
 
 
+      void user_send(const ::procedure & procedure) override;
+      void user_post(const ::procedure & procedure) override;
 
       //void add_mouse_message_handler(::particle * pparticle) override;
       //void add_keyboard_message_handler(::particle * pparticle) override;

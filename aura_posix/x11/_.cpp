@@ -69,6 +69,12 @@ namespace x11
          iCursor = XC_arrow;
 
       }
+      else if(ecursor == e_cursor_text_select)
+      {
+
+         iCursor = XC_xterm;
+
+      }
       else
       {
 

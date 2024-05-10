@@ -10,6 +10,7 @@
 #include <X11/cursorfont.h>
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
+#include "aura/windowing/cursor_manager.h"
 #include "display.h"
 
 
@@ -89,90 +90,20 @@ namespace windowing_x11
    ::e_status cursor::_load_default_cursor(enum_cursor ecursor)
    {
 
-      int iCursor;
+      auto iCursor = ::x11::get_default_system_cursor_glyph(ecursor);
 
-      iCursor = ::x11::get_default_system_cursor_glyph(ecursor);
+      information() << "_load_default_cursor glyph index : " << iCursor;
 
-      if(iCursor == 0)
+      if(iCursor < 0)
       {
 
          return ::error_failed;
 
       }
 
-//      if(ecursor == e_cursor_size_top_left)
-//      {
-//
-//         iCursor = XC_top_left_corner;
-//
-//      }
-//      else if(ecursor == e_cursor_size_top_right)
-//      {
-//
-//         iCursor = XC_top_right_corner;
-//
-//      }
-//      else if(ecursor == e_cursor_size_top)
-//      {
-//
-//         iCursor = XC_top_side;
-//
-//      }
-//      else if(ecursor == e_cursor_size_right)
-//      {
-//
-//         iCursor = XC_right_side;
-//
-//      }
-//      else if(ecursor == e_cursor_size_left)
-//      {
-//
-//         iCursor = XC_left_side;
-//
-//      }
-//      else if(ecursor == e_cursor_size_bottom)
-//      {
-//
-//         iCursor = XC_bottom_side;
-//
-//      }
-//      else if(ecursor == e_cursor_size_bottom_left)
-//      {
-//
-//         iCursor = XC_bottom_left_corner;
-//
-//      }
-//      else if(ecursor == e_cursor_size_bottom_right)
-//      {
-//
-//         iCursor = XC_bottom_right_corner;
-//
-//      }
-//      else if(ecursor == e_cursor_arrow)
-//      {
-//
-//         iCursor = XC_arrow;
-//
-//      }
-//
-//      if(iCursor < 0)
-//      {
-//
-//         return ::error_failed;
-//
-//      }
+      auto pcursormanager = m_pcursormanager;
 
-      _synchronous_lock sl(user_synchronization());
-
-      windowing_output_debug_string("::x11_GetWindowRect 1");
-
-      auto psystem = system();
-
-      auto psession = psystem->session()->m_paurasession;
-
-      auto puser = psession->user();
-
-      auto pwindowing = puser->windowing();
+      auto pwindowing = pcursormanager->m_pwindowing;
 
       auto pdisplay = pwindowing->display();
 
@@ -192,7 +123,7 @@ namespace windowing_x11
       if(!cursor)
       {
 
-         information() << "XC_bottom_right_corner !cursor";
+         warning() << "_load_default_cursor XCreateFontCursor failed";
 
          return error_failed;
 
@@ -200,7 +131,7 @@ namespace windowing_x11
 
       m_cursor = cursor;
 
-      information() << "XC_bottom_right_corner cursor : " << cursor;
+      information() << "_load_default_cursor cursor : " << cursor;
 
       return ::success;
 
