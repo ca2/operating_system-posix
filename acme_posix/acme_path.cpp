@@ -12,7 +12,7 @@
 #endif
 //#include "acme/filesystem/filesystem/path.h"
 #include <sys/stat.h>
-
+#include <stdio.h>
 
 namespace acme_posix
 {
@@ -165,7 +165,23 @@ namespace acme_posix
 
    }
 
+void acme_path::rename(const ::file::path& pathNewName, const ::file::path& pathOldName)
+{
+   
+   ::string strOldName(pathOldName);
+   
+   ::string strNewName(pathNewName);
 
+   auto iError = ::rename(strOldName, strNewName);
+   
+   if(iError)
+   {
+    
+      throw ::exception(error_io, "rename from \"" + strOldName + "\" to \"" + strNewName + "\" failed");
+      
+   }
+
+}
 
 
 } // namespace acme_posix

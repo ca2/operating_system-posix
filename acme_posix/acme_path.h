@@ -36,7 +36,7 @@ namespace acme_posix
       ::file::e_type executable_type(const ::file::path & path) override;
 
       ::file::path get_absolute_path(const ::scoped_string& scopedstr) override;
-
+      void rename(const ::file::path& pathNewName, const ::file::path& pathOldName) override;
 
    };
 

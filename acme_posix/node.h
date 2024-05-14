@@ -123,6 +123,8 @@ namespace acme_posix
 
       void integration_factory() override;
 
+      bool has_command(const ::scoped_string& scopedstrCommand) override;
+
 
    };
 

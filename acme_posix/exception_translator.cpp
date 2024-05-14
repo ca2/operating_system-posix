@@ -7,7 +7,8 @@
 //#include "acme/exception/standard.h"
 #include "acme/platform/sequencer.h"
 #include "acme/user/user/conversation.h"
-#include "acme/user/nano/nano.h"
+#include "acme/nano/nano.h"
+#include "acme/nano/user/user.h"
 #if defined(LINUX)
 #include "acme/operating_system/linux/standard_exception.h"
 #elif defined(FREEBSD)
@@ -148,7 +149,7 @@ namespace acme_posix
 
          informationf("failed to install segmentation fault signal handler");
 
-         auto psequencer = nano()->message_box("failed to install segmentation fault signal handler",
+         auto psequencer = nano()->user()->message_box("failed to install segmentation fault signal handler",
                                                "failed to install segmentation fault signal handler",
                                                e_message_box_ok);
 

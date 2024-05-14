@@ -587,8 +587,12 @@ namespace acme_posix
 
    void node::set_environment_variable(const ::scoped_string & scopedstrEnvironmentVariable, const ::scoped_string & scopedstrPayload)
    {
+      
+      ::string strKey(scopedstrEnvironmentVariable);
+      
+      ::string strPayload(scopedstrPayload);
 
-      ::setenv(scopedstrEnvironmentVariable, scopedstrPayload, 1);
+      ::setenv(strKey, strPayload, 1);
 
    }
 
@@ -2467,6 +2471,14 @@ if(functionTrace)
       
       return true;
       
+   }
+
+
+   bool node::has_command(const ::scoped_string& scopedstrCommand)
+   {
+
+      return has_posix_shell_command(scopedstrCommand);
+
    }
 
 

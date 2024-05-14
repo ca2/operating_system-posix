@@ -44,9 +44,7 @@ namespace acme_posix
       void context::initialize(::particle *pparticle)
       {
 
-         ::particle::initialize(pparticle);
-
-         m_pmutexLines = node()->create_mutex();
+         ::integration::context::initialize(pparticle);
 
       }
 
