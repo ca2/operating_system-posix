@@ -555,7 +555,7 @@ namespace windowing_wayland
 //   }
 
 
-//   ::wayland::nano_window_base * display::_get_active_window(::thread * pthread)
+//   ::wayland::nano::user::window_base * display::_get_active_window(::thread * pthread)
 //   {
 //
 ////      auto window = m_px11display->_get_active_window();

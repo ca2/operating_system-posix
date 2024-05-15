@@ -290,7 +290,7 @@ namespace windowing_wayland
    }
 
 
-   ::wayland::nano_window_base * windowing::_window(::wl_surface * pwlsurface)
+   ::wayland::nano::user::window_base * windowing::_window(::wl_surface * pwlsurface)
    {
 
       if (!m_pdisplay)

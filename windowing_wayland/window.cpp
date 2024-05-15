@@ -845,7 +845,7 @@ namespace windowing_wayland
 
       ::windowing_posix::window::destroy();
 
-      ::wayland::nano_window_base::destroy();
+      ::wayland::nano::user::window_base::destroy();
 
    }
 

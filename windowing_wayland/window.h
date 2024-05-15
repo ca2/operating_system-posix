@@ -29,7 +29,7 @@ namespace windowing_wayland
 
    class CLASS_DECL_WINDOWING_WAYLAND window :
       virtual public ::windowing_posix::window,
-      virtual public ::wayland::nano_window_base
+      virtual public ::wayland::nano::user::window_base
    {
    public:
 
