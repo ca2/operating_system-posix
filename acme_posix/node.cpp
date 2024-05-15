@@ -1916,9 +1916,9 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
    auto range = scopedstr();
    
    ::string strExecutable(range.consume_command_line_argument());
-#if defined(_APPLE_IOS_)
-   char **argv;
-#endif#if defined(APPLE_IOS)
+//#if !defined(_APPLE_IOS_)
+//   char **argv;
+//#endif
    
 #if defined(APPLE_IOS)
    
