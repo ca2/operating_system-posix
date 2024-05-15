@@ -750,7 +750,7 @@ namespace node_gtk3
 
 #if defined(WITH_X11)
 
-         set_x11_thread();
+         ::x11::nano::user::set_thread();
 
 #endif
 
@@ -2455,7 +2455,7 @@ namespace node_gtk3
 
       informationf("node_gtk3::node::x11_initialize going to call x11_init_threads");
 
-      if (!x11_init_threads())
+      if (!::x11::nano::user::init_threads())
       {
 
           return ::error_failed;
