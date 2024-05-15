@@ -11,44 +11,44 @@
 #include <pthread.h>
 #endif
 
-   #ifdef MUTEX_COND_TIMED
-
-#pragma message("MUTEX_COND_TIMED defined")
-
-#else
-
-#pragma message("MUTEX_COND_TIMED not defined")
-
-
-   #endif
-
-   #if defined(MUTEX_NAMED_FD)
-
-#pragma message("MUTEX_NAMED_FD defined")
-
-#else
-
-#pragma message("MUTEX_NAMED_FD not defined")
-
-   #endif
-
-   #if defined(MUTEX_NAMED_POSIX)
-
-      #pragma message("MUTEX_NAMED_POSIX defined")
-
-   #elif defined(MUTEX_NAMED_FD)
-
-      #pragma message("MUTEX_NAMED_FD defined")
-
-   #elif defined(MUTEX_NAMED_VSEM)
-
-      #pragma message("MUTEX_NAMED_VSEM defined")
-
-#else
-
-       #pragma message("NO MUTEX_NAMED_* defined")
-
-   #endif
+//   #ifdef MUTEX_COND_TIMED
+//
+//#pragma message("MUTEX_COND_TIMED defined")
+//
+//#else
+//
+//#pragma message("MUTEX_COND_TIMED not defined")
+//
+//
+//   #endif
+//
+//   #if defined(MUTEX_NAMED_FD)
+//
+//#pragma message("MUTEX_NAMED_FD defined")
+//
+//#else
+//
+//#pragma message("MUTEX_NAMED_FD not defined")
+//
+//   #endif
+//
+//   #if defined(MUTEX_NAMED_POSIX)
+//
+//      #pragma message("MUTEX_NAMED_POSIX defined")
+//
+//   #elif defined(MUTEX_NAMED_FD)
+//
+//      #pragma message("MUTEX_NAMED_FD defined")
+//
+//   #elif defined(MUTEX_NAMED_VSEM)
+//
+//      #pragma message("MUTEX_NAMED_VSEM defined")
+//
+//#else
+//
+//       #pragma message("NO MUTEX_NAMED_* defined")
+//
+//   #endif
 
 namespace acme_posix
 {

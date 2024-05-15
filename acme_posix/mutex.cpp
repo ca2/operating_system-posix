@@ -61,11 +61,11 @@ void utc_timespec(timespec * ptimespec);
 #endif
 
 
-#if defined(MUTEX_COND_TIMED)
-#pragma message("MUTEX_COND_TIMED defined")
-#else
-#pragma message("MUTEX_COND_TIMED not defined")
-#endif
+//#if defined(MUTEX_COND_TIMED)
+//#pragma message("MUTEX_COND_TIMED defined")
+//#else
+//#pragma message("MUTEX_COND_TIMED not defined")
+//#endif
 
 
 //static int g_iMutex = 0;
