@@ -2152,7 +2152,7 @@ namespace node_gtk3
 //
 //      }
 //
-      if(get_display_type() == e_display_type_x11)
+      if(::nano::user::get_display_type() == e_display_type_x11)
       {
 
          ::aura_posix::node::_allocate_Display_and_connection();

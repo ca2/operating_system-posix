@@ -23,9 +23,13 @@ __FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory);
 __FACTORY_EXPORT void windowing_wayland_factory(::factory::factory * pfactory);
 #endif
 
-
-enum_display_type get_display_type();
-
+namespace nano
+{
+   namespace user
+   {
+      enum_display_type get_display_type();
+   }//namespace user
+} // namespace nano
 
 __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
 {
