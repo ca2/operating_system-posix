@@ -19,7 +19,13 @@
 
 platform_char *** process_get_pargv();
 
-void initialize_display_type(enum_display_type edisplaytype);
+namespace nano
+{
+   namespace user
+   {
+      void initialize_display_type(enum_display_type edisplaytype);
+   }// namespace user
+} // namespace nano
 
 ////int uname(struct utsname *buf);
 //#ifndef RASPBERRYPIOS
@@ -120,7 +126,7 @@ namespace node_gtk3
 
          }
 
-         initialize_display_type(calculate_display_type());
+         ::nano::user::initialize_display_type(calculate_display_type());
 
       }
 

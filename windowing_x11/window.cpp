@@ -981,7 +981,7 @@ namespace windowing_x11
 
       m_strWMClass = psz;
 
-      x11_sync([this]()
+      ::x11::nano::user::x11_sync([this]()
                {
 
 
@@ -1005,7 +1005,7 @@ namespace windowing_x11
 
       int i = 0;
 
-      x11_sync([this, &i]()
+      ::x11::nano::user::x11_sync([this, &i]()
                {
 
                   ::x11::display_lock displaylock(x11_display()->Display());
@@ -1094,7 +1094,7 @@ namespace windowing_x11
       //synchronous_lock synchronouslock(user_synchronization());
       int i = 0;
 
-      x11_sync([this, &i, bWithdraw]()
+      ::x11::nano::user::x11_sync([this, &i, bWithdraw]()
                {
 
 
@@ -1464,7 +1464,7 @@ namespace windowing_x11
 
       ::memory memory(data, nelements * format / 8);
 
-      x11_sync([this, &i, memory, property, type, format, mode, nelements]()
+      ::x11::nano::user::x11_sync([this, &i, memory, property, type, format, mode, nelements]()
                {
 
 
@@ -1486,7 +1486,7 @@ namespace windowing_x11
 
       ::image_pointer pimageTransport(pimage);
 
-      x11_sync([this, &bOk, pimageTransport]()
+      ::x11::nano::user::x11_sync([this, &bOk, pimageTransport]()
                {
 
                   // http://stackoverflow.com/questions/10699927/xlib-argb-window-icon
@@ -1704,7 +1704,7 @@ namespace windowing_x11
 
       ::string str(psz);
 
-      x11_sync([this, &i, str]()
+      ::x11::nano::user::x11_sync([this, &i, str]()
                {
 
 
@@ -1730,7 +1730,7 @@ namespace windowing_x11
 
       int i = 0;
 
-      x11_sync([this, &i, iInput]()
+      ::x11::nano::user::x11_sync([this, &i, iInput]()
                {
 
 
@@ -1756,7 +1756,7 @@ namespace windowing_x11
 
       int i = 0;
 
-      x11_sync([this, &i]()
+      ::x11::nano::user::x11_sync([this, &i]()
                {
 
 
@@ -1934,7 +1934,7 @@ namespace windowing_x11
 
       ::Window windowParent = pwindowx11NewParent->Window();
 
-      x11_sync([this, windowParent]()
+      ::x11::nano::user::x11_sync([this, windowParent]()
                {
 
 
@@ -1982,7 +1982,7 @@ namespace windowing_x11
 
       va_end(argp);
 
-      x11_sync([this, xevent]()
+      ::x11::nano::user::x11_sync([this, xevent]()
                {
 
                   XEvent eventCopy;
@@ -2036,7 +2036,7 @@ namespace windowing_x11
       }
 
 
-      x11_sync([this, add, iScreen, state1, state2]()
+      ::x11::nano::user::x11_sync([this, add, iScreen, state1, state2]()
                {
 
                   XClientMessageEvent xclient;
@@ -2107,7 +2107,7 @@ namespace windowing_x11
       va_end(argp);
 
 
-      x11_sync([this, atoms]()
+      ::x11::nano::user::x11_sync([this, atoms]()
                {
 
 
@@ -2316,7 +2316,7 @@ namespace windowing_x11
 
       auto r = rectangle;
 
-      x11_sync([this, r]()
+      ::x11::nano::user::x11_sync([this, r]()
                {
 
                   ::rectangle_i32 rBest;
@@ -2399,7 +2399,7 @@ namespace windowing_x11
    {
 
 
-      x11_sync([this]()
+      ::x11::nano::user::x11_sync([this]()
                {
 
 
@@ -2440,7 +2440,7 @@ namespace windowing_x11
    {
 
 
-      x11_sync([this]()
+      ::x11::nano::user::x11_sync([this]()
                {
 
                   //synchronous_lock synchronouslock(user_synchronization());
@@ -2564,7 +2564,7 @@ namespace windowing_x11
 
       bool bOk = false;
 
-      x11_sync([this, &bOk, &lState]()
+      ::x11::nano::user::x11_sync([this, &bOk, &lState]()
                {
 
 
@@ -2677,7 +2677,7 @@ namespace windowing_x11
 
       bool bVisible = false;
 
-      x11_sync([this, &bVisible]()
+      ::x11::nano::user::x11_sync([this, &bVisible]()
                {
 
 
@@ -2812,7 +2812,7 @@ namespace windowing_x11
 
       ::e_status estatus = error_failed;
 
-      x11_sync([this, pathIcon, &estatus]()
+      ::x11::nano::user::x11_sync([this, pathIcon, &estatus]()
                {
 
                   estatus = _bamf_set_icon_unlocked(pathIcon);
@@ -3103,7 +3103,7 @@ namespace windowing_x11
       auto zorderCopy = zorder;
       auto eactivationCopy = eactivation;
 
-      x11_sync([this, & bOk, zorderCopy, x, y, cx, cy, eactivationCopy, bNoZorder, bNoMove, bNoSize, edisplay]()
+      ::x11::nano::user::x11_sync([this, & bOk, zorderCopy, x, y, cx, cy, eactivationCopy, bNoZorder, bNoMove, bNoSize, edisplay]()
                {
 
 
@@ -4312,7 +4312,7 @@ namespace windowing_x11
       ra.erase_all();
 
 
-      x11_sync([this, &ra]()
+      ::x11::nano::user::x11_sync([this, &ra]()
                {
 
 
@@ -4641,7 +4641,7 @@ namespace windowing_x11
       ::Window window = 0;
 
 
-      x11_sync([this, erelative, &window]()
+      ::x11::nano::user::x11_sync([this, erelative, &window]()
                {
 
                   //synchronous_lock synchronouslock(user_synchronization());
@@ -4782,7 +4782,7 @@ namespace windowing_x11
    void window::destroy_window()
    {
 
-      x11_sync([this]()
+      ::x11::nano::user::x11_sync([this]()
                {
 
 
@@ -4997,7 +4997,7 @@ namespace windowing_x11
 
       int i = 0;
 
-      x11_sync([this, &i, strNetStateFlag]()
+      ::x11::nano::user::x11_sync([this, &i, strNetStateFlag]()
                {
 
                   //synchronous_lock synchronouslock(user_synchronization());
@@ -5194,7 +5194,7 @@ namespace windowing_x11
 
       ::string strName(pszName);
 
-      x11_sync([this, strName]()
+      ::x11::nano::user::x11_sync([this, strName]()
                {
 
                   informationf("::windowing_x11::window::x11_store_name : %s", strName.c_str());
@@ -5407,7 +5407,7 @@ namespace windowing_x11
    void window::set_mouse_capture()
    {
 
-      x11_sync([this]()
+      ::x11::nano::user::x11_sync([this]()
                {
 
                   //synchronous_lock synchronouslock(user_synchronization());
@@ -5545,7 +5545,7 @@ namespace windowing_x11
    {
 
 
-      x11_sync([this]()
+      ::x11::nano::user::x11_sync([this]()
                {
 
                   ///synchronous_lock synchronouslock(user_synchronization());

@@ -5760,7 +5760,7 @@ namespace windowing_wayland
 
       information() << "__handle_pointer_enter";
 
-      nano_window_base::__handle_pointer_enter(pwlpointer);
+      ::wayland::nano::user::window_base::__handle_pointer_enter(pwlpointer);
 
       //m_pointCursor2 = m_pointPointer;
 
@@ -5772,7 +5772,7 @@ namespace windowing_wayland
 
       //m_pwlpointer = pwlpointer;
 
-      nano_window_base::__handle_pointer_motion(pwlpointer, millis);
+      ::wayland::nano::user::window_base::__handle_pointer_motion(pwlpointer, millis);
 
       //m_pointCursor2 = m_pointPointer;
 
@@ -6209,7 +6209,7 @@ namespace windowing_wayland
 //
 //      m_sizeConfigure = m_sizeWindow;
 
-      nano_window_base::__handle_xdg_toplevel_configure(width, height, pwlarrayState);
+      ::wayland::nano::user::window_base::__handle_xdg_toplevel_configure(width, height, pwlarrayState);
 
       information()
 
@@ -6226,21 +6226,21 @@ namespace windowing_wayland
       else
       {
 
-         if (xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_MAXIMIZED))
+         if (::wayland::nano::user::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_MAXIMIZED))
          {
 
             information() << "pwlarrayState contains XDG_TOPLEVEL_STATE_MAXIMIZED";
 
          }
 
-         if (xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_FULLSCREEN))
+         if (::wayland::nano::user::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_FULLSCREEN))
          {
 
             information() << "pwlarrayState contains XDG_TOPLEVEL_STATE_FULLSCREEN";
 
          }
 
-         if (xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_ACTIVATED))
+         if (::wayland::nano::user::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_ACTIVATED))
          {
 
             information() << "pwlarrayState contains XDG_TOPLEVEL_STATE_ACTIVATED";
@@ -6252,13 +6252,13 @@ namespace windowing_wayland
 
                information() << "Window was iconic type : " << strType;
 
-               if (xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_MAXIMIZED))
+               if (::wayland::nano::user::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_MAXIMIZED))
                {
 
                   m_puserinteractionimpl->m_puserinteraction->display(::e_display_zoomed);
 
                }
-               else if (xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_FULLSCREEN))
+               else if (::wayland::nano::user::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_FULLSCREEN))
                {
 
                   m_puserinteractionimpl->m_puserinteraction->display(::e_display_full_screen);
@@ -6483,7 +6483,7 @@ namespace windowing_wayland
 
       information() << "__handle_keyboard_enter";
 
-      nano_window_base::__handle_keyboard_enter(pwlkeyboard, serial, pwlarrayKeys);
+      ::wayland::nano::user::window_base::__handle_keyboard_enter(pwlkeyboard, serial, pwlarrayKeys);
 
    }
 
@@ -6493,7 +6493,7 @@ namespace windowing_wayland
 
       information() << "__handle_keyboard_leave";
 
-      nano_window_base::__handle_keyboard_leave(pwlkeyboard, serial);
+      ::wayland::nano::user::window_base::__handle_keyboard_leave(pwlkeyboard, serial);
 
    }
 

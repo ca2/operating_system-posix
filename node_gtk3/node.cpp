@@ -41,11 +41,27 @@
 #include <cairo/cairo.h>
 
 
-CLASS_DECL_ACME void set_x11_thread();
-CLASS_DECL_ACME int x11_init_threads();
+namespace x11
+{
+   namespace nano
+   {
+      namespace user
+      {
+         CLASS_DECL_ACME void set_thread();
+         CLASS_DECL_ACME int init_threads();
+      }
+   }
+}
+namespace nano
+{
+   namespace user
+   {
 
 
 enum_display_type calculate_display_type();
+   }
+}
+
 
 
 bool aaa_x11_message_loop_step();

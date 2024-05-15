@@ -157,7 +157,7 @@ namespace node_gtk3
      if(system()->m_ewindowing == e_windowing_x11)
      {
 
-        x11_sync([this, iIndex, prectangle]() { _get_monitor_rectangle(iIndex, prectangle); });
+        ::x11::nano::user::x11_sync([this, iIndex, prectangle]() { _get_monitor_rectangle(iIndex, prectangle); });
 
      }
      else
