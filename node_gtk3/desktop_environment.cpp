@@ -15,8 +15,16 @@
 //
 //::particle * user_synchronization();
 
-
-void x11_sync(const ::procedure & procedure);
+namespace x11
+{
+   namespace nano
+   {
+      namespace user
+      {
+         void x11_sync(const ::procedure & procedure);
+      } // namespace user
+   } // namespace nano
+} // namespace x11
 
 
 namespace node_gtk3

@@ -3,7 +3,7 @@
 #pragma once
 
 
-#include "acme/operating_system/wayland/nano/_.h"
+#include "acme/operating_system/wayland/nano/user/_.h"
 #include "aura/windowing/cursor.h"
 #include "_wayland.h"
 
@@ -20,7 +20,7 @@ namespace windowing_wayland
 
       //::Cursor                   m_cursor;
       ::wl_cursor *m_pwlcursor;
-      wayland_buffer m_waylandbuffer;
+      ::wayland::nano::user::buffer m_waylandbuffer;
       ::wl_cursor_image * m_pwlcursorimage;
 
 

@@ -36,10 +36,19 @@ void on_sn_launch_complete(void *pSnContext);
 
 //::particle * user_synchronization();
 
+namespace x11
+{
+   namespace nano
+   {
+      namespace user
+      {
+         void x11_sync(const ::procedure & procedure);
+         void x11_async(const ::procedure &procedure);
+      } // namespace user
+   } // namespace nano
+} // namespace x11
 
-void x11_sync(const ::procedure &procedure);
 
-void x11_async(const ::procedure &procedure);
 
 
 #undef ALOG_CONTEXT
@@ -112,7 +121,7 @@ namespace windowing_x11
 
       ::e_status estatus = error_failed;
 
-      x11_sync([this, &estatus]()
+      ::x11::nano::user::x11_sync([this, &estatus]()
                {
 
                   //bool bOk = true;

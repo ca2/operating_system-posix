@@ -9,7 +9,7 @@
 
 //#include "acme/operating_system/x11/nano/event_listener.h"
 //#include "acme/operating_system/x11/nano/display.h"
-#include "acme/operating_system/wayland/nano/display_base.h"
+#include "acme/operating_system/wayland/nano/user/display_base.h"
 #include "aura/windowing/display.h"
 
 //#include "_x11.h"
@@ -22,7 +22,7 @@ namespace windowing_wayland
 
    class CLASS_DECL_WINDOWING_WAYLAND display :
       virtual public ::windowing::display,
-      virtual public ::wayland::display_base
+      virtual public ::wayland::nano::user::display_base
    {
    public:
 

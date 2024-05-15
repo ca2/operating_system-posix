@@ -828,9 +828,9 @@ namespace windowing_wayland
 
                   pimage->map();
 
-                  ::copy_image32((::image32_t *) pwaylandwindow->m_waylandbuffer.m_pdata,
-                                 pwaylandwindow->m_waylandbuffer.m_size,
-                                 pwaylandwindow->m_waylandbuffer.m_stride,
+                  ::copy_image32((::image32_t *) pwaylandwindow->m_buffer.m_pdata,
+                                 pwaylandwindow->m_buffer.m_size,
+                                 pwaylandwindow->m_buffer.m_stride,
                                  pitem->m_pimage2->data(), pitem->m_pimage2->scan_size());
 
 #ifdef MORE_LOG
@@ -846,7 +846,7 @@ namespace windowing_wayland
                   //memset(pwindow->m_waylandbuffer.m_pdata, 127,pitem->m_size.cx() * 4 * pitem->m_size.cy());
 //      m_pwlcallbackFrame = wl_surface_frame(pwindow->m_pwlsurface);
                   wl_surface_attach(pwaylandwindow->m_pwlsurface,
-                                    pwaylandwindow->m_waylandbuffer.m_pwlbuffer, 0, 0);
+                                    pwaylandwindow->m_buffer.m_pwlbuffer, 0, 0);
                   //       wl_callback_add_listener(m_pwlcallbackFrame, &frame_listener, NULL);
                   wl_surface_damage(pwaylandwindow->m_pwlsurface, 0, 0, pitem->m_size.cx(),
                                     pitem->m_size.cy());

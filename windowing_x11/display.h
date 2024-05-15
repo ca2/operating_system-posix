@@ -7,8 +7,8 @@
 #define WINDOWING_X11_DISPLAY_MEMBER
 
 
-#include "acme/operating_system/x11/nano/event_listener.h"
-#include "acme/operating_system/x11/nano/display.h"
+#include "acme/operating_system/x11/nano/user/event_listener.h"
+#include "acme/operating_system/x11/nano/user/display.h"
 #include "aura/windowing/display.h"
 #include "_x11.h"
 
@@ -30,7 +30,7 @@ namespace windowing_x11
       Atom                                         m_atoma[::x11::e_atom_count];
 
 
-      ::pointer<::x11::display>                    m_px11display;
+      ::pointer<::x11::nano::user::display>        m_px11display;
       //::Display *                                m_pdisplay;
       XVisualInfo                                  m_visualinfo;
       ::Visual *                                   m_pvisual;
