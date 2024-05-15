@@ -155,7 +155,14 @@ namespace acme_posix
          if(m_iLock >= 0)
          {
 
-            int iUnlock = lockf(m_iFile, F_ULOCK, 0);
+            int iUnlockError = lockf(m_iFile, F_ULOCK, 0);
+            
+            if(iUnlockError)
+            {
+             
+               warningf("exclusive::~exclusive Unlocking the file lock(F_ULOCK) Failed...");
+               
+            }
 
             printf("exclusive::~exclusive Unlock m_iLock");
 
