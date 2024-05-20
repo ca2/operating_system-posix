@@ -61,7 +61,7 @@ namespace acme_posix
       override;
 
 
-      void prepare() override;
+      void prepare(const ::scoped_string & scopedstrOperatingSystem) override;
 
       virtual void change_to_source_directory();
 
