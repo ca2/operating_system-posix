@@ -499,16 +499,26 @@ void acme_directory::erase_recursively(const ::file::path &path)
 
       return home() / "archive";
 
-}::file::path acme_directory::home(){
-      ::file::path path;//Unix sys are generic ...
-   const char* homedir{ nullptr };
-   if ((homedir = getenv("HOME")) == nullptr)
-      homedir = getpwuid(getuid())->pw_dir;
-   path = homedir;
-   
-   return path;
-   
 }
+
+
+   ::file::path acme_directory::home()
+   {
+
+      ::file::path path;//Unix sys are generic ...
+
+      const char* homedir{ nullptr };
+
+      if ((homedir = getenv("HOME")) == nullptr)
+      {
+         homedir = getpwuid(getuid())->pw_dir;
+      }
+
+      path = homedir;
+   
+      return path;
+   
+   }
 
 
 ::file::path acme_directory::get_current(){
