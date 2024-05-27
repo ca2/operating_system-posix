@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
-project(nano_http_libcurl CXX)
+project(nano_user_xcb CXX)
 
 
 
@@ -18,19 +18,22 @@ endif ()
 
 
 list(APPEND library_source
-   _nano_http.cpp
-   _nano_http.h
-   curl_easy.cpp
-   curl_easy.h
-   http.cpp
-   http.h)
+        display.cpp
+        display.h
+        event_listener.h
+        framework.cpp
+        framework.h
+        user.cpp
+        user.h
+window.cpp
+window.h)
 
 add_library(${PROJECT_NAME} SHARED ${library_source})
-
 
 target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
+
 
 
 if (MSVC)
@@ -41,17 +44,17 @@ if (MSVC)
    target_link_libraries(${PROJECT_NAME} PRIVATE acme apex aqua aura Gdiplus)
 elseif (LINUX)
 
-   pkg_check_modules(PKGCONFIG libcurl)
+   pkg_check_modules(PKGCONFIG xcb xkbcommon xcb-render xcb-aux x11-xcb libarchive)
    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
    #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
    #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})
    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-rpath=\$ORIGIN)
-   target_link_libraries(${PROJECT_NAME} PRIVATE acme ${PKGCONFIG_LIBRARIES})
+   target_link_libraries(${PROJECT_NAME} PRIVATE acme windowing_system_xcb ${PKGCONFIG_LIBRARIES})
    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
    message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
 endif ()
 
-add_dependencies(${PROJECT_NAME} acme)
+add_dependencies(${PROJECT_NAME} acme windowing_system_xcb)
 
 target_link_directories(${PROJECT_NAME} PRIVATE ${LIBRARY_OUTPUT_PATH})
 target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/storage-${OPERATING_SYSTEM_NAME}/library/x64/basis)

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
-project(nano_http_libcurl CXX)
+project(windowing_system_xcb CXX)
 
 
 
@@ -18,19 +18,20 @@ endif ()
 
 
 list(APPEND library_source
-   _nano_http.cpp
-   _nano_http.h
-   curl_easy.cpp
-   curl_easy.h
-   http.cpp
-   http.h)
+        _.cpp
+        framework.cpp
+        framework.h
+        xcb_hook.cpp
+        xcb_hook.h
+        xcb_windowing.cpp
+        )
 
 add_library(${PROJECT_NAME} SHARED ${library_source})
-
 
 target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
+
 
 
 if (MSVC)
@@ -41,7 +42,7 @@ if (MSVC)
    target_link_libraries(${PROJECT_NAME} PRIVATE acme apex aqua aura Gdiplus)
 elseif (LINUX)
 
-   pkg_check_modules(PKGCONFIG libcurl)
+   pkg_check_modules(PKGCONFIG cairo xcb x11 xkbcommon xcb-render xcb-aux x11-xcb libarchive)
    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
    #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
    #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})
