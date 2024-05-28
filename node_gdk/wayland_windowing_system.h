@@ -4,24 +4,28 @@
 #pragma once
 
 
+#include "windowing_system.h"
 #include "windowing_system_x11/windowing_system.h"
 
 
-namespace x11
+namespace wayland
 {
 
    namespace node_gdk
    {
 
 
-      class CLASS_DECL_NODEGDK windowing_system :
-         virtual public ::x11::windowing_system
+      class CLASS_DECL_NODE_GDK windowing_system :
+   virtual public ::node_gdk::windowing_system,
+         virtual public ::wayland::windowing_system
    {
       public:
 
 
       //void *m_pvoidX11Display;
       //::e_status m_estatusInitializeX11;
+
+      //::pointer < ::node_gdk::node > m_pgdknode;
 
 
       windowing_system();
@@ -32,17 +36,17 @@ namespace x11
 
       override;
 
-      ::e_status defer_initialize_windowing_system()
+      //::e_status defer_initialize_windowing_system()
 
-      override;
+      //override;
 
-      ::e_status initialize_windowing_system()
+      //::e_status initialize_windowing_system()
 
-      override;
+     // override;
 
-      void *get_display()
+      //void *get_display()
 
-      override;
+      /////override;
 
       void sync(const ::procedure &procedure)
 
@@ -52,13 +56,16 @@ namespace x11
 
       override;
 
-      void display_error_trap_push(int i)
+      /////void display_error_trap_push(int i)
 
-      override;
+      //////override;
 
-      void display_error_trap_pop_ignored(int i)
+      //void display_error_trap_pop_ignored(int i)
 
-      override;
+      //override;
+
+
+      //void * fetch_windowing_system_display() override;
 
 //   ::e_status x11_initialize() override;
 //   void * x11_get_display() override;

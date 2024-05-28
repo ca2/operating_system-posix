@@ -1,11 +1,23 @@
 #include "framework.h"
-#include "speech.h"
+///#include "speech.h"
 
 
-IMPLEMENT_FACTORY(nano_speech_sapi)
+__FACTORY_EXPORT void windowing_system_wayland_factory(::factory::factory * pfactory);
+
+IMPLEMENT_FACTORY(nano_user_wayland)
 {
 
-   pfactory->add_factory_item < ::sapi::nano::speech::speech, ::nano::speech::speech >();
+
+
+
+   windowing_system_wayland_factory(pfactory);
+
+
+
+
+
+
+   //ssspfactory->add_factory_item < ::sapi::nano::speech::speech, ::nano::speech::speech >();
 
 }
 

@@ -25,8 +25,11 @@ namespace x11
             ~user();
 
 
-            void x11_sync(const ::procedure & procedure) override;
-            void x11_async(const ::procedure & procedure) override;
+            void sync(const ::procedure & procedure) override;
+            void async(const ::procedure & procedure) override;
+
+
+            bool init_threads() override;
 
 
          };

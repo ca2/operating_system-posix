@@ -6,7 +6,7 @@
 #include "window_base.h"
 #include "acme/constant/message.h"
 #include "acme/graphics/image/pixmap.h"
-#include "acme/operating_system/wayland/xfree86_key.h"
+#include "windowing_system_wayland/xfree86_key.h"
 #include "acme/platform/system.h"
 #include "acme/primitive/geometry2d/_text_stream.h"
 #include "acme/constant/_user_key_text.h"

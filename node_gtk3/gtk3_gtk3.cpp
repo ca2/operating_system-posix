@@ -111,9 +111,9 @@ namespace node_gtk3
 
          auto pargc = ::platform::get()->get_pargc();
 
-         auto pargv = ::platform::get()->get_pargv();
+         auto pargs = ::platform::get()->get_pargs();
 
-         if (!gtk_init_check(pargc, pargv))
+         if (!gtk_init_check(pargc, pargs))
          {
 
             g_estatusInitGtk = ::error_failed;

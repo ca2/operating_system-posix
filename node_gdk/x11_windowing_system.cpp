@@ -2,7 +2,8 @@
 // Created by camilo on 2024-05-26 22:03 <3ThomasBorregaardSorensen!!
 //
 #include "framework.h"
-#include "windowing_system.h"
+#include "x11_windowing_system.h"
+#include "node.h"
 #include "acme/nano/nano.h"
 #include "acme/nano/user/user.h"
 #include "acme/parallelization/manual_reset_event.h"
@@ -12,6 +13,7 @@
 //#include <xkbcommon/xkbcommon.h>
 //#include <X11/XKBlib.h>
 #include <X11/Xutil.h>
+#include <gdk/gdkx.h>
 
 namespace x11
 {
@@ -63,7 +65,7 @@ namespace x11
       }
 
       // gdk_x11 does error handling?!?!?!
-      XSetErrorHandler(_c_XErrorHandler);
+      //XSetErrorHandler(_c_XErrorHandler);
 
       //g_pmutexX11 = __new< ::pointer < ::mutex > >();
 
@@ -81,7 +83,7 @@ namespace x11
 
       if (m_pvoidX11Display == NULL) {
 
-         m_pvoidX11Display = node()->fetch_windowing_system_display();
+         m_pvoidX11Display = this->fetch_windowing_system_display();
 
       }
 
@@ -134,48 +136,48 @@ namespace x11
    }
 
 
-   void windowing_system::async(const ::procedure &procedure)
-   {
-
-      node()->windowing_system_async(procedure);
-
-   }
-
-
-   void windowing_system::display_error_trap_push(int i)
-   {
-
-
-      node()->windowing_system_display_error_trap_push(i);
-
-//      if(system()->m_ewindowing == e_windowing_x11)
-//      {
+//   void windowing_system::async(const ::procedure &procedure)
+//   {
 //
-//         GdkDisplay *gdkdisplay;
+//      node()->windowing_system_async(procedure);
 //
-//         gdkdisplay = gdk_display_get_default ();
-//         gdk_x11_display_error_trap_push (gdkdisplay);
+//   }
+
 //
-//      }
-
-   }
-
-
-   void windowing_system::display_error_trap_pop_ignored(int i)
-   {
-
-      node()->windowing_system_display_error_trap_pop_ignored(i);
-//      if(system()->m_ewindowing == e_windowing_x11)
-//      {
+//   void windowing_system::display_error_trap_push(int i)
+//   {
 //
-//         GdkDisplay *gdkdisplay;
-//         gdkdisplay = gdk_display_get_default ();
-//         gdk_x11_display_error_trap_pop_ignored (gdkdisplay);
 //
-//      }
-
-   }
-
+//      node()->windowing_system_display_error_trap_push(i);
+//
+////      if(system()->m_ewindowing == e_windowing_x11)
+////      {
+////
+////         GdkDisplay *gdkdisplay;
+////
+////         gdkdisplay = gdk_display_get_default ();
+////         gdk_x11_display_error_trap_push (gdkdisplay);
+////
+////      }
+//
+//   }
+//
+//
+//   void windowing_system::display_error_trap_pop_ignored(int i)
+//   {
+//
+//      node()->windowing_system_display_error_trap_pop_ignored(i);
+////      if(system()->m_ewindowing == e_windowing_x11)
+////      {
+////
+////         GdkDisplay *gdkdisplay;
+////         gdkdisplay = gdk_display_get_default ();
+////         gdk_x11_display_error_trap_pop_ignored (gdkdisplay);
+////
+////      }
+//
+//   }
+//
 
 //
 //    void node::sync(const ::procedure & procedure)
@@ -224,15 +226,15 @@ namespace x11
    }
 
 
-   void windowing_system::windowing_system_async(const ::procedure &procedure)
+   void windowing_system::async(const ::procedure &procedure)
    {
 
-      gdk_branch(procedure);
+      m_pgdknode->_gdk_branch(procedure);
 
    }
 
 
-   void windowing_system::windowing_system_display_error_trap_push(int i)
+   void windowing_system::display_error_trap_push(int i)
    {
 
       if (system()->m_ewindowing == e_windowing_x11) {
@@ -247,7 +249,7 @@ namespace x11
    }
 
 
-   void windowing_system::windowing_system_display_error_trap_pop_ignored(int i)
+   void windowing_system::display_error_trap_pop_ignored(int i)
    {
 
       if (system()->m_ewindowing == e_windowing_x11) {

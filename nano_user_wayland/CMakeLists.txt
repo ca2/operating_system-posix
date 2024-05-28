@@ -13,6 +13,9 @@ endif ()
 
 
 list(APPEND library_source
+        _.cpp
+        _.h
+        _factory.cpp
         device.cpp
         device.h
         display.cpp
@@ -24,14 +27,28 @@ list(APPEND library_source
         window.cpp
         window.h
         window_base.cpp
-        window_base.h)
+        window_base.h
+        wayland-gtk_shell1.c
+        wayland-gtk_shell1.h
+        wayland-xdg_activation_v1.c
+        wayland-xdg_activation_v1.h
+        wayland-xdg_wm_base.c
+        wayland-xdg_wm_base.h
+)
 
 add_library(${PROJECT_NAME} SHARED ${library_source})
 
 target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
+set_source_files_properties(wayland-gtk_shell1.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
+set_source_files_properties(wayland-xdg_activation_v1.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
+set_source_files_properties(wayland-xdg_wm_base.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
+list(APPEND library_references
+        acme
+        windowing_system_wayland
+)
 
 if (MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
@@ -39,19 +56,19 @@ if (MSVC)
     target_link_options(${PROJECT_NAME} PRIVATE "/IMPLIB:${LIBRARY_OUTPUT_PATH}/${PROJECT_NAME}.lib")
     target_link_options(${PROJECT_NAME} PRIVATE "/DEF:${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.def")
     target_link_libraries(${PROJECT_NAME} PRIVATE acme apex aqua aura Gdiplus)
-elseif (LINUX)
+elseif (${LINUX})
 
-    pkg_check_modules(PKGCONFIG cairo)
+    pkg_check_modules(PKGCONFIG cairo xkbcommon wayland-cursor wayland-client wayland-server)
     target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
     #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
     #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})
     target_link_options(${PROJECT_NAME} PRIVATE -Wl,-rpath=\$ORIGIN)
-    target_link_libraries(${PROJECT_NAME} PRIVATE acme ${PKGCONFIG_LIBRARIES})
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
     target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
     message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
 endif ()
 
-add_dependencies(${PROJECT_NAME} acme windowing_system_x11)
+add_dependencies(${PROJECT_NAME} ${library_references})
 
 target_link_directories(${PROJECT_NAME} PRIVATE ${LIBRARY_OUTPUT_PATH})
 target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/storage-${OPERATING_SYSTEM_NAME}/library/x64/basis)

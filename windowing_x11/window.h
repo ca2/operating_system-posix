@@ -6,7 +6,7 @@
 
 #include "aura_posix/x11/window.h"
 #include "_x11.h"
-#include "acme/operating_system/x11/_atom.h"
+#include "windowing_system_x11/_atom.h"
 #include "acme/primitive/geometry2d/rectangle_array.h"
 #include <X11/extensions/sync.h>
 

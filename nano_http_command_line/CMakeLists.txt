@@ -17,10 +17,15 @@ endif ()
 
 
 list(APPEND library_source
-   _nano_http.cpp
-   _nano_http.h
-   curl_easy.cpp
-   curl_easy.h
+        _.cpp
+        _.h
+        _factory.cpp
+        _curl.cpp
+        _wget.cpp
+   #_nano_http.cpp
+   #_nano_http.h
+   #curl_easy.cpp
+   #curl_easy.h
    http.cpp
    http.h)
 

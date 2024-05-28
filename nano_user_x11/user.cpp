@@ -32,7 +32,7 @@ namespace x11
          }
 
 
-         void user::x11_sync(const ::procedure & procedure)
+         void user::sync(const ::procedure & procedure)
          {
 
             ::x11::nano::user::display::_nano_get_x11_display(this)->display_send(procedure);
@@ -40,13 +40,25 @@ namespace x11
          }
 
 
-         void user::x11_async(const ::procedure & procedure)
+         void user::async(const ::procedure & procedure)
          {
 
             ::x11::nano::user::display::_nano_get_x11_display(this)->display_post(procedure);
 
          }
+
+
+         bool user::init_threads()
+         {
+
+            return XInitThreads();
+
+         }
+
+
       }//namespace user
+
+
    }//namespace nano
 
 

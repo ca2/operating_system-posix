@@ -45,6 +45,7 @@ list(APPEND library_references
    aura
    aura_posix
    windowing_x11
+        node_gdk
    )
 
 if(${HAS_GTK4})

@@ -2,7 +2,7 @@
 #include "framework.h"
 #include "monitor.h"
 //#include "display.h"
-#include "windowing.h"
+//#include "windowing.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/node.h"
 #include "acme/primitive/geometry2d/_text_stream.h"

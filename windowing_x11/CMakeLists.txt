@@ -49,6 +49,8 @@ list(APPEND library_references
    aura
    aura_posix
    aura_${OPERATING_SYSTEM_NAME}
+        windowing_system_x11
+        nano_user_x11
    )
 
 list(APPEND static_library_references ${library_references})

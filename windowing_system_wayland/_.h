@@ -5,7 +5,14 @@
 #pragma once
 
 
-//s#include "_atom.h"
+#include "acme/_.h"
+
+
+#if defined(_windowing_system_wayland_project)
+#define CLASS_DECL_WINDOWING_SYSTEM_WAYLAND  CLASS_DECL_EXPORT
+#else
+#define CLASS_DECL_WINDOWING_SYSTEM_WAYLAND  CLASS_DECL_IMPORT
+#endif
 
 
 //void x11_check_status(int status, unsigned long window);
@@ -22,9 +29,9 @@
 #include <wayland-server.h>
 #include <wayland-cursor.h>
 #include <wayland-client-protocol.h>
-#include "wayland-gtk_shell1.h"
-#include "wayland-xdg_activation_v1.h"
-#include "wayland-xdg_wm_base.h"
+#include "wayland_static/wayland-gtk_shell1.h"
+#include "wayland_static/wayland-xdg_activation_v1.h"
+#include "wayland_static/wayland-xdg_wm_base.h"
 //#include <X11/Xutil.h>
 //#include <X11/extensions/Xrender.h>
 //#include <X11/Xatom.h>

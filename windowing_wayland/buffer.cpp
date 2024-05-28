@@ -16,7 +16,7 @@
 #include "aura/graphics/image/image.h"
 #include "aura/user/user/interaction_graphics_thread.h"
 #include "aura/user/user/interaction_impl.h"
-#include "acme/operating_system/x11/display_lock.h"
+#include "windowing_system_x11/display_lock.h"
 
 //#define VERI_BASIC_TEST
 

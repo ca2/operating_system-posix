@@ -6,7 +6,7 @@
 
 #include "acme/nano/user/display.h"
 #include "event_listener.h"
-#include "acme/operating_system/x11/_atom.h"
+#include "windowing_system_x11/_atom.h"
 
 
 namespace x11

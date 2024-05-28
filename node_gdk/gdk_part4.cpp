@@ -8,12 +8,12 @@
 #include "acme/platform/system.h"
 
 
-#include <gtk/gtk.h>
+//#include <gtk/gtk.h>
 #include <limits.h>
 
 // apt-get install libgtk2.0-dev
 // and restart codeblocks/IDE
-#include <gtk/gtk.h>
+//#include <gtk/gtk.h>
 #include <sys/utsname.h>
 #include <gdk/gdkwayland.h>
 
@@ -51,6 +51,8 @@ namespace nano
 
 #include <gio/gio.h>
 
+#include <gdk/gdk.h>
+
 #include <string.h>
 
 #include <sys/stat.h>
@@ -58,7 +60,7 @@ namespace nano
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 
 
-namespace node_gtk3
+namespace node_gdk
 {
 
 
@@ -101,36 +103,39 @@ namespace node_gtk3
 
    }
 
-   ::e_status g_estatusInitGtk = error_not_initialized;
+//   ::e_status g_estatusInitGtk = error_not_initialized;
+//
+//   void initialize_gtk()
+//   {
+//
+//      if (g_estatusInitGtk == error_not_initialized)
+//      {
+//
+//         auto pargc = ::platform::get()->get_pargc();
+//
+//         auto pargs = ::platform::get()->get_pargs();
+//
+//         if (!gtk_init_check(pargc, pargs))
+//         {
+//
+//            g_estatusInitGtk = ::error_failed;
+//
+//         }
+//         else
+//         {
+//
+//            g_estatusInitGtk = ::success;
+//
+//         }
+//
+//         ::nano::user::initialize_display_type(calculate_display_type());
+//
+//      }
+//
+//   }
 
-   void initialize_gtk()
-   {
 
-      if (g_estatusInitGtk == error_not_initialized)
-      {
-
-         auto pargc = ::platform::get()->get_pargc();
-
-         auto pargs = ::platform::get()->get_pargs();
-
-         if (!gtk_init_check(pargc, pargs))
-         {
-
-            g_estatusInitGtk = ::error_failed;
-
-         }
-         else
-         {
-
-            g_estatusInitGtk = ::success;
-
-         }
-
-         ::nano::user::initialize_display_type(calculate_display_type());
-
-      }
-
-   }
+} // namespace node_gdk
 
 
-} // namespace node_gtk3
+

@@ -13,7 +13,7 @@
 #include "acme/primitive/geometry2d/_text_stream.h"
 #include "aura/user/user/interaction_impl.h"
 #include "aura/graphics/image/image.h"
-#include "acme/operating_system/x11/display_lock.h"
+#include "windowing_system_x11/display_lock.h"
 
 //#define VERI_BASIC_TEST
 

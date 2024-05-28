@@ -4,12 +4,19 @@
 #pragma once
 
 
+#include "acme/_.h"
+
+
 namespace x11
 {
 
-
+namespace nano
+{
+   namespace  user
+   {
    class display;
-
+   }
+}
 
 } // namespace x11
 

@@ -741,7 +741,7 @@ namespace x11
 
 
 
-         int init_threads()
+         int user::init_threads()
          {
 
             return XInitThreads();

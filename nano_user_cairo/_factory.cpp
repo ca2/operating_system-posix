@@ -1,11 +1,11 @@
 #include "framework.h"
-#include "speech.h"
+#include "device.h"
 
 
-IMPLEMENT_FACTORY(nano_speech_sapi)
+IMPLEMENT_FACTORY(nano_user_cairo)
 {
 
-   pfactory->add_factory_item < ::sapi::nano::speech::speech, ::nano::speech::speech >();
+   pfactory->add_factory_item < ::cairo::nano::user::device, ::nano::user::device >();
 
 }
 

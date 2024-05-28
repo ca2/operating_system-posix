@@ -3,7 +3,7 @@ project(acme_posix CXX)
 
 
 list(APPEND library_source
-   dbus/gsm_proxy.cpp
+   #dbus/gsm_proxy.cpp
    _.cpp
    _.h
    _factory.cpp
@@ -15,7 +15,7 @@ list(APPEND library_source
    acme_file.h
    acme_path.cpp
    acme_path.h
-   dbus.cpp
+   #dbus.cpp
    dir_context.cpp
    dir_context.h
    #environment.cpp
@@ -105,7 +105,7 @@ elseif (${LINUX} OR ${FREEBSD} OR ${OPENBSD} OR ${NETBSD})
    target_compile_features(static_${PROJECT_NAME} PRIVATE cxx_std_20)
 
 
-   pkg_check_modules(PKGCONFIG dbus-glib-1)
+   #pkg_check_modules(PKGCONFIG dbus-glib-1)
 
 
    target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
@@ -113,10 +113,10 @@ elseif (${LINUX} OR ${FREEBSD} OR ${OPENBSD} OR ${NETBSD})
    target_compile_definitions(static_${PROJECT_NAME} PRIVATE CUBE)
 
 
-   target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS} ${GLOBAL_EXTRA_COMPILER_FLAGS})
-   target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS}  ${GLOBAL_EXTRA_COMPILER_FLAGS})
-   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES} ${global_library_references})
-   target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${PKGCONFIG_LIBRARIES})
+   target_compile_options(${PROJECT_NAME} PRIVATE  ${GLOBAL_EXTRA_COMPILER_FLAGS})
+   target_compile_options(static_${PROJECT_NAME} PRIVATE ${GLOBAL_EXTRA_COMPILER_FLAGS})
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references})
+   target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references})
    target_link_options(${PROJECT_NAME} PRIVATE ${GLOBAL_EXTRA_LINKER_FLAGS} -Wl${GLOBAL_EXTRA_LINK_FLAGS},-z,defs)
 
 

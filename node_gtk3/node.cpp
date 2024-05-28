@@ -11,12 +11,14 @@
 #include "acme/filesystem/filesystem/folder_dialog.h"
 #include "acme/filesystem/filesystem/file_context.h"
 #include "acme/platform/node.h"
+#include "acme/primitive/primitive/type.h"
 #include "apex/operating_system/freedesktop/desktop_file.h"
 #include "acme/handler/topic.h"
 #include "acme/operating_system/summary.h"
 #include "acme/parallelization/manual_reset_event.h"
 #include "acme/user/user/os_theme_colors.h"
 #include "acme/user/user/theme_colors.h"
+#include "acme/windowing_system/windowing_system.h"
 #include "apex/input/input.h"
 #include "apex/platform/system.h"
 #include "aura/platform/session.h"
@@ -69,7 +71,6 @@ bool aaa_x11_message_loop_step();
 
 gboolean gtk_quit_callback(gpointer data);
 
-void gtk_defer_do_main_tasks();
 
 //void gio_open_url(const char * pszUrl);
 ///int gtk_launch (const char * pszDesktopFileTitle);
@@ -378,7 +379,7 @@ bool __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 }
 
 
-void windowing_message_loop_add_idle_source(::node_gtk3::node *pnode);
+//void windowing_message_loop_add_idle_source(::node_gtk3::node *pnode);
 
 
 void gtk_settings_gtk_theme_name_callback(GObject *object, GParamSpec *pspec, gpointer data)
@@ -492,6 +493,8 @@ namespace node_gtk3
 
 
    CLASS_DECL_ACME void _os_process_user_theme(string strTheme);
+   void gtk_defer_do_main_tasks();
+
 
 
    node::node()
@@ -609,11 +612,16 @@ namespace node_gtk3
       {
 
          node_init_check(platform()->get_pargc(),
-                         platform()->get_pargv());
+                         platform()->get_pargs());
 
       }
 
 #endif
+
+
+system()->__construct(system()->m_pwindowingsystem);
+
+      information() << "windowing_system type : " << ::type(system()->m_pwindowingsystem).name() ;
 
 //      if (m_bUser)
 //      {
@@ -726,6 +734,8 @@ namespace node_gtk3
 
                       //windowing_message_loop_add_idle_source(this);
 
+                      //_g_idle_add_windowing_message_loop();
+
                       auto psystem = system()->m_papexsystem;
 
                       psystem->defer_post_initial_request();
@@ -802,70 +812,70 @@ namespace node_gtk3
 //   }
 
 
-   bool node::windowing_message_loop_step()
-   {
+//   bool node::windowing_message_loop_step()
+//   {
+//
+//      information() << "node::windowing_message_loop_step";
+//
+//      auto psession = session();
+//
+//      if (::is_null(psession))
+//      {
+//
+//         information() << "node::windowing_message_loop_step NO SESSION";
+//
+//         return true;
+//
+//      }
+//
+//      auto paurasession = psession->m_paurasession;
+//
+//      if (::is_null(paurasession))
+//      {
+//
+//         information() << "node::windowing_message_loop_step NO AURA SESSION";
+//
+//         return true;
+//
+//      }
+//
+//      auto puser = paurasession->user();
+//
+//      if (::is_null(puser))
+//      {
+//
+//         information() << "node::windowing_message_loop_step NO SESSION USER";
+//
+//         return true;
+//
+//      }
+//
+//      auto pwindowing = puser->windowing();
+//
+//      if (::is_null(pwindowing))
+//      {
+//
+//         information() << "node::windowing_message_loop_step NO USER WINDOWING";
+//
+//         return true;
+//
+//      }
+//
+//      information() << "node::windowing_message_loop_step at windowing";
+//
+//      bool bRet = pwindowing->message_loop_step();
+//
+//      return bRet;
+//
+//   }
 
-      information() << "node::windowing_message_loop_step";
 
-      auto psession = session();
-
-      if (::is_null(psession))
-      {
-
-         information() << "node::windowing_message_loop_step NO SESSION";
-
-         return true;
-
-      }
-
-      auto paurasession = psession->m_paurasession;
-
-      if (::is_null(paurasession))
-      {
-
-         information() << "node::windowing_message_loop_step NO AURA SESSION";
-
-         return true;
-
-      }
-
-      auto puser = paurasession->user();
-
-      if (::is_null(puser))
-      {
-
-         information() << "node::windowing_message_loop_step NO SESSION USER";
-
-         return true;
-
-      }
-
-      auto pwindowing = puser->windowing();
-
-      if (::is_null(pwindowing))
-      {
-
-         information() << "node::windowing_message_loop_step NO USER WINDOWING";
-
-         return true;
-
-      }
-
-      information() << "node::windowing_message_loop_step at windowing";
-
-      bool bRet = pwindowing->message_loop_step();
-
-      return bRet;
-
-   }
-
-
-   string node::os_get_user_theme()
-   {
-
-      return m_strTheme;
-
-   }
+//   string node::os_get_user_theme()
+//   {
+//
+//      return m_strTheme;
+//
+//   }
 
 
 //   string node::_on_user_theme_changed()
@@ -899,473 +909,481 @@ namespace node_gtk3
    }
 
 
-   void node::_fetch_dark_mode()
-   {
-
-      information() << "::node_gtk3::node::_dark_mode";
-
-      if(gsettings_schema_exists("org.gnome.desktop.interface"))
-      {
-
-         information() << "org.gnome.desktop.interface exists";
-
-         if(gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
-         {
-
-            information() << "org.gnome.desktop.interface contains \"color-scheme\"";
-
-            ::string strColorScheme;
-
-            if (gsettings_get(strColorScheme, "org.gnome.desktop.interface", "color-scheme"))
-            {
-
-               information() << "color-scheme=\"" + strColorScheme + "\"";
-
-               strColorScheme.trim();
-
-               if (strColorScheme.case_insensitive_contains("dark"))
-               {
-
-                  m_bOperatingSystemDarkMode = true;
-
-               }
-               else
-               {
-
-                  m_bOperatingSystemDarkMode = false;
-
-               }
-
-            }
-            else
-            {
-
-               m_bOperatingSystemDarkMode = false;
-
-            }
-
-         }
-         else
-         {
-
-            _fetch_user_color();
-
+//   void node::_fetch_dark_mode()
+//   {
+//
+//      information() << "::node_gtk3::node::_dark_mode";
+//
+//      if(gsettings_schema_exists("org.gnome.desktop.interface"))
+//      {
+//
+//         information() << "org.gnome.desktop.interface exists";
+//
+//         if(gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
+//         {
+//
+//            information() << "org.gnome.desktop.interface contains \"color-scheme\"";
+//
+//            ::string strColorScheme;
+//
+//            if (gsettings_get(strColorScheme, "org.gnome.desktop.interface", "color-scheme"))
+//            {
+//
+//               information() << "color-scheme=\"" + strColorScheme + "\"";
+//
+//               strColorScheme.trim();
+//
+//               if (strColorScheme.case_insensitive_contains("dark"))
+//               {
+//
+//                  m_bOperatingSystemDarkMode = true;
+//
+//               }
+//               else
+//               {
+//
+//                  m_bOperatingSystemDarkMode = false;
+//
+//               }
+//
+//            }
+//            else
 //            {
 //
 //               m_bOperatingSystemDarkMode = false;
 //
 //            }
-
-         }
-
-      }
-
-   }
-
-
-   bool node::dark_mode() const
-   {
-
-      auto pnodeThisMutable = (node *) this;
-
-      pnodeThisMutable->_fetch_dark_mode();
-
-      return ::aura_posix::node::dark_mode();
-
-   }
-
-
-   void node::set_dark_mode(bool bDarkMode)
-   {
-
-      post_procedure([this, bDarkMode]()
-                     {
-
-      if(bDarkMode)
-      {
-
-         gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-dark");
-
-      }
-      else
-      {
-
-         auto psummary = operating_system_summary();
-
-         if(psummary->m_strDistro.case_insensitive_equals("ubuntu"))
-         {
-
-            gsettings_set("org.gnome.desktop.interface", "color-scheme", "default");
-
-         }
-         else
-         {
-
-            gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-light");
-
-         }
-
-      }
-
-      _os_set_user_theme(m_strTheme);
-
-      _os_set_user_icon_theme(m_strIconTheme);
-
-      ::aura_posix::node::set_dark_mode(bDarkMode);
-
-      });
-
-   }
-
-
-   void node::os_set_user_theme(const ::string &strUserTheme)
-   {
-
-      //auto estatus =
-      //
-      //
-      _os_set_user_theme(strUserTheme);
-
-//      if(!estatus)
-//      {
-//
-//         return estatus;
-//
-//      }
-//
-//      return estatus;
-
-   }
-
-
-   ::e_status node::_os_set_user_theme(const ::string &strUserTheme)
-   {
-
-      // https://ubuntuforums.org/showthread.php?t=2140488
-      // gsettings set org.gnome.desktop.interface gtk-theme your_theme
-
-      // indirect wall-changer sourceforge.net contribution
-
-      auto psystem = system()->m_papexsystem;
-
-      auto pnode = psystem->node();
-
-      auto edesktop = pnode->get_edesktop();
-
-      if (edesktop & ::user::e_desktop_gnome)
-      {
-
-         bool bOk1 = gsettings_set("org.gnome.desktop.interface", "gtk-theme", strUserTheme).ok();
-
-         bool bOk2 = true;
-
-         //if(::file::system_short_name().case_insensitive_contains("manjaro"))
-         {
-
-            bOk2 = gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme).ok();
-
-         }
-
-         sleep(300_ms);
-
-         ::node_gtk3::gsettings_sync();
-
-         sleep(300_ms);
-
-         if (!bOk1 || !bOk2)
-         {
-
-            return error_failed;
-
-         }
-
-      }
-      else if (edesktop & ::user::e_desktop_mate)
-      {
-
-         //return ::user::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
-
-      }
-      else if (edesktop & ::user::e_desktop_lxde)
-      {
-
-
-         //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
-
-      }
-      else if (edesktop & ::user::e_desktop_xfce)
-      {
-         //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
-         //          if(entry.contains("image-path") || entry.contains("last-image")){
-         //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
-         //      }
-         //}
-
-         warning() <<"Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
-
-         return error_failed;
-
-      }
-
-      return ::success;
-
-   }
-
-
-   ::e_status node::_os_set_user_icon_theme(const ::string &strUserIconTheme)
-   {
-
-      // https://ubuntuforums.org/showthread.php?t=2140488
-      // gsettings set org.gnome.desktop.interface gtk-theme your_theme
-
-      // indirect wall-changer sourceforge.net contribution
-
-      auto psystem = system()->m_papexsystem;
-
-      auto pnode = psystem->node();
-
-      auto edesktop = pnode->get_edesktop();
-
-      if (edesktop & ::user::e_desktop_gnome)
-      {
-
-         bool bOk1 = gsettings_set("org.gnome.desktop.interface", "icon-theme", strUserIconTheme).ok();
-
-         //bool bOk2 = true;
-
-//         //if(::file::system_short_name().case_insensitive_contains("manjaro"))
-//         {
-//
-//            bOk2 = gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme);
 //
 //         }
-
-         sleep(300_ms);
-
-         ::node_gtk3::gsettings_sync();
-
-         sleep(300_ms);
-
-         //if (!bOk1 || !bOk2)
-         if (!bOk1)
-         {
-
-            return error_failed;
-
-         }
-
-      }
-      else if (edesktop & ::user::e_desktop_mate)
-      {
-
-         //return ::user::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
-
-      }
-      else if (edesktop & ::user::e_desktop_lxde)
-      {
-
-
-         //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
-
-      }
-      else if (edesktop & ::user::e_desktop_xfce)
-      {
-         //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
-         //          if(entry.contains("image-path") || entry.contains("last-image")){
-         //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
-         //      }
-         //}
-
-         warning() <<"Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
-
-         return error_failed;
-
-      }
-
-      return ::success;
-
-   }
-
-
-//   void node::os_process_user_theme(string strTheme)
-//   {
+//         else
+//         {
 //
-//      _os_process_user_theme(strTheme);
+//            _fetch_user_color();
+//
+////            {
+////
+////               m_bOperatingSystemDarkMode = false;
+////
+////            }
+//
+//         }
+//
+//      }
 //
 //   }
 
 
-
-   bool node::set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay)
-   {
-
-      // wall-changer sourceforge.net contribution
-
-      auto psystem = system()->m_papexsystem;
-
-      auto pnode = psystem->node();
-
-      auto edesktop = pnode->get_edesktop();
-
-      bool bDark = pwindowingdisplay->m_strDarkModeAnnotation.case_insensitive_contains("dark");
-
-      switch (edesktop)
-      {
-
-         case ::user::e_desktop_gnome:
-         case ::user::e_desktop_ubuntu_gnome:
-         case ::user::e_desktop_unity_gnome:
-         {
-
-            if(bDark)
-            {
-
-               return ::node_gtk3::gsettings_set("org.gnome.desktop.background", "picture-uri-dark",
-                                                "file://" + strLocalImagePath).ok();
-
-            }
-            else
-            {
-
-               return ::node_gtk3::gsettings_set("org.gnome.desktop.background", "picture-uri",
-                                                "file://" + strLocalImagePath).ok();
-
-            }
-
-         }
-         case ::user::e_desktop_mate:
-
-            return ::node_gtk3::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath).ok();
-
-         case ::user::e_desktop_lxde:
-
-            call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
-
-            break;
-
-         case ::user::e_desktop_xfce:
-         {
-            //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
-            //          if(entry.contains("image-path") || entry.contains("last-image")){
-            //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
-            //      }
-            //}
-
-         }
-
-            //break;
-
-         default:
-
-            warning() <<"Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
-            return false;
-
-      }
-
-      return true;
-
-   }
-
-
-   void node::enable_wallpaper_change_notification()
-   {
-
-      auto psystem = system()->m_papexsystem;
-
-      auto pnode = psystem->node();
-
-      auto edesktop = pnode->get_edesktop();
-
-      switch (edesktop)
-      {
-
-         case ::user::e_desktop_gnome:
-         case ::user::e_desktop_ubuntu_gnome:
-         case ::user::e_desktop_unity_gnome:
-
-            node_enable_wallpaper_change_notification(this, "org.gnome.desktop.background", "picture-uri");
-
-            break;
-
-         case ::user::e_desktop_mate:
-
-            node_enable_wallpaper_change_notification(this, "org.mate.background", "picture-filename");
-
-            break;
-
-         case ::user::e_desktop_lxde:
-
-            //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
-
-            break;
-
-         case ::user::e_desktop_xfce:
-         {
-            //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
-            //          if(entry.contains("image-path") || entry.contains("last-image")){
-            //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
-            //      }
-            //}
-
-         }
-
-            break;
-         default:
-
-            warning() <<"Failed to get wallpaper setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
-            //return "";
-
-      }
-
-   }
-
-
-   string node::get_file_icon_path(const ::string &strPath, int iSize)
-   {
-
-      return ::node_gtk3::g_get_file_icon_path(strPath, iSize);
-
-   }
-
-
-   string node::get_file_content_type(const ::string &strPath)
-   {
-
-      return ::node_gtk3::g_get_file_content_type(strPath);
-
-   }
-
-
-   string node::get_wallpaper(::collection::index iScreen)
-   {
-
-      return "";
-
-   }
-
-
-   void node::user_post(const ::procedure &procedure)
-   {
-
-      gdk_branch(procedure);
-
-   }
-
-
+//   bool node::dark_mode() const
+//   {
+//
+//      auto pnodeThisMutable = (node *) this;
+//
+//      pnodeThisMutable->_fetch_dark_mode();
+//
+//      return ::aura_posix::node::dark_mode();
+//
+//   }
+//
+//
+//   void node::set_dark_mode(bool bDarkMode)
+//   {
+//
+//      post_procedure([this, bDarkMode]()
+//                     {
+//
+//      if(bDarkMode)
+//      {
+//
+//         gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-dark");
+//
+//      }
+//      else
+//      {
+//
+//         auto psummary = operating_system_summary();
+//
+//         if(psummary->m_strDistro.case_insensitive_equals("ubuntu"))
+//         {
+//
+//            gsettings_set("org.gnome.desktop.interface", "color-scheme", "default");
+//
+//         }
+//         else
+//         {
+//
+//            gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-light");
+//
+//         }
+//
+//      }
+//
+//      _os_set_user_theme(m_strTheme);
+//
+//      _os_set_user_icon_theme(m_strIconTheme);
+//
+//      ::aura_posix::node::set_dark_mode(bDarkMode);
+//
+//      });
+//
+//   }
+//
+//
+//   void node::os_set_user_theme(const ::string &strUserTheme)
+//   {
+//
+//      //auto estatus =
+//      //
+//      //
+//      _os_set_user_theme(strUserTheme);
+//
+////      if(!estatus)
+////      {
+////
+////         return estatus;
+////
+////      }
+////
+////      return estatus;
+//
+//   }
+//
+//
+//   ::e_status node::_os_set_user_theme(const ::string &strUserTheme)
+//   {
+//
+//      // https://ubuntuforums.org/showthread.php?t=2140488
+//      // gsettings set org.gnome.desktop.interface gtk-theme your_theme
+//
+//      // indirect wall-changer sourceforge.net contribution
+//
+//      auto psystem = system()->m_papexsystem;
+//
+//      auto pnode = psystem->node();
+//
+//      auto edesktop = pnode->get_edesktop();
+//
+//      if (edesktop & ::user::e_desktop_gnome)
+//      {
+//
+//         bool bOk1 = gsettings_set("org.gnome.desktop.interface", "gtk-theme", strUserTheme).ok();
+//
+//         bool bOk2 = true;
+//
+//         //if(::file::system_short_name().case_insensitive_contains("manjaro"))
+//         {
+//
+//            bOk2 = gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme).ok();
+//
+//         }
+//
+//         sleep(300_ms);
+//
+//         ::node_gtk3::gsettings_sync();
+//
+//         sleep(300_ms);
+//
+//         if (!bOk1 || !bOk2)
+//         {
+//
+//            return error_failed;
+//
+//         }
+//
+//      }
+//      else if (edesktop & ::user::e_desktop_mate)
+//      {
+//
+//         //return ::user::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
+//
+//      }
+//      else if (edesktop & ::user::e_desktop_lxde)
+//      {
+//
+//
+//         //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+//
+//      }
+//      else if (edesktop & ::user::e_desktop_xfce)
+//      {
+//         //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+//         //          if(entry.contains("image-path") || entry.contains("last-image")){
+//         //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+//         //      }
+//         //}
+//
+//         warning() <<"Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
+//
+//         return error_failed;
+//
+//      }
+//
+//      return ::success;
+//
+//   }
+//
+//
+//   ::e_status node::_os_set_user_icon_theme(const ::string &strUserIconTheme)
+//   {
+//
+//      // https://ubuntuforums.org/showthread.php?t=2140488
+//      // gsettings set org.gnome.desktop.interface gtk-theme your_theme
+//
+//      // indirect wall-changer sourceforge.net contribution
+//
+//      auto psystem = system()->m_papexsystem;
+//
+//      auto pnode = psystem->node();
+//
+//      auto edesktop = pnode->get_edesktop();
+//
+//      if (edesktop & ::user::e_desktop_gnome)
+//      {
+//
+//         bool bOk1 = gsettings_set("org.gnome.desktop.interface", "icon-theme", strUserIconTheme).ok();
+//
+//         //bool bOk2 = true;
+//
+////         //if(::file::system_short_name().case_insensitive_contains("manjaro"))
+////         {
+////
+////            bOk2 = gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme);
+////
+////         }
+//
+//         sleep(300_ms);
+//
+//         ::node_gtk3::gsettings_sync();
+//
+//         sleep(300_ms);
+//
+//         //if (!bOk1 || !bOk2)
+//         if (!bOk1)
+//         {
+//
+//            return error_failed;
+//
+//         }
+//
+//      }
+//      else if (edesktop & ::user::e_desktop_mate)
+//      {
+//
+//         //return ::user::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
+//
+//      }
+//      else if (edesktop & ::user::e_desktop_lxde)
+//      {
+//
+//
+//         //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+//
+//      }
+//      else if (edesktop & ::user::e_desktop_xfce)
+//      {
+//         //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+//         //          if(entry.contains("image-path") || entry.contains("last-image")){
+//         //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+//         //      }
+//         //}
+//
+//         warning() <<"Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
+//
+//         return error_failed;
+//
+//      }
+//
+//      return ::success;
+//
+//   }
+//
+//
+////   void node::os_process_user_theme(string strTheme)
+////   {
+////
+////      _os_process_user_theme(strTheme);
+////
+////   }
+//
+//
+//
+//   bool node::set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay)
+//   {
+//
+//      // wall-changer sourceforge.net contribution
+//
+//      auto psystem = system()->m_papexsystem;
+//
+//      auto pnode = psystem->node();
+//
+//      auto edesktop = pnode->get_edesktop();
+//
+//      bool bDark = pwindowingdisplay->m_strDarkModeAnnotation.case_insensitive_contains("dark");
+//
+//      switch (edesktop)
+//      {
+//
+//         case ::user::e_desktop_gnome:
+//         case ::user::e_desktop_ubuntu_gnome:
+//         case ::user::e_desktop_unity_gnome:
+//         {
+//
+//            if(bDark)
+//            {
+//
+//               return ::node_gtk3::gsettings_set("org.gnome.desktop.background", "picture-uri-dark",
+//                                                "file://" + strLocalImagePath).ok();
+//
+//            }
+//            else
+//            {
+//
+//               return ::node_gtk3::gsettings_set("org.gnome.desktop.background", "picture-uri",
+//                                                "file://" + strLocalImagePath).ok();
+//
+//            }
+//
+//         }
+//         case ::user::e_desktop_mate:
+//
+//            return ::node_gtk3::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath).ok();
+//
+//         case ::user::e_desktop_lxde:
+//
+//            call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+//
+//            break;
+//
+//         case ::user::e_desktop_xfce:
+//         {
+//            //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+//            //          if(entry.contains("image-path") || entry.contains("last-image")){
+//            //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+//            //      }
+//            //}
+//
+//         }
+//
+//            //break;
+//
+//         default:
+//
+//            warning() <<"Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
+//            return false;
+//
+//      }
+//
+//      return true;
+//
+//   }
+//
+//
+//   void node::enable_wallpaper_change_notification()
+//   {
+//
+//      auto psystem = system()->m_papexsystem;
+//
+//      auto pnode = psystem->node();
+//
+//      auto edesktop = pnode->get_edesktop();
+//
+//      switch (edesktop)
+//      {
+//
+//         case ::user::e_desktop_gnome:
+//         case ::user::e_desktop_ubuntu_gnome:
+//         case ::user::e_desktop_unity_gnome:
+//
+//            node_enable_wallpaper_change_notification(this, "org.gnome.desktop.background", "picture-uri");
+//
+//            break;
+//
+//         case ::user::e_desktop_mate:
+//
+//            node_enable_wallpaper_change_notification(this, "org.mate.background", "picture-filename");
+//
+//            break;
+//
+//         case ::user::e_desktop_lxde:
+//
+//            //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+//
+//            break;
+//
+//         case ::user::e_desktop_xfce:
+//         {
+//            //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+//            //          if(entry.contains("image-path") || entry.contains("last-image")){
+//            //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+//            //      }
+//            //}
+//
+//         }
+//
+//            break;
+//         default:
+//
+//            warning() <<"Failed to get wallpaper setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
+//            //return "";
+//
+//      }
+//
+//   }
+//
+//
+//   string node::get_file_icon_path(const ::string &strPath, int iSize)
+//   {
+//
+//      return ::node_gtk3::g_get_file_icon_path(strPath, iSize);
+//
+//   }
+//
+//
+//   string node::get_file_content_type(const ::string &strPath)
+//   {
+//
+//      return ::node_gtk3::g_get_file_content_type(strPath);
+//
+//   }
+//
+//
+//   string node::get_wallpaper(::collection::index iScreen)
+//   {
+//
+//      return "";
+//
+//   }
+//
+//
+//   void node::user_post(const ::procedure &procedure)
+//   {
+//
+//      gdk_branch(procedure);
+//
+//   }
+//
+//
    void node::defer_do_main_tasks()
    {
 
       gtk_defer_do_main_tasks();
 
    }
+//
+//
+////   void node::user_post_quit()
+////   {
+////
+////      ::os_post_quit();
+////
+////   }
 
 
-   void node::user_post_quit()
-   {
+void node::on_user_system_quit()
+{
 
-      ::os_post_quit();
+     gtk_main_quit();
 
-   }
+}
 
 
 //   void * node::node_wrap_window(void * pvoidDisplay, i64 window)
@@ -1439,83 +1457,83 @@ namespace node_gtk3
 
 
 
-   bool g_bInitializedUserTheme = false;
-
-   string node::_os_get_user_theme()
-   {
-
-      if (!g_bInitializedUserTheme)
-      {
-
-         g_bInitializedUserTheme = true;
-
-         //auto psystem = system()->m_papexsystem;
-
-         //psystem->start_subject_handling(id_os_user_theme);
-
-      }
-
-      // https://ubuntuforums.org/showthread.php?t=2140488
-      // gsettings set org.gnome.desktop.interface gtk-theme your_theme
-
-      // indirect wall-changer sourceforge.net contribution
-
-      string strTheme;
-
-      bool bOk = false;
-
-      auto psystem = system()->m_papexsystem;
-
-      auto pnode = psystem->node();
-
-      auto edesktop = pnode->get_edesktop();
-
-      switch (edesktop)
-      {
-
-         case ::user::e_desktop_gnome:
-         case ::user::e_desktop_ubuntu_gnome:
-         case ::user::e_desktop_unity_gnome:
-
-            bOk = gsettings_get(strTheme, "org.gnome.desktop.interface", "gtk-theme").ok();
-
-            break;
-
-         case ::user::e_desktop_mate:
-
-            bOk = gsettings_get(strTheme, "org.mate.background", "picture-filename").ok();
-
-            break;
-
-         case ::user::e_desktop_lxde:
-
-            //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
-
-            break;
-
-         case ::user::e_desktop_xfce:
-         {
-            //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
-            //          if(entry.contains("image-path") || entry.contains("last-image")){
-            //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
-            //      }
-            //}
-
-         }
-
-            //break;
-
-         default:
-
-            warningf(
-                    "Failed to get user theme setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
-            //return "";
-
-      }
-
-      return strTheme;
-
-   }
+//   bool g_bInitializedUserTheme = false;
+//
+//   string node::_os_get_user_theme()
+//   {
+//
+//      if (!g_bInitializedUserTheme)
+//      {
+//
+//         g_bInitializedUserTheme = true;
+//
+//         //auto psystem = system()->m_papexsystem;
+//
+//         //psystem->start_subject_handling(id_os_user_theme);
+//
+//      }
+//
+//      // https://ubuntuforums.org/showthread.php?t=2140488
+//      // gsettings set org.gnome.desktop.interface gtk-theme your_theme
+//
+//      // indirect wall-changer sourceforge.net contribution
+//
+//      string strTheme;
+//
+//      bool bOk = false;
+//
+//      auto psystem = system()->m_papexsystem;
+//
+//      auto pnode = psystem->node();
+//
+//      auto edesktop = pnode->get_edesktop();
+//
+//      switch (edesktop)
+//      {
+//
+//         case ::user::e_desktop_gnome:
+//         case ::user::e_desktop_ubuntu_gnome:
+//         case ::user::e_desktop_unity_gnome:
+//
+//            bOk = gsettings_get(strTheme, "org.gnome.desktop.interface", "gtk-theme").ok();
+//
+//            break;
+//
+//         case ::user::e_desktop_mate:
+//
+//            bOk = gsettings_get(strTheme, "org.mate.background", "picture-filename").ok();
+//
+//            break;
+//
+//         case ::user::e_desktop_lxde:
+//
+//            //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+//
+//            break;
+//
+//         case ::user::e_desktop_xfce:
+//         {
+//            //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+//            //          if(entry.contains("image-path") || entry.contains("last-image")){
+//            //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+//            //      }
+//            //}
+//
+//         }
+//
+//            //break;
+//
+//         default:
+//
+//            warningf(
+//                    "Failed to get user theme setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+//            //return "";
+//
+//      }
+//
+//      return strTheme;
+//
+//   }
 
 
    GtkStyleContext * __get_style_context_for_theme(const char * pszTheme, bool bDarkMode)
@@ -1894,28 +1912,28 @@ namespace node_gtk3
    }
 
 
-   ::string node::_get_os_user_theme()
-   {
-
-      ::string strGtkTheme;
-
-      if(gsettings_schema_contains_key("org.gnome.desktop.interface", "gtk-theme"))
-      {
-
-         information() << "org.gnome.desktop.interface schema contains \"gtk-theme\"";
-
-         if (gsettings_get(strGtkTheme, "org.gnome.desktop.interface", "gtk-theme"))
-         {
-
-            information() << "gtk-theme=\"" + strGtkTheme + "\"";
-
-         }
-
-      }
-
-      return strGtkTheme;
-
-   }
+//   ::string node::_get_os_user_theme()
+//   {
+//
+//      ::string strGtkTheme;
+//
+//      if(gsettings_schema_contains_key("org.gnome.desktop.interface", "gtk-theme"))
+//      {
+//
+//         information() << "org.gnome.desktop.interface schema contains \"gtk-theme\"";
+//
+//         if (gsettings_get(strGtkTheme, "org.gnome.desktop.interface", "gtk-theme"))
+//         {
+//
+//            information() << "gtk-theme=\"" + strGtkTheme + "\"";
+//
+//         }
+//
+//      }
+//
+//      return strGtkTheme;
+//
+//   }
 
 
    void node::_apply_os_user_icon_theme()
@@ -1928,100 +1946,100 @@ namespace node_gtk3
    }
 
 
-   void node::os_process_user_theme(string strOsTheme)
-   {
-
-      ::acme::get()->platform()->informationf(
-              "os_process_user_theme: is strTheme(" + strOsTheme + ") same as m_strTheme(" + m_strTheme + ")\n");
-
-      if (strOsTheme == m_strTheme)
-      {
-
-         ::acme::get()->platform()->informationf(
-                 "os_process_user_theme: same theme as before [new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
-
-         return;
-
-      }
-
-      ::acme::get()->platform()->informationf(
-              "os_process_user_theme: different theme [new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
-
-      m_strTheme = strOsTheme;
-
-      ::acme::get()->platform()->informationf("os_process_user_theme m_strTheme = \"" + m_strTheme + "\"\n");
-
-      try
-      {
-
-         system()->m_papexsystem->signal(id_operating_system_user_theme_change);
-
-      }
-      catch (...)
-      {
-
-
-      }
-
-      _fetch_user_color();
-
-//      if(!gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
+//   void node::os_process_user_theme(string strOsTheme)
+//   {
+//
+//      ::acme::get()->platform()->informationf(
+//              "os_process_user_theme: is strTheme(" + strOsTheme + ") same as m_strTheme(" + m_strTheme + ")\n");
+//
+//      if (strOsTheme == m_strTheme)
 //      {
 //
-//         _os_process_user_theme_color(m_strTheme);
+//         ::acme::get()->platform()->informationf(
+//                 "os_process_user_theme: same theme as before [new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
 //
-//         fetch_user_color();
+//         return;
 //
 //      }
-
-   }
-
-
-   void node::os_process_user_icon_theme(string strOsIconTheme)
-   {
-
-      ::acme::get()->platform()->informationf(
-              "os_process_user_icon_theme: is strIconTheme(" + strOsIconTheme + ") same as m_strIconTheme(" + m_strIconTheme + ")\n");
-
-      if (strOsIconTheme == m_strIconTheme)
-      {
-
-         ::acme::get()->platform()->informationf(
-                 "os_process_user_icon_theme: same theme as before [new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
-
-         return;
-
-      }
-
-      ::acme::get()->platform()->informationf(
-              "os_process_user_icon_theme: different theme [new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
-
-      m_strIconTheme = strOsIconTheme;
-
-      ::acme::get()->platform()->informationf("os_process_user_icon_theme m_strIconTheme = \"" + m_strIconTheme + "\"\n");
-
-      try
-      {
-
-         system()->m_papexsystem->signal(id_operating_system_user_icon_theme_change);
-
-      }
-      catch (...)
-      {
-
-
-      }
-
-//      if(!gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
+//
+//      ::acme::get()->platform()->informationf(
+//              "os_process_user_theme: different theme [new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
+//
+//      m_strTheme = strOsTheme;
+//
+//      ::acme::get()->platform()->informationf("os_process_user_theme m_strTheme = \"" + m_strTheme + "\"\n");
+//
+//      try
 //      {
 //
-//         _os_process_user_theme_color(m_strTheme);
-//
-//         fetch_user_color();
+//         system()->m_papexsystem->signal(id_operating_system_user_theme_change);
 //
 //      }
+//      catch (...)
+//      {
+//
+//
+//      }
+//
+//      _fetch_user_color();
+//
+////      if(!gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
+////      {
+////
+////         _os_process_user_theme_color(m_strTheme);
+////
+////         fetch_user_color();
+////
+////      }
+//
+//   }
 
-   }
+
+//   void node::os_process_user_icon_theme(string strOsIconTheme)
+//   {
+//
+//      ::acme::get()->platform()->informationf(
+//              "os_process_user_icon_theme: is strIconTheme(" + strOsIconTheme + ") same as m_strIconTheme(" + m_strIconTheme + ")\n");
+//
+//      if (strOsIconTheme == m_strIconTheme)
+//      {
+//
+//         ::acme::get()->platform()->informationf(
+//                 "os_process_user_icon_theme: same theme as before [new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
+//
+//         return;
+//
+//      }
+//
+//      ::acme::get()->platform()->informationf(
+//              "os_process_user_icon_theme: different theme [new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
+//
+//      m_strIconTheme = strOsIconTheme;
+//
+//      ::acme::get()->platform()->informationf("os_process_user_icon_theme m_strIconTheme = \"" + m_strIconTheme + "\"\n");
+//
+//      try
+//      {
+//
+//         system()->m_papexsystem->signal(id_operating_system_user_icon_theme_change);
+//
+//      }
+//      catch (...)
+//      {
+//
+//
+//      }
+//
+////      if(!gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
+////      {
+////
+////         _os_process_user_theme_color(m_strTheme);
+////
+////         fetch_user_color();
+////
+////      }
+//
+//   }
 
 
 //   void node::_os_process_user_theme_color(string strTheme)
@@ -2049,45 +2067,45 @@ namespace node_gtk3
 //   }
 
 
-   void node::fetch_user_color()
-   {
-
-      _fetch_dark_mode();
-
-//      auto pthemecolors = ::user::os_get_theme_colors();
+//   void node::fetch_user_color()
+//   {
 //
-//      if (!pthemecolors)
-//      {
+//      _fetch_dark_mode();
 //
-//         string strTheme = _os_get_user_theme();
+////      auto pthemecolors = ::user::os_get_theme_colors();
+////
+////      if (!pthemecolors)
+////      {
+////
+////         string strTheme = _os_get_user_theme();
+////
+////         information() << "node::fetch_user_color _os_get_user_theme(): " << strTheme;
+////
+////         pthemecolors = _new_os_theme_colors(strTheme);
+////
+////         _set_os_theme_colors(pthemecolors);
+////
+////      }
 //
-//         information() << "node::fetch_user_color _os_get_user_theme(): " << strTheme;
+//   }
+
+
+//   bool node::is_branch_current() const
+//   {
 //
-//         pthemecolors = _new_os_theme_colors(strTheme);
+//      return current_itask() == main_user_itask();
 //
-//         _set_os_theme_colors(pthemecolors);
+//   }
+
+
+//   int node::os_launch_uri(const ::string &strUri, char *pszError, int iBufferSize)
+//   {
 //
-//      }
-
-   }
-
-
-   bool node::is_branch_current() const
-   {
-
-      return current_itask() == main_user_itask();
-
-   }
-
-
-   int node::os_launch_uri(const ::string &strUri, char *pszError, int iBufferSize)
-   {
-
-      int iRet = gdk_launch_uri(strUri, pszError, iBufferSize);
-
-      return iRet;
-
-   }
+//      int iRet = gdk_launch_uri(strUri, pszError, iBufferSize);
+//
+//      return iRet;
+//
+//   }
 
 
    void node::shell_launch(const ::string &strAppId)
@@ -2448,135 +2466,687 @@ namespace node_gtk3
    }
 
 
-   ::e_status node::x11_initialize()
+//   void * node::fetch_windowing_system_display()
+//   {
+//
+//      GdkDisplay *gdkdisplay;
+//
+//      gdkdisplay = gdk_display_get_default();
+//
+//      void * pvoidX11Display = gdk_x11_display_get_xdisplay(gdkdisplay);
+//
+//      printf("Got this Display from gdk_x11 display : %lX", (::uptr) pvoidX11Display);
+//
+//      return pvoidX11Display;
+//
+//   }
+
+
+//   void node::windowing_system_async(const ::procedure &procedure)
+//   {
+//
+//      gdk_branch(procedure);
+//
+//   }
+
+
+//   void node::windowing_system_display_error_trap_push(int i)
+//   {
+//
+//      if(system()->m_ewindowing == e_windowing_x11)
+//      {
+//
+//         GdkDisplay *gdkdisplay;
+//
+//         gdkdisplay = gdk_display_get_default ();
+//         gdk_x11_display_error_trap_push (gdkdisplay);
+//
+//      }
+//
+//   }
+
+
+//   void node::windowing_system_display_error_trap_pop_ignored(int i)
+//   {
+//
+//      if(system()->m_ewindowing == e_windowing_x11)
+//      {
+//
+//         GdkDisplay *gdkdisplay;
+//         gdkdisplay = gdk_display_get_default ();
+//         gdk_x11_display_error_trap_pop_ignored (gdkdisplay);
+//
+//      }
+//
+//   }
+
+
+
+
+bool node::_g_defer_get_default_theme_icon(::string & strIconPath, GIcon * picon, int iSize)
+{
+
+   if(G_IS_THEMED_ICON(G_OBJECT(picon)))
    {
 
-      informationf("node_gtk3::node::x11_initialize");
+   GtkIconTheme *pGtkIconTheme= gtk_icon_theme_get_default();
 
-      informationf("node_gtk3::node::x11_initialize going to call x11_init_threads");
+   if(pGtkIconTheme != nullptr) {
 
-      if (!::x11::nano::user::init_threads())
+      GtkIconInfo *pGtkIconInfo = gtk_icon_theme_lookup_by_gicon(pGtkIconTheme, picon, (gint) iSize,
+                                                                 GTK_ICON_LOOKUP_USE_BUILTIN);
+
+      if (pGtkIconInfo != nullptr)
       {
 
-          return ::error_failed;
+         const char *p = gtk_icon_info_get_filename(pGtkIconInfo);
+
+         if (p)
+         {
+
+            strIconPath = p;
+
+            return true;
+
+         }
 
       }
-
-      // gdk_x11 does error handling?!?!?!
-      //XSetErrorHandler(_c_XErrorHandler);
-
-      //g_pmutexX11 = __new< ::pointer < ::mutex > >();
-
-      return ::success;
 
    }
 
 
+}
 
-   void * node::x11_get_display()
+   return false;
+
+}
+
+
+
+//
+//   ::logic::boolean g_bitLastDarkMode;
+//
+//
+//   char *gsettings_get_malloc(const ::string & strSchema, const ::string & strKey);
+//
+
+   //CLASS_DECL_ACME void _os_process_user_theme_color(string strTheme);
+
+//   ::string_array node::_gsettings_schema_keys(const ::string & strSchema)
+//   {
+//
+//      GSettingsSchema * pschema = g_settings_schema_source_lookup (
+//              g_settings_schema_source_get_default(),
+//              strSchema, FALSE);
+//
+//      if (::is_null(pschema))
+//      {
+//
+//         return {};
+//
+//      }
+//
+//      auto ppchar = g_settings_schema_list_keys (pschema);
+//
+//      if(::is_null(ppchar))
+//      {
+//
+//         g_settings_schema_unref (pschema);
+//
+//         return {};
+//
+//      }
+//
+//      ::string_array stra;
+//
+//      auto pp = ppchar;
+//
+//      while(*pp)
+//      {
+//
+//         stra.add(*pp);
+//
+//         g_free(*pp);
+//
+//         pp++;
+//
+//      }
+//
+//      g_free(ppchar);
+//
+//      g_settings_schema_unref (pschema);
+//
+//      return ::transfer(stra);
+//
+//   }
+//
+//
+//   bool node::gsettings_schema_contains_key(const ::string & strSchema, const ::string & strKey)
+//   {
+//
+//      auto stra = gsettings_schema_keys(strSchema);
+//
+//      return stra.contains(strKey);
+//
+//   }
+//
+//
+//   bool node::gsettings_schema_exists(const ::string & strSchema)
+//   {
+//
+//      GSettingsSchema * pschema = g_settings_schema_source_lookup (
+//              g_settings_schema_source_get_default(),
+//              strSchema, FALSE);
+//
+//      if (::is_null(pschema))
+//      {
+//
+//         return false;
+//
+//      }
+//
+//      g_settings_schema_unref (pschema);
+//
+//      return true;
+//
+//   }
+//
+//
+//   ::e_status node::gsettings_get(string &str, const ::string & strSchema, const ::string & strKey)
+//   {
+//
+//      char *psz = gsettings_get_malloc(strSchema, strKey);
+//
+//      if (psz == nullptr)
+//      {
+//
+//         return ::error_failed;
+//
+//      }
+//
+//      try
+//      {
+//
+//         str = psz;
+//
+//      }
+//      catch (...)
+//      {
+//
+//      }
+//
+//      try
+//      {
+//
+//         ::free(psz);
+//
+//      }
+//      catch (...)
+//      {
+//
+//      }
+//
+//      return ::success;
+//
+//   }
+//
+//
+//   bool g_bGInitialized = false;
+//
+//
+//   pthread_mutex_t g_mutexG;
+//
+//
+//   ::e_status node::gsettings_set(const ::string & strSchema, const ::string & strKey, const ::string & strValue)
+//   {
+//
+//      if (strSchema.is_empty())
+//      {
+//
+//         return error_bad_argument;
+//
+//      }
+//
+//      if (strKey.is_empty())
+//      {
+//
+//         return error_bad_argument;
+//
+//      }
+//
+////      ::pointer < ::node_gtk3::node > pgtknode = ::platform::get()->system()->node();
+////
+////      if (!os_defer_init_gtk(pgtknode))
+////      {
+////
+////         return ::error_failed;
+////
+////      }
+//
+//      GSettings *settings = g_settings_new(strSchema);
+//
+//      if (settings == nullptr)
+//      {
+//
+//         return error_failed;
+//
+//      }
+//
+//      gboolean bOk = g_settings_set_string(settings, strKey, strValue);
+//
+//      g_object_unref(settings);
+//
+//      if(!bOk)
+//      {
+//
+//         return error_failed;
+//
+//      }
+//
+//      return ::success;
+//
+//   }
+//
+//
+//   ::e_status gsettings_sync()
+//   {
+//
+////      ::pointer < ::node_gtk3::node > pgtknode = ::platform::get()->system()->node();
+////
+////      if (!os_defer_init_gtk(pgtknode))
+////      {
+////
+////         return ::error_failed;
+////
+////      }
+//
+//      ::g_settings_sync();
+//
+//      return ::success;
+//
+//   }
+//
+//
+//   char * gsettings_get_malloc(const ::string & strSchema, const ::string & strKey)
+//   {
+//
+//      if (strSchema.is_empty())
+//      {
+//
+//         return nullptr;
+//
+//      }
+//
+//      if (strKey.is_empty())
+//      {
+//
+//         return nullptr;
+//
+//      }
+//
+////      ::pointer < ::node_gtk3::node > pgtknode = ::platform::get()->system()->node();
+////
+////      if (!os_defer_init_gtk(pgtknode))
+////      {
+////
+////         return nullptr;
+////
+////      }
+//
+//      GSettings *settings = g_settings_new(strSchema);
+//
+//      if (settings == nullptr)
+//      {
+//
+//         return nullptr;
+//
+//      }
+//
+//      gchar *pgchar = g_settings_get_string(settings, strKey);
+//
+//      if (pgchar == nullptr)
+//      {
+//
+//         g_object_unref(settings);
+//
+//         return nullptr;
+//
+//      }
+//
+//      char *psz = strdup(pgchar);
+//
+//      g_free(pgchar);
+//
+//      g_object_unref(settings);
+//
+//      return psz;
+//
+//   }
+
+
+//   void wallpaper_change_notification(GSettings *settings, const gchar *pszKey, gpointer pdata)
+//   {
+//
+//      ::node_gdk::node * pnode = (::node_gdk::node *) pdata;
+//
+//      pnode->system()->m_papexsystem->signal(id_wallpaper_change);
+//
+//   }
+//
+//
+//   GAction *g_pactionWallpaper = nullptr;
+//
+//
+//   ::e_status node_enable_wallpaper_change_notification(::node_gdk::node * pnode, const ::string & strSchema, const ::string & strKey)
+//   {
+//
+////      if (!g_bGInitialized)
+////      {
+////
+////         return error_not_initialized;
+////
+////      }
+////
+////      pmutex_lock lock(&g_mutexG);
+//
+//      if (g_pactionWallpaper != nullptr)
+//      {
+//
+//         return ::success;
+//
+//      }
+//
+//      GSettings *settings = g_settings_new(strSchema);
+//
+//      if (settings == nullptr)
+//      {
+//
+//         return error_failed;
+//
+//      }
+//
+//      g_pactionWallpaper = g_settings_create_action(settings, strKey);
+//
+//      g_object_unref(settings);
+//
+//      g_signal_connect (g_pactionWallpaper, "notify::state", G_CALLBACK(wallpaper_change_notification), pnode);
+//
+//      return ::success;
+//
+//   }
+
+//
+//   void g_defer_init()
+//   {
+////
+////      if (g_bGInitialized)
+////      {
+////
+////         return;
+////
+////      }
+////
+////      g_bGInitialized = true;
+////
+////      pthread_mutex_init(&g_mutexG, nullptr);
+//
+//   }
+//
+//
+//   void g_defer_term()
+//   {
+//
+////      if (!g_bGInitialized)
+////      {
+////
+////         return;
+////
+////      }
+////
+////      g_bGInitialized = false;
+//
+//      if (g_pactionWallpaper != nullptr)
+//      {
+//
+//         g_object_unref(g_pactionWallpaper);
+//
+//         g_pactionWallpaper = nullptr;
+//
+//      }
+//
+//      //pthread_mutex_destroy(&g_mutexG);
+//
+//   }
+
+
+//   ::string node::_g_get_file_icon_path(const char * pszPath, int iSize)
+//   {
+//
+//      GFile * pfile = g_file_new_for_path (pszPath);
+//
+//      if(pfile == nullptr)
+//      {
+//
+//         return nullptr;
+//
+//      }
+//
+//      GError * perror = nullptr;
+//
+//      GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
+//
+//      if(pfileinfo == nullptr)
+//      {
+//
+//         return nullptr;
+//
+//      }
+//
+//      /* you'd have to use g_loadable_icon_load to get the actual icon */
+//      GIcon * picon = g_file_info_get_icon (pfileinfo);
+//
+//      if(picon == nullptr)
+//      {
+//
+//         return nullptr;
+//
+//      }
+//
+//      if(G_IS_FILE_ICON(G_OBJECT(picon)))
+//      {
+//
+//         GFileIcon * pfileicon = G_FILE_ICON(G_OBJECT(picon));
+//
+//         if(pfileicon == nullptr)
+//         {
+//
+//            return nullptr;
+//
+//         }
+//
+//         GFile * pfileIcon = g_file_icon_get_file(pfileicon);
+//
+//         if(pfileIcon == nullptr)
+//         {
+//
+//            return nullptr;
+//
+//         }
+//
+//         char * psz = strdup(g_file_get_path(pfileIcon));
+//
+//         return psz;
+//
+//      }
+//      else
+//      {
+//
+//         ::string strIconPath;
+//
+//         if(_g_defer_get_default_theme_icon(strIconPath, picon, iSize))
+//         {
+//
+//            return strIconPath;
+//
+//         }
+//
+//      }
+//
+//      return {};
+//
+//   }
+//
+//
+//   bool node::_g_defer_get_default_theme_icon(::string & strIconPath, GIcon * picon, int iSize)
+//   {
+//
+//      return false;
+//
+//   }
+
+
+//   const char * g_get_file_content_type(const char * pszPath)
+//   {
+//
+//      GFile * pfile = g_file_new_for_path (pszPath);
+//
+//      if(pfile == nullptr)
+//      {
+//
+//         return nullptr;
+//
+//      }
+//
+//      GError * perror = nullptr;
+//
+//      GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
+//
+//      if(pfileinfo == nullptr)
+//      {
+//
+//         return nullptr;
+//
+//      }
+//
+//      const char * pszContentType = g_file_info_get_content_type (pfileinfo);
+//
+//      const char * point = nullptr;
+//
+//      if(pszContentType != nullptr)
+//      {
+//
+//         point = strdup(pszContentType);
+//
+//      }
+//
+//      return point;
+//
+//   }
+
+
+
+//   int gdk_launch_uri(const char * pszUri, char * pszError, int iBufferSize)
+//   {
+//
+//      gboolean ret;
+//
+//      GError * error = nullptr;
+//
+//      //g_type_init();
+//
+//      ret = g_app_info_launch_default_for_uri(pszUri, nullptr, &error);
+//
+//      if(ret)
+//      {
+//
+//         return true;
+//
+//      }
+//
+//      if(pszError != nullptr)
+//      {
+//
+//         strncpy(pszError, error->message, iBufferSize);
+//
+//      }
+//
+//      return 0;
+//
+//   }
+
+//
+//   gboolean gdk_callback_run_runnable(gpointer pdata)
+//   {
+//
+//      auto pparticle = (::subparticle *) pdata;
+//
+//      try
+//      {
+//
+//         pparticle->run();
+//
+//      }
+//      catch(...)
+//      {
+//
+//      }
+//
+//      ::release(pparticle);
+//
+//      return FALSE;
+//
+//   }
+//
+//
+//   void gdk_branch(const ::procedure & procedure)
+//   {
+//
+//      ::subparticle * pbase = procedure.m_pbase;
+//
+//      ::increment_reference_count(pbase);
+//
+//      //synchronous_lock synchronouslock (user_synchronization());
+//
+//      auto psource = g_idle_source_new();
+//
+//      g_source_set_priority(psource, G_PRIORITY_DEFAULT);
+//
+//      g_source_set_callback(psource, &gdk_callback_run_runnable, pbase, nullptr);
+//
+//      g_source_attach(psource, g_main_context_default());
+//
+//   }
+//
+//
+//   void g_safe_free(void * pfree)
+//   {
+//
+//      if(pfree == nullptr)
+//      {
+//
+//         return;
+//
+//      }
+//
+//      ::g_free(pfree);
+//
+//   }
+//
+
+   void gtk_defer_do_main_tasks()
    {
 
-      //return ::acme::node::x11_get_display();
-
-      x11_defer_initialize();
-
-      if(m_pvoidX11Display == NULL)
+      if(!::is_main_thread())
       {
-
-         GdkDisplay *gdkdisplay;
-
-         gdkdisplay = gdk_display_get_default ();
-
-         m_pvoidX11Display =  gdk_x11_display_get_xdisplay(gdkdisplay);
-
-         printf("Got this Display from gdk_x11 display : %llX", (::uptr) m_pvoidX11Display);
-
-      }
-
-      return m_pvoidX11Display;
-
-   }
-
-
-   void node::x11_sync(const ::procedure & procedure)
-   {
-
-      if(::is_main_thread())
-      {
-
-         procedure();
 
          return;
 
       }
 
-      //__matter_send_procedure(this, this, &node::node_post, procedure);
-
-//      CLASS_DECL_ACME bool main_synchronous(const class time & time, const ::procedure & function)
-//      {
-
-         auto pevent = __allocate< manual_reset_event >();
-
-         user_post([ procedure, pevent ]
-                           {
-
-                                 procedure();
-
-                                    pevent->SetEvent();
-
-                           });
-
-         if(!pevent->wait(procedure.m_timeTimeout))
-         {
-
-            throw ::exception(error_timeout);
-            //pevent.release();
-
-            //return false;
-
-         }
-
-         ///return true;
-//
-//      }
-
-
-   }
-
-
-   void node::x11_async(const ::procedure & procedure)
-   {
-
-      gdk_branch(procedure);
-
-   }
-
-
-   void node::x11_display_error_trap_push(int i)
-   {
-
-      if(system()->m_ewindowing == e_windowing_x11)
+      for(::i32 i = 0; i < 10 && gtk_events_pending(); i++)
       {
 
-         GdkDisplay *gdkdisplay;
-
-         gdkdisplay = gdk_display_get_default ();
-         gdk_x11_display_error_trap_push (gdkdisplay);
-
-      }
-
-   }
-
-
-   void node::x11_display_error_trap_pop_ignored(int i)
-   {
-
-      if(system()->m_ewindowing == e_windowing_x11)
-      {
-
-         GdkDisplay *gdkdisplay;
-         gdkdisplay = gdk_display_get_default ();
-         gdk_x11_display_error_trap_pop_ignored (gdkdisplay);
+         gtk_main_iteration();
 
       }
 
@@ -2650,39 +3220,39 @@ log_handler(const gchar *log_domain,
 ::e_status run_runnable(::particle *pobjectTask);
 
 
-gboolean windowing_message_loop_source_function(gpointer p)
-{
-
-   ::node_gtk3::node *pnode = (::node_gtk3::node *) p;
-
-   try
-   {
-
-      if (!pnode->windowing_message_loop_step())
-      {
-
-         return FALSE;
-
-      }
-
-   }
-   catch(...)
-   {
-
-
-   }
-
-   return TRUE;
-
-}
-
-
-void windowing_message_loop_add_idle_source(::node_gtk3::node *pnode)
-{
-
-   gdk_threads_add_idle(&windowing_message_loop_source_function, pnode);
-
-}
+//gboolean windowing_message_loop_source_function(gpointer p)
+//{
+//
+//   ::node_gtk3::node *pnode = (::node_gtk3::node *) p;
+//
+//   try
+//   {
+//
+//      if (!pnode->windowing_message_loop_step())
+//      {
+//
+//         return FALSE;
+//
+//      }
+//
+//   }
+//   catch(...)
+//   {
+//
+//
+//   }
+//
+//   return TRUE;
+//
+//}
+//
+//
+//void windowing_message_loop_add_idle_source(::node_gtk3::node *pnode)
+//{
+//
+//   gdk_threads_add_idle(&windowing_message_loop_source_function, pnode);
+//
+//}
 
 
 bool x11_message_handler(XEvent *pevent);
@@ -2742,18 +3312,18 @@ void x11_add_filter(void * p)
 //   return 0;
 //
 //}
-
-
-
-void os_post_quit()
-{
-
-   auto idle_source = g_idle_source_new();
-
-   g_source_set_callback(idle_source, &gtk_quit_callback, nullptr, nullptr);
-
-   g_source_attach(idle_source, g_main_context_default());
-
-}
-
-
+//
+//
+//
+//void os_post_quit()
+//{
+//
+//   auto idle_source = g_idle_source_new();
+//
+//   g_source_set_callback(idle_source, &gtk_quit_callback, nullptr, nullptr);
+//
+//   g_source_attach(idle_source, g_main_context_default());
+//
+//}
+//
+//

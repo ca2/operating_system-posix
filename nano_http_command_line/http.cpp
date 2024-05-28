@@ -4,10 +4,10 @@
 #include "framework.h"
 #include "http.h"
 #include "_nano_http.h"
-#include "curl_easy.h"
+#include "acme/platform/node.h"
 
 
-namespace curl
+namespace command_line
 {
 
 
@@ -18,18 +18,48 @@ namespace curl
          http::http()
          {
 
-            curl_global_init(CURL_GLOBAL_ALL);
-
+m_eapp = e_app_not_initialized;
          }
         
                           
          http::~http()
          {
 
-            curl_global_cleanup();
+            //curl_global_cleanup();
 
          }
-      
+
+
+
+         enum_app http::_http_app()
+         {
+
+            if(m_eapp == e_app_not_initialized)
+            {
+               if(node()->has_posix_shell_command("curl"))
+               {
+
+                  m_eapp = e_app_curl;
+
+               }
+               else if(node()->has_posix_shell_command("wget"))
+               {
+
+                  m_eapp = e_app_wget;
+
+               } else
+               {
+
+                  m_eapp = e_app_unknown;
+
+               }
+            }
+
+            return m_eapp;
+
+         }
+
+
 
          //   void nano_http::s_http_response(long http_status, const void * data, long size, void * userdata)
          //   {
@@ -50,29 +80,136 @@ namespace curl
          void http::async(::nano::http::get * pget)
          {
 
-            auto pgetHold = ::as_pointer(pget);
-
-            //      pasynchronoushttpresponse->m_function = [](::pointer < ::nano::asynchronous_http_response > pasynchronoushttpresponse)
-            //      {                                s_http_response(pasynchronoushttpresponse);
-            //      };
-
-            //::pointer < ::nano::asynchronous_http_response > passynchronoushttpdata(e_pointer_transfer, (::particle *) userdata);
-            fork([this,pgetHold]()
-            {
-
-               auto pcurleasy = __create_new < curl_easy >();
-
-               pcurleasy->get(pgetHold);
-
-               pgetHold->set_finished();
-
-              //pasynchronoushttpresponse->m_event.SetEvent();
-              //pasynchronoushttpresponse->m_function(pasynchronoushttpresponse);
-            });
-
-            //nano_asynchronous_http_memory(scopedstrUrl.c_str(), s_http_response, pasynchronoushttpresponse.detach_particle());
+//            auto pgetHold = ::as_pointer(pget);
+//
+//            //      pasynchronoushttpresponse->m_function = [](::pointer < ::nano::asynchronous_http_response > pasynchronoushttpresponse)
+//            //      {                                s_http_response(pasynchronoushttpresponse);
+//            //      };
+//
+//            //::pointer < ::nano::asynchronous_http_response > passynchronoushttpdata(e_pointer_transfer, (::particle *) userdata);
+//            fork([this,pgetHold]()
+//            {
+//
+//               auto pcurleasy = __create_new < curl_easy >();
+//
+//               pcurleasy->get(pgetHold);
+//
+//               pgetHold->set_finished();
+//
+//              //pasynchronoushttpresponse->m_event.SetEvent();
+//              //pasynchronoushttpresponse->m_function(pasynchronoushttpresponse);
+//            });
+//
+//            //nano_asynchronous_http_memory(scopedstrUrl.c_str(), s_http_response, pasynchronoushttpresponse.detach_particle());
 
          }
+
+
+         ::string http::get_effective_url(const ::scoped_string & scopedstrUrl)
+         {
+
+            auto eapp = _http_app();
+
+            if (eapp == e_app_curl) {
+
+               return _curl_get_effective_url(scopedstrUrl);
+
+            } else if (eapp == e_app_wget) {
+
+               return _wget_get_effective_url(scopedstrUrl);
+
+            } else {
+
+
+               return {};
+
+            }
+
+         }
+
+
+         bool http::check_url_ok(const ::scoped_string & scopedstrUrl)
+         {
+
+            auto eapp = _http_app();
+
+            if(eapp == e_app_curl)
+            {
+
+               return _curl_check_url_ok(scopedstrUrl);
+
+            }
+            else if(eapp == e_app_wget)
+            {
+
+               return _wget_check_url_ok(scopedstrUrl);
+
+            } else
+
+            {
+
+
+               return false;
+
+            }
+
+         }
+
+            ::string http::get(const ::scoped_string & scopedstrUrl)
+            {
+
+               auto eapp = _http_app();
+
+               if(eapp == e_app_curl)
+               {
+
+                  return _curl_get(scopedstrUrl);
+
+               }
+               else if(eapp == e_app_wget)
+               {
+
+                  return _wget_get(scopedstrUrl);
+
+               }
+               else
+               {
+
+
+                  return {};
+
+               }
+
+            }
+
+
+            void http::download(const ::file::path & path, const ::scoped_string & scopedstrUrl)
+            {
+
+               auto eapp = _http_app();
+
+               if(eapp == e_app_curl)
+               {
+
+                  _curl_download(path, scopedstrUrl);
+
+               }
+               else if(eapp == e_app_wget)
+               {
+
+                  _wget_download(path, scopedstrUrl);
+
+               }
+               else
+               {
+
+
+
+               }
+
+
+         }
+
 
 
       } // namespace nano

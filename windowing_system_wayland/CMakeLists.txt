@@ -18,14 +18,20 @@ endif ()
 
 
 list(APPEND library_source
+        _.cpp
+        _.h
+        _factory.cpp
         framework.cpp
         framework.h
         keyboard.cpp
         keyboard.h
+        xkb_input.cpp
+        xkb_input.h
+        windowing_system.cpp
+        windowing_system.h
         )
 
 add_library(${PROJECT_NAME} SHARED ${library_source})
-
 target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
@@ -40,7 +46,7 @@ if (MSVC)
    target_link_libraries(${PROJECT_NAME} PRIVATE acme apex aqua aura Gdiplus)
 elseif (LINUX)
 
-   pkg_check_modules(PKGCONFIG cairo xcb x11 xkbcommon xcb-render xcb-aux x11-xcb libarchive)
+   pkg_check_modules(PKGCONFIG cairo xkbcommon wayland-client wayland-server wayland-cursor)
    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
    #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
    #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})

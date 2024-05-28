@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
-project(nano_user_x11 CXX)
+project(nano_user_cairo CXX)
 
 
 
@@ -18,15 +18,15 @@ endif ()
 
 
 list(APPEND library_source
-        display.cpp
-        display.h
-        event_listener.h
+        _.cpp
+        _.h
+        _factory.cpp
+        device.cpp
+        device.h
+        #event_listener.h
         framework.cpp
         framework.h
-        user.cpp
-        user.h
-window.cpp
-window.h)
+)
 
 add_library(${PROJECT_NAME} SHARED ${library_source})
 

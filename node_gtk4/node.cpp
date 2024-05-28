@@ -2428,6 +2428,63 @@ namespace node_gtk4
    }
 
 
+
+   void * node::fetch_windowing_system_display()
+   {
+
+      GdkDisplay *gdkdisplay;
+
+      gdkdisplay = gdk_display_get_default();
+
+      void * pvoidX11Display = gdk_x11_display_get_xdisplay(gdkdisplay);
+
+      printf("Got this Display from gdk_x11 display : %llX", (::uptr) pvoidX11Display);
+
+      return pvoidX11Display;
+
+   }
+
+
+   void node::windowing_system_async(const ::procedure &procedure)
+   {
+
+      gdk_branch(procedure);
+
+   }
+
+
+   void node::display_error_trap_push(int i)
+   {
+
+      if(system()->m_ewindowing == e_windowing_x11)
+      {
+
+         GdkDisplay *gdkdisplay;
+
+         gdkdisplay = gdk_display_get_default ();
+         gdk_x11_display_error_trap_push (gdkdisplay);
+
+      }
+
+   }
+
+
+   void node::display_error_trap_pop_ignored(int i)
+   {
+
+      if(system()->m_ewindowing == e_windowing_x11)
+      {
+
+         GdkDisplay *gdkdisplay;
+         gdkdisplay = gdk_display_get_default ();
+         gdk_x11_display_error_trap_pop_ignored (gdkdisplay);
+
+      }
+
+   }
+
+
+
 } // namespace node_gtk4
 
 

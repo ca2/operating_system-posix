@@ -55,6 +55,8 @@ list(APPEND library_references
    aqua
    aura
    aura_posix
+   node_gdk
+   windowing_system_x11
 )
 
 

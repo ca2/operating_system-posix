@@ -1,11 +1,11 @@
 #include "framework.h"
-#include "speech.h"
+#include "compress.h"
 
 
-IMPLEMENT_FACTORY(nano_speech_sapi)
+IMPLEMENT_FACTORY(nano_compress_command_line)
 {
 
-   pfactory->add_factory_item < ::sapi::nano::speech::speech, ::nano::speech::speech >();
+   pfactory->add_factory_item < ::command_line::nano::compress::compress, ::nano::compress::compress >();
 
 }
 

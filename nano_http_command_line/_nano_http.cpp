@@ -5,13 +5,13 @@
 #include "_nano_http.h"
 #include "http.h"
 
-
-void operating_system_initialize_nano_http(::factory::factory * pfactory)
-{
-
-   pfactory->add_factory_item<::curl::nano::http::http, ::nano::http::http>();
-
-}
-
-
+//
+//void operating_system_initialize_nano_http(::factory::factory * pfactory)
+//{
+//
+//   pfactory->add_factory_item<::curl::nano::http::http, ::nano::http::http>();
+//
+//}
+//
+//
 

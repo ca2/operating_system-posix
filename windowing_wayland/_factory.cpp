@@ -11,8 +11,12 @@
 #include "aura/windowing/monitor.h"
 
 
+__FACTORY_EXPORT void nano_user_wayland_factory(::factory::factory * pfactory);
+
 __FACTORY_EXPORT void windowing_wayland_factory(::factory::factory * pfactory)
 {
+
+   nano_user_wayland_factory(pfactory);
 
    printf("windowing_wayland factory\n");
 

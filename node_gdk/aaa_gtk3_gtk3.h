@@ -20,14 +20,14 @@ typedef enum
 bool gconf_set_as_wallpaper( const char *image_path, WallpaperAlign align );
 
 
-namespace node_gtk3
+namespace node_gdk
 {
 
 
-   void initialize_gtk();
+   void initialize_gdk();
 
 
-} // namespace node_gtk3
+} // namespace node_gdk
 
 
 

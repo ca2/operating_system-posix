@@ -1,91 +1,167 @@
-#include "application.h"
-#include <stdio.h>
-#include <sys/stat.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <time.h>
-#include <memory.h>
+// Refactor by camilo on 2024-05-27 10:47 <3ThomasBorregaardSorensen!!
+#include "framework.h"
+#include "http.h"
+#include "acme/platform/node.h"
+//#include <stdio.h>
+//#include <sys/stat.h>
+//#include <stdlib.h>
+//#include <string.h>
+//#include <unistd.h>
+//#include <fcntl.h>
+//#include <time.h>
+//#include <memory.h>
+//
+//char * get_line(char * str, char * & next);
+//char * get_command_output(const char * pszCommand);
 
-char * get_line(char * str, char * & next);
-char * get_command_output(const char * pszCommand);
-
-
-bool curl_check_http_ok(const char * pszUrl)
+namespace command_line
 {
 
-   char szCommand[4096];
 
-   strcpy(szCommand, "curl --silent -I ");
-
-   strcat(szCommand, pszUrl);
-
-   auto psz = get_command_output(szCommand);
-
-   if(!psz)
+   namespace nano
    {
 
-      return false;
 
-   }
-
-   while(true)
-   {
-
-      auto pszNewLine = get_line(psz, psz);
-
-      if(!pszNewLine)
+      namespace http
       {
 
-         return false;
 
-      }
-
-      if(pszNewLine[0] == 'H'
-      && pszNewLine[1] == 'T'
-      && pszNewLine[2] == 'T'
-      && pszNewLine[3] == 'P'
-      && pszNewLine[4] == '/')
-      {
-
-         auto pszSpace = strchr(pszNewLine + 4, ' ');
-
-         if(!pszSpace)
+         bool http::_curl_check_url_ok(const ::scoped_string & scopedstrUrl)
          {
+
+            ::string strCommand;
+
+            strCommand = "curl --silent -I " + scopedstrUrl;
+
+            auto strOutput = node()->get_command_output(strCommand);
+
+            if(strOutput.is_empty())
+            {
+
+               return false;
+
+            }
+
+            ::string_array stra;
+
+            stra.add_lines(strOutput);
+
+            for (auto &newline: stra) {
+
+//auto pszNewLine = get_line(psz, psz);
+
+               if (newline.is_empty()) {
+
+                  return false;
+
+               }
+
+               if(newline[0] == 'H'
+               && newline[1] == 'T'
+               && newline[2] == 'T'
+               && newline[3] == 'P'
+               && newline[4] == '/')
+               {
+
+                  auto pszSpace = strchr(newline.c_str() + 4, ' ');
+
+                  if(!pszSpace)
+                  {
+
+                     return false;
+
+                  }
+
+                  auto nonSpace = strspn(pszSpace, " \t");
+
+                  auto pszNonSpace = pszSpace + nonSpace;
+
+                  auto pszNewLine = strpbrk(pszNonSpace, "\r\n");
+
+                  if(!pszNewLine)
+                  {
+
+                     return false;
+
+                  }
+
+                  if(!strncmp(pszNonSpace, "200", pszNewLine - pszNonSpace))
+                  {
+
+                     return true;
+
+                  }
+
+                  return false;
+
+               }
+
+            }
 
             return false;
 
          }
 
-         auto nonSpace = strspn(pszSpace, " \t");
 
-         auto pszNonSpace = pszSpace + nonSpace;
-
-         auto pszNewLine = strpbrk(pszNonSpace, "\r\n");
-
-         if(!pszNewLine)
+         ::string http::_curl_get_effective_url(const ::scoped_string & scopedstrUrl)
          {
 
-            return false;
+            ::string strCommand;
+
+            strCommand = "curl -Ls -o /dev/null -w %{url_effective} https://github.com/openssl/openssl/releases/latest";
+
+            auto strEffectiveUrl = node()->get_command_output(strCommand);
+
+            return strEffectiveUrl;
 
          }
 
-         if(!strncmp(pszNonSpace, "200", pszNewLine - pszNonSpace))
+
+
+         ::string http::_curl_get(const ::scoped_string & scopedstrUrl)
          {
 
-            return true;
+            ::string strCommand;
+
+            ::string strUrl(scopedstrUrl);
+
+            strCommand.formatf("curl %s", strUrl.c_str());
+
+            ::string strOutput = node()->get_command_output(strCommand);
+
+            return strOutput;
 
          }
 
-         return false;
-
-      }
-
-   }
-
-}
 
 
 
+         void http::_curl_download(const ::file::path & path, const ::scoped_string & scopedstrUrl)
+         {
+
+            ::string strCommand;
+
+            ::string strUrl(scopedstrUrl);
+
+            strCommand.formatf("curl %s > \"%s\"", strUrl.c_str(), path.c_str());
+
+            int iExitCode = node()->command_system(strCommand, 2_hour);
+
+            if(iExitCode != 0)
+            {
+
+               throw exception(::error_failed);
+
+            }
+
+         }
+
+
+      } // namespace http
+
+
+   } // namespace nano
+
+
+} // namespace command_line
 

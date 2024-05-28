@@ -7,11 +7,11 @@
 #include "aura_posix/x11/desktop_environment.h"
 
 
-namespace node_gtk3
+namespace node_gdk
 {
 
 
-   class CLASS_DECL_NODE_GTK desktop_environment :
+   class CLASS_DECL_NODE_GDK desktop_environment :
       virtual public ::windowing_posix::desktop_environment
    {
    public:

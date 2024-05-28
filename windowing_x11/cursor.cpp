@@ -6,7 +6,7 @@
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/system.h"
 #include "aura_posix/_x11.h"
-#include "acme/operating_system/x11/display_lock.h"
+#include "windowing_system_x11/display_lock.h"
 #include <X11/cursorfont.h>
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"

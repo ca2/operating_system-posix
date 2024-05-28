@@ -6,7 +6,7 @@
 
 
 #include "_.h"
-#include "acme/operating_system/wayland/_.h"
+#include "windowing_system_wayland/_.h"
 #include "acme/windowing/window_base.h"
 
 #include <cairo/cairo.h>

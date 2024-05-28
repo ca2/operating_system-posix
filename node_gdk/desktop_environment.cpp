@@ -5,7 +5,9 @@
 #include "desktop_environment.h"
 #include "acme/platform/system.h"
 #include "acme/primitive/geometry2d/_text_stream.h"
-//#include "aura/windowing/windowing.h"
+#include "acme/windowing_system/windowing_system.h"
+#include <gio/gio.h>
+#include <gdk/gdkx.h>
 
 
 ////#include "windowing.h"
@@ -14,20 +16,20 @@
 //#include <QScreen>
 //
 //::particle * user_synchronization();
+//
+//namespace x11
+//{
+//   namespace nano
+//   {
+//      namespace user
+//      {
+//         void x11_sync(const ::procedure & procedure);
+//      } // namespace user
+//   } // namespace nano
+//} // namespace x11
+//
 
-namespace x11
-{
-   namespace nano
-   {
-      namespace user
-      {
-         void x11_sync(const ::procedure & procedure);
-      } // namespace user
-   } // namespace nano
-} // namespace x11
-
-
-namespace node_gtk3
+namespace node_gdk
 {
 
 
@@ -157,7 +159,7 @@ namespace node_gtk3
      if(system()->m_ewindowing == e_windowing_x11)
      {
 
-        ::x11::nano::user::x11_sync([this, iIndex, prectangle]() { _get_monitor_rectangle(iIndex, prectangle); });
+        system()->windowing_system()->sync([this, iIndex, prectangle]() { _get_monitor_rectangle(iIndex, prectangle); });
 
      }
      else
@@ -239,7 +241,7 @@ namespace node_gtk3
 //   }
 
 
-} // namespace node_gtk3
+} // namespace node_gdk
 
 
 

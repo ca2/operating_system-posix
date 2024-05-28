@@ -4,14 +4,27 @@
 #pragma once
 
 
-namespace x11
+
+#include "acme/_.h"
+
+
+namespace cairo
 {
 
 
-   class display;
+   namespace nano
+   {
+      namespace user
+      {
+         class device;
 
 
-} // namespace x11
+      }
+
+   }
+
+
+} // namespace cairo
 
 
 

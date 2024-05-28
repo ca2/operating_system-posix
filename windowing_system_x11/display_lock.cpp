@@ -7,6 +7,7 @@
 //#endif
 #include "display_lock.h"
 #include "acme/platform/system.h"
+#include "acme/windowing_system/windowing_system.h"
 
 
 namespace x11
@@ -69,7 +70,7 @@ namespace x11
       if(!m_bLocked)
       {
 
-         if(!psystem->x11_synchronization()->_wait(30_s))
+         if(!psystem->windowing_system()->synchronization()->_wait(30_s))
          {
 
             return;
@@ -113,7 +114,7 @@ namespace x11
 
          }
 
-         psystem->x11_synchronization()->unlock();
+         psystem->windowing_system()->synchronization()->unlock();
 
       }
 

@@ -5,35 +5,38 @@
 #include "windowing_x11/_.h"
 
 
-#include <gtk/gtk.h>
+//#include <gtk/gtk.h>
+//#include <gdk/gdkx.h>
+#include <gio/gio.h>
 #include <gdk/gdkx.h>
 
-
-#include "gdk_gdk.h"
-
-
-#include "gtk3_gtk3.h"
+#include "gdk.h"
 
 
-#if defined(_node_gtk_project)
-   #define CLASS_DECL_NODE_GTK  CLASS_DECL_EXPORT
+//#include "gtk3_gtk3.h"
+
+
+#if defined(_node_gdk_project)
+   #define CLASS_DECL_NODE_GDK  CLASS_DECL_EXPORT
 #else
-   #define CLASS_DECL_NODE_GTK  CLASS_DECL_IMPORT
+   #define CLASS_DECL_NODE_GDK  CLASS_DECL_IMPORT
 #endif
 
 
 
-namespace node_gtk3
+namespace node_gdk
 {
 
 
    class node;
 
+   class windowing_system;
 
-} // namespace node_gtk3
+
+} // namespace node_gdk
 
 
-#define __matter(TYPE) __allocate< ::matter<TYPE> >()
+//#define __matter(TYPE) __allocate< ::matter<TYPE> >()
 
 
 //#include "gtk.h"

@@ -7,18 +7,15 @@
 #include "acme/windowing_system/windowing_system.h"
 
 
-namespace x11
+namespace wayland
 {
 
 
-   class CLASS_DECL_WINDOWING_SYSTEM_X11 windowing_system :
+   class CLASS_DECL_WINDOWING_SYSTEM_WAYLAND windowing_system :
            virtual public ::windowing_system::windowing_system
    {
    public:
 
-
-      void *                                                m_pvoidX11Display;
-      ::e_status                                            m_estatusInitializeX11;
 
 
       windowing_system();
@@ -44,7 +41,7 @@ namespace x11
 
 
 
-} // namespace x11
+} // namespace wayland
 
 
 

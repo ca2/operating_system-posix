@@ -3,7 +3,7 @@
 #pragma once
 
 
-#include "acme/operating_system/wayland/nano/user/_.h"
+#include "nano_user_wayland/_.h"
 #include "aura/windowing/cursor.h"
 #include "_wayland.h"
 

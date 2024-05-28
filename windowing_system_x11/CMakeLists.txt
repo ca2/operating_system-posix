@@ -19,17 +19,18 @@ endif ()
 
 list(APPEND library_source
         _.cpp
+        _atom.cpp
         display_lock.cpp
         display_lock.h
         framework.cpp
         framework.h
         keyboard.cpp
         keyboard.h
-        )
 
-add_library(${PROJECT_NAME} SHARED ${library_source}
         windowing_system.cpp
         windowing_system.h)
+
+add_library(${PROJECT_NAME} SHARED ${library_source})
 
 target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 

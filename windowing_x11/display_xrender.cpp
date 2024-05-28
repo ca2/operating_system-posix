@@ -6,7 +6,7 @@
 #include "display.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "aura/graphics/image/image.h"
-#include "acme/operating_system/x11/display_lock.h"
+#include "windowing_system_x11/display_lock.h"
 #include "_x11.h"
 
 

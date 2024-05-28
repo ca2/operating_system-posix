@@ -3,10 +3,11 @@
 #include "node.h"
 #include "desktop_environment.h"
 //#include "os_context.h"
-#include "copydesk.h"
-#include "notify_icon.h"
+//#include "copydesk.h"
+//#include "notify_icon.h"
+#include "x11_windowing_system.h"
 #if !defined(OPENBSD)
-#include "appindicator.h"
+//#include "appindicator.h"
 #endif
 
 
@@ -31,10 +32,10 @@ namespace nano
    }//namespace user
 } // namespace nano
 
-__FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
+__FACTORY_EXPORT void node_gdk_factory(::factory::factory * pfactory)
 {
 
-   ::node_gtk3::initialize_gtk();
+   //::node_gdk::initialize_gdk();
 
    auto edisplaytype = ::nano::user::get_display_type();
 
@@ -46,7 +47,7 @@ __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
       //windowing_x11_factory(pfactory);
 
       windowing_wayland_factory(pfactory);
-
+pfactory->add_factory_item<::node_gdk::windowing_system, ::windowing_system::windowing_system>();
    }
    else
 #endif
@@ -59,7 +60,7 @@ __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
 // #else
 
       windowing_x11_factory(pfactory);
-
+      pfactory->add_factory_item<::x11::node_gdk::windowing_system, ::windowing_system::windowing_system>();
 // #endif
 
    }
@@ -67,18 +68,20 @@ __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
    //pfactory->add_factory_item < ::node_gtk3::display, ::windowing::display > ();
 //
 //   pfactory->add_factory_item < ::node_gtk3::monitor, ::windowing::monitor > ();
-   pfactory->add_factory_item < ::node_gtk3::copydesk, ::user::copydesk > ();
-   pfactory->add_factory_item < ::node_gtk3::notify_icon, ::user::notify_icon > ();
+   //pfactory->add_factory_item < ::node_gtk3::copydesk, ::user::copydesk > ();
+   //pfactory->add_factory_item < ::node_gdk::notify_icon, ::user::notify_icon > ();
 #if !defined(OPENBSD) && !defined(DISABLE_APPINDICATOR)
-   pfactory->add_factory_item < ::node_gtk3::appindicator, ::aura_posix::appindicator >();
+   //pfactory->add_factory_item < ::node_gtk3::appindicator, ::aura_posix::appindicator >();
 #endif
 //
 //   pfactory->add_factory_item < ::node_gtk3::windowing, ::windowing::windowing >();
 
-   pfactory->add_factory_item < ::node_gtk3::node, ::acme::node > ();
+   pfactory->add_factory_item < ::node_gdk::node, ::acme::node > ();
 
 
-   pfactory->add_factory_item < ::node_gtk3::desktop_environment, ::windowing::desktop_environment > ();
+   pfactory->add_factory_item < ::node_gdk::desktop_environment, ::windowing::desktop_environment > ();
+
+   pfactory->add_factory_item < ::x11::node_gdk::windowing_system, ::windowing_system::windowing_system > ();
 
 
    //pfactory->add_factory_item < ::node_gtk3::os_context, ::os_context >();

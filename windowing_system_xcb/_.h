@@ -4,7 +4,15 @@
 #pragma once
 
 
-#include "acme/operating_system/x11/_atom.h"
+#include "acme/_.h"
+
+
+
+#if defined(_windowing_system_xcb_project)
+#define CLASS_DECL_WINDOWING_SYSTEM_XCB  CLASS_DECL_EXPORT
+#else
+#define CLASS_DECL_WINDOWING_SYSTEM_XCB  CLASS_DECL_IMPORT
+#endif
 
 
 

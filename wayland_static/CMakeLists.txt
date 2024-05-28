@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
-project(nano_user_wayland CXX)
+project(wayland_static CXX)
 
 
 message(STATUS "CMAKE_SYSTEM_NAME is ${CMAKE_SYSTEM_NAME}")
@@ -13,18 +13,6 @@ endif ()
 
 
 list(APPEND library_source
-        device.cpp
-        device.h
-        display.cpp
-        display.h
-        display_base.cpp
-        display_base.h
-        framework.cpp
-        framework.h
-        window.cpp
-        window.h
-        window_base.cpp
-        window_base.h
         wayland-gtk_shell1.c
         wayland-gtk_shell1.h
         wayland-xdg_activation_v1.c
@@ -33,14 +21,9 @@ list(APPEND library_source
         wayland-xdg_wm_base.h
 )
 
-add_library(${PROJECT_NAME} SHARED ${library_source})
+add_library(${PROJECT_NAME} STATIC ${library_source})
 
-target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
-set_source_files_properties(wayland-gtk_shell1.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
-set_source_files_properties(wayland-xdg_activation_v1.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
-set_source_files_properties(wayland-xdg_wm_base.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 
-set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 list(APPEND library_references
         acme
@@ -55,13 +38,14 @@ if (MSVC)
     target_link_libraries(${PROJECT_NAME} PRIVATE acme apex aqua aura Gdiplus)
 elseif (${LINUX})
 
-    pkg_check_modules(PKGCONFIG cairo xkbcommon wayland-cursor wayland-client wayland-server)
+    #pkg_check_modules(PKGCONFIG cairo xkbcommon wayland-cursor wayland-client wayland-server)
+    pkg_check_modules(PKGCONFIG xkbcommon wayland-cursor wayland-client wayland-server)
     target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
     #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
     #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})
-    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-rpath=\$ORIGIN)
-    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
-    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
+    #target_link_options(${PROJECT_NAME} PRIVATE -Wl,-rpath=\$ORIGIN)
+    #target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
+    #target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
     message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
 endif ()
 

@@ -15,7 +15,7 @@
 #include "aura/platform/system.h"
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
-#include "acme/operating_system/x11/display_lock.h"
+#include "windowing_system_x11/display_lock.h"
 
 
 namespace windowing_x11

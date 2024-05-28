@@ -15,7 +15,7 @@
 #include "aura/graphics/image/image.h"
 #include "aura/windowing/desktop_environment.h"
 #include "aura/windowing/monitor.h"
-#include "acme/operating_system/x11/display_lock.h"
+#include "windowing_system_x11/display_lock.h"
 #include <X11/extensions/Xrender.h>
 
 

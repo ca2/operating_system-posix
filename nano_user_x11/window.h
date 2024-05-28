@@ -28,7 +28,7 @@ namespace x11
          public:
 
 
-            ::pointer<class display>         m_pdisplay;
+            ::pointer<::x11::nano::user::display>         m_pdisplay;
             Window                           m_window;
             Window                           m_windowRoot;
             cairo_surface_t *                m_psurface;

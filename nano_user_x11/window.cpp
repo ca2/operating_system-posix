@@ -10,7 +10,7 @@
 #include "acme/nano/user/window.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
-#include "acme/operating_system/x11/display_lock.h"
+#include "windowing_system_x11/display_lock.h"
 #include <X11/Xatom.h>
 #include <xkbcommon/xkbcommon.h>
 #include <X11/XKBlib.h>

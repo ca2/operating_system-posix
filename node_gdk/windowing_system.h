@@ -7,30 +7,60 @@
 #include "acme/windowing_system/windowing_system.h"
 
 
-namespace x11
-{
+   namespace node_gdk
+   {
 
 
-    class CLASS_DECL_WINDOWING_SYSTEM_X11 windowing_system :
-        virtual public ::windowing_system::windowing_system
-    {
-    public:
+      class CLASS_DECL_NODE_GDK windowing_system :
+         virtual public ::windowing_system::windowing_system
+   {
+      public:
 
 
-        void *                                                m_pvoidX11Display;
-        ::e_status                                            m_estatusInitializeX11;
+      //void *m_pvoidX11Display;
+      //::e_status m_estatusInitializeX11;
+
+      ::pointer < ::node_gdk::node > m_pgdknode;
 
 
-       windowing_system();
-       ~windowing_system() override;
+      windowing_system();
 
-        ::e_status defer_initialize_windowing_system() override;
-        ::e_status initialize_windowing_system() override;
-        void * get_display() override;
-        void sync(const ::procedure & procedure) override;
-        void async(const ::procedure & procedure) override;
-        void display_error_trap_push(int i) override;
-        void display_error_trap_pop_ignored(int i) override;
+      ~
+
+      windowing_system()
+
+      override;
+
+//      ::e_status defer_initialize_windowing_system()
+//
+//      override;
+//
+//      ::e_status initialize_windowing_system()
+//
+//      override;
+
+      //void *get_display()
+
+      //override;
+
+      void sync(const ::procedure &procedure)
+
+      override;
+
+      void async(const ::procedure &procedure)
+
+      override;
+
+//      void display_error_trap_push(int i)
+//
+//      override;
+//
+//      void display_error_trap_pop_ignored(int i)
+//
+//      override;
+//
+//
+//      void * fetch_windowing_system_display() override;
 
 //   ::e_status x11_initialize() override;
 //   void * x11_get_display() override;
@@ -40,11 +70,12 @@ namespace x11
 //   void x11_display_error_trap_pop_ignored(int i) override;
 
 
-};
+   };
+
+} //namespace node_gdk
 
 
-
-} // namespace x11
+//} // namespace x11
 
 
 

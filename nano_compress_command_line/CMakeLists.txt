@@ -1,28 +1,25 @@
 cmake_minimum_required(VERSION 3.17)
-project(nano_http_command_line CXX)
-
-
-
+project(nano_compress_command_line CXX)
 
 
 message(STATUS "CMAKE_SYSTEM_NAME is ${CMAKE_SYSTEM_NAME}")
 
 
-
 if (MSVC)
-   set(LIBCXX_TARGETING_MSVC ON)
+    set(LIBCXX_TARGETING_MSVC ON)
 else ()
-   set(LIBCXX_TARGETING_MSVC OFF)
+    set(LIBCXX_TARGETING_MSVC OFF)
 endif ()
 
 
 list(APPEND library_source
-   _nano_http.cpp
-   _nano_http.h
-   curl_easy.cpp
-   curl_easy.h
-   http.cpp
-   http.h)
+        _.cpp
+        _.h
+        _factory.cpp
+        compress.cpp
+        compress.h
+        framework.cpp
+        framework.h)
 
 
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
@@ -32,20 +29,17 @@ target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
 #set_target_properties(static_${PROJECT_NAME}} PROPERTIES LINKER_LANGUAGE CXX)
 
 
-
 if (MSVC)
-   target_compile_options(static_${PROJECT_NAME}} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
-   target_link_options(static_${PROJECT_NAME}} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
-   target_link_options(static_${PROJECT_NAME}} PRIVATE "/IMPLIB:${LIBRARY_OUTPUT_PATH}/static_${PROJECT_NAME}}.lib")
-   target_link_options(static_${PROJECT_NAME}} PRIVATE "/DEF:${CMAKE_CURRENT_SOURCE_DIR}/static_${PROJECT_NAME}}.def")
-   target_link_libraries(static_${PROJECT_NAME}} PRIVATE acme apex aqua aura Gdiplus)
+    target_compile_options(static_${PROJECT_NAME}} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
+    target_link_options(static_${PROJECT_NAME}} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
+    target_link_options(static_${PROJECT_NAME}} PRIVATE "/IMPLIB:${LIBRARY_OUTPUT_PATH}/static_${PROJECT_NAME}}.lib")
+    target_link_options(static_${PROJECT_NAME}} PRIVATE "/DEF:${CMAKE_CURRENT_SOURCE_DIR}/static_${PROJECT_NAME}}.def")
+    target_link_libraries(static_${PROJECT_NAME}} PRIVATE acme apex aqua aura Gdiplus)
 elseif (LINUX)
 
-   message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
+    message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
 
 endif ()
-
-
 
 
 target_include_directories(static_${PROJECT_NAME} PRIVATE $ENV{HOME}/__config)
@@ -63,6 +57,6 @@ target_include_directories(static_${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE
 target_include_directories(static_${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 
-target_compile_definitions(static_${PROJECT_NAME} PRIVATE _DRAW2D_GDIPLUS_LIBRARY)
+target_compile_definitions(static_${PROJECT_NAME} PRIVATE _nano_compress_command_line_project)
 target_compile_definitions(static_${PROJECT_NAME} PRIVATE UNICODE)
 target_compile_definitions(static_${PROJECT_NAME} PRIVATE _UNICODE)

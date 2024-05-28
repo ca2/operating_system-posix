@@ -158,6 +158,11 @@ namespace node_gtk4
 
       bool _user_is_set_file_extension_mime_type(const scoped_string & scopedstrExtension, const scoped_string & scopedstrMimeType);
 
+      void * fetch_windowing_system_display() override;
+      void windowing_system_async(const ::procedure & procedure) override;
+      void windowing_system_display_error_trap_push(int i) override;
+      void windowing_system_display_error_trap_pop_ignored(int i) override;
+
 
    };
 

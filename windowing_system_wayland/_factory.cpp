@@ -1,13 +1,12 @@
 #include "framework.h"
-#include "speech.h"
+#include "windowing_system.h"
 
 
-IMPLEMENT_FACTORY(nano_speech_sapi)
+IMPLEMENT_FACTORY(windowing_system_wayland)
 {
 
-   pfactory->add_factory_item < ::sapi::nano::speech::speech, ::nano::speech::speech >();
+   pfactory->add_factory_item < ::wayland::windowing_system, ::windowing_system::windowing_system >();
 
 }
-
 
 

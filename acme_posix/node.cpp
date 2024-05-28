@@ -627,11 +627,13 @@ namespace acme_posix
    void node::reboot()
    {
 
-#ifdef LINUX
+/*#ifdef LINUX
 
       dbus_do_power_off("Reboot");
 
-#endif
+#endif*/
+
+::system("systemctl reboot");
 
       //return success;
 
@@ -2479,6 +2481,74 @@ if(functionTrace)
    {
 
       return has_posix_shell_command(scopedstrCommand);
+
+   }
+
+
+
+   void node::launch_no_hup(const ::file::path & pathExecutable, const ::file::path & pathLog)
+   {
+
+      ::string strCommand;
+
+      strCommand.formatf("/bin/sh -c \"nohup \\\"%s\\\" > \\\"%s\\\"\"",
+                          pathExecutable.c_str(),
+                          pathLog.c_str());
+
+      auto log = std_inline_log();
+
+      log.m_timeTimeout = 5_min;
+
+      auto iExitCode = this->command_system(strCommand, log);
+
+      if(iExitCode != 0) {
+
+         throw ::exception(error_failed);
+
+      }
+
+   }
+
+   bool node::_is_code_exe_user_path_environment_variable_ok(::string* pstrCorrectPath)
+   {
+
+      auto str = get_user_permanent_environment_variable("PATH");
+
+      bool bChanged = false;
+
+      if (!str.case_insensitive_contains("C:\\operating_system\\bin"))
+      {
+
+         str += ";C:\\operating_system\\bin";
+
+         bChanged = true;
+
+      }
+
+      if (!str.case_insensitive_contains("C:\\operating_system\\tool-windows\\bin"))
+      {
+
+         str += ";C:\\operating_system\\tool-windows\\bin";
+
+         bChanged = true;
+
+      }
+
+      if (!bChanged)
+      {
+
+         return true;
+
+      }
+
+      if (::is_set(pstrCorrectPath))
+      {
+
+         *pstrCorrectPath = str;
+
+      }
+
+      return false;
 
    }
 

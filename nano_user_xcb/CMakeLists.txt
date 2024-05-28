@@ -54,7 +54,9 @@ elseif (LINUX)
    message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
 endif ()
 
-add_dependencies(${PROJECT_NAME} acme windowing_system_xcb)
+add_dependencies(${PROJECT_NAME}
+        acme
+        windowing_system_xcb)
 
 target_link_directories(${PROJECT_NAME} PRIVATE ${LIBRARY_OUTPUT_PATH})
 target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/storage-${OPERATING_SYSTEM_NAME}/library/x64/basis)

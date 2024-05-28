@@ -7,8 +7,8 @@
 #define WINDOWING_X11_DISPLAY_MEMBER
 
 
-#include "acme/operating_system/x11/nano/user/event_listener.h"
-#include "acme/operating_system/x11/nano/user/display.h"
+#include "nano_user_x11/event_listener.h"
+#include "nano_user_x11/display.h"
 #include "aura/windowing/display.h"
 #include "_x11.h"
 

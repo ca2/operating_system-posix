@@ -6,7 +6,7 @@
 #include "display.h"
 #include "acme/exception/interface_only.h"
 #include "acme/graphics/image/pixmap.h"
-#include "acme/operating_system/wayland/nano/user/window_base.h"
+#include "nano_user_wayland/window_base.h"
 #include "acme/parallelization/manual_reset_event.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/parallelization/task.h"

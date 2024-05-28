@@ -14,7 +14,7 @@
 
 
 #include "acme/primitive/collection/string_map.h"
-#include "aura_posix/node.h"
+#include "node_gdk/node.h"
 
 
 namespace node_gtk3
@@ -22,21 +22,19 @@ namespace node_gtk3
 
 
    class CLASS_DECL_ACME node :
-      virtual public ::aura_posix::node
+      virtual public ::node_gdk::node
    {
    public:
 
 
-      gpointer m_pGtkSettingsDefault;
-
-      GdkAppLaunchContext * m_pgdkapplaunchcontext;
-      string_map < GDesktopAppInfo * > m_mapGDesktopAppInfo;
-
-      ::string       m_strOsUserTheme;
-      ::string       m_strOsUserIconTheme;
-
-      ::task_pointer       m_ptaskOsUserTheme;
-      ::task_pointer       m_ptaskOsUserIconTheme;
+//      GdkAppLaunchContext * m_pgdkapplaunchcontext;
+//      string_map < GDesktopAppInfo * > m_mapGDesktopAppInfo;
+//
+//      ::string       m_strOsUserTheme;
+//      ::string       m_strOsUserIconTheme;
+//
+//      ::task_pointer       m_ptaskOsUserTheme;
+//      ::task_pointer       m_ptaskOsUserIconTheme;
 
 
       node();
@@ -45,7 +43,7 @@ namespace node_gtk3
 
       virtual void _set_os_user_theme(const ::scoped_string & strTheme);
       virtual void _apply_os_user_theme();
-      virtual ::string _get_os_user_theme();
+      //virtual ::string _get_os_user_theme();
 
 
       virtual void _set_os_user_icon_theme(const ::scoped_string & strIconTheme);
@@ -66,61 +64,63 @@ namespace node_gtk3
 
       void initialize(::particle * pparticle) override;
 
-      void fetch_user_color() override;
+      ///void fetch_user_color() override;
 
-      string os_get_user_theme() override;
+      ///string os_get_user_theme() override;
 
-      virtual string _os_get_user_theme();
+      //virtual string _os_get_user_theme();
 
       void on_start_system() override;
 
       void on_system_main() override;
 
-      bool is_branch_current() const override;
+      //bool is_branch_current() const override;
 
-      virtual void _fetch_dark_mode();
+      //virtual void _fetch_dark_mode();
 
-      bool dark_mode() const override;
+      //bool dark_mode() const override;
 
-      void set_dark_mode(bool bDarkMode) override;
+      //void set_dark_mode(bool bDarkMode) override;
 
-      void os_set_user_theme(const string & strUserTheme) override;
+      //void os_set_user_theme(const string & strUserTheme) override;
 
-      virtual ::e_status _os_set_user_theme(const string & strUserTheme);
+      //virtual ::e_status _os_set_user_theme(const string & strUserTheme);
 
-      virtual ::e_status _os_set_user_icon_theme(const string & strUserIconTheme);
+      //virtual ::e_status _os_set_user_icon_theme(const string & strUserIconTheme);
 
-      void os_process_user_theme(string strTheme) override;
+      //void os_process_user_theme(string strTheme) override;
 
-      void os_process_user_icon_theme(string strTheme) override;
+      //void os_process_user_icon_theme(string strTheme) override;
 
-      void enable_wallpaper_change_notification() override;
+      //void enable_wallpaper_change_notification() override;
 
-      string get_file_icon_path(const ::string & strPath, int iSize) override;
+      //string get_file_icon_path(const ::string & strPath, int iSize) override;
 
-      string get_file_content_type(const ::string & strPath) override;
+      //string get_file_content_type(const ::string & strPath) override;
 
-      bool set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay) override;
+      //bool set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay) override;
 
-      string get_wallpaper(::collection::index iScreen) override;
+      //string get_wallpaper(::collection::index iScreen) override;
 
 //      using ::aura::node::node_post;
 
-      virtual bool windowing_message_loop_step();
+      //virtual bool windowing_message_loop_step();
 
-      void user_post(const ::procedure & procedure) override;
+      //void user_post(const ::procedure & procedure) override;
 
       void defer_do_main_tasks() override;
 
       //virtual void _os_process_user_theme_color(string strTheme);
 
-      void user_post_quit() override;
+      //void user_post_quit() override;
+
+      virtual void on_user_system_quit();
 
       bool should_launch_on_node(::topic * ptopic) override;
 
       bool launch_on_node(::topic * ptopic) override;
 
-      int os_launch_uri(const ::string & strUri, char * pszError = NULL, int iBufferSize = 0) override;
+      //int os_launch_uri(const ::string & strUri, char * pszError = NULL, int iBufferSize = 0) override;
 
       void shell_launch(const ::string & strAppId) override;
 
@@ -157,12 +157,11 @@ namespace node_gtk3
 
       bool _user_is_set_file_extension_mime_type(const scoped_string & scopedstrExtension, const scoped_string & scopedstrMimeType);
 
-      ::e_status x11_initialize() override;
-      void * x11_get_display() override;
-      void x11_sync(const ::procedure & procedure) override;
-      void x11_async(const ::procedure & procedure) override;
-      void x11_display_error_trap_push(int i) override;
-      void x11_display_error_trap_pop_ignored(int i) override;
+      bool _g_defer_get_default_theme_icon(::string & strIconPath, GIcon * picon, int iSize) override;
+//      void * fetch_windowing_system_display() override;
+//      void windowing_system_async(const ::procedure & procedure) override;
+//      void windowing_system_display_error_trap_push(int i) override;
+//      void windowing_system_display_error_trap_pop_ignored(int i) override;
 
 
    };

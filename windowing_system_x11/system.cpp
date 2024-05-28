@@ -59,29 +59,29 @@ namespace acme
 } // namespace acme
 
 
-namespace x11
-{
-   namespace nano
-   {
-      namespace user
-      {
-         void x11_sync(const ::procedure & procedure)
-         {
-
-            ::platform::get()->system()->x11_sync(procedure);
-
-         }
-
-
-         void x11_async(const ::procedure & procedure)
-         {
-
-            ::platform::get()->system()->x11_async(procedure);
-
-         }
-      } // namespace user
-   } // namespace nano
-} // namespace x11
+//namespace x11
+//{
+//   namespace nano
+//   {
+//      namespace user
+//      {
+//         void x11_sync(const ::procedure & procedure)
+//         {
+//
+//            ::platform::get()->system()->x11_sync(procedure);
+//
+//         }
+//
+//
+//         void x11_async(const ::procedure & procedure)
+//         {
+//
+//            ::platform::get()->system()->x11_async(procedure);
+//
+//         }
+//      } // namespace user
+//   } // namespace nano
+//} // namespace x11
 
 
 #endif
