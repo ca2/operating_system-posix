@@ -21,6 +21,9 @@ namespace x11
         ::e_status                                            m_estatusInitializeX11;
 
 
+       windowing_system();
+       ~windowing_system() override;
+
         ::e_status defer_initialize_windowing_system() override;
         ::e_status initialize_windowing_system() override;
         void * get_display() override;
@@ -29,8 +32,15 @@ namespace x11
         void display_error_trap_push(int i) override;
         void display_error_trap_pop_ignored(int i) override;
 
+//   ::e_status x11_initialize() override;
+//   void * x11_get_display() override;
+//   void x11_sync(const ::procedure & procedure) override;
+//   void x11_async(const ::procedure & procedure) override;
+//   void x11_display_error_trap_push(int i) override;
+//   void x11_display_error_trap_pop_ignored(int i) override;
 
-    };
+
+};
 
 
 
