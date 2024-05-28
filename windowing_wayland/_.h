@@ -2,6 +2,8 @@
 
 
 #include "aura_posix/_.h"
+#include "windowing_system_wayland/_.h"
+#include "nano_user_wayland/_.h"
 
 
 #if defined(_windowing_wayland_project)

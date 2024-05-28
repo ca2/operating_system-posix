@@ -21,6 +21,7 @@ list(APPEND library_source
         _.cpp
         _.h
         _factory.cpp
+        _user.cpp
         device.cpp
         device.h
         #event_listener.h

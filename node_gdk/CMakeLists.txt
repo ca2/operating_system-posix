@@ -36,6 +36,8 @@ list(APPEND library_source
         #   notify_icon.h
         #windowing.cpp
         #windowing.h
+        wayland_windowing_system.cpp
+        wayland_windowing_system.h
         windowing_system.cpp
         windowing_system.h
         x11_windowing_system.cpp

@@ -5,39 +5,42 @@
 //#include "os_context.h"
 
 
-__FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory);
-#if !defined(RASPBERRYPIOS)
-__FACTORY_EXPORT void windowing_wayland_factory(::factory::factory * pfactory);
-#endif
+__FACTORY_EXPORT void node_gdk_factory(::factory::factory * pfactory);
 
 
 __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
 {
 
-   ::string strSessionType = getenv("XDG_SESSION_TYPE");
+   ::node_gtk4::initialize_gtk();
 
-   strSessionType.make_lower();
 
-   printf("XDG_SESSION_TYPE %s\n", strSessionType.c_str());
+   node_gdk_factory(pfactory);
 
-#if !defined(RASPBERRYPIOS) && !defined(FREEBSD) && !defined(OPENBSD)
-   if(strSessionType == "wayland")
-   {
 
-      //windowing_x11_factory(pfactory);
-
-      windowing_wayland_factory(pfactory);
-
-   }
-   else
-#endif
-   {
-
-      //windowing_xcb_factory(pfactory);
-
-      windowing_x11_factory(pfactory);
-
-   }
+//   ::string strSessionType = getenv("XDG_SESSION_TYPE");
+//
+//   strSessionType.make_lower();
+//
+//   printf("XDG_SESSION_TYPE %s\n", strSessionType.c_str());
+//
+//#if !defined(RASPBERRYPIOS) && !defined(FREEBSD) && !defined(OPENBSD)
+//   if(strSessionType == "wayland")
+//   {
+//
+//      //windowing_x11_factory(pfactory);
+//
+//      windowing_wayland_factory(pfactory);
+//
+//   }
+//   else
+//#endif
+//   {
+//
+//      //windowing_xcb_factory(pfactory);
+//
+//      windowing_x11_factory(pfactory);
+//
+//   }
 
    //pfactory->add_factory_item < ::node_gtk4::display, ::windowing::display > ();
 //

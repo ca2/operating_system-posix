@@ -2512,23 +2512,41 @@ if(functionTrace)
    bool node::_is_code_exe_user_path_environment_variable_ok(::string* pstrCorrectPath)
    {
 
-      auto str = get_user_permanent_environment_variable("PATH");
+      auto str = get_environment_variable("PATH");
+
+      information() << "PATH : " << str;
 
       bool bChanged = false;
 
-      if (!str.case_insensitive_contains("C:\\operating_system\\bin"))
+      auto pathHomeBin = acmedirectory()->home() / "bin";
+
+#if defined(MACOS)
+
+      auto pathToolBin = acmedirectory()->home() / "workspace/operating_system/tool-macos/bin";
+
+#else
+
+      auto pathToolBin = acmedirectory()->home() / "cmake/operating_system/tool-" OPERATING_SYSTEM_NAME "/bin";
+
+#endif
+
+      ::string_array straPath;
+
+      straPath.explode(":", str);
+
+      if (!straPath.contains(pathHomeBin))
       {
 
-         str += ";C:\\operating_system\\bin";
+         str += ":" + pathHomeBin;
 
          bChanged = true;
 
       }
 
-      if (!str.case_insensitive_contains("C:\\operating_system\\tool-windows\\bin"))
+      if (!straPath.contains(pathToolBin))
       {
 
-         str += ";C:\\operating_system\\tool-windows\\bin";
+         str += ":" + pathToolBin;
 
          bChanged = true;
 
@@ -2551,6 +2569,48 @@ if(functionTrace)
       return false;
 
    }
+
+
+   enum_windowing node::calculate_ewindowing()
+   {
+
+      enum_windowing ewindowing = e_windowing_none;
+
+#if !defined(FREEBSD) && !defined(OPENBSD)
+
+      if(is_wayland())
+      {
+
+         ewindowing = e_windowing_wayland;
+
+      }
+      else
+
+#endif
+      {
+
+         auto edesktop = get_edesktop();
+
+         if (edesktop & ::user::e_desktop_kde && has_xcb())
+         {
+
+            ewindowing = e_windowing_xcb;
+
+         }
+         else
+         {
+
+            ewindowing = e_windowing_x11;
+
+         }
+
+      }
+
+      return ewindowing;
+
+   }
+
+
 
 
 } // namespace acme_posix

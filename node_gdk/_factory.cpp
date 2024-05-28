@@ -5,6 +5,7 @@
 //#include "os_context.h"
 //#include "copydesk.h"
 //#include "notify_icon.h"
+#include "wayland_windowing_system.h"
 #include "x11_windowing_system.h"
 #if !defined(OPENBSD)
 //#include "appindicator.h"
@@ -47,7 +48,7 @@ __FACTORY_EXPORT void node_gdk_factory(::factory::factory * pfactory)
       //windowing_x11_factory(pfactory);
 
       windowing_wayland_factory(pfactory);
-pfactory->add_factory_item<::node_gdk::windowing_system, ::windowing_system::windowing_system>();
+pfactory->add_factory_item<::wayland::node_gdk::windowing_system, ::windowing_system::windowing_system>();
    }
    else
 #endif
@@ -81,7 +82,7 @@ pfactory->add_factory_item<::node_gdk::windowing_system, ::windowing_system::win
 
    pfactory->add_factory_item < ::node_gdk::desktop_environment, ::windowing::desktop_environment > ();
 
-   pfactory->add_factory_item < ::x11::node_gdk::windowing_system, ::windowing_system::windowing_system > ();
+   //pfactory->add_factory_item < ::x11::node_gdk::windowing_system, ::windowing_system::windowing_system > ();
 
 
    //pfactory->add_factory_item < ::node_gtk3::os_context, ::os_context >();

@@ -16,6 +16,7 @@ list(APPEND library_source
         _.cpp
         _.h
         _factory.cpp
+        _user.cpp
         device.cpp
         device.h
         display.cpp
@@ -48,6 +49,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 list(APPEND library_references
         acme
         windowing_system_wayland
+        nano_user_cairo
 )
 
 if (MSVC)

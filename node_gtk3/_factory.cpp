@@ -11,58 +11,65 @@
 
 
 
-//#define DISABLE_APPINDICATOR
+////#define DISABLE_APPINDICATOR
+//
+////#if defined(OPENBSD)
+//#if 0
+//__FACTORY_EXPORT void windowing_xcb_factory(::factory::factory * pfactory);
+//#else
+//__FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory);
+//#endif
+//#if !defined(RASPBERRYPIOS)
+//__FACTORY_EXPORT void windowing_wayland_factory(::factory::factory * pfactory);
+//#endif
 
-//#if defined(OPENBSD)
-#if 0
-__FACTORY_EXPORT void windowing_xcb_factory(::factory::factory * pfactory);
-#else
-__FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory);
-#endif
-#if !defined(RASPBERRYPIOS)
-__FACTORY_EXPORT void windowing_wayland_factory(::factory::factory * pfactory);
-#endif
+//namespace nano
+//{
+//   namespace user
+//   {
+//      enum_display_type get_display_type();
+//   }//namespace user
+//} // namespace nano
 
-namespace nano
-{
-   namespace user
-   {
-      enum_display_type get_display_type();
-   }//namespace user
-} // namespace nano
+__FACTORY_EXPORT void node_gdk_factory(::factory::factory * pfactory);
+
 
 __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
 {
 
    ::node_gtk3::initialize_gtk();
 
-   auto edisplaytype = ::nano::user::get_display_type();
 
-#if !defined(RASPBERRYPIOS) && !defined(FREEBSD) && !defined(__XFCE) && !defined(OPENBSD)
+   node_gdk_factory(pfactory);
 
-   if(edisplaytype == e_display_type_wayland)
-   {
 
-      //windowing_x11_factory(pfactory);
-
-      windowing_wayland_factory(pfactory);
-
-   }
-   else
-#endif
-   {
-
-// #if defined(OPENBSD)
+//   auto edisplaytype = ::nano::user::get_display_type();
 //
-//       windowing_xcb_factory(pfactory);
+//#if !defined(RASPBERRYPIOS) && !defined(FREEBSD) && !defined(__XFCE) && !defined(OPENBSD)
 //
-// #else
-
-      windowing_x11_factory(pfactory);
-
-// #endif
-
-   }
+//   if(edisplaytype == e_display_type_wayland)
+//   {
+//
+//      //windowing_x11_factory(pfactory);
+//
+//      windowing_wayland_factory(pfactory);
+//
+//   }
+//   else
+//#endif
+//   {
+//
+//// #if defined(OPENBSD)
+////
+////       windowing_xcb_factory(pfactory);
+////
+//// #else
+//
+//      windowing_x11_factory(pfactory);
+//
+//// #endif
+//
+//   }
 
    //pfactory->add_factory_item < ::node_gtk3::display, ::windowing::display > ();
 //

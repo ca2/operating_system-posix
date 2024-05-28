@@ -27,6 +27,7 @@
 #include "windowing_x11/windowing_x11.h"
 #include "aura/windowing/windowing.h"
 #include "aura_posix/x11/windowing.h"
+#include "node_gdk/windowing_system.h"
 
 
 #include <gio/gio.h>
@@ -618,8 +619,18 @@ namespace node_gtk3
 
 #endif
 
+      system()->m_ewindowing = calculate_ewindowing();
 
-system()->__construct(system()->m_pwindowingsystem);
+      system()->__construct(system()->m_pwindowingsystem);
+
+      ::pointer < ::node_gdk::windowing_system> pnodegdkwindowingsystem = system()->m_pwindowingsystem;
+
+      if(pnodegdkwindowingsystem)
+      {
+
+         pnodegdkwindowingsystem->m_pgdknode = this;
+
+      }
 
       information() << "windowing_system type : " << ::type(system()->m_pwindowingsystem).name() ;
 

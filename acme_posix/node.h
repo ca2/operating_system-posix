@@ -130,6 +130,9 @@ namespace acme_posix
 
       bool _is_code_exe_user_path_environment_variable_ok(::string* pstrCorrectPath) override;
 
+      enum_windowing calculate_ewindowing() override;
+
+
    };
 
    

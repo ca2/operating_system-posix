@@ -2,7 +2,7 @@
 // Created by camilo on 2024-05-26 22:03 <3ThomasBorregaardSorensen!!
 //
 #include "framework.h"
-#include "x11_windowing_system.h"
+#include "wayland_windowing_system.h"
 #include "node.h"
 #include "acme/nano/nano.h"
 #include "acme/nano/user/user.h"
@@ -13,7 +13,7 @@
 //#include <xkbcommon/xkbcommon.h>
 //#include <X11/XKBlib.h>
 //#include <X11/Xutil.h>
-#include <gdk/gdkwayland.h.h>
+#include <gdk/gdkwayland.h>
 
 namespace wayland
 {
@@ -24,8 +24,6 @@ namespace wayland
    windowing_system::windowing_system()
    {
 
-      m_pvoidX11Display = nullptr;
-      m_estatusInitializeX11 = error_not_initialized;
 
    }
 
@@ -37,60 +35,60 @@ namespace wayland
    }
 
 
-   ::e_status windowing_system::defer_initialize_windowing_system()
-   {
-
-      if (m_estatusInitializeX11 == error_not_initialized) {
-
-         m_estatusInitializeX11 = initialize_windowing_system();
-
-      }
-
-      return m_estatusInitializeX11;
-
-   }
-
-
-   ::e_status windowing_system::initialize_windowing_system()
-   {
-
-      informationf("node_gtk3::node::x11_initialize");
-
-      informationf("node_gtk3::node::x11_initialize going to call x11_init_threads");
-
-      if (!nano()->user()->init_threads()) {
-
-         return ::error_failed;
-
-      }
-
-      // gdk_x11 does error handling?!?!?!
-      //XSetErrorHandler(_c_XErrorHandler);
-
-      //g_pmutexX11 = __new< ::pointer < ::mutex > >();
-
-      return ::success;
-
-   }
+//   ::e_status windowing_system::defer_initialize_windowing_system()
+//   {
+//
+//      if (m_estatusInitializeX11 == error_not_initialized) {
+//
+//         m_estatusInitializeX11 = initialize_windowing_system();
+//
+//      }
+//
+//      return m_estatusInitializeX11;
+//
+//   }
 
 
-   void *windowing_system::get_display()
-   {
-
-      //return ::acme::node::x11_get_display();
-
-      defer_initialize_windowing_system();
-
-      if (m_pvoidX11Display == NULL) {
-
-         m_pvoidX11Display = this->fetch_windowing_system_display();
-
-      }
-
-      return m_pvoidX11Display;
-
-   }
-
+//   ::e_status windowing_system::initialize_windowing_system()
+//   {
+//
+//      informationf("node_gtk3::node::x11_initialize");
+//
+//      informationf("node_gtk3::node::x11_initialize going to call x11_init_threads");
+//
+//      if (!nano()->user()->init_threads()) {
+//
+//         return ::error_failed;
+//
+//      }
+//
+//      // gdk_x11 does error handling?!?!?!
+//      //XSetErrorHandler(_c_XErrorHandler);
+//
+//      //g_pmutexX11 = __new< ::pointer < ::mutex > >();
+//
+//      return ::success;
+//
+//   }
+//
+//
+//   void *windowing_system::get_display()
+//   {
+//
+//      //return ::acme::node::x11_get_display();
+//
+//      defer_initialize_windowing_system();
+//
+//      if (m_pvoidX11Display == NULL) {
+//
+//         m_pvoidX11Display = this->fetch_windowing_system_display();
+//
+//      }
+//
+//      return m_pvoidX11Display;
+//
+//   }
+//
 
    void windowing_system::sync(const ::procedure &procedure)
    {
@@ -210,57 +208,57 @@ namespace wayland
 //    }
 
 
-   void *windowing_system::fetch_windowing_system_display()
-   {
-
-      GdkDisplay *gdkdisplay;
-
-      gdkdisplay = gdk_display_get_default();
-
-      void *pvoidX11Display = gdk_x11_display_get_xdisplay(gdkdisplay);
-
-      printf("Got this Display from gdk_x11 display : %lX", (::uptr) pvoidX11Display);
-
-      return pvoidX11Display;
-
-   }
-
+//   void *windowing_system::fetch_windowing_system_display()
+//   {
+//
+//      GdkDisplay *gdkdisplay;
+//
+//      gdkdisplay = gdk_display_get_default();
+//
+//      void *pvoidX11Display = gdk_x11_display_get_xdisplay(gdkdisplay);
+//
+//      printf("Got this Display from gdk_x11 display : %lX", (::uptr) pvoidX11Display);
+//
+//      return pvoidX11Display;
+//
+//   }
+//
 
    void windowing_system::async(const ::procedure &procedure)
    {
 
-      m_pgdknode->_gdk_branch(procedure);
+      ::node_gdk::windowing_system::async(procedure);
 
    }
 
 
-   void windowing_system::display_error_trap_push(int i)
-   {
-
-      if (system()->m_ewindowing == e_windowing_x11) {
-
-         GdkDisplay *gdkdisplay;
-
-         gdkdisplay = gdk_display_get_default();
-         gdk_x11_display_error_trap_push(gdkdisplay);
-
-      }
-
-   }
-
-
-   void windowing_system::display_error_trap_pop_ignored(int i)
-   {
-
-      if (system()->m_ewindowing == e_windowing_x11) {
-
-         GdkDisplay *gdkdisplay;
-         gdkdisplay = gdk_display_get_default();
-         gdk_x11_display_error_trap_pop_ignored(gdkdisplay);
-
-      }
-
-   }
+//   void windowing_system::display_error_trap_push(int i)
+//   {
+//
+//      if (system()->m_ewindowing == e_windowing_x11) {
+//
+//         GdkDisplay *gdkdisplay;
+//
+//         gdkdisplay = gdk_display_get_default();
+//         gdk_x11_display_error_trap_push(gdkdisplay);
+//
+//      }
+//
+//   }
+//
+//
+//   void windowing_system::display_error_trap_pop_ignored(int i)
+//   {
+//
+//      if (system()->m_ewindowing == e_windowing_x11) {
+//
+//         GdkDisplay *gdkdisplay;
+//         gdkdisplay = gdk_display_get_default();
+//         gdk_x11_display_error_trap_pop_ignored(gdkdisplay);
+//
+//      }
+//
+//   }
 
 } // namespace node_gdk
 } // namespace x11

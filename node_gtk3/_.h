@@ -2,6 +2,8 @@
 #pragma once
 
 
+#include "node_gdk/_.h"
+#include "windowing_wayland/_.h"
 #include "windowing_x11/_.h"
 
 
@@ -31,21 +33,5 @@ namespace node_gtk3
 
 
 } // namespace node_gtk3
-
-
-#define __matter(TYPE) __allocate< ::matter<TYPE> >()
-
-
-//#include "gtk.h"
-
-inline void copy(::rectangle_i32 * prectTarget, const GdkRectangle * prectSource)
-{
-
-   prectTarget->left() = prectSource->x;
-   prectTarget->top() = prectSource->y;
-   prectTarget->right() = prectSource->x + prectSource->width;
-   prectTarget->bottom() = prectSource->y + prectSource->height;
-
-}
 
 
