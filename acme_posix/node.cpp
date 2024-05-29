@@ -2611,6 +2611,73 @@ if(functionTrace)
    }
 
 
+   bool node::_is_jetbrains_clion_installed()
+   {
+
+      ::file::listing listing;
+
+      auto pathJetbrains = acmedirectory()->home() / ".config/JetBrains";
+
+      listing.set_folder_listing(pathJetbrains);
+
+      acmedirectory()->enumerate(listing);
+
+      for(auto & path : listing)
+      {
+         if(path.name().case_insensitive_begins("CLion"))
+         {
+
+            return true;
+
+         }
+      }
+
+      return false;
+
+   }
+
+
+   bool node::_is_git_credential_manager_installed()
+   {
+
+      if(!node().has_posix_shell_command("git-credential-manager"))
+      {
+
+         return false;
+
+      }
+
+      return true;
+
+   }
+
+
+   bool node::_is_smart_git_installed()
+   {
+
+      ::file::listing listing;
+
+      auto pathJetbrains = acmedirectory()->home() / ".config/smartgit";
+
+      listing.set_folder_listing(pathJetbrains);
+
+      acmedirectory()->enumerate(listing);
+
+      for(auto & path : listing)
+      {
+         auto pathPreferences = path / "preferences.yml";
+
+         if(acmefile()->exists(pathPreferences))
+         {
+
+            return true;
+
+         }
+      }
+
+      return false;
+
+   }
 
 
 } // namespace acme_posix

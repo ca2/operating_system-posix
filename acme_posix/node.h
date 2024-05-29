@@ -132,6 +132,12 @@ namespace acme_posix
 
       enum_windowing calculate_ewindowing() override;
 
+      bool _is_jetbrains_clion_installed() override;
+
+      bool _is_smart_git_installed() override;
+
+      bool _is_git_credential_manager_installed() override;
+
 
    };
 
