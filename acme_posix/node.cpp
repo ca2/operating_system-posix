@@ -2495,6 +2495,9 @@ if(functionTrace)
                           pathExecutable.c_str(),
                           pathLog.c_str());
 
+
+      printf_line("Going to execute command: \"%s\"", strCommand.c_str());
+
       auto log = std_inline_log();
 
       log.m_timeTimeout = 5_min;
