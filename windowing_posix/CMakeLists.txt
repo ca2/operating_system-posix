@@ -1,28 +1,10 @@
 cmake_minimum_required(VERSION 3.16)
-project(aura_posix CXX)
+project(windowing_posix CXX)
 
 
 list(APPEND library_source
-   x11/desktop_environment.h
-   x11/desktop_environment.cpp
-   _.cpp
-   _.h
-   #_library.h
-   appindicator.cpp
-   appindicator.h
-   _factory.cpp
-   framework.cpp
-   framework.h
-   node.cpp
-   node.h
-   shell.cpp
-   shell.h
-   user_notify_icon_bridge.h
-   xinput.cpp
-   xinput.h
-   #xkb_input.cpp
-   #xkb_input.h
-
+   desktop_environment.h
+   desktop_environment.cpp
 )
 
 
@@ -40,37 +22,26 @@ list(APPEND static_library_references ${library_references})
 list(TRANSFORM static_library_references PREPEND static_)
 
 
-if (${WITH_X11} OR ${WITH_XCB})
+
+list(APPEND library_source
+   _.h
+   _.cpp
+   _constant.h
+   window.cpp
+   window.h
+   windowing.cpp
+   windowing.h
+
+)
 
 
-   list(APPEND library_source
-      x11/_.h
-      x11/_.cpp
-      x11/_constant.h
-      #x11/keyboard.cpp
-      #x11/keyboard.h
-      x11/window.cpp
-      x11/window.h
-      x11/windowing.cpp
-      x11/windowing.h
-
+list(APPEND library_source
+      startup-notification.cpp
+      startup-notification.h
+      xim_keyboard.cpp
+      xim_keyboard.h
    )
 
-
-   #   if(WITH_X11)
-
-   list(APPEND library_source
-      #x11/display_lock.cpp
-      #x11/display_lock.h
-      x11/startup-notification.cpp
-      x11/startup-notification.h
-      x11/xim_keyboard.cpp
-      x11/xim_keyboard.h
-   )
-
-   #  endif()
-
-endif ()
 
 
 add_library(${PROJECT_NAME} SHARED ${library_source})
@@ -161,7 +132,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories
 target_include_directories(static_${PROJECT_NAME} PRIVATE ${library_include_directories})
 
 
-target_compile_definitions(aura_posix PRIVATE _AURA_POSIX_LIBRARY)
+target_compile_definitions(aura_posix PRIVATE _windowing_posix_project)
 
 
 

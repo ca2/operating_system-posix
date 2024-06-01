@@ -19,7 +19,7 @@ void x11_check_status(int status, unsigned long window)
 {
    if (status == BadWindow)
    {
-      output_debug_string_format("window atom # 0x%lx does not exists!", window);
+      output_debug_string_formatf("window atom # 0x%lx does not exists!", window);
       //   exit(1);
    }
 

@@ -1,16 +1,10 @@
 #pragma once
 
 
-#include "aura/_.h"
-//#include "aura/operating_system/freebsd/appindicator.h"
-#include "acme/operating_system/ansi/_pthread.h"
-#include "acme/operating_system/x11/_.h"
+
 #include "aura_posix/_.h"
-#include <xcb/xcb.h>
-
-
-//#define WITH_XI
-//#define WITH_SN
+#include "windowing_system_xcb/_.h"
+#include "nano_user_xcb/_.h"
 
 
 #if defined(_windowing_xcb_project)

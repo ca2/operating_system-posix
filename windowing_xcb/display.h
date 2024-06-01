@@ -8,7 +8,6 @@
 
 
 #include "acme/exception/status.h"
-#include "acme/operating_system/xcb/nano/_.h"
 #include "acme/primitive/collection/int_map.h"
 #include "aura/windowing/display.h"
 #include <xcb/xcb.h>
