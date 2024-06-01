@@ -17,8 +17,7 @@ struct xkb_keymap;
 struct xkb_state;
 
 
-#include "aura_posix/_x11.h"
-#include "aura_posix/x11/window.h"
+#include "windowing_posix/window.h"
 #include <X11/XKBlib.h>
 #include <xcb/sync.h>
 
