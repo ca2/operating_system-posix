@@ -32,9 +32,9 @@ set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 list(APPEND library_references
         acme
+        windowing_system_x11
         windowing_system_xcb
-#        nano_user_cairo
-
+        nano_user_cairo
 )
 
 if (MSVC)
