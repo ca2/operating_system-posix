@@ -244,7 +244,7 @@ namespace node_kde5
 
       {
 
-         node_init_check(&platform()->m_argc, &platform()->m_argv);
+         node_init_check(&platform()->m_argc, &platform()->m_args);
 
       }
 
@@ -266,7 +266,7 @@ namespace node_kde5
 
       auto psystem = pparticle->system();
 
-      m_pqapplication = __new < QApplication >(psystem->m_pplatform->m_argc, psystem->m_pplatform->m_argv);
+      m_pqapplication = __new < QApplication >(psystem->m_pplatform->m_argc, psystem->m_pplatform->m_args);
 
       if(!m_pqapplication)
       {
@@ -405,7 +405,7 @@ namespace node_kde5
    }
 
 
-   bool node::set_wallpaper(index , string strLocalImagePath, ::windowing::display * pwindowingdisplay)
+   bool node::set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay)
    {
 
       ::string strCommand;

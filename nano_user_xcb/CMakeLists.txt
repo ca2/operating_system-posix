@@ -2,19 +2,14 @@ cmake_minimum_required(VERSION 3.17)
 project(nano_user_xcb CXX)
 
 
-
-
-
 message(STATUS "CMAKE_SYSTEM_NAME is ${CMAKE_SYSTEM_NAME}")
 
 
-
 if (MSVC)
-   set(LIBCXX_TARGETING_MSVC ON)
+    set(LIBCXX_TARGETING_MSVC ON)
 else ()
-   set(LIBCXX_TARGETING_MSVC OFF)
+    set(LIBCXX_TARGETING_MSVC OFF)
 endif ()
-
 
 
 list(APPEND library_source
@@ -25,8 +20,8 @@ list(APPEND library_source
         framework.h
         user.cpp
         user.h
-window.cpp
-window.h)
+        window.cpp
+        window.h)
 
 add_library(${PROJECT_NAME} SHARED ${library_source})
 
@@ -35,28 +30,32 @@ target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 
+list(APPEND library_references
+        acme
+        windowing_system_xcb
+#        nano_user_cairo
+
+)
 
 if (MSVC)
-   target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
-   target_link_options(${PROJECT_NAME} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
-   target_link_options(${PROJECT_NAME} PRIVATE "/IMPLIB:${LIBRARY_OUTPUT_PATH}/${PROJECT_NAME}.lib")
-   target_link_options(${PROJECT_NAME} PRIVATE "/DEF:${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.def")
-   target_link_libraries(${PROJECT_NAME} PRIVATE acme apex aqua aura Gdiplus)
+    target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
+    target_link_options(${PROJECT_NAME} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
+    target_link_options(${PROJECT_NAME} PRIVATE "/IMPLIB:${LIBRARY_OUTPUT_PATH}/${PROJECT_NAME}.lib")
+    target_link_options(${PROJECT_NAME} PRIVATE "/DEF:${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.def")
+    target_link_libraries(${PROJECT_NAME} PRIVATE acme apex aqua aura Gdiplus)
 elseif (LINUX)
 
-   pkg_check_modules(PKGCONFIG xcb xkbcommon xcb-render xcb-aux x11-xcb libarchive)
-   target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
-   #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
-   #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})
-   target_link_options(${PROJECT_NAME} PRIVATE -Wl,-rpath=\$ORIGIN)
-   target_link_libraries(${PROJECT_NAME} PRIVATE acme windowing_system_xcb ${PKGCONFIG_LIBRARIES})
-   target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
-   message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
+    pkg_check_modules(PKGCONFIG cairo xcb xkbcommon xcb-render xcb-aux x11-xcb libarchive)
+    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+    #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
+    #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})
+    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-rpath=\$ORIGIN)
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
+    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
+    message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
 endif ()
 
-add_dependencies(${PROJECT_NAME}
-        acme
-        windowing_system_xcb)
+add_dependencies(${PROJECT_NAME} ${library_references})
 
 target_link_directories(${PROJECT_NAME} PRIVATE ${LIBRARY_OUTPUT_PATH})
 target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/storage-${OPERATING_SYSTEM_NAME}/library/x64/basis)
