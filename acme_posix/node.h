@@ -134,8 +134,13 @@ namespace acme_posix
 
       bool _is_jetbrains_clion_installed() override;
 
+#if defined(WINDOWS_DESKTOP) || defined(MACOS) || defined(LINUX)
+
       bool _is_smart_git_installed() override;
 
+      
+#endif
+      
       bool _is_git_credential_manager_installed() override;
 
 
