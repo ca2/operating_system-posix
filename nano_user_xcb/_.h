@@ -4,6 +4,9 @@
 #pragma once
 
 
+#include "windowing_system_xcb/_.h"
+
+
 namespace xcb
 {
 

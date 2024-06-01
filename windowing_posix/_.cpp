@@ -2,7 +2,6 @@
 // Created by camilo on 05/03/2021. 22:54 BRT ThomasBS_!!
 //
 #include "framework.h"
-#include "_x11.h"
 #include <X11/cursorfont.h>
 
 

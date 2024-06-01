@@ -15,7 +15,6 @@
 #ifdef WITH_SN
 #define SN_API_NOT_YET_FROZEN
 #include <libsn/sn.h>
-#include "_x11.h"
 #include "aura/windowing/display.h"
 
 

@@ -3,8 +3,22 @@ project(windowing_posix CXX)
 
 
 list(APPEND library_source
-   desktop_environment.h
-   desktop_environment.cpp
+        _.cpp
+        _.h
+        _constant.h
+        desktop_environment.cpp
+        desktop_environment.h
+        framework.cpp
+        framework.h
+        startup-notification.cpp
+        startup-notification.h
+        window.cpp
+        window.h
+        windowing.cpp
+        windowing.h
+        xim_keyboard.cpp
+        xim_keyboard.h
+
 )
 
 
@@ -22,25 +36,6 @@ list(APPEND static_library_references ${library_references})
 list(TRANSFORM static_library_references PREPEND static_)
 
 
-
-list(APPEND library_source
-   _.h
-   _.cpp
-   _constant.h
-   window.cpp
-   window.h
-   windowing.cpp
-   windowing.h
-
-)
-
-
-list(APPEND library_source
-      startup-notification.cpp
-      startup-notification.h
-      xim_keyboard.cpp
-      xim_keyboard.h
-   )
 
 
 
