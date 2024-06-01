@@ -1924,7 +1924,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
    
 #if defined(APPLE_IOS)
    
-   argv = nullptr;
+   //argv = nullptr;
    
 #else
 
