@@ -61,7 +61,6 @@ namespace windowing_x11
       XSyncCounter                                 m_xsynccounterNetWmSync;
       XSyncValue                                   m_xsyncvalueNetWmSync;
       XSyncValue                                   m_xsyncvalueNetWmSyncPending;
-      void *                                       m_pSnLauncheeContextSetup;
       //static oswindow_dataptra *                 s_pdataptra;
       //static::pointer< ::mutex >                 s_pmutex;
       //bool                                         m_bNetWmStateHidden;

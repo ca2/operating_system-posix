@@ -32,8 +32,9 @@ namespace windowing_posix
 
       enum_net_wm_sync                             m_enetwmsync;
 
-      ::pointer<::xim::keyboard>m_pximkeyboard;
+      ::pointer<::xim::keyboard>                   m_pximkeyboard;
 
+      void *                                       m_pSnLauncheeContextSetup;
 
 //#endif
 

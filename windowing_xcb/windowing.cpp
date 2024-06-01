@@ -9,10 +9,9 @@
 #include "cursor.h"
 #include "acme/constant/message.h"
 #include "acme/graphics/draw2d/_text_stream.h"
-#include "windowing_system_x11/keyboard.h"
-#include "nano_user_xcb/display.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/primitive/geometry2d/_text_stream.h"
+#include "acme/windowing_system/windowing_system.h"
 #include "aura/message/user.h"
 #include "aura/platform/application.h"
 #include "aura/platform/session.h"
@@ -22,6 +21,9 @@
 #include "aura/windowing/cursor_manager.h"
 #include "aura/windowing/keyboard.h"
 #include "aura_posix/node.h"
+#include "windowing_system_x11/keyboard.h"
+#include "nano_user_x11/display.h"
+#include "nano_user_xcb/display.h"
 #include <X11/cursorfont.h>
 #include <xcb/xcb.h>
 #include <xcb/shm.h>
@@ -1681,15 +1683,38 @@ namespace windowing_xcb
 
                   m_bFirstWindowMap = true;
 
-                  auto psystem = system()->m_papexsystem;
+//                  auto psystem = system()->m_papexsystem;
+//
+//                  auto pnode = psystem->node();
+//
+//                  pnode->defer_notify_startup_complete();
+//
+//                  on_sn_launch_complete(m_pSnLauncheeContext);
+//
+//                  m_pSnLauncheeContext = nullptr;
+                  auto pSnLauncheeContextSetup = pxcbwindow->m_pSnLauncheeContextSetup;
 
-                  auto pnode = psystem->node();
+                  pxcbwindow->m_pSnLauncheeContextSetup = nullptr;
 
-                  pnode->defer_notify_startup_complete();
+                  //auto pdisplay = m_pdisplay->Display();
 
-                  on_sn_launch_complete(m_pSnLauncheeContext);
+                  //system()->windowing_system()->async([this, pdisplay, pSnLauncheeContextSetup]()
+                  system()->windowing_system()->async([this, pSnLauncheeContextSetup]()
+                                                      {
 
-                  m_pSnLauncheeContext = nullptr;
+                                                         //::x11::display_lock displaylock(pdisplay);
+
+                                                         informationf("windowing_x11::windowing MapNotify async first_window_map");
+
+                                                         informationf(
+                                                                 "windowing_x11::windowing MapNotify async on_sn_launch_complete : %" PRIXPTR,
+                                                                 pSnLauncheeContextSetup);
+
+                                                         on_sn_launch_complete(pSnLauncheeContextSetup);
+
+                                                         informationf("window::finishing create_window on_sn_launch_complete END");
+
+                                                      });
 
                }
                else if(pxcbwindow)
@@ -2681,10 +2706,10 @@ if(bSentResponse)
    }
 
 
-   ::x11::display * windowing::_get_display()
+   ::x11::nano::user::display * windowing::_get_display()
    {
 
-      return ::x11::display::get(this);
+      return ::x11::nano::user::display::get(this);
 
    }
 

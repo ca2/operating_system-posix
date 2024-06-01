@@ -303,14 +303,30 @@ namespace windowing_xcb
 
 #ifndef RASPBERRYPIOS
 
-      if (pwindowing->m_pSnLauncheeContext != nullptr && !papp->m_bSnLauncheeSetup)
+//      if (pwindowing->m_pSnLauncheeContext != nullptr && !papp->m_bSnLauncheeSetup)
+//      {
+//
+//         //papp->os_on_start_application();
+//
+//         on_sn_launch_context(pwindowing->m_pSnLauncheeContext, window);
+//
+//         papp->m_bSnLauncheeSetup = true;
+//
+//      }
+      //auto pwindowing = xcb_windowing();
+
+      if (pwindowing->m_pSnLauncheeContext != nullptr && !m_pSnLauncheeContextSetup)
       {
 
-         //papp->os_on_start_application();
+         auto pSnLauncheeContextSetup = pwindowing->m_pSnLauncheeContext;
 
-         on_sn_launch_context(pwindowing->m_pSnLauncheeContext, window);
+         pwindowing->m_pSnLauncheeContext = nullptr;
 
-         papp->m_bSnLauncheeSetup = true;
+         informationf("window::create_window on_sn_launch_context Window : %d", Window());
+
+         on_sn_launch_context(pSnLauncheeContextSetup, Window());
+
+         m_pSnLauncheeContextSetup = pSnLauncheeContextSetup;
 
       }
 
