@@ -1,11 +1,16 @@
 #include "framework.h"
-#include "speech.h"
+#include "user.h"
 
 
-IMPLEMENT_FACTORY(nano_speech_sapi)
+DECLARE_FACTORY(windowing_system_x11);
+
+
+IMPLEMENT_FACTORY(nano_user_x11)
 {
 
-   pfactory->add_factory_item < ::sapi::nano::speech::speech, ::nano::speech::speech >();
+   CALL_FACTORY(windowing_system_x11);
+
+   pfactory->add_factory_item < ::x11::nano::user::user, ::nano::user::user >();
 
 }
 

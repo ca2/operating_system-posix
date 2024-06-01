@@ -3278,7 +3278,12 @@ GdkFilterReturn x11_event_func(GdkXEvent *xevent, GdkEvent *event, gpointer data
 
    auto pwindowing = pnode->windowing();
 
-   pwindowing->_message_handler(pevent);
+   if(::is_set(pwindowing))
+   {
+
+      pwindowing->_message_handler(pevent);
+
+   }
 
    return GDK_FILTER_CONTINUE;
 

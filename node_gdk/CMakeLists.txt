@@ -36,13 +36,20 @@ list(APPEND library_source
         #   notify_icon.h
         #windowing.cpp
         #windowing.h
-        wayland_windowing_system.cpp
-        wayland_windowing_system.h
         windowing_system.cpp
         windowing_system.h
         x11_windowing_system.cpp
         x11_windowing_system.h
 )
+
+
+if (${HAS_WAYLAND})
+    list(APPEND library_source
+            wayland_windowing_system.cpp
+            wayland_windowing_system.h
+    )
+
+endif ()
 
 if (NOT ${OPENBSD})
 
@@ -63,12 +70,12 @@ list(APPEND library_references
         aqua
         aura
         aura_posix
+        windowing_posix
         windowing_system_x11
-        windowing_system_wayland
 )
 
 
-#if(${OPENBSD})
+    #if(${OPENBSD})
 if (FALSE)
     list(APPEND library_references
             windowing_xcb
@@ -81,6 +88,7 @@ endif ()
 
 if (${HAS_WAYLAND})
     list(APPEND library_references
+            windowing_system_wayland
             windowing_wayland
     )
 endif ()

@@ -13,8 +13,12 @@ namespace x11
 
    namespace nano
    {
+
+
       namespace user
       {
+
+
          class CLASS_DECL_ACME user :
             virtual public ::nano::user::user
          {
