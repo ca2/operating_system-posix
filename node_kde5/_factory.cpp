@@ -7,20 +7,20 @@
 #include "windowing_system_wayland/windowing_system.h"
 #include "windowing_system_xcb/windowing_system.h"
 
-
-namespace nano
-{
-
-
-   namespace user
-   {
-
-      void initialize_display_type(enum_display_type edisplaytype);
-
-   } // namespace user
-
-}// namespace nano
-
+//
+//namespace nano
+//{
+//
+//
+//   namespace user
+//   {
+//
+//      void initialize_display_type(enum_display_type edisplaytype);
+//
+//   } // namespace user
+//
+//}// namespace nano
+//
 
 __FACTORY_EXPORT void windowing_xcb_factory(::factory::factory * pfactory);
 __FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory);

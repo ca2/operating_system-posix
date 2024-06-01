@@ -33,8 +33,8 @@
 //#include <KF5/plasma/containment.h>
 
 
-void initialize_x11_display(::particle * pparticle, void * pX11Display);
-void * initialize_x11_display(::particle * pparticle);
+//void initialize_x11_display(::particle * pparticle, void * pX11Display);
+//void * initialize_x11_display(::particle * pparticle);
 
 void kde_open_local_file(QApplication * papplication, const char *psz, const char * pszMimeType);
 
