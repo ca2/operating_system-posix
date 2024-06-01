@@ -44,6 +44,7 @@ list(APPEND library_references
         aqua
         aura
         aura_posix
+        windowing_posix
         windowing_system_xcb
         windowing_system_wayland
         windowing_xcb
