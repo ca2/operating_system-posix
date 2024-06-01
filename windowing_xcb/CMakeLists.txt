@@ -3,54 +3,57 @@ project(windowing_xcb CXX)
 
 
 list(APPEND library_source
-   _.cpp
-   _.h
-   _factory.cpp
-   #_library.h
-   buffer.cpp
-   buffer.h
-   cursor.cpp
-   cursor.h
-   debug.cpp
-   display.cpp
-   display.h
-   display_xrender.cpp
-   enum_display_monitors.cpp
-   framework.cpp
-   framework.h
-   icon.cpp
-   icon.h
-   keyboard.cpp
-   keyboard.h
-   #node.cpp
-   #node.h
-   #startup-notification.cpp
-   #startup-notification.h
-   user.cpp
-   window.cpp
-   window.h
-   windowing.cpp
-   windowing_wm.cpp
-   windowing_xcb.cpp
-   windowing.h
-   xcb_windowing.cpp
-   text_composition_client.cpp 
-   text_composition_client.h        
-   xi.cpp
-   windowing_xkb.cpp
-   xcb_icccm.cpp
-   )
+        _.cpp
+        _.h
+        _factory.cpp
+        #_library.h
+        buffer.cpp
+        buffer.h
+        cursor.cpp
+        cursor.h
+        debug.cpp
+        display.cpp
+        display.h
+        display_xrender.cpp
+        enum_display_monitors.cpp
+        framework.cpp
+        framework.h
+        icon.cpp
+        icon.h
+        keyboard.cpp
+        keyboard.h
+        #node.cpp
+        #node.h
+        #startup-notification.cpp
+        #startup-notification.h
+        user.cpp
+        window.cpp
+        window.h
+        windowing.cpp
+        windowing_wm.cpp
+        windowing_xcb.cpp
+        windowing.h
+        xcb_windowing.cpp
+        text_composition_client.cpp
+        text_composition_client.h
+        xi.cpp
+        windowing_xkb.cpp
+        xcb_icccm.cpp
+)
 
 
 list(APPEND library_references
-   acme
-   acme_posix
-   apex
-   apex_posix
-   aqua
-   aura
-   aura_posix
-   )
+        acme
+        acme_posix
+        apex
+        apex_posix
+        aqua
+        aura
+        aura_posix
+        windowing_posix
+        windowing_system_xcb
+        nano_user_xcb
+)
 
 list(APPEND static_library_references ${library_references})
 
@@ -75,31 +78,31 @@ set_target_properties(windowing_xcb PROPERTIES LINKER_LANGUAGE CXX)
 if (MSVC)
 
 
-   target_compile_options(windowing_xcb PRIVATE "/MD$<$<CONFIG:Debug>:d>")
-   target_link_options(windowing_xcb PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
-   target_link_options(windowing_xcb PRIVATE "/SUBSYSTEM:WINDOWS")
-   target_link_libraries(windowing_xcb PRIVATE ${library_references})
+    target_compile_options(windowing_xcb PRIVATE "/MD$<$<CONFIG:Debug>:d>")
+    target_link_options(windowing_xcb PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
+    target_link_options(windowing_xcb PRIVATE "/SUBSYSTEM:WINDOWS")
+    target_link_libraries(windowing_xcb PRIVATE ${library_references})
 
 
-elseif(${LINUX} OR ${FREEBSD} OR ${OPENBSD} OR ${NETBSD})
+elseif (${LINUX} OR ${FREEBSD} OR ${OPENBSD} OR ${NETBSD})
 
 
-   if(USE_PKGCONFIG)
-      #pkg_check_modules(PKGCONFIG libstartup-notification-1.0 Qt5Core x11 xcb xcb-xkb xcb-icccm xcb-xinput xcb-aux x11-xcb xcb-render xcb-image xkbcommon-x11 xcb-xfixes freetype2)
-      #pkg_check_modules(PKGCONFIG Qt5Core x11 xcb xcb-xkb xcb-icccm xcb-xinput xcb-aux x11-xcb xcb-render xcb-image xkbcommon-x11 xcb-xfixes freetype2)
-      pkg_check_modules(PKGCONFIG x11 xcb xcb-shm xcb-sync xcb-xkb xcb-icccm xcb-xinput xcb-aux x11-xcb xcb-render xcb-image xkbcommon-x11 xcb-xfixes freetype2)
-   endif()
-   target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive  ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
-   target_compile_options(static_${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive  ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
-   target_compile_definitions(static_${PROJECT_NAME} PRIVATE CUBE)
-   target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
-   target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
-   target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
-   target_link_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
-   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES} ${global_library_references})
-   target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${PKGCONFIG_LIBRARIES})
-   target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
-   # target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
+    if (USE_PKGCONFIG)
+        #pkg_check_modules(PKGCONFIG libstartup-notification-1.0 Qt5Core x11 xcb xcb-xkb xcb-icccm xcb-xinput xcb-aux x11-xcb xcb-render xcb-image xkbcommon-x11 xcb-xfixes freetype2)
+        #pkg_check_modules(PKGCONFIG Qt5Core x11 xcb xcb-xkb xcb-icccm xcb-xinput xcb-aux x11-xcb xcb-render xcb-image xkbcommon-x11 xcb-xfixes freetype2)
+        pkg_check_modules(PKGCONFIG x11 xcb xcb-shm xcb-sync xcb-xkb xcb-icccm xcb-xinput xcb-aux x11-xcb xcb-render xcb-image xkbcommon-x11 xcb-xfixes freetype2)
+    endif ()
+    target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
+    target_compile_options(static_${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
+    target_compile_definitions(static_${PROJECT_NAME} PRIVATE CUBE)
+    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+    target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+    target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
+    target_link_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES} ${global_library_references})
+    target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${PKGCONFIG_LIBRARIES})
+    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
+    # target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
 
 endif ()
 
@@ -110,7 +113,6 @@ list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
 target_include_directories(static_${PROJECT_NAME} PRIVATE ${library_include_directories})
-
 
 
 target_compile_definitions(windowing_xcb PRIVATE _WINDOWING_XCB_LIBRARY)
