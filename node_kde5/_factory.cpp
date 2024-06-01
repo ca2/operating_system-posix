@@ -4,10 +4,22 @@
 #include "appindicator.h"
 #include "desktop_environment.h"
 #include "node.h"
-//#include "windowing.h"
+#include "windowing_system_wayland/windowing_system.h"
+#include "windowing_system_xcb/windowing_system.h"
 
 
-void initialize_display_type(enum_display_type edisplaytype);
+namespace nano
+{
+
+
+   namespace user
+   {
+
+      void initialize_display_type(enum_display_type edisplaytype);
+
+   } // namespace user
+
+}// namespace nano
 
 
 __FACTORY_EXPORT void windowing_xcb_factory(::factory::factory * pfactory);
@@ -25,34 +37,34 @@ __FACTORY_EXPORT void node_kde_factory(::factory::factory * pfactory)
 //   __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
 //   {
 
-   ::string strSessionType = getenv("XDG_SESSION_TYPE");
+   auto edisplaytype = ::nano::user::get_display_type();
 
-   strSessionType.make_lower();
+#if !defined(RASPBERRYPIOS) && !defined(FREEBSD) && !defined(__XFCE) && !defined(OPENBSD)
 
-   printf("XDG_SESSION_TYPE %s\n", strSessionType.c_str());
-
-#if !defined(RASPBERRYPIOS) && !defined(FREEBSD) && !defined(OPENBSD)
-   if(strSessionType == "wayland")
+   if(edisplaytype == e_display_type_wayland)
    {
 
       //windowing_x11_factory(pfactory);
 
-      initialize_display_type(e_display_type_wayland);
-
       windowing_wayland_factory(pfactory);
-
+      pfactory->add_factory_item<::wayland::windowing_system, ::windowing_system::windowing_system>();
    }
    else
-   #endif
+#endif
    {
 
-      //windowing_xcb_factory(pfactory);
-
-      initialize_display_type(e_display_type_xcb);
+// #if defined(OPENBSD)
+//
+//       windowing_xcb_factory(pfactory);
+//
+// #else
 
       windowing_xcb_factory(pfactory);
+      pfactory->add_factory_item<::xcb::windowing_system, ::windowing_system::windowing_system>();
+// #endif
 
    }
+
 //   ::string strSessionType = getenv("XDG_SESSION_TYPE");
 //
 //   strSessionType.make_lower();
