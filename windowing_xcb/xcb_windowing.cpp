@@ -1,7 +1,7 @@
 #include "framework.h"
 #include <fcntl.h> // library for fcntl function
 #include <sys/stat.h>
-
+#include <xcb/xcb.h>
 #if defined(FREEBSD) || defined(OPENBSD)
 #include <sys/time.h>
 #endif

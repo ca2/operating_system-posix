@@ -18,6 +18,7 @@ struct xkb_state;
 
 
 #include "windowing_posix/window.h"
+#include "windowing_system_x11/_atom.h"
 #include <X11/XKBlib.h>
 #include <xcb/sync.h>
 

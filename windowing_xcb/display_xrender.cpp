@@ -3,7 +3,7 @@
 //
 #include "framework.h"
 #include "display.h"
-#include "acme/operating_system/xcb/nano/display.h"
+#include "nano_user_xcb/display.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include <xcb/xcb.h>
 

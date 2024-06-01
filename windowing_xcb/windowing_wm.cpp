@@ -11,7 +11,7 @@
 #include "aura/platform/message_queue.h"
 //#include <X11/Xatom.h>
 //dnf install xcb-util-wm-devel
-#include "acme/operating_system/xcb/nano/display.h"
+#include "nano_user_xcb/display.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include <xcb/xcb_icccm.h>
 

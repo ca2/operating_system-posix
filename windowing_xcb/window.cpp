@@ -8,7 +8,7 @@
 #include "display.h"
 #include "cursor.h"
 #include "acme/constant/message.h"
-#include "acme/operating_system/xcb/nano/display.h"
+#include "nano_user_xcb/display.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/parallelization/task_message_queue.h"
 #include "acme/primitive/geometry2d/_text_stream.h"

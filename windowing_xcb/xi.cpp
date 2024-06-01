@@ -5,12 +5,12 @@
 #include "windowing.h"
 #include "display.h"
 #include "acme/constant/message.h"
-#include "acme/operating_system/xcb/nano/display.h"
+#include "nano_user_xcb/display.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "apex/platform/system.h"
 #ifdef WITH_XI
 #include <xcb/xinput.h>
-#include "acme/operating_system/x11/display_lock.h"
+#include "windowing_system_x11/display_lock.h"
 #include <X11/keysym.h>
 
 #ifdef OPENBSD
@@ -166,7 +166,7 @@ namespace windowing_xcb
 
                                     //synchronous_lock synchronouslock(user_synchronization());
 
-                                    ::windowing_x11::display_lock lock(pdisplay);
+                                    ::x11::display_lock lock(pdisplay);
 
                                     int event, error;
                                     const xcb_query_extension_reply_t *qe_reply;

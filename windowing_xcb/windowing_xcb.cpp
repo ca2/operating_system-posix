@@ -7,7 +7,7 @@
 #include "window.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "apex/parallelization/thread.h"
-#include "acme/operating_system/xcb/_xcb.h"
+#include "windowing_system_xcb/_xcb.h"
 #include "aura/user/user/interaction_impl.h"
 #include "acme/constant/id.h"
 #include "acme/constant/message.h"
@@ -26,8 +26,7 @@
 //#include <Xcb/extensions/XInput2.h>
 //#include <Xcb/XKBlib.h>
 #include <X11/XKBlib.h>
-
-#include "acme/operating_system/xcb/_xcb.h"
+#include "windowing_system_xcb/_xcb.h"
 #include "acme/parallelization/message_queue.h"
 #include "windowing_xcb.h"
 

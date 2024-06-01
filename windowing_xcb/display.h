@@ -10,6 +10,7 @@
 #include "acme/exception/status.h"
 #include "acme/primitive/collection/int_map.h"
 #include "aura/windowing/display.h"
+#include "windowing_system_x11/_atom.h"
 #include <xcb/xcb.h>
 #include <xcb/xcb_image.h>
 #include <xcb/render.h>
@@ -28,7 +29,7 @@ namespace windowing_xcb
 
 
       critical_section                                         m_criticalsectionWindowMap;
-      ::pointer<::xcb::display>                                m_pxcbdisplay;
+      ::pointer<::xcb::nano::user::display>                    m_pxcbdisplay;
       window_map                                               m_windowmap;
       i32_map < xcb_cursor_t>                                  m_mapGlyphCursor;
       xcb_atom_t                                               m_atoma[::x11::e_atom_count];

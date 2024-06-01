@@ -4,10 +4,9 @@
 #pragma once
 
 
+#include "nano_user_x11/display.h"
 #include "nano_user_xcb/display.h"
-#include "aura_posix/x11/windowing.h
-//#include <xcb/xcb.h>
-
+#include "windowing_posix/windowing.h"
 
 
 namespace windowing_xcb
@@ -73,7 +72,7 @@ namespace windowing_xcb
 
 
       Display * _get_Display();
-      ::x11::display * _get_display();
+      ::x11::nano::user::display * _get_display();
       xcb_connection_t * _get_connection();
 
 

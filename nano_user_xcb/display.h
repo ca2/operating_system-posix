@@ -6,9 +6,9 @@
 
 #include "acme/nano/user/display.h"
 #include "event_listener.h"
+#include "windowing_system_x11/_atom.h"
 #include <xcb/xcb.h>
 #include <xcb/xcb_atom.h>
-#include "acme/operating_system/xcb/_.h"
 // dnf install xcb-util-image-devel
 #include <xcb/xcb_image.h>
 #include <xcb/render.h>

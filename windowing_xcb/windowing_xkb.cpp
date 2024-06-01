@@ -4,7 +4,7 @@
 #include "framework.h"
 #include "window.h"
 #include "display.h"
-#include "aura_posix/x11/xim_keyboard.h"
+#include "windowing_posix/xim_keyboard.h"
 // apt install libxkbcommon-dev
 // dnf install libxkbcommon-devel
 #include <xkbcommon/xkbcommon.h>

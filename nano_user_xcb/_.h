@@ -8,7 +8,21 @@ namespace xcb
 {
 
 
-   class display;
+   namespace nano
+   {
+
+
+      namespace user
+      {
+
+
+         class display;
+
+
+      } // namespace user
+
+
+   } // namespace nano
 
 
 } // namespace xcb

@@ -7,7 +7,7 @@
 #include "window.h"
 #include "acme/constant/message.h"
 #include "acme/parallelization/synchronous_lock.h"
-#include "acme/operating_system/xcb/nano/display.h"
+#include "nano_user_xcb/display.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
 #include "aura/message/user.h"
@@ -147,7 +147,7 @@ namespace windowing_xcb
 
          _m_pX11Display = m_pX11Display;
 
-         m_pxcbdisplay = ::xcb::display::get(this, false, m_pX11Display, pwindowing->_get_connection());
+         m_pxcbdisplay = ::xcb::nano::user::display::get(this, false, m_pX11Display, pwindowing->_get_connection());
 
       }
       else
@@ -159,7 +159,7 @@ namespace windowing_xcb
 
          information() << "windowing_xcb::display::open (2) _m_pX11Display : " << (::iptr) _m_pX11Display;
 
-         m_pxcbdisplay = ::xcb::display::get(this, false, m_pX11Display);
+         m_pxcbdisplay = ::xcb::nano::user::display::get(this, false, m_pX11Display);
 
          information() << "windowing_xcb::display::open (2.1)";
 
