@@ -6,13 +6,27 @@
 // Created by camilo on 05/03/2021. 22:54 BRT ThomasBS_!!
 //
 
-#pragma once
+#include "aura_posix/_.h"
+
+
+#if defined(_windowing_posix_project)
+#define CLASS_DECL_WINDOWING_POSIX  CLASS_DECL_EXPORT
+#else
+#define CLASS_DECL_WINDOWING_POXIX CLASS_DECL_IMPORT
+#endif
+
+
+namespace windowing_posix
+{
+
+
+   class windowing;
+
+
+} // namespace windowing_posix
 
 
 #include "_constant.h"
-
-
-//#include <X11/Xlib.h>
 
 
 #define WITH_SN
@@ -30,22 +44,4 @@ namespace x11
 } // namespace x11
 
 
-//#include "display_lock.h"
-//
-//
-////#if defined(WITH_X11)
-//
-//
-//#include "xim_keyboard.h"
-//
-//
-////#endif
-//
-//
-//#include "window.h"
-//
-//
-//#include "windowing.h"
-//
-//
-//
+

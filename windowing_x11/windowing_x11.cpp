@@ -42,7 +42,7 @@
 #include "aura/platform/session.h"
 #include "aura/platform/application.h"
 #include "aura/message/user.h"
-#include "aura_posix/x11/xim_keyboard.h"
+#include "windowing_posix/xim_keyboard.h"
 
 #ifdef OPENBSD
 
