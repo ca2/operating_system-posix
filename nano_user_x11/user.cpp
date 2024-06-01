@@ -35,7 +35,7 @@ namespace x11
          void user::sync(const ::procedure & procedure)
          {
 
-            ::x11::nano::user::display::get(this)->display_send(procedure);
+            ::x11::nano::user::display_get(this)->display_send(procedure);
 
          }
 
@@ -43,7 +43,7 @@ namespace x11
          void user::async(const ::procedure & procedure)
          {
 
-            ::x11::nano::user::display::get(this)->display_post(procedure);
+            ::x11::nano::user::display_get(this)->display_post(procedure);
 
          }
 

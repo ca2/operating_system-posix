@@ -314,12 +314,12 @@ namespace x11
          }
 
 
-         display * display::get(::particle * pparticle, bool bBranch, Display * pdisplay)
+         display * display_get(::particle * pparticle, bool bBranch, Display * pdisplay)
          {
 
             critical_section_lock lock(pparticle->platform()->globals_critical_section());
 
-            if (g_p == nullptr)
+            if (display::g_p == nullptr)
             {
 
                auto p = __new< display >();
@@ -345,7 +345,7 @@ namespace x11
 
             }
 
-            return g_p;
+            return display::g_p;
 
          }
 
