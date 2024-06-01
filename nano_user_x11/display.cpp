@@ -319,7 +319,7 @@ namespace x11
 
             critical_section_lock lock(pparticle->platform()->globals_critical_section());
 
-            if (g_p == nullptr)
+            if (display::g_p == nullptr)
             {
 
                auto p = __new< display >();
@@ -345,7 +345,7 @@ namespace x11
 
             }
 
-            return g_p;
+            return display::g_p;
 
          }
 

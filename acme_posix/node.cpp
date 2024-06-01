@@ -632,8 +632,9 @@ namespace acme_posix
       dbus_do_power_off("Reboot");
 
 #endif*/
-
+#if !defined(APPLE_IOS)
 ::system("systemctl reboot");
+#endif
 
       //return success;
 
@@ -2654,6 +2655,8 @@ if(functionTrace)
 
    }
 
+#if defined(WINDOWS_DESKTOP) || defined(MACOS) || defined(LINUX)
+
 
    bool node::_is_smart_git_installed()
    {
@@ -2681,6 +2684,9 @@ if(functionTrace)
       return false;
 
    }
+
+
+#endif
 
 
 } // namespace acme_posix

@@ -32,6 +32,16 @@
 //#include <KF5/plasma/containment.h>
 
 
+namespace x11::nano::user
+{
+
+
+   CLASS_DECL_NANO_USER_X11 display * display_get(::particle * pparticle, bool bBranch = true, Display * pdisplay = nullptr);
+
+
+} // namespace x11::nano::user
+
+
 // void initialize_x11_display(::particle * pparticle, void * pX11Display);
 // void * initialize_x11_display(::particle * pparticle);
 
@@ -336,7 +346,7 @@ namespace node_kde5
 //      }
 
 
-         ::x11::nano::user::display::get(this, p);
+         ::x11::nano::user::display_get(this, p);
 
          return ::success;
 

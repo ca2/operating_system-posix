@@ -2709,7 +2709,7 @@ if(bSentResponse)
    ::x11::nano::user::display * windowing::_get_display()
    {
 
-      return ::x11::nano::user::display::get(this);
+      return ::x11::nano::user::display_get(this);
 
    }
 
