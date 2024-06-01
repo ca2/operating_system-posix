@@ -2837,7 +2837,7 @@ if(bSentResponse)
 
       }
 
-      auto pxcbdisplay = ::xcb::display::get(this);
+      auto pxcbdisplay = ::xcb::nano::user::display::get(this);
 
       if (pxcbdisplay->xcb_event(pgenericevent))
       {
