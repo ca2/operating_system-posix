@@ -8,7 +8,7 @@
 #include "acme/platform/system.h"
 #include "acme/primitive/geometry2d/_text_stream.h"
 #include "aura/graphics/image/image.h"
-#include "aura_posix/_x11.h"
+//#include "aura_posix/_x11.h"
 #include "windowing_system_x11/display_lock.h"
 //#include <X11/cursorfont.h>
 #include <wayland-cursor.h>
