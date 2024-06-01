@@ -1086,72 +1086,72 @@ const char * pszRequest;
 } // namespace x11
 
 
-
-namespace acme
-{
-
-   ::e_status node::x11_initialize()
-   {
-
-      informationf("acme::node::x11_initialize going to call x11_init_threads");
-
-      fflush(stdout);
-
-      if (!::x11::nano::user::init_threads())
-      {
-
-         return ::error_failed;
-
-      }
-
-      XSetErrorHandler(::x11::nano::user::_c_XErrorHandler);
-
-      //g_pmutexX11 = __new< ::pointer < ::mutex > >();
-
-      return ::success;
-
-   }
-
-
-   ::e_status node::x11_defer_initialize()
-   {
-
-      if (m_estatusInitializeX11 == error_not_initialized)
-      {
-
-         m_estatusInitializeX11 = x11_initialize();
-
-      }
-
-      return m_estatusInitializeX11;
-
-   }
-
-
-   //Display * g_pdisplayX11= nullptr;
-
-
-   //int g_fdX11[2] = {};
-
-
-   void * node::x11_get_display()
-   {
-
-      x11_defer_initialize();
-
-      if(m_pvoidX11Display == NULL)
-      {
-
-         m_pvoidX11Display =  XOpenDisplay(NULL);
-
-      }
-
-      return m_pvoidX11Display;
-
-   }
-
-
-} // namespace acme
-
+//
+//namespace acme
+//{
+//
+//   ::e_status node::x11_initialize()
+//   {
+//
+//      informationf("acme::node::x11_initialize going to call x11_init_threads");
+//
+//      fflush(stdout);
+//
+//      if (!::x11::nano::user::init_threads())
+//      {
+//
+//         return ::error_failed;
+//
+//      }
+//
+//      XSetErrorHandler(::x11::nano::user::_c_XErrorHandler);
+//
+//      //g_pmutexX11 = __new< ::pointer < ::mutex > >();
+//
+//      return ::success;
+//
+//   }
+//
+//
+//   ::e_status node::x11_defer_initialize()
+//   {
+//
+//      if (m_estatusInitializeX11 == error_not_initialized)
+//      {
+//
+//         m_estatusInitializeX11 = x11_initialize();
+//
+//      }
+//
+//      return m_estatusInitializeX11;
+//
+//   }
+//
+//
+//   //Display * g_pdisplayX11= nullptr;
+//
+//
+//   //int g_fdX11[2] = {};
+//
+//
+//   void * node::x11_get_display()
+//   {
+//
+//      x11_defer_initialize();
+//
+//      if(m_pvoidX11Display == NULL)
+//      {
+//
+//         m_pvoidX11Display =  XOpenDisplay(NULL);
+//
+//      }
+//
+//      return m_pvoidX11Display;
+//
+//   }
+//
+//
+//} // namespace acme
+//
 
 

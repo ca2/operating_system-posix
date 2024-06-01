@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "_xcb.h"
+#include "acme/parallelization/synchronous_lock.h"
 
 
 
@@ -16,7 +17,7 @@ pointer_array < xcb_hook > g_xcbhooka;
 void xcb_hook::hook()
 {
 
-   synchronous_lock synchronouslock(x11_mutex());
+   _synchronous_lock synchronouslock(x11_mutex());
 
    g_xcbhooka.add(this);
 
@@ -28,7 +29,7 @@ void xcb_hook::hook()
 void xcb_hook::unhook()
 {
 
-   synchronous_lock synchronouslock(x11_mutex());
+   _synchronous_lock synchronouslock(x11_mutex());
 
    g_xcbhooka.erase(this);
 

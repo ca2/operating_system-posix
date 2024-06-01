@@ -21,8 +21,8 @@ void __x11_hook_on_idle(Display * pdisplay);
 #include "xcb_hook.h"
 
 
-void xcb_handle_just_hooks();
-void xcb_defer_handle_just_hooks();
+//void xcb_handle_just_hooks();
+//void xcb_defer_handle_just_hooks();
 bool __xcb_hook_process_event(Display * pdisplay, xcb_generic_event_t * pevent, XGenericEventCookie * cookie);
 
 

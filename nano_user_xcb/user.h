@@ -13,8 +13,12 @@ namespace x11
 
    namespace nano
    {
+
+
       namespace user
       {
+
+
          class CLASS_DECL_ACME user :
             virtual public ::nano::user::user
          {
@@ -25,8 +29,8 @@ namespace x11
             ~user();
 
 
-            void x11_sync(const ::procedure & procedure) override;
-            void x11_async(const ::procedure & procedure) override;
+            void sync(const ::procedure & procedure) override;
+            void async(const ::procedure & procedure) override;
 
 
          };

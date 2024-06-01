@@ -21,9 +21,9 @@ list(APPEND library_source
         _.cpp
         framework.cpp
         framework.h
-        xcb_hook.cpp
-        xcb_hook.h
-        xcb_windowing.cpp
+#        xcb_hook.cpp
+#        xcb_hook.h
+#        xcb_windowing.cpp
         )
 
 add_library(${PROJECT_NAME} SHARED ${library_source})

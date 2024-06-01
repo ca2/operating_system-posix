@@ -1,11 +1,11 @@
 #include "framework.h"
-#include "speech.h"
+//#include "speech.h"
 
 
-IMPLEMENT_FACTORY(nano_speech_sapi)
+IMPLEMENT_FACTORY(windowing_system_xcb)
 {
 
-   pfactory->add_factory_item < ::sapi::nano::speech::speech, ::nano::speech::speech >();
+   //pfactory->add_factory_item < ::sapi::nano::speech::speech, ::nano::speech::speech >();
 
 }
 
