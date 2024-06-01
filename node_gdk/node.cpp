@@ -25,7 +25,7 @@
 #include "aura/windowing/display.h"
 #include "windowing_x11/windowing_x11.h"
 #include "aura/windowing/windowing.h"
-#include "aura_posix/x11/windowing.h"
+#include "windowing_posix/windowing.h"
 
 
 #include <gio/gio.h>

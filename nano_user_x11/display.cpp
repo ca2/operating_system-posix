@@ -314,7 +314,7 @@ namespace x11
          }
 
 
-         display * display::get(::particle * pparticle, bool bBranch, Display * pdisplay)
+         display * display_get(::particle * pparticle, bool bBranch, Display * pdisplay)
          {
 
             critical_section_lock lock(pparticle->platform()->globals_critical_section());

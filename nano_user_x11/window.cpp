@@ -89,18 +89,18 @@ namespace x11
             if (!m_pdisplay)
             {
 
-               m_pdisplay = ::x11::nano::user::display::get(this);
+               m_pdisplay = ::x11::nano::user::display_get(this);
 
                if (!m_pdisplay)
                {
 
                   throw ::exception(error_null_pointer);
-
                }
 
             }
 
             return m_pdisplay;
+
 
          }
 
