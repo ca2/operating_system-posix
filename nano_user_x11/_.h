@@ -7,6 +7,14 @@
 #include "windowing_system_x11/_.h"
 
 
+#if defined(_nano_user_x11_project)
+   #define CLASS_DECL_NANO_USER_X11  CLASS_DECL_EXPORT
+#else
+   #define CLASS_DECL_NANO_USER_X11  CLASS_DECL_IMPORT
+#endif
+
+
+
 namespace x11
 {
 

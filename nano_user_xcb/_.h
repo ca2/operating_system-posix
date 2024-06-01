@@ -7,6 +7,14 @@
 #include "windowing_system_xcb/_.h"
 
 
+#if defined(_nano_user_xcb_project)
+   #define CLASS_DECL_NANO_USER_XCB CLASS_DECL_EXPORT
+#else
+   #define CLASS_DECL_NANO_USER_XCB CLASS_DECL_IMPORT
+#endif
+
+
+
 namespace xcb
 {
 

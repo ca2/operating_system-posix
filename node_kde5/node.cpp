@@ -21,9 +21,9 @@
 #include <KFileItem>
 #include <KIconLoader>
 #include <QX11Info>
+#include <QTextStream>
 #include <QtGui/QDesktopServices>
 #include <QFileDialog>
-#include <QTextStream>
 #include <QDBusInterface>
 #include <qpa/qplatformnativeinterface.h>
 //#include <KPackage/Package>
@@ -32,8 +32,8 @@
 //#include <KF5/plasma/containment.h>
 
 
-void initialize_x11_display(::particle * pparticle, void * pX11Display);
-void * initialize_x11_display(::particle * pparticle);
+// void initialize_x11_display(::particle * pparticle, void * pX11Display);
+// void * initialize_x11_display(::particle * pparticle);
 
 void kde_open_local_file(QApplication * papplication, const char *psz, const char * pszMimeType);
 
@@ -336,7 +336,7 @@ namespace node_kde5
 //      }
 
 
-         initialize_x11_display(this, p);
+         ::x11::nano::user::display::get(this, p);
 
          return ::success;
 
@@ -346,7 +346,7 @@ namespace node_kde5
 
          m_bUnhookX = false;
 
-         m_pAuraPosixX11Display = initialize_x11_display(this);
+         m_pAuraPosixX11Display = ::x11::nano::user::display::get(this);
 
          return ::success;
 

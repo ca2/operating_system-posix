@@ -9,6 +9,13 @@
 #include "acme/primitive/geometry2d/size.h"
 
 
+#if defined(_nano_user_wayland_project)
+   #define CLASS_DECL_NANO_USER_WAYLAND  CLASS_DECL_EXPORT
+#else
+   #define CLASS_DECL_NANO_USER_WAYLAND  CLASS_DECL_IMPORT
+#endif
+
+
 namespace wayland
 {
 
