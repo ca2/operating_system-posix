@@ -11,7 +11,7 @@
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
 #include "acme/platform/acme.h"
-
+#include "acme/windowing_system/windowing_system.h"
 
 
 struct MWMHints
@@ -614,7 +614,7 @@ namespace xcb
             if(!m_pX11Display)
             {
 
-               m_pX11Display = node()->x11_get_display();
+               m_pX11Display = (Display *) system()->windowing_system()->get_display()
 
                information() << "xcb nano display::init_task got new x11_display : " << (::iptr) m_pX11Display ;
 

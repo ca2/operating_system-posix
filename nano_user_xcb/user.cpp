@@ -6,7 +6,7 @@
 #include "display.h"
 
 
-namespace x11
+namespace xcb
 {
 
 
@@ -32,21 +32,23 @@ namespace x11
          }
 
 
-         void user::x11_sync(const ::procedure & procedure)
+         void user::sync(const ::procedure & procedure)
          {
 
-            ::x11::nano::user::display::_nano_get_x11_display(this)->display_send(procedure);
+            ::xcb::nano::user::display::get(this)->display_send(procedure);
 
          }
 
 
-         void user::x11_async(const ::procedure & procedure)
+         void user::async(const ::procedure & procedure)
          {
 
-            ::x11::nano::user::display::_nano_get_x11_display(this)->display_post(procedure);
+            ::xcb::nano::user::display::get(this)->display_post(procedure);
 
          }
+
       }//namespace user
+
    }//namespace nano
 
 

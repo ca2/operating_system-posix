@@ -7,7 +7,7 @@
 #include "acme/nano/user/user.h"
 
 
-namespace x11
+namespace xcb
 {
 
 
@@ -42,7 +42,7 @@ namespace x11
    } // namespace nano
 
 
-} // namespace x11
+} // namespace xcb
 
 
 
