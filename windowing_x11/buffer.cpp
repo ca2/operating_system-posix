@@ -145,7 +145,7 @@ namespace windowing_x11
    bool buffer::update_buffer(::graphics::buffer_item * pbufferitem)
    {
 
-      information() << "x11 buffer::update_buffer";
+      debug() << "x11 buffer::update_buffer";
 
       auto pwindowing = m_pimpl->m_puserinteraction->windowing();
 
@@ -196,7 +196,7 @@ namespace windowing_x11
 
       }
 
-      information() << "x11 buffer::update_buffer sizeLargeInternalBitmap : " << sizeLargeInternalBitmap;
+      debug() << "x11 buffer::update_buffer sizeLargeInternalBitmap : " << sizeLargeInternalBitmap;
 
       return ::graphics::double_buffer::update_buffer(pbufferitem);
 
@@ -432,7 +432,7 @@ namespace windowing_x11
    bool buffer::_update_screen_unlocked(::graphics::buffer_item * pitem)
    {
 
-      information() << "x11 buffer::_update_screen_unlocked";
+      debug() << "x11 buffer::_update_screen_unlocked";
 
       auto sizeBitBlitting = pitem->m_size;
 
@@ -443,7 +443,7 @@ namespace windowing_x11
 
       }
 
-      information() << "x11 buffer::_update_screen_unlocked sizeBitBlitting : " << sizeBitBlitting;
+      debug() << "x11 buffer::_update_screen_unlocked sizeBitBlitting : " << sizeBitBlitting;
 
       auto & pimage = pitem->m_pimage2;
 
@@ -465,7 +465,7 @@ namespace windowing_x11
       if (m_bUseXShmIfAvailable)
       {
 
-         information() << "x11 buffer::_update_screen_unlocked m_bUseXShmIfAvailable";
+         debug() << "x11 buffer::_update_screen_unlocked m_bUseXShmIfAvailable";
 
          if (!m_bXShmChecked)
          {
@@ -785,7 +785,7 @@ namespace windowing_x11
 
       }
 
-      information() << "going to call double_buffer::_on_begin_draw";
+      debug() << "going to call double_buffer::_on_begin_draw";
 
       if(!double_buffer::_on_begin_draw(pbufferitem))
       {
