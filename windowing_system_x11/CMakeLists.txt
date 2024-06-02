@@ -19,7 +19,9 @@ endif ()
 
 list(APPEND library_source
         _.cpp
+        _.h
         _atom.cpp
+        _factory.cpp
         display_lock.cpp
         display_lock.h
         framework.cpp

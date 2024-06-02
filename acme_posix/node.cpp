@@ -2688,6 +2688,60 @@ if(functionTrace)
 
 #endif
 
+   int node::synchronous_terminal(const ::scoped_string& scopedstrCommand, enum_posix_shell eposixshell, const trace_function& tracefunction)
+   {
+
+      auto edesktop = get_edesktop();
+
+      ::string strCommand(scopedstrCommand);
+
+
+      int iExitCode = -1;
+
+      if(edesktop == ::user::e_desktop_xfce)
+      {
+
+         strCommand.find_replace("\\", "\\\\");
+
+         strCommand.find_replace("\"", "\\\"");
+
+         iExitCode = this->posix_shell_command(
+                 "xterm -e bash -c \"" + strCommand+"\"",
+                 eposixshell,
+                 tracefunction);
+
+      }
+      else if(edesktop == ::user::e_desktop_kde)
+      {
+
+         strCommand.find_replace("\\", "\\\\");
+
+         strCommand.find_replace("\"", "\\\"");
+
+         iExitCode = this->posix_shell_command(
+                 "konsole --wait -- /bin/bash -c \"" + strCommand + "\"",
+                 eposixshell,
+                 tracefunction);
+
+      }
+      else
+      {
+
+         strCommand.find_replace("\\", "\\\\");
+
+         strCommand.find_replace("\"", "\\\"");
+
+         iExitCode = this->posix_shell_command(
+                 "gnome-terminal --wait -- /bin/bash -c \"" + strCommand + "\"",
+                 eposixshell,
+                 tracefunction);
+
+      }
+
+      return iExitCode;
+
+   }
+
 
 } // namespace acme_posix
 

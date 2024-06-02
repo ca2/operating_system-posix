@@ -144,6 +144,9 @@ namespace acme_posix
       bool _is_git_credential_manager_installed() override;
 
 
+      virtual int synchronous_terminal(const ::scoped_string& scopedstrCommand, enum_posix_shell eposixshell, const trace_function& tracefunction);
+
+
    };
 
    

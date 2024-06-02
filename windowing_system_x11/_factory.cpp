@@ -5,7 +5,7 @@
 IMPLEMENT_FACTORY(windowing_system_x11)
 {
 
-   pfactory->add_factory_item < ::x11::windowing_system::windowing_system, ::windowing_system::windowing_system >();
+   pfactory->add_factory_item < ::x11::windowing_system, ::windowing_system::windowing_system >();
 
 }
 

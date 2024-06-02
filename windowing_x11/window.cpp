@@ -1873,6 +1873,13 @@ namespace windowing_x11
    ::windowing_x11::display *window::x11_display() const
    {
 
+      if(::is_null(m_pdisplay))
+      {
+
+         return nullptr;
+
+      }
+
       return (::windowing_x11::display *) m_pdisplay->m_pDisplay;
 
    }
@@ -4821,7 +4828,12 @@ namespace windowing_x11
 
                      //oswindow_remove_impl(window->m_puserinteractionimpl);
 
-                     m_pwindowing->erase_window(this);
+                     if(m_pwindowing)
+                     {
+
+                        m_pwindowing->erase_window(this);
+
+                     }
 
                   }
 
@@ -4839,17 +4851,26 @@ namespace windowing_x11
 
                   bool bIs = is_window();
 
-                  m_pwindowing->erase_window(this);
+                  if(m_pwindowing) {
+
+                     m_pwindowing->erase_window(this);
+
+                  }
 
                   windowing_output_debug_string("::DestroyWindow 1");
 
-                  ::x11::display_lock displaylock(x11_display()->Display());
+                  if(::is_set(x11_display()))
+                  {
 
-                  XUnmapWindow(Display(), Window());
+                     ::x11::display_lock displaylock(x11_display()->Display());
 
-                  XDestroyWindow(Display(), Window());
+                     XUnmapWindow(Display(), Window());
 
-                  windowing_output_debug_string("::DestroyWindow 2");
+                     XDestroyWindow(Display(), Window());
+
+                     windowing_output_debug_string("::DestroyWindow 2");
+
+                  }
 //
 //               });
 
