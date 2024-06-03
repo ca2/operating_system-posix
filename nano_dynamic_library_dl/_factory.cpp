@@ -3,7 +3,7 @@
 #include "nano_dynamic_library_dl.h"
 
 
-IMPLEMENT_FACTORY(nano_dynamic_library_dl)
+IMPLEMENT_FACTORY(nano_dynamic_library)
 {
 
    pfactory->add_factory_item < ::dl::nano::dynamic_library::dynamic_library, ::nano::dynamic_library::dynamic_library >();
