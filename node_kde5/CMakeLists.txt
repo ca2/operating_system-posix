@@ -47,6 +47,7 @@ list(APPEND library_references
         windowing_posix
         windowing_system_xcb
         windowing_system_wayland
+        nano_user_x11
         windowing_xcb
         windowing_x11
         windowing_wayland

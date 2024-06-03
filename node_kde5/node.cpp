@@ -356,7 +356,7 @@ namespace node_kde5
 
          m_bUnhookX = false;
 
-         m_pAuraPosixX11Display = ::x11::nano::user::display::get(this);
+         m_pAuraPosixX11Display = ::x11::nano::user::display_get(this);
 
          return ::success;
 
