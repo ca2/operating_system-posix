@@ -5,38 +5,134 @@
 // From acme/nano/dynamic_library on 2024-06-02 18:06 by camilo <3ThomasBorregaardSorensen!!
 #include "framework.h"
 #include "nano_dynamic_library_dl.h"
+#include "acme/filesystem/filesystem/acme_path.h"
 #include "acme/_operating_system.h"
 #include <dlfcn.h>
 #include <link.h>
 
 
-struct __node_query_loaded_library
+class modules_query :
+        virtual public ::particle
 {
-
-   string m_strPathIn;
-   string m_strPathOut;
+public:
 
 
-};
+   string m_strName;
+   ::file::path m_path;
+   ::library_t * m_plibrary;
 
-int __node_library_is_loaded_callback(::dl_phdr_info *info, size_t size, void *data)
-{
 
-   __node_query_loaded_library *q = (__node_query_loaded_library *) data;
-
-   if (::file::path(info->dlpi_name).name() == q->m_strPathIn)
+   modules_query() :
+           m_plibrary(nullptr)
    {
 
 
-      q->m_strPathOut = info->dlpi_name;
+   }
 
-      return 1;
+
+   void query_by_address(library_t * plibrary)
+   {
+
+      m_plibrary = plibrary;
+
+      iterate();
 
    }
-   return 0;
-}
 
 
+   void query_by_name(const ::scoped_string & scopedstrName)
+   {
+
+      m_strName = scopedstrName;
+
+      if (!m_strName.case_insensitive_ends(".so"))
+      {
+
+         m_strName += ".so";
+
+      }
+
+      if (!m_strName.case_insensitive_begins("/") && !m_strName.case_insensitive_begins("lib"))
+      {
+
+         m_strName = "lib" + m_strName;
+
+      }
+
+      iterate();
+
+   }
+
+
+   void query_by_path(const ::file::path & path)
+   {
+
+      m_path = path;
+
+      iterate();
+
+   }
+
+
+   void iterate()
+   {
+
+      dl_iterate_phdr(&s_callback, this);
+
+   }
+
+
+   static int s_callback(::dl_phdr_info * info, size_t size, void * data)
+   {
+
+      auto pcallback = (modules_query *) data;
+
+      return pcallback->callback(info, size);
+
+   }
+
+
+   int callback(::dl_phdr_info * info, size_t size)
+   {
+
+      if (m_plibrary && m_plibrary == (::library_t *) info->dlpi_addr)
+      {
+
+         m_path = info->dlpi_name;
+
+         m_strName = m_path.name();
+
+         return 1;
+
+      }
+      else
+      {
+
+         auto path = ::file::path(info->dlpi_name);
+
+         auto strName = path.name();
+
+         if ((m_strName.has_char() && strName == m_strName)
+             || (m_path.has_char() && acmepath()->real_path_is_same(path, m_path)))
+         {
+
+            m_path = info->dlpi_name;
+
+            m_strName = m_path.name();
+
+            m_plibrary = (::library_t *) info->dlpi_addr;
+
+            return 1;
+
+         }
+
+         return 0;
+
+      }
+
+   }
+
+};
 
 
 namespace dl
@@ -63,52 +159,53 @@ namespace dl
          }
 
 
-         ::string dynamic_library::_if_loaded_get_path(const char *pszPath)
+         ::file::path dynamic_library::module_path(library_t * plibrary)
          {
 
-            __node_query_loaded_library q;
+            auto pquery = __create_new < modules_query >();
 
-            q.m_strPathIn = pszPath;
+            pquery->query_by_address(plibrary);
 
-            if (!q.m_strPathIn.case_insensitive_ends(".so"))
-            {
-
-               q.m_strPathIn += ".so";
-
-            }
-
-            if (!q.m_strPathIn.case_insensitive_begins("/") && !q.m_strPathIn.case_insensitive_begins("lib"))
-            {
-
-               q.m_strPathIn = "lib" + q.m_strPathIn;
-
-            }
-
-            dl_iterate_phdr(__node_library_is_loaded_callback, &q);
-
-            return q.m_strPathOut;
+            return pquery->m_path;
 
          }
 
 
-         library_t *dynamic_library::touch(const ::file::path &path, string &strMessage)
+         ::library_t * dynamic_library::module_by_name(const ::scoped_string & scopedstrName)
          {
 
-            string strPath = this->_if_loaded_get_path(path);
+            auto pquery = __create_new < modules_query >();
 
-            if (strPath.has_char())
-            {
+            pquery->query_by_name(scopedstrName);
 
-               return this->open(path, strMessage);
-
-            }
-
-            return nullptr;
+            return pquery->m_plibrary;
 
          }
 
 
-         library_t *dynamic_library::open(const ::file::path &path, string &strMessage)
+         ::library_t * dynamic_library::module_by_path(const ::file::path & path)
+         {
+
+            auto pquery = __create_new < modules_query >();
+
+            pquery->query_by_path(path);
+
+            return pquery->m_plibrary;
+
+         }
+
+
+//         library_t * dynamic_library::touch(const ::file::path & path, string & strMessage)
+//         {
+//
+//            auto plibrary = this->get_module_by_name(path);
+//
+//            plibrary;
+//
+//         }
+
+
+         library_t * dynamic_library::open(const ::file::path & path, string & strMessage)
          {
 
             string strPath(path);
@@ -120,7 +217,8 @@ namespace dl
 
                strPath = "ca2os";
 
-            } else if (strPath == "app_sphere")
+            }
+            else if (strPath == "app_sphere")
             {
 
                strPath = "basesphere";
@@ -141,7 +239,7 @@ namespace dl
 
             }
 
-            auto plibrary = (library_t*) dlopen(strPath, RTLD_GLOBAL | RTLD_LAZY | RTLD_NODELETE);
+            auto plibrary = (library_t *) dlopen(strPath, RTLD_GLOBAL | RTLD_LAZY | RTLD_NODELETE);
             //void * plibrary = dlopen(strPath, RTLD_GLOBAL | RTLD_NODELETE);
 
             if (plibrary == nullptr)
@@ -151,7 +249,7 @@ namespace dl
 
                int iError = errno;
 
-               const char *psz = strerror(iError);
+               const char * psz = strerror(iError);
 
                if (psz != nullptr)
                {
@@ -160,7 +258,7 @@ namespace dl
 
                }
 
-               char *errstr;
+               char * errstr;
 
                errstr = dlerror();
 
@@ -171,7 +269,8 @@ namespace dl
 
                }
 
-            } else
+            }
+            else
             {
 
                strMessage += "Successfully loaded library ";
@@ -185,7 +284,7 @@ namespace dl
          }
 
 
-         library_t *dynamic_library::open_on_context(const ::file::path &path, string &strMessage)
+         library_t * dynamic_library::open_on_context(const ::file::path & path, string & strMessage)
          {
 
             string strPath(path);
@@ -204,7 +303,7 @@ namespace dl
 
             }
 
-            auto plibrary = (library_t*)dlopen(strPath, RTLD_GLOBAL | RTLD_LAZY | RTLD_NODELETE);
+            auto plibrary = (library_t *) dlopen(strPath, RTLD_GLOBAL | RTLD_LAZY | RTLD_NODELETE);
 
             if (plibrary != nullptr)
             {
@@ -215,7 +314,7 @@ namespace dl
 
             int iError = errno;
 
-            const char *psz = strerror(iError);
+            const char * psz = strerror(iError);
 
             if (psz != nullptr)
             {
@@ -224,7 +323,7 @@ namespace dl
 
             }
 
-            const char *psz2 = dlerror();
+            const char * psz2 = dlerror();
 
             if (psz2 != nullptr)
             {
@@ -238,7 +337,7 @@ namespace dl
          }
 
 
-         bool dynamic_library::close(library_t *plibrary)
+         bool dynamic_library::close(library_t * plibrary)
          {
 
             if (plibrary == nullptr)
@@ -249,7 +348,7 @@ namespace dl
          }
 
 
-         void *dynamic_library::raw_get(library_t *plibrary, const ::scoped_string &scopedstrEntryName)
+         void * dynamic_library::raw_get(library_t * plibrary, const ::scoped_string & scopedstrEntryName)
          {
 
             return dlsym(plibrary, scopedstrEntryName.c_str());
