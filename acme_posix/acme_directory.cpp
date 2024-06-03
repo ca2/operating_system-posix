@@ -6,6 +6,9 @@
 #include "acme_file.h"
 ////#include "acme/exception/exception.h"
 #include "acme/filesystem/filesystem/listing.h"
+#include "acme/nano/nano.h"
+#include "acme/nano/account/account.h"
+#include "acme/nano/account/user.h"
 #include "acme/_operating_system.h"
 
 
@@ -511,7 +514,22 @@ void acme_directory::erase_recursively(const ::file::path &path)
 
       if ((homedir = getenv("HOME")) == nullptr)
       {
-         homedir = getpwuid(getuid())->pw_dir;
+
+         auto puserid = nano()->account()->current_user_id();
+
+         if(puserid)
+         {
+
+            auto puser = nano()->account()->get_user(puserid);
+
+            if (puser)
+            {
+
+               homedir = puser->m_strDir;
+
+            }
+
+         }
       }
 
       path = homedir;

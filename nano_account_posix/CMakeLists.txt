@@ -1,4 +1,4 @@
-# From idn on 2024-06-02 19:42 <3ThomasBorregaardSorensen!!
+# From nano_dynamic_library_dl on 2024-06-02 18:53 <3ThomasBorregaardSorensen!!
 cmake_minimum_required(VERSION 3.17)
 project(nano_dynamic_library_dl CXX)
 
@@ -13,42 +13,48 @@ else ()
 endif ()
 
 
+
 list(APPEND library_source
         _.cpp
         _.h
         _factory.cpp
-        nano_dynamic_library_dl.cpp
-        nano_dynamic_library_dl.h
+        nano_account_posix.cpp
+        nano_account_posix.h
         framework.cpp
         framework.h
 )
 
+add_library(${PROJECT_NAME} SHARED ${library_source})
 
-add_library(static_${PROJECT_NAME} STATIC ${library_source})
+target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 
+set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
-target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
-
-
-set_target_properties(static_${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 
 if (MSVC)
-   target_compile_options(static_${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
-   target_link_options(static_${PROJECT_NAME} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
-   target_link_options(static_${PROJECT_NAME} PRIVATE "/IMPLIB:${LIBRARY_OUTPUT_PATH}/${PROJECT_NAME}.lib")
-   target_link_options(static_${PROJECT_NAME} PRIVATE "/DEF:${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.def")
-   target_link_libraries(static_${PROJECT_NAME} PRIVATE acme apex aqua aura Gdiplus)
+   target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
+   target_link_options(${PROJECT_NAME} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
+   target_link_options(${PROJECT_NAME} PRIVATE "/IMPLIB:${LIBRARY_OUTPUT_PATH}/${PROJECT_NAME}.lib")
+   target_link_options(${PROJECT_NAME} PRIVATE "/DEF:${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.def")
+   target_link_libraries(${PROJECT_NAME} PRIVATE acme apex aqua aura Gdiplus)
 elseif (LINUX)
 
-   target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
-   target_link_options(static_${PROJECT_NAME} PRIVATE -Wl,-rpath=\$ORIGIN)
-   target_link_libraries(static_${PROJECT_NAME} PRIVATE dl ${PKGCONFIG_LIBRARIES})
-   target_link_options(static_${PROJECT_NAME} PRIVATE -Wl,-z,defs)
+   pkg_check_modules(PKGCONFIG cairo)
+   target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+   #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
+   #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})
+   target_link_options(${PROJECT_NAME} PRIVATE -Wl,-rpath=\$ORIGIN)
+   target_link_libraries(${PROJECT_NAME} PRIVATE acme ${PKGCONFIG_LIBRARIES})
+   target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
+   message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
 endif ()
 
+add_dependencies(${PROJECT_NAME} acme)
 
 target_link_directories(${PROJECT_NAME} PRIVATE ${LIBRARY_OUTPUT_PATH})
+target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/storage-${OPERATING_SYSTEM_NAME}/library/x64/basis)
+target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/storage-${OPERATING_SYSTEM_NAME}/third/library/x64/basis)
 
 
 target_include_directories(${PROJECT_NAME} PRIVATE $ENV{HOME}/__config)
@@ -66,7 +72,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/.
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 
-target_compile_definitions(${PROJECT_NAME} PRIVATE _nano_dynamic_library_dl_project)
-
-
-
+target_compile_definitions(${PROJECT_NAME} PRIVATE _DRAW2D_GDIPLUS_LIBRARY)
+target_compile_definitions(${PROJECT_NAME} PRIVATE UNICODE)
+target_compile_definitions(${PROJECT_NAME} PRIVATE _UNICODE)

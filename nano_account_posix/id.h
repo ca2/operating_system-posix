@@ -1,7 +1,15 @@
 //
 // Created by camilo on 2024-06-02 20:06 <3ThomasBorregaardSorensen!!
+// From acme/nano/account/id.h by camilo on 2024-06-02 20:11 <3ThomasBorregaardSorensen!!
 //
 #pragma once
+
+
+#include "acme/nano/account/id.h"
+
+
+namespace posix
+{
 
 
 namespace nano
@@ -13,17 +21,20 @@ namespace nano
 
 
       class id :
-              virtual public ::particle
+         virtual public ::nano::account::id
       {
       public:
 
 
-         user();
-         ~user() override;
+         ::i64 m_i;
+
+         id();
+         ~id() override;
 
 
-         virtual bool is_equal(id * pid);
-         virtual bool is_less(id * pid);
+         bool is_equal(::nano::account::id * pid) override;
+         bool is_less(::nano::account::id * pid) override;
+         ::string as_string() override;
 
       };
 

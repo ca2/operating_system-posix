@@ -1,6 +1,6 @@
 //
 // Created by camilo on 2022-10-24 08:47 <3ThomasBorregaardSorensen!!
-// From idn on 2024-06-02 19:41 <3ThomasBorregaardSorensen!!
+// From nano_dynamic_library_dl on 2024-06-02 18:53 <3ThomasBorregaardSorensen!!
 //
 #pragma once
 
@@ -8,7 +8,7 @@
 #include "acme/_.h"
 
 
-namespace dl
+namespace posix
 {
 
 
@@ -16,20 +16,20 @@ namespace dl
    {
 
 
-      namespace dynamic_library
+      namespace account
       {
 
 
          class dynamic_library;
 
 
-      } // namespace dynamic_library
+      } // nmaespace account
 
 
    } // namespace nano
 
 
-} // namespace dl
+} // namespace posix
 
 
 
