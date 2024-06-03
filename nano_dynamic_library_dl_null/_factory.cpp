@@ -2,7 +2,7 @@
 #include "framework.h"
 
 
-IMPLEMENT_FACTORY(nano_dynamic_library_dl)
+IMPLEMENT_FACTORY(nano_dynamic_library)
 {
 
 }
