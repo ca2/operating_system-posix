@@ -10,8 +10,3 @@ IMPLEMENT_FACTORY(nano_dynamic_library_dl)
 
 }
 
-typedef void FUNCTION_FACTORY(::factory::factory * pfactory);
-using PFN_FACTORY = FUNCTION_FACTORY *;
-
-
-PFN_FACTORY g_pnanodynamiclibrarydl __attribute((strong)) = &nano_dynamic_library_dl_factory;

@@ -42,35 +42,17 @@ namespace dl
 
             override;
 
-            static int __node_library_is_loaded_callback(struct dl_phdr_info *info, size_t size, void *data);
+            ::string _if_loaded_get_path(const char *pszPath) override;
 
-            bool is_loaded(const char *pszPath)
+            library_t *touch(const ::file::path &path, string &strMessage) override;
 
-            override;
+            library_t *open(const ::file::path &path, string &strMessage) override;
 
-            library_t *touch(const ::file::path &path, string &strMessage)
+            library_t *open_on_context(const ::file::path &path, string &strMessage) override;
 
-            override;
+            bool close(library_t *plibrary) override;
 
-
-            library_t *open(const ::file::path &path, string &strMessage)
-
-            override;
-
-
-            library_t *open_on_context(const ::file::path &path, string &strMessage)
-
-            override;
-
-
-            bool close(library_t *plibrary)
-
-            override;
-
-
-            void *raw_get(library_t *plibrary, const ::scoped_string &scopedstrEntryName)
-
-            override;
+            void *raw_get(library_t *plibrary, const ::scoped_string &scopedstrEntryName) override;
 
          };
 

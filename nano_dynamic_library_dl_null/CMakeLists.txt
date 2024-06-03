@@ -1,6 +1,6 @@
 # From idn on 2024-06-02 19:42 <3ThomasBorregaardSorensen!!
 cmake_minimum_required(VERSION 3.17)
-project(nano_dynamic_library_dl CXX)
+project(nano_dynamic_library_dl_null CXX)
 
 
 message(STATUS "CMAKE_SYSTEM_NAME is ${CMAKE_SYSTEM_NAME}")
@@ -72,7 +72,7 @@ target_include_directories(static_${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE
 target_include_directories(static_${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 
-target_compile_definitions(static_${PROJECT_NAME} PRIVATE _nano_dynamic_library_dl_project)
+target_compile_definitions(static_${PROJECT_NAME} PRIVATE _nano_dynamic_library_dl_null_project)
 
 
 

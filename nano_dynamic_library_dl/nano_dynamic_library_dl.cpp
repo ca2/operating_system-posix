@@ -5,8 +5,39 @@
 // From acme/nano/dynamic_library on 2024-06-02 18:06 by camilo <3ThomasBorregaardSorensen!!
 #include "framework.h"
 #include "nano_dynamic_library_dl.h"
+#include "acme/_operating_system.h"
 #include <dlfcn.h>
 #include <link.h>
+
+
+struct __node_query_loaded_library
+{
+
+   string m_strPathIn;
+   string m_strPathOut;
+
+
+};
+
+int __node_library_is_loaded_callback(::dl_phdr_info *info, size_t size, void *data)
+{
+
+   __node_query_loaded_library *q = (__node_query_loaded_library *) data;
+
+   if (::file::path(info->dlpi_name).name() == q->m_strPathIn)
+   {
+
+
+      q->m_strPathOut = info->dlpi_name;
+
+      return 1;
+
+   }
+   return 0;
+}
+
+
+
 
 namespace dl
 {
@@ -31,39 +62,11 @@ namespace dl
 
          }
 
-         struct query_loaded_library
+
+         ::string dynamic_library::_if_loaded_get_path(const char *pszPath)
          {
 
-            string m_strPathIn;
-            string m_strPathOut;
-
-
-         };
-
-
-         int
-         dynamic_library::__node_library_is_loaded_callback(struct dl_phdr_info *info, size_t size, void *data)
-         {
-            query_loaded_library *q = (query_loaded_library *) data;
-
-            if (::file::path(info->dlpi_name).name() == q->m_strPathIn)
-            {
-
-
-               q->m_strPathOut = info->dlpi_name;
-
-               return 1;
-
-            }
-            return 0;
-         }
-
-
-         string dynamic_library::is_loaded(const char *pszPath)
-         {
-
-
-            query_loaded_library q;
+            __node_query_loaded_library q;
 
             q.m_strPathIn = pszPath;
 
@@ -91,12 +94,12 @@ namespace dl
          library_t *dynamic_library::touch(const ::file::path &path, string &strMessage)
          {
 
-            string strPath = __node_library_is_loaded(path);
+            string strPath = this->_if_loaded_get_path(path);
 
             if (strPath.has_char())
             {
 
-               return operating_system_library_open(path, strMessage);
+               return this->open(path, strMessage);
 
             }
 
