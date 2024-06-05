@@ -19,10 +19,15 @@
 #endif
 
 
+__FACTORY_EXPORT void nano_user_xcb_factory(::factory::factory * pfactory);
+
+
 __FACTORY_EXPORT void windowing_xcb_factory(::factory::factory * pfactory)
 {
 
    printf("windowing_xcb factory\n");
+
+   nano_user_xcb_factory(pfactory);
 
    pfactory->add_factory_item < ::windowing_xcb::buffer, ::graphics::graphics > ();
 

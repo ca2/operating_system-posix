@@ -2756,7 +2756,7 @@ if(functionTrace)
          strCommand.find_replace("\"", "\\\"");
 
          iExitCode = this->posix_shell_command(
-                 "konsole --wait -- /bin/bash -c \"" + strCommand + "\"",
+                 "konsole -e /bin/bash -c \"" + strCommand + "\"",
                  eposixshell,
                  tracefunction);
 

@@ -14,6 +14,8 @@ endif ()
 
 list(APPEND library_source
         _.cpp
+        _.h
+        _factory.cpp
         framework.cpp
         framework.h
         #xcb_hook.cpp
