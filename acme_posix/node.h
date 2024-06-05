@@ -126,9 +126,9 @@ namespace acme_posix
       bool has_command(const ::scoped_string& scopedstrCommand) override;
 
 
-      void launch_no_hup(const ::file::path & pathExecutable, const ::file::path & pathLog) override;
+      void detached_command(const ::scoped_string & scopedstrCommand, const ::file::path & pathLog) override;
 
-      bool _is_code_exe_user_path_environment_variable_ok(::string* pstrCorrectPath) override;
+      bool _is_code_exe_user_path_environment_variable_ok(::string* pstrCorrectPath = nullptr, const char * pszPath = nullptr) override;
 
       enum_windowing calculate_ewindowing() override;
 
