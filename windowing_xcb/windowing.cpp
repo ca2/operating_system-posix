@@ -1678,7 +1678,7 @@ namespace windowing_xcb
 
                information() << "XCB_MAP_NOTIFY";
 
-               if (!m_bFirstWindowMap && pxcbwindow)
+               if (!m_bFirstWindowMap && pxcbwindow && pxcbwindow->m_pSnLauncheeContextSetup)
                {
 
                   m_bFirstWindowMap = true;

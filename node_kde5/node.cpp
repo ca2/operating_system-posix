@@ -12,6 +12,7 @@
 #include "acme/filesystem/filesystem/file_dialog.h"
 #include "acme/filesystem/filesystem/folder_dialog.h"
 #include "acme/user/user/os_theme_colors.h"
+#include "acme/windowing_system/windowing_system.h"
 #include "acme/user/user/theme_colors.h"
 #include "apex/platform/system.h"
 #include "acme/platform/ini.h"
@@ -260,6 +261,19 @@ namespace node_kde5
 
 #endif
 
+      system()->m_ewindowing = calculate_ewindowing();
+
+      system()->__construct(system()->m_pwindowingsystem);
+
+      // ::pointer < ::node_gdk::windowing_system> pnodegdkwindowingsystem = system()->m_pwindowingsystem;
+      //
+      // if(pnodegdkwindowingsystem)
+      // {
+      //
+      //    pnodegdkwindowingsystem->m_pgdknode = this;
+      //
+      // }
+
       auto psystem = system()->m_papexsystem;
 
       psystem->defer_post_initial_request();
@@ -346,7 +360,7 @@ namespace node_kde5
 //      }
 
 
-         ::x11::nano::user::display_get(this, p);
+         ::x11::nano::user::display_get(this, false, p);
 
          return ::success;
 
@@ -356,7 +370,7 @@ namespace node_kde5
 
          m_bUnhookX = false;
 
-         m_pAuraPosixX11Display = ::x11::nano::user::display::get(this);
+         m_pAuraPosixX11Display = ::x11::nano::user::display_get(this);
 
          return ::success;
 

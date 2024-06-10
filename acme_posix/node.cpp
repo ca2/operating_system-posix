@@ -633,7 +633,18 @@ namespace acme_posix
 
 #endif*/
 #if !defined(APPLE_IOS)
-::system("systemctl reboot");
+
+
+   int iErrorCode =  ::system("systemctl reboot");
+
+      if(iErrorCode)
+      {
+
+         throw ::exception(error_failed);
+
+
+      }
+
 #endif
 
       //return success;
@@ -2487,14 +2498,26 @@ if(functionTrace)
 
 
 
-   void node::launch_no_hup(const ::file::path & pathExecutable, const ::file::path & pathLog)
+   void node::detached_command(const ::scoped_string & scopedstrCommand, const ::file::path & pathLog)
    {
 
       ::string strCommand;
 
-      strCommand.formatf("/bin/sh -c \"nohup \\\"%s\\\" > \\\"%s\\\"\"",
-                          pathExecutable.c_str(),
-                          pathLog.c_str());
+      ::string strCommandToDetach(scopedstrCommand);
+
+      if(pathLog.has_char())
+      {
+
+         strCommand.formatf("/bin/sh -c \"nohup %s > \\\"%s\\\"\"",
+                             strCommandToDetach.c_str(),
+                             pathLog.c_str());
+      }
+      else
+      {
+
+         strCommand.formatf("/bin/sh -c \"nohup %s\"", strCommandToDetach.c_str());
+
+      }
 
 
       printf_line("Going to execute command: \"%s\"", strCommand.c_str());
@@ -2513,12 +2536,24 @@ if(functionTrace)
 
    }
 
+
    bool node::_is_code_exe_user_path_environment_variable_ok(::string* pstrCorrectPath, const char * pszPath)
    {
 
-      auto str = get_environment_variable("PATH");
+      information() << "_is_code_exe_user_path_environment_variable_ok";
 
-      information() << "PATH : " << str;
+      ::string strEnvironmentVariable;
+
+      if(::is_null(pszPath))
+      {
+
+         strEnvironmentVariable = get_environment_variable("PATH");
+
+         pszPath = strEnvironmentVariable.c_str();
+
+      }
+
+      information() << "PATH : " << pszPath;
 
       bool bChanged = false;
 
@@ -2536,12 +2571,14 @@ if(functionTrace)
 
       ::string_array straPath;
 
-      straPath.explode(":", str);
+      straPath.explode(":", pszPath);
+
+      ::string strPath = pszPath;
 
       if (!straPath.contains(pathHomeBin))
       {
 
-         str += ":" + pathHomeBin;
+         strPath += ":" + pathHomeBin;
 
          bChanged = true;
 
@@ -2550,7 +2587,7 @@ if(functionTrace)
       if (!straPath.contains(pathToolBin))
       {
 
-         str += ":" + pathToolBin;
+         strPath += ":" + pathToolBin;
 
          bChanged = true;
 
@@ -2566,7 +2603,7 @@ if(functionTrace)
       if (::is_set(pstrCorrectPath))
       {
 
-         *pstrCorrectPath = str;
+         *pstrCorrectPath = strPath;
 
       }
 
@@ -2719,7 +2756,7 @@ if(functionTrace)
          strCommand.find_replace("\"", "\\\"");
 
          iExitCode = this->posix_shell_command(
-                 "konsole --wait -- /bin/bash -c \"" + strCommand + "\"",
+                 "konsole -e /bin/bash -c \"" + strCommand + "\"",
                  eposixshell,
                  tracefunction);
 

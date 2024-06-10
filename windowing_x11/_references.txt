@@ -1,1 +1,2 @@
+operating_system-posix/windowing_posix
 operating_system-posix/nano_user_x11
