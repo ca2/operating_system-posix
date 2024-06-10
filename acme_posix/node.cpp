@@ -2513,7 +2513,7 @@ if(functionTrace)
 
    }
 
-   bool node::_is_code_exe_user_path_environment_variable_ok(::string* pstrCorrectPath)
+   bool node::_is_code_exe_user_path_environment_variable_ok(::string* pstrCorrectPath, const char * pszPath)
    {
 
       auto str = get_environment_variable("PATH");

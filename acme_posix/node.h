@@ -126,9 +126,9 @@ namespace acme_posix
       bool has_command(const ::scoped_string& scopedstrCommand) override;
 
 
-      void launch_no_hup(const ::file::path & pathExecutable, const ::file::path & pathLog) override;
+      void detached_command(const ::scoped_string & scopedstrCommand, const ::file::path & pathLog) override;
 
-      bool _is_code_exe_user_path_environment_variable_ok(::string* pstrCorrectPath) override;
+      bool _is_code_exe_user_path_environment_variable_ok(::string* pstrCorrectPath, const char * pszPath) override;
 
       enum_windowing calculate_ewindowing() override;
 
@@ -144,7 +144,7 @@ namespace acme_posix
       bool _is_git_credential_manager_installed() override;
 
 
-      virtual int synchronous_terminal(const ::scoped_string& scopedstrCommand, enum_posix_shell eposixshell, const trace_function& tracefunction);
+      int synchronous_terminal(const ::scoped_string& scopedstrCommand, enum_posix_shell eposixshell, const trace_function& tracefunction) override;
 
 
    };
