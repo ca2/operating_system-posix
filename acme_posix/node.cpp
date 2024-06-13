@@ -2780,6 +2780,27 @@ if(functionTrace)
    }
 
 
+   bool node::_is_google_chrome_installed()
+   {
+
+      bool bInstalled = node()->has_posix_shell_command("google-chrome");
+
+      return bInstalled;
+
+   }
+
+
+   bool node::_is_visual_studio_code_installed()
+   {
+
+      bool bInstalled = node()->has_posix_shell_command("code");
+
+      return bInstalled;
+
+   }
+
+
+
 } // namespace acme_posix
 
 
