@@ -143,7 +143,7 @@ namespace acme_posix
       
       bool _is_git_credential_manager_installed() override;
 
-      int synchronous_terminal(const ::scoped_string& scopedstrCommand, enum_posix_shell eposixshell, const trace_function& tracefunction) override;
+      int synchronous_posix_terminal(const ::scoped_string& scopedstrCommand, enum_posix_shell eposixshell, const trace_function& tracefunction) override;
 
       bool _is_google_chrome_installed() override;
 

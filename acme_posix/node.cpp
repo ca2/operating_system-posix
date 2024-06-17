@@ -2725,7 +2725,7 @@ if(functionTrace)
 
 #endif
 
-   int node::synchronous_terminal(const ::scoped_string& scopedstrCommand, enum_posix_shell eposixshell, const trace_function& tracefunction)
+   int node::synchronous_posix_terminal(const ::scoped_string& scopedstrCommand, enum_posix_shell eposixshell, const trace_function& tracefunction)
    {
 
       auto edesktop = get_edesktop();
