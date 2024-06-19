@@ -45,11 +45,14 @@ list(APPEND library_references
         aura
         aura_posix
         windowing_posix
+        windowing_system_x11
         windowing_system_xcb
         windowing_system_wayland
         nano_user_x11
-        windowing_xcb
+        nano_user_xcb
+        nano_user_wayland
         windowing_x11
+        windowing_xcb
         windowing_wayland
 )
 
