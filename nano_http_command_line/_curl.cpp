@@ -76,16 +76,11 @@ namespace command_line
 
                   auto pszNonSpace = pszSpace + nonSpace;
 
-                  auto pszNewLine = strpbrk(pszNonSpace, "\r\n");
+                  ::string strStatus = pszNonSpace;
 
-                  if(!pszNewLine)
-                  {
+                  strStatus.trim();
 
-                     return false;
-
-                  }
-
-                  if(!strncmp(pszNonSpace, "200", pszNewLine - pszNonSpace))
+                  if(strStatus == "200")
                   {
 
                      return true;
@@ -143,7 +138,7 @@ namespace command_line
 
             ::string strUrl(scopedstrUrl);
 
-            strCommand.formatf("curl %s > \"%s\"", strUrl.c_str(), path.c_str());
+            strCommand.formatf("curl %s --output \"%s\"", strUrl.c_str(), path.c_str());
 
             int iExitCode = node()->command_system(strCommand, 2_hour);
 
