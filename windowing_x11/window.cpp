@@ -5373,7 +5373,7 @@ namespace windowing_x11
 
       //windowing()->windowing_post([this]()
       //                          {
-
+      user_post([this]()
       {
 
          //synchronous_lock synchronouslock(user_synchronization());
@@ -5388,7 +5388,7 @@ namespace windowing_x11
 
          pbuffer->_update_screen_lesser_lock();
 
-      }
+      });
 
       auto pimpl = m_puserinteractionimpl;
 
