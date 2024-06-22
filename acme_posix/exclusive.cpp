@@ -11,9 +11,9 @@
 
 
 #include "acme/_operating_system.h"
-#ifdef FREEBSD
-#define __XSI_VISIBLE 1
-#endif
+//#ifdef FREEBSD
+//#define __XSI_VISIBLE 1
+//#endif
 #if defined(LINUX) || defined(ANDROID) || defined(FREEBSD) || defined(__APPLE__) || defined(OPENBSD)
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -21,9 +21,7 @@
 #endif
 
 
-#if defined(OPENBSD)
 #include <stdio.h>
-#endif
 
 
 namespace acme_posix
@@ -164,7 +162,7 @@ namespace acme_posix
                
             }
 
-            printf("exclusive::~exclusive Unlock m_iLock");
+            print_line("exclusive::~exclusive Unlock m_iLock");
 
          }
 

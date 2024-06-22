@@ -10,9 +10,9 @@
 ////#include "acme/exception/exception.h"
 
 
-#if defined(FREEBSD)
-#define __XSI_VISIBLE 1
-#elif defined(__APPLE__)
+//#if defined(FREEBSD)
+//#define __XSI_VISIBLE 1
+#if defined(__APPLE__)
 void utc_timespec(timespec * ptimespec);
 #include <sys/time.h>
 #include <unistd.h>

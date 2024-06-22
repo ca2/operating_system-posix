@@ -3085,7 +3085,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       XGetErrorText(d, e->error_code, sz, sizeof(sz));
 
-      fputs(sz, stderr);
+      err_line(sz);
 
       abort();
 

@@ -1,8 +1,8 @@
 // Created on 2021-04-29 1:03 PM BRT <3TBS_!! Second celebration of Mummis Birthday 70!!
 #include "framework.h"
-#if defined(FREEBSD) || defined(OPENBSD)
-#define __XSI_VISIBLE 1
-#endif
+//#if defined(FREEBSD) || defined(OPENBSD)
+//#define __XSI_VISIBLE 1
+//#endif
 #include "exception_translator.h"
 //#include "acme/exception/standard.h"
 #include "acme/platform/sequencer.h"

@@ -5,7 +5,7 @@
 #include "framework.h"
 #include "acme_path.h"
 #if defined( FREEBSD) || defined(OPENBSD)
-#define __XSI_VISIBLE 1
+//#define __XSI_VISIBLE 1
 #include <unistd.h>
 #else
 #include <unistd.h>

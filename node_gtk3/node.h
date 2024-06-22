@@ -41,13 +41,13 @@ namespace node_gtk3
       ~node() override;
 
 
-      virtual void _set_os_user_theme(const ::scoped_string & strTheme);
-      virtual void _apply_os_user_theme();
+      void _set_os_user_theme(const ::scoped_string & strTheme) override;
+      void _apply_os_user_theme() override;
       //virtual ::string _get_os_user_theme();
 
 
-      virtual void _set_os_user_icon_theme(const ::scoped_string & strIconTheme);
-      virtual void _apply_os_user_icon_theme();
+      void _set_os_user_icon_theme(const ::scoped_string & strIconTheme) override;
+      void _apply_os_user_icon_theme() override;
 
 
       void _fill_os_theme_colors(::os_theme_colors * pthemecolors) override;
@@ -114,7 +114,7 @@ namespace node_gtk3
 
       //void user_post_quit() override;
 
-      virtual void on_user_system_quit();
+      void on_user_system_quit() override;
 
       bool should_launch_on_node(::topic * ptopic) override;
 
@@ -132,8 +132,7 @@ namespace node_gtk3
 
       ::e_status _allocate_Display_and_connection() override;
 
-      virtual void _on_gtk_init();
-
+      void _on_gtk_init() override;
 
       ::wl_display * get_wayland_display() override;
 

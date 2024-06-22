@@ -9,6 +9,8 @@
 #include "acme/_operating_system.h"
 #include <dlfcn.h>
 #include <link.h>
+#include <errno.h>
+#include <string.h>
 
 
 class modules_query :
@@ -232,7 +234,7 @@ namespace dl
 
             }
 
-            if (strstr((const char *) strPath, "/") == nullptr && !ansi_begins(strPath, "lib"))
+            if (!strPath.contains('/') && !ansi_begins(strPath, "lib"))
             {
 
                strPath = "lib" + strPath;
