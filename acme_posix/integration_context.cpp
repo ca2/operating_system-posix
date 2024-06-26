@@ -263,7 +263,7 @@ namespace acme_posix
 
             auto pmemoryFileTar = create_memory_file();
 
-            system()->uncompress(pmemoryFileTar, pmemoryFileTarGz, "zlib");
+            system()->zlib_uncompress(pmemoryFileTar, pmemoryFileTarGz);
 
             pmemoryFileTar->seek_to_begin();
 
