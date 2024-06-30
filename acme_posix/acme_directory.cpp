@@ -9,6 +9,8 @@
 #include "acme/nano/nano.h"
 #include "acme/nano/account/account.h"
 #include "acme/nano/account/user.h"
+#include "acme/operating_system/summary.h"
+#include "acme/platform/node.h"
 #include "acme/_operating_system.h"
 
 
@@ -644,6 +646,37 @@ void acme_directory::erase_recursively(const ::file::path &path)
    {
 
       return ::access(path, X_OK) == 0;
+
+   }
+
+
+   ::file::path acme_directory::___fonts()
+   {
+
+      ::file::path path___fontsFolder;
+
+      auto psummary = node()->operating_system_summary();
+
+      if(psummary->m_strDistroFamily.case_insensitive_equals("debian"))
+      {
+
+         path___fontsFolder = "/usr/share/fonts/truetype/___fonts";
+
+      }
+      else if(psummary->m_strDistro.case_insensitive_equals("fedora"))
+      {
+
+         path___fontsFolder = "/usr/share/fonts/___fonts";
+
+      }
+      else
+      {
+
+         path___fontsFolder = "/usr/share/fonts/truetype/___fonts";
+
+      }
+
+      return path___fontsFolder;
 
    }
 
