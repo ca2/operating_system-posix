@@ -32,6 +32,10 @@ namespace acme_posix
       void install_sigchld_handler() override;
 
 
+       bool _is_dropbox_installed() override;
+
+       void calculate_dropbox_installed() override;
+
 
       // defined at process.cpp
       void call_async(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid = nullptr) override;

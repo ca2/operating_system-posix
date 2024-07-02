@@ -9,8 +9,11 @@
 #include "exclusive.h"
 #include "acme/exception/interface_only.h"
 #include "acme/filesystem/file/exception.h"
+#include "acme/filesystem/filesystem/dir_context.h"
+#include "acme/filesystem/filesystem/file_context.h"
 #include "acme/filesystem/filesystem/listing.h"
 #include "acme/parallelization/single_lock.h"
+#include "acme/platform/application.h"
 #include "acme/platform/system.h"
 #include "acme/primitive/string/command_line.h"
 #include "acme/primitive/string/str.h"
@@ -2799,6 +2802,93 @@ if(functionTrace)
 
    }
 
+
+   bool node::_is_dropbox_installed()
+   {
+
+      if (!m_bDropboxCalculated)
+      {
+
+         calculate_dropbox_installed();
+
+      }
+
+      return m_bDropbox;
+
+   }
+
+
+   void node::calculate_dropbox_installed()
+   {
+
+      m_bDropbox = false;
+
+      m_pathDropbox.empty();
+
+      m_bDropboxCalculated = true;
+
+      ::file::path pathNetworkPayload = file()->dropbox_info_network_payload();
+
+      if (!file()->exists(pathNetworkPayload))
+      {
+
+         if (application()->is_desktop_system())
+         {
+
+            auto pathHome = dir()->home();
+
+            auto pathTxt = pathHome / "dropbox.txt";
+
+            if (file()->exists(pathTxt))
+            {
+
+               string strPath = file()->safe_get_string(pathTxt);
+
+               strPath.trim();
+
+               if (strPath.has_char() && dir()->is(strPath))
+               {
+
+                  m_pathDropbox = strPath;
+
+                  m_bDropbox = true;
+
+               }
+
+            }
+
+         }
+         else
+         {
+
+            m_pathDropbox.empty();
+
+         }
+
+      }
+      else
+      {
+
+         string strNetworkPayload = file()->as_string(pathNetworkPayload);
+
+         ::property_set set;
+
+         set.parse_network_payload(strNetworkPayload);
+
+         m_pathDropbox = set["personal"]["path"];
+
+         if (dir()->is(m_pathDropbox))
+         {
+
+            m_bDropbox = true;
+
+         }
+
+      }
+
+      m_bDropboxCalculated = true;
+
+   }
 
 
 } // namespace acme_posix
