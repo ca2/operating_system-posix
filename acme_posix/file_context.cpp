@@ -3,6 +3,7 @@
 //
 #include "framework.h"
 #include "file_context.h"
+#include "acme/filesystem/filesystem/dir_context.h"
 #include "acme/operating_system/shared_posix/c_error_number.h"
 #include <sys/stat.h>
 
@@ -77,19 +78,17 @@ namespace acme_posix
    }
 
 
-bool file_context::is_read_only(const ::file::path &psz)
-{
+   bool file_context::is_read_only(const ::file::path &psz)
+   {
 
+      struct stat st;
 
-   struct stat st;
+      if (stat(psz, &st) != 0)
+         return true;
 
-   if (stat(psz, &st) != 0)
-      return true;
+      return !(st.st_mode & S_IWUSR);
 
-   return !(st.st_mode & S_IWUSR);
-
-
-}
+   }
 
 
    void file_context::erase(const ::file::path &psz)
@@ -114,6 +113,14 @@ bool file_context::is_read_only(const ::file::path &psz)
       }
 
       //return ::success;
+
+   }
+
+
+   file::path file_context::dropbox_client()
+   {
+
+      return dir()->dropbox_client()/ "dropbox";
 
    }
 

@@ -40,6 +40,9 @@ namespace acme_posix
       virtual ::file::path document() override;
 
 
+      ::file::path dropbox_client() override;
+
+
    };
 
 

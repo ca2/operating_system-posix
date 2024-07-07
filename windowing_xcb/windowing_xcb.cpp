@@ -1278,7 +1278,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //   while (ppsz[i] != NULL)
 //   {
 //
-//      if (!ansi_compare_ci(pszText, ppsz[i]))
+//      if (!case_insensitive_ansi_compare(pszText, ppsz[i]))
 //      {
 //
 //         break;

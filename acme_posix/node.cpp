@@ -2728,13 +2728,13 @@ if(functionTrace)
 
 #endif
 
+
    int node::synchronous_posix_terminal(const ::scoped_string& scopedstrCommand, enum_posix_shell eposixshell, const trace_function& tracefunction)
    {
 
       auto edesktop = get_edesktop();
 
       ::string strCommand(scopedstrCommand);
-
 
       int iExitCode = -1;
 
@@ -2745,9 +2745,8 @@ if(functionTrace)
 
          strCommand.find_replace("\"", "\\\"");
 
-         iExitCode = this->posix_shell_command(
+         iExitCode = this->command_system(
                  "xterm -e bash -c \"" + strCommand+"\"",
-                 eposixshell,
                  tracefunction);
 
       }
@@ -2758,9 +2757,8 @@ if(functionTrace)
 
          strCommand.find_replace("\"", "\\\"");
 
-         iExitCode = this->posix_shell_command(
+         iExitCode = this->command_system(
                  "konsole -e /bin/bash -c \"" + strCommand + "\"",
-                 eposixshell,
                  tracefunction);
 
       }
@@ -2771,9 +2769,8 @@ if(functionTrace)
 
          strCommand.find_replace("\"", "\\\"");
 
-         iExitCode = this->posix_shell_command(
+         iExitCode = this->command_system(
                  "gnome-terminal --wait -- /bin/bash -c \"" + strCommand + "\"",
-                 eposixshell,
                  tracefunction);
 
       }
@@ -2803,92 +2800,21 @@ if(functionTrace)
    }
 
 
-   bool node::_is_dropbox_installed()
-   {
+   // bool node::_is_dropbox_installed()
+   // {
+   //
+   //    if (!m_bDropboxCalculated)
+   //    {
+   //
+   //       calculate_dropbox_installed();
+   //
+   //    }
+   //
+   //    return m_bDropbox;
+   //
+   // }
 
-      if (!m_bDropboxCalculated)
-      {
 
-         calculate_dropbox_installed();
-
-      }
-
-      return m_bDropbox;
-
-   }
-
-
-   void node::calculate_dropbox_installed()
-   {
-
-      m_bDropbox = false;
-
-      m_pathDropbox.empty();
-
-      m_bDropboxCalculated = true;
-
-      ::file::path pathNetworkPayload = file()->dropbox_info_network_payload();
-
-      if (!file()->exists(pathNetworkPayload))
-      {
-
-         if (application()->is_desktop_system())
-         {
-
-            auto pathHome = dir()->home();
-
-            auto pathTxt = pathHome / "dropbox.txt";
-
-            if (file()->exists(pathTxt))
-            {
-
-               string strPath = file()->safe_get_string(pathTxt);
-
-               strPath.trim();
-
-               if (strPath.has_char() && dir()->is(strPath))
-               {
-
-                  m_pathDropbox = strPath;
-
-                  m_bDropbox = true;
-
-               }
-
-            }
-
-         }
-         else
-         {
-
-            m_pathDropbox.empty();
-
-         }
-
-      }
-      else
-      {
-
-         string strNetworkPayload = file()->as_string(pathNetworkPayload);
-
-         ::property_set set;
-
-         set.parse_network_payload(strNetworkPayload);
-
-         m_pathDropbox = set["personal"]["path"];
-
-         if (dir()->is(m_pathDropbox))
-         {
-
-            m_bDropbox = true;
-
-         }
-
-      }
-
-      m_bDropboxCalculated = true;
-
-   }
 
 
 } // namespace acme_posix

@@ -206,7 +206,7 @@ namespace acme_posix
          strName.replace(":", "_");
          strName.replace("/", "_");
 
-         if(string_begins_ci(pstrName, "Global"))
+         if(case_insensitive_string_begins(pstrName, "Global"))
          {
 
    #ifdef ANDROID
@@ -382,7 +382,7 @@ namespace acme_posix
 
          ::file::path path;
 
-         if(string_begins_ci(pstrName, "Global"))
+         if(case_insensitive_string_begins(pstrName, "Global"))
          {
 
             path = "/::payload/lock/ca2/mutex/named";

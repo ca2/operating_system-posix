@@ -399,7 +399,7 @@ namespace node_kde6
 
       ::string str;
 
-      lines.find_first_begins_eat_ci(str, "LookAndFeelPackage");
+      lines.case_insensitive_find_first_begins_eat(str, "LookAndFeelPackage");
 
       if(str.is_empty())
       {

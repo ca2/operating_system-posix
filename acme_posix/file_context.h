@@ -23,6 +23,8 @@ namespace acme_posix
 
       void erase(const ::file::path & path) override;
 
+      ::file::path dropbox_client() override;
+
 
    };
 

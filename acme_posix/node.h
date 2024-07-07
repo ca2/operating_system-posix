@@ -32,9 +32,9 @@ namespace acme_posix
       void install_sigchld_handler() override;
 
 
-       bool _is_dropbox_installed() override;
+       //bool _is_dropbox_installed() override;
 
-       void calculate_dropbox_installed() override;
+       //void calculate_dropbox_installed() override;
 
 
       // defined at process.cpp

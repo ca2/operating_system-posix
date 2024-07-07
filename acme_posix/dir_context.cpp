@@ -1,6 +1,7 @@
 // Created by camilo on 2023-01-19 23:36 <3ThomasBorregaardSorensen!!
 #include "framework.h"
 #include "dir_context.h"
+#include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/filesystem/filesystem/dir_system.h"
 #include "acme/filesystem/filesystem/file_system.h"
 #include "acme/filesystem/filesystem/acme_file.h"
@@ -22,7 +23,7 @@
 
    string strPrefix = str + "=";
 
-   straLines.filter_begins_ci(strPrefix);
+   straLines.case_insensitive_filter_begins(strPrefix);
 
    if(straLines.get_size() != 1)
    {
@@ -262,6 +263,13 @@ namespace acme_posix
 
    }
 
+
+   ::file::path dir_context::dropbox_client()
+   {
+
+      return acmedirectory()->home() / "bin";
+
+   }
 
 
 } // namespace acme_posix
