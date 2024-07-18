@@ -2738,7 +2738,8 @@ if(functionTrace)
 
       int iExitCode = -1;
 
-      if(edesktop == ::user::e_desktop_xfce)
+      if(edesktop == ::user::e_desktop_xfce
+              || edesktop == ::user::e_desktop_kde)
       {
 
          strCommand.find_replace("\\", "\\\\");
@@ -2750,18 +2751,18 @@ if(functionTrace)
                  tracefunction);
 
       }
-      else if(edesktop == ::user::e_desktop_kde)
-      {
-
-         strCommand.find_replace("\\", "\\\\");
-
-         strCommand.find_replace("\"", "\\\"");
-
-         iExitCode = this->command_system(
-                 "konsole -e /bin/bash -c \"" + strCommand + "\"",
-                 tracefunction);
-
-      }
+//      else if(edesktop == ::user::e_desktop_kde)
+//      {
+//
+//         strCommand.find_replace("\\", "\\\\");
+//
+//         strCommand.find_replace("\"", "\\\"");
+//
+//         iExitCode = this->command_system(
+//                 "konsole -e /bin/bash -c \"" + strCommand + "\"",
+//                 tracefunction);
+//
+//      }
       else
       {
 
