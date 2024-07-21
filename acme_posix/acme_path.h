@@ -38,6 +38,9 @@ namespace acme_posix
       ::file::path get_absolute_path(const ::scoped_string& scopedstr) override;
       void rename(const ::file::path& pathNewName, const ::file::path& pathOldName) override;
 
+      void symbolic_link(const ::file::path& pathTarget, const ::file::path& pathSource)override;
+
+
    };
 
 

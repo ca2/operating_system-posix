@@ -184,6 +184,18 @@ void acme_path::rename(const ::file::path& pathNewName, const ::file::path& path
 }
 
 
+void acme_path::symbolic_link(const ::file::path & pathTarget, const ::file::path & pathSource)
+{
+
+   auto pszTarget = pathTarget.c_str();
+
+   auto pszSource = pathSource.c_str();
+   
+   ::symlink(pszSource, pszTarget);
+
+}
+
+
 } // namespace acme_posix
 
 
