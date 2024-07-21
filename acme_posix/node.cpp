@@ -2746,6 +2746,8 @@ if(functionTrace)
 
          strCommand.find_replace("\"", "\\\"");
 
+         strCommand.find_replace("\n", "\\n");
+
          iExitCode = this->command_system(
                  "xterm -e bash -c \"" + strCommand+"\"",
                  tracefunction);
@@ -2770,7 +2772,9 @@ if(functionTrace)
 
          strCommand.find_replace("\"", "\\\"");
 
-         iExitCode = this->command_system(
+          strCommand.find_replace("\n", "\\n");
+
+          iExitCode = this->command_system(
                  "gnome-terminal --wait -- /bin/bash -c \"" + strCommand + "\"",
                  tracefunction);
 
