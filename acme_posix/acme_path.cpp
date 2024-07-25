@@ -191,7 +191,14 @@ void acme_path::symbolic_link(const ::file::path & pathTarget, const ::file::pat
 
    auto pszSource = pathSource.c_str();
    
-   ::symlink(pszSource, pszTarget);
+   int iError = ::symlink(pszSource, pszTarget);
+
+      if(iError != 0)
+      {
+
+         throw ::exception(error_failed);
+
+      }
 
 }
 

@@ -10,7 +10,7 @@
 #include "aura/user/user/user.h"
 #include "aura/windowing/keyboard.h"
 #include "aura/windowing/windowing.h"
-#include "acme/operating_system/wayland/xkb_input.h"
+#include "operating_system-posix/windowing_system_wayland/xkb_input.h"
 #include <libinput.h>
 #include <unistd.h>
 #include <fcntl.h>
