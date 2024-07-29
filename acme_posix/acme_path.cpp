@@ -184,14 +184,14 @@ void acme_path::rename(const ::file::path& pathNewName, const ::file::path& path
 }
 
 
-void acme_path::create_symbolic_link(const ::file::path & pathTarget, const ::file::path & pathSource)
+void acme_path::create_symbolic_link(const ::scoped_string & scopedstrLink, const ::scoped_string& scopedstrSource)
 {
 
-   auto pszTarget = pathTarget.c_str();
+   ::string strTarget = scopedstrLink;
 
-   auto pszSource = pathSource.c_str();
+   ::string strSource = scopedstrSource;
    
-   int iError = ::symlink(pszSource, pszTarget);
+   int iError = ::symlink(strSource, strTarget);
 
       if(iError != 0)
       {
