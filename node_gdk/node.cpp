@@ -874,27 +874,6 @@ namespace node_gdk
 //   }
 
 
-//   void node::_fill_os_theme_colors(::os_theme_colors * pthemecolors)
-//   {
-//
-//      ::string strGtkTheme;
-//
-//      strGtkTheme = _get_os_user_theme();
-//
-//      if(strGtkTheme.has_char())
-//      {
-//
-//         _fill_os_theme_colors(pthemecolors, strGtkTheme, dark_mode());
-//
-//      }
-//      else
-//      {
-//
-//         ::acme_posix::node::_fill_os_theme_colors(pthemecolors);
-//
-//      }
-//
-//   }
 
 
    void node::_fetch_dark_mode()
