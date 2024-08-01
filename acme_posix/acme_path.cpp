@@ -92,19 +92,18 @@ namespace acme_posix
          return "";
 
       }
+       
+       ::string str(path);
+       
+       char pszRealPath[PATH_MAX];
+       
+       ::zero(pszRealPath);
 
-      char * pszRealPath = ::realpath(path.c_str(), NULL);
-
-      if (::is_null(pszRealPath))
-      {
-
-         return path;
-
-      }
+      ::realpath(str, pszRealPath);
 
       ::file::path filepath(pszRealPath);
 
-      ::free(pszRealPath);
+      //::free(pszRealPath);
 
       return filepath;
 
