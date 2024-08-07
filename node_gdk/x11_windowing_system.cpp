@@ -119,7 +119,7 @@ namespace x11
 
                 });
 
-      if (!pevent->wait(procedure.m_timeTimeout)) {
+      if (!pevent->_wait(procedure.m_timeTimeout)) {
 
          throw ::exception(error_timeout);
          //pevent.release();

@@ -21,6 +21,7 @@ namespace windowing_x11
    public:
 
 
+      class ::time                                    m_timeLastMotionNotify;
       bool                                            m_bRootSelectInput : 1;
       bool                                            m_bFirstWindowMap : 1;
 

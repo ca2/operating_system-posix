@@ -1698,6 +1698,17 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                m_pdisplay->m_pointCursor2.y() = e.xmotion.y_root;
 
+               if(m_timeLastMotionNotify.elapsed() < 2_ms)
+               {
+
+                  print_line("ignored motion notify");
+
+                  return true;
+
+               }
+
+               m_timeLastMotionNotify.Now();
+
                //msg.oswindow->set_cursor_position(m_pointCursor);
 
                //information() << "MotionNotify " << m_pdisplay->m_pointCursor2;
@@ -3056,9 +3067,10 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          default:
          {
 
+            warningf("windowing_x11 unknown/unhandled event : %d", e.type);
 
-            informationf("axis_x11 case default:");
          }
+         break;
       }
 
       // processed

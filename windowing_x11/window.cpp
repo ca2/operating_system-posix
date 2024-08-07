@@ -4790,7 +4790,7 @@ namespace windowing_x11
    void window::destroy_window()
    {
 
-      system()->windowing_system()->sync([this]()
+      procedure procedure = [this]()
                {
 
 
@@ -4876,7 +4876,11 @@ namespace windowing_x11
 
                   //return ::success;
 
-               });
+               };
+
+      procedure.m_timeTimeout = 1_min;
+
+      system()->windowing_system()->sync(procedure);
 
    }
 
@@ -5386,7 +5390,12 @@ namespace windowing_x11
 
          ::pointer<buffer> pbuffer = pimpl->m_pgraphicsgraphics;
 
-         pbuffer->_update_screen_lesser_lock();
+         if(pbuffer)
+         {
+
+            pbuffer->_update_screen_lesser_lock();
+
+         }
 
       });
 
