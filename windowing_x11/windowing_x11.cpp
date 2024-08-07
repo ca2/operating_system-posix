@@ -1471,12 +1471,12 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 
 #ifdef WITH_XI
-#pragma message("WITH_XI")
+//#pragma message("WITH_XI")
 
    bool windowing::x11_process_event(XEvent *pevent, XGenericEventCookie *cookie)
 #else
    bool windowing::x11_process_event(XEvent *pevent)
-#pragma message("No XI")
+//#pragma message("No XI")
 #endif
    {
 

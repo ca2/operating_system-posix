@@ -28,10 +28,13 @@ namespace windowing_posix
 
 #include "_constant.h"
 
-
+#if !defined(WITH_SN)
 #define WITH_SN
+#endif
 
+#if !defined(WITH_XI)
 #define WITH_XI
+#endif
 
 
 namespace x11
