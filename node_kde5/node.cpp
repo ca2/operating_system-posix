@@ -360,7 +360,7 @@ namespace node_kde5
 //      }
 
 
-         ::x11::nano::user::display_get(this, false, p);
+         ::x11::nano::user::display_get(this, false, (Display *)p);
 
          return ::success;
 
