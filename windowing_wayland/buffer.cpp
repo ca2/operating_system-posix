@@ -19,7 +19,7 @@
 #include "windowing_system_x11/display_lock.h"
 
 //#define VERI_BASIC_TEST
-
+#define MORE_LOG
 
 namespace windowing_wayland
 {
@@ -682,22 +682,19 @@ namespace windowing_wayland
 
          };
 
-         try
-         {
+         try {
 
             ::pointer<::windowing_wayland::window> pwaylandwindow = m_pimpl->m_pwindow;
 
             ::string strType = ::type(pwaylandwindow->m_puserinteractionimpl->m_puserinteraction).name();
 
             //::pointer<::windowing_wayland::window> pwaylandwindow = m_pimpl->m_pwindow;
-            if(::is_null(pwaylandwindow->m_pxdgtoplevel)
-            && ::is_null(pwaylandwindow->m_pxdgpopup))
-            {
+            if (::is_null(pwaylandwindow->m_pxdgtoplevel)
+                && ::is_null(pwaylandwindow->m_pxdgpopup)) {
 
                auto edisplay = pwaylandwindow->m_puserinteractionimpl->m_puserinteraction->const_layout().design().display();
 
-               if(!pwaylandwindow->windowing()->is_screen_visible(edisplay) && edisplay != e_display_iconic)
-               {
+               if (!pwaylandwindow->windowing()->is_screen_visible(edisplay) && edisplay != e_display_iconic) {
 
                   information() << "::windowing_wayland::buffer::update_screen this is not visible (2)";
 
@@ -709,14 +706,11 @@ namespace windowing_wayland
 
                pwaylandwindow->__map();
 
-            }
-            else
-            {
+            } else {
 
                auto edisplay = pwaylandwindow->m_puserinteractionimpl->m_puserinteraction->const_layout().design().display();
 
-               if(!pwaylandwindow->windowing()->is_screen_visible(edisplay) && edisplay != e_display_iconic)
-               {
+               if (!pwaylandwindow->windowing()->is_screen_visible(edisplay) && edisplay != e_display_iconic) {
 
                   pwaylandwindow->__unmap();
 
@@ -724,13 +718,12 @@ namespace windowing_wayland
 
                }
 
-               }
+            }
 
             //          auto pimpl = m_puserinteractionimpl;
 
             //if(pwaylandwindow->m_bDoneFirstMapping && ::is_set(pwaylandwindow->m_pxdgtoplevel))
-            if(::is_set(pwaylandwindow->m_pxdgtoplevel))
-            {
+            if (::is_set(pwaylandwindow->m_pxdgtoplevel)) {
 
                pwaylandwindow->configure_window_unlocked();
 
@@ -743,9 +736,9 @@ namespace windowing_wayland
 //                                    }
 
 
-               bool bChangedPosition = false;
+            bool bChangedPosition = false;
 
-               bool bChangedSize = false;
+            bool bChangedSize = pwaylandwindow->m_sizeConfigure != pwaylandwindow->m_sizeWindow;
 
 //               information() << "(1) m_sizeConfigure : " << pwaylandwindow->m_sizeConfigure
 //                             << " m_sizeWindow : " << pwaylandwindow->m_sizeWindow
@@ -755,118 +748,132 @@ namespace windowing_wayland
 //
 //               information() << "(1) m_uLastConfigureSerial : " << pwaylandwindow->m_uLastConfigureSerial;
 
-               if ((::is_set(pwaylandwindow->m_pxdgtoplevel)
-               || ::is_set(pwaylandwindow->m_pxdgpopup))
-//                      && (pwaylandwindow->m_sizeConfigure.cx() == I32_MINIMUM
-//                    || pwaylandwindow->m_sizeConfigure.cy() == I32_MINIMUM)
-                   && (pwaylandwindow->m_timeLastConfigureRequest.elapsed() > 5_s
-                       || pwaylandwindow->m_uLastConfigureSerial > pwaylandwindow->m_uLastRequestSerial))
-               {
+            if ((::is_set(pwaylandwindow->m_pxdgtoplevel)
+                 || ::is_set(pwaylandwindow->m_pxdgpopup))
+                //                      && (pwaylandwindow->m_sizeConfigure.cx() == I32_MINIMUM
+                //                    || pwaylandwindow->m_sizeConfigure.cy() == I32_MINIMUM)
+                && (pwaylandwindow->m_timeLastConfigureRequest.elapsed() > 5_s
+                    || pwaylandwindow->m_uLastConfigureSerial > pwaylandwindow->m_uLastRequestSerial)) {
 
-                  try
-                  {
+               try {
 #ifdef MORE_LOG
-                     information()
+                  information()
 
-                        << "pwaylandwindow->strict_set_window_position_unlocked";
+                     << "pwaylandwindow->strict_set_window_position_unlocked";
 #endif
-                     pwaylandwindow->strict_set_window_position_unlocked(bChangedPosition, bChangedSize);
+                  pwaylandwindow->strict_set_window_position_unlocked(bChangedPosition, bChangedSize);
 
-                  }
-                  catch (...)
-                  {
-
-                  }
+               }
+               catch (...) {
 
                }
 
-               //}
+            }
 
-               _synchronous_lock slGraphics(synchronization());
+            //}
 
-               auto pitem = get_screen_item();
+            _synchronous_lock slGraphics(synchronization());
 
-               _synchronous_lock slImage(pitem->m_pmutex);
+            auto pitem = get_screen_item();
 
-               slGraphics.unlock();
+            _synchronous_lock slImage(pitem->m_pmutex);
+
+            slGraphics.unlock();
 
 #ifdef MORE_LOG
 
-               information()
+            information()
 
-                  << "m_sizeConfigure : " << pwaylandwindow->m_sizeConfigure
-                  << " m_sizeWindow : " << pwaylandwindow->m_sizeWindow
-                  << " pitem->m_size : " << pitem->m_size;
+               << "m_sizeConfigure : " << pwaylandwindow->m_sizeConfigure
+               << " m_sizeWindow : " << pwaylandwindow->m_sizeWindow
+               << " pitem->m_size : " << pitem->m_size;
 
-               information()
+            information()
+               << "lastConfigure.sec" << pwaylandwindow->m_timeLastConfigureRequest.elapsed().m_iSecond
+               << "lastConfigure.nansec" << pwaylandwindow->m_timeLastConfigureRequest.elapsed().m_iNanosecond
+               << "lastConfigure.serial" << pwaylandwindow->m_uLastConfigureSerial
+               << "lastRequest.serial" << pwaylandwindow->m_uLastRequestSerial;
 
-                  << "m_pxdgtoplevel : " << (::iptr) pwaylandwindow->m_pxdgtoplevel
-            << ", m_pxdgpopup : " << (::iptr) pwaylandwindow->m_pxdgpopup;
+            information()
+
+               << "m_pxdgtoplevel : " << (::iptr) pwaylandwindow->m_pxdgtoplevel
+               << ", m_pxdgpopup : " << (::iptr) pwaylandwindow->m_pxdgpopup;
 
 #endif
 
-               //if(pwaylandwindow->m_sizeWindow == pwaylandwindow->m_waylandbuffer.m_size
-               if ((::is_set(pwaylandwindow->m_pxdgtoplevel)
-               || ::is_set(pwaylandwindow->m_pxdgpopup))
-                  && pwaylandwindow->m_sizeWindow == pitem->m_size
-                   && ((pwaylandwindow->m_sizeConfigure.cx() == I32_MINIMUM
-                        || pwaylandwindow->m_sizeConfigure.cy() == I32_MINIMUM)
-                       || pwaylandwindow->m_sizeWindow == pwaylandwindow->m_sizeConfigure)
-                   &&
-                   (pwaylandwindow->m_timeLastConfigureRequest.elapsed() > 5_s
-                    || pwaylandwindow->m_uLastConfigureSerial > pwaylandwindow->m_uLastRequestSerial))
-               {
+            //if(pwaylandwindow->m_sizeWindow == pwaylandwindow->m_waylandbuffer.m_size
+            if ((::is_set(pwaylandwindow->m_pxdgtoplevel)
+                 || ::is_set(pwaylandwindow->m_pxdgpopup))
+                && pwaylandwindow->m_sizeWindow == pitem->m_size
+                && ((pwaylandwindow->m_sizeConfigure.cx() == I32_MINIMUM
+                     || pwaylandwindow->m_sizeConfigure.cy() == I32_MINIMUM)
+                    || pwaylandwindow->m_sizeWindow == pwaylandwindow->m_sizeConfigure)
+                &&
+                (pwaylandwindow->m_timeLastConfigureRequest.elapsed() > 5_s
+                 || pwaylandwindow->m_uLastConfigureSerial > pwaylandwindow->m_uLastRequestSerial))
+            {
 
-                  pwaylandwindow->__defer_update_wayland_buffer();
+#ifdef MORE_LOG
+
+               information() << "__defer_update_wayland_buffer";
+
+#endif
+
+               pwaylandwindow->__defer_update_wayland_buffer();
 
 
 
 //         m_pwlcallbackFrame = wl_surface_frame(pwaylandwindow->m_pwlsurface);
 //         wl_callback_add_listener(m_pwlcallbackFrame, &frame_listener, this);
 
-                  auto & pimage = pitem->m_pimage2;
+               auto & pimage = pitem->m_pimage2;
 
-                  pimage->map();
+               pimage->map();
 
-                  ::copy_image32((::image32_t *) pwaylandwindow->m_buffer.m_pdata,
-                                 pwaylandwindow->m_buffer.m_size,
-                                 pwaylandwindow->m_buffer.m_stride,
-                                 pitem->m_pimage2->data(), pitem->m_pimage2->scan_size());
+
+               ::copy_image32((::image32_t *) pwaylandwindow->m_buffer.m_pdata,
+                              pwaylandwindow->m_buffer.m_size,
+                              pwaylandwindow->m_buffer.m_stride,
+                              pitem->m_pimage2->data(), pitem->m_pimage2->scan_size());
 
 #ifdef MORE_LOG
-                  information()
+               information()
 
-                     << "_update_screen_unlocked data : "
-                                << (::iptr) pwaylandwindow->m_waylandbuffer.m_pdata;
+                  << "_update_screen_unlocked data : "
+                  << (::iptr) pwaylandwindow->m_buffer.m_pdata;
 
+#else
+               information()
+
+                  << "_update_screen_unlocked data : "
+                  << (::iptr) pwaylandwindow->m_buffer.m_pdata;
 
 #endif
 
 
-                  //memset(pwindow->m_waylandbuffer.m_pdata, 127,pitem->m_size.cx() * 4 * pitem->m_size.cy());
+               //memset(pwindow->m_waylandbuffer.m_pdata, 127,pitem->m_size.cx() * 4 * pitem->m_size.cy());
 //      m_pwlcallbackFrame = wl_surface_frame(pwindow->m_pwlsurface);
-                  wl_surface_attach(pwaylandwindow->m_pwlsurface,
-                                    pwaylandwindow->m_buffer.m_pwlbuffer, 0, 0);
-                  //       wl_callback_add_listener(m_pwlcallbackFrame, &frame_listener, NULL);
-                  wl_surface_damage(pwaylandwindow->m_pwlsurface, 0, 0, pitem->m_size.cx(),
-                                    pitem->m_size.cy());
+               wl_surface_attach(pwaylandwindow->m_pwlsurface,
+                                 pwaylandwindow->m_buffer.m_pwlbuffer, 0, 0);
+               //       wl_callback_add_listener(m_pwlcallbackFrame, &frame_listener, NULL);
+               wl_surface_damage(pwaylandwindow->m_pwlsurface, 0, 0, pitem->m_size.cx(),
+                                 pitem->m_size.cy());
 
 
-                  pwaylandwindow->__defer_xdg_surface_ack_configure();
-                  wl_surface_commit(pwaylandwindow->m_pwlsurface);
+               pwaylandwindow->__defer_xdg_surface_ack_configure();
+               wl_surface_commit(pwaylandwindow->m_pwlsurface);
 
 #ifdef MORE_LOG
 
-                  information()
+               information()
 
-                     << "wl_surface_commit";
+                  << "wl_surface_commit";
 
 #endif
 
-                                             if (!pwaylandwindow->m_bDoneFirstMapping)
-                                             {
+               if (!pwaylandwindow->m_bDoneFirstMapping) {
 
-                                                pwaylandwindow->m_bDoneFirstMapping = true;
+                  pwaylandwindow->m_bDoneFirstMapping = true;
 //
 //                                                information() << "DOING FIRST Mapping...";
 //
@@ -876,7 +883,7 @@ namespace windowing_wayland
 //
 //                                                wl_display_roundtrip(pwaylandwindow->wayland_display()->m_pwldisplay);
 //
-                                             }
+               }
 
 //                                             if (!pwaylandwindow->wayland_windowing()->m_bFirstWindowMap)
 //                                             {
@@ -909,8 +916,9 @@ namespace windowing_wayland
 
 //                  ::minimum(pwaylandwindow->m_sizeConfigure.cy());
 
-               }
+               //}
 
+            }
 
             }
             catch(...)
@@ -919,23 +927,20 @@ namespace windowing_wayland
 
             }
 
-            try
-            {
+
+            try {
 
                ::pointer<::windowing_wayland::window> pwaylandwindow = m_pimpl->m_pwindow;
 
-               if(pwaylandwindow)
-               {
+               if (pwaylandwindow) {
 
                   auto pimpl = pwaylandwindow->m_puserinteractionimpl;
 
-                  if (pimpl)
-                  {
+                  if (pimpl) {
 
                      auto pgraphicsthread = pimpl->m_pgraphicsthread;
 
-                     if(pgraphicsthread)
-                     {
+                     if (pgraphicsthread) {
 
                         pgraphicsthread->on_graphics_thread_iteration_end();
 
@@ -946,12 +951,10 @@ namespace windowing_wayland
                }
 
             }
-            catch(...)
-            {
+            catch (...) {
 
 
             }
-
 
 
                                     });

@@ -4231,6 +4231,10 @@ namespace windowing_wayland
 
          information() << "xdg_surface_set_window_geometry : " << frame;
 
+         //m_uLastRequestSerial = m_uLastConfigureSerial;
+
+         //m_timeLastConfigureRequest.Now();
+
          xdg_surface_set_window_geometry(
             m_pxdgsurface,
             frame.left(), frame.top(),

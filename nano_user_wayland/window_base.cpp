@@ -148,6 +148,8 @@ namespace nano
                                   ::wl_array * pwlarrayState)
       {
 
+         fprintf(stderr, "xdg_toplevel_configure w,h %d,%d", width, height);
+
          auto pwaylandwindow = (window_base *) data;
 
          if (pwaylandwindow->m_resizeedge != 0)
@@ -1289,9 +1291,7 @@ namespace nano
 
          ::string strType = ::type(get_interface_client_particle()).name();
 
-         information()
-
-            << "__handle_xdg_surface_configure : " << serial;
+         fprintf(stderr,  "__handle_xdg_surface_configure %u\n", serial);
 
          if(!m_bXdgInitialConfigure)
          {

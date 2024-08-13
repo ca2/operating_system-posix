@@ -458,7 +458,7 @@ namespace wayland
             if (pdisplay->m_pwindowKeyboardFocus)
             {
 
-               //         if (linux_button == BTN_LEFT && pressed == WL_POINTER_BUTTON_STATE_PRESSED)
+               //         if (linux_button == BTN_LEFT && pressed == WL_POINTER_BUTTON_STATE_PRESSED)F
                //            xdg_toplevel_move(pdisplay->m_pwindowKeyboardFocus->m_pxdgtoplevel,
                //                                  pdisplay->m_pwlseat, serial);
 
