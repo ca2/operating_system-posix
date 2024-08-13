@@ -705,24 +705,6 @@ namespace x11
       // }
 
 
-      // void initialize_x11_display(::particle * pparticle, void * pX11Display)
-      // {
-      //
-      //    ::x11::display::get(pparticle, false, (Display *) pX11Display);
-      //
-      // }
-
-
-      // void * initialize_x11_display(::particle * pparticle)
-      // {
-      //
-      //    auto pdisplay = ::x11::display::get(pparticle, false);
-      //
-      //    return pdisplay->m_pdisplay;
-      //
-      // }
-
-
       void process_messages()
       {
 
@@ -1156,3 +1138,20 @@ namespace acme
 
 
 
+
+void initialize_x11_display(::particle * pparticle, void * pX11Display)
+{
+
+   ::x11::nano::user::display_get(pparticle, false, (Display *) pX11Display);
+
+}
+
+
+void * initialize_x11_display(::particle * pparticle)
+{
+
+   auto pdisplay = ::x11::nano::user::display_get(pparticle, false);
+
+   return pdisplay->m_pdisplay;
+
+}

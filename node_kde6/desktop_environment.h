@@ -5,7 +5,7 @@
 #pragma once
 
 
-#include "aura_posix/x11/desktop_environment.h"
+#include "windowing_posix/desktop_environment.h"
 
 
 namespace node_kde6
@@ -18,7 +18,7 @@ namespace node_kde6
    public:
 
 
-      boolean           m_booleanX11;
+      ::logic::boolean           m_booleanX11;
 
 
       desktop_environment();

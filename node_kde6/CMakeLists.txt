@@ -44,6 +44,7 @@ list(APPEND library_references
         aqua
         aura
         aura_posix
+   windowing_posix
         windowing_xcb
         windowing_x11
 )
@@ -52,6 +53,13 @@ if (${HAS_WAYLAND})
     list(APPEND library_references
             windowing_wayland
     )
+endif ()
+
+if (${WITH_X11})
+    list(APPEND library_references
+       nano_user_x11
+    )
+
 endif ()
 
 

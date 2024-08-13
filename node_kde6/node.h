@@ -40,7 +40,7 @@ namespace node_kde6
 
       QPalette             m_qpalette;
 
-      boolean              m_booleanX11;
+      ::logic::boolean     m_booleanX11;
 
       //qDebug() << "palette after:" << palette2.color(group, role).name();
 
@@ -70,6 +70,7 @@ namespace node_kde6
 
       void initialize(::particle * pparticle) override;
 
+      //::e_status _allocate_Display_and_connection() override;
       void initialize_window_manager() override;
 
       //void os_calc_user_dark_mode() override;

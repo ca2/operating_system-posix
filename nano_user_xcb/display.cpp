@@ -614,7 +614,13 @@ namespace xcb
             if(!m_pX11Display)
             {
 
-               m_pX11Display = (Display *) system()->windowing_system()->get_display();
+               auto psystem = system();
+
+               auto pwindowingsystem = psystem->windowing_system();
+
+               auto pDisplay = pwindowingsystem->get_display();
+
+               m_pX11Display = (Display *) pDisplay;
 
                information() << "xcb nano display::init_task got new x11_display : " << (::iptr) m_pX11Display ;
 

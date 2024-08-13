@@ -33,8 +33,8 @@
 //#include <KF5/plasma/containment.h>
 
 
-//void initialize_x11_display(::particle * pparticle, void * pX11Display);
-//void * initialize_x11_display(::particle * pparticle);
+void initialize_x11_display(::particle * pparticle, void * pX11Display);
+void * initialize_x11_display(::particle * pparticle);
 
 void kde_open_local_file(QApplication * papplication, const char *psz, const char * pszMimeType);
 
@@ -245,7 +245,7 @@ namespace node_kde6
 
       {
 
-         node_init_check(&platform()->m_argc, &platform()->m_argv);
+         node_init_check(&platform()->m_argc, &platform()->m_args);
 
       }
 
@@ -295,7 +295,7 @@ namespace node_kde6
 
       auto psystem = pparticle->system();
 
-      m_pqapplication = __new < QApplication >(psystem->m_pplatform->m_argc, psystem->m_pplatform->m_argv);
+      m_pqapplication = __new < QApplication >(psystem->m_pplatform->m_argc, psystem->m_pplatform->m_args);
 
       if(!m_pqapplication)
       {
@@ -330,6 +330,58 @@ namespace node_kde6
 //      return estatus;
 
    }
+
+
+   // ::e_status node::_allocate_Display_and_connection()
+   // {
+   //
+   //    information() << "node_kde _allocate_Display_and_connection";
+   //
+   //    if(QX11Info::isPlatformX11())
+   //    {
+   //
+   //       void *p = (void *) QX11Info::display();
+   //
+   //       informationf("qx11info::display : " + hex::lower_case_from((iptr) p));
+   //
+   //       m_pAuraPosixX11Display = p;
+   //
+   //       if (!m_pAuraPosixX11Display)
+   //       {
+   //
+   //          return error_failed;
+   //
+   //       }
+   //
+   //       m_pAuraPosixXcbConnection = QX11Info::connection();
+   //
+   //       informationf("qx11info::connection : " + hex::lower_case_from((iptr) m_pAuraPosixXcbConnection));
+   //
+   //       //      if(!m_pxcbconnection)
+   //       //      {
+   //       //
+   //       //         return error_failed;
+   //       //
+   //       //      }
+   //
+   //
+   //       ::x11::nano::user::display_get(this, false, (Display *)p);
+   //
+   //       return ::success;
+   //
+   //    }
+   //    else
+   //    {
+   //
+   //       m_bUnhookX = false;
+   //
+   //       m_pAuraPosixX11Display = ::x11::nano::user::display_get(this);
+   //
+   //       return ::success;
+   //
+   //    }
+   //
+   // }
 
 
    void node::initialize_window_manager()
@@ -437,7 +489,7 @@ namespace node_kde6
    }
 
 
-   bool node::set_wallpaper(index , string strLocalImagePath, ::windowing::display * pwindowingdisplay)
+   bool node::set_wallpaper(::collection::index , string strLocalImagePath, ::windowing::display * pwindowingdisplay)
    {
 
       ::string strCommand;
