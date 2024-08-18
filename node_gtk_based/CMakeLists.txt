@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(node_gnome CXX)
+project(node_gtk_based CXX)
 
 
 list(APPEND library_source
@@ -160,7 +160,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories
 target_include_directories(static_${PROJECT_NAME} PRIVATE ${library_include_directories})
 
 
-target_compile_definitions(${PROJECT_NAME} PRIVATE _NODE_GNOME_LIBRARY)
+target_compile_definitions(${PROJECT_NAME} PRIVATE _${PROJECT_NAME}_project)
 
 
 

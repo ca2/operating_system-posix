@@ -44,7 +44,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 }
 
 //
-//namespace node_gnome
+//namespace node_gtk_based
 //{
 //
 //
@@ -229,7 +229,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 //   {
 //
 //
-//      ::node_gnome::node * pnode = (::node_gnome::node *) data;
+//      ::node_gtk_based::node * pnode = (::node_gtk_based::node *) data;
 //
 //      pnode->system()->m_papexsystem->signal(id_wallpaper_change);
 //

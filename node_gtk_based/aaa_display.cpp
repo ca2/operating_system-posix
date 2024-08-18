@@ -15,7 +15,7 @@ Display * x11_get_display();
 void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString);
 //
 //
-//namespace node_gnome
+//namespace node_gtk_based
 //{
 //
 //
@@ -60,7 +60,7 @@ void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString)
 //   }
 //
 //
-//} // namespace node_gnome
+//} // namespace node_gtk_based
 //
 //
 //

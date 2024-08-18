@@ -12,7 +12,7 @@
 //::particle * user_synchronization();
 
 
-namespace node_gnome
+namespace node_gtk_based
 {
 
 
@@ -199,7 +199,7 @@ namespace node_gnome
 //   }
 
 
-} // namespace node_gnome
+} // namespace node_gtk_based
 
 
 

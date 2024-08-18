@@ -1205,6 +1205,10 @@ namespace node_gdk
 
             return _gsettings_set("org.mate.background", "picture-filename", strLocalImagePath).ok();
 
+         case ::user::e_desktop_cinnamon:
+
+            return _gsettings_set("org.cinnamon.desktop.background", "picture-uri", "file://" +strLocalImagePath).ok();
+
          case ::user::e_desktop_lxde:
 
             call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
@@ -1304,8 +1308,101 @@ namespace node_gdk
    }
 
 
-   string node::get_wallpaper(::collection::index iScreen)
+   string node::get_wallpaper(::collection::index iScreen, ::windowing::display * pwindowingdisplay)
    {
+
+      // wall-changer sourceforge.net contribution
+
+      auto psystem = system()->m_papexsystem;
+
+      auto pnode = psystem->node();
+
+      auto edesktop = pnode->get_edesktop();
+
+      bool bDark = pwindowingdisplay->m_strDarkModeAnnotation.case_insensitive_contains("dark");
+
+      switch (edesktop)
+      {
+
+         case ::user::e_desktop_gnome:
+         case ::user::e_desktop_ubuntu_gnome:
+         case ::user::e_desktop_unity_gnome:
+         {
+
+            ::string strUri;
+            if(bDark)
+            {
+
+               if(_gsettings_get(strUri, "org.gnome.desktop.background", "picture-uri-dark"))
+               {
+                  strUri.begins_eat("file://");
+                  return strUri;
+
+               }
+
+            }
+            else
+            {
+
+               if(_gsettings_get(strUri, "org.gnome.desktop.background", "picture-uri"))
+               {
+                  strUri.begins_eat("file://");
+                  return strUri;
+
+               }
+
+            }
+
+         }
+         break;
+         case ::user::e_desktop_mate:
+         {
+
+            ::string strFile;
+            if(_gsettings_get(strFile, "org.mate.background", "picture-filename"))
+            {
+               //strFile.begins_eat("file://");
+               return strFile;
+            }
+            break;
+         }
+
+         case ::user::e_desktop_cinnamon:
+         {
+
+            ::string strUri;
+             if(_gsettings_get(strUri, "org.cinnamon.desktop.background", "picture-uri"))
+             {
+                strUri.begins_eat("file://");
+                return strUri;
+             }
+            break;
+         }
+
+         case ::user::e_desktop_lxde:
+
+            //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+
+            break;
+
+         case ::user::e_desktop_xfce:
+         {
+            //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+            //          if(entry.contains("image-path") || entry.contains("last-image")){
+            //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+            //      }
+            //}
+
+         }
+
+            //break;
+
+         default:
+
+            warning() <<"Failed to get wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
+            //return false;
+
+      }
 
       return "";
 

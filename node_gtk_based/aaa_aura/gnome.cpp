@@ -51,7 +51,7 @@ namespace user
 #ifndef RASPBERRYPIOS
 
 
-namespace node_gnome
+namespace node_gtk_based
 {
 
 
@@ -192,7 +192,7 @@ namespace user
    }
 
 
-} // namespace node_gnome
+} // namespace node_gtk_based
 
 
 

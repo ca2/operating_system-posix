@@ -106,7 +106,7 @@ namespace node_gdk
 
       bool set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay) override;
 
-      string get_wallpaper(::collection::index iScreen) override;
+      string get_wallpaper(::collection::index iScreen, ::windowing::display * pwindowingdisplay) override;
 
 //      using ::aura::node::node_post;
 

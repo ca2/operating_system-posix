@@ -11,7 +11,7 @@
 #include "aura/windowing/icon.h"
 
 
-namespace node_gnome
+namespace node_gtk_based
 {
 
 
@@ -39,7 +39,7 @@ namespace node_gnome
 
       }
 
-      information() << "node_gnome::notify_icon::create_notify_icon";
+      information() << "node_gtk_based::notify_icon::create_notify_icon";
 
       m_strId = atom;
 
@@ -150,7 +150,7 @@ namespace node_gnome
    }
 
 
-} // namespace node_gnome
+} // namespace node_gtk_based
 
 
 

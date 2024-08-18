@@ -1,7 +1,7 @@
 #pragma once
 
 
-namespace node_gnome
+namespace node_gtk_based
 {
 
 
@@ -34,7 +34,7 @@ namespace node_gnome
    void g_defer_term();
 
 
-} // namespace node_gnome
+} // namespace node_gtk_based
 
 
 

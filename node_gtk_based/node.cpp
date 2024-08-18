@@ -11,7 +11,7 @@
 
 
 
-//void aaa_x11_add_idle_source(::node_gnome::node * pnode);
+//void aaa_x11_add_idle_source(::node_gtk_based::node * pnode);
 
 
 //void aaa_x11_add_idle_source();
@@ -29,14 +29,14 @@ void x11_add_filter();
 gboolean node_gnome_source_func(gpointer pUserdata);
 
 
-namespace node_gnome
+namespace node_gtk_based
 {
 
    class appindicator;
 
    void appindicator_destroy(appindicator * pindicator);
 
-} // namespace node_gnome
+} // namespace node_gtk_based
 
 
 
@@ -44,7 +44,7 @@ void os_post_quit();
 
 void apex_application_run(const char * pszAppName, const char * pszProgName);
 
-namespace node_gnome
+namespace node_gtk_based
 {
 
 
@@ -54,7 +54,7 @@ namespace node_gnome
    node::node()
    {
 
-      m_pNodeGnome = this;
+      m_pNodeGtkBased = this;
 
       //deferx_initializex_x11();
 
@@ -204,7 +204,7 @@ namespace node_gnome
    }
 
 
-} // namespace node_gnome
+} // namespace node_gtk_based
 
 
 //gboolean node_gnome_source_func(gpointer pUserdata)

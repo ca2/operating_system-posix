@@ -8,7 +8,7 @@
 #include "acme/platform/application_menu_callback.h"
 
 
-namespace node_gnome
+namespace node_gtk_based
 {
 
 
@@ -44,7 +44,7 @@ namespace node_gnome
    };
 
 
-} // namespace node_gnome
+} // namespace node_gtk_based
 
 
 

@@ -9,7 +9,7 @@
 #endif
 
 
-namespace node_gnome
+namespace node_gtk_based
 {
 
 
@@ -58,7 +58,7 @@ namespace node_gnome
    //using monitor_map = iptr_map < ::pointer<monitor >>
 
 
-} // namespace node_gnome
+} // namespace node_gtk_based
 
 
 

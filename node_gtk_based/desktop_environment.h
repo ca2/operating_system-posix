@@ -12,11 +12,11 @@
 #endif
 
 
-namespace node_gnome
+namespace node_gtk_based
 {
 
 
-   class CLASS_DECL_NODE_GNOME desktop_environment :
+   class CLASS_DECL_NODE_GTK_BASED desktop_environment :
 #if defined(HAS_GTK4)
            virtual public ::node_gtk4::desktop_environment
 #elif defined(HAS_GTK3)

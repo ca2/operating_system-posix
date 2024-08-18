@@ -7,7 +7,7 @@
 //#include "node_gtk/windowing.h"
 //
 //
-//namespace node_gnome
+//namespace node_gtk_based
 //{
 //
 //
@@ -32,7 +32,7 @@
 //   };
 //
 //
-//} // namespace node_gnome
+//} // namespace node_gtk_based
 //
 
 

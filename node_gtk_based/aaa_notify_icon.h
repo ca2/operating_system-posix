@@ -15,7 +15,7 @@
 #include "aura_posix/appindicator.h"
 
 
-namespace node_gnome
+namespace node_gtk_based
 {
 
 

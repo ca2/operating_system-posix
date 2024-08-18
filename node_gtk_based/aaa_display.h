@@ -7,7 +7,7 @@
 //#include "node_gtk/display.h"
 //
 //
-//namespace node_gnome
+//namespace node_gtk_based
 //{
 //
 //
@@ -204,4 +204,4 @@
 ////};
 //
 //
-//} // namespace node_gnome
+//} // namespace node_gtk_based

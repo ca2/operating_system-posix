@@ -592,7 +592,7 @@
 //   }
 //
 //
-//} // namespace node_gnome
+//} // namespace node_gtk_based
 //
 //
 //const char * linux_g_direct_get_file_icon_path(const char * pszPath, int iSize)

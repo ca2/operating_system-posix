@@ -159,7 +159,7 @@ GtkMenu * gtk_menu_from_application_menu(application_menu * papplicationmenu, ap
 #include "aura/user/user/user.h"
 
 
-namespace node_gnome
+namespace node_gtk_based
 {
 
 
@@ -320,7 +320,7 @@ namespace node_gnome
    }
 
 
-} // namespace node_gnome
+} // namespace node_gtk_based
 
 
 

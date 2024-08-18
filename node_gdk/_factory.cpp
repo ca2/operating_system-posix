@@ -40,7 +40,9 @@ __FACTORY_EXPORT void node_gdk_factory(::factory::factory * pfactory)
 
    auto edisplaytype = ::nano::user::get_display_type();
 
-#if !defined(RASPBERRYPIOS) && !defined(FREEBSD) && !defined(__XFCE) && !defined(OPENBSD)
+//#if !defined(RASPBERRYPIOS) && !defined(FREEBSD) && !defined(__XFCE) && !defined(OPENBSD)
+
+#ifdef HAS_WAYLAND
 
    if(edisplaytype == e_display_type_wayland)
    {
