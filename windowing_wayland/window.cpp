@@ -1649,7 +1649,7 @@ namespace windowing_wayland
 //
 //#elif 1
 //
-//      auto image1 = m_pcontext->m_pauracontext->create_image({32, 32});
+//      auto image1 = context_image()->create_image({32, 32});
 //
 //      if (image1.nok())
 //      {

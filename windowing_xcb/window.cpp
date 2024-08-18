@@ -813,7 +813,7 @@ namespace windowing_xcb
 
       information() << "windowing_xcb::window set_icon (with image)";
 
-      auto d1 = m_pcontext->m_pauracontext->create_image({32, 32});
+      auto d1 = context_image()->create_image({32, 32});
 
       if (d1.nok())
       {
