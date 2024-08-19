@@ -3067,7 +3067,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          default:
          {
 
-            warningf("windowing_x11 unknown/unhandled event : %d", e.type);
+            debugf("windowing_x11 unknown/unhandled event : %d", e.type);
 
          }
          break;

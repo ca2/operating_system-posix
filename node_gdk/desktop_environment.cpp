@@ -55,7 +55,7 @@ namespace node_gdk
 
       //synchronous_lock sl(user_synchronization());
 
-      information() << "node_gtk3::desktop_environment::_get_monitor_rectangle : " << iIndex;
+      debug() << "node_gtk3::desktop_environment::_get_monitor_rectangle : " << iIndex;
 
       GdkDisplay * pdisplay = gdk_display_get_default();
 
@@ -81,7 +81,7 @@ namespace node_gdk
 
       copy(prectangle, &rect);
 
-      information() << "node_gtk3::desktop_environment::_get_monitor_rectangle rectangle : " << *prectangle;
+      debug() << "node_gtk3::desktop_environment::_get_monitor_rectangle rectangle : " << *prectangle;
 
       return ::success;
 
@@ -154,7 +154,7 @@ namespace node_gdk
   void desktop_environment::get_monitor_rectangle(::collection::index iIndex, ::rectangle_i32 *prectangle)
   {
 
-     information() << "desktop_environment::get_monitor_rectangle";
+     debug() << "desktop_environment::get_monitor_rectangle";
 
      if(system()->m_ewindowing == e_windowing_x11)
      {
@@ -169,7 +169,7 @@ namespace node_gdk
 
      }
 
-     information() << "desktop_environment::get_monitor_rectangle" << *prectangle;
+     debug() << "desktop_environment::get_monitor_rectangle " << *prectangle;
 
   }
 
