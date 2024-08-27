@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
-project(nano_user_x11 CXX)
+project(message_box_motif CXX)
 
 
 
