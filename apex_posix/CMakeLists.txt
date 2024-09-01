@@ -17,7 +17,7 @@ list(APPEND library_source
         )
 
 
-if (FILE_SYSTEM_INOTIFY)
+if (${FILE_SYSTEM_INOTIFY})
 
 
     list(APPEND library_source
@@ -31,7 +31,7 @@ if (FILE_SYSTEM_INOTIFY)
 endif ()
 
 
-if (INTERPROCESS_COMMUNICATION_SYSTEM_5)
+if (${INTERPROCESS_COMMUNICATION_SYSTEM_5})
 
     list(APPEND library_source
             system_5/interprocess_base.cpp
@@ -45,7 +45,7 @@ if (INTERPROCESS_COMMUNICATION_SYSTEM_5)
 endif ()
 
 
-if (POSIX_SPAWN)
+if (${POSIX_SPAWN})
 
 
     list(APPEND library_source
