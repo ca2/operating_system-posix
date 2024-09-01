@@ -84,7 +84,7 @@ namespace music
 //
 //         lpbImage = GetImage();
 //
-//         memcpy(lpbImage, file.GetImage(), cbImage);
+//         memory_copy(lpbImage, file.GetImage(), cbImage);
 //
 //         /* If the file exists, parse it just enough to pull out the header and
 //         ** build a track index.
@@ -732,7 +732,7 @@ namespace music
 //            pheader = (midi_stream_event_header *) &m_memstorageF1.get_data()[iSize];
 //            pheader->m_dwLength = (::u32) pevent->GetParamSize();
 //            pheader->m_dwType = *lpdwType;
-//            memcpy(
+//            memory_copy(
 //               &m_memstorageF1.get_data()[iSize + sizeof(midi_stream_event_header)],
 //               lpbParam,
 //               pheader->m_dwLength);
@@ -1554,7 +1554,7 @@ namespace music
 //            information( "!hmemcpy is about to fault");
 //         }
 //
-//         memcpy(lpdw, m_hpbPendingUserEvent, dwLength);
+//         memory_copy(lpdw, m_hpbPendingUserEvent, dwLength);
 //         if (0 == (m_cbPendingUserEvent -= dwLength))
 //            m_dwPendingUserEvent = 0;
 //
@@ -1649,7 +1649,7 @@ namespace music
 //                  if (pevent->GetParamSize() != sizeof(m_keyframe.rbTempo))
 //                     return ::music::EInvalidFile;
 //
-//                  memcpy((::u8 *)m_keyframe.rbTempo, pevent->GetParam(), pevent->GetParamSize());
+//                  memory_copy((::u8 *)m_keyframe.rbTempo, pevent->GetParam(), pevent->GetParamSize());
 //               }
 //            }
 //            if((bEvent & 0xF0) == ::music::midi::ProgramChange)
@@ -2341,7 +2341,7 @@ namespace music
 //      m_cbImage - (hpbImage - m_hpbImage));
 //      m_cbImage += iAddUp;
 //      }
-//      memcpy(hpbImage, pEventNew->GetImage(), pEventNew->m_cbImage);
+//      memory_copy(hpbImage, pEventNew->GetImage(), pEventNew->m_cbImage);
 //
 //      WriteHeader();
 //
@@ -2368,7 +2368,7 @@ namespace music
 //      m_cbImage - (hpbImage - m_hpbImage));
 //      m_cbImage += iAddUp;
 //      }
-//      memcpy(hpbImage, pEventNew->GetImage(), pEventNew->m_cbImage);
+//      memory_copy(hpbImage, pEventNew->GetImage(), pEventNew->m_cbImage);
 //
 //      WriteHeader();
 //
@@ -2429,7 +2429,7 @@ namespace music
 //         m_pMThd->fourccType = FOURCC_MThd;
 //         m_pMThd->dwLength = DWORDSWAP(sizeof(MIDIFILEHDR));
 //         m_pFileHeader = (LPMIDIFILEHDR) (GetImage() + sizeof(CHUNKHDR));
-//         memcpy(m_pFileHeader, lpmfh, sizeof(MIDIFILEHDR));
+//         memory_copy(m_pFileHeader, lpmfh, sizeof(MIDIFILEHDR));
 //         return ::music::success;
 //      }
 //
@@ -2972,7 +2972,7 @@ namespace music
 //                  if (pevent->GetParamSize() != sizeof(m_keyframe.rbTempo))
 //                     return ::music::EInvalidFile;
 //
-//                  memcpy((::u8 *)m_keyframe.rbTempo, pevent->GetParam(), pevent->GetParamSize());
+//                  memory_copy((::u8 *)m_keyframe.rbTempo, pevent->GetParam(), pevent->GetParamSize());
 //               }
 //            }
 //            if((bEvent & 0xF0) == ::music::midi::ProgramChange)

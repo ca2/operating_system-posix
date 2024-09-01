@@ -633,7 +633,7 @@ namespace windowing_xcb
 //
 //      m_sizeImage.cy() = pimage->height();
 //
-//      memcpy(m_memoryImage.data(), pimage->data(), m_memoryImage.size());
+//      memory_copy(m_memoryImage.data(), pimage->data(), m_memoryImage.size());
 
       //display_lock displayLock(xcb_window()->xcb_display());
 
@@ -646,7 +646,7 @@ namespace windowing_xcb
 //
 //         color32_t colora[8];
 //
-//         memcpy(colora, pimage->get_data(), sizeof(colora));
+//         memory_copy(colora, pimage->get_data(), sizeof(colora));
 //
 //         //int iDefaultDepth = DefaultDepth(xcb_window()->xcb_connection(), xcb_window()->m_iScreen);
 //

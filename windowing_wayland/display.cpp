@@ -851,7 +851,7 @@ namespace windowing_wayland
 //
 //      windowa.set_size(nchildren);
 //
-//      memcpy(windowa.data(), windowList, minimum(windowa.get_size_in_bytes(), ulBytesReturned));
+//      memory_copy(windowa.data(), windowList, minimum(windowa.get_size_in_bytes(), ulBytesReturned));
 //
 //      XFree(windowList);
 //

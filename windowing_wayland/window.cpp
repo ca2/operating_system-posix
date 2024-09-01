@@ -3788,7 +3788,7 @@ namespace windowing_wayland
 ////
 ////               atoma.set_size(num_items);
 ////
-////               memcpy(atoma.data(), patoms, atoma.get_size_in_bytes());
+////               memory_copy(atoma.data(), patoms, atoma.get_size_in_bytes());
 ////
 ////               XFree(patoms);
 ////

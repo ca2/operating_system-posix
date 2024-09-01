@@ -257,7 +257,7 @@
 //	nlen = length +1;
 //
 //	ndata[0] = status;
-//	memcpy(ndata+1, data, length);
+//	memory_copy(ndata+1, data, length);
 //
 //	snd_seq_ev_set_variable(ep, nlen, ndata);
 //
