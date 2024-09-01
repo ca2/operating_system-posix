@@ -22,7 +22,7 @@
 
 #if defined(ANDROID) || defined(LINUX)
 #include "acme/operating_system/ansi/binreloc.h"
-#elif defined(FREEBSD) || defined(OPENBSD)
+#elif defined(__BSD__)
 #include <errno.h>
 ::file::path get_module_path();
 #elif defined(__APPLE__)

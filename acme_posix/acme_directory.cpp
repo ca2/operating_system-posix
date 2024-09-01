@@ -10,6 +10,7 @@
 #include "acme/nano/account/account.h"
 #include "acme/nano/account/user.h"
 #include "acme/operating_system/summary.h"
+#include "acme/operating_system/shared_posix/c_error_number.h"
 #include "acme/platform/node.h"
 #include "acme/_operating_system.h"
 
@@ -41,7 +42,7 @@ char * get_current_dir_name();
 #include <dirent.h>
 #elif defined(UNIVERSAL_WINDOWS)
 #include "acme/os/universal_windows/file_winrt.h"
-#elif defined(FREEBSD) || defined(OPENBSD)
+#elif defined(__BSD__)
 #if defined(OPENBSD)
 #include "clear_cstddef"
 #endif

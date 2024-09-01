@@ -7,7 +7,7 @@
 #include "acme/operating_system/shared_posix/c_error_number.h"
 #include <sys/stat.h>
 
-#if defined(FREEBSD) || defined(__APPLE__) || defined(LINUX) || defined(OPENBSD)
+#if defined(__APPLE__) || defined(LINUX) || defined(__BSD__)
 #include <unistd.h>
 #include <errno.h>
 #endif

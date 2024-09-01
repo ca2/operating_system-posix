@@ -5,6 +5,7 @@
 #include "mutex.h"
 #include "acme/_operating_system.h"
 #include "acme/primitive/time/timespec.h"
+#include "acme/operating_system/shared_posix/c_error_number.h"
 #include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/platform/system.h"
 ////#include "acme/exception/exception.h"
@@ -37,7 +38,7 @@ void utc_timespec(timespec * ptimespec);
 #endif
 
 
-#if defined(LINUX) || defined(SOLARIS) || defined(__APPLE__) || defined(FREEBSD) || defined(OPENBSD)
+#if defined(LINUX) || defined(SOLARIS) || defined(__APPLE__) || defined(__BSD__)
 #include <sys/ipc.h>
 #include <sys/sem.h>
 #include <fcntl.h>
@@ -53,7 +54,7 @@ void utc_timespec(timespec * ptimespec);
 #include "acme/operating_system/ansi/_pthread.h"
 #endif
 
-#if defined(FREEBSD) || defined(OPENBSD)
+#if defined(__BSD__)
 
 #include	<sys/types.h>
 #include	<sys/stat.h>

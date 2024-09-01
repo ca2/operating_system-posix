@@ -7,14 +7,14 @@
 
 #include "acme/_operating_system.h"
 #include "acme/operating_system/time.h"
-
+#include "acme/operating_system/posix/_.h"
 
 #include <fcntl.h>
 
 #undef USE_MISC
 
 #include <dlfcn.h>
-#if defined(LINUX) || defined(FREEBSD) || defined(OPENBSD)
+#if defined(LINUX) || defined(__BSD__)
 #include <link.h>
 #include <unistd.h>
 #include <errno.h>
@@ -510,7 +510,7 @@ namespace acme_posix
 
       ::i32 lLoOffset = lOff & 0xffffffff;
       
-#if defined(__APPLE__) || defined(FREEBSD) || defined(OPENBSD)
+#if defined(__APPLE__) || defined(__BSD__)
 
       filesize posNew = ::lseek(m_iFile, lLoOffset, (::u32)eseek);
       
@@ -541,7 +541,7 @@ namespace acme_posix
       ::i32 lLoOffset = 0;
 //      ::i32 lHiOffset = 0;
       
-#if defined(__APPLE__) || defined(FREEBSD) || defined(OPENBSD)
+#if defined(__APPLE__) || defined(__BSD__)
 
       filesize pos = ::lseek(m_iFile, lLoOffset, SEEK_CUR);
       

@@ -12,6 +12,7 @@
 #include "acme/filesystem/filesystem/dir_context.h"
 #include "acme/filesystem/filesystem/file_context.h"
 #include "acme/filesystem/filesystem/listing.h"
+#include "acme/operating_system/posix/_.h"
 #include "acme/parallelization/single_lock.h"
 #include "acme/platform/application.h"
 #include "acme/platform/system.h"
@@ -73,7 +74,7 @@ virtual public ::numeric_array < POINTER_TYPE >
 
 #include <signal.h>
 
-#if defined(FREEBSD) || defined(OPENBSD)
+#if defined(__BSD__)
 
 
 #include <sys/types.h>

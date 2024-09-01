@@ -245,7 +245,7 @@ namespace acme_posix
 
             property_set set;
 
-            system()->url()->defer_raw_http(set);
+            set["http_raw"] = true;
 
             set["disable_common_name_cert_check"] = true;
 
