@@ -7,6 +7,10 @@ unset(PKGCONFIG_LDFLAGS)
 unset(PKGCONFIG_LIBRARIES)
 
 
+message(STATUS "PROJECT_NAME is ${PROJECT_NAME}")
+message(STATUS "global_library_references is ${global_library_references}")
+
+
 list(APPEND library_source
    #dbus/gsm_proxy.cpp
    _.cpp

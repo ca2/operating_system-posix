@@ -81,13 +81,6 @@ if (MSVC)
 elseif (${LINUX} OR ${FREEBSD} OR ${OPENBSD} OR ${NETBSD})
 
 
-    #   if(UBUNTU)
-    #      list(APPEND library_references
-    #         X11
-    #         Xrender)
-    #   endif()
-
-
     pkg_check_modules(PKGCONFIG x11 xrender xi xext libstartup-notification-1.0)
     target_compile_options(windowing_x11 PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
     target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
