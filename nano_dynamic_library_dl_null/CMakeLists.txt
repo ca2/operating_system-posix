@@ -3,6 +3,11 @@ cmake_minimum_required(VERSION 3.17)
 project(nano_dynamic_library_dl_null CXX)
 
 
+unset(PKGCONFIG_CFLAGS)
+unset(PKGCONFIG_LDFLAGS)
+unset(PKGCONFIG_LIBRARIES)
+
+
 message(STATUS "CMAKE_SYSTEM_NAME is ${CMAKE_SYSTEM_NAME}")
 
 

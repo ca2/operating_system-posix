@@ -2,6 +2,11 @@ cmake_minimum_required(VERSION 3.16)
 project(acme_posix CXX)
 
 
+unset(PKGCONFIG_CFLAGS)
+unset(PKGCONFIG_LDFLAGS)
+unset(PKGCONFIG_LIBRARIES)
+
+
 list(APPEND library_source
    #dbus/gsm_proxy.cpp
    _.cpp
@@ -98,7 +103,7 @@ if (MSVC)
    add_dependencies(${PROJECT_NAME} draw2d_gdiplus)
 
 
-elseif (${LINUX} OR ${FREEBSD} OR ${OPENBSD} OR ${NETBSD})
+elseif (${LINUX} OR ${BSD_LIKE})
 
 
    target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
