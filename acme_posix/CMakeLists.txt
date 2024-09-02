@@ -2,11 +2,6 @@ cmake_minimum_required(VERSION 3.16)
 project(acme_posix CXX)
 
 
-unset(PKGCONFIG_CFLAGS)
-unset(PKGCONFIG_LDFLAGS)
-unset(PKGCONFIG_LIBRARIES)
-
-
 message(STATUS "PROJECT_NAME is ${PROJECT_NAME}")
 message(STATUS "global_library_references is ${global_library_references}")
 
@@ -119,7 +114,7 @@ elseif (${LINUX} OR ${BSD_LIKE})
    target_compile_definitions(static_${PROJECT_NAME} PRIVATE CUBE)
 
 
-   target_compile_options(${PROJECT_NAME} PRIVATE  ${GLOBAL_EXTRA_COMPILER_FLAGS})
+   target_compile_options(${PROJECT_NAME} PRIVATE ${GLOBAL_EXTRA_COMPILER_FLAGS})
    target_compile_options(static_${PROJECT_NAME} PRIVATE ${GLOBAL_EXTRA_COMPILER_FLAGS})
    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references})
    target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references})
@@ -128,12 +123,11 @@ elseif (${LINUX} OR ${BSD_LIKE})
 
    message(STATUS "(acme_posix) pkg_config_modules_here is " ${pkg_config_modules_here})
 
-   message(STATUS "(acme_posix) PKGCONFIG_CFLAGS is " ${PKGCONFIG_CFLAGS})
+   message(STATUS "(acme_posix) ${PROJECT_NAME}_PKGCONFIG_CFLAGS is " ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
 
-   message(STATUS "(acme_posix) PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
+   message(STATUS "(acme_posix) ${PROJECT_NAME}_PKGCONFIG_LIBRARIES is " ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES})
 
-   message(STATUS "(acme_posix) PKGCONFIG_LIBRARY_DIRS is " ${PKGCONFIG_LIBRARY_DIRS})
-
+   message(STATUS "(acme_posix) ${PROJECT_NAME}_PKGCONFIG_LIBRARY_DIRS is " ${${PROJECT_NAME}_PKGCONFIG_LIBRARY_DIRS})
 
 
 endif ()
