@@ -68,7 +68,7 @@ list(APPEND static_library_references ${library_references})
 list(TRANSFORM static_library_references PREPEND static_)
 
 
-list(APPEND system_libraries
+list(APPEND this_system_libraries
         KF5::ConfigWidgets
         KF5::IconThemes
         KF5::KIOCore
@@ -83,11 +83,11 @@ list(APPEND system_libraries
 )
 
 if (${FREEBSD} OR ${DEBIAN})
-    list(APPEND system_libraries
+    list(APPEND this_system_libraries
             KF5Package
     )
 else ()
-    list(APPEND system_libraries
+    list(APPEND this_system_libraries
             KF5::Plasma
             KF5::PlasmaQuick
     )
@@ -167,8 +167,8 @@ elseif (${LINUX} OR ${FREEBSD} OR ${OPENBSD} OR ${NETBSD})
     target_link_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
 
     #target_link_options(${PROJECT_NAME} PRIVATE "-Wl,-rpath=\$ORIGIN")
-    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${system_libraries} ${PKGCONFIG_LIBRARIES})
-    target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${system_libraries} ${PKGCONFIG_LIBRARIES})
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${this_system_libraries} ${PKGCONFIG_LIBRARIES})
+    target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${this_system_libraries} ${PKGCONFIG_LIBRARIES})
     #target_link_libraries(static_node_kde PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
     #    if (KDE_DESKTOP)
     #        list(APPEND link_libraries

@@ -3,8 +3,6 @@ project(aura_posix CXX)
 
 
 list(APPEND library_source
-   #x11/desktop_environment.h
-   #x11/desktop_environment.cpp
    _.cpp
    _.h
    #_library.h
@@ -20,9 +18,6 @@ list(APPEND library_source
    user_notify_icon_bridge.h
    xinput.cpp
    xinput.h
-   #xkb_input.cpp
-   #xkb_input.h
-
 )
 
 
@@ -39,38 +34,6 @@ list(APPEND static_library_references ${library_references})
 
 list(TRANSFORM static_library_references PREPEND static_)
 
-#
-#if (${WITH_X11} OR ${WITH_XCB})
-#
-#
-#   list(APPEND library_source
-#      x11/_.h
-#      x11/_.cpp
-#      x11/_constant.h
-#      #x11/keyboard.cpp
-#      #x11/keyboard.h
-#      x11/window.cpp
-#      x11/window.h
-#      x11/windowing.cpp
-#      x11/windowing.h
-#
-#   )
-#
-#
-#   #   if(WITH_X11)
-#
-#   list(APPEND library_source
-#      #x11/display_lock.cpp
-#      #x11/display_lock.h
-#      x11/startup-notification.cpp
-#      x11/startup-notification.h
-#      x11/xim_keyboard.cpp
-#      x11/xim_keyboard.h
-#   )
-#
-#   #  endif()
-#
-#endif ()
 
 
 add_library(${PROJECT_NAME} SHARED ${library_source})
