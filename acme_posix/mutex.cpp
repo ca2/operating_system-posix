@@ -1659,7 +1659,7 @@ namespace acme_posix
 
       }
 
-      auto pmutex  = __allocate< mutex >(e_create_new, lpszName, h);
+      auto pmutex  = ::place(new mutex(e_create_new, lpszName, h));
 
       return pmutex;
 
@@ -1692,7 +1692,7 @@ namespace acme_posix
 
       }
 
-      auto pmutex = __allocate< mutex >(strName, psem, isCreator);
+      auto pmutex = ::place(new mutex(strName, psem, isCreator));
 
       return pmutex;
 
@@ -1761,7 +1761,7 @@ namespace acme_posix
 
       //pthread_mutex_init(&m_mutex, &attr);
 
-      auto pmutex = __allocate< mutex >(e_create_new, lpszName, iFd, false);
+      auto pmutex = ::place(new mutex(e_create_new, lpszName, iFd, false));
 
       return pmutex;
 
@@ -1787,7 +1787,7 @@ namespace acme_posix
 
       }
 
-      auto pmutex = __allocate< mutex >(strName, key, semid);
+      auto pmutex = ::place(new mutex(strName, key, semid));
 
       return pmutex;
 
@@ -1799,7 +1799,7 @@ namespace acme_posix
    void wait_until_mutex_does_not_exist(::particle * pparticle,  const char * lpszName)
    {
 
-      ::pointer<mutex>pmutex = __allocate< mutex >(pparticle, false, "Global\\::ca::account::ca2_spa::7807e510-5579-11dd-ae16-0800200c7784");
+      ::pointer<mutex>pmutex = ::place(new mutex(pparticle, false, "Global\\::ca::account::ca2_spa::7807e510-5579-11dd-ae16-0800200c7784"));
 
       if(::get_last_status() == ::error_already_exists)
       {
@@ -1811,7 +1811,7 @@ namespace acme_posix
 
             preempt(200_ms);
 
-            pmutex = __allocate< mutex >(pparticle, false, "Global\\::ca::account::ca2_spa::7807e510-5579-11dd-ae16-0800200c7784");
+            pmutex = ::place(new mutex(pparticle, false, "Global\\::ca::account::ca2_spa::7807e510-5579-11dd-ae16-0800200c7784"));
 
          }
 
