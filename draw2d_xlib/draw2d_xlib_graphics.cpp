@@ -16,7 +16,7 @@ namespace draw2d_xlib
       //,     m_ui(pparticle)
    {
 
-      mutex()                = __new< ::pointer < ::mutex > >(pparticle);
+      mutex()                = new ::pointer < ::mutex >(pparticle);
 
       m_bPrinting       = false;
       m_pimageAlphaBlend  = nullptr;
@@ -314,7 +314,7 @@ namespace draw2d_xlib
 
       //m_pdc = xlib_create((xlib_surface_t *) pbitmap->get_os_data());
 
-      m_pdc                = __new< device_context >();
+      m_pdc                = new device_context();
 
 //      m_pdc->m_pdisplay    = pbitmap->m_ui.m_window->display();
 

@@ -322,7 +322,7 @@ namespace x11
             if (display::g_p == nullptr)
             {
 
-               auto p = __new< display >();
+               auto p = new display();
 
                p->initialize(pparticle);
 
@@ -1089,7 +1089,7 @@ namespace acme
 //
 //      XSetErrorHandler(::x11::nano::user::_c_XErrorHandler);
 //
-//      //g_pmutexX11 = __new< ::pointer < ::mutex > >();
+//      //g_pmutexX11 = new ::pointer < ::mutex >();
 //
 //      return ::success;
 //

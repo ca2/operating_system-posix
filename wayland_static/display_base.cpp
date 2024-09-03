@@ -1951,7 +1951,7 @@ namespace wayland
 
                g_peventCreatingWaylandDisplay->ResetEvent();
 
-               auto p = __new< ::wayland::nano::user::display >();
+               auto p = new ::wayland::nano::user::display();
 
                s_pdisplaybase = p;
 

@@ -715,7 +715,7 @@ namespace aura_posix
 //
 //            }
 //
-//            image_key * pstore = __new< image_key >(imagekey);
+//            image_key * pstore = new image_key(imagekey);
 //
 //            {
 //

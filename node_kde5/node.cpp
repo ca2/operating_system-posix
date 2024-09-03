@@ -619,7 +619,7 @@ namespace node_kde5
 //      if(::is_null(m_piconloader))
 //      {
 //
-//         m_piconloader = __new< KIconLoader >();
+//         m_piconloader = new KIconLoader();
 //
 //      }
 

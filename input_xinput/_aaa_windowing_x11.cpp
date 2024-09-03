@@ -2925,7 +2925,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //               msgText.wParam = 0;
 //
-//               string *pstringText = __new< string >(strText);
+//               string *pstringText = new string(strText);
 //
 //               msgText.lParam = (lparam) (iptr) (string *) (pstringText);
 
@@ -3463,7 +3463,7 @@ bool x11_get_window_rect(Display * d, Window window, ::rectangle_i32 * prectangl
 
    XSetErrorHandler(_cx_XErrorHandler);
 
-   //g_pmutexX11 = __new< ::pointer < ::mutex > >();
+   //g_pmutexX11 = new ::pointer < ::mutex >();
 
    return ::success;
 

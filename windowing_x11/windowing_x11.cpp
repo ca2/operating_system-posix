@@ -2858,7 +2858,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //               msgText.wParam = 0;
 //
-//               string *pstringText = __new< string >(strText);
+//               string *pstringText = new string(strText);
 //
 //               msgText.lParam = (lparam) (iptr) (string *) (pstringText);
 

@@ -180,7 +180,7 @@
 //   appindicator * allocate_appindicator()
 //   {
 //
-//      return __new< ::gnome_appindicator >();
+//      return new ::gnome_appindicator();
 //
 //   }
 //

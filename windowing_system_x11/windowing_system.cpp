@@ -66,7 +66,7 @@ namespace x11
       // gdk_x11 does error handling?!?!?!
       XSetErrorHandler(_c_XErrorHandler);
 
-      //g_pmutexX11 = __new< ::pointer < ::mutex > >();
+      //g_pmutexX11 = new ::pointer < ::mutex >();
 
       return ::success;
 

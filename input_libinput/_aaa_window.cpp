@@ -990,7 +990,7 @@ namespace windowing_x11
    //
    //      }
    //
-   //      ::window *pdata = __new< window >();
+   //      ::window *pdata = new window();
    //
    //      pdata->m_bMessageOnlyWindow = true;
    //      pdata->m_window = None;
@@ -1041,7 +1041,7 @@ namespace windowing_x11
       //
       //      }
       //
-      //      ::window *pdata = __new< ::window >();
+      //      ::window *pdata = new ::window();
 
       m_bMessageOnlyWindow = false;
       //m_osdisplay = osdisplay_get(Display());

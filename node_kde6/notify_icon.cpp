@@ -121,7 +121,7 @@ namespace node_kde6
 
          pmenu->setTitle(strLabel.c_str());
 
-         QMenu * pmenuPopup = __new<QMenu>();
+         QMenu * pmenuPopup = new QMenu();
 
          _populate_qmenu_popup(pmenuPopup, papplicationmenu);
 
@@ -180,7 +180,7 @@ namespace node_kde6
    ::e_status notify_icon::_create_status_notifier_item()
    {
 
-      m_pstatusnotifieritem = __new< KStatusNotifierItem >();
+      m_pstatusnotifieritem = new KStatusNotifierItem();
 
       string strTrayIconName = m_piconCurrent->get_tray_icon_name();
 
@@ -212,7 +212,7 @@ namespace node_kde6
 
       string strFriendlyName = papp->m_papexapplication->get_app_user_friendly_task_bar_name();
 
-      //auto pmenu = __new< QMenu >();
+      //auto pmenu = new QMenu();
 
       auto pmenu = m_pstatusnotifieritem->contextMenu();
 

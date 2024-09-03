@@ -30,7 +30,7 @@
 //	seq_context_t *ctxp;
 //	int  q;
 //
-//	ctxp = __new< seq_context_t >();
+//	ctxp = new seq_context_t();
 //	ctxp->main = ctxp; /* This is the main context */
 //
 //	if (snd_seq_open(&ctxp->handle, "hw", SND_SEQ_OPEN_DUPLEX, 0) < 0)
