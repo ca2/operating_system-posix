@@ -283,7 +283,7 @@ namespace music
 
             }
 
-            auto pout = __allocate< class out >();
+            auto pout = ::place(new class out());
 
             pout->initialize_message_out(this, strDevice);
 
@@ -316,7 +316,7 @@ namespace music
 
             auto pmessageout = get_message_out(strDevice);
 
-            return __allocate< ::music::midi::sequencer >(psequence, pmessageout);
+            return ::place(new ::music::midi::sequencer(psequence, pmessageout));
 
          }
 

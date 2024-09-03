@@ -269,7 +269,7 @@ namespace windowing_xcb
       if(!m_pximkeyboard)
       {
 
-         m_pximkeyboard = __allocate< ::xim::keyboard >(px11display, m_window);
+         m_pximkeyboard = ::place(new ::xim::keyboard(px11display, m_window));
 
          m_pximkeyboard->initialize(this);
 

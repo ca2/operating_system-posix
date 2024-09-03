@@ -120,7 +120,7 @@ namespace node_kde5
    bool copydesk::_has_plain_text()
    {
 
-      auto ppayload = __allocate< payload_object >();
+      auto ppayload = ::place(new payload_object());
 
       ppayload->m_payload = false;
 

@@ -70,7 +70,7 @@ int g_fdX11[2] = {};
 //
 //   //defer_initialize_xcb();
 //
-//   auto pdisplay = __allocate< simple_ui_display >(str, strTitle, emessagebox);
+//   auto pdisplay = ::place(new simple_ui_display(str, strTitle, emessagebox));
 //
 //   return pdisplay->show();
 //

@@ -248,7 +248,7 @@ namespace windowing_wayland
 //         if (m_px11data.is_null())
 //         {
 //
-//            m_px11data = __allocate< x11data >();
+//            m_px11data = ::place(new x11data());
 //
 //         }
 //
