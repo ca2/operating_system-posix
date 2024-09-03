@@ -1114,7 +1114,7 @@ namespace draw2d_xlib
       if(iCount <= 0)
          return true;
 
-      XPoint * xpa = __new_array< XPoint >(iCount);
+      XPoint * xpa = new XPoint[iCount];
 
       for(i32 i = 0; i < iCount; i++)
       {
@@ -1142,7 +1142,7 @@ namespace draw2d_xlib
       if(iCount <= 0)
          return true;
 
-      XPoint * xpa = __new_array< XPoint >(iCount);
+      XPoint * xpa = new XPoint[iCount];
 
       for(i32 i = 0; i < iCount; i++)
       {
@@ -1171,7 +1171,7 @@ namespace draw2d_xlib
       if(iCount <= 0)
          return true;
 
-      XPoint * xpa = __new_array< XPoint >(iCount);
+      XPoint * xpa = new XPoint[iCount];
 
       for(i32 i = 0; i < iCount; i++)
       {
@@ -1198,7 +1198,7 @@ namespace draw2d_xlib
       if(iCount <= 0)
          return true;
 
-      XPoint * xpa = __new_array< XPoint >(iCount);
+      XPoint * xpa = new XPoint[iCount];
 
       for(i32 i = 0; i < iCount; i++)
       {
@@ -1225,7 +1225,7 @@ namespace draw2d_xlib
       if(iCount <= 0)
          return true;
 
-      XPoint * xpa = __new_array< XPoint >(iCount);
+      XPoint * xpa = new XPoint[iCount];
 
       for(i32 i = 0; i < iCount; i++)
       {

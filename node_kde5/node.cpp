@@ -290,7 +290,7 @@ namespace node_kde5
 
       auto psystem = pparticle->system();
 
-      m_pqapplication = __new < QApplication >(psystem->m_pplatform->m_argc, psystem->m_pplatform->m_args);
+      m_pqapplication = new QApplication(psystem->m_pplatform->m_argc, psystem->m_pplatform->m_args);
 
       if(!m_pqapplication)
       {

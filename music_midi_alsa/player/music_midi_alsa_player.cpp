@@ -19,7 +19,7 @@ namespace music
             ::music::midi::player(pparticle)
          {
 
-            m_psequencethread = __sp(__new< ::music::midi::alsa::sequence_thread >(this));
+            m_psequencethread = __sp(new ::music::midi::alsa::sequence_thread(this));
 
             m_psequencethread->begin();
 
@@ -79,7 +79,7 @@ namespace music
          bool player::Play(imedia_position tickStart, ::u32 dwEllapse)
          {
 
-            auto pcommand = __sp(__new< ::music::midi::player_command >(this));
+            auto pcommand = __sp(new ::music::midi::player_command(this));
 
             pcommand->m_ecommand = ::music::midi::command_play;
             pcommand->m_dwEllapse = dwEllapse;
@@ -98,7 +98,7 @@ namespace music
          bool player::PlayRate(double dRate, ::u32 dwEllapse)
          {
 
-            auto pcommand = __sp(__new< ::music::midi::player_command >(this));
+            auto pcommand = __sp(new ::music::midi::player_command(this));
 
             pcommand->m_ecommand = ::music::midi::command_play;
             pcommand->m_dwEllapse = dwEllapse;
@@ -132,7 +132,7 @@ namespace music
          bool player::ExecuteCommand(::music::midi::e_command ecommand, ::u32 dwEllapse)
          {
 
-            auto pcommand = __sp(__new< ::music::midi::player_command >(this));
+            auto pcommand = __sp(new ::music::midi::player_command(this));
 
             pcommand->m_ecommand = ecommand;
             pcommand->m_dwEllapse = dwEllapse;
@@ -155,7 +155,7 @@ namespace music
                mmrc != ::error_wrong_state)
             {
 
-               __throw(__new< ::multimedia::exception >(::multimedia::exception_music, mmrc));
+               __throw(new ::multimedia::exception(::multimedia::exception_music, mmrc));
 
             }
          }
@@ -284,7 +284,7 @@ namespace music
 //            ::e_status            mmrc;
 //            if(::failed(mmrc = get_sequence()->SaveFile(lpszPathName)) )
 //            {
-//               __throw(__new< ::multimedia::exception >(::multimedia::exception_midi, mmrc));
+//               __throw(new ::multimedia::exception(::multimedia::exception_midi, mmrc));
 //            }
 //
 //         }

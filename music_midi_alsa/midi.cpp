@@ -301,7 +301,7 @@ namespace music
             if (strDevice.case_insensitive_order("alsa") == 0)
             {
 
-               return __allocate< ::music::midi::sequencer >(psequence, get_message_out(strDevice));
+               return ::place(new ::music::midi::sequencer(psequence, get_message_out(strDevice)));
 
             }
 
