@@ -2429,6 +2429,10 @@ if(functionTrace)
 
          strUnixShell = "/usr/local/bin/bash";
 
+#elif defined(NETBSD)
+
+         strUnixShell = "/bin/sh";
+
 #else
 
          strUnixShell = "/bin/bash";
