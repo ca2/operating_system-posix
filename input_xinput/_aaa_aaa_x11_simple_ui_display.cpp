@@ -31,34 +31,34 @@ simple_ui_display::simple_ui_display(const string & strMessageParam, const strin
    switch(uType)
    {
       case MB_OKCANCEL:
-         m_buttona.add(__allocate< x11_button >("OK", e_dialog_result_ok));
-         m_buttona.add(__allocate< x11_button >("Cancel", e_dialog_result_cancel));
+         m_buttona.add(::place(new x11_button("OK", e_dialog_result_ok)));
+         m_buttona.add(::place(new x11_button("Cancel", e_dialog_result_cancel)));
          break;
       case MB_ABORTRETRYIGNORE:
-         m_buttona.add(__allocate< x11_button >("Abort", e_dialog_result_abort));
-         m_buttona.add(__allocate< x11_button >("Retry", e_dialog_result_retry));
-         m_buttona.add(__allocate< x11_button >("Ignore", e_dialog_result_ignore));
+         m_buttona.add(::place(new x11_button("Abort", e_dialog_result_abort)));
+         m_buttona.add(::place(new x11_button("Retry", e_dialog_result_retry)));
+         m_buttona.add(::place(new x11_button("Ignore", e_dialog_result_ignore)));
          break;
       case MB_YESNOCANCEL:
-         m_buttona.add(__allocate< x11_button >("Yes", e_dialog_result_yes));
-         m_buttona.add(__allocate< x11_button >("No", e_dialog_result_no));
-         m_buttona.add(__allocate< x11_button >("Cancel", e_dialog_result_cancel));
+         m_buttona.add(::place(new x11_button("Yes", e_dialog_result_yes)));
+         m_buttona.add(::place(new x11_button("No", e_dialog_result_no)));
+         m_buttona.add(::place(new x11_button("Cancel", e_dialog_result_cancel)));
          break;
       case MB_YESNO:
-         m_buttona.add(__allocate< x11_button >("Yes", e_dialog_result_yes));
-         m_buttona.add(__allocate< x11_button >("No", e_dialog_result_no));
+         m_buttona.add(::place(new x11_button("Yes", e_dialog_result_yes)));
+         m_buttona.add(::place(new x11_button("No", e_dialog_result_no)));
          break;
       case MB_RETRYCANCEL:
-         m_buttona.add(__allocate< x11_button >("Retry", e_dialog_result_retry));
-         m_buttona.add(__allocate< x11_button >("Cancel", e_dialog_result_cancel));
+         m_buttona.add(::place(new x11_button("Retry", e_dialog_result_retry)));
+         m_buttona.add(::place(new x11_button("Cancel", e_dialog_result_cancel)));
          break;
       case MB_CANCELTRYCONTINUE:
-         m_buttona.add(__allocate< x11_button >("Cancel", e_dialog_result_cancel));
-         m_buttona.add(__allocate< x11_button >("Try", e_dialog_result_retry));
-         m_buttona.add(__allocate< x11_button >("Continue", e_dialog_result_continue));
+         m_buttona.add(::place(new x11_button("Cancel", e_dialog_result_cancel)));
+         m_buttona.add(::place(new x11_button("Try", e_dialog_result_retry)));
+         m_buttona.add(::place(new x11_button("Continue", e_dialog_result_continue)));
          break;
       default:
-         m_buttona.add(__allocate< x11_button >("OK", e_dialog_result_ok));
+         m_buttona.add(::place(new x11_button("OK", e_dialog_result_ok)));
          break;
    }
 

@@ -137,7 +137,7 @@ namespace node_gtk4
    bool copydesk::_has_plain_text()
    {
 
-      ::pointer<ovar>payload(__allocate< ovar >());
+      ::pointer<ovar>payload(::place(new ovar()));
 
       payload->m_var = false;
 
