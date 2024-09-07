@@ -13,7 +13,7 @@
 #include "acme/parallelization/task_message_queue.h"
 #include "acme/primitive/geometry2d/_text_stream.h"
 #include "aura/graphics/graphics/graphics.h"
-#include "aura/graphics/image/image_context.h"
+#include "aura/graphics/image/context.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
 #include "aura/platform/node.h"

@@ -3,7 +3,7 @@
 //#include "acme/operating_system.h"
 #include "clipboard_data.h"
 #include <gtk/gtk.h>
-#include "aura/graphics/image/image_context.h"
+#include "aura/graphics/image/context.h"
 #include "aura/platform/system.h"
 #include "aura/platform/node.h"
 

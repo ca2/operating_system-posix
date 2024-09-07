@@ -3,7 +3,7 @@
 #include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/primitive/string/international.h"
-#include "aura/graphics/image/image_context.h"
+#include "aura/graphics/image/context.h"
 
 
 
@@ -86,7 +86,7 @@ namespace aura_posix
 
       //estatus =
       //
-      __construct(m_pcontextimage);
+      __construct(m_pimagecontext);
 
 //         if(!estatus)
 //         {

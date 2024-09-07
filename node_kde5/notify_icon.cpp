@@ -9,7 +9,7 @@
 #include "acme/filesystem/filesystem/dir_context.h"
 #include "apex/platform/application.h"
 #include "aura/graphics/image/drawing.h"
-#include "aura/graphics/image/image_context.h"
+#include "aura/graphics/image/context.h"
 #include "aura/platform/context.h"
 #include "aura/windowing/icon.h"
 #include <QMenu>
@@ -190,7 +190,7 @@ namespace node_kde5
 
       auto pathIcon24 = pathHome / ".config" / papp->m_strAppId / "main/icon-24-resized.png";
 
-      auto pimage = m_pcontext->image_context()->get_image("matter://main/icon-256.png");
+      auto pimage = image()->get_image("matter://main/icon-256.png");
 
       auto pimage24 = image()->create_image({24, 24});
 
@@ -206,7 +206,7 @@ namespace node_kde5
 
       pimage24->g()->draw(imagedrawing);
 
-      m_pcontext->image_context()->save_image(pathIcon24, pimage24);
+      image()->save_image(pathIcon24, pimage24);
 
       m_pstatusnotifieritem->setIconByName(pathIcon24.c_str());
 

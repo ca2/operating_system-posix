@@ -249,7 +249,7 @@ namespace node_xfce
 //         set["raw_http"] = true;
 //         set["disable_common_name_cert_check"] = true;
 //
-//         Context.http().download(strUrl, strFile, set);
+//         Context.http()->download(strUrl, strFile, set);
 //
 //         iRetry--;
 //

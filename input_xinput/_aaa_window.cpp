@@ -19,7 +19,7 @@
 #include "aura/platform/message_queue.h"
 #include <X11/Xatom.h>
 #include <X11/extensions/sync.h>
-#include "aura/graphics/image/image_context.h"
+#include "aura/graphics/image/context.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
 #include "acme/operating_system/x11/display_lock.h"

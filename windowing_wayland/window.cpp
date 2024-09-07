@@ -26,7 +26,7 @@
 #include <wayland-client.h>
 #include <linux/input.h> // for BTN_LEFT,...
 #include <xkbcommon/xkbcommon.h>
-#include "aura/graphics/image/image_context.h"
+#include "aura/graphics/image/context.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
 #include "windowing_system_wayland/xfree86_key.h"

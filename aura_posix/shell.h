@@ -14,7 +14,7 @@ namespace aura_posix
    public:
 
 
-      ::pointer<::image_context>m_pcontextimage;
+      ::pointer<::image_context>m_pimagecontext;
 
 
       shell();
