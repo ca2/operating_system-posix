@@ -49,7 +49,7 @@ namespace draw2d_xlib
 
       virtual color32_t * get_data();
 
-      void stretch_image(::image::image * pimage);
+      void stretch_image(::image::image *pimage);
 
       bool dc_select(bool bSelect = true);
 
@@ -59,12 +59,12 @@ namespace draw2d_xlib
       using object::create;
       bool create(::size_i32 size);
       bool create(i32 iWidth, i32 iHeight);
-      bool create(::image::image * pimage);
+      bool create(::image::image *pimage);
       bool Destroy();
 
 
       using image::from;
-      bool from(::image::image * pimage);
+      bool from(::image::image *pimage);
       bool from(point_i32 ptDest, ::draw2d::graphics * pgraphics, const ::point_i32 & point, ::size_i32 sz);
 
       using image::to;
@@ -73,12 +73,12 @@ namespace draw2d_xlib
       virtual bool update_window(::window * puserinteraction, ::message::message * pmessage);
       virtual bool print_window(::window * puserinteraction, ::message::message * pmessage);
 
-      void SetIconMask(::draw2d::icon * picon, i32 cx, i32 cy);
+      void SetIconMask(::image::icon * picon, i32 cx, i32 cy);
 
 
       //bool color_blend(color32_t cr, ::u8 bAlpha);
-      //bool Blend(imagepimage, ::image::image * pimageA, i32 A);
-      //void BitBlt(::image::image * pimage, i32 op);
+      //bool Blend(imagepimage, ::image::image *pimageA, i32 A);
+      //void BitBlt(::image::image *pimage, i32 op);
       //color32_t GetAverageColor();
       //i32 cos(i32 i, i32 iAngle);
       //i32 sin(i32 i, i32 iAngle);
@@ -86,19 +86,19 @@ namespace draw2d_xlib
       //i32 sin10(i32 i, i32 iAngle);
 
       //bool is_rgb_black();
-      //void xor(::image::image * pimage);
+      //void xor(::image::image *pimage);
 
       //void ToAlpha(i32 i);
       //void ToAlphaAndFill(i32 i, color32_t cr);
       //void GrayToARGB(color32_t cr);
 
       //void from_alpha();
-      //void mult_alpha(::image::image * pimageWork, bool bPreserveAlpha = true);
+      //void mult_alpha(::image::image *pimageWork, bool bPreserveAlpha = true);
       //void set_rgb(i32 R, i32 G, i32 B);
 
-      //void rotate(::image::image * pimage, const ::rectangle_i32 & rectangle, double dAngle, double dScale);
-      //void rotate(::image::image * pimage, double dAngle, double dScale);
-      //void Rotate034(::image::image * pimage, double dAngle, double dScale);
+      //void rotate(::image::image *pimage, const ::rectangle_i32 & rectangle, double dAngle, double dScale);
+      //void rotate(::image::image *pimage, double dAngle, double dScale);
+      //void Rotate034(::image::image *pimage, double dAngle, double dScale);
       //void RadialFill(::u8 a, ::u8 rectangle, ::u8 g, ::u8 b, i32 x, i32 y, i32 iRadius);
       //void RadialFill(
       //   ::u8 a1, ::u8 r1, ::u8 g1, ::u8 b1, // center colors

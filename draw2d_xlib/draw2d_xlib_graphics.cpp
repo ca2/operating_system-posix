@@ -136,7 +136,7 @@ namespace draw2d_xlib
       //return Attach(::CreateIC(lpszDriverName, lpszDeviceName, lpszOutput, (const DEVMODE*) lpInitData));
    }
 
-   bool graphics::CreateCompatibleDC(::image * pimage)
+   bool graphics::CreateCompatibleDC(::image::image *pimage)
    {
 
       //synchronous_lock ml(&xlib_mutex());
@@ -714,7 +714,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::DrawIcon(i32 x, i32 y, ::draw2d::icon * picon)
+   bool graphics::DrawIcon(i32 x, i32 y, ::image::icon * picon)
    {
 
       throw ::not_implemented();
@@ -730,7 +730,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::DrawIcon(const ::point_i32 & point, ::draw2d::icon * picon)
+   bool graphics::DrawIcon(const ::point_i32 & point, ::image::icon * picon)
    {
 
       throw ::not_implemented();
@@ -744,7 +744,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::DrawIcon(i32 x, i32 y, ::draw2d::icon * picon, i32 cx, i32 cy, ::u32 istepIfAniCur, HBRUSH hbrFlickerFreeDraw, ::u32 diFlags)
+   bool graphics::DrawIcon(i32 x, i32 y, ::image::icon * picon, i32 cx, i32 cy, ::u32 istepIfAniCur, HBRUSH hbrFlickerFreeDraw, ::u32 diFlags)
    {
 
 
@@ -1379,10 +1379,10 @@ namespace draw2d_xlib
          /*::rectangle_i32 rectangleIntersect(m_pointAlphaBlend, m_pimageAlphaBlend->size());
 
 
-         ::image_pointer pimageWork = nullptr;
-         ::image_pointer pimageWork2 = nullptr;
-         //         ::image_pointer pimageWork3 = nullptr;
-         ::image_pointer pimageWork4 = nullptr;
+         ::image::image_pointer pimageWork = nullptr;
+         ::image::image_pointer pimageWork2 = nullptr;
+         //         ::image::image_pointer pimageWork3 = nullptr;
+         ::image::image_pointer pimageWork4 = nullptr;
 
 
          ::point_i32 pointSrc(xSrc, ySrc);
@@ -1391,7 +1391,7 @@ namespace draw2d_xlib
 
 
 
-         ::image_pointer pimage;
+         ::image::image_pointer pimage;
          if(imageWork == nullptr)
          {
             pimage = create_image(this);
@@ -1412,7 +1412,7 @@ namespace draw2d_xlib
 
 
 
-         ::image_pointer pimage2;
+         ::image::image_pointer pimage2;
          if(imageWork2 == nullptr)
          {
             pimage2 = create_image(this);
@@ -1420,7 +1420,7 @@ namespace draw2d_xlib
          }
 
 
-         ::image_pointer pimage4;
+         ::image::image_pointer pimage4;
          if(imageWork4 == nullptr)
          {
             image4 = create_image(this);
@@ -1670,7 +1670,7 @@ namespace draw2d_xlib
                      ::rectangle_i32 rectangleText(::point_i32(x, y), get_text_extent(str));
                      if(rectangleIntersect.intersect(rectangleIntersect, rectangleText))
                      {
-                        /* p::image_pointer pimage0(this);
+                        /* p::image::image_pointer pimage0(this);
                         image0 = create_image(rectangleText.size());
                         image0.Fill(0, 0, 0, 0);
                         image0.get_graphics()->SetTextColor(argb(255, 255, 255, 255));
@@ -1678,7 +1678,7 @@ namespace draw2d_xlib
                         image0.get_graphics()->SetBkMode(TRANSPARENT);
                         image0.get_graphics()->text_out(0, 0, str);
                         image0.ToAlpha(0);*/
-         /* p::image_pointer pimage1(this);
+         /* p::image::image_pointer pimage1(this);
                       pimage1 = create_image(rectangleText.size());
                       pimage1->Fill(0, 0, 0, 0);
          //               pimage1->get_graphics()->set_color(m_colorColor);
@@ -1686,7 +1686,7 @@ namespace draw2d_xlib
                       pimage1->get_graphics()->SetBkMode(TRANSPARENT);
                       pimage1->get_graphics()->text_out(0, 0, str);
                       //pimage1->channel_from(::color::e_channel_opacity, image0);
-                      ::image_pointer pimage2(this);
+                      ::image::image_pointer pimage2(this);
                       pimage2 = create_image(rectangleText.size());
                       pimage2->Fill(255, 0, 0, 0);
                       pimage2->get_graphics()->set_alpha_mode(::draw2d::alpha_mode_set);
@@ -1695,7 +1695,7 @@ namespace draw2d_xlib
                          size_i32(maximum(0, m_pimageAlphaBlend->width()-maximum(0, x - m_pointAlphaBlend.x)),
                                maximum(0, m_pimageAlphaBlend->height()-maximum(0, y - m_pointAlphaBlend.y))));
                       pimage1->channel_multiply(::color::e_channel_opacity, pimage2);
-                      /* p::image_pointer pimage3(this);
+                      /* p::image::image_pointer pimage3(this);
                       pimage1->mult_alpha(image3);*/
 
          /*           keeper < image > keep(&m_pimageAlphaBlend, nullptr, m_pimageAlphaBlend, true);
@@ -1731,26 +1731,26 @@ namespace draw2d_xlib
             ::rectangle_i32 rectangleText(point_i32((i64) x, (i64) y), get_text_extent(str));
             if(rectangleIntersect.intersect(rectangleIntersect, rectangleText))
             {
-               ::image_pointer pimage0;
+               ::image::image_pointer pimage0;
                image0 = create_image(rectangleText.size());
                ::draw2d::brush_pointer brush(e_create_new, this,argb(255, 255, 255, 255));
                image0.get_graphics()->SelectObject(get_current_font());
                image0.get_graphics()->SelectObject(brush);
                image0.get_graphics()->text_out(0, 0, str);
                image0.ToAlpha(0);
-               ::image_pointer pimage1;
+               ::image::image_pointer pimage1;
                pimage1 = create_image(rectangleText.size());
                pbrush->create_solid(m_pbrush->m_color);
                pimage1->get_graphics()->SelectObject(get_current_font());
                pimage1->get_graphics()->text_out(0, 0, str);
                pimage1->channel_from(::color::e_channel_opacity, image0);
-               ::image_pointer pimage2;
+               ::image::image_pointer pimage2;
                pimage2 = create_image(rectangleText.size());
                pimage2->Fill(255, 0, 0, 0);
                pimage2->from(point_i32((i64) maximum(0, m_pointAlphaBlend.x - x), (i64) maximum(0, m_pointAlphaBlend.y - y)),
                            m_pimageAlphaBlend->get_graphics(), point_i32((i64) maximum(0, x - m_pointAlphaBlend.x), (i64) maximum(0, y - m_pointAlphaBlend.y)), rectangleText.size());
                pimage1->channel_multiply(::color::e_channel_opacity, pimage2->m_p);
-               /* p::image_pointer pimage3(this);
+               /* p::image::image_pointer pimage3(this);
                pimage1->mult_alpha(image3);*/
 
                keep < image > keep(&m_pimageAlphaBlend, nullptr, m_pimageAlphaBlend, true);
@@ -2726,10 +2726,10 @@ namespace draw2d_xlib
                   ::rectangle_i32 rectangleIntersect(m_pointAlphaBlend, m_pimageAlphaBlend->size());
 
 
-                  ::image_pointer pimageWork = nullptr;
-                  ::image_pointer pimageWork2 = nullptr;
-         //         ::image_pointer pimageWork3 = nullptr;
-                  ::image_pointer pimageWork4 = nullptr;
+                  ::image::image_pointer pimageWork = nullptr;
+                  ::image::image_pointer pimageWork2 = nullptr;
+         //         ::image::image_pointer pimageWork3 = nullptr;
+                  ::image::image_pointer pimageWork4 = nullptr;
 
 
                   ::point_i32 pointSrc(xSrc, ySrc);
@@ -2738,7 +2738,7 @@ namespace draw2d_xlib
 
 
 
-                  ::image_pointer pimage;
+                  ::image::image_pointer pimage;
                   if(imageWork == nullptr)
                   {
                      pimage = create_image(this);
@@ -2754,7 +2754,7 @@ namespace draw2d_xlib
 
 
 
-                  ::image_pointer pimage2;
+                  ::image::image_pointer pimage2;
                   if(imageWork2 == nullptr)
                   {
                      pimage2 = create_image(this);
@@ -2762,7 +2762,7 @@ namespace draw2d_xlib
                   }
 
 
-                  ::image_pointer pimage4;
+                  ::image::image_pointer pimage4;
                   if(imageWork4 == nullptr)
                   {
                      image4 = create_image(this);
@@ -2859,10 +2859,10 @@ namespace draw2d_xlib
          ::rectangle_i32 rectangleIntersect(m_pointAlphaBlend, m_pimageAlphaBlend->size());
 
 
-         ::image_pointer pimageWork = nullptr;
-         ::image_pointer pimageWork2 = nullptr;
-   //         ::image_pointer pimageWork3 = nullptr;
-         ::image_pointer pimageWork4 = nullptr;
+         ::image::image_pointer pimageWork = nullptr;
+         ::image::image_pointer pimageWork2 = nullptr;
+   //         ::image::image_pointer pimageWork3 = nullptr;
+         ::image::image_pointer pimageWork4 = nullptr;
 
 
          ::point_i32 pointSrc(xSrc, ySrc);
@@ -2871,7 +2871,7 @@ namespace draw2d_xlib
 
 
 
-         ::image_pointer pimage;
+         ::image::image_pointer pimage;
          if(imageWork == nullptr)
          {
             pimage = create_image(this);
@@ -2887,7 +2887,7 @@ namespace draw2d_xlib
 
 
 
-         ::image_pointer pimage2;
+         ::image::image_pointer pimage2;
          if(imageWork2 == nullptr)
          {
             pimage2 = create_image(this);
@@ -2895,7 +2895,7 @@ namespace draw2d_xlib
          }
 
 
-         ::image_pointer pimage4;
+         ::image::image_pointer pimage4;
          if(imageWork4 == nullptr)
          {
             image4 = create_image(this);

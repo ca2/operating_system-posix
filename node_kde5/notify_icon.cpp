@@ -9,7 +9,7 @@
 #include "acme/filesystem/filesystem/dir_context.h"
 #include "apex/platform/application.h"
 #include "aura/graphics/image/drawing.h"
-#include "aura/graphics/image/context_image.h"
+#include "aura/graphics/image/image_context.h"
 #include "aura/platform/context.h"
 #include "aura/windowing/icon.h"
 #include <QMenu>
@@ -190,23 +190,23 @@ namespace node_kde5
 
       auto pathIcon24 = pathHome / ".config" / papp->m_strAppId / "main/icon-24-resized.png";
 
-      auto pimage = m_pcontext->context_image()->get_image("matter://main/icon-256.png");
+      auto pimage = m_pcontext->image_context()->get_image("matter://main/icon-256.png");
 
-      auto pimage24 = context_image()->create_image({24, 24});
+      auto pimage24 = image()->create_image({24, 24});
 
-      image_source imagesource(pimage);
+      ::image::image_source imagesource(pimage);
 
       auto rectangle = rectangle_f64_dimension(0., 0., 24., 24.);
 
-      image_drawing_options imagedrawingoptions(rectangle);
+      ::image::image_drawing_options imagedrawingoptions(rectangle);
 
-      image_drawing imagedrawing(imagedrawingoptions, imagesource);
+      ::image::image_drawing imagedrawing(imagedrawingoptions, imagesource);
 
       pimage24->g()->set_compositing_quality(::draw2d::e_compositing_quality_high_quality);
 
       pimage24->g()->draw(imagedrawing);
 
-      m_pcontext->context_image()->save_image(pathIcon24, pimage24);
+      m_pcontext->image_context()->save_image(pathIcon24, pimage24);
 
       m_pstatusnotifieritem->setIconByName(pathIcon24.c_str());
 

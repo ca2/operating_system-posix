@@ -42,7 +42,7 @@ namespace windowing_x11
       //XImage *                      m_pimage;
       //bool                          m_bMapped;
       ::rectangle_i32      m_rectangleLast;
-      //::image_pointer                         m_pimage;
+      //::image::image_pointer                         m_pimage;
       //interlocked_i64                              m_interlockedPostedScreenUpdate;
 //manual_reset_event m_evXshm;
       //bool m_bXShmComplete;
@@ -69,8 +69,8 @@ namespace windowing_x11
       virtual void _map_shared_memory(const ::size_i32 & size);
 
 
-//      virtual bool create_os_buffer(::image::image * pimage);
-//      virtual void destroy_os_buffer(::image::image * pimage);
+//      virtual bool create_os_buffer(::image::image *pimage);
+//      virtual void destroy_os_buffer(::image::image *pimage);
 
       bool update_screen() override;
       virtual bool _update_screen_lesser_lock();

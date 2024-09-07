@@ -588,7 +588,7 @@ namespace windowing_xcb
    }
 
 
-   xcb_image_t * display::_create_image(const ::image * pimage)
+   xcb_image_t * display::_create_image(const ::image::image *pimage)
    {
 
       pimage->map();
@@ -613,7 +613,7 @@ namespace windowing_xcb
    }
 
 
-   xcb_pixmap_t display::_create_pixmap(const ::image * pimage)
+   xcb_pixmap_t display::_create_pixmap(const ::image::image *pimage)
    {
 
       if (!pimage)
@@ -691,7 +691,7 @@ namespace windowing_xcb
    }
 
 
-   xcb_render_picture_t display::_create_picture(const ::image * pimage)
+   xcb_render_picture_t display::_create_picture(const ::image::image *pimage)
    {
 
       xcb_pixmap_t pixmap = _create_pixmap(pimage);

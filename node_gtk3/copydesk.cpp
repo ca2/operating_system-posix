@@ -3,7 +3,7 @@
 //#include "acme/operating_system.h"
 #include "aura_posix/clipboard_data.h"
 #include <gtk/gtk.h>
-#include "aura/graphics/image/context_image.h"
+#include "aura/graphics/image/image_context.h"
 #include "aura/platform/system.h"
 #include "aura/platform/node.h"
 
@@ -225,14 +225,14 @@ namespace node_gtk3
    }
 
 
-   bool copydesk::_desk_to_image(::image * pimage)
+   bool copydesk::_desk_to_image(::image::image *pimage)
    {
 
       ::pointer<clipboard_data>pdata = ::place(new clipboard_data(this, e_clipboard_get_image));
 
       pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_desk_to_image"));
 
-      pdata->m_pimage = context_image()->create_image();
+      pdata->m_pimage = image()->create_image();
 
       auto idle_source = g_idle_source_new();
 
@@ -254,7 +254,7 @@ namespace node_gtk3
    }
 
 
-   bool copydesk::_image_to_desk(const ::image * pimage)
+   bool copydesk::_image_to_desk(const ::image::image *pimage)
    {
 
       throw ::exception(todo);

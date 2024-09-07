@@ -20,7 +20,7 @@ namespace node_kde5
 
       ::pointer<::aura_posix::appindicator>         m_pindicator;
       KStatusNotifierItem *                           m_pstatusnotifieritem;
-      ::image_pointer                                 m_pimage;
+      ::image::image_pointer                                 m_pimage;
 
 
       notify_icon();

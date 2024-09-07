@@ -91,7 +91,7 @@ namespace draw2d_xlib
       // Constructors
       bool CreateDC(const char * lpszDriverName, const char * lpszDeviceName, const char * lpszOutput, const void * lpInitData);
       bool CreateIC(const char * lpszDriverName, const char * lpszDeviceName, const char * lpszOutput, const void * lpInitData);
-      bool CreateCompatibleDC(::image::image * pimage);
+      bool CreateCompatibleDC(::image::image *pimage);
 
       bool DeleteDC();
 
@@ -257,9 +257,9 @@ namespace draw2d_xlib
       bool DrawRect(int x1, int y1, int x2, int y2, ::draw2d::pen * pBrush);
 
       void InvertRect(const ::rectangle_i32 & rectangle);
-      bool DrawIcon(i32 x, i32 y, ::draw2d::icon * picon);
-      bool DrawIcon(const ::point_i32 & point, ::draw2d::icon * picon);
-      bool DrawIcon(i32 x, i32 y, ::draw2d::icon * picon, i32 cx, i32 cy, ::u32 istepIfAniCur, HBRUSH hbrFlickerFreeDraw, ::u32 diFlags);
+      bool DrawIcon(i32 x, i32 y, ::image::icon * picon);
+      bool DrawIcon(const ::point_i32 & point, ::image::icon * picon);
+      bool DrawIcon(i32 x, i32 y, ::image::icon * picon, i32 cx, i32 cy, ::u32 istepIfAniCur, HBRUSH hbrFlickerFreeDraw, ::u32 diFlags);
       //bool DrawState(const ::point_i32 & point, const ::size_i32 & size, HBITMAP hBitmap, ::u32 nFlags,
         //             HBRUSH hBrush = nullptr);
 //      bool DrawState(const ::point_i32 & point, const ::size_i32 & size, ::draw2d::bitmap* pBitmap, ::u32 nFlags,

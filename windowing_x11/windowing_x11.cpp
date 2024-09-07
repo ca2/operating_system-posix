@@ -2780,7 +2780,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                   if (!pwindow->m_pximkeyboard)
                   {
 
-                     pwindow->m_pximkeyboard = __new<::xim::keyboard>(m_pdisplay->Display(), e.xkey.window);
+                     pwindow->m_pximkeyboard = new ::xim::keyboard(m_pdisplay->Display(), e.xkey.window);
 
                      pwindow->m_pximkeyboard->initialize(pwindow);
 

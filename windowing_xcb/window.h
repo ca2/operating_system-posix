@@ -140,7 +140,7 @@ namespace windowing_xcb
       
       virtual ::e_status bamf_set_icon();
 
-      virtual bool set_icon(::image * pimage);
+      virtual bool set_icon(::image::image *pimage);
 
       void set_mouse_cursor(::windowing::cursor * pcursor) override;
 

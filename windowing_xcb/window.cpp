@@ -13,7 +13,7 @@
 #include "acme/parallelization/task_message_queue.h"
 #include "acme/primitive/geometry2d/_text_stream.h"
 #include "aura/graphics/graphics/graphics.h"
-#include "aura/graphics/image/context_image.h"
+#include "aura/graphics/image/image_context.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
 #include "aura/platform/node.h"
@@ -808,12 +808,12 @@ namespace windowing_xcb
    }
 
 
-   bool window::set_icon(::image * pimage)
+   bool window::set_icon(::image::image *pimage)
    {
 
       information() << "windowing_xcb::window set_icon (with image)";
 
-      auto d1 = context_image()->create_image({32, 32});
+      auto d1 = image()->create_image({32, 32});
 
       if (d1.nok())
       {
@@ -826,11 +826,11 @@ namespace windowing_xcb
 
       {
 
-         image_source imagesource(pimage, pimage->rectangle());
+         ::image::image_source imagesource(pimage, pimage->rectangle());
 
-         image_drawing_options imagedrawingoptions(d1->rectangle());
+         ::image::image_drawing_options imagedrawingoptions(d1->rectangle());
 
-         image_drawing imagedrawing(imagedrawingoptions, imagesource);
+         ::image::image_drawing imagedrawing(imagedrawingoptions, imagesource);
 
          d1->g()->draw(imagedrawing);
 

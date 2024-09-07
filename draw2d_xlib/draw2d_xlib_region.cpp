@@ -41,7 +41,7 @@ namespace draw2d_xlib
       { return Attach(::CreatePolyPolygonRgn(lpPoints, lpPolyCounts, nCount, nPolyFillMode)); }
       int_bool region::CreateRoundRectRgn(i32 x1, i32 y1, i32 x2, i32 y2, i32 x3, i32 y3)
       { return Attach(::CreateRoundRectRgn(x1, y1, x2, y2, x3, y3)); }
-      int_bool region::CreateFromPath(::image * pimage)
+      int_bool region::CreateFromPath(::image::image *pimage)
       { ASSERT(pgraphics != nullptr); return Attach(::PathToRegion((dynamic_cast<::win::graphics * >(pgraphics))->get_handle1())); }
       int_bool region::CreateFromData(const XFORM* lpXForm, i32 nCount, const RGNDATA* pRgnData)
       { return Attach(::ExtCreateRegion(lpXForm, nCount, pRgnData)); }

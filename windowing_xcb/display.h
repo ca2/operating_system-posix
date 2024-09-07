@@ -128,10 +128,10 @@ namespace windowing_xcb
       //virtual ::e_status _send_client_event_v(xcb_window_t window, xcb_atom_t atom, unsigned int numArgs, va_list args);
 
 
-      virtual xcb_cursor_t _create_alpha_cursor(const ::image *pimage, int xHotSpot, int yHotSpot);
-      virtual xcb_pixmap_t _create_pixmap(const ::image * pimage);
-      virtual xcb_image_t * _create_image(const ::image * pimage);
-      virtual xcb_render_picture_t _create_picture(const ::image * pimage);
+      virtual xcb_cursor_t _create_alpha_cursor(const ::image::image *pimage, int xHotSpot, int yHotSpot);
+      virtual xcb_pixmap_t _create_pixmap(const ::image::image *pimage);
+      virtual xcb_image_t * _create_image(const ::image::image *pimage);
+      virtual xcb_render_picture_t _create_picture(const ::image::image *pimage);
 
 
       virtual comparable_raw_array < xcb_window_t > _window_enumerate();

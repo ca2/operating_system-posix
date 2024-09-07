@@ -31,8 +31,8 @@ namespace node_kde5
       bool _get_plain_text(string & str) override;
       bool _has_plain_text() override;
 
-      bool _desk_to_image(::image * pimage) override;
-      bool _image_to_desk(const ::image * pimage) override;
+      bool _desk_to_image(::image::image *pimage) override;
+      bool _image_to_desk(const ::image::image *pimage) override;
       bool _has_image() override;
 
    };

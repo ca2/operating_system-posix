@@ -26,7 +26,7 @@
 #include <wayland-client.h>
 #include <linux/input.h> // for BTN_LEFT,...
 #include <xkbcommon/xkbcommon.h>
-#include "aura/graphics/image/context_image.h"
+#include "aura/graphics/image/image_context.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
 #include "windowing_system_wayland/xfree86_key.h"
@@ -1612,7 +1612,7 @@ namespace windowing_wayland
 //   }
 
 
-   bool window::set_icon(::image * pimage)
+   bool window::set_icon(::image::image *pimage)
    {
 
       // http://stackoverflow.com/questions/10699927/xlib-argb-window-icon
@@ -1649,7 +1649,7 @@ namespace windowing_wayland
 //
 //#elif 1
 //
-//      auto image1 = context_image()->create_image({32, 32});
+//      auto image1 = image()->create_image({32, 32});
 //
 //      if (image1.nok())
 //      {
@@ -1662,13 +1662,13 @@ namespace windowing_wayland
 //
 //      {
 //
-//         image_source imagesource(pimage->g(), pimage->rectangle());
+//         ::image::image_source imagesource(pimage->g(), pimage->rectangle());
 //
 //         rectangle_f64 rectangle(image1->rectangle());
 //
-//         image_drawing_options imagedrawingoptions(rectangle);
+//         ::image::image_drawing_options imagedrawingoptions(rectangle);
 //
-//         image_drawing imagedrawing(imagedrawingoptions, imagesource);
+//         ::image::image_drawing imagedrawing(imagedrawingoptions, imagesource);
 //
 //         //getfileimage.m_iImage = m_pimagelist[16]->set(getfileimage.m_iImage, imagedrawing);
 //
