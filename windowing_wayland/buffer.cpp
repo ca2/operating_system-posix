@@ -20,6 +20,7 @@
 
 //#define VERI_BASIC_TEST
 #define MORE_LOG
+#undef MORE_LOG
 
 namespace windowing_wayland
 {
@@ -843,10 +844,10 @@ namespace windowing_wayland
                   << (::iptr) pwaylandwindow->m_buffer.m_pdata;
 
 #else
-               information()
-
-                  << "_update_screen_unlocked data : "
-                  << (::iptr) pwaylandwindow->m_buffer.m_pdata;
+               // information()
+               //
+               //    << "_update_screen_unlocked data : "
+               //    << (::iptr) pwaylandwindow->m_buffer.m_pdata;
 
 #endif
 
