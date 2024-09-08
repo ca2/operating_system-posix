@@ -13,6 +13,7 @@
 #include "acme/platform/node.h"
 #include "apex/operating_system/freedesktop/desktop_file.h"
 #include "acme/handler/topic.h"
+#include "acme/platform/scoped_restore.h"
 #include "acme/operating_system/summary.h"
 #include "acme/parallelization/manual_reset_event.h"
 #include "acme/user/user/os_theme_colors.h"
@@ -493,6 +494,8 @@ namespace node_gdk
 
       //m_pNodeGtk3 = this;
 
+  m_bFetchingDarkMode= false;
+
       m_pGtkSettingsDefault = nullptr;
 
       m_pgdkapplaunchcontext = nullptr;
@@ -879,6 +882,22 @@ namespace node_gdk
    void node::_fetch_dark_mode()
    {
 
+if(m_bFetchingDarkMode)
+{
+
+return;
+
+}
+
+m_bFetchingDarkMode = true;
+
+at_end_of_scope
+{
+
+m_bFetchingDarkMode = false;
+
+};
+
       information() << "::node_gtk3::node::_dark_mode";
 
       if(_gsettings_schema_exists("org.gnome.desktop.interface"))
@@ -922,6 +941,43 @@ namespace node_gdk
             }
 
          }
+         else if(_gsettings_schema_contains_key("org.gnome.desktop.interface", "gtk-theme"))
+	 {
+
+            information() << "org.gnome.desktop.interface contains \"gtk-theme\"";
+
+            ::string strGtkTheme;
+
+            if (_gsettings_get(strGtkTheme, "org.gnome.desktop.interface", "gtk-theme"))
+            {
+
+               information() << "gtk-theme=\"" + strGtkTheme + "\"";
+
+               strGtkTheme.trim();
+
+               if (strGtkTheme.case_insensitive_contains("dark"))
+               {
+
+                  m_bOperatingSystemDarkMode = true;
+
+               }
+               else
+               {
+
+                  m_bOperatingSystemDarkMode = false;
+
+               }
+
+            }
+            else
+            {
+
+               m_bOperatingSystemDarkMode = false;
+
+            }
+
+
+	 }
          else
          {
 

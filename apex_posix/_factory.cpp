@@ -8,7 +8,7 @@
 #include "system_5/interprocess_target.h"
 #endif
 
-#if defined(FREEBSD) || defined(OPENBSD) || defined(__APPLE__)
+#if defined(__APPLE__) || defined(__BSD__)
 #include <stdio.h>
 #endif
 
