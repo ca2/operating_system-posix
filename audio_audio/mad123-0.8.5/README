@@ -1,0 +1,121 @@
+$Id: README,v 1.16 2003/08/23 20:48:23 steve Exp $
+
+mad123 - A command line MP3 player using Robert Leslie's "libmad"
+fixed-point MP3 decoder library.
+
+
+Description
++++++++++++
+
+This is not meant to be a serious replacement for the ubiquitous
+"mpg123" program.
+
+Instead, this is a merely an experiment in using libmad.
+
+At the time mad123 was written, a couple of things set it apart from
+the command line MP3 player supplied with libmad (madplay):
+
+1) Supports URL style MP3 pathnames:
+   For example: mad123 http://a.server/mp3s/thrash.mp3
+
+2) The audio output is double-buffered (currently ~10 seconds worth
+   at 44100Hz sample rate). This means the program is *much* less
+   susceptible to network/cpu loading compared to madplay.
+
+3) An intelligent `read-ahead' algorithm can be used to pre-buffer
+   large chunks of the input mp3 stream.
+
+4) Simple keyboard controls.
+
+5) CTRL-C behaves like it does for mpg123.
+
+6) It can be installed setuid-root (don't worry, it drops privs *very*
+   early on) so that it can adjust the scheduling priorities of its
+   two (sometimes three) processes to be even less susceptible to
+   jitter. (The third process is used when the mp3 stream is being read
+   from a URL, eg. http://something/).
+
+
+A Very Short List of Bugs/Missing Features
+++++++++++++++++++++++++++++++++++++++++++
+
+There are very few command line options.
+Many more buffer parameters should be tweakable on the command line.
+Only the Artist and Title ID3 tags are shown, if available.
+Some things need tidying up.
+
+
+Installing
+++++++++++
+
+You'll need the following packages from the NetBSD package collection:
+
+        pkgsrc/audio/mad
+        pkgsrc/audio/id3lib
+        pkgsrc/www/curl
+
+Note that `id3lib' and `curl' are fairly hefty libraries, so if you're too
+lazy to wait for them to build, or just want a minimal install, uncomment
+the NOID3LIB and/or NOCURL defines in the Makefile.
+
+Now just type `make' in the mad123 directory.
+
+
+Usage
++++++
+
+mad123 [-cq]
+       [-f audio-device]
+       [-b pre-buffer-size]
+       [-p playlist-file]
+       <mp3_file_or_url> ...
+
+Options:
+        -c Enable keyboard controls. Currently, the following keys
+           are recognised:
+
+           n - Skip to the next track
+           b - Skip to the previous track
+           r - Rewind to the start of the current track
+           p - Pause
+           q - Quit
+
+        -f Set the output device to <audio-device> instead of the
+           default of /dev/audio.
+
+        -q Be quiet. i.e. don't display play status.
+
+        -b <read-ahead-buffer-size-in-bytes>
+           Allocate a buffer which will be used to read-ahead large chunks
+           of the mp3 file at a time. The mp3 will still start playing even
+           when only a small amount of data has been read in, but when the
+           buffer fills, no more data will be read until the buffer has
+           drained to `nearly' empty. This behaviour is useful when playing
+           mp3 files over a congested network or when you'd like to spin
+           down a laptop drive for as long as possible.
+
+           Note: Anything less than ~100KB is ineffective.
+
+        -p Read a list of mp3 files from the file <playlist-file>. This is
+	   a simple flat file containing a single pathname per line.
+
+Example
++++++++
+
+I use: mad123 -c -b 0x200000 */mp3
+
+
+Misc
+++++
+
+Yes, it's GPL'd. :-(
+I would much rather this had a BSD-style license. However, mad123 caught
+the GPL virus as a result of using libmad.
+
+
+Bug Reports
++++++++++++
+
+Please direct all comments/bug-reports to mad123@mctavish.co.uk.
+
+Steve Woodford.

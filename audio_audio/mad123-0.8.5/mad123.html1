@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+  	$Id: mad123.1,v 1.4 2004/09/22 11:02:12 steve Exp $
+  
+   Copyright (c) 2003 Lubomir Sedlacik
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+  
+   THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+   IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+   OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+   IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+   INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+   BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+   LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+   AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+   OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+   OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+   SUCH DAMAGE.
+   -->
+<head>
+  <meta charset="utf-8"/>
+  <link rel="stylesheet" href="../style.css" type="text/css" media="all"/>
+  <title>mad123(1)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">mad123(1)</td>
+    <td class="head-vol">General Commands Manual</td>
+    <td class="head-rtitle">mad123(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<code class="Nm">mad123</code> &#x2014;
+<div class="Nd">play MPEG audio files</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<table class="Nm">
+  <tr>
+    <td><code class="Nm">mad123</code></td>
+    <td>[<code class="Fl">-cq</code>] [<code class="Fl">-b</code>
+      <var class="Ar">size</var>] [<code class="Fl">-f</code>
+      <var class="Ar">device</var>] [<code class="Fl">-p</code>
+      <var class="Ar">playlistfile</var>] [<var class="Ar">file ...</var>]</td>
+  </tr>
+</table>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<code class="Nm">mad123</code> is a command line MPEG audio files player using
+  Robert Leslie's &#x201C;libmad&#x201D; fixed-point MP3 decoder library.
+  <code class="Nm">mad123</code> is not meant to be a serious replacement for
+  the ubiquitous <a class="Xr" href="../html1/mpg123.html">mpg123(1)</a>
+  program. Instead, it is merely an experiment in using libmad.
+<p class="Pp">At the time <code class="Nm">mad123</code> was written, a couple
+    of things set it apart from the command line player supplied with libmad,
+    <a class="Xr" href="../html1/madplay.html">madplay(1)</a>:</p>
+<ul class="Bl-dash Bd-indent">
+  <li>Support for URL style pathnames.</li>
+  <li>The audio output is double-buffered (currently about 10 seconds worth at
+      44100Hz sample rate). This means <code class="Nm">mad123</code> is much
+      less susceptible to network/CPU loading compared to
+      <a class="Xr" href="../html1/madplay.html">madplay(1)</a>.</li>
+  <li>An intelligent `read-ahead' algorithm can be used to pre-buffer large
+      chunks of the input MPEG audio stream.</li>
+  <li>Simple keyboard controls.</li>
+  <li>Ctrl-C behaves like it does for
+      <a class="Xr" href="../html1/mpg123.html">mpg123(1)</a>.</li>
+  <li><code class="Nm">mad123</code> can be installed setuid-root (don't worry,
+      it drops privs very early on) so that it can adjust the scheduling
+      priorities of its two (sometimes three) processes to be even less
+      susceptible to jitter. (The third process is used when the MP3 stream is
+      being read from an URL).</li>
+</ul>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+The following options are available:
+<div class="Bd-indent">
+<dl class="Bl-tag">
+  <dt><a class="permalink" href="#b"><code class="Fl" id="b">-b</code></a>
+    <var class="Ar">size</var></dt>
+  <dd>Allocate a <var class="Ar">size</var> bytes buffer which will be used to
+      read-ahead large chunks of the <var class="Ar">file</var> at a time. The
+      <var class="Ar">file</var> will be played even when only a small amount of
+      data has been read in, but when the buffer fills, no more data will be
+      read until the buffer has drained to 'nearly' empty. This behaviour is
+      useful when playing files over a congested network or when you'd like to
+      spin down a laptop drive for as long as possible.</dd>
+  <dt><a class="permalink" href="#c"><code class="Fl" id="c">-c</code></a></dt>
+  <dd>Enable keyboard controls. Currently, the following keys are recognised:
+    <p class="Pp"></p>
+    <div class="Bd-indent">
+    <dl class="Bl-tag Bl-compact">
+      <dt><a class="permalink" href="#n"><code class="Ic" id="n">n</code></a></dt>
+      <dd>Skip to the next track.</dd>
+      <dt><a class="permalink" href="#b_2"><code class="Ic" id="b_2">b</code></a></dt>
+      <dd>Skip to the previous track.</dd>
+      <dt><a class="permalink" href="#r"><code class="Ic" id="r">r</code></a></dt>
+      <dd>Rewind to the start of the current track.</dd>
+      <dt><a class="permalink" href="#p"><code class="Ic" id="p">p</code></a></dt>
+      <dd>Pause.</dd>
+      <dt><a class="permalink" href="#q"><code class="Ic" id="q">q</code></a></dt>
+      <dd>Quit.</dd>
+    </dl>
+    </div>
+  </dd>
+  <dt><a class="permalink" href="#f"><code class="Fl" id="f">-f</code></a>
+    <var class="Ar">device</var></dt>
+  <dd>Set the audio device to be <var class="Ar">device</var>. The default is
+      <span class="Pa">/dev/sound</span>. You can also specify which of the
+      supported audio backends to use by pre-pending the device with its name
+      followed by a colon. For example: <span class="Pa">sun:/dev/sound</span>
+      selects the default Sun-compatible backend, and
+      <span class="Pa">pcm:foo.raw</span> write raw PCM samples to the file
+      named <span class="Pa">foo.raw</span>. <span class="Pa">pcm:-</span>
+      causes raw PCM samples to be written to standard output.
+    <p class="Pp">In addition to the Sun backend, <code class="Nm">mad123</code>
+        also supports an Analog Real-Time Synthesizer (aRts) backend. This is
+        particularly useful when running <code class="Nm">mad123</code> under
+        KDE3, for example. To use the aRts backend, use the following audio
+        device: <span class="Pa">arts:mad123</span>. The text following the
+        colon is passed directly to aRts, and will show up in aRts Control's
+        Audio Manager status display. Note: support for aRts is experimental,
+        and is not compiled in by default.</p>
+  </dd>
+  <dt><a class="permalink" href="#p_2"><code class="Fl" id="p_2">-p</code></a>
+    <var class="Ar">playlistfile</var></dt>
+  <dd>Use the contents of <var class="Ar">playlistfile</var> to specify the list
+      of mp3 files to be played. Mp3 files specified on the command line are
+      ignored if this option is present.</dd>
+  <dt><a class="permalink" href="#q_2"><code class="Fl" id="q_2">-q</code></a></dt>
+  <dd>Be quiet.</dd>
+</dl>
+</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLES"><a class="permalink" href="#EXAMPLES">EXAMPLES</a></h1>
+Play all MP3 files from the current directory, enable keyboard controls and set
+  the read-ahead buffer to 2 MB:
+<p class="Pp"></p>
+<div class="Bd Bd-indent"><code class="Li">mad123 -c -b 0x200000
+  *.mp3</code></div>
+<p class="Pp">Play an MP3 stream from an URL, set the read-ahead buffer to 512
+    kB, be quiet:</p>
+<p class="Pp"></p>
+<div class="Bd Bd-indent"><code class="Li">mad123 -q -b 0x80000
+  http://a.server/mp3s/thrash.mp3</code></div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+A read-ahead buffer smaller than 100 kB is ineffective.
+<p class="Pp">Using the aRts backend renders the PCM output buffer more or less
+    redundant, So don't expect perfect jitter-free playback.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<a class="Xr" href="../html1/madplay.html">madplay(1)</a>,
+  <a class="Xr" href="../html1/mpg123.html">mpg123(1)</a>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHORS"><a class="permalink" href="#AUTHORS">AUTHORS</a></h1>
+The <code class="Nm">mad123</code> program was written by <span class="An">Steve
+  Woodford</span> &#x27E8;mad123@mctavish.co.uk&#x27E9;. This manual page was
+  written by
+<br/>
+<span class="An">Lubomir Sedlacik</span> &#x27E8;salo@NetBSD.org&#x27E9;.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+There are very few command line options.
+<br/>
+Many more buffer parameters should be tweakable on the command line.
+<br/>
+Only the Artist and Title ID3 tags are shown, if available.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">September 22, 2004</td>
+    <td class="foot-os">NetBSD 10.0</td>
+  </tr>
+</table>
+</body>
+</html>
