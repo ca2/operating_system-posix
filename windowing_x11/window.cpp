@@ -4790,12 +4790,14 @@ namespace windowing_x11
    void window::destroy_window()
    {
 
-      procedure procedure = [this]()
+	::pointer < window > pthis = this;
+
+      procedure procedure = [this, pthis]()
                {
 
 
                   bool bOk = false;
-
+                 ::pointer<::user::interaction> pinteraction;
                   if (::is_set(m_puserinteractionimpl))
                   {
 
@@ -4807,8 +4809,6 @@ namespace windowing_x11
                         pinteraction->send_message(e_message_destroy, 0, 0);
 
                         mq_remove_window_from_all_queues();
-
-                        pinteraction->send_message(e_message_non_client_destroy, 0, 0);
 
                      } else
                      {
@@ -4826,14 +4826,7 @@ namespace windowing_x11
 
                      }
 
-                     //oswindow_remove_impl(window->m_puserinteractionimpl);
-
-                     if(m_pwindowing)
-                     {
-
-                        m_pwindowing->erase_window(this);
-
-                     }
+          
 
                   }
 
@@ -4849,13 +4842,13 @@ namespace windowing_x11
                   //oswindow_data * pdata = (oswindow_data * )(void * )
                   //window;
 
-                  bool bIs = is_window();
+//                  bool bIs = is_window();
 
-                  if(m_pwindowing) {
+  //                if(m_pwindowing) {
 
-                     m_pwindowing->erase_window(this);
+    //                 m_pwindowing->erase_window(this);
 
-                  }
+      //            }
 
                   windowing_output_debug_string("::DestroyWindow 1");
 
@@ -4866,11 +4859,39 @@ namespace windowing_x11
 
                      XUnmapWindow(Display(), Window());
 
+//                     auto xwindow = Window();
+
+  //                   m_oswindow = nullptr;
+
+//                     payload("destroying_window") = (::i64) Window();
+
+                     set_flag(e_flag_destroying);
+
                      XDestroyWindow(Display(), Window());
 
                      windowing_output_debug_string("::DestroyWindow 2");
 
+
                   }
+                  else
+                  {
+
+		if(pinteraction)
+		{
+	                pinteraction->post_message(e_message_non_client_destroy, 0, 0);
+
+		}
+
+           //oswindow_remove_impl(window->m_puserinteractionimpl);
+
+                     if(m_pwindowing)
+                     {
+
+                        m_pwindowing->erase_window(this);
+
+                     }
+
+                    }
 //
 //               });
 
@@ -4880,7 +4901,7 @@ namespace windowing_x11
 
       procedure.m_timeTimeout = 1_min;
 
-      system()->windowing_system()->sync(procedure);
+      system()->windowing_system()->post_procedure(procedure);
 
    }
 

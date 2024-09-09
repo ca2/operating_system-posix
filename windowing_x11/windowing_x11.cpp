@@ -2061,7 +2061,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                }
 
-            } else if (px11window)
+            }
+            else if (px11window && px11window->m_oswindow == msg.oswindow && !px11window->has_flag(e_flag_destroying))
             {
 
                msg.time = e.xproperty.time;
@@ -2373,24 +2374,33 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
             informationf("windowing_x11 UnmapNotify");
 
-            if (msg.oswindow)
+            if (msg.oswindow && px11window && px11window->m_oswindow == msg.oswindow && !px11window->has_flag(e_flag_destroying))
             {
 
-               if (!XGetWindowAttributes(m_pdisplay->Display(), px11window->Window(), &px11window->m_xwindowattributes))
+//               auto iWindow = px11window->payload("destroying_window").as_i64();
+
+//               auto windowDestroying = (Window) iWindow;
+
+//               if((Window) msg.oswindow != windowDestroying)
                {
 
-                  informationf("X11 MapNotify XGetWindowAttributes failed");
+                  if (!XGetWindowAttributes(m_pdisplay->Display(), px11window->Window(), &px11window->m_xwindowattributes))
+                  {
 
-                  return false;
+                     informationf("X11 MapNotify XGetWindowAttributes failed");
+
+                     return false;
+
+                  }
+
+
+                  msg.m_atom = e_message_show_window;
+                  msg.wParam = 0;
+                  msg.lParam = 0;
+
+                  post_ui_message(msg);
 
                }
-
-
-               msg.m_atom = e_message_show_window;
-               msg.wParam = 0;
-               msg.lParam = 0;
-
-               post_ui_message(msg);
 
             }
 
@@ -3010,12 +3020,29 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          case DestroyNotify:
          {
 
-            if (msg.oswindow)
-            {
-               msg.oswindow = m_pdisplay->_window(e.xdestroywindow.window);
-               msg.m_atom = e_message_destroy;
+            windowing_output_debug_string("windowing_x11.cpp DestroyNotify");
 
-               post_ui_message(msg);
+            if (msg.oswindow && px11window && px11window->m_oswindow == msg.oswindow)
+            {
+              // msg.oswindow = m_pdisplay->_window(e.xdestroywindow.window);
+              // msg.m_atom = e_message_destroy;
+
+              // post_ui_message(msg);
+
+                windowing_output_debug_string("windowing_x11.cpp DestroyNotify going to try to post non_client_destroy message to userinteraction");
+                ::pointer < ::user::interaction > pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
+		if(pinteraction)
+		{
+                   windowing_output_debug_string("windowing_x11.cpp DestroyNotify postin non_client_destroy message to userinteraction");
+                   pinteraction->post_message(e_message_non_client_destroy, 0, 0);
+
+		}
+
+           //oswindow_remove_impl(window->m_puserinteractionimpl);
+
+                windowing_output_debug_string("windowing_x11.cpp DestroyNotify erasing window from windowing");
+
+                erase_window(px11window);
 
             }
 
