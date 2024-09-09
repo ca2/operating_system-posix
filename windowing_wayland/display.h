@@ -147,15 +147,15 @@ namespace windowing_wayland
 
       //virtual comparable_array < Window > x11_window_list();
 
-      virtual ::wl_cursor * create_alpha_cursor(::image *pimage, int xHotSpot, int yHotSpot);
-//      virtual Pixmap _x11_create_pixmap(::image_pointer pimage);
-//      virtual XImage * _x11_create_image(::image_pointer pimage);
-//      virtual Pixmap x11_create_pixmap(::image_pointer pimage);
-//      virtual XImage * x11_create_image(::image_pointer pimage);
+      virtual ::wl_cursor * create_alpha_cursor(::image::image *pimage, int xHotSpot, int yHotSpot);
+//      virtual Pixmap _x11_create_pixmap(::image::image_pointer pimage);
+//      virtual XImage * _x11_create_image(::image::image_pointer pimage);
+//      virtual Pixmap x11_create_pixmap(::image::image_pointer pimage);
+//      virtual XImage * x11_create_image(::image::image_pointer pimage);
 
       //virtual bool point_is_window_origin(::point_i32 pointHitTest, ::windowing::window * pwindowExclude, int iMargin);
 
-      ///virtual Picture xrender_create_picture(::image_pointer pimage);
+      ///virtual Picture xrender_create_picture(::image::image_pointer pimage);
 
 
 //      virtual void __handle_pointer_enter(::wl_pointer * pwlpointer, double x, double y, ::windowing_wayland::window * pwindowPointerEnter);

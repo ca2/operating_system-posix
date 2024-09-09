@@ -71,8 +71,6 @@ namespace windowing_xcb
    void icon::load_matter(string strMatter)
    {
 
-      auto pcontext = m_pcontext;
-
       string strPath = dir()->matter(strMatter);
 
       load_file(strPath);
@@ -110,7 +108,7 @@ namespace windowing_xcb
    }
 
 
-   image_pointer icon::get_image(const ::size_i32 & size)
+   ::image::image_pointer icon::get_image(const ::size_i32 & size)
    {
 
       throw ::interface_only();

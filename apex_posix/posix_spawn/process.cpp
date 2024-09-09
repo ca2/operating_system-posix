@@ -14,7 +14,7 @@
 #ifdef RASPBERRYPIOS
 #include <sys/types.h>
 #include <unistd.h>
-#elif defined(FREEBSD) || defined(OPENBSD)
+#elif defined(__BSD__)
 #include <sched.h>
 #include <unistd.h>
 #endif

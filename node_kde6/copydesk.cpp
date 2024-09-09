@@ -233,7 +233,7 @@ return false;
    }
 
 
-   bool copydesk::_desk_to_image(::image * pimage)
+   bool copydesk::_desk_to_image(::image::image *pimage)
    {
 
       bool bOk = false;
@@ -287,7 +287,7 @@ return false;
    }
 
 
-   bool copydesk::_image_to_desk(const ::image * pimage)
+   bool copydesk::_image_to_desk(const ::image::image *pimage)
    {
 
 

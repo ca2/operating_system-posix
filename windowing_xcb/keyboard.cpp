@@ -281,9 +281,7 @@ namespace windowing_xcb
 
       //::type typeinfoKey = ::type < ::user::enum_key >();
 
-      auto pcontext = m_pcontext;
-
-      string str = pcontext->m_papexcontext->file()->as_string(pszPath);
+      string str = file()->as_string(pszPath);
 
       information(pszPath);
 

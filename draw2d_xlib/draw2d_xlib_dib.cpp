@@ -14,7 +14,7 @@ namespace draw2d_xlib
 
 
 
-   image::image_pointer(::particle * pparticle) :
+   image::image::image_pointer(::particle * pparticle) :
       ::object(pparticle),
       m_pbitmap(e_create),
       m_spgraphics(e_create)
@@ -155,7 +155,7 @@ namespace draw2d_xlib
       return true;
    }
 
-   bool image::create(::image * pimage)
+   bool image::create(::image::image *pimage)
    {
       ::draw2d::bitmap * pbitmap = (dynamic_cast < ::draw2d_xlib::graphics * > (pgraphics))->get_current_bitmap();
       if(pbitmap == nullptr)
@@ -207,7 +207,7 @@ namespace draw2d_xlib
 
    }
 
-   bool image::from(::image * pimage)
+   bool image::from(::image::image *pimage)
    {
       ::draw2d::bitmap_pointer bitmap(this);
       bitmap->CreateCompatibleBitmap(pgraphics, 1, 1);
@@ -336,7 +336,7 @@ namespace draw2d_xlib
 
    ////DIB = DIB * SRC_ALPHA
 
-   //void image::mult_alpha(::image * pimageWork, bool bPreserveAlpha)
+   //void image::mult_alpha(::image::image *pimageWork, bool bPreserveAlpha)
    //{
    //   image::mult_alpha(imageWork, bPreserveAlpha);
    //   return ;
@@ -345,7 +345,7 @@ namespace draw2d_xlib
    //      return;
 
    //   //return image::mult_alpha(nullptr, true);
-   //   ::image_pointer pimageWork;
+   //   ::image::image_pointer pimageWork;
 
    //   if(imageWork == nullptr)
    //   {
@@ -699,7 +699,7 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void imagecopy(::image * pimage)
+   //void imagecopy(::image::image *pimage)
    //{
    //   // If DibSize Wrong Re-create image
    //   if ( (pimage->cx!=cx) || (pimage->cy!=cy) )
@@ -709,7 +709,7 @@ namespace draw2d_xlib
    //}
 
 
-   //void image::Paste ( ::image_pointer pimage )
+   //void image::Paste ( ::image::image_pointer pimage )
    //{
    //   // If DibSize Wrong Re-create image
    //   if ( (cx!=pimage->cx) || (cy!=pimage->cy) )
@@ -743,7 +743,7 @@ namespace draw2d_xlib
    //}
 
 
-   //void image::Blend (::image * pimage, i32 A )
+   //void image::Blend (::image::image *pimage, i32 A )
    //{
    //   if ( size()!=pimage->size() )
    //      return;
@@ -788,7 +788,7 @@ namespace draw2d_xlib
    //   return true;
    //}
 
-   //void image::Darken (::image * pimage )
+   //void image::Darken (::image::image *pimage )
    //{
    //   if ( size()!=pimage->size() )
    //      return;
@@ -807,7 +807,7 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image::Difference (::image * pimage )
+   //void image::Difference (::image::image *pimage )
    //{
    //   if ( size()!=pimage->size() )
    //      return;
@@ -830,7 +830,7 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image::Lighten (::image * pimage )
+   //void image::Lighten (::image::image *pimage )
    //{
    //   if ( size()!=pimage->size() )
    //      return;
@@ -850,7 +850,7 @@ namespace draw2d_xlib
    //}
 
 
-   //void image::Multiply (::image * pimage )
+   //void image::Multiply (::image::image *pimage )
    //{
    //   if ( size()!=pimage->size() )
    //      return;
@@ -869,7 +869,7 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image::Screen (::image * pimage )
+   //void image::Screen (::image::image *pimage )
    //{
    //   if ( size()!=pimage->size() )
    //      return;
@@ -892,7 +892,7 @@ namespace draw2d_xlib
    // Rectangle Functions
    //////////////////////////////////////////////////////////////////////
 
-   //void image::copy (::image * pimage, i32 x, i32 y )
+   //void image::copy (::image::image *pimage, i32 x, i32 y )
    //{
    //   // Clip Rect
    //   i32 px=(x>=0) ? x : 0;
@@ -923,7 +923,7 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image::PasteRect (::image * pimage, i32 x, i32 y )
+   //void image::PasteRect (::image::image *pimage, i32 x, i32 y )
    //{
    //   // Clip Rect
    //   i32 px=(x>=0) ? x : 0;
@@ -1040,7 +1040,7 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image::BlendRect (::image * pimage, i32 x, i32 y, i32 A )
+   //void image::BlendRect (::image::image *pimage, i32 x, i32 y, i32 A )
    //{
    //   // Clip Rect
    //   i32 px=(x>=0) ? x : 0;
@@ -1074,7 +1074,7 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image::DarkenRect (::image * pimage, i32 x, i32 y )
+   //void image::DarkenRect (::image::image *pimage, i32 x, i32 y )
    //{
    //   // Clip Rect
    //   i32 px=(x>=0) ? x : 0;
@@ -1108,7 +1108,7 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image::DifferenceRect (::image * pimage, i32 x, i32 y )
+   //void image::DifferenceRect (::image::image *pimage, i32 x, i32 y )
    //{
    //   // Clip Rect
    //   i32 px=(x>=0) ? x : 0;
@@ -1146,7 +1146,7 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image::LightenRect (::image * pimage, i32 x, i32 y )
+   //void image::LightenRect (::image::image *pimage, i32 x, i32 y )
    //{
    //   // Clip Rect
    //   i32 px=(x>=0) ? x : 0;
@@ -1180,7 +1180,7 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image::MultiplyRect (::image * pimage, i32 x, i32 y )
+   //void image::MultiplyRect (::image::image *pimage, i32 x, i32 y )
    //{
    //   // Clip Rect
    //   i32 px=(x>=0) ? x : 0;
@@ -1214,7 +1214,7 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image::ScreenRect (::image * pimage, i32 x, i32 y )
+   //void image::ScreenRect (::image::image *pimage, i32 x, i32 y )
    //{
    //   // Clip Rect
    //   i32 px=(x>=0) ? x : 0;
@@ -1754,7 +1754,7 @@ namespace draw2d_xlib
 //      }
 //   }
 //
-   void image::SetIconMask(::draw2d::icon * picon, i32 cx, i32 cy)
+   void image::SetIconMask(::image::icon * picon, i32 cx, i32 cy)
    {
       create(cx, cy);
 
@@ -1765,7 +1765,7 @@ namespace draw2d_xlib
 
 
       // White blend image
-      ::image_pointer pimage1(this);
+      ::image::image_pointer pimage1(this);
       pimage1 = create_image({cx,  cy});
       pimage1->set(255, 255, 255);
 
@@ -1778,7 +1778,7 @@ namespace draw2d_xlib
       DI_IMAGE | DI_MASK);
 
       // Black blend image
-      ::image_pointer pimage2;
+      ::image::image_pointer pimage2;
       pimage2 = create_image({cx,  cy});
       pimage2->Fill(0, 0, 0, 0);
 
@@ -1791,7 +1791,7 @@ namespace draw2d_xlib
       DI_IMAGE | DI_MASK);
 
       // Mask image
-      ::image_pointer pimageM(this);
+      ::image::image_pointer pimageM(this);
       imageM = create_image({cx,  cy});
 
       imageM.m_spgraphics->DrawIcon(
@@ -1840,9 +1840,9 @@ namespace draw2d_xlib
 
    }
 //
-//   void image::rotate(::image * pimage, double dAngle, double dScale)
+//   void image::rotate(::image::image *pimage, double dAngle, double dScale)
 //   {
-//     // ::image_pointer pimage(this);
+//     // ::image::image_pointer pimage(this);
 //   //   pimage->Paste(this);
 //
 //      i32 cx = this->cx;
@@ -1927,7 +1927,7 @@ namespace draw2d_xlib
 //   }
 
 
-   //void image::Rotate034(::image * pimage, double dAngle, double dScale)
+   //void image::Rotate034(::image::image *pimage, double dAngle, double dScale)
    //{
 
    //   i32 cx = this->cx;
@@ -1998,12 +1998,12 @@ namespace draw2d_xlib
    //}
 
    //void image::rotate(
-   //   ::image * pimage,
+   //   ::image::image *pimage,
    //   const ::rectangle_i32 & rectangle,
    //   double dAngle,
    //   double dScale)
    //{
-   //  // ::image_pointer pimage(this);
+   //  // ::image::image_pointer pimage(this);
    ////   pimage->Paste(this);
 
 
@@ -2199,7 +2199,7 @@ namespace draw2d_xlib
    //}
 
 
-   //void image::_xor(::image * pimage)
+   //void image::_xor(::image::image *pimage)
    //{
    //   if(cx != pimage->cx
    //   || cy != pimage->cy)
@@ -2425,7 +2425,7 @@ namespace draw2d_xlib
    //}
 
 
-   void image::stretch_image(::image * pimage)
+   void image::stretch_image(::image::image *pimage)
    {
 
       throw ::exception(todo);
@@ -2611,7 +2611,7 @@ namespace draw2d_xlib
 
          puserinteraction->window_rectangle(rectangleWindow);
 
-         ::image_pointer pimage;
+         ::image::image_pointer pimage;
 
          if(!pimage = create_image(rectangleWindow.bottom_right()))
             return false;

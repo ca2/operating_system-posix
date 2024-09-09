@@ -102,7 +102,7 @@ if (MSVC)
    add_dependencies(${PROJECT_NAME} draw2d_gdiplus)
 
 
-elseif (${LINUX} OR ${BSD_LIKE})
+elseif (${LINUX} OR ${__BSD__})
 
 
    target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)

@@ -10,7 +10,7 @@
 #if defined(LINUX)
 // apt install libx11-dev
 #include <X11/XKBlib.h>
-#elif defined(FREEBSD) || defined(OPENBSD)
+#elif defined(__BSD__)
 #include <X11/Xlib.h>
 #else
 #error "Not supported operating system???"

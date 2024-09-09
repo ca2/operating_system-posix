@@ -34,7 +34,7 @@ namespace draw2d_xlib
       bool CreatePolyPolygonRgn(::point_i32 * lpPoints, LPINT lpPolyCounts,
             i32 nCount, i32 nPolyFillMode);
       bool CreateRoundRectRgn(i32 x1, i32 y1, i32 x2, i32 y2, i32 x3, i32 y3);
-      bool CreateFromPath(::image::image * pimage);
+      bool CreateFromPath(::image::image *pimage);
       bool CreateFromData(const XFORM* lpXForm, i32 nCount,
          const RGNDATA* pRgnData);*/
 

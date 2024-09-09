@@ -596,7 +596,7 @@ namespace windowing_x11
    }
 
 
-   Picture display::xrender_create_picture(::image_pointer pimage)
+   Picture display::xrender_create_picture(::image::image_pointer pimage)
    {
 
       Pixmap pixmap = _x11_create_pixmap(pimage);
@@ -786,7 +786,7 @@ namespace windowing_x11
    }
 
 
-   XImage * display::_x11_create_image(::image_pointer pimage)
+   XImage * display::_x11_create_image(::image::image_pointer pimage)
    {
 
       pimage->map();
@@ -811,7 +811,7 @@ namespace windowing_x11
    }
 
 
-   XImage * display::x11_create_image(::image_pointer pimage)
+   XImage * display::x11_create_image(::image::image_pointer pimage)
    {
 
       //synchronous_lock synchronouslock(user_synchronization());
@@ -825,7 +825,7 @@ namespace windowing_x11
    }
 
 
-   Pixmap display::_x11_create_pixmap(::image_pointer pimage)
+   Pixmap display::_x11_create_pixmap(::image::image_pointer pimage)
    {
 
       if (!pimage)
@@ -861,7 +861,7 @@ namespace windowing_x11
    }
 
 
-   Pixmap display::x11_create_pixmap(::image_pointer pimage)
+   Pixmap display::x11_create_pixmap(::image::image_pointer pimage)
    {
 
       //synchronous_lock synchronouslock(user_synchronization());

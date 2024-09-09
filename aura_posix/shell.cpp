@@ -3,7 +3,7 @@
 #include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/primitive/string/international.h"
-#include "aura/graphics/image/context_image.h"
+#include "aura/graphics/image/context.h"
 
 
 
@@ -86,7 +86,7 @@ namespace aura_posix
 
       //estatus =
       //
-      __construct(m_pcontextimage);
+      __construct(m_pimagecontext);
 
 //         if(!estatus)
 //         {
@@ -830,7 +830,7 @@ namespace aura_posix
 //
 //            {
 //
-//               ::image_pointer pimage;
+//               ::image::image_pointer pimage;
 //               pimage = create_image({iSize,  iSize});
 //               pimage->fill(255, color32_u8_red(crBk), color32_u8_green(crBk), color32_u8_blue(crBk));
 //               pimage->get_graphics()->set_alpha_mode(::draw2d::alpha_mode_blend);
@@ -845,7 +845,7 @@ namespace aura_posix
 //            {
 //               auto & d = m_pimagelistHover[iSize]->m_pimage;
 //               size_i32 s = m_pimagelist[iSize]->m_pimage->get_size();
-//               ::image_pointer pimage;
+//               ::image::image_pointer pimage;
 //               pimage = __create_image(d->size());
 //               pimage->fill(255, color32_u8_red(crBk), color32_u8_green(crBk), color32_u8_blue(crBk));
 //               pimage->get_graphics()->set_alpha_mode(::draw2d::alpha_mode_blend);

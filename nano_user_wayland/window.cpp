@@ -479,7 +479,7 @@ namespace wayland
          }
 
 
-         ::atom window::get_result()
+         ::payload window::get_result()
          {
 
             return m_pinterface->get_result();
@@ -803,30 +803,30 @@ namespace wayland
          }
 
 
-         void window::on_click(const ::atom & atomParam, ::user::mouse * pmouse)
+         void window::on_click(const ::payload & payloadParam, ::user::mouse * pmouse)
          {
 
-            atom atom(atomParam);
+            ::payload payload(payloadParam);
 
-            fork([this, atom, pmouse]()
+            fork([this, payload, pmouse]()
                  {
 
-                    m_pinterface->on_click(atom, pmouse);
+                    m_pinterface->on_click(payload, pmouse);
 
                  }, {pmouse});
 
          }
 
 
-         void window::on_right_click(const ::atom & atomParam, ::user::mouse * pmouse)
+         void window::on_right_click(const ::payload & payloadParam, ::user::mouse * pmouse)
          {
 
-            atom atom(atomParam);
+            ::payload payload(payloadParam);
 
-            fork([this, atom, pmouse]()
+            fork([this, payload, pmouse]()
                  {
 
-                    m_pinterface->on_right_click(atom, pmouse);
+                    m_pinterface->on_right_click(payload, pmouse);
 
                  }, {pmouse});
 
