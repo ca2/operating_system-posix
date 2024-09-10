@@ -50,7 +50,7 @@ namespace node_gdk
    }
 
 
-   ::e_status desktop_environment::_get_monitor_rectangle(::collection::index iIndex, ::rectangle_i32 *prectangle)
+   ::e_status desktop_environment::_get_monitor_rectangle(::collection::index iIndex, ::rectangle_i32 & rectangle)
    {
 
       //synchronous_lock sl(user_synchronization());
@@ -79,9 +79,9 @@ namespace node_gdk
 
       gdk_monitor_get_geometry(pmonitor, &rect);
 
-      copy(prectangle, &rect);
+      copy(&rectangle, &rect);
 
-      debug() << "node_gtk3::desktop_environment::_get_monitor_rectangle rectangle : " << *prectangle;
+      debug() << "node_gtk3::desktop_environment::_get_monitor_rectangle rectangle : " << rectangle;
 
       return ::success;
 
@@ -89,7 +89,7 @@ namespace node_gdk
   }
 
 
-   void desktop_environment::get_workspace_rectangle(::collection::index iIndex, ::rectangle_i32 *prectangle)
+   bool desktop_environment::get_workspace_rectangle(::collection::index iIndex, ::rectangle_i32 & rectangle)
    {
 
 //      if(m_bX11)
@@ -105,14 +105,21 @@ namespace node_gdk
 //      else
       {
 
-         _get_workspace_rectangle(iIndex, prectangle);
+         if(_get_workspace_rectangle(iIndex, rectangle).failed())
+         {
+
+            return false;
+
+         }
 
       }
+
+      return true;
 
    }
 
 
-   ::e_status desktop_environment::_get_workspace_rectangle(::collection::index iIndex, ::rectangle_i32 *prectangle)
+   ::e_status desktop_environment::_get_workspace_rectangle(::collection::index iIndex, ::rectangle_i32 & rectangle)
    {
 
       //synchronous_lock sl(user_synchronization());
@@ -141,9 +148,9 @@ namespace node_gdk
 
       gdk_monitor_get_workarea(pmonitor, &rect);
 
-      copy(prectangle, &rect);
+      copy(&rectangle, &rect);
 
-      information() << "node_gtk3::desktop_environment::_get_workspace_rectangle rectangle : " << *prectangle;
+      information() << "node_gtk3::desktop_environment::_get_workspace_rectangle rectangle : " << rectangle;
 
       return ::success;
 
@@ -151,7 +158,7 @@ namespace node_gdk
 
 
 
-  void desktop_environment::get_monitor_rectangle(::collection::index iIndex, ::rectangle_i32 *prectangle)
+  bool desktop_environment::get_monitor_rectangle(::collection::index iIndex, ::rectangle_i32 & rectangle)
   {
 
      debug() << "desktop_environment::get_monitor_rectangle";
@@ -159,17 +166,36 @@ namespace node_gdk
      if(system()->m_ewindowing == e_windowing_x11)
      {
 
-        system()->windowing_system()->sync([this, iIndex, prectangle]() { _get_monitor_rectangle(iIndex, prectangle); });
+        ::e_status estatus = error_failed;
+
+        system()->windowing_system()->sync([this, iIndex, &rectangle,&estatus]() { estatus = _get_monitor_rectangle(iIndex, rectangle); });
+
+
+        if(estatus.failed())
+        {
+
+return false;
+
+        }
 
      }
+
+
      else
      {
 
-        _get_monitor_rectangle(iIndex, prectangle);
+        if(_get_monitor_rectangle(iIndex, rectangle).failed())
+        {
+
+            return false;
+
+        }
 
      }
 
-     debug() << "desktop_environment::get_monitor_rectangle " << *prectangle;
+     debug() << "desktop_environment::get_monitor_rectangle " << rectangle;
+
+      return true;
 
   }
 

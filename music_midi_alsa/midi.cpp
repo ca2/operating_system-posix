@@ -287,7 +287,7 @@ namespace music
 
             pout->initialize_message_out(this, strDevice);
 
-            pout->open();
+            pout->open(false);
 
             return pout;
 

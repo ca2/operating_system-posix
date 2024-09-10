@@ -45,7 +45,7 @@ namespace windowing_xcb
       void load_file(string strPath);
 
 
-      image_pointer get_image(const ::size_i32 & size) override;
+      ::image::image_pointer get_image(const ::size_i32 & size) override;
 
 
    };

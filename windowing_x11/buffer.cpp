@@ -291,7 +291,7 @@ namespace windowing_x11
    }
 
 
-//   bool buffer::create_os_buffer(::image * pimage)
+//   bool buffer::create_os_buffer(::image::image *pimage)
 //   {
 //
 //      //synchronous_lock sl(synchronization());
@@ -329,7 +329,7 @@ namespace windowing_x11
 //   }
 
 
-//   void buffer::destroy_os_buffer(::image * pimage)
+//   void buffer::destroy_os_buffer(::image::image *pimage)
 //   {
 //
 //      if(m_pimage != nullptr)

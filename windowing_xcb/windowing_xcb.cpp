@@ -843,7 +843,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //#ifdef RASPBERRYPIOS
 //
 //
-//HCURSOR imaging::CreateAlphaCursor(oswindow window, const ::image * pimage, int xHotSpot, int yHotSpot)
+//HCURSOR imaging::CreateAlphaCursor(oswindow window, const ::image::image *pimage, int xHotSpot, int yHotSpot)
 //{
 //
 //   return hcursor_null;

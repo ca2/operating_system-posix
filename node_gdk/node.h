@@ -41,6 +41,7 @@ namespace node_gdk
 
 
       bool  m_bGInitialized;
+bool m_bFetchingDarkMode;
 
 
       node();

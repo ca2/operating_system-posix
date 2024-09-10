@@ -11,7 +11,7 @@
 #include "aura/windowing/monitor.h"
 
 
-#if defined(FREEBSD) || defined(OPENBSD)
+#if defined(__BSD__)
 #include <stdio.h>
 #endif
 

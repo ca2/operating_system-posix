@@ -15,7 +15,7 @@ namespace draw2d_xlib
 
 
 //      bool CreatePalette(LPLOGPALETTE lpLogPalette);
-//      bool CreateHalftonePalette(::image::image * pimage);
+//      bool CreateHalftonePalette(::image::image *pimage);
 
       
       /*      operator HPALETTE() const;

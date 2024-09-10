@@ -13,7 +13,7 @@ namespace windowing_xcb
 
 
    /// should be run at user_thread (xcb_thread)
-   xcb_cursor_t display::_create_alpha_cursor(const ::image *pimage, int xHotSpot, int yHotSpot)
+   xcb_cursor_t display::_create_alpha_cursor(const ::image::image *pimage, int xHotSpot, int yHotSpot)
    {
 
       //synchronous_lock synchronouslock(user_synchronization());

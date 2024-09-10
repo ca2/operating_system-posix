@@ -522,7 +522,7 @@ namespace windowing_wayland
 //   }
 
 
-//   Picture display::xrender_create_picture(::image_pointer pimage)
+//   Picture display::xrender_create_picture(::image::image_pointer pimage)
 //   {
 //
 //      Pixmap pixmap = _x11_create_pixmap(pimage);
@@ -708,7 +708,7 @@ namespace windowing_wayland
    }
 
 
-//   XImage * display::_x11_create_image(::image_pointer pimage)
+//   XImage * display::_x11_create_image(::image::image_pointer pimage)
 //   {
 //
 //      pimage->map();
@@ -733,7 +733,7 @@ namespace windowing_wayland
 //   }
 //
 //
-//   XImage * display::x11_create_image(::image_pointer pimage)
+//   XImage * display::x11_create_image(::image::image_pointer pimage)
 //   {
 //
 //      synchronous_lock synchronouslock(user_synchronization());
@@ -747,7 +747,7 @@ namespace windowing_wayland
 //   }
 //
 //
-//   Pixmap display::_x11_create_pixmap(::image_pointer pimage)
+//   Pixmap display::_x11_create_pixmap(::image::image_pointer pimage)
 //   {
 //
 //      if (!pimage)
@@ -783,7 +783,7 @@ namespace windowing_wayland
 //   }
 //
 //
-//   Pixmap display::x11_create_pixmap(::image_pointer pimage)
+//   Pixmap display::x11_create_pixmap(::image::image_pointer pimage)
 //   {
 //
 //      synchronous_lock synchronouslock(user_synchronization());
@@ -1099,7 +1099,7 @@ namespace windowing_wayland
 //   }
 //
 //
-//   void display::update_wayland_buffer(wayland_buffer &waylandbuffer, ::image * pimage)
+//   void display::update_wayland_buffer(wayland_buffer &waylandbuffer, ::image::image *pimage)
 //   {
 //
 //      update_wayland_buffer(waylandbuffer, pimage->size());

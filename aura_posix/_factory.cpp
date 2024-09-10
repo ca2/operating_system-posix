@@ -3,7 +3,7 @@
 #include "shell.h"
 
 
-#if defined(FREEBSD) || defined(OPENBSD) || defined(__APPLE__)
+#if defined(__APPLE__) || defined(__BSD__)
 #include <stdio.h>
 #endif
 

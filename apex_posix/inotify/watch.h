@@ -2,7 +2,7 @@
 
 
 #include "acme/filesystem/watcher/watch.h"
-#if defined(FREEBSD) || defined(OPENBSD)
+#if defined(__BSD__)
 #include <sys/time.h>
 #endif
 

@@ -33,7 +33,7 @@ public:
    enum_clipboard                m_eclipboard;
    manual_reset_event            m_event;
    string                        m_str;
-   ::image_pointer               m_pimage;
+   ::image::image_pointer               m_pimage;
    ::file::path_array                 m_patha;
    int                           m_nTargets;
 

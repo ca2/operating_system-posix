@@ -849,57 +849,59 @@ namespace nano
 
          }
 
-         if (m_pxdgtoplevel != nullptr)
+         auto pxdgtoplevel = m_pxdgtoplevel;
+         auto pxdgpopup = m_pxdgpopup;
+         auto pxdgpositioner = m_pxdgpositioner;
+         auto pxdgsurface = m_pxdgsurface;
+         auto pwlsubsurface = m_pwlsubsurface;
+         auto pwlsurface = m_pwlsurface;
+
+         m_pxdgtoplevel = nullptr;
+         m_pxdgpopup = nullptr;
+         m_pxdgpositioner = nullptr;
+         m_pxdgsurface = nullptr;
+         m_pwlsubsurface = nullptr;
+         m_pwlsurface = nullptr;
+
+         if (pwlsurface != nullptr)
          {
 
-            xdg_toplevel_destroy(m_pxdgtoplevel);
-
-            m_pxdgtoplevel = nullptr;
+            wl_surface_destroy(pwlsurface);
 
          }
 
-         if (m_pxdgpopup != nullptr)
+         if (pwlsubsurface != nullptr)
          {
 
-            xdg_popup_destroy(m_pxdgpopup);
-
-            m_pxdgpopup = nullptr;
+            wl_subsurface_destroy(pwlsubsurface);
 
          }
 
-         if (m_pxdgpositioner != nullptr)
+         if (pxdgsurface != nullptr)
          {
 
-            xdg_positioner_destroy(m_pxdgpositioner);
-
-            m_pxdgpositioner = nullptr;
+            xdg_surface_destroy(pxdgsurface);
 
          }
 
-         if (m_pxdgsurface != nullptr)
+         if (pxdgpositioner != nullptr)
          {
 
-            xdg_surface_destroy(m_pxdgsurface);
-
-            m_pxdgsurface = nullptr;
+            xdg_positioner_destroy(pxdgpositioner);
 
          }
 
-         if (m_pwlsubsurface != nullptr)
+         if (pxdgpopup != nullptr)
          {
 
-            wl_subsurface_destroy(m_pwlsubsurface);
-
-            m_pwlsubsurface = nullptr;
+            xdg_popup_destroy(pxdgpopup);
 
          }
 
-         if (m_pwlsurface != nullptr)
+         if (pxdgtoplevel != nullptr)
          {
 
-            wl_surface_destroy(m_pwlsurface);
-
-            m_pwlsurface = nullptr;
+            xdg_toplevel_destroy(pxdgtoplevel);
 
          }
 

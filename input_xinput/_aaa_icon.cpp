@@ -113,7 +113,7 @@ namespace windowing_x11
    }
 
 
-   image_pointer icon::get_image(const ::size_i32& size)
+   ::image::image_pointer icon::get_image(const ::size_i32& size)
    {
 
       throw ::interface_only();

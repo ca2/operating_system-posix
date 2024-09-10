@@ -1,0 +1,8 @@
+$Id: BUGS,v 1.2 2004/09/22 09:24:35 steve Exp $
+
+Bugs in 0.8.1:
+	From Lubomir Sedlacik <salo at Xtrmntr.org>
+	1) keyboard controls stop working after suspending the job (^Z/fg),
+	   i am using zsh
+	2) "r" (and possibly other) key doesn't work in last 10(?) seconds
+	   of the track

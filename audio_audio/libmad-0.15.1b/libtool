@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /usr/pkgsrc/audio/libmad/work/.cwrapper/bin/libtool "$@"

@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /usr/pkg/share/libtool/build-aux/depcomp "$@"

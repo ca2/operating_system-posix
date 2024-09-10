@@ -151,7 +151,7 @@ namespace music
          }
 
 
-         void out::open()
+         void out::open(bool bForSequencing)
          {
 
             if ( m_pseq != NULL )

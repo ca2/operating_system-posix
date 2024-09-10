@@ -408,7 +408,7 @@ dependencies: \
   /Users/camilo/solution/main/source/app/acme/parallelization/synchronous_lock.h \
   /Users/camilo/solution/main/source/app/acme/parallelization/single_lock.h \
   /Users/camilo/solution/main/source/app/acme/primitive/string/international.h \
-  /Users/camilo/solution/main/source/app/aura/graphics/image/context_image.h \
+  /Users/camilo/solution/main/source/app/aura/graphics/image/image_context.h \
   /Users/camilo/solution/main/source/app/aura/graphics/image/image.h \
   /Users/camilo/solution/main/source/app/aura/graphics/image/meta.h \
   /Users/camilo/solution/main/source/app/aura/graphics/image/pixmap.h \
