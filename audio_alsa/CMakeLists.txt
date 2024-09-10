@@ -52,7 +52,7 @@ if (MSVC)
    target_link_libraries(audio_alsa PRIVATE ${library_references})
 
 
-elseif(${LINUX} OR ${FREEBSD} OR ${OPENBSD} OR ${NETBSD})
+elseif(${LINUX} OR ${__BSD__})
 
 
    if(USE_PKGCONFIG)
