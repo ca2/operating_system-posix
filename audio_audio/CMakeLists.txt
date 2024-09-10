@@ -7,10 +7,13 @@ list(APPEND library_source
    #_library.h
    _factory.cpp
    audio_mmsystem_wave_in.h
-   audio_dev.cpp
+#   audio_dev.cpp
 #   cmus_sndio.cpp
    framework.cpp
    framework.h
+audio_dev_sun.cpp
+audio_dev_pcm.cpp
+#audio_dev_arts.cpp
 #   snd_pcm.cpp
 #   snd_pcm.h
 #   timo_mixer.h

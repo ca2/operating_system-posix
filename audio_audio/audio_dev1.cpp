@@ -37,7 +37,7 @@
 #include <string.h>
 #include <unistd.h>
 //#include <mad.h>
-#define NOARTS
+
 #ifdef __sun
 #include <sys/stropts.h>
 #endif
@@ -54,7 +54,7 @@
 typedef unsigned int nfds_t;
 #endif
 
-#define PCM_MAX_BUFFSIZE	2 * 4_KiB
+#define PCM_MAX_BUFFSIZE	2 * 16_KiB
 
 struct pcm_data {
 	int		pd_command;
@@ -102,9 +102,9 @@ static int	audio_dev_output(struct audio_dev_ctx *, struct pcm_data *);
 static void	audio_dev_command(struct audio_dev_ctx *, int *);
 static void	audio_dev_slave(const char *, struct audio_dev_ctx *);
 //static inline signed long audio_linear_dither(unsigned int, mad_fixed_t,
-//		    mad_fixed_t *);
+		    mad_fixed_t *);
 //static void	audio_convert_dither(unsigned char *, unsigned int,
-//		    mad_fixed_t const *, mad_fixed_t const *);
+		    mad_fixed_t const *, mad_fixed_t const *);
 
 
 static const struct audio_dev_backend *audio_dev_backends[] = {
@@ -119,8 +119,6 @@ static const struct audio_dev_backend *audio_dev_backends[] = {
 #endif
 	NULL
 };
-
-
 
 static int
 audio_dev_writepeer(struct audio_dev_ctx *ac)
@@ -177,10 +175,10 @@ audio_dev_init(const char *dev)
 	int p1[2], p2[2], retry;
 	pid_t pid;
 
-	if ((ac = new audio_dev_ctx()) == NULL)
+	if ((ac = calloc(1, sizeof(*ac))) == NULL)
 		return (NULL);
 
-	pb = ac->ac_pcm = (pcm_buffer *) mmap(NULL, sizeof(*ac->ac_pcm),
+	pb = ac->ac_pcm = mmap(NULL, sizeof(*ac->ac_pcm),
 	    PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANON, -1, 0);
 	if (pb == NULL) {
 		free(ac);
@@ -236,7 +234,7 @@ audio_dev_init(const char *dev)
 void
 audio_dev_close(void *arg)
 {
-	struct audio_dev_ctx *ac = (audio_dev_ctx*)arg;
+	struct audio_dev_ctx *ac = arg;
 	int status;
 	pid_t pid;
 
@@ -255,7 +253,7 @@ audio_dev_close(void *arg)
 void
 audio_dev_register_read_callback(void *arg, void (*rcb)(void *), void *cbarg)
 {
-	struct audio_dev_ctx *ac = (audio_dev_ctx*) arg;
+	struct audio_dev_ctx *ac = arg;
 
 	ac->ac_readcallback = rcb;
 	ac->ac_cbarg = cbarg;
@@ -264,7 +262,7 @@ audio_dev_register_read_callback(void *arg, void (*rcb)(void *), void *cbarg)
 int
 audio_dev_send_command(void *arg, int cmd, int *pfd, int immed)
 {
-	struct audio_dev_ctx *ac = (audio_dev_ctx*) arg;
+	struct audio_dev_ctx *ac = arg;
 	struct pcm_buffer *pb = ac->ac_pcm;
 	struct pcm_data *pd;
 	int head;
@@ -370,24 +368,6 @@ audio_dev_command(struct audio_dev_ctx *ac, int *cmdp)
 	*cmdp = 0;
 }
 
-void audio_dev_pause(void * arg)
-{
-
-	struct audio_dev_ctx *ac = (struct audio_dev_ctx *) ac;
-
-	ac->ac_paused = true;
-
-}
-
-void audio_dev_unpause(void * arg)
-{
-
-	struct audio_dev_ctx *ac = (struct audio_dev_ctx *) ac;
-
-	ac->ac_paused = false;
-
-}
-
 static void
 audio_dev_slave(const char *dev, struct audio_dev_ctx *ac)
 {
@@ -425,9 +405,9 @@ audio_dev_slave(const char *dev, struct audio_dev_ctx *ac)
 		return;
 	}
 
-//	signal(SIGHUP, SIG_IGN);
-//	signal(SIGINT, SIG_IGN);
-//	signal(SIGWINCH, SIG_IGN);
+	signal(SIGHUP, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGWINCH, SIG_IGN);
 	signal(SIGPIPE, audio_dev_sigpipe);
 
 	for (;;) {
@@ -511,13 +491,83 @@ audio_dev_slave(const char *dev, struct audio_dev_ctx *ac)
 	}
 }
 
-
-//int
-//audio_dev_write(void *arg, struct mad_header const *mhead,
-//	struct mad_pcm *mpcm, int *pfd, void *pcmdata, int samplecount, int nchannels, int samplerate)
-int audio_dev_write(void *arg, void *pcmdata, int samplecount, int nchannels, int samplerate, int *pfd)
+static inline signed long
+audio_linear_dither(unsigned int bits, mad_fixed_t sample, mad_fixed_t *error)
 {
-	struct audio_dev_ctx *ac = (audio_dev_ctx*) arg;
+	mad_fixed_t quantized;
+
+	/* dither */
+	sample += *error;
+
+	/* clip */
+	quantized = sample;
+	if (sample >= MAD_F_ONE)
+		quantized = MAD_F_ONE - 1;
+	else
+	if (sample < -MAD_F_ONE)
+		quantized = -MAD_F_ONE;
+
+	/* quantize */
+	quantized &= ~((1L << (MAD_F_FRACBITS + 1 - bits)) - 1);
+
+	/* error */
+	*error = sample - quantized;
+
+	/* scale */
+	return quantized >> (MAD_F_FRACBITS + 1 - bits);
+}
+
+static void
+audio_convert_dither(unsigned char *dest, unsigned int nsamples,
+	mad_fixed_t const *left, mad_fixed_t const *right)
+{
+	static mad_fixed_t dither[2];
+
+	if (right) {
+		while (nsamples--) {
+			signed long s0, s1;
+
+			s0 = audio_linear_dither(16, *left++, &dither[0]);
+			s1 = audio_linear_dither(16, *right++, &dither[1]);
+
+#ifndef WORDS_BIGENDIAN
+			dest[0] = (unsigned char) s0;
+			dest[1] = (unsigned char) (s0 >> 8);
+			dest[2] = (unsigned char) s1;
+			dest[3] = (unsigned char) (s1 >> 8);
+#else
+			dest[1] = (unsigned char) s0;
+			dest[0] = (unsigned char) (s0 >> 8);
+			dest[3] = (unsigned char) s1;
+			dest[2] = (unsigned char) (s1 >> 8);
+#endif
+
+			dest += 4;
+		}
+	} else {
+		while (nsamples--) {
+			signed long s0;
+
+			s0 = audio_linear_dither(16, *left++, &dither[0]);
+
+#ifndef WORDS_BIGENDIAN
+			dest[0] = (unsigned char) s0;
+			dest[1] = (unsigned char) (s0 >> 8);
+#else
+			dest[1] = (unsigned char) s0;
+			dest[0] = (unsigned char) (s0 >> 8);
+#endif
+
+			dest += 2;
+		}
+	}
+}
+
+int
+audio_dev_write(void *arg, struct mad_header const *mhead,
+	struct mad_pcm *mpcm, int *pfd)
+{
+	struct audio_dev_ctx *ac = arg;
 	struct pcm_buffer *pb = ac->ac_pcm;
 	struct pcm_data *pd;
 	int head, tail, nbufs;
@@ -535,20 +585,18 @@ int audio_dev_write(void *arg, void *pcmdata, int samplecount, int nchannels, in
 
 	pd = &pb->pb_buffers[pb->pb_head];
 
-//	audio_convert_dither(pd->pd_buf, mpcm->length, mpcm->samples[0],
-//	    (MAD_NCHANNELS(mhead) == 1) ? NULL : mpcm->samples[1]);
+	audio_convert_dither(pd->pd_buf, mpcm->length, mpcm->samples[0],
+	    (MAD_NCHANNELS(mhead) == 1) ? NULL : mpcm->samples[1]);
 
 	pd->pd_command = 0;
-	pd->pd_nchannels = nchannels;
-//#if defined(MAD_VERSION_MINOR) && (MAD_VERSION_MINOR > 12)
-//	pd->pd_rate = mhead->samplerate;
-//#else
-//	pd->pd_rate = 44100;
-//#endif
-        pd->pd_rate = samplerate;
+	pd->pd_nchannels = MAD_NCHANNELS(mhead);
+#if defined(MAD_VERSION_MINOR) && (MAD_VERSION_MINOR > 12)
+	pd->pd_rate = mhead->samplerate;
+#else
+	pd->pd_rate = 44100;
+#endif
 	pd->pd_bufpos = 0;
-//	pd->pd_len = mpcm->length * (MAD_NCHANNELS(mhead) * 2);
-	pd->pd_len = samplecount * nchannels * 2;
+	pd->pd_len = mpcm->length * (MAD_NCHANNELS(mhead) * 2);
 	pb->pb_head = head;
 	tail = pb->pb_tail;
 
@@ -559,7 +607,7 @@ int audio_dev_write(void *arg, void *pcmdata, int samplecount, int nchannels, in
 	if (nbufs > PCM_LOW_WATER && audio_dev_writepeer(ac) < 0)
 		return AD_ERROR;
 
-	ac->ac_buffersamples += samplecount;
+	ac->ac_buffersamples += mpcm->length;
 
 	return (AD_NO_ERROR);
 }
@@ -567,7 +615,7 @@ int audio_dev_write(void *arg, void *pcmdata, int samplecount, int nchannels, in
 int
 audio_dev_flush_wait(void *arg)
 {
-	struct audio_dev_ctx *ac = (audio_dev_ctx*) arg;
+	struct audio_dev_ctx *ac = arg;
 	struct pcm_buffer *pb = ac->ac_pcm;
 	struct pollfd infd;
 	int rv;
@@ -595,7 +643,7 @@ audio_dev_flush_wait(void *arg)
 int
 audio_dev_purge_wait(void *arg)
 {
-	struct audio_dev_ctx *ac =(audio_dev_ctx*)  arg;
+	struct audio_dev_ctx *ac = arg;
 	struct pcm_buffer *pb = ac->ac_pcm;
 	struct pollfd infd;
 	int rv;
@@ -625,7 +673,7 @@ audio_dev_purge_wait(void *arg)
 int
 audio_dev_buffer_time(void *arg)
 {
-	struct audio_dev_ctx *ac = (audio_dev_ctx*) arg;
+	struct audio_dev_ctx *ac = arg;
 	u_int diff;
 
 	if (ac->ac_pcm->pb_rate) {
@@ -640,7 +688,7 @@ audio_dev_buffer_time(void *arg)
 int
 audio_dev_played_time(void *arg)
 {
-	struct audio_dev_ctx *ac = (audio_dev_ctx*) arg;
+	struct audio_dev_ctx *ac = arg;
 
 	if (ac->ac_pcm->pb_rate)
 		return ((ac->ac_pcm->pb_playsamples * 10) /ac->ac_pcm->pb_rate);

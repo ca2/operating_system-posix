@@ -3,45 +3,55 @@
 #include "wave_out.h"
 #include "translation.h"
 #include "acme/parallelization/synchronous_lock.h"
+#include "acme/platform/application.h"
+
+#include <sys/types.h>
+#include <sys/param.h>
+#include <sys/fcntl.h>
+#ifndef __linux__
+#include <sys/filio.h>
+#endif
+#include <stdint.h>
+#include <sys/ioctl.h>
+#include <sys/mman.h>
+#include <sys/wait.h>
+#include <errno.h>
+#include <poll.h>
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+//#include <mad.h>
+#define NOARTS
+#ifdef __sun
+#include <sys/stropts.h>
+#endif
+
+//#include "audio_dev.h"
+
+#if (BYTE_ORDER == BIG_ENDIAN)
+#define WORDS_BIGENDIAN
+#else
+#undef WORDS_BIGENDIAN
+#endif
+
+#ifdef __DragonFly__
+typedef unsigned int nfds_t;
+#endif
+
 
 
 #include <sys/time.h>
 #include <stdio.h>
 
-void *
-audio_dev_init(const char *dev);
-
-
-// long long timestamp2ns(snd_htimestamp_t t)
-// {
-//    long long nsec;
-//
-//    nsec = t.tv_sec * 1000000000;
-//    nsec += t.tv_nsec;
-//
-//    return nsec;
-//
-// }
-
-/*
-long long timediff(snd_htimestamp_t t1, snd_htimestamp_t t2)
-{
-
-   long long nsec1, nsec2;
-
-   nsec1 = timestamp2ns(t1);
-   nsec2 = timestamp2ns(t2);
-
-   return nsec1 - nsec2;
-
-}*/
 
 
 namespace multimedia
 {
 
 
-   namespace audio_sndio
+   namespace audio_audio
    {
 
 
@@ -54,18 +64,15 @@ namespace multimedia
          m_estatusWave = success;
          m_bWrite = false;
          m_bStarted = false;
+         m_bStop = false;
 
-         //m_pstatus = NULL;
-
-         //snd_pcm_status_malloc(&m_pstatus);
+         m_iFrameCount = 2048;
 
       }
 
 
       wave_out::~wave_out()
       {
-
-         //snd_pcm_status_free(m_pstatus);
 
       }
 
@@ -81,16 +88,7 @@ namespace multimedia
       void wave_out::init_task()
       {
 
-         //if(!
          ::wave::out::init_task();
-
-//         {
-//
-//            return false;
-//
-//         }
-//
-//         return true;
 
       }
 
@@ -108,13 +106,12 @@ namespace multimedia
       int wave_out::_frames_to_bytes(int iFrameCount)
       {
 
-         return sf_get_frame_size(m_sampleformat) * iFrameCount;
+         return m_pwaveformat->m_waveformat.nChannels * (m_pwaveformat->m_waveformat.wBitsPerSample) * iFrameCount / 8;
 
       }
 
 
-      void
-      wave_out::out_open_ex(thread *pthreadCallback, ::u32 uiSamplesPerSec, ::u32 uiChannelCount, ::u32 uiBitsPerSample,
+      void wave_out::out_open_ex(thread *pthreadCallback, ::u32 uiSamplesPerSec, ::u32 uiChannelCount, ::u32 uiBitsPerSample,
                             ::wave::enum_purpose epurpose)
       {
 
@@ -122,18 +119,12 @@ namespace multimedia
 
          informationf("multimedia::audio_alsa::out_open_ex");
 
-         if (m_hdl != NULL && m_eoutstate != ::wave::e_out_state_initial)
+         if (m_eoutstate != ::wave::e_out_state_initial)
          {
-
-            ///return success;
 
             return;
 
          }
-
-//         m_dwPeriodTime =  20 * 1000; /* period time in us */
-
-//         m_iBufferCountEffective = 4;
 
          if (epurpose == ::wave::e_purpose_playback)
          {
@@ -146,11 +137,15 @@ namespace multimedia
 
             m_iBufferCountHint = 8;
 
-            m_iFrameByteCount = uiSamplesPerSec / 20;
+            m_iFrameCount = 2000;
 
             m_iBufferCount = 8;
+            
+            m_iHighWaterMark = 8;
+            
+            m_iLowWaterMark = 3;
 
-            printf("::wave::purpose_playback %d\n", m_iFrameByteCount);
+            printf("::wave::purpose_playback %d\n", m_iFrameCount);
 
          }
          else
@@ -158,15 +153,19 @@ namespace multimedia
 
             m_timeBufferSizeHint = 100_ms;
 
-            m_iFrameByteCount = 1024;
+            m_iFrameCount = 1152;
 
             //m_iFrameByteCount = uiSamplesPerSec / 20;
 
-            m_iBufferCountHint = 4;
+            m_iBufferCountHint = 3;
 
             m_iBufferCount = 4;
 
-            printf("::wave::* %d\n", m_iFrameByteCount);
+            m_iHighWaterMark = 4;
+            
+            m_iLowWaterMark = 2;
+
+            printf("::wave::* %d\n", m_iFrameCount);
 
          }
 
@@ -174,7 +173,7 @@ namespace multimedia
 
          m_pthreadCallback = pthreadCallback;
 
-         ASSERT(m_hdl == NULL);
+///         ASSERT(m_pAudioDevCtx == NULL);
 
          ASSERT(m_eoutstate == ::wave::e_out_state_initial);
 
@@ -192,13 +191,22 @@ namespace multimedia
 	/*
 	 * Fork off the audio device slave at the (possibly) elevated priority
 	 */
+
+   m_bStop = false;
+   
    const char * adev="/dev/audio";
-   m_pAudioDevContext = audio_dev_init(adev);
-	if (!m_pAudioDevContext) {
-		throw ::exception(m_estatusWave);
+   
+        auto estatus = audio_dev_init(adev);
+
+	if (estatus.failed()) 
+        {
+
+                printf_line("audio_audio::wave_out::out_open_ex failed (audio_dev_init:%s)", adev);
+
+		throw ::exception(estatus);
 	}
 
-	audio_dev_register_read_callback(audio_ctx, play_event, audio_ctx);
+//	audio_dev_register_read_callback(m_pAudioDevCtx, play_event, m_pAudioDevCtx);
 
 // m_pAudioDevContext
 //          if (!(m_estatusWave = translate_sndio(this->sndio_open(m_sampleformat, nullptr))))
@@ -219,9 +227,9 @@ namespace multimedia
 
 //         m_uiBufferTime = m_framesBuffer * 1000 * 1000 / uiSamplesPerSec;
 
-         information() << "frame_count : " << m_iFrameByteCount;
+         information() << "frame_count : " << m_iFrameCount;
 
-         ::u32 uBufferSize = _frames_to_bytes(m_iFrameByteCount);
+         ::u32 uBufferSize = _frames_to_bytes(m_iFrameCount);
 
          information() << "uBufferSize in bytes : " << uBufferSize;
 
@@ -229,7 +237,7 @@ namespace multimedia
 
          out_get_buffer()->PCMOutOpen(this, uBufferSize, m_iBufferCount, 128, m_pwaveformat, m_pwaveformat);
 
-         m_pprebuffer->open(m_pwaveformat->m_waveformat.nChannels, m_iBufferCount, m_iFrameByteCount);
+         m_pprebuffer->open(m_pwaveformat->m_waveformat.nChannels, m_iBufferCount, uBufferSize);
 
 //         m_pprebuffer->SetMinL1BufferCount(out_get_buffer()->GetBufferCount());
 
@@ -358,6 +366,8 @@ namespace multimedia
 
          m_epurpose = epurpose;
 
+         printf_line("audio_audio::wave_out::out_open_ex succeeded (audio_dev_init:%s)", adev);
+
          //return success;
 
       }
@@ -386,11 +396,11 @@ namespace multimedia
 
          }
 
-         ::e_status mmr;
+         ::e_status mmr = success;
+audio_dev_close();
+//        mmr = audio_dev_close(m_pAudioDevCtx);
 
-         mmr = translate_sndio(sndio_close());
-
-         m_hdl = NULL;
+//         m_pAudioDevCtx = NULL;
 
          ::wave::out::out_close();
 
@@ -464,7 +474,8 @@ namespace multimedia
          // waveform-audio_alsa output device and resets the current position
          // to zero. All pending playback buffers are marked as done and
          // returned to the application.
-         m_estatusWave = translate_sndio(sndio_pause());
+//         m_estatusWave = translate_sndio(sndio_pause());
+audio_dev_pause();
 
          ASSERT(m_estatusWave == success);
 
@@ -506,7 +517,8 @@ namespace multimedia
          // waveform-audio_alsa output device and resets the current position
          // to zero. All pending playback buffers are marked as done and
          // returned to the application.
-         m_estatusWave = translate_sndio(sndio_unpause());
+    //     m_estatusWave = translate_sndio(audio_dev_unpause(m_pAudioDevCtx));
+audio_dev_unpause();
 
          ASSERT(m_estatusWave == success);
 
@@ -532,7 +544,7 @@ namespace multimedia
 
          class ::time time;
 
-         if (m_hdl != NULL)
+//         if (m_hdl != NULL)
          {
 
             //snd_pcm_sframes_t frames;
@@ -639,14 +651,14 @@ namespace multimedia
 
          }
 
-         if (m_hdl == NULL)
-         {
+//         if (m_hdl == NULL)
+  //       {
 
-            informationf("alsa_out_buffer_ready m_hdl == NULL");
+    //        informationf("alsa_out_buffer_ready m_hdl == NULL");
 
-            return false;
+      //      return false;
 
-         }
+        // }
 
          if (m_eoutstate != ::wave::e_out_state_playing && m_eoutstate != ::wave::e_out_state_stopping)
          {
@@ -697,107 +709,15 @@ namespace multimedia
       void wave_out::out_filled(::collection::index iBuffer)
       {
 
-//         static class ::time t;
-//
-//         informationf("out_filled: " << iBuffer);
-//         informationf("thread: " << pthread_self());
-//         informationf("elapsed micros: " << t.elapsed().integral_microsecond());
+         auto iFramesToWrite = m_iFrameCount;
 
-//         t.Now();
-
-         auto iFramesToWrite = m_iFrameByteCount;
-
-         int iBytesToWrite = -1;
+         int iBytesToWrite = _frames_to_bytes(iFramesToWrite);
 
          ::e_status estatus = success;
 
          auto iFrameFreeCount = 0;
 
-         {
-
-            synchronous_lock sl(synchronization());
-
-            if (m_hdl == NULL)
-            {
-
-               return;
-
-            }
-
-            //iBytesToWrite = _frames_to_bytes(m_hdl, iFramesToWrite);
-
-         }
-
-         while (::task_get_run())
-         {
-
-//             {
-//
-//                synchronous_lock sl(synchronization());
-//
-//                //print_snd_pcm_status();
-//
-//                iFrameFreeCount = snd_pcm_avail(m_hdl);
-//
-//                if (iFrameFreeCount == -EAGAIN)
-//                {
-//
-//                   continue;
-//
-//                }
-//                else if (iFrameFreeCount < 0)
-//                {
-//
-//                   const char *pszError = //snd_strerror(iFrameFreeCount);
-//
-//                   //informationf("ALSA wave_out snd_pcm_avail error: %s (%d)\n", pszError, iFrameFreeCount);
-//
-//                   //iFrameFreeCount = defer_underrun_recovery(iFrameFreeCount);
-// /*
-//                   if (iFrameFreeCount >= 0)
-//                   {
-//
-//                      informationf("ALSA wave_out snd_pcm_avail underrun recovery success (snd_pcm_avail)");
-//
-//                      break;
-//
-//                   }
-//
-//                   informationf("ALSA wave_out snd_pcm_avail minimum ::u8 count %d\n", iFramesToWrite);*/
-//
-//                   m_eoutstate = ::wave::e_out_state_opened;
-//
-//                   m_estatusWave = error_failed;
-//
-//                   informationf("ALSA wave_out snd_pcm_avail error: %s\n", snd_strerror(iFrameFreeCount));
-//
-//                   return;
-//
-//                }
-//                else if (iFrameFreeCount >= iFramesToWrite)
-//                {
-//
-//                   break;
-//
-//                }
-//
-//             }
-
-            //auto waitFrames = (iFramesToWrite - iFrameFreeCount);
-
-            auto waitFrames = iFramesToWrite;
-
-            auto mugreeklettersecondsWait =
-               microsecond_time(waitFrames * 100'000 / m_pwaveformat->m_waveformat.nSamplesPerSec);
-
-//            informationf("frames to write: " << iFramesToWrite << " frame free count : " << iFrameFreeCount
-//                                      << " frames to wait: " << waitFrames << " μs to wait : " << mugreeklettersecondsWait);
-//
-            preempt(mugreeklettersecondsWait);
-
-         }
-
-         ::u8 *pdata;
+         ::u8 *pbufferata;
 
          memory m;
 
@@ -808,7 +728,7 @@ namespace multimedia
 
             pbuffer = m_pwavebuffer->m_buffera[iBuffer];
 
-            pdata = (::u8 *) out_get_buffer_data(iBuffer);
+            pbufferata = (::u8 *) out_get_buffer_data(iBuffer);
 
          }
          else
@@ -818,63 +738,57 @@ namespace multimedia
 
             m.zero();
 
-            pdata = (::u8 *) m.data();
+            pbufferata = (::u8 *) m.data();
 
          }
 
          synchronous_lock sl(synchronization());
 
-         //m_iaSent.insert_at(0, iBuffer);
-
          synchronous_lock synchronouslockBuffer(pbuffer ? pbuffer->synchronization() : nullptr);
 
          int iZero = 0;
 
-         int iFramesJustWritten = 0;
-
          while (iBytesToWrite > 0)
          {
 
-            iFramesJustWritten = sndio_write((const char *) pdata, iFramesToWrite);
+	    int iFramesToWrite = iBytesToWrite * 8 / (m_pwaveformat->m_waveformat.nChannels * m_pwaveformat->m_waveformat.wBitsPerSample);
 
-            //informationf("snd_pcm_writei iFramesJustWritten " << iFramesJustWritten);
+            //iFramesToWrite = minimum(iFramesToWrite, 1152);
 
-            if (!m_bStarted)
+            int iFramesJustWritten = 0;
+
+            int iRet = audio_dev_write((char *) pbufferata, iFramesToWrite);
+
+	    if(iRet == AD_NO_ERROR)
+            {
+		
+               iFramesJustWritten = iFramesToWrite;
+
+     	       printf_line("audio_dev_write iFramesJustWritten %d", iFramesJustWritten);
+
+	       if (!m_bStarted)
+               {
+
+                  m_timeStart.Now();
+
+                  m_bStarted = true;
+
+	       }
+
+	    }
+	    else if(iRet == AD_WOULD_BLOCK)
+	    {
+
+               preempt(5_ms);
+
+     	       printf_line("audio_dev_write AD_WOULD_BLOCK");
+
+	    }
+	    else if (iRet == AD_UNDER_RUN)
             {
 
-               m_timeStart.Now();
+     	       printf_line("audio_dev_write AD_UNDER_RUN");
 
-               //gettimeofday(&m_timevalStart, nullptr);
-
-               m_bStarted = true;
-
-            }
-
-            if (iFramesJustWritten == -OP_ERROR_INTERNAL)
-            {
-
-               informationf("snd_pcm_writei -OP_ERROR_INTERNAL");
-
-               continue;
-
-            }
-            // else if (iFramesJustWritten == -EAGAIN)
-            // {
-            //
-            //    //informationf("snd_pcm_writei -EAGAIN");
-            //
-            //    sl.unlock();
-            //
-            //    //snd_pcm_wait(m_hdl, 10);
-            //    preempt(10_ms);
-            //
-            //    sl.lock();
-            //
-            //    continue;
-            //
-            // }
-            // else if (iFramesJustWritten < 0)
-            // {
             //
             //    informationf("snd_pcm_writei Underrun");
             //
@@ -894,39 +808,21 @@ namespace multimedia
             //                       snd_strerror(iFramesJustWritten));
             //
             //       return;
-            //
-            //    }
-            //
-            //    iFramesJustWritten = 0;
-            //
-            //    continue;
-            //
-            // }
-            //
-            iFramesToWrite -= iFramesJustWritten;
+            
+            }
+
+  //          iFramesToWrite -= iFramesJustWritten;
+
+//	}
 
             int iBytesJustWritten = _frames_to_bytes(iFramesJustWritten);
 
-            //informationf("_frames_to_bytes iBytesJustWritten " << iBytesJustWritten);
-
-            //informationf("m_pwaveformat->m_waveformat.nSamplesPerSec " << m_pwaveformat->m_waveformat.nSamplesPerSec);
-
             m_pprebuffer->m_iBytes += iBytesJustWritten;
 
-            pdata += iBytesJustWritten;
+            pbufferata += iBytesJustWritten;
 
             iBytesToWrite -= iBytesJustWritten;
 
-            //            if(iBytesToWrite > 0)
-            //            {
-            //
-            //               sl.unlock();
-            //
-            //               snd_pcm_wait(m_hdl, 100);
-            //
-            //               sl.lock();
-            //
-            //            }
 
          }
 
@@ -970,26 +866,6 @@ namespace multimedia
       }
 
 
-      //void MyCallback(snd_async_handler_t *pcm_callback);
-      //What happens in the callback is fairly simple; this is simply and roughly what it will look like:
-
-
-//      void MyCallback(snd_async_handler_t *pcm_callback)
-//      {
-//         wave_out *p = (wave_out *) snd_async_handler_get_callback_private(pcm_callback);
-//         p->on_my_callback();
-////         snd_pcm_t *pcm_handle = snd_async_handler_get_pcm(pcm_callback);
-////         snd_pcm_sframes_t avail;
-////         int err;
-////
-////         avail = snd_pcm_avail_update(pcm_handle);
-////         while (avail >= period_size) {
-////            snd_pcm_writei(pcm_handle, MyBuffer, period_size);
-////            avail = snd_pcm_avail_update(handle);
-////         }
-//      }
-
-
       void wave_out::out_start(const class time &time)
       {
 
@@ -998,16 +874,12 @@ namespace multimedia
          if (m_eoutstate == ::wave::e_out_state_playing)
          {
 
-            //return success;
-
             return;
 
          }
 
          if (m_eoutstate != ::wave::e_out_state_opened && m_eoutstate != ::wave::e_out_state_stopped)
          {
-
-            //return error_failed;
 
             throw ::exception(error_wrong_state);
 
@@ -1043,7 +915,8 @@ namespace multimedia
 
          }
 
-         m_estatusWave = translate_sndio(sndio_unpause());
+//         m_estatusWave = translate_sndio(audio_dev_unpause(m_pAudioDevCtx));
+audio_dev_unpause();
 
          if (!m_estatusWave)
          {
@@ -1123,7 +996,375 @@ namespace multimedia
 //       }
 
 
-   } // namespace audio_sndio
+
+
+#define	ACF_NEW_TRACK	(1 << 0)
+
+#define _ADC_QUIT	(-1)
+
+
+static const audio_dev_backend *audio_dev_backends[] = {
+#ifndef NOSUN
+	&audio_dev_sun,
+#endif
+#ifndef NOOSS
+	&audio_dev_pcm,
+#endif
+#ifndef NOARTS
+	&audio_dev_arts,
+#endif
+	NULL
+};
+
+
+      ::e_status wave_out::audio_dev_init(const char *dev)
+      {
+
+         m_pdata = new pcm_data;
+
+         ::memset(m_pdata, 0, sizeof(pcm_data));
+         
+         ::string strDev(dev);
+
+         application()->fork([this, strDev]()
+         {
+
+            audio_dev_slave(strDev);
+         
+         });
+
+         return ::success;
+         
+      }
+
+
+      void wave_out::audio_dev_close()
+      {
+         
+         m_bStop = true;
+
+      }
+
+
+      int wave_out::audio_dev_output(pcm_buffer *pbuffer)
+      {
+
+         unsigned char *buf;
+         size_t len, played, written;
+         ssize_t rv = 0;
+         
+         if (pbuffer->m_iBufferChannelCount != m_pdata->m_iDataChannelCount ||
+         pbuffer->m_iBufferSampleRate != m_pdata->m_iDataSampleRate) 
+         {
+
+            print_line("audio_dev_output config");
+
+            if ((ac_device->ad_config)(ac_devarg, pbuffer->m_iBufferSampleRate, pbuffer->m_iBufferChannelCount, m_iLowWaterMark, m_iHighWaterMark) < 0)
+            {
+            
+               return (-1);
+               
+            }
+
+            m_pdata->m_iDataChannelCount = pbuffer->m_iBufferChannelCount;
+            m_pdata->m_iDataSampleRate = pbuffer->m_iBufferSampleRate;
+            
+         }
+
+         written = 0;
+
+         played = pbuffer->m_iBufferPosition;
+         buf = &pbuffer->m_pBufferData[played];
+         len = pbuffer->m_iLength;
+         
+         for (;len > 0; played += rv, written += rv, len -= rv, buf = &buf[rv]) 
+         {
+
+            printf_line("audio_dev_output writing %d bytes", len);
+               
+            do 
+            {
+            
+               rv = (ac_device->ad_output)(ac_devarg, buf, len);
+               
+            }
+            while (rv < 0 && errno == EINTR);
+
+            if (rv < 0 || (rv == 0 && ac_device->ad_pollfd == NULL))
+            {
+            
+               break;
+               
+            }
+            
+         }
+
+         pbuffer->m_iBufferPosition = played;
+         pbuffer->m_iLength = len;
+
+         written /= pbuffer->m_iBufferChannelCount;
+         written /= sizeof(uint16_t);
+         m_pdata->pb_playsamples += written;
+
+         return ((rv >= 0) ? 0 : -1);
+         
+      }
+
+
+      void wave_out::audio_dev_pause()
+      {
+
+         ac_paused = true;
+
+      }
+
+
+      void wave_out::audio_dev_unpause()
+      {
+
+         ac_paused = false;
+
+      }
+
+
+      void wave_out::audio_dev_slave(const char *dev)
+      {
+    
+         pcm_data *pb = m_pdata;
+         const audio_dev_backend *ad;
+         pcm_buffer *pbuffer;
+         const char *ext = strchr(dev, ':');
+         int rv, prodpeer = 0;
+
+         if (ext == NULL)
+         {
+            
+            ad = audio_dev_backends[0];
+            
+         }
+         else 
+         {
+            int i;
+            for (i = 0; (ad = audio_dev_backends[i]) != NULL; i++) 
+            {
+               if (strncmp(ad->ad_name, dev, strlen(ad->ad_name)) == 0)
+               {
+                  break;
+               }
+            }
+
+            if (ad == NULL)
+            {
+               ad = audio_dev_backends[0];
+               
+            }
+         }
+
+         ac_device = ad;
+         
+         if (ext != NULL)
+         {
+            dev += strlen(ad->ad_name);
+         }
+         
+         ac_devarg = (ad->ad_init)(dev);
+         
+         if (ac_devarg == NULL) 
+         {
+
+            fprintf(stderr, "audio_dev_slave: failed to open back-end\n");
+            fflush(stderr);
+            return;
+            
+         }
+
+         print_line("audio_dev_slave: succeeded to open back-end.");
+
+         ac_paused = true;
+      
+         for (;!m_bStop;) 
+         {
+      
+            while (m_pdata->m_iHead != m_pdata->m_iTail && m_pdata->m_iPurge == 0) 
+            {
+            
+               int idx = m_pdata->m_iTail;
+
+               pbuffer = &m_pdata->m_buffera[idx];
+
+               if (!ac_paused && pbuffer->m_iLength) 
+               {
+               
+                  rv = audio_dev_output(pbuffer);
+                  
+                  if (rv < 0 && errno != EAGAIN) 
+                  {
+                     
+                     print_line("audio_slave: audio_dev_output failed(1)");
+                     
+                     return;
+                     
+                  }
+                  
+               }
+
+               if (pbuffer->m_iLength != 0)
+               {
+               
+                  break;
+                  
+               }
+
+               m_pdata->m_iTail = (idx + 1) % m_iBufferCount;
+               
+               prodpeer = 1;
+               
+            }
+            
+            if (m_pdata->m_iPurge) 
+            {
+               m_pdata->m_iPurge = 0;
+               m_pdata->m_iTail = m_pdata->m_iHead;
+               prodpeer = 1;
+            }
+
+            m_eventRead.ResetEvent();
+
+            do 
+            {
+            
+               m_eventRead._wait(5_ms);
+               
+            } while (ac_paused && m_pdata->m_iHead == m_pdata->m_iTail);
+            
+         }
+         
+      }
+
+
+      int wave_out::audio_dev_write(void *pcmdata, int samplecount)
+      {
+
+         //int head, tail, nbufs;
+         
+
+         auto iHead = (m_pdata->m_iHead + 1) % m_iBufferCount;
+         
+         if(iHead == m_pdata->m_iTail) 
+         {
+            
+            return AD_WOULD_BLOCK;
+            
+         }
+
+         auto pbuffer = &m_pdata->m_buffera[m_pdata->m_iHead];
+
+         pbuffer->m_iBufferChannelCount = m_pwaveformat->m_waveformat.nChannels;
+         pbuffer->m_iBufferSampleRate = m_pwaveformat->m_waveformat.nSamplesPerSec;
+         pbuffer->m_iBufferPosition = 0;
+         pbuffer->m_iLength = samplecount * pbuffer->m_iBufferChannelCount * 2;
+         
+         memcpy(pbuffer->m_pBufferData, pcmdata, pbuffer->m_iLength);
+         
+         m_pdata->m_iHead = iHead;
+         
+         ac_buffersamples += samplecount;
+
+         m_eventRead.SetEvent();
+
+         //tail = m_pdata->m_iTail;
+         
+         //nbufs = head - tail;
+         
+         //if (nbufs < 0)
+         //{
+         
+         //   nbufs += m_iBufferCount;
+            
+         //}
+
+         //if (nbufs > PCM_LOW_WATER)
+         //{
+         
+         //   return AD_UNDER_RUN;
+            
+         //}
+
+
+         return AD_NO_ERROR;
+      
+      }
+      
+
+      int wave_out::audio_dev_flush_wait()
+      {
+
+         while (m_pdata->m_iHead != m_pdata->m_iTail)
+         {
+         
+            m_eventRead._wait();
+      
+         }
+
+         ac_buffersamples = m_pdata->pb_playsamples = 0;
+
+         return AD_NO_ERROR;
+         
+      }
+
+
+      int wave_out::audio_dev_purge_wait()
+      {
+
+         m_pdata->m_iPurge = 1;
+
+         while (m_pdata->m_iHead != m_pdata->m_iTail && m_pdata->m_iPurge)
+         {
+         
+            m_eventRead._wait();
+            
+         }
+
+         ac_buffersamples = m_pdata->pb_playsamples = 0;
+
+         return (AD_NO_ERROR);
+      
+      }
+
+
+      ::i64 wave_out::audio_dev_buffer_time()
+      {
+         
+         if (!m_pdata->m_iDataSampleRate)
+         {
+            
+            return 0;
+            
+         }
+            
+         auto diff = ac_buffersamples - m_pdata->pb_playsamples;
+
+         return ((diff * 10) / m_pdata->m_iDataSampleRate);
+         
+      }
+
+
+		::i64 wave_out::audio_dev_played_time()
+		{
+
+			if (!m_pdata->m_iDataSampleRate)
+			{
+
+				return 0;
+
+			}
+
+			return ((m_pdata->pb_playsamples * 10) /m_pdata->m_iDataSampleRate);
+
+		}
+      
+
+   } // namespace audio_audio
 
 
 } // namespace multimedia
