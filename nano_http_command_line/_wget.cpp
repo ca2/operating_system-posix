@@ -34,12 +34,14 @@ namespace command_line
       {
 
 
-         bool http::_wget_check_url_ok(const ::scoped_string & scopedstrUrl)
+         bool http::_wget_check_url_ok(const ::url::url & url)
          {
 
             ::string strCommand;
 
-            strCommand.formatf("wget -S \"%s\"", scopedstrUrl.c_str());
+            ::string strUrl(url.as_string());
+
+            strCommand.formatf("wget -S \"%s\"", strUrl.c_str());
 
             debug() << strCommand;
 
@@ -121,12 +123,12 @@ namespace command_line
          }
 
 
-         ::string http::_wget_get_effective_url(const ::scoped_string & scopedstrUrl)
+         ::url::url http::_wget_get_effective_url(const ::url::url & url)
          {
 
             ::string strCommand;
 
-            ::string strUrl(scopedstrUrl);
+            ::string strUrl(url.as_string());
 
             strCommand.formatf("wget --spider %s", strUrl.c_str());
 
@@ -176,12 +178,12 @@ namespace command_line
 
 
 
-         ::string http::_wget_get(const ::scoped_string & scopedstrUrl)
+         ::string http::_wget_get(const ::url::url & url)
          {
 
             ::string strCommand;
 
-            ::string strUrl(scopedstrUrl);
+            ::string strUrl(url.as_string());
 
             strCommand.formatf("wget -qO - %s", strUrl.c_str());
 
@@ -193,12 +195,12 @@ namespace command_line
 
 
 
-         void http::_wget_download(const ::file::path & path, const ::scoped_string & scopedstrUrl)
+         void http::_wget_download(const ::file::path & path, const ::url::url & url)
          {
 
             ::string strCommand;
 
-            ::string strUrl(scopedstrUrl);
+            ::string strUrl(url.as_string());
 
             strCommand.formatf("wget %s -O \"%s\"", strUrl.c_str(), path.c_str());
 
