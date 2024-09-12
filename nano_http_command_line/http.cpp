@@ -105,18 +105,18 @@ m_eapp = e_app_not_initialized;
          }
 
 
-         ::string http::get_effective_url(const ::scoped_string & scopedstrUrl)
+         ::url::url http::get_effective_url(const ::url::url & url)
          {
 
             auto eapp = _http_app();
 
             if (eapp == e_app_curl) {
 
-               return _curl_get_effective_url(scopedstrUrl);
+               return _curl_get_effective_url(url);
 
             } else if (eapp == e_app_wget) {
 
-               return _wget_get_effective_url(scopedstrUrl);
+               return _wget_get_effective_url(url);
 
             } else {
 
@@ -128,7 +128,7 @@ m_eapp = e_app_not_initialized;
          }
 
 
-         bool http::check_url_ok(const ::scoped_string & scopedstrUrl)
+         bool http::check_url_ok(const ::url::url & url)
          {
 
             auto eapp = _http_app();
@@ -136,13 +136,13 @@ m_eapp = e_app_not_initialized;
             if(eapp == e_app_curl)
             {
 
-               return _curl_check_url_ok(scopedstrUrl);
+               return _curl_check_url_ok(url);
 
             }
             else if(eapp == e_app_wget)
             {
 
-               return _wget_check_url_ok(scopedstrUrl);
+               return _wget_check_url_ok(url);
 
             } else
 
@@ -155,7 +155,7 @@ m_eapp = e_app_not_initialized;
 
          }
 
-            ::string http::get(const ::scoped_string & scopedstrUrl)
+            ::string http::get(const ::url::url & url)
             {
 
                auto eapp = _http_app();
@@ -163,13 +163,13 @@ m_eapp = e_app_not_initialized;
                if(eapp == e_app_curl)
                {
 
-                  return _curl_get(scopedstrUrl);
+                  return _curl_get(url);
 
                }
                else if(eapp == e_app_wget)
                {
 
-                  return _wget_get(scopedstrUrl);
+                  return _wget_get(url);
 
                }
                else
@@ -183,7 +183,7 @@ m_eapp = e_app_not_initialized;
             }
 
 
-            void http::download(const ::file::path & path, const ::scoped_string & scopedstrUrl)
+            void http::download(const ::file::path & path, const ::url::url & url)
             {
 
                auto eapp = _http_app();
@@ -191,13 +191,13 @@ m_eapp = e_app_not_initialized;
                if(eapp == e_app_curl)
                {
 
-                  _curl_download(path, scopedstrUrl);
+                  _curl_download(path, url);
 
                }
                else if(eapp == e_app_wget)
                {
 
-                  _wget_download(path, scopedstrUrl);
+                  _wget_download(path, url);
 
                }
                else
