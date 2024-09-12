@@ -26,12 +26,12 @@ namespace command_line
       {
 
 
-         bool http::_curl_check_url_ok(const ::scoped_string & scopedstrUrl)
+         bool http::_curl_check_url_ok(const ::url::url & url)
          {
 
             ::string strCommand;
 
-            strCommand = "curl --silent -I " + scopedstrUrl;
+            strCommand = "curl --silent -I " + url.as_string();
 
             auto strOutput = node()->get_command_output(strCommand);
 
@@ -100,12 +100,12 @@ namespace command_line
          }
 
 
-         ::string http::_curl_get_effective_url(const ::scoped_string & scopedstrUrl)
+         ::url::url http::_curl_get_effective_url(const ::url::url & url)
          {
 
             ::string strCommand;
 
-            strCommand = "curl -Ls -o /dev/null -w %{url_effective} https://github.com/openssl/openssl/releases/latest";
+            strCommand = "curl -Ls -o /dev/null -w %{url_effective} " + url.as_string();
 
             auto strEffectiveUrl = node()->get_command_output(strCommand);
 
@@ -115,12 +115,12 @@ namespace command_line
 
 
 
-         ::string http::_curl_get(const ::scoped_string & scopedstrUrl)
+         ::string http::_curl_get(const ::url::url & url)
          {
 
             ::string strCommand;
 
-            ::string strUrl(scopedstrUrl);
+            ::string strUrl(url.as_string());
 
             strCommand.formatf("curl %s", strUrl.c_str());
 
@@ -133,12 +133,12 @@ namespace command_line
 
 
 
-         void http::_curl_download(const ::file::path & path, const ::scoped_string & scopedstrUrl)
+         void http::_curl_download(const ::file::path & path, const ::url::url & url)
          {
 
             ::string strCommand;
 
-            ::string strUrl(scopedstrUrl);
+            ::string strUrl(url.as_string());
 
             strCommand.formatf("curl %s --output \"%s\"", strUrl.c_str(), path.c_str());
 

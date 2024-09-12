@@ -49,30 +49,30 @@ namespace command_line
 
             void async(::nano::http::get * pget) override;
 
-            ::string get_effective_url(const ::scoped_string & scopedstrUrl) override;
+            ::url::url get_effective_url(const ::url::url & url) override;
 
-            virtual ::string _wget_get_effective_url(const ::scoped_string & scopedstrUrl);
+            virtual ::url::url _wget_get_effective_url(const ::url::url & url);
 
-            virtual ::string _curl_get_effective_url(const ::scoped_string & scopedstrUrl);
+            virtual ::url::url _curl_get_effective_url(const ::url::url & url);
 
-            bool check_url_ok(const ::scoped_string & scopedstrUrl) override;
+            bool check_url_ok(const ::url::url & url) override;
 
-            virtual bool _wget_check_url_ok(const ::scoped_string & scopedstrUrl);
+            virtual bool _wget_check_url_ok(const ::url::url & url);
 
-            virtual bool _curl_check_url_ok(const ::scoped_string & scopedstrUrl);
+            virtual bool _curl_check_url_ok(const ::url::url & url);
 
-            ::string get(const ::scoped_string & scopedstrUrl) override;
+            ::string get(const ::url::url & url) override;
 
-            virtual ::string _wget_get(const ::scoped_string & scopedstrUrl);
+            virtual ::string _wget_get(const ::url::url & url);
 
-            virtual ::string _curl_get(const ::scoped_string & scopedstrUrl);
+            virtual ::string _curl_get(const ::url::url & url);
 
 
-            void download(const ::file::path & path, const ::scoped_string & scopedstrUrl) override;
+            void download(const ::file::path & path, const ::url::url & url) override;
 
-            virtual void _wget_download(const ::file::path & path, const ::scoped_string & scopedstrUrl);
+            virtual void _wget_download(const ::file::path & path, const ::url::url & url);
 
-            virtual void _curl_download(const ::file::path & path, const ::scoped_string & scopedstrUrl);
+            virtual void _curl_download(const ::file::path & path, const ::url::url & url);
 
 
          };
