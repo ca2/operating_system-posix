@@ -8,9 +8,9 @@
 #pragma once
 
 
-#ifdef G_OS_UNIX
-#include <gio/gdesktopappinfo.h>
-#endif
+// #ifdef G_OS_UNIX
+// #include <gio/gdesktopappinfo.h>
+// #endif
 
 
 #include "acme/primitive/collection/string_map.h"
@@ -30,7 +30,7 @@ namespace node_gdk
       gpointer m_pGtkSettingsDefault;
 
       GdkAppLaunchContext * m_pgdkapplaunchcontext;
-      string_map < GDesktopAppInfo * > m_mapGDesktopAppInfo;
+      //string_map < GDesktopAppInfo * > m_mapGDesktopAppInfo;
       GAction *m_pactionWallpaper;
 
       ::string       m_strOsUserTheme;
@@ -142,7 +142,7 @@ bool m_bFetchingDarkMode;
       virtual void _on_gtk_init();
 
 
-      ::wl_display * get_wayland_display() override;
+      //::wl_display * get_wayland_display() override;
 
 
       bool defer_windowing_post(const ::procedure & procedure) override;

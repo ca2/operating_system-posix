@@ -92,7 +92,7 @@ namespace windowing_wayland
 
       virtual void _on_capture_changed_to(::windowing_wayland::window * pwindowWithCapture);
 
-      void set_mouse_cursor(::windowing::cursor * pcursor)override;
+      void set_mouse_cursor2(::windowing::cursor * pcursor)override;
       //virtual void x11_main();
 
       //virtual HCURSOR load_default_cursor(e_cursor ecursor) override;

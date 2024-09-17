@@ -8,9 +8,9 @@
 #pragma once
 
 
-#ifdef G_OS_UNIX
-#include <gio/gdesktopappinfo.h>
-#endif
+//#ifdef G_OS_UNIX
+//#include <gio/gio.h>
+//#endif
 
 #include "acme/primitive/collection/string_map.h"
 #include "aura_posix/node.h"
@@ -28,40 +28,35 @@ namespace node_gtk4
    public:
 
 
-      gpointer m_pGtkSettingsDefault;
-
       GdkAppLaunchContext * m_pgdkapplaunchcontext;
-      string_map < GDesktopAppInfo * > m_mapGDesktopAppInfo;
+      //string_map < GDesktopAppInfo * > m_mapGDesktopAppInfo;
 
-      ::string       m_strOsUserTheme;
-      ::string       m_strOsUserIconTheme;
 
-      ::task_pointer       m_ptaskOsUserTheme;
-      ::task_pointer       m_ptaskOsUserIconTheme;
+      //::task_pointer       m_ptaskOsUserTheme;
+      //::task_pointer       m_ptaskOsUserIconTheme;
 
 
       node();
       ~node() override;
 
 
-      virtual void _set_os_user_theme(const ::scoped_string & strTheme);
-      virtual void _apply_os_user_theme();
-      virtual ::string _get_os_user_theme();
+      //virtual void _set_os_user_theme(const ::scoped_string & strTheme);
+      //virtual void _set_os_user_theme(const ::scoped_string & strTheme);
+      //virtual void _apply_os_user_theme();
+      //virtual ::string _get_os_user_theme();
 
 
-      virtual void _set_os_user_icon_theme(const ::scoped_string & strIconTheme);
-      virtual void _apply_os_user_icon_theme();
+      //virtual void _set_os_user_icon_theme(const ::scoped_string & strIconTheme);
+      //virtual void _apply_os_user_icon_theme();
 
 
       void _fill_os_theme_colors(::os_theme_colors * pthemecolors) override;
       virtual void _fill_os_theme_colors(::os_theme_colors * pthemecolors, const ::scoped_string & scopedstrTheme, bool bDark);
       //virtual void _set_os_theme_colors(::os_theme_colors * posthemecolors);
 
-      int node_init_check(int * pi, char *** ppz) override;
+      //int node_init_check(int * pi, char *** ppz) override;
 
-      virtual bool os_defer_init_gtk();
-
-      void defer_notify_startup_complete() override;
+      //void defer_notify_startup_complete() override;
 
       void start_node() override;
 
@@ -79,8 +74,6 @@ namespace node_gtk4
 
       bool is_branch_current() const override;
 
-      virtual void _fetch_dark_mode();
-
       bool dark_mode() const override;
 
       void set_dark_mode(bool bDarkMode) override;
@@ -91,9 +84,9 @@ namespace node_gtk4
 
       virtual ::e_status _os_set_user_icon_theme(const string & strUserIconTheme);
 
-      void os_process_user_theme(string strTheme) override;
+      //void os_process_user_theme(string strTheme) override;
 
-      void os_process_user_icon_theme(string strTheme) override;
+      //void os_process_user_icon_theme(string strTheme) override;
 
       void enable_wallpaper_change_notification() override;
 
@@ -103,7 +96,7 @@ namespace node_gtk4
 
       bool set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay) override;
 
-      string get_wallpaper(::collection::index iScreen) override;
+      //string get_wallpaper(::collection::index iScreen) override;
 
 //      using ::aura::node::node_post;
 
@@ -112,10 +105,12 @@ namespace node_gtk4
       void user_post(const ::procedure & procedure) override;
 
       void defer_do_main_tasks() override;
-
+//virtual void _on_activate_gtk_application();
       //virtual void _os_process_user_theme_color(string strTheme);
 
       void user_post_quit() override;
+
+      void defer_innate_ui() override;
 
       bool should_launch_on_node(::topic * ptopic) override;
 
@@ -136,9 +131,9 @@ namespace node_gtk4
       virtual void _on_gtk_init();
 
 
-      ::wl_display * get_wayland_display() override;
+      //::wl_display * get_wayland_display() override;
 
-
+      //void user_post(const ::procedure &procedure);
       bool defer_windowing_post(const ::procedure & procedure) override;
 
 
@@ -158,10 +153,10 @@ namespace node_gtk4
 
       bool _user_is_set_file_extension_mime_type(const scoped_string & scopedstrExtension, const scoped_string & scopedstrMimeType);
 
-      void * fetch_windowing_system_display() override;
-      void windowing_system_async(const ::procedure & procedure) override;
-      void windowing_system_display_error_trap_push(int i) override;
-      void windowing_system_display_error_trap_pop_ignored(int i) override;
+      //void * fetch_windowing_system_display() override;
+      //void windowing_system_async(const ::procedure & procedure) override;
+      //void windowing_system_display_error_trap_push(int i) override;
+      //void windowing_system_display_error_trap_pop_ignored(int i) override;
 
 
    };

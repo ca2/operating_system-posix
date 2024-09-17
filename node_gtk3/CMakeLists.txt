@@ -58,6 +58,7 @@ list(APPEND library_references
         node_gdk
         windowing_posix
         windowing_system_x11
+   windowing_gtk3
 )
 
 
@@ -83,7 +84,10 @@ list(APPEND static_library_references ${library_references})
 list(TRANSFORM static_library_references PREPEND static_)
 
 
-add_library(${PROJECT_NAME} SHARED ${library_source})
+add_library(${PROJECT_NAME} SHARED ${library_source}
+#   wayland_buffer.h
+#   wayland_buffer.cpp
+)
 #   os_context.h
 #   os_context.cpp)
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
@@ -145,7 +149,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories
 target_include_directories(static_${PROJECT_NAME} PRIVATE ${library_include_directories})
 
 
-target_compile_definitions(${PROJECT_NAME} PRIVATE _NODE_GTK_LIBRARY)
+target_compile_definitions(${PROJECT_NAME} PRIVATE _${PROJECT_NAME}_project)
 
 
 

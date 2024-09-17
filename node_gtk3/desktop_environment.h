@@ -11,7 +11,7 @@ namespace node_gtk3
 {
 
 
-   class CLASS_DECL_NODE_GTK desktop_environment :
+   class CLASS_DECL_NODE_GTK3 desktop_environment :
       virtual public ::windowing_posix::desktop_environment
    {
    public:
@@ -22,6 +22,9 @@ namespace node_gtk3
 
    desktop_environment();
    ~desktop_environment() override;
+
+
+      ::pointer < ::graphics::graphics > create_graphics() override;
 
 
 //    virtual ::e_status _get_monitor_rectangle(::collection::index iMonitor, ::rectangle_i32 * prectangle);

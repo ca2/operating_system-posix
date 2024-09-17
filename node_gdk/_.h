@@ -6,10 +6,10 @@
 #include "windowing_x11/_.h"
 
 
-//#include <gtk/gtk.h>
+#include <gtk/gtk.h>
 //#include <gdk/gdkx.h>
-#include <gio/gio.h>
-#include <gdk/gdkx.h>
+//#include <gio/gio.h>
+//#include <gdk/gdk.h>
 
 #include "gdk.h"
 

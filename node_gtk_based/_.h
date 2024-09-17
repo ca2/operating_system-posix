@@ -28,7 +28,7 @@ namespace node_gtk_based
 #include "_constant.h"
 
 
-#define __matter(TYPE) ::place(new ::matter<TYPE>()
+//#define __matter(TYPE) ::place(new ::matter<TYPE>()
 
 
 namespace user

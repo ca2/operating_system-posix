@@ -93,7 +93,7 @@ namespace node_gtk4
                    auto pgtkfiledialog = gtk_file_dialog_new();
 
 
-                   pgtkfiledialog->m_posdata = pgtkfiledialog;
+                   pdialog->m_posdata = pgtkfiledialog;
 
                    //gtk_file_dialog_set_title(dialog, _("Import APO Preset File"));
                    //gtk_file_dialog_set_accept_label(dialog, _("Open"));

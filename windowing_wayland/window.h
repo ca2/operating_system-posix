@@ -38,6 +38,7 @@ namespace windowing_wayland
       //XWindowAttributes                            m_attr;
       //XVisualInfo                                  m_visualinfo;
       void *                                       m_pgdkwindow;
+
       //bool                                         m_bPendingConfigureRequest;
       //::pointer<::windowing_wayland::x11data>          m_px11data;
       ::pointer<::windowing_wayland::display>          m_pwaylanddisplay;
@@ -98,6 +99,8 @@ namespace windowing_wayland
 
       void destroy() override;
 
+         void _set_oswindow(::oswindow oswindow) override;
+         ::oswindow oswindow() const override;
 
 //      static Atom get_window_long_atom(i32 nIndex);
 //
@@ -209,7 +212,7 @@ namespace windowing_wayland
       void set_keyboard_focus() override;
       void _set_keyboard_focus_unlocked() override;
 
-
+      void defer_show_system_menu(::user::mouse * pmouse) override;
       //void set_mouse_capture() override;
       //void release_mouse_capture() override;
 
@@ -370,9 +373,9 @@ namespace windowing_wayland
       void _on_simple_key_message(::user::e_key ekey, ::enum_message emesssage) override;
       void _on_text_composition(const ::scoped_string & scopedstrText) override;
 
-      bool defer_perform_entire_reposition_process() override;
+      bool defer_perform_entire_reposition_process(::user::mouse * pmouse) override;
 
-      bool defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing) override;
+      bool defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse * pmouse) override;
 
       void on_destruct_mouse_message(::message::mouse * pmouse) override;
 

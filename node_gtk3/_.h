@@ -17,10 +17,10 @@
 #include "gtk3_gtk3.h"
 
 
-#if defined(_node_gtk_project)
-   #define CLASS_DECL_NODE_GTK  CLASS_DECL_EXPORT
+#if defined(_node_gtk3_project)
+   #define CLASS_DECL_NODE_GTK3  CLASS_DECL_EXPORT
 #else
-   #define CLASS_DECL_NODE_GTK  CLASS_DECL_IMPORT
+   #define CLASS_DECL_NODE_GTK3  CLASS_DECL_IMPORT
 #endif
 
 

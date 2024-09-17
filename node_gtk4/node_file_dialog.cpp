@@ -85,17 +85,35 @@ namespace node_gtk4
       if(response_id == GTK_RESPONSE_ACCEPT)
       {
 
-         auto *pdialog = (::file::file_dialog *) data;
-
-         auto path = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(pgtkdialog));
-
-         pdialog->m_patha.add(path);
-
-         pdialog->m_function(pdialog);
+         // auto *pdialog = (::file::file_dialog *) data;
+         //
+         // auto plistmodel = gtk_file_dialog_get_files(GTK_FILE_DIALOG(pgtkdialog));
+         //
+         // guint n_items = g_list_model_get_n_items(plistmodel);
+         // g_print("The model contains %u items:\n", n_items);
+         //
+         // for (guint i = 0; i < n_items; i++) {
+         //    // Get the item at index i
+         //    auto pitem = g_list_model_get_item(plistmodel, i);
+         //
+         //    // If the items are strings (e.g., in GtkStringList), cast it to a GValueArray or gchar*
+         //    const char *string_item = gtk_string_list_get_string(GTK_STRING_LIST(plistmodel), i);
+         //
+         //    //g_print("Item %u: %s\n", i, string_item);
+         //
+         //    pdialog->m_patha.add(string_item);
+         //
+         //    // Release the reference (as g_list_model_get_item() adds a reference to the object)
+         //    g_object_unref(pitem);
+         // }
+         // //
+         // // pdialog->m_patha.add(path);
+         // //
+         // // pdialog->m_function(pdialog);
 
       }
 
-      gtk_widget_destroy(GTK_WIDGET(pgtkdialog));
+      gtk_window_destroy(GTK_WINDOW(pgtkdialog));
 
    }
 
@@ -164,10 +182,12 @@ namespace node_gtk4
                            if(pdialog->m_filedialogfiltera.has_element())
                            {
 
-                              GtkFileFilter *filter = gtk_file_filter_new();
+                              GListStore *filter_list = g_list_store_new(GTK_TYPE_FILE_FILTER);
 
                               for (auto &filetype: pdialog->m_filedialogfiltera)
                               {
+
+                                 GtkFileFilter *filter = gtk_file_filter_new();
 
                                  auto ppattern = filetype.m_strPatternList.c_str();
 
@@ -177,16 +197,23 @@ namespace node_gtk4
 
                                  gtk_file_filter_set_name(filter, pname);
 
+                                 g_list_store_append(filter_list, filter);  // Add filter to the list
+                                 // Create a filter for text files
+//gtk_file_filter_set_name(text_filter, "Text Files (*.txt)");
+//gtk_file_filter_add_pattern(text_filter, "*.txt");
+
+
+
                               }
 
-                              gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(widget),
-                                                          filter);   /* Display only directories */
+                              gtk_file_dialog_set_filters(GTK_FILE_DIALOG(pgtkfiledialog),
+                                                         G_LIST_MODEL(filter_list));   /* Display only directories */
 
                            }
 
-                           g_signal_connect(G_OBJECT(widget), "destroy-event", G_CALLBACK(&on_file_chooser_destroy_event), pdialog);
-                           g_signal_connect(G_OBJECT(widget), "delete-event", G_CALLBACK(&on_file_chooser_delete_event), pdialog);
-                           g_signal_connect(G_OBJECT(widget), "response", G_CALLBACK(&on_file_chooser_response), pdialog);
+                           g_signal_connect(G_OBJECT(pgtkfiledialog), "destroy-event", G_CALLBACK(&on_file_chooser_destroy_event), pdialog);
+                           g_signal_connect(G_OBJECT(pgtkfiledialog), "delete-event", G_CALLBACK(&on_file_chooser_delete_event), pdialog);
+                           g_signal_connect(G_OBJECT(pgtkfiledialog), "response", G_CALLBACK(&on_file_chooser_response), pdialog);
 
                            //if (NULL != current_directory) {
                            // gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(widget),
@@ -194,7 +221,7 @@ namespace node_gtk4
                            //}
 
 
-                           gtk_widget_show(widget);
+                           gtk_widget_set_visible(GTK_WIDGET(pgtkfiledialog), true);
 //      GtkWidget *pfilechooserdialog;
 //
 //      pfilechooserdialog = create_filechooser_dialog(GTK_FILE_CHOOSER_ACTION_OPEN);

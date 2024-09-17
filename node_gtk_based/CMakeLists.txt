@@ -127,7 +127,7 @@ if (MSVC)
 elseif (${LINUX} OR ${__BSD__})
 
     if (${HAS_GTK4})
-        pkg_check_modules(PKGCONFIG x11 glib-2.0 gtk4 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
+        pkg_check_modules(PKGCONFIG x11 glib-2.0 gtk4 ${APPINDICATOR_PKG_MODULE})
     elseif (${HAS_GTK3})
         pkg_check_modules(PKGCONFIG x11 glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
     endif ()
@@ -150,6 +150,11 @@ elseif (${LINUX} OR ${__BSD__})
 
 endif ()
 
+if (${HAS_GTK4})
+add_dependencies(${PROJECT_NAME} innate_ui_gtk4)
+elseif (${HAS_GTK4})
+    add_dependencies(${PROJECT_NAME} innate_ui_gtk3)
+endif()
 
 list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
 list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)

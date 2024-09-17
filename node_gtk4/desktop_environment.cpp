@@ -75,27 +75,27 @@ namespace node_gtk4
 //   }
 
 
-   void desktop_environment::get_workspace_rectangle(::collection::index iIndex, ::rectangle_i32 *prectangle)
-   {
-
-//      if(m_bX11)
-//      {
+//    void desktop_environment::get_workspace_rectangle(::collection::index iIndex, ::rectangle_i32 *prectangle)
+//    {
 //
-//         synchronous_lock sl(user_synchronization());
+// //      if(m_bX11)
+// //      {
+// //
+// //         synchronous_lock sl(user_synchronization());
+// //
+// //         _get_workspace_rectangle(iIndex, prectangle);
+// //
+// //         //m_pwindowing->windowing_send([this, iIndex, prectangle]() { _get_workspace_rectangle(iIndex, prectangle); });
+// //
+// //      }
+// //      else
+//       {
 //
-//         _get_workspace_rectangle(iIndex, prectangle);
+//          _get_workspace_rectangle(iIndex, prectangle);
 //
-//         //m_pwindowing->windowing_send([this, iIndex, prectangle]() { _get_workspace_rectangle(iIndex, prectangle); });
+//       }
 //
-//      }
-//      else
-      {
-
-         _get_workspace_rectangle(iIndex, prectangle);
-
-      }
-
-   }
+//    }
 
 
    ::e_status desktop_environment::_get_workspace_rectangle(::collection::index iIndex, ::rectangle_i32 *prectangle)

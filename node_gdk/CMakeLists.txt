@@ -38,8 +38,8 @@ list(APPEND library_source
         #windowing.h
         windowing_system.cpp
         windowing_system.h
-        x11_windowing_system.cpp
-        x11_windowing_system.h
+        #x11_windowing_system.cpp
+        #x11_windowing_system.h
 )
 
 
@@ -132,7 +132,11 @@ elseif (${LINUX} OR ${__BSD__})
     #pkg_check_modules(PKGCONFIG gconf-2.0 glib-2.0 gtk+-3.0 gdk-3.0)
     #   pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0)
     #endif()
+    if(${HAS_GTK4})
+        pkg_check_modules(PKGCONFIG glib-2.0 gtk4 ${APPINDICATOR_PKG_MODULE})
+        else()
     pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
+    endif()
 
 
     target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)

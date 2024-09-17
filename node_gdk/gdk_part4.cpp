@@ -15,7 +15,7 @@
 // and restart codeblocks/IDE
 //#include <gtk/gtk.h>
 #include <sys/utsname.h>
-#include <gdk/gdkwayland.h>
+//#include <gdk/gdkwayland.h>
 
 platform_char *** process_get_pargv();
 
@@ -48,10 +48,11 @@ namespace nano
 #include <time.h>
 
 #include <new>
+#include <gtk/gtk.h>
 
-#include <gio/gio.h>
+//#include <gio/gio.h>
 
-#include <gdk/gdk.h>
+//#include <gdk/gdk.h>
 
 #include <string.h>
 
@@ -74,32 +75,32 @@ namespace node_gdk
    enum_display_type calculate_display_type()
    {
 
-      GdkDisplay * pgdkdisplay = gdk_display_get_default();
+//      GdkDisplay * pgdkdisplay = gdk_display_get_default();
+//
+// #if HAS_WAYLAND
+//
+//       if (GDK_IS_WAYLAND_DISPLAY (pgdkdisplay))
+//       {
+//
+//          return e_display_type_wayland;
+//
+//       }
+//       else
+//
+// #endif
+//
+//       if (GDK_IS_X11_DISPLAY (pgdkdisplay))
+//       {
+//
+//          return e_display_type_x11;
+//
+//       }
+//       else
+//       {
 
-#if HAS_WAYLAND
+          return e_display_type_none;
 
-      if (GDK_IS_WAYLAND_DISPLAY (pgdkdisplay))
-      {
-
-         return e_display_type_wayland;
-
-      }
-      else
-
-#endif
-
-      if (GDK_IS_X11_DISPLAY (pgdkdisplay))
-      {
-
-         return e_display_type_x11;
-
-      }
-      else
-      {
-
-         return e_display_type_none;
-
-      }
+//       }
 
    }
 

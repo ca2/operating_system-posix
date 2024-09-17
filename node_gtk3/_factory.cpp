@@ -31,7 +31,9 @@
 //   }//namespace user
 //} // namespace nano
 
-__FACTORY_EXPORT void node_gdk_factory(::factory::factory * pfactory);
+//__FACTORY_EXPORT void node_gdk_factory(::factory::factory * pfactory);
+
+__FACTORY_EXPORT void windowing_gtk3_factory(::factory::factory * pfactory);
 
 
 __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
@@ -40,7 +42,9 @@ __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
    ::node_gtk3::initialize_gtk();
 
 
-   node_gdk_factory(pfactory);
+   //node_gdk_factory(pfactory);
+
+   windowing_gtk3_factory(pfactory);
 
 
 //   auto edisplaytype = ::nano::user::get_display_type();

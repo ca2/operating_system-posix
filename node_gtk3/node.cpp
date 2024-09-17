@@ -621,18 +621,18 @@ namespace node_gtk3
 
       system()->m_ewindowing = calculate_ewindowing();
 
-      system()->__construct(system()->m_pwindowingsystem);
-
-      ::pointer < ::node_gdk::windowing_system> pnodegdkwindowingsystem = system()->m_pwindowingsystem;
-
-      if(pnodegdkwindowingsystem)
-      {
-
-         pnodegdkwindowingsystem->m_pgdknode = this;
-
-      }
-
-      information() << "windowing_system type : " << ::type(system()->m_pwindowingsystem).name() ;
+      // system()->__construct(system()->m_pwindowingsystem);
+      //
+      // ::pointer < ::node_gdk::windowing_system> pnodegdkwindowingsystem = system()->m_pwindowingsystem;
+      //
+      // if(pnodegdkwindowingsystem)
+      // {
+      //
+      //    pnodegdkwindowingsystem->m_pgdknode = this;
+      //
+      // }
+      //
+      // information() << "windowing_system type : " << ::type(system()->m_pwindowingsystem).name() ;
 
 //      if (m_bUser)
 //      {
@@ -3164,6 +3164,67 @@ bool node::_g_defer_get_default_theme_icon(::string & strIconPath, GIcon * picon
    }
 
 
+   void node::defer_show_system_menu(const point_i32& pointAbsolute)
+   {
+
+      // Create a popup menu
+      auto menu = gtk_menu_new();
+
+      // Create and add menu items
+      auto item = gtk_menu_item_new_with_label("Menu Item 1");
+      gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+      gtk_widget_show(item);
+
+      item = gtk_menu_item_new_with_label("Menu Item 2");
+      gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+      gtk_widget_show(item);
+
+      // Show the menu
+      gtk_menu_popup_at_pointer(GTK_MENU(menu), NULL);
+      //::pointer < ::windows::nano::user::user >pnanouserWindows = nano()->user();
+
+      //pnanouserWindows->_defer_show_system_menu(m_hwnd, &m_hmenuSystem, pointAbsolute);
+
+      //_defer_show_system_menu(pointAbsolute);
+
+
+   }
+
+
+   //gdk_branch(procedure);
+   // Function to be run in the GTK main thread
+   gboolean __g_callback(gpointer data) {
+      auto pprocedure = (procedure*)(data);
+      try
+      {
+         (*pprocedure)();
+      }
+      catch(...)
+      {
+
+      }
+      try
+      {
+         delete pprocedure;
+      }
+      catch(...)
+      {
+
+      }
+      return FALSE;  // Returning FALSE so it is only called once
+   }
+
+
+   void node::user_post(const ::procedure &procedure)
+   {
+
+      auto pprocedure =new ::procedure(procedure);
+
+      // Call update_label in the GTK main thread
+      g_idle_add(__g_callback, pprocedure);
+
+   }
+
 } // namespace node_gtk3
 
 
@@ -3343,3 +3404,5 @@ void x11_add_filter(void * p)
 //}
 //
 //
+
+

@@ -21,7 +21,7 @@ namespace node_gtk3
 {
 
 
-   class CLASS_DECL_ACME node :
+   class CLASS_DECL_NODE_GTK3 node :
       virtual public ::node_gdk::node
    {
    public:
@@ -77,7 +77,7 @@ namespace node_gtk3
       //bool is_branch_current() const override;
 
       //virtual void _fetch_dark_mode();
-
+      void defer_show_system_menu(const point_i32& pointAbsolute) override;
       //bool dark_mode() const override;
 
       //void set_dark_mode(bool bDarkMode) override;
@@ -162,7 +162,7 @@ namespace node_gtk3
 //      void windowing_system_display_error_trap_push(int i) override;
 //      void windowing_system_display_error_trap_pop_ignored(int i) override;
 
-
+      void user_post(const ::procedure &procedure);
    };
 
 

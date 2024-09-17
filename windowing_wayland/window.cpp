@@ -98,6 +98,26 @@ namespace windowing_wayland
 
    }
 
+   void window::_set_oswindow(::oswindow oswindow)
+   {
+
+
+   }
+   ::oswindow window::oswindow() const
+   {
+
+      return (::oswindow)this;
+   }
+
+
+   void window::defer_show_system_menu(::user::mouse * pmouse)
+   {
+
+      node()->defer_show_system_menu(pmouse);
+
+
+   }
+
 
    //void window::create_window(::user::interaction_impl * pimpl)
    void window::create_window()
@@ -4377,7 +4397,7 @@ namespace windowing_wayland
 
       ::windowing::window::set_mouse_cursor(pcursor);
 
-      windowing()->set_mouse_cursor(pcursor);
+      windowing()->set_mouse_cursor2(pcursor);
 
    }
 
@@ -6366,7 +6386,7 @@ namespace windowing_wayland
 }
 
 
-   bool window::defer_perform_entire_reposition_process()
+   bool window::defer_perform_entire_reposition_process(::user::mouse * pmouse)
    {
 
       return _perform_entire_reposition_process();
@@ -6402,7 +6422,7 @@ namespace windowing_wayland
 //   }
 //
 //
-   bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing)
+   bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse * pmouse)
    {
 
       return _perform_entire_resizing_process(eframeSizing);

@@ -4,14 +4,14 @@
 #pragma once
 
 
-#include "aura_posix/x11/desktop_environment.h"
+#include "windowing_posix/desktop_environment.h"
 
 
 namespace node_gtk4
 {
 
 
-   class CLASS_DECL_NODE_GTK desktop_environment :
+   class CLASS_DECL_NODE_GTK4 desktop_environment :
       virtual public ::windowing_posix::desktop_environment
    {
    public:
@@ -29,7 +29,7 @@ namespace node_gtk4
 //
 //
 //   void get_monitor_rectangle(::collection::index iMonitor, ::rectangle_i32 * prectangle) override;
-   void get_workspace_rectangle(::collection::index iMonitor, ::rectangle_i32 * prectangle) override;
+   //void get_workspace_rectangle(::collection::index iMonitor, ::rectangle_i32 * prectangle) override;
 //
 //
 //   void windowing_post(const ::procedure & procedure) override;

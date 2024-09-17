@@ -154,6 +154,8 @@ namespace acme_posix
       bool _is_visual_studio_code_installed() override;
 
 
+      void do_windowing_system_factory() override;
+
 
    };
 

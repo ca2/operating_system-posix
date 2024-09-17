@@ -33,8 +33,8 @@
 //#include <gtk/gtk.h>
 #include <glib.h>
 #include <gdk/gdkdisplay.h>
-#include <gdk/gdkwayland.h>
-#include <gdk/gdkx.h>
+//#include <gdk/gdkwayland.h>
+//#include <gdk/gdkx.h>
 
 #include <sys/stat.h>
 #include <unistd.h>
@@ -512,12 +512,12 @@ namespace node_gdk
 
       m_pGtkSettingsDefault = nullptr;
 
-      for (auto &pair: m_mapGDesktopAppInfo)
-      {
-
-         g_object_unref(pair.m_element2);
-
-      }
+      // for (auto &pair: m_mapGDesktopAppInfo)
+      // {
+      //
+      //    g_object_unref(pair.m_element2);
+      //
+      // }
 
       if (m_pgdkapplaunchcontext)
       {
@@ -2240,35 +2240,35 @@ m_bFetchingDarkMode = false;
       user_post([this, pathDesktop]()
                         {
 
-                           GError *pgerror = NULL;
-                           GDesktopAppInfo *pgdesktopappinfo;
-                           GList *plistFiles = NULL;
-
-                           pgdesktopappinfo = g_desktop_app_info_new_from_filename(pathDesktop);
-
-                           if (!pgdesktopappinfo)
-                           {
-
-                              throw exception(error_failed);
-
-                           }
-
-                           m_mapGDesktopAppInfo[pathDesktop] = pgdesktopappinfo;
-
-                           if (!m_pgdkapplaunchcontext)
-                           {
-
-                              m_pgdkapplaunchcontext = gdk_display_get_app_launch_context(gdk_display_get_default());
-
-                           }
-
-                           if (!g_app_info_launch(G_APP_INFO(pgdesktopappinfo), plistFiles,
-                                                  G_APP_LAUNCH_CONTEXT(m_pgdkapplaunchcontext), &pgerror))
-                           {
-
-                              throw exception(error_failed);
-
-                           }
+                           // GError *pgerror = NULL;
+                           // GDesktopAppInfo *pgdesktopappinfo;
+                           // GList *plistFiles = NULL;
+                           //
+                           // pgdesktopappinfo = g_desktop_app_info_new_from_filename(pathDesktop);
+                           //
+                           // if (!pgdesktopappinfo)
+                           // {
+                           //
+                           //    throw exception(error_failed);
+                           //
+                           // }
+                           //
+                           // m_mapGDesktopAppInfo[pathDesktop] = pgdesktopappinfo;
+                           //
+                           // if (!m_pgdkapplaunchcontext)
+                           // {
+                           //
+                           //    m_pgdkapplaunchcontext = gdk_display_get_app_launch_context(gdk_display_get_default());
+                           //
+                           // }
+                           //
+                           // if (!g_app_info_launch(G_APP_INFO(pgdesktopappinfo), plistFiles,
+                           //                        G_APP_LAUNCH_CONTEXT(m_pgdkapplaunchcontext), &pgerror))
+                           // {
+                           //
+                           //    throw exception(error_failed);
+                           //
+                           // }
 
                         });
 
@@ -2329,16 +2329,16 @@ m_bFetchingDarkMode = false;
    }
 
 
-   ::wl_display * node::get_wayland_display()
-   {
-
-      GdkDisplay * pgdkdisplay = gdk_display_get_default();
-
-      auto pwldisplay = gdk_wayland_display_get_wl_display   (pgdkdisplay);
-
-      return pwldisplay;
-
-   }
+   // ::wl_display * node::get_wayland_display()
+   // {
+   //
+   //    GdkDisplay * pgdkdisplay = gdk_display_get_default();
+   //
+   //    auto pwldisplay = gdk_wayland_display_get_wl_display   (pgdkdisplay);
+   //
+   //    return pwldisplay;
+   //
+   // }
 
 
    bool node::defer_windowing_post(const ::procedure & procedure)
@@ -3207,36 +3207,36 @@ log_handler(const gchar *log_domain,
 //}
 
 
-bool x11_message_handler(XEvent *pevent);
-
-
-GdkFilterReturn x11_event_func(GdkXEvent *xevent, GdkEvent *event, gpointer data)
-{
-
-   XEvent *pevent = (XEvent *) xevent;
-
-   ::node_gdk::node *pnode = (::node_gdk::node *) data;
-
-   auto pwindowing = pnode->windowing();
-
-   pwindowing->_message_handler(pevent);
-
-   return GDK_FILTER_CONTINUE;
-
-}
-
-
-// This seems not to work with "foreign" windows
-// (X11 windows not created with Gdk)
-void x11_add_filter(void * p)
-{
-
-   // This seems not to work with "foreign" windows
-   // (X11 windows not created with Gdk)
-   gdk_window_add_filter(nullptr, &x11_event_func, p);
-
-}
-
-
+// bool x11_message_handler(XEvent *pevent);
+//
+//
+// GdkFilterReturn x11_event_func(GdkXEvent *xevent, GdkEvent *event, gpointer data)
+// {
+//
+//    XEvent *pevent = (XEvent *) xevent;
+//
+//    ::node_gdk::node *pnode = (::node_gdk::node *) data;
+//
+//    auto pwindowing = pnode->windowing();
+//
+//    pwindowing->_message_handler(pevent);
+//
+//    return GDK_FILTER_CONTINUE;
+//
+// }
+//
+//
+// // This seems not to work with "foreign" windows
+// // (X11 windows not created with Gdk)
+// void x11_add_filter(void * p)
+// {
+//
+//    // This seems not to work with "foreign" windows
+//    // (X11 windows not created with Gdk)
+//    gdk_window_add_filter(nullptr, &x11_event_func, p);
+//
+// }
+//
+//
 
 

@@ -7,7 +7,7 @@
 #include "acme/primitive/geometry2d/_text_stream.h"
 #include "acme/windowing_system/windowing_system.h"
 #include <gio/gio.h>
-#include <gdk/gdkx.h>
+//#include <gdk/gdkx.h>
 
 
 ////#include "windowing.h"
@@ -66,22 +66,22 @@ namespace node_gdk
 
       }
 
-      GdkMonitor * pmonitor = gdk_display_get_monitor(pdisplay, iIndex);
-
-      if (pmonitor == nullptr)
-      {
-
-         return ::error_failed;
-
-      }
-
-      GdkRectangle rect;
-
-      gdk_monitor_get_geometry(pmonitor, &rect);
-
-      copy(&rectangle, &rect);
-
-      debug() << "node_gtk3::desktop_environment::_get_monitor_rectangle rectangle : " << rectangle;
+      // GdkMonitor * pmonitor = gdk_display_get_monitor(pdisplay, iIndex);
+      //
+      // if (pmonitor == nullptr)
+      // {
+      //
+      //    return ::error_failed;
+      //
+      // }
+      //
+      // GdkRectangle rect;
+      //
+      // gdk_monitor_get_geometry(pmonitor, &rect);
+      //
+      // copy(&rectangle, &rect);
+      //
+      // debug() << "node_gtk3::desktop_environment::_get_monitor_rectangle rectangle : " << rectangle;
 
       return ::success;
 
@@ -135,22 +135,22 @@ namespace node_gdk
 
       }
 
-      GdkMonitor * pmonitor = gdk_display_get_monitor(pdisplay, iIndex);
-
-      if (pmonitor == nullptr)
-      {
-
-         return ::error_failed;
-
-      }
-
-      GdkRectangle rect;
-
-      gdk_monitor_get_workarea(pmonitor, &rect);
-
-      copy(&rectangle, &rect);
-
-      information() << "node_gtk3::desktop_environment::_get_workspace_rectangle rectangle : " << rectangle;
+      // GdkMonitor * pmonitor = gdk_display_get_monitor(pdisplay, iIndex);
+      //
+      // if (pmonitor == nullptr)
+      // {
+      //
+      //    return ::error_failed;
+      //
+      // }
+      //
+      // GdkRectangle rect;
+      //
+      // gdk_monitor_get_workarea(pmonitor, &rect);
+      //
+      // copy(&rectangle, &rect);
+      //
+      // information() << "node_gtk3::desktop_environment::_get_workspace_rectangle rectangle : " << rectangle;
 
       return ::success;
 

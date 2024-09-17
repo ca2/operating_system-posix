@@ -16,8 +16,8 @@ list(APPEND library_source
    framework.cpp
    framework.h
    gconf.cpp
-   gdk_gdk.cpp
-   gdk_gdk.h
+   #gdk_gdk.cpp
+   #gdk_gdk.h
    gtk4_gtk4.cpp
    gtk4_gtk4.h
    #gtk-launch.cpp
@@ -40,14 +40,15 @@ list(APPEND library_references
    aqua
    aura
    aura_posix
-   windowing_x11
+   windowing_posix
+   windowing_gtk4
 )
 
-if(${HAS_WAYLAND})
-list(APPEND library_references
-   windowing_wayland
-)
-endif()
+#if(${HAS_WAYLAND})
+#list(APPEND library_references
+#   windowing_wayland
+#)
+#endif()
 
 list(APPEND static_library_references ${library_references})
 
@@ -89,7 +90,7 @@ elseif(${LINUX} OR ${__BSD__})
 
    #if(USE_PKGCONFIG)
    #pkg_check_modules(PKGCONFIG gconf-2.0 glib-2.0 gtk+-3.0 gdk-3.0)
-   pkg_check_modules(PKGCONFIG glib-2.0 gtk4 gdk-3.0)
+   pkg_check_modules(PKGCONFIG glib-2.0 gtk4)
    #endif()
 
 

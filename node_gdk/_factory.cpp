@@ -61,9 +61,9 @@ pfactory->add_factory_item<::wayland::node_gdk::windowing_system, ::windowing_sy
 //       windowing_xcb_factory(pfactory);
 //
 // #else
-
-      windowing_x11_factory(pfactory);
-      pfactory->add_factory_item<::x11::node_gdk::windowing_system, ::windowing_system::windowing_system>();
+      //
+      // windowing_x11_factory(pfactory);
+      // pfactory->add_factory_item<::x11::node_gdk::windowing_system, ::windowing_system::windowing_system>();
 // #endif
 
    }

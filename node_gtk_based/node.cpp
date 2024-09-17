@@ -58,7 +58,7 @@ namespace node_gtk_based
 
       //deferx_initializex_x11();
 
-      m_pGtkSettingsDefault = nullptr;
+      //m_pGtkSettingsDefault = nullptr;
 
    }
 
@@ -66,12 +66,12 @@ namespace node_gtk_based
    node::~node()
    {
 
-      if(m_pGtkSettingsDefault)
-      {
-
-         g_object_unref(m_pGtkSettingsDefault);
-
-      }
+      // if(m_pGtkSettingsDefault)
+      // {
+      //
+      //    g_object_unref(m_pGtkSettingsDefault);
+      //
+      // }
 
    }
 

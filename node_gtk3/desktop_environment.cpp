@@ -3,6 +3,7 @@
 //
 #include "framework.h"
 #include "desktop_environment.h"
+//#include "wayland_buffer.h"
 #include "acme/platform/system.h"
 #include "acme/primitive/geometry2d/_text_stream.h"
 #include "acme/windowing_system/windowing_system.h"
@@ -44,6 +45,33 @@ namespace node_gtk3
    desktop_environment::~desktop_environment()
    {
 
+
+   }
+
+
+
+   ::pointer < ::graphics::graphics > desktop_environment::create_graphics()
+   {
+
+      auto edisplaytype = ::nano::user::get_display_type();
+
+      //#if !defined(RASPBERRYPIOS) && !defined(FREEBSD) && !defined(__XFCE) && !defined(OPENBSD)
+
+// #ifdef HAS_WAYLAND
+//
+//       if(edisplaytype == e_display_type_wayland)
+//       {
+//
+//          //windowing_x11_factory(pfactory);
+//
+//          return ::place(new node_gtk3::wayland_buffer);
+//
+//       }
+//       else
+// #endif
+      {
+         return ::windowing::desktop_environment::create_graphics();
+      }
 
    }
 

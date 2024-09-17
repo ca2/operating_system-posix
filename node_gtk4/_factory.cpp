@@ -5,16 +5,16 @@
 //#include "os_context.h"
 
 
-__FACTORY_EXPORT void node_gdk_factory(::factory::factory * pfactory);
+__FACTORY_EXPORT void windowing_gtk4_factory(::factory::factory * pfactory);
 
 
 __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
 {
 
-   ::node_gtk4::initialize_gtk();
+   //::node_gtk4::initialize_gtk();
 
 
-   node_gdk_factory(pfactory);
+   windowing_gtk4_factory(pfactory);
 
 
 //   ::string strSessionType = getenv("XDG_SESSION_TYPE");

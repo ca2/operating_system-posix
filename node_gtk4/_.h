@@ -6,19 +6,19 @@
 
 
 #include <gtk/gtk.h>
-#include <gdk/gdk.h>
+//#include <gdk/gdk.h>
 
 
-#include "gdk_gdk.h"
+//#include "gdk_gdk.h"
 
 
 #include "gtk4_gtk4.h"
 
 
-#if defined(_node_gtk_project)
-   #define CLASS_DECL_NODE_GTK  CLASS_DECL_EXPORT
+#if defined(_node_gtk4_project)
+   #define CLASS_DECL_NODE_GTK4  CLASS_DECL_EXPORT
 #else
-   #define CLASS_DECL_NODE_GTK  CLASS_DECL_IMPORT
+   #define CLASS_DECL_NODE_GTK4  CLASS_DECL_IMPORT
 #endif
 
 
@@ -33,7 +33,7 @@ namespace node_gtk4
 } // namespace node_gtk4
 
 
-#define __matter(TYPE) __allocate< ::matter<TYPE> >()
+//#define __matter(TYPE) ::place(new< ::matter<TYPE> >())
 
 
 //#include "gtk.h"

@@ -8,7 +8,7 @@
 #include "acme/primitive/geometry2d/_text_stream.h"
 #include "aura/windowing/display.h"
 #include "aura/windowing/windowing.h"
-#include <gdk/x11/gdkx11monitor.h>
+//#include <gdk/x11/gdkx11monitor.h>
 
 
 //::particle * user_synchronization();
@@ -88,26 +88,26 @@ namespace node_gtk3
 
       }
 
-      GdkMonitor * pmonitor = gdk_display_get_monitor(pdisplay, m_iIndex);
-
-      if (pmonitor == nullptr)
-      {
-
-         return error_failed;
-
-      }
-
-      GdkRectangle  rect;
-
-      gdk_monitor_get_geometry(pmonitor, &rect);
-
-      ::rectangle_i32 rectangle;
-
-      //sleep(15_s);
-
-      copy(m_rectangle, rect);
-
-      information() << "::node_gtk3::monitor::_get_monitor_rectangle : " << m_rectangle;
+      // GdkMonitor * pmonitor = gdk_display_get_monitor(pdisplay, m_iIndex);
+      //
+      // if (pmonitor == nullptr)
+      // {
+      //
+      //    return error_failed;
+      //
+      // }
+      //
+      // GdkRectangle  rect;
+      //
+      // gdk_monitor_get_geometry(pmonitor, &rect);
+      //
+      // ::rectangle_i32 rectangle;
+      //
+      // //sleep(15_s);
+      //
+      // copy(m_rectangle, rect);
+      //
+      // information() << "::node_gtk3::monitor::_get_monitor_rectangle : " << m_rectangle;
 
       return ::success;
 
