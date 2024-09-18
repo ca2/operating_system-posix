@@ -154,13 +154,6 @@ elseif (${LINUX} OR ${__BSD__})
 endif ()
 
 
-#list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
-list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
-list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
-
-target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
-target_include_directories(static_${PROJECT_NAME} PRIVATE ${library_include_directories})
-
 
 list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/_operating_system/${SLASHED_OPERATING_SYSTEM}/include)
 list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})

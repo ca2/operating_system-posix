@@ -21,16 +21,10 @@
 #include "aura/user/user/interaction_impl.h"
 #include "aura/platform/message_queue.h"
 #include "aura_posix/node.h"
-//#include <X11/Xatom.h>
-//#include <X11/extensions/sync.h>
-#include <wayland-client.h>
-#include <linux/input.h> // for BTN_LEFT,...
-#include <xkbcommon/xkbcommon.h>
 #include "aura/graphics/image/context.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
-#include "windowing_system_wayland/xfree86_key.h"
-
+#include "acme/operating_system/a_system_menu.h"
 //#include "acme/operating_system/x11/display_lock.h"
 
 
@@ -72,6 +66,8 @@ namespace windowing_gtk3
 
       //m_cursorLast = 0;
 
+      m_pgtkwidgetSystemMenu = nullptr;
+
       m_htask = 0;
 
       //m_window = None;
@@ -108,118 +104,301 @@ namespace windowing_gtk3
 
       return (::oswindow)this;
    }
-   void window::defer_show_system_menu(const point_i32& pointAbsolute)
+
+// Callback to handle button-press-event for menu item
+   gboolean on_menu_item_button_press(GtkWidget *widget, GdkEventButton *event, gpointer p) {
+      if (event->button == 1) {  // Left mouse button
+         //g_print("Left button pressed on menu item: %s\n", gtk_menu_item_get_label(GTK_MENU_ITEM(widget)));
+         auto * pitem = (::operating_system::a_system_menu_item *)p;
+
+         auto pwindow = (::windowing_gtk3::window *)pitem->m_pWindowingImplWindow;
+         gtk_widget_hide(GTK_WIDGET(pwindow->m_pgtkwidgetSystemMenu));
+
+         gtk_menu_popdown(GTK_MENU(pwindow->m_pgtkwidgetSystemMenu));
+
+         gtk_widget_destroy(pwindow->m_pgtkwidgetSystemMenu);
+         pwindow->_on_a_system_menu_item_button_press(pitem, widget, event);
+
+         pwindow->m_psystemmenu.release();
+
+         pwindow->m_pgtkwidgetSystemMenu = nullptr;
+      } else if (event->button == 3) {  // Right mouse button
+         //g_print("Right button pressed on menu item: %s\n", gtk_menu_item_get_label(GTK_MENU_ITEM(widget)));
+      }
+      return FALSE;  // Return FALSE to propagate the event, or TRUE to stop further event handling
+   }
+   // Callback for when menu items are activated
+   void on_menu_item_clicked(GtkMenuItem *menuitem, gpointer p)
    {
 
-      node()->defer_show_system_menu(pointAbsolute);
+      auto * pitem = (::operating_system::a_system_menu_item *)p;
+
+      auto pwindow = (::windowing_gtk3::window *)pitem->m_pWindowingImplWindow;
+
+      //pwindow->main_post([pitem, pwindow]()
+      //                   {
+
+                            gtk_widget_hide(GTK_WIDGET(pwindow->m_pgtkwidgetSystemMenu));
+
+                            gtk_menu_popdown(GTK_MENU(pwindow->m_pgtkwidgetSystemMenu));
+
+                            gtk_widget_destroy(pwindow->m_pgtkwidgetSystemMenu);
+
+                            pwindow->m_pgtkwidgetSystemMenu = nullptr;
+
+        //                    pwindow->application()->fork([pwindow, pitem]()
+          //                                               {
+
+                                                            pwindow->on_a_system_menu_item(pitem);
+
+                                                            pwindow->m_psystemmenu.release();
+
+
+//                                                         });
+
+  //                       });
+
+
+      ///const gchar *item_label = gtk_menu_item_get_label(menuitem);
+
+      //g_print("Menu item %s clicked\n", item_label);
+
+   }
+
+
+   void window::_on_a_system_menu_item_button_press(::operating_system::a_system_menu_item * pitem, GtkWidget * pwidget, GdkEventButton * peventbutton)
+   {
+
+      if(pitem->m_strAtom == "***move")
+      {
+
+         gtk_window_begin_move_drag(
+            GTK_WINDOW(m_pgtkwidget),
+            peventbutton->button,
+            peventbutton->x_root,
+            peventbutton->y_root,
+            peventbutton->time);
+
+      }
+      else if(pitem->m_strAtom == "***size")
+      {
+
+         gtk_window_begin_resize_drag(
+            GTK_WINDOW(m_pgtkwidget),
+            GDK_WINDOW_EDGE_SOUTH_EAST,
+            peventbutton->button,
+            peventbutton->x_root,
+            peventbutton->y_root,
+            peventbutton->time);
+
+      }
+
+   }
+
+
+   void window::defer_show_system_menu(::user::mouse * pmouse)
+   {
+
+      //node()->defer_show_system_menu(pmouse);
+
+      m_psystemmenu = create_system_menu();
+
+      GtkWidget *menu_item;
+
+      if(m_pgtkwidgetSystemMenu)
+      {
+
+         gtk_widget_hide(GTK_WIDGET(m_pgtkwidgetSystemMenu));
+
+         gtk_menu_popdown(GTK_MENU(m_pgtkwidgetSystemMenu));
+
+         gtk_widget_destroy(m_pgtkwidgetSystemMenu);
+
+      }
+
+      m_pgtkwidgetSystemMenu = gtk_menu_new();
+
+      for(auto & pitem : *m_psystemmenu)
+      {
+         ::string strAtom = pitem->m_strAtom;
+         if(pitem->m_strName.is_empty())
+         {
+            menu_item = gtk_separator_menu_item_new();
+         }
+         else
+         {
+            menu_item = gtk_menu_item_new_with_label(pitem->m_strName);
+            pitem->m_pWindowingImplWindow = this;
+            if(pitem->m_strAtom.begins("***"))
+            {
+               gtk_widget_add_events(menu_item, GDK_BUTTON_PRESS_MASK);
+
+               // Connect the button-press-event signal to handle button press events on menu items
+               g_signal_connect(menu_item, "button-press-event", G_CALLBACK(on_menu_item_button_press), pitem.m_p);
+
+            }
+            else {
+               g_signal_connect(menu_item, "activate", G_CALLBACK(on_menu_item_clicked), pitem.m_p);
+            }
+         }
+         gtk_menu_shell_append(GTK_MENU_SHELL(m_pgtkwidgetSystemMenu), menu_item);
+         ///gtk_widget_show(menu_item);
+      }
+
+      // Add menu items
+//      menu_item2 = gtk_menu_item_new_with_label("Option 2");
+//      menu_item3 = gtk_menu_item_new_with_label("Quit");
+
+      // Connect signals for menu items
+//      g_signal_connect(menu_item2, "activate", G_CALLBACK(on_menu_item_clicked), this);
+//      g_signal_connect(menu_item3, "activate", G_CALLBACK(gtk_main_quit), NULL); // Exit on quit
+
+      // Add the items to the menu
+//      gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_item2);
+//      gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_item3);
+
+      // Show the items
+      gtk_widget_show_all(m_pgtkwidgetSystemMenu);
+
+      auto * pevent = (GdkEvent *) pmouse->m_pOsMouseDataOkIfOnStack;
+
+      gtk_menu_popup_at_pointer(GTK_MENU(m_pgtkwidgetSystemMenu), (GdkEvent *)pevent); // Show the menu at the pointer location
 
 
    }
 
-   // Callback function to draw on the drawing area
-   static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr, gpointer p)
-   {
+
+//   // Callback function to draw on the drawing area
+//   static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr, gpointer p)
+//   {
+//      auto pwindow = (::windowing_gtk3::window*) p;
+//      pwindow->_on_cairo_draw(widget, cr);
+//      return FALSE;
+//   }
+//
+
+
+// Callback function to handle drawing
+   static gboolean on_window_draw(GtkWidget *widget, cairo_t *cr, gpointer p) {
       auto pwindow = (::windowing_gtk3::window*) p;
       pwindow->_on_cairo_draw(widget, cr);
       return FALSE;
    }
 
 
-  void GtkDrawingAreaDrawFunc (
-  GtkDrawingArea* drawing_area,
-  cairo_t* cr,
-  int width,
-  int height,
-  gpointer p
-)
-   {
-      auto pwindow = (::windowing_gtk3::window*) p;
-pwindow->_on_cairo_draw(GTK_WIDGET(drawing_area), cr);
+//   void GtkDrawingAreaDrawFunc (
+//  GtkDrawingArea* drawing_area,
+//  cairo_t* cr,
+//  int width,
+//  int height,
+//  gpointer p
+//)
+//   {
+//      auto pwindow = (::windowing_gtk3::window*) p;
+//pwindow->_on_cairo_draw(GTK_WIDGET(drawing_area), cr);
+//
+//   }
 
-   }
+
    void window::_on_cairo_draw(GtkWidget *widget, cairo_t *cr)
    {
-      auto pitem = m_puserinteractionimpl->m_pgraphicsgraphics->get_screen_item();
+
+      try {
+
+         if (!m_puserinteractionimpl ||
+             !m_puserinteractionimpl->m_pgraphicsgraphics) {
+
+            return;
+
+         }
+
+         auto pitem = m_puserinteractionimpl->m_pgraphicsgraphics->get_screen_item();
 
 
 
-      //pitem->m_pimage2;
+         //pitem->m_pimage2;
 
-      //if(pitem && pitem->m_pimage2 && pitem->m_pimage2.ok())
-      {
-         cairo_set_source_rgba(cr, 0, 0, 0, 0); // Fully transparent background
-         cairo_set_operator(cr, CAIRO_OPERATOR_CLEAR);
-         cairo_paint(cr);
+         if (pitem && pitem->m_pimage2 && pitem->m_pimage2.ok()) {
+//         cairo_set_source_rgba(cr, 0, 0, 0, 0); // Fully transparent background
+//         cairo_set_operator(cr, CAIRO_OPERATOR_CLEAR);
+//         cairo_paint(cr);
+//
+//         cairo_set_source_rgba(cr, 0, 0, 0, 0.5); // Fully transparent background
+//         cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
+//         cairo_paint(cr);
+//
+//          cairo_set_source_rgba(cr, 0.1, 0.5, 0.8, 0.7);
+//         //
+//         // // Draw rectangle
+//          cairo_rectangle(cr, 50, 50, 200, 100); // x, y, width, height
+//          cairo_fill(cr);
+//
+//         return;
 
-         cairo_set_source_rgba(cr, 0, 0, 0, 0.5); // Fully transparent background
-         cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
-         cairo_paint(cr);
+            auto pgraphics = __create<::draw2d::graphics>();
 
-          cairo_set_source_rgba(cr, 0.1, 0.5, 0.8, 0.7);
+            pgraphics->attach(cr);
+            //pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
+            ::rectangle_f64 r;
+            int width = gtk_widget_get_allocated_width(widget);
+            int height = gtk_widget_get_allocated_height(widget);
+            r.left() = 0;
+            r.top() = 0;
+            r.right() = width;
+            r.bottom() = height;
+            ///pgraphics->fill_solid_rectangle(r, argb(0, 0, 0, 0));
+            pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
+            ::image::image_source imagesource(pitem->m_pimage2, r);
+            ::image::image_drawing_options imagedrawingoptions(r);
+            ::image::image_drawing imagedrawing(imagedrawingoptions, imagesource);
+            pgraphics->draw(imagedrawing);
+            pgraphics->detach();
+            m_puserinteractionimpl->m_pgraphicsgraphics->on_end_draw();
+         }
+
+
+         // ::rectangle_f64 r;
+         //
+         // r.left() = 10;
+         // r.top() = 10;
+         // r.right() = 80;
+         // r.bottom() = 80;
+         //
+         // pgraphics->fill_solid_rectangle(r, argb(1.0,0.1, 0.5, 0.8 ));
+
+
+
+
+         // cairo_set_source_rgba(cr, 0, 0, 0, 0); // Fully transparent background
+         // cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
+         // cairo_paint(cr);
+         // // Set color for drawing (RGB)
+         // cairo_set_source_rgb(cr, 0.1, 0.5, 0.8);
          //
          // // Draw rectangle
-          cairo_rectangle(cr, 50, 50, 200, 100); // x, y, width, height
-          cairo_fill(cr);
+         // cairo_rectangle(cr, 50, 50, 200, 100); // x, y, width, height
+         // cairo_fill(cr);
+         //
+         // // Set color for ellipse
+         // cairo_set_source_rgb(cr, 0.8, 0.1, 0.5);
+         //
+         // // Draw ellipse
+         // cairo_save(cr);
+         // cairo_translate(cr, 150, 250); // Move to center of the ellipse
+         // cairo_scale(cr, 1.5, 1.0);     // Scale to make an ellipse
+         // cairo_arc(cr, 0, 0, 50, 0, 2 * G_PI); // Draw a circle, but scaled
+         // cairo_restore(cr);
+         //
+         // cairo_fill(cr);
 
-         return;
-
-         auto pgraphics = __create < ::draw2d::graphics >();
-
-         pgraphics->attach(cr);
-         //pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
-         ::rectangle_f64 r;
-         int width = gtk_widget_get_allocated_width(widget);
-         int height = gtk_widget_get_allocated_height(widget);
-         r.left() = 0;
-         r.top() = 0;
-         r.right() = width;
-         r.bottom() = height;
-         ///pgraphics->fill_solid_rectangle(r, argb(0, 0, 0, 0));
-         pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
-         ::image::image_source imagesource(pitem->m_pimage2, r);
-         ::image::image_drawing_options imagedrawingoptions(r);
-         ::image::image_drawing imagedrawing(imagedrawingoptions, imagesource);
-         pgraphics->draw(imagedrawing);
-         pgraphics->detach();
-         m_puserinteractionimpl->m_pgraphicsgraphics->on_end_draw();
+         //return FALSE;
       }
+      catch(...)
+      {
 
+         error() << "window::_on_cairo_draw let me guess, nothing or something is not being drawn?! exception";
 
-      // ::rectangle_f64 r;
-      //
-      // r.left() = 10;
-      // r.top() = 10;
-      // r.right() = 80;
-      // r.bottom() = 80;
-      //
-      // pgraphics->fill_solid_rectangle(r, argb(1.0,0.1, 0.5, 0.8 ));
-
-
-
-
-      // cairo_set_source_rgba(cr, 0, 0, 0, 0); // Fully transparent background
-      // cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
-      // cairo_paint(cr);
-      // // Set color for drawing (RGB)
-      // cairo_set_source_rgb(cr, 0.1, 0.5, 0.8);
-      //
-      // // Draw rectangle
-      // cairo_rectangle(cr, 50, 50, 200, 100); // x, y, width, height
-      // cairo_fill(cr);
-      //
-      // // Set color for ellipse
-      // cairo_set_source_rgb(cr, 0.8, 0.1, 0.5);
-      //
-      // // Draw ellipse
-      // cairo_save(cr);
-      // cairo_translate(cr, 150, 250); // Move to center of the ellipse
-      // cairo_scale(cr, 1.5, 1.0);     // Scale to make an ellipse
-      // cairo_arc(cr, 0, 0, 50, 0, 2 * G_PI); // Draw a circle, but scaled
-      // cairo_restore(cr);
-      //
-      // cairo_fill(cr);
-
-      //return FALSE;
+      }
 
    }
 
@@ -230,6 +409,25 @@ pwindow->_on_cairo_draw(GTK_WIDGET(drawing_area), cr);
       pwindow->_on_size(allocation->width, allocation->height);
       //g_print("Window resized: width=%d, height=%d\n", allocation->width, allocation->height);
       //return false;
+   }
+
+
+   ::pointer < ::operating_system::a_system_menu > window::create_system_menu()
+   {
+
+      auto psystemmenu = ::place(new ::operating_system::a_system_menu());
+
+      psystemmenu->add_item("Minimize", "minimize");
+      psystemmenu->add_item("Maximize", "maximize");
+      psystemmenu->add_item("Drag to Move","***move");
+      psystemmenu->add_item("Drag to Size", "***size");
+      psystemmenu->add_separator();
+      psystemmenu->add_item("About...", "about_box");
+      psystemmenu->add_separator();
+      psystemmenu->add_item("Close", "close");
+
+      return psystemmenu;
+
    }
 
 
@@ -255,222 +453,257 @@ pwindow->_on_cairo_draw(GTK_WIDGET(drawing_area), cr);
 
 
 
-// Define custom regions for resizing
-enum {
-    RESIZE_NONE = 0,
-    RESIZE_TOP = 1 << 0,
-    RESIZE_BOTTOM = 1 << 1,
-    RESIZE_LEFT = 1 << 2,
-    RESIZE_RIGHT = 1 << 3
-};
+//// Define custom regions for resizing
+//enum {
+//    RESIZE_NONE = 0,
+//    RESIZE_TOP = 1 << 0,
+//    RESIZE_BOTTOM = 1 << 1,
+//    RESIZE_LEFT = 1 << 2,
+//    RESIZE_RIGHT = 1 << 3
+//};
+//
+//// Detect which edge is being resized
+//static int detect_resize_edge(GtkWidget *window, int x, int y) {
+//    int edge = RESIZE_NONE;
+//
+//    int width = gtk_widget_get_allocated_width(window);
+//    int height = gtk_widget_get_allocated_height(window);
+//
+//    // Allow resizing near the window borders (e.g., 10px near the edges)
+//    int border = 10;
+//
+//    if (x < border)
+//        edge |= RESIZE_LEFT;
+//    if (x > width - border)
+//        edge |= RESIZE_RIGHT;
+//    if (y < border)
+//        edge |= RESIZE_TOP;
+//    if (y > height - border)
+//        edge |= RESIZE_BOTTOM;
+//
+//    return edge;
+//}
 
-// Detect which edge is being resized
-static int detect_resize_edge(GtkWidget *window, int x, int y) {
-    int edge = RESIZE_NONE;
-
-    int width = gtk_widget_get_allocated_width(window);
-    int height = gtk_widget_get_allocated_height(window);
-
-    // Allow resizing near the window borders (e.g., 10px near the edges)
-    int border = 10;
-
-    if (x < border)
-        edge |= RESIZE_LEFT;
-    if (x > width - border)
-        edge |= RESIZE_RIGHT;
-    if (y < border)
-        edge |= RESIZE_TOP;
-    if (y > height - border)
-        edge |= RESIZE_BOTTOM;
-
-    return edge;
-}
-
-// Start resizing when the mouse is pressed near edges
-static gboolean on_button_press_event(GtkWidget *widget, GdkEventButton *event, gpointer user_data) {
-   auto resize_data = (::windowing_gtk3::window*) user_data;
-   if(!resize_data->_on_button_press(widget, event))
+   // Start resizing when the mouse is pressed near edges
+   static gboolean on_button_press(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
    {
-      return FALSE;
+
+      auto resize_data = (::windowing_gtk3::window*) user_data;
+
+      if(!resize_data->_on_button_press(widget, event))
+      {
+
+         return FALSE;
+
+      }
+
+      return TRUE;
+
    }
 
-    return TRUE;
-}
 
    bool window::_on_button_press(GtkWidget* widget, GdkEventButton* event)
    {
 
-   if (event->button == GDK_BUTTON_PRIMARY) {
-      resize_edge = detect_resize_edge(widget, event->x, event->y);
+//   if (event->button == GDK_BUTTON_PRIMARY) {
+//      resize_edge = detect_resize_edge(widget, event->x, event->y);
+//
+//      if (resize_edge != RESIZE_NONE) {
+//         resizing = TRUE;
+//         start_x = event->x_root;
+//         start_y = event->y_root;
+//
+//         // Store initial window dimensions
+//         gtk_window_get_size(GTK_WINDOW(widget), &start_width, &start_height);
+//         return true;
+//      }
+//   }
+      auto puserinteractionimpl = m_puserinteractionimpl;
 
-      if (resize_edge != RESIZE_NONE) {
-         resizing = TRUE;
-         start_x = event->x_root;
-         start_y = event->y_root;
+      if(::is_set(puserinteractionimpl))
+      {
 
-         // Store initial window dimensions
-         gtk_window_get_size(GTK_WINDOW(widget), &start_width, &start_height);
-         return true;
+         auto pmouse = __create_new<::message::mouse>();
+
+         pmouse->m_oswindow = this;
+
+         pmouse->m_pOsMouseDataOkIfOnStack = event;
+
+         pmouse->m_pwindow = this;
+
+         if (event->button == GDK_BUTTON_PRIMARY)
+         {
+            pmouse->m_atom = e_message_left_button_down;
+         }
+         else if (event->button == GDK_BUTTON_SECONDARY)
+         {
+            pmouse->m_atom = e_message_right_button_down;
+         }
+         else if (event->button == GDK_BUTTON_MIDDLE)
+         {
+            pmouse->m_atom = e_message_middle_button_down;
+         }
+
+         m_pointCursor2.x() = event->x;
+
+         m_pointCursor2.y() = event->y;
+
+         pmouse->m_pointHost.x() = event->x;
+
+         pmouse->m_pointHost.y() = event->y;
+
+         pmouse->m_pointAbsolute.x() = event->x_root;
+
+         pmouse->m_pointAbsolute.y() = event->y_root;
+
+         //pmouse->m_time.m_iSecond = millis / 1_k;
+
+         //pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+
+         //pwindow->message_handler(pmouse);
+
+         //wayland_windowing()->post_ui_message(pmouse);
+
+         puserinteractionimpl->message_handler(pmouse);
+
       }
-   }
-   auto puserinteractionimpl = m_puserinteractionimpl;
 
-   if(::is_set(puserinteractionimpl))
+      return false;
+
+   }
+
+
+   // Stop resizing when the mouse button is released
+   static gboolean on_button_release(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
    {
 
-      auto pmouse = __create_new<::message::mouse>();
+      auto resize_data = (::windowing_gtk3::window*) user_data;
 
-      pmouse->m_oswindow = this;
+      if(!resize_data->_on_button_release(widget, event))
+      {
 
-      pmouse->m_pwindow = this;
+         return FALSE;
 
-      if (event->button == GDK_BUTTON_PRIMARY)
-      {
-         pmouse->m_atom = e_message_left_button_down;
-      }
-      else if (event->button == GDK_BUTTON_SECONDARY)
-      {
-         pmouse->m_atom = e_message_right_button_down;
-      }
-      else if (event->button == GDK_BUTTON_MIDDLE)
-      {
-         pmouse->m_atom = e_message_middle_button_down;
       }
 
-      m_pointCursor2.x() = event->x_root;
-      m_pointCursor2.y() = event->y_root;
-
-
-      pmouse->m_pointHost = m_pointCursor2;
-
-      pmouse->m_pointAbsolute = m_pointCursor2;
-
-      //pmouse->m_time.m_iSecond = millis / 1_k;
-
-      //pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
-
-      //pwindow->message_handler(pmouse);
-
-      //wayland_windowing()->post_ui_message(pmouse);
-
-      puserinteractionimpl->message_handler(pmouse);
+      return TRUE;
 
    }
 
-   return false;
-
-   }
-
-
-// Stop resizing when the mouse button is released
-static gboolean on_button_release_event(GtkWidget *widget, GdkEventButton *event, gpointer user_data) {
-   auto resize_data = (::windowing_gtk3::window*) user_data;
-
-if(!resize_data->_on_button_release(widget, event))
-{
-   return FALSE;
-}
-   return TRUE;
-}
 
    bool window::_on_button_release(GtkWidget *widget, GdkEventButton *event)
-{
-   if (event->button == GDK_BUTTON_PRIMARY && resizing) {
-      resizing = FALSE;
-      return true;
+   {
+//   if (event->button == GDK_BUTTON_PRIMARY && resizing) {
+//      resizing = FALSE;
+//      return true;
+//   }
+//
+
+      auto puserinteractionimpl = m_puserinteractionimpl;
+
+      if(::is_set(puserinteractionimpl))
+      {
+
+         auto pmouse = __create_new<::message::mouse>();
+
+         pmouse->m_oswindow = this;
+
+         pmouse->m_pwindow = this;
+
+         if (event->button == GDK_BUTTON_PRIMARY)
+         {
+
+            pmouse->m_atom = e_message_left_button_up;
+
+         }
+         else if (event->button == GDK_BUTTON_SECONDARY)
+         {
+
+            pmouse->m_atom = e_message_right_button_up;
+
+         }
+         else if (event->button == GDK_BUTTON_MIDDLE)
+         {
+
+            pmouse->m_atom = e_message_middle_button_up;
+
+         }
+
+         m_pointCursor2.x() = event->x;
+
+         m_pointCursor2.y() = event->y;
+
+         pmouse->m_pointHost.x() = event->x;
+
+         pmouse->m_pointHost.y() = event->y;
+
+         pmouse->m_pointAbsolute.x() = event->x_root;
+
+         pmouse->m_pointAbsolute.y() = event->y_root;
+
+         //pmouse->m_time.m_iSecond = millis / 1_k;
+
+         //pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+
+         //pwindow->message_handler(pmouse);
+
+         //wayland_windowing()->post_ui_message(pmouse);
+
+         puserinteractionimpl->message_handler(pmouse);
+
+      }
+
+      return false;
+
    }
 
 
-   auto puserinteractionimpl = m_puserinteractionimpl;
-
-   if(::is_set(puserinteractionimpl))
+   // Perform resizing as the mouse moves
+   static gboolean on_motion_notify(GtkWidget *widget, GdkEventMotion *event, gpointer user_data)
    {
 
-      auto pmouse = __create_new<::message::mouse>();
+      auto resize_data = (::windowing_gtk3::window*) user_data;
 
-      pmouse->m_oswindow = this;
+      resize_data->_on_motion_notify(widget, event);
 
-      pmouse->m_pwindow = this;
-
-      if (event->button == GDK_BUTTON_PRIMARY)
-      {
-         pmouse->m_atom = e_message_left_button_up;
-      }
-      else if (event->button == GDK_BUTTON_SECONDARY)
-      {
-         pmouse->m_atom = e_message_right_button_up;
-      }
-      else if (event->button == GDK_BUTTON_MIDDLE)
-      {
-         pmouse->m_atom = e_message_middle_button_up;
-      }
-
-      m_pointCursor2.x() = event->x_root;
-      m_pointCursor2.y() = event->y_root;
-
-
-      pmouse->m_pointHost = m_pointCursor2;
-
-      pmouse->m_pointAbsolute = m_pointCursor2;
-
-      //pmouse->m_time.m_iSecond = millis / 1_k;
-
-      //pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
-
-      //pwindow->message_handler(pmouse);
-
-      //wayland_windowing()->post_ui_message(pmouse);
-
-      puserinteractionimpl->message_handler(pmouse);
+      return FALSE;
 
    }
 
-   return false;
-}
-
-// Perform resizing as the mouse moves
-static gboolean on_motion_notify_event(GtkWidget *widget, GdkEventMotion *event, gpointer user_data)
-{
-   auto resize_data = (::windowing_gtk3::window*) user_data;
-
-   resize_data->_on_motion_notify(widget, event);
-
-   return FALSE;
-}
 
    bool window::_on_motion_notify(GtkWidget* widget, GdkEventMotion* event)
    {
 
 
-    if (resizing) {
-        int dx = event->x_root - start_x;
-        int dy = event->y_root - start_y;
-
-        int new_width = start_width;
-        int new_height = start_height;
-
-        // Adjust width/height based on the direction of resize
-        if (resize_edge & RESIZE_RIGHT)
-            new_width += dx;
-        if (resize_edge & RESIZE_LEFT) {
-            new_width -= dx;
-            gtk_window_move(GTK_WINDOW(widget), event->x_root, event->y_root); // Move window if resizing from the left
-        }
-        if (resize_edge & RESIZE_BOTTOM)
-            new_height += dy;
-        if (resize_edge & RESIZE_TOP) {
-            new_height -= dy;
-            gtk_window_move(GTK_WINDOW(widget), event->x_root, event->y_root); // Move window if resizing from the top
-        }
-
-        // Set minimum window size
-        new_width = MAX(new_width, 100);
-        new_height = MAX(new_height, 100);
-
-        // Apply the new size
-        gtk_window_resize(GTK_WINDOW(widget), new_width, new_height);
-        return true;
-    }
+//    if (resizing) {
+//        int dx = event->x_root - start_x;
+//        int dy = event->y_root - start_y;
+//
+//        int new_width = start_width;
+//        int new_height = start_height;
+//
+//        // Adjust width/height based on the direction of resize
+//        if (resize_edge & RESIZE_RIGHT)
+//            new_width += dx;
+//        if (resize_edge & RESIZE_LEFT) {
+//            new_width -= dx;
+//            gtk_window_move(GTK_WINDOW(widget), event->x_root, event->y_root); // Move window if resizing from the left
+//        }
+//        if (resize_edge & RESIZE_BOTTOM)
+//            new_height += dy;
+//        if (resize_edge & RESIZE_TOP) {
+//            new_height -= dy;
+//            gtk_window_move(GTK_WINDOW(widget), event->x_root, event->y_root); // Move window if resizing from the top
+//        }
+//
+//        // Set minimum window size
+//        new_width = MAX(new_width, 100);
+//        new_height = MAX(new_height, 100);
+//
+//        // Apply the new size
+//        gtk_window_resize(GTK_WINDOW(widget), new_width, new_height);
+//        return true;
+//    }
 
       auto puserinteractionimpl = m_puserinteractionimpl;
 
@@ -485,13 +718,17 @@ static gboolean on_motion_notify_event(GtkWidget *widget, GdkEventMotion *event,
 
          pmouse->m_atom = e_message_mouse_move;
 
-         m_pointCursor2.x() = event->x_root;
-         m_pointCursor2.y() = event->y_root;
+         m_pointCursor2.x() = event->x;
 
+         m_pointCursor2.y() = event->y;
 
-         pmouse->m_pointHost = m_pointCursor2;
+         pmouse->m_pointHost.x() = event->x;
 
-         pmouse->m_pointAbsolute = m_pointCursor2;
+         pmouse->m_pointHost.y() = event->y;
+
+         pmouse->m_pointAbsolute.x() = event->x_root;
+
+         pmouse->m_pointAbsolute.y() = event->y_root;
 
          //pmouse->m_time.m_iSecond = millis / 1_k;
 
@@ -512,7 +749,7 @@ static gboolean on_motion_notify_event(GtkWidget *widget, GdkEventMotion *event,
 //}
 
 // Change the cursor shape when near edges for resizing
-static gboolean on_enter_notify_event(GtkWidget *widget, GdkEventCrossing *event, gpointer user_data)
+static gboolean on_enter_notify(GtkWidget *widget, GdkEventCrossing *event, gpointer user_data)
 {
    auto resize_data = (::windowing_gtk3::window*) user_data;
 
@@ -527,22 +764,22 @@ static gboolean on_enter_notify_event(GtkWidget *widget, GdkEventCrossing *event
 bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *event)
 {
 
-   {
-      int edge = detect_resize_edge(widget, event->x, event->y);
-
-      GdkWindow *gdk_window = gtk_widget_get_window(widget);
-      GdkDisplay *display = gdk_window_get_display(gdk_window);
-
-      GdkCursor *cursor = NULL;
-      if (edge & RESIZE_LEFT || edge & RESIZE_RIGHT)
-         cursor = gdk_cursor_new_for_display(display, GDK_SB_H_DOUBLE_ARROW);
-      else if (edge & RESIZE_TOP || edge & RESIZE_BOTTOM)
-         cursor = gdk_cursor_new_for_display(display, GDK_SB_V_DOUBLE_ARROW);
-
-      gdk_window_set_cursor(gdk_window, cursor);
-      if (cursor)
-         g_object_unref(cursor);
-   }
+//   {
+//      int edge = detect_resize_edge(widget, event->x, event->y);
+//
+//      GdkWindow *gdk_window = gtk_widget_get_window(widget);
+//      GdkDisplay *display = gdk_window_get_display(gdk_window);
+//
+//      GdkCursor *cursor = NULL;
+//      if (edge & RESIZE_LEFT || edge & RESIZE_RIGHT)
+//         cursor = gdk_cursor_new_for_display(display, GDK_SB_H_DOUBLE_ARROW);
+//      else if (edge & RESIZE_TOP || edge & RESIZE_BOTTOM)
+//         cursor = gdk_cursor_new_for_display(display, GDK_SB_V_DOUBLE_ARROW);
+//
+//      gdk_window_set_cursor(gdk_window, cursor);
+//      if (cursor)
+//         g_object_unref(cursor);
+//   }
 
    return TRUE;
 
@@ -550,75 +787,77 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *event)
 }
 
 
-  static gboolean
-on_window_state_event (
-  GtkWidget* widget,
-  GdkEventWindowState* event, gpointer user_data)
-{
-   auto resize_data = (::windowing_gtk3::window*) user_data;
-
-   if(!resize_data->_on_window_state(widget, event))
-   {
-      return FALSE;
-   }
-
-   return true;
-}
-
-   bool window::_on_window_state(
-  GtkWidget* widget,
-  GdkEventWindowState* event)
-{
-   if(event->changed_mask &  GDK_WINDOW_STATE_FOCUSED)
+   static gboolean on_window_state(GtkWidget* widget,GdkEventWindowState* event, gpointer user_data)
    {
 
-      if(event->new_window_state & GDK_WINDOW_STATE_FOCUSED)
+      auto resize_data = (::windowing_gtk3::window*) user_data;
+
+      if(!resize_data->_on_window_state(widget, event))
       {
 
-         ::user::interaction_impl * pimpl = m_puserinteractionimpl;
-
-         pimpl->m_puserinteraction->display(::e_display_normal);
-
-         pimpl->m_puserinteraction->set_need_layout();
-
-         pimpl->m_puserinteraction->set_need_redraw();
-
-         pimpl->m_puserinteraction->post_redraw();
+         return FALSE;
 
       }
 
+      return true;
 
    }
-else   if(event->changed_mask &  GDK_WINDOW_STATE_ICONIFIED)
+
+
+   bool window::_on_window_state(GtkWidget* widget, GdkEventWindowState* event)
    {
 
-      if(event->new_window_state & GDK_WINDOW_STATE_ICONIFIED)
+      if(event->changed_mask &  GDK_WINDOW_STATE_FOCUSED)
       {
 
-         ::user::interaction_impl * pimpl = m_puserinteractionimpl;
+         if(event->new_window_state & GDK_WINDOW_STATE_FOCUSED)
+         {
 
-         pimpl->m_puserinteraction->layout().m_statea[::user::e_layout_window].m_edisplay = e_display_iconic;
+            ::user::interaction_impl * pimpl = m_puserinteractionimpl;
+
+            pimpl->m_puserinteraction->display(::e_display_normal);
+
+            pimpl->m_puserinteraction->set_need_layout();
+
+            pimpl->m_puserinteraction->set_need_redraw();
+
+            pimpl->m_puserinteraction->post_redraw();
+
+         }
 
       }
-      else
+      else if(event->changed_mask &  GDK_WINDOW_STATE_ICONIFIED)
       {
 
-         ::user::interaction_impl * pimpl = m_puserinteractionimpl;
+         if(event->new_window_state & GDK_WINDOW_STATE_ICONIFIED)
+         {
 
-         pimpl->m_puserinteraction->display(::e_display_normal);
+            ::user::interaction_impl * pimpl = m_puserinteractionimpl;
 
-         pimpl->m_puserinteraction->set_need_layout();
+            pimpl->m_puserinteraction->layout().m_statea[::user::e_layout_window].m_edisplay = e_display_iconic;
 
-         pimpl->m_puserinteraction->set_need_redraw();
+         }
+         else
+         {
 
-         pimpl->m_puserinteraction->post_redraw();
+            ::user::interaction_impl * pimpl = m_puserinteractionimpl;
+
+            pimpl->m_puserinteraction->display(::e_display_normal);
+
+            pimpl->m_puserinteraction->set_need_layout();
+
+            pimpl->m_puserinteraction->set_need_redraw();
+
+            pimpl->m_puserinteraction->post_redraw();
+
+         }
 
       }
+
+      return false;
 
    }
 
-   return false;
-}
 
    //void window::create_window(::user::interaction_impl * pimpl)
    void window::create_window()
@@ -755,87 +994,11 @@ else   if(event->changed_mask &  GDK_WINDOW_STATE_ICONIFIED)
 
          }
 
-         //::Window rootwin = RootWindow(display, pdisplayx11->m_iScreen);
-
-         //       XEvent e;
-         //
-         // query Visual for "TrueColor" and 32 bits depth (RGBA)
-
-         //         ::Visual * visual = DefaultVisual(display, DefaultScreen(display));
-         //
-         //         m_iDepth = 0;
-         //
-         //         if (m_px11data.is_null())
-         //         {
-         //
-         //            m_px11data = ::place(new x11data());
-         //
-         //         }
-         //
-         //         if (XMatchVisualInfo(display, DefaultScreen(display), 32, TrueColor, &m_visualinfo))
-         //         {
-         //
-         //            visual = m_visualinfo.visual;
-         //
-         //         } else
-         //         {
-         //
-         //            zero(m_visualinfo);
-         //
-         //         }
-         //
-         //         m_iDepth = m_visualinfo.depth;
-         //
-         //         XSetWindowAttributes attr;
-         //
-         //         zero(attr);
-         //
-         //         attr.colormap = pdisplayx11->m_colormap;
-         //
-         //         attr.event_mask =
-         //            PropertyChangeMask | ExposureMask | ButtonPressMask | ButtonReleaseMask | KeyPressMask | KeyReleaseMask |
-         //            PointerMotionMask | StructureNotifyMask | FocusChangeMask | LeaveWindowMask | EnterWindowMask;
-         //
-         //         attr.background_pixmap = None;
-         //
-         //         attr.border_pixmap = None;
-         //
-         //         attr.border_pixel = 0;
-         //
-         //         attr.override_redirect =
-         //            pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning ? True : False;
-         //
-         //         //attr.override_redirect = True;
-         //
-         //         m_xsynccounterNetWmSync = None;
-         //         XSyncIntToValue(&m_xsyncvalueNetWmSync, 0);
-         //         XSyncIntToValue(&m_xsyncvalueNetWmSyncPending, 0);
-         //
-         //         informationf("XCreateWindow (l=%d, t=%d) (w=%d, h=%d)", x, y, cx, cy);
-
-         //m_bNetWmStateHidden = false;
-         //m_bNetWmStateMaximized = false;
-         //m_bNetWmStateFocused = false;
-
-         //         m_atomaNetWmState.clear();
-         //
-         //
-         //         x
-
-
-         //   if(m_puserinteractionimpl->m_puserinteraction->m_puserinteractionOwner)
-         //   {
-         //
-         //      m_pointWindow.x() = x;
-         //
-         //      m_pointWindow.y() = y;
-         //   }
-         //   else
          {
 
-         m_pointWindow.x() = 0;
+         m_pointWindow.x() = x;
 
-         m_pointWindow.y() = 0;
+         m_pointWindow.y() = y;
 
          }
 
@@ -860,6 +1023,10 @@ else   if(event->changed_mask &  GDK_WINDOW_STATE_ICONIFIED)
             gtk_widget_set_visual(m_pgtkwidget, visual);
          }
 
+
+      // Enable transparency by setting the window as app-paintable
+      gtk_widget_set_app_paintable(m_pgtkwidget, TRUE);
+
          //int w = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().size().cx();
          //int h = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().size().cy();
 
@@ -870,6 +1037,10 @@ else   if(event->changed_mask &  GDK_WINDOW_STATE_ICONIFIED)
          gtk_window_set_default_size(GTK_WINDOW(m_pgtkwidget), cx, cy);
 
 
+         gtk_window_move(GTK_WINDOW(m_pgtkwidget), x, y);
+         gtk_window_resize(GTK_WINDOW(m_pgtkwidget), cx, cy);
+
+
          // Create drawing area
          m_pdrawingarea = gtk_drawing_area_new();
          gtk_container_add(GTK_CONTAINER(m_pgtkwidget), m_pdrawingarea);
@@ -877,14 +1048,14 @@ else   if(event->changed_mask &  GDK_WINDOW_STATE_ICONIFIED)
          // Connect the draw event to the callback function
  //        g_signal_connect(G_OBJECT(m_pdrawingarea), "draw", G_CALLBACK(on_draw_event), this);
 
-
-gtk_drawing_area_set_draw_func (
-  GTK_DRAWING_AREA(m_pdrawingarea),
-  GtkDrawingAreaDrawFunc ,
-  this,
-  nullptr
-);
-
+//
+//gtk_drawing_area_set_draw_func (
+//  GTK_DRAWING_AREA(m_pdrawingarea),
+//  GtkDrawingAreaDrawFunc ,
+//  this,
+//  nullptr
+//);
+//
          // Connect the size-allocate signal to handle window resize events
          g_signal_connect(m_pgtkwidget, "size-allocate", G_CALLBACK(on_size_allocate), this);
 
@@ -892,12 +1063,12 @@ gtk_drawing_area_set_draw_func (
          //ResizeData resize_data = {FALSE, RESIZE_NONE, 0, 0, 0, 0};
 
          // Connect event handlers for resizing
-         g_signal_connect(G_OBJECT(m_pgtkwidget), "button-press-event", G_CALLBACK(on_button_press_event), this);
-         g_signal_connect(G_OBJECT(m_pgtkwidget), "button-release-event", G_CALLBACK(on_button_release_event), this);
-         g_signal_connect(G_OBJECT(m_pgtkwidget), "motion-notify-event", G_CALLBACK(on_motion_notify_event), this);
-         g_signal_connect(G_OBJECT(m_pgtkwidget), "enter-notify-event", G_CALLBACK(on_enter_notify_event), this);
+         g_signal_connect(G_OBJECT(m_pgtkwidget), "button-press-event", G_CALLBACK(on_button_press), this);
+         g_signal_connect(G_OBJECT(m_pgtkwidget), "button-release-event", G_CALLBACK(on_button_release), this);
+         g_signal_connect(G_OBJECT(m_pgtkwidget), "motion-notify-event", G_CALLBACK(on_motion_notify), this);
+         g_signal_connect(G_OBJECT(m_pgtkwidget), "enter-notify-event", G_CALLBACK(on_enter_notify), this);
 
-         g_signal_connect(G_OBJECT(m_pgtkwidget), "window-state-event", G_CALLBACK(on_window_state_event), this);
+         g_signal_connect(G_OBJECT(m_pgtkwidget), "window-state-event", G_CALLBACK(on_window_state), this);
          // Set events to capture motion and button events
          gtk_widget_set_events(m_pgtkwidget,
             GDK_BUTTON_PRESS_MASK
@@ -905,102 +1076,8 @@ gtk_drawing_area_set_draw_func (
             | GDK_POINTER_MOTION_MASK
             | GDK_STRUCTURE_MASK);
 
-
-//         ::Window window = XCreateWindow(display, DefaultRootWindow(display),
-//                                         x, y,
-//                                         cx, cy,
-//                                         0,
-//                                         m_iDepth,
-//                                         InputOutput,
-//                                         visual,
-//                                         CWColormap | CWEventMask | CWBackPixmap | CWBorderPixel
-//                                         | CWOverrideRedirect, &attr);
-//
-//         {
-//
-//            XSizeHints sizehints = {0};
-//
-//            sizehints.flags = PPosition | PSize;     /* I want to specify position and size */
-//            sizehints.x = x;       /* The origin and size coords I want */
-//            sizehints.y = y;
-//            sizehints.width = cx;
-//            sizehints.height = cy;
-//
-//            XSetNormalHints(display, window, &sizehints);  /* Where new_window is the new window */
-//
-//         }
-
-
-
-         // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
-         // {
-
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (2)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
-
-         // }
-         // else
-         // {
-
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (2)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
-
-         // }
-
-         // fflush(stdout);
-
-
-         //auto & windowstate3 = pimpl->m_puserinteraction->m_layout.window();
-
-         //windowstate3.origin() = {INT_MIN, INT_MIN};
-
-         //windowstate3.size() = {INT_MIN, INT_MIN};
-
-         //windowstate3.screen_origin() = {INT_MIN, INT_MIN};
-
-         //auto & state = pimpl->m_puserinteraction->m_layout.design();
-
-         //state.origin() = {x, y};
-
-         //state.size() = {cx, cy};
-
-         //state.screen_origin() = state.origin();
-
-//         if (window == 0)
-//         {
-//
-//            bOk = false;
-//
-//            throw ::exception(error_failed);
-//
-//         }
-
-//         auto estatus = initialize_x11_window(pdisplayx11, window, visual, m_iDepth, pdisplayx11->m_iScreen,
-//                                              attr.colormap);
-//
-//         if (!estatus)
-//         {
-//
-//            throw ::exception(error_failed);
-//
-//         }
-
-         // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
-         // {
-
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (3)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
-
-         // }
-         // else
-         // {
-
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (3)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
-
-         // }
-
-         //fflush(stdout);
+         // Connect the draw event to the drawing callback function
+         g_signal_connect(G_OBJECT(m_pgtkwidget), "draw", G_CALLBACK(on_window_draw), this);
 
 
          set_oswindow(this);
@@ -2612,337 +2689,6 @@ gtk_drawing_area_set_draw_func (
    }
 
 
-///// Post an event from the client to the X server
-//   void window::send_client_event(Atom atom, unsigned int numArgs, ...)
-//   {
-//
-//      XEvent xevent;
-//
-//      unsigned int i;
-//
-//      va_list argp;
-//
-//      va_start(argp, numArgs);
-//
-//      zero(xevent);
-//
-//      xevent.xclient.type = ClientMessage;
-//      xevent.xclient.serial = 0;
-//      xevent.xclient.send_event = False;
-//      xevent.xclient.display = Display();
-//      xevent.xclient.window = Window();
-//      xevent.xclient.message_type = atom;
-//      xevent.xclient.format = 32;
-//
-//      for (i = 0; i < numArgs; i++)
-//      {
-//
-//         xevent.xclient.data.l[i] = va_arg(argp, int);
-//
-//      }
-//
-//      XSendEvent(Display(), RootWindow(Display(), x11_display()->m_iScreen), False,
-//                 SubstructureRedirectMask | SubstructureNotifyMask, &xevent);
-//
-//      va_end(argp);
-//
-//   }
-//
-//
-//   Atom get_window_long_atom(i32 nIndex);
-//
-//// Change _NET_WM_STATE if Window is Mapped
-//   void window::_mapped_net_state_unlocked(bool add, int iScreen, Atom state1, Atom state2)
-//   {
-//
-//      //synchronous_lock synchronouslock(user_synchronization());
-//
-//      XClientMessageEvent xclient;
-//
-//#define _NET_WM_STATE_REMOVE        0    /* remove/unset property */
-//#define _NET_WM_STATE_ADD           1    /* add/set property */
-//#define _NET_WM_STATE_TOGGLE        2    /* toggle property  */
-//
-//      zero(xclient);
-//      xclient.type = ClientMessage;
-//      xclient.window = Window();
-//      xclient.message_type = x11_display()->intern_atom("_NET_WM_STATE", False);
-//      xclient.format = 32;
-//      xclient.data.l[0] = add ? _NET_WM_STATE_ADD : _NET_WM_STATE_REMOVE;
-//      xclient.data.l[1] = state1;
-//      xclient.data.l[2] = state2;
-//      xclient.data.l[3] = 1; /* source indication */
-//      xclient.data.l[4] = 0;
-//
-//      if(add)
-//      {
-//
-//         if(state1 != None)
-//         {
-//            m_atomaNetWmState.add_unique(state1);
-//         }
-//         if(state2 != None)
-//         {
-//            m_atomaNetWmState.add_unique(state2);
-//         }
-//
-//      }
-//      else
-//      {
-//         if(state1 != None)
-//         {
-//            m_atomaNetWmState.erase(state1);
-//         }
-//         if(state2 != None)
-//         {
-//            m_atomaNetWmState.erase(state2);
-//         }
-//
-//      }
-//      XSendEvent(Display(), RootWindow(Display(), iScreen), False, SubstructureRedirectMask | SubstructureNotifyMask,
-//                 (XEvent *) &xclient);
-//      //     XSendEvent(Display(), RootWindow(Display(), iScreen), False, 0, (XEvent *) &xclient);
-//
-//
-//
-//
-//
-//   }
-//
-//
-//   void window::unmapped_net_state_raw(Atom atom1, ...)
-//   {
-//
-//      synchronous_lock synchronouslock(user_synchronization());
-//
-//      XEvent xevent;
-//
-//      unsigned int i;
-//
-//      va_list argp;
-//
-//      va_start(argp, atom1);
-//
-//      zero(xevent);
-//
-//      array<Atom> atoms;
-//
-//      atoms.add(atom1);
-//
-//      while (true)
-//      {
-//
-//         Atom atom = va_arg(argp, int);
-//
-//         if (atom == 0)
-//         {
-//
-//            break;
-//
-//         }
-//
-//         atoms.add(atom);
-//
-//      }
-//
-//      if (atoms.has_elements())
-//      {
-//
-//         XChangeProperty(Display(), Window(), x11_display()->intern_atom("_NET_WM_STATE", False),
-//                         XA_ATOM, 32, PropModeReplace,
-//                         (const unsigned char *) atoms.data(), atoms.size());
-//      } else
-//      {
-//
-//         XDeleteProperty(Display(), Window(), x11_display()->intern_atom("_NET_WM_STATE", False));
-//
-//      }
-//
-//      va_end(argp);
-//
-//   }
-//
-//
-//   /// this function should be called in user/main thread
-//   void window::show_window(const ::e_display & edisplay, const ::e_activation & eactivation)
-//   {
-//
-//      aaa_user_post([this, edisplay, eactivation]()
-//                                      {
-//
-//                                         windowing_output_debug_string("::window::show_window 1");
-//
-//                                         synchronous_lock synchronouslock(user_synchronization());
-//
-//                                         display_lock displaylock(x11_display()->Display());
-//
-//                                         _show_window_unlocked(edisplay, eactivation);
-//
-////         XWindowAttributes attr;
-////
-////         if (!XGetWindowAttributes(Display(), Window(), &attr))
-////         {
-////
-////            windowing_output_debug_string("::window::show_window 1.2");
-////
-////            return;
-////
-////            //return false;
-////
-////         }
-////
-////         if (edisplay == e_display_zoomed)
-////         {
-////
-////            int iMapState = attr.map_state;
-////
-////            if (iMapState != IsViewable)
-////            {
-////
-////               XMapWindow(Display(), Window());
-////
-////            }
-////
-////            auto atomMaxH = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false);
-////
-////            auto atomMaxP = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_penn, false);
-////
-////            mapped_net_state_raw(true, x11_display()->m_iScreen, atomMaxH, atomMaxP);
-////
-////
-////
-////
-////         }
-//         if (edisplay == e_display_iconic)
-//         {
-//
-//            //wm_iconify_window();
-//            xdg_toplevel_set_minimized(m_pxdgtoplevel);
-//
-//        }
-////         else if (::is_visible(edisplay))
-////         {
-////
-////            if (attr.map_state == IsUnmapped)
-////            {
-////
-////               XMapWindow(Display(), Window());
-////
-////            }
-////
-////            wm_state_clear_raw(false);
-////
-////         }
-////         else
-////         {
-////
-////            if (attr.map_state != IsUnmapped)
-////            {
-////
-////               XWithdrawWindow(Display(), Window(), Screen());
-////
-////            }
-////
-////         }
-////
-////         windowing_output_debug_string("::window::show_window 2");
-//
-//                                         //return true;
-//
-//                                      }
-//
-//      );
-//
-//      //return ::success;
-//
-//   }
-//
-//
-//   void window::_show_window_unlocked(const ::e_display & edisplay, const ::e_activation & eactivation)
-//   {
-//
-//      //aaa_user_post([this, edisplay, eactivation]()
-//      //{
-//
-//      windowing_output_debug_string("::window::show_window 1");
-//
-////      synchronous_lock synchronouslock(user_synchronization());
-////
-////      display_lock displaylock(x11_display()->Display());
-//
-//      XWindowAttributes attr;
-//
-//      if (!XGetWindowAttributes(Display(), Window(), &attr))
-//      {
-//
-//         windowing_output_debug_string("::window::show_window 1.2");
-//
-//         return;
-//
-//         //return false;
-//
-//      }
-//
-//      if (edisplay == e_display_zoomed)
-//      {
-//
-//         int iMapState = attr.map_state;
-//
-//         if (iMapState != IsViewable)
-//         {
-//
-//            XMapWindow(Display(), Window());
-//
-//         }
-//
-//         auto atomMaxH = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false);
-//
-//         auto atomMaxP = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_penn, false);
-//
-//         _mapped_net_state_unlocked(true, x11_display()->m_iScreen, atomMaxH, atomMaxP);
-//
-//      } else if (edisplay == e_display_iconic)
-//      {
-//
-//         wm_iconify_window();
-//
-//      } else if (::is_visible(edisplay))
-//      {
-//
-//         if (attr.map_state == IsUnmapped)
-//         {
-//
-//            XMapWindow(Display(), Window());
-//
-//         }
-//
-//         _wm_state_clear_unlocked(false);
-//
-//      } else
-//      {
-//
-//         if (attr.map_state != IsUnmapped)
-//         {
-//
-//            XWithdrawWindow(Display(), Window(), Screen());
-//
-//         }
-//
-//      }
-//
-//      windowing_output_debug_string("::window::show_window 2");
-//
-//      //return true;
-//
-//      //}
-//
-//      //);
-//
-//      //return ::success;
-//
-//   }
-
-
    void window::full_screen(const ::rectangle_i32 & rectangle)
    {
 
@@ -3687,239 +3433,7 @@ gtk_drawing_area_set_draw_func (
                                               bool bNoSize, ::e_display edisplay)
    {
 
-      windowing_output_debug_string("::window::set_window_pos 1");
-
-//      XWindowAttributes attrs = {};
-//
-//      if (!XGetWindowAttributes(Display(), Window(), &attrs))
-//      {
-//
-//         windowing_output_debug_string("::window::set_window_pos 1.1 xgetwindowattr failed");
-//
-//         return false;
-//
-//      }
-//
-//      if (windowing()->is_screen_visible(edisplay))
-//      {
-//
-//         if (attrs.map_state == IsUnmapped)
-//         {
-//
-//            windowing_output_debug_string("::window::set_window_pos Mapping Window 1.2");
-//
-//            XMapWindow(Display(), Window());
-//
-//         }
-//
-//         if (!XGetWindowAttributes(Display(), Window(), &attrs))
-//         {
-//
-//            windowing_output_debug_string("::window::set_window_pos 1.3 xgetwindowattr failed");
-//
-//            return false;
-//
-//         }
-//
-//      }
-//
-//      bool bMove = !bNoMove;
-//
-//      bool bSize = !bNoSize;
-//
-//      if (bMove)
-//      {
-//
-//         if (bSize)
-//         {
-//
-//            windowing_output_debug_string("::window::set_window_pos Move Resize Window 1.4");
-//
-//#ifdef SET_WINDOW_POS_LOG
-//
-//            informationf("XMoveResizeWindow (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
-//
-//#endif
-//
-//            if (cx <= 0 || cy <= 0)
-//            {
-//
-//               cx = 1;
-//
-//               cy = 1;
-//
-//#ifdef SET_WINDOW_POS_LOG
-//
-//               informationf("Changing parameters... (%d, %d) - (%d, %d)", x, y, cx, cy);
-//
-//#endif
-//
-//            }
-//
-////            if (x < 100 || y < 100)
-////            {
-////
-////               informationf("XMoveResizeWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
-////
-////            }
-//
-//            //informationf("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
-//
-//            //information() << node()->get_callstack();
-//
-//            XMoveResizeWindow(Display(), Window(), x, y, cx, cy);
-//
-//
-////            if(m_puserinteractionimpl->m_puserinteraction->const_layout().design().display() == e_display_zoomed) {
-////
-////               x11_windowing()->_defer_position_and_size_message(m_oswindow);
-////
-////
-////            }
-//
-//
-//         } else
-//         {
-//
-//            if (x < 100 || y < 100)
-//            {
-//
-//               informationf("XMoveWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
-//
-//            }
-//
-//            windowing_output_debug_string("::window::set_window_pos Move Window 1.4.1");
-//
-//            XMoveWindow(Display(), Window(), x, y);
-//
-//         }
-//
-//      } else if (bSize)
-//      {
-//
-//         windowing_output_debug_string("::window::set_window_pos Resize Window 1.4.2");
-//
-//         XResizeWindow(Display(), Window(), cx, cy);
-//
-//      }
-//
-//      //   if(bMove || bSize)
-//      //   {
-//      //
-//      //      if(attrs.override_redirect)
-//      //      {
-//      //
-//      //         if(!(m_puserinteractionimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning))
-//      //         {
-//      //
-//      //            XSetWindowAttributes set;
-//      //
-//      //            set.override_redirect = False;
-//      //
-//      //            if(!XChangeWindowAttributes(Display(), Window(), CWOverrideRedirect, &set))
-//      //            {
-//      //
-//      //               information() << "freebsd::interaction_impl::_native_create_window_ex failed to clear override_redirect";
-//      //
-//      //            }
-//      //
-//      //         }
-//      //
-//      //      }
-//      //
-//      //   }
-//
-//
-//      if (!windowing()->is_screen_visible(edisplay))
-//      {
-//
-//         if (attrs.map_state == IsViewable)
-//         {
-//
-//            windowing_output_debug_string("::window::set_window_pos Withdraw Window 1.4.3");
-//
-//            XWithdrawWindow(Display(), Window(), Screen());
-//
-//         }
-//
-//      }
-//
-//      if (XGetWindowAttributes(Display(), Window(), &attrs) == 0)
-//      {
-//
-//         windowing_output_debug_string("::window::set_window_pos xgetwndattr 1.4.4");
-//
-//         return false;
-//
-//      }
-//
-//      if (attrs.map_state == IsViewable || windowing()->is_screen_visible(edisplay))
-//      {
-//
-//         if (!bNoZorder)
-//         {
-//
-//            if (zorder.m_ezorder == e_zorder_top_most)
-//            {
-//
-//               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 1)
-//               {
-//
-//                  _wm_state_above_unlocked(true);
-//
-//               }
-//
-//               XRaiseWindow(Display(), Window());
-//
-//            } else if (zorder.m_ezorder == e_zorder_top)
-//            {
-//
-//               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 0
-//                   || net_wm_state(::x11::e_atom_net_wm_state_below) != 0
-//                   || net_wm_state(::x11::e_atom_net_wm_state_hidden) != 0
-//                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_horz) != 0
-//                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_penn) != 0
-//                   || net_wm_state(::x11::e_atom_net_wm_state_fullscreen) != 0)
-//               {
-//
-//                  _wm_state_clear_unlocked(false);
-//
-//               }
-//
-//               XRaiseWindow(Display(), Window());
-//
-//            } else if (zorder.m_ezorder == e_zorder_bottom)
-//            {
-//
-//               if (net_wm_state(::x11::e_atom_net_wm_state_below) != 1)
-//               {
-//
-//                  _wm_state_below_unlocked(true);
-//
-//               }
-//
-//               XLowerWindow(Display(), Window());
-//
-//            }
-//
-//         }
-//
-//         //m_puserinteractionimpl->m_puserinteraction->ModifyStyle(0, WS_VISIBLE, 0);
-//
-//      }
-////      else
-////      {
-////
-////         //m_puserinteractionimpl->m_puserinteraction->ModifyStyle(WS_VISIBLE, 0, 0);
-////
-////      }
-//
-//      //m_puserinteractionimpl->on_change_visibility();
-
-
-
-
-      windowing_output_debug_string("::window::set_window_pos 2");
+      _strict_set_window_position_unlocked(x, y, cx, cy, bNoMove, bNoSize);
 
       return true;
 
@@ -4178,390 +3692,6 @@ gtk_drawing_area_set_draw_func (
 
       }
 
-//       if (m_uLastRequestSerial == m_uLastConfigureSerial)
-//       {
-//
-//          return false;
-//
-//       }
-//
-//       if (::is_null(m_pxdgtoplevel))
-//       {
-//
-//          return false;
-//
-//       }
-//
-// //      node()->post_procedure([this, zorder, eactivation, bNoZorder, edisplay]()
-// //                                 {
-//
-// //                                    if(m_uLastRequestSerial == m_uLastConfigureSerial)
-// //                                    {
-// //
-// //                                       return;
-// //
-// //                                    }
-//
-//
-//       windowing_output_debug_string("::window::_configure_window_unlocked 1");
-
-//      m_atomaNetWmState = _get_net_wm_state_unlocked();
-//
-//      if (windowing()->is_screen_visible(edisplay))
-//      {
-//
-//         if (m_xwindowattributes.map_state == IsUnmapped)
-//         {
-//
-//            information() << "_configure_window_unlocked XMapWindow";
-//
-//            windowing_output_debug_string("::window::set_window_pos Mapping Window 1.2");
-//
-//            XMapWindow(Display(), Window());
-//
-//            if (!XGetWindowAttributes(Display(), Window(), &m_xwindowattributes))
-//            {
-//
-//               windowing_output_debug_string("::window::set_window_pos 1.3 xgetwindowattr failed");
-//
-//               return false;
-//
-//            }
-//
-//         }
-//
-//      }
-//
-
-//       if (m_pxdgtoplevel)
-//       {
-//          if (edisplay != e_display_zoomed &&
-//              m_puserinteractionimpl->m_puserinteraction->const_layout().window().display() == e_display_zoomed)
-//          {
-//
-//             information() << "xdg_toplevel_unset_maximized";
-//
-//             m_uLastRequestSerial = m_uLastConfigureSerial;
-//
-//             m_timeLastConfigureRequest.Now();
-//
-//             xdg_toplevel_unset_maximized(m_pxdgtoplevel);
-//
-//          }
-//       }
-//
-//
-// //         auto atomMaxH = x11_display()->m_atomNetWmStateMaximizedHorz;
-// //
-// //         auto atomMaxP = x11_display()->m_atomNetWmStateMaximizedVert;
-// //
-// //         for(auto & a : m_atomaNetWmState)
-// //         {
-// //
-// //            informationf("atom_name: %s", XGetAtomName(Display(), a));
-// //
-// //         }
-// //
-// //         if(m_atomaNetWmState.contains(atomMaxH) || m_atomaNetWmState.contains(atomMaxP))
-// //         {
-// //
-// //            information() << "_configure_window_unlocked Clearing Maximized States";
-// //
-// //            _wm_state_clear_unlocked(false);
-// //
-// //         }
-// //
-// //      }
-// //
-//
-//       if (edisplay == e_display_iconic)
-//       {
-//
-//          if (m_pxdgtoplevel)
-//          {
-//
-//             information() << "xdg_toplevel_set_minimized";
-//
-// //         XIconifyWindow(Display(), Window(), Screen());
-// //         if (edisplay == e_display_iconic)
-// //         {
-//
-//             m_uLastRequestSerial = m_uLastConfigureSerial;
-//
-//             m_timeLastConfigureRequest.Now();
-//
-//
-//             //wm_iconify_window();
-//             xdg_toplevel_set_minimized(m_pxdgtoplevel);
-//
-//             //wl_surface_commit(m_pwlsurface);
-//
-//
-// //         m_timeLastConfigureRequest.Now();
-//
-// //         }
-//
-//             //return true;
-//          }
-//
-//       }
-//       else if (edisplay == e_display_zoomed)
-//       {
-//
-//          if (m_pxdgtoplevel)
-//          {
-//
-//             information() << "xdg_toplevel_set_maximized";
-//
-//             m_uLastRequestSerial = m_uLastConfigureSerial;
-//
-//             m_timeLastConfigureRequest.Now();
-//
-//             xdg_toplevel_set_maximized(m_pxdgtoplevel);
-//
-//             //wl_surface_commit(m_pwlsurface);
-// //         m_timeLastConfigureRequest.Now();
-//
-//             //wl_display_dispatch(wayland_display()->m_pwldisplay);
-//
-//             //wl_display_roundtrip(wayland_display()->m_pwldisplay);
-//
-// //
-// //         auto atomMaxH = x11_display()->m_atomNetWmStateMaximizedHorz;
-// //
-// //         auto atomMaxP = x11_display()->m_atomNetWmStateMaximizedVert;
-// //
-// //         if (!m_atomaNetWmState.contains(atomMaxH) || !m_atomaNetWmState.contains(atomMaxP))
-// //         {
-// //
-// //            information() << "_configure_window_unlocked Setting Maximized States";
-// //
-// //            _mapped_net_state_unlocked(true, x11_display()->m_iScreen, atomMaxH, atomMaxP);
-// //
-// ////            comparable_array<Atom> atoma;
-// ////
-// ////            auto atomList = x11_display()->m_atomNetWmState;
-// ////
-// ////            if (atomList != None)
-// ////            {
-// ////
-// ////               Atom actual_type;
-// ////
-// ////               int actual_format;
-// ////
-// ////               unsigned long int bytes_after;
-// ////
-// ////               Atom * patoms = nullptr;
-// ////
-// ////               long unsigned int num_items = 0;
-// ////
-// ////               XGetWindowProperty(Display(), Window(), atomList, 0, 1024,
-// ////                                  False, XA_ATOM, &actual_type, &actual_format,
-// ////                                  &num_items,
-// ////                                  &bytes_after, (unsigned char **) &patoms);
-// ////
-// ////               atoma.set_size(num_items);
-// ////
-// ////               memory_copy(atoma.data(), patoms, atoma.get_size_in_bytes());
-// ////
-// ////               XFree(patoms);
-// ////
-// ////
-// ////            }
-// //
-// //
-// //         }
-//
-//
-// //
-//
-//          }
-//       }
-//       else if (!windowing()->is_screen_visible(edisplay))
-//       {
-//
-//          if (m_pxdgtoplevel)
-//          {
-//
-//             xdg_toplevel_destroy(m_pxdgtoplevel);
-//
-//             m_pxdgtoplevel = nullptr;
-//
-//          }
-//
-//       }
-// //
-// //         if (m_xwindowattributes.map_state == IsViewable)
-// //         {
-// //
-// //            information() << "_configure_window_unlocked XWithdrawWindow";
-// //
-// //            windowing_output_debug_string("::window::set_window_pos Withdraw Window 1.4.3");
-// //
-// //            XWithdrawWindow(Display(), Window(), Screen());
-// //
-// //            if (XGetWindowAttributes(Display(), Window(), &m_xwindowattributes) == 0)
-// //            {
-// //
-// //               windowing_output_debug_string("::window::set_window_pos xgetwndattr 1.4.4");
-// //
-// //               return false;
-// //
-// //            }
-// //
-// //         }
-// //
-// //      }
-// //
-// //      if (m_xwindowattributes.map_state == IsViewable || windowing()->is_screen_visible(edisplay))
-// //      {
-// //
-//
-//       if (!bNoZorder)
-//       {
-//
-//          if (zorder.m_ezorder == e_zorder_top_most)
-//          {
-//
-// //               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 1)
-// //               {
-// //
-// //                  _wm_state_above_unlocked(true);
-// //
-// //               }
-//
-//             //             XRaiseWindow(Display(), Window());
-//
-//             information() << "::windowing_gtk3::window::_configure_window_unlocked e_zorder_top_most";
-//
-//             __activate_window(true);
-//
-//          }
-//          else if (zorder.m_ezorder == e_zorder_top)
-//          {
-//
-// //               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 0
-// //                   || net_wm_state(::x11::e_atom_net_wm_state_below) != 0
-// //                   || net_wm_state(::x11::e_atom_net_wm_state_hidden) != 0
-// //                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_horz) != 0
-// //                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_penn) != 0
-// //                   || net_wm_state(::x11::e_atom_net_wm_state_fullscreen) != 0)
-// //               {
-// //
-// //                  _wm_state_clear_unlocked(false);
-// //
-// //               }
-// //
-// //               XRaiseWindow(Display(), Window());
-//
-//             information() << "::windowing_gtk3::window::_configure_window_unlocked e_zorder_top";
-//
-//             __activate_window(true);
-//
-//          }
-//          else if (zorder.m_ezorder == e_zorder_bottom)
-//          {
-//
-// //               if (net_wm_state(::x11::e_atom_net_wm_state_below) != 1)
-// //               {
-// //
-// //                  _wm_state_below_unlocked(true);
-// //
-// //               }
-// //
-// //               XLowerWindow(Display(), Window());
-//
-//          }
-//
-//       }
-//       else if (eactivation != e_activation_default)
-//       {
-//
-//          information() << "::windowing_gtk3::window::_configure_window_unlocked eactivation : "
-//                        << (::iptr) eactivation;
-//
-//          __activate_window(true);
-//
-//       }
-//
-// //         if (!bNoZorder)
-// //         {
-// //
-// //            if (zorder.m_ezorder == e_zorder_top_most)
-// //            {
-// //
-// //               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 1)
-// //               {
-// //
-// //                  _wm_state_above_unlocked(true);
-// //
-// //               }
-// //
-// //               information() << "_configure_window_unlocked XRaiseWindow";
-// //
-// //               XRaiseWindow(Display(), Window());
-// //
-// //            }
-// //            else if (zorder.m_ezorder == e_zorder_top)
-// //            {
-// //
-// //               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 0
-// //                   || net_wm_state(::x11::e_atom_net_wm_state_below) != 0
-// //                   || net_wm_state(::x11::e_atom_net_wm_state_hidden) != 0
-// //                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_horz) != 0
-// //                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_penn) != 0
-// //                   || net_wm_state(::x11::e_atom_net_wm_state_fullscreen) != 0)
-// //               {
-// //
-// //                  _wm_state_clear_unlocked(false);
-// //
-// //               }
-// //
-// //               information() << "_configure_window_unlocked XRaiseWindow";
-// //
-// //               XRaiseWindow(Display(), Window());
-// //
-// //            }
-// //            else if (zorder.m_ezorder == e_zorder_bottom)
-// //            {
-// //
-// //               if (net_wm_state(::x11::e_atom_net_wm_state_below) != 1)
-// //               {
-// //
-// //                  _wm_state_below_unlocked(true);
-// //
-// //               }
-// //
-// //               information() << "_configure_window_unlocked XLowerWindow";
-// //
-// //               XLowerWindow(Display(), Window());
-// //
-// //            }
-// //
-// //         }
-// //
-// //      }
-//
-//       windowing_output_debug_string("::window::set_window_pos 2");
-// //                                    ::pointer < ::windowing_gtk3::display > pwaylanddisplay = m_pdisplay;
-//       //                                  wl_display_flush(pwaylanddisplay->m_pwldisplay);
-//
-//       //wl_surface_commit(m_pwlsurface);
-//
-// //                                    node()->post_procedure([this]()
-// //                                                               {
-// //                                                                  ::pointer < ::windowing_gtk3::display > pwaylanddisplay = m_pdisplay;
-// //                                                                  wl_display_flush(pwaylanddisplay->m_pwldisplay);
-// ////
-// ////      ::pointer < ::windowing_gtk3::display > pwaylanddisplay = m_pdisplay;
-// ////      wl_display_dispatch(pwaylanddisplay->m_pwldisplay);
-// ////
-// ////      wl_display_roundtrip(pwaylanddisplay->m_pwldisplay);
-// ////
-// //                                                               });
-//
-// //                                 });
-//
       return true;
 
    }
@@ -4570,260 +3700,27 @@ gtk_drawing_area_set_draw_func (
    bool window::_strict_set_window_position_unlocked(i32 x, i32 y, i32 cx, i32 cy, bool bNoMove, bool bNoSize)
    {
 
-      bool bMove = !bNoMove;
-
-      bool bSize = !bNoSize;
-
-      if (bMove)
+      if (!bNoMove)
       {
 
-         if (bSize)
-         {
+         gtk_window_move(GTK_WINDOW(m_pgtkwidget), x, y);
 
-            windowing_output_debug_string("::window::set_window_pos Move Resize Window 1.4");
+         m_pointWindow.x() = x;
 
-#ifdef SET_WINDOW_POS_LOG
-
-            informationf("XMoveResizeWindow (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
-
-#endif
-
-            if (cx <= 0 || cy <= 0)
-            {
-
-               cx = 1;
-
-               cy = 1;
-
-#ifdef SET_WINDOW_POS_LOG
-
-               //informationf("Changing parameters... (%d, %d) - (%d, %d)", x, y, cx, cy);
-
-#endif
-
-            }
-
-//            if (x < 100 || y < 100)
-//            {
-//
-//               informationf("XMoveResizeWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
-//
-//            }
-
-            //informationf("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
-
-            //information() << node()->get_callstack();
-
-//            XMoveResizeWindow(Display(), Window(), x, y, cx, cy);
-
-
-//            if(m_puserinteractionimpl->m_puserinteraction->const_layout().design().display() == e_display_zoomed) {
-//
-//               x11_windowing()->_defer_position_and_size_message(m_oswindow);
-//
-//
-//            }
-
-
-         }
-         else
-         {
-
-            if (x < 100 || y < 100)
-            {
-
-               //informationf("XMoveWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
-
-            }
-
-            windowing_output_debug_string("::window::set_window_pos Move Window 1.4.1");
-
-            //informationf("XMoveWindow (Win=%d) (%d, %d)", Window(), x, y);
-
-            //XMoveWindow(Display(), Window(), x, y);
-
-         }
-
-      }
-      else if (bSize)
-      {
-
-         windowing_output_debug_string("::window::set_window_pos Resize Window 1.4.2");
-
-         //informationf("XResizeWindow (Win=%d) (%d, %d)", Window(), cx, cy);
-
-         //information() << node()->get_callstack();
-
-         //XResizeWindow(Display(), Window(), cx, cy);
+         m_pointWindow.y() = y;
 
       }
 
-      //   if(bMove || bSize)
-      //   {
-      //
-      //      if(attrs.override_redirect)
-      //      {
-      //
-      //         if(!(m_puserinteractionimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning))
-      //         {
-      //
-      //            XSetWindowAttributes set;
-      //
-      //            set.override_redirect = False;
-      //
-      //            if(!XChangeWindowAttributes(Display(), Window(), CWOverrideRedirect, &set))
-      //            {
-      //
-      //               information() << "freebsd::interaction_impl::_native_create_window_ex failed to clear override_redirect";
-      //
-      //            }
-      //
-      //         }
-      //
-      //      }
-      //
-      //   }
+      if (!bNoSize)
+      {
 
+         gtk_window_resize(GTK_WINDOW(m_pgtkwidget), cx, cy);
 
-//      if (bHide)
-//      {
-//
-//         if (attrs.map_state == IsViewable)
-//         {
-//
-//            windowing_output_debug_string("::window::set_window_pos Withdraw Window 1.4.3");
-//
-//            XWithdrawWindow(Display(), Window(), Screen());
-//
-//         }
-//
-//      }
-//
-//      if (XGetWindowAttributes(Display(), Window(), &attrs) == 0)
-//      {
-//
-//         windowing_output_debug_string("::window::set_window_pos xgetwndattr 1.4.4");
-//
-//         return false;
-//
-//      }
-//
-//      if (attrs.map_state == IsViewable || bShow)
-//      {
-//
-//         if (!bNoZorder)
-//         {
-//
-//            if (zorder.m_ezorder == e_zorder_top_most)
-//            {
-//
-////               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 1)
-////               {
-////
-////                  _wm_state_above_unlocked(true);
-////
-////               }
-//
-//  //             XRaiseWindow(Display(), Window());
-//
-//               __activate_window(false);
-//
-//            } else if (zorder.m_ezorder == e_zorder_top)
-//            {
-//
-////               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 0
-////                   || net_wm_state(::x11::e_atom_net_wm_state_below) != 0
-////                   || net_wm_state(::x11::e_atom_net_wm_state_hidden) != 0
-////                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_horz) != 0
-////                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_penn) != 0
-////                   || net_wm_state(::x11::e_atom_net_wm_state_fullscreen) != 0)
-////               {
-////
-////                  _wm_state_clear_unlocked(false);
-////
-////               }
-////
-////               XRaiseWindow(Display(), Window());
-//               __activate_window(false);
-//
-//            } else if (zorder.m_ezorder == e_zorder_bottom)
-//            {
-//
-////               if (net_wm_state(::x11::e_atom_net_wm_state_below) != 1)
-////               {
-////
-////                  _wm_state_below_unlocked(true);
-////
-////               }
-////
-////               XLowerWindow(Display(), Window());
-//
-//            }
-//
-//         }
-//         else if(eactivation != e_activation_default)
-//         {
-//
-//            __activate_window(false);
-//
-//         }
-//
-//         //m_puserinteractionimpl->m_puserinteraction->ModifyStyle(0, WS_VISIBLE, 0);
-//
-//      }
-////      else
-////      {
-////
-////         //m_puserinteractionimpl->m_puserinteraction->ModifyStyle(WS_VISIBLE, 0, 0);
-////
-////      }
-//
-//      //m_puserinteractionimpl->on_change_visibility();
+         m_sizeWindow.cx() = cx;
 
-      // windowing_output_debug_string("::window::_strict_set_window_position_unlocked 2");
-      //
-      // if (bMove || bSize)
-      // {
-      //
-      //    if (bMove)
-      //    {
-      //
-      //       m_pointWindow.x() = x;
-      //       m_pointWindow.y() = y;
-      //
-      //    }
-      //
-      //    if (bSize)
-      //    {
-      //
-      //       m_sizeWindow.cx() = cx;
-      //       m_sizeWindow.cy() = cy;
-      //
-      //    }
-      //
-      //    auto frame = m_puserinteractionimpl->m_puserinteraction->outer_frame();
-      //
-      //    information() << "xdg_surface_set_window_geometry : " << frame;
-      //
-      //    //m_uLastRequestSerial = m_uLastConfigureSerial;
-      //
-      //    //m_timeLastConfigureRequest.Now();
-      //
-      //    xdg_surface_set_window_geometry(
-      //       m_pxdgsurface,
-      //       frame.left(), frame.top(),
-      //       frame.width(), frame.height());
-      //
-      //    if (m_pwlsubsurface)
-      //    {
-      //
-      //       wl_subsurface_set_position(
-      //          m_pwlsubsurface,
-      //          m_pointWindow.x(), m_pointWindow.y());
-      //
-      //    }
-      //
-      // }
+         m_sizeWindow.cy() = cy;
+
+      }
 
       return true;
 
@@ -4951,7 +3848,31 @@ gtk_drawing_area_set_draw_func (
 
       ::windowing::window::set_mouse_cursor(pcursor);
 
-      windowing()->set_mouse_cursor2(pcursor);
+      ::pointer < ::windowing_gtk3::cursor > pgtk3cursor = pcursor;
+
+      if(pgtk3cursor)
+      {
+
+//      GdkWindow *gdk_window = gtk_widget_get_window(widget);
+//      GdkDisplay *display = gdk_window_get_display(gdk_window);
+//
+//      GdkCursor *cursor = NULL;
+//      if (edge & RESIZE_LEFT || edge & RESIZE_RIGHT)
+//         cursor = gdk_cursor_new_for_display(display, GDK_SB_H_DOUBLE_ARROW);
+//      else if (edge & RESIZE_TOP || edge & RESIZE_BOTTOM)
+//         cursor = gdk_cursor_new_for_display(display, GDK_SB_V_DOUBLE_ARROW);
+
+
+         auto pgdkwindow = gtk_widget_get_window(m_pgtkwidget);
+
+         pgtk3cursor->_create_os_cursor();
+
+         gdk_window_set_cursor(pgdkwindow, pgtk3cursor->m_pgdkcursor);
+
+
+      }
+
+      //windowing()->set_mouse_cursor2(pcursor);
 
    }
 
@@ -5075,7 +3996,7 @@ gtk_drawing_area_set_draw_func (
 
       information() << "::windowing_gtk3::window::set_active_window";
 
-      user_post([this]()
+      main_post([this]()
                 {
 
                    windowing_output_debug_string("::set_active_window 1");
@@ -5977,7 +4898,7 @@ gtk_drawing_area_set_draw_func (
    void window::__update_graphics_buffer()
    {
 
-      user_post([this]()
+      main_post([this]()
                 {
 
                    auto pimpl = m_puserinteractionimpl;
@@ -6000,10 +4921,15 @@ gtk_drawing_area_set_draw_func (
    void window::window_update_screen()
    {
 
-      user_post([this]()
+      main_post([this]()
       {
+
+         full_set_window_position_unlocked();
+
+         configure_window_unlocked();
+
          // Queue the drawing area for a redraw
-            gtk_widget_queue_draw(m_pdrawingarea);
+         gtk_widget_queue_draw(m_pdrawingarea);
 
       });
 
@@ -6948,7 +5874,7 @@ gtk_drawing_area_set_draw_func (
 // }
 
 
-   bool window::defer_perform_entire_reposition_process()
+   bool window::defer_perform_entire_reposition_process(::user::mouse * pmouse)
    {
 
 //      return _perform_entire_reposition_process();
@@ -6985,7 +5911,7 @@ gtk_drawing_area_set_draw_func (
 //   }
 //
 //
-   bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing)
+   bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse * pmouse)
    {
 
       //return _perform_entire_resizing_process(eframeSizing);

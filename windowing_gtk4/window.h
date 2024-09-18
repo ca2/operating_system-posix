@@ -42,12 +42,6 @@ namespace windowing_gtk4
 
       class window;
 
-      struct window_button_pressed_t
-      {
-            ::windowing_gtk4::window * m_pwindow;
-            GtkWidget * m_pwidget;
-            const char * m_pszName;
-      };
 
 
    class CLASS_DECL_WINDOWING_GTK4 window :
@@ -123,9 +117,6 @@ namespace windowing_gtk4
          GtkGesture *m_pgtkgestureClick;
          GtkEventController *m_pgtkeventcontrollerMotion;
 
-         ::string_array m_straSystemMenuName;
-         ::string_array m_straSystemMenuAtom;
-         window_button_pressed_t m_windowbuttonpresseda[2];
          bool m_bPendingStartMove;
 
       window();

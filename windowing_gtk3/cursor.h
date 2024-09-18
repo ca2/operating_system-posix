@@ -18,10 +18,7 @@ namespace windowing_gtk3
    public:
 
 
-      //::Cursor                   m_cursor;
-      ::wl_cursor *m_pwlcursor;
-      ::wayland::nano::user::buffer m_waylandbuffer;
-      ::wl_cursor_image * m_pwlcursorimage;
+      GdkCursor * m_pgdkcursor;
 
 
       cursor();

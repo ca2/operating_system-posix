@@ -20,6 +20,7 @@ namespace innate_ui_gtk3
       icon();
       ~icon() override;
 
+      void _create() override;
 
 
    };

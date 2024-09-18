@@ -58,6 +58,7 @@ namespace windowing_gtk3
       ::pointer<class window>                      m_pwindowRoot;
       //::pointer<class window>                      m_pwindowKeyboardFocus;
       ::pointer<::windowing_gtk3::window>           m_pwindowActive;
+      GdkDisplay *                                    m_pgdkdisplay;
       ///::pointer<::windowing_gtk3::window>           m_pwindowMouseCapture;
       //bool                                         m_bHasXSync;
       //int                                          m_iXSyncMajor;
@@ -100,7 +101,7 @@ namespace windowing_gtk3
 
       //::wl_display * __get_wayland_display() override;
 
-      //void open() override;
+      void open_display() override;
 
       virtual ::e_status erase_window(::windowing::window * pwindow);
 
@@ -122,9 +123,9 @@ namespace windowing_gtk3
 
       virtual bool is_null() const;
 
-      bool get_monitor_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangle) override;
+      bool _get_monitor_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangle) override;
 
-      bool get_workspace_rectangle(::collection::index iWorkspace, ::rectangle_i32 & rectangle) override;
+      bool _get_workspace_rectangle(::collection::index iWorkspace, ::rectangle_i32 & rectangle) override;
 
       //virtual ::windowing::window * get_mouse_capture();
 

@@ -44,8 +44,10 @@ list(APPEND library_source
 list(APPEND library_references
         acme
         acme_posix
+   windowing_system_gtk3
         apex
         apex_posix
+   innate_ui_gtk3
         aqua
         aura
         aura_posix
@@ -71,15 +73,15 @@ if (NOT ${NO_PRECOMPILED_HEADER})
 
 endif ()
 
-set_target_properties(windowing_wayland PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 
 if (MSVC)
-    target_compile_options(windowing_wayland PRIVATE "/MD$<$<CONFIG:Debug>:d>")
-    target_link_options(windowing_wayland PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
-    target_link_options(windowing_wayland PRIVATE "/SUBSYSTEM:WINDOWS")
-    target_link_libraries(windowing_wayland PRIVATE ${library_references})
-    #add_dependencies(windowing_wayland draw2d_gdiplus)
+    target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
+    target_link_options(${PROJECT_NAME} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
+    target_link_options(${PROJECT_NAME} PRIVATE "/SUBSYSTEM:WINDOWS")
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references})
+    #add_dependencies(${PROJECT_NAME} draw2d_gdiplus)
 elseif (${LINUX} OR ${__BSD__})
 
 
@@ -102,18 +104,16 @@ elseif (${LINUX} OR ${__BSD__})
     # target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
 
 
-    #add_dependencies(windowing_wayland draw2d_cairo)
+    #add_dependencies(${PROJECT_NAME} draw2d_cairo)
 
 
 endif ()
 
 
-#list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
-list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
-list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
-
-target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
-target_include_directories(static_${PROJECT_NAME} PRIVATE ${library_include_directories})
+add_dependencies(${PROJECT_NAME}
+    windowing_system_gtk3
+    innate_ui_gtk3
+)
 
 
 list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
@@ -124,7 +124,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories
 target_include_directories(static_${PROJECT_NAME} PRIVATE ${library_include_directories})
 
 
-target_compile_definitions(windowing_wayland PRIVATE _WINDOWING_X11_LIBRARY)
+target_compile_definitions(${PROJECT_NAME} PRIVATE _WINDOWING_X11_LIBRARY)
 
 
 

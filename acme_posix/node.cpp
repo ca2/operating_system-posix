@@ -2840,9 +2840,19 @@ if(functionTrace)
       else
       {
 
+#ifdef HAS_GTK3
+
+         auto pfactory = system()->factory("windowing_system", "gtk3");
+
+         pfactory->merge_to_global_factory();
+
+#else
+
          auto pfactory = system()->factory("windowing_system", "gtk4");
 
          pfactory->merge_to_global_factory();
+
+#endif
 
       }
 

@@ -16,6 +16,7 @@ namespace innate_ui_gtk3
    {
    public:
 
+      bool  m_bIcon;
       //GtkWidget * m_pgtkwidget;
 
       still();

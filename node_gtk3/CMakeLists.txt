@@ -57,21 +57,20 @@ list(APPEND library_references
         aura_posix
         node_gdk
         windowing_posix
-        windowing_system_x11
    windowing_gtk3
 )
 
 
-#if(${OPENBSD})
-if (FALSE)
-    list(APPEND library_references
-            windowing_xcb
-    )
-else ()
-    list(APPEND library_references
-            windowing_x11
-    )
-endif ()
+##if(${OPENBSD})
+#if (FALSE)
+#    list(APPEND library_references
+#            windowing_xcb
+#    )
+#else ()
+#    list(APPEND library_references
+#            windowing_x11
+#    )
+#endif ()
 
 if (${HAS_WAYLAND})
     list(APPEND library_references

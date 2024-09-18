@@ -21,12 +21,12 @@
 #include "aura_posix/node.h"
 //#include "acme/operating_system/x11/display_lock.h"
 //#include <X11/extensions/Xrender.h>
-#include <wayland-client-protocol.h>
-extern ::app_core * g_pappcore;
-#include <fcntl.h>
-#include <sys/mman.h>
-#include <errno.h>
-#include <unistd.h>
+//#include <wayland-client-protocol.h>
+//extern ::app_core * g_pappcore;
+//#include <fcntl.h>
+//#include <sys/mman.h>
+//#include <errno.h>
+//#include <unistd.h>
 
 //Display * x11_get_display();
 
@@ -40,8 +40,6 @@ namespace windowing_gtk3
 {
 
 
-
-
    display::display()
    {
 
@@ -50,6 +48,7 @@ namespace windowing_gtk3
       //zero(m_atoma);
 
       m_pDisplay = this;
+      m_pgdkdisplay = nullptr;
       //m_colormap = None;
       //m_windowRoot = None;
       //m_px11display = nullptr;
@@ -350,18 +349,69 @@ namespace windowing_gtk3
    }
 
 
-   bool display::get_monitor_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangle)
+   void display::open_display()
    {
 
-      return ::windowing::display::get_monitor_rectangle(iMonitor, rectangle);
+      m_pgdkdisplay = gdk_display_get_default();
+
+      auto n = gdk_display_get_n_monitors(m_pgdkdisplay);
+
+      for(int i = 0; i < n; i++)
+      {
+
+         auto pmonitor = __create_new< ::windowing::monitor>();
+
+         pmonitor->m_pdisplay = this;
+
+         m_monitora.add(pmonitor);
+
+      }
 
    }
 
 
-   bool display::get_workspace_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangle)
+   bool display::_get_monitor_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangle)
    {
 
-      return ::windowing::display::get_workspace_rectangle(iMonitor, rectangle);
+      auto pgdkmonitor = gdk_display_get_monitor(m_pgdkdisplay, iMonitor);
+
+      if(!pgdkmonitor)
+      {
+
+         return false;
+
+      }
+
+      GdkRectangle geometry;
+
+      gdk_monitor_get_geometry(pgdkmonitor, &geometry);
+
+      copy(&rectangle, &geometry);
+
+      return true;
+
+   }
+
+
+   bool display::_get_workspace_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangleWorkspace)
+   {
+
+      auto pgdkmonitor = gdk_display_get_monitor(m_pgdkdisplay, iMonitor);
+
+      if(!pgdkmonitor)
+      {
+
+         return false;
+
+      }
+
+      GdkRectangle workarea;
+
+      gdk_monitor_get_workarea(pgdkmonitor, &workarea);
+
+      copy(&rectangleWorkspace, &workarea);
+
+      return true;
 
    }
 

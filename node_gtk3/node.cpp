@@ -44,17 +44,17 @@
 #include <cairo/cairo.h>
 
 
-namespace x11
-{
-   namespace nano
-   {
-      namespace user
-      {
-         CLASS_DECL_ACME void set_thread();
-         CLASS_DECL_ACME int init_threads();
-      }
-   }
-}
+//namespace x11
+//{
+//   namespace nano
+//   {
+//      namespace user
+//      {
+//         CLASS_DECL_ACME void set_thread();
+//         CLASS_DECL_ACME int init_threads();
+//      }
+//   }
+//}
 namespace nano
 {
    namespace user
@@ -515,12 +515,12 @@ namespace node_gtk3
 
       m_pGtkSettingsDefault = nullptr;
 
-      for (auto &pair: m_mapGDesktopAppInfo)
-      {
-
-         g_object_unref(pair.m_element2);
-
-      }
+//      for (auto &pair: m_mapGDesktopAppInfo)
+//      {
+//
+//         g_object_unref(pair.m_element2);
+//
+//      }
 
       if (m_pgdkapplaunchcontext)
       {
@@ -769,13 +769,15 @@ namespace node_gtk3
 
          ::set_main_user_thread(::current_htask());
 
-#if defined(WITH_X11)
-
-         ::x11::nano::user::set_thread();
-
-#endif
+//#if defined(WITH_X11)
+//
+//         ::x11::nano::user::set_thread();
+//
+//#endif
 
          information() << "node_gtk3::system_main GTK_MAIN";
+
+         ::task_set_name("Main Thread");
 
          gtk_main();
 
@@ -2146,7 +2148,7 @@ void node::on_user_system_quit()
 
                            }
 
-                           m_mapGDesktopAppInfo[pathDesktop] = pgdesktopappinfo;
+//                           m_mapGDesktopAppInfo[pathDesktop] = pgdesktopappinfo;
 
                            if (!m_pgdkapplaunchcontext)
                            {
@@ -3164,28 +3166,40 @@ bool node::_g_defer_get_default_theme_icon(::string & strIconPath, GIcon * picon
    }
 
 
-   void node::defer_show_system_menu(const point_i32& pointAbsolute)
+   void node::defer_innate_ui()
    {
 
-      // Create a popup menu
-      auto menu = gtk_menu_new();
+      auto pfactory = system()->factory("innate_ui", "gtk3");
 
-      // Create and add menu items
-      auto item = gtk_menu_item_new_with_label("Menu Item 1");
-      gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-      gtk_widget_show(item);
+      pfactory->merge_to_global_factory();
 
-      item = gtk_menu_item_new_with_label("Menu Item 2");
-      gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-      gtk_widget_show(item);
+   }
 
-      // Show the menu
-      gtk_menu_popup_at_pointer(GTK_MENU(menu), NULL);
-      //::pointer < ::windows::nano::user::user >pnanouserWindows = nano()->user();
 
-      //pnanouserWindows->_defer_show_system_menu(m_hwnd, &m_hmenuSystem, pointAbsolute);
+   void node::defer_show_system_menu(::user::mouse * pmouse)
+   {
 
-      //_defer_show_system_menu(pointAbsolute);
+      ::node_gdk::node::defer_show_system_menu(pmouse);
+
+//      // Create a popup menu
+//      auto menu = gtk_menu_new();
+//
+//      // Create and add menu items
+//      auto item = gtk_menu_item_new_with_label("Menu Item 1");
+//      gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+//      gtk_widget_show(item);
+//
+//      item = gtk_menu_item_new_with_label("Menu Item 2");
+//      gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+//      gtk_widget_show(item);
+//
+//      // Show the menu
+//      gtk_menu_popup_at_pointer(GTK_MENU(menu), NULL);
+//      //::pointer < ::windows::nano::user::user >pnanouserWindows = nano()->user();
+//
+//      //pnanouserWindows->_defer_show_system_menu(m_hwnd, &m_hmenuSystem, pointAbsolute);
+//
+//      //_defer_show_system_menu(pointAbsolute);
 
 
    }
@@ -3193,37 +3207,48 @@ bool node::_g_defer_get_default_theme_icon(::string & strIconPath, GIcon * picon
 
    //gdk_branch(procedure);
    // Function to be run in the GTK main thread
-   gboolean __g_callback(gpointer data) {
+   gboolean __g_callback(gpointer data)
+   {
+
       auto pprocedure = (procedure*)(data);
+
       try
       {
+
          (*pprocedure)();
+
       }
       catch(...)
       {
 
       }
+
       try
       {
+
          delete pprocedure;
+
       }
       catch(...)
       {
 
       }
+
       return FALSE;  // Returning FALSE so it is only called once
+
    }
 
 
    void node::user_post(const ::procedure &procedure)
    {
 
-      auto pprocedure =new ::procedure(procedure);
+      auto pprocedure = new ::procedure(procedure);
 
       // Call update_label in the GTK main thread
       g_idle_add(__g_callback, pprocedure);
 
    }
+
 
 } // namespace node_gtk3
 

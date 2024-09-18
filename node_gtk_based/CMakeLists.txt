@@ -151,8 +151,8 @@ elseif (${LINUX} OR ${__BSD__})
 endif ()
 
 if (${HAS_GTK4})
-add_dependencies(${PROJECT_NAME} innate_ui_gtk4)
-elseif (${HAS_GTK4})
+    add_dependencies(${PROJECT_NAME} innate_ui_gtk4)
+elseif (${HAS_GTK3})
     add_dependencies(${PROJECT_NAME} innate_ui_gtk3)
 endif()
 

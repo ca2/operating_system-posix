@@ -1,5 +1,6 @@
 // Created by camilo on 2024-09-12 22:45 <3ThomasBorregaardSorensen!!
 #include "framework.h"
+#include "dialog.h"
 #include "innate_ui.h"
 #include "window.h"
 #include "acme/nano/nano.h"
@@ -372,12 +373,12 @@ namespace innate_ui_gtk3
 
             auto p = point;
 
-            auto pwidgetParentWindow = gtk_widget_get_parent_window(m_pgtkwidget);
+            ::pointer < ::innate_ui_gtk3::dialog > pdialog = m_pwindowParent;
 
-            if(::is_set(pwidgetParentWindow)&& GTK_IS_DIALOG(pwidgetParentWindow))
+            if(pdialog)
             {
 
-               auto fixed = gtk_widget_get_parent(m_pgtkwidget);
+               auto fixed = pdialog->m_fixed;
 
                gtk_fixed_put(GTK_FIXED(fixed), m_pgtkwidget, point.x(), point.y());
 
@@ -424,6 +425,7 @@ namespace innate_ui_gtk3
             //
             // RECT rThis2;
             // ::GetWindowRect(m_hwnd, &rThis2);
+
 
 
          });
@@ -507,12 +509,15 @@ namespace innate_ui_gtk3
    }
 
    
-   void window::defer_show_system_menu(const ::point_i32 & pointAbsolute)
+   void window::defer_show_system_menu(::user::mouse * pmouse)
    {
 
-      node()->defer_show_system_menu(pointAbsolute);
+      node()->defer_show_system_menu(pmouse);
 
    }
 
+
 } // namespace innate_ui_gtk3
+
+
 

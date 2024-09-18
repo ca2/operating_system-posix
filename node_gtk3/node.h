@@ -77,8 +77,10 @@ namespace node_gtk3
       //bool is_branch_current() const override;
 
       //virtual void _fetch_dark_mode();
-      void defer_show_system_menu(const point_i32& pointAbsolute) override;
+      void defer_show_system_menu(::user::mouse * pmouse) override;
       //bool dark_mode() const override;
+
+      void defer_innate_ui() override;
 
       //void set_dark_mode(bool bDarkMode) override;
 

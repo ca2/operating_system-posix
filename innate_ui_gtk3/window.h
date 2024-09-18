@@ -11,7 +11,9 @@
 namespace innate_ui_gtk3
 {
 
+
    class innate_ui;
+
 
    class CLASS_DECL_INNATE_UI_GTK3 window :
       virtual public ::innate_ui::window  //,
@@ -63,7 +65,8 @@ namespace innate_ui_gtk3
 
       //virtual int _get_id();
 
-      void defer_show_system_menu(const ::point_i32 & pointAbsolute) override;
+      void defer_show_system_menu(::user::mouse * pmouse) override;
+
 
    };
 

@@ -41,6 +41,7 @@ namespace innate_ui_gtk3
    void button::_create_child(window * pwindowParent)
    {
 
+      m_pwindowParent = pwindowParent;
       // m_hwnd = CreateWindow(
       //    L"BUTTON",  // Predefined class; Unicode assumed
       //    L"",      // Button text
@@ -53,6 +54,9 @@ namespace innate_ui_gtk3
       //    NULL,       // No menu.
       //    (HINSTANCE)GetWindowLongPtr(pwindowParent->m_hwnd, GWLP_HINSTANCE),
       //    NULL);
+
+      m_pgtkwidget = gtk_button_new();
+      gtk_widget_show(m_pgtkwidget);
 
    }
 

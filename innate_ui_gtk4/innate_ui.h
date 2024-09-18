@@ -30,8 +30,8 @@ namespace innate_ui_gtk4
       
       //void _defer_run_innate_ui_gtk2_user_loop();
       
-      void post(const ::procedure & procedure) override;
-      void sync(const ::procedure & procedure) override;
+      //void post(const ::procedure & procedure) override;
+      //void sync(const ::procedure & procedure) override;
 
 
       //virtual LRESULT _window_procedure(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);

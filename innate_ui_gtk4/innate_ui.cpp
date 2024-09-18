@@ -52,36 +52,36 @@ namespace innate_ui_gtk4
    }
 
 
-   void innate_ui::post(const ::procedure & procedure)
-   {
-
-      auto psystem = system();
-
-      auto pwindowingsystem = psystem->windowing_system();
-
-      pwindowingsystem->async(procedure);      //auto pparticle = (::subparticle *)procedure.m_pbase;
-
-      //pparticle->increment_reference_count();
-
-      //PostThreadMessage(m_dwThread, WM_APP + 123, 0, (LPARAM)pparticle);
-
-   }
-
-
-   void innate_ui::sync(const ::procedure & procedure)
-   {
-
-      auto psystem = system();
-
-      auto pwindowingsystem = psystem->windowing_system();
-
-      pwindowingsystem->sync(procedure);      //auto pparticle = (::subparticle *)procedure.m_pbase;
-
-      //pparticle->increment_reference_count();
-
-      //PostThreadMessage(m_dwThread, WM_APP + 123, 0, (LPARAM)pparticle);
-
-   }
+//   void innate_ui::post(const ::procedure & procedure)
+//   {
+//
+//      auto psystem = system();
+//
+//      auto pwindowingsystem = psystem->windowing_system();
+//
+//      pwindowingsystem->async(procedure);      //auto pparticle = (::subparticle *)procedure.m_pbase;
+//
+//      //pparticle->increment_reference_count();
+//
+//      //PostThreadMessage(m_dwThread, WM_APP + 123, 0, (LPARAM)pparticle);
+//
+//   }
+//
+//
+//   void innate_ui::sync(const ::procedure & procedure)
+//   {
+//
+//      auto psystem = system();
+//
+//      auto pwindowingsystem = psystem->windowing_system();
+//
+//      pwindowingsystem->sync(procedure);      //auto pparticle = (::subparticle *)procedure.m_pbase;
+//
+//      //pparticle->increment_reference_count();
+//
+//      //PostThreadMessage(m_dwThread, WM_APP + 123, 0, (LPARAM)pparticle);
+//
+//   }
 
 
    // LRESULT innate_ui::_window_procedure(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)

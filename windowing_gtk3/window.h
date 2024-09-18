@@ -10,7 +10,7 @@
 #include "acme/primitive/geometry2d/rectangle_array.h"
 //#include "nano_user_wayland/window_base.h"
 //#include <X11/extensions/sync.h>
-#include <gtk/gtk.h>
+//#include <gtk/gtk.h>
 
 //#define HAVE_XSYNC 1
 //
@@ -21,7 +21,10 @@
 //
 //#define WINDOWING_X11_WINDOW_MEMBER
 ////using htask_t = pthread_t;
-
+namespace operating_system
+{
+   class a_system_menu;
+}
 
 namespace windowing_gtk3
 {
@@ -89,8 +92,10 @@ namespace windowing_gtk3
       ::rectangle_i32                              m_rectangleXShm;
       //bool                                         m_bFirstConfigure;
       //bool                                         m_bXShmPutImagePending;
+      ::pointer < ::operating_system::a_system_menu > m_psystemmenu;
 GtkWidget *m_pgtkwidget;
          GtkWidget *m_pdrawingarea;
+      GtkWidget * m_pgtkwidgetSystemMenu;
 
       window();
       //oswindow_data(::user::interaction * puibaseMessageOnlyWindow);
@@ -227,7 +232,12 @@ virtual void _on_size(int cx, int cy);
       void set_keyboard_focus() override;
       void _set_keyboard_focus_unlocked() override;
 
-void defer_show_system_menu(const point_i32& pointAbsolute) override;
+
+      virtual ::pointer < ::operating_system::a_system_menu > create_system_menu();
+
+      virtual void _on_a_system_menu_item_button_press(::operating_system::a_system_menu_item * pitem, GtkWidget * pwidget, GdkEventButton * peventbutton);
+
+      void defer_show_system_menu(::user::mouse * pmouse) override;
       //void set_mouse_capture() override;
       //void release_mouse_capture() override;
 
@@ -285,9 +295,9 @@ void defer_show_system_menu(const point_i32& pointAbsolute) override;
       bool set_window_position(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;
 
 
-      bool _set_window_position_unlocked(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay);
-      bool _configure_window_unlocked(const class ::zorder& zorder, const ::e_activation& eactivation, bool bNoZorder, ::e_display edisplay);
-      bool _strict_set_window_position_unlocked(i32 x, i32 y, i32 cx, i32 cy, bool bNoMove, bool bNoSize);
+      bool _set_window_position_unlocked(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;
+      bool _configure_window_unlocked(const class ::zorder& zorder, const ::e_activation& eactivation, bool bNoZorder, ::e_display edisplay) override;
+      bool _strict_set_window_position_unlocked(i32 x, i32 y, i32 cx, i32 cy, bool bNoMove, bool bNoSize) override;
 
 
 //      virtual comparable_array < Atom > _wm_get_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList);
@@ -388,9 +398,9 @@ void defer_show_system_menu(const point_i32& pointAbsolute) override;
       //void _on_simple_key_message(::user::e_key ekey, ::enum_message emesssage) override;
       //void _on_text_composition(const ::scoped_string & scopedstrText) override;
 
-      bool defer_perform_entire_reposition_process() override;
+      bool defer_perform_entire_reposition_process(::user::mouse * pmouse) override;
 
-      bool defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing) override;
+      bool defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse * pmouse) override;
 
       void on_destruct_mouse_message(::message::mouse * pmouse) override;
 
