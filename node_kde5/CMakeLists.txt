@@ -54,6 +54,7 @@ list(APPEND library_references
         windowing_x11
         windowing_xcb
         windowing_wayland
+        windowing_kde5
 )
 
 if (${HAS_WAYLAND})

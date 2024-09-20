@@ -4,8 +4,9 @@
 #include "appindicator.h"
 #include "desktop_environment.h"
 #include "node.h"
-#include "windowing_system_wayland/windowing_system.h"
-#include "windowing_system_xcb/windowing_system.h"
+//#include "windowing_system_wayland/windowing_system.h"
+//#include "windowing_system_xcb/windowing_system.h"
+//#include "windowing_system_kde5/windowing_system.h"
 
 //
 //namespace nano
@@ -22,14 +23,22 @@
 //}// namespace nano
 //
 
-__FACTORY_EXPORT void windowing_xcb_factory(::factory::factory * pfactory);
-__FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory);
-#if !defined(RASPBERRYPIOS)
-__FACTORY_EXPORT void windowing_wayland_factory(::factory::factory * pfactory);
-#endif
+// __FACTORY_EXPORT void windowing_xcb_factory(::factory::factory * pfactory);
+// __FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory);
+// #if !defined(RASPBERRYPIOS)
+// __FACTORY_EXPORT void windowing_wayland_factory(::factory::factory * pfactory);
+// #endif
+
+
+__FACTORY_EXPORT void windowing_kde5_factory(::factory::factory * pfactory);
+
 
 __FACTORY_EXPORT void node_kde_factory(::factory::factory * pfactory)
 {
+
+
+   windowing_kde5_factory(pfactory);
+
 
 //   __FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory);
 //
@@ -37,34 +46,34 @@ __FACTORY_EXPORT void node_kde_factory(::factory::factory * pfactory)
 //   __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
 //   {
 
-   auto edisplaytype = ::nano::user::get_display_type();
-
-#if !defined(RASPBERRYPIOS) && !defined(FREEBSD) && !defined(__XFCE) && !defined(OPENBSD)
-
-   if(edisplaytype == e_display_type_wayland)
-   {
-
-      //windowing_x11_factory(pfactory);
-
-      windowing_wayland_factory(pfactory);
-      pfactory->add_factory_item<::wayland::windowing_system, ::windowing_system::windowing_system>();
-   }
-   else
-#endif
-   {
-
-// #if defined(OPENBSD)
+//    auto edisplaytype = ::nano::user::get_display_type();
+//
+// #if !defined(RASPBERRYPIOS) && !defined(FREEBSD) && !defined(__XFCE) && !defined(OPENBSD)
+//
+//    if(edisplaytype == e_display_type_wayland)
+//    {
+//
+//       //windowing_x11_factory(pfactory);
+//
+//       windowing_wayland_factory(pfactory);
+//       pfactory->add_factory_item<::wayland::windowing_system, ::windowing_system::windowing_system>();
+//    }
+//    else
+// #endif
+//    {
+//
+// // #if defined(OPENBSD)
+// //
+// //       windowing_xcb_factory(pfactory);
+// //
+// // #else
 //
 //       windowing_xcb_factory(pfactory);
+//       pfactory->add_factory_item<::xcb::windowing_system, ::windowing_system::windowing_system>();
+// // #endif
 //
-// #else
-
-      windowing_xcb_factory(pfactory);
-      pfactory->add_factory_item<::xcb::windowing_system, ::windowing_system::windowing_system>();
-// #endif
-
-   }
-
+//    }
+   //pfactory->add_factory_item<::windowing_system_kde5::windowing_system, ::windowing_system::windowing_system>();
 //   ::string strSessionType = getenv("XDG_SESSION_TYPE");
 //
 //   strSessionType.make_lower();

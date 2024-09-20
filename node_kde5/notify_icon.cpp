@@ -11,7 +11,9 @@
 #include "aura/graphics/image/drawing.h"
 #include "aura/graphics/image/context.h"
 #include "aura/platform/context.h"
+#include "aura/user/user/user.h"
 #include "aura/windowing/icon.h"
+#include "windowing_kde5/windowing.h"
 #include <QMenu>
 //#include <QMe>
 
@@ -66,7 +68,11 @@ namespace node_kde5
 
       ::pointer < ::node_kde5::node > pnode = system()->node();
 
-      QObject::setParent(pnode->m_pqapplication);
+      ::pointer < ::windowing_kde5::windowing > pwindowing = user()->windowing();
+
+      auto pqapplication = pwindowing->m_pqapplication;
+
+      QObject::setParent(pqapplication);
 
       auto estatus = _create_status_notifier_item();
 

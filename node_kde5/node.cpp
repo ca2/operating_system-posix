@@ -16,7 +16,9 @@
 #include "acme/user/user/theme_colors.h"
 #include "apex/platform/system.h"
 #include "acme/platform/ini.h"
+#include "aura/user/user/user.h"
 #include "aura/windowing/windowing.h"
+#include "windowing_kde5/windowing.h"
 #include <kworkspace5/kworkspace.h>
 #include <KColorScheme>
 #include <KFileItem>
@@ -27,20 +29,22 @@
 #include <QFileDialog>
 #include <QDBusInterface>
 #include <qpa/qplatformnativeinterface.h>
+
+//#include "windowing_kde5/display.h"
 //#include <KPackage/Package>
 //#include <KPackage/PackageLoader>
 //#include <KF5/plasma/applet.h>
 //#include <KF5/plasma/containment.h>
 
 
-namespace x11::nano::user
-{
-
-
-   CLASS_DECL_NANO_USER_X11 display * display_get(::particle * pparticle, bool bBranch = true, Display * pdisplay = nullptr);
-
-
-} // namespace x11::nano::user
+// namespace x11::nano::user
+// {
+//
+//
+//    CLASS_DECL_NANO_USER_X11 display * display_get(::particle * pparticle, bool bBranch = true, Display * pdisplay = nullptr);
+//
+//
+// } // namespace x11::nano::user
 
 
 // void initialize_x11_display(::particle * pparticle, void * pX11Display);
@@ -83,7 +87,7 @@ namespace node_kde5
 
       m_pNodeKDE5 = this;
 
-      m_pqapplication = nullptr;
+      //m_pqapplication = nullptr;
 
       m_piconloader = nullptr;
 
@@ -96,12 +100,12 @@ namespace node_kde5
    {
 
 
-      if(m_pqapplication != nullptr)
-      {
-
-         delete m_pqapplication;
-
-      }
+      // if(m_pqapplication != nullptr)
+      // {
+      //
+      //    delete m_pqapplication;
+      //
+      // }
 
 //
 //      _destroy_node_kde();
@@ -132,7 +136,7 @@ namespace node_kde5
    void node::user_post_quit()
    {
 
-      m_pqapplication->quit();
+      //m_pqapplication->quit();
 
    }
 
@@ -193,26 +197,37 @@ namespace node_kde5
    }
 
 
+   void node::on_start_system()
+   {
+
+      auto * psystem = this->system();
+
+      psystem->on_branch_system_from_main_thread_startup();
+
+   }
+
+
+
    void node::on_system_main()
    {
 
-      //auto estatus =
+      // //auto estatus =
+      // //
       //
-
-      system()->m_itask = 0;
-
-      system()->m_htask = (htask_t) 0;
-
-      system()->m_papexsystem->branch();
-
-      /// new:platform_create_system:decrement_reference_count
-      /// begin_synch starts new thread
-      /// the framework will hold a reference to the system as this
-      /// new started thread
-      /// now it is safe to release the platform_create_system
-      /// creation reference.
-
-      system()->decrement_reference_count();
+      // system()->m_itask = 0;
+      //
+      // system()->m_htask = (htask_t) 0;
+      //
+      // system()->m_papexsystem->branch();
+      //
+      // /// new:platform_create_system:decrement_reference_count
+      // /// begin_synch starts new thread
+      // /// the framework will hold a reference to the system as this
+      // /// new started thread
+      // /// now it is safe to release the platform_create_system
+      // /// creation reference.
+      //
+      // system()->decrement_reference_count();
 
 //      if (!estatus)
 //      {
@@ -263,7 +278,7 @@ namespace node_kde5
 
       system()->m_ewindowing = calculate_ewindowing();
 
-      system()->__construct(system()->m_pwindowingsystem);
+      //system()->__construct(system()->m_pwindowingsystem);
 
       // ::pointer < ::node_gdk::windowing_system> pnodegdkwindowingsystem = system()->m_pwindowingsystem;
       //
@@ -274,11 +289,13 @@ namespace node_kde5
       //
       // }
 
-      auto psystem = system()->m_papexsystem;
+      // auto psystem = system()->m_papexsystem;
+      //
+      // psystem->defer_post_initial_request();
 
-      psystem->defer_post_initial_request();
+      //_qapplication_exec();
 
-      _qapplication_exec();
+      windowing()->windowing_application_main_loop();
 
    }
 
@@ -290,24 +307,24 @@ namespace node_kde5
 
       auto psystem = pparticle->system();
 
-      m_pqapplication = new QApplication(psystem->m_pplatform->m_argc, psystem->m_pplatform->m_args);
-
-      if(!m_pqapplication)
-      {
-
-         printf("%s", "Failed to create QApplication");
-
-         throw ::exception(error_failed);
-
-      }
-
-      information() << "node_kde::node initialize QApplication : " << (::iptr) m_pqapplication;
-
-      m_pqapplication->setQuitOnLastWindowClosed(false);
-
-      //main_asynchronous([])
-
-      m_pqapplication->installEventFilter(this);
+      // m_pqapplication = new QApplication(psystem->m_pplatform->m_argc, psystem->m_pplatform->m_args);
+      //
+      // if(!m_pqapplication)
+      // {
+      //
+      //    printf("%s", "Failed to create QApplication");
+      //
+      //    throw ::exception(error_failed);
+      //
+      // }
+      //
+      // information() << "node_kde::node initialize QApplication : " << (::iptr) m_pqapplication;
+      //
+      // m_pqapplication->setQuitOnLastWindowClosed(false);
+      //
+      // //main_asynchronous([])
+      //
+      // m_pqapplication->installEventFilter(this);
 
       //auto estatus =
       //
@@ -360,7 +377,7 @@ namespace node_kde5
 //      }
 
 
-         ::x11::nano::user::display_get(this, false, (Display *)p);
+         //::x11::nano::user::display_get(this, false, (Display *)p);
 
          return ::success;
 
@@ -370,7 +387,7 @@ namespace node_kde5
 
          m_bUnhookX = false;
 
-         m_pAuraPosixX11Display = ::x11::nano::user::display_get(this);
+         //m_pAuraPosixX11Display = ::x11::nano::user::display_get(this);
 
          return ::success;
 
@@ -646,7 +663,7 @@ namespace node_kde5
    }
 
 
-   string node::get_wallpaper(::collection::index iScreen)
+   string node::get_wallpaper(::collection::index iScreen, ::windowing::display * pdisplay)
    {
 
       return "";
@@ -657,17 +674,20 @@ namespace node_kde5
    void node::user_post(const ::procedure & procedure)
    {
 
-      // invoke on the main thread
-      QMetaObject::invokeMethod(
-         m_pqapplication,
-         [procedure]
-         {
 
-            procedure();
+      this->windowing()->main_post(procedure);
 
-         });
-
-      //return success;
+      // // invoke on the main thread
+      // QMetaObject::invokeMethod(
+      //    m_pqapplication,
+      //    [procedure]
+      //    {
+      //
+      //       procedure();
+      //
+      //    });
+      //
+      // //return success;
 
    }
 
@@ -821,9 +841,9 @@ namespace node_kde5
    ::e_status node::_qapplication_exec()
    {
 
-      m_pqapplication->installNativeEventFilter(this);
-
-      m_pqapplication->exec();
+      // m_pqapplication->installNativeEventFilter(this);
+      //
+      // m_pqapplication->exec();
 
       return ::success;
 
@@ -863,7 +883,11 @@ namespace node_kde5
 
       pathDesktop = acmedirectory()->home() / ".local/share/applications" / (strDesktopFileTitle + ".desktop");
 
-      kde_open_local_file(m_pqapplication, pathDesktop, "application/x-desktop");
+      ::pointer < ::windowing_kde5::windowing > pwindowing = user()->windowing();
+
+      auto pqapplication = pwindowing->m_pqapplication;
+
+      kde_open_local_file(pqapplication, pathDesktop, "application/x-desktop");
 
    }
 
@@ -1076,6 +1100,17 @@ namespace node_kde5
       return bDarkMode;
 
    }
+
+
+   void node::defer_innate_ui()
+   {
+
+      auto pfactory = system()->factory("innate_ui", "kde5");
+
+      pfactory->merge_to_global_factory();
+
+   }
+
 
 
 } // namespace node_kde5

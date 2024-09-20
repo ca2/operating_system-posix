@@ -42,7 +42,7 @@ namespace node_kde5
    }
 
 
-   ::e_status desktop_environment::_get_monitor_rectangle(::collection::index iIndex, ::rectangle_i32 *prectangle)
+   ::e_status desktop_environment::_get_monitor_rectangle(::collection::index iIndex, ::rectangle_i32 & rectangle)
    {
 
       //synchronous_lock sl(user_synchronization());
@@ -72,17 +72,17 @@ namespace node_kde5
 
       pscreen->geometry().getCoords(&left, &top, &right, &bottom);
 
-      prectangle->left()     = left;
-      prectangle->top()      = top;
-      prectangle->right()    = right + 1;
-      prectangle->bottom()   = bottom + 1;
+      rectangle.left()     = left;
+      rectangle.top()      = top;
+      rectangle.right()    = right + 1;
+      rectangle.bottom()   = bottom + 1;
 
       return ::success;
 
    }
 
 
-   ::e_status desktop_environment::_get_workspace_rectangle(::collection::index iIndex, ::rectangle_i32 *prectangle)
+   ::e_status desktop_environment::_get_workspace_rectangle(::collection::index iIndex, ::rectangle_i32 & rectangle)
    {
 
       //synchronous_lock sl(user_synchronization());
@@ -112,17 +112,17 @@ namespace node_kde5
 
       pscreen->availableGeometry().getCoords(&left, &top, &right, &bottom);
 
-      prectangle->left()     = left;
-      prectangle->top()      = top;
-      prectangle->right()    = right + 1;
-      prectangle->bottom()   = bottom + 1;
+      rectangle.left()     = left;
+      rectangle.top()      = top;
+      rectangle.right()    = right + 1;
+      rectangle.bottom()   = bottom + 1;
 
       return ::success;
 
    }
 
 
-   void desktop_environment::get_monitor_rectangle(::collection::index iIndex, ::rectangle_i32 *prectangle)
+   bool desktop_environment::get_monitor_rectangle(::collection::index iIndex, ::rectangle_i32 & rectangle)
    {
 
       if(m_bX11)
@@ -130,7 +130,12 @@ namespace node_kde5
 
          //synchronous_lock sl(user_synchronization());
 
-         _get_monitor_rectangle(iIndex, prectangle);
+         if(_get_monitor_rectangle(iIndex, rectangle).failed())
+         {
+
+            return false;
+
+         }
 
          //m_pwindowing->windowing_send([this, iIndex, prectangle]() { _get_monitor_rectangle(iIndex, prectangle); });
 
@@ -138,14 +143,21 @@ namespace node_kde5
       else
       {
 
-         _get_monitor_rectangle(iIndex, prectangle);
+         if(_get_monitor_rectangle(iIndex, rectangle).failed())
+         {
+
+            return false;
+
+         }
 
       }
+
+      return true;
 
    }
 
 
-   void desktop_environment::get_workspace_rectangle(::collection::index iIndex, ::rectangle_i32 *prectangle)
+   bool desktop_environment::get_workspace_rectangle(::collection::index iIndex, ::rectangle_i32 & rectangle)
    {
 
       if(m_bX11)
@@ -153,7 +165,12 @@ namespace node_kde5
 
          //synchronous_lock sl(user_synchronization());
 
-         _get_workspace_rectangle(iIndex, prectangle);
+         if(_get_workspace_rectangle(iIndex, rectangle).failed())
+         {
+
+            return false;
+
+         }
 
          //m_pwindowing->windowing_send([this, iIndex, prectangle]() { _get_workspace_rectangle(iIndex, prectangle); });
 
@@ -161,9 +178,16 @@ namespace node_kde5
       else
       {
 
-         _get_workspace_rectangle(iIndex, prectangle);
+         if(_get_workspace_rectangle(iIndex, rectangle).failed())
+         {
+
+            return false;
+
+         }
 
       }
+
+      return true;
 
    }
 
@@ -171,22 +195,7 @@ namespace node_kde5
    void desktop_environment::user_post(const ::procedure & procedure)
    {
 
-      auto psystem = system()->m_paurasystem;
-
-      ::pointer < ::node_kde5::node > pnode = psystem->node();
-
-      auto pqapplication = pnode->m_pqapplication;
-
-      // invoke on the main thread
-      QMetaObject::invokeMethod(
-         pqapplication,
-         [procedure]
-         {
-
-            procedure();
-
-         });
-
+      user()->windowing()->main_post(procedure);
 
       //return success;
 

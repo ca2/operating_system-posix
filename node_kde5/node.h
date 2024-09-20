@@ -36,7 +36,7 @@ namespace node_kde5
 
       KIconLoader *        m_piconloader;
 
-      QApplication *       m_pqapplication;
+      //QApplication *       m_pqapplication;
 
       QPalette             m_qpalette;
 
@@ -62,6 +62,8 @@ namespace node_kde5
 
       bool eventFilter(QObject * pparticle, QEvent * pevent) override;
 
+      void on_start_system() override;
+
       void on_system_main() override;
 
       void initialize(::particle * pparticle) override;
@@ -86,7 +88,7 @@ namespace node_kde5
 
       bool set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay) override;
 
-      string get_wallpaper(::collection::index iScreen) override;
+      string get_wallpaper(::collection::index iScreen, ::windowing::display * pwindowingdisplay) override;
 
       //using ::aura::node::node_fork;
 
@@ -130,6 +132,9 @@ namespace node_kde5
 
 
       bool dark_mode() const override;
+
+
+      void defer_innate_ui() override;
 
 
    };

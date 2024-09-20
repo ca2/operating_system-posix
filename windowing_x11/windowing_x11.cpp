@@ -2062,7 +2062,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                }
 
             }
-            else if (px11window && px11window->m_window == msg.oswindow && !px11window->has_flag(e_flag_destroying))
+            else if (px11window && px11window->m_window == (Window) msg.oswindow && !px11window->has_flag(e_flag_destroying))
             {
 
                msg.time = e.xproperty.time;
@@ -2374,7 +2374,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
             informationf("windowing_x11 UnmapNotify");
 
-            if (msg.oswindow && px11window && px11window->m_window == msg.oswindow && !px11window->has_flag(e_flag_destroying))
+            if (msg.oswindow && px11window && px11window->m_window == (Window) msg.oswindow && !px11window->has_flag(e_flag_destroying))
             {
 
 //               auto iWindow = px11window->payload("destroying_window").as_i64();
@@ -3022,7 +3022,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
             windowing_output_debug_string("windowing_x11.cpp DestroyNotify");
 
-            if (msg.oswindow && px11window && px11window->m_window == msg.oswindow)
+            if (msg.oswindow && px11window && px11window->m_window == (Window) msg.oswindow)
             {
               // msg.oswindow = m_pdisplay->_window(e.xdestroywindow.window);
               // msg.m_atom = e_message_destroy;

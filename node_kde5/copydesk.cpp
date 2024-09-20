@@ -7,9 +7,12 @@
 #include "aura/platform/system.h"
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
+#include "windowing_system_kde5/windowing_system.h"
 #include <QApplication>
 #include <QClipboard>
 #include <QMimeData>
+
+#include "windowing_kde5/windowing.h"
 
 
 namespace node_kde5
@@ -245,7 +248,9 @@ return false;
 
                    auto pnode = psystem->node()->m_pNodeKDE5;
 
-                   auto pqapplication = pnode->m_pqapplication;
+                   ::pointer < ::windowing_kde5::windowing > pwindowing = user()->windowing();
+
+                   auto pqapplication = pwindowing->m_pqapplication;
 
                    auto pclipboard = pqapplication->clipboard();
 
@@ -306,7 +311,9 @@ return false;
 
       auto pnode = psystem->node()->m_pNodeKDE5;
 
-      auto pqapplication = pnode->m_pqapplication;
+      ::pointer < ::windowing_kde5::windowing > pwindowing = user()->windowing();
+
+      auto pqapplication = pwindowing->m_pqapplication;
 
       auto pclipboard = pqapplication->clipboard();
 
