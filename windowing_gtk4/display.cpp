@@ -265,20 +265,51 @@ namespace windowing_gtk4
 
    //    display_base::open();
 
+      m_monitora.clear();
+
       m_pgdkdisplay = gdk_display_get_default();
 
-      if(is_wayland())
-      {
-         m_pwldisplay = gdk_wayland_display_get_wl_display(m_pgdkdisplay);
+      auto * monitors = gdk_display_get_monitors(m_pgdkdisplay);
 
-         // Step 2: Get the registry
-         auto * wl_registry = wl_display_get_registry(m_pwldisplay);
 
-         wl_registry_add_listener(wl_registry, &s_registry_listener, this);
+      guint n_monitors = g_list_model_get_n_items(monitors);
 
-         // Step 3: Roundtrip to process the registry and bind the objects
-         wl_display_roundtrip(m_pwldisplay);
+      // Iterate over each monitor
+      for (guint i = 0; i < n_monitors; i++) {
+         GdkMonitor *monitor = GDK_MONITOR(g_list_model_get_item(monitors, i));
+
+         auto pmonitor = __create_new < ::windowing::monitor >();
+
+         pmonitor->m_pdisplay = this;
+
+
+         // Get the geometry (rectangle) of the monitor
+         GdkRectangle geometry;
+         gdk_monitor_get_geometry(monitor, &geometry);
+
+         // Print monitor geometry details
+         printf("Monitor %u: x = %d, y = %d, width = %d, height = %d\n",
+                i, geometry.x, geometry.y, geometry.width, geometry.height);
+         ::copy(pmonitor->m_rectangle, geometry);
+         ::copy(pmonitor->m_rectangleWorkspace, geometry);
+         // Unref the monitor object as we no longer need it
+         g_object_unref(monitor);
+
+         m_monitora.add(pmonitor);
       }
+
+      // if(is_wayland())
+      // {
+      //    m_pwldisplay = gdk_wayland_display_get_wl_display(m_pgdkdisplay);
+      //
+      //    // Step 2: Get the registry
+      //    auto * wl_registry = wl_display_get_registry(m_pwldisplay);
+      //
+      //    wl_registry_add_listener(wl_registry, &s_registry_listener, this);
+      //
+      //    // Step 3: Roundtrip to process the registry and bind the objects
+      //    wl_display_roundtrip(m_pwldisplay);
+      // }
 
     }
 
