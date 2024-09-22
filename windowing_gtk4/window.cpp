@@ -2180,11 +2180,13 @@ namespace windowing_gtk4
    //void window::create_window(::user::interaction_impl * pimpl)
    void window::create_window()
    {
+
       bool bOk = true;
 
       ::user::interaction_impl* pimpl = m_puserinteractionimpl;
 
       {
+
          _synchronous_lock synchronouslock(user_synchronization());
 
          auto pusersystem = pimpl->m_puserinteraction->m_pusersystem;

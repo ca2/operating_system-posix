@@ -1052,7 +1052,7 @@ namespace windowing_gtk4
       ::string strId = application()->m_strAppId;
 
       strId.find_replace("/", ".");
-      strId.find_replace("-", "_");
+      strId.find_replace("_", "-");
 
       //gtk_init();
 
@@ -1087,8 +1087,9 @@ namespace windowing_gtk4
       //
       // }
 
+      g_application_run (G_APPLICATION(m_pgtkapplication), 0, nullptr);
 
-      g_application_run (G_APPLICATION(m_pgtkapplication), platform()->get_argc(), platform()->get_args());
+      //g_application_run (G_APPLICATION(m_pgtkapplication), platform()->get_argc(), platform()->get_args());
       //aaa_x11_main();
 
 
