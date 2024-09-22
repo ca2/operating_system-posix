@@ -10,6 +10,7 @@
 #include "display.h"
 #include "cursor.h"
 #include "acme/constant/message.h"
+#include "acme/operating_system/a_system_menu.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/primitive/geometry2d/_text_stream.h"
 #include "acme/user/user/_text_stream.h"
@@ -211,10 +212,10 @@ namespace windowing_gtk4
       resizing = false;
       moving = false;
 
-      m_windowbuttonpresseda[0].m_pwindow = this;
-      m_windowbuttonpresseda[0].m_pszName = "move";
-      m_windowbuttonpresseda[1].m_pwindow = this;
-      m_windowbuttonpresseda[1].m_pszName = "size";
+      // m_windowbuttonpresseda[0].m_pwindow = this;
+      // m_windowbuttonpresseda[0].m_pszName = "move";
+      // m_windowbuttonpresseda[1].m_pwindow = this;
+      // m_windowbuttonpresseda[1].m_pszName = "size";
       //m_bNetWmStateHidden = false;
       //m_bNetWmStateMaximized = false;
       //m_bNetWmStateFocused = false;
@@ -324,6 +325,9 @@ namespace windowing_gtk4
    GMenu* window::_create_system_menu()
    {
 
+      m_psystemmenu = create_system_menu();
+
+
       // Create a GMenu that will be used by the popover
       auto * pmenu = g_menu_new();
 
@@ -340,10 +344,13 @@ namespace windowing_gtk4
       // Add "Option 2" to the GMenu
 
 
-      for(::collection::index i = 0; i < m_straSystemMenuAtom.size(); i++)
+      //for(::collection::index i = 0; i < m_straSystemMenuAtom.size(); i++)
+      for(auto pitem : *m_psystemmenu)
       {
-         ::string strName = m_straSystemMenuName[i];
-         ::string strAtom = m_straSystemMenuAtom[i];
+
+         ::string strName = pitem->m_strName;
+         ::string strAtom = pitem->m_strAtom;
+         pitem->m_pWindowingImplWindow = this;
          if(strAtom == "(separator)")
          {
             pmenuSection = g_menu_new();
@@ -396,8 +403,9 @@ namespace windowing_gtk4
    static void on_window_button_pressed(GtkGestureClick *gesture, int n_press, double x, double y, gpointer p)
    {
 
-      auto ppressed = (::windowing_gtk4::window_button_pressed_t *)p;
-      ppressed->m_pwindow->_on_window_button_pressed(ppressed->m_pwidget, ppressed->m_pszName, gesture, n_press, x, y);
+      auto pitem = (::operating_system::a_system_menu_item *)p;
+      auto pwindow = (::windowing_gtk4::window *) pitem->m_pWindowingImplWindow;
+      pwindow->_on_window_button_pressed(pitem, gesture, n_press, x, y);
       // defer_perform_entire_reposition_process(nullptr);
       // if (n_press == 1) {  // Single click
       //    g_print("Menu button pressed\n");
@@ -406,8 +414,9 @@ namespace windowing_gtk4
    static void on_window_button_released(GtkGestureClick *gesture, int n_press, double x, double y, gpointer p)
    {
 
-      auto ppressed = (::windowing_gtk4::window_button_pressed_t *)p;
-      ppressed->m_pwindow->_on_window_button_released(ppressed->m_pwidget, ppressed->m_pszName, gesture, n_press, x, y);
+      auto pitem = (::operating_system::a_system_menu_item *)p;
+      auto pwindow = (::windowing_gtk4::window *) pitem->m_pWindowingImplWindow;
+      pwindow->_on_window_button_released(pitem, gesture, n_press, x, y);
       // defer_perform_entire_reposition_process(nullptr);
       // if (n_press == 1) {  // Single click
       //    g_print("Menu button pressed\n");
@@ -789,10 +798,10 @@ namespace windowing_gtk4
       // // Apply the CSS to the button's style context
       //
       int iWindowButtonPress = 0;
-       for(::collection::index i = 0; i < m_straSystemMenuAtom.size(); i++)
+       for(auto pitem : *m_psystemmenu)
        {
-          ::string strAtom = m_straSystemMenuAtom[i];
-          ::string strName = m_straSystemMenuName[i];
+          ::string strAtom = pitem->m_strAtom;
+          ::string strName = pitem->m_strName;
 
           if(strAtom.begins_eat("***"))
           {
@@ -828,10 +837,11 @@ namespace windowing_gtk4
              //gtk_widget_set_hexpand(pbutton, TRUE);
 
              // Get the label from the button
-             m_windowbuttonpresseda[iWindowButtonPress].m_pwidget = pbutton;
+             //m_windowbuttonpresseda[iWindowButtonPress].m_pwidget = pbutton;
+             pitem->m_pWidgetImpl = GTK_WIDGET(pbutton);
              GtkGesture *gesture = gtk_gesture_click_new();
              gtk_gesture_single_set_button(GTK_GESTURE_SINGLE(gesture), 1); // Left mouse button
-             g_signal_connect(gesture, "pressed", G_CALLBACK(on_window_button_pressed), m_windowbuttonpresseda + iWindowButtonPress);
+             g_signal_connect(gesture, "pressed", G_CALLBACK(on_window_button_pressed), pitem.m_p);
              //g_signal_connect(gesture, "released", G_CALLBACK(on_window_button_released), m_windowbuttonpresseda + iWindowButtonPress);
              //
              // // Add the gesture to the menu button
@@ -845,12 +855,12 @@ namespace windowing_gtk4
            //  gtk_box_append(GTK_BOX(pbox), pbutton);
              iWindowButtonPress++;
           }
-          if(iWindowButtonPress >= (sizeof(m_windowbuttonpresseda)/sizeof(m_windowbuttonpresseda[0])))
-          {
-
-             break;
-
-          }
+          // if(iWindowButtonPress >= (sizeof(m_windowbuttonpresseda)/sizeof(m_windowbuttonpresseda[0])))
+          // {
+          //
+          //    break;
+          //
+          // }
        }
       //
       // //gtk_widget_set_parent(GTK_WIDGET(pbox), ppopover);
@@ -1009,10 +1019,10 @@ namespace windowing_gtk4
          ::image::image_drawing_options imagedrawingoptions(r);
          ::image::image_drawing imagedrawing(imagedrawingoptions, imagesource);
          pgraphics->draw(imagedrawing);
-         pgraphics->set_text_color(::color::white);
-         ::string strSize;
-         strSize.formatf("Size: %d, %d\nSizeOnSize: %d, %d", width, height, m_sizeOnSize.cx(), m_sizeOnSize.cy());
-         pgraphics->text_out({10, 10}, strSize);
+         //pgraphics->set_text_color(::color::white);
+         //::string strSize;
+         //strSize.formatf("Size: %d, %d\nSizeOnSize: %d, %d", width, height, m_sizeOnSize.cx(), m_sizeOnSize.cy());
+         //pgraphics->text_out({10, 10}, strSize);
          pgraphics->detach();
          m_puserinteractionimpl->m_pgraphicsgraphics->on_end_draw();
       }
@@ -1359,7 +1369,7 @@ namespace windowing_gtk4
    }
 
 
-   void window::_on_window_button_pressed(GtkWidget * pwidget, const char * pszName, GtkGestureClick * pgesture, int n_press, double x, double y)
+   void window::_on_window_button_pressed(::operating_system::a_system_menu_item * pitem, GtkGestureClick * pgesture, int n_press, double x, double y)
    {
 
       if(n_press == 1)
@@ -1395,7 +1405,7 @@ namespace windowing_gtk4
          }
 
 
-         if(::string_equals(pszName, "move"))
+         if(pitem->m_strAtom == "***move")
          {
 
             gtk_gesture_set_state (GTK_GESTURE (pgesture), GTK_EVENT_SEQUENCE_CLAIMED);
@@ -1429,6 +1439,7 @@ namespace windowing_gtk4
             //auto ppopover = GTK_POPOVER(gtk_widget_get_ancestor(pwidget, GTK_TYPE_POPOVER_MENU));
 
             //gtk_widget_set_visible(GTK_WIDGET(ppopover), false);
+            auto * pwidget = (GtkWidget *) pitem->m_pWidgetImpl;
             auto ppopover = GTK_POPOVER(gtk_widget_get_ancestor(pwidget, GTK_TYPE_POPOVER_MENU));
 
             gtk_widget_set_visible(GTK_WIDGET(ppopover), false);
@@ -1465,7 +1476,7 @@ namespace windowing_gtk4
 
 
          }
-         else if(::string_equals(pszName, "size"))
+         else if(pitem->m_strAtom ==  "***size")
          {
             // m_pointCursor2.x() = 4;
             // m_pointCursor2.y() = 4;
@@ -1517,6 +1528,7 @@ namespace windowing_gtk4
             //auto ppopover = GTK_POPOVER(gtk_widget_get_ancestor(pwidget, GTK_TYPE_POPOVER_MENU));
 
             //gtk_widget_set_visible(GTK_WIDGET(ppopover), false);
+            auto * pwidget = (GtkWidget *) pitem->m_pWidgetImpl;
             auto ppopover = GTK_POPOVER(gtk_widget_get_ancestor(pwidget, GTK_TYPE_POPOVER_MENU));
 
             gtk_widget_set_visible(GTK_WIDGET(ppopover), false);
@@ -1548,7 +1560,7 @@ namespace windowing_gtk4
 
 
 
-      void window::_on_window_button_released(GtkWidget * pwidget, const char * pszName, GtkGestureClick * pgesture, int n_press, double x, double y)
+   void window::_on_window_button_released(::operating_system::a_system_menu_item * pitem, GtkGestureClick * pgesture, int n_press, double x, double y)
    {
 
       if(n_press == 1)
@@ -1584,7 +1596,7 @@ namespace windowing_gtk4
          }
 
 
-         if(::string_equals(pszName, "move"))
+         if(pitem->m_strAtom == "***move")
          {
 
 
@@ -1616,7 +1628,7 @@ namespace windowing_gtk4
 
 
          }
-         else if(::string_equals(pszName, "size"))
+         else if(pitem->m_strAtom == "***size")
          {
             m_pointCursor2.x() = 4;
             m_pointCursor2.y() = 4;
@@ -2437,39 +2449,41 @@ namespace windowing_gtk4
          //
          //         }
 
-         m_straSystemMenuName.clear();
-         m_straSystemMenuAtom.clear();
+         // m_straSystemMenuName.clear();
+         // m_straSystemMenuAtom.clear();
+         //
+         // m_straSystemMenuName.add("Minimize");
+         // m_straSystemMenuAtom.add("minimize");
+         //
+         // m_straSystemMenuName.add("Maximize");
+         // m_straSystemMenuAtom.add("maximize");
+         //
+         // m_straSystemMenuName.add("Drag to Move");
+         // m_straSystemMenuAtom.add("***move");
+         //
+         // m_straSystemMenuName.add("Drag to Size");
+         // m_straSystemMenuAtom.add("***size");
+         //
+         // m_straSystemMenuName.add("");
+         // m_straSystemMenuAtom.add("(separator)");
+         //
+         // m_straSystemMenuName.add("About...");
+         // m_straSystemMenuAtom.add("about_box");
+         //
+         // m_straSystemMenuName.add("");
+         // m_straSystemMenuAtom.add("(separator)");
+         //
+         // m_straSystemMenuName.add("Close");
+         // m_straSystemMenuAtom.add("close");
 
-         m_straSystemMenuName.add("Minimize");
-         m_straSystemMenuAtom.add("minimize");
+         auto psystemmenu = create_system_menu();
 
-         m_straSystemMenuName.add("Maximize");
-         m_straSystemMenuAtom.add("maximize");
-
-         m_straSystemMenuName.add("Drag to Move");
-         m_straSystemMenuAtom.add("***move");
-
-         m_straSystemMenuName.add("Drag to Size");
-         m_straSystemMenuAtom.add("***size");
-
-         m_straSystemMenuName.add("");
-         m_straSystemMenuAtom.add("(separator)");
-
-         m_straSystemMenuName.add("About...");
-         m_straSystemMenuAtom.add("about_box");
-
-         m_straSystemMenuName.add("");
-         m_straSystemMenuAtom.add("(separator)");
-
-         m_straSystemMenuName.add("Close");
-         m_straSystemMenuAtom.add("close");
-
-         for(auto & strAction : m_straSystemMenuAtom)
+         for(auto & pitem:*psystemmenu)
          {
 
-            if(strAction.has_char())
+            if(pitem->m_strAtom.has_char() && !pitem->m_strAtom.begins("***"))
             {
-               auto action = g_simple_action_new(strAction, NULL);
+               auto action = g_simple_action_new(pitem->m_strAtom, NULL);
                g_signal_connect(action, "activate", G_CALLBACK(on_window_simple_action), this);
                g_action_map_add_action(G_ACTION_MAP(m_pgtkwidget), G_ACTION(action));
             }
