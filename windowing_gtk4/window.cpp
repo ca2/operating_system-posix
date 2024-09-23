@@ -37,6 +37,7 @@
 
 
 #include <gtk/gtk.h>
+#include <X11/Xlib.h>
 
 /* Declare the SubclassedModelButton type */
 typedef struct _SubclassedModelButton SubclassedModelButton;

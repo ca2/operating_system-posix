@@ -28,8 +28,8 @@ namespace windowing_gtk4
 
 
 GdkDisplay * m_pgdkdisplay;
-         wl_display * m_pwldisplay;
-         xdg_wm_base * m_pxdgwmbase;
+         //wl_display * m_pwldisplay;
+         //xdg_wm_base * m_pxdgwmbase;
       //Atom                                         m_atoma[::x11::e_atom_count];
 
 

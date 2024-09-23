@@ -29,9 +29,9 @@ extern ::app_core * g_pappcore;
 //#include <unistd.h>
 
 //Display * x11_get_display();
-#include <wayland-client.h>
-#include <wayland-client-protocol.h>
-#include <xdg-shell-client-protocol.h>
+//#include <wayland-client.h>
+//#include <wayland-client-protocol.h>
+//#include <xdg-shell-client-protocol.h>
 ::particle * user_synchronization();
 
 
@@ -56,31 +56,31 @@ void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString)
 namespace windowing_gtk4
 {
 
-      // Callback for registry listener to bind global Wayland objects
-      static void
-      s_registry_handler(void *data, struct wl_registry *wl_registry, uint32_t id, const char *interface, uint32_t version)
-      {
-         auto pdisplay = (::windowing_gtk4::display *) data;
-         if (strcmp(interface, wl_compositor_interface.name) == 0) {
-            //compositor = wl_registry_bind(registry, id, &wl_compositor_interface, 1);
-         } else if (strcmp(interface, xdg_wm_base_interface.name) == 0) {
-            pdisplay->m_pxdgwmbase = (xdg_wm_base*) wl_registry_bind(wl_registry, id, &xdg_wm_base_interface, 1);
-            printf("xdg_wm_base obtained!\n");
-         }
-      }
-
-      // Callback for removing global objects (optional)
-      static void
-      s_registry_remover(void *data, struct wl_registry *registry, uint32_t id)
-      {
-         // Do nothing for now
-      }
-
-   static const struct wl_registry_listener s_registry_listener = {
-         s_registry_handler,
-         s_registry_remover
-      };
-
+//      // Callback for registry listener to bind global Wayland objects
+//      static void
+//      s_registry_handler(void *data, struct wl_registry *wl_registry, uint32_t id, const char *interface, uint32_t version)
+//      {
+//         auto pdisplay = (::windowing_gtk4::display *) data;
+//         if (strcmp(interface, wl_compositor_interface.name) == 0) {
+//            //compositor = wl_registry_bind(registry, id, &wl_compositor_interface, 1);
+//         } else if (strcmp(interface, xdg_wm_base_interface.name) == 0) {
+//            pdisplay->m_pxdgwmbase = (xdg_wm_base*) wl_registry_bind(wl_registry, id, &xdg_wm_base_interface, 1);
+//            printf("xdg_wm_base obtained!\n");
+//         }
+//      }
+//
+//      // Callback for removing global objects (optional)
+//      static void
+//      s_registry_remover(void *data, struct wl_registry *registry, uint32_t id)
+//      {
+//         // Do nothing for now
+//      }
+//
+//   static const struct wl_registry_listener s_registry_listener = {
+//         s_registry_handler,
+//         s_registry_remover
+//      };
+//
 
    display::display()
    {
@@ -88,8 +88,8 @@ namespace windowing_gtk4
       //m_bMouseCaptured = false;
 
       //zero(m_atoma);
-         m_pxdgwmbase=nullptr;
-      m_pwldisplay = nullptr;
+         //m_pxdgwmbase=nullptr;
+      //m_pwldisplay = nullptr;
 
       m_pDisplay = this;
       m_pgdkdisplay = nullptr;
