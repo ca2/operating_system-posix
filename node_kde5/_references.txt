@@ -1,4 +1,2 @@
-default_windowing_kde1
-default_windowing_kde2
-default_windowing_kde3
+operating_system-posix/windowing_kde5
 operating_system-posix/aura_posix
