@@ -4389,60 +4389,11 @@ namespace windowing_x11
    void window::set_active_window()
    {
 
-      //synchronous_lock synchronouslock(user_synchronization());
+      windowing_output_debug_string("::set_active_window 1");
 
-      /*
-            bool bOk = false;
+      ::x11::display_lock displaylock(x11_display()->Display());
 
-                  x11_sync([this, & bOk]()
-      {
-
-      {
-
-         windowing_output_debug_string("::set_active_window 1");
-
-         ::x11::display_lock displaylock(x11_display()->Display());
-
-         _set_active_window_unlocked();
-
-//         XEvent xev;
-//
-//         zero(xev);
-//
-//         auto windowRoot = DefaultRootWindow(Display());
-//
-//         Atom atomActiveWindow = x11_display()->intern_atom("_NET_ACTIVE_WINDOW", False);
-//
-//         xev.xclient.type = ClientMessage;
-//         xev.xclient.send_event = True;
-//         xev.xclient.display = Display();
-//         xev.xclient.window = Window();
-//         xev.xclient.message_type = atomActiveWindow;
-//         xev.xclient.format = 32;
-//         xev.xclient.data.l[0] = 1;
-//         xev.xclient.data.l[1] = 0;
-//         xev.xclient.data.l[2] = 0;
-//         xev.xclient.data.l[3] = 0;
-//         xev.xclient.data.l[4] = 0;
-//
-//         XSendEvent(Display(), windowRoot, False, SubstructureRedirectMask | SubstructureNotifyMask, &xev);
-//
-//         windowing_output_debug_string("::set_active_window 2");
-
-      }
-
-//      //auto estatus =
-//      //
-//      set_keyboard_focus();
-//
-////      if (!estatus)
-////      {
-////
-////         return estatus;
-////
-////      }
-////
-////  */    //return estatus;
+      _set_active_window_unlocked();
 
    }
 
@@ -4450,13 +4401,27 @@ namespace windowing_x11
    void window::_set_active_window_unlocked()
    {
 
-      //synchronous_lock synchronouslock(user_synchronization());
+      if (Window() == 0)
+      {
+
+         throw ::exception(error_failed);
+
+      }
+
+      windowing_output_debug_string("\nwindow(x11)::_set_foreground_window_unlocked 1");
+
+      if (!is_window())
+      {
+
+         windowing_output_debug_string("\nwindow(x11)::_set_foreground_window_unlocked 1.1");
+
+         throw ::exception(error_failed);
+
+      }
 
       {
 
          windowing_output_debug_string("::set_active_window 1");
-
-         //::x11::display_lock displaylock(x11_display()->Display());
 
          XEvent xev;
 
@@ -4484,18 +4449,7 @@ namespace windowing_x11
 
       }
 
-      //auto estatus =
-      //
-      set_keyboard_focus();
-
-//      if (!estatus)
-//      {
-//
-//         return estatus;
-//
-//      }
-//
-//      return estatus;
+      _set_keyboard_focus_unlocked();
 
    }
 
@@ -4504,17 +4458,9 @@ namespace windowing_x11
    void window::set_foreground_window()
    {
 
-      //synchronous_lock synchronouslock(user_synchronization());
-
       ::x11::display_lock displaylock(x11_display()->Display());
 
       _set_foreground_window_unlocked();
-
-//      XRaiseWindow(Display(), Window());
-//
-//      XSetInputFocus(Display(), Window(), RevertToNone, CurrentTime);
-
-      //return true;
 
    }
 
@@ -4523,15 +4469,27 @@ namespace windowing_x11
    void window::_set_foreground_window_unlocked()
    {
 
-//      synchronous_lock synchronouslock(user_synchronization());
-//
-//      ::x11::display_lock displaylock(x11_display()->Display());
+      if (Window() == 0)
+      {
+
+         throw ::exception(error_failed);
+
+      }
+
+      windowing_output_debug_string("\nwindow(x11)::_set_foreground_window_unlocked 1");
+
+      if (!is_window())
+      {
+
+         windowing_output_debug_string("\nwindow(x11)::_set_foreground_window_unlocked 1.1");
+
+         throw ::exception(error_failed);
+
+      }
 
       XRaiseWindow(Display(), Window());
 
-      XSetInputFocus(Display(), Window(), RevertToNone, CurrentTime);
-
-      //return true;
+      //XSetInputFocus(Display(), Window(), RevertToNone, CurrentTime);
 
    }
 
@@ -5504,8 +5462,6 @@ namespace windowing_x11
    void window::set_keyboard_focus()
    {
 
-      //synchronous_lock synchronouslock(user_synchronization());
-
       if (Window() == 0)
       {
 
@@ -5519,35 +5475,11 @@ namespace windowing_x11
 
       _set_keyboard_focus_unlocked();
 
-//      if (!is_window())
-//      {
-//
-//         windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1.1");
-//
-//         throw ::exception(error_failed);
-//
-//      }
-//
-//      if (!XSetInputFocus(Display(), Window(), RevertToNone, CurrentTime))
-//      {
-//
-//         windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1.3");
-//
-//         throw ::exception(error_failed);
-//
-//      }
-//
-//      windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 2");
-
-      //return ::success;
-
    }
 
 
    void window::_set_keyboard_focus_unlocked()
    {
-
-      //synchronous_lock synchronouslock(user_synchronization());
 
       if (Window() == 0)
       {
@@ -5556,14 +5488,32 @@ namespace windowing_x11
 
       }
 
-      windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1");
-
-      //::x11::display_lock displaylock(x11_display()->Display());
+      windowing_output_debug_string("\nwindow(x11)::_set_keyboard_focus_unlocked 1");
 
       if (!is_window())
       {
 
-         windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1.1");
+         windowing_output_debug_string("\nwindow(x11)::_set_keyboard_focus_unlocked 1.1");
+
+         throw ::exception(error_failed);
+
+      }
+
+      XWindowAttributes attrs = {};
+
+      if (!XGetWindowAttributes(Display(), Window(), &attrs))
+      {
+
+         windowing_output_debug_string("\nwindow(x11)::_set_keyboard_focus_unlocked 1.1.2");
+
+         throw ::exception(error_failed);
+
+      }
+
+      if (attrs.map_state != IsViewable)
+      {
+
+         windowing_output_debug_string("\nwindow(x11)::_set_keyboard_focus_unlocked 1.1.6");
 
          throw ::exception(error_failed);
 
@@ -5572,15 +5522,13 @@ namespace windowing_x11
       if (!XSetInputFocus(Display(), Window(), RevertToNone, CurrentTime))
       {
 
-         windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1.3");
+         windowing_output_debug_string("\nwindow(x11)::_set_keyboard_focus_unlocked 1.3");
 
          throw ::exception(error_failed);
 
       }
 
-      windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 2");
-
-      //return ::success;
+      windowing_output_debug_string("\nwindow(x11)::_set_keyboard_focus_unlocked 2");
 
    }
 
@@ -5596,11 +5544,8 @@ namespace windowing_x11
    void window::bring_to_front()
    {
 
-
       system()->windowing_system()->sync([this]()
                {
-
-                  ///synchronous_lock synchronouslock(user_synchronization());
 
                   if (Window() == 0)
                   {
@@ -5615,19 +5560,9 @@ namespace windowing_x11
 
                   XRaiseWindow(displaylock.m_pdisplay, Window());
 
-                  //return ::success;
-
                });
 
    }
-
-
-//   bool window::presentation_complete()
-//   {
-//
-//      return m_puserinteractionimpl->m_pgraphics->presentation_complete();
-//
-//   }
 
 
    void window::_on_end_paint()
