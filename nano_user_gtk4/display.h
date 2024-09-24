@@ -13,7 +13,7 @@
 struct wl_display;
 
 
-namespace wayland
+namespace gtk4
 {
 
 
@@ -25,13 +25,14 @@ namespace wayland
 
 
          class CLASS_DECL_ACME display :
-            virtual public ::wayland::nano::user::display_base
+            virtual public ::gtk4::nano::user::display_base
             //virtual public event_listener
          {
          public:
 
 
             bool                                      m_bUnhook;
+            //sGdkDisplay*m_pgdkdisplay;
             //::wl_display *                          m_pwldisplay;
             //pointer_array < event_listener >        m_eventlistenera;
             //pointer_array < nano_window_base >      m_windowa;
@@ -48,13 +49,13 @@ namespace wayland
             void initialize(::particle * pparticle) override;
 
 
-            virtual void set_wl_display(::wl_display * pwldisplay);
+            virtual void set_gdk_display(::GdkDisplay * pgdkdisplay);
 
 
             bool is_branch_current() const override;
 
 
-            ::wl_display * __get_wayland_display() override;
+            ::GdkDisplay * __get_gdk_display() override;
 
 
             //virtual Atom intern_atom(const char *pszAtomName, bool bCreate);
@@ -107,7 +108,7 @@ namespace wayland
    } // namespace nano
 
 
-} // namespace x11
+} // namespace gtk4
 
 
 

@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.17)
-project(nano_user_wayland CXX)
+project(nano_user_gtk4 CXX)
 
 
-message(STATUS "CMAKE_SYSTEM_NAME is ${CMAKE_SYSTEM_NAME}")
+message(STATUS "Project: nano_user_gtk4")
 
 
 if (MSVC)
@@ -29,26 +29,26 @@ list(APPEND library_source
         window.h
         window_base.cpp
         window_base.h
-        wayland-gtk_shell1.c
-        wayland-gtk_shell1.h
-        wayland-xdg_activation_v1.c
-        wayland-xdg_activation_v1.h
-        wayland-xdg_wm_base.c
-        wayland-xdg_wm_base.h
+        #wayland-gtk_shell1.c
+        #wayland-gtk_shell1.h
+        #wayland-xdg_activation_v1.c
+        #wayland-xdg_activation_v1.h
+        #wayland-xdg_wm_base.c
+        #wayland-xdg_wm_base.h
 )
 
 add_library(${PROJECT_NAME} SHARED ${library_source})
 
 target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
-set_source_files_properties(wayland-gtk_shell1.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
-set_source_files_properties(wayland-xdg_activation_v1.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
-set_source_files_properties(wayland-xdg_wm_base.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
+#set_source_files_properties(wayland-gtk_shell1.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
+#set_source_files_properties(wayland-xdg_activation_v1.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
+#set_source_files_properties(wayland-xdg_wm_base.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 list(APPEND library_references
         acme
-        windowing_system_wayland
+        windowing_system_gtk4
         nano_user_cairo
 )
 
@@ -60,7 +60,8 @@ if (MSVC)
     target_link_libraries(${PROJECT_NAME} PRIVATE acme apex aqua aura Gdiplus)
 elseif (${LINUX})
 
-    pkg_check_modules(PKGCONFIG cairo xkbcommon wayland-cursor wayland-client wayland-server)
+    #pkg_check_modules(PKGCONFIG cairo xkbcommon wayland-cursor wayland-client wayland-server)
+    pkg_check_modules(PKGCONFIG cairo gtk4)
     target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
     #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
     #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})
@@ -86,12 +87,9 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/.
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../source/include)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/operating_system-${OPERATING_SYSTEM_NAME})
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/operating_system-${OPERATING_SYSTEM_NAME}/_include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/third-${OPERATING_SYSTEM_NAME}/include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/third-${OPERATING_SYSTEM_NAME}/third/include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/third-${OPERATING_SYSTEM_NAME}/third/include/include)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 
-target_compile_definitions(${PROJECT_NAME} PRIVATE _nano_user_wayland_project)
+target_compile_definitions(${PROJECT_NAME} PRIVATE _${PROJECT_NAME}_project)
 target_compile_definitions(${PROJECT_NAME} PRIVATE UNICODE)
 target_compile_definitions(${PROJECT_NAME} PRIVATE _UNICODE)

@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.16)
 project(apex_posix CXX)
 
 
+message(STATUS "Project: ${PROJECT_NAME}")
+
+
 list(APPEND library_source
         _.h
         _.cpp
@@ -144,6 +147,14 @@ elseif(${LINUX} OR ${__BSD__})
 
 endif ()
 
+
+if(${HAS_KDE})
+    add_dependencies(${PROJECT_NAME} nano_user_kde5)
+elseif(${HAS_GTK4})
+    add_dependencies(${PROJECT_NAME} nano_user_gtk4)
+elseif(${HAS_GTK3})
+    add_dependencies(${PROJECT_NAME} nano_user_gtk3)
+endif()
 
 list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
 list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)

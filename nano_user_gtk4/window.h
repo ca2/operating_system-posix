@@ -11,11 +11,10 @@
 #include "window_base.h"
 
 
-#include <X11/Xutil.h>
-#include <cairo/cairo.h>
+#include <gtk/gtk.h>
 
 
-namespace wayland
+namespace gtk4
 {
 
 
@@ -32,14 +31,14 @@ namespace wayland
 
 
             //::pointer<class display>         m_pdisplay;
-            Window                           m_window;
-            Window                           m_windowRoot;
+            GtkWidget *m_pgtkwidget;
+            //Window                           m_windowRoot;
             //cairo_surface_t *              m_psurface;
             ::pointer<::nano::user::device>           m_pnanodevice;
             int                              m_iDepth;
-            XVisualInfo                      m_visualinfo;
-            Visual *                         m_pvisual;
-            Colormap                         m_colormap;
+            //XVisualInfo                      m_visualinfo;
+            //Visual *                         m_pvisual;
+            //Colormap                         m_colormap;
             //::pointer<::nano::user::font>           m_pfont;
             //color32_t                      m_colorText;
             //color32_t                      m_colorFocus;
@@ -161,10 +160,10 @@ namespace wayland
             //::size_i32 get_main_screen_size() override;
 
 
-            void __handle_pointer_enter(::wl_pointer * pwlpointer) override;
-            void __handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis) override;
-            void __handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::nano::user::window_base * pwaylandwindowLeave) override;
-            void __handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis) override;
+            // void __handle_pointer_enter(::wl_pointer * pwlpointer) override;
+            // void __handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis) override;
+            // void __handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::nano::user::window_base * pwaylandwindowLeave) override;
+            // void __handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis) override;
 
 
 
@@ -176,7 +175,7 @@ namespace wayland
    } // namespace nano
 
 
-} // namespace wayland
+} // namespace gtk4
 
 
 

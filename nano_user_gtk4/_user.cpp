@@ -10,12 +10,12 @@
 #include "acme/platform/node.h"
 
 
-void operating_system_initialize_wayland_nano_user(::factory::factory * pfactory)
+void operating_system_initialize_gtk4_nano_user(::factory::factory * pfactory)
 {
 
    operating_system_initialize_cairo_nano(pfactory);
 
-   pfactory->add_factory_item<::wayland::nano::user::window, ::nano::user::window_implementation>();
+   pfactory->add_factory_item<::gtk4::nano::user::window, ::nano::user::window_implementation>();
 
    //::wayland::display::get(pfactory);
 
