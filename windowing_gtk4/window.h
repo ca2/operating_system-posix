@@ -8,6 +8,7 @@
 #include "gtk4_widget.h"
 //#include "acme/operating_system/x11/_atom.h"
 #include "acme/primitive/geometry2d/rectangle_array.h"
+#include "nano_user_gtk4/window_base.h"
 //#include "nano_user_wayland/window_base.h"
 //#include <X11/extensions/sync.h>
 
@@ -46,7 +47,7 @@ namespace windowing_gtk4
 
    class CLASS_DECL_WINDOWING_GTK4 window :
       virtual public ::windowing_posix::window,
-      virtual public ::windowing_gtk4::gtk4_widget
+      virtual public ::gtk4::nano::user::window_base
          //, virtual public ::wayland::nano::user::window_base
    {
    public:

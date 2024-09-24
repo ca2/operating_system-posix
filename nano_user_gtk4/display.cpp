@@ -14,7 +14,7 @@
 #include "acme/nano/user/window.h"
 
 
-#include "windowing_system_x11/_.h"
+//#include "windowing_system_x11/_.h"
 
 
 #define MAXSTR 1000
@@ -27,7 +27,7 @@ void x11_init_threads();
 void set_main_user_thread();
 
 
-namespace wayland
+namespace gtk4
 {
 
 
@@ -40,7 +40,7 @@ namespace nano
       display::display()
       {
 
-         m_pwldisplay = nullptr;
+         m_pgdkdisplay = nullptr;
 
          m_bUnhook = false;
 
@@ -63,12 +63,12 @@ namespace nano
       {
 
 
-         if(m_bOwnDisplay && m_pwldisplay != nullptr)
+         if(m_bOwnDisplay && m_pgdkdisplay != nullptr)
          {
 
-            wl_display_disconnect(m_pwldisplay);
+            //wl_display_disconnect(m_pwldisplay);
 
-            m_pwldisplay = nullptr;
+            m_pgdkdisplay = nullptr;
 
             m_bOwnDisplay = false;
 
@@ -84,7 +84,7 @@ namespace nano
 
          ::nano::user::display::initialize(pparticle);
 
-         ::wayland::nano::user::display_base::initialize(pparticle);
+         ::gtk4::nano::user::display_base::initialize(pparticle);
 
       }
 
@@ -329,18 +329,18 @@ namespace nano
 
 
 
-      ::wl_display * display::__get_wayland_display()
+      ::GdkDisplay * display::__get_gdk_display()
       {
 
-         if(m_pwldisplay)
+         if(m_pgdkdisplay)
          {
 
-            return m_pwldisplay;
+            return m_pgdkdisplay;
 
          }
 
-         m_pwldisplay = wl_display_connect(NULL);
-         if (m_pwldisplay == NULL)
+         m_pgdkdisplay = gdk_display_get_default();
+         if (m_pgdkdisplay == NULL)
          {
             error() << "Can't connect to display";
             throw ::exception(error_failed);
@@ -350,7 +350,7 @@ namespace nano
          //wl_display_disconnect(display);
          //printf("disconnected from display\n");
 
-         return m_pwldisplay;
+         return m_pgdkdisplay;
 
       }
 
@@ -434,7 +434,7 @@ namespace nano
       bool display::message_loop_step()
       {
 
-         return ::wayland::nano::user::display_base::message_loop_step();
+         return ::gtk4::nano::user::display_base::message_loop_step();
 
       }
       //
@@ -592,12 +592,12 @@ namespace nano
       }
 
 
-      void display::set_wl_display(::wl_display * pwldisplay)
+      void display::set_gdk_display(::GdkDisplay * pgdkdisplay)
       {
 
-         m_pwldisplay = pwldisplay;
+         m_pgdkdisplay = pgdkdisplay;
 
-         if (!m_pwldisplay)
+         if (!m_pgdkdisplay)
          {
 
             throw ::exception(error_null_pointer);
@@ -726,25 +726,25 @@ namespace nano
       void * get_display(::particle * pparticle)
       {
 
-         auto pdisplay = ::wayland::nano::user::display::get(pparticle, false);
+         auto pdisplay = ::gtk4::nano::user::display::get(pparticle, false);
 
-         return pdisplay->m_pwldisplay;
-
-      }
-
-
-      void set_display(::wayland::nano::user::display_base * pdisplaybase)
-      {
-
-         ::wayland::nano::user::display_base::s_pdisplaybase = pdisplaybase;
+         return pdisplay->m_pgdkdisplay;
 
       }
 
 
-      void initialize_display(::particle * pparticle, void * pwaylanddisplay)
+      void set_display(::gtk4::nano::user::display_base * pdisplaybase)
       {
 
-         ::wayland::nano::user::display::get(pparticle, false, (::wl_display *) pwaylanddisplay);
+         ::gtk4::nano::user::display_base::s_pdisplaybase = pdisplaybase;
+
+      }
+
+
+      void initialize_display(::particle * pparticle, void * pgdkdisplay)
+      {
+
+         ::gtk4::nano::user::display::get(pparticle, false, (::GdkDisplay *) pgdkdisplay);
 
       }
 
@@ -752,9 +752,9 @@ namespace nano
       void * initialize_display(::particle * pparticle)
       {
 
-         auto pdisplay = ::wayland::nano::user::display::get(pparticle, false);
+         auto pdisplay = ::gtk4::nano::user::display::get(pparticle, false);
 
-         return pdisplay->m_pwldisplay;
+         return pdisplay->m_pgdkdisplay;
 
       }
 
@@ -762,10 +762,10 @@ namespace nano
       void process_messages()
       {
 
-         if(::wayland::nano::user::display_base::s_pdisplaybase)
+         if(::gtk4::nano::user::display_base::s_pdisplaybase)
          {
 
-            ::wayland::nano::user::display_base::s_pdisplaybase->message_loop_step();
+            ::gtk4::nano::user::display_base::s_pdisplaybase->message_loop_step();
 
          }
 
@@ -778,5 +778,5 @@ namespace nano
 } // namespace nano
 
 
-} // namespace wayland
+} // namespace gtk4
 

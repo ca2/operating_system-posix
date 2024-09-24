@@ -56,7 +56,7 @@ struct MWMHints
 #define MWM_DECOR_MAXIMIZE      (1L << 6)
 
 
-namespace wayland
+namespace gtk4
 {
 
 
@@ -66,12 +66,12 @@ namespace wayland
       {
          window::window()
          {
-
-            m_pcairosurface = nullptr;
+m_pgtkwidget=nullptr;
+            //m_pcairosurface = nullptr;
             m_iDepth = -1;
-            m_pvisual = nullptr;
-            zero(m_visualinfo);
-            m_colormap = 0;
+            //m_pvisual = nullptr;
+            //zero(m_visualinfo);
+            //m_colormap = 0;
 
          }
 
@@ -83,14 +83,14 @@ namespace wayland
 
             m_pnanodevice.release();
 
-            if (m_pcairosurface != nullptr)
-            {
-
-               cairo_surface_destroy(m_pcairosurface);
-
-               m_pcairosurface = nullptr;
-
-            }
+            // if (m_pcairosurface != nullptr)
+            // {
+            //
+            //    cairo_surface_destroy(m_pcairosurface);
+            //
+            //    m_pcairosurface = nullptr;
+            //
+            // }
 
          }
 
@@ -143,9 +143,9 @@ namespace wayland
 
             get_client_rectangle(r);
 
-            auto pwldisplay = m_pdisplaybase->m_pwldisplay;
+            auto pgdkdisplay = m_pdisplaybase->m_pgdkdisplay;
 
-            auto window = m_window;
+            auto window = m_pgtkwidget;
 
             auto w = m_pinterface->m_rectangle.width();
 
@@ -200,7 +200,7 @@ namespace wayland
             if (!m_pdisplaybase)
             {
 
-               m_pdisplaybase = ::wayland::nano::user::display_base::get(this);
+               m_pdisplaybase = ::gtk4::nano::user::display_base::get(this);
 
                if (!m_pdisplaybase)
                {
@@ -983,355 +983,355 @@ namespace wayland
          }
 
 
-         void window::__handle_pointer_enter(::wl_pointer * pwlpointer)
-         {
-
-            m_pwlpointer = pwlpointer;
-
-            //m_pointCursor2 = m_pointPointer;
-
-         }
-
-
-         void window::__handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis)
-         {
-
-            window_base::__handle_pointer_motion(pwlpointer, millis);
-
-            //m_pointCursor2 = m_pointPointer;
-
-            auto pmouse = __create_new<::user::mouse>();
-            //
-            //      pmouse->m_oswindow = this;
-            //
-            //      pmouse->m_pwindow = this;
-            //
-            //      pmouse->m_atom = e_message_mouse_move;
-            //
-            pmouse->m_pointHost = m_pointCursor2;
-
-            pmouse->m_pointAbsolute = m_pointCursor2;
-            //
-            //      pmouse->m_time.m_iSecond = millis / 1_k;
-            //
-            //      pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
-            //
-            //      //pwindow->message_handler(pmouse);
-            //
-            //      //wayland_windowing()->post_ui_message(pmouse);
-            //
-            //      m_puserinteractionimpl->message_handler(pmouse);
-
-            on_mouse_move(pmouse);
-
-         }
+         // void window::__handle_pointer_enter(::wl_pointer * pwlpointer)
+         // {
+         //
+         //    m_pwlpointer = pwlpointer;
+         //
+         //    //m_pointCursor2 = m_pointPointer;
+         //
+         // }
 
 
-         void
-         window::__handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::nano::user::window_base * pwaylandwindowLeave)
-         {
-
-            ::string strType = ::type(get_interface_client_particle()).name();
-
-            information()
-
-               << "__handle_pointer_leave";
-
-            m_pwlpointer = pwlpointer;
-
-            //            if (msg.oswindow)
-            //            {
-            //
-            //               ::minimum(m_pointCursor.x());
-            //
-            //               ::minimum(m_pointCursor.y());
-            //
-            //
-            //               if(e.xcrossing.mode == NotifyUngrab)
-            //               {
-            //
-            //                  information() << "X11 LeaveNotify NotifyUngrab";
-            //
-            //               }
-            //
-            ////            if(e.xcrossing.mode == NotifyUngrab)
-            ////            {
-            ////
-            ////  //             MESSAGE msgCaptureChanged;
-            ////
-            //////               msgCaptureChanged.oswindow = m_pwindowCapture;
-            ////               msg.m_atom = e_message_capture_changed;
-            ////               msg.wParam = 0;
-            ////               msg.lParam = (lparam) (oswindow) (msg.oswindow == m_pwindowCapture ? nullptr : m_pwindowCapture.m_p);
-            ////               msg.time = e.xcrossing.time;
-            ////
-            ////               post_ui_message(msg);
-            ////
-            ////            }
+         // void window::__handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis)
+         // {
+         //
+         //    window_base::__handle_pointer_motion(pwlpointer, millis);
+         //
+         //    //m_pointCursor2 = m_pointPointer;
+         //
+         //    auto pmouse = __create_new<::user::mouse>();
+         //    //
+         //    //      pmouse->m_oswindow = this;
+         //    //
+         //    //      pmouse->m_pwindow = this;
+         //    //
+         //    //      pmouse->m_atom = e_message_mouse_move;
+         //    //
+         //    pmouse->m_pointHost = m_pointCursor2;
+         //
+         //    pmouse->m_pointAbsolute = m_pointCursor2;
+         //    //
+         //    //      pmouse->m_time.m_iSecond = millis / 1_k;
+         //    //
+         //    //      pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+         //    //
+         //    //      //pwindow->message_handler(pmouse);
+         //    //
+         //    //      //wayland_windowing()->post_ui_message(pmouse);
+         //    //
+         //    //      m_puserinteractionimpl->message_handler(pmouse);
+         //
+         //    on_mouse_move(pmouse);
+         //
+         // }
 
 
-            //
-            //
-            //      ::minimum(m_pointCursor2.x());
-            //
-            //      ::minimum(m_pointCursor2.y());
-            //
-            ////      MESSAGE msg;
-            ////      msg.oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
-            ////      msg.m_atom = e_message_mouse_leave;
-            ////      msg.wParam = 0;
-            ////      msg.lParam = 0;
-            ////      //   msg.time = e.xcrossing.time;
-            ////      msg.time = 0;
-            ////
-            ////      wayland_windowing()->post_ui_message(msg);
-            //
-            //      auto pmouse = __create_new<::message::mouse>();
-            //
-            //      pmouse->m_oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
-            //
-            //      pmouse->m_pwindow = pmouse->m_oswindow;
-            //
-            //      pmouse->m_atom = e_message_mouse_leave;
-            //
-            //      pmouse->m_pointHost = m_pointCursor2;
-            //
-            //      pmouse->m_pointAbsolute = m_pointCursor2;
-            //
-            //      //pmouse->m_time.m_iSecond = millis / 1_k;
-            //
-            //      //pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
-            //
-            //      //msg.wParam = 0;
-            //
-            //      //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
-            //
-            //      //post_ui_message(msg);
-            //      //wayland_windowing()->post_ui_message(pmouse);
-            //
-            //      m_puserinteractionimpl->message_handler(pmouse);
-            //
-            ////            }
-
-         }
-
-
-         void window::__handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis)
-         {
-
-            window_base::__handle_pointer_button(pwlpointer, linux_button, pressed, millis);
-
-
-            auto pmouse = __create_new<::user::mouse>();
-            //
-            //      pmouse->m_oswindow = this;
-            //
-            //      pmouse->m_pwindow = this;
-            //
-            //      pmouse->m_atom = e_message_mouse_move;
-            //
-            pmouse->m_pointHost = m_pointCursor2;
-
-            pmouse->m_pointAbsolute = m_pointCursor2;
-
-            //      enum_message emessage = e_message_undefined;
-            //      //msg.m_atom = e_message_mouse_wheel;
-            //
-            //      //post_ui_message(pmouse);
-            //
-            //      bool bRet = true;
-            //
-            //      //msg.time = e.xbutton.time;
-            //
-            //      int Δ = 0;
-            //
-            if (pressed == WL_POINTER_BUTTON_STATE_PRESSED)
-            {
-               //
-               //
-               //         ::point_i32                                  m_pointWindowDragStart;
-               //
-               //
-               if (linux_button == BTN_LEFT)
-               {
-
-                  information()
-                     << "LeftButtonDown";
-
-                  //            emessage = e_message_left_button_down;
-
-                  on_left_button_down(pmouse);
-                  //
-               }
-               //         else if (linux_button == BTN_MIDDLE)
-               //         {
-               //
-               //            emessage = e_message_middle_button_down;
-               //
-               //         }
-               else if (linux_button == BTN_RIGHT)
-               {
-
-
-                  //
-                  //            emessage = e_message_right_button_down;
-
-                  on_right_button_down(pmouse);
-
-               }
-               //         else if (linux_button == BTN_GEAR_DOWN)
-               //         {
-               //
-               //            Δ = 120;
-               //
-               //         }
-               //         else if (linux_button == BTN_GEAR_UP)
-               //         {
-               //
-               //            Δ = -120;
-               //
-               //         }
-               //         else
-               //         {
-               //
-               //            bRet = false;
-               //
-               //         }
-               //
-            }
-            else if (pressed == WL_POINTER_BUTTON_STATE_RELEASED)
-            {
-
-               if (linux_button == BTN_LEFT)
-               {
-
-                  information()
-                     << "LeftButtonUp";
-
-                  //            emessage = e_message_left_button_up;
-
-                  on_left_button_up(pmouse);
-
-               }
-               //         else if (linux_button == BTN_MIDDLE)
-               //         {
-               //
-               //            emessage = e_message_middle_button_up;
-               //
-               //         }
-               else if (linux_button == BTN_RIGHT)
-               {
-                  //
-                  //            emessage = e_message_right_button_up;
-
-                  on_right_button_up(pmouse);
-
-               }
-               //         else
-               //         {
-               //
-               //            bRet = false;
-               //
-               //         }
-               //
-            }
-            //      else
-            //      {
-            //
-            //         bRet = false;
-            //
-            //      }
-            //
-            //      //m_pointCursor2 = m_pointPointer;
-            //
-            ////      MESSAGE msg;
-            ////
-            ////      msg.oswindow = this;
-            ////
-            ////      msg.oswindow->set_cursor_position(m_pointCursor);
-            //
-            //
-            //
-            ////      int l = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.x;
-            ////      int t = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.y;
-            ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx();
-            ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy();
-            ////
-            ////      ::rectangle_i32 r;
-            ////
-            ////      window_rectangle(msg.oswindow, &r);
-            ////
-            ////      int l1 = r.left();
-            ////      int t1 = r.top();
-            ////      int w1 = r.width();
-            ////      int h1 = r.height();
-            //
-            //      if (Δ != 0)
-            //      {
-            //
-            //         auto pmousewheel = __create_new<::message::mouse_wheel>();
-            //
-            //         pmousewheel->m_oswindow = this;
-            //
-            //         pmousewheel->m_pwindow = this;
-            //
-            //         pmousewheel->m_atom = e_message_mouse_wheel;
-            //
-            //         //msg.wParam = make_i32(0, iDelta);
-            //
-            //         //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
-            //
-            //         pmousewheel->m_Δ = Δ;
-            //
-            //         pmousewheel->m_pointHost = m_pointCursor2;
-            //
-            //         pmousewheel->m_pointAbsolute = m_pointCursor2;
-            //
-            //         pmousewheel->m_time.m_iSecond =millis / 1_k;
-            //
-            //         pmousewheel->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
-            //
-            //         //wayland_windowing()->post_ui_message(pmousewheel);
-            //
-            //         m_puserinteractionimpl->message_handler(pmousewheel);
-            //
-            //      }
-            //      else if (bRet)
-            //      {
-            //
-            //         auto pmouse = __create_new<::message::mouse>();
-            //
-            //         pmouse->m_oswindow = this;
-            //
-            //         pmouse->m_pwindow = this;
-            //
-            //         pmouse->m_atom = emessage;
-            //
-            //         pmouse->m_pointHost = m_pointCursor2;
-            //
-            //         pmouse->m_pointAbsolute = m_pointCursor2;
-            //
-            //         pmouse->m_time.m_iSecond = millis / 1_k;
-            //
-            //         pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
-            //
-            //         //msg.wParam = 0;
-            //
-            //         //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
-            //
-            //         //post_ui_message(msg);
-            //         //wayland_windowing()->post_ui_message(pmouse);
-            //
-            //         m_puserinteractionimpl->message_handler(pmouse);
-            //
-            //      }
-
-         }
+         // void
+         // window::__handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::nano::user::window_base * pwaylandwindowLeave)
+         // {
+         //
+         //    ::string strType = ::type(get_interface_client_particle()).name();
+         //
+         //    information()
+         //
+         //       << "__handle_pointer_leave";
+         //
+         //    m_pwlpointer = pwlpointer;
+         //
+         //    //            if (msg.oswindow)
+         //    //            {
+         //    //
+         //    //               ::minimum(m_pointCursor.x());
+         //    //
+         //    //               ::minimum(m_pointCursor.y());
+         //    //
+         //    //
+         //    //               if(e.xcrossing.mode == NotifyUngrab)
+         //    //               {
+         //    //
+         //    //                  information() << "X11 LeaveNotify NotifyUngrab";
+         //    //
+         //    //               }
+         //    //
+         //    ////            if(e.xcrossing.mode == NotifyUngrab)
+         //    ////            {
+         //    ////
+         //    ////  //             MESSAGE msgCaptureChanged;
+         //    ////
+         //    //////               msgCaptureChanged.oswindow = m_pwindowCapture;
+         //    ////               msg.m_atom = e_message_capture_changed;
+         //    ////               msg.wParam = 0;
+         //    ////               msg.lParam = (lparam) (oswindow) (msg.oswindow == m_pwindowCapture ? nullptr : m_pwindowCapture.m_p);
+         //    ////               msg.time = e.xcrossing.time;
+         //    ////
+         //    ////               post_ui_message(msg);
+         //    ////
+         //    ////            }
+         //
+         //
+         //    //
+         //    //
+         //    //      ::minimum(m_pointCursor2.x());
+         //    //
+         //    //      ::minimum(m_pointCursor2.y());
+         //    //
+         //    ////      MESSAGE msg;
+         //    ////      msg.oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
+         //    ////      msg.m_atom = e_message_mouse_leave;
+         //    ////      msg.wParam = 0;
+         //    ////      msg.lParam = 0;
+         //    ////      //   msg.time = e.xcrossing.time;
+         //    ////      msg.time = 0;
+         //    ////
+         //    ////      wayland_windowing()->post_ui_message(msg);
+         //    //
+         //    //      auto pmouse = __create_new<::message::mouse>();
+         //    //
+         //    //      pmouse->m_oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
+         //    //
+         //    //      pmouse->m_pwindow = pmouse->m_oswindow;
+         //    //
+         //    //      pmouse->m_atom = e_message_mouse_leave;
+         //    //
+         //    //      pmouse->m_pointHost = m_pointCursor2;
+         //    //
+         //    //      pmouse->m_pointAbsolute = m_pointCursor2;
+         //    //
+         //    //      //pmouse->m_time.m_iSecond = millis / 1_k;
+         //    //
+         //    //      //pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+         //    //
+         //    //      //msg.wParam = 0;
+         //    //
+         //    //      //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+         //    //
+         //    //      //post_ui_message(msg);
+         //    //      //wayland_windowing()->post_ui_message(pmouse);
+         //    //
+         //    //      m_puserinteractionimpl->message_handler(pmouse);
+         //    //
+         //    ////            }
+         //
+         // }
+         //
+         //
+         // void window::__handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis)
+         // {
+         //
+         //    window_base::__handle_pointer_button(pwlpointer, linux_button, pressed, millis);
+         //
+         //
+         //    auto pmouse = __create_new<::user::mouse>();
+         //    //
+         //    //      pmouse->m_oswindow = this;
+         //    //
+         //    //      pmouse->m_pwindow = this;
+         //    //
+         //    //      pmouse->m_atom = e_message_mouse_move;
+         //    //
+         //    pmouse->m_pointHost = m_pointCursor2;
+         //
+         //    pmouse->m_pointAbsolute = m_pointCursor2;
+         //
+         //    //      enum_message emessage = e_message_undefined;
+         //    //      //msg.m_atom = e_message_mouse_wheel;
+         //    //
+         //    //      //post_ui_message(pmouse);
+         //    //
+         //    //      bool bRet = true;
+         //    //
+         //    //      //msg.time = e.xbutton.time;
+         //    //
+         //    //      int Δ = 0;
+         //    //
+         //    if (pressed == WL_POINTER_BUTTON_STATE_PRESSED)
+         //    {
+         //       //
+         //       //
+         //       //         ::point_i32                                  m_pointWindowDragStart;
+         //       //
+         //       //
+         //       if (linux_button == BTN_LEFT)
+         //       {
+         //
+         //          information()
+         //             << "LeftButtonDown";
+         //
+         //          //            emessage = e_message_left_button_down;
+         //
+         //          on_left_button_down(pmouse);
+         //          //
+         //       }
+         //       //         else if (linux_button == BTN_MIDDLE)
+         //       //         {
+         //       //
+         //       //            emessage = e_message_middle_button_down;
+         //       //
+         //       //         }
+         //       else if (linux_button == BTN_RIGHT)
+         //       {
+         //
+         //
+         //          //
+         //          //            emessage = e_message_right_button_down;
+         //
+         //          on_right_button_down(pmouse);
+         //
+         //       }
+         //       //         else if (linux_button == BTN_GEAR_DOWN)
+         //       //         {
+         //       //
+         //       //            Δ = 120;
+         //       //
+         //       //         }
+         //       //         else if (linux_button == BTN_GEAR_UP)
+         //       //         {
+         //       //
+         //       //            Δ = -120;
+         //       //
+         //       //         }
+         //       //         else
+         //       //         {
+         //       //
+         //       //            bRet = false;
+         //       //
+         //       //         }
+         //       //
+         //    }
+         //    else if (pressed == WL_POINTER_BUTTON_STATE_RELEASED)
+         //    {
+         //
+         //       if (linux_button == BTN_LEFT)
+         //       {
+         //
+         //          information()
+         //             << "LeftButtonUp";
+         //
+         //          //            emessage = e_message_left_button_up;
+         //
+         //          on_left_button_up(pmouse);
+         //
+         //       }
+         //       //         else if (linux_button == BTN_MIDDLE)
+         //       //         {
+         //       //
+         //       //            emessage = e_message_middle_button_up;
+         //       //
+         //       //         }
+         //       else if (linux_button == BTN_RIGHT)
+         //       {
+         //          //
+         //          //            emessage = e_message_right_button_up;
+         //
+         //          on_right_button_up(pmouse);
+         //
+         //       }
+         //       //         else
+         //       //         {
+         //       //
+         //       //            bRet = false;
+         //       //
+         //       //         }
+         //       //
+         //    }
+         //    //      else
+         //    //      {
+         //    //
+         //    //         bRet = false;
+         //    //
+         //    //      }
+         //    //
+         //    //      //m_pointCursor2 = m_pointPointer;
+         //    //
+         //    ////      MESSAGE msg;
+         //    ////
+         //    ////      msg.oswindow = this;
+         //    ////
+         //    ////      msg.oswindow->set_cursor_position(m_pointCursor);
+         //    //
+         //    //
+         //    //
+         //    ////      int l = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.x;
+         //    ////      int t = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.y;
+         //    ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx();
+         //    ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy();
+         //    ////
+         //    ////      ::rectangle_i32 r;
+         //    ////
+         //    ////      window_rectangle(msg.oswindow, &r);
+         //    ////
+         //    ////      int l1 = r.left();
+         //    ////      int t1 = r.top();
+         //    ////      int w1 = r.width();
+         //    ////      int h1 = r.height();
+         //    //
+         //    //      if (Δ != 0)
+         //    //      {
+         //    //
+         //    //         auto pmousewheel = __create_new<::message::mouse_wheel>();
+         //    //
+         //    //         pmousewheel->m_oswindow = this;
+         //    //
+         //    //         pmousewheel->m_pwindow = this;
+         //    //
+         //    //         pmousewheel->m_atom = e_message_mouse_wheel;
+         //    //
+         //    //         //msg.wParam = make_i32(0, iDelta);
+         //    //
+         //    //         //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+         //    //
+         //    //         pmousewheel->m_Δ = Δ;
+         //    //
+         //    //         pmousewheel->m_pointHost = m_pointCursor2;
+         //    //
+         //    //         pmousewheel->m_pointAbsolute = m_pointCursor2;
+         //    //
+         //    //         pmousewheel->m_time.m_iSecond =millis / 1_k;
+         //    //
+         //    //         pmousewheel->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+         //    //
+         //    //         //wayland_windowing()->post_ui_message(pmousewheel);
+         //    //
+         //    //         m_puserinteractionimpl->message_handler(pmousewheel);
+         //    //
+         //    //      }
+         //    //      else if (bRet)
+         //    //      {
+         //    //
+         //    //         auto pmouse = __create_new<::message::mouse>();
+         //    //
+         //    //         pmouse->m_oswindow = this;
+         //    //
+         //    //         pmouse->m_pwindow = this;
+         //    //
+         //    //         pmouse->m_atom = emessage;
+         //    //
+         //    //         pmouse->m_pointHost = m_pointCursor2;
+         //    //
+         //    //         pmouse->m_pointAbsolute = m_pointCursor2;
+         //    //
+         //    //         pmouse->m_time.m_iSecond = millis / 1_k;
+         //    //
+         //    //         pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+         //    //
+         //    //         //msg.wParam = 0;
+         //    //
+         //    //         //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+         //    //
+         //    //         //post_ui_message(msg);
+         //    //         //wayland_windowing()->post_ui_message(pmouse);
+         //    //
+         //    //         m_puserinteractionimpl->message_handler(pmouse);
+         //    //
+         //    //      }
+         //
+         // }
       } // namespace user
    }// namespace nano
 
 
-} // namespace wayland
+} // namespace gtk4
 
 
 #define MAXSTR 1000

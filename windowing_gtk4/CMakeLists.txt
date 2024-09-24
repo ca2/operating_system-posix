@@ -80,6 +80,7 @@ list(APPEND library_references
         acme
         acme_posix
    windowing_system_gtk4
+        nano_user_gtk4
         apex
         apex_posix
    innate_ui_gtk4
@@ -90,7 +91,7 @@ list(APPEND library_references
         windowing_posix
        # windowing_system_wayland
         #windowing_system_x11
-        #nano_user_wayland
+
 )
 
 
