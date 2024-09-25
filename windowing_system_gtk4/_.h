@@ -100,5 +100,10 @@ namespace windowing_system_gtk4
 {
 
 
+   class windowing_system;
+
+
 } // namespace windowing_system_gtk4
+
+
 

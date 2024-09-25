@@ -5,6 +5,9 @@
 
 
 #include "acme/windowing_system/windowing_system.h"
+#include "acme/primitive/collection/list.h"
+
+#include <gtk/gtk.h>
 
 
 namespace windowing_system_gtk4
@@ -16,10 +19,20 @@ namespace windowing_system_gtk4
    {
    public:
 
+::procedure m_callbackOnActivateGtkApplication;
+      GtkApplication *     m_pgtkapplication;
 
+      itask_t              m_itask;
+
+      ::procedure_list     m_procedurelist;
+      ::procedure_list     m_procedurelistPriority;
 
       windowing_system();
       ~windowing_system() override;
+
+      void process_messages() override;
+
+      void on_start_system() override;
 
       ::e_status defer_initialize_windowing_system() override;
       ::e_status initialize_windowing_system() override;
@@ -35,7 +48,10 @@ namespace windowing_system_gtk4
 //   void x11_async(const ::procedure & procedure) override;
 //   void x11_display_error_trap_push(int i) override;
 //   void x11_display_error_trap_pop_ignored(int i) override;
-
+      bool is_branch_current() const override;
+      void windowing_system_application_main_loop();
+      void windowing_system_post_quit() override;
+      virtual void _on_activate_gtk_application();
 
    };
 

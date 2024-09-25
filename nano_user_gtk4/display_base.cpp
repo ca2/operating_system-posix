@@ -12,6 +12,8 @@
 #include "acme/parallelization/task.h"
 #include "acme/platform/acme.h"
 #include "acme/platform/node.h"
+#include "acme/platform/system.h"
+#include "acme/windowing_system/windowing_system.h"
 #include <linux/input.h> // for BTN_LEFT
 #include <sys/poll.h>
 #include <wayland-client-protocol.h>
@@ -20,6 +22,13 @@
 #include <sys/mman.h>
 #include <errno.h>
 #include <unistd.h>
+
+# ifdef GDK_WINDOWING_X11
+#  include <gdk/x11/gdkx.h>
+# endif
+# ifdef GDK_WINDOWING_WAYLAND
+#  include <gdk/wayland/gdkwayland.h>
+#endif
 
 int os_create_anonymous_file(off_t size);
 
@@ -1012,6 +1021,45 @@ namespace gtk4
       // ////
       // ////      }
 
+               m_sizeaMonitor.clear();
+
+    m_pgdkdisplay = gdk_display_get_default();
+
+    auto * monitors = gdk_display_get_monitors(m_pgdkdisplay);
+
+
+    guint n_monitors = g_list_model_get_n_items(monitors);
+
+    // Iterate over each monitor
+    for (guint i = 0; i < n_monitors; i++) {
+       GdkMonitor *monitor = GDK_MONITOR(g_list_model_get_item(monitors, i));
+
+       //auto pmonitor = __create_new < ::windowing::monitor >();
+
+       //pmonitor->m_pdisplay = this;
+
+
+       // Get the geometry (rectangle) of the monitor
+       GdkRectangle geometry;
+       gdk_monitor_get_geometry(monitor, &geometry);
+
+       // Print monitor geometry details
+       ::rectangle_i32 r;
+       printf("Monitor %u: x = %d, y = %d, width = %d, height = %d\n",
+              i, geometry.x, geometry.y, geometry.width, geometry.height);
+       ::copy(r, geometry);
+       //::copy(pmonitor->m_rectangleWorkspace, geometry);
+
+       m_sizeaMonitor.add(r.size());
+
+
+       // Unref the monitor object as we no longer need it
+       g_object_unref(monitor);
+
+       //m_monitora.add(pmonitor);
+    }
+
+
                       });
 
 
@@ -1040,6 +1088,14 @@ namespace gtk4
 
             }
 
+
+         }
+
+
+         void display_base::display_post(const ::procedure & procedure)
+         {
+
+            system()->windowing_system()->async(procedure);
 
          }
 
@@ -1962,13 +2018,13 @@ namespace gtk4
 
                lock.unlock();
 
-               if(bBranch)
-               {
-
-                  p->branch_synchronously();
-
-               }
-               else
+               // if(bBranch)
+               // {
+               //
+               //    p->branch_synchronously();
+               //
+               // }
+               // else
                {
 
                   p->init_task();
@@ -2027,6 +2083,38 @@ namespace gtk4
          //    }
          //
          // }
+
+
+
+         bool display_base::is_x11()
+         {
+
+
+            if (GDK_IS_X11_DISPLAY(m_pgdkdisplay))
+            {
+
+               return true;
+
+            }
+
+            return false;
+
+         }
+
+
+         bool display_base::is_wayland()
+         {
+
+            if (GDK_IS_WAYLAND_DISPLAY(m_pgdkdisplay))
+            {
+
+               return true;
+
+            }
+
+            return false;
+
+         }
 
 
       }// namespace user

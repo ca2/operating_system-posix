@@ -25,18 +25,18 @@
 //#define WINDOWING_X11_WINDOW_MEMBER
 ////using htask_t = pthread_t;
 
- enum enum_window_edge
-{
-       e_window_edge_none = -1,
-      e_window_edge_north_west = 0,
-      e_window_edge_north,
-      e_window_edge_north_east,
-      e_window_edge_west,
-      e_window_edge_east,
-      e_window_edge_south_west,
-      e_window_edge_south,
-      e_window_edge_south_east
-    };
+//  enum enum_window_edge
+// {
+//        e_window_edge_none = -1,
+//       e_window_edge_north_west = 0,
+//       e_window_edge_north,
+//       e_window_edge_north_east,
+//       e_window_edge_west,
+//       e_window_edge_east,
+//       e_window_edge_south_west,
+//       e_window_edge_south,
+//       e_window_edge_south_east
+//     };
 
 namespace windowing_gtk4
 {
@@ -55,14 +55,13 @@ namespace windowing_gtk4
          //typedef struct {
          gboolean moving;
          gboolean resizing;
-         enum_window_edge resize_edge;
+         //enum_window_edge resize_edge;
          int start_x;
          int start_y;
          int start_width;
          int start_height;
          int start_window_x;
          int start_window_y;
-         ::size_i32 m_sizeOnSize;
          //} ResizeData;
 
       //::point_i32                                  m_pointPointer;
@@ -112,11 +111,8 @@ namespace windowing_gtk4
       ::rectangle_i32                              m_rectangleXShm;
       //bool                                         m_bFirstConfigure;
       //bool                                         m_bXShmPutImagePending;
-         GtkWidget *m_pdrawingarea;
 
          // Create a GtkGestureClick for handling button press events
-         GtkGesture *m_pgtkgestureClick;
-         GtkEventController *m_pgtkeventcontrollerMotion;
 
          bool m_bPendingStartMove;
 
@@ -128,18 +124,18 @@ namespace windowing_gtk4
       ~window() override;
 
 
-         void _on_button_pressed(GtkGestureClick *widget, int n_press, double x, double y);
-         void _on_button_released(GtkGestureClick *widget, int n_press, double x, double y);
-         void _on_motion_notify(GtkEventControllerMotion *pcontroller, double x, double y);
-         void _on_enter_notify(GtkEventControllerMotion *pcontroller, double x, double y);
+         void _on_button_pressed(GtkGestureClick *widget, int n_press, double x, double y) override;
+         void _on_button_released(GtkGestureClick *widget, int n_press, double x, double y) override;
+         void _on_motion_notify(GtkEventControllerMotion *pcontroller, double x, double y) override;
+         void _on_enter_notify(GtkEventControllerMotion *pcontroller, double x, double y) override;
          //bool _on_window_state(GtkWidget* widget, GdkEventWindowState* event);
-         void _on_window_visibility_changed(GObject *object, GParamSpec *pspec);
+         void _on_window_visibility_changed(GObject *object, GParamSpec *pspec) override;
 
 
-         virtual void _on_cairo_draw(GtkWidget *widget, cairo_t *cr);
+         void _on_cairo_draw(GtkWidget *widget, cairo_t *cr) override;
       //void create_window(::user::interaction_impl * pimpl) override;
 
-virtual void _on_size(int cx, int cy);
+         void _on_size(int cx, int cy) override;
       void create_window() override;
 
 
@@ -150,8 +146,8 @@ virtual void _on_size(int cx, int cy);
 
          //void _on_window_button_pressed(GtkWidget * pwidget, const char * pszName, GtkGestureClick * pgesture, int n_press, double x, double y);
          //void _on_window_button_released(GtkWidget * pwidget, const char * pszName, GtkGestureClick * pgesture, int n_press, double x, double y);
-         void _on_window_button_pressed(::operating_system::a_system_menu_item * pitem, GtkGestureClick * pgesture, int n_press, double x, double y);
-         void _on_window_button_released(::operating_system::a_system_menu_item * pitem, GtkGestureClick * pgesture, int n_press, double x, double y);
+         void _on_window_button_pressed(::operating_system::a_system_menu_item * pitem, GtkGestureClick * pgesture, int n_press, double x, double y) override;
+         void _on_window_button_released(::operating_system::a_system_menu_item * pitem, GtkGestureClick * pgesture, int n_press, double x, double y) override;
 
 //      static Atom get_window_long_atom(i32 nIndex);
 //
@@ -288,8 +284,8 @@ virtual void _on_size(int cx, int cy);
 
 
 
-         virtual void _on_toplevel_compute_size(GdkToplevel * self, GdkToplevelSize* size);
-         virtual void _on_display_change(::e_display edisplay);
+         void _on_toplevel_compute_size(GdkToplevel * self, GdkToplevelSize* size) override;
+         void _on_display_change(::e_display edisplay) override;
 
 
 //      //virtual Atom get_window_long_atom(i32 nIndex);
@@ -437,8 +433,6 @@ virtual void _on_size(int cx, int cy);
 
       void _on_windowing_close_window() override;
 
-         GMenu* _create_system_menu();
-         virtual void _on_window_simple_action(const char * pszActionName);
 
       //void __handle_keyboard_enter(::wl_keyboard *pwlkeyboard, uint32_t serial, ::wl_array *pwlarrayKeys) override;
       //void __handle_keyboard_leave(::wl_keyboard *pwlkeyboard, uint32_t serial) override;
@@ -469,7 +463,7 @@ virtual void _on_size(int cx, int cy);
          virtual void _unlocked_defer_set_window_position(const ::point_i32 & point);
          virtual void _unlocked_defer_set_window_position(const ::point_i32 & point, const ::size_i32 & size);
          virtual void _unlocked_defer_set_window_size(const ::size_i32 & size);
-         virtual void _unlocked_defer_start_resize(enum_window_edge eedge, GtkGestureClick * pclick, double x, double y);
+         //virtual void _unlocked_defer_start_resize(enum_window_edge eedge, GtkGestureClick * pclick, double x, double y);
 
    };
 

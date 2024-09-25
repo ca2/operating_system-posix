@@ -157,6 +157,9 @@ namespace acme_posix
       void do_windowing_system_factory() override;
 
 
+      void on_system_main() override;
+
+
    };
 
    

@@ -113,6 +113,9 @@ GdkDisplay*m_pgdkdisplay;
                 virtual ::GtkWidget * _gtk_widget_focus();
 
 
+                void display_post(const procedure& procedure) override;
+
+
                 virtual ::gtk4::nano::user::window_base * get_keyboard_focus();
 
                 virtual ::gtk4::nano::user::window_base * _get_keyboard_focus();
@@ -180,6 +183,8 @@ GdkDisplay*m_pgdkdisplay;
                 //                      double x, double y);
                 //
 
+                virtual bool is_x11();
+                virtual bool is_wayland();
 
             };
         } // namespace user

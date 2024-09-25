@@ -22,19 +22,21 @@ namespace windowing_gtk4
    {
    public:
 
+      gpointer             m_pGtkSettingsDefault;
 
-      gpointer m_pGtkSettingsDefault;
 
-      GtkApplication* m_pgtkapplication;
+      //gpointer m_pGtkSettingsDefault;
 
-      bool m_bRootSelectInput: 1;
-      bool m_bFirstWindowMap: 1;
+      //GtkApplication* m_pgtkapplication;
+
+      //bool m_bRootSelectInput: 1;
+      //bool m_bFirstWindowMap: 1;
 
       ::pointer<::windowing_gtk4::display> m_pdisplay;
-      bool m_bFinishX11Thread;
-      bool m_bInitX11Thread;
+      //bool m_bFinishX11Thread;
+      //bool m_bInitX11Thread;
 
-      itask_t m_itask;
+      //itask_t m_itask;
 
       //#ifdef WITH_XI
       //
@@ -43,15 +45,14 @@ namespace windowing_gtk4
       //
       //#endif
 
-      ::procedure_list m_procedurelist;
-      ::procedure_list m_procedurelistPriority;
       ::pointer<::windowing_gtk4::window> m_pwindowMouseCapture;
 
 
-      ::string       m_strOsUserTheme;
-      ::string       m_strOsUserIconTheme;
+      ::string             m_strOsUserTheme;
+      ::string             m_strOsUserIconTheme;
       ::task_pointer       m_ptaskOsUserTheme;
       ::task_pointer       m_ptaskOsUserIconTheme;
+
 
 
 

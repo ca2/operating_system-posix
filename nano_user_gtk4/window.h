@@ -31,7 +31,7 @@ namespace gtk4
 
 
             //::pointer<class display>         m_pdisplay;
-            GtkWidget *m_pgtkwidget;
+            //GtkWidget *m_pgtkwidget;
             //Window                           m_windowRoot;
             //cairo_surface_t *              m_psurface;
             ::pointer<::nano::user::device>           m_pnanodevice;
@@ -87,7 +87,7 @@ namespace gtk4
 
             void destroy() override;
 
-            void display() override;
+            void show_window() override;
 
             //bool _on_event(XEvent *pevent) override;
 
@@ -98,6 +98,8 @@ namespace gtk4
             //virtual bool aaa_message_loop_step();
 
             virtual void _draw(::nano::user::device * pnanodevice);
+
+            void _on_cairo_draw(GtkWidget *widget, cairo_t *cr) override;
 
             //virtual void on_draw(::nano::user::device * pnanodevice);
 
@@ -122,6 +124,10 @@ namespace gtk4
             //virtual void add_child(::nano::user::child * pchild);
 
             ::payload get_result() override;
+
+
+            void _on_size(int cx, int cy) override;
+
 
             void on_mouse_move(::user::mouse * pmouse) override;
 
@@ -154,7 +160,7 @@ namespace gtk4
             virtual void _wm_nodecorations(int iMap);
 
 
-            bool defer_perform_entire_reposition_process() override;
+            //bool defer_perform_entire_reposition_process(::user) override;
 
 
             //::size_i32 get_main_screen_size() override;
@@ -165,6 +171,11 @@ namespace gtk4
             // void __handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::nano::user::window_base * pwaylandwindowLeave) override;
             // void __handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis) override;
 
+
+            void _on_button_pressed(GtkGestureClick* pgesture, int n_press, double x, double y) override;
+            void _on_button_released(GtkGestureClick* pgesture, int n_press, double x, double y) override;
+            void _on_motion_notify(GtkEventControllerMotion* pcontroller, double x, double y) override;
+            void _on_enter_notify(GtkEventControllerMotion* pcontroller, double x, double y) override;
 
 
          };

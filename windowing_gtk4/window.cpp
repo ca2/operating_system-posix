@@ -39,44 +39,6 @@
 #include <gtk/gtk.h>
 #include <X11/Xlib.h>
 
-/* Declare the SubclassedModelButton type */
-typedef struct _SubclassedModelButton SubclassedModelButton;
-typedef struct _SubclassedModelButtonClass SubclassedModelButtonClass;
-
-struct _SubclassedModelButton {
-   GtkButton parent_instance;
-};
-
-struct _SubclassedModelButtonClass {
-   GtkButtonClass parent_class;
-};
-
-/* Define the GType for SubclassedModelButton */
-G_DEFINE_TYPE(SubclassedModelButton, subclassed_model_button, GTK_TYPE_BUTTON)
-
-/* Initialize the class (used to override methods or set up class-level data) */
-static void
-subclassed_model_button_class_init(SubclassedModelButtonClass *klass) {
-   // You can override class methods here if needed
-   // Example:
-   // klass->parent_class.some_method = my_custom_method;
-}
-
-/* Initialize the instance (used to initialize instance data) */
-static void
-subclassed_model_button_init(SubclassedModelButton *self) {
-   // Initialize instance-specific data here
-   //g_object_set(G_OBJECT(self), "css-name", "model_button");
-}
-
-/* A factory function to create a new SubclassedModelButton */
-GtkWidget* subclassed_model_button_new(void) {
-   auto p = g_strdup("modelbutton");
-   auto pwidget = GTK_WIDGET(g_object_new(subclassed_model_button_get_type(), "css-name", p, nullptr));
-   g_free(p);
-   return pwidget;
-}
-
 
 //
 // enum xdg_toplevel_resize_edge {
@@ -92,89 +54,26 @@ GtkWidget* subclassed_model_button_new(void) {
 // };
 //
 
-xdg_toplevel_resize_edge as_xdg_toplevel_resize_edge(enum_window_edge eedge)
-{
-
-   switch(eedge)
-   {
-      case e_window_edge_south: return XDG_TOPLEVEL_RESIZE_EDGE_BOTTOM;
-      case e_window_edge_south_west: return XDG_TOPLEVEL_RESIZE_EDGE_BOTTOM_LEFT;
-      case e_window_edge_south_east: return XDG_TOPLEVEL_RESIZE_EDGE_BOTTOM_RIGHT;
-      case e_window_edge_west: return XDG_TOPLEVEL_RESIZE_EDGE_LEFT;
-      case e_window_edge_east: return XDG_TOPLEVEL_RESIZE_EDGE_RIGHT;
-      case e_window_edge_north_west: return XDG_TOPLEVEL_RESIZE_EDGE_TOP_LEFT;
-      case e_window_edge_north_east: return XDG_TOPLEVEL_RESIZE_EDGE_TOP_RIGHT;
-      case e_window_edge_north: return XDG_TOPLEVEL_RESIZE_EDGE_TOP;
-      default: return XDG_TOPLEVEL_RESIZE_EDGE_NONE;
-   }
-
-}
-
-
-guint as_guint_button(::user::e_button_state ebuttonstate)
-{
-
-   guint button = 1;
-
-   if(ebuttonstate & user::e_button_state_left)
-   {
-
-      button = 1;
-
-   }
-   else if(ebuttonstate & user::e_button_state_right)
-   {
-
-      button = 3;
-
-   }
-   else if(ebuttonstate & user::e_button_state_middle)
-   {
-
-      button = 2;
-
-   }
-
-   return button;
-
-}
+// xdg_toplevel_resize_edge as_xdg_toplevel_resize_edge(enum_window_edge eedge)
+// {
+//
+//    switch(eedge)
+//    {
+//       case e_window_edge_south: return XDG_TOPLEVEL_RESIZE_EDGE_BOTTOM;
+//       case e_window_edge_south_west: return XDG_TOPLEVEL_RESIZE_EDGE_BOTTOM_LEFT;
+//       case e_window_edge_south_east: return XDG_TOPLEVEL_RESIZE_EDGE_BOTTOM_RIGHT;
+//       case e_window_edge_west: return XDG_TOPLEVEL_RESIZE_EDGE_LEFT;
+//       case e_window_edge_east: return XDG_TOPLEVEL_RESIZE_EDGE_RIGHT;
+//       case e_window_edge_north_west: return XDG_TOPLEVEL_RESIZE_EDGE_TOP_LEFT;
+//       case e_window_edge_north_east: return XDG_TOPLEVEL_RESIZE_EDGE_TOP_RIGHT;
+//       case e_window_edge_north: return XDG_TOPLEVEL_RESIZE_EDGE_TOP;
+//       default: return XDG_TOPLEVEL_RESIZE_EDGE_NONE;
+//    }
+//
+// }
 
 
-#define GDK_SURFACE_EDGE_NONE ((GdkSurfaceEdge)-1)
 
-GdkSurfaceEdge as_gdk_surface_edge(enum_window_edge eedge)
-{
-
-      switch (eedge) {
-         case e_window_edge_south: return GDK_SURFACE_EDGE_SOUTH;
-         case e_window_edge_south_west: return GDK_SURFACE_EDGE_SOUTH_WEST;
-         case e_window_edge_south_east: return GDK_SURFACE_EDGE_SOUTH_EAST;
-         case e_window_edge_west: return GDK_SURFACE_EDGE_WEST;
-         case e_window_edge_east: return GDK_SURFACE_EDGE_EAST;
-         case e_window_edge_north_west: return GDK_SURFACE_EDGE_NORTH_WEST;
-         case e_window_edge_north_east: return GDK_SURFACE_EDGE_NORTH_EAST;
-         case e_window_edge_north: return GDK_SURFACE_EDGE_NORTH;
-         default: return GDK_SURFACE_EDGE_NONE;
-      }
-
-}
-
-GdkSurfaceEdge as_gdk_surface_edge(::experience::enum_frame eframeSizing)
-{
-
-   switch (eframeSizing) {
-      case ::experience::e_frame_sizing_bottom: return GDK_SURFACE_EDGE_SOUTH;
-      case ::experience::e_frame_sizing_bottom_left: return GDK_SURFACE_EDGE_SOUTH_WEST;
-      case ::experience::e_frame_sizing_bottom_right: return GDK_SURFACE_EDGE_SOUTH_EAST;
-      case ::experience::e_frame_sizing_left: return GDK_SURFACE_EDGE_WEST;
-      case ::experience::e_frame_sizing_right: return GDK_SURFACE_EDGE_EAST;
-      case ::experience::e_frame_sizing_top_left: return GDK_SURFACE_EDGE_NORTH_WEST;
-      case ::experience::e_frame_sizing_top_right: return GDK_SURFACE_EDGE_NORTH_EAST;
-      case ::experience::e_frame_sizing_top: return GDK_SURFACE_EDGE_NORTH;
-      default: return GDK_SURFACE_EDGE_NONE;
-   }
-
-}
 //#include "acme/operating_system/x11/display_lock.h"
 
 //#define GdkWindowEdgeNone ((GdkWindowEdge)-1)
@@ -192,7 +91,7 @@ void on_sn_launch_complete(void* pSnContext);
 
 namespace windowing_gtk4
 {
-   ::string _gtk_get_resize_cursor_name(enum_window_edge eedge);
+   //::string _gtk_get_resize_cursor_name(enum_window_edge eedge);
    // Function to update the theme based on the system preference
    static void update_theme_based_on_system(GtkSettings *settings, gpointer user_data) {
       gboolean prefer_dark_theme;
@@ -323,106 +222,7 @@ namespace windowing_gtk4
    }
 
 
-   GMenu* window::_create_system_menu()
-   {
 
-      m_psystemmenu = create_system_menu();
-
-
-      // Create a GMenu that will be used by the popover
-      auto * pmenu = g_menu_new();
-
-      // // Create a section in the menu
-      auto * pmenuSection = g_menu_new();
-      g_menu_append_section(pmenu, NULL, G_MENU_MODEL(pmenuSection));
-      g_object_unref(pmenuSection);
-
-      // Add "Option 1" to the GMenu
-      // auto * pitem1 = g_menu_item_new("Take Screenshot", "win.take_screenshot");
-      // g_menu_append_item(pmenuSection, pitem1);
-      // g_object_unref(pitem1);
-
-      // Add "Option 2" to the GMenu
-
-
-      //for(::collection::index i = 0; i < m_straSystemMenuAtom.size(); i++)
-      for(auto pitem : *m_psystemmenu)
-      {
-
-         ::string strName = pitem->m_strName;
-         ::string strAtom = pitem->m_strAtom;
-         pitem->m_pWindowingImplWindow = this;
-         if(strAtom == "(separator)")
-         {
-            pmenuSection = g_menu_new();
-            g_menu_append_section(pmenu,NULL, G_MENU_MODEL(pmenuSection));
-            g_object_unref(pmenuSection);
-         }
-         else if(strAtom.is_empty())
-         {
-            auto * pitem = g_menu_item_new(strName, NULL);
-            g_menu_append_item(pmenuSection, pitem);
-            g_object_unref(pitem);
-         }
-         else if(strAtom.begins_eat("***"))
-         {
-            auto * pitem = g_menu_item_new(nullptr, nullptr);
-            GVariant *variant = g_variant_new_string(strAtom);
-            g_menu_item_set_attribute_value (pitem, "custom", variant);
-            //g_variant_unref(variant);
-            g_menu_append_item(pmenuSection, pitem);
-            g_object_unref(pitem);
-
-         }
-         else
-         {
-            auto * pitem = g_menu_item_new(strName, "win." + strAtom);
-            g_menu_append_item(pmenuSection, pitem);
-            g_object_unref(pitem);
-         }
-      }
-
-      // auto * pitem3 = g_menu_item_new("Maximize", "win.maximize");
-      // g_menu_append_item(pmenuSection, pitem3);
-      // g_object_unref(pitem2);
-      //
-      // auto * pitem4 = g_menu_item_new("Move", "win.move");
-      // g_menu_append_item(pmenuSection, pitem4);
-      // g_object_unref(pitem2);
-      //
-      // auto * pitem5 = g_menu_item_new("Size", "win.size");
-      // g_menu_append_item(pmenuSection, pitem5);
-      // g_object_unref(pitem2);
-
-      g_menu_freeze(pmenu);
-
-      return pmenu;
-
-   }
-
-   // Callback for button press event
-   static void on_window_button_pressed(GtkGestureClick *gesture, int n_press, double x, double y, gpointer p)
-   {
-
-      auto pitem = (::operating_system::a_system_menu_item *)p;
-      auto pwindow = (::windowing_gtk4::window *) pitem->m_pWindowingImplWindow;
-      pwindow->_on_window_button_pressed(pitem, gesture, n_press, x, y);
-      // defer_perform_entire_reposition_process(nullptr);
-      // if (n_press == 1) {  // Single click
-      //    g_print("Menu button pressed\n");
-      // }
-   }
-   static void on_window_button_released(GtkGestureClick *gesture, int n_press, double x, double y, gpointer p)
-   {
-
-      auto pitem = (::operating_system::a_system_menu_item *)p;
-      auto pwindow = (::windowing_gtk4::window *) pitem->m_pWindowingImplWindow;
-      pwindow->_on_window_button_released(pitem, gesture, n_press, x, y);
-      // defer_perform_entire_reposition_process(nullptr);
-      // if (n_press == 1) {  // Single click
-      //    g_print("Menu button pressed\n");
-      // }
-   }
    // static void
 // on_move_button_clicked (
 //   GtkButton* self,
@@ -526,428 +326,430 @@ namespace windowing_gtk4
 
    void window::defer_show_system_menu(::user::mouse *pmouse)
    {
-      // Function to create and show the popup menu
 
-      //    // Create a popover menu
-      //    auto popover = gtk_popover_new();
-      //    //gtk_popover_set_pointing_to(GTK_POPOVER(popover), &(GdkRectangle){x, y, 1, 1});
-      // GdkRectangle r;
-      // r.width = 16;
-      // r.height = 16;
-      // r.x = x-r.width/2;
-      // r.y = y-r.height/2;
-      // // Show the popover relative to the drawing area
-      // gtk_popover_set_pointing_to(GTK_POPOVER(popover), &r);
-      // gtk_popover_set_position(GTK_POPOVER(popover), GTK_POS_BOTTOM);
-      //
-      //
-      //    // Create a box to hold the menu items
-      //    auto*  box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-      //    gtk_box_set_homogeneous(GTK_BOX(box), FALSE);
-      //
-      //    // Create Option 1 button and connect it to the on_option1_clicked callback
-      //    auto * menu_item1 = gtk_button_new_with_label("Option 1");
-      //    gtk_box_append(GTK_BOX(box), menu_item1);
-      //    g_signal_connect(menu_item1, "clicked", G_CALLBACK(on_option1_clicked), NULL);
-      //
-      //    // Create Option 2 button (no callback in this case)
-      //    auto* menu_item2 = gtk_button_new_with_label("Option 2");
-      //    gtk_box_append(GTK_BOX(box), menu_item2);
-      //
-      //    // Add the box to the popover
-      //    gtk_popover_set_child(GTK_POPOVER(popover), box);
-      //
-      // gtk_widget_set_parent(popover, m_pdrawingarea);
-      //    // Show the popover
-      //    gtk_popover_popup(GTK_POPOVER(popover));
-
-      // Create and show the popover menu at the click location
-
-      auto * widget = m_pdrawingarea;
-      int x = pmouse->m_pointAbsolute.x();
-      int y = pmouse->m_pointAbsolute.y();
-
-
-      gtk_widget_realize(m_pgtkwidget);
-
-      auto *pmenu = _create_system_menu();
-
-      auto ppopover = gtk_popover_menu_new_from_model(G_MENU_MODEL(pmenu));
-      auto pbox = gtk_widget_get_first_child(ppopover);
-
-            GObject *objectContent = G_OBJECT(pbox);
-      GType typeContent = G_OBJECT_TYPE (objectContent);
-      const char *type_nameContent = g_type_name(typeContent);
-
-      GtkWidget * abuttontemplate=nullptr;
-      GtkWidget * abuttontemplatechild=nullptr;
-
-      auto p = pbox;
-
-      while(p!=nullptr)
-      {
-         auto pobject = G_OBJECT(p);
-         GType type = G_OBJECT_TYPE (pobject);
-         const char *type_name = g_type_name(type);
-         if(g_strcmp0(type_name, "GtkModelButton") == 0)
-         {
-            break;
-         }
-         p=gtk_widget_get_first_child(p);
-      }
-
-
-      if(p)
-      {
-
-         auto pbutton = GTK_WIDGET(p);
-
-         if(pbutton)
-         {
-
-            abuttontemplate = pbutton;
-            abuttontemplatechild = gtk_widget_get_first_child(pbutton);
-
-         }
-
-      }
-
-
-
-//       if(g_strcmp0(type_nameContent, "GtkPopoverContent") == 0)
+      ::gtk4::nano::user::window_base::defer_show_system_menu(pmouse);
+//       // Function to create and show the popup menu
+//
+//       //    // Create a popover menu
+//       //    auto popover = gtk_popover_new();
+//       //    //gtk_popover_set_pointing_to(GTK_POPOVER(popover), &(GdkRectangle){x, y, 1, 1});
+//       // GdkRectangle r;
+//       // r.width = 16;
+//       // r.height = 16;
+//       // r.x = x-r.width/2;
+//       // r.y = y-r.height/2;
+//       // // Show the popover relative to the drawing area
+//       // gtk_popover_set_pointing_to(GTK_POPOVER(popover), &r);
+//       // gtk_popover_set_position(GTK_POPOVER(popover), GTK_POS_BOTTOM);
+//       //
+//       //
+//       //    // Create a box to hold the menu items
+//       //    auto*  box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+//       //    gtk_box_set_homogeneous(GTK_BOX(box), FALSE);
+//       //
+//       //    // Create Option 1 button and connect it to the on_option1_clicked callback
+//       //    auto * menu_item1 = gtk_button_new_with_label("Option 1");
+//       //    gtk_box_append(GTK_BOX(box), menu_item1);
+//       //    g_signal_connect(menu_item1, "clicked", G_CALLBACK(on_option1_clicked), NULL);
+//       //
+//       //    // Create Option 2 button (no callback in this case)
+//       //    auto* menu_item2 = gtk_button_new_with_label("Option 2");
+//       //    gtk_box_append(GTK_BOX(box), menu_item2);
+//       //
+//       //    // Add the box to the popover
+//       //    gtk_popover_set_child(GTK_POPOVER(popover), box);
+//       //
+//       // gtk_widget_set_parent(popover, m_pdrawingarea);
+//       //    // Show the popover
+//       //    gtk_popover_popup(GTK_POPOVER(popover));
+//
+//       // Create and show the popover menu at the click location
+//
+//       auto * widget = m_pdrawingarea;
+//       int x = pmouse->m_pointAbsolute.x();
+//       int y = pmouse->m_pointAbsolute.y();
+//
+//
+//       gtk_widget_realize(m_pgtkwidget);
+//
+//       auto *pmenu = _create_system_menu();
+//
+//       auto ppopover = gtk_popover_menu_new_from_model(G_MENU_MODEL(pmenu));
+//       auto pbox = gtk_widget_get_first_child(ppopover);
+//
+//             GObject *objectContent = G_OBJECT(pbox);
+//       GType typeContent = G_OBJECT_TYPE (objectContent);
+//       const char *type_nameContent = g_type_name(typeContent);
+//
+//       GtkWidget * abuttontemplate=nullptr;
+//       GtkWidget * abuttontemplatechild=nullptr;
+//
+//       auto p = pbox;
+//
+//       while(p!=nullptr)
 //       {
-//          auto pmenuScrolledWindow = gtk_widget_get_first_child(pbox);
-//
-//          GObject *objectScrolledWindow = G_OBJECT(pmenuScrolledWindow);
-//          GType typeScrolledWindow = G_OBJECT_TYPE (objectScrolledWindow);
-//          const char *type_nameScrolledWindow = g_type_name(typeScrolledWindow);
-//
-//          if(g_strcmp0(type_nameScrolledWindow, "GtkScrolledWindow") == 0)
+//          auto pobject = G_OBJECT(p);
+//          GType type = G_OBJECT_TYPE (pobject);
+//          const char *type_name = g_type_name(type);
+//          if(g_strcmp0(type_name, "GtkModelButton") == 0)
 //          {
-//             auto pmenuViewPort = gtk_widget_get_first_child(pmenuScrolledWindow);
-//
-//             GObject *objectViewPort = G_OBJECT(pmenuViewPort);
-//             GType typeViewPort = G_OBJECT_TYPE (objectViewPort);
-//             const char *type_nameViewPort = g_type_name(typeViewPort);
-//
-//             if(g_strcmp0(type_nameViewPort, "GtkViewport") == 0)
-//             {
-//
-//                auto pmenuStack = gtk_widget_get_first_child(pmenuViewPort);
-//
-//                GObject *objectStack = G_OBJECT(pmenuStack);
-//                GType typeStack = G_OBJECT_TYPE (objectStack);
-//                const char *type_nameStack = g_type_name(typeStack);
-//
-//                if(g_strcmp0(type_nameStack, "GtkStack") == 0)
-//                {
-//
-//                   auto pmenuMenuSectionBox = gtk_widget_get_first_child(pmenuStack);
-//
-//                   GObject *objectMenuSectionBox = G_OBJECT(pmenuMenuSectionBox);
-//                   GType typeMenuSectionBox = G_OBJECT_TYPE (objectMenuSectionBox);
-//                   const char *type_nameMenuSectionBox = g_type_name(typeMenuSectionBox);
-//
-//                   if(g_strcmp0(type_nameMenuSectionBox, "GtkMenuSectionBox") == 0)
-//                   {
-//                      auto pmenuBox = gtk_widget_get_first_child(pmenuMenuSectionBox);
-//
-//                      GObject *objectBox = G_OBJECT(pmenuBox);
-//                      GType typeBox = G_OBJECT_TYPE (objectBox);
-//                      const char *type_nameBox = g_type_name(typeBox);
-//
-//                      if(g_strcmp0(type_nameBox, "GtkBox") == 0)
-//                      {
-//
-//                         auto pmenuMenuSectionBox = gtk_widget_get_first_child(pmenuBox);
-//
-//                         GObject *objectMenuSectionBox = G_OBJECT(pmenuMenuSectionBox);
-//                         GType typeMenuSectionBox = G_OBJECT_TYPE (objectMenuSectionBox);
-//                         const char *type_nameMenuSectionBox = g_type_name(typeMenuSectionBox);
-//
-//                         if(g_strcmp0(type_nameMenuSectionBox, "GtkMenuSectionBox") == 0)
-//                         {
-//
-//                            auto pmenuBox = gtk_widget_get_first_child(pmenuMenuSectionBox);
-//                            auto pmenuFirstItem = gtk_widget_get_first_child(pmenuBox);
-//
-//                            auto pmenuItem = pmenuFirstItem;
-//
-//                            while(pmenuItem != nullptr)
-//                            {
-//
-//                               GObject *objectItem = G_OBJECT(pmenuItem);
-//                               GType typeItem = G_OBJECT_TYPE (objectItem);
-//                               const char *type_nameItem = g_type_name(typeItem);
-//
-//                               if(g_strcmp0(type_nameItem, "GtkModelButton") == 0)
-//                               {
-//
-//                                  auto pbutton = GTK_WIDGET(objectItem);
-//
-//                                  if(pbutton)
-//                                  {
-//
-//                                     gchar * text =nullptr;
-//
-//                                     g_object_get(objectItem, "text", &text, NULL);
-// //                                    auto pName= gtk_button_get_label(pbutton);
-//                                     ::string strName(text);
-//                                     g_free(text);
-//
-//                                     int iFind = m_straSystemMenuName.find_first(strName);
-//
-//                                     if(iFind >= 0)
-//                                     {
-//
-//                                        ::string strAtom = m_straSystemMenuAtom[iFind];
-//
-//                                        if(strAtom.is_empty())
-//                                        {
-//
-//                                           //_on_initialize_system_menu_button(pbutton, strName);
-//
-//                                        }
-//                                        else
-//                                        {
-//
-//                                           if(!abuttontemplate)
-//                                           {
-//
-//                                              abuttontemplate = pbutton;
-//                                              abuttontemplatechild = gtk_widget_get_first_child(pbutton);
-//                                           }
-//                                           _on_initialize_system_menu_button(pbutton, strAtom);
-//
-//                                        }
-//
-//                                     }
-//
-//                                  }
+//             break;
+//          }
+//          p=gtk_widget_get_first_child(p);
+//       }
 //
 //
-//                               }
+//       if(p)
+//       {
 //
-//                               pmenuItem = gtk_widget_get_next_sibling(pmenuItem);
+//          auto pbutton = GTK_WIDGET(p);
 //
-//                            }
+//          if(pbutton)
+//          {
 //
-//                            //print_line(type_nameFirstItem);
-//
-//                         }
-//
-//                      }
-//
-//                   }
-//
-//                }
-//
-//             }
+//             abuttontemplate = pbutton;
+//             abuttontemplatechild = gtk_widget_get_first_child(pbutton);
 //
 //          }
 //
 //       }
-
-
-      //    // Create Option 1 button and connect it to the on_option1_clicked callback
-      //     auto * menu_item1 = gtk_button_new_with_label("Option 1");
-      // gtk_popover_menu_add_child(GTK_POPOVER_MENU(ppopover), GTK_WIDGET(menu_item1), "move");
-      // //    gtk_box_append(GTK_BOX(box), menu_item1);
-      // //    g_signal_connect(menu_item1, "clicked", G_CALLBACK(on_option1_clicked), NULL);
-      // //
-      // //    // Create Option 2 button (no callback in this case)
-      //     auto* menu_item2 = gtk_button_new_with_label("Option 2");
-      // gtk_popover_menu_add_child(GTK_POPOVER_MENU(ppopover), GTK_WIDGET(menu_item1), "size");
-      // //    gtk_box_append(GTK_BOX(box), menu_item2);
-
-
-      // auto ppopover = gtk_popover_new();
-      //
-      // //auto pbox = gtk_box_layout_new(GTK_ORIENTATION_VERTICAL);
-      //
-      // //gtk_widget_set_layout_manager(ppopover,pbox);
-      //
-      // // Create a vertical box layout for the popover content
-      // GtkWidget *pbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
-      //
-      // // Create buttons to add to the popover
-      //
-      // GtkWidget *button2 = gtk_button_new_with_label("Option 2");
-      // GtkWidget *button3 = gtk_button_new_with_label("Option 3");
-      //
-      // // Connect signals for each button
-      //
-      // //g_signal_connect(button2, "clicked", G_CALLBACK(on_button_clicked), "Option 2");
-      // //g_signal_connect(button3, "clicked", G_CALLBACK(on_button_clicked), "Option 3");
-      //
-      // // Add buttons to the box
-      //
-      // //gtk_box_append(GTK_BOX(box), button2);
-      // //gtk_box_append(GTK_BOX(box), button3);
-      // // Create a CSS provider
-       GtkCssProvider *provider = gtk_css_provider_new();
-      //
-      // // Load CSS data to remove the border and padding from the button
-       gtk_css_provider_load_from_string(provider,
-           "button {"
-           //"  border-width: 0;"
-           //"  padding-left: 8px;"
-           //"  background-color: rgba(0, 0, 0, 0.0);"
-           "  transition: none;"
-           "}");
-
-      // // Apply the CSS to the button's style context
-      //
-      int iWindowButtonPress = 0;
-       for(auto pitem : *m_psystemmenu)
-       {
-          ::string strAtom = pitem->m_strAtom;
-          ::string strName = pitem->m_strName;
-
-          if(strAtom.begins_eat("***"))
-          {
-             auto pbutton = subclassed_model_button_new();
-
-             gtk_button_set_label(GTK_BUTTON(pbutton), strName);
-
-             //gtk_menu_button_set_label(GTK_MENU_BUTTON(pbutton), strName);
-             //g_signal_connect(button1, "clicked", G_CALLBACK(on_button_clicked), "Option 1");
-             //gtk_widget_set_visible(pmenubutton, true);
-//             auto * menu_item1 = gtk_button_new_with_label("Option 1");
-             //copy_button_style(abuttontemplate, pbutton);
-             auto plabel = gtk_button_get_child(GTK_BUTTON(pbutton));
-
-
-
-             auto ppTemplate = gtk_widget_get_css_classes(abuttontemplate);
-             gtk_widget_set_css_classes(GTK_WIDGET(pbutton), (const char **) ppTemplate);
-             // auto ppT = gtk_widget_get_css_name(abuttontemplate);
-             // auto pOld = gtk_widget_get_css_name(GTK_WIDGET(pbutton));
-             // g_object_set(pbutton, "css-name", ppT, NULL);
-             // auto pNew = gtk_widget_get_css_name(GTK_WIDGET(pbutton));
-
-             auto ppTemplateChild = gtk_widget_get_css_classes(abuttontemplatechild);
-             gtk_widget_set_css_classes(plabel, (const char **) ppTemplateChild);
-             // auto ppTC = gtk_widget_get_css_name(abuttontemplatechild);
-             // auto pLOld = gtk_widget_get_css_name(plabel);
-             // g_object_set(plabel, "css-name", ppTC, NULL);
-             // auto pLNew = gtk_widget_get_css_name(plabel);
-
-             //GtkStyleContext *context = gtk_widget_get_style_context(pbutton);
-             //gtk_style_context_add_provider(context, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_USER);
-             //gtk_widget_set_hexpand(pbutton, TRUE);
-
-             // Get the label from the button
-             //m_windowbuttonpresseda[iWindowButtonPress].m_pwidget = pbutton;
-             pitem->m_pWidgetImpl = GTK_WIDGET(pbutton);
-             GtkGesture *gesture = gtk_gesture_click_new();
-             gtk_gesture_single_set_button(GTK_GESTURE_SINGLE(gesture), 1); // Left mouse button
-             g_signal_connect(gesture, "pressed", G_CALLBACK(on_window_button_pressed), pitem.m_p);
-             //g_signal_connect(gesture, "released", G_CALLBACK(on_window_button_released), m_windowbuttonpresseda + iWindowButtonPress);
-             //
-             // // Add the gesture to the menu button
-             gtk_widget_add_controller(GTK_WIDGET(pbutton), GTK_EVENT_CONTROLLER(gesture));
-
-
-             // Set the horizontal alignment of the label to the left
-             gtk_widget_set_halign(plabel, GTK_ALIGN_START);
-
-             gtk_popover_menu_add_child(GTK_POPOVER_MENU(ppopover), GTK_WIDGET(pbutton), strAtom);
-           //  gtk_box_append(GTK_BOX(pbox), pbutton);
-             iWindowButtonPress++;
-          }
-          // if(iWindowButtonPress >= (sizeof(m_windowbuttonpresseda)/sizeof(m_windowbuttonpresseda[0])))
-          // {
-          //
-          //    break;
-          //
-          // }
-       }
-      //
-      // //gtk_widget_set_parent(GTK_WIDGET(pbox), ppopover);
-      //
-      // gtk_popover_set_child(GTK_POPOVER(ppopover), pbox);
-
-      //g_object_unref(pmenu);
-
-
-      GdkRectangle r;
-      r.width = 16;
-      r.height = 16;
-      r.x = x-r.width/2;
-      r.y = y-r.height/2;
-
-      gtk_popover_set_has_arrow(GTK_POPOVER(ppopover), false);
-
-      gtk_popover_set_pointing_to(GTK_POPOVER(ppopover), &r);
-
-      //gtk_popover_set_offset(GTK_POPOVER(ppopover), x + r.width, y + r.height);
-
-      gtk_popover_set_position(GTK_POPOVER(ppopover), GTK_POS_BOTTOM);
-
-      //gtk_widget_set_parent(ppopover, m_pdrawingarea);
-
-      gtk_widget_set_parent(ppopover, m_pgtkwidget);
-
-      //int min_height = 100;
-
-      //
-
-      gtk_popover_present(GTK_POPOVER(ppopover));
-
-
-      //
-      //
-      //
-      int min_width = 250, width = 250;
-      int min_height = 100, height = 100;
-      gtk_widget_set_size_request(ppopover, 250, min_height);
-      // gtk_widget_realize(pmenuContent);
-       gtk_widget_measure(pbox, GTK_ORIENTATION_HORIZONTAL, -1, &min_width, &width, NULL, NULL);
-       width +=100;
-       gtk_widget_measure(pbox, GTK_ORIENTATION_VERTICAL, width, &min_height, &height, NULL, NULL);
-      GtkAllocation allocation = { 0, 0, width, height };
-      gtk_widget_size_allocate(pbox, &allocation, -1);
-      // //if(height > min_height)
-       {
-
-          gtk_widget_set_size_request(pbox, (double) width * 1.08, (double) height * 1.08);
-          gtk_widget_set_size_request(ppopover, (double) width * 1.15, (double) height * 1.15);
-       }
-
-
-
-
-
-
-
-
-
-
-
-
-      //gtk4_widget w;
-      //w.m_pgtkwidget = ppopover;
-      //w._force_layout();
-      //gtk_popover_menu_set_flags (GTK_POPOVER_MENU(ppopover), 0      );
-
-
-
-      gtk_popover_popup(GTK_POPOVER(ppopover));
-
-
-      gtk_widget_queue_draw(m_pgtkwidget);
-
-      //m_puserinteractionimpl->m_puserinteraction->set_need_redraw();
-
-      //m_puserinteractionimpl->m_puserinteraction->post_redraw();
-
-      //gtk_popover_present(GTK_POPOVER(ppopover));
-
-
-      // GtkWidget *drawing_area = GTK_WIDGET(m_pdrawingarea);
-      // GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(m_pgtkgestureClick), NULL);
-      // show_context_menu(drawing_area, event, x, y); // Show the context menu at the click location
+//
+//
+//
+// //       if(g_strcmp0(type_nameContent, "GtkPopoverContent") == 0)
+// //       {
+// //          auto pmenuScrolledWindow = gtk_widget_get_first_child(pbox);
+// //
+// //          GObject *objectScrolledWindow = G_OBJECT(pmenuScrolledWindow);
+// //          GType typeScrolledWindow = G_OBJECT_TYPE (objectScrolledWindow);
+// //          const char *type_nameScrolledWindow = g_type_name(typeScrolledWindow);
+// //
+// //          if(g_strcmp0(type_nameScrolledWindow, "GtkScrolledWindow") == 0)
+// //          {
+// //             auto pmenuViewPort = gtk_widget_get_first_child(pmenuScrolledWindow);
+// //
+// //             GObject *objectViewPort = G_OBJECT(pmenuViewPort);
+// //             GType typeViewPort = G_OBJECT_TYPE (objectViewPort);
+// //             const char *type_nameViewPort = g_type_name(typeViewPort);
+// //
+// //             if(g_strcmp0(type_nameViewPort, "GtkViewport") == 0)
+// //             {
+// //
+// //                auto pmenuStack = gtk_widget_get_first_child(pmenuViewPort);
+// //
+// //                GObject *objectStack = G_OBJECT(pmenuStack);
+// //                GType typeStack = G_OBJECT_TYPE (objectStack);
+// //                const char *type_nameStack = g_type_name(typeStack);
+// //
+// //                if(g_strcmp0(type_nameStack, "GtkStack") == 0)
+// //                {
+// //
+// //                   auto pmenuMenuSectionBox = gtk_widget_get_first_child(pmenuStack);
+// //
+// //                   GObject *objectMenuSectionBox = G_OBJECT(pmenuMenuSectionBox);
+// //                   GType typeMenuSectionBox = G_OBJECT_TYPE (objectMenuSectionBox);
+// //                   const char *type_nameMenuSectionBox = g_type_name(typeMenuSectionBox);
+// //
+// //                   if(g_strcmp0(type_nameMenuSectionBox, "GtkMenuSectionBox") == 0)
+// //                   {
+// //                      auto pmenuBox = gtk_widget_get_first_child(pmenuMenuSectionBox);
+// //
+// //                      GObject *objectBox = G_OBJECT(pmenuBox);
+// //                      GType typeBox = G_OBJECT_TYPE (objectBox);
+// //                      const char *type_nameBox = g_type_name(typeBox);
+// //
+// //                      if(g_strcmp0(type_nameBox, "GtkBox") == 0)
+// //                      {
+// //
+// //                         auto pmenuMenuSectionBox = gtk_widget_get_first_child(pmenuBox);
+// //
+// //                         GObject *objectMenuSectionBox = G_OBJECT(pmenuMenuSectionBox);
+// //                         GType typeMenuSectionBox = G_OBJECT_TYPE (objectMenuSectionBox);
+// //                         const char *type_nameMenuSectionBox = g_type_name(typeMenuSectionBox);
+// //
+// //                         if(g_strcmp0(type_nameMenuSectionBox, "GtkMenuSectionBox") == 0)
+// //                         {
+// //
+// //                            auto pmenuBox = gtk_widget_get_first_child(pmenuMenuSectionBox);
+// //                            auto pmenuFirstItem = gtk_widget_get_first_child(pmenuBox);
+// //
+// //                            auto pmenuItem = pmenuFirstItem;
+// //
+// //                            while(pmenuItem != nullptr)
+// //                            {
+// //
+// //                               GObject *objectItem = G_OBJECT(pmenuItem);
+// //                               GType typeItem = G_OBJECT_TYPE (objectItem);
+// //                               const char *type_nameItem = g_type_name(typeItem);
+// //
+// //                               if(g_strcmp0(type_nameItem, "GtkModelButton") == 0)
+// //                               {
+// //
+// //                                  auto pbutton = GTK_WIDGET(objectItem);
+// //
+// //                                  if(pbutton)
+// //                                  {
+// //
+// //                                     gchar * text =nullptr;
+// //
+// //                                     g_object_get(objectItem, "text", &text, NULL);
+// // //                                    auto pName= gtk_button_get_label(pbutton);
+// //                                     ::string strName(text);
+// //                                     g_free(text);
+// //
+// //                                     int iFind = m_straSystemMenuName.find_first(strName);
+// //
+// //                                     if(iFind >= 0)
+// //                                     {
+// //
+// //                                        ::string strAtom = m_straSystemMenuAtom[iFind];
+// //
+// //                                        if(strAtom.is_empty())
+// //                                        {
+// //
+// //                                           //_on_initialize_system_menu_button(pbutton, strName);
+// //
+// //                                        }
+// //                                        else
+// //                                        {
+// //
+// //                                           if(!abuttontemplate)
+// //                                           {
+// //
+// //                                              abuttontemplate = pbutton;
+// //                                              abuttontemplatechild = gtk_widget_get_first_child(pbutton);
+// //                                           }
+// //                                           _on_initialize_system_menu_button(pbutton, strAtom);
+// //
+// //                                        }
+// //
+// //                                     }
+// //
+// //                                  }
+// //
+// //
+// //                               }
+// //
+// //                               pmenuItem = gtk_widget_get_next_sibling(pmenuItem);
+// //
+// //                            }
+// //
+// //                            //print_line(type_nameFirstItem);
+// //
+// //                         }
+// //
+// //                      }
+// //
+// //                   }
+// //
+// //                }
+// //
+// //             }
+// //
+// //          }
+// //
+// //       }
+//
+//
+//       //    // Create Option 1 button and connect it to the on_option1_clicked callback
+//       //     auto * menu_item1 = gtk_button_new_with_label("Option 1");
+//       // gtk_popover_menu_add_child(GTK_POPOVER_MENU(ppopover), GTK_WIDGET(menu_item1), "move");
+//       // //    gtk_box_append(GTK_BOX(box), menu_item1);
+//       // //    g_signal_connect(menu_item1, "clicked", G_CALLBACK(on_option1_clicked), NULL);
+//       // //
+//       // //    // Create Option 2 button (no callback in this case)
+//       //     auto* menu_item2 = gtk_button_new_with_label("Option 2");
+//       // gtk_popover_menu_add_child(GTK_POPOVER_MENU(ppopover), GTK_WIDGET(menu_item1), "size");
+//       // //    gtk_box_append(GTK_BOX(box), menu_item2);
+//
+//
+//       // auto ppopover = gtk_popover_new();
+//       //
+//       // //auto pbox = gtk_box_layout_new(GTK_ORIENTATION_VERTICAL);
+//       //
+//       // //gtk_widget_set_layout_manager(ppopover,pbox);
+//       //
+//       // // Create a vertical box layout for the popover content
+//       // GtkWidget *pbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+//       //
+//       // // Create buttons to add to the popover
+//       //
+//       // GtkWidget *button2 = gtk_button_new_with_label("Option 2");
+//       // GtkWidget *button3 = gtk_button_new_with_label("Option 3");
+//       //
+//       // // Connect signals for each button
+//       //
+//       // //g_signal_connect(button2, "clicked", G_CALLBACK(on_button_clicked), "Option 2");
+//       // //g_signal_connect(button3, "clicked", G_CALLBACK(on_button_clicked), "Option 3");
+//       //
+//       // // Add buttons to the box
+//       //
+//       // //gtk_box_append(GTK_BOX(box), button2);
+//       // //gtk_box_append(GTK_BOX(box), button3);
+//       // // Create a CSS provider
+//        GtkCssProvider *provider = gtk_css_provider_new();
+//       //
+//       // // Load CSS data to remove the border and padding from the button
+//        gtk_css_provider_load_from_string(provider,
+//            "button {"
+//            //"  border-width: 0;"
+//            //"  padding-left: 8px;"
+//            //"  background-color: rgba(0, 0, 0, 0.0);"
+//            "  transition: none;"
+//            "}");
+//
+//       // // Apply the CSS to the button's style context
+//       //
+//       int iWindowButtonPress = 0;
+//        for(auto pitem : *m_psystemmenu)
+//        {
+//           ::string strAtom = pitem->m_strAtom;
+//           ::string strName = pitem->m_strName;
+//
+//           if(strAtom.begins_eat("***"))
+//           {
+//              auto pbutton = subclassed_model_button_new();
+//
+//              gtk_button_set_label(GTK_BUTTON(pbutton), strName);
+//
+//              //gtk_menu_button_set_label(GTK_MENU_BUTTON(pbutton), strName);
+//              //g_signal_connect(button1, "clicked", G_CALLBACK(on_button_clicked), "Option 1");
+//              //gtk_widget_set_visible(pmenubutton, true);
+// //             auto * menu_item1 = gtk_button_new_with_label("Option 1");
+//              //copy_button_style(abuttontemplate, pbutton);
+//              auto plabel = gtk_button_get_child(GTK_BUTTON(pbutton));
+//
+//
+//
+//              auto ppTemplate = gtk_widget_get_css_classes(abuttontemplate);
+//              gtk_widget_set_css_classes(GTK_WIDGET(pbutton), (const char **) ppTemplate);
+//              // auto ppT = gtk_widget_get_css_name(abuttontemplate);
+//              // auto pOld = gtk_widget_get_css_name(GTK_WIDGET(pbutton));
+//              // g_object_set(pbutton, "css-name", ppT, NULL);
+//              // auto pNew = gtk_widget_get_css_name(GTK_WIDGET(pbutton));
+//
+//              auto ppTemplateChild = gtk_widget_get_css_classes(abuttontemplatechild);
+//              gtk_widget_set_css_classes(plabel, (const char **) ppTemplateChild);
+//              // auto ppTC = gtk_widget_get_css_name(abuttontemplatechild);
+//              // auto pLOld = gtk_widget_get_css_name(plabel);
+//              // g_object_set(plabel, "css-name", ppTC, NULL);
+//              // auto pLNew = gtk_widget_get_css_name(plabel);
+//
+//              //GtkStyleContext *context = gtk_widget_get_style_context(pbutton);
+//              //gtk_style_context_add_provider(context, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_USER);
+//              //gtk_widget_set_hexpand(pbutton, TRUE);
+//
+//              // Get the label from the button
+//              //m_windowbuttonpresseda[iWindowButtonPress].m_pwidget = pbutton;
+//              pitem->m_pWidgetImpl = GTK_WIDGET(pbutton);
+//              GtkGesture *gesture = gtk_gesture_click_new();
+//              gtk_gesture_single_set_button(GTK_GESTURE_SINGLE(gesture), 1); // Left mouse button
+//              g_signal_connect(gesture, "pressed", G_CALLBACK(on_window_button_pressed), pitem.m_p);
+//              //g_signal_connect(gesture, "released", G_CALLBACK(on_window_button_released), m_windowbuttonpresseda + iWindowButtonPress);
+//              //
+//              // // Add the gesture to the menu button
+//              gtk_widget_add_controller(GTK_WIDGET(pbutton), GTK_EVENT_CONTROLLER(gesture));
+//
+//
+//              // Set the horizontal alignment of the label to the left
+//              gtk_widget_set_halign(plabel, GTK_ALIGN_START);
+//
+//              gtk_popover_menu_add_child(GTK_POPOVER_MENU(ppopover), GTK_WIDGET(pbutton), strAtom);
+//            //  gtk_box_append(GTK_BOX(pbox), pbutton);
+//              iWindowButtonPress++;
+//           }
+//           // if(iWindowButtonPress >= (sizeof(m_windowbuttonpresseda)/sizeof(m_windowbuttonpresseda[0])))
+//           // {
+//           //
+//           //    break;
+//           //
+//           // }
+//        }
+//       //
+//       // //gtk_widget_set_parent(GTK_WIDGET(pbox), ppopover);
+//       //
+//       // gtk_popover_set_child(GTK_POPOVER(ppopover), pbox);
+//
+//       //g_object_unref(pmenu);
+//
+//
+//       GdkRectangle r;
+//       r.width = 16;
+//       r.height = 16;
+//       r.x = x-r.width/2;
+//       r.y = y-r.height/2;
+//
+//       gtk_popover_set_has_arrow(GTK_POPOVER(ppopover), false);
+//
+//       gtk_popover_set_pointing_to(GTK_POPOVER(ppopover), &r);
+//
+//       //gtk_popover_set_offset(GTK_POPOVER(ppopover), x + r.width, y + r.height);
+//
+//       gtk_popover_set_position(GTK_POPOVER(ppopover), GTK_POS_BOTTOM);
+//
+//       //gtk_widget_set_parent(ppopover, m_pdrawingarea);
+//
+//       gtk_widget_set_parent(ppopover, m_pgtkwidget);
+//
+//       //int min_height = 100;
+//
+//       //
+//
+//       gtk_popover_present(GTK_POPOVER(ppopover));
+//
+//
+//       //
+//       //
+//       //
+//       int min_width = 250, width = 250;
+//       int min_height = 100, height = 100;
+//       gtk_widget_set_size_request(ppopover, 250, min_height);
+//       // gtk_widget_realize(pmenuContent);
+//        gtk_widget_measure(pbox, GTK_ORIENTATION_HORIZONTAL, -1, &min_width, &width, NULL, NULL);
+//        width +=100;
+//        gtk_widget_measure(pbox, GTK_ORIENTATION_VERTICAL, width, &min_height, &height, NULL, NULL);
+//       GtkAllocation allocation = { 0, 0, width, height };
+//       gtk_widget_size_allocate(pbox, &allocation, -1);
+//       // //if(height > min_height)
+//        {
+//
+//           gtk_widget_set_size_request(pbox, (double) width * 1.08, (double) height * 1.08);
+//           gtk_widget_set_size_request(ppopover, (double) width * 1.15, (double) height * 1.15);
+//        }
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//       //gtk4_widget w;
+//       //w.m_pgtkwidget = ppopover;
+//       //w._force_layout();
+//       //gtk_popover_menu_set_flags (GTK_POPOVER_MENU(ppopover), 0      );
+//
+//
+//
+//       gtk_popover_popup(GTK_POPOVER(ppopover));
+//
+//
+//       gtk_widget_queue_draw(m_pgtkwidget);
+//
+//       //m_puserinteractionimpl->m_puserinteraction->set_need_redraw();
+//
+//       //m_puserinteractionimpl->m_puserinteraction->post_redraw();
+//
+//       //gtk_popover_present(GTK_POPOVER(ppopover));
+//
+//
+//       // GtkWidget *drawing_area = GTK_WIDGET(m_pdrawingarea);
+//       // GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(m_pgtkgestureClick), NULL);
+//       // show_context_menu(drawing_area, event, x, y); // Show the context menu at the click location
 
    }
 
@@ -960,17 +762,6 @@ namespace windowing_gtk4
    }
 
 
-   void GtkDrawingAreaDrawFunc(
-      GtkDrawingArea* drawing_area,
-      cairo_t* cr,
-      int width,
-      int height,
-      gpointer p
-   )
-   {
-      auto pwindow = (::windowing_gtk4::window *)p;
-      pwindow->_on_cairo_draw(GTK_WIDGET(drawing_area), cr);
-   }
 
    void window::_on_cairo_draw(GtkWidget* widget, cairo_t* cr)
    {
@@ -1090,66 +881,19 @@ namespace windowing_gtk4
 
 
 
-   // Callback for maximization changes
-   static void on_maximize_notify(GObject *object, GParamSpec *pspec, gpointer p)
-   {
-
-      auto pwindow = (::windowing_gtk4::window *)p;
-
-      GtkWindow *window = GTK_WINDOW(object);
-
-      gboolean is_maximized = gtk_window_is_maximized(window);
-
-      if (is_maximized)
-      {
-
-         pwindow->_on_display_change(e_display_zoomed);
-
-      }
-      else
-      {
-
-         pwindow->_on_display_change(e_display_normal);
-
-      }
-
-   }
-
-
-   // Callback for window state changes (minimized or fullscreen)
-   static void on_window_state(GdkToplevel *toplevel, GdkToplevelState state, gpointer p)
-   {
-
-      auto pwindow = (::windowing_gtk4::window *)p;
-
-      if (state & GDK_TOPLEVEL_STATE_MINIMIZED)
-      {
-
-         pwindow->_on_display_change(e_display_iconic);
-
-      }
-      else if (state & GDK_TOPLEVEL_STATE_FULLSCREEN)
-      {
-
-         pwindow->_on_display_change(e_display_full_screen);
-
-      }
-
-   }
-
-
-   static void on_activate(GtkApplication *app, gpointer user_data)
-   {
-
-      GtkWidget *window = gtk_application_window_new(app);
-
-      gtk_window_set_title(GTK_WINDOW(window), "Window State Example");
-
-      gtk_window_set_default_size(GTK_WINDOW(window), 400, 300);
-
-      gtk_window_present(GTK_WINDOW(window));
-
-   }
+   //
+   // static void on_activate(GtkApplication *app, gpointer user_data)
+   // {
+   //
+   //    GtkWidget *window = gtk_application_window_new(app);
+   //
+   //    gtk_window_set_title(GTK_WINDOW(window), "Window State Example");
+   //
+   //    gtk_window_set_default_size(GTK_WINDOW(window), 400, 300);
+   //
+   //    gtk_window_present(GTK_WINDOW(window));
+   //
+   // }
 
 
    // int main(int argc, char **argv)
@@ -1172,23 +916,6 @@ namespace windowing_gtk4
    // }
 
 
-   void on_window_sizing(GObject *pgobject, GParamSpec *pspec, gpointer p)
-   {
-
-      if (g_strcmp0(pspec->name, "default-width") == 0
-         || g_strcmp0(pspec->name, "default-height") == 0)
-      {
-         auto pwindow = (::windowing_gtk4::window *)p;
-         auto pgtkwindow = GTK_WINDOW(pgobject);
-         // The default-width property has changed
-         int iWidth = pwindow->m_sizeOnSize.cx();
-         int iHeight = pwindow->m_sizeOnSize.cy();
-         gtk_window_get_default_size(pgtkwindow, &iWidth, &iHeight);
-         pwindow->_on_size(iWidth, iHeight);
-         //g_print("Default width changed to: %d\n", width);
-      }
-
-   }
 
 
    void window::_on_display_change(::e_display edisplay)
@@ -1315,247 +1042,248 @@ namespace windowing_gtk4
    //    RESIZE_RIGHT = 1 << 3
    // };
 
-   // Detect which edge is being resized
-   static enum_window_edge detect_resize_edge(GtkWidget* window, int x, int y)
-   {
-      enum_window_edge edge = e_window_edge_none;
-
-      int width = gtk_widget_get_width(window);
-      int height = gtk_widget_get_height(window);
-
-      // Allow resizing near the window borders (e.g., 10px near the edges)
-      int border = 10;
-
-      if (x < border)
-      {
-         if (y < border)
-         {
-            edge = e_window_edge_north_west;
-         }
-         else if (y > height - border)
-         {
-            edge = e_window_edge_south_west;
-         }
-         else
-         {
-            edge = e_window_edge_west;
-         }
-      }
-      else if (x > width - border)
-      {
-         if (y < border)
-         {
-            edge = e_window_edge_north_east;
-         }
-         else if (y > height - border)
-         {
-            edge = e_window_edge_south_east;
-         }
-         else
-         {
-            edge = e_window_edge_east;
-         }
-      }
-      else if (y < border)
-      {
-         edge = e_window_edge_north;
-      }
-      else if(y > height - border)
-      {
-         edge = e_window_edge_south;
-      }
-
-      return edge;
-
-   }
+   // // Detect which edge is being resized
+   // static enum_window_edge detect_resize_edge(GtkWidget* window, int x, int y)
+   // {
+   //    enum_window_edge edge = e_window_edge_none;
+   //
+   //    int width = gtk_widget_get_width(window);
+   //    int height = gtk_widget_get_height(window);
+   //
+   //    // Allow resizing near the window borders (e.g., 10px near the edges)
+   //    int border = 10;
+   //
+   //    if (x < border)
+   //    {
+   //       if (y < border)
+   //       {
+   //          edge = e_window_edge_north_west;
+   //       }
+   //       else if (y > height - border)
+   //       {
+   //          edge = e_window_edge_south_west;
+   //       }
+   //       else
+   //       {
+   //          edge = e_window_edge_west;
+   //       }
+   //    }
+   //    else if (x > width - border)
+   //    {
+   //       if (y < border)
+   //       {
+   //          edge = e_window_edge_north_east;
+   //       }
+   //       else if (y > height - border)
+   //       {
+   //          edge = e_window_edge_south_east;
+   //       }
+   //       else
+   //       {
+   //          edge = e_window_edge_east;
+   //       }
+   //    }
+   //    else if (y < border)
+   //    {
+   //       edge = e_window_edge_north;
+   //    }
+   //    else if(y > height - border)
+   //    {
+   //       edge = e_window_edge_south;
+   //    }
+   //
+   //    return edge;
+   //
+   // }
 
 
    void window::_on_window_button_pressed(::operating_system::a_system_menu_item * pitem, GtkGestureClick * pgesture, int n_press, double x, double y)
    {
 
-      if(n_press == 1)
-      {
-         guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture));
-
-         GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
-
-         // Get the GdkEvent from the sequence
-         GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
-
-         guint32 timestamp = gdk_event_get_time (event);
-
-         auto pmouse = __create_new<::message::mouse>();
-
-         pmouse->m_oswindow = this;
-
-         pmouse->m_pwindow = this;
-
-         pmouse->m_iTimestamp = timestamp;
-
-         if (button == 1)
-         {
-            pmouse->m_atom = e_message_left_button_down;
-         }
-         else if (button == 3)
-         {
-            pmouse->m_atom = e_message_right_button_down;
-         }
-         else if (button == 2)
-         {
-            pmouse->m_atom = e_message_middle_button_down;
-         }
-
-
-         if(pitem->m_strAtom == "***move")
-         {
-
-            gtk_gesture_set_state (GTK_GESTURE (pgesture), GTK_EVENT_SEQUENCE_CLAIMED);
-
-            GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
-
-            // Get the GdkEvent from the sequence
-            GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
-
-            guint32 timestamp = gdk_event_get_time (event);
-
-            auto pgdkdisplay = gtk4_display()->m_pgdkdisplay;
-
-            GdkSeat * pgdkseat = gdk_display_get_default_seat(pgdkdisplay);
-
-            // Get the default pointer device (e.g., mouse)
-            GdkDevice *pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
-
-            m_pointCursor2.x() = m_sizeOnSize.cx()/2;
-            m_pointCursor2.y() = m_sizeOnSize.cy()/2;
-
-
-            pmouse->m_pointHost = m_pointCursor2;
-
-            pmouse->m_pointAbsolute = m_pointCursor2;
-
-
-
-
-
-            //auto ppopover = GTK_POPOVER(gtk_widget_get_ancestor(pwidget, GTK_TYPE_POPOVER_MENU));
-
-            //gtk_widget_set_visible(GTK_WIDGET(ppopover), false);
-            auto * pwidget = (GtkWidget *) pitem->m_pWidgetImpl;
-            auto ppopover = GTK_POPOVER(gtk_widget_get_ancestor(pwidget, GTK_TYPE_POPOVER_MENU));
-
-            gtk_widget_set_visible(GTK_WIDGET(ppopover), false);
-
-
-            //defer_perform_entire_reposition_process(pmouse);
-            gtk_popover_popdown(ppopover);
-
-            preempt(100_ms);
-
-
-            GdkSurface *surface = gtk_native_get_surface(gtk_widget_get_native(m_pgtkwidget));
-            gdk_toplevel_begin_move(
-               GDK_TOPLEVEL(surface),
-               pgdkdevicePointer,
-               gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture)),
-               m_pointCursor2.x(),
-               m_pointCursor2.y(), timestamp);
-
-            gtk_event_controller_reset (GTK_EVENT_CONTROLLER (pgesture));
-
-
-
-            // //m_bPendingStartMove = true;
-            // int a = m_sizeOnSize.cx()/2;
-            // int b = m_sizeOnSize.cy()/2;
-            //
-            // // Simulate a "pressed" signal on GtkGestureClick
-            // g_signal_emit_by_name(m_pgtkgestureClick, "pressed", 1, a, b);  // Simulating a left-click at position (100, 100)
-
-
-            //defer_perform_entire_reposition_process(pmouse);
-            //gtk_popover_popdown(ppopover);
-
-
-         }
-         else if(pitem->m_strAtom ==  "***size")
-         {
-            // m_pointCursor2.x() = 4;
-            // m_pointCursor2.y() = 4;
-            //
-            //
-            // pmouse->m_pointHost = m_pointCursor2;
-            //
-            // pmouse->m_pointAbsolute = m_pointCursor2;
-            // //
-            // // defer_perform_entire_resizing_process(::experience::e_frame_sizing_top_left, pmouse);
-            //
-            // auto ppopover = GTK_POPOVER(gtk_widget_get_ancestor(pwidget, GTK_TYPE_POPOVER_MENU));
-            //
-            // gtk_widget_set_visible(GTK_WIDGET(ppopover), false);
-            //
-            //
-            // //defer_perform_entire_reposition_process(pmouse);
-            // gtk_popover_popdown(ppopover);
-
-
-            gtk_gesture_set_state (GTK_GESTURE (pgesture), GTK_EVENT_SEQUENCE_CLAIMED);
-
-            GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
-
-            // Get the GdkEvent from the sequence
-            GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
-
-            guint32 timestamp = gdk_event_get_time (event);
-
-            auto pgdkdisplay = gtk4_display()->m_pgdkdisplay;
-
-            GdkSeat * pgdkseat = gdk_display_get_default_seat(pgdkdisplay);
-
-            // Get the default pointer device (e.g., mouse)
-            GdkDevice *pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
-
-            m_pointCursor2.x() = m_sizeOnSize.cx()/2;
-            m_pointCursor2.y() = m_sizeOnSize.cy()/2;
-
-
-            pmouse->m_pointHost = m_pointCursor2;
-
-            pmouse->m_pointAbsolute = m_pointCursor2;
-
-
-
-
-
-            //auto ppopover = GTK_POPOVER(gtk_widget_get_ancestor(pwidget, GTK_TYPE_POPOVER_MENU));
-
-            //gtk_widget_set_visible(GTK_WIDGET(ppopover), false);
-            auto * pwidget = (GtkWidget *) pitem->m_pWidgetImpl;
-            auto ppopover = GTK_POPOVER(gtk_widget_get_ancestor(pwidget, GTK_TYPE_POPOVER_MENU));
-
-            gtk_widget_set_visible(GTK_WIDGET(ppopover), false);
-
-
-            //defer_perform_entire_reposition_process(pmouse);
-            gtk_popover_popdown(ppopover);
-
-            preempt(100_ms);
-
-
-            GdkSurface *surface = gtk_native_get_surface(gtk_widget_get_native(m_pgtkwidget));
-            gdk_toplevel_begin_resize(
-               GDK_TOPLEVEL(surface),
-               GDK_SURFACE_EDGE_NORTH_WEST,
-               pgdkdevicePointer,
-               gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture)),
-               m_pointCursor2.x(),
-               m_pointCursor2.y(), timestamp);
-
-            gtk_event_controller_reset (GTK_EVENT_CONTROLLER (pgesture));
-
-
-         }
-
-      }
+      ::gtk4::nano::user::window_base::_on_window_button_pressed(pitem, pgesture, n_press, x, y);
+      // if(n_press == 1)
+      // {
+      //    guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture));
+      //
+      //    GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
+      //
+      //    // Get the GdkEvent from the sequence
+      //    GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+      //
+      //    guint32 timestamp = gdk_event_get_time (event);
+      //
+      //    auto pmouse = __create_new<::message::mouse>();
+      //
+      //    pmouse->m_oswindow = this;
+      //
+      //    pmouse->m_pwindow = this;
+      //
+      //    pmouse->m_iTimestamp = timestamp;
+      //
+      //    if (button == 1)
+      //    {
+      //       pmouse->m_atom = e_message_left_button_down;
+      //    }
+      //    else if (button == 3)
+      //    {
+      //       pmouse->m_atom = e_message_right_button_down;
+      //    }
+      //    else if (button == 2)
+      //    {
+      //       pmouse->m_atom = e_message_middle_button_down;
+      //    }
+      //
+      //
+      //    if(pitem->m_strAtom == "***move")
+      //    {
+      //
+      //       gtk_gesture_set_state (GTK_GESTURE (pgesture), GTK_EVENT_SEQUENCE_CLAIMED);
+      //
+      //       GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
+      //
+      //       // Get the GdkEvent from the sequence
+      //       GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+      //
+      //       guint32 timestamp = gdk_event_get_time (event);
+      //
+      //       auto pgdkdisplay = gtk4_display()->m_pgdkdisplay;
+      //
+      //       GdkSeat * pgdkseat = gdk_display_get_default_seat(pgdkdisplay);
+      //
+      //       // Get the default pointer device (e.g., mouse)
+      //       GdkDevice *pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
+      //
+      //       m_pointCursor2.x() = m_sizeOnSize.cx()/2;
+      //       m_pointCursor2.y() = m_sizeOnSize.cy()/2;
+      //
+      //
+      //       pmouse->m_pointHost = m_pointCursor2;
+      //
+      //       pmouse->m_pointAbsolute = m_pointCursor2;
+      //
+      //
+      //
+      //
+      //
+      //       //auto ppopover = GTK_POPOVER(gtk_widget_get_ancestor(pwidget, GTK_TYPE_POPOVER_MENU));
+      //
+      //       //gtk_widget_set_visible(GTK_WIDGET(ppopover), false);
+      //       auto * pwidget = (GtkWidget *) pitem->m_pWidgetImpl;
+      //       auto ppopover = GTK_POPOVER(gtk_widget_get_ancestor(pwidget, GTK_TYPE_POPOVER_MENU));
+      //
+      //       gtk_widget_set_visible(GTK_WIDGET(ppopover), false);
+      //
+      //
+      //       //defer_perform_entire_reposition_process(pmouse);
+      //       gtk_popover_popdown(ppopover);
+      //
+      //       preempt(100_ms);
+      //
+      //
+      //       GdkSurface *surface = gtk_native_get_surface(gtk_widget_get_native(m_pgtkwidget));
+      //       gdk_toplevel_begin_move(
+      //          GDK_TOPLEVEL(surface),
+      //          pgdkdevicePointer,
+      //          gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture)),
+      //          m_pointCursor2.x(),
+      //          m_pointCursor2.y(), timestamp);
+      //
+      //       gtk_event_controller_reset (GTK_EVENT_CONTROLLER (pgesture));
+      //
+      //
+      //
+      //       // //m_bPendingStartMove = true;
+      //       // int a = m_sizeOnSize.cx()/2;
+      //       // int b = m_sizeOnSize.cy()/2;
+      //       //
+      //       // // Simulate a "pressed" signal on GtkGestureClick
+      //       // g_signal_emit_by_name(m_pgtkgestureClick, "pressed", 1, a, b);  // Simulating a left-click at position (100, 100)
+      //
+      //
+      //       //defer_perform_entire_reposition_process(pmouse);
+      //       //gtk_popover_popdown(ppopover);
+      //
+      //
+      //    }
+      //    else if(pitem->m_strAtom ==  "***size")
+      //    {
+      //       // m_pointCursor2.x() = 4;
+      //       // m_pointCursor2.y() = 4;
+      //       //
+      //       //
+      //       // pmouse->m_pointHost = m_pointCursor2;
+      //       //
+      //       // pmouse->m_pointAbsolute = m_pointCursor2;
+      //       // //
+      //       // // defer_perform_entire_resizing_process(::experience::e_frame_sizing_top_left, pmouse);
+      //       //
+      //       // auto ppopover = GTK_POPOVER(gtk_widget_get_ancestor(pwidget, GTK_TYPE_POPOVER_MENU));
+      //       //
+      //       // gtk_widget_set_visible(GTK_WIDGET(ppopover), false);
+      //       //
+      //       //
+      //       // //defer_perform_entire_reposition_process(pmouse);
+      //       // gtk_popover_popdown(ppopover);
+      //
+      //
+      //       gtk_gesture_set_state (GTK_GESTURE (pgesture), GTK_EVENT_SEQUENCE_CLAIMED);
+      //
+      //       GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
+      //
+      //       // Get the GdkEvent from the sequence
+      //       GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+      //
+      //       guint32 timestamp = gdk_event_get_time (event);
+      //
+      //       auto pgdkdisplay = gtk4_display()->m_pgdkdisplay;
+      //
+      //       GdkSeat * pgdkseat = gdk_display_get_default_seat(pgdkdisplay);
+      //
+      //       // Get the default pointer device (e.g., mouse)
+      //       GdkDevice *pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
+      //
+      //       m_pointCursor2.x() = m_sizeOnSize.cx()/2;
+      //       m_pointCursor2.y() = m_sizeOnSize.cy()/2;
+      //
+      //
+      //       pmouse->m_pointHost = m_pointCursor2;
+      //
+      //       pmouse->m_pointAbsolute = m_pointCursor2;
+      //
+      //
+      //
+      //
+      //
+      //       //auto ppopover = GTK_POPOVER(gtk_widget_get_ancestor(pwidget, GTK_TYPE_POPOVER_MENU));
+      //
+      //       //gtk_widget_set_visible(GTK_WIDGET(ppopover), false);
+      //       auto * pwidget = (GtkWidget *) pitem->m_pWidgetImpl;
+      //       auto ppopover = GTK_POPOVER(gtk_widget_get_ancestor(pwidget, GTK_TYPE_POPOVER_MENU));
+      //
+      //       gtk_widget_set_visible(GTK_WIDGET(ppopover), false);
+      //
+      //
+      //       //defer_perform_entire_reposition_process(pmouse);
+      //       gtk_popover_popdown(ppopover);
+      //
+      //       preempt(100_ms);
+      //
+      //
+      //       GdkSurface *surface = gtk_native_get_surface(gtk_widget_get_native(m_pgtkwidget));
+      //       gdk_toplevel_begin_resize(
+      //          GDK_TOPLEVEL(surface),
+      //          GDK_SURFACE_EDGE_NORTH_WEST,
+      //          pgdkdevicePointer,
+      //          gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture)),
+      //          m_pointCursor2.x(),
+      //          m_pointCursor2.y(), timestamp);
+      //
+      //       gtk_event_controller_reset (GTK_EVENT_CONTROLLER (pgesture));
+      //
+      //
+      //    }
+      //
+      // }
 
    }
 
@@ -1564,95 +1292,88 @@ namespace windowing_gtk4
    void window::_on_window_button_released(::operating_system::a_system_menu_item * pitem, GtkGestureClick * pgesture, int n_press, double x, double y)
    {
 
-      if(n_press == 1)
-      {
-         guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture));
+      ::gtk4::nano::user::window_base::_on_window_button_released(pitem, pgesture, n_press, x, y);
 
-         GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
+      // if(n_press == 1)
+      // {
+      //    guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture));
+      //
+      //    GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
+      //
+      //    // Get the GdkEvent from the sequence
+      //    GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+      //
+      //    guint32 timestamp = gdk_event_get_time (event);
+      //
+      //    auto pmouse = __create_new<::message::mouse>();
+      //
+      //    pmouse->m_oswindow = this;
+      //
+      //    pmouse->m_pwindow = this;
+      //
+      //    pmouse->m_iTimestamp = timestamp;
+      //
+      //    if (button == 1)
+      //    {
+      //       pmouse->m_atom = e_message_left_button_down;
+      //    }
+      //    else if (button == 3)
+      //    {
+      //       pmouse->m_atom = e_message_right_button_down;
+      //    }
+      //    else if (button == 2)
+      //    {
+      //       pmouse->m_atom = e_message_middle_button_down;
+      //    }
+      //
+      //
+      //    if(pitem->m_strAtom == "***move")
+      //    {
+      //
+      //
+      //       m_pointCursor2.x() = m_sizeOnSize.cx()/2;
+      //       m_pointCursor2.y() = m_sizeOnSize.cy()/2;
+      //
+      //
+      //       pmouse->m_pointHost = m_pointCursor2;
+      //
+      //       pmouse->m_pointAbsolute = m_pointCursor2;
+      //
+      //
+      //
+      //       //
+      //       // //auto ppopover = GTK_POPOVER(gtk_widget_get_ancestor(pwidget, GTK_TYPE_POPOVER_MENU));
+      //       //
+      //       // //gtk_widget_set_visible(GTK_WIDGET(ppopover), false);
+      //       // auto ppopover = GTK_POPOVER(gtk_widget_get_ancestor(pwidget, GTK_TYPE_POPOVER_MENU));
+      //       //
+      //       // gtk_widget_set_visible(GTK_WIDGET(ppopover), false);
+      //       //
+      //       //
+      //       // //defer_perform_entire_reposition_process(pmouse);
+      //       // gtk_popover_popdown(ppopover);
+      //       //
+      //       // m_bPendingStartMove = true;
+      //       // //defer_perform_entire_reposition_process(pmouse);
+      //       // //gtk_popover_popdown(ppopover);
+      //
+      //
+      //    }
+      //    else if(pitem->m_strAtom == "***size")
+      //    {
+      //       m_pointCursor2.x() = 4;
+      //       m_pointCursor2.y() = 4;
+      //
+      //
+      //       pmouse->m_pointHost = m_pointCursor2;
+      //
+      //       pmouse->m_pointAbsolute = m_pointCursor2;
+      //
+      //       defer_perform_entire_resizing_process(::experience::e_frame_sizing_top_left, pmouse);
+      //    }
+      //
+      // }
 
-         // Get the GdkEvent from the sequence
-         GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
-
-         guint32 timestamp = gdk_event_get_time (event);
-
-         auto pmouse = __create_new<::message::mouse>();
-
-         pmouse->m_oswindow = this;
-
-         pmouse->m_pwindow = this;
-
-         pmouse->m_iTimestamp = timestamp;
-
-         if (button == 1)
-         {
-            pmouse->m_atom = e_message_left_button_down;
-         }
-         else if (button == 3)
-         {
-            pmouse->m_atom = e_message_right_button_down;
-         }
-         else if (button == 2)
-         {
-            pmouse->m_atom = e_message_middle_button_down;
-         }
-
-
-         if(pitem->m_strAtom == "***move")
-         {
-
-
-            m_pointCursor2.x() = m_sizeOnSize.cx()/2;
-            m_pointCursor2.y() = m_sizeOnSize.cy()/2;
-
-
-            pmouse->m_pointHost = m_pointCursor2;
-
-            pmouse->m_pointAbsolute = m_pointCursor2;
-
-
-
-            //
-            // //auto ppopover = GTK_POPOVER(gtk_widget_get_ancestor(pwidget, GTK_TYPE_POPOVER_MENU));
-            //
-            // //gtk_widget_set_visible(GTK_WIDGET(ppopover), false);
-            // auto ppopover = GTK_POPOVER(gtk_widget_get_ancestor(pwidget, GTK_TYPE_POPOVER_MENU));
-            //
-            // gtk_widget_set_visible(GTK_WIDGET(ppopover), false);
-            //
-            //
-            // //defer_perform_entire_reposition_process(pmouse);
-            // gtk_popover_popdown(ppopover);
-            //
-            // m_bPendingStartMove = true;
-            // //defer_perform_entire_reposition_process(pmouse);
-            // //gtk_popover_popdown(ppopover);
-
-
-         }
-         else if(pitem->m_strAtom == "***size")
-         {
-            m_pointCursor2.x() = 4;
-            m_pointCursor2.y() = 4;
-
-
-            pmouse->m_pointHost = m_pointCursor2;
-
-            pmouse->m_pointAbsolute = m_pointCursor2;
-
-            defer_perform_entire_resizing_process(::experience::e_frame_sizing_top_left, pmouse);
-         }
-
-      }
-
-   }
-
-
-   // Callback for button release
-   static void on_button_pressed(GtkGestureClick* pgesture, int n_press, double x, double y, gpointer p)
-   {
-      auto pwindow = (::windowing_gtk4::window *)p;
-
-      pwindow->_on_button_pressed(pgesture, n_press, x, y);
    }
 
 
@@ -1771,14 +1492,6 @@ namespace windowing_gtk4
    }
 
 
-   static void on_button_released(GtkGestureClick* pgesture, int n_press, double x, double y, gpointer p)
-   {
-
-      auto * pwindow = (::windowing_gtk4::window *)p;
-
-      pwindow->_on_button_released(pgesture, n_press, x, y);
-
-   }
 
 
    void window::_on_button_released(GtkGestureClick* pgesture, int n_press, double x, double y)
@@ -1845,15 +1558,6 @@ namespace windowing_gtk4
    }
 
 
-   // Perform resizing as the mouse moves
-   static void on_motion_notify(GtkEventControllerMotion* pcontroller, double x, double y, gpointer p)
-   {
-
-      auto * pwindow = (::windowing_gtk4::window *)p;
-      
-      pwindow->_on_motion_notify(pcontroller, x, y);
-
-   }
 
 
    void window::_on_motion_notify(GtkEventControllerMotion* pcontroller, double x, double y)
@@ -2028,15 +1732,6 @@ namespace windowing_gtk4
    }
 
 
-   static void on_enter_notify(GtkEventControllerMotion* pcontroller, double x, double y, gpointer p)
-   {
-
-      auto pwindow = (::windowing_gtk4::window *)p;
-
-      pwindow->_on_enter_notify(pcontroller, x, y);
-
-   }
-
 
    void window::_on_enter_notify(GtkEventControllerMotion* pcontroller, double x, double y)
    {
@@ -2044,15 +1739,6 @@ namespace windowing_gtk4
 //      GtkWidget* widget = gtk_event_controller_get_widget(GTK_EVENT_CONTROLLER(pcontroller));
 
 
-   }
-
-
-   // Callback for when the window visibility changes (minimized/hidden or restored)
-   static void on_window_visibility_changed(GObject* object, GParamSpec* pspec, gpointer p)
-   {
-      auto pwindow = (::windowing_gtk4::window *)p;
-
-      pwindow->_on_window_visibility_changed(object, pspec);
    }
 
 
@@ -2081,80 +1767,61 @@ namespace windowing_gtk4
       }
    }
 
-   // Callback for when Option 1 is selected from the popover menu
-   static void on_window_simple_action(GSimpleAction *action, GVariant *parameter, gpointer p)
-   {
-      auto pwindow = (::windowing_gtk4::window *)p;
-      gchar * name = nullptr;
-      g_object_get(action, "name", &name, nullptr);
-      pwindow->_on_window_simple_action(name);
-      g_free(name);
-      //g_print("Option 1 selected from popover menu!\n");
-   }
 
-
-   void window::_on_window_simple_action(const char * pszActionName)
-   {
-
-      ::string strActionName(pszActionName);
-
-      if(strActionName == "minimize")
-      {
-
-         window_minimize();
-
-      }
-      else if(strActionName == "maximize")
-      {
-
-         window_maximize();
-
-      }
-      else if(strActionName == "maximize")
-      {
-
-         window_maximize();
-
-      }
-      else if(strActionName == "about_box")
-      {
-
-         application()->show_about_box();
-
-      }
-      else if(strActionName == "close")
-      {
-
-         m_puserinteractionimpl->m_puserinteraction->post_message(e_message_close);
-
-      }
-      else if(strActionName == "")
-      {
-
-         print_line("reaching here?!");
-         //defer_perform_entire_reposition_process(nullptr);
-
-      }
-      else if(strActionName == "")
-      {
-
-         print_line("also here");
-
-         //defer_perform_entire_resizing_process(::experience::e_frame_sizing_top_left, nullptr);
-
-      }
-
-   }
-
-
-   static void on_toplevel_compute_size(GdkToplevel * self, GdkToplevelSize* size, gpointer p)
-   {
-
-      auto pwindow = (::windowing_gtk4::window *)p;
-
-      pwindow->_on_toplevel_compute_size(self, size);
-
-   }
+   //
+   // void window::_on_window_simple_action(const char * pszActionName)
+   // {
+   //
+   //    ::string strActionName(pszActionName);
+   //
+   //    if(strActionName == "minimize")
+   //    {
+   //
+   //       window_minimize();
+   //
+   //    }
+   //    else if(strActionName == "maximize")
+   //    {
+   //
+   //       window_maximize();
+   //
+   //    }
+   //    else if(strActionName == "maximize")
+   //    {
+   //
+   //       window_maximize();
+   //
+   //    }
+   //    else if(strActionName == "about_box")
+   //    {
+   //
+   //       application()->show_about_box();
+   //
+   //    }
+   //    else if(strActionName == "close")
+   //    {
+   //
+   //       m_puserinteractionimpl->m_puserinteraction->post_message(e_message_close);
+   //
+   //    }
+   //    else if(strActionName == "")
+   //    {
+   //
+   //       print_line("reaching here?!");
+   //       //defer_perform_entire_reposition_process(nullptr);
+   //
+   //    }
+   //    else if(strActionName == "")
+   //    {
+   //
+   //       print_line("also here");
+   //
+   //       //defer_perform_entire_resizing_process(::experience::e_frame_sizing_top_left, nullptr);
+   //
+   //    }
+   //
+   // }
+   //
 
 
    void window::_on_toplevel_compute_size(GdkToplevel * self, GdkToplevelSize* size)
@@ -2264,9 +1931,11 @@ namespace windowing_gtk4
 
          //auto pwindowing = this->windowing();
 
-         m_pgtkwidget = gtk_application_window_new(pgtk4windowing->m_pgtkapplication);
+         ::gtk4::nano::user::window_base::create_window();
 
-         gtk_window_set_decorated(GTK_WINDOW(m_pgtkwidget), false);
+         // m_pgtkwidget = gtk_application_window_new(pgtk4windowing->m_pgtkapplication);
+         //
+         // gtk_window_set_decorated(GTK_WINDOW(m_pgtkwidget), false);
 
    //       GdkRGBA rgba;
    //
@@ -2284,17 +1953,17 @@ namespace windowing_gtk4
    //       rgba.alpha = 0;  // Fully transparent
    //       gtk_widget_set_background_color(GTK_WIDGET(window), &rgba);
 
-         auto css_provider = gtk_css_provider_new ();
-         gtk_css_provider_load_from_string (
-             css_provider,
-             // rbga, `a` set to 0.0 makes the window background transparent
-             ".window { background-color: rgba(0, 0, 0, 0.0); }");
-
-         gtk_style_context_add_provider_for_display (
-             gtk_widget_get_display (m_pgtkwidget),
-             (GtkStyleProvider *) css_provider, GTK_STYLE_PROVIDER_PRIORITY_USER);
-
-         gtk_widget_add_css_class (m_pgtkwidget, "window");
+         // auto css_provider = gtk_css_provider_new ();
+         // gtk_css_provider_load_from_string (
+         //     css_provider,
+         //     // rbga, `a` set to 0.0 makes the window background transparent
+         //     ".window { background-color: rgba(0, 0, 0, 0.0); }");
+         //
+         // gtk_style_context_add_provider_for_display (
+         //     gtk_widget_get_display (m_pgtkwidget),
+         //     (GtkStyleProvider *) css_provider, GTK_STYLE_PROVIDER_PRIORITY_USER);
+         //
+         // gtk_widget_add_css_class (m_pgtkwidget, "window");
 
 
          // // Create a widget (e.g., a GtkWindow or GtkButton)
@@ -2322,48 +1991,48 @@ namespace windowing_gtk4
          //int w = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().size().cx();
          //int h = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().size().cy();
 
-         cx = maximum(cx, 800);
-         cy = maximum(cy, 400);
-
-         m_sizeOnSize.cx() = cx;
-         m_sizeOnSize.cy() = cy;
-
-         // Set window size
-         gtk_window_set_default_size(GTK_WINDOW(m_pgtkwidget), cx, cy);
-
-
-         // Create drawing area
-         m_pdrawingarea = gtk_drawing_area_new();
-         gtk_drawing_area_set_content_width (GTK_DRAWING_AREA (m_pdrawingarea), cx);
-         gtk_drawing_area_set_content_height (GTK_DRAWING_AREA (m_pdrawingarea), cy);
-         gtk_drawing_area_set_draw_func(
-      GTK_DRAWING_AREA(m_pdrawingarea),
-      GtkDrawingAreaDrawFunc,
-      this,
-      nullptr
-   );
+         // cx = maximum(cx, 800);
+         // cy = maximum(cy, 400);
+         //
+         // m_sizeOnSize.cx() = cx;
+         // m_sizeOnSize.cy() = cy;
+         //
+         // // Set window size
+         // gtk_window_set_default_size(GTK_WINDOW(m_pgtkwidget), cx, cy);
 
 
-         gtk_window_set_child(GTK_WINDOW(m_pgtkwidget), m_pdrawingarea);
-         // gtk_drawing_area_set_draw_func (GTK_DRAWING_AREA (area),
-         //                                 draw_function,
-         //                                 NULL, NULL);
+   //       // Create drawing area
+   //       m_pdrawingarea = gtk_drawing_area_new();
+   //       gtk_drawing_area_set_content_width (GTK_DRAWING_AREA (m_pdrawingarea), cx);
+   //       gtk_drawing_area_set_content_height (GTK_DRAWING_AREA (m_pdrawingarea), cy);
+   //       gtk_drawing_area_set_draw_func(
+   //    GTK_DRAWING_AREA(m_pdrawingarea),
+   //    GtkDrawingAreaDrawFunc,
+   //    this,
+   //    nullptr
+   // );
 
-         m_pgtkgestureClick = gtk_gesture_click_new();
 
-
-         // Gesture to handle button press and release
-         m_pgtkgestureClick = gtk_gesture_click_new();
-         gtk_gesture_single_set_button(GTK_GESTURE_SINGLE(m_pgtkgestureClick), 0);
-         g_signal_connect(m_pgtkgestureClick, "pressed", G_CALLBACK(on_button_pressed), this);
-         g_signal_connect(m_pgtkgestureClick, "released", G_CALLBACK(on_button_released), this);
-         gtk_widget_add_controller(m_pdrawingarea, GTK_EVENT_CONTROLLER(m_pgtkgestureClick));
-
-         // Motion controller to handle pointer motion for moving and resizing
-         m_pgtkeventcontrollerMotion = gtk_event_controller_motion_new();
-         g_signal_connect(m_pgtkeventcontrollerMotion, "motion", G_CALLBACK(on_motion_notify), this);
-         g_signal_connect(m_pgtkeventcontrollerMotion, "enter", G_CALLBACK(on_enter_notify), this);
-         gtk_widget_add_controller(m_pdrawingarea, m_pgtkeventcontrollerMotion);
+         // gtk_window_set_child(GTK_WINDOW(m_pgtkwidget), m_pdrawingarea);
+         // // gtk_drawing_area_set_draw_func (GTK_DRAWING_AREA (area),
+         // //                                 draw_function,
+         // //                                 NULL, NULL);
+         //
+         // m_pgtkgestureClick = gtk_gesture_click_new();
+         //
+         //
+         // // Gesture to handle button press and release
+         // m_pgtkgestureClick = gtk_gesture_click_new();
+         // gtk_gesture_single_set_button(GTK_GESTURE_SINGLE(m_pgtkgestureClick), 0);
+         // g_signal_connect(m_pgtkgestureClick, "pressed", G_CALLBACK(on_button_pressed), this);
+         // g_signal_connect(m_pgtkgestureClick, "released", G_CALLBACK(on_button_released), this);
+         // gtk_widget_add_controller(m_pdrawingarea, GTK_EVENT_CONTROLLER(m_pgtkgestureClick));
+         //
+         // // Motion controller to handle pointer motion for moving and resizing
+         // m_pgtkeventcontrollerMotion = gtk_event_controller_motion_new();
+         // g_signal_connect(m_pgtkeventcontrollerMotion, "motion", G_CALLBACK(on_motion_notify), this);
+         // g_signal_connect(m_pgtkeventcontrollerMotion, "enter", G_CALLBACK(on_enter_notify), this);
+         // gtk_widget_add_controller(m_pdrawingarea, m_pgtkeventcontrollerMotion);
 
 
             // Set the event mask to enable button press and release events
@@ -2387,8 +2056,8 @@ namespace windowing_gtk4
 
          //g_signal_connect(GTK_WINDOW(m_pgtkwidget), "property-notify-event", G_CALLBACK(on_window_property_notify), this);
 
-         g_signal_connect (GTK_WINDOW(m_pgtkwidget), "notify::default-width", G_CALLBACK (on_window_sizing), this);
-         g_signal_connect (GTK_WINDOW(m_pgtkwidget), "notify::default-height", G_CALLBACK (on_window_sizing), this);
+         // g_signal_connect (GTK_WINDOW(m_pgtkwidget), "notify::default-width", G_CALLBACK (on_window_sizing), this);
+         // g_signal_connect (GTK_WINDOW(m_pgtkwidget), "notify::default-height", G_CALLBACK (on_window_sizing), this);
 
          // Handle the custom resizing
          //ResizeData resize_data = {FALSE, RESIZE_NONE, 0, 0, 0, 0};
@@ -2401,24 +2070,24 @@ namespace windowing_gtk4
 
          //g_signal_connect(G_OBJECT(m_pgtkwidget), "window-state-event", G_CALLBACK(on_window_state_event), this);
          // Connect to the "notify::visible" signal to detect minimization (hiding)
-         g_signal_connect(m_pgtkwidget, "notify::visible", G_CALLBACK(on_window_visibility_changed), this);
-
-         // Connect to notify::is-maximized signal to track maximization changes
-         g_signal_connect(m_pgtkwidget, "notify::maximized", G_CALLBACK(on_maximize_notify), this);
-
-
-         GdkSurface *surface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
-         GdkToplevel *toplevel = GDK_TOPLEVEL(surface);
-
-         g_signal_connect(toplevel, "compute-size", G_CALLBACK(on_toplevel_compute_size), this);
-
-
-         // Get the GdkToplevel object for the window
+         // g_signal_connect(m_pgtkwidget, "notify::visible", G_CALLBACK(on_window_visibility_changed), this);
+         //
+         // // Connect to notify::is-maximized signal to track maximization changes
+         // g_signal_connect(m_pgtkwidget, "notify::maximized", G_CALLBACK(on_maximize_notify), this);
+         //
+         //
          // GdkSurface *surface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
          // GdkToplevel *toplevel = GDK_TOPLEVEL(surface);
-
-         // Connect to the state signal to track minimize and other state changes
-         g_signal_connect(toplevel, "state", G_CALLBACK(on_window_state), this);
+         //
+         // g_signal_connect(toplevel, "compute-size", G_CALLBACK(on_toplevel_compute_size), this);
+         //
+         //
+         // // Get the GdkToplevel object for the window
+         // // GdkSurface *surface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
+         // // GdkToplevel *toplevel = GDK_TOPLEVEL(surface);
+         //
+         // // Connect to the state signal to track minimize and other state changes
+         // g_signal_connect(toplevel, "state", G_CALLBACK(on_window_state), this);
 
          // Set events to capture motion and button events
          // gtk_widget_set_events(m_pgtkwidget,
@@ -2479,19 +2148,19 @@ namespace windowing_gtk4
          // m_straSystemMenuName.add("Close");
          // m_straSystemMenuAtom.add("close");
 
-         auto psystemmenu = create_system_menu();
-
-         for(auto & pitem:*psystemmenu)
-         {
-
-            if(pitem->m_strAtom.has_char() && !pitem->m_strAtom.begins("***"))
-            {
-               auto action = g_simple_action_new(pitem->m_strAtom, NULL);
-               g_signal_connect(action, "activate", G_CALLBACK(on_window_simple_action), this);
-               g_action_map_add_action(G_ACTION_MAP(m_pgtkwidget), G_ACTION(action));
-            }
-
-         }
+         // auto psystemmenu = create_system_menu();
+         //
+         // for(auto & pitem:*psystemmenu)
+         // {
+         //
+         //    if(pitem->m_strAtom.has_char() && !pitem->m_strAtom.begins("***"))
+         //    {
+         //       auto action = g_simple_action_new(pitem->m_strAtom, NULL);
+         //       g_signal_connect(action, "activate", G_CALLBACK(on_window_simple_action), this);
+         //       g_action_map_add_action(G_ACTION_MAP(m_pgtkwidget), G_ACTION(action));
+         //    }
+         //
+         // }
 
          // action2 = g_simple_action_new("option2", NULL);
          // g_signal_connect(action2, "activate", G_CALLBACK(on_option2_activated), NULL);
@@ -8346,172 +8015,172 @@ void window::_on_end_paint()
 // }
 
 
-bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse * pmouse)
-{
-
-      auto pdisplay = gtk4_display();
-
-      if (pdisplay->is_wayland())
-      {
-
-         guint button;
-
-         if(::is_null(pmouse))
-         {
-
-            button = 1;
-
-         }
-         else
-         {
-
-            button= as_guint_button(pmouse->m_ebuttonstate);
-
-         }
-
-
-
-         //guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pclick));
-         //Cast to Wayland display
-         //struct wl_display *wl_display = gdk_wayland_display_get_wl_display(display);
-
-
-         // Get the Wayland compositor (xdg_wm_base is part of the Wayland compositor)
-         //struct wl_compositor *wl_compositor = gdk_wayland_display_get_wl_compositor(display);
-
-         // Get the wl_surface from the GTK window
-         //auto gdk_surface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
-
-         //struct wl_surface *pwlsurface = gdk_wayland_surface_get_wl_surface(gdk_surface);
-
-         // You need to create an xdg_surface using xdg_wm_base
-         //struct xdg_wm_base *pxdgwmbase = gtk4_windowing()->m_pdisplay->m_pxdgwmbase;
-
-         // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pclick));
-         //
-         // // Get the GdkEvent from the sequence
-         // GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(pclick), sequence);
-         // if (!event) {
-         //    g_print("Failed to get event from GdkGestureClick.\n");
-         //    return;
-         // }
-         //
-         // guint32 timestamp = gdk_event_get_time (event);
-
-         //GdkWaylandEventSource  peventsource * =gdk_event_get_event_sequence(event);
-
-         guint32 timestamp;
-
-         if(::is_null(pmouse))
-         {
-
-            timestamp = GDK_CURRENT_TIME;
-
-         }
-         else
-         {
-            timestamp=  pmouse->m_iTimestamp;
-         }
-
-         //auto pgdkeventsequence = gdk_event_get_event_sequence(event);
-
-         auto toplevel = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
-
-
-         auto pgdkdisplay = pdisplay->m_pgdkdisplay;
-
-         GdkSeat * pgdkseat = gdk_display_get_default_seat(pgdkdisplay);
-
-         // Get the default pointer device (e.g., mouse)
-         GdkDevice *pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
-
-         auto gdksurfacedge = as_gdk_surface_edge(eframeSizing);
-
-         //_unlocked_defer_start_resize(resize_edge, pgesture, x, y);
-
-         double x;
-         double y;
-         if(::is_null(pmouse))
-         {
-            x = 8;
-            y = 8;
-         }
-         else
-         {
-            x = pmouse->m_pointAbsolute.x();
-            y = pmouse->m_pointAbsolute.y();
-         }
-
-         gdk_toplevel_begin_resize(GDK_TOPLEVEL(toplevel), gdksurfacedge, pgdkdevicePointer, button, x, y, timestamp);
-
-
-
-         // Check if the backend is Wayland
-         //if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
-            // Extract the Wayland event serial
-         //guint32 serial = gdk_wayland_event_source_get_event_serial(event);
-         //guint32 serial = wl_message_get_opcode(wl_message_from_opcode(object, opcode));
-
-         // guint32 serial = 0;
-         //
-         // auto pxdgsurface = xdg_wm_base_get_xdg_surface(pxdgwmbase, pwlsurface);
-         //
-         // auto pxdgtoplevel = xdg_surface_get_toplevel(pxdgsurface);
-         // // Get the seat (which manages input devices for the display)
-         // GdkSeat *seat = gdk_display_get_default_seat(display);
-         //
-         // // Get the default pointer device (e.g., mouse)
-         // GdkDevice *pointer = gdk_seat_get_pointer(seat);
-         // auto pwlseat = gdk_wayland_device_get_wl_seat(pointer);
-         //
-         // auto resizeedge = as_xdg_toplevel_resize_edge(eedge);
-         //
-         // xdg_toplevel_resize(
-         //           pxdgtoplevel,
-         //              pwlseat,
-         //              serial,
-         //              resizeedge);
-         //
-         // wl_display_dispatch(wl_display);
-         //
-         //
-         // wl_display_flush(wl_display);
-         //
-         // // Get the GdkSurface for the GTK window
-         // GdkSurface *gdk_surface = gtk_native_get_surface(GTK_NATIVE(window));
-         //
-         // // Get the Wayland surface associated with the GdkSurface
-         // struct wl_surface *wl_surface = gdk_wayland_window_get_wl_surface(GDK_WAYLAND_SURFACE(gdk_surface));
-         //
-         // if (!wl_surface) {
-         //    g_print("Failed to get Wayland surface\n");
-         //    return;
-         // }
-
-         // // Get the Wayland display
-         // struct wl_display *wl_display = gdk_wayland_display_get_wl_display(gdk_display_get_default());
-         //
-         // // Get the Wayland toplevel object (xdg_toplevel)
-         // struct xdg_toplevel *xdg_toplevel = gdk_wayland_window_get_xdg_toplevel(GDK_WAYLAND_SURFACE(gdk_surface));
-         //
-         // if (!xdg_toplevel) {
-         //    g_print("Failed to get xdg_toplevel\n");
-         //    return;
-         // }
-         //
-         // // Trigger the resize operation on the toplevel
-         // // Edges should be a combination of values like XDG_TOPLEVEL_RESIZE_EDGE_LEFT, XDG_TOPLEVEL_RESIZE_EDGE_RIGHT, etc.
-         // guint32 serial = 0;  // You need the serial of the last user event, e.g., from a button press
-         // xdg_toplevel_resize(xdg_toplevel, gdk_wayland_display_get_seat(gdk_display_get_default()), serial, edges);
-         //
-         // g_print("Called xdg_toplevel_resize\n");
-         //
-         // // Flush the display to send the request
-return true;
-      }
-
-   return false;
-}
+// bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse * pmouse)
+// {
+//
+//       auto pdisplay = gtk4_display();
+//
+//       if (pdisplay->is_wayland())
+//       {
+//
+//          guint button;
+//
+//          if(::is_null(pmouse))
+//          {
+//
+//             button = 1;
+//
+//          }
+//          else
+//          {
+//
+//             button= as_guint_button(pmouse->m_ebuttonstate);
+//
+//          }
+//
+//
+//
+//          //guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pclick));
+//          //Cast to Wayland display
+//          //struct wl_display *wl_display = gdk_wayland_display_get_wl_display(display);
+//
+//
+//          // Get the Wayland compositor (xdg_wm_base is part of the Wayland compositor)
+//          //struct wl_compositor *wl_compositor = gdk_wayland_display_get_wl_compositor(display);
+//
+//          // Get the wl_surface from the GTK window
+//          //auto gdk_surface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
+//
+//          //struct wl_surface *pwlsurface = gdk_wayland_surface_get_wl_surface(gdk_surface);
+//
+//          // You need to create an xdg_surface using xdg_wm_base
+//          //struct xdg_wm_base *pxdgwmbase = gtk4_windowing()->m_pdisplay->m_pxdgwmbase;
+//
+//          // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pclick));
+//          //
+//          // // Get the GdkEvent from the sequence
+//          // GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(pclick), sequence);
+//          // if (!event) {
+//          //    g_print("Failed to get event from GdkGestureClick.\n");
+//          //    return;
+//          // }
+//          //
+//          // guint32 timestamp = gdk_event_get_time (event);
+//
+//          //GdkWaylandEventSource  peventsource * =gdk_event_get_event_sequence(event);
+//
+//          guint32 timestamp;
+//
+//          if(::is_null(pmouse))
+//          {
+//
+//             timestamp = GDK_CURRENT_TIME;
+//
+//          }
+//          else
+//          {
+//             timestamp=  pmouse->m_iTimestamp;
+//          }
+//
+//          //auto pgdkeventsequence = gdk_event_get_event_sequence(event);
+//
+//          auto toplevel = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
+//
+//
+//          auto pgdkdisplay = pdisplay->m_pgdkdisplay;
+//
+//          GdkSeat * pgdkseat = gdk_display_get_default_seat(pgdkdisplay);
+//
+//          // Get the default pointer device (e.g., mouse)
+//          GdkDevice *pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
+//
+//          auto gdksurfacedge = as_gdk_surface_edge(eframeSizing);
+//
+//          //_unlocked_defer_start_resize(resize_edge, pgesture, x, y);
+//
+//          double x;
+//          double y;
+//          if(::is_null(pmouse))
+//          {
+//             x = 8;
+//             y = 8;
+//          }
+//          else
+//          {
+//             x = pmouse->m_pointAbsolute.x();
+//             y = pmouse->m_pointAbsolute.y();
+//          }
+//
+//          gdk_toplevel_begin_resize(GDK_TOPLEVEL(toplevel), gdksurfacedge, pgdkdevicePointer, button, x, y, timestamp);
+//
+//
+//
+//          // Check if the backend is Wayland
+//          //if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
+//             // Extract the Wayland event serial
+//          //guint32 serial = gdk_wayland_event_source_get_event_serial(event);
+//          //guint32 serial = wl_message_get_opcode(wl_message_from_opcode(object, opcode));
+//
+//          // guint32 serial = 0;
+//          //
+//          // auto pxdgsurface = xdg_wm_base_get_xdg_surface(pxdgwmbase, pwlsurface);
+//          //
+//          // auto pxdgtoplevel = xdg_surface_get_toplevel(pxdgsurface);
+//          // // Get the seat (which manages input devices for the display)
+//          // GdkSeat *seat = gdk_display_get_default_seat(display);
+//          //
+//          // // Get the default pointer device (e.g., mouse)
+//          // GdkDevice *pointer = gdk_seat_get_pointer(seat);
+//          // auto pwlseat = gdk_wayland_device_get_wl_seat(pointer);
+//          //
+//          // auto resizeedge = as_xdg_toplevel_resize_edge(eedge);
+//          //
+//          // xdg_toplevel_resize(
+//          //           pxdgtoplevel,
+//          //              pwlseat,
+//          //              serial,
+//          //              resizeedge);
+//          //
+//          // wl_display_dispatch(wl_display);
+//          //
+//          //
+//          // wl_display_flush(wl_display);
+//          //
+//          // // Get the GdkSurface for the GTK window
+//          // GdkSurface *gdk_surface = gtk_native_get_surface(GTK_NATIVE(window));
+//          //
+//          // // Get the Wayland surface associated with the GdkSurface
+//          // struct wl_surface *wl_surface = gdk_wayland_window_get_wl_surface(GDK_WAYLAND_SURFACE(gdk_surface));
+//          //
+//          // if (!wl_surface) {
+//          //    g_print("Failed to get Wayland surface\n");
+//          //    return;
+//          // }
+//
+//          // // Get the Wayland display
+//          // struct wl_display *wl_display = gdk_wayland_display_get_wl_display(gdk_display_get_default());
+//          //
+//          // // Get the Wayland toplevel object (xdg_toplevel)
+//          // struct xdg_toplevel *xdg_toplevel = gdk_wayland_window_get_xdg_toplevel(GDK_WAYLAND_SURFACE(gdk_surface));
+//          //
+//          // if (!xdg_toplevel) {
+//          //    g_print("Failed to get xdg_toplevel\n");
+//          //    return;
+//          // }
+//          //
+//          // // Trigger the resize operation on the toplevel
+//          // // Edges should be a combination of values like XDG_TOPLEVEL_RESIZE_EDGE_LEFT, XDG_TOPLEVEL_RESIZE_EDGE_RIGHT, etc.
+//          // guint32 serial = 0;  // You need the serial of the last user event, e.g., from a button press
+//          // xdg_toplevel_resize(xdg_toplevel, gdk_wayland_display_get_seat(gdk_display_get_default()), serial, edges);
+//          //
+//          // g_print("Called xdg_toplevel_resize\n");
+//          //
+//          // // Flush the display to send the request
+// return true;
+//       }
+//
+//    return false;
+// }
 
 
 //      //windowing()->windowing_post([this]()
@@ -8542,106 +8211,106 @@ return true;
 //   }
 //
 //
-bool window::defer_perform_entire_reposition_process(::user::mouse * pmouse)
-{
-   //return _perform_entire_resizing_process(eframeSizing);
-
-      auto pdisplay = gtk4_display();
-
-      if (pdisplay->is_wayland())
-      {
-         guint button;
-
-         if(::is_null(pmouse))
-         {
-
-            button = 0;
-
-         }
-         else
-         {
-
-            button= as_guint_button(pmouse->m_ebuttonstate);
-
-         }
-
-
-         //guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pclick));
-         //Cast to Wayland display
-         //struct wl_display *wl_display = gdk_wayland_display_get_wl_display(display);
-
-
-         // Get the Wayland compositor (xdg_wm_base is part of the Wayland compositor)
-         //struct wl_compositor *wl_compositor = gdk_wayland_display_get_wl_compositor(display);
-
-         // Get the wl_surface from the GTK window
-         //auto gdk_surface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
-
-         //struct wl_surface *pwlsurface = gdk_wayland_surface_get_wl_surface(gdk_surface);
-
-         // You need to create an xdg_surface using xdg_wm_base
-         //struct xdg_wm_base *pxdgwmbase = gtk4_windowing()->m_pdisplay->m_pxdgwmbase;
-
-         // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pclick));
-         //
-         // // Get the GdkEvent from the sequence
-         // GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(pclick), sequence);
-         // if (!event) {
-         //    g_print("Failed to get event from GdkGestureClick.\n");
-         //    return;
-         // }
-         //
-         // guint32 timestamp = gdk_event_get_time (event);
-
-         //GdkWaylandEventSource  peventsource * =gdk_event_get_event_sequence(event);
-
-         guint32 timestamp;
-
-         if(::is_null(pmouse))
-         {
-
-            timestamp = GDK_CURRENT_TIME;
-
-         }
-         else
-         {
-            timestamp=  pmouse->m_iTimestamp;
-         }
-
-         //auto pgdkeventsequence = gdk_event_get_event_sequence(event);
-
-         auto toplevel = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
-
-
-         auto pgdkdisplay = pdisplay->m_pgdkdisplay;
-
-         GdkSeat * pgdkseat = gdk_display_get_default_seat(pgdkdisplay);
-
-         // Get the default pointer device (e.g., mouse)
-         GdkDevice *pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
-         double x;
-         double y;
-         if(::is_null(pmouse))
-         {
-            x = gtk_widget_get_width(m_pgtkwidget);
-            y = gtk_widget_get_height(m_pgtkwidget);
-
-            x/=2;
-            y/=2;
-         }
-         else
-         {
-            x = pmouse->m_pointAbsolute.x();
-            y = pmouse->m_pointAbsolute.y();
-         }
-
-
-         gdk_toplevel_begin_move(GDK_TOPLEVEL(toplevel), pgdkdevicePointer, button, x, y, timestamp);
-
-         return true;
-      }
-   return false;
-}
+// bool window::defer_perform_entire_reposition_process(::user::mouse * pmouse)
+// {
+//    //return _perform_entire_resizing_process(eframeSizing);
+//
+//       auto pdisplay = gtk4_display();
+//
+//       if (pdisplay->is_wayland())
+//       {
+//          guint button;
+//
+//          if(::is_null(pmouse))
+//          {
+//
+//             button = 0;
+//
+//          }
+//          else
+//          {
+//
+//             button= as_guint_button(pmouse->m_ebuttonstate);
+//
+//          }
+//
+//
+//          //guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pclick));
+//          //Cast to Wayland display
+//          //struct wl_display *wl_display = gdk_wayland_display_get_wl_display(display);
+//
+//
+//          // Get the Wayland compositor (xdg_wm_base is part of the Wayland compositor)
+//          //struct wl_compositor *wl_compositor = gdk_wayland_display_get_wl_compositor(display);
+//
+//          // Get the wl_surface from the GTK window
+//          //auto gdk_surface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
+//
+//          //struct wl_surface *pwlsurface = gdk_wayland_surface_get_wl_surface(gdk_surface);
+//
+//          // You need to create an xdg_surface using xdg_wm_base
+//          //struct xdg_wm_base *pxdgwmbase = gtk4_windowing()->m_pdisplay->m_pxdgwmbase;
+//
+//          // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pclick));
+//          //
+//          // // Get the GdkEvent from the sequence
+//          // GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(pclick), sequence);
+//          // if (!event) {
+//          //    g_print("Failed to get event from GdkGestureClick.\n");
+//          //    return;
+//          // }
+//          //
+//          // guint32 timestamp = gdk_event_get_time (event);
+//
+//          //GdkWaylandEventSource  peventsource * =gdk_event_get_event_sequence(event);
+//
+//          guint32 timestamp;
+//
+//          if(::is_null(pmouse))
+//          {
+//
+//             timestamp = GDK_CURRENT_TIME;
+//
+//          }
+//          else
+//          {
+//             timestamp=  pmouse->m_iTimestamp;
+//          }
+//
+//          //auto pgdkeventsequence = gdk_event_get_event_sequence(event);
+//
+//          auto toplevel = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
+//
+//
+//          auto pgdkdisplay = pdisplay->m_pgdkdisplay;
+//
+//          GdkSeat * pgdkseat = gdk_display_get_default_seat(pgdkdisplay);
+//
+//          // Get the default pointer device (e.g., mouse)
+//          GdkDevice *pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
+//          double x;
+//          double y;
+//          if(::is_null(pmouse))
+//          {
+//             x = gtk_widget_get_width(m_pgtkwidget);
+//             y = gtk_widget_get_height(m_pgtkwidget);
+//
+//             x/=2;
+//             y/=2;
+//          }
+//          else
+//          {
+//             x = pmouse->m_pointAbsolute.x();
+//             y = pmouse->m_pointAbsolute.y();
+//          }
+//
+//
+//          gdk_toplevel_begin_move(GDK_TOPLEVEL(toplevel), pgdkdevicePointer, button, x, y, timestamp);
+//
+//          return true;
+//       }
+//    return false;
+// }
 
 
 //      xdg_toplevel_resize_edge resizeedge = XDG_TOPLEVEL_RESIZE_EDGE_NONE;
@@ -8677,6 +8346,23 @@ bool window::defer_perform_entire_reposition_process(::user::mouse * pmouse)
 //      return true;
 //
 //   }
+
+
+   bool window::defer_perform_entire_reposition_process(::user::mouse * pmouse)
+   {
+
+      return false;
+
+   }
+
+
+   bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse * pmouse)
+   {
+
+      return false;
+
+   }
+
 
 
 void window::on_destruct_mouse_message(::message::mouse* pmouse)
@@ -8943,26 +8629,26 @@ void window::window_maximize()
 }
 
 
-   string _gtk_get_resize_cursor_name(enum_window_edge eedge)
-   {
-      const char * pszCursorName ;
-      switch(eedge)
-      {
-         case e_window_edge_south:              pszCursorName = "s-resize"    ; break;
-         case e_window_edge_south_west:         pszCursorName = "sw-resize"   ; break;
-         case e_window_edge_south_east:         pszCursorName = "se-resize"   ; break;
-         case e_window_edge_west:               pszCursorName = "w-resize"    ; break;
-         case e_window_edge_east:               pszCursorName = "e-resize"    ; break;
-         case e_window_edge_north_west:         pszCursorName = "nw-resize"   ; break;
-         case e_window_edge_north_east:         pszCursorName = "ne-resize"   ; break;
-         case e_window_edge_north:              pszCursorName = "n-resize"    ; break;
-         default:                               pszCursorName = ""            ; break;
-
-      }
-
-      return pszCursorName;
-
-   }
+   // string _gtk_get_resize_cursor_name(enum_window_edge eedge)
+   // {
+   //    const char * pszCursorName ;
+   //    switch(eedge)
+   //    {
+   //       case e_window_edge_south:              pszCursorName = "s-resize"    ; break;
+   //       case e_window_edge_south_west:         pszCursorName = "sw-resize"   ; break;
+   //       case e_window_edge_south_east:         pszCursorName = "se-resize"   ; break;
+   //       case e_window_edge_west:               pszCursorName = "w-resize"    ; break;
+   //       case e_window_edge_east:               pszCursorName = "e-resize"    ; break;
+   //       case e_window_edge_north_west:         pszCursorName = "nw-resize"   ; break;
+   //       case e_window_edge_north_east:         pszCursorName = "ne-resize"   ; break;
+   //       case e_window_edge_north:              pszCursorName = "n-resize"    ; break;
+   //       default:                               pszCursorName = ""            ; break;
+   //
+   //    }
+   //
+   //    return pszCursorName;
+   //
+   // }
 
 
    void window::_set_cursor_from_name(const ::scoped_string & scopedstr)
@@ -8990,11 +8676,11 @@ void window::window_maximize()
 
 
 
-   void window::_unlocked_defer_start_resize(enum_window_edge eedge, GtkGestureClick * pclick, double x, double y)
-   {
-
-
-   }
+   // void window::_unlocked_defer_start_resize(enum_window_edge eedge, GtkGestureClick * pclick, double x, double y)
+   // {
+   //
+   //
+   // }
 
 
    ::rectangle_i32 window::_unlocked_defer_get_window_rectangle()

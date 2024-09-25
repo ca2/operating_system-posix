@@ -1539,36 +1539,36 @@ namespace windowing_gtk4
 //      m_pwindowKeyboardFocus->__handle_keyboard_modifiers(pwlkeyboard, serial, mods_depressed, mods_latched, mods_locked, group);
 //
 //   }
-
-   bool display::is_x11()
-   {
-
-
-      if (GDK_IS_X11_DISPLAY(m_pgdkdisplay))
-      {
-
-         return true;
-
-      }
-
-      return false;
-
-   }
-
-
-   bool display::is_wayland()
-   {
-
-      if (GDK_IS_WAYLAND_DISPLAY(m_pgdkdisplay))
-      {
-
-         return true;
-
-      }
-
-      return false;
-
-   }
+   //
+   // bool display::is_x11()
+   // {
+   //
+   //
+   //    if (GDK_IS_X11_DISPLAY(m_pgdkdisplay))
+   //    {
+   //
+   //       return true;
+   //
+   //    }
+   //
+   //    return false;
+   //
+   // }
+   //
+   //
+   // bool display::is_wayland()
+   // {
+   //
+   //    if (GDK_IS_WAYLAND_DISPLAY(m_pgdkdisplay))
+   //    {
+   //
+   //       return true;
+   //
+   //    }
+   //
+   //    return false;
+   //
+   // }
 
 
 

@@ -47,7 +47,7 @@ namespace cairo
             ::size_i32 get_text_extents(const ::string & str, ::nano::user::font * pnanofont) override;
             void rectangle(const ::rectangle_i32 & rectangle, ::nano::user::brush * pnanobrush, ::nano::user::pen * pnanopen) override;
 
-
+void draw(::nano::user::icon * picon, int x, int y, int cx, int cy) override;
             //XColor _alloc_xcolor(const ::color::color & color);
             //void _set_foreground(const ::color::color & color);
             //void _set_background(const ::color::color & color);

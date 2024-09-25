@@ -8,7 +8,7 @@
 
 //#include "acme/operating_system/x11/nano/event_listener.h"
 //#include "acme/operating_system/x11/nano/display.h"
-//#include "nano_user_wayland/display_base.h"
+#include "nano_user_gtk4/display_base.h"
 #include "aura/windowing/display.h"
 #include "_gtk4.h"
 
@@ -21,8 +21,8 @@ namespace windowing_gtk4
 
 
    class CLASS_DECL_WINDOWING_GTK4 display :
-      virtual public ::windowing::display //,
-      //virtual public ::wayland::nano::user::display_base
+      virtual public ::windowing::display,
+      virtual public ::gtk4::nano::user::display_base
    {
    public:
 
@@ -177,8 +177,8 @@ GdkDisplay * m_pgdkdisplay;
 //      virtual void __handle_keyboard_key(::wl_keyboard *pwlkeyboard, uint32_t serial, uint32_t time, uint32_t key, uint32_t state);
 //      virtual void __handle_keyboard_modifiers(::wl_keyboard *keyboard, uint32_t serial, uint32_t mods_depressed, uint32_t mods_latched, uint32_t mods_locked, uint32_t group);
 
-         virtual bool is_x11();
-         virtual bool is_wayland();
+         // virtual bool is_x11();
+         // virtual bool is_wayland();
 
    };
 

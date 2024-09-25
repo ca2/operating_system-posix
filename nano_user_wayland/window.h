@@ -88,7 +88,7 @@ namespace wayland
 
             void destroy() override;
 
-            void display() override;
+            void show_window() override;
 
             //bool _on_event(XEvent *pevent) override;
 
@@ -155,7 +155,7 @@ namespace wayland
             virtual void _wm_nodecorations(int iMap);
 
 
-            bool defer_perform_entire_reposition_process() override;
+            bool defer_perform_entire_reposition_process(::user::mouse * pmouse) override;
 
 
             //::size_i32 get_main_screen_size() override;

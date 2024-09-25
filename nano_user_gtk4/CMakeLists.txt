@@ -17,8 +17,8 @@ list(APPEND library_source
         _.h
         _factory.cpp
         _user.cpp
-        device.cpp
-        device.h
+        #device.cpp
+        #device.h
         display.cpp
         display.h
         display_base.cpp
@@ -37,7 +37,9 @@ list(APPEND library_source
         #wayland-xdg_wm_base.h
 )
 
-add_library(${PROJECT_NAME} SHARED ${library_source})
+add_library(${PROJECT_NAME} SHARED ${library_source}
+   icon.cpp
+   icon.h)
 
 target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 #set_source_files_properties(wayland-gtk_shell1.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON)

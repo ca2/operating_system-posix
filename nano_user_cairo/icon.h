@@ -3,26 +3,29 @@
 //
 
 #pragma once
-#include "nano_user_cairo/icon.h"
-namespace gtk4 {
+#include "acme/nano/user/icon.h"
+#include <cairo.h>
+namespace cairo {
 namespace nano {
 namespace user {
 
 class  CLASS_DECL_ACME icon:
-virtual public ::cairo::nano::user::icon{
+virtual public ::nano::user::icon{
   public:
+
+    cairo_surface_t * m_pcairosurface;
 
     icon();
     ~icon();
 
+   ::size_i32 size() const override;
 
-   void load_image_file(const void *p, memsize size) override;
 
 };
 
 } // user
 } // nano
-} // gtk4
+} // cairo
 
 
 

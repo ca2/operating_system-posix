@@ -416,6 +416,18 @@ namespace apex_posix
    }
 
 
+   void node::defer_innate_ui()
+   {
+
+      #if HAS_GTK4
+      auto pfactory = system()->factory("innate_ui", "gtk4");
+
+      pfactory->merge_to_global_factory();
+#endif
+
+
+   }
+
 
 } // namespace apex_posix
 

@@ -19,7 +19,7 @@
 #include "acme/primitive/string/command_line.h"
 #include "acme/primitive/string/str.h"
 #include "acme/primitive/primitive/memory.h"
-
+#include "acme/windowing_system/windowing_system.h"
 
 #include "acme/_operating_system.h"
 #include "acme/operating_system/ansi/_pthread.h"
@@ -2858,6 +2858,42 @@ if(functionTrace)
 
    }
 
+
+   void node::on_system_main()
+   {
+
+      if (platform()->is_console())
+      {
+
+         application()->main();
+
+      }
+      else
+      {
+
+         // if(system()->m_htask == ::current_htask())
+         // {
+         //
+         //    system()->m_htask = nullptr;
+         //
+         // }
+         //
+         // if(system()->m_itask == ::current_itask())
+         // {
+         //
+         //    system()->m_itask = 0;
+         //
+         // }
+         //
+         // system()->branch_synchronously();
+
+         system()->windowing_system()->windowing_system_application_main_loop();
+
+
+      }
+
+
+   }
 
 
 } // namespace acme_posix

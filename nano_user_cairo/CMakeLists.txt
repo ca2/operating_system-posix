@@ -24,6 +24,8 @@ list(APPEND library_source
         _user.cpp
         device.cpp
         device.h
+   icon.cpp
+   icon.h
         #event_listener.h
         framework.cpp
         framework.h

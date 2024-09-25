@@ -126,7 +126,12 @@ m_pgtkwidget=nullptr;
 
          }
 
+void window::_on_size(int cx, int cy)
+         {
 
+set_interface_client_size({cx, cy});
+
+         }
          void window::set_interface_client_size(const ::size_i32 & sizeWindow) // set_size
          {
 
@@ -218,12 +223,30 @@ m_pgtkwidget=nullptr;
          }
 
 
+         void window::_on_cairo_draw(GtkWidget *widget, cairo_t *cr)
+         {
+
+
+            _draw(m_pnanodevice);
+
+            ::pointer < ::cairo::nano::user::device > pdevice = m_pnanodevice;
+
+            cairo_set_source_surface(cr, m_pcairosurface, 0., 0.);
+
+            cairo_paint(cr);
+
+         }
+
+
          void window::on_initialize_particle()
          {
 
             ::object::on_initialize_particle();
 
          }
+
+
+
 
 
          void window::on_char(int iChar)
@@ -360,9 +383,11 @@ m_pgtkwidget=nullptr;
                          //m_sizeWindow.cx() = m_pinterface->m_rectangle.width();
                          //m_sizeWindow.cy() = m_pinterface->m_rectangle.height();
 
-
+m_pointWindow = m_pinterface->m_rectangle.top_left();
                          m_sizeWindow = m_pinterface->m_rectangle.size();
 
+
+               create_window();
 
                          information() << "window::create size configure : " << m_sizeWindow;
 
@@ -495,7 +520,7 @@ m_pgtkwidget=nullptr;
          }
 
 
-         void window::display()
+         void window::show_window()
          {
 
             //_wm_nodecorations(false);
@@ -768,7 +793,12 @@ m_pgtkwidget=nullptr;
 
             //::RedrawWindow(m_hwnd, nullptr, nullptr, RDW_UPDATENOW | RDW_INVALIDATE);
 
-            _update_window();
+            main_post([this]()
+            {
+
+               _update_window();
+
+            });
 
          }
 
@@ -962,25 +992,496 @@ m_pgtkwidget=nullptr;
          }
 
 
-         //   ::size_i32 window::get_main_screen_size()
-         //   {
+         // //   ::size_i32 window::get_main_screen_size()
+         // //   {
+         // //
+         // //      return m_pdisplay->get_main_screen_size();
+         // //
+         // //   }
+         // bool window::defer_perform_entire_reposition_process(::user::mouse * pmouse)
+         // {
          //
-         //      return m_pdisplay->get_main_screen_size();
+         //    if (!_perform_entire_reposition_process())
+         //    {
          //
-         //   }
-         bool window::defer_perform_entire_reposition_process()
+         //       return false;
+         //
+         //    }
+         //
+         //    return true;
+         //
+         // }
+
+
+
+         void window::_on_button_pressed(GtkGestureClick* pgesture, int n_press, double x, double y)
          {
 
-            if (!_perform_entire_reposition_process())
+         auto pmouse = __create_new<::user::mouse>();
+         //
+         //      pmouse->m_oswindow = this;
+         //
+         //      pmouse->m_pwindow = this;
+         //
+         //      pmouse->m_atom = e_message_mouse_move;
+         //
+            pmouse->m_pointHost.x() = x;
+            pmouse->m_pointHost.y() = y;
+
+            pmouse->m_pointAbsolute.x() = x;
+            pmouse->m_pointAbsolute.x() = y;
+
+         //      enum_message emessage = e_message_undefined;
+         //      //msg.m_atom = e_message_mouse_wheel;
+         //
+         //      //post_ui_message(pmouse);
+         //
+         //      bool bRet = true;
+         //
+         //      //msg.time = e.xbutton.time;
+         //
+         //      int Δ = 0;
+         //
+         //if (pressed == WL_POINTER_BUTTON_STATE_PRESSED)
+         {
+            //
+            //
+            //         ::point_i32                                  m_pointWindowDragStart;
+            //
+            //
+            guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture));
+            if (button == 1)
             {
 
-               return false;
+               information()
+                  << "LeftButtonDown";
+
+               //            emessage = e_message_left_button_down;
+
+               on_left_button_down(pmouse);
+               //
+            }
+            //         else if (linux_button == BTN_MIDDLE)
+            //         {
+            //
+            //            emessage = e_message_middle_button_down;
+            //
+            //         }
+            else if (button == 3)
+            {
+
+
+               //
+               //            emessage = e_message_right_button_down;
+
+               on_right_button_down(pmouse);
 
             }
+            //         else if (linux_button == BTN_GEAR_DOWN)
+            //         {
+            //
+            //            Δ = 120;
+            //
+            //         }
+            //         else if (linux_button == BTN_GEAR_UP)
+            //         {
+            //
+            //            Δ = -120;
+            //
+            //         }
+            //         else
+            //         {
+            //
+            //            bRet = false;
+            //
+            //         }
+            //
+         }
+         // else if (pressed == WL_POINTER_BUTTON_STATE_RELEASED)
+         // {
+         //
+         //    if (linux_button == BTN_LEFT)
+         //    {
+         //
+         //       information()
+         //          << "LeftButtonUp";
+         //
+         //       //            emessage = e_message_left_button_up;
+         //
+         //       on_left_button_up(pmouse);
+         //
+         //    }
+         //    //         else if (linux_button == BTN_MIDDLE)
+         //    //         {
+         //    //
+         //    //            emessage = e_message_middle_button_up;
+         //    //
+         //    //         }
+         //    else if (linux_button == BTN_RIGHT)
+         //    {
+         //       //
+         //       //            emessage = e_message_right_button_up;
+         //
+         //       on_right_button_up(pmouse);
+         //
+         //    }
+         //    //         else
+         //    //         {
+         //    //
+         //    //            bRet = false;
+         //    //
+         //    //         }
+         //    //
+         // }
+         //      else
+         //      {
+         //
+         //         bRet = false;
+         //
+         //      }
+         //
+         //      //m_pointCursor2 = m_pointPointer;
+         //
+         ////      MESSAGE msg;
+         ////
+         ////      msg.oswindow = this;
+         ////
+         ////      msg.oswindow->set_cursor_position(m_pointCursor);
+         //
+         //
+         //
+         ////      int l = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.x;
+         ////      int t = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.y;
+         ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx();
+         ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy();
+         ////
+         ////      ::rectangle_i32 r;
+         ////
+         ////      window_rectangle(msg.oswindow, &r);
+         ////
+         ////      int l1 = r.left();
+         ////      int t1 = r.top();
+         ////      int w1 = r.width();
+         ////      int h1 = r.height();
+         //
+         //      if (Δ != 0)
+         //      {
+         //
+         //         auto pmousewheel = __create_new<::message::mouse_wheel>();
+         //
+         //         pmousewheel->m_oswindow = this;
+         //
+         //         pmousewheel->m_pwindow = this;
+         //
+         //         pmousewheel->m_atom = e_message_mouse_wheel;
+         //
+         //         //msg.wParam = make_i32(0, iDelta);
+         //
+         //         //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+         //
+         //         pmousewheel->m_Δ = Δ;
+         //
+         //         pmousewheel->m_pointHost = m_pointCursor2;
+         //
+         //         pmousewheel->m_pointAbsolute = m_pointCursor2;
+         //
+         //         pmousewheel->m_time.m_iSecond =millis / 1_k;
+         //
+         //         pmousewheel->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+         //
+         //         //wayland_windowing()->post_ui_message(pmousewheel);
+         //
+         //         m_puserinteractionimpl->message_handler(pmousewheel);
+         //
+         //      }
+         //      else if (bRet)
+         //      {
+         //
+         //         auto pmouse = __create_new<::message::mouse>();
+         //
+         //         pmouse->m_oswindow = this;
+         //
+         //         pmouse->m_pwindow = this;
+         //
+         //         pmouse->m_atom = emessage;
+         //
+         //         pmouse->m_pointHost = m_pointCursor2;
+         //
+         //         pmouse->m_pointAbsolute = m_pointCursor2;
+         //
+         //         pmouse->m_time.m_iSecond = millis / 1_k;
+         //
+         //         pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+         //
+         //         //msg.wParam = 0;
+         //
+         //         //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+         //
+         //         //post_ui_message(msg);
+         //         //wayland_windowing()->post_ui_message(pmouse);
+         //
+         //         m_puserinteractionimpl->message_handler(pmouse);
+         //
+         //      }
 
-            return true;
 
          }
+
+
+
+         void window::_on_button_released(GtkGestureClick* pgesture, int n_press, double x, double y)
+         {
+         auto pmouse = __create_new<::user::mouse>();
+         //
+         //      pmouse->m_oswindow = this;
+         //
+         //      pmouse->m_pwindow = this;
+         //
+         //      pmouse->m_atom = e_message_mouse_move;
+         //
+            pmouse->m_pointHost.x() = x;
+            pmouse->m_pointHost.y() = y;
+
+            pmouse->m_pointAbsolute.x() = x;
+            pmouse->m_pointAbsolute.x() = y;
+
+         //      enum_message emessage = e_message_undefined;
+         //      //msg.m_atom = e_message_mouse_wheel;
+         //
+         //      //post_ui_message(pmouse);
+         //
+         //      bool bRet = true;
+         //
+         //      //msg.time = e.xbutton.time;
+         //
+         //      int Δ = 0;
+         //
+         // if (pressed == WL_POINTER_BUTTON_STATE_PRESSED)
+         // {
+         //    //
+         //    //
+         //    //         ::point_i32                                  m_pointWindowDragStart;
+         //    //
+         //    //
+         //    if (linux_button == BTN_LEFT)
+         //    {
+         //
+         //       information()
+         //          << "LeftButtonDown";
+         //
+         //       //            emessage = e_message_left_button_down;
+         //
+         //       on_left_button_down(pmouse);
+         //       //
+         //    }
+         //    //         else if (linux_button == BTN_MIDDLE)
+         //    //         {
+         //    //
+         //    //            emessage = e_message_middle_button_down;
+         //    //
+         //    //         }
+         //    else if (linux_button == BTN_RIGHT)
+         //    {
+         //
+         //
+         //       //
+         //       //            emessage = e_message_right_button_down;
+         //
+         //       on_right_button_down(pmouse);
+         //
+         //    }
+         //    //         else if (linux_button == BTN_GEAR_DOWN)
+         //    //         {
+         //    //
+         //    //            Δ = 120;
+         //    //
+         //    //         }
+         //    //         else if (linux_button == BTN_GEAR_UP)
+         //    //         {
+         //    //
+         //    //            Δ = -120;
+         //    //
+         //    //         }
+         //    //         else
+         //    //         {
+         //    //
+         //    //            bRet = false;
+         //    //
+         //    //         }
+         //    //
+         // }
+         // else if (pressed == WL_POINTER_BUTTON_STATE_RELEASED)
+         {
+            guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture));
+            if (button == 1)
+            {
+
+               information()
+                  << "LeftButtonUp";
+
+               //            emessage = e_message_left_button_up;
+
+               on_left_button_up(pmouse);
+
+            }
+            //         else if (linux_button == BTN_MIDDLE)
+            //         {
+            //
+            //            emessage = e_message_middle_button_up;
+            //
+            //         }
+            else if (button == 3)
+            {
+               //
+               //            emessage = e_message_right_button_up;
+
+               on_right_button_up(pmouse);
+
+            }
+            //         else
+            //         {
+            //
+            //            bRet = false;
+            //
+            //         }
+            //
+         }
+         //      else
+         //      {
+         //
+         //         bRet = false;
+         //
+         //      }
+         //
+         //      //m_pointCursor2 = m_pointPointer;
+         //
+         ////      MESSAGE msg;
+         ////
+         ////      msg.oswindow = this;
+         ////
+         ////      msg.oswindow->set_cursor_position(m_pointCursor);
+         //
+         //
+         //
+         ////      int l = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.x;
+         ////      int t = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.y;
+         ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx();
+         ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy();
+         ////
+         ////      ::rectangle_i32 r;
+         ////
+         ////      window_rectangle(msg.oswindow, &r);
+         ////
+         ////      int l1 = r.left();
+         ////      int t1 = r.top();
+         ////      int w1 = r.width();
+         ////      int h1 = r.height();
+         //
+         //      if (Δ != 0)
+         //      {
+         //
+         //         auto pmousewheel = __create_new<::message::mouse_wheel>();
+         //
+         //         pmousewheel->m_oswindow = this;
+         //
+         //         pmousewheel->m_pwindow = this;
+         //
+         //         pmousewheel->m_atom = e_message_mouse_wheel;
+         //
+         //         //msg.wParam = make_i32(0, iDelta);
+         //
+         //         //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+         //
+         //         pmousewheel->m_Δ = Δ;
+         //
+         //         pmousewheel->m_pointHost = m_pointCursor2;
+         //
+         //         pmousewheel->m_pointAbsolute = m_pointCursor2;
+         //
+         //         pmousewheel->m_time.m_iSecond =millis / 1_k;
+         //
+         //         pmousewheel->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+         //
+         //         //wayland_windowing()->post_ui_message(pmousewheel);
+         //
+         //         m_puserinteractionimpl->message_handler(pmousewheel);
+         //
+         //      }
+         //      else if (bRet)
+         //      {
+         //
+         //         auto pmouse = __create_new<::message::mouse>();
+         //
+         //         pmouse->m_oswindow = this;
+         //
+         //         pmouse->m_pwindow = this;
+         //
+         //         pmouse->m_atom = emessage;
+         //
+         //         pmouse->m_pointHost = m_pointCursor2;
+         //
+         //         pmouse->m_pointAbsolute = m_pointCursor2;
+         //
+         //         pmouse->m_time.m_iSecond = millis / 1_k;
+         //
+         //         pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+         //
+         //         //msg.wParam = 0;
+         //
+         //         //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+         //
+         //         //post_ui_message(msg);
+         //         //wayland_windowing()->post_ui_message(pmouse);
+         //
+         //         m_puserinteractionimpl->message_handler(pmouse);
+         //
+         //      }
+
+
+         }
+
+
+
+
+         void window::_on_motion_notify(GtkEventControllerMotion* pcontroller, double x, double y)
+         {
+
+            auto pmouse = __create_new<::user::mouse>();
+            //
+            //      pmouse->m_oswindow = this;
+            //
+            //      pmouse->m_pwindow = this;
+            //
+            //      pmouse->m_atom = e_message_mouse_move;
+            //
+            pmouse->m_pointHost.x() = x;
+            pmouse->m_pointHost.y() = y;
+
+            pmouse->m_pointAbsolute.x() = x;
+            pmouse->m_pointAbsolute.x() = y;
+            //
+            //      pmouse->m_time.m_iSecond = millis / 1_k;
+            //
+            //      pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+            //
+            //      //pwindow->message_handler(pmouse);
+            //
+            //      //wayland_windowing()->post_ui_message(pmouse);
+            //
+            //      m_puserinteractionimpl->message_handler(pmouse);
+
+            on_mouse_move(pmouse);
+
+         }
+
+
+         void window::_on_enter_notify(GtkEventControllerMotion* pcontroller, double x, double y)
+         {
+
+
+         }
+
+
 
 
          // void window::__handle_pointer_enter(::wl_pointer * pwlpointer)
@@ -1333,35 +1834,3 @@ m_pgtkwidget=nullptr;
 
 } // namespace gtk4
 
-
-#define MAXSTR 1000
-
-
-//CLASS_DECL_ACME ::acme::system * system();
-//
-//
-//void x11_asynchronous(::procedure function)
-//{
-//
-//   auto psystem = system();
-//
-//   auto pdisplay = ::x11::display::get(psystem);
-//
-//   if (!pdisplay)
-//   {
-//
-//      throw ::exception(error_null_pointer);
-//
-//   }
-//
-//   pdisplay->aaa_display_post([function]()
-//                                    {
-//
-//                                       function();
-//
-//                                    });
-//
-//}
-//
-//
-//

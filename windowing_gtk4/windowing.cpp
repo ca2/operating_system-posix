@@ -14,11 +14,14 @@
 #include "apex/input/input.h"
 #include "aura/windowing/cursor_manager.h"
 #include <X11/cursorfont.h>
+
+#include "acme/windowing_system/windowing_system.h"
 #include "aura/user/user/interaction_impl.h"
 #include "aura/windowing/display.h"
 #include "aura/platform/system.h"
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
+#include "windowing_system_gtk4/windowing_system.h"
 #include "windowing_system_x11/display_lock.h"
 
 
@@ -33,20 +36,19 @@ namespace windowing_gtk4
 
       defer_create_synchronization();
 
-      m_bRootSelectInput = false;
-
-      m_itask = -1;
+      // m_bRootSelectInput = false;
+      //
+      // m_itask = -1;
 
       m_pWindowing4 = this;
 
-      m_bFirstWindowMap = false;
-
-      m_bInitX11Thread = false;
-
-      m_bFinishX11Thread = false;
+      // m_bFirstWindowMap = false;
+      //
+      // m_bInitX11Thread = false;
+      //
+      // m_bFinishX11Thread = false;
 
       m_pGtkSettingsDefault = nullptr;
-
 
 
       //deferx_initializex_x11();
@@ -80,9 +82,7 @@ namespace windowing_gtk4
    bool windowing::is_branch_current() const
    {
 
-      auto itaskCurrent = ::current_itask();
-
-      return itaskCurrent == m_itask;
+      return system()->windowing_system()->is_branch_current();
 
 
    }
@@ -250,24 +250,14 @@ namespace windowing_gtk4
    //
    //   }
 
-   gboolean gtk_application_quit_callback(gpointer p)
-   {
 
-      auto * pgapplication = (GApplication *)p;
-
-      g_application_quit(pgapplication);
-
-      return FALSE;
-
-   }
 
 
 
    void windowing::windowing_post_quit()
    {
 
-
-      g_idle_add(gtk_application_quit_callback, G_APPLICATION(m_pgtkapplication));
+      system()->windowing_system()->windowing_system_post_quit();
 
    }
 
@@ -1049,56 +1039,71 @@ namespace windowing_gtk4
 
    void windowing::windowing_application_main_loop()
    {
-      ::string strId = application()->m_strAppId;
 
-      strId.find_replace("/", ".");
-      strId.find_replace("_", "-");
+      ::pointer < ::windowing_system_gtk4::windowing_system > pgtk4windowingsystem = system()->windowing_system();
 
-      //gtk_init();
+      pgtk4windowingsystem->m_callbackOnActivateGtkApplication=[this]()
+      {
+         _on_activate_gtk_application();
 
-      m_pgtkapplication = gtk_application_new (strId, G_APPLICATION_DEFAULT_FLAGS);
+      };
 
-      g_signal_connect (m_pgtkapplication, "activate", G_CALLBACK(on_activate_gtk_application), this);
-
-
-      // Retrieve system settings and listen for changes in dark mode preference
-      GtkSettings *settings = gtk_settings_get_default();
-      //update_theme_based_on_system(settings, NULL); // Check initial state
-      //g_signal_connect(settings, "notify::gtk-application-prefer-dark-theme", G_CALLBACK(update_theme_based_on_system), NULL);
-
-      // Get the current GTK theme name (or any other available property)
-      //gboolean b=1;
-      g_object_set(settings, "gtk-application-prefer-dark-theme", TRUE, NULL);
-      //g_print("Current theme: %s\n", theme_name);
-
-      // Free the allocated string after use
-      //g_free(theme_name);
-
-      ///GtkSettings *settings = gtk_settings_get_default();
-      g_object_set(settings, "gtk-enable-animations", FALSE, NULL);
-
-      g_application_hold(G_APPLICATION(m_pgtkapplication));
+      system()->windowing_system()->windowing_system_application_main_loop();
 
 
-      // if(m_pdisplay->is_wayland())
+
+
+      //
+      // ::string strId = application()->m_strAppId;
+      //
+      // strId.find_replace("/", ".");
+      // strId.find_replace("_", "-");
+      //
+      // //gtk_init();
+      //
+      // m_pgtkapplication = gtk_application_new (strId, G_APPLICATION_DEFAULT_FLAGS);
+      //
+      // g_signal_connect (m_pgtkapplication, "activate", G_CALLBACK(on_activate_gtk_application), this);
+      //
+      //
+      // // Retrieve system settings and listen for changes in dark mode preference
+      // GtkSettings *settings = gtk_settings_get_default();
+      // //update_theme_based_on_system(settings, NULL); // Check initial state
+      // //g_signal_connect(settings, "notify::gtk-application-prefer-dark-theme", G_CALLBACK(update_theme_based_on_system), NULL);
+      //
+      // // Get the current GTK theme name (or any other available property)
+      // //gboolean b=1;
+      // g_object_set(settings, "gtk-application-prefer-dark-theme", TRUE, NULL);
+      // //g_print("Current theme: %s\n", theme_name);
+      //
+      // // Free the allocated string after use
+      // //g_free(theme_name);
+      //
+      // ///GtkSettings *settings = gtk_settings_get_default();
+      // g_object_set(settings, "gtk-enable-animations", FALSE, NULL);
+      //
+      // g_application_hold(G_APPLICATION(m_pgtkapplication));
+      //
+      //
+      // // if(m_pdisplay->is_wayland())
+      // // {
+      // //
+      // //
+      // //
+      // // }
+      //
+      // g_application_run (G_APPLICATION(m_pgtkapplication), 0, nullptr);
+      //
+      // //g_application_run (G_APPLICATION(m_pgtkapplication), platform()->get_argc(), platform()->get_args());
+      // //aaa_x11_main();
+      //
+      //
+      // while(::task_get_run())
       // {
       //
-      //
+      //    preempt(1_s);
       //
       // }
-
-      g_application_run (G_APPLICATION(m_pgtkapplication), 0, nullptr);
-
-      //g_application_run (G_APPLICATION(m_pgtkapplication), platform()->get_argc(), platform()->get_args());
-      //aaa_x11_main();
-
-
-      while(::task_get_run())
-      {
-
-         preempt(1_s);
-
-      }
 
    }
 

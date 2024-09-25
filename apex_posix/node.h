@@ -39,7 +39,7 @@ namespace apex_posix
 
 
       bool is_alias(const ::file::path & path) override;
-
+void defer_innate_ui() override;
 
       ::process_identifier current_process_identifier() override;
 

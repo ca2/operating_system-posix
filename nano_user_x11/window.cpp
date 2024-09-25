@@ -370,7 +370,7 @@ namespace x11
 
 
 
-         void window::display()
+         void window::show_window()
          {
 
             display_lock displaylock(m_pdisplay->m_pdisplay);

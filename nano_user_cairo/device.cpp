@@ -3,6 +3,7 @@
 //
 #include "framework.h"
 #include "device.h"
+#include "icon.h"
 #include "acme/primitive/geometry2d/rectangle.h"
 #include "acme/nano/user/brush.h"
 #include "acme/nano/user/font.h"
@@ -12,6 +13,43 @@
 namespace cairo
 {
 
+
+   void draw_scaled_part_of_image(cairo_t *cr, cairo_surface_t *image,
+                                  double src_x, double src_y, double src_width, double src_height,
+                                  double dest_x, double dest_y, double dest_width, double dest_height)
+   {
+
+      cairo_save(cr);
+      // Step 1: Create a new pattern from the image surface
+      cairo_pattern_t *pattern = cairo_pattern_create_for_surface(image);
+
+      // Step 2: Clip the region of the image that you want to paint
+      cairo_rectangle(cr, dest_x, dest_y, dest_width, dest_height);
+      cairo_clip(cr);
+
+      // Step 3: Set the source for the pattern with appropriate scaling and translation
+      cairo_save(cr);  // Save the current transformation matrix
+
+      // Translate the pattern so that the top-left corner of the source area aligns with the destination area
+      cairo_translate(cr, dest_x, dest_y);
+
+      // Scale down the image part
+      cairo_scale(cr, dest_width / src_width, dest_height / src_height);
+
+      // Move the pattern to the part of the image you want to show (src_x, src_y)
+      cairo_set_source_surface(cr, image, -src_x, -src_y);
+
+      // Step 4: Paint the image to the destination
+      cairo_paint(cr);
+
+      // Restore the transformation matrix
+      cairo_restore(cr);
+
+      // Cleanup
+      cairo_pattern_destroy(pattern);
+
+      cairo_restore(cr);
+   }
 
    namespace nano
    {
@@ -251,6 +289,29 @@ namespace cairo
          {
 
             cairo_set_source_rgba(m_pdc, __expand_f64_rgba(color));
+
+         }
+
+         void device::draw(::nano::user::icon * picon, int x, int y, int cx, int cy)
+         {
+
+            ::pointer < ::cairo::nano::user::icon > pcairoicon = picon;
+
+            if(pcairoicon)
+            {
+
+               if(pcairoicon->m_pcairosurface)
+               {
+
+                  auto sizeSource = picon->size();
+
+                  ::cairo::draw_scaled_part_of_image(m_pdc, pcairoicon->m_pcairosurface,
+                     0., 0., sizeSource.cx(), sizeSource.cy(),
+                     x, y, cx, cy);
+
+               }
+
+            }
 
          }
 

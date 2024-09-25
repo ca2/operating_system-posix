@@ -495,7 +495,7 @@ namespace wayland
          }
 
 
-         void window::display()
+         void window::show_window()
          {
 
             //_wm_nodecorations(false);
@@ -968,7 +968,7 @@ namespace wayland
          //      return m_pdisplay->get_main_screen_size();
          //
          //   }
-         bool window::defer_perform_entire_reposition_process()
+         bool window::defer_perform_entire_reposition_process(::user::mouse * pmouse)
          {
 
             if (!_perform_entire_reposition_process())

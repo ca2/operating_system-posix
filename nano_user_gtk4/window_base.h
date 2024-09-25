@@ -62,14 +62,21 @@ GtkWidget*m_pgtkwidget;
             // class ::time                                 m_timeLastConfigureRequest;
             // bool                                         m_bXdgInitialConfigure;
             // bool                                            m_bDoneFirstMapping;
+            GtkWidget *                                  m_pdrawingarea;
+            GtkGesture *                                 m_pgtkgestureClick;
+            GtkEventController *                         m_pgtkeventcontrollerMotion;
 
-            bool                                         m_bMessageOnlyWindow;
-            bool                                         m_bHasKeyboardFocus;
+            bool                                                  m_bMessageOnlyWindow;
+            bool                                                  m_bHasKeyboardFocus;
+            ::size_i32                                            m_sizeOnSize;
+
 
 
             window_base();
             ~window_base() override;
+virtual ::windowing_system_gtk4::windowing_system * gtk4_windowing_system();
 
+            virtual void create_window();
 
 
             void destroy() override;
@@ -82,6 +89,7 @@ GtkWidget*m_pgtkwidget;
             virtual void set_interface_client_size(const ::size_i32 & sizeWindow); // m_sizeWindow
 
             virtual bool is_window_stored_iconic(); // m_puserinteractionimpl->m_puserinteraction->const_layout().window().display() == e_display_iconic
+            virtual void window_minimize();
             virtual void window_maximize(); // m_puserinteractionimpl->m_puserinteraction->display(::e_display_zoomed);
             virtual void window_full_screen(); // m_puserinteractionimpl->m_puserinteraction->display(::e_display_full_screen);
             virtual void window_restore(); // m_puserinteractionimpl->m_puserinteraction->display(::e_display_normal);
@@ -93,6 +101,24 @@ GtkWidget*m_pgtkwidget;
             virtual void __map();
 
             virtual void __unmap();
+
+            virtual void _on_button_pressed(GtkGestureClick* pgesture, int n_press, double x, double y);
+
+            virtual void _on_button_released(GtkGestureClick* pgesture, int n_press, double x, double y);
+
+            virtual void _on_motion_notify(GtkEventControllerMotion* pcontroller, double x, double y);
+
+            virtual void _on_enter_notify(GtkEventControllerMotion* pcontroller, double x, double y);
+
+            virtual void _on_window_visibility_changed(GObject* object, GParamSpec* pspec);
+
+            virtual void _on_cairo_draw(GtkWidget *widget, cairo_t *cr);
+
+            virtual void _on_size(int cx, int cy);
+
+            virtual void _on_toplevel_compute_size(GdkToplevel * self, GdkToplevelSize* size);
+
+            virtual void _on_display_change(::e_display edisplay);
 
 
             // virtual void __handle_pointer_enter(::wl_pointer * pwlpointer);
@@ -108,11 +134,22 @@ GtkWidget*m_pgtkwidget;
             // virtual void __handle_xdg_toplevel_configure(::i32 width, ::i32 height, ::wl_array * pwlarrayState);
             //
             // virtual void __defer_xdg_surface_ack_configure();
+            virtual void _on_window_button_pressed(::operating_system::a_system_menu_item * pitem, GtkGestureClick * pgesture, int n_press, double x, double y);
+            virtual void _on_window_button_released(::operating_system::a_system_menu_item * pitem, GtkGestureClick * pgesture, int n_press, double x, double y);
+
+void defer_show_system_menu(::user::mouse * pmouse) override;
+            //virtual bool _perform_entire_reposition_process();
+
+            //virtual bool _perform_entire_resizing_process(::experience::enum_frame eframeSizing);
+
+            bool defer_perform_entire_reposition_process(::user::mouse * pmouse) override;
+
+            bool defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse * pmouse) override;
 
 
-            virtual bool _perform_entire_reposition_process();
+            GMenu* _create_system_menu();
+            // virtual void _on_window_simple_action(const char * pszActionName);
 
-            virtual bool _perform_entire_resizing_process(::experience::enum_frame eframeSizing);
 
             //void on_destruct_mouse_message(::message::mouse * pmouse) override;
 
@@ -122,6 +159,7 @@ GtkWidget*m_pgtkwidget;
             // virtual void __handle_keyboard_key(::wl_keyboard *pwlkeyboard, uint32_t serial, uint32_t time, uint32_t key, uint32_t state);
             // virtual void __handle_keyboard_modifiers(::wl_keyboard *keyboard, uint32_t serial, uint32_t mods_depressed, uint32_t mods_latched, uint32_t mods_locked, uint32_t group);
 
+            ::gtk4::nano::user::display * gtk4_display();
 
             virtual void _on_simple_key_message(::user::e_key ekey, ::enum_message emesssage);
             virtual void _on_text_composition(const ::scoped_string & scopedstrText);
@@ -129,6 +167,8 @@ GtkWidget*m_pgtkwidget;
 
 
             virtual void _update_window();
+
+
 
 
          };

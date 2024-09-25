@@ -68,7 +68,7 @@ namespace x11
 
             void destroy() override;
 
-            void display() override;
+            void show_window() override;
 
             bool _on_event(XEvent *pevent) override;
 
