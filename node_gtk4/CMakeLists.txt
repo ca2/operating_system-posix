@@ -35,6 +35,7 @@ list(APPEND library_source
 list(APPEND library_references
    acme
    acme_posix
+   windowing_system_gtk4
    apex
    apex_posix
    aqua

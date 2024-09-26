@@ -330,7 +330,7 @@ namespace windowing_x11
 
          ::x11::display_lock displaylock(x11_display()->Display());
 
-         if (!m_pdisplay)
+         if (!m_pnanouserdisplay)
          {
 
             windowing_output_debug_string("::wm_toolwindow 1.1");
@@ -393,7 +393,7 @@ namespace windowing_x11
 
       ::x11::display_lock displaylock(x11_display()->Display());
 
-      if (!m_pdisplay)
+      if (!m_pnanouserdisplay)
       {
 
          windowing_output_debug_string("::wm_hidden_state 1.1");
@@ -423,7 +423,7 @@ namespace windowing_x11
 //
 //               ::x11::display_lock displaylock(x11_display()->Display());
 //
-//               if(!m_pdisplay)
+//               if(!m_pnanouserdisplay)
 //               {
 //
 //                  windowing_output_debug_string("::wm_arbitrarypositionwindow 1.1");
@@ -484,7 +484,7 @@ namespace windowing_x11
 
       ::x11::display_lock displaylock(x11_display()->Display());
 
-      if (!m_pdisplay)
+      if (!m_pnanouserdisplay)
       {
 
          windowing_output_debug_string("::wm_desktopwindow 1.1");
@@ -542,7 +542,7 @@ namespace windowing_x11
 
       ::x11::display_lock displaylock(x11_display()->Display());
 
-      if (!m_pdisplay)
+      if (!m_pnanouserdisplay)
       {
 
          windowing_output_debug_string("::wm_centerwindow 1.1");
@@ -600,7 +600,7 @@ namespace windowing_x11
 
       ::x11::display_lock displaylock(x11_display()->Display());
 
-      if (!m_pdisplay)
+      if (!m_pnanouserdisplay)
       {
 
          windowing_output_debug_string("::wm_centerwindow 1.1");
@@ -658,7 +658,7 @@ namespace windowing_x11
 
       ::x11::display_lock displaylock(x11_display()->Display());
 
-      if (!m_pdisplay)
+      if (!m_pnanouserdisplay)
       {
 
          windowing_output_debug_string("::wm_dockwindow 1.1");
@@ -718,7 +718,7 @@ namespace windowing_x11
 
       ::x11::display_lock displaylock(x11_display()->Display());
 
-      if (!m_pdisplay)
+      if (!m_pnanouserdisplay)
       {
 
          return;
@@ -784,7 +784,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("::wm_iconify_window 1");
 
-      if (!m_pdisplay)
+      if (!m_pnanouserdisplay)
       {
 
          windowing_output_debug_string("::wm_iconify_window 1.1");

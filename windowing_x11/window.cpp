@@ -182,7 +182,7 @@ namespace windowing_x11
 
                      m_puserinteractionimpl->m_puserinteraction->m_puserinteractionTopLevel = m_puserinteractionimpl->m_puserinteraction;
 
-                     m_pdisplay = pwindowing->display();
+                     m_pnanouserdisplay = pwindowing->display();
 
                      pimpl->m_pwindow = this;
 
@@ -1275,7 +1275,7 @@ namespace windowing_x11
 
       m_bMessageOnlyWindow = false;
       //m_osdisplay = osdisplay_get(Display());
-      m_pdisplay = pdisplay;
+      m_pnanouserdisplay = pdisplay;
       m_window = window;
 
       if (pvisual != nullptr)
@@ -1873,14 +1873,14 @@ namespace windowing_x11
    ::windowing_x11::display *window::x11_display() const
    {
 
-      if(::is_null(m_pdisplay))
+      if(::is_null(m_pnanouserdisplay))
       {
 
          return nullptr;
 
       }
 
-      return (::windowing_x11::display *) m_pdisplay->m_pDisplay;
+      return m_pnanouserdisplay.cast < ::windowing_x11::display>();
 
    }
 
@@ -2329,7 +2329,9 @@ namespace windowing_x11
 
                   ::rectangle_i32 rBest;
 
-                  int iMonitor = m_pdisplay->get_best_monitor(&rBest, r);
+         auto px11display = x11_display();
+
+                  int iMonitor = px11display->get_best_monitor(&rBest, r);
 
                   windowing_output_debug_string("::window::full_screen 1");
 

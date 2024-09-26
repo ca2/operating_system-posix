@@ -21,8 +21,11 @@
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
 #include "aura/windowing/display.h"
-#include "windowing_gtk4/gdk_gdk.h"
+//#include "windowing_gtk4/gdk_gdk.h"
 #include "windowing_gtk4/windowing.h"
+#include "windowing_system_gtk4/_.h"
+#include "windowing_system_gtk4/windowing_system.h"
+#include "windowing_system_gtk4/gdk_gdk.h"
 //#include "aura/windowing/windowing.h"
 //#include "aura_posix/x11/windowing.h"
 
@@ -696,9 +699,11 @@ namespace node_gtk4
 
       ::pointer < ::windowing_gtk4::windowing> pgtk4windowing = this->windowing();
 
+      ::pointer < ::windowing_system_gtk4::windowing_system> pgtk4windowingsystem = system()->windowing_system();
+
       ::string strGtkTheme;
 
-      strGtkTheme = pgtk4windowing->_get_os_user_theme();
+      strGtkTheme = pgtk4windowingsystem->_get_os_user_theme();
 
       if(strGtkTheme.has_char())
       {
@@ -721,10 +726,6 @@ namespace node_gtk4
    bool node::dark_mode() const
    {
 
-      ::pointer < ::windowing_gtk4::windowing > pgtk4windowing = ((node *) this)->windowing();
-
-      pgtk4windowing->_fetch_dark_mode();
-
       return ::aura_posix::node::dark_mode();
 
    }
@@ -733,42 +734,42 @@ namespace node_gtk4
    void node::set_dark_mode(bool bDarkMode)
    {
 
-      post_procedure([this, bDarkMode]()
-                     {
-
-      if(bDarkMode)
-      {
-
-         ::windowing_gtk4::gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-dark");
-
-      }
-      else
-      {
-
-         auto psummary = operating_system_summary();
-
-         if(psummary->m_strDistro.case_insensitive_equals("ubuntu"))
-         {
-
-            ::windowing_gtk4::gsettings_set("org.gnome.desktop.interface", "color-scheme", "default");
-
-         }
-         else
-         {
-
-            ::windowing_gtk4::gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-light");
-
-         }
-
-      }
-
-      _os_set_user_theme(m_strTheme);
-
-      _os_set_user_icon_theme(m_strIconTheme);
-
-      ::aura_posix::node::set_dark_mode(bDarkMode);
-
-      });
+      // post_procedure([this, bDarkMode]()
+      //                {
+      //
+      // if(bDarkMode)
+      // {
+      //
+      //    ::windowing_gtk4::gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-dark");
+      //
+      // }
+      // else
+      // {
+      //
+      //    auto psummary = operating_system_summary();
+      //
+      //    if(psummary->m_strDistro.case_insensitive_equals("ubuntu"))
+      //    {
+      //
+      //       ::windowing_gtk4::gsettings_set("org.gnome.desktop.interface", "color-scheme", "default");
+      //
+      //    }
+      //    else
+      //    {
+      //
+      //       ::windowing_gtk4::gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-light");
+      //
+      //    }
+      //
+      // }
+      //
+      // _os_set_user_theme(m_strTheme);
+      //
+      // _os_set_user_icon_theme(m_strIconTheme);
+      //
+      // ::aura_posix::node::set_dark_mode(bDarkMode);
+      //
+      // });
 
    }
 
@@ -810,20 +811,20 @@ namespace node_gtk4
       if (edesktop & ::user::e_desktop_gnome)
       {
 
-         bool bOk1 = ::windowing_gtk4::gsettings_set("org.gnome.desktop.interface", "gtk-theme", strUserTheme).ok();
+         bool bOk1 = ::gdk::gsettings_set("org.gnome.desktop.interface", "gtk-theme", strUserTheme).ok();
 
          bool bOk2 = true;
 
          //if(::file::system_short_name().case_insensitive_contains("manjaro"))
          {
 
-            bOk2 =::windowing_gtk4:: gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme).ok();
+            bOk2 =::gdk:: gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme).ok();
 
          }
 
          sleep(300_ms);
 
-         ::windowing_gtk4::gsettings_sync();
+         ::gdk::gsettings_sync();
 
          sleep(300_ms);
 
@@ -884,7 +885,7 @@ namespace node_gtk4
       if (edesktop & ::user::e_desktop_gnome)
       {
 
-         bool bOk1 = ::windowing_gtk4::gsettings_set("org.gnome.desktop.interface", "icon-theme", strUserIconTheme).ok();
+         bool bOk1 = ::gdk::gsettings_set("org.gnome.desktop.interface", "icon-theme", strUserIconTheme).ok();
 
          //bool bOk2 = true;
 
@@ -897,7 +898,7 @@ namespace node_gtk4
 
          sleep(300_ms);
 
-         ::windowing_gtk4::gsettings_sync();
+         ::gdk::gsettings_sync();
 
          sleep(300_ms);
 
@@ -975,14 +976,14 @@ namespace node_gtk4
             if(bDark)
             {
 
-               return ::windowing_gtk4::gsettings_set("org.gnome.desktop.background", "picture-uri-dark",
+               return ::gdk::gsettings_set("org.gnome.desktop.background", "picture-uri-dark",
                                                 "file://" + strLocalImagePath).ok();
 
             }
             else
             {
 
-               return ::windowing_gtk4::gsettings_set("org.gnome.desktop.background", "picture-uri",
+               return ::gdk::gsettings_set("org.gnome.desktop.background", "picture-uri",
                                                 "file://" + strLocalImagePath).ok();
 
             }
@@ -990,7 +991,7 @@ namespace node_gtk4
          }
          case ::user::e_desktop_mate:
 
-            return ::windowing_gtk4::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath).ok();
+            return ::gdk::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath).ok();
 
          case ::user::e_desktop_lxde:
 
@@ -1038,13 +1039,13 @@ namespace node_gtk4
          case ::user::e_desktop_ubuntu_gnome:
          case ::user::e_desktop_unity_gnome:
 
-            ::windowing_gtk4::node_enable_wallpaper_change_notification(this, "org.gnome.desktop.background", "picture-uri");
+            ::gdk::node_enable_wallpaper_change_notification(this, "org.gnome.desktop.background", "picture-uri");
 
             break;
 
          case ::user::e_desktop_mate:
 
-            ::windowing_gtk4::node_enable_wallpaper_change_notification(this, "org.mate.background", "picture-filename");
+            ::gdk::node_enable_wallpaper_change_notification(this, "org.mate.background", "picture-filename");
 
             break;
 
@@ -1078,7 +1079,7 @@ namespace node_gtk4
    string node::get_file_icon_path(const ::string &strPath, int iSize)
    {
 
-      return ::windowing_gtk4::g_get_file_icon_path(strPath, iSize);
+      return ::gdk::g_get_file_icon_path(strPath, iSize);
 
    }
 
@@ -1086,7 +1087,7 @@ namespace node_gtk4
    string node::get_file_content_type(const ::string &strPath)
    {
 
-      return ::windowing_gtk4::g_get_file_content_type(strPath);
+      return ::gdk::g_get_file_content_type(strPath);
 
    }
 
@@ -1102,7 +1103,7 @@ namespace node_gtk4
    void node::user_post(const ::procedure &procedure)
    {
 
-      ::windowing_gtk4::gdk_branch(procedure);
+      ::gdk::gdk_branch(procedure);
 
    }
 
@@ -1243,13 +1244,13 @@ namespace node_gtk4
          case ::user::e_desktop_ubuntu_gnome:
          case ::user::e_desktop_unity_gnome:
 
-            bOk = ::windowing_gtk4::gsettings_get(strTheme, "org.gnome.desktop.interface", "gtk-theme").ok();
+            bOk = ::gdk::gsettings_get(strTheme, "org.gnome.desktop.interface", "gtk-theme").ok();
 
             break;
 
          case ::user::e_desktop_mate:
 
-            bOk = ::windowing_gtk4::gsettings_get(strTheme, "org.mate.background", "picture-filename").ok();
+            bOk = ::gdk::gsettings_get(strTheme, "org.mate.background", "picture-filename").ok();
 
             break;
 
@@ -1742,9 +1743,9 @@ namespace node_gtk4
    {
 
 
-      ::pointer < ::windowing_gtk4::windowing > pgtk4windowing = this->windowing();
-
-      pgtk4windowing->_fetch_dark_mode();
+      // ::pointer < ::windowing_gtk4::windowing > pgtk4windowing = this->windowing();
+      //
+      // pgtk4windowing->_fetch_dark_mode();
 
 //      auto pthemecolors = ::user::os_get_theme_colors();
 //
@@ -1775,7 +1776,7 @@ namespace node_gtk4
    int node::os_launch_uri(const ::string &strUri, char *pszError, int iBufferSize)
    {
 
-      int iRet = ::windowing_gtk4::gdk_launch_uri(strUri, pszError, iBufferSize);
+      int iRet = ::gdk::gdk_launch_uri(strUri, pszError, iBufferSize);
 
       return iRet;
 

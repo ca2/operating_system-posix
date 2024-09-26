@@ -71,7 +71,7 @@ namespace windowing_gtk4
 
       //bool                                         m_bPendingConfigureRequest;
       //::pointer<::windowing_gtk4::x11data>          m_px11data;
-      ::pointer<::windowing_gtk4::display>          m_pwaylanddisplay;
+      ::pointer<::windowing_gtk4::display>          m_pgtk4display;
       //::Window                                     m_parent;
       //Cursor                                       m_cursorLast;
       //int                                          m_iXic;

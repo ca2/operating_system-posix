@@ -22,9 +22,6 @@ namespace windowing_gtk4
    {
    public:
 
-      gpointer             m_pGtkSettingsDefault;
-
-
       //gpointer m_pGtkSettingsDefault;
 
       //GtkApplication* m_pgtkapplication;
@@ -103,18 +100,9 @@ namespace windowing_gtk4
 
 
 
-      virtual void _set_os_user_theme(const ::scoped_string & strTheme);
-      virtual void _apply_os_user_theme();
-      virtual void _os_process_user_theme(string strOsUserTheme);
-      virtual ::string _get_os_user_theme();
 
 
-      virtual void _set_os_user_icon_theme(const ::scoped_string & strIconTheme);
-      virtual void _apply_os_user_icon_theme();
-      virtual void _os_process_user_icon_theme(string strOsUserIconTheme);
-
-
-      virtual void _fetch_dark_mode();
+      //virtual void _fetch_dark_mode();
 
       void set_mouse_capture(::thread* pthread, ::windowing::window* pwindow) override;
 

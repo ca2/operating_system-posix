@@ -289,7 +289,7 @@ set_interface_client_size({cx, cy});
          bool window::get_dark_mode()
          {
 
-            return node()->dark_mode();
+            return system()->dark_mode();
 
          }
 

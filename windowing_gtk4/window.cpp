@@ -1391,7 +1391,7 @@ namespace windowing_gtk4
          //    if (resize_edge != e_window_edge_none)
          //    {
          //
-         //       if(gtk4_windowing()->m_pdisplay->is_x11())
+         //       if(gtk4_windowing()->m_pnanouserdisplay->is_x11())
          //       {
          //          // Start resizing
          //          resizing = TRUE;
@@ -1412,7 +1412,7 @@ namespace windowing_gtk4
          //    }
          //    else
          //    {
-         //       if(gtk4_windowing()->m_pdisplay->is_x11())
+         //       if(gtk4_windowing()->m_pnanouserdisplay->is_x11())
          //       {
          //          // Start moving
          //          moving = TRUE;
@@ -1567,7 +1567,7 @@ namespace windowing_gtk4
       //  if (resizing)
       // {
       //
-      //     if(gtk4_windowing()->m_pdisplay->is_x11())
+      //     if(gtk4_windowing()->m_pnanouserdisplay->is_x11())
       //     {
       //        auto cursor_name = _gtk_get_resize_cursor_name(resize_edge);
       //        // Resize the window
@@ -1612,7 +1612,7 @@ namespace windowing_gtk4
       // }
       // else if (moving)
       // {
-      //    if(gtk4_windowing()->m_pdisplay->is_x11())
+      //    if(gtk4_windowing()->m_pnanouserdisplay->is_x11())
       //    {
       //       // Move the window
       //       int dx = x - start_x;
@@ -1874,13 +1874,15 @@ namespace windowing_gtk4
          m_puserinteractionimpl->m_puserinteraction->m_puserinteractionTopLevel = m_puserinteractionimpl->
             m_puserinteraction;
 
-         m_pdisplay = pdisplay;
+         m_pnanouserdisplay = pdisplay;
 
-         //m_pdisplaybase = pdisplay;
+         m_pgtk4display = m_pnanouserdisplay;
 
-         information() << "window::create_window m_pdisplay : " << (::iptr)m_pdisplay.m_p;
+         //m_pnanouserdisplaybase = pdisplay;
 
-         //information() << "window::create_window m_pdisplaybase : " << (::iptr) m_pdisplaybase.m_p;
+         information() << "window::create_window m_pnanouserdisplay : " << (::iptr)m_pnanouserdisplay.m_p;
+
+         //information() << "window::create_window m_pnanouserdisplaybase : " << (::iptr) m_pnanouserdisplaybase.m_p;
 
          pimpl->m_pwindow = this;
 
@@ -2669,7 +2671,7 @@ void window::destroy()
 //
 //      m_uLastAckSerial = 0;
 //
-//      auto pdisplaywayaland = dynamic_cast < ::windowing_gtk4::display * > (m_pdisplay.m_p);
+//      auto pdisplaywayaland = dynamic_cast < ::windowing_gtk4::display * > (m_pnanouserdisplay.m_p);
 //
 //      m_pwlsurface = wl_compositor_create_surface(pdisplaywayaland->m_pwlcompositor);
 //
@@ -3225,7 +3227,7 @@ i32 window::unmap_window(bool bWithdraw)
 //
 //      m_bMessageOnlyWindow = false;
 //      //m_osdisplay = osdisplay_get(Display());
-//      m_pdisplay = pdisplay;
+//      m_pnanouserdisplay = pdisplay;
 //      m_window = window;
 //
 //      if (pvisual != nullptr)
@@ -3738,7 +3740,7 @@ oswindow window::get_parent_oswindow() const
 ::windowing_gtk4::display* window::gtk4_display()
 {
 
-      return dynamic_cast < ::windowing_gtk4::display * > (m_pdisplay.m_p);
+      return dynamic_cast < ::windowing_gtk4::display * > (m_pnanouserdisplay.m_p);
 
 }
 
@@ -4136,7 +4138,9 @@ void window::full_screen(const ::rectangle_i32& rectangle)
 {
    ::rectangle_i32 rBest;
 
-   int iMonitor = m_pdisplay->get_best_monitor(&rBest, rectangle);
+      auto pgtk4display = gtk4_display();
+
+   int iMonitor = pgtk4display->get_best_monitor(&rBest, rectangle);
 
    windowing_output_debug_string("::window::full_screen 1");
 
@@ -5694,17 +5698,17 @@ bool window::_configure_window_unlocked(const class ::zorder& zorder,
    // //      }
    //
    //       windowing_output_debug_string("::window::set_window_pos 2");
-   // //                                    ::pointer < ::windowing_gtk4::display > pwaylanddisplay = m_pdisplay;
+   // //                                    ::pointer < ::windowing_gtk4::display > pwaylanddisplay = m_pnanouserdisplay;
    //       //                                  wl_display_flush(pwaylanddisplay->m_pwldisplay);
    //
    //       //wl_surface_commit(m_pwlsurface);
    //
    // //                                    node()->post_procedure([this]()
    // //                                                               {
-   // //                                                                  ::pointer < ::windowing_gtk4::display > pwaylanddisplay = m_pdisplay;
+   // //                                                                  ::pointer < ::windowing_gtk4::display > pwaylanddisplay = m_pnanouserdisplay;
    // //                                                                  wl_display_flush(pwaylanddisplay->m_pwldisplay);
    // ////
-   // ////      ::pointer < ::windowing_gtk4::display > pwaylanddisplay = m_pdisplay;
+   // ////      ::pointer < ::windowing_gtk4::display > pwaylanddisplay = m_pnanouserdisplay;
    // ////      wl_display_dispatch(pwaylanddisplay->m_pwldisplay);
    // ////
    // ////      wl_display_roundtrip(pwaylanddisplay->m_pwldisplay);
@@ -7165,7 +7169,7 @@ void window::window_update_screen()
 //
 //      windowing()->set_mouse_capture(pthread, this);
 //
-//      //::pointer < ::windowing_gtk4::display > pwaylanddisplay = m_pdisplay;
+//      //::pointer < ::windowing_gtk4::display > pwaylanddisplay = m_pnanouserdisplay;
 //
 //      //pwaylanddisplay->__capture_mouse(this, pwaylanddisplay->m_uLastButtonSerial);
 //
@@ -7325,7 +7329,7 @@ void window::bring_to_front()
    //
    // //      display_lock displaylock(x11_display()->Display());
    // //
-   // //      XRaiseWindow(displaylock.m_pdisplay, Window());
+   // //      XRaiseWindow(displaylock.m_pnanouserdisplay, Window());
    //
    //       //return ::success;
 }
@@ -7745,7 +7749,7 @@ void window::_on_end_paint()
 // //      if(m_uLastConfigureSerial && m_waylandbuffer.m_size != m_sizeWindow)
 // //      {
 // //
-// //         auto pdisplaywayaland = dynamic_cast < ::windowing_gtk4::display * > (m_pdisplay.m_p);
+// //         auto pdisplaywayaland = dynamic_cast < ::windowing_gtk4::display * > (m_pnanouserdisplay.m_p);
 // //
 // //         pdisplaywayaland->destroy_wayland_buffer(m_waylandbuffer);
 // //
@@ -8054,7 +8058,7 @@ void window::_on_end_paint()
 //          //struct wl_surface *pwlsurface = gdk_wayland_surface_get_wl_surface(gdk_surface);
 //
 //          // You need to create an xdg_surface using xdg_wm_base
-//          //struct xdg_wm_base *pxdgwmbase = gtk4_windowing()->m_pdisplay->m_pxdgwmbase;
+//          //struct xdg_wm_base *pxdgwmbase = gtk4_windowing()->m_pnanouserdisplay->m_pxdgwmbase;
 //
 //          // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pclick));
 //          //
@@ -8249,7 +8253,7 @@ void window::_on_end_paint()
 //          //struct wl_surface *pwlsurface = gdk_wayland_surface_get_wl_surface(gdk_surface);
 //
 //          // You need to create an xdg_surface using xdg_wm_base
-//          //struct xdg_wm_base *pxdgwmbase = gtk4_windowing()->m_pdisplay->m_pxdgwmbase;
+//          //struct xdg_wm_base *pxdgwmbase = gtk4_windowing()->m_pnanouserdisplay->m_pxdgwmbase;
 //
 //          // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pclick));
 //          //
@@ -8351,7 +8355,7 @@ void window::_on_end_paint()
    bool window::defer_perform_entire_reposition_process(::user::mouse * pmouse)
    {
 
-      return false;
+      return ::gtk4::nano::user::window_base::defer_perform_entire_reposition_process(pmouse);
 
    }
 
@@ -8359,7 +8363,7 @@ void window::_on_end_paint()
    bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse * pmouse)
    {
 
-      return false;
+      return ::gtk4::nano::user::window_base::defer_perform_entire_resizing_process(eframeSizing, pmouse);
 
    }
 

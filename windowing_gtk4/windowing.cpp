@@ -6,7 +6,7 @@
 #include "window.h"
 #include "display.h"
 #include "cursor.h"
-#include "gdk_gdk.h"
+//#include "gdk_gdk.h"
 #include "acme/constant/id.h"
 #include "acme/constant/message.h"
 #include "acme/parallelization/synchronous_lock.h"
@@ -48,8 +48,6 @@ namespace windowing_gtk4
       //
       // m_bFinishX11Thread = false;
 
-      m_pGtkSettingsDefault = nullptr;
-
 
       //deferx_initializex_x11();
 
@@ -58,15 +56,6 @@ namespace windowing_gtk4
 
    windowing::~windowing()
    {
-
-      if(m_pGtkSettingsDefault)
-      {
-
-         g_object_unref(m_pGtkSettingsDefault);
-
-         m_pGtkSettingsDefault = nullptr;
-
-      }
 
    }
 
@@ -924,10 +913,6 @@ namespace windowing_gtk4
    //   }
 
 
-   void gtk_settings_gtk_theme_name_callback(GObject *object, GParamSpec *pspec, gpointer data);
-
-   void gtk_settings_gtk_icon_theme_name_callback(GObject *object, GParamSpec *pspec, gpointer data);
-
    void windowing::_on_activate_gtk_application()
    {
 
@@ -956,67 +941,6 @@ namespace windowing_gtk4
       //x11_add_filter();
 
       information() << "node_gtk4::_on_activate_gtk_application on user_post";
-
-
-      auto pgtksettingsDefault = gtk_settings_get_default();
-
-      if (pgtksettingsDefault)
-      {
-
-         m_pGtkSettingsDefault = G_OBJECT(pgtksettingsDefault);
-
-         g_object_ref (m_pGtkSettingsDefault);
-
-         {
-
-            gchar *theme_name = nullptr;
-
-            g_object_get(m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
-
-            m_strOsUserTheme = theme_name;
-
-            g_free(theme_name);
-
-         }
-
-         {
-
-            gchar *icon_theme_name = nullptr;
-
-            g_object_get(m_pGtkSettingsDefault, "gtk-icon-theme-name", &icon_theme_name, NULL);
-
-            m_strOsUserIconTheme = icon_theme_name;
-
-            g_free(icon_theme_name);
-
-         }
-
-
-         auto preturnTheme = g_signal_connect_data(
-                 m_pGtkSettingsDefault,
-                 "notify::gtk-theme-name",
-                 //"gtk-private-changed",
-                 G_CALLBACK(gtk_settings_gtk_theme_name_callback),
-                 this,
-                 NULL,
-                 G_CONNECT_AFTER);
-
-         auto preturnIconTheme = g_signal_connect_data(
-                 m_pGtkSettingsDefault,
-                 "notify::gtk-icon-theme-name",
-                 //"gtk-private-changed",
-                 G_CALLBACK(gtk_settings_gtk_icon_theme_name_callback),
-                 this,
-                 NULL,
-                 G_CONNECT_AFTER);
-
-         //g_object_ref(preturn);
-
-         //printf("return %" PRIiPTR, preturn);
-
-         //printf("return %" PRIiPTR, preturn);
-
-      }
 
       //gtk_add_idle_source(this);
 
@@ -1107,336 +1031,57 @@ namespace windowing_gtk4
 
    }
 
+   //
+   // void windowing::_set_os_user_theme(const ::scoped_string &strOsUserTheme)
+   // {
+   //
+   //    m_strOsUserTheme = strOsUserTheme;
+   //
+   //    if (!m_ptaskOsUserTheme)
+   //    {
+   //
+   //       m_ptaskOsUserTheme = fork([this]()
+   //                                 {
+   //
+   //                                    preempt(1_s);
+   //
+   //                                    m_ptaskOsUserTheme = nullptr;
+   //
+   //                                    _apply_os_user_theme();
+   //
+   //                                 });
+   //
+   //    }
+   //
+   // }
+
+   //
+   // void windowing::_set_os_user_icon_theme(const ::scoped_string &strOsUserIconTheme)
+   // {
+   //
+   //    m_strOsUserIconTheme = strOsUserIconTheme;
+   //
+   //    if (!m_ptaskOsUserTheme)
+   //    {
+   //
+   //       m_ptaskOsUserIconTheme = fork([this]()
+   //                                 {
+   //
+   //                                    preempt(1_s);
+   //
+   //                                    m_ptaskOsUserIconTheme = nullptr;
+   //
+   //                                    _apply_os_user_icon_theme();
+   //
+   //                                 });
+   //
+   //    }
+   //
+   // }
+   //
+   //
 
-   void windowing::_set_os_user_theme(const ::scoped_string &strOsUserTheme)
-   {
 
-      m_strOsUserTheme = strOsUserTheme;
-
-      if (!m_ptaskOsUserTheme)
-      {
-
-         m_ptaskOsUserTheme = fork([this]()
-                                   {
-
-                                      preempt(1_s);
-
-                                      m_ptaskOsUserTheme = nullptr;
-
-                                      _apply_os_user_theme();
-
-                                   });
-
-      }
-
-   }
-
-
-   void windowing::_set_os_user_icon_theme(const ::scoped_string &strOsUserIconTheme)
-   {
-
-      m_strOsUserIconTheme = strOsUserIconTheme;
-
-      if (!m_ptaskOsUserTheme)
-      {
-
-         m_ptaskOsUserIconTheme = fork([this]()
-                                   {
-
-                                      preempt(1_s);
-
-                                      m_ptaskOsUserIconTheme = nullptr;
-
-                                      _apply_os_user_icon_theme();
-
-                                   });
-
-      }
-
-   }
-
-
-   void gtk_settings_gtk_theme_name_callback(GObject *object, GParamSpec *pspec, gpointer data)
-   {
-
-      auto *pgtk4windowing = (windowing_gtk4::windowing *) data;
-
-      if (!pgtk4windowing)
-      {
-
-         return;
-
-      }
-
-      gchar *theme_name = nullptr;
-
-      g_object_get(pgtk4windowing->m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
-
-      string strTheme = theme_name;
-
-      ::acme::get()->platform()->informationf("gtk_settings_gtk_theme_name_callback: \"" + strTheme + "\"\n");
-
-      g_free(theme_name);
-
-      //   pnode->fork([pnode, strTheme]()
-      //               {
-
-      pgtk4windowing->_set_os_user_theme(strTheme);
-
-      //                  ::preempt(400_ms);
-      //
-      //                  pnode->_apply_os_user_theme(strTheme);
-      //
-      //                  //_os_user_theme(strTheme);
-      //
-      //               });
-
-   }
-
-
-   void gtk_settings_gtk_icon_theme_name_callback(GObject *object, GParamSpec *pspec, gpointer data)
-   {
-
-      auto *pgtk4windowing = (windowing_gtk4::windowing *) data;
-
-      if (!pgtk4windowing)
-      {
-
-         return;
-
-      }
-
-      gchar *icon_theme_name = nullptr;
-
-      g_object_get(pgtk4windowing->m_pGtkSettingsDefault, "gtk-icon-theme-name", &icon_theme_name, NULL);
-
-      string strIconTheme = icon_theme_name;
-
-      ::acme::get()->platform()->informationf("gtk_settings_gtk_icon_theme_name_callback: \"" + strIconTheme + "\"\n");
-
-      g_free(icon_theme_name);
-
-      //   pnode->fork([pnode, strTheme]()
-      //               {
-
-      pgtk4windowing->_set_os_user_icon_theme(strIconTheme);
-
-      //                  ::preempt(400_ms);
-      //
-      //                  pnode->_apply_os_user_theme(strTheme);
-      //
-      //                  //_os_user_theme(strTheme);
-      //
-      //               });
-
-   }
-
-
-   void windowing::_apply_os_user_theme()
-   {
-
-      ::acme::get()->platform()->informationf("applying os user theme: \"" + m_strOsUserTheme + "\"\n");
-
-      _os_process_user_theme(m_strOsUserTheme);
-
-   }
-
-
-   ::string windowing::_get_os_user_theme()
-   {
-
-      ::string strGtkTheme;
-
-      if(gsettings_schema_contains_key("org.gnome.desktop.interface", "gtk-theme"))
-      {
-
-         information() << "org.gnome.desktop.interface schema contains \"gtk-theme\"";
-
-         if (gsettings_get(strGtkTheme, "org.gnome.desktop.interface", "gtk-theme"))
-         {
-
-            information() << "gtk-theme=\"" + strGtkTheme + "\"";
-
-         }
-
-      }
-
-      return strGtkTheme;
-
-   }
-
-
-   void windowing::_apply_os_user_icon_theme()
-   {
-
-      ::acme::get()->platform()->informationf("applying os user icon theme: \"" + m_strOsUserIconTheme + "\"\n");
-
-      _os_process_user_icon_theme(m_strOsUserIconTheme);
-
-   }
-
-
-
-   void windowing::_os_process_user_theme(string strOsTheme)
-   {
-
-      ::acme::get()->platform()->informationf(
-              "os_process_user_theme: is strTheme(" + strOsTheme + ") same as m_strTheme(" + node()->m_strTheme + ")\n");
-
-      if (strOsTheme == node()->m_strTheme)
-      {
-
-         ::acme::get()->platform()->informationf(
-                 "os_process_user_theme: same theme as before [new(" + strOsTheme + ") - old(" + node()->m_strTheme + ")]\n");
-
-         return;
-
-      }
-
-      ::acme::get()->platform()->informationf(
-              "os_process_user_theme: different theme [new(" + strOsTheme + ") - old(" +node()-> m_strTheme + ")]\n");
-
-      node()->m_strTheme = strOsTheme;
-
-      ::acme::get()->platform()->informationf("os_process_user_theme m_strTheme = \"" +node()-> m_strTheme + "\"\n");
-
-      try
-      {
-
-         system()->m_papexsystem->signal(id_operating_system_user_theme_change);
-
-      }
-      catch (...)
-      {
-
-
-      }
-
-      node()->_fetch_user_color();
-
-      //      if(!gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
-      //      {
-      //
-      //         _os_process_user_theme_color(m_strTheme);
-      //
-      //         fetch_user_color();
-      //
-      //      }
-
-   }
-
-
-
-
-   void windowing::_os_process_user_icon_theme(string strOsUserIconTheme)
-   {
-
-      ::acme::get()->platform()->informationf(
-              "os_process_user_icon_theme: is strIconTheme(" + strOsUserIconTheme + ") same as m_strIconTheme(" + m_strOsUserIconTheme + ")\n");
-
-      if (strOsUserIconTheme == m_strOsUserIconTheme)
-      {
-
-         ::acme::get()->platform()->informationf(
-                 "os_process_user_icon_theme: same theme as before [new(" + strOsUserIconTheme + ") - old(" + m_strOsUserIconTheme + ")]\n");
-
-         return;
-
-      }
-
-      ::acme::get()->platform()->informationf(
-              "os_process_user_icon_theme: different theme [new(" + strOsUserIconTheme + ") - old(" + m_strOsUserIconTheme + ")]\n");
-
-      m_strOsUserIconTheme = strOsUserIconTheme;
-
-      ::acme::get()->platform()->informationf("os_process_user_icon_theme m_strIconTheme = \"" + m_strOsUserIconTheme + "\"\n");
-
-      try
-      {
-
-         system()->m_papexsystem->signal(id_operating_system_user_icon_theme_change);
-
-      }
-      catch (...)
-      {
-
-
-      }
-
-      //      if(!gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
-      //      {
-      //
-      //         _os_process_user_theme_color(m_strTheme);
-      //
-      //         fetch_user_color();
-      //
-      //      }
-
-   }
-
-
-   void windowing::_fetch_dark_mode()
-   {
-
-      information() << "::node_gtk4::node::_dark_mode";
-
-      if(gsettings_schema_exists("org.gnome.desktop.interface"))
-      {
-
-         information() << "org.gnome.desktop.interface exists";
-
-         if(gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
-         {
-
-            information() << "org.gnome.desktop.interface contains \"color-scheme\"";
-
-            ::string strColorScheme;
-
-            if (gsettings_get(strColorScheme, "org.gnome.desktop.interface", "color-scheme"))
-            {
-
-               information() << "color-scheme=\"" + strColorScheme + "\"";
-
-               strColorScheme.trim();
-
-               if (strColorScheme.case_insensitive_contains("dark"))
-               {
-
-                  node()->m_bOperatingSystemDarkMode = true;
-
-               }
-               else
-               {
-
-                  node()->m_bOperatingSystemDarkMode = false;
-
-               }
-
-            }
-            else
-            {
-
-               node()->m_bOperatingSystemDarkMode = false;
-
-            }
-
-         }
-         else
-         {
-
-            node()->_fetch_user_color();
-
-            //            {
-            //
-            //               m_bOperatingSystemDarkMode = false;
-            //
-            //            }
-
-         }
-
-      }
-
-   }
 
 
 } // namespace windowing_gkt4

@@ -4,7 +4,7 @@
 #pragma once
 
 
-namespace windowing_gtk4
+namespace gdk
 {
 
 
@@ -53,7 +53,7 @@ namespace windowing_gtk4
    int gdk_launch_uri(const char * pszUri, char * pszError, int iBufferSize);
 
 
-} // namespace windowing_gtk4
+} // namespace gdk
 
 
 

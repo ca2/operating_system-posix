@@ -357,6 +357,8 @@ namespace nano
       //
       //    m_sizeWindow.cy() = cy;
 
+         m_pdisplaybase = m_pnanouserdisplay;
+
          int x = m_pointWindow.x();
 
          int y = m_pointWindow.y();
@@ -601,16 +603,20 @@ namespace nano
          // m_straSystemMenuName.add("Close");
          // m_straSystemMenuAtom.add("close");
 
-         auto psystemmenu = create_system_menu();
+         auto psystemmenu = create_system_menu(false);
 
          for(auto & pitem:*psystemmenu)
          {
 
             if(pitem->m_strAtom.has_char() && !pitem->m_strAtom.begins("***"))
             {
+
                auto action = g_simple_action_new(pitem->m_strAtom, NULL);
+
                g_signal_connect(action, "activate", G_CALLBACK(on_window_simple_action), this);
+
                g_action_map_add_action(G_ACTION_MAP(m_pgtkwidget), G_ACTION(action));
+
             }
 
          }
@@ -995,7 +1001,6 @@ namespace nano
       {
 
          m_psystemmenu = create_system_menu();
-
 
          // Create a GMenu that will be used by the popover
          auto * pmenu = g_menu_new();
@@ -1959,6 +1964,12 @@ namespace nano
       {
 
 return false;
+
+      }
+      bool window_base::is_window_zoomed() // m_puserinteractionimpl->m_puserinteraction->const_layout().window().display() == e_display_iconic
+      {
+
+         return gtk_window_is_maximized(GTK_WINDOW(m_pgtkwidget));
 
       }
       void window_base::window_minimize() // m_puserinteractionimpl->m_puserinteraction->display(::e_display_zoomed);
@@ -3528,10 +3539,10 @@ return true;
       // }
 
 
-      ::gtk4::nano::user::display * window_base::gtk4_display()
+      ::gtk4::nano::user::display_base * window_base::gtk4_display()
       {
 
-         return m_pdisplaybase.cast < ::gtk4::nano::user::display >();
+         return m_pdisplaybase.cast < ::gtk4::nano::user::display_base >();
 
       }
 

@@ -266,7 +266,7 @@ namespace wayland
          bool window::get_dark_mode()
          {
 
-            return node()->dark_mode();
+            return system()->dark_mode();
 
          }
 

@@ -2,11 +2,7 @@ cmake_minimum_required(VERSION 3.17)
 project(windowing_system_gtk4 CXX)
 
 
-
-
-
 message(STATUS "Project: ${PROJECT_NAME}")
-
 
 
 if (MSVC)
@@ -16,13 +12,14 @@ else ()
 endif ()
 
 
-
 list(APPEND library_source
         _.cpp
         _.h
         _factory.cpp
         framework.cpp
         framework.h
+   gdk_gdk.cpp
+   gdk_gdk.h
         keyboard.cpp
         keyboard.h
         #xkb_input.cpp
@@ -55,7 +52,10 @@ elseif (${LINUX} OR ${__BSD__})
    target_link_libraries(${PROJECT_NAME} PRIVATE acme ${PKGCONFIG_LIBRARIES})
    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
    message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
+
+
 endif ()
+
 
 add_dependencies(${PROJECT_NAME} acme)
 

@@ -43,8 +43,8 @@ list(APPEND library_source
         #enum_display_monitors.cpp
         framework.cpp
         framework.h
-   gdk_gdk.cpp
-   gdk_gdk.h
+   #gdk_gdk.cpp
+   #gdk_gdk.h
         icon.cpp
         icon.h
         keyboard.cpp

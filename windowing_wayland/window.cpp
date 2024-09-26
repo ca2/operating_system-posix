@@ -176,11 +176,11 @@ namespace windowing_wayland
 
          m_puserinteractionimpl->m_puserinteraction->m_puserinteractionTopLevel = m_puserinteractionimpl->m_puserinteraction;
 
-         m_pdisplay = pdisplay;
+         m_pnanouserdisplay = pdisplay;
 
          m_pdisplaybase = pdisplay;
 
-         information() << "window::create_window m_pdisplay : " << (::iptr) m_pdisplay.m_p;
+         information() << "window::create_window m_pnanouserdisplay : " << (::iptr) m_pnanouserdisplay.m_p;
 
          information() << "window::create_window m_pdisplaybase : " << (::iptr) m_pdisplaybase.m_p;
 
@@ -895,7 +895,7 @@ namespace windowing_wayland
 //
 //      m_uLastAckSerial = 0;
 //
-//      auto pdisplaywayaland = dynamic_cast < ::windowing_wayland::display * > (m_pdisplay.m_p);
+//      auto pdisplaywayaland = dynamic_cast < ::windowing_wayland::display * > (m_pnanouserdisplay.m_p);
 //
 //      m_pwlsurface = wl_compositor_create_surface(pdisplaywayaland->m_pwlcompositor);
 //
@@ -1457,7 +1457,7 @@ namespace windowing_wayland
 //
 //      m_bMessageOnlyWindow = false;
 //      //m_osdisplay = osdisplay_get(Display());
-//      m_pdisplay = pdisplay;
+//      m_pnanouserdisplay = pdisplay;
 //      m_window = window;
 //
 //      if (pvisual != nullptr)
@@ -1988,7 +1988,7 @@ namespace windowing_wayland
    ::windowing_wayland::display * window::wayland_display() const
    {
 
-      return (::windowing_wayland::display *) m_pdisplay->m_pDisplay;
+      return m_pnanouserdisplay.cast < ::windowing_wayland::display>();
 
    }
 
@@ -2394,7 +2394,9 @@ namespace windowing_wayland
 
       ::rectangle_i32 rBest;
 
-      int iMonitor = m_pdisplay->get_best_monitor(&rBest, rectangle);
+      auto pwaylanddisplay = wayland_display();
+
+      int iMonitor = pwaylanddisplay->get_best_monitor(&rBest, rectangle);
 
       windowing_output_debug_string("::window::full_screen 1");
 
@@ -3989,17 +3991,17 @@ namespace windowing_wayland
 //      }
 
       windowing_output_debug_string("::window::set_window_pos 2");
-//                                    ::pointer < ::windowing_wayland::display > pwaylanddisplay = m_pdisplay;
+//                                    ::pointer < ::windowing_wayland::display > pwaylanddisplay = m_pnanouserdisplay;
       //                                  wl_display_flush(pwaylanddisplay->m_pwldisplay);
 
       //wl_surface_commit(m_pwlsurface);
 
 //                                    node()->post_procedure([this]()
 //                                                               {
-//                                                                  ::pointer < ::windowing_wayland::display > pwaylanddisplay = m_pdisplay;
+//                                                                  ::pointer < ::windowing_wayland::display > pwaylanddisplay = m_pnanouserdisplay;
 //                                                                  wl_display_flush(pwaylanddisplay->m_pwldisplay);
 ////
-////      ::pointer < ::windowing_wayland::display > pwaylanddisplay = m_pdisplay;
+////      ::pointer < ::windowing_wayland::display > pwaylanddisplay = m_pnanouserdisplay;
 ////      wl_display_dispatch(pwaylanddisplay->m_pwldisplay);
 ////
 ////      wl_display_roundtrip(pwaylanddisplay->m_pwldisplay);
@@ -5525,7 +5527,7 @@ namespace windowing_wayland
 //
 //      windowing()->set_mouse_capture(pthread, this);
 //
-//      //::pointer < ::windowing_wayland::display > pwaylanddisplay = m_pdisplay;
+//      //::pointer < ::windowing_wayland::display > pwaylanddisplay = m_pnanouserdisplay;
 //
 //      //pwaylanddisplay->__capture_mouse(this, pwaylanddisplay->m_uLastButtonSerial);
 //
@@ -5692,7 +5694,7 @@ namespace windowing_wayland
 
 //      display_lock displaylock(x11_display()->Display());
 //
-//      XRaiseWindow(displaylock.m_pdisplay, Window());
+//      XRaiseWindow(displaylock.m_pnanouserdisplay, Window());
 
       //return ::success;
 
@@ -6116,7 +6118,7 @@ namespace windowing_wayland
 //      if(m_uLastConfigureSerial && m_waylandbuffer.m_size != m_sizeWindow)
 //      {
 //
-//         auto pdisplaywayaland = dynamic_cast < ::windowing_wayland::display * > (m_pdisplay.m_p);
+//         auto pdisplaywayaland = dynamic_cast < ::windowing_wayland::display * > (m_pnanouserdisplay.m_p);
 //
 //         pdisplaywayaland->destroy_wayland_buffer(m_waylandbuffer);
 //

@@ -89,6 +89,7 @@ virtual ::windowing_system_gtk4::windowing_system * gtk4_windowing_system();
             virtual void set_interface_client_size(const ::size_i32 & sizeWindow); // m_sizeWindow
 
             virtual bool is_window_stored_iconic(); // m_puserinteractionimpl->m_puserinteraction->const_layout().window().display() == e_display_iconic
+            bool is_window_zoomed() override; // m_puserinteractionimpl->m_puserinteraction->const_layout().window().display() == e_display_iconic
             virtual void window_minimize();
             virtual void window_maximize(); // m_puserinteractionimpl->m_puserinteraction->display(::e_display_zoomed);
             virtual void window_full_screen(); // m_puserinteractionimpl->m_puserinteraction->display(::e_display_full_screen);
@@ -159,7 +160,7 @@ void defer_show_system_menu(::user::mouse * pmouse) override;
             // virtual void __handle_keyboard_key(::wl_keyboard *pwlkeyboard, uint32_t serial, uint32_t time, uint32_t key, uint32_t state);
             // virtual void __handle_keyboard_modifiers(::wl_keyboard *keyboard, uint32_t serial, uint32_t mods_depressed, uint32_t mods_latched, uint32_t mods_locked, uint32_t group);
 
-            ::gtk4::nano::user::display * gtk4_display();
+            ::gtk4::nano::user::display_base * gtk4_display();
 
             virtual void _on_simple_key_message(::user::e_key ekey, ::enum_message emesssage);
             virtual void _on_text_composition(const ::scoped_string & scopedstrText);

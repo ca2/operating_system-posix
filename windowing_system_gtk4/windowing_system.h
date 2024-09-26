@@ -21,6 +21,10 @@ namespace windowing_system_gtk4
 
 ::procedure m_callbackOnActivateGtkApplication;
       GtkApplication *     m_pgtkapplication;
+      gpointer             m_pGtkSettingsDefault;
+
+      GAction *m_pactionColorScheme = nullptr;
+
 
       itask_t              m_itask;
 
@@ -52,6 +56,30 @@ namespace windowing_system_gtk4
       void windowing_system_application_main_loop();
       void windowing_system_post_quit() override;
       virtual void _on_activate_gtk_application();
+
+      virtual void _hook_system_theme_change_callbacks();
+
+      virtual void _fetch_dark_mode();
+
+
+      virtual ::string _get_os_user_theme();
+      virtual ::string _get_os_user_icon_theme();
+
+      virtual void _on_os_user_theme_change();
+      virtual void _on_os_user_icon_theme_change();
+
+
+      virtual void _on_color_scheme_change();
+
+      // virtual void _apply_os_user_theme();
+      // virtual void _os_process_user_theme(string strOsUserTheme);
+      // //virtual ::string _get_os_user_theme();
+      //
+      //
+      // virtual void _apply_os_user_icon_theme();
+      // virtual void _os_process_user_icon_theme(string strOsUserIconTheme);
+
+
 
    };
 

@@ -9,6 +9,7 @@
 #include "acme/platform/application.h"
 #include "acme/platform/node.h"
 #include "acme/handler/request.h"
+#include "gdk_gdk.h"
 #include "acme/platform/system.h"
 //#include <X11/Xatom.h>
 //#include <xkbcommon/xkbcommon.h>
@@ -23,6 +24,10 @@ namespace windowing_system_gtk4
    {
 
       m_pgtkapplication = nullptr;
+
+      m_pGtkSettingsDefault = nullptr;
+
+
       //m_pGtkSettingsDefault = nullptr;
 
    }
@@ -31,6 +36,15 @@ namespace windowing_system_gtk4
    windowing_system::~windowing_system()
    {
 
+
+      if(m_pGtkSettingsDefault)
+      {
+
+         g_object_unref(m_pGtkSettingsDefault);
+
+         m_pGtkSettingsDefault = nullptr;
+
+      }
 
    }
 
@@ -270,9 +284,14 @@ namespace windowing_system_gtk4
 
       auto * pgtk4windowingsystem=(::windowing_system_gtk4::windowing_system*) p;
 
+      pgtk4windowingsystem->_hook_system_theme_change_callbacks();
+
+      pgtk4windowingsystem->_fetch_dark_mode();
+
       pgtk4windowingsystem->_on_activate_gtk_application();
 
    }
+
 
    void windowing_system::windowing_system_application_main_loop()
    {
@@ -291,21 +310,21 @@ namespace windowing_system_gtk4
       g_signal_connect (m_pgtkapplication, "activate", G_CALLBACK(on_activate_gtk_application), this);
 
 
-      // Retrieve system settings and listen for changes in dark mode preference
-      GtkSettings *settings = gtk_settings_get_default();
-      //update_theme_based_on_system(settings, NULL); // Check initial state
-      //g_signal_connect(settings, "notify::gtk-application-prefer-dark-theme", G_CALLBACK(update_theme_based_on_system), NULL);
-
-      // Get the current GTK theme name (or any other available property)
-      //gboolean b=1;
-      g_object_set(settings, "gtk-application-prefer-dark-theme", TRUE, NULL);
-      //g_print("Current theme: %s\n", theme_name);
-
-      // Free the allocated string after use
-      //g_free(theme_name);
-
-      ///GtkSettings *settings = gtk_settings_get_default();
-      g_object_set(settings, "gtk-enable-animations", FALSE, NULL);
+      // // Retrieve system settings and listen for changes in dark mode preference
+      // GtkSettings *settings = gtk_settings_get_default();
+      // //update_theme_based_on_system(settings, NULL); // Check initial state
+      // //g_signal_connect(settings, "notify::gtk-application-prefer-dark-theme", G_CALLBACK(update_theme_based_on_system), NULL);
+      //
+      // // Get the current GTK theme name (or any other available property)
+      // //gboolean b=1;
+      // g_object_set(settings, "gtk-application-prefer-dark-theme", TRUE, NULL);
+      // //g_print("Current theme: %s\n", theme_name);
+      //
+      // // Free the allocated string after use
+      // //g_free(theme_name);
+      //
+      // ///GtkSettings *settings = gtk_settings_get_default();
+      // g_object_set(settings, "gtk-enable-animations", FALSE, NULL);
 
       g_application_hold(G_APPLICATION(m_pgtkapplication));
 
@@ -430,6 +449,796 @@ namespace windowing_system_gtk4
 
    }
 
+
+   // Function to resize the cairo_surface_t to 1x1 with the average color
+   ::color::color cairo_surface_average_color(cairo_surface_t *original_surface) {
+      int width = cairo_image_surface_get_width(original_surface);
+      int height = cairo_image_surface_get_height(original_surface);
+
+      // Ensure that the surface format is ARGB32
+      if (cairo_image_surface_get_format(original_surface) != CAIRO_FORMAT_ARGB32) {
+         throw ::exception(error_bad_argument);
+      }
+
+      unsigned char *data = cairo_image_surface_get_data(original_surface);
+      int stride = cairo_image_surface_get_stride(original_surface);
+
+      // Variables to hold the sum of colors
+      unsigned long long sum_r = 0, sum_g = 0, sum_b = 0, sum_a = 0;
+
+      // Loop through all pixels to calculate the sum of each color channel
+      for (int y = 0; y < height; ++y) {
+         unsigned char *row = data + y * stride;
+         for (int x = 0; x < width; ++x) {
+            unsigned char b = row[x * 4 + 0];
+            unsigned char g = row[x * 4 + 1];
+            unsigned char r = row[x * 4 + 2];
+            unsigned char a = row[x * 4 + 3];
+
+            sum_r += r;
+            sum_g += g;
+            sum_b += b;
+            sum_a += a;
+         }
+      }
+
+      int num_pixels = width * height;
+
+      // Calculate the average color
+      unsigned char avg_r = sum_r / num_pixels;
+      unsigned char avg_g = sum_g / num_pixels;
+      unsigned char avg_b = sum_b / num_pixels;
+      unsigned char avg_a = sum_a / num_pixels;
+
+      // Create a new 1x1 surface
+      return ::argb(avg_a, avg_r, avg_g, avg_b);
+
+   }
+
+
+   void gtk_settings_gtk_theme_name_callback(GObject *object, GParamSpec *pspec, gpointer data);
+
+   void gtk_settings_gtk_icon_theme_name_callback(GObject *object, GParamSpec *pspec, gpointer data);
+
+   void color_scheme_change(GSettings *settings, const gchar *pszKey, gpointer pdata)
+   {
+
+      auto * pgtk4windowingsystem = (::windowing_system_gtk4::windowing_system *) pdata;
+
+      pgtk4windowingsystem->_on_color_scheme_change();
+
+   }
+
+
+   void windowing_system::_on_color_scheme_change()
+   {
+
+      _fetch_dark_mode();
+
+   }
+
+
+   void windowing_system::_hook_system_theme_change_callbacks()
+   {
+
+      auto pgtksettingsDefault = gtk_settings_get_default();
+
+      if (pgtksettingsDefault)
+      {
+
+         m_pGtkSettingsDefault = G_OBJECT(pgtksettingsDefault);
+
+         g_object_ref (m_pGtkSettingsDefault);
+
+
+         if(!m_pactionColorScheme)
+         {
+            GSettings *settings = g_settings_new("org.gnome.desktop.interface");
+
+            if (settings)
+            {
+               m_pactionColorScheme = g_settings_create_action(settings, "color-scheme");
+
+               g_object_unref(settings);
+
+               if(m_pactionColorScheme)
+               {
+                  g_signal_connect (m_pactionColorScheme, "notify::state", G_CALLBACK(color_scheme_change), this);
+               }
+            }
+         }
+
+
+//         printf_line("System prefers dark theme: %d", prefer_dark_theme);
+//         printf_line("System prefers dark theme: %d", prefer_dark_theme);
+         // {
+         //
+         //    gchar *theme_name = nullptr;
+         //
+         //    g_object_get(m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
+         //
+         //    m_strOsUserTheme = theme_name;
+         //
+         //    g_free(theme_name);
+         //
+         // }
+
+         // {
+         //
+         //    gchar *icon_theme_name = nullptr;
+         //
+         //    g_object_get(m_pGtkSettingsDefault, "gtk-icon-theme-name", &icon_theme_name, NULL);
+         //
+         //    m_strOsUserIconTheme = icon_theme_name;
+         //
+         //    g_free(icon_theme_name);
+         //
+         // }
+
+
+         auto preturnTheme = g_signal_connect_data(
+                 m_pGtkSettingsDefault,
+                 "notify::gtk-theme-name",
+                 //"gtk-private-changed",
+                 G_CALLBACK(gtk_settings_gtk_theme_name_callback),
+                 this,
+                 NULL,
+                 G_CONNECT_AFTER);
+
+         auto preturnIconTheme = g_signal_connect_data(
+                 m_pGtkSettingsDefault,
+                 "notify::gtk-icon-theme-name",
+                 //"gtk-private-changed",
+                 G_CALLBACK(gtk_settings_gtk_icon_theme_name_callback),
+                 this,
+                 NULL,
+                 G_CONNECT_AFTER);
+
+         //g_object_ref(preturn);
+
+         //printf("return %" PRIiPTR, preturn);
+
+         //printf("return %" PRIiPTR, preturn);
+
+      }
+
+
+   }
+
+
+   void windowing_system::_fetch_dark_mode()
+   {
+
+      information() << "::windowing_gtk4::windowing::_fetch_dark_mode";
+
+      ::string strColorScheme;
+
+      auto estatus = ::gdk::gsettings_get(strColorScheme, "org.gnome.desktop.interface", "color-scheme");
+
+      if(strColorScheme.case_insensitive_equals("prefer-dark"))
+      {
+
+         g_object_set(m_pGtkSettingsDefault, "gtk-application-prefer-dark-theme", TRUE, NULL);
+
+      }
+      else
+      {
+
+         g_object_set(m_pGtkSettingsDefault, "gtk-application-prefer-dark-theme", FALSE, NULL);
+
+      }
+
+      int width = 32;
+      int height = 32;
+
+      GtkWidget *widget = gtk_window_new();
+      gtk_window_set_decorated(GTK_WINDOW(widget), false);
+      gtk_widget_set_size_request(widget,width, height);
+      GtkStyleContext *style_context = gtk_widget_get_style_context(widget);
+      cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, width, height);
+      cairo_t *cr = cairo_create(surface);
+      gtk_render_background(style_context, cr, 0, 0, width, height);
+
+      auto color = cairo_surface_average_color(surface);
+
+      cairo_surface_destroy(surface);
+
+      auto psystem = system();
+
+      psystem->background_color(color);
+
+
+      //gtk_widget_realize(widget);
+      // GdkPaintable *paintable = gtk_widget_paintable_new (GTK_WIDGET(widget));
+      // GtkSnapshot *snapshot = gtk_snapshot_new();
+      // graphene_rect_t bounds{{0.f, 0.f}, {(float)width, (float)height}};
+      // gdk_paintable_snapshot (paintable, snapshot, width, height);
+      // gtk_snapshot_append_cairo(snapshot, &bounds);
+      // GskRenderNode *node = gtk_snapshot_free_to_node(snapshot);
+      // auto surface = gsk_cairo_node_get_surface(node);
+
+    //cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, width, height);
+    //cairo_t *cr = cairo_create(surface);
+
+    // // Create a GskRenderNode to hold the widget's snapshot
+    // GtkSnapshot *snapshot = gtk_snapshot_new();
+    //
+    // // Set the size of the widget before rendering
+    // gtk_widget_set_size_request(widget, width, height);
+    //
+    // // Ensure the widget is realized (prepared for rendering)
+    // gtk_widget_realize(widget);
+    //
+    // // Use the widget's class's snapshot method to take a snapshot of the widget
+    // GtkWidgetClass *widget_class = GTK_WIDGET_GET_CLASS(widget);
+    // widget_class->snapshot(widget, snapshot);
+    //
+    // // Retrieve the render node from the snapshot
+    // GskRenderNode *node = gtk_snapshot_free_to_node(snapshot);
+
+    // Draw the render node into the cairo surface
+    //gsk_render_node_draw(node, cr);
+
+    //   GtkStyleContext *style_context = gtk_widget_get_style_context(widget);
+    //
+    //     // Set the background color according to the label CSS style
+    // gtk_render_background(style_context, cr, 0, 0, width, height);
+
+
+    // Optionally save the Cairo surface as an image (e.g., PNG)
+//    cairo_surface_write_to_png(surface, "widget_snapshot.png");
+
+      //       ::string strFile;
+      // int i = 0;
+      //       do
+      //       {
+      //          i++;
+      // strFile.formatf("/home/camilo/test%02d.png", i);
+      //
+      //       }while (file_exists(strFile));
+      //
+      //       cairo_surface_write_to_png(surface, strFile);
+      //
+      //       print_line("Wrote: " + strFile);
+      //       print_line("Wrote: " + strFile);
+
+    // Clean up
+    //cairo_destroy(cr);
+    //cairo_surface_destroy(surface);
+    //gsk_render_node_unref(node);
+
+      ////GtkWidget *label = GTK_WIDGET(user_data);
+
+      // // Get the style context of the label (to fetch CSS properties)
+      // GtkStyleContext *style_context = gtk_widget_get_style_context(label);
+      // cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, width, height);
+      // cairo_t *cr = cairo_create(surface);
+      //
+      // // Save the current state of the Cairo context
+      // cairo_save(cr);
+      //
+      // // Set the background color according to the label CSS style      ::string strFile;
+      // //      int i = 0;
+      // //            do
+      // //            {
+      // //               i++;
+      // //      strFile.formatf("/home/camilo/test%02d.png", i);
+      // //
+      // //            }while (file_exists(strFile));
+      // //
+      // //            cairo_surface_write_to_png(surface, strFile);
+      // //
+      // //            print_line("Wrote: " + strFile);
+      // //            print_line("Wrote: " + strFile);
+      // gtk_render_background(style_context, cr, 0, 0, width, height);
+      //
+      // // Restore the state of the Cairo context
+      // cairo_restore(cr);
+
+
+
+      //auto css_provider = gtk_css_provider_new ();
+      // gtk_css_provider_load_from_string (
+      //     css_provider,
+      //     // rbga, `a` set to 0.0 makes the window background transparent
+      //     ".window { background-color: rgba(0, 0, 0, 0.0); }");
+      //
+      // gtk_style_context_add_provider_for_display (
+      //     gtk_widget_get_display (m_pgtkwidget),
+      //     (GtkStyleProvider *) css_provider, GTK_STYLE_PROVIDER_PRIORITY_USER);
+      //
+      // gtk_widget_add_css_class (m_pgtkwidget, "window");
+
+//       //gtk_box_append(GTK_BOX(box), label);
+//       //gtk_widget_set_size_request(t,32, 32);
+//       //gtk_widget_set_size_request(box,32, 32);
+//       gtk_widget_set_size_request(label,32, 32);
+//       //gtk_widget_set_visible(label, true);
+//       //gtk_widget_set_visible(box, true);
+//       //gtk_widget_realize(box);
+//       //gtk_widget_realize(label);
+//       //gtk_widget_set_visible(t, true);
+//
+//       //cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, width, height);
+//       //cairo_t *cr = cairo_create(surface);
+//
+//       // Create a snapshot
+//       //GtkSnapshot *snapshot = gtk_snapshot_new();
+//
+//       ////graphene_rect_t bounds{{0.f, 0.f}, {(float)width, (float)height}};
+//
+//       ///gtk_snapshot_append_cairo(snapshot, &bounds);
+//
+//       // Render the label onto the surface
+//       //gtk_widget_snapshot_child(box, label, snapshot);
+//
+//       int cx1 = gtk_widget_get_width(label);
+//       int cy1 = gtk_widget_get_height(label);
+//
+// //      GskRenderNode *node = gtk_snapshot_free_to_node(snapshot);
+//       // int width = gtk_widget_get_width (GTK_WIDGET(label));
+//       // int height = gtk_widget_get_height (GTK_WIDGET(label));
+//
+//        int width = cx;
+//        int height = cy;
+//       // Get to the PNG image file from paintable
+//       GdkPaintable *paintable = gtk_widget_paintable_new (GTK_WIDGET(label));
+//       GtkSnapshot *snapshot = gtk_snapshot_new ();
+//       gdk_paintable_snapshot (paintable, snapshot, width, height);
+//       GskRenderNode *node = gtk_snapshot_free_to_node (snapshot);
+//
+//
+//       //snapshot = gtk_snapshot_new ();
+//       gtk_css_boxes_init_border_box (&boxes, style, 1, 1, w, h);
+//       gtk_css_style_snapshot_background (&boxes, snapshot);
+//       gtk_css_style_snapshot_border (&boxes, snapshot);
+//
+//       node = gtk_snapshot_free_to_node (snapshot);
+//       // GskRenderer *renderer = gsk_cairo_renderer_new ();
+//       // gsk_renderer_realize (renderer, NULL, NULL);
+//       // GdkTexture *texture = gsk_renderer_render_texture (renderer, node, NULL);
+//       // gdk_texture_save_to_png (texture, filename);
+//
+      // Cleanup
+      // g_object_unref(texture);
+      // gsk_renderer_unrealize(renderer);
+      // g_object_unref(renderer);
+      // gsk_render_node_unref(node);
+      // g_object_unref(paintable);
+
+      //auto surface = gsk_cairo_node_get_surface(node);
+      // //gsk_render_node_draw(node, cr);
+      //        cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, width, height);
+      // //
+      // //       // Create a cairo context for the surface
+      //        cairo_t *cr = cairo_create(surface);
+      // //
+      // //       // Draw the render node to the Cairo context
+      //       gsk_render_node_draw(node, cr);
+
+      // graphene_rect_t bounds{{0.f, 0.f}, {(float)width, (float)height}};
+      //
+      // auto paitable = gtk_snapshot_free_to_paintable(snapshot, &r);
+
+      // Save the surface as an image or manipulate it as needed
+//
+//       ::string strFile;
+// int i = 0;
+//       do
+//       {
+//          i++;
+// strFile.formatf("/home/camilo/test%02d.png", i);
+//
+//       }while (file_exists(strFile));
+//
+//       cairo_surface_write_to_png(surface, strFile);
+//
+//       print_line("Wrote: " + strFile);
+//       print_line("Wrote: " + strFile);
+//       // Clean up
+//       //cairo_destroy(cr);
+//       //cairo_surface_destroy(surface);
+// //       //gtk_widget_set_visible(window, true);
+// //       auto *paintable = gtk_widget_paintable_new(window);
+// //       GtkSnapshot *snapshot = gtk_snapshot_new();
+// //
+// //       int width = 32;
+// //       int height = 32;
+// //
+// //       // Render the GdkPaintable into the snapshot at the given size
+//       gdk_paintable_snapshot(GDK_PAINTABLE(paintable), snapshot, width, height);
+//
+//       // Get the GskRenderNode from the snapshot
+//       GskRenderNode *node = gtk_snapshot_free_to_node(snapshot);
+//       cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, width, height);
+//
+//       // Create a cairo context for the surface
+//       cairo_t *cr = cairo_create(surface);
+//
+//       // Draw the render node to the Cairo context
+// //      gsk_render_node_draw(node, cr);
+//
+//       // Clean up
+//   //    g_object_unref(node);
+// //
+// //
+// //   //    Gtk
+// //
+//       int width = 32;
+//       int height = 32;
+//       gtk_window_set_default_size(GTK_WINDOW(t), width, height);
+//       // Create a new GtkBox (vertical layout)
+//       GtkWidget *box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);  // 10px spacing between widgets
+//       gtk_window_set_child(GTK_WINDOW(t), box);
+//       gtk_box_append(GTK_BOX(box), window);
+//       gtk_widget_set_size_request(window,32, 32);
+//       gtk_widget_set_visible(window, true);
+//       gtk_widget_set_visible(t, true);
+//          //gtk_window_get_default_size(GTK_WINDOW(window), &width, &height);
+//
+//          // Create a new GtkSnapshot to capture the window contents
+//          GtkSnapshot *snapshot = gtk_snapshot_new();
+//
+//          // Create a rectangle of the same size as the window
+//          //graphene_rect_t bounds = GRAPHENE_RECT_INIT(0, 0, width, height);
+//
+//          // Render the window into the snapshot
+//          gtk_widget_snapshot_child(box, GTK_WIDGET(window), snapshot);
+
+         // Get the GdkTexture from the snapshot
+         //GskRenderNode *node = gtk_snapshot_free_to_node(snapshot);
+
+
+         // // Paint the texture onto the cairo context
+         // gsk_render_node_draw(node, cr);
+         //
+         // // Write the cairo surface to a PNG file
+         // cairo_surface_write_to_png(surface, "/home/camilo/test.png");
+         //
+         // // Cleanup
+         // cairo_destroy(cr);
+         // cairo_surface_destroy(surface);
+      //}
+
+      // if(gsettings_schema_exists("org.gnome.desktop.interface"))
+      // {
+      //
+      //    information() << "org.gnome.desktop.interface exists";
+      //
+      //    if(gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
+      //    {
+      //
+      //       information() << "org.gnome.desktop.interface contains \"color-scheme\"";
+      //
+      //       ::string strColorScheme;
+      //
+      //       if (gsettings_get(strColorScheme, "org.gnome.desktop.interface", "color-scheme"))
+      //       {
+      //
+      //          information() << "color-scheme=\"" + strColorScheme + "\"";
+      //
+      //          strColorScheme.trim();
+      //
+      //          if (strColorScheme.case_insensitive_contains("dark"))
+      //          {
+      //
+      //             node()->m_bOperatingSystemDarkMode = true;
+      //
+      //          }
+      //          else
+      //          {
+      //
+      //             node()->m_bOperatingSystemDarkMode = false;
+      //
+      //          }
+      //
+      //       }
+      //       else
+      //       {
+      //
+      //          node()->m_bOperatingSystemDarkMode = false;
+      //
+      //       }
+      //
+      //    }
+      //    else
+      //    {
+      //
+      //       node()->_fetch_user_color();
+      //
+      //       //            {
+      //       //
+      //       //               m_bOperatingSystemDarkMode = false;
+      //       //
+      //       //            }
+      //
+      //    }
+      //
+      // }
+
+   }
+
+
+   ::string windowing_system::_get_os_user_theme()
+   {
+
+      gchar *theme_name = nullptr;
+
+      g_object_get(m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
+
+      string strTheme = theme_name;
+
+      ::acme::get()->platform()->informationf("gtk_settings_gtk_theme_name_callback: \"" + strTheme + "\"\n");
+
+      g_free(theme_name);
+
+      return strTheme;
+
+   }
+
+
+   ::string windowing_system::_get_os_user_icon_theme()
+   {
+
+      gchar *icon_theme_name = nullptr;
+
+      g_object_get(m_pGtkSettingsDefault, "gtk-icon-theme-name", &icon_theme_name, NULL);
+
+      string strIconTheme = icon_theme_name;
+
+      ::acme::get()->platform()->informationf("gtk_settings_gtk_icon_theme_name_callback: \"" + strIconTheme + "\"\n");
+
+      g_free(icon_theme_name);
+
+      return strIconTheme;
+
+   }
+
+
+   void gtk_settings_gtk_theme_name_callback(GObject *object, GParamSpec *pspec, gpointer data)
+   {
+
+      auto *pgtk4windowingsystem = (windowing_system_gtk4::windowing_system *) data;
+
+      if (!pgtk4windowingsystem)
+      {
+
+         return;
+
+      }
+
+      pgtk4windowingsystem->_on_os_user_theme_change();
+
+   }
+
+
+   void gtk_settings_gtk_icon_theme_name_callback(GObject *object, GParamSpec *pspec, gpointer data)
+   {
+
+      auto *pgtk4windowingsystem = (windowing_system_gtk4::windowing_system *) data;
+
+      if (!pgtk4windowingsystem)
+      {
+
+         return;
+
+      }
+
+      pgtk4windowingsystem->_on_os_user_icon_theme_change();
+
+   }
+
+
+   void windowing_system::_on_os_user_theme_change()
+   {
+
+      _fetch_dark_mode();
+
+   }
+
+
+   void windowing_system::_on_os_user_icon_theme_change()
+   {
+
+      _fetch_dark_mode();
+
+   }
+
+
+
+   //
+   // void windowing::_set_os_user_theme(const ::scoped_string &strOsUserTheme)
+   // {
+   //
+   //    m_strOsUserTheme = strOsUserTheme;
+   //
+   //    if (!m_ptaskOsUserTheme)
+   //    {
+   //
+   //       m_ptaskOsUserTheme = fork([this]()
+   //                                 {
+   //
+   //                                    preempt(1_s);
+   //
+   //                                    m_ptaskOsUserTheme = nullptr;
+   //
+   //                                    _apply_os_user_theme();
+   //
+   //                                 });
+   //
+   //    }
+   //
+   // }
+
+   //
+   // void windowing::_set_os_user_icon_theme(const ::scoped_string &strOsUserIconTheme)
+   // {
+   //
+   //    m_strOsUserIconTheme = strOsUserIconTheme;
+   //
+   //    if (!m_ptaskOsUserTheme)
+   //    {
+   //
+   //       m_ptaskOsUserIconTheme = fork([this]()
+   //                                 {
+   //
+   //                                    preempt(1_s);
+   //
+   //                                    m_ptaskOsUserIconTheme = nullptr;
+   //
+   //                                    _apply_os_user_icon_theme();
+   //
+   //                                 });
+   //
+   //    }
+   //
+   // }
+   //
+   //
+
+
+
+   // void windowing::_apply_os_user_theme()
+   // {
+   //
+   //    ::acme::get()->platform()->informationf("applying os user theme: \"" + m_strOsUserTheme + "\"\n");
+   //
+   //    _os_process_user_theme(m_strOsUserTheme);
+   //
+   // }
+   //
+   //
+   // // ::string windowing::_get_os_user_theme()
+   // // {
+   // //
+   // //    ::string strGtkTheme;
+   // //
+   // //    if(gsettings_schema_contains_key("org.gnome.desktop.interface", "gtk-theme"))
+   // //    {
+   // //
+   // //       information() << "org.gnome.desktop.interface schema contains \"gtk-theme\"";
+   // //
+   // //       if (gsettings_get(strGtkTheme, "org.gnome.desktop.interface", "gtk-theme"))
+   // //       {
+   // //
+   // //          information() << "gtk-theme=\"" + strGtkTheme + "\"";
+   // //
+   // //       }
+   // //
+   // //    }
+   // //
+   // //    return strGtkTheme;
+   // //
+   // // }
+   //
+   //
+   // void windowing::_apply_os_user_icon_theme()
+   // {
+   //
+   //    ::acme::get()->platform()->informationf("applying os user icon theme: \"" + m_strOsUserIconTheme + "\"\n");
+   //
+   //    _os_process_user_icon_theme(m_strOsUserIconTheme);
+   //
+   // }
+   //
+   //
+   //
+   // void windowing::_os_process_user_theme(string strOsTheme)
+   // {
+   //
+   //    ::acme::get()->platform()->informationf(
+   //            "os_process_user_theme: is strTheme(" + strOsTheme + ") same as m_strTheme(" + node()->m_strTheme + ")\n");
+   //
+   //    if (strOsTheme == node()->m_strTheme)
+   //    {
+   //
+   //       ::acme::get()->platform()->informationf(
+   //               "os_process_user_theme: same theme as before [new(" + strOsTheme + ") - old(" + node()->m_strTheme + ")]\n");
+   //
+   //       return;
+   //
+   //    }
+   //
+   //    ::acme::get()->platform()->informationf(
+   //            "os_process_user_theme: different theme [new(" + strOsTheme + ") - old(" +node()-> m_strTheme + ")]\n");
+   //
+   //    node()->m_strTheme = strOsTheme;
+   //
+   //    ::acme::get()->platform()->informationf("os_process_user_theme m_strTheme = \"" +node()-> m_strTheme + "\"\n");
+   //
+   //    try
+   //    {
+   //
+   //       system()->m_papexsystem->signal(id_operating_system_user_theme_change);
+   //
+   //    }
+   //    catch (...)
+   //    {
+   //
+   //
+   //    }
+   //
+   //    node()->_fetch_user_color();
+   //
+   //    //      if(!gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
+   //    //      {
+   //    //
+   //    //         _os_process_user_theme_color(m_strTheme);
+   //    //
+   //    //         fetch_user_color();
+   //    //
+   //    //      }
+   //
+   // }
+   //
+   //
+   //
+   //
+   // void windowing::_os_process_user_icon_theme(string strOsUserIconTheme)
+   // {
+   //
+   //    ::acme::get()->platform()->informationf(
+   //            "os_process_user_icon_theme: is strIconTheme(" + strOsUserIconTheme + ") same as m_strIconTheme(" + m_strOsUserIconTheme + ")\n");
+   //
+   //    if (strOsUserIconTheme == m_strOsUserIconTheme)
+   //    {
+   //
+   //       ::acme::get()->platform()->informationf(
+   //               "os_process_user_icon_theme: same theme as before [new(" + strOsUserIconTheme + ") - old(" + m_strOsUserIconTheme + ")]\n");
+   //
+   //       return;
+   //
+   //    }
+   //
+   //    ::acme::get()->platform()->informationf(
+   //            "os_process_user_icon_theme: different theme [new(" + strOsUserIconTheme + ") - old(" + m_strOsUserIconTheme + ")]\n");
+   //
+   //    m_strOsUserIconTheme = strOsUserIconTheme;
+   //
+   //    ::acme::get()->platform()->informationf("os_process_user_icon_theme m_strIconTheme = \"" + m_strOsUserIconTheme + "\"\n");
+   //
+   //    try
+   //    {
+   //
+   //       system()->m_papexsystem->signal(id_operating_system_user_icon_theme_change);
+   //
+   //    }
+   //    catch (...)
+   //    {
+   //
+   //
+   //    }
+   //
+   //    //      if(!gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
+   //    //      {
+   //    //
+   //    //         _os_process_user_theme_color(m_strTheme);
+   //    //
+   //    //         fetch_user_color();
+   //    //
+   //    //      }
+   //
+   // }
 
 
 } // namespace windowing_system_gtk4

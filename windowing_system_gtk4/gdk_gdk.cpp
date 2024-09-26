@@ -2,14 +2,14 @@
 // Created by camilo on 09/12/2021. 13:03 BRT <ThomasBoregaardSorensen!!
 #include "framework.h"
 #include "gdk_gdk.h"
-#include "windowing.h"
+#include "windowing_system.h"
 #include "acme/constant/id.h"
 #include "acme/operating_system/ansi/pmutex_lock.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/acme.h"
 #include "acme/primitive/logic/boolean.h"
-#include "apex/platform/system.h"
-#include "aura/user/user/user.h"
+#include "acme/platform/system.h"
+//#include "aura/user/user/user.h"
 
 
 //#include <gtk/gtkiconinfo.h>
@@ -18,7 +18,7 @@
 //::particle * user_synchronization();
 
 
-namespace windowing_gtk4
+namespace gdk
 {
 
 
@@ -287,7 +287,7 @@ namespace windowing_gtk4
 
       //::node_gtk4::node * pnode = (::node_gtk4::node *) pdata;
 
-      ::platform::get()->system()->m_papexsystem->signal(id_wallpaper_change);
+      //::platform::get()->system()->signal(id_wallpaper_change);
 
    }
 
@@ -616,7 +616,7 @@ namespace windowing_gtk4
    }
 
 
-} // namespace windowing_gtk4
+} // namespace gdk
 
 
 void gtk_defer_do_main_tasks()
