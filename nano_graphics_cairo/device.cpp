@@ -4,7 +4,7 @@
 #include "framework.h"
 #include "device.h"
 #include "icon.h"
-#include "acme/primitive/geometry2d/rectangle.h"
+#include "acme/prototype/geometry2d/rectangle.h"
 #include "acme/nano/user/brush.h"
 #include "acme/nano/user/font.h"
 #include "acme/nano/user/pen.h"
@@ -116,7 +116,7 @@ namespace cairo
          }
 
 
-         void device::_draw_text(const ::string & str, const ::rectangle_i32 & rectangleText, const ::e_align & ealign, const ::e_draw_text & edrawtext, ::nano::user::brush * pnanobrushBack, ::nano::user::brush * pnanobrushText, ::nano::user::font * pnanofont)
+         void device::_draw_text(const ::string & str, const ::rectangle_i32 & rectangleText, const ::e_align & ealign, const ::e_draw_text & edrawtext, ::nano::graphics::brush * pnanobrushBack, ::nano::graphics::brush * pnanobrushText, ::nano::graphics::font * pnanofont)
          {
 
             cairo_set_antialias(m_pdc, CAIRO_ANTIALIAS_SUBPIXEL);
@@ -168,7 +168,7 @@ namespace cairo
          }
 
 
-         ::size_i32 device::get_text_extents(const ::string & str, ::nano::user::font * pnanofont)
+         ::size_i32 device::get_text_extents(const ::string & str, ::nano::graphics::font * pnanofont)
          {
 
             cairo_set_antialias(m_pdc, CAIRO_ANTIALIAS_SUBPIXEL);
@@ -186,7 +186,7 @@ namespace cairo
          }
 
 
-         void device::rectangle(const ::rectangle_i32 & rectangle, ::nano::user::brush * pnanobrush, ::nano::user::pen * pnanopen)
+         void device::rectangle(const ::rectangle_i32 & rectangle, ::nano::graphics::brush * pnanobrush, ::nano::graphics::pen * pnanopen)
          {
 
             cairo_set_antialias(m_pdc, CAIRO_ANTIALIAS_NONE);
@@ -238,7 +238,7 @@ namespace cairo
          }
 
 
-         //   void ::nano::user::device::set_antialias(bool bAntialiasOn)
+         //   void ::nano::graphics::device::set_antialias(bool bAntialiasOn)
          //   {
          //
          //
@@ -246,7 +246,7 @@ namespace cairo
          //   }
 
 
-         //   XColor ::nano::user::device::_alloc_xcolor(const ::color::color & color)
+         //   XColor ::nano::graphics::device::_alloc_xcolor(const ::color::color & color)
          //   {
          //
          //      auto colormap = XDefaultColormap(m_pdisplay, DefaultScreen(m_pdisplay));
@@ -265,7 +265,7 @@ namespace cairo
          //
          //
          //
-         //   void ::nano::user::device::_set_foreground(const ::color::color & color)
+         //   void ::nano::graphics::device::_set_foreground(const ::color::color & color)
          //   {
          //
          //      auto xcolor = _alloc_xcolor(color);
@@ -275,7 +275,7 @@ namespace cairo
          //   }
          //
          //
-         //   void ::nano::user::device::_set_background(const ::color::color & color)
+         //   void ::nano::graphics::device::_set_background(const ::color::color & color)
          //   {
          //
          //      auto xcolor = _alloc_xcolor(color);
@@ -292,10 +292,10 @@ namespace cairo
 
          }
 
-         void device::draw(::nano::user::icon * picon, int x, int y, int cx, int cy)
+         void device::draw(::nano::graphics::icon * picon, int x, int y, int cx, int cy)
          {
 
-            ::pointer < ::cairo::nano::user::icon > pcairoicon = picon;
+            ::pointer < ::cairo::nano::graphics::icon > pcairoicon = picon;
 
             if(pcairoicon)
             {
@@ -315,6 +315,49 @@ namespace cairo
 
          }
 
+         void device::_on_cairo_paint(void* p)
+         {
+
+            if(::is_null(m_psurfaceMemory))
+            {
+
+               throw ::exception(error_wrong_state);
+
+            }
+
+            auto* pcairoTarget = (cairo_t *)p;
+
+            cairo_set_source_surface(pcairoTarget, m_psurfaceMemory, 0., 0.);
+
+            cairo_paint(pcairoTarget);
+
+         }
+
+void device::create_argb32(int cx, int cy)
+{
+
+   if(m_pdc)
+   {
+cairo_destroy(m_pdc);
+m_pdc = nullptr;
+
+   }
+
+if(m_psurfaceMemory)
+{
+
+cairo_surface_destroy(m_psurfaceMemory);
+m_psurfaceMemory=nullptr;
+
+}
+               m_pcairosurface = cairo_image_surface_create(
+               CAIRO_FORMAT_ARGB32,
+               cx, cy);
+
+            m_pdc = cairo_create(m_pcairosurface);
+
+
+}
 
       } // namespace user
 

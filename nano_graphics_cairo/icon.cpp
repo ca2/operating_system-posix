@@ -3,7 +3,7 @@
 //
 #include "framework.h"
 #include "icon.h"
-#include "acme/primitive/geometry2d/size.h"
+#include "acme/prototype/geometry2d/size.h"
 
 namespace cairo {
 namespace nano {

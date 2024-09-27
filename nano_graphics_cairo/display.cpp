@@ -10,7 +10,7 @@
 #include "acme/platform/acme.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
-//#include "acme/primitive/geometry2d/rectangle.h"
+//#include "acme/prototype/geometry2d/rectangle.h"
 #include "acme/nano/user/window.h"
 
 
@@ -359,7 +359,7 @@ namespace x11
          }
 
 
-         void display::add_window(nano::user::window * pwindow)
+         void display::add_window(nano::user::interchange * pwindow)
          {
 
             synchronous_lock synchronouslock(this->synchronization());
@@ -379,7 +379,7 @@ namespace x11
          }
 
 
-         void display::erase_window(::x11::nano::user::window * pwindow)
+         void display::erase_window(::x11::nano::user::interchange * pwindow)
          {
 
             synchronous_lock synchronouslock(this->synchronization());

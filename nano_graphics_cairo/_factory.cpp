@@ -9,13 +9,13 @@
 IMPLEMENT_FACTORY(nano_user_cairo)
 {
 
-   pfactory->add_factory_item < ::cairo::nano::user::device, ::nano::user::device >();
+   pfactory->add_factory_item < ::cairo::nano::graphics::device, ::nano::graphics::device >();
 
    pfactory->add_factory_item < ::nano::user::user >();
 
-   pfactory->add_factory_item < ::nano::user::brush >();
-   pfactory->add_factory_item < ::nano::user::font >();
-   pfactory->add_factory_item < ::nano::user::pen >();
+   pfactory->add_factory_item < ::nano::graphics::brush >();
+   pfactory->add_factory_item < ::nano::graphics::font >();
+   pfactory->add_factory_item < ::nano::graphics::pen >();
 
 }
 

@@ -3,10 +3,10 @@
 // Modified 2023-10-05 23:51
 //
 #include "framework.h"
-#include "icon.h"
+//#include "icon.h"
 #include "window.h"
 #include "display.h"
-#include "acme/operating_system/cairo/nano/user/device.h"
+//#include "acme/operating_system/cairo/nano/user/device.h"
 #include "acme/platform/system.h"
 #include "acme/platform/node.h"
 
@@ -14,10 +14,10 @@
 void operating_system_initialize_gtk4_nano_user(::factory::factory * pfactory)
 {
 
-   operating_system_initialize_cairo_nano(pfactory);
+   //operating_system_initialize_cairo_nano(pfactory);
 
-   pfactory->add_factory_item<::gtk4::nano::user::window, ::nano::user::window_implementation>();
-   pfactory->add_factory_item<::gtk4::nano::user::icon, ::nano::user::icon>();
+   pfactory->add_factory_item<::gtk4::nano::user::window, ::windowing::window_base>();
+   //pfactory->add_factory_item<::gtk4::nano::graphics::icon, ::nano::graphics::icon>();
 
    //::wayland::display::get(pfactory);
 

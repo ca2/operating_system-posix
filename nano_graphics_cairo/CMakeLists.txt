@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
-project(nano_user_cairo CXX)
+project(nano_graphics_cairo CXX)
 
 
 
