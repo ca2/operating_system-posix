@@ -12,7 +12,7 @@
 //#include <gio/gio.h>
 //#endif
 
-#include "acme/primitive/collection/string_map.h"
+#include "acme/prototype/collection/string_map.h"
 #include "aura_posix/node.h"
 
 
@@ -50,8 +50,8 @@ namespace node_gtk4
       //virtual void _apply_os_user_icon_theme();
 
 
-      void _fill_os_theme_colors(::os_theme_colors * pthemecolors) override;
-      virtual void _fill_os_theme_colors(::os_theme_colors * pthemecolors, const ::scoped_string & scopedstrTheme, bool bDark);
+      //void _fill_os_theme_colors(::os_theme_colors * pthemecolors) override;
+      //virtual void _fill_os_theme_colors(::os_theme_colors * pthemecolors, const ::scoped_string & scopedstrTheme, bool bDark);
       //virtual void _set_os_theme_colors(::os_theme_colors * posthemecolors);
 
       //int node_init_check(int * pi, char *** ppz) override;
@@ -62,10 +62,10 @@ namespace node_gtk4
 
       void initialize(::particle * pparticle) override;
 
-      void fetch_user_color() override;
-
-      string os_get_user_theme() override;
-
+      // void fetch_user_color() override;
+      //
+      // string os_get_user_theme() override;
+      //
       virtual string _os_get_user_theme();
 
       void on_start_system() override;
@@ -74,15 +74,15 @@ namespace node_gtk4
 
       bool is_branch_current() const override;
 
-      bool dark_mode() const override;
-
-      void set_dark_mode(bool bDarkMode) override;
-
-      void os_set_user_theme(const string & strUserTheme) override;
-
-      virtual ::e_status _os_set_user_theme(const string & strUserTheme);
-
-      virtual ::e_status _os_set_user_icon_theme(const string & strUserIconTheme);
+      // bool dark_mode() const override;
+      //
+      // void set_dark_mode(bool bDarkMode) override;
+      //
+      // void os_set_user_theme(const string & strUserTheme) override;
+      //
+       virtual ::e_status _os_set_user_theme(const string & strUserTheme);
+      //
+       virtual ::e_status _os_set_user_icon_theme(const string & strUserIconTheme);
 
       //void os_process_user_theme(string strTheme) override;
 

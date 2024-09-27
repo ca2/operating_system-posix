@@ -75,7 +75,7 @@
 //int best_xinerama_monitor(::user::interaction * pinteraction, const ::rectangle_i32 & rectangle, ::rectangle_i32 * lprectRet);
 
 
-//#include "acme/primitive/primitive/matter.h"
+//#include "acme/prototype/prototype/matter.h"
 
 
 //namespace windowing_kde5

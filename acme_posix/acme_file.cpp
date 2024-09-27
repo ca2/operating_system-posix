@@ -11,8 +11,8 @@
 #include "acme/operating_system/shared_posix/stdio_file.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
-#include "acme/primitive/primitive/holder.h"
-#include "acme/primitive/primitive/memory.h"
+#include "acme/prototype/prototype/holder.h"
+#include "acme/prototype/prototype/memory.h"
 #include <sys/stat.h>
 //Copy file using mmap()
 #include <sys/mman.h>

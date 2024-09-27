@@ -8,7 +8,7 @@
 
 
 #include "acme/exception/status.h"
-#include "acme/primitive/collection/int_map.h"
+#include "acme/prototype/collection/int_map.h"
 #include "aura/windowing/display.h"
 #include "windowing_system_x11/_atom.h"
 #include <xcb/xcb.h>

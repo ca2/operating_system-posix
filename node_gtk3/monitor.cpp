@@ -5,7 +5,7 @@
 #include "windowing.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/node.h"
-#include "acme/primitive/geometry2d/_text_stream.h"
+#include "acme/prototype/geometry2d/_text_stream.h"
 #include "aura/windowing/display.h"
 #include "aura/windowing/windowing.h"
 #include <gdk/x11/gdkx11monitor.h>

@@ -6,7 +6,7 @@
 
 
 #include "windowing_system_gtk4/_.h"
-#include "acme/primitive/geometry2d/size.h"
+#include "acme/prototype/geometry2d/size.h"
 
 
 #if defined(_nano_user_gtk4_project)

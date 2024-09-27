@@ -16,7 +16,7 @@ list(APPEND library_source
         _.cpp
         _.h
         _factory.cpp
-        _user.cpp
+        #_user.cpp
         #device.cpp
         #device.h
         display.cpp
@@ -27,8 +27,8 @@ list(APPEND library_source
         framework.h
         window.cpp
         window.h
-        window_base.cpp
-        window_base.h
+        #window_base.cpp
+        #window_base.h
         #wayland-gtk_shell1.c
         #wayland-gtk_shell1.h
         #wayland-xdg_activation_v1.c
@@ -38,8 +38,9 @@ list(APPEND library_source
 )
 
 add_library(${PROJECT_NAME} SHARED ${library_source}
-   icon.cpp
-   icon.h)
+   #icon.cpp
+   #icon.h
+)
 
 target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 #set_source_files_properties(wayland-gtk_shell1.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
@@ -51,7 +52,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 list(APPEND library_references
         acme
         windowing_system_gtk4
-        nano_user_cairo
+        #nano_user_cairo
 )
 
 if (MSVC)

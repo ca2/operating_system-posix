@@ -192,16 +192,16 @@ namespace node_gtk_based
    }
 
 
-   bool node::dark_mode() const
-   {
-
-#if defined(HAS_GTK4)
-      return ::node_gtk4::node::dark_mode();
-#elif defined(HAS_GTK3)
-      return ::node_gtk3::node::dark_mode();
-#endif
-
-   }
+//    bool node::dark_mode() const
+//    {
+//
+// #if defined(HAS_GTK4)
+//       return ::node_gtk4::node::dark_mode();
+// #elif defined(HAS_GTK3)
+//       return ::node_gtk3::node::dark_mode();
+// #endif
+//
+//    }
 
 
 } // namespace node_gtk_based

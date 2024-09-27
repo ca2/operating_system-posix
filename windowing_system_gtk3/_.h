@@ -17,7 +17,7 @@
 #endif
 
 
-#include "acme/primitive/geometry2d/rectangle.h"
+#include "acme/prototype/geometry2d/rectangle.h"
 
 
 inline void copy(::rectangle_i32 * prectTarget, const GdkRectangle * prectSource)

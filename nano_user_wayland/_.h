@@ -6,7 +6,7 @@
 
 
 #include "windowing_system_wayland/_.h"
-#include "acme/primitive/geometry2d/size.h"
+#include "acme/prototype/geometry2d/size.h"
 
 
 #if defined(_nano_user_wayland_project)

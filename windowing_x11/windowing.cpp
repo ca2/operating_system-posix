@@ -7,7 +7,7 @@
 #include "display.h"
 #include "cursor.h"
 #include "acme/parallelization/synchronous_lock.h"
-//#include "acme/primitive/primitive/function.h"
+//#include "acme/prototype/prototype/function.h"
 #include "aura/windowing/cursor_manager.h"
 #include <X11/cursorfont.h>
 #include "aura/user/user/interaction_impl.h"

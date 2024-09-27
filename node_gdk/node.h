@@ -13,7 +13,7 @@
 // #endif
 
 
-#include "acme/primitive/collection/string_map.h"
+#include "acme/prototype/collection/string_map.h"
 #include "aura_posix/node.h"
 
 
@@ -71,11 +71,11 @@ bool m_bFetchingDarkMode;
 
       void initialize(::particle * pparticle) override;
 
-      void fetch_user_color() override;
-
-      string os_get_user_theme() override;
-
-      virtual string _os_get_user_theme();
+      // void fetch_user_color() override;
+      //
+      // string os_get_user_theme() override;
+      //
+      // virtual string _os_get_user_theme();
 
       void on_start_system() override;
 
@@ -85,19 +85,19 @@ bool m_bFetchingDarkMode;
 
       virtual void _fetch_dark_mode();
 
-      bool dark_mode() const override;
+      // bool dark_mode() const override;
+      //
+      // void set_dark_mode(bool bDarkMode) override;
+      //
+      // void os_set_user_theme(const string & strUserTheme) override;
+      //
+      // virtual ::e_status _os_set_user_theme(const string & strUserTheme);
+      //
+      // virtual ::e_status _os_set_user_icon_theme(const string & strUserIconTheme);
 
-      void set_dark_mode(bool bDarkMode) override;
-
-      void os_set_user_theme(const string & strUserTheme) override;
-
-      virtual ::e_status _os_set_user_theme(const string & strUserTheme);
-
-      virtual ::e_status _os_set_user_icon_theme(const string & strUserIconTheme);
-
-      void os_process_user_theme(string strTheme) override;
-
-      void os_process_user_icon_theme(string strTheme) override;
+      // void os_process_user_theme(string strTheme) override;
+      //
+      // void os_process_user_icon_theme(string strTheme) override;
 
       void enable_wallpaper_change_notification() override;
 

@@ -41,7 +41,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 list(APPEND library_references
         acme
         windowing_system_x11
-        nano_user_cairo
+        nano_graphics_cairo
 )
 
 if (MSVC)

@@ -8,7 +8,7 @@
 #include "acme/platform/application.h"
 #include "acme/platform/system.h"
 #include "acme/parallelization/manual_reset_event.h"
-#include "acme/primitive/geometry2d/size.h"
+#include "acme/prototype/geometry2d/size.h"
 #include "acme/operating_system/windows/nano/user/user.h"
 #include "acme/platform/node.h"
 

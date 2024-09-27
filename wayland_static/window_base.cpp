@@ -8,7 +8,7 @@
 #include "acme/graphics/image/pixmap.h"
 #include "windowing_system_wayland/xfree86_key.h"
 #include "acme/platform/system.h"
-#include "acme/primitive/geometry2d/_text_stream.h"
+#include "acme/prototype/geometry2d/_text_stream.h"
 #include "acme/constant/_user_key_text.h"
 #include <xkbcommon/xkbcommon.h>
 

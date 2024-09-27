@@ -32,12 +32,12 @@ namespace x11
             Window                           m_window;
             Window                           m_windowRoot;
             cairo_surface_t *                m_psurface;
-            ::pointer<::nano::user::device>          m_pnanodevice;
+            ::pointer<::nano::graphics::device>          m_pnanodevice;
             int                              m_iDepth;
             XVisualInfo                      m_visualinfo;
             Visual *                         m_pvisual;
             Colormap                         m_colormap;
-            //::pointer<::nano::user::font>         m_pfont;
+            //::pointer<::nano::graphics::font>         m_pfont;
             //color32_t                     m_colorText;
             //color32_t                     m_colorFocus;
             //color32_t                     m_colorWindow;
@@ -78,9 +78,9 @@ namespace x11
 
             //virtual bool aaa_message_loop_step();
 
-            virtual void _draw(::nano::user::device * pnanodevice);
+            virtual void _draw(::nano::graphics::device * pnanodevice);
 
-            //virtual void on_draw(::nano::user::device * pnanodevice);
+            //virtual void on_draw(::nano::graphics::device * pnanodevice);
 
             void on_char(int iChar) override;
 
@@ -88,7 +88,7 @@ namespace x11
 
             void set_active() override;
 
-            ///virtual void draw_children(::nano::user::device * pnanodevice);
+            ///virtual void draw_children(::nano::graphics::device * pnanodevice);
 
             void delete_drawing_objects() override;
 

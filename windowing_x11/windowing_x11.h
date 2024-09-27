@@ -73,7 +73,7 @@ bool x11_get_client_rect(Display * d, Window window, ::rectangle_i32 * prectangl
 //int best_xinerama_monitor(::user::interaction * pinteraction, const ::rectangle_i32 & rectangle, ::rectangle_i32 * lprectRet);
 
 
-//#include "acme/primitive/primitive/matter.h"
+//#include "acme/prototype/prototype/matter.h"
 
 
 namespace windowing_x11

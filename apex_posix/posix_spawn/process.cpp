@@ -1,8 +1,8 @@
 #include "framework.h"
 #include "acme_posix/pipe.h"
 #include "acme/platform/system.h"
-#include "acme/primitive/collection/string_map.h"
-#include "acme/primitive/collection/str_array.h"
+#include "acme/prototype/collection/string_map.h"
+#include "acme/prototype/collection/str_array.h"
 #include "process.h"
 
 

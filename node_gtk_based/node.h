@@ -47,7 +47,7 @@ namespace node_gtk_based
 
       void handle(::topic * ptopic, ::context * pcontext) override;
 
-      bool dark_mode() const override;
+      //bool dark_mode() const override;
 
 
    };

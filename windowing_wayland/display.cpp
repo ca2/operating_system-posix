@@ -10,7 +10,7 @@
 #include "windowing_wayland.h"
 #include "acme/constant/message.h"
 #include "acme/parallelization/synchronous_lock.h"
-#include "acme/primitive/geometry2d/_text_stream.h"
+#include "acme/prototype/geometry2d/_text_stream.h"
 #include "apex/platform/node.h"
 #include "apex/platform/system.h"
 #include "aura/platform/session.h"

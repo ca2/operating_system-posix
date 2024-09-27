@@ -15,9 +15,9 @@
 #include "acme/filesystem/filesystem/listing.h"
 #include "acme/parallelization/single_lock.h"
 #include "acme/platform/system.h"
-#include "acme/primitive/string/command_line.h"
-#include "acme/primitive/string/str.h"
-#include "acme/primitive/primitive/memory.h"
+#include "acme/prototype/string/command_line.h"
+#include "acme/prototype/string/str.h"
+#include "acme/prototype/prototype/memory.h"
 
 
 #include "acme/_operating_system.h"

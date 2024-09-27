@@ -20,7 +20,7 @@ namespace windowing_x11
       public:
 
 
-      ::pointer<::user::primitive>             m_pprimitiveSoftwareKeyboard;
+      ::pointer<::user::prototype>             m_pprimitiveSoftwareKeyboard;
       ::collection::index                                     m_iSoftwareKeyboardEventId;
 
 
@@ -59,9 +59,9 @@ namespace windowing_x11
 
       bool load_os_layout(const ::file::path & pszPath) override;
 
-      void show_software_keyboard(::user::primitive * pprimitive, string str, strsize iBeg, strsize iEnd);
+      void show_software_keyboard(::user::prototype * pprimitive, string str, strsize iBeg, strsize iEnd);
 
-      void hide_software_keyboard(::user::primitive * pprimitive);
+      void hide_software_keyboard(::user::prototype * pprimitive);
 
 
    };

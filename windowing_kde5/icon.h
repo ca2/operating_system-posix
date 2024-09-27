@@ -4,8 +4,8 @@
 
 
 #include "aura/windowing/icon.h"
-//#include "acme/primitive/geometry2d/_geometry2d.h"
-#include "acme/primitive/geometry2d/size_array.h"
+//#include "acme/prototype/geometry2d/_geometry2d.h"
+#include "acme/prototype/geometry2d/size_array.h"
 
 
 namespace windowing_kde5

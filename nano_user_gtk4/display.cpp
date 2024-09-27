@@ -10,8 +10,8 @@
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/acme.h"
 #include "acme/platform/system.h"
-//#include "acme/primitive/geometry2d/rectangle.h"
-#include "acme/nano/user/window.h"
+//#include "acme/prototype/geometry2d/rectangle.h"
+//#include "acme/nano/user/window.h"
 
 
 //#include "windowing_system_x11/_.h"
@@ -401,7 +401,7 @@ namespace nano
       //   }
       //
       //
-      //   void display::add_window(nano::user::window * pwindow)
+      //   void display::add_window(nano::user::interchange * pwindow)
       //   {
       //
       //      synchronous_lock synchronouslock(this->synchronization());
@@ -421,7 +421,7 @@ namespace nano
       //   }
       //
       //
-      //   void display::erase_window(nano::user::window * pwindow)
+      //   void display::erase_window(nano::user::interchange * pwindow)
       //   {
       //
       //      synchronous_lock synchronouslock(this->synchronization());

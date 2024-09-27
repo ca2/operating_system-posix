@@ -697,7 +697,7 @@ namespace windowing_xcb
 //   }
 
 
-//   void keyboard::show_software_keyboard(::user::primitive* pprimitive, string str, strsize iBeg, strsize iEnd)
+//   void keyboard::show_software_keyboard(::user::prototype* pprimitive, string str, strsize iBeg, strsize iEnd)
 //   {
 //
 //      synchronous_lock synchronouslock(this->synchronization());
@@ -733,7 +733,7 @@ namespace windowing_xcb
 //   }
 //
 //
-//   void keyboard::hide_software_keyboard(::user::primitive * pprimitive)
+//   void keyboard::hide_software_keyboard(::user::prototype * pprimitive)
 //   {
 //
 //      if (!::is_null(pprimitive) && pprimitive != m_pprimitiveSoftwareKeyboard)

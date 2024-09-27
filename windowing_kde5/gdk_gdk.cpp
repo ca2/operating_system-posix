@@ -7,7 +7,7 @@
 #include "acme/operating_system/ansi/pmutex_lock.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/acme.h"
-#include "acme/primitive/logic/boolean.h"
+#include "acme/prototype/logic/boolean.h"
 #include "apex/platform/system.h"
 #include "aura/user/user/user.h"
 

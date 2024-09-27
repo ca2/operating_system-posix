@@ -3,7 +3,7 @@
 #include "node.h"
 #include "acme/operating_system/ansi/_ansi.h"
 #include "acme/platform/system.h"
-//#include "acme/primitive/collection/string_array.h"
+//#include "acme/prototype/collection/string_array.h"
 
 
 /*

@@ -856,9 +856,9 @@ namespace gtk4
 
                }
 
-               information() << "windowing_wayland::display::open";
+               information() << "gtk4::nano::user::display::open";
 
-               information() << "windowing_wayland::display::open pwldisplay : " << (::iptr) m_pgdkdisplay;
+               information() << "gtk4::nano::user::display::open pgdkdisplay : " << (::iptr) m_pgdkdisplay;
 
       //          auto pwlregistry = wl_display_get_registry(m_pwldisplay);
       //

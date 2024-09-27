@@ -6,7 +6,7 @@
 #include "windowing.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/system.h"
-#include "acme/primitive/geometry2d/_text_stream.h"
+#include "acme/prototype/geometry2d/_text_stream.h"
 #include "aura/graphics/image/image.h"
 //#include "aura_posix/_x11.h"
 #include "windowing_system_x11/display_lock.h"

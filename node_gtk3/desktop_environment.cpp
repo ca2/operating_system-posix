@@ -5,7 +5,7 @@
 #include "desktop_environment.h"
 //#include "wayland_buffer.h"
 #include "acme/platform/system.h"
-#include "acme/primitive/geometry2d/_text_stream.h"
+#include "acme/prototype/geometry2d/_text_stream.h"
 #include "acme/windowing_system/windowing_system.h"
 
 

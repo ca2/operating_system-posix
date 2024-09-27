@@ -11,7 +11,7 @@
 #include "acme/filesystem/filesystem/folder_dialog.h"
 #include "acme/filesystem/filesystem/file_context.h"
 #include "acme/platform/node.h"
-#include "acme/primitive/primitive/type.h"
+#include "acme/prototype/prototype/type.h"
 #include "apex/operating_system/freedesktop/desktop_file.h"
 #include "acme/handler/topic.h"
 #include "acme/operating_system/summary.h"

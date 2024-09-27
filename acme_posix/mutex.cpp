@@ -4,7 +4,7 @@
 #include "framework.h"
 #include "mutex.h"
 #include "acme/_operating_system.h"
-#include "acme/primitive/time/timespec.h"
+#include "acme/prototype/time/timespec.h"
 #include "acme/operating_system/shared_posix/c_error_number.h"
 #include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/platform/system.h"

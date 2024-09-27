@@ -11,7 +11,7 @@
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/node.h"
 #include "acme/platform/scoped_restore.h"
-#include "acme/primitive/geometry2d/_text_stream.h"
+#include "acme/prototype/geometry2d/_text_stream.h"
 #include "apex/platform/system.h"
 #include "aura/graphics/image/image.h"
 #include "aura/user/user/interaction_graphics_thread.h"

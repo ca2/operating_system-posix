@@ -11,7 +11,7 @@
 #include "cursor.h"
 #include "acme/constant/message.h"
 #include "acme/parallelization/synchronous_lock.h"
-#include "acme/primitive/geometry2d/_text_stream.h"
+#include "acme/prototype/geometry2d/_text_stream.h"
 #include "acme/user/user/_text_stream.h"
 #include "apex/platform/node.h"
 #include "apex/platform/system.h"
@@ -817,7 +817,7 @@ namespace windowing_wayland
 
 #ifdef REPORT_OFFSET
 
-         printf("(7BB) offset of m_timeFocusStart in ::user::primitive = %d\n", offsetof(::user::primitive,m_timeFocusStart));
+         printf("(7BB) offset of m_timeFocusStart in ::user::prototype = %d\n", offsetof(::user::prototype,m_timeFocusStart));
          printf("(7BB) offset of m_bExtendOnParent in ::user::interaction = %d\n", offsetof(::user::interaction, m_bExtendOnParent));
          printf("(7BB) offset of m_pwindow in ::user::interaction = %d\n", offsetof(::user::interaction, m_pwindow));
          printf("(7BB) offset of m_pImpl2 in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_pImpl2));

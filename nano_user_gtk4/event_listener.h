@@ -6,7 +6,7 @@
 
 //
 //#include <X11/Xlib.h>
-////#include "acme/primitive/primitive/element.h"
+////#include "acme/prototype/prototype/element.h"
 //
 //
 //namespace wayland

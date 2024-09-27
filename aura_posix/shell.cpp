@@ -2,7 +2,7 @@
 #include "shell.h"
 #include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/parallelization/synchronous_lock.h"
-#include "acme/primitive/string/international.h"
+#include "acme/prototype/string/international.h"
 #include "aura/graphics/image/context.h"
 
 

@@ -7,7 +7,7 @@
 #include "windowing_posix/window.h"
 #include "kde5_widget.h"
 //#include "acme/operating_system/x11/_atom.h"
-#include "acme/primitive/geometry2d/rectangle_array.h"
+#include "acme/prototype/geometry2d/rectangle_array.h"
 //#include "nano_user_wayland/window_base.h"
 //#include <X11/extensions/sync.h>
 #include <QWidget>

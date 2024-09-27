@@ -5,7 +5,7 @@
 
 
 #include "acme/windowing_system/windowing_system.h"
-#include "acme/primitive/collection/list.h"
+#include "acme/prototype/collection/list.h"
 
 #include <gtk/gtk.h>
 

@@ -861,12 +861,12 @@ namespace node_gdk
    }
 
 
-   string node::os_get_user_theme()
-   {
-
-      return m_strTheme;
-
-   }
+   // string node::os_get_user_theme()
+   // {
+   //
+   //    return m_strTheme;
+   //
+   // }
 
 
 //   string node::_on_user_theme_changed()
@@ -898,326 +898,326 @@ m_bFetchingDarkMode = false;
 
 };
 
-      information() << "::node_gtk3::node::_dark_mode";
-
-      if(_gsettings_schema_exists("org.gnome.desktop.interface"))
-      {
-
-         information() << "org.gnome.desktop.interface exists";
-
-         if(_gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
-         {
-
-            information() << "org.gnome.desktop.interface contains \"color-scheme\"";
-
-            ::string strColorScheme;
-
-            if (_gsettings_get(strColorScheme, "org.gnome.desktop.interface", "color-scheme"))
-            {
-
-               information() << "color-scheme=\"" + strColorScheme + "\"";
-
-               strColorScheme.trim();
-
-               if (strColorScheme.case_insensitive_contains("dark"))
-               {
-
-                  m_bOperatingSystemDarkMode = true;
-
-               }
-               else
-               {
-
-                  m_bOperatingSystemDarkMode = false;
-
-               }
-
-            }
-            else
-            {
-
-               m_bOperatingSystemDarkMode = false;
-
-            }
-
-         }
-         else if(_gsettings_schema_contains_key("org.gnome.desktop.interface", "gtk-theme"))
-	 {
-
-            information() << "org.gnome.desktop.interface contains \"gtk-theme\"";
-
-            ::string strGtkTheme;
-
-            if (_gsettings_get(strGtkTheme, "org.gnome.desktop.interface", "gtk-theme"))
-            {
-
-               information() << "gtk-theme=\"" + strGtkTheme + "\"";
-
-               strGtkTheme.trim();
-
-               if (strGtkTheme.case_insensitive_contains("dark"))
-               {
-
-                  m_bOperatingSystemDarkMode = true;
-
-               }
-               else
-               {
-
-                  m_bOperatingSystemDarkMode = false;
-
-               }
-
-            }
-            else
-            {
-
-               m_bOperatingSystemDarkMode = false;
-
-            }
-
-
-	 }
-         else
-         {
-
-            _fetch_user_color();
-
-//            {
+//       information() << "::node_gtk3::node::_dark_mode";
 //
-//               m_bOperatingSystemDarkMode = false;
+//       if(_gsettings_schema_exists("org.gnome.desktop.interface"))
+//       {
 //
-//            }
-
-         }
-
-      }
+//          information() << "org.gnome.desktop.interface exists";
+//
+//          if(_gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
+//          {
+//
+//             information() << "org.gnome.desktop.interface contains \"color-scheme\"";
+//
+//             ::string strColorScheme;
+//
+//             if (_gsettings_get(strColorScheme, "org.gnome.desktop.interface", "color-scheme"))
+//             {
+//
+//                information() << "color-scheme=\"" + strColorScheme + "\"";
+//
+//                strColorScheme.trim();
+//
+//                if (strColorScheme.case_insensitive_contains("dark"))
+//                {
+//
+//                   m_bOperatingSystemDarkMode = true;
+//
+//                }
+//                else
+//                {
+//
+//                   m_bOperatingSystemDarkMode = false;
+//
+//                }
+//
+//             }
+//             else
+//             {
+//
+//                m_bOperatingSystemDarkMode = false;
+//
+//             }
+//
+//          }
+//          else if(_gsettings_schema_contains_key("org.gnome.desktop.interface", "gtk-theme"))
+// 	 {
+//
+//             information() << "org.gnome.desktop.interface contains \"gtk-theme\"";
+//
+//             ::string strGtkTheme;
+//
+//             if (_gsettings_get(strGtkTheme, "org.gnome.desktop.interface", "gtk-theme"))
+//             {
+//
+//                information() << "gtk-theme=\"" + strGtkTheme + "\"";
+//
+//                strGtkTheme.trim();
+//
+//                if (strGtkTheme.case_insensitive_contains("dark"))
+//                {
+//
+//                   m_bOperatingSystemDarkMode = true;
+//
+//                }
+//                else
+//                {
+//
+//                   m_bOperatingSystemDarkMode = false;
+//
+//                }
+//
+//             }
+//             else
+//             {
+//
+//                m_bOperatingSystemDarkMode = false;
+//
+//             }
+//
+//
+// 	 }
+//          else
+//          {
+//
+//             _fetch_user_color();
+//
+// //            {
+// //
+// //               m_bOperatingSystemDarkMode = false;
+// //
+// //            }
+//
+//          }
+//
+//       }
 
    }
 
 
-   bool node::dark_mode() const
-   {
-
-      auto pnodeThisMutable = (node *) this;
-
-      pnodeThisMutable->_fetch_dark_mode();
-
-      return ::aura_posix::node::dark_mode();
-
-   }
-
-
-   void node::set_dark_mode(bool bDarkMode)
-   {
-
-      post_procedure([this, bDarkMode]()
-                     {
-
-      if(bDarkMode)
-      {
-
-         _gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-dark");
-
-      }
-      else
-      {
-
-         auto psummary = operating_system_summary();
-
-         if(psummary->m_strDistro.case_insensitive_equals("ubuntu"))
-         {
-
-            _gsettings_set("org.gnome.desktop.interface", "color-scheme", "default");
-
-         }
-         else
-         {
-
-            _gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-light");
-
-         }
-
-      }
-
-      _os_set_user_theme(m_strTheme);
-
-      _os_set_user_icon_theme(m_strIconTheme);
-
-      ::aura_posix::node::set_dark_mode(bDarkMode);
-
-      });
-
-   }
+   // bool node::dark_mode() const
+   // {
+   //
+   //    auto pnodeThisMutable = (node *) this;
+   //
+   //    pnodeThisMutable->_fetch_dark_mode();
+   //
+   //    return ::aura_posix::node::dark_mode();
+   //
+   // }
 
 
-   void node::os_set_user_theme(const ::string &strUserTheme)
-   {
-
-      //auto estatus =
-      //
-      //
-      _os_set_user_theme(strUserTheme);
-
-//      if(!estatus)
-//      {
+//    void node::set_dark_mode(bool bDarkMode)
+//    {
 //
-//         return estatus;
+//       post_procedure([this, bDarkMode]()
+//                      {
 //
-//      }
+//       if(bDarkMode)
+//       {
 //
-//      return estatus;
-
-   }
-
-
-   ::e_status node::_os_set_user_theme(const ::string &strUserTheme)
-   {
-
-      // https://ubuntuforums.org/showthread.php?t=2140488
-      // gsettings set org.gnome.desktop.interface gtk-theme your_theme
-
-      // indirect wall-changer sourceforge.net contribution
-
-      auto psystem = system()->m_papexsystem;
-
-      auto pnode = psystem->node();
-
-      auto edesktop = pnode->get_edesktop();
-
-      if (edesktop & ::user::e_desktop_gnome)
-      {
-
-         bool bOk1 = _gsettings_set("org.gnome.desktop.interface", "gtk-theme", strUserTheme).ok();
-
-         bool bOk2 = true;
-
-         //if(::file::system_short_name().case_insensitive_contains("manjaro"))
-         {
-
-            bOk2 = _gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme).ok();
-
-         }
-
-         sleep(300_ms);
-
-         _gsettings_sync();
-
-         sleep(300_ms);
-
-         if (!bOk1 || !bOk2)
-         {
-
-            return error_failed;
-
-         }
-
-      }
-      else if (edesktop & ::user::e_desktop_mate)
-      {
-
-         //return ::user::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
-
-      }
-      else if (edesktop & ::user::e_desktop_lxde)
-      {
-
-
-         //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
-
-      }
-      else if (edesktop & ::user::e_desktop_xfce)
-      {
-         //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
-         //          if(entry.contains("image-path") || entry.contains("last-image")){
-         //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
-         //      }
-         //}
-
-         warning() <<"Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
-
-         return error_failed;
-
-      }
-
-      return ::success;
-
-   }
-
-
-   ::e_status node::_os_set_user_icon_theme(const ::string &strUserIconTheme)
-   {
-
-      // https://ubuntuforums.org/showthread.php?t=2140488
-      // gsettings set org.gnome.desktop.interface gtk-theme your_theme
-
-      // indirect wall-changer sourceforge.net contribution
-
-      auto psystem = system()->m_papexsystem;
-
-      auto pnode = psystem->node();
-
-      auto edesktop = pnode->get_edesktop();
-
-      if (edesktop & ::user::e_desktop_gnome)
-      {
-
-         bool bOk1 = _gsettings_set("org.gnome.desktop.interface", "icon-theme", strUserIconTheme).ok();
-
-         //bool bOk2 = true;
-
-//         //if(::file::system_short_name().case_insensitive_contains("manjaro"))
-//         {
+//          _gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-dark");
 //
-//            bOk2 = gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme);
+//       }
+//       else
+//       {
 //
-//         }
-
-         sleep(300_ms);
-
-         _gsettings_sync();
-
-         sleep(300_ms);
-
-         //if (!bOk1 || !bOk2)
-         if (!bOk1)
-         {
-
-            return error_failed;
-
-         }
-
-      }
-      else if (edesktop & ::user::e_desktop_mate)
-      {
-
-         //return ::user::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
-
-      }
-      else if (edesktop & ::user::e_desktop_lxde)
-      {
-
-
-         //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
-
-      }
-      else if (edesktop & ::user::e_desktop_xfce)
-      {
-         //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
-         //          if(entry.contains("image-path") || entry.contains("last-image")){
-         //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
-         //      }
-         //}
-
-         warning() <<"Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
-
-         return error_failed;
-
-      }
-
-      return ::success;
-
-   }
+//          auto psummary = operating_system_summary();
+//
+//          if(psummary->m_strDistro.case_insensitive_equals("ubuntu"))
+//          {
+//
+//             _gsettings_set("org.gnome.desktop.interface", "color-scheme", "default");
+//
+//          }
+//          else
+//          {
+//
+//             _gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-light");
+//
+//          }
+//
+//       }
+//
+//       _os_set_user_theme(m_strTheme);
+//
+//       _os_set_user_icon_theme(m_strIconTheme);
+//
+//       ::aura_posix::node::set_dark_mode(bDarkMode);
+//
+//       });
+//
+//    }
+//
+//
+//    void node::os_set_user_theme(const ::string &strUserTheme)
+//    {
+//
+//       //auto estatus =
+//       //
+//       //
+//       _os_set_user_theme(strUserTheme);
+//
+// //      if(!estatus)
+// //      {
+// //
+// //         return estatus;
+// //
+// //      }
+// //
+// //      return estatus;
+//
+//    }
+//
+//
+//    ::e_status node::_os_set_user_theme(const ::string &strUserTheme)
+//    {
+//
+//       // https://ubuntuforums.org/showthread.php?t=2140488
+//       // gsettings set org.gnome.desktop.interface gtk-theme your_theme
+//
+//       // indirect wall-changer sourceforge.net contribution
+//
+//       auto psystem = system()->m_papexsystem;
+//
+//       auto pnode = psystem->node();
+//
+//       auto edesktop = pnode->get_edesktop();
+//
+//       if (edesktop & ::user::e_desktop_gnome)
+//       {
+//
+//          bool bOk1 = _gsettings_set("org.gnome.desktop.interface", "gtk-theme", strUserTheme).ok();
+//
+//          bool bOk2 = true;
+//
+//          //if(::file::system_short_name().case_insensitive_contains("manjaro"))
+//          {
+//
+//             bOk2 = _gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme).ok();
+//
+//          }
+//
+//          sleep(300_ms);
+//
+//          _gsettings_sync();
+//
+//          sleep(300_ms);
+//
+//          if (!bOk1 || !bOk2)
+//          {
+//
+//             return error_failed;
+//
+//          }
+//
+//       }
+//       else if (edesktop & ::user::e_desktop_mate)
+//       {
+//
+//          //return ::user::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
+//
+//       }
+//       else if (edesktop & ::user::e_desktop_lxde)
+//       {
+//
+//
+//          //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+//
+//       }
+//       else if (edesktop & ::user::e_desktop_xfce)
+//       {
+//          //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+//          //          if(entry.contains("image-path") || entry.contains("last-image")){
+//          //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+//          //      }
+//          //}
+//
+//          warning() <<"Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
+//
+//          return error_failed;
+//
+//       }
+//
+//       return ::success;
+//
+//    }
+//
+//
+//    ::e_status node::_os_set_user_icon_theme(const ::string &strUserIconTheme)
+//    {
+//
+//       // https://ubuntuforums.org/showthread.php?t=2140488
+//       // gsettings set org.gnome.desktop.interface gtk-theme your_theme
+//
+//       // indirect wall-changer sourceforge.net contribution
+//
+//       auto psystem = system()->m_papexsystem;
+//
+//       auto pnode = psystem->node();
+//
+//       auto edesktop = pnode->get_edesktop();
+//
+//       if (edesktop & ::user::e_desktop_gnome)
+//       {
+//
+//          bool bOk1 = _gsettings_set("org.gnome.desktop.interface", "icon-theme", strUserIconTheme).ok();
+//
+//          //bool bOk2 = true;
+//
+// //         //if(::file::system_short_name().case_insensitive_contains("manjaro"))
+// //         {
+// //
+// //            bOk2 = gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme);
+// //
+// //         }
+//
+//          sleep(300_ms);
+//
+//          _gsettings_sync();
+//
+//          sleep(300_ms);
+//
+//          //if (!bOk1 || !bOk2)
+//          if (!bOk1)
+//          {
+//
+//             return error_failed;
+//
+//          }
+//
+//       }
+//       else if (edesktop & ::user::e_desktop_mate)
+//       {
+//
+//          //return ::user::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
+//
+//       }
+//       else if (edesktop & ::user::e_desktop_lxde)
+//       {
+//
+//
+//          //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+//
+//       }
+//       else if (edesktop & ::user::e_desktop_xfce)
+//       {
+//          //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+//          //          if(entry.contains("image-path") || entry.contains("last-image")){
+//          //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+//          //      }
+//          //}
+//
+//          warning() <<"Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
+//
+//          return error_failed;
+//
+//       }
+//
+//       return ::success;
+//
+//    }
 
 
    bool node::set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay)
@@ -1577,81 +1577,81 @@ m_bFetchingDarkMode = false;
 
    bool g_bInitializedUserTheme = false;
 
-   string node::_os_get_user_theme()
-   {
-
-      if (!g_bInitializedUserTheme)
-      {
-
-         g_bInitializedUserTheme = true;
-
-         //auto psystem = system()->m_papexsystem;
-
-         //psystem->start_subject_handling(id_os_user_theme);
-
-      }
-
-      // https://ubuntuforums.org/showthread.php?t=2140488
-      // gsettings set org.gnome.desktop.interface gtk-theme your_theme
-
-      // indirect wall-changer sourceforge.net contribution
-
-      string strTheme;
-
-      bool bOk = false;
-
-      auto psystem = system()->m_papexsystem;
-
-      auto pnode = psystem->node();
-
-      auto edesktop = pnode->get_edesktop();
-
-      switch (edesktop)
-      {
-
-         case ::user::e_desktop_gnome:
-         case ::user::e_desktop_ubuntu_gnome:
-         case ::user::e_desktop_unity_gnome:
-
-            bOk = _gsettings_get(strTheme, "org.gnome.desktop.interface", "gtk-theme").ok();
-
-            break;
-
-         case ::user::e_desktop_mate:
-
-            bOk = _gsettings_get(strTheme, "org.mate.background", "picture-filename").ok();
-
-            break;
-
-         case ::user::e_desktop_lxde:
-
-            //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
-
-            break;
-
-         case ::user::e_desktop_xfce:
-         {
-            //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
-            //          if(entry.contains("image-path") || entry.contains("last-image")){
-            //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
-            //      }
-            //}
-
-         }
-
-            //break;
-
-         default:
-
-            warningf(
-                    "Failed to get user theme setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
-            //return "";
-
-      }
-
-      return strTheme;
-
-   }
+   // string node::_os_get_user_theme()
+   // {
+   //
+   //    if (!g_bInitializedUserTheme)
+   //    {
+   //
+   //       g_bInitializedUserTheme = true;
+   //
+   //       //auto psystem = system()->m_papexsystem;
+   //
+   //       //psystem->start_subject_handling(id_os_user_theme);
+   //
+   //    }
+   //
+   //    // https://ubuntuforums.org/showthread.php?t=2140488
+   //    // gsettings set org.gnome.desktop.interface gtk-theme your_theme
+   //
+   //    // indirect wall-changer sourceforge.net contribution
+   //
+   //    string strTheme;
+   //
+   //    bool bOk = false;
+   //
+   //    auto psystem = system()->m_papexsystem;
+   //
+   //    auto pnode = psystem->node();
+   //
+   //    auto edesktop = pnode->get_edesktop();
+   //
+   //    switch (edesktop)
+   //    {
+   //
+   //       case ::user::e_desktop_gnome:
+   //       case ::user::e_desktop_ubuntu_gnome:
+   //       case ::user::e_desktop_unity_gnome:
+   //
+   //          bOk = _gsettings_get(strTheme, "org.gnome.desktop.interface", "gtk-theme").ok();
+   //
+   //          break;
+   //
+   //       case ::user::e_desktop_mate:
+   //
+   //          bOk = _gsettings_get(strTheme, "org.mate.background", "picture-filename").ok();
+   //
+   //          break;
+   //
+   //       case ::user::e_desktop_lxde:
+   //
+   //          //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+   //
+   //          break;
+   //
+   //       case ::user::e_desktop_xfce:
+   //       {
+   //          //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+   //          //          if(entry.contains("image-path") || entry.contains("last-image")){
+   //          //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+   //          //      }
+   //          //}
+   //
+   //       }
+   //
+   //          //break;
+   //
+   //       default:
+   //
+   //          warningf(
+   //                  "Failed to get user theme setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+   //          //return "";
+   //
+   //    }
+   //
+   //    return strTheme;
+   //
+   // }
 
 //
 //   GtkStyleContext * __get_style_context_for_theme(const char * pszTheme, bool bDarkMode)
@@ -2025,7 +2025,7 @@ m_bFetchingDarkMode = false;
 
       ::acme::get()->platform()->informationf("applying os user theme: \"" + m_strOsUserTheme + "\"\n");
 
-      os_process_user_theme(m_strOsUserTheme);
+      //os_process_user_theme(m_strOsUserTheme);
 
    }
 
@@ -2059,105 +2059,105 @@ m_bFetchingDarkMode = false;
 
       ::acme::get()->platform()->informationf("applying os user icon theme: \"" + m_strOsUserIconTheme + "\"\n");
 
-      os_process_user_icon_theme(m_strOsUserIconTheme);
+      //os_process_user_icon_theme(m_strOsUserIconTheme);
 
    }
 
 
-   void node::os_process_user_theme(string strOsTheme)
-   {
-
-      ::acme::get()->platform()->informationf(
-              "os_process_user_theme: is strTheme(" + strOsTheme + ") same as m_strTheme(" + m_strTheme + ")\n");
-
-      if (strOsTheme == m_strTheme)
-      {
-
-         ::acme::get()->platform()->informationf(
-                 "os_process_user_theme: same theme as before [new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
-
-         return;
-
-      }
-
-      ::acme::get()->platform()->informationf(
-              "os_process_user_theme: different theme [new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
-
-      m_strTheme = strOsTheme;
-
-      ::acme::get()->platform()->informationf("os_process_user_theme m_strTheme = \"" + m_strTheme + "\"\n");
-
-      try
-      {
-
-         system()->m_papexsystem->signal(id_operating_system_user_theme_change);
-
-      }
-      catch (...)
-      {
-
-
-      }
-
-      _fetch_user_color();
-
-//      if(!gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
-//      {
+//    void node::os_process_user_theme(string strOsTheme)
+//    {
 //
-//         _os_process_user_theme_color(m_strTheme);
+//       ::acme::get()->platform()->informationf(
+//               "os_process_user_theme: is strTheme(" + strOsTheme + ") same as m_strTheme(" + m_strTheme + ")\n");
 //
-//         fetch_user_color();
+//       if (strOsTheme == m_strTheme)
+//       {
 //
-//      }
-
-   }
-
-
-   void node::os_process_user_icon_theme(string strOsIconTheme)
-   {
-
-      ::acme::get()->platform()->informationf(
-              "os_process_user_icon_theme: is strIconTheme(" + strOsIconTheme + ") same as m_strIconTheme(" + m_strIconTheme + ")\n");
-
-      if (strOsIconTheme == m_strIconTheme)
-      {
-
-         ::acme::get()->platform()->informationf(
-                 "os_process_user_icon_theme: same theme as before [new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
-
-         return;
-
-      }
-
-      ::acme::get()->platform()->informationf(
-              "os_process_user_icon_theme: different theme [new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
-
-      m_strIconTheme = strOsIconTheme;
-
-      ::acme::get()->platform()->informationf("os_process_user_icon_theme m_strIconTheme = \"" + m_strIconTheme + "\"\n");
-
-      try
-      {
-
-         system()->m_papexsystem->signal(id_operating_system_user_icon_theme_change);
-
-      }
-      catch (...)
-      {
-
-
-      }
-
-//      if(!gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
-//      {
+//          ::acme::get()->platform()->informationf(
+//                  "os_process_user_theme: same theme as before [new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
 //
-//         _os_process_user_theme_color(m_strTheme);
+//          return;
 //
-//         fetch_user_color();
+//       }
 //
-//      }
-
-   }
+//       ::acme::get()->platform()->informationf(
+//               "os_process_user_theme: different theme [new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
+//
+//       m_strTheme = strOsTheme;
+//
+//       ::acme::get()->platform()->informationf("os_process_user_theme m_strTheme = \"" + m_strTheme + "\"\n");
+//
+//       try
+//       {
+//
+//          system()->m_papexsystem->signal(id_operating_system_user_theme_change);
+//
+//       }
+//       catch (...)
+//       {
+//
+//
+//       }
+//
+//       _fetch_user_color();
+//
+// //      if(!gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
+// //      {
+// //
+// //         _os_process_user_theme_color(m_strTheme);
+// //
+// //         fetch_user_color();
+// //
+// //      }
+//
+//    }
+//
+//
+//    void node::os_process_user_icon_theme(string strOsIconTheme)
+//    {
+//
+//       ::acme::get()->platform()->informationf(
+//               "os_process_user_icon_theme: is strIconTheme(" + strOsIconTheme + ") same as m_strIconTheme(" + m_strIconTheme + ")\n");
+//
+//       if (strOsIconTheme == m_strIconTheme)
+//       {
+//
+//          ::acme::get()->platform()->informationf(
+//                  "os_process_user_icon_theme: same theme as before [new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
+//
+//          return;
+//
+//       }
+//
+//       ::acme::get()->platform()->informationf(
+//               "os_process_user_icon_theme: different theme [new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
+//
+//       m_strIconTheme = strOsIconTheme;
+//
+//       ::acme::get()->platform()->informationf("os_process_user_icon_theme m_strIconTheme = \"" + m_strIconTheme + "\"\n");
+//
+//       try
+//       {
+//
+//          system()->m_papexsystem->signal(id_operating_system_user_icon_theme_change);
+//
+//       }
+//       catch (...)
+//       {
+//
+//
+//       }
+//
+// //      if(!gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
+// //      {
+// //
+// //         _os_process_user_theme_color(m_strTheme);
+// //
+// //         fetch_user_color();
+// //
+// //      }
+//
+//    }
 
 
 //   void node::_os_process_user_theme_color(string strTheme)
@@ -2185,27 +2185,27 @@ m_bFetchingDarkMode = false;
 //   }
 
 
-   void node::fetch_user_color()
-   {
-
-      _fetch_dark_mode();
-
-//      auto pthemecolors = ::user::os_get_theme_colors();
+//    void node::fetch_user_color()
+//    {
 //
-//      if (!pthemecolors)
-//      {
+//       _fetch_dark_mode();
 //
-//         string strTheme = _os_get_user_theme();
+// //      auto pthemecolors = ::user::os_get_theme_colors();
+// //
+// //      if (!pthemecolors)
+// //      {
+// //
+// //         string strTheme = _os_get_user_theme();
+// //
+// //         information() << "node::fetch_user_color _os_get_user_theme(): " << strTheme;
+// //
+// //         pthemecolors = _new_os_theme_colors(strTheme);
+// //
+// //         _set_os_theme_colors(pthemecolors);
+// //
+// //      }
 //
-//         information() << "node::fetch_user_color _os_get_user_theme(): " << strTheme;
-//
-//         pthemecolors = _new_os_theme_colors(strTheme);
-//
-//         _set_os_theme_colors(pthemecolors);
-//
-//      }
-
-   }
+//    }
 
 
    bool node::is_branch_current() const

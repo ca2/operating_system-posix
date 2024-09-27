@@ -515,6 +515,7 @@ namespace windowing_system_gtk4
 
       _fetch_dark_mode();
 
+
    }
 
 
@@ -643,9 +644,13 @@ namespace windowing_system_gtk4
 
       cairo_surface_destroy(surface);
 
-      auto psystem = system();
 
-      psystem->background_color(color);
+      on_system_dark_mode_change(color.get_luminance() <= 0.5, color);
+
+
+      //auto psystem = system();
+
+      //psystem->background_color(color);
 
 
       //gtk_widget_realize(widget);

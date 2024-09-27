@@ -11,7 +11,7 @@
 #include "nano_user_xcb/display.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/parallelization/task_message_queue.h"
-#include "acme/primitive/geometry2d/_text_stream.h"
+#include "acme/prototype/geometry2d/_text_stream.h"
 #include "aura/graphics/graphics/graphics.h"
 #include "aura/graphics/image/context.h"
 #include "aura/graphics/image/drawing.h"
