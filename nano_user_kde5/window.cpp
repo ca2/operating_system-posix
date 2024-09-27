@@ -15,6 +15,7 @@
 #include "acme/windowing_system/windowing_system.h"
 #include "acme/integrate/qt.h"
 #include "acme/integrate/qt/image.h"
+#include <QMouseEvent>
 // #include <xkbcommon/xkbcommon.h>
 // #include <X11/XKBlib.h>
 // #include <cairo/cairo-xcb.h>
@@ -591,7 +592,7 @@ namespace nano
       //}
       //
 
-      void window::display()
+      void window::show_window()
       {
 
          //   if(is_main_thread())
@@ -607,7 +608,7 @@ namespace nano
          //
          //   }
 
-         _wm_nodecorations(false);
+         //_wm_nodecorations(false);
 
          //XMapWindow(m_pdisplay->m_pdisplay, m_window);
 
@@ -617,9 +618,9 @@ namespace nano
 
          //XRaiseWindow(m_pdisplay->m_pdisplay, m_window);
 
-         set_active();
+         set_active_window();
 
-         xcb_flush(m_pdisplay->m_pconnection);
+         //xcb_flush(m_pdisplay->m_pconnection);
 
          //   m_eventEnd.wait();
 
@@ -629,9 +630,11 @@ namespace nano
       ::e_status window::_map_window()
       {
 
-         auto estatus = m_pdisplay->_map_window(m_window);
+         //auto estatus = m_pdisplay->_map_window(m_window);
 
-         return estatus;
+         m_pqwidget->show();
+
+         return ::success;
 
       }
 
@@ -639,9 +642,11 @@ namespace nano
       ::e_status window::_unmap_window()
       {
 
-         auto estatus = m_pdisplay->_unmap_window(m_window);
+         //auto estatus = m_pdisplay->_unmap_window(m_window);
 
-         return estatus;
+         m_pqwidget->hide();
+
+         return ::success;
 
       }
 
@@ -649,322 +654,328 @@ namespace nano
       ::e_status window::_raise_window()
       {
 
-         auto estatus = m_pdisplay->_raise_window(m_window);
+         //auto estatus = m_pdisplay->_raise_window(m_window);
 
-         return estatus;
+         m_pqwidget->raise();
+
+         return ::success;
 
       }
 
 
-      void window::set_active()
+      void window::set_active_window()
       {
 
-         auto estatus = m_pdisplay->_set_active_window(m_window);
+         //auto estatus = m_pdisplay->_set_active_window(m_window);
+
+         m_pqwidget->activateWindow();
+
+         m_pqwidget->setWindowState((m_pqwidget->windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
 
       }
 
 
-      bool window::_on_event(xcb_generic_event_t *pevent)
-      {
-
-         if(m_window == None)
-         {
-
-            return false;
-
-         }
-
-         auto event_type = pevent->response_type;
-
-         if (event_type == XCB_CONFIGURE_NOTIFY)
-         {
-
-            auto pconfigure = (xcb_configure_notify_event_t *) pevent;
-
-            if (pconfigure->window != m_window)
-            {
-
-               return false;
-
-            }
-
-            m_puserinteractionbase->m_rectangle.left() = pconfigure->x;
-
-            m_puserinteractionbase->m_rectangle.top() = pconfigure->y;
-
-            m_puserinteractionbase->m_rectangle.right() = pconfigure->x + pconfigure->width;
-
-            m_puserinteractionbase->m_rectangle.bottom() = pconfigure->y + pconfigure->height;
-
-            if (m_psurface)
-            {
-
-               cairo_xcb_surface_set_size(m_psurface, m_puserinteractionbase->m_rectangle.width(),
-                                           m_puserinteractionbase->m_rectangle.height());
-
-            }
-
-         }
-         else if (event_type == XCB_UNMAP_NOTIFY)
-         {
-
-            auto punmap = (xcb_unmap_notify_event_t *) pevent;
-
-            if (punmap->window != m_window)
-            {
-
-               return false;
-
-            }
-
-
-            informationf("UnmapNotify");
-
-         }
-         else if (event_type == XCB_MAP_NOTIFY)
-         {
-
-            auto pmap = (xcb_map_notify_event_t *) pevent;
-
-            if (pmap->window != m_window)
-            {
-
-               return false;
-
-            }
-
-
-         }
-         else if (event_type == XCB_EXPOSE)
-         {
-
-            auto pexpose = (xcb_expose_event_t *) pevent;
-
-            if (pexpose->window != m_window)
-            {
-
-               return false;
-
-            }
-
-            if (!m_psurface)
-            {
-
-               rectangle_i32 rectangleX;
-
-               get_client_rectangle(rectangleX);
-
-               m_psurface = cairo_xcb_surface_create(
-                  m_pdisplay->m_pconnection,
-                  m_window,
-                  m_pdisplay->m_pvisualtype,
-                  rectangleX.width(),
-                  rectangleX.height());
-
-               auto pdc = cairo_create(m_psurface);
-
-               m_pnanodevice = ::place(new ::cairo::nano::graphics::device(pdc));
-
-            }
-
-            _update_window();
-
-         }
-         else if (event_type == XCB_PROPERTY_NOTIFY)
-         {
-
-            auto pproperty = (xcb_property_notify_event_t *) pevent;
-
-            if (pproperty->window != m_window)
-            {
-
-               return false;
-
-            }
-
-            //informationf("PropertyNotify");
-
-         }
-         else if (event_type == XCB_KEY_PRESS)
-         {
-
-            auto pkey = (xcb_key_press_event_t *) pevent;
-
-            if (pkey->event != m_window)
-            {
-
-               return false;
-
-            }
-
-            auto keysym = XkbKeycodeToKeysym((Display *) m_pdisplay->m_pX11Display, pkey->detail, 0, pkey->state & ShiftMask ? 1 : 0);
-
-            int iChar = xkb_keysym_to_utf32(keysym);
-
-            on_char(iChar);
-
-         }
-         else if (event_type == XCB_KEY_RELEASE)
-         {
-
-            auto pkey = (xcb_key_release_event_t *) pevent;
-
-            if (pkey->event != m_window)
-            {
-
-               return false;
-
-            }
-
-
-         }
-         else if (event_type == XCB_BUTTON_PRESS)
-         {
-
-            auto pbutton = (xcb_button_press_event_t *) pevent;
-
-            if (pbutton->event != m_window)
-            {
-
-               return false;
-
-            }
-
-            if (pbutton->detail == XCB_BUTTON_INDEX_1)
-            {
-
-               auto pmouse = __create_new < ::user::mouse >();
-
-               pmouse->m_pointHost = {pbutton->event_x, pbutton->event_y};
-
-               pmouse->m_pointAbsolute = {pbutton->root_x, pbutton->root_y};
-
-               on_left_button_down(pmouse);
-
-            }
-            else if (pbutton->detail == XCB_BUTTON_INDEX_3)
-            {
-
-               auto pmouse = __create_new < ::user::mouse >();
-
-               pmouse->m_pointHost = {pbutton->event_x, pbutton->event_y};
-
-               pmouse->m_pointAbsolute = {pbutton->root_x, pbutton->root_y};
-
-               on_right_button_down(pmouse);
-
-            }
-
-         }
-         else if (event_type == XCB_BUTTON_RELEASE)
-         {
-
-            auto pbutton = (xcb_button_release_event_t *) pevent;
-
-            if (pbutton->event != m_window)
-            {
-
-               return false;
-
-            }
-
-
-            if (pbutton->detail == XCB_BUTTON_INDEX_1)
-            {
-
-               auto pmouse = __create_new < ::user::mouse >();
-
-               pmouse->m_pointHost = {pbutton->event_x, pbutton->event_y};
-
-               pmouse->m_pointAbsolute = {pbutton->root_x, pbutton->root_y};
-
-               on_left_button_up(pmouse);
-
-            }
-            else if (pbutton->detail == XCB_BUTTON_INDEX_3)
-            {
-
-               auto pmouse = __create_new < ::user::mouse >();
-
-               pmouse->m_pointHost = {pbutton->event_x, pbutton->event_y};
-
-               pmouse->m_pointAbsolute = {pbutton->root_x, pbutton->root_y};
-
-               on_right_button_up(pmouse);
-
-            }
-
-         }
-         else if (event_type == MotionNotify)
-         {
-
-            auto pmotion = (xcb_motion_notify_event_t *) pevent;
-
-            if (pmotion->event != m_window)
-            {
-
-               return false;
-
-            }
-
-            auto pmouse = __create_new < ::user::mouse >();
-
-            pmouse->m_pointHost = {pmotion->event_x, pmotion->event_y};
-
-            pmouse->m_pointAbsolute = {pmotion->root_x, pmotion->root_y};
-
-            on_mouse_move(pmouse);
-
-         }
-         else if (event_type == LeaveNotify)
-         {
-
-            auto pleave = (xcb_leave_notify_event_t *) pevent;
-
-            if (pleave->event != m_window)
-            {
-
-               return false;
-
-            }
-
-            if (m_puserinteractionbase->m_pchildHover)
-            {
-
-               auto pmouse = __create_new < ::user::mouse >();
-
-               pmouse->m_pointHost = {I32_MINIMUM, I32_MINIMUM};
-
-               pmouse->m_pointAbsolute = {I32_MINIMUM, I32_MINIMUM};
-
-               m_puserinteractionbase->m_pchildHover->on_mouse_move(pmouse);
-
-               m_puserinteractionbase->m_pchildHover = nullptr;
-
-               m_puserinteractionbase->redraw();
-
-            }
-
-         }
-
-         return true;
-
-      }
+      // bool window::_on_event(xcb_generic_event_t *pevent)
+      // {
+      //
+      //    if(m_window == None)
+      //    {
+      //
+      //       return false;
+      //
+      //    }
+      //
+      //    auto event_type = pevent->response_type;
+      //
+      //    if (event_type == XCB_CONFIGURE_NOTIFY)
+      //    {
+      //
+      //       auto pconfigure = (xcb_configure_notify_event_t *) pevent;
+      //
+      //       if (pconfigure->window != m_window)
+      //       {
+      //
+      //          return false;
+      //
+      //       }
+      //
+      //       m_puserinteractionbase->m_rectangle.left() = pconfigure->x;
+      //
+      //       m_puserinteractionbase->m_rectangle.top() = pconfigure->y;
+      //
+      //       m_puserinteractionbase->m_rectangle.right() = pconfigure->x + pconfigure->width;
+      //
+      //       m_puserinteractionbase->m_rectangle.bottom() = pconfigure->y + pconfigure->height;
+      //
+      //       if (m_psurface)
+      //       {
+      //
+      //          cairo_xcb_surface_set_size(m_psurface, m_puserinteractionbase->m_rectangle.width(),
+      //                                      m_puserinteractionbase->m_rectangle.height());
+      //
+      //       }
+      //
+      //    }
+      //    else if (event_type == XCB_UNMAP_NOTIFY)
+      //    {
+      //
+      //       auto punmap = (xcb_unmap_notify_event_t *) pevent;
+      //
+      //       if (punmap->window != m_window)
+      //       {
+      //
+      //          return false;
+      //
+      //       }
+      //
+      //
+      //       informationf("UnmapNotify");
+      //
+      //    }
+      //    else if (event_type == XCB_MAP_NOTIFY)
+      //    {
+      //
+      //       auto pmap = (xcb_map_notify_event_t *) pevent;
+      //
+      //       if (pmap->window != m_window)
+      //       {
+      //
+      //          return false;
+      //
+      //       }
+      //
+      //
+      //    }
+      //    else if (event_type == XCB_EXPOSE)
+      //    {
+      //
+      //       auto pexpose = (xcb_expose_event_t *) pevent;
+      //
+      //       if (pexpose->window != m_window)
+      //       {
+      //
+      //          return false;
+      //
+      //       }
+      //
+      //       if (!m_psurface)
+      //       {
+      //
+      //          rectangle_i32 rectangleX;
+      //
+      //          get_client_rectangle(rectangleX);
+      //
+      //          m_psurface = cairo_xcb_surface_create(
+      //             m_pdisplay->m_pconnection,
+      //             m_window,
+      //             m_pdisplay->m_pvisualtype,
+      //             rectangleX.width(),
+      //             rectangleX.height());
+      //
+      //          auto pdc = cairo_create(m_psurface);
+      //
+      //          m_pnanodevice = ::place(new ::cairo::nano::graphics::device(pdc));
+      //
+      //       }
+      //
+      //       _update_window();
+      //
+      //    }
+      //    else if (event_type == XCB_PROPERTY_NOTIFY)
+      //    {
+      //
+      //       auto pproperty = (xcb_property_notify_event_t *) pevent;
+      //
+      //       if (pproperty->window != m_window)
+      //       {
+      //
+      //          return false;
+      //
+      //       }
+      //
+      //       //informationf("PropertyNotify");
+      //
+      //    }
+      //    else if (event_type == XCB_KEY_PRESS)
+      //    {
+      //
+      //       auto pkey = (xcb_key_press_event_t *) pevent;
+      //
+      //       if (pkey->event != m_window)
+      //       {
+      //
+      //          return false;
+      //
+      //       }
+      //
+      //       auto keysym = XkbKeycodeToKeysym((Display *) m_pdisplay->m_pX11Display, pkey->detail, 0, pkey->state & ShiftMask ? 1 : 0);
+      //
+      //       int iChar = xkb_keysym_to_utf32(keysym);
+      //
+      //       on_char(iChar);
+      //
+      //    }
+      //    else if (event_type == XCB_KEY_RELEASE)
+      //    {
+      //
+      //       auto pkey = (xcb_key_release_event_t *) pevent;
+      //
+      //       if (pkey->event != m_window)
+      //       {
+      //
+      //          return false;
+      //
+      //       }
+      //
+      //
+      //    }
+      //    else if (event_type == XCB_BUTTON_PRESS)
+      //    {
+      //
+      //       auto pbutton = (xcb_button_press_event_t *) pevent;
+      //
+      //       if (pbutton->event != m_window)
+      //       {
+      //
+      //          return false;
+      //
+      //       }
+      //
+      //       if (pbutton->detail == XCB_BUTTON_INDEX_1)
+      //       {
+      //
+      //          auto pmouse = __create_new < ::user::mouse >();
+      //
+      //          pmouse->m_pointHost = {pbutton->event_x, pbutton->event_y};
+      //
+      //          pmouse->m_pointAbsolute = {pbutton->root_x, pbutton->root_y};
+      //
+      //          on_left_button_down(pmouse);
+      //
+      //       }
+      //       else if (pbutton->detail == XCB_BUTTON_INDEX_3)
+      //       {
+      //
+      //          auto pmouse = __create_new < ::user::mouse >();
+      //
+      //          pmouse->m_pointHost = {pbutton->event_x, pbutton->event_y};
+      //
+      //          pmouse->m_pointAbsolute = {pbutton->root_x, pbutton->root_y};
+      //
+      //          on_right_button_down(pmouse);
+      //
+      //       }
+      //
+      //    }
+      //    else if (event_type == XCB_BUTTON_RELEASE)
+      //    {
+      //
+      //       auto pbutton = (xcb_button_release_event_t *) pevent;
+      //
+      //       if (pbutton->event != m_window)
+      //       {
+      //
+      //          return false;
+      //
+      //       }
+      //
+      //
+      //       if (pbutton->detail == XCB_BUTTON_INDEX_1)
+      //       {
+      //
+      //          auto pmouse = __create_new < ::user::mouse >();
+      //
+      //          pmouse->m_pointHost = {pbutton->event_x, pbutton->event_y};
+      //
+      //          pmouse->m_pointAbsolute = {pbutton->root_x, pbutton->root_y};
+      //
+      //          on_left_button_up(pmouse);
+      //
+      //       }
+      //       else if (pbutton->detail == XCB_BUTTON_INDEX_3)
+      //       {
+      //
+      //          auto pmouse = __create_new < ::user::mouse >();
+      //
+      //          pmouse->m_pointHost = {pbutton->event_x, pbutton->event_y};
+      //
+      //          pmouse->m_pointAbsolute = {pbutton->root_x, pbutton->root_y};
+      //
+      //          on_right_button_up(pmouse);
+      //
+      //       }
+      //
+      //    }
+      //    else if (event_type == MotionNotify)
+      //    {
+      //
+      //       auto pmotion = (xcb_motion_notify_event_t *) pevent;
+      //
+      //       if (pmotion->event != m_window)
+      //       {
+      //
+      //          return false;
+      //
+      //       }
+      //
+      //       auto pmouse = __create_new < ::user::mouse >();
+      //
+      //       pmouse->m_pointHost = {pmotion->event_x, pmotion->event_y};
+      //
+      //       pmouse->m_pointAbsolute = {pmotion->root_x, pmotion->root_y};
+      //
+      //       on_mouse_move(pmouse);
+      //
+      //    }
+      //    else if (event_type == LeaveNotify)
+      //    {
+      //
+      //       auto pleave = (xcb_leave_notify_event_t *) pevent;
+      //
+      //       if (pleave->event != m_window)
+      //       {
+      //
+      //          return false;
+      //
+      //       }
+      //
+      //       if (m_puserinteractionbase->m_pchildHover)
+      //       {
+      //
+      //          auto pmouse = __create_new < ::user::mouse >();
+      //
+      //          pmouse->m_pointHost = {I32_MINIMUM, I32_MINIMUM};
+      //
+      //          pmouse->m_pointAbsolute = {I32_MINIMUM, I32_MINIMUM};
+      //
+      //          m_puserinteractionbase->m_pchildHover->on_mouse_move(pmouse);
+      //
+      //          m_puserinteractionbase->m_pchildHover = nullptr;
+      //
+      //          m_puserinteractionbase->redraw();
+      //
+      //       }
+      //
+      //    }
+      //
+      //    return true;
+      //
+      // }
 
 
       void window::_update_window()
       {
 
-         if(m_pnanodevice && m_psurface)
+         if(m_pnanodevice)
          {
 
             m_pnanodevice->on_begin_draw();
 
-            draw(m_pnanodevice);
+            m_puserinteractionbase->draw(m_pnanodevice);
 
             m_pnanodevice->on_end_draw();
 
-            cairo_surface_flush(m_psurface);
+            //cairo_surface_flush(m_psurface);
 
          }
 
@@ -1169,56 +1180,66 @@ namespace nano
 
          //int bRet = XUngrabPointer(m_pdisplay->m_pdisplay, CurrentTime);
 
-         m_pdisplay->_release_mouse_capture();
+         //m_pdisplay->_release_mouse_capture();
+
+         m_pqwidget->releaseMouse();
 
       }
 
+      //
+      // void window::get_client_rectangle(::rectangle_i32 & rectangle)
+      // {
+      //
+      //    xcb_get_geometry_reply_t geometry;
+      //
+      //    _get_geometry(&geometry);
+      //
+      //    rectangle.left() = 0;
+      //    rectangle.top() = 0;
+      //    rectangle.right() = geometry.width;
+      //    rectangle.bottom() = geometry.height;
+      //
+      // }
 
-      void window::get_client_rectangle(::rectangle_i32 & rectangle)
+
+      ::rectangle_i32 window::get_window_rectangle()
       {
 
-         xcb_get_geometry_reply_t geometry;
+         ::rectangle_i32 rectangle;
 
-         _get_geometry(&geometry);
+         auto qrect = m_pqwidget->rect();
 
-         rectangle.left() = 0;
-         rectangle.top() = 0;
-         rectangle.right() = geometry.width;
-         rectangle.bottom() = geometry.height;
+         ::copy(rectangle, qrect);
 
-      }
+         return rectangle;
 
-
-      void window::get_window_rectangle(::rectangle_i32 & rectangle)
-      {
-
-         xcb_get_geometry_reply_t geometry;
-
-         _get_geometry(&geometry);
-
-         rectangle.left() = geometry.x;
-         rectangle.top() = geometry.y;
-         rectangle.right() = geometry.x + geometry.width;
-         rectangle.bottom() = geometry.y + geometry.height;
+         // xcb_get_geometry_reply_t geometry;
+         //
+         // _get_geometry(&geometry);
+         //
+         // rectangle.left() = geometry.x;
+         // rectangle.top() = geometry.y;
+         // rectangle.right() = geometry.x + geometry.width;
+         // rectangle.bottom() = geometry.y + geometry.height;
 
       }
 
 
-      void window::_wm_nodecorations(int iMap)
-      {
-
-         m_pdisplay->_set_nodecorations(m_window, iMap);
-
-      }
-
-
-      void window::_get_geometry(xcb_get_geometry_reply_t * pgeometry)
-      {
-
-         m_pdisplay->_get_window_geometry(pgeometry, m_window);
-
-
-      }
+      // void window::_wm_nodecorations(int iMap)
+      // {
+      //
+      //    m_pdisplay->_set_nodecorations(m_window, iMap);
+      //
+      // }
+      //
+      //
+      // void window::_get_geometry(xcb_get_geometry_reply_t * pgeometry)
+      // {
+      //
+      //    m_pdisplay->_get_window_geometry(pgeometry, m_window);
+      //
+      //
+      // }
 
     void window::_on_mouse_press(QMouseEvent * pevent)
     {
