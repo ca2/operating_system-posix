@@ -136,7 +136,7 @@ namespace nano
          fork([this, iChar]()
          {
 
-            m_pinterface->on_char(iChar);
+            m_puserinteractionbase->on_char(iChar);
 
          });
 
@@ -146,7 +146,7 @@ namespace nano
       void window::_draw(::nano::graphics::device * pnanodevice)
       {
 
-         m_pinterface->draw(pnanodevice);
+         m_puserinteractionbase->draw(pnanodevice);
 
       }
 
@@ -154,7 +154,7 @@ namespace nano
       bool window::is_active()
       {
 
-         return m_pinterface->is_active();
+         return m_puserinteractionbase->is_active();
 
       }
 
@@ -162,7 +162,7 @@ namespace nano
       void window::delete_drawing_objects()
       {
 
-         m_pinterface->delete_drawing_objects();
+         m_puserinteractionbase->delete_drawing_objects();
 
       }
 
@@ -178,7 +178,7 @@ namespace nano
       void window::create_drawing_objects()
       {
 
-         m_pinterface->create_drawing_objects();
+         m_puserinteractionbase->create_drawing_objects();
 
       }
 
@@ -186,7 +186,7 @@ namespace nano
       void window::update_drawing_objects()
       {
 
-         m_pinterface->update_drawing_objects();
+         m_puserinteractionbase->update_drawing_objects();
 
       }
 
@@ -215,10 +215,10 @@ namespace nano
 
          xcb_window_t window = xcb_generate_id(m_pdisplay->m_pconnection);
 
-         int x = m_pinterface->m_rectangle.left();
-         int y = m_pinterface->m_rectangle.top();
-         int cx = m_pinterface->m_rectangle.width();
-         int cy = m_pinterface->m_rectangle.height();
+         int x = m_puserinteractionbase->m_rectangle.left();
+         int y = m_puserinteractionbase->m_rectangle.top();
+         int cx = m_puserinteractionbase->m_rectangle.width();
+         int cy = m_puserinteractionbase->m_rectangle.height();
 
          ::u32 uaValueList[5];
 
@@ -265,7 +265,7 @@ namespace nano
          // _NET_WM_WINDOW_TYPE_SPLASH
          // KDE seems to close this type of window when it is clicked
 
-         if(m_pinterface->m_bStartCentered)
+         if(m_puserinteractionbase->m_bStartCentered)
          {
 
             auto atomWindowType = XInternAtom(m_pdisplay->m_pdisplay, "_NET_WM_WINDOW_TYPE", true);
@@ -285,7 +285,7 @@ namespace nano
 
 #endif
 
-         //         if(m_pinterface->m_bArbitraryPositioning)
+         //         if(m_puserinteractionbase->m_bArbitraryPositioning)
          //         {
          //
          //            XSetWindowAttributes attributes;
@@ -338,7 +338,7 @@ namespace nano
       void window::on_left_button_down(::user::mouse * pmouse)
       {
 
-         m_pinterface->on_left_button_down(pmouse);
+         m_puserinteractionbase->on_left_button_down(pmouse);
 
       }
 
@@ -346,7 +346,7 @@ namespace nano
       void window::on_left_button_up(::user::mouse * pmouse)
       {
 
-         m_pinterface->on_left_button_up(pmouse);
+         m_puserinteractionbase->on_left_button_up(pmouse);
       }
 
 
@@ -354,7 +354,7 @@ namespace nano
       void window::on_right_button_down(::user::mouse * pmouse)
       {
 
-         m_pinterface->on_right_button_down(pmouse);
+         m_puserinteractionbase->on_right_button_down(pmouse);
 
       }
 
@@ -362,14 +362,14 @@ namespace nano
       void window::on_right_button_up(::user::mouse * pmouse)
       {
 
-         m_pinterface->on_right_button_up(pmouse);
+         m_puserinteractionbase->on_right_button_up(pmouse);
       }
 
 
       void window::on_mouse_move(::user::mouse * pmouse)
       {
 
-         m_pinterface->on_mouse_move(pmouse);
+         m_puserinteractionbase->on_mouse_move(pmouse);
 
       }
 
@@ -377,7 +377,7 @@ namespace nano
       ::payload window::get_result()
       {
 
-         return m_pinterface->get_result();
+         return m_puserinteractionbase->get_result();
 
       }
 
@@ -385,7 +385,7 @@ namespace nano
       ::nano::user::child * window::hit_test(::user::mouse * pmouse, ::user::e_zorder ezorder)
       {
 
-         return m_pinterface->hit_test(pmouse, ezorder);
+         return m_puserinteractionbase->hit_test(pmouse, ezorder);
 
       }
 
@@ -638,19 +638,19 @@ namespace nano
 
             }
 
-            m_pinterface->m_rectangle.left() = pconfigure->x;
+            m_puserinteractionbase->m_rectangle.left() = pconfigure->x;
 
-            m_pinterface->m_rectangle.top() = pconfigure->y;
+            m_puserinteractionbase->m_rectangle.top() = pconfigure->y;
 
-            m_pinterface->m_rectangle.right() = pconfigure->x + pconfigure->width;
+            m_puserinteractionbase->m_rectangle.right() = pconfigure->x + pconfigure->width;
 
-            m_pinterface->m_rectangle.bottom() = pconfigure->y + pconfigure->height;
+            m_puserinteractionbase->m_rectangle.bottom() = pconfigure->y + pconfigure->height;
 
             if (m_psurface)
             {
 
-               cairo_xcb_surface_set_size(m_psurface, m_pinterface->m_rectangle.width(),
-                                           m_pinterface->m_rectangle.height());
+               cairo_xcb_surface_set_size(m_psurface, m_puserinteractionbase->m_rectangle.width(),
+                                           m_puserinteractionbase->m_rectangle.height());
 
             }
 
@@ -878,7 +878,7 @@ namespace nano
 
             }
 
-            if (m_pinterface->m_pchildHover)
+            if (m_puserinteractionbase->m_pchildHover)
             {
 
                auto pmouse = __create_new < ::user::mouse >();
@@ -887,11 +887,11 @@ namespace nano
 
                pmouse->m_pointAbsolute = {I32_MINIMUM, I32_MINIMUM};
 
-               m_pinterface->m_pchildHover->on_mouse_move(pmouse);
+               m_puserinteractionbase->m_pchildHover->on_mouse_move(pmouse);
 
-               m_pinterface->m_pchildHover = nullptr;
+               m_puserinteractionbase->m_pchildHover = nullptr;
 
-               m_pinterface->redraw();
+               m_puserinteractionbase->redraw();
 
             }
 
@@ -959,7 +959,7 @@ namespace nano
       //void window::add_child(::nano::user::child * pchild)
       //{
       //
-      //   pchild->m_pwindow = m_pinterfacethis;
+      //   pchild->m_pwindow = m_puserinteractionbasethis;
       //
       //   m_childa.add(pchild);
       //
@@ -1043,7 +1043,7 @@ namespace nano
          fork([this, payload, pmouse]()
               {
 
-                 m_pinterface->on_click(payload, pmouse);
+                 m_puserinteractionbase->on_click(payload, pmouse);
 
               }, {pmouse});
 
@@ -1058,7 +1058,7 @@ namespace nano
          fork([this, payload, pmouse]()
               {
 
-                 m_pinterface->on_right_click(payload, pmouse);
+                 m_puserinteractionbase->on_right_click(payload, pmouse);
 
               }, {pmouse});
 
@@ -1070,7 +1070,7 @@ namespace nano
 
          m_pdisplay->_move_window(m_window, point.x(), point.y());
 
-         m_pinterface->m_rectangle.move_to(point);
+         m_puserinteractionbase->m_rectangle.move_to(point);
 
       }
 
@@ -1160,6 +1160,445 @@ namespace nano
 
       }
 
+    void window::_on_mouse_press(QMouseEvent * pevent)
+    {
+//       if(n_press == 1)
+//       {
+//          guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture));
+//          // //GtkWidget* window = gtk_event_controller_get_widget(GTK_EVENT_CONTROLLER(pgesture));
+//          //
+//          // resize_edge = detect_resize_edge(m_pgtkwidget, x, y);
+//          //
+//          // if (button == 1)
+//          // {
+//          //    if (resize_edge != e_window_edge_none)
+//          //    {
+//          //
+//          //       if(kde5_windowing()->m_pdisplay->is_x11())
+//          //       {
+//          //          // Start resizing
+//          //          resizing = TRUE;
+//          //          start_x = x;
+//          //          start_y = y;
+//          //          auto r = _unlocked_defer_get_window_rectangle();
+//          //          start_window_x = r.left();
+//          //          start_window_y = r.right();
+//          //          start_width = r.width();
+//          //          start_height = r.height();
+//          //
+//          //       }
+//          //       else
+//          //       {
+//          //          return;
+//          //
+//          //       }
+//          //    }
+//          //    else
+//          //    {
+//          //       if(kde5_windowing()->m_pdisplay->is_x11())
+//          //       {
+//          //          // Start moving
+//          //          moving = TRUE;
+//          //          start_x = x;
+//          //          start_y = y;
+//          //          auto r = _unlocked_defer_get_window_rectangle();
+//          //          start_window_x = r.left();
+//          //          start_window_y = r.right();
+//          //          start_width = r.width();
+//          //          start_height = r.height();
+//          //
+//          //       }
+//          //    }
+//          // }
+          auto puserinteractionimpl = m_puserinteractionbase;
+
+          if (::is_set(puserinteractionimpl))
+          {
+             auto pmouse = __create_new<::message::mouse>();
+
+             pmouse->m_oswindow = this;
+
+             pmouse->m_pwindow = this;
+
+             // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
+             //
+             // // Get the GdkEvent from the sequence
+             // GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+             //
+             // guint32 timestamp = gdk_event_get_time (event);
+
+             pmouse->m_iTimestamp = pevent->timestamp();
+
+             if (pevent->button() == Qt::MouseButton::LeftButton)
+             {
+                pmouse->m_atom = e_message_left_button_down;
+             }
+             else if (pevent->button() == Qt::MouseButton::RightButton)
+             {
+                pmouse->m_atom = e_message_right_button_down;
+             }
+             else if (pevent->button() == Qt::MouseButton::MiddleButton)
+             {
+                pmouse->m_atom = e_message_middle_button_down;
+             }
+
+             m_pointCursor2.x() = pevent->globalX();
+             m_pointCursor2.y() = pevent->globalY();
+
+
+             pmouse->m_pointHost.x() = pevent->x();
+             pmouse->m_pointHost.y() = pevent->y();
+
+             pmouse->m_pointAbsolute = m_pointCursor2;
+
+
+             //pmouse->m_time.m_iSecond = millis / 1_k;
+
+             //pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+
+             //pwindow->message_handler(pmouse);
+
+             //wayland_windowing()->post_ui_message(pmouse);
+
+             if(m_bPendingStartMove)
+             {
+                m_bPendingStartMove =false;
+
+                defer_perform_entire_reposition_process(pmouse);
+                return;
+
+             }
+
+             puserinteractionimpl->message_handler(pmouse);
+          }
+
+       //}
+
+    }
+//
+//
+//    static void on_button_released(GtkGestureClick* pgesture, int n_press, double x, double y, gpointer p)
+//    {
+//
+//       auto * pwindow = (::windowing_kde5::window *)p;
+//
+//       pwindow->_on_button_released(pgesture, n_press, x, y);
+//
+//    }
+
+
+    void window::_on_mouse_release(QMouseEvent * pevent)
+    {
+
+       //if(n_press == 1)
+       {
+
+          // auto button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture));
+          //
+          // if (button == 1)
+          // {
+          //
+          //    moving = FALSE;
+          //    resizing = FALSE;
+          // }
+
+
+          auto puserinteractionimpl = m_puserinteractionbase;
+
+          if (::is_set(puserinteractionimpl))
+          {
+
+             auto pmouse = __create_new<::message::mouse>();
+
+             pmouse->m_oswindow = this;
+
+             pmouse->m_pwindow = this;
+
+             if (pevent->button() == Qt::MouseButton::LeftButton)
+             {
+                pmouse->m_atom = e_message_left_button_up;
+             }
+             else if (pevent->button() == Qt::MouseButton::RightButton)
+             {
+                pmouse->m_atom = e_message_right_button_up;
+             }
+             else if (pevent->button() == Qt::MouseButton::MiddleButton)
+             {
+                pmouse->m_atom = e_message_middle_button_up;
+             }
+
+             m_pointCursor2.x() = pevent->globalX();
+             m_pointCursor2.y() = pevent->globalY();
+
+
+             pmouse->m_pointHost.x() = pevent->x();
+             pmouse->m_pointHost.y() = pevent->y();
+
+             pmouse->m_pointAbsolute = m_pointCursor2;
+
+             //pmouse->m_time.m_iSecond = millis / 1_k;
+
+             //pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+
+             //pwindow->message_handler(pmouse);
+
+             //wayland_windowing()->post_ui_message(pmouse);
+
+             puserinteractionimpl->message_handler(pmouse);
+          }
+
+
+       }
+    }
+
+//
+//    // Perform resizing as the mouse moves
+//    static void on_motion_notify(GtkEventControllerMotion* pcontroller, double x, double y, gpointer p)
+//    {
+//
+//       auto * pwindow = (::windowing_kde5::window *)p;
+//
+//       pwindow->_on_motion_notify(pcontroller, x, y);
+//
+//    }
+//
+//
+    void window::_on_mouse_motion(QMouseEvent * pevent)
+    {
+//
+//
+//       //  if (resizing)
+//       // {
+//       //
+//       //     if(kde5_windowing()->m_pdisplay->is_x11())
+//       //     {
+//       //        auto cursor_name = _gtk_get_resize_cursor_name(resize_edge);
+//       //        // Resize the window
+//       //        int dx = x - start_x;
+//       //        int dy = y - start_y;
+//       //        int new_width = start_width;
+//       //        int new_height = start_height;
+//       //        int xset = INT_MIN;
+//       //        int yset = INT_MIN;
+//       //
+//       //        if (resize_edge == e_window_edge_east || resize_edge == e_window_edge_north_east  || resize_edge == e_window_edge_south_east)
+//       //           new_width += dx;
+//       //        if (resize_edge == e_window_edge_west || resize_edge == e_window_edge_north_west  || resize_edge == e_window_edge_south_west)
+//       //        {
+//       //           new_width -= dx;
+//       //           xset=start_window_x + dx;
+//       //           yset=start_window_y;
+//       //        }
+//       //        if (resize_edge == e_window_edge_south || resize_edge == e_window_edge_south_east  || resize_edge == e_window_edge_south_west)
+//       //           new_height += dy;
+//       //        if  (resize_edge == e_window_edge_north || resize_edge == e_window_edge_north_east  || resize_edge == e_window_edge_north_west)
+//       //        {
+//       //           new_height -= dy;
+//       //           xset=start_window_x;
+//       //           yset=start_window_y + dy;
+//       //        }
+//       //
+//       //        new_width = MAX(new_width, 100); // Set minimum size
+//       //        new_height = MAX(new_height, 100);
+//       //
+//       //        if(xset != INT_MIN && yset != INT_MIN)
+//       //        {
+//       //
+//       //           _unlocked_defer_set_window_position({xset, yset}, {new_width, new_height});
+//       //
+//       //        }
+//       //        else
+//       //        {
+//       //           _unlocked_defer_set_window_size({new_width, new_height});
+//       //        }
+//       //     }
+//       // }
+//       // else if (moving)
+//       // {
+//       //    if(kde5_windowing()->m_pdisplay->is_x11())
+//       //    {
+//       //       // Move the window
+//       //       int dx = x - start_x;
+//       //       int dy = y - start_y;
+//       //       _unlocked_defer_set_window_position({start_window_x + dx, start_window_y + dy});
+//       //    }
+//       // }
+//       // else
+//       // {
+//       //
+//       //    auto edge = detect_resize_edge(m_pgtkwidget, x, y);
+//       //
+//       //    //GdkWindow* gdk_window = gtk_widget_get_window(widget);
+//       //    //      GdkDisplay* display = gdk_window_get_display(gdk_window);
+//       //
+//       //    auto cursor_name = _gtk_get_resize_cursor_name(edge);
+//       //
+//       //    _set_cursor_from_name(cursor_name);
+//       //
+//       // }
+//
+       auto puserinteractionimpl = m_puserinteractionbase;
+
+       if(::is_set(puserinteractionimpl))
+       {
+
+          auto pmouse = __create_new<::user::mouse>();
+
+          // pmouse->m_oswindow = this;
+          //
+          // pmouse->m_pwindow = this;
+
+          pmouse->m_atom = e_message_mouse_move;
+
+
+          //pmouse->m_time.m_iSecond = millis / 1_k;
+
+          //pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+
+          //pwindow->message_handler(pmouse);
+
+          //wayland_windowing()->post_ui_message(pmouse);
+
+          // if(m_bPendingStartMove)
+          // {
+          //
+          //    m_bPendingStartMove = false;
+          //
+          //
+          //    gtk_gesture_set_state (GTK_GESTURE (pcontroller), GTK_EVENT_SEQUENCE_CLAIMED);
+          //
+          //
+          //    m_pointCursor2.x() = m_sizeOnSize.cx()/2;
+          //    m_pointCursor2.y() = m_sizeOnSize.cy()/2;
+          //
+          //    GdkEvent *event = gtk_event_controller_get_current_event(GTK_EVENT_CONTROLLER(pcontroller));
+          //    guint32 timestamp = gdk_event_get_time(event);
+          //
+          //    g_print("Motion event at x=%.2f, y=%.2f with timestamp: %u\n", x, y, timestamp);
+          //
+          //    // if (event) {
+          //    //    gdk_event_unref(event);  // Free the event object after use
+          //    // }
+          //
+          //    auto pmouse = __create_new<::message::mouse>();
+          //
+          //    pmouse->m_iTimestamp = timestamp;
+          //
+          // guint button = 0;
+          //
+          // //auto pgdkeventsequence = gdk_event_get_event_sequence(event);
+          //
+          // auto toplevel = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
+          //
+          //
+          // auto pgdkdisplay = kde5_display()->m_pgdkdisplay;
+          //
+          // GdkSeat * pgdkseat = gdk_display_get_default_seat(pgdkdisplay);
+          //
+          // // Get the default pointer device (e.g., mouse)
+          // GdkDevice *pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
+          // double x;
+          // double y;
+          //    x = gtk_widget_get_width(m_pgtkwidget);
+          //    y = gtk_widget_get_height(m_pgtkwidget);
+          //
+          //    x/=2;
+          //    y/=2;
+          //
+          //    //x = 0;
+          //    //y = 0;
+          //
+          //    auto pgdkdevice = gdk_event_get_device (event);
+          //
+          // //gdk_toplevel_begin_move(GDK_TOPLEVEL(toplevel), pgdkdevicePointer, button, x, y, timestamp);
+          //
+          //    gdk_toplevel_begin_move(GDK_TOPLEVEL(toplevel), pgdkdevice, button, x, y, timestamp);
+          //
+          //    gtk_event_controller_reset (GTK_EVENT_CONTROLLER (pcontroller));
+          //    return;
+          //
+          // }
+
+          m_pointCursor2.x() = pevent->globalX();
+          m_pointCursor2.y() = pevent->globalY();
+
+
+          pmouse->m_pointHost.x() = pevent->x();
+          pmouse->m_pointHost.y() = pevent->y();
+
+          pmouse->m_pointAbsolute = m_pointCursor2;
+
+
+          m_puserinteractionbase->on_mouse_move(pmouse);
+
+       }
+
+    }
+//
+//
+//    static void on_enter_notify(GtkEventControllerMotion* pcontroller, double x, double y, gpointer p)
+//    {
+//
+//       auto pwindow = (::windowing_kde5::window *)p;
+//
+//       pwindow->_on_enter_notify(pcontroller, x, y);
+//
+//    }
+//
+//
+//    void window::_on_enter_notify(GtkEventControllerMotion* pcontroller, double x, double y)
+//    {
+//
+// //      GtkWidget* widget = gtk_event_controller_get_widget(GTK_EVENT_CONTROLLER(pcontroller));
+//
+//
+//    }
+
+   //
+   // // Callback for when the window visibility changes (minimized/hidden or restored)
+   // static void on_window_visibility_changed(GObject* object, GParamSpec* pspec, gpointer p)
+   // {
+   //    auto pwindow = (::windowing_kde5::window *)p;
+   //
+   //    pwindow->_on_window_visibility_changed(object, pspec);
+   // }
+   //
+   //
+   // void window::_on_window_visibility_changed(GObject* object, GParamSpec* pspec)
+   // {
+   //    GtkWindow* window = GTK_WINDOW(object);
+   //    gboolean is_visible = gtk_widget_get_visible(GTK_WIDGET(window));
+   //
+   //    if (!is_visible)
+   //    {
+   //       //      g_print("Window has been minimized (hidden).\n");
+   //    }
+   //    else
+   //    {
+   //       g_print("Window has been restored.\n");
+   //
+   //       ::user::interaction_impl* pimpl = m_puserinteractionbase;
+   //
+   //       pimpl->m_puserinteraction->display(::e_display_normal);
+   //
+   //       pimpl->m_puserinteraction->set_need_layout();
+   //
+   //       pimpl->m_puserinteraction->set_need_redraw();
+   //
+   //       pimpl->m_puserinteraction->post_redraw();
+   //    }
+   // }
+   //
+   // // Callback for when Option 1 is selected from the popover menu
+   // static void on_window_simple_action(GSimpleAction *action, GVariant *parameter, gpointer p)
+   // {
+   //    auto pwindow = (::windowing_kde5::window *)p;
+   //    gchar * name = nullptr;
+   //    g_object_get(action, "name", &name, nullptr);
+   //    pwindow->_on_window_simple_action(name);
+   //    g_free(name);
+   //    //g_print("Option 1 selected from popover menu!\n");
+   // }
 
       //   ::size_i32 window::get_main_screen_size()
       //   {
