@@ -8,7 +8,7 @@
 #include "windowing_system_x11/keyboard.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/filesystem/filesystem/file_context.h"
-#include "apex/user/user/primitive.h"
+#include "apex/user/user/prototype.h"
 #include "aura/user/user/key.h"
 
 
