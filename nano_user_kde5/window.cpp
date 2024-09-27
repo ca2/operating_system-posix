@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "window.h"
 #include "display.h"
+#include "acme/constant/message.h"
 #include "acme/nano/graphics/device.h"
 #include "acme/user/user/mouse.h"
 #include "acme/platform/system.h"
@@ -11,7 +12,6 @@
 #include "acme/user/user/interaction_base.h"
 #include "acme/windowing_system/windowing_system.h"
 #include "acme/integrate/qt.h"
-#include "acme/integrate/qt/image.h"
 #include <QMouseEvent>
 // #include <xkbcommon/xkbcommon.h>
 // #include <X11/XKBlib.h>
