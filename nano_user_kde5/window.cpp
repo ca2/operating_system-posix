@@ -13,6 +13,8 @@
 #include "QCustomTopWindow.h"
 #include "acme/user/user/interaction_base.h"
 #include "acme/windowing_system/windowing_system.h"
+#include "acme/integrate/qt.h"
+#include "acme/integrate/qt/image.h"
 // #include <xkbcommon/xkbcommon.h>
 // #include <X11/XKBlib.h>
 // #include <cairo/cairo-xcb.h>
@@ -1101,6 +1103,16 @@ namespace nano
          //      }
 
 
+
+      }
+
+
+      void window::_on_qimage_draw(QImage * pqimage)
+      {
+
+         qimage_paintable_pixmap pixmap(pqimage);
+
+         m_pnanodevice->paint_to_pixmap(pixmap);
 
       }
 
