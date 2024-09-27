@@ -11,6 +11,7 @@
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
 #include "QCustomTopWindow.h"
+#include "acme/user/user/interaction_base.h"
 #include "acme/windowing_system/windowing_system.h"
 // #include <xkbcommon/xkbcommon.h>
 // #include <X11/XKBlib.h>
@@ -1214,11 +1215,11 @@ namespace nano
 
           if (::is_set(puserinteractionimpl))
           {
-             auto pmouse = __create_new<::message::mouse>();
+             auto pmouse = __create_new<::user::mouse>();
 
-             pmouse->m_oswindow = this;
-
-             pmouse->m_pwindow = this;
+             // pmouse->m_oswindow = this;
+             //
+             // pmouse->m_pwindow = this;
 
              // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
              //
@@ -1228,19 +1229,6 @@ namespace nano
              // guint32 timestamp = gdk_event_get_time (event);
 
              pmouse->m_iTimestamp = pevent->timestamp();
-
-             if (pevent->button() == Qt::MouseButton::LeftButton)
-             {
-                pmouse->m_atom = e_message_left_button_down;
-             }
-             else if (pevent->button() == Qt::MouseButton::RightButton)
-             {
-                pmouse->m_atom = e_message_right_button_down;
-             }
-             else if (pevent->button() == Qt::MouseButton::MiddleButton)
-             {
-                pmouse->m_atom = e_message_middle_button_down;
-             }
 
              m_pointCursor2.x() = pevent->globalX();
              m_pointCursor2.y() = pevent->globalY();
@@ -1252,24 +1240,42 @@ namespace nano
              pmouse->m_pointAbsolute = m_pointCursor2;
 
 
-             //pmouse->m_time.m_iSecond = millis / 1_k;
-
-             //pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
-
-             //pwindow->message_handler(pmouse);
-
-             //wayland_windowing()->post_ui_message(pmouse);
-
-             if(m_bPendingStartMove)
+             if (pevent->button() == Qt::MouseButton::LeftButton)
              {
-                m_bPendingStartMove =false;
-
-                defer_perform_entire_reposition_process(pmouse);
-                return;
+                pmouse->m_atom = e_message_left_button_down;
+                m_puserinteractionbase->on_left_button_down(pmouse);
 
              }
+             else if (pevent->button() == Qt::MouseButton::RightButton)
+             {
+                pmouse->m_atom = e_message_right_button_down;
+                m_puserinteractionbase->on_right_button_down(pmouse);
 
-             puserinteractionimpl->message_handler(pmouse);
+             }
+             else if (pevent->button() == Qt::MouseButton::MiddleButton)
+             {
+                pmouse->m_atom = e_message_middle_button_down;
+             }
+
+
+             // //pmouse->m_time.m_iSecond = millis / 1_k;
+             //
+             // //pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+             //
+             // //pwindow->message_handler(pmouse);
+             //
+             // //wayland_windowing()->post_ui_message(pmouse);
+             //
+             // if(m_bPendingStartMove)
+             // {
+             //    m_bPendingStartMove =false;
+             //
+             //    defer_perform_entire_reposition_process(pmouse);
+             //    return;
+             //
+             // }
+             //
+             // puserinteractionimpl->message_handler(pmouse);
           }
 
        //}
@@ -1308,24 +1314,11 @@ namespace nano
           if (::is_set(puserinteractionimpl))
           {
 
-             auto pmouse = __create_new<::message::mouse>();
+             auto pmouse = __create_new<::user::mouse>();
 
-             pmouse->m_oswindow = this;
-
-             pmouse->m_pwindow = this;
-
-             if (pevent->button() == Qt::MouseButton::LeftButton)
-             {
-                pmouse->m_atom = e_message_left_button_up;
-             }
-             else if (pevent->button() == Qt::MouseButton::RightButton)
-             {
-                pmouse->m_atom = e_message_right_button_up;
-             }
-             else if (pevent->button() == Qt::MouseButton::MiddleButton)
-             {
-                pmouse->m_atom = e_message_middle_button_up;
-             }
+             // pmouse->m_oswindow = this;
+             //
+             // pmouse->m_pwindow = this;
 
              m_pointCursor2.x() = pevent->globalX();
              m_pointCursor2.y() = pevent->globalY();
@@ -1336,6 +1329,25 @@ namespace nano
 
              pmouse->m_pointAbsolute = m_pointCursor2;
 
+
+             if (pevent->button() == Qt::MouseButton::LeftButton)
+             {
+                pmouse->m_atom = e_message_left_button_up;
+                m_puserinteractionbase->on_left_button_up(pmouse);
+             }
+             else if (pevent->button() == Qt::MouseButton::RightButton)
+             {
+                pmouse->m_atom = e_message_right_button_up;
+                m_puserinteractionbase->on_right_button_up(pmouse);
+             }
+             else if (pevent->button() == Qt::MouseButton::MiddleButton)
+             {
+                pmouse->m_atom = e_message_middle_button_up;
+
+
+             }
+
+
              //pmouse->m_time.m_iSecond = millis / 1_k;
 
              //pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
@@ -1344,7 +1356,7 @@ namespace nano
 
              //wayland_windowing()->post_ui_message(pmouse);
 
-             puserinteractionimpl->message_handler(pmouse);
+
           }
 
 
