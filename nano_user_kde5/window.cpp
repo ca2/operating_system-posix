@@ -1073,18 +1073,21 @@ namespace nano
       //   return 0;
       //}
 
+
       void window::destroy()
       {
 
          _unmap_window();
 
-         m_pdisplay->_destroy_window(m_window);
+         //m_pdisplay->_destroy_window(m_window);
 
-         m_pdisplay->erase_listener(this);
+         //m_pdisplay->erase_listener(this);
 
-         m_pdisplay->erase_window(this);
+         //m_pdisplay->erase_window(this);
 
-         m_window = 0;
+         delete m_pqwidget;
+
+         m_pqwidget = nullptr;
 
          //XCloseDisplay(m_pdisplay->m_pdisplay);
 
@@ -1093,42 +1096,44 @@ namespace nano
       }
 
 
-      void window::on_click(const ::payload & payloadParam, ::user::mouse * pmouse)
+      // void window::on_click(const ::payload & payloadParam, ::user::mouse * pmouse)
+      // {
+      //
+      //    auto payload(payloadParam);
+      //
+      //    fork([this, payload, pmouse]()
+      //         {
+      //
+      //            m_puserinteractionbase->on_click(payload, pmouse);
+      //
+      //         }, {pmouse});
+      //
+      // }
+
+
+      // void window::on_right_click(const ::payload & payloadParam, ::user::mouse * pmouse)
+      // {
+      //
+      //    auto payload(payloadParam);
+      //
+      //    fork([this, payload, pmouse]()
+      //         {
+      //
+      //            m_puserinteractionbase->on_right_click(payload, pmouse);
+      //
+      //         }, {pmouse});
+      //
+      // }
+
+
+      void window::set_position(const ::point_i32 & point)
       {
 
-         auto payload(payloadParam);
+         // m_pdisplay->_move_window(m_window, point.x(), point.y());
+         //
+         // m_puserinteractionbase->m_rectangle.move_to(point);
 
-         fork([this, payload, pmouse]()
-              {
-
-                 m_puserinteractionbase->on_click(payload, pmouse);
-
-              }, {pmouse});
-
-      }
-
-
-      void window::on_right_click(const ::payload & payloadParam, ::user::mouse * pmouse)
-      {
-
-         auto payload(payloadParam);
-
-         fork([this, payload, pmouse]()
-              {
-
-                 m_puserinteractionbase->on_right_click(payload, pmouse);
-
-              }, {pmouse});
-
-      }
-
-
-      void window::move_to(const ::point_i32 & point)
-      {
-
-         m_pdisplay->_move_window(m_window, point.x(), point.y());
-
-         m_puserinteractionbase->m_rectangle.move_to(point);
+         m_pqwidget->move(point.x(), point.y());
 
       }
 
@@ -1137,7 +1142,7 @@ namespace nano
       {
 
 
-         auto estatus = m_pdisplay->_set_mouse_capture(m_window);
+         //auto estatus = m_pdisplay->_set_mouse_capture(m_window);
 
          //      if (XGrabPointer(m_pdisplay->m_pdisplay, m_window, False, ButtonPressMask | ButtonReleaseMask | PointerMotionMask,
          //                       GrabModeAsync, GrabModeAsync, None, None, CurrentTime) != GrabSuccess)
@@ -1157,9 +1162,11 @@ namespace nano
          //
          //      }
 
+         m_pqwidget->grabMouse();
 
 
       }
+
 
 
       void window::_on_qimage_draw(QImage * pqimage)
@@ -1167,7 +1174,7 @@ namespace nano
 
          qimage_paintable_pixmap pixmap(pqimage);
 
-         m_pnanodevice->paint_to_pixmap(pixmap);
+         m_pnanodevice->copy_to_pixmap(pixmap);
 
       }
 
