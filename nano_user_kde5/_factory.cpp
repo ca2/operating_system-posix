@@ -4,20 +4,20 @@
 #include "window.h"
 
 
-DECLARE_FACTORY(windowing_system_xcb);
-DECLARE_FACTORY(nano_user_cairo);
+//DECLARE_FACTORY(windowing_system_xcb);
+//DECLARE_FACTORY(nano_user_cairo);
 
 
-IMPLEMENT_FACTORY(nano_user_xcb)
+IMPLEMENT_FACTORY(nano_user_kde5)
 {
 
-   CALL_FACTORY(windowing_system_xcb);
+   //CALL_FACTORY(windowing_system_xcb);
 
-   CALL_FACTORY(nano_user_cairo);
+   //CALL_FACTORY(nano_user_cairo);
 
-   pfactory->add_factory_item<::xcb::nano::user::interchange, ::nano::user::window_implementation>();
+   pfactory->add_factory_item<::kde5::nano::user::window, ::windowing::window_base>();
 
-   pfactory->add_factory_item < ::xcb::nano::user::user, ::nano::user::user >();
+   pfactory->add_factory_item < ::kde5::nano::user::user, ::nano::user::user >();
 
 }
 

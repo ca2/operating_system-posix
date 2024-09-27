@@ -9,8 +9,8 @@
 #include "acme/platform/system.h"
 #include "acme/parallelization/manual_reset_event.h"
 #include "acme/prototype/geometry2d/size.h"
-#include "acme/operating_system/windows/nano/user/user.h"
 #include "acme/platform/node.h"
+#include "nano_user_kde5/QCustomTopWindow.h"
 
 
 namespace innate_ui_kde5
@@ -139,6 +139,23 @@ namespace innate_ui_kde5
 
    void window::_create()
    {
+
+
+
+      auto pmainwindow = new QCustomTopWindow(this);
+
+      m_pqwidget = pmainwindow;
+
+      pmainwindow->setWindowFlags(Qt::FramelessWindowHint); // No window decorations
+      pmainwindow->setAttribute(Qt::WA_TranslucentBackground); // Translucent background
+      pmainwindow->setAttribute(Qt::WA_NoSystemBackground, true);
+      pmainwindow->setAttribute(Qt::WA_OpaquePaintEvent, false);
+
+      pmainwindow->setMouseTracking(true);
+
+      pmainwindow->move(x, y);
+      pmainwindow->resize(cx, cy);
+
 
       auto pmainwindow = new QMainWindow();
 

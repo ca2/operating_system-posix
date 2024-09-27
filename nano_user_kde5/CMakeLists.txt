@@ -21,12 +21,17 @@ list(APPEND library_source
         event_listener.h
         framework.cpp
         framework.h
+   kde5_widget.cpp
+   kde5_widget.h
+   QCustomTopWindow.cpp
+   QCustomTopWindow.h
         user.cpp
         user.h
         window.cpp
         window.h)
 
-add_library(${PROJECT_NAME} SHARED ${library_source})
+add_library(${PROJECT_NAME} SHARED ${library_source}
+)
 
 target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 
@@ -37,8 +42,29 @@ list(APPEND library_references
         acme
         #windowing_system_x11
         #windowing_system_xcb
-        nano_user_cairo
+        #nano_user_cairo
+   windowing_system_kde5
 )
+
+
+
+if(${HAS_KDE6})
+
+    list(APPEND system_libraries
+       Qt6::Core
+       Qt6::Widgets
+    )
+
+elseif(${HAS_KDE5})
+
+    list(APPEND system_libraries
+       Qt5::Core
+       Qt5::Widgets
+    )
+
+endif()
+
+
 
 if (MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
@@ -48,12 +74,12 @@ if (MSVC)
     target_link_libraries(${PROJECT_NAME} PRIVATE acme apex aqua aura Gdiplus)
 elseif (LINUX)
 
-    pkg_check_modules(PKGCONFIG cairo xcb xkbcommon xcb-render xcb-aux x11-xcb libarchive)
+    #pkg_check_modules(PKGCONFIG cairo xcb xkbcommon xcb-render xcb-aux x11-xcb libarchive)
     target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
     #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
     #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})
     target_link_options(${PROJECT_NAME} PRIVATE -Wl,-rpath=\$ORIGIN)
-    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${system_libraries} ${PKGCONFIG_LIBRARIES})
     target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
     message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
 endif ()
@@ -74,12 +100,9 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/.
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../source/include)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/operating_system-${OPERATING_SYSTEM_NAME})
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/operating_system-${OPERATING_SYSTEM_NAME}/_include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/third-${OPERATING_SYSTEM_NAME}/include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/third-${OPERATING_SYSTEM_NAME}/third/include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/third-${OPERATING_SYSTEM_NAME}/third/include/include)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 
-target_compile_definitions(${PROJECT_NAME} PRIVATE _nano_user_xcb_project)
+target_compile_definitions(${PROJECT_NAME} PRIVATE _${PROJECT_NAME}_project)
 target_compile_definitions(${PROJECT_NAME} PRIVATE UNICODE)
 target_compile_definitions(${PROJECT_NAME} PRIVATE _UNICODE)

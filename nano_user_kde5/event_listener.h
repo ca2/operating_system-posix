@@ -3,27 +3,27 @@
 //
 #pragma once
 
-
-#include <xcb/xcb.h>
-
-
-namespace xcb
-{
-
-
-   class event_listener :
-      virtual public ::particle
-   {
-   public:
-
-
-      virtual bool _on_event(xcb_generic_event_t * pevent) = 0;
-
-
-   };
-
-
-} // namespace xcb
-
-
-
+//
+// #include <xcb/xcb.h>
+//
+//
+// namespace xcb
+// {
+//
+//
+//    class event_listener :
+//       virtual public ::particle
+//    {
+//    public:
+//
+//
+//       virtual bool _on_event(xcb_generic_event_t * pevent) = 0;
+//
+//
+//    };
+//
+//
+// } // namespace xcb
+//
+//
+//

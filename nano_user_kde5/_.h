@@ -4,18 +4,17 @@
 #pragma once
 
 
-#include "windowing_system_xcb/_.h"
+#include "windowing_system_kde5/_.h"
 
 
-#if defined(_nano_user_xcb_project)
-   #define CLASS_DECL_NANO_USER_XCB CLASS_DECL_EXPORT
+#if defined(_nano_user_kde5_project)
+   #define CLASS_DECL_NANO_USER_KDE5 CLASS_DECL_EXPORT
 #else
-   #define CLASS_DECL_NANO_USER_XCB CLASS_DECL_IMPORT
+   #define CLASS_DECL_NANO_USER_KDE5 CLASS_DECL_IMPORT
 #endif
 
 
-
-namespace xcb
+namespace kde5
 {
 
 
@@ -30,13 +29,16 @@ namespace xcb
          class display;
 
 
+         class window;
+
+
       } // namespace user
 
 
    } // namespace nano
 
 
-} // namespace xcb
+} // namespace kde5
 
 
 

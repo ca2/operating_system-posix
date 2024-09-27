@@ -4,9 +4,11 @@
 #include "framework.h"
 #include "user.h"
 #include "display.h"
+#include "acme/platform/system.h"
+#include "acme/windowing_system/windowing_system.h"
 
 
-namespace xcb
+namespace kde5
 {
 
 
@@ -35,7 +37,7 @@ namespace xcb
          void user::sync(const ::procedure & procedure)
          {
 
-            ::xcb::nano::user::display::get(this)->display_send(procedure);
+            system()->windowing_system()->main_send(procedure);
 
          }
 
@@ -43,7 +45,7 @@ namespace xcb
          void user::async(const ::procedure & procedure)
          {
 
-            ::xcb::nano::user::display::get(this)->display_post(procedure);
+            system()->windowing_system()->main_post(procedure);
 
          }
 
@@ -52,7 +54,7 @@ namespace xcb
    }//namespace nano
 
 
-} // namespace x11
+} // namespace kde5
 
 
 

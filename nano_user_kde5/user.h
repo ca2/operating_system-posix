@@ -7,7 +7,7 @@
 #include "acme/nano/user/user.h"
 
 
-namespace xcb
+namespace kde5
 {
 
 
@@ -19,7 +19,7 @@ namespace xcb
       {
 
 
-         class CLASS_DECL_ACME user :
+         class CLASS_DECL_NANO_USER_KDE5 user :
             virtual public ::nano::user::user
          {
          public:
@@ -42,7 +42,7 @@ namespace xcb
    } // namespace nano
 
 
-} // namespace xcb
+} // namespace kde5
 
 
 

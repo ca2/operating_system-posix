@@ -139,7 +139,6 @@ namespace windowing_kde5
          //virtual void _on_cairo_draw(GtkWidget *widget, cairo_t *cr);
       //void create_window(::user::interaction_impl * pimpl) override;
 
-virtual void _on_size(int cx, int cy);
       void create_window() override;
 
 
@@ -151,6 +150,8 @@ virtual void _on_size(int cx, int cy);
        virtual void _on_mouse_press(QMouseEvent * pevent);
        virtual void _on_mouse_release(QMouseEvent * pevent);
        virtual void _on_mouse_motion(QMouseEvent * pevent);
+         virtual void _on_qimage_draw(QImage * pqimage);
+         virtual void _on_size(int cx, int cy);
 
          //void _on_window_button_pressed(GtkWidget * pwidget, const char * pszName, GtkGestureClick * pgesture, int n_press, double x, double y);
          //void _on_window_button_released(GtkWidget * pwidget, const char * pszName, GtkGestureClick * pgesture, int n_press, double x, double y);
@@ -317,7 +318,6 @@ virtual void _on_size(int cx, int cy);
       //virtual int_bool destroy_window( WINDOWING_X11_WINDOW_MEMBER );
       bool is_window() override;
       //virtual int_bool is_window( WINDOWING_X11_WINDOW_MEMBER );
-         virtual void _on_qimage_draw(QImage * pqimage);
 
       void set_window_text(const ::scoped_string & scopedstr) override;
 

@@ -10,51 +10,53 @@
 #include "acme/nano/user/window.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
-#include <xkbcommon/xkbcommon.h>
-#include <X11/XKBlib.h>
-#include <cairo/cairo-xcb.h>
+#include "QCustomTopWindow.h"
+#include "acme/windowing_system/windowing_system.h"
+// #include <xkbcommon/xkbcommon.h>
+// #include <X11/XKBlib.h>
+// #include <cairo/cairo-xcb.h>
+//
+//
+// //unsigned long xcb_get_long_property(Display *d, Window w, char *property_name);
+//
+//
+// //Window _xcb_get_active_window(Display * pdisplay);
+//
+//
+// struct MWMHints
+// {
+//
+//    unsigned long flags;
+//    unsigned long functions;
+//    unsigned long decorations;
+//    long input_mode;
+//    unsigned long status;
+//
+// };
+//
+// #define MWM_HINTS_FUNCTIONS     (1L << 0)
+// #define MWM_HINTS_DECORATIONS   (1L << 1)
+//
+//
+// #define MWM_FUNC_ALL            (1L << 0)
+// #define MWM_FUNC_RESIZE         (1L << 1)
+// #define MWM_FUNC_MOVE           (1L << 2)
+// #define MWM_FUNC_MINIMIZE       (1L << 3)
+// #define MWM_FUNC_MAXIMIZE       (1L << 4)
+// #define MWM_FUNC_CLOSE          (1L << 5)
+//
+// /* MWM decorations values */
+// #define MWM_DECOR_NONE          0
+// #define MWM_DECOR_ALL           (1L << 0)
+// #define MWM_DECOR_BORDER        (1L << 1)
+// #define MWM_DECOR_RESIZEH       (1L << 2)
+// #define MWM_DECOR_TITLE         (1L << 3)
+// #define MWM_DECOR_MENU          (1L << 4)
+// #define MWM_DECOR_MINIMIZE      (1L << 5)
+// #define MWM_DECOR_MAXIMIZE      (1L << 6)
+//
 
-
-//unsigned long xcb_get_long_property(Display *d, Window w, char *property_name);
-
-
-//Window _xcb_get_active_window(Display * pdisplay);
-
-
-struct MWMHints
-{
-
-   unsigned long flags;
-   unsigned long functions;
-   unsigned long decorations;
-   long input_mode;
-   unsigned long status;
-
-};
-
-#define MWM_HINTS_FUNCTIONS     (1L << 0)
-#define MWM_HINTS_DECORATIONS   (1L << 1)
-
-
-#define MWM_FUNC_ALL            (1L << 0)
-#define MWM_FUNC_RESIZE         (1L << 1)
-#define MWM_FUNC_MOVE           (1L << 2)
-#define MWM_FUNC_MINIMIZE       (1L << 3)
-#define MWM_FUNC_MAXIMIZE       (1L << 4)
-#define MWM_FUNC_CLOSE          (1L << 5)
-
-/* MWM decorations values */
-#define MWM_DECOR_NONE          0
-#define MWM_DECOR_ALL           (1L << 0)
-#define MWM_DECOR_BORDER        (1L << 1)
-#define MWM_DECOR_RESIZEH       (1L << 2)
-#define MWM_DECOR_TITLE         (1L << 3)
-#define MWM_DECOR_MENU          (1L << 4)
-#define MWM_DECOR_MINIMIZE      (1L << 5)
-#define MWM_DECOR_MAXIMIZE      (1L << 6)
-
-
-namespace xcb
+namespace kde5
 {
 
 namespace nano
@@ -64,7 +66,7 @@ namespace nano
       window::window()
       {
 
-         m_psurface = nullptr;
+         //m_psurface = nullptr;
 
       }
 
@@ -72,18 +74,18 @@ namespace nano
       window::~window()
       {
 
-         delete_drawing_objects();
+         //delete_drawing_objects();
 
          m_pnanodevice.release();
 
-         if(m_psurface != nullptr)
-         {
-
-            cairo_surface_destroy(m_psurface);
-
-            m_psurface = nullptr;
-
-         }
+         // if(m_psurface != nullptr)
+         // {
+         //
+         //    cairo_surface_destroy(m_psurface);
+         //
+         //    m_psurface = nullptr;
+         //
+         // }
 
 
          //   if (m_hfont)
@@ -104,7 +106,7 @@ namespace nano
          if (!m_pdisplay)
          {
 
-            m_pdisplay = ::xcb::nano::user::display::get(this);
+            m_pdisplay = system()->windowing_system()->display();
 
             if (!m_pdisplay)
             {
@@ -1168,7 +1170,7 @@ namespace nano
    } // namespace user
 } // namespace nano
 
-} // namespace xcb
+} // namespace kde5
 
 
 
