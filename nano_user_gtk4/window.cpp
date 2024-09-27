@@ -21,6 +21,7 @@
 #include "windowing_system_gtk4/windowing_system.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
 #include "acme/constant/_user_key_text.h"
+#include "acme/nano/nano.h"
 #include "acme/nano/graphics/brush.h"
 #include "acme/nano/graphics/pen.h"
 //#include <xkbcommon/xkbcommon.h>

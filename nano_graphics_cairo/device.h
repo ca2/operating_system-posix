@@ -7,7 +7,7 @@
 //#include "acme/nano/user/_nano.h"
 
 
-#include "acme/nano/user/device.h"
+#include "acme/nano/graphics/device.h"
 
 
 #include <cairo/cairo-features.h>
@@ -22,7 +22,7 @@ namespace cairo
 
    namespace nano
    {
-      namespace user
+      namespace graphics
       {
          class CLASS_DECL_ACME device :
             virtual public ::nano::graphics::device
@@ -58,12 +58,12 @@ void draw(::nano::graphics::icon * picon, int x, int y, int cx, int cy) override
             void _on_cairo_paint(void* p) override;
 
             //void set_antialias(bool bAntialiasOn);
-void create_argb32(int cx, int cy) override;
+            void create(int cx, int cy) override;
 
          };
 
 
-      } // namespace user
+      } // namespace graphics
 
 
    } // namespace nano

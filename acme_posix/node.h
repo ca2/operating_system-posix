@@ -160,6 +160,9 @@ namespace acme_posix
       void on_system_main() override;
 
 
+      ::string default_component_implementation(const ::scoped_string & scopedstrComponentName) override;
+
+
    };
 
    

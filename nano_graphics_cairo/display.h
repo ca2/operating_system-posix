@@ -15,7 +15,7 @@ namespace x11
 
    namespace nano
    {
-      namespace user
+      namespace graphics
       {
          class window;
 
@@ -98,7 +98,7 @@ namespace x11
          };
 
 
-      } // namespace user
+      } // namespace graphics
 
 
    } // namespace nano

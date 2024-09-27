@@ -79,6 +79,7 @@ namespace windowing_system_gtk4
       // virtual void _apply_os_user_icon_theme();
       // virtual void _os_process_user_icon_theme(string strOsUserIconTheme);
 
+      ::pixmap get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile) override;
 
 
    };

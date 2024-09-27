@@ -2861,7 +2861,6 @@ if(functionTrace)
 
    void node::on_system_main()
    {
-
       if (platform()->is_console())
       {
 
@@ -2891,9 +2890,22 @@ if(functionTrace)
 
 
       }
+   }
 
+   ::string node::default_component_implementation(const ::scoped_string & scopedstrComponentName)
+   {
+
+      if(scopedstrComponentName == "nano_graphics")
+      {
+
+         return "cairo";
+
+      }
+
+      return ::acme::node::default_component_implementation(scopedstrComponentName);
 
    }
+
 
 
 } // namespace acme_posix

@@ -5,9 +5,9 @@
 #include "device.h"
 #include "icon.h"
 #include "acme/prototype/geometry2d/rectangle.h"
-#include "acme/nano/user/brush.h"
-#include "acme/nano/user/font.h"
-#include "acme/nano/user/pen.h"
+#include "acme/nano/graphics/brush.h"
+#include "acme/nano/graphics/font.h"
+#include "acme/nano/graphics/pen.h"
 
 
 namespace cairo
@@ -53,7 +53,7 @@ namespace cairo
 
    namespace nano
    {
-      namespace user
+      namespace graphics
       {
          device::device()
          {
@@ -305,6 +305,8 @@ namespace cairo
 
                   auto sizeSource = picon->size();
 
+                  cairo_set_operator(m_pdc, CAIRO_OPERATOR_OVER);
+
                   ::cairo::draw_scaled_part_of_image(m_pdc, pcairoicon->m_pcairosurface,
                      0., 0., sizeSource.cx(), sizeSource.cy(),
                      x, y, cx, cy);
@@ -333,7 +335,7 @@ namespace cairo
 
          }
 
-void device::create_argb32(int cx, int cy)
+void device::create(int cx, int cy)
 {
 
    if(m_pdc)
@@ -350,16 +352,16 @@ cairo_surface_destroy(m_psurfaceMemory);
 m_psurfaceMemory=nullptr;
 
 }
-               m_pcairosurface = cairo_image_surface_create(
+               m_psurfaceMemory = cairo_image_surface_create(
                CAIRO_FORMAT_ARGB32,
                cx, cy);
 
-            m_pdc = cairo_create(m_pcairosurface);
+            m_pdc = cairo_create(m_psurfaceMemory);
 
 
 }
 
-      } // namespace user
+      } // namespace graphics
 
 
    } // namespace nano

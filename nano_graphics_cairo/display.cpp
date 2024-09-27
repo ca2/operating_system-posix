@@ -43,7 +43,7 @@ namespace x11
 
    namespace nano
    {
-      namespace user
+      namespace graphics
       {
 
          display * display::g_p = nullptr;
@@ -1078,7 +1078,7 @@ const char * pszRequest;
 
 
 
-      } // namespace user
+      } // namespace graphics
 
    }// namespace nano
 

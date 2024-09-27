@@ -3,11 +3,11 @@
 //
 
 #pragma once
-#include "acme/nano/user/icon.h"
+#include "acme/nano/graphics/icon.h"
 #include <cairo.h>
 namespace cairo {
 namespace nano {
-namespace user {
+namespace graphics {
 
 class  CLASS_DECL_ACME icon:
 virtual public ::nano::graphics::icon{
@@ -19,6 +19,9 @@ virtual public ::nano::graphics::icon{
     ~icon();
 
    ::size_i32 size() const override;
+
+
+   void load_image_file(const void *p, memsize size) override;
 
 
 };

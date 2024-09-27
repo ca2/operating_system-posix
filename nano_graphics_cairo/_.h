@@ -14,7 +14,7 @@ namespace cairo
 
    namespace nano
    {
-      namespace user
+      namespace graphics
       {
          class device;
 

@@ -3,11 +3,14 @@
 //
 #include "framework.h"
 #include "icon.h"
+#include "acme/platform/system.h"
 #include "acme/prototype/geometry2d/size.h"
+#include "acme/windowing_system/windowing_system.h"
+
 
 namespace cairo {
 namespace nano {
-namespace user {
+namespace graphics {
 
    icon::icon()
    {
@@ -46,6 +49,42 @@ return{};
    }
 
 
-} // user
-} // nano
+         void icon::load_image_file(const void *p, memsize size)
+         {
+
+      if(m_pcairosurface)
+      {
+
+         cairo_surface_destroy(m_pcairosurface);
+
+         m_pcairosurface = nullptr;
+
+      }
+
+            ::memory memoryHost;
+
+            auto pixmap = system()->windowing_system()->get_pixmap_from_file(memoryHost, p, size);
+
+
+      if(pixmap.is_ok())
+      {
+         // Create a cairo surface using the ARGB32 data from memory
+         m_pcairosurface = cairo_image_surface_create_for_data(
+             memoryHost.data(),              // Pointer to the raw data in memory
+             CAIRO_FORMAT_ARGB32,    // Data format (ARGB32)
+             pixmap.width(),                  // Width of the surface
+             pixmap.height(),                 // Height of the surface
+             pixmap.m_iScan                 // Stride (number of bytes per row)
+         );
+      }
+
+         }
+
+      } // user
+
+   } // nano
+
 } // cairo
+
+
+
