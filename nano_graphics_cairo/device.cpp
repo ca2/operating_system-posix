@@ -3,12 +3,29 @@
 //
 #include "framework.h"
 #include "device.h"
+
+#include <acme/graphics/image/pixmap.h>
+
 #include "icon.h"
 #include "acme/prototype/geometry2d/rectangle.h"
 #include "acme/nano/graphics/brush.h"
 #include "acme/nano/graphics/font.h"
 #include "acme/nano/graphics/pen.h"
 #include "acme/graphics/image/image32.h"
+
+
+cairo_surface_t * as_cairo_surface(::pixmap & pixmap)
+{
+
+   return cairo_image_surface_create_for_data(
+       (unsigned char *) pixmap.m_pimage32,              // Pointer to the raw data in memory
+       CAIRO_FORMAT_ARGB32,    // Data format (ARGB32)
+       pixmap.width(),                  // Width of the surface
+       pixmap.height(),                 // Height of the surface
+       pixmap.m_iScan                 // Stride (number of bytes per row)
+   );
+
+}
 
 
 namespace cairo
@@ -318,10 +335,22 @@ namespace cairo
 
          }
 
+
          void device::copy_to_pixmap(pixmap & pixmap)
          {
 
-            ::image::copy_
+            auto psurface = as_cairo_surface(pixmap);
+
+            if(psurface)
+            {
+
+               cairo_set_source_surface(m_pdc, psurface, 0., 0.);
+
+               cairo_paint(m_pdc);
+
+               cairo_surface_destroy(psurface);
+
+            }
 
          }
 

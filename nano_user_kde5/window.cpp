@@ -4,10 +4,10 @@
 #include "framework.h"
 #include "window.h"
 #include "display.h"
-#include "acme/operating_system/cairo/nano/user/device.h"
+//#include "acme/operating_system/cairo/nano/user/device.h"
 #include "acme/user/user/mouse.h"
 #include "acme/nano/user/child.h"
-#include "acme/nano/user/window.h"
+//#include "acme/nano/user/window.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
 #include "QCustomTopWindow.h"
@@ -128,7 +128,7 @@ namespace nano
       void window::on_initialize_particle()
       {
 
-         ::object::on_initialize_particle();
+         ::windowing::window_base::on_initialize_particle();
 
       }
 
@@ -136,12 +136,12 @@ namespace nano
       void window::on_char(int iChar)
       {
 
-         fork([this, iChar]()
-         {
-
-            m_puserinteractionbase->on_char(iChar);
-
-         });
+         // fork([this, iChar]()
+         // {
+         //
+         //    m_puserinteractionbase->on_char(iChar);
+         //
+         // });
 
       }
 
@@ -154,7 +154,7 @@ namespace nano
       }
 
 
-      bool window::is_active()
+      bool window::is_active_window()
       {
 
          return m_puserinteractionbase->is_active();
@@ -162,160 +162,207 @@ namespace nano
       }
 
 
-      void window::delete_drawing_objects()
+      // void window::delete_drawing_objects()
+      // {
+      //
+      //    m_puserinteractionbase->delete_drawing_objects();
+      //
+      // }
+
+
+      // bool window::get_dark_mode()
+      // {
+      //
+      //    return system()->dark_mode();
+      //
+      // }
+
+
+      // void window::create_drawing_objects()
+      // {
+      //
+      //    m_puserinteractionbase->create_drawing_objects();
+      //
+      // }
+
+
+      // void window::update_drawing_objects()
+      // {
+      //
+      //    m_puserinteractionbase->update_drawing_objects();
+      //
+      // }
+
+
+
+
+
+      void window::create_window()
       {
 
-         m_puserinteractionbase->delete_drawing_objects();
-
-      }
-
-
-      bool window::get_dark_mode()
-      {
-
-         return system()->dark_mode();
-
-      }
-
-
-      void window::create_drawing_objects()
-      {
-
-         m_puserinteractionbase->create_drawing_objects();
-
-      }
-
-
-      void window::update_drawing_objects()
-      {
-
-         m_puserinteractionbase->update_drawing_objects();
-
-      }
-
-
-      void window::create()
-      {
-
-         get_display();
-
-         ::u32 uEventMask =       XCB_EVENT_MASK_PROPERTY_CHANGE
-                                | XCB_EVENT_MASK_EXPOSURE
-                                | XCB_EVENT_MASK_BUTTON_PRESS
-                                | XCB_EVENT_MASK_BUTTON_RELEASE
-                                | XCB_EVENT_MASK_KEY_PRESS
-                                | XCB_EVENT_MASK_KEY_RELEASE
-                                | XCB_EVENT_MASK_POINTER_MOTION
-                                | XCB_EVENT_MASK_STRUCTURE_NOTIFY
-                                | XCB_EVENT_MASK_FOCUS_CHANGE
-                                | XCB_EVENT_MASK_LEAVE_WINDOW
-                                | XCB_EVENT_MASK_ENTER_WINDOW
-         ;
-
-         auto colormap = m_pdisplay->m_colormap;
-
-         auto windowRoot = m_pdisplay->m_windowRoot;
-
-         xcb_window_t window = xcb_generate_id(m_pdisplay->m_pconnection);
-
-         int x = m_puserinteractionbase->m_rectangle.left();
-         int y = m_puserinteractionbase->m_rectangle.top();
-         int cx = m_puserinteractionbase->m_rectangle.width();
-         int cy = m_puserinteractionbase->m_rectangle.height();
-
-         ::u32 uaValueList[5];
-
-         uaValueList[0] = 0; // XCB_CW_BACK_PIXMAP
-         uaValueList[1] = 0; // XCB_CW_BORDER_PIXEL
-         uaValueList[2] = 1; // XCB_CW_OVERRIDE_REDIRECT
-         uaValueList[3] = uEventMask; // XCB_CW_EVENT_MASK
-         uaValueList[4] = colormap; // XCB_CW_COLORMAP
-
-         auto cookie = xcb_create_window(
-            m_pdisplay->m_pconnection,
-            m_pdisplay->m_pdepth->depth,
-            window,
-            m_pdisplay->m_windowRoot,
-            x, y,
-            cx, cy,
-            0,
-            XCB_WINDOW_CLASS_INPUT_OUTPUT,
-            m_pdisplay->m_pvisualtype->visual_id,
-            XCB_CW_BACK_PIXMAP
-            | XCB_CW_BORDER_PIXEL
-            | XCB_CW_OVERRIDE_REDIRECT
-            | XCB_CW_EVENT_MASK
-            | XCB_CW_COLORMAP,
-            uaValueList);
-
-         auto estatus = m_pdisplay->_request_check(cookie);
-
-         if(!estatus)
+         auto procedure = [this]()
          {
 
-            throw exception(estatus);
+            _create_window();
 
-         }
+         };
 
-         m_window = window;
+         main_post(procedure);
 
-         m_pdisplay->add_listener(this);
 
-         m_pdisplay->add_window(this);
+//          get_display();
+//
+//          ::u32 uEventMask =       XCB_EVENT_MASK_PROPERTY_CHANGE
+//                                 | XCB_EVENT_MASK_EXPOSURE
+//                                 | XCB_EVENT_MASK_BUTTON_PRESS
+//                                 | XCB_EVENT_MASK_BUTTON_RELEASE
+//                                 | XCB_EVENT_MASK_KEY_PRESS
+//                                 | XCB_EVENT_MASK_KEY_RELEASE
+//                                 | XCB_EVENT_MASK_POINTER_MOTION
+//                                 | XCB_EVENT_MASK_STRUCTURE_NOTIFY
+//                                 | XCB_EVENT_MASK_FOCUS_CHANGE
+//                                 | XCB_EVENT_MASK_LEAVE_WINDOW
+//                                 | XCB_EVENT_MASK_ENTER_WINDOW
+//          ;
+//
+//          auto colormap = m_pdisplay->m_colormap;
+//
+//          auto windowRoot = m_pdisplay->m_windowRoot;
+//
+//          xcb_window_t window = xcb_generate_id(m_pdisplay->m_pconnection);
+//
+//          int x = m_puserinteractionbase->m_rectangle.left();
+//          int y = m_puserinteractionbase->m_rectangle.top();
+//          int cx = m_puserinteractionbase->m_rectangle.width();
+//          int cy = m_puserinteractionbase->m_rectangle.height();
+//
+//          ::u32 uaValueList[5];
+//
+//          uaValueList[0] = 0; // XCB_CW_BACK_PIXMAP
+//          uaValueList[1] = 0; // XCB_CW_BORDER_PIXEL
+//          uaValueList[2] = 1; // XCB_CW_OVERRIDE_REDIRECT
+//          uaValueList[3] = uEventMask; // XCB_CW_EVENT_MASK
+//          uaValueList[4] = colormap; // XCB_CW_COLORMAP
+//
+//          auto cookie = xcb_create_window(
+//             m_pdisplay->m_pconnection,
+//             m_pdisplay->m_pdepth->depth,
+//             window,
+//             m_pdisplay->m_windowRoot,
+//             x, y,
+//             cx, cy,
+//             0,
+//             XCB_WINDOW_CLASS_INPUT_OUTPUT,
+//             m_pdisplay->m_pvisualtype->visual_id,
+//             XCB_CW_BACK_PIXMAP
+//             | XCB_CW_BORDER_PIXEL
+//             | XCB_CW_OVERRIDE_REDIRECT
+//             | XCB_CW_EVENT_MASK
+//             | XCB_CW_COLORMAP,
+//             uaValueList);
+//
+//          auto estatus = m_pdisplay->_request_check(cookie);
+//
+//          if(!estatus)
+//          {
+//
+//             throw exception(estatus);
+//
+//          }
+//
+//          m_window = window;
+//
+//          m_pdisplay->add_listener(this);
+//
+//          m_pdisplay->add_window(this);
+//
+// #if 0
+//
+//          // _NET_WM_WINDOW_TYPE_SPLASH
+//          // KDE seems to close this type of window when it is clicked
+//
+//          if(m_puserinteractionbase->m_bStartCentered)
+//          {
+//
+//             auto atomWindowType = XInternAtom(m_pdisplay->m_pdisplay, "_NET_WM_WINDOW_TYPE", true);
+//
+//             auto atomWindowTypeSplash = XInternAtom(m_pdisplay->m_pdisplay, "_NET_WM_WINDOW_TYPE_SPLASH", true);
+//
+//             if (atomWindowType != None && atomWindowTypeSplash != None)
+//             {
+//
+//                XChangeProperty(m_pdisplay->m_pdisplay, m_window,
+//                                atomWindowType, XA_ATOM, 32, PropModeReplace,
+//                                (unsigned char *) &atomWindowTypeSplash, 1);
+//
+//             }
+//
+//          }
+//
+// #endif
+//
+//          //         if(m_puserinteractionbase->m_bArbitraryPositioning)
+//          //         {
+//          //
+//          //            XSetWindowAttributes attributes;
+//          //
+//          //            attributes.override_redirect = True;
+//          //
+//          //            XChangeWindowAttributes(m_pdisplay->m_pdisplay, m_window,
+//          //                             CWOverrideRedirect,
+//          //                             &attributes);
+//          //
+//          //   //      MWMHints mwm_hints;
+//          //   //
+//          //   //      Atom MotifHints = XInternAtom(m_pdisplay->m_pdisplay, "_MOTIF_WM_HINTS", 0);
+//          //   //
+//          //   //      mwm_hints.flags = MWM_HINTS_FUNCTIONS;
+//          //   //      mwm_hints.functions=  MWM_FUNC_MOVE;
+//          //   //
+//          //   //      XMapWindow(m_pdisplay->m_pdisplay, m_window);
+//          //   //      XChangeProperty(m_pdisplay->m_pdisplay, m_window, MotifHints, MotifHints, 32, PropModeReplace, (unsigned char *)&mwm_hints, 5);
+//          //
+//          //         }
+//
+//          //m_pdisplay->XSelectInput(m_pdisplay->m_pdisplay, m_window, ExposureMask | KeyPressMask | VisibilityChangeMask | StructureNotifyMask | ButtonPressMask | PointerMotionMask | ButtonMotionMask | ButtonReleaseMask | LeaveWindowMask);
+//
+//          nano_window_on_create();
+//
+//          //XMapWindow(m_pdisplay->m_pdisplay, m_window);
 
-#if 0
+      }
 
-         // _NET_WM_WINDOW_TYPE_SPLASH
-         // KDE seems to close this type of window when it is clicked
 
-         if(m_puserinteractionbase->m_bStartCentered)
-         {
+      void window::_create_window()
+      {
 
-            auto atomWindowType = XInternAtom(m_pdisplay->m_pdisplay, "_NET_WM_WINDOW_TYPE", true);
+         m_puserinteractionbase->on_before_create_window(this);
 
-            auto atomWindowTypeSplash = XInternAtom(m_pdisplay->m_pdisplay, "_NET_WM_WINDOW_TYPE_SPLASH", true);
+         auto r = m_puserinteractionbase->get_window_rectangle();
 
-            if (atomWindowType != None && atomWindowTypeSplash != None)
-            {
+         int x = r.left();
 
-               XChangeProperty(m_pdisplay->m_pdisplay, m_window,
-                               atomWindowType, XA_ATOM, 32, PropModeReplace,
-                               (unsigned char *) &atomWindowTypeSplash, 1);
+         int y = r.top();
 
-            }
+         int cx = r.width();
 
-         }
+         int cy = r.height();
 
-#endif
+         auto pmainwindow = new QCustomTopWindow(this);
 
-         //         if(m_puserinteractionbase->m_bArbitraryPositioning)
-         //         {
-         //
-         //            XSetWindowAttributes attributes;
-         //
-         //            attributes.override_redirect = True;
-         //
-         //            XChangeWindowAttributes(m_pdisplay->m_pdisplay, m_window,
-         //                             CWOverrideRedirect,
-         //                             &attributes);
-         //
-         //   //      MWMHints mwm_hints;
-         //   //
-         //   //      Atom MotifHints = XInternAtom(m_pdisplay->m_pdisplay, "_MOTIF_WM_HINTS", 0);
-         //   //
-         //   //      mwm_hints.flags = MWM_HINTS_FUNCTIONS;
-         //   //      mwm_hints.functions=  MWM_FUNC_MOVE;
-         //   //
-         //   //      XMapWindow(m_pdisplay->m_pdisplay, m_window);
-         //   //      XChangeProperty(m_pdisplay->m_pdisplay, m_window, MotifHints, MotifHints, 32, PropModeReplace, (unsigned char *)&mwm_hints, 5);
-         //
-         //         }
+         m_pqwidget = pmainwindow;
 
-         //m_pdisplay->XSelectInput(m_pdisplay->m_pdisplay, m_window, ExposureMask | KeyPressMask | VisibilityChangeMask | StructureNotifyMask | ButtonPressMask | PointerMotionMask | ButtonMotionMask | ButtonReleaseMask | LeaveWindowMask);
+         pmainwindow->setWindowFlags(Qt::FramelessWindowHint); // No window decorations
+         pmainwindow->setAttribute(Qt::WA_TranslucentBackground); // Translucent background
+         pmainwindow->setAttribute(Qt::WA_NoSystemBackground, true);
+         pmainwindow->setAttribute(Qt::WA_OpaquePaintEvent, false);
 
-         nano_window_on_create();
+         pmainwindow->setMouseTracking(true);
 
-         //XMapWindow(m_pdisplay->m_pdisplay, m_window);
+         pmainwindow->move(x, y);
+         pmainwindow->resize(cx, cy);
+
+         on_create_window();
 
       }
 
@@ -338,59 +385,59 @@ namespace nano
       //}
       //
 
-      void window::on_left_button_down(::user::mouse * pmouse)
-      {
-
-         m_puserinteractionbase->on_left_button_down(pmouse);
-
-      }
-
-
-      void window::on_left_button_up(::user::mouse * pmouse)
-      {
-
-         m_puserinteractionbase->on_left_button_up(pmouse);
-      }
-
-
-
-      void window::on_right_button_down(::user::mouse * pmouse)
-      {
-
-         m_puserinteractionbase->on_right_button_down(pmouse);
-
-      }
-
-
-      void window::on_right_button_up(::user::mouse * pmouse)
-      {
-
-         m_puserinteractionbase->on_right_button_up(pmouse);
-      }
-
-
-      void window::on_mouse_move(::user::mouse * pmouse)
-      {
-
-         m_puserinteractionbase->on_mouse_move(pmouse);
-
-      }
-
-
-      ::payload window::get_result()
-      {
-
-         return m_puserinteractionbase->get_result();
-
-      }
-
-
-      ::nano::user::child * window::hit_test(::user::mouse * pmouse, ::user::e_zorder ezorder)
-      {
-
-         return m_puserinteractionbase->hit_test(pmouse, ezorder);
-
-      }
+      // void window::on_left_button_down(::user::mouse * pmouse)
+      // {
+      //
+      //    m_puserinteractionbase->on_left_button_down(pmouse);
+      //
+      // }
+      //
+      //
+      // void window::on_left_button_up(::user::mouse * pmouse)
+      // {
+      //
+      //    m_puserinteractionbase->on_left_button_up(pmouse);
+      // }
+      //
+      //
+      //
+      // void window::on_right_button_down(::user::mouse * pmouse)
+      // {
+      //
+      //    m_puserinteractionbase->on_right_button_down(pmouse);
+      //
+      // }
+      //
+      //
+      // void window::on_right_button_up(::user::mouse * pmouse)
+      // {
+      //
+      //    m_puserinteractionbase->on_right_button_up(pmouse);
+      // }
+      //
+      //
+      // void window::on_mouse_move(::user::mouse * pmouse)
+      // {
+      //
+      //    m_puserinteractionbase->on_mouse_move(pmouse);
+      //
+      // }
+      //
+      //
+      // ::payload window::get_result()
+      // {
+      //
+      //    return m_puserinteractionbase->get_result();
+      //
+      // }
+      //
+      //
+      // ::nano::user::child * window::hit_test(::user::mouse * pmouse, ::user::e_zorder ezorder)
+      // {
+      //
+      //    return m_puserinteractionbase->hit_test(pmouse, ezorder);
+      //
+      // }
 
 
       //LRESULT CALLBACK ::nano::user::message_box::s_window_procedure(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
