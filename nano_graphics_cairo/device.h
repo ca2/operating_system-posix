@@ -55,7 +55,7 @@ void draw(::nano::graphics::icon * picon, int x, int y, int cx, int cy) override
             void _set_source(const ::color::color & color);
 
 
-            void _on_cairo_paint(void* p) override;
+            virtual void copy_to_pixmap(::pixmap & pixmap);
 
             //void set_antialias(bool bAntialiasOn);
             void create(int cx, int cy) override;

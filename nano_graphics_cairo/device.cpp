@@ -8,6 +8,7 @@
 #include "acme/nano/graphics/brush.h"
 #include "acme/nano/graphics/font.h"
 #include "acme/nano/graphics/pen.h"
+#include "acme/graphics/image/image32.h"
 
 
 namespace cairo
@@ -317,21 +318,10 @@ namespace cairo
 
          }
 
-         void device::_on_cairo_paint(void* p)
+         void device::copy_to_pixmap(pixmap & pixmap)
          {
 
-            if(::is_null(m_psurfaceMemory))
-            {
-
-               throw ::exception(error_wrong_state);
-
-            }
-
-            auto* pcairoTarget = (cairo_t *)p;
-
-            cairo_set_source_surface(pcairoTarget, m_psurfaceMemory, 0., 0.);
-
-            cairo_paint(pcairoTarget);
+            ::image::copy_
 
          }
 
