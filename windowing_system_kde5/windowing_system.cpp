@@ -3,6 +3,7 @@
 //
 #include "framework.h"
 #include "windowing_system.h"
+#include "acme/integrate/qt/image.h"
 #include "acme/nano/nano.h"
 #include "acme/nano/user/display.h"
 #include "acme/nano/user/user.h"
@@ -10,6 +11,8 @@
 #include "acme/platform/application.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
+#include <QImage>
+#include <QByteArray>
 //#include <X11/Xatom.h>
 //#include <xkbcommon/xkbcommon.h>
 //#include <X11/XKBlib.h>
@@ -427,6 +430,38 @@ namespace windowing_system_kde5
 
          });
 
+
+   }
+
+
+   ::pixmap windowing_system::get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile)
+   {
+
+
+      QByteArray imageData = QByteArray::fromRawData((const char *) psourceFile, sizeSourceFile);  // Replace with actual image bytes and size
+
+      // Create a QImage object
+      QImage image;
+
+      // Load the image from the QByteArray
+      if (!image.loadFromData(imageData))
+      {
+
+         return {};
+
+      }
+
+      QImage image32;
+
+      image32 = image.convertToFormat(QImage::Format_ARGB32_Premultiplied);
+
+      memoryHost.assign(image32.bits(), image32.bytesPerLine() * image32.height());
+
+      ::pixmap pixmap;
+
+      pixmap.init({image32.width(), image32.height()}, (::image32_t *) memoryHost.data(), image32.bytesPerLine());
+
+      return pixmap;
 
    }
 

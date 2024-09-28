@@ -46,6 +46,9 @@ namespace windowing_system_kde5
       void windowing_system_post_quit() override;
 
 
+      virtual ::pixmap get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile);
+
+
 //   ::e_status x11_initialize() override;
 //   void * x11_get_display() override;
 //   void x11_sync(const ::procedure & procedure) override;

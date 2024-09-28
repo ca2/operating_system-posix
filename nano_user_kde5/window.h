@@ -16,8 +16,12 @@ namespace kde5
 
    namespace nano
    {
+
+
       namespace user
       {
+
+
          class CLASS_DECL_NANO_USER_KDE5 window :
             virtual public ::windowing::window_base
             //,           virtual public event_listener
@@ -25,12 +29,12 @@ namespace kde5
          public:
 
 
-            QWidget * m_pqwidget;
+            QWidget *                                 m_pqwidget;
 
-            ::pointer<class display>        m_pdisplay;
+            ::pointer<class display>                  m_pdisplay;
             //xcb_window_t                    m_window;
             //cairo_surface_t *               m_psurface;
-            ::pointer<::nano::graphics::device>         m_pnanodevice;
+            ::pointer<::nano::graphics::device>       m_pnanodevice;
             //::pointer<::nano::graphics::font>         m_pfont;
             //color32_t                     m_colorText;
             //color32_t                     m_colorFocus;
@@ -38,7 +42,7 @@ namespace kde5
             //string                        m_strTitle;
             //bool                          m_bNcActive;
 
-            manual_reset_event              m_eventEnd;
+            manual_reset_event                        m_eventEnd;
             //rectangle_i32                 m_rectangle;
             //rectangle_i32                 m_rectangleX;
 
@@ -48,7 +52,7 @@ namespace kde5
             //::atom                             m_atomResult;
             //::pointer<::nano::user::child>        m_pchildFocus;
 
-            ::array < QAction * >           m_qactiona;
+            ::array < QAction * >                     m_qactiona;
 
 
             window();

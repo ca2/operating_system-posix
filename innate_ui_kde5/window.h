@@ -3,43 +3,31 @@
 
 
 #include "apex/innate_ui/window.h"
-//#include "acme/_operating_system.h"
-//#include "acme/operating_system/windows/window.h"
-//#include <gtk/gtk.h>
 #include <QMainWindow>
+
 
 namespace innate_ui_kde5
 {
 
+
    class innate_ui;
 
+
    class CLASS_DECL_INNATE_UI_GTK3 window :
-      virtual public ::innate_ui::window  //,
-      //virtual public ::windows::window
+      virtual public ::innate_ui::window
    {
    public:
 
 
       QWidget * m_pqwidget;
-      //GtkWidget * m_pgtkwidget;
-      //HWND m_hwnd;
-      //HMENU m_hmenuSystem;
-      //int m_iChildIdSeed;
-      //int m_iCreateStyle;
 
 
       window();
       ~window() override;
 
+
       void set_text(const ::scoped_string & scopedstr) override;
 
-      //LONG_PTR _get_style();
-
-//      void _post(const ::procedure & procedure);
-      //virtual const char * __get_class_name();
-      //virtual wstring _get_class_name();
-      //virtual ATOM _register_class();
-      //virtual void _get_class(WNDCLASSEXW & wcex);
       virtual void _create();
       virtual void _create_child(window * pwindow);
 
@@ -57,12 +45,6 @@ namespace innate_ui_kde5
 
       ::innate_ui_kde5::innate_ui * innate_ui();
 
-      //virtual ::pointer < window > _get_child_with_id(int iId);
-      //virtual LRESULT _window_procedure(UINT message, WPARAM wparam, LPARAM lparam);
-
-      //virtual bool _on_command();
-
-      //virtual int _get_id();
 
       void defer_show_system_menu(::user::mouse * pmouse) override;
 
@@ -71,7 +53,6 @@ namespace innate_ui_kde5
 
 
 } // namespace innate_ui_kde5
-
 
 
 
