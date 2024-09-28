@@ -39,29 +39,31 @@ list(APPEND library_source
 list(APPEND library_references
         acme
         acme_posix
+   #windowing_system_x11
+   #windowing_system_xcb
+   #windowing_system_wayland
+   windowing_system_kde5
+   #        nano_user_x11
+   #        nano_user_xcb
+   #        nano_user_wayland
+          nano_user_kde5
         apex
         apex_posix
         aqua
         aura
         aura_posix
         windowing_posix
-        windowing_system_x11
-        windowing_system_xcb
-        windowing_system_wayland
-        nano_user_x11
-        nano_user_xcb
-        nano_user_wayland
-        windowing_x11
-        windowing_xcb
-        windowing_wayland
+#        windowing_x11
+#        windowing_xcb
+#        windowing_wayland
         windowing_kde5
 )
 
-if (${HAS_WAYLAND})
-    list(APPEND library_references
-            windowing_wayland
-    )
-endif ()
+#if (${HAS_WAYLAND})
+#    list(APPEND library_references
+#            windowing_wayland
+#    )
+#endif ()
 
 
 list(APPEND static_library_references ${library_references})

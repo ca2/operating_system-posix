@@ -5,10 +5,10 @@
 
 
 #include "windowing_posix/window.h"
-#include "kde5_widget.h"
+//#include "kde5_widget.h"
 //#include "acme/operating_system/x11/_atom.h"
 #include "acme/prototype/geometry2d/rectangle_array.h"
-//#include "nano_user_wayland/window_base.h"
+#include "nano_user_kde5/window.h"
 //#include <X11/extensions/sync.h>
 #include <QWidget>
 //#include <gdk/gdk.h>
@@ -46,7 +46,7 @@ namespace windowing_kde5
 
    class CLASS_DECL_WINDOWING_KDE5 window :
       virtual public ::windowing_posix::window,
-      virtual public ::windowing_kde5::kde5_widget
+      virtual public ::kde5::nano::user::window
          //, virtual public ::wayland::nano::user::window_base
    {
    public:
@@ -127,7 +127,7 @@ namespace windowing_kde5
       //oswindow_data(const WPARAM & wparam);
       ~window() override;
 
-
+void on_initialize_particle() override;
          // void _on_button_pressed(GtkGestureClick *widget, int n_press, double x, double y);
          // void _on_button_released(GtkGestureClick *widget, int n_press, double x, double y);
          // void _on_motion_notify(GtkEventControllerMotion *pcontroller, double x, double y);

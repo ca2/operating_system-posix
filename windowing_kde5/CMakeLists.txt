@@ -109,14 +109,14 @@ if (NOT ${NO_PRECOMPILED_HEADER})
 
 endif ()
 
-set_target_properties(windowing_wayland PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
-if(${HAS_WAYLAND})
-    list(APPEND WAYLAND_PKG_MODULES wayland-client wayland-protocols)
-endif()
-if(${HAS_X11})
-    list(APPEND X11_PKG_MODULES x11)
-endif()
+#if(${HAS_WAYLAND})
+#    list(APPEND WAYLAND_PKG_MODULES wayland-client wayland-protocols)
+#endif()
+#if(${HAS_X11})
+#    list(APPEND X11_PKG_MODULES x11)
+#endif()
 
 
 if(${HAS_KDE6})

@@ -1334,7 +1334,7 @@ namespace windowing_kde5
 
       }
 
-      node()->_fetch_user_color();
+      //node()->on__fetch_user_color();
 
       //      if(!gsettings_schema_contains_key("org.gnome.desktop.interface", "color-scheme"))
       //      {

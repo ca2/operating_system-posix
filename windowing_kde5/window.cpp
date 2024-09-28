@@ -265,6 +265,16 @@ namespace windowing_kde5
    {
    }
 
+
+   void window::on_initialize_particle()
+   {
+
+      ::windowing_posix::window::on_initialize_particle();
+      ::kde5::nano::user::window::on_initialize_particle();
+
+   }
+
+
    void window::_set_oswindow(::oswindow oswindow)
    {
    }

@@ -3,7 +3,7 @@
 
 #include "windowing_posix/_.h"
 //#include "windowing_system_wayland/_.h"
-//#include "nano_user_wayland/_.h"
+#include "nano_user_kde5/_.h"
 
 
 #if defined(_windowing_kde5_project)
@@ -20,29 +20,29 @@ namespace windowing_kde5
    class windowing;
    class display;
    class window;
-   class x11data;
+   //class x11data;
 
 
-   using WINDOW = long;
+   //using WINDOW = long;
 
 
 } // namespace node_gnome
 
 
-#include "nano_user_wayland/_.h"
-
-#include <QRect>
-
-
-inline void copy(::rectangle_i32 & rectangleTarget, const QRect & qrect)
-{
-
-   rectangleTarget.left() = qrect.x();
-   rectangleTarget.right() = qrect.x() + qrect.width();
-   rectangleTarget.top() = qrect.y();
-   rectangleTarget.bottom() = qrect.y() + qrect.height();
-
-}
-
-
-
+//#include "nano_user_wayland/_.h"
+//
+// #include <QRect>
+//
+//
+// inline void copy(::rectangle_i32 & rectangleTarget, const QRect & qrect)
+// {
+//
+//    rectangleTarget.left() = qrect.x();
+//    rectangleTarget.right() = qrect.x() + qrect.width();
+//    rectangleTarget.top() = qrect.y();
+//    rectangleTarget.bottom() = qrect.y() + qrect.height();
+//
+// }
+//
+//
+//
