@@ -48,6 +48,8 @@ namespace kde5
             //::atom                             m_atomResult;
             //::pointer<::nano::user::child>        m_pchildFocus;
 
+            ::array < QAction * >           m_qactiona;
+
 
             window();
             ~window() override;
@@ -129,6 +131,9 @@ namespace kde5
             //
             // //virtual LRESULT window_procedure(UINT message, WPARAM wparam, LPARAM lparam);
 
+
+            void set_interface_client_size(const ::size_i32 & sizeWindow) override;
+
             void set_position(const ::point_i32 & point) override;
 
             void redraw() override;
@@ -147,6 +152,7 @@ namespace kde5
 
 
             //::size_i32 get_main_screen_size() override;
+            void defer_show_system_menu(::user::mouse *pmouse) override;
 
 
          };

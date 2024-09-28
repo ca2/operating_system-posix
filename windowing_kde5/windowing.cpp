@@ -1120,12 +1120,12 @@ namespace windowing_kde5
       //aaa_x11_main();
 
 
-      while(::task_get_run())
-      {
-
-         preempt(1_s);
-
-      }
+      // while(::task_get_run())
+      // {
+      //
+      //    preempt(1_s);
+      //
+      // }
 
    }
 

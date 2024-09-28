@@ -4,14 +4,17 @@
 #include "framework.h"
 #include "windowing_system.h"
 #include "acme/nano/nano.h"
+#include "acme/nano/user/display.h"
 #include "acme/nano/user/user.h"
 #include "acme/parallelization/manual_reset_event.h"
+#include "acme/platform/application.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
 //#include <X11/Xatom.h>
 //#include <xkbcommon/xkbcommon.h>
 //#include <X11/XKBlib.h>
 //#include <X11/Xutil.h>
+
 
 namespace windowing_system_kde5
 {
@@ -20,12 +23,16 @@ namespace windowing_system_kde5
    windowing_system::windowing_system()
    {
 
+         m_pqapplication = nullptr;
+
 
    }
 
 
    windowing_system::~windowing_system()
    {
+
+      //if(m_pqapplication)
 
 
    }
@@ -212,6 +219,216 @@ namespace windowing_system_kde5
 //
 //
 //    }
+
+
+      void windowing_system::_on_activate_kde_application()
+      {
+
+      //g_object_ref(m_pgtkapplication);
+
+      // auto pdisplay = __create<::windowing::display>();
+      //
+      //
+      //
+      // pdisplay->initialize_display(this);
+      //
+
+      m_pdisplaybase = this->display();
+
+      if (!m_pdisplaybase)
+      {
+
+         throw ::exception(error_no_interface,
+                           "Failed to cast pdisplay to m_pdisplay at windowing_kde5::windowing::initialize");
+
+      }
+
+      information() << "node_kde5::_on_activate_gtk_application going to user_post";
+
+      // This seems not to work with "foreign" windows
+      // (X11 windows not created with Gdk)
+      //x11_add_filter();
+
+      information() << "node_kde5::_on_activate_gtk_application on user_post";
+
+
+      // auto pgtksettingsDefault = gtk_settings_get_default();
+      //
+      // if (pgtksettingsDefault)
+      // {
+      //
+      //    m_pGtkSettingsDefault = G_OBJECT(pgtksettingsDefault);
+      //
+      //    g_object_ref (m_pGtkSettingsDefault);
+      //
+      //    {
+      //
+      //       gchar *theme_name = nullptr;
+      //
+      //       g_object_get(m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
+      //
+      //       m_strOsUserTheme = theme_name;
+      //
+      //       g_free(theme_name);
+      //
+      //    }
+      //
+      //    {
+      //
+      //       gchar *icon_theme_name = nullptr;
+      //
+      //       g_object_get(m_pGtkSettingsDefault, "gtk-icon-theme-name", &icon_theme_name, NULL);
+      //
+      //       m_strOsUserIconTheme = icon_theme_name;
+      //
+      //       g_free(icon_theme_name);
+      //
+      //    }
+      //
+      //
+      //    auto preturnTheme = g_signal_connect_data(
+      //            m_pGtkSettingsDefault,
+      //            "notify::gtk-theme-name",
+      //            //"gtk-private-changed",
+      //            G_CALLBACK(gtk_settings_gtk_theme_name_callback),
+      //            this,
+      //            NULL,
+      //            G_CONNECT_AFTER);
+      //
+      //    auto preturnIconTheme = g_signal_connect_data(
+      //            m_pGtkSettingsDefault,
+      //            "notify::gtk-icon-theme-name",
+      //            //"gtk-private-changed",
+      //            G_CALLBACK(gtk_settings_gtk_icon_theme_name_callback),
+      //            this,
+      //            NULL,
+      //            G_CONNECT_AFTER);
+      //
+      //    //g_object_ref(preturn);
+      //
+      //    //printf("return %" PRIiPTR, preturn);
+      //
+      //    //printf("return %" PRIiPTR, preturn);
+      //
+      // }
+
+      //gtk_add_idle_source(this);
+
+      auto psystem = system();
+
+      psystem->defer_post_initial_request();
+
+   }
+
+
+   void windowing_system::on_start_system()
+   {
+
+      auto * psystem = this->system();
+
+      psystem->on_branch_system_from_main_thread_startup();
+
+   }
+
+
+   void windowing_system::windowing_system_application_main_loop()
+   {
+
+      ::string strId = application()->m_strAppId;
+
+      strId.find_replace("/", ".");
+      strId.find_replace("-", "_");
+
+      //gtk_init();
+
+      int argc = platform()->get_argc();
+
+      m_pqapplication = new QApplication(argc, platform()->get_args());
+
+      m_pqapplication->setQuitOnLastWindowClosed(false);
+
+      _on_activate_kde_application();
+
+      //m_pgtkapplication = gtk_application_new (strId, G_APPLICATION_DEFAULT_FLAGS);
+
+      //g_signal_connect (m_pgtkapplication, "activate", G_CALLBACK(on_activate_gtk_application), this);
+
+
+      // Retrieve system settings and listen for changes in dark mode preference
+      //GtkSettings *settings = gtk_settings_get_default();
+      //update_theme_based_on_system(settings, NULL); // Check initial state
+      //g_signal_connect(settings, "notify::gtk-application-prefer-dark-theme", G_CALLBACK(update_theme_based_on_system), NULL);
+
+      // Get the current GTK theme name (or any other available property)
+      //gboolean b=1;
+      //g_object_set(settings, "gtk-application-prefer-dark-theme", TRUE, NULL);
+      //g_print("Current theme: %s\n", theme_name);
+
+      // Free the allocated string after use
+      //g_free(theme_name);
+
+      ///GtkSettings *settings = gtk_settings_get_default();
+      //g_object_set(settings, "gtk-enable-animations", FALSE, NULL);
+
+      //g_application_hold(G_APPLICATION(m_pgtkapplication));
+
+
+      // if(m_pdisplay->is_wayland())
+      // {
+      //
+      //
+      //
+      // }
+
+      m_pqapplication->exec();
+
+
+      //g_application_run (G_APPLICATION(m_pgtkapplication), platform()->get_argc(), platform()->get_args());
+      //aaa_x11_main();
+
+      //
+      // while(::task_get_run())
+      // {
+      //
+      //    preempt(1_s);
+      //
+      // }
+
+   }
+
+
+   void windowing_system::windowing_system_post_quit()
+   {
+
+      auto quitApplication = [this]()
+      {
+
+         m_pqapplication->quit();
+
+      };
+
+      user_post(quitApplication);
+
+   }
+
+
+   void windowing_system::user_post(const ::procedure & procedureParam)
+   {
+
+      auto procedure(procedureParam);
+
+      // invoke on the main thread
+      QMetaObject::invokeMethod(
+         m_pqapplication,
+         [procedure]
+         {
+
+            procedure();
+
+         });
+
+
+   }
 
 
 } // namespace windowing_system_kde5

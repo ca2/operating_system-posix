@@ -5,6 +5,7 @@
 
 
 #include "acme/windowing_system/windowing_system.h"
+#include <QApplication>
 
 
 namespace windowing_system_kde5
@@ -17,6 +18,8 @@ namespace windowing_system_kde5
    public:
 
 
+      QApplication * m_pqapplication;
+
 
       windowing_system();
       ~windowing_system() override;
@@ -28,6 +31,20 @@ namespace windowing_system_kde5
       void async(const ::procedure & procedure) override;
       void display_error_trap_push(int i) override;
       void display_error_trap_pop_ignored(int i) override;
+
+
+      void user_post(const ::procedure & procedureParam) override;
+
+
+      virtual void _on_activate_kde_application();
+
+
+      void on_start_system() override;
+
+
+      void windowing_system_application_main_loop() override;
+      void windowing_system_post_quit() override;
+
 
 //   ::e_status x11_initialize() override;
 //   void * x11_get_display() override;

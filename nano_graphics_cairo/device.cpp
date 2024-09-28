@@ -28,6 +28,23 @@ cairo_surface_t * as_cairo_surface(::pixmap & pixmap)
 }
 
 
+::pixmap as_pixmap(cairo_surface_t * psurface)
+{
+
+   ::pixmap pixmap;
+
+   pixmap.m_pimage32 = (::image32_t *) cairo_image_surface_get_data(psurface);
+   pixmap.m_sizeRaw.cx() = cairo_image_surface_get_width(psurface);
+   pixmap.m_sizeRaw.cy() = cairo_image_surface_get_height(psurface);
+   pixmap.m_iScan = cairo_image_surface_get_stride(psurface);
+
+   pixmap.map(pixmap.m_sizeRaw);
+
+   return pixmap;
+
+}
+
+
 namespace cairo
 {
 
@@ -336,21 +353,27 @@ namespace cairo
          }
 
 
-         void device::copy_to_pixmap(pixmap & pixmap)
+         ::pixmap device::pixmap()
          {
 
-            auto psurface = as_cairo_surface(pixmap);
+            return as_pixmap(m_psurfaceMemory);
 
-            if(psurface)
-            {
-
-               cairo_set_source_surface(m_pdc, psurface, 0., 0.);
-
-               cairo_paint(m_pdc);
-
-               cairo_surface_destroy(psurface);
-
-            }
+            // if(psurface)
+            // {
+            //
+            //    cairo_t * pcairoTarget = cairo_create(psurface);
+            //
+            //    cairo_set_source_surface(pcairoTarget, m_psurfaceMemory, 0., 0.);
+            //
+            //    cairo_set_operator(pcairoTarget, CAIRO_OPERATOR_SOURCE);
+            //
+            //    cairo_paint(pcairoTarget);
+            //
+            //    cairo_surface_destroy(psurface);
+            //
+            //    cairo_destroy(pcairoTarget);
+            //
+            // }
 
          }
 

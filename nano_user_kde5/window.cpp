@@ -6,6 +6,7 @@
 #include "display.h"
 #include "acme/constant/message.h"
 #include "acme/nano/graphics/device.h"
+#include "acme/nano/nano.h"
 #include "acme/user/user/mouse.h"
 #include "acme/platform/system.h"
 #include "QCustomTopWindow.h"
@@ -13,6 +14,7 @@
 #include "acme/windowing_system/windowing_system.h"
 #include "acme/integrate/qt.h"
 #include <QMouseEvent>
+#include <QMenu>
 // #include <xkbcommon/xkbcommon.h>
 // #include <X11/XKBlib.h>
 // #include <cairo/cairo-xcb.h>
@@ -192,20 +194,17 @@ namespace nano
       // }
 
 
-
-
-
       void window::create_window()
       {
 
-         auto procedure = [this]()
+         auto λCreateWindow = [this]()
          {
 
             _create_window();
 
          };
 
-         main_post(procedure);
+         main_send(λCreateWindow);
 
 
 //          get_display();
@@ -359,6 +358,8 @@ namespace nano
 
          pmainwindow->move(x, y);
          pmainwindow->resize(cx, cy);
+
+         set_interface_client_size({cx, cy});
 
          on_create_window();
 
@@ -589,45 +590,28 @@ namespace nano
       //}
       //
 
+
       void window::show_window()
       {
 
-         //   if(is_main_thread())
-         //   {
-         //
-         //      // Cannot display synchronously in user/main thread.
-         //
-         //      // Cannot show user interface on break of user/main thread.
-         //
-         //      debug_break();
-         //
-         //      return;
-         //
-         //   }
+         auto λ_show_window = [this]()
+         {
 
-         //_wm_nodecorations(false);
+            _map_window();
 
-         //XMapWindow(m_pdisplay->m_pdisplay, m_window);
+            _raise_window();
 
-         _map_window();
+            set_active_window();
 
-         _raise_window();
+         };
 
-         //XRaiseWindow(m_pdisplay->m_pdisplay, m_window);
-
-         set_active_window();
-
-         //xcb_flush(m_pdisplay->m_pconnection);
-
-         //   m_eventEnd.wait();
+         main_post(λ_show_window);
 
       }
 
 
       ::e_status window::_map_window()
       {
-
-         //auto estatus = m_pdisplay->_map_window(m_window);
 
          m_pqwidget->show();
 
@@ -1172,9 +1156,20 @@ namespace nano
       void window::_on_qimage_draw(QImage * pqimage)
       {
 
-         qimage_paintable_pixmap pixmap(pqimage);
+         m_puserinteractionbase->draw(m_pnanodevice);
 
-         m_pnanodevice->copy_to_pixmap(pixmap);
+         auto pixmap = m_pnanodevice->pixmap();
+
+         QImage image(
+            (const uchar *) pixmap.m_pimage32,
+            pixmap.width(),
+            pixmap.height(),
+            pixmap.m_iScan,
+            QImage::Format_ARGB32_Premultiplied);
+
+         QPainter painter(pqimage);
+
+         painter.drawImage(0, 0, image);
 
       }
 
@@ -1650,9 +1645,59 @@ namespace nano
 //
 //    }
 
+
+      void window::_on_size(int cx, int cy)
+      {
+         //::user::interaction_impl* pimpl = m_puserinteractionimpl;
+
+
+         //auto puserinteraction = pimpl->m_puserinteraction;
+
+         //::size_i32 s(cx, cy);
+
+         set_interface_client_size({cx, cy});
+
+         m_puserinteractionbase->on_size_window();
+
+      }
+
+
+      void window::set_interface_client_size(const ::size_i32 & sizeWindow)
+      {
+
+         m_sizeWindow = sizeWindow;
+
+         // if (!m_pcairosurface)
+         // {
+         //
+         //    cairo_surface_destroy(m_pcairosurface);
+         //
+         // }
+
+         rectangle_i32 r;
+
+         m_puserinteractionbase->get_client_rectangle(r);
+
+         //auto pgdkdisplay = m_pdisplaybase->m_pgdkdisplay;
+
+         //auto window = m_pgtkwidget;
+
+         auto w = r.width();
+
+         auto h = r.height();
+
+         nano()->graphics();
+
+         __construct(m_pnanodevice);
+
+         m_pnanodevice->create(w, h);
+
+      }
+
+
    //
    // // Callback for when the window visibility changes (minimized/hidden or restored)
-   // static void on_window_visibility_changed(GObject* object, GParamSpec* pspec, gpointer p)
+   // static void on_window_visibility_chang_wed(GObject* object, GParamSpec* pspec, gpointer p)
    // {
    //    auto pwindow = (::windowing_kde5::window *)p;
    //
@@ -1702,6 +1747,49 @@ namespace nano
       //      return m_pdisplay->get_main_screen_size();
       //
       //   }
+
+
+      void window::defer_show_system_menu(::user::mouse *pmouse)
+      {
+         // Function to create and show the popup menu
+
+         m_psystemmenu = m_puserinteractionbase->create_system_menu();
+
+         QMenu contextMenu(m_pqwidget);
+
+         // Create actions for the context menu with custom arguments
+         for(auto pmenuitem : *m_psystemmenu)
+         {
+
+            if(pmenuitem->m_strName.is_empty())
+            {
+
+               contextMenu.addSeparator();
+
+               continue;
+
+            }
+
+            auto paction = new QAction(pmenuitem->m_strName.c_str(), m_pqwidget);
+
+            m_pqwidget->connect(paction, &QAction::triggered, [this, pmenuitem]()
+            {
+
+               m_puserinteractionbase->_on_window_simple_action(pmenuitem->m_strAtom);
+
+            });
+
+            m_qactiona.add(paction);
+
+            contextMenu.addAction(paction);
+
+         }
+
+         // Show the context menu at the cursor position
+         contextMenu.exec({pmouse->m_pointAbsolute.x(), pmouse->m_pointAbsolute.y()});
+
+      }
+
    } // namespace user
 } // namespace nano
 

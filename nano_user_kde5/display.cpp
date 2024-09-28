@@ -598,12 +598,12 @@ namespace kde5
 
                }
 
-               if (!bHandled1)
-               {
-
-                  bHandled2 = xcb_posted();
-
-               }
+               // if (!bHandled1)
+               // {
+               //
+               //    bHandled2 = xcb_posted();
+               //
+               // }
 
                //xcb_flush(m_pconnection);
 

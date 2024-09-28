@@ -18,11 +18,9 @@ QCustomTopWindow::QCustomTopWindow(::kde5::nano::user::window * pwindow)
    //setTranslucentAttributes(this);
 }
 
+
    void QCustomTopWindow::paintEvent(QPaintEvent* event)
    {
-      // Create a QPixmap to serve as the drawing surface
-      //QPixmap pixmap(this->size());
-      //pixmap.fill(Qt::transparent);  // Make the QPixmap fully transparent
 
       if(m_qimage.size() != this->size())
       {
@@ -31,38 +29,21 @@ QCustomTopWindow::QCustomTopWindow(::kde5::nano::user::window * pwindow)
 
       }
 
-      // Create a Cairo surface from QImage
-      //QImage qImage(this->size(), QImage::Format_ARGB32_Premultiplied);
-      //qImage.
       m_pwindow->_on_qimage_draw(&m_qimage);
-      // cairo_surface_t* surface = cairo_image_surface_create_for_data(
-      //     qImage.bits(),
-      //     CAIRO_FORMAT_ARGB32,
-      //     qImage.width(),
-      //     qImage.height(),
-      //     qImage.bytesPerLine()
-      // );
-      //
-      // cairo_t* cr = cairo_create(surface);
-      //
-      // // Draw a translucent blue rectangle
-      // cairo_set_source_rgba(cr, 0, 0, 1, 0.5);  // Blue with 50% opacity
-      // cairo_rectangle(cr, 50, 50, 300, 200);
-      // cairo_fill(cr);
-      //
-      // // Draw a translucent pink ellipse
-      // cairo_set_source_rgba(cr, 1, 0, 1, 0.5);  // Pink with 50% opacity
-      // cairo_arc(cr, 400, 200, 100, 0, 2 * M_PI);  // Circle with radius 100
-      // cairo_fill(cr);
-      //
-      // // Cleanup Cairo resources
-      // cairo_destroy(cr);
-      // cairo_surface_destroy(surface);
 
-      // Create a QPainter to draw the QImage
       QPainter painter(this);
+
       painter.drawImage(0, 0, m_qimage);
+
+   //QColor qcolor(100, 120, 255);
+   //QBrush qbrush(qcolor);
+
+   //painter.setBackground(qbrush);
+
+   //painter.fillRect(10, 10, 100, 100, qbrush);
+
    }
+
 
    // Handle mouse button press event
    void QCustomTopWindow::mousePressEvent(QMouseEvent *event)

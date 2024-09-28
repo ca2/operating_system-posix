@@ -3730,7 +3730,7 @@ set_interface_client_size({cx, cy});
 
             m_puserinteractionbase->get_client_rectangle(r);
 
-            auto pgdkdisplay = m_pdisplaybase->m_pgdkdisplay;
+            //auto pgdkdisplay = m_pdisplaybase->m_pgdkdisplay;
 
             auto window = m_pgtkwidget;
 
@@ -3805,13 +3805,12 @@ set_interface_client_size({cx, cy});
 
          void window::_on_cairo_draw(GtkWidget *widget, cairo_t *cr)
          {
-         m_pnanodevice->on_begin_draw();
 
-
+            m_pnanodevice->on_begin_draw();
 
             _draw(m_pnanodevice);
 
-         m_pnanodevice->on_end_draw();
+            m_pnanodevice->on_end_draw();
 
 
 
