@@ -128,7 +128,7 @@ namespace nano
 
          //virtual bool xcb_event(xcb_generic_event_t * pevent);
 
-         virtual bool xcb_posted();
+         //virtual bool xcb_posted();
 
          //void aaa_display_post(const ::procedure & procedure) override;
          //void aaa_display_send(const ::procedure & procedure);
