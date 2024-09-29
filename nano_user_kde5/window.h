@@ -30,8 +30,9 @@ namespace kde5
 
 
             QWidget *                                 m_pqwidget;
+           // QWindow *                                    m_pqwindow;
 
-            ::pointer<class display>                  m_pdisplay;
+            //::pointer<class display>                  m_pdisplay;
             //xcb_window_t                    m_window;
             //cairo_surface_t *               m_psurface;
             ::pointer<::nano::graphics::device>       m_pnanodevice;
@@ -86,6 +87,7 @@ namespace kde5
             virtual void _on_mouse_release(QMouseEvent * pevent);
             virtual void _on_mouse_motion(QMouseEvent * pevent);
             virtual void _on_qimage_draw(QImage * pqimage);
+            virtual void _on_reposition(int x, int y);
             virtual void _on_size(int cx, int cy);
 
 
@@ -140,6 +142,8 @@ namespace kde5
 
             void set_position(const ::point_i32 & point) override;
 
+            void set_size(const ::size_i32 & size) override;
+
             void redraw() override;
 
             //void get_client_rectangle(::rectangle_i32 & rectangle) override;
@@ -158,6 +162,10 @@ namespace kde5
             //::size_i32 get_main_screen_size() override;
             void defer_show_system_menu(::user::mouse *pmouse) override;
 
+            void set_mouse_capture() override;
+            bool is_mouse_captured() override;
+            bool has_mouse_capture() override;
+            void release_mouse_capture() override;
 
          };
       }//namespace user

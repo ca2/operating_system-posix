@@ -189,12 +189,12 @@ namespace node_kde5
    }
 
 
-   void node::_fill_os_theme_colors(::os_theme_colors * pthemecolors)
-   {
-
-      kde_update_os_theme_colors(pthemecolors);
-
-   }
+   // void node::_fill_os_theme_colors(::os_theme_colors * pthemecolors)
+   // {
+   //
+   //    kde_update_os_theme_colors(pthemecolors);
+   //
+   // }
 
 
    void node::on_start_system()
@@ -397,53 +397,53 @@ namespace node_kde5
 
 
 
-   string node::os_get_user_theme()
-   {
+   // string node::os_get_user_theme()
+   // {
+   //
+   //    ::file::path pathKdeGlobals;
+   //
+   //    pathKdeGlobals = acmedirectory()->home() /".config/kdeglobals";
+   //
+   //    auto lines = file()->lines(pathKdeGlobals);
+   //
+   //    ::string str;
+   //
+   //    lines.case_insensitive_find_first_begins_eat(str, "LookAndFeelPackage");
+   //
+   //    if(str.is_empty())
+   //    {
+   //
+   //       return {};
+   //
+   //    }
+   //
+   //    str.trim_left(" =");
+   //    str.trim_right();
+   //    str.trim();
+   //
+   //    auto strTheme = str;
+   //
+   //    information() << "Current LookAndFeelPackage is : " << strTheme;
+   //
+   //    return strTheme;
+   //
+   // }
+   //
+   //
+   // void node::os_set_user_theme(const ::string &strUserTheme)
+   // {
+   //
+   //    command_system("lookandfeeltool -a " + strUserTheme);
+   //
+   // }
 
-      ::file::path pathKdeGlobals;
 
-      pathKdeGlobals = acmedirectory()->home() /".config/kdeglobals";
-
-      auto lines = file()->lines(pathKdeGlobals);
-
-      ::string str;
-
-      lines.case_insensitive_find_first_begins_eat(str, "LookAndFeelPackage");
-
-      if(str.is_empty())
-      {
-
-         return {};
-
-      }
-
-      str.trim_left(" =");
-      str.trim_right();
-      str.trim();
-
-      auto strTheme = str;
-
-      information() << "Current LookAndFeelPackage is : " << strTheme;
-
-      return strTheme;
-
-   }
-
-
-   void node::os_set_user_theme(const ::string &strUserTheme)
-   {
-
-      command_system("lookandfeeltool -a " + strUserTheme);
-
-   }
-
-
-   void node::os_process_user_theme(string strTheme)
-   {
-
-      //_os_process_user_theme(strTheme);
-
-   }
+   // void node::os_process_user_theme(string strTheme)
+   // {
+   //
+   //    //_os_process_user_theme(strTheme);
+   //
+   // }
 
 
    bool node::set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay)
@@ -1086,20 +1086,20 @@ namespace node_kde5
    }
 
 
-   bool node::dark_mode() const
-   {
-
-      auto pnodeThisMutable = (node *) this;
-
-      pnodeThisMutable->_fetch_user_color();
-
-      auto pthemecolors = pnodeThisMutable->_get_os_theme_colors();
-
-      auto bDarkMode = pthemecolors->m_colorBack.get_luminance() < 0.5;
-
-      return bDarkMode;
-
-   }
+   // bool node::dark_mode() const
+   // {
+   //
+   //    auto pnodeThisMutable = (node *) this;
+   //
+   //    pnodeThisMutable->_fetch_user_color();
+   //
+   //    auto pthemecolors = pnodeThisMutable->_get_os_theme_colors();
+   //
+   //    auto bDarkMode = pthemecolors->m_colorBack.get_luminance() < 0.5;
+   //
+   //    return bDarkMode;
+   //
+   // }
 
 
    void node::defer_innate_ui()

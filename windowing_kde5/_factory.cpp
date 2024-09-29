@@ -22,7 +22,7 @@ __FACTORY_EXPORT void windowing_kde5_factory(::factory::factory * pfactory)
 
    pfactory->add_factory_item < ::windowing_kde5::buffer, ::graphics::graphics > ();
 
-   pfactory->add_factory_item < ::windowing_kde5::display, ::windowing::display > ();
+   pfactory->add_factory_item < ::windowing_kde5::display, ::nano::user::display > ();
    pfactory->add_factory_item < ::windowing_kde5::window, ::windowing::window > ();
    pfactory->add_factory_item < ::windowing_kde5::windowing, ::windowing::windowing > ();
    pfactory->add_factory_item < ::windowing_kde5::text_composition_client, ::user::text_composition_client > ();

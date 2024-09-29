@@ -151,6 +151,7 @@ void on_initialize_particle() override;
        virtual void _on_mouse_release(QMouseEvent * pevent);
        virtual void _on_mouse_motion(QMouseEvent * pevent);
          virtual void _on_qimage_draw(QImage * pqimage);
+         virtual void _on_reposition(int x, int y);
          virtual void _on_size(int cx, int cy);
 
          //void _on_window_button_pressed(GtkWidget * pwidget, const char * pszName, GtkGestureClick * pgesture, int n_press, double x, double y);
@@ -285,7 +286,7 @@ void on_initialize_particle() override;
       void _set_foreground_window_unlocked() override;
 
 
-      bool has_mouse_capture() const override;
+      //bool has_mouse_capture() override;
 
       bool has_keyboard_focus() const override;
 
@@ -440,7 +441,7 @@ void on_initialize_particle() override;
       void _on_windowing_close_window() override;
 
          //GMenu* _create_system_menu();
-         virtual void _on_window_simple_action(const char * pszActionName);
+         //virtual void _on_window_simple_action(const char * pszActionName);
 
        ///virtual void _on_a_system_menu_item_action_triggered(::operating_system::a_system_menu_item * pitem);
 

@@ -281,7 +281,7 @@ return false;
 
                    int scanSource = imageClipboard.bytesPerLine();
 
-                   ::copy_image32(pimage32Target, width, height, scanTarget, pimage32Source, scanSource);
+                   pimage32Target->copy(width, height, scanTarget, pimage32Source, scanSource);
 
                    bOk = true;
 

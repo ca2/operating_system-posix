@@ -113,12 +113,12 @@ namespace kde5
          ::nano::user::display * window::get_display()
          {
 
-            if (!m_pdisplay)
+            if (!m_pdisplaybase)
             {
 
-               m_pdisplay = system()->windowing_system()->display();
+               m_pdisplaybase = system()->windowing_system()->display();
 
-               if (!m_pdisplay)
+               if (!m_pdisplaybase)
                {
 
                   throw ::exception(error_null_pointer);
@@ -127,7 +127,7 @@ namespace kde5
 
             }
 
-            return m_pdisplay;
+            return m_pdisplaybase;
 
          }
 
@@ -356,7 +356,7 @@ namespace kde5
 
             m_pqwidget = pmainwindow;
 
-            pmainwindow->setWindowFlags(Qt::FramelessWindowHint); // No window decorations
+            pmainwindow->setWindowFlags(Qt::FramelessWindowHint | Qt::CustomizeWindowHint); // No window decorations
             pmainwindow->setAttribute(Qt::WA_TranslucentBackground); // Translucent background
             pmainwindow->setAttribute(Qt::WA_NoSystemBackground, true);
             pmainwindow->setAttribute(Qt::WA_OpaquePaintEvent, false);
@@ -1124,9 +1124,38 @@ namespace kde5
          //
          // m_puserinteractionbase->m_rectangle.move_to(point);
 
-         m_pqwidget->move(point.x(), point.y());
+         auto p = point;
+
+         auto λ_set_position = [this, p]
+         {
+
+            m_pqwidget->move(p.x(), p.y());
+
+         };
+
+         main_post(λ_set_position);
 
       }
+
+
+         void window::set_size(const ::size_i32 & size)
+         {
+
+            // m_pdisplay->_move_window(m_window, point.x(), point.y());
+            //
+            // m_puserinteractionbase->m_rectangle.move_to(point);
+            auto s = size;
+
+            auto λ_set_size = [this, s]
+            {
+
+               m_pqwidget->resize(s.cx(), s.cy());
+
+            };
+
+            main_post(λ_set_size);
+
+         }
 
 
       void window::set_capture()
@@ -1249,54 +1278,16 @@ namespace kde5
 
     void window::_on_mouse_press(QMouseEvent * pevent)
     {
-//       if(n_press == 1)
-//       {
-//          guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture));
-//          // //GtkWidget* window = gtk_event_controller_get_widget(GTK_EVENT_CONTROLLER(pgesture));
-//          //
-//          // resize_edge = detect_resize_edge(m_pgtkwidget, x, y);
-//          //
-//          // if (button == 1)
-//          // {
-//          //    if (resize_edge != e_window_edge_none)
-//          //    {
-//          //
-//          //       if(kde5_windowing()->m_pdisplay->is_x11())
-//          //       {
-//          //          // Start resizing
-//          //          resizing = TRUE;
-//          //          start_x = x;
-//          //          start_y = y;
-//          //          auto r = _unlocked_defer_get_window_rectangle();
-//          //          start_window_x = r.left();
-//          //          start_window_y = r.right();
-//          //          start_width = r.width();
-//          //          start_height = r.height();
-//          //
-//          //       }
-//          //       else
-//          //       {
-//          //          return;
-//          //
-//          //       }
-//          //    }
-//          //    else
-//          //    {
-//          //       if(kde5_windowing()->m_pdisplay->is_x11())
-//          //       {
-//          //          // Start moving
-//          //          moving = TRUE;
-//          //          start_x = x;
-//          //          start_y = y;
-//          //          auto r = _unlocked_defer_get_window_rectangle();
-//          //          start_window_x = r.left();
-//          //          start_window_y = r.right();
-//          //          start_width = r.width();
-//          //          start_height = r.height();
-//          //
-//          //       }
-//          //    }
-//          // }
+
+            if(m_bResizingWindowFromBottomRight ||
+               m_bRepositioningWindowFromCenter)
+            {
+               m_pqwidget->releaseMouse();
+               m_bRepositioningWindowFromCenter = false;
+               m_bResizingWindowFromBottomRight = false;
+            }
+
+
           auto puserinteractionimpl = m_puserinteractionbase;
 
           if (::is_set(puserinteractionimpl))
@@ -1367,20 +1358,18 @@ namespace kde5
        //}
 
     }
-//
-//
-//    static void on_button_released(GtkGestureClick* pgesture, int n_press, double x, double y, gpointer p)
-//    {
-//
-//       auto * pwindow = (::windowing_kde5::window *)p;
-//
-//       pwindow->_on_button_released(pgesture, n_press, x, y);
-//
-//    }
 
 
     void window::_on_mouse_release(QMouseEvent * pevent)
     {
+
+            if(m_bResizingWindowFromBottomRight ||
+               m_bRepositioningWindowFromCenter)
+            {
+               m_pqwidget->releaseMouse();
+               m_bRepositioningWindowFromCenter = false;
+               m_bResizingWindowFromBottomRight = false;
+            }
 
        //if(n_press == 1)
        {
@@ -1535,6 +1524,35 @@ namespace kde5
 //       //
 //       // }
 //
+
+
+            if(m_bRepositioningWindowFromCenter)
+            {
+
+               auto p = pevent->globalPos();
+
+               p.setX(p.x()-m_pqwidget->size().width()/2);
+               p.setY(p.y()- m_pqwidget->size().height()/2);
+
+m_pqwidget->move(p);
+               return;
+
+            }
+            else if(m_bResizingWindowFromBottomRight)
+            {
+
+               QSize s;
+
+               auto p = pevent->globalPos();
+
+               s.setWidth(p.x()-m_pqwidget->pos().x());
+               s.setHeight(p.y()-m_pqwidget->pos().y());
+
+               m_pqwidget->resize(s);
+               return;
+
+            }
+
        auto puserinteractionimpl = m_puserinteractionbase;
 
        if(::is_set(puserinteractionimpl))
@@ -1651,6 +1669,15 @@ namespace kde5
 //
 //
 //    }
+
+
+         void window::_on_reposition(int x, int y)
+         {
+
+            m_puserinteractionbase->on_position_window();
+
+         }
+
 
 
       void window::_on_size(int cx, int cy)
@@ -1783,7 +1810,7 @@ namespace kde5
                m_pqwidget->connect(paction, &QAction::triggered, [this, pmenuitem]()
                {
 
-                  m_puserinteractionbase->_on_window_simple_action(pmenuitem->m_strAtom);
+                  _on_window_simple_action(pmenuitem->m_strAtom);
 
                });
 
@@ -1797,6 +1824,69 @@ namespace kde5
             contextMenu.exec({pmouse->m_pointAbsolute.x(), pmouse->m_pointAbsolute.y()});
 
          }
+
+
+         void window::set_mouse_capture()
+         {
+
+            main_post([this]()
+            {
+
+               m_pqwidget->grabMouse();
+
+            });
+
+         }
+
+
+         bool window::is_mouse_captured()
+         {
+
+            bool bIsMouseCaptured = false;
+
+            main_post([this, &bIsMouseCaptured]()
+   {
+
+      bIsMouseCaptured = m_pqwidget->mouseGrabber() != nullptr;
+
+   });
+
+            return bIsMouseCaptured;
+
+         }
+
+         bool window::has_mouse_capture()
+         {
+
+            bool bHasMouseCapture = false;
+
+            main_post([this, &bHasMouseCapture]()
+   {
+
+      bHasMouseCapture = m_pqwidget->mouseGrabber() ==m_pqwidget;
+
+   });
+
+            return bHasMouseCapture;
+
+         }
+
+         void window::release_mouse_capture()
+         {
+
+
+            main_post([this]()
+               {
+
+                  m_pqwidget->grabMouse();
+
+               });
+
+
+         }
+
+
+
 
 
       } // namespace user

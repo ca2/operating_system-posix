@@ -92,7 +92,26 @@ QCustomTopWindow::QCustomTopWindow(::kde5::nano::user::window * pwindow)
       m_pwindow->_on_mouse_motion(event);
    }
 
+void QCustomTopWindow::moveEvent(QMoveEvent *event)
+{
+   try
+   {
+      QPoint newPos = event->pos();  // Get the new size of the window
+      //   qDebug() << "Window resized to:" << newSize;
+      m_pwindow->_on_reposition(newPos.x(), newPos.y());
+      // Update the label with the new size
+      //updateSizeLabel(newSize);
+   }
+   catch(...)
+   {
 
+
+   }
+
+   // Call the base class implementation (important for proper event handling)
+   QWidget::moveEvent(event);
+
+}
    void QCustomTopWindow::resizeEvent(QResizeEvent *event)
    {
       try
@@ -110,6 +129,6 @@ QCustomTopWindow::QCustomTopWindow(::kde5::nano::user::window * pwindow)
       }
 
       // Call the base class implementation (important for proper event handling)
-      QMainWindow::resizeEvent(event);
+      QWidget::resizeEvent(event);
    }
 

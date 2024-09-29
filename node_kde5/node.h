@@ -52,7 +52,7 @@ namespace node_kde5
 
       void user_post_quit() override;
 
-      void _fill_os_theme_colors(::os_theme_colors * pthemecolors) override;
+      //void _fill_os_theme_colors(::os_theme_colors * pthemecolors) override;
 
       //void fetch_user_color() override;
 
@@ -74,11 +74,11 @@ namespace node_kde5
 
       //void on_os_dark_mode_change() override;
 
-      string os_get_user_theme() override;
+      //string os_get_user_theme() override;
 
-      void os_set_user_theme(const string & strUserTheme) override;
+      //void os_set_user_theme(const string & strUserTheme) override;
 
-      void os_process_user_theme(string strTheme) override;
+      //void os_process_user_theme(string strTheme) override;
 
       void enable_wallpaper_change_notification() override;
 
@@ -131,7 +131,7 @@ namespace node_kde5
       void launch_app_by_app_id(const ::scoped_string & scopedstrAppId, bool bSingleExecutableVersion) override;
 
 
-      bool dark_mode() const override;
+      //bool dark_mode() const override;
 
 
       void defer_innate_ui() override;

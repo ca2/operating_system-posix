@@ -80,6 +80,7 @@ list(APPEND library_references
         acme
         acme_posix
    windowing_system_kde5
+   nano_user_kde5
         apex
         apex_posix
    innate_ui_kde5

@@ -14,6 +14,8 @@
 #include "apex/input/input.h"
 #include "aura/windowing/cursor_manager.h"
 #include <X11/cursorfont.h>
+
+#include "acme/windowing_system/windowing_system.h"
 #include "aura/user/user/interaction_impl.h"
 #include "aura/windowing/display.h"
 #include "aura/platform/system.h"
@@ -308,6 +310,13 @@ namespace windowing_kde5
 
    ::windowing::display * windowing::display()
    {
+
+      if(!m_pdisplay)
+      {
+
+         m_pdisplay = system()->windowing_system()->display();
+
+      }
 
       return m_pdisplay;
 
@@ -961,9 +970,18 @@ namespace windowing_kde5
 
       //g_object_ref(m_pgtkapplication);
 
-      auto pdisplay = __create<::windowing::display>();
+      //auto pdisplay = __create<::nano::user::display>();
 
-      pdisplay->initialize_display(this);
+      auto pdisplay = this->display();
+
+      ::pointer < ::windowing::display > pwindowingdisplay = pdisplay;
+
+      if(pwindowingdisplay)
+      {
+
+         pwindowingdisplay->initialize_display(this);
+
+      }
 
       m_pdisplay = pdisplay;
 

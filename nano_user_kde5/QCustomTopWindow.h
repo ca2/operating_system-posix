@@ -9,7 +9,7 @@
 
 // Custom window class inheriting from QMainWindow
 class QCustomTopWindow :
-   public QMainWindow
+   public QWidget
 {
 public:
 
@@ -30,6 +30,8 @@ protected:
    void mouseReleaseEvent(QMouseEvent *event) override;
 
    void mouseMoveEvent(QMouseEvent *event) override;
+
+   void moveEvent(QMoveEvent *event) override;
 
    void resizeEvent(QResizeEvent *event) override;
 
