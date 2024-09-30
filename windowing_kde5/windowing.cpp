@@ -314,6 +314,8 @@ namespace windowing_kde5
       if(!m_pdisplay)
       {
 
+         system()->do_user_system_factory();
+
          m_pdisplay = system()->windowing_system()->display();
 
       }

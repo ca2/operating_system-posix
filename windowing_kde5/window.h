@@ -50,7 +50,7 @@ namespace windowing_kde5
          //, virtual public ::wayland::nano::user::window_base
    {
    public:
-::point_i32 m_pointCursor2;
+//::point_i32 m_pointCursor2;
          //typedef struct {
          bool moving;
          bool resizing;
@@ -275,6 +275,8 @@ void on_initialize_particle() override;
 
 
       void set_mouse_cursor(::windowing::cursor * pcursor) override;
+
+      void set_mouse_capture() override;
 
 
       //virtual void __activate_window(bool bNormalPriority);

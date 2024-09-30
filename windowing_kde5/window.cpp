@@ -5989,6 +5989,14 @@ m_puserinteractionbase = m_puserinteractionimpl->m_puserinteraction;
    //   }
 
 
+   void window::set_mouse_capture()
+   {
+
+      ::kde5::nano::user::window::set_mouse_capture();
+
+   }
+
+
    void window::set_active_window()
    {
       synchronous_lock synchronouslock(user_synchronization());

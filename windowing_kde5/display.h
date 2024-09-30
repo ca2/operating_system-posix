@@ -8,7 +8,7 @@
 
 //#include "acme/operating_system/x11/nano/event_listener.h"
 //#include "acme/operating_system/x11/nano/display.h"
-//#include "nano_user_wayland/display_base.h"
+#include "nano_user_kde5/display.h"
 #include "aura/windowing/display.h"
 #include "_kde5.h"
 
@@ -21,8 +21,8 @@ namespace windowing_kde5
 
 
    class CLASS_DECL_WINDOWING_KDE5 display :
-      virtual public ::windowing::display //,
-      //virtual public ::wayland::nano::user::display_base
+      virtual public ::windowing::display,
+      virtual public ::kde5::nano::user::display
    {
    public:
 

@@ -1084,6 +1084,8 @@ namespace kde5
 
          m_eventEnd.SetEvent();
 
+         ::windowing::window_base::destroy();
+
       }
 
 

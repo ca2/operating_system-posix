@@ -2829,7 +2829,7 @@ if(functionTrace)
 
       auto edesktop = get_edesktop();
 
-      if(edesktop & user::e_desktop_kde)
+      if(edesktop == user::e_desktop_kde)
       {
 
          auto pfactory = system()->factory("windowing_system", "kde5");

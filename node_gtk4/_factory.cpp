@@ -14,7 +14,7 @@ __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
    //::node_gtk4::initialize_gtk();
 
 
-   windowing_gtk4_factory(pfactory);
+   //windowing_gtk4_factory(pfactory);
 
 
 //   ::string strSessionType = getenv("XDG_SESSION_TYPE");

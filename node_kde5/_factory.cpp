@@ -37,7 +37,7 @@ __FACTORY_EXPORT void node_kde_factory(::factory::factory * pfactory)
 {
 
 
-   windowing_kde5_factory(pfactory);
+   //windowing_kde5_factory(pfactory);
 
 
 //   __FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory);
