@@ -30,18 +30,18 @@ namespace node_gtk4
    }
 
 
-   ::windowing_x11::windowing * monitor::x11_windowing() const
+   ::windowing_gtk4::windowing * monitor::gtk4_windowing() const
    {
 
-      return (::windowing_x11::windowing *) m_pdisplay->m_pwindowing->m_pWindowing4;
+      return (::windowing_gtk4::windowing *) m_pdisplay->m_pwindowing->m_pWindowing4;
 
    }
 
 
-   ::windowing_x11::display * monitor::x11_display() const
+   ::windowing_gtk4::display * monitor::gtk4_display() const
    {
 
-      return (::windowing_x11::display *) m_pdisplay->m_pDisplay;
+      return (::windowing_gtk4::display *) m_pdisplay->m_pDisplay;
 
    }
 

@@ -4,7 +4,7 @@
 #pragma one
 
 
-#include "windowing_x11/display.h"
+#include "windowing_gtk4/display.h"
 
 //
 //namespace node_gtk4

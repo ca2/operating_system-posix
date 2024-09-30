@@ -1,9 +1,9 @@
 #include "framework.h"
 #include "user.h"
 #include "window.h"
-#include "acme/nano/user/font.h"
-#include "acme/nano/user/brush.h"
-#include "acme/nano/user/pen.h"
+#include "acme/nano/graphics/font.h"
+#include "acme/nano/graphics/brush.h"
+#include "acme/nano/graphics/pen.h"
 
 
 DECLARE_FACTORY(windowing_system_x11);

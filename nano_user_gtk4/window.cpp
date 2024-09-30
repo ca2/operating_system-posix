@@ -24,7 +24,23 @@
 #include "acme/nano/nano.h"
 #include "acme/nano/graphics/brush.h"
 #include "acme/nano/graphics/pen.h"
+#include "acme/nano/user/interchange.h"
 //#include <xkbcommon/xkbcommon.h>
+
+
+cairo_surface_t * cairo_surface_for_pixmap(::pixmap & pixmap)
+{
+
+   return cairo_image_surface_create_for_data(
+       (unsigned char *) pixmap.m_pimage32,              // Pointer to the raw data in memory
+       CAIRO_FORMAT_ARGB32,    // Data format (ARGB32)
+       pixmap.width(),                  // Width of the surface
+       pixmap.height(),                 // Height of the surface
+       pixmap.m_iScan                 // Stride (number of bytes per row)
+   );
+
+}
+
 
 /* Declare the SubclassedModelButton type */
 typedef struct _SubclassedModelButton SubclassedModelButton;
@@ -106,7 +122,7 @@ namespace nano
       static void on_button_released(GtkGestureClick* pgesture, int n_press, double x, double y, gpointer p)
       {
 
-         auto pwindow = (::gtk4::nano::user::window *)p;
+         ::pointer < ::gtk4::nano::user::window > pwindow = (::gtk4::nano::user::window *)p;
 
          pwindow->_on_button_released(pgesture, n_press, x, y);
 
@@ -418,12 +434,6 @@ namespace nano
 
          //m_pdisplaybase = m_pnanouserdisplay;
 
-         auto r = m_puserinteractionbase->get_window_rectangle();
-
-         m_pointWindow = r.top_left();
-
-         m_sizeWindow = r.size();
-
          int x = m_pointWindow.x();
 
          int y = m_pointWindow.y();
@@ -452,9 +462,80 @@ namespace nano
 
          //auto pwindowing = this->windowing();
 
-         m_pgtkwidget = gtk_application_window_new(pgtk4windowingsystem->m_pgtkapplication);
 
-         gtk_window_set_decorated(GTK_WINDOW(m_pgtkwidget), false);
+
+         ::pointer < ::nano::user::interchange > pinterchange = m_puserinteractionbase;
+
+         if(pinterchange)
+         {
+
+            auto pinterchangeParent = pinterchange->m_pinterchangeParent;
+
+            if(pinterchangeParent)
+            {
+
+               ::pointer<::gtk4::nano::user::window > pwindowParent = pinterchangeParent->m_pwindowbase;
+
+               if(pwindowParent)
+               {
+
+                  m_pgtkwidget = gtk_popover_new();
+
+                  //gtk_window_set_decorated(GTK_WINDOW(m_pgtkwidget), false);
+
+                  gtk_popover_set_has_arrow(GTK_POPOVER(m_pgtkwidget), false);
+
+
+                  GdkRectangle r;
+                  copy(r, pinterchange->m_rectangle);
+                  r.height = 2;
+                  gtk_popover_set_pointing_to(GTK_POPOVER(m_pgtkwidget), &r);
+
+
+                  gtk_widget_set_parent(m_pgtkwidget, pwindowParent->m_pgtkwidget);
+
+                  //gtk_window_set_transient_for(GTK_WINDOW(m_pgtkwidget), GTK_WINDOW(pwindowParent->m_pgtkwidget));
+
+                  auto css_provider = gtk_css_provider_new ();
+                  gtk_css_provider_load_from_string (
+                      css_provider,
+                      // rbga, `a` set to 0.0 makes the window background transparent
+                      ".raw_and_transparent {border-radius:0px; box-shadow:none;border:0px;padding:0px;margin:0px;background-color: rgba(0, 0, 0, 0.0); }");
+
+                  gtk_style_context_add_provider_for_display (
+                      gtk_widget_get_display (m_pgtkwidget),
+                      (GtkStyleProvider *) css_provider, GTK_STYLE_PROVIDER_PRIORITY_USER);
+
+                  gtk_widget_add_css_class (m_pgtkwidget, "transparent_no_margin");
+
+
+               }
+
+            }
+
+         }
+
+         if(!m_pgtkwidget)
+         {
+
+            m_pgtkwidget = gtk_application_window_new(pgtk4windowingsystem->m_pgtkapplication);
+
+            gtk_window_set_decorated(GTK_WINDOW(m_pgtkwidget), false);
+
+            auto css_provider = gtk_css_provider_new ();
+            gtk_css_provider_load_from_string (
+                css_provider,
+                // rbga, `a` set to 0.0 makes the window background transparent
+                ".window { background-color: rgba(0, 0, 0, 0.0); }");
+
+            gtk_style_context_add_provider_for_display (
+                gtk_widget_get_display (m_pgtkwidget),
+                (GtkStyleProvider *) css_provider, GTK_STYLE_PROVIDER_PRIORITY_USER);
+
+            gtk_widget_add_css_class (m_pgtkwidget, "window");
+
+
+         }
 
    //       GdkRGBA rgba;
    //
@@ -472,17 +553,6 @@ namespace nano
    //       rgba.alpha = 0;  // Fully transparent
    //       gtk_widget_set_background_color(GTK_WIDGET(window), &rgba);
 
-         auto css_provider = gtk_css_provider_new ();
-         gtk_css_provider_load_from_string (
-             css_provider,
-             // rbga, `a` set to 0.0 makes the window background transparent
-             ".window { background-color: rgba(0, 0, 0, 0.0); }");
-
-         gtk_style_context_add_provider_for_display (
-             gtk_widget_get_display (m_pgtkwidget),
-             (GtkStyleProvider *) css_provider, GTK_STYLE_PROVIDER_PRIORITY_USER);
-
-         gtk_widget_add_css_class (m_pgtkwidget, "window");
 
 
          // // Create a widget (e.g., a GtkWindow or GtkButton)
@@ -516,9 +586,20 @@ namespace nano
          m_sizeOnSize.cx() = cx;
          m_sizeOnSize.cy() = cy;
 
-         gtk_widget_set_size_request(m_pgtkwidget, 300, 300);
+
          // Set window size
-         gtk_window_set_default_size(GTK_WINDOW(m_pgtkwidget), cx, cy);
+
+         if(GTK_IS_WINDOW(m_pgtkwidget))
+         {
+            gtk_widget_set_size_request(m_pgtkwidget, 300, 300);
+
+            gtk_window_set_default_size(GTK_WINDOW(m_pgtkwidget), cx, cy);
+         }
+         else
+         {
+
+            gtk_widget_set_size_request(m_pgtkwidget, cx, cy);
+         }
 
 
          set_interface_client_size(m_sizeOnSize);
@@ -533,11 +614,25 @@ namespace nano
          nullptr
             );
 
+         if(GTK_IS_POPOVER(m_pgtkwidget))
+         {
+            gtk_popover_set_child(GTK_POPOVER(m_pgtkwidget), m_pdrawingarea);
+            // gtk_drawing_area_set_draw_func (GTK_DRAWING_AREA (area),
+            //                                 draw_function,
+            //                                 NULL, NULL);
+            gtk_widget_add_css_class (m_pdrawingarea, "raw_and_transparent");
+            auto pparent = gtk_widget_get_parent(m_pdrawingarea);
+            gtk_widget_add_css_class (pparent, "raw_and_transparent");
+         }
+         else
+         {
 
-         gtk_window_set_child(GTK_WINDOW(m_pgtkwidget), m_pdrawingarea);
-         // gtk_drawing_area_set_draw_func (GTK_DRAWING_AREA (area),
-         //                                 draw_function,
-         //                                 NULL, NULL);
+            gtk_window_set_child(GTK_WINDOW(m_pgtkwidget), m_pdrawingarea);
+            // gtk_drawing_area_set_draw_func (GTK_DRAWING_AREA (area),
+            //                                 draw_function,
+            //                                 NULL, NULL);
+
+         }
 
          m_pgtkgestureClick = gtk_gesture_click_new();
 
@@ -661,17 +756,21 @@ namespace nano
 
          auto psystemmenu = m_puserinteractionbase->create_system_menu(false);
 
-         for(auto & pitem:*psystemmenu)
+         if(psystemmenu)
          {
-
-            if(pitem->m_strAtom.has_char() && !pitem->m_strAtom.begins("***"))
+            for(auto & pitem:*psystemmenu)
             {
 
-               auto action = g_simple_action_new(pitem->m_strAtom, NULL);
+               if(pitem->m_strAtom.has_char() && !pitem->m_strAtom.begins("***"))
+               {
 
-               g_signal_connect(action, "activate", G_CALLBACK(on_window_simple_action), this);
+                  auto action = g_simple_action_new(pitem->m_strAtom, NULL);
 
-               g_action_map_add_action(G_ACTION_MAP(m_pgtkwidget), G_ACTION(action));
+                  g_signal_connect(action, "activate", G_CALLBACK(on_window_simple_action), this);
+
+                  g_action_map_add_action(G_ACTION_MAP(m_pgtkwidget), G_ACTION(action));
+
+               }
 
             }
 
@@ -2167,8 +2266,18 @@ namespace nano
 
       void window::__map()
       {
-         //synchronous_lock synchronouslock(user_synchronization());
-         gtk_widget_set_visible(m_pgtkwidget, true);
+
+         if(GTK_IS_POPOVER(m_pgtkwidget))
+         {
+
+            gtk_popover_popup(GTK_POPOVER(m_pgtkwidget));
+
+         }
+         else
+         {
+            //synchronous_lock synchronouslock(user_synchronization());
+            gtk_widget_set_visible(m_pgtkwidget, true);
+         }
 
          // if (m_pxdgtoplevel != nullptr || m_pxdgpopup != nullptr)
          // {
@@ -3833,7 +3942,17 @@ set_interface_client_size({cx, cy});
          //
          // m_pnanodevice->rectangle(r, pnanobrush, pnanopen);
 
-            m_pnanodevice->_on_cairo_paint(cr);
+            auto pixmap = m_pnanodevice->pixmap();
+
+            auto psurface = cairo_surface_for_pixmap(pixmap);
+
+            cairo_set_source_surface(cr, psurface, 0., 0.);
+
+         cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
+
+            cairo_paint(cr);
+
+         cairo_surface_destroy(psurface);
 
          }
 
@@ -3917,209 +4036,22 @@ set_interface_client_size({cx, cy});
             m_pdisplaybase = get_display();
 
             user_send([this]()
-                      {
-      //
-      //         auto pwldisplay = m_pdisplay->m_pwldisplay;
-      //
-      //         m_pvisual = DefaultVisual(display, DefaultScreen(display));
-      //
-      //         zero(m_visualinfo);
-      //
-      //         if (XMatchVisualInfo(display, DefaultScreen(display), 32, TrueColor, &m_visualinfo))
-      //         {
-      //
-      //            m_pvisual = m_visualinfo.visual;
-      //
-      //         }
-      //         else
-      //         {
-      //
-      //            zero(m_visualinfo);
-      //
-      //         }
-      //
-      //         m_iDepth = m_visualinfo.depth;
-      //
-      //         auto screen = DefaultScreen(display);
-      //
-      //         m_windowRoot = RootWindow(display, screen);
-      //
-      //         if(m_colormap)
-      //         {
-      //
-      //            XFreeColormap(display, m_colormap);
-      //
-      //         }
-      //
-      //         m_colormap = XCreateColormap(display, m_windowRoot, m_pvisual, AllocNone);
-      //
-                         //m_pdisplaybase->add_listener(this);
-      //
-                         //m_pdisplaybase->add_window(this);
-      //
-      //         XSetWindowAttributes attr{};
-      //
-      //         attr.colormap = m_colormap;
-      //
-      //         attr.event_mask =
-      //            PropertyChangeMask | ExposureMask | ButtonPressMask | ButtonReleaseMask
-      //            | KeyPressMask | KeyReleaseMask | PointerMotionMask | StructureNotifyMask
-      //            | FocusChangeMask | LeaveWindowMask | EnterWindowMask;
-      //
-      //         attr.background_pixmap = None;
-      //
-      //         attr.border_pixmap = None;
-      //
-      //         attr.border_pixel = 0;
-      //
-      //         attr.override_redirect = False;
-      //
-      //         int x = m_puserinteractionbase->m_rectangle.left();
-      //         int y = m_puserinteractionbase->m_rectangle.top();
-      //         int w = m_puserinteractionbase->m_rectangle.width();
-      //         int h = m_puserinteractionbase->m_rectangle.height();
+            {
 
-                         //m_pointWindow.x() = m_puserinteractionbase->m_rectangle.left();
-                         //m_pointWindow.y() = m_puserinteractionbase->m_rectangle.top();
-                         //m_sizeWindow.cx() = m_puserinteractionbase->m_rectangle.width();
-                         //m_sizeWindow.cy() = m_puserinteractionbase->m_rectangle.height();
+               auto r = m_puserinteractionbase->get_window_rectangle();
 
-//m_pointWindow = m_puserinteractionbase->m_rectangle.top_left();
-  //                       m_sizeWindow = m_puserinteractionbase->m_rectangle.size();
+               m_pointWindow = r.top_left();
 
+               m_sizeWindow = r.size();
 
                _create_window();
 
-                         information() << "window::create size configure : " << m_sizeWindow;
+               information() << "window::create size configure : " << m_sizeWindow;
 
-                         //nano_window_on_create();
-
-
-      //
-      //         m_window = XCreateWindow(display, m_windowRoot,
-      //            x, y, w, h,
-      //            0,
-      //            m_iDepth,
-      //            InputOutput,
-      //            m_pvisual,
-      //            CWColormap | CWEventMask | CWBackPixmap | CWBorderPixel | CWOverrideRedirect,
-      //            &attr
-      //         );
-      //
-      //         if(!m_window)
-      //         {
-      //
-      //            m_pdisplay->erase_listener(this);
-      //
-      //            m_pdisplay->erase_window(this);
-      //
-      //            throw exception(error_failed);
-      //
-      //         }
-      //
-      //         if(m_puserinteractionbase->m_bStartCentered)
-      //         {
-      //
-      //            auto atomWindowType = XInternAtom(display, "_NET_WM_WINDOW_TYPE", true);
-      //
-      //            auto atomWindowTypeDialog = XInternAtom(display, "_NET_WM_WINDOW_TYPE_DIALOG", true);
-      //
-      //            if (atomWindowType != None && atomWindowTypeDialog != None)
-      //            {
-      //
-      //               XChangeProperty(display, m_window,
-      //                               atomWindowType, XA_ATOM, 32, PropModeReplace,
-      //                               (unsigned char *) &atomWindowTypeDialog, 1);
-      //
-      //            }
-      //
-      //            auto atomNormalHints = m_pdisplay->intern_atom("WM_NORMAL_HINTS", false);
-      //
-      //            XSizeHints hints{};
-      //
-      //            hints.flags = PWinGravity;
-      //
-      //            hints.win_gravity = CenterGravity;
-      //
-      //            XSetWMSizeHints(display, m_window, &hints, atomNormalHints);
-      //
-      //         }
-      //
-      //         if(m_puserinteractionbase->m_bArbitraryPositioning)
-      //         {
-      //
-      //            XSetWindowAttributes attributes;
-      //
-      //            attributes.override_redirect = True;
-      //
-      //            XChangeWindowAttributes(display, m_window,
-      //                             CWOverrideRedirect,
-      //                             &attributes);
-      //
-      //         }
-      //
-      //         nano_window_on_create();
-      //
-                      });
+            });
 
          }
 
-
-         // void window::on_left_button_down(::user::mouse * pmouse)
-         // {
-         //
-         //    m_puserinteractionbase->on_left_button_down(pmouse);
-         //
-         // }
-
-         //
-         // void window::on_left_button_up(::user::mouse * pmouse)
-         // {
-         //
-         //    m_puserinteractionbase->on_left_button_up(pmouse);
-         //
-         // }
-
-
-         // void window::on_right_button_down(::user::mouse * pmouse)
-         // {
-         //
-         //    m_puserinteractionbase->on_right_button_down(pmouse);
-         //
-         // }
-
-
-         // void window::on_right_button_up(::user::mouse * pmouse)
-         // {
-         //
-         //    m_puserinteractionbase->on_right_button_up(pmouse);
-         //
-         // }
-
-
-         // void window::on_mouse_move(::user::mouse * pmouse)
-         // {
-         //
-         //    m_puserinteractionbase->on_mouse_move(pmouse);
-         //
-         // }
-
-         //
-         // ::payload window::get_result()
-         // {
-         //
-         //    return m_puserinteractionbase->get_result();
-         //
-         // }
-
-         //
-         // ::nano::user::child * window::hit_test(::user::mouse * pmouse, ::user::e_zorder ezorder)
-         // {
-         //
-         //    return m_puserinteractionbase->hit_test(pmouse, ezorder);
-         //
-         // }
-         //
 
          void window::show_window()
          {

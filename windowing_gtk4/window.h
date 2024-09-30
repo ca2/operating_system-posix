@@ -8,7 +8,7 @@
 #include "gtk4_widget.h"
 //#include "acme/operating_system/x11/_atom.h"
 #include "acme/prototype/geometry2d/rectangle_array.h"
-#include "nano_user_gtk4/window_base.h"
+#include "nano_user_gtk4/window.h"
 //#include "nano_user_wayland/window_base.h"
 //#include <X11/extensions/sync.h>
 
@@ -47,11 +47,11 @@ namespace windowing_gtk4
 
    class CLASS_DECL_WINDOWING_GTK4 window :
       virtual public ::windowing_posix::window,
-      virtual public ::gtk4::nano::user::window_base
+      virtual public ::gtk4::nano::user::window
          //, virtual public ::wayland::nano::user::window_base
    {
    public:
-::point_i32 m_pointCursor2;
+//::point_i32 m_pointCursor2;
          //typedef struct {
          gboolean moving;
          gboolean resizing;
@@ -123,6 +123,7 @@ namespace windowing_gtk4
       //oswindow_data(const WPARAM & wparam);
       ~window() override;
 
+      void on_initialize_particle() override;
 
          void _on_button_pressed(GtkGestureClick *widget, int n_press, double x, double y) override;
          void _on_button_released(GtkGestureClick *widget, int n_press, double x, double y) override;
@@ -278,7 +279,7 @@ namespace windowing_gtk4
       void _set_foreground_window_unlocked() override;
 
 
-      bool has_mouse_capture() const override;
+      //bool has_mouse_capture() const override;
 
       bool has_keyboard_focus() const override;
 

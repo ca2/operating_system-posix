@@ -969,8 +969,8 @@ namespace node_gtk4
       {
 
          case ::user::e_desktop_gnome:
-         case ::user::e_desktop_ubuntu_gnome:
-         case ::user::e_desktop_unity_gnome:
+         //case ::user::e_desktop_ubuntu_gnome:
+         case ::user::e_desktop_unity:
          {
 
             if(bDark)
@@ -1036,8 +1036,8 @@ namespace node_gtk4
       {
 
          case ::user::e_desktop_gnome:
-         case ::user::e_desktop_ubuntu_gnome:
-         case ::user::e_desktop_unity_gnome:
+         //case ::user::e_desktop_ubuntu_gnome:
+         case ::user::e_desktop_unity:
 
             ::gdk::node_enable_wallpaper_change_notification(this, "org.gnome.desktop.background", "picture-uri");
 
@@ -1241,8 +1241,8 @@ namespace node_gtk4
       {
 
          case ::user::e_desktop_gnome:
-         case ::user::e_desktop_ubuntu_gnome:
-         case ::user::e_desktop_unity_gnome:
+         //case ::user::e_desktop_ubuntu_gnome:
+         case ::user::e_desktop_unity:
 
             bOk = ::gdk::gsettings_get(strTheme, "org.gnome.desktop.interface", "gtk-theme").ok();
 

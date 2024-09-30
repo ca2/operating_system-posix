@@ -24,8 +24,8 @@ namespace node_gtk4
       ~monitor() override;
 
 
-      ::windowing_x11::windowing * x11_windowing() const;
-      ::windowing_x11::display * x11_display() const;
+      ::windowing_gtk4::windowing * gtk4_windowing() const;
+      ::windowing_gtk4::display * gtk4_display() const;
 
 
       void update_cache() override;
