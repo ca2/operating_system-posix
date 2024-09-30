@@ -2827,34 +2827,36 @@ if(functionTrace)
    void node::do_windowing_system_factory()
    {
 
-      auto edesktop = get_edesktop();
+      ::acme::node::do_windowing_system_factory();
 
-      if(edesktop == user::e_desktop_kde)
-      {
-
-         auto pfactory = system()->factory("windowing_system", "kde5");
-
-         pfactory->merge_to_global_factory();
-
-      }
-      else
-      {
-
-#ifdef HAS_GTK3
-
-         auto pfactory = system()->factory("windowing_system", "gtk3");
-
-         pfactory->merge_to_global_factory();
-
-#else
-
-         auto pfactory = system()->factory("windowing_system", "gtk4");
-
-         pfactory->merge_to_global_factory();
-
-#endif
-
-      }
+//       auto edesktop = get_edesktop();
+//
+//       if(edesktop == user::e_desktop_kde)
+//       {
+//
+//          auto pfactory = system()->factory("windowing_system", "kde5");
+//
+//          pfactory->merge_to_global_factory();
+//
+//       }
+//       else
+//       {
+//
+// #ifdef HAS_GTK3
+//
+//          auto pfactory = system()->factory("windowing_system", "gtk3");
+//
+//          pfactory->merge_to_global_factory();
+//
+// #else
+//
+//          auto pfactory = system()->factory("windowing_system", "gtk4");
+//
+//          pfactory->merge_to_global_factory();
+//
+// #endif
+//
+//       }
 
    }
 
