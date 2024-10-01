@@ -14,7 +14,7 @@
 
 
 #include "acme/prototype/collection/string_map.h"
-#include "node_gdk/node.h"
+#include "aura_posix/node.h"
 
 
 namespace node_gtk3
@@ -22,10 +22,12 @@ namespace node_gtk3
 
 
    class CLASS_DECL_NODE_GTK3 node :
-      virtual public ::node_gdk::node
+      virtual public ::aura_posix::node
    {
    public:
 
+
+      GtkSettings *     m_pGtkSettingsDefault;
 
 //      GdkAppLaunchContext * m_pgdkapplaunchcontext;
 //      string_map < GDesktopAppInfo * > m_mapGDesktopAppInfo;
@@ -41,17 +43,17 @@ namespace node_gtk3
       ~node() override;
 
 
-      void _set_os_user_theme(const ::scoped_string & strTheme) override;
-      void _apply_os_user_theme() override;
-      //virtual ::string _get_os_user_theme();
+//      void _set_os_user_theme(const ::scoped_string & strTheme) override;
+//      void _apply_os_user_theme() override;
+//      //virtual ::string _get_os_user_theme();
+//
+//
+//      void _set_os_user_icon_theme(const ::scoped_string & strIconTheme) override;
+//      void _apply_os_user_icon_theme() override;
 
 
-      void _set_os_user_icon_theme(const ::scoped_string & strIconTheme) override;
-      void _apply_os_user_icon_theme() override;
-
-
-      void _fill_os_theme_colors(::os_theme_colors * pthemecolors) override;
-      virtual void _fill_os_theme_colors(::os_theme_colors * pthemecolors, const ::scoped_string & scopedstrTheme, bool bDark);
+      //void _fill_os_theme_colors(::os_theme_colors * pthemecolors) override;
+      //virtual void _fill_os_theme_colors(::os_theme_colors * pthemecolors, const ::scoped_string & scopedstrTheme, bool bDark);
       //virtual void _set_os_theme_colors(::os_theme_colors * posthemecolors);
 
       //int node_init_check(int * pi, char *** ppz) override;
@@ -116,7 +118,7 @@ namespace node_gtk3
 
       //void user_post_quit() override;
 
-      void on_user_system_quit() override;
+      //void on_user_system_quit() override;
 
       bool should_launch_on_node(::topic * ptopic) override;
 
@@ -134,7 +136,7 @@ namespace node_gtk3
 
       ::e_status _allocate_Display_and_connection() override;
 
-      void _on_gtk_init() override;
+      //void _on_gtk_init() override;
 
       ::wl_display * get_wayland_display() override;
 
@@ -158,7 +160,7 @@ namespace node_gtk3
 
       bool _user_is_set_file_extension_mime_type(const scoped_string & scopedstrExtension, const scoped_string & scopedstrMimeType);
 
-      bool _g_defer_get_default_theme_icon(::string & strIconPath, GIcon * picon, int iSize) override;
+      //bool _g_defer_get_default_theme_icon(::string & strIconPath, GIcon * picon, int iSize) override;
 //      void * fetch_windowing_system_display() override;
 //      void windowing_system_async(const ::procedure & procedure) override;
 //      void windowing_system_display_error_trap_push(int i) override;

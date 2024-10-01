@@ -45,6 +45,7 @@ list(APPEND library_references
         acme
         acme_posix
    windowing_system_gtk3
+        nano_user_gtk3
         apex
         apex_posix
    innate_ui_gtk3
@@ -124,7 +125,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories
 target_include_directories(static_${PROJECT_NAME} PRIVATE ${library_include_directories})
 
 
-target_compile_definitions(${PROJECT_NAME} PRIVATE _WINDOWING_X11_LIBRARY)
+target_compile_definitions(${PROJECT_NAME} PRIVATE _${PROJECT_NAME}_LIBRARY)
 
 
 

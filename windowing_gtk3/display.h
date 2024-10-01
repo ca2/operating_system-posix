@@ -9,7 +9,7 @@
 
 //#include "acme/operating_system/x11/nano/event_listener.h"
 //#include "acme/operating_system/x11/nano/display.h"
-//#include "nano_user_wayland/display_base.h"
+#include "nano_user_gtk3/display.h"
 #include "aura/windowing/display.h"
 
 //#include "_x11.h"
@@ -21,8 +21,8 @@ namespace windowing_gtk3
 
 
    class CLASS_DECL_WINDOWING_GTK3 display :
-      virtual public ::windowing::display //,
-      //virtual public ::wayland::nano::user::display_base
+      virtual public ::windowing::display,
+      virtual public ::gtk3::nano::user::display
    {
    public:
 

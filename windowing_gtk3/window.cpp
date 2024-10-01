@@ -94,6 +94,16 @@ namespace windowing_gtk3
 
    }
 
+
+   void window::on_initialize_particle()
+   {
+
+      ::windowing_posix::window::on_initialize_particle();
+      ::gtk3::nano::user::window::on_initialize_particle();
+
+   }
+
+
    void window::_set_oswindow(::oswindow oswindow)
    {
 
@@ -334,8 +344,10 @@ namespace windowing_gtk3
             pgraphics->attach(cr);
             //pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
             ::rectangle_f64 r;
-            int width = gtk_widget_get_allocated_width(widget);
-            int height = gtk_widget_get_allocated_height(widget);
+            //int width = gtk_widget_get_allocated_width(widget);
+            //int height = gtk_widget_get_allocated_height(widget);
+            int width = m_sizeWindow.cx();
+            int height = m_sizeWindow.cy();
             r.left() = 0;
             r.top() = 0;
             r.right() = width;
@@ -775,427 +787,420 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *event)
    void window::create_window()
    {
 
-      bool bOk = true;
+      bool bOk = false;
 
-      ::user::interaction_impl * pimpl = m_puserinteractionimpl;
+      main_send([this, &bOk]()
+                {
 
-   {
-      _synchronous_lock synchronouslock(user_synchronization());
+::user::interaction_impl *pimpl = m_puserinteractionimpl;
 
-         auto pusersystem = pimpl->m_puserinteraction->m_pusersystem;
+{
+_synchronous_lock synchronouslock(user_synchronization());
 
-         pimpl->m_puserinteraction->m_bMessageWindow = false;
+auto pusersystem = pimpl->m_puserinteraction->m_pusersystem;
 
-         auto pwindowing = wayland_windowing();
+pimpl->m_puserinteraction->m_bMessageWindow = false;
 
-         auto pdisplay = pwindowing->m_pdisplay;
+auto pwindowing = gtk3_windowing();
 
-         // auto pwldisplay = pdisplay->m_pwldisplay;
-         //
-         // if (pwldisplay == nullptr)
-         // {
-         //
-         //    fprintf(stderr, "ERROR: Could not open display\n");
-         //
-         //    bOk = false;
-         //
-         //    //return ::success;
-         //    throw ::exception(error_failed);
-         //
-         // }
+auto pdisplay = pwindowing->display();
 
-         m_puserinteractionimpl = pimpl;
-
-         m_puserinteractionimpl->m_puserinteraction->m_pwindow = this;
-
-         // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
-         // {
-
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
-
-         // }
-         // else
-         // {
-
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
-
-         // }
-
-         // fflush(stdout);
-
-         m_puserinteractionimpl->m_puserinteraction->m_puserinteractionTopLevel = m_puserinteractionimpl->m_puserinteraction;
-
-         m_pdisplay = pdisplay;
-
-         //m_pdisplaybase = pdisplay;
-
-         information() << "window::create_window m_pdisplay : " << (::iptr) m_pdisplay.m_p;
-
-         //information() << "window::create_window m_pdisplaybase : " << (::iptr) m_pdisplaybase.m_p;
-
-         pimpl->m_pwindow = this;
-
-         // printf("pimpl->m_pwindow.m_p (0x%x)\n", pimpl->m_pwindow.m_p);
-         // printf("pimpl->m_pwindow.m_pelement (0x%x)\n", pimpl->m_pwindow.m_pelement);
-
-         //display_lock displaylock(pdisplayx11->Display());
-
-         int x = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().x();
-
-         int y = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().y();
-
-         int cx = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().width();
-
-         int cy = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().height();
-
-         bool bVisible = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().is_screen_visible();
-
-         //      if(pusersystem)
-         //      {
-         //
-         //         if (pusersystem->m_createstruct.x <= 0)
-         //         {
-         //
-         //            x = pusersystem->m_createstruct.x;
-         //
-         //         }
-         //
-         //         if (pusersystem->m_createstruct.y <= 0)
-         //         {
-         //
-         //            y = pusersystem->m_createstruct.y;
-         //
-         //         }
-         //
-         //         if (pusersystem->m_createstruct.cx() <= 0)
-         //         {
-         //
-         //            cx = 1;
-         //
-         //         }
-         //
-         //         if (pusersystem->m_createstruct.cy() <= 0)
-         //         {
-         //
-         //            cy = 1;
-         //
-         //         }
-         //
-         //         if (pusersystem->m_createstruct.style & WS_VISIBLE)
-         //         {
-         //
-         //            bVisible = true;
-         //
-         //         }
-         //
-         //      }
-
-         if (cx <= 0)
-         {
-
-            cx = 1;
-
-         }
-
-         if (cy <= 0)
-         {
-
-            cy = 1;
-
-         }
-
-         {
-
-         m_pointWindow.x() = x;
-
-         m_pointWindow.y() = y;
-
-         }
-
-         //m_pointWindowBestEffort.x() = x;
-
-         //m_pointWindowBestEffort.y() = y;
-
-         m_sizeWindow.cx() = cx;
-
-         m_sizeWindow.cy() = cy;
-
-         //auto rectangleWindow = ::rectangle_i32_dimension(x, y, cx, cy);
-
-         //m_puserinteractionimpl->m_puserinteraction->place(rectangleWindow);
-         m_pgtkwidget = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-
-         gtk_window_set_decorated(GTK_WINDOW(m_pgtkwidget), false);
-
-         GdkScreen *screen = gtk_widget_get_screen(m_pgtkwidget);
-         GdkVisual *visual = gdk_screen_get_rgba_visual(screen);
-         if (visual != NULL) {
-            gtk_widget_set_visual(m_pgtkwidget, visual);
-         }
-
-
-      // Enable transparency by setting the window as app-paintable
-      gtk_widget_set_app_paintable(m_pgtkwidget, TRUE);
-
-         //int w = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().size().cx();
-         //int h = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().size().cy();
-
-         cx = maximum(cx, 300);
-         cy = maximum(cy, 300);
-
-         // Set window size
-         gtk_window_set_default_size(GTK_WINDOW(m_pgtkwidget), cx, cy);
-
-
-         gtk_window_move(GTK_WINDOW(m_pgtkwidget), x, y);
-         gtk_window_resize(GTK_WINDOW(m_pgtkwidget), cx, cy);
-
-
-         // Create drawing area
-         m_pdrawingarea = gtk_drawing_area_new();
-         gtk_container_add(GTK_CONTAINER(m_pgtkwidget), m_pdrawingarea);
-
-         // Connect the draw event to the callback function
- //        g_signal_connect(G_OBJECT(m_pdrawingarea), "draw", G_CALLBACK(on_draw_event), this);
-
+// auto pwldisplay = pdisplay->m_pwldisplay;
 //
-//gtk_drawing_area_set_draw_func (
-//  GTK_DRAWING_AREA(m_pdrawingarea),
-//  GtkDrawingAreaDrawFunc ,
-//  this,
-//  nullptr
-//);
+// if (pwldisplay == nullptr)
+// {
 //
-         // Connect the size-allocate signal to handle window resize events
-         g_signal_connect(m_pgtkwidget, "size-allocate", G_CALLBACK(on_size_allocate), this);
-
-         // Handle the custom resizing
-         //ResizeData resize_data = {FALSE, RESIZE_NONE, 0, 0, 0, 0};
-
-         // Connect event handlers for resizing
-         g_signal_connect(G_OBJECT(m_pgtkwidget), "button-press-event", G_CALLBACK(on_button_press), this);
-         g_signal_connect(G_OBJECT(m_pgtkwidget), "button-release-event", G_CALLBACK(on_button_release), this);
-         g_signal_connect(G_OBJECT(m_pgtkwidget), "motion-notify-event", G_CALLBACK(on_motion_notify), this);
-         g_signal_connect(G_OBJECT(m_pgtkwidget), "enter-notify-event", G_CALLBACK(on_enter_notify), this);
-
-         g_signal_connect(G_OBJECT(m_pgtkwidget), "window-state-event", G_CALLBACK(on_window_state), this);
-         // Set events to capture motion and button events
-         gtk_widget_set_events(m_pgtkwidget,
-            GDK_BUTTON_PRESS_MASK
-            | GDK_BUTTON_RELEASE_MASK
-            | GDK_POINTER_MOTION_MASK
-            | GDK_STRUCTURE_MASK);
-
-         // Connect the draw event to the drawing callback function
-         g_signal_connect(G_OBJECT(m_pgtkwidget), "draw", G_CALLBACK(on_window_draw), this);
-
-
-         set_oswindow(this);
-
-         //set_os_data((void *) m_pwlsurface);
-
-
-         //_enable_net_wm_sync();
-
-         //pimpl->set_os_data((::windowing::window *)this);
-
-         //set_os_data(LAYERED_X11, (::windowing_gtk3::window *)this);
-
-         //pimpl->set_os_data(LAYERED_X11, (::windowing_gtk3::window *)this);
-
-         pimpl->m_puserinteraction->m_pinteractionimpl = pimpl;
-
-         pimpl->m_puserinteraction->increment_reference_count(
-            REFERENCING_DEBUGGING_P_NOTE(this, "native_create_window"));
-
-//         auto papp = get_app();
+//    fprintf(stderr, "ERROR: Could not open display\n");
 //
-//         if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
+//    bOk = false;
+//
+//    //return ::success;
+//    throw ::exception(error_failed);
+//
+// }
+
+m_puserinteractionimpl = pimpl;
+
+m_puserinteractionimpl->m_puserinteraction->m_pwindow = this;
+
+// if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+// {
+
+//    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+//    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+
+// }
+// else
+// {
+
+//    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+//    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+
+// }
+
+// fflush(stdout);
+
+m_puserinteractionimpl->m_puserinteraction->m_puserinteractionTopLevel =
+m_puserinteractionimpl->m_puserinteraction;
+
+m_pdisplaybase = pdisplay;
+
+// m_pdisplaybase = pdisplay;
+
+information() << "window::create_window m_pdisplay : " << (::iptr)m_pdisplaybase.m_p;
+
+// information() << "window::create_window m_pdisplaybase : " << (::iptr) m_pdisplaybase.m_p;
+
+pimpl->m_pwindow = this;
+
+// printf("pimpl->m_pwindow.m_p (0x%x)\n", pimpl->m_pwindow.m_p);
+// printf("pimpl->m_pwindow.m_pelement (0x%x)\n", pimpl->m_pwindow.m_pelement);
+
+// display_lock displaylock(pdisplayx11->Display());
+
+int x = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().x();
+
+int y = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().y();
+
+int cx = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().width();
+
+int cy = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().height();
+
+bool bVisible = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().is_screen_visible();
+
+m_puserinteractionbase = m_puserinteractionimpl->m_puserinteraction;
+
+//      if(pusersystem)
+//      {
+//
+//         if (pusersystem->m_createstruct.x <= 0)
 //         {
 //
-//            auto psystem = system()->m_papexsystem;
-//
-//            string strApplicationServerName = psystem->get_application_server_name();
-//
-//            set_wm_class(strApplicationServerName);
-//
-//            //         XClassHint * pupdate = XAllocClassHint();
-//            //
-//            //         auto psystem = system()->m_papexsystem;
-//            //
-//            //         string strApplicationServerName = psystem->get_application_server_name();
-//            //
-//            //         pupdate->res_class = (char *) (const char *) strApplicationServerName;
-//            //
-//            //         pupdate->res_name = (char *) (const char *) strApplicationServerName;
-//            //
-//            //         XSetClassHint(display, window, pupdate);
-//            //
-//            //         XFree(pupdate);
+//            x = pusersystem->m_createstruct.x;
 //
 //         }
+//
+//         if (pusersystem->m_createstruct.y <= 0)
+//         {
+//
+//            y = pusersystem->m_createstruct.y;
+//
+//         }
+//
+//         if (pusersystem->m_createstruct.cx() <= 0)
+//         {
+//
+//            cx = 1;
+//
+//         }
+//
+//         if (pusersystem->m_createstruct.cy() <= 0)
+//         {
+//
+//            cy = 1;
+//
+//         }
+//
+//         if (pusersystem->m_createstruct.style & WS_VISIBLE)
+//         {
+//
+//            bVisible = true;
+//
+//         }
+//
+//      }
+
+if (cx <= 0)
+{
+
+cx = 1;
+}
+
+if (cy <= 0)
+{
+
+cy = 1;
+}
+
+{
+
+m_pointWindow.x() = x;
+
+m_pointWindow.y() = y;
+}
+
+// m_pointWindowBestEffort.x() = x;
+
+// m_pointWindowBestEffort.y() = y;
+
+m_sizeWindow.cx() = cx;
+
+m_sizeWindow.cy() = cy;
+
+_create_window();
+//
+//         //auto rectangleWindow = ::rectangle_i32_dimension(x, y, cx, cy);
+//
+//         //m_puserinteractionimpl->m_puserinteraction->place(rectangleWindow);
+//         m_pgtkwidget = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+//
+//         gtk_window_set_decorated(GTK_WINDOW(m_pgtkwidget), false);
+//
+//         GdkScreen *screen = gtk_widget_get_screen(m_pgtkwidget);
+//         GdkVisual *visual = gdk_screen_get_rgba_visual(screen);
+//         if (visual != NULL) {
+//            gtk_widget_set_visual(m_pgtkwidget, visual);
+//         }
+//
+//
+//      // Enable transparency by setting the window as app-paintable
+//      gtk_widget_set_app_paintable(m_pgtkwidget, TRUE);
+//
+//         //int w = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().size().cx();
+//         //int h = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().size().cy();
+//
+//         cx = maximum(cx, 300);
+//         cy = maximum(cy, 300);
+//
+//         // Set window size
+//         gtk_window_set_default_size(GTK_WINDOW(m_pgtkwidget), cx, cy);
+//
+//
+//         gtk_window_move(GTK_WINDOW(m_pgtkwidget), x, y);
+//         gtk_window_resize(GTK_WINDOW(m_pgtkwidget), cx, cy);
+//
+//
+//         // Create drawing area
+//         m_pdrawingarea = gtk_drawing_area_new();
+//         gtk_container_add(GTK_CONTAINER(m_pgtkwidget), m_pdrawingarea);
+//
+//         // Connect the draw event to the callback function
+// //        g_signal_connect(G_OBJECT(m_pdrawingarea), "draw", G_CALLBACK(on_draw_event), this);
+//
+////
+////gtk_drawing_area_set_draw_func (
+////  GTK_DRAWING_AREA(m_pdrawingarea),
+////  GtkDrawingAreaDrawFunc ,
+////  this,
+////  nullptr
+////);
+////
+//         // Connect the size-allocate signal to handle window resize events
+//         g_signal_connect(m_pgtkwidget, "size-allocate", G_CALLBACK(on_size_allocate), this);
+//
+//         // Handle the custom resizing
+//         //ResizeData resize_data = {FALSE, RESIZE_NONE, 0, 0, 0, 0};
+//
+//         // Connect event handlers for resizing
+//         g_signal_connect(G_OBJECT(m_pgtkwidget), "button-press-event", G_CALLBACK(on_button_press), this); g_signal_connect(G_OBJECT(m_pgtkwidget), "button-release-event", G_CALLBACK(on_button_release), this); g_signal_connect(G_OBJECT(m_pgtkwidget), "motion-notify-event", G_CALLBACK(on_motion_notify), this);
+//         g_signal_connect(G_OBJECT(m_pgtkwidget), "enter-notify-event", G_CALLBACK(on_enter_notify), this);
+//
+//         g_signal_connect(G_OBJECT(m_pgtkwidget), "window-state-event", G_CALLBACK(on_window_state), this);
+//         // Set events to capture motion and button events
+//         gtk_widget_set_events(m_pgtkwidget,
+//            GDK_BUTTON_PRESS_MASK
+//            | GDK_BUTTON_RELEASE_MASK
+//            | GDK_POINTER_MOTION_MASK
+//            | GDK_STRUCTURE_MASK);
+//
+//         // Connect the draw event to the drawing callback function
+//         g_signal_connect(G_OBJECT(m_pgtkwidget), "draw", G_CALLBACK(on_window_draw), this);
+//
+//
+//         set_oswindow(this);
+//
+//         //set_os_data((void *) m_pwlsurface);
+//
+//
+//         //_enable_net_wm_sync();
+//
+//         //pimpl->set_os_data((::windowing::window *)this);
+//
+//         //set_os_data(LAYERED_X11, (::windowing_gtk3::window *)this);
+//
+//         //pimpl->set_os_data(LAYERED_X11, (::windowing_gtk3::window *)this);
+//
+//         pimpl->m_puserinteraction->m_pinteractionimpl = pimpl;
+//
+//         pimpl->m_puserinteraction->increment_reference_count(
+//            REFERENCING_DEBUGGING_P_NOTE(this, "native_create_window"));
+//
+////         auto papp = get_app();
+////
+////         if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
+////         {
+////
+////            auto psystem = system()->m_papexsystem;
+////
+////            string strApplicationServerName = psystem->get_application_server_name();
+////
+////            set_wm_class(strApplicationServerName);
+////
+////            //         XClassHint * pupdate = XAllocClassHint();
+////            //
+////            //         auto psystem = system()->m_papexsystem;
+////            //
+////            //         string strApplicationServerName = psystem->get_application_server_name();
+////            //
+////            //         pupdate->res_class = (char *) (const char *) strApplicationServerName;
+////            //
+////            //         pupdate->res_name = (char *) (const char *) strApplicationServerName;
+////            //
+////            //         XSetClassHint(display, window, pupdate);
+////            //
+////            //         XFree(pupdate);
+////
+////         }
+////
+////         // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+////         // {
+////
+////         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (4) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow); /         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+////
+////         // }
+////         // else
+////         // {
+////
+////         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (4) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow); /         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+////
+////         // }
+////
+////         // fflush(stdout);
+////
+////
+////#ifndef RASPBERRYPIOS
+////
+////         if (pwindowing->m_pSnLauncheeContext != nullptr && !papp->m_bSnLauncheeSetup)
+////         {
+////
+////            //papp->os_on_start_application();
+////
+////            on_sn_launch_context(pwindowing->m_pSnLauncheeContext, window);
+////
+////            papp->m_bSnLauncheeSetup = true;
+////
+////         }
+////
+////#endif
+////
+////         if (pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_dock_window)
+////         {
+////
+////            wm_dockwindow(true);
+////
+////         } else if (pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_desktop_window)
+////         {
+////
+////            wm_desktopwindow(true);
+////
+////         } else if (pimpl->m_puserinteraction->const_layout().sketch().activation() & e_activation_on_center_of_screen) /         {
+////
+////            wm_centerwindow(true);
+////
+////         } else if (pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window
+////                    || pimpl->m_puserinteraction->m_bToolWindow)
+////         {
+////
+////            wm_toolwindow(true);
+////
+////         } else
+////         {
+////
+////            wm_normalwindow();
+////
+////         }
+//
+//         //m_px11data->m_pgdkwindow = gdk_x11_window_foreign_new_for_display(gdk_display_get_default(), window);
+//
+////         ::Window root = 0;
+////
+////         ::Window * pchildren = nullptr;
+////
+////         u32 ncount = 0;
+////
+////         XQueryTree(display, window, &root, &m_parent, &pchildren, &ncount);
+////
+////         if (pchildren != nullptr)
+////         {
+////
+////            XFree(pchildren);
+////
+////         }
+////
+////         htask_t htask = ::get_current_htask();
+////
+////         m_htask = htask;
+////
+////         if (!XGetWindowAttributes(Display(), Window(), &m_px11data->m_attr))
+////         {
+////
+////            information() << "freebsd::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.";
+////
+////         }
+////
+////         int event_base, error_base, major_version, minor_version;
+////
+////         pimpl->m_bComposite = XGetSelectionOwner(Display(), x11_display()->intern_atom("_NET_WM_CM_S0", True));
+////
+////         string strName;
+////
+////         //      if (pusersystem && pusersystem->m_createstruct.lpszName != nullptr && strlen(pusersystem->m_createstruct.lpszName) > 0) /         //      { /         // /         // strName = pusersystem->m_createstruct.lpszName; /         // /         //      }
+////
+////         //if(strName.is_empty())
+////         //{
+//
+////         string strWindowText = pimpl->m_puserinteraction->get_window_text();
+////
+////         if (strWindowText.has_char())
+////         {
+////
+////            strName = strWindowText;
+////
+////         }
+////
+////         //}
+////
+////         if (strName.has_char())
+////         {
+////
+////            XStoreName(Display(), Window(), strName);
+////
+////         }
 //
 //         // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
 //         // {
 //
-//         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (4) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+//         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!!(5) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
 //         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
 //
 //         // }
 //         // else
 //         // {
 //
-//         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (4) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+//         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!!(5) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
 //         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
 //
 //         // }
 //
 //         // fflush(stdout);
-//
-//
-//#ifndef RASPBERRYPIOS
-//
-//         if (pwindowing->m_pSnLauncheeContext != nullptr && !papp->m_bSnLauncheeSetup)
-//         {
-//
-//            //papp->os_on_start_application();
-//
-//            on_sn_launch_context(pwindowing->m_pSnLauncheeContext, window);
-//
-//            papp->m_bSnLauncheeSetup = true;
-//
-//         }
-//
-//#endif
-//
-//         if (pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_dock_window)
-//         {
-//
-//            wm_dockwindow(true);
-//
-//         } else if (pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_desktop_window)
-//         {
-//
-//            wm_desktopwindow(true);
-//
-//         } else if (pimpl->m_puserinteraction->const_layout().sketch().activation() & e_activation_on_center_of_screen)
-//         {
-//
-//            wm_centerwindow(true);
-//
-//         } else if (pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window
-//                    || pimpl->m_puserinteraction->m_bToolWindow)
-//         {
-//
-//            wm_toolwindow(true);
-//
-//         } else
-//         {
-//
-//            wm_normalwindow();
-//
-//         }
 
-         //m_px11data->m_pgdkwindow = gdk_x11_window_foreign_new_for_display(gdk_display_get_default(), window);
+m_puserinteractionimpl->m_puserinteraction->__defer_set_owner_to_impl();
 
-//         ::Window root = 0;
-//
-//         ::Window * pchildren = nullptr;
-//
-//         u32 ncount = 0;
-//
-//         XQueryTree(display, window, &root, &m_parent, &pchildren, &ncount);
-//
-//         if (pchildren != nullptr)
-//         {
-//
-//            XFree(pchildren);
-//
-//         }
-//
-//         htask_t htask = ::get_current_htask();
-//
-//         m_htask = htask;
-//
-//         if (!XGetWindowAttributes(Display(), Window(), &m_px11data->m_attr))
-//         {
-//
-//            information() << "freebsd::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.";
-//
-//         }
-//
-//         int event_base, error_base, major_version, minor_version;
-//
-//         pimpl->m_bComposite = XGetSelectionOwner(Display(), x11_display()->intern_atom("_NET_WM_CM_S0", True));
-//
-//         string strName;
-//
-//         //      if (pusersystem && pusersystem->m_createstruct.lpszName != nullptr && strlen(pusersystem->m_createstruct.lpszName) > 0)
-//         //      {
-//         //
-//         //         strName = pusersystem->m_createstruct.lpszName;
-//         //
-//         //      }
-//
-//         //if(strName.is_empty())
-//         //{
+bamf_set_icon();
 
-//         string strWindowText = pimpl->m_puserinteraction->get_window_text();
-//
-//         if (strWindowText.has_char())
-//         {
-//
-//            strName = strWindowText;
-//
-//         }
-//
-//         //}
-//
-//         if (strName.has_char())
-//         {
-//
-//            XStoreName(Display(), Window(), strName);
-//
-//         }
+//_wm_nodecorations(0);
 
-         // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
-         // {
+// if (pusersystem->m_createstruct.style & WS_VISIBLE)
+if (bVisible)
+{
 
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!!(5) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+map_window();
+}
+else
+{
 
-         // }
-         // else
-         // {
-
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!!(5) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
-
-         // }
-
-         // fflush(stdout);
-
-         m_puserinteractionimpl->m_puserinteraction->__defer_set_owner_to_impl();
-
-         bamf_set_icon();
-
-         //_wm_nodecorations(0);
-
-         //if (pusersystem->m_createstruct.style & WS_VISIBLE)
-         if (bVisible)
-         {
-
-            map_window();
-
-         }
-         else
-         {
-
-            pimpl->m_puserinteraction->const_layout().window().display() = e_display_none;
-
-         }
+pimpl->m_puserinteraction->const_layout().window().display() = e_display_none;
+}
 
 //         //if(m_px11data->m_attr.map_state != IsUnmapped)
 //         {
@@ -1223,9 +1228,11 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *event)
 //            }
 //
 //         }
+}
 
+bOk = true;
 
-      }
+});
 
       //displaylock.unlock();
 
@@ -1356,7 +1363,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *event)
 //       #else
 //       printf("RASPBERRYPIOS not defined\n");
 //       #endif
-
+         ::user::interaction_impl *pimpl = m_puserinteractionimpl;
 
 #ifdef REPORT_OFFSET
 
@@ -2495,13 +2502,13 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *event)
 //   }
 
 
-   //virtual ::Window get_parent_handle();
-   oswindow window::get_parent_oswindow() const
-   {
-
-      return nullptr;
-
-   }
+//   //virtual ::Window get_parent_handle();
+//   oswindow window::get_parent_oswindow() const
+//   {
+//
+//      return nullptr;
+//
+//   }
 
 
 //   ::point_i32 window::get_mouse_cursor_host_position()
@@ -2606,7 +2613,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *event)
 
       ::rectangle_i32 rBest;
 
-      int iMonitor = m_pdisplay->get_best_monitor(&rBest, rectangle);
+      int iMonitor = gtk3_display()->get_best_monitor(&rBest, rectangle);
 
       windowing_output_debug_string("::window::full_screen 1");
 
@@ -3086,6 +3093,22 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *event)
 //      }
 //
       return ::success;
+
+   }
+
+
+   void window::set_mouse_capture()
+   {
+
+      ::gtk3::nano::user::window::set_mouse_capture();
+
+   }
+
+
+   void window::release_mouse_capture()
+   {
+
+      ::gtk3::nano::user::window::release_mouse_capture();
 
    }
 
@@ -4607,7 +4630,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *event)
 //   }
 //
 //
-   bool window::has_mouse_capture() const
+   bool window::has_mouse_capture()
    {
 //
 //      auto pdisplay = x11_display();
@@ -4836,12 +4859,13 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *event)
       main_post([this]()
       {
 
-         full_set_window_position_unlocked();
+         set_window_position_unlocked();
 
          //configure_window_unlocked();
 
          // Queue the drawing area for a redraw
-         gtk_widget_queue_draw(m_pdrawingarea);
+         //gtk_widget_queue_draw(m_pdrawingarea);
+         gtk_widget_queue_draw(m_pgtkwidget);
 
       });
 
@@ -4925,7 +4949,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *event)
 
       auto pgtkwidget = gtk_window_group_get_current_grab(pgtkwindowgroup);
 
-      return gtk3_display()->m_windowmap[pgtkwidget];
+      return dynamic_cast < ::windowing::window * >(gtk3_display()->m_windowmap[pgtkwidget].m_p);
 
    }
 

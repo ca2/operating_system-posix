@@ -489,7 +489,7 @@ namespace windowing_gtk3
    }
 
 
-   void windowing::release_mouse_capture(::thread * pthread)
+   void windowing::release_mouse_capture(::thread * pthread, ::windowing::window * pwindow)
    {
 
       m_pdisplay->release_mouse_capture();
@@ -507,7 +507,7 @@ namespace windowing_gtk3
 
       }
 
-      release_mouse_capture(pthread);
+      release_mouse_capture(pthread, pwindow);
 
       m_pwindowMouseCapture.release();
 

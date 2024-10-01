@@ -26,7 +26,7 @@
 #include "aura/windowing/display.h"
 #include "windowing_x11/windowing_x11.h"
 #include "aura/windowing/windowing.h"
-#include "windowing_x11/windowing.h"
+//#include "windowing_x11/windowing.h"
 #include "node_gdk/windowing_system.h"
 
 
@@ -408,7 +408,7 @@ void gtk_settings_gtk_theme_name_callback(GObject *object, GParamSpec *pspec, gp
 //   pnode->fork([pnode, strTheme]()
 //               {
 
-   pnode->_set_os_user_theme(strTheme);
+   //pnode->_set_os_user_theme(strTheme);
 
 //                  ::preempt(400_ms);
 //
@@ -446,7 +446,7 @@ void gtk_settings_gtk_icon_theme_name_callback(GObject *object, GParamSpec *pspe
 //   pnode->fork([pnode, strTheme]()
 //               {
 
-   pnode->_set_os_user_icon_theme(strIconTheme);
+   //pnode->_set_os_user_icon_theme(strIconTheme);
 
 //                  ::preempt(400_ms);
 //
@@ -505,7 +505,7 @@ namespace node_gtk3
 
       m_pGtkSettingsDefault = nullptr;
 
-      m_pgdkapplaunchcontext = nullptr;
+      //m_pgdkapplaunchcontext = nullptr;
 
    }
 
@@ -522,12 +522,12 @@ namespace node_gtk3
 //
 //      }
 
-      if (m_pgdkapplaunchcontext)
-      {
-
-         g_object_unref(m_pgdkapplaunchcontext);
-
-      }
+//      if (m_pgdkapplaunchcontext)
+//      {
+//
+//         g_object_unref(m_pgdkapplaunchcontext);
+//
+//      }
 
    }
 
@@ -686,7 +686,7 @@ namespace node_gtk3
                       if (pgtksettingsDefault)
                       {
 
-                         m_pGtkSettingsDefault = G_OBJECT(pgtksettingsDefault);
+                         m_pGtkSettingsDefault = pgtksettingsDefault;
 
                          g_object_ref (m_pGtkSettingsDefault);
 
@@ -899,27 +899,27 @@ namespace node_gtk3
 //   }
 
 
-   void node::_fill_os_theme_colors(::os_theme_colors * pthemecolors)
-   {
-
-      ::string strGtkTheme;
-
-      strGtkTheme = _get_os_user_theme();
-
-      if(strGtkTheme.has_char())
-      {
-
-         _fill_os_theme_colors(pthemecolors, strGtkTheme, dark_mode());
-
-      }
-      else
-      {
-
-         ::acme_posix::node::_fill_os_theme_colors(pthemecolors);
-
-      }
-
-   }
+//   void node::_fill_os_theme_colors(::os_theme_colors * pthemecolors)
+//   {
+//
+//      ::string strGtkTheme;
+//
+//      strGtkTheme = _get_os_user_theme();
+//
+//      if(strGtkTheme.has_char())
+//      {
+//
+//         _fill_os_theme_colors(pthemecolors, strGtkTheme, dark_mode());
+//
+//      }
+//      else
+//      {
+//
+//         ::acme_posix::node::_fill_os_theme_colors(pthemecolors);
+//
+//      }
+//
+//   }
 
 
 //   void node::_fetch_dark_mode()
@@ -1390,13 +1390,13 @@ namespace node_gtk3
 ////
 ////   }
 
-
-void node::on_user_system_quit()
-{
-
-     gtk_main_quit();
-
-}
+//
+//void node::on_user_system_quit()
+//{
+//
+//     gtk_main_quit();
+//
+//}
 
 
 //   void * node::node_wrap_window(void * pvoidDisplay, i64 window)
@@ -1572,285 +1572,285 @@ void node::on_user_system_quit()
    }
 
 
-   void node::_fill_os_theme_colors(::os_theme_colors * pthemecolors, const ::scoped_string & scopedstrTheme, bool bDarkMode)
-   {
-
-      ::string strTheme(scopedstrTheme);
-
-      auto pszTheme = strTheme.c_str();
-
-      information() << "_fill_os_theme_colors with theme : " << pszTheme;
-
-
-      {
-
-         //auto pdialog = gtk_dialog_new();
-
-//         auto pdialog = gtk_dialog_new();
+//   void node::_fill_os_theme_colors(::os_theme_colors * pthemecolors, const ::scoped_string & scopedstrTheme, bool bDarkMode)
+//   {
 //
-//         gdk_window_begin_draw_frame
+//      ::string strTheme(scopedstrTheme);
 //
-//         gtk_window_set_default_size(GTK_WINDOW(pdialog), 256, 256);
+//      auto pszTheme = strTheme.c_str();
 //
-//         gtk_window_set_resizable(GTK_WINDOW(pdialog), FALSE);
+//      information() << "_fill_os_theme_colors with theme : " << pszTheme;
 //
-//         gtk_widget_show_all(GTK_WIDGET(pdialog));
-         //GtkCssProvider *pprovider = gtk_css_provider_get_named(pszTheme, nullptr);
-
-         //gtk_style_context_add_provider(pstylecontext, GTK_STYLE_PROVIDER(pprovider), GTK_STYLE_PROVIDER_PRIORITY_USER);
-
-         //GtkWidget *pdialog = gtk_dialog_new();
-
-         //GtkWidgetPath *ppath = gtk_widget_get_path(pdialog);
-
-         //gtk_style_context_set_path(pstylecontext, ppath);
-
-         // Foreground color is taken from 'tooltip label' css node
-         //GtkStyleContext* styleContextLabel = gtk_style_context_new();
-         //{
-
-            // Background color is taken from 'window.background' css node
-
-         auto pstylecontext = __get_style_context_for_theme(pszTheme, bDarkMode);
-
-         {
-
-            GtkWidgetPath* pwidgetpath = gtk_widget_path_new();
-            gtk_widget_path_append_type(pwidgetpath, 0);
-            gtk_widget_path_iter_set_object_name(pwidgetpath, -1, "window");
-            gtk_widget_path_iter_add_class(pwidgetpath, -1, GTK_STYLE_CLASS_BACKGROUND);
-            gtk_style_context_set_path(pstylecontext, pwidgetpath);
-            pthemecolors->m_colorBack = __gtk_style_context_get_background_color(pstylecontext);
-            gtk_widget_path_free(pwidgetpath);
-
-         }
-
-
-         // Destroy temporary style context
-         g_object_unref(pstylecontext);
-
-//            GtkWidgetPath* widgetPath = gtk_widget_path_new();
-//            gtk_widget_path_append_type(widgetPath, 0);
-//            gtk_widget_path_iter_set_object_name(widgetPath, -1, "window");
-//            gtk_widget_path_iter_add_class(widgetPath, -1, GTK_STYLE_CLASS_BACKGROUND);
-//            gtk_widget_path_append_type(widgetPath, GTK_TYPE_DIALOG);
-//            gtk_style_context_set_path(pstylecontext, widgetPath);
 //
-//            gtk_widget_path_free(widgetPath);
+//      {
+//
+//         //auto pdialog = gtk_dialog_new();
+//
+////         auto pdialog = gtk_dialog_new();
+////
+////         gdk_window_begin_draw_frame
+////
+////         gtk_window_set_default_size(GTK_WINDOW(pdialog), 256, 256);
+////
+////         gtk_window_set_resizable(GTK_WINDOW(pdialog), FALSE);
+////
+////         gtk_widget_show_all(GTK_WIDGET(pdialog));
+//         //GtkCssProvider *pprovider = gtk_css_provider_get_named(pszTheme, nullptr);
+//
+//         //gtk_style_context_add_provider(pstylecontext, GTK_STYLE_PROVIDER(pprovider), GTK_STYLE_PROVIDER_PRIORITY_USER);
+//
+//         //GtkWidget *pdialog = gtk_dialog_new();
+//
+//         //GtkWidgetPath *ppath = gtk_widget_get_path(pdialog);
+//
+//         //gtk_style_context_set_path(pstylecontext, ppath);
+//
+//         // Foreground color is taken from 'tooltip label' css node
+//         //GtkStyleContext* styleContextLabel = gtk_style_context_new();
+//         //{
+//
+//            // Background color is taken from 'window.background' css node
+//
+//         auto pstylecontext = __get_style_context_for_theme(pszTheme, bDarkMode);
+//
+//         {
+//
+//            GtkWidgetPath* pwidgetpath = gtk_widget_path_new();
+//            gtk_widget_path_append_type(pwidgetpath, 0);
+//            gtk_widget_path_iter_set_object_name(pwidgetpath, -1, "window");
+//            gtk_widget_path_iter_add_class(pwidgetpath, -1, GTK_STYLE_CLASS_BACKGROUND);
+//            gtk_style_context_set_path(pstylecontext, pwidgetpath);
+//            pthemecolors->m_colorBack = __gtk_style_context_get_background_color(pstylecontext);
+//            gtk_widget_path_free(pwidgetpath);
+//
 //         }
 //
 //
-////         informationf( "r%d, g%d, b%d, a%d",
-////                       pthemecolors->m_colorBack.m_u8Red,
-////                       pthemecolors->m_colorBack.m_u8Green,
-////                       pthemecolors->m_colorBack.m_u8Blue,
-////                       pthemecolors->m_colorBack.m_u8Opacity);
+//         // Destroy temporary style context
+//         g_object_unref(pstylecontext);
+//
+////            GtkWidgetPath* widgetPath = gtk_widget_path_new();
+////            gtk_widget_path_append_type(widgetPath, 0);
+////            gtk_widget_path_iter_set_object_name(widgetPath, -1, "window");
+////            gtk_widget_path_iter_add_class(widgetPath, -1, GTK_STYLE_CLASS_BACKGROUND);
+////            gtk_widget_path_append_type(widgetPath, GTK_TYPE_DIALOG);
+////            gtk_style_context_set_path(pstylecontext, widgetPath);
 ////
-//         gtk_widget_destroy(GTK_WIDGET(pdialog));
-
-      }
-
-
-            {
-
-         //auto pdialog = gtk_dialog_new();
-
-//         auto pdialog = gtk_dialog_new();
+////            gtk_widget_path_free(widgetPath);
+////         }
+////
+////
+//////         informationf( "r%d, g%d, b%d, a%d",
+//////                       pthemecolors->m_colorBack.m_u8Red,
+//////                       pthemecolors->m_colorBack.m_u8Green,
+//////                       pthemecolors->m_colorBack.m_u8Blue,
+//////                       pthemecolors->m_colorBack.m_u8Opacity);
+//////
+////         gtk_widget_destroy(GTK_WIDGET(pdialog));
 //
-//         gdk_window_begin_draw_frame
+//      }
 //
-//         gtk_window_set_default_size(GTK_WINDOW(pdialog), 256, 256);
 //
-//         gtk_window_set_resizable(GTK_WINDOW(pdialog), FALSE);
+//            {
 //
-//         gtk_widget_show_all(GTK_WIDGET(pdialog));
-         //GtkCssProvider *pprovider = gtk_css_provider_get_named(pszTheme, nullptr);
-
-         //gtk_style_context_add_provider(pstylecontext, GTK_STYLE_PROVIDER(pprovider), GTK_STYLE_PROVIDER_PRIORITY_USER);
-
-         //GtkWidget *pdialog = gtk_dialog_new();
-
-         //GtkWidgetPath *ppath = gtk_widget_get_path(pdialog);
-
-         //gtk_style_context_set_path(pstylecontext, ppath);
-
-         // Foreground color is taken from 'tooltip label' css node
-         //GtkStyleContext* styleContextLabel = gtk_style_context_new();
-         //{
-
-            // Background color is taken from 'window.background' css node
-
-         auto pstylecontext = __get_style_context_for_theme(pszTheme, bDarkMode);
-
-         {
-
-            GtkWidgetPath* pwidgetpath = gtk_widget_path_new();
-            gtk_widget_path_append_type(pwidgetpath, 0);
-            gtk_widget_path_iter_set_object_name(pwidgetpath, -1, "button");
-            gtk_style_context_set_path(pstylecontext, pwidgetpath);
-            pthemecolors->m_colorFace = __gtk_style_context_get_background_color(pstylecontext);
-            auto flags = gtk_style_context_get_state(pstylecontext);
-            gtk_style_context_set_state(pstylecontext, (GtkStateFlags) (flags | GTK_STATE_FLAG_PRELIGHT));
-            pthemecolors->m_colorFaceHover = __gtk_style_context_get_background_color(pstylecontext);
-            gtk_style_context_set_state(pstylecontext, (GtkStateFlags) (flags | GTK_STATE_FLAG_ACTIVE));
-            pthemecolors->m_colorFacePress = __gtk_style_context_get_background_color(pstylecontext);
-            gtk_widget_path_free(pwidgetpath);
-
-         }
-
-
-         // Destroy temporary style context
-         g_object_unref(pstylecontext);
-
-//            GtkWidgetPath* widgetPath = gtk_widget_path_new();
-//            gtk_widget_path_append_type(widgetPath, 0);
-//            gtk_widget_path_iter_set_object_name(widgetPath, -1, "window");
-//            gtk_widget_path_iter_add_class(widgetPath, -1, GTK_STYLE_CLASS_BACKGROUND);
-//            gtk_widget_path_append_type(widgetPath, GTK_TYPE_DIALOG);
-//            gtk_style_context_set_path(pstylecontext, widgetPath);
+//         //auto pdialog = gtk_dialog_new();
 //
-//            gtk_widget_path_free(widgetPath);
+////         auto pdialog = gtk_dialog_new();
+////
+////         gdk_window_begin_draw_frame
+////
+////         gtk_window_set_default_size(GTK_WINDOW(pdialog), 256, 256);
+////
+////         gtk_window_set_resizable(GTK_WINDOW(pdialog), FALSE);
+////
+////         gtk_widget_show_all(GTK_WIDGET(pdialog));
+//         //GtkCssProvider *pprovider = gtk_css_provider_get_named(pszTheme, nullptr);
+//
+//         //gtk_style_context_add_provider(pstylecontext, GTK_STYLE_PROVIDER(pprovider), GTK_STYLE_PROVIDER_PRIORITY_USER);
+//
+//         //GtkWidget *pdialog = gtk_dialog_new();
+//
+//         //GtkWidgetPath *ppath = gtk_widget_get_path(pdialog);
+//
+//         //gtk_style_context_set_path(pstylecontext, ppath);
+//
+//         // Foreground color is taken from 'tooltip label' css node
+//         //GtkStyleContext* styleContextLabel = gtk_style_context_new();
+//         //{
+//
+//            // Background color is taken from 'window.background' css node
+//
+//         auto pstylecontext = __get_style_context_for_theme(pszTheme, bDarkMode);
+//
+//         {
+//
+//            GtkWidgetPath* pwidgetpath = gtk_widget_path_new();
+//            gtk_widget_path_append_type(pwidgetpath, 0);
+//            gtk_widget_path_iter_set_object_name(pwidgetpath, -1, "button");
+//            gtk_style_context_set_path(pstylecontext, pwidgetpath);
+//            pthemecolors->m_colorFace = __gtk_style_context_get_background_color(pstylecontext);
+//            auto flags = gtk_style_context_get_state(pstylecontext);
+//            gtk_style_context_set_state(pstylecontext, (GtkStateFlags) (flags | GTK_STATE_FLAG_PRELIGHT));
+//            pthemecolors->m_colorFaceHover = __gtk_style_context_get_background_color(pstylecontext);
+//            gtk_style_context_set_state(pstylecontext, (GtkStateFlags) (flags | GTK_STATE_FLAG_ACTIVE));
+//            pthemecolors->m_colorFacePress = __gtk_style_context_get_background_color(pstylecontext);
+//            gtk_widget_path_free(pwidgetpath);
+//
 //         }
 //
 //
-////         informationf( "r%d, g%d, b%d, a%d",
-////                       pthemecolors->m_colorBack.m_u8Red,
-////                       pthemecolors->m_colorBack.m_u8Green,
-////                       pthemecolors->m_colorBack.m_u8Blue,
-////                       pthemecolors->m_colorBack.m_u8Opacity);
+//         // Destroy temporary style context
+//         g_object_unref(pstylecontext);
+//
+////            GtkWidgetPath* widgetPath = gtk_widget_path_new();
+////            gtk_widget_path_append_type(widgetPath, 0);
+////            gtk_widget_path_iter_set_object_name(widgetPath, -1, "window");
+////            gtk_widget_path_iter_add_class(widgetPath, -1, GTK_STYLE_CLASS_BACKGROUND);
+////            gtk_widget_path_append_type(widgetPath, GTK_TYPE_DIALOG);
+////            gtk_style_context_set_path(pstylecontext, widgetPath);
 ////
-//         gtk_widget_destroy(GTK_WIDGET(pdialog));
-
-      }
-
-      GtkStyleContext *pstylecontext = gtk_style_context_new();
-
-      GtkCssProvider *pprovider = gtk_css_provider_get_named(pszTheme, nullptr);
-
-      gtk_style_context_add_provider(pstylecontext, GTK_STYLE_PROVIDER(pprovider), GTK_STYLE_PROVIDER_PRIORITY_USER);
-
-      {
-
-         GtkWidget *pbutton = gtk_button_new();
-
-         GtkWidgetPath *ppath = gtk_widget_get_path(pbutton);
-
-         gtk_style_context_set_path(pstylecontext, ppath);
-
+////            gtk_widget_path_free(widgetPath);
+////         }
+////
+////
+//////         informationf( "r%d, g%d, b%d, a%d",
+//////                       pthemecolors->m_colorBack.m_u8Red,
+//////                       pthemecolors->m_colorBack.m_u8Green,
+//////                       pthemecolors->m_colorBack.m_u8Blue,
+//////                       pthemecolors->m_colorBack.m_u8Opacity);
+//////
+////         gtk_widget_destroy(GTK_WIDGET(pdialog));
+//
+//      }
+//
+//      GtkStyleContext *pstylecontext = gtk_style_context_new();
+//
+//      GtkCssProvider *pprovider = gtk_css_provider_get_named(pszTheme, nullptr);
+//
+//      gtk_style_context_add_provider(pstylecontext, GTK_STYLE_PROVIDER(pprovider), GTK_STYLE_PROVIDER_PRIORITY_USER);
+//
+//      {
+//
+//         GtkWidget *pbutton = gtk_button_new();
+//
+//         GtkWidgetPath *ppath = gtk_widget_get_path(pbutton);
+//
+//         gtk_style_context_set_path(pstylecontext, ppath);
+//
+////         __gtk_style_context_get_color(
+////                 pstylecontext,
+////                 GTK_STATE_FLAG_NORMAL,
+////                 GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
+////                 pthemecolors->m_colorFace);
+////
+////         double dAlpha = pthemecolors->m_colorFace.f64_opacity();
+////
+////         if (dAlpha < 0.95)
+////         {
+////
+////            pthemecolors->m_colorFace.blend(pthemecolors->m_colorBack, 1.0 - dAlpha);
+////
+////         }
+////
+////         __gtk_style_context_get_color(
+////                 pstylecontext,
+////                 GTK_STATE_FLAG_PRELIGHT,
+////                 GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
+////                 pthemecolors->m_colorFaceHover);
+////
+////         dAlpha = pthemecolors->m_colorFaceHover.f64_opacity();
+////
+////         if (dAlpha < 0.95)
+////         {
+////
+////            pthemecolors->m_colorFaceHover.blend(pthemecolors->m_colorBack, 1.0 - dAlpha);
+////
+////         }
+//
+////         __gtk_style_context_get_color(
+////                 pstylecontext,
+////                 GTK_STATE_FLAG_ACTIVE,
+////                 GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
+////                 pthemecolors->m_colorFacePress);
+////
+////         dAlpha = pthemecolors->m_colorFacePress.f64_opacity();
+////
+////         if (dAlpha < 0.95)
+////         {
+////
+////            pthemecolors->m_colorFacePress.blend(pthemecolors->m_colorBack, 1.0 - dAlpha);
+////
+////         }
+////
+////         __gtk_style_context_get_color(
+////                 pstylecontext,
+////                 GTK_STATE_FLAG_NORMAL,
+////                 GTK_STYLE_PROPERTY_COLOR,
+////                 pthemecolors->m_colorButton);
+//
+////         __gtk_style_context_get_color(
+////                 pstylecontext,
+////                 GTK_STATE_FLAG_PRELIGHT,
+////                 GTK_STYLE_PROPERTY_COLOR,
+////                 pthemecolors->m_colorButtonHover);
+//
 //         __gtk_style_context_get_color(
 //                 pstylecontext,
 //                 GTK_STATE_FLAG_NORMAL,
-//                 GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
-//                 pthemecolors->m_colorFace);
+//                 GTK_STYLE_PROPERTY_BORDER_COLOR,
+//                 pthemecolors->m_colorBorder);
 //
-//         double dAlpha = pthemecolors->m_colorFace.f64_opacity();
 //
-//         if (dAlpha < 0.95)
-//         {
+////         pthemecolors->m_colorBorderHover4 = pthemecolors->m_colorBorderHover;
+////
+////         pthemecolors->m_colorBorderHover4.blend(pthemecolors->m_colorBack, 0.8);
 //
-//            pthemecolors->m_colorFace.blend(pthemecolors->m_colorBack, 1.0 - dAlpha);
 //
-//         }
+//         gtk_widget_destroy(pbutton);
 //
-//         __gtk_style_context_get_color(
-//                 pstylecontext,
-//                 GTK_STATE_FLAG_PRELIGHT,
-//                 GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
-//                 pthemecolors->m_colorFaceHover);
+//      }
 //
-//         dAlpha = pthemecolors->m_colorFaceHover.f64_opacity();
+//      {
 //
-//         if (dAlpha < 0.95)
-//         {
+//         GtkWidget *pwidget = gtk_list_box_row_new();
 //
-//            pthemecolors->m_colorFaceHover.blend(pthemecolors->m_colorBack, 1.0 - dAlpha);
+//         GtkWidgetPath *ppath = gtk_widget_get_path(pwidget);
 //
-//         }
-
-//         __gtk_style_context_get_color(
-//                 pstylecontext,
-//                 GTK_STATE_FLAG_ACTIVE,
-//                 GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
-//                 pthemecolors->m_colorFacePress);
-//
-//         dAlpha = pthemecolors->m_colorFacePress.f64_opacity();
-//
-//         if (dAlpha < 0.95)
-//         {
-//
-//            pthemecolors->m_colorFacePress.blend(pthemecolors->m_colorBack, 1.0 - dAlpha);
-//
-//         }
+//         gtk_style_context_set_path(pstylecontext, ppath);
 //
 //         __gtk_style_context_get_color(
 //                 pstylecontext,
-//                 GTK_STATE_FLAG_NORMAL,
+//                 GTK_STATE_FLAG_SELECTED,
+//                 GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
+//                 pthemecolors->m_colorBorderHover);
+//
+//         pthemecolors->m_colorBorderPress = pthemecolors->m_colorBorderHover;
+//
+//         pthemecolors->m_colorBorderHover1 = pthemecolors->m_colorBorderHover;
+//
+//         pthemecolors->m_colorBorderHover1.blend(pthemecolors->m_colorBack, 0.3);
+//
+//         pthemecolors->m_colorBorderHover2 = pthemecolors->m_colorBorderHover;
+//
+//         pthemecolors->m_colorBorderHover2.blend(pthemecolors->m_colorBack, 0.6);
+//
+//         pthemecolors->m_colorBorderHover3 = pthemecolors->m_colorBorderHover;
+//
+//         pthemecolors->m_colorBorderHover3.blend(pthemecolors->m_colorBack, 0.9);
+//
+//         __gtk_style_context_get_color(
+//                 pstylecontext,
+//                 GTK_STATE_FLAG_SELECTED,
 //                 GTK_STYLE_PROPERTY_COLOR,
-//                 pthemecolors->m_colorButton);
-
-//         __gtk_style_context_get_color(
-//                 pstylecontext,
-//                 GTK_STATE_FLAG_PRELIGHT,
-//                 GTK_STYLE_PROPERTY_COLOR,
-//                 pthemecolors->m_colorButtonHover);
-
-         __gtk_style_context_get_color(
-                 pstylecontext,
-                 GTK_STATE_FLAG_NORMAL,
-                 GTK_STYLE_PROPERTY_BORDER_COLOR,
-                 pthemecolors->m_colorBorder);
-
-
-//         pthemecolors->m_colorBorderHover4 = pthemecolors->m_colorBorderHover;
+//                 pthemecolors->m_colorButtonPress);
 //
-//         pthemecolors->m_colorBorderHover4.blend(pthemecolors->m_colorBack, 0.8);
-
-
-         gtk_widget_destroy(pbutton);
-
-      }
-
-      {
-
-         GtkWidget *pwidget = gtk_list_box_row_new();
-
-         GtkWidgetPath *ppath = gtk_widget_get_path(pwidget);
-
-         gtk_style_context_set_path(pstylecontext, ppath);
-
-         __gtk_style_context_get_color(
-                 pstylecontext,
-                 GTK_STATE_FLAG_SELECTED,
-                 GTK_STYLE_PROPERTY_BACKGROUND_COLOR,
-                 pthemecolors->m_colorBorderHover);
-
-         pthemecolors->m_colorBorderPress = pthemecolors->m_colorBorderHover;
-
-         pthemecolors->m_colorBorderHover1 = pthemecolors->m_colorBorderHover;
-
-         pthemecolors->m_colorBorderHover1.blend(pthemecolors->m_colorBack, 0.3);
-
-         pthemecolors->m_colorBorderHover2 = pthemecolors->m_colorBorderHover;
-
-         pthemecolors->m_colorBorderHover2.blend(pthemecolors->m_colorBack, 0.6);
-
-         pthemecolors->m_colorBorderHover3 = pthemecolors->m_colorBorderHover;
-
-         pthemecolors->m_colorBorderHover3.blend(pthemecolors->m_colorBack, 0.9);
-
-         __gtk_style_context_get_color(
-                 pstylecontext,
-                 GTK_STATE_FLAG_SELECTED,
-                 GTK_STYLE_PROPERTY_COLOR,
-                 pthemecolors->m_colorButtonPress);
-
-         gtk_widget_destroy(pwidget);
-
-      }
+//         gtk_widget_destroy(pwidget);
+//
+//      }
 
 //      return pthemecolors;
-
-   }
+//
+//   }
 
 
 //   void node::_set_os_theme_colors(::os_theme_colors *posthemecolors)
@@ -1865,64 +1865,64 @@ void node::on_user_system_quit()
 //   }
 
 
-   void node::_set_os_user_theme(const ::scoped_string &strOsUserTheme)
-   {
-
-      m_strOsUserTheme = strOsUserTheme;
-
-      if (!m_ptaskOsUserTheme)
-      {
-
-         m_ptaskOsUserTheme = fork([this]()
-                                   {
-
-                                      preempt(1_s);
-
-                                      m_ptaskOsUserTheme = nullptr;
-
-                                      _apply_os_user_theme();
-
-                                   });
-
-      }
-
-   }
-
-
-
-   void node::_set_os_user_icon_theme(const ::scoped_string &strOsUserIconTheme)
-   {
-
-      m_strOsUserIconTheme = strOsUserIconTheme;
-
-      if (!m_ptaskOsUserTheme)
-      {
-
-         m_ptaskOsUserIconTheme = fork([this]()
-                                   {
-
-                                      preempt(1_s);
-
-                                      m_ptaskOsUserIconTheme = nullptr;
-
-                                      _apply_os_user_icon_theme();
-
-                                   });
-
-      }
-
-   }
+//   void node::_set_os_user_theme(const ::scoped_string &strOsUserTheme)
+//   {
+//
+//      m_strOsUserTheme = strOsUserTheme;
+//
+//      if (!m_ptaskOsUserTheme)
+//      {
+//
+//         m_ptaskOsUserTheme = fork([this]()
+//                                   {
+//
+//                                      preempt(1_s);
+//
+//                                      m_ptaskOsUserTheme = nullptr;
+//
+//                                      _apply_os_user_theme();
+//
+//                                   });
+//
+//      }
+//
+//   }
 
 
 
-   void node::_apply_os_user_theme()
-   {
-
-      ::acme::get()->platform()->informationf("applying os user theme: \"" + m_strOsUserTheme + "\"\n");
-
-      os_process_user_theme(m_strOsUserTheme);
-
-   }
+//   void node::_set_os_user_icon_theme(const ::scoped_string &strOsUserIconTheme)
+//   {
+//
+//      m_strOsUserIconTheme = strOsUserIconTheme;
+//
+//      if (!m_ptaskOsUserTheme)
+//      {
+//
+//         m_ptaskOsUserIconTheme = fork([this]()
+//                                   {
+//
+//                                      preempt(1_s);
+//
+//                                      m_ptaskOsUserIconTheme = nullptr;
+//
+//                                      _apply_os_user_icon_theme();
+//
+//                                   });
+//
+//      }
+//
+//   }
+//
+//
+//
+//   void node::_apply_os_user_theme()
+//   {
+//
+//      ::acme::get()->platform()->informationf("applying os user theme: \"" + m_strOsUserTheme + "\"\n");
+//
+//      //os_process_user_theme(m_strOsUserTheme);
+//
+//   }
 
 
 //   ::string node::_get_os_user_theme()
@@ -1949,14 +1949,14 @@ void node::on_user_system_quit()
 //   }
 
 
-   void node::_apply_os_user_icon_theme()
-   {
-
-      ::acme::get()->platform()->informationf("applying os user icon theme: \"" + m_strOsUserIconTheme + "\"\n");
-
-      os_process_user_icon_theme(m_strOsUserIconTheme);
-
-   }
+//   void node::_apply_os_user_icon_theme()
+//   {
+//
+//      ::acme::get()->platform()->informationf("applying os user icon theme: \"" + m_strOsUserIconTheme + "\"\n");
+//
+//      //os_process_user_icon_theme(m_strOsUserIconTheme);
+//
+//   }
 
 
 //   void node::os_process_user_theme(string strOsTheme)
@@ -2150,20 +2150,20 @@ void node::on_user_system_quit()
 
 //                           m_mapGDesktopAppInfo[pathDesktop] = pgdesktopappinfo;
 
-                           if (!m_pgdkapplaunchcontext)
-                           {
+//                           if (!m_pgdkapplaunchcontext)
+//                           {
+//
+//                              m_pgdkapplaunchcontext = gdk_display_get_app_launch_context(gdk_display_get_default());
+//
+//                           }
 
-                              m_pgdkapplaunchcontext = gdk_display_get_app_launch_context(gdk_display_get_default());
-
-                           }
-
-                           if (!g_app_info_launch(G_APP_INFO(pgdesktopappinfo), plistFiles,
-                                                  G_APP_LAUNCH_CONTEXT(m_pgdkapplaunchcontext), &pgerror))
-                           {
-
-                              throw exception(error_failed);
-
-                           }
+//                           if (!g_app_info_launch(G_APP_INFO(pgdesktopappinfo), plistFiles,
+//                                                  G_APP_LAUNCH_CONTEXT(m_pgdkapplaunchcontext), &pgerror))
+//                           {
+//
+//                              throw exception(error_failed);
+//
+//                           }
 
                         });
 
@@ -2199,29 +2199,29 @@ void node::on_user_system_quit()
 //
 //      }
 //
-      if(::nano::user::get_display_type() == e_display_type_x11)
-      {
-
-         ::aura_posix::node::_allocate_Display_and_connection();
-
-      }
+//      if(::node_gtk3::get_display_type() == e_display_type_x11)
+//      {
+//
+//         ::aura_posix::node::_allocate_Display_and_connection();
+//
+//      }
 
       return ::success;
 
    }
 
 
-   void node::_on_gtk_init()
-   {
-
-//      if(m_edisplaytype == e_display_type_none)
-//      {
+//   void node::_on_gtk_init()
+//   {
 //
-//         m_edisplaytype = calculate_display_type();
+////      if(m_edisplaytype == e_display_type_none)
+////      {
+////
+////         m_edisplaytype = calculate_display_type();
+////
+////      }
 //
-//      }
-
-   }
+//   }
 
 
    ::wl_display * node::get_wayland_display()
@@ -2534,46 +2534,46 @@ void node::on_user_system_quit()
 //   }
 
 
-
-
-bool node::_g_defer_get_default_theme_icon(::string & strIconPath, GIcon * picon, int iSize)
-{
-
-   if(G_IS_THEMED_ICON(G_OBJECT(picon)))
-   {
-
-   GtkIconTheme *pGtkIconTheme= gtk_icon_theme_get_default();
-
-   if(pGtkIconTheme != nullptr) {
-
-      GtkIconInfo *pGtkIconInfo = gtk_icon_theme_lookup_by_gicon(pGtkIconTheme, picon, (gint) iSize,
-                                                                 GTK_ICON_LOOKUP_USE_BUILTIN);
-
-      if (pGtkIconInfo != nullptr)
-      {
-
-         const char *p = gtk_icon_info_get_filename(pGtkIconInfo);
-
-         if (p)
-         {
-
-            strIconPath = p;
-
-            return true;
-
-         }
-
-      }
-
-   }
-
-
-}
-
-   return false;
-
-}
-
+//
+//
+//bool node::_g_defer_get_default_theme_icon(::string & strIconPath, GIcon * picon, int iSize)
+//{
+//
+//   if(G_IS_THEMED_ICON(G_OBJECT(picon)))
+//   {
+//
+//   GtkIconTheme *pGtkIconTheme= gtk_icon_theme_get_default();
+//
+//   if(pGtkIconTheme != nullptr) {
+//
+//      GtkIconInfo *pGtkIconInfo = gtk_icon_theme_lookup_by_gicon(pGtkIconTheme, picon, (gint) iSize,
+//                                                                 GTK_ICON_LOOKUP_USE_BUILTIN);
+//
+//      if (pGtkIconInfo != nullptr)
+//      {
+//
+//         const char *p = gtk_icon_info_get_filename(pGtkIconInfo);
+//
+//         if (p)
+//         {
+//
+//            strIconPath = p;
+//
+//            return true;
+//
+//         }
+//
+//      }
+//
+//   }
+//
+//
+//}
+//
+//   return false;
+//
+//}
+//
 
 
 //
@@ -3179,7 +3179,7 @@ bool node::_g_defer_get_default_theme_icon(::string & strIconPath, GIcon * picon
    void node::defer_show_system_menu(::user::mouse * pmouse)
    {
 
-      ::node_gdk::node::defer_show_system_menu(pmouse);
+      //::node_gdk::node::defer_show_system_menu(pmouse);
 
 //      // Create a popup menu
 //      auto menu = gtk_menu_new();

@@ -55,7 +55,7 @@ list(APPEND library_references
         aqua
         aura
         aura_posix
-        node_gdk
+        #node_gdk
         windowing_posix
    windowing_gtk3
 )
@@ -72,11 +72,11 @@ list(APPEND library_references
 #    )
 #endif ()
 
-if (${HAS_WAYLAND})
-    list(APPEND library_references
-            windowing_wayland
-    )
-endif ()
+#if (${HAS_WAYLAND})
+#    list(APPEND library_references
+#            windowing_wayland
+#    )
+#endif ()
 
 list(APPEND static_library_references ${library_references})
 

@@ -41,7 +41,7 @@ list(APPEND library_references
    aqua
    aura
    aura_posix
-   windowing_x11
+   #windowing_x11
    node_gtk3
    )
 

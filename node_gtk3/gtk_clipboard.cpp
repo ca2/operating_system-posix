@@ -69,8 +69,8 @@ void clipboard_image_received_func(GtkClipboard * clipboard, GdkPixbuf * pixbuf,
 
          pdata->m_pimage->map();
 
-         ::copy_image32_swap_red_blue(
-            pdata->m_pimage->image32(),
+         //::copy_image32_swap_red_blue(
+            pdata->m_pimage->image32()->copy_swap_red_blue(
             pdata->m_pimage->width(),
             pdata->m_pimage->height(),
             pdata->m_pimage->scan_size(),

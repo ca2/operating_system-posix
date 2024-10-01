@@ -35,7 +35,7 @@ namespace windowing_gtk3
          , virtual public ::gtk3::nano::user::window
    {
    public:
-::point_i32 m_pointCursor2;
+//::point_i32 m_pointCursor2;
          //typedef struct {
                gboolean resizing;
                int resize_edge;
@@ -93,9 +93,9 @@ namespace windowing_gtk3
       //bool                                         m_bFirstConfigure;
       //bool                                         m_bXShmPutImagePending;
       ::pointer < ::operating_system::a_system_menu > m_psystemmenu;
-GtkWidget *m_pgtkwidget;
-         GtkWidget *m_pdrawingarea;
-      GtkWidget * m_pgtkwidgetSystemMenu;
+//GtkWidget *m_pgtkwidget;
+  //       GtkWidget *m_pdrawingarea;
+    //  GtkWidget * m_pgtkwidgetSystemMenu;
 
       window();
       //oswindow_data(::user::interaction * puibaseMessageOnlyWindow);
@@ -103,6 +103,9 @@ GtkWidget *m_pgtkwidget;
       //oswindow_data(const LPARAM & lparam);
       //oswindow_data(const WPARAM & wparam);
       ~window() override;
+
+
+      void on_initialize_particle() override;
 
          bool _on_button_press(GtkWidget *widget, GdkEventButton *event) override;
          bool _on_button_release(GtkWidget *widget, GdkEventButton *event) override;
@@ -181,6 +184,10 @@ GtkWidget *m_pgtkwidget;
 
       virtual ::e_status set_window_icon(const ::file::path & path);
 
+      virtual ::windowing::window * get_mouse_capture();
+      void set_mouse_capture() override;
+      void release_mouse_capture() override;
+
       //virtual bool is_child( WINDOWING_X11_WINDOW_MEMBER ::windowing::window * candidateChildOrDescendant); // or descendant
       //;::windowing::window * get_parent() const override;
       //virtual ::Window get_parent_handle();
@@ -256,7 +263,7 @@ GtkWidget *m_pgtkwidget;
       void _set_foreground_window_unlocked() override;
 
 
-      bool has_mouse_capture() const override;
+      bool has_mouse_capture() override;
 
       bool has_keyboard_focus() const override;
 
@@ -425,7 +432,7 @@ GtkWidget *m_pgtkwidget;
       // virtual void window_restore() override; // m_puserinteractionimpl->m_puserinteraction->display(::e_display_normal);
 
 
-      void set_interface_client_size(const ::size_i32 & sizeWindow) override; // m_sizeWindow
+      //void set_interface_client_size(const ::size_i32 & sizeWindow) override; // m_sizeWindow
 
          void window_restore() override;
          void window_minimize() override;
