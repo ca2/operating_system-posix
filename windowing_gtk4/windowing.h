@@ -108,7 +108,7 @@ namespace windowing_gtk4
 
       ::windowing::window* get_mouse_capture(::thread* pthread) override;
 
-      void release_mouse_capture(::thread* pthread) override;
+      void release_mouse_capture(::thread* pthread, ::windowing::window * pwindow) override;
 
       bool defer_release_mouse_capture(::thread* pthread, ::windowing::window* pwindow) override;
 
