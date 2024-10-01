@@ -211,7 +211,7 @@ namespace windowing_gtk3
 
       //node()->defer_show_system_menu(pmouse);
 
-      m_psystemmenu = create_system_menu();
+      m_psystemmenu = m_puserinteractionbase->create_system_menu();
 
       GtkWidget *menu_item;
 
@@ -410,23 +410,23 @@ namespace windowing_gtk3
 
 
 
-   ::pointer < ::operating_system::a_system_menu > window::create_system_menu()
-   {
-
-      auto psystemmenu = ::place(new ::operating_system::a_system_menu());
-
-      psystemmenu->add_item("Minimize", "minimize");
-      psystemmenu->add_item("Maximize", "maximize");
-      psystemmenu->add_item("Drag to Move","***move");
-      psystemmenu->add_item("Drag to Size", "***size");
-      psystemmenu->add_separator();
-      psystemmenu->add_item("About...", "about_box");
-      psystemmenu->add_separator();
-      psystemmenu->add_item("Close", "close");
-
-      return psystemmenu;
-
-   }
+//   ::pointer < ::operating_system::a_system_menu > window::create_system_menu()
+//   {
+//
+//      auto psystemmenu = ::place(new ::operating_system::a_system_menu());
+//
+//      psystemmenu->add_item("Minimize", "minimize");
+//      psystemmenu->add_item("Maximize", "maximize");
+//      psystemmenu->add_item("Drag to Move","***move");
+//      psystemmenu->add_item("Drag to Size", "***size");
+//      psystemmenu->add_separator();
+//      psystemmenu->add_item("About...", "about_box");
+//      psystemmenu->add_separator();
+//      psystemmenu->add_item("Close", "close");
+//
+//      return psystemmenu;
+//
+//   }
 
 
    void window::_on_size(int cx, int cy)
@@ -434,18 +434,31 @@ namespace windowing_gtk3
 
       ::user::interaction_impl * pimpl = m_puserinteractionimpl;
 
-
       auto puserinteraction = pimpl->m_puserinteraction;
 
       ::size_i32 s(cx, cy);
 
-      puserinteraction->layout().m_statea[::user::e_layout_sketch].m_size = s;
+      if(m_sizeWindow != s)
+      {
 
-      puserinteraction->set_need_layout();
+         m_sizeWindow = s;
 
-      puserinteraction->set_need_redraw();
+         puserinteraction->layout().m_statea[::user::e_layout_window].m_size = s;
 
-      puserinteraction->post_redraw();
+         if(puserinteraction->layout().m_statea[::user::e_layout_sketch].m_size != s)
+         {
+
+            puserinteraction->layout().m_statea[::user::e_layout_sketch].m_size = s;
+
+            puserinteraction->set_need_layout();
+
+            puserinteraction->set_need_redraw();
+
+            puserinteraction->post_redraw();
+
+         }
+
+      }
 
    }
 
@@ -746,6 +759,41 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *event)
             pimpl->m_puserinteraction->set_need_redraw();
 
             pimpl->m_puserinteraction->post_redraw();
+
+         }
+
+      }
+      else if(event->changed_mask &  GDK_WINDOW_STATE_MAXIMIZED)
+      {
+
+         if(event->new_window_state & GDK_WINDOW_STATE_MAXIMIZED)
+         {
+
+            ::user::interaction_impl * pimpl = m_puserinteractionimpl;
+
+            pimpl->m_puserinteraction->layout().m_statea[::user::e_layout_window].m_edisplay = e_display_zoomed;
+
+            if(pimpl->m_puserinteraction->layout().m_statea[::user::e_layout_sketch].m_edisplay
+                != e_display_zoomed)
+            {
+
+               pimpl->m_puserinteraction->display_zoomed();
+
+               pimpl->m_puserinteraction->set_reposition(true);
+
+               pimpl->m_puserinteraction->set_need_layout();
+
+               pimpl->m_puserinteraction->set_need_redraw();
+
+               pimpl->m_puserinteraction->post_redraw();
+
+            }
+
+         }
+         else
+         {
+
+
 
          }
 
@@ -3635,27 +3683,29 @@ bOk = true;
    bool window::_strict_set_window_position_unlocked(i32 x, i32 y, i32 cx, i32 cy, bool bNoMove, bool bNoSize)
    {
 
-      if (!bNoMove)
-      {
+      return ::windowing::window::_strict_set_window_position_unlocked(x, y, cx, cy, bNoMove, bNoSize);
 
-         gtk_window_move(GTK_WINDOW(m_pgtkwidget), x, y);
-
-         m_pointWindow.x() = x;
-
-         m_pointWindow.y() = y;
-
-      }
-
-      if (!bNoSize)
-      {
-
-         gtk_window_resize(GTK_WINDOW(m_pgtkwidget), cx, cy);
-
-         m_sizeWindow.cx() = cx;
-
-         m_sizeWindow.cy() = cy;
-
-      }
+//      if (!bNoMove)
+//      {
+//
+//         gtk_window_move(GTK_WINDOW(m_pgtkwidget), x, y);
+//
+//         m_pointWindow.x() = x;
+//
+//         m_pointWindow.y() = y;
+//
+//      }
+//
+//      if (!bNoSize)
+//      {
+//
+//         gtk_window_resize(GTK_WINDOW(m_pgtkwidget), cx, cy);
+//
+//         m_sizeWindow.cx() = cx;
+//
+//         m_sizeWindow.cy() = cy;
+//
+//      }
 
       return true;
 

@@ -546,7 +546,7 @@ namespace gtk3
             //cy = maximum(cy, 300);
 
             // Set window size
-            //gtk_window_set_default_size(GTK_WINDOW(m_pgtkwidget), cx, cy);
+            gtk_window_set_default_size(GTK_WINDOW(m_pgtkwidget), cx, cy);
 
 
             gtk_window_move(GTK_WINDOW(m_pgtkwidget), x, y);
@@ -1614,6 +1614,42 @@ namespace gtk3
          //
          //   }
 
+         bool window::is_window_zoomed()
+         {
+
+            bool bIsWindowZoomed = false;
+
+            main_send([this, &bIsWindowZoomed]()
+                      {
+
+                         bIsWindowZoomed = gtk_window_is_maximized(GTK_WINDOW(m_pgtkwidget));
+
+                      });
+
+            return bIsWindowZoomed;
+
+         }
+
+         void window::window_minimize()
+         {
+            main_post([this]()
+                      {
+            gtk_window_iconify(GTK_WINDOW(m_pgtkwidget));
+                      });
+         }
+
+
+         void window::window_maximize()
+         {
+
+            main_post([this]()
+            {
+
+               gtk_window_maximize(GTK_WINDOW(m_pgtkwidget));
+
+            });
+
+         }
 
 
       }//namespace user

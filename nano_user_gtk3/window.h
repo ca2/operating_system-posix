@@ -163,6 +163,9 @@ namespace gtk3
 
             //void on_a_system_menu_item(::operating_system::a_system_menu_item * psystemmenuitem);
 
+            bool is_window_zoomed() override;
+            void window_minimize() override;
+            void window_maximize() override;
 
          };
       }//namespace user

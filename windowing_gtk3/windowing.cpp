@@ -57,7 +57,14 @@ namespace windowing_gtk3
    bool windowing::has_readily_gettable_absolute_coordinates() const
    {
 
-      return false;
+      if(system()->m_ewindowing == e_windowing_wayland)
+      {
+
+         return false;
+
+      }
+
+      return true;
 
    }
 

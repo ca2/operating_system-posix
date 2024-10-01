@@ -359,9 +359,24 @@ namespace windowing_gtk3
       for(int i = 0; i < n; i++)
       {
 
+         GdkMonitor *monitor = gdk_display_get_monitor(m_pgdkdisplay, i);
+
          auto pmonitor = __create_new< ::windowing::monitor>();
 
          pmonitor->m_pdisplay = this;
+
+
+         // Get the geometry (rectangle) of the monitor
+         GdkRectangle geometry;
+         gdk_monitor_get_geometry(monitor, &geometry);
+
+         // Print monitor geometry details
+         printf("Monitor %u: x = %d, y = %d, width = %d, height = %d\n",
+                i, geometry.x, geometry.y, geometry.width, geometry.height);
+         ::copy(pmonitor->m_rectangle, geometry);
+         ::copy(pmonitor->m_rectangleWorkspace, geometry);
+         // Unref the monitor object as we no longer need it
+         g_object_unref(monitor);
 
          m_monitora.add(pmonitor);
 
@@ -373,20 +388,22 @@ namespace windowing_gtk3
    bool display::_get_monitor_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangle)
    {
 
-      auto pgdkmonitor = gdk_display_get_monitor(m_pgdkdisplay, iMonitor);
-
-      if(!pgdkmonitor)
+//      auto pgdkmonitor = gdk_display_get_monitor(m_pgdkdisplay, iMonitor);
+//
+      if(iMonitor < 0 || iMonitor >= m_monitora.size())
       {
 
          return false;
 
       }
+//
+//      GdkRectangle geometry;
+//
+//      gdk_monitor_get_geometry(pgdkmonitor, &geometry);
+//
+//      copy(&rectangle, &geometry);
 
-      GdkRectangle geometry;
-
-      gdk_monitor_get_geometry(pgdkmonitor, &geometry);
-
-      copy(&rectangle, &geometry);
+      rectangle = m_monitora[iMonitor]->m_rectangle;
 
       return true;
 
@@ -396,20 +413,16 @@ namespace windowing_gtk3
    bool display::_get_workspace_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangleWorkspace)
    {
 
-      auto pgdkmonitor = gdk_display_get_monitor(m_pgdkdisplay, iMonitor);
+//      auto pgdkmonitor = gdk_display_get_monitor(m_pgdkdisplay, iMonitor);
 
-      if(!pgdkmonitor)
+      if(iMonitor < 0 || iMonitor >= m_monitora.size())
       {
 
          return false;
 
       }
 
-      GdkRectangle workarea;
-
-      gdk_monitor_get_workarea(pgdkmonitor, &workarea);
-
-      copy(&rectangleWorkspace, &workarea);
+      rectangleWorkspace = m_monitora[iMonitor]->m_rectangleWorkspace;
 
       return true;
 

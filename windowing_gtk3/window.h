@@ -242,7 +242,7 @@ namespace windowing_gtk3
       void _set_keyboard_focus_unlocked() override;
 
 
-      virtual ::pointer < ::operating_system::a_system_menu > create_system_menu();
+      //virtual ::pointer < ::operating_system::a_system_menu > create_system_menu();
 
       virtual void _on_a_system_menu_item_button_press(::operating_system::a_system_menu_item * pitem, GtkWidget * pwidget, GdkEventButton * peventbutton);
 
