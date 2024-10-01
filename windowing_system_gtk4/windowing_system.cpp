@@ -98,64 +98,6 @@ return psurface;
 
 
 
-::pixmap get_raw_data_from_cairo_surface(::memory & memoryHost, cairo_surface_t *surface) {
-   // Ensure the surface format is ARGB32
-   if (cairo_image_surface_get_format(surface) != CAIRO_FORMAT_ARGB32) {
-      fprintf(stderr, "Surface format is not ARGB32.\n");
-      return{};
-   }
-
-   // Get the width, height, and stride of the surface
-   int width = cairo_image_surface_get_width(surface);
-   int height = cairo_image_surface_get_height(surface);
-   int stride = cairo_image_surface_get_stride(surface);
-
-   // Get the raw pixel data
-   unsigned char *data = cairo_image_surface_get_data(surface);
-
-   // Ensure the data is not NULL
-   if (!data) {
-      fprintf(stderr, "Failed to get the surface data.\n");
-      return{};
-   }
-
-
-   memoryHost.set_size(stride * height);
-
-   ::pixmap pixmap;
-
-   memcpy(memoryHost.data(), data, memoryHost.size());
-
-   pixmap.m_pimage32 = (::image32_t *) memoryHost.data();
-   pixmap.m_sizeRaw.cx() = width;
-   pixmap.m_sizeRaw.cy() = height;
-   pixmap.m_size.cx() = width;
-   pixmap.m_size.cy() = height;
-   pixmap.m_iScan = stride;
-
-
-
-   //
-   // // Loop through each pixel and extract the ARGB values
-   // for (int y = 0; y < height; ++y) {
-   //    unsigned char *row = data + y * stride;  // Get the current row
-   //    for (int x = 0; x < width; ++x) {
-   //       // Access the pixel at (x, y)
-   //       unsigned char b = row[x * 4 + 0]; // Blue
-   //       unsigned char g = row[x * 4 + 1]; // Green
-   //       unsigned char r = row[x * 4 + 2]; // Red
-   //       unsigned char a = row[x * 4 + 3]; // Alpha
-   //
-   //       // Print the ARGB values of the pixel
-   //       printf("Pixel at (%d, %d): A=%d, R=%d, G=%d, B=%d\n", x, y, a, r, g, b);
-   //    }
-   // }
-
-   return pixmap;
-
-}
-
-
 
 namespace windowing_system_gtk4
 {

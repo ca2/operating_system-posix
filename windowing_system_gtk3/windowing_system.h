@@ -51,6 +51,11 @@ namespace windowing_system_gtk3
 //   void x11_display_error_trap_pop_ignored(int i) override;
 
       void main_post(const ::procedure & procedure) override;
+
+
+      ::pixmap get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile);
+
+
    };
 
 

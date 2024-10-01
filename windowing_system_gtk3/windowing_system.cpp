@@ -3,6 +3,7 @@
 //
 #include "framework.h"
 #include "windowing_system.h"
+#include "acme/integrate/cairo.h"
 #include "acme/nano/nano.h"
 #include "acme/nano/user/user.h"
 #include "acme/parallelization/manual_reset_event.h"
@@ -16,6 +17,80 @@
 
 namespace windowing_system_gtk3
 {
+
+
+
+   cairo_surface_t *get_cairo_surface_from_pixbuf(GdkPixbuf *pixbuf) {
+      int width, height, stride;
+      cairo_format_t format;
+      guchar *pixels;
+      cairo_surface_t *surface;
+
+      // Get pixbuf properties
+      width = gdk_pixbuf_get_width(pixbuf);
+      height = gdk_pixbuf_get_height(pixbuf);
+      stride = gdk_pixbuf_get_rowstride(pixbuf);
+      pixels = gdk_pixbuf_get_pixels(pixbuf);
+
+      // Determine the format (assuming GdkPixbuf uses 8 bits per channel and alpha)
+      if (gdk_pixbuf_get_has_alpha(pixbuf)) {
+         format = CAIRO_FORMAT_ARGB32;
+      } else {
+         format = CAIRO_FORMAT_RGB24;
+      }
+
+      // Create a Cairo image surface from pixbuf pixel data
+      surface = cairo_image_surface_create_for_data(
+         pixels,               // Pixel data from GdkPixbuf
+         format,               // Cairo format (ARGB32 or RGB24)
+         width,                // Width of the image
+         height,               // Height of the image
+         stride                // Stride (number of bytes per row)
+      );
+
+      if (cairo_surface_status(surface) != CAIRO_STATUS_SUCCESS) {
+         g_warning("Error creating Cairo surface from GdkPixbuf");
+         return NULL;
+      }
+
+      return surface;
+   }
+
+   // Sample JPEG data in memory (you would typically load this from a file or network)
+   //const unsigned char jpeg_data[] = { /* ... your JPEG data here ... */ };
+   //gsize jpeg_data_size = sizeof(jpeg_data);
+   cairo_surface_t * cairo_surface_from_file_in_memory(const void * p, memsize size)
+   {
+      // Load JPEG image from memory into GdkPixbuf
+      GdkPixbufLoader *loader = gdk_pixbuf_loader_new();
+      GError *error = NULL;
+
+      if (!gdk_pixbuf_loader_write(loader, (const guchar *) p, size, &error)) {
+         g_printerr("Error loading image: %s\n", error->message);
+         g_error_free(error);
+         g_object_unref(loader);
+         throw ::exception(error_failed);
+      }
+
+      gdk_pixbuf_loader_close(loader, NULL);
+
+      // Get the GdkPixbuf from the loader
+      GdkPixbuf *pixbuf = gdk_pixbuf_loader_get_pixbuf(loader);
+
+      if (!pixbuf) {
+         g_printerr("Failed to load image.\n");
+         g_object_unref(loader);
+         throw ::exception(error_failed);
+      }
+
+      auto psurface = get_cairo_surface_from_pixbuf(pixbuf);
+
+      // Cleanup
+      g_object_unref(loader);
+
+      return psurface;
+
+   }
 
 
    windowing_system::windowing_system()
@@ -356,6 +431,28 @@ namespace windowing_system_gtk3
 //
 //
 //    }
+
+
+   ::pixmap windowing_system::get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile)
+   {
+
+
+      auto psurface  = cairo_surface_from_file_in_memory(psourceFile, sizeSourceFile);
+
+      if(::is_null(psurface))
+      {
+
+         throw ::exception(error_failed);
+
+      }
+
+      auto pixmap = get_raw_data_from_cairo_surface(memoryHost, psurface);
+
+      cairo_surface_destroy(psurface);
+
+      return pixmap;
+
+   }
 
 
 } // namespace windowing_system_gtk3
