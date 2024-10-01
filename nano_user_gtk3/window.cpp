@@ -10,6 +10,8 @@
 #include "acme/nano/nano.h"
 #include "acme/nano/graphics/device.h"
 #include "acme/nano/user/child.h"
+#include "acme/operating_system/a_system_menu.h"
+#include "acme/platform/application.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
 #include "acme/user/user/interaction_base.h"
@@ -97,10 +99,10 @@ namespace gtk3
 
 
          // Stop resizing when the mouse button is released
-         static gboolean on_button_release(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
+         static gboolean on_button_release(GtkWidget *widget, GdkEventButton *event, gpointer p)
          {
 
-            ::pointer < ::gtk3::nano::user::window > pwindow = (::gtk3::nano::user::window*) user_data;
+            ::pointer < ::gtk3::nano::user::window > pwindow = (::gtk3::nano::user::window*) p;
 
             if(!pwindow->_on_button_release(widget, event))
             {
@@ -145,12 +147,12 @@ namespace gtk3
          }
 
 
-         static gboolean on_window_state(GtkWidget* widget,GdkEventWindowState* event, gpointer user_data)
+         static gboolean on_window_state(GtkWidget* widget,GdkEventWindowState* event, gpointer p)
          {
 
-            auto resize_data = (::gtk3::nano::user::window*) user_data;
+            ::pointer < ::gtk3::nano::user::window > pwindow = (::gtk3::nano::user::window*) p;
 
-            if(!resize_data->_on_window_state(widget, event))
+            if(!pwindow->_on_window_state(widget, event))
             {
 
                return FALSE;
@@ -169,7 +171,77 @@ namespace gtk3
             return FALSE;
          }
 
+         // Callback to handle button-press-event for menu item
+         gboolean on_menu_item_button_press(GtkWidget *widget, GdkEventButton *event, gpointer p) {
+            if (event->button == 1) {  // Left mouse button
+               //g_print("Left button pressed on menu item: %s\n", gtk_menu_item_get_label(GTK_MENU_ITEM(widget)));
+               auto * pitem = (::operating_system::a_system_menu_item *)p;
 
+               auto pwindow = (::gtk3::nano::user::window *)pitem->m_pWindowingImplWindow;
+               gtk_widget_hide(GTK_WIDGET(pwindow->m_pgtkwidgetSystemMenu));
+
+               gtk_menu_popdown(GTK_MENU(pwindow->m_pgtkwidgetSystemMenu));
+
+               gtk_widget_destroy(pwindow->m_pgtkwidgetSystemMenu);
+               pwindow->_on_a_system_menu_item_button_press(pitem, widget, event);
+
+               pwindow->m_psystemmenu.release();
+
+               pwindow->m_pgtkwidgetSystemMenu = nullptr;
+            } else if (event->button == 3) {  // Right mouse button
+               //g_print("Right button pressed on menu item: %s\n", gtk_menu_item_get_label(GTK_MENU_ITEM(widget)));
+            }
+            return FALSE;  // Return FALSE to propagate the event, or TRUE to stop further event handling
+         }
+         // Callback for when menu items are activated
+         void on_menu_item_clicked(GtkMenuItem *menuitem, gpointer p)
+         {
+
+            auto * pitem = (::operating_system::a_system_menu_item *)p;
+
+            auto pwindow = (::gtk3::nano::user::window *)pitem->m_pWindowingImplWindow;
+
+            //pwindow->main_post([pitem, pwindow]()
+            //                   {
+
+            gtk_widget_hide(GTK_WIDGET(pwindow->m_pgtkwidgetSystemMenu));
+
+            gtk_menu_popdown(GTK_MENU(pwindow->m_pgtkwidgetSystemMenu));
+
+            gtk_widget_destroy(pwindow->m_pgtkwidgetSystemMenu);
+
+            pwindow->m_pgtkwidgetSystemMenu = nullptr;
+
+            //                    pwindow->application()->fork([pwindow, pitem]()
+            //                                               {
+
+            pwindow->on_a_system_menu_item(pitem);
+
+            pwindow->m_psystemmenu.release();
+
+
+            //                                                         });
+
+            //                       });
+
+
+            ///const gchar *item_label = gtk_menu_item_get_label(menuitem);
+
+            //g_print("Menu item %s clicked\n", item_label);
+
+         }
+
+         void
+         on_window_destroy (
+            GtkWidget* self,
+            gpointer p
+            )
+         {
+
+            ::pointer < ::gtk3::nano::user::window > pwindow = (::gtk3::nano::user::window*) p;
+
+            pwindow->release();
+         }
 
          window::window()
          {
@@ -179,6 +251,7 @@ namespace gtk3
             //m_pvisual = nullptr;
             //zero(m_visualinfo);
             //m_colormap = 0;
+               m_pgtkwidgetSystemMenu = nullptr;
 
          }
 
@@ -452,6 +525,8 @@ namespace gtk3
 
             m_pgtkwidget = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
+            increment_reference_count();
+
             gtk_window_set_decorated(GTK_WINDOW(m_pgtkwidget), false);
 
             GdkScreen *screen = gtk_widget_get_screen(m_pgtkwidget);
@@ -515,6 +590,7 @@ namespace gtk3
 
             // Connect the draw event to the drawing callback function
             g_signal_connect(G_OBJECT(m_pgtkwidget), "draw", G_CALLBACK(on_window_draw), this);
+            g_signal_connect(G_OBJECT(m_pgtkwidget), "destroy", G_CALLBACK(on_window_destroy), this);
 
             on_create_window();
 
@@ -830,7 +906,7 @@ namespace gtk3
 
             }
 
-            return false;
+            return true;
 
          }
 
@@ -864,6 +940,41 @@ namespace gtk3
             set_interface_client_size({cx, cy});
 
          }
+
+
+
+
+         void window::_on_a_system_menu_item_button_press(::operating_system::a_system_menu_item * pitem, GtkWidget * pwidget, GdkEventButton * peventbutton)
+         {
+
+            if(pitem->m_strAtom == "***move")
+            {
+
+               gtk_window_begin_move_drag(
+                  GTK_WINDOW(m_pgtkwidget),
+                  peventbutton->button,
+                  peventbutton->x_root,
+                  peventbutton->y_root,
+                  peventbutton->time);
+
+            }
+            else if(pitem->m_strAtom == "***size")
+            {
+
+               gtk_window_begin_resize_drag(
+                  GTK_WINDOW(m_pgtkwidget),
+                  GDK_WINDOW_EDGE_SOUTH_EAST,
+                  peventbutton->button,
+                  peventbutton->x_root,
+                  peventbutton->y_root,
+                  peventbutton->time);
+
+            }
+
+         }
+
+
+
          void window::set_interface_client_size(const ::size_i32 & sizeWindow) // set_size
          {
 
@@ -1248,6 +1359,8 @@ namespace gtk3
 
             ::windowing::window_base::destroy();
 
+            gtk_widget_destroy(m_pgtkwidget);
+
          }
 
 
@@ -1423,6 +1536,76 @@ namespace gtk3
 //
 //         }
 
+         void window::defer_show_system_menu(::user::mouse * pmouse)
+         {
+
+            //node()->defer_show_system_menu(pmouse);
+
+            m_psystemmenu = m_puserinteractionbase->create_system_menu();
+
+            GtkWidget *menu_item;
+
+            if(m_pgtkwidgetSystemMenu)
+            {
+
+               gtk_widget_hide(GTK_WIDGET(m_pgtkwidgetSystemMenu));
+
+               gtk_menu_popdown(GTK_MENU(m_pgtkwidgetSystemMenu));
+
+               gtk_widget_destroy(m_pgtkwidgetSystemMenu);
+
+            }
+
+            m_pgtkwidgetSystemMenu = gtk_menu_new();
+
+            for(auto & pitem : *m_psystemmenu)
+            {
+               ::string strAtom = pitem->m_strAtom;
+               if(pitem->m_strName.is_empty())
+               {
+                  menu_item = gtk_separator_menu_item_new();
+               }
+               else
+               {
+                  menu_item = gtk_menu_item_new_with_label(pitem->m_strName);
+                  pitem->m_pWindowingImplWindow = this;
+                  if(pitem->m_strAtom.begins("***"))
+                  {
+                     gtk_widget_add_events(menu_item, GDK_BUTTON_PRESS_MASK);
+
+                     // Connect the button-press-event signal to handle button press events on menu items
+                     g_signal_connect(menu_item, "button-press-event", G_CALLBACK(on_menu_item_button_press), pitem.m_p);
+
+                  }
+                  else {
+                     g_signal_connect(menu_item, "activate", G_CALLBACK(on_menu_item_clicked), pitem.m_p);
+                  }
+               }
+               gtk_menu_shell_append(GTK_MENU_SHELL(m_pgtkwidgetSystemMenu), menu_item);
+               ///gtk_widget_show(menu_item);
+            }
+
+            // Add menu items
+            //      menu_item2 = gtk_menu_item_new_with_label("Option 2");
+            //      menu_item3 = gtk_menu_item_new_with_label("Quit");
+
+            // Connect signals for menu items
+            //      g_signal_connect(menu_item2, "activate", G_CALLBACK(on_menu_item_clicked), this);
+            //      g_signal_connect(menu_item3, "activate", G_CALLBACK(gtk_main_quit), NULL); // Exit on quit
+
+            // Add the items to the menu
+            //      gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_item2);
+            //      gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_item3);
+
+            // Show the items
+            gtk_widget_show_all(m_pgtkwidgetSystemMenu);
+
+            auto * pevent = (GdkEvent *) pmouse->m_pOsMouseDataOkIfOnStack;
+
+            gtk_menu_popup_at_pointer(GTK_MENU(m_pgtkwidgetSystemMenu), (GdkEvent *)pevent); // Show the menu at the pointer location
+
+
+         }
 
          //   ::size_i32 window::get_main_screen_size()
          //   {
@@ -1430,6 +1613,9 @@ namespace gtk3
          //      return m_pdisplay->get_main_screen_size();
          //
          //   }
+
+
+
       }//namespace user
    }//namespace nano
 

@@ -31,6 +31,7 @@ namespace gtk3
             //Window                           m_windowRoot;
             GtkWidget * m_pgtkwidget;
             GtkWidget *m_pdrawingarea;
+            GtkWidget * m_pgtkwidgetSystemMenu;
             //cairo_surface_t *                m_psurface;
 //            ::pointer<::nano::graphics::device>          m_pnanodevice;
 //            int                              m_iDepth;
@@ -93,6 +94,9 @@ namespace gtk3
 
             virtual void _draw(::nano::graphics::device * pnanodevice);
 
+            virtual void _on_a_system_menu_item_button_press(::operating_system::a_system_menu_item * pitem, GtkWidget * pwidget, GdkEventButton * peventbutton);
+
+
             //virtual void on_draw(::nano::graphics::device * pnanodevice);
 
             void on_char(int iChar) override;
@@ -151,9 +155,13 @@ namespace gtk3
 
             virtual void __unmap();
 
+            void defer_show_system_menu(::user::mouse * pmouse) override;
+
 
             void set_interface_client_size(const ::size_i32 & sizeWindow) ;// set_size
             //::size_i32 get_main_screen_size() override;
+
+            //void on_a_system_menu_item(::operating_system::a_system_menu_item * psystemmenuitem);
 
 
          };
