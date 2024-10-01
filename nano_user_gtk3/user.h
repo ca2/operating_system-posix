@@ -7,7 +7,7 @@
 #include "acme/nano/user/user.h"
 
 
-namespace x11
+namespace gtk3
 {
 
 
@@ -45,7 +45,7 @@ namespace x11
    } // namespace nano
 
 
-} // namespace x11
+} // namespace gtk3
 
 
 

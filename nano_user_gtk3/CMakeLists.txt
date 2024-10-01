@@ -36,8 +36,8 @@ set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 list(APPEND library_references
         acme
-        windowing_system_x11
-        nano_user_cairo
+        windowing_system_gtk3
+        nano_graphics_cairo
 )
 
 if (MSVC)
@@ -48,7 +48,7 @@ if (MSVC)
    target_link_libraries(${PROJECT_NAME} PRIVATE acme apex aqua aura Gdiplus)
 elseif (${LINUX} OR ${__BSD__})
 
-   pkg_check_modules(PKGCONFIG cairo xcb x11 xkbcommon xcb-render xcb-aux x11-xcb libarchive)
+   pkg_check_modules(PKGCONFIG gtk+-3.0)
    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
    #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
    #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})

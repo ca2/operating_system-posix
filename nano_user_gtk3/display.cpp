@@ -11,11 +11,11 @@
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
 //#include "acme/prototype/geometry2d/rectangle.h"
-#include "acme/nano/user/window.h"
+//#include "acme/nano/user/window.h"
 #include "acme/windowing_system/windowing_system.h"
 
 
-#include "windowing_system_x11/_.h"
+//#include "windowing_system_x11/_.h"
 
 
 #ifdef OPENBSD
@@ -25,20 +25,20 @@
 #endif
 
 
-#define MAXSTR 1000
+//#define MAXSTR 1000
 
 
 //::e_status defer_initializex_x11();
 
 
-int x11_init_threads();
+//int x11_init_threads();
 //Display * x11_get_display();
 
 
 void set_main_user_thread();
 
 
-namespace x11
+namespace gtk3
 {
 
 
@@ -47,22 +47,22 @@ namespace x11
       namespace user
       {
 
-         display * display::g_p = nullptr;
+         //display * display::g_p = nullptr;
 
 
          display::display()
          {
 
-            m_pdisplay = nullptr;
+            //m_pdisplay = nullptr;
 
             m_bUnhook = false;
 
-            if(!g_p)
-            {
-
-               g_p = this;
-
-            }
+//            if(!g_p)
+//            {
+//
+//               g_p = this;
+//
+//            }
 
             defer_create_synchronization();
 
@@ -77,405 +77,405 @@ namespace x11
          }
 
 
-         Atom display::intern_atom(const char *pszAtomName, bool bCreate)
-         {
-
-            return _intern_atom_unlocked(pszAtomName, bCreate);
-
-            //      if (m_pdisplay == nullptr)
-            //      {
-            //
-            //         return 0;
-            //
-            //      }
-            //
-            //      auto atom = XInternAtom(m_pdisplay, pszAtomName, bCreate ? True : False);
-            //
-            //      if (atom == None)
-            //      {
-            //
-            //         windowing_output_debug_string("ERROR: cannot find atom for " + string(pszAtomName) + "\n");
-            //
-            //         return None;
-            //
-            //      }
-            //
-            //      return atom;
-
-         }
-
-
-         Atom display::intern_atom(enum_atom eatom, bool bCreate)
-         {
-
-            return _intern_atom_unlocked(eatom, bCreate);
-
-            //      if (eatom < 0 || eatom >= e_atom_count)
-            //      {
-            //
-            //         return None;
-            //
-            //      }
-            //
-            //      Atom atom = m_atommap[eatom];
-            //
-            //      if (atom == None)
-            //      {
-            //
-            //         atom = intern_atom(atom_name(eatom), bCreate);
-            //
-            //         m_atommap[eatom] = atom;
-            //
-            //      }
-            //
-            //      return atom;
-
-         }
-
-
-
-         Atom display::_intern_atom_unlocked(const char *pszAtomName, bool bCreate)
-         {
-
-            if (m_pdisplay == nullptr)
-            {
-
-               return 0;
-
-            }
-
-            auto atom = XInternAtom(m_pdisplay, pszAtomName, bCreate ? True : False);
-
-            if (atom == None)
-            {
-
-               windowing_output_debug_string("ERROR: cannot find atom for " + string(pszAtomName) + "\n");
-
-               return None;
-
-            }
-
-            return atom;
-
-         }
-
-
-         Atom display::_intern_atom_unlocked(enum_atom eatom, bool bCreate)
-         {
-
-            if (eatom < 0 || eatom >= e_atom_count)
-            {
-
-               return None;
-
-            }
-
-            Atom atom = m_atommap[eatom];
-
-            if (atom == None)
-            {
-
-               atom = _intern_atom_unlocked(atom_name(eatom), bCreate);
-
-               m_atommap[eatom] = atom;
-
-            }
-
-            return atom;
-
-         }
-
-
-         unsigned char* display::_get_string_property(Display * display, Window window, char* property_name)
-         {
-
-            unsigned char * prop;
-            Atom actual_type, filter_atom;
-            int actual_format, status;
-            unsigned long nitems, bytes_after;
-
-            filter_atom = XInternAtom(display, property_name, True);
-
-            status = XGetWindowProperty(display, window, filter_atom, 0, MAXSTR, False, AnyPropertyType,
-                                        &actual_type, &actual_format, &nitems, &bytes_after, &prop);
-
-            x11_check_status(status, window);
-
-            return prop;
-
-         }
-
-
-         unsigned long display::_get_long_property(Display *d, Window w, char *property_name)
-         {
-
-            unsigned char *prop = _get_string_property(d, w, property_name);
-
-            unsigned long long_property = prop[0] + (prop[1] << 8) + (prop[2] << 16) + (prop[3] << 24);
-
-            XFree(prop);
-
-            return long_property;
-
-         }
-
-
-         Window display::_get_active_window()
-         {
-
-            int screen = XDefaultScreen(m_pdisplay);
-
-            Window windowRoot = RootWindow(m_pdisplay, screen);
-
-            Window window = _get_long_property(m_pdisplay, windowRoot, (char *) "_NET_ACTIVE_WINDOW");
-
-            return window;
-
-         }
-
-
-         Window display::window_from_name_search(Display *display, Window current, char const *needle, int iOffset, int depth)
-         {
-
-            Window window, root, parent, *children;
-
-            unsigned children_count;
-
-            char *name = NULL;
-
-            window = 0;
-
-            /* If it does not: check all subwindows recursively. */
-            if(0 != XQueryTree(display, current, &root, &parent, &children, &children_count))
-            {
-
-               unsigned i;
-
-               for(i = 0; i < children_count; ++i)
-               {
-
-                  /* Check if this window has the name we seek */
-                  if(XFetchName(display,  children[i], &name) > 0)
-                  {
-
-                     int r = ansi_cmp(needle, name);
-
-                     XFree(name);
-
-                     if(r == 0)
-                     {
-
-                        window = children[i+iOffset];
-
-                        break;
-
-                     }
-
-                  }
-
-                  if(depth > 1)
-                  {
-
-                     Window win = window_from_name_search(display, children[i], needle, depth - 1);
-
-                     if (win != 0)
-                     {
-
-                        window = win;
-
-                        break;
-
-                     }
-
-                  }
-
-               }
-
-               XFree(children);
-
-            }
-
-            return window;
-
-         }
-
-
-         Window display::window_from_name(char const *name, int iOffset, int depth)
-         {
-
-            auto display = m_pdisplay;
-
-            auto windowRoot = XDefaultRootWindow(display);
-
-            auto window = window_from_name_search(display, windowRoot, name, iOffset, depth);
-
-            return window;
-
-         }
-
-
-         display * display_get(::particle * pparticle, bool bBranch, Display * pdisplay)
-         {
-
-            critical_section_lock lock(pparticle->platform()->globals_critical_section());
-
-            if (display::g_p == nullptr)
-            {
-
-               auto p = new display();
-
-               p->initialize(pparticle);
-
-               p->add_listener(p);
-
-               p->m_pdisplay = pdisplay;
-
-               if(bBranch)
-               {
-
-                  p->branch_synchronously();
-
-               }
-               else
-               {
-
-                  p->init_task();
-
-               }
-
-            }
-
-            return display::g_p;
-
-         }
-
-
-         void display::add_listener(event_listener * plistener)
-         {
-
-            synchronous_lock synchronouslock(this->synchronization());
-
-            m_eventlistenera.add(plistener);
-
-         }
-
-
-         void display::add_window(nano::user::interchange * pwindow)
-         {
-
-            synchronous_lock synchronouslock(this->synchronization());
-
-            m_windowa.add(pwindow);
-
-         }
-
-
-         void display::erase_listener(event_listener * plistener)
-         {
-
-            synchronous_lock synchronouslock(this->synchronization());
-
-            m_eventlistenera.erase(plistener);
-
-         }
-
-
-         void display::erase_window(::x11::nano::user::interchange * pwindow)
-         {
-
-            synchronous_lock synchronouslock(this->synchronization());
-
-            m_windowa.erase(pwindow);
-
-         }
+//         Atom display::intern_atom(const char *pszAtomName, bool bCreate)
+//         {
+//
+//            return _intern_atom_unlocked(pszAtomName, bCreate);
+//
+//            //      if (m_pdisplay == nullptr)
+//            //      {
+//            //
+//            //         return 0;
+//            //
+//            //      }
+//            //
+//            //      auto atom = XInternAtom(m_pdisplay, pszAtomName, bCreate ? True : False);
+//            //
+//            //      if (atom == None)
+//            //      {
+//            //
+//            //         windowing_output_debug_string("ERROR: cannot find atom for " + string(pszAtomName) + "\n");
+//            //
+//            //         return None;
+//            //
+//            //      }
+//            //
+//            //      return atom;
+//
+//         }
+//
+//
+//         Atom display::intern_atom(enum_atom eatom, bool bCreate)
+//         {
+//
+//            return _intern_atom_unlocked(eatom, bCreate);
+//
+//            //      if (eatom < 0 || eatom >= e_atom_count)
+//            //      {
+//            //
+//            //         return None;
+//            //
+//            //      }
+//            //
+//            //      Atom atom = m_atommap[eatom];
+//            //
+//            //      if (atom == None)
+//            //      {
+//            //
+//            //         atom = intern_atom(atom_name(eatom), bCreate);
+//            //
+//            //         m_atommap[eatom] = atom;
+//            //
+//            //      }
+//            //
+//            //      return atom;
+//
+//         }
+//
+//
+//
+//         Atom display::_intern_atom_unlocked(const char *pszAtomName, bool bCreate)
+//         {
+//
+//            if (m_pdisplay == nullptr)
+//            {
+//
+//               return 0;
+//
+//            }
+//
+//            auto atom = XInternAtom(m_pdisplay, pszAtomName, bCreate ? True : False);
+//
+//            if (atom == None)
+//            {
+//
+//               windowing_output_debug_string("ERROR: cannot find atom for " + string(pszAtomName) + "\n");
+//
+//               return None;
+//
+//            }
+//
+//            return atom;
+//
+//         }
+//
+//
+//         Atom display::_intern_atom_unlocked(enum_atom eatom, bool bCreate)
+//         {
+//
+//            if (eatom < 0 || eatom >= e_atom_count)
+//            {
+//
+//               return None;
+//
+//            }
+//
+//            Atom atom = m_atommap[eatom];
+//
+//            if (atom == None)
+//            {
+//
+//               atom = _intern_atom_unlocked(atom_name(eatom), bCreate);
+//
+//               m_atommap[eatom] = atom;
+//
+//            }
+//
+//            return atom;
+//
+//         }
+//
+//
+//         unsigned char* display::_get_string_property(Display * display, Window window, char* property_name)
+//         {
+//
+//            unsigned char * prop;
+//            Atom actual_type, filter_atom;
+//            int actual_format, status;
+//            unsigned long nitems, bytes_after;
+//
+//            filter_atom = XInternAtom(display, property_name, True);
+//
+//            status = XGetWindowProperty(display, window, filter_atom, 0, MAXSTR, False, AnyPropertyType,
+//                                        &actual_type, &actual_format, &nitems, &bytes_after, &prop);
+//
+//            x11_check_status(status, window);
+//
+//            return prop;
+//
+//         }
+//
+//
+//         unsigned long display::_get_long_property(Display *d, Window w, char *property_name)
+//         {
+//
+//            unsigned char *prop = _get_string_property(d, w, property_name);
+//
+//            unsigned long long_property = prop[0] + (prop[1] << 8) + (prop[2] << 16) + (prop[3] << 24);
+//
+//            XFree(prop);
+//
+//            return long_property;
+//
+//         }
+
+
+//         Window display::_get_active_window()
+//         {
+//
+//            int screen = XDefaultScreen(m_pdisplay);
+//
+//            Window windowRoot = RootWindow(m_pdisplay, screen);
+//
+//            Window window = _get_long_property(m_pdisplay, windowRoot, (char *) "_NET_ACTIVE_WINDOW");
+//
+//            return window;
+//
+//         }
+
+
+//         Window display::window_from_name_search(Display *display, Window current, char const *needle, int iOffset, int depth)
+//         {
+//
+//            Window window, root, parent, *children;
+//
+//            unsigned children_count;
+//
+//            char *name = NULL;
+//
+//            window = 0;
+//
+//            /* If it does not: check all subwindows recursively. */
+//            if(0 != XQueryTree(display, current, &root, &parent, &children, &children_count))
+//            {
+//
+//               unsigned i;
+//
+//               for(i = 0; i < children_count; ++i)
+//               {
+//
+//                  /* Check if this window has the name we seek */
+//                  if(XFetchName(display,  children[i], &name) > 0)
+//                  {
+//
+//                     int r = ansi_cmp(needle, name);
+//
+//                     XFree(name);
+//
+//                     if(r == 0)
+//                     {
+//
+//                        window = children[i+iOffset];
+//
+//                        break;
+//
+//                     }
+//
+//                  }
+//
+//                  if(depth > 1)
+//                  {
+//
+//                     Window win = window_from_name_search(display, children[i], needle, depth - 1);
+//
+//                     if (win != 0)
+//                     {
+//
+//                        window = win;
+//
+//                        break;
+//
+//                     }
+//
+//                  }
+//
+//               }
+//
+//               XFree(children);
+//
+//            }
+//
+//            return window;
+//
+//         }
+//
+//
+//         Window display::window_from_name(char const *name, int iOffset, int depth)
+//         {
+//
+//            auto display = m_pdisplay;
+//
+//            auto windowRoot = XDefaultRootWindow(display);
+//
+//            auto window = window_from_name_search(display, windowRoot, name, iOffset, depth);
+//
+//            return window;
+//
+//         }
+//
+//
+//         display * display_get(::particle * pparticle, bool bBranch, Display * pdisplay)
+//         {
+//
+//            critical_section_lock lock(pparticle->platform()->globals_critical_section());
+//
+//            if (display::g_p == nullptr)
+//            {
+//
+//               auto p = new display();
+//
+//               p->initialize(pparticle);
+//
+//               p->add_listener(p);
+//
+//               p->m_pdisplay = pdisplay;
+//
+//               if(bBranch)
+//               {
+//
+//                  p->branch_synchronously();
+//
+//               }
+//               else
+//               {
+//
+//                  p->init_task();
+//
+//               }
+//
+//            }
+//
+//            return display::g_p;
+//
+//         }
+//
+//
+//         void display::add_listener(event_listener * plistener)
+//         {
+//
+//            synchronous_lock synchronouslock(this->synchronization());
+//
+//            m_eventlistenera.add(plistener);
+//
+//         }
+//
+//
+//         void display::add_window(nano::user::interchange * pwindow)
+//         {
+//
+//            synchronous_lock synchronouslock(this->synchronization());
+//
+//            m_windowa.add(pwindow);
+//
+//         }
+//
+//
+//         void display::erase_listener(event_listener * plistener)
+//         {
+//
+//            synchronous_lock synchronouslock(this->synchronization());
+//
+//            m_eventlistenera.erase(plistener);
+//
+//         }
+//
+//
+//         void display::erase_window(::x11::nano::user::interchange * pwindow)
+//         {
+//
+//            synchronous_lock synchronouslock(this->synchronization());
+//
+//            m_windowa.erase(pwindow);
+//
+//         }
 
 
          bool display::message_loop_step()
          {
 
-            if(::is_null(m_pdisplay))
-            {
+//            if(::is_null(m_pdisplay))
+//            {
+//
+//               return false;
+//
+//            }
 
-               return false;
-
-            }
-
-            if (!XPending(m_pdisplay))
-            {
-
-               return false;
-
-            }
-
-            XEvent event{};
-
-            XNextEvent(m_pdisplay, &event);
-
-            x11_event(&event);
+//            if (!XPending(m_pdisplay))
+//            {
+//
+//               return false;
+//
+//            }
+//
+//            XEvent event{};
+//
+//            XNextEvent(m_pdisplay, &event);
+//
+//            x11_event(&event);
 
             return true;
 
          }
 
 
-         bool display::x11_posted()
-         {
-
-            return display_posted_routine_step();
-
-         }
-
-
-         bool display::x11_event(XEvent * pevent)
-         {
-
-            bool bHandled = false;
-
-            ::collection::index i = 0;
-
-            _synchronous_lock synchronouslock(this->synchronization());
-
-            for (; i < m_eventlistenera.get_count(); i++)
-            {
-
-               auto plistener = m_eventlistenera[i];
-
-               synchronouslock.unlock();
-
-               if(i == 0)
-               {
-
-                  if (plistener->_on_event(pevent))
-                  {
-
-                     bHandled = true;
-
-                     break;
-
-                  }
-
-               }
-               else
-               {
-
-                  if (plistener->_on_event(pevent))
-                  {
-
-                     bHandled = true;
-
-                     break;
-
-                  }
-
-               }
-
-               synchronouslock._lock();
-
-            }
-
-            return bHandled;
-
-         }
+//         bool display::x11_posted()
+//         {
+//
+//            return display_posted_routine_step();
+//
+//         }
+//
+//
+//         bool display::x11_event(XEvent * pevent)
+//         {
+//
+//            bool bHandled = false;
+//
+//            ::collection::index i = 0;
+//
+//            _synchronous_lock synchronouslock(this->synchronization());
+//
+//            for (; i < m_eventlistenera.get_count(); i++)
+//            {
+//
+//               auto plistener = m_eventlistenera[i];
+//
+//               synchronouslock.unlock();
+//
+//               if(i == 0)
+//               {
+//
+//                  if (plistener->_on_event(pevent))
+//                  {
+//
+//                     bHandled = true;
+//
+//                     break;
+//
+//                  }
+//
+//               }
+//               else
+//               {
+//
+//                  if (plistener->_on_event(pevent))
+//                  {
+//
+//                     bHandled = true;
+//
+//                     break;
+//
+//                  }
+//
+//               }
+//
+//               synchronouslock._lock();
+//
+//            }
+//
+//            return bHandled;
+//
+//         }
 
 
          void display::message_loop()
@@ -508,12 +508,12 @@ namespace x11
 
                }
 
-               if(!bHandled1)
-               {
-
-                  bHandled2 = x11_posted();
-
-               }
+//               if(!bHandled1)
+//               {
+//
+//                  bHandled2 = x11_posted();
+//
+//               }
 
                if(!bHandled1 && !bHandled2)
                {
@@ -549,46 +549,46 @@ namespace x11
             //
             // node()->x11_defer_initialize();
 
-            if(!m_pdisplay)
-            {
-
-               set_X11_Display((Display *) system()->windowing_system()->get_display());
-
-            }
-
-         }
-
-
-         void display::set_X11_Display(Display * pdisplay)
-         {
-
-            m_pdisplay = pdisplay;
-
-            if (!m_pdisplay)
-            {
-
-               throw ::exception(error_null_pointer);
-
-            }
-
-            ::rectangle_i32 rectangleMainScreen;
-
-            auto pscreen = DefaultScreenOfDisplay(m_pdisplay);
-
-            int wScreen = WidthOfScreen(pscreen);
-            int hScreen = HeightOfScreen(pscreen);
-
-            //printf("::x11::display::init_task pscreen=%" PRIxPTR "\n", pscreen);
-            //printf("::x11::display::init_task (wScreen,hScreen)=%d,%d\n", wScreen, hScreen);
-
-            //rectangleMainScreen.left() = 0;
-            //rectangleMainScreen.top() = 0;
-            //rectangleMainScreen.right() = wScreen;
-            //rectangleMainScreen.bottom() = hScreen;
-
-            //operating_system_set_main_screen_rectangle(rectangleMainScreen);
+//            if(!m_pdisplay)
+//            {
+//
+//               set_X11_Display((Display *) system()->windowing_system()->get_display());
+//
+//            }
 
          }
+
+
+//         void display::set_X11_Display(Display * pdisplay)
+//         {
+//
+//            m_pdisplay = pdisplay;
+//
+//            if (!m_pdisplay)
+//            {
+//
+//               throw ::exception(error_null_pointer);
+//
+//            }
+//
+//            ::rectangle_i32 rectangleMainScreen;
+//
+//            auto pscreen = DefaultScreenOfDisplay(m_pdisplay);
+//
+//            int wScreen = WidthOfScreen(pscreen);
+//            int hScreen = HeightOfScreen(pscreen);
+//
+//            //printf("::x11::display::init_task pscreen=%" PRIxPTR "\n", pscreen);
+//            //printf("::x11::display::init_task (wScreen,hScreen)=%d,%d\n", wScreen, hScreen);
+//
+//            //rectangleMainScreen.left() = 0;
+//            //rectangleMainScreen.top() = 0;
+//            //rectangleMainScreen.right() = wScreen;
+//            //rectangleMainScreen.bottom() = hScreen;
+//
+//            //operating_system_set_main_screen_rectangle(rectangleMainScreen);
+//
+//         }
 
 
          bool display::is_branch_current() const
@@ -624,73 +624,73 @@ namespace x11
 
             message_loop();
 
-            if (m_pdisplay != nullptr)
-            {
-
-               XCloseDisplay(m_pdisplay);
-
-               m_pdisplay = nullptr;
-
-            }
-
-         }
-
-
-         bool display::_on_event(XEvent * pevent)
-         {
-
-            if (pevent->xany.window == DefaultRootWindow(m_pdisplay))
-            {
-
-               if(pevent->xany.type == PropertyNotify)
-               {
-
-                  Atom atom = XInternAtom(m_pdisplay, "_NET_ACTIVE_WINDOW", False);
-
-                  if (atom == pevent->xproperty.atom)
-                  {
-
-                     auto windowActive = m_windowActive;
-
-                     for(auto & pwindow : m_windowa)
-                     {
-
-                        bool bNcActive = windowActive == pwindow->m_window;
-
-                        if (is_different(bNcActive, pwindow->m_pinterface->m_bNcActive))
-                        {
-
-                           pwindow->m_pinterface->m_bNcActive = bNcActive;
-
-                           pwindow->redraw();
-
-                        }
-
-                     }
-
-                     m_windowActive = windowActive;
-
-                  }
-
-               }
-
-            }
-
-            return false;
+//            if (m_pdisplay != nullptr)
+//            {
+//
+//               XCloseDisplay(m_pdisplay);
+//
+//               m_pdisplay = nullptr;
+//
+//            }
 
          }
+
+
+//         bool display::_on_event(XEvent * pevent)
+//         {
+//
+//            if (pevent->xany.window == DefaultRootWindow(m_pdisplay))
+//            {
+//
+//               if(pevent->xany.type == PropertyNotify)
+//               {
+//
+//                  Atom atom = XInternAtom(m_pdisplay, "_NET_ACTIVE_WINDOW", False);
+//
+//                  if (atom == pevent->xproperty.atom)
+//                  {
+//
+//                     auto windowActive = m_windowActive;
+//
+//                     for(auto & pwindow : m_windowa)
+//                     {
+//
+//                        bool bNcActive = windowActive == pwindow->m_window;
+//
+//                        if (is_different(bNcActive, pwindow->m_pinterface->m_bNcActive))
+//                        {
+//
+//                           pwindow->m_pinterface->m_bNcActive = bNcActive;
+//
+//                           pwindow->redraw();
+//
+//                        }
+//
+//                     }
+//
+//                     m_windowActive = windowActive;
+//
+//                  }
+//
+//               }
+//
+//            }
+//
+//            return false;
+//
+//         }
 
 
          ::size_i32 display::get_main_screen_size()
          {
 
-            auto snum = DefaultScreen(m_pdisplay);
+//            auto snum = DefaultScreen(m_pdisplay);
+//
+//            auto width = DisplayWidth(m_pdisplay, snum);
+//
+//            auto height = DisplayHeight(m_pdisplay, snum);
 
-            auto width = DisplayWidth(m_pdisplay, snum);
-
-            auto height = DisplayHeight(m_pdisplay, snum);
-
-            return { width, height };
+            return { 1920, 1080 };
 
          }
 
@@ -708,17 +708,17 @@ namespace x11
       void process_messages()
       {
 
-         if(::x11::nano::user::display::g_p)
-         {
-
-            ::x11::nano::user::display::g_p->message_loop_step();
-
-         }
+//         if(::x11::nano::user::display::g_p)
+//         {
+//
+//            ::x11::nano::user::display::g_p->message_loop_step();
+//
+//         }
 
       }
 
 
-      i32 _c_XErrorHandler(Display * display, XErrorEvent * perrorevent);
+      //i32 _c_XErrorHandler(Display * display, XErrorEvent * perrorevent);
 
          //::e_status g_estatusInitializeX11 = error_not_initialized;
 //
@@ -1066,92 +1066,92 @@ namespace x11
    }// namespace nano
 
 
-} // namespace x11
+} // namespace gtk3
 
-
-
-namespace acme
-{
-
-//   ::e_status node::x11_initialize()
-//   {
-//
-//      informationf("acme::node::x11_initialize going to call x11_init_threads");
-//
-//      fflush(stdout);
-//
-//      if (!::x11::nano::user::init_threads())
-//      {
-//
-//         return ::error_failed;
-//
-//      }
-//
-//      XSetErrorHandler(::x11::nano::user::_c_XErrorHandler);
-//
-//      //g_pmutexX11 = new ::pointer < ::mutex >();
-//
-//      return ::success;
-//
-//   }
 //
 //
-//   ::e_status node::x11_defer_initialize()
-//   {
+//namespace acme
+//{
 //
-//      if (m_estatusInitializeX11 == error_not_initialized)
-//      {
+////   ::e_status node::x11_initialize()
+////   {
+////
+////      informationf("acme::node::x11_initialize going to call x11_init_threads");
+////
+////      fflush(stdout);
+////
+////      if (!::x11::nano::user::init_threads())
+////      {
+////
+////         return ::error_failed;
+////
+////      }
+////
+////      XSetErrorHandler(::x11::nano::user::_c_XErrorHandler);
+////
+////      //g_pmutexX11 = new ::pointer < ::mutex >();
+////
+////      return ::success;
+////
+////   }
+////
+////
+////   ::e_status node::x11_defer_initialize()
+////   {
+////
+////      if (m_estatusInitializeX11 == error_not_initialized)
+////      {
+////
+////         m_estatusInitializeX11 = x11_initialize();
+////
+////      }
+////
+////      return m_estatusInitializeX11;
+////
+////   }
 //
-//         m_estatusInitializeX11 = x11_initialize();
 //
-//      }
+//   //Display * g_pdisplayX11= nullptr;
 //
-//      return m_estatusInitializeX11;
 //
-//   }
-
-
-   //Display * g_pdisplayX11= nullptr;
-
-
-   //int g_fdX11[2] = {};
-
-
-//   void * node::x11_get_display()
-//   {
+//   //int g_fdX11[2] = {};
 //
-//      x11_defer_initialize();
 //
-//      if(m_pvoidX11Display == NULL)
-//      {
+////   void * node::x11_get_display()
+////   {
+////
+////      x11_defer_initialize();
+////
+////      if(m_pvoidX11Display == NULL)
+////      {
+////
+////         m_pvoidX11Display =  XOpenDisplay(NULL);
+////
+////      }
+////
+////      return m_pvoidX11Display;
+////
+////   }
 //
-//         m_pvoidX11Display =  XOpenDisplay(NULL);
 //
-//      }
+//} // namespace acme
 //
-//      return m_pvoidX11Display;
 //
-//   }
-
-
-} // namespace acme
-
-
-
-
-void initialize_x11_display(::particle * pparticle, void * pX11Display)
-{
-
-   ::x11::nano::user::display_get(pparticle, false, (Display *) pX11Display);
-
-}
-
-
-void * initialize_x11_display(::particle * pparticle)
-{
-
-   auto pdisplay = ::x11::nano::user::display_get(pparticle, false);
-
-   return pdisplay->m_pdisplay;
-
-}
+////
+////
+////void initialize_x11_display(::particle * pparticle, void * pX11Display)
+////{
+////
+////   ::x11::nano::user::display_get(pparticle, false, (Display *) pX11Display);
+////
+////}
+////
+////
+////void * initialize_x11_display(::particle * pparticle)
+////{
+////
+////   auto pdisplay = ::x11::nano::user::display_get(pparticle, false);
+////
+////   return pdisplay->m_pdisplay;
+////
+////}

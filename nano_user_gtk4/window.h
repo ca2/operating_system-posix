@@ -39,7 +39,7 @@ namespace gtk4
          public:
 
 
-            ::pointer<class display_base>         m_pdisplaybase;
+            //::pointer<class display_base>         m_pdisplaybase;
 GtkWidget*m_pgtkwidget;
 
             //cairo_surface_t *m_pcairosurface;
@@ -77,6 +77,40 @@ GtkWidget*m_pgtkwidget;
 
 
 
+                        //::pointer<class display>         m_pdisplay;
+                        //GtkWidget *m_pgtkwidget;
+                        //Window                           m_windowRoot;
+                        //cairo_surface_t *              m_psurface;
+                        ::pointer<::nano::graphics::device>           m_pnanodevice;
+                        //int                              m_iDepth;
+                        //XVisualInfo                      m_visualinfo;
+                        //Visual *                         m_pvisual;
+                        //Colormap                         m_colormap;
+                        //::pointer<::nano::graphics::font>           m_pfont;
+                        //color32_t                      m_colorText;
+                        //color32_t                      m_colorFocus;
+                        //color32_t                      m_colorWindow;
+                        //string                         m_strTitle;
+                        //bool                           m_bNcActive;
+
+                        manual_reset_event               m_eventEnd;
+                        //rectangle_i32                  m_rectangle;
+                        //rectangle_i32                  m_rectangleX;
+
+                        //pointer_array < ::nano::user::child >   m_childa;
+                        //::atom                         m_atomLeftButtonDown;
+                        //::atom                         m_atomLeftButtonUp;
+                        //::atom                         m_atomResult;
+                        //::pointer<::nano::user::child>          m_pchildFocus;
+                        //::size_i32                     m_sizeWindow;
+                        //::size_i32                     m_sizeRequest;
+
+
+                        //window();
+                        //~window() override;
+
+
+
             window();
             ~window() override;
 virtual ::windowing_system_gtk4::windowing_system * gtk4_windowing_system();
@@ -103,7 +137,6 @@ virtual ::windowing_system_gtk4::windowing_system * gtk4_windowing_system();
 
 
             virtual void __activate_window(bool bNormalPriority);
-
 
             virtual void __map();
 
@@ -175,40 +208,6 @@ void defer_show_system_menu(::user::mouse * pmouse) override;
 
 
             virtual void _update_window();
-
-
-
-            //::pointer<class display>         m_pdisplay;
-            //GtkWidget *m_pgtkwidget;
-            //Window                           m_windowRoot;
-            //cairo_surface_t *              m_psurface;
-            ::pointer<::nano::graphics::device>           m_pnanodevice;
-            int                              m_iDepth;
-            //XVisualInfo                      m_visualinfo;
-            //Visual *                         m_pvisual;
-            //Colormap                         m_colormap;
-            //::pointer<::nano::graphics::font>           m_pfont;
-            //color32_t                      m_colorText;
-            //color32_t                      m_colorFocus;
-            //color32_t                      m_colorWindow;
-            //string                         m_strTitle;
-            //bool                           m_bNcActive;
-
-            manual_reset_event               m_eventEnd;
-            //rectangle_i32                  m_rectangle;
-            //rectangle_i32                  m_rectangleX;
-
-            //pointer_array < ::nano::user::child >   m_childa;
-            //::atom                         m_atomLeftButtonDown;
-            //::atom                         m_atomLeftButtonUp;
-            //::atom                         m_atomResult;
-            //::pointer<::nano::user::child>          m_pchildFocus;
-            //::size_i32                     m_sizeWindow;
-            //::size_i32                     m_sizeRequest;
-
-
-            //window();
-            //~window() override;
 
 
             virtual ::particle * get_interface_client_particle(); // m_puserinteractionimpl->m_puserinteraction

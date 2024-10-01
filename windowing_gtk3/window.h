@@ -8,7 +8,7 @@
 #include "_gtk3.h"
 //#include "acme/operating_system/x11/_atom.h"
 #include "acme/prototype/geometry2d/rectangle_array.h"
-//#include "nano_user_wayland/window_base.h"
+#include "nano_user_gtk3/window.h"
 //#include <X11/extensions/sync.h>
 //#include <gtk/gtk.h>
 
@@ -32,7 +32,7 @@ namespace windowing_gtk3
 
    class CLASS_DECL_WINDOWING_GTK3 window :
       virtual public ::windowing_posix::window
-         //, virtual public ::wayland::nano::user::window_base
+         , virtual public ::gtk3::nano::user::window
    {
    public:
 ::point_i32 m_pointCursor2;
@@ -52,7 +52,7 @@ namespace windowing_gtk3
 
       //bool                                         m_bPendingConfigureRequest;
       //::pointer<::windowing_gtk3::x11data>          m_px11data;
-      ::pointer<::windowing_gtk3::display>          m_pwaylanddisplay;
+      //::pointer<::windowing_gtk3::display>          m_pwaylanddisplay;
       //::Window                                     m_parent;
       //Cursor                                       m_cursorLast;
       //int                                          m_iXic;
@@ -104,16 +104,18 @@ GtkWidget *m_pgtkwidget;
       //oswindow_data(const WPARAM & wparam);
       ~window() override;
 
-         bool _on_button_press(GtkWidget *widget, GdkEventButton *event);
-         bool _on_button_release(GtkWidget *widget, GdkEventButton *event);
-         bool _on_motion_notify(GtkWidget *widget, GdkEventMotion *event);
-         bool _on_enter_notify(GtkWidget *widget, GdkEventCrossing *event);
-         bool _on_window_state(GtkWidget* widget, GdkEventWindowState* event);
+         bool _on_button_press(GtkWidget *widget, GdkEventButton *event) override;
+         bool _on_button_release(GtkWidget *widget, GdkEventButton *event) override;
+         bool _on_motion_notify(GtkWidget *widget, GdkEventMotion *event) override;
+         bool _on_enter_notify(GtkWidget *widget, GdkEventCrossing *event) override;
+         bool _on_window_state(GtkWidget* widget, GdkEventWindowState* event) override;
 
-         virtual void _on_cairo_draw(GtkWidget *widget, cairo_t *cr);
+      void _on_cairo_draw(GtkWidget *widget, cairo_t *cr) override;
       //void create_window(::user::interaction_impl * pimpl) override;
 
-virtual void _on_size(int cx, int cy);
+      void _on_size(int cx, int cy) override;
+
+
       void create_window() override;
 
 
@@ -182,7 +184,7 @@ virtual void _on_size(int cx, int cy);
       //virtual bool is_child( WINDOWING_X11_WINDOW_MEMBER ::windowing::window * candidateChildOrDescendant); // or descendant
       //;::windowing::window * get_parent() const override;
       //virtual ::Window get_parent_handle();
-      ::oswindow get_parent_oswindow() const override;
+      //::oswindow get_parent_oswindow() const override;
 
 
 //      ::point_i32 get_mouse_cursor_host_position() override;
@@ -191,8 +193,8 @@ virtual void _on_size(int cx, int cy);
 
       //virtual ::Window get_parent_handle() const;
 
-      ::windowing_gtk3::windowing * wayland_windowing() const;
-      ::windowing_gtk3::display * wayland_display() const;
+      ::windowing_gtk3::windowing * gtk3_windowing();
+      ::windowing_gtk3::display * gtk3_display();
 
       void set_parent(::windowing::window * pwindowNewParent) override;
       //virtual ::e_status set_parent(::windowing::window * pwindowNewParent) override;
@@ -421,6 +423,9 @@ virtual void _on_size(int cx, int cy);
       // virtual void window_maximize() override; // m_puserinteractionimpl->m_puserinteraction->display(::e_display_zoomed);
       // virtual void window_full_screen() override; // m_puserinteractionimpl->m_puserinteraction->display(::e_display_full_screen);
       // virtual void window_restore() override; // m_puserinteractionimpl->m_puserinteraction->display(::e_display_normal);
+
+
+      void set_interface_client_size(const ::size_i32 & sizeWindow) override; // m_sizeWindow
 
          void window_restore() override;
          void window_minimize() override;

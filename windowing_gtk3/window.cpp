@@ -278,12 +278,6 @@ namespace windowing_gtk3
 //
 
 
-// Callback function to handle drawing
-   static gboolean on_window_draw(GtkWidget *widget, cairo_t *cr, gpointer p) {
-      auto pwindow = (::windowing_gtk3::window*) p;
-      pwindow->_on_cairo_draw(widget, cr);
-      return FALSE;
-   }
 
 
 //   void GtkDrawingAreaDrawFunc (
@@ -402,14 +396,6 @@ namespace windowing_gtk3
 
    }
 
-   // Callback function to handle window resize events
-   static void on_size_allocate(GtkWidget *widget, GdkRectangle *allocation, gpointer p) {
-      // Print the new size of the window
-      auto pwindow = (::windowing_gtk3::window*) p;
-      pwindow->_on_size(allocation->width, allocation->height);
-      //g_print("Window resized: width=%d, height=%d\n", allocation->width, allocation->height);
-      //return false;
-   }
 
 
    ::pointer < ::operating_system::a_system_menu > window::create_system_menu()
@@ -484,22 +470,6 @@ namespace windowing_gtk3
 //    return edge;
 //}
 
-   // Start resizing when the mouse is pressed near edges
-   static gboolean on_button_press(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
-   {
-
-      auto resize_data = (::windowing_gtk3::window*) user_data;
-
-      if(!resize_data->_on_button_press(widget, event))
-      {
-
-         return FALSE;
-
-      }
-
-      return TRUE;
-
-   }
 
 
    bool window::_on_button_press(GtkWidget* widget, GdkEventButton* event)
@@ -573,22 +543,6 @@ namespace windowing_gtk3
    }
 
 
-   // Stop resizing when the mouse button is released
-   static gboolean on_button_release(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
-   {
-
-      auto resize_data = (::windowing_gtk3::window*) user_data;
-
-      if(!resize_data->_on_button_release(widget, event))
-      {
-
-         return FALSE;
-
-      }
-
-      return TRUE;
-
-   }
 
 
    bool window::_on_button_release(GtkWidget *widget, GdkEventButton *event)
@@ -654,19 +608,6 @@ namespace windowing_gtk3
       }
 
       return false;
-
-   }
-
-
-   // Perform resizing as the mouse moves
-   static gboolean on_motion_notify(GtkWidget *widget, GdkEventMotion *event, gpointer user_data)
-   {
-
-      auto resize_data = (::windowing_gtk3::window*) user_data;
-
-      resize_data->_on_motion_notify(widget, event);
-
-      return FALSE;
 
    }
 
@@ -746,21 +687,6 @@ namespace windowing_gtk3
 
    }
 
-//}
-
-// Change the cursor shape when near edges for resizing
-static gboolean on_enter_notify(GtkWidget *widget, GdkEventCrossing *event, gpointer user_data)
-{
-   auto resize_data = (::windowing_gtk3::window*) user_data;
-
-   if(!resize_data->_on_enter_notify(widget, event))
-   {
-      return FALSE;
-   }
-
-   return true;
-}
-
 bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *event)
 {
 
@@ -787,21 +713,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *event)
 }
 
 
-   static gboolean on_window_state(GtkWidget* widget,GdkEventWindowState* event, gpointer user_data)
-   {
 
-      auto resize_data = (::windowing_gtk3::window*) user_data;
-
-      if(!resize_data->_on_window_state(widget, event))
-      {
-
-         return FALSE;
-
-      }
-
-      return true;
-
-   }
 
 
    bool window::_on_window_state(GtkWidget* widget, GdkEventWindowState* event)
@@ -2608,18 +2520,18 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *event)
 //   }
 
 
-   ::windowing_gtk3::windowing * window::wayland_windowing() const
+   ::windowing_gtk3::windowing * window::gtk3_windowing()
    {
 
-      return (::windowing_gtk3::windowing *) m_pwindowing->m_pWindowing4;
+      return dynamic_cast < ::windowing_gtk3::windowing * > (m_pwindowing.m_p);
 
    }
 
 
-   ::windowing_gtk3::display * window::wayland_display() const
+   ::windowing_gtk3::display * window::gtk3_display()
    {
 
-      return (::windowing_gtk3::display *) m_pdisplay->m_pDisplay;
+      return dynamic_cast < ::windowing_gtk3::display * > (m_pdisplaybase.m_p);
 
    }
 
@@ -5004,6 +4916,19 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *event)
 //   {
 //
 //   }
+
+
+   ::windowing::window * window::get_mouse_capture()
+   {
+
+      auto pgtkwindowgroup = gtk_window_get_group(nullptr);
+
+      auto pgtkwidget = gtk_window_group_get_current_grab(pgtkwindowgroup);
+
+      return gtk3_display()->m_windowmap[pgtkwidget];
+
+   }
+
 
 
 //   void window::set_mouse_capture()

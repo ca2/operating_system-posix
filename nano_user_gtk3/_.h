@@ -4,18 +4,18 @@
 #pragma once
 
 
-#include "windowing_system_x11/_.h"
+#include "windowing_system_gtk3/_.h"
 
 
-#if defined(_nano_user_x11_project)
-   #define CLASS_DECL_NANO_USER_X11  CLASS_DECL_EXPORT
+#if defined(_nano_user_gtk3_project)
+   #define CLASS_DECL_NANO_USER_GTK3  CLASS_DECL_EXPORT
 #else
-   #define CLASS_DECL_NANO_USER_X11  CLASS_DECL_IMPORT
+   #define CLASS_DECL_NANO_USER_GTK3  CLASS_DECL_IMPORT
 #endif
 
 
 
-namespace x11
+namespace gtk3
 {
 
 namespace nano
@@ -26,7 +26,7 @@ namespace nano
    }
 }
 
-} // namespace x11
+} // namespace gtk3
 
 
 

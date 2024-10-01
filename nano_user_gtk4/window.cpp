@@ -28,18 +28,7 @@
 //#include <xkbcommon/xkbcommon.h>
 
 
-cairo_surface_t * cairo_surface_for_pixmap(::pixmap & pixmap)
-{
 
-   return cairo_image_surface_create_for_data(
-       (unsigned char *) pixmap.m_pimage32,              // Pointer to the raw data in memory
-       CAIRO_FORMAT_ARGB32,    // Data format (ARGB32)
-       pixmap.width(),                  // Width of the surface
-       pixmap.height(),                 // Height of the surface
-       pixmap.m_iScan                 // Stride (number of bytes per row)
-   );
-
-}
 
 
 /* Declare the SubclassedModelButton type */

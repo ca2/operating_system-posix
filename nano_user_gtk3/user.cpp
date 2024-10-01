@@ -4,9 +4,11 @@
 #include "framework.h"
 #include "user.h"
 #include "display.h"
+#include "acme/platform/system.h"
+#include "acme/windowing_system/windowing_system.h"
 
 
-namespace x11
+namespace gtk3
 {
 
 
@@ -35,7 +37,7 @@ namespace x11
          void user::sync(const ::procedure & procedure)
          {
 
-            ::x11::nano::user::display_get(this)->display_send(procedure);
+            system()->windowing_system()->user_send(procedure);
 
          }
 
@@ -43,7 +45,7 @@ namespace x11
          void user::async(const ::procedure & procedure)
          {
 
-            ::x11::nano::user::display_get(this)->display_post(procedure);
+            system()->windowing_system()->user_post(procedure);
 
          }
 
@@ -51,7 +53,8 @@ namespace x11
          bool user::init_threads()
          {
 
-            return XInitThreads();
+            //return XInitThreads();
+            return true;
 
          }
 
@@ -62,7 +65,7 @@ namespace x11
    }//namespace nano
 
 
-} // namespace x11
+} // namespace gtk3
 
 
 

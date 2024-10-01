@@ -19,7 +19,8 @@ namespace windowing_system_gtk4
    {
    public:
 
-::procedure m_callbackOnActivateGtkApplication;
+
+      ::procedure          m_callbackOnActivateGtkApplication;
       GtkApplication *     m_pgtkapplication;
       gpointer             m_pGtkSettingsDefault;
 
@@ -80,6 +81,9 @@ namespace windowing_system_gtk4
       // virtual void _os_process_user_icon_theme(string strOsUserIconTheme);
 
       ::pixmap get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile) override;
+
+
+
 
 
    };

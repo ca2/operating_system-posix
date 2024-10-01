@@ -6,6 +6,7 @@
 #include "acme/nano/nano.h"
 #include "acme/nano/user/user.h"
 #include "acme/parallelization/manual_reset_event.h"
+#include "acme/platform/application.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
 //#include <X11/Xatom.h>
@@ -20,6 +21,7 @@ namespace windowing_system_gtk3
    windowing_system::windowing_system()
    {
 
+         m_pgtkapplication = nullptr;
 
    }
 
@@ -72,6 +74,148 @@ namespace windowing_system_gtk3
    }
 
 
+   void windowing_system::on_start_system()
+   {
+
+      auto * psystem = this->system();
+
+      psystem->on_branch_system_from_main_thread_startup();
+
+   }
+
+
+
+   static void on_activate_gtk_application (GtkApplication *, gpointer p)
+   {
+
+      auto * pgtk3windowingsystem=(::windowing_system_gtk3::windowing_system*) p;
+
+      //pgtk3windowingsystem->_hook_system_theme_change_callbacks();
+
+      //pgtk3windowingsystem->_fetch_dark_mode();
+
+      pgtk3windowingsystem->_on_activate_gtk_application();
+
+   }
+
+
+   // The function to be called in the main thread
+   static gboolean execute_on_main_thread(gpointer data)
+   {
+      auto *pprocedure = (::procedure *)data;
+
+      (*pprocedure)();
+
+      delete pprocedure;
+
+      return FALSE;
+   }
+
+
+
+   void windowing_system::main_post(const ::procedure & procedure)
+   {
+
+
+      // Safely update the GTK label in the main thread
+      g_main_context_invoke(NULL, execute_on_main_thread, new ::procedure(procedure));
+
+   }
+
+
+      void windowing_system::windowing_system_application_main_loop()
+      {
+
+
+
+         ::string strId = application()->m_strAppId;
+
+         strId.find_replace("/", ".");
+         strId.find_replace("_", "-");
+
+         //gtk_init();
+
+         m_pgtkapplication = gtk_application_new (strId, G_APPLICATION_DEFAULT_FLAGS);
+
+         g_signal_connect (m_pgtkapplication, "activate", G_CALLBACK(on_activate_gtk_application), this);
+
+
+         // // Retrieve system settings and listen for changes in dark mode preference
+         // GtkSettings *settings = gtk_settings_get_default();
+         // //update_theme_based_on_system(settings, NULL); // Check initial state
+         // //g_signal_connect(settings, "notify::gtk-application-prefer-dark-theme", G_CALLBACK(update_theme_based_on_system), NULL);
+         //
+         // // Get the current GTK theme name (or any other available property)
+         // //gboolean b=1;
+         // g_object_set(settings, "gtk-application-prefer-dark-theme", TRUE, NULL);
+         // //g_print("Current theme: %s\n", theme_name);
+         //
+         // // Free the allocated string after use
+         // //g_free(theme_name);
+         //
+         // ///GtkSettings *settings = gtk_settings_get_default();
+         // g_object_set(settings, "gtk-enable-animations", FALSE, NULL);
+
+         g_application_hold(G_APPLICATION(m_pgtkapplication));
+
+
+         // if(m_pdisplay->is_wayland())
+         // {
+         //
+         //
+         //
+         // }
+
+         g_application_run (G_APPLICATION(m_pgtkapplication), 0, nullptr);
+
+         // //g_application_run (G_APPLICATION(m_pgtkapplication), platform()->get_argc(), platform()->get_args());
+         // //aaa_x11_main();
+         //
+         //
+         // while(::task_get_run())
+         // {
+         //
+         //    preempt(1_s);
+         //
+         // }
+
+
+      }
+
+
+      void windowing_system::windowing_system_post_quit()
+      {
+
+         main_post([this]()
+                   {
+
+                      g_application_quit(G_APPLICATION(m_pgtkapplication));
+
+                   });
+
+      }
+
+
+      void windowing_system::_on_activate_gtk_application()
+      {
+
+         if(m_callbackOnActivateGtkApplication)
+         {
+            m_callbackOnActivateGtkApplication();
+         }
+         else
+         {
+
+            //auto prequest = __create_new<::request>();
+
+            //application()->post_request(prequest);
+
+            system()->defer_post_initial_request();
+
+
+         }
+
+      }
 
    void * windowing_system::get_display()
    {
