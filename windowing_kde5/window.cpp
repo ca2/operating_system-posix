@@ -4885,239 +4885,18 @@ m_puserinteractionbase = m_puserinteractionimpl->m_puserinteraction;
                                               const ::e_activation& eactivation, bool bNoZorder, bool bNoMove,
                                               bool bNoSize, ::e_display edisplay)
    {
-      windowing_output_debug_string("::window::set_window_pos 1");
 
-      //      XWindowAttributes attrs = {};
-      //
-      //      if (!XGetWindowAttributes(Display(), Window(), &attrs))
-      //      {
-      //
-      //         windowing_output_debug_string("::window::set_window_pos 1.1 xgetwindowattr failed");
-      //
-      //         return false;
-      //
-      //      }
-      //
-      //      if (windowing()->is_screen_visible(edisplay))
-      //      {
-      //
-      //         if (attrs.map_state == IsUnmapped)
-      //         {
-      //
-      //            windowing_output_debug_string("::window::set_window_pos Mapping Window 1.2");
-      //
-      //            XMapWindow(Display(), Window());
-      //
-      //         }
-      //
-      //         if (!XGetWindowAttributes(Display(), Window(), &attrs))
-      //         {
-      //
-      //            windowing_output_debug_string("::window::set_window_pos 1.3 xgetwindowattr failed");
-      //
-      //            return false;
-      //
-      //         }
-      //
-      //      }
-      //
-      //      bool bMove = !bNoMove;
-      //
-      //      bool bSize = !bNoSize;
-      //
-      //      if (bMove)
-      //      {
-      //
-      //         if (bSize)
-      //         {
-      //
-      //            windowing_output_debug_string("::window::set_window_pos Move Resize Window 1.4");
-      //
-      //#ifdef SET_WINDOW_POS_LOG
-      //
-      //            informationf("XMoveResizeWindow (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
-      //
-      //#endif
-      //
-      //            if (cx <= 0 || cy <= 0)
-      //            {
-      //
-      //               cx = 1;
-      //
-      //               cy = 1;
-      //
-      //#ifdef SET_WINDOW_POS_LOG
-      //
-      //               informationf("Changing parameters... (%d, %d) - (%d, %d)", x, y, cx, cy);
-      //
-      //#endif
-      //
-      //            }
-      //
-      ////            if (x < 100 || y < 100)
-      ////            {
-      ////
-      ////               informationf("XMoveResizeWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
-      ////
-      ////            }
-      //
-      //            //informationf("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
-      //
-      //            //information() << node()->get_callstack();
-      //
-      //            XMoveResizeWindow(Display(), Window(), x, y, cx, cy);
-      //
-      //
-      ////            if(m_puserinteractionimpl->m_puserinteraction->const_layout().design().display() == e_display_zoomed) {
-      ////
-      ////               x11_windowing()->_defer_position_and_size_message(m_oswindow);
-      ////
-      ////
-      ////            }
-      //
-      //
-      //         } else
-      //         {
-      //
-      //            if (x < 100 || y < 100)
-      //            {
-      //
-      //               informationf("XMoveWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
-      //
-      //            }
-      //
-      //            windowing_output_debug_string("::window::set_window_pos Move Window 1.4.1");
-      //
-      //            XMoveWindow(Display(), Window(), x, y);
-      //
-      //         }
-      //
-      //      } else if (bSize)
-      //      {
-      //
-      //         windowing_output_debug_string("::window::set_window_pos Resize Window 1.4.2");
-      //
-      //         XResizeWindow(Display(), Window(), cx, cy);
-      //
-      //      }
-      //
-      //      //   if(bMove || bSize)
-      //      //   {
-      //      //
-      //      //      if(attrs.override_redirect)
-      //      //      {
-      //      //
-      //      //         if(!(m_puserinteractionimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning))
-      //      //         {
-      //      //
-      //      //            XSetWindowAttributes set;
-      //      //
-      //      //            set.override_redirect = False;
-      //      //
-      //      //            if(!XChangeWindowAttributes(Display(), Window(), CWOverrideRedirect, &set))
-      //      //            {
-      //      //
-      //      //               information() << "freebsd::interaction_impl::_native_create_window_ex failed to clear override_redirect";
-      //      //
-      //      //            }
-      //      //
-      //      //         }
-      //      //
-      //      //      }
-      //      //
-      //      //   }
-      //
-      //
-      //      if (!windowing()->is_screen_visible(edisplay))
-      //      {
-      //
-      //         if (attrs.map_state == IsViewable)
-      //         {
-      //
-      //            windowing_output_debug_string("::window::set_window_pos Withdraw Window 1.4.3");
-      //
-      //            XWithdrawWindow(Display(), Window(), Screen());
-      //
-      //         }
-      //
-      //      }
-      //
-      //      if (XGetWindowAttributes(Display(), Window(), &attrs) == 0)
-      //      {
-      //
-      //         windowing_output_debug_string("::window::set_window_pos xgetwndattr 1.4.4");
-      //
-      //         return false;
-      //
-      //      }
-      //
-      //      if (attrs.map_state == IsViewable || windowing()->is_screen_visible(edisplay))
-      //      {
-      //
-      //         if (!bNoZorder)
-      //         {
-      //
-      //            if (zorder.m_ezorder == e_zorder_top_most)
-      //            {
-      //
-      //               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 1)
-      //               {
-      //
-      //                  _wm_state_above_unlocked(true);
-      //
-      //               }
-      //
-      //               XRaiseWindow(Display(), Window());
-      //
-      //            } else if (zorder.m_ezorder == e_zorder_top)
-      //            {
-      //
-      //               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 0
-      //                   || net_wm_state(::x11::e_atom_net_wm_state_below) != 0
-      //                   || net_wm_state(::x11::e_atom_net_wm_state_hidden) != 0
-      //                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_horz) != 0
-      //                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_penn) != 0
-      //                   || net_wm_state(::x11::e_atom_net_wm_state_fullscreen) != 0)
-      //               {
-      //
-      //                  _wm_state_clear_unlocked(false);
-      //
-      //               }
-      //
-      //               XRaiseWindow(Display(), Window());
-      //
-      //            } else if (zorder.m_ezorder == e_zorder_bottom)
-      //            {
-      //
-      //               if (net_wm_state(::x11::e_atom_net_wm_state_below) != 1)
-      //               {
-      //
-      //                  _wm_state_below_unlocked(true);
-      //
-      //               }
-      //
-      //               XLowerWindow(Display(), Window());
-      //
-      //            }
-      //
-      //         }
-      //
-      //         //m_puserinteractionimpl->m_puserinteraction->ModifyStyle(0, WS_VISIBLE, 0);
-      //
-      //      }
-      ////      else
-      ////      {
-      ////
-      ////         //m_puserinteractionimpl->m_puserinteraction->ModifyStyle(WS_VISIBLE, 0, 0);
-      ////
-      ////      }
-      //
-      //      //m_puserinteractionimpl->on_change_visibility();
+       _configure_window_unlocked(zorder,eactivation, bNoZorder, edisplay);
 
+       if(!bNoMove || !bNoSize)
+       {
 
-      windowing_output_debug_string("::window::set_window_pos 2");
+           _strict_set_window_position_unlocked(x, y, cx, cy, bNoMove, bNoSize);
+
+       }
 
       return true;
+
    }
 
 
@@ -5129,639 +4908,18 @@ m_puserinteractionbase = m_puserinteractionimpl->m_puserinteraction;
          return false;
       }
 
-      //       if (m_uLastRequestSerial == m_uLastConfigureSerial)
-      //       {
-      //
-      //          return false;
-      //
-      //       }
-      //
-      //       if (::is_null(m_pxdgtoplevel))
-      //       {
-      //
-      //          return false;
-      //
-      //       }
-      //
-      // //      node()->post_procedure([this, zorder, eactivation, bNoZorder, edisplay]()
-      // //                                 {
-      //
-      // //                                    if(m_uLastRequestSerial == m_uLastConfigureSerial)
-      // //                                    {
-      // //
-      // //                                       return;
-      // //
-      // //                                    }
-      //
-      //
-      //       windowing_output_debug_string("::window::_configure_window_unlocked 1");
-
-      //      m_atomaNetWmState = _get_net_wm_state_unlocked();
-      //
-      //      if (windowing()->is_screen_visible(edisplay))
-      //      {
-      //
-      //         if (m_xwindowattributes.map_state == IsUnmapped)
-      //         {
-      //
-      //            information() << "_configure_window_unlocked XMapWindow";
-      //
-      //            windowing_output_debug_string("::window::set_window_pos Mapping Window 1.2");
-      //
-      //            XMapWindow(Display(), Window());
-      //
-      //            if (!XGetWindowAttributes(Display(), Window(), &m_xwindowattributes))
-      //            {
-      //
-      //               windowing_output_debug_string("::window::set_window_pos 1.3 xgetwindowattr failed");
-      //
-      //               return false;
-      //
-      //            }
-      //
-      //         }
-      //
-      //      }
-      //
-
-      //       if (m_pxdgtoplevel)
-      //       {
-      //          if (edisplay != e_display_zoomed &&
-      //              m_puserinteractionimpl->m_puserinteraction->const_layout().window().display() == e_display_zoomed)
-      //          {
-      //
-      //             information() << "xdg_toplevel_unset_maximized";
-      //
-      //             m_uLastRequestSerial = m_uLastConfigureSerial;
-      //
-      //             m_timeLastConfigureRequest.Now();
-      //
-      //             xdg_toplevel_unset_maximized(m_pxdgtoplevel);
-      //
-      //          }
-      //       }
-      //
-      //
-      // //         auto atomMaxH = x11_display()->m_atomNetWmStateMaximizedHorz;
-      // //
-      // //         auto atomMaxP = x11_display()->m_atomNetWmStateMaximizedVert;
-      // //
-      // //         for(auto & a : m_atomaNetWmState)
-      // //         {
-      // //
-      // //            informationf("atom_name: %s", XGetAtomName(Display(), a));
-      // //
-      // //         }
-      // //
-      // //         if(m_atomaNetWmState.contains(atomMaxH) || m_atomaNetWmState.contains(atomMaxP))
-      // //         {
-      // //
-      // //            information() << "_configure_window_unlocked Clearing Maximized States";
-      // //
-      // //            _wm_state_clear_unlocked(false);
-      // //
-      // //         }
-      // //
-      // //      }
-      // //
-      //
-      //       if (edisplay == e_display_iconic)
-      //       {
-      //
-      //          if (m_pxdgtoplevel)
-      //          {
-      //
-      //             information() << "xdg_toplevel_set_minimized";
-      //
-      // //         XIconifyWindow(Display(), Window(), Screen());
-      // //         if (edisplay == e_display_iconic)
-      // //         {
-      //
-      //             m_uLastRequestSerial = m_uLastConfigureSerial;
-      //
-      //             m_timeLastConfigureRequest.Now();
-      //
-      //
-      //             //wm_iconify_window();
-      //             xdg_toplevel_set_minimized(m_pxdgtoplevel);
-      //
-      //             //wl_surface_commit(m_pwlsurface);
-      //
-      //
-      // //         m_timeLastConfigureRequest.Now();
-      //
-      // //         }
-      //
-      //             //return true;
-      //          }
-      //
-      //       }
-      //       else if (edisplay == e_display_zoomed)
-      //       {
-      //
-      //          if (m_pxdgtoplevel)
-      //          {
-      //
-      //             information() << "xdg_toplevel_set_maximized";
-      //
-      //             m_uLastRequestSerial = m_uLastConfigureSerial;
-      //
-      //             m_timeLastConfigureRequest.Now();
-      //
-      //             xdg_toplevel_set_maximized(m_pxdgtoplevel);
-      //
-      //             //wl_surface_commit(m_pwlsurface);
-      // //         m_timeLastConfigureRequest.Now();
-      //
-      //             //wl_display_dispatch(wayland_display()->m_pwldisplay);
-      //
-      //             //wl_display_roundtrip(wayland_display()->m_pwldisplay);
-      //
-      // //
-      // //         auto atomMaxH = x11_display()->m_atomNetWmStateMaximizedHorz;
-      // //
-      // //         auto atomMaxP = x11_display()->m_atomNetWmStateMaximizedVert;
-      // //
-      // //         if (!m_atomaNetWmState.contains(atomMaxH) || !m_atomaNetWmState.contains(atomMaxP))
-      // //         {
-      // //
-      // //            information() << "_configure_window_unlocked Setting Maximized States";
-      // //
-      // //            _mapped_net_state_unlocked(true, x11_display()->m_iScreen, atomMaxH, atomMaxP);
-      // //
-      // ////            comparable_array<Atom> atoma;
-      // ////
-      // ////            auto atomList = x11_display()->m_atomNetWmState;
-      // ////
-      // ////            if (atomList != None)
-      // ////            {
-      // ////
-      // ////               Atom actual_type;
-      // ////
-      // ////               int actual_format;
-      // ////
-      // ////               unsigned long int bytes_after;
-      // ////
-      // ////               Atom * patoms = nullptr;
-      // ////
-      // ////               long unsigned int num_items = 0;
-      // ////
-      // ////               XGetWindowProperty(Display(), Window(), atomList, 0, 1024,
-      // ////                                  False, XA_ATOM, &actual_type, &actual_format,
-      // ////                                  &num_items,
-      // ////                                  &bytes_after, (unsigned char **) &patoms);
-      // ////
-      // ////               atoma.set_size(num_items);
-      // ////
-      // ////               memory_copy(atoma.data(), patoms, atoma.get_size_in_bytes());
-      // ////
-      // ////               XFree(patoms);
-      // ////
-      // ////
-      // ////            }
-      // //
-      // //
-      // //         }
-      //
-      //
-      // //
-      //
-      //          }
-      //       }
-      //       else if (!windowing()->is_screen_visible(edisplay))
-      //       {
-      //
-      //          if (m_pxdgtoplevel)
-      //          {
-      //
-      //             xdg_toplevel_destroy(m_pxdgtoplevel);
-      //
-      //             m_pxdgtoplevel = nullptr;
-      //
-      //          }
-      //
-      //       }
-      // //
-      // //         if (m_xwindowattributes.map_state == IsViewable)
-      // //         {
-      // //
-      // //            information() << "_configure_window_unlocked XWithdrawWindow";
-      // //
-      // //            windowing_output_debug_string("::window::set_window_pos Withdraw Window 1.4.3");
-      // //
-      // //            XWithdrawWindow(Display(), Window(), Screen());
-      // //
-      // //            if (XGetWindowAttributes(Display(), Window(), &m_xwindowattributes) == 0)
-      // //            {
-      // //
-      // //               windowing_output_debug_string("::window::set_window_pos xgetwndattr 1.4.4");
-      // //
-      // //               return false;
-      // //
-      // //            }
-      // //
-      // //         }
-      // //
-      // //      }
-      // //
-      // //      if (m_xwindowattributes.map_state == IsViewable || windowing()->is_screen_visible(edisplay))
-      // //      {
-      // //
-      //
-      //       if (!bNoZorder)
-      //       {
-      //
-      //          if (zorder.m_ezorder == e_zorder_top_most)
-      //          {
-      //
-      // //               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 1)
-      // //               {
-      // //
-      // //                  _wm_state_above_unlocked(true);
-      // //
-      // //               }
-      //
-      //             //             XRaiseWindow(Display(), Window());
-      //
-      //             information() << "::windowing_kde5::window::_configure_window_unlocked e_zorder_top_most";
-      //
-      //             __activate_window(true);
-      //
-      //          }
-      //          else if (zorder.m_ezorder == e_zorder_top)
-      //          {
-      //
-      // //               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 0
-      // //                   || net_wm_state(::x11::e_atom_net_wm_state_below) != 0
-      // //                   || net_wm_state(::x11::e_atom_net_wm_state_hidden) != 0
-      // //                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_horz) != 0
-      // //                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_penn) != 0
-      // //                   || net_wm_state(::x11::e_atom_net_wm_state_fullscreen) != 0)
-      // //               {
-      // //
-      // //                  _wm_state_clear_unlocked(false);
-      // //
-      // //               }
-      // //
-      // //               XRaiseWindow(Display(), Window());
-      //
-      //             information() << "::windowing_kde5::window::_configure_window_unlocked e_zorder_top";
-      //
-      //             __activate_window(true);
-      //
-      //          }
-      //          else if (zorder.m_ezorder == e_zorder_bottom)
-      //          {
-      //
-      // //               if (net_wm_state(::x11::e_atom_net_wm_state_below) != 1)
-      // //               {
-      // //
-      // //                  _wm_state_below_unlocked(true);
-      // //
-      // //               }
-      // //
-      // //               XLowerWindow(Display(), Window());
-      //
-      //          }
-      //
-      //       }
-      //       else if (eactivation != e_activation_default)
-      //       {
-      //
-      //          information() << "::windowing_kde5::window::_configure_window_unlocked eactivation : "
-      //                        << (::iptr) eactivation;
-      //
-      //          __activate_window(true);
-      //
-      //       }
-      //
-      // //         if (!bNoZorder)
-      // //         {
-      // //
-      // //            if (zorder.m_ezorder == e_zorder_top_most)
-      // //            {
-      // //
-      // //               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 1)
-      // //               {
-      // //
-      // //                  _wm_state_above_unlocked(true);
-      // //
-      // //               }
-      // //
-      // //               information() << "_configure_window_unlocked XRaiseWindow";
-      // //
-      // //               XRaiseWindow(Display(), Window());
-      // //
-      // //            }
-      // //            else if (zorder.m_ezorder == e_zorder_top)
-      // //            {
-      // //
-      // //               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 0
-      // //                   || net_wm_state(::x11::e_atom_net_wm_state_below) != 0
-      // //                   || net_wm_state(::x11::e_atom_net_wm_state_hidden) != 0
-      // //                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_horz) != 0
-      // //                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_penn) != 0
-      // //                   || net_wm_state(::x11::e_atom_net_wm_state_fullscreen) != 0)
-      // //               {
-      // //
-      // //                  _wm_state_clear_unlocked(false);
-      // //
-      // //               }
-      // //
-      // //               information() << "_configure_window_unlocked XRaiseWindow";
-      // //
-      // //               XRaiseWindow(Display(), Window());
-      // //
-      // //            }
-      // //            else if (zorder.m_ezorder == e_zorder_bottom)
-      // //            {
-      // //
-      // //               if (net_wm_state(::x11::e_atom_net_wm_state_below) != 1)
-      // //               {
-      // //
-      // //                  _wm_state_below_unlocked(true);
-      // //
-      // //               }
-      // //
-      // //               information() << "_configure_window_unlocked XLowerWindow";
-      // //
-      // //               XLowerWindow(Display(), Window());
-      // //
-      // //            }
-      // //
-      // //         }
-      // //
-      // //      }
-      //
-      //       windowing_output_debug_string("::window::set_window_pos 2");
-      // //                                    ::pointer < ::windowing_kde5::display > pwaylanddisplay = m_pdisplay;
-      //       //                                  wl_display_flush(pwaylanddisplay->m_pwldisplay);
-      //
-      //       //wl_surface_commit(m_pwlsurface);
-      //
-      // //                                    node()->post_procedure([this]()
-      // //                                                               {
-      // //                                                                  ::pointer < ::windowing_kde5::display > pwaylanddisplay = m_pdisplay;
-      // //                                                                  wl_display_flush(pwaylanddisplay->m_pwldisplay);
-      // ////
-      // ////      ::pointer < ::windowing_kde5::display > pwaylanddisplay = m_pdisplay;
-      // ////      wl_display_dispatch(pwaylanddisplay->m_pwldisplay);
-      // ////
-      // ////      wl_display_roundtrip(pwaylanddisplay->m_pwldisplay);
-      // ////
-      // //                                                               });
-      //
-      // //                                 });
-      //
       return true;
+
    }
 
 
    bool window::_strict_set_window_position_unlocked(i32 x, i32 y, i32 cx, i32 cy, bool bNoMove, bool bNoSize)
    {
-      bool bMove = !bNoMove;
-
-      bool bSize = !bNoSize;
-
-      if (bMove)
-      {
-         if (bSize)
-         {
-            windowing_output_debug_string("::window::set_window_pos Move Resize Window 1.4");
-
-#ifdef SET_WINDOW_POS_LOG
-
-            informationf("XMoveResizeWindow (%Display(), %d) - (%Display(), %d)", x, y, cx, cy);
-
-#endif
-
-            if (cx <= 0 || cy <= 0)
-            {
-               cx = 1;
-
-               cy = 1;
-
-#ifdef SET_WINDOW_POS_LOG
-
-               //informationf("Changing parameters... (%d, %d) - (%d, %d)", x, y, cx, cy);
-
-#endif
-            }
-
-            //            if (x < 100 || y < 100)
-            //            {
-            //
-            //               informationf("XMoveResizeWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
-            //
-            //            }
-
-            //informationf("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx, y + cy);
-
-            //information() << node()->get_callstack();
-
-            //            XMoveResizeWindow(Display(), Window(), x, y, cx, cy);
 
 
-            //            if(m_puserinteractionimpl->m_puserinteraction->const_layout().design().display() == e_display_zoomed) {
-            //
-            //               x11_windowing()->_defer_position_and_size_message(m_oswindow);
-            //
-            //
-            //            }
-         }
-         else
-         {
-            if (x < 100 || y < 100)
-            {
-               //informationf("XMoveWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
-            }
-
-            windowing_output_debug_string("::window::set_window_pos Move Window 1.4.1");
-
-            //informationf("XMoveWindow (Win=%d) (%d, %d)", Window(), x, y);
-
-            //XMoveWindow(Display(), Window(), x, y);
-         }
-      }
-      else if (bSize)
-      {
-         windowing_output_debug_string("::window::set_window_pos Resize Window 1.4.2");
-
-         //informationf("XResizeWindow (Win=%d) (%d, %d)", Window(), cx, cy);
-
-         //information() << node()->get_callstack();
-
-         //XResizeWindow(Display(), Window(), cx, cy);
-      }
-
-      //   if(bMove || bSize)
-      //   {
-      //
-      //      if(attrs.override_redirect)
-      //      {
-      //
-      //         if(!(m_puserinteractionimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning))
-      //         {
-      //
-      //            XSetWindowAttributes set;
-      //
-      //            set.override_redirect = False;
-      //
-      //            if(!XChangeWindowAttributes(Display(), Window(), CWOverrideRedirect, &set))
-      //            {
-      //
-      //               information() << "freebsd::interaction_impl::_native_create_window_ex failed to clear override_redirect";
-      //
-      //            }
-      //
-      //         }
-      //
-      //      }
-      //
-      //   }
+       return ::windowing::window::_strict_set_window_position_unlocked(x, y, cx, cy, bNoMove, bNoSize);
 
 
-      //      if (bHide)
-      //      {
-      //
-      //         if (attrs.map_state == IsViewable)
-      //         {
-      //
-      //            windowing_output_debug_string("::window::set_window_pos Withdraw Window 1.4.3");
-      //
-      //            XWithdrawWindow(Display(), Window(), Screen());
-      //
-      //         }
-      //
-      //      }
-      //
-      //      if (XGetWindowAttributes(Display(), Window(), &attrs) == 0)
-      //      {
-      //
-      //         windowing_output_debug_string("::window::set_window_pos xgetwndattr 1.4.4");
-      //
-      //         return false;
-      //
-      //      }
-      //
-      //      if (attrs.map_state == IsViewable || bShow)
-      //      {
-      //
-      //         if (!bNoZorder)
-      //         {
-      //
-      //            if (zorder.m_ezorder == e_zorder_top_most)
-      //            {
-      //
-      ////               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 1)
-      ////               {
-      ////
-      ////                  _wm_state_above_unlocked(true);
-      ////
-      ////               }
-      //
-      //  //             XRaiseWindow(Display(), Window());
-      //
-      //               __activate_window(false);
-      //
-      //            } else if (zorder.m_ezorder == e_zorder_top)
-      //            {
-      //
-      ////               if (net_wm_state(::x11::e_atom_net_wm_state_above) != 0
-      ////                   || net_wm_state(::x11::e_atom_net_wm_state_below) != 0
-      ////                   || net_wm_state(::x11::e_atom_net_wm_state_hidden) != 0
-      ////                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_horz) != 0
-      ////                   || net_wm_state(::x11::e_atom_net_wm_state_maximized_penn) != 0
-      ////                   || net_wm_state(::x11::e_atom_net_wm_state_fullscreen) != 0)
-      ////               {
-      ////
-      ////                  _wm_state_clear_unlocked(false);
-      ////
-      ////               }
-      ////
-      ////               XRaiseWindow(Display(), Window());
-      //               __activate_window(false);
-      //
-      //            } else if (zorder.m_ezorder == e_zorder_bottom)
-      //            {
-      //
-      ////               if (net_wm_state(::x11::e_atom_net_wm_state_below) != 1)
-      ////               {
-      ////
-      ////                  _wm_state_below_unlocked(true);
-      ////
-      ////               }
-      ////
-      ////               XLowerWindow(Display(), Window());
-      //
-      //            }
-      //
-      //         }
-      //         else if(eactivation != e_activation_default)
-      //         {
-      //
-      //            __activate_window(false);
-      //
-      //         }
-      //
-      //         //m_puserinteractionimpl->m_puserinteraction->ModifyStyle(0, WS_VISIBLE, 0);
-      //
-      //      }
-      ////      else
-      ////      {
-      ////
-      ////         //m_puserinteractionimpl->m_puserinteraction->ModifyStyle(WS_VISIBLE, 0, 0);
-      ////
-      ////      }
-      //
-      //      //m_puserinteractionimpl->on_change_visibility();
-
-      // windowing_output_debug_string("::window::_strict_set_window_position_unlocked 2");
-      //
-      // if (bMove || bSize)
-      // {
-      //
-      //    if (bMove)
-      //    {
-      //
-      //       m_pointWindow.x() = x;
-      //       m_pointWindow.y() = y;
-      //
-      //    }
-      //
-      //    if (bSize)
-      //    {
-      //
-      //       m_sizeWindow.cx() = cx;
-      //       m_sizeWindow.cy() = cy;
-      //
-      //    }
-      //
-      //    auto frame = m_puserinteractionimpl->m_puserinteraction->outer_frame();
-      //
-      //    information() << "xdg_surface_set_window_geometry : " << frame;
-      //
-      //    //m_uLastRequestSerial = m_uLastConfigureSerial;
-      //
-      //    //m_timeLastConfigureRequest.Now();
-      //
-      //    xdg_surface_set_window_geometry(
-      //       m_pxdgsurface,
-      //       frame.left(), frame.top(),
-      //       frame.width(), frame.height());
-      //
-      //    if (m_pwlsubsurface)
-      //    {
-      //
-      //       wl_subsurface_set_position(
-      //          m_pwlsubsurface,
-      //          m_pointWindow.x(), m_pointWindow.y());
-      //
-      //    }
-      //
-      // }
-
-      return true;
    }
 
 
@@ -5993,6 +5151,108 @@ m_puserinteractionbase = m_puserinteractionimpl->m_puserinteraction;
    {
 
       ::kde5::nano::user::window::set_mouse_capture();
+
+   }
+
+
+      //   void window::set_mouse_capture()
+   //   {
+   //
+   //      auto pthread = m_puserinteractionimpl->m_puserinteraction->m_pthreadUserInteraction;
+   //
+   //      windowing()->set_mouse_capture(pthread, this);
+   //
+   //      //::pointer < ::windowing_kde5::display > pwaylanddisplay = m_pdisplay;
+   //
+   //      //pwaylanddisplay->__capture_mouse(this, pwaylanddisplay->m_uLastButtonSerial);
+   //
+   //
+   ////      m_pwindowing->windowing_post([this]()
+   ////                                   {
+   ////
+   ////                                      synchronous_lock synchronouslock(user_synchronization());
+   ////
+   //////                                      display_lock displaylock(x11_display()->Display());
+   ////
+   ////                                      information() << "XGrabPointer";
+   //////
+   //////                                      auto grabStatus = XGrabPointer(Display(), Window(), False,
+   //////                                                                     ButtonPressMask | ButtonReleaseMask |
+   //////                                                                     PointerMotionMask,
+   //////                                                                     GrabModeAsync, GrabModeAsync, None, None,
+   //////                                                                     CurrentTime);
+   ////
+   //////                                      if (grabStatus != GrabSuccess)
+   //////                                      {
+   //////
+   //////                                         windowing_output_debug_string("\noswindow_data::SetCapture 2.1");
+   //////
+   //////                                         return;
+   //////
+   //////                                      }
+   ////
+   //////                                      auto pdisplay = x11_display();
+   //////
+   //////                                      if (pdisplay)
+   //////                                      {
+   //////
+   //////                                         pdisplay->_on_capture_changed_to(this);
+   //////
+   //////                                      }
+   ////
+   ////                                      windowing_output_debug_string("\noswindow_data::SetCapture 2");
+   ////
+   ////                                   });
+   ////
+   ////      //return ::success;
+   //
+   //   }
+   //
+   //
+   //   void window::release_mouse_capture()
+   //   {
+   //
+   //      auto pthread = m_puserinteractionimpl->m_puserinteraction->m_pthreadUserInteraction;
+   //
+   //      windowing()->release_mouse_capture(pthread);
+   //
+   //   }
+
+
+   bool window::has_mouse_capture()
+   {
+
+      if(!::kde5::nano::user::window::has_mouse_capture())
+      {
+
+         return false;
+
+      }
+
+      return true;
+
+   }
+
+
+   bool window::is_mouse_captured()
+   {
+
+      if(!::kde5::nano::user::window::is_mouse_captured())
+      {
+
+         return false;
+
+      }
+
+      return true;
+
+   }
+
+
+   void window::release_mouse_capture()
+   {
+
+      ::kde5::nano::user::window::release_mouse_capture();
 
    }
 
@@ -6894,54 +6154,20 @@ m_puserinteractionbase = m_puserinteractionimpl->m_puserinteraction;
 
       main_post([this]()
       {
-         // Queue the drawing area for a redraw
-         //gtk_widget_queue_draw(m_pdrawingarea);
-         configure_window_unlocked();
+
+         set_window_position_unlocked();
+
          m_pqwidget->repaint();
+
       });
 
+
 #ifdef MORE_LOG
+
       information() << "window_do_update_screen";
+
 #endif
 
-      //      if(m_interlockedPostedScreenUpdate > 0)
-      //      {
-      //
-      //         return;
-      //
-      //      }
-      //
-      //      m_interlockedPostedScreenUpdate++;
-
-      //windowing()->windowing_post([this]()
-      //                          {
-
-      {
-         //         synchronous_lock synchronouslock(user_synchronization());
-
-         //display_lock displayLock(x11_display()->Display());
-
-         //       auto pimpl = m_puserinteractionimpl;
-
-         //         if(m_bDoneFirstMapping)
-         //         {
-         //
-         //            configure_window_unlocked();
-         //
-         //         }
-
-         //pimpl->m_pgraphicsgraphics->update_screen();
-
-         //pbuffer->update_screen();
-      }
-
-      //      auto pimpl = m_puserinteractionimpl;
-      //
-      //      pimpl->m_pgraphicsthread->on_graphics_thread_iteration_end();
-
-      //                                  });
-
-      //m_interlockedPostedScreenUpdate--;
    }
 
 
@@ -6970,68 +6196,6 @@ m_puserinteractionbase = m_puserinteractionimpl->m_puserinteraction;
    //   }
 
 
-   //   void window::set_mouse_capture()
-   //   {
-   //
-   //      auto pthread = m_puserinteractionimpl->m_puserinteraction->m_pthreadUserInteraction;
-   //
-   //      windowing()->set_mouse_capture(pthread, this);
-   //
-   //      //::pointer < ::windowing_kde5::display > pwaylanddisplay = m_pdisplay;
-   //
-   //      //pwaylanddisplay->__capture_mouse(this, pwaylanddisplay->m_uLastButtonSerial);
-   //
-   //
-   ////      m_pwindowing->windowing_post([this]()
-   ////                                   {
-   ////
-   ////                                      synchronous_lock synchronouslock(user_synchronization());
-   ////
-   //////                                      display_lock displaylock(x11_display()->Display());
-   ////
-   ////                                      information() << "XGrabPointer";
-   //////
-   //////                                      auto grabStatus = XGrabPointer(Display(), Window(), False,
-   //////                                                                     ButtonPressMask | ButtonReleaseMask |
-   //////                                                                     PointerMotionMask,
-   //////                                                                     GrabModeAsync, GrabModeAsync, None, None,
-   //////                                                                     CurrentTime);
-   ////
-   //////                                      if (grabStatus != GrabSuccess)
-   //////                                      {
-   //////
-   //////                                         windowing_output_debug_string("\noswindow_data::SetCapture 2.1");
-   //////
-   //////                                         return;
-   //////
-   //////                                      }
-   ////
-   //////                                      auto pdisplay = x11_display();
-   //////
-   //////                                      if (pdisplay)
-   //////                                      {
-   //////
-   //////                                         pdisplay->_on_capture_changed_to(this);
-   //////
-   //////                                      }
-   ////
-   ////                                      windowing_output_debug_string("\noswindow_data::SetCapture 2");
-   ////
-   ////                                   });
-   ////
-   ////      //return ::success;
-   //
-   //   }
-   //
-   //
-   //   void window::release_mouse_capture()
-   //   {
-   //
-   //      auto pthread = m_puserinteractionimpl->m_puserinteraction->m_pthreadUserInteraction;
-   //
-   //      windowing()->release_mouse_capture(pthread);
-   //
-   //   }
 
 
    void window::set_keyboard_focus()

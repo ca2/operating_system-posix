@@ -16,14 +16,13 @@
 #include <X11/cursorfont.h>
 
 #include "acme/windowing_system/windowing_system.h"
-#include "aura/user/user/interaction_impl.h"
-#include "aura/windowing/display.h"
-#include "aura/platform/system.h"
 #include "aura/platform/session.h"
+#include "aura/platform/system.h"
+#include "aura/user/user/interaction_impl.h"
 #include "aura/user/user/user.h"
+#include "aura/windowing/display.h"
+#include "windowing_system_kde5/windowing_system.h"
 #include "windowing_system_x11/display_lock.h"
-
-
 
 
 namespace windowing_kde5
@@ -49,7 +48,7 @@ namespace windowing_kde5
 
       //m_pGtkSettingsDefault = nullptr;
 
-      m_pqapplication = nullptr;
+      //m_pqapplication = nullptr;
 
       //deferx_initializex_x11();
 
@@ -74,7 +73,14 @@ namespace windowing_kde5
    bool windowing::has_readily_gettable_absolute_coordinates() const
    {
 
-      return false;
+      if(system()->m_ewindowing == e_windowing_wayland)
+      {
+
+         return false;
+
+      }
+
+      return true;
 
    }
 
@@ -85,6 +91,25 @@ namespace windowing_kde5
       auto itaskCurrent = ::current_itask();
 
       return itaskCurrent == m_itask;
+
+
+   }
+
+
+
+    QApplication * windowing::qapplication()
+   {
+
+        ::pointer < ::windowing_system_kde5::windowing_system > pkde5windowingsystem = system()->windowing_system();
+
+       if(!pkde5windowingsystem)
+       {
+
+           return nullptr;
+
+       }
+
+       return pkde5windowingsystem->m_pqapplication;
 
 
    }
@@ -268,7 +293,7 @@ namespace windowing_kde5
    void windowing::windowing_post_quit()
    {
 
-
+      system()->windowing_system()->windowing_system_post_quit();
       //g_idle_add(gtk_application_quit_callback, G_APPLICATION(m_pgtkapplication));
 
    }
@@ -486,23 +511,23 @@ namespace windowing_kde5
    }
 
 
-   ::windowing::window * windowing::get_mouse_capture(::thread *)
-   {
-
-      if (!m_pdisplay)
-      {
-
-         return nullptr;
-
-      }
-
-      //auto pwindow = m_pdisplay->get_mouse_capture();
-
-      //return pwindow;
-
-      return m_pwindowMouseCapture;
-
-   }
+   // ::windowing::window * windowing::get_mouse_capture(::thread *)
+   // {
+   //
+   //    if (!m_pdisplay)
+   //    {
+   //
+   //       return nullptr;
+   //
+   //    }
+   //
+   //    //auto pwindow = m_pdisplay->get_mouse_capture();
+   //
+   //    //return pwindow;
+   //
+   //    return m_pwindowMouseCapture;
+   //
+   // }
 
 
 
@@ -516,39 +541,39 @@ namespace windowing_kde5
    }
 
 
-   void windowing::set_mouse_capture(::thread * pthread, ::windowing::window * pwindow)
-   {
+   // void windowing::set_mouse_capture(::thread * pthread, ::windowing::window * pwindow)
+   // {
+   //
+   //    m_pwindowMouseCapture = pwindow;
+   //
+   // }
+   //
+   //
+   // void windowing::release_mouse_capture(::thread * pthread)
+   // {
+   //
+   //    m_pdisplay->release_mouse_capture();
+   //
+   // }
 
-      m_pwindowMouseCapture = pwindow;
 
-   }
-
-
-   void windowing::release_mouse_capture(::thread * pthread)
-   {
-
-      m_pdisplay->release_mouse_capture();
-
-   }
-
-
-   bool windowing::defer_release_mouse_capture(::thread * pthread, ::windowing::window * pwindow)
-   {
-
-      if(m_pwindowMouseCapture != pwindow)
-      {
-
-         return false;
-
-      }
-
-      release_mouse_capture(pthread);
-
-      m_pwindowMouseCapture.release();
-
-      return true;
-
-   }
+   // bool windowing::defer_release_mouse_capture(::thread * pthread, ::windowing::window * pwindow)
+   // {
+   //
+   //    if(m_pwindowMouseCapture != pwindow)
+   //    {
+   //
+   //       return false;
+   //
+   //    }
+   //
+   //    release_mouse_capture(pthread);
+   //
+   //    m_pwindowMouseCapture.release();
+   //
+   //    return true;
+   //
+   // }
 
 
    void windowing::_on_capture_changed_to(::windowing_kde5::window * pwindowMouseCaptureNew)
@@ -949,130 +974,130 @@ namespace windowing_kde5
 
    //void gtk_settings_gtk_icon_theme_name_callback(GObject *object, GParamSpec *pspec, gpointer data);
 
-   void windowing::user_post(const ::procedure & procedureParam)
+   void windowing::user_post(const ::procedure & procedure)
    {
-
-      auto procedure(procedureParam);
-
-      // invoke on the main thread
-      QMetaObject::invokeMethod(
-         m_pqapplication,
-         [procedure]
-         {
-
-            procedure();
-
-         });
+       system()->windowing_system()->user_post(procedure);
+      // auto procedure(procedureParam);
+      //
+      // // invoke on the main thread
+      // QMetaObject::invokeMethod(
+      //    m_pqapplication,
+      //    [procedure]
+      //    {
+      //
+      //       procedure();
+      //
+      //    });
 
 
    }
 
-   void windowing::_on_activate_kde_application()
-   {
-
-      //g_object_ref(m_pgtkapplication);
-
-      //auto pdisplay = __create<::nano::user::display>();
-
-      auto pdisplay = this->display();
-
-      ::pointer < ::windowing::display > pwindowingdisplay = pdisplay;
-
-      if(pwindowingdisplay)
-      {
-
-         pwindowingdisplay->initialize_display(this);
-
-      }
-
-      m_pdisplay = pdisplay;
-
-      if (!pdisplay)
-      {
-
-         throw ::exception(error_no_interface,
-                           "Failed to cast pdisplay to m_pdisplay at windowing_kde5::windowing::initialize");
-
-      }
-
-
-
-      information() << "node_kde5::_on_activate_gtk_application going to user_post";
-
-      // This seems not to work with "foreign" windows
-      // (X11 windows not created with Gdk)
-      //x11_add_filter();
-
-      information() << "node_kde5::_on_activate_gtk_application on user_post";
-
-
-      // auto pgtksettingsDefault = gtk_settings_get_default();
-      //
-      // if (pgtksettingsDefault)
-      // {
-      //
-      //    m_pGtkSettingsDefault = G_OBJECT(pgtksettingsDefault);
-      //
-      //    g_object_ref (m_pGtkSettingsDefault);
-      //
-      //    {
-      //
-      //       gchar *theme_name = nullptr;
-      //
-      //       g_object_get(m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
-      //
-      //       m_strOsUserTheme = theme_name;
-      //
-      //       g_free(theme_name);
-      //
-      //    }
-      //
-      //    {
-      //
-      //       gchar *icon_theme_name = nullptr;
-      //
-      //       g_object_get(m_pGtkSettingsDefault, "gtk-icon-theme-name", &icon_theme_name, NULL);
-      //
-      //       m_strOsUserIconTheme = icon_theme_name;
-      //
-      //       g_free(icon_theme_name);
-      //
-      //    }
-      //
-      //
-      //    auto preturnTheme = g_signal_connect_data(
-      //            m_pGtkSettingsDefault,
-      //            "notify::gtk-theme-name",
-      //            //"gtk-private-changed",
-      //            G_CALLBACK(gtk_settings_gtk_theme_name_callback),
-      //            this,
-      //            NULL,
-      //            G_CONNECT_AFTER);
-      //
-      //    auto preturnIconTheme = g_signal_connect_data(
-      //            m_pGtkSettingsDefault,
-      //            "notify::gtk-icon-theme-name",
-      //            //"gtk-private-changed",
-      //            G_CALLBACK(gtk_settings_gtk_icon_theme_name_callback),
-      //            this,
-      //            NULL,
-      //            G_CONNECT_AFTER);
-      //
-      //    //g_object_ref(preturn);
-      //
-      //    //printf("return %" PRIiPTR, preturn);
-      //
-      //    //printf("return %" PRIiPTR, preturn);
-      //
-      // }
-
-      //gtk_add_idle_source(this);
-
-      auto psystem = system()->m_papexsystem;
-
-      psystem->defer_post_initial_request();
-
-   }
+   // void windowing::_on_activate_kde_application()
+   // {
+   //
+   //    //g_object_ref(m_pgtkapplication);
+   //
+   //    //auto pdisplay = __create<::nano::user::display>();
+   //
+   //    auto pdisplay = this->display();
+   //
+   //    ::pointer < ::windowing::display > pwindowingdisplay = pdisplay;
+   //
+   //    if(pwindowingdisplay)
+   //    {
+   //
+   //       pwindowingdisplay->initialize_display(this);
+   //
+   //    }
+   //
+   //    m_pdisplay = pdisplay;
+   //
+   //    if (!pdisplay)
+   //    {
+   //
+   //       throw ::exception(error_no_interface,
+   //                         "Failed to cast pdisplay to m_pdisplay at windowing_kde5::windowing::initialize");
+   //
+   //    }
+   //
+   //
+   //
+   //    information() << "node_kde5::_on_activate_gtk_application going to user_post";
+   //
+   //    // This seems not to work with "foreign" windows
+   //    // (X11 windows not created with Gdk)
+   //    //x11_add_filter();
+   //
+   //    information() << "node_kde5::_on_activate_gtk_application on user_post";
+   //
+   //
+   //    // auto pgtksettingsDefault = gtk_settings_get_default();
+   //    //
+   //    // if (pgtksettingsDefault)
+   //    // {
+   //    //
+   //    //    m_pGtkSettingsDefault = G_OBJECT(pgtksettingsDefault);
+   //    //
+   //    //    g_object_ref (m_pGtkSettingsDefault);
+   //    //
+   //    //    {
+   //    //
+   //    //       gchar *theme_name = nullptr;
+   //    //
+   //    //       g_object_get(m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
+   //    //
+   //    //       m_strOsUserTheme = theme_name;
+   //    //
+   //    //       g_free(theme_name);
+   //    //
+   //    //    }
+   //    //
+   //    //    {
+   //    //
+   //    //       gchar *icon_theme_name = nullptr;
+   //    //
+   //    //       g_object_get(m_pGtkSettingsDefault, "gtk-icon-theme-name", &icon_theme_name, NULL);
+   //    //
+   //    //       m_strOsUserIconTheme = icon_theme_name;
+   //    //
+   //    //       g_free(icon_theme_name);
+   //    //
+   //    //    }
+   //    //
+   //    //
+   //    //    auto preturnTheme = g_signal_connect_data(
+   //    //            m_pGtkSettingsDefault,
+   //    //            "notify::gtk-theme-name",
+   //    //            //"gtk-private-changed",
+   //    //            G_CALLBACK(gtk_settings_gtk_theme_name_callback),
+   //    //            this,
+   //    //            NULL,
+   //    //            G_CONNECT_AFTER);
+   //    //
+   //    //    auto preturnIconTheme = g_signal_connect_data(
+   //    //            m_pGtkSettingsDefault,
+   //    //            "notify::gtk-icon-theme-name",
+   //    //            //"gtk-private-changed",
+   //    //            G_CALLBACK(gtk_settings_gtk_icon_theme_name_callback),
+   //    //            this,
+   //    //            NULL,
+   //    //            G_CONNECT_AFTER);
+   //    //
+   //    //    //g_object_ref(preturn);
+   //    //
+   //    //    //printf("return %" PRIiPTR, preturn);
+   //    //
+   //    //    //printf("return %" PRIiPTR, preturn);
+   //    //
+   //    // }
+   //
+   //    //gtk_add_idle_source(this);
+   //
+   //    auto psystem = system()->m_papexsystem;
+   //
+   //    psystem->defer_post_initial_request();
+   //
+   // }
 
 
    // static void on_activate_gtk_application (GtkApplication *, gpointer p)
@@ -1087,65 +1112,67 @@ namespace windowing_kde5
 
    void windowing::windowing_application_main_loop()
    {
-      ::string strId = application()->m_strAppId;
 
-      strId.find_replace("/", ".");
-      strId.find_replace("-", "_");
-
-      //gtk_init();
-
-      int argc = platform()->get_argc();
-
-      m_pqapplication = new QApplication(argc, platform()->get_args());
-
-      m_pqapplication->setQuitOnLastWindowClosed(false);
-
-      _on_activate_kde_application();
-
-      //m_pgtkapplication = gtk_application_new (strId, G_APPLICATION_DEFAULT_FLAGS);
-
-      //g_signal_connect (m_pgtkapplication, "activate", G_CALLBACK(on_activate_gtk_application), this);
-
-
-      // Retrieve system settings and listen for changes in dark mode preference
-      //GtkSettings *settings = gtk_settings_get_default();
-      //update_theme_based_on_system(settings, NULL); // Check initial state
-      //g_signal_connect(settings, "notify::gtk-application-prefer-dark-theme", G_CALLBACK(update_theme_based_on_system), NULL);
-
-      // Get the current GTK theme name (or any other available property)
-      //gboolean b=1;
-      //g_object_set(settings, "gtk-application-prefer-dark-theme", TRUE, NULL);
-      //g_print("Current theme: %s\n", theme_name);
-
-      // Free the allocated string after use
-      //g_free(theme_name);
-
-      ///GtkSettings *settings = gtk_settings_get_default();
-      //g_object_set(settings, "gtk-enable-animations", FALSE, NULL);
-
-      //g_application_hold(G_APPLICATION(m_pgtkapplication));
-
-
-      // if(m_pdisplay->is_wayland())
-      // {
+       system()->windowing_system()->windowing_system_application_main_loop();
+      // ::string strId = application()->m_strAppId;
+      //
+      // strId.find_replace("/", ".");
+      // strId.find_replace("-", "_");
+      //
+      // //gtk_init();
+      //
+      // int argc = platform()->get_argc();
+      //
+      // m_pqapplication = new QApplication(argc, platform()->get_args());
+      //
+      // m_pqapplication->setQuitOnLastWindowClosed(false);
+      //
+      // _on_activate_kde_application();
+      //
+      // //m_pgtkapplication = gtk_application_new (strId, G_APPLICATION_DEFAULT_FLAGS);
+      //
+      // //g_signal_connect (m_pgtkapplication, "activate", G_CALLBACK(on_activate_gtk_application), this);
       //
       //
+      // // Retrieve system settings and listen for changes in dark mode preference
+      // //GtkSettings *settings = gtk_settings_get_default();
+      // //update_theme_based_on_system(settings, NULL); // Check initial state
+      // //g_signal_connect(settings, "notify::gtk-application-prefer-dark-theme", G_CALLBACK(update_theme_based_on_system), NULL);
       //
-      // }
-
-      m_pqapplication->exec();
-
-
-      //g_application_run (G_APPLICATION(m_pgtkapplication), platform()->get_argc(), platform()->get_args());
-      //aaa_x11_main();
-
-
-      // while(::task_get_run())
-      // {
+      // // Get the current GTK theme name (or any other available property)
+      // //gboolean b=1;
+      // //g_object_set(settings, "gtk-application-prefer-dark-theme", TRUE, NULL);
+      // //g_print("Current theme: %s\n", theme_name);
       //
-      //    preempt(1_s);
+      // // Free the allocated string after use
+      // //g_free(theme_name);
       //
-      // }
+      // ///GtkSettings *settings = gtk_settings_get_default();
+      // //g_object_set(settings, "gtk-enable-animations", FALSE, NULL);
+      //
+      // //g_application_hold(G_APPLICATION(m_pgtkapplication));
+      //
+      //
+      // // if(m_pdisplay->is_wayland())
+      // // {
+      // //
+      // //
+      // //
+      // // }
+      //
+      // m_pqapplication->exec();
+      //
+      //
+      // //g_application_run (G_APPLICATION(m_pgtkapplication), platform()->get_argc(), platform()->get_args());
+      // //aaa_x11_main();
+      //
+      //
+      // // while(::task_get_run())
+      // // {
+      // //
+      // //    preempt(1_s);
+      // //
+      // // }
 
    }
 

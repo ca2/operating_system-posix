@@ -70,7 +70,7 @@ namespace node_kde5
 
       ::pointer < ::windowing_kde5::windowing > pwindowing = user()->windowing();
 
-      auto pqapplication = pwindowing->m_pqapplication;
+      auto pqapplication = pwindowing->qapplication();
 
       QObject::setParent(pqapplication);
 

@@ -29,7 +29,7 @@ namespace windowing_kde5
 
       //GtkApplication* m_pgtkapplication;
 
-       QApplication * m_pqapplication;
+       //QApplication * m_pqapplication;
 
       bool m_bRootSelectInput: 1;
       bool m_bFirstWindowMap: 1;
@@ -49,7 +49,6 @@ namespace windowing_kde5
 
       ::procedure_list m_procedurelist;
       ::procedure_list m_procedurelistPriority;
-      ::pointer<::windowing_kde5::window> m_pwindowMouseCapture;
 
 
       ::string       m_strOsUserTheme;
@@ -75,6 +74,8 @@ namespace windowing_kde5
 
       bool is_branch_current() const override;
 
+
+       virtual QApplication * qapplication();
 
       //virtual void initialize_windowing();
 
@@ -119,13 +120,13 @@ namespace windowing_kde5
 
       virtual void _fetch_dark_mode();
 
-      void set_mouse_capture(::thread* pthread, ::windowing::window* pwindow) override;
+      //void set_mouse_capture(::thread* pthread, ::windowing::window* pwindow) override;
 
-      ::windowing::window* get_mouse_capture(::thread* pthread) override;
+      //::windowing::window* get_mouse_capture(::thread* pthread) override;
 
-      void release_mouse_capture(::thread* pthread) override;
+      //void release_mouse_capture(::thread* pthread) override;
 
-      bool defer_release_mouse_capture(::thread* pthread, ::windowing::window* pwindow) override;
+      //bool defer_release_mouse_capture(::thread* pthread, ::windowing::window* pwindow) override;
 
       virtual void _on_capture_changed_to(::windowing_kde5::window* pwindowWithCapture);
 
@@ -163,7 +164,7 @@ namespace windowing_kde5
 
       ::windowing::window_base* get_keyboard_focus(::thread* pthread) override;
 
-      void _on_activate_kde_application();
+      //void _on_activate_kde_application();
       ///::pointer < ::input::input > get_input() override;
 
       //::windowing::window * get_mouse_capture(::thread * pthread) override;

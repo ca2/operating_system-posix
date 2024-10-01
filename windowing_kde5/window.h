@@ -277,6 +277,9 @@ void on_initialize_particle() override;
       void set_mouse_cursor(::windowing::cursor * pcursor) override;
 
       void set_mouse_capture() override;
+      bool has_mouse_capture() override;
+      bool is_mouse_captured() override;
+      void release_mouse_capture() override;
 
 
       //virtual void __activate_window(bool bNormalPriority);

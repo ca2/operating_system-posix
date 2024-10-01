@@ -1119,43 +1119,18 @@ namespace kde5
       // }
 
 
-      void window::set_position(const ::point_i32 & point)
+      void window::set_position_unlocked(const ::point_i32 & point)
       {
 
-         // m_pdisplay->_move_window(m_window, point.x(), point.y());
-         //
-         // m_puserinteractionbase->m_rectangle.move_to(point);
-
-         auto p = point;
-
-         auto λ_set_position = [this, p]
-         {
-
-            m_pqwidget->move(p.x(), p.y());
-
-         };
-
-         main_post(λ_set_position);
+            m_pqwidget->move(point.x(), point.y());
 
       }
 
 
-         void window::set_size(const ::size_i32 & size)
+         void window::set_size_unlocked(const ::size_i32 & size)
          {
 
-            // m_pdisplay->_move_window(m_window, point.x(), point.y());
-            //
-            // m_puserinteractionbase->m_rectangle.move_to(point);
-            auto s = size;
-
-            auto λ_set_size = [this, s]
-            {
-
-               m_pqwidget->resize(s.cx(), s.cy());
-
-            };
-
-            main_post(λ_set_size);
+           m_pqwidget->resize(size.cx(), size.cy());
 
          }
 
@@ -1880,7 +1855,7 @@ m_pqwidget->move(p);
             main_post([this]()
                {
 
-                  m_pqwidget->grabMouse();
+                  m_pqwidget->releaseMouse();
 
                });
 

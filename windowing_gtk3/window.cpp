@@ -4926,7 +4926,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *event)
 
          full_set_window_position_unlocked();
 
-         configure_window_unlocked();
+         //configure_window_unlocked();
 
          // Queue the drawing area for a redraw
          gtk_widget_queue_draw(m_pdrawingarea);

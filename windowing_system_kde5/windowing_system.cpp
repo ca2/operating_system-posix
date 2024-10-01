@@ -410,7 +410,7 @@ namespace windowing_system_kde5
 
       };
 
-      user_post(quitApplication);
+      main_post(quitApplication);
 
    }
 
