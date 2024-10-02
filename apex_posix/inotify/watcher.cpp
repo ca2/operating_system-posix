@@ -34,7 +34,7 @@ namespace inotify
    }
 
 //
-//   ::file::watch_id watcher::add_watch(const ::file::path & pathFolder, ::file::listener * plistenerParam, bool bRecursive)
+//   ::pointer < ::file::watch > watcher::add_watch(const ::file::path & pathFolder, ::file::listener * plistenerParam, bool bRecursive)
 //   {
 //
 //

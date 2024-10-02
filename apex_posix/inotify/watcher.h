@@ -21,7 +21,7 @@ namespace inotify
       ~watcher() override;
 
 
-      //virtual ::file::watch_id add_watch(const ::file::path & pathFolder, ::file::listener * plistenerParam, bool bRecursive) override;
+      //virtual ::pointer < ::file::watch > add_watch(const ::file::path & pathFolder, ::file::listener * plistenerParam, bool bRecursive) override;
 
 
       virtual bool file_watcher_step() override;

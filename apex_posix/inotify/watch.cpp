@@ -215,7 +215,7 @@ namespace inotify
 
             ::file::action a;
             a.m_pwatch = this;
-            a.m_watchid = m_watchid;
+            a.m_pfilewatch = m_pfilewatch;
             a.m_pathFolder = m_pathFolder;
             a.m_pathFile = pevent->name;
             a.m_eaction = ::file::e_action_none;
