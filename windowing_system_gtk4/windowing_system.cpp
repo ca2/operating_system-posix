@@ -297,6 +297,16 @@ namespace windowing_system_gtk4
    }
 
 
+   void windowing_system::main_post(const ::procedure & procedure)
+   {
+
+
+      // Safely update the GTK label in the main thread
+      g_main_context_invoke(NULL, execute_on_main_thread, new ::procedure(procedure));
+
+   }
+
+
    void windowing_system::display_error_trap_push(int i)
    {
 
@@ -716,7 +726,7 @@ namespace windowing_system_gtk4
       int width = 32;
       int height = 32;
 
-      GtkWidget *widget = gtk_window_new();
+      GtkWidget *widget = gtk_application_window_new(m_pgtkapplication);
       gtk_window_set_decorated(GTK_WINDOW(widget), false);
       gtk_widget_set_size_request(widget,width, height);
       GtkStyleContext *style_context = gtk_widget_get_style_context(widget);

@@ -1023,7 +1023,7 @@ namespace gtk4
 
                m_sizeaMonitor.clear();
 
-    m_pgdkdisplay = gdk_display_get_default();
+    //m_pgdkdisplay = gdk_display_get_default();
 
     auto * monitors = gdk_display_get_monitors(m_pgdkdisplay);
 

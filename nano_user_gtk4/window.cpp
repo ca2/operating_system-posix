@@ -4184,7 +4184,7 @@ set_interface_client_size({cx, cy});
             pmouse->m_pointHost.y() = y;
 
             pmouse->m_pointAbsolute.x() = x;
-            pmouse->m_pointAbsolute.x() = y;
+            pmouse->m_pointAbsolute.y() = y;
 
          //      enum_message emessage = e_message_undefined;
          //      //msg.m_atom = e_message_mouse_wheel;

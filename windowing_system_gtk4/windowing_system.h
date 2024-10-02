@@ -43,7 +43,12 @@ namespace windowing_system_gtk4
       ::e_status initialize_windowing_system() override;
       void * get_display() override;
       void sync(const ::procedure & procedure) override;
+
+
+      void main_post(const ::procedure & procedure) override;
       void async(const ::procedure & procedure) override;
+
+
       void display_error_trap_push(int i) override;
       void display_error_trap_pop_ignored(int i) override;
 
@@ -54,7 +59,7 @@ namespace windowing_system_gtk4
 //   void x11_display_error_trap_push(int i) override;
 //   void x11_display_error_trap_pop_ignored(int i) override;
       bool is_branch_current() const override;
-      void windowing_system_application_main_loop();
+      void windowing_system_application_main_loop() override;
       void windowing_system_post_quit() override;
       virtual void _on_activate_gtk_application();
 
