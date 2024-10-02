@@ -146,10 +146,10 @@ namespace inotify
    bool watcher::file_watcher_step()
    {
 
-      for (auto & pair: m_watchmap)
+      for (auto & item: m_watchset)
       {
 
-         pair.payload()->file_watch_step();
+         item.item()->file_watch_step();
 
       }
 

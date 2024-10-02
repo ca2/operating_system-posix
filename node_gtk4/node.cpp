@@ -577,7 +577,7 @@ namespace node_gtk4
          //gtk_main();
 
 
-         windowing()->windowing_application_main_loop();
+         user()->windowing()->windowing_application_main_loop();
 
 
       }
@@ -1119,7 +1119,7 @@ namespace node_gtk4
    void node::user_post_quit()
    {
 
-      windowing()->windowing_post_quit();
+      user()->windowing()->windowing_post_quit();
 
    }
 

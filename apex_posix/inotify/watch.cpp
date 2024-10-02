@@ -214,8 +214,7 @@ namespace inotify
 //auto pwatch = m_watchmap[(atom)pevent->wd];
 
             ::file::action a;
-            a.m_pwatch = this;
-            a.m_pfilewatch = m_pfilewatch;
+            a.m_pfilewatch = this;
             a.m_pathFolder = m_pathFolder;
             a.m_pathFile = pevent->name;
             a.m_eaction = ::file::e_action_none;

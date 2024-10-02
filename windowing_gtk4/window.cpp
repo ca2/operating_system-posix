@@ -929,81 +929,76 @@ namespace windowing_gtk4
    void window::_on_display_change(::e_display edisplay)
    {
 
-      //auto cxAllocated = gtk_widget_get_allocated_width(m_pgtkwidget);
-      //auto cyAllocated = gtk_widget_get_allocated_height(m_pgtkwidget);
+      main_post([this, edisplay]()
+                {
+// auto cxAllocated = gtk_widget_get_allocated_width(m_pgtkwidget);
+// auto cyAllocated = gtk_widget_get_allocated_height(m_pgtkwidget);
 
-      GdkSurface * pgdksurface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
-      //GdkToplevel *toplevel = GDK_TOPLEVEL(surface);
+GdkSurface *pgdksurface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
+// GdkToplevel *toplevel = GDK_TOPLEVEL(surface);
 
-      if(edisplay == e_display_zoomed)
-      {
+if (edisplay == e_display_zoomed)
+{
 
-         // auto pgdktoplevellayout = gdk_toplevel_layout_new();
-         //
-         // gdk_toplevel_layout_set_maximized(pgdktoplevellayout, true);
-         //
-         //
-         // GdkToplevel * pgdktoplevel = GDK_TOPLEVEL(pgdksurface);
-         //
-         // gdk_toplevel_present(pgdktoplevel, pgdktoplevellayout);
+// auto pgdktoplevellayout = gdk_toplevel_layout_new();
+//
+// gdk_toplevel_layout_set_maximized(pgdktoplevellayout, true);
+//
+//
+// GdkToplevel * pgdktoplevel = GDK_TOPLEVEL(pgdksurface);
+//
+// gdk_toplevel_present(pgdktoplevel, pgdktoplevellayout);
 
-         m_puserinteractionimpl->m_puserinteraction->display(::e_display_zoomed);
+m_puserinteractionimpl->m_puserinteraction->display(::e_display_zoomed);
 
-         application()->fork([this]()
-         {
+application()->fork(
+[this]()
+{
+  preempt(100_ms);
 
-               preempt(100_ms);
+  user_post(
+     [this]()
+     {
+        GdkSurface *pgdksurface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
 
-               user_post([this]()
-               {
+        int cx = gdk_surface_get_width(pgdksurface);
 
-                  GdkSurface * pgdksurface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
+        int cy = gdk_surface_get_height(pgdksurface);
 
-                  int cx = gdk_surface_get_width(pgdksurface);
+        _on_size(cx, cy);
+     });
+});
+}
+else
+{
 
-                  int cy = gdk_surface_get_height(pgdksurface);
+m_puserinteractionimpl->m_puserinteraction->display(::e_display_normal);
 
-                  _on_size(cx, cy);
+application()->fork(
+[this]()
+{
+  preempt(100_ms);
 
-               });
+  user_post(
+     [this]()
+     {
+        GdkSurface *pgdksurface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
 
-            });
+        int cx = gdk_surface_get_width(pgdksurface);
 
-      }
-      else
-      {
+        int cy = gdk_surface_get_height(pgdksurface);
 
-         m_puserinteractionimpl->m_puserinteraction->display(::e_display_normal);
-
-         application()->fork([this]()
-         {
-
-               preempt(100_ms);
-
-               user_post([this]()
-               {
-
-                  GdkSurface * pgdksurface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
-
-                  int cx = gdk_surface_get_width(pgdksurface);
-
-                  int cy = gdk_surface_get_height(pgdksurface);
-
-                  _on_size(cx, cy);
-
-               });
-
-            });
-
-      }
+        _on_size(cx, cy);
+     });
+});
+}
 
 
+// gdk_surface_request_layout(pgdksurface);
 
-      //gdk_surface_request_layout(pgdksurface);
+// gdk_toplevel_size_get_bounds()
 
-      //gdk_toplevel_size_get_bounds()
-
-
+});
 
    }
 
@@ -2393,343 +2388,22 @@ void window::set_wm_class(const char* psz)
 
 i32 window::map_window()
 {
-   int i = 0;
 
-   synchronous_lock synchronouslock(user_synchronization());
-   gtk_widget_set_visible(m_pgtkwidget, true);
-   //      {
-   //
-   //         windowing_output_debug_string("\nwindow::map_window");
-   //
-   //         display_lock displaylock(x11_display()->Display());
-   //
-   //         i = XMapWindow(Display(), Window());
-   //
-   //      }
-   //
-   //      //#ifdef WITH_SN
-   //
-   //      auto pwindowing = x11_windowing();
-   //
-   //      //  if (pwindowing->m_pSnLauncheeContext != nullptr)
-   //      if (!pwindowing->m_bFirstWindowMap)
-   //      {
-   //
-   //         pwindowing->m_bFirstWindowMap = true;
-   //
-   //         auto psystem = system()->m_papexsystem;
-   //
-   //         auto pnode = psystem->node();
-   //
-   //         pnode->defer_notify_startup_complete();
-   //
-   //         on_sn_launch_complete(pwindowing->m_pSnLauncheeContext);
-   //
-   //         pwindowing->m_pSnLauncheeContext = nullptr;
-   //
-   //      }
+   __map();
 
-   //#endif // RASPBERRYPIOS
+   return 1;
 
-   windowing_output_debug_string("\nwindow::map_window END");
-
-   return i;
 }
 
 
 i32 window::unmap_window(bool bWithdraw)
 {
-   synchronous_lock synchronouslock(user_synchronization());
 
-   windowing_output_debug_string("\nwindow::unmap_window");
-
-   //      display_lock displaylock(x11_display()->Display());
-   //
-   //      int i;
-   //
-   //      if (bWithdraw)
-   //      {
-   //
-   //         i = XWithdrawWindow(Display(), Window(), x11_display()->m_iScreen);
-   //
-   //      } else
-   //      {
-   //
-   //         i = XUnmapWindow(Display(), Window());
-   //
-   //      }
-
-   windowing_output_debug_string("\nwindow::unmap_window END");
+   __unmap();
 
    return 1;
+
 }
-
-
-//   osptra *window::s_pdataptra = nullptr;
-//
-//
-//   ::pointer< ::mutex >window::s_pmutex = nullptr;
-
-
-//   i32 oswindow_find_message_only_window(::user::interaction_impl *pimpl)
-//   {
-//
-//      if (pimpl == nullptr)
-//      {
-//
-//         return -1;
-//
-//      }
-//
-//      single_lock slOsWindow(window::s_pmutex, true);
-//
-//      for (i32 i = 0; i < ::window::s_pdataptra->get_count(); i++)
-//      {
-//
-//         if (::window::s_pdataptra->element_at(i)->m_bMessageOnlyWindow
-//             && ::window::s_pdataptra->element_at(i)->m_puserinteractionimpl == pimpl)
-//         {
-//
-//            return i;
-//
-//         }
-//
-//      }
-//
-//      return -1;
-//
-//   }
-
-//   i32 oswindow_find(Display *Display(), Window window)
-//   {
-//
-//      single_lock slOsWindow(::window::s_pmutex, true);
-//
-//      for (i32 i = 0; i < ::window::s_pdataptra->get_count(); i++)
-//      {
-//         if (!::window::s_pdataptra->element_at(i)->m_bMessageOnlyWindow
-//             && ::window::s_pdataptra->element_at(i)->m_osdisplay->display() == Display()
-//             && ::window::s_pdataptra->element_at(i)->m_window == window)
-//         {
-//            return i;
-//         }
-//      }
-//
-//      return -1;
-//
-//   }
-
-//   i32 oswindow_find(Window window)
-//   {
-//
-//      single_lock slOsWindow(::window::s_pmutex, true);
-//
-//      for (i32 i = 0; i < ::window::s_pdataptra->get_count(); i++)
-//      {
-//         if (!::window::s_pdataptra->element_at(i)->m_bMessageOnlyWindow
-//             && ::window::s_pdataptra->element_at(i)->m_window == window)
-//         {
-//            return i;
-//         }
-//      }
-//
-//      return -1;
-//
-//   }
-
-//
-//   window *oswindow_get_message_only_window(::user::interaction_impl *pinteraction)
-//   {
-//
-//      if (pinteraction == nullptr)
-//      {
-//
-//         return nullptr;
-//
-//      }
-//
-//      single_lock slOsWindow(::window::s_pmutex, true);
-//
-//      auto pFind = oswindow_find_message_only_window(pinteraction);
-//
-//      if (::is_set(pFind))
-//      {
-//
-//         return ::window::s_pdataptra->element_at(iFind);
-//
-//      }
-//
-//      ::window *pdata = new window();
-//
-//      pdata->m_bMessageOnlyWindow = true;
-//      pdata->m_window = None;
-//      pdata->m_puserinteractionimpl = pinteraction;
-//      pdata->m_osdisplay = nullptr;
-//      pdata->m_parent = 0;
-//      pdata->m_pmq = pinteraction->m_puserinteraction->m_pthreadUserInteraction->get_mq();
-//
-//      ::window::s_pdataptra->add(pdata);
-//
-//      return pdata;
-//
-//   }
-
-//
-//   window *oswindow_defer_get(Display *Display(), Window window)
-//   {
-//
-//      single_lock slOsWindow(::window::s_pmutex, true);
-//
-//      auto pFind = oswindow_find(Display(), window);
-//
-//      if (::is_null(pFind))
-//      {
-//
-//         return nullptr;
-//
-//      }
-//
-//      return ::window::s_pdataptra->element_at(iFind);
-//
-//   }
-
-
-//   ::e_status
-//   window::initialize_x11_window(::windowing_gtk4::display * pdisplay, ::Window window, ::Visual * pvisual, int iDepth,
-//                                 int iScreen, Colormap colormap)
-//   {
-//
-//      //single_lock slOsWindow(::window::s_pmutex, true);
-//
-//      //      auto pFind = oswindow_find(Display(), window);
-//      //
-//      //      if (::is_set(pFind))
-//      //      {
-//      //
-//      //         return ::window::s_pdataptra->element_at(iFind);
-//      //
-//      //      }
-//      //
-//      //      ::window *pdata = new ::window();
-//
-//      m_bMessageOnlyWindow = false;
-//      //m_osdisplay = osdisplay_get(Display());
-//      m_pnanouserdisplay = pdisplay;
-//      m_window = window;
-//
-//      if (pvisual != nullptr)
-//      {
-//
-//         m_visual = *pvisual;
-//
-//      }
-//
-//      m_iDepth = iDepth;
-//      //m_iScreen = iScreen;
-//      //m_colormap = colormap;
-//      //m_parent = 0;
-//
-//      //::window::s_pdataptra->add(pdata);
-//
-//      x11_display()->m_windowmap[m_window] = this;
-//
-//      return ::success;
-//
-//   }
-//
-
-//void x11_on_start_session()
-//{
-
-//   Display * dpy = x11_get_display();
-//
-//   g_oswindowDesktop = oswindow_get(dpy, DefaultRootWindow(dpy));
-//
-//   g_oswindowDesktop->m_puserinteractionimpl = nullptr;
-//
-//   XSelectInput(g_oswindowDesktop->Display(), g_oswindowDesktop->Window(), StructureNotifyMask);
-//
-//}
-
-//   Display * window::Display()
-//   {
-//
-//      return x11_display()->Display();
-//
-//   }
-//
-//   Display * window::Display() const
-//   {
-//
-//      return x11_display()->Display();
-//
-//   }
-//
-//
-//   int window::Screen()
-//   {
-//
-//      return x11_display()->Screen();
-//
-//   }
-//
-//
-//   int window::Screen() const
-//   {
-//
-//      return x11_display()->Screen();
-//
-//   }
-//
-//
-//   Window window::Window()
-//   {
-//
-//      return m_window;
-//
-//   }
-//
-//
-//   Window window::Window() const
-//   {
-//
-//      return m_window;
-//
-//   }
-//
-//
-//   Visual * window::Visual()
-//   {
-//
-//      return &m_visual;
-//
-//   }
-//
-//
-//   const Visual * window::Visual() const
-//   {
-//
-//      return &m_visual;
-//
-//   }
-
-//   window *oswindow_get(Window window)
-//   {
-//
-//      single_lock slOsWindow(::window::s_pmutex, true);
-//
-//      auto pFind = oswindow_find(window);
-//
-//      if (::is_null(pFind))
-//      {
-//
-//         return nullptr;
-//
-//      }
-//
-//      return ::window::s_pdataptra->element_at(iFind);
-//
-//   }
 
 
 bool window::bamf_set_icon()
@@ -7997,31 +7671,42 @@ void window::_on_windowing_close_window()
 
 void window::window_restore()
 {
+   main_post([this]()
+             {
    if (gtk_window_is_maximized(GTK_WINDOW(m_pgtkwidget)))
    {
       gtk_window_unmaximize(GTK_WINDOW(m_pgtkwidget));
    }
+             });
 }
 
 
    void window::window_minimize()
    {
 
-      // Get the GdkSurface of the window
-      GdkSurface *surface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
+      main_post([this]()
+    {
+     // Get the GdkSurface of the window
+     GdkSurface *surface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
 
-      // Get the GdkToplevel interface
-      GdkToplevel *toplevel = GDK_TOPLEVEL(surface);
+     // Get the GdkToplevel interface
+     GdkToplevel *toplevel = GDK_TOPLEVEL(surface);
 
-      // Minimize the window (iconify it)
-      gdk_toplevel_minimize(toplevel);
+     // Minimize the window (iconify it)
+     gdk_toplevel_minimize(toplevel);
+
+  });
 
    }
 
 
 void window::window_maximize()
 {
-   gtk_window_maximize(GTK_WINDOW(m_pgtkwidget));
+   main_post([this]()
+       {
+  gtk_window_maximize(GTK_WINDOW(m_pgtkwidget));
+
+});
 }
 
 
@@ -8049,23 +7734,25 @@ void window::window_maximize()
 
    void window::_set_cursor_from_name(const ::scoped_string & scopedstr)
    {
-
       ::string strCursorName(scopedstr);
 
-      if (strCursorName.has_char())
-      {
+      main_post([this, strCursorName]()
+    {
 
-         gtk_widget_set_cursor_from_name(m_pgtkwidget, strCursorName);
+     if (strCursorName.has_char())
+     {
 
-         //        g_object_unref(cursor);
+        gtk_widget_set_cursor_from_name(m_pgtkwidget, strCursorName);
 
-      }
-      else
-      {
+        //        g_object_unref(cursor);
+     }
+     else
+     {
 
-         gtk_widget_set_cursor_from_name(m_pgtkwidget,"default");
+        gtk_widget_set_cursor_from_name(m_pgtkwidget, "default");
+     }
 
-      }
+  });
 
    }
 

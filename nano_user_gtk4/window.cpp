@@ -13,6 +13,7 @@
 #include "window.h"
 #include "acme/constant/message.h"
 #include "acme/graphics/image/pixmap.h"
+#include "acme/integrate/cairo.h"
 #include "acme/nano/graphics/device.h"
 #include "acme/operating_system/a_system_menu.h"
 #include "acme/platform/system.h"
@@ -272,7 +273,7 @@ namespace nano
          m_pgtkwidget =nullptr;
          m_pgtkwidget=nullptr;
          //m_pcairosurface = nullptr;
-         m_iDepth = -1;
+         //m_iDepth = -1;
          //m_pvisual = nullptr;
          //zero(m_visualinfo);
          //m_colormap = 0;
@@ -2256,411 +2257,35 @@ namespace nano
       void window::__map()
       {
 
-         if(GTK_IS_POPOVER(m_pgtkwidget))
+         main_send([this]()
          {
 
-            gtk_popover_popup(GTK_POPOVER(m_pgtkwidget));
+            if (GTK_IS_POPOVER(m_pgtkwidget))
+            {
 
-         }
-         else
-         {
-            //synchronous_lock synchronouslock(user_synchronization());
-            gtk_widget_set_visible(m_pgtkwidget, true);
-         }
+               gtk_popover_popup(GTK_POPOVER(m_pgtkwidget));
+            }
+            else
+            {
+               // synchronous_lock synchronouslock(user_synchronization());
+               gtk_widget_set_visible(m_pgtkwidget, true);
+            }
 
-         // if (m_pxdgtoplevel != nullptr || m_pxdgpopup != nullptr)
-         // {
-         //
-         //    return;
-         //
-         // }
-         //
-         // information() << "windowing_wayland::window::__map sizeWindow : " << m_sizeWindow;
-         //
-         // ::minimum(m_sizeConfigure.cx());
-         //
-         // ::minimum(m_sizeConfigure.cy());
-         //
-         // m_bDoneFirstMapping = false;
-         //
-         // m_bXdgInitialConfigure = false;
-         //
-         // m_uLastRequestSerial = 0;
-         //
-         // m_uLastConfigureSerial = 0;
-         //
-         // m_uLastAckSerial = 0;
-         //
-         // auto pdisplaybase = m_pdisplaybase;
-         //
-         // information() << "pdisplaybase : " << (::iptr) pdisplaybase.m_p;
-         //
-         // auto pwlcompositor = pdisplaybase->m_pwlcompositor;
-         //
-         // information() << "pwlcompositor : " << (::iptr) pwlcompositor;
-         //
-         // m_pwlsurface = wl_compositor_create_surface(pwlcompositor);
-         //
-         // if (m_pwlsurface == NULL)
-         // {
-         //
-         //    error() << "Can't create wayland surface";
-         //
-         //    throw ::exception(::error_failed);
-         //
-         // }
-         // else
-         // {
-         //
-         //    information() << "Created wayland surface";
-         //
-         // }
-         //
-         //
-         // //auto puserinteractionOwner = m_puserinteractionimpl->m_puserinteraction->m_puserinteractionOwner;
-         //
-         // //      if(puserinteractionOwner)
-         // //      {
-         // //
-         // //         ::pointer < window > pwindowOwner = puserinteractionOwner->window();
-         // //
-         // //         if(pwindowOwner->m_pwlsurface)
-         // //         {
-         // //
-         // //            m_pwlsubsurface = wl_subcompositor_get_subsurface(
-         // //               pdisplaybase->m_pwlsubcompositor,
-         // //               m_pwlsurface,
-         // //               pwindowOwner->m_pwlsurface);
-         // //
-         // //            if(m_pwlsubsurface)
-         // //            {
-         // //
-         // //               information() << "Created wayland subsurface";
-         // //
-         // //            }
-         // //            else
-         // //            {
-         // //
-         // //               information() << "Failed to create wayland subsurface";
-         // //
-         // //               wl_subsurface_set_desync(m_pwlsubsurface);
-         // //
-         // //            }
-         // //
-         // //         }
-         // //
-         // //      }
-         //
-         // //wl_surface_add_listener(m_pwlsurface, &g_wl_surface_listener, this);
-         //
-         // pdisplaybase->m_windowmap[m_pwlsurface] = this;
-         //
-         // auto pxdgwmbase = pdisplaybase->m_pxdgwmbase;
-         //
-         // information() << "pxdgwmbase : " << (::iptr) pxdgwmbase;
-         //
-         // if (!m_pxdgsurface)
-         // {
-         //
-         //    m_pxdgsurface = xdg_wm_base_get_xdg_surface(pxdgwmbase, m_pwlsurface);
-         //
-         //    if (m_pxdgsurface == NULL)
-         //    {
-         //
-         //       pdisplaybase->m_windowmap.erase_item(m_pwlsurface);
-         //
-         //       error() << "Can't create shell surface";
-         //
-         //       throw ::exception(::error_failed);
-         //
-         //    }
-         //    else
-         //    {
-         //
-         //       information() << "Created shell surface";
-         //
-         //    }
-         //
-         //    xdg_surface_add_listener(m_pxdgsurface, &xdg_surface_listener, this);
-         //
-         // }
-         //
-         //
-         // ::i32 x = m_pointWindow.x();
-         //
-         // ::i32 y = m_pointWindow.y();
-         //
-         // ::i32 cx = m_sizeWindow.cx();
-         //
-         // ::i32 cy = m_sizeWindow.cy();
-         //
-         // if (is_windowing_popup())
-         // {
-         //
-         //    m_pxdgpositioner = xdg_wm_base_create_positioner(pxdgwmbase);
-         //
-         //    m_pointWindow = windowing_popup_origin();
-         //
-         //    m_sizeWindow = windowing_popup_size();
-         //
-         //    //x = m_pointWindow.x();
-         //
-         //    //y = m_pointWindow.y();
-         //
-         //    x = 0;
-         //
-         //    y = 0;
-         //
-         //    cx = m_sizeWindow.cx();
-         //
-         //    cy = m_sizeWindow.cy();
-         //
-         //    auto sizeScreen = m_pdisplaybase->get_main_screen_size();
-         //
-         //    auto pwindowbaseParent = owner_window();
-         //
-         //    ::rectangle_i32 rectangleAnchor;
-         //
-         //    rectangleAnchor.set_dimension(
-         //       -sizeScreen.cx(),
-         //       -sizeScreen.cy(),
-         //       sizeScreen.cx() * 3,
-         //       sizeScreen.cy() * 3);
-         //
-         //    information() << "xdg_positioner_set_anchor_rect : " << rectangleAnchor;
-         //
-         //    xdg_positioner_set_anchor_rect(m_pxdgpositioner,
-         //                            rectangleAnchor.left(),
-         //                            rectangleAnchor.top(),
-         //                            rectangleAnchor.width(),
-         //                            rectangleAnchor.height());
-         //
-         //    information() << "xdg_positioner_set_offset : " << m_pointWindow;
-         //
-         //    xdg_positioner_set_offset(m_pxdgpositioner,
-         //                              sizeScreen.cx() + m_pointWindow.x(),
-         //                              sizeScreen.cy() + m_pointWindow.y());
-         //
-         //    information() << "xdg_positioner_set_size : " << m_sizeWindow;
-         //
-         //    xdg_positioner_set_size(m_pxdgpositioner,
-         //                            m_sizeWindow.cx(),
-         //                            m_sizeWindow.cy());
-         //
-         //    information() << "xdg_positioner_set_anchor XDG_POSITIONER_ANCHOR_TOP_LEFT";
-         //
-         //    xdg_positioner_set_anchor(m_pxdgpositioner, XDG_POSITIONER_ANCHOR_TOP_LEFT);
-         //
-         //    ::pointer<window> pwindowOwner = owner_window();
-         //
-         //    //         if(pwindowOwner->m_pwlsurface)
-         //    //       {
-         //
-         //    /* Assign the popup role */
-         //    //data->shell_surface.xdg.roleobj.popup.popup = xdg_surface_get_popup(data->shell_surface.xdg.surface,
-         //    //                                                                  focuseddata->shell_surface.xdg.surface,
-         //    //                                                                data->shell_surface.xdg.roleobj.popup.positioner);
-         //
-         //    m_pxdgpopup = xdg_surface_get_popup(m_pxdgsurface, pwindowOwner->m_pxdgsurface, m_pxdgpositioner);
-         //
-         //    xdg_popup_add_listener(m_pxdgpopup, &popup_listener_xdg, this);
-         //
-         // }
-         // else
-         // {
-         //
-         //
-         //    m_pxdgtoplevel = xdg_surface_get_toplevel(m_pxdgsurface);
-         //
-         //    if (m_pxdgtoplevel == NULL)
-         //    {
-         //
-         //       pdisplaybase->m_windowmap.erase_item(m_pwlsurface);
-         //
-         //       error() << "Can't create toplevel";
-         //
-         //       throw ::exception(::error_failed);
-         //
-         //    }
-         //    else
-         //    {
-         //
-         //       information() << "Created toplevel";
-         //
-         //    }
-         //
-         //    xdg_toplevel_add_listener(m_pxdgtoplevel, &g_xdg_toplevel_listener, this);
-         //
-         // }
-         //
-         //
-         // //      information() << "m_pointWindow : " << m_pointWindow;
-         // //
-         // //      information() << "m_sizeWindow : " << m_sizeWindow;
-         // //
-         // //      information() << "x, y : " << x << ", " << y;
-         // //
-         // //      information() << "cx, cy : " << cx << ", " << cy;
-         //
-         // //m_pointWindow.x() = x;
-         //
-         // //m_pointWindow.y() = y;
-         //
-         // //auto x = m_pointWindowBestEffort.x();
-         //
-         // //auto y = m_pointWindowBestEffort.y();
-         //
-         // if (m_pxdgsurface)
-         // {
-         //
-         //    informationf("xdg_surface_set_window_geometry x, y, cx, cy : %d, %d, %d, %d", x, y, cx, cy);
-         //
-         //    xdg_surface_set_window_geometry(m_pxdgsurface, x, y, cx, cy);
-         //
-         // }
-         //
-         // //auto pimpl = m_puserinteractionimpl;
-         //
-         //
-         // if (m_pxdgtoplevel)
-         // {
-         //
-         //    if (!is_satellite_window())
-         //    {
-         //
-         //       information() << "xdg_toplevel_set_app_id (1)";
-         //
-         //       auto psystem = system();
-         //
-         //       string strApplicationServerName = psystem->get_application_server_name();
-         //
-         //       xdg_toplevel_set_app_id(m_pxdgtoplevel, strApplicationServerName);
-         //
-         //    }
-         //
-         // }
-         //
-         // string strWindowText = get_window_text();
-         //
-         // //         if (strWindowText.has_char())
-         // //         {
-         // //
-         // //            strName = strWindowText;
-         // //
-         // //         }
-         //
-         // //}
-         //
-         // if (strWindowText.has_char())
-         // {
-         //
-         //    information() << "xdg_toplevel_set_title (1)";
-         //
-         //    xdg_toplevel_set_title(m_pxdgtoplevel, strWindowText);
-         //
-         // }
-         //
-         // m_timeLastConfigureRequest.Now();
-         //
-         // m_uLastRequestSerial = m_uLastConfigureSerial;
-         //
-         // information() << "wl_surface_commit (1)";
-         //
-         // wl_surface_commit(m_pwlsurface);
-         //
-         // //m_timeLastConfigureRequest += 1_s;
-         //
-         // while (!m_bXdgInitialConfigure)
-         // {
-         //
-         //    //wl_display_flush(pdisplaybase->m_pwldisplay);
-         //
-         //    information() << "wl_display_dispatch (!m_bXdgInitialConfigure)";
-         //
-         //    wl_display_dispatch(pdisplaybase->m_pwldisplay);
-         //
-         //    //wl_display_dispatch(pdisplaybase->m_pwldisplay);
-         //
-         //    //wl_display_roundtrip(pdisplaybase->m_pwldisplay);
-         //
-         // }
+         });
 
       }
 
 
       void window::__unmap()
       {
-         //synchronous_lock synchronouslock(user_synchronization());
+
+         main_send([this]()
+                   {
+
          gtk_widget_set_visible(m_pgtkwidget, false);
 
-         // information() << "windowing_wayland::window::__unmap";
-         //
-         // if (m_pwlsurface != nullptr)
-         // {
-         //
-         //    /* Detach any previous buffers before resetting everything, otherwise when
-         //    * calling this a second time you'll get an annoying protocol error
-         //    */
-         //    wl_surface_attach(m_pwlsurface, NULL, 0, 0);
-         //    wl_surface_commit(m_pwlsurface);
-         //
-         // }
-         //
-         // if (m_pxdgtoplevel != nullptr)
-         // {
-         //
-         //    xdg_toplevel_destroy(m_pxdgtoplevel);
-         //
-         //    m_pxdgtoplevel = nullptr;
-         //
-         // }
-         //
-         // if (m_pxdgpopup != nullptr)
-         // {
-         //
-         //    xdg_popup_destroy(m_pxdgpopup);
-         //
-         //    m_pxdgpopup = nullptr;
-         //
-         // }
-         //
-         // if (m_pxdgpositioner != nullptr)
-         // {
-         //
-         //    xdg_positioner_destroy(m_pxdgpositioner);
-         //
-         //    m_pxdgpositioner = nullptr;
-         //
-         // }
-         //
-         // if (m_pxdgsurface != nullptr)
-         // {
-         //
-         //    xdg_surface_destroy(m_pxdgsurface);
-         //
-         //    m_pxdgsurface = nullptr;
-         //
-         // }
-         //
-         // if (m_pwlsubsurface != nullptr)
-         // {
-         //
-         //    wl_subsurface_destroy(m_pwlsubsurface);
-         //
-         //    m_pwlsubsurface = nullptr;
-         //
-         // }
-         //
-         // if (m_pwlsurface != nullptr)
-         // {
-         //
-         //    wl_surface_destroy(m_pwlsurface);
-         //
-         //    m_pwlsurface = nullptr;
-         //
-         // }
-         //
-         // information() << "windowing_wayland::window::__unmap end";
+                   });
+
 
       }
 
@@ -3892,7 +3517,7 @@ set_interface_client_size({cx, cy});
 
                }
 
-               m_pdisplaybase->open();
+               m_pdisplaybase->open_display();
 
             }
 
