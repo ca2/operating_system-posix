@@ -6,7 +6,6 @@
 #pragma once
 
 
-//#include "windowing_system_wayland/_.h"
 #include <gtk/gtk.h>
 
 
@@ -16,4 +15,11 @@
 # ifdef GDK_WINDOWING_WAYLAND
 #  include <gdk/wayland/gdkwayland.h>
 #endif
+
+
+CLASS_DECL_NANO_USER_GTK4 guint as_guint_button(::user::e_button_state ebuttonstate);
+
+CLASS_DECL_NANO_USER_GTK4 GdkSurfaceEdge as_gdk_surface_edge(::experience::enum_frame eframeSizing);
+
+
 
