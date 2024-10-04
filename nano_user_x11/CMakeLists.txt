@@ -21,15 +21,27 @@ list(APPEND library_source
         _.cpp
         _.h
         _factory.cpp
+   _x11.h
         display.cpp
         display.h
-        event_listener.h
+   event_listener.cpp
+   event_listener.h
         framework.cpp
         framework.h
         user.cpp
         user.h
-window.cpp
-window.h)
+
+#   window_base_handle.cpp
+#   window_base_handle.h
+#   event_listener.cpp
+  window.cpp
+ window.h
+   window_base.cpp
+   window_base.h
+   window_base_handle.cpp
+   window_base_handle.h
+
+)
 
 add_library(${PROJECT_NAME} SHARED ${library_source})
 

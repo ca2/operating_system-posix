@@ -390,11 +390,10 @@ namespace windowing_system_gtk4
    void windowing_system::windowing_system_application_main_loop()
    {
 
-
-
       ::string strId = application()->m_strAppId;
 
       strId.find_replace("/", ".");
+
       strId.find_replace("_", "-");
 
       //gtk_init();
@@ -402,7 +401,6 @@ namespace windowing_system_gtk4
       m_pgtkapplication = gtk_application_new (strId, G_APPLICATION_DEFAULT_FLAGS);
 
       g_signal_connect (m_pgtkapplication, "activate", G_CALLBACK(on_activate_gtk_application), this);
-
 
       // // Retrieve system settings and listen for changes in dark mode preference
       // GtkSettings *settings = gtk_settings_get_default();
@@ -452,77 +450,17 @@ namespace windowing_system_gtk4
 
       if(m_callbackOnActivateGtkApplication)
       {
+
          m_callbackOnActivateGtkApplication();
-      }
-      else
-      {
 
-         //auto prequest = __create_new<::request>();
-
-         //application()->post_request(prequest);
-
-         system()->defer_post_initial_request();
-
+         return;
 
       }
+
+      system()->defer_post_initial_request();
 
    }
-   //
-   //
-   // void windowing_system::windowing_system_application_main_loop()
-   // {
-   //    ::string strId = application()->m_strAppId;
-   //
-   //    strId.find_replace("/", ".");
-   //    strId.find_replace("_", "-");
-   //
-   //    //gtk_init();
-   //
-   //    m_pgtkapplication = gtk_application_new (strId, G_APPLICATION_DEFAULT_FLAGS);
-   //
-   //    g_signal_connect (m_pgtkapplication, "activate", G_CALLBACK(on_activate_gtk_application), this);
-   //
-   //
-   //    // Retrieve system settings and listen for changes in dark mode preference
-   //    GtkSettings *settings = gtk_settings_get_default();
-   //    //update_theme_based_on_system(settings, NULL); // Check initial state
-   //    //g_signal_connect(settings, "notify::gtk-application-prefer-dark-theme", G_CALLBACK(update_theme_based_on_system), NULL);
-   //
-   //    // Get the current GTK theme name (or any other available property)
-   //    //gboolean b=1;
-   //    g_object_set(settings, "gtk-application-prefer-dark-theme", TRUE, NULL);
-   //    //g_print("Current theme: %s\n", theme_name);
-   //
-   //    // Free the allocated string after use
-   //    //g_free(theme_name);
-   //
-   //    ///GtkSettings *settings = gtk_settings_get_default();
-   //    g_object_set(settings, "gtk-enable-animations", FALSE, NULL);
-   //
-   //    g_application_hold(G_APPLICATION(m_pgtkapplication));
-   //
-   //
-   //    // if(m_pdisplay->is_wayland())
-   //    // {
-   //    //
-   //    //
-   //    //
-   //    // }
-   //
-   //    g_application_run (G_APPLICATION(m_pgtkapplication), 0, nullptr);
-   //
-   //    //g_application_run (G_APPLICATION(m_pgtkapplication), platform()->get_argc(), platform()->get_args());
-   //    //aaa_x11_main();
-   //
-   //
-   //    while(::task_get_run())
-   //    {
-   //
-   //       preempt(1_s);
-   //
-   //    }
-   //
-   // }
+
 
    void windowing_system::process_messages()
    {
@@ -545,25 +483,34 @@ namespace windowing_system_gtk4
 
 
    // Function to resize the cairo_surface_t to 1x1 with the average color
-   ::color::color cairo_surface_average_color(cairo_surface_t *original_surface) {
+   ::color::color cairo_surface_average_color(cairo_surface_t *original_surface)
+   {
+
       int width = cairo_image_surface_get_width(original_surface);
+
       int height = cairo_image_surface_get_height(original_surface);
 
-      // Ensure that the surface format is ARGB32
-      if (cairo_image_surface_get_format(original_surface) != CAIRO_FORMAT_ARGB32) {
+      if (cairo_image_surface_get_format(original_surface) != CAIRO_FORMAT_ARGB32)
+      {
+
          throw ::exception(error_bad_argument);
+
       }
 
       unsigned char *data = cairo_image_surface_get_data(original_surface);
+
       int stride = cairo_image_surface_get_stride(original_surface);
 
-      // Variables to hold the sum of colors
       unsigned long long sum_r = 0, sum_g = 0, sum_b = 0, sum_a = 0;
 
-      // Loop through all pixels to calculate the sum of each color channel
-      for (int y = 0; y < height; ++y) {
+      for (int y = 0; y < height; ++y)
+      {
+
          unsigned char *row = data + y * stride;
-         for (int x = 0; x < width; ++x) {
+
+         for (int x = 0; x < width; ++x)
+         {
+
             unsigned char b = row[x * 4 + 0];
             unsigned char g = row[x * 4 + 1];
             unsigned char r = row[x * 4 + 2];
@@ -573,18 +520,18 @@ namespace windowing_system_gtk4
             sum_g += g;
             sum_b += b;
             sum_a += a;
+
          }
+
       }
 
       int num_pixels = width * height;
 
-      // Calculate the average color
       unsigned char avg_r = sum_r / num_pixels;
       unsigned char avg_g = sum_g / num_pixels;
       unsigned char avg_b = sum_b / num_pixels;
       unsigned char avg_a = sum_a / num_pixels;
 
-      // Create a new 1x1 surface
       return ::argb(avg_a, avg_r, avg_g, avg_b);
 
    }
@@ -608,7 +555,6 @@ namespace windowing_system_gtk4
    {
 
       _fetch_dark_mode();
-
 
    }
 
@@ -638,38 +584,14 @@ namespace windowing_system_gtk4
 
                if(m_pactionColorScheme)
                {
+
                   g_signal_connect (m_pactionColorScheme, "notify::state", G_CALLBACK(color_scheme_change), this);
+
                }
+
             }
+
          }
-
-
-//         printf_line("System prefers dark theme: %d", prefer_dark_theme);
-//         printf_line("System prefers dark theme: %d", prefer_dark_theme);
-         // {
-         //
-         //    gchar *theme_name = nullptr;
-         //
-         //    g_object_get(m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
-         //
-         //    m_strOsUserTheme = theme_name;
-         //
-         //    g_free(theme_name);
-         //
-         // }
-
-         // {
-         //
-         //    gchar *icon_theme_name = nullptr;
-         //
-         //    g_object_get(m_pGtkSettingsDefault, "gtk-icon-theme-name", &icon_theme_name, NULL);
-         //
-         //    m_strOsUserIconTheme = icon_theme_name;
-         //
-         //    g_free(icon_theme_name);
-         //
-         // }
-
 
          auto preturnTheme = g_signal_connect_data(
                  m_pGtkSettingsDefault,
@@ -689,14 +611,8 @@ namespace windowing_system_gtk4
                  NULL,
                  G_CONNECT_AFTER);
 
-         //g_object_ref(preturn);
-
-         //printf("return %" PRIiPTR, preturn);
-
-         //printf("return %" PRIiPTR, preturn);
 
       }
-
 
    }
 
@@ -724,20 +640,26 @@ namespace windowing_system_gtk4
       }
 
       int width = 32;
+
       int height = 32;
 
       GtkWidget *widget = gtk_application_window_new(m_pgtkapplication);
+
       gtk_window_set_decorated(GTK_WINDOW(widget), false);
+
       gtk_widget_set_size_request(widget,width, height);
+
       GtkStyleContext *style_context = gtk_widget_get_style_context(widget);
+
       cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, width, height);
+
       cairo_t *cr = cairo_create(surface);
+
       gtk_render_background(style_context, cr, 0, 0, width, height);
 
       auto color = cairo_surface_average_color(surface);
 
       cairo_surface_destroy(surface);
-
 
       on_system_dark_mode_change(color.get_luminance() <= 0.5, color);
 

@@ -6,14 +6,10 @@
 
 #define WINDOWING_X11_DISPLAY_MEMBER
 
-//#include "acme/operating_system/x11/nano/event_listener.h"
-//#include "acme/operating_system/x11/nano/display.h"
+
 #include "nano_user_gtk4/display_base.h"
 #include "aura/windowing/display.h"
-#include "_gtk4.h"
-
-//#include "_x11.h"
-
+#include "nano_user_gtk4/_gtk4.h"
 
 
 namespace windowing_gtk4

@@ -13,8 +13,7 @@
 //#include "acme/prototype/geometry2d/rectangle.h"
 //#include "acme/nano/user/window.h"
 #include "acme/windowing_system/windowing_system.h"
-
-
+#include "nano_user_x11/_x11.h"
 #include "windowing_system_x11/_.h"
 
 
@@ -44,6 +43,8 @@ namespace x11
 
    namespace nano
    {
+
+
       namespace user
       {
 
@@ -353,17 +354,17 @@ namespace x11
          void display::add_listener(event_listener * plistener)
          {
 
-            synchronous_lock synchronouslock(this->synchronization());
+            _synchronous_lock synchronouslock(this->synchronization());
 
             m_eventlistenera.add(plistener);
 
          }
 
 
-         void display::add_window(nano::user::interchange * pwindow)
+         void display::add_window(nano::user::window * pwindow)
          {
 
-            synchronous_lock synchronouslock(this->synchronization());
+            _synchronous_lock synchronouslock(this->synchronization());
 
             m_windowa.add(pwindow);
 
@@ -373,17 +374,17 @@ namespace x11
          void display::erase_listener(event_listener * plistener)
          {
 
-            synchronous_lock synchronouslock(this->synchronization());
+            _synchronous_lock synchronouslock(this->synchronization());
 
             m_eventlistenera.erase(plistener);
 
          }
 
 
-         void display::erase_window(::x11::nano::user::interchange * pwindow)
+         void display::erase_window(::x11::nano::user::window * pwindow)
          {
 
-            synchronous_lock synchronouslock(this->synchronization());
+            _synchronous_lock synchronouslock(this->synchronization());
 
             m_windowa.erase(pwindow);
 
@@ -421,7 +422,10 @@ namespace x11
          bool display::x11_posted()
          {
 
-            return display_posted_routine_step();
+            //return display_posted_routine_step();
+
+            return false;
+
 
          }
 
@@ -445,7 +449,7 @@ namespace x11
                if(i == 0)
                {
 
-                  if (plistener->_on_event(pevent))
+                  if (plistener->_on_x11_event((::x11::event_t *)pevent))
                   {
 
                      bHandled = true;
@@ -458,7 +462,7 @@ namespace x11
                else
                {
 
-                  if (plistener->_on_event(pevent))
+                  if (plistener->_on_x11_event((::x11::event_t *)pevent))
                   {
 
                      bHandled = true;
@@ -636,8 +640,10 @@ namespace x11
          }
 
 
-         bool display::_on_event(XEvent * pevent)
+         bool display::_on_x11_event(::x11::event_t * px11event)
          {
+
+            auto pevent = as_x11_event(px11event);
 
             if (pevent->xany.window == DefaultRootWindow(m_pdisplay))
             {
@@ -652,21 +658,30 @@ namespace x11
 
                      auto windowActive = m_windowActive;
 
-                     for(auto & pwindow : m_windowa)
-                     {
+//                     auto pwindow = m_windowmap[windowActive];
+//
+//                     if(pwindow)
+//                     {
+//
+//                        set_active_window(pwindow);
+//
+//                     }
 
-                        bool bNcActive = windowActive == pwindow->m_window;
-
-                        if (is_different(bNcActive, pwindow->m_pinterface->m_bNcActive))
-                        {
-
-                           pwindow->m_pinterface->m_bNcActive = bNcActive;
-
-                           pwindow->redraw();
-
-                        }
-
-                     }
+//                     for(auto & pwindow : m_windowa)
+//                     {
+//
+//                        bool bNcActive = windowActive == pwindow->m_window;
+//
+//                        if (is_different(bNcActive, pwindow->user_interaction_base()->m_bNcActive))
+//                        {
+//
+//                           pwindow->user_interaction_base()->m_bNcActive = bNcActive;
+//
+//                           pwindow->redraw();
+//
+//                        }
+//
+//                     }
 
                      m_windowActive = windowActive;
 

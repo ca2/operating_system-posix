@@ -5,6 +5,7 @@
 
 
 #include "windowing_system_x11/_.h"
+#include "acme/operating_system/x11/_.h"
 
 
 #if defined(_nano_user_x11_project)
@@ -14,19 +15,29 @@
 #endif
 
 
-
 namespace x11
 {
 
-namespace nano
-{
-   namespace  user
+
+   namespace nano
    {
-   class display;
-   }
-}
+
+
+      namespace  user
+      {
+
+
+         class display;
+
+
+      } // namespace user
+
+
+   } // namespace nano
+
 
 } // namespace x11
+
 
 
 

@@ -4,7 +4,7 @@
 #pragma once
 
 
-#include <X11/Xlib.h>
+//#include <X11/Xlib.h>
 //#include "acme/prototype/prototype/element.h"
 
 
@@ -18,7 +18,7 @@ namespace x11
    public:
 
 
-      virtual bool _on_event(XEvent * pevent) = 0;
+      virtual bool _on_x11_event(::x11::event_t * pevent);
 
 
    };

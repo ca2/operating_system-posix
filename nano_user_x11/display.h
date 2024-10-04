@@ -9,6 +9,9 @@
 #include "windowing_system_x11/_atom.h"
 
 
+#include <X11/Xlib.h>
+
+
 namespace x11
 {
 
@@ -31,15 +34,15 @@ namespace x11
          public:
 
 
-            bool                                         m_bUnhook;
-            Display   *                                  m_pdisplay;
-            pointer_array < event_listener >             m_eventlistenera;
-            pointer_array < ::x11::nano::user::interchange >  m_windowa;
-            Window                                       m_windowActive;
-            map < enum_atom, Atom >                      m_atommap;
+            bool                                               m_bUnhook;
+            Display   *                                        m_pdisplay;
+            pointer_array < event_listener >                   m_eventlistenera;
+            pointer_array < ::x11::nano::user::window >        m_windowa;
+            Window                                             m_windowActive;
+            map < enum_atom, Atom >                            m_atommap;
 
 
-            static display *                             g_p;
+            static display *                                   g_p;
 
 
             display();
@@ -79,12 +82,12 @@ namespace x11
 
 
             void add_listener(event_listener * plistener);
-            void add_window(::x11::nano::user::interchange * pwindow);
+            void add_window(::x11::nano::user::window * pwindow);
 
             void erase_listener(event_listener * plistener);
-            void erase_window(::x11::nano::user::interchange * pwindow);
+            void erase_window(::x11::nano::user::window * pwindow);
 
-            bool _on_event(XEvent * pevent) override;
+            bool _on_x11_event(::x11::event_t * peventX11) override;
 
             virtual bool x11_event(XEvent * pevent);
 

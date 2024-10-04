@@ -21,11 +21,10 @@ struct _SubclassedModelButtonClass
    GtkButtonClass parent_class;
 };
 
-/* Define the GType for SubclassedModelButton */
-G_DEFINE_TYPE(SubclassedModelButton, subclassed_model_button, GTK_TYPE_BUTTON)
 
 
-GtkWidget * subclassed_model_button_new();
+
+CLASS_DECL_NANO_USER_GTK4 GtkWidget * subclassed_model_button_new();
 
 
 

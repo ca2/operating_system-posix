@@ -4,18 +4,19 @@
 #include "framework.h"
 #include "window.h"
 #include "display.h"
-//#include "acme/operating_system/cairo/nano/user/device.h"
-#include "acme/user/user/mouse.h"
+#include "acme/nano/graphics/device.h"
 #include "acme/nano/user/child.h"
-//#include "acme/nano/user/window.h"
+#include "acme/platform/application.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
+#include "acme/user/user/interaction_base.h"
+#include "acme/user/user/mouse.h"
 #include "windowing_system_x11/display_lock.h"
+#include "_x11.h"
 #include <X11/Xatom.h>
 #include <xkbcommon/xkbcommon.h>
 #include <X11/XKBlib.h>
 #include <X11/Xutil.h>
-#include <cairo/cairo-xlib.h>
 
 
 ::user::enum_desktop get_edesktop();
@@ -57,10 +58,15 @@ struct MWMHints
 namespace x11
 {
 
+
    namespace nano
    {
+
+
       namespace user
       {
+
+
          window::window()
          {
 
@@ -76,9 +82,25 @@ namespace x11
          window::~window()
          {
 
-            delete_drawing_objects();
+            //delete_drawing_objects();
 
             m_pnanodevice.release();
+
+         }
+
+
+         ::x11::handle_t window::_x11_handle()
+         {
+
+            return as_x11_handle(x11_display()->m_pdisplay, m_window, m_pvisual);
+
+         }
+
+
+         ::x11::nano::user::display * window::x11_display()
+         {
+
+            return dynamic_cast < ::x11::nano::user::display * >(get_display());
 
          }
 
@@ -108,7 +130,7 @@ namespace x11
          void window::on_initialize_particle()
          {
 
-            ::object::on_initialize_particle();
+            ::x11::nano::user::window_base::on_initialize_particle();
 
          }
 
@@ -116,10 +138,10 @@ namespace x11
          void window::on_char(int iChar)
          {
 
-            fork([this, iChar]()
+            application()->fork([this, iChar]()
             {
 
-               m_pinterface->on_char(iChar);
+               m_puserinteractionbase->on_char(iChar);
 
             });
 
@@ -129,244 +151,223 @@ namespace x11
          void window::_draw(::nano::graphics::device * pnanodevice)
          {
 
-            m_pinterface->draw(pnanodevice);
+            m_puserinteractionbase->draw(pnanodevice);
 
          }
 
 
-         bool window::is_active()
+         bool window::is_active_window()
          {
 
-            return m_pinterface->is_active();
+            return m_puserinteractionbase->is_active();
 
          }
 
 
-         void window::delete_drawing_objects()
-         {
-
-            m_pinterface->delete_drawing_objects();
-
-         }
-
-
-         bool window::get_dark_mode()
-         {
-
-            return system()->dark_mode();
-
-         }
-
-
-         void window::create_drawing_objects()
-         {
-
-            m_pinterface->create_drawing_objects();
-
-         }
-
-
-         void window::update_drawing_objects()
-         {
-
-            m_pinterface->update_drawing_objects();
-
-         }
-
-
-         void window::create()
+         void window::create_window()
          {
 
             get_display();
 
-            m_pdisplay->display_send([this]()
+            main_send([this]()
             {
 
-               display_lock displaylock(m_pdisplay->m_pdisplay);
-
-               auto display = m_pdisplay->m_pdisplay;
-
-               m_pvisual = DefaultVisual(display, DefaultScreen(display));
-
-               zero(m_visualinfo);
-
-               if (XMatchVisualInfo(display, DefaultScreen(display), 32, TrueColor, &m_visualinfo))
-               {
-
-                  m_pvisual = m_visualinfo.visual;
-
-               }
-               else
-               {
-
-                  zero(m_visualinfo);
-
-               }
-
-               m_iDepth = m_visualinfo.depth;
-
-               auto screen = DefaultScreen(display);
-
-               m_windowRoot = RootWindow(display, screen);
-
-               if(m_colormap)
-               {
-
-                  XFreeColormap(display, m_colormap);
-
-               }
-
-               m_colormap = XCreateColormap(display, m_windowRoot, m_pvisual, AllocNone);
-
-               m_pdisplay->add_listener(this);
-
-               m_pdisplay->add_window(this);
-
-               XSetWindowAttributes attr{};
-
-               attr.colormap = m_colormap;
-
-               attr.event_mask =
-                  PropertyChangeMask | ExposureMask | ButtonPressMask | ButtonReleaseMask
-                  | KeyPressMask | KeyReleaseMask | PointerMotionMask | StructureNotifyMask
-                  | FocusChangeMask | LeaveWindowMask | EnterWindowMask;
-
-               attr.background_pixmap = None;
-
-               attr.border_pixmap = None;
-
-               attr.border_pixel = 0;
-
-               attr.override_redirect = False;
-
-               int x = m_pinterface->m_rectangle.left();
-               int y = m_pinterface->m_rectangle.top();
-               int w = m_pinterface->m_rectangle.width();
-               int h = m_pinterface->m_rectangle.height();
-
-               m_window = XCreateWindow(display, m_windowRoot,
-                  x, y, w, h,
-                  0,
-                  m_iDepth,
-                  InputOutput,
-                  m_pvisual,
-                  CWColormap | CWEventMask | CWBackPixmap | CWBorderPixel | CWOverrideRedirect,
-                  &attr
-               );
-
-               if(!m_window)
-               {
-
-                  m_pdisplay->erase_listener(this);
-
-                  m_pdisplay->erase_window(this);
-
-                  throw exception(error_failed);
-
-               }
-
-               if(m_pinterface->m_bStartCentered)
-               {
-
-                  auto atomWindowType = XInternAtom(display, "_NET_WM_WINDOW_TYPE", true);
-
-                  auto atomWindowTypeDialog = XInternAtom(display, "_NET_WM_WINDOW_TYPE_DIALOG", true);
-
-                  if (atomWindowType != None && atomWindowTypeDialog != None)
-                  {
-
-                     XChangeProperty(display, m_window,
-                                     atomWindowType, XA_ATOM, 32, PropModeReplace,
-                                     (unsigned char *) &atomWindowTypeDialog, 1);
-
-                  }
-
-                  auto atomNormalHints = m_pdisplay->intern_atom("WM_NORMAL_HINTS", false);
-
-                  XSizeHints hints{};
-
-                  hints.flags = PWinGravity;
-
-                  hints.win_gravity = CenterGravity;
-
-                  XSetWMSizeHints(display, m_window, &hints, atomNormalHints);
-
-               }
-
-               if(m_pinterface->m_bArbitraryPositioning)
-               {
-
-                  XSetWindowAttributes attributes;
-
-                  attributes.override_redirect = True;
-
-                  XChangeWindowAttributes(display, m_window,
-                                   CWOverrideRedirect,
-                                   &attributes);
-
-               }
-
-               nano_window_on_create();
+               _create_window();
 
             });
 
          }
 
 
-         void window::on_left_button_down(::user::mouse * pmouse)
+
+         void window::_create_window()
          {
 
-            m_pinterface->on_left_button_down(pmouse);
+            display_lock displaylock(m_pdisplay->m_pdisplay);
+
+            auto display = m_pdisplay->m_pdisplay;
+
+            m_pvisual = DefaultVisual(display, DefaultScreen(display));
+
+            zero(m_visualinfo);
+
+            if (XMatchVisualInfo(display, DefaultScreen(display), 32, TrueColor, &m_visualinfo))
+            {
+
+               m_pvisual = m_visualinfo.visual;
+
+            }
+            else
+            {
+
+               zero(m_visualinfo);
+
+            }
+
+            m_iDepth = m_visualinfo.depth;
+
+            auto screen = DefaultScreen(display);
+
+            m_windowRoot = RootWindow(display, screen);
+
+            if(m_colormap)
+            {
+
+               XFreeColormap(display, m_colormap);
+
+            }
+
+            m_colormap = XCreateColormap(display, m_windowRoot, m_pvisual, AllocNone);
+
+            m_pdisplay->add_listener(this);
+
+            m_pdisplay->add_window(this);
+
+            XSetWindowAttributes attr{};
+
+            attr.colormap = m_colormap;
+
+            attr.event_mask =
+               PropertyChangeMask | ExposureMask | ButtonPressMask | ButtonReleaseMask
+               | KeyPressMask | KeyReleaseMask | PointerMotionMask | StructureNotifyMask
+               | FocusChangeMask | LeaveWindowMask | EnterWindowMask;
+
+            attr.background_pixmap = None;
+
+            attr.border_pixmap = None;
+
+            attr.border_pixel = 0;
+
+            attr.override_redirect = False;
+
+            auto r = m_puserinteractionbase->get_interaction_rectangle();
+
+            int x = r.left();
+            int y = r.top();
+            int w = r.width();
+            int h = r.height();
+
+            m_window = XCreateWindow(display, m_windowRoot,
+                                     x, y, w, h,
+                                     0,
+                                     m_iDepth,
+                                     InputOutput,
+                                     m_pvisual,
+                                     CWColormap | CWEventMask | CWBackPixmap | CWBorderPixel | CWOverrideRedirect,
+                                     &attr
+            );
+
+            if(!m_window)
+            {
+
+               m_pdisplay->erase_listener(this);
+
+               m_pdisplay->erase_window(this);
+
+               throw exception(error_failed);
+
+            }
+
+            if(m_puserinteractionbase->m_bStartCentered)
+            {
+
+               auto atomWindowType = XInternAtom(display, "_NET_WM_WINDOW_TYPE", true);
+
+               auto atomWindowTypeDialog = XInternAtom(display, "_NET_WM_WINDOW_TYPE_DIALOG", true);
+
+               if (atomWindowType != None && atomWindowTypeDialog != None)
+               {
+
+                  XChangeProperty(display, m_window,
+                                  atomWindowType, XA_ATOM, 32, PropModeReplace,
+                                  (unsigned char *) &atomWindowTypeDialog, 1);
+
+               }
+
+               auto atomNormalHints = m_pdisplay->intern_atom("WM_NORMAL_HINTS", false);
+
+               XSizeHints hints{};
+
+               hints.flags = PWinGravity;
+
+               hints.win_gravity = CenterGravity;
+
+               XSetWMSizeHints(display, m_window, &hints, atomNormalHints);
+
+            }
+
+            if(m_puserinteractionbase->m_bArbitraryPositioning)
+            {
+
+               XSetWindowAttributes attributes;
+
+               attributes.override_redirect = True;
+
+               XChangeWindowAttributes(display, m_window,
+                                       CWOverrideRedirect,
+                                       &attributes);
+
+            }
+
+            on_create_window();
 
          }
 
 
-         void window::on_left_button_up(::user::mouse * pmouse)
-         {
+//         void window::on_left_button_down(::user::mouse * pmouse)
+//         {
+//
+//            m_puserinteractionbase->on_left_button_down(pmouse);
+//
+//         }
+//
+//
+//         void window::on_left_button_up(::user::mouse * pmouse)
+//         {
+//
+//            m_puserinteractionbase->on_left_button_up(pmouse);
+//
+//         }
+//
+//
+//         void window::on_right_button_down(::user::mouse * pmouse)
+//         {
+//
+//            m_puserinteractionbase->on_right_button_down(pmouse);
+//
+//         }
+//
+//
+//         void window::on_right_button_up(::user::mouse * pmouse)
+//         {
+//
+//            m_puserinteractionbase->on_right_button_up(pmouse);
+//
+//         }
+//
+//
+//         void window::on_mouse_move(::user::mouse * pmouse)
+//         {
+//
+//            m_puserinteractionbase->on_mouse_move(pmouse);
+//
+//         }
+//
+//
+//         ::payload window::get_result()
+//         {
+//
+//            return m_puserinteractionbase->get_result();
+//
+//         }
 
-            m_pinterface->on_left_button_up(pmouse);
 
-         }
-
-
-         void window::on_right_button_down(::user::mouse * pmouse)
-         {
-
-            m_pinterface->on_right_button_down(pmouse);
-
-         }
-
-
-         void window::on_right_button_up(::user::mouse * pmouse)
-         {
-
-            m_pinterface->on_right_button_up(pmouse);
-
-         }
-
-
-         void window::on_mouse_move(::user::mouse * pmouse)
-         {
-
-            m_pinterface->on_mouse_move(pmouse);
-
-         }
-
-
-         ::payload window::get_result()
-         {
-
-            return m_pinterface->get_result();
-
-         }
-
-
-         ::nano::user::child * window::hit_test(::user::mouse * pmouse, ::user::e_zorder ezorder)
-         {
-
-            return m_pinterface->hit_test(pmouse, ezorder);
-
-         }
+//         ::nano::user::child * window::hit_test(::user::mouse * pmouse, ::user::e_zorder ezorder)
+//         {
+//
+//            return m_puserinteractionbase->hit_test(pmouse, ezorder);
+//
+//         }
 
 
 
@@ -375,19 +376,18 @@ namespace x11
 
             display_lock displaylock(m_pdisplay->m_pdisplay);
 
-
             _wm_nodecorations(false);
 
             XMapWindow(m_pdisplay->m_pdisplay, m_window);
 
             XRaiseWindow(m_pdisplay->m_pdisplay, m_window);
 
-            set_active();
+            set_active_window();
 
          }
 
 
-         void window::set_active()
+         void window::set_active_window()
          {
 
             XEvent xev;
@@ -443,19 +443,24 @@ namespace x11
             if (event_type == ConfigureNotify)
             {
 
-               m_pinterface->m_rectangle.left() = pevent->xconfigure.x;
+               ::rectangle_i32 r;
 
-               m_pinterface->m_rectangle.top() = pevent->xconfigure.y;
+               r.left() = pevent->xconfigure.x;
 
-               m_pinterface->m_rectangle.right() = pevent->xconfigure.x + pevent->xconfigure.width;
+               r.top() = pevent->xconfigure.y;
 
-               m_pinterface->m_rectangle.bottom() = pevent->xconfigure.y + pevent->xconfigure.height;
+               r.right() = pevent->xconfigure.x + pevent->xconfigure.width;
+
+               r.bottom() = pevent->xconfigure.y + pevent->xconfigure.height;
+
+               m_puserinteractionbase->set_interaction_rectangle(r);
 
                if (m_psurface)
                {
 
-                  cairo_xlib_surface_set_size(m_psurface, m_pinterface->m_rectangle.width(),
-                                              m_pinterface->m_rectangle.height());
+
+                  m_pnanodevice->resize(r.size());
+
 
                }
 
@@ -472,27 +477,20 @@ namespace x11
                if (!m_psurface)
                {
 
-                  rectangle_i32 r;
-
-                  get_client_rectangle(r);
+                  rectangle_i32 rectangleWindow = get_window_rectangle();
 
                   auto display = m_pdisplay->m_pdisplay;
 
                   auto window = m_window;
 
-                  auto w = m_pinterface->m_rectangle.width();
+                  auto w = rectangleWindow.width();
 
-                  auto h = m_pinterface->m_rectangle.height();
+                  auto h = rectangleWindow.height();
 
-                  m_psurface = cairo_xlib_surface_create(
-                          display,
-                          window,
-                          m_pvisual,
-                          w, h);
+                  __construct(m_pnanodevice);
 
-                  auto pdc = cairo_create(m_psurface);
-
-                  m_pnanodevice = ::place(new ::cairo::nano::graphics::device(pdc));
+                  m_pnanodevice->create_for_x11(_x11_handle(), w, h);
+                  //m_pnanodevice = ::place(new ::cairo::nano::graphics::device(pdc));
 
                }
 
@@ -537,7 +535,7 @@ namespace x11
 
                   pmouse->m_pointAbsolute = {pevent->xbutton.x_root, pevent->xbutton.y_root};
 
-                  on_left_button_down(pmouse);
+                  m_puserinteractionbase->on_left_button_down(pmouse);
 
                }
                else if (pevent->xbutton.button == Button3)
@@ -549,7 +547,7 @@ namespace x11
 
                   pmouse->m_pointAbsolute = {pevent->xbutton.x_root, pevent->xbutton.y_root};
 
-                  on_right_button_down(pmouse);
+                  m_puserinteractionbase->on_right_button_down(pmouse);
 
                }
 
@@ -566,7 +564,7 @@ namespace x11
 
                   pmouse->m_pointAbsolute = {pevent->xbutton.x_root, pevent->xbutton.y_root};
 
-                  on_left_button_up(pmouse);
+                  m_puserinteractionbase->on_left_button_up(pmouse);
 
                }
                else if (pevent->xbutton.button == Button3)
@@ -578,7 +576,7 @@ namespace x11
 
                   pmouse->m_pointAbsolute = {pevent->xbutton.x_root, pevent->xbutton.y_root};
 
-                  on_right_button_up(pmouse);
+                  m_puserinteractionbase->on_right_button_up(pmouse);
 
                }
 
@@ -592,28 +590,28 @@ namespace x11
 
                pmouse->m_pointAbsolute = {pevent->xmotion.x_root, pevent->xmotion.y_root};
 
-               on_mouse_move(pmouse);
+               m_puserinteractionbase->on_mouse_move(pmouse);
 
             }
             else if (pevent->type == LeaveNotify)
             {
 
-               if (m_pinterface->m_pchildHover)
-               {
-
-                  auto pmouse = __create_new < ::user::mouse >();
-
-                  pmouse->m_pointHost = {I32_MINIMUM, I32_MINIMUM};
-
-                  pmouse->m_pointAbsolute = {I32_MINIMUM, I32_MINIMUM};
-
-                  m_pinterface->m_pchildHover->on_mouse_move(pmouse);
-
-                  m_pinterface->m_pchildHover = nullptr;
-
-                  m_pinterface->redraw();
-
-               }
+//               if (m_puserinteractionbase->m_pchildHover)
+//               {
+//
+//                  auto pmouse = __create_new < ::user::mouse >();
+//
+//                  pmouse->m_pointHost = {I32_MINIMUM, I32_MINIMUM};
+//
+//                  pmouse->m_pointAbsolute = {I32_MINIMUM, I32_MINIMUM};
+//
+//                  m_puserinteractionbase->m_pchildHover->on_mouse_move(pmouse);
+//
+//                  m_puserinteractionbase->m_pchildHover = nullptr;
+//
+//                  m_puserinteractionbase->redraw();
+//
+//               }
 
             }
 
@@ -630,7 +628,7 @@ namespace x11
 
                m_pnanodevice->on_begin_draw();
 
-               draw(m_pnanodevice);
+               m_puserinteractionbase->draw(m_pnanodevice);
 
                m_pnanodevice->on_end_draw();
 
@@ -704,50 +702,49 @@ namespace x11
          }
 
 
-         void window::on_click(const ::payload & payloadParam, ::user::mouse * pmouse)
-         {
+//         void window::on_click(const ::payload & payloadParam, ::user::mouse * pmouse)
+//         {
+//
+//            ::payload payload(payloadParam);
+//
+//            fork([this, payload, pmouse]()
+//                 {
+//
+//                    m_puserinteractionbase->on_click(payload, pmouse);
+//
+//                 }, {pmouse});
+//
+//         }
+//
+//
+//         void window::on_right_click(const ::payload & payloadParam, ::user::mouse * pmouse)
+//         {
+//
+//            ::payload payload(payloadParam);
+//
+//            fork([this, payload, pmouse]()
+//                 {
+//
+//                    m_puserinteractionbase->on_right_click(payload, pmouse);
+//
+//                 }, {pmouse});
+//
+//         }
 
-            ::payload payload(payloadParam);
 
-            fork([this, payload, pmouse]()
-                 {
-
-                    m_pinterface->on_click(payload, pmouse);
-
-                 }, {pmouse});
-
-         }
-
-
-         void window::on_right_click(const ::payload & payloadParam, ::user::mouse * pmouse)
-         {
-
-            ::payload payload(payloadParam);
-
-            fork([this, payload, pmouse]()
-                 {
-
-                    m_pinterface->on_right_click(payload, pmouse);
-
-                 }, {pmouse});
-
-         }
-
-
-         void window::move_to(const ::point_i32 & point)
-         {
-            display_lock displaylock(m_pdisplay->m_pdisplay);
-
-            ::XMoveWindow(m_pdisplay->m_pdisplay, m_window, point.x(), point.y());
-
-         }
+//         void window::move_to(const ::point_i32 & point)
+//         {
+//            display_lock displaylock(m_pdisplay->m_pdisplay);
+//
+//            ::XMoveWindow(m_pdisplay->m_pdisplay, m_window, point.x(), point.y());
+//
+//         }
 
 
          void window::set_capture()
          {
 
             display_lock displaylock(m_pdisplay->m_pdisplay);
-
 
             if (XGrabPointer(m_pdisplay->m_pdisplay, m_window, False, ButtonPressMask | ButtonReleaseMask | PointerMotionMask,
                              GrabModeAsync, GrabModeAsync, None, None, CurrentTime) != GrabSuccess)
@@ -770,42 +767,41 @@ namespace x11
          }
 
 
-         void window::get_client_rectangle(::rectangle_i32 & rectangle)
-         {
+//         void window::get_client_rectangle(::rectangle_i32 & rectangle)
+//         {
+//
+//            rectangle.left() = 0;
+//            rectangle.top() = 0;
+//
+//            Window windowRoot = 0;
+//            int x = 0;
+//            int y = 0;
+//            unsigned int w = 0;
+//            unsigned int h = 0;
+//            unsigned int border = 0;
+//            unsigned int depth = 0;
+//
+//            auto status = XGetGeometry(m_pdisplay->m_pdisplay, m_window, &windowRoot, &x, &y, &w,
+//                                &h, &border, &depth);
+//
+//            if(status == BadDrawable)
+//            {
+//
+//               throw ::exception(error_exception);
+//
+//            }
+//
+//            rectangle.right() = w;
+//            rectangle.bottom() = h;
+//
+//
+//         }
 
-            rectangle.left() = 0;
-            rectangle.top() = 0;
 
-            Window windowRoot = 0;
-            int x = 0;
-            int y = 0;
-            unsigned int w = 0;
-            unsigned int h = 0;
-            unsigned int border = 0;
-            unsigned int depth = 0;
-
-            auto status = XGetGeometry(m_pdisplay->m_pdisplay, m_window, &windowRoot, &x, &y, &w,
-                                &h, &border, &depth);
-
-            if(status == BadDrawable)
-            {
-
-               throw ::exception(error_exception);
-
-            }
-
-            rectangle.right() = w;
-            rectangle.bottom() = h;
-
-
-         }
-
-
-         void window::get_window_rectangle(::rectangle_i32 & rectangle)
+         ::rectangle_i32 window::get_window_rectangle()
          {
 
             display_lock displaylock(m_pdisplay->m_pdisplay);
-
 
             Window windowRoot = 0;
             int x = 0;
@@ -825,11 +821,14 @@ namespace x11
 
             }
 
+            ::rectangle_i32 rectangle;
+
             rectangle.left() = x;
             rectangle.top() = y;
             rectangle.right() = x + w;
             rectangle.bottom() = y + h;
 
+            return rectangle;
 
          }
 
@@ -881,8 +880,13 @@ namespace x11
          //      return m_pdisplay->get_main_screen_size();
          //
          //   }
+
+
       }//namespace user
+
+
    }//namespace nano
+
 
 } // namespace x11
 

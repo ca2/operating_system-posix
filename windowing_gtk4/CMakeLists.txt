@@ -47,7 +47,10 @@ list(APPEND library_source
    #gdk_gdk.h
         icon.cpp
         icon.h
-        keyboard.cpp
+   gtk4_widget.cpp
+   gtk4_widget.h
+
+   keyboard.cpp
         keyboard.h
         #node.cpp
         #node.h
@@ -80,6 +83,7 @@ list(APPEND library_references
         acme
         acme_posix
    windowing_system_gtk4
+   nano_user_x11
         nano_user_gtk4
         apex
         apex_posix
@@ -100,9 +104,8 @@ list(APPEND static_library_references ${library_references})
 list(TRANSFORM static_library_references PREPEND static_)
 
 
-add_library(${PROJECT_NAME} SHARED ${library_source}
-   gtk4_widget.cpp
-   gtk4_widget.h)
+add_library(${PROJECT_NAME} SHARED ${library_source})
+
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 if (NOT ${NO_PRECOMPILED_HEADER})
@@ -112,7 +115,7 @@ if (NOT ${NO_PRECOMPILED_HEADER})
 
 endif ()
 
-set_target_properties(windowing_wayland PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 if(${HAS_WAYLAND})
     list(APPEND WAYLAND_PKG_MODULES wayland-client wayland-protocols)
@@ -122,11 +125,11 @@ if(${HAS_X11})
 endif()
 
 if (MSVC)
-    target_compile_options(windowing_wayland PRIVATE "/MD$<$<CONFIG:Debug>:d>")
-    target_link_options(windowing_wayland PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
-    target_link_options(windowing_wayland PRIVATE "/SUBSYSTEM:WINDOWS")
-    target_link_libraries(windowing_wayland PRIVATE ${library_references})
-    #add_dependencies(windowing_wayland draw2d_gdiplus)
+    target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
+    target_link_options(${PROJECT_NAME} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
+    target_link_options(${PROJECT_NAME} PRIVATE "/SUBSYSTEM:WINDOWS")
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references})
+    #add_dependencies(${PROJECT_NAME} draw2d_gdiplus)
 elseif (${LINUX} OR ${__BSD__})
 
 
@@ -150,7 +153,7 @@ elseif (${LINUX} OR ${__BSD__})
     # target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
 
 
-    #add_dependencies(windowing_wayland draw2d_cairo)
+    #add_dependencies(${PROJECT_NAME} draw2d_cairo)
 
 
 endif ()
@@ -167,7 +170,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories
 target_include_directories(static_${PROJECT_NAME} PRIVATE ${library_include_directories})
 
 
-target_compile_definitions(windowing_wayland PRIVATE _WINDOWING_X11_LIBRARY)
+target_compile_definitions(${PROJECT_NAME} PRIVATE _WINDOWING_X11_LIBRARY)
 
 
 

@@ -3,15 +3,17 @@
 //
 #include "framework.h"
 #include "device.h"
-
 #include <acme/graphics/image/pixmap.h>
-
 #include "icon.h"
-#include "acme/prototype/geometry2d/rectangle.h"
+#include "acme/graphics/image/image32.h"
+#include "acme/exception/not_implemented.h"
 #include "acme/nano/graphics/brush.h"
 #include "acme/nano/graphics/font.h"
 #include "acme/nano/graphics/pen.h"
-#include "acme/graphics/image/image32.h"
+#include "acme/prototype/geometry2d/rectangle.h"
+#include "acme/operating_system/x11/_x11.h"
+#include <cairo/cairo-xlib.h>
+
 
 
 cairo_surface_t * as_cairo_surface(::pixmap & pixmap)
@@ -86,10 +88,15 @@ namespace cairo
       cairo_restore(cr);
    }
 
+
    namespace nano
    {
+
+
       namespace graphics
       {
+
+
          device::device()
          {
 
@@ -125,6 +132,39 @@ namespace cairo
 
                cairo_surface_destroy(m_psurfaceMemory);
 
+
+            }
+
+         }
+
+
+         void device::create_for_x11(const ::x11::handle_t & handle, int w, int h)
+         {
+
+            destroy();
+
+            m_psurfaceMemory = cairo_xlib_surface_create(
+               __x11_handle_with_visual(handle),
+               w, h);
+
+            m_pdc = cairo_create(m_psurfaceMemory);
+
+         }
+
+
+         void device::resize(const ::size_i32 & size)
+         {
+
+            if(cairo_surface_get_type(m_psurfaceMemory) == CAIRO_SURFACE_TYPE_XLIB)
+            {
+
+               cairo_xlib_surface_set_size(m_psurfaceMemory, size.cx(), size.cy());
+
+            }
+            else
+            {
+
+               throw ::not_implemented();
 
             }
 

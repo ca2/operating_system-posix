@@ -1,24 +1,44 @@
 //
-// Created by camilo on 10/3/24.
+// Created by camilo on 2024-10-03 04:29 <3ThomasBorregaardSorensen!!
 //
+#pragma once
 
-#ifndef FREEBSD_MAIN_WINDOW_BASE_HANDLE_H
-#define FREEBSD_MAIN_WINDOW_BASE_HANDLE_H
 
 namespace x11
 {
+
+
    namespace nano
    {
+
+
       namespace user
       {
 
-         class window_base_handle
+
+         class CLASS_DECL_NANO_USER_X11 window_base_handle :
+            virtual public ::particle
          {
+         public:
+
+
+            window_base_handle();
+            ~window_base_handle() override;
+
+
+            virtual ::x11::handle_t _x11_handle();
+
 
          };
 
+
       } // user
+
+
    } // nano
+
+
 } // x11
 
-#endif //FREEBSD_MAIN_WINDOW_BASE_HANDLE_H
+
+

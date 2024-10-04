@@ -39,6 +39,12 @@ namespace cairo
             ~device() override;
 
 
+            void create_for_x11(const ::x11::handle_t & handle, int w, int h) override;
+
+
+            void resize(const ::size_i32 & size) override;
+
+
             void on_begin_draw() override;
             void on_end_draw() override;
 

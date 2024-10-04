@@ -5,6 +5,10 @@
 #include "SubclassedModelButton.h"
 
 
+/* Define the GType for SubclassedModelButton */
+G_DEFINE_TYPE(SubclassedModelButton, subclassed_model_button, GTK_TYPE_BUTTON)
+
+
 /* Initialize the class (used to override methods or set up class-level data) */
 static void
 subclassed_model_button_class_init(SubclassedModelButtonClass * klass)
@@ -27,8 +31,16 @@ subclassed_model_button_init(SubclassedModelButton * self)
 /* A factory function to create a new SubclassedModelButton */
 GtkWidget * subclassed_model_button_new(void)
 {
+
    auto p = g_strdup("modelbutton");
+
    auto pwidget = GTK_WIDGET(g_object_new(subclassed_model_button_get_type(), "css-name", p, nullptr));
+
    g_free(p);
+
    return pwidget;
+
 }
+
+
+

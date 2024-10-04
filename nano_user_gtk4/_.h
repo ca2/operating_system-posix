@@ -7,6 +7,9 @@
 
 #include "windowing_system_gtk4/_.h"
 #include "acme/prototype/geometry2d/size.h"
+#ifdef WITH_X11
+#include "nano_user_x11/_.h"
+#endif
 
 
 #if defined(_nano_user_gtk4_project)

@@ -16,6 +16,7 @@ list(APPEND library_source
         _.cpp
         _.h
         _factory.cpp
+   _gtk4.h
         #_user.cpp
         #device.cpp
         #device.h
@@ -25,6 +26,9 @@ list(APPEND library_source
         display_base.h
         framework.cpp
         framework.h
+   gtk4.cpp
+   SubclassedModelButton.cpp
+   SubclassedModelButton.h
         window.cpp
         window.h
         #window_base.cpp
@@ -54,6 +58,15 @@ list(APPEND library_references
         windowing_system_gtk4
         #nano_user_cairo
 )
+
+if(${HAS_X11})
+
+    list(APPEND library_references
+       nano_user_x11
+    )
+
+endif()
+
 
 if (MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")

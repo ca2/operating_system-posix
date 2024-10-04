@@ -22,18 +22,24 @@
 
 
 #include <gtk/gtk.h>
-
-//#include "windowing_gtk4/gtk4_widget.h"
+#include <gdk/x11/gdkx.h>
+//#include <X11/Xlib.h>
 
 
 namespace gtk4
 {
 
+
    namespace nano
    {
+
+
       namespace user
       {
+
+
          class window :
+            //virtual public ::x11::nano::user::window_base
             virtual public ::windowing::window_base
          {
          public:
@@ -207,7 +213,19 @@ void defer_show_system_menu(::user::mouse * pmouse) override;
             void _on_windowing_close_window() override;
 
 
+            virtual void _on_geometry_change();
+            virtual void _on_size_allocate(GtkWidget * pwidget, GdkRectangle * prectangle);
+            //virtual void _on_x11_configure_notify(XConfigureEvent * pconfigureevent);
+
+
+            virtual void _defer_get_window_rectangle_unlocked();
+            //void _defer_translate_to_absolute_coordinates_unlocked(::point_i32 & point) override;
+
             virtual void _update_window();
+
+            virtual void _on_window_realize();
+
+            bool is_window_visible() override;
 
 
             virtual ::particle * get_interface_client_particle(); // m_puserinteractionimpl->m_puserinteraction
@@ -228,9 +246,12 @@ void defer_show_system_menu(::user::mouse * pmouse) override;
             ::nano::user::display * get_display() override;
 
 
+            //::x11::handle_t _x11_handle() override;
+
+
             void on_initialize_particle() override;
 
-            //void create_window() override;
+            //void create_window() erride;
 
             //void destroy() override;
 
@@ -324,12 +345,18 @@ void defer_show_system_menu(::user::mouse * pmouse) override;
             // void _on_motion_notify(GtkEventControllerMotion* pcontroller, double x, double y) override;
             // void _on_enter_notify(GtkEventControllerMotion* pcontroller, double x, double y) override;
 
+            ::rectangle_i32 get_window_rectangle_unlocked() override;
+            void set_position_unlocked(const ::point_i32 & point) override;
 
 
          };
 
+
       } // namespace user
+
+
    }// namespace nano
+
 
 } // namespace wayland
 

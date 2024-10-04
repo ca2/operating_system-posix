@@ -10,7 +10,6 @@
 #include "acme/parallelization/synchronous_lock.h"
 #include "apex/input/input.h"
 #include "aura/windowing/cursor_manager.h"
-#include <X11/cursorfont.h>
 #include "aura/user/user/interaction_impl.h"
 #include "aura/windowing/display.h"
 #include "aura/platform/system.h"
@@ -165,128 +164,9 @@ namespace windowing_gtk3
 
       }
 
-      //m_pdisplay->open();
-
       _libsn_start_context();
 
    }
-
-
-//   void windowing::start()
-//   {
-//
-//      auto psystem = system()->m_papexsystem;
-//
-//      if (psystem->m_bUser)
-//      {
-//
-//         deferx_initializex_x11();
-//
-//      }
-//
-//      auto pnode = psystem->node();
-//
-//      if(pnode)
-//      {
-//
-//         _libsn_start_context();
-//
-//         branch_element(pnode);
-//
-//      }
-//      else
-//      {
-//
-//         x11_main();
-//
-//      }
-//
-//      //return ::success;
-//
-//   }
-
-
-//   void windowing::windowing_post(const ::procedure & procedure)
-//   {
-//
-//      if (!procedure)
-//      {
-//
-//         throw ::exception(error_null_pointer);
-//
-//      }
-//
-//      synchronous_lock synchronouslock(this->synchronization());
-//
-//      m_procedurelist.add_tail(procedure);
-//
-//      //return ::success_scheduled;
-//
-//   }
-
-
-//   bool windowing::aaa_x11_runnable_step()
-//   {
-//
-//      bool bHandled = false;
-//
-//      process_owned_procedure_list(m_procedurelistPriority, bHandled);
-//
-//      if (m_pdisplay)
-//      {
-//
-//         if (m_pdisplay->m_px11display)
-//         {
-//
-//            while (m_pdisplay->m_px11display->aaa_x11_posted())
-//            {
-//
-//               bHandled = true;
-//
-//            }
-//
-//         }
-//
-//      }
-//
-//      process_owned_procedure_list(m_procedurelist, bHandled);
-//
-//      return bHandled;
-//
-//   }
-
-
-//   void windowing::process_procedure_list(::procedure_list & procedurelist, bool & bHandled)
-//   {
-//
-//      synchronous_lock synchronouslock(this->synchronization());
-//
-//      if(procedurelist.is_empty())
-//      {
-//
-//         return;
-//
-//      }
-//
-//      do
-//      {
-//
-//         {
-//
-//            auto routine = procedurelist.pick_head();
-//
-//            synchronouslock.unlock();
-//
-//            routine();
-//
-//         }
-//
-//         synchronouslock.lock();
-//
-//      }
-//      while(procedurelist.has_element());
-//
-//   }
 
 
    ::windowing::display * windowing::display()
@@ -297,23 +177,6 @@ namespace windowing_gtk3
    }
 
 
-   // ::wayland::nano::user::window_base * windowing::_window(::wl_surface * pwlsurface)
-   // {
-   //
-   //    if (!m_pdisplay)
-   //    {
-   //
-   //       return nullptr;
-   //
-   //    }
-   //
-   //    auto pwindow = m_pdisplay->_window(pwlsurface);
-   //
-   //    return pwindow;
-   //
-   // }
-
-
    ::pointer<::windowing::cursor> windowing::load_default_cursor(enum_cursor ecursor)
    {
 
@@ -322,17 +185,7 @@ namespace windowing_gtk3
       if (!m_pcursormanager)
       {
 
-         //auto estatus =
-         //
-         //
          __construct_new(m_pcursormanager);
-
-//         if (!estatus)
-//         {
-//
-//            return nullptr;
-//
-//         }
 
       }
 
@@ -409,34 +262,11 @@ namespace windowing_gtk3
 
       }
 
-      //synchronous_lock sl(user_synchronization());
-
       windowing_output_debug_string("::x11_GetWindowRect 1");
-
-      //display_lock lock(m_pdisplay->Display());
-
-//      auto cursor = XCreateFontCursor(m_pdisplay->Display(), iCursor);
-//
-//      auto pcursorX11 = __create < ::windowing_gtk3::cursor >();
-//
-//      pcursor = pcursorX11;
-//
-//      pcursorX11->m_cursor = cursor;
-
-      //return pcursor;
 
       return nullptr;
 
-
    }
-
-
-//   void windowing::_message_handler(void * p)
-//   {
-//
-//      XEvent * pevent = (XEvent *) p;
-//
-//   }
 
 
    ::windowing::window_base * windowing::get_keyboard_focus(::thread *)
@@ -448,10 +278,6 @@ namespace windowing_gtk3
          return nullptr;
 
       }
-
-      //auto pwindow = m_pdisplay->get_keyboard_focus();
-
-      //return pwindow;
 
       return nullptr;
 
@@ -468,16 +294,9 @@ namespace windowing_gtk3
 
       }
 
-      //auto pwindow = m_pdisplay->get_mouse_capture();
-
-      //return pwindow;
-
       return m_pwindowMouseCapture;
 
    }
-
-
-
 
 
    ::windowing::window * windowing::window(oswindow oswindow)
@@ -540,14 +359,11 @@ namespace windowing_gtk3
          msg.wParam = 0;
          msg.lParam = pwindowMouseCaptureNew;
 
-         //auto pwindowing = x11_windowing();
-
          post_ui_message(msg);
 
       }
 
    }
-
 
 
    void windowing::set_mouse_cursor2(::windowing::cursor * pcursor)
@@ -576,364 +392,7 @@ namespace windowing_gtk3
 
       auto pwaylanddisplay = m_pdisplay;
 
-      // auto pwlpointer = pwaylanddisplay->m_pwlpointer;
-      //
-      // if (pwlpointer && pwaylandcursor->m_waylandbuffer.m_pwlbuffer)
-      // {
-      //
-      //    auto pwlsurfaceCursor = pwaylanddisplay->m_pwlsurfaceCursor;
-      //
-      //    wl_pointer_set_cursor(pwlpointer, pwaylanddisplay->m_uLastPointerSerial,
-      //                          pwlsurfaceCursor,
-      //                          pwaylandcursor->m_szHotspotOffset.cx(),
-      //                          pwaylandcursor->m_szHotspotOffset.cy()
-      //
-      //    );
-      //
-      //    wl_surface_attach(pwlsurfaceCursor, pwaylandcursor->m_waylandbuffer.m_pwlbuffer, 0, 0);
-      //
-      //    wl_surface_damage(pwlsurfaceCursor, 0, 0,
-      //                      pwaylandcursor->m_waylandbuffer.m_size.cx(),
-      //                      pwaylandcursor->m_waylandbuffer.m_size.cy()
-      //
-      //    );
-      //
-      //    wl_surface_commit(pwlsurfaceCursor);
-      //
-      // }
-
-
-//
-//      m_pwindowing->windowing_post([this, pcursorx11]()
-//                                   {
-//
-//                                      if (!pcursorx11->m_cursor)
-//                                      {
-//
-//                                         //auto estatus =
-//                                         //
-//                                         pcursorx11->aaa_create_os_cursor();
-//
-////         if(!estatus)
-////         {
-////
-////            return estatus;
-////
-////         }
-//
-//                                      }
-//
-//                                      if (m_cursorLast == pcursorx11->m_cursor)
-//                                      {
-//
-//                                         //return true;
-//
-//                                         return;
-//
-//                                      }
-//
-//                                      synchronous_lock sl(user_synchronization());
-//
-//                                      windowing_output_debug_string("::SetCursor 1");
-//
-//                                      display_lock displaylock(x11_display()->Display());;
-//
-//                                      XDefineCursor(Display(), Window(), pcursorx11->m_cursor);
-//
-//                                      m_cursorLast = pcursorx11->m_cursor;
-//
-//                                   });
-//
-//return true;
-
    }
-
-
-//   static int open_restricted(const char *path, int flags, void *user_data)
-//   {
-//      int fd = ::open(path, flags);
-//      return fd < 0 ? -errno : fd;
-//   }
-//
-//   static void close_restricted(int fd, void *user_data)
-//   {
-//      ::close(fd);
-//   }
-//
-//   const static struct libinput_interface interface = {
-//      .open_restricted = open_restricted,
-//      .close_restricted = close_restricted,
-//   };
-//
-//
-//   void windowing::__handle_pointer_button(libinput_event * p)
-//   {
-//
-//      auto ppointer = libinput_event_get_pointer_event(p);
-//      auto button = libinput_event_pointer_get_button(ppointer);
-//      auto state = libinput_event_pointer_get_button_state(ppointer);
-//
-//      enum_message emessage = e_message_undefined;
-//
-//      if(button == BTN_LEFT)
-//      {
-//
-//         if(state == LIBINPUT_BUTTON_STATE_PRESSED)
-//         {
-//
-//            emessage = e_message_left_button_down;
-//
-//         }
-//         else if(state == LIBINPUT_BUTTON_STATE_PRESSED)
-//         {
-//
-//            emessage = e_message_left_button_up;
-//
-//         }
-//
-//      }
-//
-//      if(emessage != e_message_undefined)
-//      {
-//
-//         auto pmouse = __create_new < ::message::mouse >();
-//
-//         pmouse->m_atom = emessage;
-//
-//         //pmouse->m_pointAbsolute.x() =
-//
-//         for(auto & pparticle : m_particleaMouseHandler)
-//         {
-//
-//            pparticle->handle(pmouse);
-//
-//         }
-//
-//      }
-//
-//
-//   }
-//
-//
-//   void windowing::__handle_keyboard_key(libinput_event * p)
-//   {
-//
-//      auto pkeyboard = libinput_event_get_keyboard_event(p);
-//      auto key = libinput_event_keyboard_get_key(pkeyboard);
-//      auto state = libinput_event_keyboard_get_key_state(pkeyboard);
-//
-//      enum_message emessage = e_message_undefined;
-//
-//      //if(button == BTN_LEFT)
-//      {
-//
-//         if(state == LIBINPUT_BUTTON_STATE_PRESSED)
-//         {
-//
-//            emessage = e_message_key_down;
-//
-//         }
-//         else if(state == LIBINPUT_BUTTON_STATE_PRESSED)
-//         {
-//
-//            emessage = e_message_key_up;
-//
-//         }
-//
-//      }
-//
-//      if(emessage != e_message_undefined)
-//      {
-//
-//         auto pkey = __create_new < ::message::key >();
-//
-//         pkey->m_atom = emessage;
-//
-//         //pmouse->m_pointAbsolute.x() =
-//
-//         for(auto & pparticle : m_particleaKeyboardHandler)
-//         {
-//
-//            pparticle->handle(pkey);
-//
-//         }
-//
-//      }
-//
-//   }
-//
-//   void windowing::__libinput()
-//   {
-//
-//      if(__needs_libinput())
-//      {
-//
-//         if (m_ptaskLibInput)
-//         {
-//
-//            return;
-//
-//         }
-//
-//         m_ptaskLibInput = app_fork([this]()
-//                                    {
-//
-//                                       ::libinput_event * p;
-//
-//                                       auto pudev = udev_new();
-//
-//                                       auto plibinput = libinput_udev_create_context(&interface, NULL, pudev);
-//
-//                                       libinput_udev_assign_seat(plibinput, "seat0");
-//
-//                                       while (true)
-//                                       {
-//
-//                                          libinput_dispatch(plibinput);
-//
-//                                          auto p = libinput_get_event(plibinput);
-//
-//                                          if (!p)
-//                                          {
-//
-//                                             break;
-//
-//                                          }
-//
-//                                          __handle(p);
-//
-//                                       }
-//
-//                                       libinput_unref(plibinput);
-//
-//                                       udev_unref(pudev);
-//
-//
-//                                    });
-//
-//      }
-//      else
-//      {
-//
-//         if (m_ptaskLibInput)
-//         {
-//
-//            m_ptaskLibInput->set_finish();
-//
-//            m_ptaskLibInput.release();
-//
-//         }
-//
-//      }
-//
-//   }
-//
-//void windowing::__handle(::libinput_event * p)
-//{
-//auto etype = libinput_event_get_type(p);
-//
-//if (m_particleaMouseHandler.has_element())
-//{
-//
-//if (etype == LIBINPUT_EVENT_POINTER_BUTTON)
-//{
-//
-//__handle_pointer_button(p);
-//
-//}
-//
-//}
-//if (m_particleaMouseHandler.has_element())
-//{
-//
-//if (etype == LIBINPUT_EVENT_KEYBOARD_KEY)
-//{
-//
-//__handle_keyboard_key(p);
-//
-//}
-//
-//}
-//
-//libinput_event_destroy(p);
-//
-//}
-//
-//}
-//
-//
-//
-//
-//bool windowing::__needs_libinput()
-//   {
-//
-//      return m_particleaMouseHandler.has_element() || m_particleaKeyboardHandler.has_element();
-//
-//   }
-//
-//
-//   void windowing::install_mouse_message_handler(::particle * pparticle)
-//   {
-//
-//      {
-//
-//         synchronous_lock synchronouslock(this->synchronization());
-//
-//         m_particleaMouseHandler.add(pparticle);
-//
-//      }
-//
-//      __libinput();
-//
-//   }
-//
-//
-//   void windowing::install_keyboard_message_handler(::particle * pparticle)
-//   {
-//
-//      {
-//
-//         synchronous_lock synchronouslock(this->synchronization());
-//
-//         m_particleaKeyboardHandler.add(pparticle);
-//
-//      }
-//
-//      __libinput();
-//
-//   }
-//
-//
-//   void windowing::erase_mouse_message_handling(::particle * pparticle)
-//   {
-//
-//      {
-//
-//         synchronous_lock synchronouslock(this->synchronization());
-//
-//         m_particleaMouseHandler.erase(pparticle);
-//
-//      }
-//
-//      __libinput();
-//
-//   }
-//
-//
-//   void windowing::erase_keyboard_message_handling(::particle * pparticle)
-//   {
-//
-//      {
-//
-//         synchronous_lock synchronouslock(this->synchronization());
-//
-//         m_particleaKeyboardHandler.erase(pparticle);
-//
-//      }
-//
-//      __libinput();
-//
-//   }
 
 
 } // namespace windowing
