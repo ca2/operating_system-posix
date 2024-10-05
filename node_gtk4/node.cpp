@@ -699,7 +699,7 @@ namespace node_gtk4
    //
    //    ::pointer < ::windowing_gtk4::windowing> pgtk4windowing = this->windowing();
    //
-   //    ::pointer < ::windowing_system_gtk4::windowing_system> pgtk4windowingsystem = system()->windowing_base();
+   //    ::pointer < ::windowing_system_gtk4::windowing_system> pgtk4windowingsystem = nano()->user();
    //
    //    ::string strGtkTheme;
    //

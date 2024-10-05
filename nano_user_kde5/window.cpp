@@ -116,7 +116,7 @@ namespace kde5
             if (!m_pdisplaybase)
             {
 
-               m_pdisplaybase = system()->windowing_base()->display();
+               m_pdisplaybase = nano()->user()->display();
 
                if (!m_pdisplaybase)
                {

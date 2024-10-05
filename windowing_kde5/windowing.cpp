@@ -100,7 +100,7 @@ namespace windowing_kde5
     QApplication * windowing::qapplication()
    {
 
-        ::pointer < ::windowing_system_kde5::windowing_system > pkde5windowingsystem = system()->windowing_base();
+        ::pointer < ::windowing_system_kde5::windowing_system > pkde5windowingsystem = nano()->user();
 
        if(!pkde5windowingsystem)
        {
@@ -293,7 +293,7 @@ namespace windowing_kde5
    void windowing::windowing_post_quit()
    {
 
-      system()->windowing_base()->windowing_system_post_quit();
+      nano()->user()->windowing_system_post_quit();
       //g_idle_add(gtk_application_quit_callback, G_APPLICATION(m_pgtkapplication));
 
    }
@@ -339,9 +339,9 @@ namespace windowing_kde5
       if(!m_pdisplay)
       {
 
-         system()->do_user_system_factory();
+         system()->do_graphics_user_windowing_system_factory();
 
-         m_pdisplay = system()->windowing_base()->display();
+         m_pdisplay = nano()->user()->display();
 
       }
 
@@ -976,7 +976,7 @@ namespace windowing_kde5
 
    void windowing::user_post(const ::procedure & procedure)
    {
-       system()->windowing_base()->user_post(procedure);
+       nano()->user()->user_post(procedure);
       // auto procedure(procedureParam);
       //
       // // invoke on the main thread
@@ -1113,7 +1113,7 @@ namespace windowing_kde5
    void windowing::windowing_application_main_loop()
    {
 
-       system()->windowing_base()->windowing_system_application_main_loop();
+       nano()->user()->windowing_system_application_main_loop();
       // ::string strId = application()->m_strAppId;
       //
       // strId.find_replace("/", ".");

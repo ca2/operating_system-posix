@@ -63,7 +63,7 @@ return{};
 
             ::memory memoryHost;
 
-            auto pixmap = system()->windowing_base()->get_pixmap_from_file(memoryHost, p, size);
+            auto pixmap = nano()->user()->get_pixmap_from_file(memoryHost, p, size);
 
 
       if(pixmap.is_ok())

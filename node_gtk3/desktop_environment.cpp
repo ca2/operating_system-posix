@@ -185,7 +185,7 @@ namespace node_gtk3
 //      if(system()->m_ewindowing == e_windowing_x11)
 //      {
 //
-//         system()->windowing_base()->sync([this, iIndex, prectangle]() { _get_monitor_rectangle(iIndex, prectangle); });
+//         nano()->user()->sync([this, iIndex, prectangle]() { _get_monitor_rectangle(iIndex, prectangle); });
 //
 //      }
 //      else

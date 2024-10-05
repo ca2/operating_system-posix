@@ -53,7 +53,7 @@ namespace innate_ui_gtk3
    void innate_ui::post(const ::procedure & procedure)
    {
 
-      system()->windowing_base()->async(procedure);      //auto pparticle = (::subparticle *)procedure.m_pbase;
+      nano()->user()->async(procedure);      //auto pparticle = (::subparticle *)procedure.m_pbase;
 
       //pparticle->increment_reference_count();
 

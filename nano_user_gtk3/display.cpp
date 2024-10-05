@@ -552,7 +552,7 @@ namespace gtk3
 //            if(!m_pdisplay)
 //            {
 //
-//               set_X11_Display((Display *) system()->windowing_base()->get_display());
+//               set_X11_Display((Display *) nano()->user()->get_display());
 //
 //            }
 

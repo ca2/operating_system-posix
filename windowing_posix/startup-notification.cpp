@@ -64,7 +64,7 @@ void x_display_error_trap_push(SnDisplay * sndisplay, Display * display)
 
    g_iIgnoreXDisplayError++;
 
-   ::platform::get()->system()->windowing_base()->display_error_trap_push(g_iIgnoreXDisplayError);
+   ::platform::get()->nano()->user()->display_error_trap_push(g_iIgnoreXDisplayError);
 
 }
 
@@ -76,7 +76,7 @@ void x_display_error_trap_pop(SnDisplay * sndisplay, Display * display)
 
    g_iIgnoreXDisplayError--;
 
-   ::platform::get()->system()->windowing_base()->display_error_trap_pop_ignored(g_iIgnoreXDisplayError);
+   ::platform::get()->nano()->user()->display_error_trap_pop_ignored(g_iIgnoreXDisplayError);
 
    // if(g_iIgnoreXDisplayError == 0)
    // {
@@ -103,7 +103,7 @@ namespace windowing_posix
 
          information() << "_libsn_start_context Starting";
 
-         Display *pdisplay = (Display *) system()->windowing_base()->get_display();
+         Display *pdisplay = (Display *) nano()->user()->get_display();
 
          if (::is_null(pdisplay))
          {

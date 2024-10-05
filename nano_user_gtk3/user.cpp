@@ -37,7 +37,7 @@ namespace gtk3
          void user::sync(const ::procedure & procedure)
          {
 
-            system()->windowing_base()->user_send(procedure);
+            nano()->user()->user_send(procedure);
 
          }
 
@@ -45,7 +45,7 @@ namespace gtk3
          void user::async(const ::procedure & procedure)
          {
 
-            system()->windowing_base()->user_post(procedure);
+            nano()->user()->user_post(procedure);
 
          }
 

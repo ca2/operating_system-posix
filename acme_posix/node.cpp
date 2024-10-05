@@ -2888,7 +2888,7 @@ if(functionTrace)
          //
          // system()->branch_synchronously();
 
-         system()->windowing_base()->windowing_system_application_main_loop();
+         nano()->user()->windowing_system_application_main_loop();
 
 
       }

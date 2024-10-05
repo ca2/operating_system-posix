@@ -71,7 +71,7 @@ namespace windowing_gtk4
    bool windowing::is_branch_current() const
    {
 
-      return system()->windowing_base()->is_branch_current();
+      return nano()->user()->is_branch_current();
 
 
    }
@@ -246,7 +246,7 @@ namespace windowing_gtk4
    void windowing::windowing_post_quit()
    {
 
-      system()->windowing_base()->windowing_system_post_quit();
+      nano()->user()->windowing_system_post_quit();
 
    }
 
@@ -964,7 +964,7 @@ namespace windowing_gtk4
    void windowing::windowing_application_main_loop()
    {
 
-      ::pointer < ::windowing_system_gtk4::windowing_system > pgtk4windowingsystem = system()->windowing_base();
+      ::pointer < ::windowing_system_gtk4::windowing_system > pgtk4windowingsystem = nano()->user();
 
       pgtk4windowingsystem->m_callbackOnActivateGtkApplication=[this]()
       {
@@ -972,7 +972,7 @@ namespace windowing_gtk4
 
       };
 
-      system()->windowing_base()->windowing_system_application_main_loop();
+      nano()->user()->windowing_system_application_main_loop();
 
 
 

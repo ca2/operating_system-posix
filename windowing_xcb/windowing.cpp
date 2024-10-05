@@ -1698,8 +1698,8 @@ namespace windowing_xcb
 
                   //auto pdisplay = m_pdisplay->Display();
 
-                  //system()->windowing_base()->async([this, pdisplay, pSnLauncheeContextSetup]()
-                  system()->windowing_base()->async([this, pSnLauncheeContextSetup]()
+                  //nano()->user()->async([this, pdisplay, pSnLauncheeContextSetup]()
+                  nano()->user()->async([this, pSnLauncheeContextSetup]()
                                                       {
 
                                                          //::x11::display_lock displaylock(pdisplay);

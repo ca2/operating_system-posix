@@ -1470,7 +1470,7 @@ m_bFetchingDarkMode = false;
 
       //gdk_branch(procedure);
 
-      system()->windowing_base()->async(procedure);
+      nano()->user()->async(procedure);
 
    }
 
@@ -1494,7 +1494,7 @@ m_bFetchingDarkMode = false;
    void node::user_post_quit()
    {
 
-      system()->windowing_base()->async([this]()
+      nano()->user()->async([this]()
                                 {
 
                                     on_user_system_quit();
