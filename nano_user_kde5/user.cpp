@@ -5,7 +5,7 @@
 #include "user.h"
 #include "display.h"
 #include "acme/platform/system.h"
-#include "acme/windowing_system/windowing_system.h"
+#include "acme/windowing/windowing_base.h"
 
 
 namespace kde5
@@ -37,7 +37,7 @@ namespace kde5
          void user::sync(const ::procedure & procedure)
          {
 
-            system()->windowing_system()->main_send(procedure);
+            system()->windowing_base()->main_send(procedure);
 
          }
 
@@ -45,7 +45,7 @@ namespace kde5
          void user::async(const ::procedure & procedure)
          {
 
-            system()->windowing_system()->main_post(procedure);
+            system()->windowing_base()->main_post(procedure);
 
          }
 

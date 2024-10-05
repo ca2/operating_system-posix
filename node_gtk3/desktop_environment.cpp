@@ -6,7 +6,7 @@
 //#include "wayland_buffer.h"
 #include "acme/platform/system.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
-#include "acme/windowing_system/windowing_system.h"
+#include "acme/windowing/windowing_base.h"
 
 
 ////#include "windowing.h"
@@ -185,7 +185,7 @@ namespace node_gtk3
 //      if(system()->m_ewindowing == e_windowing_x11)
 //      {
 //
-//         system()->windowing_system()->sync([this, iIndex, prectangle]() { _get_monitor_rectangle(iIndex, prectangle); });
+//         system()->windowing_base()->sync([this, iIndex, prectangle]() { _get_monitor_rectangle(iIndex, prectangle); });
 //
 //      }
 //      else

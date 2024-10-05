@@ -11,7 +11,7 @@
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
 #include "acme/platform/acme.h"
-#include "acme/windowing_system/windowing_system.h"
+#include "acme/windowing/windowing_base.h"
 
 
 struct MWMHints

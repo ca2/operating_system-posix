@@ -11,7 +11,7 @@
 #include "acme/platform/context.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
-#include "acme/windowing_system/windowing_system.h"
+#include "acme/windowing/windowing_base.h"
 #ifdef WITH_SN
 #define SN_API_NOT_YET_FROZEN
 #include <libsn/sn.h>
@@ -64,7 +64,7 @@ void x_display_error_trap_push(SnDisplay * sndisplay, Display * display)
 
    g_iIgnoreXDisplayError++;
 
-   ::platform::get()->system()->windowing_system()->display_error_trap_push(g_iIgnoreXDisplayError);
+   ::platform::get()->system()->windowing_base()->display_error_trap_push(g_iIgnoreXDisplayError);
 
 }
 
@@ -76,7 +76,7 @@ void x_display_error_trap_pop(SnDisplay * sndisplay, Display * display)
 
    g_iIgnoreXDisplayError--;
 
-   ::platform::get()->system()->windowing_system()->display_error_trap_pop_ignored(g_iIgnoreXDisplayError);
+   ::platform::get()->system()->windowing_base()->display_error_trap_pop_ignored(g_iIgnoreXDisplayError);
 
    // if(g_iIgnoreXDisplayError == 0)
    // {
@@ -103,7 +103,7 @@ namespace windowing_posix
 
          information() << "_libsn_start_context Starting";
 
-         Display *pdisplay = (Display *) system()->windowing_system()->get_display();
+         Display *pdisplay = (Display *) system()->windowing_base()->get_display();
 
          if (::is_null(pdisplay))
          {

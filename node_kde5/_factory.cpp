@@ -56,7 +56,7 @@ __FACTORY_EXPORT void node_kde_factory(::factory::factory * pfactory)
 //       //windowing_x11_factory(pfactory);
 //
 //       windowing_wayland_factory(pfactory);
-//       pfactory->add_factory_item<::wayland::windowing_system, ::windowing_system::windowing_system>();
+//       pfactory->add_factory_item<::wayland::windowing_system, ::windowing::windowing_base>();
 //    }
 //    else
 // #endif
@@ -69,11 +69,11 @@ __FACTORY_EXPORT void node_kde_factory(::factory::factory * pfactory)
 // // #else
 //
 //       windowing_xcb_factory(pfactory);
-//       pfactory->add_factory_item<::xcb::windowing_system, ::windowing_system::windowing_system>();
+//       pfactory->add_factory_item<::xcb::windowing_system, ::windowing::windowing_base>();
 // // #endif
 //
 //    }
-   //pfactory->add_factory_item<::windowing_system_kde5::windowing_system, ::windowing_system::windowing_system>();
+   //pfactory->add_factory_item<::windowing_system_kde5::windowing_system, ::windowing::windowing_base>();
 //   ::string strSessionType = getenv("XDG_SESSION_TYPE");
 //
 //   strSessionType.make_lower();

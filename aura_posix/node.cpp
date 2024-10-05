@@ -6,7 +6,7 @@
 #include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/platform/system.h"
 #include "acme/prototype/datetime/datetime.h"
-#include "acme/windowing_system/windowing_system.h"
+#include "acme/windowing/windowing_base.h"
 #include "apex/platform/application.h"
 #ifdef WITH_X11
 #include <X11/Xlib.h>
@@ -331,7 +331,7 @@ namespace aura_posix
 
       //deferx_initializex_x11();
 
-      m_pAuraPosixX11Display = system()->windowing_system()->get_display();
+      m_pAuraPosixX11Display = system()->windowing_base()->get_display();
 
       if(!m_pAuraPosixX11Display)
       {

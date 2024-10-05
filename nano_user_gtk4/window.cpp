@@ -273,7 +273,7 @@ namespace gtk4
          ::windowing_system_gtk4::windowing_system * window::gtk4_windowing_system()
          {
 
-            auto pwindowingsystem = system()->windowing_system();
+            auto pwindowingsystem = system()->windowing_base();
 
             return dynamic_cast <::windowing_system_gtk4::windowing_system *>(pwindowingsystem);
 

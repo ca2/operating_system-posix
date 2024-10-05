@@ -5,7 +5,7 @@
 #include "user.h"
 #include "display.h"
 #include "acme/platform/system.h"
-#include "acme/windowing_system/windowing_system.h"
+#include "acme/windowing/windowing_base.h"
 
 
 namespace gtk3
@@ -37,7 +37,7 @@ namespace gtk3
          void user::sync(const ::procedure & procedure)
          {
 
-            system()->windowing_system()->user_send(procedure);
+            system()->windowing_base()->user_send(procedure);
 
          }
 
@@ -45,7 +45,7 @@ namespace gtk3
          void user::async(const ::procedure & procedure)
          {
 
-            system()->windowing_system()->user_post(procedure);
+            system()->windowing_base()->user_post(procedure);
 
          }
 

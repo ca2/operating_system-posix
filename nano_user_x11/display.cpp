@@ -12,7 +12,7 @@
 #include "acme/platform/system.h"
 //#include "acme/prototype/geometry2d/rectangle.h"
 //#include "acme/nano/user/window.h"
-#include "acme/windowing_system/windowing_system.h"
+#include "acme/windowing/windowing_base.h"
 #include "nano_user_x11/_x11.h"
 #include "windowing_system_x11/_.h"
 
@@ -556,7 +556,7 @@ namespace x11
             if(!m_pdisplay)
             {
 
-               set_X11_Display((Display *) system()->windowing_system()->get_display());
+               set_X11_Display((Display *) system()->windowing_base()->get_display());
 
             }
 

@@ -13,7 +13,7 @@
 #include "acme/platform/acme.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
-#include "acme/windowing_system/windowing_system.h"
+#include "acme/windowing/windowing_base.h"
 #include <linux/input.h> // for BTN_LEFT
 #include <sys/poll.h>
 #include <wayland-client-protocol.h>
@@ -1095,7 +1095,7 @@ namespace gtk4
          void display_base::display_post(const ::procedure & procedure)
          {
 
-            system()->windowing_system()->async(procedure);
+            system()->windowing_base()->async(procedure);
 
          }
 

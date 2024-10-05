@@ -12,7 +12,7 @@
 #include "acme/filesystem/filesystem/file_dialog.h"
 #include "acme/filesystem/filesystem/folder_dialog.h"
 #include "acme/user/user/os_theme_colors.h"
-#include "acme/windowing_system/windowing_system.h"
+#include "acme/windowing/windowing_base.h"
 #include "acme/user/user/theme_colors.h"
 #include "apex/platform/system.h"
 #include "acme/platform/ini.h"

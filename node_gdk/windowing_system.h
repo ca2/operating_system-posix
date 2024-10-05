@@ -4,7 +4,7 @@
 #pragma once
 
 
-#include "acme/windowing_system/windowing_system.h"
+#include "acme/windowing/windowing_base.h"
 
 
    namespace node_gdk
@@ -12,7 +12,7 @@
 
 
       class CLASS_DECL_NODE_GDK windowing_system :
-         virtual public ::windowing_system::windowing_system
+         virtual public ::windowing::windowing_base
    {
       public:
 

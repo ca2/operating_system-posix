@@ -31,7 +31,7 @@
 
 //#include "aura/operating_system/x11/_x11.h"
 #include "acme/parallelization/message_queue.h"
-#include "acme/windowing_system/windowing_system.h"
+#include "acme/windowing/windowing_base.h"
 #include "windowing_x11.h"
 #include "windowing.h"
 #include "window.h"
@@ -2272,7 +2272,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                auto pdisplay = m_pdisplay->Display();
 
-               system()->windowing_system()->async([this, pdisplay, pSnLauncheeContextSetup]()
+               system()->windowing_base()->async([this, pdisplay, pSnLauncheeContextSetup]()
                                  {
 
                                     ::x11::display_lock displaylock(pdisplay);
@@ -3337,7 +3337,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    void windowing::user_send(const ::procedure &procedure)
    {
 
-      system()->windowing_system()->sync(procedure);
+      system()->windowing_base()->sync(procedure);
 
    }
 
@@ -3345,7 +3345,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    void windowing::user_post(const ::procedure &procedure)
    {
 
-      system()->windowing_system()->async(procedure);
+      system()->windowing_base()->async(procedure);
 
    }
 

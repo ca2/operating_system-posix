@@ -7,7 +7,7 @@
 #include "acme/platform/system.h"
 #include "acme/parallelization/manual_reset_event.h"
 #include "acme/prototype/geometry2d/size.h"
-#include "acme/windowing_system/windowing_system.h"
+#include "acme/windowing/windowing_base.h"
 
 
 namespace innate_ui_gtk3
@@ -53,7 +53,7 @@ namespace innate_ui_gtk3
    void innate_ui::post(const ::procedure & procedure)
    {
 
-      system()->windowing_system()->async(procedure);      //auto pparticle = (::subparticle *)procedure.m_pbase;
+      system()->windowing_base()->async(procedure);      //auto pparticle = (::subparticle *)procedure.m_pbase;
 
       //pparticle->increment_reference_count();
 

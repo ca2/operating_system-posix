@@ -12,7 +12,7 @@
 #include "acme/user/user/mouse.h"
 #include "acme/platform/system.h"
 #include "acme/user/user/interaction_base.h"
-#include "acme/windowing_system/windowing_system.h"
+#include "acme/windowing/windowing_base.h"
 #include "QCustomTopWindow.h"
 #include <QMouseEvent>
 #include <QMenu>
@@ -116,7 +116,7 @@ namespace kde5
             if (!m_pdisplaybase)
             {
 
-               m_pdisplaybase = system()->windowing_system()->display();
+               m_pdisplaybase = system()->windowing_base()->display();
 
                if (!m_pdisplaybase)
                {

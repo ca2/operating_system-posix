@@ -15,7 +15,7 @@
 #include "aura/windowing/cursor_manager.h"
 #include <X11/cursorfont.h>
 
-#include "acme/windowing_system/windowing_system.h"
+#include "acme/windowing/windowing_base.h"
 #include "aura/platform/session.h"
 #include "aura/platform/system.h"
 #include "aura/user/user/interaction_impl.h"
@@ -100,7 +100,7 @@ namespace windowing_kde5
     QApplication * windowing::qapplication()
    {
 
-        ::pointer < ::windowing_system_kde5::windowing_system > pkde5windowingsystem = system()->windowing_system();
+        ::pointer < ::windowing_system_kde5::windowing_system > pkde5windowingsystem = system()->windowing_base();
 
        if(!pkde5windowingsystem)
        {
@@ -293,7 +293,7 @@ namespace windowing_kde5
    void windowing::windowing_post_quit()
    {
 
-      system()->windowing_system()->windowing_system_post_quit();
+      system()->windowing_base()->windowing_system_post_quit();
       //g_idle_add(gtk_application_quit_callback, G_APPLICATION(m_pgtkapplication));
 
    }
@@ -341,7 +341,7 @@ namespace windowing_kde5
 
          system()->do_user_system_factory();
 
-         m_pdisplay = system()->windowing_system()->display();
+         m_pdisplay = system()->windowing_base()->display();
 
       }
 
@@ -976,7 +976,7 @@ namespace windowing_kde5
 
    void windowing::user_post(const ::procedure & procedure)
    {
-       system()->windowing_system()->user_post(procedure);
+       system()->windowing_base()->user_post(procedure);
       // auto procedure(procedureParam);
       //
       // // invoke on the main thread
@@ -1113,7 +1113,7 @@ namespace windowing_kde5
    void windowing::windowing_application_main_loop()
    {
 
-       system()->windowing_system()->windowing_system_application_main_loop();
+       system()->windowing_base()->windowing_system_application_main_loop();
       // ::string strId = application()->m_strAppId;
       //
       // strId.find_replace("/", ".");

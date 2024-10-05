@@ -18,7 +18,7 @@
 #include "acme/parallelization/manual_reset_event.h"
 #include "acme/user/user/os_theme_colors.h"
 #include "acme/user/user/theme_colors.h"
-#include "acme/windowing_system/windowing_system.h"
+#include "acme/windowing/windowing_base.h"
 #include "apex/input/input.h"
 #include "apex/platform/system.h"
 #include "aura/platform/session.h"
@@ -1470,7 +1470,7 @@ m_bFetchingDarkMode = false;
 
       //gdk_branch(procedure);
 
-      system()->windowing_system()->async(procedure);
+      system()->windowing_base()->async(procedure);
 
    }
 
@@ -1494,7 +1494,7 @@ m_bFetchingDarkMode = false;
    void node::user_post_quit()
    {
 
-      system()->windowing_system()->async([this]()
+      system()->windowing_base()->async([this]()
                                 {
 
                                     on_user_system_quit();

@@ -7,7 +7,7 @@
 //#endif
 #include "display_lock.h"
 #include "acme/platform/system.h"
-#include "acme/windowing_system/windowing_system.h"
+#include "acme/windowing/windowing_base.h"
 
 
 namespace x11

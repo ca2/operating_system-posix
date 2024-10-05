@@ -11,7 +11,7 @@
 #include "acme/graphics/draw2d/_text_stream.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
-#include "acme/windowing_system/windowing_system.h"
+#include "acme/windowing/windowing_base.h"
 #include "aura/message/user.h"
 #include "aura/platform/application.h"
 #include "aura/platform/session.h"
@@ -1698,8 +1698,8 @@ namespace windowing_xcb
 
                   //auto pdisplay = m_pdisplay->Display();
 
-                  //system()->windowing_system()->async([this, pdisplay, pSnLauncheeContextSetup]()
-                  system()->windowing_system()->async([this, pSnLauncheeContextSetup]()
+                  //system()->windowing_base()->async([this, pdisplay, pSnLauncheeContextSetup]()
+                  system()->windowing_base()->async([this, pSnLauncheeContextSetup]()
                                                       {
 
                                                          //::x11::display_lock displaylock(pdisplay);

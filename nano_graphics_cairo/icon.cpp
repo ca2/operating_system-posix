@@ -5,7 +5,7 @@
 #include "icon.h"
 #include "acme/platform/system.h"
 #include "acme/prototype/geometry2d/size.h"
-#include "acme/windowing_system/windowing_system.h"
+#include "acme/windowing/windowing_base.h"
 
 
 namespace cairo {
@@ -63,7 +63,7 @@ return{};
 
             ::memory memoryHost;
 
-            auto pixmap = system()->windowing_system()->get_pixmap_from_file(memoryHost, p, size);
+            auto pixmap = system()->windowing_base()->get_pixmap_from_file(memoryHost, p, size);
 
 
       if(pixmap.is_ok())

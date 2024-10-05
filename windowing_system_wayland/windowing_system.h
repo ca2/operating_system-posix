@@ -4,7 +4,7 @@
 #pragma once
 
 
-#include "acme/windowing_system/windowing_system.h"
+#include "acme/windowing/windowing_base.h"
 
 
 namespace wayland
@@ -12,7 +12,7 @@ namespace wayland
 
 
    class CLASS_DECL_WINDOWING_SYSTEM_WAYLAND windowing_system :
-           virtual public ::windowing_system::windowing_system
+           virtual public ::windowing::windowing_base
    {
    public:
 

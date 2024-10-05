@@ -15,7 +15,7 @@
 #include "aura/windowing/cursor_manager.h"
 #include <X11/cursorfont.h>
 
-#include "acme/windowing_system/windowing_system.h"
+#include "acme/windowing/windowing_base.h"
 #include "aura/user/user/interaction_impl.h"
 #include "aura/windowing/display.h"
 #include "aura/platform/system.h"
@@ -71,7 +71,7 @@ namespace windowing_gtk4
    bool windowing::is_branch_current() const
    {
 
-      return system()->windowing_system()->is_branch_current();
+      return system()->windowing_base()->is_branch_current();
 
 
    }
@@ -246,7 +246,7 @@ namespace windowing_gtk4
    void windowing::windowing_post_quit()
    {
 
-      system()->windowing_system()->windowing_system_post_quit();
+      system()->windowing_base()->windowing_system_post_quit();
 
    }
 
@@ -964,7 +964,7 @@ namespace windowing_gtk4
    void windowing::windowing_application_main_loop()
    {
 
-      ::pointer < ::windowing_system_gtk4::windowing_system > pgtk4windowingsystem = system()->windowing_system();
+      ::pointer < ::windowing_system_gtk4::windowing_system > pgtk4windowingsystem = system()->windowing_base();
 
       pgtk4windowingsystem->m_callbackOnActivateGtkApplication=[this]()
       {
@@ -972,7 +972,7 @@ namespace windowing_gtk4
 
       };
 
-      system()->windowing_system()->windowing_system_application_main_loop();
+      system()->windowing_base()->windowing_system_application_main_loop();
 
 
 

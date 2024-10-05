@@ -6,7 +6,7 @@
 IMPLEMENT_FACTORY(windowing_system_xcb)
 {
 
-   pfactory->add_factory_item < ::xcb::windowing_system, ::windowing_system::windowing_system >();
+   pfactory->add_factory_item < ::xcb::windowing_system, ::windowing::windowing_base >();
 
 }
 

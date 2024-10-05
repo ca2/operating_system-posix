@@ -5,7 +5,7 @@
 #include "desktop_environment.h"
 #include "acme/platform/system.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
-#include "acme/windowing_system/windowing_system.h"
+#include "acme/windowing/windowing_base.h"
 #include <gio/gio.h>
 //#include <gdk/gdkx.h>
 
@@ -168,7 +168,7 @@ namespace node_gdk
 
         ::e_status estatus = error_failed;
 
-        system()->windowing_system()->sync([this, iIndex, &rectangle,&estatus]() { estatus = _get_monitor_rectangle(iIndex, rectangle); });
+        system()->windowing_base()->sync([this, iIndex, &rectangle,&estatus]() { estatus = _get_monitor_rectangle(iIndex, rectangle); });
 
 
         if(estatus.failed())

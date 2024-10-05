@@ -19,7 +19,7 @@
 #include "acme/prototype/string/command_line.h"
 #include "acme/prototype/string/str.h"
 #include "acme/prototype/prototype/memory.h"
-#include "acme/windowing_system/windowing_system.h"
+#include "acme/windowing/windowing_base.h"
 
 #include "acme/_operating_system.h"
 #include "acme/operating_system/ansi/_pthread.h"
@@ -2888,7 +2888,7 @@ if(functionTrace)
          //
          // system()->branch_synchronously();
 
-         system()->windowing_system()->windowing_system_application_main_loop();
+         system()->windowing_base()->windowing_system_application_main_loop();
 
 
       }
