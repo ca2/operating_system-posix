@@ -24,7 +24,7 @@ namespace gtk4
             using window_map = map<::GtkWidget *, ::pointer<window_base> >;
 
             class display_base :
-               virtual public ::nano::user::display //,
+               virtual public ::nano::windowing::display //,
                //virtual public ::xkb_input::xkb_input
             {
             public:

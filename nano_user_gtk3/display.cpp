@@ -485,7 +485,7 @@ namespace gtk3
 
             bool bHandled2;
 
-            information() << "x11::nano::user::display::message_loop";
+            information() << "x11::nano::windowing::display::message_loop";
 
             while (::task_get_run())
             {
@@ -534,12 +534,12 @@ namespace gtk3
 
             informationf("x11 nano display init_task");
 
-            if(system()->m_ewindowing == e_windowing_none)
+            if(::windowing::get_ewindowing() == ::windowing::e_windowing_none)
             {
 
                //set_main_user_thread();
 
-               system()->m_ewindowing = e_windowing_x11;
+               ::windowing::get_ewindowing() = e_windowing_x11;
 
             }
 
@@ -708,10 +708,10 @@ namespace gtk3
       void process_messages()
       {
 
-//         if(::x11::nano::user::display::g_p)
+//         if(::x11::nano::windowing::display::g_p)
 //         {
 //
-//            ::x11::nano::user::display::g_p->message_loop_step();
+//            ::x11::nano::windowing::display::g_p->message_loop_step();
 //
 //         }
 
@@ -1142,7 +1142,7 @@ namespace gtk3
 ////void initialize_x11_display(::particle * pparticle, void * pX11Display)
 ////{
 ////
-////   ::x11::nano::user::display_get(pparticle, false, (Display *) pX11Display);
+////   ::x11::nano::windowing::display_get(pparticle, false, (Display *) pX11Display);
 ////
 ////}
 ////
@@ -1150,7 +1150,7 @@ namespace gtk3
 ////void * initialize_x11_display(::particle * pparticle)
 ////{
 ////
-////   auto pdisplay = ::x11::nano::user::display_get(pparticle, false);
+////   auto pdisplay = ::x11::nano::windowing::display_get(pparticle, false);
 ////
 ////   return pdisplay->m_pdisplay;
 ////

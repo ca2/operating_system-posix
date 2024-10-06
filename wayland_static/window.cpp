@@ -194,13 +194,13 @@ namespace wayland
          }
 
 
-         ::nano::user::display * window::get_display()
+         ::nano::windowing::display * window::get_display()
          {
 
             if (!m_pdisplaybase)
             {
 
-               m_pdisplaybase = ::wayland::nano::user::display_base::get(this);
+               m_pdisplaybase = ::wayland::nano::windowing::display_base::get(this);
 
                if (!m_pdisplaybase)
                {

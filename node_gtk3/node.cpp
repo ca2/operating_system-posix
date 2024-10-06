@@ -619,7 +619,7 @@ namespace node_gtk3
 
 #endif
 
-      system()->m_ewindowing = calculate_ewindowing();
+      ::windowing::get_ewindowing() = calculate_ewindowing();
 
       // system()->__construct(system()->m_pwindowingsystem);
       //
@@ -2506,7 +2506,7 @@ namespace node_gtk3
 //   void node::windowing_system_display_error_trap_push(int i)
 //   {
 //
-//      if(system()->m_ewindowing == e_windowing_x11)
+//      if(::windowing::get_ewindowing() == ::windowing::e_windowing_x11)
 //      {
 //
 //         GdkDisplay *gdkdisplay;
@@ -2522,7 +2522,7 @@ namespace node_gtk3
 //   void node::windowing_system_display_error_trap_pop_ignored(int i)
 //   {
 //
-//      if(system()->m_ewindowing == e_windowing_x11)
+//      if(::windowing::get_ewindowing() == ::windowing::e_windowing_x11)
 //      {
 //
 //         GdkDisplay *gdkdisplay;

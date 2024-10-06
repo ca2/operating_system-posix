@@ -22,7 +22,7 @@ namespace windowing_kde5
 
    class CLASS_DECL_WINDOWING_KDE5 display :
       virtual public ::windowing::display,
-      virtual public ::kde5::nano::user::display
+      virtual public ::kde5::nano::windowing::display
    {
    public:
 

@@ -484,7 +484,7 @@ namespace x11
 
             bool bHandled2;
 
-            information() << "x11::nano::user::display::message_loop";
+            information() << "x11::nano::windowing::display::message_loop";
 
             while (::task_get_run())
             {
@@ -533,12 +533,12 @@ namespace x11
 
             informationf("x11 nano display init_task");
 
-            if(system()->m_ewindowing == e_windowing_none)
+            if(::windowing::get_ewindowing() == ::windowing::e_windowing_none)
             {
 
                //set_main_user_thread();
 
-               system()->m_ewindowing = e_windowing_x11;
+               ::windowing::get_ewindowing() = e_windowing_x11;
 
             }
 
@@ -725,10 +725,10 @@ namespace x11
       void process_messages()
       {
 
-         if(::x11::nano::user::display::g_p)
+         if(::x11::nano::windowing::display::g_p)
          {
 
-            ::x11::nano::user::display::g_p->message_loop_step();
+            ::x11::nano::windowing::display::g_p->message_loop_step();
 
          }
 

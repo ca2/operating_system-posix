@@ -1846,7 +1846,7 @@ namespace wayland
          void display_base::init_task()
          {
 
-            ::nano::user::display::init_task();
+            ::nano::windowing::display::init_task();
 
             ::task_set_name("wayland:display:run");
 
@@ -1951,7 +1951,7 @@ namespace wayland
 
                g_peventCreatingWaylandDisplay->ResetEvent();
 
-               auto p = new ::wayland::nano::user::display();
+               auto p = new ::wayland::nano::windowing::display();
 
                s_pdisplaybase = p;
 

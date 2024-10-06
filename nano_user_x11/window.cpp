@@ -97,21 +97,21 @@ namespace x11
          }
 
 
-         ::x11::nano::user::display * window::x11_display()
+         ::x11::nano::windowing::display * window::x11_display()
          {
 
-            return dynamic_cast < ::x11::nano::user::display * >(get_display());
+            return dynamic_cast < ::x11::nano::windowing::display * >(get_display());
 
          }
 
 
-         ::nano::user::display * window::get_display()
+         ::nano::windowing::display * window::get_display()
          {
 
             if (!m_pdisplay)
             {
 
-               m_pdisplay = ::x11::nano::user::display_get(this);
+               m_pdisplay = ::x11::nano::windowing::display_get(this);
 
                if (!m_pdisplay)
                {

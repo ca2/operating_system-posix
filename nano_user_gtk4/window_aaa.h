@@ -78,7 +78,7 @@ namespace gtk4
 
 
 
-            ::nano::user::display * get_display() override;
+            ::nano::windowing::display * get_display() override;
 
 
             void on_initialize_particle() override;

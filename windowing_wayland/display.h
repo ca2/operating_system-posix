@@ -22,7 +22,7 @@ namespace windowing_wayland
 
    class CLASS_DECL_WINDOWING_WAYLAND display :
       virtual public ::windowing::display,
-      virtual public ::wayland::nano::user::display_base
+      virtual public ::wayland::nano::windowing::display_base
    {
    public:
 

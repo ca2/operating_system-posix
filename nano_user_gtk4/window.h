@@ -40,7 +40,7 @@ namespace gtk4
 
          class window :
             //virtual public ::x11::nano::user::window_base
-            virtual public ::windowing::window_base
+            virtual public ::nano::windowing::window
          {
          public:
 
@@ -206,7 +206,7 @@ void defer_show_system_menu(::user::mouse * pmouse) override;
             // virtual void __handle_keyboard_key(::wl_keyboard *pwlkeyboard, uint32_t serial, uint32_t time, uint32_t key, uint32_t state);
             // virtual void __handle_keyboard_modifiers(::wl_keyboard *keyboard, uint32_t serial, uint32_t mods_depressed, uint32_t mods_latched, uint32_t mods_locked, uint32_t group);
 
-            ::gtk4::nano::user::display_base * gtk4_display();
+            ::gtk4::nano::windowing::display_base * gtk4_display();
 
             virtual void _on_simple_key_message(::user::e_key ekey, ::enum_message emesssage);
             virtual void _on_text_composition(const ::scoped_string & scopedstrText);
@@ -243,7 +243,7 @@ void defer_show_system_menu(::user::mouse * pmouse) override;
 
 
 
-            ::nano::user::display * get_display() override;
+            ::nano::windowing::display * get_display() override;
 
 
             //::x11::handle_t _x11_handle() override;

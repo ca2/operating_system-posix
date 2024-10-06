@@ -48,7 +48,7 @@ namespace nano
 
 
       class CLASS_DECL_NANO_USER_KDE5 display :
-         virtual public ::nano::user::display //,
+         virtual public ::nano::windowing::display //,
          //virtual public event_listener
       {
       public:

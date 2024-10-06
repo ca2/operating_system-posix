@@ -1306,7 +1306,7 @@ namespace windowing_gtk4
                                               bool bNoSize, ::e_display edisplay)
    {
 
-//      if(system()->m_ewindowing != e_windowing_wayland)
+//      if(::windowing::get_ewindowing() != e_windowing_wayland)
 //      {
 //
 //         if(!bNoMove)

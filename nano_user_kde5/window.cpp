@@ -110,7 +110,7 @@ namespace kde5
          }
 
 
-         ::nano::user::display * window::get_display()
+         ::nano::windowing::display * window::get_display()
          {
 
             if (!m_pdisplaybase)
@@ -135,7 +135,7 @@ namespace kde5
          void window::on_initialize_particle()
          {
 
-            ::windowing::window_base::on_initialize_particle();
+            ::nano::windowing::window::on_initialize_particle();
 
          }
 
@@ -1084,7 +1084,7 @@ namespace kde5
 
          m_eventEnd.SetEvent();
 
-         ::windowing::window_base::destroy();
+         ::nano::windowing::window::destroy();
 
       }
 

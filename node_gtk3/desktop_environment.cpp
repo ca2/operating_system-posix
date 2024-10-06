@@ -182,7 +182,7 @@ namespace node_gtk3
 //
 //      debug() << "desktop_environment::get_monitor_rectangle";
 //
-//      if(system()->m_ewindowing == e_windowing_x11)
+//      if(::windowing::get_ewindowing() == ::windowing::e_windowing_x11)
 //      {
 //
 //         nano()->user()->sync([this, iIndex, prectangle]() { _get_monitor_rectangle(iIndex, prectangle); });

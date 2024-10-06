@@ -310,7 +310,7 @@ namespace gtk4
          void window::_defer_get_window_rectangle_unlocked()
          {
 
-            if (system()->m_ewindowing != e_windowing_wayland)
+            if (::windowing::get_ewindowing() != e_windowing_wayland)
             {
 
                ::pointer<::nano::user::interchange> pinterchange = m_puserinteractionbase;
@@ -344,7 +344,7 @@ namespace gtk4
 
             g_signal_connect(toplevel, "compute-size", G_CALLBACK(on_toplevel_compute_size), this);
 
-            if (system()->m_ewindowing == e_windowing_wayland)
+            if (::windowing::get_ewindowing() == ::windowing::e_windowing_wayland)
             {
 
                g_signal_connect(toplevel, "state", G_CALLBACK(on_window_state), this);
@@ -1166,7 +1166,7 @@ namespace gtk4
 
             __unmap();
 
-            ::windowing::window_base::destroy();
+            ::nano::windowing::window::destroy();
 
          }
 
@@ -1419,10 +1419,10 @@ namespace gtk4
          }
 
 
-         ::gtk4::nano::user::display_base * window::gtk4_display()
+         ::gtk4::nano::windowing::display_base * window::gtk4_display()
          {
 
-            return m_pdisplaybase.cast<::gtk4::nano::user::display_base>();
+            return m_pdisplaybase.cast<::gtk4::nano::windowing::display_base>();
 
          }
 
@@ -1494,7 +1494,7 @@ namespace gtk4
             if (gtk4_display()->is_x11())
             {
 
-               if (system()->m_ewindowing != e_windowing_wayland)
+               if (::windowing::get_ewindowing() != e_windowing_wayland)
                {
 
                   ::pointer<::nano::user::interchange> pinterchange = m_puserinteractionbase;
@@ -1559,13 +1559,13 @@ namespace gtk4
          }
 
 
-         ::nano::user::display * window::get_display()
+         ::nano::windowing::display * window::get_display()
          {
 
             if (!m_pdisplaybase)
             {
 
-               m_pdisplaybase = ::gtk4::nano::user::display_base::get(this);
+               m_pdisplaybase = ::gtk4::nano::windowing::display_base::get(this);
 
                if (!m_pdisplaybase)
                {
@@ -1606,7 +1606,7 @@ namespace gtk4
 //         }
 
 
-//         ::x11::nano::user::display_t * window::_x11_display()
+//         ::x11::nano::windowing::display_t * window::_x11_display()
 //         {
 //
 //            if(!gtk4_display()->is_x11())
@@ -1620,7 +1620,7 @@ namespace gtk4
 //
 //            auto psurface = gtk_native_get_surface(pnative);
 //
-//            return (::x11::nano::user::display_t *) GDK_SURFACE_XDISPLAY (psurface);
+//            return (::x11::nano::windowing::display_t *) GDK_SURFACE_XDISPLAY (psurface);
 //
 //         }
 
@@ -1652,7 +1652,7 @@ namespace gtk4
          void window::on_initialize_particle()
          {
 
-            ::windowing::window_base::on_initialize_particle();
+            ::nano::windowing::window::on_initialize_particle();
 
          }
 

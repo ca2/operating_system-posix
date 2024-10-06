@@ -2187,7 +2187,7 @@ namespace node_gtk4
    // void node::display_error_trap_push(int i)
    // {
    //
-   //    if(system()->m_ewindowing == e_windowing_x11)
+   //    if(::windowing::get_ewindowing() == ::windowing::e_windowing_x11)
    //    {
    //
    //       GdkDisplay *gdkdisplay;
@@ -2203,7 +2203,7 @@ namespace node_gtk4
    // void node::display_error_trap_pop_ignored(int i)
    // {
    //
-   //    if(system()->m_ewindowing == e_windowing_x11)
+   //    if(::windowing::get_ewindowing() == ::windowing::e_windowing_x11)
    //    {
    //
    //       GdkDisplay *gdkdisplay;

@@ -73,7 +73,7 @@ namespace windowing_kde5
    bool windowing::has_readily_gettable_absolute_coordinates() const
    {
 
-      if(system()->m_ewindowing == e_windowing_wayland)
+      if(::windowing::get_ewindowing() == ::windowing::e_windowing_wayland)
       {
 
          return false;
@@ -492,7 +492,7 @@ namespace windowing_kde5
    //   }
 
 
-   ::windowing::window_base * windowing::get_keyboard_focus(::thread *)
+   ::nano::windowing::window * windowing::get_keyboard_focus(::thread *)
    {
 
       if (!m_pdisplay)
@@ -997,7 +997,7 @@ namespace windowing_kde5
    //
    //    //g_object_ref(m_pgtkapplication);
    //
-   //    //auto pdisplay = __create<::nano::user::display>();
+   //    //auto pdisplay = __create<::nano::windowing::display>();
    //
    //    auto pdisplay = this->display();
    //

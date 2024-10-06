@@ -179,7 +179,7 @@ namespace windowing_wayland
 
       ::windowing::display::initialize(pparticle);
 
-      ::wayland::nano::user::display_base::initialize(pparticle);
+      ::wayland::nano::windowing::display_base::initialize(pparticle);
 
    }
 

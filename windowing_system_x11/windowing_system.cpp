@@ -153,7 +153,7 @@ namespace x11
 
       //node()->windowing_system_display_error_trap_push(i);
 
-//      if(system()->m_ewindowing == e_windowing_x11)
+//      if(::windowing::get_ewindowing() == ::windowing::e_windowing_x11)
 //      {
 //
 //         GdkDisplay *gdkdisplay;
@@ -170,7 +170,7 @@ namespace x11
    {
 
       //node()->windowing_system_display_error_trap_pop_ignored(i);
-//      if(system()->m_ewindowing == e_windowing_x11)
+//      if(::windowing::get_ewindowing() == ::windowing::e_windowing_x11)
 //      {
 //
 //         GdkDisplay *gdkdisplay;

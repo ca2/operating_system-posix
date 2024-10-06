@@ -266,7 +266,7 @@ namespace gtk3
          }
 
 
-         ::nano::user::display * window::get_display()
+         ::nano::windowing::display * window::get_display()
          {
 
             if (!m_pdisplaybase)
@@ -287,7 +287,7 @@ namespace gtk3
          void window::on_initialize_particle()
          {
 
-            ::windowing::window_base::on_initialize_particle();
+            ::nano::windowing::window::on_initialize_particle();
 
          }
 
@@ -1357,7 +1357,7 @@ namespace gtk3
 
             __unmap();
 
-            ::windowing::window_base::destroy();
+            ::nano::windowing::window::destroy();
 
             gtk_widget_destroy(m_pgtkwidget);
 

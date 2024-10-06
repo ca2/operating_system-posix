@@ -32,7 +32,7 @@ namespace x11
          }
 
 
-//         ::x11::nano::user::display_t * window_base::_x11_display()
+//         ::x11::nano::windowing::display_t * window_base::_x11_display()
 //         {
 //
 //            if(!m_px11windowbasehandle)

@@ -400,7 +400,7 @@ namespace windowing_xcb
    }
 
 
-   ::windowing::window_base * windowing::get_keyboard_focus(::thread *)
+   ::nano::windowing::window * windowing::get_keyboard_focus(::thread *)
    {
 
       if (!m_pdisplay)
@@ -2706,10 +2706,10 @@ if(bSentResponse)
    }
 
 
-   ::x11::nano::user::display * windowing::_get_display()
+   ::x11::nano::windowing::display * windowing::_get_display()
    {
 
-      return ::x11::nano::user::display_get(this);
+      return ::x11::nano::windowing::display_get(this);
 
    }
 
@@ -2837,7 +2837,7 @@ if(bSentResponse)
 
       }
 
-      auto pxcbdisplay = ::xcb::nano::user::display::get(this);
+      auto pxcbdisplay = ::xcb::nano::windowing::display::get(this);
 
       if (pxcbdisplay->xcb_event(pgenericevent))
       {

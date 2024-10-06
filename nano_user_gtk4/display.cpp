@@ -82,9 +82,9 @@ namespace nano
       void display::initialize(::particle * pparticle)
       {
 
-         ::nano::user::display::initialize(pparticle);
+         ::nano::windowing::display::initialize(pparticle);
 
-         ::gtk4::nano::user::display_base::initialize(pparticle);
+         ::gtk4::nano::windowing::display_base::initialize(pparticle);
 
       }
 
@@ -434,7 +434,7 @@ namespace nano
       bool display::message_loop_step()
       {
 
-         return ::gtk4::nano::user::display_base::message_loop_step();
+         return ::gtk4::nano::windowing::display_base::message_loop_step();
 
       }
       //
@@ -571,12 +571,12 @@ namespace nano
 
          display_base::init_task();
 
-         //      if(system()->m_ewindowing == e_windowing_none)
+         //      if(::windowing::get_ewindowing() == ::windowing::e_windowing_none)
          //      {
          //
          //         //set_main_user_thread();
          //
-         //         system()->m_ewindowing = e_windowing_x11;
+         //         ::windowing::get_ewindowing() = e_windowing_x11;
          //
          //      }
          ////
@@ -726,17 +726,17 @@ namespace nano
       void * get_display(::particle * pparticle)
       {
 
-         auto pdisplay = ::gtk4::nano::user::display::get(pparticle, false);
+         auto pdisplay = ::gtk4::nano::windowing::display::get(pparticle, false);
 
          return pdisplay->m_pgdkdisplay;
 
       }
 
 
-      void set_display(::gtk4::nano::user::display_base * pdisplaybase)
+      void set_display(::gtk4::nano::windowing::display_base * pdisplaybase)
       {
 
-         ::gtk4::nano::user::display_base::s_pdisplaybase = pdisplaybase;
+         ::gtk4::nano::windowing::display_base::s_pdisplaybase = pdisplaybase;
 
       }
 
@@ -744,7 +744,7 @@ namespace nano
       void initialize_display(::particle * pparticle, void * pgdkdisplay)
       {
 
-         ::gtk4::nano::user::display::get(pparticle, false, (::GdkDisplay *) pgdkdisplay);
+         ::gtk4::nano::windowing::display::get(pparticle, false, (::GdkDisplay *) pgdkdisplay);
 
       }
 
@@ -752,7 +752,7 @@ namespace nano
       void * initialize_display(::particle * pparticle)
       {
 
-         auto pdisplay = ::gtk4::nano::user::display::get(pparticle, false);
+         auto pdisplay = ::gtk4::nano::windowing::display::get(pparticle, false);
 
          return pdisplay->m_pgdkdisplay;
 
@@ -762,10 +762,10 @@ namespace nano
       void process_messages()
       {
 
-         if(::gtk4::nano::user::display_base::s_pdisplaybase)
+         if(::gtk4::nano::windowing::display_base::s_pdisplaybase)
          {
 
-            ::gtk4::nano::user::display_base::s_pdisplaybase->message_loop_step();
+            ::gtk4::nano::windowing::display_base::s_pdisplaybase->message_loop_step();
 
          }
 

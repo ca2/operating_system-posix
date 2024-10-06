@@ -21,7 +21,7 @@ namespace wayland
         namespace user
         {
             class display_base :
-               virtual public ::nano::user::display,
+               virtual public ::nano::windowing::display,
                virtual public ::xkb_input::xkb_input
             {
             public:

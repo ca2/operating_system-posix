@@ -809,7 +809,7 @@ namespace gtk4
 
          void display_base::initialize(::particle * pparticle)
          {
-            ::nano::user::display::initialize(pparticle);
+            ::nano::windowing::display::initialize(pparticle);
             // ::xkb_input::xkb_input::initialize(pparticle);
             //
             // m_pxkbcontext = xkb_context_new({});
@@ -856,9 +856,9 @@ namespace gtk4
 
                }
 
-               information() << "gtk4::nano::user::display::open";
+               information() << "gtk4::nano::windowing::display::open";
 
-               information() << "gtk4::nano::user::display::open pgdkdisplay : " << (::iptr) m_pgdkdisplay;
+               information() << "gtk4::nano::windowing::display::open pgdkdisplay : " << (::iptr) m_pgdkdisplay;
 
       //          auto pwlregistry = wl_display_get_registry(m_pwldisplay);
       //
@@ -1901,7 +1901,7 @@ namespace gtk4
          void display_base::init_task()
          {
 
-            ::nano::user::display::init_task();
+            ::nano::windowing::display::init_task();
 
             ::task_set_name("wayland:display:run");
 
@@ -2006,7 +2006,7 @@ namespace gtk4
 
                g_peventCreatingWaylandDisplay->ResetEvent();
 
-               auto p = new ::gtk4::nano::user::display();
+               auto p = new ::gtk4::nano::windowing::display();
 
                s_pdisplaybase = p;
 

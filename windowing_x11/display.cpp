@@ -158,7 +158,7 @@ namespace windowing_x11
       //m_px11display = ::x11::display::get(this, false, px11displayGdk);
 
       // Using another new and different X11 Display connection apart from Gtk.
-      m_px11display = ::x11::nano::user::display_get(this, false);
+      m_px11display = ::x11::nano::windowing::display_get(this, false);
 
       if (::is_null(m_px11display))
       {

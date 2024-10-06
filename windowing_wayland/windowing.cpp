@@ -432,7 +432,7 @@ namespace windowing_wayland
 //   }
 
 
-   ::windowing::window_base * windowing::get_keyboard_focus(::thread *)
+   ::nano::windowing::window * windowing::get_keyboard_focus(::thread *)
    {
 
       if (!m_pdisplay)

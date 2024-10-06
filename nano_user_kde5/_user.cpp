@@ -15,7 +15,7 @@
 //
 //   pfactory->add_factory_item<::xcb::nano::user::interchange, ::nano::user::window_implementation>();
 //
-//   ::xcb::nano::user::display::get(pfactory);
+//   ::xcb::nano::windowing::display::get(pfactory);
 //
 //}
 //

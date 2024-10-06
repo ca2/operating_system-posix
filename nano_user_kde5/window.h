@@ -23,7 +23,7 @@ namespace kde5
 
 
          class CLASS_DECL_NANO_USER_KDE5 window :
-            virtual public ::windowing::window_base
+            virtual public ::nano::windowing::window
             //,           virtual public event_listener
          {
          public:
@@ -60,7 +60,7 @@ namespace kde5
             ~window() override;
 
 
-            ::nano::user::display * get_display() override;
+            ::nano::windowing::display * get_display() override;
 
 
             void on_initialize_particle() override;

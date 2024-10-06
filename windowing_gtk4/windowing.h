@@ -146,7 +146,7 @@ namespace windowing_gtk4
 
       // ::windowing::window* get_active_window(::thread* pthread) override;
 
-      ::windowing::window_base* get_keyboard_focus(::thread* pthread) override;
+      ::nano::windowing::window* get_keyboard_focus(::thread* pthread) override;
 
       void _on_activate_gtk_application();
       ///::pointer < ::input::input > get_input() override;

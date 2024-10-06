@@ -227,7 +227,7 @@ namespace windowing_kde5
       ::windowing::display::initialize(pparticle);
 
 
-      //::wayland::nano::user::display_base::initialize(pparticle);
+      //::wayland::nano::windowing::display_base::initialize(pparticle);
 
    }
 

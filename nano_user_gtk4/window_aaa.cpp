@@ -200,13 +200,13 @@
 //         }
 //
 //
-//         ::nano::user::display * window::get_display()
+//         ::nano::windowing::display * window::get_display()
 //         {
 //
 //            if (!m_pdisplaybase)
 //            {
 //
-//               m_pdisplaybase = ::gtk4::nano::user::display_base::get(this);
+//               m_pdisplaybase = ::gtk4::nano::windowing::display_base::get(this);
 //
 //               if (!m_pdisplaybase)
 //               {

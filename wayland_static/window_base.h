@@ -18,7 +18,7 @@ namespace wayland
       namespace user
       {
          class window_base :
-            virtual public ::windowing::window_base
+            virtual public ::nano::windowing::window
          {
          public:
 

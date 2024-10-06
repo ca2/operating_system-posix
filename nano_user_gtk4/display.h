@@ -25,7 +25,7 @@ namespace gtk4
 
 
          class CLASS_DECL_ACME display :
-            virtual public ::gtk4::nano::user::display_base
+            virtual public ::gtk4::nano::windowing::display_base
             //virtual public event_listener
          {
          public:

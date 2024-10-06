@@ -21,12 +21,12 @@ namespace gtk3
       {
 
          class CLASS_DECL_ACME window :
-            virtual public ::windowing::window_base
+            virtual public ::nano::windowing::window
          {
          public:
 
 
-            //::pointer<::x11::nano::user::display>         m_pdisplay;
+            //::pointer<::x11::nano::windowing::display>         m_pdisplay;
             //Window                           m_window;
             //Window                           m_windowRoot;
             GtkWidget * m_pgtkwidget;
@@ -60,7 +60,7 @@ namespace gtk3
             ~window() override;
 
 
-            ::nano::user::display * get_display() override;
+            ::nano::windowing::display * get_display() override;
 
 
             void on_initialize_particle() override;

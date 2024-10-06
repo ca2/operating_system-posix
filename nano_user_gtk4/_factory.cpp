@@ -19,9 +19,9 @@ IMPLEMENT_FACTORY(nano_user_gtk4)
 
    //operating_system_initialize_cairo_nano(pfactory);
 
-   pfactory->add_factory_item<::gtk4::nano::user::window, ::windowing::window_base>();
+   pfactory->add_factory_item<::gtk4::nano::user::window, ::nano::windowing::window>();
    pfactory->add_factory_item<::nano::user::user>();
-   pfactory->add_factory_item<::gtk4::nano::user::display, ::nano::user::display>();
+   pfactory->add_factory_item<::gtk4::nano::windowing::display, ::nano::windowing::display>();
 
    //::wayland::display::get(pfactory);
 

@@ -163,7 +163,7 @@ namespace node_gdk
 
      debug() << "desktop_environment::get_monitor_rectangle";
 
-     if(system()->m_ewindowing == e_windowing_x11)
+     if(::windowing::get_ewindowing() == ::windowing::e_windowing_x11)
      {
 
         ::e_status estatus = error_failed;

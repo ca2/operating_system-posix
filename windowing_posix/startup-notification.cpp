@@ -96,9 +96,9 @@ namespace windowing_posix
    void windowing::_libsn_start_context()
    {
 
-      auto ewindowing = system()->m_ewindowing;
+      auto ewindowing = ::windowing::get_ewindowing();
 
-      if(ewindowing == e_windowing_x11 && ewindowing == e_windowing_xcb)
+      if(ewindowing == ::windowing::e_windowing_x11 && ewindowing == ::windowing::e_windowing_xcb)
       {
 
          information() << "_libsn_start_context Starting";

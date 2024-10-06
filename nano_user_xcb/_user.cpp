@@ -15,7 +15,7 @@ void operating_system_initialize_xcb_nano_user(::factory::factory * pfactory)
 
    pfactory->add_factory_item<::xcb::nano::user::interchange, ::nano::user::window_implementation>();
 
-   ::xcb::nano::user::display::get(pfactory);
+   ::xcb::nano::windowing::display::get(pfactory);
 
 }
 

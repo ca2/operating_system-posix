@@ -123,7 +123,7 @@ namespace windowing_wayland
 
       ::windowing::window * get_active_window(::thread * pthread) override;
 
-      ::windowing::window_base * get_keyboard_focus(::thread * pthread) override;
+      ::nano::windowing::window * get_keyboard_focus(::thread * pthread) override;
 
 
       ///::pointer < ::input::input > get_input() override;

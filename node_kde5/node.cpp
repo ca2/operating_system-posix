@@ -276,7 +276,7 @@ namespace node_kde5
 
 #endif
 
-      system()->m_ewindowing = calculate_ewindowing();
+      ::windowing::get_ewindowing() = calculate_ewindowing();
 
       //system()->__construct(system()->m_pwindowingsystem);
 
@@ -377,7 +377,7 @@ namespace node_kde5
 //      }
 
 
-         //::x11::nano::user::display_get(this, false, (Display *)p);
+         //::x11::nano::windowing::display_get(this, false, (Display *)p);
 
          return ::success;
 
@@ -387,7 +387,7 @@ namespace node_kde5
 
          m_bUnhookX = false;
 
-         //m_pAuraPosixX11Display = ::x11::nano::user::display_get(this);
+         //m_pAuraPosixX11Display = ::x11::nano::windowing::display_get(this);
 
          return ::success;
 

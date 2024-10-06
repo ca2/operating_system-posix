@@ -30,7 +30,7 @@ namespace x11
          public:
 
 
-            ::pointer<::x11::nano::user::display>        m_pdisplay;
+            ::pointer<::x11::nano::windowing::display>        m_pdisplay;
             Window                                       m_window;
             Window                                       m_windowRoot;
             cairo_surface_t *                            m_psurface;
@@ -61,9 +61,9 @@ namespace x11
             ~window() override;
 
 
-            ::nano::user::display * get_display() override;
+            ::nano::windowing::display * get_display() override;
 
-            virtual ::x11::nano::user::display * x11_display();
+            virtual ::x11::nano::windowing::display * x11_display();
 
             ::x11::handle_t _x11_handle() override;
 
