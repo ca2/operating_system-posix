@@ -1265,9 +1265,9 @@ namespace kde5
             }
 
 
-          auto puserinteractionimpl = m_puserinteractionbase;
+          auto pwindow = m_puserinteractionbase;
 
-          if (::is_set(puserinteractionimpl))
+          if (::is_set(pwindow))
           {
              auto pmouse = __create_new<::user::mouse>();
 
@@ -1329,7 +1329,7 @@ namespace kde5
              //
              // }
              //
-             // puserinteractionimpl->message_handler(pmouse);
+             // pwindow->message_handler(pmouse);
           }
 
        //}
@@ -1361,9 +1361,9 @@ namespace kde5
           // }
 
 
-          auto puserinteractionimpl = m_puserinteractionbase;
+          auto pwindow = m_puserinteractionbase;
 
-          if (::is_set(puserinteractionimpl))
+          if (::is_set(pwindow))
           {
 
              auto pmouse = __create_new<::user::mouse>();
@@ -1530,9 +1530,9 @@ m_pqwidget->move(p);
 
             }
 
-       auto puserinteractionimpl = m_puserinteractionbase;
+       auto pwindow = m_puserinteractionbase;
 
-       if(::is_set(puserinteractionimpl))
+       if(::is_set(pwindow))
        {
 
           auto pmouse = __create_new<::user::mouse>();
@@ -1659,7 +1659,7 @@ m_pqwidget->move(p);
 
       void window::_on_size(int cx, int cy)
       {
-         //::user::interaction_impl* pimpl = m_puserinteractionimpl;
+         //::windowing::window* pimpl = m_pwindow;
 
 
          //auto puserinteraction = pimpl->m_puserinteraction;
@@ -1729,7 +1729,7 @@ m_pqwidget->move(p);
    //    {
    //       g_print("Window has been restored.\n");
    //
-   //       ::user::interaction_impl* pimpl = m_puserinteractionbase;
+   //       ::windowing::window* pimpl = m_puserinteractionbase;
    //
    //       pimpl->m_puserinteraction->display(::e_display_normal);
    //

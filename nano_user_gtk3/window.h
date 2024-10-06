@@ -88,7 +88,7 @@ namespace gtk3
             virtual bool _on_window_state(GtkWidget* widget, GdkEventWindowState* event);
 
             virtual void _on_cairo_draw(GtkWidget *widget, cairo_t *cr);
-            //void create_window(::user::interaction_impl * pimpl) override;
+            //void create_window(::windowing::window * pimpl) override;
 
             virtual void _on_size(int cx, int cy);
 

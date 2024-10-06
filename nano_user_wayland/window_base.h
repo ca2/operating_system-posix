@@ -64,16 +64,16 @@ namespace wayland
             void destroy() override;
 
 
-            virtual ::particle * get_interface_client_particle() = 0; // m_puserinteractionimpl->m_puserinteraction
+            virtual ::particle * get_interface_client_particle() = 0; // m_pwindow->m_puserinteraction
             //virtual void set_window_width(::i32 iWidth) = 0; // m_sizeWindow.cx()
             //virtual void set_window_height(::i32 iHeight) = 0; // m_sizeWindow.cy()
             //virtual ::size_i32 get_window_size() = 0; // m_sizeWindow
             //virtual void set_interface_client_size(const ::size_i32 & sizeWindow) = 0; // m_sizeWindow
 
-            //virtual bool is_window_stored_iconic() = 0; // m_puserinteractionimpl->m_puserinteraction->const_layout().window().display() == e_display_iconic
-            //virtual void window_maximize() = 0; // m_puserinteractionimpl->m_puserinteraction->display(::e_display_zoomed);
-            //virtual void window_full_screen() = 0; // m_puserinteractionimpl->m_puserinteraction->display(::e_display_full_screen);
-            //virtual void window_restore() = 0; // m_puserinteractionimpl->m_puserinteraction->display(::e_display_normal);
+            //virtual bool is_window_stored_iconic() = 0; // m_pwindow->m_puserinteraction->const_layout().window().display() == e_display_iconic
+            //virtual void window_maximize() = 0; // m_pwindow->m_puserinteraction->display(::e_display_zoomed);
+            //virtual void window_full_screen() = 0; // m_pwindow->m_puserinteraction->display(::e_display_full_screen);
+            //virtual void window_restore() = 0; // m_pwindow->m_puserinteraction->display(::e_display_normal);
 
 
             virtual void __activate_window(bool bNormalPriority);

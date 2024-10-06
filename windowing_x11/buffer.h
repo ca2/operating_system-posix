@@ -56,7 +56,7 @@ namespace windowing_x11
       virtual ::windowing_x11::window * x11_window();
 
 
-      void initialize_graphics_graphics(::user::interaction_impl * pimpl) override;
+      void initialize_graphics_graphics(::windowing::window * pimpl) override;
       void destroy() override;
 
 

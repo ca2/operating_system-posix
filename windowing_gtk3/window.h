@@ -62,7 +62,7 @@ namespace windowing_gtk3
       //::Visual                                     m_visual;
       //int                                          m_iDepth;
       //int                                        m_iScreen;
-      //::pointer<::user::interaction_impl>        m_pimpl;
+      //::pointer<::windowing::window>        m_pimpl;
       //::pointer<::message_queue>                 m_pmessagequeue;
       htask_t                                      m_htask;
       //Colormap                                   m_colormap;
@@ -114,7 +114,7 @@ namespace windowing_gtk3
          bool _on_window_state(GtkWidget* widget, GdkEventWindowState* event) override;
 
       void _on_cairo_draw(GtkWidget *widget, cairo_t *cr) override;
-      //void create_window(::user::interaction_impl * pimpl) override;
+      //void create_window(::windowing::window * pimpl) override;
 
       void _on_size(int cx, int cy) override;
 
@@ -178,7 +178,7 @@ namespace windowing_gtk3
 
       void exit_zoomed() override;
 
-      virtual void set_user_interaction(::user::interaction_impl * pinteraction);
+      virtual void set_user_interaction(::windowing::window * pinteraction);
 
       virtual void post_nc_destroy();
 
@@ -420,16 +420,16 @@ namespace windowing_gtk3
       //void __handle_keyboard_leave(::wl_keyboard *pwlkeyboard, uint32_t serial) override;
 //      virtual void __handle_keyboard_key(::wl_keyboard *pwlkeyboard, uint32_t serial, uint32_t time, uint32_t key, uint32_t state);
 //      virtual void __handle_keyboard_modifiers(::wl_keyboard *keyboard, uint32_t serial, uint32_t mods_depressed, uint32_t mods_latched, uint32_t mods_locked, uint32_t group);
-      //::particle * get_interface_client_particle() override; // m_puserinteractionimpl->m_puserinteraction
+      //::particle * get_interface_client_particle() override; // m_pwindow->m_puserinteraction
       //virtual void set_window_width(::i32 iWidth) = 0; // m_sizeWindow.cx()
       //virtual void set_window_height(::i32 iHeight) = 0; // m_sizeWindow.cy()
       //virtual ::size_i32 get_window_size() = 0; // m_sizeWindow
       // virtual void set_interface_client_size(const ::size_i32 & sizeWindow) override; // set_size
       //
-      // virtual bool is_window_stored_iconic() override; // m_puserinteractionimpl->m_puserinteraction->const_layout().window().display() == e_display_iconic
-      // virtual void window_maximize() override; // m_puserinteractionimpl->m_puserinteraction->display(::e_display_zoomed);
-      // virtual void window_full_screen() override; // m_puserinteractionimpl->m_puserinteraction->display(::e_display_full_screen);
-      // virtual void window_restore() override; // m_puserinteractionimpl->m_puserinteraction->display(::e_display_normal);
+      // virtual bool is_window_stored_iconic() override; // m_pwindow->m_puserinteraction->const_layout().window().display() == e_display_iconic
+      // virtual void window_maximize() override; // m_pwindow->m_puserinteraction->display(::e_display_zoomed);
+      // virtual void window_full_screen() override; // m_pwindow->m_puserinteraction->display(::e_display_full_screen);
+      // virtual void window_restore() override; // m_pwindow->m_puserinteraction->display(::e_display_normal);
 
 
       //void set_interface_client_size(const ::size_i32 & sizeWindow) override; // m_sizeWindow

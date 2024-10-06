@@ -83,7 +83,7 @@ namespace windowing_gtk4
 
       void exit_zoomed() override;
 
-      virtual void set_user_interaction(::user::interaction_impl * pinteraction);
+      virtual void set_user_interaction(::windowing::window * pinteraction);
 
       virtual void post_nc_destroy();
 

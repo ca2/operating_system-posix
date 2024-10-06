@@ -20,7 +20,7 @@
 #include "aura/platform/system.h"
 #include "aura/platform/message_queue.h"
 #include "aura/user/user/interaction_graphics_thread.h"
-#include "aura/user/user/interaction_impl.h"
+//#include "aura/user/user/interaction_impl.h"
 //#include <X11/Xatom.h>
 // dnf install xcb-util-devel
 #include <xcb/xcb_util.h>
@@ -80,13 +80,13 @@ namespace windowing_xcb
    }
 
 
-   //void window::create_window(::user::interaction_impl * pimpl)
+   //void window::create_window(::windowing::window * pimpl)
    void window::create_window()
    {
 
       synchronous_lock synchronouslock(user_synchronization());
 
-      ::user::interaction_impl * pimpl = m_puserinteractionimpl;
+      ::windowing::window * pimpl = m_pwindow;
 
       bool bOk = true;
 
@@ -123,15 +123,15 @@ namespace windowing_xcb
 
       //display_lock displaylock(pdisplayxcb);
 
-      int x = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().x();
+      int x = m_pwindow->m_puserinteraction->const_layout().sketch().origin().x();
 
-      int y = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().y();
+      int y = m_pwindow->m_puserinteraction->const_layout().sketch().origin().y();
 
-      int cx = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().width();
+      int cx = m_pwindow->m_puserinteraction->const_layout().sketch().width();
 
-      int cy = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().height();
+      int cy = m_pwindow->m_puserinteraction->const_layout().sketch().height();
 
-      bool bVisible = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().is_screen_visible();
+      bool bVisible = m_pwindow->m_puserinteraction->const_layout().sketch().is_screen_visible();
 
       if (cx <= 0)
       {
@@ -188,9 +188,9 @@ namespace windowing_xcb
 
       m_sizeWindow.cy() = I32_MINIMUM;
 
-      auto & windowOrigin = m_puserinteractionimpl->m_puserinteraction->layout().m_statea[::user::e_layout_window].origin();
+      auto & windowOrigin = m_pwindow->m_puserinteraction->layout().m_statea[::user::e_layout_window].origin();
 
-      auto & windowSize = m_puserinteractionimpl->m_puserinteraction->layout().m_statea[::user::e_layout_window].size();
+      auto & windowSize = m_pwindow->m_puserinteraction->layout().m_statea[::user::e_layout_window].size();
 
       windowOrigin = m_pointWindow;
 
@@ -261,7 +261,7 @@ namespace windowing_xcb
 
       }
 
-      m_puserinteractionimpl = pimpl;
+      m_pwindow = pimpl;
 
       pimpl->m_pwindow = this;
 
@@ -836,7 +836,7 @@ namespace windowing_xcb
 
       }
 
-      memory m(m_puserinteractionimpl->m_puserinteraction->get_app());
+      memory m(m_pwindow->m_puserinteraction->get_app());
 
       int length = 2 + d1->area();
 
@@ -980,10 +980,10 @@ namespace windowing_xcb
    }
 
 
-   void window::set_user_interaction(::user::interaction_impl * pimpl)
+   void window::set_user_interaction(::windowing::window * pimpl)
    {
 
-      m_puserinteractionimpl = pimpl;
+      m_pwindow = pimpl;
 
       m_htask = pimpl->get_app()->get_os_handle();
 
@@ -995,22 +995,22 @@ namespace windowing_xcb
    bool window::is_child(::oswindow oswindow)
    {
 
-      if (oswindow == nullptr || oswindow->m_puserinteractionimpl == nullptr ||
-          oswindow->m_puserinteractionimpl->m_puserinteraction == nullptr)
+      if (oswindow == nullptr || oswindow->m_pwindow == nullptr ||
+          oswindow->m_pwindow->m_puserinteraction == nullptr)
       {
 
          return false;
 
       }
 
-      if (m_puserinteractionimpl == nullptr || m_puserinteractionimpl->m_puserinteraction == nullptr)
+      if (m_pwindow == nullptr || m_pwindow->m_puserinteraction == nullptr)
       {
 
          return false;
 
       }
 
-      return m_puserinteractionimpl->m_puserinteraction->is_child(oswindow->m_puserinteractionimpl->m_puserinteraction);
+      return m_pwindow->m_puserinteraction->is_child(oswindow->m_pwindow->m_puserinteraction);
 
    }
 
@@ -1297,7 +1297,7 @@ namespace windowing_xcb
       if (rBest != rWindow)
       {
 
-         m_puserinteractionimpl->m_puserinteraction->place(rBest);
+         m_pwindow->m_puserinteraction->place(rBest);
 
          estatus = _move_resize(rBest.left(), rBest.top(), rBest.width(), rBest.height());
 
@@ -1603,11 +1603,11 @@ namespace windowing_xcb
          else
          {
 
-            if (msg.oswindow != nullptr && msg.oswindow->m_puserinteractionimpl != nullptr &&
-                msg.oswindow->m_puserinteractionimpl->m_puserinteraction != nullptr)
+            if (msg.oswindow != nullptr && msg.oswindow->m_pwindow != nullptr &&
+                msg.oswindow->m_pwindow->m_puserinteraction != nullptr)
             {
 
-               ::user::interaction * pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
+               ::user::interaction * pinteraction = msg.oswindow->m_pwindow->m_puserinteraction;
 
                pinteraction->post_message(msg.m_atom, msg.wParam, msg.lParam);
 
@@ -1631,7 +1631,7 @@ namespace windowing_xcb
 
       ASSERT(oswindow != nullptr);
 
-      ::user::interaction * pinteraction = oswindow->m_puserinteractionimpl->m_puserinteraction;
+      ::user::interaction * pinteraction = oswindow->m_pwindow->m_puserinteraction;
 
       ::thread * pthread = nullptr;
 
@@ -1706,7 +1706,7 @@ namespace windowing_xcb
    void window::mq_erase_window_from_all_queues()
    {
 
-      ::user::interaction * pinteraction = m_puserinteractionimpl->m_puserinteraction;
+      ::user::interaction * pinteraction = m_pwindow->m_puserinteraction;
 
       if (pinteraction == nullptr)
       {
@@ -1912,7 +1912,7 @@ namespace windowing_xcb
 
          }
 
-         //m_puserinteractionimpl->m_puserinteraction->m_bVisible = true;
+         //m_pwindow->m_puserinteraction->m_bVisible = true;
 
       }
       else
@@ -2095,13 +2095,13 @@ namespace windowing_xcb
 
          }
 
-         //m_puserinteractionimpl->m_puserinteraction->m_bVisible = true;
+         //m_pwindow->m_puserinteraction->m_bVisible = true;
 
       }
       else
       {
 
-         //m_puserinteractionimpl->m_puserinteraction->m_bVisible = false;
+         //m_pwindow->m_puserinteraction->m_bVisible = false;
 
       }
 
@@ -2273,13 +2273,13 @@ namespace windowing_xcb
 
          }
 
-         //m_puserinteractionimpl->m_puserinteraction->m_bVisible = true;
+         //m_pwindow->m_puserinteraction->m_bVisible = true;
 
       }
       else
       {
 
-         //m_puserinteractionimpl->m_puserinteraction->m_bVisible = false;
+         //m_pwindow->m_puserinteraction->m_bVisible = false;
 
       }
 
@@ -2515,13 +2515,13 @@ namespace windowing_xcb
 //
 //         }
 //
-//         m_puserinteractionimpl->m_puserinteraction->m_bVisible = true;
+//         m_pwindow->m_puserinteraction->m_bVisible = true;
 //
 //      }
 //      else
 //      {
 //
-//         m_puserinteractionimpl->m_puserinteraction->m_bVisible = false;
+//         m_pwindow->m_puserinteraction->m_bVisible = false;
 //
 //      }
 //
@@ -2539,7 +2539,7 @@ namespace windowing_xcb
 //
 ////      display_lock displayLock(x11_display()->Display());
 //
-//      auto pimpl = m_puserinteractionimpl;
+//      auto pimpl = m_pwindow;
 //
 //      if (::is_set(pimpl))
 //      {
@@ -3072,10 +3072,10 @@ namespace windowing_xcb
 
       bool bOk = false;
 
-      if (::is_set(m_puserinteractionimpl))
+      if (::is_set(m_pwindow))
       {
 
-         ::pointer<::user::interaction> pinteraction = m_puserinteractionimpl->m_puserinteraction;
+         ::pointer<::user::interaction> pinteraction = m_pwindow->m_puserinteraction;
 
          if (pinteraction.is_set())
          {
@@ -3356,7 +3356,7 @@ namespace windowing_xcb
 
       }
 
-      auto pimplFocus = pwindowFocus->m_puserinteractionimpl;
+      auto pimplFocus = pwindowFocus->m_pwindow;
 
       if (::is_null(pimplFocus))
       {
@@ -3392,7 +3392,7 @@ namespace windowing_xcb
       //m_pwindowing->windowing_post([this]()
       //                           {
 
-      auto pimpl = m_puserinteractionimpl;
+      auto pimpl = m_pwindow;
 
       if (::is_set(pimpl))
       {
@@ -3416,7 +3416,7 @@ namespace windowing_xcb
 //      m_pwindowing->windowing_post([this]()
 //      {
 //
-//         auto pimpl = m_puserinteractionimpl;
+//         auto pimpl = m_pwindow;
 //
 //         if(::is_set(pimpl))
 //         {
@@ -3457,7 +3457,7 @@ namespace windowing_xcb
 //      m_pwindowing->windowing_post([this]()
 //      {
 //
-//         auto pimpl = m_puserinteractionimpl;
+//         auto pimpl = m_pwindow;
 //
 //         if(::is_set(pimpl))
 //         {
@@ -3800,9 +3800,9 @@ namespace windowing_xcb
 
       m_sizeWindow.cy() = cy;
 
-      m_puserinteractionimpl->m_puserinteraction->layout().m_statea[::user::e_layout_window].origin() = m_pointWindow;
+      m_pwindow->m_puserinteraction->layout().m_statea[::user::e_layout_window].origin() = m_pointWindow;
 
-      m_puserinteractionimpl->m_puserinteraction->layout().m_statea[::user::e_layout_window].size() = m_sizeWindow;
+      m_pwindow->m_puserinteraction->layout().m_statea[::user::e_layout_window].size() = m_sizeWindow;
 
       return estatus;
 
@@ -3842,7 +3842,7 @@ namespace windowing_xcb
 
       m_pointWindow.y() = y;
 
-      m_puserinteractionimpl->m_puserinteraction->layout().m_statea[::user::e_layout_window].origin() = m_pointWindow;
+      m_pwindow->m_puserinteraction->layout().m_statea[::user::e_layout_window].origin() = m_pointWindow;
 
       return estatus;
 
@@ -3877,7 +3877,7 @@ namespace windowing_xcb
 
       m_sizeWindow.cy() = cy;
 
-      m_puserinteractionimpl->m_puserinteraction->layout().m_statea[::user::e_layout_window].size() = m_sizeWindow;
+      m_pwindow->m_puserinteraction->layout().m_statea[::user::e_layout_window].size() = m_sizeWindow;
 
       return estatus;
 
@@ -3960,7 +3960,7 @@ namespace windowing_xcb
 
             //display_lock displayLock(xcb_display()->xcb_connection());
 
-            auto pimpl = m_puserinteractionimpl;
+            auto pimpl = m_pwindow;
 
             configure_window_unlocked();
 
@@ -3970,7 +3970,7 @@ namespace windowing_xcb
 
          }
 
-         auto pimpl = m_puserinteractionimpl;
+         auto pimpl = m_pwindow;
 
          pimpl->m_pgraphicsthread->on_graphics_thread_iteration_end();
 
@@ -4061,7 +4061,7 @@ namespace windowing_xcb
 //            _move_resize_unlocked(x, y, cx, cy);
 //
 //
-////            if(m_puserinteractionimpl->m_puserinteraction->const_layout().design().display() == e_display_zoomed) {
+////            if(m_pwindow->m_puserinteraction->const_layout().design().display() == e_display_zoomed) {
 ////
 ////               x11_windowing()->_defer_position_and_size_message(m_oswindow);
 ////
@@ -4102,7 +4102,7 @@ namespace windowing_xcb
 //      //      if(attrs.override_redirect)
 //      //      {
 //      //
-//      //         if(!(m_puserinteractionimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning))
+//      //         if(!(m_pwindow->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning))
 //      //         {
 //      //
 //      //            XSetWindowAttributes set;
@@ -4197,17 +4197,17 @@ namespace windowing_xcb
 ////
 ////         }
 ////
-////         //m_puserinteractionimpl->m_puserinteraction->ModifyStyle(0, WS_VISIBLE, 0);
+////         //m_pwindow->m_puserinteraction->ModifyStyle(0, WS_VISIBLE, 0);
 ////
 ////      }
 //////      else
 //////      {
 //////
-//////         //m_puserinteractionimpl->m_puserinteraction->ModifyStyle(WS_VISIBLE, 0, 0);
+//////         //m_pwindow->m_puserinteraction->ModifyStyle(WS_VISIBLE, 0, 0);
 //////
 //////      }
 ////
-////      //m_puserinteractionimpl->on_change_visibility();
+////      //m_pwindow->on_change_visibility();
 //
 //      windowing_output_debug_string("::window::_strict_set_window_position_unlocked 2");
 //

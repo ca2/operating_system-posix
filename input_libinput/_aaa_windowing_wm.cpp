@@ -7,7 +7,7 @@
 #include "display.h"
 #include "windowing.h"
 #include "acme/parallelization/synchronous_lock.h"
-#include "aura/user/user/interaction_impl.h"
+//#include "aura/user/user/interaction_impl.h"
 #include "acme/operating_system/x11/display_lock.h"
 #include <X11/Xatom.h>
 
@@ -802,10 +802,10 @@ namespace windowing_x11
       else
       {
 
-         if (m_puserinteractionimpl->m_puserinteraction->const_layout().design().display() != ::e_display_iconic)
+         if (m_pwindow->m_puserinteraction->const_layout().design().display() != ::e_display_iconic)
          {
 
-            m_puserinteractionimpl->m_puserinteraction->display(::e_display_iconic);
+            m_pwindow->m_puserinteraction->display(::e_display_iconic);
 
          }
 

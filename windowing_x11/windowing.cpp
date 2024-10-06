@@ -10,7 +10,7 @@
 //#include "acme/prototype/prototype/function.h"
 #include "aura/windowing/cursor_manager.h"
 #include <X11/cursorfont.h>
-#include "aura/user/user/interaction_impl.h"
+//#include "aura/user/user/interaction_impl.h"
 #include "aura/windowing/display.h"
 #include "aura/platform/system.h"
 #include "aura/platform/session.h"
@@ -62,7 +62,7 @@ namespace windowing_x11
    }
 
 
-//   ::windowing::window * windowing::new_window(::user::interaction_impl * pimpl)
+//   ::windowing::window * windowing::new_window(::windowing::window * pimpl)
 //   {
 //
 //      ::pointer<::windowing_x11::window> pwindow = pimpl->__create<::windowing::window>();
@@ -76,7 +76,7 @@ namespace windowing_x11
 //
 //      pwindow->m_pwindowing = this;
 //
-//      pwindow->m_puserinteractionimpl = pimpl;
+//      pwindow->m_pwindow = pimpl;
 //
 //      pimpl->m_pwindow = pwindow;
 //

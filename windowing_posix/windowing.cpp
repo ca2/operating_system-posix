@@ -7,7 +7,7 @@
 #include "windowing.h"
 #include "window.h"
 #include "apex/input/input.h"
-#include "aura/user/user/interaction_impl.h"
+//#include "aura/user/user/interaction_impl.h"
 #include <X11/Xutil.h>
 
 
@@ -46,7 +46,7 @@ namespace windowing_posix
    void windowing::_configure_message(::windowing::window * pwindow, const ::rectangle_i32 & rectangle)
    {
 
-      ::user::primitive_impl * pimpl = pwindow->m_puserinteractionimpl;
+      ::user::primitive_impl * pimpl = pwindow->m_pwindow;
 
       if (pimpl != nullptr)
       {
@@ -73,7 +73,7 @@ namespace windowing_posix
 //
 //         pwindow->m_size = size;
 //
-//         ::user::primitive_impl * pimpl = pwindow->m_puserinteractionimpl;
+//         ::user::primitive_impl * pimpl = pwindow->m_pwindow;
 //
 //         if (pimpl != nullptr)
 //         {
@@ -133,7 +133,7 @@ namespace windowing_posix
 
       information() << "_on_wm_state_change is_iconic : " << bIconic;
 
-      ::user::interaction * pinteraction = pposixwindow->m_puserinteractionimpl->m_puserinteraction;
+      ::user::interaction * pinteraction = pposixwindow->m_pwindow->m_puserinteraction;
 
       if (pinteraction != nullptr)
       {

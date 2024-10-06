@@ -57,7 +57,7 @@ namespace windowing_gtk4
       virtual ::windowing_gtk4::window * x11_window();
 
 
-      void initialize_graphics_graphics(::user::interaction_impl * pimpl) override;
+      void initialize_graphics_graphics(::windowing::window * pimpl) override;
       void destroy() override;
       virtual void __handle_window_redraw(::wl_callback *pwlcallback, uint32_t time);
 

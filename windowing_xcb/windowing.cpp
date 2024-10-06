@@ -16,7 +16,7 @@
 #include "aura/platform/application.h"
 #include "aura/platform/session.h"
 #include "aura/platform/system.h"
-#include "aura/user/user/interaction_impl.h"
+//#include "aura/user/user/interaction_impl.h"
 #include "aura/user/user/user.h"
 #include "aura/windowing/cursor_manager.h"
 #include "aura/windowing/keyboard.h"
@@ -77,7 +77,7 @@ namespace windowing_xcb
    }
 
 
-//   ::windowing::window * windowing::new_window(::user::interaction_impl * pimpl)
+//   ::windowing::window * windowing::new_window(::windowing::window * pimpl)
 //   {
 //
 //      ::pointer<::windowing_xcb::window> pwindow = pimpl->__create<::windowing::window>();
@@ -91,7 +91,7 @@ namespace windowing_xcb
 //
 //      pwindow->m_pwindowing = this;
 //
-//      pwindow->m_puserinteractionimpl = pimpl;
+//      pwindow->m_pwindow = pimpl;
 //
 //      pimpl->m_pwindow = pwindow;
 //
@@ -891,13 +891,13 @@ namespace windowing_xcb
 //
 //               }
 
-                  ::pointer<::windowing_xcb::buffer> pbuffer = px11window->m_puserinteractionimpl->m_pgraphicsgraphics;
+                  ::pointer<::windowing_xcb::buffer> pbuffer = px11window->m_pwindow->m_pgraphicsgraphics;
 
                   auto pbufferitem = pbuffer->get_buffer_item();
 
                   auto sizeBitBlitting = pbuffer->m_sizeLastBitBlitting;
 
-                  //px11window->m_puserinteractionimpl->m_puserinteraction->_set_size(sizeBitBlitting, ::user::e_layout_window);
+                  //px11window->m_pwindow->m_puserinteraction->_set_size(sizeBitBlitting, ::user::e_layout_window);
 
                   pbufferitem->m_manualresetevent.SetEvent();
 
@@ -990,7 +990,7 @@ namespace windowing_xcb
 
             informationf("XCB_MOTION_NOTIFY %d,%d", pmotion->root_x, pmotion->root_y);
 
-//            //if (pxcbwindow->m_puserinteractionimpl != nullptr)
+//            //if (pxcbwindow->m_pwindow != nullptr)
 //            {
 //
 ////               ((class window *) pxcbwindow->m_pWindow4)->m_pointMouseCursor = m_pointCursor;
@@ -1037,7 +1037,7 @@ namespace windowing_xcb
 //
 //                              throttling.m_iMouseMoveSkipCount++;
 //
-//                              ::pointer<::user::interaction> pinteraction = pxcbwindow->m_puserinteractionimpl->m_puserinteraction;
+//                              ::pointer<::user::interaction> pinteraction = pxcbwindow->m_pwindow->m_puserinteraction;
 //
 //                              if(pinteraction)
 //                              {
@@ -1101,7 +1101,7 @@ namespace windowing_xcb
 
             bool bMouseCapture = pxcbwindow->has_mouse_capture();
 
-            bool bCompositeWindow = pxcbwindow->m_puserinteractionimpl->m_bComposite;
+            bool bCompositeWindow = pxcbwindow->m_pwindow->m_bComposite;
 
             ::color::color screen_pixel;
 
@@ -1116,7 +1116,7 @@ namespace windowing_xcb
 
                alpha = screen_pixel.u8_opacity();
 
-               bTransparentMouseEvents = pxcbwindow->m_puserinteractionimpl->m_bTransparentMouseEvents;
+               bTransparentMouseEvents = pxcbwindow->m_pwindow->m_bTransparentMouseEvents;
 
             }
 
@@ -1139,7 +1139,7 @@ namespace windowing_xcb
 
                information() << "pmouse->m_pointAbsolute : " << pmouse->m_pointAbsolute;
 
-               pxcbwindow->m_puserinteractionimpl->message_handler(pmouse);
+               pxcbwindow->m_pwindow->message_handler(pmouse);
 
             }
             else
@@ -1289,7 +1289,7 @@ namespace windowing_xcb
 //               if(oswindow)
                {
 
-                  auto pimpl = pxcbwindow->m_puserinteractionimpl;
+                  auto pimpl = pxcbwindow->m_pwindow;
 
                   if (pimpl)
                   {
@@ -1365,7 +1365,7 @@ namespace windowing_xcb
                      if (::is_set(pwindowActiveNew))
                      {
 
-                        auto pimpl = pwindowActiveNew->m_puserinteractionimpl;
+                        auto pimpl = pwindowActiveNew->m_pwindow;
 
                         if (::is_set(pimpl))
                         {
@@ -1388,7 +1388,7 @@ namespace windowing_xcb
                      if (::is_set(pwindowActiveOld))
                      {
 
-                        auto pimpl = pwindowActiveOld->m_puserinteractionimpl;
+                        auto pimpl = pwindowActiveOld->m_pwindow;
 
                         if (::is_set(pimpl))
                         {
@@ -1422,7 +1422,7 @@ namespace windowing_xcb
 
                //msg.time = e.xproperty.time;
 
-               ::user::interaction * pinteraction = pxcbwindow->m_puserinteractionimpl->m_puserinteraction;
+               ::user::interaction * pinteraction = pxcbwindow->m_pwindow->m_puserinteraction;
 
                if (::is_set(pinteraction))
                {
@@ -1500,13 +1500,13 @@ namespace windowing_xcb
 
                //::pointer<::windowing_xcb::window> pxcbwindow = pxcbwindow;
 
-//               auto pimpl = pxcbwindow->m_puserinteractionimpl;
+//               auto pimpl = pxcbwindow->m_pwindow;
 //
 //               auto puserinteraction = pimpl->m_puserinteraction;
 
                //msg.time = pproperty->time;
 
-//               if (oswindow != nullptr && oswindow->m_puserinteractionimpl != nullptr)
+//               if (oswindow != nullptr && oswindow->m_pwindow != nullptr)
 //               {
 //
 //                  int iIconic = -1;
@@ -1518,7 +1518,7 @@ namespace windowing_xcb
 //
 //                  }
 //
-//                  ::user::interaction * pinteraction = oswindow->m_puserinteractionimpl->m_puserinteraction;
+//                  ::user::interaction * pinteraction = oswindow->m_pwindow->m_puserinteraction;
 //
 //                  if (pinteraction != nullptr)
 //                  {
@@ -1598,7 +1598,7 @@ namespace windowing_xcb
 
 //               msg.time = e.xproperty.time;
 //
-//               ::user::interaction * pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
+//               ::user::interaction * pinteraction = msg.oswindow->m_pwindow->m_puserinteraction;
 //
 //               if (::is_set(pinteraction))
 //               {
@@ -1720,7 +1720,7 @@ namespace windowing_xcb
                else if(pxcbwindow)
                {
 
-                  ::user::primitive_impl * pimpl = pxcbwindow->m_puserinteractionimpl;
+                  ::user::primitive_impl * pimpl = pxcbwindow->m_pwindow;
 
                   if (::is_set(pimpl))
                   {
@@ -1843,7 +1843,7 @@ namespace windowing_xcb
 
                }
 
-               ::user::primitive_impl * pimpl = pxcbwindow->m_puserinteractionimpl;
+               ::user::primitive_impl * pimpl = pxcbwindow->m_pwindow;
 
                if (::is_null(pimpl))
                {
@@ -1974,7 +1974,7 @@ if(bSentResponse)
 
             //pxcbwindow->set_cursor_position(m_pointCursor);
 
-            auto pimpl = pxcbwindow->m_puserinteractionimpl;
+            auto pimpl = pxcbwindow->m_pwindow;
 
             auto puserinteraction = pimpl->m_puserinteraction;
 
@@ -2101,7 +2101,7 @@ if(bSentResponse)
 
             bool bMouseCapture = pxcbwindow->has_mouse_capture();
 
-            bool bHasTranslucency = pxcbwindow->m_puserinteractionimpl->m_puserinteraction->has_translucency();
+            bool bHasTranslucency = pxcbwindow->m_pwindow->m_puserinteraction->has_translucency();
 
             ::color::color screen_pixel;
 
@@ -2118,7 +2118,7 @@ if(bSentResponse)
 
                u8Opacity = screen_pixel.u8_opacity();
 
-               bTransparentMouseEvents = pxcbwindow->m_puserinteractionimpl->m_bTransparentMouseEvents;
+               bTransparentMouseEvents = pxcbwindow->m_pwindow->m_bTransparentMouseEvents;
 
             }
 
@@ -2368,7 +2368,7 @@ if(bSentResponse)
             if(pxcbwindow)
             {
 
-               auto pimpl = pxcbwindow->m_puserinteractionimpl;
+               auto pimpl = pxcbwindow->m_pwindow;
 
                if (::is_set(pimpl))
                {
@@ -2433,7 +2433,7 @@ if(bSentResponse)
 
                }
 
-               auto pimpl = pxcbwindow->m_puserinteractionimpl;
+               auto pimpl = pxcbwindow->m_pwindow;
 
                if (::is_set(pimpl))
                {
@@ -2631,7 +2631,7 @@ if(bSentResponse)
 //
 //      information() << "__defer_post_move_and_or_size sizeWindow : " << sizeWindow;
 //
-//      auto pimpl = oswindow->m_puserinteractionimpl;
+//      auto pimpl = oswindow->m_pwindow;
 //
 //      auto puserinteraction = pimpl->m_puserinteraction;
 //

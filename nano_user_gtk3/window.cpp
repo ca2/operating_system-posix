@@ -539,8 +539,8 @@ namespace gtk3
             // Enable transparency by setting the window as app-paintable
             gtk_widget_set_app_paintable(m_pgtkwidget, TRUE);
 
-            //int w = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().size().cx();
-            //int h = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().size().cy();
+            //int w = m_pwindow->m_puserinteraction->const_layout().sketch().size().cx();
+            //int h = m_pwindow->m_puserinteraction->const_layout().sketch().size().cy();
 
             //cx = maximum(cx, 300);
             //cy = maximum(cy, 300);
@@ -614,9 +614,9 @@ namespace gtk3
             //         return true;
             //      }
             //   }
-            //auto puserinteractionimpl = m_puserinteractionimpl;
+            //auto pwindow = m_pwindow;
 
-            //if(::is_set(puserinteractionimpl))
+            //if(::is_set(pwindow))
             {
 
                auto pmouse = __create_new<::user::mouse>();
@@ -663,7 +663,7 @@ namespace gtk3
 
                //wayland_windowing()->post_ui_message(pmouse);
 
-               //puserinteractionimpl->message_handler(pmouse);
+               //pwindow->message_handler(pmouse);
 
             }
 
@@ -682,9 +682,9 @@ namespace gtk3
             //   }
             //
 
-            //auto puserinteractionimpl = m_puserinteractionimpl;
+            //auto pwindow = m_pwindow;
 
-            //if(::is_set(puserinteractionimpl))
+            //if(::is_set(pwindow))
             {
 
                auto pmouse = __create_new<::user::mouse>();
@@ -739,7 +739,7 @@ namespace gtk3
 
                //wayland_windowing()->post_ui_message(pmouse);
 
-               //puserinteractionimpl->message_handler(pmouse);
+               //pwindow->message_handler(pmouse);
 
             }
 
@@ -782,9 +782,9 @@ namespace gtk3
             //        return true;
             //    }
 
-            //auto puserinteractionimpl = m_puserinteractionimpl;
+            //auto pwindow = m_pwindow;
 
-            //if(::is_set(puserinteractionimpl))
+            //if(::is_set(pwindow))
             {
 
                auto pmouse = __create_new<::user::mouse>();
@@ -863,7 +863,7 @@ namespace gtk3
 
                   m_puserinteractionbase->redraw();
 
-//                  ::user::interaction_impl * pimpl = m_puserinteractionimpl;
+//                  ::windowing::window * pimpl = m_pwindow;
 //
 //                  pimpl->m_puserinteraction->display(::e_display_normal);
 //
@@ -882,7 +882,7 @@ namespace gtk3
                if(event->new_window_state & GDK_WINDOW_STATE_ICONIFIED)
                {
 
-                  //::user::interaction_impl * pimpl = m_puserinteractionimpl;
+                  //::windowing::window * pimpl = m_pwindow;
 
                   //pimpl->m_puserinteraction->layout().m_statea[::user::e_layout_window].m_edisplay = e_display_iconic;
 
@@ -890,7 +890,7 @@ namespace gtk3
                else
                {
 
-//                  ::user::interaction_impl * pimpl = m_puserinteractionimpl;
+//                  ::windowing::window * pimpl = m_pwindow;
 //
 //                  pimpl->m_puserinteraction->display(::e_display_normal);
 //

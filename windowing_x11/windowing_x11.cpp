@@ -38,7 +38,7 @@
 #include "display.h"
 #include "buffer.h"
 #include "aura/message/user.h"
-#include "aura/user/user/interaction_impl.h"
+//#include "aura/user/user/interaction_impl.h"
 #include "aura/platform/session.h"
 #include "aura/platform/application.h"
 #include "aura/message/user.h"
@@ -172,7 +172,7 @@ int_bool _x11_get_cursor_pos(Display *d, ::point_i32 *ppointCursor);
 //}
 
 //
-//bool oswindow_remove_message_only_window(::user::interaction_impl * puibaseMessageOnlyWindow)
+//bool oswindow_remove_message_only_window(::windowing::window * puibaseMessageOnlyWindow)
 //{
 //
 //   single_lock slOsWindow(::osdisplay_data::s_pmutex, true);
@@ -774,7 +774,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 
 
-   ::user::interaction_impl *oswindow_get(oswindow oswindow)
+   ::windowing::window *oswindow_get(oswindow oswindow)
    {
 
       if (is_null(oswindow))
@@ -792,7 +792,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 #else
 
-      return oswindow->m_puserinteractionimpl;
+      return oswindow->m_pwindow;
 
 #endif
 
@@ -1522,13 +1522,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //               }
 
-               ::pointer<buffer> pbuffer = px11window->m_puserinteractionimpl->m_pgraphicsgraphics;
+               ::pointer<buffer> pbuffer = px11window->m_pwindow->m_pgraphicsgraphics;
 
                auto pbufferitem = pbuffer->get_buffer_item();
 
                auto sizeBitBlitting = pbuffer->m_sizeLastBitBlitting;
 
-               //px11window->m_puserinteractionimpl->m_puserinteraction->_set_size(sizeBitBlitting, ::user::e_layout_window);
+               //px11window->m_pwindow->m_puserinteraction->_set_size(sizeBitBlitting, ::user::e_layout_window);
 
                information() << "Got XShmCompletionEvent";
 
@@ -1717,14 +1717,14 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                //g_pointX11Cursor.y = e.xmotion.y_root;
 
-//               if (msg.oswindow != nullptr && msg.oswindow->m_puserinteractionimpl != nullptr)
+//               if (msg.oswindow != nullptr && msg.oswindow->m_pwindow != nullptr)
 //               {
 //
 //                  ((::windowing_x11::window *) msg.oswindow->m_pWindow4)->m_pointCursor = m_pointCursor;
 //
 //                  bool bOk = true;
 //
-//                  ::pointer < ::user::interaction > pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
+//                  ::pointer < ::user::interaction > pinteraction = msg.oswindow->m_pwindow->m_puserinteraction;
 //
 //                  if (pinteraction.is_set())
 //                  {
@@ -1882,7 +1882,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //              if(oswindow)
 //               {
 //
-//                  auto pimpl = oswindow->m_puserinteractionimpl;
+//                  auto pimpl = oswindow->m_pwindow;
 //
 //                  if(pimpl)
 //                  {
@@ -1918,7 +1918,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //               //msg.oswindow->m_pimpl->_001UpdateScreen();
 //
 //               //::pointer<::user::interaction>pinteraction = msg.oswindow->m_pimpl->m_puserinteraction;
-//                  auto pimpl = oswindow->m_puserinteractionimpl;
+//                  auto pimpl = oswindow->m_pwindow;
 //
 //                  if(pimpl)
 //                  {
@@ -1942,7 +1942,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //px11window->
 
 
-                  auto pimpl = px11window->m_puserinteractionimpl;
+                  auto pimpl = px11window->m_pwindow;
 
                   //auto puserinteraction = pimpl->m_puserinteraction;
                   ::pointer<buffer> pbuffer = pimpl->m_pgraphicsgraphics;
@@ -2014,7 +2014,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                      if (::is_set(pwindowActiveNew))
                      {
 
-                        auto pimplNew = pwindowActiveNew->m_puserinteractionimpl;
+                        auto pimplNew = pwindowActiveNew->m_pwindow;
 
                         if (::is_set(pimplNew))
                         {
@@ -2037,7 +2037,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                      if (::is_set(pwindowActiveOld))
                      {
 
-                        auto pimplOld = pwindowActiveOld->m_puserinteractionimpl;
+                        auto pimplOld = pwindowActiveOld->m_pwindow;
 
                         if (::is_set(pimplOld))
                         {
@@ -2067,7 +2067,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                msg.time = e.xproperty.time;
 
-               ::user::interaction *pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
+               ::user::interaction *pinteraction = msg.oswindow->m_pwindow->m_puserinteraction;
 
                if (::is_set(pinteraction))
                {
@@ -2177,7 +2177,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                  information() << "PropertyNotify is_iconic : " << bIconic;
 //
-//                  ::user::interaction * pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
+//                  ::user::interaction * pinteraction = msg.oswindow->m_pwindow->m_puserinteraction;
 //
 //                  if (pinteraction != nullptr)
 //                  {
@@ -2506,7 +2506,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                   }
 
-                  ::user::primitive_impl *pimpl = px11window->m_puserinteractionimpl;
+                  ::user::primitive_impl *pimpl = px11window->m_pwindow;
 
                   if (pimpl != nullptr)
                   {
@@ -2896,7 +2896,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                m_pdisplay->m_pwindowKeyboardFocus = px11window;
 
-               auto pimpl = px11window->m_puserinteractionimpl;
+               auto pimpl = px11window->m_pwindow;
 
                if (::is_set(pimpl))
                {
@@ -2984,7 +2984,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                }
 
-               auto pimpl = px11window->m_puserinteractionimpl;
+               auto pimpl = px11window->m_pwindow;
 
                if (::is_set(pimpl))
                {
@@ -3030,7 +3030,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
               // post_ui_message(msg);
 
                 windowing_output_debug_string("windowing_x11.cpp DestroyNotify going to try to post non_client_destroy message to userinteraction");
-                ::pointer < ::user::interaction > pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
+                ::pointer < ::user::interaction > pinteraction = msg.oswindow->m_pwindow->m_puserinteraction;
 		if(pinteraction)
 		{
                    windowing_output_debug_string("windowing_x11.cpp DestroyNotify postin non_client_destroy message to userinteraction");
@@ -3038,7 +3038,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 		}
 
-           //oswindow_remove_impl(window->m_puserinteractionimpl);
+           //oswindow_remove_impl(window->m_pwindow);
 
                 windowing_output_debug_string("windowing_x11.cpp DestroyNotify erasing window from windowing");
 
@@ -3178,7 +3178,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       ASSERT(oswindow != nullptr);
 
-      auto pimpl = oswindow->m_puserinteractionimpl;
+      auto pimpl = oswindow->m_pwindow;
 
       if (::is_null(pimpl))
       {
@@ -3271,7 +3271,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       ASSERT(oswindow != nullptr);
 
-      auto pimpl = oswindow->m_puserinteractionimpl;
+      auto pimpl = oswindow->m_pwindow;
 
       if (::is_null(pimpl))
       {

@@ -10,7 +10,7 @@
 #include "acme/parallelization/synchronous_lock.h"
 #include "apex/input/input.h"
 #include "aura/windowing/cursor_manager.h"
-#include "aura/user/user/interaction_impl.h"
+//#include "aura/user/user/interaction_impl.h"
 #include "aura/windowing/display.h"
 #include "aura/platform/system.h"
 #include "aura/platform/session.h"
@@ -79,7 +79,7 @@ namespace windowing_gtk3
    }
 
 
-//   ::windowing::window * windowing::new_window(::user::interaction_impl * pimpl)
+//   ::windowing::window * windowing::new_window(::windowing::window * pimpl)
 //   {
 //
 //      ::pointer<::windowing_gtk3::window> pwindow = pimpl->__create<::windowing::window>();
@@ -93,7 +93,7 @@ namespace windowing_gtk3
 //
 //      pwindow->m_pwindowing = this;
 //
-//      pwindow->m_puserinteractionimpl = pimpl;
+//      pwindow->m_pwindow = pimpl;
 //
 //      pimpl->m_pwindow = pwindow;
 //

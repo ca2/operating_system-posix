@@ -1448,7 +1448,7 @@ namespace gtk4
          }
 
 
-         ::particle * window::get_interface_client_particle() // m_puserinteractionimpl->m_puserinteraction
+         ::particle * window::get_interface_client_particle() // m_pwindow->m_puserinteraction
          {
 
             return m_puserinteractionbase;

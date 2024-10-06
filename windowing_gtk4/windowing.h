@@ -125,9 +125,9 @@ namespace windowing_gtk4
 
       //virtual bool set_window_icon(window * pwindow, const ::file::path & path) override;
 
-      //virtual ::windowing::window * new_message_window(::user::interaction_impl * pimpl) override;
+      //virtual ::windowing::window * new_message_window(::windowing::window * pimpl) override;
 
-      //::windowing::window * new_window(::user::interaction_impl * pimpl) override;
+      //::windowing::window * new_window(::windowing::window * pimpl) override;
 
       void erase_window(::windowing::window* pwindow) override;
 

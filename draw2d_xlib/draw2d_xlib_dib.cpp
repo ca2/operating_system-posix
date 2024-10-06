@@ -2559,7 +2559,7 @@ namespace draw2d_xlib
 
 #if defined(WINDOWS)
 
-   bool image::update_window(::user::user::interaction_impl * puserinteraction, ::message::message * pmessage)
+   bool image::update_window(::user::windowing::window * puserinteraction, ::message::message * pmessage)
    {
 
 
@@ -2580,7 +2580,7 @@ namespace draw2d_xlib
    }
 
 
-   bool image::print_window(::user::user::interaction_impl * puserinteraction, ::message::message * pmessage)
+   bool image::print_window(::user::windowing::window * puserinteraction, ::message::message * pmessage)
    {
 
       ::pointer<::user::message>pusermessage(pmessage);

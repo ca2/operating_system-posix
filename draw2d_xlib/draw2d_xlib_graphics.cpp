@@ -113,9 +113,9 @@ namespace draw2d_xlib
    }
 
 
-   /*   ::pointer<::user::user::interaction_impl>graphics::GetWindow() const
+   /*   ::pointer<::user::windowing::window>graphics::GetWindow() const
       {
-         ASSERT(get_handle1() != nullptr); return ::win::user::interaction_impl::from_handle(::WindowFromDC(get_handle1()));
+         ASSERT(get_handle1() != nullptr); return ::win::windowing::window::from_handle(::WindowFromDC(get_handle1()));
       }
    */
 

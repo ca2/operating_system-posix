@@ -18,7 +18,7 @@
 #include "aura/graphics/graphics/graphics.h"
 #include "aura/message/user.h"
 #include "aura/user/user/interaction_graphics_thread.h"
-#include "aura/user/user/interaction_impl.h"
+//#include "aura/user/user/interaction_impl.h"
 #include "aura/platform/message_queue.h"
 #include "aura_posix/node.h"
 #include <wayland-client.h>
@@ -154,17 +154,17 @@ namespace windowing_gtk4
    void window::_on_cairo_draw(GtkWidget * widget, cairo_t * cr)
    {
 
-      if (!m_puserinteractionimpl
-          || !m_puserinteractionimpl->m_puserinteraction)
+      if (!m_pwindow
+          || !m_pwindow->m_puserinteraction)
       {
 
          return;
 
       }
 
-      _synchronous_lock slGraphics(m_puserinteractionimpl->m_pgraphicsgraphics->synchronization());
+      _synchronous_lock slGraphics(m_pwindow->m_pgraphicsgraphics->synchronization());
 
-      auto pitem = m_puserinteractionimpl->m_pgraphicsgraphics->get_screen_item();
+      auto pitem = m_pwindow->m_pgraphicsgraphics->get_screen_item();
 
       _synchronous_lock slImage(pitem->m_pmutex);
 
@@ -203,7 +203,7 @@ namespace windowing_gtk4
 
          pgraphics->detach();
 
-         m_puserinteractionimpl->m_pgraphicsgraphics->on_end_draw();
+         m_pwindow->m_pgraphicsgraphics->on_end_draw();
 
       }
 
@@ -231,7 +231,7 @@ namespace windowing_gtk4
          if (edisplay == e_display_zoomed)
          {
 
-            m_puserinteractionimpl->m_puserinteraction->display(::e_display_zoomed);
+            m_pwindow->m_puserinteraction->display(::e_display_zoomed);
 
             application()->fork([this]()
             {
@@ -257,7 +257,7 @@ namespace windowing_gtk4
           else
           {
 
-            m_puserinteractionimpl->m_puserinteraction->display(::e_display_normal);
+            m_pwindow->m_puserinteraction->display(::e_display_normal);
 
             application()->fork([this]()
             {
@@ -289,7 +289,7 @@ namespace windowing_gtk4
    void window::_on_size(int cx, int cy)
    {
 
-      ::user::interaction_impl * pimpl = m_puserinteractionimpl;
+      ::windowing::window * pimpl = m_pwindow;
 
       auto puserinteraction = pimpl->m_puserinteraction;
 
@@ -616,9 +616,9 @@ namespace windowing_gtk4
 
          guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture));
 
-         auto puserinteractionimpl = m_puserinteractionimpl;
+         auto pwindow = m_pwindow;
 
-         if (::is_set(puserinteractionimpl))
+         if (::is_set(pwindow))
          {
 
             auto pmouse = __create_new<::message::mouse>();
@@ -667,7 +667,7 @@ namespace windowing_gtk4
 
             pmouse->m_pointAbsolute = m_pointCursor2;
 
-            puserinteractionimpl->message_handler(pmouse);
+            pwindow->message_handler(pmouse);
 
          }
 
@@ -684,9 +684,9 @@ namespace windowing_gtk4
 
          auto button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture));
 
-         auto puserinteractionimpl = m_puserinteractionimpl;
+         auto pwindow = m_pwindow;
 
-         if (::is_set(puserinteractionimpl))
+         if (::is_set(pwindow))
          {
 
             auto pmouse = __create_new<::message::mouse>();
@@ -724,7 +724,7 @@ namespace windowing_gtk4
 
             pmouse->m_pointAbsolute = m_pointCursor2;
 
-            puserinteractionimpl->message_handler(pmouse);
+            pwindow->message_handler(pmouse);
 
          }
 
@@ -736,9 +736,9 @@ namespace windowing_gtk4
    void window::_on_motion_notify(GtkEventControllerMotion * pcontroller, double x, double y)
    {
 
-      auto puserinteractionimpl = m_puserinteractionimpl;
+      auto pwindow = m_pwindow;
 
-      if (::is_set(puserinteractionimpl))
+      if (::is_set(pwindow))
       {
 
          auto pmouse = __create_new<::message::mouse>();
@@ -815,7 +815,7 @@ namespace windowing_gtk4
 
          pmouse->m_pointAbsolute = m_pointCursor2;
 
-         puserinteractionimpl->message_handler(pmouse);
+         pwindow->message_handler(pmouse);
 
       }
 
@@ -844,7 +844,7 @@ namespace windowing_gtk4
       {
          g_print("Window has been restored.\n");
 
-         ::user::interaction_impl * pimpl = m_puserinteractionimpl;
+         ::windowing::window * pimpl = m_pwindow;
 
          pimpl->m_puserinteraction->display(::e_display_normal);
 
@@ -888,7 +888,7 @@ namespace windowing_gtk4
       main_send([this, &bOk]()
       {
 
-          ::user::interaction_impl * pimpl = m_puserinteractionimpl;
+          ::windowing::window * pimpl = m_pwindow;
 
           auto pusersystem = pimpl->m_puserinteraction->m_pusersystem;
 
@@ -898,30 +898,30 @@ namespace windowing_gtk4
 
           auto pdisplay = pgtk4windowing->m_pdisplay;
 
-          m_puserinteractionimpl = pimpl;
+          m_pwindow = pimpl;
 
-          m_puserinteractionimpl->m_puserinteraction->m_pwindow = this;
+          m_pwindow->m_puserinteraction->m_pwindow = this;
 
-          m_puserinteractionimpl->m_puserinteraction->m_puserinteractionTopLevel = m_puserinteractionimpl->
+          m_pwindow->m_puserinteraction->m_puserinteractionTopLevel = m_pwindow->
              m_puserinteraction;
 
           m_pdisplaybase = pdisplay;
 
-          m_puserinteractionbase = m_puserinteractionimpl->m_puserinteraction;
+          m_puserinteractionbase = m_pwindow->m_puserinteraction;
 
           information() << "window::create_window m_pnanouserdisplay : " << (::iptr) m_pdisplaybase.m_p;
 
           pimpl->m_pwindow = this;
 
-          int x = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().x();
+          int x = m_pwindow->m_puserinteraction->const_layout().sketch().origin().x();
 
-          int y = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().y();
+          int y = m_pwindow->m_puserinteraction->const_layout().sketch().origin().y();
 
-          int cx = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().width();
+          int cx = m_pwindow->m_puserinteraction->const_layout().sketch().width();
 
-          int cy = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().height();
+          int cy = m_pwindow->m_puserinteraction->const_layout().sketch().height();
 
-          bool bVisible = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().is_screen_visible();
+          bool bVisible = m_pwindow->m_puserinteraction->const_layout().sketch().is_screen_visible();
 
           if (cx <= 0)
           {
@@ -954,7 +954,7 @@ namespace windowing_gtk4
           pimpl->m_puserinteraction->increment_reference_count(
              REFERENCING_DEBUGGING_P_NOTE(this, "native_create_window"));
 
-          m_puserinteractionimpl->m_puserinteraction->__defer_set_owner_to_impl();
+          m_pwindow->m_puserinteraction->__defer_set_owner_to_impl();
 
           bamf_set_icon();
 
@@ -977,23 +977,23 @@ namespace windowing_gtk4
       if (bOk)
       {
 
-         ::user::interaction_impl * pimpl = m_puserinteractionimpl;
+         ::windowing::window * pimpl = m_pwindow;
 
 #ifdef REPORT_OFFSET
 
          printf("(7BB) offset of m_timeFocusStart in ::user::interaction_base = %d\n", offsetof(::user::interaction_base,m_timeFocusStart));
          printf("(7BB) offset of m_bExtendOnParent in ::user::interaction = %d\n", offsetof(::user::interaction, m_bExtendOnParent));
          printf("(7BB) offset of m_pwindow in ::user::interaction = %d\n", offsetof(::user::interaction, m_pwindow));
-         printf("(7BB) offset of m_pImpl2 in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_pImpl2));
-         printf("(7BB) offset of m_timeLastExposureAddUp in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_timeLastExposureAddUp));
-         printf("(7BB) offset of m_strBitmapSource in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_strBitmapSource));
-         printf("(7BB) offset of m_bCursorRedraw in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_bCursorRedraw));
-         printf("(7BB) offset of m_bLockWindowUpdate in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_bLockWindowUpdate));
-         printf("(7BB) offset of m_bOkToUpdateScreen in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_bOkToUpdateScreen));
-         printf("(7BB) offset of m_sizeDrawn in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_sizeDrawn));
-         printf("(7BB) offset of m_pthreadMouseLeave in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_pthreadMouseLeave));
-         printf("(7BB) offset of m_bPointInside in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_bPointInside));
-         printf("(7BB) offset of m_pwindow in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_pwindow));
+         printf("(7BB) offset of m_pImpl2 in ::windowing::window = %d\n", offsetof(::windowing::window, m_pImpl2));
+         printf("(7BB) offset of m_timeLastExposureAddUp in ::windowing::window = %d\n", offsetof(::windowing::window, m_timeLastExposureAddUp));
+         printf("(7BB) offset of m_strBitmapSource in ::windowing::window = %d\n", offsetof(::windowing::window, m_strBitmapSource));
+         printf("(7BB) offset of m_bCursorRedraw in ::windowing::window = %d\n", offsetof(::windowing::window, m_bCursorRedraw));
+         printf("(7BB) offset of m_bLockWindowUpdate in ::windowing::window = %d\n", offsetof(::windowing::window, m_bLockWindowUpdate));
+         printf("(7BB) offset of m_bOkToUpdateScreen in ::windowing::window = %d\n", offsetof(::windowing::window, m_bOkToUpdateScreen));
+         printf("(7BB) offset of m_sizeDrawn in ::windowing::window = %d\n", offsetof(::windowing::window, m_sizeDrawn));
+         printf("(7BB) offset of m_pthreadMouseLeave in ::windowing::window = %d\n", offsetof(::windowing::window, m_pthreadMouseLeave));
+         printf("(7BB) offset of m_bPointInside in ::windowing::window = %d\n", offsetof(::windowing::window, m_bPointInside));
+         printf("(7BB) offset of m_pwindow in ::windowing::window = %d\n", offsetof(::windowing::window, m_pwindow));
 
 #endif
 
@@ -1114,10 +1114,10 @@ namespace windowing_gtk4
    }
 
 
-   void window::set_user_interaction(::user::interaction_impl * pimpl)
+   void window::set_user_interaction(::windowing::window * pimpl)
    {
 
-      m_puserinteractionimpl = pimpl;
+      m_pwindow = pimpl;
 
       m_pmessagequeue = pimpl->m_puserinteraction->m_pthreadUserInteraction->get_message_queue();
 
@@ -1262,14 +1262,14 @@ namespace windowing_gtk4
 
       }
 
-      if (m_puserinteractionimpl == nullptr)
+      if (m_pwindow == nullptr)
       {
 
          return true;
 
       }
 
-      if (!m_puserinteractionimpl->m_puserinteraction->m_bUserElementOk)
+      if (!m_pwindow->m_puserinteraction->m_bUserElementOk)
       {
 
          return true;
@@ -1336,7 +1336,7 @@ namespace windowing_gtk4
                                            const ::e_activation & eactivation, bool bNoZorder, ::e_display edisplay)
    {
 
-      if (!(m_puserinteractionimpl->m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
+      if (!(m_pwindow->m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
       {
 
          return false;
@@ -1427,13 +1427,13 @@ namespace windowing_gtk4
    void window::_set_active_window_unlocked()
    {
 
-      if (!(m_puserinteractionimpl->m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
+      if (!(m_pwindow->m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
       {
 
-         if (m_puserinteractionimpl->m_puserinteraction->const_layout().design().activation() == e_activation_default)
+         if (m_pwindow->m_puserinteraction->const_layout().design().activation() == e_activation_default)
          {
 
-            m_puserinteractionimpl->m_puserinteraction->layout().m_statea[::user::e_layout_sketch].activation() =
+            m_pwindow->m_puserinteraction->layout().m_statea[::user::e_layout_sketch].activation() =
                e_activation_set_active;
 
          }
@@ -1467,12 +1467,12 @@ namespace windowing_gtk4
 
       bool bOk = false;
 
-      auto puserinteractionimpl = m_puserinteractionimpl;
+      auto pwindow = m_pwindow;
 
-      if (::is_set(puserinteractionimpl))
+      if (::is_set(pwindow))
       {
 
-         ::pointer<::user::interaction> pinteraction = puserinteractionimpl->m_puserinteraction;
+         ::pointer<::user::interaction> pinteraction = pwindow->m_puserinteraction;
 
          if (pinteraction.is_set())
          {
@@ -1485,10 +1485,10 @@ namespace windowing_gtk4
 
       ::windowing::window::destroy_window();
 
-      if (::is_set(puserinteractionimpl))
+      if (::is_set(pwindow))
       {
 
-         ::pointer<::user::interaction> pinteraction = puserinteractionimpl->m_puserinteraction;
+         ::pointer<::user::interaction> pinteraction = pwindow->m_puserinteraction;
 
          if (pinteraction.is_set())
          {
@@ -1524,7 +1524,7 @@ namespace windowing_gtk4
       main_post([this]()
       {
 
-         auto pimpl = m_puserinteractionimpl;
+         auto pimpl = m_pwindow;
 
          if (::is_set(pimpl))
          {

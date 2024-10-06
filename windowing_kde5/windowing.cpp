@@ -18,7 +18,7 @@
 #include "acme/windowing/windowing_base.h"
 #include "aura/platform/session.h"
 #include "aura/platform/system.h"
-#include "aura/user/user/interaction_impl.h"
+//#include "aura/user/user/interaction_impl.h"
 #include "aura/user/user/user.h"
 #include "aura/windowing/display.h"
 #include "windowing_system_kde5/windowing_system.h"
@@ -115,7 +115,7 @@ namespace windowing_kde5
    }
 
 
-   //   ::windowing::window * windowing::new_window(::user::interaction_impl * pimpl)
+   //   ::windowing::window * windowing::new_window(::windowing::window * pimpl)
    //   {
    //
    //      ::pointer<::windowing_kde5::window> pwindow = pimpl->__create<::windowing::window>();
@@ -129,7 +129,7 @@ namespace windowing_kde5
    //
    //      pwindow->m_pwindowing = this;
    //
-   //      pwindow->m_puserinteractionimpl = pimpl;
+   //      pwindow->m_pwindow = pimpl;
    //
    //      pimpl->m_pwindow = pwindow;
    //

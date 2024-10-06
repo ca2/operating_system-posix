@@ -48,7 +48,7 @@ namespace windowing_xcb
       ::windowing_xcb::window * xcb_window();
 
 
-      void initialize_graphics_graphics(::user::interaction_impl * pimpl) override;
+      void initialize_graphics_graphics(::windowing::window * pimpl) override;
       void destroy() override;
 
 

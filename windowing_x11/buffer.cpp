@@ -11,7 +11,7 @@
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/node.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
-#include "aura/user/user/interaction_impl.h"
+//#include "aura/user/user/interaction_impl.h"
 #include "aura/graphics/image/image.h"
 #include "windowing_system_x11/display_lock.h"
 
@@ -100,7 +100,7 @@ namespace windowing_x11
    }
 
 
-   void buffer::initialize_graphics_graphics(::user::interaction_impl * pimpl)
+   void buffer::initialize_graphics_graphics(::windowing::window * pimpl)
    {
 
       double_buffer::initialize_graphics_graphics(pimpl);
@@ -637,7 +637,7 @@ namespace windowing_x11
 
             m_sizeLastBitBlitting = sizeBitBlitting;
 
-            x11_window()->m_rectangleXShm = x11_window()->m_puserinteractionimpl->m_puserinteraction->const_layout().parent_raw_rectangle(::user::e_layout_design);
+            x11_window()->m_rectangleXShm = x11_window()->m_pwindow->m_puserinteraction->const_layout().parent_raw_rectangle(::user::e_layout_design);
 
             m_bXShmPutImagePending = true;
 
@@ -700,7 +700,7 @@ namespace windowing_x11
 //
 //            }
 
-               //x11_window()->m_puserinteractionimpl->m_puserinteraction->_set_size(sizeBitBlitting, ::user::e_layout_window);
+               //x11_window()->m_pwindow->m_puserinteraction->_set_size(sizeBitBlitting, ::user::e_layout_window);
 
                x11_window()->_on_end_paint();
 
@@ -743,7 +743,7 @@ namespace windowing_x11
       // if(m_pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning)
       // {
 
-// //     x11_window()->m_puserinteractionimpl->m_puserinteraction->_set_size({ iWidth, iHeight }, ::user::e_layout_window);
+// //     x11_window()->m_pwindow->m_puserinteraction->_set_size({ iWidth, iHeight }, ::user::e_layout_window);
 
       // }
 

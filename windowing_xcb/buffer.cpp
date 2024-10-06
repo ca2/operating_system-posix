@@ -9,7 +9,7 @@
 #include "acme/parallelization/mutex.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "aura/graphics/image/image.h"
-#include "aura/user/user/interaction_impl.h"
+//#include "aura/user/user/interaction_impl.h"
 
 //#define VERI_BASIC_TEST
 
@@ -54,7 +54,7 @@ namespace windowing_xcb
    }
 
 
-   void buffer::initialize_graphics_graphics(::user::interaction_impl * pimpl)
+   void buffer::initialize_graphics_graphics(::windowing::window * pimpl)
    {
 
       //auto estatus =

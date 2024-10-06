@@ -128,18 +128,18 @@ virtual ::windowing_system_gtk4::windowing_system * gtk4_windowing_system();
             void destroy() override;
 
 
-            //virtual ::particle * get_interface_client_particle() = 0; // m_puserinteractionimpl->m_puserinteraction
+            //virtual ::particle * get_interface_client_particle() = 0; // m_pwindow->m_puserinteraction
             //virtual void set_window_width(::i32 iWidth) = 0; // m_sizeWindow.cx()
             //virtual void set_window_height(::i32 iHeight) = 0; // m_sizeWindow.cy()
             //virtual ::size_i32 get_window_size() = 0; // m_sizeWindow
             void set_interface_client_size(const ::size_i32 & sizeWindow) override; // m_sizeWindow
 
-            bool is_window_stored_iconic() override; // m_puserinteractionimpl->m_puserinteraction->const_layout().window().display() == e_display_iconic
-            bool is_window_zoomed() override; // m_puserinteractionimpl->m_puserinteraction->const_layout().window().display() == e_display_iconic
+            bool is_window_stored_iconic() override; // m_pwindow->m_puserinteraction->const_layout().window().display() == e_display_iconic
+            bool is_window_zoomed() override; // m_pwindow->m_puserinteraction->const_layout().window().display() == e_display_iconic
             void window_minimize() override;
-            void window_maximize() override; // m_puserinteractionimpl->m_puserinteraction->display(::e_display_zoomed);
-            void window_full_screen() override; // m_puserinteractionimpl->m_puserinteraction->display(::e_display_full_screen);
-            void window_restore() override; // m_puserinteractionimpl->m_puserinteraction->display(::e_display_normal);
+            void window_maximize() override; // m_pwindow->m_puserinteraction->display(::e_display_zoomed);
+            void window_full_screen() override; // m_pwindow->m_puserinteraction->display(::e_display_full_screen);
+            void window_restore() override; // m_pwindow->m_puserinteraction->display(::e_display_normal);
 
 
             virtual void __activate_window(bool bNormalPriority);
@@ -228,16 +228,16 @@ void defer_show_system_menu(::user::mouse * pmouse) override;
             bool is_window_visible() override;
 
 
-            virtual ::particle * get_interface_client_particle(); // m_puserinteractionimpl->m_puserinteraction
+            virtual ::particle * get_interface_client_particle(); // m_pwindow->m_puserinteraction
             virtual void set_window_width(::i32 iWidth); // m_sizeWindow.cx()
             virtual void set_window_height(::i32 iHeight); // m_sizeWindow.cy()
             virtual ::size_i32 get_window_size(); // m_sizeWindow
             // virtual void set_interface_client_size(const ::size_i32 & sizeWindow); // m_sizeWindow
             //
-            // virtual bool is_window_stored_iconic(); // m_puserinteractionimpl->m_puserinteraction->const_layout().window().display() == e_display_iconic
-            // virtual void window_maximize(); // m_puserinteractionimpl->m_puserinteraction->display(::e_display_zoomed);
-            // virtual void window_full_screen(); // m_puserinteractionimpl->m_puserinteraction->display(::e_display_full_screen);
-            // virtual void window_restore(); // m_puserinteractionimpl->m_puserinteraction->display(::e_display_normal);
+            // virtual bool is_window_stored_iconic(); // m_pwindow->m_puserinteraction->const_layout().window().display() == e_display_iconic
+            // virtual void window_maximize(); // m_pwindow->m_puserinteraction->display(::e_display_zoomed);
+            // virtual void window_full_screen(); // m_pwindow->m_puserinteraction->display(::e_display_full_screen);
+            // virtual void window_restore(); // m_pwindow->m_puserinteraction->display(::e_display_normal);
 
 
 

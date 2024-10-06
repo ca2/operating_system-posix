@@ -336,7 +336,7 @@ namespace nano
       static void handle_done_xdg_popup(void * data, struct xdg_popup * xdg_popup)
       {
          auto pwindow = (window_base *) data;
-         //pwindow->m_puserinteractionimpl->m_puserinteraction->post_message(e_message_close);
+         //pwindow->m_pwindow->m_puserinteraction->post_message(e_message_close);
          pwindow->_on_windowing_close_window();
          //SDL_SendWindowEvent(window->sdlwindow, SDL_WINDOWEVENT_CLOSE, 0, 0);
       }
@@ -562,7 +562,7 @@ namespace nano
          }
 
 
-         //auto puserinteractionOwner = m_puserinteractionimpl->m_puserinteraction->m_puserinteractionOwner;
+         //auto puserinteractionOwner = m_pwindow->m_puserinteraction->m_puserinteractionOwner;
 
          //      if(puserinteractionOwner)
          //      {
@@ -764,7 +764,7 @@ namespace nano
 
          }
 
-         //auto pimpl = m_puserinteractionimpl;
+         //auto pimpl = m_pwindow;
 
 
          if (m_pxdgtoplevel)
@@ -947,7 +947,7 @@ namespace nano
          //
          //      //wayland_windowing()->post_ui_message(pmouse);
          //
-         //      m_puserinteractionimpl->message_handler(pmouse);
+         //      m_pwindow->message_handler(pmouse);
 
       }
 
@@ -1039,7 +1039,7 @@ namespace nano
          //      //post_ui_message(msg);
          //      //wayland_windowing()->post_ui_message(pmouse);
          //
-         //      m_puserinteractionimpl->message_handler(pmouse);
+         //      m_pwindow->message_handler(pmouse);
          //
          ////            }
 
@@ -1204,7 +1204,7 @@ namespace nano
          //
          //         //wayland_windowing()->post_ui_message(pmousewheel);
          //
-         //         m_puserinteractionimpl->message_handler(pmousewheel);
+         //         m_pwindow->message_handler(pmousewheel);
          //
          //      }
          //      else if (bRet)
@@ -1233,7 +1233,7 @@ namespace nano
          //         //post_ui_message(msg);
          //         //wayland_windowing()->post_ui_message(pmouse);
          //
-         //         m_puserinteractionimpl->message_handler(pmouse);
+         //         m_pwindow->message_handler(pmouse);
          //
          //      }
 
@@ -1254,9 +1254,9 @@ namespace nano
 
             //wl_surface_attach(m_pwlsurface, m_buffer.m_pwlbuffer, 0, 0);
 
-            //m_puserinteractionimpl->m_puserinteraction->set_need_redraw();
+            //m_pwindow->m_puserinteraction->set_need_redraw();
 
-            //m_puserinteractionimpl->m_puserinteraction->post_redraw();
+            //m_pwindow->m_puserinteraction->post_redraw();
 
          }
          //wl_surface_damage(surface, 0, 0, WIDTH, HEIGHT);
@@ -1306,12 +1306,12 @@ namespace nano
 
          //      interface_client_set_need
          //
-         //      auto puserinteractionimpl = m_puserinteractionimpl;
+         //      auto pwindow = m_pwindow;
          //
-         //      if(puserinteractionimpl)
+         //      if(pwindow)
          //      {
          //
-         //         auto puserinteraction = m_puserinteractionimpl->m_puserinteraction;
+         //         auto puserinteraction = m_pwindow->m_puserinteraction;
          //
          //         if(puserinteraction)
          //         {
@@ -1409,7 +1409,7 @@ namespace nano
                   if (xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_MAXIMIZED))
                   {
 
-                     //m_puserinteractionimpl->m_puserinteraction->display(::e_display_zoomed);
+                     //m_pwindow->m_puserinteraction->display(::e_display_zoomed);
 
                      window_maximize();
 
@@ -1417,7 +1417,7 @@ namespace nano
                   else if (xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_FULLSCREEN))
                   {
 
-                     //m_puserinteractionimpl->m_puserinteraction->display(::e_display_full_screen);
+                     //m_pwindow->m_puserinteraction->display(::e_display_full_screen);
 
                      window_full_screen();
 
@@ -1425,7 +1425,7 @@ namespace nano
                   else
                   {
 
-                     //m_puserinteractionimpl->m_puserinteraction->display(::e_display_normal);
+                     //m_pwindow->m_puserinteraction->display(::e_display_normal);
 
                      window_restore();
 
@@ -1668,7 +1668,7 @@ namespace nano
                //
                //            information() << "e_message_text_composition";
                //
-               //            m_puserinteractionimpl->message_handler(pkey);
+               //            m_pwindow->message_handler(pkey);
 
             }
 

@@ -96,7 +96,7 @@
 //         }
 //
 //
-//         ::particle * window::get_interface_client_particle() // m_puserinteractionimpl->m_puserinteraction
+//         ::particle * window::get_interface_client_particle() // m_pwindow->m_puserinteraction
 //         {
 //
 //            return m_pinterface;
@@ -170,7 +170,7 @@
 //
 //
 //         bool
-//         window::is_window_stored_iconic() // m_puserinteractionimpl->m_puserinteraction->const_layout().window().display() == e_display_iconic
+//         window::is_window_stored_iconic() // m_pwindow->m_puserinteraction->const_layout().window().display() == e_display_iconic
 //         {
 //
 //            return false;
@@ -178,7 +178,7 @@
 //         }
 //
 //
-//         void window::window_maximize() // m_puserinteractionimpl->m_puserinteraction->display(::e_display_zoomed);
+//         void window::window_maximize() // m_pwindow->m_puserinteraction->display(::e_display_zoomed);
 //         {
 //
 //
@@ -186,14 +186,14 @@
 //
 //
 //         void
-//         window::window_full_screen() // m_puserinteractionimpl->m_puserinteraction->display(::e_display_full_screen);
+//         window::window_full_screen() // m_pwindow->m_puserinteraction->display(::e_display_full_screen);
 //         {
 //
 //
 //         }
 //
 //
-//         void window::window_restore() // m_puserinteractionimpl->m_puserinteraction->display(::e_display_normal);
+//         void window::window_restore() // m_pwindow->m_puserinteraction->display(::e_display_normal);
 //         {
 //
 //
@@ -1192,7 +1192,7 @@
 //         //
 //         //         //wayland_windowing()->post_ui_message(pmousewheel);
 //         //
-//         //         m_puserinteractionimpl->message_handler(pmousewheel);
+//         //         m_pwindow->message_handler(pmousewheel);
 //         //
 //         //      }
 //         //      else if (bRet)
@@ -1221,7 +1221,7 @@
 //         //         //post_ui_message(msg);
 //         //         //wayland_windowing()->post_ui_message(pmouse);
 //         //
-//         //         m_puserinteractionimpl->message_handler(pmouse);
+//         //         m_pwindow->message_handler(pmouse);
 //         //
 //         //      }
 //
@@ -1405,7 +1405,7 @@
 //         //
 //         //         //wayland_windowing()->post_ui_message(pmousewheel);
 //         //
-//         //         m_puserinteractionimpl->message_handler(pmousewheel);
+//         //         m_pwindow->message_handler(pmousewheel);
 //         //
 //         //      }
 //         //      else if (bRet)
@@ -1434,7 +1434,7 @@
 //         //         //post_ui_message(msg);
 //         //         //wayland_windowing()->post_ui_message(pmouse);
 //         //
-//         //         m_puserinteractionimpl->message_handler(pmouse);
+//         //         m_pwindow->message_handler(pmouse);
 //         //
 //         //      }
 //
@@ -1469,7 +1469,7 @@
 //            //
 //            //      //wayland_windowing()->post_ui_message(pmouse);
 //            //
-//            //      m_puserinteractionimpl->message_handler(pmouse);
+//            //      m_pwindow->message_handler(pmouse);
 //
 //            on_mouse_move(pmouse);
 //
@@ -1522,7 +1522,7 @@
 //         //    //
 //         //    //      //wayland_windowing()->post_ui_message(pmouse);
 //         //    //
-//         //    //      m_puserinteractionimpl->message_handler(pmouse);
+//         //    //      m_pwindow->message_handler(pmouse);
 //         //
 //         //    on_mouse_move(pmouse);
 //         //
@@ -1611,7 +1611,7 @@
 //         //    //      //post_ui_message(msg);
 //         //    //      //wayland_windowing()->post_ui_message(pmouse);
 //         //    //
-//         //    //      m_puserinteractionimpl->message_handler(pmouse);
+//         //    //      m_pwindow->message_handler(pmouse);
 //         //    //
 //         //    ////            }
 //         //
@@ -1795,7 +1795,7 @@
 //         //    //
 //         //    //         //wayland_windowing()->post_ui_message(pmousewheel);
 //         //    //
-//         //    //         m_puserinteractionimpl->message_handler(pmousewheel);
+//         //    //         m_pwindow->message_handler(pmousewheel);
 //         //    //
 //         //    //      }
 //         //    //      else if (bRet)
@@ -1824,7 +1824,7 @@
 //         //    //         //post_ui_message(msg);
 //         //    //         //wayland_windowing()->post_ui_message(pmouse);
 //         //    //
-//         //    //         m_puserinteractionimpl->message_handler(pmouse);
+//         //    //         m_pwindow->message_handler(pmouse);
 //         //    //
 //         //    //      }
 //         //

@@ -48,7 +48,7 @@ namespace windowing_x11
       int                                          m_iDepth;
       //int                                        m_iScreen;
       bool                                         m_bMessageOnlyWindow;
-      //::pointer<::user::interaction_impl>        m_pimpl;
+      //::pointer<::windowing::window>        m_pimpl;
       //::pointer<::message_queue>                 m_pmessagequeue;
       htask_t                                      m_htask;
       //Colormap                                   m_colormap;
@@ -87,7 +87,7 @@ namespace windowing_x11
       ~window() override;
 
 
-      //void create_window(::user::interaction_impl * pimpl) override;
+      //void create_window(::windowing::window * pimpl) override;
 
 
       void create_window() override;
@@ -147,7 +147,7 @@ namespace windowing_x11
 
       void exit_zoomed() override;
 
-      virtual void set_user_interaction(::user::interaction_impl * pinteraction);
+      virtual void set_user_interaction(::windowing::window * pinteraction);
 
       virtual void post_nc_destroy();
 

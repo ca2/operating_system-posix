@@ -15,7 +15,7 @@
 #include "apex/platform/system.h"
 #include "aura/graphics/image/image.h"
 #include "aura/user/user/interaction_graphics_thread.h"
-#include "aura/user/user/interaction_impl.h"
+//#include "aura/user/user/interaction_impl.h"
 #include "windowing_system_x11/display_lock.h"
 
 //#define VERI_BASIC_TEST
@@ -120,7 +120,7 @@ namespace windowing_kde5
    }
 
 
-   void buffer::initialize_graphics_graphics(::user::interaction_impl * pimpl)
+   void buffer::initialize_graphics_graphics(::windowing::window * pimpl)
    {
 
       double_buffer::initialize_graphics_graphics(pimpl);
@@ -647,13 +647,13 @@ namespace windowing_kde5
 
       ::pointer<::windowing_kde5::window> pwaylandwindow = m_pimpl->m_pwindow;
 
-      ::string strType = ::type(pwaylandwindow->m_puserinteractionimpl->m_puserinteraction).name();
+      ::string strType = ::type(pwaylandwindow->m_pwindow->m_puserinteraction).name();
 
 //       if(pwaylandwindow->m_pxdgtoplevel == nullptr
 //       && pwaylandwindow->m_pxdgpopup == nullptr)
 //       {
 //
-//          auto edisplay = pwaylandwindow->m_puserinteractionimpl->m_puserinteraction->const_layout().design().display();
+//          auto edisplay = pwaylandwindow->m_pwindow->m_puserinteraction->const_layout().design().display();
 //
 //          if(!pwaylandwindow->windowing()->is_screen_visible(edisplay) && edisplay != e_display_iconic)
 //          {
@@ -687,13 +687,13 @@ namespace windowing_kde5
 //
 //             ::pointer<::windowing_kde5::window> pwaylandwindow = m_pimpl->m_pwindow;
 //
-//             ::string strType = ::type(pwaylandwindow->m_puserinteractionimpl->m_puserinteraction).name();
+//             ::string strType = ::type(pwaylandwindow->m_pwindow->m_puserinteraction).name();
 //
 //             //::pointer<::windowing_kde5::window> pwaylandwindow = m_pimpl->m_pwindow;
 //             if (::is_null(pwaylandwindow->m_pxdgtoplevel)
 //                 && ::is_null(pwaylandwindow->m_pxdgpopup)) {
 //
-//                auto edisplay = pwaylandwindow->m_puserinteractionimpl->m_puserinteraction->const_layout().design().display();
+//                auto edisplay = pwaylandwindow->m_pwindow->m_puserinteraction->const_layout().design().display();
 //
 //                if (!pwaylandwindow->windowing()->is_screen_visible(edisplay) && edisplay != e_display_iconic) {
 //
@@ -709,7 +709,7 @@ namespace windowing_kde5
 //
 //             } else {
 //
-//                auto edisplay = pwaylandwindow->m_puserinteractionimpl->m_puserinteraction->const_layout().design().display();
+//                auto edisplay = pwaylandwindow->m_pwindow->m_puserinteraction->const_layout().design().display();
 //
 //                if (!pwaylandwindow->windowing()->is_screen_visible(edisplay) && edisplay != e_display_iconic) {
 //
@@ -721,7 +721,7 @@ namespace windowing_kde5
 //
 //             }
 //
-//             //          auto pimpl = m_puserinteractionimpl;
+//             //          auto pimpl = m_pwindow;
 //
 //             //if(pwaylandwindow->m_bDoneFirstMapping && ::is_set(pwaylandwindow->m_pxdgtoplevel))
 //             if (::is_set(pwaylandwindow->m_pxdgtoplevel)) {
@@ -935,7 +935,7 @@ namespace windowing_kde5
 //
 //                if (pwaylandwindow) {
 //
-//                   auto pimpl = pwaylandwindow->m_puserinteractionimpl;
+//                   auto pimpl = pwaylandwindow->m_pwindow;
 //
 //                   if (pimpl) {
 //
@@ -1158,7 +1158,7 @@ namespace windowing_kde5
 // //
 // //            m_sizeLastBitBlitting = sizeBitBlitting;
 // //
-// //            x11_window()->m_rectangleXShm = x11_window()->m_puserinteractionimpl->m_puserinteraction->const_layout().parent_raw_rectangle(::user::e_layout_design);
+// //            x11_window()->m_rectangleXShm = x11_window()->m_pwindow->m_puserinteraction->const_layout().parent_raw_rectangle(::user::e_layout_design);
 // //
 // //            m_bXShmPutImagePending = true;
 // //
@@ -1214,7 +1214,7 @@ namespace windowing_kde5
 // ////
 // ////            }
 // //
-// //            //x11_window()->m_puserinteractionimpl->m_puserinteraction->_set_size(sizeBitBlitting, ::user::e_layout_window);
+// //            //x11_window()->m_pwindow->m_puserinteraction->_set_size(sizeBitBlitting, ::user::e_layout_window);
 // //
 // //            x11_window()->_on_end_paint();
 // //
@@ -1255,7 +1255,7 @@ namespace windowing_kde5
 // //      // if(m_pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning)
 // //      // {
 // //
-// //// //     x11_window()->m_puserinteractionimpl->m_puserinteraction->_set_size({ iWidth, iHeight }, ::user::e_layout_window);
+// //// //     x11_window()->m_pwindow->m_puserinteraction->_set_size({ iWidth, iHeight }, ::user::e_layout_window);
 // //
 // //      // }
 

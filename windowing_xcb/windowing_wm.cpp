@@ -7,7 +7,7 @@
 #include "windowing_xcb.h"
 #include "display.h"
 #include "aura/user/user/interaction_graphics_thread.h"
-#include "aura/user/user/interaction_impl.h"
+//#include "aura/user/user/interaction_impl.h"
 #include "aura/platform/message_queue.h"
 //#include <X11/Xatom.h>
 //dnf install xcb-util-wm-devel
@@ -859,10 +859,10 @@ namespace windowing_xcb
 //      else
 //      {
 //
-//         if (m_puserinteractionimpl->m_puserinteraction->const_layout().design().display() != ::e_display_iconic)
+//         if (m_pwindow->m_puserinteraction->const_layout().design().display() != ::e_display_iconic)
 //         {
 //
-//            m_puserinteractionimpl->m_puserinteraction->display(::e_display_iconic);
+//            m_pwindow->m_puserinteraction->display(::e_display_iconic);
 //
 //         }
 //

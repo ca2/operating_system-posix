@@ -8,7 +8,7 @@
 #include "acme/parallelization/synchronous_lock.h"
 #include "apex/parallelization/thread.h"
 #include "windowing_system_xcb/_xcb.h"
-#include "aura/user/user/interaction_impl.h"
+//#include "aura/user/user/interaction_impl.h"
 #include "acme/constant/id.h"
 #include "acme/constant/message.h"
 ////#include "sn/sn.h"
@@ -248,7 +248,7 @@ i32 _cx_XErrorHandler(xcb_connection_t * display, XErrorEvent * perrorevent);
 //}
 
 //
-//bool oswindow_remove_message_only_window(::user::interaction_impl * puibaseMessageOnlyWindow)
+//bool oswindow_remove_message_only_window(::windowing::window * puibaseMessageOnlyWindow)
 //{
 //
 //   single_lock slOsWindow(::osdisplay_data::s_pmutex, true);
@@ -640,7 +640,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 
 
-   ::user::interaction_impl *oswindow_get(oswindow oswindow)
+   ::windowing::window *oswindow_get(oswindow oswindow)
    {
 
       if (is_null(oswindow))
@@ -658,7 +658,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 #else
 
-      return oswindow->m_puserinteractionimpl;
+      return oswindow->m_pwindow;
 
 #endif
 
@@ -959,7 +959,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       }
 
-      auto pimpl = oswindow->m_puserinteractionimpl;
+      auto pimpl = oswindow->m_pwindow;
 
       if(::is_null(pimpl))
       {
@@ -1059,7 +1059,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       }
 
-      auto pimpl = oswindow->m_puserinteractionimpl;
+      auto pimpl = oswindow->m_pwindow;
 
       if(::is_null(pimpl))
       {

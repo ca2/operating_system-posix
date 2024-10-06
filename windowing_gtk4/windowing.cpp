@@ -16,7 +16,7 @@
 #include <X11/cursorfont.h>
 
 #include "acme/windowing/windowing_base.h"
-#include "aura/user/user/interaction_impl.h"
+//#include "aura/user/user/interaction_impl.h"
 #include "aura/windowing/display.h"
 #include "aura/platform/system.h"
 #include "aura/platform/session.h"
@@ -77,7 +77,7 @@ namespace windowing_gtk4
    }
 
 
-   //   ::windowing::window * windowing::new_window(::user::interaction_impl * pimpl)
+   //   ::windowing::window * windowing::new_window(::windowing::window * pimpl)
    //   {
    //
    //      ::pointer<::windowing_gtk4::window> pwindow = pimpl->__create<::windowing::window>();
@@ -91,7 +91,7 @@ namespace windowing_gtk4
    //
    //      pwindow->m_pwindowing = this;
    //
-   //      pwindow->m_puserinteractionimpl = pimpl;
+   //      pwindow->m_pwindow = pimpl;
    //
    //      pimpl->m_pwindow = pwindow;
    //

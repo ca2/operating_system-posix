@@ -15,7 +15,7 @@
 #include "apex/platform/system.h"
 #include "aura/graphics/graphics/graphics.h"
 #include "aura/user/user/interaction_graphics_thread.h"
-#include "aura/user/user/interaction_impl.h"
+//#include "aura/user/user/interaction_impl.h"
 #include "aura/platform/message_queue.h"
 #include <X11/Xatom.h>
 #include <X11/extensions/sync.h>
@@ -72,7 +72,7 @@ namespace windowing_x11
 
       m_window = None;
 
-      //m_puserinteractionimpl = nullptr;
+      //m_pwindow = nullptr;
 
       m_bMessageOnlyWindow = false;
 
@@ -95,7 +95,7 @@ namespace windowing_x11
    }
 
 
-   void window::create_window(::user::interaction_impl * pimpl)
+   void window::create_window(::windowing::window * pimpl)
    {
 
       bool bOk = true;
@@ -128,28 +128,28 @@ namespace windowing_x11
 
          }
 
-         m_puserinteractionimpl = pimpl;
+         m_pwindow = pimpl;
 
-         m_puserinteractionimpl->m_puserinteraction->m_pwindow = this;
+         m_pwindow->m_puserinteraction->m_pwindow = this;
 
-         // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+         // if(::is_null(m_pwindow->m_puserinteraction->m_pwindow))
          // {
 
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+         //    printf("m_pwindow->m_puserinteraction->m_pwindow is null!! (0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
+         //    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
 
          // }
          // else
          // {
 
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+         //    printf("m_pwindow->m_puserinteraction->m_pwindow is set!! (0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
+         //    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
 
          // }
 
          // fflush(stdout);
 
-         m_puserinteractionimpl->m_puserinteraction->m_puserinteractionTopLevel = m_puserinteractionimpl->m_puserinteraction;
+         m_pwindow->m_puserinteraction->m_puserinteractionTopLevel = m_pwindow->m_puserinteraction;
 
          m_pdisplay = pwindowing->display();
 
@@ -160,15 +160,15 @@ namespace windowing_x11
 
          display_lock displaylock(pdisplayx11->Display());
 
-         int x = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().x();
+         int x = m_pwindow->m_puserinteraction->const_layout().sketch().origin().x();
 
-         int y = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().origin().y();
+         int y = m_pwindow->m_puserinteraction->const_layout().sketch().origin().y();
 
-         int cx = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().width();
+         int cx = m_pwindow->m_puserinteraction->const_layout().sketch().width();
 
-         int cy = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().height();
+         int cy = m_pwindow->m_puserinteraction->const_layout().sketch().height();
 
-         bool bVisible = m_puserinteractionimpl->m_puserinteraction->const_layout().sketch().is_screen_visible();
+         bool bVisible = m_pwindow->m_puserinteraction->const_layout().sketch().is_screen_visible();
 
          //      if(pusersystem)
          //      {
@@ -314,18 +314,18 @@ namespace windowing_x11
 
 
 
-         // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+         // if(::is_null(m_pwindow->m_puserinteraction->m_pwindow))
          // {
 
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (2)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+         //    printf("m_pwindow->m_puserinteraction->m_pwindow is null!! (2)(0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
+         //    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
 
          // }
          // else
          // {
 
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (2)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+         //    printf("m_pwindow->m_puserinteraction->m_pwindow is set!! (2)(0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
+         //    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
 
          // }
 
@@ -367,18 +367,18 @@ namespace windowing_x11
 
          }
 
-         // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+         // if(::is_null(m_pwindow->m_puserinteraction->m_pwindow))
          // {
 
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (3)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+         //    printf("m_pwindow->m_puserinteraction->m_pwindow is null!! (3)(0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
+         //    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
 
          // }
          // else
          // {
 
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (3)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+         //    printf("m_pwindow->m_puserinteraction->m_pwindow is set!! (3)(0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
+         //    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
 
          // }
 
@@ -429,18 +429,18 @@ namespace windowing_x11
 
          }
 
-         // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+         // if(::is_null(m_pwindow->m_puserinteraction->m_pwindow))
          // {
 
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (4) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+         //    printf("m_pwindow->m_puserinteraction->m_pwindow is null!! (4) (0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
+         //    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
 
          // }
          // else
          // {
 
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (4) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+         //    printf("m_pwindow->m_puserinteraction->m_pwindow is set!! (4) (0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
+         //    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
 
          // }
 
@@ -552,18 +552,18 @@ namespace windowing_x11
 
          }
 
-         // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+         // if(::is_null(m_pwindow->m_puserinteraction->m_pwindow))
          // {
 
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!!(5) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+         //    printf("m_pwindow->m_puserinteraction->m_pwindow is null!!(5) (0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
+         //    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
 
          // }
          // else
          // {
 
-         //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!!(5) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-         //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+         //    printf("m_pwindow->m_puserinteraction->m_pwindow is set!!(5) (0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
+         //    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
 
          // }
 
@@ -665,18 +665,18 @@ namespace windowing_x11
 
 //      }
 
-      // if(::is_null(m_puserinteractionimpl->m_puserinteraction->m_pwindow))
+      // if(::is_null(m_pwindow->m_puserinteraction->m_pwindow))
       // {
 
-      //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is null!! (6)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-      //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+      //    printf("m_pwindow->m_puserinteraction->m_pwindow is null!! (6)(0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
+      //    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
 
       // }
       // else
       // {
 
-      //    printf("m_puserinteractionimpl->m_puserinteraction->m_pwindow is set!! (6)(0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
-      //    printf("m_puserinteractionimpl->m_puserinteraction (0x%x)\n", m_puserinteractionimpl->m_puserinteraction.m_p);
+      //    printf("m_pwindow->m_puserinteraction->m_pwindow is set!! (6)(0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
+      //    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
 
       // }
 
@@ -698,7 +698,7 @@ namespace windowing_x11
          // else
          // {
 
-         //    printf("pimpl->m_puserinteraction->m_pwindow is set!! (7) (0x%x)\n", m_puserinteractionimpl->m_puserinteraction->m_pwindow);
+         //    printf("pimpl->m_puserinteraction->m_pwindow is set!! (7) (0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
          //    printf("pimpl->m_puserinteraction (0x%x)\n", pimpl->m_puserinteraction.m_p);
 
          // }
@@ -760,16 +760,16 @@ namespace windowing_x11
          printf("(7BB) offset of m_timeFocusStart in ::user::interaction_base = %d\n", offsetof(::user::interaction_base,m_timeFocusStart));
          printf("(7BB) offset of m_bExtendOnParent in ::user::interaction = %d\n", offsetof(::user::interaction, m_bExtendOnParent));
          printf("(7BB) offset of m_pwindow in ::user::interaction = %d\n", offsetof(::user::interaction, m_pwindow));
-         printf("(7BB) offset of m_pImpl2 in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_pImpl2));
-         printf("(7BB) offset of m_timeLastExposureAddUp in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_timeLastExposureAddUp));
-         printf("(7BB) offset of m_strBitmapSource in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_strBitmapSource));
-         printf("(7BB) offset of m_bCursorRedraw in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_bCursorRedraw));
-         printf("(7BB) offset of m_bLockWindowUpdate in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_bLockWindowUpdate));
-         printf("(7BB) offset of m_bOkToUpdateScreen in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_bOkToUpdateScreen));
-         printf("(7BB) offset of m_sizeDrawn in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_sizeDrawn));
-         printf("(7BB) offset of m_pthreadMouseLeave in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_pthreadMouseLeave));
-         printf("(7BB) offset of m_bPointInside in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_bPointInside));
-         printf("(7BB) offset of m_pwindow in ::user::interaction_impl = %d\n", offsetof(::user::interaction_impl, m_pwindow));
+         printf("(7BB) offset of m_pImpl2 in ::windowing::window = %d\n", offsetof(::windowing::window, m_pImpl2));
+         printf("(7BB) offset of m_timeLastExposureAddUp in ::windowing::window = %d\n", offsetof(::windowing::window, m_timeLastExposureAddUp));
+         printf("(7BB) offset of m_strBitmapSource in ::windowing::window = %d\n", offsetof(::windowing::window, m_strBitmapSource));
+         printf("(7BB) offset of m_bCursorRedraw in ::windowing::window = %d\n", offsetof(::windowing::window, m_bCursorRedraw));
+         printf("(7BB) offset of m_bLockWindowUpdate in ::windowing::window = %d\n", offsetof(::windowing::window, m_bLockWindowUpdate));
+         printf("(7BB) offset of m_bOkToUpdateScreen in ::windowing::window = %d\n", offsetof(::windowing::window, m_bOkToUpdateScreen));
+         printf("(7BB) offset of m_sizeDrawn in ::windowing::window = %d\n", offsetof(::windowing::window, m_sizeDrawn));
+         printf("(7BB) offset of m_pthreadMouseLeave in ::windowing::window = %d\n", offsetof(::windowing::window, m_pthreadMouseLeave));
+         printf("(7BB) offset of m_bPointInside in ::windowing::window = %d\n", offsetof(::windowing::window, m_bPointInside));
+         printf("(7BB) offset of m_pwindow in ::windowing::window = %d\n", offsetof(::windowing::window, m_pwindow));
 
 #endif
 
@@ -902,7 +902,7 @@ namespace windowing_x11
    //   ::pointer< ::mutex >window::s_pmutex = nullptr;
 
 
-   //   i32 oswindow_find_message_only_window(::user::interaction_impl *pimpl)
+   //   i32 oswindow_find_message_only_window(::windowing::window *pimpl)
    //   {
    //
    //      if (pimpl == nullptr)
@@ -918,7 +918,7 @@ namespace windowing_x11
    //      {
    //
    //         if (::window::s_pdataptra->element_at(i)->m_bMessageOnlyWindow
-   //             && ::window::s_pdataptra->element_at(i)->m_puserinteractionimpl == pimpl)
+   //             && ::window::s_pdataptra->element_at(i)->m_pwindow == pimpl)
    //         {
    //
    //            return i;
@@ -969,7 +969,7 @@ namespace windowing_x11
    //   }
 
    //
-   //   window *oswindow_get_message_only_window(::user::interaction_impl *pinteraction)
+   //   window *oswindow_get_message_only_window(::windowing::window *pinteraction)
    //   {
    //
    //      if (pinteraction == nullptr)
@@ -994,7 +994,7 @@ namespace windowing_x11
    //
    //      pdata->m_bMessageOnlyWindow = true;
    //      pdata->m_window = None;
-   //      pdata->m_puserinteractionimpl = pinteraction;
+   //      pdata->m_pwindow = pinteraction;
    //      pdata->m_osdisplay = nullptr;
    //      pdata->m_parent = 0;
    //      pdata->m_pmq = pinteraction->m_puserinteraction->m_pthreadUserInteraction->get_mq();
@@ -1076,7 +1076,7 @@ namespace windowing_x11
    //
    //   g_oswindowDesktop = oswindow_get(dpy, DefaultRootWindow(dpy));
    //
-   //   g_oswindowDesktop->m_puserinteractionimpl = nullptr;
+   //   g_oswindowDesktop->m_pwindow = nullptr;
    //
    //   XSelectInput(g_oswindowDesktop->Display(), g_oswindowDesktop->Window(), StructureNotifyMask);
    //
@@ -1284,7 +1284,7 @@ namespace windowing_x11
 
       }
 
-      memory m(m_puserinteractionimpl->m_puserinteraction->get_app());
+      memory m(m_pwindow->m_puserinteraction->get_app());
 
       int length = 2 + image1->area();
 
@@ -1334,7 +1334,7 @@ namespace windowing_x11
 
 #else
 
-      image d1(w->m_puserinteractionimpl->m_puserinteraction->create_new, this);
+      image d1(w->m_pwindow->m_puserinteraction->create_new, this);
 
       if(!d1->create(24, 24))
       {
@@ -1347,7 +1347,7 @@ namespace windowing_x11
 
       d1->get_graphics()->StretchBlt(0, 0, d1.width(), d1.height(), point->get_graphics(), 0, 0, point.width(), point.height());
 
-      image d2(w->m_puserinteractionimpl->m_puserinteraction->create_new, this);
+      image d2(w->m_pwindow->m_puserinteraction->create_new, this);
 
       if(!d2->create(54, 54))
       {
@@ -1360,7 +1360,7 @@ namespace windowing_x11
 
       d2->get_graphics()->StretchBlt(0, 0, d2.width(), d2.height(), point->get_graphics(), 0, 0, point.width(), point.height());
 
-      memory m(w->m_puserinteractionimpl->m_puserinteraction->get_context_application());
+      memory m(w->m_pwindow->m_puserinteraction->get_context_application());
 
       int length = 2 + d1->area() + 2 + d2->area();
 
@@ -1486,7 +1486,7 @@ namespace windowing_x11
    }
 
 
-   void window::set_user_interaction(::user::interaction_impl * pimpl)
+   void window::set_user_interaction(::windowing::window * pimpl)
    {
 
 //      single_lock sl(ms_pmutex, true);
@@ -1498,7 +1498,7 @@ namespace windowing_x11
 //
 //      }
 
-      m_puserinteractionimpl = pimpl;
+      m_pwindow = pimpl;
 
       m_htask = pimpl->get_app()->get_os_handle();
 
@@ -1512,22 +1512,22 @@ namespace windowing_x11
    bool window::is_child(::oswindow oswindow)
    {
 
-      if (oswindow == nullptr || oswindow->m_puserinteractionimpl == nullptr ||
-          oswindow->m_puserinteractionimpl->m_puserinteraction == nullptr)
+      if (oswindow == nullptr || oswindow->m_pwindow == nullptr ||
+          oswindow->m_pwindow->m_puserinteraction == nullptr)
       {
 
          return false;
 
       }
 
-      if (m_puserinteractionimpl == nullptr || m_puserinteractionimpl->m_puserinteraction == nullptr)
+      if (m_pwindow == nullptr || m_pwindow->m_puserinteraction == nullptr)
       {
 
          return false;
 
       }
 
-      return m_puserinteractionimpl->m_puserinteraction->is_child(oswindow->m_puserinteractionimpl->m_puserinteraction);
+      return m_pwindow->m_puserinteraction->is_child(oswindow->m_pwindow->m_puserinteraction);
 
    }
 
@@ -2013,7 +2013,7 @@ namespace windowing_x11
       if (rBest != rWindow)
       {
 
-         m_puserinteractionimpl->m_puserinteraction->place(rBest);
+         m_pwindow->m_puserinteraction->place(rBest);
 
          XMoveResizeWindow(Display(), Window(), rBest.left(), rBest.top(), rBest.width(), rBest.height());
 
@@ -2145,7 +2145,7 @@ namespace windowing_x11
 //   iptr window::get_window_long_ptr(i32 nIndex)
 //   {
 //
-//      return m_puserinteractionimpl->get_window_long_ptr(nIndex);
+//      return m_pwindow->get_window_long_ptr(nIndex);
 //
 //   }
 
@@ -2153,7 +2153,7 @@ namespace windowing_x11
 //   iptr window::set_window_long_ptr(i32 nIndex, iptr i)
 //   {
 //
-//      return m_puserinteractionimpl->set_window_long_ptr(nIndex, i);
+//      return m_pwindow->set_window_long_ptr(nIndex, i);
 //
 //      //iptr iOld = m_plongmap->operator[](nIndex);
 //
@@ -2381,14 +2381,14 @@ namespace windowing_x11
 
       }
 
-      if (m_puserinteractionimpl == nullptr)
+      if (m_pwindow == nullptr)
       {
 
          return true;
 
       }
 
-      if (!m_puserinteractionimpl->m_puserinteraction->m_bUserElementOk)
+      if (!m_pwindow->m_puserinteraction->m_bUserElementOk)
       {
 
          return true;
@@ -2459,7 +2459,7 @@ namespace windowing_x11
 //
 //      ::rectangle_i32 rBest;
 //
-//      int iMonitor = best_xinerama_monitor(m_puserinteractionimpl->m_puserinteraction, rectangle, rBest);
+//      int iMonitor = best_xinerama_monitor(m_pwindow->m_puserinteraction, rectangle, rBest);
 //
 //      windowing_output_debug_string("::oswindow_data::full_screen 1");
 //
@@ -2497,7 +2497,7 @@ namespace windowing_x11
 //      if(rBest != rWindow)
 //      {
 //
-//         m_puserinteractionimpl->m_puserinteraction->place(rBest);
+//         m_pwindow->m_puserinteraction->place(rBest);
 //
 //         XMoveResizeWindow(d, m_window, rBest.left(), rBest.top(), rBest.width(), rBest.height());
 //
@@ -2542,11 +2542,11 @@ namespace windowing_x11
          } else
          {
 
-            if (msg.oswindow != nullptr && msg.oswindow->m_puserinteractionimpl != nullptr &&
-                msg.oswindow->m_puserinteractionimpl->m_puserinteraction != nullptr)
+            if (msg.oswindow != nullptr && msg.oswindow->m_pwindow != nullptr &&
+                msg.oswindow->m_pwindow->m_puserinteraction != nullptr)
             {
 
-               ::user::interaction * pinteraction = msg.oswindow->m_puserinteractionimpl->m_puserinteraction;
+               ::user::interaction * pinteraction = msg.oswindow->m_pwindow->m_puserinteraction;
 
                pinteraction->post_message(msg.m_atom, msg.wParam, msg.lParam);
 
@@ -2572,7 +2572,7 @@ namespace windowing_x11
 
       ASSERT(oswindow != nullptr);
 
-      ::user::interaction * pinteraction = oswindow->m_puserinteractionimpl->m_puserinteraction;
+      ::user::interaction * pinteraction = oswindow->m_pwindow->m_puserinteraction;
 
       ::thread * pthread = nullptr;
 
@@ -2646,7 +2646,7 @@ namespace windowing_x11
    ::e_status window::mq_remove_window_from_all_queues()
    {
 
-      ::user::interaction * pinteraction = m_puserinteractionimpl->m_puserinteraction;
+      ::user::interaction * pinteraction = m_pwindow->m_puserinteraction;
 
       if (pinteraction == nullptr)
       {
@@ -2792,7 +2792,7 @@ namespace windowing_x11
             XMoveResizeWindow(Display(), Window(), x, y, cx, cy);
 
 
-//            if(m_puserinteractionimpl->m_puserinteraction->const_layout().design().display() == e_display_zoomed) {
+//            if(m_pwindow->m_puserinteraction->const_layout().design().display() == e_display_zoomed) {
 //
 //               x11_windowing()->_defer_position_and_size_message(m_oswindow);
 //
@@ -2831,7 +2831,7 @@ namespace windowing_x11
       //      if(attrs.override_redirect)
       //      {
       //
-      //         if(!(m_puserinteractionimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning))
+      //         if(!(m_pwindow->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning))
       //         {
       //
       //            XSetWindowAttributes set;
@@ -2926,17 +2926,17 @@ namespace windowing_x11
 
          }
 
-         //m_puserinteractionimpl->m_puserinteraction->ModifyStyle(0, WS_VISIBLE, 0);
+         //m_pwindow->m_puserinteraction->ModifyStyle(0, WS_VISIBLE, 0);
 
       }
 //      else
 //      {
 //
-//         //m_puserinteractionimpl->m_puserinteraction->ModifyStyle(WS_VISIBLE, 0, 0);
+//         //m_pwindow->m_puserinteraction->ModifyStyle(WS_VISIBLE, 0, 0);
 //
 //      }
 
-      //m_puserinteractionimpl->on_change_visibility();
+      //m_pwindow->on_change_visibility();
 
       windowing_output_debug_string("::window::set_window_pos 2");
 
@@ -3033,7 +3033,7 @@ namespace windowing_x11
 //            XMoveResizeWindow(Display(), Window(), x, y, cx, cy);
 //
 //
-////            if(m_puserinteractionimpl->m_puserinteraction->const_layout().design().display() == e_display_zoomed) {
+////            if(m_pwindow->m_puserinteraction->const_layout().design().display() == e_display_zoomed) {
 ////
 ////               x11_windowing()->_defer_position_and_size_message(m_oswindow);
 ////
@@ -3072,7 +3072,7 @@ namespace windowing_x11
 //      //      if(attrs.override_redirect)
 //      //      {
 //      //
-//      //         if(!(m_puserinteractionimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning))
+//      //         if(!(m_pwindow->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning))
 //      //         {
 //      //
 //      //            XSetWindowAttributes set;
@@ -3167,17 +3167,17 @@ namespace windowing_x11
 //
 //         }
 //
-//         //m_puserinteractionimpl->m_puserinteraction->ModifyStyle(0, WS_VISIBLE, 0);
+//         //m_pwindow->m_puserinteraction->ModifyStyle(0, WS_VISIBLE, 0);
 //
 //      }
 ////      else
 ////      {
 ////
-////         //m_puserinteractionimpl->m_puserinteraction->ModifyStyle(WS_VISIBLE, 0, 0);
+////         //m_pwindow->m_puserinteraction->ModifyStyle(WS_VISIBLE, 0, 0);
 ////
 ////      }
 //
-//      //m_puserinteractionimpl->on_change_visibility();
+//      //m_pwindow->on_change_visibility();
 //
 //      windowing_output_debug_string("::window::set_window_pos 2");
 //
@@ -3455,7 +3455,7 @@ namespace windowing_x11
             XMoveResizeWindow(Display(), Window(), x, y, cx, cy);
 
 
-//            if(m_puserinteractionimpl->m_puserinteraction->const_layout().design().display() == e_display_zoomed) {
+//            if(m_pwindow->m_puserinteraction->const_layout().design().display() == e_display_zoomed) {
 //
 //               x11_windowing()->_defer_position_and_size_message(m_oswindow);
 //
@@ -3502,7 +3502,7 @@ namespace windowing_x11
       //      if(attrs.override_redirect)
       //      {
       //
-      //         if(!(m_puserinteractionimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning))
+      //         if(!(m_pwindow->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning))
       //         {
       //
       //            XSetWindowAttributes set;
@@ -3597,17 +3597,17 @@ namespace windowing_x11
 //
 //         }
 //
-//         //m_puserinteractionimpl->m_puserinteraction->ModifyStyle(0, WS_VISIBLE, 0);
+//         //m_pwindow->m_puserinteraction->ModifyStyle(0, WS_VISIBLE, 0);
 //
 //      }
 ////      else
 ////      {
 ////
-////         //m_puserinteractionimpl->m_puserinteraction->ModifyStyle(WS_VISIBLE, 0, 0);
+////         //m_pwindow->m_puserinteraction->ModifyStyle(WS_VISIBLE, 0, 0);
 ////
 ////      }
 //
-//      //m_puserinteractionimpl->on_change_visibility();
+//      //m_pwindow->on_change_visibility();
 
       windowing_output_debug_string("::window::_strict_set_window_position_unlocked 2");
 
@@ -3878,7 +3878,7 @@ namespace windowing_x11
 
       x11_get_window_rect(&rectangle);
 
-//r = oswindow->m_puserinteractionimpl->m_puserinteraction->window_rectangle();
+//r = oswindow->m_pwindow->m_puserinteraction->window_rectangle();
 
 //string strTopic = x11_get_name(x11_display(), Window());
 
@@ -4296,10 +4296,10 @@ namespace windowing_x11
 
       bool bOk = false;
 
-      if (::is_set(m_puserinteractionimpl))
+      if (::is_set(m_pwindow))
       {
 
-         ::pointer<::user::interaction> pinteraction = m_puserinteractionimpl->m_puserinteraction;
+         ::pointer<::user::interaction> pinteraction = m_pwindow->m_puserinteraction;
 
          if (pinteraction.is_set())
          {
@@ -4316,7 +4316,7 @@ namespace windowing_x11
             try
             {
 
-//window->m_puserinteractionimpl->release();
+//window->m_pwindow->release();
 
             }
             catch (...)
@@ -4326,7 +4326,7 @@ namespace windowing_x11
 
          }
 
-         //oswindow_remove_impl(window->m_puserinteractionimpl);
+         //oswindow_remove_impl(window->m_pwindow);
 
          m_pwindowing->erase_window(this);
 
@@ -4654,7 +4654,7 @@ namespace windowing_x11
 
       }
 
-      auto pimplFocus = pwindowFocus->m_puserinteractionimpl;
+      auto pimplFocus = pwindowFocus->m_pwindow;
 
       if (::is_null(pimplFocus))
       {
@@ -4805,7 +4805,7 @@ namespace windowing_x11
       aaa_user_post([this]()
                                    {
 
-                                      auto pimpl = m_puserinteractionimpl;
+                                      auto pimpl = m_pwindow;
 
                                       if (::is_set(pimpl))
                                       {
@@ -4843,7 +4843,7 @@ namespace windowing_x11
 
          display_lock displayLock(x11_display()->Display());
 
-         auto pimpl = m_puserinteractionimpl;
+         auto pimpl = m_pwindow;
 
          configure_window_unlocked();
 
@@ -4853,7 +4853,7 @@ namespace windowing_x11
 
       }
 
-      auto pimpl = m_puserinteractionimpl;
+      auto pimpl = m_pwindow;
 
       pimpl->m_pgraphicsthread->on_graphics_thread_iteration_end();
 
@@ -4871,7 +4871,7 @@ namespace windowing_x11
 //
 //      display_lock displayLock(x11_display()->Display());
 //
-//      auto pimpl = m_puserinteractionimpl;
+//      auto pimpl = m_pwindow;
 //
 //      if (::is_set(pimpl))
 //      {
@@ -5052,7 +5052,7 @@ namespace windowing_x11
 //   bool window::presentation_complete()
 //   {
 //
-//      return m_puserinteractionimpl->m_pgraphics->presentation_complete();
+//      return m_pwindow->m_pgraphics->presentation_complete();
 //
 //   }
 
