@@ -729,7 +729,7 @@ namespace windowing_gtk3
 //   }
 
 
-   void keyboard::show_software_keyboard(::user::prototype* pprimitive, string str, strsize iBeg, strsize iEnd)
+   void keyboard::show_software_keyboard(::user::interaction_base* pprimitive, string str, strsize iBeg, strsize iEnd)
    {
 
       synchronous_lock synchronouslock(this->synchronization());
@@ -768,7 +768,7 @@ namespace windowing_gtk3
    }
 
 
-   void keyboard::hide_software_keyboard(::user::prototype * pprimitive)
+   void keyboard::hide_software_keyboard(::user::interaction_base * pprimitive)
    {
 
       if (!::is_null(pprimitive) && pprimitive != m_pprimitiveSoftwareKeyboard)

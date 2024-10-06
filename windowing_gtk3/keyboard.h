@@ -23,7 +23,7 @@ namespace windowing_gtk3
       public:
 
 
-      ::pointer<::user::prototype>             m_pprimitiveSoftwareKeyboard;
+      ::pointer<::user::interaction_base>             m_pprimitiveSoftwareKeyboard;
       ::collection::index                                     m_iSoftwareKeyboardEventId;
 
 
@@ -66,9 +66,9 @@ namespace windowing_gtk3
 
       bool load_os_layout(const ::file::path & pszPath) override;
 
-      void show_software_keyboard(::user::prototype * pprimitive, string str, strsize iBeg, strsize iEnd);
+      void show_software_keyboard(::user::interaction_base * pprimitive, string str, strsize iBeg, strsize iEnd);
 
-      void hide_software_keyboard(::user::prototype * pprimitive);
+      void hide_software_keyboard(::user::interaction_base * pprimitive);
 
 
       //virtual void __handle_keyboard_keymap(struct wl_keyboard *keyboard, uint32_t format, int fd, uint32_t size);
