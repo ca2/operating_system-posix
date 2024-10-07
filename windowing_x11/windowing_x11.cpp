@@ -2272,7 +2272,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                auto pdisplay = m_pdisplay->Display();
 
-               nano()->user()->async([this, pdisplay, pSnLauncheeContextSetup]()
+               system()->acme_windowing()->async([this, pdisplay, pSnLauncheeContextSetup]()
                                  {
 
                                     ::x11::display_lock displaylock(pdisplay);
@@ -3337,7 +3337,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    void windowing::user_send(const ::procedure &procedure)
    {
 
-      nano()->user()->sync(procedure);
+      system()->acme_windowing()->sync(procedure);
 
    }
 
@@ -3345,7 +3345,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    void windowing::user_post(const ::procedure &procedure)
    {
 
-      nano()->user()->async(procedure);
+      system()->acme_windowing()->async(procedure);
 
    }
 

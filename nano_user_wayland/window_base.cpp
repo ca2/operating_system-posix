@@ -953,7 +953,7 @@ namespace nano
 
 
 
-      void window_base::__handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::nano::user::window_base * pwaylandwindowLeave)
+      void window_base::__handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::micro::window_base * pwaylandwindowLeave)
       {
 
          auto pinterfaceclientparticle = get_interface_client_particle();

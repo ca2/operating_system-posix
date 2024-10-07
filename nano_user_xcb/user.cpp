@@ -35,7 +35,7 @@ namespace xcb
          void user::sync(const ::procedure & procedure)
          {
 
-            ::xcb::nano::windowing::display::get(this)->display_send(procedure);
+            ::xcb::acme::windowing::display::get(this)->display_send(procedure);
 
          }
 
@@ -43,7 +43,7 @@ namespace xcb
          void user::async(const ::procedure & procedure)
          {
 
-            ::xcb::nano::windowing::display::get(this)->display_post(procedure);
+            ::xcb::acme::windowing::display::get(this)->display_post(procedure);
 
          }
 

@@ -771,7 +771,7 @@ namespace node_gtk3
 
 //#if defined(WITH_X11)
 //
-//         ::x11::nano::user::set_thread();
+//         ::x11::micro::set_thread();
 //
 //#endif
 
@@ -3195,7 +3195,7 @@ namespace node_gtk3
 //
 //      // Show the menu
 //      gtk_menu_popup_at_pointer(GTK_MENU(menu), NULL);
-//      //::pointer < ::windows::nano::user::user >pnanouserWindows = nano()->user();
+//      //::pointer < ::windows::micro::user >pnanouserWindows = system()->acme_windowing();
 //
 //      //pnanouserWindows->_defer_show_system_menu(m_hwnd, &m_hmenuSystem, pointAbsolute);
 //

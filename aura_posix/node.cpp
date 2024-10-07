@@ -331,7 +331,7 @@ namespace aura_posix
 
       //deferx_initializex_x11();
 
-      m_pAuraPosixX11Display = nano()->user()->get_display();
+      m_pAuraPosixX11Display = system()->acme_windowing()->get_display();
 
       if(!m_pAuraPosixX11Display)
       {

@@ -37,14 +37,14 @@
 //#include <KF5/plasma/containment.h>
 
 
-// namespace x11::nano::user
+// namespace x11::micro
 // {
 //
 //
 //    CLASS_DECL_NANO_USER_X11 display * display_get(::particle * pparticle, bool bBranch = true, Display * pdisplay = nullptr);
 //
 //
-// } // namespace x11::nano::user
+// } // namespace x11::micro
 
 
 // void initialize_x11_display(::particle * pparticle, void * pX11Display);
@@ -377,7 +377,7 @@ namespace node_kde5
 //      }
 
 
-         //::x11::nano::windowing::display_get(this, false, (Display *)p);
+         //::x11::acme::windowing::display_get(this, false, (Display *)p);
 
          return ::success;
 
@@ -387,7 +387,7 @@ namespace node_kde5
 
          m_bUnhookX = false;
 
-         //m_pAuraPosixX11Display = ::x11::nano::windowing::display_get(this);
+         //m_pAuraPosixX11Display = ::x11::acme::windowing::display_get(this);
 
          return ::success;
 

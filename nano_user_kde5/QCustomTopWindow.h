@@ -14,10 +14,10 @@ class QCustomTopWindow :
 public:
 
 
-   ::kde5::nano::user::window *     m_pwindow;
+   ::kde5::micro::window *     m_pwindow;
    QImage                           m_qimage;
 
-   QCustomTopWindow(::kde5::nano::user::window * pwindow);
+   QCustomTopWindow(::kde5::micro::window * pwindow);
 
 
 protected:

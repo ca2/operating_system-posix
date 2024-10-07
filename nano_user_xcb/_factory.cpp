@@ -15,9 +15,9 @@ IMPLEMENT_FACTORY(nano_user_xcb)
 
    CALL_FACTORY(nano_user_cairo);
 
-   pfactory->add_factory_item<::xcb::nano::user::interchange, ::nano::user::window_implementation>();
+   pfactory->add_factory_item<::xcb::micro::interchange, ::micro::window_implementation>();
 
-   pfactory->add_factory_item < ::xcb::nano::user::user, ::nano::user::user >();
+   pfactory->add_factory_item < ::xcb::micro::user, ::micro::user >();
 
 }
 

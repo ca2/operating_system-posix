@@ -58,7 +58,7 @@ namespace x11
 
       informationf("node_gtk3::node::x11_initialize going to call x11_init_threads");
 
-      if (!nano()->user()->init_threads()) {
+      if (!system()->acme_windowing()->init_threads()) {
 
          return ::error_failed;
 
@@ -183,7 +183,7 @@ namespace x11
 //    void node::sync(const ::procedure & procedure)
 //    {
 //
-//        nano()->user()->x11_sync(procedure);
+//        system()->acme_windowing()->x11_sync(procedure);
 //
 //    }
 //
@@ -191,7 +191,7 @@ namespace x11
 //    void node::async(const ::procedure & procedure)
 //    {
 //
-//        nano()->user()->x11_async(procedure);
+//        system()->acme_windowing()->x11_async(procedure);
 //
 //    }
 //

@@ -39,8 +39,8 @@ namespace gtk4
 
 
          class window :
-            //virtual public ::x11::nano::user::window_base
-            virtual public ::nano::windowing::window
+            //virtual public ::x11::micro::window_base
+            virtual public ::acme::windowing::window
          {
          public:
 
@@ -103,11 +103,11 @@ GtkWidget*m_pgtkwidget;
                         //rectangle_i32                  m_rectangle;
                         //rectangle_i32                  m_rectangleX;
 
-                        //pointer_array < ::nano::user::child >   m_childa;
+                        //pointer_array < ::micro::child >   m_childa;
                         //::atom                         m_atomLeftButtonDown;
                         //::atom                         m_atomLeftButtonUp;
                         //::atom                         m_atomResult;
-                        //::pointer<::nano::user::child>          m_pchildFocus;
+                        //::pointer<::micro::child>          m_pchildFocus;
                         //::size_i32                     m_sizeWindow;
                         //::size_i32                     m_sizeRequest;
 
@@ -170,7 +170,7 @@ virtual ::windowing_system_gtk4::windowing_system * gtk4_windowing_system();
 
             // virtual void __handle_pointer_enter(::wl_pointer * pwlpointer);
             // virtual void __handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis);
-            // virtual void __handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::nano::user::window_base * pwaylandwindowLeave);
+            // virtual void __handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::micro::window_base * pwaylandwindowLeave);
             // virtual void __handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis);
 
 
@@ -206,7 +206,7 @@ void defer_show_system_menu(::user::mouse * pmouse) override;
             // virtual void __handle_keyboard_key(::wl_keyboard *pwlkeyboard, uint32_t serial, uint32_t time, uint32_t key, uint32_t state);
             // virtual void __handle_keyboard_modifiers(::wl_keyboard *keyboard, uint32_t serial, uint32_t mods_depressed, uint32_t mods_latched, uint32_t mods_locked, uint32_t group);
 
-            ::gtk4::nano::windowing::display_base * gtk4_display();
+            ::gtk4::acme::windowing::display_base * gtk4_display();
 
             virtual void _on_simple_key_message(::user::e_key ekey, ::enum_message emesssage);
             virtual void _on_text_composition(const ::scoped_string & scopedstrText);
@@ -243,7 +243,7 @@ void defer_show_system_menu(::user::mouse * pmouse) override;
 
 
 
-            ::nano::windowing::display * get_display() override;
+            ::acme::windowing::display * get_display() override;
 
 
             //::x11::handle_t _x11_handle() override;
@@ -287,9 +287,9 @@ void defer_show_system_menu(::user::mouse * pmouse) override;
 
             //void update_drawing_objects() override;
 
-            //::nano::user::child * hit_test(::user::mouse * pmouse, ::user::e_zorder ezorder) override;
+            //::micro::child * hit_test(::user::mouse * pmouse, ::user::e_zorder ezorder) override;
 
-            //virtual void add_child(::nano::user::child * pchild);
+            //virtual void add_child(::micro::child * pchild);
 
             //::payload get_result() override;
 
@@ -336,7 +336,7 @@ void defer_show_system_menu(::user::mouse * pmouse) override;
 
             // void __handle_pointer_enter(::wl_pointer * pwlpointer) override;
             // void __handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis) override;
-            // void __handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::nano::user::window_base * pwaylandwindowLeave) override;
+            // void __handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::micro::window_base * pwaylandwindowLeave) override;
             // void __handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis) override;
 
 

@@ -20,7 +20,7 @@ namespace windowing_wayland
 
       //::Cursor                   m_cursor;
       ::wl_cursor *m_pwlcursor;
-      ::wayland::nano::user::buffer m_waylandbuffer;
+      ::wayland::micro::buffer m_waylandbuffer;
       ::wl_cursor_image * m_pwlcursorimage;
 
 

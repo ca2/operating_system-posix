@@ -168,7 +168,7 @@ namespace node_gdk
 
         ::e_status estatus = error_failed;
 
-        nano()->user()->sync([this, iIndex, &rectangle,&estatus]() { estatus = _get_monitor_rectangle(iIndex, rectangle); });
+        system()->acme_windowing()->sync([this, iIndex, &rectangle,&estatus]() { estatus = _get_monitor_rectangle(iIndex, rectangle); });
 
 
         if(estatus.failed())

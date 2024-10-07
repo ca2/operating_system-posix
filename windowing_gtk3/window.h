@@ -32,7 +32,7 @@ namespace windowing_gtk3
 
    class CLASS_DECL_WINDOWING_GTK3 window :
       virtual public ::windowing_posix::window
-         , virtual public ::gtk3::nano::user::window
+         , virtual public ::gtk3::micro::window
    {
    public:
 //::point_i32 m_pointCursor2;

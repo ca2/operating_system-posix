@@ -18,7 +18,7 @@ namespace windowing_gtk4
 
    class CLASS_DECL_WINDOWING_GTK4 display :
       virtual public ::windowing::display,
-      virtual public ::gtk4::nano::windowing::display_base
+      virtual public ::gtk4::acme::windowing::display_base
    {
    public:
 

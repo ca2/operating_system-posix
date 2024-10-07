@@ -20,7 +20,7 @@ namespace x11
 
 
          class CLASS_DECL_ACME user :
-            virtual public ::nano::user::user
+            virtual public ::micro::user
          {
          public:
 

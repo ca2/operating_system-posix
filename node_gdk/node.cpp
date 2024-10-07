@@ -751,7 +751,7 @@ namespace node_gdk
 //
 //#if defined(WITH_X11)
 //
-//         ::x11::nano::user::set_thread();
+//         ::x11::micro::set_thread();
 //
 //#endif
 //
@@ -1470,7 +1470,7 @@ m_bFetchingDarkMode = false;
 
       //gdk_branch(procedure);
 
-      nano()->user()->async(procedure);
+      system()->acme_windowing()->async(procedure);
 
    }
 
@@ -1494,7 +1494,7 @@ m_bFetchingDarkMode = false;
    void node::user_post_quit()
    {
 
-      nano()->user()->async([this]()
+      system()->acme_windowing()->async([this]()
                                 {
 
                                     on_user_system_quit();
@@ -2304,7 +2304,7 @@ m_bFetchingDarkMode = false;
 //
 //      }
 //
-      if(::nano::user::get_display_type() == e_display_type_x11)
+      if(::micro::get_display_type() == e_display_type_x11)
       {
 
          ::aura_posix::node::_allocate_Display_and_connection();

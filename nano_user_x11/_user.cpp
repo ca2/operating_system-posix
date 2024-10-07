@@ -23,9 +23,9 @@ void operating_system_initialize_x11_nano_user(::factory::factory * pfactory)
 
    operating_system_initialize_cairo_nano(pfactory);
 
-   pfactory->add_factory_item<::x11::nano::user::interchange, ::nano::user::window_implementation>();
+   pfactory->add_factory_item<::x11::micro::interchange, ::micro::window_implementation>();
 
-   pfactory->add_factory_item<::x11::nano::user::user, ::nano::user::user>();
+   pfactory->add_factory_item<::x11::micro::user, ::micro::user>();
 
    //::x11::display::_nano_0get(pfactory);
 
@@ -44,7 +44,7 @@ void operating_system_initialize_wayland_nano_user(::factory::factory * pfactory
 void operating_system_initialize_nano_user(::factory::factory * pfactory)
 {
 
-   auto edesktop = ::nano::user::get_edesktop();
+   auto edesktop = ::micro::get_edesktop();
 
    auto psystem = pfactory->system();
 
@@ -74,7 +74,7 @@ void operating_system_initialize_nano_user(::factory::factory * pfactory)
 
    }
 
-   auto edisplaytype = ::nano::user::get_display_type();
+   auto edisplaytype = ::micro::get_display_type();
 
 #ifdef HAS_WAYLAND
 

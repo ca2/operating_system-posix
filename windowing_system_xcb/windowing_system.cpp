@@ -43,7 +43,7 @@ namespace xcb
 
       informationf("node_gtk3::node::x11_initialize going to call x11_init_threads");
 
-      if (!nano()->user()->init_threads())
+      if (!system()->acme_windowing()->init_threads())
       {
 
          return ::error_failed;

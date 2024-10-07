@@ -22,8 +22,8 @@ namespace x11
 
 
          class CLASS_DECL_NANO_USER_X11 window_base :
-            virtual public ::nano::windowing::window,
-            virtual public ::x11::nano::user::window_base_handle,
+            virtual public ::acme::windowing::window,
+            virtual public ::x11::micro::window_base_handle,
             virtual public ::x11::event_listener
          {
          public:

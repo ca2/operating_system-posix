@@ -46,8 +46,8 @@ namespace windowing_kde5
 
    class CLASS_DECL_WINDOWING_KDE5 window :
       virtual public ::windowing_posix::window,
-      virtual public ::kde5::nano::user::window
-         //, virtual public ::wayland::nano::user::window_base
+      virtual public ::kde5::micro::window
+         //, virtual public ::wayland::micro::window_base
    {
    public:
 //::point_i32 m_pointCursor2;

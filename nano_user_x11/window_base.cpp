@@ -32,7 +32,7 @@ namespace x11
          }
 
 
-//         ::x11::nano::windowing::display_t * window_base::_x11_display()
+//         ::x11::acme::windowing::display_t * window_base::_x11_display()
 //         {
 //
 //            if(!m_px11windowbasehandle)
@@ -47,7 +47,7 @@ namespace x11
 //         }
 
 
-//         ::x11::nano::user::window_t  window_base::_x11_window()
+//         ::x11::micro::window_t  window_base::_x11_window()
 //         {
 //
 //            if(!m_px11windowbasehandle)

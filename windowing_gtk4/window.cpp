@@ -134,7 +134,7 @@ namespace windowing_gtk4
    void window::defer_show_system_menu(::user::mouse * pmouse)
    {
 
-      ::gtk4::nano::user::window::defer_show_system_menu(pmouse);
+      ::gtk4::micro::window::defer_show_system_menu(pmouse);
 
    }
 
@@ -322,7 +322,7 @@ namespace windowing_gtk4
                                           int n_press, double x, double y)
    {
 
-      ::gtk4::nano::user::window::_on_window_button_pressed(pitem, pgesture, n_press, x, y);
+      ::gtk4::micro::window::_on_window_button_pressed(pitem, pgesture, n_press, x, y);
       // if(n_press == 1)
       // {
       //    guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture));
@@ -514,7 +514,7 @@ namespace windowing_gtk4
                                            int n_press, double x, double y)
    {
 
-      ::gtk4::nano::user::window::_on_window_button_released(pitem, pgesture, n_press, x, y);
+      ::gtk4::micro::window::_on_window_button_released(pitem, pgesture, n_press, x, y);
 
       // if(n_press == 1)
       // {
@@ -603,7 +603,7 @@ namespace windowing_gtk4
    {
 
       ::windowing_posix::window::on_initialize_particle();
-      ::gtk4::nano::user::window::on_initialize_particle();
+      ::gtk4::micro::window::on_initialize_particle();
 
    }
 
@@ -1239,7 +1239,7 @@ namespace windowing_gtk4
    bool window::is_window_visible()
    {
 
-      return ::gtk4::nano::user::window::is_window_visible();
+      return ::gtk4::micro::window::is_window_visible();
 
    }
 
@@ -1593,7 +1593,7 @@ namespace windowing_gtk4
    bool window::defer_perform_entire_reposition_process(::user::mouse * pmouse)
    {
 
-      return ::gtk4::nano::user::window::defer_perform_entire_reposition_process(pmouse);
+      return ::gtk4::micro::window::defer_perform_entire_reposition_process(pmouse);
 
    }
 
@@ -1601,7 +1601,7 @@ namespace windowing_gtk4
    bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse * pmouse)
    {
 
-      return ::gtk4::nano::user::window::defer_perform_entire_resizing_process(eframeSizing, pmouse);
+      return ::gtk4::micro::window::defer_perform_entire_resizing_process(eframeSizing, pmouse);
 
    }
 

@@ -19,7 +19,7 @@ namespace windowing_gtk4
 
    class CLASS_DECL_WINDOWING_GTK4 window :
       virtual public ::windowing_posix::window,
-      virtual public ::gtk4::nano::user::window
+      virtual public ::gtk4::micro::window
    {
    public:
 

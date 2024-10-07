@@ -99,7 +99,7 @@ namespace windowing_gtk3
    {
 
       ::windowing_posix::window::on_initialize_particle();
-      ::gtk3::nano::user::window::on_initialize_particle();
+      ::gtk3::micro::window::on_initialize_particle();
 
    }
 
@@ -1463,7 +1463,7 @@ bOk = true;
 
       ::windowing_posix::window::destroy();
 
-      //::wayland::nano::user::window_base::destroy();
+      //::wayland::micro::window_base::destroy();
 
    }
 
@@ -3148,7 +3148,7 @@ bOk = true;
    void window::set_mouse_capture()
    {
 
-      ::gtk3::nano::user::window::set_mouse_capture();
+      ::gtk3::micro::window::set_mouse_capture();
 
    }
 
@@ -3156,7 +3156,7 @@ bOk = true;
    void window::release_mouse_capture()
    {
 
-      ::gtk3::nano::user::window::release_mouse_capture();
+      ::gtk3::micro::window::release_mouse_capture();
 
    }
 
@@ -5271,7 +5271,7 @@ bOk = true;
 //
 //       information() << "__handle_pointer_enter";
 //
-//       //::wayland::nano::user::window_base::__handle_pointer_enter(pwlpointer);
+//       //::wayland::micro::window_base::__handle_pointer_enter(pwlpointer);
 //
 //       //m_pointCursor2 = m_pointPointer;
 //
@@ -5283,7 +5283,7 @@ bOk = true;
 //
 //       //m_pwlpointer = pwlpointer;
 //
-//       //::wayland::nano::user::window_base::__handle_pointer_motion(pwlpointer, millis);
+//       //::wayland::micro::window_base::__handle_pointer_motion(pwlpointer, millis);
 //
 //       //m_pointCursor2 = m_pointPointer;
 //
@@ -5720,7 +5720,7 @@ bOk = true;
 // //
 // //      m_sizeConfigure = m_sizeWindow;
 //
-//       ::wayland::nano::user::window_base::__handle_xdg_toplevel_configure(width, height, pwlarrayState);
+//       ::wayland::micro::window_base::__handle_xdg_toplevel_configure(width, height, pwlarrayState);
 //
 //       information()
 //
@@ -5737,21 +5737,21 @@ bOk = true;
 //       else
 //       {
 //
-//          if (::wayland::nano::user::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_MAXIMIZED))
+//          if (::wayland::micro::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_MAXIMIZED))
 //          {
 //
 //             information() << "pwlarrayState contains XDG_TOPLEVEL_STATE_MAXIMIZED";
 //
 //          }
 //
-//          if (::wayland::nano::user::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_FULLSCREEN))
+//          if (::wayland::micro::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_FULLSCREEN))
 //          {
 //
 //             information() << "pwlarrayState contains XDG_TOPLEVEL_STATE_FULLSCREEN";
 //
 //          }
 //
-//          if (::wayland::nano::user::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_ACTIVATED))
+//          if (::wayland::micro::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_ACTIVATED))
 //          {
 //
 //             information() << "pwlarrayState contains XDG_TOPLEVEL_STATE_ACTIVATED";
@@ -5763,13 +5763,13 @@ bOk = true;
 //
 //                information() << "Window was iconic type : " << strType;
 //
-//                if (::wayland::nano::user::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_MAXIMIZED))
+//                if (::wayland::micro::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_MAXIMIZED))
 //                {
 //
 //                   m_pwindow->m_puserinteraction->display(::e_display_zoomed);
 //
 //                }
-//                else if (::wayland::nano::user::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_FULLSCREEN))
+//                else if (::wayland::micro::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_FULLSCREEN))
 //                {
 //
 //                   m_pwindow->m_puserinteraction->display(::e_display_full_screen);
@@ -5996,7 +5996,7 @@ bOk = true;
    //
    //    information() << "__handle_keyboard_enter";
    //
-   //    ::wayland::nano::user::window_base::__handle_keyboard_enter(pwlkeyboard, serial, pwlarrayKeys);
+   //    ::wayland::micro::window_base::__handle_keyboard_enter(pwlkeyboard, serial, pwlarrayKeys);
    //
    // }
    //
@@ -6006,7 +6006,7 @@ bOk = true;
    //
    //    information() << "__handle_keyboard_leave";
    //
-   //    ::wayland::nano::user::window_base::__handle_keyboard_leave(pwlkeyboard, serial);
+   //    ::wayland::micro::window_base::__handle_keyboard_leave(pwlkeyboard, serial);
    //
    // }
 

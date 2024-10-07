@@ -7,9 +7,9 @@
 IMPLEMENT_FACTORY(nano_user_gtk3)
 {
 
-   pfactory->add_factory_item < ::gtk3::nano::user::user, ::nano::user::user >();
-   pfactory->add_factory_item < ::gtk3::nano::user::window, ::nano::windowing::window >();
-   pfactory->add_factory_item < ::gtk3::nano::windowing::display, ::nano::windowing::display >();
+   pfactory->add_factory_item < ::gtk3::micro::user, ::micro::user >();
+   pfactory->add_factory_item < ::gtk3::micro::window, ::acme::windowing::window >();
+   pfactory->add_factory_item < ::gtk3::acme::windowing::display, ::acme::windowing::display >();
 
 }
 

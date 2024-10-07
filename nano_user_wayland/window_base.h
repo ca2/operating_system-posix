@@ -18,7 +18,7 @@ namespace wayland
       namespace user
       {
          class window_base :
-            virtual public ::nano::windowing::window
+            virtual public ::acme::windowing::window
          {
          public:
 
@@ -86,7 +86,7 @@ namespace wayland
 
             virtual void __handle_pointer_enter(::wl_pointer * pwlpointer);
             virtual void __handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis);
-            virtual void __handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::nano::user::window_base * pwaylandwindowLeave);
+            virtual void __handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::micro::window_base * pwaylandwindowLeave);
             virtual void __handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis);
 
 

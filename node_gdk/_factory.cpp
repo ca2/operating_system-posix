@@ -38,7 +38,7 @@ __FACTORY_EXPORT void node_gdk_factory(::factory::factory * pfactory)
 
    //::node_gdk::initialize_gdk();
 
-   auto edisplaytype = ::nano::user::get_display_type();
+   auto edisplaytype = ::micro::get_display_type();
 
 //#if !defined(RASPBERRYPIOS) && !defined(FREEBSD) && !defined(__XFCE) && !defined(OPENBSD)
 

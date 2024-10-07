@@ -365,7 +365,7 @@ namespace node_kde6
    //       //      }
    //
    //
-   //       ::x11::nano::windowing::display_get(this, false, (Display *)p);
+   //       ::x11::acme::windowing::display_get(this, false, (Display *)p);
    //
    //       return ::success;
    //
@@ -375,7 +375,7 @@ namespace node_kde6
    //
    //       m_bUnhookX = false;
    //
-   //       m_pAuraPosixX11Display = ::x11::nano::windowing::display_get(this);
+   //       m_pAuraPosixX11Display = ::x11::acme::windowing::display_get(this);
    //
    //       return ::success;
    //

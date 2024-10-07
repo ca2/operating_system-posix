@@ -46,7 +46,7 @@ __FACTORY_EXPORT void node_kde_factory(::factory::factory * pfactory)
 //   __FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
 //   {
 
-//    auto edisplaytype = ::nano::user::get_display_type();
+//    auto edisplaytype = ::micro::get_display_type();
 //
 // #if !defined(RASPBERRYPIOS) && !defined(FREEBSD) && !defined(__XFCE) && !defined(OPENBSD)
 //

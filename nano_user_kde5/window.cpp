@@ -110,13 +110,13 @@ namespace kde5
          }
 
 
-         ::nano::windowing::display * window::get_display()
+         ::acme::windowing::display * window::get_display()
          {
 
             if (!m_pdisplaybase)
             {
 
-               m_pdisplaybase = nano()->user()->display();
+               m_pdisplaybase = system()->acme_windowing()->display();
 
                if (!m_pdisplaybase)
                {
@@ -135,7 +135,7 @@ namespace kde5
          void window::on_initialize_particle()
          {
 
-            ::nano::windowing::window::on_initialize_particle();
+            ::acme::windowing::window::on_initialize_particle();
 
          }
 
@@ -438,7 +438,7 @@ namespace kde5
       // }
       //
       //
-      // ::nano::user::child * window::hit_test(::user::mouse * pmouse, ::user::e_zorder ezorder)
+      // ::micro::child * window::hit_test(::user::mouse * pmouse, ::user::e_zorder ezorder)
       // {
       //
       //    return m_puserinteractionbase->hit_test(pmouse, ezorder);
@@ -446,7 +446,7 @@ namespace kde5
       // }
 
 
-      //LRESULT CALLBACK ::nano::user::message_box::s_window_procedure(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+      //LRESULT CALLBACK ::micro::message_box::s_window_procedure(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
       //{
       //if (msg == WM_NCCREATE)
       //{
@@ -455,7 +455,7 @@ namespace kde5
       //   SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)pcreatestruct->lpCreateParams);
       //
       //}
-      //::nano::user::message_box * pwindow = (::nano::user::message_box *)GetWindowLongPtr(hwnd, GWLP_USERDATA);
+      //::micro::message_box * pwindow = (::micro::message_box *)GetWindowLongPtr(hwnd, GWLP_USERDATA);
       //
       //if (!pwindow)
       //{
@@ -1005,7 +1005,7 @@ namespace kde5
       //
       //}
 
-      //void window::add_child(::nano::user::child * pchild)
+      //void window::add_child(::micro::child * pchild)
       //{
       //
       //   pchild->m_pwindow = m_puserinteractionbasethis;
@@ -1084,7 +1084,7 @@ namespace kde5
 
          m_eventEnd.SetEvent();
 
-         ::nano::windowing::window::destroy();
+         ::acme::windowing::window::destroy();
 
       }
 

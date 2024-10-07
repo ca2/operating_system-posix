@@ -25,7 +25,7 @@ namespace wayland
 
 
          class CLASS_DECL_ACME display :
-            virtual public ::wayland::nano::windowing::display_base
+            virtual public ::wayland::acme::windowing::display_base
             //virtual public event_listener
          {
          public:

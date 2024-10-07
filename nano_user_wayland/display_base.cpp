@@ -855,7 +855,7 @@ namespace wayland
 
                auto pwlregistry = wl_display_get_registry(m_pwldisplay);
 
-               wl_registry_add_listener(pwlregistry, &::wayland::nano::user::g_wl_registry_listener, this);
+               wl_registry_add_listener(pwlregistry, &::wayland::micro::g_wl_registry_listener, this);
 
                wl_display_dispatch(m_pwldisplay);
 
@@ -1045,7 +1045,7 @@ namespace wayland
 
          }
 
-         ::wayland::nano::user::window_base * display_base::_get_active_window(::thread * pthread)
+         ::wayland::micro::window_base * display_base::_get_active_window(::thread * pthread)
          {
 
             //      auto window = m_px11display->_get_active_window();
@@ -1061,7 +1061,7 @@ namespace wayland
          }
 
 
-         ::wayland::nano::user::window_base * display_base::get_keyboard_focus()
+         ::wayland::micro::window_base * display_base::get_keyboard_focus()
          {
 
             return m_pwindowKeyboardFocus;
@@ -1069,7 +1069,7 @@ namespace wayland
          }
 
 
-         ::wayland::nano::user::window_base * display_base::_get_keyboard_focus()
+         ::wayland::micro::window_base * display_base::_get_keyboard_focus()
          {
 
             //      auto ppropertyobject = ::place(new ::property_object());
@@ -1161,7 +1161,7 @@ namespace wayland
          }
 
 
-         ::wayland::nano::user::window_base * display_base::_window(::wl_surface * pwlsurface)
+         ::wayland::micro::window_base * display_base::_window(::wl_surface * pwlsurface)
          {
 
             if (!pwlsurface)
@@ -1388,7 +1388,7 @@ namespace wayland
 
 
          //void display_base::__handle_pointer_enter(::wl_pointer * pwlpointer, double x, double y,
-         //                                        ::wayland::nano::user::window_base * pwindowPointerEnter)
+         //                                        ::wayland::micro::window_base * pwindowPointerEnter)
 
          void display_base::__handle_pointer_enter(struct wl_pointer * pwlpointer,
                               uint32_t serial, struct wl_surface * pwlsurface,
@@ -1536,7 +1536,7 @@ namespace wayland
 
 
          void
-         display_base::__handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::nano::user::window_base * pwaylandwindowLeave)
+         display_base::__handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::micro::window_base * pwaylandwindowLeave)
          {
 
             if (m_pwindowPointerCapture)
@@ -1846,7 +1846,7 @@ namespace wayland
          void display_base::init_task()
          {
 
-            ::nano::windowing::display::init_task();
+            ::acme::windowing::display::init_task();
 
             ::task_set_name("wayland:display:run");
 
@@ -1951,7 +1951,7 @@ namespace wayland
 
                g_peventCreatingWaylandDisplay->ResetEvent();
 
-               auto p = new ::wayland::nano::windowing::display();
+               auto p = new ::wayland::acme::windowing::display();
 
                s_pdisplaybase = p;
 

@@ -151,7 +151,7 @@ namespace acme_posix
 
          informationf("failed to install segmentation fault signal handler");
 
-         auto psequencer = nano()->user()->message_box("failed to install segmentation fault signal handler",
+         auto psequencer = system()->acme_windowing()->message_box("failed to install segmentation fault signal handler",
                                                "failed to install segmentation fault signal handler",
                                                e_message_box_ok);
 

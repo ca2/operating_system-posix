@@ -21,7 +21,7 @@ namespace wayland
         namespace user
         {
             class display_base :
-               virtual public ::nano::windowing::display,
+               virtual public ::acme::windowing::display,
                virtual public ::xkb_input::xkb_input
             {
             public:
@@ -75,9 +75,9 @@ namespace wayland
                 //::u32 m_uLastPointerButton;
                 //::u32 m_uLastPointerState;
 
-                ::pointer < ::wayland::nano::user::window_base > m_pwindowPointerEnter;
-                ::pointer < ::wayland::nano::user::window_base > m_pwindowPointerCapture;
-                ::pointer < ::wayland::nano::user::window_base > m_pwindowKeyboardFocus;
+                ::pointer < ::wayland::micro::window_base > m_pwindowPointerEnter;
+                ::pointer < ::wayland::micro::window_base > m_pwindowPointerCapture;
+                ::pointer < ::wayland::micro::window_base > m_pwindowKeyboardFocus;
 
 
                 static display_base * s_pdisplaybase;
@@ -110,14 +110,14 @@ namespace wayland
                 virtual ::wl_surface * _wl_surface_focus();
 
 
-                virtual ::wayland::nano::user::window_base * get_keyboard_focus();
+                virtual ::wayland::micro::window_base * get_keyboard_focus();
 
-                virtual ::wayland::nano::user::window_base * _get_keyboard_focus();
+                virtual ::wayland::micro::window_base * _get_keyboard_focus();
 
-                virtual ::wayland::nano::user::window_base * _get_active_window(::thread * pthread);
+                virtual ::wayland::micro::window_base * _get_active_window(::thread * pthread);
 
 
-                virtual ::wayland::nano::user::window_base * _window(::wl_surface * pwlsurface);
+                virtual ::wayland::micro::window_base * _window(::wl_surface * pwlsurface);
 
 
                 virtual bool message_loop_step();
@@ -133,9 +133,9 @@ namespace wayland
                 void update_wayland_buffer(buffer & waylandbuffer, ::pixmap * ppixmap);
 
 
-                //virtual void __handle_pointer_enter(::wl_pointer * pwlpointer, double x, double y, ::wayland::nano::user::window_base * pwindowPointerEnter);
+                //virtual void __handle_pointer_enter(::wl_pointer * pwlpointer, double x, double y, ::wayland::micro::window_base * pwindowPointerEnter);
                 virtual void __handle_pointer_motion(::wl_pointer * pwlpointer, double x, double y, ::u32 time);
-                virtual void __handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::nano::user::window_base * pwindowPointerLeave);
+                virtual void __handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::micro::window_base * pwindowPointerLeave);
 
                 virtual void __handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 time);
 

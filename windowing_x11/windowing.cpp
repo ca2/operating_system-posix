@@ -388,7 +388,7 @@ namespace windowing_x11
 
 
 
-   ::nano::windowing::window * windowing::get_keyboard_focus(::thread *)
+   ::acme::windowing::window * windowing::get_keyboard_focus(::thread *)
    {
 
       if(!m_pdisplay)

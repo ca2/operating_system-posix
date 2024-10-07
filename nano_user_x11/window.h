@@ -25,12 +25,12 @@ namespace x11
 
 
          class CLASS_DECL_ACME window :
-            virtual public ::x11::nano::user::window_base
+            virtual public ::x11::micro::window_base
          {
          public:
 
 
-            ::pointer<::x11::nano::windowing::display>        m_pdisplay;
+            ::pointer<::x11::acme::windowing::display>        m_pdisplay;
             Window                                       m_window;
             Window                                       m_windowRoot;
             cairo_surface_t *                            m_psurface;
@@ -50,20 +50,20 @@ namespace x11
             //rectangle_i32                              m_rectangle;
             //rectangle_i32                              m_rectangleX;
 
-            //pointer_array < ::nano::user::child >      m_childa;
+            //pointer_array < ::micro::child >      m_childa;
             //::atom                                     m_atomLeftButtonDown;
             //::atom                                     m_atomLeftButtonUp;
             //::atom                                     m_atomResult;
-            //::pointer<::nano::user::child>          m_pchildFocus;
+            //::pointer<::micro::child>          m_pchildFocus;
 
 
             window();
             ~window() override;
 
 
-            ::nano::windowing::display * get_display() override;
+            ::acme::windowing::display * get_display() override;
 
-            virtual ::x11::nano::windowing::display * x11_display();
+            virtual ::x11::acme::windowing::display * x11_display();
 
             ::x11::handle_t _x11_handle() override;
 
@@ -105,9 +105,9 @@ namespace x11
 //
 //            void update_drawing_objects() override;
 //
-//            ::nano::user::child * hit_test(::user::mouse * pmouse, ::user::e_zorder ezorder) override;
+//            ::micro::child * hit_test(::user::mouse * pmouse, ::user::e_zorder ezorder) override;
 
-            //virtual void add_child(::nano::user::child * pchild);
+            //virtual void add_child(::micro::child * pchild);
 
 //            ::payload get_result() override;
 //

@@ -48,7 +48,7 @@ namespace nano
 
 
       class CLASS_DECL_NANO_USER_KDE5 display :
-         virtual public ::nano::windowing::display //,
+         virtual public ::acme::windowing::display //,
          //virtual public event_listener
       {
       public:
@@ -58,7 +58,7 @@ namespace nano
          // void *                                 m_pX11Display;
          // xcb_connection_t   *                   m_pconnection;
          // pointer_array < event_listener >        m_eventlistenera;
-         // //pointer_array < nano::user::interchange >           m_windowa;
+         // //pointer_array < micro::interchange >           m_windowa;
          // xcb_window_t                           m_windowActive;
          // //::procedure_array                        m_routineaPost;
          // xcb_depth_t *                          m_pdepth;
@@ -72,7 +72,7 @@ namespace nano
          // acme::malloc < xcb_render_query_pict_formats_reply_t * > m_prender_query_pict_formats_reply2;
          // visual_pictformat_map                                    m_mapVisualPictFormat;
          // visual_depth_map                                         m_mapVisualDepth;
-         map < QWidget *, ::pointer < ::kde5::nano::user::window > >                 m_windowmap;
+         map < QWidget *, ::pointer < ::kde5::micro::window > >                 m_windowmap;
          // pictformat_info_map                                      m_mapFormatInfo;
 
 ///         static display *                       g_p;
@@ -119,10 +119,10 @@ namespace nano
 
 
          //void add_listener(event_listener * plistener);
-         //void add_window(nano::user::interchange * pwindow);
+         //void add_window(micro::interchange * pwindow);
 
          //void erase_listener(event_listener * plistener);
-         //void erase_window(nano::user::interchange * pwindow);
+         //void erase_window(micro::interchange * pwindow);
 
          //bool _on_event(xcb_generic_event_t * pevent) override;
 

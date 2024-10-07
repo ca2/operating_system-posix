@@ -22,7 +22,7 @@ namespace windowing_gtk3
 
    class CLASS_DECL_WINDOWING_GTK3 display :
       virtual public ::windowing::display,
-      virtual public ::gtk3::nano::windowing::display
+      virtual public ::gtk3::acme::windowing::display
    {
    public:
 

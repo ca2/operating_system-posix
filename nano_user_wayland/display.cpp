@@ -82,9 +82,9 @@ namespace nano
       void display::initialize(::particle * pparticle)
       {
 
-         ::nano::windowing::display::initialize(pparticle);
+         ::acme::windowing::display::initialize(pparticle);
 
-         ::wayland::nano::windowing::display_base::initialize(pparticle);
+         ::wayland::acme::windowing::display_base::initialize(pparticle);
 
       }
 
@@ -401,7 +401,7 @@ namespace nano
       //   }
       //
       //
-      //   void display::add_window(nano::user::interchange * pwindow)
+      //   void display::add_window(micro::interchange * pwindow)
       //   {
       //
       //      synchronous_lock synchronouslock(this->synchronization());
@@ -421,7 +421,7 @@ namespace nano
       //   }
       //
       //
-      //   void display::erase_window(nano::user::interchange * pwindow)
+      //   void display::erase_window(micro::interchange * pwindow)
       //   {
       //
       //      synchronous_lock synchronouslock(this->synchronization());
@@ -434,7 +434,7 @@ namespace nano
       bool display::message_loop_step()
       {
 
-         return ::wayland::nano::windowing::display_base::message_loop_step();
+         return ::wayland::acme::windowing::display_base::message_loop_step();
 
       }
       //
@@ -726,17 +726,17 @@ namespace nano
       void * get_display(::particle * pparticle)
       {
 
-         auto pdisplay = ::wayland::nano::windowing::display::get(pparticle, false);
+         auto pdisplay = ::wayland::acme::windowing::display::get(pparticle, false);
 
          return pdisplay->m_pwldisplay;
 
       }
 
 
-      void set_display(::wayland::nano::windowing::display_base * pdisplaybase)
+      void set_display(::wayland::acme::windowing::display_base * pdisplaybase)
       {
 
-         ::wayland::nano::windowing::display_base::s_pdisplaybase = pdisplaybase;
+         ::wayland::acme::windowing::display_base::s_pdisplaybase = pdisplaybase;
 
       }
 
@@ -744,7 +744,7 @@ namespace nano
       void initialize_display(::particle * pparticle, void * pwaylanddisplay)
       {
 
-         ::wayland::nano::windowing::display::get(pparticle, false, (::wl_display *) pwaylanddisplay);
+         ::wayland::acme::windowing::display::get(pparticle, false, (::wl_display *) pwaylanddisplay);
 
       }
 
@@ -752,7 +752,7 @@ namespace nano
       void * initialize_display(::particle * pparticle)
       {
 
-         auto pdisplay = ::wayland::nano::windowing::display::get(pparticle, false);
+         auto pdisplay = ::wayland::acme::windowing::display::get(pparticle, false);
 
          return pdisplay->m_pwldisplay;
 
@@ -762,10 +762,10 @@ namespace nano
       void process_messages()
       {
 
-         if(::wayland::nano::windowing::display_base::s_pdisplaybase)
+         if(::wayland::acme::windowing::display_base::s_pdisplaybase)
          {
 
-            ::wayland::nano::windowing::display_base::s_pdisplaybase->message_loop_step();
+            ::wayland::acme::windowing::display_base::s_pdisplaybase->message_loop_step();
 
          }
 

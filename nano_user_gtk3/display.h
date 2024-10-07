@@ -26,7 +26,7 @@ namespace gtk3
          using window_map = map<::GtkWidget *, ::pointer<window> >;
 
          class display :
-            virtual public ::nano::windowing::display //,     virtual public event_listener
+            virtual public ::acme::windowing::display //,     virtual public event_listener
          {
          public:
 
@@ -34,7 +34,7 @@ namespace gtk3
             bool                                         m_bUnhook;
             //Display   *                                  m_pdisplay;
             //pointer_array < event_listener >             m_eventlistenera;
-            //pointer_array < ::x11::nano::user::interchange >  m_windowa;
+            //pointer_array < ::x11::micro::interchange >  m_windowa;
             //Window                                       m_windowActive;
             //map < enum_atom, Atom >                      m_atommap;
 
@@ -79,10 +79,10 @@ window_map                                               m_windowmap;
 
 
 //            void add_listener(event_listener * plistener);
-//            void add_window(::x11::nano::user::interchange * pwindow);
+//            void add_window(::x11::micro::interchange * pwindow);
 //
 //            void erase_listener(event_listener * plistener);
-//            void erase_window(::x11::nano::user::interchange * pwindow);
+//            void erase_window(::x11::micro::interchange * pwindow);
 //
 //            bool _on_event(XEvent * pevent) override;
 //

@@ -97,21 +97,21 @@ namespace x11
          }
 
 
-         ::x11::nano::windowing::display * window::x11_display()
+         ::x11::acme::windowing::display * window::x11_display()
          {
 
-            return dynamic_cast < ::x11::nano::windowing::display * >(get_display());
+            return dynamic_cast < ::x11::acme::windowing::display * >(get_display());
 
          }
 
 
-         ::nano::windowing::display * window::get_display()
+         ::acme::windowing::display * window::get_display()
          {
 
             if (!m_pdisplay)
             {
 
-               m_pdisplay = ::x11::nano::windowing::display_get(this);
+               m_pdisplay = ::x11::acme::windowing::display_get(this);
 
                if (!m_pdisplay)
                {
@@ -130,7 +130,7 @@ namespace x11
          void window::on_initialize_particle()
          {
 
-            ::x11::nano::user::window_base::on_initialize_particle();
+            ::x11::micro::window_base::on_initialize_particle();
 
          }
 
@@ -362,7 +362,7 @@ namespace x11
 //         }
 
 
-//         ::nano::user::child * window::hit_test(::user::mouse * pmouse, ::user::e_zorder ezorder)
+//         ::micro::child * window::hit_test(::user::mouse * pmouse, ::user::e_zorder ezorder)
 //         {
 //
 //            return m_puserinteractionbase->hit_test(pmouse, ezorder);

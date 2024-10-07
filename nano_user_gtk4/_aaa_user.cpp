@@ -16,7 +16,7 @@ void operating_system_initialize_gtk4_nano_user(::factory::factory * pfactory)
 
    //operating_system_initialize_cairo_nano(pfactory);
 
-   pfactory->add_factory_item<::gtk4::nano::user::window, ::nano::windowing::window>();
+   pfactory->add_factory_item<::gtk4::micro::window, ::acme::windowing::window>();
    //pfactory->add_factory_item<::gtk4::nano::graphics::icon, ::nano::graphics::icon>();
 
    //::wayland::display::get(pfactory);

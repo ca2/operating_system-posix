@@ -126,7 +126,7 @@ namespace node_gtk3
 
          }
 
-         ::nano::user::initialize_display_type(calculate_display_type());
+         ::micro::initialize_display_type(calculate_display_type());
 
       }
 

@@ -131,7 +131,7 @@ namespace windowing_gtk4
 
       void erase_window(::windowing::window* pwindow) override;
 
-      //virtual ::wayland::nano::user::window_base * _window(::wl_surface * pwlsurface);
+      //virtual ::wayland::micro::window_base * _window(::wl_surface * pwlsurface);
 
 
       //virtual void _message_handler(void * p);
@@ -146,7 +146,7 @@ namespace windowing_gtk4
 
       // ::windowing::window* get_active_window(::thread* pthread) override;
 
-      ::nano::windowing::window* get_keyboard_focus(::thread* pthread) override;
+      ::acme::windowing::window* get_keyboard_focus(::thread* pthread) override;
 
       void _on_activate_gtk_application();
       ///::pointer < ::input::input > get_input() override;

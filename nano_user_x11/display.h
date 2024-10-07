@@ -28,7 +28,7 @@ namespace x11
 
 
          class display :
-            virtual public ::nano::windowing::display,
+            virtual public ::acme::windowing::display,
             virtual public event_listener
          {
          public:
@@ -37,7 +37,7 @@ namespace x11
             bool                                               m_bUnhook;
             Display   *                                        m_pdisplay;
             pointer_array < event_listener >                   m_eventlistenera;
-            pointer_array < ::x11::nano::user::window >        m_windowa;
+            pointer_array < ::x11::micro::window >        m_windowa;
             Window                                             m_windowActive;
             map < enum_atom, Atom >                            m_atommap;
 
@@ -82,10 +82,10 @@ namespace x11
 
 
             void add_listener(event_listener * plistener);
-            void add_window(::x11::nano::user::window * pwindow);
+            void add_window(::x11::micro::window * pwindow);
 
             void erase_listener(event_listener * plistener);
-            void erase_window(::x11::nano::user::window * pwindow);
+            void erase_window(::x11::micro::window * pwindow);
 
             bool _on_x11_event(::x11::event_t * peventX11) override;
 

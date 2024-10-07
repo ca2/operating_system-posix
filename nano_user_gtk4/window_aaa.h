@@ -23,7 +23,7 @@ namespace gtk4
       namespace user
       {
          class CLASS_DECL_ACME window :
-            //virtual public ::nano::user::window_implementation,
+            //virtual public ::micro::window_implementation,
             //virtual public event_listener,
             virtual public window_base
          {
@@ -50,11 +50,11 @@ namespace gtk4
             //rectangle_i32                  m_rectangle;
             //rectangle_i32                  m_rectangleX;
 
-            //pointer_array < ::nano::user::child >   m_childa;
+            //pointer_array < ::micro::child >   m_childa;
             //::atom                         m_atomLeftButtonDown;
             //::atom                         m_atomLeftButtonUp;
             //::atom                         m_atomResult;
-            //::pointer<::nano::user::child>          m_pchildFocus;
+            //::pointer<::micro::child>          m_pchildFocus;
             //::size_i32                     m_sizeWindow;
             //::size_i32                     m_sizeRequest;
 
@@ -78,7 +78,7 @@ namespace gtk4
 
 
 
-            ::nano::windowing::display * get_display() override;
+            ::acme::windowing::display * get_display() override;
 
 
             void on_initialize_particle() override;
@@ -119,9 +119,9 @@ namespace gtk4
 
             void update_drawing_objects() override;
 
-            ::nano::user::child * hit_test(::user::mouse * pmouse, ::user::e_zorder ezorder) override;
+            ::micro::child * hit_test(::user::mouse * pmouse, ::user::e_zorder ezorder) override;
 
-            //virtual void add_child(::nano::user::child * pchild);
+            //virtual void add_child(::micro::child * pchild);
 
             ::payload get_result() override;
 
@@ -168,7 +168,7 @@ namespace gtk4
 
             // void __handle_pointer_enter(::wl_pointer * pwlpointer) override;
             // void __handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis) override;
-            // void __handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::nano::user::window_base * pwaylandwindowLeave) override;
+            // void __handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::micro::window_base * pwaylandwindowLeave) override;
             // void __handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis) override;
 
 

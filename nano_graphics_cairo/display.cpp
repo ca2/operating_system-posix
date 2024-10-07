@@ -359,7 +359,7 @@ namespace x11
          }
 
 
-         void display::add_window(nano::user::interchange * pwindow)
+         void display::add_window(micro::interchange * pwindow)
          {
 
             synchronous_lock synchronouslock(this->synchronization());
@@ -379,7 +379,7 @@ namespace x11
          }
 
 
-         void display::erase_window(::x11::nano::user::interchange * pwindow)
+         void display::erase_window(::x11::micro::interchange * pwindow)
          {
 
             synchronous_lock synchronouslock(this->synchronization());
@@ -484,7 +484,7 @@ namespace x11
 
             bool bHandled2;
 
-            information() << "x11::nano::windowing::display::message_loop";
+            information() << "x11::acme::windowing::display::message_loop";
 
             while (::task_get_run())
             {
@@ -725,10 +725,10 @@ namespace x11
       void process_messages()
       {
 
-         if(::x11::nano::windowing::display::g_p)
+         if(::x11::acme::windowing::display::g_p)
          {
 
-            ::x11::nano::windowing::display::g_p->message_loop_step();
+            ::x11::acme::windowing::display::g_p->message_loop_step();
 
          }
 
@@ -1097,14 +1097,14 @@ const char * pszRequest;
 //
 //      fflush(stdout);
 //
-//      if (!::x11::nano::user::init_threads())
+//      if (!::x11::micro::init_threads())
 //      {
 //
 //         return ::error_failed;
 //
 //      }
 //
-//      XSetErrorHandler(::x11::nano::user::_c_XErrorHandler);
+//      XSetErrorHandler(::x11::micro::_c_XErrorHandler);
 //
 //      //g_pmutexX11 = new ::pointer < ::mutex >();
 //

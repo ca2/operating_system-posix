@@ -37,7 +37,7 @@ namespace kde5
          void user::sync(const ::procedure & procedure)
          {
 
-            nano()->user()->main_send(procedure);
+            system()->acme_windowing()->main_send(procedure);
 
          }
 
@@ -45,7 +45,7 @@ namespace kde5
          void user::async(const ::procedure & procedure)
          {
 
-            nano()->user()->main_post(procedure);
+            system()->acme_windowing()->main_post(procedure);
 
          }
 

@@ -8,11 +8,11 @@
 IMPLEMENT_FACTORY(nano_user_kde5)
 {
 
-   pfactory->add_factory_item<::kde5::nano::user::window, ::nano::windowing::window>();
+   pfactory->add_factory_item<::kde5::micro::window, ::acme::windowing::window>();
 
-   pfactory->add_factory_item < ::kde5::nano::user::user, ::nano::user::user >();
+   pfactory->add_factory_item < ::kde5::micro::user, ::micro::user >();
 
-   pfactory->add_factory_item < ::kde5::nano::windowing::display, ::nano::windowing::display >();
+   pfactory->add_factory_item < ::kde5::acme::windowing::display, ::acme::windowing::display >();
 
 }
 

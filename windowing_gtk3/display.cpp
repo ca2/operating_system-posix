@@ -178,7 +178,7 @@ namespace windowing_gtk3
 
       ::windowing::display::initialize(pparticle);
 
-      //::wayland::nano::windowing::display_base::initialize(pparticle);
+      //::wayland::acme::windowing::display_base::initialize(pparticle);
 
    }
 
@@ -618,7 +618,7 @@ namespace windowing_gtk3
 //   }
 
 
-//   ::wayland::nano::user::window_base * display::_get_active_window(::thread * pthread)
+//   ::wayland::micro::window_base * display::_get_active_window(::thread * pthread)
 //   {
 //
 ////      auto window = m_px11display->_get_active_window();

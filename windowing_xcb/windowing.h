@@ -72,7 +72,7 @@ namespace windowing_xcb
 
 
       Display * _get_Display();
-      ::x11::nano::windowing::display * _get_display();
+      ::x11::acme::windowing::display * _get_display();
       xcb_connection_t * _get_connection();
 
 
@@ -128,7 +128,7 @@ namespace windowing_xcb
 
       ::windowing::window * get_active_window(::thread * pthread) override;
 
-      ::nano::windowing::window * get_keyboard_focus(::thread * pthread) override;
+      ::acme::windowing::window * get_keyboard_focus(::thread * pthread) override;
 
       ::windowing::window * get_mouse_capture(::thread * pthread) override;
 

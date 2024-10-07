@@ -53,7 +53,7 @@ namespace node_gtk3
    ::pointer < ::graphics::graphics > desktop_environment::create_graphics()
    {
 
-      auto edisplaytype = ::nano::user::get_display_type();
+      auto edisplaytype = ::micro::get_display_type();
 
       //#if !defined(RASPBERRYPIOS) && !defined(FREEBSD) && !defined(__XFCE) && !defined(OPENBSD)
 
@@ -185,7 +185,7 @@ namespace node_gtk3
 //      if(::windowing::get_ewindowing() == ::windowing::e_windowing_x11)
 //      {
 //
-//         nano()->user()->sync([this, iIndex, prectangle]() { _get_monitor_rectangle(iIndex, prectangle); });
+//         system()->acme_windowing()->sync([this, iIndex, prectangle]() { _get_monitor_rectangle(iIndex, prectangle); });
 //
 //      }
 //      else

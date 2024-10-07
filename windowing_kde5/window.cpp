@@ -273,7 +273,7 @@ namespace windowing_kde5
    {
 
       ::windowing_posix::window::on_initialize_particle();
-      ::kde5::nano::user::window::on_initialize_particle();
+      ::kde5::micro::window::on_initialize_particle();
 
    }
 
@@ -544,7 +544,7 @@ namespace windowing_kde5
    {
 
 
-      ::kde5::nano::user::window::defer_show_system_menu(pmouse);
+      ::kde5::micro::window::defer_show_system_menu(pmouse);
 
 
       // // Function to create and show the popup menu
@@ -2668,7 +2668,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    {
       ::windowing_posix::window::destroy();
 
-      //::wayland::nano::user::window_base::destroy();
+      //::wayland::micro::window_base::destroy();
    }
 
 
@@ -5150,7 +5150,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    void window::set_mouse_capture()
    {
 
-      ::kde5::nano::user::window::set_mouse_capture();
+      ::kde5::micro::window::set_mouse_capture();
 
    }
 
@@ -5222,7 +5222,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    bool window::has_mouse_capture()
    {
 
-      if(!::kde5::nano::user::window::has_mouse_capture())
+      if(!::kde5::micro::window::has_mouse_capture())
       {
 
          return false;
@@ -5237,7 +5237,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    bool window::is_mouse_captured()
    {
 
-      if(!::kde5::nano::user::window::is_mouse_captured())
+      if(!::kde5::micro::window::is_mouse_captured())
       {
 
          return false;
@@ -5252,7 +5252,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    void window::release_mouse_capture()
    {
 
-      ::kde5::nano::user::window::release_mouse_capture();
+      ::kde5::micro::window::release_mouse_capture();
 
    }
 
@@ -6389,7 +6389,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //
    //       information() << "__handle_pointer_enter";
    //
-   //       //::wayland::nano::user::window_base::__handle_pointer_enter(pwlpointer);
+   //       //::wayland::micro::window_base::__handle_pointer_enter(pwlpointer);
    //
    //       //m_pointCursor2 = m_pointPointer;
    //
@@ -6401,7 +6401,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //
    //       //m_pwlpointer = pwlpointer;
    //
-   //       //::wayland::nano::user::window_base::__handle_pointer_motion(pwlpointer, millis);
+   //       //::wayland::micro::window_base::__handle_pointer_motion(pwlpointer, millis);
    //
    //       //m_pointCursor2 = m_pointPointer;
    //
@@ -6838,7 +6838,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    // //
    // //      m_sizeConfigure = m_sizeWindow;
    //
-   //       ::wayland::nano::user::window_base::__handle_xdg_toplevel_configure(width, height, pwlarrayState);
+   //       ::wayland::micro::window_base::__handle_xdg_toplevel_configure(width, height, pwlarrayState);
    //
    //       information()
    //
@@ -6855,21 +6855,21 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //       else
    //       {
    //
-   //          if (::wayland::nano::user::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_MAXIMIZED))
+   //          if (::wayland::micro::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_MAXIMIZED))
    //          {
    //
    //             information() << "pwlarrayState contains XDG_TOPLEVEL_STATE_MAXIMIZED";
    //
    //          }
    //
-   //          if (::wayland::nano::user::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_FULLSCREEN))
+   //          if (::wayland::micro::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_FULLSCREEN))
    //          {
    //
    //             information() << "pwlarrayState contains XDG_TOPLEVEL_STATE_FULLSCREEN";
    //
    //          }
    //
-   //          if (::wayland::nano::user::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_ACTIVATED))
+   //          if (::wayland::micro::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_ACTIVATED))
    //          {
    //
    //             information() << "pwlarrayState contains XDG_TOPLEVEL_STATE_ACTIVATED";
@@ -6881,13 +6881,13 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //
    //                information() << "Window was iconic type : " << strType;
    //
-   //                if (::wayland::nano::user::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_MAXIMIZED))
+   //                if (::wayland::micro::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_MAXIMIZED))
    //                {
    //
    //                   m_pwindow->m_puserinteraction->display(::e_display_zoomed);
    //
    //                }
-   //                else if (::wayland::nano::user::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_FULLSCREEN))
+   //                else if (::wayland::micro::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_FULLSCREEN))
    //                {
    //
    //                   m_pwindow->m_puserinteraction->display(::e_display_full_screen);
@@ -7365,7 +7365,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //
    //    information() << "__handle_keyboard_enter";
    //
-   //    ::wayland::nano::user::window_base::__handle_keyboard_enter(pwlkeyboard, serial, pwlarrayKeys);
+   //    ::wayland::micro::window_base::__handle_keyboard_enter(pwlkeyboard, serial, pwlarrayKeys);
    //
    // }
    //
@@ -7375,7 +7375,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //
    //    information() << "__handle_keyboard_leave";
    //
-   //    ::wayland::nano::user::window_base::__handle_keyboard_leave(pwlkeyboard, serial);
+   //    ::wayland::micro::window_base::__handle_keyboard_leave(pwlkeyboard, serial);
    //
    // }
 

@@ -200,13 +200,13 @@
 //         }
 //
 //
-//         ::nano::windowing::display * window::get_display()
+//         ::acme::windowing::display * window::get_display()
 //         {
 //
 //            if (!m_pdisplaybase)
 //            {
 //
-//               m_pdisplaybase = ::gtk4::nano::windowing::display_base::get(this);
+//               m_pdisplaybase = ::gtk4::acme::windowing::display_base::get(this);
 //
 //               if (!m_pdisplaybase)
 //               {
@@ -242,7 +242,7 @@
 //         void window::on_initialize_particle()
 //         {
 //
-//            ::gtk4::nano::user::window_base::on_initialize_particle();
+//            ::gtk4::micro::window_base::on_initialize_particle();
 //
 //         }
 //
@@ -513,7 +513,7 @@
 //         }
 //
 //
-//         ::nano::user::child * window::hit_test(::user::mouse * pmouse, ::user::e_zorder ezorder)
+//         ::micro::child * window::hit_test(::user::mouse * pmouse, ::user::e_zorder ezorder)
 //         {
 //
 //            return m_pinterface->hit_test(pmouse, ezorder);
@@ -1530,7 +1530,7 @@
 //
 //
 //         // void
-//         // window::__handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::nano::user::window_base * pwaylandwindowLeave)
+//         // window::__handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::micro::window_base * pwaylandwindowLeave)
 //         // {
 //         //
 //         //    ::string strType = ::type(get_interface_client_particle()).name();

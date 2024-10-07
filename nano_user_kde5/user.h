@@ -20,7 +20,7 @@ namespace kde5
 
 
          class CLASS_DECL_NANO_USER_KDE5 user :
-            virtual public ::nano::user::user
+            virtual public ::micro::user
          {
          public:
 
