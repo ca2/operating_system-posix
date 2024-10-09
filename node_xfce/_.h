@@ -21,7 +21,7 @@ namespace node_xfce
 } // namespace node_xfce
 
 
-#define __matter(TYPE) ::place(new ::matter<TYPE>()
+#define __matter(TYPE) ::as(new ::matter<TYPE>()
 
 
 namespace user

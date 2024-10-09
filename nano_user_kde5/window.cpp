@@ -762,7 +762,7 @@ namespace kde5
       //
       //          auto pdc = cairo_create(m_psurface);
       //
-      //          m_pnanodevice = ::place(new ::cairo::nano::graphics::device(pdc));
+      //          m_pnanodevice = __new ::cairo::nano::graphics::device(pdc);
       //
       //       }
       //

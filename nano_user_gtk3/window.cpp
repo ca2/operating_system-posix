@@ -9,7 +9,7 @@
 #include "acme/integrate/cairo.h"
 #include "acme/nano/nano.h"
 #include "acme/nano/graphics/device.h"
-#include "acme/nano/user/child.h"
+#include "acme/user/micro/child.h"
 #include "acme/operating_system/a_system_menu.h"
 #include "acme/platform/application.h"
 #include "acme/platform/node.h"
@@ -1185,7 +1185,7 @@ namespace gtk3
 //
 //                  auto pdc = cairo_create(m_psurface);
 //
-//                  m_pnanodevice = ::place(new ::cairo::nano::graphics::device(pdc));
+//                  m_pnanodevice = __new ::cairo::nano::graphics::device(pdc);
 //
 //               }
 //

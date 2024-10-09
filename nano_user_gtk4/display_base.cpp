@@ -1127,7 +1127,7 @@ namespace gtk4
          ::gtk4::micro::window_base * display_base::_get_keyboard_focus()
          {
 
-            //      auto ppropertyobject = ::place(new ::property_object());
+            //      auto ppropertyobject = __new ::property_object();
             //
             //      auto predicate = [this, ppropertyobject]()
             //      {
@@ -2002,7 +2002,7 @@ namespace gtk4
             else if (s_pdisplaybase == nullptr)
             {
 
-               g_peventCreatingWaylandDisplay = ::place(new manual_reset_event());
+               g_peventCreatingWaylandDisplay = __new manual_reset_event();
 
                g_peventCreatingWaylandDisplay->ResetEvent();
 

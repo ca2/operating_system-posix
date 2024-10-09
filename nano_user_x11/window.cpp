@@ -5,7 +5,7 @@
 #include "window.h"
 #include "display.h"
 #include "acme/nano/graphics/device.h"
-#include "acme/nano/user/child.h"
+#include "acme/user/micro/child.h"
 #include "acme/platform/application.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
@@ -490,7 +490,7 @@ namespace x11
                   __construct(m_pnanodevice);
 
                   m_pnanodevice->create_for_x11(_x11_handle(), w, h);
-                  //m_pnanodevice = ::place(new ::cairo::nano::graphics::device(pdc));
+                  //m_pnanodevice = __new ::cairo::nano::graphics::device(pdc);
 
                }
 

@@ -11,7 +11,7 @@
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
 //#include "acme/prototype/geometry2d/rectangle.h"
-//#include "acme/nano/user/window.h"
+//#include "acme/user/micro/window.h"
 #include "acme/windowing/windowing_base.h"
 #include "nano_user_x11/_x11.h"
 #include "windowing_system_x11/_.h"

@@ -48,7 +48,7 @@ GC x11_create_gc(Colormap colormap, Display* pdisplay, Window window, ::u8 a, ::
 //
 //   //deferx_initializex_x11();
 //
-//   auto pdisplay = ::place(new simple_ui_display(str, strTitle, emessagebox));
+//   auto pdisplay = __new simple_ui_display(str, strTitle, emessagebox);
 //
 //   return pdisplay->show();
 //

@@ -59,7 +59,7 @@ virtual public ::numeric_array < POINTER_TYPE >
 
 	::pointer < ::array_of_malloced_pointer < char * > > p;
 	
-	p = ::place(new ::array_of_malloced_pointer < char * > ());
+	p = __new ::array_of_malloced_pointer < char * > ();
 	
 	for(auto & str:stra)
 	{
@@ -353,7 +353,7 @@ namespace acme_posix
    ::pointer < ::mutex > node::create_local_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::string & strName, security_attributes * psecurityattributes)
    {
 
-      return ::place(new mutex(pparticleContext, bInitialOwner, "Local\\" + strName));
+      return __new mutex(pparticleContext, bInitialOwner, "Local\\" + strName);
 
    }
 
@@ -361,7 +361,7 @@ namespace acme_posix
    ::pointer < ::mutex > node::create_global_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::string & strName, security_attributes * psecurityattributes)
    {
 
-      return ::place(new mutex(pparticleContext, bInitialOwner, "Global\\" + strName));
+      return __new mutex(pparticleContext, bInitialOwner, "Global\\" + strName);
 
    }
 
@@ -381,7 +381,7 @@ namespace acme_posix
 
    }
 
-   auto pmutex = ::place(new mutex(e_create_new, lpszName, h));
+   auto pmutex = __new mutex(e_create_new, lpszName, h);
 
    return pmutex;
 
@@ -414,7 +414,7 @@ namespace acme_posix
 
    }
 
-   auto pmutex = ::place(new mutex(strName, psem, isCreator));
+   auto pmutex = __new mutex(strName, psem, isCreator);
 
    return pmutex;
 
@@ -494,7 +494,7 @@ namespace acme_posix
 
    //pthread_mutex_init(m_pmutex, &attr);
 
-   auto pmutex = ::place(new mutex(e_create_new, lpszName, iFd, false));
+   auto pmutex = __new mutex(e_create_new, lpszName, iFd, false);
 
    return pmutex;
 
@@ -520,7 +520,7 @@ namespace acme_posix
 
    }
 
-   auto pmutex = ::place(new mutex(strName, key, semid));
+   auto pmutex = __new mutex(strName, key, semid);
 
    return pmutex;
 
@@ -548,7 +548,7 @@ namespace acme_posix
    ::pointer < ::acme::exclusive > node::get_exclusive(::particle * pparticleContext, const ::string & strName, security_attributes * psecurityattributes)
    {
 
-      return ::place(new exclusive(pparticleContext, strName));
+      return __new exclusive(pparticleContext, strName);
 
    }
 

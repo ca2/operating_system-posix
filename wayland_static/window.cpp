@@ -8,8 +8,8 @@
 #include "acme/operating_system/cairo/nano/user/device.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
 #include "acme/user/user/mouse.h"
-#include "acme/nano/user/child.h"
-#include "acme/nano/user/window.h"
+#include "acme/user/micro/child.h"
+#include "acme/user/micro/window.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
 #include <linux/input.h> // for BTN_LEFT
@@ -157,7 +157,7 @@ namespace wayland
 
             auto pcairo = cairo_create(m_pcairosurface);
 
-            m_pnanodevice = ::place(new ::cairo::nano::graphics::device(pcairo));
+            m_pnanodevice = __new ::cairo::nano::graphics::device(pcairo);
 
 
          }
@@ -612,7 +612,7 @@ namespace wayland
          //
          //            auto pdc = cairo_create(m_psurface);
          //
-         //            m_pnanodevice = ::place(new ::cairo::nano::graphics::device(pdc));
+         //            m_pnanodevice = __new ::cairo::nano::graphics::device(pdc);
          //
          //         }
          //

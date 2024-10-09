@@ -656,7 +656,7 @@ namespace windowing_x11
    ::windowing_x11::window * display::_get_keyboard_focus()
    {
 
-      auto ppropertyobject = ::place(new ::property_object());
+      auto ppropertyobject = __new ::property_object();
 
       auto predicate = [this, ppropertyobject]()
       {

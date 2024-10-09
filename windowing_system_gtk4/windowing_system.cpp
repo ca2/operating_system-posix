@@ -5,7 +5,7 @@
 #include "windowing_system.h"
 #include "acme/integrate/cairo.h"
 #include "acme/nano/nano.h"
-#include "acme/nano/user/user.h"
+#include "acme/user/micro/user.h"
 #include "acme/parallelization/manual_reset_event.h"
 #include "acme/platform/application.h"
 #include "acme/platform/node.h"
@@ -245,7 +245,7 @@ namespace windowing_system_gtk4
 //      CLASS_DECL_ACME bool main_synchronous(const class time & time, const ::procedure & function)
 //      {
 
-      auto pevent = ::place(new manual_reset_event());
+      auto pevent = __new manual_reset_event();
 
       user_post([ procedure, pevent ]
                 {

@@ -5,7 +5,7 @@
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
-#include "acme/nano/user/user.h"
+#include "acme/user/micro/user.h"
 #include "acme/parallelization/synchronous_lock.h"
 
 

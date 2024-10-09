@@ -5,8 +5,8 @@
 #include "windowing_system.h"
 #include "acme/integrate/qt/image.h"
 #include "acme/nano/nano.h"
-#include "acme/nano/user/display.h"
-#include "acme/nano/user/user.h"
+#include "acme/user/micro/display.h"
+#include "acme/user/micro/user.h"
 #include "acme/parallelization/manual_reset_event.h"
 #include "acme/platform/application.h"
 #include "acme/platform/node.h"
@@ -121,7 +121,7 @@ namespace windowing_system_kde5
 //      CLASS_DECL_ACME bool main_synchronous(const class time & time, const ::procedure & function)
 //      {
 
-      auto pevent = ::place(new manual_reset_event());
+      auto pevent = __new manual_reset_event();
 
       user_post([ procedure, pevent ]
                 {

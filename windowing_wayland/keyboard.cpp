@@ -433,7 +433,7 @@ namespace windowing_wayland
 //   bool keyboard::load_layout(const char * pszPath, const ::action_context & context)
 //   {
 //
-//      auto playout = ::place(new ::user::keyboard_layout());
+//      auto playout = __new ::user::keyboard_layout();
 //
 //      string strPath;
 //      if(pszPath == nullptr)

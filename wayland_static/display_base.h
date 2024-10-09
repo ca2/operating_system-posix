@@ -9,7 +9,7 @@
 #include "windowing_system_wayland/xkb_input.h"
 #include "acme/prototype/geometry2d/rectangle.h"
 #include "acme/prototype/geometry2d/size_array.h"
-#include "acme/nano/user/display.h"
+#include "acme/user/micro/display.h"
 
 
 namespace wayland

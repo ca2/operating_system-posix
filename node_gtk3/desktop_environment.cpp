@@ -64,7 +64,7 @@ namespace node_gtk3
 //
 //          //windowing_x11_factory(pfactory);
 //
-//          return ::place(new node_gtk3::wayland_buffer);
+//          return __new node_gtk3::wayland_buffer;
 //
 //       }
 //       else

@@ -12,7 +12,7 @@ public:
    void * allocate(memsize s)
    {
 
-      auto pmemory = ::place(new memory());
+      auto pmemory = __new memory();
 
       m_memorya.add(pmemory);
 

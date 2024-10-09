@@ -5,7 +5,7 @@
 #include "acme/nano/graphics/font.h"
 #include "acme/nano/graphics/graphics.h"
 #include "acme/nano/graphics/pen.h"
-#include "acme/nano/user/user.h"
+#include "acme/user/micro/user.h"
 
 
 IMPLEMENT_FACTORY(nano_graphics_cairo)
