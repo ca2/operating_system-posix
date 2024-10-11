@@ -233,7 +233,7 @@ namespace windowing_x11
 //
 //         XGCValues gcvalues;
 //
-//   //      m_pdc = new device_context();
+//   //      m_pdc = __new device_context();
 //
 //         m_gc = XCreateGC(d, m_oswindow->window(), 0, &gcvalues);
 //

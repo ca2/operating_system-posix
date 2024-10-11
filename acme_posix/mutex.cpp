@@ -419,7 +419,7 @@ namespace acme_posix
          m_semid = semget(
                    m_key, // a unique identifier to identify semaphore set
                    1,  // number of semaphore in the semaphore set
-                   0// permissions (rwxrwxrwx) on the new
+                   0// permissions (rwxrwxrwx) on the __new
                    //semaphore set and creation flag
                    );
 
@@ -445,7 +445,7 @@ namespace acme_posix
             m_semid = semget(
                       m_key, // a unique identifier to identify semaphore set
                       1,  // number of semaphore in the semaphore set
-                      0777 | IPC_CREAT | IPC_EXCL// permissions (rwxrwxrwx) on the new
+                      0777 | IPC_CREAT | IPC_EXCL// permissions (rwxrwxrwx) on the __new
                       //semaphore set and creation flag
                       );
 
@@ -1659,7 +1659,7 @@ namespace acme_posix
 
       }
 
-      auto pmutex  = __new mutex(e_create_new, lpszName, h);
+      auto pmutex  = __allocate mutex(e_create_new, lpszName, h);
 
       return pmutex;
 
@@ -1692,7 +1692,7 @@ namespace acme_posix
 
       }
 
-      auto pmutex = __new mutex(strName, psem, isCreator);
+      auto pmutex = __allocate mutex(strName, psem, isCreator);
 
       return pmutex;
 
@@ -1761,7 +1761,7 @@ namespace acme_posix
 
       //pthread_mutex_init(&m_mutex, &attr);
 
-      auto pmutex = __new mutex(e_create_new, lpszName, iFd, false);
+      auto pmutex = __allocate mutex(e_create_new, lpszName, iFd, false);
 
       return pmutex;
 
@@ -1777,7 +1777,7 @@ namespace acme_posix
       i32 semid = semget(
                   key, // a unique identifier to identify semaphore set
                   1,  // number of semaphore in the semaphore set
-                  0666 // permissions (rwxrwxrwx) on the new
+                  0666 // permissions (rwxrwxrwx) on the __new
                   //semaphore set and creation flag
                   );
       if(semid < 0)
@@ -1787,7 +1787,7 @@ namespace acme_posix
 
       }
 
-      auto pmutex = __new mutex(strName, key, semid);
+      auto pmutex = __allocate mutex(strName, key, semid);
 
       return pmutex;
 
@@ -1799,7 +1799,7 @@ namespace acme_posix
    void wait_until_mutex_does_not_exist(::particle * pparticle,  const char * lpszName)
    {
 
-      ::pointer<mutex>pmutex = __new mutex(pparticle, false, "Global\\::ca::account::ca2_spa::7807e510-5579-11dd-ae16-0800200c7784");
+      ::pointer<mutex>pmutex = __allocate mutex(pparticle, false, "Global\\::ca::account::ca2_spa::7807e510-5579-11dd-ae16-0800200c7784");
 
       if(::get_last_status() == ::error_already_exists)
       {
@@ -1811,7 +1811,7 @@ namespace acme_posix
 
             preempt(200_ms);
 
-            pmutex = __new mutex(pparticle, false, "Global\\::ca::account::ca2_spa::7807e510-5579-11dd-ae16-0800200c7784");
+            pmutex = __allocate mutex(pparticle, false, "Global\\::ca::account::ca2_spa::7807e510-5579-11dd-ae16-0800200c7784");
 
          }
 

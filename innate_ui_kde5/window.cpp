@@ -53,7 +53,7 @@ namespace innate_ui_kde5
    void window::_create()
    {
 
-      auto pmainwindow = new QMainWindow();
+      auto pmainwindow = __new QMainWindow();
 
       m_pqwidget = pmainwindow;
 

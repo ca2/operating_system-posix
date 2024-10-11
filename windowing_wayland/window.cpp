@@ -268,7 +268,7 @@ namespace windowing_wayland
 //         if (m_px11data.is_null())
 //         {
 //
-//            m_px11data = __new x11data();
+//            m_px11data = __allocate x11data();
 //
 //         }
 //
@@ -372,7 +372,7 @@ namespace windowing_wayland
 //            sizehints.width = cx;
 //            sizehints.height = cy;
 //
-//            XSetNormalHints(display, window, &sizehints);  /* Where new_window is the new window */
+//            XSetNormalHints(display, window, &sizehints);  /* Where new_window is the __new window */
 //
 //         }
 
@@ -1402,7 +1402,7 @@ namespace windowing_wayland
    //
    //      }
    //
-   //      ::window *pdata = new window();
+   //      ::window *pdata = __new window();
    //
    //      pdata->m_bMessageOnlyWindow = true;
    //      pdata->m_window = None;
@@ -1453,7 +1453,7 @@ namespace windowing_wayland
 //      //
 //      //      }
 //      //
-//      //      ::window *pdata = new ::window();
+//      //      ::window *pdata = __new ::window();
 //
 //      m_bMessageOnlyWindow = false;
 //      //m_osdisplay = osdisplay_get(Display());

@@ -52,7 +52,7 @@ namespace innate_ui_kde5
       // else
       {
          ::pointer < ::innate_ui_kde5::window > pkde5windowParent = pwindowParent;
-         m_pqwidget = new QLabel(pkde5windowParent->m_pqwidget);
+         m_pqwidget = __new QLabel(pkde5windowParent->m_pqwidget);
          //gtk_label_set_xalign(GTK_LABEL(m_pgtkwidget), 0.0);
 
       }

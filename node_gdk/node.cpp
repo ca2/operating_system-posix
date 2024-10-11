@@ -2074,14 +2074,14 @@ m_bFetchingDarkMode = false;
 //       {
 //
 //          ::acme::get()->platform()->informationf(
-//                  "os_process_user_theme: same theme as before [new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
+//                  "os_process_user_theme: same theme as before [__new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
 //
 //          return;
 //
 //       }
 //
 //       ::acme::get()->platform()->informationf(
-//               "os_process_user_theme: different theme [new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
+//               "os_process_user_theme: different theme [__new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
 //
 //       m_strTheme = strOsTheme;
 //
@@ -2123,14 +2123,14 @@ m_bFetchingDarkMode = false;
 //       {
 //
 //          ::acme::get()->platform()->informationf(
-//                  "os_process_user_icon_theme: same theme as before [new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
+//                  "os_process_user_icon_theme: same theme as before [__new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
 //
 //          return;
 //
 //       }
 //
 //       ::acme::get()->platform()->informationf(
-//               "os_process_user_icon_theme: different theme [new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
+//               "os_process_user_icon_theme: different theme [__new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
 //
 //       m_strIconTheme = strOsIconTheme;
 //

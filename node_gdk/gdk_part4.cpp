@@ -47,7 +47,7 @@ namespace nano
 
 #include <time.h>
 
-#include <new>
+#include <__new>
 #include <gtk/gtk.h>
 
 //#include <gio/gio.h>

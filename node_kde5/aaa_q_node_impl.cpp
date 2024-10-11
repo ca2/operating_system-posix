@@ -79,7 +79,7 @@
 //::user::os_theme_colors * new_os_theme_colors(string strTheme)
 //{
 //
-//   auto pthemecolors = new ::user::os_theme_colors();
+//   auto pthemecolors = __new ::user::os_theme_colors();
 //
 //   GtkStyleContext *pstylecontext = gtk_style_context_new();
 //
@@ -238,7 +238,7 @@
 //node_impl * new_node_impl(int argc, char ** ppsz)
 //{
 //
-//   return new q_node_impl(argc, ppsz);
+//   return __new q_node_impl(argc, ppsz);
 //
 //}
 //

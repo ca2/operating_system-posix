@@ -79,7 +79,7 @@
 //    //g_object_set(G_OBJECT(self), "css-name", "model_button");
 // }
 //
-// /* A factory function to create a new SubclassedModelButton */
+// /* A factory function to create a __new SubclassedModelButton */
 // GtkWidget* subclassed_model_button_new(void) {
 //    auto p = g_strdup("modelbutton");
 //    auto pwidget = GTK_WIDGET(g_object_new(subclassed_model_button_get_type(), "css-name", p, nullptr));
@@ -566,7 +566,7 @@ namespace windowing_kde5
       //
       //    }
       //
-      //    auto paction = new QAction(pmenuitem->m_strName.c_str(), m_pqwidget);
+      //    auto paction = __new QAction(pmenuitem->m_strName.c_str(), m_pqwidget);
       //
       //    m_pqwidget->connect(paction, &QAction::triggered, [this, pmenuitem]()
       //    {
@@ -1122,7 +1122,7 @@ namespace windowing_kde5
    // // Callback function to handle window resize events
    // static void on_size_allocate(GtkWidget* widget, GdkRectangle* allocation, gpointer p)
    // {
-   //    // Print the new size of the window
+   //    // Print the __new size of the window
    //    auto pwindow = (::windowing_kde5::window *)p;
    //    pwindow->_on_size(allocation->width, allocation->height);
    //    //g_print("Window resized: width=%d, height=%d\n", allocation->width, allocation->height);
@@ -1948,7 +1948,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
 
          //m_pgtkwidget = gtk_application_window_new(pkde5windowing->m_pgtkapplication);
 
-         auto pmainwindow = new QCustomTopWindow(this);
+         auto pmainwindow = __new QCustomTopWindow(this);
 
          m_pqwidget = pmainwindow;
 
@@ -1969,7 +1969,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
 
          //       GdkRGBA rgba;
          //
-         //       // Create a new top-level window
+         //       // Create a __new top-level window
          // //      gtk_window_set_title(GTK_WINDOW(window), "Transparent Window");
          //
          //       // Set the RGBA visual for transparency
@@ -2147,7 +2147,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
          //            sizehints.width = cx;
          //            sizehints.height = cy;
          //
-         //            XSetNormalHints(display, window, &sizehints);  /* Where new_window is the new window */
+         //            XSetNormalHints(display, window, &sizehints);  /* Where new_window is the __new window */
          //
          //         }
 
@@ -3202,7 +3202,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //
    //      }
    //
-   //      ::window *pdata = new window();
+   //      ::window *pdata = __new window();
    //
    //      pdata->m_bMessageOnlyWindow = true;
    //      pdata->m_window = None;
@@ -3253,7 +3253,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //      //
    //      //      }
    //      //
-   //      //      ::window *pdata = new ::window();
+   //      //      ::window *pdata = __new ::window();
    //
    //      m_bMessageOnlyWindow = false;
    //      //m_osdisplay = osdisplay_get(Display());

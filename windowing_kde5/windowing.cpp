@@ -1123,7 +1123,7 @@ namespace windowing_kde5
       //
       // int argc = platform()->get_argc();
       //
-      // m_pqapplication = new QApplication(argc, platform()->get_args());
+      // m_pqapplication = __new QApplication(argc, platform()->get_args());
       //
       // m_pqapplication->setQuitOnLastWindowClosed(false);
       //
@@ -1356,14 +1356,14 @@ namespace windowing_kde5
       {
 
          ::acme::get()->platform()->informationf(
-                 "os_process_user_theme: same theme as before [new(" + strOsTheme + ") - old(" + node()->m_strTheme + ")]\n");
+                 "os_process_user_theme: same theme as before [__new(" + strOsTheme + ") - old(" + node()->m_strTheme + ")]\n");
 
          return;
 
       }
 
       ::acme::get()->platform()->informationf(
-              "os_process_user_theme: different theme [new(" + strOsTheme + ") - old(" +node()-> m_strTheme + ")]\n");
+              "os_process_user_theme: different theme [__new(" + strOsTheme + ") - old(" +node()-> m_strTheme + ")]\n");
 
       node()->m_strTheme = strOsTheme;
 
@@ -1407,14 +1407,14 @@ namespace windowing_kde5
       {
 
          ::acme::get()->platform()->informationf(
-                 "os_process_user_icon_theme: same theme as before [new(" + strOsUserIconTheme + ") - old(" + m_strOsUserIconTheme + ")]\n");
+                 "os_process_user_icon_theme: same theme as before [__new(" + strOsUserIconTheme + ") - old(" + m_strOsUserIconTheme + ")]\n");
 
          return;
 
       }
 
       ::acme::get()->platform()->informationf(
-              "os_process_user_icon_theme: different theme [new(" + strOsUserIconTheme + ") - old(" + m_strOsUserIconTheme + ")]\n");
+              "os_process_user_icon_theme: different theme [__new(" + strOsUserIconTheme + ") - old(" + m_strOsUserIconTheme + ")]\n");
 
       m_strOsUserIconTheme = strOsUserIconTheme;
 

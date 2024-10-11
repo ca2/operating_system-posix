@@ -352,7 +352,7 @@ namespace kde5
 
             int cy = r.height();
 
-            auto pmainwindow = new QCustomTopWindow(this);
+            auto pmainwindow = __new QCustomTopWindow(this);
 
             m_pqwidget = pmainwindow;
 
@@ -762,7 +762,7 @@ namespace kde5
       //
       //          auto pdc = cairo_create(m_psurface);
       //
-      //          m_pnanodevice = __new ::cairo::nano::graphics::device(pdc);
+      //          m_pnanodevice = __allocate ::cairo::nano::graphics::device(pdc);
       //
       //       }
       //
@@ -1782,7 +1782,7 @@ m_pqwidget->move(p);
 
                }
 
-               auto paction = new QAction(pmenuitem->m_strName.c_str(), m_pqwidget);
+               auto paction = __new QAction(pmenuitem->m_strName.c_str(), m_pqwidget);
 
                m_pqwidget->connect(paction, &QAction::triggered, [this, pmenuitem]()
                {

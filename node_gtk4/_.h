@@ -33,7 +33,7 @@ namespace node_gtk4
 } // namespace node_gtk4
 
 
-//#define __matter(TYPE) ::place(new< ::matter<TYPE> >())
+//#define __matter(TYPE) ::place(__new< ::matter<TYPE> >())
 
 
 //#include "gtk.h"

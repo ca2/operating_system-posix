@@ -16,7 +16,7 @@
  * ---------
  * This file is a set of interfaces to provide a little
  * higher level view of the sequencer.  It is mainly experimental
- * to investigate new approaches.  If successful they will be proposed
+ * to investigate __new approaches.  If successful they will be proposed
  * as additions/replacements to the existing seq lib.
  *
  *

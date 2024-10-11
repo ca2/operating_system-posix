@@ -30,7 +30,7 @@
 //	seq_context_t *ctxp;
 //	int  q;
 //
-//	ctxp = new seq_context_t();
+//	ctxp = __new seq_context_t();
 //	ctxp->main = ctxp; /* This is the main context */
 //
 //	if (snd_seq_open(&ctxp->handle, "hw", SND_SEQ_OPEN_DUPLEX, 0) < 0)
@@ -89,7 +89,7 @@
 //
 ///*
 // * Create another client context based on the specified
-// * context. The same queue will be used for both clients. A new
+// * context. The same queue will be used for both clients. A __new
 // * client will be created.
 // *  Arguments:
 // *    ctxp      -
@@ -132,7 +132,7 @@
 //}
 //
 ///*
-// * Creates a new port on the specified context and returns the
+// * Creates a __new port on the specified context and returns the
 // * port number.
 // *  Arguments:
 // *    ctxp      - Context to create the port for

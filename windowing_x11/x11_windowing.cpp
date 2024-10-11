@@ -48,7 +48,7 @@ GC x11_create_gc(Colormap colormap, Display* pdisplay, Window window, ::u8 a, ::
 //
 //   //deferx_initializex_x11();
 //
-//   auto pdisplay = __new simple_ui_display(str, strTitle, emessagebox);
+//   auto pdisplay = __allocate simple_ui_display(str, strTitle, emessagebox);
 //
 //   return pdisplay->show();
 //
@@ -114,7 +114,7 @@ void x11_kick_idle()
 //
 //   int retval = fcntl(g_fdX11[0], F_SETFL, fcntl(g_fdX11[0], F_GETFL) | O_NONBLOCK);
 //
-//   g_pmutexX11 = new ::pointer < ::mutex >();
+//   g_pmutexX11 = __new ::pointer < ::mutex >();
 //
 //}
 
@@ -242,7 +242,7 @@ void x11_kick_idle()
 //
 //   XSetErrorHandler(_cx_XErrorHandler);
 //
-//   g_pmutexX11 = new ::pointer < ::mutex >();
+//   g_pmutexX11 = __new ::pointer < ::mutex >();
 //
 //   return ::success;
 //

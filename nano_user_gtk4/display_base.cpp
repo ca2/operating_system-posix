@@ -896,7 +896,7 @@ namespace gtk4
       //
       // //m_px11display = ::x11::display::get(this, false, px11displayGdk);
       //
-      // // Using another new and different X11 Display connection apart from Gtk.
+      // // Using another __new and different X11 Display connection apart from Gtk.
       // //m_px11display = ::x11::display::get(this, false);
       //
       // //if (::is_null(m_px11display))
@@ -1127,7 +1127,7 @@ namespace gtk4
          ::gtk4::micro::window_base * display_base::_get_keyboard_focus()
          {
 
-            //      auto ppropertyobject = __new ::property_object();
+            //      auto ppropertyobject = __allocate ::property_object();
             //
             //      auto predicate = [this, ppropertyobject]()
             //      {
@@ -2002,11 +2002,11 @@ namespace gtk4
             else if (s_pdisplaybase == nullptr)
             {
 
-               g_peventCreatingWaylandDisplay = __new manual_reset_event();
+               g_peventCreatingWaylandDisplay = __allocate manual_reset_event();
 
                g_peventCreatingWaylandDisplay->ResetEvent();
 
-               auto p = new ::gtk4::acme::windowing::display();
+               auto p = __new ::gtk4::acme::windowing::display();
 
                s_pdisplaybase = p;
 

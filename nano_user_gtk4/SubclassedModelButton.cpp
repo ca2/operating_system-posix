@@ -28,7 +28,7 @@ subclassed_model_button_init(SubclassedModelButton * self)
 }
 
 
-/* A factory function to create a new SubclassedModelButton */
+/* A factory function to create a __new SubclassedModelButton */
 GtkWidget * subclassed_model_button_new(void)
 {
 

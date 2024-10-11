@@ -413,7 +413,7 @@ namespace windowing_gtk3
 //   ::pointer < ::operating_system::a_system_menu > window::create_system_menu()
 //   {
 //
-//      auto psystemmenu = __new ::operating_system::a_system_menu();
+//      auto psystemmenu = __allocate ::operating_system::a_system_menu();
 //
 //      psystemmenu->add_item("Minimize", "minimize");
 //      psystemmenu->add_item("Maximize", "maximize");
@@ -666,7 +666,7 @@ namespace windowing_gtk3
 //        new_width = MAX(new_width, 100);
 //        new_height = MAX(new_height, 100);
 //
-//        // Apply the new size
+//        // Apply the __new size
 //        gtk_window_resize(GTK_WINDOW(widget), new_width, new_height);
 //        return true;
 //    }
@@ -2000,7 +2000,7 @@ bOk = true;
    //
    //      }
    //
-   //      ::window *pdata = new window();
+   //      ::window *pdata = __new window();
    //
    //      pdata->m_bMessageOnlyWindow = true;
    //      pdata->m_window = None;
@@ -2051,7 +2051,7 @@ bOk = true;
 //      //
 //      //      }
 //      //
-//      //      ::window *pdata = new ::window();
+//      //      ::window *pdata = __new ::window();
 //
 //      m_bMessageOnlyWindow = false;
 //      //m_osdisplay = osdisplay_get(Display());

@@ -422,7 +422,7 @@ namespace kde5
          //
          //       pparticle->information() << "xcb nano display::get (2)";
          //
-         //       auto p = new display();
+         //       auto p = __new display();
          //
          //       p->initialize(pparticle);
          //
@@ -648,7 +648,7 @@ namespace kde5
             //
             //    m_pX11Display = (Display *) pDisplay;
             //
-            //    information() << "xcb nano display::init_task got new x11_display : " << (::iptr) m_pX11Display ;
+            //    information() << "xcb nano display::init_task got __new x11_display : " << (::iptr) m_pX11Display ;
             //
             // }
 

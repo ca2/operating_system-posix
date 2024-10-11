@@ -2821,7 +2821,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //                  if (!pwindow->m_pximkeyboard)
 //                  {
 //
-//                     pwindow->m_pximkeyboard = __new< ::xim::keyboard(m_pdisplay->Display >(), e.xkey.window);
+//                     pwindow->m_pximkeyboard = __allocate< ::xim::keyboard(m_pdisplay->Display >(), e.xkey.window);
 //
 //                     pwindow->m_pximkeyboard->initialize(pwindow);
 //
@@ -2901,7 +2901,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 ////
 ////               msgText.wParam = 0;
 ////
-////               string *pstringText = new string(strText);
+////               string *pstringText = __new string(strText);
 ////
 ////               msgText.lParam = (lparam) (iptr) (string *) (pstringText);
 //
@@ -3439,7 +3439,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //   XSetErrorHandler(_cx_XErrorHandler);
 //
-//   //g_pmutexX11 = new ::pointer < ::mutex >();
+//   //g_pmutexX11 = __new ::pointer < ::mutex >();
 //
 //   return ::success;
 //

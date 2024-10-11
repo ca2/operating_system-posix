@@ -65,7 +65,7 @@ namespace wayland
 //      // gdk_x11 does error handling?!?!?!
 //      //XSetErrorHandler(_c_XErrorHandler);
 //
-//      //g_pmutexX11 = new ::pointer < ::mutex >();
+//      //g_pmutexX11 = __new ::pointer < ::mutex >();
 //
 //      return ::success;
 //
@@ -106,7 +106,7 @@ namespace wayland
 //      CLASS_DECL_ACME bool main_synchronous(const class time & time, const ::procedure & function)
 //      {
 
-      auto pevent = __new manual_reset_event();
+      auto pevent = __allocate manual_reset_event();
 
       user_post([procedure, pevent]
                 {

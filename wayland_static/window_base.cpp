@@ -221,7 +221,7 @@ namespace nano
        * excluding any panels or other shell components, so that a
        * surface isn't created in a way that it cannot fit.
        *
-       * The bounds may change at any point, and in such a case, a new
+       * The bounds may change at any point, and in such a case, a __new
        * xdg_toplevel.configure_bounds will be sent, followed by
        * xdg_toplevel.configure and xdg_surface.configure.
        * @since 4
@@ -406,13 +406,13 @@ namespace nano
          {
 
             /* If the focus request does not have a startup ID associated, get a
-   * new token to activate the window.
+   * __new token to activate the window.
    */
             if (m_strActivationToken.is_empty())
             {
 
                //         if (m_pxdgactivationtokenv1 != NULL) {
-               //            /* We're about to overwrite this with a new request */
+               //            /* We're about to overwrite this with a __new request */
                //            xdg_activation_token_v1_destroy(m_pxdgactivationtokenv1);
                //         }
                information() << "__activate_window getting activation token";

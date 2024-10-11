@@ -75,7 +75,7 @@ namespace windowing_system_kde5
       // gdk_x11 does error handling?!?!?!
       //XSetErrorHandler(_c_XErrorHandler);
 
-      //g_pmutexX11 = new ::pointer < ::mutex >();
+      //g_pmutexX11 = __new ::pointer < ::mutex >();
 
       return ::success;
 
@@ -121,7 +121,7 @@ namespace windowing_system_kde5
 //      CLASS_DECL_ACME bool main_synchronous(const class time & time, const ::procedure & function)
 //      {
 
-      auto pevent = __new manual_reset_event();
+      auto pevent = __allocate manual_reset_event();
 
       user_post([ procedure, pevent ]
                 {
@@ -346,7 +346,7 @@ namespace windowing_system_kde5
 
       int argc = platform()->get_argc();
 
-      m_pqapplication = new QApplication(argc, platform()->get_args());
+      m_pqapplication = __new QApplication(argc, platform()->get_args());
 
       m_pqapplication->setQuitOnLastWindowClosed(false);
 

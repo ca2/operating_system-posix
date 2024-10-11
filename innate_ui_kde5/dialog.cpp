@@ -61,7 +61,7 @@ namespace innate_ui_kde5
       //                                              GTK_DIALOG_DESTROY_WITH_PARENT,
       //                                              NULL);
 
-      m_pqwidget = new QDialog();
+      m_pqwidget = __new QDialog();
 
       if (m_pqwidget)
       {

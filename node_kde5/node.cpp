@@ -220,10 +220,10 @@ namespace node_kde5
       //
       // system()->m_papexsystem->branch();
       //
-      // /// new:platform_create_system:decrement_reference_count
-      // /// begin_synch starts new thread
+      // /// __new:platform_create_system:decrement_reference_count
+      // /// begin_synch starts __new thread
       // /// the framework will hold a reference to the system as this
-      // /// new started thread
+      // /// __new started thread
       // /// now it is safe to release the platform_create_system
       // /// creation reference.
       //
@@ -307,7 +307,7 @@ namespace node_kde5
 
       auto psystem = pparticle->system();
 
-      // m_pqapplication = new QApplication(psystem->m_pplatform->m_argc, psystem->m_pplatform->m_args);
+      // m_pqapplication = __new QApplication(psystem->m_pplatform->m_argc, psystem->m_pplatform->m_args);
       //
       // if(!m_pqapplication)
       // {
@@ -636,7 +636,7 @@ namespace node_kde5
 //      if(::is_null(m_piconloader))
 //      {
 //
-//         m_piconloader = new KIconLoader();
+//         m_piconloader = __new KIconLoader();
 //
 //      }
 
@@ -910,7 +910,7 @@ namespace node_kde5
       user_post([pdialog]()
                 {
 
-                   auto pqfiledialog = new QFileDialog();
+                   auto pqfiledialog = __new QFileDialog();
 
                    if (pdialog->m_bSave)
                    {
@@ -991,7 +991,7 @@ namespace node_kde5
       user_post([pdialog]()
                 {
 
-                   auto pqfiledialog = new QFileDialog();
+                   auto pqfiledialog = __new QFileDialog();
 
                    pqfiledialog->setAcceptMode(QFileDialog::AcceptMode::AcceptOpen);
 

@@ -167,7 +167,7 @@ namespace windowing_system_gtk4
       // gdk_x11 does error handling?!?!?!
       //XSetErrorHandler(_c_XErrorHandler);
 
-      //g_pmutexX11 = new ::pointer < ::mutex >();
+      //g_pmutexX11 = __new ::pointer < ::mutex >();
 
       return ::success;
 
@@ -245,7 +245,7 @@ namespace windowing_system_gtk4
 //      CLASS_DECL_ACME bool main_synchronous(const class time & time, const ::procedure & function)
 //      {
 
-      auto pevent = __new manual_reset_event();
+      auto pevent = __allocate manual_reset_event();
 
       user_post([ procedure, pevent ]
                 {
@@ -292,7 +292,7 @@ namespace windowing_system_gtk4
 
 
          // Safely update the GTK label in the main thread
-         g_main_context_invoke(NULL, execute_on_main_thread, new ::procedure(procedure));
+         g_main_context_invoke(NULL, execute_on_main_thread, __new ::procedure(procedure));
 
    }
 
@@ -302,7 +302,7 @@ namespace windowing_system_gtk4
 
 
       // Safely update the GTK label in the main thread
-      g_main_context_invoke(NULL, execute_on_main_thread, new ::procedure(procedure));
+      g_main_context_invoke(NULL, execute_on_main_thread, __new ::procedure(procedure));
 
    }
 
@@ -888,7 +888,7 @@ namespace windowing_system_gtk4
 //       int width = 32;
 //       int height = 32;
 //       gtk_window_set_default_size(GTK_WINDOW(t), width, height);
-//       // Create a new GtkBox (vertical layout)
+//       // Create a __new GtkBox (vertical layout)
 //       GtkWidget *box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);  // 10px spacing between widgets
 //       gtk_window_set_child(GTK_WINDOW(t), box);
 //       gtk_box_append(GTK_BOX(box), window);
@@ -897,7 +897,7 @@ namespace windowing_system_gtk4
 //       gtk_widget_set_visible(t, true);
 //          //gtk_window_get_default_size(GTK_WINDOW(window), &width, &height);
 //
-//          // Create a new GtkSnapshot to capture the window contents
+//          // Create a __new GtkSnapshot to capture the window contents
 //          GtkSnapshot *snapshot = gtk_snapshot_new();
 //
 //          // Create a rectangle of the same size as the window
@@ -1174,14 +1174,14 @@ namespace windowing_system_gtk4
    //    {
    //
    //       ::acme::get()->platform()->informationf(
-   //               "os_process_user_theme: same theme as before [new(" + strOsTheme + ") - old(" + node()->m_strTheme + ")]\n");
+   //               "os_process_user_theme: same theme as before [__new(" + strOsTheme + ") - old(" + node()->m_strTheme + ")]\n");
    //
    //       return;
    //
    //    }
    //
    //    ::acme::get()->platform()->informationf(
-   //            "os_process_user_theme: different theme [new(" + strOsTheme + ") - old(" +node()-> m_strTheme + ")]\n");
+   //            "os_process_user_theme: different theme [__new(" + strOsTheme + ") - old(" +node()-> m_strTheme + ")]\n");
    //
    //    node()->m_strTheme = strOsTheme;
    //
@@ -1225,14 +1225,14 @@ namespace windowing_system_gtk4
    //    {
    //
    //       ::acme::get()->platform()->informationf(
-   //               "os_process_user_icon_theme: same theme as before [new(" + strOsUserIconTheme + ") - old(" + m_strOsUserIconTheme + ")]\n");
+   //               "os_process_user_icon_theme: same theme as before [__new(" + strOsUserIconTheme + ") - old(" + m_strOsUserIconTheme + ")]\n");
    //
    //       return;
    //
    //    }
    //
    //    ::acme::get()->platform()->informationf(
-   //            "os_process_user_icon_theme: different theme [new(" + strOsUserIconTheme + ") - old(" + m_strOsUserIconTheme + ")]\n");
+   //            "os_process_user_icon_theme: different theme [__new(" + strOsUserIconTheme + ") - old(" + m_strOsUserIconTheme + ")]\n");
    //
    //    m_strOsUserIconTheme = strOsUserIconTheme;
    //

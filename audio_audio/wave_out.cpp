@@ -1020,7 +1020,7 @@ static const audio_dev_backend *audio_dev_backends[] = {
       ::e_status wave_out::audio_dev_init(const char *dev)
       {
 
-         m_pdata = new pcm_data;
+         m_pdata = __new pcm_data;
 
          ::memset(m_pdata, 0, sizeof(pcm_data));
          

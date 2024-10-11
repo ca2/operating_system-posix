@@ -157,7 +157,7 @@ namespace windowing_x11
 
       //m_px11display = ::x11::display::get(this, false, px11displayGdk);
 
-      // Using another new and different X11 Display connection apart from Gtk.
+      // Using another __new and different X11 Display connection apart from Gtk.
       m_px11display = ::x11::acme::windowing::display_get(this, false);
 
       if (::is_null(m_px11display))
@@ -656,7 +656,7 @@ namespace windowing_x11
    ::windowing_x11::window * display::_get_keyboard_focus()
    {
 
-      auto ppropertyobject = __new ::property_object();
+      auto ppropertyobject = __allocate ::property_object();
 
       auto predicate = [this, ppropertyobject]()
       {
