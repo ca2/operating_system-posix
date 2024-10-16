@@ -21,14 +21,14 @@ namespace node_xfce
 } // namespace node_xfce
 
 
-#define __matter(TYPE) ::as(__new ::matter<TYPE>()
+#define __matter(TYPE) __initialize_new ::matter<TYPE>()
 
 
 namespace user
 {
 
 
-   char * gsettings_get_malloc(const char * pszSchema, const char * pszKey);
+   char * gsettings_get_malloc(const char * pszSchema, const char * pszKey;
 
 
 }
