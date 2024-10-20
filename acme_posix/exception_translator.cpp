@@ -155,7 +155,7 @@ namespace acme_posix
                                                "failed to install segmentation fault signal handler",
                                                e_message_box_ok);
 
-         psequencer->do_asynchronously();
+         pmessagebox->async();
 
 
       }
