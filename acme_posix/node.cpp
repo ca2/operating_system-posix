@@ -2467,14 +2467,6 @@ if(functionTrace)
 
    }
 
-//
-//   ::user::enum_desktop node::calculate_edesktop()
-//   {
-//
-//      return get_edesktop();
-//
-//   }
-
    
    bool node::is_executable_in_path(const ::scoped_string &scopedstr)
    {
