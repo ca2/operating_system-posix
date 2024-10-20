@@ -1673,14 +1673,14 @@ namespace node_gtk4
 //       {
 //
 //          ::acme::get()->platform()->informationf(
-//                  "os_process_user_theme: same theme as before [__new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
+//                  "os_process_user_theme: same theme as before [___new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
 //
 //          return;
 //
 //       }
 //
 //       ::acme::get()->platform()->informationf(
-//               "os_process_user_theme: different theme [__new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
+//               "os_process_user_theme: different theme [___new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
 //
 //       m_strTheme = strOsTheme;
 //

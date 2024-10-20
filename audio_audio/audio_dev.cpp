@@ -177,7 +177,7 @@ audio_dev_init(const char *dev)
 	int p1[2], p2[2], retry;
 	pid_t pid;
 
-	if ((ac = __new audio_dev_ctx()) == NULL)
+	if ((ac = ___new audio_dev_ctx()) == NULL)
 		return (NULL);
 
 	pb = ac->ac_pcm = (pcm_buffer *) mmap(NULL, sizeof(*ac->ac_pcm),

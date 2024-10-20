@@ -75,7 +75,7 @@ namespace windowing_system_kde5
       // gdk_x11 does error handling?!?!?!
       //XSetErrorHandler(_c_XErrorHandler);
 
-      //g_pmutexX11 = __new ::pointer < ::mutex >();
+      //g_pmutexX11 = ___new ::pointer < ::mutex >();
 
       return ::success;
 
@@ -346,7 +346,7 @@ namespace windowing_system_kde5
 
       int argc = platform()->get_argc();
 
-      m_pqapplication = __new QApplication(argc, platform()->get_args());
+      m_pqapplication = ___new QApplication(argc, platform()->get_args());
 
       m_pqapplication->setQuitOnLastWindowClosed(false);
 

@@ -322,7 +322,7 @@ namespace gtk3
 //            if (display::g_p == nullptr)
 //            {
 //
-//               auto p = __new display();
+//               auto p = ___new display();
 //
 //               p->initialize(pparticle);
 //
@@ -1089,7 +1089,7 @@ namespace gtk3
 ////
 ////      XSetErrorHandler(::x11::micro::_c_XErrorHandler);
 ////
-////      //g_pmutexX11 = __new ::pointer < ::mutex >();
+////      //g_pmutexX11 = ___new ::pointer < ::mutex >();
 ////
 ////      return ::success;
 ////

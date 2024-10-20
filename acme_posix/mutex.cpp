@@ -419,7 +419,7 @@ namespace acme_posix
          m_semid = semget(
                    m_key, // a unique identifier to identify semaphore set
                    1,  // number of semaphore in the semaphore set
-                   0// permissions (rwxrwxrwx) on the __new
+                   0// permissions (rwxrwxrwx) on the ___new
                    //semaphore set and creation flag
                    );
 
@@ -445,7 +445,7 @@ namespace acme_posix
             m_semid = semget(
                       m_key, // a unique identifier to identify semaphore set
                       1,  // number of semaphore in the semaphore set
-                      0777 | IPC_CREAT | IPC_EXCL// permissions (rwxrwxrwx) on the __new
+                      0777 | IPC_CREAT | IPC_EXCL// permissions (rwxrwxrwx) on the ___new
                       //semaphore set and creation flag
                       );
 
@@ -1777,7 +1777,7 @@ namespace acme_posix
       i32 semid = semget(
                   key, // a unique identifier to identify semaphore set
                   1,  // number of semaphore in the semaphore set
-                  0666 // permissions (rwxrwxrwx) on the __new
+                  0666 // permissions (rwxrwxrwx) on the ___new
                   //semaphore set and creation flag
                   );
       if(semid < 0)

@@ -47,7 +47,7 @@ namespace multimedia
       /*LPWAVEHDR create_new_WAVEHDR(::multimedia::audio::wave_buffer * pwavebuffer, int iBuffer)
       {
 
-         LPWAVEHDR lpwavehdr = __new WAVEHDR();
+         LPWAVEHDR lpwavehdr = ___new WAVEHDR();
 
          translate(*lpwavehdr, pwavebuffer, iBuffer);
 

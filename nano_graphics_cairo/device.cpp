@@ -57,7 +57,7 @@ namespace cairo
    {
 
       cairo_save(cr);
-      // Step 1: Create a __new pattern from the image surface
+      // Step 1: Create a ___new pattern from the image surface
       cairo_pattern_t *pattern = cairo_pattern_create_for_surface(image);
 
       // Step 2: Clip the region of the image that you want to paint

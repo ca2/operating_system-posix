@@ -120,7 +120,7 @@ void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString)
 ////
 ////      }
 ////
-////      display *pdisplaydata = __new display();
+////      display *pdisplaydata = ___new display();
 ////
 ////      pdisplaydata->m_pdisplay = pdisplay;
 ////      pdisplaydata->m_atomLongType = XInternAtom(pdisplay, CA2_X11_WINDOW_LONG, False);

@@ -57,7 +57,7 @@ extern "C" {
  * Warning! The protocol described in this file is currently in the testing
  * phase. Backward compatible changes may be added together with the
  * corresponding interface version bump. Backward incompatible changes can
- * only be done by creating a __new major version of the extension.
+ * only be done by creating a ___new major version of the extension.
  *
  * @section page_ifaces_xdg_activation_v1 Interfaces
  * - @subpage page_iface_xdg_activation_v1 - interface for activating surfaces

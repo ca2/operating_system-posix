@@ -71,7 +71,7 @@ namespace gtk3
 
          // Callback function to handle window resize events
          static void on_size_allocate(GtkWidget *widget, GdkRectangle *allocation, gpointer p) {
-            // Print the __new size of the window
+            // Print the ___new size of the window
             auto pwindow = (::gtk3::micro::window*) p;
             pwindow->_on_size(allocation->width, allocation->height);
             //g_print("Window resized: width=%d, height=%d\n", allocation->width, allocation->height);
@@ -777,7 +777,7 @@ namespace gtk3
             //        new_width = MAX(new_width, 100);
             //        new_height = MAX(new_height, 100);
             //
-            //        // Apply the __new size
+            //        // Apply the ___new size
             //        gtk_window_resize(GTK_WINDOW(widget), new_width, new_height);
             //        return true;
             //    }

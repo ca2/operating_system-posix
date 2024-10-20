@@ -67,7 +67,7 @@ namespace innate_ui_kde5
 
       ::pointer < ::innate_ui_kde5::window > pkde5windowParent = pwindowParent;
 
-      m_pqwidget = __new QPushButton(pkde5windowParent->m_pqwidget);
+      m_pqwidget = ___new QPushButton(pkde5windowParent->m_pqwidget);
 
       //gtk_widget_set_visible(m_pgtkwidget, true);
 

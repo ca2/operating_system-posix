@@ -96,10 +96,10 @@ void QCustomTopWindow::moveEvent(QMoveEvent *event)
 {
    try
    {
-      QPoint newPos = event->pos();  // Get the __new size of the window
+      QPoint newPos = event->pos();  // Get the ___new size of the window
       //   qDebug() << "Window resized to:" << newSize;
       m_pwindow->_on_reposition(newPos.x(), newPos.y());
-      // Update the label with the __new size
+      // Update the label with the ___new size
       //updateSizeLabel(newSize);
    }
    catch(...)
@@ -116,10 +116,10 @@ void QCustomTopWindow::moveEvent(QMoveEvent *event)
    {
       try
       {
-         QSize newSize = event->size();  // Get the __new size of the window
+         QSize newSize = event->size();  // Get the ___new size of the window
          //   qDebug() << "Window resized to:" << newSize;
          m_pwindow->_on_size(newSize.width(), newSize.height());
-         // Update the label with the __new size
+         // Update the label with the ___new size
          //updateSizeLabel(newSize);
       }
       catch(...)

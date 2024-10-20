@@ -342,7 +342,7 @@ namespace windowing_x11
                         sizehints.width = cx;
                         sizehints.height = cy;
 
-                        XSetNormalHints(display, window, &sizehints);  /* Where new_window is the __new window */
+                        XSetNormalHints(display, window, &sizehints);  /* Where new_window is the ___new window */
 
                      }
 
@@ -1220,7 +1220,7 @@ namespace windowing_x11
    //
    //      }
    //
-   //      ::window *pdata = __new window();
+   //      ::window *pdata = ___new window();
    //
    //      pdata->m_bMessageOnlyWindow = true;
    //      pdata->m_window = None;
@@ -1271,7 +1271,7 @@ namespace windowing_x11
       //
       //      }
       //
-      //      ::window *pdata = __new ::window();
+      //      ::window *pdata = ___new ::window();
 
       m_bMessageOnlyWindow = false;
       //m_osdisplay = osdisplay_get(Display());

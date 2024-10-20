@@ -114,7 +114,7 @@ void x11_kick_idle()
 //
 //   int retval = fcntl(g_fdX11[0], F_SETFL, fcntl(g_fdX11[0], F_GETFL) | O_NONBLOCK);
 //
-//   g_pmutexX11 = __new ::pointer < ::mutex >();
+//   g_pmutexX11 = ___new ::pointer < ::mutex >();
 //
 //}
 
@@ -242,7 +242,7 @@ void x11_kick_idle()
 //
 //   XSetErrorHandler(_cx_XErrorHandler);
 //
-//   g_pmutexX11 = __new ::pointer < ::mutex >();
+//   g_pmutexX11 = ___new ::pointer < ::mutex >();
 //
 //   return ::success;
 //

@@ -666,7 +666,7 @@ namespace windowing_gtk3
 //        new_width = MAX(new_width, 100);
 //        new_height = MAX(new_height, 100);
 //
-//        // Apply the __new size
+//        // Apply the ___new size
 //        gtk_window_resize(GTK_WINDOW(widget), new_width, new_height);
 //        return true;
 //    }
@@ -2000,7 +2000,7 @@ bOk = true;
    //
    //      }
    //
-   //      ::window *pdata = __new window();
+   //      ::window *pdata = ___new window();
    //
    //      pdata->m_bMessageOnlyWindow = true;
    //      pdata->m_window = None;
@@ -2051,7 +2051,7 @@ bOk = true;
 //      //
 //      //      }
 //      //
-//      //      ::window *pdata = __new ::window();
+//      //      ::window *pdata = ___new ::window();
 //
 //      m_bMessageOnlyWindow = false;
 //      //m_osdisplay = osdisplay_get(Display());

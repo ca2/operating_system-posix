@@ -896,7 +896,7 @@ namespace gtk4
       //
       // //m_px11display = ::x11::display::get(this, false, px11displayGdk);
       //
-      // // Using another __new and different X11 Display connection apart from Gtk.
+      // // Using another ___new and different X11 Display connection apart from Gtk.
       // //m_px11display = ::x11::display::get(this, false);
       //
       // //if (::is_null(m_px11display))
@@ -2006,7 +2006,7 @@ namespace gtk4
 
                g_peventCreatingWaylandDisplay->ResetEvent();
 
-               auto p = __new ::gtk4::acme::windowing::display();
+               auto p = ___new ::gtk4::acme::windowing::display();
 
                s_pdisplaybase = p;
 

@@ -686,7 +686,7 @@ enum xdg_positioner_constraint_adjustment {
 	 * to 'top'.
 	 *
 	 * The adjusted position is calculated given the original anchor
-	 * rectangle and offset, but with the __new flipped anchor and
+	 * rectangle and offset, but with the ___new flipped anchor and
 	 * gravity values.
 	 *
 	 * If the adjusted position also ends up being constrained, the
@@ -1014,9 +1014,9 @@ struct xdg_surface_listener {
 	 * configuration states, where the xdg_surface.configure commits
 	 * the accumulated state.
 	 *
-	 * Clients should arrange their surface for the __new states, and
+	 * Clients should arrange their surface for the ___new states, and
 	 * then send an ack_configure request with the serial sent in this
-	 * configure event at some point before committing the __new surface.
+	 * configure event at some point before committing the ___new surface.
 	 *
 	 * If the client receives multiple configure events before it can
 	 * respond to one, it is free to discard all but the last event it
@@ -1166,7 +1166,7 @@ xdg_surface_get_popup(struct xdg_surface *xdg_surface, struct xdg_surface *paren
  *
  * Once the window geometry of the surface is set, it is not possible to
  * unset it, and it will remain the same until set_window_geometry is
- * called again, even if a __new subsurface or buffer is attached.
+ * called again, even if a ___new subsurface or buffer is attached.
  *
  * If never set, the value is the full bounds of the surface,
  * including any subsurfaces. This updates dynamically on every
@@ -1182,8 +1182,8 @@ xdg_surface_get_popup(struct xdg_surface *xdg_surface, struct xdg_surface *paren
  * geometry of the surface of the xdg_surface and the associated
  * subsurfaces.
  *
- * The effective geometry will not be recalculated unless a __new call to
- * set_window_geometry is done and the __new pending surface state is
+ * The effective geometry will not be recalculated unless a ___new call to
+ * set_window_geometry is done and the ___new pending surface state is
  * subsequently applied.
  *
  * The width and height of the effective window geometry must be
@@ -1488,7 +1488,7 @@ struct xdg_toplevel_listener {
 	 * excluding any panels or other shell components, so that a
 	 * surface isn't created in a way that it cannot fit.
 	 *
-	 * The bounds may change at any point, and in such a case, a __new
+	 * The bounds may change at any point, and in such a case, a ___new
 	 * xdg_toplevel.configure_bounds will be sent, followed by
 	 * xdg_toplevel.configure and xdg_surface.configure.
 	 * @since 4
@@ -1718,7 +1718,7 @@ xdg_toplevel_set_title(struct xdg_toplevel *xdg_toplevel, const char *title)
  *
  * The app ID identifies the general class of applications to which
  * the surface belongs. The compositor can use this to group multiple
- * surfaces together, or to determine how to launch a __new application.
+ * surfaces together, or to determine how to launch a ___new application.
  *
  * For D-Bus activatable applications, the app ID is used as the D-Bus
  * service name.
@@ -1937,7 +1937,7 @@ xdg_toplevel_set_min_size(struct xdg_toplevel *xdg_toplevel, int32_t width, int3
  * actually sets the window maximized is subject to compositor policies.
  * The client must then update its content, drawing in the configured
  * state. The client must also acknowledge the configure when committing
- * the __new content (see ack_configure).
+ * the ___new content (see ack_configure).
  *
  * It is up to the compositor to decide how and where to maximize the
  * surface, for example which output and what region of the screen should
@@ -1969,7 +1969,7 @@ xdg_toplevel_set_maximized(struct xdg_toplevel *xdg_toplevel)
  * geometry dimensions the window had prior to being maximized in the
  * configure event. The client must then update its content, drawing it in
  * the configured state. The client must also acknowledge the configure
- * when committing the __new content (see ack_configure).
+ * when committing the ___new content (see ack_configure).
  *
  * It is up to the compositor to position the surface after it was
  * unmaximized; usually the position the surface had before maximizing, if
@@ -1998,7 +1998,7 @@ xdg_toplevel_unset_maximized(struct xdg_toplevel *xdg_toplevel)
  * compositor will respond by emitting a configure event. Whether the
  * client is actually put into a fullscreen state is subject to compositor
  * policies. The client must also acknowledge the configure when
- * committing the __new content (see ack_configure).
+ * committing the ___new content (see ack_configure).
  *
  * The output passed by the request indicates the client's preference as
  * to which display it should be set fullscreen on. If this value is NULL,
@@ -2041,7 +2041,7 @@ xdg_toplevel_set_fullscreen(struct xdg_toplevel *xdg_toplevel, struct wl_output 
  * The compositor may include the previous window geometry dimensions in
  * the configure event, if applicable.
  *
- * The client must also acknowledge the configure when committing the __new
+ * The client must also acknowledge the configure when committing the ___new
  * content (see ack_configure).
  */
 static inline void
@@ -2135,10 +2135,10 @@ struct xdg_popup_listener {
 	 *
 	 * Immediately after this event is emitted, xdg_popup.configure and
 	 * xdg_surface.configure will be sent with the updated size and
-	 * position, as well as a __new configure serial.
+	 * position, as well as a ___new configure serial.
 	 *
 	 * The client should optionally update the content of the popup,
-	 * but must acknowledge the __new popup configuration for the __new
+	 * but must acknowledge the ___new popup configuration for the ___new
 	 * position to take effect. See xdg_surface.ack_configure for
 	 * details.
 	 * @param token reposition request token
@@ -2284,7 +2284,7 @@ xdg_popup_grab(struct xdg_popup *xdg_popup, struct wl_seat *seat, uint32_t seria
  * by the previous positioner will be discarded.
  *
  * The passed token will be sent in the corresponding
- * xdg_popup.repositioned event. The __new popup position will not take
+ * xdg_popup.repositioned event. The ___new popup position will not take
  * effect until the corresponding configure event is acknowledged by the
  * client. See xdg_popup.repositioned for details. The token itself is
  * opaque, and has no other special meaning.

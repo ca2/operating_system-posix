@@ -142,7 +142,7 @@ namespace windowing_system_gtk3
       // gdk_x11 does error handling?!?!?!
       //XSetErrorHandler(_c_XErrorHandler);
 
-      //g_pmutexX11 = __new ::pointer < ::mutex >();
+      //g_pmutexX11 = ___new ::pointer < ::mutex >();
 
       return ::success;
 
@@ -193,7 +193,7 @@ namespace windowing_system_gtk3
 
 
       // Safely update the GTK label in the main thread
-      g_main_context_invoke(NULL, execute_on_main_thread, __new ::procedure(procedure));
+      g_main_context_invoke(NULL, execute_on_main_thread, ___new ::procedure(procedure));
 
    }
 

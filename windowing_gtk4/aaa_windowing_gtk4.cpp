@@ -2901,7 +2901,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 ////
 ////               msgText.wParam = 0;
 ////
-////               string *pstringText = __new string(strText);
+////               string *pstringText = ___new string(strText);
 ////
 ////               msgText.lParam = (lparam) (iptr) (string *) (pstringText);
 //
@@ -3459,7 +3459,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //   XSetErrorHandler(_cx_XErrorHandler);
 //
-//   //g_pmutexX11 = __new ::pointer < ::mutex >();
+//   //g_pmutexX11 = ___new ::pointer < ::mutex >();
 //
 //   return ::success;
 //

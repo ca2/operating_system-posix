@@ -18,7 +18,7 @@ namespace system_5
    interprocess_caller::interprocess_caller()
    {
 
-      //mutex() = __new ::pointer < ::mutex >(pparticle);
+      //mutex() = ___new ::pointer < ::mutex >(pparticle);
 
    }
 

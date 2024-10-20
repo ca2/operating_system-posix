@@ -510,7 +510,7 @@ namespace acme_posix
    i32 semid = semget(
                key, // a unique identifier to identify semaphore set
                1,  // number of semaphore in the semaphore set
-               0666 // permissions (rwxrwxrwx) on the __new
+               0666 // permissions (rwxrwxrwx) on the ___new
                //semaphore set and creation flag
                );
    if(semid < 0)
@@ -2002,7 +2002,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 
    ::glob(pszCommandLine, 0, nullptr, &gl);
 
-   argv = __new char * [gl.gl_pathc + 1];
+   argv = ___new char * [gl.gl_pathc + 1];
 
    printf("glob count : %lu\n", gl.gl_pathc);
    
@@ -2031,7 +2031,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 
    wordexp(pszCommandLine, &we, 0);
 
-   argv = __new char * [we.we_wordc + 1];
+   argv = ___new char * [we.we_wordc + 1];
    
    for(::collection::index i = 0; i < we.we_wordc; i++)
    {

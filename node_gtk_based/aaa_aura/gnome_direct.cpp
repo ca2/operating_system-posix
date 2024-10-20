@@ -26,7 +26,7 @@
 //
 //#include <time.h>
 //
-//#include <__new>
+//#include <___new>
 //
 //#include <gio/gio.h>
 //
@@ -180,7 +180,7 @@
 //   appindicator * allocate_appindicator()
 //   {
 //
-//      return __new ::gnome_appindicator();
+//      return ___new ::gnome_appindicator();
 //
 //   }
 //

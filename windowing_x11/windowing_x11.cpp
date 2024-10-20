@@ -2790,7 +2790,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                   if (!pwindow->m_pximkeyboard)
                   {
 
-                     pwindow->m_pximkeyboard = __new ::xim::keyboard(m_pdisplay->Display(), e.xkey.window);
+                     pwindow->m_pximkeyboard = ___new ::xim::keyboard(m_pdisplay->Display(), e.xkey.window);
 
                      pwindow->m_pximkeyboard->initialize(pwindow);
 
@@ -2868,7 +2868,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //               msgText.wParam = 0;
 //
-//               string *pstringText = __new string(strText);
+//               string *pstringText = ___new string(strText);
 //
 //               msgText.lParam = (lparam) (iptr) (string *) (pstringText);
 

@@ -352,7 +352,7 @@ namespace kde5
 
             int cy = r.height();
 
-            auto pmainwindow = __new QCustomTopWindow(this);
+            auto pmainwindow = ___new QCustomTopWindow(this);
 
             m_pqwidget = pmainwindow;
 
@@ -1782,7 +1782,7 @@ m_pqwidget->move(p);
 
                }
 
-               auto paction = __new QAction(pmenuitem->m_strName.c_str(), m_pqwidget);
+               auto paction = ___new QAction(pmenuitem->m_strName.c_str(), m_pqwidget);
 
                m_pqwidget->connect(paction, &QAction::triggered, [this, pmenuitem]()
                {

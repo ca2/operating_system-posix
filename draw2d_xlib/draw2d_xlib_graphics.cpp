@@ -16,7 +16,7 @@ namespace draw2d_xlib
       //,     m_ui(pparticle)
    {
 
-      mutex()                = __new ::pointer < ::mutex >(pparticle);
+      mutex()                = ___new ::pointer < ::mutex >(pparticle);
 
       m_bPrinting       = false;
       m_pimageAlphaBlend  = nullptr;
@@ -314,7 +314,7 @@ namespace draw2d_xlib
 
       //m_pdc = xlib_create((xlib_surface_t *) pbitmap->get_os_data());
 
-      m_pdc                = __new device_context();
+      m_pdc                = ___new device_context();
 
 //      m_pdc->m_pdisplay    = pbitmap->m_ui.m_window->display();
 
@@ -1114,7 +1114,7 @@ namespace draw2d_xlib
       if(iCount <= 0)
          return true;
 
-      XPoint * xpa = __new XPoint[iCount];
+      XPoint * xpa = ___new XPoint[iCount];
 
       for(i32 i = 0; i < iCount; i++)
       {
@@ -1142,7 +1142,7 @@ namespace draw2d_xlib
       if(iCount <= 0)
          return true;
 
-      XPoint * xpa = __new XPoint[iCount];
+      XPoint * xpa = ___new XPoint[iCount];
 
       for(i32 i = 0; i < iCount; i++)
       {
@@ -1171,7 +1171,7 @@ namespace draw2d_xlib
       if(iCount <= 0)
          return true;
 
-      XPoint * xpa = __new XPoint[iCount];
+      XPoint * xpa = ___new XPoint[iCount];
 
       for(i32 i = 0; i < iCount; i++)
       {
@@ -1198,7 +1198,7 @@ namespace draw2d_xlib
       if(iCount <= 0)
          return true;
 
-      XPoint * xpa = __new XPoint[iCount];
+      XPoint * xpa = ___new XPoint[iCount];
 
       for(i32 i = 0; i < iCount; i++)
       {
@@ -1225,7 +1225,7 @@ namespace draw2d_xlib
       if(iCount <= 0)
          return true;
 
-      XPoint * xpa = __new XPoint[iCount];
+      XPoint * xpa = ___new XPoint[iCount];
 
       for(i32 i = 0; i < iCount; i++)
       {
@@ -3220,7 +3220,7 @@ namespace draw2d_xlib
             ::draw2d::region rgnLast, rgnUpdate;
             if (lpRectLast != nullptr)
             {
-               // find difference between __new region and old region
+               // find difference between ___new region and old region
                rgnLast.CreateRectRgn(0, 0, 0, 0);
                rgnOutside.SetRectRgn(lpRectLast);
                rectangle = *lpRectLast;
@@ -3247,7 +3247,7 @@ namespace draw2d_xlib
                pBrushOld = nullptr;
             }
 
-            // draw into the update/__new region
+            // draw into the update/___new region
             SelectClipRgn(rgnUpdate.get_os_data() != nullptr ? &rgnUpdate : &rgnNew);
             get_clip_box(&rectangle);
             pBrushOld = SelectObject(pBrush);

@@ -363,7 +363,7 @@ namespace nano
       //      if (g_p == nullptr)
       //      {
       //
-      //         auto p = __new display();
+      //         auto p = ___new display();
       //
       //         p->initialize(pparticle);
       //

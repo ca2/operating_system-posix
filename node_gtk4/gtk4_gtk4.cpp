@@ -39,7 +39,7 @@ platform_char *** process_get_pargv();
 
 #include <time.h>
 
-#include <__new>
+#include <___new>
 
 #include <gio/gio.h>
 

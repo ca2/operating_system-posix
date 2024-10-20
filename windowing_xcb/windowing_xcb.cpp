@@ -784,19 +784,19 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       _libsn_start_context();
 
 
-      //g_pmutexXcbRunnable = __new ::pointer < ::mutex >();
+      //g_pmutexXcbRunnable = ___new ::pointer < ::mutex >();
 
       //g_prunnableptrlXcb = aaa_memory_new list<::pointer<::matter >>);
 
-//      g_pmutexXcbSync = __new ::pointer < ::mutex >();
+//      g_pmutexXcbSync = ___new ::pointer < ::mutex >();
 
-//      g_peventXcbSync = __new manual_reset_event();
+//      g_peventXcbSync = ___new manual_reset_event();
 
-      //oswindow_data::s_pdataptra = __new oswindow_dataptra();
+      //oswindow_data::s_pdataptra = ___new oswindow_dataptra();
 
       //oswindow_data::s_pmutex = aaa_memory_new ::pointer < ::mutex >;
 
-      //osdisplay_data::s_pdataptra = __new osdisplay_dataptra();
+      //osdisplay_data::s_pdataptra = ___new osdisplay_dataptra();
 
       //osdisplay_data::s_pmutex = aaa_memory_new ::pointer < ::mutex >;
 

@@ -889,7 +889,7 @@ namespace wayland
 
       //m_px11display = ::x11::display::get(this, false, px11displayGdk);
 
-      // Using another __new and different X11 Display connection apart from Gtk.
+      // Using another ___new and different X11 Display connection apart from Gtk.
       //m_px11display = ::x11::display::get(this, false);
 
       //if (::is_null(m_px11display))
@@ -1951,7 +1951,7 @@ namespace wayland
 
                g_peventCreatingWaylandDisplay->ResetEvent();
 
-               auto p = __new ::wayland::acme::windowing::display();
+               auto p = ___new ::wayland::acme::windowing::display();
 
                s_pdisplaybase = p;
 
