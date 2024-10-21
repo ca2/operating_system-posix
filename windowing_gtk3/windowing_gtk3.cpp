@@ -2630,7 +2630,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //                  if (e.xbutton.button == Button1)
 //                  {
 //
-//                     ::acme::get()->platform()->informationf("ButtonPress::Button1\n");
+//                     informationf("ButtonPress::Button1\n");
 //
 //                     emessage = e_message_left_button_down;
 //
@@ -2673,7 +2673,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //                  if (e.xbutton.button == Button1)
 //                  {
 //
-//                     ::acme::get()->platform()->informationf("ButtonRelease::Button1\n");
+//                     informationf("ButtonRelease::Button1\n");
 //
 //                     emessage = e_message_left_button_up;
 //
@@ -2920,7 +2920,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //         case FocusIn:
 //         {
 //
-//            ::acme::get()->platform()->informationf("FocusIn\n");
+//            informationf("FocusIn\n");
 //
 //            msg.m_atom = e_message_set_focus;
 //
@@ -3005,7 +3005,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //         case FocusOut:
 //         {
 //
-//            ::acme::get()->platform()->informationf("FocusOut\n");
+//            informationf("FocusOut\n");
 //
 //            if (::is_set(px11window))
 //            {

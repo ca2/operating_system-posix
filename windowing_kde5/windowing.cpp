@@ -1243,7 +1243,7 @@ namespace windowing_kde5
    //
    //    string strTheme = theme_name;
    //
-   //    ::acme::get()->platform()->informationf("gtk_settings_gtk_theme_name_callback: \"" + strTheme + "\"\n");
+   //    informationf("gtk_settings_gtk_theme_name_callback: \"" + strTheme + "\"\n");
    //
    //    g_free(theme_name);
    //
@@ -1281,7 +1281,7 @@ namespace windowing_kde5
    //
    //    string strIconTheme = icon_theme_name;
    //
-   //    ::acme::get()->platform()->informationf("gtk_settings_gtk_icon_theme_name_callback: \"" + strIconTheme + "\"\n");
+   //    informationf("gtk_settings_gtk_icon_theme_name_callback: \"" + strIconTheme + "\"\n");
    //
    //    g_free(icon_theme_name);
    //
@@ -1304,7 +1304,7 @@ namespace windowing_kde5
    void windowing::_apply_os_user_theme()
    {
 
-      ::acme::get()->platform()->informationf("applying os user theme: \"" + m_strOsUserTheme + "\"\n");
+      informationf("applying os user theme: \"" + m_strOsUserTheme + "\"\n");
 
       _os_process_user_theme(m_strOsUserTheme);
 
@@ -1338,7 +1338,7 @@ namespace windowing_kde5
    void windowing::_apply_os_user_icon_theme()
    {
 
-      ::acme::get()->platform()->informationf("applying os user icon theme: \"" + m_strOsUserIconTheme + "\"\n");
+      informationf("applying os user icon theme: \"" + m_strOsUserIconTheme + "\"\n");
 
       _os_process_user_icon_theme(m_strOsUserIconTheme);
 
@@ -1349,25 +1349,25 @@ namespace windowing_kde5
    void windowing::_os_process_user_theme(string strOsTheme)
    {
 
-      ::acme::get()->platform()->informationf(
+      informationf(
               "os_process_user_theme: is strTheme(" + strOsTheme + ") same as m_strTheme(" + node()->m_strTheme + ")\n");
 
       if (strOsTheme == node()->m_strTheme)
       {
 
-         ::acme::get()->platform()->informationf(
+         informationf(
                  "os_process_user_theme: same theme as before [___new(" + strOsTheme + ") - old(" + node()->m_strTheme + ")]\n");
 
          return;
 
       }
 
-      ::acme::get()->platform()->informationf(
+      informationf(
               "os_process_user_theme: different theme [___new(" + strOsTheme + ") - old(" +node()-> m_strTheme + ")]\n");
 
       node()->m_strTheme = strOsTheme;
 
-      ::acme::get()->platform()->informationf("os_process_user_theme m_strTheme = \"" +node()-> m_strTheme + "\"\n");
+      informationf("os_process_user_theme m_strTheme = \"" +node()-> m_strTheme + "\"\n");
 
       try
       {
@@ -1400,25 +1400,25 @@ namespace windowing_kde5
    void windowing::_os_process_user_icon_theme(string strOsUserIconTheme)
    {
 
-      ::acme::get()->platform()->informationf(
+      informationf(
               "os_process_user_icon_theme: is strIconTheme(" + strOsUserIconTheme + ") same as m_strIconTheme(" + m_strOsUserIconTheme + ")\n");
 
       if (strOsUserIconTheme == m_strOsUserIconTheme)
       {
 
-         ::acme::get()->platform()->informationf(
+         informationf(
                  "os_process_user_icon_theme: same theme as before [___new(" + strOsUserIconTheme + ") - old(" + m_strOsUserIconTheme + ")]\n");
 
          return;
 
       }
 
-      ::acme::get()->platform()->informationf(
+      informationf(
               "os_process_user_icon_theme: different theme [___new(" + strOsUserIconTheme + ") - old(" + m_strOsUserIconTheme + ")]\n");
 
       m_strOsUserIconTheme = strOsUserIconTheme;
 
-      ::acme::get()->platform()->informationf("os_process_user_icon_theme m_strIconTheme = \"" + m_strOsUserIconTheme + "\"\n");
+      informationf("os_process_user_icon_theme m_strIconTheme = \"" + m_strOsUserIconTheme + "\"\n");
 
       try
       {

@@ -19,7 +19,7 @@
 #include "acme/prototype/string/command_line.h"
 #include "acme/prototype/string/str.h"
 #include "acme/prototype/prototype/memory.h"
-#include "acme/windowing/windowing_base.h"
+#include "acme/windowing/windowing.h"
 
 #include "acme/_operating_system.h"
 #include "acme/operating_system/ansi/_pthread.h"
@@ -830,7 +830,7 @@ namespace acme_posix
          if (strExe.case_insensitive_ends("_app_core_clockverse"))
          {
 
-            ::acme::get()->platform()->informationf("app-core/clockverse");
+            informationf("app-core/clockverse");
 
          }
 
@@ -850,7 +850,7 @@ namespace acme_posix
          if (strExe.case_insensitive_ends("_app_core_clockverse"))
          {
 
-            ::acme::get()->platform()->informationf("app-core/clockverse");
+            informationf("app-core/clockverse");
 
          }
 
@@ -1176,7 +1176,7 @@ namespace acme_posix
 ::process_identifier_array node::module_path_processes_identifiers(const ::string & psz, bool bModuleNameIsPropertyFormatted)
    {
 
-      ::acme::get()->platform()->informationf("os/linux_process.cpp app_get_pid (" + string(psz) + ")");
+      informationf("os/linux_process.cpp app_get_pid (" + string(psz) + ")");
 
    ::process_identifier_array ia;
 
@@ -2524,7 +2524,7 @@ if(functionTrace)
 
       auto log = std_inline_log();
 
-      log.m_timeTimeout = 5_min;
+      log.set_timeout(5_min);
 
       auto iExitCode = this->command_system(strCommand, log);
 
@@ -2612,44 +2612,6 @@ if(functionTrace)
    }
 
 
-   enum_windowing node::calculate_ewindowing()
-   {
-
-      enum_windowing ewindowing = e_windowing_none;
-
-#if !defined(FREEBSD) && !defined(OPENBSD)
-
-      if(is_wayland())
-      {
-
-         ewindowing = e_windowing_wayland;
-
-      }
-      else
-
-#endif
-      {
-
-         auto edesktop = get_edesktop();
-
-         if (edesktop & ::user::e_desktop_kde && has_xcb())
-         {
-
-            ewindowing = e_windowing_xcb;
-
-         }
-         else
-         {
-
-            ewindowing = e_windowing_x11;
-
-         }
-
-      }
-
-      return ewindowing;
-
-   }
 
 
    bool node::_is_jetbrains_clion_installed()
@@ -2729,14 +2691,14 @@ if(functionTrace)
    int node::synchronous_posix_terminal(const ::scoped_string& scopedstrCommand, enum_posix_shell eposixshell, const trace_function& tracefunction)
    {
 
-      auto edesktop = get_edesktop();
+      auto edesktop = ::windowing::get_edesktop();
 
       ::string strCommand(scopedstrCommand);
 
       int iExitCode = -1;
 
-      if(edesktop == ::user::e_desktop_xfce
-              || edesktop == ::user::e_desktop_kde)
+      if(edesktop == ::windowing::e_desktop_xfce
+              || edesktop == ::windowing::e_desktop_kde)
       {
 
          strCommand.find_replace("\\", "\\\\");
@@ -2816,41 +2778,41 @@ if(functionTrace)
    //
    // }
 
-   void node::do_windowing_system_factory()
-   {
-
-      ::acme::node::do_windowing_system_factory();
-
-//       auto edesktop = get_edesktop();
+//    void node::do_windowing_factory()
+//    {
 //
-//       if(edesktop == user::e_desktop_kde)
-//       {
+//       ::acme::node::do_windowing_factory();
 //
-//          auto pfactory = system()->factory("windowing_system", "kde5");
+// //       auto edesktop = get_edesktop();
+// //
+// //       if(edesktop == user::e_desktop_kde)
+// //       {
+// //
+// //          auto pfactory = system()->factory("windowing_system", "kde5");
+// //
+// //          pfactory->merge_to_global_factory();
+// //
+// //       }
+// //       else
+// //       {
+// //
+// // #ifdef HAS_GTK3
+// //
+// //          auto pfactory = system()->factory("windowing_system", "gtk3");
+// //
+// //          pfactory->merge_to_global_factory();
+// //
+// // #else
+// //
+// //          auto pfactory = system()->factory("windowing_system", "gtk4");
+// //
+// //          pfactory->merge_to_global_factory();
+// //
+// // #endif
+// //
+// //       }
 //
-//          pfactory->merge_to_global_factory();
-//
-//       }
-//       else
-//       {
-//
-// #ifdef HAS_GTK3
-//
-//          auto pfactory = system()->factory("windowing_system", "gtk3");
-//
-//          pfactory->merge_to_global_factory();
-//
-// #else
-//
-//          auto pfactory = system()->factory("windowing_system", "gtk4");
-//
-//          pfactory->merge_to_global_factory();
-//
-// #endif
-//
-//       }
-
-   }
+//    }
 
 
    void node::on_system_main()
@@ -2880,7 +2842,7 @@ if(functionTrace)
          //
          // system()->branch_synchronously();
 
-         system()->acme_windowing()->windowing_system_application_main_loop();
+         system()->acme_windowing()->windowing_application_main_loop();
 
 
       }

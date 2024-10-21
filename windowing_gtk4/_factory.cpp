@@ -22,9 +22,9 @@ __FACTORY_EXPORT void windowing_gtk4_factory(::factory::factory * pfactory)
 
    pfactory->add_factory_item < ::windowing_gtk4::buffer, ::graphics::graphics > ();
 
-   pfactory->add_factory_item < ::windowing_gtk4::display, ::windowing::display > ();
-   pfactory->add_factory_item < ::windowing_gtk4::window, ::windowing::window > ();
-   pfactory->add_factory_item < ::windowing_gtk4::windowing, ::windowing::windowing > ();
+   pfactory->add_factory_item < ::windowing_gtk4::display, ::acme::windowing::display > ();
+   pfactory->add_factory_item < ::windowing_gtk4::window, ::acme::windowing::window > ();
+   pfactory->add_factory_item < ::windowing_gtk4::windowing, ::acme::windowing::windowing > ();
    pfactory->add_factory_item < ::windowing_gtk4::text_composition_client, ::user::text_composition_client > ();
 
    pfactory->add_factory_item < ::windowing_gtk4::icon, ::windowing::icon > ();

@@ -401,7 +401,7 @@ void gtk_settings_gtk_theme_name_callback(GObject *object, GParamSpec *pspec, gp
 
    string strTheme = theme_name;
 
-   ::acme::get()->platform()->informationf("gtk_settings_gtk_theme_name_callback: \"" + strTheme + "\"\n");
+   informationf("gtk_settings_gtk_theme_name_callback: \"" + strTheme + "\"\n");
 
    g_free(theme_name);
 
@@ -439,7 +439,7 @@ void gtk_settings_gtk_icon_theme_name_callback(GObject *object, GParamSpec *pspe
 
    string strIconTheme = icon_theme_name;
 
-   ::acme::get()->platform()->informationf("gtk_settings_gtk_icon_theme_name_callback: \"" + strIconTheme + "\"\n");
+   informationf("gtk_settings_gtk_icon_theme_name_callback: \"" + strIconTheme + "\"\n");
 
    g_free(icon_theme_name);
 
@@ -1856,7 +1856,7 @@ namespace node_gtk3
 //   void node::_set_os_theme_colors(::os_theme_colors *posthemecolors)
 //   {
 //
-//      ::acme::get()->platform()->informationf("_set_os_theme_colors\n");
+//      informationf("_set_os_theme_colors\n");
 //
 //      ::user::os_set_theme_colors(posthemecolors);
 //
@@ -1918,7 +1918,7 @@ namespace node_gtk3
 //   void node::_apply_os_user_theme()
 //   {
 //
-//      ::acme::get()->platform()->informationf("applying os user theme: \"" + m_strOsUserTheme + "\"\n");
+//      informationf("applying os user theme: \"" + m_strOsUserTheme + "\"\n");
 //
 //      //os_process_user_theme(m_strOsUserTheme);
 //
@@ -1952,7 +1952,7 @@ namespace node_gtk3
 //   void node::_apply_os_user_icon_theme()
 //   {
 //
-//      ::acme::get()->platform()->informationf("applying os user icon theme: \"" + m_strOsUserIconTheme + "\"\n");
+//      informationf("applying os user icon theme: \"" + m_strOsUserIconTheme + "\"\n");
 //
 //      //os_process_user_icon_theme(m_strOsUserIconTheme);
 //
@@ -1962,25 +1962,25 @@ namespace node_gtk3
 //   void node::os_process_user_theme(string strOsTheme)
 //   {
 //
-//      ::acme::get()->platform()->informationf(
+//      informationf(
 //              "os_process_user_theme: is strTheme(" + strOsTheme + ") same as m_strTheme(" + m_strTheme + ")\n");
 //
 //      if (strOsTheme == m_strTheme)
 //      {
 //
-//         ::acme::get()->platform()->informationf(
+//         informationf(
 //                 "os_process_user_theme: same theme as before [___new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
 //
 //         return;
 //
 //      }
 //
-//      ::acme::get()->platform()->informationf(
+//      informationf(
 //              "os_process_user_theme: different theme [___new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
 //
 //      m_strTheme = strOsTheme;
 //
-//      ::acme::get()->platform()->informationf("os_process_user_theme m_strTheme = \"" + m_strTheme + "\"\n");
+//      informationf("os_process_user_theme m_strTheme = \"" + m_strTheme + "\"\n");
 //
 //      try
 //      {
@@ -2011,25 +2011,25 @@ namespace node_gtk3
 //   void node::os_process_user_icon_theme(string strOsIconTheme)
 //   {
 //
-//      ::acme::get()->platform()->informationf(
+//      informationf(
 //              "os_process_user_icon_theme: is strIconTheme(" + strOsIconTheme + ") same as m_strIconTheme(" + m_strIconTheme + ")\n");
 //
 //      if (strOsIconTheme == m_strIconTheme)
 //      {
 //
-//         ::acme::get()->platform()->informationf(
+//         informationf(
 //                 "os_process_user_icon_theme: same theme as before [___new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
 //
 //         return;
 //
 //      }
 //
-//      ::acme::get()->platform()->informationf(
+//      informationf(
 //              "os_process_user_icon_theme: different theme [___new(" + strOsIconTheme + ") - old(" + m_strIconTheme + ")]\n");
 //
 //      m_strIconTheme = strOsIconTheme;
 //
-//      ::acme::get()->platform()->informationf("os_process_user_icon_theme m_strIconTheme = \"" + m_strIconTheme + "\"\n");
+//      informationf("os_process_user_icon_theme m_strIconTheme = \"" + m_strIconTheme + "\"\n");
 //
 //      try
 //      {

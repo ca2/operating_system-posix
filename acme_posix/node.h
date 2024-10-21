@@ -134,7 +134,7 @@ namespace acme_posix
 
       bool _is_code_exe_user_path_environment_variable_ok(::string* pstrCorrectPath = nullptr, const char * pszPath = nullptr) override;
 
-      enum_windowing calculate_ewindowing() override;
+      //enum_windowing calculate_ewindowing() override;
 
       bool _is_jetbrains_clion_installed() override;
 
@@ -154,7 +154,7 @@ namespace acme_posix
       bool _is_visual_studio_code_installed() override;
 
 
-      void do_windowing_system_factory() override;
+      //void do_windowing_system_factory() override;
 
 
       void on_system_main() override;

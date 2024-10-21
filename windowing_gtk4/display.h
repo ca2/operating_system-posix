@@ -7,9 +7,9 @@
 #define WINDOWING_X11_DISPLAY_MEMBER
 
 
-#include "nano_user_gtk4/display_base.h"
+#include "acme_windowing_gtk4/display_base.h"
 #include "aura/windowing/display.h"
-#include "nano_user_gtk4/_gtk4.h"
+#include "acme_windowing_gtk4/_gtk4.h"
 
 
 namespace windowing_gtk4
@@ -87,11 +87,11 @@ namespace windowing_gtk4
       //virtual ::Display * _get_system_default_display();
 
       bool has_readily_gettable_absolute_pointer_position() const override;
-
+         ::size_i32 get_main_screen_size() override;
 
 //      virtual ::windowing_gtk4::window * _window(::wl_surface * pwlsurface);
 
-      virtual ::windowing_gtk4::windowing * x11_windowing();
+      //virtual ::windowing_gtk4::windowing * x11_windowing();
 
       virtual void lock_display();
 

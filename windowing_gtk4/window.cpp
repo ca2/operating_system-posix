@@ -27,7 +27,7 @@
 #include "aura/graphics/image/context.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
-#include "windowing_system_wayland/xfree86_key.h"
+//#include "windowing_system_wayland/xfree86_key.h"
 #include <gtk/gtk.h>
 #include <X11/Xlib.h>
 
@@ -62,7 +62,7 @@ namespace windowing_gtk4
    window::window()
    {
 
-      m_pWindow4 = this;
+      //m_pWindow4 = this;
 
    }
 
@@ -134,7 +134,7 @@ namespace windowing_gtk4
    void window::defer_show_system_menu(::user::mouse * pmouse)
    {
 
-      ::gtk4::micro::window::defer_show_system_menu(pmouse);
+      ::gtk4::acme::windowing::window::defer_show_system_menu(pmouse);
 
    }
 
@@ -154,17 +154,23 @@ namespace windowing_gtk4
    void window::_on_cairo_draw(GtkWidget * widget, cairo_t * cr)
    {
 
-      if (!m_pwindow
-          || !m_pwindow->m_puserinteraction)
+      if (!m_pacmeuserinteraction)
       {
 
          return;
 
       }
 
-      _synchronous_lock slGraphics(m_pwindow->m_pgraphicsgraphics->synchronization());
+      if(!m_pgraphicsgraphics)
+      {
 
-      auto pitem = m_pwindow->m_pgraphicsgraphics->get_screen_item();
+         return;
+
+      }
+
+      _synchronous_lock slGraphics(m_pgraphicsgraphics->synchronization());
+
+      auto pitem = m_pgraphicsgraphics->get_screen_item();
 
       _synchronous_lock slImage(pitem->m_pmutex);
 
@@ -203,7 +209,12 @@ namespace windowing_gtk4
 
          pgraphics->detach();
 
-         m_pwindow->m_pgraphicsgraphics->on_end_draw();
+         if(m_pgraphicsgraphics)
+         {
+
+            m_pgraphicsgraphics->on_end_draw();
+
+         }
 
       }
 
@@ -231,7 +242,7 @@ namespace windowing_gtk4
          if (edisplay == e_display_zoomed)
          {
 
-            m_pwindow->m_puserinteraction->display(::e_display_zoomed);
+            m_puserinteraction->display(::e_display_zoomed);
 
             application()->fork([this]()
             {
@@ -257,7 +268,7 @@ namespace windowing_gtk4
           else
           {
 
-            m_pwindow->m_puserinteraction->display(::e_display_normal);
+            m_puserinteraction->display(::e_display_normal);
 
             application()->fork([this]()
             {
@@ -289,7 +300,7 @@ namespace windowing_gtk4
    void window::_on_size(int cx, int cy)
    {
 
-      ::windowing::window * pimpl = m_pwindow;
+      ::windowing::window * pimpl = this;
 
       auto puserinteraction = pimpl->m_puserinteraction;
 
@@ -322,7 +333,7 @@ namespace windowing_gtk4
                                           int n_press, double x, double y)
    {
 
-      ::gtk4::micro::window::_on_window_button_pressed(pitem, pgesture, n_press, x, y);
+      ::gtk4::acme::windowing::window::_on_window_button_pressed(pitem, pgesture, n_press, x, y);
       // if(n_press == 1)
       // {
       //    guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture));
@@ -514,7 +525,7 @@ namespace windowing_gtk4
                                            int n_press, double x, double y)
    {
 
-      ::gtk4::micro::window::_on_window_button_released(pitem, pgesture, n_press, x, y);
+      ::gtk4::acme::windowing::window::_on_window_button_released(pitem, pgesture, n_press, x, y);
 
       // if(n_press == 1)
       // {
@@ -603,7 +614,7 @@ namespace windowing_gtk4
    {
 
       ::windowing_posix::window::on_initialize_particle();
-      ::gtk4::micro::window::on_initialize_particle();
+      ::gtk4::acme::windowing::window::on_initialize_particle();
 
    }
 
@@ -616,7 +627,7 @@ namespace windowing_gtk4
 
          guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture));
 
-         auto pwindow = m_pwindow;
+         auto pwindow = this;
 
          if (::is_set(pwindow))
          {
@@ -684,7 +695,7 @@ namespace windowing_gtk4
 
          auto button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture));
 
-         auto pwindow = m_pwindow;
+         auto pwindow = this;
 
          if (::is_set(pwindow))
          {
@@ -736,7 +747,7 @@ namespace windowing_gtk4
    void window::_on_motion_notify(GtkEventControllerMotion * pcontroller, double x, double y)
    {
 
-      auto pwindow = m_pwindow;
+      auto pwindow = this;
 
       if (::is_set(pwindow))
       {
@@ -844,7 +855,7 @@ namespace windowing_gtk4
       {
          g_print("Window has been restored.\n");
 
-         ::windowing::window * pimpl = m_pwindow;
+         ::windowing::window * pimpl = this;
 
          pimpl->m_puserinteraction->display(::e_display_normal);
 
@@ -883,12 +894,22 @@ namespace windowing_gtk4
    void window::create_window()
    {
 
+      ::windowing::window::create_window();
+
+   }
+
+
+   void window::_create_window()
+   {
+
       bool bOk = false;
+
+      bool bVisible = m_puserinteraction->const_layout().sketch().is_screen_visible();
 
       main_send([this, &bOk]()
       {
 
-          ::windowing::window * pimpl = m_pwindow;
+          ::windowing::window * pimpl = this;
 
           auto pusersystem = pimpl->m_puserinteraction->m_pusersystem;
 
@@ -896,32 +917,33 @@ namespace windowing_gtk4
 
           auto pgtk4windowing = gtk4_windowing();
 
-          auto pdisplay = pgtk4windowing->m_pdisplay;
+         ::pointer < ::windowing_gtk4::display > pdisplay = pgtk4windowing->m_pacmedisplay;
 
-          m_pwindow = pimpl;
+         // auto pdisplay = pgtk4windowing->m_pdisplay;
 
-          m_pwindow->m_puserinteraction->m_pwindow = this;
+          //m_pwindow = pimpl;
 
-          m_pwindow->m_puserinteraction->m_puserinteractionTopLevel = m_pwindow->
+          m_puserinteraction->m_pacmewindowingwindow = this;
+
+          //m_puserinteraction->m_puserinteractionTopLevel = m_pwindow->
              m_puserinteraction;
 
-          m_pdisplaybase = pdisplay;
+          //m_pdisplaybase = pdisplay;
 
-          m_puserinteractionbase = m_pwindow->m_puserinteraction;
+          //m_puserinteractionbase = m_pwindow->m_puserinteraction;
 
-          information() << "window::create_window m_pnanouserdisplay : " << (::iptr) m_pdisplaybase.m_p;
+          //information() << "window::create_window m_pnanouserdisplay : " << (::iptr) m_pdisplaybase.m_p;
 
-          pimpl->m_pwindow = this;
+          //pimpl->m_pwindow = this;
 
-          int x = m_pwindow->m_puserinteraction->const_layout().sketch().origin().x();
+          int x = m_puserinteraction->const_layout().sketch().origin().x();
 
-          int y = m_pwindow->m_puserinteraction->const_layout().sketch().origin().y();
+          int y = m_puserinteraction->const_layout().sketch().origin().y();
 
-          int cx = m_pwindow->m_puserinteraction->const_layout().sketch().width();
+          int cx = m_puserinteraction->const_layout().sketch().width();
 
-          int cy = m_pwindow->m_puserinteraction->const_layout().sketch().height();
+          int cy = m_puserinteraction->const_layout().sketch().height();
 
-          bool bVisible = m_pwindow->m_puserinteraction->const_layout().sketch().is_screen_visible();
 
           if (cx <= 0)
           {
@@ -945,30 +967,25 @@ namespace windowing_gtk4
 
           m_sizeWindow.cy() = cy;
 
-          _create_window();
+          ::gtk4::acme::windowing::window::_create_window();
 
           set_oswindow(this);
 
-          pimpl->m_puserinteraction->m_pinteractionimpl = pimpl;
+          //pimpl->m_puserinteraction->m_pinteractionimpl = pimpl;
 
-          pimpl->m_puserinteraction->increment_reference_count(
-             REFERENCING_DEBUGGING_P_NOTE(this, "native_create_window"));
+         __refdbg_add_referer
 
-          m_pwindow->m_puserinteraction->__defer_set_owner_to_impl();
+         m_puserinteraction->increment_reference_count();
+
+          //m_puserinteraction->increment_reference_count(
+            // REFERENCING_DEBUGGING_P_FUNCTION_NOTE(this, "windowing_gtk4::window::_create_window", "native_create_window"));
+
+          //m_puserinteraction->__defer_set_owner_to_impl();
 
           bamf_set_icon();
 
-          if (bVisible)
-          {
+         //m_puserinteraction->send_message(e_message_create);
 
-             map_window();
-
-          } else
-          {
-
-             pimpl->m_puserinteraction->const_layout().window().display() = e_display_none;
-
-          }
 
           bOk = true;
 
@@ -977,7 +994,7 @@ namespace windowing_gtk4
       if (bOk)
       {
 
-         ::windowing::window * pimpl = m_pwindow;
+         //::windowing::window * pimpl = this;
 
 #ifdef REPORT_OFFSET
 
@@ -997,16 +1014,29 @@ namespace windowing_gtk4
 
 #endif
 
-         auto lresult = pimpl->m_puserinteraction->send_message(e_message_create, 0, 0);
+         auto lresult = m_puserinteraction->send_message(e_message_create, 0, 0);
 
          if (lresult == -1)
          {
             throw ::exception(error_failed);
          }
 
-         pimpl->m_puserinteraction->m_ewindowflag |= e_window_flag_window_created;
+         m_puserinteraction->m_ewindowflag |= e_window_flag_window_created;
 
-         pimpl->m_puserinteraction->set_flag(e_flag_task_started);
+         m_puserinteraction->set_flag(e_flag_task_started);
+
+      }
+
+
+      if (bVisible)
+      {
+
+         map_window();
+
+      } else
+      {
+
+         m_puserinteraction->const_layout().window().display() = e_display_none;
 
       }
 
@@ -1101,41 +1131,41 @@ namespace windowing_gtk4
    }
 
 
-   void window::post_nc_destroy()
-   {
-
-      if (!::is_null(this))
-      {
-
-         m_pwindowing->erase_window(this);
-
-      }
-
-   }
-
-
-   void window::set_user_interaction(::windowing::window * pimpl)
-   {
-
-      m_pwindow = pimpl;
-
-      m_pmessagequeue = pimpl->m_puserinteraction->m_pthreadUserInteraction->get_message_queue();
-
-   }
+   // void window::post_nc_destroy()
+   // {
+   //
+   //    if (!::is_null(this))
+   //    {
+   //
+   //       system()->windowing()->erase_window(this);
+   //
+   //    }
+   //
+   // }
 
 
-   oswindow window::get_parent_oswindow() const
-   {
+   // void window::set_user_interaction(::windowing::window * pimpl)
+   // {
+   //
+   //    m_pwindow = pimpl;
+   //
+   //    m_pmessagequeue = pimpl->m_puserinteraction->m_pthreadUserInteraction->get_message_queue();
+   //
+   // }
 
-      return nullptr;
 
-   }
+   // oswindow window::get_parent_oswindow() const
+   // {
+   //
+   //    return nullptr;
+   //
+   // }
 
 
    ::windowing_gtk4::windowing * window::gtk4_windowing()
    {
 
-      return dynamic_cast < ::windowing_gtk4::windowing * > (m_pwindowing.m_p);
+      return dynamic_cast < ::windowing_gtk4::windowing * > (system()->acme_windowing());
 
    }
 
@@ -1143,7 +1173,7 @@ namespace windowing_gtk4
    ::windowing_gtk4::display * window::gtk4_display()
    {
 
-      return dynamic_cast < ::windowing_gtk4::display * > (m_pdisplaybase.m_p);
+      return dynamic_cast < ::windowing_gtk4::display * > (system()->acme_windowing()->acme_display());
 
    }
 
@@ -1239,7 +1269,7 @@ namespace windowing_gtk4
    bool window::is_window_visible()
    {
 
-      return ::gtk4::micro::window::is_window_visible();
+      return ::gtk4::acme::windowing::window::is_window_visible();
 
    }
 
@@ -1262,14 +1292,14 @@ namespace windowing_gtk4
 
       }
 
-      if (m_pwindow == nullptr)
-      {
-
-         return true;
-
-      }
-
-      if (!m_pwindow->m_puserinteraction->m_bUserElementOk)
+      // if (m_pwindow == nullptr)
+      // {
+      //
+      //    return true;
+      //
+      // }
+      //
+      if (!m_puserinteraction->m_bUserElementOk)
       {
 
          return true;
@@ -1327,6 +1357,18 @@ namespace windowing_gtk4
 //
 //      }
 
+      if(edisplay == ::e_display_zoomed)
+      {
+
+         if(!is_window_zoomed())
+         {
+
+            window_maximize();
+
+         }
+
+      }
+
       return true;
 
    }
@@ -1336,7 +1378,7 @@ namespace windowing_gtk4
                                            const ::e_activation & eactivation, bool bNoZorder, ::e_display edisplay)
    {
 
-      if (!(m_pwindow->m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
+      if (!(m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
       {
 
          return false;
@@ -1427,13 +1469,13 @@ namespace windowing_gtk4
    void window::_set_active_window_unlocked()
    {
 
-      if (!(m_pwindow->m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
+      if (!(m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
       {
 
-         if (m_pwindow->m_puserinteraction->const_layout().design().activation() == e_activation_default)
+         if (m_puserinteraction->const_layout().design().activation() == e_activation_default)
          {
 
-            m_pwindow->m_puserinteraction->layout().m_statea[::user::e_layout_sketch].activation() =
+            m_puserinteraction->layout().m_statea[::user::e_layout_sketch].activation() =
                e_activation_set_active;
 
          }
@@ -1467,7 +1509,7 @@ namespace windowing_gtk4
 
       bool bOk = false;
 
-      auto pwindow = m_pwindow;
+      auto pwindow = this;
 
       if (::is_set(pwindow))
       {
@@ -1510,7 +1552,7 @@ namespace windowing_gtk4
    }
 
 
-   bool window::has_keyboard_focus() const
+   bool window::has_keyboard_focus()
    {
 
       return false;
@@ -1524,7 +1566,7 @@ namespace windowing_gtk4
       main_post([this]()
       {
 
-         auto pimpl = m_pwindow;
+         auto pimpl = this;
 
          if (::is_set(pimpl))
          {
@@ -1568,7 +1610,7 @@ namespace windowing_gtk4
    }
 
 
-   bool window::is_active_window() const
+   bool window::is_active_window()
    {
 
       return ::windowing::window::is_active_window();
@@ -1593,7 +1635,7 @@ namespace windowing_gtk4
    bool window::defer_perform_entire_reposition_process(::user::mouse * pmouse)
    {
 
-      return ::gtk4::micro::window::defer_perform_entire_reposition_process(pmouse);
+      return ::gtk4::acme::windowing::window::defer_perform_entire_reposition_process(pmouse);
 
    }
 
@@ -1601,7 +1643,7 @@ namespace windowing_gtk4
    bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse * pmouse)
    {
 
-      return ::gtk4::micro::window::defer_perform_entire_resizing_process(eframeSizing, pmouse);
+      return ::gtk4::acme::windowing::window::defer_perform_entire_resizing_process(eframeSizing, pmouse);
 
    }
 
@@ -1788,6 +1830,22 @@ namespace windowing_gtk4
 //         }
 //
 //      }
+
+   }
+
+
+   void window::_main_send(const ::procedure & procedure)
+   {
+
+      system()->windowing()->_main_send(procedure);
+
+   }
+
+
+   void window::_main_post(const ::procedure & procedure)
+   {
+
+      system()->windowing()->_main_post(procedure);
 
    }
 

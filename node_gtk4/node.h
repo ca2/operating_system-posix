@@ -102,7 +102,7 @@ namespace node_gtk4
 
       virtual bool windowing_message_loop_step();
 
-      void user_post(const ::procedure & procedure) override;
+      //void user_post(const ::procedure & procedure) override;
 
       void defer_do_main_tasks() override;
 //virtual void _on_activate_gtk_application();

@@ -82,9 +82,9 @@ endif()
 list(APPEND library_references
         acme
         acme_posix
-   windowing_system_gtk4
-   nano_user_x11
-        nano_user_gtk4
+   acme_windowing_gtk4
+   #nano_user_x11
+        #nano_user_gtk4
         apex
         apex_posix
    innate_ui_gtk4

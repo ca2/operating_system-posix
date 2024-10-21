@@ -23,9 +23,9 @@
 #include "aura/windowing/display.h"
 //#include "windowing_gtk4/gdk_gdk.h"
 #include "windowing_gtk4/windowing.h"
-#include "windowing_system_gtk4/_.h"
-#include "windowing_system_gtk4/windowing_system.h"
-#include "windowing_system_gtk4/gdk_gdk.h"
+//#include "acme_windowing_gtk4/windowing_system_gtk4/_.h"
+#include "acme_windowing_gtk4/windowing.h"
+#include "acme_windowing_gtk4/gdk_gdk.h"
 //#include "aura/windowing/windowing.h"
 //#include "aura_posix/x11/windowing.h"
 
@@ -577,7 +577,7 @@ namespace node_gtk4
          //gtk_main();
 
 
-         user()->windowing()->windowing_application_main_loop();
+         system()->windowing()->windowing_application_main_loop();
 
 
       }
@@ -699,7 +699,7 @@ namespace node_gtk4
    //
    //    ::pointer < ::windowing_gtk4::windowing> pgtk4windowing = this->windowing();
    //
-   //    ::pointer < ::windowing_system_gtk4::windowing_system> pgtk4windowingsystem = system()->acme_windowing();
+   //    ::pointer < ::gtk4::acme::windowing::windowing> pgtk4windowingsystem = system()->acme_windowing();
    //
    //    ::string strGtkTheme;
    //
@@ -802,13 +802,13 @@ namespace node_gtk4
 
       // indirect wall-changer sourceforge.net contribution
 
-      auto psystem = system()->m_papexsystem;
+      //auto psystem = system()->m_papexsystem;
 
-      auto pnode = psystem->node();
+      //auto pnode = psystem->node();
 
-      auto edesktop = pnode->get_edesktop();
+      auto edesktop = ::windowing::get_edesktop();
 
-      if (edesktop & ::user::e_desktop_gnome)
+      if (edesktop == ::windowing::e_desktop_gnome)
       {
 
          bool bOk1 = ::gdk::gsettings_set("org.gnome.desktop.interface", "gtk-theme", strUserTheme).ok();
@@ -836,20 +836,20 @@ namespace node_gtk4
          }
 
       }
-      else if (edesktop & ::user::e_desktop_mate)
+      else if (edesktop == ::windowing::e_desktop_mate)
       {
 
          //return ::user::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
 
       }
-      else if (edesktop & ::user::e_desktop_lxde)
+      else if (edesktop == ::windowing::e_desktop_lxde)
       {
 
 
          //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
 
       }
-      else if (edesktop & ::user::e_desktop_xfce)
+      else if (edesktop & ::windowing::e_desktop_xfce)
       {
          //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
          //          if(entry.contains("image-path") || entry.contains("last-image")){
@@ -876,13 +876,13 @@ namespace node_gtk4
 
       // indirect wall-changer sourceforge.net contribution
 
-      auto psystem = system()->m_papexsystem;
+      // auto psystem = system()->m_papexsystem;
+      //
+      // auto pnode = psystem->node();
 
-      auto pnode = psystem->node();
+      auto edesktop = ::windowing::get_edesktop();
 
-      auto edesktop = pnode->get_edesktop();
-
-      if (edesktop & ::user::e_desktop_gnome)
+      if (edesktop & ::windowing::e_desktop_gnome)
       {
 
          bool bOk1 = ::gdk::gsettings_set("org.gnome.desktop.interface", "icon-theme", strUserIconTheme).ok();
@@ -911,20 +911,20 @@ namespace node_gtk4
          }
 
       }
-      else if (edesktop & ::user::e_desktop_mate)
+      else if (edesktop == ::windowing::e_desktop_mate)
       {
 
          //return ::user::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
 
       }
-      else if (edesktop & ::user::e_desktop_lxde)
+      else if (edesktop == ::windowing::e_desktop_lxde)
       {
 
 
          //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
 
       }
-      else if (edesktop & ::user::e_desktop_xfce)
+      else if (edesktop == ::windowing::e_desktop_xfce)
       {
          //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
          //          if(entry.contains("image-path") || entry.contains("last-image")){
@@ -957,20 +957,22 @@ namespace node_gtk4
 
       // wall-changer sourceforge.net contribution
 
-      auto psystem = system()->m_papexsystem;
+      // auto psystem = system()->m_papexsystem;
+      //
+      // auto pnode = psystem->node();
 
-      auto pnode = psystem->node();
+      //auto edesktop = pnode->get_edesktop();
 
-      auto edesktop = pnode->get_edesktop();
+      auto edesktop = ::windowing::get_edesktop();
 
       bool bDark = pwindowingdisplay->m_strDarkModeAnnotation.case_insensitive_contains("dark");
 
       switch (edesktop)
       {
 
-         case ::user::e_desktop_gnome:
+         case ::windowing::e_desktop_gnome:
          //case ::user::e_desktop_ubuntu_gnome:
-         case ::user::e_desktop_unity:
+         case ::windowing::e_desktop_unity:
          {
 
             if(bDark)
@@ -989,17 +991,17 @@ namespace node_gtk4
             }
 
          }
-         case ::user::e_desktop_mate:
+         case ::windowing::e_desktop_mate:
 
             return ::gdk::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath).ok();
 
-         case ::user::e_desktop_lxde:
+         case ::windowing::e_desktop_lxde:
 
             call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
 
             break;
 
-         case ::user::e_desktop_xfce:
+         case ::windowing::e_desktop_xfce:
          {
             //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
             //          if(entry.contains("image-path") || entry.contains("last-image")){
@@ -1026,36 +1028,38 @@ namespace node_gtk4
    void node::enable_wallpaper_change_notification()
    {
 
-      auto psystem = system()->m_papexsystem;
+      // auto psystem = system()->m_papexsystem;
+      //
+      // auto pnode = psystem->node();
 
-      auto pnode = psystem->node();
+      //auto edesktop = pnode->get_edesktop();
 
-      auto edesktop = pnode->get_edesktop();
+      auto edesktop = ::windowing::get_edesktop();
 
       switch (edesktop)
       {
 
-         case ::user::e_desktop_gnome:
+         case ::windowing::e_desktop_gnome:
          //case ::user::e_desktop_ubuntu_gnome:
-         case ::user::e_desktop_unity:
+         case ::windowing::e_desktop_unity:
 
             ::gdk::node_enable_wallpaper_change_notification(this, "org.gnome.desktop.background", "picture-uri");
 
             break;
 
-         case ::user::e_desktop_mate:
+         case ::windowing::e_desktop_mate:
 
             ::gdk::node_enable_wallpaper_change_notification(this, "org.mate.background", "picture-filename");
 
             break;
 
-         case ::user::e_desktop_lxde:
+         case ::windowing::e_desktop_lxde:
 
             //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
 
             break;
 
-         case ::user::e_desktop_xfce:
+         case ::windowing::e_desktop_xfce:
          {
             //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
             //          if(entry.contains("image-path") || entry.contains("last-image")){
@@ -1100,12 +1104,12 @@ namespace node_gtk4
    // }
 
 
-   void node::user_post(const ::procedure &procedure)
-   {
-
-      ::gdk::gdk_branch(procedure);
-
-   }
+   // void node::user_post(const ::procedure &procedure)
+   // {
+   //
+   //    ::gdk::gdk_branch(procedure);
+   //
+   // }
 
 
    void node::defer_do_main_tasks()
@@ -1231,36 +1235,36 @@ namespace node_gtk4
 
       bool bOk = false;
 
-      auto psystem = system()->m_papexsystem;
+      // auto psystem = system()->m_papexsystem;
+      //
+      // auto pnode = psystem->node();
 
-      auto pnode = psystem->node();
-
-      auto edesktop = pnode->get_edesktop();
+      auto edesktop = ::windowing::get_edesktop();
 
       switch (edesktop)
       {
 
-         case ::user::e_desktop_gnome:
+         case ::windowing::e_desktop_gnome:
          //case ::user::e_desktop_ubuntu_gnome:
-         case ::user::e_desktop_unity:
+         case ::windowing::e_desktop_unity:
 
             bOk = ::gdk::gsettings_get(strTheme, "org.gnome.desktop.interface", "gtk-theme").ok();
 
             break;
 
-         case ::user::e_desktop_mate:
+         case ::windowing::e_desktop_mate:
 
             bOk = ::gdk::gsettings_get(strTheme, "org.mate.background", "picture-filename").ok();
 
             break;
 
-         case ::user::e_desktop_lxde:
+         case ::windowing::e_desktop_lxde:
 
             //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
 
             break;
 
-         case ::user::e_desktop_xfce:
+         case ::windowing::e_desktop_xfce:
          {
             //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
             //          if(entry.contains("image-path") || entry.contains("last-image")){
@@ -1592,7 +1596,7 @@ namespace node_gtk4
 //   void node::_set_os_theme_colors(::os_theme_colors *posthemecolors)
 //   {
 //
-//      ::acme::get()->platform()->informationf("_set_os_theme_colors\n");
+//      informationf("_set_os_theme_colors\n");
 //
 //      ::user::os_set_theme_colors(posthemecolors);
 //
@@ -1632,7 +1636,7 @@ namespace node_gtk4
    // void node::_apply_os_user_theme()
    // {
    //
-   //    ::acme::get()->platform()->informationf("applying os user theme: \"" + m_strOsUserTheme + "\"\n");
+   //    informationf("applying os user theme: \"" + m_strOsUserTheme + "\"\n");
    //
    //    os_process_user_theme(m_strOsUserTheme);
    //
@@ -1666,25 +1670,25 @@ namespace node_gtk4
 //    void node::os_process_user_theme(string strOsTheme)
 //    {
 //
-//       ::acme::get()->platform()->informationf(
+//       informationf(
 //               "os_process_user_theme: is strTheme(" + strOsTheme + ") same as m_strTheme(" + m_strTheme + ")\n");
 //
 //       if (strOsTheme == m_strTheme)
 //       {
 //
-//          ::acme::get()->platform()->informationf(
+//          informationf(
 //                  "os_process_user_theme: same theme as before [___new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
 //
 //          return;
 //
 //       }
 //
-//       ::acme::get()->platform()->informationf(
+//       informationf(
 //               "os_process_user_theme: different theme [___new(" + strOsTheme + ") - old(" + m_strTheme + ")]\n");
 //
 //       m_strTheme = strOsTheme;
 //
-//       ::acme::get()->platform()->informationf("os_process_user_theme m_strTheme = \"" + m_strTheme + "\"\n");
+//       informationf("os_process_user_theme m_strTheme = \"" + m_strTheme + "\"\n");
 //
 //       try
 //       {
@@ -1768,7 +1772,7 @@ namespace node_gtk4
    bool node::is_branch_current() const
    {
 
-      return current_itask() == main_user_itask();
+      return current_itask() == main_itask();
 
    }
 

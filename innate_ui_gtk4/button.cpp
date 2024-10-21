@@ -85,7 +85,7 @@ namespace innate_ui_gtk4
 
       ::pointer <icon > picon = piconParam;
 
-      sync([this, picon]()
+      main_send([this, picon]()
       {
 
          //::SendMessage(m_hwnd, BM_SETICON, (WPARAM) picon->m_hicon, 0);

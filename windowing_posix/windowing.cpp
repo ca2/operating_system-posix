@@ -46,21 +46,23 @@ namespace windowing_posix
    void windowing::_configure_message(::windowing::window * pwindow, const ::rectangle_i32 & rectangle)
    {
 
-      ::user::primitive_impl * pimpl = pwindow->m_pwindow;
+      // ::user::primitive_impl * pimpl = pwindow->m_pwindow;
+      //
+      // if (pimpl != nullptr)
+      // {
+      //
+      //    ::user::interaction * pinteraction = pimpl->m_puserinteraction;
+      //
+      //    if (pinteraction != nullptr)
+      //    {
+      //
+      //       pinteraction->m_pprimitiveimpl->on_configure(rectangle);
+      //
+      //    }
+      //
+      // }
 
-      if (pimpl != nullptr)
-      {
-
-         ::user::interaction * pinteraction = pimpl->m_puserinteraction;
-
-         if (pinteraction != nullptr)
-         {
-
-            pinteraction->m_pprimitiveimpl->on_configure(rectangle);
-
-         }
-
-      }
+      pwindow->on_configure(rectangle);
 
    }
 
@@ -133,16 +135,16 @@ namespace windowing_posix
 
       information() << "_on_wm_state_change is_iconic : " << bIconic;
 
-      ::user::interaction * pinteraction = pposixwindow->m_pwindow->m_puserinteraction;
+      ::user::interaction * pinteraction = pposixwindow->m_puserinteraction;
 
       if (pinteraction != nullptr)
       {
 
-         auto pimpl = pinteraction->m_pprimitiveimpl;
+         //auto pimpl = pinteraction->m_pprimitiveimpl;
 
          bool bHandled = false;
 
-         if (pimpl != nullptr)
+         //if (pimpl != nullptr)
          {
 
             if (bIconic)
@@ -158,7 +160,7 @@ namespace windowing_posix
 //
 //                                 //pinteraction->hide();
 //
-                  pinteraction->post_procedure([pinteraction]()
+                  pinteraction->main_post([pinteraction]()
                                                {
 
 ///                                                  auto edisplayPrevious = pinteraction->window_previous_display();

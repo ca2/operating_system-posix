@@ -171,7 +171,9 @@ namespace windowing_gtk4
 
 #else
 
-      return __sync_add_and_fetch(&m_countReference, 1);
+      //return __sync_add_and_fetch(&m_countReference, 1);
+
+      return ::gtk4::acme::windowing::display_base::increment_reference_count();
 
 #endif
 
@@ -191,7 +193,9 @@ namespace windowing_gtk4
 
 #else
 
-      return __sync_sub_and_fetch(&m_countReference, 1);
+      //return __sync_sub_and_fetch(&m_countReference, 1);
+
+      return ::gtk4::acme::windowing::display_base::decrement_reference_count();
 
 #endif
 
@@ -265,6 +269,8 @@ namespace windowing_gtk4
 
    //    display_base::open();
 
+      __check_refdbg
+
       m_monitora.clear();
 
       m_pgdkdisplay = gdk_display_get_default();
@@ -279,10 +285,10 @@ namespace windowing_gtk4
          GdkMonitor *monitor = GDK_MONITOR(g_list_model_get_item(monitors, i));
 
          auto pmonitor = __create_new < ::windowing::monitor >();
-
+         __check_refdbg
          pmonitor->m_pdisplay = this;
 
-
+         __check_refdbg
          // Get the geometry (rectangle) of the monitor
          GdkRectangle geometry;
          gdk_monitor_get_geometry(monitor, &geometry);
@@ -294,8 +300,9 @@ namespace windowing_gtk4
          ::copy(pmonitor->m_rectangleWorkspace, geometry);
          // Unref the monitor object as we no longer need it
          g_object_unref(monitor);
-
+         __check_refdbg
          m_monitora.add(pmonitor);
+         __check_refdbg
       }
 
       // if(is_wayland())
@@ -313,7 +320,27 @@ namespace windowing_gtk4
 
     }
 
+   ::size_i32 display::get_main_screen_size()
+   {
 
+      //      auto snum = DefaultScreen(m_pdisplay);
+      //
+      //      auto width = DisplayWidth(m_pdisplay, snum);
+      //
+      //      auto height = DisplayHeight(m_pdisplay, snum);
+      //
+      //      return { width, height };
+
+      if (m_monitora.is_empty())
+      {
+
+         return {};
+
+      }
+
+      return m_monitora[0]->monitor_rectangle().size();
+
+   }
    bool display::has_readily_gettable_absolute_pointer_position() const
    {
 
@@ -495,12 +522,12 @@ namespace windowing_gtk4
    }
 
 
-   ::windowing_gtk4::windowing * display::x11_windowing()
-   {
-
-      return (::windowing_gtk4::windowing *) m_pwindowing->m_pWindowing4;
-
-   }
+   // ::windowing_gtk4::windowing * display::x11_windowing()
+   // {
+   //
+   //    return m_pacmewindowing.cast < ::windowing_gtk4::windowing >();
+   //
+   // }
 
 
 

@@ -1987,11 +1987,11 @@ if(bSentResponse)
             //auto & screeny_origin = window.screen_origin();
 
             //informationf("");
-            //::acme::get()->platform()->informationf("\nwindow(origin=" + as_string(origin.x) + ", " + as_string(origin.y));
-            //::acme::get()->platform()->informationf("\nwindow.screen_origin=" + as_string(screen_origin.x) + ", " + as_string(screen_origin.y));
-            //::acme::get()->platform()->informationf("\nbutton.root_x=" + as_string(pbutton->root_x));
-            //::acme::get()->platform()->informationf("\nbutton.root_y=" + as_string(pbutton->root_y));
-            //::acme::get()->platform()->informationf("\n");
+            //informationf("\nwindow(origin=" + as_string(origin.x) + ", " + as_string(origin.y));
+            //informationf("\nwindow.screen_origin=" + as_string(screen_origin.x) + ", " + as_string(screen_origin.y));
+            //informationf("\nbutton.root_x=" + as_string(pbutton->root_x));
+            //informationf("\nbutton.root_y=" + as_string(pbutton->root_y));
+            //informationf("\n");
 
             //msg.time = pbutton->time;
 
@@ -2006,7 +2006,7 @@ if(bSentResponse)
                if (pbutton->detail == XCB_BUTTON_INDEX_1)
                {
 
-                  //::acme::get()->platform()->informationf("ButtonPress::Button1\n");
+                  //informationf("ButtonPress::Button1\n");
 
                   g_i135++;
 
@@ -2057,7 +2057,7 @@ if(bSentResponse)
                if (pbutton->detail == XCB_BUTTON_INDEX_1)
                {
 
-                  //::acme::get()->platform()->informationf("ButtonRelease::Button1\n");
+                  //informationf("ButtonRelease::Button1\n");
 
                   emessage = e_message_left_button_up;
 

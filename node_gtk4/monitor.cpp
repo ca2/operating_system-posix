@@ -5,8 +5,9 @@
 #include "windowing.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/node.h"
+#include "acme/platform/system.h"
 #include "aura/windowing/windowing.h"
-//#include <gdk/x11/gdkx11monitor.h>
+#include "windowing_gtk4/windowing.h"
 
 
 //::particle * user_synchronization();
@@ -33,7 +34,7 @@ namespace node_gtk4
    ::windowing_gtk4::windowing * monitor::gtk4_windowing() const
    {
 
-      return (::windowing_gtk4::windowing *) m_pdisplay->m_pwindowing->m_pWindowing4;
+      return ::system()->acme_windowing()->cast < ::windowing_gtk4::windowing >();
 
    }
 
@@ -41,7 +42,7 @@ namespace node_gtk4
    ::windowing_gtk4::display * monitor::gtk4_display() const
    {
 
-      return (::windowing_gtk4::display *) m_pdisplay->m_pDisplay;
+      return m_pdisplay->cast < ::windowing_gtk4::display >();
 
    }
 

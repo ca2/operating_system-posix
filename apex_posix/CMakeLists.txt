@@ -149,11 +149,11 @@ endif ()
 
 
 if(${HAS_KDE})
-    add_dependencies(${PROJECT_NAME} nano_user_kde5)
+    add_dependencies(${PROJECT_NAME} acme_windowing_kde5)
 elseif(${HAS_GTK4})
-    add_dependencies(${PROJECT_NAME} nano_user_gtk4)
+    add_dependencies(${PROJECT_NAME} acme_windowing_gtk4)
 elseif(${HAS_GTK3})
-    add_dependencies(${PROJECT_NAME} nano_user_gtk3)
+    add_dependencies(${PROJECT_NAME} acme_windowing_gtk3)
 endif()
 
 list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})

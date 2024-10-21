@@ -7,7 +7,7 @@
 #include "windowing_posix/window.h"
 #include "gtk4_widget.h"
 #include "acme/prototype/geometry2d/rectangle_array.h"
-#include "nano_user_gtk4/window.h"
+#include "acme_windowing_gtk4/window.h"
 
 
 namespace windowing_gtk4
@@ -19,7 +19,7 @@ namespace windowing_gtk4
 
    class CLASS_DECL_WINDOWING_GTK4 window :
       virtual public ::windowing_posix::window,
-      virtual public ::gtk4::micro::window
+      virtual public ::gtk4::acme::windowing::window
    {
    public:
 
@@ -49,6 +49,8 @@ namespace windowing_gtk4
       void _on_size(int cx, int cy) override;
 
       void create_window() override;
+
+      void _create_window() override;
 
       void destroy() override;
 
@@ -83,13 +85,13 @@ namespace windowing_gtk4
 
       void exit_zoomed() override;
 
-      virtual void set_user_interaction(::windowing::window * pinteraction);
+      //virtual void set_user_interaction(::windowing::window * pinteraction);
 
-      virtual void post_nc_destroy();
+      //virtual void post_nc_destroy();
 
       virtual ::e_status set_window_icon(const ::file::path & path);
 
-      ::oswindow get_parent_oswindow() const override;
+      //::oswindow get_parent_oswindow() override;
 
       ::windowing_gtk4::windowing * gtk4_windowing();
 
@@ -133,7 +135,7 @@ namespace windowing_gtk4
 
       void _set_foreground_window_unlocked() override;
 
-      bool has_keyboard_focus() const override;
+      bool has_keyboard_focus() override;
 
       void _on_toplevel_compute_size(GdkToplevel * self, GdkToplevelSize * size) override;
 
@@ -167,7 +169,7 @@ namespace windowing_gtk4
 
       void __update_graphics_buffer() override;
 
-      bool is_active_window() const override;
+      bool is_active_window() override;
 
       void bring_to_front() override;
 
@@ -198,6 +200,11 @@ namespace windowing_gtk4
       virtual void _unlocked_defer_set_window_position(const ::point_i32 & point, const ::size_i32 & size);
 
       virtual void _unlocked_defer_set_window_size(const ::size_i32 & size);
+
+      void _main_send(const ::procedure & procedure) override;
+
+      void _main_post(const ::procedure & procedure) override;
+
 
    };
 

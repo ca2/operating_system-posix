@@ -7,7 +7,8 @@
 #include "windowing_posix/windowing.h"
 #include "acme/prototype/collection/list.h"
 #include "_.h"
-#include "nano_user_gtk4/_gtk4.h"
+#include "acme_windowing_gtk4/windowing.h"
+#include "acme_windowing_gtk4/_gtk4.h"
 
 
 struct libinput_event;
@@ -18,7 +19,8 @@ namespace windowing_gtk4
 
 
    class CLASS_DECL_WINDOWING_GTK4 windowing :
-      virtual public ::windowing_posix::windowing
+      virtual public ::windowing_posix::windowing,
+   virtual public ::gtk4::acme::windowing::windowing
    {
    public:
 
@@ -29,7 +31,7 @@ namespace windowing_gtk4
       //bool m_bRootSelectInput: 1;
       //bool m_bFirstWindowMap: 1;
 
-      ::pointer<::windowing_gtk4::display> m_pdisplay;
+      //::pointer<::windowing_gtk4::display> m_pdisplay;
       //bool m_bFinishX11Thread;
       //bool m_bInitX11Thread;
 

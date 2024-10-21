@@ -15,14 +15,14 @@
 #include "aura/windowing/cursor_manager.h"
 #include <X11/cursorfont.h>
 
-#include "acme/windowing/windowing_base.h"
+#include "acme/windowing/windowing.h"
 //#include "aura/user/user/interaction_impl.h"
 #include "aura/windowing/display.h"
 #include "aura/platform/system.h"
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
-#include "windowing_system_gtk4/windowing_system.h"
-#include "windowing_system_x11/display_lock.h"
+#include "acme_windowing_gtk4/windowing.h"
+//#include "windowing_system_x11/display_lock.h"
 
 
 
@@ -40,7 +40,7 @@ namespace windowing_gtk4
       //
       // m_itask = -1;
 
-      m_pWindowing4 = this;
+      //m_pWindowing4 = this;
 
       // m_bFirstWindowMap = false;
       //
@@ -105,7 +105,9 @@ namespace windowing_gtk4
    void windowing::erase_window(::windowing::window * pwindow)
    {
 
-      m_pdisplay->erase_window(pwindow);
+      ::pointer < ::windowing_gtk4::display > pdisplay = m_pacmedisplay;
+
+      pdisplay->erase_window(pwindow);
 
    }
 
@@ -246,7 +248,7 @@ namespace windowing_gtk4
    void windowing::windowing_post_quit()
    {
 
-      system()->acme_windowing()->windowing_system_post_quit();
+      ::gtk4::acme::windowing::windowing::windowing_post_quit();
 
    }
 
@@ -288,7 +290,7 @@ namespace windowing_gtk4
    ::windowing::display * windowing::display()
    {
 
-      return m_pdisplay;
+      return ::windowing::windowing::display();
 
    }
 
@@ -438,7 +440,9 @@ namespace windowing_gtk4
    ::acme::windowing::window * windowing::get_keyboard_focus(::thread *)
    {
 
-      if (!m_pdisplay)
+      ::pointer < ::windowing_gtk4::display > pdisplay = m_pacmedisplay;
+
+      if (!pdisplay)
       {
 
          return nullptr;
@@ -457,7 +461,9 @@ namespace windowing_gtk4
    ::windowing::window * windowing::get_mouse_capture(::thread *)
    {
 
-      if (!m_pdisplay)
+      ::pointer < ::windowing_gtk4::display > pdisplay = m_pacmedisplay;
+
+      if (!pdisplay)
       {
 
          return nullptr;
@@ -495,7 +501,9 @@ namespace windowing_gtk4
    void windowing::release_mouse_capture(::thread * pthread, ::windowing::window * pwindow)
    {
 
-      m_pdisplay->release_mouse_capture();
+      ::pointer < ::windowing_gtk4::display > pdisplay = m_pacmedisplay;
+
+      pdisplay->release_mouse_capture();
 
    }
 
@@ -551,7 +559,9 @@ namespace windowing_gtk4
 
       pwaylandcursor->_create_os_cursor();
 
-      auto pwaylanddisplay = m_pdisplay;
+      ::pointer < ::windowing_gtk4::display > pdisplay = m_pacmedisplay;
+
+      auto pgtk4display = pdisplay;
 
       // auto pwlpointer = pwaylanddisplay->m_pwlpointer;
       //
@@ -918,20 +928,20 @@ namespace windowing_gtk4
 
       //g_object_ref(m_pgtkapplication);
 
-      auto pdisplay = __create<::windowing::display>();
-
-      pdisplay->initialize_display(this);
-
-      m_pdisplay = pdisplay;
-
-      if (!pdisplay)
-      {
-
-         throw ::exception(error_no_interface,
-                           "Failed to cast pdisplay to m_pdisplay at windowing_gtk4::windowing::initialize");
-
-      }
-
+      // auto pdisplay = __create<::windowing::display>();
+      //
+      // pdisplay->initialize_display(this);
+      //
+      // m_pdisplay = pdisplay;
+      //
+      // if (!pdisplay)
+      // {
+      //
+      //    throw ::exception(error_no_interface,
+      //                      "Failed to cast pdisplay to m_pdisplay at windowing_gtk4::windowing::initialize");
+      //
+      // }
+      //
 
 
       information() << "node_gtk4::_on_activate_gtk_application going to user_post";
@@ -964,7 +974,7 @@ namespace windowing_gtk4
    void windowing::windowing_application_main_loop()
    {
 
-      ::pointer < ::windowing_system_gtk4::windowing_system > pgtk4windowingsystem = system()->acme_windowing();
+      ::pointer < ::gtk4::acme::windowing::windowing > pgtk4windowingsystem = system()->acme_windowing();
 
       pgtk4windowingsystem->m_callbackOnActivateGtkApplication=[this]()
       {
@@ -972,7 +982,7 @@ namespace windowing_gtk4
 
       };
 
-      system()->acme_windowing()->windowing_system_application_main_loop();
+      ::gtk4::acme::windowing::windowing::windowing_application_main_loop();
 
 
 

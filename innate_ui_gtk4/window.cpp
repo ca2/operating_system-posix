@@ -155,7 +155,7 @@ namespace innate_ui_gtk4
    void window::create()
    {
 
-      sync([this]()
+      main_send([this]()
          {
 
             //_register_class();
@@ -286,7 +286,7 @@ namespace innate_ui_gtk4
 
       ::pointer< window > pwindowImpl = pwindow;
 
-      sync([this, pwindowImpl]()
+      main_send([this, pwindowImpl]()
       {
 
          _create_child(pwindowImpl);
@@ -341,7 +341,7 @@ namespace innate_ui_gtk4
    void window::show()
    {
 
-      post([this]()
+      main_post([this]()
       {
 
          if(GTK_IS_WINDOW(m_pgtkwidget))
@@ -373,7 +373,7 @@ namespace innate_ui_gtk4
 
       auto point = pointParam;
 
-      sync([this, point]()
+      main_send([this, point]()
       {
 
          auto p = point;
@@ -397,7 +397,7 @@ namespace innate_ui_gtk4
 
       auto size = sizeParam;
 
-      sync([this, size]()
+      main_send([this, size]()
       {
 
          gtk_widget_set_size_request(m_pgtkwidget, size.cx(), size.cy());
@@ -414,7 +414,7 @@ namespace innate_ui_gtk4
 
       set_size(sizeParam + ::size_i32(8, 40));
 
-      // sync([this, size]()
+      // main_send([this, size]()
       //    {
       //
       //       RECT r{};
@@ -439,7 +439,7 @@ namespace innate_ui_gtk4
    void window::center()
    {
 
-      sync([this]()
+      main_send([this]()
       {
 
             //gtk_window_set_position(GTK_WINDOW(m_pgtkwidget), GTK_WIN_POS_CENTER);

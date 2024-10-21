@@ -122,11 +122,11 @@ namespace system_5
 
       }
 
-      ::acme::get()->platform()->informationf("functon: \"interprocess_caller::send\"\n");
+      informationf("functon: \"interprocess_caller::send\"\n");
 
-      ::acme::get()->platform()->informationf("channel: \"" + m_strBaseChannel + "\"\n");
+      informationf("channel: \"" + m_strBaseChannel + "\"\n");
 
-      ::acme::get()->platform()->informationf("message: \"" + string(pszMessage) + "\"\n");
+      informationf("message: \"" + string(pszMessage) + "\"\n");
 
       //return true;
 

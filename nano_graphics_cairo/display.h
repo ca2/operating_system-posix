@@ -30,7 +30,7 @@ namespace x11
             bool                                         m_bUnhook;
             Display   *                                  m_pdisplay;
             pointer_array < event_listener >             m_eventlistenera;
-            pointer_array < ::x11::micro::interchange >  m_windowa;
+            pointer_array < ::x11::micro::elemental >  m_windowa;
             Window                                       m_windowActive;
             map < enum_atom, Atom >                      m_atommap;
 
@@ -77,10 +77,10 @@ namespace x11
 
 
             void add_listener(event_listener * plistener);
-            void add_window(::x11::micro::interchange * pwindow);
+            void add_window(::x11::micro::elemental * pwindow);
 
             void erase_listener(event_listener * plistener);
-            void erase_window(::x11::micro::interchange * pwindow);
+            void erase_window(::x11::micro::elemental * pwindow);
 
             bool _on_event(XEvent * pevent) override;
 

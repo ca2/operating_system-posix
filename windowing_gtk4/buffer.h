@@ -4,7 +4,7 @@
 #pragma once
 
 
-#include "windowing_system_wayland/_.h"
+//#include "windowing_system_wayland/_.h"
 //#include "aura/graphics/graphics/_graphics.h"
 #include "acme/prototype/geometry2d/rectangle.h"
 #include "aura/graphics/graphics/bitmap_source_buffer.h"
@@ -42,7 +42,7 @@ namespace windowing_gtk4
       //XImage *                      m_pimage;
       //bool                          m_bMapped;
       ::rectangle_i32      m_rectangleLast;
-      ::wl_callback*m_pwlcallbackFrame;
+      //::wl_callback*m_pwlcallbackFrame;
       //::image::image_pointer                         m_pimage;
       //interlocked_i64                              m_interlockedPostedScreenUpdate;
 //manual_reset_event m_evXshm;
@@ -54,12 +54,12 @@ namespace windowing_gtk4
       ~buffer() override;
 
 
-      virtual ::windowing_gtk4::window * x11_window();
+      //virtual ::windowing_gtk4::window * x11_window();
 
 
       void initialize_graphics_graphics(::windowing::window * pimpl) override;
       void destroy() override;
-      virtual void __handle_window_redraw(::wl_callback *pwlcallback, uint32_t time);
+      //virtual void __handle_window_redraw(::wl_callback *pwlcallback, uint32_t time);
 
       bool update_buffer(::graphics::buffer_item * pbufferitem) override;
 

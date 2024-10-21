@@ -31,13 +31,13 @@ namespace node_gtk_based
 //#define __matter(TYPE) __initialize_new ::matter<TYPE>()
 
 
-namespace user
-{
-
-
-   char * gsettings_get_malloc(const char * pszSchema, const char * pszKey;
-
-
-}
-
-
+// namespace user
+// {
+//
+//
+//    char * gsettings_get_malloc(const char * pszSchema, const char * pszKey);
+//
+//
+// }
+//
+//

@@ -13,7 +13,7 @@
 
 extern ::app_core * g_pappcore;
 
-Display * x11_get_display();
+//Display * x11_get_display();
 
 //::particle * user_synchronization();
 

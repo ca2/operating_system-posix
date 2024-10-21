@@ -6,7 +6,7 @@
 #include "acme/filesystem/filesystem/acme_directory.h"
 #include "acme/platform/system.h"
 #include "acme/prototype/datetime/datetime.h"
-#include "acme/windowing/windowing_base.h"
+#include "acme/windowing/windowing.h"
 #include "apex/platform/application.h"
 #ifdef WITH_X11
 #include <X11/Xlib.h>
@@ -331,7 +331,7 @@ namespace aura_posix
 
       //deferx_initializex_x11();
 
-      m_pAuraPosixX11Display = system()->acme_windowing()->get_display();
+      m_pAuraPosixX11Display = system()->acme_windowing()->acme_display();
 
       if(!m_pAuraPosixX11Display)
       {
@@ -517,7 +517,7 @@ namespace aura_posix
 
       auto inlinelog = std_inline_log();
 
-      inlinelog.m_timeTimeout = 10_minutes;
+      inlinelog.set_timeout(10_minutes);
 
       int iExitCode = this->command_system(strCommand, inlinelog);
 

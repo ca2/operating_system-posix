@@ -180,7 +180,7 @@ namespace acme_posix
 
          };
 
-         functionTrace.m_timeTimeout = timeOut;
+         functionTrace.set_timeout(timeOut);
 
          auto iExitCode = node()->command_system(scopedstrCommand, functionTrace, pathWorkingDirectory, edisplay);
 

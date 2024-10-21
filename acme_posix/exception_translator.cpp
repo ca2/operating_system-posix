@@ -6,7 +6,7 @@
 #include "exception_translator.h"
 //#include "acme/exception/standard.h"
 //#include "acme/platform/sequencer.h"
-#include "acme/user/user/conversation.h"
+//#include "acme/user/user/conversation.h"
 #include "acme/nano/nano.h"
 #include "acme/user/micro/user.h"
 #if defined(LINUX)
@@ -151,7 +151,7 @@ namespace acme_posix
 
          informationf("failed to install segmentation fault signal handler");
 
-         auto psequencer = system()->acme_windowing()->message_box("failed to install segmentation fault signal handler",
+         auto pmessagebox = message_box("failed to install segmentation fault signal handler",
                                                "failed to install segmentation fault signal handler",
                                                e_message_box_ok);
 

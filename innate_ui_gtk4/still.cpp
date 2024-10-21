@@ -91,7 +91,7 @@ m_bIcon = true;
 
       ::pointer <::innate_ui_gtk4::icon > picon = piconParam;
 
-      sync([this, picon]()
+      main_send([this, picon]()
       {
 
          gtk_image_set_from_paintable(GTK_IMAGE(m_pgtkwidget), picon->m_pgdkpaintable);

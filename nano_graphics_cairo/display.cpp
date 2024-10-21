@@ -379,7 +379,7 @@ namespace x11
          }
 
 
-         void display::erase_window(::x11::micro::interchange * pwindow)
+         void display::erase_window(::x11::micro::elemental * pwindow)
          {
 
             synchronous_lock synchronouslock(this->synchronization());

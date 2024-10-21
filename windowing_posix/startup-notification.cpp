@@ -11,7 +11,7 @@
 #include "acme/platform/context.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
-#include "acme/windowing/windowing_base.h"
+#include "acme/windowing/windowing.h"
 #ifdef WITH_SN
 #define SN_API_NOT_YET_FROZEN
 #include <libsn/sn.h>
@@ -96,14 +96,14 @@ namespace windowing_posix
    void windowing::_libsn_start_context()
    {
 
-      auto ewindowing = ::windowing::get_ewindowing();
+      auto ewindowing = system()->acme_windowing()->get_ewindowing();
 
       if(ewindowing == ::windowing::e_windowing_x11 && ewindowing == ::windowing::e_windowing_xcb)
       {
 
          information() << "_libsn_start_context Starting";
 
-         Display *pdisplay = (Display *) system()->acme_windowing()->get_display();
+         Display *pdisplay = (Display *) system()->acme_windowing()->acme_display();
 
          if (::is_null(pdisplay))
          {

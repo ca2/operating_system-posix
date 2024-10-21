@@ -266,45 +266,37 @@ namespace cairo
 
             cairo_set_antialias(m_pdc, CAIRO_ANTIALIAS_NONE);
 
-            int iWidth = pnanopen ? pnanopen->m_iWidth : 0;
-
-            if(iWidth > 0 || (pnanobrush && pnanobrush->m_color.has_opacity()))
+            if(pnanobrush && pnanobrush->m_color.has_opacity())
             {
 
                cairo_rectangle(m_pdc,
-                               rectangle.left() + !!iWidth,
-                               rectangle.top()  + !!iWidth,
-                               rectangle.width() -  !!iWidth ,
-                               rectangle.height() - !!iWidth);
-
-            }
-
-            if (pnanobrush && pnanobrush->m_color.has_opacity())
-            {
+                               rectangle.left(),
+                               rectangle.top(),
+                               rectangle.width(),
+                               rectangle.height());
 
                _set_source(pnanobrush->m_color);
 
-               if(iWidth > 0)
-               {
-
-                  cairo_fill_preserve(m_pdc);
-
-               }
-               else
-               {
-
-                  cairo_fill(m_pdc);
-
-               }
+               cairo_fill(m_pdc);
 
             }
 
-            if(iWidth > 0)
+            double dWidth = (double)(pnanopen ? pnanopen->m_iWidth : 0);
+
+            if(dWidth > 0)
             {
+
+               double dAdjustment = dWidth * 0.5;
+
+               cairo_rectangle(m_pdc,
+                   rectangle.left() + dAdjustment,
+                   rectangle.top() + dAdjustment,
+                   rectangle.width() - 2.0 * dAdjustment,
+                   rectangle.height() - 2.0 * dAdjustment);
 
                _set_source(pnanopen->m_color);
 
-               cairo_set_line_width(m_pdc, iWidth);
+               cairo_set_line_width(m_pdc, dWidth);
 
                cairo_stroke(m_pdc);
 
