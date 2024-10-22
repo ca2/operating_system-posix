@@ -1204,7 +1204,7 @@ namespace gtk4
 
             gtk_popover_set_has_arrow(GTK_POPOVER(ppopover), false);
 
-            //gtk_popover_set_autohide(GTK_POPOVER(ppopover), false);
+            ///gtk_popover_set_autohide(GTK_POPOVER(ppopover), false);
 
             gtk_popover_set_pointing_to(GTK_POPOVER(ppopover), &r);
 
