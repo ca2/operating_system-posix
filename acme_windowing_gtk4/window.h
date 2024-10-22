@@ -145,6 +145,12 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
             void window_restore() override; // m_pwindow->m_puserinteraction->display(::e_display_normal);
 
 
+            void on_window_deiconified() override;
+            void on_window_activated() override;
+            void on_window_iconified() override;
+            void on_window_deactivated() override;
+
+
             virtual void __activate_window(bool bNormalPriority);
 
             virtual void __map();

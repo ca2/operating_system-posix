@@ -984,7 +984,7 @@ namespace gtk4
             // g_menu_append_item(pmenuSection, pitem5);
             // g_object_unref(pitem2);
 
-            g_menu_freeze(pmenu);
+            //g_menu_freeze(pmenu);
 
             return pmenu;
 
@@ -1181,15 +1181,40 @@ namespace gtk4
          void window::defer_show_system_menu(::user::mouse* pmouse)
          {
 
-            auto* widget = m_pdrawingarea;
             int x = pmouse->m_pointHost.x();
             int y = pmouse->m_pointHost.y();
+
+            main_post([this, x, y]()
+               {
+
+            auto* widget = m_pdrawingarea;
+
+            //gtk_widget_realize(m_pgtkwidget);
 
 
             auto* pmenu = _create_system_menu();
 
             auto ppopover = gtk_popover_menu_new_from_model(G_MENU_MODEL(pmenu));
 
+            GdkRectangle r;
+            r.width = 16;
+            r.height = 16;
+            r.x = x - r.width / 2;
+            r.y = y - r.height / 2;
+
+            gtk_popover_set_has_arrow(GTK_POPOVER(ppopover), false);
+
+            //gtk_popover_set_autohide(GTK_POPOVER(ppopover), false);
+
+            gtk_popover_set_pointing_to(GTK_POPOVER(ppopover), &r);
+
+            //gtk_popover_set_offset(GTK_POPOVER(ppopover), x + r.width, y + r.height);
+
+            gtk_popover_set_position(GTK_POPOVER(ppopover), GTK_POS_BOTTOM);
+
+            //gtk_widget_set_parent(ppopover, m_pdrawingarea);
+
+            gtk_widget_set_parent(ppopover, m_pgtkwidget);
 
 
             auto pbox = gtk_widget_get_first_child(ppopover);
@@ -1343,24 +1368,9 @@ if(abuttontemplatechild)
 
 
 
-            GdkRectangle r;
-            r.width = 16;
-            r.height = 16;
-            r.x = x - r.width / 2;
-            r.y = y - r.height / 2;
 
-            gtk_popover_set_has_arrow(GTK_POPOVER(ppopover), false);
 
-            gtk_popover_set_pointing_to(GTK_POPOVER(ppopover), &r);
-
-            //gtk_popover_set_offset(GTK_POPOVER(ppopover), x + r.width, y + r.height);
-
-            gtk_popover_set_position(GTK_POPOVER(ppopover), GTK_POS_BOTTOM);
-
-            //gtk_widget_set_parent(ppopover, m_pdrawingarea);
-
-            gtk_widget_set_parent(ppopover, m_pgtkwidget);
-
+            gtk_widget_realize(ppopover);
             //int min_height = 100;
 
             //
@@ -1387,10 +1397,21 @@ if(abuttontemplatechild)
                gtk_widget_set_size_request(ppopover, (double)width * 1.15, (double)height * 1.15);
             }
 
-            gtk_popover_popup(GTK_POPOVER(ppopover));
+            //gtk_widget_realize(ppopover);
 
-            gtk_widget_queue_draw(m_pgtkwidget);
+            main_post([ppopover]()
+            {
 
+               gtk_popover_popup(GTK_POPOVER(ppopover));
+               //gtk_widget_set_visible(ppopover, true);
+
+            });
+
+
+
+            //gtk_widget_queue_draw(m_pgtkwidget);
+
+            });
 
          }
 
@@ -1847,6 +1868,34 @@ if(abuttontemplatechild)
 
 
          void window::window_restore()
+         {
+
+
+         }
+
+
+         void window::on_window_deiconified()
+         {
+
+
+         }
+
+
+         void window::on_window_activated()
+         {
+
+
+         }
+
+
+         void window::on_window_iconified()
+         {
+
+
+         }
+
+
+         void window::on_window_deactivated()
          {
 
 

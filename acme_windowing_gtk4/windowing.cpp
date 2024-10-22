@@ -285,6 +285,7 @@ namespace gtk4
          // The function to be called in the main thread
          static gboolean execute_on_main_thread(gpointer data)
          {
+
             auto* pprocedure = (::procedure*)data;
 
             (*pprocedure)();
@@ -297,7 +298,6 @@ namespace gtk4
 
          void windowing::_main_post(const ::procedure& procedure)
          {
-
 
             // Safely update the GTK label in the main thread
             g_main_context_invoke(NULL, execute_on_main_thread, __raw_new ::procedure(procedure));

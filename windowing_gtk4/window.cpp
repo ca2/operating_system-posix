@@ -161,6 +161,55 @@ drawing_area_state_flags_changed (
 
    }
 
+
+   void window_state_flags_changed(GtkWidget * self, GtkStateFlags flags, gpointer user_data)
+   {
+
+      auto pwindow = (window*) user_data;
+
+      bool bWasRecordedAsActive = pwindow->m_bActiveWindow;
+
+      if(flags & GTK_STATE_FLAG_ACTIVE)
+      {
+
+         pwindow->m_bActiveWindow = true;
+
+         if(pwindow->m_puserinteraction->layout().m_statea[::user::e_layout_window].display() == ::e_display_iconic)
+         {
+
+            pwindow->on_window_deiconified();
+
+         }
+         else if(!bWasRecordedAsActive)
+         {
+
+            pwindow->on_window_activated();
+
+         }
+
+      }
+      else
+      {
+
+         if(pwindow->m_puserinteraction->const_layout().sketch().display() == ::e_display_iconic)
+         {
+
+            pwindow->on_window_iconified();
+
+         }
+         else if(bWasRecordedAsActive)
+         {
+
+            pwindow->on_window_deactivated();
+
+         }
+
+      }
+
+
+   }
+
+
    void
 gtk_im_context_commit (
   GtkIMContext* self,
@@ -758,14 +807,14 @@ gtk_im_context_commit (
 
             pmouse->m_pwindow = this;
 
-            GdkEventSequence * sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
-
-            // Get the GdkEvent from the sequence
-            GdkEvent * event = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
-
-            guint32 timestamp = gdk_event_get_time(event);
-
-            pmouse->m_iTimestamp = timestamp;
+            // GdkEventSequence * sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
+            //
+            // // Get the GdkEvent from the sequence
+            // GdkEvent * event = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+            //
+            // guint32 timestamp = gdk_event_get_time(event);
+            //
+            // pmouse->m_iTimestamp = timestamp;
 
             if (button == 1)
             {
@@ -844,6 +893,8 @@ gtk_im_context_commit (
                pmouse->m_atom = e_message_middle_button_up;
 
             }
+
+            informationf("_on_button_released(%0.2f, %0.2f)", x, y);
 
             ::point_i32 pointCursor(x, y);
 
@@ -1093,7 +1144,7 @@ on_text(scopedstr, scopedstr.size());
 
       bool bVisible = m_puserinteraction->const_layout().sketch().is_screen_visible();
 
-      main_send([this, &bOk]()
+      //main_send([this, &bOk]()
       {
 
           ::windowing::window * pimpl = this;
@@ -1172,6 +1223,8 @@ m_pimcontext = gtk_im_multicontext_new();
          /* Connect the preedit-changed signal to capture intermediate results */
          g_signal_connect(m_pdrawingarea, "state-flags-changed", G_CALLBACK(drawing_area_state_flags_changed), this);
 
+         g_signal_connect(m_pgtkwidget, "state-flags-changed", G_CALLBACK(window_state_flags_changed), this);
+
           set_oswindow(this);
 
           //pimpl->m_puserinteraction->m_pinteractionimpl = pimpl;
@@ -1192,7 +1245,8 @@ m_pimcontext = gtk_im_multicontext_new();
 
           bOk = true;
 
-      });
+      }
+      //);
 
       if (bOk)
       {
@@ -1569,6 +1623,17 @@ m_pimcontext = gtk_im_multicontext_new();
             window_maximize();
 
          }
+
+      }
+      else if(edisplay == ::e_display_iconic)
+      {
+
+         //if(!is_iconic())
+         //{
+
+            window_minimize();
+
+         //}
 
       }
       else if(!::is_screen_visible(edisplay))
@@ -1990,6 +2055,59 @@ m_pimcontext = gtk_im_multicontext_new();
           gtk_window_maximize(GTK_WINDOW(m_pgtkwidget));
 
        });
+
+   }
+
+
+   void window::on_window_deiconified()
+   {
+
+      _on_activation_change();
+
+   }
+
+
+   void window::on_window_activated()
+   {
+
+      _on_activation_change();
+
+   }
+
+
+   void window::on_window_iconified()
+   {
+
+      _on_activation_change();
+
+   }
+
+
+   void window::on_window_deactivated()
+   {
+
+      _on_activation_change();
+
+   }
+
+
+   void window::_on_activation_change()
+   {
+
+      auto & sketch = m_puserinteraction->layout().m_statea[::user::e_layout_sketch];
+
+      enum_display edisplayCurrent = defer_window_get_best_display_deduction();
+
+      if(sketch.m_edisplay != edisplayCurrent)
+      {
+
+         sketch.m_edisplay = edisplayCurrent;
+
+      }
+
+      auto & window = m_puserinteraction->layout().m_statea[::user::e_layout_window];
+
+      window.m_edisplay = edisplayCurrent;
 
    }
 

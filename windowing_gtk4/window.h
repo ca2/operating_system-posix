@@ -210,6 +210,14 @@ bool m_bImFocus;
 
       void window_maximize() override;
 
+      void on_window_deiconified() override;
+      void on_window_activated() override;
+      void on_window_iconified() override;
+      void on_window_deactivated() override;
+
+      void _on_activation_change();
+
+
       virtual void _set_cursor_from_name(const ::scoped_string & scopedstr);
 
       virtual ::rectangle_i32 _unlocked_defer_get_window_rectangle();
