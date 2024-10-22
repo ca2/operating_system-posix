@@ -300,7 +300,7 @@ namespace gtk4
 
 
             // Safely update the GTK label in the main thread
-            g_main_context_invoke(NULL, execute_on_main_thread, ___new ::procedure(procedure));
+            g_main_context_invoke(NULL, execute_on_main_thread, __raw_new ::procedure(procedure));
 
          }
 

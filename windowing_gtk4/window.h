@@ -25,7 +25,10 @@ namespace windowing_gtk4
 
 
       ::pointer<::xim::keyboard> m_pximkeyboard;
+      /* Create an input method context for pre-edit handling */
+      GtkIMContext *m_pimcontext;
 
+bool m_bImFocus;
 
       window();
 
@@ -42,15 +45,31 @@ namespace windowing_gtk4
 
       void _on_enter_notify(GtkEventControllerMotion * pcontroller, double x, double y) override;
 
+      void _on_gtk_key_pressed(u64 uGtkKey, ::u64 uGtkKeyCode) override;
+      void _on_gtk_key_released(u64 uGtkKey, ::u64 uGtkKeyCode) override;
+
+      bool _on_gtk_key_pressed(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state) override;
+      bool _on_gtk_key_released(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state) override;
+
+      void _on_text(const ::scoped_string & scopedstr) override;
+
+      virtual void _on_gtk_im_context_commit(const char * psz);
+
       void _on_window_visibility_changed(GObject * object, GParamSpec * pspec) override;
 
       void _on_cairo_draw(GtkWidget * widget, cairo_t * cr) override;
 
       void _on_size(int cx, int cy) override;
 
+      virtual void _on_drawing_area_keyboard_focus();
+
+      virtual void _on_drawing_area_keyboard_focus_lost();
+
       void create_window() override;
 
       void _create_window() override;
+
+      void on_set_focus_to_child() override;
 
       void destroy() override;
 

@@ -75,6 +75,8 @@ GtkWidget*m_pgtkwidget;
             GtkWidget *                                  m_pdrawingarea;
             GtkGesture *                                 m_pgtkgestureClick;
             GtkEventController *                         m_pgtkeventcontrollerMotion;
+            /* Create a key event controller */
+            GtkEventController *m_pgtkeventcontrollerKey;
 
             bool                                                  m_bMessageOnlyWindow;
             bool                                                  m_bHasKeyboardFocus;
@@ -169,6 +171,16 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
 
             virtual void _on_window_map();
 
+            virtual bool _on_gtk_key_pressed(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state);
+            virtual bool _on_gtk_key_released(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state);
+
+            virtual void _on_gtk_key_pressed(::u64 uGtkKey, ::u64 uGtkKeyCode);
+            virtual void _on_gtk_key_released(::u64 uGtkKey, ::u64 uGtkKeyCode);
+
+            //virtual gboolean _on_gtk_key_press(GtkWidget *widget, GdkEvent *event);
+
+            virtual void _on_text(const ::scoped_string & scopedstr);
+
             // virtual void __handle_pointer_enter(::wl_pointer * pwlpointer);
             // virtual void __handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis);
             // virtual void __handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::micro::window_base * pwaylandwindowLeave);
@@ -257,6 +269,8 @@ void defer_show_system_menu(::user::mouse * pmouse) override;
             //void destroy() override;
 
             void show_window() override;
+
+            void hide_window() override;
 
             //bool _on_event(XEvent *pevent) override;
 

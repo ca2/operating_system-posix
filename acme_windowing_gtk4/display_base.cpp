@@ -1099,7 +1099,11 @@ namespace gtk4
          void display_base::display_post(const ::procedure & procedure)
          {
 
+            __check_refdbg
+
             system()->acme_windowing()->_main_post(procedure);
+
+            __check_refdbg
 
          }
 

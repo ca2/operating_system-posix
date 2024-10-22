@@ -264,12 +264,79 @@ namespace gtk4
          }
 
 
+         /* Callback function to handle key press events */
+         static gboolean on_key_pressed(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data)
+         {
+
+            auto pwindow = (window*) user_data;
+            /* Print the key that was pressed */
+            //      g_print("Key pressed: %s\n", gdk_keyval_name(keyval));
+
+            ::string str=gdk_keyval_name(keyval);
+
+            if(pwindow->_on_gtk_key_pressed(controller, keyval, keycode, state))
+            {
+
+               return true;
+
+            }
+
+            /* Return FALSE to propagate the event further */
+            return FALSE;
+         }
+
+
+         /* Callback function to handle key press events */
+         static gboolean on_key_released(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data)
+         {
+
+            auto pwindow = (window*) user_data;
+            /* Print the key that was pressed */
+            //      g_print("Key pressed: %s\n", gdk_keyval_name(keyval));
+
+            ::string str=gdk_keyval_name(keyval);
+
+            if(pwindow->_on_gtk_key_released(controller, keyval, keycode, state))
+            {
+
+               return true;
+
+            }
+
+            /* Return FALSE to propagate the event further */
+            return FALSE;
+         }
+
+         /* Callback function to handle text composition (composed input) */
+         static gboolean on_text_input(GtkEventControllerKey *controller, const gchar *text, gpointer user_data)
+         {
+            /* Print the composed text (typed string) */
+//            g_print("Composed text: %s\n", text);
+
+            auto pwindow = (window*) user_data;
+            /* Print the key that was pressed */
+            //      g_print("Key pressed: %s\n", gdk_keyval_name(keyval));
+
+            //::string str=gdk_keyval_name(keyval);
+
+            //pwindow->_on_text(text);
+
+
+            /* Return FALSE to allow further event processing */
+            return FALSE;
+         }
+
+
+
+
          window::window()
          {
 
             m_bHasKeyboardFocus = false;
 
             m_pgtkwidget = nullptr;
+
+            m_pgtkeventcontrollerKey = nullptr;
 
          }
 
@@ -341,6 +408,41 @@ namespace gtk4
             }
 
          }
+
+
+         bool window::_on_gtk_key_pressed(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state)
+         {
+
+            _on_gtk_key_pressed(keyval, keycode);
+
+            return false;
+
+         }
+
+
+         bool window::_on_gtk_key_released(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state)
+         {
+
+            _on_gtk_key_released(keyval, keycode);
+
+            return false;
+
+         }
+
+         void window::_on_gtk_key_pressed(::u64 uGtkKey, ::u64 uGtkKeyCode)
+         {
+
+         }
+
+         void window::_on_gtk_key_released(::u64 uGtkKey, ::u64 uGtkKeyCode)
+         {
+         }
+
+         void window::_on_text(const scoped_string& scopedstr)
+         {
+
+         }
+
 
 
          void window::_on_window_map()
@@ -442,66 +544,57 @@ namespace gtk4
 
             }
 
-            ::pointer<::acme::user::interaction> pacmeuserinteraction = m_pacmeuserinteraction;
+            auto pacmeuserinteractionOwner = m_pacmeuserinteractionOwner;
 
-            if (m_pacmewindowingwindowOwner)
+            if (pacmeuserinteractionOwner)
             {
 
-               auto pacmeuserinteractionOwner = m_pacmewindowingwindowOwner->m_pacmeuserinteraction;
+               ::pointer<::gtk4::acme::windowing::window> pwindowOwner = pacmeuserinteractionOwner->acme_windowing_window();
 
-               if (pacmeuserinteractionOwner)
+               if (pwindowOwner)
                {
 
-                  ::pointer<::gtk4::acme::windowing::window> pwindowOwner = m_pacmewindowingwindowOwner;
+                  m_pgtkwidget = gtk_popover_new();
 
-                  if (pwindowOwner)
-                  {
+                  gtk_popover_set_has_arrow(GTK_POPOVER(m_pgtkwidget), false);
 
-                     m_pgtkwidget = gtk_popover_new();
+                  gtk_popover_set_autohide(GTK_POPOVER(m_pgtkwidget), false);
 
-                     gtk_popover_set_has_arrow(GTK_POPOVER(m_pgtkwidget), false);
+                  auto rectanglePointingTo = m_rectanglePointingTo;
 
-                     gtk_popover_set_autohide(GTK_POPOVER(m_pgtkwidget), false);
+                  information() << "rectanglePointingTo: " << rectanglePointingTo;
 
-                     auto rectangle1 = pacmeuserinteraction->get_rectangle();
+                  // auto rectangleParent = pacmeuserinteractionOwner->get_rectangle();
+                  //
+                  // if (gtk4_display()->is_x11())
+                  // {
+                  //
+                  //    rectangle1 -= rectangleParent.top_left();
+                  //
+                  //    information() << "rectangle1: " << rectangle1;
+                  //
+                  // }
 
-                     information() << "rectangle1: " << rectangle1;
+                  GdkRectangle gdkrectanglePointingTo;
 
-                     auto rectangleParent = pacmeuserinteractionOwner->get_window_rectangle();
+                  copy(gdkrectanglePointingTo, rectanglePointingTo);
 
-                     if (gtk4_display()->is_x11())
-                     {
+                  gtk_popover_set_pointing_to(GTK_POPOVER(m_pgtkwidget), &gdkrectanglePointingTo);
 
-                        rectangle1 -= rectangleParent.top_left();
+                  gtk_widget_set_parent(m_pgtkwidget, pwindowOwner->m_pgtkwidget);
 
-                        information() << "rectangle1: " << rectangle1;
+                  auto css_provider = gtk_css_provider_new();
 
-                     }
+                  gtk_css_provider_load_from_string(
+                     css_provider,
+                     // rbga, `a` set to 0.0 makes the window background transparent
+                     ".raw_and_transparent {border-radius:0px; box-shadow:none;border:0px;padding:0px;margin:0px;background-color: rgba(0, 0, 0, 0.0); }");
 
-                     GdkRectangle r;
+                  gtk_style_context_add_provider_for_display(
+                     gtk_widget_get_display(m_pgtkwidget),
+                     (GtkStyleProvider*)css_provider, GTK_STYLE_PROVIDER_PRIORITY_USER);
 
-                     copy(r, rectangle1);
-
-                     r.height = 2;
-
-                     gtk_popover_set_pointing_to(GTK_POPOVER(m_pgtkwidget), &r);
-
-                     gtk_widget_set_parent(m_pgtkwidget, pwindowOwner->m_pgtkwidget);
-
-                     auto css_provider = gtk_css_provider_new();
-
-                     gtk_css_provider_load_from_string(
-                        css_provider,
-                        // rbga, `a` set to 0.0 makes the window background transparent
-                        ".raw_and_transparent {border-radius:0px; box-shadow:none;border:0px;padding:0px;margin:0px;background-color: rgba(0, 0, 0, 0.0); }");
-
-                     gtk_style_context_add_provider_for_display(
-                        gtk_widget_get_display(m_pgtkwidget),
-                        (GtkStyleProvider*)css_provider, GTK_STYLE_PROVIDER_PRIORITY_USER);
-
-                     gtk_widget_add_css_class(m_pgtkwidget, "transparent_no_margin");
-
-                  }
+                  gtk_widget_add_css_class(m_pgtkwidget, "transparent_no_margin");
 
                }
 
@@ -608,6 +701,67 @@ namespace gtk4
             g_signal_connect(m_pgtkeventcontrollerMotion, "enter", G_CALLBACK(on_enter_notify), this);
 
             gtk_widget_add_controller(m_pdrawingarea, m_pgtkeventcontrollerMotion);
+
+            /* Create a key event controller */
+            m_pgtkeventcontrollerKey = gtk_event_controller_key_new();
+
+            /* Connect the key press signal to the callback function */
+            g_signal_connect(m_pgtkeventcontrollerKey, "key-pressed", G_CALLBACK(on_key_pressed), this);
+
+            g_signal_connect(m_pgtkeventcontrollerKey, "key-released", G_CALLBACK(on_key_released), this);
+
+            /* Connect the "im-update" signal to capture composed text */
+            g_signal_connect(m_pgtkeventcontrollerKey, "im-update", G_CALLBACK(on_text_input), this);
+
+            /* Add the key controller to the window */
+            gtk_widget_add_controller(m_pdrawingarea, m_pgtkeventcontrollerKey);
+
+
+            {
+
+               bool bFocusable = gtk_widget_get_focusable(m_pdrawingarea);
+               bool bSensitive = gtk_widget_get_sensitive(m_pdrawingarea);
+               bool bCanFocus = gtk_widget_get_can_focus(m_pdrawingarea);
+
+               if(!bFocusable)
+               {
+
+                  gtk_widget_set_focusable(m_pdrawingarea, true);
+
+               }
+
+               if(!bFocusable)
+               {
+
+                  gtk_widget_set_sensitive(m_pdrawingarea, true);
+
+               }
+
+               if(!bCanFocus)
+               {
+
+                  gtk_widget_set_can_focus(m_pdrawingarea, true);
+
+               }
+
+               bool bFocusable2 = gtk_widget_get_focusable(m_pdrawingarea);
+               bool bSensitive2 = gtk_widget_get_sensitive(m_pdrawingarea);
+               bool bCanFocus2 = gtk_widget_get_can_focus(m_pdrawingarea);
+
+
+               information() << "drawing_area focusable " << bFocusable;
+               information() << "drawing_area sensitive " << bSensitive;
+               information() << "drawing_area can_focus " << bCanFocus;
+
+               information() << "drawing_area focusable2 " << bFocusable2;
+               information() << "drawing_area sensitive2 " << bSensitive2;
+               information() << "drawing_area can_focus2 " << bCanFocus2;
+
+               information() << "drawing_area focusable2 " << bFocusable2;
+               information() << "drawing_area sensitive2 " << bSensitive2;
+               information() << "drawing_area can_focus2 " << bCanFocus2;
+
+            }
 
             // Set the event mask to enable button press and release events
             // gtk_widget_add_events(drawing_area, GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK);
@@ -1788,6 +1942,14 @@ if(abuttontemplatechild)
             __map();
 
             redraw();
+
+         }
+
+
+         void window::hide_window()
+         {
+
+            __unmap();
 
          }
 

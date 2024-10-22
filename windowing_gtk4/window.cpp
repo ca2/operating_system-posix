@@ -21,6 +21,7 @@
 //#include "aura/user/user/interaction_impl.h"
 #include "aura/platform/message_queue.h"
 #include "aura_posix/node.h"
+#include "acme/constant/user_key.h"
 #include <wayland-client.h>
 #include <linux/input.h>
 #include <xkbcommon/xkbcommon.h>
@@ -30,6 +31,54 @@
 //#include "windowing_system_wayland/xfree86_key.h"
 #include <gtk/gtk.h>
 #include <X11/Xlib.h>
+
+::user::e_key gtk_key_as_user_ekey(::u64 uGtkKey)
+{
+
+switch(uGtkKey)
+{
+
+case GDK_KEY_Delete:
+   return ::user::e_key_delete;
+case GDK_KEY_BackSpace:
+   return ::user::e_key_back;
+case GDK_KEY_Left:
+   return ::user::e_key_left;
+case GDK_KEY_Right:
+   return ::user::e_key_right;
+case GDK_KEY_Up:
+   return ::user::e_key_up;
+case GDK_KEY_Down:
+   return ::user::e_key_down;
+case GDK_KEY_Return:
+   return ::user::e_key_return;
+case GDK_KEY_Tab:
+   return ::user::e_key_tab;
+case GDK_KEY_Shift_L:
+   return ::user::e_key_left_shift;
+case GDK_KEY_Shift_R:
+   return ::user::e_key_right_shift;
+case GDK_KEY_Control_L:
+   return ::user::e_key_left_control;
+case GDK_KEY_Control_R:
+   return ::user::e_key_right_control;
+case GDK_KEY_Alt_L:
+   return ::user::e_key_left_alt;
+case GDK_KEY_Alt_R:
+   return ::user::e_key_right_alt;
+case GDK_KEY_Super_L:
+   return ::user::e_key_left_command;
+case GDK_KEY_Super_R:
+   return ::user::e_key_right_command;
+case GDK_KEY_Page_Down:
+   return ::user::e_key_page_down;
+case GDK_KEY_Page_Up:
+   return ::user::e_key_page_up;
+}
+   return ::user::e_key_none;
+
+
+}
 
 
 namespace windowing_gtk4
@@ -59,9 +108,80 @@ namespace windowing_gtk4
    }
 
 
+   /* Pre-edit text callback */
+   static void on_preedit_changed(GtkIMContext *im_context, gpointer user_data)
+   {
+
+      auto pwindow = (window*) user_data;
+      gchar *preedit_string = NULL;
+      gint cursor_pos = 0;
+
+      /* Get the current preedit string */
+      gtk_im_context_get_preedit_string(im_context, &preedit_string, NULL, &cursor_pos);
+
+      if (preedit_string) {
+         /* Print the intermediate result */
+         g_print("Intermediate preedit text at preedit changed: %s\n", preedit_string);
+         pwindow->_on_text(preedit_string);
+
+         g_free(preedit_string);
+      }
+   }
+
+
+   void
+drawing_area_state_flags_changed (
+  GtkWidget* self,
+  GtkStateFlags flags,
+  gpointer user_data
+)
+   {
+      auto pwindow = (window*) user_data;
+
+
+      if(!pwindow->m_bImFocus)
+      {
+         if(flags & GTK_STATE_FLAG_FOCUSED)
+         {
+
+            pwindow->_on_drawing_area_keyboard_focus();
+
+         }
+      }
+      else
+      {
+         if(!(flags & GTK_STATE_FLAG_FOCUSED))
+         {
+
+            pwindow->_on_drawing_area_keyboard_focus_lost();
+
+         }
+      }
+
+
+   }
+
+   void
+gtk_im_context_commit (
+  GtkIMContext* self,
+  gchar* str,
+  gpointer user_data
+)
+   {
+      auto pwindow = (window*) user_data;
+
+
+      pwindow->_on_gtk_im_context_commit(str);
+
+
+   }
+
+
+
    window::window()
    {
 
+      m_bImFocus = false;
       //m_pWindow4 = this;
 
    }
@@ -168,11 +288,11 @@ namespace windowing_gtk4
 
       }
 
-      _synchronous_lock slGraphics(m_pgraphicsgraphics->synchronization());
+      synchronous_lock slGraphics(m_pgraphicsgraphics->synchronization());
 
       auto pitem = m_pgraphicsgraphics->get_screen_item();
 
-      _synchronous_lock slImage(pitem->m_pmutex);
+      synchronous_lock slImage(pitem->m_pmutex);
 
       if (pitem && pitem->m_pimage2 && pitem->m_pimage2.ok())
       {
@@ -840,6 +960,73 @@ namespace windowing_gtk4
    }
 
 
+   void window::_on_gtk_key_pressed(u64 uGtkKey, ::u64 uGtkKeyCode)
+   {
+
+      auto ekey = gtk_key_as_user_ekey(uGtkKey);
+
+      if(ekey != ::user::e_key_none)
+      {
+
+         auto pkey = __create_new < ::message::key>();
+
+         pkey->m_atom = e_message_key_down;
+
+         pkey->m_oswindow = this;
+
+         pkey->m_pwindow = this;
+
+         pkey->m_ekey = ekey;
+
+         m_puserinteractionKeyboardFocus->send_message(pkey);
+
+      }
+
+   }
+
+
+   void window::_on_gtk_key_released(u64 uGtkKey, ::u64 uGtkKeyCode)
+   {
+
+      auto ekey = gtk_key_as_user_ekey(uGtkKey);
+
+      if(ekey != ::user::e_key_none)
+      {
+
+         auto pkey = __create_new < ::message::key>();
+
+         pkey->m_atom = e_message_key_up;
+
+         pkey->m_oswindow = this;
+
+         pkey->m_pwindow = this;
+
+         pkey->m_ekey = ekey;
+
+         m_puserinteractionKeyboardFocus->send_message(pkey);
+
+      }
+
+   }
+
+
+
+   void window::_on_text(const ::scoped_string & scopedstr)
+   {
+
+on_text(scopedstr, scopedstr.size());
+
+   }
+
+
+   void window::_on_gtk_im_context_commit(const char * psz)
+   {
+
+         on_text(psz, ::string_get_length(psz));
+
+   }
+
+
    void window::_on_window_visibility_changed(GObject * object, GParamSpec * pspec)
    {
 
@@ -968,6 +1155,22 @@ namespace windowing_gtk4
           m_sizeWindow.cy() = cy;
 
           ::gtk4::acme::windowing::window::_create_window();
+
+         /* Create an input method context for pre-edit handling */
+m_pimcontext = gtk_im_multicontext_new();
+
+/* Connect the preedit-changed signal to capture intermediate results */
+
+
+         g_signal_connect(m_pimcontext, "preedit-changed", G_CALLBACK(on_preedit_changed), this);
+         g_signal_connect(m_pimcontext, "commit", G_CALLBACK(gtk_im_context_commit), this);
+
+
+         /* Set up the key press event handler for the window */
+   //g_signal_connect(m_pdrawingarea, "key-press-event", G_CALLBACK(on_key_press), im_context);
+
+         /* Connect the preedit-changed signal to capture intermediate results */
+         g_signal_connect(m_pdrawingarea, "state-flags-changed", G_CALLBACK(drawing_area_state_flags_changed), this);
 
           set_oswindow(this);
 
@@ -1368,6 +1571,28 @@ namespace windowing_gtk4
          }
 
       }
+      else if(!::is_screen_visible(edisplay))
+      {
+
+         if(is_window_visible())
+         {
+
+            hide_window();
+
+         }
+
+      }
+      else if(::is_screen_visible(edisplay))
+      {
+
+         if(!is_window_visible())
+         {
+
+            show_window();
+
+         }
+
+      }
 
       return true;
 
@@ -1555,7 +1780,31 @@ namespace windowing_gtk4
    bool window::has_keyboard_focus()
    {
 
-      return false;
+      bool bHasFocus = false;
+
+      __check_refdbg
+
+      main_send([this, &bHasFocus]()
+      {
+
+         bool bCanFocus = gtk_widget_get_can_focus(m_pgtkwidget);
+
+         bool bCanFocus1 = gtk_widget_get_can_focus(m_pdrawingarea);
+
+         bHasFocus = gtk_widget_has_focus(m_pdrawingarea) ? true : false;
+
+      });
+
+      __check_refdbg
+
+      if(bHasFocus)
+      {
+
+         debug() << "::window::has_keyboard_focus";
+
+      }
+
+      return bHasFocus;
 
    }
 
@@ -1598,7 +1847,11 @@ namespace windowing_gtk4
    void window::set_keyboard_focus()
    {
 
+      main_send([this](){
+
       _set_keyboard_focus_unlocked();
+
+      });
 
    }
 
@@ -1606,6 +1859,8 @@ namespace windowing_gtk4
    void window::_set_keyboard_focus_unlocked()
    {
 
+      //gtk_widget_grab_focus(m_pgtkwidget);
+      gtk_widget_grab_focus(m_pdrawingarea);
 
    }
 
@@ -1613,7 +1868,34 @@ namespace windowing_gtk4
    bool window::is_active_window()
    {
 
-      return ::windowing::window::is_active_window();
+      bool bIsActive = false;
+
+      __check_refdbg
+
+      main_send([this, &bIsActive]()
+      {
+
+         //bool bCanFocus = gtk_widget_get_can_focus(m_pgtkwidget);
+
+         //bool bCanFocus1 = gtk_widget_get_can_focus(m_pdrawingarea);
+
+         if(GTK_IS_WINDOW(m_pgtkwidget))
+         {
+            bIsActive = gtk_window_is_active(GTK_WINDOW(m_pgtkwidget)) ? true : false;
+         }
+
+      });
+
+      __check_refdbg
+
+      if(bIsActive)
+      {
+
+         debug() << "::window::is_active";
+
+      }
+
+      return bIsActive;
 
    }
 
@@ -1848,6 +2130,127 @@ namespace windowing_gtk4
       system()->windowing()->_main_post(procedure);
 
    }
+
+
+   void window::on_set_focus_to_child()
+   {
+
+
+   }
+
+
+   bool window::_on_gtk_key_pressed(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state)
+   {
+
+      _on_gtk_key_pressed(keyval, keycode);
+
+      GdkEvent *event = gtk_event_controller_get_current_event(GTK_EVENT_CONTROLLER(controller));
+
+      bool bHandled = gtk_im_context_filter_keypress(m_pimcontext, event);
+
+      gchar *preedit_string = NULL;
+
+      gint cursor_pos = 0;
+
+      gtk_im_context_get_preedit_string(m_pimcontext, &preedit_string, NULL, &cursor_pos);
+
+      if (preedit_string)
+      {
+
+         g_print("Intermediate preedit text at key pressed: %s\n", preedit_string);
+
+         ::string str(preedit_string);
+
+         if(str.has_char())
+         {
+
+            _on_text(str);
+
+         }
+         g_free(preedit_string);
+      }
+
+      if(bHandled)
+      {
+
+         return TRUE;
+
+      }
+
+return false;
+
+   }
+
+
+   bool window::_on_gtk_key_released(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state)
+   {
+
+      _on_gtk_key_released(keyval, keycode);
+
+      GdkEvent *event = gtk_event_controller_get_current_event(GTK_EVENT_CONTROLLER(controller));
+
+      bool bHandled = gtk_im_context_filter_keypress(m_pimcontext, event);
+
+      gchar *preedit_string = NULL;
+
+      gint cursor_pos = 0;
+
+      gtk_im_context_get_preedit_string(m_pimcontext, &preedit_string, NULL, &cursor_pos);
+
+      if (preedit_string)
+      {
+
+         g_print("Intermediate preedit text at key released: %s\n", preedit_string);
+
+         ::string str(preedit_string);
+
+         if(str.has_char())
+         {
+
+            _on_text(str);
+
+         }
+         g_free(preedit_string);
+      }
+
+      if(bHandled)
+      {
+
+         return TRUE;
+
+      }
+
+      return false;
+
+   }
+
+
+
+   void window::_on_drawing_area_keyboard_focus()
+   {
+
+      gtk_im_context_set_client_widget(m_pimcontext, m_pdrawingarea);
+
+      gtk_im_context_focus_in(m_pimcontext);
+
+      m_bImFocus = true;
+
+
+   }
+
+   void window::_on_drawing_area_keyboard_focus_lost()
+   {
+
+      gtk_im_context_focus_out(m_pimcontext);
+
+      gtk_im_context_set_client_widget(m_pimcontext, nullptr);
+
+
+      m_bImFocus = false;
+
+
+   }
+
 
 
 } // namespace windowing_gtk4
