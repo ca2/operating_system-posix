@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.16)
 project(windowing_gtk4 CXX)
 
 
+message(STATUS "Project : ${PROJECT_NAME}")
+
+
 #if(${HAS_WAYLAND})
 #
 #    set(XDG_SHELL_CLIENT_PROTOCOL_XML "/usr/share/wayland-protocols/stable/xdg-shell/xdg-shell.xml")

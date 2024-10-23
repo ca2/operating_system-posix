@@ -1195,12 +1195,12 @@ namespace gtk4
             int x = pmouse->m_pointHost.x();
             int y = pmouse->m_pointHost.y();
 
-#if !defined(FEDORA_LINUX)
+#if !defined(FEDORA_LINUX) && !defined(SUSE_LINUX)
 
             main_post([this, x, y]()
             {
 
-               _gtk_show_system_menu
+               _gtk_show_system_menu(x, y);
 
             });
 
