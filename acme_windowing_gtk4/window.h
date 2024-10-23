@@ -46,6 +46,7 @@ namespace gtk4
 
             //::pointer<class display_base>         m_pdisplaybase;
 GtkWidget*m_pgtkwidget;
+            bool m_bInhibitQueueDraw;
 
             //cairo_surface_t *m_pcairosurface;
             //
@@ -203,7 +204,12 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
             virtual void _on_window_button_pressed(::operating_system::a_system_menu_item * pitem, GtkGestureClick * pgesture, int n_press, double x, double y);
             virtual void _on_window_button_released(::operating_system::a_system_menu_item * pitem, GtkGestureClick * pgesture, int n_press, double x, double y);
 
-void defer_show_system_menu(::user::mouse * pmouse) override;
+            void defer_show_system_menu(::user::mouse * pmouse) override;
+
+
+            virtual void _gtk_show_system_menu(int x, int y);
+
+
             //virtual bool _perform_entire_reposition_process();
 
             //virtual bool _perform_entire_resizing_process(::experience::enum_frame eframeSizing);

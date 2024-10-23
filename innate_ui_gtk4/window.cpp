@@ -329,7 +329,18 @@ namespace innate_ui_gtk4
 
       //::DestroyWindow(m_hwnd);
 
-      gtk_window_destroy(GTK_WINDOW(m_pgtkwidget));
+      if(GTK_IS_WINDOW(m_pgtkwidget))
+      {
+
+         gtk_window_destroy(GTK_WINDOW(m_pgtkwidget));
+
+      }
+      // else
+      // {
+      //
+      //    g_object_unref(m_pgtkwidget);
+      //
+      // }
 
       innate_ui()->m_windowmap[m_pgtkwidget].release();
 

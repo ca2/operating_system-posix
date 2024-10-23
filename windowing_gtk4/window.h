@@ -24,14 +24,13 @@ namespace windowing_gtk4
    public:
 
 
-      ::pointer<::xim::keyboard> m_pximkeyboard;
-      /* Create an input method context for pre-edit handling */
-      GtkIMContext *m_pimcontext;
+      ::pointer<::xim::keyboard>          m_pximkeyboard;
+      GtkIMContext *                      m_pimcontext;
 
-bool m_bImFocus;
+      bool                                m_bImFocus;
+
 
       window();
-
       ~window() override;
 
 
@@ -214,6 +213,8 @@ bool m_bImFocus;
       void on_window_activated() override;
       void on_window_iconified() override;
       void on_window_deactivated() override;
+      void on_window_shown() override;
+      void on_window_hidden() override;
 
       void _on_activation_change();
 

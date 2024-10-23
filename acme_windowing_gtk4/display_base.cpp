@@ -1096,6 +1096,16 @@ namespace gtk4
          }
 
 
+         void display_base::destroy()
+         {
+
+            close();
+
+            ::acme::windowing::display::destroy();
+
+         }
+
+
          void display_base::display_post(const ::procedure & procedure)
          {
 
@@ -1108,146 +1118,30 @@ namespace gtk4
          }
 
 
-         ::gtk4::acme::windowing::window * display_base::_get_active_window(::thread * pthread)
-         {
-
-            //      auto window = m_px11display->_get_active_window();
-            //
-            //      auto pwindow = _window(window);
-            //
-            //      windowing_output_debug_string("::GetActiveWindow 2");
-            //
-            //      return pwindow;
-
-            return nullptr;
-
-         }
-
-
-         ::gtk4::acme::windowing::window * display_base::get_keyboard_focus()
-         {
-
-            return m_pwindowKeyboardFocus;
-
-         }
-
-
-         ::gtk4::acme::windowing::window * display_base::_get_keyboard_focus()
-         {
-
-            //      auto ppropertyobject = __allocate ::property_object();
-            //
-            //      auto predicate = [this, ppropertyobject]()
-            //      {
-            //
-            //         synchronous_lock synchronouslock(user_synchronization());
-            //
-            //         oswindow oswindow = nullptr;
-            //
-            //         windowing_output_debug_string("::GetFocus 1");
-            //
-            //#ifdef display_lock_LOCK_LOG
-            //
-            //         b_prevent_display_lock_lock_log = false;
-            //
-            //#endif
-            //
-            //         //display_lock displaylock(Display());
-            //
-            //         windowing_output_debug_string("::GetFocus 1.01");
-            //
-            //         Window window = None;
-            //
-            //         int revert_to = 0;
-            //
-            //         bool bOk = XGetInputFocus(Display(), &window, &revert_to) != 0;
-            //
-            //         if (!bOk)
-            //         {
-            //
-            //            windowing_output_debug_string("::GetFocus 1.2");
-            //
-            //            return;
-            //
-            //         }
-            //
-            //         if (window == None || window == PointerRoot)
-            //         {
-            //
-            //            windowing_output_debug_string("::GetFocus 1.3");
-            //
-            //            return;
-            //
-            //         }
-            //
-            //         ppropertyobject->payload("window") = (::iptr) window;
-            //
-            //         windowing_output_debug_string("::GetFocus 2");
-            //
-            //      };
-            //
-            //      auto pwindowing = x11_windowing();
-            //
-            //      //proutine->set_timeout(5_s);
-            //
-            //      pwindowing->windowing_send(predicate);
-            //
-            ////      if(proutine->has_timed_out())
-            ////      {
-            ////
-            ////         return nullptr;
-            ////
-            ////      }
-            //
-            //      if (ppropertyobject->payload("window").is_new())
-            //      {
-            //
-            //         return nullptr;
-            //
-            //      }
-            //
-            //      Window window = (Window) ppropertyobject->payload("window").as_iptr();
-            //
-            //      auto pwindow = _window(window);
-            //
-            //      if (!pwindow)
-            //      {
-            //
-            //         return nullptr;
-            //
-            //      }
-            //
-            //      return pwindow;
-
-            return nullptr;
-
-         }
-
-
-         ::gtk4::acme::windowing::window * display_base::_window(::GtkWidget * pgtkwidget)
-         {
-
-            if (!pgtkwidget)
-            {
-
-               return nullptr;
-
-            }
-
-            critical_section_lock synchronouslock(&m_criticalsectionWindowMap);
-
-            auto passociation = m_windowmap.plookup(pgtkwidget);
-
-            if (passociation.is_null())
-            {
-
-               return nullptr;
-
-            }
-
-            return passociation->m_element2;
-
-         }
+         // ::gtk4::acme::windowing::window * display_base::_window(::GtkWidget * pgtkwidget)
+         // {
+         //
+         //    if (!pgtkwidget)
+         //    {
+         //
+         //       return nullptr;
+         //
+         //    }
+         //
+         //    critical_section_lock synchronouslock(&m_criticalsectionWindowMap);
+         //
+         //    auto passociation = m_windowmap.plookup(pgtkwidget);
+         //
+         //    if (passociation.is_null())
+         //    {
+         //
+         //       return nullptr;
+         //
+         //    }
+         //
+         //    return passociation->m_element2;
+         //
+         // }
 
 
          ::GdkDisplay * display_base::_gdk_display()

@@ -20,50 +20,30 @@ namespace windowing_gtk4
 
    class CLASS_DECL_WINDOWING_GTK4 windowing :
       virtual public ::windowing_posix::windowing,
-   virtual public ::gtk4::acme::windowing::windowing
+      virtual public ::gtk4::acme::windowing::windowing
    {
    public:
 
-      //gpointer m_pGtkSettingsDefault;
 
-      //GtkApplication* m_pgtkapplication;
-
-      //bool m_bRootSelectInput: 1;
-      //bool m_bFirstWindowMap: 1;
-
-      //::pointer<::windowing_gtk4::display> m_pdisplay;
-      //bool m_bFinishX11Thread;
-      //bool m_bInitX11Thread;
-
-      //itask_t m_itask;
-
-      //#ifdef WITH_XI
-      //
-      //      int                                             m_xi_opcode = -1;
-      //      ::pointer<particle_array>                        m_pobjectaExtendedEventListener;
-      //
-      //#endif
-
-      ::pointer<::windowing_gtk4::window> m_pwindowMouseCapture;
-
-
-      ::string             m_strOsUserTheme;
-      ::string             m_strOsUserIconTheme;
-      ::task_pointer       m_ptaskOsUserTheme;
-      ::task_pointer       m_ptaskOsUserIconTheme;
-
-
-
+      ::string m_strOsUserTheme;
+      ::string m_strOsUserIconTheme;
+      ::task_pointer m_ptaskOsUserTheme;
+      ::task_pointer m_ptaskOsUserIconTheme;
 
 
       windowing();
+
 
       ~windowing() override;
 
 
       void initialize(::particle* pparticle) override;
 
+
       void initialize_windowing(::user::user* puser) override;
+
+
+      void destroy() override;
 
 
       bool has_readily_gettable_absolute_coordinates() const override;
@@ -72,15 +52,8 @@ namespace windowing_gtk4
       bool is_branch_current() const override;
 
 
-      //virtual void initialize_windowing();
-
-      //virtual void terminate_windowing();
-
-      //virtual void post_ui_message(const MESSAGE& message);
-
-      //virtual void post_ui_message(::message::message* pmessage);
-
       void windowing_post_quit() override;
+
 
       //::pointer <::input::input> _get_input() override;
 
@@ -91,37 +64,30 @@ namespace windowing_gtk4
 
       ::windowing::display* display() override;
 
-      //void windowing_main() override;
-
-
-      //void windowing_post_quit() override;
-
-
-      //virtual bool os_defer_init_gtk4();
-
-
-
-
-
-
-      //virtual void _fetch_dark_mode();
 
       void set_mouse_capture(::thread* pthread, ::windowing::window* pwindow) override;
 
+
       ::windowing::window* get_mouse_capture(::thread* pthread) override;
 
-      void release_mouse_capture(::thread* pthread, ::windowing::window * pwindow) override;
+
+      void release_mouse_capture(::thread* pthread, ::windowing::window* pwindow) override;
+
 
       bool defer_release_mouse_capture(::thread* pthread, ::windowing::window* pwindow) override;
 
+
       virtual void _on_capture_changed_to(::windowing_gtk4::window* pwindowWithCapture);
 
+
       void set_mouse_cursor2(::windowing::cursor* pcursor) override;
+
 
       //virtual void x11_main();
 
       //virtual HCURSOR load_default_cursor(e_cursor ecursor) override;
       virtual ::pointer<::windowing::cursor> load_default_cursor(enum_cursor ecursor) override;
+
 
       //virtual int_bool window_set_mouse_cursor(window * pwindow, HCURSOR hcursor) override;
 
@@ -132,6 +98,7 @@ namespace windowing_gtk4
       //::windowing::window * new_window(::windowing::window * pimpl) override;
 
       void erase_window(::windowing::window* pwindow) override;
+
 
       //virtual ::wayland::micro::window_base * _window(::wl_surface * pwlsurface);
 
@@ -148,9 +115,15 @@ namespace windowing_gtk4
 
       // ::windowing::window* get_active_window(::thread* pthread) override;
 
+      void clear_active_window(::thread*, ::windowing::window*) override;
+
+
       ::acme::windowing::window* get_keyboard_focus(::thread* pthread) override;
 
+
       void _on_activate_gtk_application();
+
+
       ///::pointer < ::input::input > get_input() override;
 
       //::windowing::window * get_mouse_capture(::thread * pthread) override;
@@ -175,6 +148,7 @@ namespace windowing_gtk4
 
       virtual ::windowing::window* window(oswindow oswindow) override;
 
+
       //virtual void _libsn_start_context() override;
 
 #ifdef WITH_XI
@@ -196,6 +170,3 @@ namespace windowing_gtk4
 
 
 } // namespace windowing_gtk4
-
-
-

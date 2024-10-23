@@ -158,6 +158,18 @@ namespace windowing_gtk4
    }
 
 
+   void windowing::destroy()
+   {
+
+      m_pwindowMouseCapture.release();
+
+      ::gtk4::acme::windowing::windowing::destroy();
+
+      ::windowing_posix::windowing::destroy();
+
+   }
+
+
    //   void windowing::start()
    //   {
    //
@@ -435,6 +447,19 @@ namespace windowing_gtk4
    //      XEvent * pevent = (XEvent *) p;
    //
    //   }
+
+
+   void windowing::clear_active_window(::thread *, ::windowing::window * pwindow)
+   {
+
+      if(::is_set(pwindow))
+      {
+
+         pwindow->window_minimize();
+
+      }
+
+   }
 
 
    ::acme::windowing::window * windowing::get_keyboard_focus(::thread *)

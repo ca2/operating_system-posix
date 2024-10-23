@@ -139,6 +139,9 @@ namespace windowing_gtk4
    void buffer::destroy()
    {
 
+      ::graphics::double_buffer::destroy();
+      ::graphics::bitmap_source_buffer::destroy();
+
       // if (!x11_window())
       // {
       //

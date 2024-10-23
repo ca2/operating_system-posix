@@ -28,20 +28,20 @@ namespace gtk4
          public:
 
 
-            ::pointer < manual_reset_event > m_peventCreatingWGtk4Display;
+            ::pointer < manual_reset_event >    m_peventCreatingWGtk4Display;
 
 
-            ::procedure m_callbackOnActivateGtkApplication;
-            GtkApplication* m_pgtkapplication;
-            gpointer m_pGtkSettingsDefault;
+            ::procedure                         m_callbackOnActivateGtkApplication;
+            GtkApplication *                    m_pgtkapplication;
+            gpointer                            m_pGtkSettingsDefault;
 
-            GAction* m_pactionColorScheme = nullptr;
+            GAction *                           m_pactionColorScheme = nullptr;
 
 
-            itask_t m_itask;
+            itask_t                             m_itask;
 
-            ::procedure_list m_procedurelist;
-            ::procedure_list m_procedurelistPriority;
+            ::procedure_list                    m_procedurelist;
+            ::procedure_list                    m_procedurelistPriority;
 
 
             windowing();
@@ -58,6 +58,9 @@ namespace gtk4
 
 
             ::e_status initialize_windowing() override;
+
+
+            void destroy() override;
 
 
             //void* get_display() override;

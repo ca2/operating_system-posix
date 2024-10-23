@@ -91,7 +91,6 @@ namespace windowing_gtk4
          //m_pxdgwmbase=nullptr;
       //m_pwldisplay = nullptr;
 
-      m_pDisplay = this;
       m_pgdkdisplay = nullptr;
 
 
@@ -319,6 +318,16 @@ namespace windowing_gtk4
       // }
 
     }
+
+
+   void display::destroy()
+   {
+
+      ::windowing::display::destroy();
+      ::gtk4::acme::windowing::display_base::destroy();
+
+   }
+
 
    ::size_i32 display::get_main_screen_size()
    {

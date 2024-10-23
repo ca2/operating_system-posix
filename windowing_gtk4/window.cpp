@@ -206,6 +206,35 @@ drawing_area_state_flags_changed (
 
       }
 
+   }
+
+   void
+window_show (
+  GtkWidget* self,
+  gpointer user_data
+)
+   {
+
+      auto pwindow = (window*) user_data;
+
+      pwindow->m_bWindowVisible = true;
+
+      pwindow->on_window_shown();
+
+   }
+
+   void
+window_hide (
+  GtkWidget* self,
+  gpointer user_data
+)
+   {
+
+      auto pwindow = (window*) user_data;
+
+      pwindow->m_bWindowVisible = false;
+
+      pwindow->on_window_hidden();
 
    }
 
@@ -1225,13 +1254,17 @@ m_pimcontext = gtk_im_multicontext_new();
 
          g_signal_connect(m_pgtkwidget, "state-flags-changed", G_CALLBACK(window_state_flags_changed), this);
 
+         g_signal_connect(m_pgtkwidget, "show", G_CALLBACK(window_show), this);
+
+         g_signal_connect(m_pgtkwidget, "hide", G_CALLBACK(window_hide), this);
+
           set_oswindow(this);
 
           //pimpl->m_puserinteraction->m_pinteractionimpl = pimpl;
 
-         __refdbg_add_referer
+         //__refdbg_add_referer
 
-         m_puserinteraction->increment_reference_count();
+         //m_puserinteraction->increment_reference_count();
 
           //m_puserinteraction->increment_reference_count(
             // REFERENCING_DEBUGGING_P_FUNCTION_NOTE(this, "windowing_gtk4::window::_create_window", "native_create_window"));
@@ -1309,6 +1342,9 @@ m_pimcontext = gtk_im_multicontext_new();
 
    void window::destroy()
    {
+
+
+      ::gtk4::acme::windowing::window::destroy();
 
       ::windowing_posix::window::destroy();
 
@@ -1897,14 +1933,25 @@ m_pimcontext = gtk_im_multicontext_new();
    void window::window_update_screen()
    {
 
-      main_post([this]()
+      if(!m_bInhibitQueueDraw)
       {
 
-         set_window_position_unlocked();
+         main_send([this]()
+         {
 
-         gtk_widget_queue_draw(m_pdrawingarea);
+            if (GTK_IS_WIDGET(m_pgtkwidget) && !m_bInhibitQueueDraw)
+            {
 
-      });
+               set_window_position_unlocked();
+
+
+               gtk_widget_queue_draw(m_pdrawingarea);
+
+            }
+
+         });
+
+      }
 
    }
 
@@ -2089,6 +2136,47 @@ m_pimcontext = gtk_im_multicontext_new();
       _on_activation_change();
 
    }
+
+
+   void window::on_window_shown()
+   {
+
+      auto pshowwindow = __create_new < ::message::show_window >();
+
+      pshowwindow->m_atom = e_message_show_window;
+
+      pshowwindow->m_puserinteraction = m_puserinteraction;
+
+      pshowwindow->m_pwindow = this;
+
+      pshowwindow->m_oswindow = this;
+
+      pshowwindow->m_bShow = true;
+
+      m_puserinteraction->send(pshowwindow);
+
+   }
+
+
+   void window::on_window_hidden()
+   {
+
+      auto pshowwindow = __create_new < ::message::show_window >();
+
+      pshowwindow->m_atom = e_message_show_window;
+
+      pshowwindow->m_puserinteraction = m_puserinteraction;
+
+      pshowwindow->m_pwindow = this;
+
+      pshowwindow->m_oswindow = this;
+
+      pshowwindow->m_bShow = false;
+
+      m_puserinteraction->send_message(pshowwindow);
+
+   }
+
 
 
    void window::_on_activation_change()

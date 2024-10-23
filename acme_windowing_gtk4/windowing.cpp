@@ -184,6 +184,26 @@ namespace gtk4
          }
 
 
+         void windowing::destroy()
+         {
+
+            m_procedurelist.destroy();
+
+            m_procedurelistPriority.destroy();
+
+            m_callbackOnActivateGtkApplication.clear();
+
+            m_peventCreatingWGtk4Display.defer_destroy();
+
+            ::acme::windowing::windowing::destroy();
+
+         }
+
+
+
+
+
+
          // void* windowing::get_display()
          // {
          //
@@ -449,6 +469,12 @@ namespace gtk4
             //
             // }
 
+            if(::acme::get()->m_pmanualreseteventMainLoopEnd)
+            {
+
+               ::acme::get()->m_pmanualreseteventMainLoopEnd->set_event();
+
+            }
 
          }
 
