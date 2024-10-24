@@ -23,7 +23,7 @@ __FACTORY_EXPORT void node_gtk_based_factory(::factory::factory * pfactory)
 
    //pfactory->add_factory_item < ::node_gtk_based::windowing, ::windowing::windowing >();
 
-   pfactory->add_factory_item < ::node_gtk_based::node, ::acme::node > ();
+   pfactory->add_factory_item < ::node_gtk_based::node, ::platform::node > ();
 
    pfactory->add_factory_item < ::node_gtk_based::desktop_environment, ::windowing::desktop_environment > ();
 

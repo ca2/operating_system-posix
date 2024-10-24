@@ -20,7 +20,7 @@ __FACTORY_EXPORT void node_xfce_factory(::factory::factory * pfactory)
 //
 //   pfactory->add_factory_item < ::node_xfce::windowing, ::windowing::windowing >();
 
-   pfactory->add_factory_item < ::node_xfce::node, ::acme::node > ();
+   pfactory->add_factory_item < ::node_xfce::node, ::platform::node > ();
 
 
 }

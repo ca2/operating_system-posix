@@ -2961,7 +2961,7 @@ namespace windowing_wayland
 //         if (msg.oswindow == nullptr)
 //         {
 //
-//            auto pcontext = m_papplication->m_papexcontext;
+//            auto pcontext = m_papplication;
 //
 //            pcontext->post_message(msg.m_atom, msg.wParam, msg.lParam);
 //

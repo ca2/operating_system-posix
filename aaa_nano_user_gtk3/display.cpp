@@ -1076,7 +1076,7 @@ namespace gtk3
 ////   ::e_status node::x11_initialize()
 ////   {
 ////
-////      informationf("acme::node::x11_initialize going to call x11_init_threads");
+////      informationf("::platform::node::x11_initialize going to call x11_init_threads");
 ////
 ////      fflush(stdout);
 ////

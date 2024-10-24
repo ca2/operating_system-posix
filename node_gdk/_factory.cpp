@@ -79,7 +79,7 @@ pfactory->add_factory_item<::wayland::node_gdk::windowing_system, ::windowing::w
 //
 //   pfactory->add_factory_item < ::node_gtk3::windowing, ::windowing::windowing >();
 
-   pfactory->add_factory_item < ::node_gdk::node, ::acme::node > ();
+   pfactory->add_factory_item < ::node_gdk::node, ::platform::node > ();
 
 
    pfactory->add_factory_item < ::node_gdk::desktop_environment, ::windowing::desktop_environment > ();

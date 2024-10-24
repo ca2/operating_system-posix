@@ -257,7 +257,7 @@ namespace acme_posix
       //auto estatus =
       //
       //
-      ::acme::node::initialize(pparticle);
+      ::platform::node::initialize(pparticle);
 
 //         if(!estatus)
 //         {
@@ -307,7 +307,7 @@ namespace acme_posix
    bool node::is_process_running(::process_identifier pid)
    {
 
-      return ::acme::node::is_process_running(pid);
+      return ::platform::node::is_process_running(pid);
 
    }
 
@@ -555,7 +555,7 @@ namespace acme_posix
 //      atom_array node::module_path_get_pid(const char * pszModulePath, bool bModuleNameIsPropertyFormatted)
 //      {
 //
-//         return ::acme::node::module_path_get_pid(pszModulePath, bModuleNameIsPropertyFormatted);
+//         return ::platform::node::module_path_get_pid(pszModulePath, bModuleNameIsPropertyFormatted);
 //
 //
 //      }
@@ -568,7 +568,7 @@ namespace acme_posix
    bool node::process_contains_module(string& strImage, ::process_identifier processID, const ::string & strLibrary)
    {
 
-      return ::acme::node::process_contains_module(strImage, processID, strLibrary);
+      return ::platform::node::process_contains_module(strImage, processID, strLibrary);
 
    }
 
@@ -611,7 +611,7 @@ namespace acme_posix
    string node::expand_environment_variables(const ::scoped_string & scopedstr)
    {
 
-      return ::acme::node::expand_environment_variables(scopedstr);
+      return ::platform::node::expand_environment_variables(scopedstr);
 
    }
 
@@ -706,7 +706,7 @@ namespace acme_posix
 //   void node::aaa_user_post(const ::procedure & procedure)
 //   {
 //
-//      ::acme::node::aaa_node_post(procedure);
+//      ::platform::node::aaa_node_post(procedure);
 //
 //   }
 
@@ -1432,7 +1432,7 @@ namespace acme_posix
 //
 //#else
       
-      return ::acme::node::set_process_priority(epriority);
+      return ::platform::node::set_process_priority(epriority);
       
 ///#endif
       
@@ -2781,7 +2781,7 @@ if(functionTrace)
 //    void node::do_windowing_factory()
 //    {
 //
-//       ::acme::node::do_windowing_factory();
+//       ::platform::node::do_windowing_factory();
 //
 // //       auto edesktop = get_edesktop();
 // //
@@ -2858,7 +2858,7 @@ if(functionTrace)
 
       }
 
-      return ::acme::node::default_component_implementation(scopedstrComponentName);
+      return ::platform::node::default_component_implementation(scopedstrComponentName);
 
    }
 

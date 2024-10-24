@@ -74,7 +74,7 @@ namespace windowing_wayland
    void icon::load_matter(const string & strMatter)
    {
 
-      auto pcontext = m_papplication->m_papexcontext;
+      auto pcontext = m_papplication;
 
       string strPath = pcontext->dir()->matter(strMatter);
 

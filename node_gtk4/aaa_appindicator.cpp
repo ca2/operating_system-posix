@@ -253,7 +253,7 @@ namespace node_gtk4
 
       auto pindicator = m_pindicator;
 
-      auto pcontext = m_papplication->m_papexcontext;
+      auto pcontext = m_papplication;
 
       auto psession = pcontext->session()->m_paurasession;
 
