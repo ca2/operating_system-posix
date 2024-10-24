@@ -27,37 +27,37 @@ namespace node_gtk4
 {
 
 
+#if defined(DEBIAN_LINUX)
 
-//
-//   GtkWidget *create_filechooser_dialog(GtkFileChooserAction action)
-//   {
-//
-//      GtkWidget *pfilechooserdialog = nullptr;
-//
-//      switch (action)
-//      {
-//         case GTK_FILE_CHOOSER_ACTION_SAVE:
-//            pfilechooserdialog = gtk_file_chooser_dialog_new("Save file", NULL, action,
-//                                                             "Cancel", GTK_RESPONSE_CANCEL,
-//                                                             "Save", GTK_RESPONSE_OK,
-//                                                             NULL);
-//            break;
-//
-//         case GTK_FILE_CHOOSER_ACTION_OPEN:
-//            pfilechooserdialog = gtk_file_chooser_dialog_new("Open file", NULL, action,
-//                                                             "Cancel", GTK_RESPONSE_CANCEL,
-//                                                             "Open", GTK_RESPONSE_OK,
-//                                                             NULL);
-//            break;
-//
-//         case GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER:
-//         case GTK_FILE_CHOOSER_ACTION_CREATE_FOLDER:
-//            break;
-//      }
-//
-//      return pfilechooserdialog;
-//
-//   }
+   GtkWidget *create_filechooser_dialog(GtkFileChooserAction action)
+   {
+
+      GtkWidget *pfilechooserdialog = nullptr;
+
+      switch (action)
+      {
+         case GTK_FILE_CHOOSER_ACTION_SAVE:
+            pfilechooserdialog = gtk_file_chooser_dialog_new("Save file", NULL, action,
+                                                             "Cancel", GTK_RESPONSE_CANCEL,
+                                                             "Save", GTK_RESPONSE_OK,
+                                                             NULL);
+            break;
+
+         case GTK_FILE_CHOOSER_ACTION_OPEN:
+            pfilechooserdialog = gtk_file_chooser_dialog_new("Open file", NULL, action,
+                                                             "Cancel", GTK_RESPONSE_CANCEL,
+                                                             "Open", GTK_RESPONSE_OK,
+                                                             NULL);
+            break;
+
+         case GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER:
+         //case GTK_FILE_CHOOSER_ACTION_CREATE_FOLDER:
+            break;
+      }
+
+      return pfilechooserdialog;
+
+   }
 
 
    void on_file_chooser_destroy_event(GtkWidget *w, GdkEvent * pevent, gpointer data)
@@ -117,6 +117,8 @@ namespace node_gtk4
 
    }
 
+#endif
+
 
    void node::_node_file_dialog(::file::file_dialog *pdialog)
    {
@@ -132,6 +134,8 @@ namespace node_gtk4
 //                              gtk_widget_destroy(directory_chooser);
 //                              directory_chooser = NULL;
 //                           }
+
+#if !defined(DEBIAN_LINUX)
 
                            auto pgtkfiledialog = gtk_file_dialog_new();
 
@@ -166,14 +170,16 @@ namespace node_gtk4
                            },
                            pdialog);
 
-//                   "Open",
-//                                                                NULL,
-//                                                                GTK_FILE_CHOOSER_ACTION_OPEN,
-//                                                                "_Cancel", GTK_RESPONSE_CANCEL,
-//                                                                "_Open", GTK_RESPONSE_ACCEPT,
-//                                                                (void *) nullptr);
-//
-//                           pdialog->m_posdata = widget;
+#else
+
+         GtkWidget * widget = gtk_file_chooser_dialog_new("Open",
+                                                                NULL,
+                                                                GTK_FILE_CHOOSER_ACTION_OPEN,
+                                                                "_Cancel", GTK_RESPONSE_CANCEL,
+                                                                "_Open", GTK_RESPONSE_ACCEPT,
+                                                                (void *) nullptr);
+
+                           pdialog->m_posdata = widget;
                            //g_return_if_fail(NULL != widget);
                            //directory_chooser = widget;
 
@@ -206,14 +212,17 @@ namespace node_gtk4
 
                               }
 
-                              gtk_file_dialog_set_filters(GTK_FILE_DIALOG(pgtkfiledialog),
-                                                         G_LIST_MODEL(filter_list));   /* Display only directories */
+                              // gtk_file_dialog_set_filters(GTK_FILE_DIALOG(widget),
+                              //                            G_LIST_MODEL(filter_list));   /* Display only directories */
 
                            }
 
-                           g_signal_connect(G_OBJECT(pgtkfiledialog), "destroy-event", G_CALLBACK(&on_file_chooser_destroy_event), pdialog);
-                           g_signal_connect(G_OBJECT(pgtkfiledialog), "delete-event", G_CALLBACK(&on_file_chooser_delete_event), pdialog);
-                           g_signal_connect(G_OBJECT(pgtkfiledialog), "response", G_CALLBACK(&on_file_chooser_response), pdialog);
+                           g_signal_connect(G_OBJECT(widget), "destroy-event", G_CALLBACK(&on_file_chooser_destroy_event), pdialog);
+                           g_signal_connect(G_OBJECT(widget), "delete-event", G_CALLBACK(&on_file_chooser_delete_event), pdialog);
+                           g_signal_connect(G_OBJECT(widget), "response", G_CALLBACK(&on_file_chooser_response), pdialog);
+
+#endif
+
 
                            //if (NULL != current_directory) {
                            // gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(widget),
@@ -221,7 +230,7 @@ namespace node_gtk4
                            //}
 
 
-                           gtk_widget_set_visible(GTK_WIDGET(pgtkfiledialog), true);
+                           gtk_widget_set_visible(GTK_WIDGET(widget), true);
 //      GtkWidget *pfilechooserdialog;
 //
 //      pfilechooserdialog = create_filechooser_dialog(GTK_FILE_CHOOSER_ACTION_OPEN);

@@ -24,50 +24,53 @@
 namespace node_gtk4
 {
 
+#if defined(DEBIAN_LINUX)
 
-//
-//   void on_folder_chooser_destroy_event(GtkWidget *w, GdkEvent * pevent, gpointer data)
-//   {
-//
-//      auto *pdialog = (::file::folder_dialog *) data;
-//
-//
-//   }
-//
-//
-//   void on_folder_chooser_delete_event(GtkWidget *w, GdkEvent * pevent, gpointer data)
-//   {
-//
-//      auto *pdialog = (::file::folder_dialog *) data;
-//
-//      ::release(pdialog);
-//
-//   }
+   void on_folder_chooser_destroy_event(GtkWidget *w, GdkEvent * pevent, gpointer data)
+   {
+
+      auto *pdialog = (::file::folder_dialog *) data;
 
 
-//   void on_folder_chooser_response(GtkDialog *pgtkdialog, int response_id, gpointer data)
-//   {
-//
-//      if(response_id == GTK_RESPONSE_ACCEPT)
-//      {
-//
-//         auto *pdialog = (::file::folder_dialog *) data;
-//
-//
-//
-//         auto pfile = gtk_file_chooser_get_file(GTK_FILE_CHOOSER(pgtkdialog));
-//
-//         auto g_file_get_path(pfile);
-//
-//         pdialog->m_path = path;
-//
-//         pdialog->m_function(pdialog);
-//
-//      }
-//
-//      gtk_widget_destroy(GTK_WIDGET(pgtkdialog));
-//
-//   }
+   }
+
+
+   void on_folder_chooser_delete_event(GtkWidget *w, GdkEvent * pevent, gpointer data)
+   {
+
+      auto *pdialog = (::file::folder_dialog *) data;
+
+      ::release(pdialog);
+
+   }
+
+
+   void on_folder_chooser_response(GtkDialog *pgtkdialog, int response_id, gpointer data)
+   {
+
+      if(response_id == GTK_RESPONSE_ACCEPT)
+      {
+
+         auto *pdialog = (::file::folder_dialog *) data;
+
+
+
+         auto pfile = gtk_file_chooser_get_file(GTK_FILE_CHOOSER(pgtkdialog));
+
+         auto path = g_file_get_path(pfile);
+
+         pdialog->m_path = path;
+
+         pdialog->m_function(pdialog);
+
+      }
+
+      gtk_window_destroy(GTK_WINDOW(pgtkdialog));
+
+   }
+
+
+#endif
 
 
    void node::_node_folder_dialog(::file::folder_dialog *pdialog)
@@ -86,7 +89,7 @@ namespace node_gtk4
 //                           }
 
 
-
+#if !defined(DEBIAN_LINUX)
 
                    //auto active_window = gtk_application_get_active_window(GTK_APPLICATION(self->data->application));
 
@@ -141,52 +144,55 @@ namespace node_gtk4
 
                            },
                            pdialog);
+#else
 
-//                           widget = gtk_file_chooser_dialog_new("Open",
-//                                                                NULL,
-//                                                               pdialog->m_bCanCreateFolders ? GTK_FILE_CHOOSER_ACTION_CREATE_FOLDER
-//                                                               : GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
-//                                                                "_Cancel", GTK_RESPONSE_CANCEL,
-//                                                                "_Open", GTK_RESPONSE_ACCEPT,
-//                                                                (void *) nullptr);
-//
-//                           pdialog->m_posdata = widget;
-//                           //g_return_if_fail(NULL != widget);
-//                           //directory_chooser = widget;
-//
-//                           //gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(widget), TRUE);
-//
-////                           if(pdialog->m_filetypes.has_element())
-////                           {
-////
-////                              GtkFileFilter *filter = gtk_file_filter_new();
-////
-////                              for (auto &filetype: pdialog->m_filetypes)
-////                              {
-////
-////                                 auto ppattern = filetype.element1().c_str();
-////
-////                                 gtk_file_filter_add_pattern(filter, ppattern);
-////
-////                                 auto pname = filetype.element2().c_str();
-////
-////                                 gtk_file_filter_set_name(filter, pname);
-////
-////                              }
-////
-////                              gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(widget),
-////                                                          filter);   /* Display only directories */
-////
-////                           }
-//
-//                           //if (NULL != current_directory) {
-//                           // gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(widget),
-//                           //current_directory);
-//                           //}
-//
-//                           g_signal_connect(G_OBJECT(widget), "destroy-event", G_CALLBACK(&on_folder_chooser_destroy_event), pdialog);
-//                           g_signal_connect(G_OBJECT(widget), "delete-event", G_CALLBACK(&on_folder_chooser_delete_event), pdialog);
-//                           g_signal_connect(G_OBJECT(widget), "response", G_CALLBACK(&on_folder_chooser_response), pdialog);
+                           GtkWidget * widget = gtk_file_chooser_dialog_new("Open",
+                                                                NULL,
+                                                               //pdialog->m_bCanCreateFolders ? GTK_FILE_CHOOSER_ACTION_CREATE_FOLDER
+                                                               GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+                                                                "_Cancel", GTK_RESPONSE_CANCEL,
+                                                                "_Open", GTK_RESPONSE_ACCEPT,
+                                                                (void *) nullptr);
+
+                           pdialog->m_posdata = widget;
+                           //g_return_if_fail(NULL != widget);
+                           //directory_chooser = widget;
+
+                           //gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(widget), TRUE);
+
+                          //  if(pdialog->m_filetypes.has_element())
+                          // {
+                          //
+                          //     GtkFileFilter *filter = gtk_file_filter_new();
+                          //
+                          //     for (auto &filetype: pdialog->m_filetypes)
+                          //     {
+                          //
+                          //        auto ppattern = filetype.element1().c_str();
+                          //
+                          //        gtk_file_filter_add_pattern(filter, ppattern);
+                          //
+                          //        auto pname = filetype.element2().c_str();
+                          //
+                          //        gtk_file_filter_set_name(filter, pname);
+                          //
+                          //     }
+                          //
+                          //     gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(widget),
+                          //                                 filter);   /* Display only directories */
+                          //
+                          //  }
+
+                           //if (NULL != current_directory) {
+                           // gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(widget),
+                           //current_directory);
+                           //}
+
+                           g_signal_connect(G_OBJECT(widget), "destroy-event", G_CALLBACK(&on_folder_chooser_destroy_event), pdialog);
+                           g_signal_connect(G_OBJECT(widget), "delete-event", G_CALLBACK(&on_folder_chooser_delete_event), pdialog);
+                           g_signal_connect(G_OBJECT(widget), "response", G_CALLBACK(&on_folder_chooser_response), pdialog);
+
+#endif
 
                            //gtk_widget_show(widget);
 //      GtkWidget *pfilechooserdialog;

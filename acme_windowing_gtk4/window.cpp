@@ -33,6 +33,18 @@
 #include "acme/nano/graphics/pen.h"
 //#include "acme/user/micro/interchange.h"
 
+#ifdef DEBIAN_LINUX
+
+void             gtk_css_provider_load_from_string (GtkCssProvider  *css_provider,
+                                                  const char      *psz)
+{
+
+   gtk_css_provider_load_from_data(css_provider, psz, string_safe_length(psz));
+
+                  }
+
+#endif
+
 
 namespace gtk4
 {
@@ -596,10 +608,13 @@ namespace gtk4
 
                   auto css_provider = gtk_css_provider_new();
 
-                  gtk_css_provider_load_from_string(
-                     css_provider,
-                     // rbga, `a` set to 0.0 makes the window background transparent
-                     ".raw_and_transparent {border-radius:0px; box-shadow:none;border:0px;padding:0px;margin:0px;background-color: rgba(0, 0, 0, 0.0); }");
+                  ::string strCss;
+
+                  // rbga, `a` set to 0.0 makes the window background transparent
+                  strCss=".raw_and_transparent {border-radius:0px; box-shadow:none;border:0px;padding:0px;margin:0px;background-color: rgba(0, 0, 0, 0.0); }";
+
+                  gtk_css_provider_load_from_string(css_provider,
+                     strCss);
 
                   gtk_style_context_add_provider_for_display(
                      gtk_widget_get_display(m_pgtkwidget),
