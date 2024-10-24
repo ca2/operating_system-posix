@@ -1645,7 +1645,7 @@ namespace wayland
 
             synchronous_lock synchronouslock(this->synchronization());
 
-            //      ::pointer < ::xkb_input::xkb_input > pxkbinput = system()->m_papexsystem->m_pinput;
+            //      ::pointer < ::xkb_input::xkb_input > pxkbinput = system()->m_pinput;
             //
             //      if(pxkbinput)
             //      {

@@ -72,7 +72,7 @@ namespace acme_posix
       ::pointer < ::mutex > open_local_named_mutex(::particle * pparticleContext, const ::string & strName) override;
       ::pointer < ::mutex > open_global_named_mutex(::particle * pparticleContext, const ::string & strName) override;
 
-      ::pointer < ::acme::exclusive > get_exclusive(::particle * pparticleContext, const ::string & strName, security_attributes * psecurityattributes = nullptr) override;
+      ::pointer < ::platform::exclusive > get_exclusive(::particle * pparticleContext, const ::string & strName, security_attributes * psecurityattributes = nullptr) override;
 
       bool process_contains_module(string& strImage, ::process_identifier processID, const ::string & pszLibrary) override;
 

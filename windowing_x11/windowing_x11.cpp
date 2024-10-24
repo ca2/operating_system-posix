@@ -1583,7 +1583,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       if (cookie)
       {
 
-         auto pxinput = dynamic_cast < ::xinput::xinput * >(system()->m_papexsystem->input());
+         auto pxinput = dynamic_cast < ::xinput::xinput * >(system()->input());
 
          if (pxinput)
          {
@@ -2310,7 +2310,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
             //
             //    m_bFirstWindowMap = true;
             //
-            //    auto psystem = system()->m_papexsystem;
+            //    auto psystem = system();
             //
             //    auto pnode = psystem->node();
             //

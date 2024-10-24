@@ -282,7 +282,7 @@ namespace node_gtk3
 //
 //      ::node_gtk3::node * pnode = (::node_gtk3::node *) pdata;
 //
-//      pnode->system()->m_papexsystem->signal(id_wallpaper_change);
+//      pnode->system()->signal(id_wallpaper_change);
 //
 //   }
 //

@@ -282,7 +282,7 @@ namespace node_gdk
 //
 //      ::node_gdk::node * pnode = (::node_gdk::node *) pdata;
 //
-//      pnode->system()->m_papexsystem->signal(id_wallpaper_change);
+//      pnode->system()->signal(id_wallpaper_change);
 //
 //   }
 //

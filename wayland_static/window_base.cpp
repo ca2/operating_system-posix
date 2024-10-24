@@ -475,7 +475,7 @@ namespace nano
             //                                              &g_xdg_activation_token_v1_listener,
             //                                              this);
             //
-            //         auto psystem = system()->m_papexsystem;
+            //         auto psystem = system();
             //
             //         string strApplicationServerName = psystem->get_application_server_name();
             //

@@ -993,7 +993,7 @@ namespace windowing_gtk4
 //
 //      bool bIsOrigin = false;
 //
-//      auto psystem = system()->m_papexsystem;
+//      auto psystem = system();
 //
 //      auto pnode = psystem->node();
 //

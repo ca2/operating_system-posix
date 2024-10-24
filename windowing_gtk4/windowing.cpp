@@ -173,7 +173,7 @@ namespace windowing_gtk4
    //   void windowing::start()
    //   {
    //
-   //      auto psystem = system()->m_papexsystem;
+   //      auto psystem = system();
    //
    //      if (psystem->m_bUser)
    //      {
@@ -979,7 +979,7 @@ namespace windowing_gtk4
 
       //gtk_add_idle_source(this);
 
-      auto psystem = system()->m_papexsystem;
+      auto psystem = system();
 
       psystem->defer_post_initial_request();
 

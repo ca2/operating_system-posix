@@ -79,7 +79,7 @@ namespace node_gtk_based
    // void node::defer_notify_startup_complete()
    // {
    //
-   //    // auto psystem = system()->m_papexsystem;
+   //    // auto psystem = system();
    //    //
    //    // string strApplicationServerName = psystem->get_application_server_name();
    //    //

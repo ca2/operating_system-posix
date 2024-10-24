@@ -865,7 +865,7 @@ namespace windowing_wayland
 //
 //      bool bIsOrigin = false;
 //
-//      auto psystem = system()->m_papexsystem;
+//      auto psystem = system();
 //
 //      auto pnode = psystem->node();
 //

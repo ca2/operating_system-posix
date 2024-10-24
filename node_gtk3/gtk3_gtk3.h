@@ -2,7 +2,7 @@
 #pragma once
 
 
-//::e_status os_defer_init_gtk(::acme::system * psystem);
+//::e_status os_defer_init_gtk(::platform::system * psystem);
 
 //
 //typedef enum

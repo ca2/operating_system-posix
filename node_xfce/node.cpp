@@ -37,7 +37,7 @@ void x11_add_idle_source(::node_xfce::node * pnode);
 //
 //   }
 //
-//   pnode->system()->m_papexsystem->process_subject(id_os_user_theme);
+//   pnode->system()->process_subject(id_os_user_theme);
 //
 //}
 //
@@ -114,7 +114,7 @@ namespace node_xfce
 //   void node::defer_notify_startup_complete()
 //   {
 //
-//      auto psystem = system()->m_papexsystem;
+//      auto psystem = system();
 //
 //      string strApplicationServerName = psystem->get_application_server_name();
 //
@@ -128,7 +128,7 @@ namespace node_xfce
 //   ::e_status node::system_main()
 //   {
 //
-//      auto estatus = system()->m_papexsystem->begin_synch();
+//      auto estatus = system()->begin_synch();
 //
 //      if (!estatus)
 //      {
@@ -196,11 +196,11 @@ namespace node_xfce
 ////
 ////      auto pnode = psystem->node();
 ////
-////      m_pcontext->branch(pnode);
+////      m_papplication->branch(pnode);
 ////
 ////      return ::success;
 //
-//      auto psystem = system()->m_papexsystem;
+//      auto psystem = system();
 //
 //      if (psystem->m_bGtkApp)
 //      {
@@ -256,7 +256,7 @@ namespace node_xfce
 //
 //            x11_add_idle_source(this);
 //
-//            auto psystem = system()->m_papexsystem;
+//            auto psystem = system();
 //
 //            psystem->post_initial_request();
 //
@@ -384,7 +384,7 @@ namespace node_xfce
 ////
 ////      // indirect wall-changer sourceforge.net contribution
 ////
-////      auto psystem = system()->m_papexsystem;
+////      auto psystem = system();
 ////
 ////      auto pnode = psystem->node();
 ////
@@ -469,7 +469,7 @@ namespace node_xfce
 //
 //      // wall-changer sourceforge.net contribution
 //
-////      auto psystem = system()->m_papexsystem;
+////      auto psystem = system();
 ////
 ////      auto pnode = psystem->node();
 ////
@@ -523,7 +523,7 @@ namespace node_xfce
 //
 //      node_gtk::node::enable_wallpaper_change_notification();
 //
-////      auto psystem = system()->m_papexsystem;
+////      auto psystem = system();
 ////
 ////      auto pnode = psystem->node();
 ////

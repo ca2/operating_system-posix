@@ -1661,7 +1661,7 @@ namespace gtk3
 //#define MAXSTR 1000
 
 
-//CLASS_DECL_ACME ::acme::system * system();
+//CLASS_DECL_ACME ::platform::system * system();
 //
 //
 //void x11_asynchronous(::procedure function)

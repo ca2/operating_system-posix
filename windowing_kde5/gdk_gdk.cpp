@@ -287,7 +287,7 @@ namespace windowing_kde5
 //
 //       //::node_kde5::node * pnode = (::node_kde5::node *) pdata;
 //
-//       ::platform::get()->system()->m_papexsystem->signal(id_wallpaper_change);
+//       ::platform::get()->system()->signal(id_wallpaper_change);
 //
 //    }
 //

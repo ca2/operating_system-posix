@@ -570,7 +570,7 @@ namespace acme_posix
 //      
 //      auto pathTarget = pathNew;
 //      
-//      auto pathSource = m_pcontext->defer_process_path(pathSrc);
+//      auto pathSource = m_papplication->defer_process_path(pathSrc);
 //      
 //      auto pathTargetFolder = pathNew.folder();
 //      

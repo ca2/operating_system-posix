@@ -197,7 +197,7 @@ namespace windowing_kde5
    //   void windowing::start()
    //   {
    //
-   //      auto psystem = system()->m_papexsystem;
+   //      auto psystem = system();
    //
    //      if (psystem->m_bUser)
    //      {
@@ -1093,7 +1093,7 @@ namespace windowing_kde5
    //
    //    //gtk_add_idle_source(this);
    //
-   //    auto psystem = system()->m_papexsystem;
+   //    auto psystem = system();
    //
    //    psystem->defer_post_initial_request();
    //
@@ -1372,7 +1372,7 @@ namespace windowing_kde5
       try
       {
 
-         system()->m_papexsystem->signal(id_operating_system_user_theme_change);
+         system()->signal(id_operating_system_user_theme_change);
 
       }
       catch (...)
@@ -1423,7 +1423,7 @@ namespace windowing_kde5
       try
       {
 
-         system()->m_papexsystem->signal(id_operating_system_user_icon_theme_change);
+         system()->signal(id_operating_system_user_icon_theme_change);
 
       }
       catch (...)

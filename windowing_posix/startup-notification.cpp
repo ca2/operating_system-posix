@@ -8,7 +8,7 @@
 #include "startup-notification.h"
 #include "windowing.h"
 #include "acme/platform/application.h"
-#include "acme/platform/context.h"
+#include "acme/platform/application.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
 #include "acme/windowing/windowing.h"

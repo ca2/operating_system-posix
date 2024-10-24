@@ -75,7 +75,7 @@ namespace windowing_xcb
 
       int iScreen = DefaultScreen(pdisplay);
 
-      auto papp = m_pcontext->application() ? m_pcontext->application() : m_pcontext->application();
+      auto papp = m_papplication->application() ? m_papplication->application() : m_papplication->application();
 
       string strAppId = papp->m_strAppId;
 

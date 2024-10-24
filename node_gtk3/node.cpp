@@ -558,7 +558,7 @@ namespace node_gtk3
    // void node::defer_notify_startup_complete()
    // {
    //
-   //    // auto psystem = system()->m_papexsystem;
+   //    // auto psystem = system();
    //    //
    //    // string strApplicationServerName = psystem->get_application_server_name();
    //    //
@@ -654,11 +654,11 @@ namespace node_gtk3
 //
 //      auto pnode = psystem->node();
 //
-//      m_pcontext->branch(pnode);
+//      m_papplication->branch(pnode);
 //
 //      return ::success;
 
-      auto psystem = system()->m_papexsystem;
+      auto psystem = system();
 
       if (psystem->application()->m_bGtkApp)
       {
@@ -747,7 +747,7 @@ namespace node_gtk3
 
                       //_g_idle_add_windowing_message_loop();
 
-                      auto psystem = system()->m_papexsystem;
+                      auto psystem = system();
 
                       psystem->defer_post_initial_request();
 
@@ -894,7 +894,7 @@ namespace node_gtk3
 //   string node::_on_user_theme_changed()
 //   {
 //
-//      system()->m_papexsystem->signal(id_os_user_theme);
+//      system()->signal(id_os_user_theme);
 //
 //   }
 
@@ -1069,7 +1069,7 @@ namespace node_gtk3
 //
 //      // indirect wall-changer sourceforge.net contribution
 //
-//      auto psystem = system()->m_papexsystem;
+//      auto psystem = system();
 //
 //      auto pnode = psystem->node();
 //
@@ -1143,7 +1143,7 @@ namespace node_gtk3
 //
 //      // indirect wall-changer sourceforge.net contribution
 //
-//      auto psystem = system()->m_papexsystem;
+//      auto psystem = system();
 //
 //      auto pnode = psystem->node();
 //
@@ -1224,7 +1224,7 @@ namespace node_gtk3
 //
 //      // wall-changer sourceforge.net contribution
 //
-//      auto psystem = system()->m_papexsystem;
+//      auto psystem = system();
 //
 //      auto pnode = psystem->node();
 //
@@ -1293,7 +1293,7 @@ namespace node_gtk3
 //   void node::enable_wallpaper_change_notification()
 //   {
 //
-//      auto psystem = system()->m_papexsystem;
+//      auto psystem = system();
 //
 //      auto pnode = psystem->node();
 //
@@ -1480,7 +1480,7 @@ namespace node_gtk3
 //
 //         g_bInitializedUserTheme = true;
 //
-//         //auto psystem = system()->m_papexsystem;
+//         //auto psystem = system();
 //
 //         //psystem->start_subject_handling(id_os_user_theme);
 //
@@ -1495,7 +1495,7 @@ namespace node_gtk3
 //
 //      bool bOk = false;
 //
-//      auto psystem = system()->m_papexsystem;
+//      auto psystem = system();
 //
 //      auto pnode = psystem->node();
 //
@@ -1985,7 +1985,7 @@ namespace node_gtk3
 //      try
 //      {
 //
-//         system()->m_papexsystem->signal(id_operating_system_user_theme_change);
+//         system()->signal(id_operating_system_user_theme_change);
 //
 //      }
 //      catch (...)
@@ -2034,7 +2034,7 @@ namespace node_gtk3
 //      try
 //      {
 //
-//         system()->m_papexsystem->signal(id_operating_system_user_icon_theme_change);
+//         system()->signal(id_operating_system_user_icon_theme_change);
 //
 //      }
 //      catch (...)
@@ -2067,7 +2067,7 @@ namespace node_gtk3
 //
 //         _set_os_theme_colors(pthemecolors);
 //
-//         //system()->m_papexsystem->signal(id_operating_system_user_color_change);
+//         //system()->signal(id_operating_system_user_color_change);
 //
 //      }
 //      else
@@ -2842,7 +2842,7 @@ namespace node_gtk3
 //
 //      ::node_gdk::node * pnode = (::node_gdk::node *) pdata;
 //
-//      pnode->system()->m_papexsystem->signal(id_wallpaper_change);
+//      pnode->system()->signal(id_wallpaper_change);
 //
 //   }
 //

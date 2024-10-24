@@ -2289,7 +2289,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
          //         if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
          //         {
          //
-         //            auto psystem = system()->m_papexsystem;
+         //            auto psystem = system();
          //
          //            string strApplicationServerName = psystem->get_application_server_name();
          //
@@ -2297,7 +2297,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
          //
          //            //         XClassHint * pupdate = XAllocClassHint();
          //            //
-         //            //         auto psystem = system()->m_papexsystem;
+         //            //         auto psystem = system();
          //            //
          //            //         string strApplicationServerName = psystem->get_application_server_name();
          //            //
@@ -2887,7 +2887,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //         if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
    //         {
    //
-   //            auto psystem = system()->m_papexsystem;
+   //            auto psystem = system();
    //
    //            string strApplicationServerName = psystem->get_application_server_name();
    //
@@ -3060,7 +3060,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
       //
       //         pwindowing->m_bFirstWindowMap = true;
       //
-      //         auto psystem = system()->m_papexsystem;
+      //         auto psystem = system();
       //
       //         auto pnode = psystem->node();
       //
@@ -3379,7 +3379,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    {
       synchronous_lock synchronouslock(user_synchronization());
 
-      //      auto psystem = system()->m_papexsystem;
+      //      auto psystem = system();
       //
       //      auto pnode = psystem->node();
       //
@@ -4714,7 +4714,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //         if (msg.oswindow == nullptr)
    //         {
    //
-   //            auto pcontext = m_pcontext->m_papexcontext;
+   //            auto pcontext = m_papplication->m_papexcontext;
    //
    //            pcontext->post_message(msg.m_atom, msg.wParam, msg.lParam);
    //

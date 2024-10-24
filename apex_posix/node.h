@@ -32,7 +32,7 @@ namespace apex_posix
       bool shell_link_target(::file::path &pathTarget, const ::file::path &pathLnk) override;
       bool shell_link_icon(::file::path& pathIcon, int& iIcon, const ::file::path& pathLnk) override;
 
-      void create_app_shortcut(::acme::application * papp) override;
+      void create_app_shortcut(::platform::application * papp) override;
 
 
       ::string get_host_name() override;
@@ -45,7 +45,7 @@ void defer_innate_ui() override;
 
       virtual ::file::path _get_auto_start_desktop_file_path(const ::string & strAppId);
 
-      void register_user_auto_start(::acme::application * papplication, const string & strArguments,
+      void register_user_auto_start(::platform::application * papplication, const string & strArguments,
                                     bool bRegister) override;
 
       bool is_user_auto_start(const string & strAppId) override;

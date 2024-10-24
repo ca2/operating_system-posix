@@ -575,7 +575,7 @@ namespace input_xinput
 
             auto prawevent = (XIRawEvent *) cookie->data;
 
-//auto psystem = system()->m_papexsystem;
+//auto psystem = system();
 
 // detail:
 // 1 - left button

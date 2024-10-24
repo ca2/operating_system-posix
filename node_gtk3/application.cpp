@@ -149,7 +149,7 @@ void node_gtk_application_activate(GApplication * application)
 
       throw ::exception(todo);
 
-//   auto psystem = system()->m_papexsystem;
+//   auto psystem = system();
 //
 //   auto pnode = psystem->node();
 //

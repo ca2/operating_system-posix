@@ -291,7 +291,7 @@ namespace windowing_xcb
       if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
       {
 
-         string strApplicationServerName = system()->m_papexsystem->get_application_server_name();
+         string strApplicationServerName = system()->get_application_server_name();
 
          string strClass = strApplicationServerName;
 
@@ -1597,7 +1597,7 @@ namespace windowing_xcb
          if (msg.oswindow == nullptr)
          {
 
-            system()->m_papexsystem->post_message(msg.m_atom, msg.wParam, msg.lParam);
+            system()->post_message(msg.m_atom, msg.wParam, msg.lParam);
 
          }
          else
@@ -1724,7 +1724,7 @@ namespace windowing_xcb
 
       itask_t idthread = pinteraction->get_app()->get_itask();
 
-      message_queue * pmq = ::acme::get()->m_ptaskmessagequeue->get_message_queue(idthread, false);
+      message_queue * pmq = ::system()->m_ptaskmessagequeue->get_message_queue(idthread, false);
 
       if (pmq == nullptr)
       {

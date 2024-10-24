@@ -545,7 +545,7 @@ namespace acme_posix
    }
 
 
-   ::pointer < ::acme::exclusive > node::get_exclusive(::particle * pparticleContext, const ::string & strName, security_attributes * psecurityattributes)
+   ::pointer < ::platform::exclusive > node::get_exclusive(::particle * pparticleContext, const ::string & strName, security_attributes * psecurityattributes)
    {
 
       return __allocate exclusive(pparticleContext, strName);

@@ -74,7 +74,7 @@ namespace windowing_gtk4
    void icon::load_matter(const string & strMatter)
    {
 
-      auto pcontext = m_pcontext->m_papexcontext;
+      auto pcontext = m_papplication->m_papexcontext;
 
       string strPath = pcontext->dir()->matter(strMatter);
 

@@ -469,10 +469,10 @@ namespace gtk4
             //
             // }
 
-            if(::acme::get()->m_pmanualreseteventMainLoopEnd)
+            if(::system()->m_pmanualreseteventMainLoopEnd)
             {
 
-               ::acme::get()->m_pmanualreseteventMainLoopEnd->set_event();
+               ::system()->m_pmanualreseteventMainLoopEnd->set_event();
 
             }
 
@@ -1224,7 +1224,7 @@ namespace gtk4
          //    try
          //    {
          //
-         //       system()->m_papexsystem->signal(id_operating_system_user_theme_change);
+         //       system()->signal(id_operating_system_user_theme_change);
          //
          //    }
          //    catch (...)
@@ -1275,7 +1275,7 @@ namespace gtk4
          //    try
          //    {
          //
-         //       system()->m_papexsystem->signal(id_operating_system_user_icon_theme_change);
+         //       system()->signal(id_operating_system_user_icon_theme_change);
          //
          //    }
          //    catch (...)

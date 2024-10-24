@@ -433,7 +433,7 @@ namespace windowing_xcb
 
       }
 
-      auto psystem = system()->m_papexsystem;
+      auto psystem = system();
 
       //auto ptopic = psystem->topic(eid);
 

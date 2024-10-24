@@ -288,7 +288,7 @@ namespace node_xfce
 
       bool b = false;
 
-      auto psystem = system()->m_papexsystem;
+      auto psystem = system();
 
       auto pnode = psystem->node();
 

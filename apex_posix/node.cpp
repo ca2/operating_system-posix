@@ -189,7 +189,7 @@ namespace apex_posix
    }
 
 
-   void node::create_app_shortcut(::acme::application * papp)
+   void node::create_app_shortcut(::platform::application * papp)
    {
       
 #if defined(HAS_FREEDESKTOP)
@@ -353,7 +353,7 @@ namespace apex_posix
 
 
 
-   void node::register_user_auto_start(::acme::application * papplication, const string & strArguments, bool bRegister)
+   void node::register_user_auto_start(::platform::application * papplication, const string & strArguments, bool bRegister)
    {
 
 #if defined(LINUX) || defined(FREEBSD) || defined(OPENBSD)

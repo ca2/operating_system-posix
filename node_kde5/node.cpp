@@ -218,7 +218,7 @@ namespace node_kde5
       //
       // system()->m_htask = (htask_t) 0;
       //
-      // system()->m_papexsystem->branch();
+      // system()->branch();
       //
       // /// ___new:platform_create_system:decrement_reference_count
       // /// begin_synch starts ___new thread
@@ -289,7 +289,7 @@ namespace node_kde5
       //
       // }
 
-      // auto psystem = system()->m_papexsystem;
+      // auto psystem = system();
       //
       // psystem->defer_post_initial_request();
 

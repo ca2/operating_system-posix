@@ -231,7 +231,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 //
 //      ::node_gtk_based::node * pnode = (::node_gtk_based::node *) data;
 //
-//      pnode->system()->m_papexsystem->signal(id_wallpaper_change);
+//      pnode->system()->signal(id_wallpaper_change);
 //
 //   }
 //
@@ -354,7 +354,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 //
 //         g_bInitializedUserTheme = true;
 //
-////         auto psystem = system()->m_papexsystem;
+////         auto psystem = system();
 ////
 ////         psystem->start_subject_handling(id_os_user_theme);
 //
@@ -369,7 +369,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 //
 //      bool bOk = false;
 //
-//      auto psystem = system()->m_papexsystem;
+//      auto psystem = system();
 //
 //      auto pnode = psystem->node();
 //

@@ -1683,7 +1683,7 @@ namespace windowing_xcb
 
                   m_bFirstWindowMap = true;
 
-//                  auto psystem = system()->m_papexsystem;
+//                  auto psystem = system();
 //
 //                  auto pnode = psystem->node();
 //

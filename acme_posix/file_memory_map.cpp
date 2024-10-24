@@ -156,7 +156,7 @@ namespace acme_posix
 
       strMutex = m_strName + "-mutex";
 
-      set_synchronization(__allocate ::acme_posix::mutex(m_pcontext, false, strMutex));
+      set_synchronization(__allocate ::acme_posix::mutex(m_papplication, false, strMutex));
 
       return true;
 

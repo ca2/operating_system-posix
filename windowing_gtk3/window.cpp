@@ -1078,7 +1078,7 @@ _create_window();
 ////         if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
 ////         {
 ////
-////            auto psystem = system()->m_papexsystem;
+////            auto psystem = system();
 ////
 ////            string strApplicationServerName = psystem->get_application_server_name();
 ////
@@ -1086,7 +1086,7 @@ _create_window();
 ////
 ////            //         XClassHint * pupdate = XAllocClassHint();
 ////            //
-////            //         auto psystem = system()->m_papexsystem;
+////            //         auto psystem = system();
 ////            //
 ////            //         string strApplicationServerName = psystem->get_application_server_name();
 ////            //
@@ -1682,7 +1682,7 @@ bOk = true;
 //         if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
 //         {
 //
-//            auto psystem = system()->m_papexsystem;
+//            auto psystem = system();
 //
 //            string strApplicationServerName = psystem->get_application_server_name();
 //
@@ -1855,7 +1855,7 @@ bOk = true;
 //
 //         pwindowing->m_bFirstWindowMap = true;
 //
-//         auto psystem = system()->m_papexsystem;
+//         auto psystem = system();
 //
 //         auto pnode = psystem->node();
 //
@@ -2178,7 +2178,7 @@ bOk = true;
 
       synchronous_lock synchronouslock(user_synchronization());
 
-//      auto psystem = system()->m_papexsystem;
+//      auto psystem = system();
 //
 //      auto pnode = psystem->node();
 //
@@ -3242,7 +3242,7 @@ bOk = true;
 //         if (msg.oswindow == nullptr)
 //         {
 //
-//            auto pcontext = m_pcontext->m_papexcontext;
+//            auto pcontext = m_papplication->m_papexcontext;
 //
 //            pcontext->post_message(msg.m_atom, msg.wParam, msg.lParam);
 //

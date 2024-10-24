@@ -193,7 +193,7 @@ namespace node_kde6
 
       system()->m_htask = (htask_t) 0;
 
-      system()->m_papexsystem->branch();
+      system()->branch();
 
       /// ___new:platform_create_system:decrement_reference_count
       /// begin_synch starts ___new thread
@@ -251,7 +251,7 @@ namespace node_kde6
 
 #endif
 
-      auto psystem = system()->m_papexsystem;
+      auto psystem = system();
 
       psystem->defer_post_initial_request();
 

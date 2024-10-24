@@ -48,7 +48,7 @@ namespace windowing_x11
    }
 
 
-   void keyboard::enum_init(::acme::system * psystem)
+   void keyboard::enum_init(::platform::system * psystem)
    {
 
 //      SET_ENUM_TEXT(::user::e_key_0);

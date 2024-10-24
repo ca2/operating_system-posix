@@ -526,7 +526,7 @@ namespace windowing_gtk4
 // //
 // //         pwaylandwindow->wayland_windowing()->m_bFirstWindowMap = true;
 // //
-// //         //auto psystem = system()->m_papexsystem;
+// //         //auto psystem = system();
 // //
 // //         //string strApplicationServerName = psystem->get_application_server_name();
 // //
@@ -536,7 +536,7 @@ namespace windowing_gtk4
 // //
 // //         ///information() << "gtk_shell1_set_startup_id : " << strApplicationServerName;
 // //
-// //         //auto psystem = system()->m_papexsystem;
+// //         //auto psystem = system();
 // //
 // //         //auto pnode = psystem->node();
 // //
@@ -894,7 +894,7 @@ namespace windowing_gtk4
 // //
 // //                                                pwaylandwindow->wayland_windowing()->m_bFirstWindowMap = true;
 // //
-// //                                                //auto psystem = system()->m_papexsystem;
+// //                                                //auto psystem = system();
 // //
 // //                                                //string strApplicationServerName = psystem->get_application_server_name();
 // //
@@ -904,7 +904,7 @@ namespace windowing_gtk4
 // //
 // //                                                ///information() << "gtk_shell1_set_startup_id : " << strApplicationServerName;
 // //
-// //                                                //auto psystem = system()->m_papexsystem;
+// //                                                //auto psystem = system();
 // //
 // //                                                //auto pnode = psystem->node();
 // //

@@ -70,7 +70,7 @@ void on_sn_launch_complete(void * pSnContext)
 //
 //      int iScreen = DefaultScreen(pdisplay);
 //
-//      auto papp = m_pcontext->application() ? m_pcontext->application() : m_pcontext->application();
+//      auto papp = m_papplication->application() ? m_papplication->application() : m_papplication->application();
 //
 //      string strAppName = papp->m_strAppId;
 //

@@ -65,7 +65,7 @@ namespace windowing_wayland
    }
 
 
-   void keyboard::enum_init(::acme::system * psystem)
+   void keyboard::enum_init(::platform::system * psystem)
    {
 
 //      SET_ENUM_TEXT(::user::e_key_0);
@@ -864,7 +864,7 @@ namespace windowing_wayland
 ////
 ////      synchronous_lock synchronouslock(this->synchronization());
 ////
-//////      ::pointer < ::xkb_input::xkb_input > pxkbinput = system()->m_papexsystem->m_pinput;
+//////      ::pointer < ::xkb_input::xkb_input > pxkbinput = system()->m_pinput;
 //////
 //////      if(pxkbinput)
 //////      {

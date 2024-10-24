@@ -445,7 +445,7 @@ namespace windowing_x11
                      if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
                      {
 
-                        auto psystem = system()->m_papexsystem;
+                        auto psystem = system();
 
                         string strApplicationServerName = psystem->get_application_server_name();
 
@@ -453,7 +453,7 @@ namespace windowing_x11
 
                         //         XClassHint * pupdate = XAllocClassHint();
                         //
-                        //         auto psystem = system()->m_papexsystem;
+                        //         auto psystem = system();
                         //
                         //         string strApplicationServerName = psystem->get_application_server_name();
                         //
@@ -595,7 +595,7 @@ namespace windowing_x11
 
                      // fflush(stdout);
 
-                     auto psystem = system()->m_papexsystem;
+                     auto psystem = system();
 
                      auto pnode = psystem->node();
 
@@ -870,7 +870,7 @@ namespace windowing_x11
       //
       //    pwindowing->m_bFirstWindowMap = true;
       //
-      //    auto psystem = system()->m_papexsystem;
+      //    auto psystem = system();
       //
       //    auto pnode = psystem->node();
       //
@@ -930,7 +930,7 @@ namespace windowing_x11
 //
 //                pwindowing->m_bFirstWindowMap = true;
 //
-//                //auto psystem = system()->m_papexsystem;
+//                //auto psystem = system();
 //
 //                //auto pnode = psystem->node();
 //
@@ -1059,7 +1059,7 @@ namespace windowing_x11
                   //
                   //    pwindowing->m_bFirstWindowMap = true;
                   //
-                  //    auto psystem = system()->m_papexsystem;
+                  //    auto psystem = system();
                   //
                   //    auto pnode = psystem->node();
                   //
@@ -1405,7 +1405,7 @@ namespace windowing_x11
       //x11_sync([this, &status]()
       //{
 
-      //auto psystem = system()->m_papexsystem;
+      //auto psystem = system();
 
       //auto pnode = psystem->node();
 
@@ -2950,7 +2950,7 @@ namespace windowing_x11
          if (msg.oswindow == nullptr)
          {
 
-            auto pcontext = m_pcontext->m_papexcontext;
+            auto pcontext = m_papplication->m_papexcontext;
 
             pcontext->post_message(msg.m_atom, msg.wParam, msg.lParam);
 
@@ -3079,7 +3079,7 @@ namespace windowing_x11
 
       itask_t idthread = pinteraction->get_app()->get_itask();
 
-      message_queue *pmessagequeue = ::acme::get()->m_ptaskmessagequeue->get_message_queue(idthread, false);
+      message_queue *pmessagequeue = ::system()->m_ptaskmessagequeue->get_message_queue(idthread, false);
 
       if (pmessagequeue == nullptr)
       {
