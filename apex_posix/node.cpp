@@ -3,13 +3,13 @@
 //
 #include "framework.h"
 #include "node.h"
-#include "acme/filesystem/filesystem/acme_file.h"
+#include "acme/filesystem/filesystem/file_system.h"
 #include "acme/platform/system.h"
 #include "acme/exception/interface_only.h"
 #if defined(HAS_FREEDESKTOP)
 #include "apex/operating_system/freedesktop/desktop_file.h"
 #endif
-#include "acme/filesystem/filesystem/acme_directory.h"
+#include "acme/filesystem/filesystem/directory_system.h"
 #include "apex/platform/application.h"
 
 
@@ -74,7 +74,7 @@ namespace apex_posix
 
          ::file::path path = pnode->get_desktop_file_path(papp);
 
-         if(path.has_char() && !acmefile()->exists(path))
+         if(path.has_char() && !file_system()->exists(path))
          {
 
             auto pfile = papp->__create_new< ::freedesktop::desktop_file >();
@@ -111,7 +111,7 @@ namespace apex_posix
       {
 
 
-         //if(path.has_char() && !acmefile()->exists(path))
+         //if(path.has_char() && !file_system()->exists(path))
          {
 
             auto pfile = __create_new< ::freedesktop::desktop_file >();
@@ -155,7 +155,7 @@ namespace apex_posix
       {
 
 
-         //if(path.has_char() && !acmefile()->exists(path))
+         //if(path.has_char() && !file_system()->exists(path))
          {
 
             auto pfile = __create_new< ::freedesktop::desktop_file >();
@@ -329,7 +329,7 @@ namespace apex_posix
 
 #if defined(LINUX) || defined(FREEBSD)
 
-      auto pathHome = acmedirectory()->home();
+      auto pathHome = directory_system()->home();
 
       string strDesktopFileName(strAppId);
 
@@ -385,7 +385,7 @@ namespace apex_posix
       else
       {
 
-         acmefile()->erase(pathAutoStartDesktopFilePath);
+         file_system()->erase(pathAutoStartDesktopFilePath);
 
       }
 
@@ -405,7 +405,7 @@ namespace apex_posix
 
       ::file::path pathAutoStartDesktopFilePath = _get_auto_start_desktop_file_path(strAppId);
 
-      return pathAutoStartDesktopFilePath.has_char() && acmefile()->exists(pathAutoStartDesktopFilePath);
+      return pathAutoStartDesktopFilePath.has_char() && file_system()->exists(pathAutoStartDesktopFilePath);
 
 #else
 

@@ -1,7 +1,7 @@
 // from interprocess_communication.cpp by Camilo 2021-10-19 18:58 BRT <3ThomasBorregaardSoerensen
 #include "framework.h"
 #include "interprocess_target.h"
-#include "acme/filesystem/filesystem/acme_file.h"
+#include "acme/filesystem/filesystem/file_system.h"
 #include "acme/operating_system/shared_posix/c_error_number.h"
 #include "acme/prototype/prototype/memory.h"
 
@@ -44,7 +44,7 @@ namespace system_5
 
          information() << "interprocess_target::create file doesnt exist, going to create : " << strChannel;
 
-         acmefile()->put_contents(strChannel, strChannel);
+         file_system()->put_contents(strChannel, strChannel);
 
          m_strCreatedFile = strChannel;
 
@@ -165,7 +165,7 @@ namespace system_5
          try
          {
 
-            acmefile()->erase(m_strCreatedFile);
+            file_system()->erase(m_strCreatedFile);
 
             bOk = true;
 

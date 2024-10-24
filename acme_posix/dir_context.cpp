@@ -1,10 +1,10 @@
 // Created by camilo on 2023-01-19 23:36 <3ThomasBorregaardSorensen!!
 #include "framework.h"
-#include "dir_context.h"
-#include "acme/filesystem/filesystem/acme_directory.h"
-#include "acme/filesystem/filesystem/dir_system.h"
+#include "directory_context.h"
+#include "acme/filesystem/filesystem/directory_system.h"
+#include "acme/filesystem/filesystem/directory_system.h"
 #include "acme/filesystem/filesystem/file_system.h"
-#include "acme/filesystem/filesystem/acme_file.h"
+#include "acme/filesystem/filesystem/file_system.h"
 #include "acme/platform/system.h"
 
 
@@ -19,7 +19,7 @@
 
    path = pathHome / ".config/user-dirs.dirs";
 
-   auto straLines = pmatter->acmefile()->lines(path);
+   auto straLines = pmatter->file_system()->lines(path);
 
    string strPrefix = str + "=";
 
@@ -49,21 +49,21 @@ namespace acme_posix
 {
 
 
-   dir_context::dir_context()
+   directory_context::directory_context()
    {
 
 
    }
 
 
-   dir_context::~dir_context()
+   directory_context::~directory_context()
    {
 
 
    }
 
 
-   void dir_context::initialize(::particle * pparticle)
+   void directory_context::initialize(::particle * pparticle)
    {
 
       //auto estatus =
@@ -88,23 +88,23 @@ namespace acme_posix
    }
 
 
-   void dir_context::init_system()
+   void directory_context::init_system()
    {
 
-      ::dir_context::init_system();
+      ::directory_context::init_system();
 
    }
 
 
-   void dir_context::init_context()
+   void directory_context::init_context()
    {
 
-         ::dir_context::init_context();
+         ::directory_context::init_context();
 
    }
 
 
-   ::file::path dir_context::music()
+   ::file::path directory_context::music()
    {
 
       if(m_pathMusic.has_char())
@@ -136,7 +136,7 @@ namespace acme_posix
    }
 
 
-   ::file::path dir_context::video()
+   ::file::path directory_context::video()
    {
 
       if(m_pathVideo.has_char())
@@ -168,7 +168,7 @@ namespace acme_posix
    }
 
 
-   ::file::path dir_context::image()
+   ::file::path directory_context::image()
    {
 
       if(m_pathImage.has_char())
@@ -200,7 +200,7 @@ namespace acme_posix
    }
 
 
-   ::file::path dir_context::document()
+   ::file::path directory_context::document()
    {
 
       if(m_pathDocument)
@@ -232,7 +232,7 @@ namespace acme_posix
    }
 
 
-   ::file::path dir_context::download()
+   ::file::path directory_context::download()
    {
 
       if(m_pathDownload.has_char())
@@ -264,10 +264,10 @@ namespace acme_posix
    }
 
 
-   ::file::path dir_context::dropbox_client()
+   ::file::path directory_context::dropbox_client()
    {
 
-      return acmedirectory()->home() / "bin";
+      return directory_system()->home() / "bin";
 
    }
 

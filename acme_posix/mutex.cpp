@@ -6,7 +6,7 @@
 #include "acme/_operating_system.h"
 #include "acme/prototype/time/timespec.h"
 #include "acme/operating_system/shared_posix/c_error_number.h"
-#include "acme/filesystem/filesystem/acme_directory.h"
+#include "acme/filesystem/filesystem/directory_system.h"
 #include "acme/platform/system.h"
 ////#include "acme/exception/exception.h"
 
@@ -234,9 +234,9 @@ namespace acme_posix
 
    pacmedirectory->create(::file::path(strName).folder());
 
-         ::acmefile()->put_contents(strName, strName);
+         ::file_system()->put_contents(strName, strName);
 
-         string strTest = acmefile()->as_string(strName);
+         string strTest = file_system()->as_string(strName);
 
          //int isCreator = 0;
 
@@ -334,7 +334,7 @@ namespace acme_posix
 
          auto pacmesystem = system();
 
-         auto pacmedirectory = pacmesystem->acmedirectory();
+         auto pacmedirectory = pacmesystem->directory_system();
 
          pacmedirectory->create(path.folder());
 
@@ -406,7 +406,7 @@ namespace acme_posix
 
    pacmedirectory->create(path.folder());
 
-         ::acmefile()->put_contents(path, m_pszName);
+         ::file_system()->put_contents(path, m_pszName);
 
          m_key = ftok(path, 1); //Generate a unique key or supply a value
 
@@ -1738,7 +1738,7 @@ namespace acme_posix
 
       path /= lpszName;
 
-      auto pacmedirectory = pmatter->acmedirectory();
+      auto pacmedirectory = pmatter->directory_system();
 
       pacmedirectory->create(path.folder());
 

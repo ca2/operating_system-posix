@@ -3,7 +3,7 @@
 #include "framework.h"
 #include "icon.h"
 #include "acme/exception/interface_only.h"
-#include "acme/filesystem/filesystem/dir_context.h"
+#include "acme/filesystem/filesystem/directory_context.h"
 #include "apex/platform/context.h"
 //#include "_windowing_x11.h"
 
@@ -76,7 +76,7 @@ namespace windowing_x11
 
       auto pcontext = m_papplication;
 
-      string strPath = pcontext->dir()->matter(strMatter);
+      string strPath = pcontext->directory()->matter(strMatter);
 
       load_file(strPath);
 

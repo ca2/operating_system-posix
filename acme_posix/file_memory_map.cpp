@@ -4,9 +4,9 @@
 #include "framework.h"
 #include "file_memory_map.h"
 #include "mutex.h"
-#include "acme_directory.h"
+#include "directory_system.h"
 #include "acme/operating_system/ansi/file_c.h"
-#include "acme/filesystem/filesystem/acme_file.h"
+#include "acme/filesystem/filesystem/file_system.h"
 #include "acme/platform/system.h"
 
 
@@ -112,7 +112,7 @@ namespace acme_posix
       if(m_bCreate)
       {
          
-         acmedirectory()->create(path.folder());
+         directory_system()->create(path.folder());
          
       }
 
@@ -130,14 +130,14 @@ namespace acme_posix
       if(m_bCreate && m_size > 0)
       {
          
-         acmefile()->set_size(m_iFile, m_size);
+         file_system()->set_size(m_iFile, m_size);
          
       }
       
       if(m_size < 0)
       {
        
-         m_size = acmefile()->get_size_fd(m_iFile);
+         m_size = file_system()->get_size_fd(m_iFile);
          
       }
 

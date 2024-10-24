@@ -1,8 +1,8 @@
 #include "framework.h"
 #include "os_context.h"
 #include "acme/exception/interface_only.h"
-#include "acme/filesystem/filesystem/acme_directory.h"
-#include "acme/filesystem/filesystem/acme_file.h"
+#include "acme/filesystem/filesystem/directory_system.h"
+#include "acme/filesystem/filesystem/file_system.h"
 #include "acme/platform/node.h"
 #include "apex/operating_system/freedesktop/desktop_file.h"
 #include <sys/stat.h>
@@ -71,7 +71,7 @@ namespace apex_posix
 
 #if defined(LINUX) || defined(FREEBSD)
 
-      auto pathHome = acmedirectory()->home();
+      auto pathHome = directory_system()->home();
 
       string strDesktopFileName(strAppId);
 
@@ -121,7 +121,7 @@ namespace apex_posix
       else
       {
 
-         acmefile()->erase(pathAutoStartDesktopFilePath);
+         file_system()->erase(pathAutoStartDesktopFilePath);
 
       }
 
@@ -141,7 +141,7 @@ namespace apex_posix
 
       ::file::path pathAutoStartDesktopFilePath = _get_auto_start_desktop_file_path(strAppId);
 
-      return pathAutoStartDesktopFilePath.has_char() && acmefile()->exists(pathAutoStartDesktopFilePath);
+      return pathAutoStartDesktopFilePath.has_char() && file_system()->exists(pathAutoStartDesktopFilePath);
       
 #else
       

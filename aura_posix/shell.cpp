@@ -1,6 +1,6 @@
 #include "framework.h"
 #include "shell.h"
-#include "acme/filesystem/filesystem/acme_directory.h"
+#include "acme/filesystem/filesystem/directory_system.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/prototype/string/international.h"
 #include "aura/graphics/image/context.h"
@@ -327,7 +327,7 @@ namespace aura_posix
    //         }
    //      }
    //   }
-   //   if (dir()->is(unicode_to_utf8(szFilePath)))
+   //   if (directory()->is(unicode_to_utf8(szFilePath)))
    //   {
    //      if (imagekey.m_iIcon == I32_MINIMUM)
    //      {
@@ -551,7 +551,7 @@ namespace aura_posix
 
       unicode_to_utf8(strPath, wstrPath);
 
-      if (acmedirectory()->is(strPath))
+      if (directory_system()->is(strPath))
       {
 
          return e_folder_file_system;

@@ -4,7 +4,7 @@
 #include "integration_context.h"
 #include "acme/filesystem/file/file.h"
 #include "acme/filesystem/file/memory_file.h"
-#include "acme/filesystem/filesystem/acme_directory.h"
+#include "acme/filesystem/filesystem/directory_system.h"
 #include "acme/platform/application.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
@@ -58,7 +58,7 @@ namespace acme_posix
 
          m_pathSource = m_pathFolder / m_pathBase / m_pathPlatformConfiguration / "source";
 
-         acmedirectory()->create(m_pathSource);
+         directory_system()->create(m_pathSource);
 
       }
 
@@ -66,7 +66,7 @@ namespace acme_posix
       void context::change_to_source_directory()
       {
 
-         acmedirectory()->change_current(m_pathSource);
+         directory_system()->change_current(m_pathSource);
 
       }
 
@@ -77,7 +77,7 @@ namespace acme_posix
          if (m_pathPrefix.has_char())
          {
 
-            acmedirectory()->create(m_pathPrefix);
+            directory_system()->create(m_pathPrefix);
 
          }
 
@@ -324,7 +324,7 @@ namespace acme_posix
       ::file::path context::base_integration_folder()
       {
 
-         return acmedirectory()->home() / "integration";
+         return directory_system()->home() / "integration";
 
       }
 

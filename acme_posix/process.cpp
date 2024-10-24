@@ -6,8 +6,8 @@
 //
 #include "framework.h"
 #include "node.h"
-#include "acme_file.h"
-#include "acme_directory.h"
+#include "file_system.h"
+#include "directory_system.h"
 #include "mutex.h"
 #include "exclusive.h"
 #include "acme/exception/interface_only.h"

@@ -1,6 +1,6 @@
 #include "framework.h"
 #include "file.h"
-#include "acme_directory.h"
+#include "directory_system.h"
 #include "acme/filesystem/file/exception.h"
 #include "acme/filesystem/file/status.h"
 
@@ -136,7 +136,7 @@ namespace acme_posix
       if ((eopen & ::file::e_open_defer_create_directory) && (eopen & ::file::e_open_write))
       {
 
-         acmedirectory()->create(path.folder());
+         directory_system()->create(path.folder());
 
       }
 

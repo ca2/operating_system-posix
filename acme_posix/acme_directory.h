@@ -4,24 +4,24 @@
 #pragma once
 
 
-#include "acme/filesystem/filesystem/acme_directory.h"
+#include "acme/filesystem/filesystem/directory_system.h"
 
 
 namespace acme_posix
 {
 
 
-   class CLASS_DECL_ACME_POSIX acme_directory :
-      virtual public ::acme_directory
+   class CLASS_DECL_ACME_POSIX directory_system :
+      virtual public ::directory_system
    {
    public:
 
 
-      //__creatable_from_library(acme_directory, ::acme_directory, "acme_posix");
+      //__creatable_from_library(directory_system, ::directory_system, "acme_posix");
 
 
-      acme_directory();
-      ~acme_directory() override;
+      directory_system();
+      ~directory_system() override;
       
 
       //virtual string name(const ::file::path & path1) override;

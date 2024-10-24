@@ -2,8 +2,8 @@
 // on 2021-08-12 17:38 BRT
 // <3ThomasBorregaardSorensen!!
 #include "framework.h"
-#include "acme_file.h"
-#include "acme_directory.h"
+#include "file_system.h"
+#include "directory_system.h"
 #include "acme/exception/interface_only.h"
 #include "acme/filesystem/file/exception.h"
 #include "acme/operating_system/ansi/int_handle.h"
@@ -61,20 +61,20 @@ namespace acme_posix
 {
 
 
-   acme_file::acme_file()
+   file_system::file_system()
    {
 
    }
 
 
-   acme_file::~acme_file() noexcept
+   file_system::~file_system() noexcept
    {
 
 
    }
 
 
-   bool acme_file::exists(const ::file::path & filename)
+   bool file_system::exists(const ::file::path & filename)
    {
 
       return ::file_exists(filename);
@@ -82,7 +82,7 @@ namespace acme_posix
    }
 
 
-   void acme_file::ensure_exists(const ::file::path & path)
+   void file_system::ensure_exists(const ::file::path & path)
    {
       
       if(exists(path))
@@ -104,7 +104,7 @@ namespace acme_posix
    }
 
 
-   void acme_file::touch(const ::file::path & path)
+   void file_system::touch(const ::file::path & path)
    {
 
       int rc = utimes(path, nullptr);
@@ -125,19 +125,19 @@ namespace acme_posix
    }
 
 
-   void acme_file::clear_read_only(const ::file::path & path)
+   void file_system::clear_read_only(const ::file::path & path)
    {
 
    }
 
 
-   void acme_file::set_file_normal(const ::file::path & path)
+   void file_system::set_file_normal(const ::file::path & path)
    {
 
    }
 
 
-   string  acme_file::get_temporary_file_name(const ::scoped_string & scopedstrName, const ::scoped_string& scopedstrExtension)
+   string  file_system::get_temporary_file_name(const ::scoped_string & scopedstrName, const ::scoped_string& scopedstrExtension)
    {
 
       char pPathBuffer[300 * 16];
@@ -175,7 +175,7 @@ namespace acme_posix
    }
 
 
-   void acme_file::set_size(const ::file::path & pathName, filesize size)
+   void file_system::set_size(const ::file::path & pathName, filesize size)
    {
 
       int_handle iFileDescriptor(::open(pathName, O_RDONLY | O_CLOEXEC));
@@ -185,7 +185,7 @@ namespace acme_posix
    }
 
 
-   void acme_file::set_size(i32 iFileDescriptor, filesize size)
+   void file_system::set_size(i32 iFileDescriptor, filesize size)
    {
 
       if (ftruncate(iFileDescriptor, size) == -1)
@@ -195,14 +195,14 @@ namespace acme_posix
 
          auto estatus = cerrornumber.estatus();
 
-         throw ::exception(estatus, "::posix::acme_file::set_size");
+         throw ::exception(estatus, "::posix::file_system::set_size");
 
       }
 
    }
 
 
-//   void acme_file::set_size(FILE * pfile, filesize size)
+//   void file_system::set_size(FILE * pfile, filesize size)
 //   {
 //
 //      set_size(fileno(pfile), size);
@@ -210,7 +210,7 @@ namespace acme_posix
 //   }
 
 
-//   filesize acme_file::get_size(FILE * pfile)
+//   filesize file_system::get_size(FILE * pfile)
 //   {
 //
 //      return get_size_fd(fileno(pfile));
@@ -218,7 +218,7 @@ namespace acme_posix
 //   }
 
 
-   filesize acme_file::get_size_fd(i32 iFileDescriptor)
+   filesize file_system::get_size_fd(i32 iFileDescriptor)
    {
 
       struct stat st = {};
@@ -232,7 +232,7 @@ namespace acme_posix
 
          ::close(iFileDescriptor);
          
-         throw ::exception(estatus, "posix::acme_file::get_size_fd");
+         throw ::exception(estatus, "posix::file_system::get_size_fd");
 //
 //         return -1;
 
@@ -244,10 +244,10 @@ namespace acme_posix
 
 
 
-   void acme_file::put_contents(const ::file::path & path, const ::scoped_string & scopedstrContents)
+   void file_system::put_contents(const ::file::path & path, const ::scoped_string & scopedstrContents)
    {
 
-      acmedirectory()->create(::file_path_folder(path));
+      directory_system()->create(::file_path_folder(path));
 
       wstring wstr(path);
 
@@ -287,7 +287,7 @@ namespace acme_posix
    }
 
 
-   string acme_file::as_string(const ::file::path & path, strsize iReadAtMostByteCount, bool bNoExceptionOnFail)
+   string file_system::as_string(const ::file::path & path, strsize iReadAtMostByteCount, bool bNoExceptionOnFail)
    {
 
       string str;
@@ -311,7 +311,7 @@ namespace acme_posix
          
          auto estatus = cerrornumber.failed_estatus();
 
-         throw ::exception(estatus, "posix::acme_file::as_string");
+         throw ::exception(estatus, "posix::file_system::as_string");
 
       }
 
@@ -331,7 +331,7 @@ namespace acme_posix
 
          auto estatus = cerrornumber.failed_estatus();
 
-         throw ::exception(estatus, "posix::acme_file::as_string");
+         throw ::exception(estatus, "posix::file_system::as_string");
          
       }
 
@@ -352,7 +352,7 @@ namespace acme_posix
    }
 
 
-   memory acme_file::as_memory(const ::file::path & path, strsize iReadAtMostByteCount, bool bNoExceptionIfNotFound)
+   memory file_system::as_memory(const ::file::path & path, strsize iReadAtMostByteCount, bool bNoExceptionIfNotFound)
    {
 
       memory mem;
@@ -364,7 +364,7 @@ namespace acme_posix
    }
 
 
-   void acme_file::as_memory(memory_base & memory, const ::file::path & path, strsize iReadAtMostByteCount, bool bNoExceptioOnOpen)
+   void file_system::as_memory(memory_base & memory, const ::file::path & path, strsize iReadAtMostByteCount, bool bNoExceptioOnOpen)
    {
 
       auto pfile = __create_new <stdio_file >();
@@ -448,7 +448,7 @@ namespace acme_posix
    }
 
 
-   memsize acme_file::as_memory(const ::file::path & path, void * p, memsize s)
+   memsize file_system::as_memory(const ::file::path & path, void * p, memsize s)
    {
 
       FILE_holder pfile(fopen(path, "rb"));
@@ -460,7 +460,7 @@ namespace acme_posix
          
          auto estatus = cerrornumber.failed_estatus();
 
-         throw ::exception(estatus, "posix::acme_file::as_memory");
+         throw ::exception(estatus, "posix::file_system::as_memory");
 
       }
 
@@ -482,7 +482,7 @@ namespace acme_posix
    }
 
 
-   filesize acme_file::get_size(const ::file::path & path)
+   filesize file_system::get_size(const ::file::path & path)
    {
 
       struct stat st;
@@ -506,7 +506,7 @@ namespace acme_posix
 
 
 
-   ::file::path acme_file::module()
+   ::file::path file_system::module()
    {
 
 #if defined(ANDROID) || defined(LINUX)
@@ -565,7 +565,7 @@ namespace acme_posix
    }
 
 
-//   void acme_file::copy(const ::file::path & pathNew, const ::file::path & pathSrc, bool bOverwrite)
+//   void file_system::copy(const ::file::path & pathNew, const ::file::path & pathSrc, bool bOverwrite)
 //{
 //      
 //      auto pathTarget = pathNew;
@@ -574,10 +574,10 @@ namespace acme_posix
 //      
 //      auto pathTargetFolder = pathNew.folder();
 //      
-//      if(!acmedirectory()->is(pathTargetFolder))
+//      if(!directory_system()->is(pathTargetFolder))
 //      {
 //         
-//         acmedirectory()->create(pathTargetFolder);
+//         directory_system()->create(pathTargetFolder);
 //         
 //      }
 //      
@@ -599,7 +599,7 @@ namespace acme_posix
 //   }
 
       
-//   void acme_file::_memory_map_file(const ::file::path & pathNew, const ::file::path & pathSrc, bool bOverwrite)
+//   void file_system::_memory_map_file(const ::file::path & pathNew, const ::file::path & pathSrc, bool bOverwrite)
 //   {
 //
 //      int_handle input;
@@ -725,7 +725,7 @@ namespace acme_posix
 
 
 
-//   ::e_status acme_file::delete_file(const ::file::path & path)
+//   ::e_status file_system::delete_file(const ::file::path & path)
 //   {
 //
 //      return file_delete(path);
@@ -844,7 +844,7 @@ namespace acme_posix
    }
 
 
-   string acme_file::first_line(const ::file::path & path)
+   string file_system::first_line(const ::file::path & path)
    {
 
       string line;
@@ -891,7 +891,7 @@ namespace acme_posix
    }
 
 
-   class ::time acme_file::modification_time(const ::file::path & path)
+   class ::time file_system::modification_time(const ::file::path & path)
    {
 
       if(is_trimmed_empty(path))
@@ -931,7 +931,7 @@ namespace acme_posix
    }
 
 
-   void acme_file::set_modification_time(const ::file::path & path, const class ::time& time)
+   void file_system::set_modification_time(const ::file::path & path, const class ::time& time)
    {
 
 
@@ -1050,7 +1050,7 @@ namespace acme_posix
    }
 
 
-    void acme_file::_erase(const ::file::path & path)
+    void file_system::_erase(const ::file::path & path)
     {
 
         if (::unlink(path) == -1)
@@ -1075,15 +1075,15 @@ namespace acme_posix
     }
 
 
-   void acme_file::put_block(const ::file::path & path, const block & block)
+   void file_system::put_block(const ::file::path & path, const block & block)
    {
 
       auto folder = path.folder();
 
-      if(!acmedirectory()->is(folder))
+      if(!directory_system()->is(folder))
       {
 
-         acmedirectory()->create(folder);
+         directory_system()->create(folder);
 
       }
 

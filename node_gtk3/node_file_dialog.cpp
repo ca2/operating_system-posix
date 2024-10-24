@@ -6,7 +6,7 @@
 #include "acme/constant/id.h"
 #include "acme/operating_system/ansi/pmutex_lock.h"
 #include "acme/operating_system/parallelization.h"
-#include "acme/filesystem/filesystem/acme_directory.h"
+#include "acme/filesystem/filesystem/directory_system.h"
 #include "acme/filesystem/filesystem/file_dialog.h"
 #include "acme/user/user/os_theme_colors.h"
 #include "acme/user/user/theme_colors.h"

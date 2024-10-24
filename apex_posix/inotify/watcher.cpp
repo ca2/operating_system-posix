@@ -83,7 +83,7 @@ namespace inotify
 //
 //         listing.set_folder_listing(pathFolder, ::e_depth_recursively);
 //
-//         acmedirectory()->enumerate(listing);
+//         directory_system()->enumerate(listing);
 //
 //         for(::collection::index index = 0; index < listing.get_count(); index++)
 //         {

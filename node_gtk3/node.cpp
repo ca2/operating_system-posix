@@ -6,7 +6,7 @@
 #include "acme/constant/id.h"
 #include "acme/operating_system/ansi/pmutex_lock.h"
 #include "acme/operating_system/parallelization.h"
-#include "acme/filesystem/filesystem/acme_directory.h"
+#include "acme/filesystem/filesystem/directory_system.h"
 #include "acme/filesystem/filesystem/file_dialog.h"
 #include "acme/filesystem/filesystem/folder_dialog.h"
 #include "acme/filesystem/filesystem/file_context.h"
@@ -2130,7 +2130,7 @@ namespace node_gtk3
 
       ::file::path pathDesktop;
 
-      pathDesktop = acmedirectory()->home() / ".local/share/applications" / (strDesktopFileTitle + ".desktop");
+      pathDesktop = directory_system()->home() / ".local/share/applications" / (strDesktopFileTitle + ".desktop");
 
       user_post([this, pathDesktop]()
                         {
@@ -2265,7 +2265,7 @@ namespace node_gtk3
 //
 //      auto pathDesktopFile = get_desktop_file_path_by_app_id(scopedstrAppId);
 //
-//      if(!acmefile()->exists(pathDesktopFile))
+//      if(!file_system()->exists(pathDesktopFile))
 //      {
 //
 //         information() << "Desktop file (\"" << pathDesktopFile << "\") doesn't exist. Going to try to launch with executable path.";
@@ -2369,7 +2369,7 @@ namespace node_gtk3
 
       ::file::path path;
 
-      path = acmedirectory()->home();
+      path = directory_system()->home();
 
       path /= ".local/share/mime/packages";
 
@@ -2460,7 +2460,7 @@ namespace node_gtk3
 //
 //      ::file::path path;
 //
-//      path = acmedirectory()->home();
+//      path = directory_system()->home();
 //
 //      path /= ".local/share/mime/packages";
 //

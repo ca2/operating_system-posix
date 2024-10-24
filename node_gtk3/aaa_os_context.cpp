@@ -2,8 +2,8 @@
 #include "framework.h"
 #include "os_context.h"
 #include "acme/exception/interface_only.h"
-#include "acme/filesystem/filesystem/acme_directory.h"
-#include "acme/filesystem/filesystem/acme_file.h"
+#include "acme/filesystem/filesystem/directory_system.h"
+#include "acme/filesystem/filesystem/file_system.h"
 #include "acme/filesystem/filesystem/file_context.h"
 #include "acme/platform/node.h"
 #include "apex/operating_system/freedesktop/desktop_file.h"
@@ -95,7 +95,7 @@ namespace node_gtk3
 
       ::file::path path;
 
-      path = acmedirectory()->home();
+      path = directory_system()->home();
 
       path /= ".local/share/mime/packages";
 
@@ -186,7 +186,7 @@ namespace node_gtk3
 //
 //      ::file::path path;
 //
-//      path = acmedirectory()->home();
+//      path = directory_system()->home();
 //
 //      path /= ".local/share/mime/packages";
 //

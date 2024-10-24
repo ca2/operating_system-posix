@@ -3,7 +3,7 @@
 //
 #include "framework.h"
 #include "notify_icon.h"
-#include "acme/filesystem/filesystem/acme_directory.h"
+#include "acme/filesystem/filesystem/directory_system.h"
 #include "acme/platform/system.h"
 #include "acme/prototype/string/str.h"
 #include "acme/filesystem/filesystem/file_context.h"
@@ -78,13 +78,13 @@ namespace node_gtk3
 
       string strAppName = strAppId.substr(iSlash + 1);
 
-      ::file::path pathFolder = acmedirectory()->roaming() / strMatterRoot / "matter/icon/128";
+      ::file::path pathFolder = directory_system()->roaming() / strMatterRoot / "matter/icon/128";
 
       ::file::path pathRoamingIcon = pathFolder / (strAppName + ".png");
 
-      //get_app()->m_papexapplication->file()->copy(pathRoamingIcon, "matter://main/icon-128.png");
+      //get_app()->file()->copy(pathRoamingIcon, "matter://main/icon-128.png");
 
-      get_app()->m_papexapplication->file()->copy(pathRoamingIcon, "matter://main/icon-128.png");
+      get_app()->file()->copy(pathRoamingIcon, "matter://main/icon-128.png");
 
       //auto psystem = system();
 //

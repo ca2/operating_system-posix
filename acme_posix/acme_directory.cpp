@@ -2,8 +2,8 @@
 // on 2021-08-09 03:19 BRT
 // <3ThomasBorregaardSorensen!!
 #include "framework.h"
-#include "acme_directory.h"
-#include "acme_file.h"
+#include "directory_system.h"
+#include "file_system.h"
 ////#include "acme/exception/exception.h"
 #include "acme/filesystem/filesystem/listing.h"
 #include "acme/nano/nano.h"
@@ -86,21 +86,21 @@ namespace acme_posix
    }
 
 
-   acme_directory::acme_directory()
+   directory_system::directory_system()
    {
 
 
    }
 
 
-   acme_directory::~acme_directory()
+   directory_system::~directory_system()
    {
 
 
    }
 
    //
-   //   ::e_status acme_directory::create(const char * path)
+   //   ::e_status directory_system::create(const char * path)
    //   {
    //
    //
@@ -113,7 +113,7 @@ namespace acme_posix
    //   }
    //
    //
-   //   ::e_status acme_directory::_create(const char * path)
+   //   ::e_status directory_system::_create(const char * path)
    //   {
    //
    //      return ::create_directory_path(path);
@@ -121,7 +121,7 @@ namespace acme_posix
    //   }
    //
    //
-   //   ::e_status acme_directory::create_directory(const char * path)
+   //   ::e_status directory_system::create_directory(const char * path)
    //   {
    //
    //      return ::create_directory(path);
@@ -129,7 +129,7 @@ namespace acme_posix
    //   }
 
 
-   ::file::path acme_directory::module()
+   ::file::path directory_system::module()
    {
 
       ::file::path pathModule(m_pacmefile->module());
@@ -139,7 +139,7 @@ namespace acme_posix
    }
 
 
-//   ::filebool acme_directory::_file_type(const ::file::path & path)
+//   ::filebool directory_system::_file_type(const ::file::path & path)
 //   {
 //
 //      bool bDir = false;
@@ -156,7 +156,7 @@ namespace acme_posix
 //   }
 
 
-   //   void acme_directory::rls(::file::path_array & stra, const char * psz)
+   //   void directory_system::rls(::file::path_array & stra, const char * psz)
    //   {
    //
    //      ::collection::count start = stra.get_count();
@@ -180,7 +180,7 @@ namespace acme_posix
    //   }
 
 
-   //   void acme_directory::rls_dir(::file::path_array & stra, const char * psz)
+   //   void directory_system::rls_dir(::file::path_array & stra, const char * psz)
    //   {
    //
    //      ::collection::count start = stra.get_count();
@@ -261,7 +261,7 @@ static int rmFiles(const char *pathname, const struct stat *sbuf, int type, stru
 }
 
 
-void acme_directory::erase_recursively(const ::file::path &path)
+void directory_system::erase_recursively(const ::file::path &path)
 {
 
 
@@ -275,7 +275,7 @@ void acme_directory::erase_recursively(const ::file::path &path)
     }
 }
 
-   bool acme_directory::enumerate(::file::listing& listing)
+   bool directory_system::enumerate(::file::listing& listing)
    {
 
       if (listing.m_pathFinal.is_empty())
@@ -333,7 +333,7 @@ void acme_directory::erase_recursively(const ::file::path &path)
    }
 
 
-   bool acme_directory::list(string_array & stra, const ::scoped_string & scopedstr, ::file::e_flag eflag)
+   bool directory_system::list(string_array & stra, const ::scoped_string & scopedstr, ::file::e_flag eflag)
    {
 
       DIR * dirp = opendir(scopedstr.c_str());
@@ -384,7 +384,7 @@ void acme_directory::erase_recursively(const ::file::path &path)
    }
 
 
-   //   void acme_directory::ls_dir(::file::path_array & stra, const char * psz)
+   //   void directory_system::ls_dir(::file::path_array & stra, const char * psz)
    //   {
    //
    //      DIR * dirp = opendir(psz);
@@ -424,7 +424,7 @@ void acme_directory::erase_recursively(const ::file::path &path)
    //   }
    //
    //
-   //   void acme_directory::ls_file(::file::path_array & stra, const char * psz)
+   //   void directory_system::ls_file(::file::path_array & stra, const char * psz)
    //   {
    //
    //      DIR * dirp = opendir(psz);
@@ -464,7 +464,7 @@ void acme_directory::erase_recursively(const ::file::path &path)
    //   }
 
 
-   ::file::path acme_directory::pathfind(const string& pszEnv, const string& pszTopic, const string& pszMode)
+   ::file::path directory_system::pathfind(const string& pszEnv, const string& pszTopic, const string& pszMode)
    {
 
       string_array stra;
@@ -499,7 +499,7 @@ void acme_directory::erase_recursively(const ::file::path &path)
    }
 
 
-   ::file::path acme_directory::archive()
+   ::file::path directory_system::archive()
    {
 
 
@@ -508,7 +508,7 @@ void acme_directory::erase_recursively(const ::file::path &path)
 }
 
 
-   ::file::path acme_directory::home()
+   ::file::path directory_system::home()
    {
 
       ::file::path path;//Unix sys are generic ...
@@ -542,7 +542,7 @@ void acme_directory::erase_recursively(const ::file::path &path)
    }
 
 
-::file::path acme_directory::get_current(){
+::file::path directory_system::get_current(){
 
       auto pszCurrentDirName = get_current_dir_name();
 
@@ -553,7 +553,7 @@ void acme_directory::erase_recursively(const ::file::path &path)
 
          auto estatus = cerrornumber.failed_estatus();
 
-         throw ::exception(estatus, "posix::acme_directory::get_current");
+         throw ::exception(estatus, "posix::directory_system::get_current");
 
       }
 
@@ -564,7 +564,7 @@ void acme_directory::erase_recursively(const ::file::path &path)
    }
 
 
-   void acme_directory::change_current(const ::file::path & path)
+   void directory_system::change_current(const ::file::path & path)
    {
 
       auto iError = chdir(path);
@@ -576,14 +576,14 @@ void acme_directory::erase_recursively(const ::file::path &path)
 
          auto estatus = cerrornumber.failed_estatus();
          
-         throw ::exception(estatus, "posix::acme_directory::change_current");
+         throw ::exception(estatus, "posix::directory_system::change_current");
 
       }
 
    }
 
 
-//::file::path acme_directory::program_files_x86()
+//::file::path directory_system::program_files_x86()
 //{
 //
 //   ::file::path path("/opt/ca2");
@@ -593,7 +593,7 @@ void acme_directory::erase_recursively(const ::file::path &path)
 //}
 //
 //
-//::file::path acme_directory::program_files()
+//::file::path directory_system::program_files()
 //{
 //
 //   ::file::path path("/opt/ca2");
@@ -604,7 +604,7 @@ void acme_directory::erase_recursively(const ::file::path &path)
 
 
 //
-//::file::path acme_directory::home()
+//::file::path directory_system::home()
 //{
 //
 //   return getenv("HOME");
@@ -614,7 +614,7 @@ void acme_directory::erase_recursively(const ::file::path &path)
 
 #if defined(UNIVERSAL_WINDOWS) || defined(__APPLE__) || defined(LINUX) || defined(ANDROID)
 
-//::file::path acme_directory::bookmark()
+//::file::path directory_system::bookmark()
 //{
 //
 //   auto psystem = system();
@@ -632,7 +632,7 @@ void acme_directory::erase_recursively(const ::file::path &path)
 #ifdef UNIVERSAL_WINDOWS
 
 
-::file::path acme_directory::home()
+::file::path directory_system::home()
 {
 
    return "";
@@ -643,7 +643,7 @@ void acme_directory::erase_recursively(const ::file::path &path)
 #endif
 
 
-   bool acme_directory::is_accessible(const ::file::path & path)
+   bool directory_system::is_accessible(const ::file::path & path)
    {
 
       return ::access(path, X_OK) == 0;
@@ -651,7 +651,7 @@ void acme_directory::erase_recursively(const ::file::path &path)
    }
 
 
-   ::file::path acme_directory::___fonts()
+   ::file::path directory_system::___fonts()
    {
 
       ::file::path path___fontsFolder;

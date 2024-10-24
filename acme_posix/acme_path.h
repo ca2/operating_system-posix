@@ -1,28 +1,28 @@
 /*****<3ThomasBorregaardSorensen!!Created by camilo*/
-// From acme_posix/acme_file.h
+// From acme_posix/file_system.h
 // on 2021-08-12
 // 18:18 BRT
 #pragma once
 
 
-#include "acme/filesystem/filesystem/acme_path.h"
+#include "acme/filesystem/filesystem/path_system.h"
 
 
 namespace acme_posix
 {
 
 
-   class CLASS_DECL_ACME acme_path :
-      virtual public ::acme_path
+   class CLASS_DECL_ACME path_system :
+      virtual public ::path_system
    {
    public:
 
 
-      //__creatable_from_library(acme_path, ::acme_path, "acme_posix");
+      //__creatable_from_library(path_system, ::path_system, "acme_posix");
 
 
-      acme_path();
-      ~acme_path() override;
+      path_system();
+      ~path_system() override;
 
 
       ::file::enum_type get_type(const ::file::path & path1) override;

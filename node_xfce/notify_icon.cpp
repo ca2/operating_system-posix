@@ -237,7 +237,7 @@ namespace node_xfce
 //
 //      string strUrl = "https://ca2.network/matter/" + strFolder + strFile;
 //
-//      strFile = Context.dir()->appdata() / strFolder / strFile;
+//      strFile = Context.directory()->appdata() / strFolder / strFile;
 //
 //      int iRetry = 3;
 //

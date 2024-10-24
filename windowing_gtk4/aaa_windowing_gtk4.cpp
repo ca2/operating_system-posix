@@ -2460,7 +2460,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //            if (e.xconfigure.window == DefaultRootWindow(m_pdisplay->Display()))
 //            {
 //
-//               auto psession = get_session()->m_papexsession;
+//               auto psession = get_session();
 //
 //               auto applicationa = psession->m_applicationa;
 //

@@ -481,7 +481,7 @@ namespace acme
 
          listing.set_folder_listing("/proc");
 
-         acmedirectory()->enumerate(listing);
+         directory_system()->enumerate(listing);
 
          string str(psz);
 
@@ -566,7 +566,7 @@ namespace acme
 
          str = "/proc/" + as_string(iPid) + "/cmdline";
 
-         memory mem = acmefile()->as_memory(str);
+         memory mem = file_system()->as_memory(str);
 
          string strArg;
 

@@ -3,7 +3,7 @@
 //
 #include "framework.h"
 #include "node.h"
-#include "acme/filesystem/filesystem/acme_directory.h"
+#include "acme/filesystem/filesystem/directory_system.h"
 #include "acme/platform/system.h"
 #include "acme/prototype/datetime/datetime.h"
 #include "acme/windowing/windowing.h"
@@ -432,7 +432,7 @@ namespace aura_posix
 
       ::file::path path;
 
-      path = acmedirectory()->home();
+      path = directory_system()->home();
 
       path /= ".local/share/applications";
 
@@ -493,13 +493,13 @@ namespace aura_posix
 
       ::string strCommand;
 
-      acmedirectory()->change_current(pathFolder);
+      directory_system()->change_current(pathFolder);
 
       ::file::path pathLogFolder;
 
-      pathLogFolder = acmedirectory()->home() / "application" / scopedstrAppId / "log";
+      pathLogFolder = directory_system()->home() / "application" / scopedstrAppId / "log";
 
-      acmedirectory()->create(pathLogFolder);
+      directory_system()->create(pathLogFolder);
 
       ::string strLogFileName;
 

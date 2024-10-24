@@ -1,9 +1,9 @@
 /*****<3ThomasBorregaardSorensen!!Created by camilo*/
-// From acme_posix/acme_file.h
+// From acme_posix/file_system.h
 // on 2021-08-12
 // 18:20 BRT
 #include "framework.h"
-#include "acme_path.h"
+#include "path_system.h"
 #if defined( FREEBSD) || defined(OPENBSD)
 //#define __XSI_VISIBLE 1
 #include <unistd.h>
@@ -18,16 +18,16 @@ namespace acme_posix
 {
 
 
-   acme_path::acme_path() = default;
+   path_system::path_system() = default;
 
 
-   acme_path::~acme_path()
+   path_system::~path_system()
    {
       
    }
 
 
-   ::file::enum_type acme_path::get_type(const ::file::path & path1)
+   ::file::enum_type path_system::get_type(const ::file::path & path1)
    {
 
       struct stat st;
@@ -55,7 +55,7 @@ namespace acme_posix
    }
 
 
-   ::file::path acme_path::_real_path(const ::file::path & path)
+   ::file::path path_system::_real_path(const ::file::path & path)
    {
 
       if (path.is_empty())
@@ -83,7 +83,7 @@ namespace acme_posix
    }
 
 
-   ::file::path acme_path::_safe_real_path(const ::file::path & path)
+   ::file::path path_system::_safe_real_path(const ::file::path & path)
    {
 
       if (path.is_empty())
@@ -125,7 +125,7 @@ namespace acme_posix
    }
 
 
-   ::string acme_path::get_default_path()
+   ::string path_system::get_default_path()
    {
 
       return "/bin:/usr/bin:/usr/local/bin";
@@ -135,7 +135,7 @@ namespace acme_posix
 
    /// Test if the given path can be executed.
    /// \return 0 on success, an errno value on failure.
-   ::file::e_type acme_path::executable_type(const ::file::path & scopedstrCommand)
+   ::file::e_type path_system::executable_type(const ::file::path & scopedstrCommand)
    {
 
       struct stat buff;
@@ -159,7 +159,7 @@ namespace acme_posix
    }
 
 
-   ::file::path acme_path::get_absolute_path(const ::scoped_string& scopedstr)
+   ::file::path path_system::get_absolute_path(const ::scoped_string& scopedstr)
    {
 
       ::file::path path(scopedstr);
@@ -179,7 +179,7 @@ namespace acme_posix
 
    }
 
-void acme_path::rename(const ::file::path& pathNewName, const ::file::path& pathOldName)
+void path_system::rename(const ::file::path& pathNewName, const ::file::path& pathOldName)
 {
    
    ::string strOldName(pathOldName);
@@ -198,7 +198,7 @@ void acme_path::rename(const ::file::path& pathNewName, const ::file::path& path
 }
 
 
-void acme_path::create_symbolic_link(const ::scoped_string & scopedstrLink, const ::scoped_string& scopedstrSource)
+void path_system::create_symbolic_link(const ::scoped_string & scopedstrLink, const ::scoped_string& scopedstrSource)
 {
 
    ::string strTarget = scopedstrLink;

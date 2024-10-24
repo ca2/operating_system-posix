@@ -3,13 +3,13 @@
 //
 #include "framework.h"
 #include "node.h"
-#include "acme_file.h"
-#include "acme_directory.h"
+#include "file_system.h"
+#include "directory_system.h"
 #include "mutex.h"
 #include "exclusive.h"
 #include "acme/exception/interface_only.h"
 #include "acme/filesystem/file/exception.h"
-#include "acme/filesystem/filesystem/dir_context.h"
+#include "acme/filesystem/filesystem/directory_context.h"
 #include "acme/filesystem/filesystem/file_context.h"
 #include "acme/filesystem/filesystem/listing.h"
 #include "acme/operating_system/posix/_.h"
@@ -462,7 +462,7 @@ namespace acme_posix
 
    path /= strName;
 
-//   auto pacmedirectory = pparticle->acmedirectory();
+//   auto pacmedirectory = pparticle->directory_system();
 //
 //   auto pathFolder = path.folder();
 //
@@ -690,7 +690,7 @@ namespace acme_posix
 
 #else
 
-      string str = acmefile()->as_string("/proc/stat");
+      string str = file_system()->as_string("/proc/stat");
 
       string_array stra;
 
@@ -1184,7 +1184,7 @@ namespace acme_posix
 
       listing.set_folder_listing("/proc");
 
-      acmedirectory()->enumerate(listing);
+      directory_system()->enumerate(listing);
 
       string str(psz);
 
@@ -1269,7 +1269,7 @@ namespace acme_posix
 
       str = "/proc/" + ::as_string(iPid) + "/cmdline";
 
-      memory mem = acmefile()->as_memory(str);
+      memory mem = file_system()->as_memory(str);
 
       if(mem.is_empty())
       {
@@ -2557,15 +2557,15 @@ if(functionTrace)
 
       bool bChanged = false;
 
-      auto pathHomeBin = acmedirectory()->home() / "bin";
+      auto pathHomeBin = directory_system()->home() / "bin";
 
 #if defined(MACOS)
 
-      auto pathToolBin = acmedirectory()->home() / "workspace/operating_system/tool-macos/bin";
+      auto pathToolBin = directory_system()->home() / "workspace/operating_system/tool-macos/bin";
 
 #else
 
-      auto pathToolBin = acmedirectory()->home() / "cmake/operating_system/tool-" OPERATING_SYSTEM_NAME "/bin";
+      auto pathToolBin = directory_system()->home() / "cmake/operating_system/tool-" OPERATING_SYSTEM_NAME "/bin";
 
 #endif
 
@@ -2619,11 +2619,11 @@ if(functionTrace)
 
       ::file::listing listing;
 
-      auto pathJetbrains = acmedirectory()->home() / ".config/JetBrains";
+      auto pathJetbrains = directory_system()->home() / ".config/JetBrains";
 
       listing.set_folder_listing(pathJetbrains);
 
-      acmedirectory()->enumerate(listing);
+      directory_system()->enumerate(listing);
 
       for(auto & path : listing)
       {
@@ -2662,17 +2662,17 @@ if(functionTrace)
 
       ::file::listing listing;
 
-      auto pathJetbrains = acmedirectory()->home() / ".config/smartgit";
+      auto pathJetbrains = directory_system()->home() / ".config/smartgit";
 
       listing.set_folder_listing(pathJetbrains);
 
-      acmedirectory()->enumerate(listing);
+      directory_system()->enumerate(listing);
 
       for(auto & path : listing)
       {
          auto pathPreferences = path / "preferences.yml";
 
-         if(acmefile()->exists(pathPreferences))
+         if(file_system()->exists(pathPreferences))
          {
 
             return true;

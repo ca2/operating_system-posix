@@ -3,7 +3,7 @@
 #include "framework.h"
 #include "icon.h"
 #include "acme/exception/interface_only.h"
-#include "acme/filesystem/filesystem/dir_context.h"
+#include "acme/filesystem/filesystem/directory_context.h"
 
 
 namespace windowing_xcb
@@ -71,7 +71,7 @@ namespace windowing_xcb
    void icon::load_matter(string strMatter)
    {
 
-      string strPath = dir()->matter(strMatter);
+      string strPath = directory()->matter(strMatter);
 
       load_file(strPath);
 

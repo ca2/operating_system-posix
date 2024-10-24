@@ -6,7 +6,7 @@
 #include "node.h"
 #include "acme/constant/id.h"
 #include "acme/platform/system.h"
-#include "acme/filesystem/filesystem/dir_context.h"
+#include "acme/filesystem/filesystem/directory_context.h"
 #include "apex/platform/application.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/graphics/image/context.h"
@@ -190,7 +190,7 @@ namespace node_kde5
 
       string strTrayIconName = m_piconCurrent->get_tray_icon_name();
 
-      auto pathHome = dir()->home();
+      auto pathHome = directory()->home();
 
       auto papp = get_app();
 
@@ -216,7 +216,7 @@ namespace node_kde5
 
       m_pstatusnotifieritem->setIconByName(pathIcon24.c_str());
 
-      string strFriendlyName = papp->m_papexapplication->get_app_user_friendly_task_bar_name();
+      string strFriendlyName = papp->get_app_user_friendly_task_bar_name();
 
       //auto pmenu = ___new QMenu();
 

@@ -3,7 +3,7 @@
 //
 #include "framework.h"
 #include "file_context.h"
-#include "acme/filesystem/filesystem/dir_context.h"
+#include "acme/filesystem/filesystem/directory_context.h"
 #include "acme/operating_system/shared_posix/c_error_number.h"
 #include <sys/stat.h>
 
@@ -120,7 +120,7 @@ namespace acme_posix
    file::path file_context::dropbox_client()
    {
 
-      return dir()->dropbox_client()/ "dropbox";
+      return directory()->dropbox_client()/ "dropbox";
 
    }
 

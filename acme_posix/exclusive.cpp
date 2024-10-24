@@ -3,7 +3,7 @@
 //
 #include "framework.h"
 #include "exclusive.h"
-#include "acme/filesystem/filesystem/acme_directory.h"
+#include "acme/filesystem/filesystem/directory_system.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
 ////#include "acme/prototype/prototype/object.h"
@@ -91,7 +91,7 @@ namespace acme_posix
       if(str.case_insensitive_begins_eat("Local\\"))
       {
 
-         path = pparticle->acmedirectory()->home() / ".config/acme";
+         path = pparticle->directory_system()->home() / ".config/acme";
 
       }
       else if(str.case_insensitive_begins_eat("Global\\"))
@@ -111,7 +111,7 @@ namespace acme_posix
 
       m_path = path;
 
-      acmedirectory()->create(path.folder());
+      directory_system()->create(path.folder());
 
       const char * pszPath = path.c_str();
 

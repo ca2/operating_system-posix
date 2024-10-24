@@ -1,7 +1,7 @@
 // by camilo on 2022-05-12 02:28 <3ThomasBorregaardSorensen
 #include "framework.h"
-#include "acme/filesystem/filesystem/acme_directory.h"
-#include "acme/filesystem/filesystem/acme_file.h"
+#include "acme/filesystem/filesystem/directory_system.h"
+#include "acme/filesystem/filesystem/file_system.h"
 #include <stdio.h>
 
 
@@ -55,7 +55,7 @@ pacmedirectory->create(::file::path(pszFileName).folder());
 
    }
 
-   if (eopen & ::file::e_open_no_truncate && acmefile()->exists(pszFileName))
+   if (eopen & ::file::e_open_no_truncate && file_system()->exists(pszFileName))
    {
 
       str += "r";

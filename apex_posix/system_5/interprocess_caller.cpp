@@ -1,7 +1,7 @@
 // from interprocess_communication.cpp by Camilo 2021-10-19 18:58 BRT <3ThomasBorregaardSoerensen
 #include "framework.h"
 #include "interprocess_caller.h"
-#include "acme/filesystem/filesystem/acme_file.h"
+#include "acme/filesystem/filesystem/file_system.h"
 #include "acme/operating_system/shared_posix/c_error_number.h"
 #include "acme/prototype/prototype/memory.h"
 
@@ -42,7 +42,7 @@ namespace system_5
       if (!file_exists(strChannel))
       {
 
-         acmefile()->put_contents(strChannel, strChannel);
+         file_system()->put_contents(strChannel, strChannel);
 
       }
 

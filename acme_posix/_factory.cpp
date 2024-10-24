@@ -4,9 +4,9 @@
 #include "file_context.h"
 #include "file_memory_map.h"
 #include "pipe.h"
-#include "acme_directory.h"
-#include "acme_file.h"
-#include "acme_path.h"
+#include "directory_system.h"
+#include "file_system.h"
+#include "path_system.h"
 #include "mutex.h"
 #include "exception_translator.h"
 //#include "environment.h"
@@ -24,9 +24,9 @@ IMPLEMENT_FACTORY(acme_posix)
 
    pfactory->add_factory_item < ::acme_posix::pipe                   , ::operating_system::pipe >();
 
-   pfactory->add_factory_item < ::acme_posix::acme_directory         , ::acme_directory >();
-   pfactory->add_factory_item < ::acme_posix::acme_file              , ::acme_file >();
-   pfactory->add_factory_item < ::acme_posix::acme_path              , ::acme_path >();
+   pfactory->add_factory_item < ::acme_posix::directory_system         , ::directory_system >();
+   pfactory->add_factory_item < ::acme_posix::file_system              , ::file_system >();
+   pfactory->add_factory_item < ::acme_posix::path_system              , ::path_system >();
 
    
    pfactory->add_factory_item < ::acme_posix::file_context, ::file_context >();

@@ -2,15 +2,15 @@
 #pragma once
 
 
-#include "acme/filesystem/filesystem/dir_context.h"
+#include "acme/filesystem/filesystem/directory_context.h"
 
 
 namespace acme_posix
 {
 
 
-   class CLASS_DECL_ACME dir_context :
-      virtual public ::dir_context
+   class CLASS_DECL_ACME directory_context :
+      virtual public ::directory_context
    {
    public:
 
@@ -21,11 +21,11 @@ namespace acme_posix
       ::file::path                  m_pathMusic;
       ::file::path                  m_pathDocument;
       ::pointer<file_system>        m_pfilesystem;
-      ::pointer<dir_system>         m_pdirsystem;
+      ::pointer<directory_system>         m_pdirsystem;
 
 
-      dir_context();
-      ~dir_context() override;
+      directory_context();
+      ~directory_context() override;
 
 
       void initialize(::particle * pparticle) override;

@@ -174,23 +174,23 @@ namespace windowing_xcb
 //
 //#ifdef MACOS
 //
-//      strFile = Context.dir()->matter("keyboard/windows/default.xml");
+//      strFile = Context.directory()->matter("keyboard/windows/default.xml");
 //
 //#elif defined( LINUX)
 //
 //    return true;
 //
-//      strFile = Context.dir()->matter("keyboard/freebsd/default.xml");
+//      strFile = Context.directory()->matter("keyboard/freebsd/default.xml");
 //
 //#elif defined(__APPLE__)
 //
-//      strFile = Context.dir()->matter("keyboard/macos/default.xml");
+//      strFile = Context.directory()->matter("keyboard/macos/default.xml");
 //
 //#elif defined(ANDROID)
 //
-//      //strPath = Context.dir()->matter("keyboard/android/default.xml");
+//      //strPath = Context.directory()->matter("keyboard/android/default.xml");
 //
-//      strFile = Context.dir()->matter("keyboard/windows/default.xml");
+//      strFile = Context.directory()->matter("keyboard/windows/default.xml");
 //
 //#else
 //
@@ -238,7 +238,7 @@ namespace windowing_xcb
 //
 //      string str = as_string(w);
 //
-//      //strFile = Context.dir()->matter("keyboard/windows/" + str + ".xml");
+//      //strFile = Context.directory()->matter("keyboard/windows/" + str + ".xml");
 //
 //      //if(Context.file()->exists(strFile))
 //      //{
@@ -254,7 +254,7 @@ namespace windowing_xcb
 //
 //#endif
 //
-//      strFile = Context.dir()->matter("keyboard/windows/default.xml");
+//      strFile = Context.directory()->matter("keyboard/windows/default.xml");
 //
 //#endif
 //
@@ -513,7 +513,7 @@ namespace windowing_xcb
 //
 //      ::file::path_array patha;
 //
-//      Context.dir()->matter_ls_file("keyboard layout", patha);
+//      Context.directory()->matter_ls_file("keyboard layout", patha);
 //
 //      for(i32 i = 0; i < patha.get_count(); i++)
 //      {
@@ -543,7 +543,7 @@ namespace windowing_xcb
 //
 //         string strTest;
 //
-//         string strPath = Context.dir()->matter("keyboard layout/" + strOverride + ".xml");
+//         string strPath = Context.directory()->matter("keyboard layout/" + strOverride + ".xml");
 //
 //         strTest = Context.file()->as_string(strPath);
 //
@@ -606,7 +606,7 @@ namespace windowing_xcb
 //
 //      {
 //
-//         string strPath = Context.dir()->matter("keyboard layout/br_abnt2.xml");
+//         string strPath = Context.directory()->matter("keyboard layout/br_abnt2.xml");
 //
 //         if(Context.file()->exists(strPath))
 //         {
@@ -621,7 +621,7 @@ namespace windowing_xcb
 //
 //#endif
 //
-//      string strPath = Context.dir()->matter("keyboard layout/en_us_international.xml");
+//      string strPath = Context.directory()->matter("keyboard layout/en_us_international.xml");
 //
 //      if(Context.file()->exists(strPath))
 //      {

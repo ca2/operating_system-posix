@@ -1,28 +1,28 @@
 /*****<3ThomasBorregaardSorensen!!Created by camilo*/
-// From acme_apple/acme_file.h
+// From acme_apple/file_system.h
 // on 2021-08-09
 // 05:02 BRT
 #pragma once
 
 
-#include "acme/filesystem/filesystem/acme_file.h"
+#include "acme/filesystem/filesystem/file_system.h"
 
 
 namespace acme_posix
 {
 
 
-   class CLASS_DECL_ACME acme_file :
-      virtual public ::acme_file
+   class CLASS_DECL_ACME file_system :
+      virtual public ::file_system
    {
    public:
 
 
-      //__creatable_from_library(acme_file, ::acme_file, "acme_posix");
+      //__creatable_from_library(file_system, ::file_system, "acme_posix");
 
 
-      acme_file();
-      ~acme_file() noexcept override;
+      file_system();
+      ~file_system() noexcept override;
 
       
       bool exists(const ::file::path & path) override;

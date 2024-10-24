@@ -6,8 +6,8 @@
 #include "appindicator.h"
 #include "acme/constant/id.h"
 #include "acme/handler/topic.h"
-#include "acme/filesystem/filesystem/acme_directory.h"
-#include "acme/filesystem/filesystem/acme_file.h"
+#include "acme/filesystem/filesystem/directory_system.h"
+#include "acme/filesystem/filesystem/file_system.h"
 #include "acme/filesystem/filesystem/file_context.h"
 #include "acme/filesystem/filesystem/file_dialog.h"
 #include "acme/filesystem/filesystem/folder_dialog.h"
@@ -402,7 +402,7 @@ namespace node_kde5
    //
    //    ::file::path pathKdeGlobals;
    //
-   //    pathKdeGlobals = acmedirectory()->home() /".config/kdeglobals";
+   //    pathKdeGlobals = directory_system()->home() /".config/kdeglobals";
    //
    //    auto lines = file()->lines(pathKdeGlobals);
    //
@@ -881,7 +881,7 @@ namespace node_kde5
 
       ::file::path pathDesktop;
 
-      pathDesktop = acmedirectory()->home() / ".local/share/applications" / (strDesktopFileTitle + ".desktop");
+      pathDesktop = directory_system()->home() / ".local/share/applications" / (strDesktopFileTitle + ".desktop");
 
       ::pointer < ::windowing_kde5::windowing > pwindowing = user()->windowing();
 
@@ -1053,7 +1053,7 @@ namespace node_kde5
 //
 //      auto pathDesktopFile = get_desktop_file_path_by_app_id(scopedstrAppId);
 //
-//      if(!acmefile()->exists(pathDesktopFile))
+//      if(!file_system()->exists(pathDesktopFile))
 //      {
 //
 //         information() << "Desktop file (\"" << pathDesktopFile << "\") doesn't exist. Going to try to launch with executable path.";
