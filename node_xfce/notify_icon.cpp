@@ -64,7 +64,7 @@ namespace node_xfce
       ::user::interaction::install_message_routing(pchannel);
 
       MESSAGE_LINK(MessageNotifyIcon, pchannel, this, &notify_icon::_001OnNotifyIconMessage);
-      MESSAGE_LINK(MESSAGE_DESTROY, pchannel, this, &notify_icon::_001OnDestroy);
+      MESSAGE_LINK(e_message_destroy, pchannel, this, &notify_icon::_001OnDestroy);
 
 #endif
 

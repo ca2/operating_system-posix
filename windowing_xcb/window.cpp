@@ -474,7 +474,7 @@ namespace windowing_xcb
       if (bOk)
       {
 
-         auto lresult = pimpl->m_puserinteraction->send_message(MESSAGE_CREATE, 0, (lparam) pusersystem.m_p);
+         auto lresult = pimpl->m_puserinteraction->send_message(e_message_create, 0, (lparam) pusersystem.m_p);
 
          if (lresult == -1)
          {
