@@ -12,7 +12,7 @@ namespace acme_posix
 
 
    class CLASS_DECL_ACME exclusive :
-      virtual public ::platform::exclusive
+      virtual public ::acme::exclusive
    {
       public:
 
