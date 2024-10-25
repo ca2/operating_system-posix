@@ -67,11 +67,11 @@ namespace windowing_xcb
 
       auto psystem = system();
 
-      auto psession = psystem->session()->m_paurasession;
+      auto psession = psystem->session();
 
       auto puser = psession->user();
 
-      auto pwindowing = puser->windowing();
+      auto pwindowing = system()->windowing();
 
       auto pdisplay = (windowing_xcb::display *) pwindowing->display()->m_pDisplay;
 

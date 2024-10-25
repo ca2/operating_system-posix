@@ -331,7 +331,7 @@ namespace node_xfce
 //
 //      }
 //
-//      auto paurasession = psession->m_paurasession;
+//      auto paurasession = psession;
 //
 //      if(::is_null(paurasession))
 //      {
@@ -349,7 +349,7 @@ namespace node_xfce
 //
 //      }
 //
-//      auto pwindowing = puser->windowing();
+//      auto pwindowing = system()->windowing();
 //
 //      if(::is_null(pwindowing))
 //      {

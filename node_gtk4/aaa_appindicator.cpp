@@ -255,11 +255,11 @@ namespace node_gtk4
 
       auto pcontext = m_papplication;
 
-      auto psession = pcontext->session()->m_paurasession;
+      auto psession = pcontext->session();
 
       auto puser = psession->user();
 
-      auto pwindowing = puser->windowing();
+      auto pwindowing = system()->windowing();
 
       pwindowing->windowing_post(__routine([pindicator]()
                {

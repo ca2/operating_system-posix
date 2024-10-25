@@ -62,11 +62,11 @@ namespace windowing_gtk3
 
       auto psystem = system();
 
-      auto psession = psystem->session()->m_paurasession;
+      auto psession = psystem->session();
 
       auto puser = psession->user();
 
-      auto pwindowing = puser->windowing();
+      auto pwindowing = system()->windowing();
 
       auto pdisplay = pwindowing->display();
 
@@ -221,11 +221,11 @@ namespace windowing_gtk3
 //
 //      auto psystem = system();
 //
-//      auto psession = psystem->session()->m_paurasession;
+//      auto psession = psystem->session();
 //
 //      auto puser = psession->user();
 //
-//      auto pwindowing = puser->windowing();
+//      auto pwindowing = system()->windowing();
 //
 //      auto pdisplay = pwindowing->display();
 //

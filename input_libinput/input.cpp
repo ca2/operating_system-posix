@@ -304,11 +304,11 @@ namespace input_libinput
 
       ::user::e_key ekey = ::user::e_key_a;
 
-      auto paurasession = session()->m_paurasession;
+      auto paurasession = session();
 
       auto puser = paurasession->user();
 
-      auto pwindowing = puser->windowing();
+      auto pwindowing = system()->windowing();
 
       auto pwindowingkeyboard = pwindowing->keyboard();
 

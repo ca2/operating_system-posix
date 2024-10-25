@@ -149,7 +149,7 @@ namespace windowing_x11
 
       information() << "::windowing_x11::display::open_display";
 
-      bool bBranch = !session()->m_paurasession->user()->m_pdesktopenvironment->m_bUnhook;
+      bool bBranch = !session()->user()->m_pdesktopenvironment->m_bUnhook;
 
 //      m_px11display->m_bUnhook = bUnhook;
 
