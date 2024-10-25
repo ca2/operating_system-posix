@@ -163,7 +163,7 @@ namespace acme_posix
 
       auto psystem = pparticle->system();
 
-      auto pacmefile = psystem->m_pacmefile;
+      auto pacmefile = psystem->m_pfilesystem;
 
       device_number = atoi(pacmefile->first_line(sys_usb_path + "/devnum"));
 
@@ -230,7 +230,7 @@ namespace acme_posix
 
          auto psystem = pparticle->system();
 
-         auto pacmefile = psystem->m_pacmefile;
+         auto pacmefile = psystem->m_pfilesystem;
 
          if (path_exists(sys_id_path))
          {
@@ -353,7 +353,7 @@ namespace acme_posix
 
       auto psystem = pparticle->system();
 
-      auto pacmefile = psystem->m_pacmefile;
+      auto pacmefile = psystem->m_pfilesystem;
 
       string serial_number = pacmefile->first_line(sysfs_path + "/serial");
 

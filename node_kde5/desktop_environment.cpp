@@ -205,7 +205,7 @@ namespace node_kde5
    bool desktop_environment::message_loop_step()
    {
 
-      auto psystem = system()->m_paurasystem;
+      auto psystem = system();
 
       auto psession = psystem->session()->m_paurasession;
 

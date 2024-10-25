@@ -132,7 +132,7 @@ namespace acme_posix
    ::file::path directory_system::module()
    {
 
-      ::file::path pathModule(m_pacmefile->module());
+      ::file::path pathModule(m_pfilesystem->module());
 
       return pathModule.folder();
 
@@ -485,7 +485,7 @@ void directory_system::erase_recursively(const ::file::path &path)
 
          strCandidate = ::file::path(stra[i]) / pszTopic;
 
-         if (m_pacmefile->exists(strCandidate))
+         if (m_pfilesystem->exists(strCandidate))
          {
 
             return strCandidate;
@@ -619,7 +619,7 @@ void directory_system::erase_recursively(const ::file::path &path)
 //
 //   auto psystem = system();
 //
-//   auto pacmedir = psystem->m_pacmedirectory;
+//   auto pacmedir = psystem->m_pdirectorysystem;
 //
 //   return pacmedir->localconfig() / "bookmark";
 //

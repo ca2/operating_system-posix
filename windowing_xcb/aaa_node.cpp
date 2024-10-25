@@ -54,7 +54,7 @@
 //   void node::install_mouse_hook(::matter * pmatterListener)
 //   {
 //
-//      auto psystem = system()->m_paurasystem;
+//      auto psystem = system();
 //
 //      auto psession = psystem->get_session();
 //
@@ -81,7 +81,7 @@
 //   void node::install_keyboard_hook(::matter * pmatterListener)
 //   {
 //
-//      auto psystem = system()->m_paurasystem;
+//      auto psystem = system();
 //
 //      auto psession = psystem->get_session();
 //
@@ -109,7 +109,7 @@
 //   void node::uninstall_keyboard_hook(::matter * pmatterListener)
 //   {
 //
-////      auto psystem = system()->m_paurasystem;
+////      auto psystem = system();
 ////
 ////      auto psession = psystem->get_session();
 ////
@@ -127,7 +127,7 @@
 //   void node::uninstall_mouse_hook(::matter * pmatterListener)
 //   {
 //
-////      auto psystem = system()->m_paurasystem;
+////      auto psystem = system();
 ////
 ////      auto psession = psystem->get_session();
 ////

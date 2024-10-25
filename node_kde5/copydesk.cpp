@@ -73,7 +73,7 @@ namespace node_kde5
    bool copydesk::_set_plain_text(const string & str)
    {
 
-      auto psystem = system()->m_paurasystem;
+      auto psystem = system();
 
       auto pnode = psystem->node();
 
@@ -127,7 +127,7 @@ namespace node_kde5
 
       ppayload->m_payload = false;
 
-      auto psystem = system()->m_paurasystem;
+      auto psystem = system();
 
       auto pnode = psystem->node();
 

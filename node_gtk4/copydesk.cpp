@@ -87,7 +87,7 @@ namespace node_gtk4
    bool copydesk::_set_plain_text(const string & str)
    {
 
-      auto psystem = system()->m_paurasystem;
+      auto psystem = system();
 
       auto pnode = psystem->node();
 
@@ -141,7 +141,7 @@ namespace node_gtk4
 
       payload->m_var = false;
 
-      auto psystem = system()->m_paurasystem;
+      auto psystem = system();
 
       auto pnode = psystem->node();
 

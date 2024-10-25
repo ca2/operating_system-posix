@@ -2473,7 +2473,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //                     try
 //                     {
 //
-//                        auto pauraapplication = papp->m_pauraapplication;
+//                        auto pauraapplication = papp;
 //
 //                        auto userinteractionaFrame = pauraapplication->m_puserinteractionaFrame->interactiona();
 //

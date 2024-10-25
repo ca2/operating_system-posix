@@ -532,7 +532,7 @@ namespace windowing_xcb
 ////
 ////         pwindowing->m_bFirstWindowMap = true;
 ////
-////         auto psystem = system()->m_paurasystem;
+////         auto psystem = system();
 ////
 ////         auto pnode = psystem->node();
 ////
@@ -657,7 +657,7 @@ namespace windowing_xcb
 
       //synchronous_lock synchronouslock(user_synchronization());
 
-      auto psystem = system()->m_paurasystem;
+      auto psystem = system();
 
       auto pnode = psystem->node();
 

@@ -1794,7 +1794,7 @@ namespace windowing_xcb
                      try
                      {
 
-                        auto papp = pappItem->m_pauraapplication;
+                        auto papp = pappItem;
 
                         auto uiptraFrame = papp->m_puserinteractionaFrame->interactiona();
 
@@ -2738,7 +2738,7 @@ if(bSentResponse)
 //   void windowing::install_mouse_hook(::matter * pmatterListener)
 //   {
 //
-//      auto psystem = system()->m_paurasystem;
+//      auto psystem = system();
 //
 //      auto psession = psystem->get_session();
 //
@@ -2765,7 +2765,7 @@ if(bSentResponse)
 //   void windowing::install_keyboard_hook(::matter * pmatterListener)
 //   {
 //
-//      auto psystem = system()->m_paurasystem;
+//      auto psystem = system();
 //
 //      auto psession = psystem->get_session();
 //
@@ -2792,7 +2792,7 @@ if(bSentResponse)
 //   void windowing::uninstall_keyboard_hook(::matter * pmatterListener)
 //   {
 //
-////      auto psystem = system()->m_paurasystem;
+////      auto psystem = system();
 ////
 ////      auto psession = psystem->get_session();
 ////
@@ -2810,7 +2810,7 @@ if(bSentResponse)
 //   void windowing::uninstall_mouse_hook(::matter * pmatterListener)
 //   {
 //
-////      auto psystem = system()->m_paurasystem;
+////      auto psystem = system();
 ////
 ////      auto psession = psystem->get_session();
 ////

@@ -58,7 +58,7 @@ namespace acme_posix
             
          }
          
-         auto size = system()->m_pacmefile->get_size_fd(m_iFile);
+         auto size = system()->m_pfilesystem->get_size_fd(m_iFile);
          
          ::munmap(m_pdata, size);
             

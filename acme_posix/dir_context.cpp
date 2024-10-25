@@ -81,7 +81,7 @@ namespace acme_posix
 
       m_pfilesystem = psystem->m_pfilesystem.get();
 
-      m_pdirsystem = psystem->m_pdirsystem.get();
+      m_pdirectorysystem = psystem->m_pdirectorysystem.get();
 
       //return ::success;
 

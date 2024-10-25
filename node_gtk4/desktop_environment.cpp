@@ -190,7 +190,7 @@ namespace node_gtk4
 //   void desktop_environment::windowing_post(const ::procedure & procedure)
 //   {
 //
-//      auto psystem = system()->m_paurasystem;
+//      auto psystem = system();
 //
 //      auto pnode = psystem->node()->cast < node >();
 //
@@ -215,7 +215,7 @@ namespace node_gtk4
 //   bool desktop_environment::aaa_message_loop_step()
 //   {
 //
-//      auto psystem = system()->m_paurasystem;
+//      auto psystem = system();
 //
 //      auto psession = psystem->session()->m_paurasession;
 //

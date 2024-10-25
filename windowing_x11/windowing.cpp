@@ -462,7 +462,7 @@ namespace windowing_x11
 //   void windowing::add_mouse_message_handler(::particle * pparticle)
 //   {
 //
-//      auto psystem = system()->m_paurasystem;
+//      auto psystem = system();
 //
 //      auto psession = psystem->get_session();
 //
@@ -482,7 +482,7 @@ namespace windowing_x11
 //   void windowing::add_keyboard_message_handler(::particle * pparticle)
 //   {
 //
-//      auto psystem = system()->m_paurasystem;
+//      auto psystem = system();
 //
 //      auto psession = psystem->get_session();
 //

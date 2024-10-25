@@ -518,7 +518,7 @@ namespace node_kde5
 //
 //      // wall-changer sourceforge.net contribution
 //
-////      auto psystem = system()->m_paurasystem;
+////      auto psystem = system();
 ////
 ////      auto pnode = psystem->node();
 ////
@@ -573,7 +573,7 @@ namespace node_kde5
    {
 
 //
-//      auto psystem = system()->m_paurasystem;
+//      auto psystem = system();
 //
 //      auto pnode = psystem->node();
 //

@@ -230,7 +230,7 @@ namespace acme_posix
 
                   auto psystem = system();
 
-            auto pacmedirectory = psystem->m_pacmedirectory;
+            auto pacmedirectory = psystem->m_pdirectorysystem;
 
    pacmedirectory->create(::file::path(strName).folder());
 
@@ -297,7 +297,7 @@ namespace acme_posix
 
    #ifdef ANDROID
 
-            path = system()->m_pacmedirectory->system() / "tmp/ca2/lock/mutex" / string(pstrName);
+            path = system()->m_pdirectorysystem->system() / "tmp/ca2/lock/mutex" / string(pstrName);
 
    #else
 
@@ -311,7 +311,7 @@ namespace acme_posix
 
    #ifdef ANDROID
 
-            path =  system()->m_pacmedirectory->system() / "home/user/ca2/lock/mutex" / string(pstrName);
+            path =  system()->m_pdirectorysystem->system() / "home/user/ca2/lock/mutex" / string(pstrName);
 
    #elif defined __APPLE__
 
@@ -402,7 +402,7 @@ namespace acme_posix
 
                   auto psystem = system();
 
-            auto pacmedirectory = psystem->m_pacmedirectory;
+            auto pacmedirectory = psystem->m_pdirectorysystem;
 
    pacmedirectory->create(path.folder());
 
