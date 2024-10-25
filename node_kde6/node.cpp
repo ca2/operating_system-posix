@@ -295,7 +295,7 @@ namespace node_kde6
 
       auto psystem = pparticle->system();
 
-      m_pqapplication = ___new QApplication(psystem->m_pplatform->m_argc, psystem->m_pplatform->m_args);
+      m_pqapplication = ___new QApplication(psystem->m_argc, psystem->m_args);
 
       if(!m_pqapplication)
       {
