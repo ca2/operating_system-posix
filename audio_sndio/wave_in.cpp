@@ -430,7 +430,7 @@ Opened:
 
          m_iBuffer--;
 
-         auto psystem = system()->m_paquasystem;
+         auto psystem = system();
 
          auto paudio = psystem->audio()->m_paudio;
 
