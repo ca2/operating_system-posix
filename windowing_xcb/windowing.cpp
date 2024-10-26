@@ -643,7 +643,7 @@ namespace windowing_xcb
 //         try
 //         {
 //
-//            auto psession = get_session();
+//            
 //
 //            auto puser = psession->user();
 //
@@ -732,7 +732,7 @@ namespace windowing_xcb
 //         try
 //         {
 //
-//            auto psession = get_session();
+//            
 //
 //            auto puser = psession->user();
 //
@@ -1781,7 +1781,7 @@ namespace windowing_xcb
             if (pconfigure->window == m_pdisplay->m_pxcbdisplay->m_windowRoot)
             {
 
-               auto psession = get_session();
+               
 
                auto applicationa = psession->m_applicationa;
 
