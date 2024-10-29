@@ -65,7 +65,7 @@ elseif (LINUX)
 endif ()
 
 
-target_compile_definitions(${PROJECT_NAME} PRIVATE _MUSIC_MIDI_ALSA_LIBRARY)
+target_compile_definitions(${PROJECT_NAME} PRIVATE _${PROJECT_NAME}_project)
 
 
 
