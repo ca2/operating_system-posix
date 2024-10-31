@@ -377,7 +377,7 @@ namespace windowing_gtk4
 
       auto psession = psystem->session();
 
-      auto puser = psession->user();
+      auto puser = user();
 
       auto pwindowing = system()->windowing();
 
@@ -515,7 +515,7 @@ namespace windowing_gtk4
 //
 //      auto psession = psystem->session();
 //
-//      auto puser = psession->user();
+//      auto puser = user();
 //
 //      auto pwindowing = system()->windowing();
 //

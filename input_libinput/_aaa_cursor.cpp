@@ -170,7 +170,7 @@ namespace windowing_x11
 
       auto psession = psystem->session();
 
-      auto puser = psession->user();
+      auto puser = user();
 
       auto pwindowing = system()->windowing();
 

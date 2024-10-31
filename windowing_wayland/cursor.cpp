@@ -377,7 +377,7 @@ namespace windowing_wayland
 
       auto psession = psystem->session();
 
-      auto puser = psession->user();
+      auto puser = user();
 
       auto pwindowing = system()->windowing();
 
@@ -515,7 +515,7 @@ namespace windowing_wayland
 //
 //      auto psession = psystem->session();
 //
-//      auto puser = psession->user();
+//      auto puser = user();
 //
 //      auto pwindowing = system()->windowing();
 //

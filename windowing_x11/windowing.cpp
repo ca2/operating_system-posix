@@ -466,7 +466,7 @@ namespace windowing_x11
 //
 //      auto psession = psystem->get_session();
 //
-//      auto puser = psession->user();
+//      auto puser = user();
 //
 //      auto pwindowing = (::windowing_x11::windowing *) puser->windowing()->m_pWindowing4;
 //
@@ -486,7 +486,7 @@ namespace windowing_x11
 //
 //      auto psession = psystem->get_session();
 //
-//      auto puser = psession->user();
+//      auto puser = user();
 //
 //      auto pwindowing = (::windowing_x11::windowing *) puser->windowing()->m_pWindowing4;
 //

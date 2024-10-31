@@ -58,7 +58,7 @@
 //
 //      auto psession = psystem->get_session();
 //
-//      auto puser = psession->user();
+//      auto puser = user();
 //
 //      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing4;
 //
@@ -85,7 +85,7 @@
 //
 //      auto psession = psystem->get_session();
 //
-//      auto puser = psession->user();
+//      auto puser = user();
 //
 //      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing4;
 //
@@ -113,7 +113,7 @@
 ////
 ////      auto psession = psystem->get_session();
 ////
-////      auto puser = psession->user();
+////      auto puser = user();
 ////
 ////      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing;
 ////
@@ -131,7 +131,7 @@
 ////
 ////      auto psession = psystem->get_session();
 ////
-////      auto puser = psession->user();
+////      auto puser = user();
 ////
 ////      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing;
 ////

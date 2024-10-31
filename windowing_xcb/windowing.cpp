@@ -645,7 +645,7 @@ namespace windowing_xcb
 //
 //            
 //
-//            auto puser = psession->user();
+//            auto puser = user();
 //
 //            if (!puser->runnable_step())
 //            {
@@ -734,7 +734,7 @@ namespace windowing_xcb
 //
 //            
 //
-//            auto puser = psession->user();
+//            auto puser = user();
 //
 //            if (!puser->runnable_step())
 //            {
@@ -2742,7 +2742,7 @@ if(bSentResponse)
 //
 //      auto psession = psystem->get_session();
 //
-//      auto puser = psession->user();
+//      auto puser = user();
 //
 //      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing4;
 //
@@ -2769,7 +2769,7 @@ if(bSentResponse)
 //
 //      auto psession = psystem->get_session();
 //
-//      auto puser = psession->user();
+//      auto puser = user();
 //
 //      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing4;
 //
@@ -2796,7 +2796,7 @@ if(bSentResponse)
 ////
 ////      auto psession = psystem->get_session();
 ////
-////      auto puser = psession->user();
+////      auto puser = user();
 ////
 ////      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing;
 ////
@@ -2814,7 +2814,7 @@ if(bSentResponse)
 ////
 ////      auto psession = psystem->get_session();
 ////
-////      auto puser = psession->user();
+////      auto puser = user();
 ////
 ////      auto pwindowing = (::windowing_xcb::windowing *) puser->windowing()->m_pWindowing;
 ////
