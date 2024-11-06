@@ -1138,10 +1138,10 @@ namespace acme_posix
    }
 
 
-   //      ::i32_array node::module_path_get_pid(const ::string & pszPath)
+   //      ::int_array node::module_path_get_pid(const ::string & pszPath)
    //      {
    //
-   //         ::i32_array ia;
+   //         ::int_array ia;
    //
    //         ::file::path_array stra;
    //

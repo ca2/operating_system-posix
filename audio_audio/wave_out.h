@@ -142,7 +142,7 @@ virtual public audio_dev_ctx,
          //snd_pcm_status_t *      m_pstatus;
          //timeval                 m_timevalStart;
          class ::time            m_timeStart;
-         //::i32_array             m_iaSent;
+         //::int_array             m_iaSent;
 //         void *                  m_pAudioDevCtx;
 
 	int 				m_iFrameCount;
