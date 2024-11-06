@@ -1381,10 +1381,10 @@ namespace node_gtk4
 // // //
 // // //
 // // ////         informationf( "r%d, g%d, b%d, a%d",
-// // ////                       pthemecolors->m_colorBack.m_u8Red,
-// // ////                       pthemecolors->m_colorBack.m_u8Green,
-// // ////                       pthemecolors->m_colorBack.m_u8Blue,
-// // ////                       pthemecolors->m_colorBack.m_u8Opacity);
+// // ////                       pthemecolors->m_colorBack.m_uchRed,
+// // ////                       pthemecolors->m_colorBack.m_uchGreen,
+// // ////                       pthemecolors->m_colorBack.m_uchBlue,
+// // ////                       pthemecolors->m_colorBack.m_uchOpacity);
 // // ////
 // // //         gtk_widget_destroy(GTK_WIDGET(pdialog));
 // //
@@ -1454,10 +1454,10 @@ namespace node_gtk4
 // // //
 // // //
 // // ////         informationf( "r%d, g%d, b%d, a%d",
-// // ////                       pthemecolors->m_colorBack.m_u8Red,
-// // ////                       pthemecolors->m_colorBack.m_u8Green,
-// // ////                       pthemecolors->m_colorBack.m_u8Blue,
-// // ////                       pthemecolors->m_colorBack.m_u8Opacity);
+// // ////                       pthemecolors->m_colorBack.m_uchRed,
+// // ////                       pthemecolors->m_colorBack.m_uchGreen,
+// // ////                       pthemecolors->m_colorBack.m_uchBlue,
+// // ////                       pthemecolors->m_colorBack.m_uchOpacity);
 // // ////
 // // //         gtk_widget_destroy(GTK_WIDGET(pdialog));
 // //

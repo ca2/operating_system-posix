@@ -1287,7 +1287,7 @@ namespace music
 //         if(pPendingLyricEventV2->m_iCurrentNote <
 //         pPendingLyricEventV2->m_timeaNotesPosition.get_size())
 //         {
-//         ::u32_array dwArray;
+//         ::unsigned_int_array dwArray;
 //         //            VERIFY(1 == pPendingLyricEventV2->GetNoteTokens(m_pPendingLyricEventV1->m_iCurrentNote, dwArray));
 //         pPendingLyricEventV2->GetNoteTokens(pPendingLyricEventV2->m_iCurrentNote, dwArray);
 //         if(dwArray.get_size() > 0)

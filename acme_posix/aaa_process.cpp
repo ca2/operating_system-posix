@@ -18,7 +18,7 @@
 
 // int create_process6(const ::string & _cmd_line, int * pprocessId);
 
-CLASS_DECL_ACME void dll_processes(u32_array & dwa, string_array & straProcesses, const ::string & pszDll)
+CLASS_DECL_ACME void dll_processes(unsigned_int_array & dwa, string_array & straProcesses, const ::string & pszDll)
 {
 
    __UNREFERENCED_PARAMETER(dwa);
