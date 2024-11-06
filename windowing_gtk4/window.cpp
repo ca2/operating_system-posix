@@ -32,7 +32,7 @@
 #include <gtk/gtk.h>
 #include <X11/Xlib.h>
 
-::user::e_key gtk_key_as_user_ekey(::u64 uGtkKey)
+::user::e_key gtk_key_as_user_ekey(huge_natural uGtkKey)
 {
 
 switch(uGtkKey)
@@ -379,7 +379,7 @@ gtk_im_context_commit (
 
          pgraphics->attach(cr);
 
-         ::rectangle_f64 r;
+         ::double_rectangle r;
 
          int width = gtk_widget_get_width(widget);
 
@@ -502,7 +502,7 @@ gtk_im_context_commit (
 
       auto puserinteraction = pimpl->m_puserinteraction;
 
-      ::size_i32 s(cx, cy);
+      ::int_size s(cx, cy);
 
       if (m_sizeOnSize != s)
       {
@@ -866,7 +866,7 @@ gtk_im_context_commit (
 
             informationf("_on_button_pressed(%0.2f, %0.2f)", x, y);
 
-            ::point_i32 pointCursor(x, y);
+            ::int_point pointCursor(x, y);
 
             pmouse->m_pointHost = pointCursor;
 
@@ -925,7 +925,7 @@ gtk_im_context_commit (
 
             informationf("_on_button_released(%0.2f, %0.2f)", x, y);
 
-            ::point_i32 pointCursor(x, y);
+            ::int_point pointCursor(x, y);
 
             pmouse->m_pointHost = pointCursor;
 
@@ -1016,7 +1016,7 @@ gtk_im_context_commit (
 //
 //         }
 
-         ::point_i32 pointCursor(x, y);
+         ::int_point pointCursor(x, y);
 
          pmouse->m_pointHost = pointCursor;
 
@@ -1040,7 +1040,7 @@ gtk_im_context_commit (
    }
 
 
-   void window::_on_gtk_key_pressed(u64 uGtkKey, ::u64 uGtkKeyCode)
+   void window::_on_gtk_key_pressed(huge_natural uGtkKey, huge_natural uGtkKeyCode)
    {
 
       auto ekey = gtk_key_as_user_ekey(uGtkKey);
@@ -1065,7 +1065,7 @@ gtk_im_context_commit (
    }
 
 
-   void window::_on_gtk_key_released(u64 uGtkKey, ::u64 uGtkKeyCode)
+   void window::_on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode)
    {
 
       auto ekey = gtk_key_as_user_ekey(uGtkKey);
@@ -1500,10 +1500,10 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   void window::full_screen(const ::rectangle_i32 & rectangle)
+   void window::full_screen(const ::int_rectangle & rectangle)
    {
 
-      ::rectangle_i32 rBest;
+      ::int_rectangle rBest;
 
       auto pgtk4display = gtk4_display();
 
@@ -1535,7 +1535,7 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   bool window::client_to_screen(::point_i32 * ppoint)
+   bool window::client_to_screen(::int_point * ppoint)
    {
 
       return true;
@@ -1543,7 +1543,7 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   bool window::screen_to_client(::point_i32 * ppoint)
+   bool window::screen_to_client(::int_point * ppoint)
    {
 
       return true;
@@ -1759,7 +1759,7 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   ::e_status window::window_rectangle(::rectangle_i32 * prectangle)
+   ::e_status window::window_rectangle(::int_rectangle * prectangle)
    {
 
       return ::success;
@@ -1767,7 +1767,7 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   ::e_status window::rectangle(::rectangle_i32 * prectangle)
+   ::e_status window::rectangle(::int_rectangle * prectangle)
    {
 
       return ::success;
@@ -2208,7 +2208,7 @@ m_pimcontext = gtk_im_multicontext_new();
       main_post([this, strCursorName]()
        {
 
-          if (strCursorName.has_char())
+          if (strCursorName.has_character())
           {
 
              gtk_widget_set_cursor_from_name(m_pgtkwidget, strCursorName);
@@ -2224,7 +2224,7 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   ::rectangle_i32 window::_unlocked_defer_get_window_rectangle()
+   ::int_rectangle window::_unlocked_defer_get_window_rectangle()
    {
 
 //      Window xw = GDK_SURFACE_XID (GDK_SURFACE(gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget))));
@@ -2241,7 +2241,7 @@ m_pimcontext = gtk_im_multicontext_new();
 //
 //            XGetWindowAttributes(xd, xw, &attrs);
 //
-//            ::rectangle_i32 r;
+//            ::int_rectangle r;
 //
 //            r.left() = attrs.x;
 //            r.top() = attrs.y;
@@ -2257,7 +2257,7 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   void window::_unlocked_defer_set_window_position(const ::point_i32 & point)
+   void window::_unlocked_defer_set_window_position(const ::int_point & point)
    {
 
 //      Window xw = GDK_SURFACE_XID (GDK_SURFACE(gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget))));
@@ -2279,7 +2279,7 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   void window::_unlocked_defer_set_window_position(const ::point_i32 & point, const ::size_i32 & size)
+   void window::_unlocked_defer_set_window_position(const ::int_point & point, const ::int_size & size)
    {
 
 //      Window xw = GDK_SURFACE_XID (GDK_SURFACE(gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget))));
@@ -2301,7 +2301,7 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   void window::_unlocked_defer_set_window_size(const ::size_i32 & size)
+   void window::_unlocked_defer_set_window_size(const ::int_size & size)
    {
 
 //      Window xw = GDK_SURFACE_XID (GDK_SURFACE(gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget))));
@@ -2367,7 +2367,7 @@ m_pimcontext = gtk_im_multicontext_new();
 
          ::string str(preedit_string);
 
-         if(str.has_char())
+         if(str.has_character())
          {
 
             _on_text(str);
@@ -2410,7 +2410,7 @@ return false;
 
          ::string str(preedit_string);
 
-         if(str.has_char())
+         if(str.has_character())
          {
 
             _on_text(str);

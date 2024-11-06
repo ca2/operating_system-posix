@@ -65,7 +65,7 @@ simple_ui_display::simple_ui_display(const string & strMessageParam, const strin
 }
 
 
-i64 simple_ui_display::increment_reference_count()
+huge_integer simple_ui_display::increment_reference_count()
 {
 
    return x11_hook::increment_reference_count();
@@ -73,7 +73,7 @@ i64 simple_ui_display::increment_reference_count()
 }
 
 
-i64 simple_ui_display::decrement_reference_count()
+huge_integer simple_ui_display::decrement_reference_count()
 {
 
    return x11_hook::decrement_reference_count();
@@ -81,7 +81,7 @@ i64 simple_ui_display::decrement_reference_count()
 }
 
 
-i64 simple_ui_display::release()
+huge_integer simple_ui_display::release()
 {
 
    return x11_hook::release();
@@ -347,14 +347,14 @@ void simple_ui_display::on_expose(Display * pdisplay)
 
             XGlyphInfo & rText = pbutton->m_infoText;
 
-            ::rectangle_i32 & rButtonOuter = pbutton->m_rect;
+            ::int_rectangle & rButtonOuter = pbutton->m_rect;
 
             rButtonOuter.right() = right;
             rButtonOuter.left() = right - m_iButtonWidth;
             rButtonOuter.top() = m_iButtonTop;
             rButtonOuter.bottom() = m_iButtonTop + m_iButtonHeight;
 
-            ::rectangle_i32 rButton = rButtonOuter;
+            ::int_rectangle rButton = rButtonOuter;
 
             rButton.deflate(1, 1);
 
@@ -432,7 +432,7 @@ void simple_ui_display::on_expose(Display * pdisplay)
 
             XftDrawRect(m_pdraw, &colorBack, rButton.left(), rButton.top(), rButton.width(), rButton.height());
 
-            ::rectangle_i32 rectangleText(rButton);
+            ::int_rectangle rectangleText(rButton);
 
             rectangleText.deflate(m_iButtonHPadding, m_iButtonVPadding);
 
@@ -728,7 +728,7 @@ bool simple_ui_display::process_event(Display * pdisplay, XEvent & e, XGenericEv
       else if (e.type == aaaMotionNotify)
       {
 
-         ::point_i32 point(e.xmotion.x, e.xmotion.y);
+         ::int_point point(e.xmotion.x, e.xmotion.y);
 
          bool bRedraw = false;
 
@@ -759,7 +759,7 @@ bool simple_ui_display::process_event(Display * pdisplay, XEvent & e, XGenericEv
       else if(e.type == ButtonPress)
       {
 
-         ::point_i32 point(e.xbutton.x, e.xbutton.y);
+         ::int_point point(e.xbutton.x, e.xbutton.y);
 
          bool bRedraw = false;
 
@@ -790,7 +790,7 @@ bool simple_ui_display::process_event(Display * pdisplay, XEvent & e, XGenericEv
       else if(e.type == ButtonRelease)
       {
 
-         ::point_i32 point(e.xbutton.x, e.xbutton.y);
+         ::int_point point(e.xbutton.x, e.xbutton.y);
 
          bool bRedraw = false;
 

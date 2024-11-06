@@ -46,8 +46,8 @@ namespace gtk3
             //bool                          m_bNcActive;
             ::pointer<::nano::graphics::device>           m_pnanodevice;
             manual_reset_event              m_eventEnd;
-            //rectangle_i32                 m_rectangle;
-            //rectangle_i32                 m_rectangleX;
+            //int_rectangle                 m_rectangle;
+            //int_rectangle                 m_rectangleX;
 
             //pointer_array < ::micro::child >   m_childa;
             //::atom                          m_atomLeftButtonDown;
@@ -137,15 +137,15 @@ namespace gtk3
 
             //virtual LRESULT window_procedure(UINT message, WPARAM wparam, LPARAM lparam);
 
-            void set_position_unlocked(const ::point_i32 & point) override;
+            void set_position_unlocked(const ::int_point & point) override;
 
-            void set_size_unlocked(const ::size_i32 & size) override;
+            void set_size_unlocked(const ::int_size & size) override;
 
             void redraw() override;
 
-            //void get_client_rectangle(::rectangle_i32 & rectangle) override;
+            //void get_client_rectangle(::int_rectangle & rectangle) override;
 
-            rectangle_i32 get_window_rectangle() override;
+            int_rectangle get_window_rectangle() override;
 
             void set_mouse_capture() override;
 
@@ -158,8 +158,8 @@ namespace gtk3
             void defer_show_system_menu(::user::mouse * pmouse) override;
 
 
-            void set_interface_client_size(const ::size_i32 & sizeWindow) ;// set_size
-            //::size_i32 get_main_screen_size() override;
+            void set_interface_client_size(const ::int_size & sizeWindow) ;// set_size
+            //::int_size get_main_screen_size() override;
 
             //void on_a_system_menu_item(::operating_system::a_system_menu_item * psystemmenuitem);
 

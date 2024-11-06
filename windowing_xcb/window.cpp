@@ -432,7 +432,7 @@ namespace windowing_xcb
 
          string strWindowText = pimpl->m_puserinteraction->get_window_text();
 
-         if (strWindowText.has_char())
+         if (strWindowText.has_character())
          {
 
             strName = strWindowText;
@@ -441,7 +441,7 @@ namespace windowing_xcb
 
       }
 
-      if (strName.has_char())
+      if (strName.has_character())
       {
 
          _store_name(strName);
@@ -1254,10 +1254,10 @@ namespace windowing_xcb
 //   }
 
 
-   void window::full_screen(const ::rectangle_i32 & rectangle)
+   void window::full_screen(const ::int_rectangle & rectangle)
    {
 
-      ::rectangle_i32 rBest;
+      ::int_rectangle rBest;
 
       int iMonitor = m_pdisplay->get_best_monitor(&rBest, rectangle);
 
@@ -1287,7 +1287,7 @@ namespace windowing_xcb
 //
 //      }
 
-      ::rectangle_i32 rWindow;
+      ::int_rectangle rWindow;
 
       rWindow.left() = m_geometry.x;
       rWindow.top() = m_geometry.y;
@@ -1432,7 +1432,7 @@ namespace windowing_xcb
    }
 
 
-   bool window::client_to_screen(::point_i32 * ppoint)
+   bool window::client_to_screen(::int_point * ppoint)
    {
 
       return true;
@@ -1440,7 +1440,7 @@ namespace windowing_xcb
    }
 
 
-   bool window::screen_to_client(::point_i32 * ppoint)
+   bool window::screen_to_client(::int_point * ppoint)
    {
 
       return true;
@@ -1995,7 +1995,7 @@ namespace windowing_xcb
 
             }
 
-            information() << "window::_set_window_position_unlocked _move_resize_unlocked " << ::rectangle_int_dimension(x, y, cx, cy);
+            information() << "window::_set_window_position_unlocked _move_resize_unlocked " << ::int_rectangle_dimension(x, y, cx, cy);
 
             estatus = _move_resize_unlocked(x, y, cx, cy);
 
@@ -2005,7 +2005,7 @@ namespace windowing_xcb
 
             windowing_output_debug_string("::window::set_window_pos Move xcb_window_t 1.4.1");
 
-            information() << "window::_set_window_position_unlocked _move_unlocked " << ::point_i32(x, y);
+            information() << "window::_set_window_position_unlocked _move_unlocked " << ::int_point(x, y);
 
             estatus = _move_unlocked(x, y);
 
@@ -2017,7 +2017,7 @@ namespace windowing_xcb
 
          windowing_output_debug_string("::window::set_window_pos Resize xcb_window_t 1.4.2");
 
-         information() << "window::_set_window_position_unlocked _resize_unlocked " << ::size_i32(cx, cy);
+         information() << "window::_set_window_position_unlocked _resize_unlocked " << ::int_size(cx, cy);
 
          estatus = _resize_unlocked(cx, cy);
 
@@ -2416,7 +2416,7 @@ namespace windowing_xcb
 
             }
 
-            information() << "window::_strict_set_window_position_unlocked _move_resize_unlocked " << ::rectangle_int_dimension(x, y, cx, cy);
+            information() << "window::_strict_set_window_position_unlocked _move_resize_unlocked " << ::int_rectangle_dimension(x, y, cx, cy);
 
             estatus = _move_resize_unlocked(x, y, cx, cy);
 
@@ -2426,7 +2426,7 @@ namespace windowing_xcb
 
             windowing_output_debug_string("::window::set_window_pos Move xcb_window_t 1.4.1");
 
-            information() << "window::_strict_set_window_position_unlocked _move_unlocked " << ::point_i32(x, y);
+            information() << "window::_strict_set_window_position_unlocked _move_unlocked " << ::int_point(x, y);
 
             estatus = _move_unlocked(x, y);
 
@@ -2438,7 +2438,7 @@ namespace windowing_xcb
 
          windowing_output_debug_string("::window::set_window_pos Resize xcb_window_t 1.4.2");
 
-         information() << "window::_strict_set_window_position_unlocked _resize_unlocked " << ::size_i32(x, y);
+         information() << "window::_strict_set_window_position_unlocked _resize_unlocked " << ::int_size(x, y);
 
          estatus = _resize_unlocked(cx, cy);
 
@@ -2588,7 +2588,7 @@ namespace windowing_xcb
    }
 
 
-//   ::point_i32 window::get_mouse_cursor_position()
+//   ::int_point window::get_mouse_cursor_position()
 //   {
 //
 //      return m_pointMouseCursor;
@@ -2658,7 +2658,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status window::_get_window_rectangle(::rectangle_i32 * prectangle)
+   ::e_status window::_get_window_rectangle(::int_rectangle * prectangle)
    {
 
       auto estatus = _get_geometry();
@@ -2682,7 +2682,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status window::_get_client_rectangle(::rectangle_i32 * prectangle)
+   ::e_status window::_get_client_rectangle(::int_rectangle * prectangle)
    {
 
       auto estatus = _get_geometry();
@@ -2704,12 +2704,12 @@ namespace windowing_xcb
    }
 
 
-   ::rectangle_int_array window::upper_window_rects()
+   ::int_rectangle_array window::upper_window_rects()
    {
 
       synchronous_lock synchronouslock(user_synchronization());
 
-      rectangle_int_array recta;
+      int_rectangle_array recta;
 
       windowing_output_debug_string("::GetFocus 1");
 
@@ -2742,7 +2742,7 @@ namespace windowing_xcb
 
       }
 
-      ::rectangle_i32 rectangle;
+      ::int_rectangle rectangle;
 
       auto estatus = _get_window_rectangle(&rectangle);
 
@@ -2756,7 +2756,7 @@ namespace windowing_xcb
       for (iFind++; iFind < windowa.get_size(); iFind++)
       {
 
-         ::rectangle_i32 rectangleHigher;
+         ::int_rectangle rectangleHigher;
 
          if (xcb_display()->_window_get_window_rectangle(windowa[iFind], &rectangleHigher))
          {
@@ -3707,7 +3707,7 @@ namespace windowing_xcb
 
       }
 
-      information() << "window::_move_resize " << ::rectangle_int_dimension(x, y, cx, cy);
+      information() << "window::_move_resize " << ::int_rectangle_dimension(x, y, cx, cy);
 
       user_post([x, y, cx, cy, this]
                                    {
@@ -3731,7 +3731,7 @@ namespace windowing_xcb
 
       }
 
-      information() << "window::_move " << ::point_i32(x, y);
+      information() << "window::_move " << ::int_point(x, y);
 
       user_post([x, y, this]
                                    {
@@ -3748,7 +3748,7 @@ namespace windowing_xcb
    ::e_status window::_resize(int cx, int cy)
    {
 
-      information() << "window::_resize " << ::size_i32(cx, cy);
+      information() << "window::_resize " << ::int_size(cx, cy);
 
       user_post([cx, cy, this]
                                    {
@@ -3777,7 +3777,7 @@ namespace windowing_xcb
 
       unsigned int ua[] = {(unsigned int) x, (unsigned int) y, (unsigned int) cx, (unsigned int) cy};
 
-      information() << "windowing_xcb::window _move_resize_unlocked : " << m_window << ", " << ::rectangle_int_dimension(x, y, cx, cy);
+      information() << "windowing_xcb::window _move_resize_unlocked : " << m_window << ", " << ::int_rectangle_dimension(x, y, cx, cy);
 
       auto cookie = xcb_configure_window(xcb_connection(), m_window, mask, ua);
 

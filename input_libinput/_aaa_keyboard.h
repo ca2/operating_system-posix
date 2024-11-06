@@ -59,7 +59,7 @@ namespace windowing_x11
 
       bool load_os_layout(const ::file::path & pszPath) override;
 
-      void show_software_keyboard(::user::interaction_base * pprimitive, string str, strsize iBeg, strsize iEnd);
+      void show_software_keyboard(::user::interaction_base * pprimitive, string str, character_count iBeg, character_count iEnd);
 
       void hide_software_keyboard(::user::interaction_base * pprimitive);
 

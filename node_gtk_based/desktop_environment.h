@@ -33,12 +33,12 @@ namespace node_gtk_based
    ~desktop_environment() override;
 
 
-//   virtual ::e_status _get_monitor_rectangle(::collection::index iMonitor, ::rectangle_i32 * prectangle);
-//   virtual ::e_status _get_workspace_rectangle(::collection::index iMonitor, ::rectangle_i32 * prectangle);
+//   virtual ::e_status _get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle * prectangle);
+//   virtual ::e_status _get_workspace_rectangle(::collection::index iMonitor, ::int_rectangle * prectangle);
 //
 //
-//   void get_monitor_rectangle(::collection::index iMonitor, ::rectangle_i32 * prectangle) override;
-//   void get_workspace_rectangle(::collection::index iMonitor, ::rectangle_i32 * prectangle) override;
+//   void get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle * prectangle) override;
+//   void get_workspace_rectangle(::collection::index iMonitor, ::int_rectangle * prectangle) override;
 //
 //
 //   void windowing_post(const ::procedure & procedure) override;

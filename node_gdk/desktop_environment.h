@@ -24,12 +24,12 @@ namespace node_gdk
    ~desktop_environment() override;
 
 
-   virtual ::e_status _get_monitor_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangle);
-   virtual ::e_status _get_workspace_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangle);
+   virtual ::e_status _get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle);
+   virtual ::e_status _get_workspace_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle);
 //
 //
-   bool get_monitor_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangle) override;
-   bool get_workspace_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangle) override;
+   bool get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle) override;
+   bool get_workspace_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle) override;
 //
 //
 //   void windowing_post(const ::procedure & procedure) override;

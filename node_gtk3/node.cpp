@@ -133,10 +133,10 @@ cairo_surface_t * __cairo_create_image_argb32_surface(::memory & m, int w, int h
 
    auto data = (unsigned char *) cairo_image_surface_get_data(psurface);
 
-   long long int r = 0;
-   long long int g = 0;
-   long long int b = 0;
-   long long int a = 0;
+   huge_integer int r = 0;
+   huge_integer int g = 0;
+   huge_integer int b = 0;
+   huge_integer int a = 0;
 
    for (int n = 0; n < h; n++)
    {
@@ -906,7 +906,7 @@ namespace node_gtk3
 //
 //      strGtkTheme = _get_os_user_theme();
 //
-//      if(strGtkTheme.has_char())
+//      if(strGtkTheme.has_character())
 //      {
 //
 //         _fill_os_theme_colors(pthemecolors, strGtkTheme, dark_mode());
@@ -1399,7 +1399,7 @@ namespace node_gtk3
 //}
 
 
-//   void * node::node_wrap_window(void * pvoidDisplay, i64 window)
+//   void * node::node_wrap_window(void * pvoidDisplay, huge_integer window)
 //   {
 //
 //      Display * pdisplay = (Display *) pvoidDisplay;

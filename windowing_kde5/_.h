@@ -34,7 +34,7 @@ namespace windowing_kde5
 // #include <QRect>
 //
 //
-// inline void copy(::rectangle_i32 & rectangleTarget, const QRect & qrect)
+// inline void copy(::int_rectangle & rectangleTarget, const QRect & qrect)
 // {
 //
 //    rectangleTarget.left() = qrect.x();

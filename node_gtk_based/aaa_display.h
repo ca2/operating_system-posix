@@ -77,7 +77,7 @@
 ////   Atom net_wm_state_atom(bool bCreate);
 //
 //
-////   inline i64 get_ref_count()
+////   inline huge_integer get_ref_count()
 ////   {
 ////
 ////      return m_countReference;
@@ -85,7 +85,7 @@
 ////   }
 ////
 ////
-////   inline i64 increment_reference_count()
+////   inline huge_integer increment_reference_count()
 ////   {
 ////
 ////#ifdef WINDOWS
@@ -105,7 +105,7 @@
 ////   }
 ////
 ////
-////   inline i64 decrement_reference_count()
+////   inline huge_integer decrement_reference_count()
 ////   {
 ////
 ////#ifdef WINDOWS
@@ -125,10 +125,10 @@
 ////   }
 ////
 ////
-////   inline i64 release()
+////   inline huge_integer release()
 ////   {
 ////
-////      i64 i = decrement_reference_count();
+////      huge_integer i = decrement_reference_count();
 ////
 ////      if (i == 0)
 ////      {

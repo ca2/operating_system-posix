@@ -26,7 +26,7 @@ namespace nano
       public:
 
 
-         ::i64 m_i;
+         huge_integer m_i;
 
          id();
          ~id() override;

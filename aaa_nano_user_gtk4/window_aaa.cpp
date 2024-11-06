@@ -120,7 +120,7 @@
 //         }
 //
 //
-//         ::size_i32 window::get_window_size() // m_sizeWindow
+//         ::int_size window::get_window_size() // m_sizeWindow
 //         {
 //
 //            return m_sizeWindow;
@@ -133,7 +133,7 @@
 //set_interface_client_size({cx, cy});
 //
 //         }
-//         void window::set_interface_client_size(const ::size_i32 & sizeWindow) // set_size
+//         void window::set_interface_client_size(const ::int_size & sizeWindow) // set_size
 //         {
 //
 //            m_sizeWindow = sizeWindow;
@@ -145,7 +145,7 @@
 //
 //            }
 //
-//            rectangle_i32 r;
+//            int_rectangle r;
 //
 //            get_client_rectangle(r);
 //
@@ -618,7 +618,7 @@
 //         //         if (!m_psurface)
 //         //         {
 //         //
-//         //            rectangle_i32 r;
+//         //            int_rectangle r;
 //         //
 //         //            get_client_rectangle(r);
 //         //
@@ -864,7 +864,7 @@
 //         }
 //
 //
-//         void window::move_to(const ::point_i32 & point)
+//         void window::move_to(const ::int_point & point)
 //         {
 //
 //            //::XMoveWindow(m_pdisplay->m_pdisplay, m_window, point.x(), point.y());
@@ -894,7 +894,7 @@
 //         }
 //
 //
-//         void window::get_client_rectangle(::rectangle_i32 & rectangle)
+//         void window::get_client_rectangle(::int_rectangle & rectangle)
 //         {
 //
 //            //      rectangle.left() = 0;
@@ -925,7 +925,7 @@
 //         }
 //
 //
-//         void window::get_window_rectangle(::rectangle_i32 & rectangle)
+//         void window::get_window_rectangle(::int_rectangle & rectangle)
 //         {
 //
 //            //      Window windowRoot = 0;
@@ -993,7 +993,7 @@
 //         }
 //
 //
-//         // //   ::size_i32 window::get_main_screen_size()
+//         // //   ::int_size window::get_main_screen_size()
 //         // //   {
 //         // //
 //         // //      return m_pdisplay->get_main_screen_size();
@@ -1047,7 +1047,7 @@
 //         {
 //            //
 //            //
-//            //         ::point_i32                                  m_pointWindowDragStart;
+//            //         ::int_point                                  m_pointWindowDragStart;
 //            //
 //            //
 //            guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture));
@@ -1156,7 +1156,7 @@
 //         ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx();
 //         ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy();
 //         ////
-//         ////      ::rectangle_i32 r;
+//         ////      ::int_rectangle r;
 //         ////
 //         ////      window_rectangle(msg.oswindow, &r);
 //         ////
@@ -1176,9 +1176,9 @@
 //         //
 //         //         pmousewheel->m_atom = e_message_mouse_wheel;
 //         //
-//         //         //msg.wParam = make_i32(0, iDelta);
+//         //         //msg.wParam = make_int(0, iDelta);
 //         //
-//         //         //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+//         //         //msg.lParam = make_int(e.xbutton.x_root, e.xbutton.y_root);
 //         //
 //         //         pmousewheel->m_Δ = Δ;
 //         //
@@ -1216,7 +1216,7 @@
 //         //
 //         //         //msg.wParam = 0;
 //         //
-//         //         //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+//         //         //msg.lParam = make_int(e.xbutton.x_root, e.xbutton.y_root);
 //         //
 //         //         //post_ui_message(msg);
 //         //         //wayland_windowing()->post_ui_message(pmouse);
@@ -1261,7 +1261,7 @@
 //         // {
 //         //    //
 //         //    //
-//         //    //         ::point_i32                                  m_pointWindowDragStart;
+//         //    //         ::int_point                                  m_pointWindowDragStart;
 //         //    //
 //         //    //
 //         //    if (linux_button == BTN_LEFT)
@@ -1369,7 +1369,7 @@
 //         ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx();
 //         ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy();
 //         ////
-//         ////      ::rectangle_i32 r;
+//         ////      ::int_rectangle r;
 //         ////
 //         ////      window_rectangle(msg.oswindow, &r);
 //         ////
@@ -1389,9 +1389,9 @@
 //         //
 //         //         pmousewheel->m_atom = e_message_mouse_wheel;
 //         //
-//         //         //msg.wParam = make_i32(0, iDelta);
+//         //         //msg.wParam = make_int(0, iDelta);
 //         //
-//         //         //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+//         //         //msg.lParam = make_int(e.xbutton.x_root, e.xbutton.y_root);
 //         //
 //         //         pmousewheel->m_Δ = Δ;
 //         //
@@ -1429,7 +1429,7 @@
 //         //
 //         //         //msg.wParam = 0;
 //         //
-//         //         //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+//         //         //msg.lParam = make_int(e.xbutton.x_root, e.xbutton.y_root);
 //         //
 //         //         //post_ui_message(msg);
 //         //         //wayland_windowing()->post_ui_message(pmouse);
@@ -1606,7 +1606,7 @@
 //         //    //
 //         //    //      //msg.wParam = 0;
 //         //    //
-//         //    //      //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+//         //    //      //msg.lParam = make_int(e.xbutton.x_root, e.xbutton.y_root);
 //         //    //
 //         //    //      //post_ui_message(msg);
 //         //    //      //wayland_windowing()->post_ui_message(pmouse);
@@ -1651,7 +1651,7 @@
 //         //    {
 //         //       //
 //         //       //
-//         //       //         ::point_i32                                  m_pointWindowDragStart;
+//         //       //         ::int_point                                  m_pointWindowDragStart;
 //         //       //
 //         //       //
 //         //       if (linux_button == BTN_LEFT)
@@ -1759,7 +1759,7 @@
 //         //    ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx();
 //         //    ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy();
 //         //    ////
-//         //    ////      ::rectangle_i32 r;
+//         //    ////      ::int_rectangle r;
 //         //    ////
 //         //    ////      window_rectangle(msg.oswindow, &r);
 //         //    ////
@@ -1779,9 +1779,9 @@
 //         //    //
 //         //    //         pmousewheel->m_atom = e_message_mouse_wheel;
 //         //    //
-//         //    //         //msg.wParam = make_i32(0, iDelta);
+//         //    //         //msg.wParam = make_int(0, iDelta);
 //         //    //
-//         //    //         //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+//         //    //         //msg.lParam = make_int(e.xbutton.x_root, e.xbutton.y_root);
 //         //    //
 //         //    //         pmousewheel->m_Δ = Δ;
 //         //    //
@@ -1819,7 +1819,7 @@
 //         //    //
 //         //    //         //msg.wParam = 0;
 //         //    //
-//         //    //         //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+//         //    //         //msg.lParam = make_int(e.xbutton.x_root, e.xbutton.y_root);
 //         //    //
 //         //    //         //post_ui_message(msg);
 //         //    //         //wayland_windowing()->post_ui_message(pmouse);

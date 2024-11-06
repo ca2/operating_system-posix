@@ -721,7 +721,7 @@ namespace node_xfce
 //   }
 
 
-//   void * node::node_wrap_window(void * pvoidDisplay, i64 window)
+//   void * node::node_wrap_window(void * pvoidDisplay, huge_integer window)
 //   {
 //
 //      Display * pdisplay = (Display *) pvoidDisplay;

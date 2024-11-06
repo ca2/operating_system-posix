@@ -51,7 +51,7 @@ void node_g_application_application_menu_activate_callback(GSimpleAction *action
 
    string strName(name);
 
-   if(strName.has_char())
+   if(strName.has_character())
    {
 
       pcallback->on_application_menu_action(strName);

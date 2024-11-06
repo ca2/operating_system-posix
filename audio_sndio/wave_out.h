@@ -24,7 +24,7 @@ namespace multimedia
          bool                    m_bWrite;
          int                     m_iBuffer;
          bool                    m_bStarted;
-         ::u64                   m_uStart;
+         huge_natural                   m_uStart;
          //snd_pcm_status_t *      m_pstatus;
          //timeval                 m_timevalStart;
          class ::time            m_timeStart;

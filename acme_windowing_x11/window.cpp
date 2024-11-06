@@ -443,7 +443,7 @@ namespace x11
             if (event_type == ConfigureNotify)
             {
 
-               ::rectangle_i32 r;
+               ::int_rectangle r;
 
                r.left() = pevent->xconfigure.x;
 
@@ -477,7 +477,7 @@ namespace x11
                if (!m_psurface)
                {
 
-                  rectangle_i32 rectangleWindow = get_window_rectangle();
+                  int_rectangle rectangleWindow = get_window_rectangle();
 
                   auto display = m_pdisplay->m_pdisplay;
 
@@ -732,7 +732,7 @@ namespace x11
 //         }
 
 
-//         void window::move_to(const ::point_i32 & point)
+//         void window::move_to(const ::int_point & point)
 //         {
 //            display_lock displaylock(m_pdisplay->m_pdisplay);
 //
@@ -767,7 +767,7 @@ namespace x11
          }
 
 
-//         void window::get_client_rectangle(::rectangle_i32 & rectangle)
+//         void window::get_client_rectangle(::int_rectangle & rectangle)
 //         {
 //
 //            rectangle.left() = 0;
@@ -798,7 +798,7 @@ namespace x11
 //         }
 
 
-         ::rectangle_i32 window::get_window_rectangle()
+         ::int_rectangle window::get_window_rectangle()
          {
 
             display_lock displaylock(m_pdisplay->m_pdisplay);
@@ -821,7 +821,7 @@ namespace x11
 
             }
 
-            ::rectangle_i32 rectangle;
+            ::int_rectangle rectangle;
 
             rectangle.left() = x;
             rectangle.top() = y;
@@ -874,7 +874,7 @@ namespace x11
          }
 
 
-         //   ::size_i32 window::get_main_screen_size()
+         //   ::int_size window::get_main_screen_size()
          //   {
          //
          //      return m_pdisplay->get_main_screen_size();

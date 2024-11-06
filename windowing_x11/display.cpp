@@ -68,7 +68,7 @@ namespace windowing_x11
 #ifdef _DEBUG
 
 
-   i64 display::get_ref_count()
+   huge_integer display::get_ref_count()
    {
 
       return m_countReference;
@@ -76,7 +76,7 @@ namespace windowing_x11
    }
 
 
-   i64 display::increment_reference_count()
+   huge_integer display::increment_reference_count()
    {
 
 #ifdef WINDOWS
@@ -96,7 +96,7 @@ namespace windowing_x11
    }
 
 
-   i64 display::decrement_reference_count()
+   huge_integer display::decrement_reference_count()
    {
 
 #ifdef WINDOWS
@@ -116,10 +116,10 @@ namespace windowing_x11
    }
 
 
-   i64 display::release()
+   huge_integer display::release()
    {
 
-      i64 i = decrement_reference_count();
+      huge_integer i = decrement_reference_count();
 
       return i;
 
@@ -264,7 +264,7 @@ namespace windowing_x11
          //logMsg("work area: %ld:%ld:%ld:%ld", workArea[0], workArea[1], workArea[2], workArea[3]);
          for(int iPos = 0; iPos + 3 < items; iPos+=4)
          {
-            m_rectangleaWorkAreas.add(::rectangle_int_dimension(
+            m_rectangleaWorkAreas.add(::int_rectangle_dimension(
                workArea[iPos], workArea[iPos+1],
                workArea[iPos+2], workArea[iPos+3]));
          }
@@ -400,7 +400,7 @@ namespace windowing_x11
    }
 
 
-   bool display::get_monitor_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangle)
+   bool display::get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle)
    {
 
       return ::windowing::display::get_monitor_rectangle(iMonitor, rectangle);
@@ -408,7 +408,7 @@ namespace windowing_x11
    }
 
 
-   bool display::get_workspace_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangle)
+   bool display::get_workspace_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle)
    {
 
       return ::windowing::display::get_workspace_rectangle(iMonitor, rectangle);
@@ -743,7 +743,7 @@ namespace windowing_x11
    }
 
 
-   ::point_i32 display::_get_mouse_cursor_position()
+   ::int_point display::_get_mouse_cursor_position()
    {
 
       Window root_return;
@@ -764,7 +764,7 @@ namespace windowing_x11
 
       ::x11::display_lock displaylock(Display());
 
-      ::point_i32 pointCursor;
+      ::int_point pointCursor;
 
       XQueryPointer(
          Display(), DefaultRootWindow(Display()),
@@ -940,7 +940,7 @@ namespace windowing_x11
    }
 
 
-   bool display::point_is_window_origin(::point_i32 pointHitTest, ::windowing::window * pwindowExclude, int iMargin)
+   bool display::point_is_window_origin(::int_point pointHitTest, ::windowing::window * pwindowExclude, int iMargin)
    {
 
       bool bIsOrigin = false;
@@ -986,14 +986,14 @@ namespace windowing_x11
 
                           auto windowa = x11_window_list();
 
-                          ::rectangle_i32 rectangleTest;
+                          ::int_rectangle rectangleTest;
 
                           for (::collection::index i = 0; i < windowa.get_size(); i++)
                           {
 
                              string strItem = ::x11_get_name(Display(), windowa[i]);
 
-                             ::rectangle_i32 rectangleHigher;
+                             ::int_rectangle rectangleHigher;
 
                              if (::is_set(pwindowxcbExclude) && windowa[i] == pwindowxcbExclude->Window())
                              {
@@ -1005,9 +1005,9 @@ namespace windowing_x11
                              if (::x11_get_window_rect(Display(), windowa[i], &rectangleHigher))
                              {
 
-                                ::rectangle_i32 rectangleHitTest;
+                                ::int_rectangle rectangleHitTest;
 
-                                rectangleHitTest.set(rectangleHigher.origin(), ::size_i32());
+                                rectangleHitTest.set(rectangleHigher.origin(), ::int_size());
 
                                 rectangleHitTest.inflate(iMargin + 1);
 

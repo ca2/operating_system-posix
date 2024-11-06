@@ -54,8 +54,8 @@
 //string x11_get_name(Display * display, Window w);
 
 
-//bool x11_get_window_rect(Display * d, Window window, ::rectangle_i32 * prectangle);
-//bool x11_get_client_rect(Display * d, Window window, ::rectangle_i32 * prectangle);
+//bool x11_get_window_rect(Display * d, Window window, ::int_rectangle * prectangle);
+//bool x11_get_client_rect(Display * d, Window window, ::int_rectangle * prectangle);
 
 //CLASS_DECL_WINDOWING_KDE5 ::Display * x11_get_display();
 
@@ -67,12 +67,12 @@
 
 
 //CLASS_DECL_ACME int xinerama_get_monitor_count();
-//CLASS_DECL_ACME int xinerama_get_monitor_rect(::collection::index i, ::rectangle_i32 * prectangle);
+//CLASS_DECL_ACME int xinerama_get_monitor_rect(::collection::index i, ::int_rectangle * prectangle);
 //CLASS_DECL_ACME int xinerama_get_screen_size(int& width, int& height);
 
 
-//int best_xinerama_monitor(::user::interaction * pinteraction, ::rectangle_i32 * prectRet);
-//int best_xinerama_monitor(::user::interaction * pinteraction, const ::rectangle_i32 & rectangle, ::rectangle_i32 * lprectRet);
+//int best_xinerama_monitor(::user::interaction * pinteraction, ::int_rectangle * prectRet);
+//int best_xinerama_monitor(::user::interaction * pinteraction, const ::int_rectangle & rectangle, ::int_rectangle * lprectRet);
 
 
 //#include "acme/prototype/prototype/matter.h"

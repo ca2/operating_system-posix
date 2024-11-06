@@ -30,15 +30,15 @@ namespace windowing_xcb
       bool                                         m_bXShmChecked;
       bool                                         m_bXShm;
       xcb_shm_seg_t                                m_xcbshmseg;
-      ::size_i32                                   m_sizeXcbShm;
-      ::rectangle_i32                              m_rectangleLast;
-      ::size_i32                                   m_sizeLastBitBlitting;
+      ::int_size                                   m_sizeXcbShm;
+      ::int_rectangle                              m_rectangleLast;
+      ::int_size                                   m_sizeLastBitBlitting;
       bool                                         m_bUseXShmIfAvailable;
       ::pointer<windowing_xcb::display>            m_pdisplay;
       xcb_gcontext_t                               m_gcontext;
       bool                                         m_bShmAttached;
 
-      //::size_i32                                   m_sizeImage;
+      //::int_size                                   m_sizeImage;
       //::memory                                     m_memoryImage;
 
       buffer();
@@ -52,7 +52,7 @@ namespace windowing_xcb
       void destroy() override;
 
 
-      virtual void _map_shared_memory(const ::size_i32 & size);
+      virtual void _map_shared_memory(const ::int_size & size);
 
       bool attach_shm();
       bool query_shm();
@@ -62,7 +62,7 @@ namespace windowing_xcb
       bool update_buffer(::graphics::buffer_item * pbufferitem) override;
 
 
-      virtual bool create_os_buffer(const ::size_i32 & size, int iStride = -1) ;
+      virtual bool create_os_buffer(const ::int_size & size, int iStride = -1) ;
       virtual void destroy_os_buffer() ;
 
 

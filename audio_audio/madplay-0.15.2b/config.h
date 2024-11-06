@@ -138,7 +138,7 @@
 /* Define if you have the 'long double' type. */
 #define HAVE_LONG_DOUBLE 1
 
-/* Define if you have the 'long long' type. */
+/* Define if you have the 'huge_integer' type. */
 #define HAVE_LONG_LONG 1
 
 /* Define to 1 if you have the <machine/soundcard.h> header file. */
@@ -241,7 +241,7 @@
 /* Define to 1 if you have the <unistd.h> header file. */
 #define HAVE_UNISTD_H 1
 
-/* Define if you have the 'unsigned long long' type. */
+/* Define if you have the 'huge_natural' type. */
 #define HAVE_UNSIGNED_LONG_LONG 1
 
 /* Define to 1 if you have the `vprintf' function. */
@@ -345,6 +345,6 @@
 /* Define to `unsigned' if <sys/types.h> does not define. */
 /* #undef size_t */
 
-/* Define to unsigned long or unsigned long long if <stdint.h> and
+/* Define to unsigned long or huge_natural if <stdint.h> and
    <inttypes.h> don't define. */
 /* #undef uintmax_t */

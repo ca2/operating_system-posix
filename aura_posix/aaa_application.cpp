@@ -38,7 +38,7 @@ void apex_application_application_menu_activate_callback(GSimpleAction *action, 
 
    string strName(name);
 
-   if(strName.has_char())
+   if(strName.has_character())
    {
 
       papp->on_application_menu_action(strName);

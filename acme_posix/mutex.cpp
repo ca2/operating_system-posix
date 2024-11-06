@@ -648,7 +648,7 @@ namespace acme_posix
 
    #elif defined(MUTEX_NAMED_FD)
 
-      if(m_strName.has_char())
+      if(m_strName.has_character())
       {
 
          if(m_iFd >= 0)
@@ -777,7 +777,7 @@ namespace acme_posix
 
    #elif defined(MUTEX_NAMED_FD)
 
-      if (m_strName.has_char())
+      if (m_strName.has_character())
       {
 
          int rc = pthread_mutex_lock(&m_mutex);
@@ -1191,7 +1191,7 @@ namespace acme_posix
 
    #elif defined(MUTEX_NAMED_FD)
 
-      if (m_strName.has_char())
+      if (m_strName.has_character())
       {
 
          int rc = pthread_mutex_lock(&m_mutex);
@@ -1463,7 +1463,7 @@ namespace acme_posix
 
    #elif defined(MUTEX_NAMED_FD)
 
-      if (m_strName.has_char())
+      if (m_strName.has_character())
       {
 
          int rc = pthread_mutex_lock(&m_mutex);

@@ -197,7 +197,7 @@ namespace innate_ui_kde5
    //
    // }
 
-   // ::pointer < ::innate_ui::icon > innate_ui::innate_ui_icon(const ::payload & payloadFile, const ::size_i32 & size)
+   // ::pointer < ::innate_ui::icon > innate_ui::innate_ui_icon(const ::payload & payloadFile, const ::int_size & size)
    // {
    //
    //

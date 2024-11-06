@@ -571,7 +571,7 @@ namespace gtk3
 //
 //            }
 //
-//            ::rectangle_i32 rectangleMainScreen;
+//            ::int_rectangle rectangleMainScreen;
 //
 //            auto pscreen = DefaultScreenOfDisplay(m_pdisplay);
 //
@@ -681,7 +681,7 @@ namespace gtk3
 //         }
 
 
-         ::size_i32 display::get_main_screen_size()
+         ::int_size display::get_main_screen_size()
          {
 
 //            auto snum = DefaultScreen(m_pdisplay);

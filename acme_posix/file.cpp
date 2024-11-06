@@ -73,7 +73,7 @@ namespace acme_posix
 
    //    rStatus.m_attribute = 0;
 
-   //    // get just the low unsigned int of the file size_i32
+   //    // get just the low unsigned int of the file int_size
    //    //ASSERT(findFileData.nFileSizeHigh == 0);
    //    //rStatus.m_size = (int)findFileData.nFileSizeLow;
 
@@ -637,7 +637,7 @@ namespace acme_posix
       ASSERT_VALID(this);
       ASSERT(m_iFile != hFileNull);
 
-      /*if (!::LockFile((HANDLE)m_iFile, lower_u32(dwPos), upper_u32(dwPos), lower_u32(dwCount), upper_u32(dwCount)))
+      /*if (!::LockFile((HANDLE)m_iFile, lower_unsigned_int(dwPos), upper_unsigned_int(dwPos), lower_unsigned_int(dwCount), upper_unsigned_int(dwCount)))
          ::file::throw_os_error( (int)::get_last_error());*/
    }
 
@@ -646,7 +646,7 @@ namespace acme_posix
       ASSERT_VALID(this);
       ASSERT(m_iFile != hFileNull);
 
-      /*      if (!::UnlockFile((HANDLE)m_iFile,  lower_u32(dwPos), upper_u32(dwPos), lower_u32(dwCount), upper_u32(dwCount)))
+      /*      if (!::UnlockFile((HANDLE)m_iFile,  lower_unsigned_int(dwPos), upper_unsigned_int(dwPos), lower_unsigned_int(dwCount), upper_unsigned_int(dwCount)))
                ::file::throw_os_error( (int)::get_last_error());*/
    }
 
@@ -700,7 +700,7 @@ namespace acme_posix
    }
 
    //// file does not support direct buffering (CMemFile does)
-   //u64 file::GetBufferPtr(unsigned int nCommand, u64 /*nCount*/,
+   //huge_natural file::GetBufferPtr(unsigned int nCommand, huge_natural /*nCount*/,
    //                            void ** /*ppBufStart*/, void ** /*ppBufMax*/)
    //{
    //   ASSERT(nCommand == bufferCheck);
@@ -835,7 +835,7 @@ namespace acme_posix
             throw_file_errno_exception("fstat != 0");
 
          }
-         // get time ::e_seek_current file size_i32
+         // get time ::e_seek_current file int_size
          /*FILETIME ftCreate, ftAccess, ftModify;
          if (!::GetFileTime((HANDLE)m_iFile, &ftCreate, &ftAccess, &ftModify))
             return false;*/

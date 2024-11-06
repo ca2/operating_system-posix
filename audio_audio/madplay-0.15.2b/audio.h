@@ -124,7 +124,7 @@ typedef unsigned int audio_pcmfunc_t(unsigned char *, unsigned int,
 				     mad_fixed_t const *, mad_fixed_t const *,
 				     enum audio_mode, struct audio_stats *);
 
-audio_pcmfunc_t audio_pcm_u8;
+audio_pcmfunc_t audio_pcm_unsigned_char;
 
 audio_pcmfunc_t audio_pcm_s8;
 audio_pcmfunc_t audio_pcm_s16le;

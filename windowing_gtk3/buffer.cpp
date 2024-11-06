@@ -73,7 +73,7 @@ namespace windowing_gtk3
    }
 
 
-   void buffer::_map_shared_memory(const ::size_i32 & size)
+   void buffer::_map_shared_memory(const ::int_size & size)
    {
 
       if(!m_bUseXShmIfAvailable)
@@ -219,7 +219,7 @@ namespace windowing_gtk3
    }
 
 
-   bool buffer::create_os_buffer(const ::size_i32 & size, int iStrideParam)
+   bool buffer::create_os_buffer(const ::int_size & size, int iStrideParam)
    {
 
 //      synchronous_lock sl(synchronization());
@@ -1107,7 +1107,7 @@ namespace windowing_gtk3
 // //
 // //      }
 // //
-// //      ::size_i32 sizeDesign = m_pimpl->m_puserinteraction->const_layout().design().size();
+// //      ::int_size sizeDesign = m_pimpl->m_puserinteraction->const_layout().design().size();
 // //
 // //      if (sizeDesign != sizeBitBlitting)
 // //      {

@@ -171,7 +171,7 @@ namespace acme_posix
          if(m_iLock >= 0)
          {
 
-            if(m_path.has_char() && file_exists(m_path))
+            if(m_path.has_character() && file_exists(m_path))
             {
 
                ::remove(m_path);

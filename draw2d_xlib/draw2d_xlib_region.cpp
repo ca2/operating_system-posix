@@ -29,15 +29,15 @@ namespace draw2d_xlib
       }
       int_bool region::CreateRectRgn(int x1, int y1, int x2, int y2)
       { return Attach(::CreateRectRgn(x1, y1, x2, y2)); }
-      int_bool region::CreateRectRgnIndirect(const ::rectangle_i32 & rectangle)
+      int_bool region::CreateRectRgnIndirect(const ::int_rectangle & rectangle)
       { return Attach(::CreateRectRgnIndirect(rectangle)); }
       int_bool region::CreateEllipticRgn(int x1, int y1, int x2, int y2)
       { return Attach(::CreateEllipticRgn(x1, y1, x2, y2)); }
-      int_bool region::CreateEllipticRgnIndirect(const ::rectangle_i32 & rectangle)
+      int_bool region::CreateEllipticRgnIndirect(const ::int_rectangle & rectangle)
       { return Attach(::CreateEllipticRgnIndirect(rectangle)); }
-      int_bool region::CreatePolygonRgn(::point_i32 * lpPoints, int nCount, int nMode)
+      int_bool region::CreatePolygonRgn(::int_point * lpPoints, int nCount, int nMode)
       { return Attach(::CreatePolygonRgn(lpPoints, nCount, nMode)); }
-      int_bool region::CreatePolyPolygonRgn(::point_i32 * lpPoints, LPINT lpPolyCounts, int nCount, int nPolyFillMode)
+      int_bool region::CreatePolyPolygonRgn(::int_point * lpPoints, LPINT lpPolyCounts, int nCount, int nPolyFillMode)
       { return Attach(::CreatePolyPolygonRgn(lpPoints, lpPolyCounts, nCount, nPolyFillMode)); }
       int_bool region::CreateRoundRectRgn(int x1, int y1, int x2, int y2, int x3, int y3)
       { return Attach(::CreateRoundRectRgn(x1, y1, x2, y2, x3, y3)); }
@@ -50,7 +50,7 @@ namespace draw2d_xlib
       void region::SetRectRgn(int x1, int y1, int x2, int y2)
       { ASSERT(get_os_data() != nullptr); ::SetRectRgn((HRGN)get_os_data(), x1, y1, x2, y2); }
 
-      void region::SetRectRgn(const ::rectangle_i32 & rectangle)
+      void region::SetRectRgn(const ::int_rectangle & rectangle)
       {
          ::SetRectRgn((HRGN)get_os_data(), rectangle.left(), rectangle.top(), rectangle.right(), rectangle.bottom());
       }
@@ -64,15 +64,15 @@ namespace draw2d_xlib
       { ASSERT(get_os_data() != nullptr); return ::EqualRgn((HRGN)get_os_data(), (HRGN)pRgn->get_os_data()); }
       int region::OffsetRgn(int x, int y)
       { ASSERT(get_os_data() != nullptr); return ::OffsetRgn((HRGN)get_os_data(), x, y); }
-      int region::OffsetRgn(const ::point_i32 & point)
+      int region::OffsetRgn(const ::int_point & point)
       { ASSERT(get_os_data() != nullptr); return ::OffsetRgn((HRGN)get_os_data(), point.x, point.y); }
-      int region::GetRgnBox(::rectangle_i32 * prectangle) const
+      int region::GetRgnBox(::int_rectangle * prectangle) const
       { ASSERT(get_os_data() != nullptr); return ::GetRgnBox((HRGN)get_os_data(), rectangle); }
       int_bool region::PtInRegion(int x, int y) const
       { ASSERT(get_os_data() != nullptr); return ::PtInRegion((HRGN)get_os_data(), x, y); }
-      int_bool region::PtInRegion(const ::point_i32 & point) const
+      int_bool region::PtInRegion(const ::int_point & point) const
       { ASSERT(get_os_data() != nullptr); return ::PtInRegion((HRGN)get_os_data(), point.x, point.y); }
-      int_bool region::rectInRegion(const ::rectangle_i32 & rectangle) const
+      int_bool region::rectInRegion(const ::int_rectangle & rectangle) const
       { ASSERT(get_os_data() != nullptr); return ::rectInRegion((HRGN)get_os_data(), rectangle); }*/
 
    /*   bool region::get(xlib_t * pgraphics)

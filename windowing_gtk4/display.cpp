@@ -149,7 +149,7 @@ namespace windowing_gtk4
 #ifdef _DEBUG
 
 
-   i64 display::get_ref_count()
+   huge_integer display::get_ref_count()
    {
 
       return m_countReference;
@@ -157,7 +157,7 @@ namespace windowing_gtk4
    }
 
 
-   i64 display::increment_reference_count()
+   huge_integer display::increment_reference_count()
    {
 
 #ifdef WINDOWS
@@ -179,7 +179,7 @@ namespace windowing_gtk4
    }
 
 
-   i64 display::decrement_reference_count()
+   huge_integer display::decrement_reference_count()
    {
 
 #ifdef WINDOWS
@@ -201,10 +201,10 @@ namespace windowing_gtk4
    }
 
 
-   i64 display::release()
+   huge_integer display::release()
    {
 
-      i64 i = decrement_reference_count();
+      huge_integer i = decrement_reference_count();
 
       return i;
 
@@ -329,7 +329,7 @@ namespace windowing_gtk4
    }
 
 
-   ::size_i32 display::get_main_screen_size()
+   ::int_size display::get_main_screen_size()
    {
 
       //      auto snum = DefaultScreen(m_pdisplay);
@@ -478,7 +478,7 @@ namespace windowing_gtk4
    }
 
 
-   bool display::get_monitor_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangle)
+   bool display::get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle)
    {
 
       return ::windowing::display::get_monitor_rectangle(iMonitor, rectangle);
@@ -486,7 +486,7 @@ namespace windowing_gtk4
    }
 
 
-   bool display::get_workspace_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangle)
+   bool display::get_workspace_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle)
    {
 
       return ::windowing::display::get_workspace_rectangle(iMonitor, rectangle);
@@ -799,7 +799,7 @@ namespace windowing_gtk4
 //   }
 //
 
-   bool display::get_cursor_position(::point_i32 * ppointCursor)
+   bool display::get_cursor_position(::int_point * ppointCursor)
    {
 
 //      Window root_return;
@@ -988,7 +988,7 @@ namespace windowing_gtk4
 //   }
 
 
-//   bool display::point_is_window_origin(::point_i32 pointHitTest, ::windowing::window * pwindowExclude, int iMargin)
+//   bool display::point_is_window_origin(::int_point pointHitTest, ::windowing::window * pwindowExclude, int iMargin)
 //   {
 //
 //      bool bIsOrigin = false;
@@ -1034,14 +1034,14 @@ namespace windowing_gtk4
 //
 //                          auto windowa = x11_window_list();
 //
-//                          ::rectangle_i32 rectangleTest;
+//                          ::int_rectangle rectangleTest;
 //
 //                          for (::collection::index i = 0; i < windowa.get_size(); i++)
 //                          {
 //
 //                             string strItem = ::x11_get_name(Display(), windowa[i]);
 //
-//                             ::rectangle_i32 rectangleHigher;
+//                             ::int_rectangle rectangleHigher;
 //
 //                             if (::is_set(pwindowxcbExclude) && windowa[i] == pwindowxcbExclude->Window())
 //                             {
@@ -1053,9 +1053,9 @@ namespace windowing_gtk4
 //                             if (::x11_get_window_rect(Display(), windowa[i], &rectangleHigher))
 //                             {
 //
-//                                ::rectangle_i32 rectangleHitTest;
+//                                ::int_rectangle rectangleHitTest;
 //
-//                                rectangleHitTest.set(rectangleHigher.origin(), ::size_i32());
+//                                rectangleHitTest.set(rectangleHigher.origin(), ::int_size());
 //
 //                                rectangleHitTest.inflate(iMargin + 1);
 //
@@ -1131,7 +1131,7 @@ namespace windowing_gtk4
 //   }
 //
 //
-//   void display::update_wayland_buffer(wayland_buffer &waylandbuffer, const ::size_i32 & size)
+//   void display::update_wayland_buffer(wayland_buffer &waylandbuffer, const ::int_size & size)
 //   {
 //
 //      //wayland_buffer waylandbuffer{};
@@ -1270,7 +1270,7 @@ namespace windowing_gtk4
 //   void display::__handle_pointer_motion(::wl_pointer * pwlpointer, double x, double y, unsigned int millis)
 //   {
 //
-//      ::point_i32 pointCursor((int)x, (int)y);
+//      ::int_point pointCursor((int)x, (int)y);
 //
 //      if(m_pwindowPointerCapture)
 //      {

@@ -38,16 +38,16 @@ namespace wayland
             ::xdg_positioner * m_pxdgpositioner;
             ::wl_pointer * m_pwlpointer;
             ::wl_shm_pool * m_pwlshmpool;
-            ::point_i32 m_pointWindowBestEffort;
+            ::int_point m_pointWindowBestEffort;
             ::xdg_activation_token_v1 * m_pxdgactivationtokenv1;
             ::wl_callback * m_pwlcallbackFrame;
-            ::size_i32 m_sizeDrag;
+            ::int_size m_sizeDrag;
 
             unsigned int m_uLastConfigureSerial;
             unsigned int m_uLastRequestSerial;
             unsigned int m_uLastAckSerial;
             ::string m_strActivationToken;
-            ::size_i32                                      m_sizeConfigure;
+            ::int_size                                      m_sizeConfigure;
             class ::time                                 m_timeLastConfigureRequest;
             bool                                         m_bXdgInitialConfigure;
             bool                                            m_bDoneFirstMapping;
@@ -67,8 +67,8 @@ namespace wayland
             virtual ::particle * get_interface_client_particle() = 0; // m_pwindow->m_puserinteraction
             //virtual void set_window_width(int iWidth) = 0; // m_sizeWindow.cx()
             //virtual void set_window_height(int iHeight) = 0; // m_sizeWindow.cy()
-            //virtual ::size_i32 get_window_size() = 0; // m_sizeWindow
-            //virtual void set_interface_client_size(const ::size_i32 & sizeWindow) = 0; // m_sizeWindow
+            //virtual ::int_size get_window_size() = 0; // m_sizeWindow
+            //virtual void set_interface_client_size(const ::int_size & sizeWindow) = 0; // m_sizeWindow
 
             //virtual bool is_window_stored_iconic() = 0; // m_pwindow->m_puserinteraction->const_layout().window().display() == e_display_iconic
             //virtual void window_maximize() = 0; // m_pwindow->m_puserinteraction->display(::e_display_zoomed);

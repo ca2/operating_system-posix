@@ -377,7 +377,7 @@ namespace kde5
       //
       //   for (int i = 0; i < m_iButtonCount; i++)
       //   {
-      //      if (m_buttona[i].m_rectangle.contains(point_i32(x, y)))
+      //      if (m_buttona[i].m_rectangle.contains(int_point(x, y)))
       //      {
       //
       //         return m_buttona[i].m_edialogresult;
@@ -466,12 +466,12 @@ namespace kde5
       //}
 
       //#ifndef int_x
-      //#define int_x(lparam)                          ((int)(short)LOWORD(lparam))
+      //#define lparam_int_x(lparam)                          ((int)(short)LOWORD(lparam))
       //#endif
       //
       //
       //#ifndef int_y
-      //#define int_y(lparam)                          ((int)(short)HIWORD(lparam))
+      //#define lparam_int_y(lparam)                          ((int)(short)HIWORD(lparam))
       //#endif
       //
       ////LRESULT window::window_procedure(UINT message, WPARAM wparam, LPARAM lparam)
@@ -496,14 +496,14 @@ namespace kde5
       //      }
       //         break;
       //      case WM_LBUTTONDOWN:
-      //         on_left_button_down(int_x(lparam), int_y(lparam));
+      //         on_left_button_down(lparam_int_x(lparam), lparam_int_y(lparam));
       //         break;
       //      case WM_MOUSEMOVE:
-      //         on_mouse_move(int_x(lparam), int_y(lparam));
+      //         on_mouse_move(lparam_int_x(lparam), lparam_int_y(lparam));
       //         break;
       //      case WM_LBUTTONUP:
       //      {
-      //         on_left_button_up(int_x(lparam), int_y(lparam));
+      //         on_left_button_up(lparam_int_x(lparam), lparam_int_y(lparam));
       //
       //      }
       //
@@ -749,7 +749,7 @@ namespace kde5
       //       if (!m_psurface)
       //       {
       //
-      //          rectangle_i32 rectangleX;
+      //          int_rectangle rectangleX;
       //
       //          get_client_rectangle(rectangleX);
       //
@@ -1042,11 +1042,11 @@ namespace kde5
       //   }
       //   break;
       //   case WM_LBUTTONDOWN:
-      //      on_left_button_down(int_x(lparam), int_y(lparam));
+      //      on_left_button_down(lparam_int_x(lparam), lparam_int_y(lparam));
       //      break;
       //   case WM_LBUTTONUP:
       //   {
-      //      on_left_button_up(int_x(lparam), int_y(lparam));
+      //      on_left_button_up(lparam_int_x(lparam), lparam_int_y(lparam));
       //   }
       //
       //   break;
@@ -1119,7 +1119,7 @@ namespace kde5
       // }
 
 
-      void window::set_position_unlocked(const ::point_i32 & point)
+      void window::set_position_unlocked(const ::int_point & point)
       {
 
             m_pqwidget->move(point.x(), point.y());
@@ -1127,7 +1127,7 @@ namespace kde5
       }
 
 
-         void window::set_size_unlocked(const ::size_i32 & size)
+         void window::set_size_unlocked(const ::int_size & size)
          {
 
            m_pqwidget->resize(size.cx(), size.cy());
@@ -1199,7 +1199,7 @@ namespace kde5
       }
 
       //
-      // void window::get_client_rectangle(::rectangle_i32 & rectangle)
+      // void window::get_client_rectangle(::int_rectangle & rectangle)
       // {
       //
       //    xcb_get_geometry_reply_t geometry;
@@ -1214,10 +1214,10 @@ namespace kde5
       // }
 
 
-      ::rectangle_i32 window::get_window_rectangle()
+      ::int_rectangle window::get_window_rectangle()
       {
 
-         ::rectangle_i32 rectangle;
+         ::int_rectangle rectangle;
 
          auto qrect = m_pqwidget->rect();
 
@@ -1664,7 +1664,7 @@ m_pqwidget->move(p);
 
          //auto puserinteraction = pimpl->m_puserinteraction;
 
-         //::size_i32 s(cx, cy);
+         //::int_size s(cx, cy);
 
          set_interface_client_size({cx, cy});
 
@@ -1673,7 +1673,7 @@ m_pqwidget->move(p);
       }
 
 
-      void window::set_interface_client_size(const ::size_i32 & sizeWindow)
+      void window::set_interface_client_size(const ::int_size & sizeWindow)
       {
 
          m_sizeWindow = sizeWindow;
@@ -1685,7 +1685,7 @@ m_pqwidget->move(p);
          //
          // }
 
-         rectangle_i32 r;
+         int_rectangle r;
 
          m_puserinteractionbase->get_client_rectangle(r);
 
@@ -1752,7 +1752,7 @@ m_pqwidget->move(p);
    //    //g_print("Option 1 selected from popover menu!\n");
    // }
 
-      //   ::size_i32 window::get_main_screen_size()
+      //   ::int_size window::get_main_screen_size()
       //   {
       //
       //      return m_pdisplay->get_main_screen_size();

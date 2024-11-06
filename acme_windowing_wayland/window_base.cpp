@@ -666,7 +666,7 @@ namespace nano
 
             auto pwindowbaseParent = owner_window();
 
-            ::rectangle_i32 rectangleAnchor;
+            ::int_rectangle rectangleAnchor;
 
             rectangleAnchor.set_dimension(
                -sizeScreen.cx(),
@@ -789,7 +789,7 @@ namespace nano
 
          string strWindowText = get_window_text();
 
-         //         if (strWindowText.has_char())
+         //         if (strWindowText.has_character())
          //         {
          //
          //            strName = strWindowText;
@@ -798,7 +798,7 @@ namespace nano
 
          //}
 
-         if (strWindowText.has_char())
+         if (strWindowText.has_character())
          {
 
             information() << "xdg_toplevel_set_title (1)";
@@ -844,7 +844,7 @@ namespace nano
          {
 
             /* Detach any previous buffers before resetting everything, otherwise when
-            * calling this a second time you'll get an annoying protocol error
+            * calling this a second time you'hi get an annoying protocol error
             */
             wl_surface_attach(m_pwlsurface, NULL, 0, 0);
             wl_surface_commit(m_pwlsurface);
@@ -1034,7 +1034,7 @@ namespace nano
          //
          //      //msg.wParam = 0;
          //
-         //      //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+         //      //msg.lParam = make_int(e.xbutton.x_root, e.xbutton.y_root);
          //
          //      //post_ui_message(msg);
          //      //wayland_windowing()->post_ui_message(pmouse);
@@ -1070,7 +1070,7 @@ namespace nano
          //      {
          //
          //
-         //         ::point_i32                                  m_pointWindowDragStart;
+         //         ::int_point                                  m_pointWindowDragStart;
          //
          //
          //         if (linux_button == BTN_LEFT)
@@ -1168,7 +1168,7 @@ namespace nano
          ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx();
          ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy();
          ////
-         ////      ::rectangle_i32 r;
+         ////      ::int_rectangle r;
          ////
          ////      window_rectangle(msg.oswindow, &r);
          ////
@@ -1188,9 +1188,9 @@ namespace nano
          //
          //         pmousewheel->m_atom = e_message_mouse_wheel;
          //
-         //         //msg.wParam = make_i32(0, iDelta);
+         //         //msg.wParam = make_int(0, iDelta);
          //
-         //         //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+         //         //msg.lParam = make_int(e.xbutton.x_root, e.xbutton.y_root);
          //
          //         pmousewheel->m_Δ = Δ;
          //
@@ -1228,7 +1228,7 @@ namespace nano
          //
          //         //msg.wParam = 0;
          //
-         //         //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+         //         //msg.lParam = make_int(e.xbutton.x_root, e.xbutton.y_root);
          //
          //         //post_ui_message(msg);
          //         //wayland_windowing()->post_ui_message(pmouse);
@@ -1341,7 +1341,7 @@ namespace nano
 
          ::string strType = ::type(get_interface_client_particle()).name();
 
-         ::size_i32 size(width, height);
+         ::int_size size(width, height);
 
          information()
 

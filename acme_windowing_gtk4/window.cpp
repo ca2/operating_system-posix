@@ -450,13 +450,13 @@ namespace gtk4
          }
 
 
-         void window::_on_gtk_key_pressed(::u64 uGtkKey, ::u64 uGtkKeyCode)
+         void window::_on_gtk_key_pressed(huge_natural uGtkKey, huge_natural uGtkKeyCode)
          {
 
          }
 
 
-         void window::_on_gtk_key_released(::u64 uGtkKey, ::u64 uGtkKeyCode)
+         void window::_on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode)
          {
          }
 
@@ -862,7 +862,7 @@ namespace gtk4
                   for (auto& pitem : *psystemmenu)
                   {
 
-                     if (pitem->m_strAtom.has_char() && !pitem->m_strAtom.begins("***"))
+                     if (pitem->m_strAtom.has_character() && !pitem->m_strAtom.begins("***"))
                      {
 
                         auto action = g_simple_action_new(pitem->m_strAtom, NULL);
@@ -1891,7 +1891,7 @@ namespace gtk4
    }
 
 
-   ::size_i32 window::get_window_size() // m_sizeWindow
+   ::int_size window::get_window_size() // m_sizeWindow
    {
 
       return m_sizeWindow;
@@ -1932,12 +1932,12 @@ namespace gtk4
    }
 
 
-   void window::set_interface_client_size(const ::size_i32& sizeWindow) // set_size
+   void window::set_interface_client_size(const ::int_size& sizeWindow) // set_size
    {
 
       m_sizeWindow = sizeWindow;
 
-      rectangle_i32 rClient;
+      int_rectangle rClient;
 
       rClient = m_pacmeuserinteraction->get_client_rectangle();
 
@@ -2178,7 +2178,7 @@ namespace gtk4
    }
 
 
-   ::rectangle_i32 window::get_window_rectangle_unlocked()
+   ::int_rectangle window::get_window_rectangle_unlocked()
    {
 
       return {};
@@ -2186,7 +2186,7 @@ namespace gtk4
    }
 
 
-   void window::set_position_unlocked(const ::point_i32& point)
+   void window::set_position_unlocked(const ::int_point& point)
    {
 
    }

@@ -65,10 +65,10 @@
 //::durationTimer::durationTimer(const unsigned int ::duration)
 //   : expiry(timespec_now())
 //{
-//   i64 tv_nsec = expiry.tv_nsec + (::duration * 1e6);
+//   huge_integer tv_nsec = expiry.tv_nsec + (::duration * 1e6);
 //   if (tv_nsec >= 1e9)
 //   {
-//      i64 sec_diff = tv_nsec / static_cast<int> (1e9);
+//      huge_integer sec_diff = tv_nsec / static_cast<int> (1e9);
 //      expiry.tv_nsec = tv_nsec % static_cast<int>(1e9);
 //      expiry.tv_sec += sec_diff;
 //   }
@@ -78,11 +78,11 @@
 //   }
 //}
 //
-//i64
+//huge_integer
 //::durationTimer::remaining()
 //{
 //   timespec now(timespec_now());
-//   i64 ::duration = (expiry.tv_sec - now.tv_sec) * 1e3;
+//   huge_integer ::duration = (expiry.tv_sec - now.tv_sec) * 1e3;
 //   ::duration += (expiry.tv_nsec - now.tv_nsec) / 1e6;
 //   return ::duration;
 //}
@@ -121,7 +121,7 @@ serial_impl::serial_impl(const string & port, unsigned long baudrate,
 {
    pthread_mutex_init(&this->m_pmutexRead, nullptr);
    pthread_mutex_init(&this->m_pmutexWrite, nullptr);
-   if (m_strPort.has_char())
+   if (m_strPort.has_character())
       open();
 }
 
@@ -374,7 +374,7 @@ serial_impl::reconfigurePort()
    if (m_estopbit == e_stop_bit_one)
       options.c_cflag &= (tcflag_t)~(CSTOPB);
    else if (m_estopbit == e_stop_bit_one_point_five)
-      // ONE ::point_i32 FIVE same as TWO.. there is no POSIX support for 1.5
+      // ONE ::int_point FIVE same as TWO.. there is no POSIX support for 1.5
       options.c_cflag |= (CSTOPB);
    else if (m_estopbit == e_stop_bit_two)
       options.c_cflag |= (CSTOPB);

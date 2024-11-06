@@ -85,7 +85,7 @@ namespace windowing_xcb
 #ifdef _DEBUG
 
 
-   i64 display::get_ref_count()
+   huge_integer display::get_ref_count()
    {
 
       return m_countReference;
@@ -93,7 +93,7 @@ namespace windowing_xcb
    }
 
 
-   i64 display::increment_reference_count()
+   huge_integer display::increment_reference_count()
    {
 
       return ::windowing::display::increment_reference_count();
@@ -101,7 +101,7 @@ namespace windowing_xcb
    }
 
 
-   i64 display::decrement_reference_count()
+   huge_integer display::decrement_reference_count()
    {
 
       return ::windowing::display::increment_reference_count();
@@ -109,7 +109,7 @@ namespace windowing_xcb
    }
 
 
-   i64 display::release()
+   huge_integer display::release()
    {
 
       return ::windowing::display::release();
@@ -303,7 +303,7 @@ namespace windowing_xcb
    }
 
 
-   bool display::get_monitor_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangle)
+   bool display::get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle)
    {
 
       return ::windowing::display::get_monitor_rectangle(iMonitor, rectangle);
@@ -311,7 +311,7 @@ namespace windowing_xcb
    }
 
 
-   bool display::get_workspace_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangle)
+   bool display::get_workspace_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle)
    {
 
       return ::windowing::display::get_workspace_rectangle(iMonitor, rectangle);
@@ -549,7 +549,7 @@ namespace windowing_xcb
    }
 
 
-   ::point_i32 display::_get_mouse_cursor_position()
+   ::int_point display::_get_mouse_cursor_position()
    {
 
       xcb_window_t root_return;
@@ -577,7 +577,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("::GetCursorPos 2");
 
-      ::point_i32 pointCursor;
+      ::int_point pointCursor;
 
       pointCursor.x() = preply->root_x;
 
@@ -982,12 +982,12 @@ namespace windowing_xcb
    }
 
 
-   ::rectangle_i32 display::_window_get_frame_extents(xcb_window_t window)
+   ::int_rectangle display::_window_get_frame_extents(xcb_window_t window)
    {
 
       synchronous_lock synchronouslock(user_synchronization());
 
-      ::rectangle_i32 r;
+      ::int_rectangle r;
 
       auto property = intern_atom("_NET_FRAME_EXTENTS"); // l, r, t, b CARDINAL[4]/32bit
 
@@ -1027,7 +1027,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status display::_window_get_window_rectangle(xcb_window_t window, ::rectangle_i32 * prectangle)
+   ::e_status display::_window_get_window_rectangle(xcb_window_t window, ::int_rectangle * prectangle)
    {
 
       auto geometry = _window_get_geometry(window);
@@ -1051,7 +1051,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status display::_window_get_client_rectangle(xcb_window_t window, ::rectangle_i32 * prectangle)
+   ::e_status display::_window_get_client_rectangle(xcb_window_t window, ::int_rectangle * prectangle)
    {
 
       auto geometry = _window_get_geometry(window);
@@ -1083,7 +1083,7 @@ namespace windowing_xcb
    }
 
 
-   bool display::point_is_window_origin(::point_i32 pointHitTest, ::windowing::window * pwindowExclude, int iMargin)
+   bool display::point_is_window_origin(::int_point pointHitTest, ::windowing::window * pwindowExclude, int iMargin)
    {
 
       bool bIsOrigin = false;
@@ -1127,14 +1127,14 @@ namespace windowing_xcb
 
                           windowa = _window_enumerate();
 
-                          ::rectangle_i32 rectangleTest;
+                          ::int_rectangle rectangleTest;
 
                           for (::collection::index i = 0; i < windowa.get_size(); i++)
                           {
 
                              //string strItem = ::_window_get(xcb_connection(), windowa[i]);
 
-                             ::rectangle_i32 rectangleHigher;
+                             ::int_rectangle rectangleHigher;
 
                              if (::is_set(pwindowxcbExclude) && windowa[i] == pwindowxcbExclude->xcb_window())
                              {
@@ -1146,9 +1146,9 @@ namespace windowing_xcb
                              if (_window_get_window_rectangle(windowa[i], &rectangleHigher))
                              {
 
-                                ::rectangle_i32 rectangleHitTest;
+                                ::int_rectangle rectangleHitTest;
 
-                                rectangleHitTest.set(rectangleHigher.origin(), ::size_i32());
+                                rectangleHitTest.set(rectangleHigher.origin(), ::int_size());
 
                                 rectangleHitTest.inflate(iMargin + 1);
 

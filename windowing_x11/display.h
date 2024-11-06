@@ -70,10 +70,10 @@ namespace windowing_x11
 #ifdef _DEBUG
 
 
-      virtual i64 get_ref_count();
-      virtual i64 increment_reference_count() override;
-      virtual i64 decrement_reference_count() override;
-      virtual i64 release() override;
+      virtual huge_integer get_ref_count();
+      virtual huge_integer increment_reference_count() override;
+      virtual huge_integer decrement_reference_count() override;
+      virtual huge_integer release() override;
 
 
 #endif
@@ -112,15 +112,15 @@ namespace windowing_x11
 
       virtual bool is_null() const;
 
-      bool get_monitor_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangle) override;
+      bool get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle) override;
 
-      bool get_workspace_rectangle(::collection::index iWorkspace, ::rectangle_i32 & rectangle) override;
+      bool get_workspace_rectangle(::collection::index iWorkspace, ::int_rectangle & rectangle) override;
 
       virtual ::windowing::window * get_mouse_capture();
 
       virtual ::e_status release_mouse_capture();
 
-      ::point_i32 _get_mouse_cursor_position() override;
+      ::int_point _get_mouse_cursor_position() override;
 
       Atom intern_atom(const char * pszAtomName, bool bCreate);
 
@@ -138,7 +138,7 @@ namespace windowing_x11
 
       virtual ::windowing_x11::window * _get_active_window(::thread * pthread);
 
-      //virtual bool get_cursor_position(::point_i32 * ppointCursor);
+      //virtual bool get_cursor_position(::int_point * ppointCursor);
 
       virtual comparable_array < Window > x11_window_list();
 
@@ -148,7 +148,7 @@ namespace windowing_x11
       virtual Pixmap x11_create_pixmap(::image::image_pointer pimage);
       virtual XImage * x11_create_image(::image::image_pointer pimage);
 
-      virtual bool point_is_window_origin(::point_i32 pointHitTest, ::windowing::window * pwindowExclude, int iMargin);
+      virtual bool point_is_window_origin(::int_point pointHitTest, ::windowing::window * pwindowExclude, int iMargin);
 
       virtual Picture xrender_create_picture(::image::image_pointer pimage);
 

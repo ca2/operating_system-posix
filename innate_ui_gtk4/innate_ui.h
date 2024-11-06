@@ -36,8 +36,8 @@ namespace innate_ui_gtk4
 
       //virtual LRESULT _window_procedure(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);
 
-      //virtual void _defer_show_system_menu(HWND hwnd, const ::point_i32 & pointAbsolute);
-      //::pointer < ::innate_ui::icon > innate_ui_icon(const ::payload & payloadFile, const ::size_i32 & size) override;
+      //virtual void _defer_show_system_menu(HWND hwnd, const ::int_point & pointAbsolute);
+      //::pointer < ::innate_ui::icon > innate_ui_icon(const ::payload & payloadFile, const ::int_size & size) override;
 
    };
 

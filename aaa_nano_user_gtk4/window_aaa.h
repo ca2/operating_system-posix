@@ -47,16 +47,16 @@ namespace gtk4
             //bool                           m_bNcActive;
 
             manual_reset_event               m_eventEnd;
-            //rectangle_i32                  m_rectangle;
-            //rectangle_i32                  m_rectangleX;
+            //int_rectangle                  m_rectangle;
+            //int_rectangle                  m_rectangleX;
 
             //pointer_array < ::micro::child >   m_childa;
             //::atom                         m_atomLeftButtonDown;
             //::atom                         m_atomLeftButtonUp;
             //::atom                         m_atomResult;
             //::pointer<::micro::child>          m_pchildFocus;
-            //::size_i32                     m_sizeWindow;
-            //::size_i32                     m_sizeRequest;
+            //::int_size                     m_sizeWindow;
+            //::int_size                     m_sizeRequest;
 
 
             window();
@@ -66,8 +66,8 @@ namespace gtk4
             virtual ::particle * get_interface_client_particle(); // m_pwindow->m_puserinteraction
             virtual void set_window_width(int iWidth); // m_sizeWindow.cx()
             virtual void set_window_height(int iHeight); // m_sizeWindow.cy()
-            virtual ::size_i32 get_window_size(); // m_sizeWindow
-            virtual void set_interface_client_size(const ::size_i32 & sizeWindow); // m_sizeWindow
+            virtual ::int_size get_window_size(); // m_sizeWindow
+            virtual void set_interface_client_size(const ::int_size & sizeWindow); // m_sizeWindow
 
             virtual bool is_window_stored_iconic(); // m_pwindow->m_puserinteraction->const_layout().window().display() == e_display_iconic
             virtual void window_maximize(); // m_pwindow->m_puserinteraction->display(::e_display_zoomed);
@@ -145,13 +145,13 @@ namespace gtk4
 
             //virtual LRESULT window_procedure(UINT message, WPARAM wparam, LPARAM lparam);
 
-            void move_to(const ::point_i32 & point) override;
+            void move_to(const ::int_point & point) override;
 
             void redraw() override;
 
-            void get_client_rectangle(::rectangle_i32 & rectangle) override;
+            void get_client_rectangle(::int_rectangle & rectangle) override;
 
-            void get_window_rectangle(::rectangle_i32 & rectangle) override;
+            void get_window_rectangle(::int_rectangle & rectangle) override;
 
             void set_capture() override;
 
@@ -163,7 +163,7 @@ namespace gtk4
             //bool defer_perform_entire_reposition_process(::user) override;
 
 
-            //::size_i32 get_main_screen_size() override;
+            //::int_size get_main_screen_size() override;
 
 
             // void __handle_pointer_enter(::wl_pointer * pwlpointer) override;

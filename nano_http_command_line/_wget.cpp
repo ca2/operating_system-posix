@@ -161,7 +161,7 @@ namespace command_line
 
                   newline.trim();
 
-                  if(newline.has_char())
+                  if(newline.has_character())
                   {
 
                      strUrl = newline;

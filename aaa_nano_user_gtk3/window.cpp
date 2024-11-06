@@ -975,7 +975,7 @@ namespace gtk3
 
 
 
-         void window::set_interface_client_size(const ::size_i32 & sizeWindow) // set_size
+         void window::set_interface_client_size(const ::int_size & sizeWindow) // set_size
          {
 
             m_sizeWindow = sizeWindow;
@@ -987,7 +987,7 @@ namespace gtk3
             //
             // }
 
-            rectangle_i32 r;
+            int_rectangle r;
 
             m_puserinteractionbase->get_client_rectangle(r);
 
@@ -1165,7 +1165,7 @@ namespace gtk3
 //               if (!m_psurface)
 //               {
 //
-//                  rectangle_i32 r;
+//                  int_rectangle r;
 //
 //                  get_client_rectangle(r);
 //
@@ -1394,7 +1394,7 @@ namespace gtk3
 //         }
 
 
-         void window::set_position_unlocked(const ::point_i32 &point)
+         void window::set_position_unlocked(const ::int_point &point)
          {
             //display_lock displaylock(m_pdisplay->m_pdisplay);
 
@@ -1405,7 +1405,7 @@ namespace gtk3
          }
 
 
-         void window::set_size_unlocked(const ::size_i32 &size)
+         void window::set_size_unlocked(const ::int_size &size)
          {
 
             gtk_window_resize(GTK_WINDOW(m_pgtkwidget), size.cx(), size.cy());
@@ -1443,7 +1443,7 @@ namespace gtk3
          }
 
 
-//         void window::get_client_rectangle(::rectangle_i32 & rectangle)
+//         void window::get_client_rectangle(::int_rectangle & rectangle)
 //         {
 //
 //            rectangle.left() = 0;
@@ -1474,7 +1474,7 @@ namespace gtk3
 //         }
 //
 
-         ::rectangle_i32 window::get_window_rectangle()
+         ::int_rectangle window::get_window_rectangle()
          {
 
             int x = 0;
@@ -1489,7 +1489,7 @@ namespace gtk3
 
             gtk_window_get_size(GTK_WINDOW(m_pgtkwidget), &cx, &cy);
 
-            auto rectangle = rectangle_int_dimension(x, y, cx, cy);
+            auto rectangle = int_rectangle_dimension(x, y, cx, cy);
 
             return rectangle;
 
@@ -1607,7 +1607,7 @@ namespace gtk3
 
          }
 
-         //   ::size_i32 window::get_main_screen_size()
+         //   ::int_size window::get_main_screen_size()
          //   {
          //
          //      return m_pdisplay->get_main_screen_size();

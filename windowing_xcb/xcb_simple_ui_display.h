@@ -14,7 +14,7 @@ public:
    string                           m_strFontName;
 
    xcb_window_t                           m_window;
-   ::point_i32                          m_point;
+   ::int_point                          m_point;
    ::size                           m_size;
 
    int                              m_iLineHeight;
@@ -70,9 +70,9 @@ public:
    ~simple_ui_display();
 
 
-   virtual i64 increment_reference_count();
-   virtual i64 decrement_reference_count();
-   virtual i64 release();
+   virtual huge_integer increment_reference_count();
+   virtual huge_integer decrement_reference_count();
+   virtual huge_integer release();
 
 
    void common_construct();

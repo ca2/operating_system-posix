@@ -80,7 +80,7 @@
 //
 //      auto opacity = color.byte_opacity();
 //
-//      m_ui = make_u32(
+//      m_ui = make_unsigned_int(
 //              color.byte_blue() * opacity / 255,
 //              color.byte_green() * opacity / 255,
 //              color.byte_red() * opacity / 255,

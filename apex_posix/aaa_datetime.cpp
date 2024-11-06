@@ -197,13 +197,13 @@
 //  *   Nothing.
 //  */
 // CLASS_DECL_ACME void RtlTimeToTimeFields(
-//    const u64 *liTime,
+//    const huge_natural *liTime,
 //    PTIME_FIELDS TimeFields)
 // {
 //    int SecondsInDay;
-//    u64 cleaps, years, yearday, months;
-//    u64 Days;
-//    ::i64 Time;
+//    huge_natural cleaps, years, yearday, months;
+//    huge_natural Days;
+//    huge_integer Time;
 
 //    /* Extract ::duration from time and convert time into seconds */
 //    TimeFields->Millis =
@@ -267,7 +267,7 @@
 //  */
 // int_bool RtlTimeFieldsToTime(
 //    PTIME_FIELDS tfTimeFields,
-//    u64 * Time)
+//    huge_natural * Time)
 // {
 //    int month, year, cleaps, day;
 
@@ -308,7 +308,7 @@
 //           584817 ;                      /* zero that on 1601-01-01 */
 //    /* done */
 
-//    *Time = (((((::i64) day * HOURSPERDAY +
+//    *Time = (((((huge_integer) day * HOURSPERDAY +
 //                         tfTimeFields->Hour) * MINSPERHOUR +
 //                        tfTimeFields->Minute) * SECSPERMIN +
 //                       tfTimeFields->Second ) * 1000 +
@@ -370,15 +370,15 @@
 //  *   Success: STATUS_SUCCESS.
 //  *   Failure: An NTSTATUS error code indicating the problem.
 //  */
-// int RtlLocalTimeToSystemTime( const ::u64 *LocalTime,
-//                                           ::u64 * SystemTime)
+// int RtlLocalTimeToSystemTime( const huge_natural *LocalTime,
+//                                           huge_natural * SystemTime)
 // {
 //    int bias;
 
-// //xxx    informationf("(%point, %point_i32)\n", LocalTime, SystemTime);
+// //xxx    informationf("(%point, %int_point)\n", LocalTime, SystemTime);
 
 //    bias = TIME_GetBias();
-//    *SystemTime = *LocalTime + bias * (::i64)TICKSPERSEC;
+//    *SystemTime = *LocalTime + bias * (huge_integer)TICKSPERSEC;
 //    return 0;
 // }
 
@@ -395,15 +395,15 @@
 //  *   Success: STATUS_SUCCESS.
 //  *   Failure: An NTSTATUS error code indicating the problem.
 //  */
-// int RtlSystemTimeToLocalTime( const ::u64 *SystemTime,
-//                                           ::u64 * LocalTime )
+// int RtlSystemTimeToLocalTime( const huge_natural *SystemTime,
+//                                           huge_natural * LocalTime )
 // {
 //    int bias;
 
-// //xxx    informationf("(%point, %point_i32)\n", SystemTime, LocalTime);
+// //xxx    informationf("(%point, %int_point)\n", SystemTime, LocalTime);
 
 //    bias = TIME_GetBias();
-//    *LocalTime = *SystemTime - bias * (::i64)TICKSPERSEC;
+//    *LocalTime = *SystemTime - bias * (huge_integer)TICKSPERSEC;
 //    return 0;
 // }
 
@@ -420,7 +420,7 @@
 //  *   Success: true.
 //  *   Failure: false, if the resulting value will not fit in a unsigned int.
 //  */
-// int_bool RtlTimeToSecondsSince1970( const u64 *Time, LPDWORD Seconds )
+// int_bool RtlTimeToSecondsSince1970( const huge_natural *Time, LPDWORD Seconds )
 // {
 //    ULONGLONG tmp = *Time;
 //    tmp = tmp / TICKSPERSEC - SECS_1601_TO_1970;
@@ -442,7 +442,7 @@
 //  *   Success: true.
 //  *   Failure: false, if the resulting value will not fit in a unsigned int.
 //  */
-// int_bool RtlTimeToSecondsSince1980( const u64 *Time, LPDWORD Seconds )
+// int_bool RtlTimeToSecondsSince1980( const huge_natural *Time, LPDWORD Seconds )
 // {
 //    ULONGLONG tmp = *Time;
 //    tmp = tmp / TICKSPERSEC - SECS_1601_TO_1980;
@@ -463,7 +463,7 @@
 //  * RETURNS
 //  *   Nothing.
 //  */
-// void RtlSecondsSince1970ToTime( unsigned int Seconds, u64 *Time )
+// void RtlSecondsSince1970ToTime( unsigned int Seconds, huge_natural *Time )
 // {
 //    ULONGLONG second = Seconds * (ULONGLONG)TICKSPERSEC + TICKS_1601_TO_1970;
 //    *Time = second;
@@ -481,7 +481,7 @@
 //  * RETURNS
 //  *   Nothing.
 //  */
-// void RtlSecondsSince1980ToTime( unsigned int Seconds, u64 *Time )
+// void RtlSecondsSince1980ToTime( unsigned int Seconds, huge_natural *Time )
 // {
 //    ULONGLONG second = Seconds * (ULONGLONG)TICKSPERSEC + TICKS_1601_TO_1980;
 //    *Time = second;
@@ -499,9 +499,9 @@
 //  * RETURNS
 //  *   Nothing.
 //  */
-// void RtlTimeToElapsedTimeFields( const u64 *Time, PTIME_FIELDS TimeFields )
+// void RtlTimeToElapsedTimeFields( const huge_natural *Time, PTIME_FIELDS TimeFields )
 // {
-//    ::i64 time;
+//    huge_integer time;
 //    int rem;
 
 //    time = *Time / TICKSPERSEC;
@@ -523,7 +523,7 @@
 // #ifdef UNIVERSAL_WINDOWS
 
 
-// const ::i64 DELTA_EPOCH_IN_MICROSECS= 11644473600000000;
+// const huge_integer DELTA_EPOCH_IN_MICROSECS= 11644473600000000;
 
 // /* IN UNIX the use of the timezone struct is obsolete;
 //  I don't know why you use it. See http://freebsd.about.com/od/commands/l/blcmdl2_gettime.htm
@@ -541,7 +541,7 @@
 // //int gettimeofday(timeval *tv/*in*/, struct timezone2 *tz/*in*/)
 // //{
 // //  FILETIME ft;
-// //  ::i64 tmpres = 0;
+// //  huge_integer tmpres = 0;
 // //  TIME_ZONE_INFORMATION tz_winapi;
 // //  int rez=0;
 // //
@@ -584,7 +584,7 @@
 //  *   Success: STATUS_SUCCESS.
 //  *   Failure: An NTSTATUS error code indicating the problem.
 //  */
-// int NtQuerySystemTime( u64 * Time )
+// int NtQuerySystemTime( huge_natural * Time )
 // {
 
 //    struct timeval now;
@@ -607,9 +607,9 @@
 //  *  lower or higher than what Windows gives. Also too high counter values are
 //  *  reported to give problems.
 //  */
-// int NtQueryPerformanceCounter( u64 * Counter, u64 * Frequency )
+// int NtQueryPerformanceCounter( huge_natural * Counter, huge_natural * Frequency )
 // {
-//    u64 now;
+//    huge_natural now;
 
 //    if (!Counter) return STATUS_ACCESS_VIOLATION;
 
@@ -629,7 +629,7 @@
 //  */
 // ULONGLONG NtGetTickCount(void)
 // {
-//    u64 now;
+//    huge_natural now;
 
 //    NtQuerySystemTime( &now );
 //    return (CSHORT) ((now - server_start_time) / 10000);
@@ -933,12 +933,12 @@
 
 
 // #ifndef UNIVERSAL_WINDOWS
-// int NtSetSystemTime(const u64 *NewTime, u64 *OldTime)
+// int NtSetSystemTime(const huge_natural *NewTime, huge_natural *OldTime)
 // {
 //    struct timeval tv;
 //    //posix_time tm_t;
 //    unsigned int sec, oldsec;
-//    u64 tm;
+//    huge_natural tm;
 
 //    /* Return the old time if necessary */
 //    if (!OldTime) OldTime = &tm;
@@ -1035,7 +1035,7 @@
 // int_bool SystemTimeToFileTime( const system_time *syst, file_time_t * ft )
 // {
 //    TIME_FIELDS tf;
-//    u64 t;
+//    huge_natural t;
 
 //    tf.Year = syst->wYear;
 //    tf.Month = syst->wMonth;
@@ -1070,7 +1070,7 @@
 // CLASS_DECL_ACME void GetSystemTimeAsFileTime(
 //    file_time_t * time) /* [out] Destination for the current utc time */
 // {
-//    u64 t;
+//    huge_natural t;
 //    NtQuerySystemTime( &t );
 //    *time = t;
 // }
@@ -1091,7 +1091,7 @@
 // CLASS_DECL_ACME void GetSystemTime(system_time * systime)
 // {
 //    //file_time_t ft;
-//    u64 t;
+//    huge_natural t;
 
 //    NtQuerySystemTime(&t);
 //    //ft.dwLowDateTime = t.u.LowPart;

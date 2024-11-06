@@ -45,8 +45,8 @@ namespace gtk4
             bool m_bOwnDisplay;
 
             bool m_bMouseCaptured;
-            ::rectangle_i32 m_rectangleMouseCapture;
-            ::size_int_array m_sizeaMonitor;
+            ::int_rectangle m_rectangleMouseCapture;
+            ::int_size_array m_sizeaMonitor;
 
             //::pointer<::gtk4::acme::windowing::window> m_pwindowPointerEnter;
             //::pointer<::gtk4::acme::windowing::window> m_pwindowPointerCapture;
@@ -112,7 +112,7 @@ namespace gtk4
             //      void erase_window(nano_window_base * pwindow);
 
             //void destroy_wayland_buffer(buffer & waylandbuffer);
-            //void update_wayland_buffer(buffer & waylandbuffer, const ::size_i32 & size);
+            //void update_wayland_buffer(buffer & waylandbuffer, const ::int_size & size);
             //void update_wayland_buffer(buffer & waylandbuffer, ::pixmap * ppixmap);
 
 

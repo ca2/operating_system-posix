@@ -644,7 +644,7 @@ namespace gtk4
                for (auto & pitem: *psystemmenu)
                {
 
-                  if (pitem->m_strAtom.has_char() && !pitem->m_strAtom.begins("***"))
+                  if (pitem->m_strAtom.has_character() && !pitem->m_strAtom.begins("***"))
                   {
 
                      auto action = g_simple_action_new(pitem->m_strAtom, NULL);
@@ -1472,7 +1472,7 @@ namespace gtk4
          }
 
 
-         ::size_i32 window::get_window_size() // m_sizeWindow
+         ::int_size window::get_window_size() // m_sizeWindow
          {
 
             return m_sizeWindow;
@@ -1513,12 +1513,12 @@ namespace gtk4
          }
 
 
-         void window::set_interface_client_size(const ::size_i32 & sizeWindow) // set_size
+         void window::set_interface_client_size(const ::int_size & sizeWindow) // set_size
          {
 
             m_sizeWindow = sizeWindow;
 
-            rectangle_i32 r;
+            int_rectangle r;
 
             m_puserinteractionbase->get_client_rectangle(r);
 
@@ -1774,7 +1774,7 @@ namespace gtk4
          }
 
 
-         ::rectangle_i32 window::get_window_rectangle_unlocked()
+         ::int_rectangle window::get_window_rectangle_unlocked()
          {
 
 //            if (gtk4_display()->is_x11())
@@ -1789,7 +1789,7 @@ namespace gtk4
          }
 
 
-         void window::set_position_unlocked(const ::point_i32 & point)
+         void window::set_position_unlocked(const ::int_point & point)
          {
 
 //            if (gtk4_display()->is_x11())
@@ -1830,7 +1830,7 @@ namespace gtk4
          }
 
 
-//         void window::_defer_translate_to_absolute_coordinates_unlocked(::point_i32 & point)
+//         void window::_defer_translate_to_absolute_coordinates_unlocked(::int_point & point)
 //         {
 //
 //            //GdkSurface * surface = GDK_SURFACE(gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget)));

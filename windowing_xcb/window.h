@@ -51,7 +51,7 @@ namespace windowing_xcb
       xcb_visualid_t                               m_visualid;
       htask_t                                      m_htask;
       //class ::time                                 m_timeLastMouseMove;
-      //::point_i32                                  m_pointMouseCursor;
+      //::int_point                                  m_pointMouseCursor;
 
       bool                                         m_bNetWmStateHidden;
       bool                                         m_bNetWmStateMaximized;
@@ -123,7 +123,7 @@ namespace windowing_xcb
       //void _configure_window_unlocked(const class ::zorder& zorder, const ::e_activation& eactivation, bool bNoZorder, ::e_display edisplay) override;
 
       void exit_iconify()override;
-      void full_screen(const ::rectangle_i32 & rect = {})override;
+      void full_screen(const ::int_rectangle & rect = {})override;
       void exit_full_screen()override;
       void exit_zoomed() override;
 
@@ -132,9 +132,9 @@ namespace windowing_xcb
 
       virtual long _get_wm_state();
 
-      bool client_to_screen(::point_i32 * ppoint) override;
+      bool client_to_screen(::int_point * ppoint) override;
 
-      bool screen_to_client(::point_i32 * ppoint) override;
+      bool screen_to_client(::int_point * ppoint) override;
 
       bool is_destroying() override;
       
@@ -146,7 +146,7 @@ namespace windowing_xcb
 
       virtual ::e_status set_mouse_cursor2(::windowing::cursor * pcursor);
 
-      //::point_i32 get_mouse_cursor_position() override;
+      //::int_point get_mouse_cursor_position() override;
 
       void set_keyboard_focus() override;
       void set_mouse_capture() override;
@@ -168,12 +168,12 @@ namespace windowing_xcb
       bool has_keyboard_focus() const override;
 
 
-      virtual rectangle_int_array upper_window_rects();
+      virtual int_rectangle_array upper_window_rects();
 
 
 
-      virtual ::e_status _get_window_rectangle(::rectangle_i32 * prectangle);
-      virtual ::e_status _get_client_rectangle(::rectangle_i32 * prectangle);
+      virtual ::e_status _get_window_rectangle(::int_rectangle * prectangle);
+      virtual ::e_status _get_client_rectangle(::int_rectangle * prectangle);
       virtual xcb_window_t _get_window_relative(enum_relative erelative, xcb_window_t * windowa, int numItems);
       virtual ::windowing::window * get_window(enum_relative erelative);
 
@@ -224,8 +224,8 @@ namespace windowing_xcb
 
       void xcb_post_message(MESSAGE & msg);
       void post_ui_message(const MESSAGE & message);
-      //virtual ::e_status window_rectangle(::rectangle_i32 * prectangle);
-      //virtual ::e_status this->rectangle(::rectangle_i32 * prectangle);
+      //virtual ::e_status window_rectangle(::int_rectangle * prectangle);
+      //virtual ::e_status this->rectangle(::int_rectangle * prectangle);
       void mq_erase_window_from_all_queues( );
 
 

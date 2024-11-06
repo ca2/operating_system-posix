@@ -1982,7 +1982,7 @@ namespace kde5
          // }
 
 
-         ::size_i32 display::get_main_screen_size()
+         ::int_size display::get_main_screen_size()
          {
 
             // auto snum = DefaultScreen((Display *) m_pX11Display);
@@ -2009,7 +2009,7 @@ namespace kde5
 
             debug() << "Screen size:" << qsize.width() << "x" << qsize.height();
 
-            auto size = ::size_i32 {(int)qsize.width(), (int) qsize.height()};
+            auto size = ::int_size {(int)qsize.width(), (int) qsize.height()};
 
             return size;
 

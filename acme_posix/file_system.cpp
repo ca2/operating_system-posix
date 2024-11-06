@@ -287,7 +287,7 @@ namespace acme_posix
    }
 
 
-   string file_system::as_string(const ::file::path & path, strsize iReadAtMostByteCount, bool bNoExceptionOnFail)
+   string file_system::as_string(const ::file::path & path, character_count iReadAtMostByteCount, bool bNoExceptionOnFail)
    {
 
       string str;
@@ -352,7 +352,7 @@ namespace acme_posix
    }
 
 
-   memory file_system::as_memory(const ::file::path & path, strsize iReadAtMostByteCount, bool bNoExceptionIfNotFound)
+   memory file_system::as_memory(const ::file::path & path, character_count iReadAtMostByteCount, bool bNoExceptionIfNotFound)
    {
 
       memory mem;
@@ -364,7 +364,7 @@ namespace acme_posix
    }
 
 
-   void file_system::as_memory(memory_base & memory, const ::file::path & path, strsize iReadAtMostByteCount, bool bNoExceptioOnOpen)
+   void file_system::as_memory(memory_base & memory, const ::file::path & path, character_count iReadAtMostByteCount, bool bNoExceptioOnOpen)
    {
 
       auto pfile = __create_new <stdio_file >();

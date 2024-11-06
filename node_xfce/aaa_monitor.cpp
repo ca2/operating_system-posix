@@ -74,7 +74,7 @@ namespace node_xfce
 
       gdk_monitor_get_geometry(pmonitor, &rect);
 
-      ::rectangle_i32 rectangle;
+      ::int_rectangle rectangle;
 
       copy(&m_rectangle, &rect);
 
@@ -117,7 +117,7 @@ namespace node_xfce
    }
 
 
-   ::e_status monitor::get_monitor_rectangle(::rectangle_i32 *prectangle)
+   ::e_status monitor::get_monitor_rectangle(::int_rectangle *prectangle)
    {
 
       auto estatus = x11_windowing()->windowing_sync(5_s, __routine([this]() { _get_monitor_rectangle(); }));
@@ -143,7 +143,7 @@ namespace node_xfce
    }
 
 
-   ::e_status monitor::get_workspace_rectangle(::rectangle_i32 *prectangle)
+   ::e_status monitor::get_workspace_rectangle(::int_rectangle *prectangle)
    {
 
       auto estatus = x11_windowing()->windowing_sync(5_s, __routine([this]() { _get_workspace_rectangle(); }));

@@ -24,7 +24,7 @@ namespace draw2d_xlib
       bool                    m_bMapped;
       //HBITMAP               m_hbitmapOriginal;
       HBITMAP                 m_hbitmap;
-      class size_i64            m_sizeWnd;
+      class huge_integer_size            m_sizeWnd;
       BITMAPINFO              m_bitmapinfo;
       XImage *                m_pimage;
 
@@ -57,7 +57,7 @@ namespace draw2d_xlib
 
 
       using object::create;
-      bool create(::size_i32 size);
+      bool create(::int_size size);
       bool create(int iWidth, int iHeight);
       bool create(::image::image *pimage);
       bool Destroy();
@@ -65,10 +65,10 @@ namespace draw2d_xlib
 
       using image::from;
       bool from(::image::image *pimage);
-      bool from(point_i32 ptDest, ::draw2d::graphics * pgraphics, const ::point_i32 & point, ::size_i32 sz);
+      bool from(int_point ptDest, ::draw2d::graphics * pgraphics, const ::int_point & point, ::int_size sz);
 
       using image::to;
-      bool to(::draw2d::graphics * pgraphics, const ::point_i32 & point, ::size_i32 size, point_i32 ptSrc);
+      bool to(::draw2d::graphics * pgraphics, const ::int_point & point, ::int_size size, int_point ptSrc);
 
       virtual bool update_window(::window * puserinteraction, ::message::message * pmessage);
       virtual bool print_window(::window * puserinteraction, ::message::message * pmessage);
@@ -96,7 +96,7 @@ namespace draw2d_xlib
       //void mult_alpha(::image::image *pimageWork, bool bPreserveAlpha = true);
       //void set_rgb(int R, int G, int B);
 
-      //void rotate(::image::image *pimage, const ::rectangle_i32 & rectangle, double dAngle, double dScale);
+      //void rotate(::image::image *pimage, const ::int_rectangle & rectangle, double dAngle, double dScale);
       //void rotate(::image::image *pimage, double dAngle, double dScale);
       //void Rotate034(::image::image *pimage, double dAngle, double dScale);
       //void RadialFill(unsigned char a, unsigned char rectangle, unsigned char g, unsigned char b, int x, int y, int iRadius);
@@ -150,7 +150,7 @@ namespace draw2d_xlib
       void Line ( int x1, int y1, int x2, int y2, int R, int G, int B );
       void LineGlass ( int x1, int y1, int x2, int y2, int R, int G, int B, int A );*/
 
-      //void create_frame(::size_i32 size, int iFrameCount);
+      //void create_frame(::int_size size, int iFrameCount);
       //void set_frame2(void * lpdata, int iFrame, int iFrameCount);
       //void set_frame1(void * lpdata, int iFrame, int iFrameCount);
       //void get_frame(void * lpdata, int iFrame, int iFrameCount);

@@ -35,7 +35,7 @@ namespace innate_ui_gtk3
 
       //virtual LRESULT _window_procedure(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);
 
-      //virtual void _defer_show_system_menu(HWND hwnd, const ::point_i32 & pointAbsolute);
+      //virtual void _defer_show_system_menu(HWND hwnd, const ::int_point & pointAbsolute);
 
 
    };

@@ -640,9 +640,9 @@ namespace input_xinput
             if (emessage != e_message_null)
             {
 
-//               ::i64 iWparam = 'a';
+//               huge_integer iWparam = 'a';
 //
-               //::i64 iLparam = XK_a;
+               //huge_integer iLparam = XK_a;
 
                if (emessage == e_message_key_down || emessage == e_message_key_up)
                {

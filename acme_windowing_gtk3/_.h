@@ -20,7 +20,7 @@
 #include "acme/prototype/geometry2d/rectangle.h"
 
 
-inline void copy(::rectangle_i32 * prectTarget, const GdkRectangle * prectSource)
+inline void copy(::int_rectangle * prectTarget, const GdkRectangle * prectSource)
 {
 
    prectTarget->left() = prectSource->x;
@@ -100,7 +100,7 @@ inline void copy(::rectangle_i32 * prectTarget, const GdkRectangle * prectSource
 //
 //      auto opacity = color.byte_opacity();
 //
-//      m_ui = make_u32(
+//      m_ui = make_unsigned_int(
 //              color.byte_blue() * opacity / 255,
 //              color.byte_green() * opacity / 255,
 //              color.byte_red() * opacity / 255,

@@ -251,7 +251,7 @@ namespace windowing_gtk4
 //            {
 //               string str(wstring(&wsz[4],4)); // least significant four digits
 //
-//               w = (unsigned short) ::hex::to_i64(str);
+//               w = (unsigned short) ::hex::to_huge_integer(str);
 //
 //            }
 //
@@ -366,7 +366,7 @@ namespace windowing_gtk4
 
       //      text_enum(ekey, strValue);
 
-      //      if(strCode.has_char())
+      //      if(strCode.has_character())
       //      {
 
       //         iCode    = atoi(strCode);
@@ -375,7 +375,7 @@ namespace windowing_gtk4
 
       //      }
 
-      //      if(strScan.has_char())
+      //      if(strScan.has_character())
       //      {
 
       //         iScan    = atoi(strScan);
@@ -571,7 +571,7 @@ namespace windowing_gtk4
 //
 //      string strOverride = file_as_string(::dir::system() / "config\\system\\keyboard_layout.txt");
 //
-//      if(strOverride.has_char())
+//      if(strOverride.has_character())
 //      {
 //
 //         string strTest;
@@ -580,7 +580,7 @@ namespace windowing_gtk4
 //
 //         strTest = Context.file()->as_string(strPath);
 //
-//         if(strTest.has_char())
+//         if(strTest.has_character())
 //         {
 //
 //            return strPath;
@@ -629,7 +629,7 @@ namespace windowing_gtk4
 //
 //      for(int i = 0; i < layoutida.get_count(); i++)
 //      {
-//         if(layoutida[i].m_keylayout.has_char() && strSymbol.contains(layoutida[i].m_keylayout))
+//         if(layoutida[i].m_keylayout.has_character() && strSymbol.contains(layoutida[i].m_keylayout))
 //         {
 //            return layoutida[i].m_strPath;
 //         }
@@ -730,7 +730,7 @@ namespace windowing_gtk4
 //   }
 
 
-   void keyboard::show_software_keyboard(::user::interaction_base* pprimitive, string str, strsize iBeg, strsize iEnd)
+   void keyboard::show_software_keyboard(::user::interaction_base* pprimitive, string str, character_count iBeg, character_count iEnd)
    {
 
       synchronous_lock synchronouslock(this->synchronization());
@@ -814,7 +814,7 @@ namespace windowing_gtk4
    {
 
       if(pkey->m_ekey == ::user::e_key_refer_to_text_member
-         && pkey->m_strText.has_char())
+         && pkey->m_strText.has_character())
       {
 
          return;

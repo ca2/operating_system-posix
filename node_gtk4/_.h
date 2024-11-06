@@ -38,7 +38,7 @@ namespace node_gtk4
 
 //#include "gtk.h"
 
-inline void copy(::rectangle_i32 * prectTarget, const GdkRectangle * prectSource)
+inline void copy(::int_rectangle * prectTarget, const GdkRectangle * prectSource)
 {
 
    prectTarget->left() = prectSource->x;

@@ -109,7 +109,7 @@ extern const struct audio_dev_backend audio_dev_arts;
 
 
 struct audio_dev_ctx {
-	::i64		ac_slave_pid = 0;
+	huge_integer		ac_slave_pid = 0;
 	const struct audio_dev_backend *ac_device;
 	void		*ac_devarg = nullptr;
 	int		ac_paused = true;
@@ -117,7 +117,7 @@ struct audio_dev_ctx {
 	manual_reset_event 		m_eventWrite;
 //	int		ac_peerread;
 //	int		ac_peerwrite;
-::u64	ac_buffersamples;
+huge_natural	ac_buffersamples;
 int m_iLowWaterMark;
 int m_iHighWaterMark;
 //	void		(*ac_readcallback)(void *);
@@ -138,7 +138,7 @@ virtual public audio_dev_ctx,
          bool                    m_bWrite;
          int                     m_iBuffer;
          bool                    m_bStarted;
-         ::u64                   m_uStart;
+         huge_natural                   m_uStart;
          //snd_pcm_status_t *      m_pstatus;
          //timeval                 m_timevalStart;
          class ::time            m_timeStart;
@@ -210,9 +210,9 @@ int m_fd;
 
          void audio_dev_slave(const char *dev);
 
-         ::i64 audio_dev_buffer_time();
+         huge_integer audio_dev_buffer_time();
 
-         ::i64 audio_dev_played_time();
+         huge_integer audio_dev_played_time();
          
          
       };

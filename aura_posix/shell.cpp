@@ -835,7 +835,7 @@ namespace aura_posix
 //               pimage->fill(255, color32_byte_red(crBk), color32_byte_green(crBk), color32_byte_blue(crBk));
 //               pimage->get_graphics()->set_alpha_mode(::draw2d::alpha_mode_blend);
 //
-//               m_pimagelistHover[iSize]->draw(pimage->get_graphics(), iImage, ::point_i32(), 0);
+//               m_pimagelistHover[iSize]->draw(pimage->get_graphics(), iImage, ::int_point(), 0);
 //               m_pimagelistHover[iSize]->m_pimage->g()->set_alpha_mode(::draw2d::alpha_mode_set);
 //               m_pimagelistHover[iSize]->m_pimage->g()->BitBlt(iImage * 48, 0, 48, 48, pimage->get_graphics());
 //               m_pimagelistHover[iSize]->m_pimage->g()->set_alpha_mode(::draw2d::alpha_mode_blend);
@@ -844,15 +844,15 @@ namespace aura_posix
 //
 //            {
 //               auto & d = m_pimagelistHover[iSize]->m_pimage;
-//               size_i32 s = m_pimagelist[iSize]->m_pimage->get_size();
+//               int_size s = m_pimagelist[iSize]->m_pimage->get_size();
 //               ::image::image_pointer pimage;
 //               pimage = __create_image(d->size());
 //               pimage->fill(255, color32_byte_red(crBk), color32_byte_green(crBk), color32_byte_blue(crBk));
 //               pimage->get_graphics()->set_alpha_mode(::draw2d::alpha_mode_blend);
-//               pimage->get_graphics()->draw(::point_i32(), d->size(), d->get_graphics());
-//               pimage->get_graphics()->fill_rectangle(rectangle_i32(d->size()), argb(123, color32_byte_red(crBk), color32_byte_green(crBk), color32_byte_blue(crBk)));
+//               pimage->get_graphics()->draw(::int_point(), d->size(), d->get_graphics());
+//               pimage->get_graphics()->fill_rectangle(int_rectangle(d->size()), argb(123, color32_byte_red(crBk), color32_byte_green(crBk), color32_byte_blue(crBk)));
 //               m_pimagelist[iSize]->m_pimage->g()->set_alpha_mode(::draw2d::alpha_mode_set);
-//               m_pimagelist[iSize]->m_pimage->g()->draw(::point_i32(), d->size(), pimage->get_graphics());
+//               m_pimagelist[iSize]->m_pimage->g()->draw(::int_point(), d->size(), pimage->get_graphics());
 //               m_pimagelist[iSize]->m_pimage->g()->set_alpha_mode(::draw2d::alpha_mode_blend);
 //
 //            }

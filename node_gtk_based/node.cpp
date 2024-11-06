@@ -83,7 +83,7 @@ namespace node_gtk_based
    //    //
    //    // string strApplicationServerName = psystem->get_application_server_name();
    //    //
-   //    // if(strApplicationServerName.has_char())
+   //    // if(strApplicationServerName.has_character())
    //    // {
    //    //
    //    //    informationf("node::defer_notify_startup_complete application server name : %s", strApplicationServerName.c_str());

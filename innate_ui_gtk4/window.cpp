@@ -379,7 +379,7 @@ namespace innate_ui_gtk4
    }
 
 
-   void window::set_position(const ::point_i32 & pointParam)
+   void window::set_position(const ::int_point & pointParam)
    {
 
       auto point = pointParam;
@@ -403,7 +403,7 @@ namespace innate_ui_gtk4
    }
 
 
-   void window::set_size(const ::size_i32 & sizeParam)
+   void window::set_size(const ::int_size & sizeParam)
    {
 
       auto size = sizeParam;
@@ -418,12 +418,12 @@ namespace innate_ui_gtk4
    }
 
 
-   void window::adjust_for_client_size(const ::size_i32 & sizeParam)
+   void window::adjust_for_client_size(const ::int_size & sizeParam)
    {
 
       auto size = sizeParam;
 
-      set_size(sizeParam + ::size_i32(8, 40));
+      set_size(sizeParam + ::int_size(8, 40));
 
       // main_send([this, size]()
       //    {

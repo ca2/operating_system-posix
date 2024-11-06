@@ -74,7 +74,7 @@ namespace apex_posix
 
          ::file::path path = pnode->get_desktop_file_path(papp);
 
-         if(path.has_char() && !file_system()->exists(path))
+         if(path.has_character() && !file_system()->exists(path))
          {
 
             auto pfile = papp->__create_new< ::freedesktop::desktop_file >();
@@ -111,7 +111,7 @@ namespace apex_posix
       {
 
 
-         //if(path.has_char() && !file_system()->exists(path))
+         //if(path.has_character() && !file_system()->exists(path))
          {
 
             auto pfile = __create_new< ::freedesktop::desktop_file >();
@@ -155,7 +155,7 @@ namespace apex_posix
       {
 
 
-         //if(path.has_char() && !file_system()->exists(path))
+         //if(path.has_character() && !file_system()->exists(path))
          {
 
             auto pfile = __create_new< ::freedesktop::desktop_file >();
@@ -405,7 +405,7 @@ namespace apex_posix
 
       ::file::path pathAutoStartDesktopFilePath = _get_auto_start_desktop_file_path(strAppId);
 
-      return pathAutoStartDesktopFilePath.has_char() && file_system()->exists(pathAutoStartDesktopFilePath);
+      return pathAutoStartDesktopFilePath.has_character() && file_system()->exists(pathAutoStartDesktopFilePath);
 
 #else
 

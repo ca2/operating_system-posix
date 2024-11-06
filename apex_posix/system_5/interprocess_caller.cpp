@@ -158,15 +158,15 @@ namespace system_5
 //      pdata->mtype = 20170101;
 //      pdata->request = 1024;
 //      pdata->size = iLen;
-//      //if(data.size_i32 > 512)
+//      //if(data.int_size > 512)
 //      // return false;
 //
-//      /* The length is essentially the size_i32 of the structure minus sizeof(mtype) */
+//      /* The length is essentially the int_size of the structure minus sizeof(mtype) */
 //      /*         int length = sizeof(data_struct) - sizeof(long);
 //
 //               int result;
 //
-//               ::memory_copy(data.data, pszMessage, data.size_i32);
+//               ::memory_copy(data.data, pszMessage, data.int_size);
 //
 //               if((result = msgsnd(m_iQueue,&data,length,0)) == -1)
 //               {

@@ -42,7 +42,7 @@ namespace node_kde5
    }
 
 
-   ::e_status desktop_environment::_get_monitor_rectangle(::collection::index iIndex, ::rectangle_i32 & rectangle)
+   ::e_status desktop_environment::_get_monitor_rectangle(::collection::index iIndex, ::int_rectangle & rectangle)
    {
 
       //synchronous_lock sl(user_synchronization());
@@ -82,7 +82,7 @@ namespace node_kde5
    }
 
 
-   ::e_status desktop_environment::_get_workspace_rectangle(::collection::index iIndex, ::rectangle_i32 & rectangle)
+   ::e_status desktop_environment::_get_workspace_rectangle(::collection::index iIndex, ::int_rectangle & rectangle)
    {
 
       //synchronous_lock sl(user_synchronization());
@@ -122,7 +122,7 @@ namespace node_kde5
    }
 
 
-   bool desktop_environment::get_monitor_rectangle(::collection::index iIndex, ::rectangle_i32 & rectangle)
+   bool desktop_environment::get_monitor_rectangle(::collection::index iIndex, ::int_rectangle & rectangle)
    {
 
       if(m_bX11)
@@ -157,7 +157,7 @@ namespace node_kde5
    }
 
 
-   bool desktop_environment::get_workspace_rectangle(::collection::index iIndex, ::rectangle_i32 & rectangle)
+   bool desktop_environment::get_workspace_rectangle(::collection::index iIndex, ::int_rectangle & rectangle)
    {
 
       if(m_bX11)

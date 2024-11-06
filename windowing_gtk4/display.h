@@ -33,10 +33,10 @@ namespace windowing_gtk4
 #ifdef _DEBUG
 
 
-      virtual i64 get_ref_count();
-      virtual i64 increment_reference_count() override;
-      virtual i64 decrement_reference_count() override;
-      virtual i64 release() override;
+      virtual huge_integer get_ref_count();
+      virtual huge_integer increment_reference_count() override;
+      virtual huge_integer decrement_reference_count() override;
+      virtual huge_integer release() override;
 
 
 #endif
@@ -50,7 +50,7 @@ namespace windowing_gtk4
 
       bool has_readily_gettable_absolute_pointer_position() const override;
 
-      ::size_i32 get_main_screen_size() override;
+      ::int_size get_main_screen_size() override;
 
       virtual void lock_display();
 
@@ -60,13 +60,13 @@ namespace windowing_gtk4
 
       virtual bool is_null() const;
 
-      bool get_monitor_rectangle(::collection::index iMonitor, ::rectangle_i32 & rectangle) override;
+      bool get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle) override;
 
-      bool get_workspace_rectangle(::collection::index iWorkspace, ::rectangle_i32 & rectangle) override;
+      bool get_workspace_rectangle(::collection::index iWorkspace, ::int_rectangle & rectangle) override;
 
       virtual ::e_status release_mouse_capture();
 
-      virtual bool get_cursor_position(::point_i32 * ppointCursor);
+      virtual bool get_cursor_position(::int_point * ppointCursor);
 
 
    };

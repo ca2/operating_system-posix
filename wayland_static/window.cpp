@@ -119,7 +119,7 @@ namespace wayland
          }
 
 
-         ::size_i32 window::get_window_size() // m_sizeWindow
+         ::int_size window::get_window_size() // m_sizeWindow
          {
 
             return m_sizeWindow;
@@ -127,7 +127,7 @@ namespace wayland
          }
 
 
-         void window::set_interface_client_size(const ::size_i32 & sizeWindow) // set_size
+         void window::set_interface_client_size(const ::int_size & sizeWindow) // set_size
          {
 
             m_sizeWindow = sizeWindow;
@@ -139,7 +139,7 @@ namespace wayland
 
             }
 
-            rectangle_i32 r;
+            int_rectangle r;
 
             get_client_rectangle(r);
 
@@ -592,7 +592,7 @@ namespace wayland
          //         if (!m_psurface)
          //         {
          //
-         //            rectangle_i32 r;
+         //            int_rectangle r;
          //
          //            get_client_rectangle(r);
          //
@@ -833,7 +833,7 @@ namespace wayland
          }
 
 
-         void window::move_to(const ::point_i32 & point)
+         void window::move_to(const ::int_point & point)
          {
 
             //::XMoveWindow(m_pdisplay->m_pdisplay, m_window, point.x(), point.y());
@@ -863,7 +863,7 @@ namespace wayland
          }
 
 
-         void window::get_client_rectangle(::rectangle_i32 & rectangle)
+         void window::get_client_rectangle(::int_rectangle & rectangle)
          {
 
             //      rectangle.left() = 0;
@@ -894,7 +894,7 @@ namespace wayland
          }
 
 
-         void window::get_window_rectangle(::rectangle_i32 & rectangle)
+         void window::get_window_rectangle(::int_rectangle & rectangle)
          {
 
             //      Window windowRoot = 0;
@@ -962,7 +962,7 @@ namespace wayland
          }
 
 
-         //   ::size_i32 window::get_main_screen_size()
+         //   ::int_size window::get_main_screen_size()
          //   {
          //
          //      return m_pdisplay->get_main_screen_size();
@@ -1104,7 +1104,7 @@ namespace wayland
             //
             //      //msg.wParam = 0;
             //
-            //      //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+            //      //msg.lParam = make_int(e.xbutton.x_root, e.xbutton.y_root);
             //
             //      //post_ui_message(msg);
             //      //wayland_windowing()->post_ui_message(pmouse);
@@ -1149,7 +1149,7 @@ namespace wayland
             {
                //
                //
-               //         ::point_i32                                  m_pointWindowDragStart;
+               //         ::int_point                                  m_pointWindowDragStart;
                //
                //
                if (linux_button == BTN_LEFT)
@@ -1257,7 +1257,7 @@ namespace wayland
             ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx();
             ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy();
             ////
-            ////      ::rectangle_i32 r;
+            ////      ::int_rectangle r;
             ////
             ////      window_rectangle(msg.oswindow, &r);
             ////
@@ -1277,9 +1277,9 @@ namespace wayland
             //
             //         pmousewheel->m_atom = e_message_mouse_wheel;
             //
-            //         //msg.wParam = make_i32(0, iDelta);
+            //         //msg.wParam = make_int(0, iDelta);
             //
-            //         //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+            //         //msg.lParam = make_int(e.xbutton.x_root, e.xbutton.y_root);
             //
             //         pmousewheel->m_Δ = Δ;
             //
@@ -1317,7 +1317,7 @@ namespace wayland
             //
             //         //msg.wParam = 0;
             //
-            //         //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+            //         //msg.lParam = make_int(e.xbutton.x_root, e.xbutton.y_root);
             //
             //         //post_ui_message(msg);
             //         //wayland_windowing()->post_ui_message(pmouse);

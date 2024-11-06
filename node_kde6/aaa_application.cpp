@@ -38,7 +38,7 @@ void sn_start_context();
 //
 //   string strName(name);
 //
-//   if(strName.has_char())
+//   if(strName.has_character())
 //   {
 //
 //      papp->on_application_menu_action(strName);

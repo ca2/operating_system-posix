@@ -36,10 +36,10 @@ namespace acme_posix
       void set_file_normal(const ::file::path & path) override;
 
 
-      memory as_memory(const ::file::path & path, strsize iReadAtMostByteCount = -1, bool bNoExceptionOnOpen = true) override;
+      memory as_memory(const ::file::path & path, character_count iReadAtMostByteCount = -1, bool bNoExceptionOnOpen = true) override;
       memsize as_memory(const ::file::path & path, void * p, memsize s) override;
-      string as_string(const ::file::path & path, strsize iReadAtMostByteCount = -1, bool bNoExceptionOnOpen = true) override;
-      void as_memory(memory_base & memory, const ::file::path & path, strsize iReadAtMostByteCount, bool bNoExceptionOnOpen = true) override;
+      string as_string(const ::file::path & path, character_count iReadAtMostByteCount = -1, bool bNoExceptionOnOpen = true) override;
+      void as_memory(memory_base & memory, const ::file::path & path, character_count iReadAtMostByteCount, bool bNoExceptionOnOpen = true) override;
 
 
       string get_temporary_file_name(const ::scoped_string & scopedstrName, const ::scoped_string & scopedstrExtension) override;
@@ -53,7 +53,7 @@ namespace acme_posix
       ::file::path module() override;
 
       void put_contents(const ::file::path & path, const ::scoped_string & scopedstrContents) override;
-      //bool get_temporary_file_name_template(char * szRet, strsize iBufferSize, const char * lpszName, const char * pszExtension, const char * pszTemplate) override;
+      //bool get_temporary_file_name_template(char * szRet, character_count iBufferSize, const char * lpszName, const char * pszExtension, const char * pszTemplate) override;
       filesize get_size(const ::file::path & path) override;
       //filesize get_size(FILE * pfile) override;
       filesize get_size_fd(int iFileDescriptor) override;
@@ -72,7 +72,7 @@ namespace acme_posix
 //   virtual filesize FILE_tell(FILE * fp);
 //   virtual filesize FILE_read(void * buffer, memsize size, memsize count, FILE * str);
 //   virtual filesize FILE_write(const void * buffer, memsize size, memsize count, FILE * str);
-//   virtual char * FILE_gets(char * str, strsize n, FILE * s);
+//   virtual char * FILE_gets(char * str, character_count n, FILE * s);
 //   virtual int FILE_getc(FILE * s);
 //   virtual int FILE_ungetc(int c, FILE * s);
 //   virtual int FILE_error(FILE * s);

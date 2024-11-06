@@ -32,7 +32,7 @@ namespace windowing_kde5
       bool                 m_bXShmChecked;
       bool                 m_bXShm;
       //XShmSegmentInfo      m_xshmsegmentinfo;
-      ::size_i32           m_sizeLastBitBlitting;
+      ::int_size           m_sizeLastBitBlitting;
       bool                 m_bUseXShmIfAvailable;
       bool                 m_bXShmPutImagePending;
       //::pointer < ::mutex >                         m_pmutexPixmap;
@@ -41,13 +41,13 @@ namespace windowing_kde5
       //memory                        m_mem;
       //XImage *                      m_pimage;
       //bool                          m_bMapped;
-      ::rectangle_i32      m_rectangleLast;
+      ::int_rectangle      m_rectangleLast;
       ::wl_callback*m_pwlcallbackFrame;
       //::image::image_pointer                         m_pimage;
-      //interlocked_i64                              m_interlockedPostedScreenUpdate;
+      //interlocked_huge_integer                              m_interlockedPostedScreenUpdate;
 //manual_reset_event m_evXshm;
       //bool m_bXShmComplete;
-      //interlocked_i64                              m_interlockedXShmPutImage;
+      //interlocked_huge_integer                              m_interlockedXShmPutImage;
 
 
       buffer();
@@ -63,11 +63,11 @@ namespace windowing_kde5
 
       bool update_buffer(::graphics::buffer_item * pbufferitem) override;
 
-      virtual bool create_os_buffer(const ::size_i32 & size, int iStride = -1);
+      virtual bool create_os_buffer(const ::int_size & size, int iStride = -1);
       virtual void destroy_os_buffer();
 
 
-      virtual void _map_shared_memory(const ::size_i32 & size);
+      virtual void _map_shared_memory(const ::int_size & size);
 
 
 //      virtual bool create_os_buffer(::image::image *pimage);

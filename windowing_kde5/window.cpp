@@ -1061,7 +1061,7 @@ namespace windowing_kde5
    //
    //       pgraphics->attach(cr);
    //       //pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
-   //       ::rectangle_f64 r;
+   //       ::double_rectangle r;
    //       int width = gtk_widget_get_width(widget);
    //       int height = gtk_widget_get_height(widget);
    //       r.left() = 0;
@@ -1084,7 +1084,7 @@ namespace windowing_kde5
    //    }
    //
    //
-   //    // ::rectangle_f64 r;
+   //    // ::double_rectangle r;
    //    //
    //    // r.left() = 10;
    //    // r.top() = 10;
@@ -1333,7 +1333,7 @@ namespace windowing_kde5
 
       auto puserinteraction = pimpl->m_puserinteraction;
 
-      ::point_i32 p(x, y);
+      ::int_point p(x, y);
 
       if (m_pointWindow != p)
       {
@@ -1356,7 +1356,7 @@ namespace windowing_kde5
 
       auto puserinteraction = pimpl->m_puserinteraction;
 
-      ::size_i32 s(cx, cy);
+      ::int_size s(cx, cy);
 
       if (m_sizeOnSize != s)
       {
@@ -1799,7 +1799,7 @@ namespace windowing_kde5
 
             // pgraphics->attach(cr);
             // //pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
-            // ::rectangle_f64 r;
+            // ::double_rectangle r;
             // int width = gtk_widget_get_width(widget);
             // int height = gtk_widget_get_height(widget);
             // r.left() = 0;
@@ -1823,7 +1823,7 @@ namespace windowing_kde5
       }
 
 
-      // ::rectangle_f64 r;
+      // ::double_rectangle r;
       //
       // r.left() = 10;
       // r.top() = 10;
@@ -1940,7 +1940,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
 
          m_sizeWindow.cy() = cy;
 
-         //auto rectangleWindow = ::rectangle_int_dimension(x, y, cx, cy);
+         //auto rectangleWindow = ::int_rectangle_dimension(x, y, cx, cy);
 
          //m_pwindow->m_puserinteraction->place(rectangleWindow);
 
@@ -2181,7 +2181,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
          // for(auto & strAction : m_straSystemMenuAtom)
          // {
          //
-         //    if(strAction.has_char())
+         //    if(strAction.has_character())
          //    {
          //       auto action = g_simple_action_new(strAction, NULL);
          //       g_signal_connect(action, "activate", G_CALLBACK(on_window_simple_action), this);
@@ -2418,7 +2418,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
 
          //         string strWindowText = pimpl->m_puserinteraction->get_window_text();
          //
-         //         if (strWindowText.has_char())
+         //         if (strWindowText.has_character())
          //         {
          //
          //            strName = strWindowText;
@@ -2427,7 +2427,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
          //
          //         //}
          //
-         //         if (strName.has_char())
+         //         if (strName.has_character())
          //         {
          //
          //            XStoreName(Display(), Window(), strName);
@@ -2479,8 +2479,8 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
          //               {
          //
          //                  // window managers generally "don't like" windows that starts "docked/snapped".
-         //                  // initial (XCreateWindow) size_i32 and position maybe not be honored.
-         //                  // so requesting the same change again in a effort to set the "docked/snapped" size_i32 and position.
+         //                  // initial (XCreateWindow) int_size and position maybe not be honored.
+         //                  // so requesting the same change again in a effort to set the "docked/snapped" int_size and position.
          //
          //                  //set_window_position(e_zorder_top, pusersystem->m_createstruct.x, pusersystem->m_createstruct.y,
          //                  //                  pusersystem->m_createstruct.cx(), pusersystem->m_createstruct.cy(), SWP_SHOWWINDOW);
@@ -2500,7 +2500,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
       //      //if(pshowwindow->m_bShow)
       //      {
       //
-      //         //::rectangle_i32 rect32;
+      //         //::int_rectangle rect32;
       //
       //         //(::window_rectangle((oswindow) get_handle(), rect32))
       //         {
@@ -2899,7 +2899,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //
    //      string strWindowText = pimpl->m_puserinteraction->get_window_text();
    //
-   ////         if (strWindowText.has_char())
+   ////         if (strWindowText.has_character())
    ////         {
    ////
    ////            strName = strWindowText;
@@ -2908,7 +2908,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //
    //      //}
    //
-   //      if (strWindowText.has_char())
+   //      if (strWindowText.has_character())
    //      {
    //
    //         xdg_toplevel_set_title(m_pxdgtoplevel, strWindowText);
@@ -2948,7 +2948,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //      {
    //
    //         /* Detach any previous buffers before resetting everything, otherwise when
-   //         * calling this a second time you'll get an annoying protocol error
+   //         * calling this a second time you'hi get an annoying protocol error
    //         */
    //         wl_surface_attach(m_pwlsurface, NULL, 0, 0);
    //         wl_surface_commit(m_pwlsurface);
@@ -3482,7 +3482,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
       //
       //         ::image::image_source imagesource(pimage->g(), pimage->rectangle());
       //
-      //         rectangle_f64 rectangle(image1->rectangle());
+      //         double_rectangle rectangle(image1->rectangle());
       //
       //         ::image::image_drawing_options imagedrawingoptions(rectangle);
       //
@@ -3744,7 +3744,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    }
 
 
-   //   ::point_i32 window::get_mouse_cursor_host_position()
+   //   ::int_point window::get_mouse_cursor_host_position()
    //   {
    //
    //      return m_pointCursor;
@@ -3752,7 +3752,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //   }
    //
    //
-   //   ::point_i32 window::get_mouse_cursor_absolute_position()
+   //   ::int_point window::get_mouse_cursor_absolute_position()
    //   {
    //
    //      return m_pointCursorHost;
@@ -4164,9 +4164,9 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //   }
 
 
-   void window::full_screen(const ::rectangle_i32& rectangle)
+   void window::full_screen(const ::int_rectangle& rectangle)
    {
-      ::rectangle_i32 rBest;
+      ::int_rectangle rBest;
 
       ::pointer<::windowing::display> pwindowingdisplay = m_pdisplaybase;
 
@@ -4207,7 +4207,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
       //
       //      }
       //
-      //      ::rectangle_i32 rWindow;
+      //      ::int_rectangle rWindow;
       //
       //      rWindow.left() = attr.x;
       //      rWindow.top() = attr.y;
@@ -4373,13 +4373,13 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //   }
 
 
-   bool window::client_to_screen(::point_i32* ppoint)
+   bool window::client_to_screen(::int_point* ppoint)
    {
       return true;
    }
 
 
-   bool window::screen_to_client(::point_i32* ppoint)
+   bool window::screen_to_client(::int_point* ppoint)
    {
       return true;
    }
@@ -4633,10 +4633,10 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    }
 
 
-   //   void oswindow_data::wm_full_screen(const ::rectangle_i32 & rectangle)
+   //   void oswindow_data::wm_full_screen(const ::int_rectangle & rectangle)
    //   {
    //
-   //      ::rectangle_i32 rBest;
+   //      ::int_rectangle rBest;
    //
    //      int iMonitor = best_xinerama_monitor(m_pwindow->m_puserinteraction, rectangle, rBest);
    //
@@ -4666,7 +4666,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //
    //      }
    //
-   //      ::rectangle_i32 rWindow;
+   //      ::int_rectangle rWindow;
    //
    //      rWindow.left()      = attr.x;
    //      rWindow.top()       = attr.y;
@@ -5048,7 +5048,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //   }
    //
    //
-   //   bool window::x11_get_window_rect(::rectangle_i32 * prectangle)
+   //   bool window::x11_get_window_rect(::int_rectangle * prectangle)
    //   {
    //
    //      return ::x11_get_window_rect(Display(), Window(), prectangle);
@@ -5056,7 +5056,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //   }
 
 
-   ::e_status window::window_rectangle(::rectangle_i32* prectangle)
+   ::e_status window::window_rectangle(::int_rectangle* prectangle)
    {
       //return x11_get_window_rect(prectangle) ? ::success : ::error_failed;
 
@@ -5064,7 +5064,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    }
 
 
-   //   bool window::x11_get_client_rect(::rectangle_i32 * prectangle)
+   //   bool window::x11_get_client_rect(::int_rectangle * prectangle)
    //   {
    //
    //      //return ::x11_get_client_rect(Display(), Window(), prectangle);
@@ -5074,14 +5074,14 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //   }
 
 
-   ::e_status window::rectangle(::rectangle_i32* prectangle)
+   ::e_status window::rectangle(::int_rectangle* prectangle)
    {
       //return x11_get_client_rect(prectangle) ? ::success : error_failed;
       return ::success;
    }
 
 
-   //   void window::upper_window_rects(rectangle_int_array & ra)
+   //   void window::upper_window_rects(int_rectangle_array & ra)
    //   {
    //
    //      synchronous_lock synchronouslock(user_synchronization());
@@ -5118,7 +5118,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    ////
    ////      }
    ////
-   ////      ::rectangle_i32 rectangle;
+   ////      ::int_rectangle rectangle;
    ////
    ////      x11_get_window_rect(&rectangle);
    ////
@@ -5126,14 +5126,14 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    ////
    //////string strTopic = x11_get_name(x11_display(), Window());
    ////
-   ////      ::rectangle_i32 rectangleTest;
+   ////      ::int_rectangle rectangleTest;
    ////
    ////      for (iFind++; iFind < windowa.get_size(); iFind++)
    ////      {
    ////
    //////string strItem = x11_get_name(x11_display(), windowa[iFind]);
    ////
-   ////         ::rectangle_i32 rectangleHigher;
+   ////         ::int_rectangle rectangleHigher;
    ////
    ////         if (::x11_get_window_rect(Display(), windowa[iFind], &rectangleHigher))
    ////         {
@@ -6049,7 +6049,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //   }
 
    //// should be called in user_thread
-   //   int_bool window::x11_get_window_rect(::rectangle_i32 *prectangle)
+   //   int_bool window::x11_get_window_rect(::int_rectangle *prectangle)
    //   {
    //
    //      XWindowAttributes attrs;
@@ -6090,7 +6090,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //
    //   }
 
-   //   int_bool window::this->rectangle(::rectangle_i32 *prectangle)
+   //   int_bool window::this->rectangle(::int_rectangle *prectangle)
    //   {
    //
    //      synchronous_lock synchronouslock(user_synchronization());
@@ -6513,7 +6513,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //
    //       //msg.wParam = 0;
    //
-   //       //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+   //       //msg.lParam = make_int(e.xbutton.x_root, e.xbutton.y_root);
    //
    //       //post_ui_message(msg);
    //       //wayland_windowing()->post_ui_message(pmouse);
@@ -6547,7 +6547,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //       if (pressed == WL_POINTER_BUTTON_STATE_PRESSED)
    //       {
    //
-   //          ::point_i32 m_pointWindowDragStart;
+   //          ::int_point m_pointWindowDragStart;
    //
    //          if (linux_button == BTN_LEFT)
    //          {
@@ -6643,7 +6643,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    // //      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx();
    // //      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy();
    // //
-   // //      ::rectangle_i32 r;
+   // //      ::int_rectangle r;
    // //
    // //      window_rectangle(msg.oswindow, &r);
    // //
@@ -6663,9 +6663,9 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //
    //          pmousewheel->m_atom = e_message_mouse_wheel;
    //
-   //          //msg.wParam = make_i32(0, iDelta);
+   //          //msg.wParam = make_int(0, iDelta);
    //
-   //          //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+   //          //msg.lParam = make_int(e.xbutton.x_root, e.xbutton.y_root);
    //
    //          pmousewheel->m_Δ = Δ;
    //
@@ -6703,7 +6703,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //
    //          //msg.wParam = 0;
    //
-   //          //msg.lParam = make_i32(e.xbutton.x_root, e.xbutton.y_root);
+   //          //msg.lParam = make_int(e.xbutton.x_root, e.xbutton.y_root);
    //
    //          //post_ui_message(msg);
    //          //wayland_windowing()->post_ui_message(pmouse);
@@ -6816,7 +6816,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //
    // //      ::string strType = ::type(m_pwindow->m_puserinteraction).name();
    // //
-   // //      ::size_i32 size(width, height);
+   // //      ::int_size size(width, height);
    // //
    // //      information()
    // //
@@ -7517,8 +7517,8 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    // }
    //virtual void set_window_width(int iWidth) = 0; // m_sizeWindow.cx()
    //virtual void set_window_height(int iHeight) = 0; // m_sizeWindow.cy()
-   //virtual ::size_i32 get_window_size() = 0; // m_sizeWindow
-   // void window::set_interface_client_size(const ::size_i32 & sizeWindow) // set_size
+   //virtual ::int_size get_window_size() = 0; // m_sizeWindow
+   // void window::set_interface_client_size(const ::int_size & sizeWindow) // set_size
    // {
    //
    //    m_pwindow->m_puserinteraction->set_size(sizeWindow);
@@ -7665,7 +7665,7 @@ main_post([this]()
 
       ::string strCursorName(scopedstr);
 
-      // if (strCursorName.has_char())
+      // if (strCursorName.has_character())
       // {
       //
       //    gtk_widget_set_cursor_from_name(m_pgtkwidget, strCursorName);
@@ -7690,7 +7690,7 @@ main_post([this]()
    // }
    //
 
-   ::rectangle_i32 window::_unlocked_defer_get_window_rectangle()
+   ::int_rectangle window::_unlocked_defer_get_window_rectangle()
    {
 
       // Window   xw = GDK_SURFACE_XID (GDK_SURFACE (gtk_native_get_surface(GTK_NATIVE (m_pgtkwidget))));
@@ -7707,7 +7707,7 @@ main_post([this]()
       //
       //       XGetWindowAttributes(xd, xw, &attrs);
       //
-      //       ::rectangle_i32 r;
+      //       ::int_rectangle r;
       //
       //       r.left()  = attrs.x;
       //       r.top()  = attrs.y;
@@ -7723,7 +7723,7 @@ main_post([this]()
    }
 
 
-   void window::_unlocked_defer_set_window_position(const ::point_i32& point)
+   void window::_unlocked_defer_set_window_position(const ::int_point& point)
    {
 
       // Window   xw = GDK_SURFACE_XID (GDK_SURFACE (gtk_native_get_surface(GTK_NATIVE (m_pgtkwidget))));
@@ -7745,7 +7745,7 @@ main_post([this]()
    }
 
 
-   void window::_unlocked_defer_set_window_position(const ::point_i32& point, const ::size_i32& size)
+   void window::_unlocked_defer_set_window_position(const ::int_point& point, const ::int_size& size)
    {
 
       // Window   xw = GDK_SURFACE_XID (GDK_SURFACE (gtk_native_get_surface(GTK_NATIVE (m_pgtkwidget))));
@@ -7767,7 +7767,7 @@ main_post([this]()
    }
 
 
-   void window::_unlocked_defer_set_window_size(const ::size_i32& size)
+   void window::_unlocked_defer_set_window_size(const ::int_size& size)
    {
 
       // Window   xw = GDK_SURFACE_XID (GDK_SURFACE (gtk_native_get_surface(GTK_NATIVE (m_pgtkwidget))));

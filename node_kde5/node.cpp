@@ -719,7 +719,7 @@ namespace node_kde5
 
    }
 
-//   void * node::node_wrap_window(void * pvoidDisplay, i64 window)
+//   void * node::node_wrap_window(void * pvoidDisplay, huge_integer window)
 //   {
 //
 //      Display * pdisplay = (Display *) pvoidDisplay;
@@ -938,7 +938,7 @@ namespace node_kde5
 
                    }
 
-                   if(pdialog->m_pathStartFolder.has_char())
+                   if(pdialog->m_pathStartFolder.has_character())
                    {
 
                       pqfiledialog->setDirectory(pdialog->m_pathStartFolder.c_str());
@@ -999,7 +999,7 @@ namespace node_kde5
 
                    pqfiledialog->setOption(QFileDialog::Option::ShowDirsOnly);
 
-                   if(pdialog->m_path.has_char())
+                   if(pdialog->m_path.has_character())
                    {
 
                       pqfiledialog->setDirectory(pdialog->m_path.c_str());

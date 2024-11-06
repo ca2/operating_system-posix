@@ -1214,7 +1214,7 @@ namespace acme_posix
             //}
             ::file::path path = process_identifier_module_path(iPid);
 
-            if (path.has_char())
+            if (path.has_character())
             {
 
                //information(path + "\n");
@@ -1294,7 +1294,7 @@ namespace acme_posix
          if (rangeArgument.m_end >= (const char*) mem.end() || *rangeArgument.m_end == '\0')
          {
 
-            if(rangeArgument.has_char())
+            if(rangeArgument.has_character())
             {
 
                if (bHasSpace)
@@ -1495,7 +1495,7 @@ namespace acme_posix
 
       int stdin_fds[2] = {};
 
-      if(scopedstrPipe.has_char())
+      if(scopedstrPipe.has_character())
       {
 
          iError = pipe(stdin_fds);
@@ -1528,7 +1528,7 @@ namespace acme_posix
          while ((dup2(stderr_fds[1], STDERR_FILENO) == -1) && (errno == EINTR))
          {}
 
-         if(scopedstrPipe.has_char())
+         if(scopedstrPipe.has_character())
          {
 
             while ((dup2(stdin_fds[0], STDIN_FILENO) == -1) && (errno == EINTR))
@@ -1632,7 +1632,7 @@ namespace acme_posix
 
       close(stderr_fds[1]);
 
-      if(scopedstrPipe.has_char())
+      if(scopedstrPipe.has_character())
       {
 
          close(stdin_fds[0]);
@@ -1643,7 +1643,7 @@ namespace acme_posix
 
       fcntl(stderr_fds[0], F_SETFL, fcntl(stderr_fds[0], F_GETFL) | O_NONBLOCK);
 
-      if(scopedstrPipe.has_char())
+      if(scopedstrPipe.has_character())
       {
 
          fcntl(stdin_fds[1], F_SETFL, fcntl(stdin_fds[1], F_GETFL) | O_NONBLOCK);
@@ -1658,7 +1658,7 @@ namespace acme_posix
 
       bool bExit = false;
 
-      if (scopedstrPipe.has_char())
+      if (scopedstrPipe.has_character())
       {
 
          preempt(2_s);
@@ -1846,7 +1846,7 @@ namespace acme_posix
 
       close(stderr_fds[0]);
 
-//      if (scopedstrPipe.has_char())
+//      if (scopedstrPipe.has_character())
 //      {
 //
 //         ::close(stdin_fds[1]);
@@ -2050,7 +2050,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
    
 #endif
 
-//   if(scopedstrPipe.has_char())
+//   if(scopedstrPipe.has_character())
 //   {
 //
 //      iError = pipe(stdin_fds);
@@ -2090,7 +2090,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
       while ((dup2(stderr_fds[1], STDERR_FILENO) == -1) && (errno == EINTR))
       {}
 
-//      if(scopedstrPipe.has_char())
+//      if(scopedstrPipe.has_character())
 //      {
 //
 //         while ((dup2(stdin_fds[0], STDIN_FILENO) == -1) && (errno == EINTR))
@@ -2153,7 +2153,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 
    close(stderr_fds[1]);
 
-//   if(scopedstrPipe.has_char())
+//   if(scopedstrPipe.has_character())
 //   {
 //
 //      close(stdin_fds[0]);
@@ -2164,7 +2164,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 
    fcntl(stderr_fds[0], F_SETFL, fcntl(stderr_fds[0], F_GETFL) | O_NONBLOCK);
 
-//   if(scopedstrPipe.has_char())
+//   if(scopedstrPipe.has_character())
 //   {
 //
 //      fcntl(stdin_fds[1], F_SETFL, fcntl(stdin_fds[1], F_GETFL) | O_NONBLOCK);
@@ -2179,7 +2179,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 
    bool bExit = false;
 
-//   if (scopedstrPipe.has_char())
+//   if (scopedstrPipe.has_character())
 //   {
 //
 //      preempt(2_s);
@@ -2363,7 +2363,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 
    close(stderr_fds[0]);
 
-//      if (scopedstrPipe.has_char())
+//      if (scopedstrPipe.has_character())
 //      {
 //
 //         ::close(stdin_fds[1]);
@@ -2505,7 +2505,7 @@ if(functionTrace)
 
       ::string strCommandToDetach(scopedstrCommand);
 
-      if(pathLog.has_char())
+      if(pathLog.has_character())
       {
 
          strCommand.formatf("/bin/sh -c \"nohup %s > \\\"%s\\\"\"",

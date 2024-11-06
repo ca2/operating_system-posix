@@ -60,16 +60,16 @@ GtkWidget*m_pgtkwidget;
             // ::xdg_positioner * m_pxdgpositioner;
             // ::wl_pointer * m_pwlpointer;
             // ::wl_shm_pool * m_pwlshmpool;
-            // ::point_i32 m_pointWindowBestEffort;
+            // ::int_point m_pointWindowBestEffort;
             // ::xdg_activation_token_v1 * m_pxdgactivationtokenv1;
             // ::wl_callback * m_pwlcallbackFrame;
-            // ::size_i32 m_sizeDrag;
+            // ::int_size m_sizeDrag;
             //
             // unsigned int m_uLastConfigureSerial;
             // unsigned int m_uLastRequestSerial;
             // unsigned int m_uLastAckSerial;
             // ::string m_strActivationToken;
-            // ::size_i32                                      m_sizeConfigure;
+            // ::int_size                                      m_sizeConfigure;
             // class ::time                                 m_timeLastConfigureRequest;
             // bool                                         m_bXdgInitialConfigure;
             // bool                                            m_bDoneFirstMapping;
@@ -81,7 +81,7 @@ GtkWidget*m_pgtkwidget;
 
             bool                                                  m_bMessageOnlyWindow;
             bool                                                  m_bHasKeyboardFocus;
-            ::size_i32                                            m_sizeOnSize;
+            ::int_size                                            m_sizeOnSize;
 
 
 
@@ -102,16 +102,16 @@ GtkWidget*m_pgtkwidget;
                         //bool                           m_bNcActive;
 
                         manual_reset_event               m_eventEnd;
-                        //rectangle_i32                  m_rectangle;
-                        //rectangle_i32                  m_rectangleX;
+                        //int_rectangle                  m_rectangle;
+                        //int_rectangle                  m_rectangleX;
 
                         //pointer_array < ::micro::child >   m_childa;
                         //::atom                         m_atomLeftButtonDown;
                         //::atom                         m_atomLeftButtonUp;
                         //::atom                         m_atomResult;
                         //::pointer<::micro::child>          m_pchildFocus;
-                        //::size_i32                     m_sizeWindow;
-                        //::size_i32                     m_sizeRequest;
+                        //::int_size                     m_sizeWindow;
+                        //::int_size                     m_sizeRequest;
 
 
                         //window();
@@ -135,8 +135,8 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
             //virtual ::particle * get_interface_client_particle() = 0; // m_pwindow->m_puserinteraction
             //virtual void set_window_width(int iWidth) = 0; // m_sizeWindow.cx()
             //virtual void set_window_height(int iHeight) = 0; // m_sizeWindow.cy()
-            //virtual ::size_i32 get_window_size() = 0; // m_sizeWindow
-            void set_interface_client_size(const ::size_i32 & sizeWindow) override; // m_sizeWindow
+            //virtual ::int_size get_window_size() = 0; // m_sizeWindow
+            void set_interface_client_size(const ::int_size & sizeWindow) override; // m_sizeWindow
 
             bool is_window_stored_iconic() override; // m_pwindow->m_puserinteraction->const_layout().window().display() == e_display_iconic
             bool is_window_zoomed() override; // m_pwindow->m_puserinteraction->const_layout().window().display() == e_display_iconic
@@ -181,8 +181,8 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
             virtual bool _on_gtk_key_pressed(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state);
             virtual bool _on_gtk_key_released(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state);
 
-            virtual void _on_gtk_key_pressed(::u64 uGtkKey, ::u64 uGtkKeyCode);
-            virtual void _on_gtk_key_released(::u64 uGtkKey, ::u64 uGtkKeyCode);
+            virtual void _on_gtk_key_pressed(huge_natural uGtkKey, huge_natural uGtkKeyCode);
+            virtual void _on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode);
 
             //virtual gboolean _on_gtk_key_press(GtkWidget *widget, GdkEvent *event);
 
@@ -244,7 +244,7 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
 
 
             virtual void _defer_get_window_rectangle_unlocked();
-            //void _defer_translate_to_absolute_coordinates_unlocked(::point_i32 & point) override;
+            //void _defer_translate_to_absolute_coordinates_unlocked(::int_point & point) override;
 
             virtual void _update_window();
 
@@ -256,8 +256,8 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
             virtual ::particle * get_interface_client_particle(); // m_pwindow->m_puserinteraction
             virtual void set_window_width(int iWidth); // m_sizeWindow.cx()
             virtual void set_window_height(int iHeight); // m_sizeWindow.cy()
-            virtual ::size_i32 get_window_size(); // m_sizeWindow
-            // virtual void set_interface_client_size(const ::size_i32 & sizeWindow); // m_sizeWindow
+            virtual ::int_size get_window_size(); // m_sizeWindow
+            // virtual void set_interface_client_size(const ::int_size & sizeWindow); // m_sizeWindow
             //
             // virtual bool is_window_stored_iconic(); // m_pwindow->m_puserinteraction->const_layout().window().display() == e_display_iconic
             // virtual void window_maximize(); // m_pwindow->m_puserinteraction->display(::e_display_zoomed);
@@ -340,13 +340,13 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
 
             //virtual LRESULT window_procedure(UINT message, WPARAM wparam, LPARAM lparam);
 
-            //void move_to(const ::point_i32 & point) override;
+            //void move_to(const ::int_point & point) override;
 
             void redraw() override;
 
-            // void get_client_rectangle(::rectangle_i32 & rectangle) override;
+            // void get_client_rectangle(::int_rectangle & rectangle) override;
             //
-            // void get_window_rectangle(::rectangle_i32 & rectangle) override;
+            // void get_window_rectangle(::int_rectangle & rectangle) override;
 
             void set_capture() override;
 
@@ -358,7 +358,7 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
             //bool defer_perform_entire_reposition_process(::user) override;
 
 
-            //::size_i32 get_main_screen_size() override;
+            //::int_size get_main_screen_size() override;
 
 
             // void __handle_pointer_enter(::wl_pointer * pwlpointer) override;
@@ -372,8 +372,8 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
             // void _on_motion_notify(GtkEventControllerMotion* pcontroller, double x, double y) override;
             // void _on_enter_notify(GtkEventControllerMotion* pcontroller, double x, double y) override;
 
-            ::rectangle_i32 get_window_rectangle_unlocked() override;
-            void set_position_unlocked(const ::point_i32 & point) override;
+            ::int_rectangle get_window_rectangle_unlocked() override;
+            void set_position_unlocked(const ::int_point & point) override;
 
 
          };

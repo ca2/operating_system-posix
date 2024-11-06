@@ -167,7 +167,7 @@ namespace node_xfce
 //
 //            string strProperty;
 //
-//            strProperty = CA2_X11_WINDOW_LONG + ansi_string_from_i64(nIndex);
+//            strProperty = CA2_X11_WINDOW_LONG + ansi_string_from_huge_integer(nIndex);
 //
 //            return XInternAtom(m_pdisplay, strProperty, False);
 //

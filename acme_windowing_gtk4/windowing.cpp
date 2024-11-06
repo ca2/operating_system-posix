@@ -535,7 +535,7 @@ namespace gtk4
 
             int stride = cairo_image_surface_get_stride(original_surface);
 
-            unsigned long long sum_r = 0, sum_g = 0, sum_b = 0, sum_a = 0;
+            huge_natural sum_r = 0, sum_g = 0, sum_b = 0, sum_a = 0;
 
             for (int y = 0; y < height; ++y)
             {

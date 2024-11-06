@@ -44,8 +44,8 @@ namespace windowing_gtk4
 
       void _on_enter_notify(GtkEventControllerMotion * pcontroller, double x, double y) override;
 
-      void _on_gtk_key_pressed(u64 uGtkKey, ::u64 uGtkKeyCode) override;
-      void _on_gtk_key_released(u64 uGtkKey, ::u64 uGtkKeyCode) override;
+      void _on_gtk_key_pressed(huge_natural uGtkKey, huge_natural uGtkKeyCode) override;
+      void _on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode) override;
 
       bool _on_gtk_key_pressed(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state) override;
       bool _on_gtk_key_released(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state) override;
@@ -97,7 +97,7 @@ namespace windowing_gtk4
 
       void exit_iconify() override;
 
-      void full_screen(const ::rectangle_i32 & rect = {}) override;
+      void full_screen(const ::int_rectangle & rect = {}) override;
 
       void exit_full_screen() override;
 
@@ -125,9 +125,9 @@ namespace windowing_gtk4
 
       bool _is_window_visible_unlocked() override;
 
-      virtual bool client_to_screen(::point_i32 * ppoint) override;
+      virtual bool client_to_screen(::int_point * ppoint) override;
 
-      bool screen_to_client(::point_i32 * ppoint) override;
+      bool screen_to_client(::int_point * ppoint) override;
 
       bool is_destroying() override;
 
@@ -181,9 +181,9 @@ namespace windowing_gtk4
 
       bool _strict_set_window_position_unlocked(int x, int y, int cx, int cy, bool bNoMove, bool bNoSize) override;
 
-      virtual ::e_status window_rectangle(::rectangle_i32 * prectangle);
+      virtual ::e_status window_rectangle(::int_rectangle * prectangle);
 
-      virtual ::e_status rectangle(::rectangle_i32 * prectangle);
+      virtual ::e_status rectangle(::int_rectangle * prectangle);
 
       void __update_graphics_buffer() override;
 
@@ -221,13 +221,13 @@ namespace windowing_gtk4
 
       virtual void _set_cursor_from_name(const ::scoped_string & scopedstr);
 
-      virtual ::rectangle_i32 _unlocked_defer_get_window_rectangle();
+      virtual ::int_rectangle _unlocked_defer_get_window_rectangle();
 
-      virtual void _unlocked_defer_set_window_position(const ::point_i32 & point);
+      virtual void _unlocked_defer_set_window_position(const ::int_point & point);
 
-      virtual void _unlocked_defer_set_window_position(const ::point_i32 & point, const ::size_i32 & size);
+      virtual void _unlocked_defer_set_window_position(const ::int_point & point, const ::int_size & size);
 
-      virtual void _unlocked_defer_set_window_size(const ::size_i32 & size);
+      virtual void _unlocked_defer_set_window_size(const ::int_size & size);
 
       void _main_send(const ::procedure & procedure) override;
 

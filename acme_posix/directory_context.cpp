@@ -106,7 +106,7 @@ namespace acme_posix
    ::file::path directory_context::music()
    {
 
-      if(m_pathMusic.has_char())
+      if(m_pathMusic.has_character())
       {
 
          return m_pathMusic;
@@ -115,7 +115,7 @@ namespace acme_posix
 
       ::file::path path = xdg_get_dir(this, "XDG_MUSIC_DIR");
 
-      if(path.has_char())
+      if(path.has_character())
       {
 
          m_pathMusic = path;
@@ -138,7 +138,7 @@ namespace acme_posix
    ::file::path directory_context::video()
    {
 
-      if(m_pathVideo.has_char())
+      if(m_pathVideo.has_character())
       {
 
          return m_pathVideo;
@@ -147,7 +147,7 @@ namespace acme_posix
 
       ::file::path path = xdg_get_dir(this, "XDG_VIDEOS_DIR");
 
-      if(path.has_char())
+      if(path.has_character())
       {
 
          m_pathVideo = path;
@@ -170,7 +170,7 @@ namespace acme_posix
    ::file::path directory_context::image()
    {
 
-      if(m_pathImage.has_char())
+      if(m_pathImage.has_character())
       {
 
          return m_pathImage;
@@ -179,7 +179,7 @@ namespace acme_posix
 
       ::file::path path = xdg_get_dir(this, "XDG_PICTURES_DIR");
 
-      if(path.has_char())
+      if(path.has_character())
       {
 
          m_pathImage = path;
@@ -211,7 +211,7 @@ namespace acme_posix
 
       ::file::path path = xdg_get_dir(this, "XDG_DOCUMENTS_DIR");
 
-      if(path.has_char())
+      if(path.has_character())
       {
 
          m_pathDocument = path;
@@ -234,7 +234,7 @@ namespace acme_posix
    ::file::path directory_context::download()
    {
 
-      if(m_pathDownload.has_char())
+      if(m_pathDownload.has_character())
       {
 
          return m_pathDownload;
@@ -243,7 +243,7 @@ namespace acme_posix
 
       ::file::path path = xdg_get_dir(this, "XDG_DOWNLOAD_DIR");
 
-      if(path.has_char())
+      if(path.has_character())
       {
 
          m_pathDownload = path;

@@ -44,9 +44,9 @@ namespace acme_posix
    //   else
    //   {
    //
-   //      varRet = (((u64) data.nFileSizeHigh) << 32) | (u64) data.nFileSizeLow;
+   //      varRet = (((huge_natural) data.nFileSizeHigh) << 32) | (huge_natural) data.nFileSizeLow;
    //
-   //      ((::file::path &) path).m_iSize = varRet.m_i64;
+   //      ((::file::path &) path).m_iSize = varRet.m_hi;
    //
    //   }
    //
@@ -67,7 +67,7 @@ namespace acme_posix
 
          payloadLength = (iptr)stat.st_size;
 
-         ((::file::path &)path).m_iSize = payloadLength.m_i64;
+         ((::file::path &)path).m_iSize = payloadLength.m_hi;
 
       }
 

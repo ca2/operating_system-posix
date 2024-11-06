@@ -14,8 +14,8 @@ namespace node_kde
 //
 //
 //      //::collection::index                                               m_iIndex;
-//      //::rectangle_i32                                       m_rectangle;
-//      //::rectangle_i32                                       m_rectangleWorkspace;
+//      //::int_rectangle                                       m_rectangle;
+//      //::int_rectangle                                       m_rectangleWorkspace;
 //
 //
 //      monitor();
@@ -34,8 +34,8 @@ namespace node_kde
 //      bool adjust_monitor( unsigned int dwTemperature, double dBrightness, double dwGamma) override;
 //
 //
-//      void get_monitor_rectangle(::rectangle_i32 * prectangle) override;
-//      void get_workspace_rectangle(::rectangle_i32 * prectangle) override;
+//      void get_monitor_rectangle(::int_rectangle * prectangle) override;
+//      void get_workspace_rectangle(::int_rectangle * prectangle) override;
 //
 //
 //      virtual ::e_status _get_monitor_rectangle();

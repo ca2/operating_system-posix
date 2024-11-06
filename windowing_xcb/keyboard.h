@@ -56,7 +56,7 @@ namespace windowing_xcb
 
       virtual bool load_os_layout(const ::file::path & pszPath) override;
 
-      //void show_software_keyboard(::user::interaction_base * pprimitive, string str, strsize iBeg, strsize iEnd) override;
+      //void show_software_keyboard(::user::interaction_base * pprimitive, string str, character_count iBeg, character_count iEnd) override;
 
       //void hide_software_keyboard(::user::interaction_base * pprimitive) override;
 

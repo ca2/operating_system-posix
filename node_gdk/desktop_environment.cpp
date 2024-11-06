@@ -50,7 +50,7 @@ namespace node_gdk
    }
 
 
-   ::e_status desktop_environment::_get_monitor_rectangle(::collection::index iIndex, ::rectangle_i32 & rectangle)
+   ::e_status desktop_environment::_get_monitor_rectangle(::collection::index iIndex, ::int_rectangle & rectangle)
    {
 
       //synchronous_lock sl(user_synchronization());
@@ -89,7 +89,7 @@ namespace node_gdk
   }
 
 
-   bool desktop_environment::get_workspace_rectangle(::collection::index iIndex, ::rectangle_i32 & rectangle)
+   bool desktop_environment::get_workspace_rectangle(::collection::index iIndex, ::int_rectangle & rectangle)
    {
 
 //      if(m_bX11)
@@ -119,7 +119,7 @@ namespace node_gdk
    }
 
 
-   ::e_status desktop_environment::_get_workspace_rectangle(::collection::index iIndex, ::rectangle_i32 & rectangle)
+   ::e_status desktop_environment::_get_workspace_rectangle(::collection::index iIndex, ::int_rectangle & rectangle)
    {
 
       //synchronous_lock sl(user_synchronization());
@@ -158,7 +158,7 @@ namespace node_gdk
 
 
 
-  bool desktop_environment::get_monitor_rectangle(::collection::index iIndex, ::rectangle_i32 & rectangle)
+  bool desktop_environment::get_monitor_rectangle(::collection::index iIndex, ::int_rectangle & rectangle)
   {
 
      debug() << "desktop_environment::get_monitor_rectangle";
@@ -200,7 +200,7 @@ return false;
   }
 
 //
-//   void desktop_environment::get_workspace_rectangle(::collection::index iIndex, ::rectangle_i32 *prectangle)
+//   void desktop_environment::get_workspace_rectangle(::collection::index iIndex, ::int_rectangle *prectangle)
 //   {
 //
 //      if(m_bX11)

@@ -70,7 +70,7 @@ namespace draw2d_xlib
 //      if(m_ui.m_window == nullptr)
 //      {
 //
-//         rectangle_i32 rectangle(100, 100, 200, 200);
+//         int_rectangle rectangle(100, 100, 200, 200);
 //
 //         m_ui.create_window(rectangle);
 //
@@ -162,7 +162,7 @@ namespace draw2d_xlib
 //      if(m_ui.m_window == nullptr)
 //      {
 //
-//         rectangle_i32 rectangle(100, 100, 200, 200);
+//         int_rectangle rectangle(100, 100, 200, 200);
 //
 //         m_ui.create_window(rectangle);
 //
@@ -237,24 +237,24 @@ namespace draw2d_xlib
 
    }
 
-   size_i32 bitmap::SetBitmapDimension(int nWidth, int nHeight)
+   int_size bitmap::SetBitmapDimension(int nWidth, int nHeight)
    {
 
 
       throw ::not_implemented();
 
-      //::size_i32 size;
+      //::int_size size;
       //VERIFY(::SetBitmapDimensionEx((HBITMAP)get_handle(), nWidth, nHeight, &size));
       //return size;
-      return ::size_i32(0, 0);
+      return ::int_size(0, 0);
 
    }
 
-   size_i32 bitmap::GetBitmapDimension() const
+   int_size bitmap::GetBitmapDimension() const
    {
 
       if(m_pixmap == nullptr)
-         return ::size_i32(0, 0);
+         return ::int_size(0, 0);
 
       return m_size;
 

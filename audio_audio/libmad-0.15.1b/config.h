@@ -110,7 +110,7 @@
 /* The size of a `long', as computed by sizeof. */
 #define SIZEOF_LONG 8
 
-/* The size of a `long long', as computed by sizeof. */
+/* The size of a `huge_integer', as computed by sizeof. */
 #define SIZEOF_LONG_LONG 8
 
 /* Define to 1 if you have the ANSI C header files. */

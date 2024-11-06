@@ -141,7 +141,7 @@ namespace apex_posix
 
       ::file::path pathAutoStartDesktopFilePath = _get_auto_start_desktop_file_path(strAppId);
 
-      return pathAutoStartDesktopFilePath.has_char() && file_system()->exists(pathAutoStartDesktopFilePath);
+      return pathAutoStartDesktopFilePath.has_character() && file_system()->exists(pathAutoStartDesktopFilePath);
       
 #else
       
