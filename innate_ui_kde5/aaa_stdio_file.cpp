@@ -179,7 +179,7 @@ pacmedir->create(::file_path_folder(pszFileName));
          throw ::file::exception(error_disk_full, _doserrno, m_path);
    }
 
-   char * stdio_file::read_string(char * psz, ::u32 nMax)
+   char * stdio_file::read_string(char * psz, unsigned int nMax)
 
    {
       ASSERT(psz != nullptr);
@@ -272,7 +272,7 @@ pacmedir->create(::file_path_folder(pszFileName));
    throw ::file::exception(error_disk_full, _doserrno, m_path);
    }*/
 
-   /*unichar * stdio_file::read_string(unichar * psz, ::u32 nMax)
+   /*unichar * stdio_file::read_string(unichar * psz, unsigned int nMax)
 
    {
    ASSERT(psz != nullptr);

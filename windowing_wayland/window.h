@@ -191,8 +191,8 @@ namespace windowing_wayland
       bool screen_to_client(::point_i32 * ppoint) override;
 
 
-      //virtual bool set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,::u32 nFlags);
-      //virtual bool _set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,::u32 nFlags);
+      //virtual bool set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,unsigned int nFlags);
+      //virtual bool _set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,unsigned int nFlags);
       
 
       bool is_destroying() override;
@@ -317,7 +317,7 @@ namespace windowing_wayland
 //      virtual ::e_status x11_post_message(MESSAGE & msg);
 //      virtual ::e_status post_ui_message(const MESSAGE & message);
       //virtual bool x11_process_event(osdisplay_data * pdisplaydata, XEvent * pevent, XGenericEventCookie *cookie);
-      //virtual ::e_status set_window_position( WINDOWING_X11_WINDOW_MEMBER const ::zorder & zorder, int x, int y, int cx, int cy, ::u32 nFlags);
+      //virtual ::e_status set_window_position( WINDOWING_X11_WINDOW_MEMBER const ::zorder & zorder, int x, int y, int cx, int cy, unsigned int nFlags);
       virtual ::e_status window_rectangle( ::rectangle_i32 * prectangle);
       virtual ::e_status rectangle(::rectangle_i32 * prectangle);
       //virtual ::e_status wm_full_screen( WINDOWING_X11_WINDOW_MEMBER const ::rectangle_i32 & rectangle);
@@ -355,15 +355,15 @@ namespace windowing_wayland
 //
 //
       virtual void __handle_pointer_enter(::wl_pointer * pwlpointer);
-      virtual void __handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis);
+      virtual void __handle_pointer_motion(::wl_pointer * pwlpointer, unsigned int millis);
       virtual void __handle_pointer_leave(::wl_pointer * pwlpointer, ::windowing_wayland::window * pwaylandwindowLeave);
 
-      virtual void __handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis);
+      virtual void __handle_pointer_button(::wl_pointer * pwlpointer, unsigned int linux_button, unsigned int pressed, unsigned int millis);
 //
 //
 //      virtual void __defer_update_wayland_buffer();
 //
-//      virtual void __handle_xdg_surface_configure(::u32 serial);
+//      virtual void __handle_xdg_surface_configure(unsigned int serial);
 //
       virtual void __handle_xdg_toplevel_configure(int width, int height, ::wl_array * pwlarrayState);
 //

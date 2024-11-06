@@ -236,7 +236,7 @@ namespace windowing_xcb
       virtual ::e_status defer_update_keyboard_context();
       virtual int keycode_to_keysym(xcb_keycode_t code);
       virtual void release_keyboard();
-      virtual string _on_key_down(xcb_keycode_t code, ::u16 state, KeySym * pkeysym);
+      virtual string _on_key_down(xcb_keycode_t code, unsigned short state, KeySym * pkeysym);
 
 
       static xcb_atom_t _get_window_long_atom(int nIndex);

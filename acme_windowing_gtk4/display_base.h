@@ -117,13 +117,13 @@ namespace gtk4
 
 
             //virtual void __handle_pointer_enter(::wl_pointer * pwlpointer, double x, double y, ::wayland::micro::window_base * pwindowPointerEnter);
-            // virtual void __handle_pointer_motion(::wl_pointer * pwlpointer, double x, double y, ::u32 time);
+            // virtual void __handle_pointer_motion(::wl_pointer * pwlpointer, double x, double y, unsigned int time);
             // virtual void __handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::micro::window_base * pwindowPointerLeave);
             //
-            // virtual void __handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 time);
+            // virtual void __handle_pointer_button(::wl_pointer * pwlpointer, unsigned int linux_button, unsigned int pressed, unsigned int time);
             //
 
-            //virtual void __capture_mouse(::windowing_wayland::window * pwindowMouseCapture, ::u32 serial);
+            //virtual void __capture_mouse(::windowing_wayland::window * pwindowMouseCapture, unsigned int serial);
 
 
             // virtual void __handle_keyboard_keymap(struct wl_keyboard *keyboard, uint32_t format, int fd, uint32_t size);

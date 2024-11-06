@@ -22,7 +22,7 @@
 ::enum_status os_error_to_estatus(int lOsErr)
 {
     // NT Error codes
-    switch ((::u32)lOsErr)
+    switch ((unsigned int)lOsErr)
     {
         case NO_ERROR:
             return error_file;

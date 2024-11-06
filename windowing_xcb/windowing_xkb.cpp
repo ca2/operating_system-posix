@@ -249,7 +249,7 @@ namespace windowing_xcb
 //   }
 
 
-   string window::_on_key_down(xcb_keycode_t code, ::u16 state, KeySym * pkeysym)
+   string window::_on_key_down(xcb_keycode_t code, unsigned short state, KeySym * pkeysym)
    {
 
       XKeyPressedEvent event;

@@ -62,7 +62,7 @@
 //using io_exception;
 
 
-//::durationTimer::durationTimer(const u32 ::duration)
+//::durationTimer::durationTimer(const unsigned int ::duration)
 //   : expiry(timespec_now())
 //{
 //   i64 tv_nsec = expiry.tv_nsec + (::duration * 1e6);
@@ -470,7 +470,7 @@ serial_impl::reconfigurePort()
    ::tcsetattr(m_iFd, TCSANOW, &options);
 
    // Update byte_time_ based on the aaa_primitive_new settings.
-   u32 bit_time_ns = 1e9 / m_ulBaudrate;
+   unsigned int bit_time_ns = 1e9 / m_ulBaudrate;
    m_uiByteTimeNs = bit_time_ns * (1 + (int)m_ebytesize + (int)m_eparity + (int)m_estopbit);
 
    // Compensate for the e_stop_bit_one_point_five enum being equal to int 3,

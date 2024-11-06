@@ -25,7 +25,7 @@ namespace music
 
             //base_library                 m_library;
             //midi_listener_set             m_listenerptra;
-            //::u32                      m_uiMidiOutDevice;
+            //unsigned int                      m_uiMidiOutDevice;
 
 
             midi();
@@ -39,8 +39,8 @@ namespace music
 
             //void RemoveListener(midi_listener * plistener);
             //void AddListener(midi_listener * plistener);
-            //::u32 GetMidiOutDevice();
-            //void SetMidiOutDevice(::u32 uiDevice);
+            //unsigned int GetMidiOutDevice();
+            //void SetMidiOutDevice(unsigned int uiDevice);
             //bool Initialize();
 
 
@@ -51,10 +51,10 @@ namespace music
             //virtual bool veriwell_multimedia_music_midi_factory();
 
 
-   /*            void mmsystem_LogMidiInCaps(::u32 i, MIDIINCAPSW caps);
-            void mmsystem_GetMidiInDeviceInterface(::u32 i);
-            void mmsystem_LogMidiOutCaps(::u32 i, MIDIOUTCAPSW caps);
-            void mmsystem_GetMidiOutDeviceInterface(::u32 i);*/
+   /*            void mmsystem_LogMidiInCaps(unsigned int i, MIDIINCAPSW caps);
+            void mmsystem_GetMidiInDeviceInterface(unsigned int i);
+            void mmsystem_LogMidiOutCaps(unsigned int i, MIDIOUTCAPSW caps);
+            void mmsystem_GetMidiOutDeviceInterface(unsigned int i);*/
 
 
             virtual ::pointer<::music::midi::message_out>get_message_out(const string& strDevice) override;

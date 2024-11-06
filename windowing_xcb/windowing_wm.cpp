@@ -730,7 +730,7 @@ namespace windowing_xcb
 
 //      _set_keyboard_focus(XCB_NONE);
 
-//      ::u32 uaState[] = {XCB_ICCCM_WM_STATE_ICONIC, XCB_NONE};
+//      unsigned int uaState[] = {XCB_ICCCM_WM_STATE_ICONIC, XCB_NONE};
 //
 //      auto estatus  = _change_property(
 //         xcb_display()->intern_atom("WM_STATE", true),

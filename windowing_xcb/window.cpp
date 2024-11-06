@@ -370,7 +370,7 @@ namespace windowing_xcb
 
       ::xcb_window_t * pchildren = nullptr;
 
-      u32 ncount = 0;
+      unsigned int ncount = 0;
 
       htask_t htask = ::current_htask();
 
@@ -842,7 +842,7 @@ namespace windowing_xcb
 
       m.set_size(length * 4);
 
-      ::u32 * pcr = (unsigned int *) m.data();
+      unsigned int * pcr = (unsigned int *) m.data();
 
       pcr[0] = d1->width();
 
@@ -2989,7 +2989,7 @@ namespace windowing_xcb
 //            ::xcb_window_t root = 0;
 //            ::xcb_window_t parent = 0;
 //            ::xcb_window_t *pchildren = nullptr;
-//            u32 numItems = 0;
+//            unsigned int numItems = 0;
 //
 //            int status = XQueryTree(xcb_connection(), xcb_window(),
 //                                    &root, &parent, &pchildren, &numItems);
@@ -3019,7 +3019,7 @@ namespace windowing_xcb
 //         ::xcb_window_t root = 0;
 //         ::xcb_window_t parent = 0;
 //         ::xcb_window_t *pchildren = nullptr;
-//         u32 numItems = 0;
+//         unsigned int numItems = 0;
 //
 //         int status = XQueryTree(xcb_connection(), xcb_window(),
 //                                 &root, &parent, &pchildren, &numItems);
@@ -3775,7 +3775,7 @@ namespace windowing_xcb
 
       mask |= XCB_CONFIG_WINDOW_HEIGHT;
 
-      ::u32 ua[] = {(::u32) x, (::u32) y, (::u32) cx, (::u32) cy};
+      unsigned int ua[] = {(unsigned int) x, (unsigned int) y, (unsigned int) cx, (unsigned int) cy};
 
       information() << "windowing_xcb::window _move_resize_unlocked : " << m_window << ", " << ::rectangle_i32_dimension(x, y, cx, cy);
 
@@ -3858,7 +3858,7 @@ namespace windowing_xcb
 
       mask |= XCB_CONFIG_WINDOW_HEIGHT;
 
-      ::u32 ua[] = {(::u32) cx, (::u32) cy};
+      unsigned int ua[] = {(unsigned int) cx, (unsigned int) cy};
 
       auto cookie = xcb_configure_window(xcb_connection(), m_window, mask, ua);
 

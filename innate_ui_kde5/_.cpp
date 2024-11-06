@@ -45,7 +45,7 @@
 //
 //
 //
-//   ::u32 get_current_directory(string& str)
+//   unsigned int get_current_directory(string& str)
 //   {
 //
 //      return ::GetCurrentDirectoryW(MAX_PATH * 8, wstring_adaptor(str, MAX_PATH * 8));
@@ -53,7 +53,7 @@
 //   }
 //
 //
-//   ::u32 get_temp_path(string& str)
+//   unsigned int get_temp_path(string& str)
 //   {
 //
 //      return ::GetTempPathW(MAX_PATH * 8, wstring_adaptor(str, MAX_PATH * 8));
@@ -95,7 +95,7 @@
 //   //}
 //
 //
-//   HICON extract_icon(HINSTANCE hInst, const ::string & pszExeFileName, ::u32 nIconIndex)
+//   HICON extract_icon(HINSTANCE hInst, const ::string & pszExeFileName, unsigned int nIconIndex)
 //
 //   {
 //

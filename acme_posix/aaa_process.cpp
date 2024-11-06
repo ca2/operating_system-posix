@@ -53,7 +53,7 @@ namespace acme
 
          }
 
-         u32 processId;
+         unsigned int processId;
 
          create_process(strCmdLine, &processId);
 
@@ -84,7 +84,7 @@ namespace acme
 
          }
 
-         u32 processId;
+         unsigned int processId;
 
          create_process(strCmdLine, &processId);
 
@@ -107,7 +107,7 @@ namespace acme
       }
 
 
-      void node::create_process(const ::string & pszCommandLine, u32 * pprocessId)
+      void node::create_process(const ::string & pszCommandLine, unsigned int * pprocessId)
       {
 
          string_array stra;
@@ -316,7 +316,7 @@ namespace acme
 
          }
 
-         u32 processId;
+         unsigned int processId;
 
          create_process(strCmdLine, &processId);
          //         {
@@ -641,7 +641,7 @@ namespace acme
       }
 
 
-      bool node::is_shared_library_busy(u32 processid, const string_array & stra)
+      bool node::is_shared_library_busy(unsigned int processid, const string_array & stra)
       {
 
          return false;
@@ -959,7 +959,7 @@ CLASS_DECL_ACME ::file::path core_app_path(string strApp)
 }
 
 
-::u32 get_current_process_id()
+unsigned int get_current_process_id()
 {
 
    return getpid();

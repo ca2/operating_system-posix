@@ -55,7 +55,7 @@ namespace node_gtk4
    }
 
    
-   ::u32 monitor::monitor_color_temperature()
+   unsigned int monitor::monitor_color_temperature()
    {
 
       return 0;
@@ -63,7 +63,7 @@ namespace node_gtk4
    }
 
 
-   bool monitor::adjust_monitor(::u32 dwTemperature, double dBrightness, double dwGamma)
+   bool monitor::adjust_monitor(unsigned int dwTemperature, double dBrightness, double dwGamma)
    {
 
       return false;

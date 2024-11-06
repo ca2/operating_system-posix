@@ -26,7 +26,7 @@ simple_ui_display::simple_ui_display(const string & strMessageParam, const strin
 
    m_stra.add_lines(strMessage);
 
-   ::u32 uType = ((::u32)emessagebox) & 7;
+   unsigned int uType = ((unsigned int)emessagebox) & 7;
 
    switch(uType)
    {

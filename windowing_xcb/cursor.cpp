@@ -39,7 +39,7 @@ namespace windowing_xcb
 //   }
 
    
-   ::e_status cursor::_create_from_image(const ::image::image *pimage, int xHotspot, ::i16 yHotspot)
+   ::e_status cursor::_create_from_image(const ::image::image *pimage, int xHotspot, short yHotspot)
    {
 
       throw ::interface_only();

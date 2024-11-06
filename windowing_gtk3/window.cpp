@@ -1164,7 +1164,7 @@ _create_window();
 ////
 ////         ::Window * pchildren = nullptr;
 ////
-////         u32 ncount = 0;
+////         unsigned int ncount = 0;
 ////
 ////         XQueryTree(display, window, &root, &m_parent, &pchildren, &ncount);
 ////
@@ -3094,7 +3094,7 @@ bOk = true;
 #undef SET_WINDOW_POS_LOG
 
 
-//   bool window::set_window_pos(class ::zorder zorder, int x, int y, int cx, int cy, ::u32 nFlags)
+//   bool window::set_window_pos(class ::zorder zorder, int x, int y, int cx, int cy, unsigned int nFlags)
 //   {
 //
 //      bool bOk = false;
@@ -4317,7 +4317,7 @@ bOk = true;
 //            ::Window root = 0;
 //            ::Window parent = 0;
 //            ::Window * pchildren = nullptr;
-//            u32 numItems = 0;
+//            unsigned int numItems = 0;
 //
 //            int status = XQueryTree(Display(), Window(),
 //                                    &root, &parent, &pchildren, &numItems);
@@ -4344,7 +4344,7 @@ bOk = true;
 //         ::Window root = 0;
 //         ::Window parent = 0;
 //         ::Window * pchildren = nullptr;
-//         u32 numItems = 0;
+//         unsigned int numItems = 0;
 //
 //         int status = XQueryTree(Display(), Window(),
 //                                 &root, &parent, &pchildren, &numItems);
@@ -5278,7 +5278,7 @@ bOk = true;
 //    }
 //
 //
-//    void window::__handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis)
+//    void window::__handle_pointer_motion(::wl_pointer * pwlpointer, unsigned int millis)
 //    {
 //
 //       //m_pwlpointer = pwlpointer;
@@ -5407,7 +5407,7 @@ bOk = true;
 //    }
 //
 //
-//    void window::__handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis)
+//    void window::__handle_pointer_button(::wl_pointer * pwlpointer, unsigned int linux_button, unsigned int pressed, unsigned int millis)
 //    {
 //
 //       //::string strType = ::type(m_pwindow->m_puserinteraction).name();
@@ -5643,7 +5643,7 @@ bOk = true;
 // //   }
 // //
 // //
-// //   void window::__handle_xdg_surface_configure(::u32 serial)
+// //   void window::__handle_xdg_surface_configure(unsigned int serial)
 // //   {
 // //
 // //      ::string strType = ::type(m_pwindow->m_puserinteraction).name();

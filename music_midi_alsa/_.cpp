@@ -18,9 +18,9 @@ namespace music
       {
 
 
-      ::u32 const DefaultTempo = 500000L;
+      unsigned int const DefaultTempo = 500000L;
 
-      const ::u32 grbChanMsgLen[] =
+      const unsigned int grbChanMsgLen[] =
       {
          0,                      /* 0x   not a status unsigned char   */
          0,                      /* 1x   not a status unsigned char   */
@@ -186,7 +186,7 @@ namespace music
       };
 
 
-      /*const ::u32 voiceText[]
+      /*const unsigned int voiceText[]
       =
       {
       IDS_VOICE_1   ,
@@ -384,13 +384,13 @@ namespace music
       }
 
       // returns the midi stream payload dword
-      ::u32 GetVDWord(unsigned char * &hpbMidiStream, ::u32 dwLeft, ::u32 &dwValueParam)
+      unsigned int GetVDWord(unsigned char * &hpbMidiStream, unsigned int dwLeft, unsigned int &dwValueParam)
       {
 
          unsigned char                    b;
-         ::u32                   dwUsed  = 0;
+         unsigned int                   dwUsed  = 0;
          unsigned char * &            hpbImage = hpbMidiStream;
-         ::u32               dwValue;
+         unsigned int               dwValue;
 
          ASSERT(hpbImage != NULL);
 
@@ -431,12 +431,12 @@ namespace music
       * Returns the state size in bytes.
       *
       *****************************************************************************/
-      ::u32 GetStateMaxSize()
+      unsigned int GetStateMaxSize()
       {
-         return  3*sizeof(::u32) +           /* Tempo                */
-            3*16*sizeof(::u32) +        /* Patch changes        */
-            3*16*120*sizeof(::u32) +    /* Controller changes   */
-            3*sizeof(::u32);            /* time alignment NOP   */
+         return  3*sizeof(unsigned int) +           /* Tempo                */
+            3*16*sizeof(unsigned int) +        /* Patch changes        */
+            3*16*120*sizeof(unsigned int) +    /* Controller changes   */
+            3*sizeof(unsigned int);            /* time alignment NOP   */
       }
 
 

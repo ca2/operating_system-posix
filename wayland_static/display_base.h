@@ -56,12 +56,12 @@ namespace wayland
                 buffer m_bufferMouseCapture;
                 bool m_bMouseCaptured ;
                 ::rectangle_i32 m_rectangleMouseCapture;
-                ::u32 m_uLastButtonSerial;
-                ::u32 m_uLastPointerSerial;
-                ::u32 m_uLastSeatSerial;
-                ::u32 m_uLastKeyboardSerial;
-                ::u32 m_uLastKeyboardEnterSerial;
-                ::u32 m_uLastKeyboardLeaveSerial;
+                unsigned int m_uLastButtonSerial;
+                unsigned int m_uLastPointerSerial;
+                unsigned int m_uLastSeatSerial;
+                unsigned int m_uLastKeyboardSerial;
+                unsigned int m_uLastKeyboardEnterSerial;
+                unsigned int m_uLastKeyboardLeaveSerial;
                 ::gtk_shell1 * m_pgtkshell1;
                 ::xdg_activation_v1 *m_pxdgactivationv1;
                 //::wl_keyboard * m_pwlkeyboard;
@@ -72,8 +72,8 @@ namespace wayland
 
                 //::point_f64 m_pointPointer;
 
-                //::u32 m_uLastPointerButton;
-                //::u32 m_uLastPointerState;
+                //unsigned int m_uLastPointerButton;
+                //unsigned int m_uLastPointerState;
 
                 ::pointer < ::wayland::micro::window_base > m_pwindowPointerEnter;
                 ::pointer < ::wayland::micro::window_base > m_pwindowPointerCapture;
@@ -134,13 +134,13 @@ namespace wayland
 
 
                 //virtual void __handle_pointer_enter(::wl_pointer * pwlpointer, double x, double y, ::wayland::micro::window_base * pwindowPointerEnter);
-                virtual void __handle_pointer_motion(::wl_pointer * pwlpointer, double x, double y, ::u32 time);
+                virtual void __handle_pointer_motion(::wl_pointer * pwlpointer, double x, double y, unsigned int time);
                 virtual void __handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::micro::window_base * pwindowPointerLeave);
 
-                virtual void __handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 time);
+                virtual void __handle_pointer_button(::wl_pointer * pwlpointer, unsigned int linux_button, unsigned int pressed, unsigned int time);
 
 
-                //virtual void __capture_mouse(::windowing_wayland::window * pwindowMouseCapture, ::u32 serial);
+                //virtual void __capture_mouse(::windowing_wayland::window * pwindowMouseCapture, unsigned int serial);
 
 
                 virtual void __handle_keyboard_keymap(struct wl_keyboard *keyboard, uint32_t format, int fd, uint32_t size);

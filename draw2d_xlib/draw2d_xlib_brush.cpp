@@ -46,7 +46,7 @@ namespace draw2d_xlib
     //   //return Attach(::CreatePatternBrush((HBITMAP)pBitmap->get_os_data()));
     //   return false;
     //}
-    //bool brush::CreateDIBPatternBrush(const void * lpPackedDIB, ::u32 nUsage)
+    //bool brush::CreateDIBPatternBrush(const void * lpPackedDIB, unsigned int nUsage)
     //{
     //   //return Attach(::CreateDIBPatternBrushPt(lpPackedDIB, nUsage));
     //   return false;
@@ -85,7 +85,7 @@ namespace draw2d_xlib
 //        // throw ::exception(error_resource);
 //   }
 //
-//   bool brush::CreateDIBPatternBrush(HGLOBAL hPackedDIB, ::u32 nUsage)
+//   bool brush::CreateDIBPatternBrush(HGLOBAL hPackedDIB, unsigned int nUsage)
 //   {
 //      //ASSERT(hPackedDIB != nullptr);
 //      //const void * lpPackedDIB = ::GlobalLock(hPackedDIB);

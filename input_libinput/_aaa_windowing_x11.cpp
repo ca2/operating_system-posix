@@ -932,10 +932,10 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    //bool g_bSkipMouseMessageInXcess = true;
 
 
-   //::u32 g_dwLastMotion = 0;
+   //unsigned int g_dwLastMotion = 0;
 
 
-   //::u32 g_dwMotionSkipTimeout = 23;
+   //unsigned int g_dwMotionSkipTimeout = 23;
 
 
 #ifdef display_lock_LOCK_LOG

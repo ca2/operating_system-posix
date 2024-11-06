@@ -30,8 +30,8 @@ namespace node_kde
 //      void update_cache() override;
 //
 //
-//      ::u32 get_monitor_color_temperature() override;
-//      bool adjust_monitor( ::u32 dwTemperature, double dBrightness, double dwGamma) override;
+//      unsigned int get_monitor_color_temperature() override;
+//      bool adjust_monitor( unsigned int dwTemperature, double dBrightness, double dwGamma) override;
 //
 //
 //      void get_monitor_rectangle(::rectangle_i32 * prectangle) override;

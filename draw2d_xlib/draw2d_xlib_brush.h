@@ -30,8 +30,8 @@ namespace draw2d_xlib
       //bool CreateSolidBrush(color32_t crColor);
       //bool CreateHatchBrush(int nIndex, color32_t crColor);
       //bool CreatePatternBrush(::draw2d::bitmap* pBitmap);
-      //bool CreateDIBPatternBrush(HGLOBAL hPackedDIB, ::u32 nUsage);
-      //bool CreateDIBPatternBrush(const void * lpPackedDIB, ::u32 nUsage);
+      //bool CreateDIBPatternBrush(HGLOBAL hPackedDIB, unsigned int nUsage);
+      //bool CreateDIBPatternBrush(const void * lpPackedDIB, unsigned int nUsage);
       //bool CreateSysColorBrush(int nIndex);
 
 

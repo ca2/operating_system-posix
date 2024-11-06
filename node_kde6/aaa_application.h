@@ -9,9 +9,9 @@ typedef struct
 
   //GtkApplication parent_instance;
 
-  //g::u32 quit_inhibit;
+  //gunsigned int quit_inhibit;
   //GMenu *time;
-  //g::u32 timeout;
+  //gunsigned int timeout;
 
 } ApexApplication; // you can search for ApexApplication in 2017 and so Internet
 

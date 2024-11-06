@@ -22,7 +22,7 @@ namespace draw2d_xlib
 
 
       int get_object(int nCount, LPVOID lpObject) const;
-      ::u32 GetObjectType() const;
+      unsigned int GetObjectType() const;
       bool CreateStockObject(int nIndex);
       bool UnrealizeObject();
       //bool operator==(const object& obj) const;

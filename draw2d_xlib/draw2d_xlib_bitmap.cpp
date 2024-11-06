@@ -25,7 +25,7 @@ namespace draw2d_xlib
 
    }
 
-   bool bitmap::CreateBitmap(::draw2d::graphics * pgraphics, int cx, int cy, ::u32 nPlanes, ::u32 nBitcount, const void * pdata, int iStrideParam)
+   bool bitmap::CreateBitmap(::draw2d::graphics * pgraphics, int cx, int cy, unsigned int nPlanes, unsigned int nBitcount, const void * pdata, int iStrideParam)
    {
 
       cy = abs(cy);
@@ -111,7 +111,7 @@ namespace draw2d_xlib
    }
 
 
-   bool bitmap::CreateDIBSection(::draw2d::graphics * pgraphics, const BITMAPINFO * lpbmi, ::u32 usage, void ** ppdata, int * pstride, HANDLE hSection, u32 offset)
+   bool bitmap::CreateDIBSection(::draw2d::graphics * pgraphics, const BITMAPINFO * lpbmi, unsigned int usage, void ** ppdata, int * pstride, HANDLE hSection, unsigned int offset)
    {
 
       int cy = abs(lpbmi->bmiHeader.biHeight);
@@ -211,20 +211,20 @@ namespace draw2d_xlib
    }
 
 
-   bool bitmap::CreateDIBitmap(::draw2d::graphics * pgraphics, const BITMAPINFOHEADER *pbmih, ::u32 flInit, const void *pjBits, const BITMAPINFO *pbmi, ::u32 iUsage)
+   bool bitmap::CreateDIBitmap(::draw2d::graphics * pgraphics, const BITMAPINFOHEADER *pbmih, unsigned int flInit, const void *pjBits, const BITMAPINFO *pbmi, unsigned int iUsage)
    {
       return false;
    }
 
 
-   ::u32 bitmap::SetBitmapBits(::u32 dwCount, const void * lpBits)
+   unsigned int bitmap::SetBitmapBits(unsigned int dwCount, const void * lpBits)
    {
 
       //return ::SetBitmapBits((HBITMAP)get_handle(), dwCount, lpBits);
       return 0;
 
    }
-   ::u32 bitmap::GetBitmapBits(::u32 dwCount, LPVOID lpBits) const
+   unsigned int bitmap::GetBitmapBits(unsigned int dwCount, LPVOID lpBits) const
    {
       //return ::GetBitmapBits((HBITMAP)get_handle(), dwCount, lpBits);
       return 0;
@@ -260,12 +260,12 @@ namespace draw2d_xlib
 
    }
 
-   bool bitmap::LoadBitmap(::u32 nIDResource)
+   bool bitmap::LoadBitmap(unsigned int nIDResource)
    {
       //return Attach(::LoadBitmap(::aura::FindResourceHandle(MAKEINTRESOURCE(nIDResource), RT_BITMAP), MAKEINTRESOURCE(nIDResource)));
       return false;
    }
-   bool bitmap::LoadOEMBitmap(::u32 nIDBitmap)
+   bool bitmap::LoadOEMBitmap(unsigned int nIDBitmap)
    {
       //return Attach(::LoadBitmap(nullptr, MAKEINTRESOURCE(nIDBitmap)));
       return false;

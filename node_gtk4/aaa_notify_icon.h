@@ -30,7 +30,7 @@ namespace node_gtk4
       };
 
 
-      ::u32                                             m_uiId;
+      unsigned int                                             m_uiId;
       bool                                              m_bCreated;
       string                                            m_strId;
 //#ifdef WINDOWS_DESKTOP
@@ -68,7 +68,7 @@ namespace node_gtk4
 
       bool modify_icon(::windowing::icon * picon);
 
-      virtual bool create_notify_icon(::u32 atom, ::user::notify_icon_listener * plistener, ::windowing::icon * picon) override;
+      virtual bool create_notify_icon(unsigned int atom, ::user::notify_icon_listener * plistener, ::windowing::icon * picon) override;
 
       //DECLARE_MESSAGE_HANDLER(_001OnNotifyIconMessage);
       //DECLARE_MESSAGE_HANDLER(_001OnDestroy);

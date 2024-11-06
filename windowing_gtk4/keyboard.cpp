@@ -231,7 +231,7 @@ namespace windowing_gtk4
 //
 //      WCHAR wsz[KL_NAMELENGTH];
 //
-//      ::u16 w;
+//      unsigned short w;
 //
 //      if(GetKeyboardLayoutNameW(wsz))
 //      {
@@ -251,7 +251,7 @@ namespace windowing_gtk4
 //            {
 //               string str(wstring(&wsz[4],4)); // least significant four digits
 //
-//               w = (::u16) ::hex::to_i64(str);
+//               w = (unsigned short) ::hex::to_i64(str);
 //
 //            }
 //

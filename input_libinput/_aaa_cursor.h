@@ -25,7 +25,7 @@ namespace windowing_x11
 
 //      virtual ::e_status initialize_system_default();
 
-      //virtual ::e_status create_from_image(const ::image::image *pimage, int xHotspot, ::i16 yHotspot);
+      //virtual ::e_status create_from_image(const ::image::image *pimage, int xHotspot, short yHotspot);
 
       //virtual ::e_status load_default_cursor(enum_cursor ecursor);
 

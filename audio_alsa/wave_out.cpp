@@ -102,7 +102,7 @@ namespace multimedia
 
 
       void
-      wave_out::out_open_ex(thread *pthreadCallback, ::u32 uiSamplesPerSec, ::u32 uiChannelCount, ::u32 uiBitsPerSample,
+      wave_out::out_open_ex(thread *pthreadCallback, unsigned int uiSamplesPerSec, unsigned int uiChannelCount, unsigned int uiBitsPerSample,
                             ::wave::enum_purpose epurpose)
       {
 
@@ -167,9 +167,9 @@ namespace multimedia
          ASSERT(m_eoutstate == ::wave::e_out_state_initial);
 
          m_pwaveformat->m_waveformat.wFormatTag = 0;
-         m_pwaveformat->m_waveformat.nChannels = (::u16) uiChannelCount;
+         m_pwaveformat->m_waveformat.nChannels = (unsigned short) uiChannelCount;
          m_pwaveformat->m_waveformat.nSamplesPerSec = uiSamplesPerSec;
-         m_pwaveformat->m_waveformat.wBitsPerSample = (::u16) uiBitsPerSample;
+         m_pwaveformat->m_waveformat.wBitsPerSample = (unsigned short) uiBitsPerSample;
          m_pwaveformat->m_waveformat.nBlockAlign =
                  m_pwaveformat->m_waveformat.wBitsPerSample * m_pwaveformat->m_waveformat.nChannels / 8;
          m_pwaveformat->m_waveformat.nAvgBytesPerSec =
@@ -190,13 +190,13 @@ namespace multimedia
 //
 //         }
 
-         //::u32 uBufferSize = snd_pcm_frames_to_bytes(m_ppcm, m_framesPeriodSize);
+         //unsigned int uBufferSize = snd_pcm_frames_to_bytes(m_ppcm, m_framesPeriodSize);
 
 //         m_uiBufferTime = m_framesBuffer * 1000 * 1000 / uiSamplesPerSec;
 
          information() << "frame_count : " << m_frameCount;
 
-         ::u32 uBufferSize = snd_pcm_frames_to_bytes(m_ppcm, m_frameCount);
+         unsigned int uBufferSize = snd_pcm_frames_to_bytes(m_ppcm, m_frameCount);
 
          information() << "uBufferSize in bytes : " << uBufferSize;
 

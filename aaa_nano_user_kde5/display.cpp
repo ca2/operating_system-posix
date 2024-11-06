@@ -868,7 +868,7 @@ namespace kde5
             //
             //    xcb_window_t window = xcb_generate_id(m_pconnection);
             //
-            //    u32 uEventMask = XCB_EVENT_MASK_NO_EVENT;
+            //    unsigned int uEventMask = XCB_EVENT_MASK_NO_EVENT;
             //
             //    auto cookie = xcb_create_window(
             //       m_pconnection,
@@ -1799,7 +1799,7 @@ namespace kde5
          //    mask |=
          //       XCB_CONFIG_WINDOW_Y;
          //
-         //    ::u32 ua[] = {(::u32) x, (::u32) y};
+         //    unsigned int ua[] = {(unsigned int) x, (unsigned int) y};
          //
          //    auto cookie = xcb_configure_window(m_pconnection, window, mask, ua);
          //

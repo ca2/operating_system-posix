@@ -1017,7 +1017,7 @@ namespace acme_posix
 
       }
 
-      //u32 processId;
+      //unsigned int processId;
 
       auto processId = create_process(strCmdLine);
       //         {

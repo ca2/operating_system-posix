@@ -486,9 +486,9 @@ namespace draw2d_xlib
    //   unsigned char *dst=(unsigned char*)m_pcolorref;
    //   int size=cx*cy;
 
-   //   u32 dwB = ::blue(cr);
-   //   u32 dwG = ::green(cr);
-   //   u32 dwR = ::red(cr);
+   //   unsigned int dwB = ::blue(cr);
+   //   unsigned int dwG = ::green(cr);
+   //   unsigned int dwR = ::red(cr);
 
    //   while (size-- > 0)
    //   {
@@ -724,13 +724,13 @@ namespace draw2d_xlib
    //   unsigned char *dst=(unsigned char*)m_pcolorref;
    //   int size=cx*cy;
 
-   //   u32 dwB = ::blue(cr);
-   //   u32 dwG = ::green(cr);
-   //   u32 dwR = ::red(cr);
+   //   unsigned int dwB = ::blue(cr);
+   //   unsigned int dwG = ::green(cr);
+   //   unsigned int dwR = ::red(cr);
 
-   //   u32 dwB_ = dwB << 8;
-   //   u32 dwG_ = dwG << 8;
-   //   u32 dwR_ = dwR << 8;
+   //   unsigned int dwB_ = dwB << 8;
+   //   unsigned int dwG_ = dwG << 8;
+   //   unsigned int dwR_ = dwR << 8;
 
    //   while ( size-- )
    //   {
@@ -1424,9 +1424,9 @@ namespace draw2d_xlib
 //      }
 //   }
 //
-//   u32 image::GetPixel(int x, int y)
+//   unsigned int image::GetPixel(int x, int y)
 //   {
-//      u32 dw = *(m_pcolorref + x + (cy - y - 1) * cx);
+//      unsigned int dw = *(m_pcolorref + x + (cy - y - 1) * cx);
 //      return rgb(::blue(dw), ::green(dw), ::red(dw));
 //   }
 //
@@ -1457,7 +1457,7 @@ namespace draw2d_xlib
 //
 //
 //         unsigned char *dst = ((unsigned char*)(m_pcolorref + xL + yL * m_Size.cx()));
-//         u32 dwAdd = ((m_Size.cx() - 1 - xU) + xL) * 4;
+//         unsigned int dwAdd = ((m_Size.cx() - 1 - xU) + xL) * 4;
 //         int size=m_Size.cx()*m_Size.cy();
 //         double iLevel;
 //
@@ -1564,7 +1564,7 @@ namespace draw2d_xlib
 //
 //
 //         unsigned char *dst = ((unsigned char*)(m_pcolorref + xL + yL * cx));
-//         u32 dwAdd = ((cx - 1 - xU) + xL) * 4;
+//         unsigned int dwAdd = ((cx - 1 - xU) + xL) * 4;
 ////         int size=cx*cy;
 //
 //         int Δx, Δy;
@@ -1617,7 +1617,7 @@ namespace draw2d_xlib
 //
 //
 //         unsigned char *dst = ((unsigned char*)(m_pcolorref + xL + yL * m_Size.cx()));
-//         u32 dwAdd = ((m_Size.cx() - 1 - xU) + xL) * 4;
+//         unsigned int dwAdd = ((m_Size.cx() - 1 - xU) + xL) * 4;
 //         int size=m_Size.cx()*m_Size.cy();
 //         double iLevel;
 //
@@ -1724,7 +1724,7 @@ namespace draw2d_xlib
 //
 //
 //         unsigned char *dst = ((unsigned char*)(m_pcolorref + xL + yL * cx));
-//         u32 dwAdd = ((cx - 1 - xU) + xL) * 4;
+//         unsigned int dwAdd = ((cx - 1 - xU) + xL) * 4;
 ////         int size=cx*cy;
 //
 //         int Δx, Δy;
@@ -2596,7 +2596,7 @@ namespace draw2d_xlib
 
       ::GetCurrentObject((HDC) pusermessage->m_wparam, OBJ_BITMAP);
 
-      //      u32 dw = ::get_last_error();
+      //      unsigned int dw = ::get_last_error();
       ::size_i32 size = pbitmap->get_size();
 
       rectx.left() = 0;

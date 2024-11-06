@@ -496,7 +496,7 @@ namespace windowing_x11
 
          ::Window * pchildren = nullptr;
 
-         u32 ncount = 0;
+         unsigned int ncount = 0;
 
          XQueryTree(display, window, &root, &m_parent, &pchildren, &ncount);
 
@@ -2403,7 +2403,7 @@ namespace windowing_x11
 #undef SET_WINDOW_POS_LOG
 
 
-//   bool window::set_window_pos(class ::zorder zorder, int x, int y, int cx, int cy, ::u32 nFlags)
+//   bool window::set_window_pos(class ::zorder zorder, int x, int y, int cx, int cy, unsigned int nFlags)
 //   {
 //
 //      bool bOk = false;
@@ -4219,7 +4219,7 @@ namespace windowing_x11
             ::Window root = 0;
             ::Window parent = 0;
             ::Window * pchildren = nullptr;
-            u32 numItems = 0;
+            unsigned int numItems = 0;
 
             int status = XQueryTree(Display(), Window(),
                                     &root, &parent, &pchildren, &numItems);
@@ -4246,7 +4246,7 @@ namespace windowing_x11
          ::Window root = 0;
          ::Window parent = 0;
          ::Window * pchildren = nullptr;
-         u32 numItems = 0;
+         unsigned int numItems = 0;
 
          int status = XQueryTree(Display(), Window(),
                                  &root, &parent, &pchildren, &numItems);

@@ -167,9 +167,9 @@ namespace gtk4
 
 
             // void __handle_pointer_enter(::wl_pointer * pwlpointer) override;
-            // void __handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis) override;
+            // void __handle_pointer_motion(::wl_pointer * pwlpointer, unsigned int millis) override;
             // void __handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::micro::window_base * pwaylandwindowLeave) override;
-            // void __handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis) override;
+            // void __handle_pointer_button(::wl_pointer * pwlpointer, unsigned int linux_button, unsigned int pressed, unsigned int millis) override;
 
 
             void _on_button_pressed(GtkGestureClick* pgesture, int n_press, double x, double y) override;

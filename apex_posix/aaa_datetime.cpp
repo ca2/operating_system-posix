@@ -118,14 +118,14 @@
 //  */
 // typedef struct _RTL_SYSTEM_TIME
 // {
-//    ::u16 wYear;
-//    ::u16 wMonth;
-//    ::u16 wDayOfWeek;
-//    ::u16 wDay;
-//    ::u16 wHour;
-//    ::u16 wMinute;
-//    ::u16 wSecond;
-//    ::u16 wMilliseconds;
+//    unsigned short wYear;
+//    unsigned short wMonth;
+//    unsigned short wDayOfWeek;
+//    unsigned short wDay;
+//    unsigned short wHour;
+//    unsigned short wMinute;
+//    unsigned short wSecond;
+//    unsigned short wMilliseconds;
 // } RTL_SYSTEM_TIME, *PRTL_SYSTEM_TIME;
 
 
@@ -418,14 +418,14 @@
 //  *
 //  * RETURNS
 //  *   Success: true.
-//  *   Failure: false, if the resulting value will not fit in a ::u32.
+//  *   Failure: false, if the resulting value will not fit in a unsigned int.
 //  */
 // int_bool RtlTimeToSecondsSince1970( const u64 *Time, LPDWORD Seconds )
 // {
 //    ULONGLONG tmp = *Time;
 //    tmp = tmp / TICKSPERSEC - SECS_1601_TO_1970;
 //    if (tmp > 0xffffffff) return false;
-//    *Seconds = (::u32)tmp;
+//    *Seconds = (unsigned int)tmp;
 //    return true;
 // }
 
@@ -440,14 +440,14 @@
 //  *
 //  * RETURNS
 //  *   Success: true.
-//  *   Failure: false, if the resulting value will not fit in a ::u32.
+//  *   Failure: false, if the resulting value will not fit in a unsigned int.
 //  */
 // int_bool RtlTimeToSecondsSince1980( const u64 *Time, LPDWORD Seconds )
 // {
 //    ULONGLONG tmp = *Time;
 //    tmp = tmp / TICKSPERSEC - SECS_1601_TO_1980;
 //    if (tmp > 0xffffffff) return false;
-//    *Seconds = (::u32)tmp;
+//    *Seconds = (unsigned int)tmp;
 //    return true;
 // }
 
@@ -463,7 +463,7 @@
 //  * RETURNS
 //  *   Nothing.
 //  */
-// void RtlSecondsSince1970ToTime( ::u32 Seconds, u64 *Time )
+// void RtlSecondsSince1970ToTime( unsigned int Seconds, u64 *Time )
 // {
 //    ULONGLONG second = Seconds * (ULONGLONG)TICKSPERSEC + TICKS_1601_TO_1970;
 //    *Time = second;
@@ -481,7 +481,7 @@
 //  * RETURNS
 //  *   Nothing.
 //  */
-// void RtlSecondsSince1980ToTime( ::u32 Seconds, u64 *Time )
+// void RtlSecondsSince1980ToTime( unsigned int Seconds, u64 *Time )
 // {
 //    ULONGLONG second = Seconds * (ULONGLONG)TICKSPERSEC + TICKS_1601_TO_1980;
 //    *Time = second;
@@ -681,7 +681,7 @@
 
 // int_bool match_tz_date(const RTL_SYSTEM_TIME *st, const RTL_SYSTEM_TIME *reg_st)
 // {
-//    ::u16 wDay;
+//    unsigned short wDay;
 
 //    if (st->wMonth != reg_st->wMonth) return false;
 
@@ -712,7 +712,7 @@
 
 // /*
 
-// static int_bool reg_query_value(HKEY hkey, const ::wide_character * name, ::u32 type, void *data, ::u32 count)
+// static int_bool reg_query_value(HKEY hkey, const ::wide_character * name, unsigned int type, void *data, unsigned int count)
 // {
 //     UNICODE_STRING nameW;
 //     char buf[256];
@@ -937,7 +937,7 @@
 // {
 //    struct timeval tv;
 //    //posix_time tm_t;
-//    ::u32 sec, oldsec;
+//    unsigned int sec, oldsec;
 //    u64 tm;
 
 //    /* Return the old time if necessary */

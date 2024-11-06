@@ -556,7 +556,7 @@ namespace windowing_xcb
       xcb_window_t child_return;
       int win_x_return;
       int win_y_return;
-      u32 mask_return;
+      unsigned int mask_return;
 
       synchronous_lock synchronouslock(user_synchronization());
 

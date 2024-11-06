@@ -39,8 +39,8 @@ namespace music
             void install_message_routing(::channel * pchannel) override;
 
 
-            bool PlayRate(double dRate = 0.0, ::u32 dwEllapse = 584) override;
-            bool Play(imedia_position tickStart, ::u32 dwEllapse = 584) override;
+            bool PlayRate(double dRate = 0.0, unsigned int dwEllapse = 584) override;
+            bool Play(imedia_position tickStart, unsigned int dwEllapse = 584) override;
 
             virtual bool init_thread() override;
             virtual void term_thread() override;
@@ -54,17 +54,17 @@ namespace music
             virtual void pause() override;
             virtual void close_file() override;
             void SendReset();
-            bool ExecuteCommand(::music::midi::e_command ecommand, ::u32 dwEllapse);
+            bool ExecuteCommand(::music::midi::e_command ecommand, unsigned int dwEllapse);
             virtual void OnMidiOutDeviceChange();
 
-            //::u32 GetMidiOutDevice();
+            //unsigned int GetMidiOutDevice();
             //void PostNotifyEvent(::music::midi::e_notify_event eevent);
 
             imedia_position RateToTicks(double dRate);
 
             bool SetTempoShift(int32_t iTempoShift);
 
-            bool SetMidiOutDevice(::u32 uiDevice);
+            bool SetMidiOutDevice(unsigned int uiDevice);
 
             ::e_status SetInterface(player * pinterface);
 

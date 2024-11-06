@@ -288,7 +288,7 @@ namespace windowing_xcb
          } mask;
 
          mask.head.deviceid = deviceid == -1 ? XCB_INPUT_DEVICE_ALL : deviceid;
-         mask.head.mask_len = sizeof(xcb_input_xi_event_mask_t) / sizeof(::u32);
+         mask.head.mask_len = sizeof(xcb_input_xi_event_mask_t) / sizeof(unsigned int);
 
          int iMask  = 0;
          //mask.mask = XCB_INPUT_XI_EVENT_MASK_MOTION;

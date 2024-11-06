@@ -97,7 +97,7 @@ namespace acme_posix
 
       bool is_opened() const override;
 
-      //u64 GetBufferPtr(::u32 nCommand, u64 nCount = 0, void ** ppBufStart = nullptr, void ** ppBufMax = nullptr);
+      //u64 GetBufferPtr(unsigned int nCommand, u64 nCount = 0, void ** ppBufStart = nullptr, void ** ppBufMax = nullptr);
 
       [[noreturn]]virtual void throw_file_errno_exception(const ::scoped_string & scopedstr = nullptr, c_error_number cerrornumber = {}) const;
 

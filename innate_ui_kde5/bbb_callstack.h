@@ -92,10 +92,10 @@ namespace windows
 
 #ifdef WINDOWS_DESKTOP
 
-      ///u32 WINAPI stack_trace_ThreadProc(void* pvoidParam);
+      ///unsigned int WINAPI stack_trace_ThreadProc(void* pvoidParam);
 
 
-      bool get_line_from_address(HANDLE hProc, OS_DWORD uiAddress, ::u32* puiDisplacement, OS_IMAGEHLP_LINE* pline);
+      bool get_line_from_address(HANDLE hProc, OS_DWORD uiAddress, unsigned int* puiDisplacement, OS_IMAGEHLP_LINE* pline);
       //size_t get_module_basename(HMODULE hmodule, string & strName);
       size_t get_module_name(HMODULE hmodule, char* psz, int nCount);
 
@@ -113,7 +113,7 @@ namespace windows
       // symbol handler queries
       size_t      module(char* str, int nCount);
       size_t      symbol(char* str, int nCount, OS_DWORD* pdisplacement = 0);
-      ::collection::index       fileline(char* str, int nCount, u32* pline, u32* pdisplacement = 0);
+      ::collection::index       fileline(char* str, int nCount, unsigned int* pline, unsigned int* pdisplacement = 0);
 
 
       // stack walk

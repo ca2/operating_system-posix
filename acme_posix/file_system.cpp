@@ -264,7 +264,7 @@ namespace acme_posix
 
       dwWrite = scopedstrContents.size();
 
-      size_t dwWritten = ::fwrite(scopedstrContents.begin(), 1, (u32)dwWrite, pfile);
+      size_t dwWritten = ::fwrite(scopedstrContents.begin(), 1, (unsigned int)dwWrite, pfile);
 
       if(dwWritten != dwWrite)
       {

@@ -44,7 +44,7 @@ namespace multimedia
          void term_task() override;
          //virtual void pre_translate_message(::signal_details * pobj);
 
-         void in_proc(snd_pcm_t * hwi, ::u32 uMsg, ::u32 dwInstance, ::u32 dwParam1, ::u32 dwParam2);
+         void in_proc(snd_pcm_t * hwi, unsigned int uMsg, unsigned int dwInstance, unsigned int dwParam1, unsigned int dwParam2);
 
          void run() override;
 

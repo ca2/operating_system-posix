@@ -65,9 +65,9 @@ GtkWidget*m_pgtkwidget;
             // ::wl_callback * m_pwlcallbackFrame;
             // ::size_i32 m_sizeDrag;
             //
-            // ::u32 m_uLastConfigureSerial;
-            // ::u32 m_uLastRequestSerial;
-            // ::u32 m_uLastAckSerial;
+            // unsigned int m_uLastConfigureSerial;
+            // unsigned int m_uLastRequestSerial;
+            // unsigned int m_uLastAckSerial;
             // ::string m_strActivationToken;
             // ::size_i32                                      m_sizeConfigure;
             // class ::time                                 m_timeLastConfigureRequest;
@@ -169,14 +169,14 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
             virtual void _on_window_map();
 
             // virtual void __handle_pointer_enter(::wl_pointer * pwlpointer);
-            // virtual void __handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis);
+            // virtual void __handle_pointer_motion(::wl_pointer * pwlpointer, unsigned int millis);
             // virtual void __handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::micro::window_base * pwaylandwindowLeave);
-            // virtual void __handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis);
+            // virtual void __handle_pointer_button(::wl_pointer * pwlpointer, unsigned int linux_button, unsigned int pressed, unsigned int millis);
 
 
             // virtual void __defer_update_wayland_buffer();
             //
-            // virtual void __handle_xdg_surface_configure(::u32 serial);
+            // virtual void __handle_xdg_surface_configure(unsigned int serial);
             //
             // virtual void __handle_xdg_toplevel_configure(int width, int height, ::wl_array * pwlarrayState);
             //
@@ -335,9 +335,9 @@ void defer_show_system_menu(::user::mouse * pmouse) override;
 
 
             // void __handle_pointer_enter(::wl_pointer * pwlpointer) override;
-            // void __handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis) override;
+            // void __handle_pointer_motion(::wl_pointer * pwlpointer, unsigned int millis) override;
             // void __handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::micro::window_base * pwaylandwindowLeave) override;
-            // void __handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis) override;
+            // void __handle_pointer_button(::wl_pointer * pwlpointer, unsigned int linux_button, unsigned int pressed, unsigned int millis) override;
 
 
             // void _on_button_pressed(GtkGestureClick* pgesture, int n_press, double x, double y) override;

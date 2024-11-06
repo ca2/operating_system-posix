@@ -350,7 +350,7 @@ namespace draw2d_xlib
    /*   HGDIOBJ graphics::SelectObject(HGDIOBJ hObject) // Safe for nullptr handles
       {
 
-         ::u32 uType = GetObjectType(hObject);
+         unsigned int uType = GetObjectType(hObject);
 
          if(uiType == OBJ_BITMAP)
          {
@@ -390,7 +390,7 @@ namespace draw2d_xlib
 //      return ::GetNearestColor(get_handle2(), crColor);
    }
 
-   ::u32 graphics::RealizePalette()
+   unsigned int graphics::RealizePalette()
    {
 //      return ::RealizePalette(get_handle1());
       return 0;
@@ -744,7 +744,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::DrawIcon(int x, int y, ::image::icon * picon, int cx, int cy, ::u32 istepIfAniCur, HBRUSH hbrFlickerFreeDraw, ::u32 diFlags)
+   bool graphics::DrawIcon(int x, int y, ::image::icon * picon, int cx, int cy, unsigned int istepIfAniCur, HBRUSH hbrFlickerFreeDraw, unsigned int diFlags)
    {
 
 
@@ -856,7 +856,7 @@ namespace draw2d_xlib
       return false;
    }
 
-//   bool graphics::DrawState(const ::point_i32 & point, const ::size_i32 & size, HBITMAP hBitmap, ::u32 nFlags, HBRUSH hBrush)
+//   bool graphics::DrawState(const ::point_i32 & point, const ::size_i32 & size, HBITMAP hBitmap, unsigned int nFlags, HBRUSH hBrush)
 //   {
 //
 //      throw ::not_implemented();
@@ -866,7 +866,7 @@ namespace draw2d_xlib
 //
 //   }
 //
-//   bool graphics::DrawState(const ::point_i32 & point, const ::size_i32 & size, ::draw2d::bitmap* pBitmap, ::u32 nFlags, ::draw2d::brush* pBrush)
+//   bool graphics::DrawState(const ::point_i32 & point, const ::size_i32 & size, ::draw2d::bitmap* pBitmap, unsigned int nFlags, ::draw2d::brush* pBrush)
 //   {
 //
 //      throw ::not_implemented();
@@ -876,7 +876,7 @@ namespace draw2d_xlib
 //
 //   }
 //
-//   /*   bool graphics::DrawState(const ::point_i32 & point, const ::size_i32 & size, HICON hIcon, ::u32 nFlags, HBRUSH hBrush)
+//   /*   bool graphics::DrawState(const ::point_i32 & point, const ::size_i32 & size, HICON hIcon, unsigned int nFlags, HBRUSH hBrush)
 //      {
 //
 //         throw ::not_implemented();
@@ -887,7 +887,7 @@ namespace draw2d_xlib
 //      }
 //
 //
-//      bool graphics::DrawState(const ::point_i32 & point, const ::size_i32 & size, HICON hIcon, ::u32 nFlags, ::draw2d::brush* pBrush)
+//      bool graphics::DrawState(const ::point_i32 & point, const ::size_i32 & size, HICON hIcon, unsigned int nFlags, ::draw2d::brush* pBrush)
 //      {
 //
 //         throw ::not_implemented();
@@ -897,7 +897,7 @@ namespace draw2d_xlib
 //
 //      }*/
 //
-//   bool graphics::DrawState(const ::point_i32 & point, const ::size_i32 & size, const char * lpszText, ::u32 nFlags, bool bPrefixText, int nTextLen, HBRUSH hBrush)
+//   bool graphics::DrawState(const ::point_i32 & point, const ::size_i32 & size, const char * lpszText, unsigned int nFlags, bool bPrefixText, int nTextLen, HBRUSH hBrush)
 //   {
 //
 //      throw ::not_implemented();
@@ -907,7 +907,7 @@ namespace draw2d_xlib
 //
 //   }
 //
-//   bool graphics::DrawState(const ::point_i32 & point, const ::size_i32 & size, const char * lpszText, ::u32 nFlags, bool bPrefixText, int nTextLen, ::draw2d::brush* pBrush)
+//   bool graphics::DrawState(const ::point_i32 & point, const ::size_i32 & size, const char * lpszText, unsigned int nFlags, bool bPrefixText, int nTextLen, ::draw2d::brush* pBrush)
 //   {
 //
 //      throw ::not_implemented();
@@ -919,7 +919,7 @@ namespace draw2d_xlib
 
 //   /*
 //
-//      bool graphics::DrawState(const ::point_i32 & point, const ::size_i32 & size, DRAWSTATEPROC lpDrawProc, LPARAM lData, ::u32 nFlags, HBRUSH hBrush)
+//      bool graphics::DrawState(const ::point_i32 & point, const ::size_i32 & size, DRAWSTATEPROC lpDrawProc, LPARAM lData, unsigned int nFlags, HBRUSH hBrush)
 //      {
 //
 //         throw ::not_implemented();
@@ -930,7 +930,7 @@ namespace draw2d_xlib
 //
 //      }
 //
-//      bool graphics::DrawState(const ::point_i32 & point, const ::size_i32 & size, DRAWSTATEPROC lpDrawProc, LPARAM lData, ::u32 nFlags, ::draw2d::brush* pBrush)
+//      bool graphics::DrawState(const ::point_i32 & point, const ::size_i32 & size, DRAWSTATEPROC lpDrawProc, LPARAM lData, unsigned int nFlags, ::draw2d::brush* pBrush)
 //      {
 //
 //         throw ::not_implemented();
@@ -943,7 +943,7 @@ namespace draw2d_xlib
 //
 //   */
 //
-//   bool graphics::DrawEdge(::rectangle_i32 * prectangle, ::u32 nEdge, ::u32 nFlags)
+//   bool graphics::DrawEdge(::rectangle_i32 * prectangle, unsigned int nEdge, unsigned int nFlags)
 //   {
 //
 //      throw ::not_implemented();
@@ -954,7 +954,7 @@ namespace draw2d_xlib
 //
 //   }
 //
-//   bool graphics::DrawFrameControl(::rectangle_i32 * prectangle, ::u32 nType, ::u32 nState)
+//   bool graphics::DrawFrameControl(::rectangle_i32 * prectangle, unsigned int nType, unsigned int nState)
 //   {
 //
 //      throw ::not_implemented();
@@ -1639,7 +1639,7 @@ namespace draw2d_xlib
 //
 //   }
 //
-//   bool graphics::ExtFloodFill(int x, int y, color32_t crColor, ::u32 nFillType)
+//   bool graphics::ExtFloodFill(int x, int y, color32_t crColor, unsigned int nFillType)
 //   {
 //
 //      throw ::not_implemented();
@@ -1775,7 +1775,7 @@ namespace draw2d_xlib
 
    } // call virtual
 
-   bool graphics::ExtTextOut(int x, int y, ::u32 nOptions, const ::rectangle_i32 & rectangle, const char * lpszString, ::u32 nCount, LPINT lpDxWidths)
+   bool graphics::ExtTextOut(int x, int y, unsigned int nOptions, const ::rectangle_i32 & rectangle, const char * lpszString, unsigned int nCount, LPINT lpDxWidths)
    {
 
       throw ::not_implemented();
@@ -1786,14 +1786,14 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::ExtTextOut(int x, int y, ::u32 nOptions, const ::rectangle_i32 & rectangle, const string & str, LPINT lpDxWidths)
+   bool graphics::ExtTextOut(int x, int y, unsigned int nOptions, const ::rectangle_i32 & rectangle, const string & str, LPINT lpDxWidths)
    {
 
       throw ::not_implemented();
       return false;
 
 //      ASSERT(get_handle1() != nullptr);
-//      return ::ExtTextOut(get_handle1(), x, y, nOptions, rectangle, str, (::u32)str.length(), lpDxWidths) != false;
+//      return ::ExtTextOut(get_handle1(), x, y, nOptions, rectangle, str, (unsigned int)str.length(), lpDxWidths) != false;
 
    }
 
@@ -1875,7 +1875,7 @@ namespace draw2d_xlib
 
    }
 
-   ::u32 graphics::GetTextAlign() const
+   unsigned int graphics::GetTextAlign() const
    {
 
       throw ::not_implemented();
@@ -1989,7 +1989,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::GetCharWidth(::u32 nFirstChar, ::u32 nLastChar, LPINT lpBuffer) const
+   bool graphics::GetCharWidth(unsigned int nFirstChar, unsigned int nLastChar, LPINT lpBuffer) const
    {
 
       throw ::not_implemented();
@@ -2000,7 +2000,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::GetOutputCharWidth(::u32 nFirstChar, ::u32 nLastChar, LPINT lpBuffer) const
+   bool graphics::GetOutputCharWidth(unsigned int nFirstChar, unsigned int nLastChar, LPINT lpBuffer) const
    {
 
       throw ::not_implemented();
@@ -2011,7 +2011,7 @@ namespace draw2d_xlib
 
    }
 
-   u32 graphics::GetFontLanguageInfo() const
+   unsigned int graphics::GetFontLanguageInfo() const
    {
 
       throw ::not_implemented();
@@ -2024,7 +2024,7 @@ namespace draw2d_xlib
 
    /*
 
-      u32 graphics::GetCharacterPlacement(const char * lpString, int nCount, int nMaxExtent, LPGCP_RESULTS lpResults, u32 dwFlags) const
+      unsigned int graphics::GetCharacterPlacement(const char * lpString, int nCount, int nMaxExtent, LPGCP_RESULTS lpResults, unsigned int dwFlags) const
       {
 
          throw ::not_implemented();
@@ -2035,7 +2035,7 @@ namespace draw2d_xlib
 
       }
 
-      u32 graphics::GetCharacterPlacement(string & str, int nMaxExtent, LPGCP_RESULTS lpResults, u32 dwFlags) const
+      unsigned int graphics::GetCharacterPlacement(string & str, int nMaxExtent, LPGCP_RESULTS lpResults, unsigned int dwFlags) const
       {
 
          throw ::not_implemented();
@@ -2086,7 +2086,7 @@ namespace draw2d_xlib
    }
 
    // graphics 3.1 Specific functions
-   ::u32 graphics::SetBoundsRect(::rectangle_i32 rectangleBounds, ::u32 flags)
+   unsigned int graphics::SetBoundsRect(::rectangle_i32 rectangleBounds, unsigned int flags)
    {
 
       throw ::not_implemented();
@@ -2097,7 +2097,7 @@ namespace draw2d_xlib
 
    }
 
-   ::u32 graphics::GetBoundsRect(::rectangle_i32 * rectangleBounds, ::u32 flags)
+   unsigned int graphics::GetBoundsRect(::rectangle_i32 * rectangleBounds, unsigned int flags)
    {
 
       throw ::not_implemented();
@@ -2121,7 +2121,7 @@ namespace draw2d_xlib
 
       }
 
-      ::u32 graphics::GetOutlineTextMetrics(::u32 cbData, LPOUTLINETEXTMETRICW lpotm) const
+      unsigned int graphics::GetOutlineTextMetrics(unsigned int cbData, LPOUTLINETEXTMETRICW lpotm) const
       {
 
          throw ::not_implemented();
@@ -2132,7 +2132,7 @@ namespace draw2d_xlib
 
       }
 
-      bool graphics::GetCharABCWidths(::u32 nFirstChar, ::u32 nLastChar, LPABC lpabc) const
+      bool graphics::GetCharABCWidths(unsigned int nFirstChar, unsigned int nLastChar, LPABC lpabc) const
       {
 
          throw ::not_implemented();
@@ -2145,7 +2145,7 @@ namespace draw2d_xlib
 
    */
 
-   u32 graphics::GetFontData(u32 dwTable, u32 dwOffset, LPVOID lpData, u32 cbData) const
+   unsigned int graphics::GetFontData(unsigned int dwTable, unsigned int dwOffset, LPVOID lpData, unsigned int cbData) const
    {
 
       throw ::not_implemented();
@@ -2169,7 +2169,7 @@ namespace draw2d_xlib
 
       }
 
-      u32 graphics::GetGlyphOutline(::u32 nChar, const ::e_align & ealign, const ::e_draw_text & edrawtext, LPGLYPHMETRICS lpgm, u32 cbBuffer, LPVOID lpBuffer, const MAT2* lpmat2) const
+      unsigned int graphics::GetGlyphOutline(unsigned int nChar, const ::e_align & ealign, const ::e_draw_text & edrawtext, LPGLYPHMETRICS lpgm, unsigned int cbBuffer, LPVOID lpBuffer, const MAT2* lpmat2) const
       {
 
          throw ::not_implemented();
@@ -2330,7 +2330,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::poly_polyline(const ::point_i32* lpPoints, const u32* lpPolyPoints, int nCount)
+   bool graphics::poly_polyline(const ::point_i32* lpPoints, const unsigned int* lpPolyPoints, int nCount)
    {
 
       throw ::not_implemented();
@@ -2427,7 +2427,7 @@ namespace draw2d_xlib
 
    /*
 
-      bool graphics::GetCharABCWidths(::u32 nFirstChar, ::u32 nLastChar, LPABCFLOAT lpABCF) const
+      bool graphics::GetCharABCWidths(unsigned int nFirstChar, unsigned int nLastChar, LPABCFLOAT lpABCF) const
       {
 
          throw ::not_implemented();
@@ -2440,7 +2440,7 @@ namespace draw2d_xlib
 
    */
 
-   bool graphics::GetCharWidth(::u32 nFirstChar, ::u32 nLastChar, float* lpFloatBuffer) const
+   bool graphics::GetCharWidth(unsigned int nFirstChar, unsigned int nLastChar, float* lpFloatBuffer) const
    {
 
       throw ::not_implemented();
@@ -2625,7 +2625,7 @@ namespace draw2d_xlib
    }
 
 
-   bool graphics::AddMetaFileComment(::u32 nDataSize, const unsigned char* pCommentData)
+   bool graphics::AddMetaFileComment(unsigned int nDataSize, const unsigned char* pCommentData)
    {
 
       throw ::not_implemented();
@@ -2639,8 +2639,8 @@ namespace draw2d_xlib
 
    /*bool CALLBACK metacallback(
       EmfPlusRecordType recordType,
-      u32 flags,
-      u32 dataSize,
+      unsigned int flags,
+      unsigned int dataSize,
       const unsigned char* pStr,
       void* callbackData)
    {
@@ -2929,7 +2929,7 @@ namespace draw2d_xlib
    }*/
 
 
-   bool graphics::TransparentBlt(int xDest, int yDest, int nDestWidth, int nDestHeight, ::draw2d::graphics * pgraphicsSrc, int xSrc, int ySrc, int nSrcWidth, int nSrcHeight, ::u32 crTransparent)
+   bool graphics::TransparentBlt(int xDest, int yDest, int nDestWidth, int nDestHeight, ::draw2d::graphics * pgraphicsSrc, int xSrc, int ySrc, int nSrcWidth, int nSrcHeight, unsigned int crTransparent)
    {
 
       throw ::not_implemented();
@@ -2940,7 +2940,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::GradientFill(TRIVERTEX* pVertices, ULONG nVertices, void * pMesh, ULONG nMeshElements, u32 dwMode)
+   bool graphics::GradientFill(TRIVERTEX* pVertices, ULONG nVertices, void * pMesh, ULONG nMeshElements, unsigned int dwMode)
    {
 
       throw ::not_implemented();
@@ -3003,7 +3003,7 @@ namespace draw2d_xlib
 
 #if (_WIN32_WINNT >= 0x0500)
 
-   bool graphics::GetCharABCWidthsI(::u32 giFirst, ::u32 cgi, LPWORD pgi, LPABC lpabc) const
+   bool graphics::GetCharABCWidthsI(unsigned int giFirst, unsigned int cgi, LPWORD pgi, LPABC lpabc) const
    {
 
       throw ::not_implemented();
@@ -3014,7 +3014,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::GetCharWidthI(::u32 giFirst, ::u32 cgi, LPWORD pgi, LPINT lpBuffer) const
+   bool graphics::GetCharWidthI(unsigned int giFirst, unsigned int cgi, LPWORD pgi, LPINT lpBuffer) const
    {
 
       throw ::not_implemented();
@@ -3165,9 +3165,9 @@ namespace draw2d_xlib
       /*      ::aura::LockGlobals(CRIT_HALFTONEBRUSH);
             if (gen_HalftoneBrush == nullptr)
             {
-               ::u16 grayPattern[8];
+               unsigned short grayPattern[8];
                for (int i = 0; i < 8; i++)
-                  grayPattern[i] = (::u16)(0x5555 << (i & 1));
+                  grayPattern[i] = (unsigned short)(0x5555 << (i & 1));
                HBITMAP grayBitmap = CreateBitmap(8, 8, 1, 1, grayPattern);
                if (grayBitmap != nullptr)
                {
@@ -3572,7 +3572,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::ModifyWorldTransform(const XFORM* pXform,u32 iMode)
+   bool graphics::ModifyWorldTransform(const XFORM* pXform,unsigned int iMode)
    {
 
       throw ::not_implemented();
@@ -3914,14 +3914,14 @@ namespace draw2d_xlib
 
    }
 
-   ::u32 graphics::SetTextAlign(::u32 nFlags)
+   unsigned int graphics::SetTextAlign(unsigned int nFlags)
    {
 
       throw ::not_implemented();
       return 0;
 
       /*
-            ::u32 nRetVal = GDI_ERROR;
+            unsigned int nRetVal = GDI_ERROR;
             if(get_handle1() != nullptr && get_handle1() != get_handle2())
                ::SetTextAlign(get_handle1(), nFlags);
             if(get_handle2() != nullptr)
@@ -3966,7 +3966,7 @@ namespace draw2d_xlib
 
    }
 
-   u32 graphics::SetMapperFlags(u32 dwFlag)
+   unsigned int graphics::SetMapperFlags(unsigned int dwFlag)
    {
 
       throw ::not_implemented();
@@ -3974,7 +3974,7 @@ namespace draw2d_xlib
 
       /*
             ASSERT(get_handle1() != nullptr);
-            u32 dwRetVal = GDI_ERROR;
+            unsigned int dwRetVal = GDI_ERROR;
             if(get_handle1() != nullptr && get_handle1() != get_handle2())
                dwRetVal = ::SetMapperFlags(get_handle1(), dwFlag);
             if(get_handle2() != nullptr)
@@ -3984,10 +3984,10 @@ namespace draw2d_xlib
 
    }
 
-//   typedef u32 (CALLBACK* __GDIGETLAYOUTPROC)(HDC);
-//   typedef u32 (CALLBACK* __GDISETLAYOUTPROC)(HDC, u32);
+//   typedef unsigned int (CALLBACK* __GDIGETLAYOUTPROC)(HDC);
+//   typedef unsigned int (CALLBACK* __GDISETLAYOUTPROC)(HDC, unsigned int);
 
-   u32 graphics::GetLayout() const
+   unsigned int graphics::GetLayout() const
    {
 
       throw ::not_implemented();
@@ -3996,7 +3996,7 @@ namespace draw2d_xlib
       /*
             HINSTANCE hInst = ::GetModuleHandleA("GDI32.DLL");
             ASSERT(hInst != nullptr);
-            u32 dwGetLayout = LAYOUT_LTR;
+            unsigned int dwGetLayout = LAYOUT_LTR;
             __GDIGETLAYOUTPROC pfn;
             pfn = (__GDIGETLAYOUTPROC) GetProcaddress(hInst, "GetLayout");
             // if they API is available, just call it. If it is not
@@ -4013,7 +4013,7 @@ namespace draw2d_xlib
 
    }
 
-   u32 graphics::SetLayout(u32 dwSetLayout)
+   unsigned int graphics::SetLayout(unsigned int dwSetLayout)
    {
 
       throw ::not_implemented();
@@ -4022,7 +4022,7 @@ namespace draw2d_xlib
       /*
             HINSTANCE hInst = ::GetModuleHandleA("GDI32.DLL");
             ASSERT(hInst != nullptr);
-            u32 dwGetLayout = LAYOUT_LTR;
+            unsigned int dwGetLayout = LAYOUT_LTR;
             __GDISETLAYOUTPROC pfn;
             pfn = (__GDISETLAYOUTPROC) GetProcaddress(hInst, "SetLayout");
             // If the API is availalbe, just call it. If it's not available,
@@ -4288,7 +4288,7 @@ namespace draw2d_xlib
          case META_SELECTOBJECT:
             {
                HGDIOBJ hObject = pHandleTable->objectHandle[pMetaRec->rdParm[0]];
-               ::u32 nObjType = GetObjectType(hObject);
+               unsigned int nObjType = GetObjectType(hObject);
                if (nObjType == 0)
                {
                   // object type is unknown, determine if it is a font

@@ -183,8 +183,8 @@ namespace windowing_x11
       bool screen_to_client(::point_i32 * ppoint) override;
 
 
-      //virtual bool set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,::u32 nFlags);
-      //virtual bool _set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,::u32 nFlags);
+      //virtual bool set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,unsigned int nFlags);
+      //virtual bool _set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,unsigned int nFlags);
       
 
       bool is_destroying() override;
@@ -306,7 +306,7 @@ namespace windowing_x11
       virtual ::e_status x11_post_message(MESSAGE & msg);
       virtual ::e_status post_ui_message(const MESSAGE & message);
       //virtual bool x11_process_event(osdisplay_data * pdisplaydata, XEvent * pevent, XGenericEventCookie *cookie);
-      //virtual ::e_status set_window_position( WINDOWING_X11_WINDOW_MEMBER const ::zorder & zorder, int x, int y, int cx, int cy, ::u32 nFlags);
+      //virtual ::e_status set_window_position( WINDOWING_X11_WINDOW_MEMBER const ::zorder & zorder, int x, int y, int cx, int cy, unsigned int nFlags);
       virtual ::e_status window_rectangle( WINDOWING_X11_WINDOW_MEMBER ::rectangle_i32 * prectangle);
       virtual ::e_status rectangle(  WINDOWING_X11_WINDOW_MEMBER  ::rectangle_i32 * prectangle);
       //virtual ::e_status wm_full_screen( WINDOWING_X11_WINDOW_MEMBER const ::rectangle_i32 & rectangle);

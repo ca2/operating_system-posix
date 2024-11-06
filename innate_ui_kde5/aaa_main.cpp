@@ -12,10 +12,10 @@
 //CLASS_DECL_ACME int ca2_main();
 
 
-void __cdecl _null_se_translator(u32 uiCode, EXCEPTION_POINTERS * ppointers);
+void __cdecl _null_se_translator(unsigned int uiCode, EXCEPTION_POINTERS * ppointers);
 
 
-void __cdecl _null_se_translator(u32 uiCode, EXCEPTION_POINTERS * ppointers)
+void __cdecl _null_se_translator(unsigned int uiCode, EXCEPTION_POINTERS * ppointers)
 {
 
    __UNREFERENCED_PARAMETER(uiCode);

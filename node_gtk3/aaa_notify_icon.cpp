@@ -23,7 +23,7 @@ namespace node_gtk3
    }
 
 
-   bool notify_icon::create_notify_icon(::u32 uId, ::user::notify_icon_listener * plistener, ::windowing::icon * picon)
+   bool notify_icon::create_notify_icon(unsigned int uId, ::user::notify_icon_listener * plistener, ::windowing::icon * picon)
    {
 
       if(m_bCreated)
@@ -399,7 +399,7 @@ namespace node_gtk3
 
    //   }
 
-   //   m_plistener->OnNotifyIconMessage(m_uiId, (::u32) pusermessage->m_lparam);
+   //   m_plistener->OnNotifyIconMessage(m_uiId, (unsigned int) pusermessage->m_lparam);
 
    //}
 

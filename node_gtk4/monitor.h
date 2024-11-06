@@ -31,8 +31,8 @@ namespace node_gtk4
       void update_cache() override;
 
 
-      virtual ::u32 monitor_color_temperature() override;
-      virtual bool adjust_monitor( ::u32 dwTemperature, double dBrightness, double dwGamma) override;
+      virtual unsigned int monitor_color_temperature() override;
+      virtual bool adjust_monitor( unsigned int dwTemperature, double dBrightness, double dwGamma) override;
 
 
       ::rectangle_i32 monitor_rectangle() override;
