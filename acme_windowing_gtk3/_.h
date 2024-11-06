@@ -91,16 +91,16 @@ inline void copy(::rectangle_i32 * prectTarget, const GdkRectangle * prectSource
 //public:
 //
 //
-//   unsigned int m_u32;
+//   unsigned int m_ui;
 //
 //
-//   x11color32_t(){m_u32=0;}
+//   x11color32_t(){m_ui=0;}
 //   x11color32_t(const ::color::color & color)
 //   {
 //
 //      auto opacity = color.byte_opacity();
 //
-//      m_u32 = make_u32(
+//      m_ui = make_u32(
 //              color.byte_blue() * opacity / 255,
 //              color.byte_green() * opacity / 255,
 //              color.byte_red() * opacity / 255,
@@ -109,7 +109,7 @@ inline void copy(::rectangle_i32 * prectTarget, const GdkRectangle * prectSource
 //   }
 //
 //
-//   operator unsigned long () const { return m_u32; }
+//   operator unsigned long () const { return m_ui; }
 //
 //
 //};

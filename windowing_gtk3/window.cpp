@@ -2311,7 +2311,7 @@ bOk = true;
 //      for (int i = 0; i < c; i++)
 //      {
 //
-//         pcr[i + 2] = image1->image32()[i].m_u32;
+//         pcr[i + 2] = image1->image32()[i].m_ui;
 //
 //      }
 //
