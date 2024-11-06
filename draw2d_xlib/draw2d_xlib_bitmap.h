@@ -27,20 +27,20 @@ namespace draw2d_xlib
       bool LoadBitmap(const char * lpszResourceName);
       bool LoadBitmap(::u32 nIDResource);
       bool LoadOEMBitmap(::u32 nIDBitmap); // for OBM_/OCR_/OIC_
-      bool CreateBitmap(::draw2d::graphics * pgraphics, i32 nWidth, i32 nHeight, ::u32 nPlanes, ::u32 nBitcount, const void * lpBits, i32 iStride);
+      bool CreateBitmap(::draw2d::graphics * pgraphics, int nWidth, int nHeight, ::u32 nPlanes, ::u32 nBitcount, const void * lpBits, int iStride);
       bool CreateBitmapIndirect(::draw2d::graphics * pgraphics, LPBITMAP lpBitmap);
-      bool CreateCompatibleBitmap(::draw2d::graphics * pgraphics, i32 nWidth, i32 nHeight);
-      bool CreateDiscardableBitmap(::draw2d::graphics * pgraphics, i32 nWidth, i32 nHeight);
+      bool CreateCompatibleBitmap(::draw2d::graphics * pgraphics, int nWidth, int nHeight);
+      bool CreateDiscardableBitmap(::draw2d::graphics * pgraphics, int nWidth, int nHeight);
       bool CreateDIBSection(::draw2d::graphics * pgraphics, const BITMAPINFO * lpbmi, ::u32 usage, void **ppvBits, int * stride, HANDLE hSection, u32 offset);
       bool CreateDIBitmap(::draw2d::graphics * pgraphics, const BITMAPINFOHEADER *pbmih, ::u32 flInit, const void *pjBits, const BITMAPINFO *pbmi, ::u32 iUsage);
 
 
-      i32 GetBitmap(BITMAP* pBitMap);
+      int GetBitmap(BITMAP* pBitMap);
 
 
       ::u32 SetBitmapBits(::u32 dwCount, const void * lpBits);
       ::u32 GetBitmapBits(::u32 dwCount, LPVOID lpBits) const;
-      ::size_i32 SetBitmapDimension(i32 nWidth, i32 nHeight);
+      ::size_i32 SetBitmapDimension(int nWidth, int nHeight);
       ::size_i32 GetBitmapDimension() const;
 
       // void dump(dump_context & dumpcontext) const override;

@@ -25,7 +25,7 @@ namespace draw2d_xlib
 
    }
 
-   bool bitmap::CreateBitmap(::draw2d::graphics * pgraphics, i32 cx, i32 cy, ::u32 nPlanes, ::u32 nBitcount, const void * pdata, i32 iStrideParam)
+   bool bitmap::CreateBitmap(::draw2d::graphics * pgraphics, int cx, int cy, ::u32 nPlanes, ::u32 nBitcount, const void * pdata, int iStrideParam)
    {
 
       cy = abs(cy);
@@ -45,19 +45,19 @@ namespace draw2d_xlib
 
       }
 
-      i32 iStride = cx * 4;
+      int iStride = cx * 4;
 
       m_mem.set_size(iStride * cy);
 
       if(iStrideParam != iStride)
       {
 
-         i32 iW = cx * 4;
+         int iW = cx * 4;
 
-         for(i32 i = 0; i < cy; i++)
+         for(int i = 0; i < cy; i++)
          {
 
-            ::memory_copy(&((::u8 *) m_mem.get_data())[iStride * i], &((::u8 *) pdata)[iStrideParam * i], iW);
+            ::memory_copy(&((unsigned char *) m_mem.get_data())[iStride * i], &((unsigned char *) pdata)[iStrideParam * i], iW);
 
          }
 
@@ -132,7 +132,7 @@ namespace draw2d_xlib
 
       }
 
-      i32 iStride = cx * 4;
+      int iStride = cx * 4;
 
       m_mem.set_size(iStride * cy);
 
@@ -142,12 +142,12 @@ namespace draw2d_xlib
          if(cx * 4 != iStride)
          {
 
-            i32 iW = cx * 4;
+            int iW = cx * 4;
 
-            for(i32 i = 0; i < cy; i++)
+            for(int i = 0; i < cy; i++)
             {
 
-               ::memory_copy(&((::u8 *) m_mem.get_data())[iStride * i], &((::u8 *) *ppdata)[iW * i], iW);
+               ::memory_copy(&((unsigned char *) m_mem.get_data())[iStride * i], &((unsigned char *) *ppdata)[iW * i], iW);
 
             }
 
@@ -237,7 +237,7 @@ namespace draw2d_xlib
 
    }
 
-   size_i32 bitmap::SetBitmapDimension(i32 nWidth, i32 nHeight)
+   size_i32 bitmap::SetBitmapDimension(int nWidth, int nHeight)
    {
 
 
@@ -270,7 +270,7 @@ namespace draw2d_xlib
       //return Attach(::LoadBitmap(nullptr, MAKEINTRESOURCE(nIDBitmap)));
       return false;
    }
-   bool bitmap::CreateCompatibleBitmap(::draw2d::graphics * pgraphics, i32 cx, i32 cy)
+   bool bitmap::CreateCompatibleBitmap(::draw2d::graphics * pgraphics, int cx, int cy)
    {
 
       m_mem.set_size(cx * cy * 4);
@@ -308,7 +308,7 @@ namespace draw2d_xlib
 //      return true;
 
    }
-   bool bitmap::CreateDiscardableBitmap(::draw2d::graphics * pgraphics, i32 nWidth, i32 nHeight)
+   bool bitmap::CreateDiscardableBitmap(::draw2d::graphics * pgraphics, int nWidth, int nHeight)
    {
 
       return CreateCompatibleBitmap(pgraphics, nWidth, nHeight);
@@ -316,7 +316,7 @@ namespace draw2d_xlib
    }
 
 
-   i32 bitmap::GetBitmap(BITMAP* pBitMap)
+   int bitmap::GetBitmap(BITMAP* pBitMap)
    {
    //   ASSERT(get_handle() != nullptr);
      // return ::GetObject(get_handle(), sizeof(BITMAP), pBitMap);
@@ -346,7 +346,7 @@ namespace draw2d_xlib
    }
 
 /*
-   void get_surface_size (xlib_surface_t * psurface, ::i32 * plongWidth, ::i32 * plongHeight)
+   void get_surface_size (xlib_surface_t * psurface, int * plongWidth, int * plongHeight)
 	{
 
       if(plongWidth != nullptr)

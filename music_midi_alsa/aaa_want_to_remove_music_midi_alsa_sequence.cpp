@@ -1351,7 +1351,7 @@ namespace music
                            ::file::byte_stream_memory_buffer memFile(get_app(), (LPBYTE) &lpdwParam[1], pheader->m_dwLength - sizeof(::u32));
                            for(int32_t i = 0; i < m_iaLevel.get_size(); i++)
                            {
-                              ::u8 b;
+                              unsigned char b;
                               memFile >> b;
                               m_iaLevel.element_at(i) = b;
                            }

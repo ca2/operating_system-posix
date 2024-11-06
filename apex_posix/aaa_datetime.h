@@ -8,7 +8,7 @@
 //
 //
 //// time zone bias in seconds
-//CLASS_DECL_APEX_POSIX ::i32 TIME_GetBias(void);
+//CLASS_DECL_APEX_POSIX int TIME_GetBias(void);
 //
 //
 ///*********************************************************************

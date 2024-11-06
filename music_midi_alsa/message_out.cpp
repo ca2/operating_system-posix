@@ -119,7 +119,7 @@ namespace music
          void message_out::note_on(int channel, unsigned char note, unsigned char volume)
          {
 
-            ::u8 message[3];
+            unsigned char message[3];
 
             message[0] = 0x90 | channel;
 
@@ -136,7 +136,7 @@ namespace music
          void message_out::note_off(int channel, unsigned char note, unsigned char velocity)
          {
 
-            ::u8 message[3];
+            unsigned char message[3];
 
             message[0] = 0x80 | channel;
 
@@ -152,7 +152,7 @@ namespace music
          void message_out::program_change(int channel, unsigned char instrument)
          {
 
-            ::u8 message[2];
+            unsigned char message[2];
 
             message[0] = 0xC0 | channel;
 
@@ -200,7 +200,7 @@ namespace music
          void message_out::sysex(const ::block & block)
          {
 
-            ::u8 message[1];
+            unsigned char message[1];
 
             message[0] = 0xF0;
 
@@ -213,7 +213,7 @@ namespace music
          }
 
 
-         void message_out::add_short_message(::u8 * pmessage, int iSize)
+         void message_out::add_short_message(unsigned char * pmessage, int iSize)
          {
 
             m_file.write(pmessage, iSize);
@@ -230,7 +230,7 @@ namespace music
          void message_out::control_change(int channel, unsigned char controller, unsigned char value)
          {
 
-            ::u8 message[3];
+            unsigned char message[3];
 
             message[0] = 0xB0 | channel;
 
@@ -250,7 +250,7 @@ namespace music
 
             int c2 = ((value >> 7) & 0x7F);
 
-            ::u8 message[3];
+            unsigned char message[3];
 
             message[0] = 0xE0 | channel;
 

@@ -11,8 +11,8 @@
 //CLASS_DECL_ACME bool windows_register_with_icon(WNDCLASSEXW* puserinteractionclass, const unichar * pszClassName, ::u32 nIDIcon);
 
 // CLASS_DECL_ACME void window_create_caret(::windowing::window * pwindow, HBITMAP hbitmap);
-// CLASS_DECL_ACME void window_create_solid_caret(::windowing::window * pwindow, i32 nWidth, i32 nHeight);
-// CLASS_DECL_ACME void window_create_gray_caret(::windowing::window * pwindow, i32 nWidth, i32 nHeight);
+// CLASS_DECL_ACME void window_create_solid_caret(::windowing::window * pwindow, int nWidth, int nHeight);
+// CLASS_DECL_ACME void window_create_gray_caret(::windowing::window * pwindow, int nWidth, int nHeight);
 
 
 

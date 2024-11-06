@@ -133,14 +133,14 @@ namespace draw2d_xlib
    */
 
    /*
-      i32 palette::GetEntryCount()
+      int palette::GetEntryCount()
       {
 
          //ASSERT(get_os_data() != nullptr);
 
          //::u16 nEntries;
 
-         //::GetObject(get_os_data(), sizeof(::u16), &nEntries); return (i32)nEntries;
+         //::GetObject(get_os_data(), sizeof(::u16), &nEntries); return (int)nEntries;
 
          return 0;
 

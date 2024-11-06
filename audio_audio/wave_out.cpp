@@ -717,7 +717,7 @@ audio_dev_unpause();
 
          auto iFrameFreeCount = 0;
 
-         ::u8 *pbufferata;
+         unsigned char *pbufferata;
 
          memory m;
 
@@ -728,7 +728,7 @@ audio_dev_unpause();
 
             pbuffer = m_pwavebuffer->m_buffera[iBuffer];
 
-            pbufferata = (::u8 *) out_get_buffer_data(iBuffer);
+            pbufferata = (unsigned char *) out_get_buffer_data(iBuffer);
 
          }
          else
@@ -738,7 +738,7 @@ audio_dev_unpause();
 
             m.zero();
 
-            pbufferata = (::u8 *) m.data();
+            pbufferata = (unsigned char *) m.data();
 
          }
 

@@ -64,8 +64,8 @@ namespace gtk4
 
 
             virtual ::particle * get_interface_client_particle(); // m_pwindow->m_puserinteraction
-            virtual void set_window_width(::i32 iWidth); // m_sizeWindow.cx()
-            virtual void set_window_height(::i32 iHeight); // m_sizeWindow.cy()
+            virtual void set_window_width(int iWidth); // m_sizeWindow.cx()
+            virtual void set_window_height(int iHeight); // m_sizeWindow.cy()
             virtual ::size_i32 get_window_size(); // m_sizeWindow
             virtual void set_interface_client_size(const ::size_i32 & sizeWindow); // m_sizeWindow
 

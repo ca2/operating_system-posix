@@ -133,7 +133,7 @@ namespace system_5
    }
 
 
-//   void interprocess_caller::send(i32 message, void *p, i32 iLen, const time &timeTimeout)
+//   void interprocess_caller::send(int message, void *p, int iLen, const time &timeTimeout)
 //   {
 //
 //      if (message == 1024)
@@ -162,9 +162,9 @@ namespace system_5
 //      // return false;
 //
 //      /* The length is essentially the size_i32 of the structure minus sizeof(mtype) */
-//      /*         i32 length = sizeof(data_struct) - sizeof(long);
+//      /*         int length = sizeof(data_struct) - sizeof(long);
 //
-//               i32 result;
+//               int result;
 //
 //               ::memory_copy(data.data, pszMessage, data.size_i32);
 //

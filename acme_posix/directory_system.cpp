@@ -473,7 +473,7 @@ void directory_system::erase_recursively(const ::file::path &path)
 
       string strCandidate;
 
-      for (i32 i = 0; i < stra.get_count(); i++)
+      for (int i = 0; i < stra.get_count(); i++)
       {
 
          if (stra[i].is_empty())

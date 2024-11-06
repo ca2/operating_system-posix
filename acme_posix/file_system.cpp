@@ -185,7 +185,7 @@ namespace acme_posix
    }
 
 
-   void file_system::set_size(i32 iFileDescriptor, filesize size)
+   void file_system::set_size(int iFileDescriptor, filesize size)
    {
 
       if (ftruncate(iFileDescriptor, size) == -1)
@@ -218,7 +218,7 @@ namespace acme_posix
 //   }
 
 
-   filesize file_system::get_size_fd(i32 iFileDescriptor)
+   filesize file_system::get_size_fd(int iFileDescriptor)
    {
 
       struct stat st = {};
@@ -608,7 +608,7 @@ namespace acme_posix
 //
 //      void * source, * target;
 //
-//      i32 flags = O_RDWR | O_CREAT | O_TRUNC;
+//      int flags = O_RDWR | O_CREAT | O_TRUNC;
 //
 //      if (!bOverwrite)
 //      {
@@ -739,14 +739,14 @@ namespace acme_posix
    //int_bool file_path_is_equal(const char * psz1, const char * psz2)
    //{
    //
-   //      const i32 iBufSize = MAX_PATH * 8;
+   //      const int iBufSize = MAX_PATH * 8;
    //      wstring pwsz1 = utf8_to_unicode(psz1);
    //      wstring pwsz2 = utf8_to_unicode(psz2);
    //      //   unichar * pwszFile1;
    //      // unichar * pwszFile2;
    //      ::wide_character * pwszPath1 = ___new ::wide_character[iBufSize];
    //      ::wide_character * pwszPath2 = ___new ::wide_character[iBufSize];
-   //      i32 iCmp = -1;
+   //      int iCmp = -1;
    //      //   if(GetFullPathNameW(pwsz1,iBufSize,pwszPath1,&pwszFile1))
    //      // {
    //      //  if(GetFullPathNameW(pwsz2,iBufSize,pwszPath2,&pwszFile2))
@@ -771,14 +771,14 @@ namespace acme_posix
 
 
 
-   i32 ansi_open(const char * psz, i32 i)
+   int ansi_open(const char * psz, int i)
    {
 
          return open(psz, i | O_CLOEXEC);
 
    }
 
-   void ansi_get_errno(i32 * perrno)
+   void ansi_get_errno(int * perrno)
    {
          *perrno = errno;
    }

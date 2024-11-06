@@ -126,7 +126,7 @@ namespace system_5
    void interprocess_target::destroy()
    {
 
-      i32 iRetry = 23;
+      int iRetry = 23;
 
       while (m_bRunning && iRetry > 0)
       {
@@ -224,7 +224,7 @@ namespace system_5
 //      }
 //
 //
-//      void interprocess_handler::receiver::on_ipc_receive(interprocess_handler * prx,i32 message,void * pdata,memsize len)
+//      void interprocess_handler::receiver::on_ipc_receive(interprocess_handler * prx,int message,void * pdata,memsize len)
 //      {
 //
 //      }
@@ -253,7 +253,7 @@ namespace system_5
 //   }
 
 
-//   void interprocess_target::on_interprocess_receive(i32 message, ::memory &&memory)
+//   void interprocess_target::on_interprocess_receive(int message, ::memory &&memory)
 //   {
 //
 //      if (m_preceiver != nullptr)
@@ -319,7 +319,7 @@ namespace system_5
 
          ssize_t result;
 
-         i32 length;
+         int length;
 
          data_struct *pdata = (data_struct *) m.data();
 

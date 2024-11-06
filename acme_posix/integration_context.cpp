@@ -6,6 +6,7 @@
 #include "acme/filesystem/file/memory_file.h"
 #include "acme/filesystem/filesystem/directory_system.h"
 #include "acme/platform/application.h"
+#include "acme/platform/http.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
 #include "acme/prototype/prototype/url.h"
@@ -255,7 +256,7 @@ namespace acme_posix
 
             auto url = m_pathDownloadURL;
 
-            system()->http_download(pmemoryFileTarGz, url, set);
+            http()->download(pmemoryFileTarGz, url, set);
 
             //auto pathTar = m_pathFolder / m_path / (m_strName + ".tar");
 
@@ -282,7 +283,7 @@ namespace acme_posix
       }
 
 
-      ::i32 context::bash(const ::scoped_string &scopedstr, const class ::time & timeTimeout)
+      int context::bash(const ::scoped_string &scopedstr, const class ::time & timeTimeout)
       {
 
          string strEscaped = scopedstr;

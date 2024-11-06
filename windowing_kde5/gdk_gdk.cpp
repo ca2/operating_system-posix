@@ -629,7 +629,7 @@ namespace windowing_kde5
 //
 //    }
 //
-//    for(::i32 i = 0; i < 10 && g_main_context_pending(NULL); i++)
+//    for(int i = 0; i < 10 && g_main_context_pending(NULL); i++)
 //    {
 //
 //       g_main_context_iteration(NULL, TRUE);

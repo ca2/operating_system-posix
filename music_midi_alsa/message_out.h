@@ -50,7 +50,7 @@ namespace music
 
             void reset_all_controllers() override;
 
-            virtual void add_short_message(::u8 * pmessage, int iSize);
+            virtual void add_short_message(unsigned char * pmessage, int iSize);
 
             bool is_ok() override;
 

@@ -24,7 +24,7 @@ CLASS_DECL_ACME bool is_verbose();
 
 
 
-CLASS_DECL_ACME i32 __cdecl _memory_type(const void * p);
+CLASS_DECL_ACME int __cdecl _memory_type(const void * p);
 
 
 string key_to_char(wparam wparam, lparam lparam)
@@ -34,11 +34,11 @@ string key_to_char(wparam wparam, lparam lparam)
 
    unichar wsz[32];
 
-   ::u8 baState[256];
+   unsigned char baState[256];
 
    for(int i = 0; i < 256; i++)
    {
-      baState[i] = (::u8) GetAsyncKeyState(i);
+      baState[i] = (unsigned char) GetAsyncKeyState(i);
    }
 
    if((GetAsyncKeyState(VK_SHIFT) & I32_MINIMUM) != 0)
@@ -47,7 +47,7 @@ string key_to_char(wparam wparam, lparam lparam)
    }
 
 
-   i32 iRet = ToUnicodeEx((::u32) wparam, (::u32) lparam, baState, wsz, 32, 0, GetKeyboardLayout(GetCurrentThreadId()));
+   int iRet = ToUnicodeEx((::u32) wparam, (::u32) lparam, baState, wsz, 32, 0, GetKeyboardLayout(GetCurrentThreadId()));
 
 
    if(iRet > 0)
@@ -631,7 +631,7 @@ namespace windows
                   m_hwnd,
                   wstring(m_strMessage),
                   wstring(m_strTitle),
-                  (i32)m_emessagebox.m_eenum);
+                  (int)m_emessagebox.m_eenum);
 
          }
 

@@ -129,7 +129,7 @@ cairo_surface_t * __cairo_create_image_argb32_surface(::memory & m, int w, int h
 
    auto s = cairo_image_surface_get_stride(psurface);
 
-   auto data = (::u8 *) cairo_image_surface_get_data(psurface);
+   auto data = (unsigned char *) cairo_image_surface_get_data(psurface);
 
    long long int r = 0;
    long long int g = 0;

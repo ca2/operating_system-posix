@@ -599,7 +599,7 @@ namespace node_gdk
 //
 //   }
 //
-//   for(::i32 i = 0; i < 10 && gtk_events_pending(); i++)
+//   for(int i = 0; i < 10 && gtk_events_pending(); i++)
 //   {
 //
 //      gtk_main_iteration();

@@ -57,7 +57,7 @@
 //         ::u32 dwInfoType,
 //         const unichar * pSrcStr,
 //
-//         i32 cchSrc,
+//         int cchSrc,
 //         LPWORD pCharType);
 //
 //      static ::u32 WINAPI  _GetTempPath(
@@ -106,10 +106,10 @@
 //         const unichar * pWindowName,
 //
 //         ::u32 dwStyle,
-//         i32 x,
-//         i32 y,
-//         i32 nWidth,
-//         i32 nHeight,
+//         int x,
+//         int y,
+//         int nWidth,
+//         int nHeight,
 //         ::windowing::window * pwindow_Parent,
 //         HMENU hMenu,
 //         HINSTANCE hInstance,
@@ -157,7 +157,7 @@
 //         ::u32 dwInfoType,
 //         const unichar * pSrcStr,
 //
-//         i32 cchSrc,
+//         int cchSrc,
 //         LPWORD pCharType);
 //
 //      ::u32 (WINAPI * m_pfnGetTempPath)(
@@ -209,10 +209,10 @@
 //         const unichar * pWindowName,
 //
 //         ::u32 dwStyle,
-//         i32 x,
-//         i32 y,
-//         i32 nWidth,
-//         i32 nHeight,
+//         int x,
+//         int y,
+//         int nWidth,
+//         int nHeight,
 //         ::windowing::window * pwindow_Parent,
 //         HMENU hMenu,
 //         HINSTANCE hInstance,
@@ -265,7 +265,7 @@
 //         ::u32 dwInfoType,
 //         const char * pSrcStr,
 //
-//         i32 cchSrc,
+//         int cchSrc,
 //         LPWORD pCharType);
 //
 //
@@ -319,10 +319,10 @@
 //         const unichar * pWindowName,
 //
 //         ::u32 dwStyle,
-//         i32 x,
-//         i32 y,
-//         i32 nWidth,
-//         i32 nHeight,
+//         int x,
+//         int y,
+//         int nWidth,
+//         int nHeight,
 //         ::windowing::window * pwindow_Parent,
 //         HMENU hMenu,
 //         HINSTANCE hInstance,
@@ -547,10 +547,10 @@
 //      const unichar * pWindowName,
 //
 //      ::u32 dwStyle,
-//      i32 x,
-//      i32 y,
-//      i32 nWidth,
-//      i32 nHeight,
+//      int x,
+//      int y,
+//      int nWidth,
+//      int nHeight,
 //      ::windowing::window * pwindow_Parent,
 //      HMENU hMenu,
 //      HINSTANCE hInstance,

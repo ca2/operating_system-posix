@@ -65,7 +65,7 @@ namespace draw2d_xlib
     * \param iGreen Input parameter, green color, 0 to 255.
     * \param iBlue Input parameter, blue color, 0 to 255.
     */
-   bool color::create(Display * pdisplay, int iScreen, ::u8 bRed, ::u8 bGreen, ::u8 bBlue, ::u8 bAlpha)
+   bool color::create(Display * pdisplay, int iScreen, unsigned char bRed, unsigned char bGreen, unsigned char bBlue, unsigned char bAlpha)
    {
 
       destroy();

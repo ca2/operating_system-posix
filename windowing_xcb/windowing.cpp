@@ -851,7 +851,7 @@ namespace windowing_xcb
 
       bool bSentResponse = (pgenericevent->response_type & 0x80);
 
-      ::u8 uResponseType = (pgenericevent->response_type & 0x7f);
+      unsigned char uResponseType = (pgenericevent->response_type & 0x7f);
 
       if (uResponseType == XCB_GE_GENERIC)
       {
@@ -1995,7 +1995,7 @@ if(bSentResponse)
 
             //msg.time = pbutton->time;
 
-            i32 Δ = 0;
+            int Δ = 0;
 
             ::enum_message emessage = e_message_null;
 
@@ -2105,7 +2105,7 @@ if(bSentResponse)
 
             ::color::color screen_pixel;
 
-            ::u8 u8Opacity = 0;
+            unsigned char u8Opacity = 0;
 
             bool bTransparentMouseEvents = false;
 

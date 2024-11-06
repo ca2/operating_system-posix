@@ -133,7 +133,7 @@ bool engine_get_line_from_address(HANDLE hprocess, OS_DWORD uiAddress, ::u32 * p
 size_t engine_symbol(char * sz, int n, OS_DWORD * pdisplacement, OS_DWORD dwAddress)
 {
 
-   ::u8 symbol[4096];
+   unsigned char symbol[4096];
    OS_PIMAGEHLP_SYMBOL pSym = (OS_PIMAGEHLP_SYMBOL)&symbol;
    memory_set(pSym, 0, sizeof(symbol));
    pSym->SizeOfStruct = sizeof(OS_IMAGEHLP_SYMBOL);
@@ -266,7 +266,7 @@ namespace windows
    critical_section * callstack::s_pcriticalsection = nullptr;
 
 
-   callstack::callstack(const scoped_string & strFormat, i32 iSkip, void * caller_address, int iCount):
+   callstack::callstack(const scoped_string & strFormat, int iSkip, void * caller_address, int iCount):
       m_iSkip(iSkip),
       m_iCount(iCount),
       m_bOk(false),
@@ -614,7 +614,7 @@ namespace windows
    size_t callstack::get_module_name(HMODULE hmodule, char * psz, int nCount)
    {
 
-      for (i32 i = 0; i < m_iMa; i++)
+      for (int i = 0; i < m_iMa; i++)
       {
          if (m_ma[i] == hmodule)
          {
@@ -966,7 +966,7 @@ namespace windows
    bool callstack::load_module(HANDLE hProcess, HMODULE hMod)
    {
 
-      for (i32 i = 0; i < m_iHa; i++)
+      for (int i = 0; i < m_iHa; i++)
       {
 
          if (m_ha[i] == hMod)
@@ -1046,7 +1046,7 @@ namespace windows
    struct current_context : CONTEXT
    {
       HANDLE   thread;
-      volatile i32 signal;
+      volatile int signal;
    };
 
 
@@ -1062,9 +1062,9 @@ namespace windows
          
          // must wait in spin lock until Main thread will leave a ResumeThread (must return back to ::account::user context)
 
-         i32 iInverseAgility = 26 + 24; // former iPatienceQuota
+         int iInverseAgility = 26 + 24; // former iPatienceQuota
          
-         i32 iPatience = iInverseAgility;
+         int iPatience = iInverseAgility;
 
          while (pcontext->signal && iPatience > 0)
          {
@@ -1610,7 +1610,7 @@ namespace  windows
 
    }
 
-   const char * callstack::get_dup(const scoped_string & strFormat, i32 iSkip, int iCount)
+   const char * callstack::get_dup(const scoped_string & strFormat, int iSkip, int iCount)
    {
 
       if (iSkip >= 0)

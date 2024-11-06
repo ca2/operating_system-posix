@@ -908,7 +908,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status window::_select_input(i32 iInput)
+   ::e_status window::_select_input(int iInput)
    {
 
       information() << "windowing_xcb::window select_input : " << iInput;
@@ -1469,9 +1469,9 @@ namespace windowing_xcb
 
       xcb_atom_t actual_type = 0;
 
-      i32 actual_format = 0;
+      int actual_format = 0;
 
-      i32 status = 0;
+      int status = 0;
 
       unsigned char * pchar = nullptr;
 
@@ -1747,7 +1747,7 @@ namespace windowing_xcb
    }
 
 
-   bool window::set_window_position(const class ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy,
+   bool window::set_window_position(const class ::zorder & zorder, int x, int y, int cx, int cy,
                                     const ::e_activation & eactivation, bool bNoZorder, bool bNoMove, bool bNoSize,
                                     ::e_display edisplay)
    {
@@ -1929,7 +1929,7 @@ namespace windowing_xcb
    }
 
 
-   bool window::_set_window_position_unlocked(const class ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy,
+   bool window::_set_window_position_unlocked(const class ::zorder & zorder, int x, int y, int cx, int cy,
                                               const ::e_activation & eactivation, bool bNoZorder, bool bNoMove,
                                               bool bNoSize, ::e_display edisplay)
    {
@@ -2352,7 +2352,7 @@ namespace windowing_xcb
 
 
 
-   bool window::_strict_set_window_position_unlocked(i32 x, i32 y, i32 cx, i32 cy, bool bNoMove, bool bNoSize)
+   bool window::_strict_set_window_position_unlocked(int x, int y, int cx, int cy, bool bNoMove, bool bNoSize)
    {
 
       synchronous_lock sl(user_synchronization());
@@ -3825,7 +3825,7 @@ namespace windowing_xcb
 
       mask |= XCB_CONFIG_WINDOW_Y;
 
-      ::i32 ia[] = {(::i32) x, (::i32) y};
+      int ia[] = {(int) x, (int) y};
 
       auto cookie = xcb_configure_window(xcb_connection(), m_window, mask, ia);
 
@@ -4011,7 +4011,7 @@ namespace windowing_xcb
    }
 
 
-//   bool window::_strict_set_window_position_unlocked(i32 x, i32 y, i32 cx, i32 cy, bool bNoMove, bool bNoSize)
+//   bool window::_strict_set_window_position_unlocked(int x, int y, int cx, int cy, bool bNoMove, bool bNoSize)
 //   {
 //
 //      bool bMove = !bNoMove;

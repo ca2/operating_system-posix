@@ -65,9 +65,9 @@ struct sig_companion
       void initialize(::particle * pparticle) override;
 
       
-      static void sigsegv_handler(i32 signal, siginfo_t* psiginfo, void* pc);
-      static void sigfpe_handler(i32 signal, siginfo_t* psiginfo, void* pc);
-      static void sigpipe_handler(i32 signal, siginfo_t* psiginfo, void* pc);
+      static void sigsegv_handler(int signal, siginfo_t* psiginfo, void* pc);
+      static void sigfpe_handler(int signal, siginfo_t* psiginfo, void* pc);
+      static void sigpipe_handler(int signal, siginfo_t* psiginfo, void* pc);
 
       
       bool attach() override;

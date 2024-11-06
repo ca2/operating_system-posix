@@ -18,7 +18,7 @@ namespace inotify
    {
    public:
 
-      i32                        m_iFd;
+      int                        m_iFd;
       struct timeval             m_timevalTimeOut;
       fd_set                     m_fdset;
       int                        m_watchdescriptor;

@@ -334,7 +334,7 @@ namespace windowing_kde5
 //   }
 
    
-//   ::e_status cursor::create_from_image(const ::image::image *pimage, ::i32 xHotspot, ::i16 yHotspot)
+//   ::e_status cursor::create_from_image(const ::image::image *pimage, int xHotspot, ::i16 yHotspot)
 //   {
 //
 //      throw ::interface_only();

@@ -554,8 +554,8 @@ namespace windowing_xcb
 
       xcb_window_t root_return;
       xcb_window_t child_return;
-      i32 win_x_return;
-      i32 win_y_return;
+      int win_x_return;
+      int win_y_return;
       u32 mask_return;
 
       synchronous_lock synchronouslock(user_synchronization());
@@ -1015,7 +1015,7 @@ namespace windowing_xcb
 
       auto size = xcb_get_property_value_length(preply);
 
-      auto pi = (::i32 *) xcb_get_property_value(preply);
+      auto pi = (int *) xcb_get_property_value(preply);
 
       r.left() = pi[0];
       r.right() = pi[1];

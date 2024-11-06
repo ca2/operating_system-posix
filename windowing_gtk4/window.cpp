@@ -1358,7 +1358,7 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   i32 window::map_window()
+   int window::map_window()
    {
 
       __map();
@@ -1368,7 +1368,7 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   i32 window::unmap_window(bool bWithdraw)
+   int window::unmap_window(bool bWithdraw)
    {
 
       __unmap();
@@ -1394,7 +1394,7 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   i32 window::store_name(const char * psz)
+   int window::store_name(const char * psz)
    {
 
       windowing_output_debug_string("\nwindow::store_name");
@@ -1404,7 +1404,7 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   i32 window::select_input(i32 iInput)
+   int window::select_input(int iInput)
    {
 
       windowing_output_debug_string("\nwindow::select_input");
@@ -1414,7 +1414,7 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   i32 window::select_all_input()
+   int window::select_all_input()
    {
 
       windowing_output_debug_string("\nwindow::select_all_input");
@@ -1612,7 +1612,7 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   bool window::set_window_position(const class ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy,
+   bool window::set_window_position(const class ::zorder & zorder, int x, int y, int cx, int cy,
                                     const ::e_activation & eactivation, bool bNoZorder, bool bNoMove, bool bNoSize,
                                     ::e_display edisplay)
    {
@@ -1624,7 +1624,7 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   bool window::_set_window_position_unlocked(const class ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy,
+   bool window::_set_window_position_unlocked(const class ::zorder & zorder, int x, int y, int cx, int cy,
                                               const ::e_activation & eactivation, bool bNoZorder, bool bNoMove,
                                               bool bNoSize, ::e_display edisplay)
    {
@@ -1716,7 +1716,7 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   bool window::_strict_set_window_position_unlocked(i32 x, i32 y, i32 cx, i32 cy, bool bNoMove, bool bNoSize)
+   bool window::_strict_set_window_position_unlocked(int x, int y, int cx, int cy, bool bNoMove, bool bNoSize)
    {
 
       bool bMove = !bNoMove;

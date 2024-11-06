@@ -19,7 +19,7 @@ namespace draw2d_xlib
 
       brush(::particle * pparticle);
       //virtual void construct(color32_t crColor);                // CreateSolidBrush
-      //virtual void construct(i32 nIndex, color32_t crColor);    // CreateHatchBrush
+      //virtual void construct(int nIndex, color32_t crColor);    // CreateHatchBrush
       //virtual void construct(::draw2d::bitmap * pbitmap);                // CreatePatternBrush
       virtual ~brush();
 
@@ -28,11 +28,11 @@ namespace draw2d_xlib
 
 
       //bool CreateSolidBrush(color32_t crColor);
-      //bool CreateHatchBrush(i32 nIndex, color32_t crColor);
+      //bool CreateHatchBrush(int nIndex, color32_t crColor);
       //bool CreatePatternBrush(::draw2d::bitmap* pBitmap);
       //bool CreateDIBPatternBrush(HGLOBAL hPackedDIB, ::u32 nUsage);
       //bool CreateDIBPatternBrush(const void * lpPackedDIB, ::u32 nUsage);
-      //bool CreateSysColorBrush(i32 nIndex);
+      //bool CreateSysColorBrush(int nIndex);
 
 
       // void dump(dump_context & dumpcontext) const override;

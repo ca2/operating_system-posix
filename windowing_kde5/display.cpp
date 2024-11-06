@@ -774,8 +774,8 @@ namespace windowing_kde5
 
 //      Window root_return;
 //      Window child_return;
-      i32 win_x_return;
-      i32 win_y_return;
+      int win_x_return;
+      int win_y_return;
       u32 mask_return;
 
 #ifdef display_lock_LOCK_LOG
@@ -1106,7 +1106,7 @@ namespace windowing_kde5
 //
 //      //wayland_buffer waylandbuffer{};
 //
-//      ::i32 iNewStride = size.cx() * 4; // 4 bytes per pixel;
+//      int iNewStride = size.cx() * 4; // 4 bytes per pixel;
 //
 //      ::memsize memsizeNew = iNewStride * size.cy();
 //
@@ -1240,7 +1240,7 @@ namespace windowing_kde5
 //   void display::__handle_pointer_motion(::wl_pointer * pwlpointer, double x, double y, ::u32 millis)
 //   {
 //
-//      ::point_i32 pointCursor((::i32)x, (::i32)y);
+//      ::point_i32 pointCursor((int)x, (int)y);
 //
 //      if(m_pwindowPointerCapture)
 //      {

@@ -235,12 +235,12 @@
 //}
 //
 ///*
-// * Send a sysex event. The status ::u8 is to distiguish
+// * Send a sysex event. The status unsigned char is to distiguish
 // * continuation sysex messages.
 // *  Arguments:
 // *    ctxp      - Application context
 // *    ep        - Event template
-// *    status    - Status ::u8 for sysex
+// *    status    - Status unsigned char for sysex
 // *    data      - Data to send
 // *    length    - Length of data
 // */

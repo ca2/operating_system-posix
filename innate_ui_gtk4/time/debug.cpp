@@ -19,7 +19,7 @@
 
 
 
-::enum_status os_error_to_estatus(::i32 lOsErr)
+::enum_status os_error_to_estatus(int lOsErr)
 {
     // NT Error codes
     switch ((::u32)lOsErr)

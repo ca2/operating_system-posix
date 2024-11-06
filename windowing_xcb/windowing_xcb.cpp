@@ -182,7 +182,7 @@ int_bool _xcb_get_cursor_pos(xcb_connection_t * d, ::point_i32 * ppointCursor);
 #ifdef LINUX
 
 
-i32 _cx_XErrorHandler(xcb_connection_t * display, XErrorEvent * perrorevent);
+int _cx_XErrorHandler(xcb_connection_t * display, XErrorEvent * perrorevent);
 
 
 #endif
@@ -861,7 +861,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 
 //
-//int_bool WINAPI SetWindowPos(oswindow hWnd,oswindow hWndInsertAfter,i32 X,i32 Y,i32 cx,i32 cy,::u32 uFlags)
+//int_bool WINAPI SetWindowPos(oswindow hWnd,oswindow hWndInsertAfter,int X,int Y,int cx,int cy,::u32 uFlags)
 //{
 //
 //   return hWnd->set_window_position(hWndInsertAfter, X, Y, cx, cy, uFlags);

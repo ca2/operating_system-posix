@@ -83,10 +83,10 @@ namespace serial
       waitByteTimes (size_t count);
 
       size_t
-      read (u8 *buf, size_t size = 1);
+      read (unsigned char *buf, size_t size = 1);
 
       size_t
-      write (const u8 *data, size_t length);
+      write (const unsigned char *data, size_t length);
 
       void
       flush ();
@@ -191,7 +191,7 @@ namespace serial
 
       struct timeout     m_timeout;           // Timeout for read operations
       unsigned long      m_ulBaudrate;    // Baudrate
-      u32           m_uiByteTimeNs;     // Nanoseconds to transmit/receive a single ::u8
+      u32           m_uiByteTimeNs;     // Nanoseconds to transmit/receive a single unsigned char
 
       enum_parity           m_eparity;           // Parity
       enum_byte_size         m_ebytesize;       // Size of the bytes

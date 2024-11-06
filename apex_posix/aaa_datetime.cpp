@@ -66,7 +66,7 @@
 // //#include <time.h>
 
 
-// ::i32 TIME_GetBias(void);
+// int TIME_GetBias(void);
 
 
 // /*#ifdef _WIN32
@@ -131,16 +131,16 @@
 
 // typedef struct _RTL_TIME_ZONE_INFORMATION
 // {
-//    ::i32 Bias;
+//    int Bias;
 //    char StandardName[64];
 //    RTL_SYSTEM_TIME StandardDate;
-//    ::i32 StandardBias;
+//    int StandardBias;
 //    char DaylightName[64];
 //    RTL_SYSTEM_TIME DaylightDate;
-//    ::i32 DaylightBias;
+//    int DaylightBias;
 // } RTL_TIME_ZONE_INFORMATION, *PRTL_TIME_ZONE_INFORMATION;
 
-// static i32 init_tz_info(RTL_TIME_ZONE_INFORMATION *tzi);
+// static int init_tz_info(RTL_TIME_ZONE_INFORMATION *tzi);
 
 
 // ::pointer< ::mutex > g_pmutexTz = nullptr;
@@ -173,13 +173,13 @@
 // #define TICKS_1601_TO_UNIX_MAX ((SECS_1601_TO_1970 + INT_MAX) * TICKSPERSEC)
 
 
-// static const i32 MonthLengths[2][MONSPERYEAR] =
+// static const int MonthLengths[2][MONSPERYEAR] =
 //    {
 //       { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 },
 //       { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }
 //    };
 
-// static inline i32 IsLeapYear(i32 Year)
+// static inline int IsLeapYear(int Year)
 // {
 //    return Year % 4 == 0 && (Year % 100 != 0 || Year % 400 == 0) ? 1 : 0;
 // }
@@ -200,7 +200,7 @@
 //    const u64 *liTime,
 //    PTIME_FIELDS TimeFields)
 // {
-//    i32 SecondsInDay;
+//    int SecondsInDay;
 //    u64 cleaps, years, yearday, months;
 //    u64 Days;
 //    ::i64 Time;
@@ -246,7 +246,7 @@
 //       TimeFields->Year = (CSHORT) (years + 1525);
 //    }
 //    /* calculation of day of month is based on the wonderful
-//     * sequence of ::i32( n * 30.6): it reproduces the
+//     * sequence of int( n * 30.6): it reproduces the
 //     * 31-30-31-30-31-31 month lengths exactly for small n's */
 //    TimeFields->Day = (CSHORT) (yearday - (1959 * months) / 64);
 //    return;
@@ -269,7 +269,7 @@
 //    PTIME_FIELDS tfTimeFields,
 //    u64 * Time)
 // {
-//    i32 month, year, cleaps, day;
+//    int month, year, cleaps, day;
 
 //    /* FIXME: normalize the TIME_FIELDS structure here */
 //    /* No, native just returns 0 (error) if the fields are not */
@@ -329,11 +329,11 @@
 //  * RETURNS
 //  *   The bias for the current timezone.
 //  */
-// ::i32 TIME_GetBias(void)
+// int TIME_GetBias(void)
 // {
 //    static posix_time last_utc;
-//    static ::i32 last_bias;
-//    ::i32 ret;
+//    static int last_bias;
+//    int ret;
 //    posix_time utc;
 
 //    utc = time( nullptr );
@@ -343,7 +343,7 @@
 //    if (utc != last_utc)
 //    {
 //       RTL_TIME_ZONE_INFORMATION tzi;
-//       i32 is_dst = init_tz_info( &tzi );
+//       int is_dst = init_tz_info( &tzi );
 
 //       last_utc = utc;
 //       last_bias = tzi.Bias;
@@ -373,7 +373,7 @@
 // int RtlLocalTimeToSystemTime( const ::u64 *LocalTime,
 //                                           ::u64 * SystemTime)
 // {
-//    ::i32 bias;
+//    int bias;
 
 // //xxx    informationf("(%point, %point_i32)\n", LocalTime, SystemTime);
 
@@ -398,7 +398,7 @@
 // int RtlSystemTimeToLocalTime( const ::u64 *SystemTime,
 //                                           ::u64 * LocalTime )
 // {
-//    ::i32 bias;
+//    int bias;
 
 // //xxx    informationf("(%point, %point_i32)\n", SystemTime, LocalTime);
 
@@ -502,7 +502,7 @@
 // void RtlTimeToElapsedTimeFields( const u64 *Time, PTIME_FIELDS TimeFields )
 // {
 //    ::i64 time;
-//    ::i32 rem;
+//    int rem;
 
 //    time = *Time / TICKSPERSEC;
 //    TimeFields->Millis = (CSHORT) ((*Time % TICKSPERSEC) / TICKSPERMSEC);
@@ -538,12 +538,12 @@
 // };
 
 // //
-// //i32 gettimeofday(timeval *tv/*in*/, struct timezone2 *tz/*in*/)
+// //int gettimeofday(timeval *tv/*in*/, struct timezone2 *tz/*in*/)
 // //{
 // //  FILETIME ft;
 // //  ::i64 tmpres = 0;
 // //  TIME_ZONE_INFORMATION tz_winapi;
-// //  i32 rez=0;
+// //  int rez=0;
 // //
 // //   ZeroMemory(&ft,sizeof(ft));
 // //   ZeroMemory(&tz_winapi,sizeof(tz_winapi));
@@ -640,11 +640,11 @@
 //  *
 //  * Note: year, day and month must be in unix format.
 //  */
-// static i32 weekday_to_mday(i32 year, i32 day, i32 mon, i32 day_of_week)
+// static int weekday_to_mday(int year, int day, int mon, int day_of_week)
 // {
 //    struct tm date;
 //    posix_time tmp;
-//    i32 wday, mday;
+//    int wday, mday;
 
 //    /* find first day in the month matching week day of the date */
 //    memory_set(&date, 0, sizeof(date));
@@ -736,7 +736,7 @@
 // */
 
 
-// static posix_time find_dst_change(posix_time minimum, posix_time maximum, i32 *is_dst)
+// static posix_time find_dst_change(posix_time minimum, posix_time maximum, int *is_dst)
 // {
 //    posix_time start;
 //    struct tm *tm;
@@ -759,13 +759,13 @@
 //    return minimum;
 // }
 
-// static i32 init_tz_info(RTL_TIME_ZONE_INFORMATION *tzi)
+// static int init_tz_info(RTL_TIME_ZONE_INFORMATION *tzi)
 // {
 //    static RTL_TIME_ZONE_INFORMATION cached_tzi;
-//    static i32 current_year = -1;
+//    static int current_year = -1;
 //    struct tm *tm;
 //    posix_time year_start, year_end, tmp, dlt = 0, iStandard = 0;
-//    i32 is_dst, current_is_dst;
+//    int is_dst, current_is_dst;
 
 //    synchronous_lock ml(g_pmutexTz);
 // //    RtlEnterCriticalSection( &TIME_tz_section );
@@ -800,7 +800,7 @@
 // //xxx    informationf("year_end: %s", ctime(&year_end));
 
 //    tm = gmtime(&year_start);
-//    tzi->Bias = (::i32)(mktime(tm) - year_start) / 60;
+//    tzi->Bias = (int)(mktime(tm) - year_start) / 60;
 // //xxx    informationf("bias: %d\n", tzi->Bias);
 
 //    tmp = find_dst_change(year_start, year_end, &is_dst);

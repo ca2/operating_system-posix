@@ -19,7 +19,7 @@ namespace draw2d_xlib
 
       
       /*      operator HPALETTE() const;
-            i32 GetEntryCount();
+            int GetEntryCount();
             ::u32 GetPaletteEntries(::u32 nStartIndex, ::u32 nNumEntries,
                   LPPALETTEENTRY lpPaletteColors) const;
             ::u32 SetPaletteEntries(::u32 nStartIndex, ::u32 nNumEntries,

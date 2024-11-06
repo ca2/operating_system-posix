@@ -20,8 +20,8 @@ namespace acme_posix
       ::file::path                  m_pathDownload;
       ::file::path                  m_pathMusic;
       ::file::path                  m_pathDocument;
-      ::pointer<file_system>        m_pfilesystem;
-      ::pointer<directory_system>         m_pdirectorysystem;
+      ::pointer<::acme_posix::file_system>        m_pfilesystem;
+      ::pointer<::acme_posix::directory_system>         m_pdirectorysystem;
 
 
       directory_context();

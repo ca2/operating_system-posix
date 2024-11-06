@@ -83,15 +83,15 @@ namespace windowing_gtk4
       void _on_window_button_released(::operating_system::a_system_menu_item * pitem, GtkGestureClick * pgesture,
                                       int n_press, double x, double y) override;
 
-      virtual i32 store_name(const char * psz);
+      virtual int store_name(const char * psz);
 
-      virtual i32 select_input(i32 iInput);
+      virtual int select_input(int iInput);
 
-      virtual i32 select_all_input();
+      virtual int select_all_input();
 
-      virtual i32 map_window();
+      virtual int map_window();
 
-      virtual i32 unmap_window(bool bWithdraw);
+      virtual int unmap_window(bool bWithdraw);
 
       virtual void set_wm_class(const char * psz);
 
@@ -167,19 +167,19 @@ namespace windowing_gtk4
 
       void set_tool_window(bool bSet) override;
 
-      bool set_window_position(const class ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy,
+      bool set_window_position(const class ::zorder & zorder, int x, int y, int cx, int cy,
                                const ::e_activation & eactivation, bool bNoZorder, bool bNoMove, bool bNoSize,
                                ::e_display edisplay) override;
 
 
-      bool _set_window_position_unlocked(const class ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy,
+      bool _set_window_position_unlocked(const class ::zorder & zorder, int x, int y, int cx, int cy,
                                          const ::e_activation & eactivation, bool bNoZorder, bool bNoMove, bool bNoSize,
                                          ::e_display edisplay) override;
 
       bool _configure_window_unlocked(const class ::zorder & zorder, const ::e_activation & eactivation, bool bNoZorder,
                                       ::e_display edisplay) override;
 
-      bool _strict_set_window_position_unlocked(i32 x, i32 y, i32 cx, i32 cy, bool bNoMove, bool bNoSize) override;
+      bool _strict_set_window_position_unlocked(int x, int y, int cx, int cy, bool bNoMove, bool bNoSize) override;
 
       virtual ::e_status window_rectangle(::rectangle_i32 * prectangle);
 

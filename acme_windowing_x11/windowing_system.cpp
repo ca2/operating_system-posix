@@ -21,7 +21,7 @@ namespace x11
    {
       namespace windowing
       {
-         i32 _c_XErrorHandler(Display * display, XErrorEvent * perrorevent);
+         int _c_XErrorHandler(Display * display, XErrorEvent * perrorevent);
 
          windowing::windowing()
          {
@@ -216,7 +216,7 @@ namespace x11
          //
          //
          //    }
-         i32 _c_XErrorHandler(Display * display, XErrorEvent * perrorevent)
+         int _c_XErrorHandler(Display * display, XErrorEvent * perrorevent)
          {
 
             const char * pszError;

@@ -3,7 +3,7 @@
 
 
 /***
-*i32 _validdrive( u32 drive ) -
+*int _validdrive( u32 drive ) -
 *
 *Purpose: returns non zero if drive is a valid drive number.
 *
@@ -15,7 +15,7 @@
 *
 *******************************************************************************/
 
-i32 __cdecl _validdrive (
+int __cdecl _validdrive (
 u32 drive
 )
 {
@@ -38,9 +38,9 @@ u32 drive
 }
 
 /*WCHAR * __cdecl _wgetdcwd (
-i32 drive,
+int drive,
 WCHAR *pnbuf,
-i32 maxlen
+int maxlen
 );
 
 */
@@ -65,7 +65,7 @@ i32 maxlen
 *
 *Entry:
 *       _TSCHAR *pnbuf = pointer to a buffer maintained by the ::account::user;
-*       i32 maxlen = length of the buffer pointed to by pnbuf;
+*       int maxlen = length of the buffer pointed to by pnbuf;
 *
 *Exit:
 *       Returns pointer to the buffer containing the ca.w.d. name
@@ -78,7 +78,7 @@ i32 maxlen
 
 /*WCHAR * __cdecl _wgetcwd (
 WCHAR *pnbuf,
-i32 maxlen
+int maxlen
 )
 {
 WCHAR *retval;
@@ -105,10 +105,10 @@ return retval;
 *       side effects: no global data is used or affected
 *
 *Entry:
-*       i32 drive   - number of the drive being inquired about
+*       int drive   - number of the drive being inquired about
 *                     0 = default, 1 = 'a:', 2 = 'b:', etc.
 *       _TSCHAR *pnbuf - pointer to a buffer maintained by the ::account::user;
-*       i32 maxlen  - length of the buffer pointed to by pnbuf;
+*       int maxlen  - length of the buffer pointed to by pnbuf;
 *
 *Exit:
 *       Returns pointer to the buffer containing the ca.w.d. name
@@ -121,15 +121,15 @@ return retval;
 
 
 /*WCHAR * __cdecl _wgetdcwd (
-i32 drive,
+int drive,
 WCHAR *pnbuf,
-i32 maxlen
+int maxlen
 )
 {
 WCHAR *point;
 WCHAR dirbuf[_MAX_PATH];
 WCHAR drvstr[4];
-i32 len;
+int len;
 WCHAR *pname; /* only used as argument to GetFullPathName */
 
 /*
@@ -202,7 +202,7 @@ return wcscpy(point, dirbuf);
 /*#ifndef WPRFLAG
 
 /***
-*i32 _validdrive( u32 drive ) -
+*int _validdrive( u32 drive ) -
 *
 *Purpose: returns non zero if drive is a valid drive number.
 *
@@ -214,7 +214,7 @@ return wcscpy(point, dirbuf);
 *
 *******************************************************************************/
 
-/*i32 __cdecl _validdrive (
+/*int __cdecl _validdrive (
 u32 drive
 )
 {
@@ -374,7 +374,7 @@ namespace windows
 
 
          if ( !path || !*path )  /* no work to do */
-   /*         return( _wgetcwd( UserBuf, (i32) maxlen ) );
+   /*         return( _wgetcwd( UserBuf, (int) maxlen ) );
 
          /* allocate buffer if necessary */
 
@@ -389,7 +389,7 @@ namespace windows
    //      buf = UserBuf;
 
    //   count = GetFullPathName ( path,
-   //      (i32) maxlen,
+   //      (int) maxlen,
    //      buf,
    //      &pfname );
 
@@ -433,7 +433,7 @@ namespace windows
    //   str.ReleaseBuffer();
    //   ACPToUnicode(pBuffer, nBufferLength, str);
 
-   //   *pFilePart = lpBuffer + ((i32) (pszFilePart - psz));
+   //   *pFilePart = lpBuffer + ((int) (pszFilePart - psz));
 
    //   return dw;
    //}
@@ -520,7 +520,7 @@ namespace windows
    //   ::u32 dwInfoType,
    //   const unichar * pSrcStr,
 
-   //   i32 cchSrc,
+   //   int cchSrc,
    //   LPWORD pCharType)
 
    //{
@@ -541,7 +541,7 @@ namespace windows
    //   {
    //      return false;
    //   }
-   //   if(!GetStringTypeA(uCodePage, dwInfoType, psz, (i32) iCount, lpCharType))
+   //   if(!GetStringTypeA(uCodePage, dwInfoType, psz, (int) iCount, lpCharType))
 
    //   {
    //      return false;
@@ -757,10 +757,10 @@ namespace windows
    //   const unichar * pWindowName,
 
    //   ::u32 dwStyle,
-   //   i32 x,
-   //   i32 y,
-   //   i32 nWidth,
-   //   i32 nHeight,
+   //   int x,
+   //   int y,
+   //   int nWidth,
+   //   int nHeight,
    //   oswindow oswindow_Parent,
    //   HMENU hMenu,
    //   HINSTANCE hInstance,

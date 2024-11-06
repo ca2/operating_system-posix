@@ -631,13 +631,13 @@ namespace nano
          }
 
 
-         ::i32 x = m_pointWindow.x();
+         int x = m_pointWindow.x();
 
-         ::i32 y = m_pointWindow.y();
+         int y = m_pointWindow.y();
 
-         ::i32 cx = m_sizeWindow.cx();
+         int cx = m_sizeWindow.cx();
 
-         ::i32 cy = m_sizeWindow.cy();
+         int cy = m_sizeWindow.cy();
 
          if (is_windowing_popup())
          {
@@ -1338,7 +1338,7 @@ namespace nano
       }
 
 
-      void window_base::__handle_xdg_toplevel_configure(::i32 width, ::i32 height, ::wl_array * pwlarrayState)
+      void window_base::__handle_xdg_toplevel_configure(int width, int height, ::wl_array * pwlarrayState)
       {
 
          ::string strType = ::type(get_interface_client_particle()).name();

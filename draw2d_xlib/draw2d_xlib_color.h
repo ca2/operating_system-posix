@@ -47,7 +47,7 @@ namespace draw2d_xlib
       ~color();
 
 
-      bool create(Display * pdisplay, int iScreen, ::u8 bRed, ::u8 bGreen, ::u8 bBlue, ::u8 bAlpha);
+      bool create(Display * pdisplay, int iScreen, unsigned char bRed, unsigned char bGreen, unsigned char bBlue, unsigned char bAlpha);
       bool destroy();
 
 

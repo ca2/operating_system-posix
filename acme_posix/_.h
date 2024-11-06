@@ -18,6 +18,11 @@ namespace acme_posix
    class node;
 
 
+    class file_system;
+
+class directory_system;
+
+
 } // namespace acme_posix
 
 

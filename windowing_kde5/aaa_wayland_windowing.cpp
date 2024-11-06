@@ -47,7 +47,7 @@ extern ::particle * user_synchronization();
 //
 //
 //
-//GC x11_create_gc(Colormap colormap, Display* pdisplay, Window window, ::u8 a, ::u8 r, ::u8 g, ::u8 b)
+//GC x11_create_gc(Colormap colormap, Display* pdisplay, Window window, unsigned char a, unsigned char r, unsigned char g, unsigned char b)
 //{
 //
 //   GC gc = XCreateGC(pdisplay, window, 0, 0);
@@ -245,7 +245,7 @@ void x11_kick_idle()
 //}
 //
 //
-//i32 _cx_XErrorHandler(Display * display, XErrorEvent * perrorevent);
+//int _cx_XErrorHandler(Display * display, XErrorEvent * perrorevent);
 //
 //
 //::e_status initialize_x11()

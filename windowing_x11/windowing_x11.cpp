@@ -109,7 +109,7 @@ int_bool _x11_get_cursor_pos(Display *d, ::point_i32 *ppointCursor);
 
 //Window g_windowFocus = 0;
 
-//i32 _cx_XErrorHandler(Display * display, XErrorEvent * perrorevent);
+//int _cx_XErrorHandler(Display * display, XErrorEvent * perrorevent);
 
 
 //struct MWMHints

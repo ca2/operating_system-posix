@@ -223,7 +223,7 @@ namespace xcb
          }
 
 
-         ::e_status display::_select_input(xcb_window_t window, i32 iInput)
+         ::e_status display::_select_input(xcb_window_t window, int iInput)
          {
 
             windowing_output_debug_string("\nwindow::select_input");

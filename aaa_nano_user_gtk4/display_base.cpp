@@ -1313,7 +1313,7 @@ namespace gtk4
          //
          //    //wayland_buffer waylandbuffer{};
          //
-         //    ::i32 iNewStride = size.cx() * 4; // 4 bytes per pixel;
+         //    int iNewStride = size.cx() * 4; // 4 bytes per pixel;
          //
          //    ::memsize memsizeNew = iNewStride * size.cy();
          //
@@ -1545,7 +1545,7 @@ namespace gtk4
          // void display_base::__handle_pointer_motion(::wl_pointer * pwlpointer, double x, double y, ::u32 millis)
          // {
          //
-         //    ::point_i32 pointCursor((::i32) x, (::i32) y);
+         //    ::point_i32 pointCursor((int) x, (int) y);
          //
          //    if (m_pwindowPointerCapture)
          //    {

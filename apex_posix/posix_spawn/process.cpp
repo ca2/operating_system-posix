@@ -36,7 +36,7 @@ void init_chldstatus(int iPid);
 //void init_chldstatus(int iPid);
 
 
-CLASS_DECL_APEX void process_get_os_priority(i32 * piOsPolicy, sched_param * pparam, ::enum_priority epriority);
+CLASS_DECL_APEX void process_get_os_priority(int * piOsPolicy, sched_param * pparam, ::enum_priority epriority);
 
 
 namespace ansios
@@ -78,7 +78,7 @@ namespace ansios
       if(epriority != ::e_priority_normal && epriority != ::e_priority_none)
       {
 
-         i32 iPolicy = SCHED_OTHER;
+         int iPolicy = SCHED_OTHER;
 
          sched_param schedparam;
 

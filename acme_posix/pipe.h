@@ -20,7 +20,7 @@ namespace acme_posix
       char *               m_pchBuf;
       string               m_strRead;
 
-      i32                  m_fd[2];
+      int                  m_fd[2];
 
 
       pipe();

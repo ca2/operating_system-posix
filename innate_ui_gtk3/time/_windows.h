@@ -62,10 +62,10 @@
 
 
 
-// CLASS_DECL_ACME inline i32 muldiv32(i32 a, i32 b, i32 ca)
+// CLASS_DECL_ACME inline int muldiv32(int a, int b, int ca)
 // {
 
-//    return (i32) ::MulDiv((i32)a, (i32)b, (i32)ca);
+//    return (int) ::MulDiv((int)a, (int)b, (int)ca);
 
 // }
 
@@ -154,7 +154,7 @@
 // inline void __copy(payload * ppayload, const long * plong)
 // {
 
-//    ppayload->operator = ((::i32)*plong);
+//    ppayload->operator = ((int)*plong);
 
 // }
 

@@ -735,7 +735,7 @@ namespace x11
       }
 
 
-      i32 _c_XErrorHandler(Display * display, XErrorEvent * perrorevent);
+      int _c_XErrorHandler(Display * display, XErrorEvent * perrorevent);
 
          //::e_status g_estatusInitializeX11 = error_not_initialized;
 
@@ -752,7 +752,7 @@ namespace x11
 
 
 
-i32 _c_XErrorHandler(Display * display, XErrorEvent * perrorevent)
+int _c_XErrorHandler(Display * display, XErrorEvent * perrorevent)
 {
 
    const char * pszError;

@@ -34,7 +34,7 @@ namespace file
    public:
 
 
-      i32 mFD;
+      int mFD;
       struct timeval mTimeOut;
       fd_set mDescriptorSet;
 

@@ -74,7 +74,7 @@ namespace file
 
       synchronous_lock synchronouslock(this->synchronization());
 
-      i32 wd = inotify_add_watch (mFD, pathFolder, IN_MODIFY | IN_CLOSE_WRITE | IN_MOVED_TO | IN_CREATE | IN_MOVED_FROM | IN_DELETE);
+      int wd = inotify_add_watch (mFD, pathFolder, IN_MODIFY | IN_CLOSE_WRITE | IN_MOVED_TO | IN_CREATE | IN_MOVED_FROM | IN_DELETE);
 
       if (wd < 0)
       {
@@ -109,7 +109,7 @@ namespace file
 
             string strDirPath = stra[index];
 
-            i32 inaw = inotify_add_watch (mFD, strDirPath, IN_MODIFY | IN_CLOSE_WRITE | IN_MOVED_TO | IN_CREATE | IN_MODIFY | IN_MOVED_FROM | IN_DELETE);
+            int inaw = inotify_add_watch (mFD, strDirPath, IN_MODIFY | IN_CLOSE_WRITE | IN_MOVED_TO | IN_CREATE | IN_MODIFY | IN_MOVED_FROM | IN_DELETE);
 
             if(inaw < 0)
             {
@@ -191,7 +191,7 @@ namespace file
 
       timeval timeOut = mTimeOut;
 
-      i32 ret = select(mFD + 1, &mDescriptorSet, nullptr, nullptr, &timeOut);
+      int ret = select(mFD + 1, &mDescriptorSet, nullptr, nullptr, &timeOut);
 
       if(ret < 0)
       {

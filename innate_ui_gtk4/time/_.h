@@ -48,7 +48,7 @@ class memory;
 //inline payload::operator long() const
 //{
 //
-//   return i32();
+//   return int();
 //
 //}
 //

@@ -21,9 +21,9 @@ namespace draw2d_xlib
       bool delete_object();
 
 
-      i32 get_object(i32 nCount, LPVOID lpObject) const;
+      int get_object(int nCount, LPVOID lpObject) const;
       ::u32 GetObjectType() const;
-      bool CreateStockObject(i32 nIndex);
+      bool CreateStockObject(int nIndex);
       bool UnrealizeObject();
       //bool operator==(const object& obj) const;
       //bool operator!=(const object& obj) const;

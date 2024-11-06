@@ -16,13 +16,13 @@ namespace draw2d_xlib
       //delete_object();
    }
 
-   i32 object::get_object(i32 nCount, LPVOID lpObject) const
+   int object::get_object(int nCount, LPVOID lpObject) const
    {
       //return ::GetObject(get_handle(), nCount, lpObject);
       return 0;
    }
 
-   bool object::CreateStockObject(i32 nIndex)
+   bool object::CreateStockObject(int nIndex)
    {
       //return (set_handle(::GetStockObject(nIndex))) != nullptr;
       return 0;

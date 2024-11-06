@@ -65,7 +65,7 @@
 
 #ifdef LINUX
 
-i32 daemonize_process(const ::string & pszCommandLine, i32 * pprocessId)
+int daemonize_process(const ::string & pszCommandLine, int * pprocessId)
 {
 
    string_array stra;
@@ -190,7 +190,7 @@ i32 daemonize_process(const ::string & pszCommandLine, i32 * pprocessId)
 #endif
 
 
-i32 create_process4(const ::string & pszCommandLine, i32 * pprocessId)
+int create_process4(const ::string & pszCommandLine, int * pprocessId)
 {
 
    string_array stra;
@@ -269,7 +269,7 @@ i32 create_process4(const ::string & pszCommandLine, i32 * pprocessId)
 
 
 
-CLASS_DECL_ACME i32 ca2_main();
+CLASS_DECL_ACME int ca2_main();
 
 
 

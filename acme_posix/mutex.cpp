@@ -230,9 +230,9 @@ namespace acme_posix
 
                   auto psystem = system();
 
-            auto pacmedirectory = psystem->m_pdirectorysystem;
+            auto pdirectorysystem = psystem->m_pdirectorysystem;
 
-   pacmedirectory->create(::file::path(strName).folder());
+   pdirectorysystem->create(::file::path(strName).folder());
 
          ::file_system()->put_contents(strName, strName);
 
@@ -334,9 +334,9 @@ namespace acme_posix
 
          auto pacmesystem = system();
 
-         auto pacmedirectory = pacmesystem->directory_system();
+         auto pdirectorysystem = pacmesystem->directory_system();
 
-         pacmedirectory->create(path.folder());
+         pdirectorysystem->create(path.folder());
 
          pparticle->informationf("Going to create named mutex at path : %s", path.c_str());
 
@@ -402,9 +402,9 @@ namespace acme_posix
 
                   auto psystem = system();
 
-            auto pacmedirectory = psystem->m_pdirectorysystem;
+            auto pdirectorysystem = psystem->m_pdirectorysystem;
 
-   pacmedirectory->create(path.folder());
+   pdirectorysystem->create(path.folder());
 
          ::file_system()->put_contents(path, m_pszName);
 
@@ -598,7 +598,7 @@ namespace acme_posix
 
    #elif defined(MUTEX_NAMED_VSEM)
 
-   mutexmutex(e_create_new enew, const char * pstrName, key_t key, i32 semid, bool bOwner):
+   mutexmutex(e_create_new enew, const char * pstrName, key_t key, int semid, bool bOwner):
       ::matter(pparticle),
       synchronization(pstrName)
    {
@@ -749,7 +749,7 @@ namespace acme_posix
 
          delay.tv_nsec = time.m_i;
 
-         i32 ret = sem_timedwait(m_psem, &delay);
+         int ret = sem_timedwait(m_psem, &delay);
 
          if(ret == 0)
          {
@@ -924,7 +924,7 @@ namespace acme_posix
          operation[0].sem_num = 0;
          operation[0].sem_flg = 0;
 
-         i32 ret = semtimedop(m_semid, operation, 1, &timeout);
+         int ret = semtimedop(m_semid, operation, 1, &timeout);
 
          if(ret == 0)
          {
@@ -1164,7 +1164,7 @@ namespace acme_posix
 
          timespec delay;
 
-         i32 ret = sem_wait(m_psem);
+         int ret = sem_wait(m_psem);
 
          if (ret == 0)
          {
@@ -1333,7 +1333,7 @@ namespace acme_posix
          operation[0].sem_num = 0;
          operation[0].sem_flg = 0;
 
-         i32 ret = semop(m_semid, operation, 1);
+         int ret = semop(m_semid, operation, 1);
 
          if(ret < 0)
          {
@@ -1738,9 +1738,9 @@ namespace acme_posix
 
       path /= lpszName;
 
-      auto pacmedirectory = pmatter->directory_system();
+      auto pdirectorysystem = pmatter->directory_system();
 
-      pacmedirectory->create(path.folder());
+      pdirectorysystem->create(path.folder());
 
       int iFd = open(path, O_RDWR | O_CLOEXEC, S_IRWXU);
 
@@ -1774,7 +1774,7 @@ namespace acme_posix
 
       key_t key = ftok(strName, 0); //Generate a unique key or supply a value
 
-      i32 semid = semget(
+      int semid = semget(
                   key, // a unique identifier to identify semaphore set
                   1,  // number of semaphore in the semaphore set
                   0666 // permissions (rwxrwxrwx) on the ___new

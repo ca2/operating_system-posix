@@ -69,13 +69,13 @@ namespace acme_posix
    //    //VERIFY(FindClose(hFind));
 
    //    // strip attribute of NORMAL bit, our API doesn't have a "normal" bit.
-   //    //rStatus.m_attribute = (::u8) (findFileData.dwFileAttributes & ~FILE_ATTRIBUTE_NORMAL);
+   //    //rStatus.m_attribute = (unsigned char) (findFileData.dwFileAttributes & ~FILE_ATTRIBUTE_NORMAL);
 
    //    rStatus.m_attribute = 0;
 
    //    // get just the low ::u32 of the file size_i32
    //    //ASSERT(findFileData.nFileSizeHigh == 0);
-   //    //rStatus.m_size = (::i32)findFileData.nFileSizeLow;
+   //    //rStatus.m_size = (int)findFileData.nFileSizeLow;
 
    //    rStatus.m_filesize = st.st_size;
 
@@ -196,7 +196,7 @@ namespace acme_posix
 
       // attempt file creation
       //HANDLE hFile = shell::CreateFile(utf8_to_unicode(m_strFileName), dwAccess, dwShareMode, &sa, dwCreateFlag, FILE_ATTRIBUTE_NORMAL, nullptr);
-      i32 hFile = -1;
+      int hFile = -1;
 
       if(eopen & ::file::e_open_create)
       {
@@ -311,7 +311,7 @@ namespace acme_posix
 
       }
 
-      m_iFile = (i32)hFile;
+      m_iFile = (int)hFile;
 
       m_estatus = ::success;
 
@@ -348,7 +348,7 @@ namespace acme_posix
 
          m_iPutByteBackCount--;
          
-         ((::u8 *)readData)[readPosition] = m_byteaPutBack[m_iPutByteBackCount];
+         ((unsigned char *)readData)[readPosition] = m_byteaPutBack[m_iPutByteBackCount];
          
          amountToRead--;
          
@@ -361,9 +361,9 @@ namespace acme_posix
       while(amountToRead > 0)
       {
           
-         ::i32 amountToReadNow = (::i32) minimum(INT_MAX, amountToRead);
+         int amountToReadNow = (int) minimum(INT_MAX, amountToRead);
           
-         ::i32 amountReadNow = (::i32) ::read(m_iFile, &((::u8 *)readData)[readPosition], amountToReadNow);
+         int amountReadNow = (int) ::read(m_iFile, &((unsigned char *)readData)[readPosition], amountToReadNow);
          
          if(amountReadNow < 0)
          {
@@ -424,7 +424,7 @@ namespace acme_posix
       while(amountToWrite > 0)
       {
          
-         ::i32 amountToWriteNow = (::i32) minimum(INT_MAX, amountToWrite);
+         int amountToWriteNow = (int) minimum(INT_MAX, amountToWrite);
 
          auto p = ((const char *) dataToWrite) + writePosition;
 
@@ -434,7 +434,7 @@ namespace acme_posix
 //         
 //#endif
          
-         ::i32 amountWrittenNow = (::i32) ::write(m_iFile, p, amountToWriteNow);
+         int amountWrittenNow = (int) ::write(m_iFile, p, amountToWriteNow);
          
          if (amountWrittenNow < 0)
          {
@@ -468,7 +468,7 @@ namespace acme_posix
    }
 
 
-   void file::put_byte_back(::u8 b)
+   void file::put_byte_back(unsigned char b)
    {
       
       if(m_iPutByteBackCount >= sizeof(m_byteaPutBack))
@@ -508,7 +508,7 @@ namespace acme_posix
       ASSERT(eseek == ::e_seek_set || eseek == ::e_seek_from_end || eseek == ::e_seek_current);
       ASSERT(::e_seek_set == SEEK_SET && ::e_seek_from_end == SEEK_END && ::e_seek_current == SEEK_CUR);
 
-      ::i32 lLoOffset = lOff & 0xffffffff;
+      int lLoOffset = lOff & 0xffffffff;
       
 #if defined(__APPLE__) || defined(__BSD__)
 
@@ -538,8 +538,8 @@ namespace acme_posix
       ASSERT_VALID(this);
       ASSERT(m_iFile != hFileNull);
 
-      ::i32 lLoOffset = 0;
-//      ::i32 lHiOffset = 0;
+      int lLoOffset = 0;
+//      int lHiOffset = 0;
       
 #if defined(__APPLE__) || defined(__BSD__)
 
@@ -578,7 +578,7 @@ namespace acme_posix
 //         return;
 //
 //      if (!::FlushFileBuffers((HANDLE)m_iFile))
-//         ::file::throw_os_error( (::i32)::get_last_error());
+//         ::file::throw_os_error( (int)::get_last_error());
        
    }
 
@@ -638,7 +638,7 @@ namespace acme_posix
       ASSERT(m_iFile != hFileNull);
 
       /*if (!::LockFile((HANDLE)m_iFile, lower_u32(dwPos), upper_u32(dwPos), lower_u32(dwCount), upper_u32(dwCount)))
-         ::file::throw_os_error( (::i32)::get_last_error());*/
+         ::file::throw_os_error( (int)::get_last_error());*/
    }
 
    void file::unlock(filesize dwPos, filesize dwCount)
@@ -647,7 +647,7 @@ namespace acme_posix
       ASSERT(m_iFile != hFileNull);
 
       /*      if (!::UnlockFile((HANDLE)m_iFile,  lower_u32(dwPos), upper_u32(dwPos), lower_u32(dwCount), upper_u32(dwCount)))
-               ::file::throw_os_error( (::i32)::get_last_error());*/
+               ::file::throw_os_error( (int)::get_last_error());*/
    }
 
    void file::set_size(filesize dwNewLen)
@@ -655,12 +655,12 @@ namespace acme_posix
       ASSERT_VALID(this);
       ASSERT(m_iFile != hFileNull);
 
-      set_position((::i32)dwNewLen);
+      set_position((int)dwNewLen);
 
 #ifdef __LP64
       int iError = ::ftruncate64(m_iFile, dwNewLen);
       if (iError == -1)
-         ::file::throw_os_error( (::i32)::get_last_error());
+         ::file::throw_os_error( (int)::get_last_error());
 #else
       int iError = ::ftruncate(m_iFile, dwNewLen);
       if (iError == -1)
@@ -713,13 +713,13 @@ namespace acme_posix
    void PASCAL file::Rename(const char * lpszOldName, const char * lpszNewName)
    {
    if (!::MoveFile((char *)lpszOldName, (char *)lpszNewName))
-   ::win::file::throw_os_error( (::i32)::get_last_error());
+   ::win::file::throw_os_error( (int)::get_last_error());
    }
 
    void PASCAL file::erase(const char * lpszFileName)
    {
    if (!::DeleteFile((char *)lpszFileName))
-   ::win::file::throw_os_error( (::i32)::get_last_error());
+   ::win::file::throw_os_error( (int)::get_last_error());
    }
    */
 
@@ -786,13 +786,13 @@ namespace acme_posix
 
 
 
-   //void PASCAL ::file::throw_os_error(::matter * pobject, ::i32 lOsError, const char * lpszFileName /* = nullptr */)
+   //void PASCAL ::file::throw_os_error(::matter * pobject, int lOsError, const char * lpszFileName /* = nullptr */)
    //{
    //   if (lOsError != 0)
    //      vfxThrowFileexception(file_exception::os_error_to_exception(lOsError), lOsError, lpszFileName);
    //}
 
-   //void PASCAL file_exception::ThrowErrno(::matter * pobject, i32 nErrno, const char * lpszFileName /* = nullptr */)
+   //void PASCAL file_exception::ThrowErrno(::matter * pobject, int nErrno, const char * lpszFileName /* = nullptr */)
    //{
    //   if (nErrno != 0)
    //      vfxThrowFileexception(file_exception::errno_status(nErrno), errno, lpszFileName);

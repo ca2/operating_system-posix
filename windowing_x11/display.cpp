@@ -748,8 +748,8 @@ namespace windowing_x11
 
       Window root_return;
       Window child_return;
-      i32 win_x_return;
-      i32 win_y_return;
+      int win_x_return;
+      int win_y_return;
       u32 mask_return;
 
 #ifdef display_lock_LOCK_LOG

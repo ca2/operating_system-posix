@@ -7,6 +7,7 @@
 #include "directory_system.h"
 #include "acme/operating_system/ansi/file_c.h"
 #include "acme/filesystem/filesystem/file_system.h"
+#include "acme/platform/application.h"
 #include "acme/platform/system.h"
 
 

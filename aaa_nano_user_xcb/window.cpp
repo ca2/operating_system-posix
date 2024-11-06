@@ -408,12 +408,12 @@ namespace nano
       //}
 
       //#ifndef i32_x
-      //#define i32_x(lparam)                          ((i32)(i16)LOWORD(lparam))
+      //#define i32_x(lparam)                          ((int)(i16)LOWORD(lparam))
       //#endif
       //
       //
       //#ifndef i32_y
-      //#define i32_y(lparam)                          ((i32)(i16)HIWORD(lparam))
+      //#define i32_y(lparam)                          ((int)(i16)HIWORD(lparam))
       //#endif
       //
       ////LRESULT window::window_procedure(UINT message, WPARAM wparam, LPARAM lparam)

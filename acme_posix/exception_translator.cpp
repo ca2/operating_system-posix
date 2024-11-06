@@ -49,7 +49,7 @@ namespace acme_posix
    }
 
 
-   void exception_translator::sigsegv_handler(i32 signal, siginfo_t *psiginfo, void *pc)
+   void exception_translator::sigsegv_handler(int signal, siginfo_t *psiginfo, void *pc)
    {
 
       sigset_t set;
@@ -62,7 +62,7 @@ namespace acme_posix
    }
 
 
-   void exception_translator::sigfpe_handler(i32 signal, siginfo_t *psiginfo, void *pc)
+   void exception_translator::sigfpe_handler(int signal, siginfo_t *psiginfo, void *pc)
    {
 
       //sigset_t set;
@@ -77,7 +77,7 @@ namespace acme_posix
    }
 
 
-   void exception_translator::sigpipe_handler(i32 signal, siginfo_t *psiginfo, void *pc)
+   void exception_translator::sigpipe_handler(int signal, siginfo_t *psiginfo, void *pc)
    {
 
       //      sigset_t set;

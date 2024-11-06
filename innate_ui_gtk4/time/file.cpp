@@ -150,7 +150,7 @@ filesize file_length_dup(const char * path)
 int_bool file_is_equal_path_dup(const scoped_string & str1, const scoped_string & str2)
 {
 
-   const i32 iBufSize = MAX_PATH * 8;
+   const int iBufSize = MAX_PATH * 8;
 
    wstring pwsz1 = utf8_to_unicode(psz1);
 
@@ -164,7 +164,7 @@ int_bool file_is_equal_path_dup(const scoped_string & str1, const scoped_string 
 
    unichar * pwszPath2 = ___new unichar[iBufSize];
 
-   i32 iCmp = -1;
+   int iCmp = -1;
    
    if(GetFullPathNameW(pwsz1, iBufSize, pwszPath1, &pwszFile1))
    {
@@ -363,7 +363,7 @@ struct PROCESS_INFO_t
 ////   GetFinalPathNameByHandleDef pGetFinalPathNameByHandle;
 ////   LPWSTR pPath;
 ////
-////   i32 nFileType;
+////   int nFileType;
 ////   HANDLE hStartEvent;
 ////   HANDLE hFinishedEvent;
 ////   bool bStatus;
@@ -374,7 +374,7 @@ struct PROCESS_INFO_t
 ////
 ////   THREAD_PARAMS * pThreadParam = (THREAD_PARAMS *) p;
 ////
-////   FILE_NAME_INFO * pinfo = (FILE_NAME_INFO *)___new ::u8[MAX_PATH * 8];
+////   FILE_NAME_INFO * pinfo = (FILE_NAME_INFO *)___new unsigned char[MAX_PATH * 8];
 ////
 ////   GetFinalPathNameByHandleDef pGetFinalPathNameByHandle = pThreadParam->pGetFinalPathNameByHandle;
 ////   for( g_CurrentIndex; g_CurrentIndex < pThreadParam->pSysHandleInformation->dwCount;  )
@@ -414,14 +414,14 @@ struct PROCESS_INFO_t
 ////      SetEvent( pThreadParam->hFinishedEvent );
 ////
 ////   }
-////   delete[] (::u8 *) pinfo;
+////   delete[] (unsigned char *) pinfo;
 ////   return ::success;
 ////}
 //
 ////void EnumerateOpenedFiles( string& csPath, OF_CALLBACK CallBackProc, uptr pUserContext, HANDLE hDriver,
 ////                           GetFinalPathNameByHandleDef pGetFinalPathNameByHandle )
 ////{
-////   i32 nFileType;
+////   int nFileType;
 ////
 ////   if(is_windows_vista_or_greater())
 ////   {
@@ -469,7 +469,7 @@ struct PROCESS_INFO_t
 ////      // The previously supplied buffer wasn't enough.
 ////      delete pSysHandleInformation;
 ////      size = needed + 1024;
-////      pSysHandleInformation = (PSYSTEM_HANDLE_INFORMATION)___new ::u8[size_i32];
+////      pSysHandleInformation = (PSYSTEM_HANDLE_INFORMATION)___new unsigned char[size_i32];
 ////      status = NtQuerySystemInformation( SystemHandleInformation, pSysHandleInformation, size, &needed );
 ////      if( !NT_SUCCESS(status))
 ////      {
@@ -506,7 +506,7 @@ struct PROCESS_INFO_t
 ////         if( WAIT_TIMEOUT == WaitForSingleObject( ThreadParams.hFinishedEvent, 100 ))
 ////         {
 ////            string csError;
-////            csError.Format("Query hang for handle %d", (i32)pSysHandleInformation->Handles[g_CurrentIndex - 1].wValue);
+////            csError.Format("Query hang for handle %d", (int)pSysHandleInformation->Handles[g_CurrentIndex - 1].wValue);
 ////            output_debug_string(csError );
 ////            TerminateThread( ThreadHandle, 0 );
 ////            CloseHandle( ThreadHandle );
@@ -517,7 +517,7 @@ struct PROCESS_INFO_t
 ////         {
 ////            continue;
 ////         }
-////         i32 nCmpStart = 4;
+////         int nCmpStart = 4;
 ////         string csFileName( unicode_to_utf8(&ThreadParams.pPath[nCmpStart]));
 ////
 ////         csFileName.make_lower();
@@ -666,7 +666,7 @@ struct PROCESS_INFO_t
 ////   }
 ////
 ////   u32 dwsize = 300;
-////   PDWORD pDwId = (PDWORD)___new ::u8[dwsize];
+////   PDWORD pDwId = (PDWORD)___new unsigned char[dwsize];
 ////   DWORD dwReturned = dwsize;
 ////   // Enum all the process first
 ////   while( 1 )
@@ -678,12 +678,12 @@ struct PROCESS_INFO_t
 ////      }
 ////      delete pDwId;
 ////      dwsize += 50;
-////      pDwId = (PDWORD)___new ::u8[dwsize];
+////      pDwId = (PDWORD)___new unsigned char[dwsize];
 ////   }
-////   i32 nCount = dwReturned / sizeof(u32);
-////   i32 nItemCount = -1;
+////   int nCount = dwReturned / sizeof(u32);
+////   int nItemCount = -1;
 ////   // Enumerate modules of the above process
-////   for( i32 nIdx = 0; nIdx < nCount; nIdx++ )
+////   for( int nIdx = 0; nIdx < nCount; nIdx++ )
 ////   {
 ////      if( 0 != pDwId[nIdx] )
 ////      {
@@ -781,7 +781,7 @@ int ftruncate(int file, filesize len)
 
 
 
-int_bool ensure_file_size_fd(i32 fd, size_t iSize)
+int_bool ensure_file_size_fd(int fd, size_t iSize)
 {
 
    if(ftruncate(fd, iSize) == -1)
@@ -1020,7 +1020,7 @@ bool GetDrive(const scoped_string & strDosName, string& csDrive, bool bDriveLett
 //      /*OSVERSIONINFO info = { 0 };
 //      info.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
 //      GetVersionEx(&info);
-//      i32 nDriverId = IDR_VISTA_DRIVER;
+//      int nDriverId = IDR_VISTA_DRIVER;
 //      if( info.dwMajorVersion == 5 )
 //      {
 //      nDriverId = IDR_XPDRIVER;

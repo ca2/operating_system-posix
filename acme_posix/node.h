@@ -41,7 +41,7 @@ namespace acme_posix
       void call_async(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid = nullptr) override;
       void call_sync(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, const class time & timeTimeout, ::property_set & set, int * piExitCode) override;
       ::process_identifier create_process(const ::string & pszCommandLine) override;
-      virtual i32 _create_process3(const ::string & _cmd_line, i32 * pprocessId);
+      virtual int _create_process3(const ::string & _cmd_line, int * pprocessId);
       void run_silent(const ::string & strFunct, const ::string & strstrParams) override;
       //::e_status shell_execute_sync(const ::string & pszFile, const ::string & pszParams, class ::time timeTimeout) override;
 

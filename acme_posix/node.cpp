@@ -462,13 +462,13 @@ namespace acme_posix
 
    path /= strName;
 
-//   auto pacmedirectory = pparticle->directory_system();
+//   auto pdirectorysystem = pparticle->directory_system();
 //
 //   auto pathFolder = path.folder();
 //
-//   pacmedirectory->create(pathFolder);
+//   pdirectorysystem->create(pathFolder);
 //
-//   if(!pacmedirectory->is(pathFolder))
+//   if(!pdirectorysystem->is(pathFolder))
 //   {
 //
 //      throw ::exception(error_failed, "Could not create folder for the named mutex: " + path.folder());
@@ -507,7 +507,7 @@ namespace acme_posix
 
    key_t key = ftok(strName, 0); //Generate a unique key or supply a value
 
-   i32 semid = semget(
+   int semid = semget(
                key, // a unique identifier to identify semaphore set
                1,  // number of semaphore in the semaphore set
                0666 // permissions (rwxrwxrwx) on the ___new
@@ -861,7 +861,7 @@ namespace acme_posix
    }
 
 
-   i32 node::_create_process3(const ::string & _cmd_line, i32 * pprocessId)
+   int node::_create_process3(const ::string & _cmd_line, int * pprocessId)
    {
 
       //char *   exec_path_name;
@@ -881,7 +881,7 @@ namespace acme_posix
 
       char * argv[1024 + 1];
 
-      i32      argc = 0;
+      int      argc = 0;
 
       prepare_argc_argv(argc, argv, cmd_line);
 
@@ -1440,7 +1440,7 @@ namespace acme_posix
    }
 //   {
 //
-//      i32 iPolicy = SCHED_OTHER;
+//      int iPolicy = SCHED_OTHER;
 //
 //      sched_param schedparam;
 //
@@ -2473,7 +2473,7 @@ if(functionTrace)
       
       ::string strPath;
    
-      ::i32 iExitCode = get_posix_shell_command_output(strPath, "command -v " + scopedstr, e_posix_shell_system_default);
+      int iExitCode = get_posix_shell_command_output(strPath, "command -v " + scopedstr, e_posix_shell_system_default);
       
       information() << "command -v : " << scopedstr << " output => " << strPath;
       
@@ -2853,8 +2853,16 @@ if(functionTrace)
 
       if(scopedstrComponentName == "nano_graphics")
       {
+         
+#if defined(__APPLE__)
+         
+         return "quartz2d";
+         
+#else
 
          return "cairo";
+         
+#endif
 
       }
 

@@ -322,7 +322,7 @@ namespace music
 
             bool smpte_timing = (dwTempoDivision & 0x8000);
 
-            ::i32 uSMPTE = 0;
+            int uSMPTE = 0;
 
             if(smpte_timing)
             {
@@ -369,7 +369,7 @@ namespace music
                               snd_seq_queue_tempo_set_ppq(tempo, 15 * dwTempoDivision);
                               break;
                               default:
-                                 //informationf("Invalid SMPTE frames " + ::unicode_from((::i32)uSMPTE));
+                                 //informationf("Invalid SMPTE frames " + ::unicode_from((int)uSMPTE));
                                  informationf("Invalid SMPTE frames ");
                      throw ::exception(error_failed);
 

@@ -170,7 +170,7 @@ namespace acme
       }
 
 
-      i32 node::_create_process3(const ::string & _cmd_line, i32 * pprocessId)
+      int node::_create_process3(const ::string & _cmd_line, int * pprocessId)
       {
 
          //char *   exec_path_name;
@@ -190,7 +190,7 @@ namespace acme
 
          char *      argv[1024 + 1];
 
-         i32      argc = 0;
+         int      argc = 0;
 
          prepare_argc_argv(argc, argv, cmd_line);
 
@@ -665,7 +665,7 @@ namespace acme
 
 #ifdef LINUX
 
-i32 daemonize_process(const ::string & pszCommandLine, i32 * pprocessId)
+int daemonize_process(const ::string & pszCommandLine, int * pprocessId)
 {
 
    string_array stra;
@@ -774,7 +774,7 @@ i32 daemonize_process(const ::string & pszCommandLine, i32 * pprocessId)
 #endif
 
 
-i32 create_process4(const ::string & pszCommandLine, i32 * pprocessId)
+int create_process4(const ::string & pszCommandLine, int * pprocessId)
 {
 
    string_array stra;
@@ -866,7 +866,7 @@ namespace acme
 
 
 
-CLASS_DECL_ACME i32 ca2_main();
+CLASS_DECL_ACME int ca2_main();
 
 
 

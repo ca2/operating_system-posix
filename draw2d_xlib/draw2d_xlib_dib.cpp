@@ -52,7 +52,7 @@ namespace draw2d_xlib
 
    }
 
-   void    image::construct (i32 cx,  i32 cy)
+   void    image::construct (int cx,  int cy)
    {
 
       m_pcolorref    = nullptr;
@@ -73,7 +73,7 @@ namespace draw2d_xlib
       return create(size.cx(), size.cy());
    }
 
-   bool image::create(i32 width, i32 height)
+   bool image::create(int width, int height)
    {
       if(m_pbitmap.is_set()
             && m_pbitmap->get_os_data() != nullptr
@@ -231,15 +231,15 @@ namespace draw2d_xlib
       return m_spgraphics->BitBlt(ptDest.x, ptDest.y, sz.cx(), sz.cy(), pgraphics, point.x, point.y) != false;
    }
 
-   //void image::Fill ( i32 R, i32 G, i32 B )
+   //void image::Fill ( int R, int G, int B )
    //{
    //   color32_t color=rgb ( B, G, R );
-   //   i32 size=cx*cy;
+   //   int size=cx*cy;
 
    //   color32_t * pcr;
 
-   //   i32 iSize32 = size / 32;
-   //   i32 i;
+   //   int iSize32 = size / 32;
+   //   int i;
    //   for (i=0; i < iSize32; i+=32 )
    //   {
    //      pcr = &m_pcolorref[i];
@@ -283,35 +283,35 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image::set_rgb(i32 R, i32 G, i32 B)
+   //void image::set_rgb(int R, int G, int B)
    //{
 
    //   map();
 
-   //   i32 size = scan*cy;
+   //   int size = scan*cy;
 
-   //   ::u8 * pbyte = (::u8 *) m_pcolorref;
+   //   unsigned char * pbyte = (unsigned char *) m_pcolorref;
 
-   //   i32 i;
-   //   i32 j;
-   //   i32 rectangle = scan - cx * sizeof(color32_t);
+   //   int i;
+   //   int j;
+   //   int rectangle = scan - cx * sizeof(color32_t);
    //   for (i=0; i<cy; i++ )
    //   {
    //      for (j=0; j<cx; j++ )
    //      {
-   //         *pbyte++ = (::u8) R * pbyte[3] / 255;
-   //         *pbyte++ = (::u8) G * pbyte[2] / 255;
-   //         *pbyte++ = (::u8) B * pbyte[1] / 255;
+   //         *pbyte++ = (unsigned char) R * pbyte[3] / 255;
+   //         *pbyte++ = (unsigned char) G * pbyte[2] / 255;
+   //         *pbyte++ = (unsigned char) B * pbyte[1] / 255;
    //         pbyte++;
    //      }
    //      j+= rectangle;
    //   }
    //}
 
-   //void image::ToAlpha(i32 i)
+   //void image::ToAlpha(int i)
    //{
-   //   ::u8 *dst=(::u8*)m_pcolorref;
-   //   i32 size=cx*cy;
+   //   unsigned char *dst=(unsigned char*)m_pcolorref;
+   //   int size=cx*cy;
 
    //   while ( size-- )
    //   {
@@ -322,7 +322,7 @@ namespace draw2d_xlib
 
    //void image::from_alpha()
    //{
-   //   ::u8 *dst=(::u8*)m_pcolorref;
+   //   unsigned char *dst=(unsigned char*)m_pcolorref;
    //   i64 size = cx * cy;
 
    //   while ( size-- )
@@ -449,27 +449,27 @@ namespace draw2d_xlib
 
    }
 
-   //void image::Map(i32 ToRgb, i32 FromRgb)
+   //void image::Map(int ToRgb, int FromRgb)
    //{
-   //   ::u8 *dst=(::u8*)m_pcolorref;
-   //   i32 size=cx*cy;
+   //   unsigned char *dst=(unsigned char*)m_pcolorref;
+   //   int size=cx*cy;
 
    //   while ( size-- )
    //   {
-   //      *dst = (::u8) (*dst == FromRgb ? ToRgb : *dst);
+   //      *dst = (unsigned char) (*dst == FromRgb ? ToRgb : *dst);
    //      dst+=4;
    //   }
    //}
 
 
-   //void image::ToAlphaAndFill(i32 i, color32_t cr)
+   //void image::ToAlphaAndFill(int i, color32_t cr)
    //{
-   //   ::u8 *dst=(::u8*)m_pcolorref;
-   //   i32 size=cx*cy;
+   //   unsigned char *dst=(unsigned char*)m_pcolorref;
+   //   int size=cx*cy;
 
-   //   ::u8 uchB = ::blue(cr);
-   //   ::u8 uchG = ::green(cr);
-   //   ::u8 uchR = ::red(cr);
+   //   unsigned char uchB = ::blue(cr);
+   //   unsigned char uchG = ::green(cr);
+   //   unsigned char uchR = ::red(cr);
 
    //   while ( size-- )
    //   {
@@ -483,8 +483,8 @@ namespace draw2d_xlib
 
    //void image::GrayToARGB(color32_t cr)
    //{
-   //   ::u8 *dst=(::u8*)m_pcolorref;
-   //   i32 size=cx*cy;
+   //   unsigned char *dst=(unsigned char*)m_pcolorref;
+   //   int size=cx*cy;
 
    //   u32 dwB = ::blue(cr);
    //   u32 dwG = ::green(cr);
@@ -493,19 +493,19 @@ namespace draw2d_xlib
    //   while (size-- > 0)
    //   {
    //      dst[3] = dst[0];
-   //      dst[0] = (::u8)(((dwB * dst[3]) / 256) & 0xff);
-   //      dst[1] = (::u8)(((dwG * dst[3]) / 256) & 0xff);
-   //      dst[2] = (::u8)(((dwR * dst[3]) / 256) & 0xff);
+   //      dst[0] = (unsigned char)(((dwB * dst[3]) / 256) & 0xff);
+   //      dst[1] = (unsigned char)(((dwG * dst[3]) / 256) & 0xff);
+   //      dst[2] = (unsigned char)(((dwR * dst[3]) / 256) & 0xff);
    //      dst+=4;
    //   }
    //}
 
 
-   //void image::BitBlt(imagepimage, i32 op)
+   //void image::BitBlt(imagepimage, int op)
    //{
    //   if(op == 123) // zero dest rgb, invert alpha, and OR src rgb
    //   {
-   //      i32 isize=cx*cy;
+   //      int isize=cx*cy;
    //      LPDWORD lpbitsSrc= (LPDWORD) pimage->get_data();
    //      LPDWORD lpbitsDest= (LPDWORD) m_pcolorref;
 
@@ -557,9 +557,9 @@ namespace draw2d_xlib
 
    //void image::Invert()
    //{
-   //   i32 size=cx*cy;
-   //   ::u8 * lpb = (::u8 *) m_pcolorref;
-   //   for ( i32 i=0; i<size_i32; i++ )
+   //   int size=cx*cy;
+   //   unsigned char * lpb = (unsigned char *) m_pcolorref;
+   //   for ( int i=0; i<size_i32; i++ )
    //   {
    //      lpb[0] = 255 - lpb[0];
    //      lpb[1] = 255 - lpb[1];
@@ -572,8 +572,8 @@ namespace draw2d_xlib
    //{
    //   i64 size_i32   = cx * cy;
    //   register i64 size_i64 = size / 64;
-   //   ::u8 * lpb = (::u8 *) m_pcolorref;
-   //   lpb += ((i32)echannel) % 4;
+   //   unsigned char * lpb = (unsigned char *) m_pcolorref;
+   //   lpb += ((int)echannel) % 4;
    //   register i64 i = 0;
    //   for(; i < size_i64; i++)
    //   {
@@ -657,42 +657,42 @@ namespace draw2d_xlib
    //   if(dRate < 0)
    //      return;
    //   register i64 size = area();
-   //   ::u8 * lpb = (::u8 *) get_data();
-   //   lpb += ((i32)echannel) % 4;
-   //   register i32 iDiv = 256 * 256;
-   //   register i32 iMul = (i32) (dRate * ((double) iDiv));
-   //   register i32 iRes;
+   //   unsigned char * lpb = (unsigned char *) get_data();
+   //   lpb += ((int)echannel) % 4;
+   //   register int iDiv = 256 * 256;
+   //   register int iMul = (int) (dRate * ((double) iDiv));
+   //   register int iRes;
    //   for(register i64 i = 0; i < size; i++)
    //   {
    //      iRes = *lpb * iMul / iDiv;
-   //      *lpb = (::u8) (iRes > 255 ? 255 : iRes);
+   //      *lpb = (unsigned char) (iRes > 255 ? 255 : iRes);
    //      lpb += 4;
    //   }
    //}
 
-   //void image::FillGlass ( i32 R, i32 G, i32 B, i32 A )
+   //void image::FillGlass ( int R, int G, int B, int A )
    //{
-   //   ::u8 *dst=(::u8*)m_pcolorref;
-   //   i32 size=cx*cy;
+   //   unsigned char *dst=(unsigned char*)m_pcolorref;
+   //   int size=cx*cy;
 
    //   while ( size-- )
    //   {
-   //      dst[0]=(::u8)(((B-dst[0])*A+(dst[0]<<8))>>8);
-   //      dst[1]=(::u8)(((G-dst[1])*A+(dst[1]<<8))>>8);
-   //      dst[2]=(::u8)(((R-dst[2])*A+(dst[2]<<8))>>8);
+   //      dst[0]=(unsigned char)(((B-dst[0])*A+(dst[0]<<8))>>8);
+   //      dst[1]=(unsigned char)(((G-dst[1])*A+(dst[1]<<8))>>8);
+   //      dst[2]=(unsigned char)(((R-dst[2])*A+(dst[2]<<8))>>8);
    //      dst+=4;
    //   }
    //}
 
-   //void image::FillStippledGlass ( i32 R, i32 G, i32 B )
+   //void image::FillStippledGlass ( int R, int G, int B )
    //{
    //   color32_t color=rgb ( B, G, R );
-   //   i32 w=cx;
-   //   i32 h=cy;
+   //   int w=cx;
+   //   int h=cy;
 
-   //   for ( i32 j=0; j<w; j++ )
+   //   for ( int j=0; j<w; j++ )
    //   {
-   //      for ( i32 i=0; i<h; i++ )
+   //      for ( int i=0; i<h; i++ )
    //      {
    //         m_pcolorref[j*w+i]=((i+j)&0x1) ? m_pcolorref[j*w+i] : color;
    //      }
@@ -718,11 +718,11 @@ namespace draw2d_xlib
    //   ::memory_copy ( m_pcolorref, pimage->get_data(), cx*cy*4 );
    //}
 
-   //bool image::color_blend(color32_t cr, ::u8 bAlpha)
+   //bool image::color_blend(color32_t cr, unsigned char bAlpha)
    //{
 
-   //   ::u8 *dst=(::u8*)m_pcolorref;
-   //   i32 size=cx*cy;
+   //   unsigned char *dst=(unsigned char*)m_pcolorref;
+   //   int size=cx*cy;
 
    //   u32 dwB = ::blue(cr);
    //   u32 dwG = ::green(cr);
@@ -734,52 +734,52 @@ namespace draw2d_xlib
 
    //   while ( size-- )
    //   {
-   //      dst[0]=(::u8)(((dst[0]-dwB)*bAlpha+dwB_)>>8);
-   //      dst[1]=(::u8)(((dst[1]-dwG)*bAlpha+dwG_)>>8);
-   //      dst[2]=(::u8)(((dst[2]-dwG)*bAlpha+dwR_)>>8);
+   //      dst[0]=(unsigned char)(((dst[0]-dwB)*bAlpha+dwB_)>>8);
+   //      dst[1]=(unsigned char)(((dst[1]-dwG)*bAlpha+dwG_)>>8);
+   //      dst[2]=(unsigned char)(((dst[2]-dwG)*bAlpha+dwR_)>>8);
    //      dst+=4;
    //   }
    //   return true;
    //}
 
 
-   //void image::Blend (::image::image *pimage, i32 A )
+   //void image::Blend (::image::image *pimage, int A )
    //{
    //   if ( size()!=pimage->size() )
    //      return;
 
-   //   ::u8 *src=(::u8*)pimage->get_data();
-   //   ::u8 *dst=(::u8*)m_pcolorref;
-   //   i32 size=cx*cy;
+   //   unsigned char *src=(unsigned char*)pimage->get_data();
+   //   unsigned char *dst=(unsigned char*)m_pcolorref;
+   //   int size=cx*cy;
 
    //   while ( size-- )
    //   {
-   //      dst[0]=(::u8)(((src[0]-dst[0])*A+(dst[0]<<8))>>8);
-   //      dst[1]=(::u8)(((src[1]-dst[1])*A+(dst[1]<<8))>>8);
-   //      dst[2]=(::u8)(((src[2]-dst[2])*A+(dst[2]<<8))>>8);
+   //      dst[0]=(unsigned char)(((src[0]-dst[0])*A+(dst[0]<<8))>>8);
+   //      dst[1]=(unsigned char)(((src[1]-dst[1])*A+(dst[1]<<8))>>8);
+   //      dst[2]=(unsigned char)(((src[2]-dst[2])*A+(dst[2]<<8))>>8);
    //      dst+=4;
    //      src+=4;
    //   }
    //}
 
-   //bool image::Blend(imagepimage, imagepimageA, i32 A)
+   //bool image::Blend(imagepimage, imagepimageA, int A)
    //{
    //   if(size() != pimage->size() ||
    //      size() != imageA.size())
    //      return false;
 
-   //   ::u8 *src=(::u8*)pimage->get_data();
-   //   ::u8 *dst=(::u8*)m_pcolorref;
-   //   ::u8 *alf=(::u8*)imageA.m_pcolorref;
-   //   i32 size=cx*cy;
+   //   unsigned char *src=(unsigned char*)pimage->get_data();
+   //   unsigned char *dst=(unsigned char*)m_pcolorref;
+   //   unsigned char *alf=(unsigned char*)imageA.m_pcolorref;
+   //   int size=cx*cy;
 
    //   A = 2 - A;
 
    //   while ( size-- )
    //   {
-   //      dst[0]=(::u8)(((src[0]-dst[0])*alf[A]+(dst[0]<<8))>>8);
-   //      dst[1]=(::u8)(((src[1]-dst[1])*alf[A]+(dst[1]<<8))>>8);
-   //      dst[2]=(::u8)(((src[2]-dst[2])*alf[A]+(dst[2]<<8))>>8);
+   //      dst[0]=(unsigned char)(((src[0]-dst[0])*alf[A]+(dst[0]<<8))>>8);
+   //      dst[1]=(unsigned char)(((src[1]-dst[1])*alf[A]+(dst[1]<<8))>>8);
+   //      dst[2]=(unsigned char)(((src[2]-dst[2])*alf[A]+(dst[2]<<8))>>8);
    //      dst+=4;
    //      src+=4;
    //      alf+=4;
@@ -793,15 +793,15 @@ namespace draw2d_xlib
    //   if ( size()!=pimage->size() )
    //      return;
 
-   //   ::u8 *src=(::u8*)pimage->get_data();
-   //   ::u8 *dst=(::u8*)m_pcolorref;
-   //   i32 size=cx*cy;
+   //   unsigned char *src=(unsigned char*)pimage->get_data();
+   //   unsigned char *dst=(unsigned char*)m_pcolorref;
+   //   int size=cx*cy;
 
    //   while ( size-- )
    //   {
-   //      dst[0]=(::u8)((src[0]<dst[0]) ? src[0] : dst[0]);
-   //      dst[1]=(::u8)((src[1]<dst[1]) ? src[1] : dst[1]);
-   //      dst[2]=(::u8)((src[2]<dst[2]) ? src[2] : dst[2]);
+   //      dst[0]=(unsigned char)((src[0]<dst[0]) ? src[0] : dst[0]);
+   //      dst[1]=(unsigned char)((src[1]<dst[1]) ? src[1] : dst[1]);
+   //      dst[2]=(unsigned char)((src[2]<dst[2]) ? src[2] : dst[2]);
    //      dst+=4;
    //      src+=4;
    //   }
@@ -812,19 +812,19 @@ namespace draw2d_xlib
    //   if ( size()!=pimage->size() )
    //      return;
 
-   //   ::u8 *src=(::u8*)pimage->get_data();
-   //   ::u8 *dst=(::u8*)m_pcolorref;
-   //   i32 size=cx*cy;
+   //   unsigned char *src=(unsigned char*)pimage->get_data();
+   //   unsigned char *dst=(unsigned char*)m_pcolorref;
+   //   int size=cx*cy;
 
    //   while ( size-- )
    //   {
-   //      i32 Difference;
+   //      int Difference;
    //      Difference=src[0]-dst[0];
-   //      dst[0]=(::u8)((Difference<0) ? -Difference : Difference);
+   //      dst[0]=(unsigned char)((Difference<0) ? -Difference : Difference);
    //      Difference=src[1]-dst[1];
-   //      dst[1]=(::u8)((Difference<0) ? -Difference : Difference);
+   //      dst[1]=(unsigned char)((Difference<0) ? -Difference : Difference);
    //      Difference=src[2]-dst[2];
-   //      dst[2]=(::u8)((Difference<0) ? -Difference : Difference);
+   //      dst[2]=(unsigned char)((Difference<0) ? -Difference : Difference);
    //      dst+=4;
    //      src+=4;
    //   }
@@ -835,15 +835,15 @@ namespace draw2d_xlib
    //   if ( size()!=pimage->size() )
    //      return;
 
-   //   ::u8 *src=(::u8*)pimage->get_data();
-   //   ::u8 *dst=(::u8*)m_pcolorref;
-   //   i32 size=cx*cy;
+   //   unsigned char *src=(unsigned char*)pimage->get_data();
+   //   unsigned char *dst=(unsigned char*)m_pcolorref;
+   //   int size=cx*cy;
 
    //   while ( size-- )
    //   {
-   //      dst[0]=(::u8)((src[0]>dst[0]) ? src[0] : dst[0]);
-   //      dst[1]=(::u8)((src[1]>dst[1]) ? src[1] : dst[1]);
-   //      dst[2]=(::u8)((src[2]>dst[2]) ? src[2] : dst[2]);
+   //      dst[0]=(unsigned char)((src[0]>dst[0]) ? src[0] : dst[0]);
+   //      dst[1]=(unsigned char)((src[1]>dst[1]) ? src[1] : dst[1]);
+   //      dst[2]=(unsigned char)((src[2]>dst[2]) ? src[2] : dst[2]);
    //      dst+=4;
    //      src+=4;
    //   }
@@ -855,15 +855,15 @@ namespace draw2d_xlib
    //   if ( size()!=pimage->size() )
    //      return;
 
-   //   ::u8 *src=(::u8*)pimage->get_data();
-   //   ::u8 *dst=(::u8*)m_pcolorref;
-   //   i32 size=cx*cy;
+   //   unsigned char *src=(unsigned char*)pimage->get_data();
+   //   unsigned char *dst=(unsigned char*)m_pcolorref;
+   //   int size=cx*cy;
 
    //   while ( size-- )
    //   {
-   //      dst[0]=(::u8)(((src[0])*(dst[0]))>>8);
-   //      dst[1]=(::u8)(((src[1])*(dst[1]))>>8);
-   //      dst[2]=(::u8)(((src[2])*(dst[2]))>>8);
+   //      dst[0]=(unsigned char)(((src[0])*(dst[0]))>>8);
+   //      dst[1]=(unsigned char)(((src[1])*(dst[1]))>>8);
+   //      dst[2]=(unsigned char)(((src[2])*(dst[2]))>>8);
    //      dst+=4;
    //      src+=4;
    //   }
@@ -874,15 +874,15 @@ namespace draw2d_xlib
    //   if ( size()!=pimage->size() )
    //      return;
 
-   //   ::u8 *src=(::u8*)pimage->get_data();
-   //   ::u8 *dst=(::u8*)m_pcolorref;
-   //   i32 size=cx*cy;
+   //   unsigned char *src=(unsigned char*)pimage->get_data();
+   //   unsigned char *dst=(unsigned char*)m_pcolorref;
+   //   int size=cx*cy;
 
    //   while ( size-- )
    //   {
-   //      dst[0]=(::u8)(255-(((255-src[0])*(255-dst[0]))>>8));
-   //      dst[1]=(::u8)(255-(((255-src[1])*(255-dst[1]))>>8));
-   //      dst[2]=(::u8)(255-(((255-src[2])*(255-dst[2]))>>8));
+   //      dst[0]=(unsigned char)(255-(((255-src[0])*(255-dst[0]))>>8));
+   //      dst[1]=(unsigned char)(255-(((255-src[1])*(255-dst[1]))>>8));
+   //      dst[2]=(unsigned char)(255-(((255-src[2])*(255-dst[2]))>>8));
    //      dst+=4;
    //      src+=4;
    //   }
@@ -892,13 +892,13 @@ namespace draw2d_xlib
    // Rectangle Functions
    //////////////////////////////////////////////////////////////////////
 
-   //void image::copy (::image::image *pimage, i32 x, i32 y )
+   //void image::copy (::image::image *pimage, int x, int y )
    //{
    //   // Clip Rect
-   //   i32 px=(x>=0) ? x : 0;
-   //   i32 py=(y>=0) ? y : 0;
-   //   i32 Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
-   //   i32 Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
+   //   int px=(x>=0) ? x : 0;
+   //   int py=(y>=0) ? y : 0;
+   //   int Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
+   //   int Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
    //   Δx=(x>=0) ? Δx : Δx + x;
    //   Δy=(y>=0) ? Δy : Δy + y;
 
@@ -916,20 +916,20 @@ namespace draw2d_xlib
    //   // Do copy
    //   while ( Δy-- )
    //   {
-   //      for ( i32 i=0; i<Δx; i++ )
+   //      for ( int i=0; i<Δx; i++ )
    //         dst[i]=src[i];
    //      src+=cx;
    //      dst+=pimage->cx;
    //   }
    //}
 
-   //void image::PasteRect (::image::image *pimage, i32 x, i32 y )
+   //void image::PasteRect (::image::image *pimage, int x, int y )
    //{
    //   // Clip Rect
-   //   i32 px=(x>=0) ? x : 0;
-   //   i32 py=(y>=0) ? y : 0;
-   //   i32 Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
-   //   i32 Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
+   //   int px=(x>=0) ? x : 0;
+   //   int py=(y>=0) ? y : 0;
+   //   int Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
+   //   int Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
    //   Δx=(x>=0) ? Δx : Δx + x;
    //   Δy=(y>=0) ? Δy : Δy + y;
 
@@ -944,20 +944,20 @@ namespace draw2d_xlib
    //   // Do Paste
    //   while ( Δy-- )
    //   {
-   //      for ( i32 i=0; i<Δx; i++ )
+   //      for ( int i=0; i<Δx; i++ )
    //         dst[i]=src[i];
    //      src+=pimage->cx;
    //      dst+=cx;
    //   }
    //}
 
-   //void image::FillRect ( i32 x, i32 y, i32 w, i32 h, i32 R, i32 G, i32 B )
+   //void image::FillRect ( int x, int y, int w, int h, int R, int G, int B )
    //{
    //   // Clip Rect
-   //   i32 px=(x>=0) ? x : 0;
-   //   i32 py=(y>=0) ? y : 0;
-   //   i32 Δx=((x+w)<cx) ? w : cx-x;
-   //   i32 Δy=((y+h)<cy) ? h : cy-y;
+   //   int px=(x>=0) ? x : 0;
+   //   int py=(y>=0) ? y : 0;
+   //   int Δx=((x+w)<cx) ? w : cx-x;
+   //   int Δy=((y+h)<cy) ? h : cy-y;
    //   Δx=(x>=0) ? Δx : Δx + x;
    //   Δy=(y>=0) ? Δy : Δy + y;
 
@@ -972,7 +972,7 @@ namespace draw2d_xlib
    //   // Do Fill
    //   while ( Δy-- )
    //   {
-   //      for ( i32 i=0; i<Δx; i++ )
+   //      for ( int i=0; i<Δx; i++ )
    //      {
    //         dst[i]=color;
    //      }
@@ -980,13 +980,13 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image::FillGlassRect ( i32 x, i32 y, i32 w, i32 h, i32 R, i32 G, i32 B, i32 A )
+   //void image::FillGlassRect ( int x, int y, int w, int h, int R, int G, int B, int A )
    //{
    //   // Clip Rect
-   //   i32 px=(x>=0) ? x : 0;
-   //   i32 py=(y>=0) ? y : 0;
-   //   i32 Δx=((x+w)<cx) ? w : cx-x;
-   //   i32 Δy=((y+h)<cy) ? h : cy-y;
+   //   int px=(x>=0) ? x : 0;
+   //   int py=(y>=0) ? y : 0;
+   //   int Δx=((x+w)<cx) ? w : cx-x;
+   //   int Δy=((y+h)<cy) ? h : cy-y;
    //   Δx=(x>=0) ? Δx : Δx + x;
    //   Δy=(y>=0) ? Δy : Δy + y;
 
@@ -995,29 +995,29 @@ namespace draw2d_xlib
    //      return;
 
    //   // Prepare buffer Address
-   //   ::u8 *dst=(::u8 *)m_pcolorref+((py*cx)+px)*4;
+   //   unsigned char *dst=(unsigned char *)m_pcolorref+((py*cx)+px)*4;
 
    //   // Do FillGlass
    //   while ( Δy-- )
    //   {
-   //      for ( i32 i=0; i<Δx; i++ )
+   //      for ( int i=0; i<Δx; i++ )
    //      {
-   //         dst[0]=(::u8)(((B-dst[0])*A+(dst[0]<<8))>>8);
-   //         dst[1]=(::u8)(((G-dst[1])*A+(dst[1]<<8))>>8);
-   //         dst[2]=(::u8)(((R-dst[2])*A+(dst[2]<<8))>>8);
+   //         dst[0]=(unsigned char)(((B-dst[0])*A+(dst[0]<<8))>>8);
+   //         dst[1]=(unsigned char)(((G-dst[1])*A+(dst[1]<<8))>>8);
+   //         dst[2]=(unsigned char)(((R-dst[2])*A+(dst[2]<<8))>>8);
    //         dst+=4;
    //      }
    //      dst+=(cx-Δx)<<2;
    //   }
    //}
 
-   //void image::FillStippledGlassRect ( i32 x, i32 y, i32 w, i32 h, i32 R, i32 G, i32 B )
+   //void image::FillStippledGlassRect ( int x, int y, int w, int h, int R, int G, int B )
    //{
    //   // Clip Rect
-   //   i32 px=(x>=0) ? x : 0;
-   //   i32 py=(y>=0) ? y : 0;
-   //   i32 Δx=((x+w)<cx) ? w : cx-x;
-   //   i32 Δy=((y+h)<cy) ? h : cy-y;
+   //   int px=(x>=0) ? x : 0;
+   //   int py=(y>=0) ? y : 0;
+   //   int Δx=((x+w)<cx) ? w : cx-x;
+   //   int Δy=((y+h)<cy) ? h : cy-y;
    //   Δx=(x>=0) ? Δx : Δx + x;
    //   Δy=(y>=0) ? Δy : Δy + y;
 
@@ -1030,9 +1030,9 @@ namespace draw2d_xlib
    //   color32_t color=rgb ( B, G, R );
 
    //   // Do FillStippledGlass
-   //   for ( i32 j=0; j<Δy; j++ )
+   //   for ( int j=0; j<Δy; j++ )
    //   {
-   //      for ( i32 i=0; i<Δx; i++ )
+   //      for ( int i=0; i<Δx; i++ )
    //      {
    //         dst[i]=((i+j)&0x1) ? dst[i] : color;
    //      }
@@ -1040,13 +1040,13 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image::BlendRect (::image::image *pimage, i32 x, i32 y, i32 A )
+   //void image::BlendRect (::image::image *pimage, int x, int y, int A )
    //{
    //   // Clip Rect
-   //   i32 px=(x>=0) ? x : 0;
-   //   i32 py=(y>=0) ? y : 0;
-   //   i32 Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
-   //   i32 Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
+   //   int px=(x>=0) ? x : 0;
+   //   int py=(y>=0) ? y : 0;
+   //   int Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
+   //   int Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
    //   Δx=(x>=0) ? Δx : Δx + x;
    //   Δy=(y>=0) ? Δy : Δy + y;
 
@@ -1055,17 +1055,17 @@ namespace draw2d_xlib
    //      return;
 
    //   // Prepare buffer Addresses
-   //   ::u8 *src=(::u8 *)pimage->get_data()+(((py-y)*pimage->cx)+px-x)*4;
-   //   ::u8 *dst=(::u8 *)m_pcolorref+((py*cx)+px)*4;
+   //   unsigned char *src=(unsigned char *)pimage->get_data()+(((py-y)*pimage->cx)+px-x)*4;
+   //   unsigned char *dst=(unsigned char *)m_pcolorref+((py*cx)+px)*4;
 
    //   // Do Blend
    //   while ( Δy-- )
    //   {
-   //      for ( i32 i=0; i<Δx; i++ )
+   //      for ( int i=0; i<Δx; i++ )
    //      {
-   //         dst[0]=(::u8)(((src[0]-dst[0])*A+(dst[0]<<8))>>8);
-   //         dst[1]=(::u8)(((src[1]-dst[1])*A+(dst[1]<<8))>>8);
-   //         dst[2]=(::u8)(((src[2]-dst[2])*A+(dst[2]<<8))>>8);
+   //         dst[0]=(unsigned char)(((src[0]-dst[0])*A+(dst[0]<<8))>>8);
+   //         dst[1]=(unsigned char)(((src[1]-dst[1])*A+(dst[1]<<8))>>8);
+   //         dst[2]=(unsigned char)(((src[2]-dst[2])*A+(dst[2]<<8))>>8);
    //         dst+=4;
    //         src+=4;
    //      }
@@ -1074,13 +1074,13 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image::DarkenRect (::image::image *pimage, i32 x, i32 y )
+   //void image::DarkenRect (::image::image *pimage, int x, int y )
    //{
    //   // Clip Rect
-   //   i32 px=(x>=0) ? x : 0;
-   //   i32 py=(y>=0) ? y : 0;
-   //   i32 Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
-   //   i32 Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
+   //   int px=(x>=0) ? x : 0;
+   //   int py=(y>=0) ? y : 0;
+   //   int Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
+   //   int Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
    //   Δx=(x>=0) ? Δx : Δx + x;
    //   Δy=(y>=0) ? Δy : Δy + y;
 
@@ -1089,17 +1089,17 @@ namespace draw2d_xlib
    //      return;
 
    //   // Prepare buffer Addresses
-   //   ::u8 *src=(::u8 *)pimage->get_data()+(((py-y)*pimage->cx)+px-x)*4;
-   //   ::u8 *dst=(::u8 *)m_pcolorref+((py*cx)+px)*4;
+   //   unsigned char *src=(unsigned char *)pimage->get_data()+(((py-y)*pimage->cx)+px-x)*4;
+   //   unsigned char *dst=(unsigned char *)m_pcolorref+((py*cx)+px)*4;
 
    //   // Do Darken
    //   while ( Δy-- )
    //   {
-   //      for ( i32 i=0; i<Δx; i++ )
+   //      for ( int i=0; i<Δx; i++ )
    //      {
-   //         dst[0]=(::u8)((src[0]<dst[0]) ? src[0] : dst[0]);
-   //         dst[1]=(::u8)((src[1]<dst[1]) ? src[1] : dst[1]);
-   //         dst[2]=(::u8)((src[2]<dst[2]) ? src[2] : dst[2]);
+   //         dst[0]=(unsigned char)((src[0]<dst[0]) ? src[0] : dst[0]);
+   //         dst[1]=(unsigned char)((src[1]<dst[1]) ? src[1] : dst[1]);
+   //         dst[2]=(unsigned char)((src[2]<dst[2]) ? src[2] : dst[2]);
    //         dst+=4;
    //         src+=4;
    //      }
@@ -1108,13 +1108,13 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image::DifferenceRect (::image::image *pimage, i32 x, i32 y )
+   //void image::DifferenceRect (::image::image *pimage, int x, int y )
    //{
    //   // Clip Rect
-   //   i32 px=(x>=0) ? x : 0;
-   //   i32 py=(y>=0) ? y : 0;
-   //   i32 Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
-   //   i32 Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
+   //   int px=(x>=0) ? x : 0;
+   //   int py=(y>=0) ? y : 0;
+   //   int Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
+   //   int Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
    //   Δx=(x>=0) ? Δx : Δx + x;
    //   Δy=(y>=0) ? Δy : Δy + y;
 
@@ -1123,21 +1123,21 @@ namespace draw2d_xlib
    //      return;
 
    //   // Prepare buffer Addresses
-   //   ::u8 *src=(::u8 *)pimage->get_data()+(((py-y)*pimage->cx)+px-x)*4;
-   //   ::u8 *dst=(::u8 *)m_pcolorref+((py*cx)+px)*4;
+   //   unsigned char *src=(unsigned char *)pimage->get_data()+(((py-y)*pimage->cx)+px-x)*4;
+   //   unsigned char *dst=(unsigned char *)m_pcolorref+((py*cx)+px)*4;
 
    //   // Do Difference
    //   while ( Δy-- )
    //   {
-   //      for ( i32 i=0; i<Δx; i++ )
+   //      for ( int i=0; i<Δx; i++ )
    //      {
-   //         i32 Difference;
+   //         int Difference;
    //         Difference=src[0]-dst[0];
-   //         dst[0]=(::u8)((Difference<0) ? -Difference : Difference);
+   //         dst[0]=(unsigned char)((Difference<0) ? -Difference : Difference);
    //         Difference=src[1]-dst[1];
-   //         dst[1]=(::u8)((Difference<0) ? -Difference : Difference);
+   //         dst[1]=(unsigned char)((Difference<0) ? -Difference : Difference);
    //         Difference=src[2]-dst[2];
-   //         dst[2]=(::u8)((Difference<0) ? -Difference : Difference);
+   //         dst[2]=(unsigned char)((Difference<0) ? -Difference : Difference);
    //         dst+=4;
    //         src+=4;
    //      }
@@ -1146,13 +1146,13 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image::LightenRect (::image::image *pimage, i32 x, i32 y )
+   //void image::LightenRect (::image::image *pimage, int x, int y )
    //{
    //   // Clip Rect
-   //   i32 px=(x>=0) ? x : 0;
-   //   i32 py=(y>=0) ? y : 0;
-   //   i32 Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
-   //   i32 Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
+   //   int px=(x>=0) ? x : 0;
+   //   int py=(y>=0) ? y : 0;
+   //   int Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
+   //   int Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
    //   Δx=(x>=0) ? Δx : Δx + x;
    //   Δy=(y>=0) ? Δy : Δy + y;
 
@@ -1161,17 +1161,17 @@ namespace draw2d_xlib
    //      return;
 
    //   // Prepare buffer Addresses
-   //   ::u8 *src=(::u8 *)pimage->get_data()+(((py-y)*pimage->cx)+px-x)*4;
-   //   ::u8 *dst=(::u8 *)m_pcolorref+((py*cx)+px)*4;
+   //   unsigned char *src=(unsigned char *)pimage->get_data()+(((py-y)*pimage->cx)+px-x)*4;
+   //   unsigned char *dst=(unsigned char *)m_pcolorref+((py*cx)+px)*4;
 
    //   // Do Lighten
    //   while ( Δy-- )
    //   {
-   //      for ( i32 i=0; i<Δx; i++ )
+   //      for ( int i=0; i<Δx; i++ )
    //      {
-   //         dst[0]=(::u8)((src[0]>dst[0]) ? src[0] : dst[0]);
-   //         dst[1]=(::u8)((src[1]>dst[1]) ? src[1] : dst[1]);
-   //         dst[2]=(::u8)((src[2]>dst[2]) ? src[2] : dst[2]);
+   //         dst[0]=(unsigned char)((src[0]>dst[0]) ? src[0] : dst[0]);
+   //         dst[1]=(unsigned char)((src[1]>dst[1]) ? src[1] : dst[1]);
+   //         dst[2]=(unsigned char)((src[2]>dst[2]) ? src[2] : dst[2]);
    //         dst+=4;
    //         src+=4;
    //      }
@@ -1180,13 +1180,13 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image::MultiplyRect (::image::image *pimage, i32 x, i32 y )
+   //void image::MultiplyRect (::image::image *pimage, int x, int y )
    //{
    //   // Clip Rect
-   //   i32 px=(x>=0) ? x : 0;
-   //   i32 py=(y>=0) ? y : 0;
-   //   i32 Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
-   //   i32 Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
+   //   int px=(x>=0) ? x : 0;
+   //   int py=(y>=0) ? y : 0;
+   //   int Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
+   //   int Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
    //   Δx=(x>=0) ? Δx : Δx + x;
    //   Δy=(y>=0) ? Δy : Δy + y;
 
@@ -1195,17 +1195,17 @@ namespace draw2d_xlib
    //      return;
 
    //   // Prepare buffer Addresses
-   //   ::u8 *src=(::u8 *)pimage->get_data()+(((py-y)*pimage->cx)+px-x)*4;
-   //   ::u8 *dst=(::u8 *)m_pcolorref+((py*cx)+px)*4;
+   //   unsigned char *src=(unsigned char *)pimage->get_data()+(((py-y)*pimage->cx)+px-x)*4;
+   //   unsigned char *dst=(unsigned char *)m_pcolorref+((py*cx)+px)*4;
 
    //   // Do Multiply
    //   while ( Δy-- )
    //   {
-   //      for ( i32 i=0; i<Δx; i++ )
+   //      for ( int i=0; i<Δx; i++ )
    //      {
-   //         dst[0]=(::u8)(((src[0])*(dst[0]))>>8);
-   //         dst[1]=(::u8)(((src[1])*(dst[1]))>>8);
-   //         dst[2]=(::u8)(((src[2])*(dst[2]))>>8);
+   //         dst[0]=(unsigned char)(((src[0])*(dst[0]))>>8);
+   //         dst[1]=(unsigned char)(((src[1])*(dst[1]))>>8);
+   //         dst[2]=(unsigned char)(((src[2])*(dst[2]))>>8);
    //         dst+=4;
    //         src+=4;
    //      }
@@ -1214,13 +1214,13 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image::ScreenRect (::image::image *pimage, i32 x, i32 y )
+   //void image::ScreenRect (::image::image *pimage, int x, int y )
    //{
    //   // Clip Rect
-   //   i32 px=(x>=0) ? x : 0;
-   //   i32 py=(y>=0) ? y : 0;
-   //   i32 Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
-   //   i32 Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
+   //   int px=(x>=0) ? x : 0;
+   //   int py=(y>=0) ? y : 0;
+   //   int Δx=((x+pimage->cx)<cx) ? pimage->cx : cx-x;
+   //   int Δy=((y+pimage->cy)<cy) ? pimage->cy : cy-y;
    //   Δx=(x>=0) ? Δx : Δx + x;
    //   Δy=(y>=0) ? Δy : Δy + y;
 
@@ -1229,17 +1229,17 @@ namespace draw2d_xlib
    //      return;
 
    //   // Prepare buffer Addresses
-   //   ::u8 *src=(::u8 *)pimage->get_data()+(((py-y)*pimage->cx)+px-x)*4;
-   //   ::u8 *dst=(::u8 *)m_pcolorref+((py*cx)+px)*4;
+   //   unsigned char *src=(unsigned char *)pimage->get_data()+(((py-y)*pimage->cx)+px-x)*4;
+   //   unsigned char *dst=(unsigned char *)m_pcolorref+((py*cx)+px)*4;
 
    //   // Do Screen
    //   while ( Δy-- )
    //   {
-   //      for ( i32 i=0; i<Δx; i++ )
+   //      for ( int i=0; i<Δx; i++ )
    //      {
-   //         dst[0]=(::u8)(255-(((255-src[0])*(255-dst[0]))>>8));
-   //         dst[1]=(::u8)(255-(((255-src[1])*(255-dst[1]))>>8));
-   //         dst[2]=(::u8)(255-(((255-src[2])*(255-dst[2]))>>8));
+   //         dst[0]=(unsigned char)(255-(((255-src[0])*(255-dst[0]))>>8));
+   //         dst[1]=(unsigned char)(255-(((255-src[1])*(255-dst[1]))>>8));
+   //         dst[2]=(unsigned char)(255-(((255-src[2])*(255-dst[2]))>>8));
    //         dst+=4;
    //         src+=4;
    //      }
@@ -1252,9 +1252,9 @@ namespace draw2d_xlib
    // Line Functions
    //////////////////////////////////////////////////////////////////////
 
-   /*void image::Line ( i32 x1, i32 y1, i32 x2, i32 y2, i32 R, i32 G, i32 B )
+   /*void image::Line ( int x1, int y1, int x2, int y2, int R, int G, int B )
    {
-      i32 Δx, Δy, k1, k2, d, x, y;
+      int Δx, Δy, k1, k2, d, x, y;
       color32_t color=rgb ( B, G, R );
 
       Δx=x2-x1;
@@ -1283,9 +1283,9 @@ namespace draw2d_xlib
       }
    }*/
 
-//   void image::Line ( i32 x1, i32 y1, i32 x2, i32 y2, i32 R, i32 G, i32 B )
+//   void image::Line ( int x1, int y1, int x2, int y2, int R, int G, int B )
 //   {
-//      i32 d, x, y, ax, ay, sx, sy, Δx, Δy;
+//      int d, x, y, ax, ay, sx, sy, Δx, Δy;
 //      color32_t color=rgb ( B, G, R );
 //
 //      Δx=x2-x1;
@@ -1329,11 +1329,11 @@ namespace draw2d_xlib
 //      }
 //   }
 //
-//   void image::LineGlass ( i32 x1, i32 y1, i32 x2, i32 y2, i32 R, i32 G, i32 B, i32 A )
+//   void image::LineGlass ( int x1, int y1, int x2, int y2, int R, int G, int B, int A )
 //   {
-//      i32 d, x, y, ax, ay, sx, sy, Δx, Δy;
+//      int d, x, y, ax, ay, sx, sy, Δx, Δy;
 ////      color32_t color=rgb ( B, G, R );
-//      ::u8 *dst=(::u8 *)m_pcolorref;
+//      unsigned char *dst=(unsigned char *)m_pcolorref;
 //
 //      Δx=x2-x1;
 //      ax=abs ( Δx )<<1;
@@ -1349,9 +1349,9 @@ namespace draw2d_xlib
 //         d=ay-(ax>>1);
 //         while ( x!=x2 )
 //         {
-//            dst[(y*cx+x)<<2]=(::u8)(((B-dst[(y*cx+x)<<2])*A+(dst[(y*cx+x)<<2]<<8))>>8);
-//            dst[((y*cx+x)<<2)+1]=(::u8)(((G-dst[((y*cx+x)<<2)+1])*A+(dst[((y*cx+x)<<2)+1]<<8))>>8);
-//            dst[((y*cx+x)<<2)+2]=(::u8)(((R-dst[((y*cx+x)<<2)+2])*A+(dst[((y*cx+x)<<2)+2]<<8))>>8);
+//            dst[(y*cx+x)<<2]=(unsigned char)(((B-dst[(y*cx+x)<<2])*A+(dst[(y*cx+x)<<2]<<8))>>8);
+//            dst[((y*cx+x)<<2)+1]=(unsigned char)(((G-dst[((y*cx+x)<<2)+1])*A+(dst[((y*cx+x)<<2)+1]<<8))>>8);
+//            dst[((y*cx+x)<<2)+2]=(unsigned char)(((R-dst[((y*cx+x)<<2)+2])*A+(dst[((y*cx+x)<<2)+2]<<8))>>8);
 //            if ( d>=0 )
 //            {
 //               y+=sy;
@@ -1366,9 +1366,9 @@ namespace draw2d_xlib
 //         d=ax-(ay>>1);
 //         while ( y!=y2 )
 //         {
-//            dst[(y*cx+x)<<2]=(::u8)(((B-dst[(y*cx+x)<<2])*A+(dst[(y*cx+x)<<2]<<8))>>8);
-//            dst[((y*cx+x)<<2)+1]=(::u8)(((G-dst[((y*cx+x)<<2)+1])*A+(dst[((y*cx+x)<<2)+1]<<8))>>8);
-//            dst[((y*cx+x)<<2)+2]=(::u8)(((R-dst[((y*cx+x)<<2)+2])*A+(dst[((y*cx+x)<<2)+2]<<8))>>8);
+//            dst[(y*cx+x)<<2]=(unsigned char)(((B-dst[(y*cx+x)<<2])*A+(dst[(y*cx+x)<<2]<<8))>>8);
+//            dst[((y*cx+x)<<2)+1]=(unsigned char)(((G-dst[((y*cx+x)<<2)+1])*A+(dst[((y*cx+x)<<2)+1]<<8))>>8);
+//            dst[((y*cx+x)<<2)+2]=(unsigned char)(((R-dst[((y*cx+x)<<2)+2])*A+(dst[((y*cx+x)<<2)+2]<<8))>>8);
 //            if ( d>=0 )
 //            {
 //               x+=sx;
@@ -1386,9 +1386,9 @@ namespace draw2d_xlib
 //      color32_t crSet = rgb(::blue(crInMask), ::green(crInMask), ::red(crInMask));
 //      color32_t crUnset  = rgb(::blue(crOutMask), ::green(crOutMask), ::red(crOutMask));
 //
-//      i32 size=cx*cy;
+//      int size=cx*cy;
 //
-//      for ( i32 i=0; i<size_i32; i++ )
+//      for ( int i=0; i<size_i32; i++ )
 //         if(m_pcolorref[i]== crFind)
 //            m_pcolorref[i] = crSet;
 //         else
@@ -1401,20 +1401,20 @@ namespace draw2d_xlib
 //      color32_t crFind = color.get_rgb();
 //      i64 size = area();
 //
-//      for ( i32 i=0; i<size_i32; i++ )
+//      for ( int i=0; i<size_i32; i++ )
 //         if((m_pcolorref[i] & 0x00ffffff) == crFind)
-//            ((::u8 *)&m_pcolorref[i])[3] = 255;
+//            ((unsigned char *)&m_pcolorref[i])[3] = 255;
 //         else
-//            ((::u8 *)&m_pcolorref[i])[3] = 0;
+//            ((unsigned char *)&m_pcolorref[i])[3] = 0;
 //   }
 //
 //   void image::color::e_channel_mask(unsigned char uchFind, unsigned char uchSet, unsigned char uchUnset, color::color::color::rgba::echannel echannel)
 //   {
-//      i32 size = cx * cy;
+//      int size = cx * cy;
 //      unsigned char * puch = (unsigned char * ) m_pcolorref;
-//      puch += ((i32) echannel) % 4;
+//      puch += ((int) echannel) % 4;
 //
-//      for(i32 i = 0; i < size; i++)
+//      for(int i = 0; i < size; i++)
 //      {
 //         if(*puch == uchFind)
 //            *puch = uchSet;
@@ -1424,7 +1424,7 @@ namespace draw2d_xlib
 //      }
 //   }
 //
-//   u32 image::GetPixel(i32 x, i32 y)
+//   u32 image::GetPixel(int x, int y)
 //   {
 //      u32 dw = *(m_pcolorref + x + (cy - y - 1) * cx);
 //      return rgb(::blue(dw), ::green(dw), ::red(dw));
@@ -1435,19 +1435,19 @@ namespace draw2d_xlib
 //   // The gradient can\B4t have more then 256 levels of the most bright color
 //   // (white). So creating a radial fill of radius 256 and then using fasting
 //   // stretching algorithms is much faster than calculating radial fill.
-//   void image::RadialFill(::u8 alpha, ::u8 red, ::u8 green, ::u8 blue, i32 xCenter, i32 yCenter, i32 iRadius)
+//   void image::RadialFill(unsigned char alpha, unsigned char red, unsigned char green, unsigned char blue, int xCenter, int yCenter, int iRadius)
 //   {
 //      if (iRadius == 0)
 //         return;
 //      /*if(version == 0)
 //      {
 //
-//         i32 iR = iRadius - 1;
+//         int iR = iRadius - 1;
 //
-//         i32 xL = xCenter - iR;
-//         i32 xU = xCenter + iR;
-//         i32 yL = yCenter - iR;
-//         i32 yU = yCenter + iR;
+//         int xL = xCenter - iR;
+//         int xU = xCenter + iR;
+//         int yL = yCenter - iR;
+//         int yU = yCenter + iR;
 //
 //
 //         if(xL < 0) xL = 0;
@@ -1456,28 +1456,28 @@ namespace draw2d_xlib
 //         if(yU >= m_Size.cy()) yU = m_Size.cy() - 1;
 //
 //
-//         ::u8 *dst = ((::u8*)(m_pcolorref + xL + yL * m_Size.cx()));
+//         unsigned char *dst = ((unsigned char*)(m_pcolorref + xL + yL * m_Size.cx()));
 //         u32 dwAdd = ((m_Size.cx() - 1 - xU) + xL) * 4;
-//         i32 size=m_Size.cx()*m_Size.cy();
+//         int size=m_Size.cx()*m_Size.cy();
 //         double iLevel;
 //
-//         i32 Δx, Δy;
-//         i32 dx0, dy0;
-//         i32 dx1, dy1;
-//         i32 dx2, dy2;
-//         i32 dx3, dy3;
-//         i32 dx4, dy4;
-//         i32 dx5, dy5;
-//         i32 dx6, dy6;
-//         i32 dx7, dy7;
-//         i32 dx8, dy8;
-//         i32 dx9, dy9;
-//         i32 dxA, dyA;
-//         i32 dxB, dyB;
-//         i32 dxC, dyC;
-//         i32 dxD, dyD;
-//         i32 dxE, dyE;
-//         i32 dxF, dyF;
+//         int Δx, Δy;
+//         int dx0, dy0;
+//         int dx1, dy1;
+//         int dx2, dy2;
+//         int dx3, dy3;
+//         int dx4, dy4;
+//         int dx5, dy5;
+//         int dx6, dy6;
+//         int dx7, dy7;
+//         int dx8, dy8;
+//         int dx9, dy9;
+//         int dxA, dyA;
+//         int dxB, dyB;
+//         int dxC, dyC;
+//         int dxD, dyD;
+//         int dxE, dyE;
+//         int dxF, dyF;
 //
 //         unsigned long dr;
 //         unsigned long dq;
@@ -1497,7 +1497,7 @@ namespace draw2d_xlib
 //         unsigned long drD, dqD;
 //         unsigned long drE, dqE;
 //         unsigned long drF, dqF;
-//         i32 x, y;
+//         int x, y;
 //
 //         {
 //            for(y = yL; y <= yU; y++)
@@ -1523,38 +1523,38 @@ namespace draw2d_xlib
 //      else if(version == 1)*/
 //      {
 //
-//         ::u8 * lpbAlloc = (::u8 *) malloc((iRadius * iRadius) + 4);
-//         ::u8 * lpb = (::u8 *) (((iptr) lpbAlloc + 3) & ~3);
+//         unsigned char * lpbAlloc = (unsigned char *) malloc((iRadius * iRadius) + 4);
+//         unsigned char * lpb = (unsigned char *) (((iptr) lpbAlloc + 3) & ~3);
 //
 //
-//         i32 x, y;
-//         i32 b;
+//         int x, y;
+//         int b;
 //
-////         i32 r2 = iRadius * iRadius;
+////         int r2 = iRadius * iRadius;
 //
 //         for(y = 0; y < iRadius; y++)
 //         {
 //            for(x = y; x < iRadius; x++)
 //            {
-//               b = (i32) (sqrt((double) (x * x) + (y * y)) * 255 / iRadius);
+//               b = (int) (sqrt((double) (x * x) + (y * y)) * 255 / iRadius);
 //               if(b > 255)
 //                  b = 0;
 //               else
 //                  b = 255 - b;
 //
 //
-//               lpb[x + y * iRadius] = (::u8) b;
-//               lpb[y + x * iRadius] = (::u8) b;
+//               lpb[x + y * iRadius] = (unsigned char) b;
+//               lpb[y + x * iRadius] = (unsigned char) b;
 //            }
 //         }
 //
 //
-//         i32 iR = iRadius - 1;
+//         int iR = iRadius - 1;
 //
-//         i32 xL = xCenter - iR;
-//         i32 xU = xCenter + iR;
-//         i32 yL = yCenter - iR;
-//         i32 yU = yCenter + iR;
+//         int xL = xCenter - iR;
+//         int xU = xCenter + iR;
+//         int yL = yCenter - iR;
+//         int yU = yCenter + iR;
 //
 //
 //         if(xL < 0) xL = 0;
@@ -1563,11 +1563,11 @@ namespace draw2d_xlib
 //         if(yU >= cy) yU = cy - 1;
 //
 //
-//         ::u8 *dst = ((::u8*)(m_pcolorref + xL + yL * cx));
+//         unsigned char *dst = ((unsigned char*)(m_pcolorref + xL + yL * cx));
 //         u32 dwAdd = ((cx - 1 - xU) + xL) * 4;
-////         i32 size=cx*cy;
+////         int size=cx*cy;
 //
-//         i32 Δx, Δy;
+//         int Δx, Δy;
 //
 //         // Top Left
 //
@@ -1578,10 +1578,10 @@ namespace draw2d_xlib
 //               Δx = abs(x - xCenter);
 //               Δy = abs(y - yCenter);
 //               b = lpb[Δx + Δy * iRadius];
-//               dst[0] = (::u8) (blue     * b / 255);
-//               dst[1] = (::u8) (green    * b / 255);
-//               dst[2] = (::u8) (red      * b / 255);
-//               dst[3] = (::u8) (alpha    * b / 255);
+//               dst[0] = (unsigned char) (blue     * b / 255);
+//               dst[1] = (unsigned char) (green    * b / 255);
+//               dst[2] = (unsigned char) (red      * b / 255);
+//               dst[3] = (unsigned char) (alpha    * b / 255);
 //               dst += 4;
 //            }
 //            dst += dwAdd;
@@ -1593,21 +1593,21 @@ namespace draw2d_xlib
 //
 //
 //   void image::RadialFill(
-//      ::u8 alpha1, ::u8 red1, ::u8 green1, ::u8 blue1,
-//      ::u8 alpha2, ::u8 red2, ::u8 green2, ::u8 blue2,
-//      i32 xCenter, i32 yCenter, i32 iRadius)
+//      unsigned char alpha1, unsigned char red1, unsigned char green1, unsigned char blue1,
+//      unsigned char alpha2, unsigned char red2, unsigned char green2, unsigned char blue2,
+//      int xCenter, int yCenter, int iRadius)
 //   {
 //      if (iRadius == 0)
 //         return;
 //      /*if(version == 0)
 //      {
 //
-//         i32 iR = iRadius - 1;
+//         int iR = iRadius - 1;
 //
-//         i32 xL = xCenter - iR;
-//         i32 xU = xCenter + iR;
-//         i32 yL = yCenter - iR;
-//         i32 yU = yCenter + iR;
+//         int xL = xCenter - iR;
+//         int xU = xCenter + iR;
+//         int yL = yCenter - iR;
+//         int yU = yCenter + iR;
 //
 //
 //         if(xL < 0) xL = 0;
@@ -1616,28 +1616,28 @@ namespace draw2d_xlib
 //         if(yU >= m_Size.cy()) yU = m_Size.cy() - 1;
 //
 //
-//         ::u8 *dst = ((::u8*)(m_pcolorref + xL + yL * m_Size.cx()));
+//         unsigned char *dst = ((unsigned char*)(m_pcolorref + xL + yL * m_Size.cx()));
 //         u32 dwAdd = ((m_Size.cx() - 1 - xU) + xL) * 4;
-//         i32 size=m_Size.cx()*m_Size.cy();
+//         int size=m_Size.cx()*m_Size.cy();
 //         double iLevel;
 //
-//         i32 Δx, Δy;
-//         i32 dx0, dy0;
-//         i32 dx1, dy1;
-//         i32 dx2, dy2;
-//         i32 dx3, dy3;
-//         i32 dx4, dy4;
-//         i32 dx5, dy5;
-//         i32 dx6, dy6;
-//         i32 dx7, dy7;
-//         i32 dx8, dy8;
-//         i32 dx9, dy9;
-//         i32 dxA, dyA;
-//         i32 dxB, dyB;
-//         i32 dxC, dyC;
-//         i32 dxD, dyD;
-//         i32 dxE, dyE;
-//         i32 dxF, dyF;
+//         int Δx, Δy;
+//         int dx0, dy0;
+//         int dx1, dy1;
+//         int dx2, dy2;
+//         int dx3, dy3;
+//         int dx4, dy4;
+//         int dx5, dy5;
+//         int dx6, dy6;
+//         int dx7, dy7;
+//         int dx8, dy8;
+//         int dx9, dy9;
+//         int dxA, dyA;
+//         int dxB, dyB;
+//         int dxC, dyC;
+//         int dxD, dyD;
+//         int dxE, dyE;
+//         int dxF, dyF;
 //
 //         unsigned long dr;
 //         unsigned long dq;
@@ -1657,7 +1657,7 @@ namespace draw2d_xlib
 //         unsigned long drD, dqD;
 //         unsigned long drE, dqE;
 //         unsigned long drF, dqF;
-//         i32 x, y;
+//         int x, y;
 //
 //         {
 //            for(y = yL; y <= yU; y++)
@@ -1683,38 +1683,38 @@ namespace draw2d_xlib
 //      else if(version == 1)*/
 //      {
 //
-//         ::u8 * lpbAlloc = (::u8 *) malloc((iRadius * iRadius) + 4);
-//         ::u8 * lpb = (::u8 *) (((iptr) lpbAlloc + 3) & ~3);
+//         unsigned char * lpbAlloc = (unsigned char *) malloc((iRadius * iRadius) + 4);
+//         unsigned char * lpb = (unsigned char *) (((iptr) lpbAlloc + 3) & ~3);
 //
 //
-//         i32 x, y;
-//         i32 b;
+//         int x, y;
+//         int b;
 //
-////         i32 r2 = iRadius * iRadius;
+////         int r2 = iRadius * iRadius;
 //
 //         for(y = 0; y < iRadius; y++)
 //         {
 //            for(x = y; x < iRadius; x++)
 //            {
-//               b = (i32) (sqrt((double) (x * x) + (y * y)) * 255 / iRadius);
+//               b = (int) (sqrt((double) (x * x) + (y * y)) * 255 / iRadius);
 //               if(b > 255)
 //                  b = 0;
 //               else
 //                  b = ~b;
 //
 //
-//               lpb[x + y * iRadius] = (::u8) b;
-//               lpb[y + x * iRadius] = (::u8) b;
+//               lpb[x + y * iRadius] = (unsigned char) b;
+//               lpb[y + x * iRadius] = (unsigned char) b;
 //            }
 //         }
 //
 //
-//         i32 iR = iRadius - 1;
+//         int iR = iRadius - 1;
 //
-//         i32 xL = xCenter - iR;
-//         i32 xU = xCenter + iR;
-//         i32 yL = yCenter - iR;
-//         i32 yU = yCenter + iR;
+//         int xL = xCenter - iR;
+//         int xU = xCenter + iR;
+//         int yL = yCenter - iR;
+//         int yU = yCenter + iR;
 //
 //
 //         if(xL < 0) xL = 0;
@@ -1723,13 +1723,13 @@ namespace draw2d_xlib
 //         if(yU >= cy) yU = cy - 1;
 //
 //
-//         ::u8 *dst = ((::u8*)(m_pcolorref + xL + yL * cx));
+//         unsigned char *dst = ((unsigned char*)(m_pcolorref + xL + yL * cx));
 //         u32 dwAdd = ((cx - 1 - xU) + xL) * 4;
-////         i32 size=cx*cy;
+////         int size=cx*cy;
 //
-//         i32 Δx, Δy;
+//         int Δx, Δy;
 //
-//         ::u8 bComp;
+//         unsigned char bComp;
 //
 //         // Top Left
 //
@@ -1740,11 +1740,11 @@ namespace draw2d_xlib
 //               Δx = abs(x - xCenter);
 //               Δy = abs(y - yCenter);
 //               b = lpb[Δx + Δy * iRadius];
-//               bComp = (::u8) ~b;
-//               dst[0] = (::u8) (((blue1  * b) + (blue2  * bComp)) / 255);
-//               dst[1] = (::u8) (((green1 * b) + (green2 * bComp)) / 255);
-//               dst[2] = (::u8) (((red1   * b) + (red2   * bComp)) / 255);
-//               dst[3] = (::u8) (((alpha1 * b) + (alpha2 * bComp)) / 255);
+//               bComp = (unsigned char) ~b;
+//               dst[0] = (unsigned char) (((blue1  * b) + (blue2  * bComp)) / 255);
+//               dst[1] = (unsigned char) (((green1 * b) + (green2 * bComp)) / 255);
+//               dst[2] = (unsigned char) (((red1   * b) + (red2   * bComp)) / 255);
+//               dst[3] = (unsigned char) (((alpha1 * b) + (alpha2 * bComp)) / 255);
 //               dst += 4;
 //            }
 //            dst += dwAdd;
@@ -1754,7 +1754,7 @@ namespace draw2d_xlib
 //      }
 //   }
 //
-   void image::SetIconMask(::image::icon * picon, i32 cx, i32 cy)
+   void image::SetIconMask(::image::icon * picon, int cx, int cy)
    {
       create(cx, cy);
 
@@ -1802,14 +1802,14 @@ namespace draw2d_xlib
       nullptr,
       DI_MASK);
 
-      ::u8 * r1=(::u8*)pimage1->m_pcolorref;
-      ::u8 * r2=(::u8*)pimage2->get_data();
-      ::u8 * srcM=(::u8*)imageM.m_pcolorref;
-      ::u8 * dest=(::u8*)m_pcolorref;
-      i32 iSize = cx*cy;
+      unsigned char * r1=(unsigned char*)pimage1->m_pcolorref;
+      unsigned char * r2=(unsigned char*)pimage2->get_data();
+      unsigned char * srcM=(unsigned char*)imageM.m_pcolorref;
+      unsigned char * dest=(unsigned char*)m_pcolorref;
+      int iSize = cx*cy;
 
-      ::u8 b;
-      ::u8 bMax;
+      unsigned char b;
+      unsigned char bMax;
       while ( iSize-- > 0)
       {
          if(srcM[0] == 255)
@@ -1819,11 +1819,11 @@ namespace draw2d_xlib
          else
          {
             bMax = 0;
-            b =(::u8)(r1[0]  - r2[0]);
+            b =(unsigned char)(r1[0]  - r2[0]);
             bMax = maximum(b, bMax);
-            b =(::u8)(r1[1]  - r2[1]);
+            b =(unsigned char)(r1[1]  - r2[1]);
             bMax = maximum(b, bMax);
-            b =(::u8)(r1[2]  - r2[2]);
+            b =(unsigned char)(r1[2]  - r2[2]);
             bMax = maximum(b, bMax);
             bMax = 255 - bMax;
          }
@@ -1845,35 +1845,35 @@ namespace draw2d_xlib
 //     // ::image::image_pointer pimage(this);
 //   //   pimage->Paste(this);
 //
-//      i32 cx = this->cx;
-//      i32 cy = this->cy;
+//      int cx = this->cx;
+//      int cy = this->cy;
 //
-//      i32 l = maximum(cx, cy);
-//
-//
-//      i32 jmax = minimum(l, cy / 2);
-//      i32 jmin = - jmax;
-//      i32 imax = minimum(l, cx / 2);
-//      i32 imin = - imax;
+//      int l = maximum(cx, cy);
 //
 //
-//      i32 joff = cy / 2;
-//      i32 ioff = cx / 2;
+//      int jmax = minimum(l, cy / 2);
+//      int jmin = - jmax;
+//      int imax = minimum(l, cx / 2);
+//      int imin = - imax;
 //
-//      //i32 iAngle = iStep % 360;
-//      //i32 iAngle = iStep;
-//      //i32 iAngle = 1;
-//      //i32 k = 0;
 //
-//   /*     for ( i32 j=jmin; j<jmax; j++ )
+//      int joff = cy / 2;
+//      int ioff = cx / 2;
+//
+//      //int iAngle = iStep % 360;
+//      //int iAngle = iStep;
+//      //int iAngle = 1;
+//      //int k = 0;
+//
+//   /*     for ( int j=jmin; j<jmax; j++ )
 //      {
-//         for ( i32 i=imin; i<imax; i++ )
+//         for ( int i=imin; i<imax; i++ )
 //         {
-//            i32 x, y;
+//            int x, y;
 //
 //            // A Combination of a 2d Translation/rotation/Scale Matrix
-//            x=i32(cos10(i, iAngle) - sin10(j, iAngle)) + ioff;
-//            y=i32(sin10(i, iAngle) + cos10(j, iAngle)) + joff;
+//            x=int(cos10(i, iAngle) - sin10(j, iAngle)) + ioff;
+//            y=int(sin10(i, iAngle) + cos10(j, iAngle)) + joff;
 //            m_pcolorref[(j+joff)*cx+(i+ioff)]=
 //               pimage->m_pcolorref[abs(y%cy)*cx+abs(x%cx)];
 //            //k++;
@@ -1881,23 +1881,23 @@ namespace draw2d_xlib
 //         (j+joff)*cx+(i+ioff)
 //      }*/
 //
-//      i32 k = 0;
+//      int k = 0;
 //      double dCos = ::cos(dAngle * dPi / 180.0) * dScale;
 //      double dSin = ::sin(dAngle * dPi / 180.0) * dScale;
-//      i32 cx1 = cx - 1;
-//      i32 cy1 = cy - 1;
-//        for ( i32 j=jmin; j<jmax; j++ )
+//      int cx1 = cx - 1;
+//      int cy1 = cy - 1;
+//        for ( int j=jmin; j<jmax; j++ )
 //      {
-//         for ( i32 i=imin; i<imax; i++ )
+//         for ( int i=imin; i<imax; i++ )
 //         {
-//            i32 x, y;
+//            int x, y;
 //
 //            // A Combination of a 2d Translation/rotation/Scale Matrix
-//            //x=abs((i32(dCos * i - dSin * j) + ioff) % cx);
-//            //y=abs((i32(dSin * i + dCos * j) + joff) % cy);
+//            //x=abs((int(dCos * i - dSin * j) + ioff) % cx);
+//            //y=abs((int(dSin * i + dCos * j) + joff) % cy);
 //
-//            x = (i32) abs((dCos * i - dSin * j) + ioff);
-//            y = (i32) abs((dSin * i + dCos * j) + joff);
+//            x = (int) abs((dCos * i - dSin * j) + ioff);
+//            y = (int) abs((dSin * i + dCos * j) + joff);
 //
 //            if((x / cx) % 2 == 0)
 //            {
@@ -1930,16 +1930,16 @@ namespace draw2d_xlib
    //void image::Rotate034(::image::image *pimage, double dAngle, double dScale)
    //{
 
-   //   i32 cx = this->cx;
-   //   i32 cy = this->cy;
+   //   int cx = this->cx;
+   //   int cy = this->cy;
 
-   //   i32 l = maximum(cx, cy);
+   //   int l = maximum(cx, cy);
 
 
-   //   i32 jmax = minimum(l, cy / 2);
-   //   i32 jmin = - jmax;
-   //   i32 imax = minimum(l, cx / 2);
-   //   i32 imin = - imax;
+   //   int jmax = minimum(l, cy / 2);
+   //   int jmin = - jmax;
+   //   int imax = minimum(l, cx / 2);
+   //   int imin = - imax;
 
 
    //   if((cy % 2) == 1)
@@ -1948,27 +1948,27 @@ namespace draw2d_xlib
    //   if((cx % 2) == 1)
    //      imax++;
 
-   //   i32 joff = cy / 2;
-   //   i32 ioff = cx / 2;
+   //   int joff = cy / 2;
+   //   int ioff = cx / 2;
 
 
-   //   i32 k = 0;
+   //   int k = 0;
    //   double dCos = ::cos(dAngle * dPi / 180.0) * dScale;
    //   double dSin = ::sin(dAngle * dPi / 180.0) * dScale;
-   //   i32 cx1 = cx - 1;
-   //   i32 cy1 = cy - 1;
-   //     for ( i32 j=jmin; j<jmax; j++ )
+   //   int cx1 = cx - 1;
+   //   int cy1 = cy - 1;
+   //     for ( int j=jmin; j<jmax; j++ )
    //   {
-   //      for ( i32 i=imin; i<imax; i++ )
+   //      for ( int i=imin; i<imax; i++ )
    //      {
-   //         i32 x, y;
+   //         int x, y;
 
    //         // A Combination of a 2d Translation/rotation/Scale Matrix
-   //         //x=abs((i32(dCos * i - dSin * j) + ioff) % cx);
-   //         //y=abs((i32(dSin * i + dCos * j) + joff) % cy);
+   //         //x=abs((int(dCos * i - dSin * j) + ioff) % cx);
+   //         //y=abs((int(dSin * i + dCos * j) + joff) % cy);
 
-   //         x = (i32) abs((dCos * i - dSin * j) + ioff);
-   //         y = (i32) abs((dSin * i + dCos * j) + joff);
+   //         x = (int) abs((dCos * i - dSin * j) + ioff);
+   //         y = (int) abs((dSin * i + dCos * j) + joff);
 
    //         if((x / cx) % 2 == 0)
    //         {
@@ -2010,34 +2010,34 @@ namespace draw2d_xlib
 
    //   ::rectangle_i32 rectangle(rectangle);
 
-   //   i32 cx = rectangle.width();
-   //   i32 cy = rectangle.height();
+   //   int cx = rectangle.width();
+   //   int cy = rectangle.height();
 
-   //   i32 l = maximum(cx, cy);
+   //   int l = maximum(cx, cy);
 
-   //   i32 jmax = minimum(l, cy / 2);
-   //   i32 jmin = - jmax;
-   //   i32 imax = minimum(l, cx / 2);
-   //   i32 imin = - imax;
+   //   int jmax = minimum(l, cy / 2);
+   //   int jmin = - jmax;
+   //   int imax = minimum(l, cx / 2);
+   //   int imin = - imax;
 
 
-   //   i32 joff = cy / 2 + rectangle.left();
-   //   i32 ioff = cx / 2 + rectangle.top();
+   //   int joff = cy / 2 + rectangle.left();
+   //   int ioff = cx / 2 + rectangle.top();
 
-   //   //i32 iAngle = iStep % 360;
-   //   //i32 iAngle = iStep;
-   //   //i32 iAngle = 1;
-   //   //i32 k = 0;
+   //   //int iAngle = iStep % 360;
+   //   //int iAngle = iStep;
+   //   //int iAngle = 1;
+   //   //int k = 0;
 
-   ///*     for ( i32 j=jmin; j<jmax; j++ )
+   ///*     for ( int j=jmin; j<jmax; j++ )
    //   {
-   //      for ( i32 i=imin; i<imax; i++ )
+   //      for ( int i=imin; i<imax; i++ )
    //      {
-   //         i32 x, y;
+   //         int x, y;
 
    //         // A Combination of a 2d Translation/rotation/Scale Matrix
-   //         x=i32(cos10(i, iAngle) - sin10(j, iAngle)) + ioff;
-   //         y=i32(sin10(i, iAngle) + cos10(j, iAngle)) + joff;
+   //         x=int(cos10(i, iAngle) - sin10(j, iAngle)) + ioff;
+   //         y=int(sin10(i, iAngle) + cos10(j, iAngle)) + joff;
    //         m_pcolorref[(j+joff)*cx+(i+ioff)]=
    //            pimage->m_pcolorref[abs(y%cy)*cx+abs(x%cx)];
    //         //k++;
@@ -2045,23 +2045,23 @@ namespace draw2d_xlib
    //      (j+joff)*cx+(i+ioff)
    //   }*/
 
-   //   i32 k = 0;
+   //   int k = 0;
    //   double dCos = ::cos(dAngle * dPi / 180.0) * dScale;
    //   double dSin = ::sin(dAngle * dPi / 180.0) * dScale;
-   //   i32 cx1 = cx - 1;
-   //   i32 cy1 = cy - 1;
-   //     for ( i32 j=jmin; j<jmax; j++ )
+   //   int cx1 = cx - 1;
+   //   int cy1 = cy - 1;
+   //     for ( int j=jmin; j<jmax; j++ )
    //   {
-   //      for ( i32 i=imin; i<imax; i++ )
+   //      for ( int i=imin; i<imax; i++ )
    //      {
-   //         i32 x, y;
+   //         int x, y;
 
    //         // A Combination of a 2d Translation/rotation/Scale Matrix
-   //         //x=abs((i32(dCos * i - dSin * j) + ioff) % cx);
-   //         //y=abs((i32(dSin * i + dCos * j) + joff) % cy);
+   //         //x=abs((int(dCos * i - dSin * j) + ioff) % cx);
+   //         //y=abs((int(dSin * i + dCos * j) + joff) % cy);
 
-   //         x = (i32) abs((dCos * i - dSin * j) + ioff);
-   //         y = (i32) abs((dSin * i + dCos * j) + joff);
+   //         x = (int) abs((dCos * i - dSin * j) + ioff);
+   //         y = (int) abs((dSin * i + dCos * j) + joff);
 
    //         if((x / cx) % 2 == 0)
    //         {
@@ -2090,30 +2090,30 @@ namespace draw2d_xlib
    //   }
    //}
 
-   /*i32 image::cos(i32 i, i32 iAngle)
+   /*int image::cos(int i, int iAngle)
    {
-      return (i32) (((_int64) i * CosN[iAngle]) >> 32);
+      return (int) (((_int64) i * CosN[iAngle]) >> 32);
    }
 
-   i32 image::sin(i32 i, i32 iAngle)
+   int image::sin(int i, int iAngle)
    {
-      return (i32) (((_int64) i * SinN[iAngle]) >> 32);
+      return (int) (((_int64) i * SinN[iAngle]) >> 32);
    }*/
 
 
 
 
-   //void image::Fill (i32 A, i32 R, i32 G, i32 B )
+   //void image::Fill (int A, int R, int G, int B )
    //{
    //   map();
 
    //   color32_t color = rgb ( B, G, R ) | (A << 24);
-   //   i32 size=cx*cy;
+   //   int size=cx*cy;
 
    //   color32_t * pcr;
 
-   //   i32 iSize32 = size / 32;
-   //   i32 i;
+   //   int iSize32 = size / 32;
+   //   int i;
    //   for (i=0; i < iSize32; i+=32 )
    //   {
    //      pcr = &m_pcolorref[i];
@@ -2163,19 +2163,19 @@ namespace draw2d_xlib
    //   double dR = 0.0;
    //   double dG = 0.0;
    //   double dB = 0.0;
-   //   i32 iRLine;
-   //   i32 iGLine;
-   //   i32 iBLine;
+   //   int iRLine;
+   //   int iGLine;
+   //   int iBLine;
    //   double dDiv = cx * cy;
    //   if(dDiv > 0)
    //   {
-   //      ::u8 * lpb = (::u8 *) m_pcolorref;
-   //      for (i32 y = 0; y < cy; y++)
+   //      unsigned char * lpb = (unsigned char *) m_pcolorref;
+   //      for (int y = 0; y < cy; y++)
    //      {
    //         iRLine = 0;
    //         iGLine = 0;
    //         iBLine = 0;
-   //         for (i32 x = 0; x < cx; x++)
+   //         for (int x = 0; x < cx; x++)
    //         {
    //            iRLine += lpb[2];
    //            iGLine += lpb[1];
@@ -2186,9 +2186,9 @@ namespace draw2d_xlib
    //         dG += iGLine / dDiv;
    //         dB += iBLine / dDiv;
    //      }
-   //      i32 iR = (i32) dR;
-   //      i32 iG = (i32) dG;
-   //      i32 iB = (i32) dB;
+   //      int iR = (int) dR;
+   //      int iG = (int) dG;
+   //      int iB = (int) dB;
    //      return rgb(iR, iG, iB);
    //   }
    //   else
@@ -2206,10 +2206,10 @@ namespace draw2d_xlib
    //   {
    //      return;
    //   }
-   //   i32 iCount = cx * cy;
+   //   int iCount = cx * cy;
    //   LPDWORD lpd1 = (LPDWORD) m_pcolorref;
    //   LPDWORD lpd2 = (LPDWORD) pimage->get_data();
-   //   for(i32 i = 0; i < iCount; i++)
+   //   for(int i = 0; i < iCount; i++)
    //   {
    //      *lpd1 = *lpd1 ^ *lpd2;
    //      lpd1++;
@@ -2217,30 +2217,30 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image::create_frame(::size_i32 size, i32 iFrameCount)
+   //void image::create_frame(::size_i32 size, int iFrameCount)
    //{
-   //   i32 iSliceCount = (i32) sqrt((double) iFrameCount);
-   //   i32 iFrameWidth = size.cx() / iSliceCount;
-   //   i32 iFrameHeight = size.cy() / iSliceCount;
+   //   int iSliceCount = (int) sqrt((double) iFrameCount);
+   //   int iFrameWidth = size.cx() / iSliceCount;
+   //   int iFrameHeight = size.cy() / iSliceCount;
    //   create(iFrameWidth, iFrameHeight);
    //}
 
-   //void image::set_frame1(void * lpdata, i32 iFrame, i32 iFrameCount)
+   //void image::set_frame1(void * lpdata, int iFrame, int iFrameCount)
    //{
-   //   i32 iSliceCount = (i32) sqrt((double) iFrameCount);
+   //   int iSliceCount = (int) sqrt((double) iFrameCount);
    //   if(iSliceCount == 0)
    //      iSliceCount = 1;
-   //   i32 iFrameWidth = cx / iSliceCount;
-   //   i32 iFrameHeight = cy / iSliceCount;
-   //   i32 iX = iFrame % iSliceCount;
-   //   i32 iY = iFrame / iSliceCount;
+   //   int iFrameWidth = cx / iSliceCount;
+   //   int iFrameHeight = cy / iSliceCount;
+   //   int iX = iFrame % iSliceCount;
+   //   int iY = iFrame / iSliceCount;
    //   color32_t * lpDest = &m_pcolorref[iFrameWidth * iX + iY * iFrameHeight * cx];
    //   color32_t * lpSrc = (color32_t *) lpdata;
    //   color32_t * lpDestLine;
-   //   for(i32 y = 0; y < iFrameHeight; y++)
+   //   for(int y = 0; y < iFrameHeight; y++)
    //   {
    //      lpDestLine = &lpDest[y * cx];
-   //      for(i32 x = 0; x < iFrameWidth; x++)
+   //      for(int x = 0; x < iFrameWidth; x++)
    //      {
    //          *lpDestLine = *lpSrc;
    //          lpDestLine++;
@@ -2249,24 +2249,24 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image::set_frame2(void * lpdata, i32 iFrame, i32 iFrameCount)
+   //void image::set_frame2(void * lpdata, int iFrame, int iFrameCount)
    //{
    //   if(lpdata == nullptr)
    //      return;
-   //   i32 iSliceCount = (i32) sqrt((double) iFrameCount);
+   //   int iSliceCount = (int) sqrt((double) iFrameCount);
    //   if(iSliceCount == 0)
    //      iSliceCount = 1;
-   //   i32 iFrameWidth = cx / iSliceCount;
-   //   i32 iFrameHeight = cy / iSliceCount;
-   //   i32 iX = iFrame % iSliceCount;
-   //   i32 iY = iFrame / iSliceCount;
+   //   int iFrameWidth = cx / iSliceCount;
+   //   int iFrameHeight = cy / iSliceCount;
+   //   int iX = iFrame % iSliceCount;
+   //   int iY = iFrame / iSliceCount;
    //   color32_t * lpDest = &m_pcolorref[iFrameWidth * iX + iY * iFrameHeight * cx];
    //   color32_t * lpSrc = (color32_t *) lpdata;
    //   color32_t * lpDestLine;
-   //   for(i32 y = iFrameHeight - 1; y >= 0; y--)
+   //   for(int y = iFrameHeight - 1; y >= 0; y--)
    //   {
    //      lpDestLine = &lpDest[y * cx];
-   //      for(i32 x = 0; x < iFrameWidth; x++)
+   //      for(int x = 0; x < iFrameWidth; x++)
    //      {
    //          *lpDestLine = *lpSrc;
    //          lpDestLine++;
@@ -2275,24 +2275,24 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image::xor_image_frame2(void * lpdata, i32 iFrame, i32 iFrameCount)
+   //void image::xor_image_frame2(void * lpdata, int iFrame, int iFrameCount)
    //{
    //   if(lpdata == nullptr)
    //      return;
-   //   i32 iSliceCount = (i32) sqrt((double) iFrameCount);
+   //   int iSliceCount = (int) sqrt((double) iFrameCount);
    //   if(iSliceCount == 0)
    //      iSliceCount = 1;
-   //   i32 iFrameWidth = cx / iSliceCount;
-   //   i32 iFrameHeight = cy / iSliceCount;
-   //   i32 iX = iFrame % iSliceCount;
-   //   i32 iY = iFrame / iSliceCount;
+   //   int iFrameWidth = cx / iSliceCount;
+   //   int iFrameHeight = cy / iSliceCount;
+   //   int iX = iFrame % iSliceCount;
+   //   int iY = iFrame / iSliceCount;
    //   color32_t * lpDest = &m_pcolorref[iFrameWidth * iX + iY * iFrameHeight * cx];
    //   color32_t * lpSrc = (color32_t *) lpdata;
    //   color32_t * lpDestLine;
-   //   for(i32 y = iFrameHeight - 1; y >= 0; y--)
+   //   for(int y = iFrameHeight - 1; y >= 0; y--)
    //   {
    //      lpDestLine = &lpDest[y * cx];
-   //      for(i32 x = 0; x < iFrameWidth; x++)
+   //      for(int x = 0; x < iFrameWidth; x++)
    //      {
    //          *lpDestLine ^= *lpSrc;
    //          lpDestLine++;
@@ -2301,20 +2301,20 @@ namespace draw2d_xlib
    //   }
    //}
 
-   //void image::get_frame(void * lpdata, i32 iFrame, i32 iFrameCount)
+   //void image::get_frame(void * lpdata, int iFrame, int iFrameCount)
    //{
-   //   i32 iSliceCount = (i32) sqrt((double) iFrameCount);
-   //   i32 iFrameWidth = cx / iSliceCount;
-   //   i32 iFrameHeight = cy / iSliceCount;
-   //   i32 iX = iFrame % iSliceCount;
-   //   i32 iY = iFrame / iSliceCount;
+   //   int iSliceCount = (int) sqrt((double) iFrameCount);
+   //   int iFrameWidth = cx / iSliceCount;
+   //   int iFrameHeight = cy / iSliceCount;
+   //   int iX = iFrame % iSliceCount;
+   //   int iY = iFrame / iSliceCount;
    //   color32_t * lpSrc = &m_pcolorref[iFrameWidth * iX + iY * iFrameHeight *  cx];
    //   color32_t * lpDest = (color32_t *) lpdata;
    //   color32_t * lpSrcLine;
-   //   for(i32 y = 0; y < iFrameHeight; y++)
+   //   for(int y = 0; y < iFrameHeight; y++)
    //   {
    //      lpSrcLine = &lpSrc[y * cx];
-   //      for(i32 x = 0; x < iFrameWidth; x++)
+   //      for(int x = 0; x < iFrameWidth; x++)
    //      {
    //          *lpDest = *lpSrcLine;
    //          lpDest++;
@@ -2325,9 +2325,9 @@ namespace draw2d_xlib
 
    //bool image::is_rgb_black()
    //{
-   //   i32 iSize = cx * cy;
+   //   int iSize = cx * cy;
    //   color32_t * lp = m_pcolorref;
-   //   for(i32 i = 0; i < iSize; i++)
+   //   for(int i = 0; i < iSize; i++)
    //   {
    //      if((*lp & 0x00FFFFFF) != 0)
    //         return false;
@@ -2336,90 +2336,90 @@ namespace draw2d_xlib
    //   return true;
    //}
 
-   //void image::DivideRGB(i32 iDivide)
+   //void image::DivideRGB(int iDivide)
    //{
    //   if(iDivide == 0)
    //   {
    //      return;
    //   }
-   //   i32 iCount = cx * cy;
-   //   ::u8 * lp = ((::u8 *) m_pcolorref);
-   //   i32 i = 0;
-   //   i32 iCount1 = iCount - iCount % 8;
+   //   int iCount = cx * cy;
+   //   unsigned char * lp = ((unsigned char *) m_pcolorref);
+   //   int i = 0;
+   //   int iCount1 = iCount - iCount % 8;
    //   for(; i < iCount1; i++)
    //   {
-   //      lp[0] /= (::u8) iDivide;
-   //      lp[1] /= (::u8) iDivide;
-   //      lp[2] /= (::u8) iDivide;
+   //      lp[0] /= (unsigned char) iDivide;
+   //      lp[1] /= (unsigned char) iDivide;
+   //      lp[2] /= (unsigned char) iDivide;
 
-   //      lp[4] /= (::u8) iDivide;
-   //      lp[5] /= (::u8) iDivide;
-   //      lp[6] /= (::u8) iDivide;
+   //      lp[4] /= (unsigned char) iDivide;
+   //      lp[5] /= (unsigned char) iDivide;
+   //      lp[6] /= (unsigned char) iDivide;
 
-   //      lp[8] /= (::u8) iDivide;
-   //      lp[9] /= (::u8) iDivide;
-   //      lp[10] /= (::u8) iDivide;
+   //      lp[8] /= (unsigned char) iDivide;
+   //      lp[9] /= (unsigned char) iDivide;
+   //      lp[10] /= (unsigned char) iDivide;
 
-   //      lp[12] /= (::u8) iDivide;
-   //      lp[13] /= (::u8) iDivide;
-   //      lp[14] /= (::u8) iDivide;
+   //      lp[12] /= (unsigned char) iDivide;
+   //      lp[13] /= (unsigned char) iDivide;
+   //      lp[14] /= (unsigned char) iDivide;
 
-   //      lp[16] /= (::u8) iDivide;
-   //      lp[17] /= (::u8) iDivide;
-   //      lp[28] /= (::u8) iDivide;
+   //      lp[16] /= (unsigned char) iDivide;
+   //      lp[17] /= (unsigned char) iDivide;
+   //      lp[28] /= (unsigned char) iDivide;
 
-   //      lp[20] /= (::u8) iDivide;
-   //      lp[21] /= (::u8) iDivide;
-   //      lp[22] /= (::u8) iDivide;
+   //      lp[20] /= (unsigned char) iDivide;
+   //      lp[21] /= (unsigned char) iDivide;
+   //      lp[22] /= (unsigned char) iDivide;
 
-   //      lp[24] /= (::u8) iDivide;
-   //      lp[25] /= (::u8) iDivide;
-   //      lp[26] /= (::u8) iDivide;
+   //      lp[24] /= (unsigned char) iDivide;
+   //      lp[25] /= (unsigned char) iDivide;
+   //      lp[26] /= (unsigned char) iDivide;
 
-   //      lp[28] /= (::u8) iDivide;
-   //      lp[29] /= (::u8) iDivide;
-   //      lp[30] /= (::u8) iDivide;
+   //      lp[28] /= (unsigned char) iDivide;
+   //      lp[29] /= (unsigned char) iDivide;
+   //      lp[30] /= (unsigned char) iDivide;
 
    //      lp += 4 * 8;
    //   }
    //   for(; i < iCount; i++)
    //   {
-   //      lp[0] /= (::u8) iDivide;
-   //      lp[1] /= (::u8) iDivide;
-   //      lp[2] /= (::u8) iDivide;
+   //      lp[0] /= (unsigned char) iDivide;
+   //      lp[1] /= (unsigned char) iDivide;
+   //      lp[2] /= (unsigned char) iDivide;
    //      lp +=4;
    //   }
    //}
 
-   //void image::DivideARGB(i32 iDivide)
+   //void image::DivideARGB(int iDivide)
    //{
    //   if(iDivide == 0)
    //   {
    //      return;
    //   }
-   //   i32 iCount = cx * cy;
-   //   ::u8 * lp = ((::u8 *) m_pcolorref);
-   //   for(i32 i = 0; i < iCount; i++)
+   //   int iCount = cx * cy;
+   //   unsigned char * lp = ((unsigned char *) m_pcolorref);
+   //   for(int i = 0; i < iCount; i++)
    //   {
-   //      lp[0] /= (::u8) iDivide;
-   //      lp[1] /= (::u8) iDivide;
-   //      lp[2] /= (::u8) iDivide;
-   //      lp[3] /= (::u8) iDivide;
+   //      lp[0] /= (unsigned char) iDivide;
+   //      lp[1] /= (unsigned char) iDivide;
+   //      lp[2] /= (unsigned char) iDivide;
+   //      lp[3] /= (unsigned char) iDivide;
    //      lp +=4;
    //   }
    //}
 
-   //void image::DivideA(i32 iDivide)
+   //void image::DivideA(int iDivide)
    //{
    //   if(iDivide == 0)
    //   {
    //      return;
    //   }
-   //   i32 iCount = cx * cy;
-   //   ::u8 * lp = ((::u8 *) m_pcolorref);
-   //   for(i32 i = 0; i < iCount; i++)
+   //   int iCount = cx * cy;
+   //   unsigned char * lp = ((unsigned char *) m_pcolorref);
+   //   for(int i = 0; i < iCount; i++)
    //   {
-   //      lp[3] /= (::u8) iDivide;
+   //      lp[3] /= (unsigned char) iDivide;
    //      lp +=4;
    //   }
    //}
@@ -2465,85 +2465,85 @@ namespace draw2d_xlib
          return dPi;
       }*/
 
-   // void image::fill_channel(i32 intensity, color::color::color::rgba::echannel echannel)
+   // void image::fill_channel(int intensity, color::color::color::rgba::echannel echannel)
    // {
-   //     i32 offset = ((i32)echannel) % 4;
-   //    i32 size=cx*cy;
+   //     int offset = ((int)echannel) % 4;
+   //    int size=cx*cy;
 
-   //    ::u8 * pb;
+   //    unsigned char * pb;
 
-   //    i32 iSize32 = size / 32;
-   //    i32 i;
+   //    int iSize32 = size / 32;
+   //    int i;
    //    for (i=0; i < iSize32; i+=32 )
    //    {
-   //       pb = ((::u8 * ) &m_pcolorref[i]) + offset;
-   //       pb[0 * 4] = (::u8) intensity;
-   //       pb[1 * 4] = (::u8) intensity;
-   //       pb[2 * 4] = (::u8) intensity;
-   //       pb[3 * 4] = (::u8) intensity;
-   //       pb[4 * 4] = (::u8) intensity;
-   //       pb[5 * 4] = (::u8) intensity;
-   //       pb[6 * 4] = (::u8) intensity;
-   //       pb[7 * 4] = (::u8) intensity;
-   //       pb[8 * 4] = (::u8) intensity;
-   //       pb[9 * 4] = (::u8) intensity;
-   //       pb[10 * 4] = (::u8) intensity;
-   //       pb[11 * 4] = (::u8) intensity;
-   //       pb[12 * 4] = (::u8) intensity;
-   //       pb[13 * 4] = (::u8) intensity;
-   //       pb[14 * 4] = (::u8) intensity;
-   //       pb[15 * 4] = (::u8) intensity;
-   //       pb[16 * 4] = (::u8) intensity;
-   //       pb[17 * 4] = (::u8) intensity;
-   //       pb[18 * 4] = (::u8) intensity;
-   //       pb[19 * 4] = (::u8) intensity;
-   //       pb[20 * 4] = (::u8) intensity;
-   //       pb[21 * 4] = (::u8) intensity;
-   //       pb[22 * 4] = (::u8) intensity;
-   //       pb[23 * 4] = (::u8) intensity;
-   //       pb[24 * 4] = (::u8) intensity;
-   //       pb[25 * 4] = (::u8) intensity;
-   //       pb[26 * 4] = (::u8) intensity;
-   //       pb[27 * 4] = (::u8) intensity;
-   //       pb[28 * 4] = (::u8) intensity;
-   //       pb[29 * 4] = (::u8) intensity;
-   //       pb[30 * 4] = (::u8) intensity;
-   //       pb[31 * 4] = (::u8) intensity;
+   //       pb = ((unsigned char * ) &m_pcolorref[i]) + offset;
+   //       pb[0 * 4] = (unsigned char) intensity;
+   //       pb[1 * 4] = (unsigned char) intensity;
+   //       pb[2 * 4] = (unsigned char) intensity;
+   //       pb[3 * 4] = (unsigned char) intensity;
+   //       pb[4 * 4] = (unsigned char) intensity;
+   //       pb[5 * 4] = (unsigned char) intensity;
+   //       pb[6 * 4] = (unsigned char) intensity;
+   //       pb[7 * 4] = (unsigned char) intensity;
+   //       pb[8 * 4] = (unsigned char) intensity;
+   //       pb[9 * 4] = (unsigned char) intensity;
+   //       pb[10 * 4] = (unsigned char) intensity;
+   //       pb[11 * 4] = (unsigned char) intensity;
+   //       pb[12 * 4] = (unsigned char) intensity;
+   //       pb[13 * 4] = (unsigned char) intensity;
+   //       pb[14 * 4] = (unsigned char) intensity;
+   //       pb[15 * 4] = (unsigned char) intensity;
+   //       pb[16 * 4] = (unsigned char) intensity;
+   //       pb[17 * 4] = (unsigned char) intensity;
+   //       pb[18 * 4] = (unsigned char) intensity;
+   //       pb[19 * 4] = (unsigned char) intensity;
+   //       pb[20 * 4] = (unsigned char) intensity;
+   //       pb[21 * 4] = (unsigned char) intensity;
+   //       pb[22 * 4] = (unsigned char) intensity;
+   //       pb[23 * 4] = (unsigned char) intensity;
+   //       pb[24 * 4] = (unsigned char) intensity;
+   //       pb[25 * 4] = (unsigned char) intensity;
+   //       pb[26 * 4] = (unsigned char) intensity;
+   //       pb[27 * 4] = (unsigned char) intensity;
+   //       pb[28 * 4] = (unsigned char) intensity;
+   //       pb[29 * 4] = (unsigned char) intensity;
+   //       pb[30 * 4] = (unsigned char) intensity;
+   //       pb[31 * 4] = (unsigned char) intensity;
    //    }
 
    //    for (i=0; i<size_i32; i++ )
    //    {
-   //       *(((::u8 * ) &m_pcolorref[i]) + offset) = (::u8) intensity;
+   //       *(((unsigned char * ) &m_pcolorref[i]) + offset) = (unsigned char) intensity;
    //    }
    //}
 
 
-   //i32 image::cos(i32 i, i32 iAngle)
+   //int image::cos(int i, int iAngle)
    //{
-   //   return (i32) (((i64) i * CosN[iAngle]) >> 31);
+   //   return (int) (((i64) i * CosN[iAngle]) >> 31);
    //}
 
-   //i32 image::sin(i32 i, i32 iAngle)
+   //int image::sin(int i, int iAngle)
    //{
-   //   return (i32) (((i64) i * SinN[iAngle]) >> 31);
+   //   return (int) (((i64) i * SinN[iAngle]) >> 31);
    //}
 
-   //i32 image::cos10(i32 i, i32 iAngle)
+   //int image::cos10(int i, int iAngle)
    //{
-   //   return (i32) (((i64) i * Cos10N[iAngle]) >> 34);
+   //   return (int) (((i64) i * Cos10N[iAngle]) >> 34);
    //}
 
-   //i32 image::sin10(i32 i, i32 iAngle)
+   //int image::sin10(int i, int iAngle)
    //{
-   //   return (i32) (((i64) i * Sin10N[iAngle]) >> 34);
+   //   return (int) (((i64) i * Sin10N[iAngle]) >> 34);
    //}
 
-   //i32 image::width()
+   //int image::width()
    //{
    //   return cx;
    //}
 
-   //i32 image::height()
+   //int image::height()
    //{
    //   return cy;
    //}

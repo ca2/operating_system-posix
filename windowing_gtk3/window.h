@@ -127,7 +127,7 @@ namespace windowing_gtk3
          void _set_oswindow(::oswindow oswindow) override;
          ::oswindow oswindow() const override;
 
-//      static Atom get_window_long_atom(i32 nIndex);
+//      static Atom get_window_long_atom(int nIndex);
 //
 //
 //      inline int net_wm_state(::x11::enum_atom eatom) const
@@ -163,11 +163,11 @@ namespace windowing_gtk3
 //      virtual ::e_status initialize_x11_window(::windowing_gtk3::display * pdisplay, ::Window window, ::Visual *pvisual, int iDepth, int iScreen, Colormap colormap);
 
 //      virtual void send_client_event(Atom atom, unsigned int numArgs, ...);
-      virtual i32 store_name(const char * psz);
-      virtual i32 select_input(i32 iInput);
-      virtual i32 select_all_input();
-      virtual i32 map_window();
-      virtual i32 unmap_window(bool bWithdraw);
+      virtual int store_name(const char * psz);
+      virtual int select_input(int iInput);
+      virtual int select_all_input();
+      virtual int map_window();
+      virtual int unmap_window(bool bWithdraw);
       virtual void set_wm_class(const char * psz);
 
       void exit_iconify() override;
@@ -213,15 +213,15 @@ namespace windowing_gtk3
       bool _is_window_visible_unlocked() override;
       //void show_window(const ::e_display & edisplay, const ::e_activation & eactivation) override;
       //void _show_window_unlocked(const ::e_display & edisplay, const ::e_activation & eactivation) override;
-      //virtual iptr get_window_long_ptr(i32 nIndex);
-      //virtual iptr set_window_long_ptr(i32 nIndex, iptr l);
+      //virtual iptr get_window_long_ptr(int nIndex);
+      //virtual iptr set_window_long_ptr(int nIndex, iptr l);
       virtual bool client_to_screen(::point_i32 * ppoint) override;
 
       bool screen_to_client(::point_i32 * ppoint) override;
 
 
-      //virtual bool set_window_pos(class::zorder zorder, i32 x, i32 y, i32 cx, i32 cy,::u32 nFlags);
-      //virtual bool _set_window_pos(class::zorder zorder, i32 x, i32 y, i32 cx, i32 cy,::u32 nFlags);
+      //virtual bool set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,::u32 nFlags);
+      //virtual bool _set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,::u32 nFlags);
       
 
       bool is_destroying() override;
@@ -270,7 +270,7 @@ namespace windowing_gtk3
 
 
 
-//      //virtual Atom get_window_long_atom(i32 nIndex);
+//      //virtual Atom get_window_long_atom(int nIndex);
 //      virtual void _mapped_net_state_unlocked(bool add,  WINDOWING_X11_WINDOW_MEMBER int iScreen, Atom state1, Atom state2);
 //      //virtual void unmapped_net_state_raw( WINDOWING_X11_WINDOW_MEMBER ...);
 //      virtual bool x11_get_window_rect(  WINDOWING_X11_WINDOW_MEMBER  ::rectangle_i32 * prectangle);
@@ -301,12 +301,12 @@ namespace windowing_gtk3
       void set_tool_window(bool bSet) override;
 
 
-      bool set_window_position(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;
+      bool set_window_position(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;
 
 
-      bool _set_window_position_unlocked(const class ::zorder& zorder, i32 x, i32 y, i32 cx, i32 cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;
+      bool _set_window_position_unlocked(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;
       bool _configure_window_unlocked(const class ::zorder& zorder, const ::e_activation& eactivation, bool bNoZorder, ::e_display edisplay) override;
-      bool _strict_set_window_position_unlocked(i32 x, i32 y, i32 cx, i32 cy, bool bNoMove, bool bNoSize) override;
+      bool _strict_set_window_position_unlocked(int x, int y, int cx, int cy, bool bNoMove, bool bNoSize) override;
 
 
 //      virtual comparable_array < Atom > _wm_get_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList);
@@ -351,7 +351,7 @@ namespace windowing_gtk3
 //      virtual ::e_status x11_post_message(MESSAGE & msg);
 //      virtual ::e_status post_ui_message(const MESSAGE & message);
       //virtual bool x11_process_event(osdisplay_data * pdisplaydata, XEvent * pevent, XGenericEventCookie *cookie);
-      //virtual ::e_status set_window_position( WINDOWING_X11_WINDOW_MEMBER const ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy, ::u32 nFlags);
+      //virtual ::e_status set_window_position( WINDOWING_X11_WINDOW_MEMBER const ::zorder & zorder, int x, int y, int cx, int cy, ::u32 nFlags);
       virtual ::e_status window_rectangle( ::rectangle_i32 * prectangle);
       virtual ::e_status rectangle(::rectangle_i32 * prectangle);
       //virtual ::e_status wm_full_screen( WINDOWING_X11_WINDOW_MEMBER const ::rectangle_i32 & rectangle);
@@ -399,7 +399,7 @@ namespace windowing_gtk3
 //
 //      virtual void __handle_xdg_surface_configure(::u32 serial);
 //
-      //virtual void __handle_xdg_toplevel_configure(::i32 width, ::i32 height, ::wl_array * pwlarrayState);
+      //virtual void __handle_xdg_toplevel_configure(int width, int height, ::wl_array * pwlarrayState);
 //
 //      virtual void __defer_xdg_surface_ack_configure();
 
@@ -421,8 +421,8 @@ namespace windowing_gtk3
 //      virtual void __handle_keyboard_key(::wl_keyboard *pwlkeyboard, uint32_t serial, uint32_t time, uint32_t key, uint32_t state);
 //      virtual void __handle_keyboard_modifiers(::wl_keyboard *keyboard, uint32_t serial, uint32_t mods_depressed, uint32_t mods_latched, uint32_t mods_locked, uint32_t group);
       //::particle * get_interface_client_particle() override; // m_pwindow->m_puserinteraction
-      //virtual void set_window_width(::i32 iWidth) = 0; // m_sizeWindow.cx()
-      //virtual void set_window_height(::i32 iHeight) = 0; // m_sizeWindow.cy()
+      //virtual void set_window_width(int iWidth) = 0; // m_sizeWindow.cx()
+      //virtual void set_window_height(int iHeight) = 0; // m_sizeWindow.cy()
       //virtual ::size_i32 get_window_size() = 0; // m_sizeWindow
       // virtual void set_interface_client_size(const ::size_i32 & sizeWindow) override; // set_size
       //

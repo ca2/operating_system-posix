@@ -677,7 +677,7 @@ namespace gtk4
 //               pinterchange->m_rectangle.left() = pconfigureevent->x;
 //               pinterchange->m_rectangle.top() = pconfigureevent->y;
 //               pinterchange->m_rectangle.set_size(
-//                  {(::i32) pconfigureevent->width, (::i32) pconfigureevent->height});
+//                  {(int) pconfigureevent->width, (int) pconfigureevent->height});
 //
 //            }
 //
@@ -1456,7 +1456,7 @@ namespace gtk4
          }
 
 
-         void window::set_window_width(::i32 iWidth) // m_sizeWindow.cx()
+         void window::set_window_width(int iWidth) // m_sizeWindow.cx()
          {
 
             m_sizeWindow.cx() = iWidth;
@@ -1464,7 +1464,7 @@ namespace gtk4
          }
 
 
-         void window::set_window_height(::i32 iHeight) // m_sizeWindow.cy()
+         void window::set_window_height(int iHeight) // m_sizeWindow.cy()
          {
 
             m_sizeWindow.cy() = iHeight;

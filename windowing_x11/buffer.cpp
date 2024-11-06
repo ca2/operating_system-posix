@@ -275,7 +275,7 @@ namespace windowing_x11
 //      if(m_pimage != nullptr)
 //      {
 //
-//         if(m_mem.get_data() == (::u8 *) m_pimage->data)
+//         if(m_mem.get_data() == (unsigned char *) m_pimage->data)
 //         {
 //
 //            m_pimage->data = nullptr;
@@ -335,7 +335,7 @@ namespace windowing_x11
 //      if(m_pimage != nullptr)
 //      {
 //
-//         if((::u8 *) m_pimage->data == (::u8 *) pimage->get_data())
+//         if((unsigned char *) m_pimage->data == (unsigned char *) pimage->get_data())
 //         {
 //
 //            m_pimage->data = nullptr;

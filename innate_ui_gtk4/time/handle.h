@@ -82,12 +82,12 @@ namespace windows
    class graphics;
    class matter;
 
-   template < i32 t_iHandleCount >
+   template < int t_iHandleCount >
    class handle_base
    {
    public:
       HANDLE m_handlea[t_iHandleCount];
-      static const i32 s_iHandleCount = t_iHandleCount;
+      static const int s_iHandleCount = t_iHandleCount;
    };
 
    template < class H >

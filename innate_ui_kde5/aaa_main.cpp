@@ -9,7 +9,7 @@
 //const char* get_cube_app_id();
 
 
-//CLASS_DECL_ACME i32 ca2_main();
+//CLASS_DECL_ACME int ca2_main();
 
 
 void __cdecl _null_se_translator(u32 uiCode, EXCEPTION_POINTERS * ppointers);

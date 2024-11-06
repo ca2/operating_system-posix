@@ -818,7 +818,7 @@ namespace windowing_x11
    }
 
 
-   i32 window::map_window()
+   int window::map_window()
    {
 
       int i = 0;
@@ -866,7 +866,7 @@ namespace windowing_x11
    }
 
 
-   i32 window::unmap_window(bool bWithdraw)
+   int window::unmap_window(bool bWithdraw)
    {
 
       synchronous_lock synchronouslock(user_synchronization());
@@ -902,7 +902,7 @@ namespace windowing_x11
    //   ::pointer< ::mutex >window::s_pmutex = nullptr;
 
 
-   //   i32 oswindow_find_message_only_window(::windowing::window *pimpl)
+   //   int oswindow_find_message_only_window(::windowing::window *pimpl)
    //   {
    //
    //      if (pimpl == nullptr)
@@ -914,7 +914,7 @@ namespace windowing_x11
    //
    //      single_lock slOsWindow(window::s_pmutex, true);
    //
-   //      for (i32 i = 0; i < ::window::s_pdataptra->get_count(); i++)
+   //      for (int i = 0; i < ::window::s_pdataptra->get_count(); i++)
    //      {
    //
    //         if (::window::s_pdataptra->element_at(i)->m_bMessageOnlyWindow
@@ -931,12 +931,12 @@ namespace windowing_x11
    //
    //   }
 
-   //   i32 oswindow_find(Display *Display(), Window window)
+   //   int oswindow_find(Display *Display(), Window window)
    //   {
    //
    //      single_lock slOsWindow(::window::s_pmutex, true);
    //
-   //      for (i32 i = 0; i < ::window::s_pdataptra->get_count(); i++)
+   //      for (int i = 0; i < ::window::s_pdataptra->get_count(); i++)
    //      {
    //         if (!::window::s_pdataptra->element_at(i)->m_bMessageOnlyWindow
    //             && ::window::s_pdataptra->element_at(i)->m_osdisplay->display() == Display()
@@ -950,12 +950,12 @@ namespace windowing_x11
    //
    //   }
 
-   //   i32 oswindow_find(Window window)
+   //   int oswindow_find(Window window)
    //   {
    //
    //      single_lock slOsWindow(::window::s_pmutex, true);
    //
-   //      for (i32 i = 0; i < ::window::s_pdataptra->get_count(); i++)
+   //      for (int i = 0; i < ::window::s_pdataptra->get_count(); i++)
    //      {
    //         if (!::window::s_pdataptra->element_at(i)->m_bMessageOnlyWindow
    //             && ::window::s_pdataptra->element_at(i)->m_window == window)
@@ -1419,7 +1419,7 @@ namespace windowing_x11
    }
 
 
-   i32 window::store_name(const char * psz)
+   int window::store_name(const char * psz)
    {
 
       windowing_output_debug_string("\nwindow::store_name");
@@ -1437,7 +1437,7 @@ namespace windowing_x11
    }
 
 
-   i32 window::select_input(i32 iInput)
+   int window::select_input(int iInput)
    {
 
       windowing_output_debug_string("\nwindow::select_input");
@@ -1455,7 +1455,7 @@ namespace windowing_x11
    }
 
 
-   i32 window::select_all_input()
+   int window::select_all_input()
    {
 
       windowing_output_debug_string("\nwindow::select_all_input");
@@ -1675,7 +1675,7 @@ namespace windowing_x11
    }
 
 
-   Atom get_window_long_atom(i32 nIndex);
+   Atom get_window_long_atom(int nIndex);
 
 // Change _NET_WM_STATE if Window is Mapped
    void window::_mapped_net_state_unlocked(bool add, int iScreen, Atom state1, Atom state2)
@@ -2142,7 +2142,7 @@ namespace windowing_x11
    }
 
 
-//   iptr window::get_window_long_ptr(i32 nIndex)
+//   iptr window::get_window_long_ptr(int nIndex)
 //   {
 //
 //      return m_pwindow->get_window_long_ptr(nIndex);
@@ -2150,7 +2150,7 @@ namespace windowing_x11
 //   }
 
 
-//   iptr window::set_window_long_ptr(i32 nIndex, iptr i)
+//   iptr window::set_window_long_ptr(int nIndex, iptr i)
 //   {
 //
 //      return m_pwindow->set_window_long_ptr(nIndex, i);
@@ -2220,7 +2220,7 @@ namespace windowing_x11
 
       Atom actual_type = 0;
 
-      i32 actual_format = 0;
+      int actual_format = 0;
 
       unsigned long nitems = 0;
 
@@ -2230,7 +2230,7 @@ namespace windowing_x11
 
       auto atomWmState = x11_display()->m_atomWmState;
 
-      ::i32 status = XGetWindowProperty(Display(), Window(), atomWmState, 0L,
+      int status = XGetWindowProperty(Display(), Window(), atomWmState, 0L,
                                         WM_STATE_ELEMENTS, False, AnyPropertyType,
                                   &actual_type,
                                   &actual_format, &nitems, &leftover, &p);
@@ -2403,7 +2403,7 @@ namespace windowing_x11
 #undef SET_WINDOW_POS_LOG
 
 
-//   bool window::set_window_pos(class ::zorder zorder, i32 x, i32 y, i32 cx, i32 cy, ::u32 nFlags)
+//   bool window::set_window_pos(class ::zorder zorder, int x, int y, int cx, int cy, ::u32 nFlags)
 //   {
 //
 //      bool bOk = false;
@@ -2687,7 +2687,7 @@ namespace windowing_x11
    }
 
 
-   bool window::set_window_position(const class ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy,
+   bool window::set_window_position(const class ::zorder & zorder, int x, int y, int cx, int cy,
                                     const ::e_activation & eactivation, bool bNoZorder, bool bNoMove, bool bNoSize,
                                     ::e_display edisplay)
    {
@@ -2704,7 +2704,7 @@ namespace windowing_x11
    }
 
 
-   bool window::_set_window_position_unlocked(const class ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy,
+   bool window::_set_window_position_unlocked(const class ::zorder & zorder, int x, int y, int cx, int cy,
                                               const ::e_activation & eactivation, bool bNoZorder, bool bNoMove,
                                               bool bNoSize, ::e_display edisplay)
    {
@@ -2945,7 +2945,7 @@ namespace windowing_x11
    }
 
 
-//   bool window::_set_window_position_unlocked(const class ::zorder & zorder, i32 x, i32 y, i32 cx, i32 cy,
+//   bool window::_set_window_position_unlocked(const class ::zorder & zorder, int x, int y, int cx, int cy,
 //                                              const ::e_activation & eactivation, bool bNoZorder, bool bNoMove,
 //                                              bool bNoSize, bool bShow, bool bHide)
 //   {
@@ -3397,7 +3397,7 @@ namespace windowing_x11
    }
 
 
-   bool window::_strict_set_window_position_unlocked(i32 x, i32 y, i32 cx, i32 cy, bool bNoMove, bool bNoSize)
+   bool window::_strict_set_window_position_unlocked(int x, int y, int cx, int cy, bool bNoMove, bool bNoSize)
    {
 
       bool bMove = !bNoMove;

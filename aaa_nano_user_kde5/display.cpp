@@ -249,7 +249,7 @@ namespace kde5
          // }
          //
          //
-         // ::e_status display::_select_input(xcb_window_t window, i32 iInput)
+         // ::e_status display::_select_input(xcb_window_t window, int iInput)
          // {
          //
          //    windowing_output_debug_string("\nwindow::select_input");
@@ -2009,7 +2009,7 @@ namespace kde5
 
             debug() << "Screen size:" << qsize.width() << "x" << qsize.height();
 
-            auto size = ::size_i32 {(::i32)qsize.width(), (::i32) qsize.height()};
+            auto size = ::size_i32 {(int)qsize.width(), (int) qsize.height()};
 
             return size;
 

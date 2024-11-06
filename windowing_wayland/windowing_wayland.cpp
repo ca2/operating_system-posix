@@ -200,7 +200,7 @@ CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const po
 //
 ////Window g_windowFocus = 0;
 //
-//i32 _cx_XErrorHandler(Display * display, XErrorEvent * perrorevent);
+//int _cx_XErrorHandler(Display * display, XErrorEvent * perrorevent);
 //
 //
 ////struct MWMHints

@@ -133,8 +133,8 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
 
 
             //virtual ::particle * get_interface_client_particle() = 0; // m_pwindow->m_puserinteraction
-            //virtual void set_window_width(::i32 iWidth) = 0; // m_sizeWindow.cx()
-            //virtual void set_window_height(::i32 iHeight) = 0; // m_sizeWindow.cy()
+            //virtual void set_window_width(int iWidth) = 0; // m_sizeWindow.cx()
+            //virtual void set_window_height(int iHeight) = 0; // m_sizeWindow.cy()
             //virtual ::size_i32 get_window_size() = 0; // m_sizeWindow
             void set_interface_client_size(const ::size_i32 & sizeWindow) override; // m_sizeWindow
 
@@ -198,7 +198,7 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
             //
             // virtual void __handle_xdg_surface_configure(::u32 serial);
             //
-            // virtual void __handle_xdg_toplevel_configure(::i32 width, ::i32 height, ::wl_array * pwlarrayState);
+            // virtual void __handle_xdg_toplevel_configure(int width, int height, ::wl_array * pwlarrayState);
             //
             // virtual void __defer_xdg_surface_ack_configure();
             virtual void _on_window_button_pressed(::operating_system::a_system_menu_item * pitem, GtkGestureClick * pgesture, int n_press, double x, double y);
@@ -254,8 +254,8 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
 
 
             virtual ::particle * get_interface_client_particle(); // m_pwindow->m_puserinteraction
-            virtual void set_window_width(::i32 iWidth); // m_sizeWindow.cx()
-            virtual void set_window_height(::i32 iHeight); // m_sizeWindow.cy()
+            virtual void set_window_width(int iWidth); // m_sizeWindow.cx()
+            virtual void set_window_height(int iHeight); // m_sizeWindow.cy()
             virtual ::size_i32 get_window_size(); // m_sizeWindow
             // virtual void set_interface_client_size(const ::size_i32 & sizeWindow); // m_sizeWindow
             //

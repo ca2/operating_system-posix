@@ -31,7 +31,7 @@ namespace draw2d_xlib
    //
    //}
 
-   // bool brush::CreateHatchBrush(i32 nIndex, color32_t crColor)
+   // bool brush::CreateHatchBrush(int nIndex, color32_t crColor)
    // {
    //    //return Attach(::CreateHatchBrush(nIndex, crColor));
    //    return false;
@@ -51,13 +51,13 @@ namespace draw2d_xlib
     //   //return Attach(::CreateDIBPatternBrushPt(lpPackedDIB, nUsage));
     //   return false;
     //}
-    //bool brush::CreateSysColorBrush(i32 nIndex)
+    //bool brush::CreateSysColorBrush(int nIndex)
     //{
     //   //return Attach(::GetSysColorBrush(nIndex));
     //   return false;
 
     //}
-/*    i32 brush::GetLogBrush(LOGBRUSH* pLogBrush)
+/*    int brush::GetLogBrush(LOGBRUSH* pLogBrush)
     {
        //ASSERT(get_os_data() != nullptr);
        //return ::GetObject(get_os_data(), sizeof(LOGBRUSH), pLogBrush);
@@ -71,7 +71,7 @@ namespace draw2d_xlib
 //  //       throw ::exception(error_resource);
 //   }
 //
-//   void brush::construct(i32 nIndex, color32_t crColor)
+//   void brush::construct(int nIndex, color32_t crColor)
 //   {
 //    //  if (!Attach(::CreateHatchBrush(nIndex, crColor)))
 //      //   throw ::exception(error_resource);

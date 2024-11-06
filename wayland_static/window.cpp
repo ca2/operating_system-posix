@@ -103,7 +103,7 @@ namespace wayland
          }
 
 
-         void window::set_window_width(::i32 iWidth) // m_sizeWindow.cx()
+         void window::set_window_width(int iWidth) // m_sizeWindow.cx()
          {
 
             m_sizeWindow.cx() = iWidth;
@@ -111,7 +111,7 @@ namespace wayland
          }
 
 
-         void window::set_window_height(::i32 iHeight) // m_sizeWindow.cy()
+         void window::set_window_height(int iHeight) // m_sizeWindow.cy()
          {
 
             m_sizeWindow.cy() = iHeight;

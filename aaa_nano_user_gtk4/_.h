@@ -96,7 +96,7 @@ namespace gtk4
          //    memsize           m_memsize2;
          //    memsize           m_memsizeStorage;
          //    ::size_i32        m_size;
-         //    ::i32             m_stride;
+         //    int             m_stride;
          //
          //
          //    buffer(const buffer & waylandbuffer) = default;

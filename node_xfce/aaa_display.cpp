@@ -58,12 +58,12 @@ namespace node_xfce
    }
 
 
-//   i32 osdisplay_find(Display *pdisplay)
+//   int osdisplay_find(Display *pdisplay)
 //   {
 //
 //      single_lock slOsWindow(::display::s_pmutex, true);
 //
-//      for (i32 i = 0; i < display::s_pdataptra->get_count(); i++)
+//      for (int i = 0; i < display::s_pdataptra->get_count(); i++)
 //      {
 //         if (display::s_pdataptra->element_at(i)->m_pdisplay == pdisplay)
 //         {
@@ -146,7 +146,7 @@ namespace node_xfce
 //   }
 
 
-//   Atom display::get_window_long_atom(i32 nIndex)
+//   Atom display::get_window_long_atom(int nIndex)
 //   {
 //
 //      if (::is_null(this))
