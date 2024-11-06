@@ -1114,7 +1114,7 @@ namespace windowing_xcb
 
                screen_pixel = pxcbwindow->screen_pixel(pmotion->root_x, pmotion->root_y);
 
-               alpha = screen_pixel.u8_opacity();
+               alpha = screen_pixel.byte_opacity();
 
                bTransparentMouseEvents = pxcbwindow->m_pwindow->m_bTransparentMouseEvents;
 
@@ -2116,7 +2116,7 @@ if(bSentResponse)
 
                information() << "pixel " << screen_pixel;
 
-               u8Opacity = screen_pixel.u8_opacity();
+               u8Opacity = screen_pixel.byte_opacity();
 
                bTransparentMouseEvents = pxcbwindow->m_pwindow->m_bTransparentMouseEvents;
 

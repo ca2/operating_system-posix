@@ -1940,7 +1940,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
 
          m_sizeWindow.cy() = cy;
 
-         //auto rectangleWindow = ::rectangle_i32_dimension(x, y, cx, cy);
+         //auto rectangleWindow = ::rectangle_int_dimension(x, y, cx, cy);
 
          //m_pwindow->m_puserinteraction->place(rectangleWindow);
 
@@ -5081,7 +5081,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    }
 
 
-   //   void window::upper_window_rects(rectangle_i32_array & ra)
+   //   void window::upper_window_rects(rectangle_int_array & ra)
    //   {
    //
    //      synchronous_lock synchronouslock(user_synchronization());

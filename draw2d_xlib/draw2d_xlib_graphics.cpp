@@ -4481,10 +4481,10 @@ namespace draw2d_xlib
 
       XRenderColor c;
 
-      c.red = color32_u8_red(m_pbrush->m_color) * 255;
-      c.green = color32_u8_green(m_pbrush->m_color) * 255;
-      c.blue = color32_u8_blue(m_pbrush->m_color) * 255;
-      c.alpha = color32_u8_opacity(m_pbrush->m_color) * 255;
+      c.red = color32_byte_red(m_pbrush->m_color) * 255;
+      c.green = color32_byte_green(m_pbrush->m_color) * 255;
+      c.blue = color32_byte_blue(m_pbrush->m_color) * 255;
+      c.alpha = color32_byte_opacity(m_pbrush->m_color) * 255;
 
       XftColor ftc;
 //      XftColorAllocValue(m_pdc->m_pdisplay, pbitmap->m_ui.m_window->draw2d(), pbitmap->m_ui.m_window->m_colormap, &c, &ftc);
@@ -4867,9 +4867,9 @@ namespace draw2d_xlib
 
       XRenderColor c;
 
-      c.red = color32_u8_red(m_pbrush->m_color) * 255;
-      c.green = color32_u8_green(m_pbrush->m_color) * 255;
-      c.blue = color32_u8_blue(m_pbrush->m_color) * 255;
+      c.red = color32_byte_red(m_pbrush->m_color) * 255;
+      c.green = color32_byte_green(m_pbrush->m_color) * 255;
+      c.blue = color32_byte_blue(m_pbrush->m_color) * 255;
       c.alpha = 0xffff;
 
       XftColor ftc;
@@ -5172,9 +5172,9 @@ namespace draw2d_xlib
 
          //xlib_pattern_t * ppattern = xlib_pattern_create_linear(pbrush->m_point1.x, pbrush.m_point1.y, pbrush.m_point2.x, pbrush.m_point2.y);
 
-         //xlib_pattern_add_color_stop_rgba(ppattern, 0., color32_u8_red(pbrush->m_color1) / 255.0, color32_u8_green(pbrush->m_color1) / 255.0, color32_u8_blue(pbrush->m_color1) / 255.0, color32_u8_opacity(pbrush->m_color1) / 255.0);
+         //xlib_pattern_add_color_stop_rgba(ppattern, 0., color32_byte_red(pbrush->m_color1) / 255.0, color32_byte_green(pbrush->m_color1) / 255.0, color32_byte_blue(pbrush->m_color1) / 255.0, color32_byte_opacity(pbrush->m_color1) / 255.0);
 
-         //xlib_pattern_add_color_stop_rgba(ppattern, 1., color32_u8_red(pbrush->m_color2) / 255.0, color32_u8_green(pbrush->m_color2) / 255.0, color32_u8_blue(pbrush->m_color2) / 255.0, color32_u8_opacity(pbrush->m_color2) / 255.0);
+         //xlib_pattern_add_color_stop_rgba(ppattern, 1., color32_byte_red(pbrush->m_color2) / 255.0, color32_byte_green(pbrush->m_color2) / 255.0, color32_byte_blue(pbrush->m_color2) / 255.0, color32_byte_opacity(pbrush->m_color2) / 255.0);
 
          //xlib_set_source(m_pdc, ppattern);
 
@@ -5185,10 +5185,10 @@ namespace draw2d_xlib
          pbrush->m_color.create(
          m_pdc->m_pdisplay,
          m_pdc->m_iScreen,
-         (color32_u8_red(pbrush->m_color1) + color32_u8_red(pbrush->m_color2)) / 2,
-         (color32_u8_green(pbrush->m_color1) + color32_u8_green(pbrush->m_color2)) / 2,
-         (color32_u8_blue(pbrush->m_color1) + color32_u8_blue(pbrush->m_color2)) / 2,
-         (color32_u8_opacity(pbrush->m_color1) + color32_u8_opacity(pbrush->m_color2)) / 2);
+         (color32_byte_red(pbrush->m_color1) + color32_byte_red(pbrush->m_color2)) / 2,
+         (color32_byte_green(pbrush->m_color1) + color32_byte_green(pbrush->m_color2)) / 2,
+         (color32_byte_blue(pbrush->m_color1) + color32_byte_blue(pbrush->m_color2)) / 2,
+         (color32_byte_opacity(pbrush->m_color1) + color32_byte_opacity(pbrush->m_color2)) / 2);
 
          XSetForeground(m_pdc->m_pdisplay, m_pdc->m_gc, pbrush->m_color.m_color.pixel);
 
@@ -5201,10 +5201,10 @@ namespace draw2d_xlib
          pbrush->m_color.create(
          m_pdc->m_pdisplay,
          m_pdc->m_iScreen,
-         color32_u8_red(pbrush->m_color),
-         color32_u8_green(pbrush->m_color),
-         color32_u8_blue(pbrush->m_color),
-         color32_u8_opacity(pbrush->m_color));
+         color32_byte_red(pbrush->m_color),
+         color32_byte_green(pbrush->m_color),
+         color32_byte_blue(pbrush->m_color),
+         color32_byte_opacity(pbrush->m_color));
 
          XSetForeground(m_pdc->m_pdisplay, m_pdc->m_gc, pbrush->m_color.m_color.pixel);
 
@@ -5229,10 +5229,10 @@ namespace draw2d_xlib
       ppen->m_color.create(
       m_pdc->m_pdisplay,
       m_pdc->m_iScreen,
-      color32_u8_red(ppen->m_color),
-      color32_u8_green(ppen->m_color),
-      color32_u8_blue(ppen->m_color),
-      color32_u8_opacity(ppen->m_color));
+      color32_byte_red(ppen->m_color),
+      color32_byte_green(ppen->m_color),
+      color32_byte_blue(ppen->m_color),
+      color32_byte_opacity(ppen->m_color));
 
       XSetForeground(m_pdc->m_pdisplay, m_pdc->m_gc, ppen->m_color.m_color.pixel);
 
@@ -5566,7 +5566,7 @@ ok:
    bool graphics::set_os_color(color32_t cr)
    {
 
-      //xlib_set_source_rgba(m_pdc, color32_u8_red(cr) / 255.0, color32_u8_green(cr) / 255.0, color32_u8_blue(cr) / 255.0, color32_u8_opacity(cr) / 255.0);
+      //xlib_set_source_rgba(m_pdc, color32_byte_red(cr) / 255.0, color32_byte_green(cr) / 255.0, color32_byte_blue(cr) / 255.0, color32_byte_opacity(cr) / 255.0);
 
       return true;
 
@@ -5599,10 +5599,10 @@ ok:
 
             XRenderColor c;
 
-            c.red = color32_u8_red(m_pbrush->m_color);
-            c.green = color32_u8_green(m_pbrush->m_color);
-            c.blue = color32_u8_blue(m_pbrush->m_color);
-            c.alpha = color32_u8_opacity(m_pbrush->m_color);
+            c.red = color32_byte_red(m_pbrush->m_color);
+            c.green = color32_byte_green(m_pbrush->m_color);
+            c.blue = color32_byte_blue(m_pbrush->m_color);
+            c.alpha = color32_byte_opacity(m_pbrush->m_color);
 
             XftColor ftc;
             XftColorAllocValue(m_pdc->m_pdisplay, pbitmap->m_ui.m_window->draw2d(), pbitmap->m_ui.m_window->m_colormap, &c, &ftc);

@@ -18,7 +18,7 @@ namespace windowing_xcb
 
       //Bstring m_strTrayIconName;
 
-      //::size_i32_array m_sizea;
+      //::size_int_array m_sizea;
 
 
       icon();
@@ -32,7 +32,7 @@ namespace windowing_xcb
       void set_tray_icon_name(const string & strTrayIconName) override;
 
 
-      void get_sizes(::size_i32_array & a) override;
+      void get_sizes(::size_int_array & a) override;
 
 
       void * get_os_data(const ::size_i32 & size) const override;

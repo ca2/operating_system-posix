@@ -202,7 +202,7 @@ namespace node_kde5
 
       ::image::image_source imagesource(pimage);
 
-      auto rectangle = rectangle_f64_dimension(0., 0., 24., 24.);
+      auto rectangle = rectangle_double_dimension(0., 0., 24., 24.);
 
       ::image::image_drawing_options imagedrawingoptions(rectangle);
 

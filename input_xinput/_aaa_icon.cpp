@@ -123,7 +123,7 @@ namespace windowing_x11
    }
 
 
-   void icon::get_sizes(::size_i32_array & a)
+   void icon::get_sizes(::size_int_array & a)
    {
 
 

@@ -67,7 +67,7 @@ namespace wayland
                 //::wl_keyboard * m_pwlkeyboard;
                 ::wl_surface * m_pwlsurfaceKeyboardEnter;
                 ::comparable_array < ::wl_output * > m_wloutputa;
-                ::size_i32_array                       m_sizeaMonitor;
+                ::size_int_array                       m_sizeaMonitor;
                 //::comparable_array < ::xdg_output * > m_xdgoutputa;
 
                 //::point_f64 m_pointPointer;

@@ -25,7 +25,7 @@ namespace draw2d_xlib
    //      delete m_pbrush;
    //   }
 
-   //   m_pbrush = normal_new Gdiplus::SolidBrush(Gdiplus::Color(GetAValue(crColor), color32_u8_red(crColor), GetGValue(crColor), GetBValue(crColor)));
+   //   m_pbrush = normal_new Gdiplus::SolidBrush(Gdiplus::Color(GetAValue(crColor), color32_byte_red(crColor), GetGValue(crColor), GetBValue(crColor)));
 
    //   return m_pbrush != nullptr;
    //
@@ -135,8 +135,8 @@ namespace draw2d_xlib
             ((brush *) this)->m_pbrush = normal_new Gdiplus::LinearGradientBrush(
                Gdiplus::Point(m_point1.x, m_point1.y),
                Gdiplus::Point(m_point2.x, m_point2.y),
-               Gdiplus::Color(GetAValue(m_color1), color32_u8_red(m_color1), GetGValue(m_color1), GetBValue(m_color1)),
-               Gdiplus::Color(GetAValue(m_color2), color32_u8_red(m_color2), GetGValue(m_color2), GetBValue(m_color2)));
+               Gdiplus::Color(GetAValue(m_color1), color32_byte_red(m_color1), GetGValue(m_color1), GetBValue(m_color1)),
+               Gdiplus::Color(GetAValue(m_color2), color32_byte_red(m_color2), GetGValue(m_color2), GetBValue(m_color2)));
 */
          }
          else

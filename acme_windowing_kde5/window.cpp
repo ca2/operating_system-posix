@@ -465,13 +465,13 @@ namespace kde5
       //
       //}
 
-      //#ifndef i32_x
-      //#define i32_x(lparam)                          ((int)(short)LOWORD(lparam))
+      //#ifndef int_x
+      //#define int_x(lparam)                          ((int)(short)LOWORD(lparam))
       //#endif
       //
       //
-      //#ifndef i32_y
-      //#define i32_y(lparam)                          ((int)(short)HIWORD(lparam))
+      //#ifndef int_y
+      //#define int_y(lparam)                          ((int)(short)HIWORD(lparam))
       //#endif
       //
       ////LRESULT window::window_procedure(UINT message, WPARAM wparam, LPARAM lparam)
@@ -496,14 +496,14 @@ namespace kde5
       //      }
       //         break;
       //      case WM_LBUTTONDOWN:
-      //         on_left_button_down(i32_x(lparam), i32_y(lparam));
+      //         on_left_button_down(int_x(lparam), int_y(lparam));
       //         break;
       //      case WM_MOUSEMOVE:
-      //         on_mouse_move(i32_x(lparam), i32_y(lparam));
+      //         on_mouse_move(int_x(lparam), int_y(lparam));
       //         break;
       //      case WM_LBUTTONUP:
       //      {
-      //         on_left_button_up(i32_x(lparam), i32_y(lparam));
+      //         on_left_button_up(int_x(lparam), int_y(lparam));
       //
       //      }
       //
@@ -1042,11 +1042,11 @@ namespace kde5
       //   }
       //   break;
       //   case WM_LBUTTONDOWN:
-      //      on_left_button_down(i32_x(lparam), i32_y(lparam));
+      //      on_left_button_down(int_x(lparam), int_y(lparam));
       //      break;
       //   case WM_LBUTTONUP:
       //   {
-      //      on_left_button_up(i32_x(lparam), i32_y(lparam));
+      //      on_left_button_up(int_x(lparam), int_y(lparam));
       //   }
       //
       //   break;

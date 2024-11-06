@@ -168,7 +168,7 @@ namespace windowing_xcb
       bool has_keyboard_focus() const override;
 
 
-      virtual rectangle_i32_array upper_window_rects();
+      virtual rectangle_int_array upper_window_rects();
 
 
 

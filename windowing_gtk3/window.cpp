@@ -987,7 +987,7 @@ m_sizeWindow.cy() = cy;
 
 _create_window();
 //
-//         //auto rectangleWindow = ::rectangle_i32_dimension(x, y, cx, cy);
+//         //auto rectangleWindow = ::rectangle_int_dimension(x, y, cx, cy);
 //
 //         //m_pwindow->m_puserinteraction->place(rectangleWindow);
 //         m_pgtkwidget = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -3908,7 +3908,7 @@ bOk = true;
    }
 
 
-//   void window::upper_window_rects(rectangle_i32_array & ra)
+//   void window::upper_window_rects(rectangle_int_array & ra)
 //   {
 //
 //      synchronous_lock synchronouslock(user_synchronization());

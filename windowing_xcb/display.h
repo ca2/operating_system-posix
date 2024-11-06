@@ -31,7 +31,7 @@ namespace windowing_xcb
       critical_section                                         m_criticalsectionWindowMap;
       ::pointer<::xcb::acme::windowing::display>                    m_pxcbdisplay;
       window_map                                               m_windowmap;
-      i32_map < xcb_cursor_t>                                  m_mapGlyphCursor;
+      int_map < xcb_cursor_t>                                  m_mapGlyphCursor;
       xcb_atom_t                                               m_atoma[::x11::e_atom_count];
 
       xcb_font_t                                               m_pfontCursor;

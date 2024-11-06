@@ -1489,7 +1489,7 @@ namespace gtk3
 
             gtk_window_get_size(GTK_WINDOW(m_pgtkwidget), &cx, &cy);
 
-            auto rectangle = rectangle_i32_dimension(x, y, cx, cy);
+            auto rectangle = rectangle_int_dimension(x, y, cx, cy);
 
             return rectangle;
 

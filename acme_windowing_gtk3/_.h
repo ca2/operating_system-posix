@@ -98,12 +98,12 @@ inline void copy(::rectangle_i32 * prectTarget, const GdkRectangle * prectSource
 //   x11color32_t(const ::color::color & color)
 //   {
 //
-//      auto opacity = color.u8_opacity();
+//      auto opacity = color.byte_opacity();
 //
 //      m_u32 = make_u32(
-//              color.u8_blue() * opacity / 255,
-//              color.u8_green() * opacity / 255,
-//              color.u8_red() * opacity / 255,
+//              color.byte_blue() * opacity / 255,
+//              color.byte_green() * opacity / 255,
+//              color.byte_red() * opacity / 255,
 //              opacity);
 //
 //   }
