@@ -160,7 +160,7 @@ int GetVersion_ex1()
    // Get major and minor version numbers of Windows
    unsigned short loword = LOWORD(dwVersion);
    int lowbyte = lower_byte(loword);
-   int hibyte = HIBYTE(loword);
+   int hibyte = higher_byte(loword);
 
    debug_print("Window major version = %d and minor version = %d\n", lowbyte, hibyte);
 
@@ -366,7 +366,7 @@ int_bool is_windows_native_unicode()
       // get the Windows version.
 
       unsigned int dwWindowsMajorVersion = (unsigned int)(lower_byte(LOWORD(dwVersion)));
-      unsigned int dwWindowsMinorVersion = (unsigned int)(HIBYTE(LOWORD(dwVersion)));
+      unsigned int dwWindowsMinorVersion = (unsigned int)(higher_byte(LOWORD(dwVersion)));
 
       // get the build number.
 
