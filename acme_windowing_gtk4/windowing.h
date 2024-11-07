@@ -102,7 +102,7 @@ namespace gtk4
             virtual void _hook_system_theme_change_callbacks();
 
 
-            virtual void _fetch_dark_mode();
+            void fetch_dark_mode() override;
 
 
             virtual ::string _get_os_user_theme();

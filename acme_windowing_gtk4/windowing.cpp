@@ -408,7 +408,7 @@ namespace gtk4
 
             pgtk4windowingsystem->_hook_system_theme_change_callbacks();
 
-            pgtk4windowingsystem->_fetch_dark_mode();
+            pgtk4windowingsystem->fetch_dark_mode();
 
             pgtk4windowingsystem->_on_activate_gtk_application();
 
@@ -590,7 +590,7 @@ namespace gtk4
          void windowing::_on_color_scheme_change()
          {
 
-            _fetch_dark_mode();
+            fetch_dark_mode();
 
          }
 
@@ -653,7 +653,36 @@ namespace gtk4
          }
 
 
-         void windowing::_fetch_dark_mode()
+         ::color::color windowing::get_operating_system_background_color()
+         {
+
+            int width = 32;
+
+            int height = 32;
+
+            GtkWidget * widget = gtk_application_window_new(m_pgtkapplication);
+
+            gtk_window_set_decorated(GTK_WINDOW(widget), false);
+
+            gtk_widget_set_size_request(widget, width, height);
+
+            GtkStyleContext * style_context = gtk_widget_get_style_context(widget);
+
+            cairo_surface_t * surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, width, height);
+
+            cairo_t * cr = cairo_create(surface);
+
+            gtk_render_background(style_context, cr, 0, 0, width, height);
+
+            auto color = cairo_surface_average_color(surface);
+
+            cairo_surface_destroy(surface);
+
+            return color;
+         }
+
+
+         void windowing::fetch_dark_mode()
          {
 
             information() << "::::gtk4::acme::windowing::windowing::_fetch_dark_mode";
@@ -675,27 +704,7 @@ namespace gtk4
 
             }
 
-            int width = 32;
 
-            int height = 32;
-
-            GtkWidget* widget = gtk_application_window_new(m_pgtkapplication);
-
-            gtk_window_set_decorated(GTK_WINDOW(widget), false);
-
-            gtk_widget_set_size_request(widget, width, height);
-
-            GtkStyleContext* style_context = gtk_widget_get_style_context(widget);
-
-            cairo_surface_t* surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, width, height);
-
-            cairo_t* cr = cairo_create(surface);
-
-            gtk_render_background(style_context, cr, 0, 0, width, height);
-
-            auto color = cairo_surface_average_color(surface);
-
-            cairo_surface_destroy(surface);
 
             on_system_dark_mode_change(color.get_luminance() <= 0.5, color);
 

@@ -3268,7 +3268,7 @@ namespace draw2d_xlib
       ::ExtTextOut(get_handle1(), 0, 0, ETO_OPAQUE, rectangle, nullptr, 0, nullptr);
    }*/
 
-   void graphics::FillSolidRect(const ::i64_rectangle * rectangle, color32_t clr)
+   void graphics::FillSolidRect(const ::huge_integer_rectangle * rectangle, color32_t clr)
    {
       ::int_rectangle rect32;
       copy(&rect32, &rectangle);
