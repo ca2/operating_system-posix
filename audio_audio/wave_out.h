@@ -113,8 +113,8 @@ struct audio_dev_ctx {
 	const struct audio_dev_backend *ac_device;
 	void		*ac_devarg = nullptr;
 	int		ac_paused = true;
-	manual_reset_happening 		m_eventRead;
-	manual_reset_happening 		m_eventWrite;
+	manual_reset_happening 		m_happeningRead;
+	manual_reset_happening 		m_happeningWrite;
 //	int		ac_peerread;
 //	int		ac_peerwrite;
 huge_natural	ac_buffersamples;

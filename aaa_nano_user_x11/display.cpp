@@ -356,7 +356,7 @@ namespace x11
 
             _synchronous_lock synchronouslock(this->synchronization());
 
-            m_eventlistenera.add(plistener);
+            m_happeninglistenera.add(plistener);
 
          }
 
@@ -376,7 +376,7 @@ namespace x11
 
             _synchronous_lock synchronouslock(this->synchronization());
 
-            m_eventlistenera.erase(plistener);
+            m_happeninglistenera.erase(plistener);
 
          }
 
@@ -439,10 +439,10 @@ namespace x11
 
             _synchronous_lock synchronouslock(this->synchronization());
 
-            for (; i < m_eventlistenera.get_count(); i++)
+            for (; i < m_happeninglistenera.get_count(); i++)
             {
 
-               auto plistener = m_eventlistenera[i];
+               auto plistener = m_happeninglistenera[i];
 
                synchronouslock.unlock();
 

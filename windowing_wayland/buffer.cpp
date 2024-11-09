@@ -1129,7 +1129,7 @@ namespace windowing_wayland
 //         if (m_bXShm)
 //         {
 //
-//            if (!pitem->m_manualresetevent._wait(200_ms))
+//            if (!pitem->m_manualresethappening._wait(200_ms))
 //            {
 //
 //               x11_window()->_on_end_paint();
@@ -1154,7 +1154,7 @@ namespace windowing_wayland
 //            copy_image32((::image32_t *) m_pximage->data, sizeBitBlitting,
 //                         pitem->m_iScan, pimage->get_data(), pimage->scan_size());
 //
-//            pitem->m_manualresetevent.ResetEvent();
+//            pitem->m_manualresethappening.ResetEvent();
 //
 //            m_sizeLastBitBlitting = sizeBitBlitting;
 //

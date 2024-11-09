@@ -47,7 +47,7 @@ namespace wayland
             //string                         m_strTitle;
             //bool                           m_bNcActive;
 
-            manual_reset_happening               m_eventEnd;
+            manual_reset_happening               m_happeningEnd;
             //int_rectangle                  m_rectangle;
             //int_rectangle                  m_rectangleX;
 

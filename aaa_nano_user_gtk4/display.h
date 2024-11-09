@@ -34,7 +34,7 @@ namespace gtk4
             bool                                      m_bUnhook;
             //sGdkDisplay*m_pgdkdisplay;
             //::wl_display *                          m_pwldisplay;
-            //pointer_array < event_listener >        m_eventlistenera;
+            //pointer_array < event_listener >        m_happeninglistenera;
             //pointer_array < nano_window_base >      m_windowa;
             //Window                                  m_windowActive;
             //map < enum_atom, Atom >                 m_atommap;

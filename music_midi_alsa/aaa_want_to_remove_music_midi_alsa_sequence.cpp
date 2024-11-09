@@ -921,7 +921,7 @@ namespace music
 
             m_flags.signalize(::music::midi::sequence::e_flag_waiting);
 
-            m_eventMidiPlaybackEnd.ResetEvent();
+            m_happeningMidiPlaybackEnd.ResetEvent();
 
             m_bPlay = false;
 
@@ -959,7 +959,7 @@ namespace music
    //
    //         }
 
-   //         m_eventMidiPlaybackEnd.lock();
+   //         m_happeningMidiPlaybackEnd.lock();
 
             return ::success;
 
@@ -1312,7 +1312,7 @@ namespace music
             /*ASSERT(lpmidihdr != NULL);
             LPBYTE lpbData = (LPBYTE) (lpmidihdr->lpData + lpmidihdr->dwOffset);
             MIDIEVENT * lpme = (MIDIEVENT *) lpbData;
-            file::midi_stream_event_header * pheader = (file::midi_stream_event_header *) &lpme->dwParms[0];
+            file::midi_stream_happening_header * pheader = (file::midi_stream_happening_header *) &lpme->dwParms[0];
             lpbData = (LPBYTE) pheader;
             LPDWORD lpdwParam;
 
@@ -1323,10 +1323,10 @@ namespace music
                {
                   array < ::ikaraoke::lyric_event_v1, ::ikaraoke::lyric_event_v1 &> * plyriceventa = NULL;
                   array < ::ikaraoke::lyric_event_v1, ::ikaraoke::lyric_event_v1 &> lyriceventa;
-                  for(int32_t i = sizeof(file::midi_stream_event_header); i < iSize;)
+                  for(int32_t i = sizeof(file::midi_stream_happening_header); i < iSize;)
                   {
-                     pheader = (file::midi_stream_event_header *) &lpbData[i];
-                     lpdwParam = (LPDWORD) &lpbData[i + sizeof(file::midi_stream_event_header)];
+                     pheader = (file::midi_stream_happening_header *) &lpbData[i];
+                     lpdwParam = (LPDWORD) &lpbData[i + sizeof(file::midi_stream_happening_header)];
                      ASSERT(*lpdwParam == pheader->m_dwType);
                      switch(pheader->m_dwType)
                      {
@@ -1358,7 +1358,7 @@ namespace music
                         }
                         break;
                      }
-                     i += pheader->m_dwLength + sizeof(file::midi_stream_event_header);
+                     i += pheader->m_dwLength + sizeof(file::midi_stream_happening_header);
                   }
                   /*         if(plyriceventa != NULL)
                   {
@@ -1756,10 +1756,10 @@ namespace music
    //            pLyricEventsV2B = aaa_primitive_new ::ikaraoke::lyric_events_v2();
    //            pLyricEventsV2C = aaa_primitive_new ::ikaraoke::lyric_events_v2();
    //            pLyricEventsV2_ = aaa_primitive_new ::ikaraoke::lyric_events_v2();
-   //            staticdata.m_eventsv1.add(pLyricEventsV2);
-   //            staticdata.m_eventsv1.add(pLyricEventsV2B);
-   //            staticdata.m_eventsv1.add(pLyricEventsV2C);
-   //            staticdata.m_eventsv1.add(pLyricEventsV2_);
+   //            staticdata.m_happeningsv1.add(pLyricEventsV2);
+   //            staticdata.m_happeningsv1.add(pLyricEventsV2B);
+   //            staticdata.m_happeningsv1.add(pLyricEventsV2C);
+   //            staticdata.m_happeningsv1.add(pLyricEventsV2_);
    //            lyricEvents.add(pLyricEventsV2_);
    //            lyricEventsForScoring.add(pLyricEventsV2);
    //            lyricEventsForPositionCB.add(pLyricEventsV2B);
@@ -1889,7 +1889,7 @@ namespace music
    //         for(i = 0; i < tickaaTokensTicks.get_size(); i++)
    //         {
    //            pLyricEventsV2 = (::ikaraoke::lyric_events_v2 *) lyricEvents.get_at(i);
-   //            staticdata.m_eventstracks.add(pLyricEventsV2);
+   //            staticdata.m_happeningstracks.add(pLyricEventsV2);
    //            file.TimeToPosition(
    //               pLyricEventsV2->m_tickaTokensPosition,
    //               ms2DTokensMillis(i),
@@ -1933,7 +1933,7 @@ namespace music
    //            pLyricEventsV1 = aaa_primitive_new ::ikaraoke::lyric_events_v1();
    //            pLyricEventsV1->m_iType = ikaraoke::EventAdvanceShow;
    //            pLyricEventsV1->m_iOrder = i;
-   //            //staticdata.m_eventsTracksForPositionCB.add(pLyricEventsV1);
+   //            //staticdata.m_happeningsTracksForPositionCB.add(pLyricEventsV1);
    //            file.TimeToPosition(
    //               pLyricEventsV1->m_tickaTokensPosition,
    //               ms2DTokensMillis(i),
@@ -1946,7 +1946,7 @@ namespace music
    //         for(i = 0; i < tickaaTokensTicks.get_size(); i++)
    //         {
    //            pLyricEventsV2 = (::ikaraoke::lyric_events_v2 *) lyricEventsForScoring.get_at(i);
-   //            staticdata.m_eventsTracksForScoring.add(pLyricEventsV2);
+   //            staticdata.m_happeningsTracksForScoring.add(pLyricEventsV2);
    //            file.TimeToPosition(
    //               pLyricEventsV2->m_tickaTokensPosition,
    //               ms2DTokensMillis(i),
@@ -1994,9 +1994,9 @@ namespace music
    //         for(i = 0; i < tickaaTokensTicks.get_size(); i++)
    //         {
    //            pLyricEventsV2 = (::ikaraoke::lyric_events_v2 *) lyricEventsForPositionCB.get_at(i);
-   //            staticdata.m_eventsTracksForPositionCB.add(pLyricEventsV2);
+   //            staticdata.m_happeningsTracksForPositionCB.add(pLyricEventsV2);
    //
-   //            staticdata.m_eventstracksV002.add(pLyricEventsV2);
+   //            staticdata.m_happeningstracksV002.add(pLyricEventsV2);
    //
    //            file.TimeToPosition(
    //               pLyricEventsV2->m_tickaTokensPosition,
@@ -2058,7 +2058,7 @@ namespace music
    //         for(i = 0; i < tickaaTokensTicks.get_size(); i++)
    //         {
    //            pLyricEventsV2 = (::ikaraoke::lyric_events_v2 *) lyricEventsForBouncingBall.get_at(i);
-   //            staticdata.m_eventsTracksForBouncingBall.add(pLyricEventsV2);
+   //            staticdata.m_happeningsTracksForBouncingBall.add(pLyricEventsV2);
    //
    //            file.TimeToPosition(
    //               pLyricEventsV2->m_tickaTokensPosition,
@@ -2674,7 +2674,7 @@ namespace music
    //
    //                  }
    //
-   //                  m_eventMidiPlaybackEnd.SetEvent();
+   //                  m_happeningMidiPlaybackEnd.SetEvent();
    //
    //                  sequence_thread * pthread = dynamic_cast < sequence_thread * > (m_pthread);
    //
@@ -2716,7 +2716,7 @@ namespace music
    ////
    ////                  }
    ////
-   ////                  m_eventMidiPlaybackEnd.SetEvent();
+   ////                  m_happeningMidiPlaybackEnd.SetEvent();
    ////
    ////                  sequence_thread * pthread = dynamic_cast < sequence_thread * > (m_pthread);
    ////

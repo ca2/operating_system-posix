@@ -1228,12 +1228,12 @@ static const audio_dev_backend *audio_dev_backends[] = {
                prodpeer = 1;
             }
 
-            m_eventRead.ResetEvent();
+            m_happeningRead.ResetEvent();
 
             do 
             {
             
-               m_eventRead._wait(5_ms);
+               m_happeningRead._wait(5_ms);
                
             } while (ac_paused && m_pdata->m_iHead == m_pdata->m_iTail);
             
@@ -1270,7 +1270,7 @@ static const audio_dev_backend *audio_dev_backends[] = {
          
          ac_buffersamples += samplecount;
 
-         m_eventRead.SetEvent();
+         m_happeningRead.SetEvent();
 
          //tail = m_pdata->m_iTail;
          
@@ -1302,7 +1302,7 @@ static const audio_dev_backend *audio_dev_backends[] = {
          while (m_pdata->m_iHead != m_pdata->m_iTail)
          {
          
-            m_eventRead._wait();
+            m_happeningRead._wait();
       
          }
 
@@ -1321,7 +1321,7 @@ static const audio_dev_backend *audio_dev_backends[] = {
          while (m_pdata->m_iHead != m_pdata->m_iTail && m_pdata->m_iPurge)
          {
          
-            m_eventRead._wait();
+            m_happeningRead._wait();
             
          }
 

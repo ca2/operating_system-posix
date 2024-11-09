@@ -801,7 +801,7 @@ namespace windowing_xcb
          {
 
 
-            if (!pitem->m_manualresetevent._wait(200_ms))
+            if (!pitem->m_manualresethappening._wait(200_ms))
             {
 
                xcb_window()->_on_end_paint();
@@ -813,7 +813,7 @@ namespace windowing_xcb
             copy_image32((::image32_t *) m_shmaddr, sizeBitBlitting,
                          pitem->m_iScan, pimage->get_data(), pimage->scan_size());
 
-            pitem->m_manualresetevent.ResetEvent();
+            pitem->m_manualresethappening.ResetEvent();
 
             m_sizeLastBitBlitting = sizeBitBlitting;
 

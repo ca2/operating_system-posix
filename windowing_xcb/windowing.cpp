@@ -899,7 +899,7 @@ namespace windowing_xcb
 
                   //px11window->m_pwindow->m_puserinteraction->_set_size(sizeBitBlitting, ::user::e_layout_window);
 
-                  pbufferitem->m_manualresetevent.SetEvent();
+                  pbufferitem->m_manualresethappening.SetEvent();
 
                   //information() << "Got xcb_shm_completion_event_t";
 

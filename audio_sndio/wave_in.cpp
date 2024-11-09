@@ -46,7 +46,7 @@ namespace multimedia
       void wave_in::term_task()
       {
 
-         m_eventExitInstance.SetEvent();
+         m_happeningExitInstance.SetEvent();
 
          thread::term_task();
 
@@ -371,7 +371,7 @@ Opened:
 
          m_einstate = ::wave::e_in_state_stopped;
 
-         m_eventStopped.SetEvent();
+         m_happeningStopped.SetEvent();
 
          //return success;
 

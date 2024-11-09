@@ -502,7 +502,7 @@
 //   void wallpaper_change_notification (GSettings   *settings,             const gchar *key,             gpointer     data)
 //   {
 //
-//      c_post_system_event(id_wallpaper_change);
+//      c_post_system_happening(id_wallpaper_change);
 //
 //   }
 //

@@ -56,7 +56,7 @@ namespace music
          void sequence_thread::Stop(imedia_time msEllapse)
          {
             get_sequence()->Stop();
-            m_eventStop.wait(millis(msEllapse));
+            m_happeningStop.wait(millis(msEllapse));
          }
 
          ::music::midi::sequence * sequence_thread::get_sequence()
@@ -474,7 +474,7 @@ namespace music
                break;
             case ::music::midi::command_stop:
                {
-                  m_eventStop.ResetEvent();
+                  m_happeningStop.ResetEvent();
                   ::e_status            mmrc;
                   ::music::midi::sequence::player_link & link = get_sequence()->GetPlayerLink();
 

@@ -33,7 +33,7 @@ namespace gtk3
 
             bool                                         m_bUnhook;
             //Display   *                                  m_pdisplay;
-            //pointer_array < event_listener >             m_eventlistenera;
+            //pointer_array < event_listener >             m_happeninglistenera;
             //pointer_array < ::x11::micro::elemental >  m_windowa;
             //Window                                       m_windowActive;
             //map < enum_atom, Atom >                      m_atommap;

@@ -1556,7 +1556,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                pbuffer->m_bXShmPutImagePending = false;
 
-               pbufferitem->m_manualresetevent.SetEvent();
+               pbufferitem->m_manualresethappening.SetEvent();
 
             }
 
@@ -3257,7 +3257,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       }
 
-      pmessagequeue->m_eventNewMessage.set_event();
+      pmessagequeue->m_happeningNewMessage.set_event();
 
       //return true;
 

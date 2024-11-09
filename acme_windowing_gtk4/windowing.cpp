@@ -193,7 +193,7 @@ namespace gtk4
 
             m_callbackOnActivateGtkApplication.clear();
 
-            m_peventCreatingWGtk4Display.defer_destroy();
+            m_phappeningCreatingWGtk4Display.defer_destroy();
 
             ::acme::windowing::windowing::destroy();
 
@@ -469,10 +469,10 @@ namespace gtk4
             //
             // }
 
-            if(::system()->m_pmanualreseteventMainLoopEnd)
+            if(::system()->m_pmanualresethappeningMainLoopEnd)
             {
 
-               ::system()->m_pmanualreseteventMainLoopEnd->set_event();
+               ::system()->m_pmanualresethappeningMainLoopEnd->set_event();
 
             }
 
@@ -1332,10 +1332,10 @@ namespace gtk4
          //
          //    critical_section_lock lock(platform::get()->globals_critical_section());
          //
-         //    if(m_peventCreatingWGtk4Display)
+         //    if(m_phappeningCreatingWGtk4Display)
          //    {
          //
-         //       auto pevent = m_peventCreatingWGtk4Display;
+         //       auto pevent = m_phappeningCreatingWGtk4Display;
          //
          //       pevent->wait(1_min);
          //
@@ -1343,9 +1343,9 @@ namespace gtk4
          //    else if (!m_pacmedisplay)
          //    {
          //
-         //       m_peventCreatingWGtk4Display = __allocate manual_reset_happening();
+         //       m_phappeningCreatingWGtk4Display = __allocate manual_reset_happening();
          //
-         //       m_peventCreatingWGtk4Display->ResetEvent();
+         //       m_phappeningCreatingWGtk4Display->ResetEvent();
          //
          //       auto p = ___new ::gtk4::acme::windowing::display();
          //
@@ -1377,9 +1377,9 @@ namespace gtk4
          //
          //       lock.lock();
          //
-         //       m_peventCreatingWGtk4Display->SetEvent();
+         //       m_phappeningCreatingWGtk4Display->SetEvent();
          //
-         //       m_peventCreatingWGtk4Display.release();
+         //       m_phappeningCreatingWGtk4Display.release();
          //
          //    }
          //

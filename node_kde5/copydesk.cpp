@@ -104,7 +104,7 @@ namespace node_kde5
 //
 //      g_source_attach(idle_source, g_main_context_default());
 //
-//      if(!pdata->m_event.wait(seconds(5)).succeeded())
+//      if(!pdata->m_happening.wait(seconds(5)).succeeded())
 //      {
 //
 //         return false;
@@ -160,7 +160,7 @@ namespace node_kde5
 //
 //      g_source_attach(idle_source, g_main_context_default());
 //
-//      if(!pdata->m_event.wait(seconds(5)).succeeded())
+//      if(!pdata->m_happening.wait(seconds(5)).succeeded())
 //      {
 //
 //         return false;
@@ -185,7 +185,7 @@ namespace node_kde5
 //
 //      g_source_attach(idle_source, g_main_context_default());
 //
-//      if(!pdata->m_event.wait(seconds(5)).succeeded() || pdata->m_eclipboard == e_clipboard_error)
+//      if(!pdata->m_happening.wait(seconds(5)).succeeded() || pdata->m_eclipboard == e_clipboard_error)
 //      {
 //
 //         return false;
@@ -220,7 +220,7 @@ return false;
 //
 //      g_source_attach(idle_source, g_main_context_default());
 //
-//      if(!pdata->m_event.wait(seconds(5)).succeeded())
+//      if(!pdata->m_happening.wait(seconds(5)).succeeded())
 //      {
 //
 //         return false;

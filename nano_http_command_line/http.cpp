@@ -70,7 +70,7 @@ m_eapp = e_app_not_initialized;
          //
          //      passynchronoushttpdata->m_data.m_set["http_status_code"] = http_status;
          //
-         //      passynchronoushttpdata->m_event.SetEvent();
+         //      passynchronoushttpdata->m_happening.SetEvent();
          //
          //      //passynchronoushttpdata->m_function(passynchronoushttpdata);
          //
@@ -96,7 +96,7 @@ m_eapp = e_app_not_initialized;
 //
 //               pgetHold->set_finished();
 //
-//              //pasynchronoushttpresponse->m_event.SetEvent();
+//              //pasynchronoushttpresponse->m_happening.SetEvent();
 //              //pasynchronoushttpresponse->m_function(pasynchronoushttpresponse);
 //            });
 //

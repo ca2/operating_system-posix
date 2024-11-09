@@ -798,7 +798,7 @@ namespace wayland
             //
             //      //XCloseDisplay(m_pdisplay->m_pdisplay);
             //
-            //      m_eventEnd.SetEvent();
+            //      m_happeningEnd.SetEvent();
 
          }
 
