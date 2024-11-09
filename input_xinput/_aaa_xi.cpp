@@ -43,9 +43,9 @@ namespace input_xinput
 
             auto pDisplay = x11_get_display();
 
-            int event, error;
+            int happening, error;
 
-            if (!XQueryExtension(pDisplay, "XInputExtension", &m_xi_opcode, &event, &error))
+            if (!XQueryExtension(pDisplay, "XInputExtension", &m_xi_opcode, &happening, &error))
             {
 
                printf("X Input extension not available.\n");
@@ -71,7 +71,7 @@ namespace input_xinput
             //else
             //win = create_win(display);
 
-            /* Select for motion events */
+            /* Select for motion happenings */
             m = &mask[0];
             m->deviceid = (deviceid == -1) ? XIAllDevices : deviceid;
             m->mask_len = XIMaskLen(XI_LASTEVENT);

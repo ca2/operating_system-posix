@@ -1076,7 +1076,7 @@ namespace windowing_xcb
    }
 
 
-   /// Post an event from the client to the X server
+   /// Post an happening from the client to the X server
    ::e_status window::_send_client_event(xcb_atom_t atom, unsigned int numArgs, ...)
    {
 

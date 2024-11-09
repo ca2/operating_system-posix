@@ -309,7 +309,7 @@ namespace windowing_kde5
    //
    //
    // // Function to create and show the context menu
-   // static void show_context_menu(GtkWidget *widget, GdkEvent *event, gdouble x, gdouble y) {
+   // static void show_context_menu(GtkWidget *widget, GdkEvent *happening, gdouble x, gdouble y) {
    //    GtkWidget *menu;
    //    GtkWidget *menu_item1, *menu_item2;
    //
@@ -331,7 +331,7 @@ namespace windowing_kde5
    //    gtk_widget_show(menu_item2);
    //
    //    // Popup the menu at the right-click location
-   //    gtk_menu_popup_at_pointer(GTK_MENU(menu), event);
+   //    gtk_menu_popup_at_pointer(GTK_MENU(menu), happening);
    // }
    //
 
@@ -418,7 +418,7 @@ namespace windowing_kde5
    //
    // }
    //
-   // // Callback for button press event
+   // // Callback for button press happening
    //    static void on_window_button_pressed(GtkGestureClick *gesture, int n_press, double x, double y, gpointer p)
    //    {
    //
@@ -1000,8 +1000,8 @@ namespace windowing_kde5
       // //
       // //
       // //       // GtkWidget *drawing_area = GTK_WIDGET(m_pdrawingarea);
-      // //       // GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(m_pgtkgestureClick), NULL);
-      // //       // show_context_menu(drawing_area, event, x, y); // Show the context menu at the click location
+      // //       // GdkEvent *happening = gtk_gesture_get_last_event(GTK_GESTURE(m_pgtkgestureClick), NULL);
+      // //       // show_context_menu(drawing_area, happening, x, y); // Show the context menu at the click location
 
    }
 
@@ -1119,7 +1119,7 @@ namespace windowing_kde5
    //    //return FALSE;
    // }
    //
-   // // Callback function to handle window resize events
+   // // Callback function to handle window resize happenings
    // static void on_size_allocate(GtkWidget* widget, GdkRectangle* allocation, gpointer p)
    // {
    //    // Print the ___new size of the window
@@ -1130,15 +1130,15 @@ namespace windowing_kde5
    // }
 
 
-   //    static void on_window_configure_event(GdkWindow *window, GdkEventConfigure *event, gpointer user_data) {
-   //       // Handle window resize event here
-   // //      g_print("Window resized to %dx%d\n", event->width, event->height);
+   //    static void on_window_configure_event(GdkWindow *window, GdkEventConfigure *happening, gpointer user_data) {
+   //       // Handle window resize happening here
+   // //      g_print("Window resized to %dx%d\n", happening->width, happening->height);
    //       auto pwindow = (::windowing_kde5::window *)p;
    //       pwindow->_on_size(allocation->width, allocation->height);
    //    }
    //
 
-   // gboolean on_window_property_notify_event (GtkWidget* self, GdkEventProperty event, gpointer user_data)
+   // gboolean on_window_property_notify_event (GtkWidget* self, GdkEventProperty happening, gpointer user_data)
    // {
    //
    // }
@@ -2065,26 +2065,26 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
          // gtk_widget_add_controller(m_pdrawingarea, m_pgtkeventcontrollerMotion);
 
 
-         // Set the event mask to enable button press and release events
+         // Set the happening mask to enable button press and release happenings
          // gtk_widget_add_events(drawing_area, GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK);
          //
-         // // Connect signals for mouse button press and release events
-         // g_signal_connect(drawing_area, "button-press-event", G_CALLBACK(on_button_press_event), NULL);
-         // g_signal_connect(drawing_area, "button-release-event", G_CALLBACK(on_button_release_event), NULL);
+         // // Connect signals for mouse button press and release happenings
+         // g_signal_connect(drawing_area, "button-press-happening", G_CALLBACK(on_button_press_event), NULL);
+         // g_signal_connect(drawing_area, "button-release-happening", G_CALLBACK(on_button_release_event), NULL);
 
 
          // Associate the gesture with the drawing area
          //gtk_widget_add_controller(m_pdrawingarea, GTK_EVENT_CONTROLLER(m_pgtkgestureClick));
-         // Connect the draw event to the callback function
+         // Connect the draw happening to the callback function
          //        g_signal_connect(G_OBJECT(m_pdrawingarea), "draw", G_CALLBACK(on_draw_event), this);
 
 
-         // Connect the size-allocate signal to handle window resize events
+         // Connect the size-allocate signal to handle window resize happenings
          //         g_signal_connect(m_pgtkwidget, "size-allocate", G_CALLBACK(on_size_allocate), this);
 
-         //g_signal_connect(GTK_WINDOW(m_pgtkwidget), "configure-event", G_CALLBACK(on_window_configure_event), NULL);
+         //g_signal_connect(GTK_WINDOW(m_pgtkwidget), "configure-happening", G_CALLBACK(on_window_configure_event), NULL);
 
-         //g_signal_connect(GTK_WINDOW(m_pgtkwidget), "property-notify-event", G_CALLBACK(on_window_property_notify), this);
+         //g_signal_connect(GTK_WINDOW(m_pgtkwidget), "property-notify-happening", G_CALLBACK(on_window_property_notify), this);
 
          // g_signal_connect (GTK_WINDOW(m_pgtkwidget), "notify::default-width", G_CALLBACK (on_window_sizing), this);
          // g_signal_connect (GTK_WINDOW(m_pgtkwidget), "notify::default-height", G_CALLBACK (on_window_sizing), this);
@@ -2092,13 +2092,13 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
          // Handle the custom resizing
          //ResizeData resize_data = {FALSE, RESIZE_NONE, 0, 0, 0, 0};
 
-         // Connect event handlers for resizing
-         //g_signal_connect(G_OBJECT(m_pgtkwidget), "button-press-event", G_CALLBACK(on_button_press_event), this);
-         //g_signal_connect(G_OBJECT(m_pgtkwidget), "button-release-event", G_CALLBACK(on_button_release_event), this);
-         //g_signal_connect(G_OBJECT(m_pgtkwidget), "motion-notify-event", G_CALLBACK(on_motion_notify_event), this);
-         //g_signal_connect(G_OBJECT(m_pgtkwidget), "enter-notify-event", G_CALLBACK(on_enter_notify_event), this);
+         // Connect happening handlers for resizing
+         //g_signal_connect(G_OBJECT(m_pgtkwidget), "button-press-happening", G_CALLBACK(on_button_press_event), this);
+         //g_signal_connect(G_OBJECT(m_pgtkwidget), "button-release-happening", G_CALLBACK(on_button_release_event), this);
+         //g_signal_connect(G_OBJECT(m_pgtkwidget), "motion-notify-happening", G_CALLBACK(on_motion_notify_event), this);
+         //g_signal_connect(G_OBJECT(m_pgtkwidget), "enter-notify-happening", G_CALLBACK(on_enter_notify_event), this);
 
-         //g_signal_connect(G_OBJECT(m_pgtkwidget), "window-state-event", G_CALLBACK(on_window_state_event), this);
+         //g_signal_connect(G_OBJECT(m_pgtkwidget), "window-state-happening", G_CALLBACK(on_window_state_event), this);
          // Connect to the "notify::visible" signal to detect minimization (hiding)
          //g_signal_connect(m_pgtkwidget, "notify::visible", G_CALLBACK(on_window_visibility_changed), this);
 
@@ -2119,7 +2119,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
          // Connect to the state signal to track minimize and other state changes
          ///g_signal_connect(toplevel, "state", G_CALLBACK(on_window_state), this);
 
-         // Set events to capture motion and button events
+         // Set happenings to capture motion and button happenings
          // gtk_widget_set_events(m_pgtkwidget,
          //    GDK_BUTTON_PRESS_MASK
          //    | GDK_BUTTON_RELEASE_MASK
@@ -3833,7 +3833,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    }
 
 
-   ///// Post an event from the client to the X server
+   ///// Post an happening from the client to the X server
    //   void window::send_client_event(Atom atom, unsigned int numArgs, ...)
    //   {
    //
@@ -7035,15 +7035,15 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
          // // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pclick));
          // //
          // // // Get the GdkEvent from the sequence
-         // // GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(pclick), sequence);
-         // // if (!event) {
-         // //    g_print("Failed to get event from GdkGestureClick.\n");
+         // // GdkEvent *happening = gtk_gesture_get_last_event(GTK_GESTURE(pclick), sequence);
+         // // if (!happening) {
+         // //    g_print("Failed to get happening from GdkGestureClick.\n");
          // //    return;
          // // }
          // //
-         // // guint32 timestamp = gdk_event_get_time (event);
+         // // guint32 timestamp = gdk_event_get_time (happening);
          //
-         // //GdkWaylandEventSource  peventsource * =gdk_event_get_event_sequence(event);
+         // //GdkWaylandEventSource  peventsource * =gdk_event_get_event_sequence(happening);
          //
          // guint32 timestamp;
          //
@@ -7058,7 +7058,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
          //    timestamp=  pmouse->m_iTimestamp;
          // }
          //
-         // //auto pgdkeventsequence = gdk_event_get_event_sequence(event);
+         // //auto pgdkeventsequence = gdk_event_get_event_sequence(happening);
          //
          // auto toplevel = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
          //
@@ -7093,8 +7093,8 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
 
          // Check if the backend is Wayland
          //if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
-         // Extract the Wayland event serial
-         //guint32 serial = gdk_wayland_event_source_get_event_serial(event);
+         // Extract the Wayland happening serial
+         //guint32 serial = gdk_wayland_event_source_get_event_serial(happening);
          //guint32 serial = wl_message_get_opcode(wl_message_from_opcode(object, opcode));
 
          // guint32 serial = 0;
@@ -7146,7 +7146,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
          //
          // // Trigger the resize operation on the toplevel
          // // Edges should be a combination of values like XDG_TOPLEVEL_RESIZE_EDGE_LEFT, XDG_TOPLEVEL_RESIZE_EDGE_RIGHT, etc.
-         // guint32 serial = 0;  // You need the serial of the last user event, e.g., from a button press
+         // guint32 serial = 0;  // You need the serial of the last user happening, e.g., from a button press
          // xdg_toplevel_resize(xdg_toplevel, gdk_wayland_display_get_seat(gdk_display_get_default()), serial, edges);
          //
          // g_print("Called xdg_toplevel_resize\n");
@@ -7230,15 +7230,15 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
          // // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pclick));
          // //
          // // // Get the GdkEvent from the sequence
-         // // GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(pclick), sequence);
-         // // if (!event) {
-         // //    g_print("Failed to get event from GdkGestureClick.\n");
+         // // GdkEvent *happening = gtk_gesture_get_last_event(GTK_GESTURE(pclick), sequence);
+         // // if (!happening) {
+         // //    g_print("Failed to get happening from GdkGestureClick.\n");
          // //    return;
          // // }
          // //
-         // // guint32 timestamp = gdk_event_get_time (event);
+         // // guint32 timestamp = gdk_event_get_time (happening);
          //
-         // //GdkWaylandEventSource  peventsource * =gdk_event_get_event_sequence(event);
+         // //GdkWaylandEventSource  peventsource * =gdk_event_get_event_sequence(happening);
          //
          // guint32 timestamp;
          //
@@ -7253,7 +7253,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
          //    timestamp=  pmouse->m_iTimestamp;
          // }
          //
-         // //auto pgdkeventsequence = gdk_event_get_event_sequence(event);
+         // //auto pgdkeventsequence = gdk_event_get_event_sequence(happening);
          //
          // auto toplevel = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
          //

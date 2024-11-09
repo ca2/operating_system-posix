@@ -163,13 +163,13 @@
 //}
 //
 ///*
-// * Set up the context so that all subsequent events will be sent
+// * Set up the context so that all subsequent happenings will be sent
 // * to the specified client and port combination. A
 // * subscription is made to the client/port combination.
 // *  Arguments:
 // *    ctxp      - Context to modify
-// *    client    - Client to send subsequent events to
-// *    port      - Port on the client to send events to
+// *    client    - Client to send subsequent happenings to
+// *    port      - Port on the client to send happenings to
 // */
 //int
 //seq_connect_add(seq_context_t *ctxp, int client, int port)
@@ -191,7 +191,7 @@
 ///*
 // * Set the initial time base and tempo. This should only be used
 // * for initialisation when there is nothing playing. To
-// * change the tempo during a song tempo change events are used.
+// * change the tempo during a song tempo change happenings are used.
 // * If realtime is false the resolution is in ticks per quarter
 // * note. If true, the the resolution is microseconds. There is
 // * a macro XXX to convert from SMPTE codes.
@@ -219,7 +219,7 @@
 //}
 //
 ///*
-// * Set the context to use the specified queue. All events sent
+// * Set the context to use the specified queue. All happenings sent
 // * on this context will now use this queue.
 // *
 // *  Arguments:
@@ -232,13 +232,13 @@
 //}
 //
 ///*
-// * Send the event to the specified client and port.
+// * Send the happening to the specified client and port.
 // *
 // *  Arguments:
 // *    ctxp      - Client context
 // *    ev        - Event to send
-// *    client    - Client to send the event to
-// *    port      - Port to send the event to
+// *    client    - Client to send the happening to
+// *    port      - Port to send the happening to
 // */
 //int
 //seq_sendto(seq_context_t *ctxp, snd_seq_event_t *ev, int client, int port)
@@ -254,7 +254,7 @@
 //
 ///*
 // * seq_send_to_all:
-// * Send the event to all the connected devices across all
+// * Send the happening to all the connected devices across all
 // * possible channels. The messages are sent to the blocking
 // * control port and so should not have timestamps in the
 // * future. This function is intended for all-sounds-off type
@@ -347,7 +347,7 @@
 //}
 //
 ///*
-// * Write out the event. This routine blocks until
+// * Write out the happening. This routine blocks until
 // * successfully written.
 // *
 // *  Arguments:

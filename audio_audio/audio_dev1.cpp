@@ -450,7 +450,7 @@ audio_dev_slave(const char *dev, struct audio_dev_ctx *ac)
 
 		do {
 			fds[0].fd = ac->ac_peerread;
-			fds[0].events = POLLRDNORM;
+			fds[0].happenings = POLLRDNORM;
 			fds[0].revents = 0;
 			nfds = 1;
 
@@ -458,7 +458,7 @@ audio_dev_slave(const char *dev, struct audio_dev_ctx *ac)
 			    !ac->ac_paused && pb->pb_head != pb->pb_tail) {
 				fds[1].fd =
 				    (ac->ac_device->ad_pollfd)(ac->ac_devarg);
-				fds[1].events = POLLWRNORM;
+				fds[1].happenings = POLLWRNORM;
 				fds[1].revents = 0;
 				nfds++;
 			}
@@ -625,7 +625,7 @@ audio_dev_flush_wait(void *arg)
 
 	while (pb->pb_head != pb->pb_tail) {
 		infd.fd = ac->ac_peerread;
-		infd.events = POLLRDNORM;
+		infd.happenings = POLLRDNORM;
 		infd.revents = 0;
 
 		while ((rv = poll(&infd, 1, INFTIM)) < 0 && errno == EINTR)
@@ -655,7 +655,7 @@ audio_dev_purge_wait(void *arg)
 
 	while (pb->pb_head != pb->pb_tail && pb->pb_purge) {
 		infd.fd = ac->ac_peerread;
-		infd.events = POLLRDNORM;
+		infd.happenings = POLLRDNORM;
 		infd.revents = 0;
 
 		while ((rv = poll(&infd, 1, INFTIM)) < 0 && errno == EINTR)

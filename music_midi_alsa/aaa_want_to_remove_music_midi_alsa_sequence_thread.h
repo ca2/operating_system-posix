@@ -29,11 +29,11 @@ namespace music
             ::music::midi::sequence * get_sequence();
             void Stop(imedia_time msEllapse);
 
-            bool PostMidiSequenceEvent(::music::midi::sequence * pseq, ::music::midi::sequence::e_event event);
+            bool PostMidiSequenceEvent(::music::midi::sequence * pseq, ::music::midi::sequence::e_happening happening);
 
-            bool PostMidiSequenceEvent(::music::midi::sequence * pseq, ::music::midi::sequence::e_event event, LPMIDIHDR lpmh);
+            bool PostMidiSequenceEvent(::music::midi::sequence * pseq, ::music::midi::sequence::e_happening happening, LPMIDIHDR lpmh);
 
-            void PostNotifyEvent(::music::midi::e_notify_event eevent);
+            void PostNotifyEvent(::music::midi::e_notify_event ehappening);
 
             //virtual void PrerollRateAndWait(double rate = 0.0) override;
             //virtual void PrerollAndWait(imedia_position tickStart) override;

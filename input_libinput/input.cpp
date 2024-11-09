@@ -25,7 +25,7 @@ int poll_for_read(int iFd, const class ::time & time)
    pollfd pollfda[1]={};
 
    pollfda[0].fd = iFd;
-   pollfda[0].events = POLLIN;
+   pollfda[0].happenings = POLLIN;
 
    auto ret = ::poll(pollfda, 1, time.integral_millisecond());
 
@@ -298,7 +298,7 @@ namespace input_libinput
 
       information() << "libinput key state : " << (::iptr) state;
 
-      // XBMC_Event event = {};
+      // XBMC_Event happening = {};
 
       //defer_update_xkb_keymap();
 

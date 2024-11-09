@@ -789,7 +789,7 @@ namespace kde5
       //
       //       auto pkey = (xcb_key_press_event_t *) pevent;
       //
-      //       if (pkey->event != m_window)
+      //       if (pkey->happening != m_window)
       //       {
       //
       //          return false;
@@ -808,7 +808,7 @@ namespace kde5
       //
       //       auto pkey = (xcb_key_release_event_t *) pevent;
       //
-      //       if (pkey->event != m_window)
+      //       if (pkey->happening != m_window)
       //       {
       //
       //          return false;
@@ -822,7 +822,7 @@ namespace kde5
       //
       //       auto pbutton = (xcb_button_press_event_t *) pevent;
       //
-      //       if (pbutton->event != m_window)
+      //       if (pbutton->happening != m_window)
       //       {
       //
       //          return false;
@@ -860,7 +860,7 @@ namespace kde5
       //
       //       auto pbutton = (xcb_button_release_event_t *) pevent;
       //
-      //       if (pbutton->event != m_window)
+      //       if (pbutton->happening != m_window)
       //       {
       //
       //          return false;
@@ -899,7 +899,7 @@ namespace kde5
       //
       //       auto pmotion = (xcb_motion_notify_event_t *) pevent;
       //
-      //       if (pmotion->event != m_window)
+      //       if (pmotion->happening != m_window)
       //       {
       //
       //          return false;
@@ -920,7 +920,7 @@ namespace kde5
       //
       //       auto pleave = (xcb_leave_notify_event_t *) pevent;
       //
-      //       if (pleave->event != m_window)
+      //       if (pleave->happening != m_window)
       //       {
       //
       //          return false;
@@ -1278,9 +1278,9 @@ namespace kde5
              // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
              //
              // // Get the GdkEvent from the sequence
-             // GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+             // GdkEvent *happening = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
              //
-             // guint32 timestamp = gdk_event_get_time (event);
+             // guint32 timestamp = gdk_event_get_time (happening);
 
              pmouse->m_iTimestamp = pevent->timestamp();
 
@@ -1564,13 +1564,13 @@ m_pqwidget->move(p);
           //    m_pointCursor2.x() = m_sizeOnSize.cx()/2;
           //    m_pointCursor2.y() = m_sizeOnSize.cy()/2;
           //
-          //    GdkEvent *event = gtk_event_controller_get_current_event(GTK_EVENT_CONTROLLER(pcontroller));
-          //    guint32 timestamp = gdk_event_get_time(event);
+          //    GdkEvent *happening = gtk_event_controller_get_current_event(GTK_EVENT_CONTROLLER(pcontroller));
+          //    guint32 timestamp = gdk_event_get_time(happening);
           //
-          //    g_print("Motion event at x=%.2f, y=%.2f with timestamp: %u\n", x, y, timestamp);
+          //    g_print("Motion happening at x=%.2f, y=%.2f with timestamp: %u\n", x, y, timestamp);
           //
-          //    // if (event) {
-          //    //    gdk_event_unref(event);  // Free the event object after use
+          //    // if (happening) {
+          //    //    gdk_event_unref(happening);  // Free the happening object after use
           //    // }
           //
           //    auto pmouse = __create_new<::message::mouse>();
@@ -1579,7 +1579,7 @@ m_pqwidget->move(p);
           //
           // guint button = 0;
           //
-          // //auto pgdkeventsequence = gdk_event_get_event_sequence(event);
+          // //auto pgdkeventsequence = gdk_event_get_event_sequence(happening);
           //
           // auto toplevel = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
           //
@@ -1601,7 +1601,7 @@ m_pqwidget->move(p);
           //    //x = 0;
           //    //y = 0;
           //
-          //    auto pgdkdevice = gdk_event_get_device (event);
+          //    auto pgdkdevice = gdk_event_get_device (happening);
           //
           // //gdk_toplevel_begin_move(GDK_TOPLEVEL(toplevel), pgdkdevicePointer, button, x, y, timestamp);
           //

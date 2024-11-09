@@ -69,7 +69,7 @@ namespace gtk3
       {
 
 
-         // Callback function to handle window resize events
+         // Callback function to handle window resize happenings
          static void on_size_allocate(GtkWidget *widget, GdkRectangle *allocation, gpointer p) {
             // Print the ___new size of the window
             auto pwindow = (::gtk3::micro::window*) p;
@@ -80,12 +80,12 @@ namespace gtk3
 
 
          // Start resizing when the mouse is pressed near edges
-         static gboolean on_button_press(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
+         static gboolean on_button_press(GtkWidget *widget, GdkEventButton *happening, gpointer user_data)
          {
 
             auto resize_data = (::gtk3::micro::window*) user_data;
 
-            if(!resize_data->_on_button_press(widget, event))
+            if(!resize_data->_on_button_press(widget, happening))
             {
 
                return FALSE;
@@ -99,12 +99,12 @@ namespace gtk3
 
 
          // Stop resizing when the mouse button is released
-         static gboolean on_button_release(GtkWidget *widget, GdkEventButton *event, gpointer p)
+         static gboolean on_button_release(GtkWidget *widget, GdkEventButton *happening, gpointer p)
          {
 
             ::pointer < ::gtk3::micro::window > pwindow = (::gtk3::micro::window*) p;
 
-            if(!pwindow->_on_button_release(widget, event))
+            if(!pwindow->_on_button_release(widget, happening))
             {
 
                return FALSE;
@@ -118,12 +118,12 @@ namespace gtk3
 
 
          // Perform resizing as the mouse moves
-         static gboolean on_motion_notify(GtkWidget *widget, GdkEventMotion *event, gpointer user_data)
+         static gboolean on_motion_notify(GtkWidget *widget, GdkEventMotion *happening, gpointer user_data)
          {
 
             auto resize_data = (::gtk3::micro::window*) user_data;
 
-            resize_data->_on_motion_notify(widget, event);
+            resize_data->_on_motion_notify(widget, happening);
 
             return FALSE;
 
@@ -134,11 +134,11 @@ namespace gtk3
          //}
 
          // Change the cursor shape when near edges for resizing
-         static gboolean on_enter_notify(GtkWidget *widget, GdkEventCrossing *event, gpointer user_data)
+         static gboolean on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening, gpointer user_data)
          {
             auto resize_data = (::gtk3::micro::window*) user_data;
 
-            if(!resize_data->_on_enter_notify(widget, event))
+            if(!resize_data->_on_enter_notify(widget, happening))
             {
                return FALSE;
             }
@@ -147,12 +147,12 @@ namespace gtk3
          }
 
 
-         static gboolean on_window_state(GtkWidget* widget,GdkEventWindowState* event, gpointer p)
+         static gboolean on_window_state(GtkWidget* widget,GdkEventWindowState* happening, gpointer p)
          {
 
             ::pointer < ::gtk3::micro::window > pwindow = (::gtk3::micro::window*) p;
 
-            if(!pwindow->_on_window_state(widget, event))
+            if(!pwindow->_on_window_state(widget, happening))
             {
 
                return FALSE;
@@ -171,9 +171,9 @@ namespace gtk3
             return FALSE;
          }
 
-         // Callback to handle button-press-event for menu item
-         gboolean on_menu_item_button_press(GtkWidget *widget, GdkEventButton *event, gpointer p) {
-            if (event->button == 1) {  // Left mouse button
+         // Callback to handle button-press-happening for menu item
+         gboolean on_menu_item_button_press(GtkWidget *widget, GdkEventButton *happening, gpointer p) {
+            if (happening->button == 1) {  // Left mouse button
                //g_print("Left button pressed on menu item: %s\n", gtk_menu_item_get_label(GTK_MENU_ITEM(widget)));
                auto * pitem = (::operating_system::a_system_menu_item *)p;
 
@@ -183,15 +183,15 @@ namespace gtk3
                gtk_menu_popdown(GTK_MENU(pwindow->m_pgtkwidgetSystemMenu));
 
                gtk_widget_destroy(pwindow->m_pgtkwidgetSystemMenu);
-               pwindow->_on_a_system_menu_item_button_press(pitem, widget, event);
+               pwindow->_on_a_system_menu_item_button_press(pitem, widget, happening);
 
                pwindow->m_psystemmenu.release();
 
                pwindow->m_pgtkwidgetSystemMenu = nullptr;
-            } else if (event->button == 3) {  // Right mouse button
+            } else if (happening->button == 3) {  // Right mouse button
                //g_print("Right button pressed on menu item: %s\n", gtk_menu_item_get_label(GTK_MENU_ITEM(widget)));
             }
-            return FALSE;  // Return FALSE to propagate the event, or TRUE to stop further event handling
+            return FALSE;  // Return FALSE to propagate the happening, or TRUE to stop further happening handling
          }
          // Callback for when menu items are activated
          void on_menu_item_clicked(GtkMenuItem *menuitem, gpointer p)
@@ -557,7 +557,7 @@ namespace gtk3
             m_pdrawingarea = gtk_drawing_area_new();
             gtk_container_add(GTK_CONTAINER(m_pgtkwidget), m_pdrawingarea);
 
-            // Connect the draw event to the callback function
+            // Connect the draw happening to the callback function
             //        g_signal_connect(G_OBJECT(m_pdrawingarea), "draw", G_CALLBACK(on_draw_event), this);
 
             //
@@ -568,27 +568,27 @@ namespace gtk3
             //  nullptr
             //);
             //
-            // Connect the size-allocate signal to handle window resize events
+            // Connect the size-allocate signal to handle window resize happenings
             g_signal_connect(m_pgtkwidget, "size-allocate", G_CALLBACK(on_size_allocate), this);
 
             // Handle the custom resizing
             //ResizeData resize_data = {FALSE, RESIZE_NONE, 0, 0, 0, 0};
 
-            // Connect event handlers for resizing
-            g_signal_connect(G_OBJECT(m_pgtkwidget), "button-press-event", G_CALLBACK(on_button_press), this);
-            g_signal_connect(G_OBJECT(m_pgtkwidget), "button-release-event", G_CALLBACK(on_button_release), this);
-            g_signal_connect(G_OBJECT(m_pgtkwidget), "motion-notify-event", G_CALLBACK(on_motion_notify), this);
-            g_signal_connect(G_OBJECT(m_pgtkwidget), "enter-notify-event", G_CALLBACK(on_enter_notify), this);
+            // Connect happening handlers for resizing
+            g_signal_connect(G_OBJECT(m_pgtkwidget), "button-press-happening", G_CALLBACK(on_button_press), this);
+            g_signal_connect(G_OBJECT(m_pgtkwidget), "button-release-happening", G_CALLBACK(on_button_release), this);
+            g_signal_connect(G_OBJECT(m_pgtkwidget), "motion-notify-happening", G_CALLBACK(on_motion_notify), this);
+            g_signal_connect(G_OBJECT(m_pgtkwidget), "enter-notify-happening", G_CALLBACK(on_enter_notify), this);
 
-            g_signal_connect(G_OBJECT(m_pgtkwidget), "window-state-event", G_CALLBACK(on_window_state), this);
-            // Set events to capture motion and button events
+            g_signal_connect(G_OBJECT(m_pgtkwidget), "window-state-happening", G_CALLBACK(on_window_state), this);
+            // Set happenings to capture motion and button happenings
             gtk_widget_set_events(m_pgtkwidget,
                                   GDK_BUTTON_PRESS_MASK
                                      | GDK_BUTTON_RELEASE_MASK
                                      | GDK_POINTER_MOTION_MASK
                                      | GDK_STRUCTURE_MASK);
 
-            // Connect the draw event to the drawing callback function
+            // Connect the draw happening to the drawing callback function
             g_signal_connect(G_OBJECT(m_pgtkwidget), "draw", G_CALLBACK(on_window_draw), this);
             g_signal_connect(G_OBJECT(m_pgtkwidget), "destroy", G_CALLBACK(on_window_destroy), this);
 
@@ -598,16 +598,16 @@ namespace gtk3
          }
 
 
-         bool window::_on_button_press(GtkWidget* widget, GdkEventButton* event)
+         bool window::_on_button_press(GtkWidget* widget, GdkEventButton* happening)
          {
 
-            //   if (event->button == GDK_BUTTON_PRIMARY) {
-            //      resize_edge = detect_resize_edge(widget, event->x, event->y);
+            //   if (happening->button == GDK_BUTTON_PRIMARY) {
+            //      resize_edge = detect_resize_edge(widget, happening->x, happening->y);
             //
             //      if (resize_edge != RESIZE_NONE) {
             //         resizing = TRUE;
-            //         start_x = event->x_root;
-            //         start_y = event->y_root;
+            //         start_x = happening->x_root;
+            //         start_y = happening->y_root;
             //
             //         // Store initial window dimensions
             //         gtk_window_get_size(GTK_WINDOW(widget), &start_width, &start_height);
@@ -623,32 +623,32 @@ namespace gtk3
 
 //               pmouse->m_oswindow = this;
 //
-//               pmouse->m_pOsMouseDataOkIfOnStack = event;
+//               pmouse->m_pOsMouseDataOkIfOnStack = happening;
 //
 //               pmouse->m_pwindow = this;
-               m_pointCursor2.x() = event->x;
+               m_pointCursor2.x() = happening->x;
 
-               m_pointCursor2.y() = event->y;
+               m_pointCursor2.y() = happening->y;
 
-               pmouse->m_pointHost.x() = event->x;
+               pmouse->m_pointHost.x() = happening->x;
 
-               pmouse->m_pointHost.y() = event->y;
+               pmouse->m_pointHost.y() = happening->y;
 
-               pmouse->m_pointAbsolute.x() = event->x_root;
+               pmouse->m_pointAbsolute.x() = happening->x_root;
 
-               pmouse->m_pointAbsolute.y() = event->y_root;
+               pmouse->m_pointAbsolute.y() = happening->y_root;
 
-               if (event->button == GDK_BUTTON_PRIMARY)
+               if (happening->button == GDK_BUTTON_PRIMARY)
                {
                   pmouse->m_atom = e_message_left_button_down;
                   m_puserinteractionbase->on_left_button_down(pmouse);
                }
-               else if (event->button == GDK_BUTTON_SECONDARY)
+               else if (happening->button == GDK_BUTTON_SECONDARY)
                {
                   pmouse->m_atom = e_message_right_button_down;
                   m_puserinteractionbase->on_right_button_down(pmouse);
                }
-               else if (event->button == GDK_BUTTON_MIDDLE)
+               else if (happening->button == GDK_BUTTON_MIDDLE)
                {
                   pmouse->m_atom = e_message_middle_button_down;
                }
@@ -674,9 +674,9 @@ namespace gtk3
 
 
 
-         bool window::_on_button_release(GtkWidget *widget, GdkEventButton *event)
+         bool window::_on_button_release(GtkWidget *widget, GdkEventButton *happening)
          {
-            //   if (event->button == GDK_BUTTON_PRIMARY && resizing) {
+            //   if (happening->button == GDK_BUTTON_PRIMARY && resizing) {
             //      resizing = FALSE;
             //      return true;
             //   }
@@ -693,21 +693,21 @@ namespace gtk3
 
                //pmouse->m_pwindow = this;
 
-               m_pointCursor2.x() = event->x;
+               m_pointCursor2.x() = happening->x;
 
-               m_pointCursor2.y() = event->y;
+               m_pointCursor2.y() = happening->y;
 
-               pmouse->m_pointHost.x() = event->x;
+               pmouse->m_pointHost.x() = happening->x;
 
-               pmouse->m_pointHost.y() = event->y;
+               pmouse->m_pointHost.y() = happening->y;
 
-               pmouse->m_pointAbsolute.x() = event->x_root;
+               pmouse->m_pointAbsolute.x() = happening->x_root;
 
-               pmouse->m_pointAbsolute.y() = event->y_root;
+               pmouse->m_pointAbsolute.y() = happening->y_root;
 
                auto puserinteractionbaseHold = m_puserinteractionbase;
 
-               if (event->button == GDK_BUTTON_PRIMARY)
+               if (happening->button == GDK_BUTTON_PRIMARY)
                {
 
                   pmouse->m_atom = e_message_left_button_up;
@@ -715,7 +715,7 @@ namespace gtk3
                   puserinteractionbaseHold->on_left_button_up(pmouse);
 
                }
-               else if (event->button == GDK_BUTTON_SECONDARY)
+               else if (happening->button == GDK_BUTTON_SECONDARY)
                {
 
                   pmouse->m_atom = e_message_right_button_up;
@@ -723,7 +723,7 @@ namespace gtk3
                   puserinteractionbaseHold->on_right_button_up(pmouse);
 
                }
-               else if (event->button == GDK_BUTTON_MIDDLE)
+               else if (happening->button == GDK_BUTTON_MIDDLE)
                {
 
                   pmouse->m_atom = e_message_middle_button_up;
@@ -748,13 +748,13 @@ namespace gtk3
          }
 
 
-         bool window::_on_motion_notify(GtkWidget* widget, GdkEventMotion* event)
+         bool window::_on_motion_notify(GtkWidget* widget, GdkEventMotion* happening)
          {
 
 
             //    if (resizing) {
-            //        int dx = event->x_root - start_x;
-            //        int dy = event->y_root - start_y;
+            //        int dx = happening->x_root - start_x;
+            //        int dy = happening->y_root - start_y;
             //
             //        int new_width = start_width;
             //        int new_height = start_height;
@@ -764,13 +764,13 @@ namespace gtk3
             //            new_width += dx;
             //        if (resize_edge & RESIZE_LEFT) {
             //            new_width -= dx;
-            //            gtk_window_move(GTK_WINDOW(widget), event->x_root, event->y_root); // Move window if resizing from the left
+            //            gtk_window_move(GTK_WINDOW(widget), happening->x_root, happening->y_root); // Move window if resizing from the left
             //        }
             //        if (resize_edge & RESIZE_BOTTOM)
             //            new_height += dy;
             //        if (resize_edge & RESIZE_TOP) {
             //            new_height -= dy;
-            //            gtk_window_move(GTK_WINDOW(widget), event->x_root, event->y_root); // Move window if resizing from the top
+            //            gtk_window_move(GTK_WINDOW(widget), happening->x_root, happening->y_root); // Move window if resizing from the top
             //        }
             //
             //        // Set minimum window size
@@ -795,17 +795,17 @@ namespace gtk3
 
                pmouse->m_atom = e_message_mouse_move;
 
-               m_pointCursor2.x() = event->x;
+               m_pointCursor2.x() = happening->x;
 
-               m_pointCursor2.y() = event->y;
+               m_pointCursor2.y() = happening->y;
 
-               pmouse->m_pointHost.x() = event->x;
+               pmouse->m_pointHost.x() = happening->x;
 
-               pmouse->m_pointHost.y() = event->y;
+               pmouse->m_pointHost.y() = happening->y;
 
-               pmouse->m_pointAbsolute.x() = event->x_root;
+               pmouse->m_pointAbsolute.x() = happening->x_root;
 
-               pmouse->m_pointAbsolute.y() = event->y_root;
+               pmouse->m_pointAbsolute.y() = happening->y_root;
 
                //pmouse->m_time.m_iSecond = millis / 1_k;
 
@@ -823,11 +823,11 @@ namespace gtk3
 
          }
 
-         bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *event)
+         bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
          {
 
             //   {
-            //      int edge = detect_resize_edge(widget, event->x, event->y);
+            //      int edge = detect_resize_edge(widget, happening->x, happening->y);
             //
             //      GdkWindow *gdk_window = gtk_widget_get_window(widget);
             //      GdkDisplay *display = gdk_window_get_display(gdk_window);
@@ -852,13 +852,13 @@ namespace gtk3
 
 
 
-         bool window::_on_window_state(GtkWidget* widget, GdkEventWindowState* event)
+         bool window::_on_window_state(GtkWidget* widget, GdkEventWindowState* happening)
          {
 
-            if(event->changed_mask &  GDK_WINDOW_STATE_FOCUSED)
+            if(happening->changed_mask &  GDK_WINDOW_STATE_FOCUSED)
             {
 
-               if(event->new_window_state & GDK_WINDOW_STATE_FOCUSED)
+               if(happening->new_window_state & GDK_WINDOW_STATE_FOCUSED)
                {
 
                   m_puserinteractionbase->redraw();
@@ -876,10 +876,10 @@ namespace gtk3
                }
 
             }
-            else if(event->changed_mask &  GDK_WINDOW_STATE_ICONIFIED)
+            else if(happening->changed_mask &  GDK_WINDOW_STATE_ICONIFIED)
             {
 
-               if(event->new_window_state & GDK_WINDOW_STATE_ICONIFIED)
+               if(happening->new_window_state & GDK_WINDOW_STATE_ICONIFIED)
                {
 
                   //::windowing::window * pimpl = m_pwindow;
@@ -1573,8 +1573,8 @@ namespace gtk3
                   {
                      gtk_widget_add_events(menu_item, GDK_BUTTON_PRESS_MASK);
 
-                     // Connect the button-press-event signal to handle button press events on menu items
-                     g_signal_connect(menu_item, "button-press-event", G_CALLBACK(on_menu_item_button_press), pitem.m_p);
+                     // Connect the button-press-happening signal to handle button press happenings on menu items
+                     g_signal_connect(menu_item, "button-press-happening", G_CALLBACK(on_menu_item_button_press), pitem.m_p);
 
                   }
                   else {

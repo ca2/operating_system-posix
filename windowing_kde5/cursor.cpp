@@ -95,7 +95,7 @@ namespace windowing_kde5
 //   global_registry_handler(void *data, struct wl_registry *registry, uint32_t id,
 //                           const char *interface, uint32_t version)
 //   {
-//      printf("Got a registry event for %s id %d\n", interface, id);
+//      printf("Got a registry happening for %s id %d\n", interface, id);
 //      if (strcmp(interface, "wl_compositor") == 0) {
 //         compositor = wl_registry_bind(registry,
 //                                       id,
@@ -123,7 +123,7 @@ namespace windowing_kde5
 //   static void
 //   global_registry_remover(void *data, struct wl_registry *registry, uint32_t id)
 //   {
-//      printf("Got a registry losing event for %d\n", id);
+//      printf("Got a registry losing happening for %d\n", id);
 //   }
 //
 //   static const struct wl_registry_listener registry_listener = {

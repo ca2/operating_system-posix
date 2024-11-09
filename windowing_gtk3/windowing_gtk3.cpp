@@ -64,35 +64,35 @@ void oswindow_set_active_window(oswindow oswindow);
 
 CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const int_point & pointCursor);
 
-//bool is_return_key(XIRawEvent * event)
+//bool is_return_key(XIRawEvent * happening)
 //{
 //
 //   int i;
 //   double * val, * raw_val;
 //
-//   switch (event->evtype)
+//   switch (happening->evtype)
 //   {
 //      case XI_RawKeyPress:
 //      case XI_RawKeyRelease:
 //      {
 //
-//         val = event->valuators.values;
+//         val = happening->valuators.values;
 //
-//         raw_val = event->raw_values;
+//         raw_val = happening->raw_values;
 //
-//         if (event->detail == 36)
+//         if (happening->detail == 36)
 //         {
 //
 //            return true;
 //
 //         }
 //
-//         printf("is_return_key    detail: %d\n", event->detail);
+//         printf("is_return_key    detail: %d\n", happening->detail);
 //
-//         for (i = 0; i < event->valuators.mask_len * 8; i++)
+//         for (i = 0; i < happening->valuators.mask_len * 8; i++)
 //         {
 //
-//            if (XIMaskIsSet(event->valuators.mask, i))
+//            if (XIMaskIsSet(happening->valuators.mask, i))
 //            {
 //
 //               printf("is_return_key    %2d: %.2f (%.2f)\n", i, *val++, *raw_val++);
@@ -114,35 +114,35 @@ CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const in
 //}
 //
 //
-//bool is_space_key(XIRawEvent * event)
+//bool is_space_key(XIRawEvent * happening)
 //{
 //
 //   int i;
 //   double * val, * raw_val;
 //
-//   switch (event->evtype)
+//   switch (happening->evtype)
 //   {
 //      case XI_RawKeyPress:
 //      case XI_RawKeyRelease:
 //      {
 //
-//         val = event->valuators.values;
+//         val = happening->valuators.values;
 //
-//         raw_val = event->raw_values;
+//         raw_val = happening->raw_values;
 //
-//         if (event->detail == 65)
+//         if (happening->detail == 65)
 //         {
 //
 //            return true;
 //
 //         }
 //
-//         printf("is_space_key    detail: %d\n", event->detail);
+//         printf("is_space_key    detail: %d\n", happening->detail);
 //
-//         for (i = 0; i < event->valuators.mask_len * 8; i++)
+//         for (i = 0; i < happening->valuators.mask_len * 8; i++)
 //         {
 //
-//            if (XIMaskIsSet(event->valuators.mask, i))
+//            if (XIMaskIsSet(happening->valuators.mask, i))
 //            {
 //
 //               printf("is_space_key    %2d: %.2f (%.2f)\n", i, *val++, *raw_val++);

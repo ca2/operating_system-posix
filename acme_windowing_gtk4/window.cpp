@@ -279,7 +279,7 @@ namespace gtk4
          }
 
 
-         /* Callback function to handle key press events */
+         /* Callback function to handle key press happenings */
          static gboolean on_key_pressed(GtkEventControllerKey* controller, guint keyval, guint keycode,
                                         GdkModifierType state, gpointer user_data)
          {
@@ -297,12 +297,12 @@ namespace gtk4
 
             }
 
-            /* Return FALSE to propagate the event further */
+            /* Return FALSE to propagate the happening further */
             return FALSE;
          }
 
 
-         /* Callback function to handle key press events */
+         /* Callback function to handle key press happenings */
          static gboolean on_key_released(GtkEventControllerKey* controller, guint keyval, guint keycode,
                                          GdkModifierType state, gpointer user_data)
          {
@@ -320,7 +320,7 @@ namespace gtk4
 
             }
 
-            /* Return FALSE to propagate the event further */
+            /* Return FALSE to propagate the happening further */
             return FALSE;
          }
 
@@ -340,7 +340,7 @@ namespace gtk4
             //pwindow->_on_text(text);
 
 
-            /* Return FALSE to allow further event processing */
+            /* Return FALSE to allow further happening processing */
             return FALSE;
          }
 
@@ -728,7 +728,7 @@ namespace gtk4
 
             gtk_widget_add_controller(m_pdrawingarea, m_pgtkeventcontrollerMotion);
 
-            /* Create a key event controller */
+            /* Create a key happening controller */
             m_pgtkeventcontrollerKey = gtk_event_controller_key_new();
 
             /* Connect the key press signal to the callback function */
@@ -789,26 +789,26 @@ namespace gtk4
 
             }
 
-            // Set the event mask to enable button press and release events
+            // Set the happening mask to enable button press and release happenings
             // gtk_widget_add_events(drawing_area, GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK);
             //
-            // // Connect signals for mouse button press and release events
-            // g_signal_connect(drawing_area, "button-press-event", G_CALLBACK(on_button_press_event), NULL);
-            // g_signal_connect(drawing_area, "button-release-event", G_CALLBACK(on_button_release_event), NULL);
+            // // Connect signals for mouse button press and release happenings
+            // g_signal_connect(drawing_area, "button-press-happening", G_CALLBACK(on_button_press_event), NULL);
+            // g_signal_connect(drawing_area, "button-release-happening", G_CALLBACK(on_button_release_event), NULL);
 
 
             // Associate the gesture with the drawing area
             //gtk_widget_add_controller(m_pdrawingarea, GTK_EVENT_CONTROLLER(m_pgtkgestureClick));
-            // Connect the draw event to the callback function
+            // Connect the draw happening to the callback function
             //        g_signal_connect(G_OBJECT(m_pdrawingarea), "draw", G_CALLBACK(on_draw_event), this);
 
 
-            // Connect the size-allocate signal to handle window resize events
+            // Connect the size-allocate signal to handle window resize happenings
             //g_signal_connect(m_pgtkwidget, "size-allocate", G_CALLBACK(on_size_allocate), this);
 
-            //g_signal_connect(GTK_WINDOW(m_pgtkwidget), "configure-event", G_CALLBACK(on_window_configure_event), NULL);
+            //g_signal_connect(GTK_WINDOW(m_pgtkwidget), "configure-happening", G_CALLBACK(on_window_configure_event), NULL);
 
-            //g_signal_connect(GTK_WINDOW(m_pgtkwidget), "property-notify-event", G_CALLBACK(on_window_property_notify), this);
+            //g_signal_connect(GTK_WINDOW(m_pgtkwidget), "property-notify-happening", G_CALLBACK(on_window_property_notify), this);
 
             if (GTK_IS_WINDOW(m_pgtkwidget))
             {
@@ -821,13 +821,13 @@ namespace gtk4
             // Handle the custom resizing
             //ResizeData resize_data = {FALSE, RESIZE_NONE, 0, 0, 0, 0};
 
-            // Connect event handlers for resizing
-            //g_signal_connect(G_OBJECT(m_pgtkwidget), "button-press-event", G_CALLBACK(on_button_press_event), this);
-            //g_signal_connect(G_OBJECT(m_pgtkwidget), "button-release-event", G_CALLBACK(on_button_release_event), this);
-            //g_signal_connect(G_OBJECT(m_pgtkwidget), "motion-notify-event", G_CALLBACK(on_motion_notify_event), this);
-            //g_signal_connect(G_OBJECT(m_pgtkwidget), "enter-notify-event", G_CALLBACK(on_enter_notify_event), this);
+            // Connect happening handlers for resizing
+            //g_signal_connect(G_OBJECT(m_pgtkwidget), "button-press-happening", G_CALLBACK(on_button_press_event), this);
+            //g_signal_connect(G_OBJECT(m_pgtkwidget), "button-release-happening", G_CALLBACK(on_button_release_event), this);
+            //g_signal_connect(G_OBJECT(m_pgtkwidget), "motion-notify-happening", G_CALLBACK(on_motion_notify_event), this);
+            //g_signal_connect(G_OBJECT(m_pgtkwidget), "enter-notify-happening", G_CALLBACK(on_enter_notify_event), this);
 
-            //g_signal_connect(G_OBJECT(m_pgtkwidget), "window-state-event", G_CALLBACK(on_window_state_event), this);
+            //g_signal_connect(G_OBJECT(m_pgtkwidget), "window-state-happening", G_CALLBACK(on_window_state_event), this);
             // Connect to the "notify::visible" signal to detect minimization (hiding)
 
             //if(GTK_IS_WINDOW(m_pgtkwidget))
@@ -844,7 +844,7 @@ namespace gtk4
 
             }
 
-            // Set events to capture motion and button events
+            // Set happenings to capture motion and button happenings
             // gtk_widget_set_events(m_pgtkwidget,
             //    GDK_BUTTON_PRESS_MASK
             //    | GDK_BUTTON_RELEASE_MASK
@@ -1029,9 +1029,9 @@ namespace gtk4
 
                GdkEventSequence* sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
 
-               GdkEvent* event = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+               GdkEvent* happening = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
 
-               guint32 timestamp = gdk_event_get_time(event);
+               guint32 timestamp = gdk_event_get_time(happening);
 
                if (pitem->m_strAtom == "***move")
                {
@@ -1041,9 +1041,9 @@ namespace gtk4
                   GdkEventSequence* sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
 
                   // Get the GdkEvent from the sequence
-                  GdkEvent* event = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+                  GdkEvent* happening = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
 
-                  guint32 timestamp = gdk_event_get_time(event);
+                  guint32 timestamp = gdk_event_get_time(happening);
 
                   auto pgdkdisplay = gtk4_display()->m_pgdkdisplay;
 
@@ -1105,9 +1105,9 @@ namespace gtk4
                   GdkEventSequence* sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
 
                   // Get the GdkEvent from the sequence
-                  GdkEvent* event = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+                  GdkEvent* happening = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
 
-                  guint32 timestamp = gdk_event_get_time(event);
+                  guint32 timestamp = gdk_event_get_time(happening);
 
                   auto pgdkdisplay = gtk4_display()->m_pgdkdisplay;
 
@@ -1172,9 +1172,9 @@ namespace gtk4
                GdkEventSequence* sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
 
                // Get the GdkEvent from the sequence
-               GdkEvent* event = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+               GdkEvent* happening = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
 
-               guint32 timestamp = gdk_event_get_time(event);
+               guint32 timestamp = gdk_event_get_time(happening);
 
 
                if (pitem->m_strAtom == "***move")

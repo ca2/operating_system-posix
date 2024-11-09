@@ -767,7 +767,7 @@
 //
 //bool x11_on_event(XEvent * pevent);
 //
-//GdkFilterReturn x11_gdk_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data)
+//GdkFilterReturn x11_gdk_filter(GdkXEvent *xevent, GdkEvent *happening, gpointer data)
 //{
 //
 //   XEvent *pevent = (XEvent *) xevent;

@@ -498,11 +498,11 @@ namespace gtk4
          //
          //      }
          //
-         //      XEvent event{};
+         //      XEvent happening{};
          //
-         //      XNextEvent(m_pdisplay, &event);
+         //      XNextEvent(m_pdisplay, &happening);
          //
-         //      x11_event(&event);
+         //      x11_event(&happening);
          //
          //      return true;
          //

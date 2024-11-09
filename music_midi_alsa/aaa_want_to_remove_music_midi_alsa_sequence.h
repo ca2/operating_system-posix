@@ -93,8 +93,8 @@ namespace music
 
          };
 
-         class event :
-            public ::music::midi::sequence::event
+         class happening :
+            public ::music::midi::sequence::happening
          {
          public:
 
@@ -117,7 +117,7 @@ namespace music
 
          int                           m_iPort;
 
-         array < ::music::midi::event * >    m_evptra;
+         array < ::music::midi::happening * >    m_evptra;
 
          //struct seq_context *main; /* Pointer to the main context */
 
@@ -166,7 +166,7 @@ namespace music
          int32_t SetKeyShift(int32_t iKeyShift);
          int32_t GetKeyShift();
 
-         void OnMidiPlaybackEnd(::music::midi::sequence::event * pevent);
+         void OnMidiPlaybackEnd(::music::midi::sequence::happening * pevent);
          int32_t SetTempoShift(int32_t iTempoShift);
 
          void OnPositionCB(LPMIDIHDR lpmidihdr);
@@ -192,7 +192,7 @@ namespace music
          virtual bool WasInSpecialModeV001();
          //virtual void SetSpecialModeV001Operation(unsigned int uiOperation);
 
-         virtual void OnEvent(::music::midi::sequence::event * pevent);
+         virtual void OnHappening(::music::midi::sequence::happening * pevent);
 
 
          ::e_status AllocBuffers();
@@ -254,15 +254,15 @@ namespace music
          }
 
          using ::music::midi::sequence::create_new_event;
-         virtual ::music::midi::sequence::event * create_new_event(::music::midi::sequence::e_event eevent, LPMIDIHDR lpmidihdr);
+         virtual ::music::midi::sequence::happening * create_new_event(::music::midi::sequence::e_happening ehappening, LPMIDIHDR lpmidihdr);
 
          //int seq_dump();
          //void seq_run();
-         //::music::midi::event * seq_get_next_event();
+         //::music::midi::happening * seq_get_next_event();
 
 
 
-         //int seq_play(::music::midi::event * pevent);
+         //int seq_play(::music::midi::happening * pevent);
          //::e_status seq_start();
 
       };

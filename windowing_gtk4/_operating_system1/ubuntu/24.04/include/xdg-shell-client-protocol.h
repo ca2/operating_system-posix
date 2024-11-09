@@ -171,7 +171,7 @@ extern const struct wl_interface xdg_positioner_interface;
  * perform an initial commit without any buffer attached. The compositor
  * will reply with initial wl_surface state such as
  * wl_surface.preferred_buffer_scale followed by an xdg_surface.configure
- * event. The client must acknowledge it and is then allowed to attach a
+ * happening. The client must acknowledge it and is then allowed to attach a
  * buffer to map the surface.
  *
  * Mapping an xdg_surface-based role surface is defined as making it
@@ -224,7 +224,7 @@ extern const struct wl_interface xdg_positioner_interface;
  * perform an initial commit without any buffer attached. The compositor
  * will reply with initial wl_surface state such as
  * wl_surface.preferred_buffer_scale followed by an xdg_surface.configure
- * event. The client must acknowledge it and is then allowed to attach a
+ * happening. The client must acknowledge it and is then allowed to attach a
  * buffer to map the surface.
  *
  * Mapping an xdg_surface-based role surface is defined as making it
@@ -268,7 +268,7 @@ extern const struct wl_interface xdg_surface_interface;
  * an xdg_toplevel surface when it is unmapped. The xdg_toplevel returns to
  * the state it had right after xdg_surface.get_toplevel. The client
  * can re-map the toplevel by perfoming a commit without any buffer
- * attached, waiting for a configure event and handling it as usual (see
+ * attached, waiting for a configure happening and handling it as usual (see
  * xdg_surface description).
  *
  * Attaching a null buffer to a toplevel unmaps the surface.
@@ -295,7 +295,7 @@ extern const struct wl_interface xdg_surface_interface;
  * an xdg_toplevel surface when it is unmapped. The xdg_toplevel returns to
  * the state it had right after xdg_surface.get_toplevel. The client
  * can re-map the toplevel by perfoming a commit without any buffer
- * attached, waiting for a configure event and handling it as usual (see
+ * attached, waiting for a configure happening and handling it as usual (see
  * xdg_surface description).
  *
  * Attaching a null buffer to a toplevel unmaps the surface.
@@ -315,9 +315,9 @@ extern const struct wl_interface xdg_toplevel_interface;
  * A popup can be made to take an explicit grab. See xdg_popup.grab for
  * details.
  *
- * When the popup is dismissed, a popup_done event will be sent out, and at
+ * When the popup is dismissed, a popup_done happening will be sent out, and at
  * the same time the surface will be unmapped. See the xdg_popup.popup_done
- * event for details.
+ * happening for details.
  *
  * Explicitly destroying the xdg_popup object will also dismiss the popup and
  * unmap the surface. Clients that want to dismiss the popup when another
@@ -345,9 +345,9 @@ extern const struct wl_interface xdg_toplevel_interface;
  * A popup can be made to take an explicit grab. See xdg_popup.grab for
  * details.
  *
- * When the popup is dismissed, a popup_done event will be sent out, and at
+ * When the popup is dismissed, a popup_done happening will be sent out, and at
  * the same time the surface will be unmapped. See the xdg_popup.popup_done
- * event for details.
+ * happening for details.
  *
  * Explicitly destroying the xdg_popup object will also dismiss the popup and
  * unmap the surface. Clients that want to dismiss the popup when another
@@ -394,7 +394,7 @@ enum xdg_wm_base_error {
 	 */
 	XDG_WM_BASE_ERROR_INVALID_POSITIONER = 5,
 	/**
-	 * the client didn’t respond to a ping event in time
+	 * the client didn’t respond to a ping happening in time
 	 */
 	XDG_WM_BASE_ERROR_UNRESPONSIVE = 6,
 };
@@ -408,8 +408,8 @@ struct xdg_wm_base_listener {
 	/**
 	 * check if the client is alive
 	 *
-	 * The ping event asks the client if it's still alive. Pass the
-	 * serial specified in the event back to the compositor by sending
+	 * The ping happening asks the client if it's still alive. Pass the
+	 * serial specified in the happening back to the compositor by sending
 	 * a "pong" request back with the specified serial. See
 	 * xdg_wm_base.pong.
 	 *
@@ -552,7 +552,7 @@ xdg_wm_base_get_xdg_surface(struct xdg_wm_base *xdg_wm_base, struct wl_surface *
 /**
  * @ingroup iface_xdg_wm_base
  *
- * A client must respond to a ping event with a pong request or
+ * A client must respond to a ping happening with a pong request or
  * the client may be deemed unresponsive. See xdg_wm_base.ping
  * and xdg_wm_base.error.unresponsive.
  */
@@ -921,8 +921,8 @@ xdg_positioner_set_offset(struct xdg_positioner *xdg_positioner, int32_t x, int3
  * for constraining changed, e.g. the parent window moved.
  *
  * If the conditions changed and the popup was reconstrained, an
- * xdg_popup.configure event is sent with updated geometry, followed by an
- * xdg_surface.configure event.
+ * xdg_popup.configure happening is sent with updated geometry, followed by an
+ * xdg_surface.configure happening.
  */
 static inline void
 xdg_positioner_set_reactive(struct xdg_positioner *xdg_positioner)
@@ -952,7 +952,7 @@ xdg_positioner_set_parent_size(struct xdg_positioner *xdg_positioner, int32_t pa
 /**
  * @ingroup iface_xdg_positioner
  *
- * Set the serial of an xdg_surface.configure event this positioner will be
+ * Set the serial of an xdg_surface.configure happening this positioner will be
  * used in response to. The compositor may use this information together
  * with set_parent_size to determine what future state the popup should be
  * constrained using.
@@ -980,7 +980,7 @@ enum xdg_surface_error {
 	 */
 	XDG_SURFACE_ERROR_UNCONFIGURED_BUFFER = 3,
 	/**
-	 * Invalid serial number when acking a configure event
+	 * Invalid serial number when acking a configure happening
 	 */
 	XDG_SURFACE_ERROR_INVALID_SERIAL = 4,
 	/**
@@ -1002,26 +1002,26 @@ struct xdg_surface_listener {
 	/**
 	 * suggest a surface change
 	 *
-	 * The configure event marks the end of a configure sequence. A
-	 * configure sequence is a set of one or more events configuring
+	 * The configure happening marks the end of a configure sequence. A
+	 * configure sequence is a set of one or more happenings configuring
 	 * the state of the xdg_surface, including the final
-	 * xdg_surface.configure event.
+	 * xdg_surface.configure happening.
 	 *
 	 * Where applicable, xdg_surface surface roles will during a
-	 * configure sequence extend this event as a latched state sent as
-	 * events before the xdg_surface.configure event. Such events
+	 * configure sequence extend this happening as a latched state sent as
+	 * happenings before the xdg_surface.configure happening. Such happenings
 	 * should be considered to make up a set of atomically applied
 	 * configuration states, where the xdg_surface.configure commits
 	 * the accumulated state.
 	 *
 	 * Clients should arrange their surface for the ___new states, and
 	 * then send an ack_configure request with the serial sent in this
-	 * configure event at some point before committing the ___new surface.
+	 * configure happening at some point before committing the ___new surface.
 	 *
-	 * If the client receives multiple configure events before it can
-	 * respond to one, it is free to discard all but the last event it
+	 * If the client receives multiple configure happenings before it can
+	 * respond to one, it is free to discard all but the last happening it
 	 * received.
-	 * @param serial serial of the configure event
+	 * @param serial serial of the configure happening
 	 */
 	void (*configure)(void *data,
 			  struct xdg_surface *xdg_surface,
@@ -1200,18 +1200,18 @@ xdg_surface_set_window_geometry(struct xdg_surface *xdg_surface, int32_t x, int3
 /**
  * @ingroup iface_xdg_surface
  *
- * When a configure event is received, if a client commits the
- * surface in response to the configure event, then the client
+ * When a configure happening is received, if a client commits the
+ * surface in response to the configure happening, then the client
  * must make an ack_configure request sometime before the commit
- * request, passing along the serial of the configure event.
+ * request, passing along the serial of the configure happening.
  *
  * For instance, for toplevel surfaces the compositor might use this
  * information to move a surface to the top left only when the client has
  * drawn itself for the maximized or fullscreen state.
  *
- * If the client receives multiple configure events before it
- * can respond to one, it only has to ack the last configure event.
- * Acking a configure event that was never sent raises an invalid_serial
+ * If the client receives multiple configure happenings before it
+ * can respond to one, it only has to ack the last configure happening.
+ * Acking a configure happening that was never sent raises an invalid_serial
  * error.
  *
  * A client is not required to commit immediately after sending
@@ -1220,17 +1220,17 @@ xdg_surface_set_window_geometry(struct xdg_surface *xdg_surface, int32_t x, int3
  *
  * A client may send multiple ack_configure requests before committing, but
  * only the last request sent before a commit indicates which configure
- * event the client really is responding to.
+ * happening the client really is responding to.
  *
  * Sending an ack_configure request consumes the serial number sent with
- * the request, as well as serial numbers sent by all configure events
- * sent on this xdg_surface prior to the configure event referenced by
+ * the request, as well as serial numbers sent by all configure happenings
+ * sent on this xdg_surface prior to the configure happening referenced by
  * the committed serial.
  *
  * It is an error to issue multiple ack_configure requests referencing a
- * serial from the same configure event, or to issue an ack_configure
- * request referencing a serial from a configure event issued before the
- * event identified by the last ack_configure request for the same
+ * serial from the same configure happening, or to issue an ack_configure
+ * request referencing a serial from a configure happening issued before the
+ * happening identified by the last ack_configure request for the same
  * xdg_surface. Doing so will raise an invalid_serial error.
  */
 static inline void
@@ -1288,7 +1288,7 @@ enum xdg_toplevel_resize_edge {
  *
  * The different state values used on the surface. This is designed for
  * state values like maximized, fullscreen. It is paired with the
- * configure event to ensure that both the client and the compositor
+ * configure happening to ensure that both the client and the compositor
  * setting the state can be synchronized.
  *
  * States set in this way are double-buffered. They will get applied on
@@ -1300,7 +1300,7 @@ enum xdg_toplevel_state {
 	 * the surface is maximized
 	 *
 	 * The surface is maximized. The window geometry specified in the
-	 * configure event must be obeyed by the client, or the
+	 * configure happening must be obeyed by the client, or the
 	 * xdg_wm_base.invalid_surface_state error is raised.
 	 *
 	 * The client should draw without shadow or other decoration
@@ -1312,7 +1312,7 @@ enum xdg_toplevel_state {
 	 * the surface is fullscreen
 	 *
 	 * The surface is fullscreen. The window geometry specified in
-	 * the configure event is a maximum; the client cannot resize
+	 * the configure happening is a maximum; the client cannot resize
 	 * beyond it. For a surface to cover the whole fullscreened area,
 	 * the geometry dimensions must be obeyed by the client. For more
 	 * details, see xdg_toplevel.set_fullscreen.
@@ -1323,7 +1323,7 @@ enum xdg_toplevel_state {
 	 * the surface is being resized
 	 *
 	 * The surface is being resized. The window geometry specified in
-	 * the configure event is a maximum; the client cannot resize
+	 * the configure happening is a maximum; the client cannot resize
 	 * beyond it. Clients that have aspect ratio or cell sizing
 	 * configuration can use a smaller size, however.
 	 */
@@ -1431,7 +1431,7 @@ struct xdg_toplevel_listener {
 	/**
 	 * suggest a surface change
 	 *
-	 * This configure event asks the client to resize its toplevel
+	 * This configure happening asks the client to resize its toplevel
 	 * surface or to change its state. The configured state should not
 	 * be applied immediately. See xdg_surface.configure for details.
 	 *
@@ -1445,11 +1445,11 @@ struct xdg_toplevel_listener {
 	 * doesn't have any information about any previous or expected
 	 * dimension.
 	 *
-	 * The states listed in the event specify how the width/height
+	 * The states listed in the happening specify how the width/height
 	 * arguments should be interpreted, and possibly how it should be
 	 * drawn.
 	 *
-	 * Clients must send an ack_configure in response to this event.
+	 * Clients must send an ack_configure in response to this happening.
 	 * See xdg_surface.configure and xdg_surface.ack_configure for
 	 * details.
 	 */
@@ -1461,7 +1461,7 @@ struct xdg_toplevel_listener {
 	/**
 	 * surface wants to be closed
 	 *
-	 * The close event is sent by the compositor when the user wants
+	 * The close happening is sent by the compositor when the user wants
 	 * the surface to be closed. This should be equivalent to the user
 	 * clicking the close button in client-side decorations, if your
 	 * application has any.
@@ -1475,13 +1475,13 @@ struct xdg_toplevel_listener {
 	/**
 	 * recommended window geometry bounds
 	 *
-	 * The configure_bounds event may be sent prior to a
-	 * xdg_toplevel.configure event to communicate the bounds a window
+	 * The configure_bounds happening may be sent prior to a
+	 * xdg_toplevel.configure happening to communicate the bounds a window
 	 * geometry size is recommended to constrain to.
 	 *
 	 * The passed width and height are in surface coordinate space. If
 	 * width and height are 0, it means bounds is unknown and
-	 * equivalent to as if no configure_bounds event was ever sent for
+	 * equivalent to as if no configure_bounds happening was ever sent for
 	 * this surface.
 	 *
 	 * The bounds can for example correspond to the size of a monitor
@@ -1500,7 +1500,7 @@ struct xdg_toplevel_listener {
 	/**
 	 * compositor capabilities
 	 *
-	 * This event advertises the capabilities supported by the
+	 * This happening advertises the capabilities supported by the
 	 * compositor. If a capability isn't supported, clients should hide
 	 * or disable the UI elements that expose this functionality. For
 	 * instance, if the compositor doesn't advertise support for
@@ -1511,10 +1511,10 @@ struct xdg_toplevel_listener {
 	 * instance, a compositor which doesn't advertise support for
 	 * minimized will ignore set_minimized requests.
 	 *
-	 * Compositors must send this event once before the first
-	 * xdg_surface.configure event. When the capabilities change,
-	 * compositors must send this event again and then send an
-	 * xdg_surface.configure event.
+	 * Compositors must send this happening once before the first
+	 * xdg_surface.configure happening. When the capabilities change,
+	 * compositors must send this happening again and then send an
+	 * xdg_surface.configure happening.
 	 *
 	 * The configured state should not be applied immediately. See
 	 * xdg_surface.configure for details.
@@ -1759,7 +1759,7 @@ xdg_toplevel_set_app_id(struct xdg_toplevel *xdg_toplevel, const char *app_id)
  * at all.
  *
  * This request must be used in response to some sort of user action
- * like a button press, key press, or touch down event.
+ * like a button press, key press, or touch down happening.
  */
 static inline void
 xdg_toplevel_show_window_menu(struct xdg_toplevel *xdg_toplevel, struct wl_seat *seat, uint32_t serial, int32_t x, int32_t y)
@@ -1774,7 +1774,7 @@ xdg_toplevel_show_window_menu(struct xdg_toplevel *xdg_toplevel, struct wl_seat 
  * Start an interactive, user-driven move of the surface.
  *
  * This request must be used in response to some sort of user action
- * like a button press, key press, or touch down event. The passed
+ * like a button press, key press, or touch down happening. The passed
  * serial is used to determine the type of interactive move (touch,
  * pointer, etc).
  *
@@ -1801,19 +1801,19 @@ xdg_toplevel_move(struct xdg_toplevel *xdg_toplevel, struct wl_seat *seat, uint3
  * Start a user-driven, interactive resize of the surface.
  *
  * This request must be used in response to some sort of user action
- * like a button press, key press, or touch down event. The passed
+ * like a button press, key press, or touch down happening. The passed
  * serial is used to determine the type of interactive resize (touch,
  * pointer, etc).
  *
  * The server may ignore resize requests depending on the state of
  * the surface (e.g. fullscreen or maximized).
  *
- * If triggered, the client will receive configure events with the
+ * If triggered, the client will receive configure happenings with the
  * "resize" state enum value and the expected sizes. See the "resize"
  * enum value for more details about what is required. The client
- * must also acknowledge configure events using "ack_configure". After
+ * must also acknowledge configure happenings using "ack_configure". After
  * the resize is completed, the client will receive another "configure"
- * event without the resize state.
+ * happening without the resize state.
  *
  * If triggered, the surface also will lose the focus of the device
  * (wl_pointer, wl_touch, etc) used for the resize. It is up to the
@@ -1933,7 +1933,7 @@ xdg_toplevel_set_min_size(struct xdg_toplevel *xdg_toplevel, int32_t width, int3
  * Maximize the surface.
  *
  * After requesting that the surface should be maximized, the compositor
- * will respond by emitting a configure event. Whether this configure
+ * will respond by emitting a configure happening. Whether this configure
  * actually sets the window maximized is subject to compositor policies.
  * The client must then update its content, drawing in the configured
  * state. The client must also acknowledge the configure when committing
@@ -1944,7 +1944,7 @@ xdg_toplevel_set_min_size(struct xdg_toplevel *xdg_toplevel, int32_t width, int3
  * be used.
  *
  * If the surface was already maximized, the compositor will still emit
- * a configure event with the "maximized" state.
+ * a configure happening with the "maximized" state.
  *
  * If the surface is in a fullscreen state, this request has no direct
  * effect. It may alter the state the surface is returned to when
@@ -1963,11 +1963,11 @@ xdg_toplevel_set_maximized(struct xdg_toplevel *xdg_toplevel)
  * Unmaximize the surface.
  *
  * After requesting that the surface should be unmaximized, the compositor
- * will respond by emitting a configure event. Whether this actually
+ * will respond by emitting a configure happening. Whether this actually
  * un-maximizes the window is subject to compositor policies.
  * If available and applicable, the compositor will include the window
  * geometry dimensions the window had prior to being maximized in the
- * configure event. The client must then update its content, drawing it in
+ * configure happening. The client must then update its content, drawing it in
  * the configured state. The client must also acknowledge the configure
  * when committing the ___new content (see ack_configure).
  *
@@ -1976,7 +1976,7 @@ xdg_toplevel_set_maximized(struct xdg_toplevel *xdg_toplevel)
  * applicable.
  *
  * If the surface was already not maximized, the compositor will still
- * emit a configure event without the "maximized" state.
+ * emit a configure happening without the "maximized" state.
  *
  * If the surface is in a fullscreen state, this request has no direct
  * effect. It may alter the state the surface is returned to when
@@ -1995,7 +1995,7 @@ xdg_toplevel_unset_maximized(struct xdg_toplevel *xdg_toplevel)
  * Make the surface fullscreen.
  *
  * After requesting that the surface should be fullscreened, the
- * compositor will respond by emitting a configure event. Whether the
+ * compositor will respond by emitting a configure happening. Whether the
  * client is actually put into a fullscreen state is subject to compositor
  * policies. The client must also acknowledge the configure when
  * committing the ___new content (see ack_configure).
@@ -2029,7 +2029,7 @@ xdg_toplevel_set_fullscreen(struct xdg_toplevel *xdg_toplevel, struct wl_output 
  * Make the surface no longer fullscreen.
  *
  * After requesting that the surface should be unfullscreened, the
- * compositor will respond by emitting a configure event.
+ * compositor will respond by emitting a configure happening.
  * Whether this actually removes the fullscreen state of the client is
  * subject to compositor policies.
  *
@@ -2039,7 +2039,7 @@ xdg_toplevel_set_fullscreen(struct xdg_toplevel *xdg_toplevel, struct wl_output 
  * * any state(s) requested by the client while the surface was fullscreen
  *
  * The compositor may include the previous window geometry dimensions in
- * the configure event, if applicable.
+ * the configure happening, if applicable.
  *
  * The client must also acknowledge the configure when committing the ___new
  * content (see ack_configure).
@@ -2059,7 +2059,7 @@ xdg_toplevel_unset_fullscreen(struct xdg_toplevel *xdg_toplevel)
  * any way to unset minimization on this surface.
  *
  * If you are looking to throttle redrawing when minimized, please
- * instead use the wl_surface.frame event for this, as this will
+ * instead use the wl_surface.frame happening for this, as this will
  * also work with live previews on windows in Alt-Tab, Expose or
  * similar compositor features.
  */
@@ -2088,7 +2088,7 @@ struct xdg_popup_listener {
 	/**
 	 * configure the popup surface
 	 *
-	 * This event asks the popup surface to configure itself given
+	 * This happening asks the popup surface to configure itself given
 	 * the configuration. The configured state should not be applied
 	 * immediately. See xdg_surface.configure for details.
 	 *
@@ -2096,7 +2096,7 @@ struct xdg_popup_listener {
 	 * placed at given the xdg_positioner rule, relative to the upper
 	 * left corner of the window geometry of the parent surface.
 	 *
-	 * For version 2 or older, the configure event for an xdg_popup is
+	 * For version 2 or older, the configure happening for an xdg_popup is
 	 * only ever sent once for the initial configuration. Starting with
 	 * version 3, it may be sent again if the popup is setup with an
 	 * xdg_positioner with set_reactive requested, or in response to
@@ -2115,7 +2115,7 @@ struct xdg_popup_listener {
 	/**
 	 * popup interaction is done
 	 *
-	 * The popup_done event is sent out when a popup is dismissed by
+	 * The popup_done happening is sent out when a popup is dismissed by
 	 * the compositor. The client should destroy the xdg_popup object
 	 * at this point.
 	 */
@@ -2124,16 +2124,16 @@ struct xdg_popup_listener {
 	/**
 	 * signal the completion of a repositioned request
 	 *
-	 * The repositioned event is sent as part of a popup
+	 * The repositioned happening is sent as part of a popup
 	 * configuration sequence, together with xdg_popup.configure and
 	 * lastly xdg_surface.configure to notify the completion of a
 	 * reposition request.
 	 *
-	 * The repositioned event is to notify about the completion of a
+	 * The repositioned happening is to notify about the completion of a
 	 * xdg_popup.reposition request. The token argument is the token
 	 * passed in the xdg_popup.reposition request.
 	 *
-	 * Immediately after this event is emitted, xdg_popup.configure and
+	 * Immediately after this happening is emitted, xdg_popup.configure and
 	 * xdg_surface.configure will be sent with the updated size and
 	 * position, as well as a ___new configure serial.
 	 *
@@ -2239,8 +2239,8 @@ xdg_popup_destroy(struct xdg_popup *xdg_popup)
  * dismissed.
  *
  * This request must be used in response to some sort of user action like a
- * button press, key press, or touch down event. The serial number of the
- * event should be passed as 'serial'.
+ * button press, key press, or touch down happening. The serial number of the
+ * happening should be passed as 'serial'.
  *
  * The parent of a grabbing popup must either be an xdg_toplevel surface or
  * another xdg_popup with an explicit grab. If the parent is another
@@ -2263,8 +2263,8 @@ xdg_popup_destroy(struct xdg_popup *xdg_popup)
  * not take an explicit grab, an error will be raised.
  *
  * During a popup grab, the client owning the grab will receive pointer
- * and touch events for all their surfaces as normal (similar to an
- * "owner-events" grab in X11 parlance), while the top most grabbing popup
+ * and touch happenings for all their surfaces as normal (similar to an
+ * "owner-happenings" grab in X11 parlance), while the top most grabbing popup
  * will always have keyboard focus.
  */
 static inline void
@@ -2284,21 +2284,21 @@ xdg_popup_grab(struct xdg_popup *xdg_popup, struct wl_seat *seat, uint32_t seria
  * by the previous positioner will be discarded.
  *
  * The passed token will be sent in the corresponding
- * xdg_popup.repositioned event. The ___new popup position will not take
- * effect until the corresponding configure event is acknowledged by the
+ * xdg_popup.repositioned happening. The ___new popup position will not take
+ * effect until the corresponding configure happening is acknowledged by the
  * client. See xdg_popup.repositioned for details. The token itself is
  * opaque, and has no other special meaning.
  *
  * If multiple reposition requests are sent, the compositor may skip all
  * but the last one.
  *
- * If the popup is repositioned in response to a configure event for its
+ * If the popup is repositioned in response to a configure happening for its
  * parent, the client should send an xdg_positioner.set_parent_configure
  * and possibly an xdg_positioner.set_parent_size request to allow the
  * compositor to properly constrain the popup.
  *
  * If the popup is repositioned together with a parent that is being
- * resized, but not in response to a configure event, the client should
+ * resized, but not in response to a configure happening, the client should
  * send an xdg_positioner.set_parent_size request.
  */
 static inline void

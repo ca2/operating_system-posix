@@ -126,7 +126,7 @@ extern const struct wl_interface xdg_activation_v1_interface;
  * The object is created using the xdg_activation_v1.get_activation_token
  * request. This object should then be populated with the app_id, surface
  * and serial information and committed. The compositor shall then issue a
- * done event with the token. In case the request's parameters are invalid,
+ * done happening with the token. In case the request's parameters are invalid,
  * the compositor will provide an invalid token.
  * @section page_iface_xdg_activation_token_v1_api API
  * See @ref iface_xdg_activation_token_v1.
@@ -140,7 +140,7 @@ extern const struct wl_interface xdg_activation_v1_interface;
  * The object is created using the xdg_activation_v1.get_activation_token
  * request. This object should then be populated with the app_id, surface
  * and serial information and committed. The compositor shall then issue a
- * done event with the token. In case the request's parameters are invalid,
+ * done happening with the token. In case the request's parameters are invalid,
  * the compositor will provide an invalid token.
  */
 extern const struct wl_interface xdg_activation_token_v1_interface;
@@ -257,7 +257,7 @@ struct xdg_activation_token_v1_listener {
    /**
     * the exported activation token
     *
-    * The 'done' event contains the unique token of this activation
+    * The 'done' happening contains the unique token of this activation
     * request and notifies that the provider is done.
     * @param token the exported activation token
     */
@@ -332,16 +332,16 @@ xdg_activation_token_v1_get_version(struct xdg_activation_token_v1 *xdg_activati
 /**
  * @ingroup iface_xdg_activation_token_v1
  *
- * Provides information about the seat and serial event that requested the
+ * Provides information about the seat and serial happening that requested the
  * token.
  *
- * The serial can come from an input or focus event. For instance, if a
+ * The serial can come from an input or focus happening. For instance, if a
  * click triggers the launch of a third-party client, the launcher client
  * should send a set_serial request with the serial and seat from the
- * wl_pointer.button event.
+ * wl_pointer.button happening.
  *
  * Some compositors might refuse to activate toplevels when the token
- * doesn't have a valid and recent enough event serial.
+ * doesn't have a valid and recent enough happening serial.
  *
  * Must be sent before commit. This information is optional.
  */

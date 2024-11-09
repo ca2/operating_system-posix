@@ -217,8 +217,8 @@ namespace node_gtk4
 
                            }
 
-                           g_signal_connect(G_OBJECT(widget), "destroy-event", G_CALLBACK(&on_file_chooser_destroy_event), pdialog);
-                           g_signal_connect(G_OBJECT(widget), "delete-event", G_CALLBACK(&on_file_chooser_delete_event), pdialog);
+                           g_signal_connect(G_OBJECT(widget), "destroy-happening", G_CALLBACK(&on_file_chooser_destroy_event), pdialog);
+                           g_signal_connect(G_OBJECT(widget), "delete-happening", G_CALLBACK(&on_file_chooser_delete_event), pdialog);
                            g_signal_connect(G_OBJECT(widget), "response", G_CALLBACK(&on_file_chooser_response), pdialog);
 
 #endif

@@ -3355,7 +3355,7 @@ log_handler(const gchar *log_domain,
 bool x11_message_handler(XEvent *pevent);
 
 
-GdkFilterReturn x11_event_func(GdkXEvent *xevent, GdkEvent *event, gpointer data)
+GdkFilterReturn x11_event_func(GdkXEvent *xevent, GdkEvent *happening, gpointer data)
 {
 
    XEvent *pevent = (XEvent *) xevent;

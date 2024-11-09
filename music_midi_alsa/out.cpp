@@ -406,23 +406,23 @@ namespace music
 
             int err;
 
-            snd_seq_event_t event={};
+            snd_seq_event_t happening={};
 
-            snd_seq_ev_set_fixed(&event);
-            event.type = SND_SEQ_EVENT_STOP;
-            event.time.tick = m_psequencer->m_psequence->m_pfile->m_tkLength;
-            event.dest.client = SND_SEQ_CLIENT_SYSTEM;
-            event.dest.port = SND_SEQ_PORT_SYSTEM_TIMER;
-            event.data.queue.queue = m_iQueue;
+            snd_seq_ev_set_fixed(&happening);
+            happening.type = SND_SEQ_EVENT_STOP;
+            happening.time.tick = m_psequencer->m_psequence->m_pfile->m_tkLength;
+            happening.dest.client = SND_SEQ_CLIENT_SYSTEM;
+            happening.dest.port = SND_SEQ_PORT_SYSTEM_TIMER;
+            happening.data.queue.queue = m_iQueue;
 
-            err = snd_seq_event_output(m_pseq, &event);
+            err = snd_seq_event_output(m_pseq, &happening);
 
             err = snd_seq_drain_output(m_pseq);
 
                /*
-      * There are three possibilities how to wait until all events have
+      * There are three possibilities how to wait until all happenings have
       * been played:
-      * 1) send an event back to us (like pmidi does), and wait for it;
+      * 1) send an happening back to us (like pmidi does), and wait for it;
       * 2) wait for the EVENT_STOP notification for our queue which is sent
       *    by the system timer port (this would require a subscription);
       * 3) wait until the output pool is empty.
@@ -459,35 +459,35 @@ namespace music
          void out::note_on(int iChannel, unsigned char uchNote, unsigned char uchVelocity)
          {
 
-            snd_seq_event_t  event = {};
+            snd_seq_event_t  happening = {};
 
-            event.queue = m_iQueue;
+            happening.queue = m_iQueue;
 
-            //snd_seq_ev_set_fixed(&event);
+            //snd_seq_ev_set_fixed(&happening);
 
-            snd_seq_ev_set_source(&event, m_iPort);
+            snd_seq_ev_set_source(&happening, m_iPort);
 
-            snd_seq_ev_set_dest(&event, m_addrDest.client, m_addrDest.port);
+            snd_seq_ev_set_dest(&happening, m_addrDest.client, m_addrDest.port);
 
             if(use_tick())
             {
 
-               event.time.tick = m_tick;
-               event.flags = SND_SEQ_TIME_STAMP_TICK;
+               happening.time.tick = m_tick;
+               happening.flags = SND_SEQ_TIME_STAMP_TICK;
 
             }
             else
             {
 
-               snd_seq_ev_set_direct(&event);
+               snd_seq_ev_set_direct(&happening);
 
             }
 
-            snd_seq_ev_set_noteon(&event, iChannel, uchNote, uchVelocity);
+            snd_seq_ev_set_noteon(&happening, iChannel, uchNote, uchVelocity);
 
-            snd_seq_event_output(m_pseq, &event);
+            snd_seq_event_output(m_pseq, &happening);
 
-            //snd_seq_event_output_direct(m_pseq, &event);
+            //snd_seq_event_output_direct(m_pseq, &happening);
 
             //return ::success;
 
@@ -497,35 +497,35 @@ namespace music
          void out::note_off(int iChannel, unsigned char uchNote, unsigned char uchVelocity)
          {
 
-            snd_seq_event_t  event ={};
+            snd_seq_event_t  happening ={};
 
-            event.queue = m_iQueue;
+            happening.queue = m_iQueue;
 
-            //snd_seq_ev_set_fixed(&event);
+            //snd_seq_ev_set_fixed(&happening);
 
-            snd_seq_ev_set_source(&event, m_iPort);
+            snd_seq_ev_set_source(&happening, m_iPort);
 
-            snd_seq_ev_set_dest(&event, m_addrDest.client, m_addrDest.port);
+            snd_seq_ev_set_dest(&happening, m_addrDest.client, m_addrDest.port);
 
             if(use_tick())
             {
 
-               event.time.tick = m_tick;
-               event.flags = SND_SEQ_TIME_STAMP_TICK;
+               happening.time.tick = m_tick;
+               happening.flags = SND_SEQ_TIME_STAMP_TICK;
 
             }
             else
             {
 
-               snd_seq_ev_set_direct(&event);
+               snd_seq_ev_set_direct(&happening);
 
             }
 
-            snd_seq_ev_set_noteoff(&event, iChannel, uchNote, uchVelocity);
+            snd_seq_ev_set_noteoff(&happening, iChannel, uchNote, uchVelocity);
 
-            //snd_seq_event_output_direct(m_pseq, &event);
+            //snd_seq_event_output_direct(m_pseq, &happening);
 
-            snd_seq_event_output(m_pseq, &event);
+            snd_seq_event_output(m_pseq, &happening);
 
             //return ::success;
 
@@ -535,35 +535,35 @@ namespace music
          void out::program_change(int iChannel, unsigned char uchProgram)
          {
 
-            snd_seq_event_t  event ={};
+            snd_seq_event_t  happening ={};
 
-            event.queue = m_iQueue;
+            happening.queue = m_iQueue;
 
-            //snd_seq_ev_set_fixed(&event);
+            //snd_seq_ev_set_fixed(&happening);
 
-            snd_seq_ev_set_source(&event, m_iPort);
+            snd_seq_ev_set_source(&happening, m_iPort);
 
-            snd_seq_ev_set_dest(&event, m_addrDest.client, m_addrDest.port);
+            snd_seq_ev_set_dest(&happening, m_addrDest.client, m_addrDest.port);
 
             if(use_tick())
             {
 
-               event.time.tick = m_tick;
-               event.flags = SND_SEQ_TIME_STAMP_TICK;
+               happening.time.tick = m_tick;
+               happening.flags = SND_SEQ_TIME_STAMP_TICK;
 
             }
             else
             {
 
-               snd_seq_ev_set_direct(&event);
+               snd_seq_ev_set_direct(&happening);
 
             }
 
-            snd_seq_ev_set_pgmchange(&event, iChannel, uchProgram);
+            snd_seq_ev_set_pgmchange(&happening, iChannel, uchProgram);
 
-            //snd_seq_event_output_direct(m_pseq, &event);
+            //snd_seq_event_output_direct(m_pseq, &happening);
 
-            snd_seq_event_output(m_pseq, &event);
+            snd_seq_event_output(m_pseq, &happening);
 
             //return ::success;
 
@@ -573,35 +573,35 @@ namespace music
          void out::control_change(int iChannel, unsigned char uchController, unsigned char uchValue)
          {
 
-            snd_seq_event_t  event ={};
+            snd_seq_event_t  happening ={};
 
-            event.queue = m_iQueue;
+            happening.queue = m_iQueue;
 
-            //snd_seq_ev_set_fixed(&event);
+            //snd_seq_ev_set_fixed(&happening);
 
-            snd_seq_ev_set_source(&event, m_iPort);
+            snd_seq_ev_set_source(&happening, m_iPort);
 
-            snd_seq_ev_set_dest(&event, m_addrDest.client, m_addrDest.port);
+            snd_seq_ev_set_dest(&happening, m_addrDest.client, m_addrDest.port);
 
             if(use_tick())
             {
 
-               event.time.tick = m_tick;
-               event.flags = SND_SEQ_TIME_STAMP_TICK;
+               happening.time.tick = m_tick;
+               happening.flags = SND_SEQ_TIME_STAMP_TICK;
 
             }
             else
             {
 
-               snd_seq_ev_set_direct(&event);
+               snd_seq_ev_set_direct(&happening);
 
             }
 
-            snd_seq_ev_set_controller(&event, iChannel, uchController, uchValue);
+            snd_seq_ev_set_controller(&happening, iChannel, uchController, uchValue);
 
-            //snd_seq_event_output_direct(m_pseq, &event);
+            //snd_seq_event_output_direct(m_pseq, &happening);
 
-            snd_seq_event_output(m_pseq, &event);
+            snd_seq_event_output(m_pseq, &happening);
 
          }
 
@@ -609,35 +609,35 @@ namespace music
          void out::pitch_bend(int iChannel, unsigned short ushBend)
          {
 
-            snd_seq_event_t  event ={};
+            snd_seq_event_t  happening ={};
 
-            event.queue = m_iQueue;
+            happening.queue = m_iQueue;
 
-            //snd_seq_ev_set_fixed(&event);
+            //snd_seq_ev_set_fixed(&happening);
 
-            snd_seq_ev_set_source(&event, m_iPort);
+            snd_seq_ev_set_source(&happening, m_iPort);
 
-            snd_seq_ev_set_dest(&event, m_addrDest.client, m_addrDest.port);
+            snd_seq_ev_set_dest(&happening, m_addrDest.client, m_addrDest.port);
 
             if(use_tick())
             {
 
-               event.time.tick = m_tick;
-               event.flags = SND_SEQ_TIME_STAMP_TICK;
+               happening.time.tick = m_tick;
+               happening.flags = SND_SEQ_TIME_STAMP_TICK;
 
             }
             else
             {
 
-               snd_seq_ev_set_direct(&event);
+               snd_seq_ev_set_direct(&happening);
 
             }
 
-            snd_seq_ev_set_pitchbend(&event, iChannel, ushBend);
+            snd_seq_ev_set_pitchbend(&happening, iChannel, ushBend);
 
-            //snd_seq_event_output_direct(m_pseq, &event);
+            //snd_seq_event_output_direct(m_pseq, &happening);
 
-            snd_seq_event_output(m_pseq, &event);
+            snd_seq_event_output(m_pseq, &happening);
 
          }
 
@@ -645,35 +645,35 @@ namespace music
          void out::sysex(const ::block & block)
          {
 
-            snd_seq_event_t  event ={};
+            snd_seq_event_t  happening ={};
 
-            event.queue = m_iQueue;
+            happening.queue = m_iQueue;
 
-            //snd_seq_ev_set_variable(&event);
+            //snd_seq_ev_set_variable(&happening);
 
-            snd_seq_ev_set_source(&event, m_iPort);
+            snd_seq_ev_set_source(&happening, m_iPort);
 
-            snd_seq_ev_set_dest(&event, m_addrDest.client, m_addrDest.port);
+            snd_seq_ev_set_dest(&happening, m_addrDest.client, m_addrDest.port);
 
             if(use_tick())
             {
 
-               event.time.tick = m_tick;
-               event.flags = SND_SEQ_TIME_STAMP_TICK;
+               happening.time.tick = m_tick;
+               happening.flags = SND_SEQ_TIME_STAMP_TICK;
 
             }
             else
             {
 
-               snd_seq_ev_set_direct(&event);
+               snd_seq_ev_set_direct(&happening);
 
             }
 
-            snd_seq_ev_set_sysex(&event, block.size(), (void *) block.data());
+            snd_seq_ev_set_sysex(&happening, block.size(), (void *) block.data());
 
-            //snd_seq_event_output_direct(m_pseq, &event);
+            //snd_seq_event_output_direct(m_pseq, &happening);
 
-            snd_seq_event_output(m_pseq, &event);
+            snd_seq_event_output(m_pseq, &happening);
 
          }
 
@@ -681,31 +681,31 @@ namespace music
          void out::tempo(int iTempo)
          {
 
-            snd_seq_event_t  event ={};
+            snd_seq_event_t  happening ={};
 
-            snd_seq_ev_set_fixed(&event);
-            event.queue = m_iQueue;
-            event.dest.client = SND_SEQ_CLIENT_SYSTEM;
-            event.dest.port = SND_SEQ_PORT_SYSTEM_TIMER;
+            snd_seq_ev_set_fixed(&happening);
+            happening.queue = m_iQueue;
+            happening.dest.client = SND_SEQ_CLIENT_SYSTEM;
+            happening.dest.port = SND_SEQ_PORT_SYSTEM_TIMER;
 
             if(use_tick())
             {
 
-               event.time.tick = m_tick;
-               event.flags = SND_SEQ_TIME_STAMP_TICK;
+               happening.time.tick = m_tick;
+               happening.flags = SND_SEQ_TIME_STAMP_TICK;
 
             }
             else
             {
 
-               snd_seq_ev_set_direct(&event);
+               snd_seq_ev_set_direct(&happening);
 
             }
-            event.data.queue.param.value = iTempo;
-            event.data.queue.queue = m_iQueue;
+            happening.data.queue.param.value = iTempo;
+            happening.data.queue.queue = m_iQueue;
 
 
-            snd_seq_event_output(m_pseq, &event);
+            snd_seq_event_output(m_pseq, &happening);
 
          }
 

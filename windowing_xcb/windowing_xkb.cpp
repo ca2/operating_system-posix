@@ -31,7 +31,7 @@ namespace windowing_xcb
 //   keymap = xkb_keymap_new_from_names(ctx, &names,
 
 //To Get keymap (Wayland...)
-///* From the wl_keyboard::keymap event. */
+///* From the wl_keyboard::keymap happening. */
 //   const char *keymap_string = <...>;
 //   struct xkb_keymap *keymap;
 //
@@ -58,19 +58,19 @@ namespace windowing_xcb
 //   changed = xkb_state_update_key(state, keycode, XKB_KEY_UP);
 //   The changed return value tells us exactly which parts of the state have changed.
 //
-//   If it is a key-repeat event, we can ask the keymap what to do with it:
+//   If it is a key-repeat happening, we can ask the keymap what to do with it:
 //
 //   if (<key repeat> && !xkb_keymap_key_repeats(keymap, keycode))
-//   <discard event>
-//   On the other hand, if we are an X or Wayland client, the server already does the hard work for us. It notifies us when the device's state changes, and we can simply use what it tells us (the necessary information usually comes in a form of some "state changed" event):
+//   <discard happening>
+//   On the other hand, if we are an X or Wayland client, the server already does the hard work for us. It notifies us when the device's state changes, and we can simply use what it tells us (the necessary information usually comes in a form of some "state changed" happening):
 //
 //   changed = xkb_state_update_mask(state,
-//                                   event->depressed_mods,
-//                                   event->latched_mods,
-//                                   event->locked_mods,
-//                                   event->depressed_layout,
-//                                   event->latched_layout,
-//                                   event->locked_layout);
+//                                   happening->depressed_mods,
+//                                   happening->latched_mods,
+//                                   happening->locked_mods,
+//                                   happening->depressed_layout,
+//                                   happening->latched_layout,
+//                                   happening->locked_layout);
 //   Now that we have an always-up-to-date xkb_state, we can examine it. For example, we can check whether the Control modifier is active, or whether the Num Lock LED is active:
 //
 //   if (xkb_state_mod_name_is_active(state, XKB_MOD_NAME_CTRL,
@@ -184,12 +184,12 @@ namespace windowing_xcb
 //   void window::_on_state_change(xcb_key_press_event_t * pevent)
 //   {
 ////      changed = xkb_state_update_mask(state,
-////                                      event->depressed_mods,
-////                                      event->latched_mods,
-////                                      event->locked_mods,
-////                                      event->depressed_layout,
-////                                      event->latched_layout,
-////                                      event->locked_layout);
+////                                      happening->depressed_mods,
+////                                      happening->latched_mods,
+////                                      happening->locked_mods,
+////                                      happening->depressed_layout,
+////                                      happening->latched_layout,
+////                                      happening->locked_layout);
 //
 //   }
 
@@ -252,17 +252,17 @@ namespace windowing_xcb
    string window::_on_key_down(xcb_keycode_t code, unsigned short state, KeySym * pkeysym)
    {
 
-      XKeyPressedEvent event;
+      XKeyPressedEvent happening;
 
-      zero(event);
+      zero(happening);
 
       Display * px11display = xcb_display()->m_pX11Display;
 
-      event.type = KeyPress;
-      event.display = px11display;
-      event.window = m_window;
-      event.state = state;
-      event.keycode = code;
+      happening.type = KeyPress;
+      happening.display = px11display;
+      happening.window = m_window;
+      happening.state = state;
+      happening.keycode = code;
 
       string strText;
 
@@ -275,7 +275,7 @@ namespace windowing_xcb
 
       }
 
-      strText = m_pximkeyboard->get_key_press_text(&event, pkeysym);
+      strText = m_pximkeyboard->get_key_press_text(&happening, pkeysym);
 
       return strText;
 

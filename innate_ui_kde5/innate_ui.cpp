@@ -111,11 +111,11 @@ namespace innate_ui_kde5
    //
    //
    //    }
-   //    manual_reset_happening event;
+   //    manual_reset_happening happening;
    //
-   //    event.reset_happening();
+   //    happening.reset_happening();
    //
-   //    ::platform::get()->application()->fork([this, &event]()
+   //    ::platform::get()->application()->fork([this, &happening]()
    //       {
    //             try
    //             {
@@ -124,7 +124,7 @@ namespace innate_ui_kde5
    //                ::PeekMessage(&msg, nullptr, 0, 0, 0);
    //                m_hthread = ::GetCurrentThread();
    //                m_dwThread = ::GetCurrentThreadId();
-   //                event.set_happening();
+   //                happening.set_happening();
    //                while (::task_get_run())
    //                {
    //                   DWORD timeout = 100; // 100 ::times;
@@ -182,7 +182,7 @@ namespace innate_ui_kde5
    //
    //    });
    //
-   //    event._wait();
+   //    happening._wait();
    //
    // }
    //

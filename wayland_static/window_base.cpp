@@ -38,7 +38,7 @@ namespace nano
       /**
        * the exported activation token
        *
-       * The 'done' event contains the unique token of this activation
+       * The 'done' happening contains the unique token of this activation
        * request and notifies that the provider is done.
        * @param token the exported activation token
        */
@@ -93,7 +93,7 @@ namespace nano
       /**
        * close - surface wants to be closed
        *
-       * The close event is sent by the compositor when the user wants
+       * The close happening is sent by the compositor when the user wants
        * the surface to be closed. This should be equivalent to the user
        * clicking the close button in client-side decorations, if your
        * application has any...
@@ -119,7 +119,7 @@ namespace nano
       /**
        * suggest a surface change
        *
-       * This configure event asks the client to resize its toplevel
+       * This configure happening asks the client to resize its toplevel
        * surface or to change its state. The configured state should not
        * be applied immediately. See xdg_surface.configure for details.
        *
@@ -133,11 +133,11 @@ namespace nano
        * doesn't have any information about any previous or expected
        * dimension.
        *
-       * The states listed in the event specify how the width/height
+       * The states listed in the happening specify how the width/height
        * arguments should be interpreted, and possibly how it should be
        * drawn.
        *
-       * Clients must send an ack_configure in response to this event.
+       * Clients must send an ack_configure in response to this happening.
        * See xdg_surface.configure and xdg_surface.ack_configure for
        * details.
        */
@@ -189,7 +189,7 @@ namespace nano
       /**
        * surface wants to be closed
        *
-       * The close event is sent by the compositor when the user wants
+       * The close happening is sent by the compositor when the user wants
        * the surface to be closed. This should be equivalent to the user
        * clicking the close button in client-side decorations, if your
        * application has any.
@@ -208,13 +208,13 @@ namespace nano
       /**
        * recommended window geometry bounds
        *
-       * The configure_bounds event may be sent prior to a
-       * xdg_toplevel.configure event to communicate the bounds a window
+       * The configure_bounds happening may be sent prior to a
+       * xdg_toplevel.configure happening to communicate the bounds a window
        * geometry size is recommended to constrain to.
        *
        * The passed width and height are in surface coordinate space. If
        * width and height are 0, it means bounds is unknown and
-       * equivalent to as if no configure_bounds event was ever sent for
+       * equivalent to as if no configure_bounds happening was ever sent for
        * this surface.
        *
        * The bounds can for example correspond to the size of a monitor
@@ -238,7 +238,7 @@ namespace nano
       /**
        * compositor capabilities
        *
-       * This event advertises the capabilities supported by the
+       * This happening advertises the capabilities supported by the
        * compositor. If a capability isn't supported, clients should hide
        * or disable the UI elements that expose this functionality. For
        * instance, if the compositor doesn't advertise support for
@@ -249,10 +249,10 @@ namespace nano
        * instance, a compositor which doesn't advertise support for
        * minimized will ignore set_minimized requests.
        *
-       * Compositors must send this event once before the first
-       * xdg_surface.configure event. When the capabilities change,
-       * compositors must send this event again and then send an
-       * xdg_surface.configure event.
+       * Compositors must send this happening once before the first
+       * xdg_surface.configure happening. When the capabilities change,
+       * compositors must send this happening again and then send an
+       * xdg_surface.configure happening.
        *
        * The configured state should not be applied immediately. See
        * xdg_surface.configure for details.

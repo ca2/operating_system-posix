@@ -107,11 +107,11 @@ namespace windowing_gtk3
 
       void on_initialize_particle() override;
 
-         bool _on_button_press(GtkWidget *widget, GdkEventButton *event) override;
-         bool _on_button_release(GtkWidget *widget, GdkEventButton *event) override;
-         bool _on_motion_notify(GtkWidget *widget, GdkEventMotion *event) override;
-         bool _on_enter_notify(GtkWidget *widget, GdkEventCrossing *event) override;
-         bool _on_window_state(GtkWidget* widget, GdkEventWindowState* event) override;
+         bool _on_button_press(GtkWidget *widget, GdkEventButton *happening) override;
+         bool _on_button_release(GtkWidget *widget, GdkEventButton *happening) override;
+         bool _on_motion_notify(GtkWidget *widget, GdkEventMotion *happening) override;
+         bool _on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening) override;
+         bool _on_window_state(GtkWidget* widget, GdkEventWindowState* happening) override;
 
       void _on_cairo_draw(GtkWidget *widget, cairo_t *cr) override;
       //void create_window(::windowing::window * pimpl) override;

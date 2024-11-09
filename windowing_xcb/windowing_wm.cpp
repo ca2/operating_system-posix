@@ -763,35 +763,35 @@ namespace windowing_xcb
 //
 //      {
 //
-//         xcb_client_message_event_t event{};
+//         xcb_client_message_event_t happening{};
 //
-//         event.response_type = XCB_CLIENT_MESSAGE;
-//         event.format = 32;
-//         event.sequence = 0;
-//         event.window = m_window;
-//         event.type = xcb_display()->intern_atom("_NET_WM_STATE", true);
-//         event.data.data32[0] = xcb_display()->intern_atom("_NET_WM_STATE_ADD", true);
-//         event.data.data32[1] = xcb_display()->intern_atom("_NET_WM_STATE_HIDDEN", true);
-//         event.data.data32[2] = 0;
-//         event.data.data32[3] = 0;
-//         event.data.data32[4] = 0;
+//         happening.response_type = XCB_CLIENT_MESSAGE;
+//         happening.format = 32;
+//         happening.sequence = 0;
+//         happening.window = m_window;
+//         happening.type = xcb_display()->intern_atom("_NET_WM_STATE", true);
+//         happening.data.data32[0] = xcb_display()->intern_atom("_NET_WM_STATE_ADD", true);
+//         happening.data.data32[1] = xcb_display()->intern_atom("_NET_WM_STATE_HIDDEN", true);
+//         happening.data.data32[2] = 0;
+//         happening.data.data32[3] = 0;
+//         happening.data.data32[4] = 0;
 //
 //         auto cookie = xcb_send_event(xcb_connection(), 0, xcb_windowing()->m_pdisplay->m_pxcbdisplay->m_windowRoot,
 //                                      XCB_EVENT_MASK_SUBSTRUCTURE_NOTIFY | XCB_EVENT_MASK_SUBSTRUCTURE_REDIRECT,
-//                                      (const char *) &event);
+//                                      (const char *) &happening);
 //
 //         auto estatus1 = xcb_display()->_request_check(cookie);
 //
 //         if (estatus1.succeeded())
 //         {
 //
-//            information() << "Sent _NET_WM_STATE event with Add Hidden";
+//            information() << "Sent _NET_WM_STATE happening with Add Hidden";
 //
 //         }
 //         else
 //         {
 //
-//            information() << "Failed to send _NET_WM_STATE event with Add Hidden";
+//            information() << "Failed to send _NET_WM_STATE happening with Add Hidden";
 //
 //         }
 //
@@ -806,35 +806,35 @@ namespace windowing_xcb
 
       {
 
-         xcb_client_message_event_t event{};
+         xcb_client_message_event_t happening{};
 
-         event.response_type = XCB_CLIENT_MESSAGE;
-         event.format = 32;
-         event.sequence = 0;
-         event.window = m_window;
-         event.type = xcb_display()->intern_atom("WM_CHANGE_STATE", true);
-         event.data.data32[0] = XCB_ICCCM_WM_STATE_ICONIC;
-         event.data.data32[1] = 0;
-         event.data.data32[2] = 0;
-         event.data.data32[3] = 0;
-         event.data.data32[4] = 0;
+         happening.response_type = XCB_CLIENT_MESSAGE;
+         happening.format = 32;
+         happening.sequence = 0;
+         happening.window = m_window;
+         happening.type = xcb_display()->intern_atom("WM_CHANGE_STATE", true);
+         happening.data.data32[0] = XCB_ICCCM_WM_STATE_ICONIC;
+         happening.data.data32[1] = 0;
+         happening.data.data32[2] = 0;
+         happening.data.data32[3] = 0;
+         happening.data.data32[4] = 0;
 
          auto cookie = xcb_send_event(xcb_connection(), 0, xcb_windowing()->m_pdisplay->m_pxcbdisplay->m_windowRoot,
                                       XCB_EVENT_MASK_SUBSTRUCTURE_NOTIFY | XCB_EVENT_MASK_SUBSTRUCTURE_REDIRECT,
-                                      (const char *) &event);
+                                      (const char *) &happening);
 
          auto estatus2 = xcb_display()->_request_check(cookie);
 
          if (estatus2.succeeded())
          {
 
-            information() << "Sent WM_CHANGE_STATE event with iconic";
+            information() << "Sent WM_CHANGE_STATE happening with iconic";
 
          }
          else
          {
 
-            information() << "Failed to send WM_CHANGE_STATE event with iconic";
+            information() << "Failed to send WM_CHANGE_STATE happening with iconic";
 
          }
 

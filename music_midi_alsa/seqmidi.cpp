@@ -1,5 +1,5 @@
 ///*
-// * File: seqmidi.m - convert to the sequencer events
+// * File: seqmidi.m - convert to the sequencer happenings
 // *
 // * Copyright (C) 1999 Steve Ratcliffe
 // *
@@ -17,7 +17,7 @@
 //#include "framework.h"
 //
 ///*
-// * Initialize a midi event from the context. The source and
+// * Initialize a midi happening from the context. The source and
 // * destination addresses will be set from the information
 // * stored in the context, which depends on the previous
 // * connection calls. In addition the time and channel are set.
@@ -54,7 +54,7 @@
 //}
 //
 ///*
-// * Send a note event.
+// * Send a note happening.
 // *  Arguments:
 // *    ctxp      - Client context
 // *    ep        - Event template
@@ -77,7 +77,7 @@
 //}
 //
 ///*
-// * Send a note on event.
+// * Send a note on happening.
 // *  Arguments:
 // *    ctxp      - Client context
 // *    ep        - Event template
@@ -100,7 +100,7 @@
 //}
 //
 ///*
-// * Send a note off event.
+// * Send a note off happening.
 // *  Arguments:
 // *    ctxp      - Client context
 // *    ep        - Event template
@@ -123,7 +123,7 @@
 //}
 //
 ///*
-// * Send a key pressure event.
+// * Send a key pressure happening.
 // *  Arguments:
 // *    ctxp      - Application context
 // *    ep        - Event template
@@ -143,7 +143,7 @@
 //}
 //
 ///*
-// * Send a control event.
+// * Send a control happening.
 // *  Arguments:
 // *    ctxp      - Application context
 // *    ep        - Event template
@@ -163,7 +163,7 @@
 //}
 //
 ///*
-// * Send a program change event.
+// * Send a program change happening.
 // *  Arguments:
 // *    ctxp      - Application context
 // *    ep        - Event template
@@ -180,7 +180,7 @@
 //}
 //
 ///*
-// * Send a channel pressure event.
+// * Send a channel pressure happening.
 // *  Arguments:
 // *    ctxp      - Application context
 // *    ep        - Event template
@@ -215,7 +215,7 @@
 //}
 //
 ///*
-// * Send a tempo event. The tempo parameter is in microseconds
+// * Send a tempo happening. The tempo parameter is in microseconds
 // * per beat.
 // *  Arguments:
 // *    ctxp      - Application context
@@ -235,7 +235,7 @@
 //}
 //
 ///*
-// * Send a sysex event. The status unsigned char is to distiguish
+// * Send a sysex happening. The status unsigned char is to distiguish
 // * continuation sysex messages.
 // *  Arguments:
 // *    ctxp      - Application context
@@ -267,12 +267,12 @@
 //}
 //
 ///*
-// * Send an echo event back to the source client at the specified
+// * Send an echo happening back to the source client at the specified
 // * time.
 // *
 // *  Arguments:
 // *    ctxp      - Application context
-// *    time      - Time of event
+// *    time      - Time of happening
 // */
 //void
 //seq_midi_echo(seq_context_t *ctxp, unsigned long time)

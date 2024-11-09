@@ -114,7 +114,7 @@ namespace windowing_kde5
          //QWidget *m_pqwidget;
        ::array < QAction * >                       m_qactiona;
 
-         // Create a GtkGestureClick for handling button press events
+         // Create a GtkGestureClick for handling button press happenings
          //GtkGesture *m_pgtkgestureClick;
          //GtkEventController *m_pgtkeventcontrollerMotion;
 
@@ -132,7 +132,7 @@ void on_initialize_particle() override;
          // void _on_button_released(GtkGestureClick *widget, int n_press, double x, double y);
          // void _on_motion_notify(GtkEventControllerMotion *pcontroller, double x, double y);
          // void _on_enter_notify(GtkEventControllerMotion *pcontroller, double x, double y);
-         // //bool _on_window_state(GtkWidget* widget, GdkEventWindowState* event);
+         // //bool _on_window_state(GtkWidget* widget, GdkEventWindowState* happening);
          // void _on_window_visibility_changed(GObject *object, GParamSpec *pspec);
 
 

@@ -27,7 +27,7 @@ struct seq_context {
 	snd_seq_t *handle; /* The snd_seq handle to /dev/snd/seq */
 	int  client;/* The client associated with this context */
 	int  queue; /* The queue to use for all operations */
-	snd_seq_addr_t  source;	/* Source for events */
+	snd_seq_addr_t  source;	/* Source for happenings */
 	array <snd_seq_addr_t > destlist;	/* Destination list */
 
 	char  timer_started;	/* True if timer is running */

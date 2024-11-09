@@ -23,7 +23,7 @@ namespace windowing_xcb
 {
 
 
-   bool is_return_key(xcb_ge_event_t *event)
+   bool is_return_key(xcb_ge_event_t *happening)
    {
 
       int i;
@@ -31,18 +31,18 @@ namespace windowing_xcb
 
 
 
-      switch(event->event_type)
+      switch(happening->event_type)
       {
          case XCB_INPUT_RAW_KEY_PRESS:
          case XCB_INPUT_RAW_KEY_RELEASE:
          {
-             auto pevent = (xcb_input_raw_key_press_event_t *) event;
+             auto pevent = (xcb_input_raw_key_press_event_t *) happening;
 
-            //val = event->valuators.values;
+            //val = happening->valuators.values;
 
-            //raw_val = event->raw_values;
+            //raw_val = happening->raw_values;
 
-            //if(event->detail == 36)
+            //if(happening->detail == 36)
             if(pevent->detail == 36)
             {
 
@@ -50,12 +50,12 @@ namespace windowing_xcb
 
             }
 
-//            printf("is_return_key    detail: %d\n", event->detail);
+//            printf("is_return_key    detail: %d\n", happening->detail);
 //
-//            for (i = 0; i < event->valuators.mask_len * 8; i++)
+//            for (i = 0; i < happening->valuators.mask_len * 8; i++)
 //            {
 //
-//               if (XIMaskIsSet(event->valuators.mask, i))
+//               if (XIMaskIsSet(happening->valuators.mask, i))
 //               {
 //
 //                  printf("is_return_key    %2d: %.2f (%.2f)\n", i, *val++, *raw_val++);
@@ -77,24 +77,24 @@ namespace windowing_xcb
    }
 
 
-   bool is_space_key(xcb_ge_event_t *event)
+   bool is_space_key(xcb_ge_event_t *happening)
    {
 
       int i;
       double *val, *raw_val;
 
-      switch(event->event_type)
+      switch(happening->event_type)
       {
          case XCB_INPUT_RAW_KEY_PRESS:
          case XCB_INPUT_RAW_KEY_RELEASE:
          {
 
-            auto pevent = (xcb_input_raw_key_press_event_t *) event;
-            //val = event->valuators.values;
+            auto pevent = (xcb_input_raw_key_press_event_t *) happening;
+            //val = happening->valuators.values;
 
-            //raw_val = event->raw_values;
+            //raw_val = happening->raw_values;
 
-            //if(event->detail == 65)
+            //if(happening->detail == 65)
             if(pevent->detail == 65)
             {
 
@@ -102,12 +102,12 @@ namespace windowing_xcb
 
             }
 
-//            printf("is_space_key    detail: %d\n", event->detail);
+//            printf("is_space_key    detail: %d\n", happening->detail);
 //
-//            for (i = 0; i < event->valuators.mask_len * 8; i++)
+//            for (i = 0; i < happening->valuators.mask_len * 8; i++)
 //            {
 //
-//               if (XIMaskIsSet(event->valuators.mask, i))
+//               if (XIMaskIsSet(happening->valuators.mask, i))
 //               {
 //
 //                  printf("is_space_key    %2d: %.2f (%.2f)\n", i, *val++, *raw_val++);
@@ -168,7 +168,7 @@ namespace windowing_xcb
 
                                     ::x11::display_lock lock(pdisplay);
 
-                                    int event, error;
+                                    int happening, error;
                                     const xcb_query_extension_reply_t *qe_reply;
                                     xcb_xfixes_query_version_cookie_t qv_cookie;
                                     xcb_xfixes_query_version_reply_t *qv_reply;
@@ -194,7 +194,7 @@ namespace windowing_xcb
                                     }
 
 
-//                                    if (!XQueryExtension(pdisplay, "XInputExtension", &m_xi_opcode, &event, &error))
+//                                    if (!XQueryExtension(pdisplay, "XInputExtension", &m_xi_opcode, &happening, &error))
 //                                    {
 //
 //                                       printf("X Input extension not available.\n");
@@ -221,7 +221,7 @@ namespace windowing_xcb
                                     //else
                                     //win = create_win(display);
 
-                                    /* Select for motion events */
+                                    /* Select for motion happenings */
 //                                    m = &mask[0];
 //                                    m->deviceid = (deviceid == -1) ? XIAllDevices : deviceid;
 //                                    m->mask_len = XIMaskLen(XI_LASTEVENT);

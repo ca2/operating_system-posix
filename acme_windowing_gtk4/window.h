@@ -76,7 +76,7 @@ GtkWidget*m_pgtkwidget;
             GtkWidget *                                  m_pdrawingarea;
             GtkGesture *                                 m_pgtkgestureClick;
             GtkEventController *                         m_pgtkeventcontrollerMotion;
-            /* Create a key event controller */
+            /* Create a key happening controller */
             GtkEventController *m_pgtkeventcontrollerKey;
 
             bool                                                  m_bMessageOnlyWindow;
@@ -184,7 +184,7 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
             virtual void _on_gtk_key_pressed(huge_natural uGtkKey, huge_natural uGtkKeyCode);
             virtual void _on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode);
 
-            //virtual gboolean _on_gtk_key_press(GtkWidget *widget, GdkEvent *event);
+            //virtual gboolean _on_gtk_key_press(GtkWidget *widget, GdkEvent *happening);
 
             virtual void _on_text(const ::scoped_string & scopedstr);
 

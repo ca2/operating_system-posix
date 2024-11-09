@@ -23,17 +23,17 @@ public:
 protected:
 
 
-   void paintEvent(QPaintEvent* event) override;
+   void paintEvent(QPaintEvent* happening) override;
 
-   void mousePressEvent(QMouseEvent *event) override;
+   void mousePressEvent(QMouseEvent *happening) override;
 
-   void mouseReleaseEvent(QMouseEvent *event) override;
+   void mouseReleaseEvent(QMouseEvent *happening) override;
 
-   void mouseMoveEvent(QMouseEvent *event) override;
+   void mouseMoveEvent(QMouseEvent *happening) override;
 
-   void moveEvent(QMoveEvent *event) override;
+   void moveEvent(QMoveEvent *happening) override;
 
-   void resizeEvent(QResizeEvent *event) override;
+   void resizeEvent(QResizeEvent *happening) override;
 
 
 };

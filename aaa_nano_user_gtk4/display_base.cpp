@@ -49,14 +49,14 @@ namespace gtk4
       //    /**
       // * properties of the output
       // *
-      // * The geometry event describes geometric properties of the
-      // * output. The event is sent when binding to the output object and
+      // * The geometry happening describes geometric properties of the
+      // * output. The happening is sent when binding to the output object and
       // * whenever any of the properties change.
       // *
       // * The physical size can be set to zero if it doesn't make sense
       // * for this output (e.g. for projectors or virtual outputs).
       // *
-      // * The geometry event will be followed by a done event (starting
+      // * The geometry happening will be followed by a done happening (starting
       // * from version 2).
       // *
       // * Note: wl_output only advertises partial information about the
@@ -97,10 +97,10 @@ namespace gtk4
       //    /**
       //     * advertise available modes for the output
       //     *
-      //     * The mode event describes an available mode for the output.
+      //     * The mode happening describes an available mode for the output.
       //     *
-      //     * The event is sent when binding to the output object and there
-      //     * will always be one mode, the current mode. The event is sent
+      //     * The happening is sent when binding to the output object and there
+      //     * will always be one mode, the current mode. The happening is sent
       //     * again if an output changes mode, for the mode that is now
       //     * current. In other words, the current mode is always the last
       //     * mode that was received with the current flag set.
@@ -120,11 +120,11 @@ namespace gtk4
       //     * The vertical refresh rate can be set to zero if it doesn't make
       //     * sense for this output (e.g. for virtual outputs).
       //     *
-      //     * The mode event will be followed by a done event (starting from
+      //     * The mode happening will be followed by a done happening (starting from
       //     * version 2).
       //     *
       //     * Clients should not use the refresh rate to schedule frames.
-      //     * Instead, they should use the wl_surface.frame event or the
+      //     * Instead, they should use the wl_surface.frame happening or the
       //     * presentation-time protocol.
       //     *
       //     * Note: this information is not always meaningful for all outputs.
@@ -155,11 +155,11 @@ namespace gtk4
       //    /**
       //     * sent all information about output
       //     *
-      //     * This event is sent after all other properties have been sent
+      //     * This happening is sent after all other properties have been sent
       //     * after binding to the output object and after any other property
       //     * changes done after that. This allows changes to the output
       //     * properties to be seen as atomic, even if they happen via
-      //     * multiple events.
+      //     * multiple happenings.
       //     * @since 2
       //     */
       //    void wl_output_done(void * data,
@@ -171,8 +171,8 @@ namespace gtk4
       //    /**
       //     * output scaling properties
       //     *
-      //     * This event contains scaling geometry information that is not
-      //     * in the geometry event. It may be sent after binding the output
+      //     * This happening contains scaling geometry information that is not
+      //     * in the geometry happening. It may be sent after binding the output
       //     * object or if the output scale changes later. If it is not sent,
       //     * the client should assume a scale of 1.
       //     *
@@ -188,7 +188,7 @@ namespace gtk4
       //     * That way the compositor can avoid scaling the surface, and the
       //     * client can supply a higher detail image.
       //     *
-      //     * The scale event will be followed by a done event.
+      //     * The scale happening will be followed by a done happening.
       //     * @param factor scaling factor of output
       //     * @since 2
       //     */
@@ -224,15 +224,15 @@ namespace gtk4
       //     * However, do not assume that the name is a reflection of an
       //     * underlying DRM connector, X11 connection, etc.
       //     *
-      //     * The name event is sent after binding the output object. This
-      //     * event is only sent once per output object, and the name does not
+      //     * The name happening is sent after binding the output object. This
+      //     * happening is only sent once per output object, and the name does not
       //     * change over the lifetime of the wl_output global.
       //     *
       //     * Compositors may re-use the same output name if the wl_output
       //     * global is destroyed and re-created later. Compositors should
       //     * avoid re-using the same name if possible.
       //     *
-      //     * The name event will be followed by a done event.
+      //     * The name happening will be followed by a done happening.
       //     * @param name output name
       //     * @since 4
       //     */
@@ -256,11 +256,11 @@ namespace gtk4
       //     * among all wl_output globals. Examples might include 'Foocorp 11"
       //     * Display' or 'Virtual X11 output via :1'.
       //     *
-      //     * The description event is sent after binding the output object
+      //     * The description happening is sent after binding the output object
       //     * and whenever the description changes. The description is
       //     * optional, and may not be sent at all.
       //     *
-      //     * The description event will be followed by a done event.
+      //     * The description happening will be followed by a done happening.
       //     * @param description output description
       //     * @since 4
       //     */
@@ -740,7 +740,7 @@ namespace gtk4
       //    void global_registry_remover(void * data, struct wl_registry * registry, uint32_t id)
       //    {
       //
-      //       printf("Got a registry losing event for %d\n", id);
+      //       printf("Got a registry losing happening for %d\n", id);
       //
       //    }
       //
@@ -1953,7 +1953,7 @@ namespace gtk4
             //
             // /* watch stdin for input */
             // fds[0].fd = wl_display_get_fd(m_pwldisplay);
-            // fds[0].events = POLLIN;
+            // fds[0].happenings = POLLIN;
             //
             // int ret = poll(fds, 1, 5);
             // if (ret <= 0)

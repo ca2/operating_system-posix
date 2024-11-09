@@ -928,7 +928,7 @@ namespace windowing_xcb
 
             //::minimum(m_pointCursor.y);
 
-            pxcbwindow = m_pdisplay->_window(pevent->event);
+            pxcbwindow = m_pdisplay->_window(pevent->happening);
 
             if (::is_null(pxcbwindow))
             {
@@ -955,7 +955,7 @@ namespace windowing_xcb
 
             auto pevent = (xcb_enter_notify_event_t *) pgenericevent;
 
-            pxcbwindow = m_pdisplay->_window(pevent->event);
+            pxcbwindow = m_pdisplay->_window(pevent->happening);
 
             if (::is_null(pxcbwindow))
             {
@@ -971,7 +971,7 @@ namespace windowing_xcb
 
             auto pmotion = (xcb_motion_notify_event_t *) pgenericevent;
 
-            pxcbwindow = m_pdisplay->_window(pmotion->event);
+            pxcbwindow = m_pdisplay->_window(pmotion->happening);
 
             if (::is_null(pxcbwindow))
             {
@@ -1125,7 +1125,7 @@ namespace windowing_xcb
 
                auto pmouse = __create_new<::message::mouse>();
 
-               //msg.oswindow = m_pdisplay->_window(pmotion->event);
+               //msg.oswindow = m_pdisplay->_window(pmotion->happening);
                pmouse->m_pwindow = pxcbwindow;
                pmouse->m_oswindow = pxcbwindow;
                pmouse->m_atom = e_message_mouse_move;
@@ -1162,7 +1162,7 @@ namespace windowing_xcb
 
                   auto w = list[i];
 
-                  if (w == pmotion->event)
+                  if (w == pmotion->happening)
                   {
 
                      iFind = i;
@@ -1225,7 +1225,7 @@ namespace windowing_xcb
 
                   auto cookie = xcb_translate_coordinates(
                      m_pdisplay->m_pxcbdisplay->m_pconnection,
-                     pmotion->event,
+                     pmotion->happening,
                      wFound,
                      pmotion->event_x, pmotion->event_y);
 
@@ -1247,7 +1247,7 @@ namespace windowing_xcb
 
                }
 
-               motion.event = wFound;
+               motion.happening = wFound;
 
                //motion.event_x = 0;
 
@@ -1955,7 +1955,7 @@ if(bSentResponse)
 
             bRet = true;
 
-            pxcbwindow = m_pdisplay->_window(pbutton->event);
+            pxcbwindow = m_pdisplay->_window(pbutton->happening);
 
             if (::is_null(pxcbwindow))
             {
@@ -2181,7 +2181,7 @@ if(bSentResponse)
                {
                   auto w = list[i];
 
-                  if (w == pbutton->event)
+                  if (w == pbutton->happening)
                   {
                      iFind = i;
 
@@ -2228,7 +2228,7 @@ if(bSentResponse)
                      m_pdisplay->m_pxcbdisplay->m_pconnection,
                      xcb_translate_coordinates(
                         m_pdisplay->m_pxcbdisplay->m_pconnection,
-                        button.event,
+                        button.happening,
                         wFound,
                         button.event_x, button.event_y),
                      NULL);
@@ -2245,7 +2245,7 @@ if(bSentResponse)
                   }
 
                }
-               button.event = wFound;
+               button.happening = wFound;
                auto cookie = xcb_send_event(m_pdisplay->m_pxcbdisplay->m_pconnection,
                                             1,
                                             wFound,
@@ -2268,7 +2268,7 @@ if(bSentResponse)
 
             auto pkeyevent = (xcb_key_press_event_t *) pgenericevent;
 
-            pxcbwindow = m_pdisplay->_window(pkeyevent->event);
+            pxcbwindow = m_pdisplay->_window(pkeyevent->happening);
 
             if (::is_null(pxcbwindow))
             {
@@ -2361,9 +2361,9 @@ if(bSentResponse)
 
             auto pfocusin = (xcb_focus_in_event_t *) pgenericevent;
 
-            information() << "XCB_FOCUS_IN event_window : " << (iptr) pfocusin->event;
+            information() << "XCB_FOCUS_IN event_window : " << (iptr) pfocusin->happening;
 
-            pxcbwindow = m_pdisplay->_window(pfocusin->event);
+            pxcbwindow = m_pdisplay->_window(pfocusin->happening);
 
             if(pxcbwindow)
             {
@@ -2414,7 +2414,7 @@ if(bSentResponse)
 
             information() << "XCB_FOCUS_OUT";
 
-            pxcbwindow = m_pdisplay->_window(pfocusout->event);
+            pxcbwindow = m_pdisplay->_window(pfocusout->happening);
 
             if (::is_null(pxcbwindow))
             {

@@ -25,7 +25,7 @@ namespace innate_ui_gtk4
 
       ::innate_ui::button::set_callback_on_click(callbackOnClickParam);
 
-      // Callback function to handle the button click event
+      // Callback function to handle the button click happening
       auto on_button_clicked = [](GtkWidget *widget, gpointer data)->void
       {
          auto p = (button *) data;

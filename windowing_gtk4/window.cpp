@@ -539,9 +539,9 @@ gtk_im_context_commit (
       //    GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
       //
       //    // Get the GdkEvent from the sequence
-      //    GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+      //    GdkEvent *happening = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
       //
-      //    guint32 timestamp = gdk_event_get_time (event);
+      //    guint32 timestamp = gdk_event_get_time (happening);
       //
       //    auto pmouse = __create_new<::message::mouse>();
       //
@@ -573,9 +573,9 @@ gtk_im_context_commit (
       //       GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
       //
       //       // Get the GdkEvent from the sequence
-      //       GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+      //       GdkEvent *happening = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
       //
-      //       guint32 timestamp = gdk_event_get_time (event);
+      //       guint32 timestamp = gdk_event_get_time (happening);
       //
       //       auto pgdkdisplay = gtk4_display()->m_pgdkdisplay;
       //
@@ -662,9 +662,9 @@ gtk_im_context_commit (
       //       GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
       //
       //       // Get the GdkEvent from the sequence
-      //       GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+      //       GdkEvent *happening = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
       //
-      //       guint32 timestamp = gdk_event_get_time (event);
+      //       guint32 timestamp = gdk_event_get_time (happening);
       //
       //       auto pgdkdisplay = gtk4_display()->m_pgdkdisplay;
       //
@@ -732,9 +732,9 @@ gtk_im_context_commit (
       //    GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
       //
       //    // Get the GdkEvent from the sequence
-      //    GdkEvent *event = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+      //    GdkEvent *happening = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
       //
-      //    guint32 timestamp = gdk_event_get_time (event);
+      //    guint32 timestamp = gdk_event_get_time (happening);
       //
       //    auto pmouse = __create_new<::message::mouse>();
       //
@@ -839,9 +839,9 @@ gtk_im_context_commit (
             // GdkEventSequence * sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
             //
             // // Get the GdkEvent from the sequence
-            // GdkEvent * event = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+            // GdkEvent * happening = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
             //
-            // guint32 timestamp = gdk_event_get_time(event);
+            // guint32 timestamp = gdk_event_get_time(happening);
             //
             // pmouse->m_iTimestamp = timestamp;
 
@@ -972,13 +972,13 @@ gtk_im_context_commit (
 //            m_pointCursor2.x() = m_sizeOnSize.cx() / 2;
 //            m_pointCursor2.y() = m_sizeOnSize.cy() / 2;
 //
-//            GdkEvent * event = gtk_event_controller_get_current_event(GTK_EVENT_CONTROLLER(pcontroller));
-//            guint32 timestamp = gdk_event_get_time(event);
+//            GdkEvent * happening = gtk_event_controller_get_current_event(GTK_EVENT_CONTROLLER(pcontroller));
+//            guint32 timestamp = gdk_event_get_time(happening);
 //
-//            g_print("Motion event at x=%.2f, y=%.2f with timestamp: %u\n", x, y, timestamp);
+//            g_print("Motion happening at x=%.2f, y=%.2f with timestamp: %u\n", x, y, timestamp);
 //
-//            // if (event) {
-//            //    gdk_event_unref(event);  // Free the event object after use
+//            // if (happening) {
+//            //    gdk_event_unref(happening);  // Free the happening object after use
 //            // }
 //
 //            auto pmouse = __create_new<::message::mouse>();
@@ -1006,7 +1006,7 @@ gtk_im_context_commit (
 //            x /= 2;
 //            y /= 2;
 //
-//            auto pgdkdevice = gdk_event_get_device(event);
+//            auto pgdkdevice = gdk_event_get_device(happening);
 //
 //            gdk_toplevel_begin_move(GDK_TOPLEVEL(toplevel), pgdkdevice, button, x, y, timestamp);
 //
@@ -1246,8 +1246,8 @@ m_pimcontext = gtk_im_multicontext_new();
          g_signal_connect(m_pimcontext, "commit", G_CALLBACK(gtk_im_context_commit), this);
 
 
-         /* Set up the key press event handler for the window */
-   //g_signal_connect(m_pdrawingarea, "key-press-event", G_CALLBACK(on_key_press), im_context);
+         /* Set up the key press happening handler for the window */
+   //g_signal_connect(m_pdrawingarea, "key-press-happening", G_CALLBACK(on_key_press), im_context);
 
          /* Connect the preedit-changed signal to capture intermediate results */
          g_signal_connect(m_pdrawingarea, "state-flags-changed", G_CALLBACK(drawing_area_state_flags_changed), this);
@@ -2350,9 +2350,9 @@ m_pimcontext = gtk_im_multicontext_new();
 
       _on_gtk_key_pressed(keyval, keycode);
 
-      GdkEvent *event = gtk_event_controller_get_current_event(GTK_EVENT_CONTROLLER(controller));
+      GdkEvent *happening = gtk_event_controller_get_current_event(GTK_EVENT_CONTROLLER(controller));
 
-      bool bHandled = gtk_im_context_filter_keypress(m_pimcontext, event);
+      bool bHandled = gtk_im_context_filter_keypress(m_pimcontext, happening);
 
       gchar *preedit_string = NULL;
 
@@ -2393,9 +2393,9 @@ return false;
 
       _on_gtk_key_released(keyval, keycode);
 
-      GdkEvent *event = gtk_event_controller_get_current_event(GTK_EVENT_CONTROLLER(controller));
+      GdkEvent *happening = gtk_event_controller_get_current_event(GTK_EVENT_CONTROLLER(controller));
 
-      bool bHandled = gtk_im_context_filter_keypress(m_pimcontext, event);
+      bool bHandled = gtk_im_context_filter_keypress(m_pimcontext, happening);
 
       gchar *preedit_string = NULL;
 

@@ -81,11 +81,11 @@ namespace gtk3
 
             //virtual bool aaa_message_loop_step();
 
-            virtual bool _on_button_press(GtkWidget *widget, GdkEventButton *event);
-            virtual bool _on_button_release(GtkWidget *widget, GdkEventButton *event);
-            virtual bool _on_motion_notify(GtkWidget *widget, GdkEventMotion *event);
-            virtual bool _on_enter_notify(GtkWidget *widget, GdkEventCrossing *event);
-            virtual bool _on_window_state(GtkWidget* widget, GdkEventWindowState* event);
+            virtual bool _on_button_press(GtkWidget *widget, GdkEventButton *happening);
+            virtual bool _on_button_release(GtkWidget *widget, GdkEventButton *happening);
+            virtual bool _on_motion_notify(GtkWidget *widget, GdkEventMotion *happening);
+            virtual bool _on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening);
+            virtual bool _on_window_state(GtkWidget* widget, GdkEventWindowState* happening);
 
             virtual void _on_cairo_draw(GtkWidget *widget, cairo_t *cr);
             //void create_window(::windowing::window * pimpl) override;

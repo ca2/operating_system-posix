@@ -627,7 +627,7 @@ namespace music
 
             }
 
-            m_evMmsgDone.reset_happening();
+            m_happeningMmsgDone.reset_happening();
 
             ::e_status mmrc = ::success;
 
@@ -864,7 +864,7 @@ namespace music
             }
 
             set_state(e_state_playing);
-            m_evMmsgDone.reset_happening();
+            m_happeningMmsgDone.reset_happening();
 
             //    ::e_status mmrc = 0;
             //    single_lock slStream(&m_csStream, false);
@@ -1191,7 +1191,7 @@ namespace music
 
    /*         if(m_uBuffersInMMSYSTEM <= 0)
             {
-               m_evBuffersZero.set_happening();
+               m_happeningBuffersZero.set_happening();
             }*/
 
             if (e_state_reset == get_state())
@@ -1277,9 +1277,9 @@ namespace music
                   }
                   else if(m_eoperation == operation_tempo_change)
                   {
-                     ::music::midi::event event;
-                     file()->GetTempoEvent(event);
-   //                  file()->StreamEvent(event.GetDelta(), &event, lpmidihdr, I32_MAXIMUM, 256);
+                     ::music::midi::happening happening;
+                     file()->GetTempoEvent(happening);
+   //                  file()->StreamEvent(happening.GetDelta(), &happening, lpmidihdr, I32_MAXIMUM, 256);
                      // lpmidihdr->dwBytesRecorded = sizeof(gmModeOn);
                      // memory_copy(lpmidihdr->lpData, gmModeOn, sizeof(gmModeOn));
                   }
@@ -1546,7 +1546,7 @@ namespace music
             }
          }
 
-         void sequence::OnMidiPlaybackEnd(::music::midi::sequence::event * pevent)
+         void sequence::OnMidiPlaybackEnd(::music::midi::sequence::happening * pevent)
          {
             __UNREFERENCED_PARAMETER(pevent);
             single_lock sl(m_pmutex, TRUE);
@@ -1575,11 +1575,11 @@ namespace music
                m_estatusLastError = ::success;
                m_flags.unsignalize(e_flag_waiting);
 
-               m_evMmsgDone.set_happening();
+               m_happeningMmsgDone.set_happening();
             }
          }
 
-         void sequence::OnEvent(::music::midi::sequence::event * pevent)
+         void sequence::OnHappening(::music::midi::sequence::happening * pevent)
          {
             switch(pevent->m_eevent)
             {
@@ -1708,21 +1708,21 @@ namespace music
    //         imedia_time_2darray ms2DNoteOffMillis(get_app());
    //         imedia_time_2darray ms2DBegMillis(get_app());
    //         imedia_time_2darray ms2DEndMillis(get_app());
-   //         ::music::midi::events midiEvents;
+   //         ::music::midi::happenings midiEvents;
    //
    //
    //
    //
-   //         // Note on and off events
+   //         // Note on and off happenings
    //         // and maximum and minimum
    //         // pitch bend peaks.
-   //         ::music::midi::events midiEventsLevel2;
+   //         ::music::midi::happenings midiEventsLevel2;
    //
-   //         ::music::midi::events noteOnEvents;
-   //         ::music::midi::events noteOffEvents;
+   //         ::music::midi::happenings noteOnHappenings;
+   //         ::music::midi::happenings noteOffEvents;
    //
-   //         ::music::midi::events eventsLevel2Beg;
-   //         ::music::midi::events eventsLevel2End;
+   //         ::music::midi::happenings eventsLevel2Beg;
+   //         ::music::midi::happenings eventsLevel2End;
    //         ::ikaraoke::events_tracks_v1 lyricEventsForPositionCB;
    //         ::ikaraoke::events_tracks_v1 lyricEventsForBouncingBall;
    //         ::ikaraoke::events_tracks_v1 lyricEventsForScoring;
@@ -1743,7 +1743,7 @@ namespace music
    //         ::ikaraoke::lyric_events_v2 *pLyricEventsV2_;
    //         ::ikaraoke::lyric_events_v2 *pLyricEventsV2B;
    //         ::ikaraoke::lyric_events_v2 *pLyricEventsV2C;
-   //         ::music::midi::events *pMidiEventsV1;
+   //         ::music::midi::happenings *pMidiEventsV1;
    //
    //         tickaaNoteOnPositions.set_size_create(tickaaTokensTicks.get_size());
    //         tickaaNoteOffPositions.set_size_create(tickaaTokensTicks.get_size());
@@ -1829,7 +1829,7 @@ namespace music
    //            ::music::midi::util miditutil(get_app());
    //
    //            miditutil.PrepareNoteOnOffEvents(
-   //               &noteOnEvents,
+   //               &noteOnHappenings,
    //               &noteOffEvents,
    //               (int32_t) pLyricEventsV2->m_iTrack,
    //               file.GetFormat(),
@@ -1845,16 +1845,16 @@ namespace music
    //               tickaaTokensTicks.operator()(i));
    //
    //
-   //            tickaaNoteOnPositions(i)     = noteOnEvents.m_tickaEventsPosition;
+   //            tickaaNoteOnPositions(i)     = noteOnHappenings.m_tickaEventsPosition;
    //            tickaaNoteOffPositions(i)    = noteOffEvents.m_tickaEventsPosition;
    //            tickaaBegPositions(i)        = eventsLevel2Beg.m_tickaEventsPosition;
    //            tickaaEndPositions(i)        = eventsLevel2End.m_tickaEventsPosition;
-   //            pLyricEventsV2->m_dwaNotesData.copy(noteOnEvents.m_dwaEventsData);
+   //            pLyricEventsV2->m_dwaNotesData.copy(noteOnHappenings.m_dwaEventsData);
    //            pLyricEventsV2B->m_dwaNotesData.copy(eventsLevel2Beg.m_dwaEventsData);
    //            pLyricEventsV2C->m_dwaNotesData.copy(eventsLevel2Beg.m_dwaEventsData);
    //            pLyricEventsV2_->m_dwaNotesData.copy(eventsLevel2Beg.m_dwaEventsData);
    //            midiEvents.remove_all();
-   //            noteOnEvents.remove_all();
+   //            noteOnHappenings.remove_all();
    //            noteOffEvents.remove_all();
    //            midiEventsLevel2.remove_all();
    //            eventsLevel2Beg.remove_all();
@@ -2420,14 +2420,14 @@ namespace music
                m_flags.unsignalize(::music::midi::sequence::e_flag_setting_position);
          }
 
-         ::music::midi::sequence::event * sequence::create_new_event(::music::midi::sequence::e_event eevent, LPMIDIHDR lpmidihdr)
+         ::music::midi::sequence::happening * sequence::create_new_event(::music::midi::sequence::e_happening ehappening, LPMIDIHDR lpmidihdr)
          {
 
             ASSERT(this != NULL);
 
-            event * pevent          = aaa_primitive_new event();
+            happening * pevent          = aaa_primitive_new happening();
 
-            pevent->m_eevent        = eevent;
+            pevent->m_eevent        = ehappening;
             pevent->m_psequence     = this;
             pevent->m_lpmh          = lpmidihdr;
 
@@ -2436,12 +2436,12 @@ namespace music
          }
 
 
-   //      ::music::midi::event * sequence::seq_get_next_event()
+   //      ::music::midi::happening * sequence::seq_get_next_event()
    //      {
    //
-   //         ::music::midi::event * pevent = NULL;
+   //         ::music::midi::happening * pevent = NULL;
    //
-   //         array < ::music::midi::event * > & evptra = m_evptra;
+   //         array < ::music::midi::happening * > & evptra = m_evptra;
    //
    //         if(evptra.get_size() > 0)
    //         {
@@ -2466,7 +2466,7 @@ namespace music
    //      {
    //
    //
-   //         ::music::midi::event * pevent = seq_get_next_event();
+   //         ::music::midi::happening * pevent = seq_get_next_event();
    //
    //         if(pevent == NULL)
    //         {
@@ -2475,7 +2475,7 @@ namespace music
    //
    //         }
    //
-   //         array < ::music::midi::event * > & evptra = m_evptra;
+   //         array < ::music::midi::happening * > & evptra = m_evptra;
    //
    //         m_tkPosition = pevent->m_tkPosition;
    //
@@ -2494,7 +2494,7 @@ namespace music
    //               if(pevent->GetType() == ::music::midi::NoteOn && pevent->GetNoteVelocity() > 0)
    //               {
    //
-   //                  ::music::midi::event * peventOff = NULL;
+   //                  ::music::midi::happening * peventOff = NULL;
    //
    //                  bool bFound = false;
    //
@@ -2741,7 +2741,7 @@ namespace music
    //      }
 
 
-   //      int sequence::seq_play(::music::midi::event * pevent)
+   //      int sequence::seq_play(::music::midi::happening * pevent)
    //      {
    //
    //         snd_seq_event_t ev;

@@ -44,9 +44,9 @@ namespace windowing_gtk3
 //
 //                             //::windowing_gtk3::display_lock lock(m_pdisplay->Display());
 //
-//                             int event, error;
+//                             int happening, error;
 //
-//                             if (!XQueryExtension(m_pdisplay->Display(), "XInputExtension", &m_xi_opcode, &event,
+//                             if (!XQueryExtension(m_pdisplay->Display(), "XInputExtension", &m_xi_opcode, &happening,
 //                                                  &error))
 //                             {
 //
@@ -69,7 +69,7 @@ namespace windowing_gtk3
 //                             //else
 //                             //win = create_win(display);
 //
-//                             /* Select for motion events */
+//                             /* Select for motion happenings */
 //                             m = &mask[0];
 //                             m->deviceid = (deviceid == -1) ? XIAllDevices : deviceid;
 //                             m->mask_len = XIMaskLen(XI_LASTEVENT);

@@ -125,8 +125,8 @@ namespace node_gtk3
                            //current_directory);
                            //}
 
-                           g_signal_connect(G_OBJECT(widget), "destroy-event", G_CALLBACK(&on_folder_chooser_destroy_event), pdialog);
-                           g_signal_connect(G_OBJECT(widget), "delete-event", G_CALLBACK(&on_folder_chooser_delete_event), pdialog);
+                           g_signal_connect(G_OBJECT(widget), "destroy-happening", G_CALLBACK(&on_folder_chooser_destroy_event), pdialog);
+                           g_signal_connect(G_OBJECT(widget), "delete-happening", G_CALLBACK(&on_folder_chooser_delete_event), pdialog);
                            g_signal_connect(G_OBJECT(widget), "response", G_CALLBACK(&on_folder_chooser_response), pdialog);
 
                            gtk_widget_show(widget);

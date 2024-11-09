@@ -1292,7 +1292,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          while (XPending(pdisplay) && !m_bFinishX11Thread)
          {
 
-            information() << "windowing_x11::windowing::x11_message_loop_step Pending event";
+            information() << "windowing_x11::windowing::x11_message_loop_step Pending happening";
 
             try
             {
@@ -3094,7 +3094,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          default:
          {
 
-            debugf("windowing_x11 unknown/unhandled event : %d", e.type);
+            debugf("windowing_x11 unknown/unhandled happening : %d", e.type);
 
          }
          break;

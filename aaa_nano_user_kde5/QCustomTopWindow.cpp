@@ -19,7 +19,7 @@ QCustomTopWindow::QCustomTopWindow(::kde5::micro::window * pwindow)
 }
 
 
-   void QCustomTopWindow::paintEvent(QPaintEvent* event)
+   void QCustomTopWindow::paintEvent(QPaintEvent* happening)
    {
 
       if(m_qimage.size() != this->size())
@@ -45,58 +45,58 @@ QCustomTopWindow::QCustomTopWindow(::kde5::micro::window * pwindow)
    }
 
 
-   // Handle mouse button press event
-   void QCustomTopWindow::mousePressEvent(QMouseEvent *event)
+   // Handle mouse button press happening
+   void QCustomTopWindow::mousePressEvent(QMouseEvent *happening)
    {
       // int buttonType = -1;
-      // if (event->button() == Qt::LeftButton) {
+      // if (happening->button() == Qt::LeftButton) {
       //    buttonType = 1;
-      // } else if (event->button() == Qt::RightButton) {
+      // } else if (happening->button() == Qt::RightButton) {
       //    buttonType = 2;
-      // } else if (event->button() == Qt::MiddleButton) {
+      // } else if (happening->button() == Qt::MiddleButton) {
       //    buttonType = 3;
       // }
       // label->setText(QString("Mouse Pressed: %1 Button at (%2, %3)")
       //     .arg(buttonType)
-      //     .arg(event->pos().x())
-      //     .arg(event->pos().y()));
-      //qDebug() << "Mouse Pressed:" << buttonType << "at" << event->pos();
-      m_pwindow->_on_mouse_press(event);
+      //     .arg(happening->pos().x())
+      //     .arg(happening->pos().y()));
+      //qDebug() << "Mouse Pressed:" << buttonType << "at" << happening->pos();
+      m_pwindow->_on_mouse_press(happening);
    }
 
-   // Handle mouse button release event
-   void QCustomTopWindow::mouseReleaseEvent(QMouseEvent *event)
+   // Handle mouse button release happening
+   void QCustomTopWindow::mouseReleaseEvent(QMouseEvent *happening)
    {
       // int buttonType = -1;
-      // if (event->button() == Qt::LeftButton) {
+      // if (happening->button() == Qt::LeftButton) {
       //    buttonType = 1;
-      // } else if (event->button() == Qt::RightButton) {
+      // } else if (happening->button() == Qt::RightButton) {
       //    buttonType = 2;
-      // } else if (event->button() == Qt::MiddleButton) {
+      // } else if (happening->button() == Qt::MiddleButton) {
       //    buttonType = 3;
       // }
       // label->setText(QString("Mouse Released at (%1, %2)")
-      //     .arg(event->pos().x())
-      //     .arg(event->pos().y()));
-      //qDebug() << "Mouse Released at" << event->pos();
-      m_pwindow->_on_mouse_release(event);
+      //     .arg(happening->pos().x())
+      //     .arg(happening->pos().y()));
+      //qDebug() << "Mouse Released at" << happening->pos();
+      m_pwindow->_on_mouse_release(happening);
    }
 
-   // Handle mouse motion event
-   void QCustomTopWindow::mouseMoveEvent(QMouseEvent *event)
+   // Handle mouse motion happening
+   void QCustomTopWindow::mouseMoveEvent(QMouseEvent *happening)
    {
 //         label->setText(QString("Mouse Moved to (%1, %2)")
-//           .arg(event->pos().x())
- //         .arg(event->pos().y()));
-   //   qDebug() << "Mouse Moved to" << event->pos();
-      m_pwindow->_on_mouse_motion(event);
+//           .arg(happening->pos().x())
+ //         .arg(happening->pos().y()));
+   //   qDebug() << "Mouse Moved to" << happening->pos();
+      m_pwindow->_on_mouse_motion(happening);
    }
 
-void QCustomTopWindow::moveEvent(QMoveEvent *event)
+void QCustomTopWindow::moveEvent(QMoveEvent *happening)
 {
    try
    {
-      QPoint newPos = event->pos();  // Get the ___new size of the window
+      QPoint newPos = happening->pos();  // Get the ___new size of the window
       //   qDebug() << "Window resized to:" << newSize;
       m_pwindow->_on_reposition(newPos.x(), newPos.y());
       // Update the label with the ___new size
@@ -108,15 +108,15 @@ void QCustomTopWindow::moveEvent(QMoveEvent *event)
 
    }
 
-   // Call the base class implementation (important for proper event handling)
-   QWidget::moveEvent(event);
+   // Call the base class implementation (important for proper happening handling)
+   QWidget::moveEvent(happening);
 
 }
-   void QCustomTopWindow::resizeEvent(QResizeEvent *event)
+   void QCustomTopWindow::resizeEvent(QResizeEvent *happening)
    {
       try
       {
-         QSize newSize = event->size();  // Get the ___new size of the window
+         QSize newSize = happening->size();  // Get the ___new size of the window
          //   qDebug() << "Window resized to:" << newSize;
          m_pwindow->_on_size(newSize.width(), newSize.height());
          // Update the label with the ___new size
@@ -128,7 +128,7 @@ void QCustomTopWindow::moveEvent(QMoveEvent *event)
 
       }
 
-      // Call the base class implementation (important for proper event handling)
-      QWidget::resizeEvent(event);
+      // Call the base class implementation (important for proper happening handling)
+      QWidget::resizeEvent(happening);
    }
 
