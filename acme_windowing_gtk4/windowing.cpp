@@ -280,7 +280,7 @@ namespace gtk4
 
                procedure();
 
-               pevent->SetEvent();
+               pevent->set_happening();
 
             });
 
@@ -1345,7 +1345,7 @@ namespace gtk4
          //
          //       m_phappeningCreatingWGtk4Display = __allocate manual_reset_happening();
          //
-         //       m_phappeningCreatingWGtk4Display->ResetEvent();
+         //       m_phappeningCreatingWGtk4Display->reset_happening();
          //
          //       auto p = ___new ::gtk4::acme::windowing::display();
          //
@@ -1377,7 +1377,7 @@ namespace gtk4
          //
          //       lock.lock();
          //
-         //       m_phappeningCreatingWGtk4Display->SetEvent();
+         //       m_phappeningCreatingWGtk4Display->set_happening();
          //
          //       m_phappeningCreatingWGtk4Display.release();
          //

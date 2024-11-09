@@ -1435,7 +1435,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 ////
 ////         g_prunnableXcbSync.release();
 ////
-////         g_peventXcbSync->SetEvent();
+////         g_peventXcbSync->set_happening();
 ////
 ////         bDoneMuchThings = true;
 ////

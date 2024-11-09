@@ -337,7 +337,7 @@ namespace windowing_system_gtk3
 
                    procedure();
 
-                   pevent->SetEvent();
+                   pevent->set_happening();
 
                 });
 

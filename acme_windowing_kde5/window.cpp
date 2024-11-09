@@ -1082,7 +1082,7 @@ namespace kde5
 
          //XCloseDisplay(m_pdisplay->m_pdisplay);
 
-         m_happeningEnd.SetEvent();
+         m_happeningEnd.set_happening();
 
          ::acme::windowing::window::destroy();
 

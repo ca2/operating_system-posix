@@ -117,7 +117,7 @@
 
                    procedure();
 
-                   pevent->SetEvent();
+                   pevent->set_happening();
 
                 });
 

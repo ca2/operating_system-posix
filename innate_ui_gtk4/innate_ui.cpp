@@ -113,7 +113,7 @@ namespace innate_ui_gtk4
    //    }
    //    manual_reset_happening event;
    //
-   //    event.ResetEvent();
+   //    event.reset_happening();
    //
    //    ::platform::get()->application()->fork([this, &event]()
    //       {
@@ -124,7 +124,7 @@ namespace innate_ui_gtk4
    //                ::PeekMessage(&msg, nullptr, 0, 0, 0);
    //                m_hthread = ::GetCurrentThread();
    //                m_dwThread = ::GetCurrentThreadId();
-   //                event.SetEvent();
+   //                event.set_happening();
    //                while (::task_get_run())
    //                {
    //                   DWORD timeout = 100; // 100 ::times;

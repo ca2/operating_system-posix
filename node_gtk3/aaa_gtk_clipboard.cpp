@@ -29,7 +29,7 @@ void clipboard_targets_func(GtkClipboard *clipboard, GdkAtom *atoms, gint n_atom
 
    }
 
-   pdata->m_happening.SetEvent();
+   pdata->m_happening.set_happening();
 
 }
 
@@ -86,7 +86,7 @@ void clipboard_image_received_func(GtkClipboard * clipboard, GdkPixbuf * pixbuf,
 
    }
 
-   pdata->m_happening.SetEvent();
+   pdata->m_happening.set_happening();
 
 }
 
@@ -107,7 +107,7 @@ void clipboard_received_func(GtkClipboard * clipboard, GtkSelectionData * select
 
       pdata->m_eclipboard = e_clipboard_error;
 
-      pdata->m_happening.SetEvent();
+      pdata->m_happening.set_happening();
 
       return;
 
@@ -132,7 +132,7 @@ void clipboard_received_func(GtkClipboard * clipboard, GtkSelectionData * select
 
       pdata->m_eclipboard = e_clipboard_error;
 
-      pdata->m_happening.SetEvent();
+      pdata->m_happening.set_happening();
 
       return;
 
@@ -149,7 +149,7 @@ void clipboard_received_func(GtkClipboard * clipboard, GtkSelectionData * select
 
    }
 
-   pdata->m_happening.SetEvent();
+   pdata->m_happening.set_happening();
 
 }
 
@@ -233,7 +233,7 @@ void clipboard_text_request_callback(GtkClipboard *clipboard, const gchar * text
 
    }
 
-   pdata->m_happening.SetEvent();
+   pdata->m_happening.set_happening();
 
 }
 
@@ -270,7 +270,7 @@ gboolean clipboard_callback(gpointer data)
 
       gtk_clipboard_set_with_data(clipboard, entrya, 2, &clipboard_get_func, &clipboard_clear_func, pdata);
 
-      pdata->m_happening.SetEvent();
+      pdata->m_happening.set_happening();
 
    }
    else if(pdata->m_eclipboard == e_clipboard_get_patha)
@@ -321,7 +321,7 @@ gboolean clipboard_callback(gpointer data)
 
       }
 
-      pdata->m_happening.SetEvent();
+      pdata->m_happening.set_happening();
 
 //      GdkPixbuf * pixbuf = gtk_clipboard_wait_for_image(clipboard);
 //
@@ -385,7 +385,7 @@ gboolean clipboard_callback(gpointer data)
 //
 //      }
 //
-//      pdata->m_happening.SetEvent();
+//      pdata->m_happening.set_happening();
 
 
    }

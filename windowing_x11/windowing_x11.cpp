@@ -1556,7 +1556,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                pbuffer->m_bXShmPutImagePending = false;
 
-               pbufferitem->m_manualresethappening.SetEvent();
+               pbufferitem->m_manualresethappening.set_happening();
 
             }
 

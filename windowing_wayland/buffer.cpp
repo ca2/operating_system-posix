@@ -671,7 +671,7 @@ namespace windowing_wayland
 
       auto pevent = __create_new < manual_reset_happening >();
 
-      pevent->ResetEvent();
+      pevent->reset_happening();
 
       user_post([this, pevent]()
       {
@@ -679,7 +679,7 @@ namespace windowing_wayland
          at_end_of_scope
          {
 
-            pevent->SetEvent();
+            pevent->set_happening();
 
          };
 
@@ -1154,7 +1154,7 @@ namespace windowing_wayland
 //            copy_image32((::image32_t *) m_pximage->data, sizeBitBlitting,
 //                         pitem->m_iScan, pimage->get_data(), pimage->scan_size());
 //
-//            pitem->m_manualresethappening.ResetEvent();
+//            pitem->m_manualresethappening.reset_happening();
 //
 //            m_sizeLastBitBlitting = sizeBitBlitting;
 //

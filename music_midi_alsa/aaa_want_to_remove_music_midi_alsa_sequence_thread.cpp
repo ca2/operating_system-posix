@@ -358,7 +358,7 @@ namespace music
          void sequence_thread::SendTempoChange()
          {
             ASSERT(!get_sequence()->IsPlaying());
-            get_sequence()->m_evMmsgDone.ResetEvent();
+            get_sequence()->m_evMmsgDone.reset_happening();
             PostTempoChange();
             get_sequence()->m_evMmsgDone.wait();
          }
@@ -474,7 +474,7 @@ namespace music
                break;
             case ::music::midi::command_stop:
                {
-                  m_happeningStop.ResetEvent();
+                  m_happeningStop.reset_happening();
                   ::e_status            mmrc;
                   ::music::midi::sequence::player_link & link = get_sequence()->GetPlayerLink();
 

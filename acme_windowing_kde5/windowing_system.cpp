@@ -128,7 +128,7 @@ namespace windowing_system_kde5
 
                    procedure();
 
-                   pevent->SetEvent();
+                   pevent->set_happening();
 
                 });
 

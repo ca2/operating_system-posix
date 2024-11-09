@@ -1949,7 +1949,7 @@ namespace wayland
 
                g_peventCreatingWaylandDisplay = __allocate manual_reset_happening();
 
-               g_peventCreatingWaylandDisplay->ResetEvent();
+               g_peventCreatingWaylandDisplay->reset_happening();
 
                auto p = ___new ::wayland::acme::windowing::display();
 
@@ -1978,7 +1978,7 @@ namespace wayland
 
                lock.lock();
 
-               g_peventCreatingWaylandDisplay->SetEvent();
+               g_peventCreatingWaylandDisplay->set_happening();
 
                g_peventCreatingWaylandDisplay.release();
 

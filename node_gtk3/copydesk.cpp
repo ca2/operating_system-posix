@@ -322,7 +322,7 @@ namespace node_gtk3
 //
 //   }
 //
-//   pdata->m_happening.SetEvent();
+//   pdata->m_happening.set_happening();
 //
 //}
 //
@@ -379,7 +379,7 @@ namespace node_gtk3
 //
 //   }
 //
-//   pdata->m_happening.SetEvent();
+//   pdata->m_happening.set_happening();
 //
 //}
 //
@@ -401,7 +401,7 @@ namespace node_gtk3
 //
 //      pdata->m_eclipboard = e_clipboard_error;
 //
-//      pdata->m_happening.SetEvent();
+//      pdata->m_happening.set_happening();
 //
 //      return;
 //
@@ -426,7 +426,7 @@ namespace node_gtk3
 //
 //      pdata->m_eclipboard = e_clipboard_error;
 //
-//      pdata->m_happening.SetEvent();
+//      pdata->m_happening.set_happening();
 //
 //      return;
 //
@@ -443,7 +443,7 @@ namespace node_gtk3
 //
 //   }
 //
-//   pdata->m_happening.SetEvent();
+//   pdata->m_happening.set_happening();
 //
 //}
 //
@@ -527,7 +527,7 @@ namespace node_gtk3
 //
 //   }
 //
-//   pdata->m_happening.SetEvent();
+//   pdata->m_happening.set_happening();
 //
 //}
 //
@@ -563,7 +563,7 @@ namespace node_gtk3
 //
 //      gtk_clipboard_set_with_data(clipboard, entrya, 2, &clipboard_get_func, &clipboard_clear_func, pdata);
 //
-//      pdata->m_happening.SetEvent();
+//      pdata->m_happening.set_happening();
 //
 //   }
 //   else if(pdata->m_eclipboard == e_clipboard_get_patha)
@@ -614,7 +614,7 @@ namespace node_gtk3
 //
 //      }
 //
-//      pdata->m_happening.SetEvent();
+//      pdata->m_happening.set_happening();
 //
 ////      GdkPixbuf * pixbuf = gtk_clipboard_wait_for_image(clipboard);
 ////
@@ -678,7 +678,7 @@ namespace node_gtk3
 ////
 ////      }
 ////
-////      pdata->m_happening.SetEvent();
+////      pdata->m_happening.set_happening();
 //
 //
 //   }

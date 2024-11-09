@@ -1228,7 +1228,7 @@ static const audio_dev_backend *audio_dev_backends[] = {
                prodpeer = 1;
             }
 
-            m_happeningRead.ResetEvent();
+            m_happeningRead.reset_happening();
 
             do 
             {
@@ -1270,7 +1270,7 @@ static const audio_dev_backend *audio_dev_backends[] = {
          
          ac_buffersamples += samplecount;
 
-         m_happeningRead.SetEvent();
+         m_happeningRead.set_happening();
 
          //tail = m_pdata->m_iTail;
          

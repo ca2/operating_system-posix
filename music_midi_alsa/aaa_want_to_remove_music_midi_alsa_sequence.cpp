@@ -627,7 +627,7 @@ namespace music
 
             }
 
-            m_evMmsgDone.ResetEvent();
+            m_evMmsgDone.reset_happening();
 
             ::e_status mmrc = ::success;
 
@@ -864,7 +864,7 @@ namespace music
             }
 
             set_state(e_state_playing);
-            m_evMmsgDone.ResetEvent();
+            m_evMmsgDone.reset_happening();
 
             //    ::e_status mmrc = 0;
             //    single_lock slStream(&m_csStream, false);
@@ -921,7 +921,7 @@ namespace music
 
             m_flags.signalize(::music::midi::sequence::e_flag_waiting);
 
-            m_happeningMidiPlaybackEnd.ResetEvent();
+            m_happeningMidiPlaybackEnd.reset_happening();
 
             m_bPlay = false;
 
@@ -1191,7 +1191,7 @@ namespace music
 
    /*         if(m_uBuffersInMMSYSTEM <= 0)
             {
-               m_evBuffersZero.SetEvent();
+               m_evBuffersZero.set_happening();
             }*/
 
             if (e_state_reset == get_state())
@@ -1575,7 +1575,7 @@ namespace music
                m_estatusLastError = ::success;
                m_flags.unsignalize(e_flag_waiting);
 
-               m_evMmsgDone.SetEvent();
+               m_evMmsgDone.set_happening();
             }
          }
 
@@ -2674,7 +2674,7 @@ namespace music
    //
    //                  }
    //
-   //                  m_happeningMidiPlaybackEnd.SetEvent();
+   //                  m_happeningMidiPlaybackEnd.set_happening();
    //
    //                  sequence_thread * pthread = dynamic_cast < sequence_thread * > (m_pthread);
    //
@@ -2716,7 +2716,7 @@ namespace music
    ////
    ////                  }
    ////
-   ////                  m_happeningMidiPlaybackEnd.SetEvent();
+   ////                  m_happeningMidiPlaybackEnd.set_happening();
    ////
    ////                  sequence_thread * pthread = dynamic_cast < sequence_thread * > (m_pthread);
    ////

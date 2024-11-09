@@ -633,7 +633,7 @@ namespace windowing_x11
             copy_image32((::image32_t *) m_pximage->data, sizeBitBlitting,
                          pitem->m_iScan, pimage->get_data(), pimage->scan_size());
 
-            pitem->m_manualresethappening.ResetEvent();
+            pitem->m_manualresethappening.reset_happening();
 
             m_sizeLastBitBlitting = sizeBitBlitting;
 

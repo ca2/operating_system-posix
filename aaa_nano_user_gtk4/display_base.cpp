@@ -2004,7 +2004,7 @@ namespace gtk4
 
                g_peventCreatingWaylandDisplay = __allocate manual_reset_happening();
 
-               g_peventCreatingWaylandDisplay->ResetEvent();
+               g_peventCreatingWaylandDisplay->reset_happening();
 
                auto p = ___new ::gtk4::acme::windowing::display();
 
@@ -2033,7 +2033,7 @@ namespace gtk4
 
                lock.lock();
 
-               g_peventCreatingWaylandDisplay->SetEvent();
+               g_peventCreatingWaylandDisplay->set_happening();
 
                g_peventCreatingWaylandDisplay.release();
 

@@ -118,7 +118,7 @@ namespace wayland
 
                    procedure();
 
-                   pevent->SetEvent();
+                   pevent->set_happening();
 
                 });
 
