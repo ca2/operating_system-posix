@@ -2636,7 +2636,7 @@ namespace windowing_x11
 
       pmessagequeue->m_messagea.add(message);
 
-      pmessagequeue->m_happeningNewMessage.set_event();
+      pmessagequeue->m_happeningNewMessage.set_happening();
 
       return ::success;
 
