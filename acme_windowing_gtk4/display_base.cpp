@@ -7,7 +7,7 @@
 #include "acme/exception/interface_only.h"
 #include "acme/graphics/image/pixmap.h"
 //#include "nano_user_wayland/window_base.h"
-#include "acme/parallelization/manual_reset_event.h"
+#include "acme/parallelization/manual_reset_happening.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/parallelization/task.h"
 #include "acme/platform/acme.h"

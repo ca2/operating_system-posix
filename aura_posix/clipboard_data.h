@@ -4,7 +4,7 @@
 #pragma once
 
 
-#include "acme/parallelization/manual_reset_event.h"
+#include "acme/parallelization/manual_reset_happening.h"
 #include "aura/graphics/image/image.h"
 #include "aura/user/user/copydesk.h"
 

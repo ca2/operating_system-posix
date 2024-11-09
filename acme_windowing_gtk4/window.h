@@ -16,7 +16,7 @@
 
 
 #include "_.h"
-#include "acme/parallelization/manual_reset_event.h"
+#include "acme/parallelization/manual_reset_happening.h"
 #include "acme/windowing/window.h"
 
 

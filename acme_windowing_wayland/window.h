@@ -7,7 +7,7 @@
 
 #include "acme/user/micro/window_implementation.h"
 #include "event_listener.h"
-#include "acme/parallelization/manual_reset_event.h"
+#include "acme/parallelization/manual_reset_happening.h"
 #include "window_base.h"
 
 

@@ -6,7 +6,7 @@
 
 #include "acme/windowing/window_base.h"
 #include "event_listener.h"
-#include "acme/parallelization/manual_reset_event.h"
+#include "acme/parallelization/manual_reset_happening.h"
 #include <QWidget>
 
 

@@ -15,7 +15,7 @@
 #include "acme/handler/topic.h"
 #include "acme/platform/scoped_restore.h"
 #include "acme/operating_system/summary.h"
-#include "acme/parallelization/manual_reset_event.h"
+#include "acme/parallelization/manual_reset_happening.h"
 #include "acme/user/user/os_theme_colors.h"
 #include "acme/user/user/theme_colors.h"
 #include "acme/windowing/windowing_base.h"

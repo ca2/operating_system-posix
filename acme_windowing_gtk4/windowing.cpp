@@ -7,7 +7,7 @@
 #include "acme/integrate/cairo.h"
 #include "acme/nano/nano.h"
 #include "acme/user/micro/user.h"
-#include "acme/parallelization/manual_reset_event.h"
+#include "acme/parallelization/manual_reset_happening.h"
 #include "acme/platform/application.h"
 #include "acme/platform/node.h"
 #include "acme/handler/request.h"

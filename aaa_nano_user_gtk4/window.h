@@ -17,7 +17,7 @@
 
 #include "_.h"
 #include "windowing_system_gtk4/_.h"
-#include "acme/parallelization/manual_reset_event.h"
+#include "acme/parallelization/manual_reset_happening.h"
 #include "acme/windowing/window_base.h"
 
 
