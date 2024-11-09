@@ -1929,7 +1929,7 @@ namespace wayland
          }
 
 
-         ::pointer < manual_reset_event > g_peventCreatingWaylandDisplay;
+         ::pointer < manual_reset_happening > g_peventCreatingWaylandDisplay;
 
          display_base * display_base::get(::particle * pparticle, bool bBranch, ::wl_display * pwldisplay)
          {
@@ -1947,7 +1947,7 @@ namespace wayland
             else if (s_pdisplaybase == nullptr)
             {
 
-               g_peventCreatingWaylandDisplay = __allocate manual_reset_event();
+               g_peventCreatingWaylandDisplay = __allocate manual_reset_happening();
 
                g_peventCreatingWaylandDisplay->ResetEvent();
 

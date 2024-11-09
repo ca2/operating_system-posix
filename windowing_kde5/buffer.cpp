@@ -669,7 +669,7 @@ namespace windowing_kde5
 //
 //       }
 //
-//       auto pevent = __create_new < manual_reset_event >();
+//       auto pevent = __create_new < manual_reset_happening >();
 //
 //       pevent->ResetEvent();
 //

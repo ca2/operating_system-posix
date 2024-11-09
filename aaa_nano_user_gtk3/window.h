@@ -45,7 +45,7 @@ namespace gtk3
             //string                        m_strTitle;
             //bool                          m_bNcActive;
             ::pointer<::nano::graphics::device>           m_pnanodevice;
-            manual_reset_event              m_eventEnd;
+            manual_reset_happening              m_eventEnd;
             //int_rectangle                 m_rectangle;
             //int_rectangle                 m_rectangleX;
 

@@ -46,7 +46,7 @@ namespace gtk4
             //string                         m_strTitle;
             //bool                           m_bNcActive;
 
-            manual_reset_event               m_eventEnd;
+            manual_reset_happening               m_eventEnd;
             //int_rectangle                  m_rectangle;
             //int_rectangle                  m_rectangleX;
 

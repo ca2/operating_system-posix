@@ -273,7 +273,7 @@ namespace gtk4
             //      CLASS_DECL_ACME bool main_synchronous(const class time & time, const ::procedure & function)
             //      {
 
-            auto pevent = __allocate manual_reset_event();
+            auto pevent = __allocate manual_reset_happening();
 
             user_post([ procedure, pevent ]
             {
@@ -1343,7 +1343,7 @@ namespace gtk4
          //    else if (!m_pacmedisplay)
          //    {
          //
-         //       m_peventCreatingWGtk4Display = __allocate manual_reset_event();
+         //       m_peventCreatingWGtk4Display = __allocate manual_reset_happening();
          //
          //       m_peventCreatingWGtk4Display->ResetEvent();
          //

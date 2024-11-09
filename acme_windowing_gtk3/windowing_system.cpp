@@ -330,7 +330,7 @@ namespace windowing_system_gtk3
 //      CLASS_DECL_ACME bool main_synchronous(const class time & time, const ::procedure & function)
 //      {
 
-      auto pevent = __allocate manual_reset_event();
+      auto pevent = __allocate manual_reset_happening();
 
       user_post([ procedure, pevent ]
                 {

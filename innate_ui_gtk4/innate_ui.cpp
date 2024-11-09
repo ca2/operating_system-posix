@@ -111,7 +111,7 @@ namespace innate_ui_gtk4
    //
    //
    //    }
-   //    manual_reset_event event;
+   //    manual_reset_happening event;
    //
    //    event.ResetEvent();
    //

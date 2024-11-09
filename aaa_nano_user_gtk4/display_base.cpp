@@ -1984,7 +1984,7 @@ namespace gtk4
          }
 
 
-         ::pointer < manual_reset_event > g_peventCreatingWaylandDisplay;
+         ::pointer < manual_reset_happening > g_peventCreatingWaylandDisplay;
 
          display_base * display_base::get(::particle * pparticle, bool bBranch, ::GdkDisplay * pgdkdisplay)
          {
@@ -2002,7 +2002,7 @@ namespace gtk4
             else if (s_pdisplaybase == nullptr)
             {
 
-               g_peventCreatingWaylandDisplay = __allocate manual_reset_event();
+               g_peventCreatingWaylandDisplay = __allocate manual_reset_happening();
 
                g_peventCreatingWaylandDisplay->ResetEvent();
 

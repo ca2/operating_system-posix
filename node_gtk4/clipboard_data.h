@@ -40,7 +40,7 @@
 //
 //   ::user::copydesk::e_op     m_eop;
 //   enum_clipboard             m_eclipboard;
-//   manual_reset_event         m_event;
+//   manual_reset_happening         m_event;
 //   string                     m_str;
 //   ::image::image_pointer            m_pimage;
 //   ::file::path_array              m_patha;

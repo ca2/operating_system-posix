@@ -163,7 +163,7 @@ bool is_space_key(XIRawEvent * event)
 //::pointer< ::mutex > g_pmutexX11Runnable = nullptr;
 //list < ::pointer<::matter >>* g_prunnableptrlX11 = nullptr;
 //::pointer< ::mutex > g_pmutexX11Sync = nullptr;
-//manual_reset_event * g_peventX11Sync = nullptr;
+//manual_reset_happening * g_peventX11Sync = nullptr;
 //::pointer<::matter>g_prunnableX11Sync;
 Window g_windowX11Client = 0;
 
@@ -174,7 +174,7 @@ int_bool _x11_get_cursor_pos(Display * d, ::int_point * ppointCursor);
 //extern ::pointer< ::mutex >g_pmutexX11Runnable;
 //extern list<::pointer<::matter >>*g_prunnableptrlX11;
 //extern ::pointer< ::mutex >g_pmutexX11Sync;
-//extern manual_reset_event *g_peventX11Sync;
+//extern manual_reset_happening *g_peventX11Sync;
 //extern ::pointer<::matter>g_prunnableX11Sync;
 
 

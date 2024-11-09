@@ -28,7 +28,7 @@ namespace gtk4
          public:
 
 
-            ::pointer < manual_reset_event >    m_peventCreatingWGtk4Display;
+            ::pointer < manual_reset_happening >    m_peventCreatingWGtk4Display;
 
 
             ::procedure                         m_callbackOnActivateGtkApplication;

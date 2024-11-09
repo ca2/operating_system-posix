@@ -44,7 +44,7 @@ namespace windowing_x11
       ::int_rectangle      m_rectangleLast;
       //::image::image_pointer                         m_pimage;
       //interlocked_huge_integer                              m_interlockedPostedScreenUpdate;
-//manual_reset_event m_evXshm;
+//manual_reset_happening m_evXshm;
       //bool m_bXShmComplete;
       //interlocked_huge_integer                              m_interlockedXShmPutImage;
 
