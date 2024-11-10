@@ -40,7 +40,10 @@ namespace windowing_gtk4
       void initialize(::particle* pparticle) override;
 
 
-      void initialize_windowing(::user::user* puser) override;
+      //void initialize_windowing(::user::user* puser) override;
+
+
+      void initialize_windowing() override;
 
 
       void destroy() override;

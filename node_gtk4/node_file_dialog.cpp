@@ -230,7 +230,7 @@ namespace node_gtk4
                            //}
 
 
-                           gtk_widget_set_visible(GTK_WIDGET(widget), true);
+                           //gtk_widget_set_visible(GTK_WIDGET(widget), true);
 //      GtkWidget *pfilechooserdialog;
 //
 //      pfilechooserdialog = create_filechooser_dialog(GTK_FILE_CHOOSER_ACTION_OPEN);

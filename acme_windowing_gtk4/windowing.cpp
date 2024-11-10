@@ -143,24 +143,24 @@ namespace gtk4
          }
 
 
-         ::e_status windowing::defer_initialize_windowing()
-         {
+         // ::e_status windowing::defer_initialize_windowing()
+         // {
+         //
+         //    //      if (m_estatusInitializeX11 == error_not_initialized)
+         //    //      {
+         //    //
+         //    //         m_estatusInitializeX11 = initialize_windowing();
+         //    //
+         //    //      }
+         //    //
+         //    //      return m_estatusInitializeX11;
+         //
+         //    return ::success;
+         //
+         // }
 
-            //      if (m_estatusInitializeX11 == error_not_initialized)
-            //      {
-            //
-            //         m_estatusInitializeX11 = initialize_windowing();
-            //
-            //      }
-            //
-            //      return m_estatusInitializeX11;
 
-            return ::success;
-
-         }
-
-
-         ::e_status windowing::initialize_windowing()
+         void windowing::initialize_windowing()
          {
 
             informationf("node_gtk3::node::x11_initialize");
@@ -170,7 +170,9 @@ namespace gtk4
             if (!system()->acme_windowing()->init_threads())
             {
 
-               return ::error_failed;
+               //return ::error_failed;
+
+               return;
 
             }
 
@@ -179,7 +181,7 @@ namespace gtk4
 
             //g_pmutexX11 = ___new ::pointer < ::mutex >();
 
-            return ::success;
+            //return ::success;
 
          }
 
@@ -704,7 +706,7 @@ namespace gtk4
 
             }
 
-
+            auto color = get_operating_system_background_color();
 
             on_system_dark_mode_change(color.get_luminance() <= 0.5, color);
 
@@ -1098,7 +1100,7 @@ namespace gtk4
          void windowing::_on_os_user_theme_change()
          {
 
-            _fetch_dark_mode();
+            fetch_dark_mode();
 
          }
 
@@ -1106,7 +1108,7 @@ namespace gtk4
          void windowing::_on_os_user_icon_theme_change()
          {
 
-            _fetch_dark_mode();
+            fetch_dark_mode();
 
          }
 

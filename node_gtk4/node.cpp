@@ -111,10 +111,10 @@ cairo_surface_t * __cairo_create_image_argb32_surface(::memory & m, int w, int h
 
    auto data = (unsigned char *) cairo_image_surface_get_data(psurface);
 
-   huge_integer int r = 0;
-   huge_integer int g = 0;
-   huge_integer int b = 0;
-   huge_integer int a = 0;
+   huge_integer r = 0;
+   huge_integer g = 0;
+   huge_integer b = 0;
+   huge_integer a = 0;
 
    for (int n = 0; n < h; n++)
    {
@@ -1123,7 +1123,7 @@ namespace node_gtk4
    void node::user_post_quit()
    {
 
-      user()->windowing()->windowing_post_quit();
+      system()->windowing()->windowing_post_quit();
 
    }
 

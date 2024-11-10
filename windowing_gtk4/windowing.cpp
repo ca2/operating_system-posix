@@ -143,10 +143,10 @@ namespace windowing_gtk4
    //   }
 
 
-   void windowing::initialize_windowing(::user::user * puser)
+   void windowing::initialize_windowing()
    {
 
-      ::windowing_posix::windowing::initialize_windowing(puser);
+      ::windowing_posix::windowing::initialize_windowing();
 
       information() << "windowing_gtk4::windowing::initialize_windowing";
 

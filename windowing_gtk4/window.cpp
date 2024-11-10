@@ -217,7 +217,7 @@ window_show (
 
       auto pwindow = (window*) user_data;
 
-      pwindow->m_bWindowVisible = true;
+      //pwindow->m_bWindowVisible = true;
 
       pwindow->on_window_shown();
 
@@ -232,7 +232,7 @@ window_hide (
 
       auto pwindow = (window*) user_data;
 
-      pwindow->m_bWindowVisible = false;
+      //pwindow->m_bWindowVisible = false;
 
       pwindow->on_window_hidden();
 

@@ -54,16 +54,19 @@ namespace gtk4
             void on_start_system() override;
 
 
-            ::e_status defer_initialize_windowing() override;
+            //void defer_initialize_windowing() override;
 
 
-            ::e_status initialize_windowing() override;
+            void initialize_windowing() override;
 
 
             void destroy() override;
 
 
             //void* get_display() override;
+
+
+            ::color::color get_operating_system_background_color() override;
 
 
             void _main_send(const ::procedure& procedure) override;

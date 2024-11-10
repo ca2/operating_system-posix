@@ -13,15 +13,15 @@ list(APPEND library_source
    _factory.cpp
    #_process.cpp
    #_acme_posix.h
-   acme_directory.cpp
-   acme_directory.h
-   acme_file.cpp
-   acme_file.h
-   acme_path.cpp
-   acme_path.h
+   directory_system.cpp
+   directory_system.h
+   file_system.cpp
+   file_system.h
+   path_system.cpp
+   path_system.h
    #dbus.cpp
-   dir_context.cpp
-   dir_context.h
+   directory_context.cpp
+   directory_context.h
    #environment.cpp
    #environment.h
    exception_translator.cpp
