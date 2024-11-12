@@ -215,6 +215,13 @@ namespace gtk3
       {
 
 
+         task::main();
+
+      }
+
+
+      void windowing::run()
+      {
 
          ::string strId = application()->m_strAppId;
 
@@ -266,6 +273,12 @@ namespace gtk3
          //    preempt(1_s);
          //
          // }
+         if(::system()->m_pmanualresethappeningMainLoopEnd)
+         {
+
+            ::system()->m_pmanualresethappeningMainLoopEnd->set_happening();
+
+         }
 
 
       }

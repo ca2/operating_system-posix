@@ -44,6 +44,7 @@ namespace gtk3
       virtual void _on_activate_gtk_application();
 
 
+      void run() override;
 
 
       ::acme::windowing::display * acme_display() override;

@@ -9,6 +9,7 @@
 #include "acme/integrate/cairo.h"
 #include "acme/nano/nano.h"
 #include "acme/nano/graphics/device.h"
+#include "acme/nano/graphics/device.h"
 #include "acme/user/micro/elemental.h"
 #include "acme/operating_system/a_system_menu.h"
 #include "acme/platform/application.h"
@@ -58,7 +59,11 @@
 //#define MWM_DECOR_MENU          (1L << 4)
 //#define MWM_DECOR_MINIMIZE      (1L << 5)
 //#define MWM_DECOR_MAXIMIZE      (1L << 6)
-
+//GdkDevice *get_pointer_device(GtkWidget *widget) {
+//   GdkDisplay *display = gtk_widget_get_display(widget);
+//   GdkSeat *seat = gdk_display_get_default_seat(display);
+//   return gdk_seat_get_pointer(seat);
+//}
 
 namespace gtk3
 {
@@ -85,12 +90,12 @@ namespace gtk3
 
 
          // Start resizing when the mouse is pressed near edges
-         static gboolean on_button_press(GtkWidget *widget, GdkEventButton *happening, gpointer user_data)
+         static gboolean on_button_press(GtkWidget *pwidget, GdkEventButton *pevent, gpointer p)
          {
 
-            auto resize_data = (::gtk3::acme::windowing::window*) user_data;
+            auto pwindow = (::gtk3::acme::windowing::window*) p;
 
-            if(!resize_data->_on_button_press(widget, happening))
+            if(!pwindow->_on_button_press(pwidget, pevent))
             {
 
                return FALSE;
@@ -104,12 +109,12 @@ namespace gtk3
 
 
          // Stop resizing when the mouse button is released
-         static gboolean on_button_release(GtkWidget *widget, GdkEventButton *happening, gpointer p)
+         static gboolean on_button_release(GtkWidget *pwidget, GdkEventButton *pevent, gpointer p)
          {
 
             ::pointer < ::gtk3::acme::windowing::window > pwindow = (::gtk3::acme::windowing::window*) p;
 
-            if(!pwindow->_on_button_release(widget, happening))
+            if(!pwindow->_on_button_release(pwidget, pevent))
             {
 
                return FALSE;
@@ -176,7 +181,7 @@ namespace gtk3
             return FALSE;
          }
 
-         // Callback to handle button-press-happening for menu item
+         // Callback to handle button-press-event for menu item
          gboolean on_menu_item_button_press(GtkWidget *widget, GdkEventButton *happening, gpointer p) {
             if (happening->button == 1) {  // Left mouse button
                //g_print("Left button pressed on menu item: %s\n", gtk_menu_item_get_label(GTK_MENU_ITEM(widget)));
@@ -257,6 +262,8 @@ namespace gtk3
             //zero(m_visualinfo);
             //m_colormap = 0;
                m_pgtkwidgetSystemMenu = nullptr;
+            m_peventLastMouseDown= nullptr;
+            m_peventLastMouseUp= nullptr;
 
          }
 
@@ -380,7 +387,7 @@ namespace gtk3
             main_send([this]()
             {
 
-                         auto r = m_pacmeuserinteraction->get_window_rectangle();
+                         auto r = m_pacmeuserinteraction->get_rectangle();
 
                          m_pointWindow =r.top_left();
                          m_sizeWindow = r.size();
@@ -544,6 +551,8 @@ namespace gtk3
 
             m_pgtkwidget = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
+            __refdbg_add_referer
+
             increment_reference_count();
 
             gtk_window_set_decorated(GTK_WINDOW(m_pgtkwidget), false);
@@ -594,12 +603,12 @@ namespace gtk3
             //ResizeData resize_data = {FALSE, RESIZE_NONE, 0, 0, 0, 0};
 
             // Connect happening handlers for resizing
-            g_signal_connect(G_OBJECT(m_pgtkwidget), "button-press-happening", G_CALLBACK(on_button_press), this);
-            g_signal_connect(G_OBJECT(m_pgtkwidget), "button-release-happening", G_CALLBACK(on_button_release), this);
-            g_signal_connect(G_OBJECT(m_pgtkwidget), "motion-notify-happening", G_CALLBACK(on_motion_notify), this);
-            g_signal_connect(G_OBJECT(m_pgtkwidget), "enter-notify-happening", G_CALLBACK(on_enter_notify), this);
+            g_signal_connect(G_OBJECT(m_pgtkwidget), "button-press-event", G_CALLBACK(on_button_press), this);
+            g_signal_connect(G_OBJECT(m_pgtkwidget), "button-release-event", G_CALLBACK(on_button_release), this);
+            g_signal_connect(G_OBJECT(m_pgtkwidget), "motion-notify-event", G_CALLBACK(on_motion_notify), this);
+            g_signal_connect(G_OBJECT(m_pgtkwidget), "enter-notify-event", G_CALLBACK(on_enter_notify), this);
 
-            g_signal_connect(G_OBJECT(m_pgtkwidget), "window-state-happening", G_CALLBACK(on_window_state), this);
+            g_signal_connect(G_OBJECT(m_pgtkwidget), "window-state-event", G_CALLBACK(on_window_state), this);
             // Set happenings to capture motion and button happenings
             gtk_widget_set_events(m_pgtkwidget,
                                   GDK_BUTTON_PRESS_MASK
@@ -617,7 +626,7 @@ namespace gtk3
          }
 
 
-         bool window::_on_button_press(GtkWidget* widget, GdkEventButton* happening)
+         bool window::_on_button_press(GtkWidget* pwidget, GdkEventButton* pevent)
          {
 
             //   if (happening->button == GDK_BUTTON_PRIMARY) {
@@ -634,7 +643,7 @@ namespace gtk3
             //      }
             //   }
             //auto pwindow = m_pwindow;
-
+            m_peventLastMouseDown = pevent;
             //if(::is_set(pwindow))
             {
 
@@ -645,19 +654,19 @@ namespace gtk3
 //               pmouse->m_pOsMouseDataOkIfOnStack = happening;
 //
 //               pmouse->m_pwindow = this;
-               m_pointCursor2.x() = happening->x;
+               m_pointCursor2.x() = pevent->x;
 
-               m_pointCursor2.y() = happening->y;
+               m_pointCursor2.y() = pevent->y;
 
-               pmouse->m_pointHost.x() = happening->x;
+               pmouse->m_pointHost.x() = pevent->x;
 
-               pmouse->m_pointHost.y() = happening->y;
+               pmouse->m_pointHost.y() = pevent->y;
 
-               pmouse->m_pointAbsolute.x() = happening->x_root;
+               pmouse->m_pointAbsolute.x() = pevent->x_root;
 
-               pmouse->m_pointAbsolute.y() = happening->y_root;
+               pmouse->m_pointAbsolute.y() = pevent->y_root;
 
-               if (happening->button == GDK_BUTTON_PRIMARY)
+               if (pevent->button == GDK_BUTTON_PRIMARY)
                {
                   pmouse->m_atom = e_message_left_button_down;
                               ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
@@ -670,7 +679,7 @@ namespace gtk3
                   
 			  }
                }
-               else if (happening->button == GDK_BUTTON_SECONDARY)
+               else if (pevent->button == GDK_BUTTON_SECONDARY)
                {
                   pmouse->m_atom = e_message_right_button_down;
                   ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
@@ -683,7 +692,7 @@ namespace gtk3
                   
 			  }
                }
-               else if (happening->button == GDK_BUTTON_MIDDLE)
+               else if (pevent->button == GDK_BUTTON_MIDDLE)
                {
                   pmouse->m_atom = e_message_middle_button_down;
                }
@@ -709,7 +718,7 @@ namespace gtk3
 
 
 
-         bool window::_on_button_release(GtkWidget *widget, GdkEventButton *happening)
+         bool window::_on_button_release(GtkWidget *pwidget, GdkEventButton *pevent)
          {
             //   if (happening->button == GDK_BUTTON_PRIMARY && resizing) {
             //      resizing = FALSE;
@@ -718,7 +727,7 @@ namespace gtk3
             //
 
             //auto pwindow = m_pwindow;
-
+m_peventLastMouseUp = pevent;
             //if(::is_set(pwindow))
             {
 
@@ -728,21 +737,21 @@ namespace gtk3
 
                //pmouse->m_pwindow = this;
 
-               m_pointCursor2.x() = happening->x;
+               m_pointCursor2.x() = pevent->x;
 
-               m_pointCursor2.y() = happening->y;
+               m_pointCursor2.y() = pevent->y;
 
-               pmouse->m_pointHost.x() = happening->x;
+               pmouse->m_pointHost.x() = pevent->x;
 
-               pmouse->m_pointHost.y() = happening->y;
+               pmouse->m_pointHost.y() = pevent->y;
 
-               pmouse->m_pointAbsolute.x() = happening->x_root;
+               pmouse->m_pointAbsolute.x() = pevent->x_root;
 
-               pmouse->m_pointAbsolute.y() = happening->y_root;
+               pmouse->m_pointAbsolute.y() = pevent->y_root;
 
                auto puserinteractionbaseHold = m_pacmeuserinteraction;
 
-               if (happening->button == GDK_BUTTON_PRIMARY)
+               if (pevent->button == GDK_BUTTON_PRIMARY)
                {
 
                   pmouse->m_atom = e_message_left_button_up;
@@ -758,7 +767,7 @@ namespace gtk3
 			  }
 
                }
-               else if (happening->button == GDK_BUTTON_SECONDARY)
+               else if (pevent->button == GDK_BUTTON_SECONDARY)
                {
 
                   pmouse->m_atom = e_message_right_button_up;
@@ -774,7 +783,7 @@ namespace gtk3
 			  }
 
                }
-               else if (happening->button == GDK_BUTTON_MIDDLE)
+               else if (pevent->button == GDK_BUTTON_MIDDLE)
                {
 
                   pmouse->m_atom = e_message_middle_button_up;
@@ -1139,6 +1148,44 @@ namespace gtk3
          }
 
 
+         void window::set_capture()
+         {
+
+
+            main_send([this]()
+                      {
+
+                         GdkDevice *device = gdk_event_get_device((GdkEvent *) m_peventLastMouseDown);
+
+                         GdkGrabStatus status = gdk_device_grab(device, gtk_widget_get_window(m_pgtkwidget),
+                                                                GDK_OWNERSHIP_WINDOW, FALSE,
+                                                                (GdkEventMask) (GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK),
+                                                                NULL, m_peventLastMouseDown->time);
+
+                      });
+
+         }
+
+         void window::release_capture()
+         {
+
+
+
+            main_send([this]()
+                      {
+
+                         // Release the grab when the button is released
+                         GdkDevice *device = gdk_event_get_device((GdkEvent *) m_peventLastMouseUp);
+                         gdk_device_ungrab(device, m_peventLastMouseUp->time);
+
+                      });
+
+         }
+
+
+
+
+
          void window::set_active_window()
          {
 
@@ -1414,11 +1461,42 @@ namespace gtk3
          void window::destroy()
          {
 
-            __unmap();
+            //__unmap();
+
+            //::acme::windowing::window::destroy();
+
+            //gtk_widget_destroy(m_pgtkwidget);
 
             ::acme::windowing::window::destroy();
 
-            gtk_widget_destroy(m_pgtkwidget);
+         }
+
+
+
+         void window::destroy_window()
+         {
+
+            //__unmap();
+
+            main_send([this]()
+                      {
+
+                         if (GTK_IS_POPOVER(m_pgtkwidget))
+                         {
+
+                            gtk_widget_unparent(GTK_WIDGET(m_pgtkwidget));
+
+                         }
+                         else if (GTK_IS_WINDOW(m_pgtkwidget))
+                         {
+
+                            gtk_widget_destroy(GTK_WIDGET(m_pgtkwidget));
+
+                         }
+
+                      });
+
+            destroy();
 
          }
 
@@ -1632,8 +1710,8 @@ namespace gtk3
                   {
                      gtk_widget_add_events(menu_item, GDK_BUTTON_PRESS_MASK);
 
-                     // Connect the button-press-happening signal to handle button press happenings on menu items
-                     g_signal_connect(menu_item, "button-press-happening", G_CALLBACK(on_menu_item_button_press), pitem.m_p);
+                     // Connect the button-press-event signal to handle button press happenings on menu items
+                     g_signal_connect(menu_item, "button-press-event", G_CALLBACK(on_menu_item_button_press), pitem.m_p);
 
                   }
                   else {
@@ -1710,6 +1788,40 @@ namespace gtk3
 
          }
 
+
+//
+//         void window::__unmap()
+//         {
+//
+//            main_send([this]()
+//                      {
+//
+////                         if (GTK_IS_POPOVER(m_pgtkwidget))
+////                         {
+////
+////                            gtk_popover_popdown(GTK_POPOVER(m_pgtkwidget));
+////
+////                         }
+////                         else
+//                            if (GTK_IS_WINDOW(m_pgtkwidget))
+//                         {
+//
+//                            //gtk_widget_set_visible(m_pgtkwidget, false);
+//                            gtk_window_close(GTK_WINDOW(m_pgtkwidget));
+//
+//                         }
+//
+//                      });
+//
+//         }
+
+
+         void window::hide_window()
+         {
+
+            __unmap();
+
+         }
 
       }//namespace windowing
 

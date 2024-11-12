@@ -35,6 +35,8 @@ namespace gtk3
             GtkWidget * m_pgtkwidget;
             GtkWidget *m_pdrawingarea;
             GtkWidget * m_pgtkwidgetSystemMenu;
+            GdkEventButton * m_peventLastMouseDown;
+            GdkEventButton * m_peventLastMouseUp;
             //cairo_surface_t *                m_psurface;
 //            ::pointer<::nano::graphics::device>          m_pnanodevice;
 //            int                              m_iDepth;
@@ -74,7 +76,13 @@ namespace gtk3
 
             void destroy() override;
 
+            void destroy_window() override;
+
             void show_window() override;
+
+            void set_capture() override;
+
+            void release_capture() override;
 
             //bool _on_event(XEvent *pevent) override;
 
@@ -169,6 +177,7 @@ namespace gtk3
             bool is_window_zoomed() override;
             void window_minimize() override;
             void window_maximize() override;
+            void hide_window() override;
 
          };
 

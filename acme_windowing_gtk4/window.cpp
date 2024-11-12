@@ -1625,29 +1625,29 @@ namespace gtk4
    }
 
 
-   void window::__unmap()
-   {
-
-      main_send([this]()
-      {
-
-         if (GTK_IS_POPOVER(m_pgtkwidget))
+         void window::__unmap()
          {
 
-            gtk_popover_popdown(GTK_POPOVER(m_pgtkwidget));
+            main_send([this]()
+                      {
+
+                         if (GTK_IS_POPOVER(m_pgtkwidget))
+                         {
+
+                            gtk_popover_popdown(GTK_POPOVER(m_pgtkwidget));
+
+                         }
+                         else if (GTK_IS_WINDOW(m_pgtkwidget))
+                         {
+
+                            gtk_widget_set_visible(m_pgtkwidget, false);
+                            //gtk_window_close(GTK_WINDOW(m_pgtkwidget));
+
+                         }
+
+                      });
 
          }
-         else if (GTK_IS_WINDOW(m_pgtkwidget))
-         {
-
-            gtk_widget_set_visible(m_pgtkwidget, false);
-            //gtk_window_close(GTK_WINDOW(m_pgtkwidget));
-
-         }
-
-      });
-
-   }
 
 
    bool window::is_window_visible()
