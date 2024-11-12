@@ -44,8 +44,8 @@ list(APPEND library_source
 list(APPEND library_references
         acme
         acme_posix
-   windowing_system_gtk3
-        nano_user_gtk3
+        nano_graphics_cairo
+   acme_windowing_gtk3
         apex
         apex_posix
    innate_ui_gtk3
@@ -112,7 +112,7 @@ endif ()
 
 
 add_dependencies(${PROJECT_NAME}
-    windowing_system_gtk3
+    acme_windowing_gtk3
     innate_ui_gtk3
 )
 
