@@ -2,7 +2,7 @@
 // Created by camilo on 2024-05-26 22:03 <3ThomasBorregaardSorensen!!
 //
 #include "framework.h"
-#include "windowing_system.h"
+#include "windowing.h"
 #include "acme/integrate/cairo.h"
 #include "acme/nano/nano.h"
 #include "acme/user/micro/user.h"
@@ -15,9 +15,16 @@
 //#include <X11/XKBlib.h>
 //#include <X11/Xutil.h>
 
-namespace windowing_system_gtk3
+namespace gtk3
 {
 
+
+   namespace acme
+   {
+
+
+      namespace windowing
+      {
 
 
    cairo_surface_t *get_cairo_surface_from_pixbuf(GdkPixbuf *pixbuf) {
@@ -455,7 +462,13 @@ namespace windowing_system_gtk3
    }
 
 
-} // namespace windowing_system_gtk3
+      } // namespace windowing
+
+
+   } // namespace acme
+
+
+} // namespace gtk3
 
 
 

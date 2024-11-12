@@ -4,7 +4,7 @@
 #pragma once
 
 
-#include "acme/windowing/window_base.h"
+#include "acme/windowing/window.h"
 //#include "event_listener.h"
 #include "acme/parallelization/manual_reset_happening.h"
 
@@ -15,12 +15,15 @@ namespace gtk3
 {
 
 
-   namespace nano
+   namespace acme
    {
-      namespace user
+
+
+      namespace windowing
       {
 
-         class CLASS_DECL_ACME window :
+
+         class CLASS_DECL_ACME_WINDOWING_GTK3 window :
             virtual public ::acme::windowing::window
          {
          public:
@@ -168,8 +171,12 @@ namespace gtk3
             void window_maximize() override;
 
          };
-      }//namespace user
-   }//namespace nano
+
+
+      }//namespace windowing
+
+
+   }//namespace acme
 
 
 } // namespace gtk3

@@ -9,12 +9,12 @@
 #include "acme/integrate/cairo.h"
 #include "acme/nano/nano.h"
 #include "acme/nano/graphics/device.h"
-#include "acme/user/micro/child.h"
+#include "acme/user/micro/element.h"
 #include "acme/operating_system/a_system_menu.h"
 #include "acme/platform/application.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
-#include "acme/user/user/interaction_base.h"
+#include "acme/user/user/interaction.h"
 #include "acme/user/user/mouse.h"
 //#include "windowing_system_x11/display_lock.h"
 //#include <X11/Xatom.h>
@@ -24,7 +24,7 @@
 //#include <cairo/cairo-xlib.h>
 
 
-::user::enum_desktop get_edesktop();
+//::user::enum_desktop get_edesktop();
 
 
 //struct MWMHints
@@ -63,10 +63,15 @@
 namespace gtk3
 {
 
-   namespace nano
+
+   namespace acme
    {
-      namespace user
+
+
+      namespace windowing
       {
+
+
 
 
          // Callback function to handle window resize happenings
@@ -1652,8 +1657,11 @@ namespace gtk3
          }
 
 
-      }//namespace user
-   }//namespace nano
+      }//namespace windowing
+
+
+   }//namespace acme
+   
 
 } // namespace gtk3
 

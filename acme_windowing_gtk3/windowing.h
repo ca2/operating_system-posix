@@ -10,12 +10,18 @@
 namespace gtk3
 {
 
-   
+
    namespace acme
    {
+
+
+      namespace windowing
+      {
+
+
 	
    class CLASS_DECL_WINDOWING_SYSTEM_GTK3 windowing_system :
-           virtual public ::windowing::windowing_base
+           virtual public ::acme::windowing::windowing
    {
    public:
 
