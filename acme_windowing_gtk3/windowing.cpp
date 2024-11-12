@@ -2,6 +2,7 @@
 // Created by camilo on 2024-05-26 22:03 <3ThomasBorregaardSorensen!!
 //
 #include "framework.h"
+#include "display.h"
 #include "windowing.h"
 #include "acme/integrate/cairo.h"
 #include "acme/nano/nano.h"
@@ -14,6 +15,7 @@
 //#include <xkbcommon/xkbcommon.h>
 //#include <X11/XKBlib.h>
 //#include <X11/Xutil.h>
+
 
 namespace gtk3
 {
@@ -100,7 +102,7 @@ namespace gtk3
    }
 
 
-   windowing_system::windowing_system()
+   windowing::windowing()
    {
 
          m_pgtkapplication = nullptr;
@@ -108,31 +110,31 @@ namespace gtk3
    }
 
 
-   windowing_system::~windowing_system()
+   windowing::~windowing()
    {
 
 
    }
 
 
-   ::e_status windowing_system::defer_initialize_windowing_system()
-   {
+   //~ ::e_status windowing::defer_initialize_windowing_system()
+   //~ {
 
-//      if (m_estatusInitializeX11 == error_not_initialized)
-//      {
-//
-//         m_estatusInitializeX11 = initialize_windowing_system();
-//
-//      }
-//
-//      return m_estatusInitializeX11;
+//~ //      if (m_estatusInitializeX11 == error_not_initialized)
+//~ //      {
+//~ //
+//~ //         m_estatusInitializeX11 = initialize_windowing_system();
+//~ //
+//~ //      }
+//~ //
+//~ //      return m_estatusInitializeX11;
 
-         return ::success;
+         //~ return ::success;
 
-   }
+   //~ }
 
 
-   ::e_status windowing_system::initialize_windowing_system()
+   void windowing::initialize_windowing()
    {
 
       informationf("node_gtk3::node::x11_initialize");
@@ -142,7 +144,11 @@ namespace gtk3
       if (!system()->acme_windowing()->init_threads())
       {
 
-         return ::error_failed;
+         //return ::error_failed;
+         
+         throw ::exception(error_failed);
+         
+         //return;
 
       }
 
@@ -151,12 +157,12 @@ namespace gtk3
 
       //g_pmutexX11 = ___new ::pointer < ::mutex >();
 
-      return ::success;
+      //return ::success;
 
    }
 
 
-   void windowing_system::on_start_system()
+   void windowing::on_start_system()
    {
 
       auto * psystem = this->system();
@@ -170,7 +176,7 @@ namespace gtk3
    static void on_activate_gtk_application (GtkApplication *, gpointer p)
    {
 
-      auto * pgtk3windowingsystem=(::windowing_system_gtk3::windowing_system*) p;
+      auto * pgtk3windowingsystem=(::gtk3::acme::windowing::windowing*) p;
 
       //pgtk3windowingsystem->_hook_system_theme_change_callbacks();
 
@@ -195,7 +201,7 @@ namespace gtk3
 
 
 
-   void windowing_system::main_post(const ::procedure & procedure)
+   void windowing::_user_post(const ::procedure & procedure)
    {
 
 
@@ -205,7 +211,7 @@ namespace gtk3
    }
 
 
-      void windowing_system::windowing_system_application_main_loop()
+      void windowing::windowing_application_main_loop()
       {
 
 
@@ -241,7 +247,7 @@ namespace gtk3
          g_application_hold(G_APPLICATION(m_pgtkapplication));
 
 
-         // if(m_pdisplay->is_wayland())
+         // if(m_pacmedisplay->is_wayland())
          // {
          //
          //
@@ -265,7 +271,7 @@ namespace gtk3
       }
 
 
-      void windowing_system::windowing_system_post_quit()
+      void windowing::windowing_post_quit()
       {
 
          main_post([this]()
@@ -278,7 +284,7 @@ namespace gtk3
       }
 
 
-      void windowing_system::_on_activate_gtk_application()
+      void windowing::_on_activate_gtk_application()
       {
 
          if(m_callbackOnActivateGtkApplication)
@@ -293,18 +299,31 @@ namespace gtk3
             //application()->post_request(prequest);
 
             system()->defer_post_initial_request();
+            
 
 
          }
 
       }
 
-   void * windowing_system::get_display()
+   
+   ::acme::windowing::display * windowing::acme_display()
    {
 
       //return ::platform::node::x11_get_display();
 
-      defer_initialize_windowing_system();
+      //defer_initialize_windowing_system();
+      
+      if(!m_pacmedisplay)
+      {
+		  
+		  __construct(m_pacmedisplay);
+		  
+		  
+		  m_pacmedisplay->open_display();
+		  
+		  
+	  }
 
 //      if(m_pvoidX11Display == NULL)
 //      {
@@ -315,12 +334,12 @@ namespace gtk3
 //
 //      return m_pvoidX11Display;
 
-      return nullptr;
+      return m_pacmedisplay;
 
    }
 
 
-   void windowing_system::sync(const ::procedure & procedure)
+   void windowing::_user_send(const ::procedure & procedure)
    {
 
       if(::is_main_thread())
@@ -348,7 +367,7 @@ namespace gtk3
 
                 });
 
-      if(!pevent->wait(procedure.m_timeTimeout))
+      if(!pevent->wait(procedure.timeout()))
       {
 
          throw ::exception(error_timeout);
@@ -366,47 +385,47 @@ namespace gtk3
    }
 
 
-   void windowing_system::async(const ::procedure & procedure)
-   {
+   //~ void windowing::_user_post(const ::procedure & procedure)
+   //~ {
 
-      node()->user_post(procedure);
+      //~ node()->user_post(procedure);
 
-   }
-
-
-   void windowing_system::display_error_trap_push(int i)
-   {
+   //~ }
 
 
-      //node()->windowing_system_display_error_trap_push(i);
-
-//      if(::windowing::get_ewindowing() == ::windowing::e_windowing_x11)
-//      {
-//
-//         GdkDisplay *gdkdisplay;
-//
-//         gdkdisplay = gdk_display_get_default ();
-//         gdk_x11_display_error_trap_push (gdkdisplay);
-//
-//      }
-
-   }
+   //~ void windowing::display_error_trap_push(int i)
+   //~ {
 
 
-   void windowing_system::display_error_trap_pop_ignored(int i)
-   {
+      //~ //node()->windowing_system_display_error_trap_push(i);
 
-      //node()->windowing_system_display_error_trap_pop_ignored(i);
-//      if(::windowing::get_ewindowing() == ::windowing::e_windowing_x11)
-//      {
-//
-//         GdkDisplay *gdkdisplay;
-//         gdkdisplay = gdk_display_get_default ();
-//         gdk_x11_display_error_trap_pop_ignored (gdkdisplay);
-//
-//      }
+//~ //      if(::windowing::get_ewindowing() == ::windowing::e_windowing_x11)
+//~ //      {
+//~ //
+//~ //         GdkDisplay *gdkdisplay;
+//~ //
+//~ //         gdkdisplay = gdk_display_get_default ();
+//~ //         gdk_x11_display_error_trap_push (gdkdisplay);
+//~ //
+//~ //      }
 
-   }
+   //~ }
+
+
+   //~ void windowing::display_error_trap_pop_ignored(int i)
+   //~ {
+
+      //~ //node()->windowing_system_display_error_trap_pop_ignored(i);
+//~ //      if(::windowing::get_ewindowing() == ::windowing::e_windowing_x11)
+//~ //      {
+//~ //
+//~ //         GdkDisplay *gdkdisplay;
+//~ //         gdkdisplay = gdk_display_get_default ();
+//~ //         gdk_x11_display_error_trap_pop_ignored (gdkdisplay);
+//~ //
+//~ //      }
+
+   //~ }
 
 
 //
@@ -440,7 +459,7 @@ namespace gtk3
 //    }
 
 
-   ::pixmap windowing_system::get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile)
+   ::pixmap windowing::get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile)
    {
 
 

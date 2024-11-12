@@ -20,7 +20,7 @@ namespace gtk3
 
 
 	
-   class CLASS_DECL_WINDOWING_SYSTEM_GTK3 windowing_system :
+      class CLASS_DECL_ACME_WINDOWING_GTK3 windowing :
            virtual public ::acme::windowing::windowing
    {
    public:
@@ -29,28 +29,28 @@ namespace gtk3
       GtkApplication *        m_pgtkapplication;
 
 
-      windowing_system();
-      ~windowing_system() override;
+      windowing();
+      ~windowing() override;
 
 
 
       void on_start_system() override;
 
-      ::e_status defer_initialize_windowing_system() override;
-      ::e_status initialize_windowing_system() override;
+      //::e_status defer_initialize_windowing_system() override;
+      void initialize_windowing() override;
 
-      void windowing_system_application_main_loop() override;
-      void windowing_system_post_quit() override;
+      void windowing_application_main_loop() override;
+      void windowing_post_quit() override;
       virtual void _on_activate_gtk_application();
 
 
 
 
-      void * get_display() override;
-      void sync(const ::procedure & procedure) override;
-      void async(const ::procedure & procedure) override;
-      void display_error_trap_push(int i) override;
-      void display_error_trap_pop_ignored(int i) override;
+      ::acme::windowing::display * acme_display() override;
+      void _user_send(const ::procedure & procedure) override;
+      void _user_post(const ::procedure & procedure) override;
+      //void display_error_trap_push(int i) override;
+      //void display_error_trap_pop_ignored(int i) override;
 
 //   ::e_status x11_initialize() override;
 //   void * x11_get_display() override;
@@ -59,7 +59,7 @@ namespace gtk3
 //   void x11_display_error_trap_push(int i) override;
 //   void x11_display_error_trap_pop_ignored(int i) override;
 
-      void main_post(const ::procedure & procedure) override;
+      //void main_post(const ::procedure & procedure) override;
 
 
       ::pixmap get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile);
@@ -67,9 +67,14 @@ namespace gtk3
 
    };
 
+      
+      } // namespace windowing
 
 
-} // namespace windowing_system_gtk3
+   } // namespace acme
+
+
+} // namespace gtk3
 
 
 

@@ -21,8 +21,12 @@ list(APPEND library_source
         _.cpp
         _.h
         _factory.cpp
+        display.cpp
+        display.h
         framework.cpp
         framework.h
+        gdk_gdk.cpp
+        gdk_gdk.h
         keyboard.cpp
         keyboard.h
         #xkb_input.cpp

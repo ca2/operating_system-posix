@@ -25,7 +25,7 @@ namespace gtk3
 
          using window_map = map<::GtkWidget *, ::pointer<window> >;
 
-         class display :
+         class CLASS_DECL_ACME_WINDOWING_GTK3 display :
             virtual public ::acme::windowing::display //,     virtual public event_listener
          {
          public:

@@ -46,7 +46,7 @@ namespace gtk3
    {
 
 
-      namespace uswindowinger
+      namespace windowing
       {
 
          //display * display::g_p = nullptr;
@@ -536,14 +536,14 @@ namespace gtk3
 
             informationf("x11 nano display init_task");
 
-            if(::windowing::get_ewindowing() == ::windowing::e_windowing_none)
-            {
+            //~ if(::windowing::get_ewindowing() == ::windowing::e_windowing_none)
+            //~ {
 
-               //set_main_user_thread();
+               //~ //set_main_user_thread();
 
-               ::windowing::get_ewindowing() = e_windowing_x11;
+               //~ ::windowing::get_ewindowing() = e_windowing_x11;
 
-            }
+            //~ }
 
             // printf("\n\nx11::display::init_task Going to call x11_defer_initialize\n\n");
             //
@@ -622,7 +622,7 @@ namespace gtk3
 
             information() << "x11::display::run";
 
-            set_main_user_thread();
+            //set_main_user_thread();
 
             message_loop();
 

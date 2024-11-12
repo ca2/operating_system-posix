@@ -102,7 +102,7 @@ namespace gtk3
 
             //virtual void on_draw(::nano::graphics::device * pnanodevice);
 
-            void on_char(int iChar) override;
+            //void on_char(int iChar) override;
 
             bool is_active_window() override;
 

@@ -9,7 +9,7 @@
 #include "acme/integrate/cairo.h"
 #include "acme/nano/nano.h"
 #include "acme/nano/graphics/device.h"
-#include "acme/user/micro/element.h"
+#include "acme/user/micro/elemental.h"
 #include "acme/operating_system/a_system_menu.h"
 #include "acme/platform/application.h"
 #include "acme/platform/node.h"
@@ -77,7 +77,7 @@ namespace gtk3
          // Callback function to handle window resize happenings
          static void on_size_allocate(GtkWidget *widget, GdkRectangle *allocation, gpointer p) {
             // Print the ___new size of the window
-            auto pwindow = (::gtk3::micro::window*) p;
+            auto pwindow = (::gtk3::acme::windowing::window*) p;
             pwindow->_on_size(allocation->width, allocation->height);
             //g_print("Window resized: width=%d, height=%d\n", allocation->width, allocation->height);
             //return false;
@@ -88,7 +88,7 @@ namespace gtk3
          static gboolean on_button_press(GtkWidget *widget, GdkEventButton *happening, gpointer user_data)
          {
 
-            auto resize_data = (::gtk3::micro::window*) user_data;
+            auto resize_data = (::gtk3::acme::windowing::window*) user_data;
 
             if(!resize_data->_on_button_press(widget, happening))
             {
@@ -107,7 +107,7 @@ namespace gtk3
          static gboolean on_button_release(GtkWidget *widget, GdkEventButton *happening, gpointer p)
          {
 
-            ::pointer < ::gtk3::micro::window > pwindow = (::gtk3::micro::window*) p;
+            ::pointer < ::gtk3::acme::windowing::window > pwindow = (::gtk3::acme::windowing::window*) p;
 
             if(!pwindow->_on_button_release(widget, happening))
             {
@@ -126,7 +126,7 @@ namespace gtk3
          static gboolean on_motion_notify(GtkWidget *widget, GdkEventMotion *happening, gpointer user_data)
          {
 
-            auto resize_data = (::gtk3::micro::window*) user_data;
+            auto resize_data = (::gtk3::acme::windowing::window*) user_data;
 
             resize_data->_on_motion_notify(widget, happening);
 
@@ -141,7 +141,7 @@ namespace gtk3
          // Change the cursor shape when near edges for resizing
          static gboolean on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening, gpointer user_data)
          {
-            auto resize_data = (::gtk3::micro::window*) user_data;
+            auto resize_data = (::gtk3::acme::windowing::window*) user_data;
 
             if(!resize_data->_on_enter_notify(widget, happening))
             {
@@ -155,7 +155,7 @@ namespace gtk3
          static gboolean on_window_state(GtkWidget* widget,GdkEventWindowState* happening, gpointer p)
          {
 
-            ::pointer < ::gtk3::micro::window > pwindow = (::gtk3::micro::window*) p;
+            ::pointer < ::gtk3::acme::windowing::window > pwindow = (::gtk3::acme::windowing::window*) p;
 
             if(!pwindow->_on_window_state(widget, happening))
             {
@@ -171,7 +171,7 @@ namespace gtk3
 
          // Callback function to handle drawing
          static gboolean on_window_draw(GtkWidget *widget, cairo_t *cr, gpointer p) {
-            auto pwindow = (::gtk3::micro::window*) p;
+            auto pwindow = (::gtk3::acme::windowing::window*) p;
             pwindow->_on_cairo_draw(widget, cr);
             return FALSE;
          }
@@ -182,7 +182,7 @@ namespace gtk3
                //g_print("Left button pressed on menu item: %s\n", gtk_menu_item_get_label(GTK_MENU_ITEM(widget)));
                auto * pitem = (::operating_system::a_system_menu_item *)p;
 
-               auto pwindow = (::gtk3::micro::window *)pitem->m_pWindowingImplWindow;
+               auto pwindow = (::gtk3::acme::windowing::window *)pitem->m_pWindowingImplWindow;
                gtk_widget_hide(GTK_WIDGET(pwindow->m_pgtkwidgetSystemMenu));
 
                gtk_menu_popdown(GTK_MENU(pwindow->m_pgtkwidgetSystemMenu));
@@ -204,7 +204,7 @@ namespace gtk3
 
             auto * pitem = (::operating_system::a_system_menu_item *)p;
 
-            auto pwindow = (::gtk3::micro::window *)pitem->m_pWindowingImplWindow;
+            auto pwindow = (::gtk3::acme::windowing::window *)pitem->m_pWindowingImplWindow;
 
             //pwindow->main_post([pitem, pwindow]()
             //                   {
@@ -243,7 +243,7 @@ namespace gtk3
             )
          {
 
-            ::pointer < ::gtk3::micro::window > pwindow = (::gtk3::micro::window*) p;
+            ::pointer < ::gtk3::acme::windowing::window > pwindow = (::gtk3::acme::windowing::window*) p;
 
             pwindow->release();
          }
@@ -274,16 +274,16 @@ namespace gtk3
          ::acme::windowing::display * window::get_display()
          {
 
-            if (!m_pdisplaybase)
+            if (!m_pdisplay)
             {
 
-               __construct(m_pdisplaybase);
+               __construct(m_pdisplay);
 
-               m_pdisplaybase->open_display();
+               m_pdisplay->open_display();
 
             }
 
-            return m_pdisplaybase;
+            return m_pdisplay;
 
 
          }
@@ -297,23 +297,37 @@ namespace gtk3
          }
 
 
-         void window::on_char(int iChar)
-         {
+         //~ void window::on_char(int iChar)
+         //~ {
 
-            //fork([this, iChar]()
-            //{
+            //~ //fork([this, iChar]()
+            //~ //{
+            //~ ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
+            
+            //~ if(pelemental)
+            //~ {
 
-               m_puserinteractionbase->on_char(iChar);
 
-            //});
+                  //~ pelemental->on_char(iChar);
+               
+		   //~ }
 
-         }
+            //~ //});
+
+         //~ }
 
 
          void window::_draw(::nano::graphics::device * pnanodevice)
          {
+			 
+			::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
+            
+            if(pelemental)
+            {
 
-            m_puserinteractionbase->draw(pnanodevice);
+				pelemental->draw(pnanodevice);
+				
+			}
 
          }
 
@@ -366,7 +380,7 @@ namespace gtk3
             main_send([this]()
             {
 
-                         auto r = m_puserinteractionbase->get_window_rectangle();
+                         auto r = m_pacmeuserinteraction->get_window_rectangle();
 
                          m_pointWindow =r.top_left();
                          m_sizeWindow = r.size();
@@ -507,7 +521,7 @@ namespace gtk3
          void window::_create_window()
          {
 
-            m_puserinteractionbase->on_before_create_window(this);
+            m_pacmeuserinteraction->on_before_create_window(this);
 
             int x = m_pointWindow.x();
             int y = m_pointWindow.y();
@@ -646,12 +660,28 @@ namespace gtk3
                if (happening->button == GDK_BUTTON_PRIMARY)
                {
                   pmouse->m_atom = e_message_left_button_down;
-                  m_puserinteractionbase->on_left_button_down(pmouse);
+                              ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
+            
+            if(pelemental)
+            {
+
+
+                  pelemental->on_left_button_down(pmouse);
+                  
+			  }
                }
                else if (happening->button == GDK_BUTTON_SECONDARY)
                {
                   pmouse->m_atom = e_message_right_button_down;
-                  m_puserinteractionbase->on_right_button_down(pmouse);
+                  ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
+            
+            if(pelemental)
+            {
+
+
+                  pelemental->on_right_button_down(pmouse);
+                  
+			  }
                }
                else if (happening->button == GDK_BUTTON_MIDDLE)
                {
@@ -710,14 +740,22 @@ namespace gtk3
 
                pmouse->m_pointAbsolute.y() = happening->y_root;
 
-               auto puserinteractionbaseHold = m_puserinteractionbase;
+               auto puserinteractionbaseHold = m_pacmeuserinteraction;
 
                if (happening->button == GDK_BUTTON_PRIMARY)
                {
 
                   pmouse->m_atom = e_message_left_button_up;
 
-                  puserinteractionbaseHold->on_left_button_up(pmouse);
+                  ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
+            
+            if(pelemental)
+            {
+
+
+                  pelemental->on_left_button_up(pmouse);
+                  
+			  }
 
                }
                else if (happening->button == GDK_BUTTON_SECONDARY)
@@ -725,7 +763,15 @@ namespace gtk3
 
                   pmouse->m_atom = e_message_right_button_up;
 
-                  puserinteractionbaseHold->on_right_button_up(pmouse);
+                  ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
+            
+            if(pelemental)
+            {
+
+
+                  pelemental->on_right_button_up(pmouse);
+                  
+			  }
 
                }
                else if (happening->button == GDK_BUTTON_MIDDLE)
@@ -820,7 +866,15 @@ namespace gtk3
 
                //wayland_windowing()->post_ui_message(pmouse);
 
-               m_puserinteractionbase->on_mouse_move(pmouse);
+               ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
+            
+            if(pelemental)
+            {
+
+
+                  pelemental->on_mouse_move(pmouse);
+                  
+			  }
 
             }
 
@@ -866,7 +920,7 @@ namespace gtk3
                if(happening->new_window_state & GDK_WINDOW_STATE_FOCUSED)
                {
 
-                  m_puserinteractionbase->redraw();
+                  m_pacmeuserinteraction->redraw();
 
 //                  ::windowing::window * pimpl = m_pwindow;
 //
@@ -905,7 +959,7 @@ namespace gtk3
 //
 //                  pimpl->m_puserinteraction->post_redraw();
 
-                  m_puserinteractionbase->redraw();
+                  m_pacmeuserinteraction->redraw();
 
                }
 
@@ -994,9 +1048,9 @@ namespace gtk3
 
             int_rectangle r;
 
-            m_puserinteractionbase->get_client_rectangle(r);
+            r = m_pacmeuserinteraction->get_client_rectangle();
 
-            //auto pgdkdisplay = m_pdisplaybase->m_pgdkdisplay;
+            //auto pgdkdisplay = m_pdisplay->m_pgdkdisplay;
 
             auto window = m_pgtkwidget;
 
@@ -1546,7 +1600,7 @@ namespace gtk3
 
             //node()->defer_show_system_menu(pmouse);
 
-            m_psystemmenu = m_puserinteractionbase->create_system_menu();
+            m_psystemmenu = m_pacmeuserinteraction->create_system_menu();
 
             GtkWidget *menu_item;
 
