@@ -1,11 +1,11 @@
 #include "framework.h"
-#include "windowing_system.h"
+#include "windowing.h"
 
 
-IMPLEMENT_FACTORY(windowing_system_gtk3)
+IMPLEMENT_FACTORY(acme_windowing_gtk3)
 {
 
-   pfactory->add_factory_item < ::windowing_system_gtk3::windowing_system, ::windowing::windowing_base >();
+   pfactory->add_factory_item < ::gtk3::acme::windowing::windowing, ::acme::windowing::windowing >();
 
 }
 

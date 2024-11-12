@@ -4,13 +4,16 @@
 #pragma once
 
 
-#include "acme/windowing/windowing_base.h"
+#include "acme/windowing/windowing.h"
 
 
-namespace windowing_system_gtk3
+namespace gtk3
 {
 
-
+   
+   namespace acme
+   {
+	
    class CLASS_DECL_WINDOWING_SYSTEM_GTK3 windowing_system :
            virtual public ::windowing::windowing_base
    {
