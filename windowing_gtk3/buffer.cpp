@@ -16,7 +16,7 @@
 #include "aura/graphics/image/image.h"
 #include "aura/user/user/interaction_graphics_thread.h"
 //#include "aura/user/user/interaction_impl.h"
-#include "windowing_system_x11/display_lock.h"
+//#include "windowing_system_x11/display_lock.h"
 
 //#define VERI_BASIC_TEST
 #define MORE_LOG
@@ -645,9 +645,9 @@ namespace windowing_gtk3
 //         || pwaylandwindow->m_uLastConfigureSerial > pwaylandwindow->m_uLastRequestSerial))
 //      {
 
-      ::pointer<::windowing_gtk3::window> pwaylandwindow = m_pimpl->m_pwindow;
+      ::pointer<::windowing_gtk3::window> pgtk3window = m_pwindow;
 
-      ::string strType = ::type(pwaylandwindow->m_pwindow->m_puserinteraction).name();
+      ::string strType = ::type(pgtk3window->m_pacmeuserinteraction).name();
 
 //       if(pwaylandwindow->m_pxdgtoplevel == nullptr
 //       && pwaylandwindow->m_pxdgpopup == nullptr)

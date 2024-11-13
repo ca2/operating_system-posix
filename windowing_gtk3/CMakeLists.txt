@@ -14,7 +14,7 @@ list(APPEND library_source
         debug.cpp
         display.cpp
         display.h
-        display_xrender.cpp
+        #display_xrender.cpp
         enum_display_monitors.cpp
         framework.cpp
         framework.h

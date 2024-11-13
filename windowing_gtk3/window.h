@@ -8,7 +8,7 @@
 #include "_gtk3.h"
 //#include "acme/operating_system/x11/_atom.h"
 #include "acme/prototype/geometry2d/rectangle_array.h"
-#include "nano_user_gtk3/window.h"
+#include "acme_windowing_gtk3/window.h"
 //#include <X11/extensions/sync.h>
 //#include <gtk/gtk.h>
 
@@ -32,7 +32,7 @@ namespace windowing_gtk3
 
    class CLASS_DECL_WINDOWING_GTK3 window :
       virtual public ::windowing_posix::window
-         , virtual public ::gtk3::micro::window
+         , virtual public ::gtk3::acme::windowing::window
    {
    public:
 //::int_point m_pointCursor2;
@@ -265,7 +265,7 @@ namespace windowing_gtk3
 
       bool has_mouse_capture() override;
 
-      bool has_keyboard_focus() const override;
+      bool has_keyboard_focus() override;
 
 
 
@@ -370,7 +370,7 @@ namespace windowing_gtk3
       //void _on_configure_notify_unlocked(const ::int_rectangle & rectangle) override;
 
 
-      bool is_active_window() const override;
+      bool is_active_window() override;
 
 
       void bring_to_front() override;

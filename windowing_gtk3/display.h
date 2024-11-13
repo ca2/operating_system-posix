@@ -8,8 +8,8 @@
 
 
 //#include "acme/operating_system/x11/nano/event_listener.h"
-//#include "acme/operating_system/x11/nano/display.h"
-#include "nano_user_gtk3/display.h"
+#include "acme_windowing_gtk3/display.h"
+//#include "nano_user_gtk3/display.h"
 #include "aura/windowing/display.h"
 
 //#include "_x11.h"
@@ -93,7 +93,7 @@ namespace windowing_gtk3
 
 //      virtual ::windowing_gtk3::window * _window(::wl_surface * pwlsurface);
 
-      virtual ::windowing_gtk3::windowing * x11_windowing();
+      virtual ::windowing_gtk3::windowing * gtk3_windowing();
 
       virtual void lock_display();
 

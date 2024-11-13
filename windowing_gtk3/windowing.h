@@ -5,6 +5,7 @@
 
 
 #include "windowing_posix/windowing.h"
+#include "acme_windowing_gtk3/windowing.h"
 #include "acme/prototype/collection/list.h"
 //#include "acme/prototype/collection/pointer_array.h"
 #include "_.h"
@@ -17,7 +18,8 @@ namespace windowing_gtk3
 
 
    class CLASS_DECL_WINDOWING_GTK3 windowing :
-      virtual public ::windowing_posix::windowing
+      virtual public ::windowing_posix::windowing,
+      virtual public ::gtk3::acme::windowing::windowing
    {
    public:
 

@@ -68,7 +68,7 @@ namespace innate_ui_gtk3
 
       ::string str(scopedstr);
 
-      post([this, str]
+      user_post([this, str]
       ()
          {
 
@@ -83,7 +83,7 @@ namespace innate_ui_gtk3
 
       ::pointer <::innate_ui_gtk3::icon > picon = piconParam;
 
-      sync([this, picon]()
+      user_send([this, picon]()
       {
 
          gtk_image_set_from_pixbuf(GTK_IMAGE(m_pgtkwidget), picon->m_pgdkpixbuf);

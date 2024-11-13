@@ -466,10 +466,12 @@ namespace windowing_gtk3
    }
 
 
-   ::windowing_gtk3::windowing * display::x11_windowing()
+   ::windowing_gtk3::windowing * display::gtk3_windowing()
    {
+      
+      ::cast < ::windowing_gtk3::windowing > pgtk3windowing = system()->acme_windowing();
 
-      return (::windowing_gtk3::windowing *) m_pwindowing->m_pWindowing4;
+      return pgtk3windowing;
 
    }
 

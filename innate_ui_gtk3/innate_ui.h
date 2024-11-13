@@ -30,7 +30,7 @@ namespace innate_ui_gtk3
       
       //void _defer_run_innate_ui_gtk2_user_loop();
       
-      void post(const ::procedure & procedure) override;
+      void _user_post(const ::procedure & procedure) override;
 
 
       //virtual LRESULT _window_procedure(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);

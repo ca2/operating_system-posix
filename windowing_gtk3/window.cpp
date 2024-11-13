@@ -2509,8 +2509,8 @@ bOk = true;
 //      }
 
       m_pwindow = pimpl;
-
-      m_htask = pimpl->get_app()->get_os_handle();
+      
+      m_htask = system()->acme_windowing()->m_htask;
 
       m_pmessagequeue = pimpl->m_puserinteraction->m_pthreadUserInteraction->get_message_queue();
 
