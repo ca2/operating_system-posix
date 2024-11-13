@@ -9,6 +9,9 @@
 #include "acme/platform/acme.h"
 #include "acme/prototype/logic/boolean.h"
 #include "acme/platform/system.h"
+#include <gtk/gtk.h>
+#include <gio/gio.h>
+
 //#include "aura/user/user/user.h"
 
 
@@ -609,6 +612,78 @@ namespace gdk
       ::g_free(pfree);
 
    }
+
+
+void open_file_with_default_app(const char *filename) {
+    GError *error = NULL;
+    GFile *file = g_file_new_for_path(filename);
+    
+    // Get the default application for the file type
+    GAppInfo *app_info = g_file_query_default_handler(file, NULL, &error);
+    if (!app_info) {
+        g_printerr("Could not find a default application to open '%s': %s\n", filename, error->message);
+        g_error_free(error);
+        g_object_unref(file);
+        return;
+    }
+    
+    printf_line("gdk::open_file_with_default_app found default handler for: \"%s\"", filename);
+    
+
+    // Launch the file with the default application
+    if (!g_app_info_launch(app_info, g_list_append(NULL, file), NULL, &error)) {
+        g_printerr("Failed to open '%s': %s\n", filename, error->message);
+        g_error_free(error);
+    }
+
+    printf_line("gdk::open_file_with_default_app succeeded for : \"%s\"", filename);
+
+    // Clean up
+    g_object_unref(app_info);
+    g_object_unref(file);
+}
+
+
+// Callback function for handling the result of the asynchronous launch
+void on_file_opened(GObject *source_object, GAsyncResult *res, gpointer user_data) {
+    GError *error = NULL;
+    gboolean success = g_app_info_launch_uris_finish(G_APP_INFO(source_object), res, &error);
+
+    if (!success) {
+        g_printerr("Failed to open file: %s\n", error->message);
+        g_error_free(error);
+    } else {
+        g_print("File opened successfully.\n");
+    }
+}
+
+// Function to open the file asynchronously with the default application
+void open_file_with_default_app_async(const char *filename) {
+    GError *error = NULL;
+    GFile *file = g_file_new_for_path(filename);
+
+    // Get the default application for the file type
+    GAppInfo *app_info = g_file_query_default_handler(file, NULL, &error);
+    if (!app_info) {
+        g_printerr("Could not find a default application to open '%s': %s\n", filename, error->message);
+        g_error_free(error);
+        g_object_unref(file);
+        return;
+    }
+
+    // Prepare a URI list with the file URI
+    char *file_uri = g_file_get_uri(file);
+    GList *uris = g_list_append(NULL, file_uri);
+
+    // Launch the file asynchronously with the default application
+    g_app_info_launch_uris_async(app_info, uris, NULL,NULL,(GAsyncReadyCallback) &on_file_opened, NULL);
+
+    // Clean up
+    g_free(file_uri);
+    g_list_free(uris);
+    g_object_unref(app_info);
+    g_object_unref(file);
+}
 
 
 } // namespace gdk

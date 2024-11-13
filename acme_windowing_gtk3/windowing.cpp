@@ -15,6 +15,7 @@
 //#include <xkbcommon/xkbcommon.h>
 //#include <X11/XKBlib.h>
 //#include <X11/Xutil.h>
+#include "gdk_gdk.h"
 
 
 namespace gtk3
@@ -214,6 +215,7 @@ namespace gtk3
       void windowing::windowing_application_main_loop()
       {
 
+signal(SIGCHLD, SIG_IGN);
 
          task::main();
 
@@ -492,8 +494,20 @@ namespace gtk3
       return pixmap;
 
    }
-
-
+bool windowing::shell_open(const ::file::path & path)
+{
+	print_line("gtk3::acme::windowing::windowing::shell_open: \"" + path + "\"");
+	application()->fork([this,path]()
+	{
+		_user_post([path]()
+		{
+			gdk::open_file_with_default_app_async(path);
+			
+		});
+});
+	return true;
+	
+}
       } // namespace windowing
 
 

@@ -21,6 +21,11 @@ namespace gdk
 
 
    ::e_status gsettings_sync();
+   
+   
+   void open_file_with_default_app(const char *filename);
+   
+   void open_file_with_default_app_async(const char *filename);
 
    
    bool gsettings_schema_exists(const ::string & strSchema);

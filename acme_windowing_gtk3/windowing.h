@@ -45,6 +45,11 @@ namespace gtk3
 
 
       void run() override;
+      
+      
+               bool shell_open(const ::file::path & path) override;
+
+
 
 
       ::acme::windowing::display * acme_display() override;
