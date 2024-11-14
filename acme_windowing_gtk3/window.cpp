@@ -1478,8 +1478,12 @@ m_peventLastMouseUp = pevent;
 
             //__unmap();
 
+            __check_refdbg
+
             main_send([this]()
                       {
+
+                         __check_refdbg
 
                          if (GTK_IS_POPOVER(m_pgtkwidget))
                          {
@@ -1494,9 +1498,15 @@ m_peventLastMouseUp = pevent;
 
                          }
 
+                         __check_refdbg
+
                       });
 
+            __check_refdbg
+
             destroy();
+
+            __check_refdbg
 
          }
 

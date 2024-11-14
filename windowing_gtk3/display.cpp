@@ -115,19 +115,21 @@ namespace windowing_gtk3
    huge_integer display::increment_reference_count()
    {
 
-#ifdef WINDOWS
+      return ::gtk3::acme::windowing::display::increment_reference_count();
 
-      return InterlockedIncrement64(&m_countReference);
-
-#elif defined(RASPBERRYPIOS) && defined(OS32BIT)
-
-      return __sync_add_and_fetch_4(&m_countReference,1);
-
-#else
-
-      return __sync_add_and_fetch(&m_countReference, 1);
-
-#endif
+//#ifdef WINDOWS
+//
+//      return InterlockedIncrement64(&m_countReference);
+//
+//#elif defined(RASPBERRYPIOS) && defined(OS32BIT)
+//
+//      return __sync_add_and_fetch_4(&m_countReference,1);
+//
+//#else
+//
+//      return __sync_add_and_fetch(&m_countReference, 1);
+//
+//#endif
 
    }
 
@@ -135,19 +137,21 @@ namespace windowing_gtk3
    huge_integer display::decrement_reference_count()
    {
 
-#ifdef WINDOWS
+      return ::gtk3::acme::windowing::display::decrement_reference_count();
 
-      return InterlockedDecrement64(&m_countReference);
-
-#elif defined(RASPBERRYPIOS) && defined(OS32BIT)
-
-      return __sync_sub_and_fetch_4(&m_countReference,1);
-
-#else
-
-      return __sync_sub_and_fetch(&m_countReference, 1);
-
-#endif
+//#ifdef WINDOWS
+//
+//      return InterlockedDecrement64(&m_countReference);
+//
+//#elif defined(RASPBERRYPIOS) && defined(OS32BIT)
+//
+//      return __sync_sub_and_fetch_4(&m_countReference,1);
+//
+//#else
+//
+//      return __sync_sub_and_fetch(&m_countReference, 1);
+//
+//#endif
 
    }
 

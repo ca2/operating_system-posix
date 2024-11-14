@@ -1008,14 +1008,14 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 
 
-   void windowing::windowing_post_quit()
-   {
-
-      m_bFinishX11Thread = true;
-
-      m_bInitX11Thread = false;
-
-   }
+//   void windowing::windowing_post_quit()
+//   {
+//
+//      m_bFinishX11Thread = true;
+//
+//      m_bInitX11Thread = false;
+//
+//   }
 
 
 //osdisplay_data * x11_main_display();
