@@ -2685,12 +2685,15 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 //      }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       ///m_pwindow = pimpl;
       
       m_htask = system()->acme_windowing()->m_htask;
 
       m_pmessagequeue = m_puserthread->get_message_queue();
 =======
+=======
+>>>>>>> Stashed changes
       m_pwindow = pimpl;
       
       m_htask = system()->acme_windowing()->m_htask;
