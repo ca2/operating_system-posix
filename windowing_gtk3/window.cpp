@@ -296,6 +296,23 @@ namespace windowing_gtk3
    }
 
 
+   void window::_main_post(const ::procedure & procedure)
+   {
+
+      auto pwindowing = system()->windowing();
+
+      if(!pwindowing)
+      {
+
+         return;
+
+      }
+
+      pwindowing->_main_post(procedure);
+
+   }
+
+
 //   // Callback function to draw on the drawing area
 //   static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr, gpointer p)
 //   {
@@ -1608,9 +1625,6 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
       }
 
    }
-
-
-}
 
 
    void window::destroy()
@@ -3999,7 +4013,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 
       ::windowing::window::set_mouse_cursor(pcursor);
 
-      ::pointer < ::windowing_gtk3::cursor > pgtk3cursor = pcursor;
+      ::cast < ::windowing_gtk3::cursor > pgtk3cursor = pcursor;
 
       if(pgtk3cursor)
       {

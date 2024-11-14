@@ -70,7 +70,7 @@ namespace windowing_gtk3
 
       auto pdisplay = pwindowing->display();
 
-      ::pointer < ::windowing_gtk3::display> pwaylanddisplay =  pdisplay;
+      ::cast < ::windowing_gtk3::display> pwaylanddisplay =  pdisplay;
 
 
       //GdkWindow *gdk_window = gtk_widget_get_window(widget);

@@ -130,6 +130,8 @@ namespace windowing_gtk3
 
       void _main_send(const ::procedure & procedure) override;
 
+      void _main_post(const ::procedure & procedure) override;
+
 //      static Atom get_window_long_atom(int nIndex);
 //
 //
