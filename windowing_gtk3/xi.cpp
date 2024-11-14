@@ -5,7 +5,7 @@
 #ifdef WITH_XI
 #include "windowing_gtk3.h"
 #include "acme/parallelization/synchronous_lock.h"
-#include "windowing_system_x11/display_lock.h"
+//#include "windowing_system_x11/display_lock.h"
 #include "windowing_gtk3/window.h"
 #include "windowing_gtk3/windowing.h"
 #include "windowing_gtk3/display.h"

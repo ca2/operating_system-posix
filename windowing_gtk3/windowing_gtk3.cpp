@@ -11,6 +11,7 @@
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/system.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
+#include "aura/user/user/interaction_thread.h"
 #include "aura/user/user/interaction_graphics_thread.h"
 //#include "acme/operating_system/x11/display_lock.h"
 ////#include "sn/sn.h"
@@ -387,7 +388,7 @@ namespace windowing_gtk3
    void windowing::clear_active_window(::thread * pthread, ::windowing::window * pwindow)
    {
 
-      if (!m_pdisplay)
+      if (!gtk3_display())
       {
 
          //return error_failed;
@@ -396,7 +397,7 @@ namespace windowing_gtk3
 
       }
 
-      auto pwindowActive = m_pdisplay->m_pwindowActive;
+      auto pwindowActive = gtk3_display()->m_pwindowActive;
 
       if (!pwindowActive)
       {
@@ -414,7 +415,7 @@ namespace windowing_gtk3
 
       }
 
-      m_pdisplay->m_pwindowActive = nullptr;
+      gtk3_display()->m_pwindowActive = nullptr;
 
       //return ::success;
 
@@ -424,14 +425,14 @@ namespace windowing_gtk3
    ::windowing::window * windowing::get_active_window(::thread * pthread)
    {
 
-      if (!m_pdisplay)
+      if (!gtk3_display())
       {
 
          return nullptr;
 
       }
 
-      auto pwindowActive = m_pdisplay->m_pwindowActive;
+      auto pwindowActive = gtk3_display()->m_pwindowActive;
 
       if (!pwindowActive)
       {
@@ -865,29 +866,29 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 
 
-   ::windowing::window * oswindow_get(oswindow oswindow)
-   {
-
-      if (is_null(oswindow))
-      {
-
-         return nullptr;
-
-      }
-
-#ifdef WINDOWS_DESKTOP
-
-      critical_section_lock slOsWindow(::user::g_pcsImpl);
-
-      return ::user::g_pmapImpl->operator[](oswindow);
-
-#else
-
-      return oswindow->m_pwindow;
-
-#endif
-
-   }
+//   ::windowing::window * oswindow_get(oswindow oswindow)
+//   {
+//
+//      if (is_null(oswindow))
+//      {
+//
+//         return nullptr;
+//
+//      }
+//
+//#ifdef WINDOWS_DESKTOP
+//
+//      critical_section_lock slOsWindow(::user::g_pcsImpl);
+//
+//      return ::user::g_pmapImpl->operator[](oswindow);
+//
+//#else
+//
+//      return oswindow->m_pwindow;
+//
+//#endif
+//
+//   }
 
 
 //
@@ -3195,18 +3196,18 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       ASSERT(oswindow != nullptr);
 
-      auto pimpl = oswindow->m_pwindow;
+      auto pwindow = oswindow;
 
-      if (::is_null(pimpl))
+      if (::is_null(pwindow))
       {
 
          throw ::exception(error_null_pointer);
 
       }
 
-      auto pinteraction = pimpl->m_puserinteraction;
+      ::cast < ::windowing_gtk3::window > pgtk3window = pwindow;
 
-      if (::is_null(pinteraction))
+      if (::is_null(pgtk3window))
       {
 
          return;
@@ -3214,39 +3215,18 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       }
 
-      ::thread * pthread = nullptr;
+      auto puserthread = pgtk3window->m_puserthread;
 
-      if (::is_set(pinteraction))
-      {
-
-         pthread = pinteraction->m_pthreadUserInteraction;
-
-      }
-
-      if (::is_null(pthread))
+      if (::is_null(puserthread))
       {
 
          throw ::exception(error_null_pointer);
 
       }
 
-      auto pmessagequeue = pthread->m_pmessagequeue.get();
+      auto pmessagequeue = puserthread->m_pmessagequeue.get();
 
-      if (pmessagequeue == nullptr)
-      {
-
-         if (message.m_atom == e_message_quit)
-         {
-
-            return;
-
-         }
-
-         pmessagequeue = pthread->get_message_queue();
-
-      }
-
-      if (pmessagequeue == nullptr)
+      if (::is_null(pmessagequeue))
       {
 
          throw ::exception(error_null_pointer);
@@ -3290,25 +3270,33 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       ASSERT(oswindow != nullptr);
 
-      auto pimpl = oswindow->m_pwindow;
+      auto pwindow = oswindow;
 
-      if (::is_null(pimpl))
+      if (::is_null(pwindow))
       {
 
          throw ::exception(error_null_pointer);
 
       }
 
-      auto puserinteraction = pimpl->m_puserinteraction;
+      ::cast < ::windowing_gtk3::window > pgtk3window = pwindow;
 
-      if (::is_null(puserinteraction))
+      if (::is_null(pgtk3window))
       {
 
          throw ::exception(error_null_pointer);
 
       }
 
-      puserinteraction->post_message(pmessage);
+      pgtk3window->post_message(pmessage);
+
+   }
+
+
+   void windowing::windowing_application_main_loop()
+   {
+
+      ::gtk3::acme::windowing::windowing::windowing_application_main_loop();
 
    }
 

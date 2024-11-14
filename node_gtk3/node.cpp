@@ -10,6 +10,7 @@
 #include "acme/filesystem/filesystem/file_dialog.h"
 #include "acme/filesystem/filesystem/folder_dialog.h"
 #include "acme/filesystem/filesystem/file_context.h"
+#include "acme/graphics/image/pixmap.h"
 #include "acme/platform/node.h"
 #include "acme/prototype/prototype/type.h"
 #include "apex/operating_system/freedesktop/desktop_file.h"
@@ -18,7 +19,7 @@
 #include "acme/parallelization/manual_reset_happening.h"
 #include "acme/user/user/os_theme_colors.h"
 #include "acme/user/user/theme_colors.h"
-#include "acme/windowing/windowing_base.h"
+#include "acme/windowing/windowing.h"
 #include "apex/input/input.h"
 #include "apex/platform/system.h"
 #include "aura/platform/session.h"
@@ -27,7 +28,7 @@
 #include "windowing_x11/windowing_x11.h"
 #include "aura/windowing/windowing.h"
 //#include "windowing_x11/windowing.h"
-#include "node_gdk/windowing_system.h"
+//#include "node_gdk/windowing_system.h"
 
 
 #include <gio/gio.h>
@@ -55,15 +56,15 @@
 //      }
 //   }
 //}
-namespace nano
-{
-   namespace user
-   {
-
-
-enum_display_type calculate_display_type();
-   }
-}
+//namespace nano
+//{
+//   namespace user
+//   {
+//
+//
+//enum_display_type calculate_display_type();
+//   }
+//}
 
 
 
@@ -131,54 +132,13 @@ cairo_surface_t * __cairo_create_image_argb32_surface(::memory & m, int w, int h
 
    auto s = cairo_image_surface_get_stride(psurface);
 
-   auto data = (unsigned char *) cairo_image_surface_get_data(psurface);
+   auto data = (image32_t *) cairo_image_surface_get_data(psurface);
 
-   huge_integer int r = 0;
-   huge_integer int g = 0;
-   huge_integer int b = 0;
-   huge_integer int a = 0;
+   ::pixmap pixmap;
 
-   for (int n = 0; n < h; n++)
-   {
+   pixmap.initialize({w, h}, data, s);
 
-      auto pline = data + s * n;
-
-      for (int l = 0; l < w; l++)
-      {
-
-         a+= pline[3];
-         r+= pline[2];
-         g+= pline[1];
-         b+= pline[0];
-
-         pline += 4;
-
-      }
-
-   }
-
-   if(a == 0)
-   {
-
-      return ::color::transparent;
-
-   }
-   else
-   {
-
-      auto area = w * h;
-
-      double dA = ((double)a) / (double) (area);
-
-      double dR = ((double)r) / (double)a;
-
-      double dG = ((double)g) / (double)a;
-
-      double dB = ((double)b) / (double)a;
-
-      return argb(dA / 255.0, dR, dG, dB);
-
-   }
+   return pixmap.average_color();
 
 }
 
@@ -462,7 +422,7 @@ void gtk_settings_gtk_icon_theme_name_callback(GObject *object, GParamSpec *pspe
 //void aaa_x11_add_idle_source();
 
 
-void x11_add_filter(void * p);
+//void x11_add_filter(void * p);
 
 
 //void x11_main();
@@ -619,7 +579,7 @@ namespace node_gtk3
 
 #endif
 
-      ::windowing::get_ewindowing() = calculate_ewindowing();
+      //::windowing::get_ewindowing() = calculate_ewindowing();
 
       // system()->__construct(system()->m_pwindowingsystem);
       //
@@ -674,9 +634,9 @@ namespace node_gtk3
          user_post([this]()
                    {
 
-                      // This seems not to work with "foreign" windows
-                      // (X11 windows not created with Gdk)
-                      x11_add_filter(this);
+                      //// This seems not to work with "foreign" windows
+                      //// (X11 windows not created with Gdk)
+                      //x11_add_filter(this);
 
                       information() << "node_gtk3::system_main on user_post";
 
@@ -767,7 +727,7 @@ namespace node_gtk3
 
          //aaa_x11_add_idle_source(this);
 
-         ::set_main_user_thread(::current_htask());
+         //::set_main_user_thread(::current_htask());
 
 //#if defined(WITH_X11)
 //
@@ -777,11 +737,13 @@ namespace node_gtk3
 
          information() << "node_gtk3::system_main GTK_MAIN";
 
-         ::task_set_name("Main Thread");
+         //::task_set_name("Main Thread");
 
-         gtk_main();
+         ///gtk_main();
 
          //aaa_x11_main();
+
+         system()->acme_windowing()->windowing_application_main_loop();
 
       }
 
@@ -3352,40 +3314,40 @@ log_handler(const gchar *log_domain,
 //}
 
 
-bool x11_message_handler(XEvent *pevent);
-
-
-GdkFilterReturn x11_event_func(GdkXEvent *xevent, GdkEvent *happening, gpointer data)
-{
-
-   XEvent *pevent = (XEvent *) xevent;
-
-   ::node_gtk3::node *pnode = (::node_gtk3::node *) data;
-
-   auto pwindowing = pnode->windowing();
-
-   if(::is_set(pwindowing))
-   {
-
-      pwindowing->_message_handler(pevent);
-
-   }
-
-   return GDK_FILTER_CONTINUE;
-
-}
-
-
-// This seems not to work with "foreign" windows
-// (X11 windows not created with Gdk)
-void x11_add_filter(void * p)
-{
-
-   // This seems not to work with "foreign" windows
-   // (X11 windows not created with Gdk)
-   gdk_window_add_filter(nullptr, &x11_event_func, p);
-
-}
+//bool x11_message_handler(XEvent *pevent);
+//
+//
+//GdkFilterReturn x11_event_func(GdkXEvent *xevent, GdkEvent *happening, gpointer data)
+//{
+//
+//   XEvent *pevent = (XEvent *) xevent;
+//
+//   ::node_gtk3::node *pnode = (::node_gtk3::node *) data;
+//
+//   auto pwindowing = pnode->windowing();
+//
+//   if(::is_set(pwindowing))
+//   {
+//
+//      pwindowing->_message_handler(pevent);
+//
+//   }
+//
+//   return GDK_FILTER_CONTINUE;
+//
+//}
+//
+//
+//// This seems not to work with "foreign" windows
+//// (X11 windows not created with Gdk)
+//void x11_add_filter(void * p)
+//{
+//
+//   // This seems not to work with "foreign" windows
+//   // (X11 windows not created with Gdk)
+//   gdk_window_add_filter(nullptr, &x11_event_func, p);
+//
+//}
 
 
 //int gdk_launch_uri(const char * pszUri, char * pszError, int iBufferSize)

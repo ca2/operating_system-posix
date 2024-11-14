@@ -28,7 +28,7 @@ namespace user
 {
 
 
-   char * gsettings_get_malloc(const char * pszSchema, const char * pszKey;
+   char * gsettings_get_malloc(const char * pszSchema, const char * pszKey);
 
 
 }

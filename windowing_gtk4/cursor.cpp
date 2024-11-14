@@ -11,9 +11,9 @@
 //#include "aura_posix/_x11.h"
 //#include "windowing_system_x11/display_lock.h"
 //#include <X11/cursorfont.h>
-#include <wayland-cursor.h>
-#include <wayland-client.h>
-#include <wayland-server.h>
+//#include <wayland-cursor.h>
+//#include <wayland-client.h>
+//#include <wayland-server.h>
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
 #include "display.h"

@@ -95,7 +95,9 @@ namespace node_gtk3
 
       ::pointer<clipboard_data>pdata = __allocate clipboard_data(this, e_clipboard_get_plain_text);
 
-      pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_get_plain_text"));
+      __refdbg_add_referer
+
+      pdata->increment_reference_count();
 
       auto idle_source = g_idle_source_new();
 
@@ -145,7 +147,9 @@ namespace node_gtk3
 
       ::pointer<clipboard_data>pdata = __allocate clipboard_data(this, e_clipboard_get_file_target_count);
 
-      pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_has_filea"));
+      __refdbg_add_referer
+
+      pdata->increment_reference_count();
 
       auto idle_source = g_idle_source_new();
 
@@ -170,7 +174,9 @@ namespace node_gtk3
 
       ::pointer<clipboard_data>pdata = __allocate clipboard_data(this, e_clipboard_get_patha);
 
-      pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_get_filea"));
+      __refdbg_add_referer
+
+      pdata->increment_reference_count();
 
       auto idle_source = g_idle_source_new();
 
@@ -199,7 +205,9 @@ namespace node_gtk3
 
       ::pointer<clipboard_data>pdata = __allocate clipboard_data(this, e_clipboard_set_patha);
 
-      pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_set_filea"));
+      __refdbg_add_referer
+
+      pdata->increment_reference_count();
 
       pdata->m_eop = eop;
 
@@ -230,7 +238,9 @@ namespace node_gtk3
 
       ::pointer<clipboard_data>pdata = __allocate clipboard_data(this, e_clipboard_get_image);
 
-      pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_desk_to_image"));
+      __refdbg_add_referer
+
+      pdata->increment_reference_count();
 
       pdata->m_pimage = image()->create_image();
 

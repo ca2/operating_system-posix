@@ -24,7 +24,7 @@ namespace node_gtk3
 {
 
 
-   void initialize_gtk();
+   ///void initialize_gtk();
 
 
 } // namespace node_gtk3

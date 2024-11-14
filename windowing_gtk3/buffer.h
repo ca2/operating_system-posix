@@ -42,7 +42,7 @@ namespace windowing_gtk3
       //XImage *                      m_pimage;
       //bool                          m_bMapped;
       ::int_rectangle      m_rectangleLast;
-      ::wl_callback*m_pwlcallbackFrame;
+      //::wl_callback*m_pwlcallbackFrame;
       //::image::image_pointer                         m_pimage;
       //interlocked_huge_integer                              m_interlockedPostedScreenUpdate;
 //manual_reset_happening m_happeningXshm;
@@ -54,12 +54,12 @@ namespace windowing_gtk3
       ~buffer() override;
 
 
-      virtual ::windowing_gtk3::window * x11_window();
+      virtual ::windowing_gtk3::window * gtk3_window();
 
 
       void initialize_graphics_graphics(::windowing::window * pimpl) override;
       void destroy() override;
-      virtual void __handle_window_redraw(::wl_callback *pwlcallback, uint32_t time);
+      //virtual void __handle_window_redraw(::wl_callback *pwlcallback, uint32_t time);
 
       bool update_buffer(::graphics::buffer_item * pbufferitem) override;
 

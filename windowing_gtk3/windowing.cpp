@@ -15,7 +15,7 @@
 #include "aura/platform/system.h"
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
-#include "windowing_system_x11/display_lock.h"
+//#include "windowing_system_x11/display_lock.h"
 
 
 namespace windowing_gtk3
@@ -33,7 +33,7 @@ namespace windowing_gtk3
 
       m_itask = -1;
 
-      m_pWindowing4 = this;
+      //m_pWindowing4 = this;
 
       m_bFirstWindowMap = false;
 
@@ -56,7 +56,7 @@ namespace windowing_gtk3
    bool windowing::has_readily_gettable_absolute_coordinates() const
    {
 
-      if(::windowing::get_ewindowing() == ::windowing::e_windowing_wayland)
+      if(::windowing::get_edisplaytype() == ::windowing::e_display_type_wayland)
       {
 
          return false;
@@ -107,7 +107,7 @@ namespace windowing_gtk3
    void windowing::erase_window(::windowing::window * pwindow)
    {
 
-      m_pdisplay->erase_window(pwindow);
+      gtk3_display()->erase_window(pwindow);
 
    }
 
@@ -143,26 +143,28 @@ namespace windowing_gtk3
 //   }
 
 
-   void windowing::initialize_windowing(::user::user * puser)
+   void windowing::initialize_windowing()
    {
 
-      ::windowing_posix::windowing::initialize_windowing(puser);
+      ::windowing_posix::windowing::initialize_windowing();
+
+      ::gtk3::acme::windowing::windowing::initialize_windowing();
 
       information() << "windowing_gtk3::windowing::initialize_windowing";
 
-      auto pdisplay = __create<::windowing::display>();
-
-      pdisplay->initialize_display(this);
-
-      m_pdisplay = pdisplay;
-
-      if (!pdisplay)
-      {
-
-         throw ::exception(error_no_interface,
-                           "Failed to cast pdisplay to m_pdisplay at windowing_gtk3::windowing::initialize");
-
-      }
+//      auto pdisplay = __create<::windowing::display>();
+//
+//      pdisplay->open_display();
+//
+//      m_pdisplay = pdisplay;
+//
+//      if (!pdisplay)
+//      {
+//
+//         throw ::exception(error_no_interface,
+//                           "Failed to cast pdisplay to m_pdisplay at windowing_gtk3::windowing::initialize");
+//
+//      }
 
       _libsn_start_context();
 
@@ -172,7 +174,42 @@ namespace windowing_gtk3
    ::windowing::display * windowing::display()
    {
 
-      return m_pdisplay;
+      auto pdisplay = ::windowing::windowing::display();
+
+      if(::is_null(pdisplay))
+      {
+
+         return nullptr;
+
+      }
+
+      return pdisplay;
+
+   }
+
+
+   ::windowing_gtk3::display * windowing::gtk3_display()
+   {
+
+      auto pdisplay = this->display();
+
+      if(::is_null(pdisplay))
+      {
+
+         return nullptr;
+
+      }
+
+      ::cast < ::windowing_gtk3::display > pgtk3display = pdisplay;
+
+      if(!pgtk3display)
+      {
+
+         return nullptr;
+
+      }
+
+      return pgtk3display;
 
    }
 
@@ -198,73 +235,101 @@ namespace windowing_gtk3
 
       }
 
-      int iCursor = 0;
+//      int iCursor = 0;
+//
+//      if (ecursor == e_cursor_size_top_left)
+//      {
+//
+//         iCursor = XC_top_left_corner;
+//
+//      }
+//      else if (ecursor == e_cursor_size_top_right)
+//      {
+//
+//         iCursor = XC_top_right_corner;
+//
+//      }
+//      else if (ecursor == e_cursor_size_top)
+//      {
+//
+//         iCursor = XC_top_side;
+//
+//      }
+//      else if (ecursor == e_cursor_size_right)
+//      {
+//
+//         iCursor = XC_right_side;
+//
+//      }
+//      else if (ecursor == e_cursor_size_left)
+//      {
+//
+//         iCursor = XC_left_side;
+//
+//      }
+//      else if (ecursor == e_cursor_size_bottom)
+//      {
+//
+//         iCursor = XC_bottom_side;
+//
+//      }
+//      else if (ecursor == e_cursor_size_bottom_left)
+//      {
+//
+//         iCursor = XC_bottom_left_corner;
+//
+//      }
+//      else if (ecursor == e_cursor_size_bottom_right)
+//      {
+//
+//         iCursor = XC_bottom_right_corner;
+//
+//      }
+//      else if (ecursor == e_cursor_arrow)
+//      {
+//
+//         iCursor = XC_arrow;
+//
+//      }
 
-      if (ecursor == e_cursor_size_top_left)
+      const char * cursor_name = "left_ptr";
+
+      switch(ecursor)
       {
-
-         iCursor = XC_top_left_corner;
-
+         case e_cursor_system: cursor_name = "left_ptr"; break;
+         case e_cursor_arrow: cursor_name = "left_ptr"; break;
+         case e_cursor_hand: cursor_name = "hand1"; break;
+         case e_cursor_text_select: cursor_name = "xterm"; break;
+         case e_cursor_size_top_left: cursor_name = "top_left_corner"; break;
+         case e_cursor_size_top: cursor_name = "top_side"; break;
+         case e_cursor_size_top_right: cursor_name = "top_right_corner"; break;
+         case e_cursor_size_right: cursor_name = "right_side"; break;
+         case e_cursor_size_bottom_right: cursor_name = "bottom_right_corner"; break;
+         case e_cursor_size_bottom: cursor_name = "bottom_side"; break;
+         case e_cursor_size_bottom_left: cursor_name = "bottom_left_corner"; break;
+         case e_cursor_size_left: cursor_name = "left_side"; break;
+         case e_cursor_size_vertical: cursor_name = "sb_v_double_arrow"; break;
+         case e_cursor_size_horizontal: cursor_name = "sb_h_double_arrow"; break;
+         case e_cursor_move: cursor_name = "move"; break;
+         case e_cursor_wait: cursor_name = "watch"; break;
+         case e_cursor_wait_arrow: cursor_name = "wait"; break;
+         default:
+            break;
       }
-      else if (ecursor == e_cursor_size_top_right)
-      {
+//      if (iCursor == 0)
+//      {
+//
+//         return nullptr;
+//
+//      }
+//
+//      windowing_output_debug_string("::x11_GetWindowRect 1");
 
-         iCursor = XC_top_right_corner;
+__construct(pcursor);
 
-      }
-      else if (ecursor == e_cursor_size_top)
-      {
+      pcursor->m_strCursorName = cursor_name;
 
-         iCursor = XC_top_side;
-
-      }
-      else if (ecursor == e_cursor_size_right)
-      {
-
-         iCursor = XC_right_side;
-
-      }
-      else if (ecursor == e_cursor_size_left)
-      {
-
-         iCursor = XC_left_side;
-
-      }
-      else if (ecursor == e_cursor_size_bottom)
-      {
-
-         iCursor = XC_bottom_side;
-
-      }
-      else if (ecursor == e_cursor_size_bottom_left)
-      {
-
-         iCursor = XC_bottom_left_corner;
-
-      }
-      else if (ecursor == e_cursor_size_bottom_right)
-      {
-
-         iCursor = XC_bottom_right_corner;
-
-      }
-      else if (ecursor == e_cursor_arrow)
-      {
-
-         iCursor = XC_arrow;
-
-      }
-
-      if (iCursor == 0)
-      {
-
-         return nullptr;
-
-      }
-
-      windowing_output_debug_string("::x11_GetWindowRect 1");
-
-      return nullptr;
+      return pcursor;
 
    }
 
@@ -272,7 +337,7 @@ namespace windowing_gtk3
    ::acme::windowing::window * windowing::get_keyboard_focus(::thread *)
    {
 
-      if (!m_pdisplay)
+      if (!gtk3_display())
       {
 
          return nullptr;
@@ -287,7 +352,7 @@ namespace windowing_gtk3
    ::windowing::window * windowing::get_mouse_capture(::thread *)
    {
 
-      if (!m_pdisplay)
+      if (!gtk3_display())
       {
 
          return nullptr;
@@ -318,7 +383,7 @@ namespace windowing_gtk3
    void windowing::release_mouse_capture(::thread * pthread, ::windowing::window * pwindow)
    {
 
-      m_pdisplay->release_mouse_capture();
+      gtk3_display()->release_mouse_capture();
 
    }
 
@@ -390,7 +455,15 @@ namespace windowing_gtk3
 
       pwaylandcursor->_create_os_cursor();
 
-      auto pwaylanddisplay = m_pdisplay;
+      //auto pwaylanddisplay = m_pdisplay;
+
+   }
+
+
+   ::windowing::windowing * windowing::windowing_windowing()
+   {
+
+      return this;
 
    }
 

@@ -47,7 +47,7 @@ namespace windowing_gtk3
 
       //zero(m_atoma);
 
-      m_pDisplay = this;
+      //m_pDisplay = this;
       m_pgdkdisplay = nullptr;
       //m_colormap = None;
       //m_windowRoot = None;
@@ -352,6 +352,16 @@ namespace windowing_gtk3
    void display::open_display()
    {
 
+      gtk3_windowing()->user_send([this]()
+                                  {
+
+         if(m_pgdkdisplay != nullptr)
+         {
+
+            return;
+
+         }
+
       m_pgdkdisplay = gdk_display_get_default();
 
       auto n = gdk_display_get_n_monitors(m_pgdkdisplay);
@@ -359,7 +369,7 @@ namespace windowing_gtk3
       for(int i = 0; i < n; i++)
       {
 
-         GdkMonitor *monitor = gdk_display_get_monitor(m_pgdkdisplay, i);
+         GdkMonitor *pgdkmonitor = gdk_display_get_monitor(m_pgdkdisplay, i);
 
          auto pmonitor = __create_new< ::windowing::monitor>();
 
@@ -368,7 +378,7 @@ namespace windowing_gtk3
 
          // Get the geometry (rectangle) of the monitor
          GdkRectangle geometry;
-         gdk_monitor_get_geometry(monitor, &geometry);
+         gdk_monitor_get_geometry(pgdkmonitor, &geometry);
 
          // Print monitor geometry details
          printf("Monitor %u: x = %d, y = %d, width = %d, height = %d\n",
@@ -376,11 +386,13 @@ namespace windowing_gtk3
          ::copy(pmonitor->m_rectangle, geometry);
          ::copy(pmonitor->m_rectangleWorkspace, geometry);
          // Unref the monitor object as we no longer need it
-         g_object_unref(monitor);
+         //g_object_unref(pgdkmonitor);
 
          m_monitora.add(pmonitor);
 
       }
+
+                                  });
 
    }
 

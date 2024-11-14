@@ -120,12 +120,15 @@ namespace windowing_gtk3
 
 
       void create_window() override;
+      void _create_window() override;
 
 
       void destroy() override;
 
          void _set_oswindow(::oswindow oswindow) override;
          ::oswindow oswindow() const override;
+
+      void _main_send(const ::procedure & procedure) override;
 
 //      static Atom get_window_long_atom(int nIndex);
 //

@@ -11,7 +11,12 @@
 #include "acme/platform/system.h"
 #include <gtk/gtk.h>
 #include <gio/gio.h>
-
+#ifdef HAS_WAYLAND
+#include <gdk/gdkwayland.h>
+#endif
+#ifdef WITH_X11
+#include <gdk/gdkx.h>
+#endif
 //#include "aura/user/user/user.h"
 
 
@@ -684,6 +689,39 @@ void open_file_with_default_app_async(const char *filename) {
     g_object_unref(app_info);
     g_object_unref(file);
 }
+
+   ::windowing::enum_display_type calculate_display_type()
+   {
+
+      GdkDisplay * pgdkdisplay = gdk_display_get_default();
+
+#if HAS_WAYLAND
+
+      if (GDK_IS_WAYLAND_DISPLAY (pgdkdisplay))
+      {
+
+         return e_display_type_wayland;
+
+      }
+      else
+
+#endif
+
+      if (GDK_IS_X11_DISPLAY (pgdkdisplay))
+      {
+
+         return ::windowing::e_display_type_x11;
+
+      }
+      else
+      {
+
+         return ::windowing::e_display_type_none;
+
+      }
+
+   }
+
 
 
 } // namespace gdk

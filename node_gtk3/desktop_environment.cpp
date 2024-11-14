@@ -6,7 +6,7 @@
 //#include "wayland_buffer.h"
 #include "acme/platform/system.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
-#include "acme/windowing/windowing_base.h"
+#include "acme/windowing/windowing.h"
 
 
 ////#include "windowing.h"
@@ -53,7 +53,7 @@ namespace node_gtk3
    ::pointer < ::graphics::graphics > desktop_environment::create_graphics()
    {
 
-      auto edisplaytype = ::micro::get_display_type();
+      auto edisplaytype = ::windowing::get_edisplaytype();
 
       //#if !defined(RASPBERRYPIOS) && !defined(FREEBSD) && !defined(__XFCE) && !defined(OPENBSD)
 

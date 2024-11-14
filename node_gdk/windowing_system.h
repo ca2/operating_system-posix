@@ -4,7 +4,7 @@
 #pragma once
 
 
-#include "acme/windowing/windowing_base.h"
+#include "acme/windowing/windowing.h"
 
 
    namespace node_gdk

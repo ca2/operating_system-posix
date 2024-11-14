@@ -27,7 +27,7 @@ namespace windowing_gtk3
       bool                                            m_bRootSelectInput : 1;
       bool                                            m_bFirstWindowMap : 1;
 
-      ::pointer<::windowing_gtk3::display>            m_pdisplay;
+      //::pointer<::windowing_gtk3::display>            m_pdisplay;
       bool                                            m_bFinishX11Thread;
       bool                                            m_bInitX11Thread;
 
@@ -51,7 +51,7 @@ namespace windowing_gtk3
 
       void initialize(::particle * pparticle) override;
 
-      void initialize_windowing(::user::user * puser) override;
+      void initialize_windowing() override;
 
 
       bool has_readily_gettable_absolute_coordinates() const override;
@@ -69,6 +69,9 @@ namespace windowing_gtk3
       virtual void post_ui_message(::message::message * pmessage);
 
 
+      void windowing_application_main_loop() override;
+
+
       //::pointer <::input::input> _get_input() override;
 
 
@@ -77,6 +80,9 @@ namespace windowing_gtk3
       //void _libsnx_start_context()  override;
 
       ::windowing::display * display() override;
+
+
+      virtual ::windowing_gtk3::display * gtk3_display();
 
       //void windowing_main() override;
 
@@ -96,6 +102,8 @@ namespace windowing_gtk3
 
       void set_mouse_cursor2(::windowing::cursor * pcursor)override;
       //virtual void x11_main();
+
+
 
       //virtual HCURSOR load_default_cursor(e_cursor ecursor) override;
       virtual ::pointer<::windowing::cursor>load_default_cursor(enum_cursor ecursor) override;
@@ -168,7 +176,7 @@ namespace windowing_gtk3
 
       //void _on_wm_state_change(::windowing::window * pwindow) override;
 
-
+      ::windowing::windowing * windowing_windowing() override;
    };
 
 

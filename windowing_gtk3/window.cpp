@@ -17,6 +17,7 @@
 #include "apex/platform/system.h"
 #include "aura/graphics/graphics/graphics.h"
 #include "aura/message/user.h"
+#include "aura/user/user/interaction_thread.h"
 #include "aura/user/user/interaction_graphics_thread.h"
 //#include "aura/user/user/interaction_impl.h"
 #include "aura/platform/message_queue.h"
@@ -51,7 +52,7 @@ namespace windowing_gtk3
 
       //m_bXShmPutImagePending = false;
       //m_bXShmComplete = false;
-      m_pWindow4 = this;
+      //m_pWindow4 = this;
 
       //m_bNetWmStateHidden = false;
       //m_bNetWmStateMaximized = false;
@@ -99,7 +100,7 @@ namespace windowing_gtk3
    {
 
       ::windowing_posix::window::on_initialize_particle();
-      ::gtk3::micro::window::on_initialize_particle();
+      ::gtk3::acme::windowing::window::on_initialize_particle();
 
    }
 
@@ -211,7 +212,7 @@ namespace windowing_gtk3
 
       //node()->defer_show_system_menu(pmouse);
 
-      m_psystemmenu = m_puserinteractionbase->create_system_menu();
+      m_psystemmenu = m_pacmeuserinteraction->create_system_menu();
 
       GtkWidget *menu_item;
 
@@ -278,6 +279,23 @@ namespace windowing_gtk3
    }
 
 
+   void window::_main_send(const ::procedure & procedure)
+   {
+
+      auto pwindowing = system()->windowing();
+
+      if(!pwindowing)
+      {
+
+         return;
+
+      }
+
+      pwindowing->_main_send(procedure);
+
+   }
+
+
 //   // Callback function to draw on the drawing area
 //   static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr, gpointer p)
 //   {
@@ -309,14 +327,13 @@ namespace windowing_gtk3
 
       try {
 
-         if (!m_pwindow ||
-             !m_pwindow->m_pgraphicsgraphics) {
+         if (!m_pgraphicsgraphics) {
 
             return;
 
          }
 
-         auto pitem = m_pwindow->m_pgraphicsgraphics->get_screen_item();
+         auto pitem = m_pgraphicsgraphics->get_screen_item();
 
 
 
@@ -359,7 +376,9 @@ namespace windowing_gtk3
             ::image::image_drawing imagedrawing(imagedrawingoptions, imagesource);
             pgraphics->draw(imagedrawing);
             pgraphics->detach();
-            m_pwindow->m_pgraphicsgraphics->on_end_draw();
+
+            m_pgraphicsgraphics->on_end_draw();
+
          }
 
 
@@ -432,9 +451,7 @@ namespace windowing_gtk3
    void window::_on_size(int cx, int cy)
    {
 
-      ::windowing::window * pimpl = m_pwindow;
-
-      auto puserinteraction = pimpl->m_puserinteraction;
+      auto puserinteraction = user_interaction();
 
       ::int_size s(cx, cy);
 
@@ -461,6 +478,7 @@ namespace windowing_gtk3
       }
 
    }
+
 
 
 
@@ -513,9 +531,9 @@ namespace windowing_gtk3
 //         return true;
 //      }
 //   }
-      auto pwindow = m_pwindow;
+      //auto pwindow = m_pwindow;
 
-      if(::is_set(pwindow))
+      //if(::is_set(pwindow))
       {
 
          auto pmouse = __create_new<::message::mouse>();
@@ -559,7 +577,7 @@ namespace windowing_gtk3
 
          //wayland_windowing()->post_ui_message(pmouse);
 
-         pwindow->message_handler(pmouse);
+         this->message_handler(pmouse);
 
       }
 
@@ -578,9 +596,9 @@ namespace windowing_gtk3
 //   }
 //
 
-      auto pwindow = m_pwindow;
+      //auto pwindow = m_pwindow;
 
-      if(::is_set(pwindow))
+      //if(::is_set(pwindow))
       {
 
          auto pmouse = __create_new<::message::mouse>();
@@ -628,7 +646,7 @@ namespace windowing_gtk3
 
          //wayland_windowing()->post_ui_message(pmouse);
 
-         pwindow->message_handler(pmouse);
+         this->message_handler(pmouse);
 
       }
 
@@ -671,9 +689,9 @@ namespace windowing_gtk3
 //        return true;
 //    }
 
-      auto pwindow = m_pwindow;
+      //auto pwindow = m_pwindow;
 
-      if(::is_set(pwindow))
+      //if(::is_set(pwindow))
       {
 
          auto pmouse = __create_new<::message::mouse>();
@@ -704,7 +722,7 @@ namespace windowing_gtk3
 
          //wayland_windowing()->post_ui_message(pmouse);
 
-         pwindow->message_handler(pmouse);
+         this->message_handler(pmouse);
 
       }
 
@@ -750,7 +768,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
          if(happening->new_window_state & GDK_WINDOW_STATE_FOCUSED)
          {
 
-            ::windowing::window * pimpl = m_pwindow;
+            auto pimpl = this;
 
             pimpl->m_puserinteraction->display(::e_display_normal);
 
@@ -769,7 +787,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
          if(happening->new_window_state & GDK_WINDOW_STATE_MAXIMIZED)
          {
 
-            ::windowing::window * pimpl = m_pwindow;
+            auto pimpl = this;
 
             pimpl->m_puserinteraction->layout().m_statea[::user::e_layout_window].m_edisplay = e_display_zoomed;
 
@@ -804,7 +822,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
          if(happening->new_window_state & GDK_WINDOW_STATE_ICONIFIED)
          {
 
-            ::windowing::window * pimpl = m_pwindow;
+            auto pimpl = this;
 
             pimpl->m_puserinteraction->layout().m_statea[::user::e_layout_window].m_edisplay = e_display_iconic;
 
@@ -812,7 +830,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
          else
          {
 
-            ::windowing::window * pimpl = m_pwindow;
+            auto pimpl = this;
 
             pimpl->m_puserinteraction->display(::e_display_normal);
 
@@ -835,88 +853,651 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
    void window::create_window()
    {
 
-      bool bOk = false;
 
-      main_send([this, &bOk]()
-                {
+      ::windowing::window::create_window();
 
-::windowing::window *pimpl = m_pwindow;
 
-{
-_synchronous_lock synchronouslock(user_synchronization());
-
-auto pusersystem = pimpl->m_puserinteraction->m_pusersystem;
-
-pimpl->m_puserinteraction->m_bMessageWindow = false;
-
-auto pwindowing = gtk3_windowing();
-
-auto pdisplay = pwindowing->display();
-
-// auto pwldisplay = pdisplay->m_pwldisplay;
 //
-// if (pwldisplay == nullptr)
-// {
+//      bool bOk = false;
 //
-//    fprintf(stderr, "ERROR: Could not open display\n");
+//      main_send([this, &bOk]()
+//                {
 //
-//    bOk = false;
+//                   auto pimpl = this;
 //
-//    //return ::success;
-//    throw ::exception(error_failed);
+//{
+//_synchronous_lock synchronouslock(user_synchronization());
 //
-// }
+//auto pusersystem = pimpl->m_puserinteraction->m_pusersystem;
+//
+//pimpl->m_puserinteraction->m_bMessageWindow = false;
+//
+//auto pwindowing = gtk3_windowing();
+//
+//auto pdisplay = pwindowing->display();
+//
+//// auto pwldisplay = pdisplay->m_pwldisplay;
+////
+//// if (pwldisplay == nullptr)
+//// {
+////
+////    fprintf(stderr, "ERROR: Could not open display\n");
+////
+////    bOk = false;
+////
+////    //return ::success;
+////    throw ::exception(error_failed);
+////
+//// }
+//
+//                      auto pimpl = this;
+//
+////pimpl->m_puserinteraction->m_pwindow = this;
+//
+//// if(::is_null(m_pwindow->m_puserinteraction->m_pwindow))
+//// {
+//
+////    printf("m_pwindow->m_puserinteraction->m_pwindow is null!! (0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
+////    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
+//
+//// }
+//// else
+//// {
+//
+////    printf("m_pwindow->m_puserinteraction->m_pwindow is set!! (0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
+////    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
+//
+//// }
+//
+//// fflush(stdout);
+//
+////pimpl->m_puserinteraction->m_puserinteractionTopLevel =
+////pimpl->m_puserinteraction;
+//
+////m_pdisplaybase = pdisplay;
+//
+//// m_pdisplaybase = pdisplay;
+//
+////information() << "window::create_window m_pdisplay : " << (::iptr)m_pdisplaybase.m_p;
+//
+//// information() << "window::create_window m_pdisplaybase : " << (::iptr) m_pdisplaybase.m_p;
+//
+////pimpl->m_pwindow = this;
+//
+//// printf("pimpl->m_pwindow.m_p (0x%x)\n", pimpl->m_pwindow.m_p);
+//// printf("pimpl->m_pwindow.m_pelement (0x%x)\n", pimpl->m_pwindow.m_pelement);
+//
+//// display_lock displaylock(pdisplayx11->Display());
+//
+//int x = m_puserinteraction->const_layout().sketch().origin().x();
+//
+//int y = m_puserinteraction->const_layout().sketch().origin().y();
+//
+//int cx = m_puserinteraction->const_layout().sketch().width();
+//
+//int cy = m_puserinteraction->const_layout().sketch().height();
+//
+//bool bVisible = m_puserinteraction->const_layout().sketch().is_screen_visible();
+//
+////m_puserinteractionbase = m_pwindow->m_puserinteraction;
+//
+////      if(pusersystem)
+////      {
+////
+////         if (pusersystem->m_createstruct.x <= 0)
+////         {
+////
+////            x = pusersystem->m_createstruct.x;
+////
+////         }
+////
+////         if (pusersystem->m_createstruct.y <= 0)
+////         {
+////
+////            y = pusersystem->m_createstruct.y;
+////
+////         }
+////
+////         if (pusersystem->m_createstruct.cx() <= 0)
+////         {
+////
+////            cx = 1;
+////
+////         }
+////
+////         if (pusersystem->m_createstruct.cy() <= 0)
+////         {
+////
+////            cy = 1;
+////
+////         }
+////
+////         if (pusersystem->m_createstruct.style & WS_VISIBLE)
+////         {
+////
+////            bVisible = true;
+////
+////         }
+////
+////      }
+//
+//if (cx <= 0)
+//{
+//
+//cx = 1;
+//}
+//
+//if (cy <= 0)
+//{
+//
+//cy = 1;
+//}
+//
+//{
+//
+//m_pointWindow.x() = x;
+//
+//m_pointWindow.y() = y;
+//}
+//
+//// m_pointWindowBestEffort.x() = x;
+//
+//// m_pointWindowBestEffort.y() = y;
+//
+//m_sizeWindow.cx() = cx;
+//
+//m_sizeWindow.cy() = cy;
+//
+//_create_window();
+////
+////         //auto rectangleWindow = ::int_rectangle_dimension(x, y, cx, cy);
+////
+////         //m_pwindow->m_puserinteraction->place(rectangleWindow);
+////         m_pgtkwidget = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+////
+////         gtk_window_set_decorated(GTK_WINDOW(m_pgtkwidget), false);
+////
+////         GdkScreen *screen = gtk_widget_get_screen(m_pgtkwidget);
+////         GdkVisual *visual = gdk_screen_get_rgba_visual(screen);
+////         if (visual != NULL) {
+////            gtk_widget_set_visual(m_pgtkwidget, visual);
+////         }
+////
+////
+////      // Enable transparency by setting the window as app-paintable
+////      gtk_widget_set_app_paintable(m_pgtkwidget, TRUE);
+////
+////         //int w = m_pwindow->m_puserinteraction->const_layout().sketch().size().cx();
+////         //int h = m_pwindow->m_puserinteraction->const_layout().sketch().size().cy();
+////
+////         cx = maximum(cx, 300);
+////         cy = maximum(cy, 300);
+////
+////         // Set window size
+////         gtk_window_set_default_size(GTK_WINDOW(m_pgtkwidget), cx, cy);
+////
+////
+////         gtk_window_move(GTK_WINDOW(m_pgtkwidget), x, y);
+////         gtk_window_resize(GTK_WINDOW(m_pgtkwidget), cx, cy);
+////
+////
+////         // Create drawing area
+////         m_pdrawingarea = gtk_drawing_area_new();
+////         gtk_container_add(GTK_CONTAINER(m_pgtkwidget), m_pdrawingarea);
+////
+////         // Connect the draw happening to the callback function
+//// //        g_signal_connect(G_OBJECT(m_pdrawingarea), "draw", G_CALLBACK(on_draw_event), this);
+////
+//////
+//////gtk_drawing_area_set_draw_func (
+//////  GTK_DRAWING_AREA(m_pdrawingarea),
+//////  GtkDrawingAreaDrawFunc ,
+//////  this,
+//////  nullptr
+//////);
+//////
+////         // Connect the size-allocate signal to handle window resize happenings
+////         g_signal_connect(m_pgtkwidget, "size-allocate", G_CALLBACK(on_size_allocate), this);
+////
+////         // Handle the custom resizing
+////         //ResizeData resize_data = {FALSE, RESIZE_NONE, 0, 0, 0, 0};
+////
+////         // Connect happening handlers for resizing
+////         g_signal_connect(G_OBJECT(m_pgtkwidget), "button-press-happening", G_CALLBACK(on_button_press), this); g_signal_connect(G_OBJECT(m_pgtkwidget), "button-release-happening", G_CALLBACK(on_button_release), this); g_signal_connect(G_OBJECT(m_pgtkwidget), "motion-notify-happening", G_CALLBACK(on_motion_notify), this);
+////         g_signal_connect(G_OBJECT(m_pgtkwidget), "enter-notify-happening", G_CALLBACK(on_enter_notify), this);
+////
+////         g_signal_connect(G_OBJECT(m_pgtkwidget), "window-state-happening", G_CALLBACK(on_window_state), this);
+////         // Set happenings to capture motion and button happenings
+////         gtk_widget_set_events(m_pgtkwidget,
+////            GDK_BUTTON_PRESS_MASK
+////            | GDK_BUTTON_RELEASE_MASK
+////            | GDK_POINTER_MOTION_MASK
+////            | GDK_STRUCTURE_MASK);
+////
+////         // Connect the draw happening to the drawing callback function
+////         g_signal_connect(G_OBJECT(m_pgtkwidget), "draw", G_CALLBACK(on_window_draw), this);
+////
+////
+////         set_oswindow(this);
+////
+////         //set_os_data((void *) m_pwlsurface);
+////
+////
+////         //_enable_net_wm_sync();
+////
+////         //pimpl->set_os_data((::windowing::window *)this);
+////
+////         //set_os_data(LAYERED_X11, (::windowing_gtk3::window *)this);
+////
+////         //pimpl->set_os_data(LAYERED_X11, (::windowing_gtk3::window *)this);
+////
+////         pimpl->m_puserinteraction->m_pinteractionimpl = pimpl;
+////
+////         pimpl->m_puserinteraction->increment_reference_count(
+////            REFERENCING_DEBUGGING_P_NOTE(this, "native_create_window"));
+////
+//////         auto papp = get_app();
+//////
+//////         if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
+//////         {
+//////
+//////            auto psystem = system();
+//////
+//////            string strApplicationServerName = psystem->get_application_server_name();
+//////
+//////            set_wm_class(strApplicationServerName);
+//////
+//////            //         XClassHint * pupdate = XAllocClassHint();
+//////            //
+//////            //         auto psystem = system();
+//////            //
+//////            //         string strApplicationServerName = psystem->get_application_server_name();
+//////            //
+//////            //         pupdate->res_class = (char *) (const char *) strApplicationServerName;
+//////            //
+//////            //         pupdate->res_name = (char *) (const char *) strApplicationServerName;
+//////            //
+//////            //         XSetClassHint(display, window, pupdate);
+//////            //
+//////            //         XFree(pupdate);
+//////
+//////         }
+//////
+//////         // if(::is_null(m_pwindow->m_puserinteraction->m_pwindow))
+//////         // {
+//////
+//////         //    printf("m_pwindow->m_puserinteraction->m_pwindow is null!! (4) (0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow); /         //    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
+//////
+//////         // }
+//////         // else
+//////         // {
+//////
+//////         //    printf("m_pwindow->m_puserinteraction->m_pwindow is set!! (4) (0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow); /         //    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
+//////
+//////         // }
+//////
+//////         // fflush(stdout);
+//////
+//////
+//////#ifndef RASPBERRYPIOS
+//////
+//////         if (pwindowing->m_pSnLauncheeContext != nullptr && !papp->m_bSnLauncheeSetup)
+//////         {
+//////
+//////            //papp->os_on_start_application();
+//////
+//////            on_sn_launch_context(pwindowing->m_pSnLauncheeContext, window);
+//////
+//////            papp->m_bSnLauncheeSetup = true;
+//////
+//////         }
+//////
+//////#endif
+//////
+//////         if (pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_dock_window)
+//////         {
+//////
+//////            wm_dockwindow(true);
+//////
+//////         } else if (pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_desktop_window)
+//////         {
+//////
+//////            wm_desktopwindow(true);
+//////
+//////         } else if (pimpl->m_puserinteraction->const_layout().sketch().activation() & e_activation_on_center_of_screen) /         {
+//////
+//////            wm_centerwindow(true);
+//////
+//////         } else if (pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window
+//////                    || pimpl->m_puserinteraction->m_bToolWindow)
+//////         {
+//////
+//////            wm_toolwindow(true);
+//////
+//////         } else
+//////         {
+//////
+//////            wm_normalwindow();
+//////
+//////         }
+////
+////         //m_px11data->m_pgdkwindow = gdk_x11_window_foreign_new_for_display(gdk_display_get_default(), window);
+////
+//////         ::Window root = 0;
+//////
+//////         ::Window * pchildren = nullptr;
+//////
+//////         unsigned int ncount = 0;
+//////
+//////         XQueryTree(display, window, &root, &m_parent, &pchildren, &ncount);
+//////
+//////         if (pchildren != nullptr)
+//////         {
+//////
+//////            XFree(pchildren);
+//////
+//////         }
+//////
+//////         htask_t htask = ::get_current_htask();
+//////
+//////         m_htask = htask;
+//////
+//////         if (!XGetWindowAttributes(Display(), Window(), &m_px11data->m_attr))
+//////         {
+//////
+//////            information() << "freebsd::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.";
+//////
+//////         }
+//////
+//////         int event_base, error_base, major_version, minor_version;
+//////
+//////         pimpl->m_bComposite = XGetSelectionOwner(Display(), x11_display()->intern_atom("_NET_WM_CM_S0", True));
+//////
+//////         string strName;
+//////
+//////         //      if (pusersystem && pusersystem->m_createstruct.lpszName != nullptr && strlen(pusersystem->m_createstruct.lpszName) > 0) /         //      { /         // /         // strName = pusersystem->m_createstruct.lpszName; /         // /         //      }
+//////
+//////         //if(strName.is_empty())
+//////         //{
+////
+//////         string strWindowText = pimpl->m_puserinteraction->get_window_text();
+//////
+//////         if (strWindowText.has_character())
+//////         {
+//////
+//////            strName = strWindowText;
+//////
+//////         }
+//////
+//////         //}
+//////
+//////         if (strName.has_character())
+//////         {
+//////
+//////            XStoreName(Display(), Window(), strName);
+//////
+//////         }
+////
+////         // if(::is_null(m_pwindow->m_puserinteraction->m_pwindow))
+////         // {
+////
+////         //    printf("m_pwindow->m_puserinteraction->m_pwindow is null!!(5) (0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
+////         //    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
+////
+////         // }
+////         // else
+////         // {
+////
+////         //    printf("m_pwindow->m_puserinteraction->m_pwindow is set!!(5) (0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
+////         //    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
+////
+////         // }
+////
+////         // fflush(stdout);
+//
+////m_puserinteraction->__defer_set_owner_to_impl();
+//
+//bamf_set_icon();
+//
+////_wm_nodecorations(0);
+//
+//// if (pusersystem->m_createstruct.style & WS_VISIBLE)
+//if (bVisible)
+//{
+//
+//map_window();
+//}
+//else
+//{
+//
+//pimpl->m_puserinteraction->const_layout().window().display() = e_display_none;
+//}
+//
+////         //if(m_px11data->m_attr.map_state != IsUnmapped)
+////         {
+////
+////            if (!attr.override_redirect)
+////            {
+////
+////               auto edisplay = pimpl->m_puserinteraction->const_layout().sketch().display();
+////
+////               if (is_docking_appearance(edisplay))
+////               {
+////
+////                  // window managers generally "don't like" windows that starts "docked/snapped".
+////                  // initial (XCreateWindow) int_size and position maybe not be honored.
+////                  // so requesting the same change again in a effort to set the "docked/snapped" int_size and position.
+////
+////                  //set_window_position(e_zorder_top, pusersystem->m_createstruct.x, pusersystem->m_createstruct.y,
+////                  //                  pusersystem->m_createstruct.cx(), pusersystem->m_createstruct.cy(), SWP_SHOWWINDOW);
+////
+////                  set_window_position(e_zorder_top, x, y, cx, cy, e_activation_set_active, false, false, false,
+////                                      edisplay);
+////
+////               }
+////
+////            }
+////
+////         }
+//}
+//
+//bOk = true;
+//
+//});
+//
+//      displaylock.unlock();
+//
+//      //if(pshowwindow->m_bShow)
+//      {
+//
+//         //::int_rectangle rect32;
+//
+//         //(::window_rectangle((oswindow) get_handle(), rect32))
+//         {
+//
+//
+//            if (get_session() != nullptr)
+//            {
+//
+//               // Initial position of window below the cursor position
+//               // with invalid (empty) size.
+//               // (Hinting for monitor placement, if no stored information
+//               // available).
+//
+//               if (pimpl->m_puserinteraction->const_layout().sketch().display() == e_display_undefined)
+//               {
+//
+//                  auto pointCursor = get_cursor_position();
+//
+//                  pimpl->m_puserinteraction->set_position(pointCursor);
+//
+//                  pimpl->m_puserinteraction->set_size({0, 0});
+//
+//               }
+//
+//            }
+//
+//         }
+//
+//         //   }
+//
+//         //});
+//         //}
+//
+//      }
+//
+//       if(::is_null(m_pwindow->m_puserinteraction->m_pwindow))
+//       {
+//
+//          printf("m_pwindow->m_puserinteraction->m_pwindow is null!! (6)(0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
+//          printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
+//
+//       }
+//       else
+//       {
+//
+//          printf("m_pwindow->m_puserinteraction->m_pwindow is set!! (6)(0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
+//          printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
+//
+//       }
+//
+//       fflush(stdout);
+//
+//
+//      if (bOk)
+//      {
+//
+//         //auto lresult = pimpl->m_puserinteraction->send_message(e_message_create, 0, (lparam) &pusersystem->m_createstruct);
+//
+//         // if(::is_null(pimpl->m_puserinteraction->m_pwindow))
+//         // {
+//
+//         //    printf("pimpl->m_puserinteraction->m_pwindow is null!! (7) (0x%x)\n", pimpl->m_puserinteraction->m_pwindow);
+//         //    printf("pimpl->m_puserinteraction (0x%x)\n", pimpl->m_puserinteraction.m_p);
+//
+//         // }
+//         // else
+//         // {
+//
+//         //    printf("pimpl->m_puserinteraction->m_pwindow is set!! (7) (0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
+//         //    printf("pimpl->m_puserinteraction (0x%x)\n", pimpl->m_puserinteraction.m_p);
+//
+//         // }
+//
+//         // fflush(stdout);
+//
+//         // auto & pwindowInteraction = pimpl->m_puserinteraction->m_pwindow;
+//
+//         // printf("pwindowInteraction (7B) (0x%x)\n", pwindowInteraction);
+//         // printf("&pwindowInteraction (7BA) (0x%x)\n", &pwindowInteraction);
+//
+//         // fflush(stdout);
+//
+//// // https://stackoverflow.com/questions/23367775/pragma-packshow-with-gcc - Morten Jensen
+////       /*
+////    The static_assert macro will generate an error at compile-time, if the predicate is false
+////    but will only work for predicates that are resolvable at compile-time!
+//
+////    E.g.: to assert the size of a data structure, static_assert(sizeof(struct_t) == 10)
+//// */
+//// #define STATIC_ASSERT(COND,MSG)      typedef char static_assertion_##MSG[(!!(COND))*2-1]
+//// /* token pasting madness: */
+//// #define COMPILE_TIME_ASSERT3(X,L)     STATIC_ASSERT(X,at_line_##L)             /* add line-number to error message for better warnings, especially GCC will tell the name of the variable as well */
+//// #define COMPILE_TIME_ASSERT2(X,L)     COMPILE_TIME_ASSERT3(X, L)               /* expand line-number */
+//// #define static_assert(X)              COMPILE_TIME_ASSERT2(X, __LINE__)        /* call with line-number macro */
+//
+//// #define PACKED  __attribute__ ((gcc_struct, __packed__))
+//
+//// typedef struct {
+////   uint8_t bytes[3];
+////   uint32_t looong;
+//// } PACKED struct_t;
+//// static_assert(sizeof(struct_t) == 8);
+//
+////  typedef struct {
+////    uint8_t bytes[3];
+////    uint32_t looong;
+////  } struct_t2;
+//// // static_assert(sizeof(struct_t) == 8);
+//
+//// printf("sizeof(struct_t2) = %d\n", sizeof(struct_t2));
+//
+//
+////       #ifdef _DEBUG
+////       printf("_DEBUG defined\n");
+////       #else
+////       printf("_DEBUG not defined\n");
+////       #endif
+//
+////       #ifdef RASPBERRYPIOS
+////       printf("RASPBERRYPIOS defined\n");
+////       #else
+////       printf("RASPBERRYPIOS not defined\n");
+////       #endif
+//         //::windowing::window *pimpl = m_pwindow;
+//
+//#ifdef REPORT_OFFSET
+//
+//         printf("(7BB) offset of m_timeFocusStart in ::user::interaction_base = %d\n", offsetof(::user::interaction_base,m_timeFocusStart));
+//         printf("(7BB) offset of m_bExtendOnParent in ::user::interaction = %d\n", offsetof(::user::interaction, m_bExtendOnParent));
+//         printf("(7BB) offset of m_pwindow in ::user::interaction = %d\n", offsetof(::user::interaction, m_pwindow));
+//         printf("(7BB) offset of m_pImpl2 in ::windowing::window = %d\n", offsetof(::windowing::window, m_pImpl2));
+//         printf("(7BB) offset of m_timeLastExposureAddUp in ::windowing::window = %d\n", offsetof(::windowing::window, m_timeLastExposureAddUp));
+//         printf("(7BB) offset of m_strBitmapSource in ::windowing::window = %d\n", offsetof(::windowing::window, m_strBitmapSource));
+//         printf("(7BB) offset of m_bCursorRedraw in ::windowing::window = %d\n", offsetof(::windowing::window, m_bCursorRedraw));
+//         printf("(7BB) offset of m_bLockWindowUpdate in ::windowing::window = %d\n", offsetof(::windowing::window, m_bLockWindowUpdate));
+//         printf("(7BB) offset of m_bOkToUpdateScreen in ::windowing::window = %d\n", offsetof(::windowing::window, m_bOkToUpdateScreen));
+//         printf("(7BB) offset of m_sizeDrawn in ::windowing::window = %d\n", offsetof(::windowing::window, m_sizeDrawn));
+//         printf("(7BB) offset of m_pthreadMouseLeave in ::windowing::window = %d\n", offsetof(::windowing::window, m_pthreadMouseLeave));
+//         printf("(7BB) offset of m_bPointInside in ::windowing::window = %d\n", offsetof(::windowing::window, m_bPointInside));
+//         printf("(7BB) offset of m_pwindow in ::windowing::window = %d\n", offsetof(::windowing::window, m_pwindow));
+//
+//#endif
+//
+//         ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+//
+//         auto lresult = puserinteraction->send_message(e_message_create, 0, 0);
+//
+//         if (lresult == -1)
+//         {
+//
+//            throw ::exception(error_failed);
+//
+//         }
+//
+//         m_puserinteraction->m_ewindowflag |= e_window_flag_window_created;
+//
+//         m_puserinteraction->set_flag(e_flag_task_started);
+//
+//         //auto lresult2 = pimpl->m_puserinteraction->send_message(e_message_pos_create, 0, 0);
+//
+//      }
+//
 
-m_pwindow = pimpl;
+      if (!(m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
+      {
 
-m_pwindow->m_puserinteraction->m_pwindow = this;
+         throw ::exception(error_failed);
 
-// if(::is_null(m_pwindow->m_puserinteraction->m_pwindow))
-// {
+      }
 
-//    printf("m_pwindow->m_puserinteraction->m_pwindow is null!! (0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
-//    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
+   }
 
-// }
-// else
-// {
 
-//    printf("m_pwindow->m_puserinteraction->m_pwindow is set!! (0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
-//    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
+   void window::_create_window()
+   {
 
-// }
+      int x = m_puserinteraction->const_layout().sketch().origin().x();
 
-// fflush(stdout);
+      int y = m_puserinteraction->const_layout().sketch().origin().y();
 
-m_pwindow->m_puserinteraction->m_puserinteractionTopLevel =
-m_pwindow->m_puserinteraction;
+      int cx = m_puserinteraction->const_layout().sketch().width();
 
-m_pdisplaybase = pdisplay;
+      int cy = m_puserinteraction->const_layout().sketch().height();
 
-// m_pdisplaybase = pdisplay;
+      bool bVisible = m_puserinteraction->const_layout().sketch().is_screen_visible();
 
-information() << "window::create_window m_pdisplay : " << (::iptr)m_pdisplaybase.m_p;
-
-// information() << "window::create_window m_pdisplaybase : " << (::iptr) m_pdisplaybase.m_p;
-
-pimpl->m_pwindow = this;
-
-// printf("pimpl->m_pwindow.m_p (0x%x)\n", pimpl->m_pwindow.m_p);
-// printf("pimpl->m_pwindow.m_pelement (0x%x)\n", pimpl->m_pwindow.m_pelement);
-
-// display_lock displaylock(pdisplayx11->Display());
-
-int x = m_pwindow->m_puserinteraction->const_layout().sketch().origin().x();
-
-int y = m_pwindow->m_puserinteraction->const_layout().sketch().origin().y();
-
-int cx = m_pwindow->m_puserinteraction->const_layout().sketch().width();
-
-int cy = m_pwindow->m_puserinteraction->const_layout().sketch().height();
-
-bool bVisible = m_pwindow->m_puserinteraction->const_layout().sketch().is_screen_visible();
-
-m_puserinteractionbase = m_pwindow->m_puserinteraction;
+//m_puserinteractionbase = m_pwindow->m_puserinteraction;
 
 //      if(pusersystem)
 //      {
@@ -958,504 +1539,78 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
 //
 //      }
 
-if (cx <= 0)
-{
+      if (cx <= 0)
+      {
 
-cx = 1;
-}
+         cx = 1;
+      }
 
-if (cy <= 0)
-{
+      if (cy <= 0)
+      {
 
-cy = 1;
-}
+         cy = 1;
+      }
 
-{
+      {
 
-m_pointWindow.x() = x;
+         m_pointWindow.x() = x;
 
-m_pointWindow.y() = y;
-}
+         m_pointWindow.y() = y;
+      }
 
 // m_pointWindowBestEffort.x() = x;
 
 // m_pointWindowBestEffort.y() = y;
 
-m_sizeWindow.cx() = cx;
+      m_sizeWindow.cx() = cx;
 
-m_sizeWindow.cy() = cy;
+      m_sizeWindow.cy() = cy;
 
-_create_window();
-//
-//         //auto rectangleWindow = ::int_rectangle_dimension(x, y, cx, cy);
-//
-//         //m_pwindow->m_puserinteraction->place(rectangleWindow);
-//         m_pgtkwidget = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-//
-//         gtk_window_set_decorated(GTK_WINDOW(m_pgtkwidget), false);
-//
-//         GdkScreen *screen = gtk_widget_get_screen(m_pgtkwidget);
-//         GdkVisual *visual = gdk_screen_get_rgba_visual(screen);
-//         if (visual != NULL) {
-//            gtk_widget_set_visual(m_pgtkwidget, visual);
-//         }
-//
-//
-//      // Enable transparency by setting the window as app-paintable
-//      gtk_widget_set_app_paintable(m_pgtkwidget, TRUE);
-//
-//         //int w = m_pwindow->m_puserinteraction->const_layout().sketch().size().cx();
-//         //int h = m_pwindow->m_puserinteraction->const_layout().sketch().size().cy();
-//
-//         cx = maximum(cx, 300);
-//         cy = maximum(cy, 300);
-//
-//         // Set window size
-//         gtk_window_set_default_size(GTK_WINDOW(m_pgtkwidget), cx, cy);
-//
-//
-//         gtk_window_move(GTK_WINDOW(m_pgtkwidget), x, y);
-//         gtk_window_resize(GTK_WINDOW(m_pgtkwidget), cx, cy);
-//
-//
-//         // Create drawing area
-//         m_pdrawingarea = gtk_drawing_area_new();
-//         gtk_container_add(GTK_CONTAINER(m_pgtkwidget), m_pdrawingarea);
-//
-//         // Connect the draw happening to the callback function
-// //        g_signal_connect(G_OBJECT(m_pdrawingarea), "draw", G_CALLBACK(on_draw_event), this);
-//
-////
-////gtk_drawing_area_set_draw_func (
-////  GTK_DRAWING_AREA(m_pdrawingarea),
-////  GtkDrawingAreaDrawFunc ,
-////  this,
-////  nullptr
-////);
-////
-//         // Connect the size-allocate signal to handle window resize happenings
-//         g_signal_connect(m_pgtkwidget, "size-allocate", G_CALLBACK(on_size_allocate), this);
-//
-//         // Handle the custom resizing
-//         //ResizeData resize_data = {FALSE, RESIZE_NONE, 0, 0, 0, 0};
-//
-//         // Connect happening handlers for resizing
-//         g_signal_connect(G_OBJECT(m_pgtkwidget), "button-press-happening", G_CALLBACK(on_button_press), this); g_signal_connect(G_OBJECT(m_pgtkwidget), "button-release-happening", G_CALLBACK(on_button_release), this); g_signal_connect(G_OBJECT(m_pgtkwidget), "motion-notify-happening", G_CALLBACK(on_motion_notify), this);
-//         g_signal_connect(G_OBJECT(m_pgtkwidget), "enter-notify-happening", G_CALLBACK(on_enter_notify), this);
-//
-//         g_signal_connect(G_OBJECT(m_pgtkwidget), "window-state-happening", G_CALLBACK(on_window_state), this);
-//         // Set happenings to capture motion and button happenings
-//         gtk_widget_set_events(m_pgtkwidget,
-//            GDK_BUTTON_PRESS_MASK
-//            | GDK_BUTTON_RELEASE_MASK
-//            | GDK_POINTER_MOTION_MASK
-//            | GDK_STRUCTURE_MASK);
-//
-//         // Connect the draw happening to the drawing callback function
-//         g_signal_connect(G_OBJECT(m_pgtkwidget), "draw", G_CALLBACK(on_window_draw), this);
-//
-//
-//         set_oswindow(this);
-//
-//         //set_os_data((void *) m_pwlsurface);
-//
-//
-//         //_enable_net_wm_sync();
-//
-//         //pimpl->set_os_data((::windowing::window *)this);
-//
-//         //set_os_data(LAYERED_X11, (::windowing_gtk3::window *)this);
-//
-//         //pimpl->set_os_data(LAYERED_X11, (::windowing_gtk3::window *)this);
-//
-//         pimpl->m_puserinteraction->m_pinteractionimpl = pimpl;
-//
-//         pimpl->m_puserinteraction->increment_reference_count(
-//            REFERENCING_DEBUGGING_P_NOTE(this, "native_create_window"));
-//
-////         auto papp = get_app();
-////
-////         if (!(pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
-////         {
-////
-////            auto psystem = system();
-////
-////            string strApplicationServerName = psystem->get_application_server_name();
-////
-////            set_wm_class(strApplicationServerName);
-////
-////            //         XClassHint * pupdate = XAllocClassHint();
-////            //
-////            //         auto psystem = system();
-////            //
-////            //         string strApplicationServerName = psystem->get_application_server_name();
-////            //
-////            //         pupdate->res_class = (char *) (const char *) strApplicationServerName;
-////            //
-////            //         pupdate->res_name = (char *) (const char *) strApplicationServerName;
-////            //
-////            //         XSetClassHint(display, window, pupdate);
-////            //
-////            //         XFree(pupdate);
-////
-////         }
-////
-////         // if(::is_null(m_pwindow->m_puserinteraction->m_pwindow))
-////         // {
-////
-////         //    printf("m_pwindow->m_puserinteraction->m_pwindow is null!! (4) (0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow); /         //    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
-////
-////         // }
-////         // else
-////         // {
-////
-////         //    printf("m_pwindow->m_puserinteraction->m_pwindow is set!! (4) (0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow); /         //    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
-////
-////         // }
-////
-////         // fflush(stdout);
-////
-////
-////#ifndef RASPBERRYPIOS
-////
-////         if (pwindowing->m_pSnLauncheeContext != nullptr && !papp->m_bSnLauncheeSetup)
-////         {
-////
-////            //papp->os_on_start_application();
-////
-////            on_sn_launch_context(pwindowing->m_pSnLauncheeContext, window);
-////
-////            papp->m_bSnLauncheeSetup = true;
-////
-////         }
-////
-////#endif
-////
-////         if (pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_dock_window)
-////         {
-////
-////            wm_dockwindow(true);
-////
-////         } else if (pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_desktop_window)
-////         {
-////
-////            wm_desktopwindow(true);
-////
-////         } else if (pimpl->m_puserinteraction->const_layout().sketch().activation() & e_activation_on_center_of_screen) /         {
-////
-////            wm_centerwindow(true);
-////
-////         } else if (pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_satellite_window
-////                    || pimpl->m_puserinteraction->m_bToolWindow)
-////         {
-////
-////            wm_toolwindow(true);
-////
-////         } else
-////         {
-////
-////            wm_normalwindow();
-////
-////         }
-//
-//         //m_px11data->m_pgdkwindow = gdk_x11_window_foreign_new_for_display(gdk_display_get_default(), window);
-//
-////         ::Window root = 0;
-////
-////         ::Window * pchildren = nullptr;
-////
-////         unsigned int ncount = 0;
-////
-////         XQueryTree(display, window, &root, &m_parent, &pchildren, &ncount);
-////
-////         if (pchildren != nullptr)
-////         {
-////
-////            XFree(pchildren);
-////
-////         }
-////
-////         htask_t htask = ::get_current_htask();
-////
-////         m_htask = htask;
-////
-////         if (!XGetWindowAttributes(Display(), Window(), &m_px11data->m_attr))
-////         {
-////
-////            information() << "freebsd::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.";
-////
-////         }
-////
-////         int event_base, error_base, major_version, minor_version;
-////
-////         pimpl->m_bComposite = XGetSelectionOwner(Display(), x11_display()->intern_atom("_NET_WM_CM_S0", True));
-////
-////         string strName;
-////
-////         //      if (pusersystem && pusersystem->m_createstruct.lpszName != nullptr && strlen(pusersystem->m_createstruct.lpszName) > 0) /         //      { /         // /         // strName = pusersystem->m_createstruct.lpszName; /         // /         //      }
-////
-////         //if(strName.is_empty())
-////         //{
-//
-////         string strWindowText = pimpl->m_puserinteraction->get_window_text();
-////
-////         if (strWindowText.has_character())
-////         {
-////
-////            strName = strWindowText;
-////
-////         }
-////
-////         //}
-////
-////         if (strName.has_character())
-////         {
-////
-////            XStoreName(Display(), Window(), strName);
-////
-////         }
-//
-//         // if(::is_null(m_pwindow->m_puserinteraction->m_pwindow))
-//         // {
-//
-//         //    printf("m_pwindow->m_puserinteraction->m_pwindow is null!!(5) (0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
-//         //    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
-//
-//         // }
-//         // else
-//         // {
-//
-//         //    printf("m_pwindow->m_puserinteraction->m_pwindow is set!!(5) (0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
-//         //    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
-//
-//         // }
-//
-//         // fflush(stdout);
+      ::gtk3::acme::windowing::window::_create_window();
 
-m_pwindow->m_puserinteraction->__defer_set_owner_to_impl();
+      if(!(m_puserinteraction->m_ewindowflag & e_window_flag_destroyed))
+      {
 
-bamf_set_icon();
+         bamf_set_icon();
 
 //_wm_nodecorations(0);
 
 // if (pusersystem->m_createstruct.style & WS_VISIBLE)
-if (bVisible)
-{
-
-map_window();
-}
-else
-{
-
-pimpl->m_puserinteraction->const_layout().window().display() = e_display_none;
-}
-
-//         //if(m_px11data->m_attr.map_state != IsUnmapped)
-//         {
-//
-//            if (!attr.override_redirect)
-//            {
-//
-//               auto edisplay = pimpl->m_puserinteraction->const_layout().sketch().display();
-//
-//               if (is_docking_appearance(edisplay))
-//               {
-//
-//                  // window managers generally "don't like" windows that starts "docked/snapped".
-//                  // initial (XCreateWindow) int_size and position maybe not be honored.
-//                  // so requesting the same change again in a effort to set the "docked/snapped" int_size and position.
-//
-//                  //set_window_position(e_zorder_top, pusersystem->m_createstruct.x, pusersystem->m_createstruct.y,
-//                  //                  pusersystem->m_createstruct.cx(), pusersystem->m_createstruct.cy(), SWP_SHOWWINDOW);
-//
-//                  set_window_position(e_zorder_top, x, y, cx, cy, e_activation_set_active, false, false, false,
-//                                      edisplay);
-//
-//               }
-//
-//            }
-//
-//         }
-}
-
-bOk = true;
-
-});
-
-      //displaylock.unlock();
-
-//      //if(pshowwindow->m_bShow)
-//      {
-//
-//         //::int_rectangle rect32;
-//
-//         //(::window_rectangle((oswindow) get_handle(), rect32))
-//         {
-//
-//
-//            if (get_session() != nullptr)
-//            {
-//
-//               // Initial position of window below the cursor position
-//               // with invalid (empty) size.
-//               // (Hinting for monitor placement, if no stored information
-//               // available).
-//
-//               if (pimpl->m_puserinteraction->const_layout().sketch().display() == e_display_undefined)
-//               {
-//
-//                  auto pointCursor = get_cursor_position();
-//
-//                  pimpl->m_puserinteraction->set_position(pointCursor);
-//
-//                  pimpl->m_puserinteraction->set_size({0, 0});
-//
-//               }
-//
-//            }
-//
-//         }
-//
-//         //   }
-//
-//         //});
-//         //}
-//
-//      }
-
-      // if(::is_null(m_pwindow->m_puserinteraction->m_pwindow))
-      // {
-
-      //    printf("m_pwindow->m_puserinteraction->m_pwindow is null!! (6)(0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
-      //    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
-
-      // }
-      // else
-      // {
-
-      //    printf("m_pwindow->m_puserinteraction->m_pwindow is set!! (6)(0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
-      //    printf("m_pwindow->m_puserinteraction (0x%x)\n", m_pwindow->m_puserinteraction.m_p);
-
-      // }
-
-      // fflush(stdout);
-
-
-      if (bOk)
-      {
-
-         //auto lresult = pimpl->m_puserinteraction->send_message(e_message_create, 0, (lparam) &pusersystem->m_createstruct);
-
-         // if(::is_null(pimpl->m_puserinteraction->m_pwindow))
-         // {
-
-         //    printf("pimpl->m_puserinteraction->m_pwindow is null!! (7) (0x%x)\n", pimpl->m_puserinteraction->m_pwindow);
-         //    printf("pimpl->m_puserinteraction (0x%x)\n", pimpl->m_puserinteraction.m_p);
-
-         // }
-         // else
-         // {
-
-         //    printf("pimpl->m_puserinteraction->m_pwindow is set!! (7) (0x%x)\n", m_pwindow->m_puserinteraction->m_pwindow);
-         //    printf("pimpl->m_puserinteraction (0x%x)\n", pimpl->m_puserinteraction.m_p);
-
-         // }
-
-         // fflush(stdout);
-
-         // auto & pwindowInteraction = pimpl->m_puserinteraction->m_pwindow;
-
-         // printf("pwindowInteraction (7B) (0x%x)\n", pwindowInteraction);
-         // printf("&pwindowInteraction (7BA) (0x%x)\n", &pwindowInteraction);
-
-         // fflush(stdout);
-
-// // https://stackoverflow.com/questions/23367775/pragma-packshow-with-gcc - Morten Jensen
-//       /*
-//    The static_assert macro will generate an error at compile-time, if the predicate is false
-//    but will only work for predicates that are resolvable at compile-time!
-
-//    E.g.: to assert the size of a data structure, static_assert(sizeof(struct_t) == 10)
-// */
-// #define STATIC_ASSERT(COND,MSG)      typedef char static_assertion_##MSG[(!!(COND))*2-1]
-// /* token pasting madness: */
-// #define COMPILE_TIME_ASSERT3(X,L)     STATIC_ASSERT(X,at_line_##L)             /* add line-number to error message for better warnings, especially GCC will tell the name of the variable as well */
-// #define COMPILE_TIME_ASSERT2(X,L)     COMPILE_TIME_ASSERT3(X, L)               /* expand line-number */
-// #define static_assert(X)              COMPILE_TIME_ASSERT2(X, __LINE__)        /* call with line-number macro */
-
-// #define PACKED  __attribute__ ((gcc_struct, __packed__))
-
-// typedef struct {
-//   uint8_t bytes[3];
-//   uint32_t looong;
-// } PACKED struct_t;
-// static_assert(sizeof(struct_t) == 8);
-
-//  typedef struct {
-//    uint8_t bytes[3];
-//    uint32_t looong;
-//  } struct_t2;
-// // static_assert(sizeof(struct_t) == 8);
-
-// printf("sizeof(struct_t2) = %d\n", sizeof(struct_t2));
-
-
-//       #ifdef _DEBUG
-//       printf("_DEBUG defined\n");
-//       #else
-//       printf("_DEBUG not defined\n");
-//       #endif
-
-//       #ifdef RASPBERRYPIOS
-//       printf("RASPBERRYPIOS defined\n");
-//       #else
-//       printf("RASPBERRYPIOS not defined\n");
-//       #endif
-         ::windowing::window *pimpl = m_pwindow;
-
-#ifdef REPORT_OFFSET
-
-         printf("(7BB) offset of m_timeFocusStart in ::user::interaction_base = %d\n", offsetof(::user::interaction_base,m_timeFocusStart));
-         printf("(7BB) offset of m_bExtendOnParent in ::user::interaction = %d\n", offsetof(::user::interaction, m_bExtendOnParent));
-         printf("(7BB) offset of m_pwindow in ::user::interaction = %d\n", offsetof(::user::interaction, m_pwindow));
-         printf("(7BB) offset of m_pImpl2 in ::windowing::window = %d\n", offsetof(::windowing::window, m_pImpl2));
-         printf("(7BB) offset of m_timeLastExposureAddUp in ::windowing::window = %d\n", offsetof(::windowing::window, m_timeLastExposureAddUp));
-         printf("(7BB) offset of m_strBitmapSource in ::windowing::window = %d\n", offsetof(::windowing::window, m_strBitmapSource));
-         printf("(7BB) offset of m_bCursorRedraw in ::windowing::window = %d\n", offsetof(::windowing::window, m_bCursorRedraw));
-         printf("(7BB) offset of m_bLockWindowUpdate in ::windowing::window = %d\n", offsetof(::windowing::window, m_bLockWindowUpdate));
-         printf("(7BB) offset of m_bOkToUpdateScreen in ::windowing::window = %d\n", offsetof(::windowing::window, m_bOkToUpdateScreen));
-         printf("(7BB) offset of m_sizeDrawn in ::windowing::window = %d\n", offsetof(::windowing::window, m_sizeDrawn));
-         printf("(7BB) offset of m_pthreadMouseLeave in ::windowing::window = %d\n", offsetof(::windowing::window, m_pthreadMouseLeave));
-         printf("(7BB) offset of m_bPointInside in ::windowing::window = %d\n", offsetof(::windowing::window, m_bPointInside));
-         printf("(7BB) offset of m_pwindow in ::windowing::window = %d\n", offsetof(::windowing::window, m_pwindow));
-
-#endif
-
-         auto lresult = pimpl->m_puserinteraction->send_message(e_message_create, 0, 0);
-
-         if (lresult == -1)
+         if (bVisible)
          {
+
+            map_window();
+
+         }
+         else
+         {
+
+            m_puserinteraction->const_layout().window().display() = e_display_none;
+
+         }
+
+         ::cast<::user::interaction> puserinteraction = m_pacmeuserinteraction;
+
+         auto lresult = puserinteraction->send_message(e_message_create, 0, 0);
+
+         if (lresult == -1) {
 
             throw ::exception(error_failed);
 
          }
 
-         pimpl->m_puserinteraction->m_ewindowflag |= e_window_flag_window_created;
+         m_puserinteraction->m_ewindowflag |= e_window_flag_window_created;
 
-         pimpl->m_puserinteraction->set_flag(e_flag_task_started);
+         m_puserinteraction->set_flag(e_flag_task_started);
 
          //auto lresult2 = pimpl->m_puserinteraction->send_message(e_message_pos_create, 0, 0);
 
       }
 
-      if (!bOk)
-      {
-
-         throw ::exception(error_failed);
-
-      }
-
    }
+
+
+}
 
 
    void window::destroy()
@@ -2486,10 +2641,17 @@ bOk = true;
    void window::post_nc_destroy()
    {
 
-      if (!::is_null(this))
+      if (!::is_null(this) && ::is_set(system()->m_pacmewindowing))
       {
 
-         m_pwindowing->erase_window(this);
+         ::cast < ::windowing_gtk3::windowing > pgtk3windowing = system()->m_pacmewindowing;
+
+         if(::is_set(pgtk3windowing))
+         {
+
+            pgtk3windowing->erase_window(this);
+
+         }
 
       }
 
@@ -2508,11 +2670,11 @@ bOk = true;
 //
 //      }
 
-      m_pwindow = pimpl;
+      ///m_pwindow = pimpl;
       
       m_htask = system()->acme_windowing()->m_htask;
 
-      m_pmessagequeue = pimpl->m_puserinteraction->m_pthreadUserInteraction->get_message_queue();
+      m_pmessagequeue = m_puserthread->get_message_queue();
 
       //oswindow_assign(this, pimpl);
 
@@ -2578,7 +2740,9 @@ bOk = true;
    ::windowing_gtk3::windowing * window::gtk3_windowing()
    {
 
-      return dynamic_cast < ::windowing_gtk3::windowing * > (m_pwindowing.m_p);
+      auto pwindowing = system()->acme_windowing();
+
+      return dynamic_cast < ::windowing_gtk3::windowing * > (pwindowing);
 
    }
 
@@ -2586,7 +2750,9 @@ bOk = true;
    ::windowing_gtk3::display * window::gtk3_display()
    {
 
-      return dynamic_cast < ::windowing_gtk3::display * > (m_pdisplaybase.m_p);
+      auto pwindowing = system()->acme_windowing();
+
+      return dynamic_cast < ::windowing_gtk3::display * > (pwindowing->acme_display());
 
    }
 
@@ -3072,14 +3238,14 @@ bOk = true;
 
       }
 
-      if (m_pwindow == nullptr)
+      if (m_puserinteraction == nullptr)
       {
 
          return true;
 
       }
 
-      if (!m_pwindow->m_puserinteraction->m_bUserElementOk)
+      if (!m_puserinteraction->m_bUserElementOk)
       {
 
          return true;
@@ -3148,7 +3314,7 @@ bOk = true;
    void window::set_mouse_capture()
    {
 
-      ::gtk3::micro::window::set_mouse_capture();
+      ::gtk3::acme::windowing::window::set_mouse_capture();
 
    }
 
@@ -3156,7 +3322,7 @@ bOk = true;
    void window::release_mouse_capture()
    {
 
-      ::gtk3::micro::window::release_mouse_capture();
+      ::gtk3::acme::windowing::window::release_mouse_capture();
 
    }
 
@@ -3668,7 +3834,7 @@ bOk = true;
                                            const ::e_activation & eactivation, bool bNoZorder, ::e_display edisplay)
    {
 
-      if (!(m_pwindow->m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
+      if (!(m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
       {
 
          return false;
@@ -4037,13 +4203,13 @@ bOk = true;
    void window::_set_active_window_unlocked()
    {
 
-      if (!(m_pwindow->m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
+      if (!(m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
       {
 
-         if (m_pwindow->m_puserinteraction->const_layout().design().activation() == e_activation_default)
+         if (m_puserinteraction->const_layout().design().activation() == e_activation_default)
          {
 
-            m_pwindow->m_puserinteraction->layout().m_statea[::user::e_layout_sketch].activation() ==
+            m_puserinteraction->layout().m_statea[::user::e_layout_sketch].activation() ==
             e_activation_set_active;
 
          }
@@ -4394,7 +4560,7 @@ bOk = true;
 
       bool bOk = false;
 
-      auto pwindow = m_pwindow;
+      auto pwindow = this;
 
       if (::is_set(pwindow))
       {
@@ -4713,7 +4879,7 @@ bOk = true;
    }
 
 
-   bool window::has_keyboard_focus() const
+   bool window::has_keyboard_focus()
    {
 
 //      auto pdisplay = x11_display();
@@ -4886,7 +5052,7 @@ bOk = true;
       main_post([this]()
                 {
 
-                   auto pimpl = m_pwindow;
+                   auto pimpl = this;
 
                    if (::is_set(pimpl))
                    {
@@ -5155,7 +5321,7 @@ bOk = true;
    }
 
 
-   bool window::is_active_window() const
+   bool window::is_active_window()
    {
 
       return ::windowing::window::is_active_window();

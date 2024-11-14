@@ -24,8 +24,8 @@ namespace node_gtk3
       ~monitor() override;
 
 
-      ::windowing_x11::windowing * x11_windowing() const;
-      ::windowing_x11::display * x11_display() const;
+      ::windowing_gtk3::windowing * gtk3_windowing() const;
+      ::windowing_gtk3::display * gtk3_display() const;
 
 
       void update_cache() override;

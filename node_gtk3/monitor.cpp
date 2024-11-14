@@ -2,7 +2,8 @@
 #include "framework.h"
 #include "monitor.h"
 //#include "display.h"
-#include "windowing.h"
+#include "windowing_gtk3/display.h"
+#include "windowing_gtk3/windowing.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/node.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
@@ -32,18 +33,24 @@ namespace node_gtk3
    }
 
 
-   ::windowing_x11::windowing * monitor::x11_windowing() const
+   ::windowing_gtk3::windowing * monitor::gtk3_windowing() const
    {
 
-      return (::windowing_x11::windowing *) m_pdisplay->m_pwindowing->m_pWindowing4;
+      ::cast < ::windowing_gtk3::windowing> pgtk3windowing = ((monitor*)this)->system()->acme_windowing();
+
+      return pgtk3windowing;
 
    }
 
 
-   ::windowing_x11::display * monitor::x11_display() const
+   ::windowing_gtk3::display * monitor::gtk3_display() const
    {
 
-      return (::windowing_x11::display *) m_pdisplay->m_pDisplay;
+      ::cast < ::windowing_gtk3::windowing> pgtk3windowing = ((monitor*)this)->system()->acme_windowing();
+
+      ::cast < ::windowing_gtk3::display> pgtk3display = pgtk3windowing->acme_display();
+
+      return pgtk3display;
 
    }
 

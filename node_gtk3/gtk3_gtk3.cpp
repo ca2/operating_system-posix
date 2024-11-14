@@ -11,21 +11,21 @@
 #include <gtk/gtk.h>
 #include <limits.h>
 
-// apt-get install libgtk2.0-dev
-// and restart codeblocks/IDE
-#include <gtk/gtk.h>
-#include <sys/utsname.h>
-#include <gdk/gdkwayland.h>
+//// apt-get install libgtk2.0-dev
+//// and restart codeblocks/IDE
+//#include <gtk/gtk.h>
+//#include <sys/utsname.h>
+//#include <gdk/gdkwayland.h>
 
 platform_char *** process_get_pargv();
 
-namespace nano
-{
-   namespace user
-   {
-      void initialize_display_type(enum_display_type edisplaytype);
-   }// namespace user
-} // namespace nano
+//namespace nano
+//{
+//   namespace user
+//   {
+//      void initialize_display_type(enum_display_type edisplaytype);
+//   }// namespace user
+//} // namespace nano
 
 ////int uname(struct utsname *buf);
 //#ifndef RASPBERRYPIOS
@@ -47,7 +47,7 @@ namespace nano
 
 #include <time.h>
 
-#include <___new>
+#include <new>
 
 #include <gio/gio.h>
 
@@ -69,68 +69,37 @@ namespace node_gtk3
    }
 
 
-   enum_display_type calculate_display_type()
-   {
-
-      GdkDisplay * pgdkdisplay = gdk_display_get_default();
-
-#if HAS_WAYLAND
-
-      if (GDK_IS_WAYLAND_DISPLAY (pgdkdisplay))
-      {
-
-         return e_display_type_wayland;
-
-      }
-      else
-
-#endif
-
-      if (GDK_IS_X11_DISPLAY (pgdkdisplay))
-      {
-
-         return e_display_type_x11;
-
-      }
-      else
-      {
-
-         return e_display_type_none;
-
-      }
-
-   }
-
-   ::e_status g_estatusInitGtk = error_not_initialized;
-
-   void initialize_gtk()
-   {
-
-      if (g_estatusInitGtk == error_not_initialized)
-      {
-
-         auto pargc = ::platform::get()->get_pargc();
-
-         auto pargs = ::platform::get()->get_pargs();
-
-         if (!gtk_init_check(pargc, pargs))
-         {
-
-            g_estatusInitGtk = ::error_failed;
-
-         }
-         else
-         {
-
-            g_estatusInitGtk = ::success;
-
-         }
-
-         ::micro::initialize_display_type(calculate_display_type());
-
-      }
-
-   }
+//   ::e_status g_estatusInitGtk = error_not_initialized;
+//
+//
+//   void initialize_gtk()
+//   {
+//
+//      if (g_estatusInitGtk == error_not_initialized)
+//      {
+//
+//         auto pargc = ::platform::get()->get_pargc();
+//
+//         auto pargs = ::platform::get()->get_pargs();
+//
+//         if (!gtk_init_check(pargc, pargs))
+//         {
+//
+//            g_estatusInitGtk = ::error_failed;
+//
+//         }
+//         else
+//         {
+//
+//            g_estatusInitGtk = ::success;
+//
+//         }
+//
+//         ::windowing::initialize_display_type(calculate_display_type());
+//
+//      }
+//
+//   }
 
 
 } // namespace node_gtk3
