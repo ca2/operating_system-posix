@@ -350,13 +350,16 @@ namespace windowing_gtk3
 
          }
 
+         synchronous_lock slGraphics(m_pgraphicsgraphics->synchronization());
+
          auto pitem = m_pgraphicsgraphics->get_screen_item();
 
+         synchronous_lock slImage(pitem->m_pmutex);
 
+         if (pitem && pitem->m_pimage2 && pitem->m_pimage2.ok())
+         {
 
-         //pitem->m_pimage2;
-
-         if (pitem && pitem->m_pimage2 && pitem->m_pimage2.ok()) {
+            auto pgraphics = __create<::draw2d::graphics>();
 //         cairo_set_source_rgba(cr, 0, 0, 0, 0); // Fully transparent background
 //         cairo_set_operator(cr, CAIRO_OPERATOR_CLEAR);
 //         cairo_paint(cr);
@@ -373,7 +376,7 @@ namespace windowing_gtk3
 //
 //         return;
 
-            auto pgraphics = __create<::draw2d::graphics>();
+            //auto pgraphics = __create<::draw2d::graphics>();
 
             pgraphics->attach(cr);
             //pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
