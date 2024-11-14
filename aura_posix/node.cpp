@@ -6,6 +6,7 @@
 #include "acme/filesystem/filesystem/directory_system.h"
 #include "acme/platform/system.h"
 #include "acme/prototype/datetime/datetime.h"
+#include "acme/windowing/display.h"
 #include "acme/windowing/windowing.h"
 #include "apex/platform/application.h"
 #ifdef WITH_X11
@@ -328,10 +329,19 @@ namespace aura_posix
 
    ::e_status node::_allocate_Display_and_connection()
    {
-
+      
       //deferx_initializex_x11();
+      
+      auto pacmedisplay = system()->acme_windowing()->acme_display();
+      
+      if(::is_null(pacmedisplay))
+      {
+         
+         return error_failed;
+         
+      }
 
-      m_pAuraPosixX11Display = system()->acme_windowing()->acme_display();
+      m_pAuraPosixX11Display = pacmedisplay->raw_x11_display();
 
       if(!m_pAuraPosixX11Display)
       {
