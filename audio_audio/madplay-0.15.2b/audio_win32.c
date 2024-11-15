@@ -106,7 +106,7 @@ void CALLBACK callback(HWAVEOUT handle, UINT message, DWORD data,
     header = (WAVEHDR *) param1;
     buffer = (struct buffer *) header->dwUser;
 
-    if (SetEvent(buffer->event_handle) == 0) {
+    if (set_happening(buffer->event_handle) == 0) {
       /* error */
     }
     break;

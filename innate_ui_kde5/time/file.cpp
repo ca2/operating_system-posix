@@ -381,7 +381,7 @@ struct PROCESS_INFO_t
 ////   {
 ////
 ////      WaitForSingleObject( pThreadParam->hStartEvent, U32_INFINITE_TIMEOUT );
-////      ResetEvent( pThreadParam->hStartEvent );
+////      reset_happening( pThreadParam->hStartEvent );
 ////      pThreadParam->bStatus = false;
 ////      SYSTEM_HANDLE& sh = pThreadParam->pSysHandleInformation->Handles[g_CurrentIndex];
 ////      g_CurrentIndex++;
@@ -411,7 +411,7 @@ struct PROCESS_INFO_t
 ////      {
 ////         pThreadParam->bStatus = true;
 ////      }
-////      SetEvent( pThreadParam->hFinishedEvent );
+////      set_happening( pThreadParam->hFinishedEvent );
 ////
 ////   }
 ////   delete[] (unsigned char *) pinfo;
@@ -501,8 +501,8 @@ struct PROCESS_INFO_t
 ////         {
 ////            ThreadHandle = CreateThread(NULL, 0, ThreadProc, &ThreadParams, 0, NULL);
 ////         }
-////         ResetEvent( ThreadParams.hFinishedEvent );
-////         SetEvent( ThreadParams.hStartEvent );
+////         reset_happening( ThreadParams.hFinishedEvent );
+////         set_happening( ThreadParams.hStartEvent );
 ////         if( WAIT_TIMEOUT == WaitForSingleObject( ThreadParams.hFinishedEvent, 100 ))
 ////         {
 ////            string csError;
