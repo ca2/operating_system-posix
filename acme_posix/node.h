@@ -121,7 +121,7 @@ namespace acme_posix
 
       int posix_shell_command(const ::scoped_string& scopedstrCommand, enum_posix_shell eposixshell = e_posix_shell_system_default, const trace_function& tracefunction = nullptr) override;
 
-      //::user::enum_desktop calculate_edesktop() override;
+      //::user::enum_operating_ambient calculate_edesktop() override;
 
       bool is_executable_in_path(const ::scoped_string & scopedstr) override;
 

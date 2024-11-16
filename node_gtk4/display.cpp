@@ -321,7 +321,7 @@ void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString)
 //
 //      bool bOk = false;
 //
-//      auto edesktop = node()->get_edesktop();
+//      auto edesktop = node()->get_eoperating_ambient();
 //
 //      if(edesktop & ::user::e_desktop_gnome)
 //      {

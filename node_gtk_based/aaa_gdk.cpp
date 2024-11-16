@@ -373,7 +373,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 //
 //      auto pnode = psystem->node();
 //
-//      auto edesktop = pnode->get_edesktop();
+//      auto edesktop = pnode->get_eoperating_ambient();
 //
 //      switch (edesktop)
 //      {

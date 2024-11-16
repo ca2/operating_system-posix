@@ -19,7 +19,7 @@
 #include <X11/Xutil.h>
 
 
-::user::enum_desktop get_edesktop();
+::user::enum_operating_ambient get_eoperating_ambient();
 
 
 struct MWMHints

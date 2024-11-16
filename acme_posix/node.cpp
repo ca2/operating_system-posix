@@ -2691,7 +2691,7 @@ if(functionTrace)
    int node::synchronous_posix_terminal(const ::scoped_string& scopedstrCommand, enum_posix_shell eposixshell, const trace_function& tracefunction)
    {
 
-      auto edesktop = ::windowing::get_edesktop();
+      auto edesktop = ::windowing::get_eoperating_ambient();
 
       ::string strCommand(scopedstrCommand);
 
@@ -2783,7 +2783,7 @@ if(functionTrace)
 //
 //       ::platform::node::do_windowing_factory();
 //
-// //       auto edesktop = get_edesktop();
+// //       auto edesktop = get_eoperating_ambient();
 // //
 // //       if(edesktop == user::e_desktop_kde)
 // //       {

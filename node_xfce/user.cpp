@@ -33,7 +33,7 @@ namespace os
 
       bool bOk = false;
 
-      auto edesktop = System.get_edesktop();
+      auto edesktop = System.get_eoperating_ambient();
 
       switch (edesktop)
       {
@@ -91,7 +91,7 @@ namespace os
 
       string strWallpaper;
 
-      auto edesktop = System.get_edesktop();
+      auto edesktop = System.get_eoperating_ambient();
 
       switch (edesktop)
       {

@@ -522,7 +522,7 @@ namespace node_kde5
 ////
 ////      auto pnode = psystem->node();
 ////
-////      auto edesktop = psystem->get_edesktop();
+////      auto edesktop = psystem->get_eoperating_ambient();
 ////
 ////      switch (edesktop)
 ////      {
@@ -577,7 +577,7 @@ namespace node_kde5
 //
 //      auto pnode = psystem->node();
 //
-//      auto edesktop = psystem->get_edesktop();
+//      auto edesktop = psystem->get_eoperating_ambient();
 //
 //      switch (edesktop)
 //      {

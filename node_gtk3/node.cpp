@@ -1035,7 +1035,7 @@ namespace node_gtk3
 //
 //      auto pnode = psystem->node();
 //
-//      auto edesktop = pnode->get_edesktop();
+//      auto edesktop = pnode->get_eoperating_ambient();
 //
 //      if (edesktop & ::user::e_desktop_gnome)
 //      {
@@ -1109,7 +1109,7 @@ namespace node_gtk3
 //
 //      auto pnode = psystem->node();
 //
-//      auto edesktop = pnode->get_edesktop();
+//      auto edesktop = pnode->get_eoperating_ambient();
 //
 //      if (edesktop & ::user::e_desktop_gnome)
 //      {
@@ -1190,7 +1190,7 @@ namespace node_gtk3
 //
 //      auto pnode = psystem->node();
 //
-//      auto edesktop = pnode->get_edesktop();
+//      auto edesktop = pnode->get_eoperating_ambient();
 //
 //      bool bDark = pwindowingdisplay->m_strDarkModeAnnotation.case_insensitive_contains("dark");
 //
@@ -1259,7 +1259,7 @@ namespace node_gtk3
 //
 //      auto pnode = psystem->node();
 //
-//      auto edesktop = pnode->get_edesktop();
+//      auto edesktop = pnode->get_eoperating_ambient();
 //
 //      switch (edesktop)
 //      {
@@ -1461,7 +1461,7 @@ namespace node_gtk3
 //
 //      auto pnode = psystem->node();
 //
-//      auto edesktop = pnode->get_edesktop();
+//      auto edesktop = pnode->get_eoperating_ambient();
 //
 //      switch (edesktop)
 //      {

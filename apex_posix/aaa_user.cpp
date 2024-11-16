@@ -34,7 +34,7 @@ namespace os
 //
 //      bool bOk = false;
 //
-//      auto edesktop = psystem->get_edesktop();
+//      auto edesktop = psystem->get_eoperating_ambient();
 //
 //      switch (edesktop)
 //      {
@@ -92,7 +92,7 @@ namespace os
 //
 //      string strWallpaper;
 //
-//      auto edesktop = psystem->get_edesktop();
+//      auto edesktop = psystem->get_eoperating_ambient();
 //
 //      switch (edesktop)
 //      {

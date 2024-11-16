@@ -57,7 +57,7 @@ namespace acme
    }
 
 
-   ::user::enum_desktop system::calc_edesktop()
+   ::user::enum_operating_ambient system::calc_eoperating_ambient()
    {
 
       return ::user::e_desktop_windows;

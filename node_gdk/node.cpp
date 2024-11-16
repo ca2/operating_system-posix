@@ -1083,7 +1083,7 @@ m_bFetchingDarkMode = false;
 //
 //       auto pnode = psystem->node();
 //
-//       auto edesktop = pnode->get_edesktop();
+//       auto edesktop = pnode->get_eoperating_ambient();
 //
 //       if (edesktop & ::user::e_desktop_gnome)
 //       {
@@ -1157,7 +1157,7 @@ m_bFetchingDarkMode = false;
 //
 //       auto pnode = psystem->node();
 //
-//       auto edesktop = pnode->get_edesktop();
+//       auto edesktop = pnode->get_eoperating_ambient();
 //
 //       if (edesktop & ::user::e_desktop_gnome)
 //       {
@@ -1229,7 +1229,7 @@ m_bFetchingDarkMode = false;
 
       auto pnode = psystem->node();
 
-      auto edesktop = pnode->get_edesktop();
+      auto edesktop = pnode->get_eoperating_ambient();
 
       bool bDark = pwindowingdisplay->m_strDarkModeAnnotation.case_insensitive_contains("dark");
 
@@ -1302,7 +1302,7 @@ m_bFetchingDarkMode = false;
 
       auto pnode = psystem->node();
 
-      auto edesktop = pnode->get_edesktop();
+      auto edesktop = pnode->get_eoperating_ambient();
 
       switch (edesktop)
       {
@@ -1373,7 +1373,7 @@ m_bFetchingDarkMode = false;
 
       auto pnode = psystem->node();
 
-      auto edesktop = pnode->get_edesktop();
+      auto edesktop = pnode->get_eoperating_ambient();
 
       bool bDark = pwindowingdisplay->m_strDarkModeAnnotation.case_insensitive_contains("dark");
 
@@ -1604,7 +1604,7 @@ m_bFetchingDarkMode = false;
    //
    //    auto pnode = psystem->node();
    //
-   //    auto edesktop = pnode->get_edesktop();
+   //    auto edesktop = pnode->get_eoperating_ambient();
    //
    //    switch (edesktop)
    //    {
