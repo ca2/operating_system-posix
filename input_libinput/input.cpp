@@ -3,6 +3,7 @@
 // hi5 contribution...
 #include "framework.h"
 #include "input.h"
+#include "xkb_input.h"
 #include "acme/constant/message.h"
 #include "acme/constant/user_key.h"
 #include "aura/message/user.h"
@@ -10,7 +11,6 @@
 #include "aura/user/user/user.h"
 #include "aura/windowing/keyboard.h"
 #include "aura/windowing/windowing.h"
-#include "operating_system-posix/windowing_system_wayland/xkb_input.h"
 #include <libinput.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -25,7 +25,7 @@ int poll_for_read(int iFd, const class ::time & time)
    pollfd pollfda[1]={};
 
    pollfda[0].fd = iFd;
-   pollfda[0].happenings = POLLIN;
+   pollfda[0].events = POLLIN;
 
    auto ret = ::poll(pollfda, 1, time.integral_millisecond());
 

@@ -8,6 +8,8 @@ list(APPEND library_source
    _factory.cpp
    input.cpp
    input.h
+   xkb_input.cpp
+   xkb_input.h
    )
 
 
