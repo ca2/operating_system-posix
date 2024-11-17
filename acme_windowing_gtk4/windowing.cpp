@@ -1412,7 +1412,7 @@ namespace gtk4
 
                // auto edesktop = ::windowing::get_eoperating_ambient();
                //
-               // if (edesktop & ::windowing::e_desktop_kde && pdisplay->has_xcb())
+               // if (edesktop & ::windowing::e_operating_ambient_kde && pdisplay->has_xcb())
                // {
                //
                //    ewindowing = ::windowing::e_windowing_xcb;

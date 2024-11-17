@@ -1085,7 +1085,7 @@ m_bFetchingDarkMode = false;
 //
 //       auto edesktop = pnode->get_eoperating_ambient();
 //
-//       if (edesktop & ::user::e_desktop_gnome)
+//       if (edesktop & ::user::e_operating_ambient_gnome)
 //       {
 //
 //          bool bOk1 = _gsettings_set("org.gnome.desktop.interface", "gtk-theme", strUserTheme).ok();
@@ -1113,20 +1113,20 @@ m_bFetchingDarkMode = false;
 //          }
 //
 //       }
-//       else if (edesktop & ::user::e_desktop_mate)
+//       else if (edesktop & ::user::e_operating_ambient_mate)
 //       {
 //
 //          //return ::user::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
 //
 //       }
-//       else if (edesktop & ::user::e_desktop_lxde)
+//       else if (edesktop & ::user::e_operating_ambient_lxde)
 //       {
 //
 //
 //          //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
 //
 //       }
-//       else if (edesktop & ::user::e_desktop_xfce)
+//       else if (edesktop & ::user::e_operating_ambient_xfce)
 //       {
 //          //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
 //          //          if(entry.contains("image-path") || entry.contains("last-image")){
@@ -1159,7 +1159,7 @@ m_bFetchingDarkMode = false;
 //
 //       auto edesktop = pnode->get_eoperating_ambient();
 //
-//       if (edesktop & ::user::e_desktop_gnome)
+//       if (edesktop & ::user::e_operating_ambient_gnome)
 //       {
 //
 //          bool bOk1 = _gsettings_set("org.gnome.desktop.interface", "icon-theme", strUserIconTheme).ok();
@@ -1188,20 +1188,20 @@ m_bFetchingDarkMode = false;
 //          }
 //
 //       }
-//       else if (edesktop & ::user::e_desktop_mate)
+//       else if (edesktop & ::user::e_operating_ambient_mate)
 //       {
 //
 //          //return ::user::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
 //
 //       }
-//       else if (edesktop & ::user::e_desktop_lxde)
+//       else if (edesktop & ::user::e_operating_ambient_lxde)
 //       {
 //
 //
 //          //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
 //
 //       }
-//       else if (edesktop & ::user::e_desktop_xfce)
+//       else if (edesktop & ::user::e_operating_ambient_xfce)
 //       {
 //          //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
 //          //          if(entry.contains("image-path") || entry.contains("last-image")){
@@ -1236,9 +1236,9 @@ m_bFetchingDarkMode = false;
       switch (edesktop)
       {
 
-         case ::user::e_desktop_gnome:
-         case ::user::e_desktop_ubuntu_gnome:
-         case ::user::e_desktop_unity_gnome:
+         case ::user::e_operating_ambient_gnome:
+         case ::user::e_operating_ambient_ubuntu_gnome:
+         case ::user::e_operating_ambient_unity_gnome:
          {
 
             if(bDark)
@@ -1257,21 +1257,21 @@ m_bFetchingDarkMode = false;
             }
 
          }
-         case ::user::e_desktop_mate:
+         case ::user::e_operating_ambient_mate:
 
             return _gsettings_set("org.mate.background", "picture-filename", strLocalImagePath).ok();
 
-         case ::user::e_desktop_cinnamon:
+         case ::user::e_operating_ambient_cinnamon:
 
             return _gsettings_set("org.cinnamon.desktop.background", "picture-uri", "file://" +strLocalImagePath).ok();
 
-         case ::user::e_desktop_lxde:
+         case ::user::e_operating_ambient_lxde:
 
             call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
 
             break;
 
-         case ::user::e_desktop_xfce:
+         case ::user::e_operating_ambient_xfce:
          {
             //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
             //          if(entry.contains("image-path") || entry.contains("last-image")){
@@ -1307,27 +1307,27 @@ m_bFetchingDarkMode = false;
       switch (edesktop)
       {
 
-         case ::user::e_desktop_gnome:
-         case ::user::e_desktop_ubuntu_gnome:
-         case ::user::e_desktop_unity_gnome:
+         case ::user::e_operating_ambient_gnome:
+         case ::user::e_operating_ambient_ubuntu_gnome:
+         case ::user::e_operating_ambient_unity_gnome:
 
             _node_enable_wallpaper_change_notification("org.gnome.desktop.background", "picture-uri");
 
             break;
 
-         case ::user::e_desktop_mate:
+         case ::user::e_operating_ambient_mate:
 
             _node_enable_wallpaper_change_notification("org.mate.background", "picture-filename");
 
             break;
 
-         case ::user::e_desktop_lxde:
+         case ::user::e_operating_ambient_lxde:
 
             //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
 
             break;
 
-         case ::user::e_desktop_xfce:
+         case ::user::e_operating_ambient_xfce:
          {
             //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
             //          if(entry.contains("image-path") || entry.contains("last-image")){
@@ -1380,9 +1380,9 @@ m_bFetchingDarkMode = false;
       switch (edesktop)
       {
 
-         case ::user::e_desktop_gnome:
-         case ::user::e_desktop_ubuntu_gnome:
-         case ::user::e_desktop_unity_gnome:
+         case ::user::e_operating_ambient_gnome:
+         case ::user::e_operating_ambient_ubuntu_gnome:
+         case ::user::e_operating_ambient_unity_gnome:
          {
 
             ::string strUri;
@@ -1411,7 +1411,7 @@ m_bFetchingDarkMode = false;
 
          }
          break;
-         case ::user::e_desktop_mate:
+         case ::user::e_operating_ambient_mate:
          {
 
             ::string strFile;
@@ -1423,7 +1423,7 @@ m_bFetchingDarkMode = false;
             break;
          }
 
-         case ::user::e_desktop_cinnamon:
+         case ::user::e_operating_ambient_cinnamon:
          {
 
             ::string strUri;
@@ -1435,13 +1435,13 @@ m_bFetchingDarkMode = false;
             break;
          }
 
-         case ::user::e_desktop_lxde:
+         case ::user::e_operating_ambient_lxde:
 
             //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
 
             break;
 
-         case ::user::e_desktop_xfce:
+         case ::user::e_operating_ambient_xfce:
          {
             //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
             //          if(entry.contains("image-path") || entry.contains("last-image")){
@@ -1609,27 +1609,27 @@ m_bFetchingDarkMode = false;
    //    switch (edesktop)
    //    {
    //
-   //       case ::user::e_desktop_gnome:
-   //       case ::user::e_desktop_ubuntu_gnome:
-   //       case ::user::e_desktop_unity_gnome:
+   //       case ::user::e_operating_ambient_gnome:
+   //       case ::user::e_operating_ambient_ubuntu_gnome:
+   //       case ::user::e_operating_ambient_unity_gnome:
    //
    //          bOk = _gsettings_get(strTheme, "org.gnome.desktop.interface", "gtk-theme").ok();
    //
    //          break;
    //
-   //       case ::user::e_desktop_mate:
+   //       case ::user::e_operating_ambient_mate:
    //
    //          bOk = _gsettings_get(strTheme, "org.mate.background", "picture-filename").ok();
    //
    //          break;
    //
-   //       case ::user::e_desktop_lxde:
+   //       case ::user::e_operating_ambient_lxde:
    //
    //          //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
    //
    //          break;
    //
-   //       case ::user::e_desktop_xfce:
+   //       case ::user::e_operating_ambient_xfce:
    //       {
    //          //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
    //          //          if(entry.contains("image-path") || entry.contains("last-image")){

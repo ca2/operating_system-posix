@@ -323,7 +323,7 @@ void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString)
 //
 //      auto edesktop = node()->get_eoperating_ambient();
 //
-//      if(edesktop & ::user::e_desktop_gnome)
+//      if(edesktop & ::user::e_operating_ambient_gnome)
 //      {
 //
 //         node()->post_procedure([this, strWallpaper]()
@@ -365,19 +365,19 @@ void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString)
 //                                    });
 //
 //      }
-//      else if(edesktop & ::user::e_desktop_mate)
+//      else if(edesktop & ::user::e_operating_ambient_mate)
 //      {
 //
 //         bOk = gsettings_set("org.mate.background", "picture-filename", "file://" + strWallpaper).ok();
 //
 //      }
-//      else if(edesktop & ::user::e_desktop_lxde)
+//      else if(edesktop & ::user::e_operating_ambient_lxde)
 //      {
 //
 //         //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
 //
 //      }
-//      else if(edesktop & ::user::e_desktop_xfce)
+//      else if(edesktop & ::user::e_operating_ambient_xfce)
 //      {
 //
 //         //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){

@@ -60,7 +60,7 @@ namespace acme
    ::user::enum_operating_ambient system::calc_eoperating_ambient()
    {
 
-      return ::user::e_desktop_windows;
+      return ::user::e_operating_ambient_windows;
 
    }
 

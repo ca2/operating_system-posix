@@ -2697,8 +2697,8 @@ if(functionTrace)
 
       int iExitCode = -1;
 
-      if(edesktop == ::windowing::e_desktop_xfce
-              || edesktop == ::windowing::e_desktop_kde)
+      if(edesktop == ::windowing::e_operating_ambient_xfce
+              || edesktop == ::windowing::e_operating_ambient_kde)
       {
 
          strCommand.find_replace("\\", "\\\\");
@@ -2712,7 +2712,7 @@ if(functionTrace)
                  tracefunction);
 
       }
-//      else if(edesktop == ::user::e_desktop_kde)
+//      else if(edesktop == ::user::e_operating_ambient_kde)
 //      {
 //
 //         strCommand.find_replace("\\", "\\\\");
@@ -2785,7 +2785,7 @@ if(functionTrace)
 //
 // //       auto edesktop = get_eoperating_ambient();
 // //
-// //       if(edesktop == user::e_desktop_kde)
+// //       if(edesktop == user::e_operating_ambient_kde)
 // //       {
 // //
 // //          auto pfactory = system()->factory("windowing_system", "kde5");

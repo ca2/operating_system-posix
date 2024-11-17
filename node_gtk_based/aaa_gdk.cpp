@@ -378,27 +378,27 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 //      switch (edesktop)
 //      {
 //
-//         case ::user::e_desktop_gnome:
-//         case ::user::e_desktop_ubuntu_gnome:
-//         case ::user::e_desktop_unity_gnome:
+//         case ::user::e_operating_ambient_gnome:
+//         case ::user::e_operating_ambient_ubuntu_gnome:
+//         case ::user::e_operating_ambient_unity_gnome:
 //
 //            bOk = gsettings_get(strTheme, "org.gnome.desktop.interface", "gtk-theme");
 //
 //            break;
 //
-//         case ::user::e_desktop_mate:
+//         case ::user::e_operating_ambient_mate:
 //
 //            bOk = gsettings_get(strTheme, "org.mate.background", "picture-filename");
 //
 //            break;
 //
-//         case ::user::e_desktop_lxde:
+//         case ::user::e_operating_ambient_lxde:
 //
 //            //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
 //
 //            break;
 //
-//         case ::user::e_desktop_xfce:
+//         case ::user::e_operating_ambient_xfce:
 //         {
 //            //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
 //            //          if(entry.contains("image-path") || entry.contains("last-image")){

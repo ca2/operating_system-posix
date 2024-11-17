@@ -527,24 +527,24 @@ namespace node_kde5
 ////      switch (edesktop)
 ////      {
 ////
-////         case ::user::e_desktop_gnome:
-////         case ::user::e_desktop_ubuntu_gnome:
-////         case ::user::e_desktop_unity_gnome:
+////         case ::user::e_operating_ambient_gnome:
+////         case ::user::e_operating_ambient_ubuntu_gnome:
+////         case ::user::e_operating_ambient_unity_gnome:
 ////
 ////            return ::node_kde::aaa_gsettings_set("org.gnome.desktop.background", "picture-uri",
 ////                                               "file://" + strLocalImagePath);
 ////
-////         case ::user::e_desktop_mate:
+////         case ::user::e_operating_ambient_mate:
 ////
 ////            return ::node_kde::aaa_gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
 ////
-////         case ::user::e_desktop_lxde:
+////         case ::user::e_operating_ambient_lxde:
 ////
 ////            call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
 ////
 ////            break;
 ////
-////         case ::user::e_desktop_xfce:
+////         case ::user::e_operating_ambient_xfce:
 ////         {
 ////            //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
 ////            //          if(entry.contains("image-path") || entry.contains("last-image")){
@@ -582,27 +582,27 @@ namespace node_kde5
 //      switch (edesktop)
 //      {
 //
-//         case ::user::e_desktop_gnome:
-//         case ::user::e_desktop_ubuntu_gnome:
-//         case ::user::e_desktop_unity_gnome:
+//         case ::user::e_operating_ambient_gnome:
+//         case ::user::e_operating_ambient_ubuntu_gnome:
+//         case ::user::e_operating_ambient_unity_gnome:
 //
 //            ::node_kde::g_enable_wallpaper_change_notification("org.gnome.desktop.background", "picture-uri");
 //
 //            break;
 //
-//         case ::user::e_desktop_mate:
+//         case ::user::e_operating_ambient_mate:
 //
 //            ::node_kde::g_enable_wallpaper_change_notification("org.mate.background", "picture-filename");
 //
 //            break;
 //
-//         case ::user::e_desktop_lxde:
+//         case ::user::e_operating_ambient_lxde:
 //
 //            //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
 //
 //            break;
 //
-//         case ::user::e_desktop_xfce:
+//         case ::user::e_operating_ambient_xfce:
 //         {
 //            //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
 //            //          if(entry.contains("image-path") || entry.contains("last-image")){
