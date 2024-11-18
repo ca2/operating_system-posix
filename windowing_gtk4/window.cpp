@@ -337,16 +337,16 @@ gtk_im_context_commit (
    }
 
 
-   static gboolean on_draw_event(GtkWidget * widget, cairo_t * cr, gpointer p)
-   {
-
-      auto pwindow = (::windowing_gtk4::window *) p;
-
-      pwindow->_on_cairo_draw(widget, cr);
-
-      return FALSE;
-
-   }
+   // static gboolean on_draw_event(GtkWidget * widget, cairo_t * cr, gpointer p)
+   // {
+   //
+   //    auto pwindow = (::windowing_gtk4::window *) p;
+   //
+   //    pwindow->_on_cairo_draw(widget, cr);
+   //
+   //    return FALSE;
+   //
+   // }
 
 
    void window::_on_cairo_draw(GtkWidget * widget, cairo_t * cr)
@@ -371,6 +371,8 @@ gtk_im_context_commit (
       auto pitem = m_pgraphicsgraphics->get_screen_item();
 
       synchronous_lock slImage(pitem->m_pmutex);
+
+      slGraphics.unlock();
 
       if (pitem && pitem->m_pimage2 && pitem->m_pimage2.ok())
       {
@@ -415,6 +417,14 @@ gtk_im_context_commit (
          }
 
       }
+      else
+      {
+
+
+         printf_line("It didn't draw by any change?");
+
+      }
+
 
    }
 
@@ -2153,7 +2163,7 @@ m_pimcontext = gtk_im_multicontext_new();
 
       pshowwindow->m_bShow = true;
 
-      m_puserinteraction->send(pshowwindow);
+      m_puserinteraction->main_send(pshowwindow);
 
    }
 
@@ -2173,7 +2183,7 @@ m_pimcontext = gtk_im_multicontext_new();
 
       pshowwindow->m_bShow = false;
 
-      m_puserinteraction->send_message(pshowwindow);
+      m_puserinteraction->main_send(pshowwindow);
 
    }
 
