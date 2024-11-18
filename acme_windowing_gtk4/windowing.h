@@ -96,6 +96,12 @@ namespace gtk4
             void windowing_application_main_loop() override;
 
 
+            void run() override;
+
+
+            bool handle_messages() override;
+
+
             void windowing_post_quit() override;
 
 
@@ -138,7 +144,8 @@ namespace gtk4
 
 
             ::windowing::enum_windowing calculate_ewindowing() override;
-            
+
+
 
          };
 

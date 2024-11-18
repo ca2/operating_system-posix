@@ -121,7 +121,7 @@ namespace gtk4
 
             m_pGtkSettingsDefault = nullptr;
 
-
+m_bMessageThread=true;
             //m_pGtkSettingsDefault = nullptr;
 
          }
@@ -418,6 +418,32 @@ namespace gtk4
 
 
          void windowing::windowing_application_main_loop()
+         {
+
+            main();
+
+         }
+
+
+         bool windowing::handle_messages()
+         {
+
+
+            auto pgmaincontext = g_main_context_get_thread_default();
+
+
+            while(g_main_context_pending(pgmaincontext))
+            {
+               g_main_context_iteration(pgmaincontext, FALSE);
+            }
+
+
+            return true;
+
+         }
+
+
+         void windowing::run()
          {
 
             ::string strId = application()->m_strAppId;

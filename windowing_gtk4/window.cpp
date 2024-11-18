@@ -372,8 +372,6 @@ gtk_im_context_commit (
 
       synchronous_lock slImage(pitem->m_pmutex);
 
-      slGraphics.unlock();
-
       if (pitem && pitem->m_pimage2 && pitem->m_pimage2.ok())
       {
 
