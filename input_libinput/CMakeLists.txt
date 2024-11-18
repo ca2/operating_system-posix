@@ -22,7 +22,7 @@ list(APPEND library_references
    aura
    aura_posix
    aura_${OPERATING_SYSTEM_NAME}
-   windowing_system_wayland
+   #windowing_system_wayland
    )
 
 list(APPEND static_library_references ${library_references})
