@@ -428,15 +428,9 @@ m_bMessageThread=true;
          bool windowing::handle_messages()
          {
 
+            auto pgmaincontext = g_main_context_default();
 
-            auto pgmaincontext = g_main_context_get_thread_default();
-
-
-            while(g_main_context_pending(pgmaincontext))
-            {
-               g_main_context_iteration(pgmaincontext, FALSE);
-            }
-
+            g_main_context_iteration(pgmaincontext, FALSE);
 
             return true;
 
