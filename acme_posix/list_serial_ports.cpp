@@ -163,15 +163,15 @@ namespace acme_posix
 
       auto psystem = pparticle->system();
 
-      auto pacmefile = psystem->m_pfilesystem;
+      auto pfilesystem = psystem->m_pfilesystem;
 
-      device_number = atoi(pacmefile->first_line(sys_usb_path + "/devnum"));
+      device_number = atoi(pfilesystem->first_line(sys_usb_path + "/devnum"));
 
-      string manufacturer = pacmefile->first_line(sys_usb_path + "/manufacturer");
+      string manufacturer = pfilesystem->first_line(sys_usb_path + "/manufacturer");
 
-      string product = pacmefile->first_line(sys_usb_path + "/product");
+      string product = pfilesystem->first_line(sys_usb_path + "/product");
 
-      string serial = pacmefile->first_line(sys_usb_path + "/serial");
+      string serial = pfilesystem->first_line(sys_usb_path + "/serial");
 
       if (manufacturer.is_empty() && product.is_empty() && serial.is_empty())
       {
@@ -230,12 +230,12 @@ namespace acme_posix
 
          auto psystem = pparticle->system();
 
-         auto pacmefile = psystem->m_pfilesystem;
+         auto pfilesystem = psystem->m_pfilesystem;
 
          if (path_exists(sys_id_path))
          {
 
-            hardware_id = pacmefile->first_line(sys_id_path);
+            hardware_id = pfilesystem->first_line(sys_id_path);
 
          }
 
@@ -353,9 +353,9 @@ namespace acme_posix
 
       auto psystem = pparticle->system();
 
-      auto pacmefile = psystem->m_pfilesystem;
+      auto pfilesystem = psystem->m_pfilesystem;
 
-      string serial_number = pacmefile->first_line(sysfs_path + "/serial");
+      string serial_number = pfilesystem->first_line(sysfs_path + "/serial");
 
       if (serial_number.length() > 0)
       {
@@ -364,9 +364,9 @@ namespace acme_posix
 
       }
 
-      string vid = pacmefile->first_line(sysfs_path + "/idVendor");
+      string vid = pfilesystem->first_line(sysfs_path + "/idVendor");
 
-      string pid = pacmefile->first_line(sysfs_path + "/idProduct");
+      string pid = pfilesystem->first_line(sysfs_path + "/idProduct");
 
       return format("USB VID:PID=%s:%s %s", vid.c_str(), pid.c_str(), serial_number.c_str());
 
