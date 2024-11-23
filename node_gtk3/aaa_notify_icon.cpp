@@ -116,7 +116,7 @@ namespace node_gtk3
                                          {
 
 
-                                            auto estatus = __construct(m_pindicator);
+                                            auto estatus = __øconstruct(m_pindicator);
 
                                             m_pindicator->create(m_strId, "notify_icon_128", pathFolder, this);
 

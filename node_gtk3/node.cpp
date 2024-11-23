@@ -581,7 +581,7 @@ namespace node_gtk3
 
       //::windowing::get_ewindowing() = calculate_ewindowing();
 
-      // system()->__construct(system()->m_pwindowingsystem);
+      // system()->__øconstruct(system()->m_pwindowingsystem);
       //
       // ::pointer < ::node_gdk::windowing_system> pnodegdkwindowingsystem = system()->m_pwindowingsystem;
       //
@@ -2213,7 +2213,7 @@ namespace node_gtk3
 
       auto & pfactory = platform()->factory("input", "libinput");
 
-      auto pinput = __create<::input::input>(pfactory);
+      auto pinput = __øcreate<::input::input>(pfactory);
 
       return pinput;
 

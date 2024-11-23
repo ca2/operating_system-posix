@@ -1474,7 +1474,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //                    //print_propertyevent(display, cookie->data);
 //                    break;
 //                default:
-//                    //print_deviceevent(cookie->data);
+//                    //print_devicehappening(cookie->data);
 //                    break;
 //            }
 //        }
@@ -1687,9 +1687,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                     }
 //
-//                     //ptopic->payload("return") = is_return_key(pgeevent);
+//                     //ptopic->payload("return") = is_return_key(pgehappening);
 //
-//                     //ptopic->payload("space") = is_space_key(pgeevent);
+//                     //ptopic->payload("space") = is_space_key(pgehappening);
 //
 //                  }
 //

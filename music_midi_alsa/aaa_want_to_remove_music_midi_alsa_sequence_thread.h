@@ -33,7 +33,7 @@ namespace music
 
             bool PostMidiSequenceEvent(::music::midi::sequence * pseq, ::music::midi::sequence::e_happening happening, LPMIDIHDR lpmh);
 
-            void PostNotifyEvent(::music::midi::e_notify_event ehappening);
+            void PostNotifyEvent(::music::midi::e_notify_happening ehappening);
 
             //virtual void PrerollRateAndWait(double rate = 0.0) override;
             //virtual void PrerollAndWait(imedia_position tickStart) override;

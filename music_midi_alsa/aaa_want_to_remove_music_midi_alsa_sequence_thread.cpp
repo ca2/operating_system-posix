@@ -96,7 +96,7 @@ namespace music
 
             pseq->OnHappening(pevent);
 
-            switch(pevent->m_eevent)
+            switch(pevent->m_ehappening)
             {
             case ::music::midi::sequence::e_event_midi_playback_end:
                {
@@ -234,7 +234,7 @@ namespace music
          }
 
 
-         void sequence_thread::PostNotifyEvent(::music::midi::e_notify_event ehappening)
+         void sequence_thread::PostNotifyEvent(::music::midi::e_notify_happening ehappening)
          {
 
             if(m_pplayer != NULL)

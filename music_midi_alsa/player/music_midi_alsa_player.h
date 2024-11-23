@@ -58,7 +58,7 @@ namespace music
             virtual void OnMidiOutDeviceChange();
 
             //unsigned int GetMidiOutDevice();
-            //void PostNotifyEvent(::music::midi::e_notify_event ehappening);
+            //void PostNotifyEvent(::music::midi::e_notify_happening ehappening);
 
             imedia_position RateToTicks(double dRate);
 

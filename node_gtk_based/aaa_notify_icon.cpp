@@ -78,7 +78,7 @@ namespace node_gtk_based
 
       auto pnode = psystem->node();
 
-      __construct(m_pindicator);
+      __øconstruct(m_pindicator);
 
       m_pindicator->create(m_strId, strAppName, pathFolder, this->menu(), get_app());
 

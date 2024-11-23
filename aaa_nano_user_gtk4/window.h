@@ -215,7 +215,7 @@ void defer_show_system_menu(::user::mouse * pmouse) override;
 
             virtual void _on_geometry_change();
             virtual void _on_size_allocate(GtkWidget * pwidget, GdkRectangle * prectangle);
-            //virtual void _on_x11_configure_notify(XConfigureEvent * pconfigureevent);
+            //virtual void _on_x11_configure_notify(XConfigureEvent * pconfigurehappening);
 
 
             virtual void _defer_get_window_rectangle_unlocked();

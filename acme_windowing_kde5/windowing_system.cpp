@@ -229,7 +229,7 @@ namespace windowing_system_kde5
 
       //g_object_ref(m_pgtkapplication);
 
-      // auto pdisplay = __create<::windowing::display>();
+      // auto pdisplay = __øcreate<::windowing::display>();
       //
       //
       //

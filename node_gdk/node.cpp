@@ -2356,7 +2356,7 @@ m_bFetchingDarkMode = false;
 
       auto & pfactory = platform()->factory("input", "libinput");
 
-      auto pinput = __create<::input::input>(pfactory);
+      auto pinput = __øcreate<::input::input>(pfactory);
 
       return pinput;
 

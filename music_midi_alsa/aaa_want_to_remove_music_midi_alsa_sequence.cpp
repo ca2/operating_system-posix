@@ -1581,7 +1581,7 @@ namespace music
 
          void sequence::OnHappening(::music::midi::sequence::happening * pevent)
          {
-            switch(pevent->m_eevent)
+            switch(pevent->m_ehappening)
             {
             case e_flag_operation_end:
                {
@@ -2427,7 +2427,7 @@ namespace music
 
             happening * pevent          = aaa_primitive_new happening();
 
-            pevent->m_eevent        = ehappening;
+            pevent->m_ehappening        = ehappening;
             pevent->m_psequence     = this;
             pevent->m_lpmh          = lpmidihdr;
 

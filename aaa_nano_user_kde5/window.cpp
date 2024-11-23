@@ -678,7 +678,7 @@ namespace kde5
       //    if (event_type == XCB_CONFIGURE_NOTIFY)
       //    {
       //
-      //       auto pconfigure = (xcb_configure_notify_event_t *) pevent;
+      //       auto pconfigure = (xcb_configure_notify_happening_t *) pevent;
       //
       //       if (pconfigure->window != m_window)
       //       {
@@ -918,7 +918,7 @@ namespace kde5
       //    else if (event_type == LeaveNotify)
       //    {
       //
-      //       auto pleave = (xcb_leave_notify_event_t *) pevent;
+      //       auto pleave = (xcb_leave_notify_happening_t *) pevent;
       //
       //       if (pleave->happening != m_window)
       //       {
@@ -1699,7 +1699,7 @@ m_pqwidget->move(p);
 
          nano()->graphics();
 
-         __construct(m_pnanodevice);
+         __øconstruct(m_pnanodevice);
 
          m_pnanodevice->create(w, h);
 

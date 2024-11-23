@@ -166,7 +166,7 @@ namespace windowing_xcb
 //      virtual ::e_status uninstall_keyboard_hook(::matter * pmatterListener);
 
       bool xcb_process_event(xcb_generic_event_t* xcbevent);
-      bool xcb_process_ge_event(xcb_ge_event_t * pgeevent);
+      bool xcb_process_ge_event(xcb_ge_event_t * pgehappening);
 
 #else
 

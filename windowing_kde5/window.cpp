@@ -1057,7 +1057,7 @@ namespace windowing_kde5
    //       //
    //       // return;
    //
-   //       auto pgraphics = __create<::draw2d::graphics>();
+   //       auto pgraphics = __øcreate<::draw2d::graphics>();
    //
    //       pgraphics->attach(cr);
    //       //pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
@@ -1781,7 +1781,7 @@ namespace windowing_kde5
             //
             // return;
 
-            //auto pgraphics = __create<::draw2d::graphics>();
+            //auto pgraphics = __øcreate<::draw2d::graphics>();
 
             int w = minimum(pitem->m_pimage2->width(), pqimage->width());
 

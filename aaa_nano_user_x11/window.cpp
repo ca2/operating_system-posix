@@ -487,7 +487,7 @@ namespace x11
 
                   auto h = rectangleWindow.height();
 
-                  __construct(m_pnanodevice);
+                  __øconstruct(m_pnanodevice);
 
                   m_pnanodevice->create_for_x11(_x11_handle(), w, h);
                   //m_pnanodevice = __allocate ::cairo::nano::graphics::device(pdc);

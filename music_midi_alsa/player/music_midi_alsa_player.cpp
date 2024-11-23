@@ -383,7 +383,7 @@ namespace music
          }
 
 
-//         void player::PostNotifyEvent(::music::midi::e_notify_event ehappening)
+//         void player::PostNotifyEvent(::music::midi::e_notify_happening ehappening)
 //         {
 //
 //            if(m_puie != NULL)
@@ -395,7 +395,7 @@ namespace music
 //
 //               pdata->m_enotifyevent = ehappening;
 //
-//               m_puie->post_object(::music::midi::message_notify_event, 0, pdata);
+//               m_puie->post_object(::music::midi::message_notify_happening, 0, pdata);
 //
 //            }
 //

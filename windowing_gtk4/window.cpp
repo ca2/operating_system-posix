@@ -375,7 +375,7 @@ gtk_im_context_commit (
       if (pitem && pitem->m_pimage2 && pitem->m_pimage2.ok())
       {
 
-         auto pgraphics = __create<::draw2d::graphics>();
+         auto pgraphics = __øcreate<::draw2d::graphics>();
 
          pgraphics->attach(cr);
 

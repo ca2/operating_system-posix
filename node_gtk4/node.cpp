@@ -1935,7 +1935,7 @@ namespace node_gtk4
 
       auto & pfactory = platform()->factory("input", "libinput");
 
-      auto pinput = __create<::input::input>(pfactory);
+      auto pinput = __øcreate<::input::input>(pfactory);
 
       return pinput;
 

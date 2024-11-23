@@ -666,7 +666,7 @@ namespace gtk4
          }
 
 
-//         void window::_on_x11_configure_notify(XConfigureEvent * pconfigureevent)
+//         void window::_on_x11_configure_notify(XConfigureEvent * pconfigurehappening)
 //         {
 //
 //            ::pointer<::micro::elemental> pinterchange = m_puserinteractionbase;
@@ -674,10 +674,10 @@ namespace gtk4
 //            if (pinterchange)
 //            {
 //
-//               pinterchange->m_rectangle.left() = pconfigureevent->x;
-//               pinterchange->m_rectangle.top() = pconfigureevent->y;
+//               pinterchange->m_rectangle.left() = pconfigurehappening->x;
+//               pinterchange->m_rectangle.top() = pconfigurehappening->y;
 //               pinterchange->m_rectangle.set_size(
-//                  {(int) pconfigureevent->width, (int) pconfigureevent->height});
+//                  {(int) pconfigurehappening->width, (int) pconfigurehappening->height});
 //
 //            }
 //
@@ -1530,7 +1530,7 @@ namespace gtk4
 
             nano()->graphics();
 
-            __construct(m_pnanodevice);
+            __øconstruct(m_pnanodevice);
 
             m_pnanodevice->create(w, h);
 

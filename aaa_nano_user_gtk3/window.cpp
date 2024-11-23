@@ -272,7 +272,7 @@ namespace gtk3
             if (!m_pdisplaybase)
             {
 
-               __construct(m_pdisplaybase);
+               __øconstruct(m_pdisplaybase);
 
                m_pdisplaybase->open_display();
 
@@ -1001,7 +1001,7 @@ namespace gtk3
 
             nano()->graphics();
 
-            __construct(m_pnanodevice);
+            __øconstruct(m_pnanodevice);
 
             m_pnanodevice->create(w, h);
 

@@ -82,7 +82,7 @@ namespace windowing_gtk3
 //   ::windowing::window * windowing::new_window(::windowing::window * pimpl)
 //   {
 //
-//      ::pointer<::windowing_gtk3::window> pwindow = pimpl->__create<::windowing::window>();
+//      ::pointer<::windowing_gtk3::window> pwindow = pimpl->__øcreate<::windowing::window>();
 //
 //      if (!pwindow)
 //      {
@@ -136,7 +136,7 @@ namespace windowing_gtk3
 //
 //      auto & pfactory = platform()->factory("input", "libinput");
 //
-//      auto pinput = __create<::input::input>(pfactory);
+//      auto pinput = __øcreate<::input::input>(pfactory);
 //
 //      return pinput;
 //
@@ -152,7 +152,7 @@ namespace windowing_gtk3
 
       information() << "windowing_gtk3::windowing::initialize_windowing";
 
-//      auto pdisplay = __create<::windowing::display>();
+//      auto pdisplay = __øcreate<::windowing::display>();
 //
 //      pdisplay->open_display();
 //
@@ -325,7 +325,7 @@ namespace windowing_gtk3
 //
 //      windowing_output_debug_string("::x11_GetWindowRect 1");
 
-__construct(pcursor);
+__øconstruct(pcursor);
 
       pcursor->m_strCursorName = cursor_name;
 

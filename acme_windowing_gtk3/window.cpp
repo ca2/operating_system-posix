@@ -262,8 +262,8 @@ namespace gtk3
             //zero(m_visualinfo);
             //m_colormap = 0;
                m_pgtkwidgetSystemMenu = nullptr;
-            m_peventLastMouseDown= nullptr;
-            m_peventLastMouseUp= nullptr;
+            m_phappeningLastMouseDown= nullptr;
+            m_phappeningLastMouseUp= nullptr;
 
          }
 
@@ -284,7 +284,7 @@ namespace gtk3
             if (!m_pdisplay)
             {
 
-               __construct(m_pdisplay);
+               __øconstruct(m_pdisplay);
 
                m_pdisplay->open_display();
 
@@ -643,7 +643,7 @@ namespace gtk3
             //      }
             //   }
             //auto pwindow = m_pwindow;
-            m_peventLastMouseDown = pevent;
+            m_phappeningLastMouseDown = pevent;
             //if(::is_set(pwindow))
             {
 
@@ -727,7 +727,7 @@ namespace gtk3
             //
 
             //auto pwindow = m_pwindow;
-m_peventLastMouseUp = pevent;
+m_phappeningLastMouseUp = pevent;
             //if(::is_set(pwindow))
             {
 
@@ -1069,7 +1069,7 @@ m_peventLastMouseUp = pevent;
 
             nano()->graphics();
 
-            __construct(m_pnanodevice);
+            __øconstruct(m_pnanodevice);
 
             m_pnanodevice->create(w, h);
 
@@ -1155,12 +1155,12 @@ m_peventLastMouseUp = pevent;
             main_send([this]()
                       {
 
-                         GdkDevice *device = gdk_event_get_device((GdkEvent *) m_peventLastMouseDown);
+                         GdkDevice *device = gdk_event_get_device((GdkEvent *) m_phappeningLastMouseDown);
 
                          GdkGrabStatus status = gdk_device_grab(device, gtk_widget_get_window(m_pgtkwidget),
                                                                 GDK_OWNERSHIP_WINDOW, FALSE,
                                                                 (GdkEventMask) (GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK),
-                                                                NULL, m_peventLastMouseDown->time);
+                                                                NULL, m_phappeningLastMouseDown->time);
 
                       });
 
@@ -1175,8 +1175,8 @@ m_peventLastMouseUp = pevent;
                       {
 
                          // Release the grab when the button is released
-                         GdkDevice *device = gdk_event_get_device((GdkEvent *) m_peventLastMouseUp);
-                         gdk_device_ungrab(device, m_peventLastMouseUp->time);
+                         GdkDevice *device = gdk_event_get_device((GdkEvent *) m_phappeningLastMouseUp);
+                         gdk_device_ungrab(device, m_phappeningLastMouseUp->time);
 
                       });
 

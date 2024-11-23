@@ -351,12 +351,12 @@ namespace windowing_xcb
 
 #endif
 
-   bool windowing::xcb_process_ge_event(xcb_ge_event_t * pgeevent)
+   bool windowing::xcb_process_ge_event(xcb_ge_event_t * pgehappening)
    {
 
       enum_message emessage = e_message_null;
 
-      switch (pgeevent->event_type)
+      switch (pgehappening->event_type)
       {
          case XCB_INPUT_RAW_KEY_PRESS:
             emessage = e_message_key_down;
@@ -367,7 +367,7 @@ namespace windowing_xcb
          case XCB_INPUT_RAW_BUTTON_PRESS:
             {
 
-                auto prawevent =(xcb_input_raw_button_press_event_t *) pgeevent;
+                auto prawevent =(xcb_input_raw_button_press_event_t *) pgehappening;
 
                 if(prawevent->detail == 1)
                 {
@@ -400,7 +400,7 @@ namespace windowing_xcb
          case XCB_INPUT_RAW_BUTTON_RELEASE:
             {
 
-               auto prawevent =(xcb_input_raw_button_release_event_t *) pgeevent;
+               auto prawevent =(xcb_input_raw_button_release_event_t *) pgehappening;
 
                if(prawevent->detail == 1)
                {
@@ -447,7 +447,7 @@ namespace windowing_xcb
          if (emessage == e_message_key_down || emessage == e_message_key_up)
          {
 
-            if(is_return_key(pgeevent))
+            if(is_return_key(pgehappening))
             {
 
                iWparam = '\n';
@@ -455,7 +455,7 @@ namespace windowing_xcb
                iLparam = XK_Return;
 
             }
-            else if(is_space_key(pgeevent))
+            else if(is_space_key(pgehappening))
             {
 
                iWparam = ' ';
@@ -464,9 +464,9 @@ namespace windowing_xcb
 
             }
 
-            //ptopic->payload("return") = is_return_key(pgeevent);
+            //ptopic->payload("return") = is_return_key(pgehappening);
 
-            //ptopic->payload("space") = is_space_key(pgeevent);
+            //ptopic->payload("space") = is_space_key(pgehappening);
 
          }
 

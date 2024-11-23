@@ -681,9 +681,9 @@ namespace input_xinput
 
                   }
 
-//ptopic->payload("return") = is_return_key(pgeevent);
+//ptopic->payload("return") = is_return_key(pgehappening);
 
-//ptopic->payload("space") = is_space_key(pgeevent);
+//ptopic->payload("space") = is_space_key(pgehappening);
 
                }
                else if (emessage == e_message_left_button_down || emessage == e_message_left_button_up
@@ -747,9 +747,9 @@ namespace input_xinput
 //
 //                  }
 //
-////ptopic->payload("return") = is_return_key(pgeevent);
+////ptopic->payload("return") = is_return_key(pgehappening);
 //
-////ptopic->payload("space") = is_space_key(pgeevent);
+////ptopic->payload("space") = is_space_key(pgehappening);
 //
 //               }
 

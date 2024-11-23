@@ -332,7 +332,7 @@ signal(SIGCHLD, SIG_IGN);
       if(!m_pacmedisplay)
       {
 		  
-		  __construct(m_pacmedisplay);
+		  __øconstruct(m_pacmedisplay);
 		  
 		  
 		  m_pacmedisplay->open_display();

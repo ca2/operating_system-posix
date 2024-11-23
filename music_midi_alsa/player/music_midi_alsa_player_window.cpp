@@ -27,7 +27,7 @@ namespace music
          {
             ::user::interaction::install_message_handling(pinterface);
             IGUI_WIN_MSG_LINK(MMSG_DONE                        , pinterface, this, &window::_001OnMmsgDone);
-            IGUI_WIN_MSG_LINK(::music::midi::player::message_notify_event   , pinterface, this, &window::_001OnNotifyEvent);
+            IGUI_WIN_MSG_LINK(::music::midi::player::message_notify_happening   , pinterface, this, &window::_001OnNotifyEvent);
             IGUI_WIN_MSG_LINK(WM_USER                          , pinterface, this, &window::_001OnUserMessage);
             IGUI_WIN_MSG_LINK(WM_APP + 3388                    , pinterface, this, &window::_001OnApp3388Message);
          }

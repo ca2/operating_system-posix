@@ -76,7 +76,7 @@ namespace windowing_wayland
 //   ::windowing::window * windowing::new_window(::windowing::window * pimpl)
 //   {
 //
-//      ::pointer<::windowing_wayland::window> pwindow = pimpl->__create<::windowing::window>();
+//      ::pointer<::windowing_wayland::window> pwindow = pimpl->__øcreate<::windowing::window>();
 //
 //      if (!pwindow)
 //      {
@@ -130,7 +130,7 @@ namespace windowing_wayland
 //
 //      auto & pfactory = platform()->factory("input", "libinput");
 //
-//      auto pinput = __create<::input::input>(pfactory);
+//      auto pinput = __øcreate<::input::input>(pfactory);
 //
 //      return pinput;
 //
@@ -144,7 +144,7 @@ namespace windowing_wayland
 
       information() << "windowing_wayland::windowing::initialize_windowing";
 
-      auto pdisplay = __create<::windowing::display>();
+      auto pdisplay = __øcreate<::windowing::display>();
 
       pdisplay->initialize_display(this);
 
@@ -410,7 +410,7 @@ namespace windowing_wayland
 
 //      auto cursor = XCreateFontCursor(m_pdisplay->Display(), iCursor);
 //
-//      auto pcursorX11 = __create < ::windowing_wayland::cursor >();
+//      auto pcursorX11 = __øcreate < ::windowing_wayland::cursor >();
 //
 //      pcursor = pcursorX11;
 //

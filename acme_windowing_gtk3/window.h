@@ -35,8 +35,8 @@ namespace gtk3
             GtkWidget * m_pgtkwidget;
             GtkWidget *m_pdrawingarea;
             GtkWidget * m_pgtkwidgetSystemMenu;
-            GdkEventButton * m_peventLastMouseDown;
-            GdkEventButton * m_peventLastMouseUp;
+            GdkEventButton * m_phappeningLastMouseDown;
+            GdkEventButton * m_phappeningLastMouseUp;
             //cairo_surface_t *                m_psurface;
 //            ::pointer<::nano::graphics::device>          m_pnanodevice;
 //            int                              m_iDepth;
