@@ -1286,6 +1286,10 @@ namespace windowing_gtk4
 
       auto pimageBuffer = pbufferitem->m_pimage2;
 
+      printf_line("buffer::_on_begin_draw pimageBuffer->m_size(%d,%d) pbufferitem->m_size(%d,%d)",
+      pimageBuffer->m_size.cx(), pimageBuffer->m_size.cy(),
+      pbufferitem->m_size.cx(), pbufferitem->m_size.cy());
+
       if (pimageBuffer->m_size != pbufferitem->m_size)
       {
 

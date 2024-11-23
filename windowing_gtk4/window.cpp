@@ -390,6 +390,17 @@ gtk_im_context_commit (
          r.right() = width;
          r.bottom() = height;
 
+cairo_reset_clip(cr);
+             // Set the fill color to blue (RGB: 0, 0, 1)
+    cairo_set_source_rgb(cr, 0, 0, 1); // RGB values for blue color
+
+    // Draw a rectangle with the specified width and height
+    cairo_rectangle(cr, 0, 0, width, height);
+
+    // Fill the rectangle with the set color
+    cairo_fill(cr);
+
+
          pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
 
          ::image::image_source imagesource(pitem->m_pimage2, r);
@@ -406,6 +417,14 @@ gtk_im_context_commit (
          //pgraphics->text_out({10, 10}, strSize);
 
          pgraphics->detach();
+         // Set the fill color to blue (RGB: 0, 0, 1)
+    cairo_set_source_rgb(cr, 0, 0, 1); // RGB values for blue color
+
+    // Draw a rectangle with the specified width and height
+    cairo_rectangle(cr, 0, height/2,width, height/2);
+
+    // Fill the rectangle with the set color
+    cairo_fill(cr);
 
          if(m_pgraphicsgraphics)
          {
@@ -413,6 +432,9 @@ gtk_im_context_commit (
             m_pgraphicsgraphics->on_end_draw();
 
          }
+
+         printf_line("cairo w,h(%d,%d)",
+         width, height);
 
       }
       else
@@ -515,11 +537,17 @@ gtk_im_context_commit (
       if (m_sizeOnSize != s)
       {
 
-         //gtk_drawing_area_set_content_width (GTK_DRAWING_AREA (m_pdrawingarea), cx);
+         gtk_drawing_area_set_content_width (GTK_DRAWING_AREA (m_pdrawingarea), cx);
 
-         //gtk_drawing_area_set_content_height (GTK_DRAWING_AREA (m_pdrawingarea), cy);
+         gtk_drawing_area_set_content_height (GTK_DRAWING_AREA (m_pdrawingarea), cy);
+
+         gtk_widget_set_size_request(m_pdrawingarea, cx, cy);
+
+         gtk_window_set_default_size(GTK_WINDOW(m_pgtkwidget), cx, cy);
 
          m_sizeOnSize = s;
+
+         printf_line("puserinteraction->set_size (gtk4 CT25) %d, %d", cx, cy);
 
          puserinteraction->set_size(s);
 
@@ -1066,7 +1094,11 @@ gtk_im_context_commit (
 
          pkey->m_ekey = ekey;
 
-         m_puserinteractionKeyboardFocus->send_message(pkey);
+         m_puserinteraction->send_message(pkey);
+
+//         message_handler(pkey);
+
+//         m_puserinteractionKeyboardFocus->send_message(pkey);
 
       }
 
@@ -1091,7 +1123,9 @@ gtk_im_context_commit (
 
          pkey->m_ekey = ekey;
 
-         m_puserinteractionKeyboardFocus->send_message(pkey);
+         m_puserinteraction->send_message(pkey);
+
+         //m_puserinteractionKeyboardFocus->send_message(pkey);
 
       }
 

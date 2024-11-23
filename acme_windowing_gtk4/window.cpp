@@ -1902,6 +1902,8 @@ namespace gtk4
    void window::_on_size(int cx, int cy)
    {
 
+    printf_line("set_interface_client_size %d, %d", cx, cy);
+
       set_interface_client_size({cx, cy});
 
    }
