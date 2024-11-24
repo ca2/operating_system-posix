@@ -68,7 +68,7 @@ namespace apex_posix
 
          auto psystem = system();
 
-         auto pnode = psystem->node()->m_papexnode;
+         auto pnode = psystem->node();
 
          auto papp = papplication;
 
