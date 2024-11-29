@@ -77,7 +77,7 @@ m_eapp = e_app_not_initialized;
          //   }
 
 
-         void http::async(::nano::http::get * pget)
+         void http::perform(::nano::http::get * pget)
          {
 
 //            auto pgetHold = ::as_pointer(pget);
