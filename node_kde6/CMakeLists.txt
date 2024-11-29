@@ -88,7 +88,11 @@ if (${FREEBSD} OR ${DEBIAN} OR ${SUSE})
     list(APPEND this_system_libraries
             KF6Package
     )
-else ()
+elseif (${UBUNTU})
+    list(APPEND this_system_libraries
+       KF6::Plasma
+    )
+else()
     list(APPEND this_system_libraries
             KF6::Plasma
             KF6::PlasmaQuick
