@@ -2131,7 +2131,9 @@ namespace gtk4
          if (pelemental)
          {
 
-            pelemental->draw(m_pnanodevice);
+            pelemental->draw_background(m_pnanodevice);
+
+            pelemental->draw_foreground(m_pnanodevice);
 
          }
 
@@ -2232,13 +2234,31 @@ namespace gtk4
 
             information() << "LeftButtonDown";
 
-            pelemental->on_left_button_down(pmouse);
+            pelemental->fore_on_left_button_down(pmouse);
+
+            if (pmouse->m_bRet)
+            {
+
+                  return;
+
+            }
+
+            pelemental->back_on_left_button_down(pmouse);
 
          }
          else if (button == 3)
          {
 
-            pelemental->on_right_button_down(pmouse);
+            pelemental->fore_on_right_button_down(pmouse);
+
+            if (pmouse->m_bRet)
+            {
+
+               return;
+
+            }
+
+            pelemental->back_on_right_button_down(pmouse);
 
          }
 
@@ -2274,14 +2294,31 @@ namespace gtk4
 
             information() << "LeftButtonUp";
 
-            pelemental->on_left_button_up(pmouse);
+            pelemental->fore_on_left_button_up(pmouse);
+
+            if (pmouse->m_bRet)
+            {
+
+               return;
+
+            }
+
+            pelemental->back_on_left_button_up(pmouse);
 
          }
          else if (button == 3)
          {
 
-            pelemental->on_right_button_up(pmouse);
+            pelemental->fore_on_right_button_up(pmouse);
 
+            if (pmouse->m_bRet)
+            {
+
+               return;
+
+            }
+
+            pelemental->back_on_right_button_up(pmouse);
          }
 
       }
@@ -2309,7 +2346,16 @@ namespace gtk4
       if (pelemental)
       {
 
-         pelemental->on_mouse_move(pmouse);
+         pelemental->fore_on_mouse_move(pmouse);
+
+         if (pmouse->m_bRet)
+         {
+
+            return;
+
+         }
+
+         pelemental->back_on_mouse_move(pmouse);
 
       }
 

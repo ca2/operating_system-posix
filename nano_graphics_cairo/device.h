@@ -66,6 +66,9 @@ void draw(::nano::graphics::icon * picon, int x, int y, int cx, int cy) override
             //void set_antialias(bool bAntialiasOn);
             void create(int cx, int cy) override;
 
+            void translate(int x, int y) override;
+
+
          };
 
 

@@ -390,15 +390,15 @@ gtk_im_context_commit (
          r.right() = width;
          r.bottom() = height;
 
-cairo_reset_clip(cr);
-             // Set the fill color to blue (RGB: 0, 0, 1)
-    cairo_set_source_rgb(cr, 0, 0, 1); // RGB values for blue color
-
-    // Draw a rectangle with the specified width and height
-    cairo_rectangle(cr, 0, 0, width, height);
-
-    // Fill the rectangle with the set color
-    cairo_fill(cr);
+// cairo_reset_clip(cr);
+//              // Set the fill color to blue (RGB: 0, 0, 1)
+//     cairo_set_source_rgb(cr, 0, 0, 1); // RGB values for blue color
+//
+//     // Draw a rectangle with the specified width and height
+//     cairo_rectangle(cr, 0, 0, width, height);
+//
+//     // Fill the rectangle with the set color
+//     cairo_fill(cr);
 
 
          pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
@@ -418,13 +418,13 @@ cairo_reset_clip(cr);
 
          pgraphics->detach();
          // Set the fill color to blue (RGB: 0, 0, 1)
-    cairo_set_source_rgb(cr, 0, 0, 1); // RGB values for blue color
-
-    // Draw a rectangle with the specified width and height
-    cairo_rectangle(cr, 0, height/2,width, height/2);
-
-    // Fill the rectangle with the set color
-    cairo_fill(cr);
+    // cairo_set_source_rgb(cr, 0, 0, 1); // RGB values for blue color
+    //
+    // // Draw a rectangle with the specified width and height
+    // cairo_rectangle(cr, 0, height/2,width, height/2);
+    //
+    // // Fill the rectangle with the set color
+    // cairo_fill(cr);
 
          if(m_pgraphicsgraphics)
          {

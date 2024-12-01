@@ -435,6 +435,14 @@ m_psurfaceMemory=nullptr;
 
 }
 
+
+         void device::translate(int x, int y)
+         {
+
+            cairo_translate(m_pdc, x, y);
+
+         }
+
       } // namespace graphics
 
 

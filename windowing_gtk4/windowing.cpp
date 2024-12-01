@@ -483,7 +483,7 @@ namespace windowing_gtk4
    }
 
 
-   ::windowing::window * windowing::get_mouse_capture(::thread *)
+   ::acme::windowing::window * windowing::get_mouse_capture(::thread *)
    {
 
       ::pointer < ::windowing_gtk4::display > pdisplay = m_pacmedisplay;
@@ -504,10 +504,7 @@ namespace windowing_gtk4
    }
 
 
-
-
-
-   ::windowing::window * windowing::window(oswindow oswindow)
+   ::acme::windowing::window * windowing::window(oswindow oswindow)
    {
 
       return oswindow;
@@ -515,7 +512,7 @@ namespace windowing_gtk4
    }
 
 
-   void windowing::set_mouse_capture(::thread * pthread, ::windowing::window * pwindow)
+   void windowing::set_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
    {
 
       m_pwindowMouseCapture = pwindow;
@@ -523,7 +520,7 @@ namespace windowing_gtk4
    }
 
 
-   void windowing::release_mouse_capture(::thread * pthread, ::windowing::window * pwindow)
+   void windowing::release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
    {
 
       ::pointer < ::windowing_gtk4::display > pdisplay = m_pacmedisplay;
@@ -533,7 +530,7 @@ namespace windowing_gtk4
    }
 
 
-   bool windowing::defer_release_mouse_capture(::thread * pthread, ::windowing::window * pwindow)
+   bool windowing::defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
    {
 
       if(m_pwindowMouseCapture != pwindow)

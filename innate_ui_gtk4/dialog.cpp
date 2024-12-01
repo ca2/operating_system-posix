@@ -27,6 +27,12 @@ namespace innate_ui_gtk4
    }
 
 
+   void dialog::create()
+   {
+
+      ::innate_ui_gtk4::window::create();
+
+   }
    // void dialog::_get_class(WNDCLASSEXW & wcex)
    // {
    //
