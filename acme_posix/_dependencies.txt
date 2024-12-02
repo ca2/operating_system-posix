@@ -1,1 +1,1 @@
-default_nano_user
+default_acme_windowing
