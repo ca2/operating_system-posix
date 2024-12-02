@@ -461,7 +461,7 @@ namespace node_gtk3
    node::node()
    {
 
-      m_pNodeGtk3 = this;
+      //m_pNodeGtk3 = this;
 
       m_pGtkSettingsDefault = nullptr;
 

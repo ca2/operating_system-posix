@@ -47,7 +47,7 @@ namespace apex_posix
    node::node()
    {
 
-      m_pApexPosix = this;
+      //m_pApexPosix = this;
 
    }
 

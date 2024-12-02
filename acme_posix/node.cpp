@@ -198,7 +198,7 @@ namespace acme_posix
    node::node()
    {
 
-      m_pAcmePosix = this;
+      //m_pAcmePosix = this;
 
       init_chldstatus_cs();
 

@@ -41,7 +41,7 @@ namespace aura_posix
          
 #endif
 
-      m_pAuraPosix = this;
+      //m_pAuraPosix = this;
 
    }
 
