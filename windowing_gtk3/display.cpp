@@ -1530,6 +1530,14 @@ namespace windowing_gtk3
 //   }
 
 
+   ::int_size display::get_main_screen_size()
+   {
+
+return ::gtk3::acme::windowing::display::get_main_screen_size();
+
+   }
+
+
 } // namespace windowing_gtk3
 
 

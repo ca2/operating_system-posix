@@ -327,14 +327,16 @@ namespace gtk3
          void window::_draw(::nano::graphics::device * pnanodevice)
          {
 			 
-			::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
+			   ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
             
             if(pelemental)
             {
 
-				pelemental->draw(pnanodevice);
+				   pelemental->draw_background(pnanodevice);
+
+               pelemental->draw_foreground(pnanodevice);
 				
-			}
+			   }
 
          }
 
@@ -675,22 +677,67 @@ namespace gtk3
             {
 
 
-                  pelemental->on_left_button_down(pmouse);
+                  pelemental->fore_on_left_button_down(pmouse);
                   
 			  }
+
+                  if (pmouse->m_bRet)
+                  {
+
+return true;
+
+                  }
+
+                  if(pelemental)
+                  {
+
+
+                     pelemental->back_on_left_button_down(pmouse);
+
+                  }
+
+                  if (pmouse->m_bRet)
+                  {
+
+                     return true;
+
+                  }
+
                }
                else if (pevent->button == GDK_BUTTON_SECONDARY)
                {
                   pmouse->m_atom = e_message_right_button_down;
                   ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
             
-            if(pelemental)
-            {
+                  if(pelemental)
+                  {
 
 
-                  pelemental->on_right_button_down(pmouse);
-                  
-			  }
+                     pelemental->fore_on_right_button_down(pmouse);
+
+                  }
+
+                  if (pmouse->m_bRet)
+                  {
+
+                     return true;
+
+                  }
+
+                  if(pelemental)
+                  {
+
+
+                     pelemental->back_on_right_button_down(pmouse);
+
+                  }
+
+                  if (pmouse->m_bRet)
+                  {
+
+                     return true;
+
+                  }
                }
                else if (pevent->button == GDK_BUTTON_MIDDLE)
                {
@@ -758,14 +805,35 @@ m_phappeningLastMouseUp = pevent;
 
                   ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
             
-            if(pelemental)
-            {
+                  if(pelemental)
+                  {
 
 
-                  pelemental->on_left_button_up(pmouse);
-                  
-			  }
+                     pelemental->fore_on_left_button_up(pmouse);
 
+                  }
+
+                  if (pmouse->m_bRet)
+                  {
+
+                     return true;
+
+                  }
+
+                  if(pelemental)
+                  {
+
+
+                     pelemental->back_on_left_button_up(pmouse);
+
+                  }
+
+                  if (pmouse->m_bRet)
+                  {
+
+                     return true;
+
+                  }
                }
                else if (pevent->button == GDK_BUTTON_SECONDARY)
                {
@@ -774,14 +842,35 @@ m_phappeningLastMouseUp = pevent;
 
                   ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
             
-            if(pelemental)
-            {
+                  if(pelemental)
+                  {
 
 
-                  pelemental->on_right_button_up(pmouse);
-                  
-			  }
+                     pelemental->fore_on_right_button_up(pmouse);
 
+                  }
+
+                  if (pmouse->m_bRet)
+                  {
+
+                     return true;
+
+                  }
+
+                  if(pelemental)
+                  {
+
+
+                     pelemental->back_on_right_button_up(pmouse);
+
+                  }
+
+                  if (pmouse->m_bRet)
+                  {
+
+                     return true;
+
+                  }
                }
                else if (pevent->button == GDK_BUTTON_MIDDLE)
                {
@@ -877,13 +966,35 @@ m_phappeningLastMouseUp = pevent;
 
                ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
             
-            if(pelemental)
-            {
+               if(pelemental)
+               {
 
 
-                  pelemental->on_mouse_move(pmouse);
-                  
-			  }
+                  pelemental->fore_on_mouse_move(pmouse);
+
+               }
+
+               if (pmouse->m_bRet)
+               {
+
+                  return true;
+
+               }
+
+               if(pelemental)
+               {
+
+
+                  pelemental->back_on_mouse_move(pmouse);
+
+               }
+
+               if (pmouse->m_bRet)
+               {
+
+                  return true;
+
+               }
 
             }
 

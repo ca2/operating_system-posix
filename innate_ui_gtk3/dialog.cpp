@@ -43,6 +43,14 @@ namespace innate_ui_gtk3
    //
    // }
 
+   void dialog::create()
+   {
+
+      ::innate_ui_gtk3::window::create();
+
+   }
+
+
    void dialog::_create()
    {
 

@@ -21,7 +21,7 @@ namespace innate_ui_gtk3
       dialog();
       ~dialog() override;
 
-
+void create() override;
       void _create() override;
       //void _get_class(WNDCLASSEXW & wcex);
       //void set_text(const ::scoped_string & scopedstr) override;

@@ -11,7 +11,7 @@
 // Manjaro libappindicator-gtk3
 //#include <libappindicator3-0.1/libappindicator/app-indicator.h>
 #include "acme/platform/application_menu_callback.h"
-#include "apex/platform/application_menu.h"
+#include "acme/platform/application_menu.h"
 #if defined(FREEBSD) || defined(FEDORA_LINUX) || defined(SUSE_LINUX) || defined(OPENBSD)
 #include <libappindicator3-0.1/libappindicator/app-indicator.h>
 #else

@@ -349,7 +349,7 @@ __øconstruct(pcursor);
    }
 
 
-   ::windowing::window * windowing::get_mouse_capture(::thread *)
+   ::acme::windowing::window * windowing::get_mouse_capture(::thread *)
    {
 
       if (!gtk3_display())
@@ -364,7 +364,9 @@ __øconstruct(pcursor);
    }
 
 
-   ::windowing::window * windowing::window(oswindow oswindow)
+
+
+   ::acme::windowing::window * windowing::window(oswindow oswindow)
    {
 
       return oswindow;
@@ -372,7 +374,8 @@ __øconstruct(pcursor);
    }
 
 
-   void windowing::set_mouse_capture(::thread * pthread, ::windowing::window * pwindow)
+
+   void windowing::set_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
    {
 
       m_pwindowMouseCapture = pwindow;
@@ -380,7 +383,7 @@ __øconstruct(pcursor);
    }
 
 
-   void windowing::release_mouse_capture(::thread * pthread, ::windowing::window * pwindow)
+   void windowing::release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
    {
 
       gtk3_display()->release_mouse_capture();
@@ -388,7 +391,7 @@ __øconstruct(pcursor);
    }
 
 
-   bool windowing::defer_release_mouse_capture(::thread * pthread, ::windowing::window * pwindow)
+   bool windowing::defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
    {
 
       if(m_pwindowMouseCapture != pwindow)

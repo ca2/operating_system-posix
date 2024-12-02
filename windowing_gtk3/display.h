@@ -20,6 +20,7 @@ namespace windowing_gtk3
 {
 
 
+
    class CLASS_DECL_WINDOWING_GTK3 display :
       virtual public ::windowing::display,
       virtual public ::gtk3::acme::windowing::display
@@ -88,7 +89,7 @@ namespace windowing_gtk3
 
       //virtual ::Display * _get_system_default_display();
 
-      bool has_readily_gettable_absolute_pointer_position() const override;
+
 
 
 //      virtual ::windowing_gtk3::window * _window(::wl_surface * pwlsurface);
@@ -104,6 +105,8 @@ namespace windowing_gtk3
       void open_display() override;
 
       virtual ::e_status erase_window(::windowing::window * pwindow);
+
+         bool has_readily_gettable_absolute_pointer_position() const override;
 
 //      virtual ::wl_display * _wl_display();
 //
@@ -174,6 +177,9 @@ namespace windowing_gtk3
 //      virtual void __handle_keyboard_leave(::wl_keyboard *pwlkeyboard, uint32_t serial, ::wl_surface *pwlsurface);
 //      virtual void __handle_keyboard_key(::wl_keyboard *pwlkeyboard, uint32_t serial, uint32_t time, uint32_t key, uint32_t state);
 //      virtual void __handle_keyboard_modifiers(::wl_keyboard *keyboard, uint32_t serial, uint32_t mods_depressed, uint32_t mods_latched, uint32_t mods_locked, uint32_t group);
+
+
+         ::int_size get_main_screen_size() override;
 
 
    };

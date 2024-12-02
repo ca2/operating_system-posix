@@ -90,13 +90,13 @@ namespace windowing_gtk3
       void windowing_post_quit() override;
 
 
-      void set_mouse_capture(::thread * pthread, ::windowing::window * pwindow) override;
+      void set_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow) override;
 
-      ::windowing::window * get_mouse_capture(::thread * pthread) override;
+      ::acme::windowing::window * get_mouse_capture(::thread * pthread) override;
 
-      void release_mouse_capture(::thread * pthread, ::windowing::window * pwindow) override;
+      void release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow) override;
 
-      bool defer_release_mouse_capture(::thread * pthread, ::windowing::window * pwindow) override;
+      bool defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow) override;
 
       virtual void _on_capture_changed_to(::windowing_gtk3::window * pwindowWithCapture);
 
@@ -158,7 +158,9 @@ namespace windowing_gtk3
 
       //virtual bool aaa_x11_runnable_step();
 
-      virtual ::windowing::window * window(oswindow oswindow) override;
+      virtual ::acme::windowing::window * window(oswindow oswindow) override;
+
+
 
       //virtual void _libsn_start_context() override;
 
