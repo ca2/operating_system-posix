@@ -54,7 +54,7 @@ namespace node_gtk_based
    node::node()
    {
 
-      m_pNodeGtkBased = this;
+      //m_pNodeGtkBased = this;
 
       //deferx_initializex_x11();
 

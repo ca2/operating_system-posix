@@ -402,7 +402,7 @@ namespace node_gtk4
    node::node()
    {
 
-      m_pNodeGtk4 = this;
+      //m_pNodeGtk4 = this;
 
       //deferx_initializex_x11();
 //      m_pGtkSettingsDefault = nullptr;
