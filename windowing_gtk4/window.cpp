@@ -1655,19 +1655,19 @@ m_pimcontext = gtk_im_multicontext_new();
 
 
    bool window::set_window_position(const class ::zorder & zorder, int x, int y, int cx, int cy,
-                                    const ::e_activation & eactivation, bool bNoZorder, bool bNoMove, bool bNoSize,
+                                    const ::user::e_activation & useractivation, bool bNoZorder, bool bNoMove, bool bNoSize,
                                     ::e_display edisplay)
    {
 
       information() << "windowing_gtk4 window::set_window_position ";
 
-      return _set_window_position_unlocked(zorder, x, y, cx, cy, eactivation, bNoZorder, bNoMove, bNoSize,
+      return _set_window_position_unlocked(zorder, x, y, cx, cy, useractivation, bNoZorder, bNoMove, bNoSize,
                                            edisplay);
    }
 
 
    bool window::_set_window_position_unlocked(const class ::zorder & zorder, int x, int y, int cx, int cy,
-                                              const ::e_activation & eactivation, bool bNoZorder, bool bNoMove,
+                                              const ::user::e_activation & useractivation, bool bNoZorder, bool bNoMove,
                                               bool bNoSize, ::e_display edisplay)
    {
 
@@ -1743,7 +1743,7 @@ m_pimcontext = gtk_im_multicontext_new();
 
 
    bool window::_configure_window_unlocked(const class ::zorder & zorder,
-                                           const ::e_activation & eactivation, bool bNoZorder, ::e_display edisplay)
+                                           const ::user::e_activation & useractivation, bool bNoZorder, ::e_display edisplay)
    {
 
       if (!(m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
@@ -1840,11 +1840,11 @@ m_pimcontext = gtk_im_multicontext_new();
       if (!(m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
       {
 
-         if (m_puserinteraction->const_layout().design().activation() == e_activation_default)
+         if (m_puserinteraction->const_layout().design().activation() == ::user::e_activation_default)
          {
 
             m_puserinteraction->layout().m_statea[::user::e_layout_sketch].activation() =
-               e_activation_set_active;
+               ::user::e_activation_set_active;
 
          }
 

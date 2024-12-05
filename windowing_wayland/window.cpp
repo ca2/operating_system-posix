@@ -537,7 +537,7 @@ namespace windowing_wayland
 //
 //            wm_desktopwindow(true);
 //
-//         } else if (pimpl->m_puserinteraction->const_layout().sketch().activation() & e_activation_on_center_of_screen)
+//         } else if (pimpl->m_puserinteraction->const_layout().sketch().activation() & ::user::e_activation_on_center_of_screen)
 //         {
 //
 //            wm_centerwindow(true);
@@ -672,7 +672,7 @@ namespace windowing_wayland
 //                  //set_window_position(e_zorder_top, pusersystem->m_createstruct.x, pusersystem->m_createstruct.y,
 //                  //                  pusersystem->m_createstruct.cx(), pusersystem->m_createstruct.cy(), SWP_SHOWWINDOW);
 //
-//                  set_window_position(e_zorder_top, x, y, cx, cy, e_activation_set_active, false, false, false,
+//                  set_window_position(e_zorder_top, x, y, cx, cy, ::user::e_activation_set_active, false, false, false,
 //                                      edisplay);
 //
 //               }
@@ -2210,10 +2210,10 @@ namespace windowing_wayland
 //
 //
 //   /// this function should be called in user/main thread
-//   void window::show_window(const ::e_display & edisplay, const ::e_activation & eactivation)
+//   void window::show_window(const ::e_display & edisplay, const ::user::e_activation & useractivation)
 //   {
 //
-//      aaa_user_post([this, edisplay, eactivation]()
+//      aaa_user_post([this, edisplay, useractivation]()
 //                                      {
 //
 //                                         windowing_output_debug_string("::window::show_window 1");
@@ -2222,7 +2222,7 @@ namespace windowing_wayland
 //
 //                                         display_lock displaylock(x11_display()->Display());
 //
-//                                         _show_window_unlocked(edisplay, eactivation);
+//                                         _show_window_unlocked(edisplay, useractivation);
 //
 ////         XWindowAttributes attr;
 ////
@@ -2304,10 +2304,10 @@ namespace windowing_wayland
 //   }
 //
 //
-//   void window::_show_window_unlocked(const ::e_display & edisplay, const ::e_activation & eactivation)
+//   void window::_show_window_unlocked(const ::e_display & edisplay, const ::user::e_activation & useractivation)
 //   {
 //
-//      //aaa_user_post([this, edisplay, eactivation]()
+//      //aaa_user_post([this, edisplay, useractivation]()
 //      //{
 //
 //      windowing_output_debug_string("::window::show_window 1");
@@ -3114,7 +3114,7 @@ namespace windowing_wayland
 
 
    bool window::set_window_position(const class ::zorder & zorder, int x, int y, int cx, int cy,
-                                    const ::e_activation & eactivation, bool bNoZorder, bool bNoMove, bool bNoSize,
+                                    const ::user::e_activation & useractivation, bool bNoZorder, bool bNoMove, bool bNoSize,
                                     ::e_display edisplay)
    {
 
@@ -3124,14 +3124,14 @@ namespace windowing_wayland
 
       information() << "windowing_wayland window::set_window_position ";
 
-      return _set_window_position_unlocked(zorder, x, y, cx, cy, eactivation, bNoZorder, bNoMove, bNoSize,
+      return _set_window_position_unlocked(zorder, x, y, cx, cy, useractivation, bNoZorder, bNoMove, bNoSize,
                                            edisplay);
 
    }
 
 
    bool window::_set_window_position_unlocked(const class ::zorder & zorder, int x, int y, int cx, int cy,
-                                              const ::e_activation & eactivation, bool bNoZorder, bool bNoMove,
+                                              const ::user::e_activation & useractivation, bool bNoZorder, bool bNoMove,
                                               bool bNoSize, ::e_display edisplay)
    {
 
@@ -3375,7 +3375,7 @@ namespace windowing_wayland
 
 
 //   bool window::_set_window_position_unlocked(const class ::zorder & zorder, int x, int y, int cx, int cy,
-//                                              const ::e_activation & eactivation, bool bNoZorder, bool bNoMove,
+//                                              const ::user::e_activation & useractivation, bool bNoZorder, bool bNoMove,
 //                                              bool bNoSize, bool bShow, bool bHide)
 //   {
 //
@@ -3616,7 +3616,7 @@ namespace windowing_wayland
 
 
    bool window::_configure_window_unlocked(const class ::zorder & zorder,
-                                           const ::e_activation & eactivation, bool bNoZorder, ::e_display edisplay)
+                                           const ::user::e_activation & useractivation, bool bNoZorder, ::e_display edisplay)
    {
 
       if (!(m_pwindow->m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
@@ -3640,7 +3640,7 @@ namespace windowing_wayland
 
       }
 
-//      node()->post_procedure([this, zorder, eactivation, bNoZorder, edisplay]()
+//      node()->post_procedure([this, zorder, useractivation, bNoZorder, edisplay]()
 //                                 {
 
 //                                    if(m_uLastRequestSerial == m_uLastConfigureSerial)
@@ -3922,11 +3922,11 @@ namespace windowing_wayland
          }
 
       }
-      else if (eactivation != e_activation_default)
+      else if (useractivation != ::user::e_activation_default)
       {
 
-         information() << "::windowing_wayland::window::_configure_window_unlocked eactivation : "
-                       << (::iptr) eactivation;
+         information() << "::windowing_wayland::window::_configure_window_unlocked useractivation : "
+                       << (::iptr) useractivation;
 
          __activate_window(true);
 
@@ -4209,7 +4209,7 @@ namespace windowing_wayland
 //            }
 //
 //         }
-//         else if(eactivation != e_activation_default)
+//         else if(useractivation != ::user::e_activation_default)
 //         {
 //
 //            __activate_window(false);
@@ -4280,15 +4280,15 @@ namespace windowing_wayland
 
 //   int_bool window::show_window(
 //                        const ::e_display &edisplay,
-//                        const ::e_activation &eactivation
+//                        const ::user::e_activation &useractivation
 //   )
 //   {
 //
-//      x11_sync([oswindow, edisplay, eactivation]()
+//      x11_sync([oswindow, edisplay, useractivation]()
 //               {
 //
 //                  return oswindow->
-//                     show_window(edisplay, eactivation
+//                     show_window(edisplay, useractivation
 //                  );
 //
 //               });
@@ -4582,11 +4582,11 @@ namespace windowing_wayland
       if (!(m_pwindow->m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
       {
 
-         if (m_pwindow->m_puserinteraction->const_layout().design().activation() == e_activation_default)
+         if (m_pwindow->m_puserinteraction->const_layout().design().activation() == ::user::e_activation_default)
          {
 
             m_pwindow->m_puserinteraction->layout().m_statea[::user::e_layout_sketch].activation() ==
-            e_activation_set_active;
+            ::user::e_activation_set_active;
 
          }
 

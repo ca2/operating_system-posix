@@ -2354,7 +2354,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
          //
          //            wm_desktopwindow(true);
          //
-         //         } else if (pimpl->m_puserinteraction->const_layout().sketch().activation() & e_activation_on_center_of_screen)
+         //         } else if (pimpl->m_puserinteraction->const_layout().sketch().activation() & ::user::e_activation_on_center_of_screen)
          //         {
          //
          //            wm_centerwindow(true);
@@ -2485,7 +2485,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
          //                  //set_window_position(e_zorder_top, pusersystem->m_createstruct.x, pusersystem->m_createstruct.y,
          //                  //                  pusersystem->m_createstruct.cx(), pusersystem->m_createstruct.cy(), SWP_SHOWWINDOW);
          //
-         //                  set_window_position(e_zorder_top, x, y, cx, cy, e_activation_set_active, false, false, false,
+         //                  set_window_position(e_zorder_top, x, y, cx, cy, ::user::e_activation_set_active, false, false, false,
          //                                      edisplay);
          //
          //               }
@@ -3985,10 +3985,10 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //
    //
    //   /// this function should be called in user/main thread
-   //   void window::show_window(const ::e_display & edisplay, const ::e_activation & eactivation)
+   //   void window::show_window(const ::e_display & edisplay, const ::user::e_activation & useractivation)
    //   {
    //
-   //      aaa_user_post([this, edisplay, eactivation]()
+   //      aaa_user_post([this, edisplay, useractivation]()
    //                                      {
    //
    //                                         windowing_output_debug_string("::window::show_window 1");
@@ -3997,7 +3997,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //
    //                                         display_lock displaylock(x11_display()->Display());
    //
-   //                                         _show_window_unlocked(edisplay, eactivation);
+   //                                         _show_window_unlocked(edisplay, useractivation);
    //
    ////         XWindowAttributes attr;
    ////
@@ -4079,10 +4079,10 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //   }
    //
    //
-   //   void window::_show_window_unlocked(const ::e_display & edisplay, const ::e_activation & eactivation)
+   //   void window::_show_window_unlocked(const ::e_display & edisplay, const ::user::e_activation & useractivation)
    //   {
    //
-   //      //aaa_user_post([this, edisplay, eactivation]()
+   //      //aaa_user_post([this, edisplay, useractivation]()
    //      //{
    //
    //      windowing_output_debug_string("::window::show_window 1");
@@ -4867,7 +4867,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
 
 
    bool window::set_window_position(const class ::zorder& zorder, int x, int y, int cx, int cy,
-                                    const ::e_activation& eactivation, bool bNoZorder, bool bNoMove, bool bNoSize,
+                                    const ::user::e_activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize,
                                     ::e_display edisplay)
    {
       synchronous_lock sl(user_synchronization());
@@ -4876,17 +4876,17 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
 
       information() << "windowing_kde5 window::set_window_position ";
 
-      return _set_window_position_unlocked(zorder, x, y, cx, cy, eactivation, bNoZorder, bNoMove, bNoSize,
+      return _set_window_position_unlocked(zorder, x, y, cx, cy, useractivation, bNoZorder, bNoMove, bNoSize,
                                            edisplay);
    }
 
 
    bool window::_set_window_position_unlocked(const class ::zorder& zorder, int x, int y, int cx, int cy,
-                                              const ::e_activation& eactivation, bool bNoZorder, bool bNoMove,
+                                              const ::user::e_activation& useractivation, bool bNoZorder, bool bNoMove,
                                               bool bNoSize, ::e_display edisplay)
    {
 
-       _configure_window_unlocked(zorder,eactivation, bNoZorder, edisplay);
+       _configure_window_unlocked(zorder,useractivation, bNoZorder, edisplay);
 
        if(!bNoMove || !bNoSize)
        {
@@ -4901,7 +4901,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
 
 
    bool window::_configure_window_unlocked(const class ::zorder& zorder,
-                                           const ::e_activation& eactivation, bool bNoZorder, ::e_display edisplay)
+                                           const ::user::e_activation& useractivation, bool bNoZorder, ::e_display edisplay)
    {
       if (!(m_pwindow->m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
       {
@@ -4925,15 +4925,15 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
 
    //   int_bool window::show_window(
    //                        const ::e_display &edisplay,
-   //                        const ::e_activation &eactivation
+   //                        const ::user::e_activation &useractivation
    //   )
    //   {
    //
-   //      x11_sync([oswindow, edisplay, eactivation]()
+   //      x11_sync([oswindow, edisplay, useractivation]()
    //               {
    //
    //                  return oswindow->
-   //                     show_window(edisplay, eactivation
+   //                     show_window(edisplay, useractivation
    //                  );
    //
    //               });
@@ -5315,10 +5315,10 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    {
       if (!(m_pwindow->m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
       {
-         if (m_pwindow->m_puserinteraction->const_layout().design().activation() == e_activation_default)
+         if (m_pwindow->m_puserinteraction->const_layout().design().activation() == ::user::e_activation_default)
          {
             m_pwindow->m_puserinteraction->layout().m_statea[::user::e_layout_sketch].activation() ==
-               e_activation_set_active;
+               ::user::e_activation_set_active;
          }
 
          return;

@@ -1184,7 +1184,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 //////
 //////            wm_desktopwindow(true);
 //////
-//////         } else if (pimpl->m_puserinteraction->const_layout().sketch().activation() & e_activation_on_center_of_screen) /         {
+//////         } else if (pimpl->m_puserinteraction->const_layout().sketch().activation() & ::user::e_activation_on_center_of_screen) /         {
 //////
 //////            wm_centerwindow(true);
 //////
@@ -1311,7 +1311,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 ////                  //set_window_position(e_zorder_top, pusersystem->m_createstruct.x, pusersystem->m_createstruct.y,
 ////                  //                  pusersystem->m_createstruct.cx(), pusersystem->m_createstruct.cy(), SWP_SHOWWINDOW);
 ////
-////                  set_window_position(e_zorder_top, x, y, cx, cy, e_activation_set_active, false, false, false,
+////                  set_window_position(e_zorder_top, x, y, cx, cy, ::user::e_activation_set_active, false, false, false,
 ////                                      edisplay);
 ////
 ////               }
@@ -3589,7 +3589,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 
 
    bool window::set_window_position(const class ::zorder & zorder, int x, int y, int cx, int cy,
-                                    const ::e_activation & eactivation, bool bNoZorder, bool bNoMove, bool bNoSize,
+                                    const ::user::e_activation & useractivation, bool bNoZorder, bool bNoMove, bool bNoSize,
                                     ::e_display edisplay)
    {
 
@@ -3599,14 +3599,14 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 
       information() << "windowing_gtk3 window::set_window_position ";
 
-      return _set_window_position_unlocked(zorder, x, y, cx, cy, eactivation, bNoZorder, bNoMove, bNoSize,
+      return _set_window_position_unlocked(zorder, x, y, cx, cy, useractivation, bNoZorder, bNoMove, bNoSize,
                                            edisplay);
 
    }
 
 
    bool window::_set_window_position_unlocked(const class ::zorder & zorder, int x, int y, int cx, int cy,
-                                              const ::e_activation & eactivation, bool bNoZorder, bool bNoMove,
+                                              const ::user::e_activation & useractivation, bool bNoZorder, bool bNoMove,
                                               bool bNoSize, ::e_display edisplay)
    {
 
@@ -3618,7 +3618,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 
 
 //   bool window::_set_window_position_unlocked(const class ::zorder & zorder, int x, int y, int cx, int cy,
-//                                              const ::e_activation & eactivation, bool bNoZorder, bool bNoMove,
+//                                              const ::user::e_activation & useractivation, bool bNoZorder, bool bNoMove,
 //                                              bool bNoSize, bool bShow, bool bHide)
 //   {
 //
@@ -3859,7 +3859,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 
 
    bool window::_configure_window_unlocked(const class ::zorder & zorder,
-                                           const ::e_activation & eactivation, bool bNoZorder, ::e_display edisplay)
+                                           const ::user::e_activation & useractivation, bool bNoZorder, ::e_display edisplay)
    {
 
       if (!(m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
@@ -3908,15 +3908,15 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 
 //   int_bool window::show_window(
 //                        const ::e_display &edisplay,
-//                        const ::e_activation &eactivation
+//                        const ::user::e_activation &useractivation
 //   )
 //   {
 //
-//      x11_sync([oswindow, edisplay, eactivation]()
+//      x11_sync([oswindow, edisplay, useractivation]()
 //               {
 //
 //                  return oswindow->
-//                     show_window(edisplay, eactivation
+//                     show_window(edisplay, useractivation
 //                  );
 //
 //               });
@@ -4234,11 +4234,11 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
       if (!(m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
       {
 
-         if (m_puserinteraction->const_layout().design().activation() == e_activation_default)
+         if (m_puserinteraction->const_layout().design().activation() == ::user::e_activation_default)
          {
 
             m_puserinteraction->layout().m_statea[::user::e_layout_sketch].activation() ==
-            e_activation_set_active;
+            ::user::e_activation_set_active;
 
          }
 

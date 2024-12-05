@@ -344,7 +344,7 @@ namespace windowing_xcb
          _set_desktop_window();
 
       }
-      else if (pimpl->m_puserinteraction->const_layout().sketch().activation() & e_activation_on_center_of_screen)
+      else if (pimpl->m_puserinteraction->const_layout().sketch().activation() & ::user::e_activation_on_center_of_screen)
       {
 
          _set_center_window();
@@ -1177,7 +1177,7 @@ namespace windowing_xcb
    }
 
 
-//   void window::show_window(const ::e_display &edisplay, const ::e_activation &eactivationi)
+//   void window::show_window(const ::e_display &edisplay, const ::user::e_activation &eactivationi)
 //   {
 //
 //      windowing_output_debug_string("::window::show_window 1");
@@ -1748,7 +1748,7 @@ namespace windowing_xcb
 
 
    bool window::set_window_position(const class ::zorder & zorder, int x, int y, int cx, int cy,
-                                    const ::e_activation & eactivation, bool bNoZorder, bool bNoMove, bool bNoSize,
+                                    const ::user::e_activation & useractivation, bool bNoZorder, bool bNoMove, bool bNoSize,
                                     ::e_display edisplay)
    {
 
@@ -1930,7 +1930,7 @@ namespace windowing_xcb
 
 
    bool window::_set_window_position_unlocked(const class ::zorder & zorder, int x, int y, int cx, int cy,
-                                              const ::e_activation & eactivation, bool bNoZorder, bool bNoMove,
+                                              const ::user::e_activation & useractivation, bool bNoZorder, bool bNoMove,
                                               bool bNoSize, ::e_display edisplay)
    {
 
@@ -2112,7 +2112,7 @@ namespace windowing_xcb
    }
 
 
-   bool window::_configure_window_unlocked(const class ::zorder & zorder, const ::e_activation & eactivation,
+   bool window::_configure_window_unlocked(const class ::zorder & zorder, const ::user::e_activation & useractivation,
                                            bool bNoZorder, ::e_display edisplay)
    {
 
