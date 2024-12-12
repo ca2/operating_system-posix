@@ -433,8 +433,11 @@ gtk_im_context_commit (
 
          }
 
-         printf_line("cairo w,h(%d,%d)",
-         width, height);
+#ifdef DEEP_DEBUGGING
+
+         printf_line("cairo w,h(%d,%d)", width, height);
+
+#endif
 
       }
       else
@@ -528,6 +531,8 @@ gtk_im_context_commit (
    void window::_on_size(int cx, int cy)
    {
 
+      informationf("::windowing_gtk4::window::on_size(%d,%d)", cx, cy);
+
       ::windowing::window * pimpl = this;
 
       auto puserinteraction = pimpl->m_puserinteraction;
@@ -537,13 +542,20 @@ gtk_im_context_commit (
       if (m_sizeOnSize != s)
       {
 
-         gtk_drawing_area_set_content_width (GTK_DRAWING_AREA (m_pdrawingarea), cx);
+         // // does setting drawing area content size prevents window to be resized smaller?
 
-         gtk_drawing_area_set_content_height (GTK_DRAWING_AREA (m_pdrawingarea), cy);
+         // gtk_drawing_area_set_content_width (GTK_DRAWING_AREA (m_pdrawingarea), cx);
 
-         gtk_widget_set_size_request(m_pdrawingarea, cx, cy);
+         // gtk_drawing_area_set_content_height (GTK_DRAWING_AREA (m_pdrawingarea), cy);
 
-         gtk_window_set_default_size(GTK_WINDOW(m_pgtkwidget), cx, cy);
+         // // sets widget minimum size
+         // // this isn't what we want here
+         // gtk_widget_set_size_request(m_pdrawingarea, cx, cy);
+
+         // // sets window default size
+         // // maybe this _on_size handler reports an already applied
+         // // cx width and cy height, so maybe this isn't also what we want here
+         // gtk_window_set_default_size(GTK_WINDOW(m_pgtkwidget), cx, cy);
 
          m_sizeOnSize = s;
 
