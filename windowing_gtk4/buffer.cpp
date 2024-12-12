@@ -559,7 +559,7 @@ namespace windowing_gtk4
 //   bool buffer::_update_screen_unlocked(::graphics::buffer_item * pitem)
    //bool buffer::_post_update_screen()
    //{
-   bool buffer::update_screen()
+   void buffer::update_screen()
    {
 
       if (m_pwindow == nullptr)
@@ -567,7 +567,9 @@ namespace windowing_gtk4
 
          warningf("windowing_gtk4::buffer::update_screen !m_pimpl!!");
 
-         return false;
+         //return false;
+
+         return;
 
       }
 
@@ -576,7 +578,9 @@ namespace windowing_gtk4
 
          warningf("windowing_gtk4::buffer::update_screen !m_pimpl->m_pwindow!!");
 
-         return false;
+         //return false;
+
+         return;
 
       }
 
@@ -648,7 +652,7 @@ namespace windowing_gtk4
 //         || pwaylandwindow->m_uLastConfigureSerial > pwaylandwindow->m_uLastRequestSerial))
 //      {
 
-      ::pointer<::windowing_gtk4::window> pgtk4window = m_pwindow;
+      ::pointer<::windowing_gtk4::window> pgtk4window = m_pwindow.m_p;
 
       ::string strType = ::type(pgtk4window->m_puserinteraction).name();
 
@@ -1262,17 +1266,17 @@ namespace windowing_gtk4
 // //
 // //      // }
 
-      return true;
+      //return true;
 
    }
 
 
-   bool buffer::on_update_screen(::graphics::buffer_item * pitem)
+   void buffer::on_update_screen(::graphics::buffer_item * pitem)
    {
 
       throw ("use update_window(void)");
 
-      return true;
+      //return true;
 
    }
 
