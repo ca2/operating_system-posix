@@ -2870,7 +2870,25 @@ if(functionTrace)
 
    }
 
+   //https://stackoverflow.com/questions/27914311/get-computer-name-and-logged-user-name
+//#include <unistd.h>
+//#include <limits.h>
+   ::string node::get_computer_name()
+   {
+      char hostname[HOST_NAME_MAX * 4];
+      //char username[LOGIN_NAME_MAX];
+      int error = gethostname(hostname, sizeof(hostname));
 
+      if (error)
+      {
+
+return{};
+
+      }
+
+      return hostname;
+
+   }
 
 } // namespace acme_posix
 
