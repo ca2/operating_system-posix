@@ -78,6 +78,7 @@ GtkWidget*m_pgtkwidget;
             GtkEventController *                         m_pgtkeventcontrollerMotion;
             /* Create a key happening controller */
             GtkEventController *m_pgtkeventcontrollerKey;
+            GtkEventController *m_pgtkeventcontrollerScroll;
 
             bool                                                  m_bMessageOnlyWindow;
             bool                                                  m_bHasKeyboardFocus;
@@ -125,6 +126,9 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
 
             void create_window() override;
             void _create_window() override;
+
+
+            void _enable_mouse_wheel_messages();
 
 
             void destroy_window() override;
@@ -183,6 +187,8 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
 
             virtual void _on_gtk_key_pressed(huge_natural uGtkKey, huge_natural uGtkKeyCode);
             virtual void _on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode);
+
+            virtual bool _on_gtk_scroll(GtkEventControllerScroll * peventcontrollerScroll, double dx, double dy);
 
             //virtual gboolean _on_gtk_key_press(GtkWidget *widget, GdkEvent *happening);
 

@@ -2497,6 +2497,70 @@ return false;
    }
 
 
+   bool window::_on_gtk_scroll(GtkEventControllerScroll * peventcontrollerScroll, double dx, double dy)
+   {
+
+      auto pmouse = __create_new<::message::mouse_wheel>();
+
+      pmouse->m_oswindow = this;
+
+      pmouse->m_pwindow = this;
+
+      // GdkEventSequence * sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
+      //
+      // // Get the GdkEvent from the sequence
+      // GdkEvent * happening = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+      //
+      // guint32 timestamp = gdk_event_get_time(happening);
+      //
+      // pmouse->m_iTimestamp = timestamp;
+
+      pmouse->m_atom = e_message_mouse_wheel;
+
+      informationf("_on_gtk_scroll(%0.2f, %0.2f)", dx, dy);
+
+      // Get the GdkEvent from the event controller
+      GdkEvent *event = gtk_event_controller_get_current_event(GTK_EVENT_CONTROLLER(peventcontrollerScroll));
+      if (event && gdk_event_get_event_type(event) == GDK_SCROLL)
+      {
+         double x, y;
+
+         // Get the cursor position relative to the widget
+         if (gdk_event_get_position(event, &x, &y))
+         {
+            g_print("Scroll event: dx=%.2f, dy=%.2f, cursor position: x=%.2f, y=%.2f\n", dx, dy, x, y);
+
+            ::int_point pointCursor(x, y);
+
+            pmouse->m_pointHost = pointCursor;
+
+            //            _defer_translate_to_absolute_coordinates_unlocked(pointCursor);
+
+            m_pointCursor2 = pointCursor;
+
+            pmouse->m_pointAbsolute = m_pointCursor2;
+            g_print("Scroll event: dx=%.2f, dy=%.2f, cursor position: x=%.2f, y=%.2f\n", dx, dy, x, y);
+         }
+         else
+         {
+            g_print("Failed to get cursor position from the scroll event.\n");
+            pmouse->m_pointHost = m_pointCursor2;
+
+            //            _defer_translate_to_absolute_coordinates_unlocked(pointCursor);
+
+            pmouse->m_pointAbsolute = m_pointCursor2;
+
+         }
+      }
+
+      pmouse->m_Δ = (short)-dy*120;
+
+      message_handler(pmouse);
+
+      return false;
+
+   }
+
 
    void window::_on_drawing_area_keyboard_focus()
    {

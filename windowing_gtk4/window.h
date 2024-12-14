@@ -50,6 +50,8 @@ namespace windowing_gtk4
       bool _on_gtk_key_pressed(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state) override;
       bool _on_gtk_key_released(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state) override;
 
+      bool _on_gtk_scroll(GtkEventControllerScroll * peventcontrollerScroll, double dx, double dy) override;
+
       void _on_text(const ::scoped_string & scopedstr) override;
 
       virtual void _on_gtk_im_context_commit(const char * psz);

@@ -345,6 +345,36 @@ namespace gtk4
          }
 
 
+
+         // Callback for the scroll event
+         static gboolean on_scroll(GtkEventControllerScroll *controller, gdouble dx, gdouble dy, gpointer user_data)
+         {
+
+            // dx and dy are the scroll deltas
+
+            g_print("Scroll event: dx=%.2f, dy=%.2f\n", dx, dy);
+
+            auto pwindow = (window*)user_data;
+
+            /* Print the key that was pressed */
+            //      g_print("Key pressed: %s\n", gdk_keyval_name(keyval));
+
+            //::string str = gdk_keyval_name(keyval);
+
+            if (pwindow->_on_gtk_scroll(controller, dx, dy))
+            {
+
+               return true;
+
+            }
+
+            // Return TRUE if the event is handled
+            return TRUE;
+
+         }
+
+
+
          window::window()
          {
 
@@ -355,6 +385,8 @@ namespace gtk4
             m_pgtkwidget = nullptr;
 
             m_pgtkeventcontrollerKey = nullptr;
+
+            m_pgtkeventcontrollerScroll = nullptr;
 
          }
 
@@ -458,6 +490,14 @@ namespace gtk4
 
          void window::_on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode)
          {
+         }
+
+
+         bool window::_on_gtk_scroll(GtkEventControllerScroll * peventcontrollerScroll, double dx, double dy)
+         {
+
+            return false;
+
          }
 
 
@@ -747,6 +787,9 @@ namespace gtk4
             gtk_widget_add_controller(m_pdrawingarea, m_pgtkeventcontrollerKey);
 
 
+            _enable_mouse_wheel_messages();
+
+
             {
 
                bool bFocusable = gtk_widget_get_focusable(m_pdrawingarea);
@@ -891,6 +934,25 @@ namespace gtk4
             }
 
             m_pacmeuserinteraction->on_create_window();
+
+         }
+
+
+         void window::_enable_mouse_wheel_messages()
+         {
+
+            if (!m_pgtkeventcontrollerScroll)
+            {
+
+               // Create a scroll event controller and attach it to the label
+
+               m_pgtkeventcontrollerScroll = gtk_event_controller_scroll_new(GTK_EVENT_CONTROLLER_SCROLL_VERTICAL);
+
+               g_signal_connect(m_pgtkeventcontrollerScroll, "scroll", G_CALLBACK(on_scroll), this);
+
+               gtk_widget_add_controller(m_pdrawingarea, m_pgtkeventcontrollerScroll);
+
+            }
 
          }
 
