@@ -1980,6 +1980,8 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 //         memory_copy(argv, gl.gl_pathv, gl.gl_pathc * sizeof(char *));
 
 	p->add(nullptr);
+
+   __refdbg_add_referer;
 	
 	p->increment_reference_count();
 

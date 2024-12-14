@@ -676,6 +676,10 @@ namespace gtk4
 
             //gtk_drawing_area_set_content_height (GTK_DRAWING_AREA (m_pdrawingarea), cy);
 
+            gtk_widget_set_hexpand(m_pdrawingarea, true);
+
+            gtk_widget_set_vexpand(m_pdrawingarea, true);
+
             gtk_drawing_area_set_draw_func(
                GTK_DRAWING_AREA(m_pdrawingarea),
                GtkDrawingAreaDrawFunc,
@@ -1496,9 +1500,9 @@ namespace gtk4
             ///main_post([this, ppopover]()
             //{
 
-               information() << "before gtk_popover_popup";
+               //information() << "before gtk_popover_popup";
                gtk_popover_popup(GTK_POPOVER(ppopover));
-               information() << "after gtk_popover_popup";
+               //information() << "after gtk_popover_popup";
                //gtk_widget_set_visible(ppopover, true);
 
             //});
@@ -1969,6 +1973,14 @@ namespace gtk4
    void window::window_maximize()
    {
 
+      main_send([this]()
+      {
+
+         information() << "gtk4::acme::windowing::window::window_maximize";
+
+         gtk_window_maximize(GTK_WINDOW(m_pgtkwidget));
+
+      });
 
    }
 

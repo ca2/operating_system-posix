@@ -1452,6 +1452,13 @@ m_bMessageThread=true;
          }
 
 
+         bool windowing::has_resizing()
+         {
+
+            return false;
+
+         }
+
 
       } // namespace windowing
 

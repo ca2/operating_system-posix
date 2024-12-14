@@ -8,7 +8,7 @@
 __FACTORY_EXPORT void windowing_gtk4_factory(::factory::factory * pfactory);
 
 
-__FACTORY_EXPORT void node_gtk_factory(::factory::factory * pfactory)
+__FACTORY_EXPORT void node_gtk4_factory(::factory::factory * pfactory)
 {
 
    //::node_gtk4::initialize_gtk();

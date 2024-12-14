@@ -146,6 +146,8 @@ namespace gtk4
             ::windowing::enum_windowing calculate_ewindowing() override;
 
 
+            bool has_resizing() override;
+
 
          };
 

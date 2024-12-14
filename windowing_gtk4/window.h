@@ -216,7 +216,7 @@ namespace windowing_gtk4
       void on_window_shown() override;
       void on_window_hidden() override;
 
-      void _on_activation_change();
+      void _on_activation_change(bool bActive);
 
 
       virtual void _set_cursor_from_name(const ::scoped_string & scopedstr);

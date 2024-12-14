@@ -544,18 +544,23 @@ gtk_im_context_commit (
 
          // // does setting drawing area content size prevents window to be resized smaller?
 
-         // gtk_drawing_area_set_content_width (GTK_DRAWING_AREA (m_pdrawingarea), cx);
+         //gtk_drawing_area_set_content_width (GTK_DRAWING_AREA (m_pdrawingarea), cx);
 
-         // gtk_drawing_area_set_content_height (GTK_DRAWING_AREA (m_pdrawingarea), cy);
+         //gtk_drawing_area_set_content_height (GTK_DRAWING_AREA (m_pdrawingarea), cy);
 
          // // sets widget minimum size
          // // this isn't what we want here
          // gtk_widget_set_size_request(m_pdrawingarea, cx, cy);
 
-         // // sets window default size
-         // // maybe this _on_size handler reports an already applied
-         // // cx width and cy height, so maybe this isn't also what we want here
-         // gtk_window_set_default_size(GTK_WINDOW(m_pgtkwidget), cx, cy);
+         if (!gtk_window_is_maximized(GTK_WINDOW(m_pgtkwidget)))
+         {
+
+            // // sets window default size
+            // // maybe this _on_size handler reports an already applied
+            // // cx width and cy height, so maybe this isn't also what we want here
+            gtk_window_set_default_size(GTK_WINDOW(m_pgtkwidget), cx, cy);
+
+         }
 
          m_sizeOnSize = s;
 
@@ -1204,6 +1209,8 @@ on_text(scopedstr, scopedstr.size());
          int h = 0;
 
          gdk_toplevel_size_get_bounds(size, &w, &h);
+
+         informationf("gdk_toplevel_size_get_bounds returned %d, %d", w, h);
 
          gdk_toplevel_size_set_size(size, w, h);
 
@@ -2150,12 +2157,7 @@ m_pimcontext = gtk_im_multicontext_new();
    void window::window_maximize()
    {
 
-      main_post([this]()
-       {
-
-          gtk_window_maximize(GTK_WINDOW(m_pgtkwidget));
-
-       });
+      ::gtk4::acme::windowing::window::window_maximize();
 
    }
 
@@ -2163,7 +2165,7 @@ m_pimcontext = gtk_im_multicontext_new();
    void window::on_window_deiconified()
    {
 
-      _on_activation_change();
+      _on_activation_change(true);
 
    }
 
@@ -2171,7 +2173,7 @@ m_pimcontext = gtk_im_multicontext_new();
    void window::on_window_activated()
    {
 
-      _on_activation_change();
+      _on_activation_change(true);
 
    }
 
@@ -2179,7 +2181,7 @@ m_pimcontext = gtk_im_multicontext_new();
    void window::on_window_iconified()
    {
 
-      _on_activation_change();
+      _on_activation_change(false);
 
    }
 
@@ -2187,7 +2189,7 @@ m_pimcontext = gtk_im_multicontext_new();
    void window::on_window_deactivated()
    {
 
-      _on_activation_change();
+      _on_activation_change(false);
 
    }
 
@@ -2233,23 +2235,33 @@ m_pimcontext = gtk_im_multicontext_new();
 
 
 
-   void window::_on_activation_change()
+   void window::_on_activation_change(bool bActive)
    {
 
-      auto & sketch = m_puserinteraction->layout().m_statea[::user::e_layout_sketch];
-
-      enum_display edisplayCurrent = defer_window_get_best_display_deduction();
-
-      if(sketch.m_edisplay != edisplayCurrent)
+      if (bActive)
       {
 
-         sketch.m_edisplay = edisplayCurrent;
+         auto & sketch = m_puserinteraction->layout().m_statea[::user::e_layout_sketch];
+
+         if (!::is_screen_visible(sketch.m_edisplay))
+         {
+
+            enum_display edisplayCurrent = defer_window_get_best_display_deduction();
+
+            if(sketch.m_edisplay != edisplayCurrent)
+            {
+
+               sketch.m_edisplay = edisplayCurrent;
+
+            }
+
+            auto & window = m_puserinteraction->layout().m_statea[::user::e_layout_window];
+
+            window.m_edisplay = edisplayCurrent;
+
+         }
 
       }
-
-      auto & window = m_puserinteraction->layout().m_statea[::user::e_layout_window];
-
-      window.m_edisplay = edisplayCurrent;
 
    }
 
