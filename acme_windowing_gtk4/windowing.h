@@ -149,6 +149,9 @@ namespace gtk4
             bool has_resizing() override;
 
 
+            void set_dark_mode(bool bDarkMode);
+
+
          };
 
 

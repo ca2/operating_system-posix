@@ -169,6 +169,11 @@ namespace windowing_gtk4
       //void _on_wm_state_change(::windowing::window * pwindow) override;
 
       void windowing_application_main_loop() override;
+
+
+      void set_dark_mode(bool bDarkMode) override;
+
+
    };
 
 

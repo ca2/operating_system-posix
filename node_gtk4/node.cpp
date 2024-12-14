@@ -731,47 +731,47 @@ namespace node_gtk4
 //    }
 //
 //
-//    void node::set_dark_mode(bool bDarkMode)
-//    {
-//
-//       // post_procedure([this, bDarkMode]()
-//       //                {
-//       //
-//       // if(bDarkMode)
-//       // {
-//       //
-//       //    ::windowing_gtk4::gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-dark");
-//       //
-//       // }
-//       // else
-//       // {
-//       //
-//       //    auto psummary = operating_system_summary();
-//       //
-//       //    if(psummary->m_strDistro.case_insensitive_equals("ubuntu"))
-//       //    {
-//       //
-//       //       ::windowing_gtk4::gsettings_set("org.gnome.desktop.interface", "color-scheme", "default");
-//       //
-//       //    }
-//       //    else
-//       //    {
-//       //
-//       //       ::windowing_gtk4::gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-light");
-//       //
-//       //    }
-//       //
-//       // }
-//       //
-//       // _os_set_user_theme(m_strTheme);
-//       //
-//       // _os_set_user_icon_theme(m_strIconTheme);
-//       //
-//       // ::aura_posix::node::set_dark_mode(bDarkMode);
-//       //
-//       // });
-//
-//    }
+    // void node::set_dark_mode(bool bDarkMode)
+    // {
+    //
+    //    main_post([this, bDarkMode]()
+    //                   {
+    //
+    //    if(bDarkMode)
+    //    {
+    //
+    //       ::gdk::gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-dark");
+    //
+    //    }
+    //    else
+    //    {
+    //
+    //       auto psummary = operating_system_summary();
+    //
+    //       if(psummary->m_strDistro.case_insensitive_equals("ubuntu"))
+    //       {
+    //
+    //          ::gdk::gsettings_set("org.gnome.desktop.interface", "color-scheme", "default");
+    //
+    //       }
+    //       else
+    //       {
+    //
+    //          ::gdk::gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-light");
+    //
+    //       }
+    //
+    //    }
+    //
+    //    //_os_set_user_theme(m_strTheme);
+    //
+    //    //_os_set_user_icon_theme(m_strIconTheme);
+    //
+    //    //::aura_posix::node::set_dark_mode(bDarkMode);
+    //
+    //    });
+    //
+    // }
 //
 //
 //    void node::os_set_user_theme(const ::string &strUserTheme)

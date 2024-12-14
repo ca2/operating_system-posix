@@ -13,6 +13,7 @@
 #include "acme/handler/request.h"
 #include "gdk_gdk.h"
 #include "acme/platform/system.h"
+#include "acme/operating_system/summary.h"
 //#include <X11/Xatom.h>
 //#include <xkbcommon/xkbcommon.h>
 //#include <X11/XKBlib.h>
@@ -1456,6 +1457,49 @@ m_bMessageThread=true;
          {
 
             return false;
+
+         }
+
+
+         void windowing::set_dark_mode(bool bDarkMode)
+         {
+
+            main_post([this, bDarkMode]()
+            {
+
+               if(bDarkMode)
+               {
+
+                  ::gdk::gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-dark");
+
+               }
+               else
+               {
+
+                  // auto psummary = node()->operating_system_summary();
+                  //
+                  // if(psummary->m_strDistro.case_insensitive_equals("ubuntu"))
+                  // {
+
+                     ::gdk::gsettings_set("org.gnome.desktop.interface", "color-scheme", "default");
+
+                  // }
+                  // else
+                  // {
+                  //
+                  //    ::gdk::gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-light");
+                  //
+                  // }
+
+               }
+
+               //_os_set_user_theme(m_strTheme);
+
+               //_os_set_user_icon_theme(m_strIconTheme);
+
+               //::aura_posix::node::set_dark_mode(bDarkMode);
+
+            });
 
          }
 
