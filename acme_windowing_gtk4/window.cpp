@@ -2062,6 +2062,8 @@ namespace gtk4
 
          information() << "gtk4::acme::windowing::window::window_maximize";
 
+         m_timeHoverNoiseSuppression.Now();
+
          gtk_window_maximize(GTK_WINDOW(m_pgtkwidget));
 
       });
@@ -2071,7 +2073,6 @@ namespace gtk4
 
    void window::window_restore()
    {
-
 
    }
 

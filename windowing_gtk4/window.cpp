@@ -2175,6 +2175,8 @@ m_pimcontext = gtk_im_multicontext_new();
          if (gtk_window_is_maximized(GTK_WINDOW(m_pgtkwidget)))
          {
 
+            m_timeHoverNoiseSuppression.Now();
+
             gtk_window_unmaximize(GTK_WINDOW(m_pgtkwidget));
 
          }
