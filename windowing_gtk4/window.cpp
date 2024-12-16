@@ -1851,7 +1851,18 @@ m_pimcontext = gtk_im_multicontext_new();
 
       ::windowing::window::set_mouse_cursor(pcursor);
 
-      windowing()->set_mouse_cursor2(pcursor);
+      //windowing()->set_mouse_cursor2(pcursor);
+
+      ::cast < ::windowing_gtk4::cursor > pgtk4cursor = pcursor;
+
+      if (pgtk4cursor)
+      {
+         pgtk4cursor->_create_os_cursor();
+         auto cursor = pgtk4cursor->m_pgdkcursor;
+         GdkSurface *window = gtk_native_get_surface(gtk_widget_get_native(m_pgtkwidget));
+         gdk_surface_set_cursor(window, cursor);
+         g_object_unref(cursor); // Free the cursor after setting it
+      }
 
    }
 
