@@ -162,34 +162,60 @@ drawing_area_state_flags_changed (
    }
 
 
-   void window_state_flags_changed(GtkWidget * self, GtkStateFlags flags, gpointer user_data)
+   void window_state_flags_changed(GtkWidget * self, GtkStateFlags flagsPrevious, gpointer user_data)
    {
 
       auto pwindow = (window*) user_data;
 
+      auto flagsNow = gtk_widget_get_state_flags(self);
+
       bool bWasRecordedAsActive = pwindow->m_bActiveWindow;
 
-      if(flags & GTK_STATE_FLAG_ACTIVE)
+      if((flagsNow & GTK_STATE_FLAG_ACTIVE) && !(flagsPrevious & GTK_STATE_FLAG_ACTIVE)
+         || (flagsNow & GTK_STATE_FLAG_FOCUS_WITHIN) && !(flagsPrevious & GTK_STATE_FLAG_FOCUS_WITHIN))
       {
 
          pwindow->m_bActiveWindow = true;
 
-         if(pwindow->m_puserinteraction->layout().m_statea[::user::e_layout_window].display() == ::e_display_iconic)
+         if(!bWasRecordedAsActive)
          {
 
-            pwindow->on_window_deiconified();
+            gboolean is_maximized = gtk_window_is_maximized(GTK_WINDOW(self));
+
+            if (is_maximized)
+            {
+
+               pwindow->_on_display_change(e_display_zoomed);
+
+            }
+            else
+            {
+
+               pwindow->_on_display_change(e_display_normal);
+
+            }
 
          }
-         else if(!bWasRecordedAsActive)
-         {
 
-            pwindow->on_window_activated();
-
-         }
+         // if(pwindow->m_puserinteraction->layout().m_statea[::user::e_layout_window].display() == ::e_display_iconic)
+         // {
+         //
+         //    pwindow->on_window_deiconified();
+         //
+         // }
+         // else if(!bWasRecordedAsActive)
+         // {
+         //
+         //    pwindow->on_window_activated();
+         //
+         // }
 
       }
-      else
+      else if(!(flagsNow & GTK_STATE_FLAG_ACTIVE) && (flagsPrevious & GTK_STATE_FLAG_ACTIVE)
+         || !(flagsNow & GTK_STATE_FLAG_FOCUS_WITHIN) && (flagsPrevious & GTK_STATE_FLAG_FOCUS_WITHIN))
       {
+
+         pwindow->m_bActiveWindow = false;
 
          if(pwindow->m_puserinteraction->const_layout().sketch().display() == ::e_display_iconic)
          {
@@ -539,8 +565,12 @@ gtk_im_context_commit (
 
       ::int_size s(cx, cy);
 
-      if (m_sizeOnSize != s)
+      bool bChanged = m_sizeOnSize != s;
+
+      if (bChanged)
       {
+
+         m_sizeOnSize = s;
 
          // // does setting drawing area content size prevents window to be resized smaller?
 
@@ -552,8 +582,16 @@ gtk_im_context_commit (
          // // this isn't what we want here
          // gtk_widget_set_size_request(m_pdrawingarea, cx, cy);
 
-         if (!gtk_window_is_maximized(GTK_WINDOW(m_pgtkwidget)))
+         if (gtk_window_is_maximized(GTK_WINDOW(m_pgtkwidget)))
          {
+
+            m_sizeOnSizeZoomed = s;
+
+         }
+         else
+         {
+
+            m_sizeOnSizeRestored= s;
 
             // // sets window default size
             // // maybe this _on_size handler reports an already applied
@@ -561,8 +599,6 @@ gtk_im_context_commit (
             gtk_window_set_default_size(GTK_WINDOW(m_pgtkwidget), cx, cy);
 
          }
-
-         m_sizeOnSize = s;
 
          printf_line("puserinteraction->set_size (gtk4 CT25) %d, %d", cx, cy);
 
@@ -2165,6 +2201,8 @@ m_pimcontext = gtk_im_multicontext_new();
    void window::on_window_deiconified()
    {
 
+      information() << "::windowing_gtk4::window::on_window_deiconified";
+
       _on_activation_change(true);
 
    }
@@ -2243,21 +2281,22 @@ m_pimcontext = gtk_im_multicontext_new();
 
          auto & sketch = m_puserinteraction->layout().m_statea[::user::e_layout_sketch];
 
-         if (!::is_screen_visible(sketch.m_edisplay))
+         enum_display edisplayCurrent = defer_window_get_best_display_deduction();
+
+         auto & window = m_puserinteraction->layout().m_statea[::user::e_layout_window];
+
+         window.m_edisplay = edisplayCurrent;
+
+         if(sketch.m_edisplay != edisplayCurrent)
          {
 
-            enum_display edisplayCurrent = defer_window_get_best_display_deduction();
+            m_puserinteraction->display(edisplayCurrent);
 
-            if(sketch.m_edisplay != edisplayCurrent)
-            {
+            m_puserinteraction->set_need_layout();
 
-               sketch.m_edisplay = edisplayCurrent;
+            m_puserinteraction->set_need_redraw();
 
-            }
-
-            auto & window = m_puserinteraction->layout().m_statea[::user::e_layout_window];
-
-            window.m_edisplay = edisplayCurrent;
+            m_puserinteraction->post_redraw();
 
          }
 

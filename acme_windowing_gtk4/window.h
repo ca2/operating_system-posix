@@ -82,6 +82,8 @@ GtkWidget*m_pgtkwidget;
 
             bool                                                  m_bMessageOnlyWindow;
             bool                                                  m_bHasKeyboardFocus;
+            ::int_size                                            m_sizeOnSizeRestored;
+            ::int_size                                            m_sizeOnSizeZoomed;
             ::int_size                                            m_sizeOnSize;
 
 

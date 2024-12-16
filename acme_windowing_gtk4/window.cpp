@@ -133,9 +133,25 @@ namespace gtk4
 
                   auto pgtkwindow = GTK_WINDOW(pgobject);
 
-                  int iWidth = pwindow->m_sizeOnSize.cx();
+                  int iWidth;
+                  int iHeight;
 
-                  int iHeight = pwindow->m_sizeOnSize.cy();
+                  if (gtk_window_is_maximized(pgtkwindow))
+                  {
+
+                     iWidth = pwindow->m_sizeOnSizeZoomed.cx();
+
+                     iHeight = pwindow->m_sizeOnSizeZoomed.cy();
+
+                  }
+                  else
+                  {
+
+                     iWidth = pwindow->m_sizeOnSizeRestored.cx();
+
+                     iHeight = pwindow->m_sizeOnSizeRestored.cy();
+
+                  }
 
                   gtk_window_get_default_size(pgtkwindow, &iWidth, &iHeight);
 
@@ -688,9 +704,15 @@ namespace gtk4
 
             }
 
-            m_sizeOnSize.cx() = cx;
+            m_sizeOnSizeRestored.cx() = cx;
 
-            m_sizeOnSize.cy() = cy;
+            m_sizeOnSizeRestored.cy() = cy;
+
+            // Maximized size is set here just because it isn't know
+
+            m_sizeOnSizeZoomed.cx() = cx;
+
+            m_sizeOnSizeZoomed.cy() = cy;
 
             if (GTK_IS_WINDOW(m_pgtkwidget))
             {
@@ -708,7 +730,7 @@ namespace gtk4
             }
 
 
-            set_interface_client_size(m_sizeOnSize);
+            set_interface_client_size(m_sizeOnSizeRestored);
 
             m_pdrawingarea = gtk_drawing_area_new();
 
@@ -1118,8 +1140,8 @@ namespace gtk4
                   // Get the default pointer device (e.g., mouse)
                   GdkDevice* pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
 
-                  m_pointCursor2.x() = m_sizeOnSize.cx() / 2;
-                  m_pointCursor2.y() = m_sizeOnSize.cy() / 2;
+                  m_pointCursor2.x() = m_sizeOnSizeRestored.cx() / 2;
+                  m_pointCursor2.y() = m_sizeOnSizeRestored.cy() / 2;
 
 
                   auto* pwidget = (GtkWidget*)pitem->m_pWidgetImpl;
@@ -1182,8 +1204,8 @@ namespace gtk4
                   // Get the default pointer device (e.g., mouse)
                   GdkDevice* pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
 
-                  m_pointCursor2.x() = m_sizeOnSize.cx() / 2;
-                  m_pointCursor2.y() = m_sizeOnSize.cy() / 2;
+                  m_pointCursor2.x() = m_sizeOnSizeRestored.cx() / 2;
+                  m_pointCursor2.y() = m_sizeOnSizeRestored.cy() / 2;
 
                   //
                   // pmouse->m_pointHost = m_pointCursor2;
@@ -1247,8 +1269,8 @@ namespace gtk4
                {
 
 
-                  m_pointCursor2.x() = m_sizeOnSize.cx() / 2;
-                  m_pointCursor2.y() = m_sizeOnSize.cy() / 2;
+                  m_pointCursor2.x() = m_sizeOnSizeRestored.cx() / 2;
+                  m_pointCursor2.y() = m_sizeOnSizeRestored.cy() / 2;
 
 
                }
