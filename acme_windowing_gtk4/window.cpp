@@ -89,6 +89,16 @@ namespace gtk4
          }
 
 
+         static void on_button_stopped(GtkGestureClick* pgesture, gpointer p)
+         {
+
+            ::pointer<::gtk4::acme::windowing::window> pwindow = (::gtk4::acme::windowing::window*)p;
+
+            pwindow->_on_button_stopped(pgesture);
+
+         }
+
+
          static void on_motion_notify(GtkEventControllerMotion* pcontroller, double x, double y, gpointer p)
          {
 
@@ -783,6 +793,8 @@ namespace gtk4
             g_signal_connect(m_pgtkgestureClick, "pressed", G_CALLBACK(on_button_pressed), this);
 
             g_signal_connect(m_pgtkgestureClick, "released", G_CALLBACK(on_button_released), this);
+
+            g_signal_connect(m_pgtkgestureClick, "stopped", G_CALLBACK(on_button_stopped), this);
 
             gtk_widget_add_controller(m_pdrawingarea, GTK_EVENT_CONTROLLER(m_pgtkgestureClick));
 
@@ -2419,6 +2431,14 @@ namespace gtk4
          }
 
       }
+
+   }
+
+
+   void window::_on_button_stopped(GtkGestureClick * pgesture)
+   {
+
+      _on_button_released(pgesture, 1, -65535.0, -65535.0);
 
    }
 

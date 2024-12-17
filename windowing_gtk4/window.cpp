@@ -465,6 +465,8 @@ gtk_im_context_commit (
 
 #endif
 
+         m_timeLastDrawGuard1.Now();
+
       }
       else
       {
@@ -521,9 +523,15 @@ gtk_im_context_commit (
 
             });
 
-          }
-          else
-          {
+         }
+         else if (edisplay == e_display_iconic)
+         {
+
+            m_puserinteraction->display(::e_display_iconic);
+
+         }
+         else
+         {
 
             m_puserinteraction->display(::e_display_normal);
 
@@ -1029,8 +1037,15 @@ gtk_im_context_commit (
          }
 
       }
+      else
+      {
+
+      informationf("n_press = %d", n_press);
+
+      }
 
    }
+
 
 
    void window::_on_motion_notify(GtkEventControllerMotion * pcontroller, double x, double y)
@@ -1764,7 +1779,7 @@ m_pimcontext = gtk_im_multicontext_new();
          //if(!is_iconic())
          //{
 
-            window_minimize();
+         window_minimize();
 
          //}
 
@@ -2044,14 +2059,17 @@ m_pimcontext = gtk_im_multicontext_new();
       if(!m_bInhibitQueueDraw)
       {
 
+         information() << "::window::window_update_screen";
+
          main_send([this]()
          {
 
             if (GTK_IS_WIDGET(m_pgtkwidget) && !m_bInhibitQueueDraw)
             {
 
-               set_window_position_unlocked();
+               information() << "::window::window_update_screen (2)";
 
+               set_window_position_unlocked();
 
                gtk_widget_queue_draw(m_pdrawingarea);
 

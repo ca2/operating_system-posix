@@ -168,6 +168,8 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
 
             virtual void _on_button_released(GtkGestureClick* pgesture, int n_press, double x, double y);
 
+            virtual void _on_button_stopped(GtkGestureClick* pgesture);
+
             virtual void _on_motion_notify(GtkEventControllerMotion* pcontroller, double x, double y);
 
             virtual void _on_enter_notify(GtkEventControllerMotion* pcontroller, double x, double y);
