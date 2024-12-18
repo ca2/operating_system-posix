@@ -57,6 +57,30 @@ namespace gtk4
       namespace windowing
       {
 
+         static void on_window_is_active_changed(GObject *window, GParamSpec *pspec, gpointer p) {
+            auto pwindow = (::gtk4::acme::windowing::window*)p;
+            gboolean is_active = gtk_window_is_active(GTK_WINDOW(window));
+
+            pwindow->_on_window_is_active_change(is_active);
+            if (is_active) {
+               g_print("Main window is active\n");
+            } else {
+               g_print("Main window is inactive\n");
+            }
+         }
+
+         static void on_focus_changed(GObject *widget, GParamSpec *pspec, gpointer p) {
+            auto pwindow = (::gtk4::acme::windowing::window*)p;
+            gboolean has_focus = gtk_widget_has_focus(GTK_WIDGET(widget));
+            if (has_focus) {
+               g_print("Widget gained focus\n");
+            } else {
+               g_print("Widget lost focus\n");
+            }
+
+            pwindow->_on_focus_changed(has_focus);
+         }
+
 
          static void
          GtkDrawingAreaDrawFunc(GtkDrawingArea* drawing_area, cairo_t* cr, int width, int height, gpointer p)
@@ -403,6 +427,11 @@ namespace gtk4
 
          window::window()
          {
+
+
+            m_bHasFocusCached = false;
+
+            m_bIsActiveCached = false;
 
             m_bInhibitQueueDraw = false;
 
@@ -820,6 +849,9 @@ namespace gtk4
             /* Add the key controller to the window */
             gtk_widget_add_controller(m_pdrawingarea, m_pgtkeventcontrollerKey);
 
+
+            g_signal_connect(m_pdrawingarea, "notify::has-focus", G_CALLBACK(on_focus_changed), this);
+            g_signal_connect(GTK_WINDOW(m_pgtkwidget), "notify::active", G_CALLBACK(on_window_is_active_changed), this);
 
             _enable_mouse_wheel_messages();
 
@@ -2312,6 +2344,18 @@ namespace gtk4
 
 
    }
+         void window::_on_window_is_active_change(bool bIsActive)
+         {
+
+            m_bIsActiveCached =bIsActive;
+         }
+
+
+void window::_on_focus_changed(bool bHasFocus)
+{
+
+            m_bHasFocusCached =bHasFocus;
+}
 
 
    void window::_on_button_pressed(GtkGestureClick* pgesture, int n_press, double x, double y)

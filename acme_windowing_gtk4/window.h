@@ -87,7 +87,8 @@ GtkWidget*m_pgtkwidget;
             ::int_size                                            m_sizeOnSize;
 
 
-
+bool m_bHasFocusCached;
+            bool m_bIsActiveCached;
                         //::pointer<class display>         m_pdisplay;
                         //GtkWidget *m_pgtkwidget;
                         //Window                           m_windowRoot;
@@ -163,6 +164,9 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
             virtual void __map();
 
             virtual void __unmap();
+
+            virtual void _on_window_is_active_change(bool bIsActive);
+virtual void _on_focus_changed(bool bHasFocus);
 
             virtual void _on_button_pressed(GtkGestureClick* pgesture, int n_press, double x, double y);
 

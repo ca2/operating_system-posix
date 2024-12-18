@@ -28,6 +28,7 @@ namespace gtk3
          {
          public:
 
+           bool m_bHasFocusCached;
 
             //::pointer<::x11::acme::windowing::display>         m_pdisplay;
             //Window                           m_window;
@@ -91,6 +92,8 @@ namespace gtk3
             //void aaa_message_loop() override;
 
             //virtual bool aaa_message_loop_step();
+            virtual void _on_focus_in();
+            virtual void _on_focus_out();
 
             virtual bool _on_button_press(GtkWidget *widget, GdkEventButton *happening);
             virtual bool _on_button_release(GtkWidget *widget, GdkEventButton *happening);

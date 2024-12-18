@@ -234,14 +234,11 @@ drawing_area_state_flags_changed (
 
    }
 
-   void
-window_show (
-  GtkWidget* self,
-  gpointer user_data
-)
+
+   void window_show(GtkWidget* self, gpointer p)
    {
 
-      auto pwindow = (window*) user_data;
+      auto pwindow = (window*) p;
 
       //pwindow->m_bWindowVisible = true;
 
@@ -249,14 +246,11 @@ window_show (
 
    }
 
-   void
-window_hide (
-  GtkWidget* self,
-  gpointer user_data
-)
+
+   void window_hide(GtkWidget* self, gpointer p)
    {
 
-      auto pwindow = (window*) user_data;
+      auto pwindow = (window*) p;
 
       //pwindow->m_bWindowVisible = false;
 
@@ -1956,39 +1950,34 @@ m_pimcontext = gtk_im_multicontext_new();
    void window::destroy_window()
    {
 
+      if (has_destroying_flag())
+      {
+
+         return;
+
+      }
+
+      ::string strType = ::type(m_puserinteraction).name();
+
+      set_destroying_flag();
+
       bool bOk = false;
 
-      auto pwindow = this;
+      auto pinteraction = m_puserinteraction;
 
-      if (::is_set(pwindow))
+      //auto pwindow = this;
+
+      ///if (::is_set(pwindow))
+      main_send([this, strType, pinteraction]()
       {
 
-         ::pointer<::user::interaction> pinteraction = pwindow->m_puserinteraction;
+         pinteraction->message_handler(e_message_destroy, 0, 0);
 
-         if (pinteraction.is_set())
-         {
+         ::windowing::window::destroy_window();
 
-            pinteraction->send_message(e_message_destroy, 0, 0);
+         pinteraction->message_handler(e_message_non_client_destroy, 0, 0);
 
-         }
-
-      }
-
-      ::windowing::window::destroy_window();
-
-      if (::is_set(pwindow))
-      {
-
-         ::pointer<::user::interaction> pinteraction = pwindow->m_puserinteraction;
-
-         if (pinteraction.is_set())
-         {
-
-            pinteraction->send_message(e_message_non_client_destroy, 0, 0);
-
-         }
-
-      }
+      });
 
    }
 
@@ -2008,16 +1997,18 @@ m_pimcontext = gtk_im_multicontext_new();
 
       __check_refdbg
 
-      main_send([this, &bHasFocus]()
-      {
+      // main_send([this, &bHasFocus]()
+      // {
+      //
+      //    bool bCanFocus = gtk_widget_get_can_focus(m_pgtkwidget);
+      //
+      //    bool bCanFocus1 = gtk_widget_get_can_focus(m_pdrawingarea);
+      //
+      //    bHasFocus = gtk_widget_has_focus(m_pdrawingarea) ? true : false;
+      //
+      // });
 
-         bool bCanFocus = gtk_widget_get_can_focus(m_pgtkwidget);
-
-         bool bCanFocus1 = gtk_widget_get_can_focus(m_pdrawingarea);
-
-         bHasFocus = gtk_widget_has_focus(m_pdrawingarea) ? true : false;
-
-      });
+      bHasFocus = m_bHasFocusCached;
 
       __check_refdbg
 
@@ -2110,19 +2101,21 @@ m_pimcontext = gtk_im_multicontext_new();
 
       __check_refdbg
 
-      main_send([this, &bIsActive]()
-      {
+      bIsActive = m_bIsActiveCached;
 
-         //bool bCanFocus = gtk_widget_get_can_focus(m_pgtkwidget);
-
-         //bool bCanFocus1 = gtk_widget_get_can_focus(m_pdrawingarea);
-
-         if(GTK_IS_WINDOW(m_pgtkwidget))
-         {
-            bIsActive = gtk_window_is_active(GTK_WINDOW(m_pgtkwidget)) ? true : false;
-         }
-
-      });
+      // main_send([this, &bIsActive]()
+      // {
+      //
+      //    //bool bCanFocus = gtk_widget_get_can_focus(m_pgtkwidget);
+      //
+      //    //bool bCanFocus1 = gtk_widget_get_can_focus(m_pdrawingarea);
+      //
+      //    if(GTK_IS_WINDOW(m_pgtkwidget))
+      //    {
+      //       bIsActive = gtk_window_is_active(GTK_WINDOW(m_pgtkwidget)) ? true : false;
+      //    }
+      //
+      // });
 
       __check_refdbg
 
@@ -2278,7 +2271,7 @@ m_pimcontext = gtk_im_multicontext_new();
 
       pshowwindow->m_bShow = true;
 
-      m_puserinteraction->main_send(pshowwindow);
+      m_puserinteraction->route_message(pshowwindow);
 
    }
 
@@ -2298,10 +2291,9 @@ m_pimcontext = gtk_im_multicontext_new();
 
       pshowwindow->m_bShow = false;
 
-      m_puserinteraction->main_send(pshowwindow);
+      m_puserinteraction->route_message(pshowwindow);
 
    }
-
 
 
    void window::_on_activation_change(bool bActive)

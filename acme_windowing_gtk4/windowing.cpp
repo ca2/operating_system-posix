@@ -429,11 +429,13 @@ m_bMessageThread=true;
          bool windowing::handle_messages()
          {
 
-            auto pgmaincontext = g_main_context_default();
-
-            g_main_context_iteration(pgmaincontext, FALSE);
-
             return true;
+
+            // auto pgmaincontext = g_main_context_default();
+            //
+            // g_main_context_iteration(pgmaincontext, FALSE);
+            //
+            // return true;
 
          }
 

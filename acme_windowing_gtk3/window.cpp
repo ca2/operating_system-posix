@@ -78,6 +78,20 @@ namespace gtk3
 
 
 
+         static gboolean on_focus_in(GtkWidget *widget, GdkEvent *event, gpointer p) {
+            auto pwindow = (::gtk4::acme::windowing::window*)p;
+            pwindow->_on_focus_in();
+            g_print("Widget gained focus\n");
+            return FALSE; // Propagate the event further
+         }
+
+         static gboolean on_focus_out(GtkWidget *widget, GdkEvent *event, gpointer p) {
+            auto pwindow = (::gtk4::acme::windowing::window*)p;
+            pwindow->_on_focus_out();
+            g_print("Widget lost focus\n");
+            return FALSE; // Propagate the event further
+         }
+
 
          // Callback function to handle window resize happenings
          static void on_size_allocate(GtkWidget *widget, GdkRectangle *allocation, gpointer p) {
@@ -265,6 +279,7 @@ namespace gtk3
             m_phappeningLastMouseDown= nullptr;
             m_phappeningLastMouseUp= nullptr;
 
+            m_bHasFocusCached = false;
          }
 
 
@@ -622,9 +637,26 @@ namespace gtk3
             g_signal_connect(G_OBJECT(m_pgtkwidget), "draw", G_CALLBACK(on_window_draw), this);
             g_signal_connect(G_OBJECT(m_pgtkwidget), "destroy", G_CALLBACK(on_window_destroy), this);
 
+            g_signal_connect(m_pdrawingarea, "focus-in-event", G_CALLBACK(on_focus_in), this);
+            g_signal_connect(m_pdrawingarea, "focus-out-event", G_CALLBACK(on_focus_out), this);
+
+
             on_create_window();
 
 
+         }
+
+
+         void window::_on_focus_in()
+         {
+
+            m_bHasFocusCached =true;
+         }
+
+         void window::_on_focus_out()
+         {
+
+            m_bHasFocusCached = false;
          }
 
 
