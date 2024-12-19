@@ -647,7 +647,7 @@ namespace windowing_gtk3
 //         || pwaylandwindow->m_uLastConfigureSerial > pwaylandwindow->m_uLastRequestSerial))
 //      {
 
-      ::pointer<::windowing_gtk3::window> pgtk3window = m_pwindow;
+      ::cast<::windowing_gtk3::window> pgtk3window = m_pwindow;
 
       ::string strType = ::type(pgtk3window->m_pacmeuserinteraction).name();
 
@@ -1266,12 +1266,12 @@ namespace windowing_gtk3
    }
 
 
-   bool buffer::on_update_screen(::graphics::buffer_item * pitem)
+   void buffer::on_update_screen(::graphics::buffer_item * pitem)
    {
 
       throw ("use update_window(void)");
 
-      return true;
+      //return true;
 
    }
 

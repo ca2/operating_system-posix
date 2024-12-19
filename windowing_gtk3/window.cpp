@@ -3589,7 +3589,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 
 
    bool window::set_window_position(const class ::zorder & zorder, int x, int y, int cx, int cy,
-                                    const ::user::e_activation & useractivation, bool bNoZorder, bool bNoMove, bool bNoSize,
+                                    const ::user::activation & useractivation, bool bNoZorder, bool bNoMove, bool bNoSize,
                                     ::e_display edisplay)
    {
 
@@ -3606,7 +3606,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 
 
    bool window::_set_window_position_unlocked(const class ::zorder & zorder, int x, int y, int cx, int cy,
-                                              const ::user::e_activation & useractivation, bool bNoZorder, bool bNoMove,
+                                              const ::user::activation & useractivation, bool bNoZorder, bool bNoMove,
                                               bool bNoSize, ::e_display edisplay)
    {
 
@@ -3859,7 +3859,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 
 
    bool window::_configure_window_unlocked(const class ::zorder & zorder,
-                                           const ::user::e_activation & useractivation, bool bNoZorder, ::e_display edisplay)
+                                           const ::user::activation & useractivation, bool bNoZorder, ::e_display edisplay)
    {
 
       if (!(m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
@@ -4234,10 +4234,10 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
       if (!(m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
       {
 
-         if (m_puserinteraction->const_layout().design().activation() == ::user::e_activation_default)
+         if (m_puserinteraction->const_layout().design().activation().m_eactivation == ::user::e_activation_default)
          {
 
-            m_puserinteraction->layout().m_statea[::user::e_layout_sketch].activation() ==
+            m_puserinteraction->layout().m_statea[::user::e_layout_sketch].activation().m_eactivation =
             ::user::e_activation_set_active;
 
          }

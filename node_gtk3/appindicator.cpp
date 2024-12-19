@@ -53,7 +53,7 @@ extern "C"
 
       auto pcallback = (::application_menu_callback *) data;
 
-      pcallback->on_application_menu_action(gtk_widget_get_name(GTK_WIDGET(pgtkmenuitem)));
+      pcallback->on_command(gtk_widget_get_name(GTK_WIDGET(pgtkmenuitem)));
 
    }
 
