@@ -290,7 +290,16 @@ m_bMessageThread=true;
             if (!pevent->wait(procedure.timeout()))
             {
 
-               throw ::exception(error_timeout);
+               if (::task_get_run())
+               {
+                  throw ::exception(error_timeout);
+               }
+               else
+               {
+
+                  information() << "thread terminating?!?!";
+
+               }
                //pevent.release();
 
                //return false;

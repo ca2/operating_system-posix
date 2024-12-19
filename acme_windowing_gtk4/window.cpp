@@ -1652,26 +1652,32 @@ namespace gtk4
    }
 
 
-   void window::destroy_window()
+   void window::_destroy_window()
    {
 
-      //__unmap();
+      if (GTK_IS_POPOVER(m_pgtkwidget))
+      {
+
+         gtk_widget_unparent(GTK_WIDGET(m_pgtkwidget));
+
+      }
+      else if (GTK_IS_WINDOW(m_pgtkwidget))
+      {
+
+         gtk_window_destroy(GTK_WINDOW(m_pgtkwidget));
+
+      }
+
+   }
+
+
+   void window::destroy_window()
+   {
 
       main_send([this]()
       {
 
-         if (GTK_IS_POPOVER(m_pgtkwidget))
-         {
-
-            gtk_widget_unparent(GTK_WIDGET(m_pgtkwidget));
-
-         }
-         else if (GTK_IS_WINDOW(m_pgtkwidget))
-         {
-
-            gtk_window_destroy(GTK_WINDOW(m_pgtkwidget));
-
-         }
+         _destroy_window();
 
       });
 

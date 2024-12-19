@@ -134,6 +134,7 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
             void _enable_mouse_wheel_messages();
 
 
+            virtual void _destroy_window();
             void destroy_window() override;
 
             void destroy() override;

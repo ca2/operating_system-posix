@@ -1973,9 +1973,11 @@ m_pimcontext = gtk_im_multicontext_new();
 
          pinteraction->message_handler(e_message_destroy, 0, 0);
 
-         ::windowing::window::destroy_window();
+         _destroy_window();
 
          pinteraction->message_handler(e_message_non_client_destroy, 0, 0);
+
+         destroy();
 
       });
 
