@@ -1848,6 +1848,14 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
+   void window::show_task(bool bShow)
+   {
+
+
+
+   }
+
+
    void window::set_mouse_cursor2(::windowing::cursor * pcursor)
    {
 
