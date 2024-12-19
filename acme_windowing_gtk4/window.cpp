@@ -106,7 +106,7 @@ namespace gtk4
          static void on_button_released(GtkGestureClick* pgesture, int n_press, double x, double y, gpointer p)
          {
 
-            ::pointer<::gtk4::acme::windowing::window> pwindow = (::gtk4::acme::windowing::window*)p;
+            auto pwindow = (::gtk4::acme::windowing::window*)p;
 
             pwindow->_on_button_released(pgesture, n_press, x, y);
 
@@ -116,7 +116,7 @@ namespace gtk4
          static void on_button_stopped(GtkGestureClick* pgesture, gpointer p)
          {
 
-            ::pointer<::gtk4::acme::windowing::window> pwindow = (::gtk4::acme::windowing::window*)p;
+            auto pwindow = (::gtk4::acme::windowing::window*)p;
 
             pwindow->_on_button_stopped(pgesture);
 
@@ -349,6 +349,7 @@ namespace gtk4
 
             /* Return FALSE to propagate the happening further */
             return FALSE;
+
          }
 
 
@@ -372,6 +373,7 @@ namespace gtk4
 
             /* Return FALSE to propagate the happening further */
             return FALSE;
+
          }
 
 
@@ -392,8 +394,8 @@ namespace gtk4
 
             /* Return FALSE to allow further happening processing */
             return FALSE;
-         }
 
+         }
 
 
          // Callback for the scroll event
@@ -422,7 +424,6 @@ namespace gtk4
             return TRUE;
 
          }
-
 
 
          window::window()
