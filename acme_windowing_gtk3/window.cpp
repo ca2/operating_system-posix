@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "window.h"
 #include "display.h"
+#include "windowing.h"
 #include "acme/constant/message.h"
 #include "acme/graphics/image/pixmap.h"
 #include "acme/integrate/cairo.h"
@@ -93,13 +94,40 @@ namespace gtk3
          }
 
 
-         // Callback function to handle window resize happenings
-         static void on_size_allocate(GtkWidget *widget, GdkRectangle *allocation, gpointer p) {
-            // Print the ___new size of the window
+         // // Callback function to handle window resize happenings
+         // static void on_size_allocate(GtkWidget *widget, GdkRectangle *allocation, gpointer p) {
+         //    // Print the ___new size of the window
+         //    auto pwindow = (::gtk3::acme::windowing::window*) p;
+         //    pwindow->_on_resize(allocation->x,
+         //       allocation->y,
+         //       allocation->width,
+         //       allocation->height);
+         //    //g_print("Window resized: width=%d, height=%d\n", allocation->width, allocation->height);
+         //    //return false;
+         // }
+         //
+
+
+         gboolean on_configure(GtkWidget *widget, GdkEvent *event, gpointer p)
+         {
+
             auto pwindow = (::gtk3::acme::windowing::window*) p;
-            pwindow->_on_size(allocation->width, allocation->height);
-            //g_print("Window resized: width=%d, height=%d\n", allocation->width, allocation->height);
-            //return false;
+
+            pwindow->_on_configure();
+
+            // GdkRectangle rect;
+            // // Get the position and size of the window
+            // gtk_window_get_position(GTK_WINDOW(widget), &rect.x, &rect.y);
+            // gtk_window_get_size(GTK_WINDOW(widget), &rect.width, &rect.height);
+            //
+            // // Print the rectangle
+            // //g_print("Window displayed/changed position or size: x=%d, y=%d, width=%d, height=%d\n",
+            //   //      rect->x, rect->y, rect->width, rect->height);
+            //
+            // pwindow->_on_configure(rect.x, rect.y, rect.width, rect.height);
+
+            return FALSE; // Allow the default handler to continue processing
+
          }
 
 
@@ -580,6 +608,9 @@ namespace gtk3
                gtk_widget_set_visual(m_pgtkwidget, visual);
             }
 
+            ::cast < ::gtk3::acme::windowing::windowing> pgtk3windowing  = system()->acme_windowing();
+
+            pgtk3windowing->_set_window(GTK_WINDOW(m_pgtkwidget), this);
 
             // Enable transparency by setting the window as app-paintable
             gtk_widget_set_app_paintable(m_pgtkwidget, TRUE);
@@ -614,8 +645,8 @@ namespace gtk3
             //);
             //
             // Connect the size-allocate signal to handle window resize happenings
-            g_signal_connect(m_pgtkwidget, "size-allocate", G_CALLBACK(on_size_allocate), this);
-
+            //g_signal_connect(m_pgtkwidget, "size-allocate", G_CALLBACK(on_size_allocate), this);
+            g_signal_connect(G_OBJECT(m_pgtkwidget), "configure-event", G_CALLBACK(on_configure), this);
             // Handle the custom resizing
             //ResizeData resize_data = {FALSE, RESIZE_NONE, 0, 0, 0, 0};
 
@@ -793,8 +824,6 @@ return true;
             return true;
 
          }
-
-
 
 
          bool window::_on_button_release(GtkWidget *pwidget, GdkEventButton *pevent)
@@ -1145,14 +1174,12 @@ m_phappeningLastMouseUp = pevent;
          }
 
 
-         void window::_on_size(int cx, int cy)
+         void window::_on_configure(int x, int y, int cx, int cy)
          {
 
             set_interface_client_size({cx, cy});
 
          }
-
-
 
 
          void window::_on_a_system_menu_item_button_press(::operating_system::a_system_menu_item * pitem, GtkWidget * pwidget, GdkEventButton * peventbutton)
@@ -1706,29 +1733,63 @@ m_phappeningLastMouseUp = pevent;
          void window::set_mouse_capture()
          {
 
-            //display_lock displaylock(m_pdisplay->m_pdisplay);
+            GdkDisplay *display;
+            GdkSeat *seat;
+            GdkDevice *pointer_device;
+            GdkWindow *gdk_window;
+            GdkGrabStatus status;
 
-            gtk_grab_add(m_pgtkwidget);
+            // Get the default display
+            display = gdk_display_get_default();
+            if (!display) {
+               g_print("No display found.\n");
+               return;
+            }
 
-//            if (XGrabPointer(m_pdisplay->m_pdisplay, m_window, False, ButtonPressMask | ButtonReleaseMask | PointerMotionMask,
-//                             GrabModeAsync, GrabModeAsync, None, None, CurrentTime) != GrabSuccess)
-//            {
-//
-//               throw ::exception(error_exception);
-//
-//            }
+            // Get the default seat
+            seat = gdk_display_get_default_seat(display);
+            if (!seat) {
+               g_print("No seat found.\n");
+               return;
+            }
 
+            // Get the pointer device from the seat
+            pointer_device = gdk_seat_get_pointer(seat);
+            if (!pointer_device) {
+               g_print("No pointer device found.\n");
+               return;
+            }
+
+            // Get the GdkWindow associated with the widget
+            gdk_window = gtk_widget_get_window(m_pgtkwidget);
+            if (!gdk_window) {
+               g_print("No GdkWindow available for the widget.\n");
+               return;
+            }
+
+            // Try to grab the pointer
+            status = gdk_device_grab(
+                pointer_device,        // The pointer device to grab
+                gdk_window,            // The window to which events will be redirected
+                GDK_OWNERSHIP_NONE,    // Ownership of the device
+                TRUE,                  // Confine pointer to the window (TRUE or FALSE)
+                (GdkEventMask )(GDK_POINTER_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK), // Event mask
+                NULL,                  // Cursor (NULL for default)
+                GDK_CURRENT_TIME       // Timestamp
+            );
+
+            if (status == GDK_GRAB_SUCCESS) {
+               g_print("Pointer successfully grabbed.\n");
+            } else {
+               g_print("Failed to grab pointer. Status: %d\n", status);
+            }
          }
 
 
          void window::release_mouse_capture()
          {
-            //display_lock displaylock(m_pdisplay->m_pdisplay);
 
-
-            //int bRet = XUngrabPointer(m_pdisplay->m_pdisplay, CurrentTime);
-
-            gtk_grab_remove(m_pgtkwidget);
+            get_display()->release_mouse_capture();
 
          }
 
@@ -1975,6 +2036,14 @@ m_phappeningLastMouseUp = pevent;
             __unmap();
 
          }
+
+
+         void window::_on_configure()
+         {
+
+
+         }
+
 
       }//namespace windowing
 

@@ -20,6 +20,7 @@
 #include "aura/user/user/interaction_thread.h"
 #include "aura/user/user/interaction_graphics_thread.h"
 //#include "aura/user/user/interaction_impl.h"
+#include "acme/constant/timer.h"
 #include "aura/platform/message_queue.h"
 #include "aura_posix/node.h"
 #include "aura/graphics/image/context.h"
@@ -342,9 +343,11 @@ namespace windowing_gtk3
    void window::_on_cairo_draw(GtkWidget *widget, cairo_t *cr)
    {
 
-      try {
+      try
+      {
 
-         if (!m_pgraphicsgraphics) {
+         if (!m_pgraphicsgraphics)
+         {
 
             return;
 
@@ -412,8 +415,6 @@ namespace windowing_gtk3
          // pgraphics->fill_solid_rectangle(r, argb(1.0,0.1, 0.5, 0.8 ));
 
 
-
-
          // cairo_set_source_rgba(cr, 0, 0, 0, 0); // Fully transparent background
          // cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
          // cairo_paint(cr);
@@ -448,7 +449,6 @@ namespace windowing_gtk3
    }
 
 
-
 //   ::pointer < ::operating_system::a_system_menu > window::create_system_menu()
 //   {
 //
@@ -468,7 +468,7 @@ namespace windowing_gtk3
 //   }
 
 
-   void window::_on_size(int cx, int cy)
+   void window::_on_configure_immediate(int x, int y, int cx, int cy)
    {
 
       auto puserinteraction = user_interaction();
@@ -497,9 +497,35 @@ namespace windowing_gtk3
 
       }
 
+      ::int_point p(x, y);
+
+      if(m_pointWindow != p)
+      {
+
+         m_pointWindow = p;
+
+         puserinteraction->layout().m_statea[::user::e_layout_window].m_point2 = p;
+
+         if(puserinteraction->layout().m_statea[::user::e_layout_sketch].m_point2 != p)
+         {
+
+            puserinteraction->layout().m_statea[::user::e_layout_sketch].m_point2 = p;
+
+         }
+
+      }
+
    }
 
 
+   void window::_on_configure_delayed(int x, int y, int cx, int cy)
+   {
+
+      auto r = ::int_rectangle_dimension(x, y, cx, cy);
+
+      _on_configure_notify_unlocked(r);
+
+   }
 
 
 //// Define custom regions for resizing
@@ -790,9 +816,9 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 
             auto pimpl = this;
 
-            pimpl->m_puserinteraction->display(::e_display_normal);
+///            pimpl->m_puserinteraction->display(::e_display_normal);
 
-            pimpl->m_puserinteraction->set_need_layout();
+   //         pimpl->m_puserinteraction->set_need_layout();
 
             pimpl->m_puserinteraction->set_need_redraw();
 
@@ -852,13 +878,15 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 
             auto pimpl = this;
 
-            pimpl->m_puserinteraction->display(::e_display_normal);
+            //pimpl->m_puserinteraction->display(::e_display_normal);
 
-            pimpl->m_puserinteraction->set_need_layout();
+            pimpl->m_puserinteraction->on_display_restore();
 
-            pimpl->m_puserinteraction->set_need_redraw();
-
-            pimpl->m_puserinteraction->post_redraw();
+            // pimpl->m_puserinteraction->set_need_layout();
+            //
+            // pimpl->m_puserinteraction->set_need_redraw();
+            //
+            // pimpl->m_puserinteraction->post_redraw();
 
          }
 
@@ -4876,33 +4904,33 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 //
    bool window::has_mouse_capture()
    {
-//
-//      auto pdisplay = x11_display();
-//
-//      if (::is_null(pdisplay))
-//      {
-//
-//         return false;
-//
-//      }
-//
-//      auto pwindowCapture = pdisplay->m_pwindowMouseCapture;
-//
-//      if (::is_null(pwindowCapture))
-//      {
-//
-//         return false;
-//
-//      }
-//
-//      if (pwindowCapture != this)
-//      {
-//
-//         return false;
-//
-//      }
-//
-      return true;
+
+      ::cast < ::windowing_gtk3::windowing> pgtk3windowing = system()->windowing();
+
+      if (!pgtk3windowing)
+      {
+
+         return false;
+
+      }
+
+      auto pgtk3windowMouseCapture = pgtk3windowing->get_mouse_capture(nullptr);
+
+      if (!pgtk3windowMouseCapture)
+      {
+
+         return false;
+
+      }
+
+      if (pgtk3windowMouseCapture == this)
+      {
+
+         return true;
+
+      }
+
+      return false;
 
    }
 
@@ -6386,34 +6414,89 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
    //
 
 
-
    void window::window_restore()
-{
-
-   if(gtk_window_is_maximized(GTK_WINDOW(m_pgtkwidget)))
    {
 
-      gtk_window_unmaximize(GTK_WINDOW(m_pgtkwidget));
+      if(gtk_window_is_maximized(GTK_WINDOW(m_pgtkwidget)))
+      {
+
+         gtk_window_unmaximize(GTK_WINDOW(m_pgtkwidget));
+
+      }
 
    }
 
 
-
-}
-
    void window::window_minimize()
-{
+   {
 
-   gtk_window_iconify(GTK_WINDOW(m_pgtkwidget));
-}
+      gtk_window_iconify(GTK_WINDOW(m_pgtkwidget));
+
+   }
 
 
    void window::window_maximize()
-{
+   {
 
-   gtk_window_maximize(GTK_WINDOW(m_pgtkwidget));
+      gtk_window_maximize(GTK_WINDOW(m_pgtkwidget));
 
-}
+   }
+
+
+   void window::_set_configure_unlocked_timer()
+   {
+
+      m_timeLastConfigureUnlocked.Now();
+
+      m_puserinteraction->SetTimer(e_timer_configure_unlocked, 100_ms);
+
+   }
+
+
+   bool window::on_configure_unlocked_timer()
+   {
+
+      if (m_timeLastConfigureUnlocked.elapsed() < 600_ms)
+      {
+
+         return false;
+
+      }
+
+      _on_get_configuration();
+
+      return true;
+
+
+   }
+
+
+   void window::_on_get_configuration()
+   {
+
+      main_post([this]()
+      {
+
+         auto r = get_window_rectangle();
+
+         _on_configure_delayed(r.left(), r.top(), r.width(), r.height());
+
+      });
+
+   }
+
+
+   void window::_on_configure()
+   {
+
+      auto r = get_window_rectangle();
+
+      _on_configure_immediate(r.left(), r.top(), r.width(), r.height());
+
+      _set_configure_unlocked_timer();
+
+   }
+
 
 } // namespace windowing_gtk3
 

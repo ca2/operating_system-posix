@@ -114,8 +114,21 @@ inline void copy(::int_rectangle * prectTarget, const GdkRectangle * prectSource
 //
 //};
 
-namespace windowing_system_gtk4
+namespace gtk3
 {
+
+   namespace acme
+   {
+
+      namespace windowing
+      {
+
+         class window;
+         class windowing;
+
+      }
+
+   }
 
 
 } // namespace windowing_system_gtk4

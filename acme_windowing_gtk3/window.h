@@ -104,7 +104,7 @@ namespace gtk3
             virtual void _on_cairo_draw(GtkWidget *widget, cairo_t *cr);
             //void create_window(::windowing::window * pimpl) override;
 
-            virtual void _on_size(int cx, int cy);
+            virtual void _on_configure(int x, int y, int cx, int cy);
 
             virtual void _draw(::nano::graphics::device * pnanodevice);
 
@@ -181,6 +181,8 @@ namespace gtk3
             void window_minimize() override;
             void window_maximize() override;
             void hide_window() override;
+
+            virtual void _on_configure();
 
          };
 

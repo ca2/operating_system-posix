@@ -97,6 +97,9 @@ window_map                                               m_windowmap;
             ::int_size get_main_screen_size() override;
 
 
+            void release_mouse_capture() override;
+
+
          };
 
 

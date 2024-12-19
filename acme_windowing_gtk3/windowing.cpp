@@ -3,6 +3,7 @@
 //
 #include "framework.h"
 #include "display.h"
+#include "window.h"
 #include "windowing.h"
 #include "acme/integrate/cairo.h"
 #include "acme/nano/nano.h"
@@ -16,6 +17,7 @@
 //#include <X11/XKBlib.h>
 //#include <X11/Xutil.h>
 #include "gdk_gdk.h"
+#include "acme/parallelization/synchronous_lock.h"
 
 
 namespace gtk3
@@ -350,6 +352,35 @@ signal(SIGCHLD, SIG_IGN);
 //      return m_pvoidX11Display;
 
       return m_pacmedisplay;
+
+   }
+
+
+   ::gtk3::acme::windowing::window * windowing::_window(GtkWindow * pgtkwindow)
+   {
+
+      _synchronous_lock synchronouslock(this->synchronization());
+
+      auto pgtk3acmewindowingwindow = m_windowmap[pgtkwindow];
+
+      if (!pgtk3acmewindowingwindow)
+      {
+
+         return nullptr;
+
+      }
+
+      return pgtk3acmewindowingwindow;
+
+   }
+
+
+   void windowing::_set_window(GtkWindow * pgtkwindow, ::gtk3::acme::windowing::window * pgtk3acmewindowingwindow)
+   {
+
+      _synchronous_lock synchronouslock(this->synchronization());
+
+      m_windowmap[pgtkwindow] = pgtk3acmewindowingwindow;
 
    }
 

@@ -132,7 +132,7 @@ namespace windowing_gtk3
 
       //virtual ::windowing::window * get_mouse_capture();
 
-      virtual ::e_status release_mouse_capture();
+      virtual void release_mouse_capture();
 
 
 //      Atom intern_atom(const char * pszAtomName, bool bCreate);

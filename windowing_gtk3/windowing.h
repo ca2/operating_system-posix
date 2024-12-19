@@ -33,6 +33,8 @@ namespace windowing_gtk3
 
       itask_t                                         m_itask;
 
+
+
 //#ifdef WITH_XI
 //
 //      int                                             m_xi_opcode = -1;
@@ -42,7 +44,7 @@ namespace windowing_gtk3
 
       ::procedure_list                                m_procedurelist;
       ::procedure_list                                m_procedurelistPriority;
-      ::pointer < ::windowing_gtk3::window >       m_pwindowMouseCapture;
+      //::pointer < ::windowing_gtk3::window >       m_pwindowMouseCapture;
 
 
       windowing();
@@ -55,7 +57,7 @@ namespace windowing_gtk3
 
 
       bool has_readily_gettable_absolute_coordinates() const override;
-
+      bool has_mouse_capture_capability() override;
 
       bool is_branch_current() const override;
 
@@ -86,6 +88,7 @@ namespace windowing_gtk3
 
       //void windowing_main() override;
 
+         ::windowing_gtk3::window * _window(GtkWindow * pgtkwindow);
 
       void windowing_post_quit() override;
 

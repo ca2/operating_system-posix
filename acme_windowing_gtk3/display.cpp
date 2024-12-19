@@ -1060,6 +1060,24 @@ namespace gtk3
 //
 //}
 
+         void display::release_mouse_capture()
+         {
+
+            GdkDisplay *display = gdk_display_get_default();
+            if (display) {
+               GdkSeat *seat = gdk_display_get_default_seat(display);
+               if (seat) {
+                  GdkDevice *pointer_device = gdk_seat_get_pointer(seat);
+                  if (pointer_device) {
+                     gdk_device_ungrab(pointer_device, GDK_CURRENT_TIME);
+                     g_print("Pointer ungrabbed.\n");
+                  }
+               }
+            }
+
+         }
+
+
 
       } // namespace windowing
 
