@@ -79,14 +79,14 @@ namespace gtk3
 
 
          static gboolean on_focus_in(GtkWidget *widget, GdkEvent *event, gpointer p) {
-            auto pwindow = (::gtk4::acme::windowing::window*)p;
+            auto pwindow = (::gtk3::acme::windowing::window*)p;
             pwindow->_on_focus_in();
             g_print("Widget gained focus\n");
             return FALSE; // Propagate the event further
          }
 
          static gboolean on_focus_out(GtkWidget *widget, GdkEvent *event, gpointer p) {
-            auto pwindow = (::gtk4::acme::windowing::window*)p;
+            auto pwindow = (::gtk3::acme::windowing::window*)p;
             pwindow->_on_focus_out();
             g_print("Widget lost focus\n");
             return FALSE; // Propagate the event further

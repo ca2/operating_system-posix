@@ -115,7 +115,9 @@ namespace windowing_gtk3
    ::windowing_gtk3::window * buffer::gtk3_window()
    {
 
-      return (::windowing_gtk3::window *) (m_pwindow ? m_pwindow.cast < ::windowing_gtk3::window >().m_p : nullptr);
+      ::cast < ::windowing_gtk3::window > pwindow = m_pwindow;
+
+      return pwindow;
 
    }
 
@@ -556,7 +558,7 @@ namespace windowing_gtk3
 //   bool buffer::_update_screen_unlocked(::graphics::buffer_item * pitem)
    //bool buffer::_post_update_screen()
    //{
-   bool buffer::update_screen()
+   void buffer::update_screen()
    {
 
       if (!m_pwindow)
@@ -564,7 +566,7 @@ namespace windowing_gtk3
 
          warningf("windowing_gtk3::buffer::update_screen !m_pimpl!!");
 
-         return false;
+         return;
 
       }
 
