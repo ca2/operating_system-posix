@@ -232,7 +232,7 @@ signal(SIGCHLD, SIG_IGN);
          strId.find_replace("/", ".");
          strId.find_replace("_", "-");
 
-         //gtk_init();
+         gtk_init(nullptr, nullptr);
 
          m_pgtkapplication = gtk_application_new (strId, G_APPLICATION_DEFAULT_FLAGS);
 

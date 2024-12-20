@@ -94,6 +94,10 @@ namespace windowing_gtk3
       //bool                                         m_bXShmPutImagePending;
       ::pointer < ::operating_system::a_system_menu > m_psystemmenu;
          class ::time m_timeLastConfigureUnlocked;
+
+         GtkIMContext * m_pimcontext;
+
+         bool m_bImFocus;
 //GtkWidget *m_pgtkwidget;
   //       GtkWidget *m_pdrawingarea;
     //  GtkWidget * m_pgtkwidgetSystemMenu;
@@ -113,6 +117,17 @@ namespace windowing_gtk3
          bool _on_motion_notify(GtkWidget *widget, GdkEventMotion *happening) override;
          bool _on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening) override;
          bool _on_window_state(GtkWidget* widget, GdkEventWindowState* happening) override;
+
+
+         bool _on_focus_in(GtkWidget *widget, GdkEventFocus *event) override;
+         bool _on_focus_out(GtkWidget *widget, GdkEventFocus *event) override;
+         bool _on_key_press(GtkWidget *widget, GdkEventKey *event) override;
+         bool _on_key_release(GtkWidget *widget, GdkEventKey *event) override;
+         virtual void _on_gtk_key_pressed(huge_natural uGtkKey, huge_natural uGtkKeyCode);
+         virtual void _on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode);
+
+
+         virtual void _on_text(const ::scoped_string & scopedstr);
 
       void _on_cairo_draw(GtkWidget *widget, cairo_t *cr) override;
       //void create_window(::windowing::window * pimpl) override;
@@ -217,6 +232,7 @@ namespace windowing_gtk3
       bool is_window_visible() override;
 //      bool _is_iconic_unlocked() override;
       bool _is_window_visible_unlocked() override;
+         void show_task(bool bShowTask) override;
       //void show_window(const ::e_display & edisplay, const ::user::e_activation & useractivation) override;
       //void _show_window_unlocked(const ::e_display & edisplay, const ::user::e_activation & useractivation) override;
       //virtual iptr get_window_long_ptr(int nIndex);
@@ -247,7 +263,7 @@ namespace windowing_gtk3
       void set_keyboard_focus() override;
       void _set_keyboard_focus_unlocked() override;
 
-
+      virtual void _on_preedit_changed();
       //virtual ::pointer < ::operating_system::a_system_menu > create_system_menu();
 
       virtual void _on_a_system_menu_item_button_press(::operating_system::a_system_menu_item * pitem, GtkWidget * pwidget, GdkEventButton * peventbutton);
@@ -453,6 +469,9 @@ bool on_configure_unlocked_timer() override;
 
 
       void _post(const ::procedure & procedure) override;
+
+
+      void switch_to_this_window(bool b) override;
 
 
    };
