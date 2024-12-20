@@ -86,7 +86,7 @@ namespace aura_posix
 
       //estatus =
       //
-      __øconstruct(m_pimagecontext);
+      //__øconstruct(m_pimagecontext);
 
 //         if(!estatus)
 //         {

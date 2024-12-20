@@ -235,7 +235,7 @@ return TRUE;
          static gboolean on_button_release(GtkWidget *pwidget, GdkEventButton *pevent, gpointer p)
          {
 
-            ::pointer < ::gtk3::acme::windowing::window > pwindow = (::gtk3::acme::windowing::window*) p;
+            auto pwindow = (::gtk3::acme::windowing::window*) p;
 
             if(!pwindow->_on_button_release(pwidget, pevent))
             {
@@ -249,19 +249,17 @@ return TRUE;
          }
 
 
-
          // Perform resizing as the mouse moves
-         static gboolean on_motion_notify(GtkWidget *widget, GdkEventMotion *happening, gpointer user_data)
+         static gboolean on_motion_notify(GtkWidget *widget, GdkEventMotion *happening, gpointer p)
          {
 
-            auto resize_data = (::gtk3::acme::windowing::window*) user_data;
+            auto pwindow = (::gtk3::acme::windowing::window*) p;
 
-            resize_data->_on_motion_notify(widget, happening);
+            pwindow->_on_motion_notify(widget, happening);
 
             return FALSE;
 
          }
-
 
 
          //}
@@ -774,11 +772,11 @@ return TRUE;
             g_signal_connect(GTK_WINDOW(m_pgtkwidget), "key-press-event", G_CALLBACK(on_key_press), this);
             g_signal_connect(GTK_WINDOW(m_pgtkwidget), "key-release-event", G_CALLBACK(on_key_release), this);
 
-            gtk_widget_set_events(m_pgtkwidget,
-                         GDK_STRUCTURE_MASK
-                         | GDK_FOCUS_CHANGE_MASK
-                         | GDK_KEY_PRESS_MASK
-                         | GDK_KEY_RELEASE_MASK);
+            // gtk_widget_set_events(m_pgtkwidget,
+            //              GDK_STRUCTURE_MASK
+            //              | GDK_FOCUS_CHANGE_MASK
+            //              | GDK_KEY_PRESS_MASK
+            //              | GDK_KEY_RELEASE_MASK);
 
 
             on_create_window();

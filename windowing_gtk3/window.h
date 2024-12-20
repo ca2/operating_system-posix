@@ -471,6 +471,9 @@ bool on_configure_unlocked_timer() override;
       void _post(const ::procedure & procedure) override;
 
 
+      void switch_to_this_window(bool b) override;
+
+
    };
 
 

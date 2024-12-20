@@ -1889,7 +1889,7 @@ if (!m_bImFocus)
 
       auto pgdkwindow = gtk_widget_get_window(m_pgtkwidget);
 
-gtk_im_context_set_client_window(m_pimcontext,pgdkwindow);
+      gtk_im_context_set_client_window(m_pimcontext,pgdkwindow);
 
       // Connect to signals
       g_signal_connect(m_pimcontext, "preedit-changed", G_CALLBACK(on_preedit_changed), this);
@@ -6926,6 +6926,19 @@ return;
    {
 
       main_post(procedure);
+
+   }
+
+
+   void window::switch_to_this_window(bool b)
+   {
+
+      main_send([this]()
+      {
+
+         gtk_window_present(GTK_WINDOW(m_pgtkwidget));
+
+      });
 
    }
 
