@@ -78,7 +78,6 @@ namespace gtk3
       {
 
 
-
          gboolean on_map(GtkWidget *widget, GdkEvent *event, gpointer p) {
             auto pwindow = (::gtk3::acme::windowing::window*)p;
             g_print("Window is now displayed on the screen.\n");
@@ -91,6 +90,7 @@ namespace gtk3
             pwindow->_on_map_window();
             return FALSE; // Allow default handler to proceed
          }
+
 
          gboolean on_unmap(GtkWidget *widget, GdkEvent *event, gpointer p) {
             auto pwindow = (::gtk3::acme::windowing::window*)p;
@@ -106,20 +106,74 @@ namespace gtk3
          }
 
 
-         static gboolean on_focus_in(GtkWidget *widget, GdkEvent *event, gpointer p) {
+         static gboolean on_focus_in(GtkWidget *widget, GdkEventFocus *event, gpointer p) {
             auto pwindow = (::gtk3::acme::windowing::window*)p;
-            pwindow->_on_focus_in();
+            if (pwindow->_on_focus_in(widget, event))
+               {
+return TRUE;
+               }
             g_print("Widget gained focus\n");
             return FALSE; // Propagate the event further
          }
 
-         static gboolean on_focus_out(GtkWidget *widget, GdkEvent *event, gpointer p) {
+
+         static gboolean on_focus_out(GtkWidget *widget, GdkEventFocus *event, gpointer p) {
             auto pwindow = (::gtk3::acme::windowing::window*)p;
-            pwindow->_on_focus_out();
+            if (pwindow->_on_focus_out(widget, event))
+            {
+
+               return TRUE;
+            }
             g_print("Widget lost focus\n");
             return FALSE; // Propagate the event further
          }
 
+         // Handle key press events and pass them to the IM context
+         static gboolean on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer p) {
+            auto pwindow = (::gtk3::acme::windowing::window*)p;
+            // GtkIMContext *im_context = gtk_widget_get_im_context(widget);
+            //
+            // // Pass the key press event to the IM context
+            // if (gtk_im_context_filter_keypress(im_context, event)) {
+            //    // Event was consumed by the IM context, return TRUE to stop further processing
+            //    return TRUE;
+            // }
+            //
+
+
+            if (pwindow->_on_key_press(widget, event))
+            {
+
+               return TRUE;
+
+            }
+
+
+            // Event was not consumed by the IM context, let GTK handle it
+            return FALSE;
+         }
+
+         // Handle key release events (if needed) and pass them to the IM context
+         static gboolean on_key_release(GtkWidget *widget, GdkEventKey *event, gpointer p) {
+            auto pwindow = (::gtk3::acme::windowing::window*)p;
+            //GtkIMContext *im_context = gtk_widget_get_im_context(widget);
+
+            if (pwindow->_on_key_release(widget, event))
+            {
+
+               return TRUE;
+
+            }
+
+            // // Optionally, you can handle key release events here if needed
+            // if (gtk_im_context_filter_keypress(im_context, event)) {
+            //    // Event was consumed by the IM context, return TRUE to stop further processing
+            //    return TRUE;
+            // }
+
+            // Event was not consumed by the IM context, let GTK handle it
+            return FALSE;
+         }
 
          // // Callback function to handle window resize happenings
          // static void on_size_allocate(GtkWidget *widget, GdkRectangle *allocation, gpointer p) {
@@ -658,8 +712,8 @@ namespace gtk3
 
 
             // Create drawing area
-            m_pdrawingarea = gtk_drawing_area_new();
-            gtk_container_add(GTK_CONTAINER(m_pgtkwidget), m_pdrawingarea);
+            //m_pdrawingarea = gtk_drawing_area_new();
+            //gtk_container_add(GTK_CONTAINER(m_pgtkwidget), m_pdrawingarea);
 
             // Connect the draw happening to the callback function
             //        g_signal_connect(G_OBJECT(m_pdrawingarea), "draw", G_CALLBACK(on_draw_event), this);
@@ -685,12 +739,25 @@ namespace gtk3
             g_signal_connect(G_OBJECT(m_pgtkwidget), "enter-notify-event", G_CALLBACK(on_enter_notify), this);
 
             g_signal_connect(G_OBJECT(m_pgtkwidget), "window-state-event", G_CALLBACK(on_window_state), this);
-            // Set happenings to capture motion and button happenings
+
+            //auto pgdkwindow = GDK_WINDOW(m_pgtkwidget);
             gtk_widget_set_events(m_pgtkwidget,
-                                  GDK_BUTTON_PRESS_MASK
-                                     | GDK_BUTTON_RELEASE_MASK
-                                     | GDK_POINTER_MOTION_MASK
-                                     | GDK_STRUCTURE_MASK);
+                      (GdkEventMask ) (GDK_BUTTON_PRESS_MASK
+                         | GDK_BUTTON_RELEASE_MASK
+                         | GDK_POINTER_MOTION_MASK
+                         | GDK_STRUCTURE_MASK
+                         | GDK_FOCUS_CHANGE_MASK
+                         | GDK_KEY_PRESS_MASK
+                         | GDK_KEY_RELEASE_MASK));
+            // Set happenings to capture motion and button happenings
+            // gtk_widget_set_events(m_pgtkwidget,
+            //                       GDK_BUTTON_PRESS_MASK
+            //                          | GDK_BUTTON_RELEASE_MASK
+            //                          | GDK_POINTER_MOTION_MASK
+            //                          | GDK_STRUCTURE_MASK
+            //                          | GDK_FOCUS_CHANGE_MASK
+            //                          | GDK_KEY_PRESS_MASK
+            //                          | GDK_KEY_RELEASE_MASK);
 
             // Connect the draw happening to the drawing callback function
             g_signal_connect(G_OBJECT(m_pgtkwidget), "draw", G_CALLBACK(on_window_draw), this);
@@ -700,8 +767,18 @@ namespace gtk3
             g_signal_connect(GTK_WINDOW(m_pgtkwidget), "map-event", G_CALLBACK(on_map), this);
             g_signal_connect(GTK_WINDOW(m_pgtkwidget), "unmap-event", G_CALLBACK(on_unmap), this);
 
-            g_signal_connect(m_pdrawingarea, "focus-in-event", G_CALLBACK(on_focus_in), this);
-            g_signal_connect(m_pdrawingarea, "focus-out-event", G_CALLBACK(on_focus_out), this);
+            g_signal_connect(GTK_WINDOW(m_pgtkwidget), "focus-in-event", G_CALLBACK(on_focus_in), this);
+            g_signal_connect(GTK_WINDOW(m_pgtkwidget), "focus-out-event", G_CALLBACK(on_focus_out), this);
+
+            // Connect to key press and release events
+            g_signal_connect(GTK_WINDOW(m_pgtkwidget), "key-press-event", G_CALLBACK(on_key_press), this);
+            g_signal_connect(GTK_WINDOW(m_pgtkwidget), "key-release-event", G_CALLBACK(on_key_release), this);
+
+            gtk_widget_set_events(m_pgtkwidget,
+                         GDK_STRUCTURE_MASK
+                         | GDK_FOCUS_CHANGE_MASK
+                         | GDK_KEY_PRESS_MASK
+                         | GDK_KEY_RELEASE_MASK);
 
 
             on_create_window();
@@ -710,16 +787,23 @@ namespace gtk3
          }
 
 
-         void window::_on_focus_in()
+         bool window::_on_focus_in(GtkWidget * pwidget, GdkEventFocus * focusin)
          {
 
             m_bHasFocusCached =true;
+
+            return false;
+
          }
 
-         void window::_on_focus_out()
+
+         bool window::_on_focus_out(GtkWidget * pwidget, GdkEventFocus * focusin)
          {
 
             m_bHasFocusCached = false;
+
+            return false;
+
          }
 
 
@@ -1183,9 +1267,30 @@ m_phappeningLastMouseUp = pevent;
          }
 
 
+
+         bool window::_on_key_press(GtkWidget *widget, GdkEventKey *event)
+         {
+
+            return false;
+
+         }
+
+
+
+         bool window::_on_key_release(GtkWidget *widget, GdkEventKey *event)
+         {
+
+
+            return false;
+
+         }
+
+
          void window::_on_cairo_draw(GtkWidget *widget, cairo_t *cr)
          {
             m_pnanodevice->on_begin_draw();
+
+
 
             _draw(m_pnanodevice);
 
