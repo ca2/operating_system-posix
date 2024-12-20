@@ -1,3 +1,1 @@
-default_windowing_gtk1
-default_windowing_gtk2
-operating_system-posix/node_gdk
+operating_system-posix/windowing_gtk3
