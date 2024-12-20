@@ -79,6 +79,33 @@ namespace gtk3
 
 
 
+         gboolean on_map(GtkWidget *widget, GdkEvent *event, gpointer p) {
+            auto pwindow = (::gtk3::acme::windowing::window*)p;
+            g_print("Window is now displayed on the screen.\n");
+            if (pwindow->m_bGtkWindowMapped)
+            {
+               g_print("Already flagged as mapped.\n");
+               return FALSE;
+            }
+            pwindow->m_bGtkWindowMapped = true;
+            pwindow->_on_map_window();
+            return FALSE; // Allow default handler to proceed
+         }
+
+         gboolean on_unmap(GtkWidget *widget, GdkEvent *event, gpointer p) {
+            auto pwindow = (::gtk3::acme::windowing::window*)p;
+            g_print("Window is now hidden from the screen.\n");
+            if (!pwindow->m_bGtkWindowMapped)
+            {
+               g_print("Already flagged as unmapped.\n");
+               return FALSE;
+            }
+            pwindow->m_bGtkWindowMapped = false;
+            pwindow->_on_unmap_window();
+            return FALSE; // Allow default handler to proceed
+         }
+
+
          static gboolean on_focus_in(GtkWidget *widget, GdkEvent *event, gpointer p) {
             auto pwindow = (::gtk3::acme::windowing::window*)p;
             pwindow->_on_focus_in();
@@ -297,6 +324,7 @@ namespace gtk3
 
          window::window()
          {
+            m_bGtkWindowMapped = false;
 
             //m_psurface = nullptr;
             //m_iDepth = -1;
@@ -667,6 +695,10 @@ namespace gtk3
             // Connect the draw happening to the drawing callback function
             g_signal_connect(G_OBJECT(m_pgtkwidget), "draw", G_CALLBACK(on_window_draw), this);
             g_signal_connect(G_OBJECT(m_pgtkwidget), "destroy", G_CALLBACK(on_window_destroy), this);
+
+            // Connect signals for map and unmap events
+            g_signal_connect(GTK_WINDOW(m_pgtkwidget), "map-event", G_CALLBACK(on_map), this);
+            g_signal_connect(GTK_WINDOW(m_pgtkwidget), "unmap-event", G_CALLBACK(on_unmap), this);
 
             g_signal_connect(m_pdrawingarea, "focus-in-event", G_CALLBACK(on_focus_in), this);
             g_signal_connect(m_pdrawingarea, "focus-out-event", G_CALLBACK(on_focus_out), this);
@@ -1642,6 +1674,29 @@ m_phappeningLastMouseUp = pevent;
          }
 
 
+         void window::_destroy_window()
+         {
+
+
+            __check_refdbg
+
+            if (GTK_IS_POPOVER(m_pgtkwidget))
+            {
+
+               gtk_widget_unparent(GTK_WIDGET(m_pgtkwidget));
+
+            }
+            else if (GTK_IS_WINDOW(m_pgtkwidget))
+            {
+
+               gtk_widget_destroy(GTK_WIDGET(m_pgtkwidget));
+
+            }
+
+            __check_refdbg
+
+         }
+
 
          void window::destroy_window()
          {
@@ -1653,22 +1708,7 @@ m_phappeningLastMouseUp = pevent;
             main_send([this]()
                       {
 
-                         __check_refdbg
-
-                         if (GTK_IS_POPOVER(m_pgtkwidget))
-                         {
-
-                            gtk_widget_unparent(GTK_WIDGET(m_pgtkwidget));
-
-                         }
-                         else if (GTK_IS_WINDOW(m_pgtkwidget))
-                         {
-
-                            gtk_widget_destroy(GTK_WIDGET(m_pgtkwidget));
-
-                         }
-
-                         __check_refdbg
+               _destroy_window();
 
                       });
 
@@ -1964,6 +2004,22 @@ m_phappeningLastMouseUp = pevent;
          //      return m_pdisplay->get_main_screen_size();
          //
          //   }
+
+
+         void window::_on_map_window()
+         {
+
+
+         }
+
+
+         void window::_on_unmap_window()
+         {
+
+
+
+         }
+
 
          bool window::is_window_zoomed()
          {

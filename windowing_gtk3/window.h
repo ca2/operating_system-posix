@@ -447,6 +447,14 @@ virtual void _set_configure_unlocked_timer();
 bool on_configure_unlocked_timer() override;
          virtual void _on_configure();
          virtual void _on_get_configuration();
+
+         void _on_map_window() override;
+         void _on_unmap_window() override;
+
+
+      void _post(const ::procedure & procedure) override;
+
+
    };
 
 

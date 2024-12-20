@@ -3640,6 +3640,51 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 
       _strict_set_window_position_unlocked(x, y, cx, cy, bNoMove, bNoSize);
 
+      if(edisplay == ::e_display_zoomed)
+      {
+
+         if(!is_window_zoomed())
+         {
+
+            window_maximize();
+
+         }
+
+      }
+      else if(edisplay == ::e_display_iconic)
+      {
+
+         //if(!is_iconic())
+         //{
+
+         window_minimize();
+
+         //}
+
+      }
+      else if(!::is_screen_visible(edisplay))
+      {
+
+         if(is_window_visible())
+         {
+
+            hide_window();
+
+         }
+
+      }
+      else if(::is_screen_visible(edisplay))
+      {
+
+         if(!is_window_visible())
+         {
+
+            show_window();
+
+         }
+
+      }
+
       return true;
 
    }
@@ -4614,55 +4659,89 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
    void window::destroy_window()
    {
 
+      if (has_destroying_flag())
+      {
+
+return;
+
+      }
+
+      //set_flag(e_flag_destroying);
+
+      ::string strType = ::type(m_puserinteraction).name();
+
+      set_destroying_flag();
+
       bool bOk = false;
 
-      auto pwindow = this;
+      auto pinteraction = m_puserinteraction;
 
-      if (::is_set(pwindow))
+      //auto pwindow = this;
+
+      ///if (::is_set(pwindow))
+      main_send([this, strType, pinteraction]()
       {
 
-         ::pointer<::user::interaction> pinteraction = pwindow->m_puserinteraction;
+         pinteraction->message_handler(e_message_destroy, 0, 0);
 
-         if (pinteraction.is_set())
-         {
+         _destroy_window();
 
-            pinteraction->send_message(e_message_destroy, 0, 0);
+         pinteraction->message_handler(e_message_non_client_destroy, 0, 0);
 
-         }
+         destroy();
 
-      }
+      });
 
-      // if (::is_set(m_pxdgtoplevel))
+
+      // bool bOk = false;
+      //
+      // auto pwindow = this;
+      //
+      // if (::is_set(pwindow))
       // {
       //
-      //    xdg_toplevel_destroy(m_pxdgtoplevel);
+      //    ::pointer<::user::interaction> pinteraction = pwindow->m_puserinteraction;
       //
-      //    m_pxdgtoplevel = nullptr;
+      //    if (pinteraction.is_set())
+      //    {
+      //
+      //       pinteraction->send_message(e_message_destroy, 0, 0);
+      //
+      //    }
       //
       // }
       //
-      // if (::is_set(m_pwlsurface))
+      // // if (::is_set(m_pxdgtoplevel))
+      // // {
+      // //
+      // //    xdg_toplevel_destroy(m_pxdgtoplevel);
+      // //
+      // //    m_pxdgtoplevel = nullptr;
+      // //
+      // // }
+      // //
+      // // if (::is_set(m_pwlsurface))
+      // // {
+      // //
+      // //    wl_surface_destroy(m_pwlsurface);
+      // //
+      // // }
+      //
+      // ::windowing::window::destroy_window();
+      //
+      // if (::is_set(pwindow))
       // {
       //
-      //    wl_surface_destroy(m_pwlsurface);
+      //    ::pointer<::user::interaction> pinteraction = pwindow->m_puserinteraction;
+      //
+      //    if (pinteraction.is_set())
+      //    {
+      //
+      //       pinteraction->send_message(e_message_non_client_destroy, 0, 0);
+      //
+      //    }
       //
       // }
-
-      ::windowing::window::destroy_window();
-
-      if (::is_set(pwindow))
-      {
-
-         ::pointer<::user::interaction> pinteraction = pwindow->m_puserinteraction;
-
-         if (pinteraction.is_set())
-         {
-
-            pinteraction->send_message(e_message_non_client_destroy, 0, 0);
-
-         }
-
-      }
 
    }
 
@@ -5128,8 +5207,21 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
    void window::window_update_screen()
    {
 
+      if (has_destroying_flag() || !m_pgraphicsthread || m_pgraphicsthread->has_finishing_flag())
+      {
+
+         return;
+
+      }
+
       main_post([this]()
       {
+         if (has_destroying_flag() || !m_pgraphicsthread || m_pgraphicsthread->has_finishing_flag())
+         {
+
+            return;
+
+         }
 
          set_window_position_unlocked();
 
@@ -6494,6 +6586,30 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
       _on_configure_immediate(r.left(), r.top(), r.width(), r.height());
 
       _set_configure_unlocked_timer();
+
+   }
+
+
+   void window::_on_map_window()
+   {
+
+      m_puserinteraction->call_route_message(e_message_show_window, 1);
+
+   }
+
+
+   void window::_on_unmap_window()
+   {
+
+      m_puserinteraction->post_message(e_message_show_window, 0);
+
+   }
+
+
+   void window::_post(const ::procedure & procedure)
+   {
+
+      main_post(procedure);
 
    }
 

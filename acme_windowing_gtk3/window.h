@@ -60,6 +60,7 @@ namespace gtk3
             //::atom                          m_atomLeftButtonUp;
             //::atom                             m_atomResult;
             //::pointer<::micro::child>        m_pchildFocus;
+            bool m_bGtkWindowMapped;
 
 
             window();
@@ -76,6 +77,8 @@ namespace gtk3
             void _create_window() override;
 
             void destroy() override;
+
+            virtual void _destroy_window();
 
             void destroy_window() override;
 
@@ -176,6 +179,9 @@ namespace gtk3
             //::int_size get_main_screen_size() override;
 
             //void on_a_system_menu_item(::operating_system::a_system_menu_item * psystemmenuitem);
+
+            virtual void _on_map_window();
+            virtual void _on_unmap_window();
 
             bool is_window_zoomed() override;
             void window_minimize() override;
