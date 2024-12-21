@@ -28,6 +28,7 @@
 #include "aura/graphics/image/context.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
+#include "common_gtk/activation_token.h"
 //#include "windowing_system_wayland/xfree86_key.h"
 #include <gtk/gtk.h>
 #include <X11/Xlib.h>
@@ -1894,17 +1895,31 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   void window::set_foreground_window()
+   void window::set_foreground_window(::user::activation_token * puseractivationtoken)
    {
 
-      _set_foreground_window_unlocked();
+      _set_foreground_window_unlocked(puseractivationtoken);
 
    }
 
 
-   void window::_set_foreground_window_unlocked()
+   void window::_set_foreground_window_unlocked(::user::activation_token * puseractivationtoken)
    {
 
+      ::cast < ::common_gtk::activation_token > pactivationtoken = puseractivationtoken;
+
+      if (pactivationtoken)
+      {
+
+         gtk_window_present_with_time(GTK_WINDOW(m_pgtkwidget), pactivationtoken->m_time);
+
+      }
+      else
+      {
+
+         gtk_window_present(GTK_WINDOW(m_pgtkwidget));
+
+      }
 
    }
 

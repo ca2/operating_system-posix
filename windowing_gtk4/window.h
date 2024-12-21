@@ -151,9 +151,9 @@ namespace windowing_gtk4
 
       void _set_active_window_unlocked() override;
 
-      void set_foreground_window() override;
+      void set_foreground_window(::user::activation_token * puseractivationtoken) override;
 
-      void _set_foreground_window_unlocked() override;
+      void _set_foreground_window_unlocked(::user::activation_token * puseractivationtoken) override;
 
       bool has_keyboard_focus() override;
 
