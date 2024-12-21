@@ -29,6 +29,7 @@
 #include "aura/platform/application.h"
 #include "acme/operating_system/a_system_menu.h"
 #include "common_gtk/gtk_3_and_4.h"
+#include "common_gtk/activation_token.h"
 //#include "acme/operating_system/x11/display_lock.h"
 
 
@@ -3975,11 +3976,9 @@ if (!m_bImFocus)
             if (useractivation.m_eactivation & ::user::e_activation_set_foreground)
             {
 
-               set_foreground_window();
+               set_foreground_window(useractivation.m_pactivationtoken);
 
             }
-
-
 
          }
 
@@ -4677,14 +4676,14 @@ if (!m_bImFocus)
 
 
    /// should be run at user_thread
-   void window::set_foreground_window()
+   void window::set_foreground_window(::user::activation_token * puseractivationtoken)
    {
 
       synchronous_lock synchronouslock(user_synchronization());
 
       //display_lock displaylock(x11_display()->Display());
 
-      _set_foreground_window_unlocked();
+      _set_foreground_window_unlocked(puseractivationtoken);
 
 //      XRaiseWindow(Display(), Window());
 //
@@ -4696,7 +4695,7 @@ if (!m_bImFocus)
 
 
    /// should be run at user_thread
-   void window::_set_foreground_window_unlocked()
+   void window::_set_foreground_window_unlocked(::user::activation_token * puseractivationtoken)
    {
 
 ////      synchronous_lock synchronouslock(user_synchronization());
@@ -4709,7 +4708,21 @@ if (!m_bImFocus)
 //
 //      //return true;
 
-      gtk_window_present(GTK_WINDOW(m_pgtkwidget));
+      ::cast < ::common_gtk::activation_token > pactivationtoken = puseractivationtoken;
+
+      if (pactivationtoken)
+      {
+
+         gtk_window_present_with_time(GTK_WINDOW(m_pgtkwidget), pactivationtoken->m_time);
+
+      }
+      else
+      {
+
+         gtk_window_present(GTK_WINDOW(m_pgtkwidget));
+
+      }
+
 
    }
 

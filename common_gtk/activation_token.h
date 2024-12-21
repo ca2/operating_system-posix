@@ -4,44 +4,34 @@
 
 #pragma once
 
-#include "../../../source/app/acme/user/user/activation.h"
+
+#include "acme/user/user/activation.h"
 #include <gdk/gdk.h>
 
-namespace gtk3 {
-namespace acme {
-namespace windowing {
 
-class activation_token :    virtual public ::user::activation_token
+namespace common_gtk
 {
-public:
-
-    guint32 m_time;
 
 
-    activation_token(guint32 time) :
-        m_time(time)
-    {
-    }
+   class activation_token :
+   virtual public ::user::activation_token
+   {
+   public:
 
 
-    bool matches(const ::user::activation_token * pactivationtoken) const override
-    {
-
-        ::cast < activation_token > ptoken = (::user::activation_token *) pactivationtoken;
-
-        if (!ptoken)
-        {
-            return false;
-        }
-
-        return ptoken->m_time == m_time;
-    }
+      guint32 m_time;
 
 
-};
+      activation_token(guint32 time);
 
-} // windowing
-} // acme
-} // gtk3
+
+      bool matches(const ::user::activation_token* pactivationtoken) const override;
+
+
+   };
+
+
+} // namespace common_gtk
+
 
 

@@ -45,7 +45,7 @@ NodeGtkApplication * node_gtk_application_new (const char * pszAppName, const ch
 void node_gtk_application_application_menu_activate_callback(GSimpleAction *action, GVariant * parameter, gpointer p)
 {
 
-   auto * pcallback = (::application_menu_callback *) p;
+   auto * pcallback = (::command_handler *) p;
 
    const gchar * name = g_action_get_name (G_ACTION(action));
 
@@ -54,14 +54,14 @@ void node_gtk_application_application_menu_activate_callback(GSimpleAction *acti
    if(strName.has_character())
    {
 
-      pcallback->on_application_menu_command(strName);
+      pcallback->handle_command(strName, nullptr);
 
    }
 
 }
 
 
-GMenu * g_menu_from_application_menu(GApplication * pgapplication, ::application_menu * papplicationmenu, ::application_menu_callback * pcallback)
+GMenu * g_menu_from_application_menu(GApplication * pgapplication, ::application_menu * papplicationmenu, ::command_handler * pcommandhandler)
 {
 
    GMenu * pmenu = g_menu_new();
@@ -76,7 +76,7 @@ GMenu * g_menu_from_application_menu(GApplication * pgapplication, ::application
       if(pitem->is_popup())
       {
 
-         auto pmenuSub = g_menu_from_application_menu(pgapplication, pitem, pcallback);
+         auto pmenuSub = g_menu_from_application_menu(pgapplication, pitem, pcommandhandler);
 
          g_menu_append_submenu(pmenu, strName, G_MENU_MODEL(pmenuSub));
 
@@ -89,10 +89,10 @@ GMenu * g_menu_from_application_menu(GApplication * pgapplication, ::application
          auto psimpleaction = g_simple_action_new (strId, NULL);
 
          g_signal_connect (
-            pcallback,
+            psimpleaction,
             "activate",
             G_CALLBACK (node_gtk_application_application_menu_activate_callback),
-            pcallback);
+            pcommandhandler);
 
          g_action_map_add_action(G_ACTION_MAP(pgapplication), G_ACTION (psimpleaction));
 
@@ -107,10 +107,10 @@ GMenu * g_menu_from_application_menu(GApplication * pgapplication, ::application
 }
 
 
-void node_gtk_application_set_application_menu(GApplication * pgapplication, ::application_menu * papplicationmenu, ::application_menu_callback * pcallback)
+void node_gtk_application_set_application_menu(GApplication * pgapplication, ::application_menu * papplicationmenu, ::command_handler * pcommandhandler)
 {
 
-   GMenu * pmenu = g_menu_from_application_menu (pgapplication, papplicationmenu, pcallback);
+   GMenu * pmenu = g_menu_from_application_menu (pgapplication, papplicationmenu, pcommandhandler);
 
    gtk_application_set_app_menu (GTK_APPLICATION (pgapplication), G_MENU_MODEL (pmenu));
 

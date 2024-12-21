@@ -7,7 +7,7 @@
 ////#include "acme/prototype/prototype/object.h"
 
 
-class application_menu_callback;
+class command_handler;
 
 
 
@@ -25,7 +25,7 @@ namespace aura_posix
         ~appindicator() override;
 
 
-        virtual bool create(const char * pszId, const char * pszIcon, const char * pszFolder, application_menu * papplicationmenu, application_menu_callback * pcallback) = 0;
+        virtual bool create(const char * pszId, const char * pszIcon, const char * pszFolder, application_menu * papplicationmenu, command_handler * pcommandhandler) = 0;
 
         virtual void close();
 

@@ -45,9 +45,7 @@ list(APPEND library_references
 
 
 
-add_library(${PROJECT_NAME} SHARED ${library_source}
-   activation_token.cpp
-   activation_token.h)
+add_library(${PROJECT_NAME} SHARED ${library_source})
 target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
