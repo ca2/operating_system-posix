@@ -3510,7 +3510,7 @@ if (!m_bImFocus)
 //      return _is_window_visible_unlocked();
 
 
-      return true;
+      return m_bGtkWindowMapped;
 //      XWindowAttributes attr;
 //
 //      if (!XGetWindowAttributes(Display(), Window(), &attr))
@@ -3971,6 +3971,15 @@ if (!m_bImFocus)
          {
 
             show_window();
+
+            if (useractivation.m_eactivation & ::user::e_activation_set_foreground)
+            {
+
+               set_foreground_window();
+
+            }
+
+
 
          }
 
@@ -4699,6 +4708,8 @@ if (!m_bImFocus)
 //      XSetInputFocus(Display(), Window(), RevertToNone, CurrentTime);
 //
 //      //return true;
+
+      gtk_window_present(GTK_WINDOW(m_pgtkwidget));
 
    }
 
@@ -6940,6 +6951,26 @@ return;
          gtk_window_present(GTK_WINDOW(m_pgtkwidget));
 
       });
+
+   }
+
+
+   huge_integer window::_001GetTopLeftWeightedOccludedOpaqueArea()
+   {
+
+      if (m_bActiveWindow)
+      {
+
+         return 0;
+
+      }
+      else
+      {
+
+         return m_sizeWindow.area() * 1024;
+
+      }
+
 
    }
 

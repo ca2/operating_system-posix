@@ -474,6 +474,9 @@ bool on_configure_unlocked_timer() override;
       void switch_to_this_window(bool b) override;
 
 
+      huge_integer _001GetTopLeftWeightedOccludedOpaqueArea() override;
+
+
    };
 
 
