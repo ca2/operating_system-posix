@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "node.h"
 #include "acme/platform/system.h"
+#include "apex/message/command.h"
 //#include "apex/user/user/notify_icon_bridge.h"
 //int uname(struct utsname *buf);
 //#ifndef RASPBERRYPIOS
@@ -53,7 +54,13 @@ extern "C"
 
       auto pcallback = (::application_menu_callback *) data;
 
-      pcallback->on_command(gtk_widget_get_name(GTK_WIDGET(pgtkmenuitem)));
+      ::atom atom;
+
+      atom = gtk_widget_get_name(GTK_WIDGET(pgtkmenuitem));
+
+      auto pcommand = __allocate ::message::command(atom);
+
+      pcallback->on_application_menu_command(pcommand);
 
    }
 
