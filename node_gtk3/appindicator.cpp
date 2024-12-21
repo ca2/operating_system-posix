@@ -49,57 +49,59 @@
 extern "C"
 {
 
-   //
-   // static void gtk_menu_item_application_menu_callback(GtkMenuItem * pgtkmenuitem, gpointer data)
-   // {
-   //
-   //    auto pcallback = (::application_menu_callback *) data;
-   //
-   //    ::atom atom;
-   //
-   //    atom = gtk_widget_get_name(GTK_WIDGET(pgtkmenuitem));
-   //
-   //    auto pactivationtoken= __allocate ::gtk3::acme::windowing::activation_token();
-   //
-   //    pcallback->on_application_menu_command(atom, puseractivationtoken);
-   //
-   // }
 
-
-} // extern "C"
-
-gboolean on_menu_item_button_press(GtkWidget *widget, GdkEventButton *happening, gpointer p) {
-   if (happening->button == 1) {  // Left mouse button
-      //g_print("Left button pressed on menu item: %s\n", gtk_menu_item_get_label(GTK_MENU_ITEM(widget)));
+   static void gtk_menu_item_application_menu_callback(GtkMenuItem * pgtkmenuitem, gpointer p)
+   {
 
       auto pcommandhandler = (::command_handler *) p;
 
       ::atom atom;
 
-      atom = gtk_widget_get_name(GTK_WIDGET(widget));
+      atom = gtk_widget_get_name(GTK_WIDGET(pgtkmenuitem));
 
-      auto puseractivationtoken= __allocate ::common_gtk::activation_token(happening->time);
+      //auto pactivationtoken= __allocate ::gtk3::acme::windowing::activation_token();
 
-      pcommandhandler->handle_command(atom, puseractivationtoken);
+      //pcallback->on_application_menu_command(atom, puseractivationtoken);
 
-      // auto *  = (::operating_system::a_system_menu_item *)p;
-      //
-      // auto pwindow = (::gtk3::acme::windowing::window *)pitem->m_pWindowingImplWindow;
-      // gtk_widget_hide(GTK_WIDGET(pwindow->m_pgtkwidgetSystemMenu));
-      //
-      // gtk_menu_popdown(GTK_MENU(pwindow->m_pgtkwidgetSystemMenu));
-      //
-      // gtk_widget_destroy(pwindow->m_pgtkwidgetSystemMenu);
-      // pwindow->_on_a_system_menu_item_button_press(pitem, widget, happening);
-      //
-      // pwindow->m_psystemmenu.release();
-      //
-      // pwindow->m_pgtkwidgetSystemMenu = nullptr;
-   } else if (happening->button == 3) {  // Right mouse button
-      //g_print("Right button pressed on menu item: %s\n", gtk_menu_item_get_label(GTK_MENU_ITEM(widget)));
+      pcommandhandler->handle_command(atom, nullptr);
+
    }
-   return FALSE;  // Return FALSE to propagate the happening, or TRUE to stop further happening handling
-}
+
+
+} // extern "C"
+
+// gboolean on_menu_item_button_press(GtkWidget *widget, GdkEventButton *happening, gpointer p) {
+//    if (happening->button == 1) {  // Left mouse button
+//       //g_print("Left button pressed on menu item: %s\n", gtk_menu_item_get_label(GTK_MENU_ITEM(widget)));
+//
+//       auto pcommandhandler = (::command_handler *) p;
+//
+//       ::atom atom;
+//
+//       atom = gtk_widget_get_name(GTK_WIDGET(widget));
+//
+//       auto puseractivationtoken= __allocate ::common_gtk::activation_token(happening->time);
+//
+//       pcommandhandler->handle_command(atom, puseractivationtoken);
+//
+//       // auto *  = (::operating_system::a_system_menu_item *)p;
+//       //
+//       // auto pwindow = (::gtk3::acme::windowing::window *)pitem->m_pWindowingImplWindow;
+//       // gtk_widget_hide(GTK_WIDGET(pwindow->m_pgtkwidgetSystemMenu));
+//       //
+//       // gtk_menu_popdown(GTK_MENU(pwindow->m_pgtkwidgetSystemMenu));
+//       //
+//       // gtk_widget_destroy(pwindow->m_pgtkwidgetSystemMenu);
+//       // pwindow->_on_a_system_menu_item_button_press(pitem, widget, happening);
+//       //
+//       // pwindow->m_psystemmenu.release();
+//       //
+//       // pwindow->m_pgtkwidgetSystemMenu = nullptr;
+//    } else if (happening->button == 3) {  // Right mouse button
+//       //g_print("Right button pressed on menu item: %s\n", gtk_menu_item_get_label(GTK_MENU_ITEM(widget)));
+//    }
+//    return FALSE;  // Return FALSE to propagate the happening, or TRUE to stop further happening handling
+// }
 
 GtkMenu * gtk_menu_from_application_menu(application_menu * papplicationmenu, ::command_handler * pcommandhandler)
 {
@@ -114,6 +116,8 @@ GtkMenu * gtk_menu_from_application_menu(application_menu * papplicationmenu, ::
    }
 
    GtkWidget * pgtkwidgetMenu = gtk_menu_new();
+
+   gtk_widget_add_events(pgtkwidgetMenu, GDK_BUTTON_PRESS_MASK);
 
    for(int i = 0; i < iCount; i++)
    {
@@ -156,19 +160,19 @@ GtkMenu * gtk_menu_from_application_menu(application_menu * papplicationmenu, ::
 
             gtk_widget_set_name(GTK_WIDGET(pgtkwidget), strId);
 
-            //if(pitem->m_strAtom.begins("***"))
-            {
-               gtk_widget_add_events(pgtkwidget, GDK_BUTTON_PRESS_MASK);
-
-               // Connect the button-press-event signal to handle button press happenings on menu items
-               g_signal_connect(pgtkwidget, "button-press-event", G_CALLBACK(on_menu_item_button_press), pcommandhandler);
-
-            }
+            // //if(pitem->m_strAtom.begins("***"))
+            // {
+            //    gtk_widget_add_events(pgtkwidget, GDK_BUTTON_PRESS_MASK);
+            //
+            //    // Connect the button-press-event signal to handle button press happenings on menu items
+            //    g_signal_connect(pgtkwidget, "button-press-event", G_CALLBACK(on_menu_item_button_press), pcommandhandler);
+            //
+            // }
             // else {
             //    g_signal_connect(menu_item, "activate", G_CALLBACK(on_menu_item_clicked), pitem.m_p);
             // }
-            //g_signal_connect (G_OBJECT(pgtkwidget), "activate", G_CALLBACK(gtk_menu_item_application_menu_callback),
-                              //pcommandhandler);
+            g_signal_connect (G_OBJECT(pgtkwidget), "activate", G_CALLBACK(gtk_menu_item_application_menu_callback),
+                              pcommandhandler);
 
             // gtkactionentriea[iEntry].stock_id = g_strdup(pszId);
 

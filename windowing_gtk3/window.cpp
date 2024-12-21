@@ -4723,6 +4723,15 @@ if (!m_bImFocus)
 
       }
 
+   }
+
+
+   void window::bring_to_front()
+   {
+
+      auto pgdkwindow = gtk_widget_get_window(m_pgtkwidget);
+
+      gdk_window_raise(pgdkwindow);
 
    }
 
@@ -5818,27 +5827,27 @@ return;
    }
 
 
-   void window::bring_to_front()
-   {
-
-//       synchronous_lock synchronouslock(user_synchronization());
+//    void window::bring_to_front()
+//    {
 //
-//       if (m_pwlsurface == 0)
-//       {
-//
-//          throw ::exception(error_failed);
-//
-//       }
-//
-//       windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1");
-//
-// //      display_lock displaylock(x11_display()->Display());
+// //       synchronous_lock synchronouslock(user_synchronization());
 // //
-// //      XRaiseWindow(displaylock.m_pdisplay, Window());
+// //       if (m_pwlsurface == 0)
+// //       {
+// //
+// //          throw ::exception(error_failed);
+// //
+// //       }
+// //
+// //       windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1");
+// //
+// // //      display_lock displaylock(x11_display()->Display());
+// // //
+// // //      XRaiseWindow(displaylock.m_pdisplay, Window());
+// //
+// //       //return ::success;
 //
-//       //return ::success;
-
-   }
+//    }
 
 
 //   bool window::presentation_complete()

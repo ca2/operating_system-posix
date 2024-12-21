@@ -284,6 +284,7 @@ namespace windowing_gtk3
       void set_foreground_window(::user::activation_token * puseractivationtoken) override;
       void _set_foreground_window_unlocked(::user::activation_token * puseractivationtoken) override;
 
+      void bring_to_front() override;
 
       bool has_mouse_capture() override;
 
@@ -393,9 +394,6 @@ namespace windowing_gtk3
 
 
       bool is_active_window() override;
-
-
-      void bring_to_front() override;
 
 
       void window_update_screen() override;
