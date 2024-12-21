@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "acme/user/user/activation.h"
+#include "../../../source/app/acme/user/user/activation.h"
 #include <gdk/gdk.h>
 
 namespace gtk3 {
