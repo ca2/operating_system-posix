@@ -950,7 +950,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 
             //pimpl->m_puserinteraction->display(::e_display_normal);
 
-            pimpl->m_puserinteraction->on_display_restore();
+            pimpl->m_puserinteraction->on_display_restore(nullptr);
 
             // pimpl->m_puserinteraction->set_need_layout();
             //
