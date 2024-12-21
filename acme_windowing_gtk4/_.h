@@ -6,6 +6,7 @@
 
 
 #include "acme_posix/_.h"
+#include "common_gtk/_.h"
 
 
 #if defined(_acme_windowing_gtk4_project)
