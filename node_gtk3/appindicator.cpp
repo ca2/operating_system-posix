@@ -58,9 +58,7 @@ extern "C"
 
       atom = gtk_widget_get_name(GTK_WIDGET(pgtkmenuitem));
 
-      auto pcommand = __allocate ::message::command(atom);
-
-      pcallback->on_application_menu_command(pcommand);
+      pcallback->on_application_menu_command(atom);
 
    }
 

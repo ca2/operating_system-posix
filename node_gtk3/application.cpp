@@ -54,7 +54,7 @@ void node_gtk_application_application_menu_activate_callback(GSimpleAction *acti
    if(strName.has_character())
    {
 
-      pcallback->on_command(strName);
+      pcallback->on_application_menu_command(strName);
 
    }
 
