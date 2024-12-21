@@ -68,7 +68,7 @@ elseif (${LINUX} OR ${__BSD__})
 endif ()
 
 
-add_dependencies(${PROJECT_NAME} acme)
+add_dependencies(${PROJECT_NAME} acme common_gtk)
 
 target_link_directories(${PROJECT_NAME} PRIVATE ${LIBRARY_OUTPUT_PATH})
 target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/storage-${OPERATING_SYSTEM_NAME}/library/x64/basis)

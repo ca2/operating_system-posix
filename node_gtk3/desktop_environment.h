@@ -24,7 +24,7 @@ namespace node_gtk3
    ~desktop_environment() override;
 
 
-      ::pointer < ::graphics::graphics > create_graphics() override;
+      //::pointer < ::graphics::graphics > create_graphics() override;
 
 
 //    virtual ::e_status _get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle * prectangle);

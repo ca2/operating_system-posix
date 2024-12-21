@@ -539,6 +539,9 @@ bool windowing::shell_open(const ::file::path & path)
 	return true;
 	
 }
+
+
+
       } // namespace windowing
 
 

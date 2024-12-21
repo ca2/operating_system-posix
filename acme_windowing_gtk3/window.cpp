@@ -296,10 +296,15 @@ return TRUE;
 
 
          // Callback function to handle drawing
-         static gboolean on_window_draw(GtkWidget *widget, cairo_t *cr, gpointer p) {
+         static gboolean on_window_draw(GtkWidget *widget, cairo_t *cr, gpointer p)
+         {
+
             auto pwindow = (::gtk3::acme::windowing::window*) p;
+
             pwindow->_on_cairo_draw(widget, cr);
+
             return FALSE;
+
          }
 
          // Callback to handle button-press-event for menu item
@@ -1286,13 +1291,24 @@ m_phappeningLastMouseUp = pevent;
 
          void window::_on_cairo_draw(GtkWidget *widget, cairo_t *cr)
          {
+
+            if (!m_pnanodevice)
+            {
+
+               cairo_set_source_rgba(cr, 1.0, 1.0, 1.0, 1.0);
+
+               cairo_fill(cr);
+
+               return ;
+
+            }
+
             m_pnanodevice->on_begin_draw();
-
-
 
             _draw(m_pnanodevice);
 
             m_pnanodevice->on_end_draw();
+
             auto pixmap = m_pnanodevice->pixmap();
 
             auto psurface = cairo_surface_for_pixmap(pixmap);
@@ -1304,7 +1320,6 @@ m_phappeningLastMouseUp = pevent;
             cairo_paint(cr);
 
             cairo_surface_destroy(psurface);
-
 
          }
 
@@ -2200,6 +2215,9 @@ m_phappeningLastMouseUp = pevent;
          void window::_on_configure()
          {
 
+            auto r = get_window_rectangle();
+
+            _on_configure(r.left(), r.top(), r.width(), r.height());
 
          }
 

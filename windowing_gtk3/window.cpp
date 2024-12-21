@@ -28,6 +28,7 @@
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
 #include "acme/operating_system/a_system_menu.h"
+#include "common_gtk/gtk_3_and_4.h"
 //#include "acme/operating_system/x11/display_lock.h"
 
 
@@ -42,7 +43,7 @@ void on_sn_launch_complete(void * pSnContext);
 #undef ALOG_CONTEXT
 #define ALOG_CONTEXT ::trace_object(::trace_category_windowing)
 
-#include "../node_gtk/gtk_3_and_4.cpp"
+//#include "../node_gtk/gtk_3_and_4.cpp"
 
 
 namespace windowing_gtk3

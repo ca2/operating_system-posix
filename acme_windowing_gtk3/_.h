@@ -6,8 +6,7 @@
 
 
 #include "acme_posix/_.h"
-#include <gtk/gtk.h>
-#include <gdk/gdk.h>
+#include "common_gtk/_.h"
 
 
 #if defined(_windowing_system_gtk3_project)

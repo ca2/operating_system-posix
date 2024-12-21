@@ -99,6 +99,21 @@ window_map                                               m_windowmap;
 
             void release_mouse_capture() override;
 
+            bool is_dark_mode_through_theming() override;
+
+            ::string theming_ui_name() override;
+
+
+            void impl_set_wallpaper(::collection::index iScreen, const ::scoped_string & scopedstrWallpaper) override;
+
+
+            void impl_set_desktop_theme(const ::scoped_string & scopedstrDesktopTheme) override;
+
+            ::string impl_get_desktop_theme() override;
+
+
+            void set_desktop_icon_theme(const ::scoped_string & scopedtrDesktopIconTheme) override;
+
 
          };
 

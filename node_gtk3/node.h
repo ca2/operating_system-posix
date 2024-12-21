@@ -43,13 +43,14 @@ namespace node_gtk3
       ~node() override;
 
 
-//      void _set_os_user_theme(const ::scoped_string & strTheme) override;
+
+      //virtual ::e_status _os_set_user_theme(const ::string & strTheme);
 //      void _apply_os_user_theme() override;
 //      //virtual ::string _get_os_user_theme();
 //
 //
-//      void _set_os_user_icon_theme(const ::scoped_string & strIconTheme) override;
-//      void _apply_os_user_icon_theme() override;
+      //virtual void _set_os_user_icon_theme(const ::scoped_string & strIconTheme);
+      //virtual void _apply_os_user_icon_theme();
 
 
       //void _fill_os_theme_colors(::os_theme_colors * pthemecolors) override;
