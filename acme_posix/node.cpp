@@ -53,6 +53,8 @@ virtual public ::numeric_array < POINTER_TYPE >
 	
 	};
 	
+
+::string __expand_environment_variables(const ::scoped_string & scopedstr);
 	
 ::pointer < ::array_of_malloced_pointer < char * > > strdupa_from_command_arguments(const ::string_array & stra)
 {
@@ -80,6 +82,13 @@ virtual public ::numeric_array < POINTER_TYPE >
 #include <sys/types.h>
 #include <sys/sysctl.h>
 #include <errno.h>
+
+#endif
+
+
+#ifdef __APPLE__
+
+#define HOST_NAME_MAX _POSIX_HOST_NAME_MAX
 
 #endif
 
@@ -611,7 +620,7 @@ namespace acme_posix
    string node::expand_environment_variables(const ::scoped_string & scopedstr)
    {
 
-      return ::platform::node::expand_environment_variables(scopedstr);
+      return ::__expand_environment_variables(scopedstr);
 
    }
 
@@ -2894,5 +2903,30 @@ return{};
 
 } // namespace acme_posix
 
+
+char * c_expand_environment_variables(const char * p);
+
+
+::string __expand_environment_variables(const ::scoped_string & scopedstr)
+{
+ 
+   ::string str(scopedstr);
+   
+   auto p = c_expand_environment_variables(str);
+   
+   if(p)
+   {
+      
+      str = p;
+      
+      ::free(p);
+      
+   }
+   
+   return str;
+      
+      
+   
+}
 
 
