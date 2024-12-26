@@ -91,6 +91,7 @@
 		9AA3F96D2A949CDD004283CA /* file_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AA3F9692A949CDD004283CA /* file_context.h */; };
 		9AA3F96E2A949CDD004283CA /* file_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AA3F9692A949CDD004283CA /* file_context.h */; };
 		9AA3F96F2A949CDD004283CA /* file_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AA3F9692A949CDD004283CA /* file_context.h */; };
+		9AB67D002D1C352F001AB250 /* _posix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AA1FE512D18EFD200DB0C45 /* _posix.cpp */; };
 		9AC14CBB297B3370006D9BD3 /* mutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0841AC2935D51D009F7FF4 /* mutex.h */; };
 		9AC14CBC297B3370006D9BD3 /* _.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C4264A2C6C00B5CC33 /* _.h */; };
 		9AC14CBD297B3370006D9BD3 /* pipe.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C0264A2C6C00B5CC33 /* pipe.h */; };
@@ -532,6 +533,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AB67D002D1C352F001AB250 /* _posix.cpp in Sources */,
 				9A8E9DC9282A2F7E005FF778 /* path_system.cpp in Sources */,
 				9A8E9DCA282A2F7E005FF778 /* _.cpp in Sources */,
 				9A8E9DCB282A2F7E005FF778 /* framework.cpp in Sources */,
