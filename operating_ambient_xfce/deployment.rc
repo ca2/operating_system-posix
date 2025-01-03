@@ -25,8 +25,8 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_DEFAULT
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2024,1129,0006,28
- PRODUCTVERSION 2024,1129,0006,28
+ FILEVERSION 2024,1207,1923,26
+ PRODUCTVERSION 2024,1207,1923,26
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -42,10 +42,10 @@ BEGIN
         BLOCK "040904b0"
         BEGIN
 			VALUE "CompanyName", "operating_system-posix"
-			VALUE "FileDescription", "operating_system_posix_node_xfce"
-            VALUE "FileVersion", "2024.1129.0006.28"
-            VALUE "LegalCopyright", "Copyright (C) 2024-11-29-00-06-28"
-            VALUE "ProductVersion", "2024.1129.0006.28"
+			VALUE "FileDescription", "operating_system_posix_operating_ambient_xfce"
+            VALUE "FileVersion", "2024.1207.1923.26"
+            VALUE "LegalCopyright", "Copyright (C) 2024-12-07-19-23-26"
+            VALUE "ProductVersion", "2024.1207.1923.26"
         END
     END
     BLOCK "VarFileInfo"
