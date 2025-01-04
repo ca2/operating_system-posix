@@ -662,13 +662,12 @@ namespace gtk4
 
             }
 
-            auto pacmeuserinteractionOwner = m_pacmeuserinteractionOwner;
+            //auto pwindowOwner = owner_window();
 
-            if (pacmeuserinteractionOwner)
+            //if (pacmeuserinteractionOwner)
             {
 
-               ::pointer<::gtk4::acme::windowing::window> pwindowOwner = pacmeuserinteractionOwner->
-                  acme_windowing_window();
+               ::cast<::gtk4::acme::windowing::window> pwindowOwner = owner_window();
 
                if (pwindowOwner)
                {

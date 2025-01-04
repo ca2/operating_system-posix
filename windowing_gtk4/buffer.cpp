@@ -652,10 +652,11 @@ namespace windowing_gtk4
 //         || pwaylandwindow->m_uLastConfigureSerial > pwaylandwindow->m_uLastRequestSerial))
 //      {
 
-      ::pointer<::windowing_gtk4::window> pgtk4window = m_pwindow.m_p;
+      ::cast<::windowing_gtk4::window> pgtk4window = m_pwindow.m_p;
 
-      ::string strType = ::type(pgtk4window->m_puserinteraction).name();
+      auto puserinteraction = m_pwindow->user_interaction();
 
+      ::string strType = ::type(puserinteraction).name();peappe
 //       if(pwaylandwindow->m_pxdgtoplevel == nullptr
 //       && pwaylandwindow->m_pxdgpopup == nullptr)
 //       {

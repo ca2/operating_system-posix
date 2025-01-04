@@ -135,7 +135,7 @@ namespace windowing_posix
 
       information() << "_on_wm_state_change is_iconic : " << bIconic;
 
-      ::user::interaction * pinteraction = pposixwindow->m_puserinteraction;
+      auto pinteraction = pposixwindow->user_interaction();
 
       if (pinteraction != nullptr)
       {
