@@ -656,7 +656,7 @@ namespace windowing_gtk4
 
       auto puserinteraction = m_pwindow->user_interaction();
 
-      ::string strType = ::type(puserinteraction).name();peappe
+      ::string strType = ::type(puserinteraction).name();
 //       if(pwaylandwindow->m_pxdgtoplevel == nullptr
 //       && pwaylandwindow->m_pxdgpopup == nullptr)
 //       {

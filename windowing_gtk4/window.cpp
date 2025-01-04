@@ -172,7 +172,9 @@ drawing_area_state_flags_changed (
 
          pwindow->m_bActiveWindow = false;
 
-         if(pwindow->m_puserinteraction->const_layout().sketch().display() == ::e_display_iconic)
+         auto puserinteraction = pwindow->user_interaction();
+
+         if(puserinteraction->const_layout().sketch().display() == ::e_display_iconic)
          {
 
             pwindow->on_window_iconified();
@@ -447,10 +449,12 @@ gtk_im_context_commit (
 
          GdkSurface * pgdksurface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
 
+         auto puserinteraction = user_interaction();
+
          if (edisplay == e_display_zoomed)
          {
 
-            m_puserinteraction->display(::e_display_zoomed);
+            puserinteraction->display(::e_display_zoomed);
 
             application()->fork([this]()
             {
@@ -476,13 +480,13 @@ gtk_im_context_commit (
          else if (edisplay == e_display_iconic)
          {
 
-            m_puserinteraction->display(::e_display_iconic);
+            puserinteraction->display(::e_display_iconic);
 
          }
          else
          {
 
-            m_puserinteraction->display(::e_display_normal);
+            puserinteraction->display(::e_display_normal);
 
             application()->fork([this]()
             {
@@ -516,9 +520,7 @@ gtk_im_context_commit (
 
       informationf("::windowing_gtk4::window::on_size(%d,%d)", cx, cy);
 
-      ::windowing::window * pimpl = this;
-
-      auto puserinteraction = pimpl->m_puserinteraction;
+      auto puserinteraction = user_interaction();
 
       ::int_size s(cx, cy);
 
@@ -1111,7 +1113,9 @@ gtk_im_context_commit (
 
          pkey->m_ekey = ekey;
 
-         m_puserinteraction->send_message(pkey);
+         auto puserinteraction = user_interaction();
+
+         puserinteraction->send_message(pkey);
 
 //         message_handler(pkey);
 
@@ -1140,7 +1144,9 @@ gtk_im_context_commit (
 
          pkey->m_ekey = ekey;
 
-         m_puserinteraction->send_message(pkey);
+         auto puserinteraction = user_interaction();
+
+         puserinteraction->send_message(pkey);
 
          //m_puserinteractionKeyboardFocus->send_message(pkey);
 
@@ -1179,17 +1185,18 @@ on_text(scopedstr, scopedstr.size());
       }
       else
       {
+
          g_print("Window has been restored.\n");
 
-         ::windowing::window * pimpl = this;
+         auto puserinteraction = user_interaction();
 
-         pimpl->m_puserinteraction->display(::e_display_normal);
+         puserinteraction->display(::e_display_normal);
 
-         pimpl->m_puserinteraction->set_need_layout();
+         puserinteraction->set_need_layout();
 
-         pimpl->m_puserinteraction->set_need_redraw();
+         puserinteraction->set_need_redraw();
 
-         pimpl->m_puserinteraction->post_redraw();
+         puserinteraction->post_redraw();
 
       }
 
@@ -1232,16 +1239,18 @@ on_text(scopedstr, scopedstr.size());
 
       bool bOk = false;
 
-      bool bVisible = m_puserinteraction->const_layout().sketch().is_screen_visible();
+      auto puserinteraction = user_interaction();
+
+      bool bVisible = puserinteraction->const_layout().sketch().is_screen_visible();
 
       //main_send([this, &bOk]()
       {
 
           ::windowing::window * pimpl = this;
 
-          auto pusersystem = pimpl->m_puserinteraction->m_pusersystem;
+          auto pusersystem = puserinteraction->m_pusersystem;
 
-          pimpl->m_puserinteraction->m_bMessageWindow = false;
+          puserinteraction->m_bMessageWindow = false;
 
           auto pgtk4windowing = gtk4_windowing();
 
@@ -1251,10 +1260,9 @@ on_text(scopedstr, scopedstr.size());
 
           //m_pwindow = pimpl;
 
-          m_puserinteraction->m_pacmewindowingwindow = this;
+          puserinteraction->m_pacmewindowingwindow = this;
 
-          //m_puserinteraction->m_puserinteractionTopLevel = m_pwindow->
-             m_puserinteraction;
+          //m_puserinteraction->m_puserinteractionTopLevel = m_pwindow->m_puserinteraction;
 
           //m_pdisplaybase = pdisplay;
 
@@ -1264,13 +1272,13 @@ on_text(scopedstr, scopedstr.size());
 
           //pimpl->m_pwindow = this;
 
-          int x = m_puserinteraction->const_layout().sketch().origin().x();
+          int x = puserinteraction->const_layout().sketch().origin().x();
 
-          int y = m_puserinteraction->const_layout().sketch().origin().y();
+          int y = puserinteraction->const_layout().sketch().origin().y();
 
-          int cx = m_puserinteraction->const_layout().sketch().width();
+          int cx = puserinteraction->const_layout().sketch().width();
 
-          int cy = m_puserinteraction->const_layout().sketch().height();
+          int cy = puserinteraction->const_layout().sketch().height();
 
 
           if (cx <= 0)
@@ -1365,16 +1373,18 @@ m_pimcontext = gtk_im_multicontext_new();
 
 #endif
 
-         auto lresult = m_puserinteraction->send_message(e_message_create, 0, 0);
+         auto puserinteraction = user_interaction();
+
+         auto lresult = puserinteraction->send_message(e_message_create, 0, 0);
 
          if (lresult == -1)
          {
             throw ::exception(error_failed);
          }
 
-         m_puserinteraction->m_ewindowflag |= e_window_flag_window_created;
+         puserinteraction->m_ewindowflag |= e_window_flag_window_created;
 
-         m_puserinteraction->set_flag(e_flag_task_started);
+         puserinteraction->set_flag(e_flag_task_started);
 
       }
 
@@ -1387,7 +1397,7 @@ m_pimcontext = gtk_im_multicontext_new();
       } else
       {
 
-         m_puserinteraction->const_layout().window().display() = e_display_none;
+         puserinteraction->const_layout().window().display() = e_display_none;
 
       }
 
@@ -1653,7 +1663,10 @@ m_pimcontext = gtk_im_multicontext_new();
       //
       // }
       //
-      if (!m_puserinteraction->m_bUserElementOk)
+
+      auto puserinteraction = user_interaction();
+
+      if (!puserinteraction->m_bUserElementOk)
       {
 
          return true;
@@ -1765,7 +1778,9 @@ m_pimcontext = gtk_im_multicontext_new();
                                            const ::user::activation & useractivation, bool bNoZorder, ::e_display edisplay)
    {
 
-      if (!(m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
+      auto puserinteraction = user_interaction();
+
+      if (!(puserinteraction->m_ewindowflag & e_window_flag_window_created))
       {
 
          return false;
@@ -1875,13 +1890,15 @@ m_pimcontext = gtk_im_multicontext_new();
    void window::_set_active_window_unlocked()
    {
 
-      if (!(m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
+      auto puserinteraction = user_interaction();
+
+      if (!(puserinteraction->m_ewindowflag & e_window_flag_window_created))
       {
 
-         if (m_puserinteraction->const_layout().design().activation().m_eactivation == ::user::e_activation_default)
+         if (puserinteraction->const_layout().design().activation().m_eactivation == ::user::e_activation_default)
          {
 
-            m_puserinteraction->layout().m_statea[::user::e_layout_sketch].activation().m_eactivation =
+            puserinteraction->layout().m_statea[::user::e_layout_sketch].activation().m_eactivation =
                ::user::e_activation_set_active;
 
          }
@@ -1934,25 +1951,27 @@ m_pimcontext = gtk_im_multicontext_new();
 
       }
 
-      ::string strType = ::type(m_puserinteraction).name();
+      auto puserinteraction = user_interaction();
+
+      ::string strType = ::type(puserinteraction).name();
 
       set_destroying_flag();
 
       bool bOk = false;
 
-      auto pinteraction = m_puserinteraction;
+      //auto pinteraction = m_puserinteraction;
 
       //auto pwindow = this;
 
       ///if (::is_set(pwindow))
-      main_send([this, strType, pinteraction]()
+      main_send([this, strType, puserinteraction]()
       {
 
-         pinteraction->message_handler(e_message_destroy, 0, 0);
+         puserinteraction->message_handler(e_message_destroy, 0, 0);
 
          _destroy_window();
 
-         pinteraction->message_handler(e_message_non_client_destroy, 0, 0);
+         puserinteraction->message_handler(e_message_non_client_destroy, 0, 0);
 
          destroy();
 
@@ -2242,7 +2261,9 @@ m_pimcontext = gtk_im_multicontext_new();
 
       pshowwindow->m_atom = e_message_show_window;
 
-      pshowwindow->m_puserinteraction = m_puserinteraction;
+      auto puserinteraction = user_interaction();
+
+      pshowwindow->m_puserinteraction = puserinteraction;
 
       pshowwindow->m_pwindow = this;
 
@@ -2250,7 +2271,7 @@ m_pimcontext = gtk_im_multicontext_new();
 
       pshowwindow->m_bShow = true;
 
-      m_puserinteraction->route_message(pshowwindow);
+      puserinteraction->route_message(pshowwindow);
 
    }
 
@@ -2262,7 +2283,9 @@ m_pimcontext = gtk_im_multicontext_new();
 
       pshowwindow->m_atom = e_message_show_window;
 
-      pshowwindow->m_puserinteraction = m_puserinteraction;
+      auto puserinteraction = user_interaction();
+
+      pshowwindow->m_puserinteraction = puserinteraction;
 
       pshowwindow->m_pwindow = this;
 
@@ -2270,7 +2293,7 @@ m_pimcontext = gtk_im_multicontext_new();
 
       pshowwindow->m_bShow = false;
 
-      m_puserinteraction->route_message(pshowwindow);
+      puserinteraction->route_message(pshowwindow);
 
    }
 
@@ -2281,24 +2304,26 @@ m_pimcontext = gtk_im_multicontext_new();
       if (bActive)
       {
 
-         auto & sketch = m_puserinteraction->layout().m_statea[::user::e_layout_sketch];
+         auto puserinteraction = user_interaction();
+
+         auto & sketch = puserinteraction->layout().m_statea[::user::e_layout_sketch];
 
          enum_display edisplayCurrent = defer_window_get_best_display_deduction();
 
-         auto & window = m_puserinteraction->layout().m_statea[::user::e_layout_window];
+         auto & window = puserinteraction->layout().m_statea[::user::e_layout_window];
 
          window.m_edisplay = edisplayCurrent;
 
          if(sketch.m_edisplay != edisplayCurrent)
          {
 
-            m_puserinteraction->display(edisplayCurrent);
+            puserinteraction->display(edisplayCurrent);
 
-            m_puserinteraction->set_need_layout();
+            puserinteraction->set_need_layout();
 
-            m_puserinteraction->set_need_redraw();
+            puserinteraction->set_need_redraw();
 
-            m_puserinteraction->post_redraw();
+            puserinteraction->post_redraw();
 
          }
 
