@@ -5,7 +5,7 @@
 #pragma once
 
 
-#include "acme/user/user/activation.h"
+#include "acme/user/user/activation_token.h"
 #include <gdk/gdk.h>
 
 
@@ -14,7 +14,7 @@ namespace common_gtk
 
 
    class activation_token :
-   virtual public ::user::activation_token
+      virtual public ::user::activation_token
    {
    public:
 

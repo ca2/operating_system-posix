@@ -2,7 +2,12 @@
 
 
 
-if(${XFCE_DESKTOP})
+if(${LXDE_DESKTOP})
+
+   set(GNOME_RELEASE_MAJOR "3")
+   add_compile_definitions(__XFCE)
+
+elseif(${XFCE_DESKTOP})
 
    set(GNOME_RELEASE_MAJOR "3")
    add_compile_definitions(__XFCE)
