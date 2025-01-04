@@ -146,6 +146,11 @@ namespace gtk4
             ::windowing::enum_windowing calculate_ewindowing() override;
 
 
+            bool has_resizing() override;
+
+
+            void set_dark_mode(bool bDarkMode);
+
 
          };
 

@@ -18,6 +18,7 @@ namespace windowing_gtk4
    public:
 
 
+      GdkCursor * m_pgdkcursor;
       //::Cursor                   m_cursor;
       // ::wl_cursor *m_pwlcursor;
       // ::wayland::micro::buffer m_waylandbuffer;

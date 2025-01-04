@@ -28,6 +28,7 @@ namespace gtk3
          {
          public:
 
+           bool m_bHasFocusCached;
 
             //::pointer<::x11::acme::windowing::display>         m_pdisplay;
             //Window                           m_window;
@@ -59,6 +60,7 @@ namespace gtk3
             //::atom                          m_atomLeftButtonUp;
             //::atom                             m_atomResult;
             //::pointer<::micro::child>        m_pchildFocus;
+            bool m_bGtkWindowMapped;
 
 
             window();
@@ -75,6 +77,8 @@ namespace gtk3
             void _create_window() override;
 
             void destroy() override;
+
+            virtual void _destroy_window();
 
             void destroy_window() override;
 
@@ -98,10 +102,15 @@ namespace gtk3
             virtual bool _on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening);
             virtual bool _on_window_state(GtkWidget* widget, GdkEventWindowState* happening);
 
+            virtual bool _on_focus_in(GtkWidget *widget, GdkEventFocus *event);
+            virtual bool _on_focus_out(GtkWidget *widget, GdkEventFocus *event);
+            virtual bool _on_key_press(GtkWidget *widget, GdkEventKey *event);
+            virtual bool _on_key_release(GtkWidget *widget, GdkEventKey *event);
+
             virtual void _on_cairo_draw(GtkWidget *widget, cairo_t *cr);
             //void create_window(::windowing::window * pimpl) override;
 
-            virtual void _on_size(int cx, int cy);
+            virtual void _on_configure(int x, int y, int cx, int cy);
 
             virtual void _draw(::nano::graphics::device * pnanodevice);
 
@@ -174,10 +183,15 @@ namespace gtk3
 
             //void on_a_system_menu_item(::operating_system::a_system_menu_item * psystemmenuitem);
 
+            virtual void _on_map_window();
+            virtual void _on_unmap_window();
+
             bool is_window_zoomed() override;
             void window_minimize() override;
             void window_maximize() override;
             void hide_window() override;
+
+            virtual void _on_configure();
 
          };
 

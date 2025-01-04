@@ -101,7 +101,8 @@ list(TRANSFORM static_library_references PREPEND static_)
 #
 
 
-add_library(${PROJECT_NAME} SHARED ${library_source})
+add_library(${PROJECT_NAME} SHARED ${library_source}
+   ../node_gtk/gtk_3_and_4.cpp)
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 

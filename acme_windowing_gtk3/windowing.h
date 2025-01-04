@@ -28,6 +28,8 @@ namespace gtk3
       ::procedure             m_callbackOnActivateGtkApplication;
       GtkApplication *        m_pgtkapplication;
 
+      map < GtkWindow * , ::pointer < ::gtk3::acme::windowing::window> > m_windowmap;
+
 
       windowing();
       ~windowing() override;
@@ -50,7 +52,8 @@ namespace gtk3
                bool shell_open(const ::file::path & path) override;
 
 
-
+      ::gtk3::acme::windowing::window * _window(GtkWindow * pgtkwindow);
+      void _set_window(GtkWindow * pgtkwindow, ::gtk3::acme::windowing::window * pgtk3acmewindowingwindow);
 
       ::acme::windowing::display * acme_display() override;
       void _user_send(const ::procedure & procedure) override;

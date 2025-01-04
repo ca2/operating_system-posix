@@ -49,32 +49,32 @@ namespace node_gtk3
    }
 
 
-
-   ::pointer < ::graphics::graphics > desktop_environment::create_graphics()
-   {
-
-      auto edisplaytype = ::windowing::get_edisplaytype();
-
-      //#if !defined(RASPBERRYPIOS) && !defined(FREEBSD) && !defined(__XFCE) && !defined(OPENBSD)
-
-// #ifdef HAS_WAYLAND
 //
-//       if(edisplaytype == e_display_type_wayland)
+//    ::pointer < ::graphics::graphics > desktop_environment::create_graphics()
+//    {
+//
+//       auto edisplaytype = ::windowing::get_edisplaytype();
+//
+//       //#if !defined(RASPBERRYPIOS) && !defined(FREEBSD) && !defined(__XFCE) && !defined(OPENBSD)
+//
+// // #ifdef HAS_WAYLAND
+// //
+// //       if(edisplaytype == e_display_type_wayland)
+// //       {
+// //
+// //          //windowing_x11_factory(pfactory);
+// //
+// //          return __allocate node_gtk3::wayland_buffer;
+// //
+// //       }
+// //       else
+// // #endif
 //       {
-//
-//          //windowing_x11_factory(pfactory);
-//
-//          return __allocate node_gtk3::wayland_buffer;
-//
+//          return ::windowing::desktop_environment::create_graphics();
 //       }
-//       else
-// #endif
-      {
-         return ::windowing::desktop_environment::create_graphics();
-      }
-
-   }
-
+//
+//    }
+//
 
 //    ::e_status desktop_environment::_get_monitor_rectangle(::collection::index iIndex, ::int_rectangle *prectangle)
 //    {

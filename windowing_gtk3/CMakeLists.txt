@@ -3,60 +3,61 @@ project(windowing_gtk3 CXX)
 
 
 list(APPEND library_source
-        _.cpp
-        _.h
-        _factory.cpp
-        #_library.h
-        buffer.cpp
-        buffer.h
-        cursor.cpp
-        cursor.h
-        debug.cpp
-        display.cpp
-        display.h
-        #display_xrender.cpp
-        enum_display_monitors.cpp
-        framework.cpp
-        framework.h
-        icon.cpp
-        icon.h
-        keyboard.cpp
-        keyboard.h
-        #node.cpp
-        #node.h
-        startup-notification.cpp
-        startup-notification.h
-        text_composition_client.cpp
-        text_composition_client.h
-        user.cpp
-        window.cpp
-        window.h
-        windowing.cpp
-        windowing_wm.cpp
-        windowing_gtk3.cpp
-        windowing.h
-        wayland_windowing.cpp
-        #xfree86_key.h
-        xi.cpp
+   _.cpp
+   _.h
+   _factory.cpp
+   #_library.h
+   buffer.cpp
+   buffer.h
+   cursor.cpp
+   cursor.h
+   debug.cpp
+   display.cpp
+   display.h
+   #display_xrender.cpp
+   enum_display_monitors.cpp
+   framework.cpp
+   framework.h
+   icon.cpp
+   icon.h
+   keyboard.cpp
+   keyboard.h
+   #node.cpp
+   #node.h
+   startup-notification.cpp
+   startup-notification.h
+   text_composition_client.cpp
+   text_composition_client.h
+   user.cpp
+   window.cpp
+   window.h
+   windowing.cpp
+   windowing_wm.cpp
+   windowing_gtk3.cpp
+   windowing.h
+   wayland_windowing.cpp
+   #xfree86_key.h
+   xi.cpp
 )
 
 
 list(APPEND library_references
-        acme
-        acme_posix
-        nano_graphics_cairo
+   acme
+   acme_posix
+   nano_graphics_cairo
+   common_gtk
    acme_windowing_gtk3
-        apex
-        apex_posix
+   apex
+   apex_posix
    innate_ui_gtk3
-        aqua
-        aura
-        aura_posix
-        #aura_${OPERATING_SYSTEM_NAME}
-        windowing_posix
-       # windowing_system_wayland
-        #windowing_system_x11
-        #nano_user_wayland
+   aqua
+   aura
+   aura_posix
+   #aura_${OPERATING_SYSTEM_NAME}
+   windowing_posix
+   # windowing_system_wayland
+   #windowing_system_x11
+   #nano_user_wayland
 )
 
 list(APPEND static_library_references ${library_references})
@@ -69,8 +70,8 @@ add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 if (NOT ${NO_PRECOMPILED_HEADER})
 
-    target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
-    target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
+   target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
+   target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
 
 endif ()
 
@@ -78,42 +79,42 @@ set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 
 if (MSVC)
-    target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
-    target_link_options(${PROJECT_NAME} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
-    target_link_options(${PROJECT_NAME} PRIVATE "/SUBSYSTEM:WINDOWS")
-    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references})
-    #add_dependencies(${PROJECT_NAME} draw2d_gdiplus)
+   target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
+   target_link_options(${PROJECT_NAME} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
+   target_link_options(${PROJECT_NAME} PRIVATE "/SUBSYSTEM:WINDOWS")
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references})
+   #add_dependencies(${PROJECT_NAME} draw2d_gdiplus)
 elseif (${LINUX} OR ${__BSD__})
 
 
-    #pkg_check_modules(PKGCONFIG xkbcommon x11 xrender xi xext libstartup-notification-1.0 wayland-client wayland-server wayland-cursor)
-    pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
+   #pkg_check_modules(PKGCONFIG xkbcommon x11 xrender xi xext libstartup-notification-1.0 wayland-client wayland-server wayland-cursor)
+   pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
 
-    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
-    target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+   target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+   target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
 
-    target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
-    target_compile_options(static_${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
-    target_compile_definitions(static_${PROJECT_NAME} PRIVATE CUBE)
-
-
-    target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
-    target_link_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
-    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
-    target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${PKGCONFIG_LIBRARIES})
-    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
-    # target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
+   target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
+   target_compile_options(static_${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
+   target_compile_definitions(static_${PROJECT_NAME} PRIVATE CUBE)
 
 
-    #add_dependencies(${PROJECT_NAME} draw2d_cairo)
+   target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
+   target_link_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
+   target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${PKGCONFIG_LIBRARIES})
+   target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
+   # target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
+
+
+   #add_dependencies(${PROJECT_NAME} draw2d_cairo)
 
 
 endif ()
 
 
 add_dependencies(${PROJECT_NAME}
-    acme_windowing_gtk3
-    innate_ui_gtk3
+   acme_windowing_gtk3
+   innate_ui_gtk3
 )
 
 

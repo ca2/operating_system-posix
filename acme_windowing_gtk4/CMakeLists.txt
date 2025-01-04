@@ -23,8 +23,8 @@ list(APPEND library_source
         display_base.h
         framework.cpp
         framework.h
-        gdk_gdk.cpp
-        gdk_gdk.h
+        #gdk_gdk.cpp
+        #gdk_gdk.h
         gtk4.cpp
         keyboard.h
         #SubclassedGizmo.cpp
@@ -38,6 +38,13 @@ list(APPEND library_source
         windowing.cpp
         windowing.h
 )
+
+
+list(APPEND library_references
+   acme
+   common_gtk
+)
+
 
 
 add_library(${PROJECT_NAME} SHARED ${library_source})
@@ -60,7 +67,7 @@ elseif (${LINUX} OR ${__BSD__})
     #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
     #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})
     target_link_options(${PROJECT_NAME} PRIVATE -Wl,-rpath=\$ORIGIN)
-    target_link_libraries(${PROJECT_NAME} PRIVATE acme ${PKGCONFIG_LIBRARIES})
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
     target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
     message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
 
@@ -68,7 +75,7 @@ elseif (${LINUX} OR ${__BSD__})
 endif ()
 
 
-add_dependencies(${PROJECT_NAME} acme)
+add_dependencies(${PROJECT_NAME} acme common_gtk)
 
 target_link_directories(${PROJECT_NAME} PRIVATE ${LIBRARY_OUTPUT_PATH})
 target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/storage-${OPERATING_SYSTEM_NAME}/library/x64/basis)

@@ -90,7 +90,7 @@ namespace node_gtk3
 //
   //    auto pnode = psystem->node();
 
-      m_pindicator->create(m_strId, strAppName, pathFolder, this->menu(), get_app());
+      m_pindicator->create(m_strId, strAppName, pathFolder, this->menu(), this);
 
 //      if (m_pindicator == nullptr)
 //      {

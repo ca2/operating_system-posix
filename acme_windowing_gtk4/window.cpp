@@ -57,6 +57,30 @@ namespace gtk4
       namespace windowing
       {
 
+         static void on_window_is_active_changed(GObject *window, GParamSpec *pspec, gpointer p) {
+            auto pwindow = (::gtk4::acme::windowing::window*)p;
+            gboolean is_active = gtk_window_is_active(GTK_WINDOW(window));
+
+            pwindow->_on_window_is_active_change(is_active);
+            if (is_active) {
+               g_print("Main window is active\n");
+            } else {
+               g_print("Main window is inactive\n");
+            }
+         }
+
+         static void on_focus_changed(GObject *widget, GParamSpec *pspec, gpointer p) {
+            auto pwindow = (::gtk4::acme::windowing::window*)p;
+            gboolean has_focus = gtk_widget_has_focus(GTK_WIDGET(widget));
+            if (has_focus) {
+               g_print("Widget gained focus\n");
+            } else {
+               g_print("Widget lost focus\n");
+            }
+
+            pwindow->_on_focus_changed(has_focus);
+         }
+
 
          static void
          GtkDrawingAreaDrawFunc(GtkDrawingArea* drawing_area, cairo_t* cr, int width, int height, gpointer p)
@@ -82,9 +106,19 @@ namespace gtk4
          static void on_button_released(GtkGestureClick* pgesture, int n_press, double x, double y, gpointer p)
          {
 
-            ::pointer<::gtk4::acme::windowing::window> pwindow = (::gtk4::acme::windowing::window*)p;
+            auto pwindow = (::gtk4::acme::windowing::window*)p;
 
             pwindow->_on_button_released(pgesture, n_press, x, y);
+
+         }
+
+
+         static void on_button_stopped(GtkGestureClick* pgesture, gpointer p)
+         {
+
+            auto pwindow = (::gtk4::acme::windowing::window*)p;
+
+            pwindow->_on_button_stopped(pgesture);
 
          }
 
@@ -133,9 +167,25 @@ namespace gtk4
 
                   auto pgtkwindow = GTK_WINDOW(pgobject);
 
-                  int iWidth = pwindow->m_sizeOnSize.cx();
+                  int iWidth;
+                  int iHeight;
 
-                  int iHeight = pwindow->m_sizeOnSize.cy();
+                  if (gtk_window_is_maximized(pgtkwindow))
+                  {
+
+                     iWidth = pwindow->m_sizeOnSizeZoomed.cx();
+
+                     iHeight = pwindow->m_sizeOnSizeZoomed.cy();
+
+                  }
+                  else
+                  {
+
+                     iWidth = pwindow->m_sizeOnSizeRestored.cx();
+
+                     iHeight = pwindow->m_sizeOnSizeRestored.cy();
+
+                  }
 
                   gtk_window_get_default_size(pgtkwindow, &iWidth, &iHeight);
 
@@ -299,6 +349,7 @@ namespace gtk4
 
             /* Return FALSE to propagate the happening further */
             return FALSE;
+
          }
 
 
@@ -322,6 +373,7 @@ namespace gtk4
 
             /* Return FALSE to propagate the happening further */
             return FALSE;
+
          }
 
 
@@ -342,11 +394,45 @@ namespace gtk4
 
             /* Return FALSE to allow further happening processing */
             return FALSE;
+
+         }
+
+
+         // Callback for the scroll event
+         static gboolean on_scroll(GtkEventControllerScroll *controller, gdouble dx, gdouble dy, gpointer user_data)
+         {
+
+            // dx and dy are the scroll deltas
+
+            g_print("Scroll event: dx=%.2f, dy=%.2f\n", dx, dy);
+
+            auto pwindow = (window*)user_data;
+
+            /* Print the key that was pressed */
+            //      g_print("Key pressed: %s\n", gdk_keyval_name(keyval));
+
+            //::string str = gdk_keyval_name(keyval);
+
+            if (pwindow->_on_gtk_scroll(controller, dx, dy))
+            {
+
+               return true;
+
+            }
+
+            // Return TRUE if the event is handled
+            return TRUE;
+
          }
 
 
          window::window()
          {
+
+
+            m_bHasFocusCached = false;
+
+            m_bIsActiveCached = false;
 
             m_bInhibitQueueDraw = false;
 
@@ -355,6 +441,8 @@ namespace gtk4
             m_pgtkwidget = nullptr;
 
             m_pgtkeventcontrollerKey = nullptr;
+
+            m_pgtkeventcontrollerScroll = nullptr;
 
          }
 
@@ -458,6 +546,14 @@ namespace gtk4
 
          void window::_on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode)
          {
+         }
+
+
+         bool window::_on_gtk_scroll(GtkEventControllerScroll * peventcontrollerScroll, double dx, double dy)
+         {
+
+            return false;
+
          }
 
 
@@ -648,9 +744,15 @@ namespace gtk4
 
             }
 
-            m_sizeOnSize.cx() = cx;
+            m_sizeOnSizeRestored.cx() = cx;
 
-            m_sizeOnSize.cy() = cy;
+            m_sizeOnSizeRestored.cy() = cy;
+
+            // Maximized size is set here just because it isn't know
+
+            m_sizeOnSizeZoomed.cx() = cx;
+
+            m_sizeOnSizeZoomed.cy() = cy;
 
             if (GTK_IS_WINDOW(m_pgtkwidget))
             {
@@ -668,13 +770,17 @@ namespace gtk4
             }
 
 
-            set_interface_client_size(m_sizeOnSize);
+            set_interface_client_size(m_sizeOnSizeRestored);
 
             m_pdrawingarea = gtk_drawing_area_new();
 
             //gtk_drawing_area_set_content_width (GTK_DRAWING_AREA (m_pdrawingarea), cx);
 
             //gtk_drawing_area_set_content_height (GTK_DRAWING_AREA (m_pdrawingarea), cy);
+
+            gtk_widget_set_hexpand(m_pdrawingarea, true);
+
+            gtk_widget_set_vexpand(m_pdrawingarea, true);
 
             gtk_drawing_area_set_draw_func(
                GTK_DRAWING_AREA(m_pdrawingarea),
@@ -718,6 +824,8 @@ namespace gtk4
 
             g_signal_connect(m_pgtkgestureClick, "released", G_CALLBACK(on_button_released), this);
 
+            g_signal_connect(m_pgtkgestureClick, "stopped", G_CALLBACK(on_button_stopped), this);
+
             gtk_widget_add_controller(m_pdrawingarea, GTK_EVENT_CONTROLLER(m_pgtkgestureClick));
 
             m_pgtkeventcontrollerMotion = gtk_event_controller_motion_new();
@@ -741,6 +849,12 @@ namespace gtk4
 
             /* Add the key controller to the window */
             gtk_widget_add_controller(m_pdrawingarea, m_pgtkeventcontrollerKey);
+
+
+            g_signal_connect(m_pdrawingarea, "notify::has-focus", G_CALLBACK(on_focus_changed), this);
+            g_signal_connect(GTK_WINDOW(m_pgtkwidget), "notify::active", G_CALLBACK(on_window_is_active_changed), this);
+
+            _enable_mouse_wheel_messages();
 
 
             {
@@ -887,6 +1001,25 @@ namespace gtk4
             }
 
             m_pacmeuserinteraction->on_create_window();
+
+         }
+
+
+         void window::_enable_mouse_wheel_messages()
+         {
+
+            if (!m_pgtkeventcontrollerScroll)
+            {
+
+               // Create a scroll event controller and attach it to the label
+
+               m_pgtkeventcontrollerScroll = gtk_event_controller_scroll_new(GTK_EVENT_CONTROLLER_SCROLL_VERTICAL);
+
+               g_signal_connect(m_pgtkeventcontrollerScroll, "scroll", G_CALLBACK(on_scroll), this);
+
+               gtk_widget_add_controller(m_pdrawingarea, m_pgtkeventcontrollerScroll);
+
+            }
 
          }
 
@@ -1052,8 +1185,8 @@ namespace gtk4
                   // Get the default pointer device (e.g., mouse)
                   GdkDevice* pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
 
-                  m_pointCursor2.x() = m_sizeOnSize.cx() / 2;
-                  m_pointCursor2.y() = m_sizeOnSize.cy() / 2;
+                  m_pointCursor2.x() = m_sizeOnSizeRestored.cx() / 2;
+                  m_pointCursor2.y() = m_sizeOnSizeRestored.cy() / 2;
 
 
                   auto* pwidget = (GtkWidget*)pitem->m_pWidgetImpl;
@@ -1116,8 +1249,8 @@ namespace gtk4
                   // Get the default pointer device (e.g., mouse)
                   GdkDevice* pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
 
-                  m_pointCursor2.x() = m_sizeOnSize.cx() / 2;
-                  m_pointCursor2.y() = m_sizeOnSize.cy() / 2;
+                  m_pointCursor2.x() = m_sizeOnSizeRestored.cx() / 2;
+                  m_pointCursor2.y() = m_sizeOnSizeRestored.cy() / 2;
 
                   //
                   // pmouse->m_pointHost = m_pointCursor2;
@@ -1181,8 +1314,8 @@ namespace gtk4
                {
 
 
-                  m_pointCursor2.x() = m_sizeOnSize.cx() / 2;
-                  m_pointCursor2.y() = m_sizeOnSize.cy() / 2;
+                  m_pointCursor2.x() = m_sizeOnSizeRestored.cx() / 2;
+                  m_pointCursor2.y() = m_sizeOnSizeRestored.cy() / 2;
 
 
                }
@@ -1496,9 +1629,9 @@ namespace gtk4
             ///main_post([this, ppopover]()
             //{
 
-               information() << "before gtk_popover_popup";
+               //information() << "before gtk_popover_popup";
                gtk_popover_popup(GTK_POPOVER(ppopover));
-               information() << "after gtk_popover_popup";
+               //information() << "after gtk_popover_popup";
                //gtk_widget_set_visible(ppopover, true);
 
             //});
@@ -1519,26 +1652,32 @@ namespace gtk4
    }
 
 
-   void window::destroy_window()
+   void window::_destroy_window()
    {
 
-      //__unmap();
+      if (GTK_IS_POPOVER(m_pgtkwidget))
+      {
+
+         gtk_widget_unparent(GTK_WIDGET(m_pgtkwidget));
+
+      }
+      else if (GTK_IS_WINDOW(m_pgtkwidget))
+      {
+
+         gtk_window_destroy(GTK_WINDOW(m_pgtkwidget));
+
+      }
+
+   }
+
+
+   void window::destroy_window()
+   {
 
       main_send([this]()
       {
 
-         if (GTK_IS_POPOVER(m_pgtkwidget))
-         {
-
-            gtk_widget_unparent(GTK_WIDGET(m_pgtkwidget));
-
-         }
-         else if (GTK_IS_WINDOW(m_pgtkwidget))
-         {
-
-            gtk_window_destroy(GTK_WINDOW(m_pgtkwidget));
-
-         }
+         _destroy_window();
 
       });
 
@@ -1902,7 +2041,7 @@ namespace gtk4
    void window::_on_size(int cx, int cy)
    {
 
-    printf_line("set_interface_client_size %d, %d", cx, cy);
+      printf_line("set_interface_client_size %d, %d", cx, cy);
 
       set_interface_client_size({cx, cy});
 
@@ -1969,13 +2108,22 @@ namespace gtk4
    void window::window_maximize()
    {
 
+      main_send([this]()
+      {
+
+         information() << "gtk4::acme::windowing::window::window_maximize";
+
+         m_timeHoverNoiseSuppression.Now();
+
+         gtk_window_maximize(GTK_WINDOW(m_pgtkwidget));
+
+      });
 
    }
 
 
    void window::window_restore()
    {
-
 
    }
 
@@ -2203,6 +2351,18 @@ namespace gtk4
 
 
    }
+         void window::_on_window_is_active_change(bool bIsActive)
+         {
+
+            m_bIsActiveCached =bIsActive;
+         }
+
+
+void window::_on_focus_changed(bool bHasFocus)
+{
+
+            m_bHasFocusCached =bHasFocus;
+}
 
 
    void window::_on_button_pressed(GtkGestureClick* pgesture, int n_press, double x, double y)
@@ -2322,6 +2482,14 @@ namespace gtk4
          }
 
       }
+
+   }
+
+
+   void window::_on_button_stopped(GtkGestureClick * pgesture)
+   {
+
+      _on_button_released(pgesture, 1, -65535.0, -65535.0);
 
    }
 

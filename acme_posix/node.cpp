@@ -53,6 +53,8 @@ virtual public ::numeric_array < POINTER_TYPE >
 	
 	};
 	
+
+::string __expand_environment_variables(const ::scoped_string & scopedstr);
 	
 ::pointer < ::array_of_malloced_pointer < char * > > strdupa_from_command_arguments(const ::string_array & stra)
 {
@@ -80,6 +82,13 @@ virtual public ::numeric_array < POINTER_TYPE >
 #include <sys/types.h>
 #include <sys/sysctl.h>
 #include <errno.h>
+
+#endif
+
+
+#ifdef __APPLE__
+
+#define HOST_NAME_MAX _POSIX_HOST_NAME_MAX
 
 #endif
 
@@ -611,7 +620,7 @@ namespace acme_posix
    string node::expand_environment_variables(const ::scoped_string & scopedstr)
    {
 
-      return ::platform::node::expand_environment_variables(scopedstr);
+      return ::__expand_environment_variables(scopedstr);
 
    }
 
@@ -1980,6 +1989,8 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 //         memory_copy(argv, gl.gl_pathv, gl.gl_pathc * sizeof(char *));
 
 	p->add(nullptr);
+
+   __refdbg_add_referer;
 	
 	p->increment_reference_count();
 
@@ -2870,9 +2881,52 @@ if(functionTrace)
 
    }
 
+   //https://stackoverflow.com/questions/27914311/get-computer-name-and-logged-user-name
+//#include <unistd.h>
+//#include <limits.h>
+   ::string node::get_computer_name()
+   {
+      char hostname[HOST_NAME_MAX * 4];
+      //char username[LOGIN_NAME_MAX];
+      int error = gethostname(hostname, sizeof(hostname));
 
+      if (error)
+      {
+
+return{};
+
+      }
+
+      return hostname;
+
+   }
 
 } // namespace acme_posix
 
+
+char * c_expand_environment_variables(const char * p);
+
+
+::string __expand_environment_variables(const ::scoped_string & scopedstr)
+{
+ 
+   ::string str(scopedstr);
+   
+   auto p = c_expand_environment_variables(str);
+   
+   if(p)
+   {
+      
+      str = p;
+      
+      ::free(p);
+      
+   }
+   
+   return str;
+      
+      
+   
+}
 
 

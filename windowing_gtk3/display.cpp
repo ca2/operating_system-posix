@@ -453,31 +453,14 @@ namespace windowing_gtk3
 //   }
 
 
-   ::e_status display::release_mouse_capture()
+   void display::release_mouse_capture()
    {
 
       information() << "windowing_gtk3::display::release_mouse_capture";
 
-//      auto predicate = [this]()
-//      {
-//
-//         synchronous_lock synchronouslock(user_synchronization());
-//
-//         //display_lock displaylock(Display());
-//
-//         information() << "XUngrabPointer";
-//
-//         int_bool bRet = XUngrabPointer(Display(), CurrentTime) != false;
-//
-//         _on_capture_changed_to(nullptr);
-//
-//      };
-//
-//      auto pwindowing = x11_windowing();
-//
-//      pwindowing->windowing_post(predicate);
+      gtk3::acme::windowing::display::release_mouse_capture();
 
-      return ::success;
+      //return ::success;
 
    }
 

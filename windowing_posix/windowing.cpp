@@ -165,7 +165,7 @@ namespace windowing_posix
 
 ///                                                  auto edisplayPrevious = pinteraction->window_previous_display();
 
-                                                  pinteraction->display_previous();
+                                                  pinteraction->display_previous(nullptr);
 
                                                });
 

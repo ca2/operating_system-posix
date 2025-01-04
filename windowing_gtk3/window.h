@@ -93,6 +93,11 @@ namespace windowing_gtk3
       //bool                                         m_bFirstConfigure;
       //bool                                         m_bXShmPutImagePending;
       ::pointer < ::operating_system::a_system_menu > m_psystemmenu;
+         class ::time m_timeLastConfigureUnlocked;
+
+         GtkIMContext * m_pimcontext;
+
+         bool m_bImFocus;
 //GtkWidget *m_pgtkwidget;
   //       GtkWidget *m_pdrawingarea;
     //  GtkWidget * m_pgtkwidgetSystemMenu;
@@ -113,11 +118,22 @@ namespace windowing_gtk3
          bool _on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening) override;
          bool _on_window_state(GtkWidget* widget, GdkEventWindowState* happening) override;
 
+
+         bool _on_focus_in(GtkWidget *widget, GdkEventFocus *event) override;
+         bool _on_focus_out(GtkWidget *widget, GdkEventFocus *event) override;
+         bool _on_key_press(GtkWidget *widget, GdkEventKey *event) override;
+         bool _on_key_release(GtkWidget *widget, GdkEventKey *event) override;
+         virtual void _on_gtk_key_pressed(huge_natural uGtkKey, huge_natural uGtkKeyCode);
+         virtual void _on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode);
+
+
+         virtual void _on_text(const ::scoped_string & scopedstr);
+
       void _on_cairo_draw(GtkWidget *widget, cairo_t *cr) override;
       //void create_window(::windowing::window * pimpl) override;
 
-      void _on_size(int cx, int cy) override;
-
+      virtual void _on_configure_delayed(int x, int y, int cx, int cy);
+      virtual void _on_configure_immediate(int x, int y, int cx, int cy);
 
       void create_window() override;
       void _create_window() override;
@@ -216,6 +232,7 @@ namespace windowing_gtk3
       bool is_window_visible() override;
 //      bool _is_iconic_unlocked() override;
       bool _is_window_visible_unlocked() override;
+         void show_task(bool bShowTask) override;
       //void show_window(const ::e_display & edisplay, const ::user::e_activation & useractivation) override;
       //void _show_window_unlocked(const ::e_display & edisplay, const ::user::e_activation & useractivation) override;
       //virtual iptr get_window_long_ptr(int nIndex);
@@ -246,7 +263,7 @@ namespace windowing_gtk3
       void set_keyboard_focus() override;
       void _set_keyboard_focus_unlocked() override;
 
-
+      virtual void _on_preedit_changed();
       //virtual ::pointer < ::operating_system::a_system_menu > create_system_menu();
 
       virtual void _on_a_system_menu_item_button_press(::operating_system::a_system_menu_item * pitem, GtkWidget * pwidget, GdkEventButton * peventbutton);
@@ -264,9 +281,10 @@ namespace windowing_gtk3
       void _set_active_window_unlocked() override;
 
 
-      void set_foreground_window() override;
-      void _set_foreground_window_unlocked() override;
+      void set_foreground_window(::user::activation_token * puseractivationtoken) override;
+      void _set_foreground_window_unlocked(::user::activation_token * puseractivationtoken) override;
 
+      void bring_to_front() override;
 
       bool has_mouse_capture() override;
 
@@ -306,11 +324,11 @@ namespace windowing_gtk3
       void set_tool_window(bool bSet) override;
 
 
-      bool set_window_position(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::e_activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;
+      bool set_window_position(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;
 
 
-      bool _set_window_position_unlocked(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::e_activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;
-      bool _configure_window_unlocked(const class ::zorder& zorder, const ::user::e_activation& useractivation, bool bNoZorder, ::e_display edisplay) override;
+      bool _set_window_position_unlocked(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;
+      bool _configure_window_unlocked(const class ::zorder& zorder, const ::user::activation& useractivation, bool bNoZorder, ::e_display edisplay) override;
       bool _strict_set_window_position_unlocked(int x, int y, int cx, int cy, bool bNoMove, bool bNoSize) override;
 
 
@@ -378,9 +396,6 @@ namespace windowing_gtk3
       bool is_active_window() override;
 
 
-      void bring_to_front() override;
-
-
       void window_update_screen() override;
 
 
@@ -442,6 +457,22 @@ namespace windowing_gtk3
          void window_restore() override;
          void window_minimize() override;
          void window_maximize() override;
+virtual void _set_configure_unlocked_timer();
+bool on_configure_unlocked_timer() override;
+         virtual void _on_configure();
+         virtual void _on_get_configuration();
+
+         void _on_map_window() override;
+         void _on_unmap_window() override;
+
+
+      void _post(const ::procedure & procedure) override;
+
+
+      void switch_to_this_window(bool b) override;
+
+
+      huge_integer _001GetTopLeftWeightedOccludedOpaqueArea() override;
 
 
    };

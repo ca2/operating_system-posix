@@ -115,7 +115,9 @@ namespace windowing_gtk3
    ::windowing_gtk3::window * buffer::gtk3_window()
    {
 
-      return (::windowing_gtk3::window *) (m_pwindow ? m_pwindow.cast < ::windowing_gtk3::window >().m_p : nullptr);
+      ::cast < ::windowing_gtk3::window > pwindow = m_pwindow;
+
+      return pwindow;
 
    }
 
@@ -556,7 +558,7 @@ namespace windowing_gtk3
 //   bool buffer::_update_screen_unlocked(::graphics::buffer_item * pitem)
    //bool buffer::_post_update_screen()
    //{
-   bool buffer::update_screen()
+   void buffer::update_screen()
    {
 
       if (!m_pwindow)
@@ -564,7 +566,7 @@ namespace windowing_gtk3
 
          warningf("windowing_gtk3::buffer::update_screen !m_pimpl!!");
 
-         return false;
+         return;
 
       }
 
@@ -645,7 +647,7 @@ namespace windowing_gtk3
 //         || pwaylandwindow->m_uLastConfigureSerial > pwaylandwindow->m_uLastRequestSerial))
 //      {
 
-      ::pointer<::windowing_gtk3::window> pgtk3window = m_pwindow;
+      ::cast<::windowing_gtk3::window> pgtk3window = m_pwindow;
 
       ::string strType = ::type(pgtk3window->m_pacmeuserinteraction).name();
 
@@ -1264,12 +1266,12 @@ namespace windowing_gtk3
    }
 
 
-   bool buffer::on_update_screen(::graphics::buffer_item * pitem)
+   void buffer::on_update_screen(::graphics::buffer_item * pitem)
    {
 
       throw ("use update_window(void)");
 
-      return true;
+      //return true;
 
    }
 

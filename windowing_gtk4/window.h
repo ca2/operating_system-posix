@@ -50,6 +50,8 @@ namespace windowing_gtk4
       bool _on_gtk_key_pressed(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state) override;
       bool _on_gtk_key_released(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state) override;
 
+      bool _on_gtk_scroll(GtkEventControllerScroll * peventcontrollerScroll, double dx, double dy) override;
+
       void _on_text(const ::scoped_string & scopedstr) override;
 
       virtual void _on_gtk_im_context_commit(const char * psz);
@@ -149,9 +151,9 @@ namespace windowing_gtk4
 
       void _set_active_window_unlocked() override;
 
-      void set_foreground_window() override;
+      void set_foreground_window(::user::activation_token * puseractivationtoken) override;
 
-      void _set_foreground_window_unlocked() override;
+      void _set_foreground_window_unlocked(::user::activation_token * puseractivationtoken) override;
 
       bool has_keyboard_focus() override;
 
@@ -167,16 +169,18 @@ namespace windowing_gtk4
 
       void set_tool_window(bool bSet) override;
 
+      void show_task(bool bShow) override;
+
       bool set_window_position(const class ::zorder & zorder, int x, int y, int cx, int cy,
-                               const ::user::e_activation & useractivation, bool bNoZorder, bool bNoMove, bool bNoSize,
+                               const ::user::activation & useractivation, bool bNoZorder, bool bNoMove, bool bNoSize,
                                ::e_display edisplay) override;
 
 
       bool _set_window_position_unlocked(const class ::zorder & zorder, int x, int y, int cx, int cy,
-                                         const ::user::e_activation & useractivation, bool bNoZorder, bool bNoMove, bool bNoSize,
+                                         const ::user::activation & useractivation, bool bNoZorder, bool bNoMove, bool bNoSize,
                                          ::e_display edisplay) override;
 
-      bool _configure_window_unlocked(const class ::zorder & zorder, const ::user::e_activation & useractivation, bool bNoZorder,
+      bool _configure_window_unlocked(const class ::zorder & zorder, const ::user::activation & useractivation, bool bNoZorder,
                                       ::e_display edisplay) override;
 
       bool _strict_set_window_position_unlocked(int x, int y, int cx, int cy, bool bNoMove, bool bNoSize) override;
@@ -216,7 +220,7 @@ namespace windowing_gtk4
       void on_window_shown() override;
       void on_window_hidden() override;
 
-      void _on_activation_change();
+      void _on_activation_change(bool bActive);
 
 
       virtual void _set_cursor_from_name(const ::scoped_string & scopedstr);

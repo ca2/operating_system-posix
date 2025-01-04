@@ -1114,6 +1114,12 @@ namespace windowing_gtk4
    //
 
 
+   void windowing::set_dark_mode(bool bDarkMode)
+   {
+
+      ::gtk4::acme::windowing::windowing::set_dark_mode(bDarkMode);
+
+   }
 
 
 } // namespace windowing_gkt4

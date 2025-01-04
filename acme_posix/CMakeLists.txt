@@ -13,6 +13,7 @@ list(APPEND library_source
    _factory.cpp
    #_process.cpp
    #_acme_posix.h
+   _posix.cpp
    directory_system.cpp
    directory_system.h
    file_system.cpp

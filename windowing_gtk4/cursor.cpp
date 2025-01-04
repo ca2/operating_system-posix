@@ -307,6 +307,7 @@ namespace windowing_gtk4
       // m_pwlcursor = nullptr;
       // m_waylandbuffer.m_pwlbuffer  = nullptr;
       // m_waylandbuffer.m_pwlbuffer = nullptr;
+      m_pgdkcursor = nullptr;
    }
 
 
@@ -410,6 +411,9 @@ namespace windowing_gtk4
             break;
       }
 
+      //GdkDisplay *display = gdk_display_get_default();
+      GdkCursor *cursor = gdk_cursor_new_from_name(cursor_name, nullptr);//"se-resize");
+m_pgdkcursor = cursor;
       //information() << "_load_default_cursor cursor_name : " << cursor_name;
 
       // auto pwlcursortheme = wl_cursor_theme_load(NULL, 32, pwaylanddisplay->m_pwlshm);

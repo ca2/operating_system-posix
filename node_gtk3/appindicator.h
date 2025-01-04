@@ -5,7 +5,7 @@
 
 
 #include "aura_posix/appindicator.h"
-#include "acme/platform/application_menu_callback.h"
+#include "acme/handler/command_handler.h"
 
 
 namespace node_gtk3
@@ -24,9 +24,7 @@ namespace node_gtk3
       ~appindicator() override;
 
 
-      bool create(const char * pszId, const char * pszIcon, const char * pszFolder, application_menu * papplicationmenu, application_menu_callback * pcallback) override;
-
-
+      bool create(const char * pszId, const char * pszIcon, const char * pszFolder, application_menu * papplicationmenu, ::command_handler * pcommandhandler) override;
 
 
 //      gnome_appindicator();
@@ -34,7 +32,7 @@ namespace node_gtk3
 //
 
       //virtual bool create(const char * pszId, const char * pszIcon, const char * pszFolder, user_notify_icon_bridge * pbridge) override;
-      virtual bool init(application_menu * papplicationmenu, application_menu_callback * pcallback);
+      virtual bool init(application_menu * papplicationmenu, ::command_handler * pcommandhandler);
       void close() override;
 
 

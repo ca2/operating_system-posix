@@ -20,12 +20,16 @@
 #include "aura/user/user/interaction_thread.h"
 #include "aura/user/user/interaction_graphics_thread.h"
 //#include "aura/user/user/interaction_impl.h"
+#include "acme/constant/timer.h"
+#include "acme/constant/user_key.h"
 #include "aura/platform/message_queue.h"
 #include "aura_posix/node.h"
 #include "aura/graphics/image/context.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
 #include "acme/operating_system/a_system_menu.h"
+#include "common_gtk/gtk_3_and_4.h"
+#include "common_gtk/activation_token.h"
 //#include "acme/operating_system/x11/display_lock.h"
 
 
@@ -40,12 +44,65 @@ void on_sn_launch_complete(void * pSnContext);
 #undef ALOG_CONTEXT
 #define ALOG_CONTEXT ::trace_object(::trace_category_windowing)
 
+//#include "../node_gtk/gtk_3_and_4.cpp"
 
 
 namespace windowing_gtk3
 {
 
 
+
+
+   // // Callback for focus-in event
+   // static gboolean on_drawing_area_focus_in(GtkWidget *widget, GdkEventFocus *event, gpointer p) {
+   //    g_print("Drawing area has gained focus.\n");
+   //    auto * pwindow = (::windowing_gtk3::window*) p;
+   //    if (pwindow->_on_focus_in(widget, event))
+   //    {
+   //
+   //       return TRUE;
+   //    }
+   //    return FALSE;  // Return FALSE to allow default handling (e.g., focus visual appearance)
+   // }
+   //
+   // // Callback for focus-out event
+   // static gboolean on_drawing_area_on_focus(GtkWidget *widget, GdkEventFocus *event, gpointer p) {
+   //    g_print("Drawing area has lost focus.\n");
+   //    auto * pwindow = (::windowing_gtk3::window*) p;
+   //    if (pwindow->_on_drawing_area_focus_out(widget, event))
+   //    {
+   //
+   //       return TRUE;
+   //
+   //    }
+   //    return FALSE;  // Return FALSE to allow default handling
+   // }
+
+   // Callback when the preedit string changes
+   static void on_preedit_changed(GtkWidget *widget, GdkEventKey *event, gpointer p) {
+      auto * pwindow = (::windowing_gtk3::window*) p;
+      pwindow->_on_preedit_changed();
+      g_print("Pre-edit changed:\n" );
+   }
+
+   // Callback when the commit event occurs
+   static void on_commit(GtkWidget *widget, gchar *text, gpointer p) {
+      auto * pwindow = (::windowing_gtk3::window*) p;
+      pwindow->_on_text((const char *) text);
+      g_print("Committed text: %s\n", text);
+   }
+
+   // Callback when the preedit starts
+   static void on_preedit_start(GtkWidget *widget, gpointer p) {
+      auto * pwindow = (::windowing_gtk3::window*) p;
+      g_print("Pre-edit started\n");
+   }
+
+   // Callback when the preedit ends
+   static void on_preedit_end(GtkWidget *widget, gpointer p) {
+      auto * pwindow = (::windowing_gtk3::window*) p;
+      g_print("Pre-edit ended\n");
+   }
 
    window::window()
    {
@@ -66,6 +123,10 @@ namespace windowing_gtk3
       //      }
 
       //m_cursorLast = 0;
+
+      m_bImFocus = false;
+
+      m_pimcontext = nullptr;
 
       m_pgtkwidgetSystemMenu = nullptr;
 
@@ -342,9 +403,11 @@ namespace windowing_gtk3
    void window::_on_cairo_draw(GtkWidget *widget, cairo_t *cr)
    {
 
-      try {
+      try
+      {
 
-         if (!m_pgraphicsgraphics) {
+         if (!m_pgraphicsgraphics)
+         {
 
             return;
 
@@ -412,8 +475,6 @@ namespace windowing_gtk3
          // pgraphics->fill_solid_rectangle(r, argb(1.0,0.1, 0.5, 0.8 ));
 
 
-
-
          // cairo_set_source_rgba(cr, 0, 0, 0, 0); // Fully transparent background
          // cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
          // cairo_paint(cr);
@@ -448,7 +509,6 @@ namespace windowing_gtk3
    }
 
 
-
 //   ::pointer < ::operating_system::a_system_menu > window::create_system_menu()
 //   {
 //
@@ -468,7 +528,7 @@ namespace windowing_gtk3
 //   }
 
 
-   void window::_on_size(int cx, int cy)
+   void window::_on_configure_immediate(int x, int y, int cx, int cy)
    {
 
       auto puserinteraction = user_interaction();
@@ -497,9 +557,35 @@ namespace windowing_gtk3
 
       }
 
+      ::int_point p(x, y);
+
+      if(m_pointWindow != p)
+      {
+
+         m_pointWindow = p;
+
+         puserinteraction->layout().m_statea[::user::e_layout_window].m_point2 = p;
+
+         if(puserinteraction->layout().m_statea[::user::e_layout_sketch].m_point2 != p)
+         {
+
+            puserinteraction->layout().m_statea[::user::e_layout_sketch].m_point2 = p;
+
+         }
+
+      }
+
    }
 
 
+   void window::_on_configure_delayed(int x, int y, int cx, int cy)
+   {
+
+      auto r = ::int_rectangle_dimension(x, y, cx, cy);
+
+      _on_configure_notify_unlocked(r);
+
+   }
 
 
 //// Define custom regions for resizing
@@ -785,23 +871,32 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
       if(happening->changed_mask &  GDK_WINDOW_STATE_FOCUSED)
       {
 
+         auto pimpl = this;
+
          if(happening->new_window_state & GDK_WINDOW_STATE_FOCUSED)
          {
 
-            auto pimpl = this;
+            m_bHasFocusCached = true;
 
-            pimpl->m_puserinteraction->display(::e_display_normal);
+///            pimpl->m_puserinteraction->display(::e_display_normal);
 
-            pimpl->m_puserinteraction->set_need_layout();
+   //         pimpl->m_puserinteraction->set_need_layout();
 
-            pimpl->m_puserinteraction->set_need_redraw();
+         }
+         else
+         {
 
-            pimpl->m_puserinteraction->post_redraw();
+            m_bHasFocusCached = false;
 
          }
 
+         pimpl->m_puserinteraction->set_need_redraw();
+
+         pimpl->m_puserinteraction->post_redraw();
+
       }
-      else if(happening->changed_mask &  GDK_WINDOW_STATE_MAXIMIZED)
+
+      if(happening->changed_mask &  GDK_WINDOW_STATE_MAXIMIZED)
       {
 
          if(happening->new_window_state & GDK_WINDOW_STATE_MAXIMIZED)
@@ -836,7 +931,8 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
          }
 
       }
-      else if(happening->changed_mask &  GDK_WINDOW_STATE_ICONIFIED)
+
+      if(happening->changed_mask &  GDK_WINDOW_STATE_ICONIFIED)
       {
 
          if(happening->new_window_state & GDK_WINDOW_STATE_ICONIFIED)
@@ -852,13 +948,15 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 
             auto pimpl = this;
 
-            pimpl->m_puserinteraction->display(::e_display_normal);
+            //pimpl->m_puserinteraction->display(::e_display_normal);
 
-            pimpl->m_puserinteraction->set_need_layout();
+            pimpl->m_puserinteraction->on_display_restore(nullptr);
 
-            pimpl->m_puserinteraction->set_need_redraw();
-
-            pimpl->m_puserinteraction->post_redraw();
+            // pimpl->m_puserinteraction->set_need_layout();
+            //
+            // pimpl->m_puserinteraction->set_need_redraw();
+            //
+            // pimpl->m_puserinteraction->post_redraw();
 
          }
 
@@ -867,6 +965,204 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
       return false;
 
    }
+
+
+   bool window::_on_focus_in(GtkWidget* widget, GdkEventFocus* event)
+   {
+
+      if (::gtk3::acme::windowing::window::_on_focus_in(widget, event))
+      {
+
+return true;
+
+      }
+
+if (!m_bImFocus)
+{
+
+   //gtk_widget_set_im_context(m_pdrawingarea, m_pimcontext);
+
+   gtk_im_context_focus_in(m_pimcontext);
+
+   m_bImFocus = true;
+
+
+}
+
+      return false;
+   }
+
+
+   bool window::_on_focus_out(GtkWidget* widget, GdkEventFocus* event)
+   {
+      if (::gtk3::acme::windowing::window::_on_focus_out(widget, event))
+      {
+
+         return true;
+
+      }
+      if (m_bImFocus)
+      {
+
+         gtk_im_context_focus_out(m_pimcontext);
+
+         //gtk_widget_set_im_context(m_pdrawingarea, m_pimcontext);
+
+         m_bImFocus = false;
+
+      }
+
+      return false;
+   }
+
+
+         bool window::_on_key_press(GtkWidget *widget, GdkEventKey *event)
+         {
+      if (::gtk3::acme::windowing::window::_on_key_press(widget, event))
+      {
+
+         return true;
+
+      }
+      _on_gtk_key_pressed(event->keyval, event->hardware_keycode);
+      // GtkIMContext *im_context = gtk_widget_get_im_context(widget);
+      //
+      // // Pass the key press event to the IM context
+       bool bHandled= (gtk_im_context_filter_keypress(m_pimcontext, event));
+
+      gchar *preedit_string = NULL;
+
+      gint cursor_pos = 0;
+
+      gtk_im_context_get_preedit_string(m_pimcontext, &preedit_string, NULL, &cursor_pos);
+
+      if (preedit_string)
+      {
+
+         g_print("Intermediate preedit text at key pressed: %s\n", preedit_string);
+
+         ::string str(preedit_string);
+
+         if(str.has_character())
+         {
+
+            _on_text(str);
+
+         }
+         g_free(preedit_string);
+      }
+               return bHandled;
+
+         }
+
+
+
+         bool window::_on_key_release(GtkWidget *widget, GdkEventKey *event)
+         {
+
+      if (::gtk3::acme::windowing::window::_on_key_release(widget, event))
+      {
+
+         return true;
+
+      }
+
+      _on_gtk_key_released(event->keyval, event->hardware_keycode);
+      // GtkIMContext *im_context = gtk_widget_get_im_context(widget);
+      //
+      // // Pass the key press event to the IM context
+      bool bHandled = gtk_im_context_filter_keypress(m_pimcontext, event);
+         // Event was consumed by the IM context, return TRUE to stop further processing
+         gchar *preedit_string = NULL;
+
+         gint cursor_pos = 0;
+
+         gtk_im_context_get_preedit_string(m_pimcontext, &preedit_string, NULL, &cursor_pos);
+
+         if (preedit_string)
+         {
+
+            g_print("Intermediate preedit text at key released: %s\n", preedit_string);
+
+            ::string str(preedit_string);
+
+            if(str.has_character())
+            {
+
+               _on_text(str);
+
+            }
+            g_free(preedit_string);
+         }
+
+            return bHandled;
+
+         }
+
+
+   void window::_on_gtk_key_pressed(huge_natural uGtkKey, huge_natural uGtkKeyCode)
+   {
+
+      auto ekey = gtk_key_as_user_ekey(uGtkKey);
+
+      if(ekey != ::user::e_key_none)
+      {
+
+         auto pkey = __create_new < ::message::key>();
+
+         pkey->m_atom = e_message_key_down;
+
+         pkey->m_oswindow = this;
+
+         pkey->m_pwindow = this;
+
+         pkey->m_ekey = ekey;
+
+         m_puserinteraction->send_message(pkey);
+
+         //         message_handler(pkey);
+
+         //         m_puserinteractionKeyboardFocus->send_message(pkey);
+
+      }
+
+   }
+
+
+   void window::_on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode)
+   {
+
+      auto ekey = gtk_key_as_user_ekey(uGtkKey);
+
+      if(ekey != ::user::e_key_none)
+      {
+
+         auto pkey = __create_new < ::message::key>();
+
+         pkey->m_atom = e_message_key_up;
+
+         pkey->m_oswindow = this;
+
+         pkey->m_pwindow = this;
+
+         pkey->m_ekey = ekey;
+
+         m_puserinteraction->send_message(pkey);
+
+         //m_puserinteractionKeyboardFocus->send_message(pkey);
+
+      }
+
+   }
+
+
+   void window::_on_text(const ::scoped_string & scopedstr)
+   {
+
+      on_text(scopedstr, scopedstr.size());
+
+   }
+
 
 
    //void window::create_window(::windowing::window * pimpl)
@@ -1587,6 +1883,22 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
       m_sizeWindow.cy() = cy;
 
       ::gtk3::acme::windowing::window::_create_window();
+
+      /* Create an input method context for pre-edit handling */
+      m_pimcontext = gtk_im_multicontext_new();
+
+      /* Connect the preedit-changed signal to capture intermediate results */
+
+      auto pgdkwindow = gtk_widget_get_window(m_pgtkwidget);
+
+      gtk_im_context_set_client_window(m_pimcontext,pgdkwindow);
+
+      // Connect to signals
+      g_signal_connect(m_pimcontext, "preedit-changed", G_CALLBACK(on_preedit_changed), this);
+      g_signal_connect(m_pimcontext, "commit", G_CALLBACK(on_commit), this);
+      g_signal_connect(m_pimcontext, "preedit-start", G_CALLBACK(on_preedit_start), this);
+      g_signal_connect(m_pimcontext, "preedit-end", G_CALLBACK(on_preedit_end), this);
+
 
       if(!(m_puserinteraction->m_ewindowflag & e_window_flag_destroyed))
       {
@@ -3199,7 +3511,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 //      return _is_window_visible_unlocked();
 
 
-      return true;
+      return m_bGtkWindowMapped;
 //      XWindowAttributes attr;
 //
 //      if (!XGetWindowAttributes(Display(), Window(), &attr))
@@ -3252,6 +3564,14 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 //      return attr.map_state == IsViewable;
 
       return true;
+
+   }
+
+
+   void window::show_task(bool bShowTask)
+   {
+
+
 
    }
 
@@ -3589,7 +3909,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 
 
    bool window::set_window_position(const class ::zorder & zorder, int x, int y, int cx, int cy,
-                                    const ::user::e_activation & useractivation, bool bNoZorder, bool bNoMove, bool bNoSize,
+                                    const ::user::activation & useractivation, bool bNoZorder, bool bNoMove, bool bNoSize,
                                     ::e_display edisplay)
    {
 
@@ -3606,11 +3926,63 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 
 
    bool window::_set_window_position_unlocked(const class ::zorder & zorder, int x, int y, int cx, int cy,
-                                              const ::user::e_activation & useractivation, bool bNoZorder, bool bNoMove,
+                                              const ::user::activation & useractivation, bool bNoZorder, bool bNoMove,
                                               bool bNoSize, ::e_display edisplay)
    {
 
       _strict_set_window_position_unlocked(x, y, cx, cy, bNoMove, bNoSize);
+
+      if(edisplay == ::e_display_zoomed)
+      {
+
+         if(!is_window_zoomed())
+         {
+
+            window_maximize();
+
+         }
+
+      }
+      else if(edisplay == ::e_display_iconic)
+      {
+
+         //if(!is_iconic())
+         //{
+
+         window_minimize();
+
+         //}
+
+      }
+      else if(!::is_screen_visible(edisplay))
+      {
+
+         if(is_window_visible())
+         {
+
+            hide_window();
+
+         }
+
+      }
+      else if(::is_screen_visible(edisplay))
+      {
+
+         if(!is_window_visible())
+         {
+
+            show_window();
+
+            if (useractivation.m_eactivation & ::user::e_activation_set_foreground)
+            {
+
+               set_foreground_window(useractivation.m_pactivationtoken);
+
+            }
+
+         }
+
+      }
 
       return true;
 
@@ -3859,7 +4231,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 
 
    bool window::_configure_window_unlocked(const class ::zorder & zorder,
-                                           const ::user::e_activation & useractivation, bool bNoZorder, ::e_display edisplay)
+                                           const ::user::activation & useractivation, bool bNoZorder, ::e_display edisplay)
    {
 
       if (!(m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
@@ -4234,10 +4606,10 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
       if (!(m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
       {
 
-         if (m_puserinteraction->const_layout().design().activation() == ::user::e_activation_default)
+         if (m_puserinteraction->const_layout().design().activation().m_eactivation == ::user::e_activation_default)
          {
 
-            m_puserinteraction->layout().m_statea[::user::e_layout_sketch].activation() ==
+            m_puserinteraction->layout().m_statea[::user::e_layout_sketch].activation().m_eactivation =
             ::user::e_activation_set_active;
 
          }
@@ -4304,14 +4676,14 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 
 
    /// should be run at user_thread
-   void window::set_foreground_window()
+   void window::set_foreground_window(::user::activation_token * puseractivationtoken)
    {
 
       synchronous_lock synchronouslock(user_synchronization());
 
       //display_lock displaylock(x11_display()->Display());
 
-      _set_foreground_window_unlocked();
+      _set_foreground_window_unlocked(puseractivationtoken);
 
 //      XRaiseWindow(Display(), Window());
 //
@@ -4323,7 +4695,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 
 
    /// should be run at user_thread
-   void window::_set_foreground_window_unlocked()
+   void window::_set_foreground_window_unlocked(::user::activation_token * puseractivationtoken)
    {
 
 ////      synchronous_lock synchronouslock(user_synchronization());
@@ -4335,6 +4707,31 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 //      XSetInputFocus(Display(), Window(), RevertToNone, CurrentTime);
 //
 //      //return true;
+
+      ::cast < ::common_gtk::activation_token > pactivationtoken = puseractivationtoken;
+
+      if (pactivationtoken)
+      {
+
+         gtk_window_present_with_time(GTK_WINDOW(m_pgtkwidget), pactivationtoken->m_time);
+
+      }
+      else
+      {
+
+         gtk_window_present(GTK_WINDOW(m_pgtkwidget));
+
+      }
+
+   }
+
+
+   void window::bring_to_front()
+   {
+
+      auto pgdkwindow = gtk_widget_get_window(m_pgtkwidget);
+
+      gdk_window_raise(pgdkwindow);
 
    }
 
@@ -4586,55 +4983,89 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
    void window::destroy_window()
    {
 
+      if (has_destroying_flag())
+      {
+
+return;
+
+      }
+
+      //set_flag(e_flag_destroying);
+
+      ::string strType = ::type(m_puserinteraction).name();
+
+      set_destroying_flag();
+
       bool bOk = false;
 
-      auto pwindow = this;
+      auto pinteraction = m_puserinteraction;
 
-      if (::is_set(pwindow))
+      //auto pwindow = this;
+
+      ///if (::is_set(pwindow))
+      main_send([this, strType, pinteraction]()
       {
 
-         ::pointer<::user::interaction> pinteraction = pwindow->m_puserinteraction;
+         pinteraction->message_handler(e_message_destroy, 0, 0);
 
-         if (pinteraction.is_set())
-         {
+         _destroy_window();
 
-            pinteraction->send_message(e_message_destroy, 0, 0);
+         pinteraction->message_handler(e_message_non_client_destroy, 0, 0);
 
-         }
+         destroy();
 
-      }
+      });
 
-      // if (::is_set(m_pxdgtoplevel))
+
+      // bool bOk = false;
+      //
+      // auto pwindow = this;
+      //
+      // if (::is_set(pwindow))
       // {
       //
-      //    xdg_toplevel_destroy(m_pxdgtoplevel);
+      //    ::pointer<::user::interaction> pinteraction = pwindow->m_puserinteraction;
       //
-      //    m_pxdgtoplevel = nullptr;
+      //    if (pinteraction.is_set())
+      //    {
+      //
+      //       pinteraction->send_message(e_message_destroy, 0, 0);
+      //
+      //    }
       //
       // }
       //
-      // if (::is_set(m_pwlsurface))
+      // // if (::is_set(m_pxdgtoplevel))
+      // // {
+      // //
+      // //    xdg_toplevel_destroy(m_pxdgtoplevel);
+      // //
+      // //    m_pxdgtoplevel = nullptr;
+      // //
+      // // }
+      // //
+      // // if (::is_set(m_pwlsurface))
+      // // {
+      // //
+      // //    wl_surface_destroy(m_pwlsurface);
+      // //
+      // // }
+      //
+      // ::windowing::window::destroy_window();
+      //
+      // if (::is_set(pwindow))
       // {
       //
-      //    wl_surface_destroy(m_pwlsurface);
+      //    ::pointer<::user::interaction> pinteraction = pwindow->m_puserinteraction;
+      //
+      //    if (pinteraction.is_set())
+      //    {
+      //
+      //       pinteraction->send_message(e_message_non_client_destroy, 0, 0);
+      //
+      //    }
       //
       // }
-
-      ::windowing::window::destroy_window();
-
-      if (::is_set(pwindow))
-      {
-
-         ::pointer<::user::interaction> pinteraction = pwindow->m_puserinteraction;
-
-         if (pinteraction.is_set())
-         {
-
-            pinteraction->send_message(e_message_non_client_destroy, 0, 0);
-
-         }
-
-      }
 
    }
 
@@ -4876,33 +5307,33 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 //
    bool window::has_mouse_capture()
    {
-//
-//      auto pdisplay = x11_display();
-//
-//      if (::is_null(pdisplay))
-//      {
-//
-//         return false;
-//
-//      }
-//
-//      auto pwindowCapture = pdisplay->m_pwindowMouseCapture;
-//
-//      if (::is_null(pwindowCapture))
-//      {
-//
-//         return false;
-//
-//      }
-//
-//      if (pwindowCapture != this)
-//      {
-//
-//         return false;
-//
-//      }
-//
-      return true;
+
+      ::cast < ::windowing_gtk3::windowing> pgtk3windowing = system()->windowing();
+
+      if (!pgtk3windowing)
+      {
+
+         return false;
+
+      }
+
+      auto pgtk3windowMouseCapture = pgtk3windowing->get_mouse_capture(nullptr);
+
+      if (!pgtk3windowMouseCapture)
+      {
+
+         return false;
+
+      }
+
+      if (pgtk3windowMouseCapture == this)
+      {
+
+         return true;
+
+      }
+
+      return false;
 
    }
 
@@ -4954,7 +5385,7 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
 //      }
 //
       //return m_bHasKeyboardFocus;
-      return false;
+      return m_bHasFocusCached;
 
    }
 //
@@ -5100,8 +5531,21 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
    void window::window_update_screen()
    {
 
+      if (has_destroying_flag() || !m_pgraphicsthread || m_pgraphicsthread->has_finishing_flag())
+      {
+
+         return;
+
+      }
+
       main_post([this]()
       {
+         if (has_destroying_flag() || !m_pgraphicsthread || m_pgraphicsthread->has_finishing_flag())
+         {
+
+            return;
+
+         }
 
          set_window_position_unlocked();
 
@@ -5349,6 +5793,32 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
    }
 
 
+   void window::_on_preedit_changed()
+   {
+      //auto pimcontext = gtk_widget_get_im_context(m_pdrawingarea);
+
+      // Get the pre-edit string and its attributes
+      // gchar *preedit_text = NULL;
+      // //PangoAttrList *attrs = NULL;
+      // //gint cursor_pos = -1;
+      //
+      // gtk_im_context_get_preedit_string(m_pimcontext, &preedit_text, NULL, NULL);
+      //
+      // ::string strText(preedit_text);
+      //
+      // if(strText.has_character())
+      // {
+      //
+      //    _on_text(strText);
+      //
+      // }
+      // g_free(preedit_text);
+
+
+   }
+
+
+
    bool window::is_active_window()
    {
 
@@ -5357,27 +5827,27 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
    }
 
 
-   void window::bring_to_front()
-   {
-
-//       synchronous_lock synchronouslock(user_synchronization());
+//    void window::bring_to_front()
+//    {
 //
-//       if (m_pwlsurface == 0)
-//       {
-//
-//          throw ::exception(error_failed);
-//
-//       }
-//
-//       windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1");
-//
-// //      display_lock displaylock(x11_display()->Display());
+// //       synchronous_lock synchronouslock(user_synchronization());
 // //
-// //      XRaiseWindow(displaylock.m_pdisplay, Window());
+// //       if (m_pwlsurface == 0)
+// //       {
+// //
+// //          throw ::exception(error_failed);
+// //
+// //       }
+// //
+// //       windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1");
+// //
+// // //      display_lock displaylock(x11_display()->Display());
+// // //
+// // //      XRaiseWindow(displaylock.m_pdisplay, Window());
+// //
+// //       //return ::success;
 //
-//       //return ::success;
-
-   }
+//    }
 
 
 //   bool window::presentation_complete()
@@ -6386,34 +6856,146 @@ bool window::_on_enter_notify(GtkWidget *widget, GdkEventCrossing *happening)
    //
 
 
-
    void window::window_restore()
-{
-
-   if(gtk_window_is_maximized(GTK_WINDOW(m_pgtkwidget)))
    {
 
-      gtk_window_unmaximize(GTK_WINDOW(m_pgtkwidget));
+      if(gtk_window_is_maximized(GTK_WINDOW(m_pgtkwidget)))
+      {
+
+         gtk_window_unmaximize(GTK_WINDOW(m_pgtkwidget));
+
+      }
 
    }
 
 
-
-}
-
    void window::window_minimize()
-{
+   {
 
-   gtk_window_iconify(GTK_WINDOW(m_pgtkwidget));
-}
+      gtk_window_iconify(GTK_WINDOW(m_pgtkwidget));
+
+   }
 
 
    void window::window_maximize()
-{
+   {
 
-   gtk_window_maximize(GTK_WINDOW(m_pgtkwidget));
+      gtk_window_maximize(GTK_WINDOW(m_pgtkwidget));
 
-}
+   }
+
+
+   void window::_set_configure_unlocked_timer()
+   {
+
+      m_timeLastConfigureUnlocked.Now();
+
+      m_puserinteraction->SetTimer(e_timer_configure_unlocked, 100_ms);
+
+   }
+
+
+   bool window::on_configure_unlocked_timer()
+   {
+
+      if (m_timeLastConfigureUnlocked.elapsed() < 600_ms)
+      {
+
+         return false;
+
+      }
+
+      _on_get_configuration();
+
+      return true;
+
+
+   }
+
+
+   void window::_on_get_configuration()
+   {
+
+      main_post([this]()
+      {
+
+         auto r = get_window_rectangle();
+
+         _on_configure_delayed(r.left(), r.top(), r.width(), r.height());
+
+      });
+
+   }
+
+
+   void window::_on_configure()
+   {
+
+      auto r = get_window_rectangle();
+
+      _on_configure_immediate(r.left(), r.top(), r.width(), r.height());
+
+      _set_configure_unlocked_timer();
+
+   }
+
+
+   void window::_on_map_window()
+   {
+
+      m_puserinteraction->call_route_message(e_message_show_window, 1);
+
+   }
+
+
+   void window::_on_unmap_window()
+   {
+
+      m_puserinteraction->post_message(e_message_show_window, 0);
+
+   }
+
+
+   void window::_post(const ::procedure & procedure)
+   {
+
+      main_post(procedure);
+
+   }
+
+
+   void window::switch_to_this_window(bool b)
+   {
+
+      main_send([this]()
+      {
+
+         gtk_window_present(GTK_WINDOW(m_pgtkwidget));
+
+      });
+
+   }
+
+
+   huge_integer window::_001GetTopLeftWeightedOccludedOpaqueArea()
+   {
+
+      if (m_bActiveWindow)
+      {
+
+         return 0;
+
+      }
+      else
+      {
+
+         return m_sizeWindow.area() * 1024;
+
+      }
+
+
+   }
+
 
 } // namespace windowing_gtk3
 

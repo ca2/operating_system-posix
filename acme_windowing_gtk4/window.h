@@ -78,13 +78,17 @@ GtkWidget*m_pgtkwidget;
             GtkEventController *                         m_pgtkeventcontrollerMotion;
             /* Create a key happening controller */
             GtkEventController *m_pgtkeventcontrollerKey;
+            GtkEventController *m_pgtkeventcontrollerScroll;
 
             bool                                                  m_bMessageOnlyWindow;
             bool                                                  m_bHasKeyboardFocus;
+            ::int_size                                            m_sizeOnSizeRestored;
+            ::int_size                                            m_sizeOnSizeZoomed;
             ::int_size                                            m_sizeOnSize;
 
 
-
+bool m_bHasFocusCached;
+            bool m_bIsActiveCached;
                         //::pointer<class display>         m_pdisplay;
                         //GtkWidget *m_pgtkwidget;
                         //Window                           m_windowRoot;
@@ -127,6 +131,10 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
             void _create_window() override;
 
 
+            void _enable_mouse_wheel_messages();
+
+
+            virtual void _destroy_window();
             void destroy_window() override;
 
             void destroy() override;
@@ -158,9 +166,14 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
 
             virtual void __unmap();
 
+            virtual void _on_window_is_active_change(bool bIsActive);
+virtual void _on_focus_changed(bool bHasFocus);
+
             virtual void _on_button_pressed(GtkGestureClick* pgesture, int n_press, double x, double y);
 
             virtual void _on_button_released(GtkGestureClick* pgesture, int n_press, double x, double y);
+
+            virtual void _on_button_stopped(GtkGestureClick* pgesture);
 
             virtual void _on_motion_notify(GtkEventControllerMotion* pcontroller, double x, double y);
 
@@ -183,6 +196,8 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
 
             virtual void _on_gtk_key_pressed(huge_natural uGtkKey, huge_natural uGtkKeyCode);
             virtual void _on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode);
+
+            virtual bool _on_gtk_scroll(GtkEventControllerScroll * peventcontrollerScroll, double dx, double dy);
 
             //virtual gboolean _on_gtk_key_press(GtkWidget *widget, GdkEvent *happening);
 

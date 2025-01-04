@@ -162,6 +162,7 @@ namespace acme_posix
 
       ::string default_component_implementation(const ::scoped_string & scopedstrComponentName) override;
 
+      ::string get_computer_name() override;
 
    };
 

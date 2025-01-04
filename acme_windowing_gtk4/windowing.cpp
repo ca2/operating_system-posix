@@ -11,8 +11,9 @@
 #include "acme/platform/application.h"
 #include "acme/platform/node.h"
 #include "acme/handler/request.h"
-#include "gdk_gdk.h"
+#include "common_gtk/gdk_3_and_4.h"
 #include "acme/platform/system.h"
+#include "acme/operating_system/summary.h"
 //#include <X11/Xatom.h>
 //#include <xkbcommon/xkbcommon.h>
 //#include <X11/XKBlib.h>
@@ -289,7 +290,16 @@ m_bMessageThread=true;
             if (!pevent->wait(procedure.timeout()))
             {
 
-               throw ::exception(error_timeout);
+               if (::task_get_run())
+               {
+                  throw ::exception(error_timeout);
+               }
+               else
+               {
+
+                  information() << "thread terminating?!?!";
+
+               }
                //pevent.release();
 
                //return false;
@@ -428,11 +438,13 @@ m_bMessageThread=true;
          bool windowing::handle_messages()
          {
 
-            auto pgmaincontext = g_main_context_default();
-
-            g_main_context_iteration(pgmaincontext, FALSE);
-
             return true;
+
+            // auto pgmaincontext = g_main_context_default();
+            //
+            // g_main_context_iteration(pgmaincontext, FALSE);
+            //
+            // return true;
 
          }
 
@@ -1451,6 +1463,56 @@ m_bMessageThread=true;
 
          }
 
+
+         bool windowing::has_resizing()
+         {
+
+            return false;
+
+         }
+
+
+         void windowing::set_dark_mode(bool bDarkMode)
+         {
+
+            main_post([this, bDarkMode]()
+            {
+
+               if(bDarkMode)
+               {
+
+                  ::gdk::gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-dark");
+
+               }
+               else
+               {
+
+                  // auto psummary = node()->operating_system_summary();
+                  //
+                  // if(psummary->m_strDistro.case_insensitive_equals("ubuntu"))
+                  // {
+
+                     ::gdk::gsettings_set("org.gnome.desktop.interface", "color-scheme", "default");
+
+                  // }
+                  // else
+                  // {
+                  //
+                  //    ::gdk::gsettings_set("org.gnome.desktop.interface", "color-scheme", "prefer-light");
+                  //
+                  // }
+
+               }
+
+               //_os_set_user_theme(m_strTheme);
+
+               //_os_set_user_icon_theme(m_strIconTheme);
+
+               //::aura_posix::node::set_dark_mode(bDarkMode);
+
+            });
+
+         }
 
 
       } // namespace windowing

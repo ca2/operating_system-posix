@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "window.h"
 #include "display.h"
+#include "windowing.h"
 #include "acme/constant/message.h"
 #include "acme/graphics/image/pixmap.h"
 #include "acme/integrate/cairo.h"
@@ -77,15 +78,137 @@ namespace gtk3
       {
 
 
+         gboolean on_map(GtkWidget *widget, GdkEvent *event, gpointer p) {
+            auto pwindow = (::gtk3::acme::windowing::window*)p;
+            g_print("Window is now displayed on the screen.\n");
+            if (pwindow->m_bGtkWindowMapped)
+            {
+               g_print("Already flagged as mapped.\n");
+               return FALSE;
+            }
+            pwindow->m_bGtkWindowMapped = true;
+            pwindow->_on_map_window();
+            return FALSE; // Allow default handler to proceed
+         }
 
 
-         // Callback function to handle window resize happenings
-         static void on_size_allocate(GtkWidget *widget, GdkRectangle *allocation, gpointer p) {
-            // Print the ___new size of the window
+         gboolean on_unmap(GtkWidget *widget, GdkEvent *event, gpointer p) {
+            auto pwindow = (::gtk3::acme::windowing::window*)p;
+            g_print("Window is now hidden from the screen.\n");
+            if (!pwindow->m_bGtkWindowMapped)
+            {
+               g_print("Already flagged as unmapped.\n");
+               return FALSE;
+            }
+            pwindow->m_bGtkWindowMapped = false;
+            pwindow->_on_unmap_window();
+            return FALSE; // Allow default handler to proceed
+         }
+
+
+         static gboolean on_focus_in(GtkWidget *widget, GdkEventFocus *event, gpointer p) {
+            auto pwindow = (::gtk3::acme::windowing::window*)p;
+            if (pwindow->_on_focus_in(widget, event))
+               {
+return TRUE;
+               }
+            g_print("Widget gained focus\n");
+            return FALSE; // Propagate the event further
+         }
+
+
+         static gboolean on_focus_out(GtkWidget *widget, GdkEventFocus *event, gpointer p) {
+            auto pwindow = (::gtk3::acme::windowing::window*)p;
+            if (pwindow->_on_focus_out(widget, event))
+            {
+
+               return TRUE;
+            }
+            g_print("Widget lost focus\n");
+            return FALSE; // Propagate the event further
+         }
+
+         // Handle key press events and pass them to the IM context
+         static gboolean on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer p) {
+            auto pwindow = (::gtk3::acme::windowing::window*)p;
+            // GtkIMContext *im_context = gtk_widget_get_im_context(widget);
+            //
+            // // Pass the key press event to the IM context
+            // if (gtk_im_context_filter_keypress(im_context, event)) {
+            //    // Event was consumed by the IM context, return TRUE to stop further processing
+            //    return TRUE;
+            // }
+            //
+
+
+            if (pwindow->_on_key_press(widget, event))
+            {
+
+               return TRUE;
+
+            }
+
+
+            // Event was not consumed by the IM context, let GTK handle it
+            return FALSE;
+         }
+
+         // Handle key release events (if needed) and pass them to the IM context
+         static gboolean on_key_release(GtkWidget *widget, GdkEventKey *event, gpointer p) {
+            auto pwindow = (::gtk3::acme::windowing::window*)p;
+            //GtkIMContext *im_context = gtk_widget_get_im_context(widget);
+
+            if (pwindow->_on_key_release(widget, event))
+            {
+
+               return TRUE;
+
+            }
+
+            // // Optionally, you can handle key release events here if needed
+            // if (gtk_im_context_filter_keypress(im_context, event)) {
+            //    // Event was consumed by the IM context, return TRUE to stop further processing
+            //    return TRUE;
+            // }
+
+            // Event was not consumed by the IM context, let GTK handle it
+            return FALSE;
+         }
+
+         // // Callback function to handle window resize happenings
+         // static void on_size_allocate(GtkWidget *widget, GdkRectangle *allocation, gpointer p) {
+         //    // Print the ___new size of the window
+         //    auto pwindow = (::gtk3::acme::windowing::window*) p;
+         //    pwindow->_on_resize(allocation->x,
+         //       allocation->y,
+         //       allocation->width,
+         //       allocation->height);
+         //    //g_print("Window resized: width=%d, height=%d\n", allocation->width, allocation->height);
+         //    //return false;
+         // }
+         //
+
+
+         gboolean on_configure(GtkWidget *widget, GdkEvent *event, gpointer p)
+         {
+
             auto pwindow = (::gtk3::acme::windowing::window*) p;
-            pwindow->_on_size(allocation->width, allocation->height);
-            //g_print("Window resized: width=%d, height=%d\n", allocation->width, allocation->height);
-            //return false;
+
+            pwindow->_on_configure();
+
+            // GdkRectangle rect;
+            // // Get the position and size of the window
+            // gtk_window_get_position(GTK_WINDOW(widget), &rect.x, &rect.y);
+            // gtk_window_get_size(GTK_WINDOW(widget), &rect.width, &rect.height);
+            //
+            // // Print the rectangle
+            // //g_print("Window displayed/changed position or size: x=%d, y=%d, width=%d, height=%d\n",
+            //   //      rect->x, rect->y, rect->width, rect->height);
+            //
+            // pwindow->_on_configure(rect.x, rect.y, rect.width, rect.height);
+
+            return FALSE; // Allow the default handler to continue processing
+
          }
 
 
@@ -112,7 +235,7 @@ namespace gtk3
          static gboolean on_button_release(GtkWidget *pwidget, GdkEventButton *pevent, gpointer p)
          {
 
-            ::pointer < ::gtk3::acme::windowing::window > pwindow = (::gtk3::acme::windowing::window*) p;
+            auto pwindow = (::gtk3::acme::windowing::window*) p;
 
             if(!pwindow->_on_button_release(pwidget, pevent))
             {
@@ -126,19 +249,17 @@ namespace gtk3
          }
 
 
-
          // Perform resizing as the mouse moves
-         static gboolean on_motion_notify(GtkWidget *widget, GdkEventMotion *happening, gpointer user_data)
+         static gboolean on_motion_notify(GtkWidget *widget, GdkEventMotion *happening, gpointer p)
          {
 
-            auto resize_data = (::gtk3::acme::windowing::window*) user_data;
+            auto pwindow = (::gtk3::acme::windowing::window*) p;
 
-            resize_data->_on_motion_notify(widget, happening);
+            pwindow->_on_motion_notify(widget, happening);
 
             return FALSE;
 
          }
-
 
 
          //}
@@ -175,10 +296,15 @@ namespace gtk3
 
 
          // Callback function to handle drawing
-         static gboolean on_window_draw(GtkWidget *widget, cairo_t *cr, gpointer p) {
+         static gboolean on_window_draw(GtkWidget *widget, cairo_t *cr, gpointer p)
+         {
+
             auto pwindow = (::gtk3::acme::windowing::window*) p;
+
             pwindow->_on_cairo_draw(widget, cr);
+
             return FALSE;
+
          }
 
          // Callback to handle button-press-event for menu item
@@ -255,6 +381,7 @@ namespace gtk3
 
          window::window()
          {
+            m_bGtkWindowMapped = false;
 
             //m_psurface = nullptr;
             //m_iDepth = -1;
@@ -265,6 +392,7 @@ namespace gtk3
             m_phappeningLastMouseDown= nullptr;
             m_phappeningLastMouseUp= nullptr;
 
+            m_bHasFocusCached = false;
          }
 
 
@@ -565,6 +693,9 @@ namespace gtk3
                gtk_widget_set_visual(m_pgtkwidget, visual);
             }
 
+            ::cast < ::gtk3::acme::windowing::windowing> pgtk3windowing  = system()->acme_windowing();
+
+            pgtk3windowing->_set_window(GTK_WINDOW(m_pgtkwidget), this);
 
             // Enable transparency by setting the window as app-paintable
             gtk_widget_set_app_paintable(m_pgtkwidget, TRUE);
@@ -584,8 +715,8 @@ namespace gtk3
 
 
             // Create drawing area
-            m_pdrawingarea = gtk_drawing_area_new();
-            gtk_container_add(GTK_CONTAINER(m_pgtkwidget), m_pdrawingarea);
+            //m_pdrawingarea = gtk_drawing_area_new();
+            //gtk_container_add(GTK_CONTAINER(m_pgtkwidget), m_pdrawingarea);
 
             // Connect the draw happening to the callback function
             //        g_signal_connect(G_OBJECT(m_pdrawingarea), "draw", G_CALLBACK(on_draw_event), this);
@@ -599,8 +730,8 @@ namespace gtk3
             //);
             //
             // Connect the size-allocate signal to handle window resize happenings
-            g_signal_connect(m_pgtkwidget, "size-allocate", G_CALLBACK(on_size_allocate), this);
-
+            //g_signal_connect(m_pgtkwidget, "size-allocate", G_CALLBACK(on_size_allocate), this);
+            g_signal_connect(G_OBJECT(m_pgtkwidget), "configure-event", G_CALLBACK(on_configure), this);
             // Handle the custom resizing
             //ResizeData resize_data = {FALSE, RESIZE_NONE, 0, 0, 0, 0};
 
@@ -611,19 +742,70 @@ namespace gtk3
             g_signal_connect(G_OBJECT(m_pgtkwidget), "enter-notify-event", G_CALLBACK(on_enter_notify), this);
 
             g_signal_connect(G_OBJECT(m_pgtkwidget), "window-state-event", G_CALLBACK(on_window_state), this);
-            // Set happenings to capture motion and button happenings
+
+            //auto pgdkwindow = GDK_WINDOW(m_pgtkwidget);
             gtk_widget_set_events(m_pgtkwidget,
-                                  GDK_BUTTON_PRESS_MASK
-                                     | GDK_BUTTON_RELEASE_MASK
-                                     | GDK_POINTER_MOTION_MASK
-                                     | GDK_STRUCTURE_MASK);
+                      (GdkEventMask ) (GDK_BUTTON_PRESS_MASK
+                         | GDK_BUTTON_RELEASE_MASK
+                         | GDK_POINTER_MOTION_MASK
+                         | GDK_STRUCTURE_MASK
+                         | GDK_FOCUS_CHANGE_MASK
+                         | GDK_KEY_PRESS_MASK
+                         | GDK_KEY_RELEASE_MASK));
+            // Set happenings to capture motion and button happenings
+            // gtk_widget_set_events(m_pgtkwidget,
+            //                       GDK_BUTTON_PRESS_MASK
+            //                          | GDK_BUTTON_RELEASE_MASK
+            //                          | GDK_POINTER_MOTION_MASK
+            //                          | GDK_STRUCTURE_MASK
+            //                          | GDK_FOCUS_CHANGE_MASK
+            //                          | GDK_KEY_PRESS_MASK
+            //                          | GDK_KEY_RELEASE_MASK);
 
             // Connect the draw happening to the drawing callback function
             g_signal_connect(G_OBJECT(m_pgtkwidget), "draw", G_CALLBACK(on_window_draw), this);
             g_signal_connect(G_OBJECT(m_pgtkwidget), "destroy", G_CALLBACK(on_window_destroy), this);
 
+            // Connect signals for map and unmap events
+            g_signal_connect(GTK_WINDOW(m_pgtkwidget), "map-event", G_CALLBACK(on_map), this);
+            g_signal_connect(GTK_WINDOW(m_pgtkwidget), "unmap-event", G_CALLBACK(on_unmap), this);
+
+            g_signal_connect(GTK_WINDOW(m_pgtkwidget), "focus-in-event", G_CALLBACK(on_focus_in), this);
+            g_signal_connect(GTK_WINDOW(m_pgtkwidget), "focus-out-event", G_CALLBACK(on_focus_out), this);
+
+            // Connect to key press and release events
+            g_signal_connect(GTK_WINDOW(m_pgtkwidget), "key-press-event", G_CALLBACK(on_key_press), this);
+            g_signal_connect(GTK_WINDOW(m_pgtkwidget), "key-release-event", G_CALLBACK(on_key_release), this);
+
+            // gtk_widget_set_events(m_pgtkwidget,
+            //              GDK_STRUCTURE_MASK
+            //              | GDK_FOCUS_CHANGE_MASK
+            //              | GDK_KEY_PRESS_MASK
+            //              | GDK_KEY_RELEASE_MASK);
+
+
             on_create_window();
 
+
+         }
+
+
+         bool window::_on_focus_in(GtkWidget * pwidget, GdkEventFocus * focusin)
+         {
+
+            m_bHasFocusCached =true;
+
+            return false;
+
+         }
+
+
+         bool window::_on_focus_out(GtkWidget * pwidget, GdkEventFocus * focusin)
+         {
+
+            m_bHasFocusCached = false;
+
+            return false;
 
          }
 
@@ -761,8 +943,6 @@ return true;
             return true;
 
          }
-
-
 
 
          bool window::_on_button_release(GtkWidget *pwidget, GdkEventButton *pevent)
@@ -1090,13 +1270,45 @@ m_phappeningLastMouseUp = pevent;
          }
 
 
+
+         bool window::_on_key_press(GtkWidget *widget, GdkEventKey *event)
+         {
+
+            return false;
+
+         }
+
+
+
+         bool window::_on_key_release(GtkWidget *widget, GdkEventKey *event)
+         {
+
+
+            return false;
+
+         }
+
+
          void window::_on_cairo_draw(GtkWidget *widget, cairo_t *cr)
          {
+
+            if (!m_pnanodevice)
+            {
+
+               cairo_set_source_rgba(cr, 1.0, 1.0, 1.0, 1.0);
+
+               cairo_fill(cr);
+
+               return ;
+
+            }
+
             m_pnanodevice->on_begin_draw();
 
             _draw(m_pnanodevice);
 
             m_pnanodevice->on_end_draw();
+
             auto pixmap = m_pnanodevice->pixmap();
 
             auto psurface = cairo_surface_for_pixmap(pixmap);
@@ -1109,18 +1321,15 @@ m_phappeningLastMouseUp = pevent;
 
             cairo_surface_destroy(psurface);
 
-
          }
 
 
-         void window::_on_size(int cx, int cy)
+         void window::_on_configure(int x, int y, int cx, int cy)
          {
 
             set_interface_client_size({cx, cy});
 
          }
-
-
 
 
          void window::_on_a_system_menu_item_button_press(::operating_system::a_system_menu_item * pitem, GtkWidget * pwidget, GdkEventButton * peventbutton)
@@ -1583,6 +1792,29 @@ m_phappeningLastMouseUp = pevent;
          }
 
 
+         void window::_destroy_window()
+         {
+
+
+            __check_refdbg
+
+            if (GTK_IS_POPOVER(m_pgtkwidget))
+            {
+
+               gtk_widget_unparent(GTK_WIDGET(m_pgtkwidget));
+
+            }
+            else if (GTK_IS_WINDOW(m_pgtkwidget))
+            {
+
+               gtk_widget_destroy(GTK_WIDGET(m_pgtkwidget));
+
+            }
+
+            __check_refdbg
+
+         }
+
 
          void window::destroy_window()
          {
@@ -1594,22 +1826,7 @@ m_phappeningLastMouseUp = pevent;
             main_send([this]()
                       {
 
-                         __check_refdbg
-
-                         if (GTK_IS_POPOVER(m_pgtkwidget))
-                         {
-
-                            gtk_widget_unparent(GTK_WIDGET(m_pgtkwidget));
-
-                         }
-                         else if (GTK_IS_WINDOW(m_pgtkwidget))
-                         {
-
-                            gtk_widget_destroy(GTK_WIDGET(m_pgtkwidget));
-
-                         }
-
-                         __check_refdbg
+               _destroy_window();
 
                       });
 
@@ -1674,29 +1891,63 @@ m_phappeningLastMouseUp = pevent;
          void window::set_mouse_capture()
          {
 
-            //display_lock displaylock(m_pdisplay->m_pdisplay);
+            GdkDisplay *display;
+            GdkSeat *seat;
+            GdkDevice *pointer_device;
+            GdkWindow *gdk_window;
+            GdkGrabStatus status;
 
-            gtk_grab_add(m_pgtkwidget);
+            // Get the default display
+            display = gdk_display_get_default();
+            if (!display) {
+               g_print("No display found.\n");
+               return;
+            }
 
-//            if (XGrabPointer(m_pdisplay->m_pdisplay, m_window, False, ButtonPressMask | ButtonReleaseMask | PointerMotionMask,
-//                             GrabModeAsync, GrabModeAsync, None, None, CurrentTime) != GrabSuccess)
-//            {
-//
-//               throw ::exception(error_exception);
-//
-//            }
+            // Get the default seat
+            seat = gdk_display_get_default_seat(display);
+            if (!seat) {
+               g_print("No seat found.\n");
+               return;
+            }
 
+            // Get the pointer device from the seat
+            pointer_device = gdk_seat_get_pointer(seat);
+            if (!pointer_device) {
+               g_print("No pointer device found.\n");
+               return;
+            }
+
+            // Get the GdkWindow associated with the widget
+            gdk_window = gtk_widget_get_window(m_pgtkwidget);
+            if (!gdk_window) {
+               g_print("No GdkWindow available for the widget.\n");
+               return;
+            }
+
+            // Try to grab the pointer
+            status = gdk_device_grab(
+                pointer_device,        // The pointer device to grab
+                gdk_window,            // The window to which events will be redirected
+                GDK_OWNERSHIP_NONE,    // Ownership of the device
+                TRUE,                  // Confine pointer to the window (TRUE or FALSE)
+                (GdkEventMask )(GDK_POINTER_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK), // Event mask
+                NULL,                  // Cursor (NULL for default)
+                GDK_CURRENT_TIME       // Timestamp
+            );
+
+            if (status == GDK_GRAB_SUCCESS) {
+               g_print("Pointer successfully grabbed.\n");
+            } else {
+               g_print("Failed to grab pointer. Status: %d\n", status);
+            }
          }
 
 
          void window::release_mouse_capture()
          {
-            //display_lock displaylock(m_pdisplay->m_pdisplay);
 
-
-            //int bRet = XUngrabPointer(m_pdisplay->m_pdisplay, CurrentTime);
-
-            gtk_grab_remove(m_pgtkwidget);
+            get_display()->release_mouse_capture();
 
          }
 
@@ -1872,6 +2123,22 @@ m_phappeningLastMouseUp = pevent;
          //
          //   }
 
+
+         void window::_on_map_window()
+         {
+
+
+         }
+
+
+         void window::_on_unmap_window()
+         {
+
+
+
+         }
+
+
          bool window::is_window_zoomed()
          {
 
@@ -1943,6 +2210,17 @@ m_phappeningLastMouseUp = pevent;
             __unmap();
 
          }
+
+
+         void window::_on_configure()
+         {
+
+            auto r = get_window_rectangle();
+
+            _on_configure(r.left(), r.top(), r.width(), r.height());
+
+         }
+
 
       }//namespace windowing
 

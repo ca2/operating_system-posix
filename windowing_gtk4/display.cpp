@@ -502,7 +502,7 @@ namespace windowing_gtk4
 //   }
 
 
-   ::e_status display::release_mouse_capture()
+   void display::release_mouse_capture()
    {
 
       information() << "windowing_gtk4::display::release_mouse_capture";
@@ -526,7 +526,7 @@ namespace windowing_gtk4
 //
 //      pwindowing->windowing_post(predicate);
 
-      return ::success;
+      //return ::success;
 
    }
 

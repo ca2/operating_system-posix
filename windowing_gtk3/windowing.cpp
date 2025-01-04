@@ -63,7 +63,22 @@ namespace windowing_gtk3
 
       }
 
-      return true;
+      return windowing_posix::windowing::has_readily_gettable_absolute_coordinates();
+
+   }
+
+
+   bool windowing::has_mouse_capture_capability()
+   {
+
+      if(::windowing::get_edisplaytype() == ::windowing::e_display_type_wayland)
+      {
+
+         return false;
+
+      }
+
+      return windowing_posix::windowing::has_mouse_capture_capability();
 
    }
 
@@ -214,6 +229,32 @@ namespace windowing_gtk3
    }
 
 
+   ::windowing_gtk3::window *windowing:: _window(GtkWindow * pgtkwindow)
+   {
+
+      auto pgtk3acmewindowingwindow = ::gtk3::acme::windowing::windowing::_window(pgtkwindow);
+
+      if (! pgtk3acmewindowingwindow)
+      {
+
+         return nullptr;
+
+      }
+
+      ::cast < ::windowing_gtk3::window > pgtk3window = pgtk3acmewindowingwindow;
+
+      if (!pgtk3window)
+      {
+
+         return nullptr;
+
+      }
+
+      return pgtk3window;
+
+   }
+
+
    ::pointer<::windowing::cursor> windowing::load_default_cursor(enum_cursor ecursor)
    {
 
@@ -351,7 +392,6 @@ __øconstruct(pcursor);
 
    ::acme::windowing::window * windowing::get_mouse_capture(::thread *)
    {
-
       if (!gtk3_display())
       {
 
@@ -359,7 +399,71 @@ __øconstruct(pcursor);
 
       }
 
-      return m_pwindowMouseCapture;
+
+      // if (has_mouse_capture_capability())
+      // {
+      //
+      //    GdkDisplay *display;
+      //    GdkSeat *seat;
+      //    GdkDevice *pointer_device;
+      //    GdkWindow *grabbed_window;
+      //
+      //    // Get the default display
+      //    display = gdk_display_get_default();
+      //    if (!display) {
+      //       g_print("No display found.\n");
+      //       return nullptr;
+      //    }
+      //
+      //    // Get the default seat
+      //    seat = gdk_display_get_default_seat(display);
+      //    if (!seat) {
+      //       g_print("No seat found.\n");
+      //       return nullptr;
+      //    }
+      //
+      //    // Get the pointer device from the seat
+      //    pointer_device = gdk_seat_get_pointer(seat);
+      //    if (!pointer_device) {
+      //       g_print("No pointer device found.\n");
+      //       return nullptr;
+      //    }
+      //    // Check if the device is grabbed and get the window under grab
+      //    grabbed_window = gdk_device_get_window_at_position(pointer_device, NULL, NULL);
+      //    if (!grabbed_window)
+      //    {
+      //       g_print("Pointer is not currently grabbed.\n");
+      //       return nullptr;
+      //    }
+      //    g_print("Pointer is grabbed by window: %p\n", grabbed_window);
+      //
+      //    GtkWindow * pgtkwindow = GTK_WINDOW(grabbed_window);
+      //    if (!pgtkwindow)
+      //    {
+      //
+      //       information() << "grabbed_window is not gtk window (but gdk window)";
+      //       return nullptr;
+      //
+      //    }
+      //
+      //    auto pwindow = _window(pgtkwindow);
+      //
+      //    if (!pwindow)
+      //       {
+      //
+      //       information() << "grabbed_window is not mapped to a framework window object instance";
+      //    return nullptr;
+      //
+      //    }
+      //
+      //    return pwindow;
+      // }
+      // else
+      {
+
+         return m_pwindowMouseCapture;
+
+      }
 
    }
 
@@ -378,6 +482,13 @@ __øconstruct(pcursor);
    void windowing::set_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
    {
 
+      if (has_mouse_capture_capability())
+      {
+
+         pwindow->set_mouse_capture();
+
+      }
+
       m_pwindowMouseCapture = pwindow;
 
    }
@@ -386,7 +497,14 @@ __øconstruct(pcursor);
    void windowing::release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
    {
 
-      gtk3_display()->release_mouse_capture();
+      if (has_mouse_capture_capability())
+      {
+
+         pwindow->release_mouse_capture();
+
+      }
+
+      m_pwindowMouseCapture = nullptr;
 
    }
 
@@ -394,18 +512,49 @@ __øconstruct(pcursor);
    bool windowing::defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
    {
 
-      if(m_pwindowMouseCapture != pwindow)
+      if (has_mouse_capture_capability())
       {
 
-         return false;
+         auto pgtk3window = get_mouse_capture(pthread);
+
+         if (!pgtk3window)
+         {
+
+            return false;
+
+         }
+
+         ::cast < ::windowing_gtk3::window > pwindowRelease = pwindow;
+
+         if (pgtk3window != pwindowRelease)
+         {
+
+            return false;
+
+         }
+
+         release_mouse_capture(pthread, pwindow);
+
+         return true;
 
       }
+      else
+      {
 
-      release_mouse_capture(pthread, pwindow);
+         if(m_pwindowMouseCapture != pwindow)
+         {
 
-      m_pwindowMouseCapture.release();
+            return false;
 
-      return true;
+         }
+
+         release_mouse_capture(pthread, pwindow);
+
+         m_pwindowMouseCapture.release();
+
+         return true;
+
+      }
 
    }
 

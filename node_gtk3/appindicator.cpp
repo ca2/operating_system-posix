@@ -4,13 +4,14 @@
 #include "framework.h"
 #include "node.h"
 #include "acme/platform/system.h"
+#include "apex/message/command.h"
 //#include "apex/user/user/notify_icon_bridge.h"
 //int uname(struct utsname *buf);
 //#ifndef RASPBERRYPIOS
 //#ifndef MANJARO
 // Manjaro libappindicator-gtk3
 //#include <libappindicator3-0.1/libappindicator/app-indicator.h>
-#include "acme/platform/application_menu_callback.h"
+#include "acme/handler/command_handler.h"
 #include "acme/platform/application_menu.h"
 #if defined(FREEBSD) || defined(FEDORA_LINUX) || defined(SUSE_LINUX) || defined(OPENBSD)
 #include <libappindicator3-0.1/libappindicator/app-indicator.h>
@@ -41,6 +42,7 @@
 //
 //}
 
+#include "../common_gtk/activation_token.h"
 #include "aura_posix/user_notify_icon_bridge.h"
 
 
@@ -48,21 +50,60 @@ extern "C"
 {
 
 
-   static void gtk_menu_item_application_menu_callback(GtkMenuItem * pgtkmenuitem, gpointer data)
+   static void gtk_menu_item_application_menu_callback(GtkMenuItem * pgtkmenuitem, gpointer p)
    {
 
-      auto pcallback = (::application_menu_callback *) data;
+      auto pcommandhandler = (::command_handler *) p;
 
-      pcallback->on_application_menu_action(gtk_widget_get_name(GTK_WIDGET(pgtkmenuitem)));
+      ::atom atom;
+
+      atom = gtk_widget_get_name(GTK_WIDGET(pgtkmenuitem));
+
+      //auto pactivationtoken= __allocate ::gtk3::acme::windowing::activation_token();
+
+      //pcallback->on_application_menu_command(atom, puseractivationtoken);
+
+      pcommandhandler->handle_command(atom, nullptr);
 
    }
 
 
 } // extern "C"
 
+// gboolean on_menu_item_button_press(GtkWidget *widget, GdkEventButton *happening, gpointer p) {
+//    if (happening->button == 1) {  // Left mouse button
+//       //g_print("Left button pressed on menu item: %s\n", gtk_menu_item_get_label(GTK_MENU_ITEM(widget)));
+//
+//       auto pcommandhandler = (::command_handler *) p;
+//
+//       ::atom atom;
+//
+//       atom = gtk_widget_get_name(GTK_WIDGET(widget));
+//
+//       auto puseractivationtoken= __allocate ::common_gtk::activation_token(happening->time);
+//
+//       pcommandhandler->handle_command(atom, puseractivationtoken);
+//
+//       // auto *  = (::operating_system::a_system_menu_item *)p;
+//       //
+//       // auto pwindow = (::gtk3::acme::windowing::window *)pitem->m_pWindowingImplWindow;
+//       // gtk_widget_hide(GTK_WIDGET(pwindow->m_pgtkwidgetSystemMenu));
+//       //
+//       // gtk_menu_popdown(GTK_MENU(pwindow->m_pgtkwidgetSystemMenu));
+//       //
+//       // gtk_widget_destroy(pwindow->m_pgtkwidgetSystemMenu);
+//       // pwindow->_on_a_system_menu_item_button_press(pitem, widget, happening);
+//       //
+//       // pwindow->m_psystemmenu.release();
+//       //
+//       // pwindow->m_pgtkwidgetSystemMenu = nullptr;
+//    } else if (happening->button == 3) {  // Right mouse button
+//       //g_print("Right button pressed on menu item: %s\n", gtk_menu_item_get_label(GTK_MENU_ITEM(widget)));
+//    }
+//    return FALSE;  // Return FALSE to propagate the happening, or TRUE to stop further happening handling
+// }
 
-
-GtkMenu * gtk_menu_from_application_menu(application_menu * papplicationmenu, application_menu_callback * pcallback)
+GtkMenu * gtk_menu_from_application_menu(application_menu * papplicationmenu, ::command_handler * pcommandhandler)
 {
 
    int iCount = papplicationmenu->get_count();
@@ -75,6 +116,8 @@ GtkMenu * gtk_menu_from_application_menu(application_menu * papplicationmenu, ap
    }
 
    GtkWidget * pgtkwidgetMenu = gtk_menu_new();
+
+   gtk_widget_add_events(pgtkwidgetMenu, GDK_BUTTON_PRESS_MASK);
 
    for(int i = 0; i < iCount; i++)
    {
@@ -102,7 +145,7 @@ GtkMenu * gtk_menu_from_application_menu(application_menu * papplicationmenu, ap
          if (pitem->is_popup())
          {
 
-            auto pgtkwidgetSubMenu = gtk_menu_from_application_menu(pitem, pcallback);
+            auto pgtkwidgetSubMenu = gtk_menu_from_application_menu(pitem, pcommandhandler);
 
             gtk_menu_item_set_submenu(GTK_MENU_ITEM(pgtkwidget), GTK_WIDGET(pgtkwidgetSubMenu));
 
@@ -117,8 +160,19 @@ GtkMenu * gtk_menu_from_application_menu(application_menu * papplicationmenu, ap
 
             gtk_widget_set_name(GTK_WIDGET(pgtkwidget), strId);
 
+            // //if(pitem->m_strAtom.begins("***"))
+            // {
+            //    gtk_widget_add_events(pgtkwidget, GDK_BUTTON_PRESS_MASK);
+            //
+            //    // Connect the button-press-event signal to handle button press happenings on menu items
+            //    g_signal_connect(pgtkwidget, "button-press-event", G_CALLBACK(on_menu_item_button_press), pcommandhandler);
+            //
+            // }
+            // else {
+            //    g_signal_connect(menu_item, "activate", G_CALLBACK(on_menu_item_clicked), pitem.m_p);
+            // }
             g_signal_connect (G_OBJECT(pgtkwidget), "activate", G_CALLBACK(gtk_menu_item_application_menu_callback),
-                              pcallback);
+                              pcommandhandler);
 
             // gtkactionentriea[iEntry].stock_id = g_strdup(pszId);
 
@@ -177,7 +231,7 @@ namespace node_gtk3
    }
 
 
-   bool appindicator::create(const char * pszId, const char * pszIcon, const char * pszFolder, application_menu * papplicationmenu, application_menu_callback * pcallback)
+   bool appindicator::create(const char * pszId, const char * pszIcon, const char * pszFolder, application_menu * papplicationmenu, command_handler * pcommandhandler)
    {
 
 //#if defined(HAS_GTK4)
@@ -202,7 +256,7 @@ namespace node_gtk3
 
       }
 
-      if(!init(papplicationmenu, pcallback))
+      if(!init(papplicationmenu, pcommandhandler))
       {
 
          close();
@@ -216,9 +270,7 @@ namespace node_gtk3
    }
 
 
-
-
-   bool appindicator::init(application_menu * papplicationmenu, application_menu_callback * pcallback)
+   bool appindicator::init(application_menu * papplicationmenu, ::command_handler * pcommandhandler)
    {
 //
 //      int iCount = pbridge->_get_notification_area_action_count();
@@ -230,7 +282,7 @@ namespace node_gtk3
 //
 //      }
 
-      auto pgtkmenu = gtk_menu_from_application_menu(papplicationmenu, pcallback);
+      auto pgtkmenu = gtk_menu_from_application_menu(papplicationmenu, pcommandhandler);
 
 //      for(int i = 0; i < iCount; i++)
 //      {

@@ -28,58 +28,13 @@
 #include "aura/graphics/image/context.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
+#include "common_gtk/activation_token.h"
 //#include "windowing_system_wayland/xfree86_key.h"
 #include <gtk/gtk.h>
 #include <X11/Xlib.h>
 
-::user::e_key gtk_key_as_user_ekey(huge_natural uGtkKey)
-{
 
-switch(uGtkKey)
-{
-
-case GDK_KEY_Delete:
-   return ::user::e_key_delete;
-case GDK_KEY_BackSpace:
-   return ::user::e_key_back;
-case GDK_KEY_Left:
-   return ::user::e_key_left;
-case GDK_KEY_Right:
-   return ::user::e_key_right;
-case GDK_KEY_Up:
-   return ::user::e_key_up;
-case GDK_KEY_Down:
-   return ::user::e_key_down;
-case GDK_KEY_Return:
-   return ::user::e_key_return;
-case GDK_KEY_Tab:
-   return ::user::e_key_tab;
-case GDK_KEY_Shift_L:
-   return ::user::e_key_left_shift;
-case GDK_KEY_Shift_R:
-   return ::user::e_key_right_shift;
-case GDK_KEY_Control_L:
-   return ::user::e_key_left_control;
-case GDK_KEY_Control_R:
-   return ::user::e_key_right_control;
-case GDK_KEY_Alt_L:
-   return ::user::e_key_left_alt;
-case GDK_KEY_Alt_R:
-   return ::user::e_key_right_alt;
-case GDK_KEY_Super_L:
-   return ::user::e_key_left_command;
-case GDK_KEY_Super_R:
-   return ::user::e_key_right_command;
-case GDK_KEY_Page_Down:
-   return ::user::e_key_page_down;
-case GDK_KEY_Page_Up:
-   return ::user::e_key_page_up;
-}
-   return ::user::e_key_none;
-
-
-}
-
+#include "../node_gtk/gtk_3_and_4.cpp"
 
 namespace windowing_gtk4
 {
@@ -162,34 +117,60 @@ drawing_area_state_flags_changed (
    }
 
 
-   void window_state_flags_changed(GtkWidget * self, GtkStateFlags flags, gpointer user_data)
+   void window_state_flags_changed(GtkWidget * self, GtkStateFlags flagsPrevious, gpointer user_data)
    {
 
       auto pwindow = (window*) user_data;
 
+      auto flagsNow = gtk_widget_get_state_flags(self);
+
       bool bWasRecordedAsActive = pwindow->m_bActiveWindow;
 
-      if(flags & GTK_STATE_FLAG_ACTIVE)
+      if((flagsNow & GTK_STATE_FLAG_ACTIVE) && !(flagsPrevious & GTK_STATE_FLAG_ACTIVE)
+         || (flagsNow & GTK_STATE_FLAG_FOCUS_WITHIN) && !(flagsPrevious & GTK_STATE_FLAG_FOCUS_WITHIN))
       {
 
          pwindow->m_bActiveWindow = true;
 
-         if(pwindow->m_puserinteraction->layout().m_statea[::user::e_layout_window].display() == ::e_display_iconic)
+         if(!bWasRecordedAsActive)
          {
 
-            pwindow->on_window_deiconified();
+            gboolean is_maximized = gtk_window_is_maximized(GTK_WINDOW(self));
+
+            if (is_maximized)
+            {
+
+               pwindow->_on_display_change(e_display_zoomed);
+
+            }
+            else
+            {
+
+               pwindow->_on_display_change(e_display_normal);
+
+            }
 
          }
-         else if(!bWasRecordedAsActive)
-         {
 
-            pwindow->on_window_activated();
-
-         }
+         // if(pwindow->m_puserinteraction->layout().m_statea[::user::e_layout_window].display() == ::e_display_iconic)
+         // {
+         //
+         //    pwindow->on_window_deiconified();
+         //
+         // }
+         // else if(!bWasRecordedAsActive)
+         // {
+         //
+         //    pwindow->on_window_activated();
+         //
+         // }
 
       }
-      else
+      else if(!(flagsNow & GTK_STATE_FLAG_ACTIVE) && (flagsPrevious & GTK_STATE_FLAG_ACTIVE)
+         || !(flagsNow & GTK_STATE_FLAG_FOCUS_WITHIN) && (flagsPrevious & GTK_STATE_FLAG_FOCUS_WITHIN))
       {
+
+         pwindow->m_bActiveWindow = false;
 
          if(pwindow->m_puserinteraction->const_layout().sketch().display() == ::e_display_iconic)
          {
@@ -208,14 +189,11 @@ drawing_area_state_flags_changed (
 
    }
 
-   void
-window_show (
-  GtkWidget* self,
-  gpointer user_data
-)
+
+   void window_show(GtkWidget* self, gpointer p)
    {
 
-      auto pwindow = (window*) user_data;
+      auto pwindow = (window*) p;
 
       //pwindow->m_bWindowVisible = true;
 
@@ -223,14 +201,11 @@ window_show (
 
    }
 
-   void
-window_hide (
-  GtkWidget* self,
-  gpointer user_data
-)
+
+   void window_hide(GtkWidget* self, gpointer p)
    {
 
-      auto pwindow = (window*) user_data;
+      auto pwindow = (window*) p;
 
       //pwindow->m_bWindowVisible = false;
 
@@ -433,8 +408,13 @@ gtk_im_context_commit (
 
          }
 
-         printf_line("cairo w,h(%d,%d)",
-         width, height);
+#ifdef DEEP_DEBUGGING
+
+         printf_line("cairo w,h(%d,%d)", width, height);
+
+#endif
+
+         m_timeLastDrawGuard1.Now();
 
       }
       else
@@ -492,9 +472,15 @@ gtk_im_context_commit (
 
             });
 
-          }
-          else
-          {
+         }
+         else if (edisplay == e_display_iconic)
+         {
+
+            m_puserinteraction->display(::e_display_iconic);
+
+         }
+         else
+         {
 
             m_puserinteraction->display(::e_display_normal);
 
@@ -528,24 +514,48 @@ gtk_im_context_commit (
    void window::_on_size(int cx, int cy)
    {
 
+      informationf("::windowing_gtk4::window::on_size(%d,%d)", cx, cy);
+
       ::windowing::window * pimpl = this;
 
       auto puserinteraction = pimpl->m_puserinteraction;
 
       ::int_size s(cx, cy);
 
-      if (m_sizeOnSize != s)
+      bool bChanged = m_sizeOnSize != s;
+
+      if (bChanged)
       {
 
-         gtk_drawing_area_set_content_width (GTK_DRAWING_AREA (m_pdrawingarea), cx);
-
-         gtk_drawing_area_set_content_height (GTK_DRAWING_AREA (m_pdrawingarea), cy);
-
-         gtk_widget_set_size_request(m_pdrawingarea, cx, cy);
-
-         gtk_window_set_default_size(GTK_WINDOW(m_pgtkwidget), cx, cy);
-
          m_sizeOnSize = s;
+
+         // // does setting drawing area content size prevents window to be resized smaller?
+
+         //gtk_drawing_area_set_content_width (GTK_DRAWING_AREA (m_pdrawingarea), cx);
+
+         //gtk_drawing_area_set_content_height (GTK_DRAWING_AREA (m_pdrawingarea), cy);
+
+         // // sets widget minimum size
+         // // this isn't what we want here
+         // gtk_widget_set_size_request(m_pdrawingarea, cx, cy);
+
+         if (gtk_window_is_maximized(GTK_WINDOW(m_pgtkwidget)))
+         {
+
+            m_sizeOnSizeZoomed = s;
+
+         }
+         else
+         {
+
+            m_sizeOnSizeRestored= s;
+
+            // // sets window default size
+            // // maybe this _on_size handler reports an already applied
+            // // cx width and cy height, so maybe this isn't also what we want here
+            gtk_window_set_default_size(GTK_WINDOW(m_pgtkwidget), cx, cy);
+
+         }
 
          printf_line("puserinteraction->set_size (gtk4 CT25) %d, %d", cx, cy);
 
@@ -976,8 +986,15 @@ gtk_im_context_commit (
          }
 
       }
+      else
+      {
+
+      informationf("n_press = %d", n_press);
+
+      }
 
    }
+
 
 
    void window::_on_motion_notify(GtkEventControllerMotion * pcontroller, double x, double y)
@@ -1192,6 +1209,8 @@ on_text(scopedstr, scopedstr.size());
          int h = 0;
 
          gdk_toplevel_size_get_bounds(size, &w, &h);
+
+         informationf("gdk_toplevel_size_get_bounds returned %d, %d", w, h);
 
          gdk_toplevel_size_set_size(size, w, h);
 
@@ -1655,7 +1674,7 @@ m_pimcontext = gtk_im_multicontext_new();
 
 
    bool window::set_window_position(const class ::zorder & zorder, int x, int y, int cx, int cy,
-                                    const ::user::e_activation & useractivation, bool bNoZorder, bool bNoMove, bool bNoSize,
+                                    const ::user::activation & useractivation, bool bNoZorder, bool bNoMove, bool bNoSize,
                                     ::e_display edisplay)
    {
 
@@ -1667,7 +1686,7 @@ m_pimcontext = gtk_im_multicontext_new();
 
 
    bool window::_set_window_position_unlocked(const class ::zorder & zorder, int x, int y, int cx, int cy,
-                                              const ::user::e_activation & useractivation, bool bNoZorder, bool bNoMove,
+                                              const ::user::activation & useractivation, bool bNoZorder, bool bNoMove,
                                               bool bNoSize, ::e_display edisplay)
    {
 
@@ -1709,7 +1728,7 @@ m_pimcontext = gtk_im_multicontext_new();
          //if(!is_iconic())
          //{
 
-            window_minimize();
+         window_minimize();
 
          //}
 
@@ -1743,7 +1762,7 @@ m_pimcontext = gtk_im_multicontext_new();
 
 
    bool window::_configure_window_unlocked(const class ::zorder & zorder,
-                                           const ::user::e_activation & useractivation, bool bNoZorder, ::e_display edisplay)
+                                           const ::user::activation & useractivation, bool bNoZorder, ::e_display edisplay)
    {
 
       if (!(m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
@@ -1784,6 +1803,14 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
+   void window::show_task(bool bShow)
+   {
+
+
+
+   }
+
+
    void window::set_mouse_cursor2(::windowing::cursor * pcursor)
    {
 
@@ -1796,7 +1823,18 @@ m_pimcontext = gtk_im_multicontext_new();
 
       ::windowing::window::set_mouse_cursor(pcursor);
 
-      windowing()->set_mouse_cursor2(pcursor);
+      //windowing()->set_mouse_cursor2(pcursor);
+
+      ::cast < ::windowing_gtk4::cursor > pgtk4cursor = pcursor;
+
+      if (pgtk4cursor)
+      {
+         pgtk4cursor->_create_os_cursor();
+         auto cursor = pgtk4cursor->m_pgdkcursor;
+         GdkSurface *window = gtk_native_get_surface(gtk_widget_get_native(m_pgtkwidget));
+         gdk_surface_set_cursor(window, cursor);
+         g_object_unref(cursor); // Free the cursor after setting it
+      }
 
    }
 
@@ -1840,10 +1878,10 @@ m_pimcontext = gtk_im_multicontext_new();
       if (!(m_puserinteraction->m_ewindowflag & e_window_flag_window_created))
       {
 
-         if (m_puserinteraction->const_layout().design().activation() == ::user::e_activation_default)
+         if (m_puserinteraction->const_layout().design().activation().m_eactivation == ::user::e_activation_default)
          {
 
-            m_puserinteraction->layout().m_statea[::user::e_layout_sketch].activation() =
+            m_puserinteraction->layout().m_statea[::user::e_layout_sketch].activation().m_eactivation =
                ::user::e_activation_set_active;
 
          }
@@ -1857,17 +1895,31 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   void window::set_foreground_window()
+   void window::set_foreground_window(::user::activation_token * puseractivationtoken)
    {
 
-      _set_foreground_window_unlocked();
+      _set_foreground_window_unlocked(puseractivationtoken);
 
    }
 
 
-   void window::_set_foreground_window_unlocked()
+   void window::_set_foreground_window_unlocked(::user::activation_token * puseractivationtoken)
    {
 
+      ::cast < ::common_gtk::activation_token > pactivationtoken = puseractivationtoken;
+
+      if (pactivationtoken)
+      {
+
+         gtk_window_present_with_time(GTK_WINDOW(m_pgtkwidget), pactivationtoken->m_time);
+
+      }
+      else
+      {
+
+         gtk_window_present(GTK_WINDOW(m_pgtkwidget));
+
+      }
 
    }
 
@@ -1875,39 +1927,36 @@ m_pimcontext = gtk_im_multicontext_new();
    void window::destroy_window()
    {
 
+      if (has_destroying_flag())
+      {
+
+         return;
+
+      }
+
+      ::string strType = ::type(m_puserinteraction).name();
+
+      set_destroying_flag();
+
       bool bOk = false;
 
-      auto pwindow = this;
+      auto pinteraction = m_puserinteraction;
 
-      if (::is_set(pwindow))
+      //auto pwindow = this;
+
+      ///if (::is_set(pwindow))
+      main_send([this, strType, pinteraction]()
       {
 
-         ::pointer<::user::interaction> pinteraction = pwindow->m_puserinteraction;
+         pinteraction->message_handler(e_message_destroy, 0, 0);
 
-         if (pinteraction.is_set())
-         {
+         _destroy_window();
 
-            pinteraction->send_message(e_message_destroy, 0, 0);
+         pinteraction->message_handler(e_message_non_client_destroy, 0, 0);
 
-         }
+         destroy();
 
-      }
-
-      ::windowing::window::destroy_window();
-
-      if (::is_set(pwindow))
-      {
-
-         ::pointer<::user::interaction> pinteraction = pwindow->m_puserinteraction;
-
-         if (pinteraction.is_set())
-         {
-
-            pinteraction->send_message(e_message_non_client_destroy, 0, 0);
-
-         }
-
-      }
+      });
 
    }
 
@@ -1927,16 +1976,18 @@ m_pimcontext = gtk_im_multicontext_new();
 
       __check_refdbg
 
-      main_send([this, &bHasFocus]()
-      {
+      // main_send([this, &bHasFocus]()
+      // {
+      //
+      //    bool bCanFocus = gtk_widget_get_can_focus(m_pgtkwidget);
+      //
+      //    bool bCanFocus1 = gtk_widget_get_can_focus(m_pdrawingarea);
+      //
+      //    bHasFocus = gtk_widget_has_focus(m_pdrawingarea) ? true : false;
+      //
+      // });
 
-         bool bCanFocus = gtk_widget_get_can_focus(m_pgtkwidget);
-
-         bool bCanFocus1 = gtk_widget_get_can_focus(m_pdrawingarea);
-
-         bHasFocus = gtk_widget_has_focus(m_pdrawingarea) ? true : false;
-
-      });
+      bHasFocus = m_bHasFocusCached;
 
       __check_refdbg
 
@@ -1978,14 +2029,17 @@ m_pimcontext = gtk_im_multicontext_new();
       if(!m_bInhibitQueueDraw)
       {
 
+         information() << "::window::window_update_screen";
+
          main_send([this]()
          {
 
             if (GTK_IS_WIDGET(m_pgtkwidget) && !m_bInhibitQueueDraw)
             {
 
-               set_window_position_unlocked();
+               information() << "::window::window_update_screen (2)";
 
+               set_window_position_unlocked();
 
                gtk_widget_queue_draw(m_pdrawingarea);
 
@@ -2026,19 +2080,21 @@ m_pimcontext = gtk_im_multicontext_new();
 
       __check_refdbg
 
-      main_send([this, &bIsActive]()
-      {
+      bIsActive = m_bIsActiveCached;
 
-         //bool bCanFocus = gtk_widget_get_can_focus(m_pgtkwidget);
-
-         //bool bCanFocus1 = gtk_widget_get_can_focus(m_pdrawingarea);
-
-         if(GTK_IS_WINDOW(m_pgtkwidget))
-         {
-            bIsActive = gtk_window_is_active(GTK_WINDOW(m_pgtkwidget)) ? true : false;
-         }
-
-      });
+      // main_send([this, &bIsActive]()
+      // {
+      //
+      //    //bool bCanFocus = gtk_widget_get_can_focus(m_pgtkwidget);
+      //
+      //    //bool bCanFocus1 = gtk_widget_get_can_focus(m_pdrawingarea);
+      //
+      //    if(GTK_IS_WINDOW(m_pgtkwidget))
+      //    {
+      //       bIsActive = gtk_window_is_active(GTK_WINDOW(m_pgtkwidget)) ? true : false;
+      //    }
+      //
+      // });
 
       __check_refdbg
 
@@ -2109,6 +2165,8 @@ m_pimcontext = gtk_im_multicontext_new();
          if (gtk_window_is_maximized(GTK_WINDOW(m_pgtkwidget)))
          {
 
+            m_timeHoverNoiseSuppression.Now();
+
             gtk_window_unmaximize(GTK_WINDOW(m_pgtkwidget));
 
          }
@@ -2138,12 +2196,7 @@ m_pimcontext = gtk_im_multicontext_new();
    void window::window_maximize()
    {
 
-      main_post([this]()
-       {
-
-          gtk_window_maximize(GTK_WINDOW(m_pgtkwidget));
-
-       });
+      ::gtk4::acme::windowing::window::window_maximize();
 
    }
 
@@ -2151,7 +2204,9 @@ m_pimcontext = gtk_im_multicontext_new();
    void window::on_window_deiconified()
    {
 
-      _on_activation_change();
+      information() << "::windowing_gtk4::window::on_window_deiconified";
+
+      _on_activation_change(true);
 
    }
 
@@ -2159,7 +2214,7 @@ m_pimcontext = gtk_im_multicontext_new();
    void window::on_window_activated()
    {
 
-      _on_activation_change();
+      _on_activation_change(true);
 
    }
 
@@ -2167,7 +2222,7 @@ m_pimcontext = gtk_im_multicontext_new();
    void window::on_window_iconified()
    {
 
-      _on_activation_change();
+      _on_activation_change(false);
 
    }
 
@@ -2175,7 +2230,7 @@ m_pimcontext = gtk_im_multicontext_new();
    void window::on_window_deactivated()
    {
 
-      _on_activation_change();
+      _on_activation_change(false);
 
    }
 
@@ -2195,7 +2250,7 @@ m_pimcontext = gtk_im_multicontext_new();
 
       pshowwindow->m_bShow = true;
 
-      m_puserinteraction->main_send(pshowwindow);
+      m_puserinteraction->route_message(pshowwindow);
 
    }
 
@@ -2215,29 +2270,39 @@ m_pimcontext = gtk_im_multicontext_new();
 
       pshowwindow->m_bShow = false;
 
-      m_puserinteraction->main_send(pshowwindow);
+      m_puserinteraction->route_message(pshowwindow);
 
    }
 
 
-
-   void window::_on_activation_change()
+   void window::_on_activation_change(bool bActive)
    {
 
-      auto & sketch = m_puserinteraction->layout().m_statea[::user::e_layout_sketch];
-
-      enum_display edisplayCurrent = defer_window_get_best_display_deduction();
-
-      if(sketch.m_edisplay != edisplayCurrent)
+      if (bActive)
       {
 
-         sketch.m_edisplay = edisplayCurrent;
+         auto & sketch = m_puserinteraction->layout().m_statea[::user::e_layout_sketch];
+
+         enum_display edisplayCurrent = defer_window_get_best_display_deduction();
+
+         auto & window = m_puserinteraction->layout().m_statea[::user::e_layout_window];
+
+         window.m_edisplay = edisplayCurrent;
+
+         if(sketch.m_edisplay != edisplayCurrent)
+         {
+
+            m_puserinteraction->display(edisplayCurrent);
+
+            m_puserinteraction->set_need_layout();
+
+            m_puserinteraction->set_need_redraw();
+
+            m_puserinteraction->post_redraw();
+
+         }
 
       }
-
-      auto & window = m_puserinteraction->layout().m_statea[::user::e_layout_window];
-
-      window.m_edisplay = edisplayCurrent;
 
    }
 
@@ -2472,6 +2537,70 @@ return false;
 
    }
 
+
+   bool window::_on_gtk_scroll(GtkEventControllerScroll * peventcontrollerScroll, double dx, double dy)
+   {
+
+      auto pmouse = __create_new<::message::mouse_wheel>();
+
+      pmouse->m_oswindow = this;
+
+      pmouse->m_pwindow = this;
+
+      // GdkEventSequence * sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
+      //
+      // // Get the GdkEvent from the sequence
+      // GdkEvent * happening = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+      //
+      // guint32 timestamp = gdk_event_get_time(happening);
+      //
+      // pmouse->m_iTimestamp = timestamp;
+
+      pmouse->m_atom = e_message_mouse_wheel;
+
+      informationf("_on_gtk_scroll(%0.2f, %0.2f)", dx, dy);
+
+      // Get the GdkEvent from the event controller
+      GdkEvent *event = gtk_event_controller_get_current_event(GTK_EVENT_CONTROLLER(peventcontrollerScroll));
+      if (event && gdk_event_get_event_type(event) == GDK_SCROLL)
+      {
+         double x, y;
+
+         // Get the cursor position relative to the widget
+         if (gdk_event_get_position(event, &x, &y))
+         {
+            g_print("Scroll event: dx=%.2f, dy=%.2f, cursor position: x=%.2f, y=%.2f\n", dx, dy, x, y);
+
+            ::int_point pointCursor(x, y);
+
+            pmouse->m_pointHost = pointCursor;
+
+            //            _defer_translate_to_absolute_coordinates_unlocked(pointCursor);
+
+            m_pointCursor2 = pointCursor;
+
+            pmouse->m_pointAbsolute = m_pointCursor2;
+            g_print("Scroll event: dx=%.2f, dy=%.2f, cursor position: x=%.2f, y=%.2f\n", dx, dy, x, y);
+         }
+         else
+         {
+            g_print("Failed to get cursor position from the scroll event.\n");
+            pmouse->m_pointHost = m_pointCursor2;
+
+            //            _defer_translate_to_absolute_coordinates_unlocked(pointCursor);
+
+            pmouse->m_pointAbsolute = m_pointCursor2;
+
+         }
+      }
+
+      pmouse->m_Δ = (short)-dy*120;
+
+      message_handler(pmouse);
+
+      return false;
+
+   }
 
 
    void window::_on_drawing_area_keyboard_focus()

@@ -37,6 +37,14 @@ list(APPEND library_source
         windowing.h
         )
 
+
+list(APPEND library_references
+   acme
+   common_gtk
+)
+
+
+
 add_library(${PROJECT_NAME} SHARED ${library_source})
 target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 
@@ -59,12 +67,12 @@ elseif (${LINUX} OR ${__BSD__})
    #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
    #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})
    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-rpath=\$ORIGIN)
-   target_link_libraries(${PROJECT_NAME} PRIVATE acme ${PKGCONFIG_LIBRARIES})
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
    message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
 endif ()
 
-add_dependencies(${PROJECT_NAME} acme)
+add_dependencies(${PROJECT_NAME} acme common_gtk)
 
 target_link_directories(${PROJECT_NAME} PRIVATE ${LIBRARY_OUTPUT_PATH})
 target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/storage-${OPERATING_SYSTEM_NAME}/library/x64/basis)
