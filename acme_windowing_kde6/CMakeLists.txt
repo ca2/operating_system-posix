@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
-project(windowing_system_kde5 CXX)
+project(acme_windowing_kde6 CXX)
 
 
 
