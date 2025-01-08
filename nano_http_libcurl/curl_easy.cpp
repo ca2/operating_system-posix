@@ -3,6 +3,7 @@
 //
 #include "framework.h"
 #include "curl_easy.h"
+#include <curl/easy.h>
 //#include "operating_system/windows/nano_http/http_get.h"
 
 
@@ -26,11 +27,11 @@ curl_easy::~curl_easy()
 size_t curl_easy::s_write_function(void *contents, size_t size, size_t nmemb, void *userp)
 {
 
-   auto pget = dynamic_cast< ::nano::http::get *>((::subparticle *)userp);
+   auto pget = (::nano::http::get *)(userp);
 
    size_t realsize = size * nmemb;
 
-   pget->m_memory.append(contents, realsize);
+   pget->append_response(contents, realsize);
 
    // return the size of content that is copied.
    return realsize;
@@ -42,7 +43,7 @@ void curl_easy::get(::nano::http::get * pget)
 {
 
 
-   ::string strUrl(pget->m_strUrl);
+   ::string strUrl(pget->url().as_string());
 
 
    //auto pfile = create_memory_file();
@@ -60,8 +61,12 @@ void curl_easy::get(::nano::http::get * pget)
 
    if(curl_code != CURLE_ABORTED_BY_CALLBACK)
    {
+      
+      long lHttpStatusCode = -1;
 
-      curl_easy_getinfo (m_pcurl, CURLINFO_RESPONSE_CODE, pget->m_setOut["http_status_code"].raw_pointer<long>());
+      curl_easy_getinfo (m_pcurl, CURLINFO_RESPONSE_CODE, &lHttpStatusCode);
+      
+      pget->set_status(lHttpStatusCode);
 
    }
    else

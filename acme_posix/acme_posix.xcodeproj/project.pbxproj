@@ -30,6 +30,7 @@
 		9A0C16D2264A2C6D00B5CC33 /* _factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16C1264A2C6C00B5CC33 /* _factory.cpp */; };
 		9A0C16D3264A2C6D00B5CC33 /* framework.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C2264A2C6C00B5CC33 /* framework.h */; };
 		9A0C16D5264A2C6D00B5CC33 /* _.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0C16C4264A2C6C00B5CC33 /* _.h */; };
+		9A2049F02D2CCA2500C43F75 /* _posix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AA1FE512D18EFD200DB0C45 /* _posix.cpp */; };
 		9A3BFB9729C82721005DE2BF /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A3BFB9529C82721005DE2BF /* file.cpp */; };
 		9A3BFB9829C82721005DE2BF /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A3BFB9529C82721005DE2BF /* file.cpp */; };
 		9A3BFB9929C82721005DE2BF /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A3BFB9529C82721005DE2BF /* file.cpp */; };
@@ -559,6 +560,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A2049F02D2CCA2500C43F75 /* _posix.cpp in Sources */,
 				9AC14CC8297B3370006D9BD3 /* path_system.cpp in Sources */,
 				9AC14CC9297B3370006D9BD3 /* _.cpp in Sources */,
 				9AC14CCA297B3370006D9BD3 /* framework.cpp in Sources */,
@@ -830,7 +832,7 @@
 		9AC14CD9297B3370006D9BD3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEAD_CODE_STRIPPING = YES;
+				DEAD_CODE_STRIPPING = NO;
 				EXECUTABLE_EXTENSION = "$(STATIC_LIBRARY_EXTENSION:default=a)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					CUBE,
@@ -846,7 +848,7 @@
 		9AC14CDA297B3370006D9BD3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEAD_CODE_STRIPPING = YES;
+				DEAD_CODE_STRIPPING = NO;
 				EXECUTABLE_EXTENSION = "$(STATIC_LIBRARY_EXTENSION:default=a)";
 				GCC_PREPROCESSOR_DEFINITIONS = CUBE;
 				MACH_O_TYPE = staticlib;

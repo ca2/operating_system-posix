@@ -10,7 +10,7 @@
 
 
 
-class CLASS_DECL_ACME curl_easy :
+class CLASS_DECL_NANO_HTTP_LIBCURL curl_easy :
 virtual public ::particle
    {
    public:

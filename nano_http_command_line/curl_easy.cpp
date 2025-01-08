@@ -30,7 +30,7 @@ size_t curl_easy::s_write_function(void *contents, size_t size, size_t nmemb, vo
 
    size_t realsize = size * nmemb;
 
-   pget->m_memory.append(contents, realsize);
+   pget->append_response(contents, realsize);
 
    // return the size of content that is copied.
    return realsize;
@@ -42,7 +42,7 @@ void curl_easy::get(::nano::http::get * pget)
 {
 
 
-   ::string strUrl(pget->m_strUrl);
+   ::string strUrl(pget->url().as_string());
 
 
    //auto pfile = create_memory_file();
@@ -61,8 +61,12 @@ void curl_easy::get(::nano::http::get * pget)
    if(curl_code != CURLE_ABORTED_BY_CALLBACK)
    {
 
-      curl_easy_getinfo (m_pcurl, CURLINFO_RESPONSE_CODE, pget->m_setOut["http_status_code"].raw_pointer<long>());
-
+      long lHttpStatusCode = -1;
+      
+      curl_easy_getinfo (m_pcurl, CURLINFO_RESPONSE_CODE,                          lHttpStatusCode);
+      
+      pget->set_status(lHttpStatusCode);
+      
    }
    else
    {
@@ -71,6 +75,7 @@ void curl_easy::get(::nano::http::get * pget)
 
    }
 
-
 }
+
+
 

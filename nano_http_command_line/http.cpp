@@ -80,15 +80,15 @@ m_eapp = e_app_not_initialized;
          void http::perform(::nano::http::get * pget)
          {
 
-//            auto pgetHold = ::as_pointer(pget);
-//
-//            //      pasynchronoushttpresponse->m_function = [](::pointer < ::nano::asynchronous_http_response > pasynchronoushttpresponse)
-//            //      {                                s_http_response(pasynchronoushttpresponse);
-//            //      };
-//
-//            //::pointer < ::nano::asynchronous_http_response > passynchronoushttpdata(e_pointer_transfer, (::particle *) userdata);
-//            fork([this,pgetHold]()
-//            {
+            auto pgetHold = ::as_pointer(pget);
+
+//               pasynchronoushttpresponse->m_function = [](::pointer < ::nano::asynchronous_http_response > pasynchronoushttpresponse)
+//          //      {                                s_http_response(pasynchronoushttpresponse);
+////            //      };
+////
+////            //::pointer < ::nano::asynchronous_http_response > passynchronoushttpdata(e_pointer_transfer, (::particle *) userdata);
+////            fork([this,pgetHold]()
+////            {
 //
 //               auto pcurleasy = __create_new < curl_easy >();
 //

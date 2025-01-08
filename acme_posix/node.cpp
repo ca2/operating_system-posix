@@ -2876,6 +2876,12 @@ if(functionTrace)
 #endif
 
       }
+      else if(scopedstrComponentName == "nano_http")
+      {
+         
+         return "libcurl";
+
+      }
 
       return ::platform::node::default_component_implementation(scopedstrComponentName);
 
