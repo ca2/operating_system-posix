@@ -1119,7 +1119,7 @@ gtk_im_context_commit (
 
 //         message_handler(pkey);
 
-//         m_puserinteractionKeyboardFocus->send_message(pkey);
+//         aaa_m_pacmeuserinteractionKeyboardFocus->send_message(pkey);
 
       }
 
@@ -1148,7 +1148,7 @@ gtk_im_context_commit (
 
          puserinteraction->send_message(pkey);
 
-         //m_puserinteractionKeyboardFocus->send_message(pkey);
+         //aaa_m_pacmeuserinteractionKeyboardFocus->send_message(pkey);
 
       }
 

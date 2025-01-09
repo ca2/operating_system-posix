@@ -2654,7 +2654,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
 
          pimpl->m_puserinteraction->set_flag(e_flag_task_started);
 
-         //auto lresult2 = pimpl->m_puserinteraction->send_message(e_message_pos_create, 0, 0);
+         //auto lresult2 = pimpl->m_puserinteraction->send_message(e_message_after_create, 0, 0);
       }
 
       if (!bOk)
