@@ -952,7 +952,7 @@ namespace node_gtk4
 
 
 
-   bool node::set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay)
+   bool node::set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::acme::windowing::display * pwindowingdisplay)
    {
 
       // wall-changer sourceforge.net contribution
