@@ -39,11 +39,15 @@ if(${GNOME_RELEASE_MAJOR} GREATER_EQUAL 40)
    set(HAS_GTK4 TRUE)
    set(GNOME_RELEASE_MAJOR "4")
    set(APPINDICATOR_PKG_MODULE "")
+   
+   add_compile_definitions(HAS_GTK4)
 
 elseif(${GNOME_RELEASE_MAJOR} GREATER_EQUAL 3)
 
    set(HAS_GTK3 TRUE)
    set(GNOME_RELEASE_MAJOR "3")
+   
+   add_compile_definitions(HAS_GTK3)
 
 endif()
 

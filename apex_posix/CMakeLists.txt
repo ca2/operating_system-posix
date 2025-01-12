@@ -23,6 +23,8 @@ list(APPEND library_source
 if (${FILE_SYSTEM_INOTIFY})
 
 
+	message(STATUS "Project: ${PROJECT_NAME} FILE_SYSTEM_INOTIFY")
+
     list(APPEND library_source
             inotify/watcher.cpp
             inotify/watcher.h
@@ -66,7 +68,7 @@ add_library(${PROJECT_NAME} SHARED ${library_source})
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 
-if (FILE_SYSTEM_INOTIFY)
+if (${FILE_SYSTEM_INOTIFY})
 
 
     target_compile_definitions(apex_posix PRIVATE FILE_SYSTEM_INOTIFY)
@@ -76,7 +78,7 @@ if (FILE_SYSTEM_INOTIFY)
 endif ()
 
 
-if (INTERPROCESS_COMMUNICATION_SYSTEM_5)
+if (${INTERPROCESS_COMMUNICATION_SYSTEM_5})
 
     target_compile_definitions(apex_posix PRIVATE INTERPROCESS_COMMUNICATION_SYSTEM_5)
     target_compile_definitions(static_apex_posix PRIVATE INTERPROCESS_COMMUNICATION_SYSTEM_5)
@@ -84,7 +86,7 @@ if (INTERPROCESS_COMMUNICATION_SYSTEM_5)
 endif ()
 
 
-if (POSIX_SPAWN)
+if (${POSIX_SPAWN})
 
     target_compile_definitions(apex_posix PRIVATE POSIX_SPAWN)
     target_compile_definitions(static_apex_posix PRIVATE POSIX_SPAWN)
@@ -118,7 +120,7 @@ elseif(${LINUX} OR ${__BSD__})
    target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
    #set_target_properties(${PROJECT_NAME} PROPERTIES CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
-   if (FILE_SYSTEM_INOTIFY AND NOT DEFINED DEBIAN_LIKE AND NOT DONT_USE_PKG_CONFIG)
+   if (${FILE_SYSTEM_INOTIFY} AND NOT DEFINED DEBIAN_LIKE AND NOT DONT_USE_PKG_CONFIG)
 
       pkg_check_modules(PKGCONFIG libinotify)
       target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
