@@ -43,13 +43,13 @@ namespace x11
       {
 
 
-         CLASS_DECL_ACME void set_itask(itask_t itask);
+         CLASS_DECL_ACME void set_itask(itask itask);
 
-         CLASS_DECL_ACME void set_htask(htask_t htask);
+         CLASS_DECL_ACME void set_htask(htask htask);
 
-         CLASS_DECL_ACME void set_thread(htask_t htask);
+         CLASS_DECL_ACME void set_thread(htask htask);
 
-         CLASS_DECL_ACME itask_t x11_itask();
+         CLASS_DECL_ACME itask x11_itask();
 
 
          CLASS_DECL_ACME void set_thread()
@@ -60,7 +60,7 @@ namespace x11
          }
 
 
-         CLASS_DECL_ACME void set_thread(htask_t htask)
+         CLASS_DECL_ACME void set_thread(htask htask)
          {
 
             set_itask(::as_itask(htask));
@@ -78,12 +78,12 @@ namespace x11
          }
 
 
-         static htask_t g_htaskX11 = (htask_t) nullptr;
+         static htask g_htaskX11 = (htask) nullptr;
 
-         static itask_t g_itaskX11 = (itask_t)-1;
+         static itask g_itaskX11 = (itask)-1;
 
 
-         CLASS_DECL_ACME void set_htask(htask_t htask)
+         CLASS_DECL_ACME void set_htask(htask htask)
          {
 
             // MESSAGE msg;
@@ -96,7 +96,7 @@ namespace x11
          }
 
 
-         CLASS_DECL_ACME void set_itask(itask_t itask)
+         CLASS_DECL_ACME void set_itask(itask itask)
          {
 
             //   MESSAGE msg;
@@ -109,7 +109,7 @@ namespace x11
          }
 
 
-         CLASS_DECL_ACME htask_t x11_htask()
+         CLASS_DECL_ACME htask x11_htask()
          {
 
             return g_htaskX11;
@@ -117,7 +117,7 @@ namespace x11
          }
 
 
-         CLASS_DECL_ACME itask_t x11_itask()
+         CLASS_DECL_ACME itask x11_itask()
          {
 
             return g_itaskX11;

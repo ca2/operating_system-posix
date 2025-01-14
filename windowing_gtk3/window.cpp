@@ -1518,7 +1518,7 @@ if (!m_bImFocus)
 //////
 //////         }
 //////
-//////         htask_t htask = ::get_current_htask();
+//////         htask htask = ::get_current_htask();
 //////
 //////         m_htask = htask;
 //////
@@ -3893,7 +3893,7 @@ if (!m_bImFocus)
 //
 //      }
 //
-//      itask_t idthread = pinteraction->get_app()->get_itask();
+//      itask idthread = pinteraction->get_app()->get_itask();
 //
 //      message_queue * pmq = aaa_get_message_queue(idthread, false);
 //

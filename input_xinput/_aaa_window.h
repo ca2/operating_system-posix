@@ -19,7 +19,7 @@
 
 
 #define WINDOWING_X11_WINDOW_MEMBER
-//using htask_t = pthread_t;
+//using htask = pthread_t;
 
 
 namespace windowing_x11
@@ -50,7 +50,7 @@ namespace windowing_x11
       bool                                         m_bMessageOnlyWindow;
       //::pointer<::windowing::window>        m_pimpl;
       //::pointer<::message_queue>                 m_pmessagequeue;
-      htask_t                                      m_htask;
+      htask                                      m_htask;
       //Colormap                                   m_colormap;
       class ::time                                 m_timeLastMouseMove;
       //Window                                     m_parent;

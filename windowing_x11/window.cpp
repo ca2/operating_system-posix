@@ -531,7 +531,7 @@ namespace windowing_x11
 
                      }
 
-                     htask_t htask = ::current_htask();
+                     htask htask = ::current_htask();
 
                      m_htask = htask;
 
@@ -3077,7 +3077,7 @@ namespace windowing_x11
 
       }
 
-      itask_t idthread = pinteraction->get_app()->get_itask();
+      itask idthread = pinteraction->get_app()->get_itask();
 
       message_queue *pmessagequeue = ::system()->m_ptaskmessagequeue->get_message_queue(idthread, false);
 

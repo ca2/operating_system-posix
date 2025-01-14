@@ -38,7 +38,7 @@ namespace gtk4
             GAction *                           m_pactionColorScheme = nullptr;
 
 
-            itask_t                             m_itask;
+            itask                             m_itask;
 
             ::procedure_list                    m_procedurelist;
             ::procedure_list                    m_procedurelistPriority;

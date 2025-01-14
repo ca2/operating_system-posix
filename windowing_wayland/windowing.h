@@ -29,7 +29,7 @@ namespace windowing_wayland
       bool                                            m_bFinishX11Thread;
       bool                                            m_bInitX11Thread;
 
-      itask_t                                         m_itask;
+      itask                                         m_itask;
 
 //#ifdef WITH_XI
 //

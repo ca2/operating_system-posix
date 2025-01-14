@@ -2389,7 +2389,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
          //
          //         }
          //
-         //         htask_t htask = ::get_current_htask();
+         //         htask htask = ::get_current_htask();
          //
          //         m_htask = htask;
          //
@@ -4841,7 +4841,7 @@ m_puserinteractionbase = m_pwindow->m_puserinteraction;
    //
    //      }
    //
-   //      itask_t idthread = pinteraction->get_app()->get_itask();
+   //      itask idthread = pinteraction->get_app()->get_itask();
    //
    //      message_queue * pmq = aaa_get_message_queue(idthread, false);
    //

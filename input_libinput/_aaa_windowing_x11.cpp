@@ -51,7 +51,7 @@
 //::int_point g_pointX11Cursor;
 
 
-//message_queue * aaa_get_message_queue(itask_t idthread, bool bCreate);
+//message_queue * aaa_get_message_queue(itask idthread, bool bCreate);
 
 
 void oswindow_set_active_window(oswindow oswindow);
@@ -3195,9 +3195,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
    ::pointer<::thread> g_pthreadXlib;
 
-   itask_t g_itaskXlib;
+   itask g_itaskXlib;
 
-   itask_t x11_get_itask()
+   itask x11_get_itask()
    {
 
       return g_itaskXlib;
