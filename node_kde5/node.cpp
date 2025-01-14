@@ -214,9 +214,9 @@ namespace node_kde5
       // //auto estatus =
       // //
       //
-      // system()->m_itask = 0;
+      // system()->m_itask = nullptr;
       //
-      // system()->m_htask = (htask_t) 0;
+      // system()->m_htask = nullptr;
       //
       // system()->branch();
       //

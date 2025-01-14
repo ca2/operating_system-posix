@@ -3231,49 +3231,49 @@ namespace node_gtk3
    }
 
 
-   //gdk_branch(procedure);
-   // Function to be run in the GTK main thread
-   gboolean __g_callback(gpointer data)
-   {
+   ////gdk_branch(procedure);
+   //// Function to be run in the GTK main thread
+   //gboolean __g_callback(gpointer data)
+   //{
 
-      auto pprocedure = (procedure*)(data);
+      //auto pprocedure = (procedure*)(data);
 
-      try
-      {
+      //try
+      //{
 
-         (*pprocedure)();
+         //(*pprocedure)();
 
-      }
-      catch(...)
-      {
+      //}
+      //catch(...)
+      //{
 
-      }
+      //}
 
-      try
-      {
+      //try
+      //{
 
-         delete pprocedure;
+         //delete pprocedure;
 
-      }
-      catch(...)
-      {
+      //}
+      //catch(...)
+      //{
 
-      }
+      //}
 
-      return FALSE;  // Returning FALSE so it is only called once
+      //return FALSE;  // Returning FALSE so it is only called once
 
-   }
+   //}
 
 
-   void node::user_post(const ::procedure &procedure)
-   {
+   //void node::user_post(const ::procedure &procedure)
+   //{
 
-      auto pprocedure = ___new ::procedure(procedure);
+      //auto pprocedure = ___new ::procedure(procedure);
 
-      // Call update_label in the GTK main thread
-      g_idle_add(__g_callback, pprocedure);
+      //// Call update_label in the GTK main thread
+      //g_idle_add(__g_callback, pprocedure);
 
-   }
+   //}
 
 
 

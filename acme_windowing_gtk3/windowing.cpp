@@ -30,9 +30,30 @@ namespace gtk3
 
       namespace windowing
       {
+		  
+		  
+		  bool g_bGtkInit = false;
+		  
+		  
+		  void defer_init_gtk()
+		  {
+			  
+			  if(g_bGtkInit)
+			  {
+				  
+				  return;
+				  
+			  }
+			           
+		      gtk_init(nullptr, nullptr);
+
+			  g_bGtkInit = true;
+			  
+		  }
 
 
-   cairo_surface_t *get_cairo_surface_from_pixbuf(GdkPixbuf *pixbuf) {
+cairo_surface_t *get_cairo_surface_from_pixbuf(GdkPixbuf *pixbuf) 
+   {
       int width, height, stride;
       cairo_format_t format;
       guchar *pixels;
@@ -108,7 +129,11 @@ namespace gtk3
    windowing::windowing()
    {
 
-         m_pgtkapplication = nullptr;
+
+      m_pgtkapplication = nullptr;
+      
+      defer_init_gtk();
+      
 
    }
 
@@ -190,9 +215,9 @@ namespace gtk3
    }
 
 
-   // The function to be called in the main thread
    static gboolean execute_on_main_thread(gpointer data)
    {
+	   
       auto *pprocedure = (::procedure *)data;
 
       (*pprocedure)();
@@ -200,24 +225,66 @@ namespace gtk3
       delete pprocedure;
 
       return FALSE;
+      
    }
+   
+      // Function to be run in the GTK main thread
+   gboolean __g_callback(gpointer data)
+   {
+
+      auto pprocedure = (procedure*)(data);
+
+      try
+      {
+
+         (*pprocedure)();
+
+      }
+      catch(...)
+      {
+
+      }
+
+      try
+      {
+
+         delete pprocedure;
+
+      }
+      catch(...)
+      {
+
+      }
+
+      return FALSE;  // Returning FALSE so it is only called once
+
+   }
+
 
 
 
    void windowing::_user_post(const ::procedure & procedure)
    {
 
+	  //g_main_context_invoke(NULL, execute_on_main_thread, new ::procedure(procedure));
+	  
+      auto pprocedure = new ::procedure(procedure);
 
-      // Safely update the GTK label in the main thread
-      g_main_context_invoke(NULL, execute_on_main_thread, ___new ::procedure(procedure));
+      //// Call update_label in the GTK main thread
+      g_idle_add(__g_callback, pprocedure);
+
 
    }
 
 
       void windowing::windowing_application_main_loop()
       {
+		  
+		 information() << "gtk3::acme::windowing::windowing::windowing_application_main_loop()";
 
-signal(SIGCHLD, SIG_IGN);
+         signal(SIGCHLD, SIG_IGN);
+         
+         defer_init_gtk();
 
          task::main();
 
@@ -226,13 +293,14 @@ signal(SIGCHLD, SIG_IGN);
 
       void windowing::run()
       {
-
+		  
+         information() << "gtk3::acme::windowing::windowing::run";
+		  
          ::string strId = application()->m_strAppId;
 
          strId.find_replace("/", ".");
+         
          strId.find_replace("_", "-");
-
-         gtk_init(nullptr, nullptr);
 
          m_pgtkapplication = gtk_application_new (strId, G_APPLICATION_DEFAULT_FLAGS);
 
@@ -306,7 +374,9 @@ signal(SIGCHLD, SIG_IGN);
 
          if(m_callbackOnActivateGtkApplication)
          {
+            
             m_callbackOnActivateGtkApplication();
+            
          }
          else
          {
@@ -316,8 +386,6 @@ signal(SIGCHLD, SIG_IGN);
             //application()->post_request(prequest);
 
             system()->defer_post_initial_request();
-            
-
 
          }
 
@@ -336,9 +404,7 @@ signal(SIGCHLD, SIG_IGN);
 		  
 		  __øconstruct(m_pacmedisplay);
 		  
-		  
 		  m_pacmedisplay->open_display();
-		  
 		  
 	  }
 
@@ -525,20 +591,28 @@ signal(SIGCHLD, SIG_IGN);
       return pixmap;
 
    }
-bool windowing::shell_open(const ::file::path & path)
-{
-	print_line("gtk3::acme::windowing::windowing::shell_open: \"" + path + "\"");
-	application()->fork([this,path]()
+   
+   
+	bool windowing::shell_open(const ::file::path & path)
 	{
-		_user_post([path]()
+		
+		print_line("gtk3::acme::windowing::windowing::shell_open: \"" + path + "\"");
+		
+		application()->fork([this,path]()
 		{
-			gdk::open_file_with_default_app_async(path);
 			
+			_user_post([path]()
+			{
+			
+				gdk::open_file_with_default_app_async(path);
+			
+			});
+
 		});
-});
-	return true;
+		
+		return true;
 	
-}
+	}
 
 
 

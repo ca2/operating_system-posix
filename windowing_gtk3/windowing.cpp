@@ -366,7 +366,7 @@ namespace windowing_gtk3
 //
 //      windowing_output_debug_string("::x11_GetWindowRect 1");
 
-__øconstruct(pcursor);
+      __øconstruct(pcursor);
 
       pcursor->m_strCursorName = cursor_name;
 
@@ -392,6 +392,7 @@ __øconstruct(pcursor);
 
    ::acme::windowing::window * windowing::get_mouse_capture(::thread *)
    {
+	   
       if (!gtk3_display())
       {
 
@@ -468,15 +469,12 @@ __øconstruct(pcursor);
    }
 
 
-
-
    ::acme::windowing::window * windowing::window(oswindow oswindow)
    {
 
       return oswindow;
 
    }
-
 
 
    void windowing::set_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)

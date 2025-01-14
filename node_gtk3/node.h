@@ -167,7 +167,9 @@ namespace node_gtk3
 //      void windowing_system_display_error_trap_push(int i) override;
 //      void windowing_system_display_error_trap_pop_ignored(int i) override;
 
-      void user_post(const ::procedure &procedure);
+      //void user_post(const ::procedure &procedure);
+      
+      
    };
 
 

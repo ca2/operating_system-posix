@@ -2847,7 +2847,7 @@ if(functionTrace)
          // if(system()->m_itask == ::current_itask())
          // {
          //
-         //    system()->m_itask = 0;
+         //    system()->m_itask = nullptr;
          //
          // }
          //

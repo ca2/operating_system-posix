@@ -355,10 +355,16 @@ namespace windowing_gtk3
 
    void display::open_display()
    {
+	   
+	  information() << "windowing_gtk3::display::open_display (1) current_itask" << current_itask();
+	  
+	  information() << "windowing_gtk3::display::open_display (1) main_itask" << main_itask();
 
       gtk3_windowing()->user_send([this]()
-                                  {
-
+      {
+		  
+		 information() << "windowing_gtk3::display::open_display";
+		  
          if(m_pgdkdisplay != nullptr)
          {
 
