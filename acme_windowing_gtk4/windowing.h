@@ -75,6 +75,9 @@ namespace gtk4
             void _main_post(const ::procedure& procedure) override;
 
 
+            void _user_post(const ::procedure& procedure) override;
+
+
             //void _post(const ::procedure& procedure) override;
 
 

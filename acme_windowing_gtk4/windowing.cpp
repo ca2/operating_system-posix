@@ -337,6 +337,14 @@ m_bMessageThread=true;
          }
 
 
+
+         void windowing::_user_post(const ::procedure& procedure)
+         {
+
+            _main_post(procedure);
+
+         }
+
          // void windowing::main_post(const ::procedure& procedure)
          // {
          //
