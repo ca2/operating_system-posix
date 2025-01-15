@@ -5,14 +5,14 @@
 //#include "nano_user_x11/_.h"
 //#include "windowing_system_xcb/_.h"
 //#include "windowing_system_wayland/_.h"
-#include "windowing_system_kde5/_.h"
+#include "acme_windowing_kde5/_.h"
 #include <QMetaType>
 
 
-#if defined(_node_kde_project)
-   #define CLASS_DECL_NODE_KDE  CLASS_DECL_EXPORT
+#if defined(_node_kde5_project)
+   #define CLASS_DECL_NODE_KDE5  CLASS_DECL_EXPORT
 #else
-   #define CLASS_DECL_NODE_KDE  CLASS_DECL_IMPORT
+   #define CLASS_DECL_NODE_KDE5  CLASS_DECL_IMPORT
 #endif
 
 

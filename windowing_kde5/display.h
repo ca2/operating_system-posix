@@ -8,7 +8,7 @@
 
 //#include "acme/operating_system/x11/nano/event_listener.h"
 //#include "acme/operating_system/x11/nano/display.h"
-#include "nano_user_kde5/display.h"
+#include "acme_windowing_kde5/display.h"
 #include "aura/windowing/display.h"
 #include "_kde5.h"
 
@@ -98,7 +98,7 @@ namespace windowing_kde5
 
 //      virtual ::windowing_kde5::window * _window(::wl_surface * pwlsurface);
 
-      virtual ::windowing_kde5::windowing * x11_windowing();
+      virtual ::windowing_kde5::windowing * kde5_windowing();
 
       virtual void lock_display();
 
@@ -134,7 +134,7 @@ namespace windowing_kde5
 
       //virtual ::windowing::window * get_mouse_capture();
 
-      virtual ::e_status release_mouse_capture();
+      //void release_mouse_capture() override;
 
 
 //      Atom intern_atom(const char * pszAtomName, bool bCreate);
@@ -182,6 +182,8 @@ namespace windowing_kde5
 
          virtual bool is_x11();
          virtual bool is_wayland();
+
+         ::int_size get_main_screen_size() override;
 
    };
 

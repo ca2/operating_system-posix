@@ -21,14 +21,18 @@ list(APPEND library_source
         _.cpp
         _.h
         _factory.cpp
+   display.cpp
+   display.h
         framework.cpp
         framework.h
         keyboard.cpp
         keyboard.h
-        xkb_input.cpp
-        xkb_input.h
-        windowing_system.cpp
-        windowing_system.h
+        #xkb_input.cpp
+        #xkb_input.h
+   window.cpp
+   window.h
+        windowing.cpp
+        windowing.h
         )
 
 add_library(${PROJECT_NAME} SHARED ${library_source})

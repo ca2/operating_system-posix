@@ -66,9 +66,7 @@ namespace node_kde5
 
       m_puserinteractionNotify = puserinteractionNotify;
 
-      ::pointer < ::node_kde5::node > pnode = system()->node();
-
-      ::pointer < ::windowing_kde5::windowing > pwindowing = user()->windowing();
+      ::cast < ::windowing_kde5::windowing > pwindowing = system()->windowing();
 
       auto pqapplication = pwindowing->qapplication();
 
@@ -165,7 +163,9 @@ namespace node_kde5
             connect(paction, &QAction::triggered, [this, atom]()
             {
 
-               application()->on_application_menu_action(atom);
+               //application()->on_application_menu_action(atom);
+
+               application()->handle_command(atom, nullptr);
 
             });
 

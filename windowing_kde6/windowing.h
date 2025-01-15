@@ -8,7 +8,8 @@
 #include "acme/prototype/collection/list.h"
 //#include "acme/prototype/collection/pointer_array.h"
 #include "_.h"
-#include "_kde5.h"
+#include "_kde6.h"
+#include "acme_windowing_kde6/windowing.h"
 
 #include <QApplication>
 
@@ -20,7 +21,8 @@ namespace windowing_kde5
 
 
    class CLASS_DECL_WINDOWING_KDE5 windowing :
-      virtual public ::windowing_posix::windowing
+      virtual public ::windowing_posix::windowing,
+    virtual public ::kde6::acme::windowing::windowing
    {
    public:
 

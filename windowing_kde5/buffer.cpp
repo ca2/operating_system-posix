@@ -6,6 +6,7 @@
 #include "buffer.h"
 #include "window.h"
 #include "display.h"
+#include "window.h"
 #include "windowing.h"
 #include "acme/parallelization/mutex.h"
 #include "acme/parallelization/synchronous_lock.h"
@@ -16,7 +17,7 @@
 #include "aura/graphics/image/image.h"
 #include "aura/user/user/interaction_graphics_thread.h"
 //#include "aura/user/user/interaction_impl.h"
-#include "windowing_system_x11/display_lock.h"
+//#include "windowing_system_x11/display_lock.h"
 
 //#define VERI_BASIC_TEST
 #define MORE_LOG
@@ -29,18 +30,18 @@ namespace windowing_kde5
 
    //static const struct wl_callback_listener frame_listener;
 
-   static void
-   window_redraw(void *data, struct wl_callback *pwlcallback, uint32_t time)
-   {
-      // fprintf(stderr, "Redrawing\n");
-      auto pbuffer = (buffer *) data;
-      pbuffer->__handle_window_redraw(pwlcallback, time);
-   }
-
-
-   static const struct wl_callback_listener frame_listener = {
-      window_redraw
-   };
+   // static void
+   // window_redraw(void *data, struct wl_callback *pwlcallback, uint32_t time)
+   // {
+   //    // fprintf(stderr, "Redrawing\n");
+   //    auto pbuffer = (buffer *) data;
+   //    pbuffer->__handle_window_redraw(pwlcallback, time);
+   // }
+   //
+   //
+   // static const struct wl_callback_listener frame_listener = {
+   //    window_redraw
+   // };
 
    buffer::buffer()
    {
@@ -112,10 +113,12 @@ namespace windowing_kde5
 //   }
 
 
-   ::windowing_kde5::window * buffer::x11_window()
+   ::windowing_kde5::window * buffer::kde5_window()
    {
 
-      return (::windowing_kde5::window *) (m_pwindow ? m_pwindow->m_pWindow4 : nullptr);
+      ::cast < ::windowing_kde5::window > pwindow = m_pwindow;
+
+      return pwindow;
 
    }
 
@@ -127,11 +130,11 @@ namespace windowing_kde5
 
       //synchronous_lock synchronouslock(user_synchronization());
 
-      //display_lock displaylock(x11_window()->x11_display()->Display());
+      //display_lock displaylock(kde5_window()->x11_display()->Display());
 
       //XGCValues gcvalues = {};
 
-      //m_gc = XCreateGC(x11_window()->Display(), x11_window()->Window(), 0, &gcvalues);
+      //m_gc = XCreateGC(kde5_window()->Display(), kde5_window()->Window(), 0, &gcvalues);
 
    }
 
@@ -139,7 +142,7 @@ namespace windowing_kde5
    void buffer::destroy()
    {
 
-      if (!x11_window())
+      if (!kde5_window())
       {
 
          throw ::exception(error_wrong_state);
@@ -148,12 +151,12 @@ namespace windowing_kde5
 
       //synchronous_lock synchronouslock(user_synchronization());
 
-      //display_lock displaylock(x11_window()->x11_display()->Display());
+      //display_lock displaylock(kde5_window()->x11_display()->Display());
 
 //      if (m_gc != nullptr)
 //      {
 //
-//         XFreeGC(x11_window()->Display(), m_gc);
+//         XFreeGC(kde5_window()->Display(), m_gc);
 //
 //         m_gc = nullptr;
 //
@@ -165,7 +168,7 @@ namespace windowing_kde5
    bool buffer::update_buffer(::graphics::buffer_item * pbufferitem)
    {
 
-//      auto pwindowing = m_pimpl->m_puserinteraction->windowing();
+//      auto pwindowing = m_pwindow->m_puserinteraction->windowing();
 //
 //      auto pdisplay = pwindowing->display();
 //
@@ -255,7 +258,7 @@ namespace windowing_kde5
 //
 //      }
 //
-//      //m_pdc->m_pdisplay = m_pimpl->m_oswindow->display();
+//      //m_pdc->m_pdisplay = m_pwindow->m_oswindow->display();
 //
       return true;
 
@@ -382,25 +385,25 @@ namespace windowing_kde5
 //   bool buffer::update_screen()
 //   {
 //
-//      if (m_pimpl == nullptr)
+//      if (m_pwindow == nullptr)
 //      {
 //
-//         warningf("windowing_kde5::buffer::update_screen !m_pimpl!!");
+//         warningf("windowing_kde5::buffer::update_screen !m_pwindow!!");
 //
 //         return false;
 //
 //      }
 //
-//      if (!m_pimpl->m_pwindow)
+//      if (!m_pwindow->m_pwindow)
 //      {
 //
-//         warningf("windowing_kde5::buffer::update_screen !m_pimpl->m_pwindow!!");
+//         warningf("windowing_kde5::buffer::update_screen !m_pwindow->m_pwindow!!");
 //
 //         return false;
 //
 //      }
 //
-//      if (!m_pimpl->m_puserinteraction->is_window_screen_visible())
+//      if (!m_pwindow->m_puserinteraction->is_window_screen_visible())
 //      {
 //
 //         information() << "windowing_kde5::buffer::update_screen XPutImage not called. Ui is not visible.";
@@ -420,7 +423,7 @@ namespace windowing_kde5
 //
 //      //synchronous_lock synchronouslock(user_synchronization());
 //
-//      //display_lock displayLock(x11_window()->x11_display()->Display());
+//      //display_lock displayLock(kde5_window()->x11_display()->Display());
 //
 //      //return _update_screen_lesser_lock();
 //      return _post_update_screen();
@@ -455,129 +458,129 @@ namespace windowing_kde5
 //      redraw
 //   };
 
-   void buffer::__redraw(struct wl_callback *pwlcallback, uint32_t time)
-   {
-
-   }
-
-
-
-   void buffer::__handle_window_redraw(::wl_callback *pwlcallback, uint32_t time)
-   {
-
-//       fprintf(stdout, "Redrawing\n");
-//      //auto pbuffer = (buffer *) data;
-//      //pbuffer->__handle_window_redraw(pwlcallback, time);
-//      wl_callback_destroy(m_pwlcallbackFrame);
-//      ::pointer < ::windowing_kde5::window > pwaylandwindow = m_pimpl->m_pwindow;
-//      //paint_pixels();
-//      //frame_callback = wl_surface_frame(surface);
+//    void buffer::__redraw(struct wl_callback *pwlcallback, uint32_t time)
+//    {
 //
-//      {
-//         synchronous_lock slGraphics(synchronization());
-//
-//         auto pitem = get_screen_item();
-//
-//         synchronous_lock slImage(pitem->m_pmutex);
-//
-//         slGraphics.unlock();
-//         wl_surface_damage(pwaylandwindow->m_pwlsurface, 0, 0, pitem->m_size.cx(), pitem->m_size.cy());
-//         ::copy_image32((::image32_t *) pwaylandwindow->m_waylandbuffer.m_pdata,
-//                        pwaylandwindow->m_waylandbuffer.m_size,
-//                        pwaylandwindow->m_waylandbuffer.m_stride,
-//                        pitem->m_pimage2->data(), pitem->m_pimage2->scan_size());
-//
-//      }
-////      wl_surface_attach(surface, buffer, 0, 0);
-//      //wl_callback_add_listener(frame_callback, &frame_listener, NULL);
-//      //wl_surface_commit(surface);
+//    }
 //
 //
 //
-//      information() << "_update_screen_unlocked data : " << (::iptr) pwaylandwindow->m_waylandbuffer.m_pdata;
-//      //memset(pwindow->m_waylandbuffer.m_pdata, 127,pitem->m_size.cx() * 4 * pitem->m_size.cy());
-////      m_pwlcallbackFrame = wl_surface_frame(pwindow->m_pwlsurface);
-//      wl_surface_attach(pwaylandwindow->m_pwlsurface, pwaylandwindow->m_waylandbuffer.m_pwlbuffer, 0, 0);
-//      //       wl_callback_add_listener(m_pwlcallbackFrame, &frame_listener, NULL);
-//      wl_surface_commit(pwaylandwindow->m_pwlsurface);
+//    void buffer::__handle_window_redraw(::wl_callback *pwlcallback, uint32_t time)
+//    {
 //
-//      information() << "wl_surface_commit";
-//
-//      if (!pwaylandwindow->m_bDoneFirstMapping)
-//      {
-//
-//         pwaylandwindow->m_bDoneFirstMapping = true;
-//
-//         information() << "DOING FIRST Mapping...";
-//
-//         pwaylandwindow->configure_window_unlocked();
-//
-//         wl_display_dispatch(pwaylandwindow->wayland_display()->m_pwldisplay);
-//
-//         wl_display_roundtrip(pwaylandwindow->wayland_display()->m_pwldisplay);
-//
-//      }
-//
-//      if (!pwaylandwindow->wayland_windowing()->m_bFirstWindowMap)
-//      {
-//
-//         pwaylandwindow->wayland_windowing()->m_bFirstWindowMap = true;
-//
-//         //auto psystem = system();
-//
-//         //string strApplicationServerName = psystem->get_application_server_name();
-//
-//         //::pointer < ::windowing_kde5::display > pwaylanddisplay = pwaylandwindow->m_pdisplay;
-//
-//         //gtk_shell1_set_startup_id(pwaylanddisplay->m_pgtkshell1, strApplicationServerName);
-//
-//         ///information() << "gtk_shell1_set_startup_id : " << strApplicationServerName;
-//
-//         //auto psystem = system();
-//
-//         //auto pnode = psystem->node();
-//
-//         //pnode->defer_notify_startup_complete();
-//
-//         //on_sn_launch_complete(pwindowing->m_pSnLauncheeContext);
-//
-//         //pwindowing->m_pSnLauncheeContext = nullptr;
-//
-//      }
-//
-//      ::minimum(pwaylandwindow->m_sizeConfigure.cx());
-//
-//      ::minimum(pwaylandwindow->m_sizeConfigure.cy());
-//
-   }
+// //       fprintf(stdout, "Redrawing\n");
+// //      //auto pbuffer = (buffer *) data;
+// //      //pbuffer->__handle_window_redraw(pwlcallback, time);
+// //      wl_callback_destroy(m_pwlcallbackFrame);
+// //      ::pointer < ::windowing_kde5::window > pwaylandwindow = m_pwindow->m_pwindow;
+// //      //paint_pixels();
+// //      //frame_callback = wl_surface_frame(surface);
+// //
+// //      {
+// //         synchronous_lock slGraphics(synchronization());
+// //
+// //         auto pitem = get_screen_item();
+// //
+// //         synchronous_lock slImage(pitem->m_pmutex);
+// //
+// //         slGraphics.unlock();
+// //         wl_surface_damage(pwaylandwindow->m_pwlsurface, 0, 0, pitem->m_size.cx(), pitem->m_size.cy());
+// //         ::copy_image32((::image32_t *) pwaylandwindow->m_waylandbuffer.m_pdata,
+// //                        pwaylandwindow->m_waylandbuffer.m_size,
+// //                        pwaylandwindow->m_waylandbuffer.m_stride,
+// //                        pitem->m_pimage2->data(), pitem->m_pimage2->scan_size());
+// //
+// //      }
+// ////      wl_surface_attach(surface, buffer, 0, 0);
+// //      //wl_callback_add_listener(frame_callback, &frame_listener, NULL);
+// //      //wl_surface_commit(surface);
+// //
+// //
+// //
+// //      information() << "_update_screen_unlocked data : " << (::iptr) pwaylandwindow->m_waylandbuffer.m_pdata;
+// //      //memset(pwindow->m_waylandbuffer.m_pdata, 127,pitem->m_size.cx() * 4 * pitem->m_size.cy());
+// ////      m_pwlcallbackFrame = wl_surface_frame(pwindow->m_pwlsurface);
+// //      wl_surface_attach(pwaylandwindow->m_pwlsurface, pwaylandwindow->m_waylandbuffer.m_pwlbuffer, 0, 0);
+// //      //       wl_callback_add_listener(m_pwlcallbackFrame, &frame_listener, NULL);
+// //      wl_surface_commit(pwaylandwindow->m_pwlsurface);
+// //
+// //      information() << "wl_surface_commit";
+// //
+// //      if (!pwaylandwindow->m_bDoneFirstMapping)
+// //      {
+// //
+// //         pwaylandwindow->m_bDoneFirstMapping = true;
+// //
+// //         information() << "DOING FIRST Mapping...";
+// //
+// //         pwaylandwindow->configure_window_unlocked();
+// //
+// //         wl_display_dispatch(pwaylandwindow->wayland_display()->m_pwldisplay);
+// //
+// //         wl_display_roundtrip(pwaylandwindow->wayland_display()->m_pwldisplay);
+// //
+// //      }
+// //
+// //      if (!pwaylandwindow->wayland_windowing()->m_bFirstWindowMap)
+// //      {
+// //
+// //         pwaylandwindow->wayland_windowing()->m_bFirstWindowMap = true;
+// //
+// //         //auto psystem = system();
+// //
+// //         //string strApplicationServerName = psystem->get_application_server_name();
+// //
+// //         //::pointer < ::windowing_kde5::display > pwaylanddisplay = pwaylandwindow->m_pdisplay;
+// //
+// //         //gtk_shell1_set_startup_id(pwaylanddisplay->m_pgtkshell1, strApplicationServerName);
+// //
+// //         ///information() << "gtk_shell1_set_startup_id : " << strApplicationServerName;
+// //
+// //         //auto psystem = system();
+// //
+// //         //auto pnode = psystem->node();
+// //
+// //         //pnode->defer_notify_startup_complete();
+// //
+// //         //on_sn_launch_complete(pwindowing->m_pSnLauncheeContext);
+// //
+// //         //pwindowing->m_pSnLauncheeContext = nullptr;
+// //
+// //      }
+// //
+// //      ::minimum(pwaylandwindow->m_sizeConfigure.cx());
+// //
+// //      ::minimum(pwaylandwindow->m_sizeConfigure.cy());
+// //
+//    }
 
 
 //   bool buffer::_update_screen_unlocked(::graphics::buffer_item * pitem)
 //   bool buffer::_update_screen_unlocked(::graphics::buffer_item * pitem)
    //bool buffer::_post_update_screen()
    //{
-   bool buffer::update_screen()
+   void buffer::update_screen()
    {
 
-      if (m_pimpl == nullptr)
+      if (m_pwindow == nullptr)
       {
 
-         warningf("windowing_kde5::buffer::update_screen !m_pimpl!!");
+         warningf("windowing_kde5::buffer::update_screen !m_pwindow!!");
 
-         return false;
+         return;
 
       }
 
-      if (!m_pimpl->m_pwindow)
+      if (!m_pwindow->m_pacmeuserinteraction)
       {
 
-         warningf("windowing_kde5::buffer::update_screen !m_pimpl->m_pwindow!!");
+         warningf("windowing_kde5::buffer::update_screen !m_pwindow->m_pacmeuserinteraction!!");
 
-         return false;
+         return;
 
       }
 
-//      if (!m_pimpl->m_puserinteraction->is_window_screen_visible())
+//      if (!m_pwindow->m_puserinteraction->is_window_screen_visible())
 //      {
 //
 //         information() << "windowing_kde5::buffer::update_screen XPutImage not called. Ui is not visible.";
@@ -630,7 +633,7 @@ namespace windowing_kde5
 
       //int ht;
 
-      //::pointer < ::windowing_kde5::window > pwaylandwindow = m_pimpl->m_pwindow;
+      //::pointer < ::windowing_kde5::window > pwaylandwindow = m_pwindow->m_pwindow;
 
       //static void
       //redraw(void *data, struct wl_callback *callback, uint32_t time)
@@ -645,9 +648,9 @@ namespace windowing_kde5
 //         || pwaylandwindow->m_uLastConfigureSerial > pwaylandwindow->m_uLastRequestSerial))
 //      {
 
-      ::pointer<::windowing_kde5::window> pwaylandwindow = m_pimpl->m_pwindow;
+      ::cast<::windowing_kde5::window> pkde5window = m_pwindow;
 
-      ::string strType = ::type(pwaylandwindow->m_pwindow->m_puserinteraction).name();
+      ::string strType = ::type(pkde5window->m_pacmeuserinteraction).name();
 
 //       if(pwaylandwindow->m_pxdgtoplevel == nullptr
 //       && pwaylandwindow->m_pxdgpopup == nullptr)
@@ -685,11 +688,11 @@ namespace windowing_kde5
 //
 //          try {
 //
-//             ::pointer<::windowing_kde5::window> pwaylandwindow = m_pimpl->m_pwindow;
+//             ::pointer<::windowing_kde5::window> pwaylandwindow = m_pwindow->m_pwindow;
 //
 //             ::string strType = ::type(pwaylandwindow->m_pwindow->m_puserinteraction).name();
 //
-//             //::pointer<::windowing_kde5::window> pwaylandwindow = m_pimpl->m_pwindow;
+//             //::pointer<::windowing_kde5::window> pwaylandwindow = m_pwindow->m_pwindow;
 //             if (::is_null(pwaylandwindow->m_pxdgtoplevel)
 //                 && ::is_null(pwaylandwindow->m_pxdgpopup)) {
 //
@@ -931,7 +934,7 @@ namespace windowing_kde5
 //
 //             try {
 //
-//                ::pointer<::windowing_kde5::window> pwaylandwindow = m_pimpl->m_pwindow;
+//                ::pointer<::windowing_kde5::window> pwaylandwindow = m_pwindow->m_pwindow;
 //
 //                if (pwaylandwindow) {
 //
@@ -984,7 +987,7 @@ namespace windowing_kde5
 // //      try
 // //      {
 // //
-// //         x11_window()->strict_set_window_position_unlocked();
+// //         kde5_window()->strict_set_window_position_unlocked();
 // //
 // //      }
 // //      catch (...)
@@ -992,7 +995,7 @@ namespace windowing_kde5
 // //
 // //      }
 //
-// //      int iWindowDepth = x11_window()->m_iDepth;
+// //      int iWindowDepth = kde5_window()->m_iDepth;
 // //
 // //      if (m_bUseXShmIfAvailable)
 // //      {
@@ -1000,7 +1003,7 @@ namespace windowing_kde5
 // //         if (!m_bXShmChecked)
 // //         {
 // //
-// //            //m_bXShm = XShmQueryExtension(x11_window()->Display());
+// //            //m_bXShm = XShmQueryExtension(kde5_window()->Display());
 // //
 // //            m_bXShm = false;
 // //
@@ -1021,7 +1024,7 @@ namespace windowing_kde5
 // //            if (m_pximage)
 // //            {
 // //
-// //               XShmDetach(x11_window()->Display(), &m_xshmsegmentinfo);
+// //               XShmDetach(kde5_window()->Display(), &m_xshmsegmentinfo);
 // //
 // //               m_pximage->data = nullptr;
 // //
@@ -1030,8 +1033,8 @@ namespace windowing_kde5
 // //            }
 // //
 // //            m_pximage = XShmCreateImage(
-// //               x11_window()->Display(),
-// //               x11_window()->Visual(),
+// //               kde5_window()->Display(),
+// //               kde5_window()->Visual(),
 // //               iWindowDepth,
 // //               ZPixmap,
 // //               NULL,
@@ -1049,7 +1052,7 @@ namespace windowing_kde5
 // //
 // //            m_xshmsegmentinfo.readOnly = False;
 // //
-// //            XShmAttach(x11_window()->Display(), &m_xshmsegmentinfo);
+// //            XShmAttach(kde5_window()->Display(), &m_xshmsegmentinfo);
 // //
 // //         }
 // //
@@ -1074,8 +1077,8 @@ namespace windowing_kde5
 // //
 // //            m_pximage =
 // //               XCreateImage(
-// //                  x11_window()->Display(),
-// //                  x11_window()->Visual(),
+// //                  kde5_window()->Display(),
+// //                  kde5_window()->Visual(),
 // //                  iWindowDepth,
 // //                  ZPixmap,
 // //                  0,
@@ -1107,7 +1110,7 @@ namespace windowing_kde5
 // //
 // //      }
 // //
-// //      ::int_size sizeDesign = m_pimpl->m_puserinteraction->const_layout().design().size();
+// //      ::int_size sizeDesign = m_pwindow->m_puserinteraction->const_layout().design().size();
 // //
 // //      if (sizeDesign != sizeBitBlitting)
 // //      {
@@ -1132,11 +1135,11 @@ namespace windowing_kde5
 // //            if (!pitem->m_manualresethappening._wait(200_ms))
 // //            {
 // //
-// //               x11_window()->_on_end_paint();
+// //               kde5_window()->_on_end_paint();
 // //
 // //               information() << "XShmCompletionEvent timeout";
 // //
-// //               ::pointer<::windowing_kde5::window> px11window = m_pimpl->m_pwindow;
+// //               ::pointer<::windowing_kde5::window> px11window = m_pwindow->m_pwindow;
 // //
 // //               try
 // //               {
@@ -1158,13 +1161,13 @@ namespace windowing_kde5
 // //
 // //            m_sizeLastBitBlitting = sizeBitBlitting;
 // //
-// //            x11_window()->m_rectangleXShm = x11_window()->m_pwindow->m_puserinteraction->const_layout().parent_raw_rectangle(::user::e_layout_design);
+// //            kde5_window()->m_rectangleXShm = kde5_window()->m_pwindow->m_puserinteraction->const_layout().parent_raw_rectangle(::user::e_layout_design);
 // //
 // //            m_bXShmPutImagePending = true;
 // //
 // //            XShmPutImage(
-// //               x11_window()->Display(),
-// //               x11_window()->Window(),
+// //               kde5_window()->Display(),
+// //               kde5_window()->Window(),
 // //               m_gc, m_pximage,
 // //               0, 0, 0, 0,
 // //               sizeBitBlitting.cx(),
@@ -1176,7 +1179,7 @@ namespace windowing_kde5
 // //         else
 // //         {
 // //
-// //            ::pointer<::windowing_kde5::window> px11window = m_pimpl->m_pwindow;
+// //            ::pointer<::windowing_kde5::window> px11window = m_pwindow->m_pwindow;
 // //
 // //            try
 // //            {
@@ -1192,8 +1195,8 @@ namespace windowing_kde5
 // //            m_sizeLastBitBlitting = sizeBitBlitting;
 // //
 // //            XPutImage(
-// //               x11_window()->Display(),
-// //               x11_window()->Window(),
+// //               kde5_window()->Display(),
+// //               kde5_window()->Window(),
 // //               m_gc, m_pximage,
 // //               0, 0, 0, 0,
 // //               sizeBitBlitting.cx(),
@@ -1206,7 +1209,7 @@ namespace windowing_kde5
 // ////            try
 // ////            {
 // ////
-// ////               x11_window()->strict_set_window_position_unlocked();
+// ////               kde5_window()->strict_set_window_position_unlocked();
 // ////
 // ////            }
 // ////            catch (...)
@@ -1214,13 +1217,13 @@ namespace windowing_kde5
 // ////
 // ////            }
 // //
-// //            //x11_window()->m_pwindow->m_puserinteraction->_set_size(sizeBitBlitting, ::user::e_layout_window);
+// //            //kde5_window()->m_pwindow->m_puserinteraction->_set_size(sizeBitBlitting, ::user::e_layout_window);
 // //
-// //            x11_window()->_on_end_paint();
+// //            kde5_window()->_on_end_paint();
 // //
-// //            XFlush(x11_window()->Display());
+// //            XFlush(kde5_window()->Display());
 // //
-// //            XSync(x11_window()->Display(), false);
+// //            XSync(kde5_window()->Display(), false);
 // //
 // //         }
 // //
@@ -1240,11 +1243,11 @@ namespace windowing_kde5
 // //
 // //      xcolour.flags = DoRed | DoGreen | DoBlue;
 // //
-// //      XAllocColor(x11_window()->Display(), x11_window()->x11_display()->m_colormap, &xcolour);
+// //      XAllocColor(kde5_window()->Display(), kde5_window()->x11_display()->m_colormap, &xcolour);
 // //
-// //      XSetForeground(x11_window()->Display(), m_gc, xcolour.pixel);
+// //      XSetForeground(kde5_window()->Display(), m_gc, xcolour.pixel);
 // //
-// //      XFillRectangle(x11_window()->Display(), x11_window()->Window(), m_gc, 0, 0, iWidth, iHeight);
+// //      XFillRectangle(kde5_window()->Display(), kde5_window()->Window(), m_gc, 0, 0, iWidth, iHeight);
 // //
 // //      informationf("windowing_kde5::buffer::update_screen BASIC_TEST FillRectangle(%d, %d)", iWidth, iHeight);
 // //
@@ -1252,24 +1255,24 @@ namespace windowing_kde5
 // //
 // //      // pximage->data = nullptr;
 // //
-// //      // if(m_pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning)
+// //      // if(m_pwindow->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning)
 // //      // {
 // //
-// //// //     x11_window()->m_pwindow->m_puserinteraction->_set_size({ iWidth, iHeight }, ::user::e_layout_window);
+// //// //     kde5_window()->m_pwindow->m_puserinteraction->_set_size({ iWidth, iHeight }, ::user::e_layout_window);
 // //
 // //      // }
 
-      return true;
+      //return true;
 
    }
 
 
-   bool buffer::on_update_screen(::graphics::buffer_item * pitem)
+   void buffer::on_update_screen(::graphics::buffer_item * pitem)
    {
 
       throw ("use update_window(void)");
 
-      return true;
+//      return true;
 
    }
 
@@ -1310,14 +1313,14 @@ namespace windowing_kde5
 //   bool buffer::presentation_complete()
 //   {
 //
-//      if (x11_window()->m_interlockedXShmPutImage <= 0)
+//      if (kde5_window()->m_interlockedXShmPutImage <= 0)
 //      {
 //
 //         return true;
 //
 //      }
 //
-//      return x11_window()->m_bXShmComplete;
+//      return kde5_window()->m_bXShmComplete;
 //
 //   }
 

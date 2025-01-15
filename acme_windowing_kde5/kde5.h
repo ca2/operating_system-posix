@@ -1,8 +1,19 @@
 //
-// Created by camilo on 1/12/25.
+// Created by camilo on 2025-01-12 15:34 <3ThomasBorregaardSorensen!!
 //
+#pragma once
 
-#ifndef KDE5_H
-#define KDE5_H
 
-#endif //KDE5_H
+namespace kde5
+{
+
+
+   void set_global_theme(const ::scoped_string & scopedstrThemeName);
+
+   ::string get_global_theme_name();
+
+
+} // namespace kde5
+
+
+

@@ -7,6 +7,7 @@
 #include "acme/windowing/window_base.h"
 #include "event_listener.h"
 #include "acme/parallelization/manual_reset_happening.h"
+#include "micro_window.h"
 #include <QWidget>
 
 
@@ -23,8 +24,8 @@ namespace kde5
 
 
          class CLASS_DECL_NANO_USER_KDE5 window :
-            virtual public ::acme::windowing::window
-            //,           virtual public event_listener
+            virtual public ::acme::windowing::window,
+            virtual public ::kde5::micro::window
          {
          public:
 

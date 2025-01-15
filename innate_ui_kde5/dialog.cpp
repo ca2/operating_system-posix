@@ -49,6 +49,13 @@ namespace innate_ui_kde5
    //
    // }
 
+   void dialog::create()
+   {
+
+      ::innate_ui_kde5::window::create();
+
+   }
+
    void dialog::_create()
    {
 

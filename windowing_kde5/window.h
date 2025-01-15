@@ -8,7 +8,8 @@
 //#include "kde5_widget.h"
 //#include "acme/operating_system/x11/_atom.h"
 #include "acme/prototype/geometry2d/rectangle_array.h"
-#include "nano_user_kde5/window.h"
+#include "acme_windowing_kde5/window.h"
+#include "acme_windowing_kde5/micro_window.h"
 //#include <X11/extensions/sync.h>
 #include <QWidget>
 //#include <gdk/gdk.h>
@@ -46,8 +47,8 @@ namespace windowing_kde5
 
    class CLASS_DECL_WINDOWING_KDE5 window :
       virtual public ::windowing_posix::window,
+      virtual public ::kde5::acme::windowing::window,
       virtual public ::kde5::micro::window
-         //, virtual public ::wayland::micro::window_base
    {
    public:
 //::int_point m_pointCursor2;
@@ -142,6 +143,9 @@ void on_initialize_particle() override;
       void create_window() override;
 
 
+         void _create_window() override;
+
+
       void destroy() override;
 
          void _set_oswindow(::oswindow oswindow) override;
@@ -208,7 +212,7 @@ void on_initialize_particle() override;
 
       void exit_zoomed() override;
 
-      virtual void set_user_interaction(::windowing::window * pinteraction);
+      //virtual void set_user_interaction(::windowing::window * pinteraction);
 
       virtual void post_nc_destroy();
 
@@ -217,7 +221,7 @@ void on_initialize_particle() override;
       //virtual bool is_child( WINDOWING_X11_WINDOW_MEMBER ::windowing::window * candidateChildOrDescendant); // or descendant
       //;::windowing::window * get_parent() const override;
       //virtual ::Window get_parent_handle();
-      ::oswindow get_parent_oswindow() const override;
+      //::oswindow get_parent_oswindow() const override;
 
 
 //      ::int_point get_mouse_cursor_host_position() override;
@@ -287,13 +291,13 @@ void on_initialize_particle() override;
       void _set_active_window_unlocked() override;
 
 
-      void set_foreground_window() override;
-      void _set_foreground_window_unlocked() override;
+      void set_foreground_window(::user::activation_token * puseractivationtoken) override;
+      void _set_foreground_window_unlocked(::user::activation_token * puseractivationtoken) override;
 
 
       //bool has_mouse_capture() override;
 
-      bool has_keyboard_focus() const override;
+      bool has_keyboard_focus() override;
 
 
 
@@ -331,11 +335,11 @@ void on_initialize_particle() override;
       void set_tool_window(bool bSet) override;
 
 
-      bool set_window_position(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::e_activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;
+      bool set_window_position(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;
 
 
-      bool _set_window_position_unlocked(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::e_activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay);
-      bool _configure_window_unlocked(const class ::zorder& zorder, const ::user::e_activation& useractivation, bool bNoZorder, ::e_display edisplay);
+      bool _set_window_position_unlocked(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay);
+      bool _configure_window_unlocked(const class ::zorder& zorder, const ::user::activation& useractivation, bool bNoZorder, ::e_display edisplay);
       bool _strict_set_window_position_unlocked(int x, int y, int cx, int cy, bool bNoMove, bool bNoSize);
 
 
@@ -400,7 +404,7 @@ void on_initialize_particle() override;
       //void _on_configure_notify_unlocked(const ::int_rectangle & rectangle) override;
 
 
-      bool is_active_window() const override;
+      bool is_active_window() override;
 
 
       void bring_to_front() override;

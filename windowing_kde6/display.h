@@ -8,7 +8,7 @@
 
 //#include "acme/operating_system/x11/nano/event_listener.h"
 //#include "acme/operating_system/x11/nano/display.h"
-#include "nano_user_kde5/display.h"
+#include "acme_windowing_kde5/display.h"
 #include "aura/windowing/display.h"
 #include "_kde5.h"
 

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
-project(windowing_system_kde5 CXX)
+project(acme_windowing_kde5 CXX)
 
 
 
@@ -21,17 +21,27 @@ list(APPEND library_source
         _.cpp
         _.h
         _factory.cpp
+   display.cpp
+   display.h
         framework.cpp
         framework.h
         keyboard.cpp
         keyboard.h
-        xkb_input.cpp
-        xkb_input.h
-        windowing_system.cpp
-        windowing_system.h
+   QCustomTopWindow.cpp
+   QCustomTopWindow.h
+        #xkb_input.cpp
+        #xkb_input.h
+   window.cpp
+   window.h
+        windowing.cpp
+        windowing.h
         )
 
-add_library(${PROJECT_NAME} SHARED ${library_source})
+add_library(${PROJECT_NAME} SHARED ${library_source}
+   micro_window.h
+   micro_window.cpp
+   kde5.cpp
+   kde5.h)
 target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
@@ -48,6 +58,7 @@ elseif(${HAS_KDE5})
    list(APPEND system_libraries
       Qt5::Core
       Qt5::Widgets
+      Qt5::DBus
    )
 
 endif()
