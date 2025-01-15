@@ -63,6 +63,12 @@ char * get_current_dir_name();
 #include <pwd.h>
 
 
+#if defined(DEBUG) && defined(NETBSD)
+//#define LOG_HERE
+#endif
+
+
+
 namespace acme_posix
 {
 
@@ -201,12 +207,12 @@ namespace acme_posix
    //   }
 
 
-   void defer_add(::file::listing& listing, const dirent* dp)
+   void directory_system::_defer_add(::file::listing& listing, const dirent* dp)
    {
 
       if (file_path_is_dots(dp->d_name))
       {
-
+         
          return;
 
       }
@@ -220,9 +226,14 @@ namespace acme_posix
 
       path = listing.m_pathFinal / strFilename;
       
-//      printf("pathFinal   : %s\n", listing.m_pathFinal.c_str());
-//      printf("strFilename : %s\n", strFilename.c_str());
-//      printf("path        : %s\n", path.c_str());
+#if defined(LOG_HERE)
+      
+      printf("pathFinal   : %s\n", listing.m_pathFinal.c_str());
+      printf("strFilename : %s\n", strFilename.c_str());
+      printf("path        : %s\n", path.c_str());
+      printf("dp->d_type  : %d\n", dp->d_type);
+
+#endif
 
       if (path.begins(listing.m_pathBasePath))
       {
@@ -230,15 +241,59 @@ namespace acme_posix
          path.m_iBasePathLength = listing.m_pathBasePath.length() + 1;
 
       }
+      
+#if defined(LOG_HERE)
 
-      if(dp->d_type & DT_DIR)
+      int iDtDir = DT_DIR;
+      
+      printf("^DT_DIR=%d\n", iDtDir);
+      
+      int iDtUnknown = DT_UNKNOWN;
+      
+      printf("^DT_UNKNOWN=%d\n", iDtUnknown);
+      
+#endif
+
+      bool bIsDir = false;
+
+      if(dp->d_type == DT_UNKNOWN)
+      {
+         
+         if(is(path))
+         {
+            
+            bIsDir = true;
+            
+         }
+         
+      }
+      else if(dp->d_type & DT_DIR)
+      {
+         
+         bIsDir = true;
+         
+      }
+
+      if(bIsDir)
       {
 
+#if defined(LOG_HERE)
+
+         printf("^folder\n");
+         
+#endif
+      
          path.set_existent_folder();
 
       }
       else
       {
+
+#if defined(LOG_HERE)
+
+         printf("^file\n");
+         
+#endif
 
          path.set_existent_file();
 
@@ -322,7 +377,7 @@ void directory_system::erase_recursively(const ::file::path &path)
       while ((dp = readdir(dirp)) != nullptr)
       {
 
-         defer_add(listing, dp);
+         _defer_add(listing, dp);
 
       }
 
