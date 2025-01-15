@@ -8,21 +8,21 @@
 
 //#include "acme/operating_system/x11/nano/event_listener.h"
 //#include "acme/operating_system/x11/nano/display.h"
-#include "acme_windowing_kde5/display.h"
+#include "acme_windowing_kde6/display.h"
 #include "aura/windowing/display.h"
-#include "_kde5.h"
+#include "_kde6.h"
 
 //#include "_x11.h"
 
 
 
-namespace windowing_kde5
+namespace windowing_kde6
 {
 
 
-   class CLASS_DECL_WINDOWING_KDE5 display :
+   class CLASS_DECL_WINDOWING_KDE6 display :
       virtual public ::windowing::display,
-      virtual public ::kde5::acme::windowing::display
+      virtual public ::kde6::acme::windowing::display
    {
    public:
 
@@ -186,7 +186,7 @@ namespace windowing_kde5
    };
 
 
-} // namespace windowing_kde5
+} // namespace windowing_kde6
 
 
 

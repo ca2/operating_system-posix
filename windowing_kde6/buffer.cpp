@@ -16,13 +16,14 @@
 #include "aura/graphics/image/image.h"
 #include "aura/user/user/interaction_graphics_thread.h"
 //#include "aura/user/user/interaction_impl.h"
-#include "windowing_system_x11/display_lock.h"
+//#include "windowing_system_x11/display_lock.h"
 
 //#define VERI_BASIC_TEST
 #define MORE_LOG
 #undef MORE_LOG
 
-namespace windowing_kde5
+
+namespace windowing_kde6
 {
 
 

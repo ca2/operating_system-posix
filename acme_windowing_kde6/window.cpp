@@ -61,15 +61,15 @@
 //
 
 
-namespace kde5
+namespace kde6
 {
 
 
-   namespace nano
+   namespace acme
    {
 
 
-      namespace user
+      namespace windowing
       {
 
 
@@ -1866,13 +1866,13 @@ m_pqwidget->move(p);
 
 
 
-      } // namespace user
+      } // namespace windowing
 
 
-   } // namespace nano
+   } // namespace acme
 
 
-} // namespace kde5
+} // namespace kde6
 
 
 

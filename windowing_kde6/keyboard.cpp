@@ -5,18 +5,18 @@
 #include "framework.h"
 #include "keyboard.h"
 #include "acme/constant/user_key.h"
-#include "windowing_system_x11/keyboard.h"
+//#include "windowing_system_x11/keyboard.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/filesystem/filesystem/file_context.h"
 #include "apex/input/input.h"
 #include "apex/platform/system.h"
-#include "apex/user/user/prototype.h"
-#include "aura/user/user/key.h"
-#include "windowing_system_wayland/xkb_input.h"
-#include <wayland-server-protocol.h>
-#include <xkbcommon/xkbcommon.h>
-#include <sys/mman.h>
-#include <unistd.h>
+#include "apex/user/user/interaction_base.h"
+#include "acme/user/user/key.h"
+//#include "windowing_system_wayland/xkb_input.h"
+//#include <wayland-server-protocol.h>
+//#include <xkbcommon/xkbcommon.h>
+//#include <sys/mman.h>
+//#include <unistd.h>
 
 //#if defined(LINUX) || defined(SOLARIS)
 ////#include "base/base/os/x11/x11_keyboard.h"
@@ -26,7 +26,7 @@
 //#endif
 
 
-namespace windowing_kde5
+namespace windowing_kde6
 {
 
 
@@ -894,7 +894,7 @@ namespace windowing_kde5
 //   }
 
 
-} // namespace windowing_kde5
+} // namespace windowing_kde6
 
 
 

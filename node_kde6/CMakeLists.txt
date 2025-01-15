@@ -75,7 +75,7 @@ list(APPEND this_system_libraries
         KF6::KIOGui
         KF6::KIOWidgets
         KF6::Notifications
-        KF6::StatusNotifierItem
+        #KF6::StatusNotifierItem
         PW::KWorkspace
         Qt6::Core
         Qt6::Widgets

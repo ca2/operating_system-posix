@@ -4,6 +4,7 @@
 #pragma once
 
 
+#include "acme_windowing_kde6/windowing.h"
 #include "windowing_posix/windowing.h"
 #include "acme/prototype/collection/list.h"
 //#include "acme/prototype/collection/pointer_array.h"
@@ -21,8 +22,8 @@ namespace windowing_kde5
 
 
    class CLASS_DECL_WINDOWING_KDE5 windowing :
-      virtual public ::windowing_posix::windowing,
-      virtual public ::kde5::acme::windowing::windowing
+       virtual public ::windowing_posix::windowing,
+       virtual public ::kde5::acme::windowing::windowing
    {
    public:
 

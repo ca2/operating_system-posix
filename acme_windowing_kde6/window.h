@@ -4,28 +4,28 @@
 #pragma once
 
 
-#include "acme/windowing/window_base.h"
-#include "event_listener.h"
+#include "acme/windowing/window.h"
+//#include "event_listener.h"
 #include "acme/parallelization/manual_reset_happening.h"
 #include "micro_window.h"
 #include <QWidget>
 
 
-namespace kde5
+namespace kde6
 {
 
 
-   namespace nano
+   namespace acme
    {
 
 
-      namespace user
+      namespace windowing
       {
 
 
-         class CLASS_DECL_NANO_USER_KDE5 window :
-            virtual public ::acme::windowing::window,
-            virtual public ::kde5::micro::window
+         class CLASS_DECL_NANO_USER_KDE6 window :
+            virtual public ::acme::windowing::window
+            //,           virtual public event_listener
          {
          public:
 
@@ -100,7 +100,7 @@ namespace kde5
 
             //virtual void on_draw(::nano::graphics::device * pnanodevice);
 
-            void on_char(int iChar) override;
+            void on_character(int iChar) override;
 
             bool is_active_window() override;
 
@@ -168,12 +168,17 @@ namespace kde5
             bool has_mouse_capture() override;
             void release_mouse_capture() override;
 
+
          };
-      }//namespace user
-   }//namespace nano
 
 
-} // namespace kde5
+      } // namespace windowing
+
+
+   } //namespace acme
+
+
+} // namespace kde6
 
 
 

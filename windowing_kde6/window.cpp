@@ -26,7 +26,7 @@
 //#include <X11/extensions/sync.h>
 #include <wayland-client.h>
 //#include <gdk/gdkwindow.h>
-#include "nano_user_kde5/QCustomTopWindow.h"
+#include "acme_windowing_kde6/QTop"
 #include <linux/input.h> // for BTN_LEFT,...
 #include <xkbcommon/xkbcommon.h>
 //#include <gio/gio.h>

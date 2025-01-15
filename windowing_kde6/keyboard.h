@@ -10,7 +10,7 @@
 //#include "windowing_system_wayland/xkb_input.h"
 
 
-namespace windowing_kde5
+namespace windowing_kde6
 {
 
    //class keyboard_layout;
@@ -77,4 +77,7 @@ namespace windowing_kde5
    };
 
 
-} // namespace windowing_kde5
+} // namespace windowing_kde6
+
+
+

@@ -13,7 +13,7 @@
 #endif
 
 
-namespace windowing_kde5
+namespace windowing_kde6
 {
 
 
@@ -26,7 +26,7 @@ namespace windowing_kde5
    //using WINDOW = long;
 
 
-} // namespace node_gnome
+} // namespace windowing_kde6
 
 
 //#include "nano_user_wayland/_.h"
