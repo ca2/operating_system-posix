@@ -18,6 +18,7 @@
 #include "_.h"
 #include "acme/parallelization/manual_reset_happening.h"
 #include "acme/windowing/window.h"
+#include "micro_window.h"
 
 
 #include <gtk/gtk.h>
@@ -40,12 +41,13 @@ namespace gtk4
          class window :
             //virtual public ::x11::micro::window_base
             virtual public ::acme::windowing::window
+
          {
          public:
 
 
             //::pointer<class display_base>         m_pdisplaybase;
-GtkWidget*m_pgtkwidget;
+            GtkWidget*m_pgtkwidget;
             bool m_bInhibitQueueDraw;
 
             //cairo_surface_t *m_pcairosurface;

@@ -2,10 +2,10 @@
 // Created by camilo on 2024-05-26 22:03 <3ThomasBorregaardSorensen!!
 //
 #include "framework.h"
-#include "windowing_system.h"
+#include "windowing.h"
 #include "acme/integrate/qt/image.h"
 #include "acme/nano/nano.h"
-#include "acme/user/micro/display.h"
+//#include "acme/user/micro/display.h"
 #include "acme/user/micro/user.h"
 #include "acme/parallelization/manual_reset_happening.h"
 #include "acme/platform/application.h"
@@ -19,11 +19,19 @@
 //#include <X11/Xutil.h>
 
 
-namespace windowing_system_kde5
+namespace kde5
 {
 
 
-   windowing_system::windowing_system()
+   namespace acme
+   {
+
+
+      namespace windowing
+      {
+
+
+   windowing::windowing()
    {
 
          m_pqapplication = nullptr;
@@ -32,7 +40,7 @@ namespace windowing_system_kde5
    }
 
 
-   windowing_system::~windowing_system()
+   windowing::~windowing()
    {
 
       //if(m_pqapplication)
@@ -41,24 +49,24 @@ namespace windowing_system_kde5
    }
 
 
-   ::e_status windowing_system::defer_initialize_windowing_system()
-   {
-
-//      if (m_estatusInitializeX11 == error_not_initialized)
-//      {
+//    ::e_status windowing::defer_initialize_windowing()
+//    {
 //
-//         m_estatusInitializeX11 = initialize_windowing_system();
+// //      if (m_estatusInitializeX11 == error_not_initialized)
+// //      {
+// //
+// //         m_estatusInitializeX11 = initialize_windowing();
+// //
+// //      }
+// //
+// //      return m_estatusInitializeX11;
 //
-//      }
+//          return ::success;
 //
-//      return m_estatusInitializeX11;
+//    }
+//
 
-         return ::success;
-
-   }
-
-
-   ::e_status windowing_system::initialize_windowing_system()
+   void windowing::initialize_windowing()
    {
 
       informationf("node_gtk3::node::x11_initialize");
@@ -68,7 +76,9 @@ namespace windowing_system_kde5
       if (!system()->acme_windowing()->init_threads())
       {
 
-         return ::error_failed;
+         //return ::error_failed;
+
+         return;
 
       }
 
@@ -77,34 +87,44 @@ namespace windowing_system_kde5
 
       //g_pmutexX11 = ___new ::pointer < ::mutex >();
 
-      return ::success;
+      //return ::success;
 
    }
 
 
 
-   void * windowing_system::get_display()
+   ::acme::windowing::display * windowing::acme_display()
    {
 
       //return ::platform::node::x11_get_display();
 
-      defer_initialize_windowing_system();
+      //defer_initialize_windowing();
 
 //      if(m_pvoidX11Display == NULL)
 //      {
 //
-//         m_pvoidX11Display = fetch_windowing_system_display();
+//         m_pvoidX11Display = fetch_windowing_display();
 //
 //      }
 //
 //      return m_pvoidX11Display;
 
-      return nullptr;
+      //return nullptr;
+
+      return ::acme::windowing::windowing::acme_display();
 
    }
 
 
-   void windowing_system::sync(const ::procedure & procedure)
+   void windowing::_main_send(const ::procedure & procedure)
+   {
+
+      _user_send(procedure);
+
+   }
+
+
+   void windowing::_user_send(const ::procedure & procedure)
    {
 
       if(::is_main_thread())
@@ -132,7 +152,7 @@ namespace windowing_system_kde5
 
                 });
 
-      if(!pevent->wait(procedure.m_timeTimeout))
+      if(!pevent->wait(procedure.timeout()))
       {
 
          throw ::exception(error_timeout);
@@ -150,19 +170,19 @@ namespace windowing_system_kde5
    }
 
 
-   void windowing_system::async(const ::procedure & procedure)
+   void windowing::_user_post(const ::procedure & procedure)
    {
 
-      node()->user_post(procedure);
+      _main_post(procedure);
 
    }
 
 
-   void windowing_system::display_error_trap_push(int i)
+   void windowing::display_error_trap_push(int i)
    {
 
 
-      //node()->windowing_system_display_error_trap_push(i);
+      //node()->windowing_display_error_trap_push(i);
 
 //      if(::windowing::get_ewindowing() == ::windowing::e_windowing_x11)
 //      {
@@ -177,10 +197,10 @@ namespace windowing_system_kde5
    }
 
 
-   void windowing_system::display_error_trap_pop_ignored(int i)
+   void windowing::display_error_trap_pop_ignored(int i)
    {
 
-      //node()->windowing_system_display_error_trap_pop_ignored(i);
+      //node()->windowing_display_error_trap_pop_ignored(i);
 //      if(::windowing::get_ewindowing() == ::windowing::e_windowing_x11)
 //      {
 //
@@ -224,7 +244,7 @@ namespace windowing_system_kde5
 //    }
 
 
-      void windowing_system::_on_activate_kde_application()
+      void windowing::_on_activate_kde_application()
       {
 
       //g_object_ref(m_pgtkapplication);
@@ -236,15 +256,15 @@ namespace windowing_system_kde5
       // pdisplay->initialize_display(this);
       //
 
-      m_pdisplaybase = this->display();
+      //m_pdisplaybase = this->display();
 
-      if (!m_pdisplaybase)
-      {
-
-         throw ::exception(error_no_interface,
-                           "Failed to cast pdisplay to m_pdisplay at windowing_kde5::windowing::initialize");
-
-      }
+      // if (!m_pdisplaybase)
+      // {
+      //
+      //    throw ::exception(error_no_interface,
+      //                      "Failed to cast pdisplay to m_pdisplay at windowing_kde5::windowing::initialize");
+      //
+      // }
 
       information() << "node_kde5::_on_activate_gtk_application going to user_post";
 
@@ -324,7 +344,7 @@ namespace windowing_system_kde5
    }
 
 
-   void windowing_system::on_start_system()
+   void windowing::on_start_system()
    {
 
       auto * psystem = this->system();
@@ -334,7 +354,7 @@ namespace windowing_system_kde5
    }
 
 
-   void windowing_system::windowing_system_application_main_loop()
+   void windowing::windowing_application_main_loop()
    {
 
       ::string strId = application()->m_strAppId;
@@ -400,7 +420,7 @@ namespace windowing_system_kde5
    }
 
 
-   void windowing_system::windowing_system_post_quit()
+   void windowing::windowing_post_quit()
    {
 
       auto quitApplication = [this]()
@@ -415,7 +435,7 @@ namespace windowing_system_kde5
    }
 
 
-   void windowing_system::user_post(const ::procedure & procedureParam)
+   void windowing::_main_post(const ::procedure & procedureParam)
    {
 
       auto procedure(procedureParam);
@@ -434,7 +454,7 @@ namespace windowing_system_kde5
    }
 
 
-   ::pixmap windowing_system::get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile)
+   ::pixmap windowing::get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile)
    {
 
 
@@ -459,14 +479,21 @@ namespace windowing_system_kde5
 
       ::pixmap pixmap;
 
-      pixmap.init({image32.width(), image32.height()}, (::image32_t *) memoryHost.data(), image32.bytesPerLine());
+      pixmap.initialize({image32.width(), image32.height()}, (::image32_t *) memoryHost.data(), image32.bytesPerLine());
 
       return pixmap;
 
    }
 
 
-} // namespace windowing_system_kde5
+
+      } //namespace windowing
+
+
+   } //namespace acme
+
+
+} // namespace kde5
 
 
 

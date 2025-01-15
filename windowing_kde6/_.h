@@ -3,7 +3,7 @@
 
 #include "windowing_posix/_.h"
 //#include "windowing_system_wayland/_.h"
-#include "nano_user_kde5/_.h"
+#include "acme_windowing_kde6/_.h"
 
 
 #if defined(_windowing_kde5_project)
@@ -13,7 +13,7 @@
 #endif
 
 
-namespace windowing_kde5
+namespace windowing_kde6
 {
 
 
@@ -26,7 +26,7 @@ namespace windowing_kde5
    //using WINDOW = long;
 
 
-} // namespace node_gnome
+} // namespace windowing_kde6
 
 
 //#include "nano_user_wayland/_.h"

@@ -8,7 +8,7 @@
 //#include "kde5_widget.h"
 //#include "acme/operating_system/x11/_atom.h"
 #include "acme/prototype/geometry2d/rectangle_array.h"
-#include "nano_user_kde5/window.h"
+#include "acme_windowing_kde6/window.h"
 //#include <X11/extensions/sync.h>
 #include <QWidget>
 //#include <gdk/gdk.h>

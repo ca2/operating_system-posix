@@ -8,7 +8,7 @@
 #include "acme/platform/system.h"
 #include "acme/parallelization/manual_reset_happening.h"
 #include "acme/prototype/geometry2d/size.h"
-#include "acme/windowing/windowing_base.h"
+#include "acme/windowing/windowing.h"
 
 
 namespace innate_ui_kde5

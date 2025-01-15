@@ -42,11 +42,12 @@ list(APPEND library_references
    #windowing_system_x11
    #windowing_system_xcb
    #windowing_system_wayland
-   windowing_system_kde5
+   acme_windowing_kde5
+   nano_graphics_cairo
    #        nano_user_x11
    #        nano_user_xcb
    #        nano_user_wayland
-          nano_user_kde5
+          innate_ui_kde5
         apex
         apex_posix
         aqua

@@ -4,6 +4,7 @@
 #pragma once
 
 
+#include "acme_windowing_kde6/windowing.h"
 #include "windowing_posix/windowing.h"
 #include "acme/prototype/collection/list.h"
 //#include "acme/prototype/collection/pointer_array.h"
@@ -11,6 +12,7 @@
 #include "_kde5.h"
 
 #include <QApplication>
+#include <acme_windowing_kde5/windowing.h>
 
 struct libinput_event;
 
@@ -20,7 +22,8 @@ namespace windowing_kde5
 
 
    class CLASS_DECL_WINDOWING_KDE5 windowing :
-      virtual public ::windowing_posix::windowing
+       virtual public ::windowing_posix::windowing,
+       virtual public ::kde5::acme::windowing::windowing
    {
    public:
 
@@ -66,7 +69,9 @@ namespace windowing_kde5
 
       void initialize(::particle* pparticle) override;
 
-      void initialize_windowing(::user::user* puser) override;
+      //void initialize_windowing(::user::user* puser) override;
+
+      void initialize_windowing() override;
 
 
       bool has_readily_gettable_absolute_coordinates() const override;
@@ -104,7 +109,7 @@ namespace windowing_kde5
 
       //virtual bool os_defer_init_kde5();
 
-       void user_post(const ::procedure & procedureParam) override;
+       void _user_post(const ::procedure & procedureParam) override;
 
 
       virtual void _set_os_user_theme(const ::scoped_string & strTheme);
@@ -187,7 +192,7 @@ namespace windowing_kde5
 
       //virtual bool aaa_x11_runnable_step();
 
-      virtual ::windowing::window* window(oswindow oswindow) override;
+      ::acme::windowing::window* window(oswindow oswindow) override;
 
       //virtual void _libsn_start_context() override;
 

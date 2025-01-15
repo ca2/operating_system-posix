@@ -103,7 +103,7 @@ m_bIcon = true;
 
       ::pointer <::innate_ui_kde5::icon > picon = piconParam;
 
-      sync([this, picon]()
+      user_send([this, picon]()
       {
 
          //gtk_image_set_from_paintable(GTK_IMAGE(m_pqgtkwidget), picon->m_pgdkpaintable);
