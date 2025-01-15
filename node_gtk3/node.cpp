@@ -547,6 +547,8 @@ namespace node_gtk3
 
    void node::on_system_main()
    {
+	   
+	   information() << "node_gtk3::node::on_system_main START";
 
       //   ::e_status estatus = psystem->begin_synch();
       //
@@ -579,9 +581,13 @@ namespace node_gtk3
 #if !defined(__SANITIZE_ADDRESS__)
 
       {
+		  
+		 information() << "node_gtk3::node::on_system_main BEFORE CALLING node_init_check";
 
          node_init_check(platform()->get_pargc(),
                          platform()->get_pargs());
+                         
+		 information() << "node_gtk3::node::on_system_main AFTER CALLING node_init_check";
 
       }
 

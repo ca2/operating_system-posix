@@ -7,6 +7,9 @@
 #include "acme/filesystem/filesystem/directory_system.h"
 
 
+struct dirent;
+
+
 namespace acme_posix
 {
 
@@ -71,7 +74,7 @@ namespace acme_posix
       bool is_accessible(const ::file::path & path) override;
 
 
-
+void _defer_add(::file::listing& listing, const dirent* dp);
       ::file::path ___fonts() override;
 
 
