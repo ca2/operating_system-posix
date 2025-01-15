@@ -130,7 +130,7 @@ namespace windowing_gtk3
 
       m_pgtkwidgetSystemMenu = nullptr;
 
-      m_htask = 0;
+//      m_htask = 0;
 
       //m_window = None;
 

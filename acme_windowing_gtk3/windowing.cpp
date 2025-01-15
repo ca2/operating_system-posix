@@ -165,27 +165,27 @@ cairo_surface_t *get_cairo_surface_from_pixbuf(GdkPixbuf *pixbuf)
    void windowing::initialize_windowing()
    {
 
-      informationf("node_gtk3::node::x11_initialize");
+      //informationf("node_gtk3::node::x11_initialize");
 
-      informationf("node_gtk3::node::x11_initialize going to call x11_init_threads");
+      //informationf("node_gtk3::node::x11_initialize going to call x11_init_threads");
 
-      if (!system()->acme_windowing()->init_threads())
-      {
+      //if (!system()->acme_windowing()->init_threads())
+      //{
 
-         //return ::error_failed;
+         ////return ::error_failed;
          
-         throw ::exception(error_failed);
+         //throw ::exception(error_failed);
          
-         //return;
+         ////return;
 
-      }
+      //}
 
-      // gdk_x11 does error handling?!?!?!
-      //XSetErrorHandler(_c_XErrorHandler);
+      //// gdk_x11 does error handling?!?!?!
+      ////XSetErrorHandler(_c_XErrorHandler);
 
-      //g_pmutexX11 = ___new ::pointer < ::mutex >();
+      ////g_pmutexX11 = ___new ::pointer < ::mutex >();
 
-      //return ::success;
+      ////return ::success;
 
    }
 
@@ -404,7 +404,17 @@ cairo_surface_t *get_cairo_surface_from_pixbuf(GdkPixbuf *pixbuf)
 		  
 		  __øconstruct(m_pacmedisplay);
 		  
-		  m_pacmedisplay->open_display();
+		  
+		  
+		  // !!! I have removed this call from here:
+		  // at netbsd (and maybe other systems) open display here is called before
+		  // the main loop starts running. And Open Display in this platform need to
+		  // run at the main loop. So open display doesn't run. The call from open_display
+		  // to the main thread is synchronous, so it wait for something that is not
+		  // going to run.
+		  // m_pacmedisplay->open_display();
+		  
+		  
 		  
 	  }
 
@@ -456,12 +466,16 @@ cairo_surface_t *get_cairo_surface_from_pixbuf(GdkPixbuf *pixbuf)
 
       if(::is_main_thread())
       {
+		  
+		 information() << "windowing::_user_send main thread";
 
          procedure();
 
          return;
 
       }
+      
+      information() << "windowing::_user_send not user thread";
 
       //__matter_send_procedure(this, this, &node::node_post, procedure);
 

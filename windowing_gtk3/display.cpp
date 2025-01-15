@@ -36,6 +36,10 @@
 void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString);
 
 
+CLASS_DECL_ACME class ::task_index main_task_index();
+CLASS_DECL_ACME ::task * main_task();
+
+
 namespace windowing_gtk3
 {
 
@@ -356,12 +360,37 @@ namespace windowing_gtk3
    void display::open_display()
    {
 	   
-	  information() << "windowing_gtk3::display::open_display (1) current_itask" << current_itask();
+	  if(has_initialized_flag())
+	  {
+		  
+		  return;
+		  
+	  }
+	   
+	  //information() << node()->get_call_stack_trace();
+	   
+	  information() << "windowing_gtk3::display::open_display (1) current thread task_index(): " << task_index().m_i;
 	  
-	  information() << "windowing_gtk3::display::open_display (1) main_itask" << main_itask();
+	  if(::get_task())
+	  {
+		  
+		  information() << "windowing_gtk3::display::open_display (1) current thread name: " << ::get_task()->m_strTaskName;
+		  
+	  }
+	  
+	  information() << "windowing_gtk3::display::open_display (1) main_task_index(): " << main_task_index().m_i;
+	  
+	  if(::main_task())
+	  {
+		  
+		  information() << "windowing_gtk3::display::open_display (1) main task_name: " << main_task()->m_strTaskName;
+		  
+	  }
 
       gtk3_windowing()->user_send([this]()
       {
+		  
+		 set_initialized_flag();
 		  
 		 information() << "windowing_gtk3::display::open_display";
 		  

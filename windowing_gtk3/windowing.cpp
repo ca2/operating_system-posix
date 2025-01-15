@@ -31,7 +31,7 @@ namespace windowing_gtk3
 
       m_bRootSelectInput = false;
 
-      m_itask = -1;
+//      m_itask = -1;
 
       //m_pWindowing4 = this;
 
@@ -181,7 +181,8 @@ namespace windowing_gtk3
 //
 //      }
 
-      _libsn_start_context();
+		// commented here: as this is a gtk wrapper, try using gtk's startup notification capability.
+      //_libsn_start_context();
 
    }
 
