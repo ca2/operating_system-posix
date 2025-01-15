@@ -26,7 +26,7 @@
 //#include <X11/extensions/sync.h>
 #include <wayland-client.h>
 //#include <gdk/gdkwindow.h>
-#include "acme_windowing_kde6/QTop"
+#include "acme_windowing_kde6/QCustomTopWindow.h"
 #include <linux/input.h> // for BTN_LEFT,...
 #include <xkbcommon/xkbcommon.h>
 //#include <gio/gio.h>
@@ -44,7 +44,7 @@
 #include "aura/graphics/image/context.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
-#include "windowing_system_wayland/xfree86_key.h"
+//#include "windowing_system_wayland/xfree86_key.h"
 
 
 //#include <gtk/gtk.h>

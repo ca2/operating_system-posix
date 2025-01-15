@@ -27,6 +27,10 @@ list(APPEND library_source
         framework.h
         keyboard.cpp
         keyboard.h
+   micro_window.cpp
+   micro_window.h
+   QCustomTopWindow.cpp
+   QCustomTopWindow.h
         #xkb_input.cpp
         #xkb_input.h
    window.cpp
