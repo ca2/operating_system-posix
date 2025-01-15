@@ -7,7 +7,7 @@
 #include "aura/platform/system.h"
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
-#include "windowing_system_kde5/windowing_system.h"
+#include "acme_windowing_kde5/windowing.h"
 #include <QApplication>
 #include <QClipboard>
 #include <QMimeData>
@@ -244,11 +244,11 @@ return false;
       user_send([this, pimage, &bOk]()
                 {
 
-                   auto psystem = system();
+                   //auto psystem = system();
 
-                   auto pnode = psystem->node()->m_pNodeKDE5;
+                   //auto pnode = psystem->node()->m_pNodeKDE5;
 
-                   ::pointer < ::windowing_kde5::windowing > pwindowing = user()->windowing();
+                   ::pointer < ::windowing_kde5::windowing > pwindowing = system()->windowing();
 
                    auto pqapplication = pwindowing->qapplication();
 
@@ -307,11 +307,7 @@ return false;
    bool copydesk::_has_image()
    {
 
-      auto psystem = system();
-
-      auto pnode = psystem->node()->m_pNodeKDE5;
-
-      ::pointer < ::windowing_kde5::windowing > pwindowing = user()->windowing();
+      ::pointer < ::windowing_kde5::windowing > pwindowing = system()->windowing();
 
       auto pqapplication = pwindowing->qapplication();
 

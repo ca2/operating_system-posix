@@ -79,8 +79,8 @@ endif()
 list(APPEND library_references
         acme
         acme_posix
-   windowing_system_kde5
-   nano_user_kde5
+   acme_windowing_kde5
+   nano_graphics_cairo
         apex
         apex_posix
    innate_ui_kde5
@@ -147,7 +147,8 @@ elseif (${LINUX} OR ${__BSD__})
 
 
     #pkg_check_modules(PKGCONFIG xkbcommon x11 xrender xi xext libstartup-notification-1.0 wayland-client wayland-server wayland-cursor)
-    pkg_check_modules(PKGCONFIG ${WAYLAND_PKG_MODULES} ${X11_PKG_MODULES} ${APPINDICATOR_PKG_MODULE})
+    #pkg_check_modules(PKGCONFIG ${WAYLAND_PKG_MODULES} ${X11_PKG_MODULES} ${APPINDICATOR_PKG_MODULE})
+    pkg_check_modules(PKGCONFIG  ${APPINDICATOR_PKG_MODULE})
 
     target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
     target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})

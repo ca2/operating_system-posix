@@ -12,7 +12,7 @@
 #include "acme/filesystem/filesystem/file_dialog.h"
 #include "acme/filesystem/filesystem/folder_dialog.h"
 #include "acme/user/user/os_theme_colors.h"
-#include "acme/windowing/windowing_base.h"
+#include "acme/windowing/windowing.h"
 #include "acme/user/user/theme_colors.h"
 #include "apex/platform/system.h"
 #include "acme/platform/ini.h"
@@ -85,7 +85,7 @@ namespace node_kde5
    node::node()
    {
 
-      m_pNodeKDE5 = this;
+      //m_pNodeKDE5 = this;
 
       //m_pqapplication = nullptr;
 
@@ -276,7 +276,7 @@ namespace node_kde5
 
 #endif
 
-      ::windowing::get_ewindowing() = calculate_ewindowing();
+      ///::windowing::get_ewindowing() = calculate_ewindowing();
 
       //system()->__øconstruct(system()->m_pwindowingsystem);
 
@@ -295,7 +295,7 @@ namespace node_kde5
 
       //_qapplication_exec();
 
-      windowing()->windowing_application_main_loop();
+      system()->windowing()->windowing_application_main_loop();
 
    }
 
@@ -671,11 +671,11 @@ namespace node_kde5
    }
 
 
-   void node::user_post(const ::procedure & procedure)
+   void node::_user_post(const ::procedure & procedure)
    {
 
 
-      this->windowing()->main_post(procedure);
+      system()->windowing()->_user_post(procedure);
 
       // // invoke on the main thread
       // QMetaObject::invokeMethod(
@@ -801,41 +801,43 @@ namespace node_kde5
 //   }
 
 
-   bool node::nativeEventFilter(const QByteArray &eventType, void *message, long *result)
-   {
-
-      if(eventType == "xcb_generic_event_t")
-      {
-
-         xcb_generic_event_t * pevent = (xcb_generic_event_t *) message;
-
-         auto pwindowing = m_pwindowingAuraNode;
-
-         if(!pwindowing)
-         {
-
-            return false;
-
-         }
-
-         if(pwindowing->_xcb_process_event(pevent))
-         {
-
-            return false;
-
-         }
-
-      }
-      else
-      {
-
-         information(string(eventType.constData()) + " unhandled!!\n");
-
-      }
-
-      return false;
-
-   }
+   // bool node::nativeEventFilter(const QByteArray &eventType, void *message, long *result)
+   // {
+   //
+   //    if(eventType == "xcb_generic_event_t")
+   //    {
+   //
+   //       xcb_generic_event_t * pevent = (xcb_generic_event_t *) message;
+   //
+   //       //auto pwindowing = m_pwindowingAuraNode;
+   //
+   //       au
+   //
+   //       if(!pwindowing)
+   //       {
+   //
+   //          return false;
+   //
+   //       }
+   //
+   //       if(pwindowing->_xcb_process_event(pevent))
+   //       {
+   //
+   //          return false;
+   //
+   //       }
+   //
+   //    }
+   //    else
+   //    {
+   //
+   //       information(string(eventType.constData()) + " unhandled!!\n");
+   //
+   //    }
+   //
+   //    return false;
+   //
+   // }
 
 
    ::e_status node::_qapplication_exec()
@@ -883,7 +885,7 @@ namespace node_kde5
 
       pathDesktop = directory_system()->home() / ".local/share/applications" / (strDesktopFileTitle + ".desktop");
 
-      ::pointer < ::windowing_kde5::windowing > pwindowing = user()->windowing();
+      ::pointer < ::windowing_kde5::windowing > pwindowing = system()->windowing();
 
       auto pqapplication = pwindowing->qapplication();
 
@@ -907,7 +909,7 @@ namespace node_kde5
 
       pdialog->increment_reference_count();
 
-      user_post([pdialog]()
+      user_post([this, pdialog]()
                 {
 
                    auto pqfiledialog = ___new QFileDialog();
@@ -991,7 +993,7 @@ namespace node_kde5
       user_post([pdialog]()
                 {
 
-                   auto pqfiledialog = ___new QFileDialog();
+                   auto pqfiledialog = new QFileDialog();
 
                    pqfiledialog->setAcceptMode(QFileDialog::AcceptMode::AcceptOpen);
 

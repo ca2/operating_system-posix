@@ -3,9 +3,9 @@
 #pragma once
 
 
-#include "nano_user_wayland/_.h"
+//#include "nano_user_wayland/_.h"
 #include "aura/windowing/cursor.h"
-#include "_kde5.h"
+#include "_kde6.h"
 
 
 namespace windowing_kde5

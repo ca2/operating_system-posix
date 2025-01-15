@@ -4,16 +4,26 @@
 #pragma once
 
 
-#include "acme/windowing/windowing_base.h"
+#include "acme/windowing/windowing.h"
+#include "acme_windowing_kde6/micro_window.h"
 #include <QApplication>
 
 
-namespace windowing_system_kde5
+namespace kde6
 {
 
 
-   class CLASS_DECL_WINDOWING_SYSTEM_KDE5 windowing_system :
-           virtual public ::windowing::windowing_base
+   namespace acme
+   {
+
+
+      namespace windowing
+      {
+
+
+   class CLASS_DECL_WINDOWING_SYSTEM_KDE5 windowing :
+           virtual public ::acme::windowing::windowing,
+         virtual public ::kd6::micro::window
    {
    public:
 
@@ -60,8 +70,14 @@ namespace windowing_system_kde5
    };
 
 
+      } // namespace windowing
 
-} // namespace windowing_system_kde5
+
+   } //namespace acme
+
+
+} // namespace kde6
+
 
 
 

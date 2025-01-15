@@ -4,7 +4,7 @@
 #pragma once
 
 
-#include "windowing_system_wayland/_.h"
+//#include "windowing_system_wayland/_.h"
 //#include "aura/graphics/graphics/_graphics.h"
 #include "acme/prototype/geometry2d/rectangle.h"
 #include "aura/graphics/graphics/bitmap_source_buffer.h"
@@ -16,7 +16,7 @@
 //#include <X11/extensions/Xrender.h>
 
 //#include "app/base/graphics/graphics_window_buffer.h"
-namespace windowing_kde5
+namespace windowing_kde6
 {
 
 
@@ -42,7 +42,7 @@ namespace windowing_kde5
       //XImage *                      m_pimage;
       //bool                          m_bMapped;
       ::int_rectangle      m_rectangleLast;
-      ::wl_callback*m_pwlcallbackFrame;
+      //::wl_callback*m_pwlcallbackFrame;
       //::image::image_pointer                         m_pimage;
       //interlocked_huge_integer                              m_interlockedPostedScreenUpdate;
 //manual_reset_happening m_happeningXshm;
@@ -54,12 +54,12 @@ namespace windowing_kde5
       ~buffer() override;
 
 
-      virtual ::windowing_kde5::window * x11_window();
+      virtual ::windowing_kde6::window * x11_window();
 
 
       void initialize_graphics_graphics(::windowing::window * pimpl) override;
       void destroy() override;
-      virtual void __handle_window_redraw(::wl_callback *pwlcallback, uint32_t time);
+      //virtual void __handle_window_redraw(::wl_callback *pwlcallback, uint32_t time);
 
       bool update_buffer(::graphics::buffer_item * pbufferitem) override;
 
@@ -73,10 +73,10 @@ namespace windowing_kde5
 //      virtual bool create_os_buffer(::image::image *pimage);
 //      virtual void destroy_os_buffer(::image::image *pimage);
 
-      bool update_screen() override;
+      void update_screen() override;
       //virtual bool _post_update_screen();
       //virtual bool _update_screen_unlocked(::graphics::buffer_item * pitem);
-      bool on_update_screen(::graphics::buffer_item * pitem) override;
+      void on_update_screen(::graphics::buffer_item * pitem) override;
 
 
       bool buffer_lock_round_swap_key_buffers() override;
@@ -92,7 +92,7 @@ namespace windowing_kde5
    };
 
 
-} // namespace windowing_kde5
+} // namespace windowing_kde6
 
 
 

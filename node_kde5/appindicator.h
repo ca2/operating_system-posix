@@ -21,7 +21,7 @@ namespace node_kde5
       ~appindicator() override;
 
 
-      bool create(const char * pszId, const char * pszIcon, const char * pszFolder, application_menu * papplicationmenu, application_menu_callback * pcallback) override;
+      bool create(const char * pszId, const char * pszIcon, const char * pszFolder, application_menu * papplicationmenu, command_handler * pcallback) override;
 
 
    };

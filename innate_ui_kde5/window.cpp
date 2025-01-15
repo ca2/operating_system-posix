@@ -79,7 +79,7 @@ namespace innate_ui_kde5
    void window::create()
    {
 
-      sync([this]()
+      user_send([this]()
       {
 
          _create();
@@ -101,7 +101,7 @@ namespace innate_ui_kde5
 
       ::pointer< window > pwindowImpl = pwindow;
 
-      sync([this, pwindowImpl]()
+      user_send([this, pwindowImpl]()
       {
 
          _create_child(pwindowImpl);
@@ -171,7 +171,7 @@ namespace innate_ui_kde5
 
       auto point = pointParam;
 
-      sync([this, point]()
+      user_send([this, point]()
       {
 
          auto p = point;
@@ -195,7 +195,7 @@ namespace innate_ui_kde5
 
       auto size = sizeParam;
 
-      sync([this, size]()
+      user_send([this, size]()
       {
 
          m_pqwidget->resize(size.cx(), size.cy());
@@ -218,7 +218,7 @@ namespace innate_ui_kde5
    void window::center()
    {
 
-      sync([this]()
+      user_send([this]()
       {
 
 

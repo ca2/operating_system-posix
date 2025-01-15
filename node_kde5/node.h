@@ -14,7 +14,7 @@
 //#include "node_impl.h"
 #include "aura_posix/node.h"
 #include <QObject>
-#include <QAbstractNativeEventFilter>
+//#include <QAbstractNativeEventFilter>
 #include <QApplication>
 #include <QPalette>
 
@@ -28,7 +28,7 @@ namespace node_kde5
 
    class CLASS_DECL_ACME node :
       virtual public ::aura_posix::node,
-      virtual public QAbstractNativeEventFilter,
+      //virtual public QAbstractNativeEventFilter,
       virtual public QObject
    {
    public:
@@ -92,7 +92,7 @@ namespace node_kde5
 
       //using ::aura::node::node_fork;
 
-      void user_post(const ::procedure & procedure) override;
+      void _user_post(const ::procedure & procedure) override;
 
       //void node_post_quit() override;
 
@@ -108,7 +108,7 @@ namespace node_kde5
 
       int os_launch_uri(const ::string & pszUri, char * pszError = NULL, int iBufferSize = 0) override;
 
-      bool nativeEventFilter(const QByteArray &eventType, void *message, long *result)  override;
+      //bool nativeEventFilter(const QByteArray &eventType, void *message, long *result)  override;
 
 
       virtual ::e_status _qapplication_exec();

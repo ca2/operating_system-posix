@@ -104,7 +104,7 @@ namespace innate_ui_kde5
 
       ::pointer <icon > picon = piconParam;
 
-      sync([this, picon]()
+      user_send([this, picon]()
       {
 
          //::SendMessage(m_hwnd, BM_SETICON, (WPARAM) picon->m_hicon, 0);

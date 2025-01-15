@@ -8,10 +8,10 @@
 #include "acme_posix/_.h"
 
 
-#if defined(_windowing_system_kde5_project)
-#define CLASS_DECL_WINDOWING_SYSTEM_KDE5  CLASS_DECL_EXPORT
+#if defined(_acme_windowing_system_kde6_project)
+#define CLASS_DECL_ACME_WINDOWING_SYSTEM_KDE6 CLASS_DECL_EXPORT
 #else
-#define CLASS_DECL_WINDOWING_SYSTEM_KDE5  CLASS_DECL_IMPORT
+#define CLASS_DECL_ACME_WINDOWING_SYSTEM_KDE6 CLASS_DECL_IMPORT
 #endif
 
 

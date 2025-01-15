@@ -11,11 +11,12 @@
 #include "acme/operating_system/a_system_menu.h"
 #include "acme/user/user/mouse.h"
 #include "acme/platform/system.h"
-#include "acme/user/user/interaction_base.h"
-#include "acme/windowing/windowing_base.h"
+#include "acme/user/user/interaction.h"
+#include "acme/windowing/windowing.h"
 #include "QCustomTopWindow.h"
 #include <QMouseEvent>
 #include <QMenu>
+#include <acme/user/micro/elemental.h>
 // #include <xkbcommon/xkbcommon.h>
 // #include <X11/XKBlib.h>
 // #include <cairo/cairo-xcb.h>
@@ -65,12 +66,13 @@ namespace kde5
 {
 
 
-   namespace nano
+   namespace acme
    {
 
 
-      namespace user
+      namespace windowing
       {
+
 
 
          window::window()
@@ -113,12 +115,12 @@ namespace kde5
          ::acme::windowing::display * window::get_display()
          {
 
-            if (!m_pdisplaybase)
+            if (!m_pdisplay)
             {
 
-               m_pdisplaybase = system()->acme_windowing()->display();
+               m_pdisplay = system()->acme_windowing()->acme_display();
 
-               if (!m_pdisplaybase)
+               if (!m_pdisplay)
                {
 
                   throw ::exception(error_null_pointer);
@@ -127,7 +129,7 @@ namespace kde5
 
             }
 
-            return m_pdisplaybase;
+            return m_pdisplay;
 
          }
 
@@ -140,23 +142,30 @@ namespace kde5
          }
 
 
-         void window::on_char(int iChar)
-         {
+          void window::_on_character(int iChar)
+          {
 
-            // fork([this, iChar]()
-            // {
-            //
-            //    m_puserinteractionbase->on_char(iChar);
-            //
-            // });
+             // fork([this, iChar]()
+             // {
+             //
+             //    m_pacmeuserinteraction->on_char(iChar);
+             //
+             // });
 
-         }
+          }
 
 
          void window::_draw(::nano::graphics::device * pnanodevice)
          {
 
-            m_puserinteractionbase->draw(pnanodevice);
+            ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
+
+            if (pelemental)
+            {
+
+               pelemental->on_draw(pnanodevice);
+
+            }
 
          }
 
@@ -164,7 +173,9 @@ namespace kde5
          bool window::is_active_window()
          {
 
-            return m_puserinteractionbase->is_active();
+            //return m_pacmeuserinteraction->is_window_active();
+
+            return true;
 
          }
 
@@ -172,7 +183,7 @@ namespace kde5
          // void window::delete_drawing_objects()
          // {
          //
-         //    m_puserinteractionbase->delete_drawing_objects();
+         //    m_pacmeuserinteraction->delete_drawing_objects();
          //
          // }
 
@@ -188,7 +199,7 @@ namespace kde5
          // void window::create_drawing_objects()
          // {
          //
-         //    m_puserinteractionbase->create_drawing_objects();
+         //    m_pacmeuserinteraction->create_drawing_objects();
          //
          // }
 
@@ -196,7 +207,7 @@ namespace kde5
          // void window::update_drawing_objects()
          // {
          //
-         //    m_puserinteractionbase->update_drawing_objects();
+         //    m_pacmeuserinteraction->update_drawing_objects();
          //
          // }
 
@@ -235,10 +246,10 @@ namespace kde5
    //
    //          xcb_window_t window = xcb_generate_id(m_pdisplay->m_pconnection);
    //
-   //          int x = m_puserinteractionbase->m_rectangle.left();
-   //          int y = m_puserinteractionbase->m_rectangle.top();
-   //          int cx = m_puserinteractionbase->m_rectangle.width();
-   //          int cy = m_puserinteractionbase->m_rectangle.height();
+   //          int x = m_pacmeuserinteraction->m_rectangle.left();
+   //          int y = m_pacmeuserinteraction->m_rectangle.top();
+   //          int cx = m_pacmeuserinteraction->m_rectangle.width();
+   //          int cy = m_pacmeuserinteraction->m_rectangle.height();
    //
    //          unsigned int uaValueList[5];
    //
@@ -285,7 +296,7 @@ namespace kde5
    //          // _NET_WM_WINDOW_TYPE_SPLASH
    //          // KDE seems to close this type of window when it is clicked
    //
-   //          if(m_puserinteractionbase->m_bStartCentered)
+   //          if(m_pacmeuserinteraction->m_bStartCentered)
    //          {
    //
    //             auto atomWindowType = XInternAtom(m_pdisplay->m_pdisplay, "_NET_WM_WINDOW_TYPE", true);
@@ -305,7 +316,7 @@ namespace kde5
    //
    // #endif
    //
-   //          //         if(m_puserinteractionbase->m_bArbitraryPositioning)
+   //          //         if(m_pacmeuserinteraction->m_bArbitraryPositioning)
    //          //         {
    //          //
    //          //            XSetWindowAttributes attributes;
@@ -340,9 +351,9 @@ namespace kde5
          void window::_create_window()
          {
 
-            m_puserinteractionbase->on_before_create_window(this);
+            m_pacmeuserinteraction->on_before_create_window(this);
 
-            auto r = m_puserinteractionbase->get_window_rectangle();
+            auto r = m_pacmeuserinteraction->get_window_rectangle();
 
             int x = r.left();
 
@@ -352,7 +363,7 @@ namespace kde5
 
             int cy = r.height();
 
-            auto pmainwindow = ___new QCustomTopWindow(this);
+            auto pmainwindow = new QCustomTopWindow(this);
 
             m_pqwidget = pmainwindow;
 
@@ -394,7 +405,7 @@ namespace kde5
       // void window::on_left_button_down(::user::mouse * pmouse)
       // {
       //
-      //    m_puserinteractionbase->on_left_button_down(pmouse);
+      //    m_pacmeuserinteraction->on_left_button_down(pmouse);
       //
       // }
       //
@@ -402,7 +413,7 @@ namespace kde5
       // void window::on_left_button_up(::user::mouse * pmouse)
       // {
       //
-      //    m_puserinteractionbase->on_left_button_up(pmouse);
+      //    m_pacmeuserinteraction->on_left_button_up(pmouse);
       // }
       //
       //
@@ -410,7 +421,7 @@ namespace kde5
       // void window::on_right_button_down(::user::mouse * pmouse)
       // {
       //
-      //    m_puserinteractionbase->on_right_button_down(pmouse);
+      //    m_pacmeuserinteraction->on_right_button_down(pmouse);
       //
       // }
       //
@@ -418,14 +429,14 @@ namespace kde5
       // void window::on_right_button_up(::user::mouse * pmouse)
       // {
       //
-      //    m_puserinteractionbase->on_right_button_up(pmouse);
+      //    m_pacmeuserinteraction->on_right_button_up(pmouse);
       // }
       //
       //
       // void window::on_mouse_move(::user::mouse * pmouse)
       // {
       //
-      //    m_puserinteractionbase->on_mouse_move(pmouse);
+      //    m_pacmeuserinteraction->on_mouse_move(pmouse);
       //
       // }
       //
@@ -433,7 +444,7 @@ namespace kde5
       // ::payload window::get_result()
       // {
       //
-      //    return m_puserinteractionbase->get_result();
+      //    return m_pacmeuserinteraction->get_result();
       //
       // }
       //
@@ -441,7 +452,7 @@ namespace kde5
       // ::micro::child * window::hit_test(::user::mouse * pmouse, ::user::e_zorder ezorder)
       // {
       //
-      //    return m_puserinteractionbase->hit_test(pmouse, ezorder);
+      //    return m_pacmeuserinteraction->hit_test(pmouse, ezorder);
       //
       // }
 
@@ -687,19 +698,19 @@ namespace kde5
       //
       //       }
       //
-      //       m_puserinteractionbase->m_rectangle.left() = pconfigure->x;
+      //       m_pacmeuserinteraction->m_rectangle.left() = pconfigure->x;
       //
-      //       m_puserinteractionbase->m_rectangle.top() = pconfigure->y;
+      //       m_pacmeuserinteraction->m_rectangle.top() = pconfigure->y;
       //
-      //       m_puserinteractionbase->m_rectangle.right() = pconfigure->x + pconfigure->width;
+      //       m_pacmeuserinteraction->m_rectangle.right() = pconfigure->x + pconfigure->width;
       //
-      //       m_puserinteractionbase->m_rectangle.bottom() = pconfigure->y + pconfigure->height;
+      //       m_pacmeuserinteraction->m_rectangle.bottom() = pconfigure->y + pconfigure->height;
       //
       //       if (m_psurface)
       //       {
       //
-      //          cairo_xcb_surface_set_size(m_psurface, m_puserinteractionbase->m_rectangle.width(),
-      //                                      m_puserinteractionbase->m_rectangle.height());
+      //          cairo_xcb_surface_set_size(m_psurface, m_pacmeuserinteraction->m_rectangle.width(),
+      //                                      m_pacmeuserinteraction->m_rectangle.height());
       //
       //       }
       //
@@ -927,7 +938,7 @@ namespace kde5
       //
       //       }
       //
-      //       if (m_puserinteractionbase->m_pchildHover)
+      //       if (m_pacmeuserinteraction->m_pchildHover)
       //       {
       //
       //          auto pmouse = __create_new < ::user::mouse >();
@@ -936,11 +947,11 @@ namespace kde5
       //
       //          pmouse->m_pointAbsolute = {I32_MINIMUM, I32_MINIMUM};
       //
-      //          m_puserinteractionbase->m_pchildHover->on_mouse_move(pmouse);
+      //          m_pacmeuserinteraction->m_pchildHover->on_mouse_move(pmouse);
       //
-      //          m_puserinteractionbase->m_pchildHover = nullptr;
+      //          m_pacmeuserinteraction->m_pchildHover = nullptr;
       //
-      //          m_puserinteractionbase->redraw();
+      //          m_pacmeuserinteraction->redraw();
       //
       //       }
       //
@@ -954,12 +965,13 @@ namespace kde5
       void window::_update_window()
       {
 
-         if(m_pnanodevice)
+            ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
+         if(m_pnanodevice && pelemental)
          {
 
             m_pnanodevice->on_begin_draw();
 
-            m_puserinteractionbase->draw(m_pnanodevice);
+            pelemental->on_draw(m_pnanodevice);
 
             m_pnanodevice->on_end_draw();
 
@@ -1008,7 +1020,7 @@ namespace kde5
       //void window::add_child(::micro::child * pchild)
       //{
       //
-      //   pchild->m_pwindow = m_puserinteractionbasethis;
+      //   pchild->m_pwindow = m_pacmeuserinteractionthis;
       //
       //   m_childa.add(pchild);
       //
@@ -1097,7 +1109,7 @@ namespace kde5
       //    fork([this, payload, pmouse]()
       //         {
       //
-      //            m_puserinteractionbase->on_click(payload, pmouse);
+      //            m_pacmeuserinteraction->on_click(payload, pmouse);
       //
       //         }, {pmouse});
       //
@@ -1112,7 +1124,7 @@ namespace kde5
       //    fork([this, payload, pmouse]()
       //         {
       //
-      //            m_puserinteractionbase->on_right_click(payload, pmouse);
+      //            m_pacmeuserinteraction->on_right_click(payload, pmouse);
       //
       //         }, {pmouse});
       //
@@ -1167,9 +1179,14 @@ namespace kde5
 
 
       void window::_on_qimage_draw(QImage * pqimage)
-      {
+         {
+            ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
 
-         m_puserinteractionbase->draw(m_pnanodevice);
+            if (pelemental)
+            {
+               pelemental->on_draw(m_pnanodevice);
+            }
+
 
          auto pixmap = m_pnanodevice->pixmap();
 
@@ -1265,9 +1282,9 @@ namespace kde5
             }
 
 
-          auto pwindow = m_puserinteractionbase;
+          ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
 
-          if (::is_set(pwindow))
+          if (::is_set(pelemental))
           {
              auto pmouse = __create_new<::user::mouse>();
 
@@ -1297,13 +1314,24 @@ namespace kde5
              if (pevent->button() == Qt::MouseButton::LeftButton)
              {
                 pmouse->m_atom = e_message_left_button_down;
-                m_puserinteractionbase->on_left_button_down(pmouse);
+                pelemental->fore_on_left_button_down(pmouse);
+                if (!pmouse->m_bRet)
+                {
+
+                   pelemental->back_on_left_button_down(pmouse);
+                }
 
              }
              else if (pevent->button() == Qt::MouseButton::RightButton)
              {
                 pmouse->m_atom = e_message_right_button_down;
-                m_puserinteractionbase->on_right_button_down(pmouse);
+                pelemental->fore_on_right_button_down(pmouse);
+                if (!pmouse->m_bRet)
+                {
+
+                  pelemental->back_on_right_button_down(pmouse);
+
+                }
 
              }
              else if (pevent->button() == Qt::MouseButton::MiddleButton)
@@ -1361,9 +1389,9 @@ namespace kde5
           // }
 
 
-          auto pwindow = m_puserinteractionbase;
+               ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
 
-          if (::is_set(pwindow))
+          if (::is_set(pelemental))
           {
 
              auto pmouse = __create_new<::user::mouse>();
@@ -1385,12 +1413,25 @@ namespace kde5
              if (pevent->button() == Qt::MouseButton::LeftButton)
              {
                 pmouse->m_atom = e_message_left_button_up;
-                m_puserinteractionbase->on_left_button_up(pmouse);
+                pelemental->fore_on_left_button_up(pmouse);
+                if (!pmouse->m_bRet)
+                {
+
+                  pelemental->back_on_left_button_up(pmouse);
+
+                }
              }
              else if (pevent->button() == Qt::MouseButton::RightButton)
              {
                 pmouse->m_atom = e_message_right_button_up;
-                m_puserinteractionbase->on_right_button_up(pmouse);
+                pelemental->fore_on_right_button_up(pmouse);
+                if (!pmouse->m_bRet)
+                {
+
+pelemental->back_on_right_button_up(pmouse);
+
+
+                }
              }
              else if (pevent->button() == Qt::MouseButton::MiddleButton)
              {
@@ -1530,9 +1571,9 @@ m_pqwidget->move(p);
 
             }
 
-       auto pwindow = m_puserinteractionbase;
+            ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
 
-       if(::is_set(pwindow))
+       if(::is_set(pelemental))
        {
 
           auto pmouse = __create_new<::user::mouse>();
@@ -1621,8 +1662,14 @@ m_pqwidget->move(p);
 
           pmouse->m_pointAbsolute = m_pointCursor2;
 
+          pelemental->fore_on_mouse_move(pmouse);
 
-          m_puserinteractionbase->on_mouse_move(pmouse);
+          if (!pmouse->m_bRet)
+          {
+
+               pelemental->back_on_mouse_move(pmouse);
+
+          }
 
        }
 
@@ -1651,7 +1698,7 @@ m_pqwidget->move(p);
          void window::_on_reposition(int x, int y)
          {
 
-            m_puserinteractionbase->on_position_window();
+            //m_pacmeuserinteraction->on_position_window();
 
          }
 
@@ -1668,7 +1715,7 @@ m_pqwidget->move(p);
 
          set_interface_client_size({cx, cy});
 
-         m_puserinteractionbase->on_size_window();
+         //m_pacmeuserinteraction->on_size_window();
 
       }
 
@@ -1687,7 +1734,7 @@ m_pqwidget->move(p);
 
          int_rectangle r;
 
-         m_puserinteractionbase->get_client_rectangle(r);
+         r = m_pacmeuserinteraction->get_client_rectangle();
 
          //auto pgdkdisplay = m_pdisplaybase->m_pgdkdisplay;
 
@@ -1729,7 +1776,7 @@ m_pqwidget->move(p);
    //    {
    //       g_print("Window has been restored.\n");
    //
-   //       ::windowing::window* pimpl = m_puserinteractionbase;
+   //       ::windowing::window* pimpl = m_pacmeuserinteraction;
    //
    //       pimpl->m_puserinteraction->display(::e_display_normal);
    //
@@ -1760,12 +1807,15 @@ m_pqwidget->move(p);
       //   }
 
 
+
+
+
          void window::defer_show_system_menu(::user::mouse *pmouse)
          {
 
             // Function to create and show the popup menu
 
-            m_psystemmenu = m_puserinteractionbase->create_system_menu();
+            m_psystemmenu = m_pacmeuserinteraction->create_system_menu();
 
             QMenu contextMenu(m_pqwidget);
 
@@ -1864,12 +1914,10 @@ m_pqwidget->move(p);
 
 
 
+      } //namespace windowing
 
 
-      } // namespace user
-
-
-   } // namespace nano
+   } //namespace acme
 
 
 } // namespace kde5
