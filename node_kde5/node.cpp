@@ -446,7 +446,7 @@ namespace node_kde5
    // }
 
 
-   bool node::set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay)
+   bool node::set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::acme::windowing::display * pwindowingdisplay)
    {
 
       ::string strCommand;
@@ -663,7 +663,7 @@ namespace node_kde5
    }
 
 
-   string node::get_wallpaper(::collection::index iScreen, ::windowing::display * pdisplay)
+   string node::get_wallpaper(::collection::index iScreen, ::acme::windowing::display * pdisplay)
    {
 
       return "";
