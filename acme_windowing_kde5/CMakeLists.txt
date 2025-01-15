@@ -25,8 +25,12 @@ list(APPEND library_source
    display.h
         framework.cpp
         framework.h
+   kde5.cpp
+   kde5.h
         keyboard.cpp
         keyboard.h
+   micro_window.h
+   micro_window.cpp
    QCustomTopWindow.cpp
    QCustomTopWindow.h
         #xkb_input.cpp
@@ -37,11 +41,8 @@ list(APPEND library_source
         windowing.h
         )
 
-add_library(${PROJECT_NAME} SHARED ${library_source}
-   micro_window.h
-   micro_window.cpp
-   kde5.cpp
-   kde5.h)
+add_library(${PROJECT_NAME} SHARED ${library_source})
+
 target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)

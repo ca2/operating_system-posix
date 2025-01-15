@@ -243,7 +243,7 @@ namespace windowing_kde5
 
       //m_cursorLast = 0;
 
-      m_htask = 0;
+      //m_htask = 0;
 
       //m_window = None;
 
