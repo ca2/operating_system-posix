@@ -1058,7 +1058,7 @@ namespace gtk3
          //
          //}
 
-         void display::release_mouse_capture()
+         void display::_gtk3_release_mouse_capture()
          {
 
             GdkDisplay* display = gdk_display_get_default();

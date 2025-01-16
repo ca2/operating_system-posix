@@ -282,7 +282,7 @@ cairo_surface_t *get_cairo_surface_from_pixbuf(GdkPixbuf *pixbuf)
 		  
 		 information() << "gtk3::acme::windowing::windowing::windowing_application_main_loop()";
 
-         signal(SIGCHLD, SIG_IGN);
+         //signal(SIGCHLD, SIG_IGN);
          
          defer_init_gtk();
 

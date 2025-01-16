@@ -107,6 +107,7 @@ namespace windowing_gtk3
       //virtual void x11_main();
 
 
+//virtual void release_mouse_capture();
 
       //virtual HCURSOR load_default_cursor(e_cursor ecursor) override;
       virtual ::pointer<::windowing::cursor>load_default_cursor(enum_cursor ecursor) override;

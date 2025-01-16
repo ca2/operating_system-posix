@@ -97,7 +97,7 @@ window_map                                               m_windowmap;
             ::int_size get_main_screen_size() override;
 
 
-            void release_mouse_capture() override;
+            virtual void _gtk3_release_mouse_capture();
 
             bool is_dark_mode_through_theming() override;
 

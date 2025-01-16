@@ -487,7 +487,7 @@ namespace windowing_gtk3
 //
 //   }
 
-
+/*
    void display::release_mouse_capture()
    {
 
@@ -498,7 +498,7 @@ namespace windowing_gtk3
       //return ::success;
 
    }
-
+*/
 
    ::windowing_gtk3::windowing * display::gtk3_windowing()
    {

@@ -1947,8 +1947,15 @@ m_phappeningLastMouseUp = pevent;
 
          void window::release_mouse_capture()
          {
-
-            get_display()->release_mouse_capture();
+            
+            ::cast < ::gtk3::acme::windowing::display > pdisplay = system()->acme_windowing()->acme_display();
+            
+            if(pdisplay)
+            {
+            
+               pdisplay->_gtk3_release_mouse_capture();
+               
+            }
 
          }
 

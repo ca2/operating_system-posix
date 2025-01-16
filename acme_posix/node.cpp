@@ -1903,6 +1903,8 @@ namespace acme_posix
 
 int node::command_system(const ::scoped_string & scopedstr,  const ::trace_function & functionTrace, const ::file::path & pathWorkingDirectory, ::e_display edisplay)
 {
+   
+   information() << "acme_posix::node::command_system (1)";
 
    ::e_status estatus = success;
 
@@ -1922,6 +1924,8 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
       throw ::exception(estatus);
 
    }
+   
+   information() << "acme_posix::node::command_system (2)";
 
    int stderr_fds[2] = {};
 
@@ -1946,6 +1950,8 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 //#if !defined(_APPLE_IOS_)
 //   char **argv;
 //#endif
+
+   information() << "acme_posix::node::command_system (3): executable: " << strExecutable;
    
 #if defined(APPLE_IOS)
    
@@ -1960,6 +1966,8 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 //  printf("pszExecutable : %s\n", pszExecutable);
    
   auto pszCommandLine = ansi_dup(scopedstr);
+  
+  information() << "acme_posix::node::command_system (3): command_line: " << pszCommandLine;
  
 //  printf("pszCommandLine : %s\n", pszCommandLine);
 
@@ -1977,14 +1985,14 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 	auto p = strdupa_from_command_arguments(stra);
 	
 	
-//	printf("command count: %ld\n", p->size());
+	printf("command count: %ld\n", p->size());
 
-//for(int i = 0; i < p->size(); i++)
-//{
+for(int i = 0; i < p->size(); i++)
+{
 
-//printf("command[%d] = : \"%s\"\n", i, p->element_at(i));
+printf("command[%d] = : \"%s\"\n", i, p->element_at(i));
 
-//}	
+}	
 
 //         memory_copy(argv, gl.gl_pathv, gl.gl_pathc * sizeof(char *));
 
@@ -2126,6 +2134,22 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
       throw ::exception(todo);
 
 #else
+
+printf("executable: %s\n", pszExecutable);
+
+//auto pIter = p;
+
+for(auto pIter : *p)
+{
+   
+   if(pIter)
+   {
+   
+      printf("arguments: %s\n", *pIter);
+      pIter++;
+      
+   }
+}
 
       int iChildExitCode = execvp(pszExecutable, (char **) p->data());
 
@@ -2328,6 +2352,8 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 
          if(iWaitPid == -1)
          {
+            
+            informationf("waitpid -1 error");
 
             int iErrorNo = errno;
 
@@ -2343,6 +2369,8 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
          }
          else if(iWaitPid == pid)
          {
+            
+            informationf("waitpid: iWaitPid=%d, pid=%d", iWaitPid, pid);
 
             if (WIFEXITED(status))
             {
@@ -2358,11 +2386,19 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
             }
 
          }
+         else
+         {
+            
+            informationf("waitpid (2): iWaitPid=%d, pid=%d", iWaitPid, pid);
+         
+         }            
 
       }
 
       if(!bRead && !bExit)
       {
+         
+         informationf("waitpid: preempting for 25_ms");
 
          preempt(25_ms);
 
@@ -2462,7 +2498,7 @@ if(functionTrace)
 
          strCommand.formatf("\"%s\" -c \"%s\"", strUnixShell.c_str(), strCommandInner.c_str());
          
-//         printf("\nacme_posix::node::unix_shell_command command: %s\n", strCommand.c_str());
+         printf("\nacme_posix::node::unix_shell_command command: %s\n", strCommand.c_str());
 
          auto iExitCode = this->command_system(strCommand, tracefunction);
 
