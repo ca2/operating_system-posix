@@ -6916,7 +6916,7 @@ return;
    bool window::on_configure_unlocked_timer()
    {
 
-      if (m_timeLastConfigureUnlocked.elapsed() < 600_ms)
+      if (m_timeLastConfigureUnlocked.elapsed() > 600_ms)
       {
 
          return false;
