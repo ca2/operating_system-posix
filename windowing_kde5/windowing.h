@@ -4,7 +4,7 @@
 #pragma once
 
 
-#include "acme_windowing_kde6/windowing.h"
+#include "acme_windowing_kde5/windowing.h"
 #include "windowing_posix/windowing.h"
 #include "acme/prototype/collection/list.h"
 //#include "acme/prototype/collection/pointer_array.h"
@@ -12,7 +12,6 @@
 #include "_kde5.h"
 
 #include <QApplication>
-#include <acme_windowing_kde5/windowing.h>
 
 struct libinput_event;
 
