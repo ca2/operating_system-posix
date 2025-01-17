@@ -64,7 +64,7 @@ namespace windowing_gtk4
 
       bool get_workspace_rectangle(::collection::index iWorkspace, ::int_rectangle & rectangle) override;
 
-      void release_mouse_capture() override;
+      //void release_mouse_capture() override;
 
       virtual bool get_cursor_position(::int_point * ppointCursor);
 

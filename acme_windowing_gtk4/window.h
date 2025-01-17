@@ -18,11 +18,11 @@
 #include "_.h"
 #include "acme/parallelization/manual_reset_happening.h"
 #include "acme/windowing/window.h"
-#include "micro_window.h"
+//#include "micro_window.h"
 
 
 #include <gtk/gtk.h>
-#include <gdk/x11/gdkx.h>
+//#include <gdk/x11/gdkx.h>
 //#include <X11/Xlib.h>
 
 

@@ -523,9 +523,16 @@ namespace windowing_gtk4
    void windowing::release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
    {
 
-      ::pointer < ::windowing_gtk4::display > pdisplay = m_pacmedisplay;
+//      ::pointer < ::windowing_gtk4::display > pdisplay = m_pacmedisplay;
 
-      pdisplay->release_mouse_capture();
+  //    pdisplay->release_mouse_capture();
+
+      if (m_pwindowMouseCapture == pwindow)
+      {
+
+         m_pwindowMouseCapture = nullptr;
+
+      }
 
    }
 

@@ -501,34 +501,34 @@ namespace windowing_gtk4
 //
 //   }
 
-
-   void display::release_mouse_capture()
-   {
-
-      information() << "windowing_gtk4::display::release_mouse_capture";
-
-//      auto predicate = [this]()
-//      {
 //
-//         synchronous_lock synchronouslock(user_synchronization());
+//    void display::release_mouse_capture()
+//    {
 //
-//         //display_lock displaylock(Display());
+//       information() << "windowing_gtk4::display::release_mouse_capture";
 //
-//         information() << "XUngrabPointer";
+// //      auto predicate = [this]()
+// //      {
+// //
+// //         synchronous_lock synchronouslock(user_synchronization());
+// //
+// //         //display_lock displaylock(Display());
+// //
+// //         information() << "XUngrabPointer";
+// //
+// //         int_bool bRet = XUngrabPointer(Display(), CurrentTime) != false;
+// //
+// //         _on_capture_changed_to(nullptr);
+// //
+// //      };
+// //
+// //      auto pwindowing = x11_windowing();
+// //
+// //      pwindowing->windowing_post(predicate);
 //
-//         int_bool bRet = XUngrabPointer(Display(), CurrentTime) != false;
+//       //return ::success;
 //
-//         _on_capture_changed_to(nullptr);
-//
-//      };
-//
-//      auto pwindowing = x11_windowing();
-//
-//      pwindowing->windowing_post(predicate);
-
-      //return ::success;
-
-   }
+//    }
 
 
    // ::windowing_gtk4::windowing * display::x11_windowing()
