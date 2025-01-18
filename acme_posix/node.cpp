@@ -1984,15 +1984,18 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 
 	auto p = strdupa_from_command_arguments(stra);
 	
+#ifdef DEBUG
 	
-	printf("command count: %ld\n", p->size());
+	printf("command count: %lld\n", p->size());
 
-for(int i = 0; i < p->size(); i++)
-{
+	for(int i = 0; i < p->size(); i++)
+	{
 
-printf("command[%d] = : \"%s\"\n", i, p->element_at(i));
+		printf("command[%d] = : \"%s\"\n", i, p->element_at(i));
 
-}	
+	}	
+
+#endif
 
 //         memory_copy(argv, gl.gl_pathv, gl.gl_pathc * sizeof(char *));
 
@@ -2117,13 +2120,13 @@ printf("command[%d] = : \"%s\"\n", i, p->element_at(i));
 //
 //      }
 
-      //close(stdout_fds[0]);
+      close(stdout_fds[0]);
 
-//      close(stdout_fds[1]);
-//
-//      //close(stderr_fds[0]);
-//
-//      close(stderr_fds[1]);
+      close(stdout_fds[1]);
+
+	  close(stderr_fds[0]);
+
+      close(stderr_fds[1]);
 //
 //      close(stdin_fds[0]);
 
@@ -2135,21 +2138,21 @@ printf("command[%d] = : \"%s\"\n", i, p->element_at(i));
 
 #else
 
-printf("executable: %s\n", pszExecutable);
+//printf("executable: %s\n", pszExecutable);
 
-//auto pIter = p;
+////auto pIter = p;
 
-for(auto pIter : *p)
-{
+//for(auto pIter : *p)
+//{
    
-   if(pIter)
-   {
+//   if(pIter)
+//   {
    
-      printf("arguments: %s\n", *pIter);
-      pIter++;
+//      printf("arguments: %s\n", pIter);
       
-   }
-}
+//   }
+   
+//}
 
       int iChildExitCode = execvp(pszExecutable, (char **) p->data());
 
@@ -2269,6 +2272,12 @@ for(auto pIter : *p)
             string strMessage(buffer, iOutRead);
 
             strOutput += strMessage;
+    
+#ifdef DEBUG
+            
+            information() << "partial stdout output: \"" << strOutput << "\""; 
+            
+#endif
 
             if(functionTrace)
             {
@@ -2297,6 +2306,13 @@ for(auto pIter : *p)
             string strMessage(buffer, iErrRead);
 
             strError += strMessage;
+            
+#ifdef DEBUG            
+            
+            information() << "partial stderr output: \"" << strOutput << "\""; 
+
+#endif
+
 
 //               if(ecommandsystem & e_command_system_inline_log)
 //               {
@@ -2378,6 +2394,8 @@ for(auto pIter : *p)
                chExitCode = WEXITSTATUS(status);
 
                iExitCode = chExitCode;
+               
+               informationf("exit_code: status=%d, iExitCode=%d", status, iExitCode);
 
                //break;
 
@@ -2472,9 +2490,13 @@ if(functionTrace)
 
          ::string strUnixShell;
 
-#if defined(FREEBSD) || defined(OPENBSD)
+#if defined(FREEBSD)
 
-         strUnixShell = "/usr/local/bin/bash";
+		strUnixShell = "/usr/local/bin/bash";
+
+#elif defined(OPENBSD)
+
+        strUnixShell = "/bin/ksh";
 
 #elif defined(NETBSD)
 
@@ -2498,7 +2520,11 @@ if(functionTrace)
 
          strCommand.formatf("\"%s\" -c \"%s\"", strUnixShell.c_str(), strCommandInner.c_str());
          
-         printf("\nacme_posix::node::unix_shell_command command: %s\n", strCommand.c_str());
+#ifdef DEBUG
+         
+         informationf("acme_posix::node::unix_shell_command command: %s", strCommand.c_str());
+         
+#endif
 
          auto iExitCode = this->command_system(strCommand, tracefunction);
 
