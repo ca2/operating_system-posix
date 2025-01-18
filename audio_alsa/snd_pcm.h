@@ -26,6 +26,9 @@ namespace multimedia
          snd_pcm_uframes_t                m_frameCount;
          int                              m_iBufferCount;
 
+         int                              m_iPeriodMin;
+         int                              m_iPeriodMax;
+
 
          snd_pcm();
          virtual ~snd_pcm();

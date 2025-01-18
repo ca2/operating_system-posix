@@ -48,6 +48,8 @@ namespace multimedia
          m_pswparams = NULL;
          m_phandler = NULL;
          m_iCurrentBuffer = 0;
+         m_iPeriodMin = -1;
+         m_iPeriodMax = -1;
          //m_dwBufferTime    = 100 * 1000; /* ring buffer length in us */
       }
 
@@ -322,6 +324,51 @@ namespace multimedia
 
          }
 
+         snd_pcm_uframes_t sizeTotalBufferMin = 0;
+
+         err = snd_pcm_hw_params_get_buffer_size_min(m_phwparams, &sizeTotalBufferMin);
+
+         if(err < 0)
+         {
+
+            error() <<"Unable to get buffer size min for playback: " << snd_strerror(err);
+
+            return error_failed;
+
+         }
+
+         snd_pcm_uframes_t sizeTotalBufferMax = 0;
+
+         err = snd_pcm_hw_params_get_buffer_size_max(m_phwparams, &sizeTotalBufferMax);
+
+         if(err < 0)
+         {
+
+            error() <<"Unable to get buffer size max for playback: " << snd_strerror(err);
+
+            return error_failed;
+
+         }
+
+         information() << "Minimum Total Buffer Size: " << sizeTotalBufferMin;
+
+         information() << "Maximum Total Buffer Size: " << sizeTotalBufferMax;
+
+         // snd_pcm_uframes_t sizeTotalBuffer = 0;
+         //
+         // err = snd_pcm_hw_params_get_buffer_size(m_phwparams, &sizeTotalBuffer);
+         //
+         // if(err < 0)
+         // {
+         //
+         //    error() <<"Unable to get buffer size for playback: " << snd_strerror(err);
+         //
+         //    return error_failed;
+         //
+         // }
+
+         //information() << "Total Buffer Size: " << sizeTotalBuffer;
+
          unsigned int uBufferCountMin = 0;
 
          int dirBufferCountMin = 0;
@@ -396,11 +443,17 @@ namespace multimedia
 
          }
 
+
+
          information() << "snd_pcm_hw_params_get_period_size_max: " << uPeriodSizeMax << " direction " << dirPeriodSizeMax;
 
          information() << "Buffer size hint in _μs " << m_timeBufferSizeHint.integral_microsecond();
 
          int iFullFrameCount1 = m_timeBufferSizeHint.floating_second() * (double)(uiFreq);
+
+         information() << "iFullFrameCount1 Unclipped" << iFullFrameCount1;
+
+         iFullFrameCount1 = minimum_maximum(iFullFrameCount1, sizeTotalBufferMin, sizeTotalBufferMax);
 
          information() << "iFullFrameCount1 " << iFullFrameCount1;
 
@@ -408,17 +461,23 @@ namespace multimedia
 
          int iBufferCountMax = dirBufferCountMax < 0 ? uBufferCountMax - 1: uBufferCountMax;
 
-         int iBufferCount1 = minimum_maximum(m_iBufferCountHint, iBufferCountMin, iBufferCountMax);
+         //int iBufferCount1 = minimum_maximum(m_iBufferCountHint, iBufferCountMin, iBufferCountMax);
 
          int iPeriodSizeMin1 = uPeriodSizeMin;
 
          int iPeriodSizeMax1 = dirPeriodSizeMax < 0 ? uPeriodSizeMax - 1 : uPeriodSizeMax;
 
-         m_frameCount = minimum_maximum(iFullFrameCount1 / iBufferCount1, iPeriodSizeMin1, iPeriodSizeMax1);
+         m_frameCount = minimum_maximum(iFullFrameCount1, iPeriodSizeMin1, iPeriodSizeMax1);
 
          information() << "m_frameCount " << m_frameCount;
 
-         m_iBufferCount = iFullFrameCount1 / m_frameCount;
+         int iMaxBufferCount = sizeTotalBufferMax / m_frameCount;
+
+         information() << "max buffer count " << iMaxBufferCount;
+
+         information() << "buffer count hint " << m_iBufferCountHint;
+
+         m_iBufferCount = minimum(iMaxBufferCount, m_iBufferCountHint);
 
          information() << "pre buffer count " << m_iBufferCount;
 
@@ -456,7 +515,7 @@ namespace multimedia
 
          }
 
-         information() << "snd_pcm_hw_params_get_periods: " << uBufferCount << " direction " << dirGetPeriods;
+         information() << "buffer count: " << uBufferCount << " direction " << dirGetPeriods;
 
          m_iBufferCount = uBufferCount;
 
@@ -508,13 +567,13 @@ namespace multimedia
 
          }
 
-         information() << "snd_pcm_hw_params_get_period_size: " << m_frameCount;
+         information() << "buffer size: " << m_frameCount;
 
          //m_framesPeriodSize = size;
 
-         snd_pcm_uframes_t size = 0;
+         snd_pcm_uframes_t sizeTotalBuffer = 0;
 
-         err = snd_pcm_hw_params_get_buffer_size(m_phwparams, &size);
+         err = snd_pcm_hw_params_get_buffer_size(m_phwparams, &sizeTotalBuffer);
 
          if(err < 0)
          {
@@ -524,6 +583,8 @@ namespace multimedia
             return error_failed;
 
          }
+
+         information() << "Total Buffer Size: " << sizeTotalBuffer;
 
          //
          //m_framesBufferSize = m_iBufferCount * m_framesPeriodSize;
