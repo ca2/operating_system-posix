@@ -383,7 +383,7 @@ namespace windowing_kde6
 
       auto pdisplay = pwindowing->display();
 
-      ::pointer < ::windowing_kde5::display> pwaylanddisplay =  pdisplay;
+      ::pointer < ::windowing_kde6::display> pkde6display =  pdisplay;
 
       const char * cursor_name = "left_ptr";
 

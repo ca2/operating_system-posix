@@ -87,7 +87,7 @@ namespace windowing_kde6
 
       //bool presentation_complete() override;
 
-      void __redraw(struct wl_callback *pwlcallback, uint32_t time);
+      //void __redraw(struct wl_callback *pwlcallback, uint32_t time);
 
    };
 

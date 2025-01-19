@@ -17,231 +17,231 @@
 #include <QScreen>
 #include <QApplication>
 #include <X11/Xlib-xcb.h>
-
-
-//::particle * user_synchronization();
-
-
-namespace node_kde6
-{
-
-
-   desktop_environment::desktop_environment()
-   {
-
-      //m_pWindowing2 = this;
-
-      //bool isPlatformX11 = false;
-
-      //{
-        // display = x11Application->display();
-         //connection = x11Application->connection();
-         //isPlatformX11 = true;
-      //}
-      //m_bX11 = QNativeInterface::QX11Application() != nullptr;
-
-   }
-
-
-   desktop_environment::~desktop_environment()
-   {
-
-
-   }
-
-
-   bool desktop_environment::is_x11()
-   {
-
-      if(!m_booleanX11.is_set())
-      {
-
-         ::pointer < ::node_kde6::node > pnode = node();
-
-         m_booleanX11 = pnode->is_x11();
-
-      }
-
-      return m_booleanX11;
-
-   }
-
-
-   ::e_status desktop_environment::_get_monitor_rectangle(::collection::index iIndex, ::int_rectangle *prectangle)
-   {
-
-      //synchronous_lock sl(user_synchronization());
-
-      auto screens = QGuiApplication::screens();
-
-      if (iIndex < 0 || iIndex >= screens.size())
-      {
-
-         return ::error_failed;
-
-      }
-
-      auto pscreen = screens.at(iIndex);
-
-      if (pscreen == nullptr)
-      {
-
-         return error_failed;
-
-      }
-
-      int left             = 0;
-      int top              = 0;
-      int right            = 0;
-      int bottom           = 0;
-
-      pscreen->geometry().getCoords(&left, &top, &right, &bottom);
-
-      prectangle->left()     = left;
-      prectangle->top()      = top;
-      prectangle->right()    = right + 1;
-      prectangle->bottom()   = bottom + 1;
-
-      return ::success;
-
-   }
-
-
-   ::e_status desktop_environment::_get_workspace_rectangle(::collection::index iIndex, ::int_rectangle *prectangle)
-   {
-
-      //synchronous_lock sl(user_synchronization());
-
-      auto screens = QGuiApplication::screens();
-
-      if (iIndex < 0 || iIndex >= screens.size())
-      {
-
-         return ::error_failed;
-
-      }
-
-      auto pscreen = screens.at(iIndex);
-
-      if (pscreen == nullptr)
-      {
-
-         return error_failed;
-
-      }
-
-      int left             = 0;
-      int top              = 0;
-      int right            = 0;
-      int bottom           = 0;
-
-      pscreen->availableGeometry().getCoords(&left, &top, &right, &bottom);
-
-      prectangle->left()     = left;
-      prectangle->top()      = top;
-      prectangle->right()    = right + 1;
-      prectangle->bottom()   = bottom + 1;
-
-      return ::success;
-
-   }
-
-
-   void desktop_environment::get_monitor_rectangle(::collection::index iIndex, ::int_rectangle *prectangle)
-   {
-
-      if(is_x11())
-      {
-
-         //synchronous_lock sl(user_synchronization());
-
-         _get_monitor_rectangle(iIndex, prectangle);
-
-         //m_pwindowing->windowing_send([this, iIndex, prectangle]() { _get_monitor_rectangle(iIndex, prectangle); });
-
-      }
-      else
-      {
-
-         _get_monitor_rectangle(iIndex, prectangle);
-
-      }
-
-   }
-
-
-   void desktop_environment::get_workspace_rectangle(::collection::index iIndex, ::int_rectangle *prectangle)
-   {
-
-      if(is_x11())
-      {
-
-         //synchronous_lock sl(user_synchronization());
-
-         _get_workspace_rectangle(iIndex, prectangle);
-
-         //m_pwindowing->windowing_send([this, iIndex, prectangle]() { _get_workspace_rectangle(iIndex, prectangle); });
-
-      }
-      else
-      {
-
-         _get_workspace_rectangle(iIndex, prectangle);
-
-      }
-
-   }
-
-
-   void desktop_environment::user_post(const ::procedure & procedure)
-   {
-
-      auto psystem = system();
-
-      ::pointer < ::node_kde6::node > pnode = psystem->node();
-
-      auto pqapplication = pnode->m_pqapplication;
-
-      // invoke on the main thread
-      QMetaObject::invokeMethod(
-         pqapplication,
-         [procedure]
-         {
-
-            procedure();
-
-         });
-
-
-      //return success;
-
-   }
-
-
-   bool desktop_environment::message_loop_step()
-   {
-
-      auto psystem = system();
-
-      auto psession = psystem->session();
-
-      auto puser = user();
-
-      auto pwindowing = system()->windowing();
-
-      if(!pwindowing->xcb_message_loop_step())
-      {
-
-         return false;
-
-      }
-
-      return true;
-
-   }
-
-
-} // namespace node_kde6
-
-
-
+//
+//
+// //::particle * user_synchronization();
+//
+//
+// namespace node_kde6
+// {
+//
+//
+//    desktop_environment::desktop_environment()
+//    {
+//
+//       //m_pWindowing2 = this;
+//
+//       //bool isPlatformX11 = false;
+//
+//       //{
+//         // display = x11Application->display();
+//          //connection = x11Application->connection();
+//          //isPlatformX11 = true;
+//       //}
+//       //m_bX11 = QNativeInterface::QX11Application() != nullptr;
+//
+//    }
+//
+//
+//    desktop_environment::~desktop_environment()
+//    {
+//
+//
+//    }
+//
+//
+//    bool desktop_environment::is_x11()
+//    {
+//
+//       if(!m_booleanX11.is_set())
+//       {
+//
+//          ::pointer < ::node_kde6::node > pnode = node();
+//
+//          m_booleanX11 = pnode->is_x11();
+//
+//       }
+//
+//       return m_booleanX11;
+//
+//    }
+//
+//
+//    ::e_status desktop_environment::_get_monitor_rectangle(::collection::index iIndex, ::int_rectangle *prectangle)
+//    {
+//
+//       //synchronous_lock sl(user_synchronization());
+//
+//       auto screens = QGuiApplication::screens();
+//
+//       if (iIndex < 0 || iIndex >= screens.size())
+//       {
+//
+//          return ::error_failed;
+//
+//       }
+//
+//       auto pscreen = screens.at(iIndex);
+//
+//       if (pscreen == nullptr)
+//       {
+//
+//          return error_failed;
+//
+//       }
+//
+//       int left             = 0;
+//       int top              = 0;
+//       int right            = 0;
+//       int bottom           = 0;
+//
+//       pscreen->geometry().getCoords(&left, &top, &right, &bottom);
+//
+//       prectangle->left()     = left;
+//       prectangle->top()      = top;
+//       prectangle->right()    = right + 1;
+//       prectangle->bottom()   = bottom + 1;
+//
+//       return ::success;
+//
+//    }
+//
+//
+//    ::e_status desktop_environment::_get_workspace_rectangle(::collection::index iIndex, ::int_rectangle *prectangle)
+//    {
+//
+//       //synchronous_lock sl(user_synchronization());
+//
+//       auto screens = QGuiApplication::screens();
+//
+//       if (iIndex < 0 || iIndex >= screens.size())
+//       {
+//
+//          return ::error_failed;
+//
+//       }
+//
+//       auto pscreen = screens.at(iIndex);
+//
+//       if (pscreen == nullptr)
+//       {
+//
+//          return error_failed;
+//
+//       }
+//
+//       int left             = 0;
+//       int top              = 0;
+//       int right            = 0;
+//       int bottom           = 0;
+//
+//       pscreen->availableGeometry().getCoords(&left, &top, &right, &bottom);
+//
+//       prectangle->left()     = left;
+//       prectangle->top()      = top;
+//       prectangle->right()    = right + 1;
+//       prectangle->bottom()   = bottom + 1;
+//
+//       return ::success;
+//
+//    }
+//
+//
+//    void desktop_environment::get_monitor_rectangle(::collection::index iIndex, ::int_rectangle *prectangle)
+//    {
+//
+//       if(is_x11())
+//       {
+//
+//          //synchronous_lock sl(user_synchronization());
+//
+//          _get_monitor_rectangle(iIndex, prectangle);
+//
+//          //m_pwindowing->windowing_send([this, iIndex, prectangle]() { _get_monitor_rectangle(iIndex, prectangle); });
+//
+//       }
+//       else
+//       {
+//
+//          _get_monitor_rectangle(iIndex, prectangle);
+//
+//       }
+//
+//    }
+//
+//
+//    void desktop_environment::get_workspace_rectangle(::collection::index iIndex, ::int_rectangle *prectangle)
+//    {
+//
+//       if(is_x11())
+//       {
+//
+//          //synchronous_lock sl(user_synchronization());
+//
+//          _get_workspace_rectangle(iIndex, prectangle);
+//
+//          //m_pwindowing->windowing_send([this, iIndex, prectangle]() { _get_workspace_rectangle(iIndex, prectangle); });
+//
+//       }
+//       else
+//       {
+//
+//          _get_workspace_rectangle(iIndex, prectangle);
+//
+//       }
+//
+//    }
+//
+//
+//    void desktop_environment::user_post(const ::procedure & procedure)
+//    {
+//
+//       auto psystem = system();
+//
+//       ::pointer < ::node_kde6::node > pnode = psystem->node();
+//
+//       auto pqapplication = pnode->m_pqapplication;
+//
+//       // invoke on the main thread
+//       QMetaObject::invokeMethod(
+//          pqapplication,
+//          [procedure]
+//          {
+//
+//             procedure();
+//
+//          });
+//
+//
+//       //return success;
+//
+//    }
+//
+//
+//    bool desktop_environment::message_loop_step()
+//    {
+//
+//       auto psystem = system();
+//
+//       auto psession = psystem->session();
+//
+//       auto puser = user();
+//
+//       auto pwindowing = system()->windowing();
+// //
+// //       if(!pwindowing->xcb_message_loop_step())
+// //       {
+// //
+// //          return false;
+// //
+// //       }
+// //
+// //       return true;
+// //
+// //    }
+// //
+// //
+// // } // namespace node_kde6
+// //
+// //
+// //

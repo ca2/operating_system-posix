@@ -475,6 +475,20 @@ namespace kde6
 
    }
 
+         bool windowing::dark_mode() const
+   {
+
+      auto pnodeThisMutable = (node *) this;
+
+      pnodeThisMutable->_fetch_user_color();
+
+      auto pthemecolors = pnodeThisMutable->_get_os_theme_colors();
+
+      auto bDarkMode = pthemecolors->m_colorBack.get_luminance() < 0.5;
+
+      return bDarkMode;
+
+   }
 
 
 

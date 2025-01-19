@@ -25,11 +25,13 @@ namespace aura_posix
    {
    public:
 
+#if !defined(HAS_GTK3) && !defined(HAS_GTK4) && !defined(HAS_KDE5) && !defined(HAS_KDE6)
+
 
 #if defined(WITH_X11) || defined(WITH_XCB)
 
 
-      void *                                 m_pAuraPosixX11Display;
+       void *                                 m_pAuraPosixX11Display;
 
 
 #endif
@@ -43,7 +45,7 @@ namespace aura_posix
 
 #endif
 
-
+#endif
 
 
       node();
@@ -84,7 +86,7 @@ virtual void initialize_window_manager();
 
       //void delete_this() override;
 
-
+#if !defined(HAS_GTK3) && !defined(HAS_GTK4) && !defined(HAS_KDE5) && !defined(HAS_KDE6)
 #if defined(WITH_X11) || defined(WITH_XCB)
 
       virtual ::e_status _allocate_Display_and_connection();
@@ -109,7 +111,7 @@ virtual void initialize_window_manager();
 
 
 #endif // WITH_XCB
-
+#endif
 
       ::file::path get_desktop_file_path(::apex::application * papp) override;
       virtual ::file::path get_desktop_file_path_by_app_id(const ::scoped_string & scopedstrAppId);

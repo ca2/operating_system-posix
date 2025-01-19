@@ -59,7 +59,7 @@ namespace windowing_kde6
       iptr                                         m_countReference;
       ::pointer<class window>                      m_pwindowRoot;
       //::pointer<class window>                      m_pwindowKeyboardFocus;
-      ::pointer<::windowing_kde5::window>           m_pwindowActive;
+      //::pointer<::windowing_kde5::window>           m_pwindowActive;
       ///::pointer<::windowing_kde5::window>           m_pwindowMouseCapture;
       //bool                                         m_bHasXSync;
       //int                                          m_iXSyncMajor;
@@ -98,7 +98,7 @@ namespace windowing_kde6
 
 //      virtual ::windowing_kde5::window * _window(::wl_surface * pwlsurface);
 
-      virtual ::windowing_kde5::windowing * x11_windowing();
+      virtual ::windowing_kde6::windowing * kde6_windowing();
 
       virtual void lock_display();
 
@@ -147,6 +147,8 @@ namespace windowing_kde6
 //
 //      Atom net_wm_state_atom(bool bCreate);
 
+
+         ::int_size get_main_screen_size() override;
 
 
       virtual bool get_cursor_position(::int_point * ppointCursor);

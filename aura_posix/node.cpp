@@ -27,6 +27,7 @@ namespace aura_posix
    node::node()
    {
 
+#if !defined(HAS_GTK3) && !defined(HAS_GTK4) && !defined(HAS_KDE5) && !defined(HAS_KDE6)
 #if defined(WITH_X11) || defined(WITH_XCB)
          
          
@@ -40,7 +41,7 @@ namespace aura_posix
       m_pAuraPosixXcbConnection = nullptr;
          
 #endif
-
+#endif
       //m_pAuraPosix = this;
 
    }
@@ -93,6 +94,7 @@ namespace aura_posix
    void node::initialize_window_manager()
    {
 
+#if !defined(HAS_GTK3) && !defined(HAS_GTK4) && !defined(HAS_KDE5) && !defined(HAS_KDE6)
 #if defined(WITH_X11) || defined(WITH_XCB)
 
       information() << "aura_posix::node initialize going to call _allocate_Display_and_connection";
@@ -100,7 +102,7 @@ namespace aura_posix
       _allocate_Display_and_connection();
 
 #endif // WITH_X11
-
+#endif
    }
 
 
@@ -322,7 +324,7 @@ namespace aura_posix
    //   ::aura::node::delete_this();
 
    //}
-
+#if !defined(HAS_GTK3) && !defined(HAS_GTK4) && !defined(HAS_KDE5) && !defined(HAS_KDE6)
 
 #if defined(WITH_X11) || defined(WITH_XCB)
    
@@ -340,6 +342,9 @@ namespace aura_posix
          return error_failed;
          
       }
+
+
+
 
       m_pAuraPosixX11Display = pacmedisplay->raw_x11_display();
 
@@ -428,6 +433,8 @@ namespace aura_posix
    
 #endif
    
+#endif
+
 
    ::file::path node::get_desktop_file_path(::apex::application * papp)
    {

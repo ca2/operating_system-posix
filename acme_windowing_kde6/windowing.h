@@ -21,9 +21,9 @@ namespace kde6
       {
 
 
-   class CLASS_DECL_WINDOWING_SYSTEM_KDE5 windowing :
+   class CLASS_DECL_ACME_WINDOWING_KDE6 windowing :
            virtual public ::acme::windowing::windowing,
-         virtual public ::kd6::micro::window
+         virtual public ::kde6::micro::window
    {
    public:
 
@@ -31,19 +31,19 @@ namespace kde6
       QApplication * m_pqapplication;
 
 
-      windowing_system();
-      ~windowing_system() override;
+      windowing();
+      ~windowing() override;
 
-      ::e_status defer_initialize_windowing_system() override;
-      ::e_status initialize_windowing_system() override;
-      void * get_display() override;
-      void sync(const ::procedure & procedure) override;
-      void async(const ::procedure & procedure) override;
+      //::e_status defer_initialize_windowing_system() override;
+      void initialize_windowing() override;
+      ::acme::windowing::display * acme_display() override;
+      void _user_send(const ::procedure & procedure) override;
+      void _user_post(const ::procedure & procedure) override;
       void display_error_trap_push(int i) override;
       void display_error_trap_pop_ignored(int i) override;
 
 
-      void user_post(const ::procedure & procedureParam) override;
+      void _main_post(const ::procedure & procedureParam) override;
 
 
       virtual void _on_activate_kde_application();
@@ -52,8 +52,8 @@ namespace kde6
       void on_start_system() override;
 
 
-      void windowing_system_application_main_loop() override;
-      void windowing_system_post_quit() override;
+      void windowing_application_main_loop() override;
+      void windowing_post_quit() override;
 
 
       virtual ::pixmap get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile);
@@ -65,6 +65,8 @@ namespace kde6
 //   void x11_async(const ::procedure & procedure) override;
 //   void x11_display_error_trap_push(int i) override;
 //   void x11_display_error_trap_pop_ignored(int i) override;
+
+     bool dark_mode() override;
 
 
    };

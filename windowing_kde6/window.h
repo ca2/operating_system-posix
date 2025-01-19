@@ -37,16 +37,17 @@
       e_window_edge_south_east
     };
 
-namespace windowing_kde5
+
+namespace windowing_kde6
 {
+
 
       class window;
 
 
-
-   class CLASS_DECL_WINDOWING_KDE5 window :
+   class CLASS_DECL_WINDOWING_KDE6 window :
       virtual public ::windowing_posix::window,
-      virtual public ::kde5::micro::window
+      virtual public ::kde6::acme::windowing::window
          //, virtual public ::wayland::micro::window_base
    {
    public:
@@ -71,7 +72,7 @@ namespace windowing_kde5
 
       //bool                                         m_bPendingConfigureRequest;
       //::pointer<::windowing_kde5::x11data>          m_px11data;
-      ::pointer<::windowing_kde5::display>          m_pwaylanddisplay;
+      //::pointer<::windowing_kde5::display>          m_pwaylanddisplay;
       //::Window                                     m_parent;
       //Cursor                                       m_cursorLast;
       //int                                          m_iXic;
@@ -140,6 +141,7 @@ void on_initialize_particle() override;
       //void create_window(::windowing::window * pimpl) override;
 
       void create_window() override;
+         void _create_window() override;
 
 
       void destroy() override;
@@ -217,7 +219,7 @@ void on_initialize_particle() override;
       //virtual bool is_child( WINDOWING_X11_WINDOW_MEMBER ::windowing::window * candidateChildOrDescendant); // or descendant
       //;::windowing::window * get_parent() const override;
       //virtual ::Window get_parent_handle();
-      ::oswindow get_parent_oswindow() const override;
+      //::oswindow get_parent_oswindow() const override;
 
 
 //      ::int_point get_mouse_cursor_host_position() override;
@@ -226,8 +228,8 @@ void on_initialize_particle() override;
 
       //virtual ::Window get_parent_handle() const;
 
-      ::windowing_kde5::windowing * kde5_windowing();
-      ::windowing_kde5::display * kde5_display();
+      ::windowing_kde6::windowing * kde6_windowing();
+      ::windowing_kde6::display * kde6_display();
 
          //void _on_initialize_system_menu_button(GtkWidget * pbutton, const ::scoped_string & scopedstrAtom);
 
@@ -287,13 +289,13 @@ void on_initialize_particle() override;
       void _set_active_window_unlocked() override;
 
 
-      void set_foreground_window() override;
-      void _set_foreground_window_unlocked() override;
+      void set_foreground_window(::user::activation_token * puseractivationtoken) override;
+      void _set_foreground_window_unlocked(::user::activation_token * puseractivationtoken) override;
 
 
       //bool has_mouse_capture() override;
 
-      bool has_keyboard_focus() const override;
+      bool has_keyboard_focus() override;
 
 
 
@@ -331,11 +333,11 @@ void on_initialize_particle() override;
       void set_tool_window(bool bSet) override;
 
 
-      bool set_window_position(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::e_activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;
+      bool set_window_position(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;
 
 
-      bool _set_window_position_unlocked(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::e_activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay);
-      bool _configure_window_unlocked(const class ::zorder& zorder, const ::user::e_activation& useractivation, bool bNoZorder, ::e_display edisplay);
+      bool _set_window_position_unlocked(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay);
+      bool _configure_window_unlocked(const class ::zorder& zorder, const ::user::activation& useractivation, bool bNoZorder, ::e_display edisplay);
       bool _strict_set_window_position_unlocked(int x, int y, int cx, int cy, bool bNoMove, bool bNoSize);
 
 
@@ -400,7 +402,7 @@ void on_initialize_particle() override;
       //void _on_configure_notify_unlocked(const ::int_rectangle & rectangle) override;
 
 
-      bool is_active_window() const override;
+      bool is_active_window() override;
 
 
       void bring_to_front() override;
@@ -486,7 +488,7 @@ void on_initialize_particle() override;
 
 
 
-} // namespace windowing_kde5
+} // namespace windowing_kde6
 
 
 

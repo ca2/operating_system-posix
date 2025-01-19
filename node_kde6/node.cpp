@@ -27,6 +27,7 @@
 #include <QDBusInterface>
 #include <qpa/qplatformnativeinterface.h>
 #include <xcb/xcb.h>
+#include "windowing_kde6/windowing.h"
 //#include <KPackage/Package>
 //#include <KPackage/PackageLoader>
 //#include <KF5/plasma/applet.h>
@@ -71,13 +72,13 @@ namespace node_kde6
    node::node()
    {
 
-      m_pNodeKDE6 = this;
+      //m_pNodeKDE6 = this;
 
-      m_pqapplication = nullptr;
+      //m_pqapplication = nullptr;
 
       m_piconloader = nullptr;
 
-      m_qpalette = QApplication::palette();
+      //m_qpalette = QApplication::palette();
 
    }
 
@@ -86,12 +87,12 @@ namespace node_kde6
    {
 
 
-      if(m_pqapplication != nullptr)
-      {
-
-         delete m_pqapplication;
-
-      }
+      // if(m_pqapplication != nullptr)
+      // {
+      //
+      //    delete m_pqapplication;
+      //
+      // }
 
 //
 //      _destroy_node_kde();
@@ -119,68 +120,68 @@ namespace node_kde6
    }
 
 
-   void node::user_post_quit()
-   {
-
-      m_pqapplication->quit();
-
-   }
-
-
-   bool node::eventFilter(QObject * pparticle, QEvent * pevent)
-   {
-
-//      if(pevent->type() == QEvent::ApplicationPaletteChange)
-//      {
+//    void node::user_post_quit()
+//    {
 //
-//         auto pthemecolors = ::user::os_get_theme_colors();
+//       m_pqapplication->quit();
 //
-//         if(!pthemecolors)
-//         {
-//
-//            pthemecolors = new_os_theme_colors();
-//
-//            ::user::os_set_theme_colors(pthemecolors);
-//
-//         }
-//
-//         kde_update_os_theme_colors(pthemecolors);
-//
-//         fetch_user_color();
-//
-//         return false;
-//
-//      }
-
-//      if(pevent->type() == QEvent::ThemeChange)
-//      {
+//    }
 //
 //
+//    bool node::eventFilter(QObject * pparticle, QEvent * pevent)
+//    {
+//
+// //      if(pevent->type() == QEvent::ApplicationPaletteChange)
+// //      {
+// //
+// //         auto pthemecolors = ::user::os_get_theme_colors();
+// //
+// //         if(!pthemecolors)
+// //         {
+// //
+// //            pthemecolors = new_os_theme_colors();
+// //
+// //            ::user::os_set_theme_colors(pthemecolors);
+// //
+// //         }
+// //
+// //         kde_update_os_theme_colors(pthemecolors);
+// //
+// //         fetch_user_color();
+// //
+// //         return false;
+// //
+// //      }
+//
+// //      if(pevent->type() == QEvent::ThemeChange)
+// //      {
+// //
+// //
+// //
+// //
+// //      }
+//
+//       return false;
+//
+//    }
 //
 //
-//      }
-
-      return false;
-
-   }
-
-
-   int node::node_init_check(int *pi, char ***ppz)
-   {
-
-      m_qpalette = QApplication::palette();
-
-      return 1;
-
-   }
+//    int node::node_init_check(int *pi, char ***ppz)
+//    {
+//
+//       m_qpalette = QApplication::palette();
+//
+//       return 1;
+//
+//    }
 
 
-   void node::_fill_os_theme_colors(::os_theme_colors * pthemecolors)
-   {
-
-      kde_update_os_theme_colors(pthemecolors);
-
-   }
+   // void node::_fill_os_theme_colors(::os_theme_colors * pthemecolors)
+   // {
+   //
+   //    kde_update_os_theme_colors(pthemecolors);
+   //
+   // }
 
 
    void node::on_system_main()
@@ -255,37 +256,11 @@ namespace node_kde6
 
       psystem->defer_post_initial_request();
 
-      _qapplication_exec();
+      //_qapplication_exec();
 
    }
 
 
-   bool node::is_x11()
-   {
-
-      if(!m_booleanX11.is_set())
-      {
-
-         auto px11Application = m_pqapplication->nativeInterface<QNativeInterface::QX11Application>();
-
-         if (px11Application)
-         {
-
-            m_booleanX11 = true;
-
-         }
-         else
-         {
-
-            m_booleanX11 = false;
-
-         }
-
-      }
-
-      return m_booleanX11;
-
-   }
 
 
    void node::initialize(::particle * pparticle)
@@ -295,24 +270,24 @@ namespace node_kde6
 
       auto psystem = pparticle->system();
 
-      m_pqapplication = ___new QApplication(psystem->m_argc, psystem->m_args);
-
-      if(!m_pqapplication)
-      {
-
-         printf("%s", "Failed to create QApplication");
-
-         throw ::exception(error_failed);
-
-      }
-
-      information() << "node_kde::node initialize QApplication : " << (::iptr) m_pqapplication;
-
-      m_pqapplication->setQuitOnLastWindowClosed(false);
-
+      // m_pqapplication = ___new QApplication(psystem->m_argc, psystem->m_args);
+      //
+      // if(!m_pqapplication)
+      // {
+      //
+      //    printf("%s", "Failed to create QApplication");
+      //
+      //    throw ::exception(error_failed);
+      //
+      // }
+      //
+      // information() << "node_kde::node initialize QApplication : " << (::iptr) m_pqapplication;
+      //
+      // m_pqapplication->setQuitOnLastWindowClosed(false);
+      //
       //main_asynchronous([])
 
-      m_pqapplication->installEventFilter(this);
+      //m_pqapplication->installEventFilter(this);
 
       //auto estatus =
       //
@@ -387,16 +362,18 @@ namespace node_kde6
    void node::initialize_window_manager()
    {
 
+#if !defined(HAS_GTK3) && !defined(HAS_GTK4) && !defined(HAS_KDE5) && !defined(HAS_KDE6)
+
       information() << "node_kde _allocate_Display_and_connection";
 
       if(is_x11())
       {
 
-         auto px11Application = m_pqapplication->nativeInterface<QNativeInterface::QX11Application>();
+         //auto px11Application = m_pqapplication->nativeInterface<QNativeInterface::QX11Application>();
 
-         auto pDisplay = px11Application->display();
-
-         informationf("qx11info::display : " + hex::lower_case_from((iptr) pDisplay));
+  //       auto pDisplay = px11Application->display();
+//
+    //     informationf("qx11info::display : " + hex::lower_case_from((iptr) pDisplay));
 
          m_pAuraPosixX11Display = pDisplay;
 
@@ -436,60 +413,62 @@ namespace node_kde6
 
       }
 
-   }
-
-
-
-   string node::os_get_user_theme()
-   {
-
-      ::file::path pathKdeGlobals;
-
-      pathKdeGlobals = directory_system()->home() /".config/kdeglobals";
-
-      auto lines = file()->lines(pathKdeGlobals);
-
-      ::string str;
-
-      lines.case_insensitive_find_first_begins_eat(str, "LookAndFeelPackage");
-
-      if(str.is_empty())
-      {
-
-         return {};
-
-      }
-
-      str.trim_left(" =");
-      str.trim_right();
-      str.trim();
-
-      auto strTheme = str;
-
-      information() << "Current LookAndFeelPackage is : " << strTheme;
-
-      return strTheme;
+#endif
 
    }
 
 
-   void node::os_set_user_theme(const ::string &strUserTheme)
-   {
 
-      command_system("lookandfeeltool -a " + strUserTheme);
+   // string node::os_get_user_theme()
+   // {
+   //
+   //    ::file::path pathKdeGlobals;
+   //
+   //    pathKdeGlobals = directory_system()->home() /".config/kdeglobals";
+   //
+   //    auto lines = file()->lines(pathKdeGlobals);
+   //
+   //    ::string str;
+   //
+   //    lines.case_insensitive_find_first_begins_eat(str, "LookAndFeelPackage");
+   //
+   //    if(str.is_empty())
+   //    {
+   //
+   //       return {};
+   //
+   //    }
+   //
+   //    str.trim_left(" =");
+   //    str.trim_right();
+   //    str.trim();
+   //
+   //    auto strTheme = str;
+   //
+   //    information() << "Current LookAndFeelPackage is : " << strTheme;
+   //
+   //    return strTheme;
+   //
+   // }
+   //
+   //
+   // void node::os_set_user_theme(const ::string &strUserTheme)
+   // {
+   //
+   //    command_system("lookandfeeltool -a " + strUserTheme);
+   //
+   // }
 
-   }
+
+   // void node::os_process_user_theme(string strTheme)
+   // {
+   //
+   //    //_os_process_user_theme(strTheme);
+   //
+   // }
 
 
-   void node::os_process_user_theme(string strTheme)
-   {
-
-      //_os_process_user_theme(strTheme);
-
-   }
-
-
-   bool node::set_wallpaper(::collection::index , string strLocalImagePath, ::windowing::display * pwindowingdisplay)
+   bool node::set_wallpaper(::collection::index , string strLocalImagePath, ::acme::windowing::display * pwindowingdisplay)
    {
 
       ::string strCommand;
@@ -706,28 +685,30 @@ namespace node_kde6
    }
 
 
-   string node::get_wallpaper(::collection::index iScreen)
+   // string node::get_wallpaper(::collection::index iScreen)
+   // {
+   //
+   //    return "";
+   //
+   // }
+   //
+
+   void node::_user_post(const ::procedure & procedure)
    {
 
-      return "";
+      system()->acme_windowing()->_user_post(procedure);
 
-   }
-
-
-   void node::user_post(const ::procedure & procedure)
-   {
-
-      // invoke on the main thread
-      QMetaObject::invokeMethod(
-         m_pqapplication,
-         [procedure]
-         {
-
-            procedure();
-
-         });
-
-      //return success;
+      // // invoke on the main thread
+      // QMetaObject::invokeMethod(
+      //    m_pqapplication,
+      //    [procedure]
+      //    {
+      //
+      //       procedure();
+      //
+      //    });
+      //
+      // //return success;
 
    }
 
@@ -842,54 +823,54 @@ namespace node_kde6
 //
 //   }
 
-
-   bool node::nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result)
-   {
-
-      if(eventType == "xcb_generic_event_t")
-      {
-
-         xcb_generic_event_t * pevent = (xcb_generic_event_t *) message;
-
-         auto pwindowing = m_pwindowingAuraNode;
-
-         if(!pwindowing)
-         {
-
-            return false;
-
-         }
-
-         if(pwindowing->_xcb_process_event(pevent))
-         {
-
-            return false;
-
-         }
-
-      }
-      else
-      {
-
-         information(string(eventType.constData()) + " unhandled!!\n");
-
-      }
-
-      return false;
-
-   }
-
-
-   ::e_status node::_qapplication_exec()
-   {
-
-      m_pqapplication->installNativeEventFilter(this);
-
-      m_pqapplication->exec();
-
-      return ::success;
-
-   }
+   //
+   // bool node::nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result)
+   // {
+   //
+   //    if(eventType == "xcb_generic_event_t")
+   //    {
+   //
+   //       xcb_generic_event_t * pevent = (xcb_generic_event_t *) message;
+   //
+   //       auto pwindowing = m_pwindowingAuraNode;
+   //
+   //       if(!pwindowing)
+   //       {
+   //
+   //          return false;
+   //
+   //       }
+   //
+   //       if(pwindowing->_xcb_process_event(pevent))
+   //       {
+   //
+   //          return false;
+   //
+   //       }
+   //
+   //    }
+   //    else
+   //    {
+   //
+   //       information(string(eventType.constData()) + " unhandled!!\n");
+   //
+   //    }
+   //
+   //    return false;
+   //
+   // }
+   //
+   //
+   // ::e_status node::_qapplication_exec()
+   // {
+   //
+   //    m_pqapplication->installNativeEventFilter(this);
+   //
+   //    m_pqapplication->exec();
+   //
+   //    return ::success;
+   //
+   // }
 
 
 //   bool node::_os_calc_system_dark_mode()
@@ -925,7 +906,9 @@ namespace node_kde6
 
       pathDesktop = directory_system()->home() / ".local/share/applications" / (strDesktopFileTitle + ".desktop");
 
-      kde_open_local_file(m_pqapplication, pathDesktop, "application/x-desktop");
+      ::cast < ::windowing_kde6::windowing > pkde6windowing = system()->acme_windowing();
+
+      kde_open_local_file(pkde6windowing->m_pqapplication, pathDesktop, "application/x-desktop");
 
    }
 
@@ -948,7 +931,7 @@ namespace node_kde6
       user_post([pdialog]()
                 {
 
-                   auto pqfiledialog = ___new QFileDialog();
+                   auto pqfiledialog = new QFileDialog();
 
                    if (pdialog->m_bSave)
                    {
@@ -1029,7 +1012,7 @@ namespace node_kde6
       user_post([pdialog]()
                 {
 
-                   auto pqfiledialog = ___new QFileDialog();
+                   auto pqfiledialog = new QFileDialog();
 
                    pqfiledialog->setAcceptMode(QFileDialog::AcceptMode::AcceptOpen);
 
@@ -1124,20 +1107,20 @@ namespace node_kde6
    }
 
 
-   bool node::dark_mode() const
-   {
-
-      auto pnodeThisMutable = (node *) this;
-
-      pnodeThisMutable->_fetch_user_color();
-
-      auto pthemecolors = pnodeThisMutable->_get_os_theme_colors();
-
-      auto bDarkMode = pthemecolors->m_colorBack.get_luminance() < 0.5;
-
-      return bDarkMode;
-
-   }
+   // bool node::dark_mode() const
+   // {
+   //
+   //    auto pnodeThisMutable = (node *) this;
+   //
+   //    pnodeThisMutable->_fetch_user_color();
+   //
+   //    auto pthemecolors = pnodeThisMutable->_get_os_theme_colors();
+   //
+   //    auto bDarkMode = pthemecolors->m_colorBack.get_luminance() < 0.5;
+   //
+   //    return bDarkMode;
+   //
+   // }
 
 
 } // namespace node_kde6

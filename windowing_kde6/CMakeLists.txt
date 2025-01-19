@@ -147,7 +147,7 @@ elseif (${LINUX} OR ${__BSD__})
 
 
     #pkg_check_modules(PKGCONFIG xkbcommon x11 xrender xi xext libstartup-notification-1.0 wayland-client wayland-server wayland-cursor)
-    pkg_check_modules(PKGCONFIG ${WAYLAND_PKG_MODULES} ${X11_PKG_MODULES} ${APPINDICATOR_PKG_MODULE})
+    #pkg_check_modules(PKGCONFIG ${WAYLAND_PKG_MODULES} ${X11_PKG_MODULES} ${APPINDICATOR_PKG_MODULE})
 
     target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
     target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
