@@ -22,7 +22,7 @@ list(APPEND library_references
    aura_${OPERATING_SYSTEM_NAME}
    )
 
-list(APPEND static_library_references ${library_references})
+list(APPEND static_library_references ${library_references} ${global_library_references})
 
 list(TRANSFORM static_library_references PREPEND static_)
 
@@ -44,7 +44,7 @@ if (MSVC)
    target_compile_options(windowing_x11 PRIVATE "/MD$<$<CONFIG:Debug>:d>")
    target_link_options(windowing_x11 PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
    target_link_options(windowing_x11 PRIVATE "/SUBSYSTEM:WINDOWS")
-   target_link_libraries(windowing_x11 PRIVATE ${library_references})
+   target_link_libraries(windowing_x11 PRIVATE ${library_references} ${global_library_references})
    #add_dependencies(windowing_x11 draw2d_gdiplus)
 elseif(${LINUX} OR ${__BSD__})
 
@@ -61,7 +61,7 @@ elseif(${LINUX} OR ${__BSD__})
 
    target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
    target_link_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
-   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references} ${PKGCONFIG_LIBRARIES})
    target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${PKGCONFIG_LIBRARIES})
    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
    # target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)

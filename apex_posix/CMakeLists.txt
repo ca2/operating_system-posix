@@ -111,7 +111,7 @@ if (MSVC)
     target_compile_options(apex_posix PRIVATE "/MD$<$<CONFIG:Debug>:d>")
     target_link_options(apex_posix PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
     target_link_options(apex_posix PRIVATE "/SUBSYSTEM:WINDOWS")
-    target_link_libraries(apex_posix PRIVATE ${library_references})
+    target_link_libraries(apex_posix PRIVATE ${library_references} ${global_library_references})
     add_dependencies(apex_posix draw2d_gdiplus)
 
 
