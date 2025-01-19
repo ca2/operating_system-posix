@@ -23,7 +23,7 @@
 #include "aura_posix/node.h"
 #include "acme/constant/user_key.h"
 #include <wayland-client.h>
-#include <linux/input.h>
+//#include <linux/input.h>
 #include <xkbcommon/xkbcommon.h>
 #include "aura/graphics/image/context.h"
 #include "aura/graphics/image/drawing.h"

@@ -9,8 +9,8 @@ list(APPEND library_source
    #_library.h
    application.cpp
    application.h
-   desktop_environment.cpp
-   desktop_environment.h
+   #desktop_environment.cpp
+   #desktop_environment.h
    display.cpp
    display.h
    framework.cpp
@@ -105,13 +105,16 @@ elseif(${LINUX} OR ${__BSD__})
    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
    target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
    target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
-   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES} ${global_library_references})
    target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${PKGCONFIG_LIBRARIES})
    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
    # target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
 
 
 endif ()
+
+
+add_dependencies(${PROJECT_NAME} windowing_posix windowing_gtk4)
 
 
 list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
