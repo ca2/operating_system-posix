@@ -3786,18 +3786,45 @@ namespace windowing_kde6
    //   }
 
 
-   ::windowing_kde5::windowing* window::kde5_windowing()
+   ::windowing_kde6::windowing* window::kde6_windowing()
    {
 
-      return dynamic_cast<::windowing_kde5::windowing *>(m_pwindowing.m_p);
+      ::cast < ::windowing_kde6::windowing > pkde6windowing = system()->acme_windowing();
+
+      if (!pkde6windowing)
+      {
+
+         return nullptr;
+
+      }
+
+      return pkde6windowing;
 
    }
 
 
-   ::windowing_kde5::display* window::kde5_display()
+   ::windowing_kde6::display* window::kde6_display()
    {
 
-      return dynamic_cast<::windowing_kde5::display *>(m_pdisplaybase.m_p);
+      auto pwindowing = system()->acme_windowing();
+
+      if (!pwindowing)
+      {
+
+         return nullptr;
+
+      }
+
+      ::cast < ::windowing_kde6::display > pkde6display = pwindowing->acme_display();
+
+      if (!pkde6display)
+      {
+
+         return nullptr;
+
+      }
+
+      return pkde6display;
 
    }
 
