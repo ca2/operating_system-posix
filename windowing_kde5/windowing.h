@@ -136,6 +136,8 @@ namespace windowing_kde5
 
       void set_mouse_cursor2(::windowing::cursor* pcursor) override;
 
+      bool defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow) override;
+
       //virtual void x11_main();
 
       //virtual HCURSOR load_default_cursor(e_cursor ecursor) override;

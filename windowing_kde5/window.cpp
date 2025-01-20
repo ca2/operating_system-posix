@@ -24,11 +24,11 @@
 #include "aura_posix/node.h"
 //#include <X11/Xatom.h>
 //#include <X11/extensions/sync.h>
-#include <wayland-client.h>
+//#include <wayland-client.h>
 //#include <gdk/gdkwindow.h>
 #include "acme_windowing_kde5/QCustomTopWindow.h"
 #include <linux/input.h> // for BTN_LEFT,...
-#include <xkbcommon/xkbcommon.h>
+//#include <xkbcommon/xkbcommon.h>
 //#include <gio/gio.h>
 //#include "app-core/gcom/backimpact/visual_effect.h"
 #include <QAction>
@@ -544,7 +544,7 @@ namespace windowing_kde5
    void window::defer_show_system_menu(::user::mouse* pmouse)
    {
 
-
+      ::kde5::acme::windowing::window::defer_show_system_menu(pmouse);
       //::kde5::micro::window::defer_show_system_menu(pmouse);
 
 
@@ -1567,23 +1567,41 @@ namespace windowing_kde5
       //if (::is_set(pwindow))
       {
 
-         auto pmouse = __create_new<::message::mouse>();
+         __check_refdbg;
+
+         auto pmouse = __create_new < ::message::mouse >();
+
+         __check_refdbg;
 
          pmouse->m_oswindow = this;
 
+         __check_refdbg;
+
          pmouse->m_pwindow = this;
 
+         __check_refdbg;
+
          pmouse->m_atom = e_message_mouse_move;
+
+         __check_refdbg;
 
          m_pointCursor2.x() = pevent->globalX();
          m_pointCursor2.y() = pevent->globalY();
 
+         __check_refdbg;
+
          pmouse->m_pointHost.x() = pevent->x();
          pmouse->m_pointHost.y() = pevent->y();
 
+         __check_refdbg;
+
          pmouse->m_pointAbsolute = m_pointCursor2;
 
+         __check_refdbg;
+
          message_handler(pmouse);
+
+         __check_refdbg;
 
       }
 
@@ -1864,6 +1882,28 @@ namespace windowing_kde5
 
    //void window::create_window(::windowing::window * pimpl)
    void window::create_window()
+   {
+
+      ::windowing::window::create_window();
+
+      // main_send([this]()
+      // {
+      //
+      //    _create_window();
+      //
+      // });
+      //
+      // if (!is_window())
+      // {
+      //
+      //    throw ::exception(error_failed);
+      //
+      // }
+
+   }
+
+
+   void window::_create_window()
    {
 
       bool bOk = true;
@@ -2664,18 +2704,6 @@ namespace windowing_kde5
 
          //auto lresult2 = puserinteraction->send_message(e_message_after_create, 0, 0);
       }
-
-      if (!bOk)
-      {
-         throw ::exception(error_failed);
-      }
-   }
-
-
-   void window::_create_window()
-   {
-
-      ::kde5::acme::windowing::window::_create_window();
 
    }
 
@@ -4407,6 +4435,29 @@ namespace windowing_kde5
    }
 
 
+   void window::_main_post(const ::procedure & procedure)
+   {
+
+      system()->acme_windowing()->_main_post(procedure);
+
+   }
+
+
+   void window::_user_send(const ::procedure & procedure)
+   {
+
+      system()->acme_windowing()->_user_send(procedure);
+
+   }
+
+
+   void window::_main_send(const ::procedure & procedure)
+   {
+
+      _user_send(procedure);
+
+   }
+
    //   bool window::get_state(long & lState)
    //   {
    //
@@ -5061,9 +5112,71 @@ namespace windowing_kde5
 
    void window::set_mouse_cursor(::windowing::cursor* pcursor)
    {
-      ::windowing::window::set_mouse_cursor(pcursor);
 
-      windowing()->set_mouse_cursor2(pcursor);
+      if (pcursor != m_pcursor)
+      {
+
+         __check_refdbg;
+
+         ::windowing::window::set_mouse_cursor(pcursor);
+
+         __check_refdbg;
+
+         if (is_main_thread())
+         {
+
+            __check_refdbg;
+
+            ::cast < ::windowing_kde5::cursor > pkde5cursor = m_pcursor;
+
+            __check_refdbg;
+
+            if (pkde5cursor)
+            {
+
+               __check_refdbg;
+
+               pkde5cursor->_create_os_cursor();
+
+               __check_refdbg;
+
+               auto qcursor = pkde5cursor->m_qcursor;
+
+               __check_refdbg;
+
+               m_pqwidget->setCursor(qcursor);
+
+               __check_refdbg;
+
+            }
+
+         }
+         else
+         {
+            _main_post([this]()
+               {
+
+                  ::cast < ::windowing_kde5::cursor > pkde5cursor = m_pcursor;
+
+                  if (pkde5cursor)
+                  {
+
+                     pkde5cursor->_create_os_cursor();
+
+                     auto qcursor = pkde5cursor->m_qcursor;
+
+                     m_pqwidget->setCursor(qcursor);
+
+                  }
+
+               });
+
+         }
+
+      //windowing()->set_mouse_cursor2(pcursor);
+
+      }
+
    }
 
 
@@ -7355,9 +7468,9 @@ namespace windowing_kde5
    //   }
 
 
-   void window::on_destruct_mouse_message(::message::mouse* pmouse)
+   void window::final_mouse_message_handling(::message::mouse* pmouse)
    {
-      ::windowing::window::on_destruct_mouse_message(pmouse);
+      ::windowing::window::final_mouse_message_handling(pmouse);
 
       //      if(::is_null(pmouse))
       //      {

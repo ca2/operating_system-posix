@@ -381,34 +381,49 @@ namespace windowing_kde5
 
       auto pwindowing = system()->windowing();
 
+      __check_refdbg;
+
       auto pdisplay = pwindowing->display();
 
-      ::pointer < ::windowing_kde5::display> pwaylanddisplay =  pdisplay;
+      __check_refdbg;
 
-      const char * cursor_name = "left_ptr";
+      ::cast < ::windowing_kde5::display> pwaylanddisplay =  pdisplay;
+
+      __check_refdbg;
+
+      //const char * cursor_name = "left_ptr";
+
+      Qt::CursorShape shape;
 
       switch(ecursor)
       {
-         case e_cursor_system: cursor_name = "left_ptr"; break;
-         case e_cursor_arrow: cursor_name = "left_ptr"; break;
-         case e_cursor_hand: cursor_name = "hand1"; break;
-         case e_cursor_text_select: cursor_name = "xterm"; break;
-         case e_cursor_size_top_left: cursor_name = "top_left_corner"; break;
-         case e_cursor_size_top: cursor_name = "top_side"; break;
-         case e_cursor_size_top_right: cursor_name = "top_right_corner"; break;
-         case e_cursor_size_right: cursor_name = "right_side"; break;
-         case e_cursor_size_bottom_right: cursor_name = "bottom_right_corner"; break;
-         case e_cursor_size_bottom: cursor_name = "bottom_side"; break;
-         case e_cursor_size_bottom_left: cursor_name = "bottom_left_corner"; break;
-         case e_cursor_size_left: cursor_name = "left_side"; break;
-         case e_cursor_size_vertical: cursor_name = "sb_v_double_arrow"; break;
-         case e_cursor_size_horizontal: cursor_name = "sb_h_double_arrow"; break;
-         case e_cursor_move: cursor_name = "move"; break;
-         case e_cursor_wait: cursor_name = "watch"; break;
-         case e_cursor_wait_arrow: cursor_name = "wait"; break;
+         case e_cursor_system:shape = Qt::CursorShape::ArrowCursor; break;
+         case e_cursor_arrow:shape = Qt::CursorShape::ArrowCursor; break;
+         case e_cursor_hand:shape = Qt::CursorShape::OpenHandCursor; break;
+         case e_cursor_text_select:shape = Qt::CursorShape::IBeamCursor; break;
+         case e_cursor_size_top_left:shape = Qt::CursorShape::SizeBDiagCursor; break;
+         case e_cursor_size_top:shape = Qt::CursorShape::SizeVerCursor; break;
+         case e_cursor_size_top_right:shape = Qt::CursorShape::SizeFDiagCursor; break;
+         case e_cursor_size_right:shape = Qt::CursorShape::SizeHorCursor; break;
+         case e_cursor_size_bottom_right:shape = Qt::CursorShape::SizeBDiagCursor; break;
+         case e_cursor_size_bottom:shape = Qt::CursorShape::SizeVerCursor; break;
+         case e_cursor_size_bottom_left:shape = Qt::CursorShape::SizeFDiagCursor; break;
+         case e_cursor_size_left:shape = Qt::CursorShape::SizeHorCursor; break;
+         case e_cursor_size_vertical:shape = Qt::CursorShape::SizeVerCursor; break;
+         case e_cursor_size_horizontal:shape = Qt::CursorShape::SizeHorCursor; break;
+         case e_cursor_move:shape = Qt::CursorShape::DragMoveCursor; break;
+         case e_cursor_wait:shape = Qt::CursorShape::WaitCursor; break;
+         case e_cursor_wait_arrow:shape = Qt::CursorShape::WaitCursor; break;
          default:
+            shape = Qt::CursorShape::ArrowCursor;
             break;
       }
+
+      __check_refdbg;
+
+      m_qcursor = QCursor(shape);
+
+      __check_refdbg;
 
       //information() << "_load_default_cursor cursor_name : " << cursor_name;
 

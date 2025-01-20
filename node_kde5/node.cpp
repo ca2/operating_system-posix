@@ -133,51 +133,51 @@ namespace node_kde5
    }
 
 
-   void node::user_post_quit()
-   {
-
-      //m_pqapplication->quit();
-
-   }
-
-
-   bool node::eventFilter(QObject * pparticle, QEvent * pevent)
-   {
-
-//      if(pevent->type() == QEvent::ApplicationPaletteChange)
-//      {
+//    void node::user_post_quit()
+//    {
 //
-//         auto pthemecolors = ::user::os_get_theme_colors();
+//       //m_pqapplication->quit();
 //
-//         if(!pthemecolors)
-//         {
-//
-//            pthemecolors = new_os_theme_colors();
-//
-//            ::user::os_set_theme_colors(pthemecolors);
-//
-//         }
-//
-//         kde_update_os_theme_colors(pthemecolors);
-//
-//         fetch_user_color();
-//
-//         return false;
-//
-//      }
-
-//      if(pevent->type() == QEvent::ThemeChange)
-//      {
+//    }
 //
 //
+//    bool node::eventFilter(QObject * pparticle, QEvent * pevent)
+//    {
 //
+// //      if(pevent->type() == QEvent::ApplicationPaletteChange)
+// //      {
+// //
+// //         auto pthemecolors = ::user::os_get_theme_colors();
+// //
+// //         if(!pthemecolors)
+// //         {
+// //
+// //            pthemecolors = new_os_theme_colors();
+// //
+// //            ::user::os_set_theme_colors(pthemecolors);
+// //
+// //         }
+// //
+// //         kde_update_os_theme_colors(pthemecolors);
+// //
+// //         fetch_user_color();
+// //
+// //         return false;
+// //
+// //      }
 //
-//      }
-
-      return false;
-
-   }
-
+// //      if(pevent->type() == QEvent::ThemeChange)
+// //      {
+// //
+// //
+// //
+// //
+// //      }
+//
+//       return false;
+//
+//    }
+//
 
    int node::node_init_check(int *pi, char ***ppz)
    {
@@ -344,56 +344,56 @@ namespace node_kde5
    }
 
 
-   ::e_status node::_allocate_Display_and_connection()
-   {
-
-      information() << "node_kde _allocate_Display_and_connection";
-
-      if(QX11Info::isPlatformX11())
-      {
-
-         void *p = (void *) QX11Info::display();
-
-         informationf("qx11info::display : " + hex::lower_case_from((iptr) p));
-
-         m_pAuraPosixX11Display = p;
-
-         if (!m_pAuraPosixX11Display)
-         {
-
-            return error_failed;
-
-         }
-
-         m_pAuraPosixXcbConnection = QX11Info::connection();
-
-         informationf("qx11info::connection : " + hex::lower_case_from((iptr) m_pAuraPosixXcbConnection));
-
-//      if(!m_pxcbconnection)
-//      {
+//    ::e_status node::_allocate_Display_and_connection()
+//    {
 //
-//         return error_failed;
+//       information() << "node_kde _allocate_Display_and_connection";
 //
-//      }
-
-
-         //::x11::acme::windowing::display_get(this, false, (Display *)p);
-
-         return ::success;
-
-      }
-      else
-      {
-
-         m_bUnhookX = false;
-
-         //m_pAuraPosixX11Display = ::x11::acme::windowing::display_get(this);
-
-         return ::success;
-
-      }
-
-   }
+//       if(QX11Info::isPlatformX11())
+//       {
+//
+//          void *p = (void *) QX11Info::display();
+//
+//          informationf("qx11info::display : " + hex::lower_case_from((iptr) p));
+//
+//          m_pAuraPosixX11Display = p;
+//
+//          if (!m_pAuraPosixX11Display)
+//          {
+//
+//             return error_failed;
+//
+//          }
+//
+//          m_pAuraPosixXcbConnection = QX11Info::connection();
+//
+//          informationf("qx11info::connection : " + hex::lower_case_from((iptr) m_pAuraPosixXcbConnection));
+//
+// //      if(!m_pxcbconnection)
+// //      {
+// //
+// //         return error_failed;
+// //
+// //      }
+//
+//
+//          //::x11::acme::windowing::display_get(this, false, (Display *)p);
+//
+//          return ::success;
+//
+//       }
+//       else
+//       {
+//
+//          m_bUnhookX = false;
+//
+//          //m_pAuraPosixX11Display = ::x11::acme::windowing::display_get(this);
+//
+//          return ::success;
+//
+//       }
+//
+//    }
 
 
 
@@ -840,16 +840,16 @@ namespace node_kde5
    // }
 
 
-   ::e_status node::_qapplication_exec()
-   {
-
-      // m_pqapplication->installNativeEventFilter(this);
-      //
-      // m_pqapplication->exec();
-
-      return ::success;
-
-   }
+   // ::e_status node::_qapplication_exec()
+   // {
+   //
+   //    // m_pqapplication->installNativeEventFilter(this);
+   //    //
+   //    // m_pqapplication->exec();
+   //
+   //    return ::success;
+   //
+   // }
 
 
 //   bool node::_os_calc_system_dark_mode()
