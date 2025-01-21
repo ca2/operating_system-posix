@@ -18,10 +18,10 @@
 //#include <Winsvc.h>
 //
 
-#if defined(_innate_ui_gtk3_project)
-#define CLASS_DECL_INNATE_UI_GTK3  CLASS_DECL_EXPORT
+#if defined(_innate_ui_kde6_project)
+#define CLASS_DECL_INNATE_UI_KDE6  CLASS_DECL_EXPORT
 #else
-#define CLASS_DECL_INNATE_UI_GTK3  CLASS_DECL_IMPORT
+#define CLASS_DECL_INNATE_UI_KDE6  CLASS_DECL_IMPORT
 #endif
 #define G_HANDLER(handler) G_CALLBACK(reinterpret_cast<void(*)(void)>(static_cast<void(*)(GtkWidget*, gpointer)>(handler)))
 //

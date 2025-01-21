@@ -2,13 +2,13 @@
 
 
 #include "aura_posix/_.h"
-//#include <QMetaType>
+#include "windowing_kde6/_.h"
 
 
-#if defined(_node_kde_project)
-   #define CLASS_DECL_NODE_KDE  CLASS_DECL_EXPORT
+#if defined(_node_kde6_project)
+   #define CLASS_DECL_NODE_KDE6  CLASS_DECL_EXPORT
 #else
-   #define CLASS_DECL_NODE_KDE  CLASS_DECL_IMPORT
+   #define CLASS_DECL_NODE_KDE6  CLASS_DECL_IMPORT
 #endif
 
 

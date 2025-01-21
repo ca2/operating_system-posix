@@ -14,31 +14,32 @@
 #include "apex/input/input.h"
 #include "aura/windowing/cursor_manager.h"
 #include <X11/cursorfont.h>
-
-#include "acme/windowing/windowing_base.h"
+//#include "acme/windowing/windowing_base.h"
 #include "aura/platform/session.h"
 #include "aura/platform/system.h"
 //#include "aura/user/user/interaction_impl.h"
 #include "aura/user/user/user.h"
 #include "aura/windowing/display.h"
-#include "windowing_system_kde5/windowing_system.h"
-#include "windowing_system_x11/display_lock.h"
+//#include "windowing_system_kde6/windowing.h"
+//#include "windowing_system_x11/display_lock.h"
 
 
-namespace windowing_kde5
+namespace windowing_kde6
 {
+
+
    windowing::windowing()
    {
 
-      printf("windowing_kde5::windowing::windowing()");
+      printf("windowing_kde6::windowing::windowing()");
 
       defer_create_synchronization();
 
       m_bRootSelectInput = false;
 
-      m_itask = -1;
+      //m_itask = -1;
 
-      m_pWindowing4 = this;
+      //m_pWindowing4 = this;
 
       m_bFirstWindowMap = false;
 
@@ -73,7 +74,7 @@ namespace windowing_kde5
    bool windowing::has_readily_gettable_absolute_coordinates() const
    {
 
-      if(::windowing::get_ewindowing() == ::windowing::e_windowing_wayland)
+      if(((windowing *)this)->get_ewindowing() == ::windowing::e_windowing_wayland)
       {
 
          return false;
@@ -100,16 +101,7 @@ namespace windowing_kde5
     QApplication * windowing::qapplication()
    {
 
-        ::pointer < ::windowing_system_kde5::windowing_system > pkde5windowingsystem = system()->acme_windowing();
-
-       if(!pkde5windowingsystem)
-       {
-
-           return nullptr;
-
-       }
-
-       return pkde5windowingsystem->m_pqapplication;
+       return m_pqapplication;
 
 
    }
@@ -143,7 +135,9 @@ namespace windowing_kde5
    void windowing::erase_window(::windowing::window * pwindow)
    {
 
-      m_pdisplay->erase_window(pwindow);
+      auto pdisplay = kde6_display();
+
+      pdisplay->erase_window(pwindow);
 
    }
 
@@ -179,10 +173,10 @@ namespace windowing_kde5
    //   }
 
 
-   void windowing::initialize_windowing(::user::user * puser)
+   void windowing::initialize_windowing()
    {
 
-      ::windowing_posix::windowing::initialize_windowing(puser);
+      ::windowing_posix::windowing::initialize_windowing();
 
       information() << "windowing_kde5::windowing::initialize_windowing";
 
@@ -293,7 +287,7 @@ namespace windowing_kde5
    void windowing::windowing_post_quit()
    {
 
-      system()->acme_windowing()->windowing_system_post_quit();
+      system()->acme_windowing()->windowing_post_quit();
       //g_idle_add(gtk_application_quit_callback, G_APPLICATION(m_pgtkapplication));
 
    }
@@ -336,16 +330,19 @@ namespace windowing_kde5
    ::windowing::display * windowing::display()
    {
 
-      if(!m_pdisplay)
-      {
+      ::cast < ::windowing::display > pdisplay = acme_display();
 
-         system()->do_graphics_and_windowing_system_factory();
+      return pdisplay;
 
-         m_pdisplay = system()->acme_windowing()->display();
+   }
 
-      }
 
-      return m_pdisplay;
+   ::windowing_kde6::display* windowing::kde6_display()
+   {
+
+      ::cast < ::windowing_kde6::display > pdisplay = acme_display();
+
+      return pdisplay;
 
    }
 
@@ -495,13 +492,13 @@ namespace windowing_kde5
    ::acme::windowing::window * windowing::get_keyboard_focus(::thread *)
    {
 
-      if (!m_pdisplay)
-      {
-
-         return nullptr;
-
-      }
-
+      // if (!m_pdisplay)
+      // {
+      //
+      //    return nullptr;
+      //
+      // }
+      //
       //auto pwindow = m_pdisplay->get_keyboard_focus();
 
       //return pwindow;
@@ -533,7 +530,7 @@ namespace windowing_kde5
 
 
 
-   ::windowing::window * windowing::window(oswindow oswindow)
+   ::acme::windowing::window * windowing::window(oswindow oswindow)
    {
 
       return oswindow;
@@ -576,9 +573,37 @@ namespace windowing_kde5
    // }
 
 
-   void windowing::_on_capture_changed_to(::windowing_kde5::window * pwindowMouseCaptureNew)
+   void windowing::_on_capture_changed_to(::windowing_kde6::window * pwindowMouseCaptureNew)
    {
 
+
+   }
+
+
+   bool windowing::is_x11()
+   {
+
+      if(!m_booleanX11.is_set())
+      {
+
+         auto px11Application = m_pqapplication->nativeInterface<QNativeInterface::QX11Application>();
+
+         if (px11Application)
+         {
+
+            m_booleanX11 = true;
+
+         }
+         else
+         {
+
+            m_booleanX11 = false;
+
+         }
+
+      }
+
+      return m_booleanX11;
 
    }
 
@@ -596,7 +621,7 @@ namespace windowing_kde5
 
       }
 
-      ::pointer < ::windowing_kde5::cursor > pwaylandcursor = pcursor;
+      ::cast < ::windowing_kde6::cursor > pwaylandcursor = pcursor;
 
       if (!pwaylandcursor)
       {
@@ -608,7 +633,7 @@ namespace windowing_kde5
 
       pwaylandcursor->_create_os_cursor();
 
-      auto pwaylanddisplay = m_pdisplay;
+      auto pwaylanddisplay = acme_display();
 
       // auto pwlpointer = pwaylanddisplay->m_pwlpointer;
       //
@@ -974,9 +999,11 @@ namespace windowing_kde5
 
    //void gtk_settings_gtk_icon_theme_name_callback(GObject *object, GParamSpec *pspec, gpointer data);
 
-   void windowing::user_post(const ::procedure & procedure)
+   void windowing::_user_post(const ::procedure & procedure)
    {
-       system()->acme_windowing()->user_post(procedure);
+
+      ::kde6::acme::windowing::windowing::_user_post(procedure);
+       //system()->acme_windowing()->user_post(procedure);
       // auto procedure(procedureParam);
       //
       // // invoke on the main thread
@@ -1113,7 +1140,9 @@ namespace windowing_kde5
    void windowing::windowing_application_main_loop()
    {
 
-       system()->acme_windowing()->windowing_system_application_main_loop();
+
+      ::kde6::acme::windowing::windowing::windowing_application_main_loop();
+       //system()->acme_windowing()->windowing_application_main_loop();
       // ::string strId = application()->m_strAppId;
       //
       // strId.find_replace("/", ".");

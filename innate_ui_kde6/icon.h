@@ -7,11 +7,11 @@
 #include <QPixmap>
 
 
-namespace innate_ui_kde5
+namespace innate_ui_kde6
 {
 
 
-   class CLASS_DECL_INNATE_UI_GTK3 icon :
+   class CLASS_DECL_INNATE_UI_KDE6 icon :
       virtual public ::innate_ui::icon
    {
    public:

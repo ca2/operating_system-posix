@@ -61,15 +61,27 @@ if (MSVC)
     target_link_libraries(${PROJECT_NAME} PRIVATE acme apex aqua aura Gdiplus)
 elseif (${LINUX} OR ${__BSD__})
 
-    #pkg_check_modules(PKGCONFIG cairo xkbcommon wayland-client wayland-server wayland-cursor)
-    pkg_check_modules(PKGCONFIG gtk4)
-    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
-    #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
-    #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})
-    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-rpath=\$ORIGIN)
-    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${PKGCONFIG_LIBRARIES})
-    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
-    message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
+
+   target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
+
+
+   target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive  ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
+
+   #pkg_check_modules(PKGCONFIG cairo xkbcommon wayland-client wayland-server wayland-cursor)
+   pkg_check_modules(PKGCONFIG gtk4)
+   target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+   #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
+   #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references} ${PKGCONFIG_LIBRARIES})
+   #target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
+   #target_link_options(${PROJECT_NAME} PRIVATE ${GLOBAL_EXTRA_LINKER_FLAGS} -Wl${GLOBAL_EXTRA_LINK_FLAGS},-z,defs)
+   #target_link_options(${PROJECT_NAME} PRIVATE ${GLOBAL_EXTRA_LINKER_FLAGS} -Wl${GLOBAL_EXTRA_LINK_FLAGS},-z,defs)
+    
+   #target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
+   
+   target_link_options(${PROJECT_NAME} PRIVATE ${GLOBAL_EXTRA_LINKER_FLAGS} -Wl${GLOBAL_EXTRA_LINK_FLAGS},-z,defs)
+
+   message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
 
 
 endif ()

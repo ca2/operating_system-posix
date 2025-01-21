@@ -28,7 +28,7 @@ namespace node_gtk4
    public:
 
 
-      GdkAppLaunchContext * m_pgdkapplaunchcontext;
+      //GdkAppLaunchContext * m_pgdkapplaunchcontext;
       //string_map < GDesktopAppInfo * > m_mapGDesktopAppInfo;
 
 

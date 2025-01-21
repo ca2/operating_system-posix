@@ -55,7 +55,7 @@ void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString)
 //    }
 
 
-namespace windowing_kde5
+namespace windowing_kde6
 {
 
    //    // Callback for registry listener to bind global Wayland objects
@@ -93,7 +93,7 @@ namespace windowing_kde5
          //m_pxdgwmbase=nullptr;
       //m_pwldisplay = nullptr;
 
-      m_pDisplay = this;
+      //m_pDisplay = this;
       //m_pgdkdisplay = nullptr;
 
 
@@ -501,10 +501,19 @@ namespace windowing_kde5
    }
 
 
-   ::windowing_kde5::windowing * display::x11_windowing()
+   ::windowing_kde6::windowing * display::kde6_windowing()
    {
 
-      return (::windowing_kde5::windowing *) m_pwindowing->m_pWindowing4;
+      ::cast < ::windowing_kde6::windowing > pkde6windowing = system()->acme_windowing();
+
+      if (!pkde6windowing)
+      {
+
+         return nullptr;
+
+      }
+
+      return pkde6windowing;
 
    }
 
@@ -1578,8 +1587,15 @@ namespace windowing_kde5
    }
 
 
+   ::int_size display::get_main_screen_size()
+   {
 
-} // namespace windowing_kde5
+      return ::kde6::acme::windowing::display::get_main_screen_size();
+
+   }
+
+
+} // namespace windowing_kde6
 
 
 

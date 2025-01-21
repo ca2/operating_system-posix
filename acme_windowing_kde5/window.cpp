@@ -1861,6 +1861,9 @@ m_pqwidget->move(p);
 
                m_pqwidget->grabMouse();
 
+               system()->m_pacmewindowing->m_pwindowMouseCapture = this;
+
+
             });
 
          }

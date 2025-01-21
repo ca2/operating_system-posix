@@ -7,7 +7,7 @@
 #include "acme/windowing/window.h"
 //#include "event_listener.h"
 #include "acme/parallelization/manual_reset_happening.h"
-#include "micro_window.h"
+#include "acme_windowing_kde6/micro_window.h"
 #include <QWidget>
 
 
@@ -23,9 +23,9 @@ namespace kde6
       {
 
 
-         class CLASS_DECL_NANO_USER_KDE6 window :
-            virtual public ::acme::windowing::window
-            //,           virtual public event_listener
+         class CLASS_DECL_ACME_WINDOWING_KDE6 window :
+            virtual public ::acme::windowing::window,
+            virtual public ::kde6::micro::window
          {
          public:
 
@@ -100,11 +100,15 @@ namespace kde6
 
             //virtual void on_draw(::nano::graphics::device * pnanodevice);
 
-            void on_character(int iChar) override;
+            virtual void on_character(int iChar);
 
             bool is_active_window() override;
 
             void set_active_window() override;
+
+
+            void _main_send(const ::procedure & procedure);
+            void _main_post(const ::procedure & procedure);
 
             ///virtual void draw_children(::nano::graphics::device * pnanodevice);
 

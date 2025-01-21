@@ -141,16 +141,16 @@ if (MSVC)
     target_compile_options(windowing_wayland PRIVATE "/MD$<$<CONFIG:Debug>:d>")
     target_link_options(windowing_wayland PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
     target_link_options(windowing_wayland PRIVATE "/SUBSYSTEM:WINDOWS")
-    target_link_libraries(windowing_wayland PRIVATE ${library_references})
+    target_link_libraries(windowing_wayland PRIVATE ${library_references} ${global_library_references})
     #add_dependencies(windowing_wayland draw2d_gdiplus)
 elseif (${LINUX} OR ${__BSD__})
 
 
     #pkg_check_modules(PKGCONFIG xkbcommon x11 xrender xi xext libstartup-notification-1.0 wayland-client wayland-server wayland-cursor)
     #pkg_check_modules(PKGCONFIG ${WAYLAND_PKG_MODULES} ${X11_PKG_MODULES} ${APPINDICATOR_PKG_MODULE})
-    pkg_check_modules(PKGCONFIG  ${APPINDICATOR_PKG_MODULE})
+#    pkg_check_modules(PKGCONFIG  ${APPINDICATOR_PKG_MODULE})
 
-    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+    target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
     target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
 
     target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
@@ -158,10 +158,10 @@ elseif (${LINUX} OR ${__BSD__})
     target_compile_definitions(static_${PROJECT_NAME} PRIVATE CUBE)
 
 
-    target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
-    target_link_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
-    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${system_libraries} ${PKGCONFIG_LIBRARIES})
-    target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${system_libraries} ${PKGCONFIG_LIBRARIES})
+    target_link_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LDFLAGS})
+    target_link_options(static_${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LDFLAGS})
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${system_libraries} ${global_library_references} ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES})
+    target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${system_libraries} ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES})
     target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
     # target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
 

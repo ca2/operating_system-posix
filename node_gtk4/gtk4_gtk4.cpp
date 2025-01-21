@@ -34,8 +34,9 @@ platform_char *** process_get_pargv();
 ////#include <libappindicator-0.1/libappindicator/app-indicator.h>
 ////#endif
 //#endif
-
+#if !defined(OPENBSD)
 #include <malloc.h>
+#endif
 
 #include <time.h>
 

@@ -34,10 +34,14 @@ namespace windowing_kde6
 
        //QApplication * m_pqapplication;
 
+      ::logic::boolean     m_booleanX11;
+
+
+
       bool m_bRootSelectInput: 1;
       bool m_bFirstWindowMap: 1;
 
-      ::pointer<::windowing_kde5::display> m_pdisplay;
+      //::pointer<::windowing_kde5::display> m_pdisplay;
       bool m_bFinishX11Thread;
       bool m_bInitX11Thread;
 
@@ -69,14 +73,14 @@ namespace windowing_kde6
 
       void initialize(::particle* pparticle) override;
 
-      void initialize_windowing(::user::user* puser) override;
+      void initialize_windowing() override;
 
 
       bool has_readily_gettable_absolute_coordinates() const override;
 
 
       bool is_branch_current() const override;
-
+bool is_x11();
 
        virtual QApplication * qapplication();
 
@@ -99,6 +103,8 @@ namespace windowing_kde6
 
       ::windowing::display* display() override;
 
+      ::windowing_kde6::display* kde6_display();
+
       //void windowing_main() override;
 
 
@@ -107,7 +113,7 @@ namespace windowing_kde6
 
       //virtual bool os_defer_init_kde5();
 
-       void user_post(const ::procedure & procedureParam) override;
+       void _user_post(const ::procedure & procedureParam) override;
 
 
       virtual void _set_os_user_theme(const ::scoped_string & strTheme);
@@ -131,7 +137,7 @@ namespace windowing_kde6
 
       //bool defer_release_mouse_capture(::thread* pthread, ::windowing::window* pwindow) override;
 
-      virtual void _on_capture_changed_to(::windowing_kde5::window* pwindowWithCapture);
+      virtual void _on_capture_changed_to(::windowing_kde6::window* pwindowWithCapture);
 
       void set_mouse_cursor2(::windowing::cursor* pcursor) override;
 
@@ -190,7 +196,7 @@ namespace windowing_kde6
 
       //virtual bool aaa_x11_runnable_step();
 
-      virtual ::windowing::window* window(oswindow oswindow) override;
+      ::acme::windowing::window* window(oswindow oswindow) override;
 
       //virtual void _libsn_start_context() override;
 

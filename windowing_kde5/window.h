@@ -47,8 +47,7 @@ namespace windowing_kde5
 
    class CLASS_DECL_WINDOWING_KDE5 window :
       virtual public ::windowing_posix::window,
-      virtual public ::kde5::acme::windowing::window,
-      virtual public ::kde5::micro::window
+      virtual public ::kde5::acme::windowing::window
    {
    public:
 //::int_point m_pointCursor2;
@@ -252,6 +251,11 @@ void on_initialize_particle() override;
       bool screen_to_client(::int_point * ppoint) override;
 
 
+      void _main_post(const ::procedure & procedure) override;
+
+      void _user_send(const ::procedure & procedure) override;
+
+      void _main_send(const ::procedure & procedure) override;
       //virtual bool set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,unsigned int nFlags);
       //virtual bool _set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,unsigned int nFlags);
       
@@ -445,7 +449,7 @@ void on_initialize_particle() override;
 
       bool defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse * pmouse) override;
 
-      void on_destruct_mouse_message(::message::mouse * pmouse) override;
+      void final_mouse_message_handling(message::mouse* pmouse) override;
 
       void _on_windowing_close_window() override;
 

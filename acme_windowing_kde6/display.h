@@ -8,6 +8,7 @@
 #include "acme/windowing/display.h"
 //#include "event_listener.h"
 //#include "windowing_system_x11/_atom.h"
+#include <QWidget>
 
 
 namespace kde6
@@ -98,7 +99,7 @@ window_map                                               m_windowmap;
             ::int_size get_main_screen_size() override;
 
 
-            void release_mouse_capture() override;
+            //void release_mouse_capture() override;
 
             bool is_dark_mode_through_theming() override;
 

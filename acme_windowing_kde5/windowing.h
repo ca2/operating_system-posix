@@ -57,6 +57,9 @@ namespace kde5
       void windowing_post_quit() override;
 
 
+      bool defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow);
+
+
       virtual ::pixmap get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile);
 
 

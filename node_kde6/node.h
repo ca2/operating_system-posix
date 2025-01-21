@@ -13,10 +13,10 @@
 //#include <QWidget>
 //#include "node_impl.h"
 #include "aura_posix/node.h"
-#include <QObject>
-#include <QAbstractNativeEventFilter>
-#include <QApplication>
-#include <QPalette>
+//#include <QObject>
+//#include <QAbstractNativeEventFilter>
+//#include <QApplication>
+//#include <QPalette>
 
 
 class KIconLoader;
@@ -26,21 +26,19 @@ namespace node_kde6
 {
 
 
-   class CLASS_DECL_ACME node :
-      virtual public ::aura_posix::node,
-      virtual public QAbstractNativeEventFilter,
-      virtual public QObject
+   class CLASS_DECL_NODE_KDE6 node :
+      virtual public ::aura_posix::node //,
+      //virtual public QAbstractNativeEventFilter,
+      //virtual public QObject
    {
    public:
 
 
       KIconLoader *        m_piconloader;
 
-      QApplication *       m_pqapplication;
+      //QApplication *       m_pqapplication;
 
-      QPalette             m_qpalette;
-
-      ::logic::boolean     m_booleanX11;
+      //QPalette             m_qpalette;
 
       //qDebug() << "palette after:" << palette2.color(group, role).name();
 
@@ -52,21 +50,24 @@ namespace node_kde6
       ~node() override;
 
 
-      void user_post_quit() override;
 
-      void _fill_os_theme_colors(::os_theme_colors * pthemecolors) override;
+      //virtual bool is_x11();
+
+
+
+      //void user_post_quit() override;
+
+      //void _fill_os_theme_colors(::os_theme_colors * pthemecolors) override;
 
       //void fetch_user_color() override;
 
       //virtual void _fetch_user_color();
 
-      int node_init_check(int * pi, char *** ppz) override;
+      //int node_init_check(int * pi, char *** ppz) override;
 
-      bool eventFilter(QObject * pparticle, QEvent * pevent) override;
+      //bool eventFilter(QObject * pparticle, QEvent * pevent) override;
 
       void on_system_main() override;
-
-      virtual bool is_x11();
 
       void initialize(::particle * pparticle) override;
 
@@ -77,11 +78,11 @@ namespace node_kde6
 
       //void on_os_dark_mode_change() override;
 
-      string os_get_user_theme() override;
+      //string os_get_user_theme() override;
 
-      void os_set_user_theme(const string & strUserTheme) override;
+      //void os_set_user_theme(const string & strUserTheme) override;
 
-      void os_process_user_theme(string strTheme) override;
+      //void os_process_user_theme(string strTheme) override;
 
       void enable_wallpaper_change_notification() override;
 
@@ -89,13 +90,13 @@ namespace node_kde6
 
       string get_file_content_type(const ::string & pszPath) override;
 
-      bool set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay) override;
+      bool set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::acme::windowing::display * pwindowingdisplay) override;
 
-      string get_wallpaper(::collection::index iScreen) override;
+      //string get_wallpaper(::collection::index iScreen, ::acme::windowing::display * pwindowingdisplay) override;
 
       //using ::aura::node::node_fork;
 
-      void user_post(const ::procedure & procedure) override;
+      void _user_post(const ::procedure & procedure) override;
 
       //void node_post_quit() override;
 
@@ -111,10 +112,10 @@ namespace node_kde6
 
       int os_launch_uri(const ::string & pszUri, char * pszError = NULL, int iBufferSize = 0) override;
 
-      bool nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result)  override;
+      //bool nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result)  override;
 
 
-      virtual ::e_status _qapplication_exec();
+      //virtual ::e_status _qapplication_exec();
 
 
       void shell_launch(const ::string & strAppId) override;
@@ -134,7 +135,7 @@ namespace node_kde6
       void launch_app_by_app_id(const ::scoped_string & scopedstrAppId, bool bSingleExecutableVersion) override;
 
 
-      bool dark_mode() const override;
+      //bool dark_mode() const override;
 
 
    };

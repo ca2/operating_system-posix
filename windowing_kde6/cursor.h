@@ -8,11 +8,11 @@
 #include "_kde6.h"
 
 
-namespace windowing_kde5
+namespace windowing_kde6
 {
 
 
-   class CLASS_DECL_WINDOWING_KDE5 cursor :
+   class CLASS_DECL_WINDOWING_KDE6 cursor :
       virtual public ::windowing::cursor
    {
    public:
@@ -41,7 +41,7 @@ namespace windowing_kde5
    };
 
 
-} // namespace windowing_kde5
+} // namespace windowing_kde6
 
 
 

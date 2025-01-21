@@ -10,6 +10,7 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QMimeData>
+#include <windowing_kde6/windowing.h>
 
 
 namespace node_kde6
@@ -29,21 +30,21 @@ namespace node_kde6
    }
 
 
-   void copydesk::initialize(::particle * pparticle)
+   void copydesk::initialize(::particle* pparticle)
    {
 
       //auto estatus =
       //
       ::user::copydesk::initialize(pparticle);
 
-//      if(!estatus)
-//      {
-//
-//         return estatus;
-//
-//      }
-//
-//      return estatus;
+      //      if(!estatus)
+      //      {
+      //
+      //         return estatus;
+      //
+      //      }
+      //
+      //      return estatus;
 
    }
 
@@ -55,62 +56,62 @@ namespace node_kde6
       //
       ::user::copydesk::destroy();
 
-//      if(!estatus)
-//      {
-//
-//         return estatus;
-//
-//      }
-//
-//      return estatus;
+      //      if(!estatus)
+      //      {
+      //
+      //         return estatus;
+      //
+      //      }
+      //
+      //      return estatus;
 
    }
 
 
-   bool copydesk::_set_plain_text(const string & str)
+   bool copydesk::_set_plain_text(const string& str)
    {
 
       auto psystem = system();
 
       auto pnode = psystem->node();
 
-//      pnode->node_fork([this, str]
-//      {
-//
-//         GtkClipboard * clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
-//
-//         gtk_clipboard_set_text(clipboard, str.c_str(), str.length());
-//
-//      });
+      //      pnode->node_fork([this, str]
+      //      {
+      //
+      //         GtkClipboard * clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+      //
+      //         gtk_clipboard_set_text(clipboard, str.c_str(), str.length());
+      //
+      //      });
 
       return true;
 
    }
 
 
-   bool copydesk::_get_plain_text(string & str)
+   bool copydesk::_get_plain_text(string& str)
    {
 
-//      ::pointer<clipboard_data>pdata = __allocate clipboard_data(get_context_application(), e_clipboard_get_plain_text);
-//
-//      pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_get_plain_text"));
-//
-//      auto idle_source = g_idle_source_new();
-//
-//      g_source_set_callback(idle_source, &clipboard_callback, pdata, nullptr);
-//
-//      g_source_attach(idle_source, g_main_context_default());
-//
-//      if(!pdata->m_happening.wait(seconds(5)).succeeded())
-//      {
-//
-//         return false;
-//
-//      }
-//
-//      g_source_destroy(idle_source);
-//
-//      str = pdata->m_str;
+      //      ::pointer<clipboard_data>pdata = __allocate clipboard_data(get_context_application(), e_clipboard_get_plain_text);
+      //
+      //      pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_get_plain_text"));
+      //
+      //      auto idle_source = g_idle_source_new();
+      //
+      //      g_source_set_callback(idle_source, &clipboard_callback, pdata, nullptr);
+      //
+      //      g_source_attach(idle_source, g_main_context_default());
+      //
+      //      if(!pdata->m_happening.wait(seconds(5)).succeeded())
+      //      {
+      //
+      //         return false;
+      //
+      //      }
+      //
+      //      g_source_destroy(idle_source);
+      //
+      //      str = pdata->m_str;
 
       return true;
 
@@ -128,14 +129,14 @@ namespace node_kde6
 
       auto pnode = psystem->node();
 
-//      pnode->node_send([=]()
-//      {
-//
-//         //GtkClipboard* clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
-//
-//         //payload->m_var = gtk_clipboard_wait_is_text_available (clipboard);
-//
-//      });
+      //      pnode->node_send([=]()
+      //      {
+      //
+      //         //GtkClipboard* clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+      //
+      //         //payload->m_var = gtk_clipboard_wait_is_text_available (clipboard);
+      //
+      //      });
 
       return ppayload->m_payload.operator bool();
 
@@ -147,147 +148,149 @@ namespace node_kde6
 
       return false;
 
-//      ::pointer<clipboard_data>pdata = __allocate clipboard_data(get_context_application(), e_clipboard_get_file_target_count);
-//
-//      pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_has_filea"));
-//
-//      auto idle_source = g_idle_source_new();
-//
-//      g_source_set_callback(idle_source, &clipboard_callback, pdata, nullptr);
-//
-//      g_source_attach(idle_source, g_main_context_default());
-//
-//      if(!pdata->m_happening.wait(seconds(5)).succeeded())
-//      {
-//
-//         return false;
-//
-//      }
-//
-//      return pdata->m_nTargets > 0;
+      //      ::pointer<clipboard_data>pdata = __allocate clipboard_data(get_context_application(), e_clipboard_get_file_target_count);
+      //
+      //      pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_has_filea"));
+      //
+      //      auto idle_source = g_idle_source_new();
+      //
+      //      g_source_set_callback(idle_source, &clipboard_callback, pdata, nullptr);
+      //
+      //      g_source_attach(idle_source, g_main_context_default());
+      //
+      //      if(!pdata->m_happening.wait(seconds(5)).succeeded())
+      //      {
+      //
+      //         return false;
+      //
+      //      }
+      //
+      //      return pdata->m_nTargets > 0;
 
    }
 
 
-   bool copydesk::_get_filea(::file::path_array & patha, enum_op & eop)
+   bool copydesk::_get_filea(::file::path_array& patha, enum_op& eop)
    {
 
-//      ::pointer<clipboard_data>pdata = __allocate clipboard_data(get_context_application(), e_clipboard_get_patha);
-//
-//      pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_get_filea"));
-//
-//      auto idle_source = g_idle_source_new();
-//
-//      g_source_set_callback(idle_source, &clipboard_callback, pdata, nullptr);
-//
-//      g_source_attach(idle_source, g_main_context_default());
-//
-//      if(!pdata->m_happening.wait(seconds(5)).succeeded() || pdata->m_eclipboard == e_clipboard_error)
-//      {
-//
-//         return false;
-//
-//      }
-//
-//      eop = pdata->m_eop;
-//
-//      patha = pdata->m_patha;
-//
-//      return true;
+      //      ::pointer<clipboard_data>pdata = __allocate clipboard_data(get_context_application(), e_clipboard_get_patha);
+      //
+      //      pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_get_filea"));
+      //
+      //      auto idle_source = g_idle_source_new();
+      //
+      //      g_source_set_callback(idle_source, &clipboard_callback, pdata, nullptr);
+      //
+      //      g_source_attach(idle_source, g_main_context_default());
+      //
+      //      if(!pdata->m_happening.wait(seconds(5)).succeeded() || pdata->m_eclipboard == e_clipboard_error)
+      //      {
+      //
+      //         return false;
+      //
+      //      }
+      //
+      //      eop = pdata->m_eop;
+      //
+      //      patha = pdata->m_patha;
+      //
+      //      return true;
 
-return false;
+      return false;
 
    }
 
 
-   bool copydesk::_set_filea(const ::file::path_array & patha, enum_op eop)
+   bool copydesk::_set_filea(const ::file::path_array& patha, enum_op eop)
    {
 
-//      ::pointer<clipboard_data>pdata = __allocate clipboard_data(get_context_application(), e_clipboard_set_patha);
-//
-//      pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_set_filea"));
-//
-//      pdata->m_eop = eop;
-//
-//      pdata->m_patha = patha;
-//
-//      auto idle_source = g_idle_source_new();
-//
-//      g_source_set_callback(idle_source, &clipboard_callback, pdata, nullptr);
-//
-//      g_source_attach(idle_source, g_main_context_default());
-//
-//      if(!pdata->m_happening.wait(seconds(5)).succeeded())
-//      {
-//
-//         return false;
-//
-//      }
-//
-//      g_source_destroy(idle_source);
-//
-//      return true;
+      //      ::pointer<clipboard_data>pdata = __allocate clipboard_data(get_context_application(), e_clipboard_set_patha);
+      //
+      //      pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_set_filea"));
+      //
+      //      pdata->m_eop = eop;
+      //
+      //      pdata->m_patha = patha;
+      //
+      //      auto idle_source = g_idle_source_new();
+      //
+      //      g_source_set_callback(idle_source, &clipboard_callback, pdata, nullptr);
+      //
+      //      g_source_attach(idle_source, g_main_context_default());
+      //
+      //      if(!pdata->m_happening.wait(seconds(5)).succeeded())
+      //      {
+      //
+      //         return false;
+      //
+      //      }
+      //
+      //      g_source_destroy(idle_source);
+      //
+      //      return true;
 
-return false;
+      return false;
 
    }
 
 
-   bool copydesk::_desk_to_image(::image::image *pimage)
+   bool copydesk::_desk_to_image(::image::image* pimage)
    {
 
       bool bOk = false;
 
       user_send([this, pimage, &bOk]()
-                {
+      {
 
-                   auto psystem = system();
+         //auto psystem = system();
 
-                   auto pnode = psystem->node()->m_pNodeKDE6;
+         //auto pnode = psystem->node()->m_pNodeKDE6;
 
-                   auto pqapplication = pnode->m_pqapplication;
+         ::cast<::windowing_kde6::windowing> pwindowing = system()->windowing();
 
-                   auto pclipboard = pqapplication->clipboard();
+         auto pqapplication = pwindowing->m_pqapplication;
 
-                   auto imageClipboard = pclipboard->image().convertToFormat(QImage::Format_ARGB32_Premultiplied);
+         auto pclipboard = pqapplication->clipboard();
 
-                   int width = imageClipboard.width();
+         auto imageClipboard = pclipboard->image().convertToFormat(QImage::Format_ARGB32_Premultiplied);
 
-                   int height = imageClipboard.height();
+         int width = imageClipboard.width();
 
-                   //auto estatus =
-                   //
-                   pimage->create({width, height});
+         int height = imageClipboard.height();
 
-//                   if (!estatus)
-//                   {
-//
-//                      bOk = false;
-//
-//                      return;
-//
-//                   }
+         //auto estatus =
+         //
+         pimage->create({width, height});
 
-                   auto pimage32Target = pimage->get_data();
+         //                   if (!estatus)
+         //                   {
+         //
+         //                      bOk = false;
+         //
+         //                      return;
+         //
+         //                   }
 
-                   int scanTarget = pimage->scan_size();
+         auto pimage32Target = pimage->get_data();
 
-                   auto pimage32Source = (::image32_t *) imageClipboard.bits();
+         int scanTarget = pimage->scan_size();
 
-                   int scanSource = imageClipboard.bytesPerLine();
+         auto pimage32Source = (::image32_t *)imageClipboard.bits();
 
-                   ::copy_image32(pimage32Target, width, height, scanTarget, pimage32Source, scanSource);
+         int scanSource = imageClipboard.bytesPerLine();
 
-                   bOk = true;
+         pimage32Target->copy(width, height, scanTarget, pimage32Source, scanSource);
 
-                });
+         bOk = true;
+
+      });
 
       return bOk;
 
    }
 
 
-   bool copydesk::_image_to_desk(const ::image::image *pimage)
+   bool copydesk::_image_to_desk(const ::image::image* pimage)
    {
 
 
@@ -302,11 +305,9 @@ return false;
    bool copydesk::_has_image()
    {
 
-      auto psystem = system();
+      ::cast<::windowing_kde6::windowing> pwindowing = system()->windowing();
 
-      auto pnode = psystem->node()->m_pNodeKDE6;
-
-      auto pqapplication = pnode->m_pqapplication;
+      auto pqapplication = pwindowing->m_pqapplication;
 
       auto pclipboard = pqapplication->clipboard();
 
@@ -320,6 +321,3 @@ return false;
 
 
 } // namespace node_kde6
-
-
-

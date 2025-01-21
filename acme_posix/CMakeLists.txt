@@ -76,7 +76,7 @@ add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 list(APPEND library_references acme)
 
-list(APPEND static_library_references ${library_references})
+list(APPEND static_library_references ${library_references} ${global_library_references})
 
 list(TRANSFORM static_library_references PREPEND static_)
 
@@ -99,7 +99,7 @@ if (MSVC)
    target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
    target_link_options(${PROJECT_NAME} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
    target_link_options(${PROJECT_NAME} PRIVATE "/SUBSYSTEM:WINDOWS")
-   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references})
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references})
    add_dependencies(${PROJECT_NAME} draw2d_gdiplus)
 
 

@@ -15,7 +15,7 @@ namespace windowing_kde6
 
    //class keyboard_layout;
 
-   class CLASS_DECL_WINDOWING_KDE5 keyboard :
+   class CLASS_DECL_WINDOWING_KDE6 keyboard :
       virtual public ::windowing::keyboard
       //,
       //virtual public ::xkb_input::xkb_input

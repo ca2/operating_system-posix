@@ -30,7 +30,7 @@ list(APPEND library_references
    aura
 )
 
-list(APPEND static_library_references ${library_references})
+list(APPEND static_library_references ${library_references} ${global_library_references})
 
 list(TRANSFORM static_library_references PREPEND static_)
 
@@ -57,7 +57,7 @@ if (MSVC)
    target_compile_options(aura_posix PRIVATE "/MD$<$<CONFIG:Debug>:d>")
    target_link_options(aura_posix PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
    target_link_options(aura_posix PRIVATE "/SUBSYSTEM:WINDOWS")
-   target_link_libraries(aura_posix PRIVATE ${library_references})
+   target_link_libraries(aura_posix PRIVATE ${library_references} ${global_library_references})
 
 
 elseif(${LINUX} OR ${__BSD__})
