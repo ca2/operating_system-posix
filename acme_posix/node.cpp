@@ -1904,7 +1904,11 @@ namespace acme_posix
 int node::command_system(const ::scoped_string & scopedstr,  const ::trace_function & functionTrace, const ::file::path & pathWorkingDirectory, ::e_display edisplay)
 {
    
+#ifdef DEEP_LOG_HERE
+   
    information() << "acme_posix::node::command_system (1)";
+   
+#endif
 
    ::e_status estatus = success;
 
@@ -1925,7 +1929,11 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 
    }
    
+#ifdef DEEP_LOG_HERE   
+   
    information() << "acme_posix::node::command_system (2)";
+   
+#endif
 
    int stderr_fds[2] = {};
 
@@ -1951,7 +1959,11 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 //   char **argv;
 //#endif
 
+#ifdef DEEP_LOG_HERE
+
    information() << "acme_posix::node::command_system (3): executable: " << strExecutable;
+   
+#endif
    
 #if defined(APPLE_IOS)
    
@@ -1967,7 +1979,11 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
    
   auto pszCommandLine = ansi_dup(scopedstr);
   
+#ifdef DEEP_LOG_HERE
+  
   information() << "acme_posix::node::command_system (3): command_line: " << pszCommandLine;
+  
+#endif
  
 //  printf("pszCommandLine : %s\n", pszCommandLine);
 
@@ -1985,6 +2001,8 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 	auto p = strdupa_from_command_arguments(stra);
 	
 #ifdef DEBUG
+
+#ifdef DEEP_LOG_HERE
 	
 	printf("command count: %lld\n", p->size());
 
@@ -1994,6 +2012,8 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 		printf("command[%d] = : \"%s\"\n", i, p->element_at(i));
 
 	}	
+   
+#endif
 
 #endif
 
@@ -2272,11 +2292,15 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
             string strMessage(buffer, iOutRead);
 
             strOutput += strMessage;
+            
+#ifdef DEEP_LOG_HERE
     
 #ifdef DEBUG
             
             information() << "partial stdout output: \"" << strOutput << "\""; 
             
+#endif
+
 #endif
 
             if(functionTrace)
@@ -2307,9 +2331,13 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 
             strError += strMessage;
             
+#ifdef DEEP_LOG_HERE
+            
 #ifdef DEBUG            
             
             information() << "partial stderr output: \"" << strOutput << "\""; 
+
+#endif
 
 #endif
 
@@ -2369,7 +2397,11 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
          if(iWaitPid == -1)
          {
             
+#ifdef DEEP_LOG_HERE
+            
             informationf("waitpid -1 error");
+            
+#endif
 
             int iErrorNo = errno;
 
@@ -2386,7 +2418,11 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
          else if(iWaitPid == pid)
          {
             
+#ifdef DEEP_LOG_HERE
+            
             informationf("waitpid: iWaitPid=%d, pid=%d", iWaitPid, pid);
+            
+#endif
 
             if (WIFEXITED(status))
             {
@@ -2395,7 +2431,11 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 
                iExitCode = chExitCode;
                
+#ifdef DEEP_LOG_HERE
+               
                informationf("exit_code: status=%d, iExitCode=%d", status, iExitCode);
+               
+#endif
 
                //break;
 
@@ -2407,7 +2447,11 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
          else
          {
             
+#ifdef DEEP_LOG_HERE
+
             informationf("waitpid (2): iWaitPid=%d, pid=%d", iWaitPid, pid);
+            
+#endif
          
          }            
 
@@ -2416,7 +2460,11 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
       if(!bRead && !bExit)
       {
          
+#ifdef DEEP_LOG_HERE
+         
          informationf("waitpid: preempting for 25_ms");
+         
+#endif
 
          preempt(25_ms);
 

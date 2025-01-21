@@ -484,6 +484,10 @@ void on_initialize_particle() override;
          virtual void _unlocked_defer_set_window_size(const ::int_size & size);
          //virtual void _unlocked_defer_start_resize(enum_window_edge eedge, GtkGestureClick * pclick, double x, double y);
 
+
+      void _main_send(const ::procedure & procedure) override;
+       void _main_post(const ::procedure & procedure) override;
+
    };
 
 

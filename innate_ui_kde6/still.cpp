@@ -8,14 +8,17 @@
 #include <QLabel>
 
 
-namespace innate_ui_kde5
+namespace innate_ui_kde6
 {
 
 
    still::still()
    {
+
       m_bIcon = false;
+
       //m_iCreateStyle = WS_TABSTOP | WS_VISIBLE | WS_CHILD | SS_LEFT;
+
    }
 
 
@@ -51,15 +54,16 @@ namespace innate_ui_kde5
       // }
       // else
       {
-         ::pointer < ::innate_ui_kde5::window > pkde5windowParent = pwindowParent;
-         m_pqwidget = ___new QLabel(pkde5windowParent->m_pqwidget);
+
+         ::pointer < ::innate_ui_kde6::window > pkde6windowParent = pwindowParent;
+
+         m_pqwidget = ___new QLabel(pkde6windowParent->m_pqwidget);
+
          //gtk_label_set_xalign(GTK_LABEL(m_pgtkwidget), 0.0);
 
       }
 
       //gtk_widget_set_visible(m_pgtkwidget, true);
-
-
 
    }
 
@@ -68,7 +72,9 @@ namespace innate_ui_kde5
    {
 
       //m_iCreateStyle = WS_TABSTOP | WS_VISIBLE | WS_CHILD | SS_ICON | SS_REALSIZEIMAGE;
-m_bIcon = true;
+
+      m_bIcon = true;
+
       create_child(pwindowParent);
 
    }
@@ -79,7 +85,7 @@ m_bIcon = true;
 
       ::string str(scopedstr);
 
-      post([this, str]
+      _user_post([this, str]
       ()
       {
 
@@ -101,9 +107,9 @@ m_bIcon = true;
    void still::set_icon(::innate_ui::icon * piconParam)
    {
 
-      ::pointer <::innate_ui_kde5::icon > picon = piconParam;
+      ::pointer <::innate_ui_kde6::icon > picon = piconParam;
 
-      sync([this, picon]()
+      _user_send([this, picon]()
       {
 
          //gtk_image_set_from_paintable(GTK_IMAGE(m_pqgtkwidget), picon->m_pgdkpaintable);
@@ -124,4 +130,7 @@ m_bIcon = true;
    }
 
 
-} // namespace innate_ui_kde5
+} // namespace innate_ui_kde6
+
+
+

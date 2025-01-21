@@ -13,6 +13,8 @@
 #include "acme/platform/system.h"
 #include <QImage>
 #include <QByteArray>
+
+#include "window.h"
 //#include <X11/Xatom.h>
 //#include <xkbcommon/xkbcommon.h>
 //#include <X11/XKBlib.h>
@@ -420,6 +422,25 @@ namespace kde5
    }
 
 
+   bool windowing::defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
+   {
+
+      ::cast< ::kde5::acme::windowing::window> pkde5window = pwindow;
+
+      if (m_pwindowMouseCapture != pkde5window)
+      {
+
+         return false;
+
+      }
+
+      pkde5window->m_pqwidget->releaseMouse();
+
+      return true;
+
+   }
+
+
    void windowing::windowing_post_quit()
    {
 
@@ -435,10 +456,8 @@ namespace kde5
    }
 
 
-   void windowing::_main_post(const ::procedure & procedureParam)
+   void windowing::_main_post(const ::procedure & procedure)
    {
-
-      auto procedure(procedureParam);
 
       // invoke on the main thread
       QMetaObject::invokeMethod(
@@ -448,7 +467,8 @@ namespace kde5
 
             procedure();
 
-         });
+         },
+         Qt::QueuedConnection);
 
 
    }

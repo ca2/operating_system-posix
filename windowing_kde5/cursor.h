@@ -4,6 +4,8 @@
 
 
 //#include "nano_user_wayland/_.h"
+#include <qcursor.h>
+
 #include "aura/windowing/cursor.h"
 #include "_kde5.h"
 
@@ -18,6 +20,7 @@ namespace windowing_kde5
    public:
 
 
+      QCursor              m_qcursor;
       //::Cursor                   m_cursor;
       // ::wl_cursor *m_pwlcursor;
       // ::wayland::micro::buffer m_waylandbuffer;

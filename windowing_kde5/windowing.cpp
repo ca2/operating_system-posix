@@ -36,7 +36,7 @@ namespace windowing_kde5
 
       m_bRootSelectInput = false;
 
-      m_itask = -1;
+      //m_itask = -1;
 
   //    m_pWindowing4 = this;
 //
@@ -597,7 +597,7 @@ namespace windowing_kde5
 
       }
 
-      ::pointer < ::windowing_kde5::cursor > pwaylandcursor = pcursor;
+      ::cast < ::windowing_kde5::cursor > pwaylandcursor = pcursor;
 
       if (!pwaylandcursor)
       {
@@ -609,7 +609,9 @@ namespace windowing_kde5
 
       pwaylandcursor->_create_os_cursor();
 
-      auto pwaylanddisplay = m_pdisplay;
+
+
+//      auto pwaylanddisplay = m_pdisplay;
 
       // auto pwlpointer = pwaylanddisplay->m_pwlpointer;
       //
@@ -680,6 +682,14 @@ namespace windowing_kde5
       //                                   });
       //
       //return true;
+
+   }
+
+
+   bool windowing::defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
+   {
+
+      return ::kde5::acme::windowing::windowing::defer_release_mouse_capture(pthread, pwindow);
 
    }
 
@@ -977,7 +987,7 @@ namespace windowing_kde5
 
    void windowing::_user_post(const ::procedure & procedure)
    {
-       system()->acme_windowing()->_user_post(procedure);
+       ::kde5::acme::windowing::windowing::_user_post(procedure);
       // auto procedure(procedureParam);
       //
       // // invoke on the main thread
