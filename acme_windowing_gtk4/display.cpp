@@ -96,6 +96,8 @@ namespace gtk4
          {
 
             //    display_base::open();
+            
+            information() << "windowing_gtk4::display::open_display";
 
             m_sizeaMonitor.clear();
 

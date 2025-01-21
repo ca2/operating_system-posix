@@ -408,7 +408,7 @@ namespace node_gtk4
 //      m_pGtkSettingsDefault = nullptr;
 
 
-      m_pgdkapplaunchcontext = nullptr;
+      //m_pgdkapplaunchcontext = nullptr;
 
    }
 
@@ -425,12 +425,12 @@ namespace node_gtk4
       //
       // }
 
-      if (m_pgdkapplaunchcontext)
-      {
+      //if (m_pgdkapplaunchcontext)
+      //{
 
-         g_object_unref(m_pgdkapplaunchcontext);
+         //g_object_unref(m_pgdkapplaunchcontext);
 
-      }
+      //}
 
    }
 
@@ -476,6 +476,8 @@ namespace node_gtk4
    {
 
       auto * psystem = this->system();
+      
+      information() << "node_gtk4::node::on_start_system";
 
       psystem->on_branch_system_from_main_thread_startup();
 
@@ -1120,12 +1122,12 @@ namespace node_gtk4
    }
 
 
-   void node::user_post_quit()
-   {
+   //void node::user_post_quit()
+   //{
 
-      system()->windowing()->windowing_post_quit();
+      //system()->windowing()->windowing_post_quit();
 
-   }
+   //}
 
 
    void node::defer_innate_ui()
@@ -1855,26 +1857,26 @@ namespace node_gtk4
    }
 
 
-   ::e_status node::_allocate_Display_and_connection()
-   {
+   //::e_status node::_allocate_Display_and_connection()
+   //{
 
-      // if(!os_defer_init_gtk())
-      // {
-      //
-      //    return ::error_failed;
-      //
-      // }
+      //// if(!os_defer_init_gtk())
+      //// {
+      ////
+      ////    return ::error_failed;
+      ////
+      //// }
 
-      // if(m_edisplaytype == e_display_type_x11)
-      // {
-      //
-      //    ::aura_posix::node::_allocate_Display_and_connection();
-      //
-      // }
+      //// if(m_edisplaytype == e_display_type_x11)
+      //// {
+      ////
+      ////    ::aura_posix::node::_allocate_Display_and_connection();
+      ////
+      //// }
 
-      return ::success;
+      //return ::success;
 
-   }
+   //}
 
    void node::_on_gtk_init()
    {

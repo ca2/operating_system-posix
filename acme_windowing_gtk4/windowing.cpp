@@ -425,6 +425,8 @@ m_bMessageThread=true;
          {
 
             auto* pgtk4windowingsystem = (::gtk4::acme::windowing::windowing*)p;
+            
+            ::information() << "gtk4::acme::windowing::on_activate_gtk_application";
 
             pgtk4windowingsystem->_hook_system_theme_change_callbacks();
 
@@ -459,6 +461,8 @@ m_bMessageThread=true;
 
          void windowing::run()
          {
+			 
+			 information() << "gtk4::acme::windowing::windowing::run";
 
             ::string strId = application()->m_strAppId;
 
@@ -467,6 +471,8 @@ m_bMessageThread=true;
             strId.find_replace("_", "-");
 
             //gtk_init();
+            
+            information() << "application id: " << strId;
 
             m_pgtkapplication = gtk_application_new(strId, G_APPLICATION_DEFAULT_FLAGS);
 
@@ -497,7 +503,7 @@ m_bMessageThread=true;
             //
             //
             // }
-
+information() << "gtk4::acme::windowing::windowing::run g_application_run";
             g_application_run(G_APPLICATION(m_pgtkapplication), 0, nullptr);
 
             // //g_application_run (G_APPLICATION(m_pgtkapplication), platform()->get_argc(), platform()->get_args());

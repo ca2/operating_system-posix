@@ -29,8 +29,9 @@
 //
 #include "timo_output_plugin.h"
 //#include "timo_mixer.h"
-#include "timo_sample_format.h"
+//#include "timo_sample_format.h"
 
+#include "audio/audio/wave/out.h"
 
 namespace multimedia
 {
@@ -40,36 +41,44 @@ namespace multimedia
    {
 
 
-class cmus_sndio :
-virtual public ::particle
-{
-public:
+      class sndio :
+         virtual public ::wave::out
+      {
+      public:
+      
 
-sample_format_t m_sampleformat;
-struct sio_par m_par;
-struct sio_hdl *m_hdl;
-int m_iSndioVolume = SIO_MAXVOL;
-int m_bSndioPaused;
-int m_iFrameByteCount;
-int m_iBufferCount;
+         struct sio_par       m_par;
+         struct sio_hdl *     m_hdl;
+         int                  m_iSndioVolume = SIO_MAXVOL;
+         int                  m_bSndioPaused;
+         int                  m_iFrameByteCount;
+         int                  m_iBufferCount;
+         
+         
+         
 
-int sndio_mixer_set_volume(int l, int r);
-int sndio_mixer_get_volume(int *l, int *r);
-int sndio_set_sf(sample_format_t sf);
-int sndio_init(void);
-int sndio_exit(void);
-int sndio_close(void);
-int sndio_open(sample_format_t sf, const channel_position_t *channel_map);
-int sndio_write(const char *buf, int cnt);
-int sndio_pause(void);
-int sndio_unpause(void);
-int sndio_buffer_space(void);
-int sndio_mixer_init(void);
-int sndio_mixer_exit(void);
-int sndio_mixer_open(int *volume_max);
-int sndio_mixer_close(void);
 
-};
+         int sndio_init();
+         int sndio_open();
+         int sndio_start();
+         int sndio_set_sample_format();
+         int sndio_write(const char *buf, int cnt);
+         int sndio_pause(void);
+         int sndio_unpause(void);
+         int sndio_buffer_space(void);
+         int sndio_exit(void);
+         int sndio_close(void);
+
+
+         int sndio_mixer_init(void);
+         int sndio_mixer_open(int *volume_max);
+         int sndio_mixer_set_volume(int l, int r);
+         int sndio_mixer_get_volume(int *l, int *r);
+         int sndio_mixer_close(void);
+         int sndio_mixer_exit(void);
+
+
+      };
 
 
 

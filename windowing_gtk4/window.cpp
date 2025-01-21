@@ -35,6 +35,23 @@
 
 
 #include "../node_gtk/gtk_3_and_4.cpp"
+bool is_using_x11() {
+    // Get the default GdkDisplay
+    GdkDisplay *display = gdk_display_get_default();
+
+    // Ensure the display object is valid
+    if (!display) {
+        ::information()<< "Error: No GDK display available.\n";
+        return false;
+    }
+
+    // Check the backend type
+    const char *backend = gdk_display_get_name(display);
+::information()<< "GDK display name: " << backend;
+    // Return true if it's X11
+    return g_strcmp0(backend, "GdkX11Display") == 0;
+}
+
 
 namespace windowing_gtk4
 {
@@ -1319,9 +1336,16 @@ m_pimcontext = gtk_im_multicontext_new();
    //g_signal_connect(m_pdrawingarea, "key-press-happening", G_CALLBACK(on_key_press), im_context);
 
          /* Connect the preedit-changed signal to capture intermediate results */
+         
+         ::cast< ::windowing_gtk4::windowing>pwindowing = system()->acme_windowing();
+         
+         if(!is_using_x11())
+         {
          g_signal_connect(m_pdrawingarea, "state-flags-changed", G_CALLBACK(drawing_area_state_flags_changed), this);
 
          g_signal_connect(m_pgtkwidget, "state-flags-changed", G_CALLBACK(window_state_flags_changed), this);
+         
+	 }
 
          g_signal_connect(m_pgtkwidget, "show", G_CALLBACK(window_show), this);
 

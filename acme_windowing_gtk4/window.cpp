@@ -577,13 +577,13 @@ namespace gtk4
 
                g_signal_connect(toplevel, "compute-size", G_CALLBACK(on_toplevel_compute_size), this);
 
-               if (system()->acme_windowing()->get_ewindowing() != ::windowing::e_windowing_wayland)
-               {
+               //if (system()->acme_windowing()->get_ewindowing() == ::windowing::e_windowing_wayland)
+               //{
 
-                  g_signal_connect(toplevel, "state", G_CALLBACK(on_window_state), this);
+                 // g_signal_connect(toplevel, "state", G_CALLBACK(on_window_state), this);
 
-               }
-               else
+               //}
+               //else
                {
 
                   _defer_get_window_rectangle_unlocked();
@@ -725,6 +725,14 @@ namespace gtk4
             {
 
                m_pgtkwidget = gtk_application_window_new(pgtk4windowingsystem->m_pgtkapplication);
+               
+                           ::string strId = application()->m_strAppId;
+
+            strId.find_replace("/", ".");
+
+            strId.find_replace("_", "-");
+
+gtk_window_set_startup_id(GTK_WINDOW(m_pgtkwidget), strId);
 
                gtk_window_set_decorated(GTK_WINDOW(m_pgtkwidget), false);
 

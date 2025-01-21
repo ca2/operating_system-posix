@@ -108,7 +108,7 @@ namespace node_gtk4
 //virtual void _on_activate_gtk_application();
       //virtual void _os_process_user_theme_color(string strTheme);
 
-      void user_post_quit() override;
+      //void user_post_quit() override;
 
       void defer_innate_ui() override;
 
@@ -126,7 +126,7 @@ namespace node_gtk4
 
       void _node_folder_dialog(::file::folder_dialog * pdialog) override;
 
-      ::e_status _allocate_Display_and_connection() override;
+      //::e_status _allocate_Display_and_connection() override;
 
       virtual void _on_gtk_init();
 
