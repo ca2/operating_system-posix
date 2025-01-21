@@ -51,7 +51,7 @@ namespace node_kde6
 
 
 
-      virtual bool is_x11();
+      //virtual bool is_x11();
 
 
 
@@ -92,7 +92,7 @@ namespace node_kde6
 
       bool set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::acme::windowing::display * pwindowingdisplay) override;
 
-      string get_wallpaper(::collection::index iScreen, ::acme::windowing::display * pwindowingdisplay) override;
+      //string get_wallpaper(::collection::index iScreen, ::acme::windowing::display * pwindowingdisplay) override;
 
       //using ::aura::node::node_fork;
 

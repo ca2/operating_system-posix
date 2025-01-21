@@ -4,25 +4,26 @@
 #include "acme/filesystem/filesystem/file_context.h"
 
 
-namespace innate_ui_kde5
+namespace innate_ui_kde6
 {
 
 
    icon::icon()
    {
+
       //m_pgdkpaintable = nullptr;
       m_pqpixmap = nullptr;
+
    }
 
 
    icon::~icon()
    {
-if(m_pqpixmap)
-{
+      if (m_pqpixmap) {
 
-   delete m_pqpixmap;
-   m_pqpixmap = nullptr;
-}
+         delete m_pqpixmap;
+         m_pqpixmap = nullptr;
+      }
    }
 
 
@@ -33,7 +34,8 @@ if(m_pqpixmap)
 
       qpixmap.loadFromData(m_memory.data(), m_memory.size());
 
-      m_pqpixmap = ___new QPixmap(qpixmap.scaled(m_size.cx(), m_size.cy(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+      m_pqpixmap =
+         ___new QPixmap(qpixmap.scaled(m_size.cx(), m_size.cy(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
       // // Example: Simulate reading a JPEG image into a memory buffer (replace with actual data)
       // const guchar *jpeg_buffer = m_memory.data();

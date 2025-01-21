@@ -6,12 +6,12 @@
 //#include <gtk/gtk.h>
 
 
-namespace innate_ui_kde5
+namespace innate_ui_kde6
 {
 
    class window;
 
-   class CLASS_DECL_INNATE_UI_GTK3 innate_ui :
+   class CLASS_DECL_INNATE_UI_KDE6 innate_ui :
       virtual public ::innate_ui::innate_ui
    {
    public:

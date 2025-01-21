@@ -161,7 +161,7 @@ namespace node_kde6
             connect(paction, &QAction::triggered, [this, atom]()
             {
 
-               application()->handle_command(atom);
+               application()->handle_command(atom, nullptr);
 
             });
 

@@ -113,13 +113,22 @@ namespace windowing_kde6
 //   }
 
 
-   // ::windowing_kde5::window * buffer::x11_window()
-   // {
-   //
-   //    return (::windowing_kde5::window *) (m_pwindow ? m_pwindow->m_pWindow4 : nullptr);
-   //
-   // }
-   //
+   ::windowing_kde6::window * buffer::kde6_window()
+   {
+
+      ::cast < ::windowing_kde6::window > pkde6window = m_pwindow;
+
+      if(!pkde6window)
+      {
+
+         return nullptr;
+
+      }
+
+      return pkde6window;
+
+   }
+
 
    void buffer::initialize_graphics_graphics(::windowing::window * pimpl)
    {
@@ -140,7 +149,7 @@ namespace windowing_kde6
    void buffer::destroy()
    {
 
-      if (!x11_window())
+      if (!kde6_window())
       {
 
          throw ::exception(error_wrong_state);

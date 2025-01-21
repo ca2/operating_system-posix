@@ -12,7 +12,7 @@
 #include "acme/platform/node.h"
 
 
-namespace innate_ui_kde5
+namespace innate_ui_kde6
 {
 
 
@@ -79,7 +79,7 @@ namespace innate_ui_kde5
    void window::create()
    {
 
-      sync([this]()
+      _user_send([this]()
       {
 
          _create();
@@ -101,7 +101,7 @@ namespace innate_ui_kde5
 
       ::pointer< window > pwindowImpl = pwindow;
 
-      sync([this, pwindowImpl]()
+      _user_send([this, pwindowImpl]()
       {
 
          _create_child(pwindowImpl);
@@ -148,7 +148,7 @@ namespace innate_ui_kde5
    void window::show()
    {
 
-      post([this]()
+      _user_post([this]()
       {
 
          m_pqwidget->show();
@@ -171,7 +171,7 @@ namespace innate_ui_kde5
 
       auto point = pointParam;
 
-      sync([this, point]()
+      _user_send([this, point]()
       {
 
          auto p = point;
@@ -195,7 +195,7 @@ namespace innate_ui_kde5
 
       auto size = sizeParam;
 
-      sync([this, size]()
+      _user_send([this, size]()
       {
 
          m_pqwidget->resize(size.cx(), size.cy());
@@ -218,7 +218,7 @@ namespace innate_ui_kde5
    void window::center()
    {
 
-      sync([this]()
+      _user_send([this]()
       {
 
 
@@ -227,10 +227,10 @@ namespace innate_ui_kde5
    }
 
 
-   ::innate_ui_kde5::innate_ui * window::innate_ui()
+   ::innate_ui_kde6::innate_ui * window::innate_ui()
    {
 
-      return dynamic_cast <::innate_ui_kde5::innate_ui *> (::innate_ui::window::innate_ui());
+      return dynamic_cast <::innate_ui_kde6::innate_ui *> (::innate_ui::window::innate_ui());
 
    }
 

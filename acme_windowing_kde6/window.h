@@ -106,6 +106,10 @@ namespace kde6
 
             void set_active_window() override;
 
+
+            void _main_send(const ::procedure & procedure);
+            void _main_post(const ::procedure & procedure);
+
             ///virtual void draw_children(::nano::graphics::device * pnanodevice);
 
             // void delete_drawing_objects() override;

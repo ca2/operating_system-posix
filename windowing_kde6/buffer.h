@@ -54,7 +54,7 @@ namespace windowing_kde6
       ~buffer() override;
 
 
-      virtual ::windowing_kde6::window * x11_window();
+      ::windowing_kde6::window * kde6_window();
 
 
       void initialize_graphics_graphics(::windowing::window * pimpl) override;
