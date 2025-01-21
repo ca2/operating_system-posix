@@ -1002,6 +1002,8 @@ namespace windowing_gtk4
 
    void windowing::windowing_application_main_loop()
    {
+	   
+	   information() << "windowing_gtk4::windowing_application_main_loop";
 
       ::pointer < ::gtk4::acme::windowing::windowing > pgtk4windowingsystem = system()->acme_windowing();
 

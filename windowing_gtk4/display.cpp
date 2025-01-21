@@ -267,6 +267,8 @@ namespace windowing_gtk4
     {
 
    //    display_base::open();
+   
+		information() << "windowing_gtk4::display::open_display";
 
       __check_refdbg
 

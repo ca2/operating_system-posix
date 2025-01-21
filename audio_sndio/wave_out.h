@@ -2,8 +2,7 @@
 
 
 #include "snd_pcm.h"
-#include "audio/audio/wave/out.h"
-#include "cmus_sndio.h"
+#include "audio_sndio.h"
 
 
 namespace multimedia
@@ -15,22 +14,21 @@ namespace multimedia
 
 
       class  CLASS_DECL_AUDIO_SNDIO wave_out :
-         virtual public cmus_sndio,
-         virtual public ::wave::out
+         virtual public ::multimedia::audio_sndio::sndio
       {
       public:
 
 
-         bool                    m_bWrite;
-         int                     m_iBuffer;
-         bool                    m_bStarted;
-         huge_natural                   m_uStart;
-         //snd_pcm_status_t *      m_pstatus;
-         //timeval                 m_timevalStart;
-         class ::time            m_timeStart;
-         //::int_array             m_iaSent;
+         bool                       m_bWrite;
+         int                        m_iBuffer;
+         bool                       m_bStarted;
+         huge_natural               m_uStart;
+         //snd_pcm_status_t *       m_pstatus;
+         //timeval                  m_timevalStart;
+         class ::time               m_timeStart;
+         //::int_array              m_iaSent;
 
-         //snd_async_handler_t *   m_pcm_callback;
+         //snd_async_handler_t *    m_pcm_callback;
 
          wave_out();
          ~wave_out() override;
