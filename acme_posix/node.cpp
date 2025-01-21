@@ -2989,7 +2989,33 @@ if(functionTrace)
       else if(scopedstrComponentName == "nano_http")
       {
          
+#ifdef CUBE
+
+#if defined(LINUX) || defined(__BSD__)
+
+         return "command_line";
+         
+#endif
+
+#endif
+         
          return "libcurl";
+
+      }
+      else if(scopedstrComponentName == "nano_compress")
+      {
+         
+#ifdef CUBE
+
+#if defined(LINUX) || defined(__BSD__)
+
+         return "command_line";
+         
+#endif
+
+#endif
+         
+         return "zlib";
 
       }
 
