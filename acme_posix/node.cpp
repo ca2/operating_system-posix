@@ -3002,6 +3002,12 @@ if(functionTrace)
          return "libcurl";
 
       }
+      else if(scopedstrComponentName == "nano_idn")
+      {
+         
+         return "libidn";
+
+      }
       else if(scopedstrComponentName == "nano_compress")
       {
          

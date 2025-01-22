@@ -607,22 +607,22 @@ namespace gtk4
             if (GTK_IS_WINDOW(m_pgtkwidget))
             {
 
-               auto pnative = GTK_NATIVE(m_pgtkwidget);
+//               auto pnative = GTK_NATIVE(m_pgtkwidget);
 
-               auto psurface = GDK_SURFACE(gtk_native_get_surface(pnative));
+//               auto psurface = GDK_SURFACE(gtk_native_get_surface(pnative));
 
-               auto ptoplevel = GDK_TOPLEVEL(psurface);
+//               auto ptoplevel = GDK_TOPLEVEL(psurface);
 
-               if (ptoplevel)
+//               if (ptoplevel)
                {
 
-                  ::string strStartupId;
+                  //::string strStartupId;
 
-                  strStartupId = system()->get_application_server_name();
+                  //strStartupId = system()->get_application_server_name();
 
-                  information() << "set_startup_id: " << strStartupId;
+                  //information() << "set_startup_id: " << strStartupId;
 
-                  gdk_toplevel_set_startup_id(ptoplevel, strStartupId);
+                  //gdk_toplevel_set_startup_id(ptoplevel, strStartupId);
 
                }
 
@@ -732,7 +732,7 @@ namespace gtk4
 
             strId.find_replace("_", "-");
 
-gtk_window_set_startup_id(GTK_WINDOW(m_pgtkwidget), strId);
+            //gtk_window_set_startup_id(GTK_WINDOW(m_pgtkwidget), strId);
 
                gtk_window_set_decorated(GTK_WINDOW(m_pgtkwidget), false);
 

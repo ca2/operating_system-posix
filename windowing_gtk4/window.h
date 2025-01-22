@@ -203,7 +203,7 @@ namespace windowing_gtk4
 
       bool defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse * pmouse) override;
 
-      void on_destruct_mouse_message(::message::mouse * pmouse) override;
+      void final_mouse_message_handling(::message::mouse * pmouse) override;
 
       void _on_windowing_close_window() override;
 

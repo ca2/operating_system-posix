@@ -2183,10 +2183,10 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   void window::on_destruct_mouse_message(::message::mouse * pmouse)
+   void window::final_mouse_message_handling(::message::mouse * pmouse)
    {
 
-      ::windowing::window::on_destruct_mouse_message(pmouse);
+      ::windowing::window::final_mouse_message_handling(pmouse);
 
    }
 
@@ -2618,7 +2618,7 @@ return false;
          // Get the cursor position relative to the widget
          if (gdk_event_get_position(event, &x, &y))
          {
-            g_print("Scroll event: dx=%.2f, dy=%.2f, cursor position: x=%.2f, y=%.2f\n", dx, dy, x, y);
+            //g_print("Scroll event: dx=%.2f, dy=%.2f, cursor position: x=%.2f, y=%.2f\n", dx, dy, x, y);
 
             ::int_point pointCursor(x, y);
 
@@ -2629,11 +2629,15 @@ return false;
             m_pointCursor2 = pointCursor;
 
             pmouse->m_pointAbsolute = m_pointCursor2;
-            g_print("Scroll event: dx=%.2f, dy=%.2f, cursor position: x=%.2f, y=%.2f\n", dx, dy, x, y);
+            
+            debugf("Scroll event: dx=%d, dy=%d, cursor position: x=%df, y=%d\n", dx, dy, x, y);
+            
          }
          else
          {
-            g_print("Failed to get cursor position from the scroll event.\n");
+
+            debugf("Failed to get cursorpos. Use last recorded position x=%d, y=%d", m_pointCursor2.x(), m_pointCursor2.y());
+
             pmouse->m_pointHost = m_pointCursor2;
 
             //            _defer_translate_to_absolute_coordinates_unlocked(pointCursor);
