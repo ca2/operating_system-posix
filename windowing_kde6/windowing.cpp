@@ -188,6 +188,14 @@ namespace windowing_kde6
    }
 
 
+   bool windowing::defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
+   {
+
+
+      return ::kde6::acme::windowing::windowing::defer_release_mouse_capture(pthread, pwindow);
+
+   }
+
    //   void windowing::start()
    //   {
    //

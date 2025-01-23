@@ -17,6 +17,7 @@
 #include <QMouseEvent>
 #include <QMenu>
 #include <acme/user/micro/elemental.h>
+#include <QWindow>
 // #include <xkbcommon/xkbcommon.h>
 // #include <X11/XKBlib.h>
 // #include <cairo/cairo-xcb.h>
@@ -542,7 +543,7 @@ namespace kde6
          //      }
          //
          //         break;
-         //      case WM_PAINT:
+         //      case WM_PAINhttps://www.dropbox.com/scl/fi/u8p00c0pz6b36q57svqlz/static_RedDotLogics_PixelPerfectPro-2.6.0.3.zip?rlkey=zhw4b7tkv0wx6nb4xek8zeo3t&dl=0T:
          //      {
          //         PAINTSTRUCT paintstruct{};
          //         HDC hdc = BeginPaint(m_hwnd, &paintstruct);
@@ -1518,6 +1519,72 @@ namespace kde6
 //    }
 //
 //
+
+         bool window::defer_perform_entire_reposition_process(::user::mouse* pmouse)
+         {
+
+
+            auto pqwindow = m_pqwidget->windowHandle();
+
+            if(!pqwindow)
+            {
+
+               return false;
+
+            }
+
+            pqwindow->startSystemMove();
+
+            return true;
+         }
+Qt::Edges  as_qt_edges(::experience::enum_frame eframeSizing)
+{
+
+            switch(eframeSizing)
+            {
+               case ::experience::e_frame_sizing_left:
+                  return Qt::Edge::LeftEdge;
+               case ::experience::e_frame_sizing_top:
+                  return Qt::Edge::TopEdge;
+               case ::experience::e_frame_sizing_right:
+                  return Qt::Edge::RightEdge;
+               case ::experience::e_frame_sizing_bottom:
+                  return Qt::Edge::BottomEdge;
+               case ::experience::e_frame_sizing_top_left:
+                  return Qt::Edge::LeftEdge | Qt::Edge::TopEdge;
+               case ::experience::e_frame_sizing_top_right:
+                  return Qt::Edge::RightEdge | Qt::Edge::TopEdge;
+               case ::experience::e_frame_sizing_bottom_left:
+                  return Qt::Edge::LeftEdge | Qt::Edge::BottomEdge;
+               case ::experience::e_frame_sizing_bottom_right:
+                  return Qt::Edge::RightEdge | Qt::Edge::BottomEdge;
+            }
+            return (Qt::Edges )0;
+}
+
+         bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing,
+                                                            ::user::mouse* pmouse)
+         {
+
+
+            auto pqwindow = m_pqwidget->windowHandle();
+
+            if(!pqwindow)
+            {
+
+               return false;
+
+            }
+
+            auto edges = as_qt_edges(eframeSizing);
+
+            pqwindow->startSystemResize(edges);
+
+            return true;
+
+         }
+
+
          void window::_on_mouse_motion(QMouseEvent * pevent)
          {
 //

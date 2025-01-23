@@ -447,11 +447,55 @@ namespace windowing_kde6
 
    }
 
+   ::collection::count display::get_monitor_count()
+{
+   const QList<QScreen *> screens = QGuiApplication::screens();
+
+   if (screens.isEmpty()) {
+      //qWarning() << "No screens found!";
+      return 1;
+   }
+
+   // Iterate through each screen and print its size, marking the primary screen
+   auto count = screens.size();
+
+   return count;
+}
 
    bool display::get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle)
    {
 
-      return ::windowing::display::get_monitor_rectangle(iMonitor, rectangle);
+      // Get a list of all screens
+      const QList<QScreen *> screens = QGuiApplication::screens();
+
+      if (screens.isEmpty()) {
+         //qWarning() << "No screens found!";
+         return false;
+      }
+
+      // Iterate through each screen and print its size, marking the primary screen
+      if(iMonitor < 0 || iMonitor >= screens.size()) {
+         return false;
+      }
+         QScreen *screen = screens[iMonitor];
+         QRect geometry = screen->geometry();
+         rectangle.left() = geometry.x();
+         rectangle.top() = geometry.y();
+         rectangle.right() = rectangle.left() + geometry.width();
+         rectangle.bottom() = rectangle.top() + geometry.height();
+//
+//         int width = geometry.width();
+//         int height = geometry.height();
+//
+//         if (screen == primaryScreen) {
+//            qDebug() << "Monitor" << i + 1 << "(Primary):" << width << "x" << height
+//                     << "Position:" << geometry.topLeft();
+//         } else {
+//            qDebug() << "Monitor" << i + 1 << ":" << width << "x" << height
+//                     << "Position:" << geometry.topLeft();
+//         }
+//      }
+return true;
 
    }
 
@@ -1592,6 +1636,48 @@ namespace windowing_kde6
 
       return ::kde6::acme::windowing::display::get_main_screen_size();
 
+   }
+
+
+   ::collection::index display::get_main_monitor_index()
+   {
+
+      // Get the primary screen
+      QScreen *primaryScreen = QGuiApplication::primaryScreen();
+      if (!primaryScreen) {
+         //qWarning() << "No primary screen found!";
+         return 0;
+      }
+
+      // Get a list of all screens
+      const QList<QScreen *> screens = QGuiApplication::screens();
+
+      if (screens.isEmpty()) {
+         //qWarning() << "No screens found!";
+         return 0;
+      }
+
+      // Iterate through each screen and print its size, marking the primary screen
+      for (int i = 0; i < screens.size(); ++i)
+      {
+         QScreen *screen = screens[i];
+         //QRect geometry = screen->geometry();
+         //int width = geometry.width();
+         //int height = geometry.height();
+
+         if (screen == primaryScreen) {
+//            qDebug() << "Monitor" << i + 1 << "(Primary):" << width << "x" << height
+            //                    << "Position:" << geometry.topLeft();
+            return i;
+
+         }
+//         } else {
+//            qDebug() << "Monitor" << i + 1 << ":" << width << "x" << height
+//                     << "Position:" << geometry.topLeft();
+//         }
+      }
+
+return 0;
    }
 
 

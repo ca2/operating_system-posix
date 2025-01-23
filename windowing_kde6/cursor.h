@@ -4,6 +4,7 @@
 
 
 //#include "nano_user_wayland/_.h"
+#include <QCursor>
 #include "aura/windowing/cursor.h"
 #include "_kde6.h"
 
@@ -17,7 +18,7 @@ namespace windowing_kde6
    {
    public:
 
-
+QCursor m_qcursor;
       //::Cursor                   m_cursor;
       // ::wl_cursor *m_pwlcursor;
       // ::wayland::micro::buffer m_waylandbuffer;

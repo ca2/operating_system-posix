@@ -37,6 +37,12 @@ namespace kde6
       //::e_status defer_initialize_windowing_system() override;
       void initialize_windowing() override;
       ::acme::windowing::display * acme_display() override;
+
+
+      bool defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow) override;
+
+      ::windowing::enum_windowing calculate_ewindowing() override;
+
       void _user_send(const ::procedure & procedure) override;
       void _user_post(const ::procedure & procedure) override;
       void display_error_trap_push(int i) override;

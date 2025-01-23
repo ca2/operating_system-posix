@@ -401,13 +401,13 @@ namespace windowing_kde5
          case e_cursor_arrow:shape = Qt::CursorShape::ArrowCursor; break;
          case e_cursor_hand:shape = Qt::CursorShape::OpenHandCursor; break;
          case e_cursor_text_select:shape = Qt::CursorShape::IBeamCursor; break;
-         case e_cursor_size_top_left:shape = Qt::CursorShape::SizeBDiagCursor; break;
+         case e_cursor_size_top_left:shape = Qt::CursorShape::SizeFDiagCursor; break;
          case e_cursor_size_top:shape = Qt::CursorShape::SizeVerCursor; break;
-         case e_cursor_size_top_right:shape = Qt::CursorShape::SizeFDiagCursor; break;
+         case e_cursor_size_top_right:shape = Qt::CursorShape::SizeBDiagCursor; break;
          case e_cursor_size_right:shape = Qt::CursorShape::SizeHorCursor; break;
-         case e_cursor_size_bottom_right:shape = Qt::CursorShape::SizeBDiagCursor; break;
+         case e_cursor_size_bottom_right:shape = Qt::CursorShape::SizeFDiagCursor; break;
          case e_cursor_size_bottom:shape = Qt::CursorShape::SizeVerCursor; break;
-         case e_cursor_size_bottom_left:shape = Qt::CursorShape::SizeFDiagCursor; break;
+         case e_cursor_size_bottom_left:shape = Qt::CursorShape::SizeBDiagCursor; break;
          case e_cursor_size_left:shape = Qt::CursorShape::SizeHorCursor; break;
          case e_cursor_size_vertical:shape = Qt::CursorShape::SizeVerCursor; break;
          case e_cursor_size_horizontal:shape = Qt::CursorShape::SizeHorCursor; break;

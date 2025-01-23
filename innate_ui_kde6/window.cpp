@@ -10,6 +10,7 @@
 #include "acme/parallelization/manual_reset_happening.h"
 #include "acme/prototype/geometry2d/size.h"
 #include "acme/platform/node.h"
+#include "acme/windowing/windowing.h"
 
 
 namespace innate_ui_kde6
@@ -27,7 +28,7 @@ namespace innate_ui_kde6
    window::~window()
    {
 
-      if(!m_pqwidget)
+      if (!m_pqwidget)
       {
 
          delete m_pqwidget;
@@ -80,11 +81,11 @@ namespace innate_ui_kde6
    {
 
       _user_send([this]()
-      {
+                 {
 
-         _create();
+                    _create();
 
-      });
+                 });
 
       if (!m_pqwidget)
       {
@@ -99,20 +100,20 @@ namespace innate_ui_kde6
    void window::create_child(::innate_ui::window * pwindow)
    {
 
-      ::pointer< window > pwindowImpl = pwindow;
+      ::pointer<window> pwindowImpl = pwindow;
 
       _user_send([this, pwindowImpl]()
-      {
+                 {
 
-         _create_child(pwindowImpl);
+                    _create_child(pwindowImpl);
 
-         innate_ui()->m_windowa.erase(this);
+                    innate_ui()->m_windowa.erase(this);
 
-         innate_ui()->m_windowmap[m_pqwidget] = this;
+                    innate_ui()->m_windowmap[m_pqwidget] = this;
 
-         pwindowImpl->m_childa.add(this);
+                    pwindowImpl->m_childa.add(this);
 
-      });
+                 });
 
       if (!m_pqwidget)
       {
@@ -127,7 +128,7 @@ namespace innate_ui_kde6
    void window::destroy_window()
    {
 
-      for (auto pchild : m_childa)
+      for (auto pchild: m_childa)
       {
 
          pchild->destroy_window();
@@ -149,11 +150,11 @@ namespace innate_ui_kde6
    {
 
       _user_post([this]()
-      {
+                 {
 
-         m_pqwidget->show();
+                    m_pqwidget->show();
 
-      });
+                 });
 
    }
 
@@ -172,20 +173,20 @@ namespace innate_ui_kde6
       auto point = pointParam;
 
       _user_send([this, point]()
-      {
+                 {
 
-         auto p = point;
+                    auto p = point;
 
-         ::pointer < dialog > pdialog = m_pwindowParent;
+                    ::pointer<dialog> pdialog = m_pwindowParent;
 
-         if(pdialog)
-         {
+                    if (pdialog)
+                    {
 
-            m_pqwidget->move(point.x(), point.y());
+                       m_pqwidget->move(point.x(), point.y());
 
-         }
+                    }
 
-      });
+                 });
 
    }
 
@@ -193,14 +194,19 @@ namespace innate_ui_kde6
    void window::set_size(const ::int_size & sizeParam)
    {
 
-      auto size = sizeParam;
-
-      _user_send([this, size]()
+      if (system()->acme_windowing()->get_ewindowing() != ::windowing::e_windowing_wayland)
       {
 
-         m_pqwidget->resize(size.cx(), size.cy());
+         auto size = sizeParam;
 
-      });
+         _user_send([this, size]()
+                    {
+
+                       m_pqwidget->resize(size.cx(), size.cy());
+
+                    });
+
+      }
 
    }
 
@@ -219,10 +225,10 @@ namespace innate_ui_kde6
    {
 
       _user_send([this]()
-      {
+                 {
 
 
-      });
+                 });
 
    }
 
@@ -234,7 +240,7 @@ namespace innate_ui_kde6
 
    }
 
-   
+
    void window::defer_show_system_menu(::user::mouse * pmouse)
    {
 
