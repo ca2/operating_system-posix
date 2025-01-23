@@ -57,6 +57,6 @@ target_include_directories(static_${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE
 target_include_directories(static_${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 
-target_compile_definitions(static_${PROJECT_NAME} PRIVATE _nano_compress_command_line_project)
+target_compile_definitions(static_${PROJECT_NAME} PRIVATE _${PROJECT_NAME}_project)
 target_compile_definitions(static_${PROJECT_NAME} PRIVATE UNICODE)
 target_compile_definitions(static_${PROJECT_NAME} PRIVATE _UNICODE)

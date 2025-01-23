@@ -89,7 +89,7 @@ virtual public ::numeric_array < POINTER_TYPE >
 #endif
 
 
-#if defined(__APPLE__) || defined(NETBSD)
+#if defined(__APPLE__) || defined(NETBSD) || defined(FREEBSD)
 
 #define HOST_NAME_MAX _POSIX_HOST_NAME_MAX
 

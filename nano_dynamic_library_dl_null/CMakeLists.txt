@@ -53,7 +53,6 @@ elseif (LINUX)
    endif ()
 
    #target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
-   #target_link_options(static_${PROJECT_NAME} PRIVATE -Wl,-rpath=\$ORIGIN)
    #target_link_libraries(static_${PROJECT_NAME} PRIVATE dl ${PKGCONFIG_LIBRARIES})
    #target_link_options(static_${PROJECT_NAME} PRIVATE -Wl,-z,defs)
 endif ()
