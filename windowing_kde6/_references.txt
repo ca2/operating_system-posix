@@ -1,2 +1,2 @@
 operating_system-posix/windowing_posix
-operating_system-posix/nano_user_kde5
+operating_system-posix/innate_ui_kde6

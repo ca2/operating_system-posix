@@ -466,6 +466,7 @@ void on_initialize_particle() override;
       // virtual void window_maximize() override; // m_pwindow->m_puserinteraction->display(::e_display_zoomed);
       // virtual void window_full_screen() override; // m_pwindow->m_puserinteraction->display(::e_display_full_screen);
       // virtual void window_restore() override; // m_pwindow->m_puserinteraction->display(::e_display_normal);
+      void on_create_window() override;
 
          void window_restore() override;
          void window_minimize() override;

@@ -75,6 +75,8 @@ namespace windowing_kde6
 
       void initialize_windowing() override;
 
+      bool defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow) override;
+
 
       bool has_readily_gettable_absolute_coordinates() const override;
 

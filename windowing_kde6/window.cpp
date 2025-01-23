@@ -2686,6 +2686,15 @@ namespace windowing_kde6
    }
 
 
+   void window::on_create_window()
+   {
+
+      auto puserinteraction = user_interaction();
+
+      puserinteraction->send_message(e_message_create);
+
+   }
+
    void window::_create_window()
    {
 
@@ -4974,6 +4983,31 @@ namespace windowing_kde6
 
       }
 
+      if(equivalence_sink(edisplay) == e_display_normal)
+      {
+
+         m_pqwidget->showNormal();
+
+      }
+      else if(edisplay == e_display_zoomed)
+      {
+
+         m_pqwidget->showMaximized();
+
+      }
+      else if(edisplay == e_display_iconic)
+      {
+
+         m_pqwidget->showMinimized();
+
+      }
+      else if(!::is_screen_visible(edisplay))
+      {
+
+         m_pqwidget->hide();
+
+      }
+
       return true;
 
    }
@@ -5100,9 +5134,72 @@ namespace windowing_kde6
 
    void window::set_mouse_cursor(::windowing::cursor* pcursor)
    {
-      ::windowing::window::set_mouse_cursor(pcursor);
+      //::windowing::window::set_mouse_cursor(pcursor);
 
-      windowing()->set_mouse_cursor2(pcursor);
+      if (pcursor != m_pcursor)
+      {
+
+         __check_refdbg;
+
+         ::windowing::window::set_mouse_cursor(pcursor);
+
+         __check_refdbg;
+
+         if (is_main_thread())
+         {
+
+            __check_refdbg;
+
+            ::cast < ::windowing_kde6::cursor > pkde6cursor = m_pcursor;
+
+            __check_refdbg;
+
+            if (pkde6cursor)
+            {
+
+               __check_refdbg;
+
+               pkde6cursor->_create_os_cursor();
+
+               __check_refdbg;
+
+               auto qcursor = pkde6cursor->m_qcursor;
+
+               __check_refdbg;
+
+               m_pqwidget->setCursor(qcursor);
+
+               __check_refdbg;
+
+            }
+
+         }
+         else
+         {
+            _main_post([this]()
+                       {
+
+                          ::cast < ::windowing_kde6::cursor > pkde6cursor = m_pcursor;
+
+                          if (pkde6cursor)
+                          {
+
+                             pkde6cursor->_create_os_cursor();
+
+                             auto qcursor = pkde6cursor->m_qcursor;
+
+                             m_pqwidget->setCursor(qcursor);
+
+                          }
+
+                       });
+
+         }
+
+         //windowing()->set_mouse_cursor2(pcursor);
+
+      }
+      //windowing()->set_mouse_cursor2(pcursor);
    }
 
 
@@ -7067,168 +7164,170 @@ namespace windowing_kde6
    bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse* pmouse)
    {
 
-      auto pdisplay = kde6_display();
+      return ::kde6::acme::windowing::window::defer_perform_entire_resizing_process(eframeSizing,pmouse);
 
-      if (pdisplay->is_wayland())
-      {
-
-         // guint button;
-         //
-         // if(::is_null(pmouse))
-         // {
-         //
-         //    button = 1;
-         //
-         // }
-         // else
-         // {
-         //
-         //    button= as_guint_button(pmouse->m_ebuttonstate);
-         //
-         // }
-         //
-         //
-         //
-         // //guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pclick));
-         // //Cast to Wayland display
-         // //struct wl_display *wl_display = gdk_wayland_display_get_wl_display(display);
-         //
-         //
-         // // Get the Wayland compositor (xdg_wm_base is part of the Wayland compositor)
-         // //struct wl_compositor *wl_compositor = gdk_wayland_display_get_wl_compositor(display);
-         //
-         // // Get the wl_surface from the GTK window
-         // //auto gdk_surface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
-         //
-         // //struct wl_surface *pwlsurface = gdk_wayland_surface_get_wl_surface(gdk_surface);
-         //
-         // // You need to create an xdg_surface using xdg_wm_base
-         // //struct xdg_wm_base *pxdgwmbase = kde5_windowing()->m_pdisplay->m_pxdgwmbase;
-         //
-         // // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pclick));
-         // //
-         // // // Get the GdkEvent from the sequence
-         // // GdkEvent *happening = gtk_gesture_get_last_event(GTK_GESTURE(pclick), sequence);
-         // // if (!happening) {
-         // //    g_print("Failed to get happening from GdkGestureClick.\n");
-         // //    return;
-         // // }
-         // //
-         // // guint32 timestamp = gdk_event_get_time (happening);
-         //
-         // //GdkWaylandEventSource  peventsource * =gdk_event_get_event_sequence(happening);
-         //
-         // guint32 timestamp;
-         //
-         // if(::is_null(pmouse))
-         // {
-         //
-         //    timestamp = GDK_CURRENT_TIME;
-         //
-         // }
-         // else
-         // {
-         //    timestamp=  pmouse->m_iTimestamp;
-         // }
-         //
-         // //auto pgdkeventsequence = gdk_event_get_event_sequence(happening);
-         //
-         // auto toplevel = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
-         //
-         //
-         // auto pgdkdisplay = pdisplay->m_pgdkdisplay;
-         //
-         // GdkSeat * pgdkseat = gdk_display_get_default_seat(pgdkdisplay);
-         //
-         // // Get the default pointer device (e.g., mouse)
-         // GdkDevice *pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
-         //
-         // auto gdksurfacedge = as_gdk_surface_edge(eframeSizing);
-         //
-         // //_unlocked_defer_start_resize(resize_edge, pgesture, x, y);
-         //
-         // double x;
-         // double y;
-         // if(::is_null(pmouse))
-         // {
-         //    x = 8;
-         //    y = 8;
-         // }
-         // else
-         // {
-         //    x = pmouse->m_pointAbsolute.x();
-         //    y = pmouse->m_pointAbsolute.y();
-         // }
-         //
-         // gdk_toplevel_begin_resize(GDK_TOPLEVEL(toplevel), gdksurfacedge, pgdkdevicePointer, button, x, y, timestamp);
-         //
-
-
-         // Check if the backend is Wayland
-         //if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
-         // Extract the Wayland happening serial
-         //guint32 serial = gdk_wayland_event_source_get_event_serial(happening);
-         //guint32 serial = wl_message_get_opcode(wl_message_from_opcode(object, opcode));
-
-         // guint32 serial = 0;
-         //
-         // auto pxdgsurface = xdg_wm_base_get_xdg_surface(pxdgwmbase, pwlsurface);
-         //
-         // auto pxdgtoplevel = xdg_surface_get_toplevel(pxdgsurface);
-         // // Get the seat (which manages input devices for the display)
-         // GdkSeat *seat = gdk_display_get_default_seat(display);
-         //
-         // // Get the default pointer device (e.g., mouse)
-         // GdkDevice *pointer = gdk_seat_get_pointer(seat);
-         // auto pwlseat = gdk_wayland_device_get_wl_seat(pointer);
-         //
-         // auto resizeedge = as_xdg_toplevel_resize_edge(eedge);
-         //
-         // xdg_toplevel_resize(
-         //           pxdgtoplevel,
-         //              pwlseat,
-         //              serial,
-         //              resizeedge);
-         //
-         // wl_display_dispatch(wl_display);
-         //
-         //
-         // wl_display_flush(wl_display);
-         //
-         // // Get the GdkSurface for the GTK window
-         // GdkSurface *gdk_surface = gtk_native_get_surface(GTK_NATIVE(window));
-         //
-         // // Get the Wayland surface associated with the GdkSurface
-         // struct wl_surface *wl_surface = gdk_wayland_window_get_wl_surface(GDK_WAYLAND_SURFACE(gdk_surface));
-         //
-         // if (!wl_surface) {
-         //    g_print("Failed to get Wayland surface\n");
-         //    return;
-         // }
-
-         // // Get the Wayland display
-         // struct wl_display *wl_display = gdk_wayland_display_get_wl_display(gdk_display_get_default());
-         //
-         // // Get the Wayland toplevel object (xdg_toplevel)
-         // struct xdg_toplevel *xdg_toplevel = gdk_wayland_window_get_xdg_toplevel(GDK_WAYLAND_SURFACE(gdk_surface));
-         //
-         // if (!xdg_toplevel) {
-         //    g_print("Failed to get xdg_toplevel\n");
-         //    return;
-         // }
-         //
-         // // Trigger the resize operation on the toplevel
-         // // Edges should be a combination of values like XDG_TOPLEVEL_RESIZE_EDGE_LEFT, XDG_TOPLEVEL_RESIZE_EDGE_RIGHT, etc.
-         // guint32 serial = 0;  // You need the serial of the last user happening, e.g., from a button press
-         // xdg_toplevel_resize(xdg_toplevel, gdk_wayland_display_get_seat(gdk_display_get_default()), serial, edges);
-         //
-         // g_print("Called xdg_toplevel_resize\n");
-         //
-         // // Flush the display to send the request
-         return true;
-      }
-
-      return false;
+//      auto pdisplay = kde6_display();
+//
+//      if (pdisplay->is_wayland())
+//      {
+//
+//         // guint button;
+//         //
+//         // if(::is_null(pmouse))
+//         // {
+//         //
+//         //    button = 1;
+//         //
+//         // }
+//         // else
+//         // {
+//         //
+//         //    button= as_guint_button(pmouse->m_ebuttonstate);
+//         //
+//         // }
+//         //
+//         //
+//         //
+//         // //guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pclick));
+//         // //Cast to Wayland display
+//         // //struct wl_display *wl_display = gdk_wayland_display_get_wl_display(display);
+//         //
+//         //
+//         // // Get the Wayland compositor (xdg_wm_base is part of the Wayland compositor)
+//         // //struct wl_compositor *wl_compositor = gdk_wayland_display_get_wl_compositor(display);
+//         //
+//         // // Get the wl_surface from the GTK window
+//         // //auto gdk_surface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
+//         //
+//         // //struct wl_surface *pwlsurface = gdk_wayland_surface_get_wl_surface(gdk_surface);
+//         //
+//         // // You need to create an xdg_surface using xdg_wm_base
+//         // //struct xdg_wm_base *pxdgwmbase = kde5_windowing()->m_pdisplay->m_pxdgwmbase;
+//         //
+//         // // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pclick));
+//         // //
+//         // // // Get the GdkEvent from the sequence
+//         // // GdkEvent *happening = gtk_gesture_get_last_event(GTK_GESTURE(pclick), sequence);
+//         // // if (!happening) {
+//         // //    g_print("Failed to get happening from GdkGestureClick.\n");
+//         // //    return;
+//         // // }
+//         // //
+//         // // guint32 timestamp = gdk_event_get_time (happening);
+//         //
+//         // //GdkWaylandEventSource  peventsource * =gdk_event_get_event_sequence(happening);
+//         //
+//         // guint32 timestamp;
+//         //
+//         // if(::is_null(pmouse))
+//         // {
+//         //
+//         //    timestamp = GDK_CURRENT_TIME;
+//         //
+//         // }
+//         // else
+//         // {
+//         //    timestamp=  pmouse->m_iTimestamp;
+//         // }
+//         //
+//         // //auto pgdkeventsequence = gdk_event_get_event_sequence(happening);
+//         //
+//         // auto toplevel = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
+//         //
+//         //
+//         // auto pgdkdisplay = pdisplay->m_pgdkdisplay;
+//         //
+//         // GdkSeat * pgdkseat = gdk_display_get_default_seat(pgdkdisplay);
+//         //
+//         // // Get the default pointer device (e.g., mouse)
+//         // GdkDevice *pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
+//         //
+//         // auto gdksurfacedge = as_gdk_surface_edge(eframeSizing);
+//         //
+//         // //_unlocked_defer_start_resize(resize_edge, pgesture, x, y);
+//         //
+//         // double x;
+//         // double y;
+//         // if(::is_null(pmouse))
+//         // {
+//         //    x = 8;
+//         //    y = 8;
+//         // }
+//         // else
+//         // {
+//         //    x = pmouse->m_pointAbsolute.x();
+//         //    y = pmouse->m_pointAbsolute.y();
+//         // }
+//         //
+//         // gdk_toplevel_begin_resize(GDK_TOPLEVEL(toplevel), gdksurfacedge, pgdkdevicePointer, button, x, y, timestamp);
+//         //
+//
+//
+//         // Check if the backend is Wayland
+//         //if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
+//         // Extract the Wayland happening serial
+//         //guint32 serial = gdk_wayland_event_source_get_event_serial(happening);
+//         //guint32 serial = wl_message_get_opcode(wl_message_from_opcode(object, opcode));
+//
+//         // guint32 serial = 0;
+//         //
+//         // auto pxdgsurface = xdg_wm_base_get_xdg_surface(pxdgwmbase, pwlsurface);
+//         //
+//         // auto pxdgtoplevel = xdg_surface_get_toplevel(pxdgsurface);
+//         // // Get the seat (which manages input devices for the display)
+//         // GdkSeat *seat = gdk_display_get_default_seat(display);
+//         //
+//         // // Get the default pointer device (e.g., mouse)
+//         // GdkDevice *pointer = gdk_seat_get_pointer(seat);
+//         // auto pwlseat = gdk_wayland_device_get_wl_seat(pointer);
+//         //
+//         // auto resizeedge = as_xdg_toplevel_resize_edge(eedge);
+//         //
+//         // xdg_toplevel_resize(
+//         //           pxdgtoplevel,
+//         //              pwlseat,
+//         //              serial,
+//         //              resizeedge);
+//         //
+//         // wl_display_dispatch(wl_display);
+//         //
+//         //
+//         // wl_display_flush(wl_display);
+//         //
+//         // // Get the GdkSurface for the GTK window
+//         // GdkSurface *gdk_surface = gtk_native_get_surface(GTK_NATIVE(window));
+//         //
+//         // // Get the Wayland surface associated with the GdkSurface
+//         // struct wl_surface *wl_surface = gdk_wayland_window_get_wl_surface(GDK_WAYLAND_SURFACE(gdk_surface));
+//         //
+//         // if (!wl_surface) {
+//         //    g_print("Failed to get Wayland surface\n");
+//         //    return;
+//         // }
+//
+//         // // Get the Wayland display
+//         // struct wl_display *wl_display = gdk_wayland_display_get_wl_display(gdk_display_get_default());
+//         //
+//         // // Get the Wayland toplevel object (xdg_toplevel)
+//         // struct xdg_toplevel *xdg_toplevel = gdk_wayland_window_get_xdg_toplevel(GDK_WAYLAND_SURFACE(gdk_surface));
+//         //
+//         // if (!xdg_toplevel) {
+//         //    g_print("Failed to get xdg_toplevel\n");
+//         //    return;
+//         // }
+//         //
+//         // // Trigger the resize operation on the toplevel
+//         // // Edges should be a combination of values like XDG_TOPLEVEL_RESIZE_EDGE_LEFT, XDG_TOPLEVEL_RESIZE_EDGE_RIGHT, etc.
+//         // guint32 serial = 0;  // You need the serial of the last user happening, e.g., from a button press
+//         // xdg_toplevel_resize(xdg_toplevel, gdk_wayland_display_get_seat(gdk_display_get_default()), serial, edges);
+//         //
+//         // g_print("Called xdg_toplevel_resize\n");
+//         //
+//         // // Flush the display to send the request
+//         return true;
+//      }
+//
+//      return false;
    }
 
 
@@ -7262,103 +7361,104 @@ namespace windowing_kde6
    //
    bool window::defer_perform_entire_reposition_process(::user::mouse* pmouse)
    {
-      //return _perform_entire_resizing_process(eframeSizing);
-
-      auto pdisplay = kde6_display();
-
-      if (pdisplay->is_wayland())
-      {
-         // guint button;
-         //
-         // if(::is_null(pmouse))
-         // {
-         //
-         //    button = 0;
-         //
-         // }
-         // else
-         // {
-         //
-         //    button= as_guint_button(pmouse->m_ebuttonstate);
-         //
-         // }
-         //
-         //
-         // //guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pclick));
-         // //Cast to Wayland display
-         // //struct wl_display *wl_display = gdk_wayland_display_get_wl_display(display);
-         //
-         //
-         // // Get the Wayland compositor (xdg_wm_base is part of the Wayland compositor)
-         // //struct wl_compositor *wl_compositor = gdk_wayland_display_get_wl_compositor(display);
-         //
-         // // Get the wl_surface from the GTK window
-         // //auto gdk_surface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
-         //
-         // //struct wl_surface *pwlsurface = gdk_wayland_surface_get_wl_surface(gdk_surface);
-         //
-         // // You need to create an xdg_surface using xdg_wm_base
-         // //struct xdg_wm_base *pxdgwmbase = kde5_windowing()->m_pdisplay->m_pxdgwmbase;
-         //
-         // // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pclick));
-         // //
-         // // // Get the GdkEvent from the sequence
-         // // GdkEvent *happening = gtk_gesture_get_last_event(GTK_GESTURE(pclick), sequence);
-         // // if (!happening) {
-         // //    g_print("Failed to get happening from GdkGestureClick.\n");
-         // //    return;
-         // // }
-         // //
-         // // guint32 timestamp = gdk_event_get_time (happening);
-         //
-         // //GdkWaylandEventSource  peventsource * =gdk_event_get_event_sequence(happening);
-         //
-         // guint32 timestamp;
-         //
-         // if(::is_null(pmouse))
-         // {
-         //
-         //    timestamp = GDK_CURRENT_TIME;
-         //
-         // }
-         // else
-         // {
-         //    timestamp=  pmouse->m_iTimestamp;
-         // }
-         //
-         // //auto pgdkeventsequence = gdk_event_get_event_sequence(happening);
-         //
-         // auto toplevel = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
-         //
-         //
-         // auto pgdkdisplay = pdisplay->m_pgdkdisplay;
-         //
-         // GdkSeat * pgdkseat = gdk_display_get_default_seat(pgdkdisplay);
-         //
-         // // Get the default pointer device (e.g., mouse)
-         // GdkDevice *pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
-         // double x;
-         // double y;
-         // if(::is_null(pmouse))
-         // {
-         //    x = gtk_widget_get_width(m_pgtkwidget);
-         //    y = gtk_widget_get_height(m_pgtkwidget);
-         //
-         //    x/=2;
-         //    y/=2;
-         // }
-         // else
-         // {
-         //    x = pmouse->m_pointAbsolute.x();
-         //    y = pmouse->m_pointAbsolute.y();
-         // }
-         //
-         //
-         // gdk_toplevel_begin_move(GDK_TOPLEVEL(toplevel), pgdkdevicePointer, button, x, y, timestamp);
-
-         return true;
-      }
-      return false;
+      return ::kde6::acme::windowing::window::defer_perform_entire_reposition_process(pmouse);
+//      //return _perform_entire_resizing_process(eframeSizing);
+//
+//      auto pdisplay = kde6_display();
+//
+//      if (pdisplay->is_wayland())
+//      {
+//         // guint button;
+//         //
+//         // if(::is_null(pmouse))
+//         // {
+//         //
+//         //    button = 0;
+//         //
+//         // }
+//         // else
+//         // {
+//         //
+//         //    button= as_guint_button(pmouse->m_ebuttonstate);
+//         //
+//         // }
+//         //
+//         //
+//         // //guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pclick));
+//         // //Cast to Wayland display
+//         // //struct wl_display *wl_display = gdk_wayland_display_get_wl_display(display);
+//         //
+//         //
+//         // // Get the Wayland compositor (xdg_wm_base is part of the Wayland compositor)
+//         // //struct wl_compositor *wl_compositor = gdk_wayland_display_get_wl_compositor(display);
+//         //
+//         // // Get the wl_surface from the GTK window
+//         // //auto gdk_surface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
+//         //
+//         // //struct wl_surface *pwlsurface = gdk_wayland_surface_get_wl_surface(gdk_surface);
+//         //
+//         // // You need to create an xdg_surface using xdg_wm_base
+//         // //struct xdg_wm_base *pxdgwmbase = kde5_windowing()->m_pdisplay->m_pxdgwmbase;
+//         //
+//         // // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pclick));
+//         // //
+//         // // // Get the GdkEvent from the sequence
+//         // // GdkEvent *happening = gtk_gesture_get_last_event(GTK_GESTURE(pclick), sequence);
+//         // // if (!happening) {
+//         // //    g_print("Failed to get happening from GdkGestureClick.\n");
+//         // //    return;
+//         // // }
+//         // //
+//         // // guint32 timestamp = gdk_event_get_time (happening);
+//         //
+//         // //GdkWaylandEventSource  peventsource * =gdk_event_get_event_sequence(happening);
+//         //
+//         // guint32 timestamp;
+//         //
+//         // if(::is_null(pmouse))
+//         // {
+//         //
+//         //    timestamp = GDK_CURRENT_TIME;
+//         //
+//         // }
+//         // else
+//         // {
+//         //    timestamp=  pmouse->m_iTimestamp;
+//         // }
+//         //
+//         // //auto pgdkeventsequence = gdk_event_get_event_sequence(happening);
+//         //
+//         // auto toplevel = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
+//         //
+//         //
+//         // auto pgdkdisplay = pdisplay->m_pgdkdisplay;
+//         //
+//         // GdkSeat * pgdkseat = gdk_display_get_default_seat(pgdkdisplay);
+//         //
+//         // // Get the default pointer device (e.g., mouse)
+//         // GdkDevice *pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
+//         // double x;
+//         // double y;
+//         // if(::is_null(pmouse))
+//         // {
+//         //    x = gtk_widget_get_width(m_pgtkwidget);
+//         //    y = gtk_widget_get_height(m_pgtkwidget);
+//         //
+//         //    x/=2;
+//         //    y/=2;
+//         // }
+//         // else
+//         // {
+//         //    x = pmouse->m_pointAbsolute.x();
+//         //    y = pmouse->m_pointAbsolute.y();
+//         // }
+//         //
+//         //
+//         // gdk_toplevel_begin_move(GDK_TOPLEVEL(toplevel), pgdkdevicePointer, button, x, y, timestamp);
+//
+//         return true;
+//      }
+//      return false;
    }
 
 
@@ -7397,9 +7497,9 @@ namespace windowing_kde6
    //   }
 
 
-   void window::on_destruct_mouse_message(::message::mouse* pmouse)
+   void window::final_mouse_message_handling(::message::mouse* pmouse)
    {
-      ::windowing::window::on_destruct_mouse_message(pmouse);
+      ::windowing::window::final_mouse_message_handling(pmouse);
 
       //      if(::is_null(pmouse))
       //      {

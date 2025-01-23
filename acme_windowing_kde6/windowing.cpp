@@ -121,6 +121,41 @@ namespace kde6
 
          }
 
+         bool windowing::defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
+         {
+
+            if(m_pwindowMouseCapture.m_p != pwindow)
+            {
+
+               return false;
+
+            }
+
+            m_pwindowMouseCapture.release();
+
+            return true;
+
+         }
+
+
+         ::windowing::enum_windowing windowing::calculate_ewindowing()
+         {
+
+            QString platformName = QGuiApplication::platformName();
+
+            if (platformName == "wayland") {
+               //qDebug() << "The system is running under Wayland.";
+               return ::windowing::e_windowing_wayland;
+            } else if (platformName == "xcb") {
+               //qDebug() << "The system is running under X11.";
+               return ::windowing::e_windowing_xcb;
+            } else {
+               //qDebug() << "Unknown platform:" << platformName;
+               return ::windowing::e_windowing_unknown;
+            }
+
+         }
+
 
          void windowing::_user_send(const ::procedure & procedure)
          {

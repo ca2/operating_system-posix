@@ -14,8 +14,9 @@
 //#include "acme/user/micro/window.h"
 #include "acme/windowing/windowing.h"
 //#include "common_gtk/gdk_3_and_4.h"
-
-
+#include <QScreen>
+#include <QRect>
+#include <QGuiApplication>
 //#include "windowing_system_x11/_.h"
 
 
@@ -687,7 +688,23 @@ namespace kde6
             //
             //            auto height = DisplayHeight(m_pdisplay, snum);
 
-            return {1920, 1080};
+            //return {1920, 1080};
+
+            // Get the primary screen
+            QScreen *primaryScreen = QGuiApplication::primaryScreen();
+            if (!primaryScreen) {
+              // qWarning() << "No primary screen found!";
+               return {1920,1080};
+            }
+
+            // Get the screen geometry
+            QRect screenGeometry = primaryScreen->geometry();
+            int width = screenGeometry.width();
+            int height = screenGeometry.height();
+
+            //qDebug() << "Primary screen size: " << width << "x" << height;
+
+            return {width, height};
 
          }
 

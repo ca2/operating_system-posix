@@ -33,8 +33,7 @@ namespace innate_ui_kde6
    void dialog::create()
    {
 
-
-
+      ::innate_ui_kde6::window::create();
 
    }
 

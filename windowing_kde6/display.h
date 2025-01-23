@@ -136,7 +136,7 @@ namespace windowing_kde6
 
       virtual ::e_status release_mouse_capture();
 
-
+      ::collection::count get_monitor_count() override;
 //      Atom intern_atom(const char * pszAtomName, bool bCreate);
 //
 //      Atom intern_atom(::x11::enum_atom eatom, bool bCreate);
@@ -184,6 +184,8 @@ namespace windowing_kde6
 
          virtual bool is_x11();
          virtual bool is_wayland();
+
+      ::collection::index get_main_monitor_index() override;
 
    };
 
