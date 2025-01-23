@@ -93,7 +93,7 @@ elseif(${LINUX} OR ${__BSD__})
    #if(USE_PKGCONFIG)
    #pkg_check_modules(PKGCONFIG gconf-2.0 glib-2.0 gtk+-3.0 gdk-3.0)
    #pkg_check_modules(PKGCONFIG glib-2.0 gtk4)
-   pkg_check_modules(PKGCONFIG gtk4)
+   pkg_check_modules(PKGCONFIG gtk4 dbus-1)
    #endif()
 
 

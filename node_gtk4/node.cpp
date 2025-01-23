@@ -13,6 +13,7 @@
 #include "acme/platform/node.h"
 #include "apex/operating_system/freedesktop/desktop_file.h"
 #include "acme/handler/topic.h"
+#include "acme/prototype/datetime/datetime.h"
 #include "acme/operating_system/summary.h"
 #include "acme/user/user/os_theme_colors.h"
 #include "acme/user/user/theme_colors.h"
@@ -28,6 +29,10 @@
 #include "node_gtk/gdk_3_and_4.h"
 //#include "aura/windowing/windowing.h"
 //#include "aura_posix/x11/windowing.h"
+
+
+
+      #include <glib.h>
 
 
 #include <gio/gio.h>
@@ -375,6 +380,68 @@ cairo_surface_t * __cairo_create_image_argb32_surface(::memory & m, int w, int h
 
 
 gboolean node_gtk_source_func(gpointer pUserdata);
+
+
+#include <dbus/dbus.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+void dbus_activate_application(const char *bus_name, const char *object_path) {
+    DBusError error;
+    DBusConnection *connection;
+    DBusMessage *message, *reply;
+
+    // Initialize the D-Bus error structure
+    dbus_error_init(&error);
+
+    // Connect to the session bus
+    connection = dbus_bus_get(DBUS_BUS_SESSION, &error);
+    if (dbus_error_is_set(&error)) {
+        fprintf(stderr, "Error connecting to the session bus: %s\n", error.message);
+        dbus_error_free(&error);
+        return;
+    }
+
+    if (!connection) {
+        fprintf(stderr, "Failed to connect to the session bus.\n");
+        return;
+    }
+
+    // Create a method call message
+    message = dbus_message_new_method_call(
+        bus_name,              // Destination bus name
+        object_path,           // Object path
+        "org.freedesktop.Application", // Interface
+        "Activate"             // Method
+    );
+
+    if (!message) {
+        fprintf(stderr, "Failed to create D-Bus message.\n");
+        return;
+    }
+
+    // Send the message and wait for a reply
+    reply = dbus_connection_send_with_reply_and_block(connection, message, -1, &error);
+    dbus_message_unref(message);
+
+    if (dbus_error_is_set(&error)) {
+        fprintf(stderr, "Error sending D-Bus message: %s\n", error.message);
+        dbus_error_free(&error);
+        return;
+    }
+
+    if (reply) {
+        printf("Application activated successfully.\n");
+        dbus_message_unref(reply);
+    } else {
+        fprintf(stderr, "Failed to activate application.\n");
+    }
+
+    // Clean up
+    dbus_connection_unref(connection);
+}
+
+
 
 
 namespace node_gtk4
@@ -1946,7 +2013,101 @@ namespace node_gtk4
 
    void node::launch_app_by_app_id(const ::scoped_string & scopedstrAppId, bool bSingleExecutableVersion)
    {
+      
+      ::file::path path = get_executable_path_by_app_id(scopedstrAppId, bSingleExecutableVersion);
 
+      ::file::path pathFolder = path.folder();
+
+      string strName = path.name();
+
+      ::string strCommand;
+
+      directory_system()->change_current(pathFolder);
+
+      ::file::path pathLogFolder;
+
+      pathLogFolder = directory_system()->home() / "application" / scopedstrAppId / "log";
+
+      directory_system()->create(pathLogFolder);
+
+      ::string strLogFileName;
+
+      strLogFileName = datetime()->date_time_text_for_file_with_no_spaces();
+
+      strLogFileName += ".txt";
+
+      ::file::path pathLog;
+
+      pathLog = pathLogFolder / strLogFileName;
+      
+      directory_system()->create(pathLog.folder());
+
+      strCommand = "/bin/ksh -c \"nohup ./\\\"" + strName + "\\\" > \\\"" + pathLog +"\\\"\"";
+
+      information() << "node::launch_app_by_app_id : " << strCommand;
+
+      auto inlinelog = std_inline_log();
+
+      inlinelog.set_timeout(10_minutes);
+
+      int iExitCode = this->command_system(strCommand, inlinelog);
+
+      if(iExitCode != 0)
+      {
+
+         throw ::exception(error_failed);
+
+      }
+
+/*    
+    ::string strDbusName;
+    
+    strDbusName = scopedstrAppId;
+    
+    strDbusName.find_replace("/", "." );
+    
+    ::string strObjectName;
+    
+    strObjectName = strDbusName;
+    
+    strObjectName.find_replace(".", "/");
+    
+    strObjectName = "/" + strObjectName;
+    
+    const char *object_path = strObjectName;
+    
+    informationf("Dbus name: %s", strDbusName.c_str());
+    
+    informationf("Object path: %s", strObjectName.c_str());
+
+
+   dbus_activate_application(strDbusName, strObjectName);
+      
+  */    
+/*
+    // Wait for the subprocess to finish (blocking call)
+    gboolean success = g_subprocess_wait(subprocess, nullptr, &error);
+
+    if (!success) {
+        std::cerr << "Subprocess failed: " << (error ? error->message : "Unknown error") << std::endl;
+        if (error) {
+            g_error_free(error);
+        }
+        
+        throw ::exception(error_failed);
+    } else {
+        // Get exit status
+        int exit_status = g_subprocess_get_exit_status(subprocess);
+        //std::cout << "Application exited with status: " << exit_status << std::endl;
+    }
+*/
+
+
+    // Cleanup
+//    g_object_unref(subprocess);
+
+    ///;;return 0;
+//}
 //      information() << "node::launch_app_by_app_id : " << scopedstrAppId;
 //
 //      auto pathDesktopFile = get_desktop_file_path_by_app_id(scopedstrAppId);
@@ -1956,7 +2117,7 @@ namespace node_gtk4
 //
 //         information() << "Desktop file (\"" << pathDesktopFile << "\") doesn't exist. Going to try to launch with executable path.";
 
-         ::aura_posix::node::launch_app_by_app_id(scopedstrAppId, bSingleExecutableVersion);
+         //::aura_posix::node::launch_app_by_app_id(scopedstrAppId, bSingleExecutableVersion);
 
 //         return;
 //

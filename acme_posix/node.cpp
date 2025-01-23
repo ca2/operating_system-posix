@@ -24,6 +24,9 @@
 #include "acme/_operating_system.h"
 #include "acme/operating_system/ansi/_pthread.h"
 
+
+#define DEEP_LOG_HERE 0
+
 template < typename POINTER_TYPE >
 class array_of_malloced_pointer :
 virtual public ::numeric_array < POINTER_TYPE >
@@ -1901,96 +1904,95 @@ namespace acme_posix
    }
 
 
-int node::command_system(const ::scoped_string & scopedstr,  const ::trace_function & functionTrace, const ::file::path & pathWorkingDirectory, ::e_display edisplay)
-{
+   int node::command_system(const ::scoped_string & scopedstr,  const ::trace_function & functionTrace, const ::file::path & pathWorkingDirectory, ::e_display edisplay)
+   {
    
-#ifdef DEEP_LOG_HERE
+#if DEEP_LOG_HERE > 6
    
-   information() << "acme_posix::node::command_system (1)";
+      information() << "acme_posix::node::command_system (1)";
    
 #endif
 
-   ::e_status estatus = success;
+      ::e_status estatus = success;
 
-   int stdout_fds[2] = {};
+      int stdout_fds[2] = {};
 
-   int iExitCode = 0;
+      int iExitCode = 0;
 
-   int iError = pipe(stdout_fds);
+      int iError = pipe(stdout_fds);
 
-   if (iError != 0)
-   {
+      if (iError != 0)
+      {
 
-      auto cerrornumber = c_error_number();
+         auto cerrornumber = c_error_number();
 
-      estatus = cerrornumber.estatus();
+         estatus = cerrornumber.estatus();
 
-      throw ::exception(estatus);
+         throw ::exception(estatus);
 
-   }
+      }
    
-#ifdef DEEP_LOG_HERE   
+#if DEEP_LOG_HERE > 6
    
-   information() << "acme_posix::node::command_system (2)";
+      information() << "acme_posix::node::command_system (2)";
    
 #endif
 
-   int stderr_fds[2] = {};
+      int stderr_fds[2] = {};
 
-   iError = pipe(stderr_fds);
+      iError = pipe(stderr_fds);
 
-   if (iError != 0)
-   {
+      if (iError != 0)
+      {
 
-      auto cerrornumber = c_error_number();
-
-      estatus = cerrornumber.estatus();
-
-      throw ::exception(estatus);
-
-   }
-
-   int stdin_fds[2] = {};
+         auto cerrornumber = c_error_number();
    
-   auto range = scopedstr();
+         estatus = cerrornumber.estatus();
+
+         throw ::exception(estatus);
+
+      }
+
+      int stdin_fds[2] = {};
    
-   ::string strExecutable(range.consume_command_line_argument());
+      auto range = scopedstr();
+      
+      ::string strExecutable(range.consume_command_line_argument());
 //#if !defined(_APPLE_IOS_)
 //   char **argv;
 //#endif
 
 #ifdef DEEP_LOG_HERE
 
-   information() << "acme_posix::node::command_system (3): executable: " << strExecutable;
+      information() << "acme_posix::node::command_system (3): executable: " << strExecutable;
    
 #endif
    
 #if defined(APPLE_IOS)
    
-   //argv = nullptr;
+      //argv = nullptr;
    
 #else
 
-  auto pszExecutable = ::c::strdup(strExecutable);
+      auto pszExecutable = ::c::strdup(strExecutable);
   
 //  printf("\n\n");
   
 //  printf("pszExecutable : %s\n", pszExecutable);
    
-  auto pszCommandLine = ansi_dup(scopedstr);
+      auto pszCommandLine = ansi_dup(scopedstr);
   
 #ifdef DEEP_LOG_HERE
   
-  information() << "acme_posix::node::command_system (3): command_line: " << pszCommandLine;
+      information() << "acme_posix::node::command_system (3): command_line: " << pszCommandLine;
   
 #endif
  
 //  printf("pszCommandLine : %s\n", pszCommandLine);
 
-  int iErrNo = 0;
+      int iErrNo = 0;
   
-           
-	auto stra = command_arguments_from_command_line(pszCommandLine);
+      auto stra = command_arguments_from_command_line(pszCommandLine);
 
 //         glob_t gl{};
 
@@ -1998,20 +2000,20 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 
 //         char **argv = __allocate_array< char * >(gl.gl_pathc + 1);
 
-	auto p = strdupa_from_command_arguments(stra);
+      auto p = strdupa_from_command_arguments(stra);
 	
 #ifdef DEBUG
 
 #ifdef DEEP_LOG_HERE
-	
-	printf("command count: %lld\n", p->size());
+      
+      printf("command count: %lld\n", p->size());
 
-	for(int i = 0; i < p->size(); i++)
-	{
+      for(int i = 0; i < p->size(); i++)
+      {
 
-		printf("command[%d] = : \"%s\"\n", i, p->element_at(i));
+         printf("command[%d] = : \"%s\"\n", i, p->element_at(i));
 
-	}	
+      }	
    
 #endif
 
@@ -2019,11 +2021,11 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 
 //         memory_copy(argv, gl.gl_pathv, gl.gl_pathc * sizeof(char *));
 
-	p->add(nullptr);
+      p->add(nullptr);
 
-   __refdbg_add_referer;
+      __refdbg_add_referer;
 	
-	p->increment_reference_count();
+      p->increment_reference_count();
 
 //         int iChildExitCode = execvp(arga[0], arga.data());
 
@@ -2110,27 +2112,31 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 //
 //   }
    
-   fcntl(stdout_fds[0], F_SETFL, fcntl(stdout_fds[0], F_GETFL) | O_CLOEXEC);
-   fcntl(stdout_fds[1], F_SETFL, fcntl(stdout_fds[1], F_GETFL) | O_CLOEXEC);
-   fcntl(stderr_fds[0], F_SETFL, fcntl(stderr_fds[0], F_GETFL) | O_CLOEXEC);
-   fcntl(stderr_fds[1], F_SETFL, fcntl(stderr_fds[1], F_GETFL) | O_CLOEXEC);
-   fcntl(stdin_fds[0], F_SETFL, fcntl(stdin_fds[0], F_GETFL) | O_CLOEXEC);
-   fcntl(stdin_fds[1], F_SETFL, fcntl(stdin_fds[1], F_GETFL) | O_CLOEXEC);
+      fcntl(stdout_fds[0], F_SETFL, fcntl(stdout_fds[0], F_GETFL) | O_CLOEXEC);
+      fcntl(stdout_fds[1], F_SETFL, fcntl(stdout_fds[1], F_GETFL) | O_CLOEXEC);
+      fcntl(stderr_fds[0], F_SETFL, fcntl(stderr_fds[0], F_GETFL) | O_CLOEXEC);
+      fcntl(stderr_fds[1], F_SETFL, fcntl(stderr_fds[1], F_GETFL) | O_CLOEXEC);
+      fcntl(stdin_fds[0], F_SETFL, fcntl(stdin_fds[0], F_GETFL) | O_CLOEXEC);
+      fcntl(stdin_fds[1], F_SETFL, fcntl(stdin_fds[1], F_GETFL) | O_CLOEXEC);
 
-   string strOutput;
+      string strOutput;
 
-   string strError;
+      string strError;
 
-   const pid_t pid = ::fork();
+      const pid_t pid = ::fork();
 
-   if (!pid)
-   {
+      if (!pid)
+      {
 
-      while ((dup2(stdout_fds[1], STDOUT_FILENO) == -1) && (errno == EINTR))
-      {}
-
-      while ((dup2(stderr_fds[1], STDERR_FILENO) == -1) && (errno == EINTR))
-      {}
+         while ((dup2(stdout_fds[1], STDOUT_FILENO) == -1) && (errno == EINTR))
+         {
+            
+         }
+   
+         while ((dup2(stderr_fds[1], STDERR_FILENO) == -1) && (errno == EINTR))
+         {
+            
+         }
 
 //      if(scopedstrPipe.has_character())
 //      {
@@ -2140,13 +2146,13 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 //
 //      }
 
-      close(stdout_fds[0]);
+         close(stdout_fds[0]);
 
-      close(stdout_fds[1]);
+         close(stdout_fds[1]);
 
-	  close(stderr_fds[0]);
+         close(stderr_fds[0]);
 
-      close(stderr_fds[1]);
+         close(stderr_fds[1]);
 //
 //      close(stdin_fds[0]);
 
@@ -2154,7 +2160,7 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 
 #if defined(ANDROID) || defined(APPLE_IOS)
 
-      throw ::exception(todo);
+         throw ::exception(todo);
 
 #else
 
@@ -2174,16 +2180,16 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
    
 //}
 
-      int iChildExitCode = execvp(pszExecutable, (char **) p->data());
+         int iChildExitCode = execvp(pszExecutable, (char **) p->data());
 
-      if (iChildExitCode == -1)
-      {
+         if (iChildExitCode == -1)
+         {
 
-         iErrNo = errno;
+            iErrNo = errno;
 
-      }
+         }
 
-      p.release();
+         p.release();
 
   //    delete[]argv;
 /*      
@@ -2197,19 +2203,19 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 
 #endif
 */
-      free(pszCommandLine);
+         free(pszCommandLine);
       
-      free(pszExecutable);
+         free(pszExecutable);
 
-      _exit(iErrNo);
+         _exit(iErrNo);
 
 #endif
 
-   }
+      }
 
-   close(stdout_fds[1]);
+      close(stdout_fds[1]);
 
-   close(stderr_fds[1]);
+      close(stderr_fds[1]);
 
 //   if(scopedstrPipe.has_character())
 //   {
@@ -2218,9 +2224,10 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 //
 //   }
 //
-   fcntl(stdout_fds[0], F_SETFL, fcntl(stdout_fds[0], F_GETFL) | O_NONBLOCK);
+   
+      fcntl(stdout_fds[0], F_SETFL, fcntl(stdout_fds[0], F_GETFL) | O_NONBLOCK);
 
-   fcntl(stderr_fds[0], F_SETFL, fcntl(stderr_fds[0], F_GETFL) | O_NONBLOCK);
+      fcntl(stderr_fds[0], F_SETFL, fcntl(stderr_fds[0], F_GETFL) | O_NONBLOCK);
 
 //   if(scopedstrPipe.has_character())
 //   {
@@ -2229,13 +2236,13 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 //
 //   }
 
-   const int buf_size = 4096;
+      const int buf_size = 4096;
 
-   char buffer[buf_size];
+      char buffer[buf_size];
 
-   char chExitCode = 0;
+      char chExitCode = 0;
 
-   bool bExit = false;
+      bool bExit = false;
 
 //   if (scopedstrPipe.has_character())
 //   {
@@ -2255,87 +2262,87 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 //
 //   }
 
-   while(true)
-   {
-
-      if(!::task_get_run() && !bExit)
-      {
-
-         close(stdout_fds[0]);
-
-         close(stderr_fds[0]);
-
-         //close(stdin_fds[1]);
-
-         kill(pid, SIGKILL);
-
-         int iStatus = 0;
-
-         waitpid(pid, &iStatus, 0);
-
-         break;
-
-      }
-
-      bool bRead = false;
-
       while(true)
       {
 
-         const ssize_t iOutRead = read(stdout_fds[0], buffer, buf_size);
-
-         if (iOutRead > 0)
+         if(!::task_get_run() && !bExit)
          {
 
-            bRead = true;
+            close(stdout_fds[0]);
 
-            string strMessage(buffer, iOutRead);
+            close(stderr_fds[0]);
 
-            strOutput += strMessage;
-            
-#ifdef DEEP_LOG_HERE
-    
-#ifdef DEBUG
-            
-            information() << "partial stdout output: \"" << strOutput << "\""; 
-            
-#endif
+            //close(stdin_fds[1]);
 
-#endif
+            kill(pid, SIGKILL);
 
-            if(functionTrace)
-            {
+            int iStatus = 0;
 
-               ::str::get_lines(strOutput, false, [&](auto & str, bool bCarriage)
-               {
+            waitpid(pid, &iStatus, 0);
 
-                  functionTrace(e_trace_level_information, str, bCarriage);
-
-               });
-              // functionTrace(e_trace_level_information, strMessage);
-
-            }
-
-            //::str::get_lines(straOutput, strOutput, "I: ", false, &singlelock, pfileLog);
+            break;
 
          }
 
-         const ssize_t iErrRead = read(stderr_fds[0], buffer, buf_size);
+         bool bRead = false;
 
-         if (iErrRead > 0)
+         while(true)
          {
 
-            bRead = true;
+            const ssize_t iOutRead = read(stdout_fds[0], buffer, buf_size);
 
-            string strMessage(buffer, iErrRead);
+            if (iOutRead > 0)
+            {
 
-            strError += strMessage;
+               bRead = true;
+
+               string strMessage(buffer, iOutRead);
+
+               strOutput += strMessage;
             
-#ifdef DEEP_LOG_HERE
+#if DEEP_LOG_HERE > 6
+    
+#ifdef DEBUG
+            
+               information() << "partial stdout output: \"" << strOutput << "\""; 
+            
+#endif
+
+#endif
+
+               if(functionTrace)
+               {
+
+                  ::str::get_lines(strOutput, false, [&](auto & str, bool bCarriage)
+                  {
+
+                     functionTrace(e_trace_level_information, str, bCarriage);
+
+                  });
+              // functionTrace(e_trace_level_information, strMessage);
+
+               }
+
+            //::str::get_lines(straOutput, strOutput, "I: ", false, &singlelock, pfileLog);
+
+            }
+
+            const ssize_t iErrRead = read(stderr_fds[0], buffer, buf_size);
+
+            if (iErrRead > 0)
+            {
+
+               bRead = true;
+
+               string strMessage(buffer, iErrRead);
+
+               strError += strMessage;
+            
+#if DEEP_LOG_HERE > 6
             
 #ifdef DEBUG            
             
-            information() << "partial stderr output: \"" << strOutput << "\""; 
+               information() << "partial stderr output: \"" << strOutput << "\""; 
 
 #endif
 
@@ -2351,130 +2358,142 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 //
 //               ::str::get_lines(straOutput, strError, "E: ", false, &singlelock, pfileLog);
 
-            if(functionTrace)
-            {
-
-               ::str::get_lines(strError, false, [&](auto &str, bool bCarriage)
+               if(functionTrace)
                {
 
-                  functionTrace(e_trace_level_error, str, bCarriage);
+                  ::str::get_lines(strError, false, [&](auto &str, bool bCarriage)
+                  {
 
-               });
+                     functionTrace(e_trace_level_error, str, bCarriage);
+
+                  });
+
+               }
+
+            }
+
+            if(iOutRead > 0 || iErrRead > 0)
+            {
+
+               bRead = true;
+
+            }
+            else
+            {
+
+               break;
 
             }
 
          }
 
-         if(iOutRead > 0 || iErrRead > 0)
+         if(bExit)
          {
 
-            bRead = true;
-
-         }
-         else
-         {
+#if DEEP_LOG_HERE > 6
+         
+            informationf("waitpid: exiting waitpid loop (1)");
+         
+#endif
 
             break;
 
          }
 
-      }
-
-      if(bExit)
-      {
-
-
-         break;
-
-      }
-
-      {
-
-         int status = 0;
-
-         int iWaitPid = waitpid(pid, &status, WNOHANG | WUNTRACED | WCONTINUED);
-
-         if(iWaitPid == -1)
          {
-            
-#ifdef DEEP_LOG_HERE
-            
-            informationf("waitpid -1 error");
-            
-#endif
 
-            int iErrorNo = errno;
+            int status = 0;
 
-            if(iErrorNo != ECHILD)
+            int iWaitPid = waitpid(pid, &status, WNOHANG | WUNTRACED | WCONTINUED);
+
+            if(iWaitPid == -1)
             {
+               
+   #if DEEP_LOG_HERE > 6
+               
+               informationf("waitpid -1 error");
+               
+   #endif
 
-               //break;
+               int iErrorNo = errno;
 
-               bExit = true;
+               if(iErrorNo != ECHILD)
+               {
+
+                  //break;
+
+                  bExit = true;
+
+               }
 
             }
-
-         }
-         else if(iWaitPid == pid)
-         {
-            
-#ifdef DEEP_LOG_HERE
-            
-            informationf("waitpid: iWaitPid=%d, pid=%d", iWaitPid, pid);
-            
-#endif
-
-            if (WIFEXITED(status))
+            else if(iWaitPid == pid)
             {
-
-               chExitCode = WEXITSTATUS(status);
-
-               iExitCode = chExitCode;
                
-#ifdef DEEP_LOG_HERE
+   #if DEEP_LOG_HERE > 6
                
-               informationf("exit_code: status=%d, iExitCode=%d", status, iExitCode);
+               informationf("waitpid: iWaitPid=%d, pid=%d", iWaitPid, pid);
                
-#endif
+   #endif
 
-               //break;
+               if (WIFEXITED(status))
+               {
 
-               bExit = true;
+                  chExitCode = WEXITSTATUS(status);
+
+                  iExitCode = chExitCode;
+                  
+   #if DEEP_LOG_HERE > 6
+                  
+                  informationf("exit_code: status=%d, iExitCode=%d", status, iExitCode);
+                  
+   #endif
+
+                  //break;
+
+                  bExit = true;
+
+               }
 
             }
+            else
+            {
+               
+   #if DEEP_LOG_HERE > 6
+
+               informationf("waitpid (2): iWaitPid=%d, pid=%d", iWaitPid, pid);
+               
+   #endif
+            
+            }            
 
          }
-         else
+
+         if(!bRead && !bExit)
          {
             
-#ifdef DEEP_LOG_HERE
-
-            informationf("waitpid (2): iWaitPid=%d, pid=%d", iWaitPid, pid);
+   #if DEEP_LOG_HERE > 6
             
-#endif
-         
-         }            
+            informationf("waitpid: preempting for 25_ms");
+            
+   #endif
+
+            preempt(25_ms);
+
+         }
 
       }
-
-      if(!bRead && !bExit)
-      {
+   
+#if DEEP_LOG_HERE > 6
          
-#ifdef DEEP_LOG_HERE
-         
-         informationf("waitpid: preempting for 25_ms");
+      informationf("waitpid: preempting for 25_ms");
          
 #endif
+   
 
-         preempt(25_ms);
+      close(stdout_fds[0]);
 
-      }
-
-   }
-
-   close(stdout_fds[0]);
-
-   close(stderr_fds[0]);
+      close(stderr_fds[0]);
 
 //      if (scopedstrPipe.has_character())
 //      {
@@ -2494,32 +2513,115 @@ int node::command_system(const ::scoped_string & scopedstr,  const ::trace_funct
 //
 //   }
 
-if(functionTrace)
-{
+      if(functionTrace)
+      {
 
-   ::str::get_lines(strOutput, true, [&](auto &str, bool bCarriage)
+         ::str::get_lines(strOutput, true, [&](auto &str, bool bCarriage)
+         {
+
+            functionTrace(e_trace_level_information, str, bCarriage);
+
+         });
+
+         ::str::get_lines(strError, true, [&](auto &str, bool bCarriage)
+         {
+
+            functionTrace(e_trace_level_error, str, bCarriage);
+
+         });
+
+         //::str::get_lines(straOutput, strOutput, "I: ", true, &singlelock, pfileLog);
+
+         //::str::get_lines(straOutput, strError, "E: ", true, &singlelock, pfileLog);
+
+      }
+
+      return iExitCode;
+
+   }
+
+
+   void node::launch_process(const ::scoped_string & scopedstr)
    {
+   
+#if DEEP_LOG_HERE > 6
+   
+      information() << "acme_posix::node::launch_process (1)";
+   
+#endif
 
-      functionTrace(e_trace_level_information, str, bCarriage);
+      auto range = scopedstr();
+      
+      ::string strExecutable(range.consume_command_line_argument());
 
-   });
+#ifdef DEEP_LOG_HERE
 
-   ::str::get_lines(strError, true, [&](auto &str, bool bCarriage)
-   {
+      information() << "acme_posix::node::launch_process (2): executable: " << strExecutable;
+   
+#endif
+   
+      auto pszExecutable = ::c::strdup(strExecutable);
 
-      functionTrace(e_trace_level_error, str, bCarriage);
+      auto stra = command_arguments_from_command_line(scopedstr);
 
-   });
+      auto p = strdupa_from_command_arguments(stra);
+	
+#ifdef DEBUG
 
-   //::str::get_lines(straOutput, strOutput, "I: ", true, &singlelock, pfileLog);
+#ifdef DEEP_LOG_HERE
+      
+      printf("command count: %lld\n", p->size());
 
-   //::str::get_lines(straOutput, strError, "E: ", true, &singlelock, pfileLog);
+      for(int i = 0; i < p->size(); i++)
+      {
 
-}
+         printf("command[%d] = : \"%s\"\n", i, p->element_at(i));
 
-   return iExitCode;
+      }	
+   
+#endif
 
-}
+#endif
+
+      p->add(nullptr);
+
+      __refdbg_add_referer;
+	
+      p->increment_reference_count();
+
+      const pid_t pid = ::fork();
+
+      if (!pid)
+      {
+
+#if defined(ANDROID) || defined(APPLE_IOS)
+
+         throw ::exception(todo);
+
+#else
+
+         setsid();
+
+         int iChildExitCode = execvp(pszExecutable, (char **) p->data());
+
+         if (iChildExitCode == -1)
+         {
+
+            iChildExitCode = errno;
+
+         }
+         
+         p.release();
+         
+         free(pszExecutable);
+
+         _exit(iChildExitCode);
+
+#endif
+
+      }
+
+   }
 
 
    ::file::path node::library_file_name(const ::scoped_string& scopedstr)

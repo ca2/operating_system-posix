@@ -116,12 +116,14 @@ namespace acme_posix
       int command_system(const ::scoped_string & scopedstr, const trace_function & tracefunction = nullptr, const ::file::path & pathWorkingDirectory ={}, ::e_display edisplay = e_display_none) override;
 
 
+      void launch_process(const ::scoped_string & scopedstr) override;
+
       ::file::path library_file_name(const ::scoped_string& scopedstr) override;
 
 
       int posix_shell_command(const ::scoped_string& scopedstrCommand, enum_posix_shell eposixshell = e_posix_shell_system_default, const trace_function& tracefunction = nullptr) override;
 
-      //::user::enum_operating_ambient calculate_edesktop() override;
+      //::user::enum_operating_ambcient calculate_edesktop() override;
 
       bool is_executable_in_path(const ::scoped_string & scopedstr) override;
 
