@@ -31,6 +31,8 @@ elseif(${GTK_BASED_DESKTOP})
    string(SUBSTRING ${GNOME_RELEASE} 0 ${GNOME_RELEASE_FIRST_DOT} GNOME_RELEASE_MAJOR)
    message(STATUS "GNOME_RELEASE_MAJOR is ${GNOME_RELEASE_MAJOR}")
 
+   math(EXPR GNOME_RELEASE_MAJOR ${GNOME_RELEASE_MAJOR})
+
 endif()
 
 
@@ -42,12 +44,16 @@ if(${GNOME_RELEASE_MAJOR} GREATER_EQUAL 40)
    
    add_compile_definitions(HAS_GTK4)
 
+   message(STATUS "HAS_GTK4 is TRUE")
+
 elseif(${GNOME_RELEASE_MAJOR} GREATER_EQUAL 3)
 
    set(HAS_GTK3 TRUE)
    set(GNOME_RELEASE_MAJOR "3")
    
    add_compile_definitions(HAS_GTK3)
+
+   message(STATUS "HAS_GTK3 is TRUE")
 
 endif()
 
