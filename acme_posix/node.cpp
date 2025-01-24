@@ -1962,7 +1962,7 @@ namespace acme_posix
 //   char **argv;
 //#endif
 
-#ifdef DEEP_LOG_HERE
+#if DEEP_LOG_HERE > 6
 
       information() << "acme_posix::node::command_system (3): executable: " << strExecutable;
    
@@ -1982,7 +1982,7 @@ namespace acme_posix
    
       auto pszCommandLine = ansi_dup(scopedstr);
   
-#ifdef DEEP_LOG_HERE
+#if DEEP_LOG_HERE > 6
   
       information() << "acme_posix::node::command_system (3): command_line: " << pszCommandLine;
   
@@ -2004,7 +2004,7 @@ namespace acme_posix
 	
 #ifdef DEBUG
 
-#ifdef DEEP_LOG_HERE
+#if DEEP_LOG_HERE > 6
       
       printf("command count: %lld\n", p->size());
 
@@ -2554,7 +2554,7 @@ namespace acme_posix
       
       ::string strExecutable(range.consume_command_line_argument());
 
-#ifdef DEEP_LOG_HERE
+#if DEEP_LOG_HERE > 6
 
       information() << "acme_posix::node::launch_process (2): executable: " << strExecutable;
    
@@ -2568,7 +2568,7 @@ namespace acme_posix
 	
 #ifdef DEBUG
 
-#ifdef DEEP_LOG_HERE
+#if DEEP_LOG_HERE > 6
       
       printf("command count: %lld\n", p->size());
 
