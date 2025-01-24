@@ -981,6 +981,14 @@ namespace windowing_kde5
    //   }
 
 
+   void windowing::_main_send(const ::procedure & procedure)
+   {
+
+      system()->acme_windowing()->_main_post(procedure);
+
+   }
+
+
    //void gtk_settings_gtk_theme_name_callback(GObject *object, GParamSpec *pspec, gpointer data);
 
    //void gtk_settings_gtk_icon_theme_name_callback(GObject *object, GParamSpec *pspec, gpointer data);

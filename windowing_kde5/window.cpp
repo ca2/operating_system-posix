@@ -4708,6 +4708,14 @@ namespace windowing_kde5
    }
 
 
+   void window::_main_send(const ::procedure & procedure)
+   {
+
+      system()->acme_windowing()->_main_send(procedure);
+
+   }
+
+
    //   void oswindow_data::wm_full_screen(const ::int_rectangle & rectangle)
    //   {
    //

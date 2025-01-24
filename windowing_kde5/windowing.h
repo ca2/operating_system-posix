@@ -108,6 +108,8 @@ namespace windowing_kde5
 
       //virtual bool os_defer_init_kde5();
 
+      void _main_send(const ::procedure & procedure);
+
        void _user_post(const ::procedure & procedureParam) override;
 
 

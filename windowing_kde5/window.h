@@ -222,7 +222,7 @@ void on_initialize_particle() override;
       //virtual ::Window get_parent_handle();
       //::oswindow get_parent_oswindow() const override;
 
-
+      void _main_send(const ::procedure & procedure);
 //      ::int_point get_mouse_cursor_host_position() override;
 //      ::int_point get_mouse_cursor_absolute_position() override;
 
