@@ -517,12 +517,20 @@ information() << "gtk4::acme::windowing::windowing::run g_application_run";
             //
             // }
 
-            if(::system()->m_pmanualresethappeningMainLoopEnd)
-            {
+            // if(::system()->m_pmanualresethappeningMainLoopEnd)
+            // {
+            //
+            //    ::system()->m_pmanualresethappeningMainLoopEnd->set_happening();
+            //
+            // }
 
-               ::system()->m_pmanualresethappeningMainLoopEnd->set_happening();
+         }
 
-            }
+
+         void windowing::__task_suffix()
+         {
+
+            windowing_post_quit();
 
          }
 
@@ -557,9 +565,7 @@ information() << "gtk4::acme::windowing::windowing::run g_application_run";
          void windowing::on_start_system()
          {
 
-            auto* psystem = this->system();
-
-            psystem->on_branch_system_from_main_thread_startup();
+            system()->on_branch_system_from_main_thread_startup(this);
 
          }
 

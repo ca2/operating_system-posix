@@ -23,7 +23,8 @@ namespace gtk4
 
 
          class CLASS_DECL_ACME_WINDOWING_GTK4 windowing :
-            virtual public ::acme::windowing::windowing
+            virtual public ::acme::windowing::windowing,
+            virtual public ::task_handler
          {
          public:
 
@@ -100,6 +101,9 @@ namespace gtk4
 
 
             void run() override;
+
+
+            void __task_suffix() override;
 
 
             bool handle_messages() override;

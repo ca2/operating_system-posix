@@ -193,9 +193,7 @@ cairo_surface_t *get_cairo_surface_from_pixbuf(GdkPixbuf *pixbuf)
    void windowing::on_start_system()
    {
 
-      auto * psystem = this->system();
-
-      psystem->on_branch_system_from_main_thread_startup();
+      system()->on_branch_system_from_main_thread_startup(this);
 
    }
 

@@ -540,7 +540,7 @@ namespace node_gtk3
    void node::on_start_system()
    {
 
-      system()->on_branch_system_from_main_thread_startup();
+      system()->windowing()->on_start_system();
 
    }
 

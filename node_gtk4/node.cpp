@@ -542,11 +542,7 @@ namespace node_gtk4
    void node::on_start_system()
    {
 
-      auto * psystem = this->system();
-      
-      information() << "node_gtk4::node::on_start_system";
-
-      psystem->on_branch_system_from_main_thread_startup();
+      system()->windowing()->on_start_system();
 
    }
 
