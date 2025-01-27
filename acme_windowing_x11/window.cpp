@@ -741,7 +741,7 @@ namespace x11
 //         }
 
 
-         void window::set_capture()
+         void window::set_mouse_capture()
          {
 
             display_lock displaylock(m_pdisplay->m_pdisplay);
@@ -757,7 +757,7 @@ namespace x11
          }
 
 
-         void window::release_capture()
+         void window::release_mouse_capture()
          {
             display_lock displaylock(m_pdisplay->m_pdisplay);
 

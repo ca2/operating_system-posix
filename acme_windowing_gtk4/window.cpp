@@ -71,14 +71,14 @@ namespace gtk4
 
          static void on_focus_changed(GObject *widget, GParamSpec *pspec, gpointer p) {
             auto pwindow = (::gtk4::acme::windowing::window*)p;
-            gboolean has_focus = gtk_widget_has_focus(GTK_WIDGET(widget));
-            if (has_focus) {
+            gboolean has_keyboard_focus = gtk_widget_has_focus(GTK_WIDGET(widget));
+            if (has_keyboard_focus) {
                g_print("Widget gained focus\n");
             } else {
                g_print("Widget lost focus\n");
             }
 
-            pwindow->_on_focus_changed(has_focus);
+            pwindow->_on_focus_changed(has_keyboard_focus);
          }
 
 
@@ -2325,14 +2325,14 @@ namespace gtk4
    }
 
 
-   void window::set_capture()
+   void window::set_mouse_capture()
    {
 
 
    }
 
 
-   void window::release_capture()
+   void window::release_mouse_capture()
    {
 
 

@@ -1760,18 +1760,18 @@ namespace gtk4
          }
 
 
-         void window::set_capture()
-         {
+         // void window::set_capture()
+         // {
 
 
-         }
+         // }
 
 
-         void window::release_capture()
-         {
+         // void window::release_capture()
+         // {
 
 
-         }
+         // }
 
 
          ::int_rectangle window::get_window_rectangle_unlocked()

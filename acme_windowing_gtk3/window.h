@@ -84,9 +84,9 @@ namespace gtk3
 
             void show_window() override;
 
-            void set_capture() override;
+            void set_mouse_capture() override;
 
-            void release_capture() override;
+            void release_mouse_capture() override;
 
             //bool _on_event(XEvent *pevent) override;
 

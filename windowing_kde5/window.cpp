@@ -1387,12 +1387,15 @@ namespace windowing_kde5
    void window::_on_mouse_press(QMouseEvent* pevent)
    {
 
-      if(m_bResizingWindowFromBottomRight ||
-         m_bRepositioningWindowFromCenter)
+      if(m_bResizingWindowFromBottomRight || m_bRepositioningWindowFromCenter)
       {
-         m_pqwidget->releaseMouse();
+         
+         release_mouse_capture();
+         
          m_bRepositioningWindowFromCenter = false;
+         
          m_bResizingWindowFromBottomRight = false;
+
       }
 
       //::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
@@ -1451,13 +1454,17 @@ namespace windowing_kde5
    void window::_on_mouse_release(QMouseEvent* pevent)
    {
 
-      if(m_bResizingWindowFromBottomRight ||
-         m_bRepositioningWindowFromCenter)
+      if(m_bResizingWindowFromBottomRight || m_bRepositioningWindowFromCenter)
       {
-         m_pqwidget->releaseMouse();
+         
+         release_mouse_capture();
+         
          m_bRepositioningWindowFromCenter = false;
+         
          m_bResizingWindowFromBottomRight = false;
+
       }
+      
       //if(n_press == 1)
       {
 
@@ -5407,6 +5414,7 @@ namespace windowing_kde5
 
    void window::set_active_window()
    {
+
       synchronous_lock synchronouslock(user_synchronization());
 
       information() << "::windowing_kde5::window::set_active_window";

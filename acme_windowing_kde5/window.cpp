@@ -1147,34 +1147,34 @@ namespace kde5
          }
 
 
-      void window::set_capture()
-      {
+      // void window::set_mouse_capture()
+      // {
 
 
-         //auto estatus = m_pdisplay->_set_mouse_capture(m_window);
+      //    //auto estatus = m_pdisplay->_set_mouse_capture(m_window);
 
-         //      if (XGrabPointer(m_pdisplay->m_pdisplay, m_window, False, ButtonPressMask | ButtonReleaseMask | PointerMotionMask,
-         //                       GrabModeAsync, GrabModeAsync, None, None, CurrentTime) != GrabSuccess)
-         //      {
-         //
-         //         throw ::exception(error_exception);
-         //
-         //      }
-
-
-         //      auto pdisplay = xcb_display();
-         //
-         //      if(pdisplay)
-         //      {
-         //
-         //         pdisplay->_on_capture_changed_to(this);
-         //
-         //      }
-
-         m_pqwidget->grabMouse();
+      //    //      if (XGrabPointer(m_pdisplay->m_pdisplay, m_window, False, ButtonPressMask | ButtonReleaseMask | PointerMotionMask,
+      //    //                       GrabModeAsync, GrabModeAsync, None, None, CurrentTime) != GrabSuccess)
+      //    //      {
+      //    //
+      //    //         throw ::exception(error_exception);
+      //    //
+      //    //      }
 
 
-      }
+      //    //      auto pdisplay = xcb_display();
+      //    //
+      //    //      if(pdisplay)
+      //    //      {
+      //    //
+      //    //         pdisplay->_on_capture_changed_to(this);
+      //    //
+      //    //      }
+
+      //    m_pqwidget->grabMouse();
+
+
+      // }
 
 
 
@@ -1204,16 +1204,16 @@ namespace kde5
       }
 
 
-      void window::release_capture()
-      {
+      // void window::release_mouse_capture()
+      // {
 
-         //int bRet = XUngrabPointer(m_pdisplay->m_pdisplay, CurrentTime);
+      //    //int bRet = XUngrabPointer(m_pdisplay->m_pdisplay, CurrentTime);
 
-         //m_pdisplay->_release_mouse_capture();
+      //    //m_pdisplay->_release_mouse_capture();
 
-         m_pqwidget->releaseMouse();
+      //    m_pqwidget->releaseMouse();
 
-      }
+      // }
 
       //
       // void window::get_client_rectangle(::int_rectangle & rectangle)
@@ -1872,49 +1872,59 @@ m_pqwidget->move(p);
          bool window::is_mouse_captured()
          {
 
-            bool bIsMouseCaptured = false;
+            //bool bIsMouseCaptured = false;
 
-            main_post([this, &bIsMouseCaptured]()
-   {
+            //main_send([this, &bIsMouseCaptured]()
+            //{
 
-      bIsMouseCaptured = m_pqwidget->mouseGrabber() != nullptr;
+            //   bIsMouseCaptured = m_pqwidget->mouseGrabber() != nullptr;
 
-   });
+            //});
+
+            auto bIsMouseCaptured = system()->m_pacmewindowing->m_pwindowMouseCapture.is_set();
 
             return bIsMouseCaptured;
 
          }
 
+
          bool window::has_mouse_capture()
          {
 
-            bool bHasMouseCapture = false;
+            // bool bHasMouseCapture = false;
 
-            main_post([this, &bHasMouseCapture]()
-   {
+            // main_send([this, &bHasMouseCapture]()
+            // {
 
-      bHasMouseCapture = m_pqwidget->mouseGrabber() ==m_pqwidget;
+            //    bHasMouseCapture = m_pqwidget->mouseGrabber() == m_pqwidget;
 
-   });
+            // });
+
+            auto bHasMouseCapture = system()->m_pacmewindowing->m_pwindowMouseCapture == this;
 
             return bHasMouseCapture;
 
          }
 
+
          void window::release_mouse_capture()
          {
 
+            if(system()->m_pacmewindowing->m_pwindowMouseCapture == this)
+            {
 
-            main_post([this]()
+               main_post([this]()
                {
 
                   m_pqwidget->releaseMouse();
 
+                  system()->m_pacmewindowing->m_pwindowMouseCapture.release();
+
                });
 
+            }
 
          }
-
 
 
       } //namespace windowing

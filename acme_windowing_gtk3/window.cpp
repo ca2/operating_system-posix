@@ -1468,7 +1468,7 @@ m_phappeningLastMouseUp = pevent;
          }
 
 
-         void window::set_capture()
+         void window::set_mouse_capture()
          {
 
 
@@ -1486,7 +1486,7 @@ m_phappeningLastMouseUp = pevent;
 
          }
 
-         void window::release_capture()
+         void window::release_mouse_capture()
          {
 
 

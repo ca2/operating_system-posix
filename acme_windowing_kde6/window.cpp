@@ -1187,7 +1187,7 @@ namespace kde6
          }
 
 
-         void window::set_capture()
+         void window::set_mouse_capture()
          {
 
 
@@ -1245,7 +1245,7 @@ namespace kde6
          }
 
 
-         void window::release_capture()
+         void window::release_mouse_capture()
          {
 
             //int bRet = XUngrabPointer(m_pdisplay->m_pdisplay, CurrentTime);

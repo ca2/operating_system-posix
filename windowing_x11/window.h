@@ -230,9 +230,9 @@ namespace windowing_x11
       //virtual void unmapped_net_state_raw( WINDOWING_X11_WINDOW_MEMBER ...);
       virtual bool x11_get_window_rect(  WINDOWING_X11_WINDOW_MEMBER  ::int_rectangle * prectangle);
       virtual bool x11_get_client_rect(  WINDOWING_X11_WINDOW_MEMBER  ::int_rectangle * prectangle);
-      //virtual oswindow set_capture( WINDOWING_X11_WINDOW_MEMBER );
-      //virtual int_bool release_capture();
-      //virtual oswindow set_focus( WINDOWING_X11_WINDOW_MEMBER );
+      //virtual oswindow set_xxxcapture( WINDOWING_X11_WINDOW_MEMBER );
+      //virtual int_bool release_xxxcapture();
+      //virtual oswindow set_keyboard_focus( WINDOWING_X11_WINDOW_MEMBER );
       //virtual void x11_check_status(int status, unsigned long window);
       //virtual unsigned long x11_get_long_property( WINDOWING_X11_WINDOW_MEMBER char* property_name);
       virtual string x11_get_name( WINDOWING_X11_WINDOW_MEMBER );

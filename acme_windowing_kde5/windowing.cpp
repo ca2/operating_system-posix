@@ -432,7 +432,7 @@ namespace kde5
 
       }
 
-      pkde5window->m_pqwidget->releaseMouse();
+      pkde5window->release_mouse_capture();
 
       return true;
 
