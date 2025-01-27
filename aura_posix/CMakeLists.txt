@@ -98,7 +98,9 @@ elseif(${LINUX} OR ${__BSD__})
 
 
    #if (USE_PKGCONFIG)
-   pkg_check_modules(PKGCONFIG ${extra_pkg_modules})
+   if(NOT "${extra_pkg_modules}" STREQUAL "")
+   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG ${extra_pkg_modules})
+   endif ()
    #endif ()
 
 
@@ -107,11 +109,11 @@ elseif(${LINUX} OR ${__BSD__})
    target_compile_definitions(static_${PROJECT_NAME} PRIVATE CUBE)
 
 
-   target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
-   target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
-   target_link_options(aura_posix PRIVATE ${PKGCONFIG_LDFLAGS})
-   target_link_libraries(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LIBRARIES} ${library_references} ${global_library_references})
-   target_link_libraries(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LIBRARIES} ${static_library_references})
+   target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
+   target_compile_options(static_${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
+   target_link_options(aura_posix PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LDFLAGS})
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES} ${library_references} ${global_library_references})
+   target_link_libraries(static_${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES} ${static_library_references})
    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
    # target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
 
