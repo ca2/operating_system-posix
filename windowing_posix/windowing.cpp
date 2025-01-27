@@ -8,7 +8,9 @@
 #include "window.h"
 #include "apex/input/input.h"
 //#include "aura/user/user/interaction_impl.h"
+#if !defined(HAS_GTK3) && !defined(HAS_GTK4) && !defined(HAS_KDE5) && !defined(HAS_KDE6)
 #include <X11/Xutil.h>
+#endif
 
 
 namespace windowing_posix
@@ -111,107 +113,107 @@ namespace windowing_posix
 //   }
 
 
-   void windowing::_on_wm_state_change(::windowing::window * pwindow)
-   {
+//    void windowing::_on_wm_state_change(::windowing::window * pwindow)
+//    {
 
-      ::pointer<::windowing_posix::window> pposixwindow = pwindow;
+//       ::pointer<::windowing_posix::window> pposixwindow = pwindow;
 
-      long lState = -1;
+//       long lState = -1;
 
-      if (!pposixwindow->_get_wm_state_unlocked(lState))
-      {
+//       if (!pposixwindow->_get_wm_state_unlocked(lState))
+//       {
 
-         return;
+//          return;
 
-      }
+//       }
 
-      bool bNormal = lState == NormalState;
+//       bool bNormal = lState == NormalState;
 
-      bool bIconic = lState == IconicState;
+//       bool bIconic = lState == IconicState;
 
-      information() << "_on_wm_state_change lState : " << lState;
+//       information() << "_on_wm_state_change lState : " << lState;
 
-      information() << "_on_wm_state_change is_normal : " << bNormal;
+//       information() << "_on_wm_state_change is_normal : " << bNormal;
 
-      information() << "_on_wm_state_change is_iconic : " << bIconic;
+//       information() << "_on_wm_state_change is_iconic : " << bIconic;
 
-      auto pinteraction = pposixwindow->user_interaction();
+//       auto pinteraction = pposixwindow->user_interaction();
 
-      if (pinteraction != nullptr)
-      {
+//       if (pinteraction != nullptr)
+//       {
 
-         //auto pimpl = pinteraction->m_pprimitiveimpl;
+//          //auto pimpl = pinteraction->m_pprimitiveimpl;
 
-         bool bHandled = false;
+//          bool bHandled = false;
 
-         //if (pimpl != nullptr)
-         {
+//          //if (pimpl != nullptr)
+//          {
 
-            if (bIconic)
-            {
+//             if (bIconic)
+//             {
 
-               if (pinteraction->const_layout().design().display() == ::e_display_iconic
-                   || pinteraction->const_layout().design().display() == ::e_display_notify_icon)
-               {
+//                if (pinteraction->const_layout().design().display() == ::e_display_iconic
+//                    || pinteraction->const_layout().design().display() == ::e_display_notify_icon)
+//                {
 
-//                                 //file_put_contents("/home/camilo/xxx.txt", "");
-//
-//                                 // 1111111111111111111111111111111111111111111
-//
-//                                 //pinteraction->hide();
-//
-                  pinteraction->main_post([pinteraction]()
-                                               {
+// //                                 //file_put_contents("/home/camilo/xxx.txt", "");
+// //
+// //                                 // 1111111111111111111111111111111111111111111
+// //
+// //                                 //pinteraction->hide();
+// //
+//                   pinteraction->main_post([pinteraction]()
+//                                                {
 
-///                                                  auto edisplayPrevious = pinteraction->window_previous_display();
+// ///                                                  auto edisplayPrevious = pinteraction->window_previous_display();
 
-                                                  pinteraction->display_previous(nullptr);
+//                                                   pinteraction->display_previous(nullptr);
 
-                                               });
+//                                                });
 
-//                                 bHandled = true;
+// //                                 bHandled = true;
 
-               }
-               else
-               {
-////                           else if (pinteraction->const_layout().sketch().display() == ::e_display_full_screen
-////                                       && pinteraction->const_layout().design().display() != ::e_display_full_screen)
-////                              {
-//
-//                  pinteraction->display(::e_display_full_screen);
-//
-//                  // maybe todo: remove x11 window iconic state
-//                  // as there seems to be a request to set to non-iconic state
-//                  // to the user::interaction associated with this window at this point
+//                }
+//                else
+//                {
+// ////                           else if (pinteraction->const_layout().sketch().display() == ::e_display_full_screen
+// ////                                       && pinteraction->const_layout().design().display() != ::e_display_full_screen)
+// ////                              {
+// //
+// //                  pinteraction->display(::e_display_full_screen);
+// //
+// //                  // maybe todo: remove x11 window iconic state
+// //                  // as there seems to be a request to set to non-iconic state
+// //                  // to the user::interaction associated with this window at this point
 
-               }
+//                }
 
-            }
-            else
-            {
+//             }
+//             else
+//             {
 
-//               if (pinteraction->const_layout().design().display() != ::e_display_iconic
-//                   && pinteraction->const_layout().design().display() != ::e_display_notify_icon
-//                   && windowing().is_screen_visible(pinteraction->const_layout().design().display()))
-//               {
-//
-//                  information() << "X11::ConfigureNotify trying to fix state to iconic state";
-//                  pinteraction->post_procedure([pinteraction]()
-//                                                  {
-//
-//                                                     pinteraction->display(::e_display_iconic);
-//
-//                                                  });
-//
-//               }
+// //               if (pinteraction->const_layout().design().display() != ::e_display_iconic
+// //                   && pinteraction->const_layout().design().display() != ::e_display_notify_icon
+// //                   && windowing().is_screen_visible(pinteraction->const_layout().design().display()))
+// //               {
+// //
+// //                  information() << "X11::ConfigureNotify trying to fix state to iconic state";
+// //                  pinteraction->post_procedure([pinteraction]()
+// //                                                  {
+// //
+// //                                                     pinteraction->display(::e_display_iconic);
+// //
+// //                                                  });
+// //
+// //               }
 
-            }
+//             }
 
-         }
+//          }
 
-      }
+//       }
 
-   }
+//    }
 
 
 //   ::pointer <::input::input> windowing::_get_input()

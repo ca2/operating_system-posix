@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.16)
 project(node_kde5 CXX)
-message("--------------- node_kde -------------------")
+
+
+message(STATUS "--------------- node_kde5 -------------------")
+
 
 list(APPEND library_source
         _.cpp
@@ -12,8 +15,8 @@ list(APPEND library_source
         #application.h
         copydesk.cpp
         copydesk.h
-        desktop_environment.cpp
-        desktop_environment.h
+        #desktop_environment.cpp
+        #desktop_environment.h
         #display.cpp
         #display.h
         enum_display_monitors.cpp
@@ -86,7 +89,12 @@ list(APPEND this_system_libraries
         Qt5::GuiPrivate
 )
 
-if (${FREEBSD} OR ${DEBIAN})
+if (${FREEBSD})
+
+list(APPEND this_system_libraries
+            KF5Package
+    )
+elseif (${DEBIAN})
     list(APPEND this_system_libraries
             KF5Package
     )

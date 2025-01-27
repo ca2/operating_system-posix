@@ -17,6 +17,7 @@
 #include "acme_windowing_kde5/kde5.h"
 #include <QScreen>
 #include <QRect>
+#include <QGuiApplication>
 //#include "windowing_system_x11/_.h"
 
 

@@ -27,7 +27,7 @@
 //#include <wayland-client.h>
 //#include <gdk/gdkwindow.h>
 #include "acme_windowing_kde5/QCustomTopWindow.h"
-#include <linux/input.h> // for BTN_LEFT,...
+//#include <linux/input.h> // for BTN_LEFT,...
 //#include <xkbcommon/xkbcommon.h>
 //#include <gio/gio.h>
 //#include "app-core/gcom/backimpact/visual_effect.h"
@@ -4451,12 +4451,12 @@ namespace windowing_kde5
    }
 
 
-   void window::_main_send(const ::procedure & procedure)
-   {
+   // void window::_main_send(const ::procedure & procedure)
+   // {
 
-      _user_send(procedure);
+   //    _user_send(procedure);
 
-   }
+   // }
 
    //   bool window::get_state(long & lState)
    //   {

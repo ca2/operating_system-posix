@@ -6,18 +6,18 @@ list(APPEND library_source
         _.cpp
         _.h
         _constant.h
-        desktop_environment.cpp
-        desktop_environment.h
+        #desktop_environment.cpp
+        #desktop_environment.h
         framework.cpp
         framework.h
-        startup-notification.cpp
-        startup-notification.h
+        #startupxxx-notification.cpp
+        #startupxxx-notification.h
         window.cpp
         window.h
         windowing.cpp
         windowing.h
-        xim_keyboard.cpp
-        xim_keyboard.h
+        #xim_keyboard.cpp
+        #xim_keyboard.h
 
 )
 

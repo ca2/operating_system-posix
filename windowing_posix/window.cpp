@@ -6,7 +6,9 @@
 #include "framework.h"
 #include "window.h"
 #include "acme/exception/interface_only.h"
+#if !defined(HAS_GTK3) && !defined(HAS_GTK4) && !defined(HAS_KDE5) && !defined(HAS_KDE6)
 #include <X11/Xutil.h>
+#endif
 
 
 namespace windowing_posix
@@ -16,7 +18,7 @@ namespace windowing_posix
    window::window()
    {
 
-      m_enetwmsync = e_net_wm_sync_none;
+      //m_enetwmsync = e_net_wm_sync_none;
    }
 
 
@@ -26,46 +28,46 @@ namespace windowing_posix
    }
 
 
-   bool window::_get_wm_state_unlocked(long & lState)
-   {
+   // bool window::_get_wm_state_unlocked(long & lState)
+   // {
 
-      throw interface_only();
+   //    throw interface_only();
 
-      return false;
+   //    return false;
 
-   }
+   // }
 
 
 
-   bool window::_is_iconic_unlocked()
-   {
+//    bool window::_is_iconic_unlocked()
+//    {
 
-#ifdef XDISPLAY_LOCK_LOG
+// #ifdef XDISPLAY_LOCK_LOG
 
-      b_prevent_xdisplay_lock_log = true;
+//       b_prevent_xdisplay_lock_log = true;
 
-#endif
+// #endif
 
-      long lState = -1;
+//       long lState = -1;
 
-      if(!_get_wm_state_unlocked(lState))
-      {
+//       if(!_get_wm_state_unlocked(lState))
+//       {
 
-         return false;
+//          return false;
 
-      }
+//       }
 
-      bool bIconic = lState == IconicState;
+//       bool bIconic = lState == IconicState;
 
-#ifdef XDISPLAY_LOCK_LOG
+// #ifdef XDISPLAY_LOCK_LOG
 
-      b_prevent_xdisplay_lock_log = false;
+//       b_prevent_xdisplay_lock_log = false;
 
-#endif
+// #endif
 
-      return lState;
+//       return lState;
 
-   }
+//    }
 
 
 

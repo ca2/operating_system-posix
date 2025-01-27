@@ -147,15 +147,15 @@ void on_initialize_particle() override;
 
       void destroy() override;
 
-         void _set_oswindow(::oswindow oswindow) override;
-         ::oswindow oswindow() const override;
+      void _set_oswindow(::oswindow oswindow) override;
+      ::oswindow oswindow() const override;
 
-       virtual void _on_mouse_press(QMouseEvent * pevent);
-       virtual void _on_mouse_release(QMouseEvent * pevent);
-       virtual void _on_mouse_motion(QMouseEvent * pevent);
-         virtual void _on_qimage_draw(QImage * pqimage);
-         virtual void _on_reposition(int x, int y);
-         virtual void _on_size(int cx, int cy);
+      void _on_mouse_press(QMouseEvent * pevent) override;
+      void _on_mouse_release(QMouseEvent * pevent) override;
+      void _on_mouse_motion(QMouseEvent * pevent) override;
+      void _on_qimage_draw(QImage * pqimage) override;
+      void _on_reposition(int x, int y) override;
+      void _on_size(int cx, int cy) override;
 
          //void _on_window_button_pressed(GtkWidget * pwidget, const char * pszName, GtkGestureClick * pgesture, int n_press, double x, double y);
          //void _on_window_button_released(GtkWidget * pwidget, const char * pszName, GtkGestureClick * pgesture, int n_press, double x, double y);
@@ -222,7 +222,7 @@ void on_initialize_particle() override;
       //virtual ::Window get_parent_handle();
       //::oswindow get_parent_oswindow() const override;
 
-      void _main_send(const ::procedure & procedure);
+      //void _main_send(const ::procedure & procedure) override;
 //      ::int_point get_mouse_cursor_host_position() override;
 //      ::int_point get_mouse_cursor_absolute_position() override;
 
@@ -342,9 +342,9 @@ void on_initialize_particle() override;
       bool set_window_position(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;
 
 
-      bool _set_window_position_unlocked(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay);
-      bool _configure_window_unlocked(const class ::zorder& zorder, const ::user::activation& useractivation, bool bNoZorder, ::e_display edisplay);
-      bool _strict_set_window_position_unlocked(int x, int y, int cx, int cy, bool bNoMove, bool bNoSize);
+      bool _set_window_position_unlocked(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;
+      bool _configure_window_unlocked(const class ::zorder& zorder, const ::user::activation& useractivation, bool bNoZorder, ::e_display edisplay) override;
+      bool _strict_set_window_position_unlocked(int x, int y, int cx, int cy, bool bNoMove, bool bNoSize) override;
 
 
 //      virtual comparable_array < Atom > _wm_get_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList);

@@ -4,7 +4,7 @@ project(nano_graphics_cairo CXX)
 
 
 
-
+message(STATUS "PROJECT_NAME is ${PROJECT_NAME}")
 message(STATUS "CMAKE_SYSTEM_NAME is ${CMAKE_SYSTEM_NAME}")
 
 

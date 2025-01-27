@@ -9,6 +9,7 @@
 #include "acme/windowing/display.h"
 #include "acme/windowing/windowing.h"
 #include "apex/platform/application.h"
+#if !defined(HAS_GTK3) && !defined(HAS_GTK4) && !defined(HAS_KDE5) && !defined(HAS_KDE6)
 #ifdef WITH_X11
 #include <X11/Xlib.h>
 //::e_status deferx_initializex_x11();
@@ -17,7 +18,7 @@
 #ifdef WITH_XCB
 #include <X11/Xlib-xcb.h>
 #endif
-
+#endif
 
 
 namespace aura_posix

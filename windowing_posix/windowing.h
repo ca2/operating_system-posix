@@ -17,14 +17,14 @@ namespace windowing_posix
    public:
 
 
-      void *                                          m_pSnLauncheeContext;
+      //void *                                          m_pSnLauncheeContext;
 
 
       windowing();
       ~windowing() override;
 
 
-      void _libsn_start_context() override;
+      //void _libsn_start_context() override;
 
 
       //void _defer_position_and_size_message(oswindow oswindow);
@@ -32,7 +32,7 @@ namespace windowing_posix
       //virtual void _size_message(::windowing::window * pwindow, const ::int_size & size);
 
 
-      virtual void _on_wm_state_change(::windowing::window * pxwindow);
+//      virtual void _on_wm_state_change(::windowing::window * pxwindow);
 
       //virtual ::pointer <::input::input> _get_input();
 

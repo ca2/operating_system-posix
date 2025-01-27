@@ -2,91 +2,92 @@
 // Created by camilo on 05/03/2021. 22:54 BRT ThomasBS_!!
 //
 #include "framework.h"
-#include <X11/cursorfont.h>
+
+// #include <X11/cursorfont.h>
 
 
-namespace x11
-{
+// namespace x11
+// {
 
 
-   int get_default_system_cursor_glyph(enum_cursor ecursor)
-   {
+//    int get_default_system_cursor_glyph(enum_cursor ecursor)
+//    {
 
-      int iCursor;
+//       int iCursor;
 
-      if(ecursor == e_cursor_size_top_left)
-      {
+//       if(ecursor == e_cursor_size_top_left)
+//       {
 
-         iCursor = XC_top_left_corner;
+//          iCursor = XC_top_left_corner;
 
-      }
-      else if(ecursor == e_cursor_size_top_right)
-      {
+//       }
+//       else if(ecursor == e_cursor_size_top_right)
+//       {
 
-         iCursor = XC_top_right_corner;
+//          iCursor = XC_top_right_corner;
 
-      }
-      else if(ecursor == e_cursor_size_top)
-      {
+//       }
+//       else if(ecursor == e_cursor_size_top)
+//       {
 
-         iCursor = XC_top_side;
+//          iCursor = XC_top_side;
 
-      }
-      else if(ecursor == e_cursor_size_right)
-      {
+//       }
+//       else if(ecursor == e_cursor_size_right)
+//       {
 
-         iCursor = XC_right_side;
+//          iCursor = XC_right_side;
 
-      }
-      else if(ecursor == e_cursor_size_left)
-      {
+//       }
+//       else if(ecursor == e_cursor_size_left)
+//       {
 
-         iCursor = XC_left_side;
+//          iCursor = XC_left_side;
 
-      }
-      else if(ecursor == e_cursor_size_bottom)
-      {
+//       }
+//       else if(ecursor == e_cursor_size_bottom)
+//       {
 
-         iCursor = XC_bottom_side;
+//          iCursor = XC_bottom_side;
 
-      }
-      else if(ecursor == e_cursor_size_bottom_left)
-      {
+//       }
+//       else if(ecursor == e_cursor_size_bottom_left)
+//       {
 
-         iCursor = XC_bottom_left_corner;
+//          iCursor = XC_bottom_left_corner;
 
-      }
-      else if(ecursor == e_cursor_size_bottom_right)
-      {
+//       }
+//       else if(ecursor == e_cursor_size_bottom_right)
+//       {
 
-         iCursor = XC_bottom_right_corner;
+//          iCursor = XC_bottom_right_corner;
 
-      }
-      else if(ecursor == e_cursor_arrow)
-      {
+//       }
+//       else if(ecursor == e_cursor_arrow)
+//       {
 
-         iCursor = XC_arrow;
+//          iCursor = XC_arrow;
 
-      }
-      else if(ecursor == e_cursor_text_select)
-      {
+//       }
+//       else if(ecursor == e_cursor_text_select)
+//       {
 
-         iCursor = XC_xterm;
+//          iCursor = XC_xterm;
 
-      }
-      else
-      {
+//       }
+//       else
+//       {
 
-         iCursor = -1;
+//          iCursor = -1;
 
-      }
+//       }
 
-      return iCursor;
+//       return iCursor;
 
-   }
+//    }
 
 
-} // namespace x11
+// } // namespace x11
 
 
 

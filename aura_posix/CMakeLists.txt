@@ -69,28 +69,32 @@ elseif(${LINUX} OR ${__BSD__})
 
 
 
-   list(APPEND extra_pkg_modules
-      libstartup-notification-1.0
-      xkbcommon
-   )
+   if(${WITH_XCB} OR ${WITH_X11})
+      list(APPEND extra_pkg_modules
+         #libstartupxxx-notification-1.0
+         xkbcommon
+         )
 
-   if (${WITH_XCB})
+   if(WITH_XCB)
 
 
       list(APPEND extra_pkg_modules
-         x11 x11-xcb
-      )
+                  x11 x11-xcb
+         )
 
 
-   else ()
+   else()
 
 
       list(APPEND extra_pkg_modules
-         x11
-      )
+                  x11
+         )
 
 
-   endif ()
+   endif()
+
+   endif()
+
 
 
    #if (USE_PKGCONFIG)

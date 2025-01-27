@@ -24,8 +24,8 @@ list(APPEND library_source
    keyboard.h
    #node.cpp
    #node.h
-   startup-notification.cpp
-   startup-notification.h
+   #startupxxx-notification.cpp
+   #startupxxx-notification.h
    text_composition_client.cpp
    text_composition_client.h
    user.cpp
@@ -87,7 +87,7 @@ if (MSVC)
 elseif (${LINUX} OR ${__BSD__})
 
 
-   #pkg_check_modules(PKGCONFIG xkbcommon x11 xrender xi xext libstartup-notification-1.0 wayland-client wayland-server wayland-cursor)
+   #pkg_check_modules(PKGCONFIG xkbcommon x11 xrender xi xext libxxxstartupxxx-notification-1.0 wayland-client wayland-server wayland-cursor)
    pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
 
    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
