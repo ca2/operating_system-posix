@@ -3256,7 +3256,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       }
 
-      pmessagequeue->m_happeningNewMessage.set_happening();
+      pmessagequeue->m_phappeningNewMessage->set_happening();
 
       //return true;
 

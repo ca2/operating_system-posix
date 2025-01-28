@@ -11,8 +11,8 @@ list(APPEND library_source
    application.h
    copydesk.cpp
    copydesk.h
-   desktop_environment.cpp
-   desktop_environment.h
+   #desktop_environment.cpp
+   #desktop_environment.h
    #display.cpp
    #display.h
    framework.cpp
@@ -32,8 +32,8 @@ list(APPEND library_source
    node_folder_dialog.cpp
    notify_icon.cpp
    notify_icon.h
-   windowing.cpp
-   windowing.h
+   #windowing.cpp
+   #windowing.h
 )
 
 if (NOT ${OPENBSD} AND NOT ${NETBSD})

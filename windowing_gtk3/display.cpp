@@ -360,7 +360,7 @@ namespace windowing_gtk3
    void display::open_display()
    {
 	   
-	  if(has_initialized_flag())
+	  if(m_bDisplayOpened)
 	  {
 		  
 		  return;
@@ -390,14 +390,29 @@ namespace windowing_gtk3
       gtk3_windowing()->user_send([this]()
       {
 		  
-		 set_initialized_flag();
-		  
-		 information() << "windowing_gtk3::display::open_display";
+   		 information() << "windowing_gtk3::display::open_display";
 		  
          if(m_pgdkdisplay != nullptr)
          {
 
             return;
+
+         }
+
+
+         GdkScreen *screen = gdk_screen_get_default();
+
+         if (!screen)
+         {
+
+            g_printerr("Failed to get the default screen.\n");
+
+         }
+         else
+         {
+
+            // Get the primary monitor index
+            m_iMainMonitor = gdk_screen_get_primary_monitor(screen);
 
          }
 
@@ -431,53 +446,55 @@ namespace windowing_gtk3
 
       }
 
+         m_bDisplayOpened = true;
+
                                   });
 
    }
 
 
-   bool display::_get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle)
-   {
-
-//      auto pgdkmonitor = gdk_display_get_monitor(m_pgdkdisplay, iMonitor);
+//    bool display::_get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle)
+//    {
 //
-      if(iMonitor < 0 || iMonitor >= m_monitora.size())
-      {
-
-         return false;
-
-      }
+// //      auto pgdkmonitor = gdk_display_get_monitor(m_pgdkdisplay, iMonitor);
+// //
+//       if(iMonitor < 0 || iMonitor >= m_monitora.size())
+//       {
 //
-//      GdkRectangle geometry;
+//          return false;
 //
-//      gdk_monitor_get_geometry(pgdkmonitor, &geometry);
+//       }
+// //
+// //      GdkRectangle geometry;
+// //
+// //      gdk_monitor_get_geometry(pgdkmonitor, &geometry);
+// //
+// //      copy(&rectangle, &geometry);
 //
-//      copy(&rectangle, &geometry);
-
-      rectangle = m_monitora[iMonitor]->m_rectangle;
-
-      return true;
-
-   }
-
-
-   bool display::_get_workspace_rectangle(::collection::index iMonitor, ::int_rectangle & rectangleWorkspace)
-   {
-
-//      auto pgdkmonitor = gdk_display_get_monitor(m_pgdkdisplay, iMonitor);
-
-      if(iMonitor < 0 || iMonitor >= m_monitora.size())
-      {
-
-         return false;
-
-      }
-
-      rectangleWorkspace = m_monitora[iMonitor]->m_rectangleWorkspace;
-
-      return true;
-
-   }
+//       rectangle = m_monitora[iMonitor]->m_rectangle;
+//
+//       return true;
+//
+//    }
+//
+//
+//    bool display::_get_workspace_rectangle(::collection::index iMonitor, ::int_rectangle & rectangleWorkspace)
+//    {
+//
+// //      auto pgdkmonitor = gdk_display_get_monitor(m_pgdkdisplay, iMonitor);
+//
+//       if(iMonitor < 0 || iMonitor >= m_monitora.size())
+//       {
+//
+//          return false;
+//
+//       }
+//
+//       rectangleWorkspace = m_monitora[iMonitor]->m_rectangleWorkspace;
+//
+//       return true;
+//
+//    }
 
 
 //   ::windowing::window * display::get_mouse_capture()
@@ -1547,11 +1564,25 @@ namespace windowing_gtk3
 //
 //   }
 
+   // ::collection::index display::get_main_monitor_index()
+   // {
+   //
+   //    GdkScreen *screen = gdk_screen_get_default();
+   //    if (!screen) {
+   //       g_printerr("Failed to get the default screen.\n");
+   //       return 0;
+   //    }
+   //    // Get the primary monitor index
+   //    gint primary_monitor_index = gdk_screen_get_primary_monitor(screen);
+   //
+   //    return primary_monitor_index;
+   // }
+
 
    ::int_size display::get_main_screen_size()
    {
 
-return ::gtk3::acme::windowing::display::get_main_screen_size();
+       return ::windowing::display::get_main_screen_size();
 
    }
 

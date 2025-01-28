@@ -2221,26 +2221,26 @@ namespace node_gtk3
    }
 
 
-   ::e_status node::_allocate_Display_and_connection()
-   {
-
-//      if(!::node_gtk3::os_defer_init_gtk(this))
-//      {
+//    ::e_status node::_allocate_Display_and_connection()
+//    {
 //
-//         return ::error_failed;
+// //      if(!::node_gtk3::os_defer_init_gtk(this))
+// //      {
+// //
+// //         return ::error_failed;
+// //
+// //      }
+// //
+// //      if(::node_gtk3::get_display_type() == e_display_type_x11)
+// //      {
+// //
+// //         ::aura_posix::node::_allocate_Display_and_connection();
+// //
+// //      }
 //
-//      }
+//       return ::success;
 //
-//      if(::node_gtk3::get_display_type() == e_display_type_x11)
-//      {
-//
-//         ::aura_posix::node::_allocate_Display_and_connection();
-//
-//      }
-
-      return ::success;
-
-   }
+//    }
 
 
 //   void node::_on_gtk_init()

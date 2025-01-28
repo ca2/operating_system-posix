@@ -6634,10 +6634,10 @@ return;
 //   }
 
 
-   void window::on_destruct_mouse_message(::message::mouse * pmouse)
+   void window::final_mouse_message_handling(::message::mouse * pmouse)
    {
 
-      ::windowing::window::on_destruct_mouse_message(pmouse);
+      ::windowing::window::final_mouse_message_handling(pmouse);
 
 //      if(::is_null(pmouse))
 //      {

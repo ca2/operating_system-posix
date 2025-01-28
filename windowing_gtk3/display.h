@@ -126,9 +126,9 @@ namespace windowing_gtk3
 
       virtual bool is_null() const;
 
-      bool _get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle) override;
+      //bool _get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle) override;
 
-      bool _get_workspace_rectangle(::collection::index iWorkspace, ::int_rectangle & rectangle) override;
+      //bool _get_workspace_rectangle(::collection::index iWorkspace, ::int_rectangle & rectangle) override;
 
       //virtual ::windowing::window * get_mouse_capture();
 
@@ -178,7 +178,7 @@ namespace windowing_gtk3
 //      virtual void __handle_keyboard_key(::wl_keyboard *pwlkeyboard, uint32_t serial, uint32_t time, uint32_t key, uint32_t state);
 //      virtual void __handle_keyboard_modifiers(::wl_keyboard *keyboard, uint32_t serial, uint32_t mods_depressed, uint32_t mods_latched, uint32_t mods_locked, uint32_t group);
 
-
+         //::collection::index get_main_monitor_index() override;
          ::int_size get_main_screen_size() override;
 
 
