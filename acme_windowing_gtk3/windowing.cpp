@@ -332,23 +332,23 @@ cairo_surface_t *get_cairo_surface_from_pixbuf(GdkPixbuf *pixbuf)
          // }
 
          g_application_run (G_APPLICATION(m_pgtkapplication), 0, nullptr);
-
-         // //g_application_run (G_APPLICATION(m_pgtkapplication), platform()->get_argc(), platform()->get_args());
-         // //aaa_x11_main();
          //
-         //
-         // while(::task_get_run())
+         // // //g_application_run (G_APPLICATION(m_pgtkapplication), platform()->get_argc(), platform()->get_args());
+         // // //aaa_x11_main();
+         // //
+         // //
+         // // while(::task_get_run())
+         // // {
+         // //
+         // //    preempt(1_s);
+         // //
+         // // }
+         // if(::system()->m_pmanualresethappeningMainLoopEnd)
          // {
          //
-         //    preempt(1_s);
+         //    ::system()->m_pmanualresethappeningMainLoopEnd->set_happening();
          //
          // }
-         if(::system()->m_pmanualresethappeningMainLoopEnd)
-         {
-
-            ::system()->m_pmanualresethappeningMainLoopEnd->set_happening();
-
-         }
 
 
       }

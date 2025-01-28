@@ -167,9 +167,9 @@ namespace gtk3
 
             int_rectangle get_window_rectangle() override;
 
-            void set_mouse_capture() override;
+            //void set_mouse_capture() override;
 
-            void release_mouse_capture() override;
+            //void release_mouse_capture() override;
 
             //virtual void _wm_nodecorations(int iMap);
 

@@ -1468,39 +1468,39 @@ m_phappeningLastMouseUp = pevent;
          }
 
 
-         void window::set_mouse_capture()
-         {
-
-
-            main_send([this]()
-                      {
-
-                         GdkDevice *device = gdk_event_get_device((GdkEvent *) m_phappeningLastMouseDown);
-
-                         GdkGrabStatus status = gdk_device_grab(device, gtk_widget_get_window(m_pgtkwidget),
-                                                                GDK_OWNERSHIP_WINDOW, FALSE,
-                                                                (GdkEventMask) (GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK),
-                                                                NULL, m_phappeningLastMouseDown->time);
-
-                      });
-
-         }
-
-         void window::release_mouse_capture()
-         {
-
-
-
-            main_send([this]()
-                      {
-
-                         // Release the grab when the button is released
-                         GdkDevice *device = gdk_event_get_device((GdkEvent *) m_phappeningLastMouseUp);
-                         gdk_device_ungrab(device, m_phappeningLastMouseUp->time);
-
-                      });
-
-         }
+         // void window::set_mouse_capture()
+         // {
+         //
+         //
+         //    main_send([this]()
+         //              {
+         //
+         //                 GdkDevice *device = gdk_event_get_device((GdkEvent *) m_phappeningLastMouseDown);
+         //
+         //                 GdkGrabStatus status = gdk_device_grab(device, gtk_widget_get_window(m_pgtkwidget),
+         //                                                        GDK_OWNERSHIP_WINDOW, FALSE,
+         //                                                        (GdkEventMask) (GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK),
+         //                                                        NULL, m_phappeningLastMouseDown->time);
+         //
+         //              });
+         //
+         // }
+         //
+         // void window::release_mouse_capture()
+         // {
+         //
+         //
+         //
+         //    main_send([this]()
+         //              {
+         //
+         //                 // Release the grab when the button is released
+         //                 GdkDevice *device = gdk_event_get_device((GdkEvent *) m_phappeningLastMouseUp);
+         //                 gdk_device_ungrab(device, m_phappeningLastMouseUp->time);
+         //
+         //              });
+         //
+         // }
 
 
 
