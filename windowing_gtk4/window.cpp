@@ -1857,6 +1857,21 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
+   void window::set_mouse_capture()
+   {
+
+     ::gtk4::acme::windowing::window::set_mouse_capture();
+
+   }
+
+
+   void window::release_mouse_capture()
+   {
+
+      ::gtk4::acme::windowing::window::release_mouse_capture();
+   }
+
+
    void window::set_mouse_cursor(::windowing::cursor * pcursor)
    {
 
