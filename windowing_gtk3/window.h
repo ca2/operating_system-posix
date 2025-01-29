@@ -460,6 +460,8 @@ namespace windowing_gtk3
 virtual void _set_configure_unlocked_timer();
 bool on_configure_unlocked_timer() override;
          virtual void _on_configure();
+         virtual void __on_configure_linux_mint_x_cinnamon();
+         virtual void __on_configure_default();
          virtual void _on_get_configuration();
 
          void _on_map_window() override;

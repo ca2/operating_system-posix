@@ -88,7 +88,7 @@ namespace windowing_gtk3
 
       //void windowing_main() override;
 
-         ::windowing_gtk3::window * _window(GtkWindow * pgtkwindow);
+      ::windowing_gtk3::window * _window(GtkWindow * pgtkwindow);
 
       void windowing_post_quit() override;
 

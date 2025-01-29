@@ -28,6 +28,7 @@ namespace gtk3
          {
          public:
 
+
            bool m_bHasFocusCached;
 
             //::pointer<::x11::acme::windowing::display>         m_pdisplay;
@@ -54,6 +55,12 @@ namespace gtk3
             manual_reset_happening              m_happeningEnd;
             //int_rectangle                 m_rectangle;
             //int_rectangle                 m_rectangleX;
+
+
+            ::int_rectangle                     __m_rectangleRequest;
+
+            int                                 __m_iAttemptToSetSize;
+            int                                 __m_iAttemptToSetPosition;
 
             //pointer_array < ::micro::child >   m_childa;
             //::atom                          m_atomLeftButtonDown;
@@ -192,6 +199,11 @@ namespace gtk3
             void hide_window() override;
 
             virtual void _on_configure();
+
+            //virtual void _on_configure_default();
+
+            //virtual void _on_configure_linux_mint_x_cinnamon();
+
 
          };
 
