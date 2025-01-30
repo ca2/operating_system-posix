@@ -8,12 +8,10 @@
 #include <QSettings>
 #include <QString>
 #include <QDir>
-
+#include "acme/constant/user_key.h"
 
 namespace kde5
 {
-
-
    void set_global_theme(const ::scoped_string &scopedstrThemeName)
    {
 
@@ -56,5 +54,6 @@ namespace kde5
 
       return themeName.toUtf8().constData();
    }
+
 
 }

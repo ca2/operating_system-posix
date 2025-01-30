@@ -984,7 +984,7 @@ namespace windowing_kde5
    void windowing::_main_send(const ::procedure & procedure)
    {
 
-      system()->acme_windowing()->_main_post(procedure);
+      ::kde5::acme::windowing::windowing::_main_send(procedure);
 
    }
 

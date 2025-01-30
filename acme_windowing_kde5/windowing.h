@@ -69,7 +69,7 @@ namespace kde5
 //   void x11_async(const ::procedure & procedure) override;
 //   void x11_display_error_trap_push(int i) override;
 //   void x11_display_error_trap_pop_ignored(int i) override;
-
+      ::windowing::enum_windowing calculate_ewindowing() override;
 
    };
 

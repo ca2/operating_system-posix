@@ -36,5 +36,12 @@ protected:
 
    void resizeEvent(QResizeEvent *happening) override;
 
+   void keyPressEvent(QKeyEvent* event) override;
+
+   void keyReleaseEvent(QKeyEvent* event) override;
+
+   void inputMethodEvent(QInputMethodEvent*) override;
+
+   QVariant inputMethodQuery(Qt::InputMethodQuery query) const override;
 
 };

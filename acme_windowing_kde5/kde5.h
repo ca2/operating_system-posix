@@ -13,6 +13,7 @@ namespace kde5
    ::string get_global_theme_name();
 
 
+
 } // namespace kde5
 
 

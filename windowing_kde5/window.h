@@ -157,6 +157,10 @@ void on_initialize_particle() override;
       void _on_reposition(int x, int y) override;
       void _on_size(int cx, int cy) override;
 
+
+      void _on_key_press(QKeyEvent * pevent) override;
+      void _on_key_release(QKeyEvent * pevent) override;
+
          //void _on_window_button_pressed(GtkWidget * pwidget, const char * pszName, GtkGestureClick * pgesture, int n_press, double x, double y);
          //void _on_window_button_released(GtkWidget * pwidget, const char * pszName, GtkGestureClick * pgesture, int n_press, double x, double y);
 
@@ -489,6 +493,13 @@ void on_initialize_particle() override;
          virtual void _unlocked_defer_set_window_position(const ::int_point & point, const ::int_size & size);
          virtual void _unlocked_defer_set_window_size(const ::int_size & size);
          //virtual void _unlocked_defer_start_resize(enum_window_edge eedge, GtkGestureClick * pclick, double x, double y);
+
+
+      void _on_text(const scoped_string& scopedstr) override;
+
+      void show_task(bool bShow) override;
+
+
 
    };
 

@@ -46,17 +46,21 @@ add_library(${PROJECT_NAME} SHARED ${library_source})
 target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
+list(APPEND library_references
+   acme
+   common_kde
+)
 
 if(${HAS_KDE6})
 
-   list(APPEND system_libraries
+   list(APPEND this_system_libraries
       Qt6::Core
       Qt6::Widgets
    )
 
 elseif(${HAS_KDE5})
 
-   list(APPEND system_libraries
+   list(APPEND this_system_libraries
       Qt5::Core
       Qt5::Widgets
       Qt5::DBus
@@ -77,12 +81,12 @@ elseif (${LINUX} OR ${__BSD__})
    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
    #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
    #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})
-   target_link_libraries(${PROJECT_NAME} PRIVATE acme ${system_libraries} ${PKGCONFIG_LIBRARIES})
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${this_system_libraries} ${PKGCONFIG_LIBRARIES})
    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
    message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
 endif ()
 
-add_dependencies(${PROJECT_NAME} acme)
+#add_dependencies(${PROJECT_NAME} acme)
 
 target_link_directories(${PROJECT_NAME} PRIVATE ${LIBRARY_OUTPUT_PATH})
 target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/storage-${OPERATING_SYSTEM_NAME}/library/x64/basis)

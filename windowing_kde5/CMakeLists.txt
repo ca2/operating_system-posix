@@ -79,6 +79,7 @@ endif()
 list(APPEND library_references
         acme
         acme_posix
+   common_kde
    acme_windowing_kde5
    nano_graphics_cairo
         apex

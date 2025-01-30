@@ -1537,30 +1537,6 @@ namespace kde6
 
             return true;
          }
-Qt::Edges  as_qt_edges(::experience::enum_frame eframeSizing)
-{
-
-            switch(eframeSizing)
-            {
-               case ::experience::e_frame_sizing_left:
-                  return Qt::Edge::LeftEdge;
-               case ::experience::e_frame_sizing_top:
-                  return Qt::Edge::TopEdge;
-               case ::experience::e_frame_sizing_right:
-                  return Qt::Edge::RightEdge;
-               case ::experience::e_frame_sizing_bottom:
-                  return Qt::Edge::BottomEdge;
-               case ::experience::e_frame_sizing_top_left:
-                  return Qt::Edge::LeftEdge | Qt::Edge::TopEdge;
-               case ::experience::e_frame_sizing_top_right:
-                  return Qt::Edge::RightEdge | Qt::Edge::TopEdge;
-               case ::experience::e_frame_sizing_bottom_left:
-                  return Qt::Edge::LeftEdge | Qt::Edge::BottomEdge;
-               case ::experience::e_frame_sizing_bottom_right:
-                  return Qt::Edge::RightEdge | Qt::Edge::BottomEdge;
-            }
-            return (Qt::Edges )0;
-}
 
          bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing,
                                                             ::user::mouse* pmouse)

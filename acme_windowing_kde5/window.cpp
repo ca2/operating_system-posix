@@ -9,14 +9,19 @@
 #include "acme/nano/graphics/device.h"
 #include "acme/nano/nano.h"
 #include "acme/operating_system/a_system_menu.h"
+#include "acme/user/user/key.h"
 #include "acme/user/user/mouse.h"
 #include "acme/platform/system.h"
 #include "acme/user/user/interaction.h"
 #include "acme/windowing/windowing.h"
+#include "common_kde/kde_5_and_6.h"
 #include "QCustomTopWindow.h"
 #include <QMouseEvent>
 #include <QMenu>
+#include <QWindow>
 #include <acme/user/micro/elemental.h>
+
+#include "windowing.h"
 // #include <xkbcommon/xkbcommon.h>
 // #include <X11/XKBlib.h>
 // #include <cairo/cairo-xcb.h>
@@ -353,7 +358,7 @@ namespace kde5
 
             m_pacmeuserinteraction->on_before_create_window(this);
 
-            auto r = m_pacmeuserinteraction->get_window_rectangle();
+            auto r = m_pacmeuserinteraction->get_rectangle();
 
             int x = r.left();
 
@@ -373,6 +378,8 @@ namespace kde5
             pmainwindow->setAttribute(Qt::WA_OpaquePaintEvent, false);
 
             pmainwindow->setMouseTracking(true);
+
+            pmainwindow->setFocusPolicy(Qt::StrongFocus);
 
             pmainwindow->move(x, y);
             pmainwindow->resize(cx, cy);
@@ -672,6 +679,55 @@ namespace kde5
          m_pqwidget->setWindowState((m_pqwidget->windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
 
       }
+
+
+
+      bool window::defer_perform_entire_reposition_process(::user::mouse * pmouse)
+      {
+            auto ewindowing = system()->acme_windowing()->get_ewindowing();
+
+            if (ewindowing == ::windowing::e_windowing_wayland)
+            {
+               auto pqwindow = m_pqwidget->windowHandle();
+
+               if (pqwindow)
+               {
+                  pqwindow->startSystemMove();
+
+                  return true;
+
+               }
+
+            }
+
+            return false;
+
+      }
+
+
+      bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse * pmouse)
+         {
+
+            auto ewindowing = system()->acme_windowing()->get_ewindowing();
+
+            if (ewindowing == ::windowing::e_windowing_wayland)
+            {
+
+               auto pqwindow = m_pqwidget->windowHandle();
+
+               if (pqwindow)
+               {
+                  auto edges = ::kde::as_qt_edges(eframeSizing);
+                  pqwindow->startSystemResize(edges);
+
+                  return true;
+
+               }
+            }
+
+            return false;
+         }
+
 
 
       // bool window::_on_event(xcb_generic_event_t *pevent)
@@ -1204,6 +1260,63 @@ namespace kde5
       }
 
 
+         void window::set_keyboard_focus()
+         {
+
+   m_pqwidget->setFocus();
+
+         }
+
+
+         bool window::has_keyboard_focus()
+         {
+
+            if (::is_null(m_pqwidget))
+            {
+
+               return false;
+
+            }
+
+            ::cast < ::kde5::acme::windowing::windowing > pkde5windowing = system()->acme_windowing();
+
+            if (!pkde5windowing)
+            {
+
+               return false;
+
+            }
+
+            auto pqapplication = pkde5windowing->m_pqapplication;
+
+            if (!pqapplication)
+            {
+
+               return false;
+
+            }
+
+            auto pqwidgetFocus = pqapplication->focusWidget();
+
+            if (!pqwidgetFocus)
+            {
+
+               return false;
+
+            }
+
+            if (pqwidgetFocus != m_pqwidget)
+            {
+
+               return false;
+
+            }
+
+            return true;
+
+         }
+
+
       // void window::release_mouse_capture()
       // {
 
@@ -1674,6 +1787,210 @@ m_pqwidget->move(p);
        }
 
     }
+
+
+
+             void window::_on_key_press(QKeyEvent * pevent)
+    {
+
+            // if(m_bResizingWindowFromBottomRight ||
+            //    m_bRepositioningWindowFromCenter)
+            // {
+            //    m_pqwidget->releaseMouse();
+            //    m_bRepositioningWindowFromCenter = false;
+            //    m_bResizingWindowFromBottomRight = false;
+            // }
+
+
+          ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
+
+          if (::is_set(pelemental))
+          {
+             auto pkey = __create_new<::user::key>();
+
+             pkey->m_atom = ::e_message_key_down;
+
+             // pmouse->m_oswindow = this;
+             //
+             // pmouse->m_pwindow = this;
+
+             // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
+             //
+             // // Get the GdkEvent from the sequence
+             // GdkEvent *happening = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+             //
+             // guint32 timestamp = gdk_event_get_time (happening);
+
+             pkey->m_iTimestamp = pevent->timestamp();
+
+             // m_pointCursor2.x() = pevent->globalX();
+             // m_pointCursor2.y() = pevent->globalY();
+             //
+             //
+             // pmouse->m_pointHost.x() = pevent->x();
+             // pmouse->m_pointHost.y() = pevent->y();
+
+             //pkey->m_pointAbsolute = m_pointCursor2;
+
+
+             pkey->m_ekey = ::kde::user_key_from_qt_key(pevent->key());
+
+             pkey->m_strText = pevent->text().toUtf8().data();
+
+             //if (pevent->button() == Qt::MouseButton::LeftButton)
+             // {
+             //    pmouse->m_atom = e_message_left_button_down;
+             //    pelemental->fore_on_left_button_down(pmouse);
+             //    if (!pmouse->m_bRet)
+             //    {
+             //
+             //       pelemental->back_on_left_button_down(pmouse);
+             //    }
+             //
+             // }
+             // else if (pevent->button() == Qt::MouseButton::RightButton)
+             // {
+             //    pmouse->m_atom = e_message_right_button_down;
+             //    pelemental->fore_on_right_button_down(pmouse);
+             //    if (!pmouse->m_bRet)
+             //    {
+             //
+             //      pelemental->back_on_right_button_down(pmouse);
+             //
+             //    }
+             //
+             // }
+             // else if (pevent->button() == Qt::MouseButton::MiddleButton)
+             // {
+             //    pmouse->m_atom = e_message_middle_button_down;
+             // }
+
+
+             // //pmouse->m_time.m_iSecond = millis / 1_k;
+             //
+             // //pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+             //
+             // //pwindow->message_handler(pmouse);
+             //
+             // //wayland_windowing()->post_ui_message(pmouse);
+             //
+             // if(m_bPendingStartMove)
+             // {
+             //    m_bPendingStartMove =false;
+             //
+             //    defer_perform_entire_reposition_process(pmouse);
+             //    return;
+             //
+             // }
+             //
+             // pwindow->message_handler(pmouse);
+
+             pelemental->on_key_down(pkey);
+          }
+
+       }
+
+
+             void window::_on_key_release(QKeyEvent * pevent)
+    {
+
+            // if(m_bResizingWindowFromBottomRight ||
+            //    m_bRepositioningWindowFromCenter)
+            // {
+            //    m_pqwidget->releaseMouse();
+            //    m_bRepositioningWindowFromCenter = false;
+            //    m_bResizingWindowFromBottomRight = false;
+            // }
+
+
+          ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
+
+          if (::is_set(pelemental))
+          {
+             auto pkey = __create_new<::user::key>();
+
+             pkey->m_atom = ::e_message_key_up;
+
+             // pmouse->m_oswindow = this;
+             //
+             // pmouse->m_pwindow = this;
+
+             // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
+             //
+             // // Get the GdkEvent from the sequence
+             // GdkEvent *happening = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+             //
+             // guint32 timestamp = gdk_event_get_time (happening);
+
+             pkey->m_iTimestamp = pevent->timestamp();
+
+             // m_pointCursor2.x() = pevent->globalX();
+             // m_pointCursor2.y() = pevent->globalY();
+             //
+             //
+             // pmouse->m_pointHost.x() = pevent->x();
+             // pmouse->m_pointHost.y() = pevent->y();
+
+             //pkey->m_pointAbsolute = m_pointCursor2;
+
+
+             pkey->m_ekey = ::kde::user_key_from_qt_key(pevent->key());
+
+             //pkey->m_strText = pevent->text().toUtf8();
+
+             //if (pevent->button() == Qt::MouseButton::LeftButton)
+             // {
+             //    pmouse->m_atom = e_message_left_button_down;
+             //    pelemental->fore_on_left_button_down(pmouse);
+             //    if (!pmouse->m_bRet)
+             //    {
+             //
+             //       pelemental->back_on_left_button_down(pmouse);
+             //    }
+             //
+             // }
+             // else if (pevent->button() == Qt::MouseButton::RightButton)
+             // {
+             //    pmouse->m_atom = e_message_right_button_down;
+             //    pelemental->fore_on_right_button_down(pmouse);
+             //    if (!pmouse->m_bRet)
+             //    {
+             //
+             //      pelemental->back_on_right_button_down(pmouse);
+             //
+             //    }
+             //
+             // }
+             // else if (pevent->button() == Qt::MouseButton::MiddleButton)
+             // {
+             //    pmouse->m_atom = e_message_middle_button_down;
+             // }
+
+
+             // //pmouse->m_time.m_iSecond = millis / 1_k;
+             //
+             // //pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+             //
+             // //pwindow->message_handler(pmouse);
+             //
+             // //wayland_windowing()->post_ui_message(pmouse);
+             //
+             // if(m_bPendingStartMove)
+             // {
+             //    m_bPendingStartMove =false;
+             //
+             //    defer_perform_entire_reposition_process(pmouse);
+             //    return;
+             //
+             // }
+             //
+             // pwindow->message_handler(pmouse);
+
+             pelemental->on_key_up(pkey);
+          }
+
+       }
+
 //
 //
 //    static void on_enter_notify(GtkEventControllerMotion* pcontroller, double x, double y, gpointer p)

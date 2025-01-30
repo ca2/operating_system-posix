@@ -90,6 +90,8 @@ namespace kde5
             void _on_reposition(int x, int y) override;
             void _on_size(int cx, int cy) override;
 
+            void _on_key_press(QKeyEvent * pevent) override;
+            void _on_key_release(QKeyEvent * pevent) override;
 
             //void aaa_message_loop() override;
 
@@ -104,6 +106,13 @@ namespace kde5
             bool is_active_window() override;
 
             void set_active_window() override;
+
+
+
+            bool defer_perform_entire_reposition_process(::user::mouse * pmouse) override;
+
+            bool defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse * pmouse) override;
+
 
             ///virtual void draw_children(::nano::graphics::device * pnanodevice);
 
@@ -166,6 +175,11 @@ namespace kde5
             bool is_mouse_captured() override;
             bool has_mouse_capture() override;
             void release_mouse_capture() override;
+
+
+            using ::acme::windowing::window::set_keyboard_focus;
+            void set_keyboard_focus() override;
+            bool has_keyboard_focus() override;
 
          };
 

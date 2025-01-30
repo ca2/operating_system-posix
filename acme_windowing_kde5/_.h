@@ -6,6 +6,7 @@
 
 
 #include "acme_posix/_.h"
+#include "common_kde/_.h"
 
 
 #if defined(_acme_windowing_kde5_project)
