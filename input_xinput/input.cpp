@@ -402,7 +402,7 @@ namespace input_xinput
 //
 //         auto pmouse = __create_new < ::message::mouse >();
 //
-//         pmouse->m_atom = emessage;
+//         pmouse->m_emessage = emessage;
 //
 //         //pmouse->m_pointAbsolute.x() =
 //
@@ -451,7 +451,7 @@ namespace input_xinput
 //
 //         auto pkey = __create_new < ::message::key >();
 //
-//         pkey->m_atom = emessage;
+//         pkey->m_emessage = emessage;
 //
 //         //pmouse->m_pointAbsolute.x() =
 //
@@ -670,7 +670,7 @@ namespace input_xinput
 
                   auto pkey = __create_new<::message::key>();
 
-                  pkey->m_atom = emessage;
+                  pkey->m_emessage = emessage;
 
                   pkey->m_ekey = ekey;
 
@@ -694,7 +694,7 @@ namespace input_xinput
 
                   auto pmouse = __create_new<::message::mouse>();
 
-                  pmouse->m_atom = emessage;
+                  pmouse->m_emessage = emessage;
 
                   //pmouse->m_ekey = ekey;
 
@@ -736,7 +736,7 @@ namespace input_xinput
 //
 //                  auto pkey = __create_new < ::message::key >();
 //
-//                  pkey->m_atom = emessage;
+//                  pkey->m_emessage = emessage;
 //
 //                  pkey->m_ekey = ekey;
 //

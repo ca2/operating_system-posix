@@ -474,7 +474,7 @@ namespace windowing_x11
          MESSAGE msg;
 
          msg.oswindow = pwindowMouseCaptureOld;
-         msg.m_atom = e_message_capture_changed;
+         msg.id() = e_message_capture_changed;
          msg.wParam = 0;
          msg.lParam = pwindowMouseCaptureNew;
 
@@ -502,7 +502,7 @@ namespace windowing_x11
    }
 
 
-   Atom display::intern_atom(::x11::enum_atom eatom, bool bCreate)
+   Atom display::intern_atom(::x11::enuid() eatom, bool bCreate)
    {
 
       if (eatom < 0 || eatom >= ::x11::e_atom_count)
@@ -545,7 +545,7 @@ namespace windowing_x11
    }
 
 
-   Atom display::_intern_atom_unlocked(::x11::enum_atom eatom, bool bCreate)
+   Atom display::_intern_atom_unlocked(::x11::enuid() eatom, bool bCreate)
    {
 
       if (eatom < 0 || eatom >= ::x11::e_atom_count)

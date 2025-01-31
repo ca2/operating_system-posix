@@ -269,7 +269,7 @@ namespace input_libinput
 
          auto pmouse = __create_new < ::message::mouse >();
 
-         pmouse->m_atom = emessage;
+         pmouse->m_emessage = emessage;
 
          for(auto & pparticle : m_particleaMouseHandler)
          {
@@ -384,7 +384,7 @@ namespace input_libinput
 
          auto pkey = __create_new < ::message::key >();
 
-         pkey->m_atom = emessage;
+         pkey->m_emessage = emessage;
 
          pkey->m_ekey = ekey;
 

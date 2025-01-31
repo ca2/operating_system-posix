@@ -695,7 +695,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status window::_change_atom_atom(xcb_atom_t atomWindowType, xcb_atom_t atomWindowTypeValue)
+   ::e_status window::_change_atoid()(xcb_atom_t atomWindowType, xcb_atom_t atomWindowTypeValue)
    {
 
       auto estatus = _change_property(
@@ -1597,7 +1597,7 @@ namespace windowing_xcb
          if (msg.oswindow == nullptr)
          {
 
-            system()->post_message(msg.m_atom, msg.wParam, msg.lParam);
+            system()->post_message(msg.id(), msg.wParam, msg.lParam);
 
          }
          else
@@ -1609,7 +1609,7 @@ namespace windowing_xcb
 
                ::user::interaction * pinteraction = msg.oswindow->m_pwindow->m_puserinteraction;
 
-               pinteraction->post_message(msg.m_atom, msg.wParam, msg.lParam);
+               pinteraction->post_message(msg.id(), msg.wParam, msg.lParam);
 
             }
 
@@ -1654,7 +1654,7 @@ namespace windowing_xcb
       if (pmessagequeue == nullptr)
       {
 
-//         if(message.m_atom == e_message_quit)
+//         if(message.m_emessage == e_message_quit)
 //         {
 //
 //            //return false;
@@ -1674,20 +1674,20 @@ namespace windowing_xcb
 
       synchronous_lock ml(pmessagequeue->synchronization());
 
-      if (message.m_atom == e_message_quit)
+      if (message.m_emessage == e_message_quit)
       {
 
          informationf("e_message_quit thread");
 
       }
 
-      if (message.m_atom == e_message_left_button_down)
+      if (message.m_emessage == e_message_left_button_down)
       {
 
          informationf("post_ui_message::e_message_left_button_down");
 
       }
-      else if (message.m_atom == e_message_left_button_up)
+      else if (message.m_emessage == e_message_left_button_up)
       {
 
          informationf("post_ui_message::e_message_left_button_up");

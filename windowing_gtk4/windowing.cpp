@@ -714,7 +714,7 @@ namespace windowing_gtk4
    //
    //         auto pmouse = __create_new < ::message::mouse >();
    //
-   //         pmouse->m_atom = emessage;
+   //         pmouse->m_emessage = emessage;
    //
    //         //pmouse->m_pointAbsolute.x() =
    //
@@ -763,7 +763,7 @@ namespace windowing_gtk4
    //
    //         auto pkey = __create_new < ::message::key >();
    //
-   //         pkey->m_atom = emessage;
+   //         pkey->m_emessage = emessage;
    //
    //         //pmouse->m_pointAbsolute.x() =
    //

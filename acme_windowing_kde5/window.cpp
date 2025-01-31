@@ -1426,7 +1426,7 @@ namespace kde5
 
              if (pevent->button() == Qt::MouseButton::LeftButton)
              {
-                pmouse->m_atom = e_message_left_button_down;
+                pmouse->m_emessage = e_message_left_button_down;
                 pelemental->fore_on_left_button_down(pmouse);
                 if (!pmouse->m_bRet)
                 {
@@ -1437,7 +1437,7 @@ namespace kde5
              }
              else if (pevent->button() == Qt::MouseButton::RightButton)
              {
-                pmouse->m_atom = e_message_right_button_down;
+                pmouse->m_emessage = e_message_right_button_down;
                 pelemental->fore_on_right_button_down(pmouse);
                 if (!pmouse->m_bRet)
                 {
@@ -1449,7 +1449,7 @@ namespace kde5
              }
              else if (pevent->button() == Qt::MouseButton::MiddleButton)
              {
-                pmouse->m_atom = e_message_middle_button_down;
+                pmouse->m_emessage = e_message_middle_button_down;
              }
 
 
@@ -1525,7 +1525,7 @@ namespace kde5
 
              if (pevent->button() == Qt::MouseButton::LeftButton)
              {
-                pmouse->m_atom = e_message_left_button_up;
+                pmouse->m_emessage = e_message_left_button_up;
                 pelemental->fore_on_left_button_up(pmouse);
                 if (!pmouse->m_bRet)
                 {
@@ -1536,7 +1536,7 @@ namespace kde5
              }
              else if (pevent->button() == Qt::MouseButton::RightButton)
              {
-                pmouse->m_atom = e_message_right_button_up;
+                pmouse->m_emessage = e_message_right_button_up;
                 pelemental->fore_on_right_button_up(pmouse);
                 if (!pmouse->m_bRet)
                 {
@@ -1548,7 +1548,7 @@ pelemental->back_on_right_button_up(pmouse);
              }
              else if (pevent->button() == Qt::MouseButton::MiddleButton)
              {
-                pmouse->m_atom = e_message_middle_button_up;
+                pmouse->m_emessage = e_message_middle_button_up;
 
 
              }
@@ -1695,7 +1695,7 @@ m_pqwidget->move(p);
           //
           // pmouse->m_pwindow = this;
 
-          pmouse->m_atom = e_message_mouse_move;
+          pmouse->m_emessage = e_message_mouse_move;
 
 
           //pmouse->m_time.m_iSecond = millis / 1_k;
@@ -1808,7 +1808,7 @@ m_pqwidget->move(p);
           {
              auto pkey = __create_new<::user::key>();
 
-             pkey->m_atom = ::e_message_key_down;
+             pkey->m_emessage = ::e_message_key_down;
 
              // pmouse->m_oswindow = this;
              //
@@ -1839,7 +1839,7 @@ m_pqwidget->move(p);
 
              //if (pevent->button() == Qt::MouseButton::LeftButton)
              // {
-             //    pmouse->m_atom = e_message_left_button_down;
+             //    pmouse->m_emessage = e_message_left_button_down;
              //    pelemental->fore_on_left_button_down(pmouse);
              //    if (!pmouse->m_bRet)
              //    {
@@ -1850,7 +1850,7 @@ m_pqwidget->move(p);
              // }
              // else if (pevent->button() == Qt::MouseButton::RightButton)
              // {
-             //    pmouse->m_atom = e_message_right_button_down;
+             //    pmouse->m_emessage = e_message_right_button_down;
              //    pelemental->fore_on_right_button_down(pmouse);
              //    if (!pmouse->m_bRet)
              //    {
@@ -1862,7 +1862,7 @@ m_pqwidget->move(p);
              // }
              // else if (pevent->button() == Qt::MouseButton::MiddleButton)
              // {
-             //    pmouse->m_atom = e_message_middle_button_down;
+             //    pmouse->m_emessage = e_message_middle_button_down;
              // }
 
 
@@ -1909,7 +1909,7 @@ m_pqwidget->move(p);
           {
              auto pkey = __create_new<::user::key>();
 
-             pkey->m_atom = ::e_message_key_up;
+             pkey->m_emessage = ::e_message_key_up;
 
              // pmouse->m_oswindow = this;
              //
@@ -1940,7 +1940,7 @@ m_pqwidget->move(p);
 
              //if (pevent->button() == Qt::MouseButton::LeftButton)
              // {
-             //    pmouse->m_atom = e_message_left_button_down;
+             //    pmouse->m_emessage = e_message_left_button_down;
              //    pelemental->fore_on_left_button_down(pmouse);
              //    if (!pmouse->m_bRet)
              //    {
@@ -1951,7 +1951,7 @@ m_pqwidget->move(p);
              // }
              // else if (pevent->button() == Qt::MouseButton::RightButton)
              // {
-             //    pmouse->m_atom = e_message_right_button_down;
+             //    pmouse->m_emessage = e_message_right_button_down;
              //    pelemental->fore_on_right_button_down(pmouse);
              //    if (!pmouse->m_bRet)
              //    {
@@ -1963,7 +1963,7 @@ m_pqwidget->move(p);
              // }
              // else if (pevent->button() == Qt::MouseButton::MiddleButton)
              // {
-             //    pmouse->m_atom = e_message_middle_button_down;
+             //    pmouse->m_emessage = e_message_middle_button_down;
              // }
 
 

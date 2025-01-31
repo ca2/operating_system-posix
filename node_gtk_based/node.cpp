@@ -151,7 +151,7 @@ namespace node_gtk_based
 
       }
 
-      if(ptopic->m_atom == id_operating_system_user_color_change)
+      if(ptopic->id() == id_operating_system_user_color_change)
       {
 
          return false;
