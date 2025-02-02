@@ -2328,12 +2328,20 @@ namespace gtk4
    void window::set_mouse_capture()
    {
 
+     system()->acme_windowing()->m_pwindowMouseCapture = this;
 
    }
 
 
    void window::release_mouse_capture()
    {
+
+     if(system()->acme_windowing()->m_pwindowMouseCapture == this)
+     {
+
+        system()->acme_windowing()->m_pwindowMouseCapture =nullptr;
+
+     }
 
 
    }

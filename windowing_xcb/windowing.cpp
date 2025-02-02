@@ -494,7 +494,7 @@ namespace windowing_xcb
 
          pmessage->m_pwindow = pwindowMouseCaptureOld;
          pmessage->m_oswindow = pwindowMouseCaptureOld;
-         pmessage->m_atom = e_message_capture_changed;
+         pmessage->m_emessage = e_message_capture_changed;
          pmessage->m_wparam = 0;
          pmessage->m_lparam = pwindowMouseCaptureNew;
 
@@ -939,7 +939,7 @@ namespace windowing_xcb
 
             auto pmessage = __create_new<::user::message>();
 
-            pmessage->m_atom = e_message_mouse_leave;
+            pmessage->m_emessage = e_message_mouse_leave;
             pmessage->m_pwindow = pxcbwindow;
             pmessage->m_oswindow = pxcbwindow;
             pmessage->m_wparam = 0;
@@ -1128,7 +1128,7 @@ namespace windowing_xcb
                //msg.oswindow = m_pdisplay->_window(pmotion->happening);
                pmouse->m_pwindow = pxcbwindow;
                pmouse->m_oswindow = pxcbwindow;
-               pmouse->m_atom = e_message_mouse_move;
+               pmouse->m_emessage = e_message_mouse_move;
                //pmessage->.wParam = wparam;
                pmouse->m_ebuttonstate = ebuttonstate;
                pmouse->m_pointAbsolute = {pmotion->root_x, pmotion->root_y};
@@ -1311,7 +1311,7 @@ namespace windowing_xcb
                            auto pmessage = __create_new<::user::message>();
                            pmessage->m_pwindow = pxcbwindow;
                            pmessage->m_oswindow = pxcbwindow;
-                           pmessage->m_atom = e_message_paint;
+                           pmessage->m_emessage = e_message_paint;
                            pmessage->m_lparam = 0;
                            pmessage->m_wparam = 0;
 
@@ -1761,7 +1761,7 @@ namespace windowing_xcb
 
             pmessage->m_pwindow = pxcbwindow;
             pmessage->m_oswindow = pxcbwindow;
-            pmessage->m_atom = e_message_show_window;
+            pmessage->m_emessage = e_message_show_window;
             pmessage->m_bShow = uResponseType == XCB_MAP_NOTIFY;
             //msg.lParam = 0;
 
@@ -2135,7 +2135,7 @@ if(bSentResponse)
                   pmessage->m_oswindow = pxcbwindow;
 
 
-                  pmessage->m_atom = e_message_mouse_wheel;
+                  pmessage->m_emessage = e_message_mouse_wheel;
 
                   pmessage->m_Δ = Δ;
 
@@ -2155,7 +2155,7 @@ if(bSentResponse)
 
                   pmessage->m_oswindow = pxcbwindow;
 
-                  pmessage->m_atom = emessage;
+                  pmessage->m_emessage = emessage;
 
                   pmessage->m_Δ = Δ;
 
@@ -2328,7 +2328,7 @@ if(bSentResponse)
                auto pmessage = __create_new<::message::key>();
                pmessage->m_oswindow = pxcbwindow;
                pmessage->m_pwindow = pxcbwindow;
-               pmessage->m_atom = emessage;
+               pmessage->m_emessage = emessage;
                pmessage->m_ekey = ekey;
                //msg.lParam = keysym;
 
@@ -2342,7 +2342,7 @@ if(bSentResponse)
                auto pmessage = __create_new<::message::key>();
                pmessage->m_oswindow = pxcbwindow;
                pmessage->m_pwindow = pxcbwindow;
-               pmessage->m_atom = e_message_text_composition;
+               pmessage->m_emessage = e_message_text_composition;
 
                //pkey->set(pwindow, pwindow, e_message_text_composition, 0, 0);
 
@@ -2393,7 +2393,7 @@ if(bSentResponse)
 
                      pmessage->m_pwindow = pxcbwindow;
                      pmessage->m_oswindow = pxcbwindow;
-                     pmessage->m_atom = e_message_set_focus;
+                     pmessage->m_emessage = e_message_set_focus;
 
                      pinteraction->m_ewindowflag |= ::e_window_flag_focus;
 
@@ -2448,7 +2448,7 @@ if(bSentResponse)
                      pmessage->m_pwindow = pxcbwindow;
                      pmessage->m_oswindow = pxcbwindow;
 
-                     pmessage->m_atom = e_message_kill_focus;
+                     pmessage->m_emessage = e_message_kill_focus;
 
                      pinteraction->m_ewindowflag -= ::e_window_flag_focus;
 
@@ -2501,7 +2501,7 @@ if(bSentResponse)
 
             pmessage->m_oswindow = pxcbwindow;
 
-            pmessage->m_atom = e_message_destroy;
+            pmessage->m_emessage = e_message_destroy;
 
             post_ui_message(pmessage);
 
@@ -2665,7 +2665,7 @@ if(bSentResponse)
 //
 //            oswindow->m_pointWindow = pointWindow;
 //
-//            pmessage->m_atom = e_message_reposition;
+//            pmessage->m_emessage = e_message_reposition;
 //            pmessage->m_wparam = 0;
 //            pmessage->m_point = pointWindow;
 //
@@ -2685,7 +2685,7 @@ if(bSentResponse)
 //
 //            oswindow->m_size = sizeWindow;
 //
-//            pmessage->m_atom = e_message_size;
+//            pmessage->m_emessage = e_message_size;
 //            pmessage->m_wparam = 0;
 //            pmessage->m_size = sizeWindow;
 //

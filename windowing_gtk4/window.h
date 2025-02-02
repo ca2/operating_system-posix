@@ -139,6 +139,10 @@ namespace windowing_gtk4
 
       virtual void set_mouse_cursor2(::windowing::cursor * pcursor);
 
+      virtual void set_mouse_capture();
+
+      virtual void release_mouse_capture();
+
       void set_keyboard_focus() override;
 
       void _set_keyboard_focus_unlocked() override;

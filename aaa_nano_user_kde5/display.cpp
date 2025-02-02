@@ -145,7 +145,7 @@ namespace kde5
          // }
          //
          //
-         // xcb_atom_t display::intern_atom(::x11::enum_atom eatom, bool bCreate)
+         // xcb_atom_t display::intern_atom(::x11::enuid() eatom, bool bCreate)
          // {
          //
          //    if (eatom < 0 || eatom >= ::x11::e_atom_count)
@@ -1550,7 +1550,7 @@ namespace kde5
          //
          //
          // /// must be run in x11 thread (user thread)
-         // ::e_status display::_add_net_wm_state(xcb_window_t window, ::x11::enum_atom eatomNetWmState)
+         // ::e_status display::_add_net_wm_state(xcb_window_t window, ::x11::enuid() eatomNetWmState)
          // {
          //
          //    //display_lock displaylock(xcb_display());
@@ -1584,7 +1584,7 @@ namespace kde5
          // }
          //
          // /// must be run in x11 thread (user thread)
-         // ::e_status display::_mapped_add_net_wm_state(xcb_window_t window, ::x11::enum_atom eatomNetWmState)
+         // ::e_status display::_mapped_add_net_wm_state(xcb_window_t window, ::x11::enuid() eatomNetWmState)
          // {
          //
          //    auto atomFlag = intern_atom(eatomNetWmState, false);
@@ -1612,7 +1612,7 @@ namespace kde5
          // }
          //
          //
-         // ::e_status display::_mapped_erase_net_wm_state(xcb_window_t window, ::x11::enum_atom eatomNetWmState)
+         // ::e_status display::_mapped_erase_net_wm_state(xcb_window_t window, ::x11::enuid() eatomNetWmState)
          // {
          //
          //    auto atomFlag = intern_atom(eatomNetWmState, false);
@@ -1641,7 +1641,7 @@ namespace kde5
          //
          //
          // /// must be run in x11 thread (user thread)
-         // ::e_status display::_unmapped_add_net_wm_state(xcb_window_t window, ::x11::enum_atom eatomNetWmState)
+         // ::e_status display::_unmapped_add_net_wm_state(xcb_window_t window, ::x11::enuid() eatomNetWmState)
          // {
          //
          //    auto atomNetWmState = intern_atom(::x11::e_atom_net_wm_state, false);
@@ -1662,7 +1662,7 @@ namespace kde5
          // }
          //
          //
-         // ::e_status display::_unmapped_erase_net_wm_state(xcb_window_t window, ::x11::enum_atom eatomNetWmState)
+         // ::e_status display::_unmapped_erase_net_wm_state(xcb_window_t window, ::x11::enuid() eatomNetWmState)
          // {
          //
          //    auto atomNetWmState = intern_atom(::x11::e_atom_net_wm_state, false);
@@ -1737,7 +1737,7 @@ namespace kde5
          // }
          //
          //
-         // ::e_status display::_erase_net_wm_state(xcb_window_t window, ::x11::enum_atom eatomNetWmState)
+         // ::e_status display::_erase_net_wm_state(xcb_window_t window, ::x11::enuid() eatomNetWmState)
          // {
          //
          //    xcb_get_window_attributes_reply_t attributes;

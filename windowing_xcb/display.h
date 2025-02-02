@@ -86,7 +86,7 @@ namespace windowing_xcb
 
       virtual xcb_atom_t intern_atom(const char * pszAtomName, bool bCreate = true);
 
-      virtual xcb_atom_t intern_atom(::x11::enum_atom eatom, bool bCreate = true);
+      virtual xcb_atom_t intern_atom(::x11::enuid() eatom, bool bCreate = true);
 
       virtual ::string atom_name(xcb_atom_t atom);
       virtual ::string _atom_name(xcb_atom_t atom);

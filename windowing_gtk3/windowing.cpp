@@ -571,7 +571,7 @@ namespace windowing_gtk3
          MESSAGE msg;
 
          msg.oswindow = pwindowMouseCaptureOld;
-         msg.m_atom = e_message_capture_changed;
+         msg.id() = e_message_capture_changed;
          msg.wParam = 0;
          msg.lParam = pwindowMouseCaptureNew;
 

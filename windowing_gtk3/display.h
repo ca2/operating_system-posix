@@ -137,11 +137,11 @@ namespace windowing_gtk3
 
 //      Atom intern_atom(const char * pszAtomName, bool bCreate);
 //
-//      Atom intern_atom(::x11::enum_atom eatom, bool bCreate);
+//      Atom intern_atom(::x11::enuid() eatom, bool bCreate);
 //
 //      Atom _intern_atom_unlocked(const char * pszAtomName, bool bCreate);
 //
-//      Atom _intern_atom_unlocked(::x11::enum_atom eatom, bool bCreate);
+//      Atom _intern_atom_unlocked(::x11::enuid() eatom, bool bCreate);
 //
 //      Atom net_wm_state_atom(bool bCreate);
 

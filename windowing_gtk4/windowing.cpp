@@ -515,7 +515,7 @@ namespace windowing_gtk4
    void windowing::set_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
    {
 
-      m_pwindowMouseCapture = pwindow;
+      pwindow->set_mouse_capture();
 
    }
 
@@ -527,12 +527,14 @@ namespace windowing_gtk4
 
   //    pdisplay->release_mouse_capture();
 
-      if (m_pwindowMouseCapture == pwindow)
-      {
+//      if (m_pwindowMouseCapture == pwindow)
+//      {
+//
+//         m_pwindowMouseCapture = nullptr;
+//
+//      }
 
-         m_pwindowMouseCapture = nullptr;
-
-      }
+      pwindow->release_mouse_capture();
 
    }
 
@@ -548,8 +550,6 @@ namespace windowing_gtk4
       }
 
       release_mouse_capture(pthread, pwindow);
-
-      m_pwindowMouseCapture.release();
 
       return true;
 
@@ -714,7 +714,7 @@ namespace windowing_gtk4
    //
    //         auto pmouse = __create_new < ::message::mouse >();
    //
-   //         pmouse->m_atom = emessage;
+   //         pmouse->m_emessage = emessage;
    //
    //         //pmouse->m_pointAbsolute.x() =
    //
@@ -763,7 +763,7 @@ namespace windowing_gtk4
    //
    //         auto pkey = __create_new < ::message::key >();
    //
-   //         pkey->m_atom = emessage;
+   //         pkey->m_emessage = emessage;
    //
    //         //pmouse->m_pointAbsolute.x() =
    //

@@ -618,7 +618,7 @@ namespace node_xfce
 //   void node::on_subject(::promise::topic * ptopic, ::context * pcontext)
 //   {
 //
-//      if(ptopic->m_atom == ::id_os_user_theme)
+//      if(ptopic->id() == ::id_os_user_theme)
 //      {
 //
 //         _on_change_os_user_theme();
@@ -744,7 +744,7 @@ namespace node_xfce
 //
 //      }
 //
-//      if(ptopic->m_atom == id_os_dark_mode)
+//      if(ptopic->id() == id_os_dark_mode)
 //      {
 //
 //         return false;

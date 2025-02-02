@@ -46,7 +46,7 @@
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
 //#include "windowing_system_wayland/xfree86_key.h"
-
+#include "common_kde/kde_5_and_6.h"
 
 //#include <gtk/gtk.h>
 //
@@ -1413,15 +1413,15 @@ namespace windowing_kde5
 
          if (pevent->button() == Qt::MouseButton::LeftButton)
          {
-            pmouse->m_atom = e_message_left_button_down;
+            pmouse->m_emessage = e_message_left_button_down;
          }
          else if (pevent->button() == Qt::MouseButton::RightButton)
          {
-            pmouse->m_atom = e_message_right_button_down;
+            pmouse->m_emessage = e_message_right_button_down;
          }
          else if (pevent->button() == Qt::MouseButton::MiddleButton)
          {
-            pmouse->m_atom = e_message_middle_button_down;
+            pmouse->m_emessage = e_message_middle_button_down;
          }
 
          m_pointCursor2.x() = pevent->globalX();
@@ -1491,15 +1491,15 @@ namespace windowing_kde5
 
             if (pevent->button() == Qt::MouseButton::LeftButton)
             {
-               pmouse->m_atom = e_message_left_button_up;
+               pmouse->m_emessage = e_message_left_button_up;
             }
             else if (pevent->button() == Qt::MouseButton::RightButton)
             {
-               pmouse->m_atom = e_message_right_button_up;
+               pmouse->m_emessage = e_message_right_button_up;
             }
             else if (pevent->button() == Qt::MouseButton::MiddleButton)
             {
-               pmouse->m_atom = e_message_middle_button_up;
+               pmouse->m_emessage = e_message_middle_button_up;
             }
 
             m_pointCursor2.x() = pevent->globalX();
@@ -1588,7 +1588,7 @@ namespace windowing_kde5
 
          __check_refdbg;
 
-         pmouse->m_atom = e_message_mouse_move;
+         pmouse->m_emessage = e_message_mouse_move;
 
          __check_refdbg;
 
@@ -1681,6 +1681,236 @@ namespace windowing_kde5
    //    //g_print("Option 1 selected from popover menu!\n");
    // }
 
+
+
+
+             void window::_on_key_press(QKeyEvent * pevent)
+    {
+
+            // if(m_bResizingWindowFromBottomRight ||
+            //    m_bRepositioningWindowFromCenter)
+            // {
+            //    m_pqwidget->releaseMouse();
+            //    m_bRepositioningWindowFromCenter = false;
+            //    m_bResizingWindowFromBottomRight = false;
+            // }
+
+
+//          ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+
+          //if (::is_set(pelemental))
+          {
+             auto pkey = __create_new<::message::key>();
+
+             pkey->m_emessage = e_message_key_down;
+
+              pkey->m_oswindow = this;
+             //
+              pkey->m_pwindow = this;
+
+             // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
+             //
+             // // Get the GdkEvent from the sequence
+             // GdkEvent *happening = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+             //
+             // guint32 timestamp = gdk_event_get_time (happening);
+
+             pkey->m_iTimestamp = pevent->timestamp();
+
+             // m_pointCursor2.x() = pevent->globalX();
+             // m_pointCursor2.y() = pevent->globalY();
+             //
+             //
+             // pmouse->m_pointHost.x() = pevent->x();
+             // pmouse->m_pointHost.y() = pevent->y();
+
+             //pkey->m_pointAbsolute = m_pointCursor2;
+
+
+             pkey->m_ekey = ::kde::user_key_from_qt_key(pevent->key());
+
+             ::string strText(pevent->text().toUtf8().data());
+
+             int i1 = strText.c_str()[0];
+             int i2 = strText.c_str()[1];
+             int i3 = strText.c_str()[2];
+             int i4 = strText.c_str()[3];
+
+              if (strText.has_character() && (strText[0] >=32 || strText[0] < 0))
+              {
+                 on_text(strText.c_str(), strText.size());
+              }
+
+             //if (pevent->button() == Qt::MouseButton::LeftButton)
+             // {
+             //    pmouse->m_emessage = e_message_left_button_down;
+             //    pelemental->fore_on_left_button_down(pmouse);
+             //    if (!pmouse->m_bRet)
+             //    {
+             //
+             //       pelemental->back_on_left_button_down(pmouse);
+             //    }
+             //
+             // }
+             // else if (pevent->button() == Qt::MouseButton::RightButton)
+             // {
+             //    pmouse->m_emessage = e_message_right_button_down;
+             //    pelemental->fore_on_right_button_down(pmouse);
+             //    if (!pmouse->m_bRet)
+             //    {
+             //
+             //      pelemental->back_on_right_button_down(pmouse);
+             //
+             //    }
+             //
+             // }
+             // else if (pevent->button() == Qt::MouseButton::MiddleButton)
+             // {
+             //    pmouse->m_emessage = e_message_middle_button_down;
+             // }
+
+
+             // //pmouse->m_time.m_iSecond = millis / 1_k;
+             //
+             // //pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+             //
+             // //pwindow->message_handler(pmouse);
+             //
+             // //wayland_windowing()->post_ui_message(pmouse);
+             //
+             // if(m_bPendingStartMove)
+             // {
+             //    m_bPendingStartMove =false;
+             //
+             //    defer_perform_entire_reposition_process(pmouse);
+             //    return;
+             //
+             // }
+             //
+             // pwindow->message_handler(pmouse);
+
+             message_handler(pkey);
+          }
+
+       }
+
+
+             void window::_on_key_release(QKeyEvent * pevent)
+    {
+
+            // if(m_bResizingWindowFromBottomRight ||
+            //    m_bRepositioningWindowFromCenter)
+            // {
+            //    m_pqwidget->releaseMouse();
+            //    m_bRepositioningWindowFromCenter = false;
+            //    m_bResizingWindowFromBottomRight = false;
+            // }
+
+
+          //::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
+
+          //if (::is_set(pelemental))
+          {
+             auto pkey = __create_new<::message::key>();
+
+             pkey->m_emessage = e_message_key_up;
+
+              pkey->m_oswindow = this;
+             //
+              pkey->m_pwindow = this;
+
+             // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
+             //
+             // // Get the GdkEvent from the sequence
+             // GdkEvent *happening = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+             //
+             // guint32 timestamp = gdk_event_get_time (happening);
+
+             pkey->m_iTimestamp = pevent->timestamp();
+
+             // m_pointCursor2.x() = pevent->globalX();
+             // m_pointCursor2.y() = pevent->globalY();
+             //
+             //
+             // pmouse->m_pointHost.x() = pevent->x();
+             // pmouse->m_pointHost.y() = pevent->y();
+
+             //pkey->m_pointAbsolute = m_pointCursor2;
+
+
+             pkey->m_ekey = ::kde::user_key_from_qt_key(pevent->key());
+
+             //pkey->m_strText = pevent->text().toUtf8();
+
+             //if (pevent->button() == Qt::MouseButton::LeftButton)
+             // {
+             //    pmouse->m_emessage = e_message_left_button_down;
+             //    pelemental->fore_on_left_button_down(pmouse);
+             //    if (!pmouse->m_bRet)
+             //    {
+             //
+             //       pelemental->back_on_left_button_down(pmouse);
+             //    }
+             //
+             // }
+             // else if (pevent->button() == Qt::MouseButton::RightButton)
+             // {
+             //    pmouse->m_emessage = e_message_right_button_down;
+             //    pelemental->fore_on_right_button_down(pmouse);
+             //    if (!pmouse->m_bRet)
+             //    {
+             //
+             //      pelemental->back_on_right_button_down(pmouse);
+             //
+             //    }
+             //
+             // }
+             // else if (pevent->button() == Qt::MouseButton::MiddleButton)
+             // {
+             //    pmouse->m_emessage = e_message_middle_button_down;
+             // }
+
+
+             // //pmouse->m_time.m_iSecond = millis / 1_k;
+             //
+             // //pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+             //
+             // //pwindow->message_handler(pmouse);
+             //
+             // //wayland_windowing()->post_ui_message(pmouse);
+             //
+             // if(m_bPendingStartMove)
+             // {
+             //    m_bPendingStartMove =false;
+             //
+             //    defer_perform_entire_reposition_process(pmouse);
+             //    return;
+             //
+             // }
+             //
+             // pwindow->message_handler(pmouse);
+
+             message_handler(pkey);
+          }
+
+       }
+
+
+   void window::_on_text(const scoped_string& scopedstr)
+   {
+
+      on_text(scopedstr.begin(), scopedstr.size());
+
+
+   }
+
+
+   void window::show_task(bool bShow)
+   {
+
+      //throw ::interface_only();
+
+   }
 
    // void window::_on_window_simple_action(const char* pszActionName)
    // {
@@ -1920,6 +2150,7 @@ namespace windowing_kde5
       printf_line("windowing_kde5::window::create_window");
 
       {
+
          _synchronous_lock synchronouslock(user_synchronization());
 
          ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
@@ -1992,30 +2223,32 @@ namespace windowing_kde5
 
          m_sizeWindow.cy() = cy;
 
-         //auto rectangleWindow = ::int_rectangle_dimension(x, y, cx, cy);
+         ::kde5::acme::windowing::window::_create_window();
 
-         //puserinteraction->place(rectangleWindow);
+         // //auto rectangleWindow = ::int_rectangle_dimension(x, y, cx, cy);
+         //
+         // //puserinteraction->place(rectangleWindow);
+         //
+         // //auto pwindowing = this->windowing();
+         //
+         // //m_pgtkwidget = gtk_application_window_new(pkde5windowing->m_pgtkapplication);
+         //
+         // auto pmainwindow = new QCustomTopWindow(this);
+         //
+         // m_pqwidget = pmainwindow;
+         //
+         // //pmainwindow->setWindowFlags(Qt::Window|Qt::FramelessWindowHint | Qt::CustomizeWindowHint | Qt::WindowOverridesSystemGestures); // No window decorations
+         // pmainwindow->setWindowFlags(Qt::Window|Qt::FramelessWindowHint); // No window decorations
+         // pmainwindow->setAttribute(Qt::WA_TranslucentBackground); // Translucent background
+         // pmainwindow->setAttribute(Qt::WA_NoSystemBackground, true);
+         // pmainwindow->setAttribute(Qt::WA_OpaquePaintEvent, false);
+         // //pmainwindow->setAttribute(Qt::WA_NativeWindow, true);
+         // //pmainwindow->setAttribute(Qt::WA_NoMousePropagation, true);
+         //
+         // pmainwindow->setMouseTracking(true);
 
-         //auto pwindowing = this->windowing();
-
-         //m_pgtkwidget = gtk_application_window_new(pkde5windowing->m_pgtkapplication);
-
-         auto pmainwindow = new QCustomTopWindow(this);
-
-         m_pqwidget = pmainwindow;
-
-         //pmainwindow->setWindowFlags(Qt::Window|Qt::FramelessWindowHint | Qt::CustomizeWindowHint | Qt::WindowOverridesSystemGestures); // No window decorations
-         pmainwindow->setWindowFlags(Qt::Window|Qt::FramelessWindowHint); // No window decorations
-         pmainwindow->setAttribute(Qt::WA_TranslucentBackground); // Translucent background
-         pmainwindow->setAttribute(Qt::WA_NoSystemBackground, true);
-         pmainwindow->setAttribute(Qt::WA_OpaquePaintEvent, false);
-         //pmainwindow->setAttribute(Qt::WA_NativeWindow, true);
-         //pmainwindow->setAttribute(Qt::WA_NoMousePropagation, true);
-
-         pmainwindow->setMouseTracking(true);
-
-         pmainwindow->move(x, y);
-         pmainwindow->resize(cx, cy);
+         m_pqwidget->move(x, y);
+         m_pqwidget->resize(cx, cy);
 
          //gtk_window_set_decorated(GTK_WINDOW(m_pgtkwidget), false);
 
@@ -4806,7 +5039,7 @@ namespace windowing_kde5
    //
    //            auto pcontext = m_papplication;
    //
-   //            pcontext->post_message(msg.m_atom, msg.wParam, msg.lParam);
+   //            pcontext->post_message(msg.id(), msg.wParam, msg.lParam);
    //
    //         } else
    //         {
@@ -4817,7 +5050,7 @@ namespace windowing_kde5
    //
    //               ::user::interaction * pinteraction = msg.oswindow->puserinteraction;
    //
-   //               pinteraction->post_message(msg.m_atom, msg.wParam, msg.lParam);
+   //               pinteraction->post_message(msg.id(), msg.wParam, msg.lParam);
    //
    //            }
    //
@@ -4864,7 +5097,7 @@ namespace windowing_kde5
    //      if (pmessagequeue == nullptr)
    //      {
    //
-   //         if (message.m_atom == e_message_quit)
+   //         if (message.m_emessage == e_message_quit)
    //         {
    //
    //            return ::error_failed;
@@ -4884,19 +5117,19 @@ namespace windowing_kde5
    //
    //      synchronous_lock ml(pmessagequeue->synchronization());
    //
-   //      if (message.m_atom == e_message_quit)
+   //      if (message.m_emessage == e_message_quit)
    //      {
    //
    //         informationf("e_message_quit thread");
    //
    //      }
    //
-   //      if (message.m_atom == e_message_left_button_down)
+   //      if (message.m_emessage == e_message_left_button_down)
    //      {
    //
    //         informationf("post_ui_message::e_message_left_button_down\n");
    //
-   //      } else if (message.m_atom == e_message_left_button_up)
+   //      } else if (message.m_emessage == e_message_left_button_up)
    //      {
    //
    //         informationf("post_ui_message::e_message_left_button_up\n");
@@ -4999,6 +5232,31 @@ namespace windowing_kde5
       if (!(puserinteraction->m_ewindowflag & e_window_flag_window_created))
       {
          return false;
+      }
+
+      if(equivalence_sink(edisplay) == e_display_normal)
+      {
+
+         m_pqwidget->showNormal();
+
+      }
+      else if(edisplay == e_display_zoomed)
+      {
+
+         m_pqwidget->showMaximized();
+
+      }
+      else if(edisplay == e_display_iconic)
+      {
+
+         m_pqwidget->showMinimized();
+
+      }
+      else if(!::is_screen_visible(edisplay))
+      {
+
+         m_pqwidget->hide();
+
       }
 
       return true;
@@ -6169,7 +6427,10 @@ namespace windowing_kde5
       //      }
       //
       //return m_bHasKeyboardFocus;
-      return false;
+      //return false;
+
+      return ::kde5::acme::windowing::window::has_keyboard_focus();
+
    }
 
 
@@ -6358,7 +6619,9 @@ namespace windowing_kde5
 
    void window::set_keyboard_focus()
    {
-      synchronous_lock synchronouslock(user_synchronization());
+
+      ::kde5::acme::windowing::window::set_keyboard_focus();
+      //synchronous_lock synchronouslock(user_synchronization());
 
       // if (m_pwlsurface == nullptr)
       // {
@@ -6373,7 +6636,7 @@ namespace windowing_kde5
       //
       // //display_lock displaylock(x11_display()->Display());
 
-      _set_keyboard_focus_unlocked();
+      //_set_keyboard_focus_unlocked();
 
       //      if (!is_window())
       //      {
@@ -6576,7 +6839,7 @@ namespace windowing_kde5
    //
    //          pmouse->m_pwindow = this;
    //
-   //          pmouse->m_atom = e_message_mouse_move;
+   //          pmouse->m_emessage = e_message_mouse_move;
    //
    //          pmouse->m_pointHost = m_pointCursor2;
    //
@@ -6629,7 +6892,7 @@ namespace windowing_kde5
    // ////  //             MESSAGE msgCaptureChanged;
    // ////
    // //////               msgCaptureChanged.oswindow = m_pwindowCapture;
-   // ////               msg.m_atom = e_message_capture_changed;
+   // ////               msg.id() = e_message_capture_changed;
    // ////               msg.wParam = 0;
    // ////               msg.lParam = (lparam) (oswindow) (msg.oswindow == m_pwindowCapture ? nullptr : m_pwindowCapture.m_p);
    // ////               msg.time = e.xcrossing.time;
@@ -6647,7 +6910,7 @@ namespace windowing_kde5
    //
    // //      MESSAGE msg;
    // //      msg.oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
-   // //      msg.m_atom = e_message_mouse_leave;
+   // //      msg.id() = e_message_mouse_leave;
    // //      msg.wParam = 0;
    // //      msg.lParam = 0;
    // //      //   msg.time = e.xcrossing.time;
@@ -6661,7 +6924,7 @@ namespace windowing_kde5
    //
    //       pmouse->m_pwindow = pmouse->m_oswindow;
    //
-   //       pmouse->m_atom = e_message_mouse_leave;
+   //       pmouse->m_emessage = e_message_mouse_leave;
    //
    //       pmouse->m_pointHost = m_pointCursor2;
    //
@@ -6694,7 +6957,7 @@ namespace windowing_kde5
    //
    //       enum_message emessage = e_message_undefined;
    //
-   //       //msg.m_atom = e_message_mouse_wheel;
+   //       //msg.id() = e_message_mouse_wheel;
    //
    //       //post_ui_message(pmouse);
    //
@@ -6821,7 +7084,7 @@ namespace windowing_kde5
    //
    //          pmousewheel->m_pwindow = this;
    //
-   //          pmousewheel->m_atom = e_message_mouse_wheel;
+   //          pmousewheel->id() = e_message_mouse_wheel;
    //
    //          //msg.wParam = make_int(0, iDelta);
    //
@@ -6851,7 +7114,7 @@ namespace windowing_kde5
    //
    //          pmouse->m_pwindow = this;
    //
-   //          pmouse->m_atom = emessage;
+   //          pmouse->m_emessage = emessage;
    //
    //          pmouse->m_pointHost = m_pointCursor2;
    //
@@ -7093,7 +7356,7 @@ namespace windowing_kde5
    //          {
    //
    //             pkey->
-   //                m_atom = e_message_key_down;
+   //                id() = e_message_key_down;
    //
    //             information()
    //
@@ -7104,7 +7367,7 @@ namespace windowing_kde5
    //          {
    //
    //             pkey->
-   //                m_atom = e_message_key_up;
+   //                id() = e_message_key_up;
    //
    // //information() << "e_message_key_up : " << (iptr) ekey;
    //
@@ -7136,7 +7399,7 @@ namespace windowing_kde5
    //    m_pwindow = this;
    //
    //    pkey->
-   //    m_atom = e_message_text_composition;
+   //    id() = e_message_text_composition;
    //
    //    pkey->
    //    m_strText = scopedstrText;
@@ -7154,9 +7417,11 @@ namespace windowing_kde5
    bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse* pmouse)
    {
 
-      auto pdisplay = kde5_display();
+      return ::kde5::acme::windowing::window::defer_perform_entire_resizing_process(eframeSizing, pmouse);
 
-      if (pdisplay->is_wayland())
+      //auto pdisplay = kde5_display();
+
+      //if (pdisplay->is_wayland())
       {
 
          // guint button;
@@ -7349,11 +7614,13 @@ namespace windowing_kde5
    //
    bool window::defer_perform_entire_reposition_process(::user::mouse* pmouse)
    {
+
+      return ::kde5::acme::windowing::window::defer_perform_entire_reposition_process(pmouse);
       //return _perform_entire_resizing_process(eframeSizing);
 
-      auto pdisplay = kde5_display();
-
-      if (pdisplay->is_wayland())
+      // auto pdisplay = kde5_display();
+      //
+      // if (pdisplay->is_wayland())
       {
          // guint button;
          //
@@ -7563,7 +7830,7 @@ namespace windowing_kde5
    //            if(pressed == WL_KEYBOARD_KEY_STATE_PRESSED)
    //            {
    //
-   //               pkey->m_atom = e_message_key_down;
+   //               pkey->m_emessage = e_message_key_down;
    //
    //               information() << "e_message_key_down";
    //
@@ -7571,7 +7838,7 @@ namespace windowing_kde5
    //            else
    //            {
    //
-   //               pkey->m_atom = e_message_key_up;
+   //               pkey->m_emessage = e_message_key_up;
    //
    //               //information() << "e_message_key_up : " << (iptr) ekey;
    //
@@ -7624,7 +7891,7 @@ namespace windowing_kde5
    //
    //            pkey->m_pwindow = this;
    //
-   //            pkey->m_atom = e_message_text_composition;
+   //            pkey->m_emessage = e_message_text_composition;
    //
    //            pkey->m_strText = text;
    //

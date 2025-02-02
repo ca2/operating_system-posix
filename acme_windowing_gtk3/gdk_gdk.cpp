@@ -700,7 +700,7 @@ void open_file_with_default_app_async(const char *filename) {
       if (GDK_IS_WAYLAND_DISPLAY (pgdkdisplay))
       {
 
-         return e_display_type_wayland;
+         return ::windowing::e_display_type_wayland;
 
       }
       else

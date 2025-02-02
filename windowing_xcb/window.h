@@ -190,12 +190,12 @@ namespace windowing_xcb
       virtual bool _list_has_atom(xcb_atom_t propertyList, xcb_atom_t propertyItem);
       virtual ::e_status _list_add_atom(xcb_atom_t atomList, xcb_atom_t atomFlag);
       virtual ::e_status _list_erase_atom(xcb_atom_t atomList, xcb_atom_t atomFlag);
-      virtual ::e_status _mapped_add_net_wm_state(::x11::enum_atom eatomNetWmState);
-      virtual ::e_status _mapped_erase_net_wm_state(::x11::enum_atom eatomNetWmState);
-      virtual ::e_status _unmapped_add_net_wm_state(::x11::enum_atom eatomNetWmState);
-      virtual ::e_status _unmapped_erase_net_wm_state(::x11::enum_atom eatomNetWmState);
-      virtual ::e_status _add_net_wm_state(::x11::enum_atom eatomNetWmState);
-      virtual ::e_status _erase_net_wm_state(::x11::enum_atom eatomNetWmState);
+      virtual ::e_status _mapped_add_net_wm_state(::x11::enuid() eatomNetWmState);
+      virtual ::e_status _mapped_erase_net_wm_state(::x11::enuid() eatomNetWmState);
+      virtual ::e_status _unmapped_add_net_wm_state(::x11::enuid() eatomNetWmState);
+      virtual ::e_status _unmapped_erase_net_wm_state(::x11::enuid() eatomNetWmState);
+      virtual ::e_status _add_net_wm_state(::x11::enuid() eatomNetWmState);
+      virtual ::e_status _erase_net_wm_state(::x11::enuid() eatomNetWmState);
       virtual ::e_status _clear_net_wm_state();
       virtual ::e_status _add_net_wm_state_below();
       virtual ::e_status _add_net_wm_state_above();
@@ -242,7 +242,7 @@ namespace windowing_xcb
       static xcb_atom_t _get_window_long_atom(int nIndex);
 
 
-      virtual ::e_status _change_atom_atom(xcb_atom_t atomWindowType, xcb_atom_t atomWindowTypeValue);
+      virtual ::e_status _change_atoid()(xcb_atom_t atomWindowType, xcb_atom_t atomWindowTypeValue);
       virtual ::e_status _change_property(xcb_atom_t property, xcb_atom_t type, int mode, int format, int nelements, const void * data);
       virtual ::e_status _delete_property(xcb_atom_t property);
       virtual ::e_status _replace_string_property(xcb_atom_t property, const ::block & block);

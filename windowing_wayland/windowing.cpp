@@ -527,7 +527,7 @@ namespace windowing_wayland
          MESSAGE msg;
 
          msg.oswindow = pwindowMouseCaptureOld;
-         msg.m_atom = e_message_capture_changed;
+         msg.id() = e_message_capture_changed;
          msg.wParam = 0;
          msg.lParam = pwindowMouseCaptureNew;
 
@@ -689,7 +689,7 @@ namespace windowing_wayland
 //
 //         auto pmouse = __create_new < ::message::mouse >();
 //
-//         pmouse->m_atom = emessage;
+//         pmouse->m_emessage = emessage;
 //
 //         //pmouse->m_pointAbsolute.x() =
 //
@@ -738,7 +738,7 @@ namespace windowing_wayland
 //
 //         auto pkey = __create_new < ::message::key >();
 //
-//         pkey->m_atom = emessage;
+//         pkey->m_emessage = emessage;
 //
 //         //pmouse->m_pointAbsolute.x() =
 //

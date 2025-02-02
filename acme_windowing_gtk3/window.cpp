@@ -865,7 +865,7 @@ return TRUE;
 
                if (pevent->button == GDK_BUTTON_PRIMARY)
                {
-                  pmouse->m_atom = e_message_left_button_down;
+                  pmouse->m_emessage = e_message_left_button_down;
                               ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
             
             if(pelemental)
@@ -901,7 +901,7 @@ return true;
                }
                else if (pevent->button == GDK_BUTTON_SECONDARY)
                {
-                  pmouse->m_atom = e_message_right_button_down;
+                  pmouse->m_emessage = e_message_right_button_down;
                   ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
             
                   if(pelemental)
@@ -936,7 +936,7 @@ return true;
                }
                else if (pevent->button == GDK_BUTTON_MIDDLE)
                {
-                  pmouse->m_atom = e_message_middle_button_down;
+                  pmouse->m_emessage = e_message_middle_button_down;
                }
 
 
@@ -994,7 +994,7 @@ m_phappeningLastMouseUp = pevent;
                if (pevent->button == GDK_BUTTON_PRIMARY)
                {
 
-                  pmouse->m_atom = e_message_left_button_up;
+                  pmouse->m_emessage = e_message_left_button_up;
 
                   ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
             
@@ -1031,7 +1031,7 @@ m_phappeningLastMouseUp = pevent;
                else if (pevent->button == GDK_BUTTON_SECONDARY)
                {
 
-                  pmouse->m_atom = e_message_right_button_up;
+                  pmouse->m_emessage = e_message_right_button_up;
 
                   ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
             
@@ -1068,7 +1068,7 @@ m_phappeningLastMouseUp = pevent;
                else if (pevent->button == GDK_BUTTON_MIDDLE)
                {
 
-                  pmouse->m_atom = e_message_middle_button_up;
+                  pmouse->m_emessage = e_message_middle_button_up;
 
                }
 
@@ -1135,7 +1135,7 @@ m_phappeningLastMouseUp = pevent;
 //
 //               pmouse->m_pwindow = this;
 
-               pmouse->m_atom = e_message_mouse_move;
+               pmouse->m_emessage = e_message_mouse_move;
 
                m_pointCursor2.x() = happening->x;
 

@@ -741,7 +741,7 @@ namespace node_kde5
 
       }
 
-      if (ptopic->m_atom == id_operating_system_user_color_change)
+      if (ptopic->id() == id_operating_system_user_color_change)
       {
 
          return false;

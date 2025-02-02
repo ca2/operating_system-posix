@@ -743,7 +743,7 @@ namespace windowing_kde5
    //
    //         auto pmouse = __create_new < ::message::mouse >();
    //
-   //         pmouse->m_atom = emessage;
+   //         pmouse->m_emessage = emessage;
    //
    //         //pmouse->m_pointAbsolute.x() =
    //
@@ -792,7 +792,7 @@ namespace windowing_kde5
    //
    //         auto pkey = __create_new < ::message::key >();
    //
-   //         pkey->m_atom = emessage;
+   //         pkey->m_emessage = emessage;
    //
    //         //pmouse->m_pointAbsolute.x() =
    //
@@ -984,7 +984,7 @@ namespace windowing_kde5
    void windowing::_main_send(const ::procedure & procedure)
    {
 
-      system()->acme_windowing()->_main_post(procedure);
+      ::kde5::acme::windowing::windowing::_main_send(procedure);
 
    }
 

@@ -503,6 +503,23 @@ namespace kde5
 
    }
 
+         ::windowing::enum_windowing windowing::calculate_ewindowing()
+   {
+
+      QString platformName = QGuiApplication::platformName();
+
+      if (platformName == "wayland") {
+         //qDebug() << "The system is running under Wayland.";
+         return ::windowing::e_windowing_wayland;
+      } else if (platformName == "xcb") {
+         //qDebug() << "The system is running under X11.";
+         return ::windowing::e_windowing_xcb;
+      } else {
+         //qDebug() << "Unknown platform:" << platformName;
+         return ::windowing::e_windowing_unknown;
+      }
+
+   }
 
 
       } //namespace windowing

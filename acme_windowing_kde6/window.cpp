@@ -1354,7 +1354,7 @@ namespace kde6
                if (pevent->button() == Qt::MouseButton::LeftButton)
                {
 
-                  pmouse->m_atom = e_message_left_button_down;
+                  pmouse->m_emessage = e_message_left_button_down;
 
                   pelemental->fore_on_left_button_down(pmouse);
 
@@ -1369,7 +1369,7 @@ namespace kde6
                else if (pevent->button() == Qt::MouseButton::RightButton)
                {
 
-                  pmouse->m_atom = e_message_right_button_down;
+                  pmouse->m_emessage = e_message_right_button_down;
 
                   pelemental->fore_on_right_button_down(pmouse);
 
@@ -1384,7 +1384,7 @@ namespace kde6
                else if (pevent->button() == Qt::MouseButton::MiddleButton)
                {
 
-                  pmouse->m_atom = e_message_middle_button_down;
+                  pmouse->m_emessage = e_message_middle_button_down;
 
                }
 
@@ -1459,7 +1459,7 @@ namespace kde6
                   if (pevent->button() == Qt::MouseButton::LeftButton)
                   {
 
-                     pmouse->m_atom = e_message_left_button_up;
+                     pmouse->m_emessage = e_message_left_button_up;
 
                      pelemental->fore_on_left_button_up(pmouse);
 
@@ -1474,7 +1474,7 @@ namespace kde6
                   else if (pevent->button() == Qt::MouseButton::RightButton)
                   {
 
-                     pmouse->m_atom = e_message_right_button_up;
+                     pmouse->m_emessage = e_message_right_button_up;
 
                      pelemental->fore_on_right_button_up(pmouse);
 
@@ -1489,7 +1489,7 @@ namespace kde6
                   else if (pevent->button() == Qt::MouseButton::MiddleButton)
                   {
 
-                     pmouse->m_atom = e_message_middle_button_up;
+                     pmouse->m_emessage = e_message_middle_button_up;
 
                   }
 
@@ -1537,30 +1537,6 @@ namespace kde6
 
             return true;
          }
-Qt::Edges  as_qt_edges(::experience::enum_frame eframeSizing)
-{
-
-            switch(eframeSizing)
-            {
-               case ::experience::e_frame_sizing_left:
-                  return Qt::Edge::LeftEdge;
-               case ::experience::e_frame_sizing_top:
-                  return Qt::Edge::TopEdge;
-               case ::experience::e_frame_sizing_right:
-                  return Qt::Edge::RightEdge;
-               case ::experience::e_frame_sizing_bottom:
-                  return Qt::Edge::BottomEdge;
-               case ::experience::e_frame_sizing_top_left:
-                  return Qt::Edge::LeftEdge | Qt::Edge::TopEdge;
-               case ::experience::e_frame_sizing_top_right:
-                  return Qt::Edge::RightEdge | Qt::Edge::TopEdge;
-               case ::experience::e_frame_sizing_bottom_left:
-                  return Qt::Edge::LeftEdge | Qt::Edge::BottomEdge;
-               case ::experience::e_frame_sizing_bottom_right:
-                  return Qt::Edge::RightEdge | Qt::Edge::BottomEdge;
-            }
-            return (Qt::Edges )0;
-}
 
          bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing,
                                                             ::user::mouse* pmouse)
@@ -1701,7 +1677,7 @@ Qt::Edges  as_qt_edges(::experience::enum_frame eframeSizing)
                //
                // pmouse->m_pwindow = this;
 
-               pmouse->m_atom = e_message_mouse_move;
+               pmouse->m_emessage = e_message_mouse_move;
 
 
                //pmouse->m_time.m_iSecond = millis / 1_k;

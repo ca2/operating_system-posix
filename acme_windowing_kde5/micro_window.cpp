@@ -49,6 +49,26 @@ namespace kde5
       }
 
 
+      void window::_on_key_press(QKeyEvent* pevent)
+      {
+
+      }
+
+
+      void window::_on_key_release(QKeyEvent* pevent)
+      {
+
+      }
+
+
+      void window::_on_text(const ::scoped_string & scopedstr)
+      {
+
+
+      }
+
+
    } // namespace micro
+
 
 } // namespace kde5

@@ -36,7 +36,7 @@ namespace gtk3
             //pointer_array < event_listener >             m_happeninglistenera;
             //pointer_array < ::x11::micro::elemental >  m_windowa;
             //Window                                       m_windowActive;
-            //map < enum_atom, Atom >                      m_atommap;
+            //map < enuid(), Atom >                      id()map;
 
 window_map                                               m_windowmap;
             //static display *                             g_p;
@@ -53,10 +53,10 @@ window_map                                               m_windowmap;
 
 
 //            virtual Atom intern_atom(const char *pszAtomName, bool bCreate);
-//            virtual Atom intern_atom(enum_atom eatom, bool bCreate);
+//            virtual Atom intern_atom(enuid() eatom, bool bCreate);
 //
 //            virtual Atom _intern_atom_unlocked(const char *pszAtomName, bool bCreate);
-//            virtual Atom _intern_atom_unlocked(enum_atom eatom, bool bCreate);
+//            virtual Atom _intern_atom_unlocked(enuid() eatom, bool bCreate);
 //
 //            unsigned char * _get_string_property(Display *display, Window window, char *property_name);
 //            unsigned long _get_long_property(Display *d, Window w, char *property_name);

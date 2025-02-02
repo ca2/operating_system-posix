@@ -671,15 +671,15 @@ namespace windowing_gtk3
 
          if (happening->button == GDK_BUTTON_PRIMARY)
          {
-            pmouse->m_atom = e_message_left_button_down;
+            pmouse->m_emessage = e_message_left_button_down;
          }
          else if (happening->button == GDK_BUTTON_SECONDARY)
          {
-            pmouse->m_atom = e_message_right_button_down;
+            pmouse->m_emessage = e_message_right_button_down;
          }
          else if (happening->button == GDK_BUTTON_MIDDLE)
          {
-            pmouse->m_atom = e_message_middle_button_down;
+            pmouse->m_emessage = e_message_middle_button_down;
          }
 
          m_pointCursor2.x() = happening->x;
@@ -733,19 +733,19 @@ namespace windowing_gtk3
          if (happening->button == GDK_BUTTON_PRIMARY)
          {
 
-            pmouse->m_atom = e_message_left_button_up;
+            pmouse->m_emessage = e_message_left_button_up;
 
          }
          else if (happening->button == GDK_BUTTON_SECONDARY)
          {
 
-            pmouse->m_atom = e_message_right_button_up;
+            pmouse->m_emessage = e_message_right_button_up;
 
          }
          else if (happening->button == GDK_BUTTON_MIDDLE)
          {
 
-            pmouse->m_atom = e_message_middle_button_up;
+            pmouse->m_emessage = e_message_middle_button_up;
 
          }
 
@@ -823,7 +823,7 @@ namespace windowing_gtk3
 
          pmouse->m_pwindow = this;
 
-         pmouse->m_atom = e_message_mouse_move;
+         pmouse->m_emessage = e_message_mouse_move;
 
          m_pointCursor2.x() = happening->x;
 
@@ -1144,7 +1144,7 @@ namespace windowing_gtk3
 
          auto pkey = __create_new<::message::key>();
 
-         pkey->m_atom = e_message_key_down;
+         pkey->m_emessage = e_message_key_down;
 
          pkey->m_oswindow = this;
 
@@ -1175,7 +1175,7 @@ namespace windowing_gtk3
 
          auto pkey = __create_new<::message::key>();
 
-         pkey->m_atom = e_message_key_up;
+         pkey->m_emessage = e_message_key_up;
 
          pkey->m_oswindow = this;
 
@@ -3803,7 +3803,7 @@ namespace windowing_gtk3
    //
    //            auto pcontext = m_papplication;
    //
-   //            pcontext->post_message(msg.m_atom, msg.wParam, msg.lParam);
+   //            pcontext->post_message(msg.id(), msg.wParam, msg.lParam);
    //
    //         } else
    //         {
@@ -3814,7 +3814,7 @@ namespace windowing_gtk3
    //
    //               ::user::interaction * pinteraction = msg.oswindow->m_pwindow->puserinteraction;
    //
-   //               pinteraction->post_message(msg.m_atom, msg.wParam, msg.lParam);
+   //               pinteraction->post_message(msg.id(), msg.wParam, msg.lParam);
    //
    //            }
    //
@@ -3861,7 +3861,7 @@ namespace windowing_gtk3
    //      if (pmessagequeue == nullptr)
    //      {
    //
-   //         if (message.m_atom == e_message_quit)
+   //         if (message.m_emessage == e_message_quit)
    //         {
    //
    //            return ::error_failed;
@@ -3881,19 +3881,19 @@ namespace windowing_gtk3
    //
    //      synchronous_lock ml(pmessagequeue->synchronization());
    //
-   //      if (message.m_atom == e_message_quit)
+   //      if (message.m_emessage == e_message_quit)
    //      {
    //
    //         informationf("e_message_quit thread");
    //
    //      }
    //
-   //      if (message.m_atom == e_message_left_button_down)
+   //      if (message.m_emessage == e_message_left_button_down)
    //      {
    //
    //         informationf("post_ui_message::e_message_left_button_down\n");
    //
-   //      } else if (message.m_atom == e_message_left_button_up)
+   //      } else if (message.m_emessage == e_message_left_button_up)
    //      {
    //
    //         informationf("post_ui_message::e_message_left_button_up\n");
@@ -6012,7 +6012,7 @@ namespace windowing_gtk3
    //
    //          pmouse->m_pwindow = this;
    //
-   //          pmouse->m_atom = e_message_mouse_move;
+   //          pmouse->m_emessage = e_message_mouse_move;
    //
    //          pmouse->m_pointHost = m_pointCursor2;
    //
@@ -6065,7 +6065,7 @@ namespace windowing_gtk3
    // ////  //             MESSAGE msgCaptureChanged;
    // ////
    // //////               msgCaptureChanged.oswindow = m_pwindowCapture;
-   // ////               msg.m_atom = e_message_capture_changed;
+   // ////               msg.id() = e_message_capture_changed;
    // ////               msg.wParam = 0;
    // ////               msg.lParam = (lparam) (oswindow) (msg.oswindow == m_pwindowCapture ? nullptr : m_pwindowCapture.m_p);
    // ////               msg.time = e.xcrossing.time;
@@ -6083,7 +6083,7 @@ namespace windowing_gtk3
    //
    // //      MESSAGE msg;
    // //      msg.oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
-   // //      msg.m_atom = e_message_mouse_leave;
+   // //      msg.id() = e_message_mouse_leave;
    // //      msg.wParam = 0;
    // //      msg.lParam = 0;
    // //      //   msg.time = e.xcrossing.time;
@@ -6097,7 +6097,7 @@ namespace windowing_gtk3
    //
    //       pmouse->m_pwindow = pmouse->m_oswindow;
    //
-   //       pmouse->m_atom = e_message_mouse_leave;
+   //       pmouse->m_emessage = e_message_mouse_leave;
    //
    //       pmouse->m_pointHost = m_pointCursor2;
    //
@@ -6130,7 +6130,7 @@ namespace windowing_gtk3
    //
    //       enum_message emessage = e_message_undefined;
    //
-   //       //msg.m_atom = e_message_mouse_wheel;
+   //       //msg.id() = e_message_mouse_wheel;
    //
    //       //post_ui_message(pmouse);
    //
@@ -6257,7 +6257,7 @@ namespace windowing_gtk3
    //
    //          pmousewheel->m_pwindow = this;
    //
-   //          pmousewheel->m_atom = e_message_mouse_wheel;
+   //          pmousewheel->id() = e_message_mouse_wheel;
    //
    //          //msg.wParam = make_int(0, iDelta);
    //
@@ -6287,7 +6287,7 @@ namespace windowing_gtk3
    //
    //          pmouse->m_pwindow = this;
    //
-   //          pmouse->m_atom = emessage;
+   //          pmouse->m_emessage = emessage;
    //
    //          pmouse->m_pointHost = m_pointCursor2;
    //
@@ -6529,7 +6529,7 @@ namespace windowing_gtk3
    //          {
    //
    //             pkey->
-   //                m_atom = e_message_key_down;
+   //                id() = e_message_key_down;
    //
    //             information()
    //
@@ -6540,7 +6540,7 @@ namespace windowing_gtk3
    //          {
    //
    //             pkey->
-   //                m_atom = e_message_key_up;
+   //                id() = e_message_key_up;
    //
    // //information() << "e_message_key_up : " << (iptr) ekey;
    //
@@ -6572,7 +6572,7 @@ namespace windowing_gtk3
    //    m_pwindow = this;
    //
    //    pkey->
-   //    m_atom = e_message_text_composition;
+   //    id() = e_message_text_composition;
    //
    //    pkey->
    //    m_strText = scopedstrText;
@@ -6749,7 +6749,7 @@ namespace windowing_gtk3
    //            if(pressed == WL_KEYBOARD_KEY_STATE_PRESSED)
    //            {
    //
-   //               pkey->m_atom = e_message_key_down;
+   //               pkey->m_emessage = e_message_key_down;
    //
    //               information() << "e_message_key_down";
    //
@@ -6757,7 +6757,7 @@ namespace windowing_gtk3
    //            else
    //            {
    //
-   //               pkey->m_atom = e_message_key_up;
+   //               pkey->m_emessage = e_message_key_up;
    //
    //               //information() << "e_message_key_up : " << (iptr) ekey;
    //
@@ -6810,7 +6810,7 @@ namespace windowing_gtk3
    //
    //            pkey->m_pwindow = this;
    //
-   //            pkey->m_atom = e_message_text_composition;
+   //            pkey->m_emessage = e_message_text_composition;
    //
    //            pkey->m_strText = text;
    //
