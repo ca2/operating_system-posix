@@ -322,7 +322,7 @@ namespace gtk4
 
             g_object_get(action, "name", &name, nullptr);
 
-            pwindow->_on_window_simple_action(name);
+            pwindow->_on_window_simple_action(name, nullptr);
 
             g_free(name);
 
