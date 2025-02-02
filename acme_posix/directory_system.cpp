@@ -713,13 +713,13 @@ void directory_system::erase_recursively(const ::file::path &path)
 
       auto psummary = node()->operating_system_summary();
 
-      if(psummary->m_strOperatingSystemFamily.case_insensitive_equals("debian"))
+      if(psummary->m_strSystemFamily.case_insensitive_equals("debian"))
       {
 
          path___fontsFolder = "/usr/share/fonts/truetype/___fonts";
 
       }
-      else if(psummary->m_strOperatingSystem.case_insensitive_equals("fedora"))
+      else if(psummary->m_strSystem.case_insensitive_equals("fedora"))
       {
 
          path___fontsFolder = "/usr/share/fonts/___fonts";
