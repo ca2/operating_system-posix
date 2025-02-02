@@ -2298,7 +2298,7 @@ m_pimcontext = gtk_im_multicontext_new();
 
       auto pshowwindow = __create_new < ::message::show_window >();
 
-      pshowwindow->id() = e_message_show_window;
+      pshowwindow->m_emessage = e_message_show_window;
 
       auto puserinteraction = user_interaction();
 
@@ -2320,7 +2320,7 @@ m_pimcontext = gtk_im_multicontext_new();
 
       auto pshowwindow = __create_new < ::message::show_window >();
 
-      pshowwindow->id() = e_message_show_window;
+      pshowwindow->m_emessage = e_message_show_window;
 
       auto puserinteraction = user_interaction();
 
