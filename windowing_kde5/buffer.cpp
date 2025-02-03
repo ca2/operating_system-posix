@@ -1286,7 +1286,7 @@ namespace windowing_kde5
 
       auto pimageBuffer = pbufferitem->m_pimage2;
 
-      if (pimageBuffer->m_size != pbufferitem->m_size)
+      if (pimageBuffer->m_size != pbufferitem->m_sizeBufferItemWindow)
       {
 
          if(!update_buffer(pbufferitem))

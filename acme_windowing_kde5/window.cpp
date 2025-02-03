@@ -2154,7 +2154,7 @@ m_pqwidget->move(p);
                m_pqwidget->connect(paction, &QAction::triggered, [this, pmenuitem]()
                {
 
-                  _on_window_simple_action(pmenuitem->m_strAtom);
+                  _on_window_simple_action(pmenuitem->m_strAtom, nullptr);
 
                });
 
