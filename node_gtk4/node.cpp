@@ -2043,7 +2043,12 @@ namespace node_gtk4
       ::string strDefaultShell = "/bin/ksh"; // Hilarous such a despair
       // to make it work in some platform running at most geany by hard coding /bin/ksh (the korn shell....)
 
-      strDefaultShell = pw->pw_shell;
+      if (::is_set(pw))
+      {
+
+         strDefaultShell = pw->pw_shell;
+
+      }
 
       if (strDefaultShell.is_empty())
       {
