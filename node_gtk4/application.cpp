@@ -84,7 +84,7 @@ GMenu * g_menu_from_application_menu(GApplication * pgapplication, ::application
       else
       {
 
-         string strId = pitem->id();
+         string strId = pitem->m_atomMenu;
 
          auto psimpleaction = g_simple_action_new (strId, NULL);
 
