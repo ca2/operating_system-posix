@@ -47,7 +47,7 @@
 
 
 #include <cairo/cairo.h>
-
+#include <pwd.h>
 
 bool aaa_x11_message_loop_step();
 
@@ -2038,7 +2038,40 @@ namespace node_gtk4
       
       directory_system()->create(pathLog.folder());
 
-      strCommand = "/bin/ksh -c \"nohup ./\\\"" + strName + "\\\" > \\\"" + pathLog +"\\\"\"";
+      struct passwd *pw = getpwuid(getuid()); // Get user info based on UID
+
+      ::string strDefaultShell = "/bin/ksh"; // Hilarous such a despair
+      // to make it work in some platform running at most geany by hard coding /bin/ksh (the korn shell....)
+
+      strDefaultShell = pw->pw_shell;
+
+      if (strDefaultShell.is_empty())
+      {
+
+         strDefaultShell = getenv("SHELL");
+
+      }
+
+      if (strDefaultShell.is_empty())
+      {
+
+#ifdef LINUX
+
+         strDefaultShell = "/bin/sh";
+
+#elif defined(OPENBSD)
+
+         strDefaultShell = "/bin/ksh";
+
+#else
+
+         strDefaultShell = "/bin/sh";
+
+#endif
+
+      }
+
+      strCommand = strDefaultShell + " -c \"nohup ./\\\"" + strName + "\\\" > \\\"" + pathLog +"\\\"\"";
 
       information() << "node::launch_app_by_app_id : " << strCommand;
 
