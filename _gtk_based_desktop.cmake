@@ -1,23 +1,27 @@
 
+if(NOT ${GTK_BASED_DESKTOP})
+message(ERROR error)
+endif()
 
+#if(${LXDE_DESKTOP})
 
+   #set(GNOME_RELEASE_MAJOR "3")
+   #set(GTK_RELEASE_MAJOR 3)
+   #add_compile_definitions(__XFCE)
 
-if(${LXDE_DESKTOP})
+#elseif(${XFCE_DESKTOP})
 
-   set(GNOME_RELEASE_MAJOR "3")
-   add_compile_definitions(__XFCE)
+   #set(GNOME_RELEASE_MAJOR "3")
+   #set(GTK_RELEASE_MAJOR 3)
+   #add_compile_definitions(__XFCE)
 
-elseif(${XFCE_DESKTOP})
+#elseif(${LINUX_MINT})
 
-   set(GNOME_RELEASE_MAJOR "3")
-   add_compile_definitions(__XFCE)
+   #set(GNOME_RELEASE_MAJOR "3")
+   #set(GTK_RELEASE_MAJOR 3)
+   #add_compile_definitions(__LINUX_MINT)
 
-elseif(${LINUX_MINT})
-
-   set(GNOME_RELEASE_MAJOR "3")
-   add_compile_definitions(__LINUX_MINT)
-
-elseif(${GTK_BASED_DESKTOP})
+#elseif(${GTK_BASED_DESKTOP})
 
    find_package(PkgConfig REQUIRED)
    # Try to find GTK 4 first
@@ -63,7 +67,7 @@ elseif(${GTK_BASED_DESKTOP})
 
    math(EXPR GTK_RELEASE_MAJOR ${GTK_RELEASE_MAJOR})
 
-endif()
+#endif()
 
 
 if(${GTK_RELEASE_MAJOR} GREATER_EQUAL 4)

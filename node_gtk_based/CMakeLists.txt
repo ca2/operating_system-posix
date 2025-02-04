@@ -55,7 +55,7 @@ elseif (${HAS_GTK3})
     list(APPEND library_references node_gtk3)
 endif ()
 
-list(APPEND static_library_references ${library_references} ${global_library_references})
+list(APPEND static_library_references ${library_references})
 
 list(TRANSFORM static_library_references PREPEND static_)
 
@@ -145,7 +145,7 @@ elseif (${LINUX} OR ${__BSD__})
     target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
     target_link_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
     target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references} ${PKGCONFIG_LIBRARIES})
-    target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${PKGCONFIG_LIBRARIES})
+    target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${PKGCONFIG_LIBRARIES} ${global_library_references})
     target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
     # target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
 
