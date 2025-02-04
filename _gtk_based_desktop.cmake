@@ -5,16 +5,19 @@
 if(${LXDE_DESKTOP})
 
    set(GNOME_RELEASE_MAJOR "3")
+   set(GTK_RELEASE_MAJOR 3)
    add_compile_definitions(__XFCE)
 
 elseif(${XFCE_DESKTOP})
 
    set(GNOME_RELEASE_MAJOR "3")
+   set(GTK_RELEASE_MAJOR 3)
    add_compile_definitions(__XFCE)
 
 elseif(${LINUX_MINT})
 
    set(GNOME_RELEASE_MAJOR "3")
+   set(GTK_RELEASE_MAJOR 3)
    add_compile_definitions(__LINUX_MINT)
 
 elseif(${GTK_BASED_DESKTOP})
