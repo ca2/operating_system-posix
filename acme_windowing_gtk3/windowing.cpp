@@ -203,9 +203,9 @@ namespace gtk3
 
             auto psummary = node()->operating_system_summary();
 
-            auto strOperatingSystem = psummary->m_strOperatingSystem.lowered();
+            auto strOperatingSystem = psummary->m_strSystem.lowered();
 
-            auto strOperatingAmbient = psummary->m_strOperatingAmbient.lowered();
+            auto strOperatingAmbient = psummary->m_strAmbient.lowered();
 
             auto iMajor = psummary->m_iMajor;
 

@@ -3192,7 +3192,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    void windowing::post_ui_message(const MESSAGE & message)
    {
 
-      oswindow oswindow = message.oswindow;
+      oswindow oswindow = message.m_oswindow;
 
       ASSERT(oswindow != nullptr);
 

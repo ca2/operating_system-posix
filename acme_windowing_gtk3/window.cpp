@@ -353,7 +353,7 @@ return TRUE;
             //                    pwindow->application()->fork([pwindow, pitem]()
             //                                               {
 
-            pwindow->on_a_system_menu_item(pitem);
+            pwindow->on_a_system_menu_item(pitem, nullptr);
 
             pwindow->m_psystemmenu.release();
 

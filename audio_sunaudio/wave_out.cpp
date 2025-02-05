@@ -407,7 +407,7 @@ namespace multimedia
 //
 //         }
 
-         m_psynthtask->m_iWaitBuffer = 1;
+         //m_psynthtask->m_iWaitBuffer = 1;
 
          m_eoutstate = ::wave::e_out_state_opened;
 
