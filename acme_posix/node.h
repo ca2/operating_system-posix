@@ -166,6 +166,12 @@ namespace acme_posix
 
       ::string get_computer_name() override;
 
+      // node_utsname.cpp
+      virtual ::string _uname_system();
+      virtual ::string _uname_release();
+      virtual ::string _uname_machine();
+
+
    };
 
    

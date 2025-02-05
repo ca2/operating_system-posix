@@ -43,6 +43,7 @@ list(APPEND library_source
    mutex.h
    node.cpp
    node.h
+   node_utsname.cpp
    pipe.cpp
    pipe.h
    process.cpp
