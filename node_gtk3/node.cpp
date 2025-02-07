@@ -2378,6 +2378,8 @@ namespace node_gtk3
          return;
 
       }
+      
+      #if !defined(NETBSD)
 
       ::string strNewTypeFileName;
 
@@ -2417,6 +2419,8 @@ namespace node_gtk3
          information() << "Error while update-mime-database \"" << path << "\".";
 
       }
+      
+      #endif
 
    }
 
