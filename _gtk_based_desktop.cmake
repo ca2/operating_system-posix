@@ -23,7 +23,7 @@ endif()
 
 #elseif(${GTK_BASED_DESKTOP})
 
-   find_package(PkgConfig REQUIRED)
+   #find_package(PkgConfig REQUIRED)
    # Try to find GTK 4 first
    pkg_check_modules(GTK4 gtk4 QUIET)
    if(GTK4_FOUND)
