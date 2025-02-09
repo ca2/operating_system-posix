@@ -172,6 +172,11 @@ namespace acme_posix
       virtual ::string _uname_machine();
 
 
+      ::string system_name() override;
+      ::string system_release() override;
+      ::string system_architecture() override;
+
+
    };
 
    

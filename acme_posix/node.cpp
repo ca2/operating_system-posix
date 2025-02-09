@@ -12,6 +12,7 @@
 #include "acme/filesystem/filesystem/directory_context.h"
 #include "acme/filesystem/filesystem/file_context.h"
 #include "acme/filesystem/filesystem/listing.h"
+#include "acme/filesystem/filesystem/path_system.h"
 #include "acme/operating_system/posix/_.h"
 #include "acme/parallelization/single_lock.h"
 #include "acme/platform/application.h"
@@ -2782,15 +2783,17 @@ namespace acme_posix
 
       auto pathHomeBin = directory_system()->home() / "bin";
 
-#if defined(MACOS)
+      auto pathToolBin = path_system()->tool_folder_path() / "bin";
 
-      auto pathToolBin = directory_system()->home() / "workspace/operating_system/tool-macos/bin";
+// #if defined(MACOS)
 
-#else
+//       auto pathToolBin = directory_system()->home() / "workspace/operating_system/tool-macos/bin";
 
-      auto pathToolBin = directory_system()->home() / "cmake/operating_system/tool-" OPERATING_SYSTEM_NAME "/bin";
+// #else
 
-#endif
+//       auto pathToolBin = directory_system()->home() / "cmake/operating_system/tool-" OPERATING_SYSTEM_NAME "/bin";
+
+// #endif
 
       ::string_array straPath;
 
@@ -3151,6 +3154,29 @@ return{};
 
    }
 
+
+   ::string node::system_name()
+   {
+
+      return _uname_system();
+
+   }
+   
+   
+   ::string node::system_release()
+   {
+
+      return _uname_release();
+
+   }
+
+
+   ::string node::system_architecture()
+   {
+
+      return _uname_machine();
+
+   }
 
 
 } // namespace acme_posix
