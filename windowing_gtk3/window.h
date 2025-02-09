@@ -88,7 +88,7 @@ namespace windowing_gtk3
       //static Atom                                s_atomLongStyleEx;
       ::int_rectangle_array                        m_rectangleaRedraw;
       ::pointer<::xim::keyboard>                   m_pximkeyboard;
-      //huge_natural                                        m_uLastNetWmSyncRequest;
+      //unsigned long long                                        m_uLastNetWmSyncRequest;
       ::int_rectangle                              m_rectangleXShm;
       //bool                                         m_bFirstConfigure;
       //bool                                         m_bXShmPutImagePending;
@@ -123,8 +123,8 @@ namespace windowing_gtk3
          bool _on_focus_out(GtkWidget *widget, GdkEventFocus *event) override;
          bool _on_key_press(GtkWidget *widget, GdkEventKey *event) override;
          bool _on_key_release(GtkWidget *widget, GdkEventKey *event) override;
-         virtual void _on_gtk_key_pressed(huge_natural uGtkKey, huge_natural uGtkKeyCode);
-         virtual void _on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode);
+         virtual void _on_gtk_key_pressed(unsigned long long uGtkKey, unsigned long long uGtkKeyCode);
+         virtual void _on_gtk_key_released(unsigned long long uGtkKey, unsigned long long uGtkKeyCode);
 
 
          virtual void _on_text(const ::scoped_string & scopedstr);
@@ -474,7 +474,7 @@ bool on_configure_unlocked_timer() override;
       void switch_to_this_window(bool b) override;
 
 
-      huge_integer _001GetTopLeftWeightedOccludedOpaqueArea() override;
+      long long _001GetTopLeftWeightedOccludedOpaqueArea() override;
 
 
    };

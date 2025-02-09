@@ -1661,9 +1661,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                if (emessage != e_message_null)
                {
 
-                  huge_integer iWparam = 'a';
+                  long long iWparam = 'a';
 
-                  huge_integer iLparam = XK_a;
+                  long long iLparam = XK_a;
 
                   if (emessage == e_message_key_down || emessage == e_message_key_up)
                   {

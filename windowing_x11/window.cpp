@@ -4823,7 +4823,7 @@ namespace windowing_x11
 
   //                   m_oswindow = nullptr;
 
-//                     payload("destroying_window") = (huge_integer) Window();
+//                     payload("destroying_window") = (long long) Window();
 
                      set_flag(e_flag_destroying);
 

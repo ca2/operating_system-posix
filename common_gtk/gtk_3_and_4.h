@@ -4,7 +4,7 @@
 #pragma once
 
 
-CLASS_DECL_COMMON_GTK ::user::e_key gtk_key_as_user_ekey(huge_natural uGtkKey);
+CLASS_DECL_COMMON_GTK ::user::e_key gtk_key_as_user_ekey(unsigned long long uGtkKey);
 
 
 

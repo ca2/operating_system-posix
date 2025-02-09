@@ -323,7 +323,7 @@ namespace draw2d_xlib
    //void image::from_alpha()
    //{
    //   unsigned char *dst=(unsigned char*)m_pcolorref;
-   //   huge_integer size = cx * cy;
+   //   long long size = cx * cy;
 
    //   while ( size-- )
    //   {
@@ -570,12 +570,12 @@ namespace draw2d_xlib
 
    //void image::color::e_channel_invert(color::color::color::rgba::echannel echannel)
    //{
-   //   huge_integer int_size   = cx * cy;
-   //   register huge_integer huge_integer_size = size / 64;
+   //   long long int_size   = cx * cy;
+   //   register long long long_long_size = size / 64;
    //   unsigned char * lpb = (unsigned char *) m_pcolorref;
    //   lpb += ((int)echannel) % 4;
-   //   register huge_integer i = 0;
-   //   for(; i < huge_integer_size; i++)
+   //   register long long i = 0;
+   //   for(; i < long_long_size; i++)
    //   {
    //      lpb[4 *  0] = 255 - lpb[4 *  0];
    //      lpb[4 *  1] = 255 - lpb[4 *  1];
@@ -656,13 +656,13 @@ namespace draw2d_xlib
    //{
    //   if(dRate < 0)
    //      return;
-   //   register huge_integer size = area();
+   //   register long long size = area();
    //   unsigned char * lpb = (unsigned char *) get_data();
    //   lpb += ((int)echannel) % 4;
    //   register int iDiv = 256 * 256;
    //   register int iMul = (int) (dRate * ((double) iDiv));
    //   register int iRes;
-   //   for(register huge_integer i = 0; i < size; i++)
+   //   for(register long long i = 0; i < size; i++)
    //   {
    //      iRes = *lpb * iMul / iDiv;
    //      *lpb = (unsigned char) (iRes > 255 ? 255 : iRes);
@@ -1399,7 +1399,7 @@ namespace draw2d_xlib
 //   void image::transparent_color(::color::color color)
 //   {
 //      color32_t crFind = color.get_rgb();
-//      huge_integer size = area();
+//      long long size = area();
 //
 //      for ( int i=0; i<int_size; i++ )
 //         if((m_pcolorref[i] & 0x00ffffff) == crFind)
@@ -2520,22 +2520,22 @@ namespace draw2d_xlib
 
    //int image::cos(int i, int iAngle)
    //{
-   //   return (int) (((huge_integer) i * CosN[iAngle]) >> 31);
+   //   return (int) (((long long) i * CosN[iAngle]) >> 31);
    //}
 
    //int image::sin(int i, int iAngle)
    //{
-   //   return (int) (((huge_integer) i * SinN[iAngle]) >> 31);
+   //   return (int) (((long long) i * SinN[iAngle]) >> 31);
    //}
 
    //int image::cos10(int i, int iAngle)
    //{
-   //   return (int) (((huge_integer) i * Cos10N[iAngle]) >> 34);
+   //   return (int) (((long long) i * Cos10N[iAngle]) >> 34);
    //}
 
    //int image::sin10(int i, int iAngle)
    //{
-   //   return (int) (((huge_integer) i * Sin10N[iAngle]) >> 34);
+   //   return (int) (((long long) i * Sin10N[iAngle]) >> 34);
    //}
 
    //int image::width()
@@ -2563,7 +2563,7 @@ namespace draw2d_xlib
    {
 
 
-      huge_integer_rectangle rectangleWindow;
+      long_long_rectangle rectangleWindow;
 
       rectangleWindow = puserinteraction->m_rectangleParentClient;
 
@@ -2668,7 +2668,7 @@ namespace draw2d_xlib
    bool image::update_window(::window * puserinteraction, ::message::message * pmessage)
    {
 
-//      huge_integer_rectangle rectangleWindow;
+//      long_long_rectangle rectangleWindow;
 //
 //      rectangleWindow = puserinteraction->m_rectangleParentClient;
 //

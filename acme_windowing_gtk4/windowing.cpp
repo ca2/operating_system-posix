@@ -589,7 +589,7 @@ information() << "gtk4::acme::windowing::windowing::run g_application_run";
 
             int stride = cairo_image_surface_get_stride(original_surface);
 
-            huge_natural sum_r = 0, sum_g = 0, sum_b = 0, sum_a = 0;
+            unsigned long long sum_r = 0, sum_g = 0, sum_b = 0, sum_a = 0;
 
             for (int y = 0; y < height; ++y)
             {

@@ -70,10 +70,10 @@ namespace windowing_x11
 #ifdef _DEBUG
 
 
-      virtual huge_integer get_ref_count();
-      virtual huge_integer increment_reference_count() override;
-      virtual huge_integer decrement_reference_count() override;
-      virtual huge_integer release() override;
+      virtual long long get_ref_count();
+      virtual long long increment_reference_count() override;
+      virtual long long decrement_reference_count() override;
+      virtual long long release() override;
 
 
 #endif

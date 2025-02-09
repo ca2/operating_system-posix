@@ -538,13 +538,13 @@ namespace gtk4
          }
 
 
-         void window::_on_gtk_key_pressed(huge_natural uGtkKey, huge_natural uGtkKeyCode)
+         void window::_on_gtk_key_pressed(unsigned long long uGtkKey, unsigned long long uGtkKeyCode)
          {
 
          }
 
 
-         void window::_on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode)
+         void window::_on_gtk_key_released(unsigned long long uGtkKey, unsigned long long uGtkKeyCode)
          {
          }
 

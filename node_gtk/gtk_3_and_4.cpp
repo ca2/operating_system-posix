@@ -1,7 +1,7 @@
 //
 // Created by camilo on 2024-12-20 03:22 <3ThomasBorregaardSorensen
 //
-::user::e_key gtk_key_as_user_ekey(huge_natural uGtkKey)
+::user::e_key gtk_key_as_user_ekey(unsigned long long uGtkKey)
 {
 
    switch(uGtkKey)

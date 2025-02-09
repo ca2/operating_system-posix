@@ -196,8 +196,8 @@ virtual void _on_focus_changed(bool bHasFocus);
             virtual bool _on_gtk_key_pressed(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state);
             virtual bool _on_gtk_key_released(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state);
 
-            virtual void _on_gtk_key_pressed(huge_natural uGtkKey, huge_natural uGtkKeyCode);
-            virtual void _on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode);
+            virtual void _on_gtk_key_pressed(unsigned long long uGtkKey, unsigned long long uGtkKeyCode);
+            virtual void _on_gtk_key_released(unsigned long long uGtkKey, unsigned long long uGtkKeyCode);
 
             virtual bool _on_gtk_scroll(GtkEventControllerScroll * peventcontrollerScroll, double dx, double dy);
 

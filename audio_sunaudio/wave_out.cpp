@@ -12,9 +12,9 @@
 #include <sys/time.h>
 #include <stdio.h>
 #include <errno.h>
-// huge_integer timestamp2ns(snd_htimestamp_t t)
+// long long timestamp2ns(snd_htimestamp_t t)
 // {
-//    huge_integer nsec;
+//    long long nsec;
 //
 //    nsec = t.tv_sec * 1000000000;
 //    nsec += t.tv_nsec;
@@ -24,10 +24,10 @@
 // }
 
 /*
-huge_integer timediff(snd_htimestamp_t t1, snd_htimestamp_t t2)
+long long timediff(snd_htimestamp_t t1, snd_htimestamp_t t2)
 {
 
-   huge_integer nsec1, nsec2;
+   long long nsec1, nsec2;
 
    nsec1 = timestamp2ns(t1);
    nsec2 = timestamp2ns(t2);

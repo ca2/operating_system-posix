@@ -2377,7 +2377,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
             if (msg.oswindow && px11window && px11window->m_window == (Window) msg.oswindow && !px11window->has_flag(e_flag_destroying))
             {
 
-//               auto iWindow = px11window->payload("destroying_window").as_huge_integer();
+//               auto iWindow = px11window->payload("destroying_window").as_long_long();
 
 //               auto windowDestroying = (Window) iWindow;
 

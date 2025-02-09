@@ -63,10 +63,10 @@ namespace windowing_xcb
 #ifdef _DEBUG
 
 
-      virtual huge_integer get_ref_count();
-      huge_integer increment_reference_count() override;
-      huge_integer decrement_reference_count() override;
-      huge_integer release() override;
+      virtual long long get_ref_count();
+      long long increment_reference_count() override;
+      long long decrement_reference_count() override;
+      long long release() override;
 
 
 #endif

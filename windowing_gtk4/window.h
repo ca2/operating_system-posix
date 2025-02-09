@@ -44,8 +44,8 @@ namespace windowing_gtk4
 
       void _on_enter_notify(GtkEventControllerMotion * pcontroller, double x, double y) override;
 
-      void _on_gtk_key_pressed(huge_natural uGtkKey, huge_natural uGtkKeyCode) override;
-      void _on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode) override;
+      void _on_gtk_key_pressed(unsigned long long uGtkKey, unsigned long long uGtkKeyCode) override;
+      void _on_gtk_key_released(unsigned long long uGtkKey, unsigned long long uGtkKeyCode) override;
 
       bool _on_gtk_key_pressed(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state) override;
       bool _on_gtk_key_released(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state) override;

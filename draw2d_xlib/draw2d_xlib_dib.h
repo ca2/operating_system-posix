@@ -24,7 +24,7 @@ namespace draw2d_xlib
       bool                    m_bMapped;
       //HBITMAP               m_hbitmapOriginal;
       HBITMAP                 m_hbitmap;
-      class huge_integer_size            m_sizeWnd;
+      class long_long_size            m_sizeWnd;
       BITMAPINFO              m_bitmapinfo;
       XImage *                m_pimage;
 

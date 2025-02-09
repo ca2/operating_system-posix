@@ -1134,7 +1134,7 @@ namespace windowing_gtk3
    }
 
 
-   void window::_on_gtk_key_pressed(huge_natural uGtkKey, huge_natural uGtkKeyCode)
+   void window::_on_gtk_key_pressed(unsigned long long uGtkKey, unsigned long long uGtkKeyCode)
    {
 
       auto ekey = gtk_key_as_user_ekey(uGtkKey);
@@ -1165,7 +1165,7 @@ namespace windowing_gtk3
    }
 
 
-   void window::_on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode)
+   void window::_on_gtk_key_released(unsigned long long uGtkKey, unsigned long long uGtkKeyCode)
    {
 
       auto ekey = gtk_key_as_user_ekey(uGtkKey);
@@ -7144,7 +7144,7 @@ namespace windowing_gtk3
    }
 
 
-   huge_integer window::_001GetTopLeftWeightedOccludedOpaqueArea()
+   long long window::_001GetTopLeftWeightedOccludedOpaqueArea()
    {
 
       if (m_bActiveWindow)

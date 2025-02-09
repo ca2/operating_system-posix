@@ -105,7 +105,7 @@ namespace windowing_wayland
 #ifdef _DEBUG
 
 
-   huge_integer display::get_ref_count()
+   long long display::get_ref_count()
    {
 
       return m_countReference;
@@ -113,7 +113,7 @@ namespace windowing_wayland
    }
 
 
-   huge_integer display::increment_reference_count()
+   long long display::increment_reference_count()
    {
 
 #ifdef WINDOWS
@@ -133,7 +133,7 @@ namespace windowing_wayland
    }
 
 
-   huge_integer display::decrement_reference_count()
+   long long display::decrement_reference_count()
    {
 
 #ifdef WINDOWS
@@ -153,10 +153,10 @@ namespace windowing_wayland
    }
 
 
-   huge_integer display::release()
+   long long display::release()
    {
 
-      huge_integer i = decrement_reference_count();
+      long long i = decrement_reference_count();
 
       return i;
 

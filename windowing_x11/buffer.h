@@ -43,10 +43,10 @@ namespace windowing_x11
       //bool                          m_bMapped;
       ::int_rectangle      m_rectangleLast;
       //::image::image_pointer                         m_pimage;
-      //interlocked_huge_integer                              m_interlockedPostedScreenUpdate;
+      //interlocked_long_long                              m_interlockedPostedScreenUpdate;
 //manual_reset_happening m_happeningXshm;
       //bool m_bXShmComplete;
-      //interlocked_huge_integer                              m_interlockedXShmPutImage;
+      //interlocked_long_long                              m_interlockedXShmPutImage;
 
 
       buffer();

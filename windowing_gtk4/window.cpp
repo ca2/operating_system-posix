@@ -1112,7 +1112,7 @@ gtk_im_context_commit (
    }
 
 
-   void window::_on_gtk_key_pressed(huge_natural uGtkKey, huge_natural uGtkKeyCode)
+   void window::_on_gtk_key_pressed(unsigned long long uGtkKey, unsigned long long uGtkKeyCode)
    {
 
       auto ekey = gtk_key_as_user_ekey(uGtkKey);
@@ -1143,7 +1143,7 @@ gtk_im_context_commit (
    }
 
 
-   void window::_on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode)
+   void window::_on_gtk_key_released(unsigned long long uGtkKey, unsigned long long uGtkKeyCode)
    {
 
       auto ekey = gtk_key_as_user_ekey(uGtkKey);

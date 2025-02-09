@@ -65,7 +65,7 @@ simple_ui_display::simple_ui_display(const string & strMessageParam, const strin
 }
 
 
-huge_integer simple_ui_display::increment_reference_count()
+long long simple_ui_display::increment_reference_count()
 {
 
    return xcb_hook::increment_reference_count();
@@ -73,7 +73,7 @@ huge_integer simple_ui_display::increment_reference_count()
 }
 
 
-huge_integer simple_ui_display::decrement_reference_count()
+long long simple_ui_display::decrement_reference_count()
 {
 
    return xcb_hook::decrement_reference_count();
@@ -81,7 +81,7 @@ huge_integer simple_ui_display::decrement_reference_count()
 }
 
 
-huge_integer simple_ui_display::release()
+long long simple_ui_display::release()
 {
 
    return xcb_hook::release();

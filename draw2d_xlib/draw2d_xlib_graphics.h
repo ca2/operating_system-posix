@@ -26,8 +26,8 @@ namespace draw2d_xlib
       int                 m_iType;
       //bool                    m_bForeColor;
       //bool                    m_bBackColor;
-      //huge_natural                m_uiForeColor;
-      //huge_natural                m_uiBackColor;
+      //unsigned long long                m_uiForeColor;
+      //unsigned long long                m_uiBackColor;
       //color32_t                m_colorTextColor;
       //xxx ::Gdiplus::GraphicsPath *     m_ppath;
       //xxx ::Gdiplus::GraphicsPath *     m_ppathPaint;
@@ -483,7 +483,7 @@ namespace draw2d_xlib
       void DrawDragRect(const ::int_rectangle & rectangle, const ::int_size & size,
                         int_rectangle lpRectLast, const ::int_size & sizeLast,
                         ::draw2d::brush* pBrush = nullptr, ::draw2d::brush* pBrushLast = nullptr);
-      void FillSolidRect(const ::huge_integer_rectangle * rectangle, color32_t clr);
+      void FillSolidRect(const ::long_long_rectangle * rectangle, color32_t clr);
       void FillSolidRect(const ::int_rectangle & rectangle, color32_t clr);
       void FillSolidRect(int x, int y, int cx, int cy, color32_t clr);
       void Draw3dRect(const ::int_rectangle & rectangle, color32_t clrTopLeft, color32_t clrBottomRight);
