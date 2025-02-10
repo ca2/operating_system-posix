@@ -347,6 +347,8 @@ namespace acme_posix
 
    ::process_identifier_array node::processes_identifiers()
    {
+      
+      information() << "acme_posix::node::processes_identifiers THROW INTERFACE ONLY";
 
       throw ::interface_only();
 
