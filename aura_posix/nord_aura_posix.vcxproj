@@ -96,7 +96,7 @@
       <AdditionalOptions>-Wno-attributes -Wno-sign-compare -Wno-comment -Wno-strict-overflow -Wno-unused-local-typedefs -Wno-unknown-pragmas -Wno-unused-function -Wno-unused-variable -Wno-unused-value -Wno-reorder -Wno-overloaded-virtual -std=c++20 -Wno-char-subscripts</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\..\operating_system\storage-android\library\$(PlatformName)\$(Configuration)\;$(SolutionDir)..\..\..\..\operating_system\storage-android\third\library\$(PlatformName)\$(Configuration)\;$(OutDir)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\operating_system\storage-android\library\$(PlatformName)\$(Configuration)\;$(SolutionDir)..\..\operating_system\storage-android\third\library\$(PlatformName)\$(Configuration)\;$(OutDir)</AdditionalLibraryDirectories>
       <LibraryDependencies>aura;apex_posix;apex;acme_posix;acme;$(StlLibraryName);%(LibraryDependencies)</LibraryDependencies>
       <WholeArchiveBegin>true</WholeArchiveBegin>
       <FunctionBinding>false</FunctionBinding>
@@ -116,7 +116,7 @@
       <DebugInformationFormat>FullDebug</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\..\operating_system\storage-android\library\$(PlatformName)\$(Configuration)\;$(SolutionDir)..\..\..\..\operating_system\storage-android\third\library\$(PlatformName)\$(Configuration)\;$(OutDir)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\operating_system\storage-android\library\$(PlatformName)\$(Configuration)\;$(SolutionDir)..\..\operating_system\storage-android\third\library\$(PlatformName)\$(Configuration)\;$(OutDir)</AdditionalLibraryDirectories>
       <LibraryDependencies>$(StlLibraryName);%(LibraryDependencies)</LibraryDependencies>
       <WholeArchiveBegin>true</WholeArchiveBegin>
       <FunctionBinding>false</FunctionBinding>
@@ -134,7 +134,7 @@
       <AdditionalOptions>-Wno-attributes -Wno-sign-compare -Wno-comment -Wno-strict-overflow -Wno-unused-local-typedefs -Wno-unknown-pragmas -Wno-unused-function -Wno-unused-variable -Wno-unused-value -Wno-reorder -Wno-overloaded-virtual -std=c++20 -Wno-char-subscripts</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\..\operating_system\storage-android\library\$(PlatformName)\$(Configuration)\;$(SolutionDir)..\..\..\..\operating_system\storage-android\third\library\$(PlatformName)\$(Configuration)\;$(OutDir)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\operating_system\storage-android\library\$(PlatformName)\$(Configuration)\;$(SolutionDir)..\..\operating_system\storage-android\third\library\$(PlatformName)\$(Configuration)\;$(OutDir)</AdditionalLibraryDirectories>
       <LibraryDependencies>$(StlLibraryName);%(LibraryDependencies)</LibraryDependencies>
       <WholeArchiveBegin>true</WholeArchiveBegin>
       <FunctionBinding>false</FunctionBinding>
@@ -153,7 +153,7 @@
       <DebugInformationFormat>FullDebug</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\..\operating_system\storage-android\library\$(PlatformName)\$(Configuration)\;$(SolutionDir)..\..\..\..\operating_system\storage-android\third\library\$(PlatformName)\$(Configuration)\;$(OutDir)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\operating_system\storage-android\library\$(PlatformName)\$(Configuration)\;$(SolutionDir)..\..\operating_system\storage-android\third\library\$(PlatformName)\$(Configuration)\;$(OutDir)</AdditionalLibraryDirectories>
       <LibraryDependencies>$(StlLibraryName);%(LibraryDependencies)</LibraryDependencies>
       <WholeArchiveBegin>true</WholeArchiveBegin>
       <FunctionBinding>false</FunctionBinding>
