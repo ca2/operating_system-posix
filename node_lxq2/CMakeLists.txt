@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
-project(node_kde6 CXX)
-message("--------------- node_kde -------------------")
+project(node_lxq2 CXX)
+message("--------------- node_lxq2 -------------------")
 
 list(APPEND library_source
    _.cpp
@@ -70,14 +70,14 @@ list(TRANSFORM static_library_references PREPEND static_)
 
 
 list(APPEND this_system_libraries
-   KF6::ConfigWidgets
-   KF6::IconThemes
-   KF6::KIOCore
-   KF6::KIOGui
-   KF6::KIOWidgets
-   KF6::Notifications
-   KF6::StatusNotifierItem
-   PW::KWorkspace
+   #KF6::ConfigWidgets
+   #KF6::IconThemes
+   #KF6::KIOCore
+   #KF6::KIOGui
+   #KF6::KIOWidgets
+   #KF6::Notifications
+   #KF6::StatusNotifierItem
+   #PW::KWorkspace
    Qt6::Core
    Qt6::Widgets
    #Qt6::X11Extras

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
-project(innate_ui_kde6 CXX)
+project(innate_ui_lxq2 CXX)
 
 
 list(APPEND library_source
@@ -29,14 +29,14 @@ list(APPEND library_references
 )
 
 
-if(${HAS_KDE6})
+if(${HAS_LXQ2})
 
     list(APPEND system_libraries
             Qt6::Core
             Qt6::Widgets
     )
 
-elseif(${HAS_KDE5})
+elseif(${HAS_LXQ1})
 
     list(APPEND system_libraries
             Qt5::Core

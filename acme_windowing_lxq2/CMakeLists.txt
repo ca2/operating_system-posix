@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
-project(acme_windowing_kde6 CXX)
+project(acme_windowing_lxq2 CXX)
 
 
 
@@ -44,14 +44,14 @@ target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
-if(${HAS_KDE6})
+if(${HAS_LXQ2})
 
    list(APPEND system_libraries
       Qt6::Core
       Qt6::Widgets
    )
 
-elseif(${HAS_KDE5})
+elseif(${HAS_LXQ1})
 
    list(APPEND system_libraries
       Qt5::Core
