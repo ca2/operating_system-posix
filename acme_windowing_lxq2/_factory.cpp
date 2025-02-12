@@ -5,12 +5,12 @@
 
 
 
-IMPLEMENT_FACTORY(acme_windowing_kde6)
+IMPLEMENT_FACTORY(acme_windowing_lxq2)
 {
 
-   pfactory->add_factory_item < ::kde6::acme::windowing::display, ::acme::windowing::display >();
-   pfactory->add_factory_item < ::kde6::acme::windowing::window, ::acme::windowing::window >();
-   pfactory->add_factory_item < ::kde6::acme::windowing::windowing, ::acme::windowing::windowing >();
+   pfactory->add_factory_item < ::lxq2::acme::windowing::display, ::acme::windowing::display >();
+   pfactory->add_factory_item < ::lxq2::acme::windowing::window, ::acme::windowing::window >();
+   pfactory->add_factory_item < ::lxq2::acme::windowing::windowing, ::acme::windowing::windowing >();
 
 }
 

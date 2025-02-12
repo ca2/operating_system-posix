@@ -8,7 +8,7 @@
 #include <QLabel>
 
 
-namespace innate_ui_kde6
+namespace innate_ui_lxq2
 {
 
 
@@ -55,9 +55,9 @@ namespace innate_ui_kde6
       // else
       {
 
-         ::pointer < ::innate_ui_kde6::window > pkde6windowParent = pwindowParent;
+         ::pointer < ::innate_ui_lxq2::window > plxq2windowParent = pwindowParent;
 
-         m_pqwidget = ___new QLabel(pkde6windowParent->m_pqwidget);
+         m_pqwidget = ___new QLabel(plxq2windowParent->m_pqwidget);
 
          //gtk_label_set_xalign(GTK_LABEL(m_pgtkwidget), 0.0);
 
@@ -107,7 +107,7 @@ namespace innate_ui_kde6
    void still::set_icon(::innate_ui::icon * piconParam)
    {
 
-      ::pointer <::innate_ui_kde6::icon > picon = piconParam;
+      ::pointer <::innate_ui_lxq2::icon > picon = piconParam;
 
       _user_send([this, picon]()
       {
@@ -130,7 +130,7 @@ namespace innate_ui_kde6
    }
 
 
-} // namespace innate_ui_kde6
+} // namespace innate_ui_lxq2
 
 
 

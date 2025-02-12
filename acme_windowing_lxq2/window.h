@@ -7,11 +7,11 @@
 #include "acme/windowing/window.h"
 //#include "event_listener.h"
 #include "acme/parallelization/manual_reset_happening.h"
-#include "acme_windowing_kde6/micro_window.h"
+#include "acme_windowing_lxq2/micro_window.h"
 #include <QWidget>
 
 
-namespace kde6
+namespace lxq2
 {
 
 
@@ -23,9 +23,9 @@ namespace kde6
       {
 
 
-         class CLASS_DECL_ACME_WINDOWING_KDE6 window :
+         class CLASS_DECL_ACME_WINDOWING_LXQ2 window :
             virtual public ::acme::windowing::window,
-            virtual public ::kde6::micro::window
+            virtual public ::lxq2::micro::window
          {
          public:
 
@@ -189,7 +189,7 @@ namespace kde6
    } //namespace acme
 
 
-} // namespace kde6
+} // namespace lxq2
 
 
 

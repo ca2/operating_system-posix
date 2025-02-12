@@ -6,12 +6,12 @@
 #include "window.h"
 //#include <gtk/gtk.h>
 
-namespace innate_ui_kde6
+namespace innate_ui_lxq2
 {
 
 
-   class CLASS_DECL_INNATE_UI_KDE6 button :
-    virtual public ::innate_ui_kde6::window,
+   class CLASS_DECL_INNATE_UI_LXQ2 button :
+    virtual public ::innate_ui_lxq2::window,
       virtual public ::innate_ui::button
    {
    public:

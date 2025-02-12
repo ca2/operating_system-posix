@@ -13,7 +13,7 @@
 #include "acme/windowing/windowing.h"
 
 
-namespace innate_ui_kde6
+namespace innate_ui_lxq2
 {
 
 
@@ -233,10 +233,10 @@ namespace innate_ui_kde6
    }
 
 
-   ::innate_ui_kde6::innate_ui * window::innate_ui()
+   ::innate_ui_lxq2::innate_ui * window::innate_ui()
    {
 
-      return dynamic_cast <::innate_ui_kde6::innate_ui *> (::innate_ui::window::innate_ui());
+      return dynamic_cast <::innate_ui_lxq2::innate_ui *> (::innate_ui::window::innate_ui());
 
    }
 

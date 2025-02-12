@@ -5,7 +5,7 @@
 #include "micro_window.h"
 
 
-namespace kde6
+namespace lxq2
 {
 
 
@@ -52,4 +52,4 @@ namespace kde6
    } // namespace micro
 
 
-} // namespace kde6
+} // namespace lxq2

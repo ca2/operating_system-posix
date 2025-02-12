@@ -3,17 +3,17 @@
 
 #include "windowing_posix/_.h"
 //#include "windowing_system_wayland/_.h"
-#include "acme_windowing_kde6/_.h"
+#include "acme_windowing_lxq2/_.h"
 
 
-#if defined(_windowing_kde6_project)
-   #define CLASS_DECL_WINDOWING_KDE6  CLASS_DECL_EXPORT
+#if defined(_windowing_lxq2_project)
+   #define CLASS_DECL_WINDOWING_LXQ2  CLASS_DECL_EXPORT
 #else
-   #define CLASS_DECL_WINDOWING_KDE6  CLASS_DECL_IMPORT
+   #define CLASS_DECL_WINDOWING_LXQ2  CLASS_DECL_IMPORT
 #endif
 
 
-namespace windowing_kde6
+namespace windowing_lxq2
 {
 
 
@@ -26,7 +26,7 @@ namespace windowing_kde6
    //using WINDOW = long;
 
 
-} // namespace windowing_kde6
+} // namespace windowing_lxq2
 
 
 //#include "nano_user_wayland/_.h"

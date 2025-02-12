@@ -16,7 +16,7 @@
 //#include <X11/extensions/Xrender.h>
 
 //#include "app/base/graphics/graphics_window_buffer.h"
-namespace windowing_kde6
+namespace windowing_lxq2
 {
 
 
@@ -54,7 +54,7 @@ namespace windowing_kde6
       ~buffer() override;
 
 
-      ::windowing_kde6::window * kde6_window();
+      ::windowing_lxq2::window * lxq2_window();
 
 
       void initialize_graphics_graphics(::windowing::window * pimpl) override;
@@ -92,7 +92,7 @@ namespace windowing_kde6
    };
 
 
-} // namespace windowing_kde6
+} // namespace windowing_lxq2
 
 
 

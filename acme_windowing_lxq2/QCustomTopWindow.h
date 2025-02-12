@@ -4,7 +4,7 @@
 #pragma once
 
 
-#include "acme_windowing_kde6/micro_window.h"
+#include "acme_windowing_lxq2/micro_window.h"
 #include <QMainWindow>
 
 
@@ -15,10 +15,10 @@ class QCustomTopWindow :
 public:
 
 
-   ::kde6::micro::window *                m_pwindow;
+   ::lxq2::micro::window *                m_pwindow;
    QImage                                 m_qimage;
 
-   QCustomTopWindow(::kde6::micro::window * pwindow);
+   QCustomTopWindow(::lxq2::micro::window * pwindow);
 
 
 protected:

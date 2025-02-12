@@ -55,7 +55,7 @@ void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString)
 //    }
 
 
-namespace windowing_kde6
+namespace windowing_lxq2
 {
 
    //    // Callback for registry listener to bind global Wayland objects
@@ -545,19 +545,19 @@ return true;
    }
 
 
-   ::windowing_kde6::windowing * display::kde6_windowing()
+   ::windowing_lxq2::windowing * display::lxq2_windowing()
    {
 
-      ::cast < ::windowing_kde6::windowing > pkde6windowing = system()->acme_windowing();
+      ::cast < ::windowing_lxq2::windowing > plxq2windowing = system()->acme_windowing();
 
-      if (!pkde6windowing)
+      if (!plxq2windowing)
       {
 
          return nullptr;
 
       }
 
-      return pkde6windowing;
+      return plxq2windowing;
 
    }
 
@@ -1634,7 +1634,7 @@ return true;
    ::int_size display::get_main_screen_size()
    {
 
-      return ::kde6::acme::windowing::display::get_main_screen_size();
+      return ::lxq2::acme::windowing::display::get_main_screen_size();
 
    }
 
@@ -1681,7 +1681,7 @@ return 0;
    }
 
 
-} // namespace windowing_kde6
+} // namespace windowing_lxq2
 
 
 

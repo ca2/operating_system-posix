@@ -8,21 +8,21 @@
 
 //#include "acme/operating_system/x11/nano/event_listener.h"
 //#include "acme/operating_system/x11/nano/display.h"
-#include "acme_windowing_kde6/display.h"
+#include "acme_windowing_lxq2/display.h"
 #include "aura/windowing/display.h"
-#include "_kde6.h"
+#include "_lxq2.h"
 
 //#include "_x11.h"
 
 
 
-namespace windowing_kde6
+namespace windowing_lxq2
 {
 
 
-   class CLASS_DECL_WINDOWING_KDE6 display :
+   class CLASS_DECL_WINDOWING_LXQ2 display :
       virtual public ::windowing::display,
-      virtual public ::kde6::acme::windowing::display
+      virtual public ::lxq2::acme::windowing::display
    {
    public:
 
@@ -98,7 +98,7 @@ namespace windowing_kde6
 
 //      virtual ::windowing_kde5::window * _window(::wl_surface * pwlsurface);
 
-      virtual ::windowing_kde6::windowing * kde6_windowing();
+      virtual ::windowing_lxq2::windowing * lxq2_windowing();
 
       virtual void lock_display();
 
@@ -190,7 +190,7 @@ namespace windowing_kde6
    };
 
 
-} // namespace windowing_kde6
+} // namespace windowing_lxq2
 
 
 

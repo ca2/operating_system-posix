@@ -26,7 +26,7 @@
 //#endif
 
 
-namespace windowing_kde6
+namespace windowing_lxq2
 {
 
 
@@ -894,7 +894,7 @@ namespace windowing_kde6
 //   }
 
 
-} // namespace windowing_kde6
+} // namespace windowing_lxq2
 
 
 

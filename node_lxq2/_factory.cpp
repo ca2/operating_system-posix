@@ -13,7 +13,7 @@
 // __FACTORY_EXPORT void windowing_wayland_factory(::factory::factory * pfactory);
 // #endif
 
-__FACTORY_EXPORT void node_kde6_factory(::factory::factory * pfactory)
+__FACTORY_EXPORT void node_lxq2_factory(::factory::factory * pfactory)
 {
 
 //   __FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory);
@@ -74,7 +74,7 @@ __FACTORY_EXPORT void node_kde6_factory(::factory::factory * pfactory)
 
    //pfactory->add_factory_item < ::node_kde::monitor, ::windowing::monitor > ();
    pfactory->add_factory_item < ::node_kde6::copydesk, ::user::copydesk > ();
-   pfactory->add_factory_item < ::node_kde6::notify_icon, ::user::notify_icon > ();
+   //pfactory->add_factory_item < ::node_kde6::notify_icon, ::user::notify_icon > ();
    pfactory->add_factory_item < ::node_kde6::appindicator, ::aura_posix::appindicator >();
 
    //pfactory->add_factory_item < ::node_kde6::desktop_environment, ::windowing::desktop_environment >();

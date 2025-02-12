@@ -11,7 +11,7 @@
 #include <QWidget>
 
 
-namespace kde6
+namespace lxq2
 {
 
 
@@ -27,7 +27,7 @@ namespace kde6
 
          using window_map = map<::QWidget *, ::pointer<window> >;
 
-         class CLASS_DECL_ACME_WINDOWING_KDE6 display :
+         class CLASS_DECL_ACME_WINDOWING_LXQ2 display :
             virtual public ::acme::windowing::display //,     virtual public event_listener
          {
          public:
@@ -129,7 +129,7 @@ window_map                                               m_windowmap;
    } // namespace acme
 
 
-} // namespace kde6
+} // namespace lxq2
 
 
 

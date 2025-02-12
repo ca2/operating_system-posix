@@ -16,15 +16,23 @@
 #include "apex/platform/system.h"
 #include "acme/platform/ini.h"
 #include "aura/windowing/windowing.h"
-#include <kworkspace6/kworkspace.h>
-#include <KColorScheme>
-#include <KFileItem>
-#include <KIconLoader>
+// #include <kworkspace6/kworkspace.h>
+// #include <KColorScheme>
+// #include <KFileItem>
+// #include <KIconLoader>
 //#include <QX11Info>
 #include <QtGui/QDesktopServices>
 #include <QFileDialog>
+#include <QApplication>
+#include <QDebug>
+#include <QFileInfo>
+#include <QIcon>
+#include <QDir>
+#include <LXQt/Settings>
+#include <LXQt/IconCache>
+#include <QIconEngine>
 #include <QTextStream>
-#include <QDBusInterface>
+//#include <QDBusInterface>
 #include <qpa/qplatformnativeinterface.h>
 #include <xcb/xcb.h>
 #include "windowing_kde6/windowing.h"
@@ -48,24 +56,21 @@ void copy(::color::color * pcolor, const QColor * pqcolor)
 
 }
 
-
-void kde_update_os_theme_colors(::os_theme_colors * pthemecolors)
-{
-
-   KColorScheme colorscheme;
-
-   auto pbrushBackground = colorscheme.background();
-
-   copy(&pthemecolors->m_colorBack, &pbrushBackground.color());
-
-}
-
-
-
+//
+// void kde_update_os_theme_colors(::os_theme_colors * pthemecolors)
+// {
+//
+//    KColorScheme colorscheme;
+//
+//    auto pbrushBackground = colorscheme.background();
+//
+//    copy(&pthemecolors->m_colorBack, &pbrushBackground.color());
+//
+// }
+//
 
 
-
-namespace node_kde6
+namespace node_lxq2
 {
 
 
@@ -652,29 +657,59 @@ namespace node_kde6
 
    string node::get_file_icon_path(const ::string & strPath, int iSize)
    {
+      tring getIconFullPath(const QString &filePath) {
+         LXQt::IconCache *iconCache = LXQt::IconCache::instance();
+         QFileInfo fileInfo(filePath);
 
-      QUrl url((const char *) ("file://"+strPath));
+         if (!iconCache) {
+            return QString();
+         }
 
-      KFileItem fileitem(url, KFileItem::NormalMimeTypeDetermination);
+         QIcon icon = iconCache->icon(fileInfo);
 
-      auto name = fileitem.iconName();
+         if (icon.isNull()) {
+            return QString();
+         }
 
-//      if(::is_null(m_piconloader))
-//      {
+         // Attempt to get the actual icon name
+         QString iconName = icon.name();
+
+         // Get the theme-based icon path
+         QString themeIconPath = QIcon::fromTheme(iconName).name();
+
+         if (!themeIconPath.isEmpty()) {
+            return themeIconPath;
+         }
+
+         // If theme path is not found, save the icon as a temporary file
+         QString iconTempPath = QDir::tempPath() + "/lxqt_icon.png";
+         icon.pixmap(64, 64).save(iconTempPath);
+
+         return iconTempPath.toUtf8().data();
+
+//       QUrl url((const char *) ("file://"+strPath));
 //
-//         m_piconloader = ___new KIconLoader();
+//       KFileItem fileitem(url, KFileItem::NormalMimeTypeDetermination);
 //
-//      }
+//       auto name = fileitem.iconName();
+//
+// //      if(::is_null(m_piconloader))
+// //      {
+// //
+// //         m_piconloader = ___new KIconLoader();
+// //
+// //      }
+//
+//       auto path = KIconLoader::global()->iconPath(name, -iSize);
+//
+//       //return ::linux_g_direct_get_file_icon_path(pszPath, iSize);
+//
+//       QByteArray bytea = path.toUtf8();
+//
+//       const char *pathData = bytea.constData();
+//
+//       return pathData;
 
-      auto path = KIconLoader::global()->iconPath(name, -iSize);
-
-      //return ::linux_g_direct_get_file_icon_path(pszPath, iSize);
-
-      QByteArray bytea = path.toUtf8();
-
-      const char *pathData = bytea.constData();
-
-      return pathData;
 
    }
 
@@ -1127,7 +1162,7 @@ namespace node_kde6
    // }
 
 
-} // namespace node_kde6
+} // namespace node_lxq2
 
 
 

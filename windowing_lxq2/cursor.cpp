@@ -23,7 +23,7 @@
 CLASS_DECL_ACME ::particle * user_synchronization();
 
 
-namespace windowing_kde6
+namespace windowing_lxq2
 {
 
 
@@ -383,7 +383,7 @@ namespace windowing_kde6
 
       auto pdisplay = pwindowing->display();
 
-      ::cast < ::windowing_kde6::display> pkde6display =  pdisplay;
+      ::cast < ::windowing_lxq2::display> plxq2display =  pdisplay;
 
       Qt::CursorShape shape;
 
@@ -548,7 +548,7 @@ namespace windowing_kde6
    }
 
 
-} // namespace windowing_kde6
+} // namespace windowing_lxq2
 
 
 

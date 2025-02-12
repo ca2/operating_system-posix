@@ -4,26 +4,26 @@
 #pragma once
 
 
-#include "acme_windowing_kde6/windowing.h"
+#include "acme_windowing_lxq2/windowing.h"
 #include "windowing_posix/windowing.h"
 #include "acme/prototype/collection/list.h"
 //#include "acme/prototype/collection/pointer_array.h"
 #include "_.h"
-#include "_kde6.h"
-#include "acme_windowing_kde6/windowing.h"
+#include "_lxq2.h"
+#include "acme_windowing_lxq2/windowing.h"
 
 #include <QApplication>
 
 struct libinput_event;
 
 
-namespace windowing_kde6
+namespace windowing_lxq2
 {
 
 
-   class CLASS_DECL_WINDOWING_KDE6 windowing :
+   class CLASS_DECL_WINDOWING_LXQ2 windowing :
       virtual public ::windowing_posix::windowing,
-      virtual public ::kde6::acme::windowing::windowing
+      virtual public ::lxq2::acme::windowing::windowing
    {
    public:
 
@@ -105,7 +105,7 @@ bool is_x11();
 
       ::windowing::display* display() override;
 
-      ::windowing_kde6::display* kde6_display();
+      ::windowing_lxq2::display* lxq2_display();
 
       //void windowing_main() override;
 
@@ -139,7 +139,7 @@ bool is_x11();
 
       //bool defer_release_mouse_capture(::thread* pthread, ::windowing::window* pwindow) override;
 
-      virtual void _on_capture_changed_to(::windowing_kde6::window* pwindowWithCapture);
+      virtual void _on_capture_changed_to(::windowing_lxq2::window* pwindowWithCapture);
 
       void set_mouse_cursor2(::windowing::cursor* pcursor) override;
 
@@ -220,7 +220,7 @@ bool is_x11();
    };
 
 
-} // namespace windowing_kde6
+} // namespace windowing_lxq2
 
 
 

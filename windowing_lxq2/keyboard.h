@@ -10,12 +10,12 @@
 //#include "windowing_system_wayland/xkb_input.h"
 
 
-namespace windowing_kde6
+namespace windowing_lxq2
 {
 
    //class keyboard_layout;
 
-   class CLASS_DECL_WINDOWING_KDE6 keyboard :
+   class CLASS_DECL_WINDOWING_LXQ2 keyboard :
       virtual public ::windowing::keyboard
       //,
       //virtual public ::xkb_input::xkb_input
@@ -77,7 +77,7 @@ namespace windowing_kde6
    };
 
 
-} // namespace windowing_kde6
+} // namespace windowing_lxq2
 
 
 

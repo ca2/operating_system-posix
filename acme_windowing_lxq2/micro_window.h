@@ -7,7 +7,7 @@
 
 #include <QWidget>
 
-namespace kde6
+namespace lxq2
 {
 
 
@@ -15,7 +15,7 @@ namespace micro
 {
 
 
-class CLASS_DECL_ACME_WINDOWING_KDE6 window
+class CLASS_DECL_ACME_WINDOWING_LXQ2 window
 {
 public:
 
@@ -33,6 +33,6 @@ public:
 
 } // namespace micro
 
-} // namespace kde6
+} // namespace lxq2
 
 

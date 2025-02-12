@@ -9,7 +9,7 @@
 #include <QResizeEvent>
 
 // Custom window class inheriting from QMainWindow
-QCustomTopWindow::QCustomTopWindow(::kde6::micro::window * pwindow)
+QCustomTopWindow::QCustomTopWindow(::lxq2::micro::window * pwindow)
 {
    // Resize the window
    m_pwindow = pwindow;

@@ -23,7 +23,7 @@
 #undef MORE_LOG
 
 
-namespace windowing_kde6
+namespace windowing_lxq2
 {
 
 
@@ -113,19 +113,19 @@ namespace windowing_kde6
 //   }
 
 
-   ::windowing_kde6::window * buffer::kde6_window()
+   ::windowing_lxq2::window * buffer::lxq2_window()
    {
 
-      ::cast < ::windowing_kde6::window > pkde6window = m_pwindow;
+      ::cast < ::windowing_lxq2::window > plxq2window = m_pwindow;
 
-      if(!pkde6window)
+      if(!plxq2window)
       {
 
          return nullptr;
 
       }
 
-      return pkde6window;
+      return plxq2window;
 
    }
 
@@ -149,7 +149,7 @@ namespace windowing_kde6
    void buffer::destroy()
    {
 
-      if (!kde6_window())
+      if (!lxq2_window())
       {
 
          throw ::exception(error_wrong_state);
@@ -655,9 +655,9 @@ namespace windowing_kde6
 //         || pwaylandwindow->m_uLastConfigureSerial > pwaylandwindow->m_uLastRequestSerial))
 //      {
 
-      ::cast<::windowing_kde6::window> pkde6window = m_pwindow;
+      ::cast<::windowing_lxq2::window> plxq2window = m_pwindow;
 
-      ::string strType = ::type(pkde6window->m_pacmeuserinteraction).name();
+      ::string strType = ::type(plxq2window->m_pacmeuserinteraction).name();
 
 //       if(pwaylandwindow->m_pxdgtoplevel == nullptr
 //       && pwaylandwindow->m_pxdgpopup == nullptr)
@@ -1293,7 +1293,7 @@ namespace windowing_kde6
 
       auto pimageBuffer = pbufferitem->m_pimage2;
 
-      if (pimageBuffer->m_size != pbufferitem->m_size)
+      if (pimageBuffer->m_size != pbufferitem->m_sizeBufferItemWindow)
       {
 
          if(!update_buffer(pbufferitem))

@@ -8,10 +8,10 @@
 #include "acme_posix/_.h"
 
 
-#if defined(_acme_windowing_kde6_project)
-#define CLASS_DECL_ACME_WINDOWING_KDE6 CLASS_DECL_EXPORT
+#if defined(_acme_windowing_lxq2_project)
+#define CLASS_DECL_ACME_WINDOWING_LXQ2 CLASS_DECL_EXPORT
 #else
-#define CLASS_DECL_ACME_WINDOWING_KDE6 CLASS_DECL_IMPORT
+#define CLASS_DECL_ACME_WINDOWING_LXQ2 CLASS_DECL_IMPORT
 #endif
 
 

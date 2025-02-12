@@ -40,7 +40,7 @@
 void set_main_user_thread();
 
 
-namespace kde6
+namespace lxq2
 {
 
 
@@ -1487,7 +1487,7 @@ namespace kde6
    } // namespace acme
 
 
-} // namespace kde6
+} // namespace lxq2
 
 
 

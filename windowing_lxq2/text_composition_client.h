@@ -7,11 +7,11 @@
 #include "aura/user/user/text_composition_client.h"
 
 
-namespace windowing_kde6
+namespace windowing_lxq2
 {
 
 
-   class CLASS_DECL_WINDOWING_KDE6 text_composition_client :
+   class CLASS_DECL_WINDOWING_LXQ2 text_composition_client :
       virtual public ::user::text_composition_client
    {
    public:
@@ -25,7 +25,7 @@ namespace windowing_kde6
    };
 
 
-} // namespace windowing_kde6
+} // namespace windowing_lxq2
 
 
 

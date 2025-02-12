@@ -4,7 +4,7 @@
 #include "acme/filesystem/filesystem/file_context.h"
 
 
-namespace innate_ui_kde6
+namespace innate_ui_lxq2
 {
 
 

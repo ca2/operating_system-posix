@@ -6,14 +6,14 @@
 //#include "nano_user_wayland/_.h"
 #include <QCursor>
 #include "aura/windowing/cursor.h"
-#include "_kde6.h"
+#include "_lxq2.h"
 
 
-namespace windowing_kde6
+namespace windowing_lxq2
 {
 
 
-   class CLASS_DECL_WINDOWING_KDE6 cursor :
+   class CLASS_DECL_WINDOWING_LXQ2 cursor :
       virtual public ::windowing::cursor
    {
    public:
@@ -42,7 +42,7 @@ QCursor m_qcursor;
    };
 
 
-} // namespace windowing_kde6
+} // namespace windowing_lxq2
 
 
 

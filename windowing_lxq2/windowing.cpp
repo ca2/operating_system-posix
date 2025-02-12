@@ -20,18 +20,18 @@
 //#include "aura/user/user/interaction_impl.h"
 #include "aura/user/user/user.h"
 #include "aura/windowing/display.h"
-//#include "windowing_system_kde6/windowing.h"
+//#include "windowing_system_lxq2/windowing.h"
 //#include "windowing_system_x11/display_lock.h"
 
 
-namespace windowing_kde6
+namespace windowing_lxq2
 {
 
 
    windowing::windowing()
    {
 
-      printf("windowing_kde6::windowing::windowing()");
+      printf("windowing_lxq2::windowing::windowing()");
 
       defer_create_synchronization();
 
@@ -135,7 +135,7 @@ namespace windowing_kde6
    void windowing::erase_window(::windowing::window * pwindow)
    {
 
-      auto pdisplay = kde6_display();
+      auto pdisplay = lxq2_display();
 
       pdisplay->erase_window(pwindow);
 
@@ -192,7 +192,7 @@ namespace windowing_kde6
    {
 
 
-      return ::kde6::acme::windowing::windowing::defer_release_mouse_capture(pthread, pwindow);
+      return ::lxq2::acme::windowing::windowing::defer_release_mouse_capture(pthread, pwindow);
 
    }
 
@@ -345,10 +345,10 @@ namespace windowing_kde6
    }
 
 
-   ::windowing_kde6::display* windowing::kde6_display()
+   ::windowing_lxq2::display* windowing::lxq2_display()
    {
 
-      ::cast < ::windowing_kde6::display > pdisplay = acme_display();
+      ::cast < ::windowing_lxq2::display > pdisplay = acme_display();
 
       return pdisplay;
 
@@ -581,7 +581,7 @@ namespace windowing_kde6
    // }
 
 
-   void windowing::_on_capture_changed_to(::windowing_kde6::window * pwindowMouseCaptureNew)
+   void windowing::_on_capture_changed_to(::windowing_lxq2::window * pwindowMouseCaptureNew)
    {
 
 
@@ -629,7 +629,7 @@ namespace windowing_kde6
 
       }
 
-      ::cast < ::windowing_kde6::cursor > pwaylandcursor = pcursor;
+      ::cast < ::windowing_lxq2::cursor > pwaylandcursor = pcursor;
 
       if (!pwaylandcursor)
       {
@@ -1010,7 +1010,7 @@ namespace windowing_kde6
    void windowing::_user_post(const ::procedure & procedure)
    {
 
-      ::kde6::acme::windowing::windowing::_user_post(procedure);
+      ::lxq2::acme::windowing::windowing::_user_post(procedure);
        //system()->acme_windowing()->user_post(procedure);
       // auto procedure(procedureParam);
       //
@@ -1149,7 +1149,7 @@ namespace windowing_kde6
    {
 
 
-      ::kde6::acme::windowing::windowing::windowing_application_main_loop();
+      ::lxq2::acme::windowing::windowing::windowing_application_main_loop();
        //system()->acme_windowing()->windowing_application_main_loop();
       // ::string strId = application()->m_strAppId;
       //

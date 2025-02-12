@@ -8,7 +8,7 @@
 //#include "kde5_widget.h"
 //#include "acme/operating_system/x11/_atom.h"
 #include "acme/prototype/geometry2d/rectangle_array.h"
-#include "acme_windowing_kde6/window.h"
+#include "acme_windowing_lxq2/window.h"
 //#include <X11/extensions/sync.h>
 #include <QWidget>
 //#include <gdk/gdk.h>
@@ -38,16 +38,16 @@
     };
 
 
-namespace windowing_kde6
+namespace windowing_lxq2
 {
 
 
       class window;
 
 
-   class CLASS_DECL_WINDOWING_KDE6 window :
+   class CLASS_DECL_WINDOWING_LXQ2 window :
       virtual public ::windowing_posix::window,
-      virtual public ::kde6::acme::windowing::window
+      virtual public ::lxq2::acme::windowing::window
          //, virtual public ::wayland::micro::window_base
    {
    public:
@@ -228,8 +228,8 @@ void on_initialize_particle() override;
 
       //virtual ::Window get_parent_handle() const;
 
-      ::windowing_kde6::windowing * kde6_windowing();
-      ::windowing_kde6::display * kde6_display();
+      ::windowing_lxq2::windowing * lxq2_windowing();
+      ::windowing_lxq2::display * lxq2_display();
 
          //void _on_initialize_system_menu_button(GtkWidget * pbutton, const ::scoped_string & scopedstrAtom);
 
@@ -493,7 +493,7 @@ void on_initialize_particle() override;
 
 
 
-} // namespace windowing_kde6
+} // namespace windowing_lxq2
 
 
 

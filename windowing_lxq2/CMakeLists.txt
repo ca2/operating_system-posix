@@ -79,17 +79,17 @@ endif ()
 list(APPEND library_references
    acme
    acme_posix
-   acme_windowing_kde6
+   acme_windowing_lxq2
    nano_graphics_cairo
    apex
    apex_posix
-   innate_ui_kde6
+   innate_ui_lxq2
    aqua
    aura
    aura_posix
    windowing_posix
    #aura_${OPERATING_SYSTEM_NAME}
-   #windowing_kde6
+   #windowing_lxq2
    # windowing_system_wayland
    #windowing_system_x11
    #nano_user_wayland

@@ -7,7 +7,7 @@
 #include <QPushButton>
 
 
-namespace innate_ui_kde6
+namespace innate_ui_lxq2
 {
 
 
@@ -65,9 +65,9 @@ namespace innate_ui_kde6
       //    (HINSTANCE)GetWindowLongPtr(pwindowParent->m_hwnd, GWLP_HINSTANCE),
       //    NULL);
 
-      ::pointer < ::innate_ui_kde6::window > pkde6windowParent = pwindowParent;
+      ::pointer < ::innate_ui_lxq2::window > plxq2windowParent = pwindowParent;
 
-      m_pqwidget = ___new QPushButton(pkde6windowParent->m_pqwidget);
+      m_pqwidget = ___new QPushButton(plxq2windowParent->m_pqwidget);
 
       //gtk_widget_set_visible(m_pgtkwidget, true);
 
@@ -114,7 +114,7 @@ namespace innate_ui_kde6
    }
 
 
-} // namespace innate_ui_kde6
+} // namespace innate_ui_lxq2
 
 
 

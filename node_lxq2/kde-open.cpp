@@ -3,18 +3,18 @@
 //
 #include "urlinfo.h"
 #include <QApplication>
-#include <kio/udsentry.h>
-
-
-
-
-#include <KIO/CopyJob>
-#include <KIO/DeleteJob>
-#include <kio/listjob.h>
-#include <kio/transferjob.h>
-#include <KIO/ApplicationLauncherJob>
-#include <KIO/JobUiDelegate>
-#include <KIO/OpenUrlJob>
+// #include <kio/udsentry.h>
+//
+//
+//
+//
+// #include <KIO/CopyJob>
+// #include <KIO/DeleteJob>
+// #include <kio/listjob.h>
+// #include <kio/transferjob.h>
+// #include <KIO/ApplicationLauncherJob>
+// #include <KIO/JobUiDelegate>
+// #include <KIO/OpenUrlJob>
 #include <QUrlQuery>
 
 //
@@ -41,31 +41,31 @@
 //   bool m_ok;
 //};
 
-
-void kde_open_local_file(QApplication * papplication, const char *pszUrl, const char * pszMimeType)
-{
-
-   QString strUrl(pszUrl);
-
-   QString strMimeType(pszMimeType);
-
-   QUrl url = QUrl::fromLocalFile(QDir::current().absoluteFilePath(strUrl));
-
-   auto * pjob = new KIO::OpenUrlJob(url, strMimeType, papplication);
-
-   //pjob->setUiDelegate(___new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, nullptr));
-
-   ///QObject::connect(pjob, &KJob::finished, [](KJob * pjob) {
-   //printf("finished launching url");
-   //});
-   pjob->setRunExecutables(true);
-
-   pjob->setFollowRedirections(false);
-
-   pjob->start();
-
-
-}
+//
+// void kde_open_local_file(QApplication * papplication, const char *pszUrl, const char * pszMimeType)
+// {
+//
+//    QString strUrl(pszUrl);
+//
+//    QString strMimeType(pszMimeType);
+//
+//    QUrl url = QUrl::fromLocalFile(QDir::current().absoluteFilePath(strUrl));
+//
+//    auto * pjob = new KIO::OpenUrlJob(url, strMimeType, papplication);
+//
+//    //pjob->setUiDelegate(___new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, nullptr));
+//
+//    ///QObject::connect(pjob, &KJob::finished, [](KJob * pjob) {
+//    //printf("finished launching url");
+//    //});
+//    pjob->setRunExecutables(true);
+//
+//    pjob->setFollowRedirections(false);
+//
+//    pjob->start();
+//
+//
+// }
 
 
 //void kde_open_app_client::kde_open(const QString &url, const QString &mimeType, bool allowExec)

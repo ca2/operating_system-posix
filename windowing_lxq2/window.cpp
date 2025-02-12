@@ -27,7 +27,7 @@
 //#include <wayland-client.h>
 //#include <gdk/gdkwindow.h>
 #include "aura/user/user/interaction_thread.h"
-#include "acme_windowing_kde6/QCustomTopWindow.h"
+#include "acme_windowing_lxq2/QCustomTopWindow.h"
 #include <linux/input.h> // for BTN_LEFT,...
 #include <xkbcommon/xkbcommon.h>
 //#include <gio/gio.h>
@@ -202,7 +202,7 @@ void on_sn_launch_complete(void* pSnContext);
 #define ALOG_CONTEXT ::trace_object(::trace_category_windowing)
 
 
-namespace windowing_kde6
+namespace windowing_lxq2
 {
 
 
@@ -277,7 +277,7 @@ namespace windowing_kde6
    {
 
       ::windowing_posix::window::on_initialize_particle();
-      ::kde6::acme::windowing::window::on_initialize_particle();
+      ::lxq2::acme::windowing::window::on_initialize_particle();
 
    }
 
@@ -548,7 +548,7 @@ namespace windowing_kde6
    {
 
 
-      ::kde6::acme::windowing::window::defer_show_system_menu(pmouse);
+      ::lxq2::acme::windowing::window::defer_show_system_menu(pmouse);
 
 
       // // Function to create and show the popup menu
@@ -1896,9 +1896,9 @@ namespace windowing_kde6
 //
 //         puserinteraction->m_bMessageWindow = false;
 //
-//         auto pkde6windowing = kde6_windowing();
+//         auto plxq2windowing = lxq2_windowing();
 //
-//         auto pdisplay = pkde6windowing->acme_display();
+//         auto pdisplay = plxq2windowing->acme_display();
 //
 //         ////m_pwindow = pimpl;
 //
@@ -2698,7 +2698,7 @@ namespace windowing_kde6
    void window::_create_window()
    {
 
-      ::kde6::acme::windowing::window::_create_window();
+      ::lxq2::acme::windowing::window::_create_window();
 
    }
 
@@ -3801,24 +3801,24 @@ namespace windowing_kde6
    //   }
 
 
-   ::windowing_kde6::windowing* window::kde6_windowing()
+   ::windowing_lxq2::windowing* window::lxq2_windowing()
    {
 
-      ::cast < ::windowing_kde6::windowing > pkde6windowing = system()->acme_windowing();
+      ::cast < ::windowing_lxq2::windowing > plxq2windowing = system()->acme_windowing();
 
-      if (!pkde6windowing)
+      if (!plxq2windowing)
       {
 
          return nullptr;
 
       }
 
-      return pkde6windowing;
+      return plxq2windowing;
 
    }
 
 
-   ::windowing_kde6::display* window::kde6_display()
+   ::windowing_lxq2::display* window::lxq2_display()
    {
 
       auto pwindowing = system()->acme_windowing();
@@ -3830,16 +3830,16 @@ namespace windowing_kde6
 
       }
 
-      ::cast < ::windowing_kde6::display > pkde6display = pwindowing->acme_display();
+      ::cast < ::windowing_lxq2::display > plxq2display = pwindowing->acme_display();
 
-      if (!pkde6display)
+      if (!plxq2display)
       {
 
          return nullptr;
 
       }
 
-      return pkde6display;
+      return plxq2display;
 
    }
 
@@ -3884,7 +3884,7 @@ namespace windowing_kde6
          throw ::exception(error_failed);
       }
 
-      auto pwindowx11NewParent = dynamic_cast<::windowing_kde6::window *>(pwindowNewParent);
+      auto pwindowx11NewParent = dynamic_cast<::windowing_lxq2::window *>(pwindowNewParent);
 
       if (::is_null(pwindowx11NewParent))
       {
@@ -4236,7 +4236,7 @@ namespace windowing_kde6
    {
       ::int_rectangle rBest;
 
-      auto pwindowingdisplay = kde6_display();
+      auto pwindowingdisplay = lxq2_display();
 
       int iMonitor = -1;
 
@@ -5150,20 +5150,20 @@ namespace windowing_kde6
 
             __check_refdbg;
 
-            ::cast < ::windowing_kde6::cursor > pkde6cursor = m_pcursor;
+            ::cast < ::windowing_lxq2::cursor > plxq2cursor = m_pcursor;
 
             __check_refdbg;
 
-            if (pkde6cursor)
+            if (plxq2cursor)
             {
 
                __check_refdbg;
 
-               pkde6cursor->_create_os_cursor();
+               plxq2cursor->_create_os_cursor();
 
                __check_refdbg;
 
-               auto qcursor = pkde6cursor->m_qcursor;
+               auto qcursor = plxq2cursor->m_qcursor;
 
                __check_refdbg;
 
@@ -5179,14 +5179,14 @@ namespace windowing_kde6
             _main_post([this]()
                        {
 
-                          ::cast < ::windowing_kde6::cursor > pkde6cursor = m_pcursor;
+                          ::cast < ::windowing_lxq2::cursor > plxq2cursor = m_pcursor;
 
-                          if (pkde6cursor)
+                          if (plxq2cursor)
                           {
 
-                             pkde6cursor->_create_os_cursor();
+                             plxq2cursor->_create_os_cursor();
 
-                             auto qcursor = pkde6cursor->m_qcursor;
+                             auto qcursor = plxq2cursor->m_qcursor;
 
                              m_pqwidget->setCursor(qcursor);
 
@@ -5313,7 +5313,7 @@ namespace windowing_kde6
    void window::set_mouse_capture()
    {
 
-      ::kde6::acme::windowing::window::set_mouse_capture();
+      ::lxq2::acme::windowing::window::set_mouse_capture();
 
    }
 
@@ -5385,7 +5385,7 @@ namespace windowing_kde6
    bool window::has_mouse_capture()
    {
 
-      if(!::kde6::acme::windowing::window::has_mouse_capture())
+      if(!::lxq2::acme::windowing::window::has_mouse_capture())
       {
 
          return false;
@@ -5400,7 +5400,7 @@ namespace windowing_kde6
    bool window::is_mouse_captured()
    {
 
-      if(!::kde6::acme::windowing::window::is_mouse_captured())
+      if(!::lxq2::acme::windowing::window::is_mouse_captured())
       {
 
          return false;
@@ -5415,7 +5415,7 @@ namespace windowing_kde6
    void window::release_mouse_capture()
    {
 
-      ::kde6::acme::windowing::window::release_mouse_capture();
+      ::lxq2::acme::windowing::window::release_mouse_capture();
 
    }
 
@@ -7164,9 +7164,9 @@ namespace windowing_kde6
    bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse* pmouse)
    {
 
-      return ::kde6::acme::windowing::window::defer_perform_entire_resizing_process(eframeSizing,pmouse);
+      return ::lxq2::acme::windowing::window::defer_perform_entire_resizing_process(eframeSizing,pmouse);
 
-//      auto pdisplay = kde6_display();
+//      auto pdisplay = lxq2_display();
 //
 //      if (pdisplay->is_wayland())
 //      {
@@ -7361,10 +7361,10 @@ namespace windowing_kde6
    //
    bool window::defer_perform_entire_reposition_process(::user::mouse* pmouse)
    {
-      return ::kde6::acme::windowing::window::defer_perform_entire_reposition_process(pmouse);
+      return ::lxq2::acme::windowing::window::defer_perform_entire_reposition_process(pmouse);
 //      //return _perform_entire_resizing_process(eframeSizing);
 //
-//      auto pdisplay = kde6_display();
+//      auto pdisplay = lxq2_display();
 //
 //      if (pdisplay->is_wayland())
 //      {
@@ -7961,14 +7961,14 @@ main_post([this]()
    void window::_main_send(const ::procedure & procedure)
    {
 
-      ::kde6::acme::windowing::window::_main_send(procedure);
+      ::lxq2::acme::windowing::window::_main_send(procedure);
 
    }
 
    void window::_main_post(const ::procedure & procedure)
    {
 
-      ::kde6::acme::windowing::window::_main_post(procedure);
+      ::lxq2::acme::windowing::window::_main_post(procedure);
 
    }
 
