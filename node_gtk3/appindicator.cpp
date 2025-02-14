@@ -153,7 +153,7 @@ GtkMenu * gtk_menu_from_application_menu(application_menu * papplicationmenu, ::
          else
          {
 
-            auto strId = pitem->id().as_string();
+            auto strId = pitem->m_atomMenu.as_string();
             auto strAccelerator = pitem->m_strAccelerator;
             auto strDescription = pitem->m_strDescription;
 
