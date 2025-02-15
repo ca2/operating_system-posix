@@ -12,13 +12,13 @@
 // #include "aura/graphics/image/context.h"
 // #include "aura/platform/context.h"
 // #include "aura/windowing/icon.h"
-// #include "windowing_kde6/window.h"
+// #include "windowing_lxq2/window.h"
 // #include <QMenu>
-// #include "windowing_kde6/windowing.h"
+// #include "windowing_lxq2/windowing.h"
 // //#include <QMe>
 //
 //
-// namespace node_kde6
+// namespace node_lxq2
 // {
 //
 //
@@ -66,9 +66,9 @@
 //
 //       m_puserinteractionNotify = puserinteractionNotify;
 //
-//       ::cast < ::windowing_kde6::windowing > pkde6windowing = system()->acme_windowing();
+//       ::cast < ::windowing_lxq2::windowing > plxq2windowing = system()->acme_windowing();
 //
-//       QObject::setParent(pkde6windowing->m_pqapplication);
+//       QObject::setParent(plxq2windowing->m_pqapplication);
 //
 //       auto estatus = _create_status_notifier_item();
 //
@@ -297,7 +297,7 @@
 //     }
 //
 //
-// } // namespace node_kde6
+// } // namespace node_lxq2
 //
 //
 //

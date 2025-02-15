@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(common_kde CXX)
+project(common_q CXX)
 
 
 list(APPEND library_source
@@ -12,8 +12,8 @@ list(APPEND library_source
    #activation_token.h
    #gdk_3_and_4.cpp
    #gdk_3_and_4.h
-   kde_5_and_6.cpp
-   kde_5_and_6.h
+   q_5_and_6.cpp
+   q_5_and_6.h
 
 )
 
@@ -27,14 +27,14 @@ list(APPEND static_library_references ${library_references})
 
 list(TRANSFORM static_library_references PREPEND static_)
 
-if(${HAS_KDE6})
+if(${HAS_Q6})
 
    list(APPEND this_system_libraries
       Qt6::Core
       Qt6::Widgets
    )
 
-elseif(${HAS_KDE5})
+elseif(${HAS_Q5})
 
    list(APPEND this_system_libraries
       Qt5::Core

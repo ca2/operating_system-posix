@@ -13,6 +13,7 @@
 #include "acme/platform/system.h"
 #include "acme/user/user/interaction.h"
 #include "acme/windowing/windowing.h"
+#include "common_q/q_5_and_6.h"
 #include "QCustomTopWindow.h"
 #include <QMouseEvent>
 #include <QMenu>
@@ -1187,34 +1188,34 @@ namespace lxq2
          }
 
 
-         void window::set_mouse_capture()
-         {
-
-
-            //auto estatus = m_pdisplay->_set_mouse_capture(m_window);
-
-            //      if (XGrabPointer(m_pdisplay->m_pdisplay, m_window, False, ButtonPressMask | ButtonReleaseMask | PointerMotionMask,
-            //                       GrabModeAsync, GrabModeAsync, None, None, CurrentTime) != GrabSuccess)
-            //      {
-            //
-            //         throw ::exception(error_exception);
-            //
-            //      }
-
-
-            //      auto pdisplay = xcb_display();
-            //
-            //      if(pdisplay)
-            //      {
-            //
-            //         pdisplay->_on_capture_changed_to(this);
-            //
-            //      }
-
-            m_pqwidget->grabMouse();
-
-
-         }
+         // void window::set_mouse_capture()
+         // {
+         //
+         //
+         //    //auto estatus = m_pdisplay->_set_mouse_capture(m_window);
+         //
+         //    //      if (XGrabPointer(m_pdisplay->m_pdisplay, m_window, False, ButtonPressMask | ButtonReleaseMask | PointerMotionMask,
+         //    //                       GrabModeAsync, GrabModeAsync, None, None, CurrentTime) != GrabSuccess)
+         //    //      {
+         //    //
+         //    //         throw ::exception(error_exception);
+         //    //
+         //    //      }
+         //
+         //
+         //    //      auto pdisplay = xcb_display();
+         //    //
+         //    //      if(pdisplay)
+         //    //      {
+         //    //
+         //    //         pdisplay->_on_capture_changed_to(this);
+         //    //
+         //    //      }
+         //
+         //    m_pqwidget->grabMouse();
+         //
+         //
+         // }
 
 
          void window::_on_qimage_draw(QImage * pqimage)
@@ -1245,16 +1246,16 @@ namespace lxq2
          }
 
 
-         void window::release_mouse_capture()
-         {
-
-            //int bRet = XUngrabPointer(m_pdisplay->m_pdisplay, CurrentTime);
-
-            //m_pdisplay->_release_mouse_capture();
-
-            m_pqwidget->releaseMouse();
-
-         }
+         // void window::release_mouse_capture()
+         // {
+         //
+         //    //int bRet = XUngrabPointer(m_pdisplay->m_pdisplay, CurrentTime);
+         //
+         //    //m_pdisplay->_release_mouse_capture();
+         //
+         //    m_pqwidget->releaseMouse();
+         //
+         // }
 
          //
          // void window::get_client_rectangle(::int_rectangle & rectangle)
@@ -1552,7 +1553,7 @@ namespace lxq2
 
             }
 
-            auto edges = as_qt_edges(eframeSizing);
+            auto edges = ::q::as_qt_edges(eframeSizing);
 
             pqwindow->startSystemResize(edges);
 
@@ -1950,7 +1951,7 @@ namespace lxq2
                m_pqwidget->connect(paction, &QAction::triggered, [this, pmenuitem]()
                {
 
-                  _on_window_simple_action(pmenuitem->m_strAtom);
+                  _on_window_simple_action(pmenuitem->m_strAtom, nullptr);
 
                });
 

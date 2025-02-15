@@ -2,24 +2,24 @@
 
 
 #include "aura_posix/_.h"
-#include "windowing_kde6/_.h"
+#include "windowing_lxq2/_.h"
 
 
-#if defined(_node_kde6_project)
-   #define CLASS_DECL_NODE_KDE6  CLASS_DECL_EXPORT
+#if defined(_node_lxq2_project)
+   #define CLASS_DECL_NODE_LXQ2  CLASS_DECL_EXPORT
 #else
-   #define CLASS_DECL_NODE_KDE6  CLASS_DECL_IMPORT
+   #define CLASS_DECL_NODE_LXQ2  CLASS_DECL_IMPORT
 #endif
 
 
-namespace node_kde6
+namespace node_lxq2
 {
 
 
    class node;
 
 
-} // namespace node_kde6
+} // namespace node_lxq2
 
 
 

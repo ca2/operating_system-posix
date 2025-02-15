@@ -28,24 +28,62 @@
 #include <QFileInfo>
 #include <QIcon>
 #include <QDir>
-#include <LXQt/Settings>
-#include <LXQt/IconCache>
+//#include <LXQt/Settings>
+//#include <LXQt/IconCache>
 #include <QIconEngine>
 #include <QTextStream>
 //#include <QDBusInterface>
 #include <qpa/qplatformnativeinterface.h>
 #include <xcb/xcb.h>
-#include "windowing_kde6/windowing.h"
+#include "windowing_lxq2/windowing.h"
 //#include <KPackage/Package>
 //#include <KPackage/PackageLoader>
 //#include <KF5/plasma/applet.h>
 //#include <KF5/plasma/containment.h>
 
+#include <QApplication>
+#include <QFileIconProvider>
+#include <QFileInfo>
+#include <QIcon>
+#include <QPixmap>
+#include <QDir>
+#include <QDebug>
+
+// Function to get the full icon path for a given file at a specific size
+QString getFileIconPath(const QString &filePath, int size = 64) {
+   QFileInfo fileInfo(filePath);
+   QFileIconProvider iconProvider;
+   QIcon fileIcon = iconProvider.icon(fileInfo); // Get file icon
+
+   if (fileIcon.isNull()) {
+      return QString(); // No icon found
+   }
+
+   // Get the icon name from the system theme
+   QString iconName = fileIcon.name();
+   if (!iconName.isEmpty()) {
+      QString iconPath = QIcon::fromTheme(iconName).name();
+      if (!iconPath.isEmpty()) {
+         return iconPath; // Return theme icon path if found
+      }
+   }
+
+
+   // Fallback: Save icon to a temporary file and return its path
+   QString iconTempPath = QDir::tempPath() + filePath + "/icon"+QString::number(size)+".png";
+   if (fileIcon.pixmap(size, size).save(iconTempPath)) {
+      return iconTempPath;
+   }
+
+   return QString(); // Return empty if no valid icon was found
+}
+
+
 
 void initialize_x11_display(::particle * pparticle, void * pX11Display);
 void * initialize_x11_display(::particle * pparticle);
 
-void kde_open_local_file(QApplication * papplication, const char *psz, const char * pszMimeType);
+//void kde_open_local_file(QApplication * papplication, const char *psz, const char * pszMimeType);
 
 
 
@@ -77,7 +115,7 @@ namespace node_lxq2
    node::node()
    {
 
-      //m_pNodeKDE6 = this;
+      //m_pNodeLXQ2 = this;
 
       //m_pqapplication = nullptr;
 
@@ -371,7 +409,7 @@ namespace node_lxq2
    void node::initialize_window_manager()
    {
 
-#if !defined(HAS_GTK3) && !defined(HAS_GTK4) && !defined(HAS_KDE5) && !defined(HAS_KDE6)
+#if !defined(HAS_GTK3) && !defined(HAS_GTK4) && !defined(HAS_KDE5) && !defined(HAS_LXQ2)
 
       information() << "node_kde _allocate_Display_and_connection";
 
@@ -657,59 +695,65 @@ namespace node_lxq2
 
    string node::get_file_icon_path(const ::string & strPath, int iSize)
    {
-      tring getIconFullPath(const QString &filePath) {
-         LXQt::IconCache *iconCache = LXQt::IconCache::instance();
-         QFileInfo fileInfo(filePath);
 
-         if (!iconCache) {
-            return QString();
-         }
 
-         QIcon icon = iconCache->icon(fileInfo);
+      auto path = getFileIconPath(strPath.c_str(), iSize);
 
-         if (icon.isNull()) {
-            return QString();
-         }
+      return path.toUtf8().data();
 
-         // Attempt to get the actual icon name
-         QString iconName = icon.name();
-
-         // Get the theme-based icon path
-         QString themeIconPath = QIcon::fromTheme(iconName).name();
-
-         if (!themeIconPath.isEmpty()) {
-            return themeIconPath;
-         }
-
-         // If theme path is not found, save the icon as a temporary file
-         QString iconTempPath = QDir::tempPath() + "/lxqt_icon.png";
-         icon.pixmap(64, 64).save(iconTempPath);
-
-         return iconTempPath.toUtf8().data();
-
-//       QUrl url((const char *) ("file://"+strPath));
+//       tring getIconFullPath(const QString &filePath) {
+//          LXQt::IconCache *iconCache = LXQt::IconCache::instance();
+//          QFileInfo fileInfo(filePath);
 //
-//       KFileItem fileitem(url, KFileItem::NormalMimeTypeDetermination);
+//          if (!iconCache) {
+//             return QString();
+//          }
 //
-//       auto name = fileitem.iconName();
+//          QIcon icon = iconCache->icon(fileInfo);
 //
-// //      if(::is_null(m_piconloader))
-// //      {
+//          if (icon.isNull()) {
+//             return QString();
+//          }
+//
+//          // Attempt to get the actual icon name
+//          QString iconName = icon.name();
+//
+//          // Get the theme-based icon path
+//          QString themeIconPath = QIcon::fromTheme(iconName).name();
+//
+//          if (!themeIconPath.isEmpty()) {
+//             return themeIconPath;
+//          }
+//
+//          // If theme path is not found, save the icon as a temporary file
+//          QString iconTempPath = QDir::tempPath() + "/lxqt_icon.png";
+//          icon.pixmap(64, 64).save(iconTempPath);
+//
+//          return iconTempPath.toUtf8().data();
+//
+// //       QUrl url((const char *) ("file://"+strPath));
 // //
-// //         m_piconloader = ___new KIconLoader();
+// //       KFileItem fileitem(url, KFileItem::NormalMimeTypeDetermination);
 // //
-// //      }
+// //       auto name = fileitem.iconName();
+// //
+// // //      if(::is_null(m_piconloader))
+// // //      {
+// // //
+// // //         m_piconloader = ___new KIconLoader();
+// // //
+// // //      }
+// //
+// //       auto path = KIconLoader::global()->iconPath(name, -iSize);
+// //
+// //       //return ::linux_g_direct_get_file_icon_path(pszPath, iSize);
+// //
+// //       QByteArray bytea = path.toUtf8();
+// //
+// //       const char *pathData = bytea.constData();
+// //
+// //       return pathData;
 //
-//       auto path = KIconLoader::global()->iconPath(name, -iSize);
-//
-//       //return ::linux_g_direct_get_file_icon_path(pszPath, iSize);
-//
-//       QByteArray bytea = path.toUtf8();
-//
-//       const char *pathData = bytea.constData();
-//
-//       return pathData;
-
 
    }
 
@@ -945,9 +989,9 @@ namespace node_lxq2
 
       pathDesktop = directory_system()->home() / ".local/share/applications" / (strDesktopFileTitle + ".desktop");
 
-      ::cast < ::windowing_kde6::windowing > pkde6windowing = system()->acme_windowing();
+      ::cast < ::windowing_lxq2::windowing > plxq2windowing = system()->acme_windowing();
 
-      kde_open_local_file(pkde6windowing->m_pqapplication, pathDesktop, "application/x-desktop");
+      //kde_open_local_file(plxq2windowing->m_pqapplication, pathDesktop, "application/x-desktop");
 
    }
 

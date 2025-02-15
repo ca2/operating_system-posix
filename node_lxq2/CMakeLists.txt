@@ -39,13 +39,17 @@ list(APPEND library_source
 list(APPEND library_references
    acme
    acme_posix
+   common_q
+   acme_windowing_lxq2
+   nano_graphics_cairo
    apex
    apex_posix
+   innate_ui_lxq2
    aqua
    aura
    aura_posix
    windowing_posix
-   windowing_kde6
+   windowing_lxq2
    #windowing_xcb
    #windowing_x11
 )
@@ -84,21 +88,21 @@ list(APPEND this_system_libraries
    Qt6::Gui
    Qt6::GuiPrivate
 )
-
-if (${FREEBSD} OR ${DEBIAN} OR ${SUSE} OR ${FEDORA} OR ${UBUNTU})
-   list(APPEND this_system_libraries
-      KF6Package
-   )
-   #elseif (${UBUNTU})
-   #    list(APPEND this_system_libraries
-   #  KF6::Plasma
-   #)
-else ()
-   list(APPEND this_system_libraries
-      KF6::Plasma
-      KF6::PlasmaQuick
-   )
-endif ()
+#
+#if (${FREEBSD} OR ${DEBIAN} OR ${SUSE} OR ${FEDORA} OR ${UBUNTU})
+#   list(APPEND this_system_libraries
+#      KF6Package
+#   )
+#   #elseif (${UBUNTU})
+#   #    list(APPEND this_system_libraries
+#   #  KF6::Plasma
+#   #)
+#else ()
+#   list(APPEND this_system_libraries
+#      KF6::Plasma
+#      KF6::PlasmaQuick
+#   )
+#endif ()
 
 #Qt5::Core
 #Qt5::UiTools

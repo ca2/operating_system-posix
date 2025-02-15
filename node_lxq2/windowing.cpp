@@ -3,7 +3,7 @@
 #include "windowing.h"
 
 
-namespace node_kde6
+namespace node_lxq2
 {
 
 
@@ -54,7 +54,7 @@ namespace node_kde6
 //    }
 
 
-} // namespace node_kde6
+} // namespace node_lxq2
 
 
 

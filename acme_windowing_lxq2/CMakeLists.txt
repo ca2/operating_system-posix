@@ -39,8 +39,15 @@ list(APPEND library_source
         windowing.h
         )
 
+list(APPEND library_references
+   acme
+   common_q
+)
+
+
 add_library(${PROJECT_NAME} SHARED ${library_source})
 target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
+
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
@@ -73,7 +80,7 @@ elseif (${LINUX} OR ${__BSD__})
    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
    #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
    #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})
-   target_link_libraries(${PROJECT_NAME} PRIVATE acme ${system_libraries} ${PKGCONFIG_LIBRARIES})
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${system_libraries} ${library_references} ${PKGCONFIG_LIBRARIES})
    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
    message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
 endif ()

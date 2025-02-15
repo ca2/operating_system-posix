@@ -7,7 +7,7 @@
 #include <QWindow>
 
 
-namespace kde
+namespace q
 {
 
    Qt::Edges  as_qt_edges(::experience::enum_frame eframeSizing);

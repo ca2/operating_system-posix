@@ -70,16 +70,16 @@ __FACTORY_EXPORT void node_lxq2_factory(::factory::factory * pfactory)
 //
 //    printf("node_kde factory\n");
 
-   //pfactory->add_factory_item < ::node_kde::display, ::windowing::display > ();
+   ////pfactory->add_factory_item < ::node_kde::display, ::windowing::display > ();
 
-   //pfactory->add_factory_item < ::node_kde::monitor, ::windowing::monitor > ();
-   pfactory->add_factory_item < ::node_kde6::copydesk, ::user::copydesk > ();
-   //pfactory->add_factory_item < ::node_kde6::notify_icon, ::user::notify_icon > ();
-   pfactory->add_factory_item < ::node_kde6::appindicator, ::aura_posix::appindicator >();
+   ////pfactory->add_factory_item < ::node_kde::monitor, ::windowing::monitor > ();
+   pfactory->add_factory_item < ::node_lxq2::copydesk, ::user::copydesk > ();
+   ////pfactory->add_factory_item < ::node_lxq2::notify_icon, ::user::notify_icon > ();
+   //pfactory->add_factory_item < ::node_lxq2::appindicator, ::aura_posix::appindicator >();
 
-   //pfactory->add_factory_item < ::node_kde6::desktop_environment, ::windowing::desktop_environment >();
+   ////pfactory->add_factory_item < ::node_lxq2::desktop_environment, ::windowing::desktop_environment >();
 
-   pfactory->add_factory_item < ::node_kde6::node, ::platform::node > ();
+   pfactory->add_factory_item < ::node_lxq2::node, ::platform::node > ();
 
 }
 

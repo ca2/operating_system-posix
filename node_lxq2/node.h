@@ -26,7 +26,7 @@ namespace node_lxq2
 {
 
 
-   class CLASS_DECL_NODE_KDE6 node :
+   class CLASS_DECL_NODE_LXQ2 node :
       virtual public ::aura_posix::node //,
       //virtual public QAbstractNativeEventFilter,
       //virtual public QObject

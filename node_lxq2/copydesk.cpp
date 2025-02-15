@@ -10,10 +10,10 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QMimeData>
-#include <windowing_kde6/windowing.h>
+#include <windowing_lxq2/windowing.h>
 
 
-namespace node_kde6
+namespace node_lxq2
 {
 
 
@@ -244,9 +244,9 @@ namespace node_kde6
 
          //auto psystem = system();
 
-         //auto pnode = psystem->node()->m_pNodeKDE6;
+         //auto pnode = psystem->node()->m_pNodeLXQ2;
 
-         ::cast<::windowing_kde6::windowing> pwindowing = system()->windowing();
+         ::cast<::windowing_lxq2::windowing> pwindowing = system()->windowing();
 
          auto pqapplication = pwindowing->m_pqapplication;
 
@@ -305,7 +305,7 @@ namespace node_kde6
    bool copydesk::_has_image()
    {
 
-      ::cast<::windowing_kde6::windowing> pwindowing = system()->windowing();
+      ::cast<::windowing_lxq2::windowing> pwindowing = system()->windowing();
 
       auto pqapplication = pwindowing->m_pqapplication;
 
@@ -320,4 +320,4 @@ namespace node_kde6
    }
 
 
-} // namespace node_kde6
+} // namespace node_lxq2

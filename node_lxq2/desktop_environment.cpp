@@ -22,7 +22,7 @@
 // //::particle * user_synchronization();
 //
 //
-// namespace node_kde6
+// namespace node_lxq2
 // {
 //
 //
@@ -56,7 +56,7 @@
 //       if(!m_booleanX11.is_set())
 //       {
 //
-//          ::pointer < ::node_kde6::node > pnode = node();
+//          ::pointer < ::node_lxq2::node > pnode = node();
 //
 //          m_booleanX11 = pnode->is_x11();
 //
@@ -198,7 +198,7 @@
 //
 //       auto psystem = system();
 //
-//       ::pointer < ::node_kde6::node > pnode = psystem->node();
+//       ::pointer < ::node_lxq2::node > pnode = psystem->node();
 //
 //       auto pqapplication = pnode->m_pqapplication;
 //
@@ -241,7 +241,7 @@
 // //    }
 // //
 // //
-// // } // namespace node_kde6
+// // } // namespace node_lxq2
 // //
 // //
 // //
