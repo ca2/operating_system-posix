@@ -36,7 +36,7 @@ namespace posix
             ::pointer < ::nano::account::id > current_user_id() override;
 
 
-            virtual ::pointer < ::nano::account::id > _create_id(huge_integer i);
+            virtual ::pointer < ::nano::account::id > _create_id(long long i);
 
 
          };

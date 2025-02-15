@@ -37,7 +37,7 @@ namespace windowing_kde6
 
       m_bRootSelectInput = false;
 
-      m_itask = -1;
+      //m_itask = -1;
 
       //m_pWindowing4 = this;
 
@@ -74,7 +74,7 @@ namespace windowing_kde6
    bool windowing::has_readily_gettable_absolute_coordinates() const
    {
 
-      if(get_ewindowing() == ::windowing::e_windowing_wayland)
+      if(((windowing *)this)->get_ewindowing() == ::windowing::e_windowing_wayland)
       {
 
          return false;
@@ -187,6 +187,14 @@ namespace windowing_kde6
 
    }
 
+
+   bool windowing::defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
+   {
+
+
+      return ::kde6::acme::windowing::windowing::defer_release_mouse_capture(pthread, pwindow);
+
+   }
 
    //   void windowing::start()
    //   {
@@ -757,7 +765,7 @@ namespace windowing_kde6
    //
    //         auto pmouse = __create_new < ::message::mouse >();
    //
-   //         pmouse->m_atom = emessage;
+   //         pmouse->m_emessage = emessage;
    //
    //         //pmouse->m_pointAbsolute.x() =
    //
@@ -806,7 +814,7 @@ namespace windowing_kde6
    //
    //         auto pkey = __create_new < ::message::key >();
    //
-   //         pkey->m_atom = emessage;
+   //         pkey->m_emessage = emessage;
    //
    //         //pmouse->m_pointAbsolute.x() =
    //
@@ -1140,7 +1148,9 @@ namespace windowing_kde6
    void windowing::windowing_application_main_loop()
    {
 
-       system()->acme_windowing()->windowing_application_main_loop();
+
+      ::kde6::acme::windowing::windowing::windowing_application_main_loop();
+       //system()->acme_windowing()->windowing_application_main_loop();
       // ::string strId = application()->m_strAppId;
       //
       // strId.find_replace("/", ".");

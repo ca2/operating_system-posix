@@ -1299,7 +1299,7 @@ namespace windowing_gtk4
 
 #endif
 
-      if (pimageBuffer->m_size != pbufferitem->m_size)
+      if (pimageBuffer->m_size != pbufferitem->m_sizeBufferItemWindow)
       {
 
          if(!update_buffer(pbufferitem))

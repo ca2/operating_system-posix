@@ -2963,7 +2963,7 @@ namespace windowing_wayland
 //
 //            auto pcontext = m_papplication;
 //
-//            pcontext->post_message(msg.m_atom, msg.wParam, msg.lParam);
+//            pcontext->post_message(msg.id(), msg.wParam, msg.lParam);
 //
 //         } else
 //         {
@@ -2974,7 +2974,7 @@ namespace windowing_wayland
 //
 //               ::user::interaction * pinteraction = msg.oswindow->m_pwindow->m_puserinteraction;
 //
-//               pinteraction->post_message(msg.m_atom, msg.wParam, msg.lParam);
+//               pinteraction->post_message(msg.id(), msg.wParam, msg.lParam);
 //
 //            }
 //
@@ -3021,7 +3021,7 @@ namespace windowing_wayland
 //      if (pmessagequeue == nullptr)
 //      {
 //
-//         if (message.m_atom == e_message_quit)
+//         if (message.m_emessage == e_message_quit)
 //         {
 //
 //            return ::error_failed;
@@ -3041,19 +3041,19 @@ namespace windowing_wayland
 //
 //      synchronous_lock ml(pmessagequeue->synchronization());
 //
-//      if (message.m_atom == e_message_quit)
+//      if (message.m_emessage == e_message_quit)
 //      {
 //
 //         informationf("e_message_quit thread");
 //
 //      }
 //
-//      if (message.m_atom == e_message_left_button_down)
+//      if (message.m_emessage == e_message_left_button_down)
 //      {
 //
 //         informationf("post_ui_message::e_message_left_button_down\n");
 //
-//      } else if (message.m_atom == e_message_left_button_up)
+//      } else if (message.m_emessage == e_message_left_button_up)
 //      {
 //
 //         informationf("post_ui_message::e_message_left_button_up\n");
@@ -5813,7 +5813,7 @@ namespace windowing_wayland
 
          pmouse->m_pwindow = this;
 
-         pmouse->m_atom = e_message_mouse_move;
+         pmouse->m_emessage = e_message_mouse_move;
 
          pmouse->m_pointHost = m_pointCursor2;
 
@@ -5866,7 +5866,7 @@ namespace windowing_wayland
 ////  //             MESSAGE msgCaptureChanged;
 ////
 //////               msgCaptureChanged.oswindow = m_pwindowCapture;
-////               msg.m_atom = e_message_capture_changed;
+////               msg.id() = e_message_capture_changed;
 ////               msg.wParam = 0;
 ////               msg.lParam = (lparam) (oswindow) (msg.oswindow == m_pwindowCapture ? nullptr : m_pwindowCapture.m_p);
 ////               msg.time = e.xcrossing.time;
@@ -5884,7 +5884,7 @@ namespace windowing_wayland
 
 //      MESSAGE msg;
 //      msg.oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
-//      msg.m_atom = e_message_mouse_leave;
+//      msg.id() = e_message_mouse_leave;
 //      msg.wParam = 0;
 //      msg.lParam = 0;
 //      //   msg.time = e.xcrossing.time;
@@ -5898,7 +5898,7 @@ namespace windowing_wayland
 
       pmouse->m_pwindow = pmouse->m_oswindow;
 
-      pmouse->m_atom = e_message_mouse_leave;
+      pmouse->m_emessage = e_message_mouse_leave;
 
       pmouse->m_pointHost = m_pointCursor2;
 
@@ -5931,7 +5931,7 @@ namespace windowing_wayland
 
       enum_message emessage = e_message_undefined;
 
-      //msg.m_atom = e_message_mouse_wheel;
+      //msg.id() = e_message_mouse_wheel;
 
       //post_ui_message(pmouse);
 
@@ -6058,7 +6058,7 @@ namespace windowing_wayland
 
          pmousewheel->m_pwindow = this;
 
-         pmousewheel->m_atom = e_message_mouse_wheel;
+         pmousewheel->id() = e_message_mouse_wheel;
 
          //msg.wParam = make_int(0, iDelta);
 
@@ -6088,7 +6088,7 @@ namespace windowing_wayland
 
          pmouse->m_pwindow = this;
 
-         pmouse->m_atom = emessage;
+         pmouse->m_emessage = emessage;
 
          pmouse->m_pointHost = m_pointCursor2;
 
@@ -6330,7 +6330,7 @@ namespace windowing_wayland
          {
 
             pkey->
-               m_atom = e_message_key_down;
+               id() = e_message_key_down;
 
             information()
 
@@ -6341,7 +6341,7 @@ namespace windowing_wayland
          {
 
             pkey->
-               m_atom = e_message_key_up;
+               id() = e_message_key_up;
 
 //information() << "e_message_key_up : " << (iptr) ekey;
 
@@ -6373,7 +6373,7 @@ namespace windowing_wayland
    m_pwindow = this;
 
    pkey->
-   m_atom = e_message_text_composition;
+   id() = e_message_text_composition;
 
    pkey->
    m_strText = scopedstrText;
@@ -6547,7 +6547,7 @@ namespace windowing_wayland
 //            if(pressed == WL_KEYBOARD_KEY_STATE_PRESSED)
 //            {
 //
-//               pkey->m_atom = e_message_key_down;
+//               pkey->m_emessage = e_message_key_down;
 //
 //               information() << "e_message_key_down";
 //
@@ -6555,7 +6555,7 @@ namespace windowing_wayland
 //            else
 //            {
 //
-//               pkey->m_atom = e_message_key_up;
+//               pkey->m_emessage = e_message_key_up;
 //
 //               //information() << "e_message_key_up : " << (iptr) ekey;
 //
@@ -6608,7 +6608,7 @@ namespace windowing_wayland
 //
 //            pkey->m_pwindow = this;
 //
-//            pkey->m_atom = e_message_text_composition;
+//            pkey->m_emessage = e_message_text_composition;
 //
 //            pkey->m_strText = text;
 //

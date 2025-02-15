@@ -21,7 +21,7 @@ namespace windowing_xcb
 
    
    /// must be run in x11 thread (user thread)
-   ::e_status window::_mapped_add_net_wm_state(::x11::enum_atom eatomNetWmState)
+   ::e_status window::_mapped_add_net_wm_state(::x11::enuid() eatomNetWmState)
    {
 
       //synchronous_lock synchronouslock(user_synchronization());
@@ -51,7 +51,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status window::_mapped_erase_net_wm_state(::x11::enum_atom eatomNetWmState)
+   ::e_status window::_mapped_erase_net_wm_state(::x11::enuid() eatomNetWmState)
    {
 
       //synchronous_lock synchronouslock(user_synchronization());
@@ -82,7 +82,7 @@ namespace windowing_xcb
 
 
    /// must be run in x11 thread (user thread)
-   ::e_status window::_add_net_wm_state(::x11::enum_atom eatomNetWmState)
+   ::e_status window::_add_net_wm_state(::x11::enuid() eatomNetWmState)
    {
 
       //synchronous_lock synchronouslock(user_synchronization());
@@ -117,7 +117,7 @@ namespace windowing_xcb
 
 
    /// must be run in x11 thread (user thread)
-   ::e_status window::_erase_net_wm_state(::x11::enum_atom eatomNetWmState)
+   ::e_status window::_erase_net_wm_state(::x11::enuid() eatomNetWmState)
    {
 
       auto estatus = xcb_display()->m_pxcbdisplay->_erase_net_wm_state(m_window, eatomNetWmState);
@@ -224,7 +224,7 @@ namespace windowing_xcb
 
 
    /// must be run in x11 thread (user thread)
-   ::e_status window::_unmapped_add_net_wm_state(::x11::enum_atom eatomNetWmState)
+   ::e_status window::_unmapped_add_net_wm_state(::x11::enuid() eatomNetWmState)
    {
 
       //synchronous_lock synchronouslock(user_synchronization());
@@ -247,7 +247,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status window::_unmapped_erase_net_wm_state(::x11::enum_atom eatomNetWmState)
+   ::e_status window::_unmapped_erase_net_wm_state(::x11::enuid() eatomNetWmState)
    {
 
       //synchronous_lock synchronouslock(user_synchronization());
@@ -389,7 +389,7 @@ namespace windowing_xcb
          if(atomWindowTypeValue != XCB_ATOM_NONE)
          {
 
-            estatus = _change_atom_atom(atomWindowType, atomWindowTypeValue);
+            estatus = _change_atoid()(atomWindowType, atomWindowTypeValue);
 
          }
 
@@ -487,7 +487,7 @@ namespace windowing_xcb
          if (atomWindowType != XCB_ATOM_NONE)
          {
 
-            estatus = _change_atom_atom(atomWindowType, atomWindowTypeValue);
+            estatus = _change_atoid()(atomWindowType, atomWindowTypeValue);
 
          }
 
@@ -542,7 +542,7 @@ namespace windowing_xcb
          if (atomWindowType != XCB_ATOM_NONE)
          {
 
-            estatus = _change_atom_atom(atomWindowType, atomWindowTypeValue);
+            estatus = _change_atoid()(atomWindowType, atomWindowTypeValue);
 
          }
 
@@ -598,7 +598,7 @@ namespace windowing_xcb
          if (atomWindowType != XCB_ATOM_NONE)
          {
 
-            estatus = _change_atom_atom(atomWindowType, atomWindowTypeValue);
+            estatus = _change_atoid()(atomWindowType, atomWindowTypeValue);
 
          }
 
@@ -653,7 +653,7 @@ namespace windowing_xcb
          if (atomWindowType != XCB_ATOM_NONE)
          {
 
-            estatus = _change_atom_atom(atomWindowType, atomWindowTypeValue);
+            estatus = _change_atoid()(atomWindowType, atomWindowTypeValue);
 
          }
 

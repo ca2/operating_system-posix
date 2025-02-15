@@ -224,7 +224,7 @@ namespace windowing_x11
 //            {
 //               string str(wstring(&wsz[4],4)); // least significant four digits
 //
-//               w = (unsigned short) ::hex::to_huge_integer(str);
+//               w = (unsigned short) ::hex::to_long_long(str);
 //
 //            }
 //

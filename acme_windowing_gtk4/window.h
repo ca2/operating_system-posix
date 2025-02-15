@@ -196,8 +196,8 @@ virtual void _on_focus_changed(bool bHasFocus);
             virtual bool _on_gtk_key_pressed(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state);
             virtual bool _on_gtk_key_released(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state);
 
-            virtual void _on_gtk_key_pressed(huge_natural uGtkKey, huge_natural uGtkKeyCode);
-            virtual void _on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode);
+            virtual void _on_gtk_key_pressed(unsigned long long uGtkKey, unsigned long long uGtkKeyCode);
+            virtual void _on_gtk_key_released(unsigned long long uGtkKey, unsigned long long uGtkKeyCode);
 
             virtual bool _on_gtk_scroll(GtkEventControllerScroll * peventcontrollerScroll, double dx, double dy);
 
@@ -365,9 +365,9 @@ virtual void _on_focus_changed(bool bHasFocus);
             //
             // void get_window_rectangle(::int_rectangle & rectangle) override;
 
-            void set_capture() override;
+            void set_mouse_capture() override;
 
-            void release_capture() override;
+            void release_mouse_capture() override;
 
             virtual void _wm_nodecorations(int iMap);
 

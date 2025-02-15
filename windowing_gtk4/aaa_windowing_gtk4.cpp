@@ -1662,9 +1662,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //               if (emessage != e_message_null)
 //               {
 //
-//                  huge_integer iWparam = 'a';
+//                  long long iWparam = 'a';
 //
-//                  huge_integer iLparam = XK_a;
+//                  long long iLparam = XK_a;
 //
 //                  if (emessage == e_message_key_down || emessage == e_message_key_up)
 //                  {
@@ -1809,7 +1809,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 ////  //             MESSAGE msgCaptureChanged;
 ////
 //////               msgCaptureChanged.oswindow = m_pwindowCapture;
-////               msg.m_atom = e_message_capture_changed;
+////               msg.id() = e_message_capture_changed;
 ////               msg.wParam = 0;
 ////               msg.lParam = (lparam) (oswindow) (msg.oswindow == m_pwindowCapture ? nullptr : m_pwindowCapture.m_p);
 ////               msg.time = e.xcrossing.time;
@@ -1818,7 +1818,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 ////
 ////            }
 //
-//               msg.m_atom = e_message_mouse_leave;
+//               msg.id() = e_message_mouse_leave;
 //               msg.wParam = 0;
 //               msg.lParam = 0;
 //               msg.time = e.xcrossing.time;
@@ -1964,7 +1964,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //               }
 //
-//               //msg.m_atom = e_message_mouse_move;
+//               //msg.id() = e_message_mouse_move;
 //               //msg.wParam = wparam;
 //               //msg.lParam = make_int(e.xmotion.x_root, e.xmotion.y_root);
 //               //msg.time = e.xmotion.time;
@@ -1977,7 +1977,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //               pmouse->m_pwindow = px11window;
 //
-//               pmouse->m_atom = e_message_mouse_move;
+//               pmouse->m_emessage = e_message_mouse_move;
 //
 //               pmouse->m_point.x() = e.xmotion.x_root;
 //
@@ -2040,7 +2040,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 ////                        else
 ////                        {
 ////
-////                           msg.m_atom = e_message_paint;
+////                           msg.id() = e_message_paint;
 ////                           msg.lParam = 0;
 ////                           msg.wParam = 0;
 ////
@@ -2416,7 +2416,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //               }
 //
-//               msg.m_atom = e_message_show_window;
+//               msg.id() = e_message_show_window;
 //               msg.wParam = 1;
 //               msg.lParam = 0;
 //
@@ -2444,7 +2444,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //               }
 //
 //
-//               msg.m_atom = e_message_show_window;
+//               msg.id() = e_message_show_window;
 //               msg.wParam = 0;
 //               msg.lParam = 0;
 //
@@ -2614,7 +2614,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //
 //               enum_message emessage = e_message_undefined;
-//               //msg.m_atom = e_message_mouse_wheel;
+//               //msg.id() = e_message_mouse_wheel;
 //
 //               //post_ui_message(pmouse);
 //
@@ -2740,7 +2740,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                  pmousewheel->m_pwindow = px11window;
 //
-//                  pmousewheel->m_atom = e_message_mouse_wheel;
+//                  pmousewheel->id() = e_message_mouse_wheel;
 //
 //                  //msg.wParam = make_int(0, iDelta);
 //
@@ -2769,7 +2769,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                  pmouse->m_pwindow = px11window;
 //
-//                  pmouse->m_atom = emessage;
+//                  pmouse->m_emessage = emessage;
 //
 //                  pmouse->m_point.x() = e.xbutton.x_root;
 //
@@ -2814,7 +2814,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //               if (e.xkey.type == KeyPress)
 //               {
 //
-//                  msg.m_atom = e_message_key_down;
+//                  msg.id() = e_message_key_down;
 //
 //                  ::pointer<::windowing_gtk4::window> pwindow = msg.oswindow;
 //
@@ -2859,7 +2859,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //                  keysym = XkbKeycodeToKeysym(m_pdisplay->Display(), e.xkey.keycode, 0,
 //                                              e.xkey.state & ShiftMask ? 1 : 0);
 //
-//                  msg.m_atom = e_message_key_up;
+//                  msg.id() = e_message_key_up;
 //
 //               }
 //               else
@@ -2891,13 +2891,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                  //pkey->set(oswindow, oswindow, e_message_text_composition, 0, 0);
 //
-//                  pkey->m_atom = e_message_text_composition;
+//                  pkey->m_emessage = e_message_text_composition;
 //
 //                  pkey->m_strText = strText;
 //
 ////               MESSAGE msgText(msg);
 ////
-////               msgText.m_atom = e_message_text_composition;
+////               msgText.id() = e_message_text_composition;
 ////
 ////               msgText.wParam = 0;
 ////
@@ -2922,7 +2922,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //            informationf("FocusIn\n");
 //
-//            msg.m_atom = e_message_set_focus;
+//            msg.id() = e_message_set_focus;
 //
 //            if (::is_set(px11window))
 //            {
@@ -2939,7 +2939,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //                  if (::is_set(pinteraction))
 //                  {
 //
-//                     msg.m_atom = e_message_set_focus;
+//                     msg.id() = e_message_set_focus;
 //
 //                     pinteraction->m_ewindowflag |= ::e_window_flag_focus;
 //
@@ -3027,7 +3027,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //                  if (::is_set(pinteraction))
 //                  {
 //
-//                     msg.m_atom = e_message_kill_focus;
+//                     msg.id() = e_message_kill_focus;
 //
 //                     pinteraction->m_ewindowflag -= ::e_window_flag_focus;
 //
@@ -3056,7 +3056,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //            if (msg.oswindow)
 //            {
 //               msg.oswindow = m_pdisplay->_window(e.xdestroywindow.window);
-//               msg.m_atom = e_message_destroy;
+//               msg.id() = e_message_destroy;
 //
 //               post_ui_message(msg);
 //
@@ -3235,7 +3235,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    //    if (pmessagequeue == nullptr)
    //    {
    //
-   //       if (message.m_atom == e_message_quit)
+   //       if (message.m_emessage == e_message_quit)
    //       {
    //
    //          return;
@@ -3257,19 +3257,19 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    //
    //    pmessagequeue->m_messagea.add(message);
    //
-   //    if (message.m_atom == e_message_quit)
+   //    if (message.m_emessage == e_message_quit)
    //    {
    //
    //       informationf("e_message_quit thread");
    //
    //    }
-   //    else if (message.m_atom == e_message_left_button_down)
+   //    else if (message.m_emessage == e_message_left_button_down)
    //    {
    //
    //       informationf("post_ui_message::e_message_left_button_down");
    //
    //    }
-   //    else if (message.m_atom == e_message_left_button_up)
+   //    else if (message.m_emessage == e_message_left_button_up)
    //    {
    //
    //       informationf("post_ui_message::e_message_left_button_up");

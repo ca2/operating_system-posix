@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.16)
 project(node_kde5 CXX)
-message("--------------- node_kde -------------------")
+
+
+message(STATUS "--------------- node_kde5 -------------------")
+
 
 list(APPEND library_source
         _.cpp
@@ -12,8 +15,8 @@ list(APPEND library_source
         #application.h
         copydesk.cpp
         copydesk.h
-        desktop_environment.cpp
-        desktop_environment.h
+        #desktop_environment.cpp
+        #desktop_environment.h
         #display.cpp
         #display.h
         enum_display_monitors.cpp
@@ -67,7 +70,7 @@ list(APPEND library_references
 #endif ()
 
 
-list(APPEND static_library_references ${library_references} ${global_library_references})
+list(APPEND static_library_references ${library_references})
 
 list(TRANSFORM static_library_references PREPEND static_)
 
@@ -86,7 +89,12 @@ list(APPEND this_system_libraries
         Qt5::GuiPrivate
 )
 
-if (${FREEBSD} OR ${DEBIAN})
+if (${FREEBSD})
+
+list(APPEND this_system_libraries
+            KF5Package
+    )
+elseif (${DEBIAN})
     list(APPEND this_system_libraries
             KF5Package
     )
@@ -170,9 +178,9 @@ elseif (${LINUX} OR ${__BSD__})
     target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
     target_link_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
 
-    #target_link_options(${PROJECT_NAME} PRIVATE "-Wl,-rpath=\$ORIGIN")
+    
     target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references} ${this_system_libraries} ${PKGCONFIG_LIBRARIES})
-    target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${this_system_libraries} ${PKGCONFIG_LIBRARIES})
+    target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${this_system_libraries} ${PKGCONFIG_LIBRARIES} ${global_library_references})
     #target_link_libraries(static_node_kde PRIVATE ${library_references} ${global_library_references} ${PKGCONFIG_LIBRARIES})
     #    if (KDE_DESKTOP)
     #        list(APPEND link_libraries

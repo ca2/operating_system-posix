@@ -131,10 +131,10 @@ cairo_surface_t * __cairo_create_image_argb32_surface(::memory & m, int w, int h
 
    auto data = (unsigned char *) cairo_image_surface_get_data(psurface);
 
-   huge_integer int r = 0;
-   huge_integer int g = 0;
-   huge_integer int b = 0;
-   huge_integer int a = 0;
+   long long int r = 0;
+   long long int g = 0;
+   long long int b = 0;
+   long long int a = 0;
 
    for (int n = 0; n < h; n++)
    {
@@ -1504,7 +1504,7 @@ m_bFetchingDarkMode = false;
    }
 
 
-//   void * node::node_wrap_window(void * pvoidDisplay, huge_integer window)
+//   void * node::node_wrap_window(void * pvoidDisplay, long long window)
 //   {
 //
 //      Display * pdisplay = (Display *) pvoidDisplay;
@@ -1527,7 +1527,7 @@ m_bFetchingDarkMode = false;
 
       }
 
-      if (ptopic->m_atom == id_operating_system_user_color_change)
+      if (ptopic->id() == id_operating_system_user_color_change)
       {
 
          return false;

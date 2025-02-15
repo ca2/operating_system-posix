@@ -11,6 +11,7 @@
 // Custom window class inheriting from QMainWindow
 QCustomTopWindow::QCustomTopWindow(::kde5::micro::window * pwindow)
 {
+   setAttribute(Qt::WA_InputMethodEnabled, true);
    // Resize the window
    m_pwindow = pwindow;
    //this->resize(600, 400);
@@ -132,3 +133,70 @@ void QCustomTopWindow::moveEvent(QMoveEvent *happening)
       QWidget::resizeEvent(happening);
    }
 
+
+// Handle mouse button press happening
+void QCustomTopWindow::keyPressEvent(QKeyEvent *happening)
+{
+   // int buttonType = -1;
+   // if (happening->button() == Qt::LeftButton) {
+   //    buttonType = 1;
+   // } else if (happening->button() == Qt::RightButton) {
+   //    buttonType = 2;
+   // } else if (happening->button() == Qt::MiddleButton) {
+   //    buttonType = 3;
+   // }
+   // label->setText(QString("Mouse Pressed: %1 Button at (%2, %3)")
+   //     .arg(buttonType)
+   //     .arg(happening->pos().x())
+   //     .arg(happening->pos().y()));
+   //qDebug() << "Mouse Pressed:" << buttonType << "at" << happening->pos();
+   m_pwindow->_on_key_press(happening);
+   QWidget::keyPressEvent(happening);
+}
+
+// Handle mouse button release happening
+void QCustomTopWindow::keyReleaseEvent(QKeyEvent *happening)
+{
+   // int buttonType = -1;
+   // if (happening->button() == Qt::LeftButton) {
+   //    buttonType = 1;
+   // } else if (happening->button() == Qt::RightButton) {
+   //    buttonType = 2;
+   // } else if (happening->button() == Qt::MiddleButton) {
+   //    buttonType = 3;
+   // }
+   // label->setText(QString("Mouse Released at (%1, %2)")
+   //     .arg(happening->pos().x())
+   //     .arg(happening->pos().y()));
+   //qDebug() << "Mouse Released at" << happening->pos();
+   m_pwindow->_on_key_release(happening);
+   QWidget::keyReleaseEvent(happening);
+}
+
+
+void QCustomTopWindow::inputMethodEvent(QInputMethodEvent*happening)
+{
+
+   auto str = happening->commitString();
+
+   ::string strText =str.toUtf8().data();
+
+   if (strText.has_character())
+   {
+
+      m_pwindow->_on_text(strText);
+
+   }
+
+   QWidget::inputMethodEvent(happening);
+
+}
+
+
+QVariant QCustomTopWindow::inputMethodQuery(Qt::InputMethodQuery query) const
+{
+   if (query == Qt::ImEnabled) {
+      return true; // Enable input method events
+   }
+   return QWidget::inputMethodQuery(query);
+}

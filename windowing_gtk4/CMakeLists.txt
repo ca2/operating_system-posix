@@ -57,8 +57,8 @@ list(APPEND library_source
    keyboard.h
    #node.cpp
    #node.h
-   #startup-notification.cpp
-   #startup-notification.h
+   #startupxxx-notification.cpp
+   #startupxxx-notification.h
    text_composition_client.cpp
    text_composition_client.h
    #user.cpp
@@ -103,7 +103,7 @@ list(APPEND library_references
 )
 
 
-list(APPEND static_library_references ${library_references} ${global_library_references})
+list(APPEND static_library_references ${library_references})
 
 list(TRANSFORM static_library_references PREPEND static_)
 
@@ -137,7 +137,7 @@ if (MSVC)
 elseif (${LINUX} OR ${__BSD__})
 
 
-   #pkg_check_modules(PKGCONFIG xkbcommon x11 xrender xi xext libstartup-notification-1.0 wayland-client wayland-server wayland-cursor)
+   #pkg_check_modules(PKGCONFIG xkbcommon x11 xrender xi xext libstartupxxx-notification-1.0 wayland-client wayland-server wayland-cursor)
    #pkg_check_modules(PKGCONFIG glib-2.0 gtk4 ${WAYLAND_PKG_MODULES} ${X11_PKG_MODULES} ${APPINDICATOR_PKG_MODULE})
    #pkg_check_modules(PKGCONFIG gtk4 ${WAYLAND_PKG_MODULES} ${X11_PKG_MODULES} ${APPINDICATOR_PKG_MODULE})
    pkg_check_modules(PKGCONFIG gtk4 ${APPINDICATOR_PKG_MODULE})
@@ -154,7 +154,7 @@ elseif (${LINUX} OR ${__BSD__})
    target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
    target_link_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references} ${PKGCONFIG_LIBRARIES})
-   target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${PKGCONFIG_LIBRARIES})
+   target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${PKGCONFIG_LIBRARIES} ${global_library_references})
    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
    # target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
 

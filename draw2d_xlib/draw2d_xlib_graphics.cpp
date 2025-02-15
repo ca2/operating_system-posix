@@ -1728,7 +1728,7 @@ namespace draw2d_xlib
          {
             //   return true;
             ::int_rectangle rectangleIntersect(m_pointAlphaBlend, m_pimageAlphaBlend->size());
-            ::int_rectangle rectangleText(int_point((huge_integer) x, (huge_integer) y), get_text_extent(str));
+            ::int_rectangle rectangleText(int_point((long long) x, (long long) y), get_text_extent(str));
             if(rectangleIntersect.intersect(rectangleIntersect, rectangleText))
             {
                ::image::image_pointer pimage0;
@@ -1747,8 +1747,8 @@ namespace draw2d_xlib
                ::image::image_pointer pimage2;
                pimage2 = create_image(rectangleText.size());
                pimage2->Fill(255, 0, 0, 0);
-               pimage2->from(int_point((huge_integer) maximum(0, m_pointAlphaBlend.x - x), (huge_integer) maximum(0, m_pointAlphaBlend.y - y)),
-                           m_pimageAlphaBlend->get_graphics(), int_point((huge_integer) maximum(0, x - m_pointAlphaBlend.x), (huge_integer) maximum(0, y - m_pointAlphaBlend.y)), rectangleText.size());
+               pimage2->from(int_point((long long) maximum(0, m_pointAlphaBlend.x - x), (long long) maximum(0, m_pointAlphaBlend.y - y)),
+                           m_pimageAlphaBlend->get_graphics(), int_point((long long) maximum(0, x - m_pointAlphaBlend.x), (long long) maximum(0, y - m_pointAlphaBlend.y)), rectangleText.size());
                pimage1->channel_multiply(::color::e_channel_opacity, pimage2->m_p);
                /* p::image::image_pointer pimage3(this);
                pimage1->mult_alpha(image3);*/
@@ -3268,7 +3268,7 @@ namespace draw2d_xlib
       ::ExtTextOut(get_handle1(), 0, 0, ETO_OPAQUE, rectangle, nullptr, 0, nullptr);
    }*/
 
-   void graphics::FillSolidRect(const ::huge_integer_rectangle * rectangle, color32_t clr)
+   void graphics::FillSolidRect(const ::long_long_rectangle * rectangle, color32_t clr)
    {
       ::int_rectangle rect32;
       copy(&rect32, &rectangle);

@@ -55,7 +55,7 @@ namespace node_gtk3
 
       m_strId = atom;
 
-      m_atom = atom;
+      id() = atom;
 
       m_piconCurrent = picon;
 

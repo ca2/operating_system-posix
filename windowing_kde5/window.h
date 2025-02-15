@@ -107,7 +107,7 @@ namespace windowing_kde5
       //static Atom                                s_atomLongStyleEx;
       ::int_rectangle_array                        m_rectangleaRedraw;
       ::pointer<::xim::keyboard>                   m_pximkeyboard;
-      //huge_natural                                        m_uLastNetWmSyncRequest;
+      //unsigned long long                                        m_uLastNetWmSyncRequest;
       ::int_rectangle                              m_rectangleXShm;
       //bool                                         m_bFirstConfigure;
       //bool                                         m_bXShmPutImagePending;
@@ -147,15 +147,19 @@ void on_initialize_particle() override;
 
       void destroy() override;
 
-         void _set_oswindow(::oswindow oswindow) override;
-         ::oswindow oswindow() const override;
+      void _set_oswindow(::oswindow oswindow) override;
+      ::oswindow oswindow() const override;
 
-       virtual void _on_mouse_press(QMouseEvent * pevent);
-       virtual void _on_mouse_release(QMouseEvent * pevent);
-       virtual void _on_mouse_motion(QMouseEvent * pevent);
-         virtual void _on_qimage_draw(QImage * pqimage);
-         virtual void _on_reposition(int x, int y);
-         virtual void _on_size(int cx, int cy);
+      void _on_mouse_press(QMouseEvent * pevent) override;
+      void _on_mouse_release(QMouseEvent * pevent) override;
+      void _on_mouse_motion(QMouseEvent * pevent) override;
+      void _on_qimage_draw(QImage * pqimage) override;
+      void _on_reposition(int x, int y) override;
+      void _on_size(int cx, int cy) override;
+
+
+      void _on_key_press(QKeyEvent * pevent) override;
+      void _on_key_release(QKeyEvent * pevent) override;
 
          //void _on_window_button_pressed(GtkWidget * pwidget, const char * pszName, GtkGestureClick * pgesture, int n_press, double x, double y);
          //void _on_window_button_released(GtkWidget * pwidget, const char * pszName, GtkGestureClick * pgesture, int n_press, double x, double y);
@@ -163,7 +167,7 @@ void on_initialize_particle() override;
 //      static Atom get_window_long_atom(int nIndex);
 //
 //
-//      inline int net_wm_state(::x11::enum_atom eatom) const
+//      inline int net_wm_state(::x11::enuid() eatom) const
 //      {
 //
 //         return m_iaNetWmState2[eatom - ::x11::e_atom_net_wm_state_first];
@@ -222,7 +226,7 @@ void on_initialize_particle() override;
       //virtual ::Window get_parent_handle();
       //::oswindow get_parent_oswindow() const override;
 
-
+      //void _main_send(const ::procedure & procedure) override;
 //      ::int_point get_mouse_cursor_host_position() override;
 //      ::int_point get_mouse_cursor_absolute_position() override;
 
@@ -314,9 +318,9 @@ void on_initialize_particle() override;
 //      //virtual void unmapped_net_state_raw( WINDOWING_X11_WINDOW_MEMBER ...);
 //      virtual bool x11_get_window_rect(  WINDOWING_X11_WINDOW_MEMBER  ::int_rectangle * prectangle);
 //      virtual bool x11_get_client_rect(  WINDOWING_X11_WINDOW_MEMBER  ::int_rectangle * prectangle);
-//      //virtual oswindow set_capture( WINDOWING_X11_WINDOW_MEMBER );
-//      //virtual int_bool release_capture();
-//      //virtual oswindow set_focus( WINDOWING_X11_WINDOW_MEMBER );
+//      //virtual oswindow set_xxxcapture( WINDOWING_X11_WINDOW_MEMBER );
+//      //virtual int_bool release_xxxcapture();
+//      //virtual oswindow set_keyboard_focus( WINDOWING_X11_WINDOW_MEMBER );
 //      //virtual void x11_check_status(int status, unsigned long window);
 //      //virtual unsigned long x11_get_long_property( WINDOWING_X11_WINDOW_MEMBER char* property_name);
 //      virtual string x11_get_name( WINDOWING_X11_WINDOW_MEMBER );
@@ -342,9 +346,9 @@ void on_initialize_particle() override;
       bool set_window_position(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;
 
 
-      bool _set_window_position_unlocked(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay);
-      bool _configure_window_unlocked(const class ::zorder& zorder, const ::user::activation& useractivation, bool bNoZorder, ::e_display edisplay);
-      bool _strict_set_window_position_unlocked(int x, int y, int cx, int cy, bool bNoMove, bool bNoSize);
+      bool _set_window_position_unlocked(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;
+      bool _configure_window_unlocked(const class ::zorder& zorder, const ::user::activation& useractivation, bool bNoZorder, ::e_display edisplay) override;
+      bool _strict_set_window_position_unlocked(int x, int y, int cx, int cy, bool bNoMove, bool bNoSize) override;
 
 
 //      virtual comparable_array < Atom > _wm_get_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList);
@@ -353,12 +357,12 @@ void on_initialize_particle() override;
 //      virtual int _wm_test_state_unlocked( WINDOWING_X11_WINDOW_MEMBER const char * pszNetStateFlag);
 //      virtual int _wm_test_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag);
 //      virtual bool _wm_add_remove_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag, bool bSet);
-//      virtual void _wm_add_remove_state_mapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
-//      virtual void wm_add_remove_state_mapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
-//      virtual void _wm_add_remove_state_unmapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
-//      virtual void wm_add_remove_state_unmapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
-//      virtual void _wm_add_remove_state_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
-//      virtual void wm_add_remove_state( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
+//      virtual void _wm_add_remove_state_mapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
+//      virtual void wm_add_remove_state_mapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
+//      virtual void _wm_add_remove_state_unmapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
+//      virtual void wm_add_remove_state_unmapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
+//      virtual void _wm_add_remove_state_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
+//      virtual void wm_add_remove_state( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
 //      virtual void _wm_state_clear_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);
 //      virtual void _wm_state_below_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);
 //      virtual void _wm_state_above_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);
@@ -489,6 +493,13 @@ void on_initialize_particle() override;
          virtual void _unlocked_defer_set_window_position(const ::int_point & point, const ::int_size & size);
          virtual void _unlocked_defer_set_window_size(const ::int_size & size);
          //virtual void _unlocked_defer_start_resize(enum_window_edge eedge, GtkGestureClick * pclick, double x, double y);
+
+
+      void _on_text(const scoped_string& scopedstr) override;
+
+      void show_task(bool bShow) override;
+
+
 
    };
 

@@ -44,7 +44,7 @@ namespace acme_posix
    //   else
    //   {
    //
-   //      varRet = (((huge_natural) data.nFileSizeHigh) << 32) | (huge_natural) data.nFileSizeLow;
+   //      varRet = (((unsigned long long) data.nFileSizeHigh) << 32) | (unsigned long long) data.nFileSizeLow;
    //
    //      ((::file::path &) path).m_iSize = varRet.m_hi;
    //

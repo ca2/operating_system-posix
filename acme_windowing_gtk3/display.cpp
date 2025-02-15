@@ -107,7 +107,7 @@ namespace gtk3
          //         }
          //
          //
-         //         Atom display::intern_atom(enum_atom eatom, bool bCreate)
+         //         Atom display::intern_atom(enuid() eatom, bool bCreate)
          //         {
          //
          //            return _intern_atom_unlocked(eatom, bCreate);
@@ -119,14 +119,14 @@ namespace gtk3
          //            //
          //            //      }
          //            //
-         //            //      Atom atom = m_atommap[eatom];
+         //            //      Atom atom = id()map[eatom];
          //            //
          //            //      if (atom == None)
          //            //      {
          //            //
          //            //         atom = intern_atom(atom_name(eatom), bCreate);
          //            //
-         //            //         m_atommap[eatom] = atom;
+         //            //         id()map[eatom] = atom;
          //            //
          //            //      }
          //            //
@@ -162,7 +162,7 @@ namespace gtk3
          //         }
          //
          //
-         //         Atom display::_intern_atom_unlocked(enum_atom eatom, bool bCreate)
+         //         Atom display::_intern_atom_unlocked(enuid() eatom, bool bCreate)
          //         {
          //
          //            if (eatom < 0 || eatom >= e_atom_count)
@@ -172,14 +172,14 @@ namespace gtk3
          //
          //            }
          //
-         //            Atom atom = m_atommap[eatom];
+         //            Atom atom = id()map[eatom];
          //
          //            if (atom == None)
          //            {
          //
          //               atom = _intern_atom_unlocked(atom_name(eatom), bCreate);
          //
-         //               m_atommap[eatom] = atom;
+         //               id()map[eatom] = atom;
          //
          //            }
          //

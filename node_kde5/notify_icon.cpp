@@ -60,7 +60,7 @@ namespace node_kde5
 
       m_strId = "ca2-" + picon->get_tray_icon_name() + "-" + strNotifyIcon;
 
-      m_atom = atom;
+      id() = atom;
 
       m_piconCurrent = picon;
 
@@ -112,7 +112,7 @@ namespace node_kde5
 
       string strLabel = papplicationmenu->m_strName;
 
-      auto atom = papplicationmenu->m_atom;
+      auto atom = papplicationmenu->m_atomMenu;
 
       string strName = papplicationmenu->m_strName;
 
@@ -142,7 +142,7 @@ namespace node_kde5
          if (atom == id_separator)
          {
 
-            if (i + 1 < m_papplicationmenu->get_count() && string(m_papplicationmenu->element_at(i + 1)->m_atom) == "app_exit")
+            if (i + 1 < m_papplicationmenu->get_count() && string(m_papplicationmenu->element_at(i + 1)->m_atomMenu) == "app_exit")
             {
 
 

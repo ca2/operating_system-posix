@@ -349,9 +349,7 @@ namespace kde5
    void windowing::on_start_system()
    {
 
-      auto * psystem = this->system();
-
-      psystem->on_branch_system_from_main_thread_startup();
+      system()->on_branch_system_from_main_thread_startup(this);
 
    }
 
@@ -434,7 +432,7 @@ namespace kde5
 
       }
 
-      pkde5window->m_pqwidget->releaseMouse();
+      pkde5window->release_mouse_capture();
 
       return true;
 
@@ -505,6 +503,23 @@ namespace kde5
 
    }
 
+         ::windowing::enum_windowing windowing::calculate_ewindowing()
+   {
+
+      QString platformName = QGuiApplication::platformName();
+
+      if (platformName == "wayland") {
+         //qDebug() << "The system is running under Wayland.";
+         return ::windowing::e_windowing_wayland;
+      } else if (platformName == "xcb") {
+         //qDebug() << "The system is running under X11.";
+         return ::windowing::e_windowing_xcb;
+      } else {
+         //qDebug() << "Unknown platform:" << platformName;
+         return ::windowing::e_windowing_unknown;
+      }
+
+   }
 
 
       } //namespace windowing

@@ -34,7 +34,7 @@ namespace gtk3
       windowing();
       ~windowing() override;
 
-
+::windowing::enum_bias calculate_windowing_bias() override;
 
       void on_start_system() override;
 

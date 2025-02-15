@@ -24,7 +24,7 @@ namespace music
          public:
 
 
-            huge_natural                   m_u64Start;
+            unsigned long long                   m_u64Start;
             snd_rawmidi_t *         m_prawmidi;
             int64_t                 m_iWrite;
             memory_file             m_file;

@@ -75,10 +75,10 @@ namespace windowing_kde6
 #ifdef _DEBUG
 
 
-      virtual huge_integer get_ref_count();
-      virtual huge_integer increment_reference_count() override;
-      virtual huge_integer decrement_reference_count() override;
-      virtual huge_integer release() override;
+      virtual long long get_ref_count();
+      virtual long long increment_reference_count() override;
+      virtual long long decrement_reference_count() override;
+      virtual long long release() override;
 
 
 #endif
@@ -136,14 +136,14 @@ namespace windowing_kde6
 
       virtual ::e_status release_mouse_capture();
 
-
+      ::collection::count get_monitor_count() override;
 //      Atom intern_atom(const char * pszAtomName, bool bCreate);
 //
-//      Atom intern_atom(::x11::enum_atom eatom, bool bCreate);
+//      Atom intern_atom(::x11::enuid() eatom, bool bCreate);
 //
 //      Atom _intern_atom_unlocked(const char * pszAtomName, bool bCreate);
 //
-//      Atom _intern_atom_unlocked(::x11::enum_atom eatom, bool bCreate);
+//      Atom _intern_atom_unlocked(::x11::enuid() eatom, bool bCreate);
 //
 //      Atom net_wm_state_atom(bool bCreate);
 
@@ -184,6 +184,8 @@ namespace windowing_kde6
 
          virtual bool is_x11();
          virtual bool is_wayland();
+
+      ::collection::index get_main_monitor_index() override;
 
    };
 

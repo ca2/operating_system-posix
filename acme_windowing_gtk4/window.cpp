@@ -71,14 +71,14 @@ namespace gtk4
 
          static void on_focus_changed(GObject *widget, GParamSpec *pspec, gpointer p) {
             auto pwindow = (::gtk4::acme::windowing::window*)p;
-            gboolean has_focus = gtk_widget_has_focus(GTK_WIDGET(widget));
-            if (has_focus) {
+            gboolean has_keyboard_focus = gtk_widget_has_focus(GTK_WIDGET(widget));
+            if (has_keyboard_focus) {
                g_print("Widget gained focus\n");
             } else {
                g_print("Widget lost focus\n");
             }
 
-            pwindow->_on_focus_changed(has_focus);
+            pwindow->_on_focus_changed(has_keyboard_focus);
          }
 
 
@@ -322,7 +322,7 @@ namespace gtk4
 
             g_object_get(action, "name", &name, nullptr);
 
-            pwindow->_on_window_simple_action(name);
+            pwindow->_on_window_simple_action(name, nullptr);
 
             g_free(name);
 
@@ -538,13 +538,13 @@ namespace gtk4
          }
 
 
-         void window::_on_gtk_key_pressed(huge_natural uGtkKey, huge_natural uGtkKeyCode)
+         void window::_on_gtk_key_pressed(unsigned long long uGtkKey, unsigned long long uGtkKeyCode)
          {
 
          }
 
 
-         void window::_on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode)
+         void window::_on_gtk_key_released(unsigned long long uGtkKey, unsigned long long uGtkKeyCode)
          {
          }
 
@@ -577,13 +577,13 @@ namespace gtk4
 
                g_signal_connect(toplevel, "compute-size", G_CALLBACK(on_toplevel_compute_size), this);
 
-               if (system()->acme_windowing()->get_ewindowing() != ::windowing::e_windowing_wayland)
-               {
+               //if (system()->acme_windowing()->get_ewindowing() == ::windowing::e_windowing_wayland)
+               //{
 
-                  g_signal_connect(toplevel, "state", G_CALLBACK(on_window_state), this);
+                 // g_signal_connect(toplevel, "state", G_CALLBACK(on_window_state), this);
 
-               }
-               else
+               //}
+               //else
                {
 
                   _defer_get_window_rectangle_unlocked();
@@ -607,22 +607,22 @@ namespace gtk4
             if (GTK_IS_WINDOW(m_pgtkwidget))
             {
 
-               auto pnative = GTK_NATIVE(m_pgtkwidget);
+//               auto pnative = GTK_NATIVE(m_pgtkwidget);
 
-               auto psurface = GDK_SURFACE(gtk_native_get_surface(pnative));
+//               auto psurface = GDK_SURFACE(gtk_native_get_surface(pnative));
 
-               auto ptoplevel = GDK_TOPLEVEL(psurface);
+//               auto ptoplevel = GDK_TOPLEVEL(psurface);
 
-               if (ptoplevel)
+//               if (ptoplevel)
                {
 
-                  ::string strStartupId;
+                  //::string strStartupId;
 
-                  strStartupId = system()->get_application_server_name();
+                  //strStartupId = system()->get_application_server_name();
 
-                  information() << "set_startup_id: " << strStartupId;
+                  //information() << "set_startup_id: " << strStartupId;
 
-                  gdk_toplevel_set_startup_id(ptoplevel, strStartupId);
+                  //gdk_toplevel_set_startup_id(ptoplevel, strStartupId);
 
                }
 
@@ -725,6 +725,14 @@ namespace gtk4
             {
 
                m_pgtkwidget = gtk_application_window_new(pgtk4windowingsystem->m_pgtkapplication);
+               
+                           ::string strId = application()->m_strAppId;
+
+            strId.find_replace("/", ".");
+
+            strId.find_replace("_", "-");
+
+            //gtk_window_set_startup_id(GTK_WINDOW(m_pgtkwidget), strId);
 
                gtk_window_set_decorated(GTK_WINDOW(m_pgtkwidget), false);
 
@@ -2317,15 +2325,23 @@ namespace gtk4
    }
 
 
-   void window::set_capture()
+   void window::set_mouse_capture()
    {
 
+     system()->acme_windowing()->m_pwindowMouseCapture = this;
 
    }
 
 
-   void window::release_capture()
+   void window::release_mouse_capture()
    {
+
+     if(system()->acme_windowing()->m_pwindowMouseCapture == this)
+     {
+
+        system()->acme_windowing()->m_pwindowMouseCapture =nullptr;
+
+     }
 
 
    }

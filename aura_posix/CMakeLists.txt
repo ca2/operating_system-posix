@@ -30,7 +30,7 @@ list(APPEND library_references
    aura
 )
 
-list(APPEND static_library_references ${library_references} ${global_library_references})
+list(APPEND static_library_references ${library_references})
 
 list(TRANSFORM static_library_references PREPEND static_)
 
@@ -69,32 +69,38 @@ elseif(${LINUX} OR ${__BSD__})
 
 
 
-   list(APPEND extra_pkg_modules
-      libstartup-notification-1.0
-      xkbcommon
-   )
+   if(${WITH_XCB} OR ${WITH_X11})
+      list(APPEND extra_pkg_modules
+         #libstartupxxx-notification-1.0
+         xkbcommon
+         )
 
-   if (${WITH_XCB})
+   if(WITH_XCB)
 
 
       list(APPEND extra_pkg_modules
-         x11 x11-xcb
-      )
+                  x11 x11-xcb
+         )
 
 
-   else ()
+   else()
 
 
       list(APPEND extra_pkg_modules
-         x11
-      )
+                  x11
+         )
 
 
-   endif ()
+   endif()
+
+   endif()
+
 
 
    #if (USE_PKGCONFIG)
-   pkg_check_modules(PKGCONFIG ${extra_pkg_modules})
+   if(NOT "${extra_pkg_modules}" STREQUAL "")
+   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG ${extra_pkg_modules})
+   endif ()
    #endif ()
 
 
@@ -103,11 +109,11 @@ elseif(${LINUX} OR ${__BSD__})
    target_compile_definitions(static_${PROJECT_NAME} PRIVATE CUBE)
 
 
-   target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
-   target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
-   target_link_options(aura_posix PRIVATE ${PKGCONFIG_LDFLAGS})
-   target_link_libraries(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LIBRARIES} ${library_references} ${global_library_references})
-   target_link_libraries(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LIBRARIES} ${static_library_references})
+   target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
+   target_compile_options(static_${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
+   target_link_options(aura_posix PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LDFLAGS})
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES} ${library_references} ${global_library_references})
+   target_link_libraries(static_${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES} ${static_library_references} ${global_library_references})
    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
    # target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
 

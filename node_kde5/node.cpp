@@ -200,9 +200,7 @@ namespace node_kde5
    void node::on_start_system()
    {
 
-      auto * psystem = this->system();
-
-      psystem->on_branch_system_from_main_thread_startup();
+      system()->windowing()->on_start_system();
 
    }
 
@@ -719,7 +717,7 @@ namespace node_kde5
 
    }
 
-//   void * node::node_wrap_window(void * pvoidDisplay, huge_integer window)
+//   void * node::node_wrap_window(void * pvoidDisplay, long long window)
 //   {
 //
 //      Display * pdisplay = (Display *) pvoidDisplay;
@@ -743,7 +741,7 @@ namespace node_kde5
 
       }
 
-      if (ptopic->m_atom == id_operating_system_user_color_change)
+      if (ptopic->id() == id_operating_system_user_color_change)
       {
 
          return false;

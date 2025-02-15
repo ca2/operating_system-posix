@@ -65,10 +65,10 @@
 //::durationTimer::durationTimer(const unsigned int ::duration)
 //   : expiry(timespec_now())
 //{
-//   huge_integer tv_nsec = expiry.tv_nsec + (::duration * 1e6);
+//   long long tv_nsec = expiry.tv_nsec + (::duration * 1e6);
 //   if (tv_nsec >= 1e9)
 //   {
-//      huge_integer sec_diff = tv_nsec / static_cast<int> (1e9);
+//      long long sec_diff = tv_nsec / static_cast<int> (1e9);
 //      expiry.tv_nsec = tv_nsec % static_cast<int>(1e9);
 //      expiry.tv_sec += sec_diff;
 //   }
@@ -78,11 +78,11 @@
 //   }
 //}
 //
-//huge_integer
+//long long
 //::durationTimer::remaining()
 //{
 //   timespec now(timespec_now());
-//   huge_integer ::duration = (expiry.tv_sec - now.tv_sec) * 1e3;
+//   long long ::duration = (expiry.tv_sec - now.tv_sec) * 1e3;
 //   ::duration += (expiry.tv_nsec - now.tv_nsec) / 1e6;
 //   return ::duration;
 //}

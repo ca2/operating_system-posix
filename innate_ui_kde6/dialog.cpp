@@ -11,7 +11,7 @@
 #include "acme/parallelization/manual_reset_happening.h"
 
 
-namespace innate_ui_kde5
+namespace innate_ui_kde6
 {
    
 
@@ -26,6 +26,14 @@ namespace innate_ui_kde5
 
    dialog::~dialog()
    {
+
+   }
+
+
+   void dialog::create()
+   {
+
+      ::innate_ui_kde6::window::create();
 
    }
 
@@ -81,4 +89,7 @@ namespace innate_ui_kde5
    }
 
 
-} // namespace innate_ui_kde5
+} // namespace innate_ui_kde6
+
+
+

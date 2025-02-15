@@ -65,7 +65,7 @@ simple_ui_display::simple_ui_display(const string & strMessageParam, const strin
 }
 
 
-huge_integer simple_ui_display::increment_reference_count()
+long long simple_ui_display::increment_reference_count()
 {
 
    return x11_hook::increment_reference_count();
@@ -73,7 +73,7 @@ huge_integer simple_ui_display::increment_reference_count()
 }
 
 
-huge_integer simple_ui_display::decrement_reference_count()
+long long simple_ui_display::decrement_reference_count()
 {
 
    return x11_hook::decrement_reference_count();
@@ -81,7 +81,7 @@ huge_integer simple_ui_display::decrement_reference_count()
 }
 
 
-huge_integer simple_ui_display::release()
+long long simple_ui_display::release()
 {
 
    return x11_hook::release();
@@ -252,7 +252,7 @@ void simple_ui_display::call_expose(Display * pdisplay)
 void simple_ui_display::on_subject(::promise::topic * ptopic, ::context * pcontext)
 {
 
-   if(ptopic->m_atom == id_os_user_theme)
+   if(ptopic->id() == id_os_user_theme)
    {
 
       m_bOsUserThemeColorModified = true;

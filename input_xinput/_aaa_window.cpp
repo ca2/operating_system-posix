@@ -2530,7 +2530,7 @@ namespace windowing_x11
 
             auto pcontext = m_papplication;
 
-            pcontext->post_message(msg.m_atom, msg.wParam, msg.lParam);
+            pcontext->post_message(msg.id(), msg.wParam, msg.lParam);
 
          } else
          {
@@ -2541,7 +2541,7 @@ namespace windowing_x11
 
                ::user::interaction * pinteraction = msg.oswindow->m_pwindow->m_puserinteraction;
 
-               pinteraction->post_message(msg.m_atom, msg.wParam, msg.lParam);
+               pinteraction->post_message(msg.id(), msg.wParam, msg.lParam);
 
             }
 
@@ -2588,7 +2588,7 @@ namespace windowing_x11
       if (pmessagequeue == nullptr)
       {
 
-         if (message.m_atom == e_message_quit)
+         if (message.m_emessage == e_message_quit)
          {
 
             return ::error_failed;
@@ -2608,19 +2608,19 @@ namespace windowing_x11
 
       synchronous_lock ml(pmessagequeue->synchronization());
 
-      if (message.m_atom == e_message_quit)
+      if (message.m_emessage == e_message_quit)
       {
 
          informationf("e_message_quit thread");
 
       }
 
-      if (message.m_atom == e_message_left_button_down)
+      if (message.m_emessage == e_message_left_button_down)
       {
 
          informationf("post_ui_message::e_message_left_button_down\n");
 
-      } else if (message.m_atom == e_message_left_button_up)
+      } else if (message.m_emessage == e_message_left_button_up)
       {
 
          informationf("post_ui_message::e_message_left_button_up\n");

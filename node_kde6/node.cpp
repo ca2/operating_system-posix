@@ -190,11 +190,13 @@ namespace node_kde6
       //auto estatus =
       //
 
-      system()->m_itask = nullptr;
+      //system()->m_itask = nullptr;
 
-      system()->m_htask = nullptr;
+      //system()->m_htask = nullptr;
 
-      system()->branch();
+      //system()->m_taskindex.m_i = 0;
+
+      //system()->branch();
 
       /// ___new:platform_create_system:decrement_reference_count
       /// begin_synch starts ___new thread
@@ -203,7 +205,7 @@ namespace node_kde6
       /// now it is safe to release the platform_create_system
       /// creation reference.
 
-      system()->decrement_reference_count();
+      //system()->decrement_reference_count();
 
 //      if (!estatus)
 //      {
@@ -242,21 +244,23 @@ namespace node_kde6
 
       //const ::string & argv[]={"app", "--g-fatal-warnings"};
 
-#if !defined(__SANITIZE_ADDRESS__)
+//#if !defined(__SANITIZE_ADDRESS__)
+//
+//      {
+//
+//         node_init_check(&platform()->m_argc, &platform()->m_args);
+//
+//      }
+//
+//#endif
+//
+//      auto psystem = system();
+//
+//      psystem->defer_post_initial_request();
+//
+//      //_qapplication_exec();
 
-      {
-
-         node_init_check(&platform()->m_argc, &platform()->m_args);
-
-      }
-
-#endif
-
-      auto psystem = system();
-
-      psystem->defer_post_initial_request();
-
-      //_qapplication_exec();
+      system()->windowing()->windowing_application_main_loop();
 
    }
 
@@ -742,7 +746,7 @@ namespace node_kde6
 
    }
 
-//   void * node::node_wrap_window(void * pvoidDisplay, huge_integer window)
+//   void * node::node_wrap_window(void * pvoidDisplay, long long window)
 //   {
 //
 //      Display * pdisplay = (Display *) pvoidDisplay;
@@ -766,7 +770,7 @@ namespace node_kde6
 
       }
 
-      if (ptopic->m_atom == id_operating_system_user_color_change)
+      if (ptopic->id() == id_operating_system_user_color_change)
       {
 
          return false;

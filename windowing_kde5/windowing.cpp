@@ -743,7 +743,7 @@ namespace windowing_kde5
    //
    //         auto pmouse = __create_new < ::message::mouse >();
    //
-   //         pmouse->m_atom = emessage;
+   //         pmouse->m_emessage = emessage;
    //
    //         //pmouse->m_pointAbsolute.x() =
    //
@@ -792,7 +792,7 @@ namespace windowing_kde5
    //
    //         auto pkey = __create_new < ::message::key >();
    //
-   //         pkey->m_atom = emessage;
+   //         pkey->m_emessage = emessage;
    //
    //         //pmouse->m_pointAbsolute.x() =
    //
@@ -979,6 +979,14 @@ namespace windowing_kde5
    //      __libinput();
    //
    //   }
+
+
+   void windowing::_main_send(const ::procedure & procedure)
+   {
+
+      ::kde5::acme::windowing::windowing::_main_send(procedure);
+
+   }
 
 
    //void gtk_settings_gtk_theme_name_callback(GObject *object, GParamSpec *pspec, gpointer data);
@@ -1383,15 +1391,22 @@ namespace windowing_kde5
 
       informationf("os_process_user_theme m_strTheme = \"" +node()-> m_strTheme + "\"\n");
 
-      try
+      ::cast < ::manager > pmanager = system();
+
+      if(pmanager)
       {
 
-         system()->signal(id_operating_system_user_theme_change);
+         try
+         {
 
-      }
-      catch (...)
-      {
+            pmanager->send_signal(id_operating_system_user_theme_change);
 
+         }
+         catch (...)
+         {
+
+
+         }
 
       }
 
@@ -1434,15 +1449,22 @@ namespace windowing_kde5
 
       informationf("os_process_user_icon_theme m_strIconTheme = \"" + m_strOsUserIconTheme + "\"\n");
 
-      try
+      ::cast < ::manager > pmanager = system();
+
+      if(pmanager)
       {
 
-         system()->signal(id_operating_system_user_icon_theme_change);
+         try
+         {
 
-      }
-      catch (...)
-      {
+            pmanager->send_signal(id_operating_system_user_icon_theme_change);
 
+         }
+         catch (...)
+         {
+
+
+         }
 
       }
 

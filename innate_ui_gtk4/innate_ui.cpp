@@ -25,7 +25,7 @@ namespace innate_ui_gtk4
 
       //m_dwThread = 0;
 
-      //m_atom = 0;
+      //id() = 0;
 
    }
 

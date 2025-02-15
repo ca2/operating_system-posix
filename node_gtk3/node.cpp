@@ -540,7 +540,7 @@ namespace node_gtk3
    void node::on_start_system()
    {
 
-      system()->on_branch_system_from_main_thread_startup();
+      system()->windowing()->on_start_system();
 
    }
 
@@ -1431,7 +1431,7 @@ namespace node_gtk3
 //}
 
 
-//   void * node::node_wrap_window(void * pvoidDisplay, huge_integer window)
+//   void * node::node_wrap_window(void * pvoidDisplay, long long window)
 //   {
 //
 //      Display * pdisplay = (Display *) pvoidDisplay;
@@ -1454,7 +1454,7 @@ namespace node_gtk3
 
       }
 
-      if (ptopic->m_atom == id_operating_system_user_color_change)
+      if (ptopic->id() == id_operating_system_user_color_change)
       {
 
          return false;
@@ -2221,26 +2221,26 @@ namespace node_gtk3
    }
 
 
-   ::e_status node::_allocate_Display_and_connection()
-   {
-
-//      if(!::node_gtk3::os_defer_init_gtk(this))
-//      {
+//    ::e_status node::_allocate_Display_and_connection()
+//    {
 //
-//         return ::error_failed;
+// //      if(!::node_gtk3::os_defer_init_gtk(this))
+// //      {
+// //
+// //         return ::error_failed;
+// //
+// //      }
+// //
+// //      if(::node_gtk3::get_display_type() == e_display_type_x11)
+// //      {
+// //
+// //         ::aura_posix::node::_allocate_Display_and_connection();
+// //
+// //      }
 //
-//      }
+//       return ::success;
 //
-//      if(::node_gtk3::get_display_type() == e_display_type_x11)
-//      {
-//
-//         ::aura_posix::node::_allocate_Display_and_connection();
-//
-//      }
-
-      return ::success;
-
-   }
+//    }
 
 
 //   void node::_on_gtk_init()
@@ -2378,6 +2378,8 @@ namespace node_gtk3
          return;
 
       }
+      
+      #if !defined(NETBSD)
 
       ::string strNewTypeFileName;
 
@@ -2417,6 +2419,8 @@ namespace node_gtk3
          information() << "Error while update-mime-database \"" << path << "\".";
 
       }
+      
+      #endif
 
    }
 

@@ -43,6 +43,7 @@ list(APPEND library_source
    mutex.h
    node.cpp
    node.h
+   node_utsname.cpp
    pipe.cpp
    pipe.h
    process.cpp
@@ -76,7 +77,7 @@ add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 list(APPEND library_references acme)
 
-list(APPEND static_library_references ${library_references} ${global_library_references})
+list(APPEND static_library_references ${library_references})
 
 list(TRANSFORM static_library_references PREPEND static_)
 

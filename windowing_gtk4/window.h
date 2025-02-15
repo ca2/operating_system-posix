@@ -44,8 +44,8 @@ namespace windowing_gtk4
 
       void _on_enter_notify(GtkEventControllerMotion * pcontroller, double x, double y) override;
 
-      void _on_gtk_key_pressed(huge_natural uGtkKey, huge_natural uGtkKeyCode) override;
-      void _on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode) override;
+      void _on_gtk_key_pressed(unsigned long long uGtkKey, unsigned long long uGtkKeyCode) override;
+      void _on_gtk_key_released(unsigned long long uGtkKey, unsigned long long uGtkKeyCode) override;
 
       bool _on_gtk_key_pressed(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state) override;
       bool _on_gtk_key_released(GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state) override;
@@ -139,6 +139,10 @@ namespace windowing_gtk4
 
       virtual void set_mouse_cursor2(::windowing::cursor * pcursor);
 
+      virtual void set_mouse_capture();
+
+      virtual void release_mouse_capture();
+
       void set_keyboard_focus() override;
 
       void _set_keyboard_focus_unlocked() override;
@@ -203,7 +207,7 @@ namespace windowing_gtk4
 
       bool defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse * pmouse) override;
 
-      void on_destruct_mouse_message(::message::mouse * pmouse) override;
+      void final_mouse_message_handling(::message::mouse * pmouse) override;
 
       void _on_windowing_close_window() override;
 

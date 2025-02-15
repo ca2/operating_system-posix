@@ -44,17 +44,17 @@ namespace windowing_kde6
       ::int_rectangle      m_rectangleLast;
       //::wl_callback*m_pwlcallbackFrame;
       //::image::image_pointer                         m_pimage;
-      //interlocked_huge_integer                              m_interlockedPostedScreenUpdate;
+      //interlocked_long_long                              m_interlockedPostedScreenUpdate;
 //manual_reset_happening m_happeningXshm;
       //bool m_bXShmComplete;
-      //interlocked_huge_integer                              m_interlockedXShmPutImage;
+      //interlocked_long_long                              m_interlockedXShmPutImage;
 
 
       buffer();
       ~buffer() override;
 
 
-      virtual ::windowing_kde6::window * x11_window();
+      ::windowing_kde6::window * kde6_window();
 
 
       void initialize_graphics_graphics(::windowing::window * pimpl) override;

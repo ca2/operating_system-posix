@@ -35,6 +35,23 @@
 
 
 #include "../node_gtk/gtk_3_and_4.cpp"
+bool is_using_x11() {
+    // Get the default GdkDisplay
+    GdkDisplay *display = gdk_display_get_default();
+
+    // Ensure the display object is valid
+    if (!display) {
+        ::information()<< "Error: No GDK display available.\n";
+        return false;
+    }
+
+    // Check the backend type
+    const char *backend = gdk_display_get_name(display);
+::information()<< "GDK display name: " << backend;
+    // Return true if it's X11
+    return g_strcmp0(backend, "GdkX11Display") == 0;
+}
+
 
 namespace windowing_gtk4
 {
@@ -601,15 +618,15 @@ gtk_im_context_commit (
       //
       //    if (button == 1)
       //    {
-      //       pmouse->m_atom = e_message_left_button_down;
+      //       pmouse->m_emessage = e_message_left_button_down;
       //    }
       //    else if (button == 3)
       //    {
-      //       pmouse->m_atom = e_message_right_button_down;
+      //       pmouse->m_emessage = e_message_right_button_down;
       //    }
       //    else if (button == 2)
       //    {
-      //       pmouse->m_atom = e_message_middle_button_down;
+      //       pmouse->m_emessage = e_message_middle_button_down;
       //    }
       //
       //
@@ -794,15 +811,15 @@ gtk_im_context_commit (
       //
       //    if (button == 1)
       //    {
-      //       pmouse->m_atom = e_message_left_button_down;
+      //       pmouse->m_emessage = e_message_left_button_down;
       //    }
       //    else if (button == 3)
       //    {
-      //       pmouse->m_atom = e_message_right_button_down;
+      //       pmouse->m_emessage = e_message_right_button_down;
       //    }
       //    else if (button == 2)
       //    {
-      //       pmouse->m_atom = e_message_middle_button_down;
+      //       pmouse->m_emessage = e_message_middle_button_down;
       //    }
       //
       //
@@ -896,19 +913,19 @@ gtk_im_context_commit (
             if (button == 1)
             {
 
-               pmouse->m_atom = e_message_left_button_down;
+               pmouse->m_emessage = e_message_left_button_down;
 
             }
             else if (button == 3)
             {
 
-               pmouse->m_atom = e_message_right_button_down;
+               pmouse->m_emessage = e_message_right_button_down;
 
             }
             else if (button == 2)
             {
 
-               pmouse->m_atom = e_message_middle_button_down;
+               pmouse->m_emessage = e_message_middle_button_down;
 
             }
 
@@ -955,19 +972,19 @@ gtk_im_context_commit (
             if (button == 1)
             {
 
-               pmouse->m_atom = e_message_left_button_up;
+               pmouse->m_emessage = e_message_left_button_up;
 
             }
             else if (button == 3)
             {
 
-               pmouse->m_atom = e_message_right_button_up;
+               pmouse->m_emessage = e_message_right_button_up;
 
             }
             else if (button == 2)
             {
 
-               pmouse->m_atom = e_message_middle_button_up;
+               pmouse->m_emessage = e_message_middle_button_up;
 
             }
 
@@ -1013,7 +1030,7 @@ gtk_im_context_commit (
 
          pmouse->m_pwindow = this;
 
-         pmouse->m_atom = e_message_mouse_move;
+         pmouse->m_emessage = e_message_mouse_move;
 
 //         if (m_bPendingStartMove)
 //         {
@@ -1095,7 +1112,7 @@ gtk_im_context_commit (
    }
 
 
-   void window::_on_gtk_key_pressed(huge_natural uGtkKey, huge_natural uGtkKeyCode)
+   void window::_on_gtk_key_pressed(unsigned long long uGtkKey, unsigned long long uGtkKeyCode)
    {
 
       auto ekey = gtk_key_as_user_ekey(uGtkKey);
@@ -1105,7 +1122,7 @@ gtk_im_context_commit (
 
          auto pkey = __create_new < ::message::key>();
 
-         pkey->m_atom = e_message_key_down;
+         pkey->m_emessage = e_message_key_down;
 
          pkey->m_oswindow = this;
 
@@ -1126,7 +1143,7 @@ gtk_im_context_commit (
    }
 
 
-   void window::_on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode)
+   void window::_on_gtk_key_released(unsigned long long uGtkKey, unsigned long long uGtkKeyCode)
    {
 
       auto ekey = gtk_key_as_user_ekey(uGtkKey);
@@ -1136,7 +1153,7 @@ gtk_im_context_commit (
 
          auto pkey = __create_new < ::message::key>();
 
-         pkey->m_atom = e_message_key_up;
+         pkey->m_emessage = e_message_key_up;
 
          pkey->m_oswindow = this;
 
@@ -1319,9 +1336,16 @@ m_pimcontext = gtk_im_multicontext_new();
    //g_signal_connect(m_pdrawingarea, "key-press-happening", G_CALLBACK(on_key_press), im_context);
 
          /* Connect the preedit-changed signal to capture intermediate results */
+         
+         ::cast< ::windowing_gtk4::windowing>pwindowing = system()->acme_windowing();
+         
+         if(!is_using_x11())
+         {
          g_signal_connect(m_pdrawingarea, "state-flags-changed", G_CALLBACK(drawing_area_state_flags_changed), this);
 
          g_signal_connect(m_pgtkwidget, "state-flags-changed", G_CALLBACK(window_state_flags_changed), this);
+         
+	 }
 
          g_signal_connect(m_pgtkwidget, "show", G_CALLBACK(window_show), this);
 
@@ -1833,6 +1857,21 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
+   void window::set_mouse_capture()
+   {
+
+     ::gtk4::acme::windowing::window::set_mouse_capture();
+
+   }
+
+
+   void window::release_mouse_capture()
+   {
+
+      ::gtk4::acme::windowing::window::release_mouse_capture();
+   }
+
+
    void window::set_mouse_cursor(::windowing::cursor * pcursor)
    {
 
@@ -2159,10 +2198,10 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   void window::on_destruct_mouse_message(::message::mouse * pmouse)
+   void window::final_mouse_message_handling(::message::mouse * pmouse)
    {
 
-      ::windowing::window::on_destruct_mouse_message(pmouse);
+      ::windowing::window::final_mouse_message_handling(pmouse);
 
    }
 
@@ -2259,7 +2298,7 @@ m_pimcontext = gtk_im_multicontext_new();
 
       auto pshowwindow = __create_new < ::message::show_window >();
 
-      pshowwindow->m_atom = e_message_show_window;
+      pshowwindow->m_emessage = e_message_show_window;
 
       auto puserinteraction = user_interaction();
 
@@ -2281,7 +2320,7 @@ m_pimcontext = gtk_im_multicontext_new();
 
       auto pshowwindow = __create_new < ::message::show_window >();
 
-      pshowwindow->m_atom = e_message_show_window;
+      pshowwindow->m_emessage = e_message_show_window;
 
       auto puserinteraction = user_interaction();
 
@@ -2581,7 +2620,7 @@ return false;
       //
       // pmouse->m_iTimestamp = timestamp;
 
-      pmouse->m_atom = e_message_mouse_wheel;
+      pmouse->m_emessage = e_message_mouse_wheel;
 
       informationf("_on_gtk_scroll(%0.2f, %0.2f)", dx, dy);
 
@@ -2594,7 +2633,7 @@ return false;
          // Get the cursor position relative to the widget
          if (gdk_event_get_position(event, &x, &y))
          {
-            g_print("Scroll event: dx=%.2f, dy=%.2f, cursor position: x=%.2f, y=%.2f\n", dx, dy, x, y);
+            //g_print("Scroll event: dx=%.2f, dy=%.2f, cursor position: x=%.2f, y=%.2f\n", dx, dy, x, y);
 
             ::int_point pointCursor(x, y);
 
@@ -2605,11 +2644,15 @@ return false;
             m_pointCursor2 = pointCursor;
 
             pmouse->m_pointAbsolute = m_pointCursor2;
-            g_print("Scroll event: dx=%.2f, dy=%.2f, cursor position: x=%.2f, y=%.2f\n", dx, dy, x, y);
+            
+            debugf("Scroll event: dx=%d, dy=%d, cursor position: x=%df, y=%d\n", dx, dy, x, y);
+            
          }
          else
          {
-            g_print("Failed to get cursor position from the scroll event.\n");
+
+            debugf("Failed to get cursorpos. Use last recorded position x=%d, y=%d", m_pointCursor2.x(), m_pointCursor2.y());
+
             pmouse->m_pointHost = m_pointCursor2;
 
             //            _defer_translate_to_absolute_coordinates_unlocked(pointCursor);

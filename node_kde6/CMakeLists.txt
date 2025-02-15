@@ -50,21 +50,21 @@ list(APPEND library_references
    #windowing_x11
 )
 
-if (${HAS_WAYLAND})
-   list(APPEND library_references
-      windowing_wayland
-   )
-endif ()
+#if (${HAS_WAYLAND})
+#   list(APPEND library_references
+#      windowing_wayland
+#   )
+#endif ()
+#
+#if (${WITH_X11})
+#   list(APPEND library_references
+#      nano_user_x11
+#   )
+#
+#endif ()
 
-if (${WITH_X11})
-   list(APPEND library_references
-      nano_user_x11
-   )
 
-endif ()
-
-
-list(APPEND static_library_references ${library_references} ${global_library_references})
+list(APPEND static_library_references ${library_references})
 
 list(TRANSFORM static_library_references PREPEND static_)
 
@@ -173,9 +173,9 @@ elseif (${LINUX} OR ${__BSD__})
    target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
    target_link_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
 
-   #target_link_options(${PROJECT_NAME} PRIVATE "-Wl,-rpath=\$ORIGIN")
+   
    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references} ${this_system_libraries} ${PKGCONFIG_LIBRARIES})
-   target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${this_system_libraries} ${PKGCONFIG_LIBRARIES})
+   target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${this_system_libraries} ${PKGCONFIG_LIBRARIES} ${global_library_references})
    #target_link_libraries(static_${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references} ${PKGCONFIG_LIBRARIES})
    #    if (KDE_DESKTOP)
    #        list(APPEND link_libraries

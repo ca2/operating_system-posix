@@ -570,10 +570,10 @@ namespace windowing_gtk3
 
          MESSAGE msg;
 
-         msg.oswindow = pwindowMouseCaptureOld;
-         msg.m_atom = e_message_capture_changed;
-         msg.wParam = 0;
-         msg.lParam = pwindowMouseCaptureNew;
+         msg.m_oswindow = pwindowMouseCaptureOld;
+         msg.m_emessage = e_message_capture_changed;
+         msg.m_wparam = 0;
+         msg.m_lparam = pwindowMouseCaptureNew;
 
          post_ui_message(msg);
 

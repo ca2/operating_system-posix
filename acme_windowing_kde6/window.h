@@ -106,6 +106,17 @@ namespace kde6
 
             void set_active_window() override;
 
+
+
+            bool defer_perform_entire_reposition_process(::user::mouse* pmouse) override;
+
+            bool defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing,
+                                                               ::user::mouse* pmouse) override;
+
+
+            void _main_send(const ::procedure & procedure);
+            void _main_post(const ::procedure & procedure);
+
             ///virtual void draw_children(::nano::graphics::device * pnanodevice);
 
             // void delete_drawing_objects() override;
@@ -151,9 +162,9 @@ namespace kde6
 
             ::int_rectangle get_window_rectangle() override;
 
-            void set_capture() override;
+            //void set_mouse_capture() override;
 
-            void release_capture() override;
+            //void release_mouse_capture() override;
 
             //virtual void _wm_nodecorations(int iMap);
 

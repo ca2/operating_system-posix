@@ -402,7 +402,7 @@ namespace input_xinput
 //
 //         auto pmouse = __create_new < ::message::mouse >();
 //
-//         pmouse->m_atom = emessage;
+//         pmouse->m_emessage = emessage;
 //
 //         //pmouse->m_pointAbsolute.x() =
 //
@@ -451,7 +451,7 @@ namespace input_xinput
 //
 //         auto pkey = __create_new < ::message::key >();
 //
-//         pkey->m_atom = emessage;
+//         pkey->m_emessage = emessage;
 //
 //         //pmouse->m_pointAbsolute.x() =
 //
@@ -640,9 +640,9 @@ namespace input_xinput
             if (emessage != e_message_null)
             {
 
-//               huge_integer iWparam = 'a';
+//               long long iWparam = 'a';
 //
-               //huge_integer iLparam = XK_a;
+               //long long iLparam = XK_a;
 
                if (emessage == e_message_key_down || emessage == e_message_key_up)
                {
@@ -670,7 +670,7 @@ namespace input_xinput
 
                   auto pkey = __create_new<::message::key>();
 
-                  pkey->m_atom = emessage;
+                  pkey->m_emessage = emessage;
 
                   pkey->m_ekey = ekey;
 
@@ -694,7 +694,7 @@ namespace input_xinput
 
                   auto pmouse = __create_new<::message::mouse>();
 
-                  pmouse->m_atom = emessage;
+                  pmouse->m_emessage = emessage;
 
                   //pmouse->m_ekey = ekey;
 
@@ -736,7 +736,7 @@ namespace input_xinput
 //
 //                  auto pkey = __create_new < ::message::key >();
 //
-//                  pkey->m_atom = emessage;
+//                  pkey->m_emessage = emessage;
 //
 //                  pkey->m_ekey = ekey;
 //

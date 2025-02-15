@@ -933,7 +933,7 @@ namespace nano
          //
          //      pmouse->m_pwindow = this;
          //
-         //      pmouse->m_atom = e_message_mouse_move;
+         //      pmouse->m_emessage = e_message_mouse_move;
          //
          //      pmouse->m_pointHost = m_pointCursor2;
          //
@@ -990,7 +990,7 @@ namespace nano
          ////  //             MESSAGE msgCaptureChanged;
          ////
          //////               msgCaptureChanged.oswindow = m_pwindowCapture;
-         ////               msg.m_atom = e_message_capture_changed;
+         ////               msg.id() = e_message_capture_changed;
          ////               msg.wParam = 0;
          ////               msg.lParam = (lparam) (oswindow) (msg.oswindow == m_pwindowCapture ? nullptr : m_pwindowCapture.m_p);
          ////               msg.time = e.xcrossing.time;
@@ -1008,7 +1008,7 @@ namespace nano
          //
          ////      MESSAGE msg;
          ////      msg.oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
-         ////      msg.m_atom = e_message_mouse_leave;
+         ////      msg.id() = e_message_mouse_leave;
          ////      msg.wParam = 0;
          ////      msg.lParam = 0;
          ////      //   msg.time = e.xcrossing.time;
@@ -1022,7 +1022,7 @@ namespace nano
          //
          //      pmouse->m_pwindow = pmouse->m_oswindow;
          //
-         //      pmouse->m_atom = e_message_mouse_leave;
+         //      pmouse->m_emessage = e_message_mouse_leave;
          //
          //      pmouse->m_pointHost = m_pointCursor2;
          //
@@ -1056,7 +1056,7 @@ namespace nano
          m_pwlpointer = pwlpointer;
 
          //      enum_message emessage = e_message_undefined;
-         //      //msg.m_atom = e_message_mouse_wheel;
+         //      //msg.id() = e_message_mouse_wheel;
          //
          //      //post_ui_message(pmouse);
          //
@@ -1186,7 +1186,7 @@ namespace nano
          //
          //         pmousewheel->m_pwindow = this;
          //
-         //         pmousewheel->m_atom = e_message_mouse_wheel;
+         //         pmousewheel->id() = e_message_mouse_wheel;
          //
          //         //msg.wParam = make_int(0, iDelta);
          //
@@ -1216,7 +1216,7 @@ namespace nano
          //
          //         pmouse->m_pwindow = this;
          //
-         //         pmouse->m_atom = emessage;
+         //         pmouse->m_emessage = emessage;
          //
          //         pmouse->m_pointHost = m_pointCursor2;
          //
@@ -1662,7 +1662,7 @@ namespace nano
                //
                //            pkey->m_pwindow = this;
                //
-               //            pkey->m_atom = e_message_text_composition;
+               //            pkey->m_emessage = e_message_text_composition;
                //
                //            pkey->m_strText = text;
                //

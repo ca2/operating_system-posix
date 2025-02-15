@@ -91,7 +91,7 @@ namespace inotify
 //
 //      pwatch->add_listener(plistener);
 
-      m_atom = wd;
+      id() = wd;
 
       m_pathFolder = pathFolder;
 
@@ -139,7 +139,7 @@ namespace inotify
 //
 //               pwatch->add_listener(plistener);
 //
-//               pwatch->m_atom = inaw;
+//               pwatch->id() = inaw;
 //
 //               pwatch->m_pathFolder = listing[index];
 //

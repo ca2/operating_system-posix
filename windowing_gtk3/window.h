@@ -88,7 +88,7 @@ namespace windowing_gtk3
       //static Atom                                s_atomLongStyleEx;
       ::int_rectangle_array                        m_rectangleaRedraw;
       ::pointer<::xim::keyboard>                   m_pximkeyboard;
-      //huge_natural                                        m_uLastNetWmSyncRequest;
+      //unsigned long long                                        m_uLastNetWmSyncRequest;
       ::int_rectangle                              m_rectangleXShm;
       //bool                                         m_bFirstConfigure;
       //bool                                         m_bXShmPutImagePending;
@@ -123,8 +123,8 @@ namespace windowing_gtk3
          bool _on_focus_out(GtkWidget *widget, GdkEventFocus *event) override;
          bool _on_key_press(GtkWidget *widget, GdkEventKey *event) override;
          bool _on_key_release(GtkWidget *widget, GdkEventKey *event) override;
-         virtual void _on_gtk_key_pressed(huge_natural uGtkKey, huge_natural uGtkKeyCode);
-         virtual void _on_gtk_key_released(huge_natural uGtkKey, huge_natural uGtkKeyCode);
+         virtual void _on_gtk_key_pressed(unsigned long long uGtkKey, unsigned long long uGtkKeyCode);
+         virtual void _on_gtk_key_released(unsigned long long uGtkKey, unsigned long long uGtkKeyCode);
 
 
          virtual void _on_text(const ::scoped_string & scopedstr);
@@ -151,7 +151,7 @@ namespace windowing_gtk3
 //      static Atom get_window_long_atom(int nIndex);
 //
 //
-//      inline int net_wm_state(::x11::enum_atom eatom) const
+//      inline int net_wm_state(::x11::enuid() eatom) const
 //      {
 //
 //         return m_iaNetWmState2[eatom - ::x11::e_atom_net_wm_state_first];
@@ -298,9 +298,9 @@ namespace windowing_gtk3
 //      //virtual void unmapped_net_state_raw( WINDOWING_X11_WINDOW_MEMBER ...);
 //      virtual bool x11_get_window_rect(  WINDOWING_X11_WINDOW_MEMBER  ::int_rectangle * prectangle);
 //      virtual bool x11_get_client_rect(  WINDOWING_X11_WINDOW_MEMBER  ::int_rectangle * prectangle);
-//      //virtual oswindow set_capture( WINDOWING_X11_WINDOW_MEMBER );
-//      //virtual int_bool release_capture();
-//      //virtual oswindow set_focus( WINDOWING_X11_WINDOW_MEMBER );
+//      //virtual oswindow set_xxxcapture( WINDOWING_X11_WINDOW_MEMBER );
+//      //virtual int_bool release_xxxcapture();
+//      //virtual oswindow set_keyboard_focus( WINDOWING_X11_WINDOW_MEMBER );
 //      //virtual void x11_check_status(int status, unsigned long window);
 //      //virtual unsigned long x11_get_long_property( WINDOWING_X11_WINDOW_MEMBER char* property_name);
 //      virtual string x11_get_name( WINDOWING_X11_WINDOW_MEMBER );
@@ -338,12 +338,12 @@ namespace windowing_gtk3
 //      virtual int _wm_test_state_unlocked( WINDOWING_X11_WINDOW_MEMBER const char * pszNetStateFlag);
 //      virtual int _wm_test_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag);
 //      virtual bool _wm_add_remove_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag, bool bSet);
-//      virtual void _wm_add_remove_state_mapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
-//      virtual void wm_add_remove_state_mapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
-//      virtual void _wm_add_remove_state_unmapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
-//      virtual void wm_add_remove_state_unmapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
-//      virtual void _wm_add_remove_state_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
-//      virtual void wm_add_remove_state( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
+//      virtual void _wm_add_remove_state_mapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
+//      virtual void wm_add_remove_state_mapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
+//      virtual void _wm_add_remove_state_unmapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
+//      virtual void wm_add_remove_state_unmapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
+//      virtual void _wm_add_remove_state_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
+//      virtual void wm_add_remove_state( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
 //      virtual void _wm_state_clear_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);
 //      virtual void _wm_state_below_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);
 //      virtual void _wm_state_above_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);
@@ -431,7 +431,7 @@ namespace windowing_gtk3
 
       bool defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse * pmouse) override;
 
-      void on_destruct_mouse_message(::message::mouse * pmouse) override;
+      void final_mouse_message_handling(::message::mouse * pmouse) override;
 
       void _on_windowing_close_window() override;
 
@@ -460,6 +460,8 @@ namespace windowing_gtk3
 virtual void _set_configure_unlocked_timer();
 bool on_configure_unlocked_timer() override;
          virtual void _on_configure();
+         virtual void __on_configure_linux_mint_x_cinnamon();
+         virtual void __on_configure_default();
          virtual void _on_get_configuration();
 
          void _on_map_window() override;
@@ -472,7 +474,7 @@ bool on_configure_unlocked_timer() override;
       void switch_to_this_window(bool b) override;
 
 
-      huge_integer _001GetTopLeftWeightedOccludedOpaqueArea() override;
+      long long _001GetTopLeftWeightedOccludedOpaqueArea() override;
 
 
    };

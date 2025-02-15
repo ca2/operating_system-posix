@@ -18,6 +18,8 @@
 #include "acme/platform/system.h"
 #include "acme/user/user/interaction.h"
 #include "acme/user/user/mouse.h"
+#include "acme/prototype/geometry2d/_text_stream.h"
+
 //#include "windowing_system_x11/display_lock.h"
 //#include <X11/Xatom.h>
 //#include <xkbcommon/xkbcommon.h>
@@ -351,7 +353,7 @@ return TRUE;
             //                    pwindow->application()->fork([pwindow, pitem]()
             //                                               {
 
-            pwindow->on_a_system_menu_item(pitem);
+            pwindow->on_a_system_menu_item(pitem, nullptr);
 
             pwindow->m_psystemmenu.release();
 
@@ -711,8 +713,19 @@ return TRUE;
 
 
             gtk_window_move(GTK_WINDOW(m_pgtkwidget), x, y);
+
             gtk_window_resize(GTK_WINDOW(m_pgtkwidget), cx, cy);
 
+            if (windowing_bias() == ::windowing::e_bias_linux_mint_x_cinnamon_22_1)
+            {
+
+               __m_rectangleRequest = ::int_rectangle_dimension(x, y, cx, cy);
+
+               __m_iAttemptToSetPosition = 1;
+
+               __m_iAttemptToSetSize = 1;
+
+            }
 
             // Create drawing area
             //m_pdrawingarea = gtk_drawing_area_new();
@@ -852,7 +865,7 @@ return TRUE;
 
                if (pevent->button == GDK_BUTTON_PRIMARY)
                {
-                  pmouse->m_atom = e_message_left_button_down;
+                  pmouse->m_emessage = e_message_left_button_down;
                               ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
             
             if(pelemental)
@@ -888,7 +901,7 @@ return true;
                }
                else if (pevent->button == GDK_BUTTON_SECONDARY)
                {
-                  pmouse->m_atom = e_message_right_button_down;
+                  pmouse->m_emessage = e_message_right_button_down;
                   ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
             
                   if(pelemental)
@@ -923,7 +936,7 @@ return true;
                }
                else if (pevent->button == GDK_BUTTON_MIDDLE)
                {
-                  pmouse->m_atom = e_message_middle_button_down;
+                  pmouse->m_emessage = e_message_middle_button_down;
                }
 
 
@@ -981,7 +994,7 @@ m_phappeningLastMouseUp = pevent;
                if (pevent->button == GDK_BUTTON_PRIMARY)
                {
 
-                  pmouse->m_atom = e_message_left_button_up;
+                  pmouse->m_emessage = e_message_left_button_up;
 
                   ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
             
@@ -1018,7 +1031,7 @@ m_phappeningLastMouseUp = pevent;
                else if (pevent->button == GDK_BUTTON_SECONDARY)
                {
 
-                  pmouse->m_atom = e_message_right_button_up;
+                  pmouse->m_emessage = e_message_right_button_up;
 
                   ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
             
@@ -1055,7 +1068,7 @@ m_phappeningLastMouseUp = pevent;
                else if (pevent->button == GDK_BUTTON_MIDDLE)
                {
 
-                  pmouse->m_atom = e_message_middle_button_up;
+                  pmouse->m_emessage = e_message_middle_button_up;
 
                }
 
@@ -1122,7 +1135,7 @@ m_phappeningLastMouseUp = pevent;
 //
 //               pmouse->m_pwindow = this;
 
-               pmouse->m_atom = e_message_mouse_move;
+               pmouse->m_emessage = e_message_mouse_move;
 
                m_pointCursor2.x() = happening->x;
 
@@ -1468,39 +1481,39 @@ m_phappeningLastMouseUp = pevent;
          }
 
 
-         void window::set_capture()
-         {
-
-
-            main_send([this]()
-                      {
-
-                         GdkDevice *device = gdk_event_get_device((GdkEvent *) m_phappeningLastMouseDown);
-
-                         GdkGrabStatus status = gdk_device_grab(device, gtk_widget_get_window(m_pgtkwidget),
-                                                                GDK_OWNERSHIP_WINDOW, FALSE,
-                                                                (GdkEventMask) (GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK),
-                                                                NULL, m_phappeningLastMouseDown->time);
-
-                      });
-
-         }
-
-         void window::release_capture()
-         {
-
-
-
-            main_send([this]()
-                      {
-
-                         // Release the grab when the button is released
-                         GdkDevice *device = gdk_event_get_device((GdkEvent *) m_phappeningLastMouseUp);
-                         gdk_device_ungrab(device, m_phappeningLastMouseUp->time);
-
-                      });
-
-         }
+         // void window::set_mouse_capture()
+         // {
+         //
+         //
+         //    main_send([this]()
+         //              {
+         //
+         //                 GdkDevice *device = gdk_event_get_device((GdkEvent *) m_phappeningLastMouseDown);
+         //
+         //                 GdkGrabStatus status = gdk_device_grab(device, gtk_widget_get_window(m_pgtkwidget),
+         //                                                        GDK_OWNERSHIP_WINDOW, FALSE,
+         //                                                        (GdkEventMask) (GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK),
+         //                                                        NULL, m_phappeningLastMouseDown->time);
+         //
+         //              });
+         //
+         // }
+         //
+         // void window::release_mouse_capture()
+         // {
+         //
+         //
+         //
+         //    main_send([this]()
+         //              {
+         //
+         //                 // Release the grab when the button is released
+         //                 GdkDevice *device = gdk_event_get_device((GdkEvent *) m_phappeningLastMouseUp);
+         //                 gdk_device_ungrab(device, m_phappeningLastMouseUp->time);
+         //
+         //              });
+         //
+         // }
 
 
 
@@ -1875,6 +1888,21 @@ m_phappeningLastMouseUp = pevent;
 
             //::XMoveWindow(m_pdisplay->m_pdisplay, m_window, point.x(), point.y());
 
+            information() << "gtk3::acme_windowing_gtk::window::set_position_unlocked point : " << point.x() << ", " << point.y();
+
+            gtk_window_set_position(GTK_WINDOW(m_pgtkwidget), GTK_WIN_POS_NONE);
+
+            gtk_window_set_gravity(GTK_WINDOW(m_pgtkwidget), GDK_GRAVITY_NORTH_WEST);
+
+            if (windowing_bias() == ::windowing::e_bias_linux_mint_x_cinnamon_22_1)
+            {
+
+               __m_rectangleRequest.move_to(point);
+
+               __m_iAttemptToSetPosition = 1;
+
+            }
+
             gtk_window_move(GTK_WINDOW(m_pgtkwidget), point.x(), point.y());
 
          }
@@ -1882,6 +1910,17 @@ m_phappeningLastMouseUp = pevent;
 
          void window::set_size_unlocked(const ::int_size &size)
          {
+
+            information() << "gtk3::acme_windowing_gtk::window::set_size_unlocked size : " << size.width() << ", " << size.height();
+
+            if (windowing_bias() == ::windowing::e_bias_linux_mint_x_cinnamon_22_1)
+            {
+
+               __m_rectangleRequest.set_size(size);
+
+               __m_iAttemptToSetSize = 1;
+
+            }
 
             gtk_window_resize(GTK_WINDOW(m_pgtkwidget), size.cx(), size.cy());
 
@@ -2000,13 +2039,58 @@ m_phappeningLastMouseUp = pevent;
 
             gtk_window_get_position(GTK_WINDOW(m_pgtkwidget), &x, &y);
 
+            information() << "gtk_window_get_position x, y : " << x << ", " << y;
+
+            auto gravity = gtk_window_get_gravity(GTK_WINDOW(m_pgtkwidget));
+
+
+
+
+            if (gravity == GDK_GRAVITY_NORTH_WEST)
+            {
+
+
+               information() << "gravity is NORTH_WEST";
+
+
+            }
+            else if (gravity == GDK_GRAVITY_NORTH_EAST)
+            {
+
+
+               information() << "gravity is NORTH_EAST";
+
+
+            }
+            else if (gravity == GDK_GRAVITY_SOUTH_EAST)
+            {
+
+
+               information() << "gravity is SOUTH_EAST";
+
+
+            }
+            else if (gravity == GDK_GRAVITY_SOUTH_WEST)
+            {
+
+
+               information() << "gravity is SOUTH_WEST";
+
+
+            }
+
+
             int cx = 0;
 
             int cy = 0;
 
             gtk_window_get_size(GTK_WINDOW(m_pgtkwidget), &cx, &cy);
 
+            information() << "gtk_window_get_size : cx, cy " << cx << ", " << cy;
+
             auto rectangle = int_rectangle_dimension(x, y, cx, cy);
+
+            information() << "get_window_rectangle " << rectangle;
 
             return rectangle;
 
@@ -2225,9 +2309,109 @@ m_phappeningLastMouseUp = pevent;
 
             auto r = get_window_rectangle();
 
-            _on_configure(r.left(), r.top(), r.width(), r.height());
+            information() << "gtk3::acme::windowing::window::_on_configure " << r;
+
+            //bool bStillTryingToSetGeometry = false;
+               //
+            // if (m_iAttemptToSetSize < 8)
+            // {
+            //
+            //    if (m_rectangleRequest.size() != r.size())
+            //    {
+            //
+            //       information() << "gtk3::acme::windowing::window::_on_configure request_size " << m_rectangleRequest.size();
+            //
+            //       m_iAttemptToSetSize++;
+            //
+            //       gtk_window_resize(GTK_WINDOW(m_pgtkwidget), m_rectangleRequest.width(), m_rectangleRequest.height());
+            //
+            //       bStillTryingToSetGeometry = true;
+            //
+            //    }
+            //
+            // }
+            //
+            // if (m_iAttemptToSetPosition < 8)
+            // {
+            //
+            //    if (m_rectangleRequest.top_left() != r.top_left())
+            //    {
+            //
+            //       information() << "gtk3::acme::windowing::window::_on_configure request_position " << m_rectangleRequest.top_left();
+            //
+            //       m_iAttemptToSetPosition++;
+            //
+            //       gtk_window_move(GTK_WINDOW(m_pgtkwidget), m_rectangleRequest.left(), m_rectangleRequest.top());
+            //
+            //       bStillTryingToSetGeometry = true;
+            //
+            //    }
+            //
+            // }
+            //
+            // if (!bStillTryingToSetGeometry)
+            {
+
+               _on_configure(r.left(), r.top(), r.width(), r.height());
+
+            }
 
          }
+
+
+         // void window::_on_configure()
+         // {
+         //
+         //    auto r = get_window_rectangle();
+         //
+         //    information() << "gtk3::acme::windowing::window::_on_configure " << r;
+         //
+         //    bool bStillTryingToSetGeometry = false;
+         //
+         //    // if (m_iAttemptToSetSize < 8)
+         //    // {
+         //    //
+         //    //    if (m_rectangleRequest.size() != r.size())
+         //    //    {
+         //    //
+         //    //       information() << "gtk3::acme::windowing::window::_on_configure request_size " << m_rectangleRequest.size();
+         //    //
+         //    //       m_iAttemptToSetSize++;
+         //    //
+         //    //       gtk_window_resize(GTK_WINDOW(m_pgtkwidget), m_rectangleRequest.width(), m_rectangleRequest.height());
+         //    //
+         //    //       bStillTryingToSetGeometry = true;
+         //    //
+         //    //    }
+         //    //
+         //    // }
+         //    //
+         //    // if (m_iAttemptToSetPosition < 8)
+         //    // {
+         //    //
+         //    //    if (m_rectangleRequest.top_left() != r.top_left())
+         //    //    {
+         //    //
+         //    //       information() << "gtk3::acme::windowing::window::_on_configure request_position " << m_rectangleRequest.top_left();
+         //    //
+         //    //       m_iAttemptToSetPosition++;
+         //    //
+         //    //       gtk_window_move(GTK_WINDOW(m_pgtkwidget), m_rectangleRequest.left(), m_rectangleRequest.top());
+         //    //
+         //    //       bStillTryingToSetGeometry = true;
+         //    //
+         //    //    }
+         //    //
+         //    // }
+         //    //
+         //    // if (!bStillTryingToSetGeometry)
+         //    {
+         //
+         //       _on_configure(r.left(), r.top(), r.width(), r.height());
+         //
+         //    }
+         //
+         // }
 
 
       }//namespace windowing

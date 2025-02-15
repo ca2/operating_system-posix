@@ -85,7 +85,7 @@ namespace windowing_xcb
 #ifdef _DEBUG
 
 
-   huge_integer display::get_ref_count()
+   long long display::get_ref_count()
    {
 
       return m_countReference;
@@ -93,7 +93,7 @@ namespace windowing_xcb
    }
 
 
-   huge_integer display::increment_reference_count()
+   long long display::increment_reference_count()
    {
 
       return ::windowing::display::increment_reference_count();
@@ -101,7 +101,7 @@ namespace windowing_xcb
    }
 
 
-   huge_integer display::decrement_reference_count()
+   long long display::decrement_reference_count()
    {
 
       return ::windowing::display::increment_reference_count();
@@ -109,7 +109,7 @@ namespace windowing_xcb
    }
 
 
-   huge_integer display::release()
+   long long display::release()
    {
 
       return ::windowing::display::release();
@@ -186,7 +186,7 @@ namespace windowing_xcb
          if (!m_atoma[iAtomName])
          {
 
-            auto pszWindowName = ::x11::atom_name((::x11::enum_atom) iAtomName);
+            auto pszWindowName = ::x11::atom_name((::x11::enuid()) iAtomName);
 
             auto atom = intern_atom(pszWindowName);
 
@@ -409,7 +409,7 @@ namespace windowing_xcb
    }
 
 
-   xcb_atom_t display::intern_atom(::x11::enum_atom eatom, bool bCreate)
+   xcb_atom_t display::intern_atom(::x11::enuid() eatom, bool bCreate)
    {
 
       return m_pxcbdisplay->intern_atom(eatom, bCreate);

@@ -230,7 +230,7 @@ namespace system_5
 //      }
 //
 
-//      void interprocess_handler::receiver::on_ipc_post(interprocess_handler * prx, huge_integer a, huge_integer b)
+//      void interprocess_handler::receiver::on_ipc_post(interprocess_handler * prx, long long a, long long b)
 //      {
 //
 //      }
@@ -270,7 +270,7 @@ namespace system_5
 //   }
 //
 //
-//   void interprocess_target::on_interprocess_post(huge_integer a, huge_integer b)
+//   void interprocess_target::on_interprocess_post(long long a, long long b)
 //   {
 //
 //      if (m_preceiver != nullptr)

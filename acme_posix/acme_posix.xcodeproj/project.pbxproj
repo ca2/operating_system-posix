@@ -119,6 +119,9 @@
 		9AC14CD3297B3370006D9BD3 /* file_memory_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16B2264A2C6C00B5CC33 /* file_memory_map.cpp */; };
 		9AC14CD4297B3370006D9BD3 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16B6264A2C6C00B5CC33 /* node.cpp */; };
 		9AC14CD5297B3370006D9BD3 /* node_clang_callstack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A78F44428E7E3E2007F62C0 /* node_clang_callstack.cpp */; };
+		9AFC61B22D574170005ED062 /* node_utsname.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AFC61B12D574170005ED062 /* node_utsname.cpp */; };
+		9AFC61B32D574170005ED062 /* node_utsname.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AFC61B12D574170005ED062 /* node_utsname.cpp */; };
+		9AFC61B42D574170005ED062 /* node_utsname.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AFC61B12D574170005ED062 /* node_utsname.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -209,6 +212,7 @@
 		9AB5228B2A4C0781001EB2F0 /* _____debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "_____debug.xcconfig"; sourceTree = "<group>"; };
 		9AB5228C2A4C0781001EB2F0 /* _____release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "_____release.xcconfig"; sourceTree = "<group>"; };
 		9AC14CDB297B3370006D9BD3 /* libstatic_acme_posix.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libstatic_acme_posix.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AFC61B12D574170005ED062 /* node_utsname.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = node_utsname.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,44 +250,45 @@
 		9A0C16AE264A2C6C00B5CC33 /* acme_posix */ = {
 			isa = PBXGroup;
 			children = (
-				9AA1FE512D18EFD200DB0C45 /* _posix.cpp */,
+				9A0C16C4264A2C6C00B5CC33 /* _.h */,
+				9A0C16BA264A2C6C00B5CC33 /* _.cpp */,
 				9AB5228B2A4C0781001EB2F0 /* _____debug.xcconfig */,
 				9AB5228C2A4C0781001EB2F0 /* _____release.xcconfig */,
-				9A0C16BA264A2C6C00B5CC33 /* _.cpp */,
-				9A0C16C4264A2C6C00B5CC33 /* _.h */,
 				9A0C16C1264A2C6C00B5CC33 /* _factory.cpp */,
 				9A754F8B2B21274300FFB669 /* _library.h */,
-				9A892E7C26CDDAA8008D6412 /* directory_system.cpp */,
-				9A892E7926CDDAA7008D6412 /* directory_system.h */,
-				9A892E7B26CDDAA8008D6412 /* file_system.cpp */,
-				9A892E7D26CDDAA8008D6412 /* file_system.h */,
-				9A892E7E26CDDAA8008D6412 /* path_system.cpp */,
-				9A892E7F26CDDAA8008D6412 /* path_system.h */,
-				9A89A8A02B92EDE300D44573 /* directory_context.cpp */,
+				9AA1FE512D18EFD200DB0C45 /* _posix.cpp */,
 				9A89A8A12B92EDE300D44573 /* directory_context.h */,
-				9A78F40128E791B4007F62C0 /* exception_translator.cpp */,
+				9A89A8A02B92EDE300D44573 /* directory_context.cpp */,
+				9A892E7926CDDAA7008D6412 /* directory_system.h */,
+				9A892E7C26CDDAA8008D6412 /* directory_system.cpp */,
 				9A78F40228E791B4007F62C0 /* exception_translator.h */,
-				9A0841B52935D540009F7FF4 /* exclusive.cpp */,
+				9A78F40128E791B4007F62C0 /* exception_translator.cpp */,
 				9A0841B62935D55E009F7FF4 /* exclusive.h */,
-				9AA3F9682A949CDD004283CA /* file_context.cpp */,
-				9AA3F9692A949CDD004283CA /* file_context.h */,
-				9A0841B72935D564009F7FF4 /* file_lock.h */,
-				9A0C16B2264A2C6C00B5CC33 /* file_memory_map.cpp */,
-				9A0C16BF264A2C6C00B5CC33 /* file_memory_map.h */,
-				9A3BFB9529C82721005DE2BF /* file.cpp */,
+				9A0841B52935D540009F7FF4 /* exclusive.cpp */,
 				9A3BFB9629C82721005DE2BF /* file.h */,
-				9A0C16B3264A2C6C00B5CC33 /* framework.cpp */,
+				9A3BFB9529C82721005DE2BF /* file.cpp */,
+				9AA3F9692A949CDD004283CA /* file_context.h */,
+				9AA3F9682A949CDD004283CA /* file_context.cpp */,
+				9A0841B72935D564009F7FF4 /* file_lock.h */,
+				9A0C16BF264A2C6C00B5CC33 /* file_memory_map.h */,
+				9A0C16B2264A2C6C00B5CC33 /* file_memory_map.cpp */,
+				9A892E7D26CDDAA8008D6412 /* file_system.h */,
+				9A892E7B26CDDAA8008D6412 /* file_system.cpp */,
 				9A0C16C2264A2C6C00B5CC33 /* framework.h */,
-				9A89A89F2B92EDE200D44573 /* integration_context.cpp */,
+				9A0C16B3264A2C6C00B5CC33 /* framework.cpp */,
 				9A89A89E2B92EDE200D44573 /* integration_context.h */,
+				9A89A89F2B92EDE200D44573 /* integration_context.cpp */,
 				9A0841AE2935D51E009F7FF4 /* list_serial_ports.cpp */,
-				9A0841AD2935D51E009F7FF4 /* mutex.cpp */,
 				9A0841AC2935D51D009F7FF4 /* mutex.h */,
-				9A78F44428E7E3E2007F62C0 /* node_clang_callstack.cpp */,
-				9A0C16B6264A2C6C00B5CC33 /* node.cpp */,
+				9A0841AD2935D51E009F7FF4 /* mutex.cpp */,
 				9A0C16B7264A2C6C00B5CC33 /* node.h */,
-				9A0C16AF264A2C6C00B5CC33 /* pipe.cpp */,
+				9A0C16B6264A2C6C00B5CC33 /* node.cpp */,
+				9A78F44428E7E3E2007F62C0 /* node_clang_callstack.cpp */,
+				9AFC61B12D574170005ED062 /* node_utsname.cpp */,
+				9A892E7F26CDDAA8008D6412 /* path_system.h */,
+				9A892E7E26CDDAA8008D6412 /* path_system.cpp */,
 				9A0C16C0264A2C6C00B5CC33 /* pipe.h */,
+				9A0C16AF264A2C6C00B5CC33 /* pipe.cpp */,
 			);
 			name = acme_posix;
 			sourceTree = "<group>";
@@ -511,6 +516,7 @@
 				9AA1FE552D18F35400DB0C45 /* _posix.cpp in Sources */,
 				9A892E8426CDDAA9008D6412 /* path_system.cpp in Sources */,
 				9A0C16CE264A2C6D00B5CC33 /* _.cpp in Sources */,
+				9AFC61B32D574170005ED062 /* node_utsname.cpp in Sources */,
 				9A0C16C8264A2C6D00B5CC33 /* framework.cpp in Sources */,
 				9A89A8A82B92EDE300D44573 /* directory_context.cpp in Sources */,
 				9A892E8226CDDAA9008D6412 /* directory_system.cpp in Sources */,
@@ -537,6 +543,7 @@
 				9AB67D002D1C352F001AB250 /* _posix.cpp in Sources */,
 				9A8E9DC9282A2F7E005FF778 /* path_system.cpp in Sources */,
 				9A8E9DCA282A2F7E005FF778 /* _.cpp in Sources */,
+				9AFC61B42D574170005ED062 /* node_utsname.cpp in Sources */,
 				9A8E9DCB282A2F7E005FF778 /* framework.cpp in Sources */,
 				9A89A8A92B92EDE300D44573 /* directory_context.cpp in Sources */,
 				9A8E9DCC282A2F7E005FF778 /* directory_system.cpp in Sources */,
@@ -563,6 +570,7 @@
 				9A2049F02D2CCA2500C43F75 /* _posix.cpp in Sources */,
 				9AC14CC8297B3370006D9BD3 /* path_system.cpp in Sources */,
 				9AC14CC9297B3370006D9BD3 /* _.cpp in Sources */,
+				9AFC61B22D574170005ED062 /* node_utsname.cpp in Sources */,
 				9AC14CCA297B3370006D9BD3 /* framework.cpp in Sources */,
 				9A89A8AA2B92EDE300D44573 /* directory_context.cpp in Sources */,
 				9AC14CCB297B3370006D9BD3 /* directory_system.cpp in Sources */,

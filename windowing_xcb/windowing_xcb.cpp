@@ -998,7 +998,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       if (pmessagequeue == nullptr)
       {
 
-         if (message.m_atom == e_message_quit)
+         if (message.m_emessage == e_message_quit)
          {
 
             return false;
@@ -1018,20 +1018,20 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       synchronous_lock ml(pmessagequeue->synchronization());
 
-      if (message.m_atom == e_message_quit)
+      if (message.m_emessage == e_message_quit)
       {
 
          informationf("e_message_quit thread");
 
       }
 
-      if (message.m_atom == e_message_left_button_down)
+      if (message.m_emessage == e_message_left_button_down)
       {
 
          informationf("post_ui_message::e_message_left_button_down\n");
 
       }
-      else if (message.m_atom == e_message_left_button_up)
+      else if (message.m_emessage == e_message_left_button_up)
       {
 
          informationf("post_ui_message::e_message_left_button_up\n");

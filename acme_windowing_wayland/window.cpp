@@ -841,7 +841,7 @@ namespace wayland
          }
 
 
-         void window::set_capture()
+         void window::set_mouse_capture()
          {
 
             //      if (XGrabPointer(m_pdisplay->m_pdisplay, m_window, False, ButtonPressMask | ButtonReleaseMask | PointerMotionMask,
@@ -855,7 +855,7 @@ namespace wayland
          }
 
 
-         void window::release_capture()
+         void window::release_mouse_capture()
          {
 
             //int bRet = XUngrabPointer(m_pdisplay->m_pdisplay, CurrentTime);
@@ -1006,7 +1006,7 @@ namespace wayland
             //
             //      pmouse->m_pwindow = this;
             //
-            //      pmouse->m_atom = e_message_mouse_move;
+            //      pmouse->m_emessage = e_message_mouse_move;
             //
             pmouse->m_pointHost = m_pointCursor2;
 
@@ -1060,7 +1060,7 @@ namespace wayland
             ////  //             MESSAGE msgCaptureChanged;
             ////
             //////               msgCaptureChanged.oswindow = m_pwindowCapture;
-            ////               msg.m_atom = e_message_capture_changed;
+            ////               msg.id() = e_message_capture_changed;
             ////               msg.wParam = 0;
             ////               msg.lParam = (lparam) (oswindow) (msg.oswindow == m_pwindowCapture ? nullptr : m_pwindowCapture.m_p);
             ////               msg.time = e.xcrossing.time;
@@ -1078,7 +1078,7 @@ namespace wayland
             //
             ////      MESSAGE msg;
             ////      msg.oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
-            ////      msg.m_atom = e_message_mouse_leave;
+            ////      msg.id() = e_message_mouse_leave;
             ////      msg.wParam = 0;
             ////      msg.lParam = 0;
             ////      //   msg.time = e.xcrossing.time;
@@ -1092,7 +1092,7 @@ namespace wayland
             //
             //      pmouse->m_pwindow = pmouse->m_oswindow;
             //
-            //      pmouse->m_atom = e_message_mouse_leave;
+            //      pmouse->m_emessage = e_message_mouse_leave;
             //
             //      pmouse->m_pointHost = m_pointCursor2;
             //
@@ -1128,14 +1128,14 @@ namespace wayland
             //
             //      pmouse->m_pwindow = this;
             //
-            //      pmouse->m_atom = e_message_mouse_move;
+            //      pmouse->m_emessage = e_message_mouse_move;
             //
             pmouse->m_pointHost = m_pointCursor2;
 
             pmouse->m_pointAbsolute = m_pointCursor2;
 
             //      enum_message emessage = e_message_undefined;
-            //      //msg.m_atom = e_message_mouse_wheel;
+            //      //msg.id() = e_message_mouse_wheel;
             //
             //      //post_ui_message(pmouse);
             //
@@ -1275,7 +1275,7 @@ namespace wayland
             //
             //         pmousewheel->m_pwindow = this;
             //
-            //         pmousewheel->m_atom = e_message_mouse_wheel;
+            //         pmousewheel->id() = e_message_mouse_wheel;
             //
             //         //msg.wParam = make_int(0, iDelta);
             //
@@ -1305,7 +1305,7 @@ namespace wayland
             //
             //         pmouse->m_pwindow = this;
             //
-            //         pmouse->m_atom = emessage;
+            //         pmouse->m_emessage = emessage;
             //
             //         pmouse->m_pointHost = m_pointCursor2;
             //

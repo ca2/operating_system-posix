@@ -190,7 +190,7 @@ void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString)
 ////
 ////            string strProperty;
 ////
-////            strProperty = CA2_X11_WINDOW_LONG + ansi_string_from_huge_integer(nIndex);
+////            strProperty = CA2_X11_WINDOW_LONG + ansi_string_from_long_long(nIndex);
 ////
 ////            return XInternAtom(m_pdisplay, strProperty, False);
 ////

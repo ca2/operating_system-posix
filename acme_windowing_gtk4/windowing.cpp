@@ -425,6 +425,8 @@ m_bMessageThread=true;
          {
 
             auto* pgtk4windowingsystem = (::gtk4::acme::windowing::windowing*)p;
+            
+            ::information() << "gtk4::acme::windowing::on_activate_gtk_application";
 
             pgtk4windowingsystem->_hook_system_theme_change_callbacks();
 
@@ -459,6 +461,8 @@ m_bMessageThread=true;
 
          void windowing::run()
          {
+			 
+			 information() << "gtk4::acme::windowing::windowing::run";
 
             ::string strId = application()->m_strAppId;
 
@@ -467,6 +471,8 @@ m_bMessageThread=true;
             strId.find_replace("_", "-");
 
             //gtk_init();
+            
+            information() << "application id: " << strId;
 
             m_pgtkapplication = gtk_application_new(strId, G_APPLICATION_DEFAULT_FLAGS);
 
@@ -497,7 +503,7 @@ m_bMessageThread=true;
             //
             //
             // }
-
+information() << "gtk4::acme::windowing::windowing::run g_application_run";
             g_application_run(G_APPLICATION(m_pgtkapplication), 0, nullptr);
 
             // //g_application_run (G_APPLICATION(m_pgtkapplication), platform()->get_argc(), platform()->get_args());
@@ -511,12 +517,20 @@ m_bMessageThread=true;
             //
             // }
 
-            if(::system()->m_pmanualresethappeningMainLoopEnd)
-            {
+            // if(::system()->m_pmanualresethappeningMainLoopEnd)
+            // {
+            //
+            //    ::system()->m_pmanualresethappeningMainLoopEnd->set_happening();
+            //
+            // }
 
-               ::system()->m_pmanualresethappeningMainLoopEnd->set_happening();
+         }
 
-            }
+
+         void windowing::__task_suffix()
+         {
+
+            windowing_post_quit();
 
          }
 
@@ -551,9 +565,7 @@ m_bMessageThread=true;
          void windowing::on_start_system()
          {
 
-            auto* psystem = this->system();
-
-            psystem->on_branch_system_from_main_thread_startup();
+            system()->on_branch_system_from_main_thread_startup(this);
 
          }
 
@@ -577,7 +589,7 @@ m_bMessageThread=true;
 
             int stride = cairo_image_surface_get_stride(original_surface);
 
-            huge_natural sum_r = 0, sum_g = 0, sum_b = 0, sum_a = 0;
+            unsigned long long sum_r = 0, sum_g = 0, sum_b = 0, sum_a = 0;
 
             for (int y = 0; y < height; ++y)
             {

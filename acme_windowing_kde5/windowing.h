@@ -57,10 +57,10 @@ namespace kde5
       void windowing_post_quit() override;
 
 
-      bool defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow);
+      bool defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow) override;
 
 
-      virtual ::pixmap get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile);
+      ::pixmap get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile) override;
 
 
 //   ::e_status x11_initialize() override;
@@ -69,7 +69,7 @@ namespace kde5
 //   void x11_async(const ::procedure & procedure) override;
 //   void x11_display_error_trap_push(int i) override;
 //   void x11_display_error_trap_pop_ignored(int i) override;
-
+      ::windowing::enum_windowing calculate_ewindowing() override;
 
    };
 

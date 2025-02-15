@@ -26,7 +26,7 @@ namespace nano
       public:
 
 
-         huge_integer m_i;
+         long long m_i;
 
          id();
          ~id() override;

@@ -75,10 +75,10 @@ namespace windowing_gtk3
 #ifdef _DEBUG
 
 
-      virtual huge_integer get_ref_count();
-      virtual huge_integer increment_reference_count() override;
-      virtual huge_integer decrement_reference_count() override;
-      virtual huge_integer release() override;
+      virtual long long get_ref_count();
+      virtual long long increment_reference_count() override;
+      virtual long long decrement_reference_count() override;
+      virtual long long release() override;
 
 
 #endif
@@ -126,9 +126,9 @@ namespace windowing_gtk3
 
       virtual bool is_null() const;
 
-      bool _get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle) override;
+      //bool _get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle) override;
 
-      bool _get_workspace_rectangle(::collection::index iWorkspace, ::int_rectangle & rectangle) override;
+      //bool _get_workspace_rectangle(::collection::index iWorkspace, ::int_rectangle & rectangle) override;
 
       //virtual ::windowing::window * get_mouse_capture();
 
@@ -137,11 +137,11 @@ namespace windowing_gtk3
 
 //      Atom intern_atom(const char * pszAtomName, bool bCreate);
 //
-//      Atom intern_atom(::x11::enum_atom eatom, bool bCreate);
+//      Atom intern_atom(::x11::enuid() eatom, bool bCreate);
 //
 //      Atom _intern_atom_unlocked(const char * pszAtomName, bool bCreate);
 //
-//      Atom _intern_atom_unlocked(::x11::enum_atom eatom, bool bCreate);
+//      Atom _intern_atom_unlocked(::x11::enuid() eatom, bool bCreate);
 //
 //      Atom net_wm_state_atom(bool bCreate);
 
@@ -178,7 +178,7 @@ namespace windowing_gtk3
 //      virtual void __handle_keyboard_key(::wl_keyboard *pwlkeyboard, uint32_t serial, uint32_t time, uint32_t key, uint32_t state);
 //      virtual void __handle_keyboard_modifiers(::wl_keyboard *keyboard, uint32_t serial, uint32_t mods_depressed, uint32_t mods_latched, uint32_t mods_locked, uint32_t group);
 
-
+         //::collection::index get_main_monitor_index() override;
          ::int_size get_main_screen_size() override;
 
 

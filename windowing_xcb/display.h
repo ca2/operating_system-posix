@@ -63,10 +63,10 @@ namespace windowing_xcb
 #ifdef _DEBUG
 
 
-      virtual huge_integer get_ref_count();
-      huge_integer increment_reference_count() override;
-      huge_integer decrement_reference_count() override;
-      huge_integer release() override;
+      virtual long long get_ref_count();
+      long long increment_reference_count() override;
+      long long decrement_reference_count() override;
+      long long release() override;
 
 
 #endif
@@ -86,7 +86,7 @@ namespace windowing_xcb
 
       virtual xcb_atom_t intern_atom(const char * pszAtomName, bool bCreate = true);
 
-      virtual xcb_atom_t intern_atom(::x11::enum_atom eatom, bool bCreate = true);
+      virtual xcb_atom_t intern_atom(::x11::enuid() eatom, bool bCreate = true);
 
       virtual ::string atom_name(xcb_atom_t atom);
       virtual ::string _atom_name(xcb_atom_t atom);

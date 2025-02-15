@@ -15,7 +15,9 @@
 #include "acme/windowing/windowing.h"
 //#include "common_gtk/gdk_3_and_4.h"
 #include "acme_windowing_kde5/kde5.h"
-
+#include <QScreen>
+#include <QRect>
+#include <QGuiApplication>
 //#include "windowing_system_x11/_.h"
 
 
@@ -108,7 +110,7 @@ namespace kde5
          //         }
          //
          //
-         //         Atom display::intern_atom(enum_atom eatom, bool bCreate)
+         //         Atom display::intern_atom(enuid() eatom, bool bCreate)
          //         {
          //
          //            return _intern_atom_unlocked(eatom, bCreate);
@@ -120,14 +122,14 @@ namespace kde5
          //            //
          //            //      }
          //            //
-         //            //      Atom atom = m_atommap[eatom];
+         //            //      Atom atom = id()map[eatom];
          //            //
          //            //      if (atom == None)
          //            //      {
          //            //
          //            //         atom = intern_atom(atom_name(eatom), bCreate);
          //            //
-         //            //         m_atommap[eatom] = atom;
+         //            //         id()map[eatom] = atom;
          //            //
          //            //      }
          //            //
@@ -163,7 +165,7 @@ namespace kde5
          //         }
          //
          //
-         //         Atom display::_intern_atom_unlocked(enum_atom eatom, bool bCreate)
+         //         Atom display::_intern_atom_unlocked(enuid() eatom, bool bCreate)
          //         {
          //
          //            if (eatom < 0 || eatom >= e_atom_count)
@@ -173,14 +175,14 @@ namespace kde5
          //
          //            }
          //
-         //            Atom atom = m_atommap[eatom];
+         //            Atom atom = id()map[eatom];
          //
          //            if (atom == None)
          //            {
          //
          //               atom = _intern_atom_unlocked(atom_name(eatom), bCreate);
          //
-         //               m_atommap[eatom] = atom;
+         //               id()map[eatom] = atom;
          //
          //            }
          //
@@ -693,7 +695,22 @@ namespace kde5
             //
             //            auto height = DisplayHeight(m_pdisplay, snum);
 
-            return {1920, 1080};
+            //return {1920, 1080};
+
+            // Get the primary screen
+            QScreen *primaryScreen = QGuiApplication::primaryScreen();
+            if (!primaryScreen) {
+               //qWarning() << "No primary screen found!";
+               return {1920,1080};
+            }
+
+            // Get the screen geometry
+            QRect screenGeometry = primaryScreen->geometry();
+            int width = screenGeometry.width();
+            int height = screenGeometry.height();
+
+            //qDebug() << "Primary screen size: " << width << "x" << height;
+return {width, height};
 
          }
 
