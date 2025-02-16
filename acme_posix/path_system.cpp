@@ -3,6 +3,7 @@
 // on 2021-08-12
 // 18:20 BRT
 #include "framework.h"
+#include "directory_system.h"
 #include "path_system.h"
 #if defined( FREEBSD) || defined(OPENBSD)
 //#define __XSI_VISIBLE 1
@@ -13,6 +14,7 @@
 //#include "acme/filesystem/filesystem/path.h"
 #include <sys/stat.h>
 #include <stdio.h>
+
 
 namespace acme_posix
 {
@@ -202,6 +204,17 @@ void path_system::create_symbolic_link(const ::scoped_string & scopedstrLink, co
 {
 
    ::string strTarget = scopedstrLink;
+
+
+      ::file::path pathTarget;
+
+      pathTarget = strTarget;
+
+      ::file::path pathTargetFolder;
+
+      pathTargetFolder = pathTarget.folder();
+
+      directory_system()->create(pathTargetFolder);
 
    ::string strSource = scopedstrSource;
    
