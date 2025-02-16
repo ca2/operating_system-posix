@@ -706,7 +706,7 @@ namespace windowing_gtk3
 
       }
 
-      return false;
+      return true;
 
    }
 
@@ -773,7 +773,7 @@ namespace windowing_gtk3
 
       }
 
-      return false;
+      return true;
 
    }
 

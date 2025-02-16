@@ -384,7 +384,7 @@ return TRUE;
          window::window()
          {
             m_bGtkWindowMapped = false;
-
+            //m_bLeftButtonDown = false;
             //m_psurface = nullptr;
             //m_iDepth = -1;
             //m_pvisual = nullptr;
@@ -825,6 +825,20 @@ return TRUE;
 
          bool window::_on_button_press(GtkWidget* pwidget, GdkEventButton* pevent)
          {
+            // if (pevent->button == GDK_BUTTON_PRIMARY)
+            // {
+            //
+            //    if (m_bLeftButtonDown)
+            //    {
+            //
+            //       return true;
+            //
+            //    }
+            //
+            //    m_bLeftButtonDown = true;
+            //
+            //
+            // }
 
             //   if (happening->button == GDK_BUTTON_PRIMARY) {
             //      resize_edge = detect_resize_edge(widget, happening->x, happening->y);
@@ -842,6 +856,7 @@ return TRUE;
             //auto pwindow = m_pwindow;
             m_phappeningLastMouseDown = pevent;
             //if(::is_set(pwindow))
+
             {
 
                auto pmouse = __create_new<::user::mouse>();

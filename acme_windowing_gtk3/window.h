@@ -34,6 +34,7 @@ namespace gtk3
             //::pointer<::x11::acme::windowing::display>         m_pdisplay;
             //Window                           m_window;
             //Window                           m_windowRoot;
+            //bool m_bLeftButtonDown;
             GtkWidget * m_pgtkwidget;
             GtkWidget *m_pdrawingarea;
             GtkWidget * m_pgtkwidgetSystemMenu;

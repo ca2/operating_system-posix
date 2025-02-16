@@ -13,7 +13,7 @@
 //#include <libappindicator3-0.1/libappindicator/app-indicator.h>
 #include "acme/handler/command_handler.h"
 #include "acme/platform/application_menu.h"
-#if defined(FREEBSD) || defined(FEDORA_LINUX) || defined(SUSE_LINUX) || defined(OPENBSD)
+#if defined(FREEBSD) || defined(__ARCH_LINUX__) || defined(FEDORA_LINUX) || defined(SUSE_LINUX) || defined(OPENBSD)
 #include <libappindicator3-0.1/libappindicator/app-indicator.h>
 #else
 #include <libayatana-appindicator/app-indicator.h>

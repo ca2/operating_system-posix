@@ -351,6 +351,8 @@ namespace gtk3
 
             //signal(SIGCHLD, SIG_IGN);
 
+            __task_init();
+
             defer_init_gtk();
 
             task::main();
