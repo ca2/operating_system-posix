@@ -1194,6 +1194,74 @@ namespace windowing_gtk3
    }
 
 
+   bool window::_on_gtk_scroll(GtkWidget * pwidget, GdkEventScroll * pscroll)
+   {
+
+      auto pmouse = __create_new<::message::mouse_wheel>();
+
+      pmouse->m_oswindow = this;
+
+      pmouse->m_pwindow = this;
+
+      // GdkEventSequence * sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
+      //
+      // // Get the GdkEvent from the sequence
+      // GdkEvent * happening = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+      //
+      // guint32 timestamp = gdk_event_get_time(happening);
+      //
+      // pmouse->m_iTimestamp = timestamp;
+
+      pmouse->m_emessage = e_message_mouse_wheel;
+
+      informationf("_on_gtk_scroll(%0.2f, %0.2f)", pscroll->delta_x, pscroll->delta_y);
+
+
+            ::int_point pointHost(pscroll->x, pscroll->y);
+
+            pmouse->m_pointHost = pointHost;
+
+            //            _defer_translate_to_absolute_coordinates_unlocked(pointCursor);
+
+            ::int_point pointCursor(pscroll->x_root, pscroll->y_root);
+
+      m_pointCursor2 = pointCursor;
+
+            pmouse->m_pointAbsolute = m_pointCursor2;
+
+            debugf("Scroll event: dx=%d, dy=%d, cursor position: x=%df, y=%d at host: x=%df, y=%d\n",
+               pscroll->delta_x,
+               pscroll->delta_y,
+               pscroll->x_root,
+               pscroll->y_root,
+               pscroll->x,
+               pscroll->y);
+
+      //    }
+      //    else
+      //    {
+      //
+      //       debugf("Failed to get cursorpos. Use last recorded position x=%d, y=%d", m_pointCursor2.x(), m_pointCursor2.y());
+      //
+      //       pmouse->m_pointHost = m_pointCursor2;
+      //
+      //       //            _defer_translate_to_absolute_coordinates_unlocked(pointCursor);
+      //
+      //       pmouse->m_pointAbsolute = m_pointCursor2;
+      //
+      //    }
+      // }
+
+      pmouse->m_Δ = (short)-pscroll->delta_y*120;
+
+      message_handler(pmouse);
+
+      return false;
+
+   }
+
+
+
    void window::_on_text(const ::scoped_string& scopedstr)
    {
 

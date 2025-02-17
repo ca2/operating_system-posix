@@ -115,6 +115,8 @@ namespace gtk3
             virtual bool _on_key_press(GtkWidget *widget, GdkEventKey *event);
             virtual bool _on_key_release(GtkWidget *widget, GdkEventKey *event);
 
+            virtual bool _on_gtk_scroll(GtkWidget *widget, GdkEventScroll * pscroll);
+
             virtual void _on_cairo_draw(GtkWidget *widget, cairo_t *cr);
             //void create_window(::windowing::window * pimpl) override;
 

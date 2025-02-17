@@ -177,6 +177,30 @@ return TRUE;
             return FALSE;
          }
 
+
+         // Callback function for the scroll event
+         gboolean on_scroll(GtkWidget *widget, GdkEventScroll *pscroll, gpointer p) {
+            // Check the scroll direction
+            //if (event->direction == GDK_SCROLL_UP) {
+               //g_print("Scrolled Up\n");
+            //} else if (event->direction == GDK_SCROLL_DOWN) {
+              // g_print("Scrolled Down\n");
+            //}
+            auto pwindow = (::gtk3::acme::windowing::window*)p;
+            //GtkIMContext *im_context = gtk_widget_get_im_context(widget);
+
+            if (pwindow->_on_gtk_scroll(widget, pscroll))
+            {
+
+               return TRUE;
+
+            }
+return FALSE;
+            // Return FALSE to propagate the event further
+            //return FALSE;
+         }
+
+
          // // Callback function to handle window resize happenings
          // static void on_size_allocate(GtkWidget *widget, GdkRectangle *allocation, gpointer p) {
          //    // Print the ___new size of the window
@@ -764,7 +788,8 @@ return TRUE;
                          | GDK_STRUCTURE_MASK
                          | GDK_FOCUS_CHANGE_MASK
                          | GDK_KEY_PRESS_MASK
-                         | GDK_KEY_RELEASE_MASK));
+                         | GDK_KEY_RELEASE_MASK
+                         | GDK_SCROLL_MASK));
             // Set happenings to capture motion and button happenings
             // gtk_widget_set_events(m_pgtkwidget,
             //                       GDK_BUTTON_PRESS_MASK
@@ -789,6 +814,11 @@ return TRUE;
             // Connect to key press and release events
             g_signal_connect(GTK_WINDOW(m_pgtkwidget), "key-press-event", G_CALLBACK(on_key_press), this);
             g_signal_connect(GTK_WINDOW(m_pgtkwidget), "key-release-event", G_CALLBACK(on_key_release), this);
+
+
+            // Connect the scroll-event signal
+            g_signal_connect(GTK_WINDOW(m_pgtkwidget), "scroll-event", G_CALLBACK(on_scroll), this);
+
 
             // gtk_widget_set_events(m_pgtkwidget,
             //              GDK_STRUCTURE_MASK
@@ -1315,6 +1345,16 @@ m_phappeningLastMouseUp = pevent;
             return false;
 
          }
+
+
+         bool window::_on_gtk_scroll(GtkWidget *widget, GdkEventScroll * pscroll)
+         {
+
+            return false;
+
+         }
+
+
 
 
          void window::_on_cairo_draw(GtkWidget *widget, cairo_t *cr)

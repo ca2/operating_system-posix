@@ -127,6 +127,8 @@ namespace windowing_gtk3
          virtual void _on_gtk_key_released(unsigned long long uGtkKey, unsigned long long uGtkKeyCode);
 
 
+         bool _on_gtk_scroll(GtkWidget * pwidget, GdkEventScroll * pscroll) override;
+
          virtual void _on_text(const ::scoped_string & scopedstr);
 
       void _on_cairo_draw(GtkWidget *widget, cairo_t *cr) override;
