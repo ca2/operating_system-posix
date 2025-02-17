@@ -4,35 +4,35 @@
 #pragma once
 
 
-
-#include <QWidget>
-
-namespace kde6
-{
-
-
-namespace micro
-{
-
-
-class CLASS_DECL_ACME_WINDOWING_KDE6 window
-{
-public:
-
-    virtual void _on_mouse_press(QMouseEvent * pevent);
-    virtual void _on_mouse_release(QMouseEvent * pevent);
-    virtual void _on_mouse_motion(QMouseEvent * pevent);
-    virtual void _on_qimage_draw(QImage * pqimage);
-    virtual void _on_reposition(int x, int y);
-    virtual void _on_size(int cx, int cy);
-
-
-
-};
-
-
-} // namespace micro
-
-} // namespace kde6
-
-
+//
+// #include <QWidget>
+//
+// namespace kde6
+// {
+//
+//
+// namespace micro
+// {
+//
+//
+// class CLASS_DECL_ACME_WINDOWING_KDE6 window
+// {
+// public:
+//
+//     virtual void _on_mouse_press(QMouseEvent * pevent);
+//     virtual void _on_mouse_release(QMouseEvent * pevent);
+//     virtual void _on_mouse_motion(QMouseEvent * pevent);
+//     virtual void _on_qimage_draw(QImage * pqimage);
+//     virtual void _on_reposition(int x, int y);
+//     virtual void _on_size(int cx, int cy);
+//
+//
+//
+// };
+//
+//
+// } // namespace micro
+//
+// } // namespace kde6
+//
+//

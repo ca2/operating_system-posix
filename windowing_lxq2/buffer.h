@@ -4,16 +4,16 @@
 #pragma once
 
 
-//#include "windowing_system_wayland/_.h"
-//#include "aura/graphics/graphics/_graphics.h"
-#include "acme/prototype/geometry2d/rectangle.h"
-#include "aura/graphics/graphics/bitmap_source_buffer.h"
-#include "aura/graphics/graphics/double_buffer.h"
-#include "acme/graphics/image/pixmap.h"
-#include "acme_posix/shmem.h"
-//#include <X11/Xlib.h>
-//#include <X11/extensions/XShm.h>
-//#include <X11/extensions/Xrender.h>
+#include "windowing_q6/buffer.h"
+// //#include "aura/graphics/graphics/_graphics.h"
+// #include "acme/prototype/geometry2d/rectangle.h"
+// #include "aura/graphics/graphics/bitmap_source_buffer.h"
+// #include "aura/graphics/graphics/double_buffer.h"
+// #include "acme/graphics/image/pixmap.h"
+// #include "acme_posix/shmem.h"
+// //#include <X11/Xlib.h>
+// //#include <X11/extensions/XShm.h>
+// //#include <X11/extensions/Xrender.h>
 
 //#include "app/base/graphics/graphics_window_buffer.h"
 namespace windowing_lxq2
@@ -21,34 +21,34 @@ namespace windowing_lxq2
 
 
    class CLASS_DECL_AURA buffer :
-      virtual public ::graphics::double_buffer,
-      virtual public ::graphics::bitmap_source_buffer//,
+      virtual public ::windowing_q6::buffer//,
+      //virtual public ::graphics::bitmap_source_buffer//,
       //virtual public ::acme_posix::shmem
    {
    public:
-
-      ::pixmap             m_pixmap;
-      //XImage *             m_pximage;
-      bool                 m_bXShmChecked;
-      bool                 m_bXShm;
-      //XShmSegmentInfo      m_xshmsegmentinfo;
-      ::int_size           m_sizeLastBitBlitting;
-      bool                 m_bUseXShmIfAvailable;
-      bool                 m_bXShmPutImagePending;
-      //::pointer < ::mutex >                         m_pmutexPixmap;
-      //pixmap                        m_pixmap;
-      //GC                   m_gc;
-      //memory                        m_mem;
-      //XImage *                      m_pimage;
-      //bool                          m_bMapped;
-      ::int_rectangle      m_rectangleLast;
-      //::wl_callback*m_pwlcallbackFrame;
-      //::image::image_pointer                         m_pimage;
-      //interlocked_long_long                              m_interlockedPostedScreenUpdate;
-//manual_reset_happening m_happeningXshm;
-      //bool m_bXShmComplete;
-      //interlocked_long_long                              m_interlockedXShmPutImage;
-
+//
+//       ::pixmap             m_pixmap;
+//       //XImage *             m_pximage;
+//       bool                 m_bXShmChecked;
+//       bool                 m_bXShm;
+//       //XShmSegmentInfo      m_xshmsegmentinfo;
+//       ::int_size           m_sizeLastBitBlitting;
+//       bool                 m_bUseXShmIfAvailable;
+//       bool                 m_bXShmPutImagePending;
+//       //::pointer < ::mutex >                         m_pmutexPixmap;
+//       //pixmap                        m_pixmap;
+//       //GC                   m_gc;
+//       //memory                        m_mem;
+//       //XImage *                      m_pimage;
+//       //bool                          m_bMapped;
+//       ::int_rectangle      m_rectangleLast;
+//       //::wl_callback*m_pwlcallbackFrame;
+//       //::image::image_pointer                         m_pimage;
+//       //interlocked_long_long                              m_interlockedPostedScreenUpdate;
+// //manual_reset_happening m_happeningXshm;
+//       //bool m_bXShmComplete;
+//       //interlocked_long_long                              m_interlockedXShmPutImage;
+//
 
       buffer();
       ~buffer() override;

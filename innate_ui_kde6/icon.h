@@ -2,9 +2,7 @@
 #pragma once
 
 
-#include "apex/innate_ui/icon.h"
-//#include <gtk/gtk.h>
-#include <QPixmap>
+#include "innate_ui_q6/icon.h"
 
 
 namespace innate_ui_kde6
@@ -12,20 +10,20 @@ namespace innate_ui_kde6
 
 
    class CLASS_DECL_INNATE_UI_KDE6 icon :
-      virtual public ::innate_ui::icon
+      virtual public ::innate_ui_q6::icon
    {
    public:
 
 
-      //GdkPaintable *  m_pgdkpaintable;
-      QPixmap *m_pqpixmap;
+//      //GdkPaintable *  m_pgdkpaintable;
+//      QPixmap *m_pqpixmap;
 
       icon();
       ~icon() override;
 
-
-      void _create() override;
-
+//
+//      void _create() override;
+//
 
    };
 

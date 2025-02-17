@@ -44,14 +44,21 @@ target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
-if(${HAS_KDE6})
+list(APPEND library_references
+   acme
+   common_q
+   acme_windowing_q6
+)
+
+
+if(${HAS_Q6})
 
    list(APPEND system_libraries
       Qt6::Core
       Qt6::Widgets
    )
 
-elseif(${HAS_KDE5})
+elseif(${HAS_Q5})
 
    list(APPEND system_libraries
       Qt5::Core
@@ -73,7 +80,7 @@ elseif (${LINUX} OR ${__BSD__})
    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
    #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
    #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})
-   target_link_libraries(${PROJECT_NAME} PRIVATE acme ${system_libraries} ${PKGCONFIG_LIBRARIES})
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${system_libraries} ${PKGCONFIG_LIBRARIES})
    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
    message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
 endif ()

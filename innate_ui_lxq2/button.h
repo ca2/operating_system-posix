@@ -2,7 +2,7 @@
 #pragma once
 
 
-#include "apex/innate_ui/button.h"
+#include "innate_ui_q6/button.h"
 #include "window.h"
 //#include <gtk/gtk.h>
 
@@ -11,8 +11,7 @@ namespace innate_ui_lxq2
 
 
    class CLASS_DECL_INNATE_UI_LXQ2 button :
-    virtual public ::innate_ui_lxq2::window,
-      virtual public ::innate_ui::button
+    virtual public ::innate_ui_q6::button
    {
    public:
 

@@ -2,8 +2,7 @@
 #pragma once
 
 
-#include "apex/innate_ui/dialog.h"
-#include "window.h"
+#include "innate_ui_q6/dialog.h"
 
 
 namespace innate_ui_kde6
@@ -11,8 +10,7 @@ namespace innate_ui_kde6
 
 
    class CLASS_DECL_INNATE_UI_KDE6 dialog :
-      virtual public ::innate_ui_kde6::window,
-      virtual public ::innate_ui::dialog
+      virtual public ::innate_ui_q6::dialog
    {
    public:
 
@@ -24,11 +22,11 @@ namespace innate_ui_kde6
       ~dialog() override;
 
 
-
-      void create() override;
-      void _create() override;
-      //void _get_class(WNDCLASSEXW & wcex);
-      //void set_text(const ::scoped_string & scopedstr) override;
+//
+//      void create() override;
+//      void _create() override;
+//      //void _get_class(WNDCLASSEXW & wcex);
+//      //void set_text(const ::scoped_string & scopedstr) override;
    };
 
 
