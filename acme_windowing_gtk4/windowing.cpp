@@ -440,6 +440,8 @@ m_bMessageThread=true;
          void windowing::windowing_application_main_loop()
          {
 
+            __task_init();
+
             main();
 
          }
