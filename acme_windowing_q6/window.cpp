@@ -1793,6 +1793,8 @@ namespace q6
          void window::_on_reposition(int x, int y)
          {
 
+            m_pacmeuserinteraction->set_position({x, y});
+
             ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
 
             if(pelemental)

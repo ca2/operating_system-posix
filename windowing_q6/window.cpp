@@ -1346,6 +1346,10 @@ namespace windowing_q6
 
          m_pointWindow = p;
 
+         puserinteraction->layout().m_statea[::user::e_layout_sketch].m_point2 = p;
+         puserinteraction->layout().m_statea[::user::e_layout_lading].m_point2 = p;
+         puserinteraction->layout().m_statea[::user::e_layout_layout].m_point2 = p;
+         puserinteraction->layout().m_statea[::user::e_layout_design].m_point2 = p;
          puserinteraction->layout().m_statea[::user::e_layout_window].m_point2 = p;
 
          puserinteraction->on_reposition();

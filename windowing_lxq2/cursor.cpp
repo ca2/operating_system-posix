@@ -344,208 +344,208 @@ namespace windowing_lxq2
 //   }
 
 
-   void cursor::_create_os_cursor()
-   {
-
-      // if(m_waylandbuffer.m_pwlbuffer)
-      // {
-      //
-      //    return;
-      //
-      // }
-
-      //auto estatus =
-      //
-      _load_default_cursor(m_ecursor);
-
-//      if(!estatus)
-//      {
+//    void cursor::_create_os_cursor()
+//    {
 //
-//         return estatus;
+//       // if(m_waylandbuffer.m_pwlbuffer)
+//       // {
+//       //
+//       //    return;
+//       //
+//       // }
 //
-//      }
+//       //auto estatus =
+//       //
+//       _load_default_cursor(m_ecursor);
 //
-//      return estatus;
-
-   }
-
-   
-   ::e_status cursor::_load_default_cursor(enum_cursor ecursor)
-   {
-
-      auto psystem = system();
-
-      auto psession = psystem->session();
-
-      auto puser = user();
-
-      auto pwindowing = system()->windowing();
-
-      auto pdisplay = pwindowing->display();
-
-      ::cast < ::windowing_lxq2::display> plxq2display =  pdisplay;
-
-      Qt::CursorShape shape;
-
-      switch(ecursor)
-      {
-         case e_cursor_system:shape = Qt::CursorShape::ArrowCursor; break;
-         case e_cursor_arrow:shape = Qt::CursorShape::ArrowCursor; break;
-         case e_cursor_hand:shape = Qt::CursorShape::OpenHandCursor; break;
-         case e_cursor_text_select:shape = Qt::CursorShape::IBeamCursor; break;
-         case e_cursor_size_top_left:shape = Qt::CursorShape::SizeFDiagCursor; break;
-         case e_cursor_size_top:shape = Qt::CursorShape::SizeVerCursor; break;
-         case e_cursor_size_top_right:shape = Qt::CursorShape::SizeBDiagCursor; break;
-         case e_cursor_size_right:shape = Qt::CursorShape::SizeHorCursor; break;
-         case e_cursor_size_bottom_right:shape = Qt::CursorShape::SizeFDiagCursor; break;
-         case e_cursor_size_bottom:shape = Qt::CursorShape::SizeVerCursor; break;
-         case e_cursor_size_bottom_left:shape = Qt::CursorShape::SizeBDiagCursor; break;
-         case e_cursor_size_left:shape = Qt::CursorShape::SizeHorCursor; break;
-         case e_cursor_size_vertical:shape = Qt::CursorShape::SizeVerCursor; break;
-         case e_cursor_size_horizontal:shape = Qt::CursorShape::SizeHorCursor; break;
-         case e_cursor_move:shape = Qt::CursorShape::DragMoveCursor; break;
-         case e_cursor_wait:shape = Qt::CursorShape::WaitCursor; break;
-         case e_cursor_wait_arrow:shape = Qt::CursorShape::WaitCursor; break;
-         default:
-            shape = Qt::CursorShape::ArrowCursor;
-            break;
-      }
-
-      __check_refdbg;
-
-      m_qcursor = QCursor(shape);
-
-      __check_refdbg;
-
-      //information() << "_load_default_cursor cursor_name : " << cursor_name;
-
-      // auto pwlcursortheme = wl_cursor_theme_load(NULL, 32, pwaylanddisplay->m_pwlshm);
-      //
-      // information() << "_load_default_cursor pwlcursortheme : " << (::iptr) pwlcursortheme;
-      //
-      // auto pwlcursor = wl_cursor_theme_get_cursor(pwlcursortheme, cursor_name);
-      //
-      // information() << "_load_default_cursor pwlcursor : " << (::iptr) pwlcursor;
-      //
-      // m_pwlcursor = pwlcursor;
-      // m_pwlcursorimage = m_pwlcursor->images[0];
-      // m_waylandbuffer.m_pwlbuffer = wl_cursor_image_get_buffer(m_pwlcursorimage);
-      //
-      // information() << "_load_default_cursor m_pwlbuffer : " << (::iptr) m_waylandbuffer.m_pwlbuffer;
-      // m_waylandbuffer.m_size.cx() = m_pwlcursor->images[0]->width;
-      // m_waylandbuffer.m_size.cy() = m_pwlcursor->images[0]->height;
-      // information() << "_load_default_cursor size : " << m_waylandbuffer.m_size;
-      //
-      // m_szHotspotOffset.cx() = m_pwlcursor->images[0]->hotspot_x;
-      // m_szHotspotOffset.cy() = m_pwlcursor->images[0]->hotspot_y;
-
-      //information() << "_load_default_cursor hotspot : " << m_szHotspotOffset;
-
-      //m_pwlbuffer
-
-      //iCursor = ::x11::get_default_system_cursor_glyph(ecursor);
+// //      if(!estatus)
+// //      {
+// //
+// //         return estatus;
+// //
+// //      }
+// //
+// //      return estatus;
 //
-//      if(iCursor == 0)
-//      {
+//    }
 //
-//         return ::error_failed;
 //
-//      }
+//    ::e_status cursor::_load_default_cursor(enum_cursor ecursor)
+//    {
 //
-////      if(ecursor == e_cursor_size_top_left)
-////      {
-////
-////         iCursor = XC_top_left_corner;
-////
-////      }
-////      else if(ecursor == e_cursor_size_top_right)
-////      {
-////
-////         iCursor = XC_top_right_corner;
-////
-////      }
-////      else if(ecursor == e_cursor_size_top)
-////      {
-////
-////         iCursor = XC_top_side;
-////
-////      }
-////      else if(ecursor == e_cursor_size_right)
-////      {
-////
-////         iCursor = XC_right_side;
-////
-////      }
-////      else if(ecursor == e_cursor_size_left)
-////      {
-////
-////         iCursor = XC_left_side;
-////
-////      }
-////      else if(ecursor == e_cursor_size_bottom)
-////      {
-////
-////         iCursor = XC_bottom_side;
-////
-////      }
-////      else if(ecursor == e_cursor_size_bottom_left)
-////      {
-////
-////         iCursor = XC_bottom_left_corner;
-////
-////      }
-////      else if(ecursor == e_cursor_size_bottom_right)
-////      {
-////
-////         iCursor = XC_bottom_right_corner;
-////
-////      }
-////      else if(ecursor == e_cursor_arrow)
-////      {
-////
-////         iCursor = XC_arrow;
-////
-////      }
-////
-////      if(iCursor < 0)
-////      {
-////
-////         return ::error_failed;
-////
-////      }
+//       auto psystem = system();
 //
-//      synchronous_lock sl(user_synchronization());
+//       auto psession = psystem->session();
 //
-//      windowing_output_debug_string("::x11_GetWindowRect 1");
+//       auto puser = user();
 //
-//      auto psystem = system();
+//       auto pwindowing = system()->windowing();
 //
-//      auto psession = psystem->session();
+//       auto pdisplay = pwindowing->display();
 //
-//      auto puser = user();
+//       ::cast < ::windowing_lxq2::display> plxq2display =  pdisplay;
 //
-//      auto pwindowing = system()->windowing();
+//       Qt::CursorShape shape;
 //
-//      auto pdisplay = pwindowing->display();
+//       switch(ecursor)
+//       {
+//          case e_cursor_system:shape = Qt::CursorShape::ArrowCursor; break;
+//          case e_cursor_arrow:shape = Qt::CursorShape::ArrowCursor; break;
+//          case e_cursor_hand:shape = Qt::CursorShape::OpenHandCursor; break;
+//          case e_cursor_text_select:shape = Qt::CursorShape::IBeamCursor; break;
+//          case e_cursor_size_top_left:shape = Qt::CursorShape::SizeFDiagCursor; break;
+//          case e_cursor_size_top:shape = Qt::CursorShape::SizeVerCursor; break;
+//          case e_cursor_size_top_right:shape = Qt::CursorShape::SizeBDiagCursor; break;
+//          case e_cursor_size_right:shape = Qt::CursorShape::SizeHorCursor; break;
+//          case e_cursor_size_bottom_right:shape = Qt::CursorShape::SizeFDiagCursor; break;
+//          case e_cursor_size_bottom:shape = Qt::CursorShape::SizeVerCursor; break;
+//          case e_cursor_size_bottom_left:shape = Qt::CursorShape::SizeBDiagCursor; break;
+//          case e_cursor_size_left:shape = Qt::CursorShape::SizeHorCursor; break;
+//          case e_cursor_size_vertical:shape = Qt::CursorShape::SizeVerCursor; break;
+//          case e_cursor_size_horizontal:shape = Qt::CursorShape::SizeHorCursor; break;
+//          case e_cursor_move:shape = Qt::CursorShape::DragMoveCursor; break;
+//          case e_cursor_wait:shape = Qt::CursorShape::WaitCursor; break;
+//          case e_cursor_wait_arrow:shape = Qt::CursorShape::WaitCursor; break;
+//          default:
+//             shape = Qt::CursorShape::ArrowCursor;
+//             break;
+//       }
 //
-//      auto px11display = (::windowing_kde5::display *) pwindowing->display()->m_pDisplay;
+//       __check_refdbg;
 //
-//      //display_lock lock(px11display->Display());
+//       m_qcursor = QCursor(shape);
 //
-//      auto cursor = XCreateFontCursor(px11display->Display(), iCursor);
+//       __check_refdbg;
 //
-//      if(!cursor)
-//      {
+//       //information() << "_load_default_cursor cursor_name : " << cursor_name;
 //
-//         return error_failed;
+//       // auto pwlcursortheme = wl_cursor_theme_load(NULL, 32, pwaylanddisplay->m_pwlshm);
+//       //
+//       // information() << "_load_default_cursor pwlcursortheme : " << (::iptr) pwlcursortheme;
+//       //
+//       // auto pwlcursor = wl_cursor_theme_get_cursor(pwlcursortheme, cursor_name);
+//       //
+//       // information() << "_load_default_cursor pwlcursor : " << (::iptr) pwlcursor;
+//       //
+//       // m_pwlcursor = pwlcursor;
+//       // m_pwlcursorimage = m_pwlcursor->images[0];
+//       // m_waylandbuffer.m_pwlbuffer = wl_cursor_image_get_buffer(m_pwlcursorimage);
+//       //
+//       // information() << "_load_default_cursor m_pwlbuffer : " << (::iptr) m_waylandbuffer.m_pwlbuffer;
+//       // m_waylandbuffer.m_size.cx() = m_pwlcursor->images[0]->width;
+//       // m_waylandbuffer.m_size.cy() = m_pwlcursor->images[0]->height;
+//       // information() << "_load_default_cursor size : " << m_waylandbuffer.m_size;
+//       //
+//       // m_szHotspotOffset.cx() = m_pwlcursor->images[0]->hotspot_x;
+//       // m_szHotspotOffset.cy() = m_pwlcursor->images[0]->hotspot_y;
 //
-//      }
+//       //information() << "_load_default_cursor hotspot : " << m_szHotspotOffset;
 //
-//      m_cursor = cursor;
-
-      return ::success;
-
-   }
+//       //m_pwlbuffer
+//
+//       //iCursor = ::x11::get_default_system_cursor_glyph(ecursor);
+// //
+// //      if(iCursor == 0)
+// //      {
+// //
+// //         return ::error_failed;
+// //
+// //      }
+// //
+// ////      if(ecursor == e_cursor_size_top_left)
+// ////      {
+// ////
+// ////         iCursor = XC_top_left_corner;
+// ////
+// ////      }
+// ////      else if(ecursor == e_cursor_size_top_right)
+// ////      {
+// ////
+// ////         iCursor = XC_top_right_corner;
+// ////
+// ////      }
+// ////      else if(ecursor == e_cursor_size_top)
+// ////      {
+// ////
+// ////         iCursor = XC_top_side;
+// ////
+// ////      }
+// ////      else if(ecursor == e_cursor_size_right)
+// ////      {
+// ////
+// ////         iCursor = XC_right_side;
+// ////
+// ////      }
+// ////      else if(ecursor == e_cursor_size_left)
+// ////      {
+// ////
+// ////         iCursor = XC_left_side;
+// ////
+// ////      }
+// ////      else if(ecursor == e_cursor_size_bottom)
+// ////      {
+// ////
+// ////         iCursor = XC_bottom_side;
+// ////
+// ////      }
+// ////      else if(ecursor == e_cursor_size_bottom_left)
+// ////      {
+// ////
+// ////         iCursor = XC_bottom_left_corner;
+// ////
+// ////      }
+// ////      else if(ecursor == e_cursor_size_bottom_right)
+// ////      {
+// ////
+// ////         iCursor = XC_bottom_right_corner;
+// ////
+// ////      }
+// ////      else if(ecursor == e_cursor_arrow)
+// ////      {
+// ////
+// ////         iCursor = XC_arrow;
+// ////
+// ////      }
+// ////
+// ////      if(iCursor < 0)
+// ////      {
+// ////
+// ////         return ::error_failed;
+// ////
+// ////      }
+// //
+// //      synchronous_lock sl(user_synchronization());
+// //
+// //      windowing_output_debug_string("::x11_GetWindowRect 1");
+// //
+// //      auto psystem = system();
+// //
+// //      auto psession = psystem->session();
+// //
+// //      auto puser = user();
+// //
+// //      auto pwindowing = system()->windowing();
+// //
+// //      auto pdisplay = pwindowing->display();
+// //
+// //      auto px11display = (::windowing_kde5::display *) pwindowing->display()->m_pDisplay;
+// //
+// //      //display_lock lock(px11display->Display());
+// //
+// //      auto cursor = XCreateFontCursor(px11display->Display(), iCursor);
+// //
+// //      if(!cursor)
+// //      {
+// //
+// //         return error_failed;
+// //
+// //      }
+// //
+// //      m_cursor = cursor;
+//
+//       return ::success;
+//
+//    }
 
 
 } // namespace windowing_lxq2

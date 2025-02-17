@@ -122,7 +122,7 @@ namespace windowing_lxq2
 //
 //          bool m_bPendingStartMove;
 //
-//       window();
+       window();
 //       //oswindow_data(::user::interaction * puibaseMessageOnlyWindow);
 //       //oswindow_data(const void * p);
 //       //oswindow_data(const LPARAM & lparam);
