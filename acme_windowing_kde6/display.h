@@ -5,10 +5,7 @@
 #pragma once
 
 
-#include "acme/windowing/display.h"
-//#include "event_listener.h"
-//#include "windowing_system_x11/_atom.h"
-#include <QWidget>
+#include "acme_windowing_q6/display.h"
 
 
 namespace kde6
@@ -28,7 +25,7 @@ namespace kde6
          using window_map = map<::QWidget *, ::pointer<window> >;
 
          class CLASS_DECL_ACME_WINDOWING_KDE6 display :
-            virtual public ::acme::windowing::display //,     virtual public event_listener
+      virtual public ::q6::acme::windowing::display //,     virtual public event_listener
          {
          public:
 

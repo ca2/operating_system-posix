@@ -4,7 +4,7 @@
 #pragma once
 
 
-#define WINDOWING_X11_DISPLAY_MEMBER
+//#define WINDOWING_X11_DISPLAY_MEMBER
 
 //#include "acme/operating_system/x11/nano/event_listener.h"
 //#include "acme/operating_system/x11/nano/display.h"

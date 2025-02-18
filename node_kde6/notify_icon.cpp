@@ -110,7 +110,7 @@ namespace node_kde6
 
       string strLabel = papplicationmenu->m_strName;
 
-      auto atom = papplicationmenu->id();
+      auto atom = papplicationmenu->m_atomMenu;
 
       string strName = papplicationmenu->m_strName;
 
@@ -140,7 +140,7 @@ namespace node_kde6
          if (atom == id_separator)
          {
 
-            if (i + 1 < m_papplicationmenu->get_count() && string(m_papplicationmenu->element_at(i + 1)->id()) == "app_exit")
+            if (i + 1 < m_papplicationmenu->get_count() && string(m_papplicationmenu->element_at(i + 1)->m_atomMenu) == "app_exit")
             {
 
 
