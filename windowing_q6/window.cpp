@@ -1332,59 +1332,6 @@ namespace windowing_q6
    }
 
 
-   void window::_on_reposition(int x, int y)
-   {
-
-      //::windowing::window* pimpl = m_pwindow;
-
-      auto puserinteraction = user_interaction();
-
-      ::int_point p(x, y);
-
-      if (m_pointWindow != p)
-      {
-
-         m_pointWindow = p;
-
-         puserinteraction->layout().m_statea[::user::e_layout_window].m_point2 = p;
-
-         puserinteraction->on_reposition();
-
-      }
-
-   }
-
-
-   void window::_on_size(int cx, int cy)
-   {
-
-      //::windowing::window* pimpl = m_pwindow;
-
-      auto puserinteraction = user_interaction();
-
-      ::int_size s(cx, cy);
-
-      if (m_sizeOnSize != s)
-      {
-
-         //gtk_drawing_area_set_content_width (GTK_DRAWING_AREA (m_pdrawingarea), cx);
-         //gtk_drawing_area_set_content_height (GTK_DRAWING_AREA (m_pdrawingarea), cy);
-
-         m_sizeOnSize = s;
-
-         puserinteraction->layout().m_statea[::user::e_layout_window].m_size = s;
-
-         puserinteraction->set_size(s);
-
-         puserinteraction->set_need_layout();
-
-         puserinteraction->set_need_redraw();
-
-         puserinteraction->post_redraw();
-
-      }
-
-   }
 
 
    void window::_on_mouse_press(QMouseEvent* pevent)
@@ -1869,6 +1816,22 @@ namespace windowing_q6
       // cairo_fill(cr);
 
       //return FALSE;
+   }
+
+
+   void window::_on_reposition(int x, int y)
+   {
+
+      ::windowing_posix::window::_on_reposition(x, y);
+
+   }
+
+
+   void window::_on_size(int cx, int cy)
+   {
+
+      ::windowing_posix::window::_on_size(cx, cy);
+
    }
 
 

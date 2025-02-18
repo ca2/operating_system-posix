@@ -93,7 +93,6 @@ namespace windowing_gtk3
       //bool                                         m_bFirstConfigure;
       //bool                                         m_bXShmPutImagePending;
       ::pointer < ::operating_system::a_system_menu > m_psystemmenu;
-         class ::time m_timeLastConfigureUnlocked;
 
          GtkIMContext * m_pimcontext;
 
@@ -134,8 +133,6 @@ namespace windowing_gtk3
       void _on_cairo_draw(GtkWidget *widget, cairo_t *cr) override;
       //void create_window(::windowing::window * pimpl) override;
 
-      virtual void _on_configure_delayed(int x, int y, int cx, int cy);
-      virtual void _on_configure_immediate(int x, int y, int cx, int cy);
 
       void create_window() override;
       void _create_window() override;
@@ -460,7 +457,7 @@ namespace windowing_gtk3
          void window_minimize() override;
          void window_maximize() override;
 virtual void _set_configure_unlocked_timer();
-bool on_configure_unlocked_timer() override;
+bool on_window_configure_unlocked() override;
          virtual void _on_configure();
          virtual void __on_configure_linux_mint_x_cinnamon();
          virtual void __on_configure_default();

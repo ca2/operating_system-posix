@@ -914,7 +914,7 @@ namespace node_gtk4
          //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
 
       }
-      else if (edesktop & ::windowing::e_operating_ambient_xfce)
+      else if (edesktop == ::windowing::e_operating_ambient_xfce)
       {
          //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
          //          if(entry.contains("image-path") || entry.contains("last-image")){
