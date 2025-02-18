@@ -36,5 +36,8 @@ protected:
 
    void resizeEvent(QResizeEvent *happening) override;
 
+   void hideEvent(QHideEvent * happening) override;
+
+   void showEvent(QShowEvent * happening) override;
 
 };

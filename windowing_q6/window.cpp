@@ -1332,6 +1332,22 @@ namespace windowing_q6
    }
 
 
+   void window::_on_show(bool bShow)
+   {
+
+      auto pshowwindow = __create_new<::message::show_window>();
+
+      pshowwindow->m_oswindow = this;
+
+      pshowwindow->m_pwindow = this;
+
+      pshowwindow->m_emessage = e_message_show_window;
+
+      pshowwindow->m_bShow = bShow;
+
+      message_handler(pshowwindow);
+
+   }
 
 
    void window::_on_mouse_press(QMouseEvent* pevent)

@@ -11,11 +11,15 @@
 // Custom window class inheriting from QMainWindow
 QCustomTopWindow::QCustomTopWindow(::q6::micro::window * pwindow)
 {
+
    // Resize the window
+
    m_pwindow = pwindow;
+
    //this->resize(600, 400);
    // Apply KDE translucent and undecorated window settings
    //setTranslucentAttributes(this);
+
 }
 
 
@@ -110,6 +114,7 @@ void QCustomTopWindow::moveEvent(QMoveEvent * happening)
 
 }
 
+
 void QCustomTopWindow::resizeEvent(QResizeEvent * happening)
 {
    try {
@@ -127,4 +132,48 @@ void QCustomTopWindow::resizeEvent(QResizeEvent * happening)
    // Call the base class implementation (important for proper happening handling)
    QWidget::resizeEvent(happening);
 }
+
+
+void QCustomTopWindow::hideEvent(QHideEvent * happening)
+{
+
+   // 'false' means hidden..
+
+   try
+   {
+
+      m_pwindow->_on_show(false);
+
+   }
+   catch (...)
+   {
+
+   }
+
+   QWidget::hideEvent(happening);
+
+}
+
+
+void QCustomTopWindow::showEvent(QShowEvent * happening)
+{
+
+   // 'true' means visible..
+
+   try
+   {
+
+      m_pwindow->_on_show(true);
+
+   }
+   catch (...)
+   {
+
+   }
+
+   QWidget::showEvent(happening);
+
+}
+
+
 

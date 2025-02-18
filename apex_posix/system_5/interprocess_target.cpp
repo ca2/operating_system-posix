@@ -204,14 +204,19 @@ namespace system_5
 
       m_bRun = true;
 
-      m_pthread = fork([&]()
-                       {
+      get_app()->_post([this]()
+      {
 
-                          information() << "interprocess_target receiving";
+         m_pthread = get_app()->fork([this]()
+                          {
 
-                          receive();
+                             information() << "interprocess_target receiving";
 
-                       });
+                             receive();
+
+                          });
+
+      });
 
       return true;
 
@@ -316,6 +321,8 @@ namespace system_5
       {
 
          m_bRunning = true;
+
+         task_iteration();
 
          ssize_t result;
 

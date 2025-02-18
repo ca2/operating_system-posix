@@ -49,6 +49,12 @@ namespace q6
       }
 
 
+      void window::_on_show(bool bShow)
+      {
+
+      }
+
+
    } // namespace micro
 
 
