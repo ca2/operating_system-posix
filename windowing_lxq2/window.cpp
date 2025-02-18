@@ -7971,6 +7971,19 @@ namespace windowing_lxq2
 //       ::lxq2::acme::windowing::window::_main_post(procedure);
 //
 //    }
+//
+
+
+   bool window::on_window_configure_unlocked()
+   {
+
+      _017_on_window_get_configuration();
+
+       return true;
+
+      //return _017_on_window_configure_unlocked_timer();
+
+   }
 
 
 } // namespace windowing_lxq2

@@ -462,7 +462,7 @@ namespace windowing_q6
    return count;
 }
 
-   bool display::get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle)
+   bool display::_get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle)
    {
 
       // Get a list of all screens
@@ -500,10 +500,40 @@ return true;
    }
 
 
-   bool display::get_workspace_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle)
+   bool display::_get_workspace_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle)
    {
 
-      return ::windowing::display::get_workspace_rectangle(iMonitor, rectangle);
+      // Get a list of all screens
+      const QList<QScreen *> screens = QGuiApplication::screens();
+
+      if (screens.isEmpty()) {
+         //qWarning() << "No screens found!";
+         return false;
+      }
+
+      // Iterate through each screen and print its size, marking the primary screen
+      if(iMonitor < 0 || iMonitor >= screens.size()) {
+         return false;
+      }
+      QScreen *screen = screens[iMonitor];
+      QRect geometry = screen->availableGeometry();
+      rectangle.left() = geometry.x();
+      rectangle.top() = geometry.y();
+      rectangle.right() = rectangle.left() + geometry.width();
+      rectangle.bottom() = rectangle.top() + geometry.height();
+      //
+      //         int width = geometry.width();
+      //         int height = geometry.height();
+      //
+      //         if (screen == primaryScreen) {
+      //            qDebug() << "Monitor" << i + 1 << "(Primary):" << width << "x" << height
+      //                     << "Position:" << geometry.topLeft();
+      //         } else {
+      //            qDebug() << "Monitor" << i + 1 << ":" << width << "x" << height
+      //                     << "Position:" << geometry.topLeft();
+      //         }
+      //      }
+      return true;
 
    }
 

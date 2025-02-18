@@ -546,66 +546,7 @@ namespace windowing_gtk3
    //   }
 
 
-   void window::_on_configure_immediate(int x, int y, int cx, int cy)
-   {
 
-      information() << "::windowing_gtk3::window::_on_configure_immediate " << ::int_rectangle_dimension(x, y, cx, cy);
-
-      auto puserinteraction = user_interaction();
-
-      ::int_size s(cx, cy);
-
-      if (m_sizeWindow != s)
-      {
-
-         m_sizeWindow = s;
-
-         puserinteraction->layout().m_statea[::user::e_layout_window].m_size = s;
-
-         if (puserinteraction->layout().m_statea[::user::e_layout_sketch].m_size != s)
-         {
-
-            puserinteraction->layout().m_statea[::user::e_layout_sketch].m_size = s;
-
-            puserinteraction->set_need_layout();
-
-            puserinteraction->set_need_redraw();
-
-            puserinteraction->post_redraw();
-
-         }
-
-      }
-
-      ::int_point p(x, y);
-
-      if (m_pointWindow != p)
-      {
-
-         m_pointWindow = p;
-
-         puserinteraction->layout().m_statea[::user::e_layout_window].m_point2 = p;
-
-         if (puserinteraction->layout().m_statea[::user::e_layout_sketch].m_point2 != p)
-         {
-
-            puserinteraction->layout().m_statea[::user::e_layout_sketch].m_point2 = p;
-
-         }
-
-      }
-
-   }
-
-
-   void window::_on_configure_delayed(int x, int y, int cx, int cy)
-   {
-
-      auto r = ::int_rectangle_dimension(x, y, cx, cy);
-
-      _on_configure_notify_unlocked(r);
-
-   }
 
 
    //// Define custom regions for resizing
@@ -7024,55 +6965,11 @@ namespace windowing_gtk3
    }
 
 
-   void window::_set_configure_unlocked_timer()
-   {
-
-      m_timeLastConfigureUnlocked.Now();
-
-      ::cast<::user::interaction> puserinteraction = m_pacmeuserinteraction;
-
-      puserinteraction->SetTimer(e_timer_configure_unlocked, 100_ms);
-
-   }
 
 
-   bool window::on_configure_unlocked_timer()
-   {
-
-      if (m_timeLastConfigureUnlocked.elapsed() > 600_ms)
-      {
-
-         return false;
-
-      }
-
-      information() << "window::on_configure_unlocked_timer going to get configuration";
-
-      _on_get_configuration();
-
-      return true;
 
 
-   }
 
-
-   void window::_on_get_configuration()
-   {
-
-      preempt(40_ms);
-
-      main_send([this]()
-      {
-
-         auto r = get_window_rectangle();
-
-         information() << "window::_on_get_configuration";
-
-         _on_configure_delayed(r.left(), r.top(), r.width(), r.height());
-
-      });
-
-   }
 
 
    void window::_on_configure()

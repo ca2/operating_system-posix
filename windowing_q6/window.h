@@ -62,7 +62,7 @@ namespace windowing_q6
          int start_height;
          int start_window_x;
          int start_window_y;
-         ::int_size m_sizeOnSize;
+         //::int_size m_sizeOnSize;
          //} ResizeData;
 
       //::int_point                                  m_pointPointer;
@@ -153,8 +153,8 @@ void on_initialize_particle() override;
        virtual void _on_mouse_release(QMouseEvent * pevent);
        virtual void _on_mouse_motion(QMouseEvent * pevent);
          virtual void _on_qimage_draw(QImage * pqimage);
-         virtual void _on_reposition(int x, int y);
-         virtual void _on_size(int cx, int cy);
+      void _on_reposition(int x, int y) override;
+      void _on_size(int cx, int cy) override;
 
          //void _on_window_button_pressed(GtkWidget * pwidget, const char * pszName, GtkGestureClick * pgesture, int n_press, double x, double y);
          //void _on_window_button_released(GtkWidget * pwidget, const char * pszName, GtkGestureClick * pgesture, int n_press, double x, double y);

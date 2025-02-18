@@ -88,8 +88,10 @@ namespace q6
             virtual void _on_mouse_release(QMouseEvent * pevent);
             virtual void _on_mouse_motion(QMouseEvent * pevent);
             virtual void _on_qimage_draw(QImage * pqimage);
-            virtual void _on_reposition(int x, int y);
-            virtual void _on_size(int cx, int cy);
+
+
+            void _on_reposition(int x, int y) override;
+            void _on_size(int cx, int cy) override;
 
 
             //void aaa_message_loop() override;

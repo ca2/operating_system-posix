@@ -378,15 +378,15 @@ namespace q6
 
             pacmeuserinteraction->on_before_create_window(this);
 
-            auto r = pacmeuserinteraction->get_rectangle();
+            //auto r = pacmeuserinteraction->get_rectangle();
 
-            int x = r.left();
+            int x = m_pointWindow.x();
 
-            int y = r.top();
+            int y = m_pointWindow.y();
 
-            int cx = r.width();
+            int cx = m_sizeWindow.cx();
 
-            int cy = r.height();
+            int cy = m_sizeWindow.cy();
 
             auto pmainwindow = ___new QCustomTopWindow(this);
 

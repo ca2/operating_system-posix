@@ -489,7 +489,7 @@ namespace windowing_lxq2
 //
 //       void _main_send(const ::procedure & procedure) override;
 //        void _main_post(const ::procedure & procedure) override;
-
+      bool on_window_configure_unlocked() override;
    };
 
 

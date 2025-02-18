@@ -128,9 +128,9 @@ namespace windowing_q6
 
       virtual bool is_null() const;
 
-      bool get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle) override;
+      bool _get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle) override;
 
-      bool get_workspace_rectangle(::collection::index iWorkspace, ::int_rectangle & rectangle) override;
+      bool _get_workspace_rectangle(::collection::index iWorkspace, ::int_rectangle & rectangle) override;
 
       //virtual ::windowing::window * get_mouse_capture();
 

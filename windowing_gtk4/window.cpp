@@ -1289,36 +1289,29 @@ on_text(scopedstr, scopedstr.size());
 
           //pimpl->m_pwindow = this;
 
-          int x = puserinteraction->const_layout().sketch().origin().x();
+//          int x = puserinteraction->const_layout().sketch().origin().x();
+//
+//          int y = puserinteraction->const_layout().sketch().origin().y();
+//
+//          int cx = puserinteraction->const_layout().sketch().width();
+//
+//          int cy = puserinteraction->const_layout().sketch().height();
+//
+//
+//          if (cx <= 0)
+//          {
+//
+//             cx = 1;
+//
+//          }
+//
+//          if (cy <= 0)
+//          {
+//
+//             cy = 1;
+//
+//          }
 
-          int y = puserinteraction->const_layout().sketch().origin().y();
-
-          int cx = puserinteraction->const_layout().sketch().width();
-
-          int cy = puserinteraction->const_layout().sketch().height();
-
-
-          if (cx <= 0)
-          {
-
-             cx = 1;
-
-          }
-
-          if (cy <= 0)
-          {
-
-             cy = 1;
-
-          }
-
-          m_pointWindow.x() = 0;
-
-          m_pointWindow.y() = 0;
-
-          m_sizeWindow.cx() = cx;
-
-          m_sizeWindow.cy() = cy;
 
           ::gtk4::acme::windowing::window::_create_window();
 
