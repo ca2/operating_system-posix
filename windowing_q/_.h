@@ -1,19 +1,18 @@
 #pragma once
 
 
+#include "common_q/_.h"
 #include "windowing_posix/_.h"
-//#include "windowing_system_wayland/_.h"
-#include "acme_windowing_kde5/_.h"
 
 
-#if defined(_windowing_kde5_project)
-   #define CLASS_DECL_WINDOWING_KDE5  CLASS_DECL_EXPORT
+#if defined(_windowing_q_project)
+   #define CLASS_DECL_WINDOWING_Q  CLASS_DECL_EXPORT
 #else
-   #define CLASS_DECL_WINDOWING_KDE5  CLASS_DECL_IMPORT
+   #define CLASS_DECL_WINDOWING_Q  CLASS_DECL_IMPORT
 #endif
 
 
-namespace windowing_kde5
+namespace windowing_q
 {
 
 
@@ -26,7 +25,7 @@ namespace windowing_kde5
    //using WINDOW = long;
 
 
-} // namespace node_gnome
+} // namespace windowing_q
 
 
 //#include "nano_user_wayland/_.h"

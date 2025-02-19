@@ -40,7 +40,7 @@
 void set_main_user_thread();
 
 
-namespace q6
+namespace q
 {
 
 
@@ -719,17 +719,17 @@ namespace q6
          // }
 
 
-         void process_messages()
-         {
-
-            //         if(::x11::acme::windowing::display::g_p)
-            //         {
-            //
-            //            ::x11::acme::windowing::display::g_p->message_loop_step();
-            //
-            //         }
-
-         }
+         // void process_messages()
+         // {
+         //
+         //    //         if(::x11::acme::windowing::display::g_p)
+         //    //         {
+         //    //
+         //    //            ::x11::acme::windowing::display::g_p->message_loop_step();
+         //    //
+         //    //         }
+         //
+         // }
 
 
          //int _c_XErrorHandler(Display * display, XErrorEvent * perrorevent);
@@ -1487,7 +1487,7 @@ namespace q6
    } // namespace acme
 
 
-} // namespace q6
+} // namespace q
 
 
 

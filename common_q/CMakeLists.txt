@@ -6,15 +6,26 @@ list(APPEND library_source
    _.cpp
    _.h
    _factory.cpp
+   display.cpp
+   display.h
    framework.cpp
    framework.h
    #activation_token.cpp
    #activation_token.h
+   display.cpp
+   display.h
    #gdk_3_and_4.cpp
    #gdk_3_and_4.h
+   micro_window.cpp
+   micro_window.h
    q_5_and_6.cpp
    q_5_and_6.h
-
+   QCustomTopWindow.cpp
+   QCustomTopWindow.h
+window.cpp
+   window.h
+   windowing.cpp
+   windowing.h
 )
 
 

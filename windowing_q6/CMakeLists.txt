@@ -79,6 +79,7 @@ endif ()
 list(APPEND library_references
    acme
    acme_posix
+   common_q
    acme_windowing_q6
    nano_graphics_cairo
    apex
@@ -88,6 +89,7 @@ list(APPEND library_references
    aura
    aura_posix
    windowing_posix
+   windowing_q
    #aura_${OPERATING_SYSTEM_NAME}
    #windowing_q6
    # windowing_system_wayland

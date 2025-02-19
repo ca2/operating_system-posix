@@ -1,11 +1,11 @@
 //
 // Created by camilo on 16/02/2021.
-// From windowing_x11 to windowing_kde5 on
+// From windowing_x11 to windowing_q on
 // 2023-09-09 04:29 by camilo <3ThomasBorregaardSorensen!!
 //
-#include "operating_system-posix/windowing_kde5/framework.h"
+#include "operating_system-posix/windowing_q/framework.h"
 //#include "aura/operating_system/x11/_x11.h"
-#include "_kde5.h"
+#include "_q.h"
 #include "acme/constant/id.h"
 #include "acme/constant/message.h"
 #include "acme/parallelization/synchronous_lock.h"
@@ -31,7 +31,7 @@
 
 //#include "aura/operating_system/x11/_x11.h"
 #include "acme/parallelization/message_queue.h"
-#include "windowing_kde5.h"
+#include "windowing_q.h"
 #include "windowing.h"
 #include "window.h"
 #include "display.h"
@@ -290,7 +290,7 @@ CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const in
 
 
 
-namespace windowing_kde5
+namespace windowing_q
 {
 
 
@@ -564,12 +564,12 @@ namespace windowing_kde5
 //      pwindowing->x11_start(__routine([this, pointHitTest, pwindowExclude, iMargin, &bIsOrigin]()
 //               {
 //
-//                  ::windowing_kde5::window *pwindowx11Exclude = nullptr;
+//                  ::windowing_q::window *pwindowx11Exclude = nullptr;
 //
 //                  if (pwindowExclude)
 //                  {
 //
-//                     pwindowx11Exclude = dynamic_cast < ::windowing_kde5::window * >(pwindowExclude);
+//                     pwindowx11Exclude = dynamic_cast < ::windowing_q::window * >(pwindowExclude);
 //
 //                  }
 //
@@ -1511,7 +1511,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //         if (pwindow)
 //         {
 //
-//            ::pointer<::windowing_kde5::window> px11window = pwindow;
+//            ::pointer<::windowing_q::window> px11window = pwindow;
 //
 //            if (px11window)
 //            {
@@ -1537,7 +1537,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //               information() << "Got XShmCompletionEvent";
 //
-//               //::pointer<::windowing_kde5::window> px11window = m_pimpl->m_pwindow;
+//               //::pointer<::windowing_q::window> px11window = m_pimpl->m_pwindow;
 //
 //               try
 //               {
@@ -1866,7 +1866,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 ////               if (msg.oswindow != nullptr && msg.oswindow->m_pwindow != nullptr)
 ////               {
 ////
-////                  ((::windowing_kde5::window *) msg.oswindow->m_pWindow4)->m_pointCursor = m_pointCursor;
+////                  ((::windowing_q::window *) msg.oswindow->m_pWindow4)->m_pointCursor = m_pointCursor;
 ////
 ////                  bool bOk = true;
 ////
@@ -2062,7 +2062,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 ////                  if(pimpl)
 ////                  {
 ////
-////                     ::pointer < ::windowing_kde5::buffer > pbuffer= pimpl->m_pgraphics;
+////                     ::pointer < ::windowing_q::buffer > pbuffer= pimpl->m_pgraphics;
 ////
 ////                     if(pbuffer)
 ////                     {
@@ -2294,7 +2294,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 ////
 ////               long lState = -1;
 ////
-////               ::pointer<::windowing_kde5::window> px11window = msg.oswindow;
+////               ::pointer<::windowing_q::window> px11window = msg.oswindow;
 ////
 ////               if (e.xproperty.atom == m_pdisplay->m_atomWmState
 ////                   && px11window->_get_state_unlocked(lState))
@@ -2402,7 +2402,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 ////
 ////            }
 //
-//            informationf("windowing_kde5 MapNotify");
+//            informationf("windowing_q MapNotify");
 //
 //            if (px11window)
 //            {
@@ -2429,7 +2429,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //         case UnmapNotify:
 //         {
 //
-//            informationf("windowing_kde5 UnmapNotify");
+//            informationf("windowing_q UnmapNotify");
 //
 //            if (msg.oswindow)
 //            {
@@ -2816,7 +2816,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                  msg.id() = e_message_key_down;
 //
-//                  ::pointer<::windowing_kde5::window> pwindow = msg.oswindow;
+//                  ::pointer<::windowing_q::window> pwindow = msg.oswindow;
 //
 //                  if (!pwindow->m_pximkeyboard)
 //                  {
@@ -3354,7 +3354,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 
 
-} // namespace windowing_kde5
+} // namespace windowing_q
 
 
 //bool x11_get_client_rect(Display * pdisplay, Window window, ::int_rectangle * prectangle)

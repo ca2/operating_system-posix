@@ -7,7 +7,7 @@
 #include <QPushButton>
 
 
-namespace innate_ui_q6
+namespace innate_ui_q
 {
 
 
@@ -65,7 +65,7 @@ namespace innate_ui_q6
       //    (HINSTANCE)GetWindowLongPtr(pwindowParent->m_hwnd, GWLP_HINSTANCE),
       //    NULL);
 
-      ::pointer < ::innate_ui_q6::window > pkde6windowParent = pwindowParent;
+      ::pointer < ::innate_ui_q::window > pkde6windowParent = pwindowParent;
 
       m_pqwidget = ___new QPushButton(pkde6windowParent->m_pqwidget);
 
@@ -114,7 +114,7 @@ namespace innate_ui_q6
    }
 
 
-} // namespace innate_ui_q6
+} // namespace innate_ui_q
 
 
 

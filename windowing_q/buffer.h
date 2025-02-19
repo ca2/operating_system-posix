@@ -16,11 +16,11 @@
 //#include <X11/extensions/Xrender.h>
 
 //#include "app/base/graphics/graphics_window_buffer.h"
-namespace windowing_kde5
+namespace windowing_q
 {
 
 
-   class CLASS_DECL_AURA buffer :
+   class CLASS_DECL_WINDOWING_Q buffer :
       virtual public ::graphics::double_buffer,
       virtual public ::graphics::bitmap_source_buffer//,
       //virtual public ::acme_posix::shmem
@@ -54,7 +54,7 @@ namespace windowing_kde5
       ~buffer() override;
 
 
-      virtual ::windowing_kde5::window * kde5_window();
+      virtual ::windowing_q::window * q_window();
 
 
       void initialize_graphics_graphics(::windowing::window * pimpl) override;
@@ -92,7 +92,7 @@ namespace windowing_kde5
    };
 
 
-} // namespace windowing_kde5
+} // namespace windowing_q
 
 
 

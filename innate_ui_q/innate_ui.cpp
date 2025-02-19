@@ -11,7 +11,7 @@
 #include "acme/windowing/windowing.h"
 
 
-namespace innate_ui_q6
+namespace innate_ui_q
 {
 
 
@@ -204,7 +204,7 @@ namespace innate_ui_q6
    // }
 
 
-} // namespace innate_ui_q6
+} // namespace innate_ui_q
 
 
 

@@ -19,7 +19,7 @@
 //#include <X11/Xutil.h>
 
 
-namespace q6
+namespace q
 {
 
 
@@ -35,7 +35,6 @@ namespace q6
          {
 
             m_pqapplication = nullptr;
-
 
          }
 
@@ -534,7 +533,7 @@ namespace q6
    } //namespace acme
 
 
-} // namespace q6
+} // namespace q
 
 
 

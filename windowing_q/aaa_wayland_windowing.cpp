@@ -1,5 +1,5 @@
 #include "framework.h"
-//#include "windowing_kde5.h"
+//#include "windowing_q.h"
 #include <fcntl.h> // library for fcntl function
 #include <sys/stat.h>
 

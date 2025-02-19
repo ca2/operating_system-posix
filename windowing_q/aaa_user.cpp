@@ -1,11 +1,11 @@
 #include "framework.h"
-#include "_kde5.h"
+#include "_q.h"
 
 
-namespace windowing_kde5
+namespace windowing_q
 {
 
    
 
 
-} // namespace windowing_kde5
+} // namespace windowing_q

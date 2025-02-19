@@ -26,11 +26,12 @@
 //#include <X11/extensions/sync.h>
 //#include <wayland-client.h>
 //#include <gdk/gdkwindow.h>
-#include "acme_windowing_kde5/QCustomTopWindow.h"
+#include "common_q/QCustomTopWindow.h"
 //#include <linux/input.h> // for BTN_LEFT,...
 //#include <xkbcommon/xkbcommon.h>
 //#include <gio/gio.h>
 //#include "app-core/gcom/backimpact/visual_effect.h"
+#include <QtGlobal>
 #include <QAction>
 #include <QMainWindow>
 //#include <QApplication>
@@ -46,7 +47,7 @@
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
 //#include "windowing_system_wayland/xfree86_key.h"
-#include "common_kde/kde_5_and_6.h"
+#include "common_q/q_5_and_6.h"
 
 //#include <gtk/gtk.h>
 //
@@ -201,7 +202,7 @@ void on_sn_launch_complete(void* pSnContext);
 #define ALOG_CONTEXT ::trace_object(::trace_category_windowing)
 
 
-namespace windowing_kde5
+namespace windowing_q
 {
    ::string _gtk_get_resize_cursor_name(enum_window_edge eedge);
 
@@ -225,6 +226,8 @@ namespace windowing_kde5
       //m_pWindow4 = this;
       resizing = false;
       moving = false;
+
+      m_bKeyboardFocus = false;
 
       // m_windowbuttonpresseda[0].m_pwindow = this;
       // m_windowbuttonpresseda[0].m_pszName = "move";
@@ -274,7 +277,7 @@ namespace windowing_kde5
    {
 
       ::windowing_posix::window::on_initialize_particle();
-      //::kde5::micro::window::on_initialize_particle();
+      //::q::micro::window::on_initialize_particle();
 
    }
 
@@ -423,7 +426,7 @@ namespace windowing_kde5
    //    static void on_window_button_pressed(GtkGestureClick *gesture, int n_press, double x, double y, gpointer p)
    //    {
    //
-   //       auto ppressed = (::windowing_kde5::window_button_pressed_t *)p;
+   //       auto ppressed = (::windowing_q::window_button_pressed_t *)p;
    //       ppressed->m_pwindow->_on_window_button_pressed(ppressed->m_pwidget, ppressed->m_pszName, gesture, n_press, x, y);
    //       // defer_perform_entire_reposition_process(nullptr);
    //       // if (n_press == 1) {  // Single click
@@ -433,7 +436,7 @@ namespace windowing_kde5
    //    static void on_window_button_released(GtkGestureClick *gesture, int n_press, double x, double y, gpointer p)
    //    {
    //
-   //       auto ppressed = (::windowing_kde5::window_button_pressed_t *)p;
+   //       auto ppressed = (::windowing_q::window_button_pressed_t *)p;
    //       ppressed->m_pwindow->_on_window_button_released(ppressed->m_pwidget, ppressed->m_pszName, gesture, n_press, x, y);
    //       // defer_perform_entire_reposition_process(nullptr);
    //       // if (n_press == 1) {  // Single click
@@ -544,8 +547,8 @@ namespace windowing_kde5
    void window::defer_show_system_menu(::user::mouse* pmouse)
    {
 
-      ::kde5::acme::windowing::window::defer_show_system_menu(pmouse);
-      //::kde5::micro::window::defer_show_system_menu(pmouse);
+      ::q::acme::windowing::window::defer_show_system_menu(pmouse);
+      //::q::micro::window::defer_show_system_menu(pmouse);
 
 
       // // Function to create and show the popup menu
@@ -981,7 +984,7 @@ namespace windowing_kde5
       // //
       // //
       // //
-      // //       //kde5_widget w;
+      // //       //q_widget w;
       // //       //w.m_pgtkwidget = ppopover;
       // //       //w._force_layout();
       // //       //gtk_popover_menu_set_flags (GTK_POPOVER_MENU(ppopover), 0      );
@@ -1010,7 +1013,7 @@ namespace windowing_kde5
    // // Callback function to draw on the drawing area
    // static gboolean on_draw_event(GtkWidget* widget, cairo_t* cr, gpointer p)
    // {
-   //    auto pwindow = (::windowing_kde5::window *)p;
+   //    auto pwindow = (::windowing_q::window *)p;
    //    pwindow->_on_cairo_draw(widget, cr);
    //    return FALSE;
    // }
@@ -1024,7 +1027,7 @@ namespace windowing_kde5
    //    gpointer p
    // )
    // {
-   //    auto pwindow = (::windowing_kde5::window *)p;
+   //    auto pwindow = (::windowing_q::window *)p;
    //    pwindow->_on_cairo_draw(GTK_WIDGET(drawing_area), cr);
    // }
    //
@@ -1124,7 +1127,7 @@ namespace windowing_kde5
    // static void on_size_allocate(GtkWidget* widget, GdkRectangle* allocation, gpointer p)
    // {
    //    // Print the ___new size of the window
-   //    auto pwindow = (::windowing_kde5::window *)p;
+   //    auto pwindow = (::windowing_q::window *)p;
    //    pwindow->_on_size(allocation->width, allocation->height);
    //    //g_print("Window resized: width=%d, height=%d\n", allocation->width, allocation->height);
    //    //return false;
@@ -1134,7 +1137,7 @@ namespace windowing_kde5
    //    static void on_window_configure_event(GdkWindow *window, GdkEventConfigure *happening, gpointer user_data) {
    //       // Handle window resize happening here
    // //      g_print("Window resized to %dx%d\n", happening->width, happening->height);
-   //       auto pwindow = (::windowing_kde5::window *)p;
+   //       auto pwindow = (::windowing_q::window *)p;
    //       pwindow->_on_size(allocation->width, allocation->height);
    //    }
    //
@@ -1150,7 +1153,7 @@ namespace windowing_kde5
    // static void on_maximize_notify(GObject *object, GParamSpec *pspec, gpointer p)
    // {
    //
-   //    auto pwindow = (::windowing_kde5::window *)p;
+   //    auto pwindow = (::windowing_q::window *)p;
    //
    //    GtkWindow *window = GTK_WINDOW(object);
    //
@@ -1176,7 +1179,7 @@ namespace windowing_kde5
    // static void on_window_state(GdkToplevel *toplevel, GdkToplevelState state, gpointer p)
    // {
    //
-   //    auto pwindow = (::windowing_kde5::window *)p;
+   //    auto pwindow = (::windowing_q::window *)p;
    //
    //    if (state & GDK_TOPLEVEL_STATE_MINIMIZED)
    //    {
@@ -1234,7 +1237,7 @@ namespace windowing_kde5
    //    if (g_strcmp0(pspec->name, "default-width") == 0
    //       || g_strcmp0(pspec->name, "default-height") == 0)
    //    {
-   //       auto pwindow = (::windowing_kde5::window *)p;
+   //       auto pwindow = (::windowing_q::window *)p;
    //       auto pgtkwindow = GTK_WINDOW(pgobject);
    //       // The default-width property has changed
    //       int iWidth = pwindow->m_sizeOnSize.cx();
@@ -1424,12 +1427,23 @@ namespace windowing_kde5
             pmouse->m_emessage = e_message_middle_button_down;
          }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+
+         m_pointCursor2.x() = pevent->globalPosition().x();
+         m_pointCursor2.y() = pevent->globalPosition().y();
+
+         pmouse->m_pointHost.x() = pevent->position().x();
+         pmouse->m_pointHost.y() = pevent->position().y();
+
+#else
+
          m_pointCursor2.x() = pevent->globalX();
          m_pointCursor2.y() = pevent->globalY();
 
-
          pmouse->m_pointHost.x() = pevent->x();
          pmouse->m_pointHost.y() = pevent->y();
+
+#endif
 
          pmouse->m_pointAbsolute = m_pointCursor2;
 
@@ -1502,12 +1516,23 @@ namespace windowing_kde5
                pmouse->m_emessage = e_message_middle_button_up;
             }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+
+            m_pointCursor2.x() = pevent->globalPosition().x();
+            m_pointCursor2.y() = pevent->globalPosition().y();
+
+            pmouse->m_pointHost.x() = pevent->position().x();
+            pmouse->m_pointHost.y() = pevent->position().y();
+
+#else
+
             m_pointCursor2.x() = pevent->globalX();
             m_pointCursor2.y() = pevent->globalY();
 
-
             pmouse->m_pointHost.x() = pevent->x();
             pmouse->m_pointHost.y() = pevent->y();
+
+#endif
 
             pmouse->m_pointAbsolute = m_pointCursor2;
 
@@ -1532,7 +1557,7 @@ namespace windowing_kde5
    //    static void on_motion_notify(GtkEventControllerMotion* pcontroller, double x, double y, gpointer p)
    //    {
    //
-   //       auto * pwindow = (::windowing_kde5::window *)p;
+   //       auto * pwindow = (::windowing_q::window *)p;
    //
    //       pwindow->_on_motion_notify(pcontroller, x, y);
    //
@@ -1545,12 +1570,20 @@ namespace windowing_kde5
       if(m_bRepositioningWindowFromCenter)
       {
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+
+         auto p = pevent->globalPosition();
+
+#else
+
          auto p = pevent->globalPos();
+
+#endif
 
          p.setX(p.x()-m_pqwidget->size().width()/2);
          p.setY(p.y()- m_pqwidget->size().height()/2);
 
-         m_pqwidget->move(p);
+         m_pqwidget->move(p.x(), p.y());
          return;
 
       }
@@ -1559,7 +1592,15 @@ namespace windowing_kde5
 
          QSize s;
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+
+         auto p = pevent->globalPosition();
+
+#else
+
          auto p = pevent->globalPos();
+
+#endif
 
          s.setWidth(p.x()-m_pqwidget->pos().x());
          s.setHeight(p.y()-m_pqwidget->pos().y());
@@ -1590,17 +1631,23 @@ namespace windowing_kde5
 
          pmouse->m_emessage = e_message_mouse_move;
 
-         __check_refdbg;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+
+         m_pointCursor2.x() = pevent->globalPosition().x();
+         m_pointCursor2.y() = pevent->globalPosition().y();
+
+         pmouse->m_pointHost.x() = pevent->position().x();
+         pmouse->m_pointHost.y() = pevent->position().y();
+
+#else
 
          m_pointCursor2.x() = pevent->globalX();
          m_pointCursor2.y() = pevent->globalY();
 
-         __check_refdbg;
-
          pmouse->m_pointHost.x() = pevent->x();
          pmouse->m_pointHost.y() = pevent->y();
 
-         __check_refdbg;
+#endif
 
          pmouse->m_pointAbsolute = m_pointCursor2;
 
@@ -1620,7 +1667,7 @@ namespace windowing_kde5
    //    static void on_enter_notify(GtkEventControllerMotion* pcontroller, double x, double y, gpointer p)
    //    {
    //
-   //       auto pwindow = (::windowing_kde5::window *)p;
+   //       auto pwindow = (::windowing_q::window *)p;
    //
    //       pwindow->_on_enter_notify(pcontroller, x, y);
    //
@@ -1639,7 +1686,7 @@ namespace windowing_kde5
    // // Callback for when the window visibility changes (minimized/hidden or restored)
    // static void on_window_visibility_changed(GObject* object, GParamSpec* pspec, gpointer p)
    // {
-   //    auto pwindow = (::windowing_kde5::window *)p;
+   //    auto pwindow = (::windowing_q::window *)p;
    //
    //    pwindow->_on_window_visibility_changed(object, pspec);
    // }
@@ -1673,7 +1720,7 @@ namespace windowing_kde5
    // // Callback for when Option 1 is selected from the popover menu
    // static void on_window_simple_action(GSimpleAction *action, GVariant *parameter, gpointer p)
    // {
-   //    auto pwindow = (::windowing_kde5::window *)p;
+   //    auto pwindow = (::windowing_q::window *)p;
    //    gchar * name = nullptr;
    //    g_object_get(action, "name", &name, nullptr);
    //    pwindow->_on_window_simple_action(name);
@@ -1727,7 +1774,7 @@ namespace windowing_kde5
              //pkey->m_pointAbsolute = m_pointCursor2;
 
 
-             pkey->m_ekey = ::kde::user_key_from_qt_key(pevent->key());
+             pkey->m_ekey = ::q::user_key_from_qt_key(pevent->key());
 
              ::string strText(pevent->text().toUtf8().data());
 
@@ -1838,7 +1885,7 @@ namespace windowing_kde5
              //pkey->m_pointAbsolute = m_pointCursor2;
 
 
-             pkey->m_ekey = ::kde::user_key_from_qt_key(pevent->key());
+             pkey->m_ekey = ::q::user_key_from_qt_key(pevent->key());
 
              //pkey->m_strText = pevent->text().toUtf8();
 
@@ -1971,7 +2018,7 @@ namespace windowing_kde5
    // static void on_toplevel_compute_size(GdkToplevel * self, GdkToplevelSize* size, gpointer p)
    // {
    //
-   //    auto pwindow = (::windowing_kde5::window *)p;
+   //    auto pwindow = (::windowing_q::window *)p;
    //
    //    pwindow->_on_toplevel_compute_size(self, size);
    //
@@ -2147,7 +2194,7 @@ namespace windowing_kde5
 
       //::windowing::window* pimpl = m_pwindow;
 
-      printf_line("windowing_kde5::window::create_window");
+      printf_line("windowing_q::window::create_window");
 
       {
 
@@ -2159,9 +2206,9 @@ namespace windowing_kde5
 
          puserinteraction->m_bMessageWindow = false;
 
-         auto pkde5windowing = kde5_windowing();
+         auto pqwindowing = q_windowing();
 
-         auto pdisplay = pkde5windowing->m_pdisplay;
+         auto pdisplay = pqwindowing->m_pdisplay;
 
 
          //m_pwindow = pimpl;
@@ -2223,7 +2270,7 @@ namespace windowing_kde5
 
          m_sizeWindow.cy() = cy;
 
-         ::kde5::acme::windowing::window::_create_window();
+         ::q::acme::windowing::window::_create_window();
 
          // //auto rectangleWindow = ::int_rectangle_dimension(x, y, cx, cy);
          //
@@ -2231,7 +2278,7 @@ namespace windowing_kde5
          //
          // //auto pwindowing = this->windowing();
          //
-         // //m_pgtkwidget = gtk_application_window_new(pkde5windowing->m_pgtkapplication);
+         // //m_pgtkwidget = gtk_application_window_new(pqwindowing->m_pgtkapplication);
          //
          // auto pmainwindow = new QCustomTopWindow(this);
          //
@@ -2560,9 +2607,9 @@ namespace windowing_kde5
 
          //pimpl->set_os_data((::windowing::window *)this);
 
-         //set_os_data(LAYERED_X11, (::windowing_kde5::window *)this);
+         //set_os_data(LAYERED_X11, (::windowing_q::window *)this);
 
-         //pimpl->set_os_data(LAYERED_X11, (::windowing_kde5::window *)this);
+         //pimpl->set_os_data(LAYERED_X11, (::windowing_q::window *)this);
 
          //puserinteraction->m_pinteractionimpl = pimpl;
 
@@ -2966,7 +3013,7 @@ namespace windowing_kde5
    //
    //      }
    //
-   //      information() << "windowing_kde5::window::__map";
+   //      information() << "windowing_q::window::__map";
    //
    //      ::minimum(m_sizeConfigure.cx());
    //
@@ -2982,7 +3029,7 @@ namespace windowing_kde5
    //
    //      m_uLastAckSerial = 0;
    //
-   //      auto pdisplaywayaland = dynamic_cast < ::windowing_kde5::display * > (m_pdisplay.m_p);
+   //      auto pdisplaywayaland = dynamic_cast < ::windowing_q::display * > (m_pdisplay.m_p);
    //
    //      m_pwlsurface = wl_compositor_create_surface(pdisplaywayaland->m_pwlcompositor);
    //
@@ -3226,7 +3273,7 @@ namespace windowing_kde5
    //   void window::__unmap()
    //   {
    //
-   //      information() << "windowing_kde5::window::__unmap";
+   //      information() << "windowing_q::window::__unmap";
    //
    //      if (m_pwlsurface != nullptr)
    //      {
@@ -3522,7 +3569,7 @@ namespace windowing_kde5
 
 
    //   ::e_status
-   //   window::initialize_x11_window(::windowing_kde5::display * pdisplay, ::Window window, ::Visual * pvisual, int iDepth,
+   //   window::initialize_x11_window(::windowing_q::display * pdisplay, ::Window window, ::Visual * pvisual, int iDepth,
    //                                 int iScreen, Colormap colormap)
    //   {
    //
@@ -3671,7 +3718,7 @@ namespace windowing_kde5
       //
       //      ::file::path path = pnode->get_desktop_file_path(papp);
       //
-      //      informationf("windowing_kde5::interaction_impl::set_window_text");
+      //      informationf("windowing_q::interaction_impl::set_window_text");
       //
       //      //fflush(stdout);
       //
@@ -3691,7 +3738,7 @@ namespace windowing_kde5
       //         (const unsigned char *) (const char *) path,
       //         path.length());
       //
-      //      informationf("windowing_kde5::window::bamf_set_icon END");
+      //      informationf("windowing_q::window::bamf_set_icon END");
       //
       //      //fflush(stdout);
       //
@@ -4046,20 +4093,20 @@ namespace windowing_kde5
    //   }
 
 
-   ::windowing_kde5::windowing* window::kde5_windowing()
+   ::windowing_q::windowing* window::q_windowing()
    {
 
-      ::cast <::windowing_kde5::windowing > pwindowing = system()->acme_windowing();
+      ::cast <::windowing_q::windowing > pwindowing = system()->acme_windowing();
 
       return pwindowing;
 
    }
 
 
-   ::windowing_kde5::display* window::kde5_display()
+   ::windowing_q::display* window::q_display()
    {
 
-      ::cast < ::windowing_kde5::display > pdisplay = system()->acme_windowing()->acme_display();
+      ::cast < ::windowing_q::display > pdisplay = system()->acme_windowing()->acme_display();
 
       return pdisplay;
 
@@ -4106,7 +4153,7 @@ namespace windowing_kde5
          throw ::exception(error_failed);
       }
 
-      auto pwindowx11NewParent = dynamic_cast<::windowing_kde5::window *>(pwindowNewParent);
+      auto pwindowx11NewParent = dynamic_cast<::windowing_q::window *>(pwindowNewParent);
 
       if (::is_null(pwindowx11NewParent))
       {
@@ -4458,14 +4505,14 @@ namespace windowing_kde5
    {
       ::int_rectangle rBest;
 
-      auto pkde5display = kde5_display();
+      auto pqdisplay = q_display();
 
       int iMonitor = -1;
 
-      if (pkde5display)
+      if (pqdisplay)
       {
 
-         iMonitor = pkde5display->get_best_monitor(&rBest, rectangle);
+         iMonitor = pqdisplay->get_best_monitor(&rBest, rectangle);
 
       }
 
@@ -5197,7 +5244,7 @@ namespace windowing_kde5
 
       //display_lock displaylock(x11_display()->Display());
 
-      information() << "windowing_kde5 window::set_window_position ";
+      information() << "windowing_q window::set_window_position ";
 
       return _set_window_position_unlocked(zorder, x, y, cx, cy, useractivation, bNoZorder, bNoMove, bNoSize,
                                            edisplay);
@@ -5400,20 +5447,20 @@ namespace windowing_kde5
 
             __check_refdbg;
 
-            ::cast < ::windowing_kde5::cursor > pkde5cursor = m_pcursor;
+            ::cast < ::windowing_q::cursor > pqcursor = m_pcursor;
 
             __check_refdbg;
 
-            if (pkde5cursor)
+            if (pqcursor)
             {
 
                __check_refdbg;
 
-               pkde5cursor->_create_os_cursor();
+               pqcursor->_create_os_cursor();
 
                __check_refdbg;
 
-               auto qcursor = pkde5cursor->m_qcursor;
+               auto qcursor = pqcursor->m_qcursor;
 
                __check_refdbg;
 
@@ -5429,14 +5476,14 @@ namespace windowing_kde5
             _main_post([this]()
                {
 
-                  ::cast < ::windowing_kde5::cursor > pkde5cursor = m_pcursor;
+                  ::cast < ::windowing_q::cursor > pqcursor = m_pcursor;
 
-                  if (pkde5cursor)
+                  if (pqcursor)
                   {
 
-                     pkde5cursor->_create_os_cursor();
+                     pqcursor->_create_os_cursor();
 
-                     auto qcursor = pkde5cursor->m_qcursor;
+                     auto qcursor = pqcursor->m_qcursor;
 
                      m_pqwidget->setCursor(qcursor);
 
@@ -5563,7 +5610,7 @@ namespace windowing_kde5
    void window::set_mouse_capture()
    {
 
-      ::kde5::acme::windowing::window::set_mouse_capture();
+      ::q::acme::windowing::window::set_mouse_capture();
 
    }
 
@@ -5575,7 +5622,7 @@ namespace windowing_kde5
    //
    //      windowing()->set_mouse_capture(pthread, this);
    //
-   //      //::pointer < ::windowing_kde5::display > pwaylanddisplay = m_pdisplay;
+   //      //::pointer < ::windowing_q::display > pwaylanddisplay = m_pdisplay;
    //
    //      //pwaylanddisplay->__capture_mouse(this, pwaylanddisplay->m_uLastButtonSerial);
    //
@@ -5635,7 +5682,7 @@ namespace windowing_kde5
    bool window::has_mouse_capture()
    {
 
-      if(!::kde5::acme::windowing::window::has_mouse_capture())
+      if(!::q::acme::windowing::window::has_mouse_capture())
       {
 
          return false;
@@ -5650,7 +5697,7 @@ namespace windowing_kde5
    bool window::is_mouse_captured()
    {
 
-      if(!::kde5::acme::windowing::window::is_mouse_captured())
+      if(!::q::acme::windowing::window::is_mouse_captured())
       {
 
          return false;
@@ -5665,7 +5712,7 @@ namespace windowing_kde5
    void window::release_mouse_capture()
    {
 
-      ::kde5::acme::windowing::window::release_mouse_capture();
+      ::q::acme::windowing::window::release_mouse_capture();
 
    }
 
@@ -5675,7 +5722,7 @@ namespace windowing_kde5
 
       synchronous_lock synchronouslock(user_synchronization());
 
-      information() << "::windowing_kde5::window::set_active_window";
+      information() << "::windowing_q::window::set_active_window";
 
       user_post([this]()
       {
@@ -6426,10 +6473,26 @@ namespace windowing_kde5
       //
       //      }
       //
-      //return m_bHasKeyboardFocus;
+      return m_bKeyboardFocus;
       //return false;
 
-      return ::kde5::acme::windowing::window::has_keyboard_focus();
+      //return ::q::acme::windowing::window::has_keyboard_focus();
+
+   }
+
+
+   void window::_on_set_focus()
+   {
+
+      m_bKeyboardFocus = true;
+
+   }
+
+
+   void window::_on_kill_focus()
+   {
+
+      m_bKeyboardFocus = false;
 
    }
 
@@ -6615,12 +6678,17 @@ namespace windowing_kde5
    //   }
 
 
-
-
    void window::set_keyboard_focus()
    {
 
-      ::kde5::acme::windowing::window::set_keyboard_focus();
+      main_send([this]()
+      {
+
+         m_pqwidget->setFocus(Qt::MouseFocusReason);
+
+      });
+
+      //::q::acme::windowing::window::set_keyboard_focus();
       //synchronous_lock synchronouslock(user_synchronization());
 
       // if (m_pwlsurface == nullptr)
@@ -6860,7 +6928,7 @@ namespace windowing_kde5
    //    }
    //
    //
-   //    void window::__handle_pointer_leave(::wl_pointer * pwlpointer, ::windowing_kde5::window * pwaylandwindowLeave)
+   //    void window::__handle_pointer_leave(::wl_pointer * pwlpointer, ::windowing_q::window * pwaylandwindowLeave)
    //    {
    //
    //       ::string strType = ::type(puserinteraction).name();
@@ -7144,7 +7212,7 @@ namespace windowing_kde5
    // //      if(m_uLastConfigureSerial && m_waylandbuffer.m_size != m_sizeWindow)
    // //      {
    // //
-   // //         auto pdisplaywayaland = dynamic_cast < ::windowing_kde5::display * > (m_pdisplay.m_p);
+   // //         auto pdisplaywayaland = dynamic_cast < ::windowing_q::display * > (m_pdisplay.m_p);
    // //
    // //         pdisplaywayaland->destroy_wayland_buffer(m_waylandbuffer);
    // //
@@ -7417,9 +7485,9 @@ namespace windowing_kde5
    bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse* pmouse)
    {
 
-      return ::kde5::acme::windowing::window::defer_perform_entire_resizing_process(eframeSizing, pmouse);
+      return ::q::acme::windowing::window::defer_perform_entire_resizing_process(eframeSizing, pmouse);
 
-      //auto pdisplay = kde5_display();
+      //auto pdisplay = q_display();
 
       //if (pdisplay->is_wayland())
       {
@@ -7455,7 +7523,7 @@ namespace windowing_kde5
          // //struct wl_surface *pwlsurface = gdk_wayland_surface_get_wl_surface(gdk_surface);
          //
          // // You need to create an xdg_surface using xdg_wm_base
-         // //struct xdg_wm_base *pxdgwmbase = kde5_windowing()->m_pdisplay->m_pxdgwmbase;
+         // //struct xdg_wm_base *pxdgwmbase = q_windowing()->m_pdisplay->m_pxdgwmbase;
          //
          // // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pclick));
          // //
@@ -7615,10 +7683,10 @@ namespace windowing_kde5
    bool window::defer_perform_entire_reposition_process(::user::mouse* pmouse)
    {
 
-      return ::kde5::acme::windowing::window::defer_perform_entire_reposition_process(pmouse);
+      return ::q::acme::windowing::window::defer_perform_entire_reposition_process(pmouse);
       //return _perform_entire_resizing_process(eframeSizing);
 
-      // auto pdisplay = kde5_display();
+      // auto pdisplay = q_display();
       //
       // if (pdisplay->is_wayland())
       {
@@ -7652,7 +7720,7 @@ namespace windowing_kde5
          // //struct wl_surface *pwlsurface = gdk_wayland_surface_get_wl_surface(gdk_surface);
          //
          // // You need to create an xdg_surface using xdg_wm_base
-         // //struct xdg_wm_base *pxdgwmbase = kde5_windowing()->m_pdisplay->m_pxdgwmbase;
+         // //struct xdg_wm_base *pxdgwmbase = q_windowing()->m_pdisplay->m_pxdgwmbase;
          //
          // // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pclick));
          // //
@@ -7852,7 +7920,7 @@ namespace windowing_kde5
    //
    //      }
    //
-   //      ::pointer < ::windowing_kde5::keyboard > pkeyboard = windowing()->keyboard();
+   //      ::pointer < ::windowing_q::keyboard > pkeyboard = windowing()->keyboard();
    //
    //      if (!pkeyboard->m_pxkbstate)
    //      {
@@ -7909,7 +7977,7 @@ namespace windowing_kde5
    //   void window::__handle_keyboard_modifiers(::wl_keyboard *keyboard, uint32_t serial, uint32_t mods_depressed, uint32_t mods_latched, uint32_t mods_locked, uint32_t group)
    //   {
    //
-   //      ::pointer < ::windowing_kde5::keyboard > pkeyboard = windowing()->keyboard();
+   //      ::pointer < ::windowing_q::keyboard > pkeyboard = windowing()->keyboard();
    //
    //      if (!pkeyboard->m_pxkbstate)
    //      {
@@ -8212,4 +8280,4 @@ main_post([this]()
    }
 
 
-} // namespace windowing_kde5
+} // namespace windowing_q

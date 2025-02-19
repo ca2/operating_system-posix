@@ -4,7 +4,7 @@
 #pragma once
 
 //
-// namespace windowing_kde5
+// namespace windowing_q
 // {
 //
 //
@@ -38,7 +38,7 @@
 //    ::e_status gsettings_get(string & strValue, const ::string & strSchema, const ::string & strKey);
 //
 //
-//    ::e_status node_enable_wallpaper_change_notification(::node_kde5::node * pnode, const ::string & strSchema, const ::string & strKey);
+//    ::e_status node_enable_wallpaper_change_notification(::node_q::node * pnode, const ::string & strSchema, const ::string & strKey);
 //
 //
 //    const char * g_get_file_icon_path(const char * pszPath, int iSize);
@@ -53,7 +53,7 @@
 //    int gdk_launch_uri(const char * pszUri, char * pszError, int iBufferSize);
 //
 //
-// } // namespace windowing_kde5
+// } // namespace windowing_q
 //
 //
 

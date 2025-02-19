@@ -6,12 +6,12 @@
 #include "window.h"
 
 
-namespace innate_ui_q6
+namespace innate_ui_q
 {
 
 
-   class CLASS_DECL_INNATE_UI_Q6 dialog :
-      virtual public ::innate_ui_q6::window,
+   class CLASS_DECL_INNATE_UI_Q dialog :
+      virtual public ::innate_ui_q::window,
       virtual public ::innate_ui::dialog
    {
    public:

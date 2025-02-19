@@ -8,7 +8,7 @@
 #include <QApplication>
 
 
-namespace kde5
+namespace q5
 {
 
 
@@ -20,8 +20,8 @@ namespace kde5
       {
 
 
-   class CLASS_DECL_ACME_WINDOWING_KDE5 windowing :
-           virtual public ::acme::windowing::windowing
+   class CLASS_DECL_ACME_WINDOWING_Q5 windowing :
+           virtual public ::q::acme::windowing::windowing
    {
    public:
 

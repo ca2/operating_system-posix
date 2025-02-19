@@ -2,16 +2,16 @@
 // Created by camilo on 17/02/2021. 23:08 BRT <3TBS_!!
 //
 #include "framework.h"
-#include "windowing_kde5.h"
+#include "windowing_q.h"
 #include "cursor.h"
 #include "display.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "aura/graphics/image/image.h"
 #include "windowing_system_x11/display_lock.h"
-#include "_kde5.h"
+#include "_q.h"
 
 
-namespace windowing_kde5
+namespace windowing_q
 {
 
 //
@@ -29,7 +29,7 @@ namespace windowing_kde5
 // //
 // //      auto cursor = XRenderCreateCursor(Display(), picture, xHotSpot, yHotSpot);
 //
-//    auto pcursor = __create_new< ::windowing_kde5::cursor>();
+//    auto pcursor = __create_new< ::windowing_q::cursor>();
 //
 //    pcursor->m_szHotspotOffset.cx() = xHotSpot;
 //    pcursor->m_szHotspotOffset.cy() = yHotSpot;
@@ -41,7 +41,7 @@ namespace windowing_kde5
 //    }
 
 
-} // namespace windowing_kde5
+} // namespace windowing_q
 
 
 

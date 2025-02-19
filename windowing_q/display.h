@@ -4,25 +4,25 @@
 #pragma once
 
 
-#define WINDOWING_X11_DISPLAY_MEMBER
+//#define WINDOWING_X11_DISPLAY_MEMBER
 
 //#include "acme/operating_system/x11/nano/event_listener.h"
 //#include "acme/operating_system/x11/nano/display.h"
-#include "acme_windowing_kde5/display.h"
+#include "common_q/display.h"
 #include "aura/windowing/display.h"
-#include "_kde5.h"
+#include "_q.h"
 
 //#include "_x11.h"
 
 
 
-namespace windowing_kde5
+namespace windowing_q
 {
 
 
-   class CLASS_DECL_WINDOWING_KDE5 display :
+   class CLASS_DECL_WINDOWING_Q display :
       virtual public ::windowing::display,
-      virtual public ::kde5::acme::windowing::display
+      virtual public ::q::acme::windowing::display
    {
    public:
 
@@ -59,8 +59,8 @@ namespace windowing_kde5
       iptr                                         m_countReference;
       ::pointer<class window>                      m_pwindowRoot;
       //::pointer<class window>                      m_pwindowKeyboardFocus;
-      ::pointer<::windowing_kde5::window>           m_pwindowActive;
-      ///::pointer<::windowing_kde5::window>           m_pwindowMouseCapture;
+      ::pointer<::windowing_q::window>           m_pwindowActive;
+      ///::pointer<::windowing_q::window>           m_pwindowMouseCapture;
       //bool                                         m_bHasXSync;
       //int                                          m_iXSyncMajor;
       //int                                          m_iXSyncMinor;
@@ -96,9 +96,9 @@ namespace windowing_kde5
       bool has_readily_gettable_absolute_pointer_position() const override;
 
 
-//      virtual ::windowing_kde5::window * _window(::wl_surface * pwlsurface);
+//      virtual ::windowing_q::window * _window(::wl_surface * pwlsurface);
 
-      virtual ::windowing_kde5::windowing * kde5_windowing();
+      virtual ::windowing_q::windowing * q_windowing();
 
       virtual void lock_display();
 
@@ -164,14 +164,14 @@ namespace windowing_kde5
       ///virtual Picture xrender_create_picture(::image::image_pointer pimage);
 
 
-//      virtual void __handle_pointer_enter(::wl_pointer * pwlpointer, double x, double y, ::windowing_kde5::window * pwindowPointerEnter);
+//      virtual void __handle_pointer_enter(::wl_pointer * pwlpointer, double x, double y, ::windowing_q::window * pwindowPointerEnter);
 //      virtual void __handle_pointer_motion(::wl_pointer * pwlpointer, double x, double y, unsigned int time);
-//      virtual void __handle_pointer_leave(::wl_pointer * pwlpointer, ::windowing_kde5::window * pwindowPointerLeave);
+//      virtual void __handle_pointer_leave(::wl_pointer * pwlpointer, ::windowing_q::window * pwindowPointerLeave);
 //
 //      virtual void __handle_pointer_button(::wl_pointer * pwlpointer, unsigned int linux_button, unsigned int pressed, unsigned int time);
 //
 //
-//      //virtual void __capture_mouse(::windowing_kde5::window * pwindowMouseCapture, unsigned int serial);
+//      //virtual void __capture_mouse(::windowing_q::window * pwindowMouseCapture, unsigned int serial);
 //
 //
 //      virtual void __handle_keyboard_keymap(struct wl_keyboard *keyboard, uint32_t format, int fd, uint32_t size);
@@ -188,7 +188,7 @@ namespace windowing_kde5
    };
 
 
-} // namespace windowing_kde5
+} // namespace windowing_q
 
 
 

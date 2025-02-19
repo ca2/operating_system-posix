@@ -7,7 +7,7 @@
 //void x11_register_extended_event_listener(::matter * pdata, bool bMouse, bool bKeyboard);
 
 
-//namespace windowing_kde5
+//namespace windowing_q
 //{
 //
 //
@@ -35,7 +35,7 @@
 //
 //      auto puser = user();
 //
-//      auto pwindowing = (::windowing_kde5::windowing *) puser->windowing()->m_pWindowing4;
+//      auto pwindowing = (::windowing_q::windowing *) puser->windowing()->m_pWindowing4;
 //
 //      pwindowing->x11_register_extended_event_listener(pmatter, true, false);
 //
@@ -55,7 +55,7 @@
 //
 //      auto puser = user();
 //
-//      auto pwindowing = (::windowing_kde5::windowing *) puser->windowing()->m_pWindowing4;
+//      auto pwindowing = (::windowing_q::windowing *) puser->windowing()->m_pWindowing4;
 //
 //      pwindowing->x11_register_extended_event_listener(pmatter, false, true);
 //
@@ -82,7 +82,7 @@
 //   }
 //
 //
-//} // namespace windowing_kde5
+//} // namespace windowing_q
 //
 //
 //

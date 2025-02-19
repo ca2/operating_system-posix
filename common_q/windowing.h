@@ -5,11 +5,11 @@
 
 
 #include "acme/windowing/windowing.h"
-#include "acme_windowing_kde6/micro_window.h"
+#include "micro_window.h"
 #include <QApplication>
 
 
-namespace q6
+namespace q
 {
 
 
@@ -21,7 +21,7 @@ namespace q6
       {
 
 
-   class CLASS_DECL_ACME_WINDOWING_Q6 windowing :
+   class CLASS_DECL_COMMON_Q windowing :
            virtual public ::acme::windowing::windowing//,
          //virtual public ::kde6::micro::window
    {
@@ -84,7 +84,7 @@ namespace q6
    } //namespace acme
 
 
-} // namespace q6
+} // namespace q
 
 
 

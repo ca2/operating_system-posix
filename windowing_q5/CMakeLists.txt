@@ -90,6 +90,7 @@ list(APPEND library_references
         aura_posix
         #aura_${OPERATING_SYSTEM_NAME}
         windowing_posix
+   windowing_q
        # windowing_system_wayland
         #windowing_system_x11
         #nano_user_wayland

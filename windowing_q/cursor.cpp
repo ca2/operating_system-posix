@@ -23,7 +23,7 @@
 CLASS_DECL_ACME ::particle * user_synchronization();
 
 
-namespace windowing_kde5
+namespace windowing_q
 {
 
 
@@ -387,7 +387,7 @@ namespace windowing_kde5
 
       __check_refdbg;
 
-      ::cast < ::windowing_kde5::display> pwaylanddisplay =  pdisplay;
+      ::cast < ::windowing_q::display> pwaylanddisplay =  pdisplay;
 
       __check_refdbg;
 
@@ -536,7 +536,7 @@ namespace windowing_kde5
 //
 //      auto pdisplay = pwindowing->display();
 //
-//      auto px11display = (::windowing_kde5::display *) pwindowing->display()->m_pDisplay;
+//      auto px11display = (::windowing_q::display *) pwindowing->display()->m_pDisplay;
 //
 //      //display_lock lock(px11display->Display());
 //
@@ -556,7 +556,7 @@ namespace windowing_kde5
    }
 
 
-} // namespace windowing_kde5
+} // namespace windowing_q
 
 
 

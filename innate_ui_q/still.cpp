@@ -8,7 +8,7 @@
 #include <QLabel>
 
 
-namespace innate_ui_q6
+namespace innate_ui_q
 {
 
 
@@ -55,7 +55,7 @@ namespace innate_ui_q6
       // else
       {
 
-         ::pointer < ::innate_ui_q6::window > pkde6windowParent = pwindowParent;
+         ::pointer < ::innate_ui_q::window > pkde6windowParent = pwindowParent;
 
          m_pqwidget = ___new QLabel(pkde6windowParent->m_pqwidget);
 
@@ -107,7 +107,7 @@ namespace innate_ui_q6
    void still::set_icon(::innate_ui::icon * piconParam)
    {
 
-      ::pointer <::innate_ui_q6::icon > picon = piconParam;
+      ::pointer <::innate_ui_q::icon > picon = piconParam;
 
       _user_send([this, picon]()
       {
@@ -130,7 +130,7 @@ namespace innate_ui_q6
    }
 
 
-} // namespace innate_ui_q6
+} // namespace innate_ui_q
 
 
 

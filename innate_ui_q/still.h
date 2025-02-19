@@ -6,12 +6,12 @@
 #include "window.h"
 //#include <gtk/gtk.h>
 
-namespace innate_ui_q6
+namespace innate_ui_q
 {
 
 
-   class CLASS_DECL_INNATE_UI_Q6 still :
-      virtual public ::innate_ui_q6::window,
+   class CLASS_DECL_INNATE_UI_Q still :
+      virtual public ::innate_ui_q::window,
       virtual public ::innate_ui::still
    {
    public:

@@ -6,12 +6,12 @@
 //#include <gtk/gtk.h>
 
 
-namespace innate_ui_q6
+namespace innate_ui_q
 {
 
    class window;
 
-   class CLASS_DECL_INNATE_UI_Q6 innate_ui :
+   class CLASS_DECL_INNATE_UI_Q innate_ui :
       virtual public ::innate_ui::innate_ui
    {
    public:
@@ -43,7 +43,7 @@ namespace innate_ui_q6
 
    //LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
-} // namespace innate_ui_q6
+} // namespace innate_ui_q
 
 
 

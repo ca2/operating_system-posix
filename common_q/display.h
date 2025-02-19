@@ -11,7 +11,7 @@
 #include <QWidget>
 
 
-namespace q6
+namespace q
 {
 
 
@@ -27,7 +27,7 @@ namespace q6
 
          using window_map = map<::QWidget *, ::pointer<window> >;
 
-         class CLASS_DECL_ACME_WINDOWING_Q6 display :
+         class CLASS_DECL_COMMON_Q display :
             virtual public ::acme::windowing::display //,     virtual public event_listener
          {
          public:
@@ -129,7 +129,7 @@ window_map                                               m_windowmap;
    } // namespace acme
 
 
-} // namespace q6
+} // namespace q
 
 
 

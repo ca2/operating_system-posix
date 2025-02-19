@@ -7,11 +7,11 @@
 #include <QPixmap>
 
 
-namespace innate_ui_q6
+namespace innate_ui_q
 {
 
 
-   class CLASS_DECL_INNATE_UI_Q6 icon :
+   class CLASS_DECL_INNATE_UI_Q icon :
       virtual public ::innate_ui::icon
    {
    public:

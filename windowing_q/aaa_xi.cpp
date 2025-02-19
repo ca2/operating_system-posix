@@ -3,16 +3,16 @@
 //
 #include "framework.h"
 #ifdef WITH_XI
-//#include "windowing_kde5.h"
+//#include "windowing_q.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "windowing_system_x11/display_lock.h"
-#include "windowing_kde5/window.h"
-#include "windowing_kde5/windowing.h"
-#include "windowing_kde5/display.h"
+#include "windowing_q/window.h"
+#include "windowing_q/windowing.h"
+#include "windowing_q/display.h"
 #include <X11/extensions/XInput2.h>
 
 
-namespace windowing_kde5
+namespace windowing_q
 {
 
 
@@ -42,7 +42,7 @@ namespace windowing_kde5
 //
 //                             synchronous_lock synchronouslock(user_synchronization());
 //
-//                             //::windowing_kde5::display_lock lock(m_pdisplay->Display());
+//                             //::windowing_q::display_lock lock(m_pdisplay->Display());
 //
 //                             int happening, error;
 //
@@ -144,7 +144,7 @@ namespace windowing_kde5
 ////#endif
 
 
-} // namespace windowing_kde5
+} // namespace windowing_q
 
 
 

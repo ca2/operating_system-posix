@@ -18,10 +18,10 @@
 //#include <Winsvc.h>
 //
 
-#if defined(_innate_ui_q6_project)
-#define CLASS_DECL_INNATE_UI_Q6  CLASS_DECL_EXPORT
+#if defined(_innate_ui_q_project)
+#define CLASS_DECL_INNATE_UI_Q  CLASS_DECL_EXPORT
 #else
-#define CLASS_DECL_INNATE_UI_Q6  CLASS_DECL_IMPORT
+#define CLASS_DECL_INNATE_UI_Q  CLASS_DECL_IMPORT
 #endif
 #define G_HANDLER(handler) G_CALLBACK(reinterpret_cast<void(*)(void)>(static_cast<void(*)(GtkWidget*, gpointer)>(handler)))
 //

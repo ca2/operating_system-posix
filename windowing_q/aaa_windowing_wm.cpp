@@ -3,7 +3,7 @@
 //
 #include "framework.h"
 #include "window.h"
-#include "windowing_kde5.h"
+#include "windowing_q.h"
 #include "display.h"
 #include "windowing.h"
 #include "acme/parallelization/synchronous_lock.h"
@@ -12,7 +12,7 @@
 #include <X11/Xatom.h>
 
 
-namespace windowing_kde5
+namespace windowing_q
 {
 
 
@@ -376,7 +376,7 @@ namespace windowing_kde5
 //
 //      }
 //
-//      windowing_output_debug_string("::windowing_kde5::window::wm_normalwindow");
+//      windowing_output_debug_string("::windowing_q::window::wm_normalwindow");
 //
 //   }
 //
@@ -838,7 +838,7 @@ namespace windowing_kde5
 //   }
 
 
-} // namespace windowing_kde5
+} // namespace windowing_q
 
 
 

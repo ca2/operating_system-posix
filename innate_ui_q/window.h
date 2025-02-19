@@ -6,14 +6,14 @@
 #include <QMainWindow>
 
 
-namespace innate_ui_q6
+namespace innate_ui_q
 {
 
 
    class innate_ui;
 
 
-   class CLASS_DECL_INNATE_UI_Q6 window :
+   class CLASS_DECL_INNATE_UI_Q window :
       virtual public ::innate_ui::window
    {
    public:
@@ -43,7 +43,7 @@ namespace innate_ui_q6
       void set_size(const ::int_size & size) override;
       void adjust_for_client_size(const ::int_size & size) override;
 
-      ::innate_ui_q6::innate_ui * innate_ui();
+      ::innate_ui_q::innate_ui * innate_ui();
 
 
       void defer_show_system_menu(::user::mouse * pmouse) override;

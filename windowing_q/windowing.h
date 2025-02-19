@@ -4,25 +4,25 @@
 #pragma once
 
 
-#include "acme_windowing_kde5/windowing.h"
+#include "common_q/windowing.h"
 #include "windowing_posix/windowing.h"
 #include "acme/prototype/collection/list.h"
 //#include "acme/prototype/collection/pointer_array.h"
 #include "_.h"
-#include "_kde5.h"
+#include "_q.h"
 
 #include <QApplication>
 
 struct libinput_event;
 
 
-namespace windowing_kde5
+namespace windowing_q
 {
 
 
-   class CLASS_DECL_WINDOWING_KDE5 windowing :
+   class CLASS_DECL_WINDOWING_Q windowing :
        virtual public ::windowing_posix::windowing,
-       virtual public ::kde5::acme::windowing::windowing
+       virtual public ::q::acme::windowing::windowing
    {
    public:
 
@@ -36,7 +36,7 @@ namespace windowing_kde5
       bool m_bRootSelectInput: 1;
       bool m_bFirstWindowMap: 1;
 
-      ::pointer<::windowing_kde5::display> m_pdisplay;
+      ::pointer<::windowing_q::display> m_pdisplay;
       bool m_bFinishX11Thread;
       bool m_bInitX11Thread;
 
@@ -106,7 +106,7 @@ namespace windowing_kde5
       //void windowing_post_quit() override;
 
 
-      //virtual bool os_defer_init_kde5();
+      //virtual bool os_defer_init_q();
 
       void _main_send(const ::procedure & procedure) override;
 
@@ -134,7 +134,7 @@ namespace windowing_kde5
 
       //bool defer_release_mouse_capture(::thread* pthread, ::windowing::window* pwindow) override;
 
-      virtual void _on_capture_changed_to(::windowing_kde5::window* pwindowWithCapture);
+      virtual void _on_capture_changed_to(::windowing_q::window* pwindowWithCapture);
 
       void set_mouse_cursor2(::windowing::cursor* pcursor) override;
 
@@ -217,7 +217,7 @@ namespace windowing_kde5
    };
 
 
-} // namespace windowing_kde5
+} // namespace windowing_q
 
 
 

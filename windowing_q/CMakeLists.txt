@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(windowing_kde5 CXX)
+project(windowing_q CXX)
 
 
 #if(${HAS_WAYLAND})
@@ -79,12 +79,11 @@ endif()
 list(APPEND library_references
         acme
         acme_posix
-   common_kde
-   acme_windowing_kde5
+   common_q
    nano_graphics_cairo
         apex
         apex_posix
-   innate_ui_kde5
+   innate_ui_q
         aqua
         aura
         aura_posix
@@ -121,14 +120,14 @@ set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 #endif()
 
 
-if(${HAS_KDE6})
+if(${HAS_Q6})
 
     list(APPEND system_libraries
             Qt6::Core
             Qt6::Widgets
     )
 
-elseif(${HAS_KDE5})
+elseif(${HAS_Q5})
 
     list(APPEND system_libraries
             Qt5::Core

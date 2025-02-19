@@ -22,13 +22,13 @@ namespace innate_ui_lxq2
       ~button() override;
 
 
-      void _create_child(window * pwindowParent) override;
-
-      //bool _on_command() override;
-
-      void set_icon(::innate_ui::icon * picon) override;
-      void set_callback_on_click(const ::procedure & callbackOnClick) override;
-      void set_text(const ::scoped_string & scopedstr) override;
+      // void _create_child(window * pwindowParent) override;
+      //
+      // //bool _on_command() override;
+      //
+      // void set_icon(::innate_ui::icon * picon) override;
+      // void set_callback_on_click(const ::procedure & callbackOnClick) override;
+      // void set_text(const ::scoped_string & scopedstr) override;
 
    };
 

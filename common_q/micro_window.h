@@ -7,7 +7,7 @@
 #include <QWidget>
 
 
-namespace q6
+namespace q
 {
 
 
@@ -15,7 +15,7 @@ namespace q6
    {
 
 
-      class CLASS_DECL_ACME_WINDOWING_Q6 window
+      class CLASS_DECL_COMMON_Q window
       {
       public:
 
@@ -47,9 +47,19 @@ namespace q6
          virtual void _on_kill_focus();
 
 
+         virtual void _on_key_press(QKeyEvent* pevent);
+
+
+         virtual void _on_key_release(QKeyEvent* pevent);
+
+
+         virtual void _on_text(const ::scoped_string & scopedstr);
+
+
+
       };
 
 
    } // namespace micro
 
-} // namespace q6
+} // namespace q

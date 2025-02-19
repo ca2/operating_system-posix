@@ -18,7 +18,7 @@
 //::particle * user_synchronization();
 
 
-namespace windowing_kde5
+namespace windowing_q
 {
 
 
@@ -172,9 +172,9 @@ namespace windowing_kde5
 //
 //       }
 //
-//       //::pointer < ::windowing_kde5::windowing > pkde5windowing = ::platform::get()->system()->session()->user()->windowing();
+//       //::pointer < ::windowing_q::windowing > pqwindowing = ::platform::get()->system()->session()->user()->windowing();
 //
-//       // if (!pkde5windowing->os_deos_defer_init_gtk())
+//       // if (!pqwindowing->os_deos_defer_init_gtk())
 //       // {
 //       //
 //       //    return ::error_failed;
@@ -209,7 +209,7 @@ namespace windowing_kde5
 //    ::e_status gsettings_sync()
 //    {
 //
-// //;;      ::pointer < ::node_kde5::node > pgtknode = ::platform::get()->system()->node();
+// //;;      ::pointer < ::node_q::node > pgtknode = ::platform::get()->system()->node();
 //
 //       // if (!os_defer_init_gtk(pgtknode))
 //       // {
@@ -242,7 +242,7 @@ namespace windowing_kde5
 //
 //       }
 //
-//       // ::pointer < ::node_kde5::node > pgtknode = ::platform::get()->system()->node();
+//       // ::pointer < ::node_q::node > pgtknode = ::platform::get()->system()->node();
 //       //
 //       // if (!os_defer_init_gtk(pgtknode))
 //       // {
@@ -285,7 +285,7 @@ namespace windowing_kde5
 //    void wallpaper_change_notification(GSettings *settings, const gchar *pszKey, gpointer pdata)
 //    {
 //
-//       //::node_kde5::node * pnode = (::node_kde5::node *) pdata;
+//       //::node_q::node * pnode = (::node_q::node *) pdata;
 //
 //       ::platform::get()->system()->signal(id_wallpaper_change);
 //
@@ -295,7 +295,7 @@ namespace windowing_kde5
 //    GAction *g_pactionWallpaper = nullptr;
 //
 //
-//    ::e_status node_enable_wallpaper_change_notification(::node_kde5::node * pnode, const ::string & strSchema, const ::string & strKey)
+//    ::e_status node_enable_wallpaper_change_notification(::node_q::node * pnode, const ::string & strSchema, const ::string & strKey)
 //    {
 //
 //       if (!g_bGInitialized)
@@ -616,7 +616,7 @@ namespace windowing_kde5
 //    }
 //
 //
-// } // namespace windowing_kde5
+// } // namespace windowing_q
 //
 //
 // void gtk_defer_do_main_tasks()

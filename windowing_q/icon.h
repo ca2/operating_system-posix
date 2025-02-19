@@ -8,11 +8,11 @@
 #include "acme/prototype/geometry2d/size_array.h"
 
 
-namespace windowing_kde5
+namespace windowing_q
 {
 
 
-   class CLASS_DECL_WINDOWING_KDE5 icon :
+   class CLASS_DECL_WINDOWING_Q icon :
       virtual public ::windowing::icon
    {
    public:
@@ -51,7 +51,7 @@ namespace windowing_kde5
 
 
 
-} // namespace windowing_kde5
+} // namespace windowing_q
 
 
 

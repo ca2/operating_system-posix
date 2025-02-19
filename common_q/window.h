@@ -7,11 +7,11 @@
 #include "acme/windowing/window.h"
 //#include "event_listener.h"
 #include "acme/parallelization/manual_reset_happening.h"
-#include "common_q/micro_window.h"
+#include "micro_window.h"
 #include <QWidget>
 
 
-namespace q6
+namespace q
 {
 
 
@@ -23,7 +23,7 @@ namespace q6
       {
 
 
-         class CLASS_DECL_ACME_WINDOWING_Q6 window :
+         class CLASS_DECL_COMMON_Q window :
             virtual public ::acme::windowing::window,
             virtual public ::q::micro::window
          {
@@ -194,7 +194,7 @@ namespace q6
    } //namespace acme
 
 
-} // namespace q6
+} // namespace q
 
 
 

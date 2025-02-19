@@ -64,7 +64,7 @@
 //
 
 
-namespace q6
+namespace q
 {
 
 
@@ -2051,7 +2051,7 @@ namespace q6
    } // namespace acme
 
 
-} // namespace q6
+} // namespace q
 
 
 

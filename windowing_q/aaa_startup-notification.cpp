@@ -5,7 +5,7 @@
 //#ifdef WITH_SN
 //#define SN_API_NOT_YET_FROZEN
 //#include <libsn/sn.h>
-//#include "windowing_kde5.h"
+//#include "windowing_q.h"
 //
 //
 //int g_iIgnoreXDisplayError = 0;
@@ -56,7 +56,7 @@
 //}
 //
 //
-//namespace windowing_kde5
+//namespace windowing_q
 //{
 //
 //
@@ -80,7 +80,7 @@
 //   }
 //
 //
-//} // namespace windowing_kde5
+//} // namespace windowing_q
 //
 //
 //#endif

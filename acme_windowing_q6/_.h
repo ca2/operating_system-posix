@@ -6,6 +6,7 @@
 
 
 #include "acme_posix/_.h"
+#include "common_q/_.h"
 
 
 #if defined(_acme_windowing_q6_project)

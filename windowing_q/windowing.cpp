@@ -21,16 +21,18 @@
 //#include "aura/user/user/interaction_impl.h"
 #include "aura/user/user/user.h"
 #include "aura/windowing/display.h"
-#include "acme_windowing_kde5/windowing.h"
+//#include "common_q/windowing.h"
 //#include "windowing_system_x11/display_lock.h"
 
 
-namespace windowing_kde5
+namespace windowing_q
 {
+
+
    windowing::windowing()
    {
 
-      printf("windowing_kde5::windowing::windowing()");
+      printf("windowing_q::windowing::windowing()");
 
       defer_create_synchronization();
 
@@ -100,16 +102,16 @@ namespace windowing_kde5
     QApplication * windowing::qapplication()
    {
 
-        ::pointer < ::windowing_kde5::windowing > pkde5windowing = system()->acme_windowing();
+        ::pointer < ::windowing_q::windowing > pqwindowing = system()->acme_windowing();
 
-       if(!pkde5windowing)
+       if(!pqwindowing)
        {
 
            return nullptr;
 
        }
 
-       return pkde5windowing->m_pqapplication;
+       return pqwindowing->m_pqapplication;
 
 
    }
@@ -118,7 +120,7 @@ namespace windowing_kde5
    //   ::windowing::window * windowing::new_window(::windowing::window * pimpl)
    //   {
    //
-   //      ::pointer<::windowing_kde5::window> pwindow = pimpl->__øcreate<::windowing::window>();
+   //      ::pointer<::windowing_q::window> pwindow = pimpl->__øcreate<::windowing::window>();
    //
    //      if (!pwindow)
    //      {
@@ -182,10 +184,10 @@ namespace windowing_kde5
    void windowing::initialize_windowing()
    {
 
-      ::kde5::acme::windowing::windowing::initialize_windowing();
+      ::q::acme::windowing::windowing::initialize_windowing();
       ::windowing_posix::windowing::initialize_windowing();
 
-      information() << "windowing_kde5::windowing::initialize_windowing";
+      information() << "windowing_q::windowing::initialize_windowing";
 
 
       //m_pdisplay->open();
@@ -471,7 +473,7 @@ namespace windowing_kde5
 
       //      auto cursor = XCreateFontCursor(m_pdisplay->Display(), iCursor);
       //
-      //      auto pcursorX11 = __øcreate < ::windowing_kde5::cursor >();
+      //      auto pcursorX11 = __øcreate < ::windowing_q::cursor >();
       //
       //      pcursor = pcursorX11;
       //
@@ -577,7 +579,7 @@ namespace windowing_kde5
    // }
 
 
-   void windowing::_on_capture_changed_to(::windowing_kde5::window * pwindowMouseCaptureNew)
+   void windowing::_on_capture_changed_to(::windowing_q::window * pwindowMouseCaptureNew)
    {
 
 
@@ -597,7 +599,7 @@ namespace windowing_kde5
 
       }
 
-      ::cast < ::windowing_kde5::cursor > pwaylandcursor = pcursor;
+      ::cast < ::windowing_q::cursor > pwaylandcursor = pcursor;
 
       if (!pwaylandcursor)
       {
@@ -689,7 +691,7 @@ namespace windowing_kde5
    bool windowing::defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
    {
 
-      return ::kde5::acme::windowing::windowing::defer_release_mouse_capture(pthread, pwindow);
+      return ::q::acme::windowing::windowing::defer_release_mouse_capture(pthread, pwindow);
 
    }
 
@@ -984,7 +986,7 @@ namespace windowing_kde5
    void windowing::_main_send(const ::procedure & procedure)
    {
 
-      ::kde5::acme::windowing::windowing::_main_send(procedure);
+      ::q::acme::windowing::windowing::_main_send(procedure);
 
    }
 
@@ -995,7 +997,7 @@ namespace windowing_kde5
 
    void windowing::_user_post(const ::procedure & procedure)
    {
-       ::kde5::acme::windowing::windowing::_user_post(procedure);
+       ::q::acme::windowing::windowing::_user_post(procedure);
       // auto procedure(procedureParam);
       //
       // // invoke on the main thread
@@ -1035,19 +1037,19 @@ namespace windowing_kde5
    //    {
    //
    //       throw ::exception(error_no_interface,
-   //                         "Failed to cast pdisplay to m_pdisplay at windowing_kde5::windowing::initialize");
+   //                         "Failed to cast pdisplay to m_pdisplay at windowing_q::windowing::initialize");
    //
    //    }
    //
    //
    //
-   //    information() << "node_kde5::_on_activate_gtk_application going to user_post";
+   //    information() << "node_q::_on_activate_gtk_application going to user_post";
    //
    //    // This seems not to work with "foreign" windows
    //    // (X11 windows not created with Gdk)
    //    //x11_add_filter();
    //
-   //    information() << "node_kde5::_on_activate_gtk_application on user_post";
+   //    information() << "node_q::_on_activate_gtk_application on user_post";
    //
    //
    //    // auto pgtksettingsDefault = gtk_settings_get_default();
@@ -1122,9 +1124,9 @@ namespace windowing_kde5
    // static void on_activate_gtk_application (GtkApplication *, gpointer p)
    // {
    //
-   //    auto * pkde5windowing=(::windowing_kde5::windowing*) p;
+   //    auto * pqwindowing=(::windowing_q::windowing*) p;
    //
-   //    pkde5windowing->_on_activate_gtk_application();
+   //    pqwindowing->_on_activate_gtk_application();
    //
    // }
 
@@ -1133,7 +1135,7 @@ namespace windowing_kde5
    {
 
 
-      ::kde5::acme::windowing::windowing::windowing_application_main_loop();
+      ::q::acme::windowing::windowing::windowing_application_main_loop();
 
        //system()->acme_windowing()->windowing_application_main_loop();
       // ::string strId = application()->m_strAppId;
@@ -1250,9 +1252,9 @@ namespace windowing_kde5
    // void gtk_settings_gtk_theme_name_callback(GObject *object, GParamSpec *pspec, gpointer data)
    // {
    //
-   //    auto *pkde5windowing = (windowing_kde5::windowing *) data;
+   //    auto *pqwindowing = (windowing_q::windowing *) data;
    //
-   //    if (!pkde5windowing)
+   //    if (!pqwindowing)
    //    {
    //
    //       return;
@@ -1261,7 +1263,7 @@ namespace windowing_kde5
    //
    //    gchar *theme_name = nullptr;
    //
-   //    g_object_get(pkde5windowing->m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
+   //    g_object_get(pqwindowing->m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
    //
    //    string strTheme = theme_name;
    //
@@ -1272,7 +1274,7 @@ namespace windowing_kde5
    //    //   pnode->fork([pnode, strTheme]()
    //    //               {
    //
-   //    pkde5windowing->_set_os_user_theme(strTheme);
+   //    pqwindowing->_set_os_user_theme(strTheme);
    //
    //    //                  ::preempt(400_ms);
    //    //
@@ -1288,9 +1290,9 @@ namespace windowing_kde5
    // void gtk_settings_gtk_icon_theme_name_callback(GObject *object, GParamSpec *pspec, gpointer data)
    // {
    //
-   //    auto *pkde5windowing = (windowing_kde5::windowing *) data;
+   //    auto *pqwindowing = (windowing_q::windowing *) data;
    //
-   //    if (!pkde5windowing)
+   //    if (!pqwindowing)
    //    {
    //
    //       return;
@@ -1299,7 +1301,7 @@ namespace windowing_kde5
    //
    //    gchar *icon_theme_name = nullptr;
    //
-   //    g_object_get(pkde5windowing->m_pGtkSettingsDefault, "gtk-icon-theme-name", &icon_theme_name, NULL);
+   //    g_object_get(pqwindowing->m_pGtkSettingsDefault, "gtk-icon-theme-name", &icon_theme_name, NULL);
    //
    //    string strIconTheme = icon_theme_name;
    //
@@ -1310,7 +1312,7 @@ namespace windowing_kde5
    //    //   pnode->fork([pnode, strTheme]()
    //    //               {
    //
-   //    pkde5windowing->_set_os_user_icon_theme(strIconTheme);
+   //    pqwindowing->_set_os_user_icon_theme(strIconTheme);
    //
    //    //                  ::preempt(400_ms);
    //    //
@@ -1483,7 +1485,7 @@ namespace windowing_kde5
    void windowing::_fetch_dark_mode()
    {
 
-      information() << "::node_kde5::node::_dark_mode";
+      information() << "::node_q::node::_dark_mode";
 
       // if(gsettings_schema_exists("org.gnome.desktop.interface"))
       // {

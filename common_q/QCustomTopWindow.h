@@ -4,21 +4,21 @@
 #pragma once
 
 
-#include "acme_windowing_q6/micro_window.h"
+#include "common_q/micro_window.h"
 #include <QMainWindow>
 
 
 // Custom window class inheriting from QMainWindow
-class QCustomTopWindow :
+class CLASS_DECL_COMMON_Q QCustomTopWindow :
    public QWidget
 {
 public:
 
 
-   ::q6::micro::window *                m_pwindow;
+   ::q::micro::window *                m_pwindow;
    QImage                                 m_qimage;
 
-   QCustomTopWindow(::q6::micro::window * pwindow);
+   QCustomTopWindow(::q::micro::window * pwindow);
 
 
 protected:
@@ -43,5 +43,14 @@ protected:
    void focusInEvent(QFocusEvent* event) override;
 
    void focusOutEvent(QFocusEvent* event) override;
+
+   void keyPressEvent(QKeyEvent* event) override;
+
+   void keyReleaseEvent(QKeyEvent* event) override;
+
+   void inputMethodEvent(QInputMethodEvent*) override;
+
+   QVariant inputMethodQuery(Qt::InputMethodQuery query) const override;
+
 
 };

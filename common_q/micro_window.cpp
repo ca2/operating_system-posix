@@ -5,7 +5,7 @@
 #include "micro_window.h"
 
 
-namespace q6
+namespace q
 {
 
 
@@ -92,4 +92,4 @@ namespace q6
    } // namespace micro
 
 
-} // namespace q6
+} // namespace q

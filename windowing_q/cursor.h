@@ -7,14 +7,14 @@
 #include <qcursor.h>
 
 #include "aura/windowing/cursor.h"
-#include "_kde5.h"
+#include "_q.h"
 
 
-namespace windowing_kde5
+namespace windowing_q
 {
 
 
-   class CLASS_DECL_WINDOWING_KDE5 cursor :
+   class CLASS_DECL_WINDOWING_Q cursor :
       virtual public ::windowing::cursor
    {
    public:
@@ -44,7 +44,7 @@ namespace windowing_kde5
    };
 
 
-} // namespace windowing_kde5
+} // namespace windowing_q
 
 
 

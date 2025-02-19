@@ -5,11 +5,11 @@
 
 
 #include "windowing_posix/window.h"
-//#include "kde5_widget.h"
+//#include "q_widget.h"
 //#include "acme/operating_system/x11/_atom.h"
 #include "acme/prototype/geometry2d/rectangle_array.h"
-#include "acme_windowing_kde5/window.h"
-#include "acme_windowing_kde5/micro_window.h"
+#include "common_q/window.h"
+#include "common_q/micro_window.h"
 //#include <X11/extensions/sync.h>
 #include <QWidget>
 //#include <gdk/gdk.h>
@@ -38,16 +38,16 @@
       e_window_edge_south_east
     };
 
-namespace windowing_kde5
+namespace windowing_q
 {
 
       class window;
 
 
 
-   class CLASS_DECL_WINDOWING_KDE5 window :
+   class CLASS_DECL_WINDOWING_Q window :
       virtual public ::windowing_posix::window,
-      virtual public ::kde5::acme::windowing::window
+      virtual public ::q::acme::windowing::window
    {
    public:
 //::int_point m_pointCursor2;
@@ -70,13 +70,13 @@ namespace windowing_kde5
       //void *                                       m_pgdkwindow;
 
       //bool                                         m_bPendingConfigureRequest;
-      //::pointer<::windowing_kde5::x11data>          m_px11data;
-      ::pointer<::windowing_kde5::display>          m_pwaylanddisplay;
+      //::pointer<::windowing_q::x11data>          m_px11data;
+      ::pointer<::windowing_q::display>          m_pwaylanddisplay;
       //::Window                                     m_parent;
       //Cursor                                       m_cursorLast;
       //int                                          m_iXic;
       //XIC                                          m_xic;
-      //::pointer<::windowing_kde5::display>        m_pdisplay;
+      //::pointer<::windowing_q::display>        m_pdisplay;
       //::Window                                     m_window;
       //::Visual                                     m_visual;
       //int                                          m_iDepth;
@@ -197,7 +197,7 @@ void on_initialize_particle() override;
 
 //      virtual void unmapped_net_state_raw(Atom atom1, ...);
 //
-//      virtual ::e_status initialize_x11_window(::windowing_kde5::display * pdisplay, ::Window window, ::Visual *pvisual, int iDepth, int iScreen, Colormap colormap);
+//      virtual ::e_status initialize_x11_window(::windowing_q::display * pdisplay, ::Window window, ::Visual *pvisual, int iDepth, int iScreen, Colormap colormap);
 
 //      virtual void send_client_event(Atom atom, unsigned int numArgs, ...);
       virtual int store_name(const char * psz);
@@ -233,8 +233,8 @@ void on_initialize_particle() override;
 
       //virtual ::Window get_parent_handle() const;
 
-      ::windowing_kde5::windowing * kde5_windowing();
-      ::windowing_kde5::display * kde5_display();
+      ::windowing_q::windowing * q_windowing();
+      ::windowing_q::display * q_display();
 
          //void _on_initialize_system_menu_button(GtkWidget * pbutton, const ::scoped_string & scopedstrAtom);
 
@@ -307,6 +307,9 @@ void on_initialize_particle() override;
 
       bool has_keyboard_focus() override;
 
+
+      void _on_set_focus() override;
+      void _on_kill_focus() override;
 
 
          ///virtual void _on_toplevel_compute_size(GdkToplevel * self, GdkToplevelSize* size);
@@ -432,7 +435,7 @@ void on_initialize_particle() override;
 //
       // virtual void __handle_pointer_enter(::wl_pointer * pwlpointer);
       // virtual void __handle_pointer_motion(::wl_pointer * pwlpointer, unsigned int millis);
-      // virtual void __handle_pointer_leave(::wl_pointer * pwlpointer, ::windowing_kde5::window * pwaylandwindowLeave);
+      // virtual void __handle_pointer_leave(::wl_pointer * pwlpointer, ::windowing_q::window * pwaylandwindowLeave);
       //
       // virtual void __handle_pointer_button(::wl_pointer * pwlpointer, unsigned int linux_button, unsigned int pressed, unsigned int millis);
 //
@@ -505,7 +508,7 @@ void on_initialize_particle() override;
 
 
 
-} // namespace windowing_kde5
+} // namespace windowing_q
 
 
 

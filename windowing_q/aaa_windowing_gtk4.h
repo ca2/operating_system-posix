@@ -1,12 +1,12 @@
 //
 // Created by camilo on 16/02/2021. 21:11 BRT <3TBS_!!
-// From windowing_x11 to windowing_kde5 on
+// From windowing_x11 to windowing_q on
 // 2023-09-09 04:30 by camilo <3ThomasBorregaardSorensen!!
 //
 #pragma once
 
 
-#include "_kde5.h"
+#include "_q.h"
 
 //::e_status deferx_initializex_x11();
 
@@ -41,10 +41,10 @@
 //#define MWM_DECOR_MAXIMIZE      (1L << 6)
 
 
-//CLASS_DECL_WINDOWING_KDE5 void x11_main();
+//CLASS_DECL_WINDOWING_Q void x11_main();
 
 
-//CLASS_DECL_WINDOWING_KDE5 ::particle * user_synchronization();
+//CLASS_DECL_WINDOWING_Q ::particle * user_synchronization();
 
 
 //enum_net_wm_state net_wm_state(const char *pszText);
@@ -57,13 +57,13 @@
 //bool x11_get_window_rect(Display * d, Window window, ::int_rectangle * prectangle);
 //bool x11_get_client_rect(Display * d, Window window, ::int_rectangle * prectangle);
 
-//CLASS_DECL_WINDOWING_KDE5 ::Display * x11_get_display();
+//CLASS_DECL_WINDOWING_Q ::Display * x11_get_display();
 
 
-//CLASS_DECL_WINDOWING_KDE5 enum_net_wm_state net_wm_state(const char * pszText);
+//CLASS_DECL_WINDOWING_Q enum_net_wm_state net_wm_state(const char * pszText);
 //
 //
-//CLASS_DECL_WINDOWING_KDE5 const char * net_wm_state_text(enum_net_wm_state estate);
+//CLASS_DECL_WINDOWING_Q const char * net_wm_state_text(enum_net_wm_state estate);
 
 
 //CLASS_DECL_ACME int xinerama_get_monitor_count();
@@ -78,7 +78,7 @@
 //#include "acme/prototype/prototype/matter.h"
 
 
-//namespace windowing_kde5
+//namespace windowing_q
 //{
 //
 //
@@ -95,4 +95,4 @@
 //   };
 //
 //
-//} // namespace windowing_kde5
+//} // namespace windowing_q

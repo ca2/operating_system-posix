@@ -7,7 +7,7 @@
 #include "keyboard.h"
 #include "window.h"
 #include "windowing.h"
-//#include "windowing_kde5.h"
+//#include "windowing_q.h"
 #include "acme/constant/message.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
@@ -55,14 +55,14 @@ void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString)
 //    }
 
 
-namespace windowing_kde5
+namespace windowing_q
 {
 
    //    // Callback for registry listener to bind global Wayland objects
    //    static void
    //    s_registry_handler(void *data, struct wl_registry *wl_registry, uint32_t id, const char *interface, uint32_t version)
    //    {
-   //       auto pdisplay = (::windowing_kde5::display *) data;
+   //       auto pdisplay = (::windowing_q::display *) data;
    //       if (strcmp(interface, wl_compositor_interface.name) == 0) {
    //          //compositor = wl_registry_bind(registry, id, &wl_compositor_interface, 1);
    //       } else if (strcmp(interface, xdg_wm_base_interface.name) == 0) {
@@ -328,7 +328,7 @@ namespace windowing_kde5
    }
 
 
-//   ::windowing_kde5::window * display::_window(::wl_surface * pwlsurface)
+//   ::windowing_q::window * display::_window(::wl_surface * pwlsurface)
 //   {
 //
 //      if (!pwlsurface)
@@ -475,7 +475,7 @@ namespace windowing_kde5
 //    void display::release_mouse_capture()
 //    {
 //
-//       information() << "windowing_kde5::display::release_mouse_capture";
+//       information() << "windowing_q::display::release_mouse_capture";
 //
 // //      auto predicate = [this]()
 // //      {
@@ -501,10 +501,10 @@ namespace windowing_kde5
 //    }
 
 
-   ::windowing_kde5::windowing * display::kde5_windowing()
+   ::windowing_q::windowing * display::q_windowing()
    {
 
-      ::cast < ::windowing_kde5::windowing > pwindowing =  system()->acme_windowing();
+      ::cast < ::windowing_q::windowing > pwindowing =  system()->acme_windowing();
 
       return pwindowing;
 
@@ -671,7 +671,7 @@ namespace windowing_kde5
 //   }
 //
 //
-//   ::windowing_kde5::window * display::get_keyboard_focus()
+//   ::windowing_q::window * display::get_keyboard_focus()
 //   {
 //
 //      return m_pwindowKeyboardFocus;
@@ -679,7 +679,7 @@ namespace windowing_kde5
 //   }
 //
 //
-//   ::windowing_kde5::window * display::_get_keyboard_focus()
+//   ::windowing_q::window * display::_get_keyboard_focus()
 //   {
 //
 ////      auto ppropertyobject = __allocate ::property_object();
@@ -972,12 +972,12 @@ namespace windowing_kde5
 //      pnode->node_send([this, pointHitTest, pwindowExclude, iMargin, &bIsOrigin]()
 //                       {
 //
-//                          ::windowing_kde5::window * pwindowxcbExclude = nullptr;
+//                          ::windowing_q::window * pwindowxcbExclude = nullptr;
 //
 //                          if (pwindowExclude)
 //                          {
 //
-//                             pwindowxcbExclude = dynamic_cast < ::windowing_kde5::window * >(pwindowExclude);
+//                             pwindowxcbExclude = dynamic_cast < ::windowing_q::window * >(pwindowExclude);
 //
 //                          }
 //
@@ -1216,7 +1216,7 @@ namespace windowing_kde5
 //   }
 
 
-//   void display::__handle_pointer_enter(::wl_pointer * pwlpointer, double x, double y, ::windowing_kde5::window * pwindowPointerEnter)
+//   void display::__handle_pointer_enter(::wl_pointer * pwlpointer, double x, double y, ::windowing_q::window * pwindowPointerEnter)
 //   {
 //
 //      m_pwindowPointerEnter = pwindowPointerEnter;
@@ -1287,7 +1287,7 @@ namespace windowing_kde5
 //   }
 //
 //
-//   void display::__handle_pointer_leave(::wl_pointer * pwlpointer, ::windowing_kde5::window * pwaylandwindowLeave)
+//   void display::__handle_pointer_leave(::wl_pointer * pwlpointer, ::windowing_q::window * pwaylandwindowLeave)
 //   {
 //
 //      if(m_pwindowPointerCapture)
@@ -1364,7 +1364,7 @@ namespace windowing_kde5
 //   }
 //
 
-//   void display::__capture_mouse(::windowing_kde5::window * pwindowMouseCapture, unsigned int serial)
+//   void display::__capture_mouse(::windowing_q::window * pwindowMouseCapture, unsigned int serial)
 //   {
 //
 //      if(::is_null(pwindowMouseCapture))
@@ -1435,7 +1435,7 @@ namespace windowing_kde5
 //   void display::__handle_keyboard_keymap(::wl_keyboard *pwlkeyboard, uint32_t format, int fd, uint32_t size)
 //   {
 //
-//      ::pointer < ::windowing_kde5::keyboard > pkeyboard = m_pwindowing->keyboard();
+//      ::pointer < ::windowing_q::keyboard > pkeyboard = m_pwindowing->keyboard();
 //
 //      pkeyboard->__handle_keyboard_keymap(pwlkeyboard, format, fd, size);
 //
@@ -1582,11 +1582,11 @@ namespace windowing_kde5
    ::int_size display::get_main_screen_size()
    {
 
-return ::kde5::acme::windowing::display::get_main_screen_size();
+return ::q::acme::windowing::display::get_main_screen_size();
 
    }
 
-} // namespace windowing_kde5
+} // namespace windowing_q
 
 
 
