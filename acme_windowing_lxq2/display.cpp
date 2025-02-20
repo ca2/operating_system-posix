@@ -13,10 +13,16 @@
 //#include "acme/prototype/geometry2d/rectangle.h"
 //#include "acme/user/micro/window.h"
 #include "acme/windowing/windowing.h"
+#include "acme/filesystem/filesystem/directory_system.h"
+#include "acme/filesystem/filesystem/file_system.h"
+#include "acme/filesystem/filesystem/path_system.h"
+#include "acme/platform/ini.h"
 //#include "common_gtk/gdk_3_and_4.h"
 #include <QScreen>
 #include <QRect>
 #include <QGuiApplication>
+
+#include "acme/filesystem/filesystem/directory_system.h"
 //#include "windowing_system_x11/_.h"
 
 
@@ -1484,9 +1490,36 @@ namespace lxq2
          void display::_set_wallpaper(::collection::index iScreen, const ::scoped_string & scopedstrWallpaper)
          {
 
+            ::string strWallpaper = _get_wallpaper(iScreen);
+
+            if (strWallpaper == scopedstrWallpaper)
+            {
+
+               return;
+
+            }
+
             ::string strShellPath = path_system()->shell_path(scopedstrWallpaper);
 
-            node()->system_command("pcmanfm-qt --set-wallpaper " + strShellPath);
+            ::string strCommand;
+
+            strCommand = "pcmanfm-qt --set-wallpaper " + strShellPath;
+
+            node()->command_system(strCommand, 1_min);
+
+         }
+
+
+         ::string display::_get_wallpaper(::collection::index iScreen)
+         {
+
+            auto path = directory_system()->home() / ".config/pcmanfm-qt/lxqt/settings.conf";
+
+            auto pini = file_system()->get_ini(path);
+
+            auto strWallpaper = (*pini)["Desktop"]["Wallpaper"].as_string();
+
+            return strWallpaper;
 
          }
 

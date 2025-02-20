@@ -119,6 +119,8 @@ namespace lxq2
 
             void _set_wallpaper(::collection::index iScreen, const ::scoped_string & scopedstrWallpaper) override;
 
+            ::string _get_wallpaper(::collection::index iScreen) override;
+
 
          };
 
