@@ -1481,6 +1481,16 @@ namespace lxq2
 //          }
 
 
+         void display::_set_wallpaper(::collection::index iScreen, const ::scoped_string & scopedstrWallpaper)
+         {
+
+            ::string strShellPath = path_system()->shell_path(scopedstrWallpaper);
+
+            node()->system_command("pcmanfm-qt --set-wallpaper " + strShellPath);
+
+         }
+
+
       } // namespace windowing
 
 

@@ -117,6 +117,9 @@ namespace lxq2
 //             void set_desktop_icon_theme(const ::scoped_string & scopedtrDesktopIconTheme) override;
 //
 
+            void _set_wallpaper(::collection::index iScreen, const ::scoped_string & scopedstrWallpaper) override;
+
+
          };
 
 

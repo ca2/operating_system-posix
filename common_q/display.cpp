@@ -1453,7 +1453,7 @@ namespace q
 //         }
 
 
-         void display::impl_set_wallpaper(::collection::index iScreen, const ::scoped_string & scopedstrWallpaper)
+         void display::_set_wallpaper(::collection::index iScreen, const ::scoped_string & scopedstrWallpaper)
          {
 
          }

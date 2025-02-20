@@ -84,13 +84,13 @@ namespace node_kde6
 
       //void os_process_user_theme(string strTheme) override;
 
-      void enable_wallpaper_change_notification() override;
+      //void enable_wallpaper_change_notification() override;
 
       string get_file_icon_path(const ::string & pszPath, int iSize) override;
 
       string get_file_content_type(const ::string & pszPath) override;
 
-      bool set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::acme::windowing::display * pwindowingdisplay) override;
+      //bool set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::acme::windowing::display * pwindowingdisplay) override;
 
       //string get_wallpaper(::collection::index iScreen, ::acme::windowing::display * pwindowingdisplay) override;
 

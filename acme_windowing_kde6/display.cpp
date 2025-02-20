@@ -1481,6 +1481,185 @@ namespace kde6
 //         }
 //
 
+
+         bool node::set_wallpaper(::collection::index , string strLocalImagePath, ::acme::windowing::display * pwindowingdisplay)
+         {
+
+            ::string strCommand;
+
+            strCommand = "plasma-apply-wallpaperimage";
+
+            strCommand += " \"" + strLocalImagePath + "\"";
+
+            auto iError = command_system(strCommand);
+
+            if(iError)
+            {
+
+               return false;
+
+            }
+
+            return true;
+
+////      Plasma::Applet applet;
+//
+////      auto pcontainment = applet.containment();
+//
+////      pcontainment->setWallpaper("org.kde.image");
+//
+////      Wall
+//
+//      QString script;
+//
+//      QTextStream out(&script);
+//
+//      out << "for (var key in desktops()) {"
+//          << "var d = desktops()[key];"
+//          << "d.wallpaperPlugin = 'org.kde.image';"
+//          << "d.currentConfigGroup = ['Wallpaper', 'org.kde.image', 'General'];"
+//          << "d.writeConfig('Image', 'file://" << strLocalImagePath.c_str() << "');"
+//          << "}";
+//
+//      auto message = QDBusMessage::createMethodCall(QStringLiteral("org.kde.plasmashell"),
+//                                                    QStringLiteral("/PlasmaShell"),
+//                                                    QStringLiteral("org.kde.PlasmaShell"),
+//                                                    QStringLiteral("evaluateScript"));
+//      message.setArguments(QVariantList() << QVariant(script));
+//      auto reply = QDBusConnection::sessionBus().call(message);
+//
+//      if (reply.type() == QDBusMessage::ErrorMessage)
+//      {
+//
+//         return false;
+////         ts << i18n("An error occurred while attempting to set the Plasma wallpaper:\n") << reply.errorMessage() << Qt::endl;
+////         errorCode = -1;
+//      }
+////      else {
+////         if (isKPackage) {
+////            ts << i18n("Successfully set the wallpaper for all desktops to the KPackage based %1", wallpaperFile) << Qt::endl;
+////         } else {
+////            ts << i18n("Successfully set the wallpaper for all desktops to the image %1", wallpaperFile) << Qt::endl;
+////         }
+////      }
+//
+//
+////      QDBusInterface qdbusinterface("org.kde.plasma-desktop",
+////                                                     "/App",
+////                                                     "local.PlasmaApp");
+////
+////      qdbusinterface.call("setWallpaper", "image", "SingleImage", strLocalImagePath.c_str());
+////
+//      return true;
+//
+//      // wall-changer sourceforge.net contribution
+//
+////      auto psystem = system();
+////
+////      auto pnode = psystem->node();
+////
+////      auto edesktop = psystem->get_eoperating_ambient();
+////
+////      switch (edesktop)
+////      {
+////
+////         case ::user::e_operating_ambient_gnome:
+////         case ::user::e_operating_ambient_ubuntu_gnome:
+////         case ::user::e_operating_ambient_unity_gnome:
+////
+////            return ::node_kde::aaa_gsettings_set("org.gnome.desktop.background", "picture-uri",
+////                                               "file://" + strLocalImagePath);
+////
+////         case ::user::e_operating_ambient_mate:
+////
+////            return ::node_kde::aaa_gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
+////
+////         case ::user::e_operating_ambient_lxde:
+////
+////            call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+////
+////            break;
+////
+////         case ::user::e_operating_ambient_xfce:
+////         {
+////            //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+////            //          if(entry.contains("image-path") || entry.contains("last-image")){
+////            //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+////            //      }
+////            //}
+////
+////         }
+////
+////            //break;
+////
+////         default:
+////
+////            information(
+////               "Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+////            return false;
+////
+////      }
+////
+////      return true;
+
+         }
+
+
+         void node::enable_wallpaper_change_notification()
+         {
+
+//
+//      auto psystem = system();
+//
+//      auto pnode = psystem->node();
+//
+//      auto edesktop = psystem->get_eoperating_ambient();
+//
+//      switch (edesktop)
+//      {
+//
+//         case ::user::e_operating_ambient_gnome:
+//         case ::user::e_operating_ambient_ubuntu_gnome:
+//         case ::user::e_operating_ambient_unity_gnome:
+//
+//            ::node_kde::g_enable_wallpaper_change_notification("org.gnome.desktop.background", "picture-uri");
+//
+//            break;
+//
+//         case ::user::e_operating_ambient_mate:
+//
+//            ::node_kde::g_enable_wallpaper_change_notification("org.mate.background", "picture-filename");
+//
+//            break;
+//
+//         case ::user::e_operating_ambient_lxde:
+//
+//            //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+//
+//            break;
+//
+//         case ::user::e_operating_ambient_xfce:
+//         {
+//            //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+//            //          if(entry.contains("image-path") || entry.contains("last-image")){
+//            //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+//            //      }
+//            //}
+//
+//         }
+//
+//            break;
+//         default:
+//
+//            information(
+//               "Failed to get wallpaper setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+//            //return "";
+//
+//      }
+
+         }
+
+
       } // namespace windowing
 
 
