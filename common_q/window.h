@@ -84,9 +84,12 @@ namespace q
             ::e_status _raise_window();
 
 
-            virtual void _on_mouse_press(QMouseEvent * pevent);
-            virtual void _on_mouse_release(QMouseEvent * pevent);
-            virtual void _on_mouse_motion(QMouseEvent * pevent);
+
+
+            void _on_mouse_press(QMouseEvent * pevent) override;
+            void _on_mouse_release(QMouseEvent * pevent) override;
+            void _on_mouse_motion(QMouseEvent * pevent) override;
+            void _on_wheel(QWheelEvent * happening) override;
             virtual void _on_qimage_draw(QImage * pqimage);
 
 

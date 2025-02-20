@@ -1564,6 +1564,7 @@ namespace windowing_q
    //    }
    //
    //
+
    void window::_on_mouse_motion(QMouseEvent* pevent)
    {
 
@@ -1658,6 +1659,61 @@ namespace windowing_q
          __check_refdbg;
 
       }
+
+   }
+
+
+   void window::_on_wheel(QWheelEvent * pevent)
+   {
+
+
+      __check_refdbg;
+
+      auto pmouse = __create_new < ::message::mouse_wheel >();
+
+      __check_refdbg;
+
+      pmouse->m_oswindow = this;
+
+      __check_refdbg;
+
+      pmouse->m_pwindow = this;
+
+      __check_refdbg;
+
+      pmouse->m_emessage = e_message_mouse_wheel;
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+
+      m_pointCursor2.x() = pevent->globalPosition().x();
+      m_pointCursor2.y() = pevent->globalPosition().y();
+
+      pmouse->m_pointHost.x() = pevent->position().x();
+      pmouse->m_pointHost.y() = pevent->position().y();
+
+#else
+
+      m_pointCursor2.x() = pevent->globalX();
+      m_pointCursor2.y() = pevent->globalY();
+
+      pmouse->m_pointHost.x() = pevent->x();
+      pmouse->m_pointHost.y() = pevent->y();
+
+#endif
+
+      pmouse->m_pointAbsolute = m_pointCursor2;
+
+      int iY = pevent->angleDelta().y();
+
+      informationf("vertical wheel scroll iy:%d", iY);
+
+      pmouse->m_Δ = (short) iY;
+
+      __check_refdbg;
+
+      message_handler(pmouse);
+
+      __check_refdbg;
 
    }
 

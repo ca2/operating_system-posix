@@ -153,6 +153,7 @@ void on_initialize_particle() override;
       void _on_mouse_press(QMouseEvent * pevent) override;
       void _on_mouse_release(QMouseEvent * pevent) override;
       void _on_mouse_motion(QMouseEvent * pevent) override;
+      void _on_wheel(QWheelEvent * pevent) override;
       void _on_qimage_draw(QImage * pqimage) override;
       void _on_reposition(int x, int y) override;
       void _on_size(int cx, int cy) override;

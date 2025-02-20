@@ -32,6 +32,8 @@ protected:
 
    void mouseMoveEvent(QMouseEvent *happening) override;
 
+   void wheelEvent(QWheelEvent *happening) override;
+
    void moveEvent(QMoveEvent *happening) override;
 
    void resizeEvent(QResizeEvent *happening) override;

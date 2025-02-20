@@ -29,6 +29,9 @@ namespace q
          virtual void _on_mouse_motion(QMouseEvent* pevent);
 
 
+         virtual void _on_wheel(QWheelEvent* pevent);
+
+
          virtual void _on_qimage_draw(QImage* pqimage);
 
 

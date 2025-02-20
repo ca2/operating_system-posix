@@ -1204,6 +1204,14 @@ namespace q
          }
 
 
+
+         void window::_on_wheel(QWheelEvent * happening)
+         {
+
+
+         }
+
+
          // void window::set_mouse_capture()
          // {
          //

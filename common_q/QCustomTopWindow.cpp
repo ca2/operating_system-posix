@@ -95,6 +95,14 @@ void QCustomTopWindow::mouseMoveEvent(QMouseEvent * happening)
    m_pwindow->_on_mouse_motion(happening);
 }
 
+
+void QCustomTopWindow::wheelEvent(QWheelEvent *happening)
+{
+
+   m_pwindow->_on_wheel(happening);
+
+}
+
 void QCustomTopWindow::moveEvent(QMoveEvent * happening)
 {
    try {

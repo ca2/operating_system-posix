@@ -31,6 +31,12 @@ namespace q
       }
 
 
+      void window::_on_wheel(QWheelEvent* pevent)
+      {
+
+      }
+
+
       void window::_on_qimage_draw(QImage* pqimage)
       {
 
