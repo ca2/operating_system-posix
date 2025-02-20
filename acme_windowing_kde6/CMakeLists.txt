@@ -56,6 +56,7 @@ if(${HAS_Q6})
    list(APPEND system_libraries
       Qt6::Core
       Qt6::Widgets
+      KF6::ConfigCore
    )
 
 elseif(${HAS_Q5})

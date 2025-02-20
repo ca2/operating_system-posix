@@ -113,6 +113,9 @@ namespace kde6
 //
 //             void set_desktop_icon_theme(const ::scoped_string & scopedtrDesktopIconTheme) override;
 
+            void  enable_wallpaper_change_notification() override;
+            void _set_wallpaper(::collection::index i, const ::scoped_string & strLocalImagePath) override;
+            ::string _get_wallpaper(::collection::index i) override;
 
          };
 
