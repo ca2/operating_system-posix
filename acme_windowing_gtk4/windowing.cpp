@@ -476,7 +476,15 @@ m_bMessageThread=true;
             
             information() << "application id: " << strId;
 
+            #if GLIB_CHECK_VERSION(2,74,0)
+
             m_pgtkapplication = gtk_application_new(strId, G_APPLICATION_DEFAULT_FLAGS);
+
+            #else
+
+            m_pgtkapplication = gtk_application_new(strId, 0);
+
+#endif
 
             g_signal_connect(m_pgtkapplication, "activate", G_CALLBACK(on_activate_gtk_application), this);
 

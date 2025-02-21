@@ -708,8 +708,17 @@ namespace gtk4
                   // rbga, `a` set to 0.0 makes the window background transparent
                   strCss=".raw_and_transparent {border-radius:0px; box-shadow:none;border:0px;padding:0px;margin:0px;background-color: rgba(0, 0, 0, 0.0); }";
 
+                  #if GTK_CHECK_VERSION(4, 12, 0)
+
                   gtk_css_provider_load_from_string(css_provider,
                      strCss);
+
+                  #else
+
+                  gtk_css_provider_load_from_data(css_provider,
+                     strCss.c_str(), strCss.size());
+
+#endif
 
                   gtk_style_context_add_provider_for_display(
                      gtk_widget_get_display(m_pgtkwidget),
@@ -738,10 +747,19 @@ namespace gtk4
 
                auto css_provider = gtk_css_provider_new();
 
-               gtk_css_provider_load_from_string(
-                  css_provider,
-                  // rbga, `a` set to 0.0 makes the window background transparent
-                  ".window { background-color: rgba(0, 0, 0, 0.0); }");
+               ::string strCss = ".window { background-color: rgba(0, 0, 0, 0.0); }";
+
+#if GTK_CHECK_VERSION(4, 12, 0)
+
+               gtk_css_provider_load_from_string(css_provider,
+                  strCss);
+
+#else
+
+               gtk_css_provider_load_from_data(css_provider,
+                  strCss.c_str(), strCss.size());
+
+#endif
 
                gtk_style_context_add_provider_for_display(
                   gtk_widget_get_display(m_pgtkwidget),
@@ -1506,15 +1524,34 @@ namespace gtk4
 
 
             GtkCssProvider* provider = gtk_css_provider_new();
-            //
-            // // Load CSS data to remove the border and padding from the button
+
+            ::string strCss = "button {"
+                                             //"  border-width: 0;"
+                                             //"  padding-left: 8px;"
+                                             //"  background-color: rgba(0, 0, 0, 0.0);"
+                                             "  transition: none;"
+                                             "}";
+#if GTK_CHECK_VERSION(4, 12, 0)
+
             gtk_css_provider_load_from_string(provider,
-                                              "button {"
-                                              //"  border-width: 0;"
-                                              //"  padding-left: 8px;"
-                                              //"  background-color: rgba(0, 0, 0, 0.0);"
-                                              "  transition: none;"
-                                              "}");
+               strCss);
+
+#else
+
+            gtk_css_provider_load_from_data(provider,
+               strCss.c_str(), strCss.size());
+
+#endif
+
+//            //
+//            // // Load CSS data to remove the border and padding from the button
+//            gtk_css_provider_load_from_string(provider,
+//                                              "button {"
+//                                              //"  border-width: 0;"
+//                                              //"  padding-left: 8px;"
+//                                              //"  background-color: rgba(0, 0, 0, 0.0);"
+//                                              "  transition: none;"
+//                                              "}");
 
             // // Apply the CSS to the button's style context
             //
