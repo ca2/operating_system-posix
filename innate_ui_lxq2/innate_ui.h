@@ -43,7 +43,7 @@ namespace innate_ui_lxq2
 
    //LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
-} // namespace innate_ui
+} // namespace innate_ui_lxq2
 
 
 

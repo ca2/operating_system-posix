@@ -11,7 +11,7 @@
 #include "acme/parallelization/manual_reset_happening.h"
 
 
-namespace innate_ui_kde5
+namespace innate_ui_q5
 {
    
 
@@ -49,43 +49,43 @@ namespace innate_ui_kde5
    //
    // }
 
-   void dialog::create()
-   {
+   // void dialog::create()
+   // {
+   //
+   //    ::innate_ui_kde5::window::create();
+   //
+   // }
+   //
+   // void dialog::_create()
+   // {
+   //
+   //    // m_hwnd = CreateWindowW(_get_class_name(), L"", WS_DLGFRAME | WS_CAPTION | WS_POPUPWINDOW,
+   //    //         CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, (HINSTANCE) ::platform::get()->m_hinstanceThis,
+   //    //         nullptr);
+   //
+   //    // m_pgtkwidget = gtk_dialog_new_with_buttons("Custom Dialog",
+   //    //                                              NULL,
+   //    //                                              GTK_DIALOG_DESTROY_WITH_PARENT,
+   //    //                                              NULL);
+   //
+   //    m_pqwidget = ___new QDialog();
+   //
+   //    if (m_pqwidget)
+   //    {
+   //
+   //       system()->innate_ui()->add_top_level_window(this);
+   //
+   //    }
+   //
+   //    //m_pgtkwidgetFixed = gtk_fixed_new();
+   //
+   //    //gtk_window_set_child(GTK_WINDOW(m_pgtkwidget), m_pgtkwidgetFixed);
+   //    //gtk_widget_set_parent(m_pgtkwidget, nullptr);
+   //    ///GtkWidget *content_area = gtk_dialog_get_content_area(GTK_DIALOG(m_pgtkwidget));
+   //    //m_fixed = gtk_fixed_new();
+   //    //gtk_box_append(content_area, m_fixed);
+   //
+   // }
+   //
 
-      ::innate_ui_kde5::window::create();
-
-   }
-
-   void dialog::_create()
-   {
-
-      // m_hwnd = CreateWindowW(_get_class_name(), L"", WS_DLGFRAME | WS_CAPTION | WS_POPUPWINDOW,
-      //         CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, (HINSTANCE) ::platform::get()->m_hinstanceThis,
-      //         nullptr);
-
-      // m_pgtkwidget = gtk_dialog_new_with_buttons("Custom Dialog",
-      //                                              NULL,
-      //                                              GTK_DIALOG_DESTROY_WITH_PARENT,
-      //                                              NULL);
-
-      m_pqwidget = ___new QDialog();
-
-      if (m_pqwidget)
-      {
-
-         system()->innate_ui()->add_top_level_window(this);
-
-      }
-
-      //m_pgtkwidgetFixed = gtk_fixed_new();
-
-      //gtk_window_set_child(GTK_WINDOW(m_pgtkwidget), m_pgtkwidgetFixed);
-      //gtk_widget_set_parent(m_pgtkwidget, nullptr);
-      ///GtkWidget *content_area = gtk_dialog_get_content_area(GTK_DIALOG(m_pgtkwidget));
-      //m_fixed = gtk_fixed_new();
-      //gtk_box_append(content_area, m_fixed);
-
-   }
-
-
-} // namespace innate_ui_kde5
+} // namespace innate_ui_q5

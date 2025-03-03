@@ -2,17 +2,17 @@
 #pragma once
 
 
-#include "apex/innate_ui/dialog.h"
+#include "innate_ui_q/dialog.h"
 #include "window.h"
 
 
-namespace innate_ui_kde5
+namespace innate_ui_q5
 {
 
 
-   class CLASS_DECL_INNATE_UI_GTK3 dialog :
-      virtual public ::innate_ui_kde5::window,
-      virtual public ::innate_ui::dialog
+   class CLASS_DECL_INNATE_UI_Q5 dialog :
+      virtual public ::innate_ui_q5::window,
+      virtual public ::innate_ui_q::dialog
    {
    public:
 
@@ -24,14 +24,14 @@ namespace innate_ui_kde5
       ~dialog() override;
 
 
-      void create() override;
-      void _create() override;
-      //void _get_class(WNDCLASSEXW & wcex);
-      //void set_text(const ::scoped_string & scopedstr) override;
+      // void create() override;
+      // void _create() override;
+      // //void _get_class(WNDCLASSEXW & wcex);
+      // //void set_text(const ::scoped_string & scopedstr) override;
    };
 
 
-} // namespace innate_ui_kde5
+} // namespace innate_ui_q5
 
 
 

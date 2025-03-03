@@ -8,7 +8,7 @@
 //#include "_windowing_wayland.h"
 
 
-namespace windowing_kde5
+namespace windowing_q5
 {
 
 
@@ -130,7 +130,7 @@ namespace windowing_kde5
    }
 
 
-} // namespace windowing_kde5
+} // namespace windowing_q5
 
 
 

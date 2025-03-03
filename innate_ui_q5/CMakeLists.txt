@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
-project(innate_ui_kde5 CXX)
+project(innate_ui_q5 CXX)
 
 
 list(APPEND library_source
@@ -26,17 +26,18 @@ list(APPEND library_source
 list(APPEND library_references
    acme
    apex
+   innate_ui_q
 )
 
 
-if(${HAS_KDE6})
+if(${HAS_Q6})
 
     list(APPEND system_libraries
             Qt6::Core
             Qt6::Widgets
     )
 
-elseif(${HAS_KDE5})
+elseif(${HAS_Q5})
 
     list(APPEND system_libraries
             Qt5::Core

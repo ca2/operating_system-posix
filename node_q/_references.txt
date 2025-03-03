@@ -1,0 +1,4 @@
+default_windowing_lxq1
+default_windowing_lxq2
+default_windowing_lxq3
+operating_system-posix/aura_posix

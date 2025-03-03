@@ -21,7 +21,7 @@
 //#include <X11/Xutil.h>
 
 
-namespace kde5
+namespace q5
 {
 
 
@@ -423,7 +423,7 @@ namespace kde5
    bool windowing::defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
    {
 
-      ::cast< ::kde5::acme::windowing::window> pkde5window = pwindow;
+      ::cast< ::q5::acme::windowing::window> pkde5window = pwindow;
 
       if (m_pwindowMouseCapture != pkde5window)
       {
@@ -528,7 +528,7 @@ namespace kde5
    } //namespace acme
 
 
-} // namespace kde5
+} // namespace q5
 
 
 

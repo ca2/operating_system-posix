@@ -4,7 +4,7 @@
 #pragma once
 
 
-#include "acme/windowing/window.h"
+#include "acme_windowing_q/window.h"
 //#include "micro_window.h"
 #include "acme/parallelization/manual_reset_happening.h"
 //#include <QWidget>
@@ -22,8 +22,8 @@ namespace q5
       {
 
 
-         class CLASS_DECL_ACME_WINDOWING_KDE5 window :
-      virtual public ::q::windowing::window
+         class CLASS_DECL_ACME_WINDOWING_Q5 window :
+      virtual public ::q::acme::windowing::window
             //virtual public ::acme::windowing::window,
          //virtual public ::kde5::micro::window
          {

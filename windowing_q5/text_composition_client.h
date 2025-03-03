@@ -4,15 +4,15 @@
 #pragma once
 
 
-#include "aura/user/user/text_composition_client.h"
+#include "windowing_q/text_composition_client.h"
 
 
-namespace windowing_kde5
+namespace windowing_q5
 {
 
 
-   class CLASS_DECL_WINDOWING_KDE5 text_composition_client :
-      virtual public ::user::text_composition_client
+   class CLASS_DECL_WINDOWING_Q5 text_composition_client :
+      virtual public ::windowing_q::text_composition_client
    {
    public:
 
@@ -25,7 +25,7 @@ namespace windowing_kde5
    };
 
 
-} // namespace windowing_kde5
+} // namespace windowing_q5
 
 
 

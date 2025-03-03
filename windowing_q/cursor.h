@@ -3,11 +3,9 @@
 #pragma once
 
 
-//#include "nano_user_wayland/_.h"
-#include <qcursor.h>
-
 #include "aura/windowing/cursor.h"
 #include "_q.h"
+#include <QCursor>
 
 
 namespace windowing_q

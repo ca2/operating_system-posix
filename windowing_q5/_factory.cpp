@@ -13,23 +13,23 @@
 
 //__FACTORY_EXPORT void nano_user_wayland_factory(::factory::factory * pfactory);
 
-__FACTORY_EXPORT void windowing_kde5_factory(::factory::factory * pfactory)
+__FACTORY_EXPORT void windowing_q5_factory(::factory::factory * pfactory)
 {
 
    //nano_user_wayland_factory(pfactory);
 
-   printf("windowing_kde5 factory\n");
+   printf("windowing_q5 factory\n");
 
-   pfactory->add_factory_item < ::windowing_kde5::buffer, ::graphics::graphics > ();
+   pfactory->add_factory_item < ::windowing_q5::buffer, ::graphics::graphics > ();
 
-   pfactory->add_factory_item < ::windowing_kde5::display, ::acme::windowing::display > ();
-   pfactory->add_factory_item < ::windowing_kde5::window, ::acme::windowing::window > ();
-   pfactory->add_factory_item < ::windowing_kde5::windowing, ::acme::windowing::windowing > ();
-   pfactory->add_factory_item < ::windowing_kde5::text_composition_client, ::user::text_composition_client > ();
+   pfactory->add_factory_item < ::windowing_q5::display, ::acme::windowing::display > ();
+   pfactory->add_factory_item < ::windowing_q5::window, ::acme::windowing::window > ();
+   pfactory->add_factory_item < ::windowing_q5::windowing, ::acme::windowing::windowing > ();
+   pfactory->add_factory_item < ::windowing_q5::text_composition_client, ::user::text_composition_client > ();
 
-   pfactory->add_factory_item < ::windowing_kde5::icon, ::windowing::icon > ();
-   pfactory->add_factory_item < ::windowing_kde5::cursor, ::windowing::cursor > ();
-   pfactory->add_factory_item < ::windowing_kde5::keyboard, ::windowing::keyboard > ();
+   pfactory->add_factory_item < ::windowing_q5::icon, ::windowing::icon > ();
+   pfactory->add_factory_item < ::windowing_q5::cursor, ::windowing::cursor > ();
+   pfactory->add_factory_item < ::windowing_q5::keyboard, ::windowing::keyboard > ();
 
    pfactory->add_factory_item < ::windowing::monitor > ();
 

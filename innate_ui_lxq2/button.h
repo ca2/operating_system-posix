@@ -6,6 +6,7 @@
 #include "window.h"
 //#include <gtk/gtk.h>
 
+
 namespace innate_ui_lxq2
 {
 
@@ -33,7 +34,7 @@ namespace innate_ui_lxq2
    };
 
 
-} // namespace innate_ui_win32
+} // namespace innate_ui_lxq2
 
 
 

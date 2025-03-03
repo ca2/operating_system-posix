@@ -8,8 +8,8 @@
 //#include "q_widget.h"
 //#include "acme/operating_system/x11/_atom.h"
 #include "acme/prototype/geometry2d/rectangle_array.h"
-#include "common_q/window.h"
-#include "common_q/micro_window.h"
+#include "acme_windowing_q/window.h"
+#include "acme_windowing_q/micro_window.h"
 //#include <X11/extensions/sync.h>
 #include <QWidget>
 //#include <gdk/gdk.h>

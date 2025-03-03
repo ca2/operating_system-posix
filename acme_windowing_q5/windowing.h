@@ -4,8 +4,8 @@
 #pragma once
 
 
-#include "acme/windowing/windowing.h"
-#include <QApplication>
+#include "acme_windowing_q/windowing.h"
+//#include <QApplication>
 
 
 namespace q5

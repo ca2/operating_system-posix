@@ -2,35 +2,35 @@
 #pragma once
 
 
-#include "apex/innate_ui/icon.h"
-//#include <gtk/gtk.h>
-#include <QPixmap>
+#include "innate_ui_q/icon.h"
+// //#include <gtk/gtk.h>
+// #include <QPixmap>
 
 
-namespace innate_ui_kde5
+namespace innate_ui_q5
 {
 
 
-   class CLASS_DECL_INNATE_UI_GTK3 icon :
-      virtual public ::innate_ui::icon
+   class CLASS_DECL_INNATE_UI_Q5 icon :
+      virtual public ::innate_ui_q::icon
    {
    public:
 
 
-      //GdkPaintable *  m_pgdkpaintable;
-      QPixmap *m_pqpixmap;
+      // //GdkPaintable *  m_pgdkpaintable;
+      // QPixmap *m_pqpixmap;
 
       icon();
       ~icon() override;
 
-
-      void _create() override;
+      //
+      // void _create() override;
 
 
    };
 
 
-} // namespace innate_ui_kde5
+} // namespace innate_ui_q5
 
 
 

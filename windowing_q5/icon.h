@@ -3,17 +3,18 @@
 #pragma once
 
 
-#include "aura/windowing/icon.h"
+#include "windowing_q/icon.h"
+//#include "windowing_q/icon.h"
 //#include "acme/prototype/geometry2d/_geometry2d.h"
-#include "acme/prototype/geometry2d/size_array.h"
+//#include "acme/prototype/geometry2d/size_array.h"
 
 
-namespace windowing_kde5
+namespace windowing_q5
 {
 
 
-   class CLASS_DECL_WINDOWING_KDE5 icon :
-      virtual public ::windowing::icon
+   class CLASS_DECL_WINDOWING_Q5 icon :
+      virtual public ::windowing_q::icon
    {
    public:
 
@@ -51,7 +52,7 @@ namespace windowing_kde5
 
 
 
-} // namespace windowing_kde5
+} // namespace windowing_q5
 
 
 

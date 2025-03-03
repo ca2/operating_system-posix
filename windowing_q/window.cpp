@@ -26,7 +26,7 @@
 //#include <X11/extensions/sync.h>
 //#include <wayland-client.h>
 //#include <gdk/gdkwindow.h>
-#include "common_q/QCustomTopWindow.h"
+#include "acme_windowing_q/QCustomTopWindow.h"
 //#include <linux/input.h> // for BTN_LEFT,...
 //#include <xkbcommon/xkbcommon.h>
 //#include <gio/gio.h>
@@ -47,7 +47,7 @@
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
 //#include "windowing_system_wayland/xfree86_key.h"
-#include "common_q/q_5_and_6.h"
+#include "acme_windowing_q/q_5_and_6.h"
 
 //#include <gtk/gtk.h>
 //
@@ -1683,7 +1683,7 @@ namespace windowing_q
 
       pmouse->m_emessage = e_message_mouse_wheel;
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 8)
 
       m_pointCursor2.x() = pevent->globalPosition().x();
       m_pointCursor2.y() = pevent->globalPosition().y();

@@ -1,2 +1,3 @@
 operating_system-posix/windowing_kde5
 operating_system-posix/aura_posix
+operating_system-posix/node_q

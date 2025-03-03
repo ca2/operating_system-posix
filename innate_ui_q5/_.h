@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "apex/_.h"
+#include "innate_ui_q/_.h"
 //#define ISOLATION_AWARE_ENABLED 1
 //#undef USUAL_OPERATING_SYSTEM_SUPPRESSIONS
 //#include "acme/_operating_system.h"
@@ -18,12 +18,16 @@
 //#include <Winsvc.h>
 //
 
-#if defined(_innate_ui_gtk3_project)
-#define CLASS_DECL_INNATE_UI_GTK3  CLASS_DECL_EXPORT
+#if defined(_innate_ui_q5_project)
+#define CLASS_DECL_INNATE_UI_Q5  CLASS_DECL_EXPORT
 #else
-#define CLASS_DECL_INNATE_UI_GTK3  CLASS_DECL_IMPORT
+#define CLASS_DECL_INNATE_UI_Q5  CLASS_DECL_IMPORT
 #endif
+
+
 #define G_HANDLER(handler) G_CALLBACK(reinterpret_cast<void(*)(void)>(static_cast<void(*)(GtkWidget*, gpointer)>(handler)))
+
+
 //
 //CLASS_DECL_ACME void TRACELASTERROR();
 //
