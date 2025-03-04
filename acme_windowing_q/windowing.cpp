@@ -469,7 +469,16 @@ namespace q
                [procedure]
                {
 
-                  procedure();
+                  try
+                  {
+
+                     procedure();
+
+                  }
+                  catch (...)
+                  {
+
+                  }
 
                },
                Qt::QueuedConnection);

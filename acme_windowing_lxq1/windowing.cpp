@@ -34,7 +34,7 @@ namespace lxq1
          windowing::windowing()
          {
 
-            m_pqapplication = nullptr;
+            //m_pqapplication = nullptr;
 
 
          }

@@ -149,68 +149,68 @@ namespace windowing_q5
    }
 
 
-#ifdef _DEBUG
-
-
-   long long display::get_ref_count()
-   {
-
-      return m_countReference;
-
-   }
-
-
-   long long display::increment_reference_count()
-   {
-
-#ifdef WINDOWS
-
-      return InterlockedIncrement64(&m_countReference);
-
-#elif defined(RASPBERRYPIOS) && defined(OS32BIT)
-
-      return __sync_add_and_fetch_4(&m_countReference,1);
-
-#else
-
-      return __sync_add_and_fetch(&m_countReference, 1);
-
-#endif
-
-   }
-
-
-   long long display::decrement_reference_count()
-   {
-
-#ifdef WINDOWS
-
-      return InterlockedDecrement64(&m_countReference);
-
-#elif defined(RASPBERRYPIOS) && defined(OS32BIT)
-
-      return __sync_sub_and_fetch_4(&m_countReference,1);
-
-#else
-
-      return __sync_sub_and_fetch(&m_countReference, 1);
-
-#endif
-
-   }
-
-
-   long long display::release()
-   {
-
-      long long i = decrement_reference_count();
-
-      return i;
-
-   }
-
-
-#endif // DEBUG
+// #ifdef _DEBUG
+//
+//
+//    long long display::get_ref_count()
+//    {
+//
+//       return m_countReference;
+//
+//    }
+//
+//
+//    long long display::increment_reference_count()
+//    {
+//
+// #ifdef WINDOWS
+//
+//       return InterlockedIncrement64(&m_countReference);
+//
+// #elif defined(RASPBERRYPIOS) && defined(OS32BIT)
+//
+//       return __sync_add_and_fetch_4(&m_countReference,1);
+//
+// #else
+//
+//       return __sync_add_and_fetch(&m_countReference, 1);
+//
+// #endif
+//
+//    }
+//
+//
+//    long long display::decrement_reference_count()
+//    {
+//
+// #ifdef WINDOWS
+//
+//       return InterlockedDecrement64(&m_countReference);
+//
+// #elif defined(RASPBERRYPIOS) && defined(OS32BIT)
+//
+//       return __sync_sub_and_fetch_4(&m_countReference,1);
+//
+// #else
+//
+//       return __sync_sub_and_fetch(&m_countReference, 1);
+//
+// #endif
+//
+//    }
+//
+//
+//    long long display::release()
+//    {
+//
+//       long long i = decrement_reference_count();
+//
+//       return i;
+//
+//    }
+//
+//
+// #endif // DEBUG
 
 //
 //   Display * display::_get_system_default_display()
