@@ -18,7 +18,7 @@ __FACTORY_EXPORT void windowing_kde6_factory(::factory::factory * pfactory)
 
    //nano_user_wayland_factory(pfactory);
 
-   printf("windowing_kde5 factory\n");
+   printf("windowing_kde6 factory\n");
 
    pfactory->add_factory_item < ::windowing_kde6::buffer, ::graphics::graphics > ();
 

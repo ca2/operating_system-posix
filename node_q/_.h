@@ -18,6 +18,7 @@ namespace node_q
 
    class node;
 
+
 } // namespace node_q
 
 

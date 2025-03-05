@@ -1,8 +1,9 @@
 #pragma once
 
 
-#include "aura_posix/_.h"
+//#include "aura_posix/_.h"
 #include "windowing_kde6/_.h"
+#include "node_q/_.h"
 
 
 #if defined(_node_kde6_project)

@@ -12,7 +12,7 @@
 //#include <QTimer>
 //#include <QWidget>
 //#include "node_impl.h"
-#include "aura_posix/node.h"
+#include "node_q/node.h"
 //#include <QObject>
 //#include <QAbstractNativeEventFilter>
 //#include <QApplication>
@@ -27,7 +27,7 @@ namespace node_kde6
 
 
    class CLASS_DECL_NODE_KDE6 node :
-      virtual public ::aura_posix::node //,
+      virtual public ::node_q::node //,
       //virtual public QAbstractNativeEventFilter,
       //virtual public QObject
    {

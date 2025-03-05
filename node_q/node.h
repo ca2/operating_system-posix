@@ -13,13 +13,13 @@
 //#include <QWidget>
 //#include "node_impl.h"
 #include "aura_posix/node.h"
-//#include <QObject>
+#include <QObject>
 //#include <QAbstractNativeEventFilter>
 //#include <QApplication>
 //#include <QPalette>
 
 
-class KIconLoader;
+//class KIconLoader;
 
 
 namespace node_q
@@ -27,9 +27,9 @@ namespace node_q
 
 
    class CLASS_DECL_NODE_Q node :
-      virtual public ::aura_posix::node //,
+      virtual public ::aura_posix::node,
       //virtual public QAbstractNativeEventFilter,
-      //virtual public QObject
+      virtual public QObject
    {
    public:
 
@@ -129,7 +129,7 @@ namespace node_q
       void _node_folder_dialog(::file::folder_dialog * pdialog) override;
 
 
-      ::wl_display * get_wayland_display() override;
+      //::wl_display * get_wayland_display() override;
 
 
       void launch_app_by_app_id(const ::scoped_string & scopedstrAppId, bool bSingleExecutableVersion) override;

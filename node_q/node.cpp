@@ -33,7 +33,7 @@
 #include <QIconEngine>
 #include <QTextStream>
 //#include <QDBusInterface>
-#include <qpa/qplatformnativeinterface.h>
+//#include <qpa/qplatformnativeinterface.h>
 #include <xcb/xcb.h>
 #include "windowing_q/windowing.h"
 //#include <KPackage/Package>
@@ -960,17 +960,17 @@ namespace node_q
 
    }
 
-
-   ::wl_display * node::get_wayland_display()
-   {
-
-      QPlatformNativeInterface *native =  QGuiApplication::platformNativeInterface();
-
-      auto pwldisplay = (::wl_display *) native->nativeResourceForWindow("display", NULL);
-
-      return pwldisplay;
-
-   }
+   //
+   // ::wl_display * node::get_wayland_display()
+   // {
+   //
+   //    QPlatformNativeInterface *native =  QGuiApplication::platformNativeInterface();
+   //
+   //    auto pwldisplay = (::wl_display *) native->nativeResourceForWindow("display", NULL);
+   //
+   //    return pwldisplay;
+   //
+   // }
 
 
    void node::launch_app_by_app_id(const ::scoped_string & scopedstrAppId, bool bSingleExecutableVersion)

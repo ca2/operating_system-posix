@@ -46,6 +46,7 @@ list(APPEND library_references
    aura_posix
    windowing_posix
    windowing_kde6
+   node_q
    #windowing_xcb
    #windowing_x11
 )
