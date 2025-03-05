@@ -2021,10 +2021,10 @@ namespace gtk4
    }
 
 
-   ::gtk4::acme::windowing::display_base* window::gtk4_display()
+   ::gtk4::acme::windowing::display* window::gtk4_display()
    {
 
-      return dynamic_cast<::gtk4::acme::windowing::display_base*>(gtk4_acme_windowing()->acme_display());
+      return dynamic_cast<::gtk4::acme::windowing::display*>(gtk4_acme_windowing()->acme_display());
 
    }
 

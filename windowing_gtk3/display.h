@@ -181,6 +181,7 @@ namespace windowing_gtk3
          //::collection::index get_main_monitor_index() override;
          ::int_size get_main_screen_size() override;
 
+         void _on_wallpaper_change() override;
 
    };
 

@@ -38,7 +38,7 @@ namespace gdk
    ::e_status gsettings_get(string & strValue, const ::string & strSchema, const ::string & strKey);
 
 
-   ::e_status node_enable_wallpaper_change_notification(::node_gtk4::node * pnode, const ::string & strSchema, const ::string & strKey);
+   ::e_status node_enable_wallpaper_change_notification(::g::acme::windowing::display * pdisplay, const ::string & strSchema, const ::string & strKey);
 
 
    const char * g_get_file_icon_path(const char * pszPath, int iSize);
@@ -57,9 +57,9 @@ namespace gdk
 
 
 
-CLASS_DECL_COMMON_GTK ::e_status xfce4_set_wallpaper(const char *wallpaper_path);
-CLASS_DECL_COMMON_GTK ::string xfce4_get_user_theme();
-CLASS_DECL_COMMON_GTK ::e_status xfce4_set_user_theme(const ::scoped_string & scopedstrTheme);
+CLASS_DECL_ACME_WINDOWING_G ::e_status xfce4_set_wallpaper(const char *wallpaper_path);
+CLASS_DECL_ACME_WINDOWING_G ::string xfce4_get_user_theme();
+CLASS_DECL_ACME_WINDOWING_G ::e_status xfce4_set_user_theme(const ::scoped_string & scopedstrTheme);
 
 
 

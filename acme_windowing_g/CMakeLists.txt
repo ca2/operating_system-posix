@@ -6,6 +6,8 @@ list(APPEND library_source
    _.cpp
    _.h
    _factory.cpp
+   display.cpp
+   display.h
    framework.cpp
    framework.h
    activation_token.cpp

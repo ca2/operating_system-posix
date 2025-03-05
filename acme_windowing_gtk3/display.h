@@ -4,7 +4,7 @@
 #pragma once
 
 
-#include "acme/windowing/display.h"
+#include "acme_windowing_g/display.h"
 //#include "event_listener.h"
 //#include "windowing_system_x11/_atom.h"
 
@@ -26,7 +26,7 @@ namespace gtk3
          using window_map = map<::GtkWidget *, ::pointer<window> >;
 
          class CLASS_DECL_ACME_WINDOWING_GTK3 display :
-            virtual public ::acme::windowing::display //,     virtual public event_listener
+            virtual public ::g::acme::windowing::display //,     virtual public event_listener
          {
          public:
 
@@ -104,7 +104,7 @@ window_map                                               m_windowmap;
             ::string theming_ui_name() override;
 
 
-            void _set_wallpaper(::collection::index iScreen, const ::scoped_string & scopedstrWallpaper) override;
+            //void _set_wallpaper(::collection::index iScreen, const ::scoped_string & scopedstrWallpaper) override;
 
 
             void impl_set_desktop_theme(const ::scoped_string & scopedstrDesktopTheme) override;

@@ -4,7 +4,7 @@
 //
 #include "framework.h"
 #include "display.h"
-#include "window.h"
+//#include "window.h"
 #include "acme/parallelization/mutex.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/acme.h"
@@ -57,7 +57,7 @@ void x11_init_threads();
 void set_main_user_thread();
 
 
-namespace gtk4
+namespace g
 {
 
 
@@ -72,9 +72,9 @@ namespace gtk4
          display::display()
          {
 
-            m_pgdkdisplay = nullptr;
-
-            m_bUnhook = false;
+            // m_pgdkdisplay = nullptr;
+            //
+            // m_bUnhook = false;
 
             //      if(!g_p)
             //      {
@@ -85,42 +85,42 @@ namespace gtk4
 
             defer_create_synchronization();
 
-            m_bOwnDisplay = false;
-
-            //m_pxkbkeymap = nullptr;
-            //m_pxkbstate = nullptr;
-            m_bOpened = false;
-            m_pgdkdisplay = nullptr;
-
-
-
-            // //::wl_display * m_pwldisplay;
-            // m_pwlshm = nullptr;
-            // m_pxdgwmbase = nullptr;
-            // m_pwlcompositor = nullptr;
-            // m_pwlsurfaceCursor = nullptr;
-            // m_pwlseat = nullptr;
-            // m_pwlkeyboard = nullptr;
-            // m_pwlpointer = nullptr;
-            // m_pwlsubcompositor = nullptr;
-            // //::wl_shm_pool * m_pwlshmpool;
-            // m_pwlsurfacePointerEnter = nullptr;
-            // m_pwlsurfaceLastLButtonDown = nullptr;
-            // m_pwlsurfaceMouseCapture = nullptr;
-            // m_pxdgsurfaceMouseCapture = nullptr;
-            // m_pxdgtoplevelMouseCapture = nullptr;
-            // //wayland_buffer m_waylandbufferMouseCapture;
-            // m_bMouseCaptured = false;
-            // //::int_rectangle m_rectangleMouseCapture;
-            // m_uLastButtonSerial = 0;
-            // m_uLastPointerSerial = 0;
-            // m_uLastSeatSerial = 0;
-            // m_uLastKeyboardSerial = 0;
-            // m_uLastKeyboardEnterSerial = 0;
-            // m_uLastKeyboardLeaveSerial = 0;
-            // m_pgtkshell1 = nullptr;
-            // m_pxdgactivationv1 = nullptr;
-            // m_pwlsurfaceKeyboardEnter = nullptr;
+            // m_bOwnDisplay = false;
+            //
+            // //m_pxkbkeymap = nullptr;
+            // //m_pxkbstate = nullptr;
+            // m_bOpened = false;
+            // m_pgdkdisplay = nullptr;
+            //
+            //
+            //
+            // // //::wl_display * m_pwldisplay;
+            // // m_pwlshm = nullptr;
+            // // m_pxdgwmbase = nullptr;
+            // // m_pwlcompositor = nullptr;
+            // // m_pwlsurfaceCursor = nullptr;
+            // // m_pwlseat = nullptr;
+            // // m_pwlkeyboard = nullptr;
+            // // m_pwlpointer = nullptr;
+            // // m_pwlsubcompositor = nullptr;
+            // // //::wl_shm_pool * m_pwlshmpool;
+            // // m_pwlsurfacePointerEnter = nullptr;
+            // // m_pwlsurfaceLastLButtonDown = nullptr;
+            // // m_pwlsurfaceMouseCapture = nullptr;
+            // // m_pxdgsurfaceMouseCapture = nullptr;
+            // // m_pxdgtoplevelMouseCapture = nullptr;
+            // // //wayland_buffer m_waylandbufferMouseCapture;
+            // // m_bMouseCaptured = false;
+            // // //::int_rectangle m_rectangleMouseCapture;
+            // // m_uLastButtonSerial = 0;
+            // // m_uLastPointerSerial = 0;
+            // // m_uLastSeatSerial = 0;
+            // // m_uLastKeyboardSerial = 0;
+            // // m_uLastKeyboardEnterSerial = 0;
+            // // m_uLastKeyboardLeaveSerial = 0;
+            // // m_pgtkshell1 = nullptr;
+            // // m_pxdgactivationv1 = nullptr;
+            // // m_pwlsurfaceKeyboardEnter = nullptr;
 
 
          }
@@ -137,22 +137,22 @@ namespace gtk4
             //    s_pdisplaybase = nullptr;
             //
             // }
-
-            close();
-
-
-            if (m_bOwnDisplay && m_pgdkdisplay != nullptr)
-            {
-
-               //wl_display_disconnect(m_pwldisplay);
-
-               m_pgdkdisplay = nullptr;
-
-               m_bOwnDisplay = false;
-
-               printf("disconnected from display\n");
-
-            }
+            //
+            // close();
+            //
+            //
+            // if (m_bOwnDisplay && m_pgdkdisplay != nullptr)
+            // {
+            //
+            //    //wl_display_disconnect(m_pwldisplay);
+            //
+            //    m_pgdkdisplay = nullptr;
+            //
+            //    m_bOwnDisplay = false;
+            //
+            //    printf("disconnected from display\n");
+            //
+            // }
 
          }
 
@@ -162,421 +162,421 @@ namespace gtk4
 
             ::acme::windowing::display::initialize(pparticle);
 
-            ::gtk4::acme::windowing::display::initialize(pparticle);
+            //::gtk4::acme::windowing::display::initialize(pparticle);
 
          }
 
 
-         void display::open_display()
-         {
-
-            //    display::open();
-            
-            information() << "windowing_gtk4::display::open_display";
-
-            m_sizeaMonitor.clear();
-
-            m_pgdkdisplay = gdk_display_get_default();
-
-            auto * monitors = gdk_display_get_monitors(m_pgdkdisplay);
-
-
-            guint n_monitors = g_list_model_get_n_items(monitors);
-
-            // Iterate over each monitor
-            for (guint i = 0; i < n_monitors; i++) {
-               GdkMonitor *monitor = GDK_MONITOR(g_list_model_get_item(monitors, i));
-
-
-               // Get the geometry (rectangle) of the monitor
-               GdkRectangle geometry;
-               gdk_monitor_get_geometry(monitor, &geometry);
-
-               int cx = geometry.width;
-               int cy = geometry.height;
-               // Print monitor geometry details
-               printf("Monitor %u: x = %d, y = %d, width = %d, height = %d\n",
-                      i, geometry.x, geometry.y, geometry.width, geometry.height);
-               g_object_unref(monitor);
-
-               m_sizeaMonitor.add({cx, cy});
-            }
-
-            // if(is_wayland())
-            // {
-            //    m_pwldisplay = gdk_wayland_display_get_wl_display(m_pgdkdisplay);
-            //
-            //    // Step 2: Get the registry
-            //    auto * wl_registry = wl_display_get_registry(m_pwldisplay);
-            //
-            //    wl_registry_add_listener(wl_registry, &s_registry_listener, this);
-            //
-            //    // Step 3: Roundtrip to process the registry and bind the objects
-            //    wl_display_roundtrip(m_pwldisplay);
-            // }
-
-         }
-
-
-         bool display::is_wallpaper_associated_with_dark_mode()
-         {
-
-            return true;
-
-         }
-
-
-//         bool is_wallpaper_associated_with_theming() override;
-
-
-         //   Atom display::intern_atom(const char *pszAtomName, bool bCreate)
-         //   {
-         //
-         //      return _intern_atom_unlocked(pszAtomName, bCreate);
-         //
-         ////      if (m_pdisplay == nullptr)
-         ////      {
-         ////
-         ////         return 0;
-         ////
-         ////      }
-         ////
-         ////      auto atom = XInternAtom(m_pdisplay, pszAtomName, bCreate ? True : False);
-         ////
-         ////      if (atom == None)
-         ////      {
-         ////
-         ////         windowing_output_debug_string("ERROR: cannot find atom for " + string(pszAtomName) + "\n");
-         ////
-         ////         return None;
-         ////
-         ////      }
-         ////
-         ////      return atom;
-         //
-         //   }
-         //
-         //
-         //   Atom display::intern_atom(enuid() eatom, bool bCreate)
-         //   {
-         //
-         //      return _intern_atom_unlocked(eatom, bCreate);
-         //
-         ////      if (eatom < 0 || eatom >= e_atom_count)
-         ////      {
-         ////
-         ////         return None;
-         ////
-         ////      }
-         ////
-         ////      Atom atom = id()map[eatom];
-         ////
-         ////      if (atom == None)
-         ////      {
-         ////
-         ////         atom = intern_atom(atom_name(eatom), bCreate);
-         ////
-         ////         id()map[eatom] = atom;
-         ////
-         ////      }
-         ////
-         ////      return atom;
-         //
-         //   }
-         //
-         //
-         //
-         //   Atom display::_intern_atom_unlocked(const char *pszAtomName, bool bCreate)
-         //   {
-         //
-         //      if (m_pdisplay == nullptr)
-         //      {
-         //
-         //         return 0;
-         //
-         //      }
-         //
-         //      auto atom = XInternAtom(m_pdisplay, pszAtomName, bCreate ? True : False);
-         //
-         //      if (atom == None)
-         //      {
-         //
-         //         windowing_output_debug_string("ERROR: cannot find atom for " + string(pszAtomName) + "\n");
-         //
-         //         return None;
-         //
-         //      }
-         //
-         //      return atom;
-         //
-         //   }
-         //
-         //
-         //   Atom display::_intern_atom_unlocked(enuid() eatom, bool bCreate)
-         //   {
-         //
-         //      if (eatom < 0 || eatom >= e_atom_count)
-         //      {
-         //
-         //         return None;
-         //
-         //      }
-         //
-         //      Atom atom = id()map[eatom];
-         //
-         //      if (atom == None)
-         //      {
-         //
-         //         atom = _intern_atom_unlocked(atom_name(eatom), bCreate);
-         //
-         //         id()map[eatom] = atom;
-         //
-         //      }
-         //
-         //      return atom;
-         //
-         //   }
-         //
-         //
-         //   unsigned char* display::_get_string_property(Display * display, Window window, char* property_name)
-         //   {
-         //
-         //      unsigned char * prop;
-         //      Atom actual_type, filter_atom;
-         //      int actual_format, status;
-         //      unsigned long nitems, bytes_after;
-         //
-         //      filter_atom = XInternAtom(display, property_name, True);
-         //
-         //      status = XGetWindowProperty(display, window, filter_atom, 0, MAXSTR, False, AnyPropertyType,
-         //                                  &actual_type, &actual_format, &nitems, &bytes_after, &prop);
-         //
-         //      x11_check_status(status, window);
-         //
-         //      return prop;
-         //
-         //   }
-         //
-         //
-         //   unsigned long display::_get_long_property(Display *d, Window w, char *property_name)
-         //   {
-         //
-         //      unsigned char *prop = _get_string_property(d, w, property_name);
-         //
-         //      unsigned long long_property = prop[0] + (prop[1] << 8) + (prop[2] << 16) + (prop[3] << 24);
-         //
-         //      XFree(prop);
-         //
-         //      return long_property;
-         //
-         //   }
-         //
-         //
-         //   Window display::_get_active_window()
-         //   {
-         //
-         //      int screen = XDefaultScreen(m_pdisplay);
-         //
-         //      Window windowRoot = RootWindow(m_pdisplay, screen);
-         //
-         //      Window window = _get_long_property(m_pdisplay, windowRoot, (char *) "_NET_ACTIVE_WINDOW");
-         //
-         //      return window;
-         //
-         //   }
-
-
-         //   Window display::window_from_name_search(Display *display, Window current, char const *needle, int iOffset, int depth)
-         //   {
-         //
-         //      Window window, root, parent, *children;
-         //
-         //      unsigned children_count;
-         //
-         //      char *name = NULL;
-         //
-         //      window = 0;
-         //
-         //      /* If it does not: check all subwindows recursively. */
-         //      if(0 != XQueryTree(display, current, &root, &parent, &children, &children_count))
-         //      {
-         //
-         //         unsigned i;
-         //
-         //         for(i = 0; i < children_count; ++i)
-         //         {
-         //
-         //            /* Check if this window has the name we seek */
-         //            if(XFetchName(display,  children[i], &name) > 0)
-         //            {
-         //
-         //               int r = ansi_cmp(needle, name);
-         //
-         //               XFree(name);
-         //
-         //               if(r == 0)
-         //               {
-         //
-         //                  window = children[i+iOffset];
-         //
-         //                  break;
-         //
-         //               }
-         //
-         //            }
-         //
-         //            if(depth > 1)
-         //            {
-         //
-         //               Window win = window_from_name_search(display, children[i], needle, depth - 1);
-         //
-         //               if (win != 0)
-         //               {
-         //
-         //                  window = win;
-         //
-         //                  break;
-         //
-         //               }
-         //
-         //            }
-         //
-         //         }
-         //
-         //         XFree(children);
-         //
-         //      }
-         //
-         //      return window;
-         //
-         //   }
-
-
-         //   Window display::window_from_name(char const *name, int iOffset, int depth)
-         //   {
-         //
-         ////      auto display = m_pdisplay;
-         ////
-         ////      auto windowRoot = XDefaultRootWindow(display);
-         ////
-         ////      auto window = window_from_name_search(display, windowRoot, name, iOffset, depth);
-         //
-         //
-         //
-         ////      return window;
-         //
-         //   }
-
-
-         ::GdkDisplay* display::__get_gdk_display()
-         {
-
-            if (m_pgdkdisplay)
-            {
-
-               return m_pgdkdisplay;
-
-            }
-
-            m_pgdkdisplay = gdk_display_get_default();
-            if (m_pgdkdisplay == NULL)
-            {
-               error() << "Can't connect to display";
-               throw ::exception(error_failed);
-            }
-            information() << "connected to display\n";
-            m_bOwnDisplay = true;
-            //wl_display_disconnect(display);
-            //printf("disconnected from display\n");
-
-            return m_pgdkdisplay;
-
-         }
-
-
-         //   display * display::get(::particle * pparticle, bool bBranch, ::wl_display * pwldisplay)
-         //   {
-         //
-         //      critical_section_lock lock(this->platform()->globals_critical_section());
-         //
-         //      if (g_p == nullptr)
-         //      {
-         //
-         //         auto p = ___new display();
-         //
-         //         p->initialize(pparticle);
-         //
-         //         //p->add_listener(p);
-         //
-         //         p->m_pwldisplay = pwldisplay;
-         //
-         //         if(bBranch)
-         //         {
-         //
-         //            p->branch_synchronously();
-         //
-         //         }
-         //         else
-         //         {
-         //
-         //            p->init_task();
-         //
-         //         }
-         //
-         //      }
-         //
-         //      return g_p;
-         //
-         //   }
-
-
-         //   void display::add_listener(event_listener * plistener)
-         //   {
-         //
-         //      synchronous_lock synchronouslock(this->synchronization());
-         //
-         //      m_happeninglistenera.add(plistener);
-         //
-         //   }
-         //
-         //
-         //   void display::add_window(micro::interchange * pwindow)
-         //   {
-         //
-         //      synchronous_lock synchronouslock(this->synchronization());
-         //
-         //      m_windowa.add(pwindow);
-         //
-         //   }
-
-         //
-         //   void display::erase_listener(event_listener * plistener)
-         //   {
-         //
-         //      synchronous_lock synchronouslock(this->synchronization());
-         //
-         //      m_happeninglistenera.erase(plistener);
-         //
-         //   }
-         //
-         //
-         //   void display::erase_window(micro::interchange * pwindow)
-         //   {
-         //
-         //      synchronous_lock synchronouslock(this->synchronization());
-         //
-         //      m_windowa.erase(pwindow);
-         //
-         //   }
-
-         //
-         bool display::message_loop_step()
-         {
-
-            return ::gtk4::acme::windowing::display::message_loop_step();
-
-         }
-
+//          void display::open_display()
+//          {
+//
+//             //    display::open();
+//
+//             information() << "windowing_gtk4::display::open_display";
+//
+//             m_sizeaMonitor.clear();
+//
+//             m_pgdkdisplay = gdk_display_get_default();
+//
+//             auto * monitors = gdk_display_get_monitors(m_pgdkdisplay);
+//
+//
+//             guint n_monitors = g_list_model_get_n_items(monitors);
+//
+//             // Iterate over each monitor
+//             for (guint i = 0; i < n_monitors; i++) {
+//                GdkMonitor *monitor = GDK_MONITOR(g_list_model_get_item(monitors, i));
+//
+//
+//                // Get the geometry (rectangle) of the monitor
+//                GdkRectangle geometry;
+//                gdk_monitor_get_geometry(monitor, &geometry);
+//
+//                int cx = geometry.width;
+//                int cy = geometry.height;
+//                // Print monitor geometry details
+//                printf("Monitor %u: x = %d, y = %d, width = %d, height = %d\n",
+//                       i, geometry.x, geometry.y, geometry.width, geometry.height);
+//                g_object_unref(monitor);
+//
+//                m_sizeaMonitor.add({cx, cy});
+//             }
+//
+//             // if(is_wayland())
+//             // {
+//             //    m_pwldisplay = gdk_wayland_display_get_wl_display(m_pgdkdisplay);
+//             //
+//             //    // Step 2: Get the registry
+//             //    auto * wl_registry = wl_display_get_registry(m_pwldisplay);
+//             //
+//             //    wl_registry_add_listener(wl_registry, &s_registry_listener, this);
+//             //
+//             //    // Step 3: Roundtrip to process the registry and bind the objects
+//             //    wl_display_roundtrip(m_pwldisplay);
+//             // }
+//
+//          }
+//
+//
+//          bool display::is_wallpaper_associated_with_dark_mode()
+//          {
+//
+//             return true;
+//
+//          }
+//
+//
+// //         bool is_wallpaper_associated_with_theming() override;
+//
+//
+//          //   Atom display::intern_atom(const char *pszAtomName, bool bCreate)
+//          //   {
+//          //
+//          //      return _intern_atom_unlocked(pszAtomName, bCreate);
+//          //
+//          ////      if (m_pdisplay == nullptr)
+//          ////      {
+//          ////
+//          ////         return 0;
+//          ////
+//          ////      }
+//          ////
+//          ////      auto atom = XInternAtom(m_pdisplay, pszAtomName, bCreate ? True : False);
+//          ////
+//          ////      if (atom == None)
+//          ////      {
+//          ////
+//          ////         windowing_output_debug_string("ERROR: cannot find atom for " + string(pszAtomName) + "\n");
+//          ////
+//          ////         return None;
+//          ////
+//          ////      }
+//          ////
+//          ////      return atom;
+//          //
+//          //   }
+//          //
+//          //
+//          //   Atom display::intern_atom(enuid() eatom, bool bCreate)
+//          //   {
+//          //
+//          //      return _intern_atom_unlocked(eatom, bCreate);
+//          //
+//          ////      if (eatom < 0 || eatom >= e_atom_count)
+//          ////      {
+//          ////
+//          ////         return None;
+//          ////
+//          ////      }
+//          ////
+//          ////      Atom atom = id()map[eatom];
+//          ////
+//          ////      if (atom == None)
+//          ////      {
+//          ////
+//          ////         atom = intern_atom(atom_name(eatom), bCreate);
+//          ////
+//          ////         id()map[eatom] = atom;
+//          ////
+//          ////      }
+//          ////
+//          ////      return atom;
+//          //
+//          //   }
+//          //
+//          //
+//          //
+//          //   Atom display::_intern_atom_unlocked(const char *pszAtomName, bool bCreate)
+//          //   {
+//          //
+//          //      if (m_pdisplay == nullptr)
+//          //      {
+//          //
+//          //         return 0;
+//          //
+//          //      }
+//          //
+//          //      auto atom = XInternAtom(m_pdisplay, pszAtomName, bCreate ? True : False);
+//          //
+//          //      if (atom == None)
+//          //      {
+//          //
+//          //         windowing_output_debug_string("ERROR: cannot find atom for " + string(pszAtomName) + "\n");
+//          //
+//          //         return None;
+//          //
+//          //      }
+//          //
+//          //      return atom;
+//          //
+//          //   }
+//          //
+//          //
+//          //   Atom display::_intern_atom_unlocked(enuid() eatom, bool bCreate)
+//          //   {
+//          //
+//          //      if (eatom < 0 || eatom >= e_atom_count)
+//          //      {
+//          //
+//          //         return None;
+//          //
+//          //      }
+//          //
+//          //      Atom atom = id()map[eatom];
+//          //
+//          //      if (atom == None)
+//          //      {
+//          //
+//          //         atom = _intern_atom_unlocked(atom_name(eatom), bCreate);
+//          //
+//          //         id()map[eatom] = atom;
+//          //
+//          //      }
+//          //
+//          //      return atom;
+//          //
+//          //   }
+//          //
+//          //
+//          //   unsigned char* display::_get_string_property(Display * display, Window window, char* property_name)
+//          //   {
+//          //
+//          //      unsigned char * prop;
+//          //      Atom actual_type, filter_atom;
+//          //      int actual_format, status;
+//          //      unsigned long nitems, bytes_after;
+//          //
+//          //      filter_atom = XInternAtom(display, property_name, True);
+//          //
+//          //      status = XGetWindowProperty(display, window, filter_atom, 0, MAXSTR, False, AnyPropertyType,
+//          //                                  &actual_type, &actual_format, &nitems, &bytes_after, &prop);
+//          //
+//          //      x11_check_status(status, window);
+//          //
+//          //      return prop;
+//          //
+//          //   }
+//          //
+//          //
+//          //   unsigned long display::_get_long_property(Display *d, Window w, char *property_name)
+//          //   {
+//          //
+//          //      unsigned char *prop = _get_string_property(d, w, property_name);
+//          //
+//          //      unsigned long long_property = prop[0] + (prop[1] << 8) + (prop[2] << 16) + (prop[3] << 24);
+//          //
+//          //      XFree(prop);
+//          //
+//          //      return long_property;
+//          //
+//          //   }
+//          //
+//          //
+//          //   Window display::_get_active_window()
+//          //   {
+//          //
+//          //      int screen = XDefaultScreen(m_pdisplay);
+//          //
+//          //      Window windowRoot = RootWindow(m_pdisplay, screen);
+//          //
+//          //      Window window = _get_long_property(m_pdisplay, windowRoot, (char *) "_NET_ACTIVE_WINDOW");
+//          //
+//          //      return window;
+//          //
+//          //   }
+//
+//
+//          //   Window display::window_from_name_search(Display *display, Window current, char const *needle, int iOffset, int depth)
+//          //   {
+//          //
+//          //      Window window, root, parent, *children;
+//          //
+//          //      unsigned children_count;
+//          //
+//          //      char *name = NULL;
+//          //
+//          //      window = 0;
+//          //
+//          //      /* If it does not: check all subwindows recursively. */
+//          //      if(0 != XQueryTree(display, current, &root, &parent, &children, &children_count))
+//          //      {
+//          //
+//          //         unsigned i;
+//          //
+//          //         for(i = 0; i < children_count; ++i)
+//          //         {
+//          //
+//          //            /* Check if this window has the name we seek */
+//          //            if(XFetchName(display,  children[i], &name) > 0)
+//          //            {
+//          //
+//          //               int r = ansi_cmp(needle, name);
+//          //
+//          //               XFree(name);
+//          //
+//          //               if(r == 0)
+//          //               {
+//          //
+//          //                  window = children[i+iOffset];
+//          //
+//          //                  break;
+//          //
+//          //               }
+//          //
+//          //            }
+//          //
+//          //            if(depth > 1)
+//          //            {
+//          //
+//          //               Window win = window_from_name_search(display, children[i], needle, depth - 1);
+//          //
+//          //               if (win != 0)
+//          //               {
+//          //
+//          //                  window = win;
+//          //
+//          //                  break;
+//          //
+//          //               }
+//          //
+//          //            }
+//          //
+//          //         }
+//          //
+//          //         XFree(children);
+//          //
+//          //      }
+//          //
+//          //      return window;
+//          //
+//          //   }
+//
+//
+//          //   Window display::window_from_name(char const *name, int iOffset, int depth)
+//          //   {
+//          //
+//          ////      auto display = m_pdisplay;
+//          ////
+//          ////      auto windowRoot = XDefaultRootWindow(display);
+//          ////
+//          ////      auto window = window_from_name_search(display, windowRoot, name, iOffset, depth);
+//          //
+//          //
+//          //
+//          ////      return window;
+//          //
+//          //   }
+//
+//
+//          ::GdkDisplay* display::__get_gdk_display()
+//          {
+//
+//             if (m_pgdkdisplay)
+//             {
+//
+//                return m_pgdkdisplay;
+//
+//             }
+//
+//             m_pgdkdisplay = gdk_display_get_default();
+//             if (m_pgdkdisplay == NULL)
+//             {
+//                error() << "Can't connect to display";
+//                throw ::exception(error_failed);
+//             }
+//             information() << "connected to display\n";
+//             m_bOwnDisplay = true;
+//             //wl_display_disconnect(display);
+//             //printf("disconnected from display\n");
+//
+//             return m_pgdkdisplay;
+//
+//          }
+//
+//
+//          //   display * display::get(::particle * pparticle, bool bBranch, ::wl_display * pwldisplay)
+//          //   {
+//          //
+//          //      critical_section_lock lock(this->platform()->globals_critical_section());
+//          //
+//          //      if (g_p == nullptr)
+//          //      {
+//          //
+//          //         auto p = ___new display();
+//          //
+//          //         p->initialize(pparticle);
+//          //
+//          //         //p->add_listener(p);
+//          //
+//          //         p->m_pwldisplay = pwldisplay;
+//          //
+//          //         if(bBranch)
+//          //         {
+//          //
+//          //            p->branch_synchronously();
+//          //
+//          //         }
+//          //         else
+//          //         {
+//          //
+//          //            p->init_task();
+//          //
+//          //         }
+//          //
+//          //      }
+//          //
+//          //      return g_p;
+//          //
+//          //   }
+//
+//
+//          //   void display::add_listener(event_listener * plistener)
+//          //   {
+//          //
+//          //      synchronous_lock synchronouslock(this->synchronization());
+//          //
+//          //      m_happeninglistenera.add(plistener);
+//          //
+//          //   }
+//          //
+//          //
+//          //   void display::add_window(micro::interchange * pwindow)
+//          //   {
+//          //
+//          //      synchronous_lock synchronouslock(this->synchronization());
+//          //
+//          //      m_windowa.add(pwindow);
+//          //
+//          //   }
+//
+//          //
+//          //   void display::erase_listener(event_listener * plistener)
+//          //   {
+//          //
+//          //      synchronous_lock synchronouslock(this->synchronization());
+//          //
+//          //      m_happeninglistenera.erase(plistener);
+//          //
+//          //   }
+//          //
+//          //
+//          //   void display::erase_window(micro::interchange * pwindow)
+//          //   {
+//          //
+//          //      synchronous_lock synchronouslock(this->synchronization());
+//          //
+//          //      m_windowa.erase(pwindow);
+//          //
+//          //   }
+//
+//          //
+//          bool display::message_loop_step()
+//          {
+//
+//             return ::gtk4::acme::windowing::display::message_loop_step();
+//
+//          }
+//
 
          //
          //      if (!XPending(m_pdisplay))
@@ -733,58 +733,58 @@ namespace gtk4
          // }
          //
 
-         void display::set_gdk_display(::GdkDisplay* pgdkdisplay)
-         {
-
-            m_pgdkdisplay = pgdkdisplay;
-
-            if (!m_pgdkdisplay)
-            {
-
-               throw ::exception(error_null_pointer);
-
-            }
-
-            ::int_rectangle rectangleMainScreen;
-
-            //      auto pscreen = DefaultScreenOfDisplay(m_pdisplay);
-            //
-            //      int wScreen = WidthOfScreen(pscreen);
-            //      int hScreen = HeightOfScreen(pscreen);
-
-            //printf("::x11::display::init_task pscreen=%" PRIxPTR "\n", pscreen);
-            //printf("::x11::display::init_task (wScreen,hScreen)=%d,%d\n", wScreen, hScreen);
-
-            //rectangleMainScreen.left() = 0;
-            //rectangleMainScreen.top() = 0;
-            //rectangleMainScreen.right() = wScreen;
-            //rectangleMainScreen.bottom() = hScreen;
-
-            //operating_system_set_main_screen_rectangle(rectangleMainScreen);
-
-         }
-
-
-         bool display::is_branch_current() const
-         {
-
-            if (!m_bUnhook && ::object::is_branch_current())
-            {
-
-               return true;
-
-            }
-
-            if (m_bUnhook && ::is_main_thread())
-            {
-
-               return true;
-
-            }
-
-            return false;
-
-         }
+         // void display::set_gdk_display(::GdkDisplay* pgdkdisplay)
+         // {
+         //
+         //    m_pgdkdisplay = pgdkdisplay;
+         //
+         //    if (!m_pgdkdisplay)
+         //    {
+         //
+         //       throw ::exception(error_null_pointer);
+         //
+         //    }
+         //
+         //    ::int_rectangle rectangleMainScreen;
+         //
+         //    //      auto pscreen = DefaultScreenOfDisplay(m_pdisplay);
+         //    //
+         //    //      int wScreen = WidthOfScreen(pscreen);
+         //    //      int hScreen = HeightOfScreen(pscreen);
+         //
+         //    //printf("::x11::display::init_task pscreen=%" PRIxPTR "\n", pscreen);
+         //    //printf("::x11::display::init_task (wScreen,hScreen)=%d,%d\n", wScreen, hScreen);
+         //
+         //    //rectangleMainScreen.left() = 0;
+         //    //rectangleMainScreen.top() = 0;
+         //    //rectangleMainScreen.right() = wScreen;
+         //    //rectangleMainScreen.bottom() = hScreen;
+         //
+         //    //operating_system_set_main_screen_rectangle(rectangleMainScreen);
+         //
+         // }
+         //
+         //
+         // bool display::is_branch_current() const
+         // {
+         //
+         //    if (!m_bUnhook && ::object::is_branch_current())
+         //    {
+         //
+         //       return true;
+         //
+         //    }
+         //
+         //    if (m_bUnhook && ::is_main_thread())
+         //    {
+         //
+         //       return true;
+         //
+         //    }
+         //
+         //    return false;
+         //
+         // }
 
 
          // void display::run()
@@ -840,27 +840,27 @@ namespace gtk4
          //   }
 
 
-         ::int_size display::get_main_screen_size()
-         {
-
-            //      auto snum = DefaultScreen(m_pdisplay);
-            //
-            //      auto width = DisplayWidth(m_pdisplay, snum);
-            //
-            //      auto height = DisplayHeight(m_pdisplay, snum);
-            //
-            //      return { width, height };
-
-            if (m_sizeaMonitor.is_empty())
-            {
-
-               return {};
-
-            }
-
-            return m_sizeaMonitor[0];
-
-         }
+         // ::int_size display::get_main_screen_size()
+         // {
+         //
+         //    //      auto snum = DefaultScreen(m_pdisplay);
+         //    //
+         //    //      auto width = DisplayWidth(m_pdisplay, snum);
+         //    //
+         //    //      auto height = DisplayHeight(m_pdisplay, snum);
+         //    //
+         //    //      return { width, height };
+         //
+         //    if (m_sizeaMonitor.is_empty())
+         //    {
+         //
+         //       return {};
+         //
+         //    }
+         //
+         //    return m_sizeaMonitor[0];
+         //
+         // }
 
 
          // void* get_display(::particle* pparticle)
@@ -1699,287 +1699,287 @@ namespace gtk4
          // }
 
 
-         void display::open()
-         {
-
-            if(m_bOpened)
-            {
-
-               return;
-
-            }
-
-            m_bOpened = true;
-
-            user_send([this]()
-            {
-
-               //set_main_user_thread();
-
-               if(!m_pgdkdisplay)
-               {
-
-                  m_pgdkdisplay = __get_gdk_display();
-
-               }
-
-               information() << "gtk4::acme::windowing::display::open";
-
-               information() << "gtk4::acme::windowing::display::open pgdkdisplay : " << (::iptr) m_pgdkdisplay;
-
-      //          auto pwlregistry = wl_display_get_registry(m_pwldisplay);
-      //
-      //          wl_registry_add_listener(pwlregistry, &::wayland::micro::g_wl_registry_listener, this);
-      //
-      //          wl_display_dispatch(m_pwldisplay);
-      //
-      //          wl_display_roundtrip(m_pwldisplay);
-      //
-      //          m_pwlsurfaceCursor = wl_compositor_create_surface(m_pwlcompositor);
-      //
-      // //      fork([this]()
-      // //           {
-      // //
-      // //
-      // ////              redraw(NULL, NULL, 0);
-      // //
-      // //              while (wl_display_dispatch(m_pwldisplay) != -1)
-      // //              {
-      // //
-      // //
-      // //              }
-      // //
-      // //              wl_display_disconnect(m_pwldisplay);
-      // //              //printf("disconnected from display\n");
-      // //
-      // //
-      // //           });
-      //
-      //                                //bool bBranch = !session()->user()->m_pdesktopenvironment->m_bUnhook;
-      //
-      // //      m_px11display->m_bUnhook = bUnhook;
-      //
-      // //auto px11displayGdk = _get_system_default_display();
-      //
-      // //m_px11display = ::x11::display::get(this, false, px11displayGdk);
-      //
-      // // Using another ___new and different X11 Display connection apart from Gtk.
-      // //m_px11display = ::x11::display::get(this, false);
-      //
-      // //if (::is_null(m_px11display))
-      // //{
-      //
-      // // throw ::exception(error_failed);
-      //
-      // //}
-      //
-      // //_m_pX11Display = m_px11display->m_pdisplay;
-      //
-      // //m_px11display->m_bUnhook = true;
-      //
-      // //      if (XMatchVisualInfo(m_px11display->m_pdisplay, DefaultScreen(m_px11display->m_pdisplay), 32, TrueColor,
-      // //                           &m_visualinfo))
-      // //      {
-      // //
-      // //         m_pvisual = m_visualinfo.visual;
-      // //
-      // //      }
-      // //      else
-      // //      {
-      // //
-      // //         zero(m_visualinfo);
-      // //
-      // //      }
-      //
-      // //      ::Display * pdisplay = m_px11display->m_pdisplay;
-      // //
-      // //      m_iScreen = XDefaultScreen(pdisplay);
-      // //
-      // //      m_windowRoot = XRootWindow(pdisplay, m_iScreen);
-      // //
-      // //      m_iDepth = m_visualinfo.depth;
-      // //
-      // //      XSetWindowAttributes attr;
-      // //
-      // //      zero(attr);
-      // //
-      // //      m_colormap = XCreateColormap(m_px11display->m_pdisplay, m_windowRoot, m_pvisual, AllocNone);
-      // //
-      // //      m_bHasXSync = false;
-      // //
-      // //#ifdef HAVE_XSYNC
-      // //
-      // //      {
-      // //
-      // //         int error_base, event_base;
-      // //
-      // //         if (XSyncQueryExtension(m_px11display->m_pdisplay, &event_base, &error_base) &&
-      // //             XSyncInitialize(m_px11display->m_pdisplay, &m_iXSyncMajor, &m_iXSyncMinor))
-      // //         {
-      // //
-      // //            m_bHasXSync = true;
-      // //
-      // //         }
-      // //
-      // //      }
-      // //
-      // //#endif
-      // //
-      // //      if (m_bHasXSync)
-      // //      {
-      // //
-      // //         information() << "Display supports XSync";
-      // //
-      // //      }
-      // //      else
-      // //      {
-      // //
-      // //         information() << "Display doesn't support XSync";
-      // //
-      // //      }
-      //
-      // //      //m_atomCardinal = intern_atom("CARDINAL", True);
-      // //      m_atomWmProtocols = intern_atom("WM_PROTOCOLS", True);
-      // //      m_atomWmState = intern_atom("WM_STATE", false);
-      // //      m_atomNetWmState = intern_atom("_NET_WM_STATE", false);
-      // //      m_atomNetWmSyncRequest = intern_atom("_NET_WM_SYNC_REQUEST", True);
-      // //      m_atomNetWmSyncRequestCounter = intern_atom("_NET_WM_SYNC_REQUEST_COUNTER", True);
-      // //      m_atomNetWmStateFocused = intern_atom("_NET_WM_STATE_FOCUSED", True);
-      // //      m_atomNetWmStateHidden = intern_atom("_NET_WM_STATE_HIDDEN", True);
-      // //      m_atomNetWmStateMaximizedHorz = intern_atom("_NET_WM_STATE_MAXIMIZED_HORZ", True);
-      // //      m_atomNetWmStateMaximizedVert = intern_atom("_NET_WM_STATE_MAXIMIZED_VERT", True);
-      // //
-      // //
-      // //      long *workArea;
-      // //      int format;
-      // //      unsigned long items, bytesAfter;
-      // //      uint8_t *prop;
-      // //      Atom type;
-      // //      Atom _NET_WORKAREA = XInternAtom(pdisplay, "_NET_WORKAREA", 0);
-      // //      m_rectangleaWorkAreas.clear();
-      // //      if(XGetWindowProperty(pdisplay, m_windowRoot,
-      // //                            _NET_WORKAREA, 0, ~0, False,
-      // //                            XA_CARDINAL, &type, &format, &items, &bytesAfter, (uint8_t **)&workArea) || !workArea)
-      // //      {
-      // //         warningf("error getting desktop work area, using root window size");
-      // //      }
-      // //      else
-      // //      {
-      // //         //logMsg("work area: %ld:%ld:%ld:%ld", workArea[0], workArea[1], workArea[2], workArea[3]);
-      // //         for(int iPos = 0; iPos + 3 < items; iPos+=4)
-      // //         {
-      // //            m_rectangleaWorkAreas.add(::int_rectangle_dimension(
-      // //               workArea[iPos], workArea[iPos+1],
-      // //               workArea[iPos+2], workArea[iPos+3]));
-      // //         }
-      // //         XFree(workArea);
-      // //      }
-      // //
-      // ////      for(auto & r : rectanglea)
-      // ////      {
-      // ////         auto pmonitor = get_best_monitor(r);
-      // ////
-      // ////         if(::is_set(pmonitor))
-      // ////         {
-      // ////
-      // ////            pmonitor->set_workspace_rectangle(r);
-      // ////
-      // ////         }
-      // ////
-      // ////      }
-
-               m_sizeaMonitor.clear();
-
-    //m_pgdkdisplay = gdk_display_get_default();
-
-    auto * monitors = gdk_display_get_monitors(m_pgdkdisplay);
-
-
-    guint n_monitors = g_list_model_get_n_items(monitors);
-
-    // Iterate over each monitor
-    for (guint i = 0; i < n_monitors; i++) {
-       GdkMonitor *monitor = GDK_MONITOR(g_list_model_get_item(monitors, i));
-
-       //auto pmonitor = __create_new < ::windowing::monitor >();
-
-       //pmonitor->m_pdisplay = this;
-
-
-       // Get the geometry (rectangle) of the monitor
-       GdkRectangle geometry;
-       gdk_monitor_get_geometry(monitor, &geometry);
-
-       // Print monitor geometry details
-       ::int_rectangle r;
-       printf("Monitor %u: x = %d, y = %d, width = %d, height = %d\n",
-              i, geometry.x, geometry.y, geometry.width, geometry.height);
-       ::copy(r, geometry);
-       //::copy(pmonitor->m_rectangleWorkspace, geometry);
-
-       m_sizeaMonitor.add(r.size());
-
-
-       // Unref the monitor object as we no longer need it
-       g_object_unref(monitor);
-
-       //m_monitora.add(pmonitor);
-    }
-
-
-                      });
-
-
-         }
-
-
-         void display::close()
-         {
-
-
-            // if (m_pxkbcontext)
-            // {
-            //
-            //    ::xkb_context_unref(m_pxkbcontext);
-            //
-            //    m_pxkbcontext = nullptr;
-            //
-            // }
-
-            if (m_pgdkdisplay)
-            {
-
-               //::wl_display_disconnect(m_pgdkdisplay);
-
-               m_pgdkdisplay = nullptr;
-
-            }
-
-
-         }
-
-
-         void display::destroy()
-         {
-
-            close();
-
-            ::acme::windowing::display::destroy();
-
-         }
-
-
-         void display::display_post(const ::procedure & procedure)
-         {
-
-            __check_refdbg
-
-            system()->acme_windowing()->_main_post(procedure);
-
-            __check_refdbg
-
-         }
-
+    //      void display::open()
+    //      {
+    //
+    //         if(m_bOpened)
+    //         {
+    //
+    //            return;
+    //
+    //         }
+    //
+    //         m_bOpened = true;
+    //
+    //         user_send([this]()
+    //         {
+    //
+    //            //set_main_user_thread();
+    //
+    //            if(!m_pgdkdisplay)
+    //            {
+    //
+    //               m_pgdkdisplay = __get_gdk_display();
+    //
+    //            }
+    //
+    //            information() << "gtk4::acme::windowing::display::open";
+    //
+    //            information() << "gtk4::acme::windowing::display::open pgdkdisplay : " << (::iptr) m_pgdkdisplay;
+    //
+    //   //          auto pwlregistry = wl_display_get_registry(m_pwldisplay);
+    //   //
+    //   //          wl_registry_add_listener(pwlregistry, &::wayland::micro::g_wl_registry_listener, this);
+    //   //
+    //   //          wl_display_dispatch(m_pwldisplay);
+    //   //
+    //   //          wl_display_roundtrip(m_pwldisplay);
+    //   //
+    //   //          m_pwlsurfaceCursor = wl_compositor_create_surface(m_pwlcompositor);
+    //   //
+    //   // //      fork([this]()
+    //   // //           {
+    //   // //
+    //   // //
+    //   // ////              redraw(NULL, NULL, 0);
+    //   // //
+    //   // //              while (wl_display_dispatch(m_pwldisplay) != -1)
+    //   // //              {
+    //   // //
+    //   // //
+    //   // //              }
+    //   // //
+    //   // //              wl_display_disconnect(m_pwldisplay);
+    //   // //              //printf("disconnected from display\n");
+    //   // //
+    //   // //
+    //   // //           });
+    //   //
+    //   //                                //bool bBranch = !session()->user()->m_pdesktopenvironment->m_bUnhook;
+    //   //
+    //   // //      m_px11display->m_bUnhook = bUnhook;
+    //   //
+    //   // //auto px11displayGdk = _get_system_default_display();
+    //   //
+    //   // //m_px11display = ::x11::display::get(this, false, px11displayGdk);
+    //   //
+    //   // // Using another ___new and different X11 Display connection apart from Gtk.
+    //   // //m_px11display = ::x11::display::get(this, false);
+    //   //
+    //   // //if (::is_null(m_px11display))
+    //   // //{
+    //   //
+    //   // // throw ::exception(error_failed);
+    //   //
+    //   // //}
+    //   //
+    //   // //_m_pX11Display = m_px11display->m_pdisplay;
+    //   //
+    //   // //m_px11display->m_bUnhook = true;
+    //   //
+    //   // //      if (XMatchVisualInfo(m_px11display->m_pdisplay, DefaultScreen(m_px11display->m_pdisplay), 32, TrueColor,
+    //   // //                           &m_visualinfo))
+    //   // //      {
+    //   // //
+    //   // //         m_pvisual = m_visualinfo.visual;
+    //   // //
+    //   // //      }
+    //   // //      else
+    //   // //      {
+    //   // //
+    //   // //         zero(m_visualinfo);
+    //   // //
+    //   // //      }
+    //   //
+    //   // //      ::Display * pdisplay = m_px11display->m_pdisplay;
+    //   // //
+    //   // //      m_iScreen = XDefaultScreen(pdisplay);
+    //   // //
+    //   // //      m_windowRoot = XRootWindow(pdisplay, m_iScreen);
+    //   // //
+    //   // //      m_iDepth = m_visualinfo.depth;
+    //   // //
+    //   // //      XSetWindowAttributes attr;
+    //   // //
+    //   // //      zero(attr);
+    //   // //
+    //   // //      m_colormap = XCreateColormap(m_px11display->m_pdisplay, m_windowRoot, m_pvisual, AllocNone);
+    //   // //
+    //   // //      m_bHasXSync = false;
+    //   // //
+    //   // //#ifdef HAVE_XSYNC
+    //   // //
+    //   // //      {
+    //   // //
+    //   // //         int error_base, event_base;
+    //   // //
+    //   // //         if (XSyncQueryExtension(m_px11display->m_pdisplay, &event_base, &error_base) &&
+    //   // //             XSyncInitialize(m_px11display->m_pdisplay, &m_iXSyncMajor, &m_iXSyncMinor))
+    //   // //         {
+    //   // //
+    //   // //            m_bHasXSync = true;
+    //   // //
+    //   // //         }
+    //   // //
+    //   // //      }
+    //   // //
+    //   // //#endif
+    //   // //
+    //   // //      if (m_bHasXSync)
+    //   // //      {
+    //   // //
+    //   // //         information() << "Display supports XSync";
+    //   // //
+    //   // //      }
+    //   // //      else
+    //   // //      {
+    //   // //
+    //   // //         information() << "Display doesn't support XSync";
+    //   // //
+    //   // //      }
+    //   //
+    //   // //      //m_atomCardinal = intern_atom("CARDINAL", True);
+    //   // //      m_atomWmProtocols = intern_atom("WM_PROTOCOLS", True);
+    //   // //      m_atomWmState = intern_atom("WM_STATE", false);
+    //   // //      m_atomNetWmState = intern_atom("_NET_WM_STATE", false);
+    //   // //      m_atomNetWmSyncRequest = intern_atom("_NET_WM_SYNC_REQUEST", True);
+    //   // //      m_atomNetWmSyncRequestCounter = intern_atom("_NET_WM_SYNC_REQUEST_COUNTER", True);
+    //   // //      m_atomNetWmStateFocused = intern_atom("_NET_WM_STATE_FOCUSED", True);
+    //   // //      m_atomNetWmStateHidden = intern_atom("_NET_WM_STATE_HIDDEN", True);
+    //   // //      m_atomNetWmStateMaximizedHorz = intern_atom("_NET_WM_STATE_MAXIMIZED_HORZ", True);
+    //   // //      m_atomNetWmStateMaximizedVert = intern_atom("_NET_WM_STATE_MAXIMIZED_VERT", True);
+    //   // //
+    //   // //
+    //   // //      long *workArea;
+    //   // //      int format;
+    //   // //      unsigned long items, bytesAfter;
+    //   // //      uint8_t *prop;
+    //   // //      Atom type;
+    //   // //      Atom _NET_WORKAREA = XInternAtom(pdisplay, "_NET_WORKAREA", 0);
+    //   // //      m_rectangleaWorkAreas.clear();
+    //   // //      if(XGetWindowProperty(pdisplay, m_windowRoot,
+    //   // //                            _NET_WORKAREA, 0, ~0, False,
+    //   // //                            XA_CARDINAL, &type, &format, &items, &bytesAfter, (uint8_t **)&workArea) || !workArea)
+    //   // //      {
+    //   // //         warningf("error getting desktop work area, using root window size");
+    //   // //      }
+    //   // //      else
+    //   // //      {
+    //   // //         //logMsg("work area: %ld:%ld:%ld:%ld", workArea[0], workArea[1], workArea[2], workArea[3]);
+    //   // //         for(int iPos = 0; iPos + 3 < items; iPos+=4)
+    //   // //         {
+    //   // //            m_rectangleaWorkAreas.add(::int_rectangle_dimension(
+    //   // //               workArea[iPos], workArea[iPos+1],
+    //   // //               workArea[iPos+2], workArea[iPos+3]));
+    //   // //         }
+    //   // //         XFree(workArea);
+    //   // //      }
+    //   // //
+    //   // ////      for(auto & r : rectanglea)
+    //   // ////      {
+    //   // ////         auto pmonitor = get_best_monitor(r);
+    //   // ////
+    //   // ////         if(::is_set(pmonitor))
+    //   // ////         {
+    //   // ////
+    //   // ////            pmonitor->set_workspace_rectangle(r);
+    //   // ////
+    //   // ////         }
+    //   // ////
+    //   // ////      }
+    //
+    //            m_sizeaMonitor.clear();
+    //
+    // //m_pgdkdisplay = gdk_display_get_default();
+    //
+    // auto * monitors = gdk_display_get_monitors(m_pgdkdisplay);
+    //
+    //
+    // guint n_monitors = g_list_model_get_n_items(monitors);
+    //
+    // // Iterate over each monitor
+    // for (guint i = 0; i < n_monitors; i++) {
+    //    GdkMonitor *monitor = GDK_MONITOR(g_list_model_get_item(monitors, i));
+    //
+    //    //auto pmonitor = __create_new < ::windowing::monitor >();
+    //
+    //    //pmonitor->m_pdisplay = this;
+    //
+    //
+    //    // Get the geometry (rectangle) of the monitor
+    //    GdkRectangle geometry;
+    //    gdk_monitor_get_geometry(monitor, &geometry);
+    //
+    //    // Print monitor geometry details
+    //    ::int_rectangle r;
+    //    printf("Monitor %u: x = %d, y = %d, width = %d, height = %d\n",
+    //           i, geometry.x, geometry.y, geometry.width, geometry.height);
+    //    ::copy(r, geometry);
+    //    //::copy(pmonitor->m_rectangleWorkspace, geometry);
+    //
+    //    m_sizeaMonitor.add(r.size());
+    //
+    //
+    //    // Unref the monitor object as we no longer need it
+    //    g_object_unref(monitor);
+    //
+    //    //m_monitora.add(pmonitor);
+    // }
+    //
+    //
+    //                   });
+    //
+    //
+    //      }
+    //
+    //
+    //      void display::close()
+    //      {
+    //
+    //
+    //         // if (m_pxkbcontext)
+    //         // {
+    //         //
+    //         //    ::xkb_context_unref(m_pxkbcontext);
+    //         //
+    //         //    m_pxkbcontext = nullptr;
+    //         //
+    //         // }
+    //
+    //         if (m_pgdkdisplay)
+    //         {
+    //
+    //            //::wl_display_disconnect(m_pgdkdisplay);
+    //
+    //            m_pgdkdisplay = nullptr;
+    //
+    //         }
+    //
+    //
+    //      }
+    //
+    //
+    //      void display::destroy()
+    //      {
+    //
+    //         close();
+    //
+    //         ::acme::windowing::display::destroy();
+    //
+    //      }
+    //
+    //
+    //      void display::display_post(const ::procedure & procedure)
+    //      {
+    //
+    //         __check_refdbg
+    //
+    //         system()->acme_windowing()->_main_post(procedure);
+    //
+    //         __check_refdbg
+    //
+    //      }
+    //
 
          // ::gtk4::acme::windowing::window * display::_window(::GtkWidget * pgtkwidget)
          // {
@@ -2006,21 +2006,21 @@ namespace gtk4
          //
          // }
 
-
-         ::GdkDisplay * display::_gdk_display()
-         {
-
-            return ::is_null(this) ? nullptr : m_pgdkdisplay;
-
-         }
-
-
-         ::GdkDisplay * display::_gdk_display() const
-         {
-
-            return ::is_null(this) ? nullptr : m_pgdkdisplay;
-
-         }
+         //
+         // ::GdkDisplay * display::_gdk_display()
+         // {
+         //
+         //    return ::is_null(this) ? nullptr : m_pgdkdisplay;
+         //
+         // }
+         //
+         //
+         // ::GdkDisplay * display::_gdk_display() const
+         // {
+         //
+         //    return ::is_null(this) ? nullptr : m_pgdkdisplay;
+         //
+         // }
 
 
          // void display::destroy_wayland_buffer(buffer & waylandbuffer)
@@ -2186,26 +2186,26 @@ namespace gtk4
          // }
 
 
-         ::GtkWidget * display::_gtk_widget_focus()
-         {
-
-            // if (m_pwlsurfaceKeyboardEnter)
-            // {
-            //
-            //    return m_pwlsurfaceKeyboardEnter;
-            //
-            // }
-            // else if (m_pwlsurfaceLastLButtonDown)
-            // {
-            //
-            //    return m_pwlsurfaceLastLButtonDown;
-            //
-            // }
-            //
-            return nullptr;
-
-         }
-
+         // ::GtkWidget * display::_gtk_widget_focus()
+         // {
+         //
+         //    // if (m_pwlsurfaceKeyboardEnter)
+         //    // {
+         //    //
+         //    //    return m_pwlsurfaceKeyboardEnter;
+         //    //
+         //    // }
+         //    // else if (m_pwlsurfaceLastLButtonDown)
+         //    // {
+         //    //
+         //    //    return m_pwlsurfaceLastLButtonDown;
+         //    //
+         //    // }
+         //    //
+         //    return nullptr;
+         //
+         // }
+         //
 
          // //void display::__handle_pointer_enter(::wl_pointer * pwlpointer, double x, double y,
          // //                                        ::wayland::micro::window_base * pwindowPointerEnter)
@@ -2663,48 +2663,48 @@ namespace gtk4
          // }
 
 
-         void display::init_task()
-         {
-
-            ::acme::windowing::display::init_task();
-
-            ::task_set_name("wayland:display:run");
-
-            if(!m_pgdkdisplay)
-            {
-
-               auto pgdkdisplay = __get_gdk_display();
-
-               m_pgdkdisplay = pgdkdisplay;
-
-            }
-
-            open();
-
-         }
-
-
-         void display::run()
-         {
-
-            message_loop();
-
-            close();
-
-         }
-
-
-         void display::message_loop()
-         {
-
-            while (::task_get_run())
-            {
-
-               message_loop_step();
-
-            }
-
-         }
+         // void display::init_task()
+         // {
+         //
+         //    ::acme::windowing::display::init_task();
+         //
+         //    ::task_set_name("wayland:display:run");
+         //
+         //    if(!m_pgdkdisplay)
+         //    {
+         //
+         //       auto pgdkdisplay = __get_gdk_display();
+         //
+         //       m_pgdkdisplay = pgdkdisplay;
+         //
+         //    }
+         //
+         //    open();
+         //
+         // }
+         //
+         //
+         // void display::run()
+         // {
+         //
+         //    message_loop();
+         //
+         //    close();
+         //
+         // }
+         //
+         //
+         // void display::message_loop()
+         // {
+         //
+         //    while (::task_get_run())
+         //    {
+         //
+         //       message_loop_step();
+         //
+         //    }
+         //
+         // }
 
          //
          // bool display::message_loop_step()
@@ -2788,19 +2788,21 @@ namespace gtk4
             if(bDark)
             {
 
-               return ::gdk::gsettings_set("org.gnome.desktop.background", "picture-uri-dark",
+               ::gdk::gsettings_set("org.gnome.desktop.background", "picture-uri-dark",
                                                 "file://" + strLocalImagePath).ok();
 
             }
             else
             {
 
-               return ::gdk::gsettings_set("org.gnome.desktop.background", "picture-uri",
+               ::gdk::gsettings_set("org.gnome.desktop.background", "picture-uri",
                                                 "file://" + strLocalImagePath).ok();
 
             }
 
+
          }
+         break;
          case ::windowing::e_operating_ambient_mate:
 
             return ::gdk::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath).ok();
@@ -2946,12 +2948,12 @@ namespace gtk4
          {
 
 
-            if (GDK_IS_X11_DISPLAY(m_pgdkdisplay))
-            {
-
-               return true;
-
-            }
+            //  if (GDK_IS_X11_DISPLAY(m_pgdkdisplay))
+            // // {
+            // //
+            // //    return true;
+            // //
+            // // }
 
             return false;
 
@@ -2961,17 +2963,23 @@ namespace gtk4
          bool display::is_wayland()
          {
 
-            if (GDK_IS_WAYLAND_DISPLAY(m_pgdkdisplay))
-            {
-
-               return true;
-
-            }
+            // if (GDK_IS_WAYLAND_DISPLAY(m_pgdkdisplay))
+            // {
+            //
+            //    return true;
+            //
+            // }
 
             return false;
 
          }
 
+
+         void display::_on_wallpaper_change()
+         {
+
+
+         }
 
       } // namespace windowing
 
@@ -2979,4 +2987,4 @@ namespace gtk4
    } // namespace acme
 
 
-} // namespace gtk4
+} // namespace g

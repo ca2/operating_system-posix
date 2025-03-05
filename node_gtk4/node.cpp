@@ -1017,132 +1017,132 @@ namespace node_gtk4
 
 
 
-   bool node::set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::acme::windowing::display * pwindowingdisplay)
-   {
-
-      // wall-changer sourceforge.net contribution
-
-      // auto psystem = system();
-      //
-      // auto pnode = psystem->node();
-
-      //auto edesktop = pnode->get_eoperating_ambient();
-
-      auto edesktop = ::windowing::get_eoperating_ambient();
-
-      bool bDark = pwindowingdisplay->m_strDarkModeAnnotation.case_insensitive_contains("dark");
-
-      switch (edesktop)
-      {
-
-         case ::windowing::e_operating_ambient_gnome:
-         //case ::user::e_operating_ambient_ubuntu_gnome:
-         case ::windowing::e_operating_ambient_unity:
-         {
-
-            if(bDark)
-            {
-
-               return ::gdk::gsettings_set("org.gnome.desktop.background", "picture-uri-dark",
-                                                "file://" + strLocalImagePath).ok();
-
-            }
-            else
-            {
-
-               return ::gdk::gsettings_set("org.gnome.desktop.background", "picture-uri",
-                                                "file://" + strLocalImagePath).ok();
-
-            }
-
-         }
-         case ::windowing::e_operating_ambient_mate:
-
-            return ::gdk::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath).ok();
-
-         case ::windowing::e_operating_ambient_lxde:
-
-            call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
-
-            break;
-
-         case ::windowing::e_operating_ambient_xfce:
-         {
-            //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
-            //          if(entry.contains("image-path") || entry.contains("last-image")){
-            //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
-            //      }
-            //}
-
-         }
-
-            //break;
-
-         default:
-
-            warning() <<"Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
-            return false;
-
-      }
-
-      return true;
-
-   }
-
-
-   void node::enable_wallpaper_change_notification()
-   {
-
-      // auto psystem = system();
-      //
-      // auto pnode = psystem->node();
-
-      //auto edesktop = pnode->get_eoperating_ambient();
-
-      auto edesktop = ::windowing::get_eoperating_ambient();
-
-      switch (edesktop)
-      {
-
-         case ::windowing::e_operating_ambient_gnome:
-         //case ::user::e_operating_ambient_ubuntu_gnome:
-         case ::windowing::e_operating_ambient_unity:
-
-            ::gdk::node_enable_wallpaper_change_notification(this, "org.gnome.desktop.background", "picture-uri");
-
-            break;
-
-         case ::windowing::e_operating_ambient_mate:
-
-            ::gdk::node_enable_wallpaper_change_notification(this, "org.mate.background", "picture-filename");
-
-            break;
-
-         case ::windowing::e_operating_ambient_lxde:
-
-            //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
-
-            break;
-
-         case ::windowing::e_operating_ambient_xfce:
-         {
-            //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
-            //          if(entry.contains("image-path") || entry.contains("last-image")){
-            //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
-            //      }
-            //}
-
-         }
-
-            break;
-         default:
-
-            warning() <<"Failed to get wallpaper setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
-            //return "";
-
-      }
-
-   }
+   // bool node::set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::acme::windowing::display * pwindowingdisplay)
+   // {
+   //
+   //    // wall-changer sourceforge.net contribution
+   //
+   //    // auto psystem = system();
+   //    //
+   //    // auto pnode = psystem->node();
+   //
+   //    //auto edesktop = pnode->get_eoperating_ambient();
+   //
+   //    auto edesktop = ::windowing::get_eoperating_ambient();
+   //
+   //    bool bDark = pwindowingdisplay->m_strDarkModeAnnotation.case_insensitive_contains("dark");
+   //
+   //    switch (edesktop)
+   //    {
+   //
+   //       case ::windowing::e_operating_ambient_gnome:
+   //       //case ::user::e_operating_ambient_ubuntu_gnome:
+   //       case ::windowing::e_operating_ambient_unity:
+   //       {
+   //
+   //          if(bDark)
+   //          {
+   //
+   //             return ::gdk::gsettings_set("org.gnome.desktop.background", "picture-uri-dark",
+   //                                              "file://" + strLocalImagePath).ok();
+   //
+   //          }
+   //          else
+   //          {
+   //
+   //             return ::gdk::gsettings_set("org.gnome.desktop.background", "picture-uri",
+   //                                              "file://" + strLocalImagePath).ok();
+   //
+   //          }
+   //
+   //       }
+   //       case ::windowing::e_operating_ambient_mate:
+   //
+   //          return ::gdk::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath).ok();
+   //
+   //       case ::windowing::e_operating_ambient_lxde:
+   //
+   //          call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+   //
+   //          break;
+   //
+   //       case ::windowing::e_operating_ambient_xfce:
+   //       {
+   //          //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+   //          //          if(entry.contains("image-path") || entry.contains("last-image")){
+   //          //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+   //          //      }
+   //          //}
+   //
+   //       }
+   //
+   //          //break;
+   //
+   //       default:
+   //
+   //          warning() <<"Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
+   //          return false;
+   //
+   //    }
+   //
+   //    return true;
+   //
+   // }
+   //
+   //
+   // void node::enable_wallpaper_change_notification()
+   // {
+   //
+   //    // auto psystem = system();
+   //    //
+   //    // auto pnode = psystem->node();
+   //
+   //    //auto edesktop = pnode->get_eoperating_ambient();
+   //
+   //    auto edesktop = ::windowing::get_eoperating_ambient();
+   //
+   //    switch (edesktop)
+   //    {
+   //
+   //       case ::windowing::e_operating_ambient_gnome:
+   //       //case ::user::e_operating_ambient_ubuntu_gnome:
+   //       case ::windowing::e_operating_ambient_unity:
+   //
+   //          ::gdk::node_enable_wallpaper_change_notification(this, "org.gnome.desktop.background", "picture-uri");
+   //
+   //          break;
+   //
+   //       case ::windowing::e_operating_ambient_mate:
+   //
+   //          ::gdk::node_enable_wallpaper_change_notification(this, "org.mate.background", "picture-filename");
+   //
+   //          break;
+   //
+   //       case ::windowing::e_operating_ambient_lxde:
+   //
+   //          //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+   //
+   //          break;
+   //
+   //       case ::windowing::e_operating_ambient_xfce:
+   //       {
+   //          //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+   //          //          if(entry.contains("image-path") || entry.contains("last-image")){
+   //          //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+   //          //      }
+   //          //}
+   //
+   //       }
+   //
+   //          break;
+   //       default:
+   //
+   //          warning() <<"Failed to get wallpaper setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
+   //          //return "";
+   //
+   //    }
+   //
+   // }
 
 
    string node::get_file_icon_path(const ::string &strPath, int iSize)

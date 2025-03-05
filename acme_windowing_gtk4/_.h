@@ -6,7 +6,7 @@
 
 
 #include "acme_posix/_.h"
-#include "common_gtk/_.h"
+#include "acme_windowing_g/_.h"
 
 
 #if defined(_acme_windowing_gtk4_project)
@@ -111,7 +111,7 @@ namespace gtk4
          class window;
 
          class display;
-         class display_base;
+         //class display_base;
 
       } // namespace windowing
 

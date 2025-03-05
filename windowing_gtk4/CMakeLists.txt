@@ -85,7 +85,7 @@ endif ()
 list(APPEND library_references
    acme
    acme_posix
-   common_gtk
+   acme_windowing_g
    acme_windowing_gtk4
    #nano_user_x11
    #nano_user_gtk4

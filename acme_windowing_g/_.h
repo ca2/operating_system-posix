@@ -7,11 +7,30 @@
 #include <gdk/gdk.h>
 
 
-#if defined(_common_gtk_project)
-   #define CLASS_DECL_COMMON_GTK  CLASS_DECL_EXPORT
+#if defined(_acme_windowing_g_project)
+   #define CLASS_DECL_ACME_WINDOWING_G CLASS_DECL_EXPORT
 #else
-   #define CLASS_DECL_COMMON_GTK  CLASS_DECL_IMPORT
+   #define CLASS_DECL_ACME_WINDOWING_G CLASS_DECL_IMPORT
 #endif
 
 
+namespace g
+{
 
+   namespace acme
+   {
+
+
+      namespace windowing
+      {
+
+         class display;
+
+      }
+
+
+   }
+
+
+
+}

@@ -157,7 +157,7 @@ namespace gtk4
 
 
             void set_dark_mode(bool bDarkMode) override;
-
+            bool dark_mode() override;
 
          };
 

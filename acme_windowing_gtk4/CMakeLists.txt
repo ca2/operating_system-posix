@@ -19,8 +19,8 @@ list(APPEND library_source
         _factory.cpp
         display.cpp
         display.h
-        display_base.cpp
-        display_base.h
+        #display_base.cpp
+        #display_base.h
         framework.cpp
         framework.h
         #gdk_gdk.cpp
@@ -42,7 +42,7 @@ list(APPEND library_source
 
 list(APPEND library_references
    acme
-   common_gtk
+   acme_windowing_g
 )
 
 
@@ -87,7 +87,7 @@ elseif (${LINUX} OR ${__BSD__})
 endif ()
 
 
-add_dependencies(${PROJECT_NAME} acme common_gtk)
+add_dependencies(${PROJECT_NAME} acme acme_windowing_g)
 
 target_link_directories(${PROJECT_NAME} PRIVATE ${LIBRARY_OUTPUT_PATH})
 target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/storage-${OPERATING_SYSTEM_NAME}/library/x64/basis)

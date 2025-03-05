@@ -172,7 +172,7 @@ namespace windowing_gtk4
 
       //return __sync_add_and_fetch(&m_countReference, 1);
 
-      return ::gtk4::acme::windowing::display_base::increment_reference_count();
+      return ::gtk4::acme::windowing::display::increment_reference_count();
 
 #endif
 
@@ -194,7 +194,7 @@ namespace windowing_gtk4
 
       //return __sync_sub_and_fetch(&m_countReference, 1);
 
-      return ::gtk4::acme::windowing::display_base::decrement_reference_count();
+      return ::gtk4::acme::windowing::display::decrement_reference_count();
 
 #endif
 
@@ -326,7 +326,7 @@ namespace windowing_gtk4
    {
 
       ::windowing::display::destroy();
-      ::gtk4::acme::windowing::display_base::destroy();
+      ::gtk4::acme::windowing::display::destroy();
 
    }
 
@@ -1607,6 +1607,20 @@ namespace windowing_gtk4
    //    return false;
    //
    // }
+
+   void display::_on_wallpaper_change()
+   {
+
+      ::cast < ::manager > pmanager = system();
+
+      if(pmanager)
+      {
+
+         pmanager->send_signal(id_wallpaper_change);
+
+      }
+
+   }
 
 
 

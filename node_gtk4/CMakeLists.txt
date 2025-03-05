@@ -35,7 +35,7 @@ list(APPEND library_source
 list(APPEND library_references
    acme
    acme_posix
-   common_gtk
+   acme_windowing_g
    acme_windowing_gtk4
    apex
    apex_posix

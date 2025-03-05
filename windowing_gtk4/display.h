@@ -7,7 +7,7 @@
 #define WINDOWING_X11_DISPLAY_MEMBER
 
 
-#include "acme_windowing_gtk4/display_base.h"
+#include "acme_windowing_gtk4/display.h"
 #include "aura/windowing/display.h"
 #include "acme_windowing_gtk4/_gtk4.h"
 
@@ -18,7 +18,7 @@ namespace windowing_gtk4
 
    class CLASS_DECL_WINDOWING_GTK4 display :
       virtual public ::windowing::display,
-      virtual public ::gtk4::acme::windowing::display_base
+      virtual public ::gtk4::acme::windowing::display
    {
    public:
 
@@ -68,6 +68,7 @@ namespace windowing_gtk4
 
       virtual bool get_cursor_position(::int_point * ppointCursor);
 
+      void _on_wallpaper_change() override;
 
    };
 

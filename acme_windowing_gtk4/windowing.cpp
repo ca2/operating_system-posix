@@ -11,7 +11,7 @@
 #include "acme/platform/application.h"
 #include "acme/platform/node.h"
 #include "acme/handler/request.h"
-#include "common_gtk/gdk_3_and_4.h"
+#include "acme_windowing_g/gdk_3_and_4.h"
 #include "acme/platform/system.h"
 #include "acme/operating_system/summary.h"
 //#include <X11/Xatom.h>
@@ -671,13 +671,14 @@ information() << "gtk4::acme::windowing::windowing::run g_application_run";
 
                g_object_ref(m_pGtkSettingsDefault);
 
-
                if (!m_pactionColorScheme)
                {
+
                   GSettings* settings = g_settings_new("org.gnome.desktop.interface");
 
                   if (settings)
                   {
+
                      m_pactionColorScheme = g_settings_create_action(settings, "color-scheme");
 
                      g_object_unref(settings);
@@ -772,13 +773,12 @@ information() << "gtk4::acme::windowing::windowing::run g_application_run";
 
             on_system_dark_mode_change(color.get_luminance() <= 0.5, color);
 
+            // auto psystem = system();
 
-            //auto psystem = system();
+            // psystem->background_color(color);
 
-            //psystem->background_color(color);
+            // gtk_widget_realize(widget);
 
-
-            //gtk_widget_realize(widget);
             // GdkPaintable *paintable = gtk_widget_paintable_new (GTK_WIDGET(widget));
             // GtkSnapshot *snapshot = gtk_snapshot_new();
             // graphene_rect_t bounds{{0.f, 0.f}, {(float)width, (float)height}};
@@ -1457,7 +1457,7 @@ information() << "gtk4::acme::windowing::windowing::run g_application_run";
 
             ::windowing::enum_windowing ewindowing = ::windowing::e_windowing_none;
 
-            ::pointer < ::gtk4::acme::windowing::display_base > pdisplay = acme_display();
+            ::pointer < ::gtk4::acme::windowing::display > pdisplay = acme_display();
 
 #if !defined(FREEBSD) && !defined(OPENBSD)
 
@@ -1541,6 +1541,31 @@ information() << "gtk4::acme::windowing::windowing::run g_application_run";
                //::aura_posix::node::set_dark_mode(bDarkMode);
 
             });
+
+         }
+
+         bool windowing::dark_mode()
+         {
+
+            bool bDarkMode = false;
+
+            main_send([this, &bDarkMode]()
+            {
+
+                  ::string str;
+
+                  if (::gdk::gsettings_get(str,"org.gnome.desktop.interface", "color-scheme").succeeded())
+                  {
+
+                     bDarkMode = str.contains("dark");
+
+                  }
+
+
+
+            });
+
+            return bDarkMode;
 
          }
 

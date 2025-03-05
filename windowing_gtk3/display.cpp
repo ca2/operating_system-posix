@@ -1586,6 +1586,21 @@ namespace windowing_gtk3
 
    }
 
+   void display::_on_wallpaper_change()
+   {
+
+      ::cast < ::manager > pmanager = system();
+
+      if(pmanager)
+      {
+
+         pmanager->send_signal(id_wallpaper_change);
+
+      }
+
+   }
+
+
 
 } // namespace windowing_gtk3
 
