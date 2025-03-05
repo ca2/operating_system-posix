@@ -53,8 +53,8 @@ list(APPEND library_source
    #node.h
    #startupxxx-notification.cpp
    #startupxxx-notification.h
-   text_composition_client.cpp
-   text_composition_client.h
+   #text_composition_client.cpp
+   #text_composition_client.h
    #user.cpp
    window.cpp
    window.h
@@ -79,7 +79,7 @@ endif ()
 list(APPEND library_references
    acme
    acme_posix
-   common_q
+   acme_windowing_q
    acme_windowing_q6
    acme_windowing_kde6
    nano_graphics_cairo

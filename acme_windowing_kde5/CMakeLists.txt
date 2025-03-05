@@ -29,10 +29,10 @@ list(APPEND library_source
    kde5.h
         keyboard.cpp
         keyboard.h
-   micro_window.h
-   micro_window.cpp
-   QCustomTopWindow.cpp
-   QCustomTopWindow.h
+   #micro_window.h
+   #micro_window.cpp
+   #QCustomTopWindow.cpp
+   #QCustomTopWindow.h
         #xkb_input.cpp
         #xkb_input.h
    window.cpp

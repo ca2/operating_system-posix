@@ -41,7 +41,7 @@ list(APPEND library_source
 
 list(APPEND library_references
    acme
-   common_q
+   acme_windowing_q
 )
 
 

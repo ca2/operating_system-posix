@@ -27,10 +27,10 @@ list(APPEND library_source
         framework.h
         keyboard.cpp
         keyboard.h
-   micro_window.cpp
-   micro_window.h
-   QCustomTopWindow.cpp
-   QCustomTopWindow.h
+   #micro_window.cpp
+   #micro_window.h
+   #QCustomTopWindow.cpp
+   #QCustomTopWindow.h
         #xkb_input.cpp
         #xkb_input.h
    window.cpp
@@ -46,7 +46,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 list(APPEND library_references
    acme
-   common_q
+   acme_windowing_q
    acme_windowing_q6
 )
 

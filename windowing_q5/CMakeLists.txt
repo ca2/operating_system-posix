@@ -53,8 +53,8 @@ list(APPEND library_source
    #node.h
    #startupxxx-notification.cpp
    #startupxxx-notification.h
-   text_composition_client.cpp
-   text_composition_client.h
+   #text_composition_client.cpp
+   #text_composition_client.h
    #user.cpp
    window.cpp
    window.h

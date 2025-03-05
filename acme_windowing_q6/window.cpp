@@ -13,8 +13,8 @@
 #include "acme/platform/system.h"
 #include "acme/user/user/interaction.h"
 #include "acme/windowing/windowing.h"
-#include "common_q/QCustomTopWindow.h"
-#include "common_q/q_5_and_6.h"
+#include "acme_windowing_q/QCustomTopWindow.h"
+#include "acme_windowing_q/q_5_and_6.h"
 #include <QMouseEvent>
 #include <QMenu>
 #include <acme/user/micro/elemental.h>

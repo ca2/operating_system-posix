@@ -23,19 +23,19 @@ namespace kde5
 
 
          class CLASS_DECL_ACME_WINDOWING_KDE5 window :
-            virtual public ::acme::windowing::window,
-         virtual public ::kde5::micro::window
+            virtual public ::q5::acme::windowing::window//,
+        //virtual public ::kde5::micro::window
          {
          public:
 
 
-            QWidget *                                 m_pqwidget;
+      //      QWidget *                                 m_pqwidget;
            // QWindow *                                    m_pqwindow;
 
             //::pointer<class display>                  m_pdisplay;
             //xcb_window_t                    m_window;
             //cairo_surface_t *               m_psurface;
-            ::pointer<::nano::graphics::device>       m_pnanodevice;
+    //        ::pointer<::nano::graphics::device>       m_pnanodevice;
             //::pointer<::nano::graphics::font>         m_pfont;
             //color32_t                     m_colorText;
             //color32_t                     m_colorFocus;
@@ -43,7 +43,7 @@ namespace kde5
             //string                        m_strTitle;
             //bool                          m_bNcActive;
 
-            manual_reset_happening                        m_happeningEnd;
+  //          manual_reset_happening                        m_happeningEnd;
             //int_rectangle                 m_rectangle;
             //int_rectangle                 m_rectangleX;
 
@@ -53,7 +53,7 @@ namespace kde5
             //::atom                             m_atomResult;
             //::pointer<::micro::child>        m_pchildFocus;
 
-            ::array < QAction * >                     m_qactiona;
+//            ::array < QAction * >                     m_qactiona;
 
 
             window();
