@@ -687,6 +687,14 @@ namespace q
          }
 
 
+         void window::hide_window()
+         {
+
+            _unmap_window();
+
+         }
+
+
          void window::set_active_window()
          {
 
@@ -1128,6 +1136,8 @@ namespace q
             //m_pdisplay->erase_listener(this);
 
             //m_pdisplay->erase_window(this);
+
+            m_pqwidget->close();
 
             delete m_pqwidget;
 
@@ -2049,12 +2059,17 @@ namespace q
          void window::set_mouse_capture()
          {
 
-            main_post([this]()
-                      {
+            if (system()->acme_windowing()->get_ewindowing() != ::windowing::e_windowing_wayland)
+            {
 
-                         m_pqwidget->grabMouse();
+               main_post([this]()
+                         {
 
-                      });
+                            m_pqwidget->grabMouse();
+
+                         });
+
+            }
 
          }
 
@@ -2064,44 +2079,59 @@ namespace q
 
             bool bIsMouseCaptured = false;
 
-            main_post([this, &bIsMouseCaptured]()
-                      {
+            if (system()->acme_windowing()->get_ewindowing() != ::windowing::e_windowing_wayland)
+            {
 
-                         bIsMouseCaptured = m_pqwidget->mouseGrabber() != nullptr;
+               main_send([this, &bIsMouseCaptured]()
+                         {
 
-                      });
+                            bIsMouseCaptured = m_pqwidget->mouseGrabber() != nullptr;
+
+                         });
+
+            }
 
             return bIsMouseCaptured;
 
          }
+
 
          bool window::has_mouse_capture()
          {
 
             bool bHasMouseCapture = false;
 
-            main_post([this, &bHasMouseCapture]()
-                      {
+            if (system()->acme_windowing()->get_ewindowing() != ::windowing::e_windowing_wayland)
+            {
 
-                         bHasMouseCapture = m_pqwidget->mouseGrabber() == m_pqwidget;
+               main_send([this, &bHasMouseCapture]()
+                         {
 
-                      });
+                            bHasMouseCapture = m_pqwidget->mouseGrabber() == m_pqwidget;
+
+                         });
+
+            }
 
             return bHasMouseCapture;
 
          }
 
+
          void window::release_mouse_capture()
          {
 
+            if (system()->acme_windowing()->get_ewindowing() != ::windowing::e_windowing_wayland)
+            {
 
-            main_post([this]()
-                      {
+               main_post([this]()
+                         {
 
-                         m_pqwidget->releaseMouse();
+                            m_pqwidget->releaseMouse();
 
-                      });
+                         });
 
+            }
 
          }
 

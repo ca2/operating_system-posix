@@ -83,7 +83,7 @@ namespace q
 
             ::e_status _raise_window();
 
-
+void hide_window() override;
 
 
             void _on_mouse_press(QMouseEvent * pevent) override;
