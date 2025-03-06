@@ -1245,12 +1245,12 @@ namespace q
          void window::_on_qimage_draw(QImage * pqimage)
          {
 
-            ::cast<::micro::elemental> pelemental = m_pacmeuserinteraction;
+            auto pacmeuserinteraction = m_pacmeuserinteraction.get();
 
-            if (pelemental)
+            if (::is_set(pacmeuserinteraction))
             {
 
-               pelemental->on_draw(m_pnanodevice);
+               pacmeuserinteraction->_on_draw(m_pnanodevice);
 
             }
 
