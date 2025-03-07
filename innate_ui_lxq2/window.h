@@ -2,7 +2,7 @@
 #pragma once
 
 
-#include "innate_ui_q5/window.h"
+#include "innate_ui_q6/window.h"
 #include <QMainWindow>
 
 

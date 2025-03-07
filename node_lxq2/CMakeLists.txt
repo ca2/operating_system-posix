@@ -39,17 +39,23 @@ list(APPEND library_source
 list(APPEND library_references
    acme
    acme_posix
-   common_q
+   acme_windowing_q
+   acme_windowing_q6
    acme_windowing_lxq2
    nano_graphics_cairo
    apex
    apex_posix
+   innate_ui_q
+   innate_ui_q6
    innate_ui_lxq2
    aqua
    aura
    aura_posix
    windowing_posix
+   windowing_q
+   windowing_q6
    windowing_lxq2
+   node_q
    #windowing_xcb
    #windowing_x11
 )

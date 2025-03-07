@@ -79,7 +79,7 @@ endif ()
 list(APPEND library_references
    acme
    acme_posix
-   common_q
+   acme_windowing_q
    acme_windowing_q6
    acme_windowing_lxq2
    nano_graphics_cairo
