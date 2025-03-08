@@ -28,8 +28,8 @@
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
 #include "acme/operating_system/a_system_menu.h"
-#include "common_gtk/gtk_3_and_4.h"
-#include "common_gtk/activation_token.h"
+#include "acme_windowing_g/gtk_3_and_4.h"
+#include "acme_windowing_g/activation_token.h"
 //#include "acme/operating_system/x11/display_lock.h"
 
 
@@ -6998,11 +6998,11 @@ namespace windowing_gtk3
 
       information() << "gtk3::acme::windowing::window::_on_configure_default " << r;
 
-      _on_configure_immediate(r.left(), r.top(), r.width(), r.height());
+      _017_on_window_configure_immediate(r.left(), r.top(), r.width(), r.height());
 
       // _set_configure_unlocked_timer();
 
-      _on_configure_delayed(r.left(), r.top(), r.width(), r.height());
+      _017_on_window_configure_delayed(r.left(), r.top(), r.width(), r.height());
 
    }
 
@@ -7056,11 +7056,11 @@ namespace windowing_gtk3
       if (!__bStillTryingToSetGeometry)
       {
 
-         _on_configure_immediate(r.left(), r.top(), r.width(), r.height());
+         _017_on_window_configure_immediate(r.left(), r.top(), r.width(), r.height());
 
          // _set_configure_unlocked_timer();
 
-         _on_configure_delayed(r.left(), r.top(), r.width(), r.height());
+         _017_on_window_configure_delayed(r.left(), r.top(), r.width(), r.height());
 
       }
 

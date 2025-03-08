@@ -1,4 +1,1 @@
-default_aura_platform1
-default_aura_platform2
-default_aura_platform3
-operating_system-posix/common_gtk
+operating_system-posix/acme_windowing_g

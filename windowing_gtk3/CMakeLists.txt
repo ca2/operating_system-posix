@@ -45,7 +45,7 @@ list(APPEND library_references
    acme
    acme_posix
    nano_graphics_cairo
-   common_gtk
+   acme_windowing_g
    acme_windowing_gtk3
    apex
    apex_posix
