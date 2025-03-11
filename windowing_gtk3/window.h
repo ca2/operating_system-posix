@@ -456,12 +456,12 @@ namespace windowing_gtk3
          void window_restore() override;
          void window_minimize() override;
          void window_maximize() override;
-virtual void _set_configure_unlocked_timer();
-bool on_window_configure_unlocked() override;
+//virtual void _set_configure_unlocked_timer();
+//bool on_window_configure_unlocked() override;
          virtual void _on_configure();
          virtual void __on_configure_linux_mint_x_cinnamon();
          virtual void __on_configure_default();
-         virtual void _on_get_configuration();
+         //virtual void _on_get_configuration();
 
          void _on_map_window() override;
          void _on_unmap_window() override;

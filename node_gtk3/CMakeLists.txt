@@ -50,13 +50,13 @@ endif ()
 list(APPEND library_references
    acme
    acme_posix
-   common_gtk
+   acme_windowing_g
+   acme_windowing_gtk3
    apex
    apex_posix
    aqua
    aura
    aura_posix
-   common_gtk
    windowing_posix
    windowing_gtk3
 )

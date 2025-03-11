@@ -12,7 +12,7 @@
 //#include "acme/prototype/geometry2d/rectangle.h"
 //#include "acme/user/micro/window.h"
 #include "acme/windowing/windowing.h"
-#include "common_gtk/gdk_3_and_4.h"
+#include "acme_windowing_g/gdk_3_and_4.h"
 
 
 //#include "windowing_system_x11/_.h"
@@ -1088,6 +1088,8 @@ namespace gtk3
             {
                case ::windowing::e_operating_ambient_gnome:
                return false;
+               case ::windowing::e_operating_ambient_cinnamon:
+                  return true;
                case ::windowing::e_operating_ambient_mate:
                   return false; // don't know yet
                case ::windowing::e_operating_ambient_lxde:
@@ -1111,6 +1113,8 @@ namespace gtk3
             {
                case ::windowing::e_operating_ambient_kde:
                   return "KDE Plasma Global Theme";
+               case ::windowing::e_operating_ambient_cinnamon:
+                  return "Linux Mint Cinnamon Global Theme";
                default:
                   return ::acme::windowing::display::theming_ui_name();
             };
@@ -1163,6 +1167,12 @@ namespace gtk3
                   throw ::exception(error_failed);
 
                }
+
+            }
+            else if (edesktop == ::windowing::e_operating_ambient_cinnamon)
+            {
+
+               ::gdk::gsettings_set("org.cinnamon.desktop.interface", "gtk-theme", scopedstrDesktopTheme);
 
             }
             else if (edesktop == ::windowing::e_operating_ambient_mate)
@@ -1223,7 +1233,11 @@ namespace gtk3
             bOk = ::gdk::gsettings_get(strDesktopTheme, "org.gnome.desktop.interface", "gtk-theme").ok();
 
             break;
+         case ::windowing::e_operating_ambient_cinnamon:
 
+            bOk = ::gdk::gsettings_get(strDesktopTheme, "org.cinnamon.desktop.interface", "gtk-theme").ok();
+
+         break;
          case ::windowing::e_operating_ambient_mate:
 
             bOk = ::gdk::gsettings_get(strDesktopTheme, "org.mate.background", "picture-filename").ok();
@@ -1352,88 +1366,88 @@ namespace gtk3
          //   }
 
 
-         void display::impl_set_wallpaper(::collection::index iScreen, const ::scoped_string & scopedstrLocalImagePath)
-         {
-
-            // wall-changer sourceforge.net contribution
-
-            // auto psystem = system();
-            //
-            // auto pnode = psystem->node();
-
-            //auto edesktop = pnode->get_eoperating_ambient();
-
-            ::string strLocalImagePath;
-
-            strLocalImagePath = scopedstrLocalImagePath;
-
-            auto edesktop = ::windowing::get_eoperating_ambient();
-
-            bool bDark = m_strDarkModeAnnotation.case_insensitive_contains("dark");
-
-            switch (edesktop)
-            {
-
-               case ::windowing::e_operating_ambient_gnome:
-               //case ::user::e_operating_ambient_ubuntu_gnome:
-               case ::windowing::e_operating_ambient_unity:
-               {
-
-                  if (bDark)
-                  {
-
-                     ::gdk::gsettings_set("org.gnome.desktop.background", "picture-uri-dark",
-                                                 "file://" + strLocalImagePath);
-
-                  }
-                  else
-                  {
-
-                     ::gdk::gsettings_set("org.gnome.desktop.background", "picture-uri",
-                                                 "file://" + strLocalImagePath);
-
-                  }
-
-               }
-               break;
-               case ::windowing::e_operating_ambient_mate:
-
-                   ::gdk::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
-
-               break;
-
-               case ::windowing::e_operating_ambient_lxde:
-
-                  node()->call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
-
-                  break;
-
-               case ::windowing::e_operating_ambient_xfce:
-               {
-
-                  xfce4_set_wallpaper(strLocalImagePath);
-                  //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
-                  //          if(entry.contains("image-path") || entry.contains("last-image")){
-                  //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
-                  //      }
-                  //}
-
-               }
-
-               break;
-
-               default:
-
-                  warning() <<
-                     "Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
-                  //return false;
-               break;
-
-            }
-
-            //return true;
-
-         }
+         // void display::impl_set_wallpaper(::collection::index iScreen, const ::scoped_string & scopedstrLocalImagePath)
+         // {
+         //
+         //    // wall-changer sourceforge.net contribution
+         //
+         //    // auto psystem = system();
+         //    //
+         //    // auto pnode = psystem->node();
+         //
+         //    //auto edesktop = pnode->get_eoperating_ambient();
+         //
+         //    ::string strLocalImagePath;
+         //
+         //    strLocalImagePath = scopedstrLocalImagePath;
+         //
+         //    auto edesktop = ::windowing::get_eoperating_ambient();
+         //
+         //    bool bDark = m_strDarkModeAnnotation.case_insensitive_contains("dark");
+         //
+         //    switch (edesktop)
+         //    {
+         //
+         //       case ::windowing::e_operating_ambient_gnome:
+         //       //case ::user::e_operating_ambient_ubuntu_gnome:
+         //       case ::windowing::e_operating_ambient_unity:
+         //       {
+         //
+         //          if (bDark)
+         //          {
+         //
+         //             ::gdk::gsettings_set("org.gnome.desktop.background", "picture-uri-dark",
+         //                                         "file://" + strLocalImagePath);
+         //
+         //          }
+         //          else
+         //          {
+         //
+         //             ::gdk::gsettings_set("org.gnome.desktop.background", "picture-uri",
+         //                                         "file://" + strLocalImagePath);
+         //
+         //          }
+         //
+         //       }
+         //       break;
+         //       case ::windowing::e_operating_ambient_mate:
+         //
+         //           ::gdk::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
+         //
+         //       break;
+         //
+         //       case ::windowing::e_operating_ambient_lxde:
+         //
+         //          node()->call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+         //
+         //          break;
+         //
+         //       case ::windowing::e_operating_ambient_xfce:
+         //       {
+         //
+         //          xfce4_set_wallpaper(strLocalImagePath);
+         //          //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+         //          //          if(entry.contains("image-path") || entry.contains("last-image")){
+         //          //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+         //          //      }
+         //          //}
+         //
+         //       }
+         //
+         //       break;
+         //
+         //       default:
+         //
+         //          warning() <<
+         //             "Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
+         //          //return false;
+         //       break;
+         //
+         //    }
+         //
+         //    //return true;
+         //
+         // }
 
 
       } // namespace windowing

@@ -33,12 +33,12 @@
 #include <errno.h>
 #include <unistd.h>
 
-# ifdef GDK_WINDOWING_X11
-#  include <gdk/x11/gdkx.h>
-# endif
-# ifdef GDK_WINDOWING_WAYLAND
-#  include <gdk/wayland/gdkwayland.h>
-#endif
+// # ifdef GDK_WINDOWING_X11
+// #  include <gdk/x11/gdkx.h>
+// # endif
+// # ifdef GDK_WINDOWING_WAYLAND
+// #  include <gdk/wayland/gdkwayland.h>
+// #endif
 
 int os_create_anonymous_file(off_t size);
 
@@ -2756,9 +2756,91 @@ namespace g
          //
          // }
 
+   ::string display::_get_wallpaper(::collection::index iMonitorIndex)
+   {
+
+            ::string strLocalImagePath;
+
+      // wall-changer sourceforge.net contribution
+
+      // auto psystem = system();
+      //
+      // auto pnode = psystem->node();
+
+      //auto edesktop = pnode->get_eoperating_ambient();
+
+      auto edesktop = ::windowing::get_eoperating_ambient();
+
+      //bool bDark = m_strDarkModeAnnotation.case_insensitive_contains("dark");
+
+            bool bDark = system()->acme_windowing()->dark_mode();
+
+      switch (edesktop)
+      {
+
+         case ::windowing::e_operating_ambient_gnome:
+         //case ::user::e_operating_ambient_ubuntu_gnome:
+         case ::windowing::e_operating_ambient_unity:
+         {
+
+            if(bDark)
+            {
+
+               ::gdk::gsettings_get(strLocalImagePath, "org.gnome.desktop.background", "picture-uri-dark").ok();
+
+            }
+            else
+            {
+
+               ::gdk::gsettings_get(strLocalImagePath, "org.gnome.desktop.background", "picture-uri");
+
+            }
 
 
-         void display::_set_wallpaper(::collection::index iMonitorIndex, const ::scoped_string & scopedstrWallpaper)
+         }
+         break;
+         case ::windowing::e_operating_ambient_cinnamon:
+
+            ::gdk::gsettings_get(strLocalImagePath,"org.cinnamon.desktop.background", "picture-uri");
+         break;
+         case ::windowing::e_operating_ambient_mate:
+
+             ::gdk::gsettings_get(strLocalImagePath, "org.mate.background", "picture-filename");
+         break;
+
+         case ::windowing::e_operating_ambient_lxde:
+
+            //node()->command_system("pcmanfm -w " + strLocalImagePath, 1_min);
+
+            break;
+
+         case ::windowing::e_operating_ambient_xfce:
+         {
+            //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+            //          if(entry.contains("image-path") || entry.contains("last-image")){
+            //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+            //      }
+            //}
+
+         }
+
+            //break;
+
+         default:
+
+            warning() <<"Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
+  //          return false;
+
+      }
+            strLocalImagePath.begins_eat("file://");
+
+            return strLocalImagePath;
+//      return true;
+
+   }
+
+
+   void display::_set_wallpaper(::collection::index iMonitorIndex, const ::scoped_string & scopedstrWallpaper)
    {
 
             ::string strLocalImagePath = scopedstrWallpaper;
@@ -2803,9 +2885,14 @@ namespace g
 
          }
          break;
+         case ::windowing::e_operating_ambient_cinnamon:
+
+            ::gdk::gsettings_set("org.cinnamon.desktop.background", "picture-uri", "file://"+ strLocalImagePath);
+         break;
          case ::windowing::e_operating_ambient_mate:
 
-            return ::gdk::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath).ok();
+             ::gdk::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
+         break;
 
          case ::windowing::e_operating_ambient_lxde:
 
@@ -2828,11 +2915,11 @@ namespace g
          default:
 
             warning() <<"Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
-            return false;
+  //          return false;
 
       }
 
-      return true;
+//      return true;
 
    }
 

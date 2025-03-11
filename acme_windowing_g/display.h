@@ -186,6 +186,7 @@ namespace g
 //
 //            virtual bool message_loop_step();
 //
+            ::string _get_wallpaper(::collection::index iMonitorIndex) override;
             void _set_wallpaper(::collection::index iMonitorIndex, const ::scoped_string & scopedstrWallpaper) override;
             void enable_wallpaper_change_notification() override;
 //
