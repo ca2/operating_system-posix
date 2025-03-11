@@ -261,14 +261,14 @@ namespace acme_posix
       return path;
 
    }
-
-
-   ::file::path directory_context::dropbox_client()
-   {
-
-      return directory_system()->home() / "bin";
-
-   }
+   //
+   //
+   // ::file::path directory_context::dropbox_client()
+   // {
+   //
+   //    return directory_system()->home() / "bin";
+   //
+   // }
 
 
 } // namespace acme_posix

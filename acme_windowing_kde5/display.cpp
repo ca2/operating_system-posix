@@ -698,10 +698,11 @@ namespace kde5
             //return {1920, 1080};
 
             // Get the primary screen
-            QScreen *primaryScreen = QGuiApplication::primaryScreen();
-            if (!primaryScreen) {
+            QScreen* primaryScreen = QGuiApplication::primaryScreen();
+            if (!primaryScreen)
+            {
                //qWarning() << "No primary screen found!";
-               return {1920,1080};
+               return {1920, 1080};
             }
 
             // Get the screen geometry
@@ -710,7 +711,7 @@ namespace kde5
             int height = screenGeometry.height();
 
             //qDebug() << "Primary screen size: " << width << "x" << height;
-return {width, height};
+            return {width, height};
 
          }
 
@@ -1102,10 +1103,10 @@ return {width, height};
 
             auto edesktop = ::windowing::get_eoperating_ambient();
 
-            switch(edesktop)
+            switch (edesktop)
             {
                case ::windowing::e_operating_ambient_gnome:
-               return false;
+                  return false;
                case ::windowing::e_operating_ambient_mate:
                   return false; // don't know yet
                case ::windowing::e_operating_ambient_lxde:
@@ -1125,7 +1126,7 @@ return {width, height};
 
             auto edesktop = ::windowing::get_eoperating_ambient();
 
-            switch(edesktop)
+            switch (edesktop)
             {
                case ::windowing::e_operating_ambient_kde:
                   return "KDE Plasma Global Theme";
@@ -1134,7 +1135,6 @@ return {width, height};
             };
 
          }
-
 
 
          void display::impl_set_desktop_theme(const ::scoped_string& scopedstrDesktopTheme)
@@ -1217,68 +1217,68 @@ return {width, height};
          }
 
 
-   string display::impl_get_desktop_theme()
-   {
+         string display::impl_get_desktop_theme()
+         {
 
 
-      // // https://ubuntuforums.org/showthread.php?t=2140488
-      // // gsettings set org.gnome.desktop.interface gtk-theme your_theme
-      //
-      // // indirect wall-changer sourceforge.net contribution
-      //
-      // string strDesktopTheme;
-      //
-      // bool bOk = false;
-      //
-      //
-      //       auto edesktop = ::windowing::get_eoperating_ambient();
-      //
-      // switch (edesktop)
-      // {
-      //
-      //    case ::windowing::e_operating_ambient_gnome:
-      //    //case ::windowing::e_operating_ambient_ubuntu_gnome:
-      //    //case ::windowing::e_operating_ambient_unity_gnome:
-      //
-      //       bOk = ::gdk::gsettings_get(strDesktopTheme, "org.gnome.desktop.interface", "gtk-theme").ok();
-      //
-      //       break;
-      //
-      //    case ::windowing::e_operating_ambient_mate:
-      //
-      //       bOk = ::gdk::gsettings_get(strDesktopTheme, "org.mate.background", "picture-filename").ok();
-      //
-      //       break;
-      //
-      //    case ::windowing::e_operating_ambient_lxde:
-      //
-      //       //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
-      //
-      //       break;
-      //
-      //    case ::windowing::e_operating_ambient_xfce:
-      //    {
-      //       //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
-      //       //          if(entry.contains("image-path") || entry.contains("last-image")){
-      //       //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
-      //       //      }
-      //       //}
-      //       strDesktopTheme = xfce4_get_user_theme();
-      //
-      //    }
-      //
-      //       break;
-      //
-      //    default:
-      //
-      //       warningf(
-      //               "Failed to get user theme setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
-      //       //return "";
-      //    break;
-      //
-      // }
-      //
-      // return strDesktopTheme;
+            // // https://ubuntuforums.org/showthread.php?t=2140488
+            // // gsettings set org.gnome.desktop.interface gtk-theme your_theme
+            //
+            // // indirect wall-changer sourceforge.net contribution
+            //
+            // string strDesktopTheme;
+            //
+            // bool bOk = false;
+            //
+            //
+            //       auto edesktop = ::windowing::get_eoperating_ambient();
+            //
+            // switch (edesktop)
+            // {
+            //
+            //    case ::windowing::e_operating_ambient_gnome:
+            //    //case ::windowing::e_operating_ambient_ubuntu_gnome:
+            //    //case ::windowing::e_operating_ambient_unity_gnome:
+            //
+            //       bOk = ::gdk::gsettings_get(strDesktopTheme, "org.gnome.desktop.interface", "gtk-theme").ok();
+            //
+            //       break;
+            //
+            //    case ::windowing::e_operating_ambient_mate:
+            //
+            //       bOk = ::gdk::gsettings_get(strDesktopTheme, "org.mate.background", "picture-filename").ok();
+            //
+            //       break;
+            //
+            //    case ::windowing::e_operating_ambient_lxde:
+            //
+            //       //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+            //
+            //       break;
+            //
+            //    case ::windowing::e_operating_ambient_xfce:
+            //    {
+            //       //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+            //       //          if(entry.contains("image-path") || entry.contains("last-image")){
+            //       //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+            //       //      }
+            //       //}
+            //       strDesktopTheme = xfce4_get_user_theme();
+            //
+            //    }
+            //
+            //       break;
+            //
+            //    default:
+            //
+            //       warningf(
+            //               "Failed to get user theme setting. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.");
+            //       //return "";
+            //    break;
+            //
+            // }
+            //
+            // return strDesktopTheme;
 
 
             ::string strDesktopTheme;
@@ -1287,87 +1287,87 @@ return {width, height};
 
             return strDesktopTheme;
 
-   }
+         }
 
 
          void display::set_desktop_icon_theme(const ::scoped_string& scopedstrUserIconTheme)
          {
 
-//             // https://ubuntuforums.org/showthread.php?t=2140488
-//             // gsettings set org.gnome.desktop.interface gtk-theme your_theme
-//
-//             // indirect wall-changer sourceforge.net contribution
-//
-//             // auto psystem = system();
-//             //
-//             // auto pnode = psystem->node();
-//
-//             ::string strDesktopIconTheme;
-//
-//             strDesktopIconTheme = scopedstrUserIconTheme;
-//
-//             auto edesktop = ::windowing::get_eoperating_ambient();
-//
-//             if (edesktop & ::windowing::e_operating_ambient_gnome)
-//             {
-//
-//                bool bOk1 = ::gdk::gsettings_set("org.gnome.desktop.interface", "icon-theme", strDesktopIconTheme).ok();
-//
-//                //bool bOk2 = true;
-//
-//                //         //if(::file::system_short_name().case_insensitive_contains("manjaro"))
-//                //         {
-//                //
-//                //            bOk2 = gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme);
-//                //
-//                //         }
-//
-//                sleep(300_ms);
-//
-//                ::gdk::gsettings_sync();
-//
-//                sleep(300_ms);
-//
-//                //if (!bOk1 || !bOk2)
-//                if (!bOk1)
-//                {
-//
-//                   information() << "failed to set os user icon theme";
-//
-//
-//                }
-//
-//             }
-//             else if (edesktop == ::windowing::e_operating_ambient_mate)
-//             {
-//
-//                //return ::user::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
-//
-//             }
-//             else if (edesktop == ::windowing::e_operating_ambient_lxde)
-//             {
-//
-//
-//                //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
-//
-//             }
-//             else if (edesktop == ::windowing::e_operating_ambient_xfce)
-//             {
-//                //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
-//                //          if(entry.contains("image-path") || entry.contains("last-image")){
-//                //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
-//                //      }
-//                //}
-//
-//                warning() <<
-//                   "Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
-//
-//                //return error_failed;
-//
-//             }
-//
-//   //          return ::success;
-// //
+            //             // https://ubuntuforums.org/showthread.php?t=2140488
+            //             // gsettings set org.gnome.desktop.interface gtk-theme your_theme
+            //
+            //             // indirect wall-changer sourceforge.net contribution
+            //
+            //             // auto psystem = system();
+            //             //
+            //             // auto pnode = psystem->node();
+            //
+            //             ::string strDesktopIconTheme;
+            //
+            //             strDesktopIconTheme = scopedstrUserIconTheme;
+            //
+            //             auto edesktop = ::windowing::get_eoperating_ambient();
+            //
+            //             if (edesktop & ::windowing::e_operating_ambient_gnome)
+            //             {
+            //
+            //                bool bOk1 = ::gdk::gsettings_set("org.gnome.desktop.interface", "icon-theme", strDesktopIconTheme).ok();
+            //
+            //                //bool bOk2 = true;
+            //
+            //                //         //if(::file::system_short_name().case_insensitive_contains("manjaro"))
+            //                //         {
+            //                //
+            //                //            bOk2 = gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme);
+            //                //
+            //                //         }
+            //
+            //                sleep(300_ms);
+            //
+            //                ::gdk::gsettings_sync();
+            //
+            //                sleep(300_ms);
+            //
+            //                //if (!bOk1 || !bOk2)
+            //                if (!bOk1)
+            //                {
+            //
+            //                   information() << "failed to set os user icon theme";
+            //
+            //
+            //                }
+            //
+            //             }
+            //             else if (edesktop == ::windowing::e_operating_ambient_mate)
+            //             {
+            //
+            //                //return ::user::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
+            //
+            //             }
+            //             else if (edesktop == ::windowing::e_operating_ambient_lxde)
+            //             {
+            //
+            //
+            //                //call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+            //
+            //             }
+            //             else if (edesktop == ::windowing::e_operating_ambient_xfce)
+            //             {
+            //                //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+            //                //          if(entry.contains("image-path") || entry.contains("last-image")){
+            //                //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+            //                //      }
+            //                //}
+            //
+            //                warning() <<
+            //                   "Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
+            //
+            //                //return error_failed;
+            //
+            //             }
+            //
+            //   //          return ::success;
+            // //
          }
 
 
@@ -1379,105 +1379,106 @@ return {width, height};
          //   }
 
 
-         // void display::impl_set_wallpaper(::collection::index iScreen, const ::scoped_string & scopedstrLocalImagePath)
-         // {
-         //
-         // ::string strCommand;
-         //
-         // strCommand = "plasma-apply-wallpaperimage";
-         //
-         // strCommand += " \"" + scopedstrLocalImagePath + "\"";
-         //
-         // auto iError = node()->command_system(strCommand, 15_s);
-         //
-         // // if(iError)
-         // // {
-         // //
-         // //    return false;
-         // //
-         // // }
-         // //
-         // // return true;
-         //
-         // // // wall-changer sourceforge.net contribution
-         // //
-         // //    // auto psystem = system();
-         // //    //
-         // //    // auto pnode = psystem->node();
-         // //
-         // //    //auto edesktop = pnode->get_eoperating_ambient();
-         // //
-         // //    ::string strLocalImagePath;
-         // //
-         // //    strLocalImagePath = scopedstrLocalImagePath;
-         // //
-         // //    auto edesktop = ::windowing::get_eoperating_ambient();
-         // //
-         // //    bool bDark = m_strDarkModeAnnotation.case_insensitive_contains("dark");
-         // //
-         // //    switch (edesktop)
-         // //    {
-         // //
-         // //       case ::windowing::e_operating_ambient_gnome:
-         // //       //case ::user::e_operating_ambient_ubuntu_gnome:
-         // //       case ::windowing::e_operating_ambient_unity:
-         // //       {
-         // //
-         // //          if (bDark)
-         // //          {
-         // //
-         // //             ::gdk::gsettings_set("org.gnome.desktop.background", "picture-uri-dark",
-         // //                                         "file://" + strLocalImagePath);
-         // //
-         // //          }
-         // //          else
-         // //          {
-         // //
-         // //             ::gdk::gsettings_set("org.gnome.desktop.background", "picture-uri",
-         // //                                         "file://" + strLocalImagePath);
-         // //
-         // //          }
-         // //
-         // //       }
-         // //       break;
-         // //       case ::windowing::e_operating_ambient_mate:
-         // //
-         // //           ::gdk::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
-         // //
-         // //       break;
-         // //
-         // //       case ::windowing::e_operating_ambient_lxde:
-         // //
-         // //          node()->call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
-         // //
-         // //          break;
-         // //
-         // //       case ::windowing::e_operating_ambient_xfce:
-         // //       {
-         // //
-         // //          xfce4_set_wallpaper(strLocalImagePath);
-         // //          //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
-         // //          //          if(entry.contains("image-path") || entry.contains("last-image")){
-         // //          //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
-         // //          //      }
-         // //          //}
-         // //
-         // //       }
-         // //
-         // //       break;
-         // //
-         // //       default:
-         // //
-         // //          warning() <<
-         // //             "Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
-         // //          //return false;
-         // //       break;
-         // //
-         // //    }
-         // //
-         // //    //return true;
-         //
-         // }
+         void display::_set_wallpaper(::collection::index iScreen, const ::scoped_string& scopedstrLocalImagePath)
+         {
+
+            ::string strCommand;
+
+            strCommand = "plasma-apply-wallpaperimage";
+
+            strCommand += " \"" + scopedstrLocalImagePath + "\"";
+
+            auto iError = node()->command_system(strCommand, 15_s);
+
+            // if(iError)
+            // {
+            //
+            //    return false;
+            //
+            // }
+            //
+            // return true;
+
+            // // wall-changer sourceforge.net contribution
+            //
+            //    // auto psystem = system();
+            //    //
+            //    // auto pnode = psystem->node();
+            //
+            //    //auto edesktop = pnode->get_eoperating_ambient();
+            //
+            //    ::string strLocalImagePath;
+            //
+            //    strLocalImagePath = scopedstrLocalImagePath;
+            //
+            //    auto edesktop = ::windowing::get_eoperating_ambient();
+            //
+            //    bool bDark = m_strDarkModeAnnotation.case_insensitive_contains("dark");
+            //
+            //    switch (edesktop)
+            //    {
+            //
+            //       case ::windowing::e_operating_ambient_gnome:
+            //       //case ::user::e_operating_ambient_ubuntu_gnome:
+            //       case ::windowing::e_operating_ambient_unity:
+            //       {
+            //
+            //          if (bDark)
+            //          {
+            //
+            //             ::gdk::gsettings_set("org.gnome.desktop.background", "picture-uri-dark",
+            //                                         "file://" + strLocalImagePath);
+            //
+            //          }
+            //          else
+            //          {
+            //
+            //             ::gdk::gsettings_set("org.gnome.desktop.background", "picture-uri",
+            //                                         "file://" + strLocalImagePath);
+            //
+            //          }
+            //
+            //       }
+            //       break;
+            //       case ::windowing::e_operating_ambient_mate:
+            //
+            //           ::gdk::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
+            //
+            //       break;
+            //
+            //       case ::windowing::e_operating_ambient_lxde:
+            //
+            //          node()->call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+            //
+            //          break;
+            //
+            //       case ::windowing::e_operating_ambient_xfce:
+            //       {
+            //
+            //          xfce4_set_wallpaper(strLocalImagePath);
+            //          //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+            //          //          if(entry.contains("image-path") || entry.contains("last-image")){
+            //          //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+            //          //      }
+            //          //}
+            //
+            //       }
+            //
+            //       break;
+            //
+            //       default:
+            //
+            //          warning() <<
+            //             "Failed to change wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
+            //          //return false;
+            //       break;
+            //
+            //    }
+            //
+            //    //return true;
+
+         }
+
 
          //#include <KPackage/Package>
          //#include <KPackage/PackageLoader>
@@ -1515,7 +1516,6 @@ return {width, height};
          //
 
 
-
       } // namespace windowing
 
 
@@ -1523,6 +1523,3 @@ return {width, height};
 
 
 } // namespace kde5
-
-
-

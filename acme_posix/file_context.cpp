@@ -117,12 +117,12 @@ namespace acme_posix
    }
 
 
-   file::path file_context::dropbox_client()
-   {
-
-      return directory()->dropbox_client()/ "dropbox";
-
-   }
+   // file::path file_context::dropbox_client()
+   // {
+   //
+   //    return directory()->dropbox_client()/ "dropbox";
+   //
+   // }
 
 
 } // namespace acme_posix

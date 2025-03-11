@@ -194,6 +194,9 @@ void init_task() override;
 
 
       bool is_branch_current() const override;
+
+      void _set_wallpaper(::collection::index iScreen, const ::scoped_string & scopedstrWallpaper) override;
+
 //
    };
 

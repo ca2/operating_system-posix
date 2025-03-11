@@ -1640,6 +1640,15 @@ return ::kde5::acme::windowing::display::get_main_screen_size();
 
    }
 
+
+   void display::_set_wallpaper(::collection::index iScreen, const ::scoped_string & scopedstrWallpaper)
+   {
+
+      return ::kde5::acme::windowing::display::_set_wallpaper(iScreen, scopedstrWallpaper);
+
+   }
+
+
 } // namespace windowing_kde5
 
 
