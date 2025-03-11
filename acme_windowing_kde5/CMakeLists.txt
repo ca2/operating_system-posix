@@ -48,7 +48,8 @@ target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 list(APPEND library_references
    acme
-   common_kde
+   acme_windowing_q
+   acme_windowing_q5
 )
 
 if(${HAS_KDE6})

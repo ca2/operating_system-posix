@@ -5,10 +5,10 @@
 #pragma once
 
 
-#include "acme/windowing/display.h"
+#include "acme_windowing_q5/display.h"
 //#include "event_listener.h"
 //#include "windowing_system_x11/_atom.h"
-#include <QWidget>
+//#include <QWidget>
 
 
 namespace kde5
@@ -106,7 +106,7 @@ window_map                                               m_windowmap;
             ::string theming_ui_name() override;
 
 
-            void impl_set_wallpaper(::collection::index iScreen, const ::scoped_string & scopedstrWallpaper) override;
+            //void impl_set_wallpaper(::collection::index iScreen, const ::scoped_string & scopedstrWallpaper) override;
 
 
             void impl_set_desktop_theme(const ::scoped_string & scopedstrDesktopTheme) override;

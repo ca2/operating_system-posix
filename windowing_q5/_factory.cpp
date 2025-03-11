@@ -1,10 +1,10 @@
 #include "framework.h"
-#include "text_composition_client.h"
+//#include "text_composition_client.h"
 #include "buffer.h"
 #include "display.h"
 #include "window.h"
 #include "windowing.h"
-#include "text_composition_client.h"
+#include "windowing_q/text_composition_client.h"
 #include "icon.h"
 #include "cursor.h"
 #include "keyboard.h"
@@ -25,7 +25,7 @@ __FACTORY_EXPORT void windowing_q5_factory(::factory::factory * pfactory)
    pfactory->add_factory_item < ::windowing_q5::display, ::acme::windowing::display > ();
    pfactory->add_factory_item < ::windowing_q5::window, ::acme::windowing::window > ();
    pfactory->add_factory_item < ::windowing_q5::windowing, ::acme::windowing::windowing > ();
-   pfactory->add_factory_item < ::windowing_q5::text_composition_client, ::user::text_composition_client > ();
+   pfactory->add_factory_item < ::windowing_q::text_composition_client, ::user::text_composition_client > ();
 
    pfactory->add_factory_item < ::windowing_q5::icon, ::windowing::icon > ();
    pfactory->add_factory_item < ::windowing_q5::cursor, ::windowing::cursor > ();

@@ -9,7 +9,7 @@
 //#include "acme/operating_system/x11/_atom.h"
 #include "acme/prototype/geometry2d/rectangle_array.h"
 #include "acme_windowing_kde5/window.h"
-#include "acme_windowing_kde5/micro_window.h"
+#include "acme_windowing_q/micro_window.h"
 //#include <X11/extensions/sync.h>
 #include <QWidget>
 //#include <gdk/gdk.h>

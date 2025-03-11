@@ -26,7 +26,7 @@
 //#include <X11/extensions/sync.h>
 //#include <wayland-client.h>
 //#include <gdk/gdkwindow.h>
-#include "acme_windowing_kde5/QCustomTopWindow.h"
+#include "acme_windowing_q/QCustomTopWindow.h"
 //#include <linux/input.h> // for BTN_LEFT,...
 //#include <xkbcommon/xkbcommon.h>
 //#include <gio/gio.h>
@@ -46,7 +46,7 @@
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
 //#include "windowing_system_wayland/xfree86_key.h"
-#include "common_kde/kde_5_and_6.h"
+#include "acme_windowing_q/q_5_and_6.h"
 
 //#include <gtk/gtk.h>
 //
@@ -1727,7 +1727,7 @@ namespace windowing_kde5
              //pkey->m_pointAbsolute = m_pointCursor2;
 
 
-             pkey->m_ekey = ::kde::user_key_from_qt_key(pevent->key());
+             pkey->m_ekey = ::q::user_key_from_qt_key(pevent->key());
 
              ::string strText(pevent->text().toUtf8().data());
 
@@ -1838,7 +1838,7 @@ namespace windowing_kde5
              //pkey->m_pointAbsolute = m_pointCursor2;
 
 
-             pkey->m_ekey = ::kde::user_key_from_qt_key(pevent->key());
+             pkey->m_ekey = ::q::user_key_from_qt_key(pevent->key());
 
              //pkey->m_strText = pevent->text().toUtf8();
 

@@ -14,8 +14,8 @@
 #include "acme/platform/system.h"
 #include "acme/user/user/interaction.h"
 #include "acme/windowing/windowing.h"
-#include "common_kde/kde_5_and_6.h"
-#include "QCustomTopWindow.h"
+#include "acme_windowing_q/q_5_and_6.h"
+#include "acme_windowing_q/QCustomTopWindow.h"
 #include <QMouseEvent>
 #include <QMenu>
 #include <QWindow>
@@ -717,7 +717,7 @@ namespace kde5
 
                if (pqwindow)
                {
-                  auto edges = ::kde::as_qt_edges(eframeSizing);
+                  auto edges = ::q::as_qt_edges(eframeSizing);
                   pqwindow->startSystemResize(edges);
 
                   return true;
@@ -1833,7 +1833,7 @@ m_pqwidget->move(p);
              //pkey->m_pointAbsolute = m_pointCursor2;
 
 
-             pkey->m_ekey = ::kde::user_key_from_qt_key(pevent->key());
+             pkey->m_ekey = ::q::user_key_from_qt_key(pevent->key());
 
              pkey->m_strText = pevent->text().toUtf8().data();
 
@@ -1934,7 +1934,7 @@ m_pqwidget->move(p);
              //pkey->m_pointAbsolute = m_pointCursor2;
 
 
-             pkey->m_ekey = ::kde::user_key_from_qt_key(pevent->key());
+             pkey->m_ekey = ::q::user_key_from_qt_key(pevent->key());
 
              //pkey->m_strText = pevent->text().toUtf8();
 

@@ -61,6 +61,7 @@ list(APPEND library_references
 #        windowing_xcb
 #        windowing_wayland
         windowing_kde5
+   node_q
 )
 
 #if (${HAS_WAYLAND})
