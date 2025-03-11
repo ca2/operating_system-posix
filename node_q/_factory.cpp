@@ -74,7 +74,7 @@ __FACTORY_EXPORT void node_q_factory(::factory::factory * pfactory)
 
    ////pfactory->add_factory_item < ::node_kde::monitor, ::windowing::monitor > ();
    pfactory->add_factory_item < ::node_q::copydesk, ::user::copydesk > ();
-   ////pfactory->add_factory_item < ::node_lxq2::notify_icon, ::user::notify_icon > ();
+   pfactory->add_factory_item < ::node_q::notify_icon, ::user::notify_icon > ();
    //pfactory->add_factory_item < ::node_lxq2::appindicator, ::aura_posix::appindicator >();
 
    ////pfactory->add_factory_item < ::node_lxq2::desktop_environment, ::windowing::desktop_environment >();

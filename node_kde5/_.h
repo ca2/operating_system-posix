@@ -6,7 +6,7 @@
 //#include "windowing_system_xcb/_.h"
 //#include "windowing_system_wayland/_.h"
 #include "windowing_kde5/_.h"
-#include "node_q/_.h""
+#include "node_q/_.h"
 //#include <QMetaType>
 
 
