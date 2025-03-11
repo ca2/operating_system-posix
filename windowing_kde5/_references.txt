@@ -1,4 +1,4 @@
-operating_system-posix/windowing_posix
+operating_system-posix/windowing_q5
 operating_system-posix/acme_windowing_kde5
 operating_system-posix/nano_graphics_cairo
 operating_system-posix/innate_ui_kde5
