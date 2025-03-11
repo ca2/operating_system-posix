@@ -2169,79 +2169,79 @@ m_pqwidget->move(p);
 
          }
 
-
-         void window::set_mouse_capture()
-         {
-
-            main_post([this]()
-            {
-
-               m_pqwidget->grabMouse();
-
-               system()->m_pacmewindowing->m_pwindowMouseCapture = this;
-
-
-            });
-
-         }
-
-
-         bool window::is_mouse_captured()
-         {
-
-            //bool bIsMouseCaptured = false;
-
-            //main_send([this, &bIsMouseCaptured]()
-            //{
-
-            //   bIsMouseCaptured = m_pqwidget->mouseGrabber() != nullptr;
-
-            //});
-
-            auto bIsMouseCaptured = system()->m_pacmewindowing->m_pwindowMouseCapture.is_set();
-
-            return bIsMouseCaptured;
-
-         }
-
-
-         bool window::has_mouse_capture()
-         {
-
-            // bool bHasMouseCapture = false;
-
-            // main_send([this, &bHasMouseCapture]()
-            // {
-
-            //    bHasMouseCapture = m_pqwidget->mouseGrabber() == m_pqwidget;
-
-            // });
-
-            auto bHasMouseCapture = system()->m_pacmewindowing->m_pwindowMouseCapture == this;
-
-            return bHasMouseCapture;
-
-         }
-
-
-         void window::release_mouse_capture()
-         {
-
-            if(system()->m_pacmewindowing->m_pwindowMouseCapture == this)
-            {
-
-               main_post([this]()
-               {
-
-                  m_pqwidget->releaseMouse();
-
-                  system()->m_pacmewindowing->m_pwindowMouseCapture.release();
-
-               });
-
-            }
-
-         }
+         //
+         // void window::set_mouse_capture()
+         // {
+         //
+         //    main_post([this]()
+         //    {
+         //
+         //       m_pqwidget->grabMouse();
+         //
+         //       system()->m_pacmewindowing->m_pwindowMouseCapture = this;
+         //
+         //
+         //    });
+         //
+         // }
+         //
+         //
+         // bool window::is_mouse_captured()
+         // {
+         //
+         //    //bool bIsMouseCaptured = false;
+         //
+         //    //main_send([this, &bIsMouseCaptured]()
+         //    //{
+         //
+         //    //   bIsMouseCaptured = m_pqwidget->mouseGrabber() != nullptr;
+         //
+         //    //});
+         //
+         //    auto bIsMouseCaptured = system()->m_pacmewindowing->m_pwindowMouseCapture.is_set();
+         //
+         //    return bIsMouseCaptured;
+         //
+         // }
+         //
+         //
+         // bool window::has_mouse_capture()
+         // {
+         //
+         //    // bool bHasMouseCapture = false;
+         //
+         //    // main_send([this, &bHasMouseCapture]()
+         //    // {
+         //
+         //    //    bHasMouseCapture = m_pqwidget->mouseGrabber() == m_pqwidget;
+         //
+         //    // });
+         //
+         //    auto bHasMouseCapture = system()->m_pacmewindowing->m_pwindowMouseCapture == this;
+         //
+         //    return bHasMouseCapture;
+         //
+         // }
+         //
+         //
+         // void window::release_mouse_capture()
+         // {
+         //
+         //    if(system()->m_pacmewindowing->m_pwindowMouseCapture == this)
+         //    {
+         //
+         //       main_post([this]()
+         //       {
+         //
+         //          m_pqwidget->releaseMouse();
+         //
+         //          system()->m_pacmewindowing->m_pwindowMouseCapture.release();
+         //
+         //       });
+         //
+         //    }
+         //
+         // }
 
 
       } //namespace windowing

@@ -13,6 +13,8 @@
 #include "acme/platform/system.h"
 #include <QImage>
 #include <QByteArray>
+
+#include "acme/windowing/window.h"
 //#include <X11/Xatom.h>
 //#include <xkbcommon/xkbcommon.h>
 //#include <X11/XKBlib.h>
@@ -125,6 +127,13 @@ namespace q
             {
 
                return false;
+
+            }
+
+            if (m_pwindowMouseCapture)
+            {
+
+               m_pwindowMouseCapture->release_mouse_capture();
 
             }
 

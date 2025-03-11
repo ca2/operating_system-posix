@@ -2067,6 +2067,8 @@ namespace q
 
                             m_pqwidget->grabMouse();
 
+                  system()->acme_windowing()->m_pwindowMouseCapture = this;
+
                          });
 
             }
@@ -2081,6 +2083,13 @@ namespace q
 
             if (system()->acme_windowing()->get_ewindowing() != ::windowing::e_windowing_wayland)
             {
+
+               if (system()->acme_windowing()->m_pwindowMouseCapture != nullptr)
+               {
+
+                  return true;
+
+               }
 
                main_send([this, &bIsMouseCaptured]()
                          {
@@ -2104,6 +2113,13 @@ namespace q
             if (system()->acme_windowing()->get_ewindowing() != ::windowing::e_windowing_wayland)
             {
 
+               if (system()->acme_windowing()->m_pwindowMouseCapture == this)
+               {
+
+                  return true;
+
+               }
+
                main_send([this, &bHasMouseCapture]()
                          {
 
@@ -2124,12 +2140,21 @@ namespace q
             if (system()->acme_windowing()->get_ewindowing() != ::windowing::e_windowing_wayland)
             {
 
-               main_post([this]()
-                         {
+               if (system()->acme_windowing()->m_pwindowMouseCapture == this)
+               {
 
-                            m_pqwidget->releaseMouse();
+                  main_post([this]()
+                            {
 
-                         });
+                               m_pqwidget->releaseMouse();
+
+                     system()->acme_windowing()->m_pwindowMouseCapture = nullptr;
+
+                     information("q::acme::windowing::window::release_mouse_capture()");
+
+                            });
+
+               }
 
             }
 

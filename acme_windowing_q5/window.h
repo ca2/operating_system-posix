@@ -172,10 +172,10 @@ namespace q5
             //::int_size get_main_screen_size() override;
             void defer_show_system_menu(::user::mouse *pmouse) override;
 
-            void set_mouse_capture() override;
-            bool is_mouse_captured() override;
-            bool has_mouse_capture() override;
-            void release_mouse_capture() override;
+            //void set_mouse_capture() override;
+            //bool is_mouse_captured() override;
+            //bool has_mouse_capture() override;
+            //void release_mouse_capture() override;
 
 
             using ::acme::windowing::window::set_keyboard_focus;
