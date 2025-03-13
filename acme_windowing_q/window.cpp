@@ -1378,7 +1378,7 @@ namespace q
 
                pmouse->m_iTimestamp = pevent->timestamp();
 
-#if defined(HAS_Q6)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 
                m_pointCursor2.x() = pevent->globalPosition().x();
                m_pointCursor2.y() = pevent->globalPosition().y();
@@ -1495,7 +1495,7 @@ namespace q
                   //
                   // pmouse->m_pwindow = this;
 
-#if defined(HAS_Q6)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 
                   m_pointCursor2.x() = pevent->globalPosition().x();
                   m_pointCursor2.y() = pevent->globalPosition().y();
@@ -1699,7 +1699,7 @@ namespace q
             if (m_bRepositioningWindowFromCenter)
             {
 
-#if defined(HAS_Q6)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 
                auto p = pevent->globalPosition();
 
@@ -1723,7 +1723,7 @@ namespace q
 
                QSize s;
 
-#if defined(HAS_Q6)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 
                auto p = pevent->globalPosition();
 
@@ -1824,7 +1824,7 @@ namespace q
                //
                // }
 
-#if defined(HAS_Q6)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 
                m_pointCursor2.x() = pevent->globalPosition().x();
                m_pointCursor2.y() = pevent->globalPosition().y();
