@@ -31,7 +31,7 @@ namespace command_line
 
             ::string strCommand;
 
-            strCommand = "curl --silent -I " + url.as_string();
+            strCommand = "curl --http1.1 --silent -I " + url.as_string();
 
             auto strOutput = node()->get_command_output(strCommand);
 
@@ -65,6 +65,8 @@ namespace command_line
                && newline[4] == '/')
                {
 
+                  //printf_line("Found HTTP/ Line : %s", newline.c_str());
+
                   auto pszSpace = strchr(newline.c_str() + 4, ' ');
 
                   if(!pszSpace)
@@ -74,7 +76,9 @@ namespace command_line
 
                   }
 
-                  auto nonSpace = strspn(pszSpace, " \t");
+                  ///printf_line("Found space after HTTP/");
+
+                  auto nonSpace = strspn(pszSpace + 1, " \t");
 
                   auto pszNonSpace = pszSpace + nonSpace;
 
@@ -82,8 +86,10 @@ namespace command_line
 
                   strStatus.trim();
 
-                  if(strStatus == "200")
+                  if(strStatus == "200" || strStatus.begins("200 "))
                   {
+
+                     printf_line("Status is 200 Ok.");
 
                      return true;
 
@@ -105,7 +111,7 @@ namespace command_line
 
             ::string strCommand;
 
-            strCommand = "curl -Ls -o /dev/null -w %{url_effective} " + url.as_string();
+            strCommand = "curl --http1.1 -Ls -o /dev/null -w %{url_effective} " + url.as_string();
 
             auto strEffectiveUrl = node()->get_command_output(strCommand);
 
@@ -122,7 +128,7 @@ namespace command_line
 
             ::string strUrl(url.as_string());
 
-            strCommand.formatf("curl %s", strUrl.c_str());
+            strCommand.formatf("curl --http1.0 %s", strUrl.c_str());
 
             ::string strOutput = node()->get_command_output(strCommand);
 
@@ -140,7 +146,7 @@ namespace command_line
 
             ::string strUrl(url.as_string());
 
-            strCommand.formatf("curl %s --output \"%s\"", strUrl.c_str(), path.c_str());
+            strCommand.formatf("curl --http1.0 %s --output \"%s\"", strUrl.c_str(), path.c_str());
 
             int iExitCode = node()->command_system(strCommand, 2_hour);
 

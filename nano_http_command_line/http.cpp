@@ -20,8 +20,8 @@ namespace command_line
 
 m_eapp = e_app_not_initialized;
          }
-        
-                          
+
+
          http::~http()
          {
 
