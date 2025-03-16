@@ -2822,6 +2822,34 @@ namespace g
             //      }
             //}
 
+            ::string strOutput = node()->get_posix_shell_command_output("xfconf-query -c xfce4-desktop -p /backdrop -l");
+
+            ::string_array stra;
+
+            stra.add_lines(strOutput);
+
+            for (auto & str : stra)
+            {
+
+               if (str.contains("image-path") || str.contains("last-image"))
+               {
+
+                  ::string strOutputPath = node()->get_posix_shell_command_output("xfconf-query -c xfce4-desktop -p " + str);
+
+                  if (strOutputPath.has_character())
+                  {
+
+                     strLocalImagePath = strOutputPath;
+
+                     break;
+
+                  }
+                  //node()->command_system(" + " -s " + strLocalImagePath, 2_min);
+
+               }
+
+            }
+
          }
 
             //break;
@@ -2902,6 +2930,25 @@ namespace g
 
          case ::windowing::e_operating_ambient_xfce:
          {
+
+            ::string strOutput = node()->get_posix_shell_command_output("xfconf-query -c xfce4-desktop -p /backdrop -l");
+
+            ::string_array stra;
+
+            stra.add_lines(strOutput);
+
+            for (auto & str : stra)
+            {
+
+               if (str.contains("image-path") || str.contains("last-image"))
+               {
+
+                  node()->command_system("xfconf-query -c xfce4-desktop -p " + str + " -s " + strLocalImagePath, 2_min);
+
+               }
+
+            }
+
             //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
             //          if(entry.contains("image-path") || entry.contains("last-image")){
             //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
@@ -2910,7 +2957,7 @@ namespace g
 
          }
 
-            //break;
+            break;
 
          default:
 
