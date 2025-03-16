@@ -3181,6 +3181,22 @@ return{};
    }
 
 
+   ::string node::dynamic_library_prefix()
+   {
+
+      return "lib";
+
+   }
+
+
+   ::string node::dynamic_library_suffix()
+   {
+
+      return ".so";
+
+   }
+
+
 } // namespace acme_posix
 
 
