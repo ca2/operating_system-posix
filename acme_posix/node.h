@@ -177,6 +177,11 @@ namespace acme_posix
       ::string system_architecture() override;
 
 
+      ::string dynamic_library_prefix() override;
+      ::string dynamic_library_suffix() override;
+
+
+
    };
 
    
