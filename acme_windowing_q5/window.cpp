@@ -163,14 +163,15 @@ namespace q5
          void window::_draw(::nano::graphics::device * pnanodevice)
          {
 
-            ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
-
-            if (pelemental)
-            {
-
-               pelemental->on_draw(pnanodevice);
-
-            }
+            ::q::acme::windowing::window::_draw(pnanodevice);
+            // ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
+            //
+            // if (pelemental)
+            // {
+            //
+            //    pelemental->on_draw(pnanodevice);
+            //
+            // }
 
          }
 
