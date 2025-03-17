@@ -437,6 +437,22 @@ m_bMessageThread=true;
          }
 
 
+         static void on_open_gtk_application(GtkApplication*, gpointer p)
+         {
+
+            auto* pgtk4windowingsystem = (::gtk4::acme::windowing::windowing*)p;
+
+            ::information() << "gtk4::acme::windowing::on_open_gtk_application";
+
+            pgtk4windowingsystem->_hook_system_theme_change_callbacks();
+
+            pgtk4windowingsystem->fetch_dark_mode();
+
+            pgtk4windowingsystem->_on_activate_gtk_application();
+
+         }
+
+
          void windowing::windowing_application_main_loop()
          {
 
@@ -464,7 +480,7 @@ m_bMessageThread=true;
          void windowing::run()
          {
 			 
-			 information() << "gtk4::acme::windowing::windowing::run";
+			   information() << "gtk4::acme::windowing::windowing::run";
 
             ::string strId = application()->m_strAppId;
 
@@ -476,17 +492,19 @@ m_bMessageThread=true;
             
             information() << "application id: " << strId;
 
-            #if GLIB_CHECK_VERSION(2,74,0)
+#if GLIB_CHECK_VERSION(2,74,0)
 
-            m_pgtkapplication = gtk_application_new(strId, G_APPLICATION_DEFAULT_FLAGS);
+            m_pgtkapplication = gtk_application_new(strId, G_APPLICATION_FLAGS_NONE);
 
-            #else
+#else
 
             m_pgtkapplication = gtk_application_new(strId, 0);
 
 #endif
 
             g_signal_connect(m_pgtkapplication, "activate", G_CALLBACK(on_activate_gtk_application), this);
+
+            g_signal_connect(m_pgtkapplication, "open", G_CALLBACK(on_open_gtk_application), this);
 
             // // Retrieve system settings and listen for changes in dark mode preference
             // GtkSettings *settings = gtk_settings_get_default();
@@ -513,8 +531,10 @@ m_bMessageThread=true;
             //
             //
             // }
-information() << "gtk4::acme::windowing::windowing::run g_application_run";
-            g_application_run(G_APPLICATION(m_pgtkapplication), 0, nullptr);
+
+            information() << "gtk4::acme::windowing::windowing::run g_application_run";
+
+            g_application_run(G_APPLICATION(m_pgtkapplication), platform()->get_argc(), platform()->get_args());
 
             // //g_application_run (G_APPLICATION(m_pgtkapplication), platform()->get_argc(), platform()->get_args());
             // //aaa_x11_main();
