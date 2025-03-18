@@ -296,8 +296,15 @@ namespace windowing_q
    void windowing::windowing_post_quit()
    {
 
-      system()->acme_windowing()->windowing_post_quit();
+      //system()->acme_windowing()->windowing_post_quit();
       //g_idle_add(gtk_application_quit_callback, G_APPLICATION(m_pgtkapplication));
+
+      if (m_pqapplication)
+      {
+
+         m_pqapplication->quit();
+
+      }
 
    }
 

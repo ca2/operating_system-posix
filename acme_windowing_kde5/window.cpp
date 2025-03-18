@@ -163,14 +163,15 @@ namespace kde5
          void window::_draw(::nano::graphics::device * pnanodevice)
          {
 
-            ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
-
-            if (pelemental)
-            {
-
-               pelemental->on_draw(pnanodevice);
-
-            }
+            ::q5::acme::windowing::window::_draw(pnanodevice);
+            // auto pacmeuserinteraction = m_pacmeuserinteraction.m_p;
+            //
+            // if (pacmeuserinteraction)
+            // {
+            //
+            //    pacmeuserinteraction->on_draw(pnanodevice);
+            //
+            // }
 
          }
 
@@ -1236,13 +1237,14 @@ namespace kde5
 
       void window::_on_qimage_draw(QImage * pqimage)
          {
-            ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
+            //::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
 
-            if (pelemental)
-            {
-               pelemental->on_draw(m_pnanodevice);
-            }
+            //if (pelemental)
+            //{
+              // pelemental->on_draw(m_pnanodevice);
+            //}
 
+            _draw(m_pnanodevice);
 
          auto pixmap = m_pnanodevice->pixmap();
 

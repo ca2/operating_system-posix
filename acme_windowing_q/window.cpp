@@ -179,16 +179,25 @@ namespace q
          void window::_draw(::nano::graphics::device * pnanodevice)
          {
 
-            ::cast<::micro::elemental> pelemental = m_pacmeuserinteraction;
+            auto pacmeuserinteraction = m_pacmeuserinteraction.m_p;
 
-            if (pelemental)
+            if (::is_set(pacmeuserinteraction))
             {
 
-               pelemental->on_draw(pnanodevice);
+               pacmeuserinteraction->_on_draw(pnanodevice);
 
             }
 
-            //pacmeuserinteraction->draw(pnanodevice);
+            // ::cast<::micro::elemental> pelemental = m_pacmeuserinteraction;
+            //
+            // if (pelemental)
+            // {
+            //
+            //    pelemental->on_draw(pnanodevice);
+            //
+            // }
+            //
+            // //pacmeuserinteraction->draw(pnanodevice);
 
          }
 
@@ -1254,6 +1263,13 @@ namespace q
 
          void window::_on_qimage_draw(QImage * pqimage)
          {
+
+            if (::is_null(m_pnanodevice))
+            {
+
+               return;
+
+            }
 
             auto pacmeuserinteraction = m_pacmeuserinteraction.get();
 

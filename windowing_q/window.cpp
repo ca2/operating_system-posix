@@ -6708,8 +6708,22 @@ namespace windowing_q
    void window::window_update_screen()
    {
 
+      if (::is_null(m_pqwidget))
+      {
+
+         return;
+
+      }
+
       main_post([this]()
       {
+
+         if (::is_null(m_pqwidget))
+         {
+
+            return;
+
+         }
 
          set_window_position_unlocked();
 
