@@ -1,3 +1,3 @@
 default_windowing
-operating_system-posix/aura_posix
+operating_system-posix/windowing_lxq1
 operating_system-posix/node_q

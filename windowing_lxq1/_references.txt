@@ -1,3 +1,2 @@
-operating_system-posix/innate_ui_lxq2
-operating_system-posix/windowing_posix
-operating_system-posix/windowing_q6
+operating_system-posix/innate_ui_lxq1
+operating_system-posix/windowing_q5
