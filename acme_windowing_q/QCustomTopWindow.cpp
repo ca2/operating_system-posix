@@ -125,12 +125,20 @@ void QCustomTopWindow::moveEvent(QMoveEvent * happening)
 
 void QCustomTopWindow::resizeEvent(QResizeEvent * happening)
 {
-   try {
-      QSize newSize = happening->size();  // Get the ___new size of the window
-      //   qDebug() << "Window resized to:" << newSize;
-      m_pwindow->_on_size(newSize.width(), newSize.height());
-      // Update the label with the ___new size
-      //updateSizeLabel(newSize);
+
+   try
+   {
+
+      QSize newSize = happening->size();
+
+      int cxNew = newSize.width();
+
+      int cyNew = newSize.height();
+
+      printf_line("QCustomTopWindow::resizeEvent cx, cy: %d, %d", cxNew, cyNew);
+
+      m_pwindow->_on_size(cxNew, cyNew);
+
    }
    catch (...) {
 

@@ -1346,9 +1346,18 @@ namespace windowing_q
 
          m_pointWindow = p;
 
-         puserinteraction->layout().m_statea[::user::e_layout_window].m_point2 = p;
+         on_window_configuration_change();
 
-         puserinteraction->on_reposition();
+         // if (puserinteraction)
+         // {
+         //
+         //    puserinteraction->_on_configure_notify_unlocked();
+         //
+         // }
+         //
+         // //puserinteraction->layout().m_statea[::user::e_layout_window].m_point2 = p;
+         //
+         // //puserinteraction->on_reposition();
 
       }
 
@@ -1364,23 +1373,32 @@ namespace windowing_q
 
       ::int_size s(cx, cy);
 
-      if (m_sizeOnSize != s)
+      if (m_sizeWindow != s)
       {
 
          //gtk_drawing_area_set_content_width (GTK_DRAWING_AREA (m_pdrawingarea), cx);
          //gtk_drawing_area_set_content_height (GTK_DRAWING_AREA (m_pdrawingarea), cy);
 
-         m_sizeOnSize = s;
+         m_sizeWindow = s;
 
-         puserinteraction->layout().m_statea[::user::e_layout_window].m_size = s;
+         on_window_configuration_change();
 
-         puserinteraction->set_size(s);
+         // if (puserinteraction)
+         // {
+         //
+         //
+         //
+         // }
 
-         puserinteraction->set_need_layout();
-
-         puserinteraction->set_need_redraw();
-
-         puserinteraction->post_redraw();
+         // puserinteraction->layout().m_statea[::user::e_layout_window].m_size = s;
+         //
+         // puserinteraction->set_size(s);
+         //
+         // puserinteraction->set_need_layout();
+         //
+         // puserinteraction->set_need_redraw();
+         //
+         // puserinteraction->post_redraw();
 
       }
 

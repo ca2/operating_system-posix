@@ -1357,6 +1357,8 @@ namespace q
                m_bResizingWindowFromBottomRight = false;
             }
 
+            m_bPerformingEntireRepositionProcess = false;
+            m_bPerformingEntireResizingProcess = false;
 
             ::cast<::micro::elemental> pelemental = m_pacmeuserinteraction;
 
@@ -1582,7 +1584,6 @@ namespace q
          bool window::defer_perform_entire_reposition_process(::user::mouse* pmouse)
          {
 
-
             auto pqwindow = m_pqwidget->windowHandle();
 
             if(!pqwindow)
@@ -1591,16 +1592,18 @@ namespace q
                return false;
 
             }
+
+            m_bPerformingEntireRepositionProcess = true;
 
             pqwindow->startSystemMove();
 
             return true;
          }
 
+
          bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing,
                                                             ::user::mouse* pmouse)
          {
-
 
             auto pqwindow = m_pqwidget->windowHandle();
 
@@ -1610,6 +1613,8 @@ namespace q
                return false;
 
             }
+
+            m_bPerformingEntireResizingProcess = true;
 
             auto edges = ::q::as_qt_edges(eframeSizing);
 
