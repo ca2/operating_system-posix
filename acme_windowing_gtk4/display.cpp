@@ -162,7 +162,7 @@ namespace gtk4
 
             ::acme::windowing::display::initialize(pparticle);
 
-            ::gtk4::acme::windowing::display::initialize(pparticle);
+            ::g::acme::windowing::display::initialize(pparticle);
 
          }
 
@@ -570,12 +570,12 @@ namespace gtk4
          //   }
 
          //
-         bool display::message_loop_step()
-         {
-
-            return ::gtk4::acme::windowing::display::message_loop_step();
-
-         }
+         // bool display::message_loop_step()
+         // {
+         //
+         //    return ::g::acme::windowing::display::message_loop_step();
+         //
+         // }
 
 
          //
@@ -866,17 +866,17 @@ namespace gtk4
          // void* get_display(::particle* pparticle)
          // {
          //
-         //    auto pdisplay = ::gtk4::acme::windowing::display::get(pparticle, false);
+         //    auto pdisplay = ::g::acme::windowing::display::get(pparticle, false);
          //
          //    return pdisplay->m_pgdkdisplay;
          //
          // }
 
 
-         // void set_display(::gtk4::acme::windowing::display* pdisplaybase)
+         // void set_display(::g::acme::windowing::display* pdisplaybase)
          // {
          //
-         //    ::gtk4::acme::windowing::display::s_pdisplaybase = pdisplaybase;
+         //    ::g::acme::windowing::display::s_pdisplaybase = pdisplaybase;
          //
          // }
          //
@@ -884,7 +884,7 @@ namespace gtk4
          // void initialize_display(::particle* pparticle, void* pgdkdisplay)
          // {
          //
-         //    ::gtk4::acme::windowing::display::get(pparticle, false, (::GdkDisplay*)pgdkdisplay);
+         //    ::g::acme::windowing::display::get(pparticle, false, (::GdkDisplay*)pgdkdisplay);
          //
          // }
 
@@ -892,17 +892,17 @@ namespace gtk4
          // void* initialize_display(::particle* pparticle)
          // {
          //
-         //    auto pdisplay = ::gtk4::acme::windowing::display::get(pparticle, false);
+         //    auto pdisplay = ::g::acme::windowing::display::get(pparticle, false);
          //
          //    return pdisplay->m_pgdkdisplay;
          //         //
          //         // void process_messages()
          //         // {
          //         //
-         //         //    if (::gtk4::acme::windowing::display::s_pdisplaybase)
+         //         //    if (::g::acme::windowing::display::s_pdisplaybase)
          //         //    {
          //         //
-         //         //       ::gtk4::acme::windowing::display::s_pdisplaybase->message_loop_step();
+         //         //       ::g::acme::windowing::display::s_pdisplaybase->message_loop_step();
          //         //
          //         //    }
          //         //
@@ -2663,48 +2663,48 @@ namespace gtk4
          // }
 
 
-         void display::init_task()
-         {
-
-            ::acme::windowing::display::init_task();
-
-            ::task_set_name("wayland:display:run");
-
-            if(!m_pgdkdisplay)
-            {
-
-               auto pgdkdisplay = __get_gdk_display();
-
-               m_pgdkdisplay = pgdkdisplay;
-
-            }
-
-            open();
-
-         }
-
-
-         void display::run()
-         {
-
-            message_loop();
-
-            close();
-
-         }
+         // void display::init_task()
+         // {
+         //
+         //    ::acme::windowing::display::init_task();
+         //
+         //    ::task_set_name("wayland:display:run");
+         //
+         //    if(!m_pgdkdisplay)
+         //    {
+         //
+         //       auto pgdkdisplay = __get_gdk_display();
+         //
+         //       m_pgdkdisplay = pgdkdisplay;
+         //
+         //    }
+         //
+         //    open();
+         //
+         // }
 
 
-         void display::message_loop()
-         {
+         // void display::run()
+         // {
+         //
+         //    message_loop();
+         //
+         //    close();
+         //
+         // }
 
-            while (::task_get_run())
-            {
 
-               message_loop_step();
-
-            }
-
-         }
+         // void display::message_loop()
+         // {
+         //
+         //    while (::task_get_run())
+         //    {
+         //
+         //       message_loop_step();
+         //
+         //    }
+         //
+         // }
 
          //
          // bool display::message_loop_step()

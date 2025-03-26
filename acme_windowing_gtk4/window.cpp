@@ -1699,10 +1699,22 @@ namespace gtk4
    void window::_destroy_window()
    {
 
+      if (m_pgtkgestureClick)
+      {
+
+         g_object_unref(G_OBJECT(m_pgtkgestureClick));
+
+         m_pgtkgestureClick = nullptr;
+
+      }
+
       if (GTK_IS_POPOVER(m_pgtkwidget))
       {
 
-         gtk_widget_unparent(GTK_WIDGET(m_pgtkwidget));
+         // Hide and then destroy the popover
+         gtk_popover_popdown(GTK_POPOVER(m_pgtkwidget));
+         gtk_widget_unparent(m_pgtkwidget);
+         g_object_unref(G_OBJECT(m_pgtkwidget));
 
       }
       else if (GTK_IS_WINDOW(m_pgtkwidget))

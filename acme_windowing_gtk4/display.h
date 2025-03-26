@@ -117,9 +117,9 @@ namespace gtk4
             //bool message_loop_step() override;
             //void aaa_message_loop ();
 
-            void init_task() override;
+            //void init_task() override;
 
-            void run() override;
+            //void run() override;
 
 
             //      //void add_listener(event_listener * plistener);
@@ -184,7 +184,7 @@ namespace gtk4
             //virtual ::gtk4::acme::windowing::window* _window(::GtkWidget* pwlsurface);
 
 
-            virtual bool message_loop_step();
+            //virtual bool message_loop_step();
 
             //void _set_wallpaper(::collection::index iMonitorIndex, const ::scoped_string & scopedstrWallpaper) override;
             //void enable_wallpaper_change_notification() override;
@@ -234,7 +234,7 @@ namespace gtk4
             //                     int32_t height,
             //                     int32_t refresh);
 
-            virtual void message_loop();
+            //virtual void message_loop();
 
 
             //void run() override;

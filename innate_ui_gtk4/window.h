@@ -50,6 +50,10 @@ namespace innate_ui_gtk4
       void show() override;
       void hide() override;
 
+
+      void show_front(user::activation_token* puseractivationtoken) override;
+
+
       void set_position(const ::int_point & point) override;
       void set_size(const ::int_size & size) override;
       void adjust_for_client_size(const ::int_size & size) override;

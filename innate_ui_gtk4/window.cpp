@@ -11,6 +11,7 @@
 #include "acme/prototype/geometry2d/size.h"
 //#include "acme/operating_system/windows/nano/user/user.h"
 #include "acme/platform/node.h"
+#include "acme_windowing_g/activation_token.h"
 
 
 namespace innate_ui_gtk4
@@ -375,6 +376,42 @@ namespace innate_ui_gtk4
 
    void window::hide()
    {
+
+   }
+
+
+   void window::show_front(user::activation_token* puseractivationtoken)
+   {
+
+      ::pointer < ::common_gtk::activation_token > pactivationtoken = puseractivationtoken;
+
+      if (::is_null(pactivationtoken))
+      {
+
+
+         show();
+
+         return;
+
+      }
+
+      main_post([this, pactivationtoken]()
+      {
+
+         if(GTK_IS_WINDOW(m_pgtkwidget))
+         {
+
+            gtk_window_present_with_time(GTK_WINDOW(m_pgtkwidget), pactivationtoken->m_time);
+
+         }
+         else
+         {
+
+            gtk_widget_set_visible(m_pgtkwidget, true);
+
+         }
+
+      });
 
    }
 
