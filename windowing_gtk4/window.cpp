@@ -2080,7 +2080,7 @@ m_pimcontext = gtk_im_multicontext_new();
       if(!m_bInhibitQueueDraw)
       {
 
-         information() << "::window::window_update_screen";
+         //information() << "::window::window_update_screen";
 
          main_send([this]()
          {
@@ -2088,7 +2088,7 @@ m_pimcontext = gtk_im_multicontext_new();
             if (GTK_IS_WIDGET(m_pgtkwidget) && !m_bInhibitQueueDraw)
             {
 
-               information() << "::window::window_update_screen (2)";
+               //information() << "::window::window_update_screen (2)";
 
                set_window_position_unlocked();
 
