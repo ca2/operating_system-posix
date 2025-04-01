@@ -979,25 +979,25 @@ namespace acme_posix
 
    #elif defined(MACOS)
 
-               if (__builtin_available(macOS 10.12, *))
+//               if (__builtin_available(macOS 10.12, *))
                {
 
                   clock_gettime(CLOCK_REALTIME, &abs_time);
 
                }
-               else
-               {
-
-                  struct timeval tm;
-
-                  gettimeofday(&tm, nullptr);
-
-                  abs_time.tv_sec = tm.tv_sec;
-
-                  abs_time.tv_nsec = tm.tv_usec * 1000;
-
-
-               }
+//               else
+//               {
+//
+//                  struct timeval tm;
+//
+//                  gettimeofday(&tm, nullptr);
+//
+//                  abs_time.tv_sec = tm.tv_sec;
+//
+//                  abs_time.tv_nsec = tm.tv_usec * 1000;
+//
+//
+//               }
 
 
    #elif defined(LINUX)

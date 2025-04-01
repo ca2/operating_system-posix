@@ -49,12 +49,12 @@
 //   posix_time actime;       /* access time */
 //   posix_time modtime;      /* modification time */
 //};
-
-#ifdef MACOS
-#define IS_UTIMENSAT_AVAILABLE __builtin_available(macOS 10.13, *)
-#else
-#define IS_UTIMENSAT_AVAILABLE (TRUE)
-#endif
+//
+//#ifdef MACOS
+//#define IS_UTIMENSAT_AVAILABLE __builtin_available(macOS 10.13, *)
+//#else
+//#define IS_UTIMENSAT_AVAILABLE (TRUE)
+//#endif
 
 
 namespace acme_posix
