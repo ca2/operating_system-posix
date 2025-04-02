@@ -63,7 +63,7 @@ char * get_current_dir_name();
 #include <pwd.h>
 
 
-#if defined(DEBUG) && defined(NETBSD)
+#if defined(_DEBUG) && defined(NETBSD)
 //#define LOG_HERE
 #endif
 

@@ -24,11 +24,11 @@
 
 /* conditional debugging */
 
-# if defined(DEBUG) && defined(NDEBUG)
+# if defined(_DEBUG) && defined(NDEBUG)
 #  error "cannot define both DEBUG and NDEBUG"
 # endif
 
-# if defined(DEBUG)
+# if defined(_DEBUG)
 #  include <stdio.h>
 # endif
 
