@@ -2005,7 +2005,7 @@ namespace acme_posix
 
       auto p = strdupa_from_command_arguments(stra);
 	
-#ifdef DEBUG
+#ifdef _DEBUG
 
 #if DEEP_LOG_HERE > 6
       
@@ -2305,7 +2305,7 @@ namespace acme_posix
             
 #if DEEP_LOG_HERE > 6
     
-#ifdef DEBUG
+#ifdef _DEBUG
             
                information() << "partial stdout output: \"" << strOutput << "\""; 
             
@@ -2343,7 +2343,7 @@ namespace acme_posix
             
 #if DEEP_LOG_HERE > 6
             
-#ifdef DEBUG            
+#ifdef _DEBUG            
             
                information() << "partial stderr output: \"" << strOutput << "\""; 
 
@@ -2569,7 +2569,7 @@ namespace acme_posix
 
       auto p = strdupa_from_command_arguments(stra);
 	
-#ifdef DEBUG
+#ifdef _DEBUG
 
 #if DEEP_LOG_HERE > 6
       
@@ -2673,7 +2673,7 @@ namespace acme_posix
 
          strCommand.formatf("\"%s\" -c \"%s\"", strUnixShell.c_str(), strCommandInner.c_str());
          
-#ifdef DEBUG
+#ifdef _DEBUG
          
          informationf("acme_posix::node::unix_shell_command command: %s", strCommand.c_str());
          

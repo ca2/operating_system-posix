@@ -134,7 +134,7 @@ namespace node_gtk_based
    }
 
 
-   void node::handle(::topic * ptopic, ::context * pcontext)
+   void node::handle(::topic * ptopic, ::handler_context * pcontext)
    {
 
 

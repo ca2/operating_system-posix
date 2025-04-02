@@ -753,7 +753,7 @@ namespace input_xinput
 //
 //               }
 
-//::topic::context context;
+//::topic::handler_context context;
 
 //               for (auto & p: *m_pobjectaExtendedEventListener)
 //               {
@@ -768,7 +768,7 @@ namespace input_xinput
 //               {
 ////                  auto ptopic = psystem->topic(eid);
 //
-//  //                ::topic::context context;
+//  //                ::topic::handler_context context;
 //
 //                  int iKey = XK_A;
 //
@@ -790,7 +790,7 @@ namespace input_xinput
 ////
 ////                  ptopic->payload("space") = is_space_key(prawevent);
 //
-//                  //::topic::context context;
+//                  //::topic::handler_context context;
 //
 ////                  for(auto & p : *m_pobjectaExtendedEventListener)
 ////                  {

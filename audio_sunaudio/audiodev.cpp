@@ -124,7 +124,7 @@ audiodev_add(const char *pdev, const char *dev, unsigned int unit)
 		return -1;
 	}
 
-#ifdef DEBUG
+#ifdef _DEBUG
 	printf("DEBUG: [%c] %s(%s): %s\n", adev->defaultdev ? '*' : ' ',
 	    adev->path, adev->ctlpath, adev->audio_device.name);
 	struct audiofmt *f;

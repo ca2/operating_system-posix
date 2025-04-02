@@ -470,7 +470,7 @@ namespace windowing_xcb
 
          }
 
-         //::topic::context context;
+         //::topic::handler_context context;
 
          for (auto & p : *m_pparticleaExtendedEventListener)
          {

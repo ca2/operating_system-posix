@@ -249,7 +249,7 @@ void simple_ui_display::call_expose(Display * pdisplay)
 }
 
 
-void simple_ui_display::on_subject(::promise::topic * ptopic, ::context * pcontext)
+void simple_ui_display::on_subject(::promise::topic * ptopic, ::handler_context * pcontext)
 {
 
    if(ptopic->id() == id_os_user_theme)

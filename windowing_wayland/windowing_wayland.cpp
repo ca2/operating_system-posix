@@ -1692,7 +1692,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                  }
 //
-//                  //::topic::context context;
+//                  //::topic::handler_context context;
 //
 //                  for (auto & p: *m_pobjectaExtendedEventListener)
 //                  {
@@ -1707,7 +1707,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 ////               {
 //////                  auto ptopic = psystem->topic(eid);
 ////
-////  //                ::topic::context context;
+////  //                ::topic::handler_context context;
 ////
 ////                  int iKey = XK_A;
 ////
@@ -1729,7 +1729,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //////
 //////                  ptopic->payload("space") = is_space_key(prawevent);
 ////
-////                  //::topic::context context;
+////                  //::topic::handler_context context;
 ////
 //////                  for(auto & p : *m_pobjectaExtendedEventListener)
 //////                  {
