@@ -534,7 +534,13 @@ m_bMessageThread=true;
 
             information() << "gtk4::acme::windowing::windowing::run g_application_run";
 
-            g_application_run(G_APPLICATION(m_pgtkapplication), platform()->get_argc(), platform()->get_args());
+            auto pplatform = platform();
+
+            auto argc = pplatform->get_argc();
+
+            auto args = pplatform->get_args();
+
+            g_application_run(G_APPLICATION(m_pgtkapplication), argc, args);
 
             // //g_application_run (G_APPLICATION(m_pgtkapplication), platform()->get_argc(), platform()->get_args());
             // //aaa_x11_main();
