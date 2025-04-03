@@ -737,6 +737,8 @@ namespace gtk4
                
                            ::string strId = application()->m_strAppId;
 
+                           printf_line("acme_windowing_gtk4 gtk_application_window_new");
+
             strId.find_replace("/", ".");
 
             strId.find_replace("_", "-");

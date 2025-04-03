@@ -33,7 +33,7 @@ namespace multimedia
       void wave_in::init_task()
       {
 
-         informationf("wave_in::initialize_instance %llX\n", ::task_index().m_i);
+         informationf("wave_in::initialize_instance %llX\n", ::current_task_index());
          //SetMainWnd(NULL);
          //ASSERT(GetMainWnd() == NULL);
          set_thread_priority(::e_priority_highest);

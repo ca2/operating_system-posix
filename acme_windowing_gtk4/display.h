@@ -245,10 +245,10 @@ namespace gtk4
             //                      double x, double y);
             //
 
-            virtual bool is_x11();
+            bool is_x11() override;
 
 
-            virtual bool is_wayland();
+            bool is_wayland() override;
 
          };
 

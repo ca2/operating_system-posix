@@ -185,7 +185,7 @@ virtual void _on_focus_changed(bool bHasFocus);
 
             virtual void _on_cairo_draw(GtkWidget *widget, cairo_t *cr);
 
-            virtual void _on_size(int cx, int cy);
+            void _on_size(int cx, int cy) override;
 
             virtual void _on_toplevel_compute_size(GdkToplevel * self, GdkToplevelSize* size);
 

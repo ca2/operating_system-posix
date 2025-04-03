@@ -3,6 +3,7 @@
 #include "interprocess_target.h"
 #include "acme/filesystem/filesystem/file_system.h"
 #include "acme/operating_system/shared_posix/c_error_number.h"
+#include "acme/platform/application.h"
 #include "acme/prototype/prototype/memory.h"
 
 
