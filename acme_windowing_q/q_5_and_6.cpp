@@ -34,6 +34,8 @@ namespace q
             return Qt::Edge::LeftEdge | Qt::Edge::BottomEdge;
          case ::experience::e_frame_sizing_bottom_right:
             return Qt::Edge::RightEdge | Qt::Edge::BottomEdge;
+          default:
+              break;
       }
       return {};
    }

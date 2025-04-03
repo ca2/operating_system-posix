@@ -90,7 +90,7 @@ void hide_window() override;
             void _on_mouse_release(QMouseEvent * pevent) override;
             void _on_mouse_motion(QMouseEvent * pevent) override;
             void _on_wheel(QWheelEvent * happening) override;
-            virtual void _on_qimage_draw(QImage * pqimage);
+            void _on_qimage_draw(QImage * pqimage) override;
 
 
             void _on_reposition(int x, int y) override;
@@ -122,8 +122,8 @@ void hide_window() override;
                                                                ::user::mouse* pmouse) override;
 
 
-            void _main_send(const ::procedure & procedure);
-            void _main_post(const ::procedure & procedure);
+            void _main_send(const ::procedure & procedure) override;
+            void _main_post(const ::procedure & procedure) override;
 
             ///virtual void draw_children(::nano::graphics::device * pnanodevice);
 

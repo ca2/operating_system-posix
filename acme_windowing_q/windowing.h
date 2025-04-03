@@ -62,7 +62,7 @@ namespace q
       void windowing_post_quit() override;
 
 
-      virtual ::pixmap get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile);
+      ::pixmap get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile) override;
 
 
 //   ::e_status x11_initialize() override;
