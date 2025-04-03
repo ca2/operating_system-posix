@@ -75,7 +75,7 @@ namespace kde5
 
             //bool _on_event(xcb_generic_event_t *pevent) override;
 
-            virtual void _update_window();
+            void _update_window() override;
 
             ::e_status _map_window();
             ::e_status _unmap_window();
@@ -97,11 +97,11 @@ namespace kde5
 
             //virtual bool aaa_message_loop_step();
 
-            virtual void _draw(::nano::graphics::device * pnanodevice);
+            void _draw(::nano::graphics::device * pnanodevice) override;
 
             //virtual void on_draw(::nano::graphics::device * pnanodevice);
 
-            virtual void _on_character(int iChar);
+            void _on_character(int iChar) override;
 
             bool is_active_window() override;
 
