@@ -404,7 +404,7 @@ namespace gtk3
 
             g_application_run(G_APPLICATION(m_pgtkapplication), 0, nullptr);
             //
-            // // //g_application_run (G_APPLICATION(m_pgtkapplication), platform()->get_argc(), platform()->get_args());
+            // // //g_application_run (G_APPLICATION(m_pgtkapplication), ::system()->get_argc(), ::system()->get_args());
             // // //aaa_x11_main();
             // //
             // //

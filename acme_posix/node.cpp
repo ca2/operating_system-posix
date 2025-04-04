@@ -821,7 +821,7 @@ namespace acme_posix
 
       argv.add(nullptr);
 
-      auto envp = platform()->m_envp;
+      auto envp = ::system()->m_envp;
 
       pid_t pid = 0;
 
@@ -904,7 +904,7 @@ namespace acme_posix
 
       int status;
 
-      auto envp = platform()->m_envp;
+      auto envp = ::system()->m_envp;
 
 #ifdef ANDROID
 
@@ -3045,7 +3045,7 @@ namespace acme_posix
 
    void node::on_system_main()
    {
-      if (platform()->is_console())
+      if (::system()->is_console())
       {
 
          application()->main();

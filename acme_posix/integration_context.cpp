@@ -336,7 +336,7 @@ namespace acme_posix
    void node::integration_factory()
    {
 
-      platform()->m_pfactory->add_factory_item<::acme_posix::integration::context, ::integration::context>();
+      ::system()->m_pfactory->add_factory_item<::acme_posix::integration::context, ::integration::context>();
 
    }
 

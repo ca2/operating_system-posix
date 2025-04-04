@@ -319,12 +319,6 @@ namespace aura_posix
 
    //}
 
-   //void node::delete_this()
-   //{
-
-   //   ::aura::node::delete_this();
-
-   //}
 #if !defined(HAS_GTK3) && !defined(HAS_GTK4) && !defined(HAS_KDE5) && !defined(HAS_KDE6)
 
 #if defined(WITH_X11) || defined(WITH_XCB)

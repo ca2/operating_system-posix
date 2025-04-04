@@ -149,7 +149,7 @@ namespace windowing_gtk3
 //   ::pointer <::input::input> windowing::_get_input()
 //   {
 //
-//      auto & pfactory = platform()->factory("input", "libinput");
+//      auto & pfactory = ::system()->factory("input", "libinput");
 //
 //      auto pinput = __øcreate<::input::input>(pfactory);
 //

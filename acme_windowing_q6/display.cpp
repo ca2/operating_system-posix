@@ -321,7 +321,7 @@ namespace q6
          //         display * display_get(::particle * pparticle, bool bBranch, Display * pdisplay)
          //         {
          //
-         //            critical_section_lock lock(pparticle->platform()->globals_critical_section());
+         //            critical_section_lock lock(pparticle->::system()->globals_critical_section());
          //
          //            if (display::g_p == nullptr)
          //            {

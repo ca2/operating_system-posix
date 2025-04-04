@@ -584,8 +584,8 @@ namespace node_gtk3
 		  
 		 information() << "node_gtk3::node::on_system_main BEFORE CALLING node_init_check";
 
-         node_init_check(platform()->get_pargc(),
-                         platform()->get_pargs());
+         node_init_check(::system()->get_pargc(),
+                         ::system()->get_pargs());
                          
 		 information() << "node_gtk3::node::on_system_main AFTER CALLING node_init_check";
 
@@ -2281,7 +2281,7 @@ namespace node_gtk3
    ::pointer<::input::input > node::create_input()
    {
 
-      auto & pfactory = platform()->factory("input", "libinput");
+      auto & pfactory = ::system()->factory("input", "libinput");
 
       auto pinput = __øcreate<::input::input>(pfactory);
 

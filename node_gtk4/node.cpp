@@ -582,8 +582,8 @@ namespace node_gtk4
 
   //    {
 
-         // node_init_check(platform()->get_pargc(),
-         //                 platform()->get_pargs());
+         // node_init_check(::system()->get_pargc(),
+         //                 ::system()->get_pargs());
          //
 //      }
 
@@ -1998,7 +1998,7 @@ namespace node_gtk4
    ::pointer<::input::input > node::create_input()
    {
 
-      auto & pfactory = platform()->factory("input", "libinput");
+      auto & pfactory = ::system()->factory("input", "libinput");
 
       auto pinput = __øcreate<::input::input>(pfactory);
 

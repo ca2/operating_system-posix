@@ -542,7 +542,7 @@ m_bMessageThread=true;
 
             g_application_run(G_APPLICATION(m_pgtkapplication), argc, args);
 
-            // //g_application_run (G_APPLICATION(m_pgtkapplication), platform()->get_argc(), platform()->get_args());
+            // //g_application_run (G_APPLICATION(m_pgtkapplication), ::system()->get_argc(), ::system()->get_args());
             // //aaa_x11_main();
             //
             //

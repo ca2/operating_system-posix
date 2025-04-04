@@ -268,7 +268,7 @@ namespace node_kde5
 
       {
 
-         node_init_check(&platform()->m_argc, &platform()->m_args);
+         node_init_check(&::system()->m_argc, &::system()->m_args);
 
       }
 

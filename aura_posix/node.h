@@ -84,8 +84,6 @@ virtual void initialize_window_manager();
       //string get_environment_variable(const ::string & pszEnvironmentVariable) override;
       //string expand_environment_variables(const ::string & str) override;
 
-      //void delete_this() override;
-
 #if !defined(HAS_GTK3) && !defined(HAS_GTK4) && !defined(HAS_KDE5) && !defined(HAS_KDE6)
 #if defined(WITH_X11) || defined(WITH_XCB)
 

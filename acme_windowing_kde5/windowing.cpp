@@ -364,9 +364,9 @@ namespace kde5
    //
    //    //gtk_init();
    //
-   //    int argc = platform()->get_argc();
+   //    int argc = ::system()->get_argc();
    //
-   //    m_pqapplication = ___new QApplication(argc, platform()->get_args());
+   //    m_pqapplication = ___new QApplication(argc, ::system()->get_args());
    //
    //    m_pqapplication->setQuitOnLastWindowClosed(false);
    //
@@ -406,7 +406,7 @@ namespace kde5
    //    m_pqapplication->exec();
    //
    //
-   //    //g_application_run (G_APPLICATION(m_pgtkapplication), platform()->get_argc(), platform()->get_args());
+   //    //g_application_run (G_APPLICATION(m_pgtkapplication), ::system()->get_argc(), ::system()->get_args());
    //    //aaa_x11_main();
    //
    //    //

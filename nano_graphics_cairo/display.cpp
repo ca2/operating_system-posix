@@ -316,7 +316,7 @@ namespace x11
          display * display::_nano_get_x11_display(::particle * pparticle, bool bBranch, Display * pdisplay)
          {
 
-            critical_section_lock lock(pparticle->platform()->globals_critical_section());
+            critical_section_lock lock(pparticle->::system()->globals_critical_section());
 
             if (g_p == nullptr)
             {

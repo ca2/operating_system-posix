@@ -134,7 +134,7 @@ namespace windowing_gtk4
    //   ::pointer <::input::input> windowing::_get_input()
    //   {
    //
-   //      auto & pfactory = platform()->factory("input", "libinput");
+   //      auto & pfactory = ::system()->factory("input", "libinput");
    //
    //      auto pinput = __øcreate<::input::input>(pfactory);
    //
@@ -1059,7 +1059,7 @@ namespace windowing_gtk4
       //
       // g_application_run (G_APPLICATION(m_pgtkapplication), 0, nullptr);
       //
-      // //g_application_run (G_APPLICATION(m_pgtkapplication), platform()->get_argc(), platform()->get_args());
+      // //g_application_run (G_APPLICATION(m_pgtkapplication), ::system()->get_argc(), ::system()->get_args());
       // //aaa_x11_main();
       //
       //
