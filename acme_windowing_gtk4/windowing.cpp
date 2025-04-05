@@ -534,7 +534,7 @@ m_bMessageThread=true;
 
             information() << "gtk4::acme::windowing::windowing::run g_application_run";
 
-            auto pplatform = platform();
+            auto pplatform = ::system();
 
             auto argc = pplatform->get_argc();
 
