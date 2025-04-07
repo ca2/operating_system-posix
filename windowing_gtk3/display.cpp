@@ -36,7 +36,7 @@
 void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString);
 
 
-CLASS_DECL_ACME class ::task_index main_task_index();
+CLASS_DECL_ACME ::task_index main_task_index();
 CLASS_DECL_ACME ::task * main_task();
 
 
@@ -378,7 +378,7 @@ namespace windowing_gtk3
 		  
 	  }
 	  
-	  information() << "windowing_gtk3::display::open_display (1) main_task_index(): " << main_::current_task_index();
+	  information() << "windowing_gtk3::display::open_display (1) main_task_index(): " << main_task_index();
 	  
 	  if(::main_task())
 	  {
