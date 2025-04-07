@@ -5,7 +5,7 @@ list(APPEND static_app_common_dependencies
    static_node_gtk
    static_node_linux)
 
-set(default_common_windowing common_gtk)
+set(default_common_windowing acme_windowing_g)
 
 if(${HAS_GTK4})
 
