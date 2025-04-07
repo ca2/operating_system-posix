@@ -328,6 +328,8 @@ namespace acme_posix
    ::file::path_array node::process_identifier_modules_paths(::process_identifier processidentifier)
    {
 
+      printf_line("node::process_identifier_modules_paths THROW INTERFACE ONLY");
+
       throw ::interface_only();
 
       return {};
