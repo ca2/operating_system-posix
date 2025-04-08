@@ -36,7 +36,8 @@ list(APPEND library_source
    #windowing.h
 )
 
-if (NOT ${OPENBSD} AND NOT ${NETBSD})
+#if (NOT ${OPENBSD} AND NOT ${NETBSD})
+if (NOT ${OPENBSD})
 
    list(APPEND library_source
       appindicator.cpp

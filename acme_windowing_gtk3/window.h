@@ -207,7 +207,7 @@ namespace gtk3
 
             //virtual void _on_configure_linux_mint_x_cinnamon();
 
-
+			virtual void _enable_mouse_wheel_messages();
          };
 
 
