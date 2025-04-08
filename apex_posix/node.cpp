@@ -401,7 +401,9 @@ namespace apex_posix
    bool node::is_user_auto_start(const string & strAppId)
    {
 
-#if defined(LINUX) || defined(FREEBSD)
+#if defined(LINUX) || defined(__BSD__)
+
+//#error "error that is good if occurs temporarily (for testing if this portion of code is included in compilation)"
 
       ::file::path pathAutoStartDesktopFilePath = _get_auto_start_desktop_file_path(strAppId);
 
