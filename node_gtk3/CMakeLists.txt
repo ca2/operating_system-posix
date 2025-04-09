@@ -36,7 +36,7 @@ list(APPEND library_source
    #windowing.h
 )
 
-if (NOT ${OPENBSD} AND NOT ${NETBSD})
+if (NOT ${OPENBSD})
 
    list(APPEND library_source
       appindicator.cpp
@@ -106,6 +106,8 @@ elseif (${LINUX} OR ${__BSD__})
    #   pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0)
    #endif()
    pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
+   
+   message(STATUS "APPINDICATOR_PKG_MODULE is ${APPINDICATOR_PKG_MODULE}")
 
 
    target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
