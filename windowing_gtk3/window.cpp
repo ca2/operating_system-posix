@@ -1164,11 +1164,19 @@ namespace windowing_gtk3
 
             //            _defer_translate_to_absolute_coordinates_unlocked(pointCursor);
 
-            ::int_point pointCursor(pscroll->x_root, pscroll->y_root);
+            ///::int_point pointCursor(pscroll->x_root, pscroll->y_root);
 
-      m_pointCursor2 = pointCursor;
+         m_pointCursor2.x() = pscroll->x;
 
-            pmouse->m_pointAbsolute = m_pointCursor2;
+         m_pointCursor2.y() = pscroll->y;
+
+         pmouse->m_pointHost.x() = pscroll->x;
+
+         pmouse->m_pointHost.y() = pscroll->y;
+
+         pmouse->m_pointAbsolute.x() = pscroll->x_root;
+
+         pmouse->m_pointAbsolute.y() = pscroll->y_root;
 
             debugf("Scroll event: dx=%d, dy=%d, cursor position: x=%df, y=%d at host: x=%df, y=%d\n",
                pscroll->delta_x,
@@ -1193,7 +1201,25 @@ namespace windowing_gtk3
       //    }
       // }
 
-      pmouse->m_Δ = (short)-pscroll->delta_y*120;
+      pmouse->m_Δ = (short)(-pscroll->delta_y*120.f);
+      
+      if(pmouse->m_Δ == 0)
+      {
+
+            if (pscroll->direction == GDK_SCROLL_UP) 
+            {
+				
+               pmouse->m_Δ = 120;
+               
+            }
+            else if (pscroll->direction == GDK_SCROLL_DOWN) 
+            {
+				
+               pmouse->m_Δ = -120;
+               
+		}
+		
+	  }
 
       message_handler(pmouse);
 
@@ -1949,6 +1975,8 @@ namespace windowing_gtk3
       g_signal_connect(m_pimcontext, "preedit-start", G_CALLBACK(on_preedit_start), this);
       g_signal_connect(m_pimcontext, "preedit-end", G_CALLBACK(on_preedit_end), this);
 
+
+		_enable_mouse_wheel_messages();
 
       if (!(puserinteraction->m_ewindowflag & e_window_flag_destroyed))
       {

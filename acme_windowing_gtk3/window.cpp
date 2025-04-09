@@ -179,13 +179,23 @@ return TRUE;
 
 
          // Callback function for the scroll event
-         gboolean on_scroll(GtkWidget *widget, GdkEventScroll *pscroll, gpointer p) {
+         gboolean on_scroll(GtkWidget *widget, GdkEventScroll *pscroll, gpointer p) 
+         {
+			 
             // Check the scroll direction
-            //if (event->direction == GDK_SCROLL_UP) {
-               //g_print("Scrolled Up\n");
-            //} else if (event->direction == GDK_SCROLL_DOWN) {
-              // g_print("Scrolled Down\n");
-            //}
+            if (pscroll->direction == GDK_SCROLL_UP) 
+            {
+				
+               ::informationf("gtk3::acme::windowing on_scroll Scrolled Up");
+               
+            }
+            else if (pscroll->direction == GDK_SCROLL_DOWN) 
+            {
+				
+               ::informationf("gtk3::acme::windowing on_scroll Scrolled Down");
+               
+            }
+            
             auto pwindow = (::gtk3::acme::windowing::window*)p;
             //GtkIMContext *im_context = gtk_widget_get_im_context(widget);
 
@@ -816,8 +826,6 @@ return FALSE;
             g_signal_connect(GTK_WINDOW(m_pgtkwidget), "key-release-event", G_CALLBACK(on_key_release), this);
 
 
-            // Connect the scroll-event signal
-            g_signal_connect(GTK_WINDOW(m_pgtkwidget), "scroll-event", G_CALLBACK(on_scroll), this);
 
 
             // gtk_widget_set_events(m_pgtkwidget,
@@ -831,6 +839,16 @@ return FALSE;
 
 
          }
+         
+         
+		void window::_enable_mouse_wheel_messages()
+         {
+
+            // Connect the scroll-event signal
+            g_signal_connect(GTK_WINDOW(m_pgtkwidget), "scroll-event", G_CALLBACK(on_scroll), this);
+            
+         }
+
 
 
          bool window::_on_focus_in(GtkWidget * pwidget, GdkEventFocus * focusin)
