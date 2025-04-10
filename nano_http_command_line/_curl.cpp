@@ -31,7 +31,7 @@ namespace command_line
 
             ::string strCommand;
 
-            strCommand = "curl --http1.1 --silent -I " + url.as_string();
+            strCommand = "curl -A \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36\" --http1.1 --silent -I " + url.as_string();
 
             auto strOutput = node()->get_command_output(strCommand);
 
@@ -111,7 +111,7 @@ namespace command_line
 
             ::string strCommand;
 
-            strCommand = "curl --http1.1 -Ls -o /dev/null -w %{url_effective} " + url.as_string();
+            strCommand = "curl -A \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36\" --http1.1 -Ls -o /dev/null -w %{url_effective} " + url.as_string();
 
             auto strEffectiveUrl = node()->get_command_output(strCommand);
 
@@ -128,7 +128,7 @@ namespace command_line
 
             ::string strUrl(url.as_string());
 
-            strCommand.formatf("curl --http1.0 %s", strUrl.c_str());
+            strCommand.formatf("curl -A \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36\" --http1.0 %s", strUrl.c_str());
 
             ::string strOutput = node()->get_command_output(strCommand);
 
@@ -146,7 +146,7 @@ namespace command_line
 
             ::string strUrl(url.as_string());
 
-            strCommand.formatf("curl --http1.0 %s --output \"%s\"", strUrl.c_str(), path.c_str());
+            strCommand.formatf("curl -A \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36\" --http1.0 %s --output \"%s\"", strUrl.c_str(), path.c_str());
 
             int iExitCode = node()->command_system(strCommand, 2_hour);
 
