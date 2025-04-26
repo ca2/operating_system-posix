@@ -52,7 +52,7 @@ namespace acme_posix
 
       ::file::path module() override;
 
-      void put_contents(const ::file::path & path, const ::scoped_string & scopedstrContents) override;
+      void put_contents(const ::file::path & path, const ::block & block) override;
       //bool get_temporary_file_name_template(char * szRet, character_count iBufferSize, const char * lpszName, const char * pszExtension, const char * pszTemplate) override;
       filesize get_size(const ::file::path & path) override;
       //filesize get_size(FILE * pfile) override;

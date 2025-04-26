@@ -2258,7 +2258,7 @@ namespace node_gtk4
 
       file()->put_text(path, strXml);
 
-      int iUpdateMimeDatabaseError = ::system("update-mime-database \"" + path + "\"");
+      int iUpdateMimeDatabaseError = ::system(::string("update-mime-database \"" + path + "\""));
 
       if(iUpdateMimeDatabaseError)
       {

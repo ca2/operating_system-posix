@@ -349,7 +349,7 @@ namespace acme
       //::e_status node::shell_execute_sync(const ::string & pszFile, const ::string & pszParams, ::duration durationTimeout)
       //{
 
-      //   property_set set;
+      //   ::property_set set;
 
       //   call_sync(pszFile, pszParams, ::file::path(pszFile).folder(), e_display_none, durationTimeout, set);
 

@@ -1123,7 +1123,7 @@ m_bMessageThread=true;
 
             string strTheme = theme_name;
 
-            informationf("gtk_settings_gtk_theme_name_callback: \"" + strTheme + "\"\n");
+            information("gtk_settings_gtk_theme_name_callback: \"" + strTheme + "\"\n");
 
             g_free(theme_name);
 
@@ -1141,7 +1141,7 @@ m_bMessageThread=true;
 
             string strIconTheme = icon_theme_name;
 
-            informationf(
+            information(
                "gtk_settings_gtk_icon_theme_name_callback: \"" + strIconTheme + "\"\n");
 
             g_free(icon_theme_name);
