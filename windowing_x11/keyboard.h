@@ -49,7 +49,7 @@ namespace windowing_x11
 
       //string process_escape(const char * pszChar);
 
-      //void process_escape(::pointer<::xml::node>pnode, property_set & set);
+      //void process_escape(::pointer<::xml::node>pnode, ::property_set & set);
 
       //string get_current_system_layout();
 
