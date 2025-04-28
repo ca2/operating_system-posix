@@ -9,7 +9,7 @@
 #include "acme_windowing_g/_.h"
 
 
-#if defined(_windowing_system_gtk3_project)
+#if defined(_acme_windowing_gtk3_project)
 #define CLASS_DECL_ACME_WINDOWING_GTK3  CLASS_DECL_EXPORT
 #else
 #define CLASS_DECL_ACME_WINDOWING_GTK3  CLASS_DECL_IMPORT
@@ -122,6 +122,7 @@ namespace gtk3
       namespace windowing
       {
 
+         class display;
          class window;
          class windowing;
 
