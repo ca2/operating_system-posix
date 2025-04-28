@@ -14,7 +14,7 @@
 #include "acme/user/user/os_theme_colors.h"
 #include "acme/user/user/theme_colors.h"
 #include "apex/platform/system.h"
-#include "acme/platform/ini.h"
+//#include "acme/platform/ini.h"
 #include "aura/windowing/windowing.h"
 #include <kworkspace6/kworkspace.h>
 #include <KColorScheme>
