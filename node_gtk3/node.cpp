@@ -721,9 +721,13 @@ namespace node_gtk3
 
                       //_g_idle_add_windowing_message_loop();
 
-                      auto psystem = system();
+                      //auto psystem = system();
 
-                      psystem->defer_post_initial_request();
+                      //psystem->defer_post_initial_request();
+
+            system()->post_application_start();
+            system()->defer_post_file_open();
+            system()->post_application_started();
 
                    });
 
