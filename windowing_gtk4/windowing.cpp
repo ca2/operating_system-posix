@@ -983,9 +983,13 @@ namespace windowing_gtk4
 
       //gtk_add_idle_source(this);
 
-      auto psystem = system();
+      // auto psystem = system();
+      //
+      // psystem->defer_post_initial_request();
 
-      psystem->defer_post_initial_request();
+      system()->post_application_start();
+      system()->defer_post_file_open();
+      system()->post_application_started();
 
    }
 
