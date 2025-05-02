@@ -583,7 +583,11 @@ m_bMessageThread=true;
 
             }
 
-            system()->defer_post_initial_request();
+            //system()->defer_post_initial_request();
+
+            system()->post_application_start();
+            system()->defer_post_file_open();
+            system()->post_application_started();
 
          }
 
