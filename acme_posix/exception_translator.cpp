@@ -187,16 +187,29 @@ namespace acme_posix
 
       zero(m_sig.m_saPipe);
 
-      m_sig.m_saSeg.sa_flags = SA_SIGINFO;
+      //m_sig.m_saSeg.sa_flags = SA_SIGINFO;
+      
+      //m_sig.m_saSeg.sa_flags = SA_SIGINFO;
+      //m_sig.m_saSeg.sa_flags = 0;
+      //sigemptyset(&m_sig.m_saPipe.sa_mask);
+      //m_sig.m_saPipe.sa_sigaction = &sigpipe_handler;
+      //m_sig.m_saPipe.sa_sigaction = SIG_IGN;
+      //m_sig.m_saPipe.sa_handler = SIG_IGN;
 
-      m_sig.m_saPipe.sa_sigaction = &sigpipe_handler;
-
-      if (sigaction(SIGPIPE, &m_sig.m_saPipe, &m_sigOld.m_saPipe) < 0)
-      {
-
-         informationf("failed to install pipe signal handler");
-
-      }
+    //  if (sigaction(SIGPIPE, &m_sig.m_saPipe, &m_sigOld.m_saPipe) < 0)
+  //    {
+//
+  //       informationf("failed to install pipe signal handler");
+//
+      //}
+    //  else
+  //    {
+      
+//		printf_line("Installed SIG PIPE handler");
+		
+//	  }
+	
+//	  preempt(5_s);
 
    }
 

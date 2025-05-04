@@ -1608,7 +1608,9 @@ namespace acme_posix
 
          free(pszCommandLine);
 
-         _exit(iErrNo);
+         //_exit(iErrNo);
+         
+         exit(iErrNo);
 
 //#else
 /*
@@ -2212,7 +2214,9 @@ namespace acme_posix
       
          free(pszExecutable);
 
-         _exit(iErrNo);
+         //_exit(iErrNo);
+         
+         exit(iErrNo);
 
 #endif
 
@@ -2620,7 +2624,9 @@ namespace acme_posix
          
          free(pszExecutable);
 
-         _exit(iChildExitCode);
+         //_exit(iChildExitCode);
+         
+         exit(iChildExitCode);
 
 #endif
 

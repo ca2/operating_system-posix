@@ -417,7 +417,7 @@ audio_dev_slave(const char *dev, struct audio_dev_ctx *ac)
 		dev += strlen(ad->ad_name);
 	ac->ac_devarg = (ad->ad_init)(dev);
 	if (ac->ac_devarg == NULL) {
-		perror("audio_dev_slave");
+		//perror("audio_dev_slave");
 		fprintf(stderr, "audio_dev_slave: failed to open back-end\n");
 		fflush(stderr);
 		munmap(pb, sizeof(*ac->ac_pcm));
@@ -442,7 +442,7 @@ audio_dev_slave(const char *dev, struct audio_dev_ctx *ac)
 			if (!ac->ac_paused && pd->pd_len) {
 				rv = audio_dev_output(ac, pd);
 				if (rv < 0 && errno != EAGAIN) {
-					perror("audio_slave: audio_dev_output");
+					fprintf(stderr, "audio_slave: audio_dev_output failed");
 					return;
 				}
 			}
@@ -463,7 +463,7 @@ audio_dev_slave(const char *dev, struct audio_dev_ctx *ac)
 		if (prodpeer) {
 			prodpeer = 0;
 			if (audio_dev_writepeer(ac) < 0) {
-				perror("audio_slave: peer write");
+				fprintf(stderr, "audio_slave: audio_dev_writepeer failed");
 				return;
 			}
 		}
@@ -488,7 +488,7 @@ audio_dev_slave(const char *dev, struct audio_dev_ctx *ac)
 				;
 
 			if (rv < 0) {
-				perror("audio_slave: poll");
+				fprintf(stderr, audio_slave: poll failed");
 				return;
 			}
 
