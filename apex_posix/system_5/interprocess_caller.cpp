@@ -122,11 +122,11 @@ namespace system_5
 
       }
 
-      informationf("functon: \"interprocess_caller::send\"\n");
+      information("functon: \"interprocess_caller::send\"\n");
 
-      informationf("channel: \"" + m_strBaseChannel + "\"\n");
+      information("channel: \"" + m_strBaseChannel + "\"\n");
 
-      informationf("message: \"" + string(pszMessage) + "\"\n");
+      information("message: \"" + string(pszMessage) + "\"\n");
 
       //return true;
 

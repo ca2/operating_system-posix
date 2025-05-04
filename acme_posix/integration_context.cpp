@@ -244,7 +244,7 @@ namespace acme_posix
          if (m_pathDownloadURL.case_insensitive_ends(".tar.gz"))
          {
 
-            property_set set;
+            ::property_set set;
 
             set["http_raw"] = true;
 

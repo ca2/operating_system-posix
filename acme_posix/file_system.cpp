@@ -244,7 +244,7 @@ namespace acme_posix
 
 
 
-   void file_system::put_contents(const ::file::path & path, const ::scoped_string & scopedstrContents)
+   void file_system::put_contents(const ::file::path & path, const ::block & block)
    {
 
       directory_system()->create(::file_path_folder(path));
@@ -262,9 +262,9 @@ namespace acme_posix
 
       size_t dwWrite;
 
-      dwWrite = scopedstrContents.size();
+      dwWrite = block.size();
 
-      size_t dwWritten = ::fwrite(scopedstrContents.begin(), 1, (unsigned int)dwWrite, pfile);
+      size_t dwWritten = ::fwrite(block.begin(), 1, (unsigned int)dwWrite, pfile);
 
       if(dwWritten != dwWrite)
       {

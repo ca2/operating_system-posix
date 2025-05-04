@@ -14,9 +14,9 @@
 //#include "acme/user/micro/window.h"
 #include "acme/windowing/windowing.h"
 #include "acme/filesystem/filesystem/directory_system.h"
-#include "acme/filesystem/filesystem/file_system.h"
+#include "acme/filesystem/filesystem/file_context.h"
 #include "acme/filesystem/filesystem/path_system.h"
-#include "acme/platform/ini.h"
+//#include "acme/platform/ini.h"
 //#include "common_gtk/gdk_3_and_4.h"
 #include <QScreen>
 #include <QRect>
@@ -1515,9 +1515,9 @@ namespace lxq2
 
             auto path = directory_system()->home() / ".config/pcmanfm-qt/lxqt/settings.conf";
 
-            auto pini = file_system()->get_ini(path);
+            auto set = file()->get_ini(path);
 
-            auto strWallpaper = (*pini)["Desktop"]["Wallpaper"].as_string();
+            auto strWallpaper = set["Desktop"]["Wallpaper"].as_string();
 
             return strWallpaper;
 

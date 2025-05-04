@@ -1069,7 +1069,7 @@ namespace acme_posix
    //::e_status node::shell_execute_sync(const ::string & pszFile, const ::string & pszParams, ::time timeTimeout)
    //{
 
-   //   property_set set;
+   //   ::property_set set;
 
    //   call_sync(pszFile, pszParams, ::file::path(pszFile).folder(), e_display_none, timeTimeout, set);
 
@@ -1193,7 +1193,7 @@ namespace acme_posix
 ::process_identifier_array node::module_path_processes_identifiers(const ::string & psz, bool bModuleNameIsPropertyFormatted)
    {
 
-      informationf("os/linux_process.cpp app_get_pid (" + string(psz) + ")");
+      information("os/linux_process.cpp app_get_pid (" + string(psz) + ")");
 
    ::process_identifier_array ia;
 

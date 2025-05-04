@@ -2931,7 +2931,8 @@ namespace g
          case ::windowing::e_operating_ambient_xfce:
          {
 
-            ::string strOutput = node()->get_posix_shell_command_output("xfconf-query -c xfce4-desktop -p /backdrop -l");
+
+            ::string strOutput = node()->get_posix_shell_command_output("xrandr --listmonitors");
 
             ::string_array stra;
 
@@ -2940,10 +2941,41 @@ namespace g
             for (auto & str : stra)
             {
 
-               if (str.contains("image-path") || str.contains("last-image"))
+               str.trim();
+
+               auto iFind = str.find_index('+');
+
+               if(iFind > 0)
                {
 
-                  node()->command_system("xfconf-query -c xfce4-desktop -p " + str + " -s " + strLocalImagePath, 2_min);
+                    auto iFind2 = str.index_of(str(iFind).find_first_character_in("\t\r\n "));
+
+                    if(iFind2 > iFind)
+                    {
+
+                        ::string strMonitorName = str.substr(iFind + 1, iFind2 - iFind - 1);
+
+                        //node()->command_system("xfconf-query -c xfce4-desktop -p " + str + " -s " + strLocalImagePath, 2_min);
+
+        // Compose xfconf-query commands
+                        ::string strCommand;
+
+                        strCommand.formatf(
+            "xfconf-query -c xfce4-desktop -p \"/backdrop/screen0/monitor%s/workspace0/last-image\" -n -t string -s \"%s\"",
+            strMonitorName.c_str(), strLocalImagePath.c_str());
+                        node()->command_system(strCommand, 1_min);
+
+                        strCommand.formatf(
+            "xfconf-query -c xfce4-desktop -p \"/backdrop/screen0/monitor%s/workspace0/image-style\" -n -t int -s 3",
+            strMonitorName.c_str());
+                        node()->command_system(strCommand, 1_min);
+
+                        strCommand.formatf(
+            "xfconf-query -c xfce4-desktop -p \"/backdrop/screen0/monitor%s/workspace0/image-show\" -n -t bool -s true",
+            strMonitorName.c_str());
+                        node()->command_system(strCommand, 1_min);
+
+                    }
 
                }
 
