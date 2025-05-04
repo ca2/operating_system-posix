@@ -25,8 +25,8 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_DEFAULT
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2025,0131,1915,15
- PRODUCTVERSION 2025,0131,1915,15
+ FILEVERSION 2025,0504,1540,01
+ PRODUCTVERSION 2025,0504,1540,01
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -42,10 +42,10 @@ BEGIN
         BLOCK "040904b0"
         BEGIN
 			VALUE "CompanyName", "operating_system-posix"
-			VALUE "FileDescription", "operating_system_posix_acme_windowing_lxq2"
-            VALUE "FileVersion", "2025.0131.1915.15"
-            VALUE "LegalCopyright", "Copyright (C) 2025-01-31-19-15-15"
-            VALUE "ProductVersion", "2025.0131.1915.15"
+			VALUE "FileDescription", "operating_system_posix_acme_windowing_lxq1"
+            VALUE "FileVersion", "2025.0504.1540.01"
+            VALUE "LegalCopyright", "Copyright (C) 2025-05-04-15-40-01"
+            VALUE "ProductVersion", "2025.0504.1540.01"
         END
     END
     BLOCK "VarFileInfo"
