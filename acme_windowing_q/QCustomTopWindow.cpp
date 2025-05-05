@@ -26,13 +26,19 @@ QCustomTopWindow::QCustomTopWindow(::q::micro::window * pwindow)
 void QCustomTopWindow::paintEvent(QPaintEvent * happening)
 {
 
-   if (m_qimage.size() != this->size()) {
+
+   if (m_qimage.size() != this->size())
+   {
 
       m_qimage = QImage(this->size(), QImage::Format_ARGB32_Premultiplied);
 
    }
 
+   //printf_line("_on_qimage_draw In");
+
    m_pwindow->_on_qimage_draw(&m_qimage);
+
+   //printf_line("_on_qimage_draw Out");
 
    QPainter painter(this);
 
@@ -91,7 +97,7 @@ void QCustomTopWindow::mouseMoveEvent(QMouseEvent * happening)
 //         label->setText(QString("Mouse Moved to (%1, %2)")
 //           .arg(happening->pos().x())
    //         .arg(happening->pos().y()));
-   //   qDebug() << "Mouse Moved to" << happening->pos();
+   //printf_line("Mouse Moved to %d, %d", happening->pos().x(), happening->pos().y());
    m_pwindow->_on_mouse_motion(happening);
 }
 
