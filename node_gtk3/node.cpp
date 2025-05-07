@@ -50,6 +50,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+void install_operating_system_default_signal_handlers();
+
 //void xfce4_dbus_set_wallpaper(const char *wallpaper_path);
 
 
@@ -2208,19 +2210,71 @@ namespace node_gtk3
 
    void node::open_url_link_at_system_browser(const ::string &strUrl, const ::string & strProfile)
    {
-
-      const char *pszUrl = strUrl;
-
-      GError *perror = nullptr;
-
-      if (!g_app_info_launch_default_for_uri(pszUrl, nullptr, &perror))
+      
+      _main_post([strUrl]()
       {
 
-         fprintf(stderr, "Unable to read file: %s\n", perror->message);
+         ::install_operating_system_default_signal_handlers();
 
-         g_error_free(perror);
+         ::printf_line("(WAS) Going to call g_app_info_launch_default_for_uri for url : %s", strUrl.c_str());
+      
+         //{
+         
+            //sigset_t set;
 
-      }
+            //// Initialize an empty signal set
+            //sigemptyset(&set);
+
+            //// Add SIGCHLD to the set
+            //sigaddset(&set, SIGCHLD);
+
+            //// Block SIGCHLD for this thread
+            //if (pthread_sigmask(SIG_BLOCK, &set, NULL) != 0) 
+            //{
+               //::errf_line("pthread_sigmask failed to block SIGCHLD");
+               ////exit(1);
+            //}
+
+            //::printf_line("SIGCHLD blocked in this thread.\n");
+
+         //}
+
+         const char *pszUrl = strUrl;
+
+         GError *perror = nullptr;
+      
+         if (!g_app_info_launch_default_for_uri(pszUrl, nullptr, &perror))
+         {
+
+            ::errf_line("Unable to read file: %s\n", perror->message);
+
+            g_error_free(perror);
+
+         }
+         
+         //{
+         
+            //sigset_t set;
+
+            //// Initialize an empty signal set
+            //sigemptyset(&set);
+
+            //// Add SIGCHLD to the set
+            //sigaddset(&set, SIGCHLD);
+
+            //// Unblock SIGCHLD for this thread
+            //if (pthread_sigmask(SIG_UNBLOCK, &set, NULL) != 0) 
+            //{
+               //::errf_line("pthread_sigmask failed to unblock SIGCHLD");
+               ////exit(1);
+            //}
+            
+            //::printf_line("SIGCHLD unblocked in this thread.\n");
+    
+         //}
+      
+      });
+      
 
    }
 

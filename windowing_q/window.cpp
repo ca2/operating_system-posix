@@ -6727,7 +6727,9 @@ namespace windowing_q
 
          set_window_position_unlocked();
 
-         m_pqwidget->repaint();
+         //m_pqwidget->repaint();
+
+         m_pqwidget->update();
 
       });
 

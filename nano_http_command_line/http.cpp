@@ -41,6 +41,16 @@ m_eapp = e_app_not_initialized;
 
                   m_eapp = e_app_curl;
 
+::string strVersion = node()->get_posix_shell_command_output("curl --version");
+::string_array stra;
+stra.explode(" ", strVersion);
+if(stra.size() >= 2)
+{
+strVersion = stra[1];
+}
+
+m_strUserAgent = "curl/" + strVersion + "/nano_http_command_line";
+
                }
                else if(node()->has_posix_shell_command("wget"))
                {

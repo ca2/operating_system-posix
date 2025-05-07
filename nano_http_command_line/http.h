@@ -35,7 +35,7 @@ namespace command_line
          public:
 
             enum_app m_eapp;
-
+::string m_strUserAgent;
 
             http();
             ~http() override;

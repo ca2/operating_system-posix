@@ -202,7 +202,7 @@ namespace acme_posix
    ::file::path directory_context::document()
    {
 
-      if(m_pathDocument)
+      if(m_pathDocument.has_character())
       {
 
          return m_pathDocument;

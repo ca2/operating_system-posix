@@ -327,7 +327,7 @@ namespace apex_posix
    ::file::path node::_get_auto_start_desktop_file_path(const ::string & strAppId)
    {
 
-#if defined(LINUX) || defined(FREEBSD)
+#if defined(LINUX) || defined(__BSD__)
 
       auto pathHome = directory_system()->home();
 
@@ -356,7 +356,7 @@ namespace apex_posix
    void node::register_user_auto_start(::platform::application * papplication, const string & strArguments, bool bRegister)
    {
 
-#if defined(LINUX) || defined(FREEBSD) || defined(OPENBSD)
+#if defined(LINUX) || defined(__BSD__)
 
       ::file::path pathAutoStartDesktopFilePath = _get_auto_start_desktop_file_path(papplication->m_strAppId);
 

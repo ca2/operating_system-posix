@@ -191,7 +191,7 @@ namespace inotify
          else
          {
 
-            perror("select");
+            fprintf(stderr, "inotify::watch::file_watch_step select");
 
          }
 

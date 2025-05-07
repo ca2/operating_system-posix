@@ -14,8 +14,9 @@
 //char * get_line(char * str, char * & next);
 //char * get_command_output(const char * pszCommand);
 
-#include "apex/networking/http/_user_agent.h"
+//#include "apex/networking/http/_user_agent.h"
 
+//#define  + m_strUserAgent +  "curl/nano_http_command_line"
 
 
 namespace command_line
@@ -35,7 +36,7 @@ namespace command_line
 
             ::string strCommand;
 
-            strCommand = "curl -A \"" CHROME_USER_AGENT "\" --http1.1 --silent -I " + url.as_string();
+            strCommand = "curl -A \""  + m_strUserAgent +  "\" --http1.1 --silent -I " + url.as_string();
 
             auto strOutput = node()->get_command_output(strCommand);
 
@@ -115,7 +116,7 @@ namespace command_line
 
             ::string strCommand;
 
-            strCommand = "curl -A \"" CHROME_USER_AGENT "\" --http1.1 -Ls -o /dev/null -w %{url_effective} " + url.as_string();
+            strCommand = "curl -A \""  + m_strUserAgent +  "\" --http1.1 -Ls -o /dev/null -w %{url_effective} " + url.as_string();
 
             auto strEffectiveUrl = node()->get_command_output(strCommand);
 
@@ -132,7 +133,7 @@ namespace command_line
 
             ::string strUrl(url.as_string());
 
-            strCommand.formatf("curl -A \"" CHROME_USER_AGENT "\" --http1.0 %s", strUrl.c_str());
+            strCommand.formatf("curl -A \""  + m_strUserAgent +  "\" --http1.0 %s", strUrl.c_str());
 
             ::string strOutput = node()->get_command_output(strCommand);
 
@@ -150,9 +151,9 @@ namespace command_line
 
             ::string strUrl(url.as_string());
             
-            print_line("Using the following user agent to download: \"" CHROME_USER_AGENT "\".");
+            print_line("Using the following user agent to download: \""  + m_strUserAgent +  "\".");
 
-            strCommand.formatf("curl -A \"" CHROME_USER_AGENT "\" --http1.0 %s --output \"%s\"", strUrl.c_str(), path.c_str());
+            strCommand.formatf("curl -A \""  + m_strUserAgent +  "\" --http1.0 %s --output \"%s\"", strUrl.c_str(), path.c_str());
 
             int iExitCode = node()->command_system(strCommand, 2_hour);
 
