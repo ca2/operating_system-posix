@@ -13,8 +13,8 @@ list(APPEND library_source
         #clipboard_data.h
         #copydesk.cpp
         #copydesk.h
-        desktop_environment.cpp
-        desktop_environment.h
+        #desktop_environment.cpp
+        #desktop_environment.h
         #display.cpp
         #display.h
         enum_display_monitors.cpp
