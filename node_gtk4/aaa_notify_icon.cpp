@@ -55,7 +55,7 @@ namespace node_gtk4
 
       #elif defined(UNIVERSAL_WINDOWS)
 
-#elif defined(ANDROID)
+#elif defined(__ANDROID__)
 
 #elif defined(APPLE_IOS)
 

@@ -9,7 +9,7 @@
 //////#include "aura/user/user/_component.h"
 //
 //
-//#if !defined(ANDROID)
+//#if !defined(__ANDROID__)
 //#include "appindicator.h"
 //#include "clipboard_data.h"
 //#endif

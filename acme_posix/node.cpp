@@ -99,7 +99,7 @@ virtual public ::numeric_array < POINTER_TYPE >
 
 #include <sys/wait.h>
 #include <unistd.h>
-//#if !defined(ANDROID)
+//#if !defined(__ANDROID__)
 //#if defined(OPENBSD)
 //#include <glob.h>
 //#else
@@ -122,7 +122,7 @@ virtual public ::numeric_array < POINTER_TYPE >
 #include <sys/select.h>
 //#include <sched.h>
 
-#if defined(__clang__) && !defined(ANDROID)
+#if defined(__clang__) && !defined(__ANDROID__)
 ::string clang_backtrace();
 #endif
 
@@ -829,7 +829,7 @@ namespace acme_posix
 
       string strExe = argv[0];
 
-#ifdef ANDROID
+#ifdef __ANDROID__
 
       int status = -1;
 
@@ -908,7 +908,7 @@ namespace acme_posix
 
       auto envp = ::system()->m_envp;
 
-#ifdef ANDROID
+#ifdef __ANDROID__
 
       status = -1;
 
@@ -1386,7 +1386,7 @@ namespace acme_posix
 //
 //   }
 
-//#if defined(__clang__) && !defined(ANDROID)
+//#if defined(__clang__) && !defined(__ANDROID__)
 //   ::string node::get_callstack()
 //   {
 //
@@ -1565,7 +1565,7 @@ namespace acme_posix
 
          close(stdin_fds[1]);
 
-#if defined(ANDROID) || defined(APPLE_IOS)
+#if defined(__ANDROID__) || defined(APPLE_IOS)
 
          throw ::exception(todo);
 
@@ -2165,7 +2165,7 @@ namespace acme_posix
 
       //close(stdin_fds[1]);
 
-#if defined(ANDROID) || defined(APPLE_IOS)
+#if defined(__ANDROID__) || defined(APPLE_IOS)
 
          throw ::exception(todo);
 
@@ -2603,7 +2603,7 @@ namespace acme_posix
       if (!pid)
       {
 
-#if defined(ANDROID) || defined(APPLE_IOS)
+#if defined(__ANDROID__) || defined(APPLE_IOS)
 
          throw ::exception(todo);
 

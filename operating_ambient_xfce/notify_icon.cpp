@@ -114,7 +114,7 @@ namespace node_xfce
 
       #elif defined(UNIVERSAL_WINDOWS)
 
-#elif defined(ANDROID)
+#elif defined(__ANDROID__)
 
 #elif defined(APPLE_IOS)
 

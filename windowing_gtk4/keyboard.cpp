@@ -219,7 +219,7 @@ namespace windowing_gtk4
 //
 //      strFile = Context.directory()->matter("keyboard/macos/default.xml");
 //
-//#elif defined(ANDROID)
+//#elif defined(__ANDROID__)
 //
 //      //strPath = Context.directory()->matter("keyboard/android/default.xml");
 //

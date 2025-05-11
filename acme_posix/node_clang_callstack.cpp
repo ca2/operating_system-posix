@@ -12,7 +12,7 @@
 #endif
 
 #define UNW_LOCAL_ONLY
-#ifdef ANDROID
+#ifdef __ANDROID__
 #include <unwind.h>
 #else
 #include <libunwind.h>

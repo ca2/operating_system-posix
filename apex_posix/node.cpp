@@ -16,7 +16,7 @@
 #include "acme/_operating_system.h"
 
 
-#if defined(LINUX) || defined(__APPLE__) || defined(ANDROID) || defined(__BSD__)
+#if defined(LINUX) || defined(__APPLE__) || defined(__ANDROID__) || defined(__BSD__)
 
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -61,7 +61,7 @@ namespace apex_posix
    void node::on_start_application(::apex::application *papplication)
    {
 
-#if !defined(RASPBERRYPIOS) && !defined(ANDROID) && !defined(__APPLE__) && !defined(LINUX)
+#if !defined(RASPBERRYPIOS) && !defined(__ANDROID__) && !defined(__APPLE__) && !defined(LINUX)
 
       try
       {

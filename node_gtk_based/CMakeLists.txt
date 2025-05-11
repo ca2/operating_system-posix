@@ -125,7 +125,7 @@ if (MSVC)
     target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references})
 
 
-elseif (${LINUX} OR ${__BSD__})
+elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
     if (${HAS_GTK4})
         #pkg_check_modules(PKGCONFIG x11 glib-2.0 gtk4 ${APPINDICATOR_PKG_MODULE})

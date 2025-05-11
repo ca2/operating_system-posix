@@ -14,7 +14,7 @@
 //#ifdef FREEBSD
 //#define __XSI_VISIBLE 1
 //#endif
-#if defined(LINUX) || defined(ANDROID) || defined(__APPLE__) || defined(__BSD__)
+#if defined(LINUX) || defined(__ANDROID__) || defined(__APPLE__) || defined(__BSD__)
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>

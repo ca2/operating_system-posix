@@ -37,7 +37,7 @@
 
 #include <sys/wait.h>
 #include <unistd.h>
-//#if !defined(ANDROID)
+//#if !defined(__ANDROID__)
 //#include <wordexp.h>
 //#endif
 #include <fcntl.h>
@@ -56,7 +56,7 @@
 #include <sys/select.h>
 //#include <sched.h>
 
-#if defined(__clang__) && !defined(ANDROID)
+#if defined(__clang__) && !defined(__ANDROID__)
 ::string clang_backtrace();
 #endif
 

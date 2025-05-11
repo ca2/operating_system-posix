@@ -17,7 +17,7 @@
 
 #include <ftw.h>
 
-#if defined(__APPLE__) || defined(ANDROID)
+#if defined(__APPLE__) || defined(__ANDROID__)
 
 char * get_current_dir_name();
 
@@ -37,7 +37,7 @@ char * get_current_dir_name();
 #include <sys/stat.h>
 #include <dirent.h>
 #include <unistd.h>
-#elif defined(ANDROID)
+#elif defined(__ANDROID__)
 #include <sys/stat.h>
 #include <dirent.h>
 #elif defined(UNIVERSAL_WINDOWS)
@@ -667,7 +667,7 @@ void directory_system::erase_recursively(const ::file::path &path)
 //}
 
 
-#if defined(UNIVERSAL_WINDOWS) || defined(__APPLE__) || defined(LINUX) || defined(ANDROID)
+#if defined(UNIVERSAL_WINDOWS) || defined(__APPLE__) || defined(LINUX) || defined(__ANDROID__)
 
 //::file::path directory_system::bookmark()
 //{
@@ -740,7 +740,7 @@ void directory_system::erase_recursively(const ::file::path &path)
 } // namespace acme_posix
 
 
-#if defined(__APPLE__) || defined(ANDROID)
+#if defined(__APPLE__) || defined(__ANDROID__)
 
 
 char * get_current_dir_name()

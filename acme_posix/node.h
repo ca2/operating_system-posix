@@ -104,7 +104,7 @@ namespace acme_posix
 
       //void aaa_user_post(const ::procedure & procedure) override;
 
-//#if defined(__clang__) && !defined(ANDROID)
+//#if defined(__clang__) && !defined(__ANDROID__)
 //      ::string get_callstack() override;
 //#endif
 

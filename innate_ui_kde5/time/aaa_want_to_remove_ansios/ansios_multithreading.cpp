@@ -239,7 +239,7 @@ void thread_data::set(void * p)
 // }
 
 
-#if defined(LINUX) // || defined(ANDROID)
+#if defined(LINUX) // || defined(__ANDROID__)
 
 bool (* g_pfn_defer_process_x_message)(htask htask,LPMESSAGE lpMsg,oswindow oswindow,bool bPeek) = nullptr;
 

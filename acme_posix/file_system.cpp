@@ -20,7 +20,7 @@
 #include <sys/time.h>
 
 
-#if defined(ANDROID) || defined(LINUX)
+#if defined(__ANDROID__) || defined(LINUX)
 #include "acme/operating_system/ansi/binreloc.h"
 #elif defined(__BSD__)
 #include <errno.h>
@@ -509,7 +509,7 @@ namespace acme_posix
    ::file::path file_system::module()
    {
 
-#if defined(ANDROID) || defined(LINUX)
+#if defined(__ANDROID__) || defined(LINUX)
 
       ::file::path path;
 

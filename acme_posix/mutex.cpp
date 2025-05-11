@@ -47,7 +47,7 @@ void utc_timespec(timespec * ptimespec);
 #undef USE_MISC
 
 
-#elif defined(ANDROID)
+#elif defined(__ANDROID__)
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -210,7 +210,7 @@ namespace acme_posix
          if(case_insensitive_string_begins(pstrName, "Global"))
          {
 
-   #ifdef ANDROID
+   #ifdef __ANDROID__
 
             strName = ::file::path(system()->m_pandroidinitdata->m_pszCacheDir) / "var/tmp" / strName;
 
@@ -295,7 +295,7 @@ namespace acme_posix
          if(strName.begins("Global"))
          {
 
-   #ifdef ANDROID
+   #ifdef __ANDROID__
 
             path = system()->m_pdirectorysystem->system() / "tmp/ca2/lock/mutex" / string(pstrName);
 
@@ -309,7 +309,7 @@ namespace acme_posix
          else
          {
 
-   #ifdef ANDROID
+   #ifdef __ANDROID__
 
             path =  system()->m_pdirectorysystem->system() / "home/user/ca2/lock/mutex" / string(pstrName);
 
@@ -542,7 +542,7 @@ namespace acme_posix
       m_bOwner       = bOwner;
       m_pszName      = strdup(pstrName);
 
-   #ifdef ANDROID
+   #ifdef __ANDROID__
 
       m_psem         = psem;
 
@@ -557,7 +557,7 @@ namespace acme_posix
 
       m_bOwner       = false;
 
-   #ifdef ANDROID
+   #ifdef __ANDROID__
 
       m_psem         = m.m_psem;
 
@@ -705,7 +705,7 @@ namespace acme_posix
 //
 //   }
 
-   //      ANDROID
+   //      __ANDROID__
    //      int irc = pthread_mutex_lock_timeout_np(&m_mutex, time.get_total_milliseconds());
    //
    //      if (!irc)
@@ -973,7 +973,7 @@ namespace acme_posix
             if (bFirst)
             {
 
-   #ifdef ANDROID
+   #ifdef __ANDROID__
 
                clock_gettime(CLOCK_MONOTONIC, &abs_time);
 
@@ -1034,7 +1034,7 @@ namespace acme_posix
 
             }
 
-   #ifdef ANDROID
+   #ifdef __ANDROID__
 
             int iErrorCondTimedWait = pthread_cond_timedwait_monotonic_np(&m_cond, &m_mutex, &abs_time);
 

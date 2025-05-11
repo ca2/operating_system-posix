@@ -518,7 +518,7 @@ namespace draw2d_xlib
    //      color32_t colorrefaN[2];
    //      colorrefaN[0] = _colorrefN;
    //      colorrefaN[1] = _colorrefN;
-   //#if defined(AMD64) || defined(ANDROID)
+   //#if defined(AMD64) || defined(__ANDROID__)
 
    //      //x64
    //#else

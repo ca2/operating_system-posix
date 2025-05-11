@@ -108,7 +108,7 @@ namespace acme_posix
 
 #else
 
-//#if !defined(ANDROID)
+//#if !defined(__ANDROID__)
 
       install_sigsegv_handler();
 
@@ -126,7 +126,7 @@ namespace acme_posix
 
 #endif
 
-//#endif // !defined(ANDROID)
+//#endif // !defined(__ANDROID__)
 
       m_bSet = true;
 
