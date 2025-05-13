@@ -63,7 +63,7 @@ if (MSVC)
    target_link_libraries(${PROJECT_NAME} PRIVATE prop ${library_references} ${global_library_references})
 
 
-elseif(${LINUX} OR ${__BSD__})
+elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
 
    pkg_check_modules(PKGCONFIG sndio)

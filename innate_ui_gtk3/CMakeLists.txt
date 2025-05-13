@@ -48,7 +48,7 @@ if (MSVC)
        Gdiplus
        Setupapi
        Credui)
-elseif(${LINUX} OR ${__BSD__})
+elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
     #if(NOT DONT_USE_PKG_CONFIG)
         #pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 appindicator-0.1)
