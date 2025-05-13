@@ -4,7 +4,7 @@
 
 #pragma once
 #include "acme/nano/graphics/icon.h"
-#include <cairo.h>
+#include <cairo/cairo.h>
 namespace cairo {
 namespace nano {
 namespace graphics {

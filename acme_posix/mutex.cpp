@@ -297,11 +297,11 @@ namespace acme_posix
 
    #ifdef __ANDROID__
 
-            path = system()->m_pdirectorysystem->system() / "tmp/ca2/lock/mutex" / string(pstrName);
+            path = directory_system()->roaming() / "tmp/ca2/lock/mutex";
 
    #else
 
-            path = ::file::path("/var/tmp/ca2/lock/mutex") / pstrName;
+            path = ::file::path("/var/tmp/ca2/lock/mutex");
 
    #endif
 
@@ -311,7 +311,7 @@ namespace acme_posix
 
    #ifdef __ANDROID__
 
-            path =  system()->m_pdirectorysystem->system() / "home/user/ca2/lock/mutex" / string(pstrName);
+            path =  directory_system()->roaming() / "home/user/ca2/lock/mutex";
 
    #elif defined __APPLE__
 
@@ -327,10 +327,9 @@ namespace acme_posix
 
    #endif
 
-
          }
 
-         path /= pstrName;
+         path /= strName;
 
          auto pacmesystem = system();
 

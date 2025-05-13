@@ -11,9 +11,10 @@
 #include "acme/nano/graphics/font.h"
 #include "acme/nano/graphics/pen.h"
 #include "acme/prototype/geometry2d/rectangle.h"
+#ifdef HAS_X11
 #include "acme/operating_system/x11/_x11.h"
 #include <cairo/cairo-xlib.h>
-
+#endif
 
 
 cairo_surface_t * as_cairo_surface(::pixmap & pixmap)
@@ -137,6 +138,7 @@ namespace cairo
 
          }
 
+#ifdef HAS_X11
 
          void device::create_for_x11(const ::x11::handle_t & handle, int w, int h)
          {
@@ -151,9 +153,27 @@ namespace cairo
 
          }
 
+#endif
+
+
+//           void device::create_surface(int w, int h)
+//           {
+//
+//              destroy();
+//
+//              m_psurfaceMemory =  cairo_image_surface_create(CAIRO_FORMAT_ARGB32,
+//                      w, h);
+//
+//              m_pdc = cairo_create(m_psurfaceMemory);
+//
+//           }
+
 
          void device::resize(const ::int_size & size)
          {
+
+#ifdef HAS_X11
+
 
             if(cairo_surface_get_type(m_psurfaceMemory) == CAIRO_SURFACE_TYPE_XLIB)
             {
@@ -162,13 +182,52 @@ namespace cairo
 
             }
             else
+#endif
             {
 
-               throw ::not_implemented();
+               auto psurfaceOld = m_psurfaceMemory;
+
+               auto pdcOld = m_pdc;
+
+               auto psurfaceNew = cairo_image_surface_create(
+                       CAIRO_FORMAT_ARGB32,
+                       size.cx(), size.cy());
+
+               auto pdcNew = cairo_create(m_psurfaceMemory);
+
+               auto cx=minimum(cairo_surface_get_width(psurfaceOld),
+                               cairo_surface_get_width(psurfaceNew));
+               auto cy=minimum(cairo_surface_get_height(psurfaceOld),
+                               cairo_surface_get_height(psurfaceNew));
+               auto pimageSub =cairo_surface_create_for_rectangle(psurfaceOld,
+                                                  0.,
+                                                  0.,
+                                                  cx,
+cy
+                                                  );
+
+               cairo_set_source(pdcNew, pimageSub);
+
+               cairo_rectangle(pdcNew, 0., 0., cx, cy);
+
+               cairo_set_operator(pdcNew, CAIRO_OPERATOR_SOURCE);
+
+               cairo_paint(pdcNew);
+
+               m_psurfaceMemory = psurfaceNew;
+
+               m_pdc = pdcNew;
+
+               cairo_destrow(pdcOld);
+               cairo_surface_destroy(psurfaceOld);
+
 
             }
 
          }
+
+
+
 
 
          void device::on_begin_draw()

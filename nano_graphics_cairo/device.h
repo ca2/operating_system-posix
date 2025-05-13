@@ -22,8 +22,12 @@ namespace cairo
 
    namespace nano
    {
+
+
       namespace graphics
       {
+
+
          class CLASS_DECL_ACME device :
             virtual public ::nano::graphics::device
          {
@@ -38,8 +42,11 @@ namespace cairo
             device(cairo_t * pdc);
             ~device() override;
 
-
+#ifdef HAS_X11
             void create_for_x11(const ::x11::handle_t & handle, int w, int h) override;
+#endif
+
+            void create(int w, int h) override;
 
 
             void resize(const ::int_size & size) override;
@@ -64,7 +71,7 @@ void draw(::nano::graphics::icon * picon, int x, int y, int cx, int cy) override
             ::pixmap pixmap() override;
 
             //void set_antialias(bool bAntialiasOn);
-            void create(int cx, int cy) override;
+            //void create(int cx, int cy) override;
 
             void translate(int x, int y) override;
 
