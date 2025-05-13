@@ -19,6 +19,8 @@
 #include "acme/operating_system/openbsd/standard_exception.h"
 #elif defined(__APPLE__)
 #include "acme/operating_system/apple/standard_exception.h"
+#elif defined(__ANDROID__)
+#include "acme/operating_system/android/standard_exception.h"
 #endif
 
 
