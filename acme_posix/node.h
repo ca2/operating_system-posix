@@ -85,7 +85,9 @@ namespace acme_posix
       void unset_environment_variable(const ::scoped_string & scopedstrEnvironmentVariable) override;
 
       string expand_environment_variables(const ::scoped_string & scopedstr) override;
-      
+
+
+      virtual bool posix_try_open_internet_link(const ::scoped_string & scopedstrUrl, const ::scoped_string & scopedstrProfile, const ::string_array & straBrowsers);
 
 
       bool stdin_has_input_events() override;

@@ -3205,6 +3205,50 @@ return{};
    }
 
 
+   bool node::posix_try_open_internet_link(const ::scoped_string & scopedstrUrl, const ::scoped_string & scopedstrProfile, const ::string_array & straBrowsers)
+   {
+
+      ::string strUrl(scopedstrUrl);
+
+      printf_line("posix_try_open_internet_link trying to open url : %s", strUrl.c_str());
+
+      for (auto &browser : straBrowsers)
+      {
+
+         printf_line("trying browser : %s", browser.c_str());
+
+         auto path = command_find_path(browser);
+
+         if (path.has_character())
+         {
+
+            printf_line("found browser : %s at path : %s", browser.c_str(), path.c_str());
+
+            if (command_system(::string(path) + " " + strUrl) == 0)
+            {
+
+               return true;
+
+            }
+
+         }
+         else
+         {
+
+            printf_line("Couldn't find browser : %s", browser.c_str());
+
+         }
+
+
+      }
+
+      printf_line("posix_try_open_internet_link failed to find browser to open internet link");
+
+         return false;
+
+   }
+
+
 } // namespace acme_posix
 
 

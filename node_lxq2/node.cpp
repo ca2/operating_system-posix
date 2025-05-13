@@ -27,6 +27,7 @@
 #include <QDebug>
 #include <QFileInfo>
 #include <QIcon>
+#include <QStandardPaths>
 #include <QDir>
 //#include <LXQt/Settings>
 //#include <LXQt/IconCache>
@@ -48,6 +49,14 @@
 #include <QPixmap>
 #include <QDir>
 #include <QDebug>
+
+
+#include <QDesktopServices>
+#include <QUrl>
+#include <QProcess>
+#include <QDebug>
+#include <QFileInfo>
+
 
 // Function to get the full icon path for a given file at a specific size
 QString getFileIconPath(const QString &filePath, int size = 64) {
@@ -819,12 +828,32 @@ namespace node_lxq2
    }
 
 
-   void node::open_url_link_at_system_browser(const ::string & strUrl, const ::string & strProfile)
+   void node::open_internet_link_in_system_browser(const ::string & strUrl, const ::string & strProfile)
    {
 
-      QUrl url(strUrl.c_str());
+      // QUrl url(strUrl.c_str());
+      //
+      // printf_line("Trying QDesktopServices::openUrl to open url : %s", strUrl.c_str());
+      //
+      // if (QDesktopServices::openUrl(url))
+      // {
+      //
+      //    return;
+      //
+      // }
 
-      QDesktopServices::openUrl(url);
+      printf_line("Trying to call xdg-open to open url : %s", strUrl.c_str());
+
+      if (command_system("xdg-open " + strUrl) == 0)
+      {
+
+         return;
+
+      }
+
+      string_array straBrowsers{ "firefox", "chromium", "brave", "google-chrome", "opera" };
+
+      posix_try_open_internet_link(strUrl, strProfile, straBrowsers);
 
    }
 
