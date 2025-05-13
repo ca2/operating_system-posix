@@ -195,18 +195,20 @@ namespace cairo
 
                auto pdcNew = cairo_create(m_psurfaceMemory);
 
-               auto cx=minimum(cairo_surface_get_width(psurfaceOld),
-                               cairo_surface_get_width(psurfaceNew));
-               auto cy=minimum(cairo_surface_get_height(psurfaceOld),
-                               cairo_surface_get_height(psurfaceNew));
-               auto pimageSub =cairo_surface_create_for_rectangle(psurfaceOld,
+               auto cx=minimum(cairo_image_surface_get_width(psurfaceOld),
+                               cairo_image_surface_get_width(psurfaceNew));
+               auto cy=minimum(cairo_image_surface_get_height(psurfaceOld),
+                               cairo_image_surface_get_height(psurfaceNew));
+               auto psurfaceSub =cairo_surface_create_for_rectangle(psurfaceOld,
                                                   0.,
                                                   0.,
                                                   cx,
 cy
                                                   );
 
-               cairo_set_source(pdcNew, pimageSub);
+               auto ppattern = cairo_pattern_create_for_surface(psurfaceSub);
+
+               cairo_set_source(pdcNew, ppattern);
 
                cairo_rectangle(pdcNew, 0., 0., cx, cy);
 
@@ -218,7 +220,9 @@ cy
 
                m_pdc = pdcNew;
 
-               cairo_destrow(pdcOld);
+               cairo_destroy(pdcOld);
+               cairo_pattern_destroy(ppattern);
+               cairo_surface_destroy(psurfaceSub);
                cairo_surface_destroy(psurfaceOld);
 
 

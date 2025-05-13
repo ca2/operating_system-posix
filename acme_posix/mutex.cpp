@@ -1033,15 +1033,15 @@ namespace acme_posix
 
             }
 
-   #ifdef __ANDROID__
+//   #ifdef __ANDROID__
 
             int iErrorCondTimedWait = pthread_cond_timedwait_monotonic_np(&m_cond, &m_mutex, &abs_time);
 
-   #else
+  // #else
 
             int iErrorCondTimedWait = pthread_cond_timedwait(&m_cond, &m_mutex, &abs_time);
 
-   #endif
+//   #endif
 
             if(iErrorCondTimedWait == ETIMEDOUT)
             {
