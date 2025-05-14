@@ -57,12 +57,12 @@ namespace acme_posix
 
       glob_t glob_results;
 
-      int glob_retval = glob(patterns[0].c_str(), 0, nullptr, &glob_results);
+      int glob_retval = ::glob(patterns[0].c_str(), 0, nullptr, &glob_results);
 
 
       for (auto item: patterns)
       {
-         glob_retval = glob(item, GLOB_APPEND, nullptr, &glob_results);
+         glob_retval = ::glob(item, GLOB_APPEND, nullptr, &glob_results);
       }
 
       for (int path_index = 0; path_index < glob_results.gl_pathc; path_index++)
