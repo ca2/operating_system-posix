@@ -6,12 +6,13 @@
 #include "window.h"
 //#include <gtk/gtk.h>
 
-namespace innate_ui_q
+
+namespace innate_ui_android
 {
 
 
-   class CLASS_DECL_INNATE_UI_Q button :
-    virtual public ::innate_ui_q::window,
+   class CLASS_DECL_INNATE_UI_ANDROID button :
+    virtual public ::innate_ui_android::window,
       virtual public ::innate_ui::button
    {
    public:

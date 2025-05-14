@@ -47,6 +47,7 @@ namespace acme_posix
 
    string format(const char *format, ...);
 
+#if !defined(__ANDROID__)
    string_array
    glob(const string_array &patterns)
    {
@@ -76,6 +77,7 @@ namespace acme_posix
 
    }
 
+#endif
 
    string
    basename(const string &path)
