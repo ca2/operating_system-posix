@@ -40,13 +40,13 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
     #pkg_check_modules(PKGCONFIG cairo xkbcommon wayland-cursor wayland-client wayland-server)
     pkg_check_modules(PKGCONFIG xkbcommon wayland-cursor wayland-client wayland-server)
-    target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+    target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
     #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
     #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})
     
-    #target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references} ${PKGCONFIG_LIBRARIES})
+    #target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references} ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES})
     #target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
-    message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
+    message("PKGCONFIG_LIBRARIES is " ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES})
 endif ()
 
 add_dependencies(${PROJECT_NAME} ${library_references} ${global_library_references})

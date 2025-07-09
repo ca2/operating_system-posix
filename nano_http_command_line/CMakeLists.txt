@@ -46,7 +46,7 @@ if (MSVC)
    target_link_libraries(static_${PROJECT_NAME}} PRIVATE acme apex aqua aura Gdiplus)
 elseif (LINUX)
 
-   message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
+   message("PKGCONFIG_LIBRARIES is " ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES})
 
 endif ()
 

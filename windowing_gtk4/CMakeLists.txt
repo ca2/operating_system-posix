@@ -143,26 +143,26 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
    pkg_check_modules(PKGCONFIG gtk4 ${APPINDICATOR_PKG_MODULE})
    #pkg_check_modules(PKGCONFIG glib-2.0 gtk4 ${APPINDICATOR_PKG_MODULE})
 
-   target_compile_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
-   target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
+   target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
+   target_compile_options(static_${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
 
    target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
    target_compile_options(static_${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
    target_compile_definitions(static_${PROJECT_NAME} PRIVATE CUBE)
 
 
-   target_link_options(${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
-   target_link_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_LDFLAGS})
-   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references} ${PKGCONFIG_LIBRARIES})
-   target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${PKGCONFIG_LIBRARIES} ${global_library_references})
+   target_link_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LDFLAGS})
+   target_link_options(static_${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LDFLAGS})
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references} ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES})
+   target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES} ${global_library_references})
    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
    # target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
 
 
    #add_dependencies(${PROJECT_NAME} draw2d_cairo)
    message(STATUS "PKGCONFIG at windowing_gtk4  gtk4 ${WAYLAND_PKG_MODULES} ${X11_PKG_MODULES} ${APPINDICATOR_PKG_MODULE}")
-   message(STATUS "pkgconfig_cflags at windowing_gtk4  ${PKGCONFIG_CFLAGS}")
-message(STATUS "libraries at windowing_gtk4  ${library_references} ${global_library_references} ${PKGCONFIG_LIBRARIES}")
+   message(STATUS "pkgconfig_cflags at windowing_gtk4  ${${PROJECT_NAME}_PKGCONFIG_CFLAGS}")
+message(STATUS "libraries at windowing_gtk4  ${library_references} ${global_library_references} ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES}")
 
 endif ()
 

@@ -52,8 +52,8 @@ elseif (LINUX)
 
    endif ()
 
-   #target_compile_options(static_${PROJECT_NAME} PRIVATE ${PKGCONFIG_CFLAGS})
-   #target_link_libraries(static_${PROJECT_NAME} PRIVATE dl ${PKGCONFIG_LIBRARIES})
+   #target_compile_options(static_${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
+   #target_link_libraries(static_${PROJECT_NAME} PRIVATE dl ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES})
    #target_link_options(static_${PROJECT_NAME} PRIVATE -Wl,-z,defs)
 endif ()
 
