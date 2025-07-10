@@ -20,7 +20,7 @@
 #include <sys/time.h>
 
 
-#if defined(__ANDROID__) || defined(LINUX)
+#if defined(LINUX)
 #include "acme/operating_system/ansi/binreloc.h"
 #elif defined(__BSD__)
 #include <errno.h>
@@ -28,6 +28,8 @@
 #elif defined(__APPLE__)
 #include <errno.h>
 ::file::path get_module_path();
+#elif defined(__ANDROID__)
+char * _android_get_executable_path_dup();
 #endif
 
 
@@ -509,12 +511,24 @@ namespace acme_posix
    ::file::path file_system::module()
    {
 
-#if defined(__ANDROID__) || defined(LINUX)
+
+#if defined(__ANDROID__)
+      ::file::path path;
+
+      char * pszModule;
+      pszModule = _android_get_executable_path_dup();
+      path = pszModule;
+
+      ::free(pszModule);
+
+      return path;
+
+
+#elif defined(LINUX)
 
       ::file::path path;
 
-      char * pszModule = nullptr;
-
+      char * pszModule;
       if((pszModule = br_find_exe(nullptr)) == nullptr)
       {
 
@@ -546,10 +560,12 @@ namespace acme_posix
 
       path = pszModule;
 
-      ::free(pszModule);
+            ::free(pszModule);
 
       return path;
-      
+
+
+
    #elif defined(APPLE_IOS)
       
       throw ::interface_only();
