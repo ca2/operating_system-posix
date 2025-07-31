@@ -1739,9 +1739,10 @@ namespace acme_posix
 
       auto pdirectorysystem = pmatter->directory_system();
 
-      pdirectorysystem->create(path.folder());
+      //pdirectorysystem->create(path.folder());
 
-      int iFd = open(path, O_RDWR | O_CLOEXEC, S_IRWXU);
+      //int iFd = open(path, O_RDWR | O_CLOEXEC, S_IRWXU);
+       int iFd = open(path, O_RDWR | O_CLOEXEC);
 
       if (iFd < 0)
       {
