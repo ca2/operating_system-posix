@@ -48,7 +48,7 @@ if (MSVC)
    target_link_libraries(${PROJECT_NAME} PRIVATE acme apex aqua aura Gdiplus)
 elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
-   pkg_check_modules(PKGCONFIG gtk+-3.0)
+   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gtk+-3.0)
    target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
    #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
    #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})

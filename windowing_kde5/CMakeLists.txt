@@ -152,9 +152,9 @@ if (MSVC)
 elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
 
-   #pkg_check_modules(PKGCONFIG xkbcommon x11 xrender xi xext libstartupxxx-notification-1.0 wayland-client wayland-server wayland-cursor)
-   #pkg_check_modules(PKGCONFIG ${WAYLAND_PKG_MODULES} ${X11_PKG_MODULES} ${APPINDICATOR_PKG_MODULE})
-   #    pkg_check_modules(PKGCONFIG  ${APPINDICATOR_PKG_MODULE})
+   #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG xkbcommon x11 xrender xi xext libstartupxxx-notification-1.0 wayland-client wayland-server wayland-cursor)
+   #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG ${WAYLAND_PKG_MODULES} ${X11_PKG_MODULES} ${APPINDICATOR_PKG_MODULE})
+   #    pkg_check_modules(${PROJECT_NAME}_PKGCONFIG  ${APPINDICATOR_PKG_MODULE})
 
    target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
    target_compile_options(static_${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})

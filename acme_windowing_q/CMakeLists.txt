@@ -85,13 +85,13 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
 
    #if(USE_PKGCONFIG)
-   #pkg_check_modules(PKGCONFIG gconf-2.0 glib-2.0 gtk+-3.0 gdk-3.0)
-   #   pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0)
+   #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gconf-2.0 glib-2.0 gtk+-3.0 gdk-3.0)
+   #   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0)
    #endif()
 #   if (${HAS_GTK4})
-#      pkg_check_modules(PKGCONFIG gtk4 dbus-1)
+#      pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gtk4 dbus-1)
 #   elseif (${HAS_GTK3})
-#      pkg_check_modules(PKGCONFIG gtk+-3.0 dbus-1)
+#      pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gtk+-3.0 dbus-1)
 #   endif ()
 
    target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)

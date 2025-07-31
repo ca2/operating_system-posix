@@ -129,14 +129,14 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
 
     #if(USE_PKGCONFIG)
-    #pkg_check_modules(PKGCONFIG gconf-2.0 glib-2.0 gtk+-3.0 gdk-3.0)
-    #   pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0)
+    #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gconf-2.0 glib-2.0 gtk+-3.0 gdk-3.0)
+    #   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0)
     #endif()
     if(${HAS_GTK4})
-        #pkg_check_modules(PKGCONFIG glib-2.0 gtk4 ${APPINDICATOR_PKG_MODULE})
-        pkg_check_modules(PKGCONFIG gtk4 ${APPINDICATOR_PKG_MODULE})
+        #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG glib-2.0 gtk4 ${APPINDICATOR_PKG_MODULE})
+        pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gtk4 ${APPINDICATOR_PKG_MODULE})
         else()
-    pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
+    pkg_check_modules(${PROJECT_NAME}_PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
     endif()
 
 

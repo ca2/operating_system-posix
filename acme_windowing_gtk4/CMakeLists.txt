@@ -67,8 +67,8 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
    target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive  ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
 
-   #pkg_check_modules(PKGCONFIG cairo xkbcommon wayland-client wayland-server wayland-cursor)
-   pkg_check_modules(PKGCONFIG gtk4)
+   #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG cairo xkbcommon wayland-client wayland-server wayland-cursor)
+   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gtk4)
    target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
    #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
    #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})

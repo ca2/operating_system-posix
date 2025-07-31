@@ -176,7 +176,7 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
    #    if (${USE_PKGCONFIG})
    #        # dnf install qt5-qttools-devel qt5-qtx11extras-devel qt5-qttools-static
    #        #errorf("test")
-   #        pkg_check_modules(PKGCONFIG Qt5Core Qt5UiTools Qt5X11Extras)
+   #        pkg_check_modules(${PROJECT_NAME}_PKGCONFIG Qt5Core Qt5UiTools Qt5X11Extras)
    #    endif ()
 
    #message("KF5_IncludeDirs=${KF5_INCLUDE_DIRS}")

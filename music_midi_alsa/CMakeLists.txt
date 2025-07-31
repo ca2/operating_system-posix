@@ -48,7 +48,7 @@ if (MSVC)
 elseif (LINUX)
 
 
-   pkg_check_modules(PKGCONFIG alsa)
+   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG alsa)
 
 
    target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})

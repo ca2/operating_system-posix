@@ -62,7 +62,7 @@ if (MSVC)
 elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
 
-   pkg_check_modules(PKGCONFIG sndio)
+   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG sndio)
 
 
    target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive  ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)

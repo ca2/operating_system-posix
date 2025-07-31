@@ -128,10 +128,10 @@ if (MSVC)
 elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
     if (${HAS_GTK4})
-        #pkg_check_modules(PKGCONFIG x11 glib-2.0 gtk4 ${APPINDICATOR_PKG_MODULE})
-        pkg_check_modules(PKGCONFIG x11 gtk4 ${APPINDICATOR_PKG_MODULE})
+        #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG x11 glib-2.0 gtk4 ${APPINDICATOR_PKG_MODULE})
+        pkg_check_modules(${PROJECT_NAME}_PKGCONFIG x11 gtk4 ${APPINDICATOR_PKG_MODULE})
     elseif (${HAS_GTK3})
-        pkg_check_modules(PKGCONFIG x11 glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
+        pkg_check_modules(${PROJECT_NAME}_PKGCONFIG x11 glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
     endif ()
 
 

@@ -81,7 +81,7 @@ if (MSVC)
 elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
 
-    pkg_check_modules(PKGCONFIG x11 xrender xi xext libstartup-notification-1.0)
+    pkg_check_modules(${PROJECT_NAME}_PKGCONFIG x11 xrender xi xext libstartup-notification-1.0)
     target_compile_options(windowing_x11 PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
     target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
     target_compile_options(static_${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})

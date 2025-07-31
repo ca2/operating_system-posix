@@ -122,7 +122,7 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
    if (${FILE_SYSTEM_INOTIFY} AND NOT DEFINED DEBIAN_LIKE AND NOT DONT_USE_PKG_CONFIG)
 
-      pkg_check_modules(PKGCONFIG libinotify)
+      pkg_check_modules(${PROJECT_NAME}_PKGCONFIG libinotify)
       target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
       target_compile_options(static_${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
       target_link_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LDFLAGS})

@@ -56,7 +56,7 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
 
    if(USE_PKGCONFIG)
-      pkg_check_modules(PKGCONFIG alsa)
+      pkg_check_modules(${PROJECT_NAME}_PKGCONFIG alsa)
    endif()
 
 
