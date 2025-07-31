@@ -341,7 +341,7 @@ namespace acme_posix
 
       char * psz = str.get_buffer(iToRead);
 
-      auto iRead = pfile->read(psz, iToRead);
+      auto iRead = pfile->read(scopedstr, iToRead);
 
       psz[iRead] = '\0';
 
@@ -519,7 +519,7 @@ namespace acme_posix
       pszModule = _android_get_executable_path_dup();
       path = pszModule;
 
-      ::free(pszModule);
+      ::free(scopedstrModule);
 
       return path;
 
@@ -529,7 +529,7 @@ namespace acme_posix
       ::file::path path;
 
       char * pszModule;
-      if((pszModule = br_find_exe(nullptr)) == nullptr)
+      if((scopedstrModule = br_find_exe(nullptr)) == nullptr)
       {
 
          if (!br_init_lib(nullptr))
@@ -560,7 +560,7 @@ namespace acme_posix
 
       path = pszModule;
 
-            ::free(pszModule);
+            ::free(scopedstrModule);
 
       return path;
 
@@ -721,7 +721,7 @@ namespace acme_posix
    //
    //int_bool file_is_equal_path_dup(const char * psz1, const char * psz2)
    //{
-   //      if (case_insensitive_ansi_compare(psz1, psz2) == 0)
+   //      if (case_insensitive_ansi_compare(scopedstr1, psz2) == 0)
    //         return true;
    //
    //      //throw ::exception(::exception(" // TODO: it should follow links "));
@@ -756,8 +756,8 @@ namespace acme_posix
    //{
    //
    //      const int iBufSize = MAX_PATH * 8;
-   //      wstring pwsz1 = utf8_to_unicode(psz1);
-   //      wstring pwsz2 = utf8_to_unicode(psz2);
+   //      wstring pwsz1 = utf8_to_unicode(scopedstr1);
+   //      wstring pwsz2 = utf8_to_unicode(scopedstr2);
    //      //   unichar * pwszFile1;
    //      // unichar * pwszFile2;
    //      ::wide_character * pwszPath1 = ___new ::wide_character[iBufSize];
@@ -790,7 +790,7 @@ namespace acme_posix
    int ansi_open(const char * psz, int i)
    {
 
-         return open(psz, i | O_CLOEXEC);
+         return open(scopedstr, i | O_CLOEXEC);
 
    }
 
@@ -802,7 +802,7 @@ namespace acme_posix
    FILE * ansi_fopen(const char * psz, const char * pszMode)
    {
 
-         return fopen(psz, pszMode);
+         return fopen(scopedstr, pszMode);
 
    }
 
@@ -855,7 +855,7 @@ namespace acme_posix
    void ansi_unlink(const char * psz)
    {
 
-         unlink(psz);
+         unlink(scopedstr);
 
    }
 

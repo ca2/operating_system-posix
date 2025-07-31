@@ -3646,9 +3646,9 @@ namespace windowing_xcb
 
       memory memory;
 
-      memory.append(pszName);
+      memory.append(scopedstrName);
       memory.append_byte(0);
-      memory.append(pszName);
+      memory.append(scopedstrName);
 
       auto estatus = _replace_string_property(XCB_ATOM_WM_CLASS, memory);
 

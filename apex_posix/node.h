@@ -43,12 +43,12 @@ void defer_innate_ui() override;
 
       ::process_identifier current_process_identifier() override;
 
-      virtual ::file::path _get_auto_start_desktop_file_path(const ::string & strAppId);
+      virtual ::file::path _get_auto_start_desktop_file_path(const ::scoped_string & scopedstrAppId);
 
-      void register_user_auto_start(::platform::application * papplication, const string & strArguments,
+      void register_user_auto_start(::platform::application * papplication, const ::scoped_string & scopedstrArguments,
                                     bool bRegister) override;
 
-      bool is_user_auto_start(const string & strAppId) override;
+      bool is_user_auto_start(const ::scoped_string & scopedstrAppId) override;
 
 
 

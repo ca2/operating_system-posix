@@ -69,16 +69,16 @@ namespace acme_posix
 
       char * pszRealPath = ::realpath(path.c_str(), NULL);
 
-      if (::is_null(pszRealPath))
+      if (::is_null(scopedstrRealPath))
       {
 
          return path;
 
       }
 
-      ::file::path filepath(pszRealPath);
+      ::file::path filepath(scopedstrRealPath);
 
-      ::free(pszRealPath);
+      ::free(scopedstrRealPath);
 
       return filepath;
 
@@ -99,7 +99,7 @@ namespace acme_posix
        
        //char pszRealPath[PATH_MAX];
        
-       //::zero(pszRealPath);
+       //::zero(scopedstrRealPath);
 
       //auto pszReturnedRealPath = ::realpath(str, pszRealPath);
 
@@ -120,7 +120,7 @@ namespace acme_posix
 
       }
 
-      //::free(pszRealPath);
+      //::free(scopedstrRealPath);
 
       return filepath;
 

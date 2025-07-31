@@ -85,7 +85,7 @@ namespace q5
          //         Atom display::intern_atom(const char *pszAtomName, bool bCreate)
          //         {
          //
-         //            return _intern_atom_unlocked(pszAtomName, bCreate);
+         //            return _intern_atom_unlocked(scopedstrAtomName, bCreate);
          //
          //            //      if (m_pdisplay == nullptr)
          //            //      {
@@ -99,7 +99,7 @@ namespace q5
          //            //      if (atom == None)
          //            //      {
          //            //
-         //            //         windowing_output_debug_string("ERROR: cannot find atom for " + string(pszAtomName) + "\n");
+         //            //         windowing_output_debug_string("ERROR: cannot find atom for " + string(scopedstrAtomName) + "\n");
          //            //
          //            //         return None;
          //            //
@@ -154,7 +154,7 @@ namespace q5
          //            if (atom == None)
          //            {
          //
-         //               windowing_output_debug_string("ERROR: cannot find atom for " + string(pszAtomName) + "\n");
+         //               windowing_output_debug_string("ERROR: cannot find atom for " + string(scopedstrAtomName) + "\n");
          //
          //               return None;
          //
@@ -1486,7 +1486,7 @@ namespace q5
          // //#include <KF5/plasma/containment.h>
          //
          //
-         // // string node::get_file_icon_path(const ::string & strPath, int iSize)
+         // // string node::get_file_icon_path(const ::scoped_string & scopedstrPath, int iSize)
          // // {
          // //
          // //    QUrl url((const char *) ("file://"+strPath));
@@ -1504,7 +1504,7 @@ namespace q5
          // //
          // //    auto path = KIconLoader::global()->iconPath(name, -iSize);
          // //
-         // //    //return ::linux_g_direct_get_file_icon_path(pszPath, iSize);
+         // //    //return ::linux_g_direct_get_file_icon_path(scopedstrPath, iSize);
          // //
          // //    QByteArray bytea = path.toUtf8();
          // //

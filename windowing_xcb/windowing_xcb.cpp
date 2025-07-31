@@ -1264,7 +1264,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //enum_net_wm_state net_wm_state(const char *pszText)
 //{
 //
-//   if (::is_null(pszText))
+//   if (::is_null(scopedstrText))
 //   {
 //
 //      return e_net_wm_state_count;
@@ -1278,7 +1278,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //   while (ppsz[i] != NULL)
 //   {
 //
-//      if (!case_insensitive_ansi_compare(pszText, ppsz[i]))
+//      if (!case_insensitive_ansi_compare(scopedstrText, ppsz[i]))
 //      {
 //
 //         break;

@@ -72,16 +72,16 @@ namespace str
    //character_count  char_traits::SafeStringLen(const ::wd16_character * psz) noexcept
    //{
    //   // returns length in bytes
-   //   return (psz != nullptr) ? character_count(strlen(psz)) : 0;
+   //   return (scopedstr != nullptr) ? character_count(strlen(scopedstr)) : 0;
    //}
    //
    //character_count  char_traits::SafeStringLen(const ::wd16_character * psz) noexcept
    //{
    //   // returns length in wchar_ts
    //#ifdef WINDOWS
-   //   return (psz != nullptr) ? character_count(wd16_len(psz)) : 0;
+   //   return (scopedstr != nullptr) ? character_count(wd16_len(scopedstr)) : 0;
    //#else
-   //   return (psz != nullptr) ? character_count(wd16__length(psz)) : 0;
+   //   return (scopedstr != nullptr) ? character_count(wd16__length(scopedstr)) : 0;
    //#endif
    //}
    //
@@ -108,20 +108,20 @@ namespace str
 
 // #elif defined(WINDOWS_DESKTOP)
 
-//       return ::GetEnvironmentVariableW(pszVar, pszBuffer, dwSize);
+//       return ::GetEnvironmentVariableW(scopedstrVar, pszBuffer, dwSize);
 
 // #else
 
-//       string strVar(pszVar);
+//       string strVar(scopedstrVar);
 
 //       auto pszEnv = getenv(strVar);
 
-//       wd16_string wstrEnv(pszEnv);
+//       wd16_string wstrEnv(scopedstrEnv);
 
-//       if (pszBuffer == nullptr)
+//       if (scopedstrBuffer == nullptr)
 //       {
 
-//          if (pszEnv == nullptr)
+//          if (scopedstrEnv == nullptr)
 //          {
 
 //             return 0;
@@ -136,7 +136,7 @@ namespace str
 
 //       }
 
-//       return (unsigned int)__wd16len(wd16_count_copy(pszBuffer, wstrEnv, dwSize));
+//       return (unsigned int)__wd16len(wd16_count_copy(scopedstrBuffer, wstrEnv, dwSize));
 
 // #endif
 

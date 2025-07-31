@@ -18,12 +18,12 @@ namespace gdk
    ::logic::boolean g_bitLastDarkMode;
 
 
-   char *gsettings_get_malloc(const ::string & strSchema, const ::string & strKey);
+   char *gsettings_get_malloc(const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey);
 
 
    //CLASS_DECL_ACME void _os_process_user_theme_color(string strTheme);
 
-   ::string_array gsettings_schema_keys(const ::string & strSchema)
+   ::string_array gsettings_schema_keys(const ::scoped_string & scopedstrSchema)
    {
 
       GSettingsSchema * pschema = g_settings_schema_source_lookup (
@@ -72,7 +72,7 @@ namespace gdk
    }
 
 
-   bool gsettings_schema_contains_key(const ::string & strSchema, const ::string & strKey)
+   bool gsettings_schema_contains_key(const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey)
    {
 
       auto stra = gsettings_schema_keys(strSchema);
@@ -82,7 +82,7 @@ namespace gdk
    }
 
 
-   bool gsettings_schema_exists(const ::string & strSchema)
+   bool gsettings_schema_exists(const ::scoped_string & scopedstrSchema)
    { 
   
       GSettingsSchema * pschema = g_settings_schema_source_lookup (
@@ -103,12 +103,12 @@ namespace gdk
    }
 
 
-   ::e_status gsettings_get(string &str, const ::string & strSchema, const ::string & strKey)
+   ::e_status gsettings_get(string &str, const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey)
    {
 
       char *psz = gsettings_get_malloc(strSchema, strKey);
 
-      if (psz == nullptr)
+      if (scopedstr == nullptr)
       {
 
          return ::error_failed;
@@ -129,7 +129,7 @@ namespace gdk
       try
       {
 
-         ::free(psz);
+         ::free(scopedstr);
 
       }
       catch (...)
@@ -148,7 +148,7 @@ namespace gdk
    pthread_mutex_t g_mutexG;
 
 
-   ::e_status gsettings_set(const ::string & strSchema, const ::string & strKey, const ::string & strValue)
+   ::e_status gsettings_set(const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey, const ::scoped_string & scopedstrValue)
    {
 
       if (strSchema.is_empty())
@@ -218,7 +218,7 @@ namespace gdk
    }
 
 
-   char * gsettings_get_malloc(const ::string & strSchema, const ::string & strKey)
+   char * gsettings_get_malloc(const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey)
    {
 
       if (strSchema.is_empty())
@@ -288,7 +288,7 @@ namespace gdk
    GAction *g_pactionWallpaper = nullptr;
 
 
-   ::e_status node_enable_wallpaper_change_notification(::node_gtk4::node * pnode, const ::string & strSchema, const ::string & strKey)
+   ::e_status node_enable_wallpaper_change_notification(::node_gtk4::node * pnode, const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey)
    {
 
       if (!g_bGInitialized)
@@ -373,7 +373,7 @@ namespace gdk
    const char * g_get_file_icon_path(const char * pszPath, int iSize)
    {
 
-      GFile * pfile = g_file_new_for_path (pszPath);
+      GFile * pfile = g_file_new_for_path (scopedstrPath);
 
       if(pfile == nullptr)
       {
@@ -489,7 +489,7 @@ namespace gdk
    const char * g_get_file_content_type(const char * pszPath)
    {
 
-      GFile * pfile = g_file_new_for_path (pszPath);
+      GFile * pfile = g_file_new_for_path (scopedstrPath);
 
       if(pfile == nullptr)
       {
@@ -513,10 +513,10 @@ namespace gdk
 
       const char * point = nullptr;
 
-      if(pszContentType != nullptr)
+      if(scopedstrContentType != nullptr)
       {
 
-         point = strdup(pszContentType);
+         point = strdup(scopedstrContentType);
 
       }
 
@@ -535,7 +535,7 @@ namespace gdk
 
       //g_type_init();
 
-      ret = g_app_info_launch_default_for_uri(pszUri, nullptr, &error);
+      ret = g_app_info_launch_default_for_uri(scopedstrUri, nullptr, &error);
 
       if(ret)
       {
@@ -544,10 +544,10 @@ namespace gdk
 
       }
 
-      if(pszError != nullptr)
+      if(scopedstrError != nullptr)
       {
 
-         strncpy(pszError, error->message, iBufferSize);
+         strncpy(scopedstrError, error->message, iBufferSize);
 
       }
 

@@ -23,7 +23,7 @@ void sn_start_context();
 //
 //   NodeGApplication * pnodegapplication;
 //
-//   //g_set_application_name (pszAppName);
+//   //g_set_application_name (scopedstrAppName);
 //
 //   pnodegapplication = (NodeGApplication *) g_object_new(node_g_application_get_type (),
 //                                          "application-atom", pszProgName,
@@ -283,7 +283,7 @@ void node_g_application_class_init (GApplicationClass * pclass)
 //void apex_application_run(const char * pszAppName, const char * pszProgName)
 //{
 //
-//   g_papexapplication = apex_application_new(pszAppName, pszProgName);
+//   g_papexapplication = apex_application_new(scopedstrAppName, pszProgName);
 //
 //   if(g_papexapplication == nullptr)
 //   {

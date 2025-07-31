@@ -66,7 +66,7 @@ namespace apex_posix
    }
 
 
-   ::file::path os_context::_get_auto_start_desktop_file_path(const ::string & strAppId)
+   ::file::path os_context::_get_auto_start_desktop_file_path(const ::scoped_string & scopedstrAppId)
    {
 
 #if defined(LINUX) || defined(FREEBSD)
@@ -95,7 +95,7 @@ namespace apex_posix
 
 
 
-   void os_context::register_user_auto_start(const string & strAppId, const ::file::path & pathExecutable, const string & strArguments, bool bRegister)
+   void os_context::register_user_auto_start(const ::scoped_string & scopedstrAppId, const ::file::path & pathExecutable, const ::scoped_string & scopedstrArguments, bool bRegister)
    {
 
 #if defined(LINUX) || defined(FREEBSD)
@@ -134,7 +134,7 @@ namespace apex_posix
    }
 
 
-   bool os_context::is_user_auto_start(const string & strAppId)
+   bool os_context::is_user_auto_start(const ::scoped_string & scopedstrAppId)
    {
 
 #if defined(LINUX) || defined(FREEBSD)

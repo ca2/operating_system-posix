@@ -57,9 +57,9 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 //   bool gsettings_get(string &str, const char *pszSchema, const char *pszKey)
 //   {
 //
-//      char *psz = gsettings_get_malloc(pszSchema, pszKey);
+//      char *psz = gsettings_get_malloc(scopedstrSchema, pszKey);
 //
-//      if (psz == nullptr)
+//      if (scopedstr == nullptr)
 //      {
 //
 //         return false;
@@ -80,7 +80,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 //      try
 //      {
 //
-//         ::free(psz);
+//         ::free(scopedstr);
 //
 //      }
 //      catch (...)
@@ -102,21 +102,21 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 //   bool aaa_gsettings_set(const char *pszSchema, const char *pszKey, const char *pszValue)
 //   {
 //
-//      if (pszSchema == nullptr)
+//      if (scopedstrSchema == nullptr)
 //      {
 //
 //         return false;
 //
 //      }
 //
-//      if (pszKey == nullptr)
+//      if (scopedstrKey == nullptr)
 //      {
 //
 //         return false;
 //
 //      }
 //
-//      if (pszValue == nullptr)
+//      if (scopedstrValue == nullptr)
 //      {
 //
 //         return false;
@@ -130,7 +130,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 //
 //      }
 //
-//      GSettings *settings = g_settings_new(pszSchema);
+//      GSettings *settings = g_settings_new(scopedstrSchema);
 //
 //      if (settings == nullptr)
 //      {
@@ -173,14 +173,14 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 //   char *gsettings_get_malloc(const char *pszSchema, const char *pszKey)
 //   {
 //
-//      if (pszSchema == nullptr)
+//      if (scopedstrSchema == nullptr)
 //      {
 //
 //         return nullptr;
 //
 //      }
 //
-//      if (pszKey == nullptr)
+//      if (scopedstrKey == nullptr)
 //      {
 //
 //         return nullptr;
@@ -194,7 +194,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 //
 //      }
 //
-//      GSettings *settings = g_settings_new(pszSchema);
+//      GSettings *settings = g_settings_new(scopedstrSchema);
 //
 //      if (settings == nullptr)
 //      {
@@ -258,7 +258,7 @@ void __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state
 //
 //      }
 //
-//      GSettings *settings = g_settings_new(pszSchema);
+//      GSettings *settings = g_settings_new(scopedstrSchema);
 //
 //      if (settings == nullptr)
 //      {

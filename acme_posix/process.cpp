@@ -65,12 +65,12 @@
 
 #ifdef LINUX
 
-int daemonize_process(const ::string & pszCommandLine, int * pprocessId)
+int daemonize_process(const ::scoped_string & scopedstrCommandLine, int * pprocessId)
 {
 
    string_array stra;
 
-   stra = get_c_args_for_c(pszCommandLine);
+   stra = get_c_args_for_c(scopedstrCommandLine);
 
    char ** argv = (char **)malloc(sizeof(char *) * (stra.get_size() + 1));
 
@@ -190,12 +190,12 @@ int daemonize_process(const ::string & pszCommandLine, int * pprocessId)
 #endif
 
 
-int create_process4(const ::string & pszCommandLine, int * pprocessId)
+int create_process4(const ::scoped_string & scopedstrCommandLine, int * pprocessId)
 {
 
    string_array stra;
 
-   stra = get_c_args_for_c(pszCommandLine);
+   stra = get_c_args_for_c(scopedstrCommandLine);
 
    char ** argv = (char **)malloc(sizeof(char *) * (stra.get_size() + 1));
 
@@ -273,12 +273,12 @@ CLASS_DECL_ACME int ca2_main();
 
 
 
-int create_process2(const ::string & pszCommandLine, int * pprocessId)
+int create_process2(const ::scoped_string & scopedstrCommandLine, int * pprocessId)
 {
 
    string_array stra;
 
-   stra = get_c_args_for_c(pszCommandLine);
+   stra = get_c_args_for_c(scopedstrCommandLine);
 
    char ** argv = (char **)malloc(sizeof(char *) * (stra.get_size() + 1));
 

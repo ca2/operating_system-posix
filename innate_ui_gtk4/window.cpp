@@ -97,7 +97,7 @@ namespace innate_ui_gtk4
    //    WNDCLASSEXW wcex;
    //
    //    wcex.cbSize = sizeof(WNDCLASSEX);
-   //    wstring wstrClassName(pszClassName);
+   //    wstring wstrClassName(scopedstrClassName);
    //    wcex.lpszClassName = wstrClassName;
    //
    //

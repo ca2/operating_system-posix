@@ -66,7 +66,7 @@ namespace innate_ui_gtk4
    }
 
    //
-   // void icon::load_file(const string & strPath)
+   // void icon::load_file(const ::scoped_string & scopedstrPath)
    // {
    //
    //

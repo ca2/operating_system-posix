@@ -191,7 +191,7 @@
 //bool gnome_appindicator::create(const char * pszId, const char * pszIcon, const char * pszFolder, user_notify_icon_bridge * pbridge)
 //{
 //
-//   m_pindicator = app_indicator_new_with_path(pszId, pszIcon, APP_INDICATOR_CATEGORY_APPLICATION_STATUS, pszFolder);
+//   m_pindicator = app_indicator_new_with_path(scopedstrId, pszIcon, APP_INDICATOR_CATEGORY_APPLICATION_STATUS, pszFolder);
 //
 //   if(m_pindicator == nullptr)
 //   {
@@ -280,7 +280,7 @@
 //
 //            memset(&entries[iEntry], 0, sizeof(GtkActionEntry));
 //
-//            if(strcasecmp(pszName, "separator") == 0)
+//            if(strcasecmp(scopedstrName, "separator") == 0)
 //            {
 //
 //               strInfo += "<separator/>\n";
@@ -289,21 +289,21 @@
 //            else
 //            {
 //
-//               entries[iEntry].name = g_strdup(pszLabel);
+//               entries[iEntry].name = g_strdup(scopedstrLabel);
 //
 //               strInfo += "    <menuitem action='";
 //               strInfo += pszLabel;
 //               strInfo += "' />";
 //
-//               entries[iEntry].stock_id = g_strdup(pszId);
+//               entries[iEntry].stock_id = g_strdup(scopedstrId);
 //
-//               entries[iEntry].label = g_strdup(pszName);
+//               entries[iEntry].label = g_strdup(scopedstrName);
 //
-//               //entries[iEntry].accelerator = g_strdup(pszAccelerator);
+//               //entries[iEntry].accelerator = g_strdup(scopedstrAccelerator);
 //
 //               entries[iEntry].accelerator = nullptr;
 //
-//               entries[iEntry].tooltip = g_strdup(pszDescription);
+//               entries[iEntry].tooltip = g_strdup(scopedstrDescription);
 //
 //               entries[iEntry].callback = G_CALLBACK (__extra_action);
 //
@@ -395,28 +395,28 @@
 //   bool aaa_gsettings_set(const char * pszSchema, const char * pszKey, const char * pszValue)
 //   {
 //
-//      if(pszSchema == nullptr)
+//      if(scopedstrSchema == nullptr)
 //      {
 //
 //         return false;
 //
 //      }
 //
-//      if(pszKey == nullptr)
+//      if(scopedstrKey == nullptr)
 //      {
 //
 //         return false;
 //
 //      }
 //
-//      if(pszValue == nullptr)
+//      if(scopedstrValue == nullptr)
 //      {
 //
 //         return false;
 //
 //      }
 //
-//      GSettings *settings = g_settings_new(pszSchema);
+//      GSettings *settings = g_settings_new(scopedstrSchema);
 //
 //      if(settings == nullptr)
 //      {
@@ -452,21 +452,21 @@
 //   char * gsettings_get_malloc(const char * pszSchema, const char * pszKey)
 //   {
 //
-//      if(pszSchema == nullptr)
+//      if(scopedstrSchema == nullptr)
 //      {
 //
 //         return nullptr;
 //
 //      }
 //
-//      if(pszKey == nullptr)
+//      if(scopedstrKey == nullptr)
 //      {
 //
 //         return nullptr;
 //
 //      }
 //
-//      GSettings *settings = g_settings_new(pszSchema);
+//      GSettings *settings = g_settings_new(scopedstrSchema);
 //
 //      if(settings == nullptr)
 //      {
@@ -529,7 +529,7 @@
 //
 //      }
 //
-//      GSettings * settings = g_settings_new(pszSchema);
+//      GSettings * settings = g_settings_new(scopedstrSchema);
 //
 //      if(settings == nullptr)
 //      {
@@ -598,7 +598,7 @@
 //const char * linux_g_direct_get_file_icon_path(const char * pszPath, int iSize)
 //{
 //
-//   GFile * pfile = g_file_new_for_path (pszPath);
+//   GFile * pfile = g_file_new_for_path (scopedstrPath);
 //
 //   if(pfile == nullptr)
 //   {
@@ -700,7 +700,7 @@
 //const char * linux_g_direct_get_file_content_type(const char * pszPath)
 //{
 //
-//   GFile * pfile = g_file_new_for_path (pszPath);
+//   GFile * pfile = g_file_new_for_path (scopedstrPath);
 //
 //   if(pfile == nullptr)
 //   {
@@ -724,10 +724,10 @@
 //
 //   const char * point = nullptr;
 //
-//   if(pszContentType != nullptr)
+//   if(scopedstrContentType != nullptr)
 //   {
 //
-//      point = strdup(pszContentType);
+//      point = strdup(scopedstrContentType);
 //
 //   }
 //
@@ -745,7 +745,7 @@
 //
 //   g_type_init();
 //
-//   ret = g_app_info_launch_default_for_uri(pszUri, NULL, &error);
+//   ret = g_app_info_launch_default_for_uri(scopedstrUri, NULL, &error);
 //
 //   if(ret)
 //   {
@@ -754,10 +754,10 @@
 //
 //   }
 //
-//   if(pszError != nullptr)
+//   if(scopedstrError != nullptr)
 //   {
 //
-//      strncpy(pszError, error->message, iBufferSize);
+//      strncpy(scopedstrError, error->message, iBufferSize);
 //
 //   }
 //

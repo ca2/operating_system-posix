@@ -445,7 +445,7 @@ bool __is_valid_atom(ATOM nAtom)
 bool __is_valid_atom(const scoped_string & str)
 {
 
-   return HIWORD(psz) == 0L && __is_valid_atom(ATOM(LOWORD(psz)));
+   return HIWORD(scopedstr) == 0L && __is_valid_atom(ATOM(LOWORD(scopedstr)));
 
 }
 
@@ -453,7 +453,7 @@ bool __is_valid_atom(const scoped_string & str)
 bool __is_valid_atom(const wchar_t * psz)
 {
    
-   return HIWORD(psz) == 0L && __is_valid_atom(ATOM(LOWORD(psz)));
+   return HIWORD(scopedstr) == 0L && __is_valid_atom(ATOM(LOWORD(scopedstr)));
 
 }
 
@@ -546,9 +546,9 @@ CLASS_DECL_ACME string get_error_string(DWORD dwError)
 
    FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM, nullptr, dwError, 0, (WCHAR *)&pszError, 0, nullptr);
 
-   string strError(pszError);
+   string strError(scopedstrError);
 
-   ::LocalFree(pszError);
+   ::LocalFree(scopedstrError);
 
    return strError;
 
@@ -587,7 +587,7 @@ bool __node_pos_term()
 CLASS_DECL_ACME hinstance get_module_handle(const platform_char * psz)
 {
 
-   return (hinstance) GetModuleHandle(psz);
+   return (hinstance) GetModuleHandle(scopedstr);
 
 }
 
@@ -642,7 +642,7 @@ namespace windows
 
 
 
-// pointer< ::extended::future < ::conversation > > xxxshow_error_message(const ::string & strMessage, const ::string & strTitle, const ::e_message_box & emessagebox)
+// pointer< ::extended::future < ::conversation > > xxxshow_error_message(const ::scoped_string & scopedstrMessage, const ::scoped_string & scopedstrTitle, const ::e_message_box & emessagebox)
 // {
 
 //    wstring wstrMessage(strMessage);

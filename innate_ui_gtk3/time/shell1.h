@@ -588,9 +588,9 @@
 //   inline unsigned int shell::GetTempFileName(const scoped_string & strPath, const scoped_string & strPrefix, unsigned int uUnique, string & str)
 //
 //   {
-//      wstring wstrPathName = utf8_to_unicode(pszPath);
+//      wstring wstrPathName = utf8_to_unicode(scopedstrPath);
 //
-//      wstring wstrPrefixString = utf8_to_unicode(pszPrefix);
+//      wstring wstrPrefixString = utf8_to_unicode(scopedstrPrefix);
 //
 //      wstring wstr;
 //      wstr.get_buffer(MAX_PATH * 4);

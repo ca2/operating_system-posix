@@ -29,7 +29,7 @@ namespace windowing_xcb
       string get_tray_icon_name() const override;
 
 
-      void set_tray_icon_name(const string & strTrayIconName) override;
+      void set_tray_icon_name(const ::scoped_string & scopedstrTrayIconName) override;
 
 
       void get_sizes(::int_size_array & a) override;

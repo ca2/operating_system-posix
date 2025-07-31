@@ -288,9 +288,9 @@ namespace windowing_x11
 
       //::type typeinfoKey = ::type < ::user::enum_key >();
 
-      string str = file()->as_string(pszPath);
+      string str = file()->as_string(scopedstrPath);
 
-      informationf(pszPath);
+      informationf(scopedstrPath);
 
       informationf(str);
 
@@ -411,7 +411,7 @@ namespace windowing_x11
 //      auto playout = __allocate ::user::keyboard_layout();
 //
 //      string strPath;
-//      if(pszPath == nullptr)
+//      if(scopedstrPath == nullptr)
 //      {
 //         strPath = get_current_system_layout();
 //      }
@@ -500,7 +500,7 @@ namespace windowing_x11
    //   {
    //      return pszKey;
    //   }
-   //   return m_playout->process_char(pszKey);
+   //   return m_playout->process_char(scopedstrKey);
    //}
 
    //string keyboard::process_escape(const char * pszEscape)
@@ -509,7 +509,7 @@ namespace windowing_x11
    //   {
    //      return pszEscape;
    //   }
-   //   return m_playout->process_char(pszEscape);
+   //   return m_playout->process_char(scopedstrEscape);
    //}
 
 
@@ -645,10 +645,10 @@ namespace windowing_x11
 //   bool keyboard::initialize(keyboard_layout_id * playoutid, const char * pszPath)
 //   {
 //
-//      if(!Context.file()->exists(pszPath))
+//      if(!Context.file()->exists(scopedstrPath))
 //         return false;
 //
-//      string str = Context.file()->as_string(pszPath);
+//      string str = Context.file()->as_string(scopedstrPath);
 //
 //      if(str.is_empty())
 //         return false;

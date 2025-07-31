@@ -55,10 +55,10 @@ namespace ansios
    }
 
 
-   bool process::create_child_process(const ::string & pszCmdLine,bool bPiped,const ::string & pszDir, ::enum_priority epriority)
+   bool process::create_child_process(const ::scoped_string & scopedstrCmdLine,bool bPiped,const ::scoped_string & scopedstrDir, ::enum_priority epriority)
    {
 
-      if(!::operating_system::process::create_child_process(pszCmdLine, bPiped, pszDir, epriority))
+      if(!::operating_system::process::create_child_process(scopedstrCmdLine, bPiped, pszDir, epriority))
       {
 
          return false;
@@ -126,7 +126,7 @@ namespace ansios
 
          const char * psz;
 
-         while((psz = e[i]) != nullptr)
+         while((scopedstr = e[i]) != nullptr)
          {
             if(i <= iPrevious)
                break;
@@ -262,7 +262,7 @@ namespace ansios
    }
 
 
-   bool process::synch_elevated(const ::string & pszCmdLineParam,int iShow,const class time & timeTimeOut,bool * pbTimeOut)
+   bool process::synch_elevated(const ::scoped_string & scopedstrCmdLineParam,int iShow,const class time & timeTimeOut,bool * pbTimeOut)
    {
 
       string_array straParam;
@@ -280,7 +280,7 @@ namespace ansios
 
       }
 
-      string pszCmdLine = "/usr/bin/gksu " + string(pszCmdLineParam);
+      string pszCmdLine = "/usr/bin/gksu " + string(scopedstrCmdLineParam);
 
       explode_command_line(straParam, pszCmdLine, &argv);
 

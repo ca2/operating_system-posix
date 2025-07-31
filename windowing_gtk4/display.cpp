@@ -553,7 +553,7 @@ namespace windowing_gtk4
 //
 //      }
 //
-//      return m_px11display->intern_atom(pszAtomName, bCreate);
+//      return m_px11display->intern_atom(scopedstrAtomName, bCreate);
 //
 //   }
 //
@@ -596,7 +596,7 @@ namespace windowing_gtk4
 //
 //      }
 //
-//      return m_px11display->_intern_atom_unlocked(pszAtomName, bCreate);
+//      return m_px11display->_intern_atom_unlocked(scopedstrAtomName, bCreate);
 //
 //   }
 //

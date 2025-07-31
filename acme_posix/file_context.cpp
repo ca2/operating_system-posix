@@ -83,7 +83,7 @@ namespace acme_posix
 
       struct stat st;
 
-      if (stat(psz, &st) != 0)
+      if (stat(scopedstr, &st) != 0)
          return true;
 
       return !(st.st_mode & S_IWUSR);
@@ -94,7 +94,7 @@ namespace acme_posix
    void file_context::erase(const ::file::path &psz)
    {
 
-      if (unlink(psz) != 0)
+      if (unlink(scopedstr) != 0)
       {
       
          auto cerrornumber = c_error_number();

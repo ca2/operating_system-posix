@@ -26,7 +26,7 @@ namespace windows
       inline static PFN get_address(const scoped_string & strModule, const char* lpszName)
       {
 
-         return (PFN) api_base::get_address(pszModule, lpszName);
+         return (PFN) api_base::get_address(scopedstrModule, lpszName);
          
       }
 

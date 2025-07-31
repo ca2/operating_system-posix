@@ -73,7 +73,7 @@ namespace node_gtk3
    }
 
 
-   bool copydesk::_set_plain_text(const string & str)
+   bool copydesk::_set_plain_text(const ::scoped_string & scopedstr)
    {
 
       user_post([str]

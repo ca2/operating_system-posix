@@ -562,11 +562,11 @@ namespace node_gtk4
 
 //      const char *pszName = m_XstrAppId;
 
-//       g_set_application_name(pszName);
+//       g_set_application_name(scopedstrName);
 
 //      const char *pszPrgName = m_strProgName;
 
-//      g_set_prgname(pszPrgName);
+//      g_set_prgname(scopedstrPrgName);
 
       //auto idle_source = g_idle_source_new();
 
@@ -1263,7 +1263,7 @@ namespace node_gtk4
    }
 
 //
-//   int node::os_launch_uri(const ::string & strUri, char * pszError, int iBufferSize)
+//   int node::os_launch_uri(const ::scoped_string & scopedstrUri, char * pszError, int iBufferSize)
 //   {
 //
 //      int iRet = gdk_launch_uri(strUri, pszError, iBufferSize);
@@ -1368,7 +1368,7 @@ namespace node_gtk4
    //
    //    }
    //
-   //    GtkCssProvider *pprovider = gtk_css_provider_get_named(pszTheme, pszVariant);
+   //    GtkCssProvider *pprovider = gtk_css_provider_get_named(scopedstrTheme, pszVariant);
    //
    //    gtk_style_context_add_provider(pstylecontext, GTK_STYLE_PROVIDER(pprovider), GTK_STYLE_PROVIDER_PRIORITY_USER);
    //
@@ -1400,7 +1400,7 @@ namespace node_gtk4
 // //         gtk_window_set_resizable(GTK_WINDOW(pdialog), FALSE);
 // //
 // //         gtk_widget_show_all(GTK_WIDGET(pdialog));
-//          //GtkCssProvider *pprovider = gtk_css_provider_get_named(pszTheme, nullptr);
+//          //GtkCssProvider *pprovider = gtk_css_provider_get_named(scopedstrTheme, nullptr);
 //
 //          //gtk_style_context_add_provider(pstylecontext, GTK_STYLE_PROVIDER(pprovider), GTK_STYLE_PROVIDER_PRIORITY_USER);
 //
@@ -1416,7 +1416,7 @@ namespace node_gtk4
 //
 //             // Background color is taken from 'window.background' css node
 //
-// //          auto pstylecontext = __get_style_context_for_theme(pszTheme, bDarkMode);
+// //          auto pstylecontext = __get_style_context_for_theme(scopedstrTheme, bDarkMode);
 // //
 // //          {
 // //
@@ -1469,7 +1469,7 @@ namespace node_gtk4
 // // //         gtk_window_set_resizable(GTK_WINDOW(pdialog), FALSE);
 // // //
 // // //         gtk_widget_show_all(GTK_WIDGET(pdialog));
-// //          //GtkCssProvider *pprovider = gtk_css_provider_get_named(pszTheme, nullptr);
+// //          //GtkCssProvider *pprovider = gtk_css_provider_get_named(scopedstrTheme, nullptr);
 // //
 // //          //gtk_style_context_add_provider(pstylecontext, GTK_STYLE_PROVIDER(pprovider), GTK_STYLE_PROVIDER_PRIORITY_USER);
 // //
@@ -1485,7 +1485,7 @@ namespace node_gtk4
 // //
 // //             // Background color is taken from 'window.background' css node
 // //
-// //          auto pstylecontext = __get_style_context_for_theme(pszTheme, bDarkMode);
+// //          auto pstylecontext = __get_style_context_for_theme(scopedstrTheme, bDarkMode);
 // //
 // //          {
 // //
@@ -1530,7 +1530,7 @@ namespace node_gtk4
 // //
 // //       GtkStyleContext *pstylecontext = gtk_style_context_new();
 // //
-// //       GtkCssProvider *pprovider = gtk_css_provider_get_named(pszTheme, nullptr);
+// //       GtkCssProvider *pprovider = gtk_css_provider_get_named(scopedstrTheme, nullptr);
 // //
 // //       gtk_style_context_add_provider(pstylecontext, GTK_STYLE_PROVIDER(pprovider), GTK_STYLE_PROVIDER_PRIORITY_USER);
 // //
@@ -1901,14 +1901,14 @@ namespace node_gtk4
    }
 
 
-   void node::open_internet_link_in_system_browser(const ::string &strUrl, const ::string & strProfile)
+   void node::open_internet_link_in_system_browser(const ::string &strUrl, const ::scoped_string & scopedstrProfile)
    {
 
       const char *pszUrl = strUrl;
 
       GError *perror = nullptr;
 
-      if (!g_app_info_launch_default_for_uri(pszUrl, nullptr, &perror))
+      if (!g_app_info_launch_default_for_uri(scopedstrUrl, nullptr, &perror))
       {
 
          fprintf(stderr, "Unable to read file: %s\n", perror->message);
@@ -2547,7 +2547,7 @@ gboolean x11_source_func(gpointer p)
 //
 //   GError * error = NULL;
 //
-//   ret = g_app_info_launch_default_for_uri(pszUri, NULL, &error);
+//   ret = g_app_info_launch_default_for_uri(scopedstrUri, NULL, &error);
 //
 //   if(ret)
 //   {
@@ -2556,10 +2556,10 @@ gboolean x11_source_func(gpointer p)
 //
 //   }
 //
-//   if(pszError != nullptr)
+//   if(scopedstrError != nullptr)
 //   {
 //
-//      strncpy(pszError, error->message, iBufferSize);
+//      strncpy(scopedstrError, error->message, iBufferSize);
 //
 //   }
 //

@@ -224,7 +224,7 @@ namespace system_5
    }
 
 
-//      void interprocess_handler::receiver::on_ipc_receive(interprocess_handler * prx,const ::string & pszMessage)
+//      void interprocess_handler::receiver::on_ipc_receive(interprocess_handler * prx,const ::scoped_string & scopedstrMessage)
 //      {
 //
 //      }

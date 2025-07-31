@@ -77,7 +77,7 @@ namespace node_gtk3
    {
 
 
-      m_pindicator = app_indicator_new_with_path(pszId, pszIcon, APP_INDICATOR_CATEGORY_APPLICATION_STATUS, pszFolder);
+      m_pindicator = app_indicator_new_with_path(scopedstrId, pszIcon, APP_INDICATOR_CATEGORY_APPLICATION_STATUS, pszFolder);
 
       if(m_pindicator == nullptr)
       {
@@ -141,7 +141,7 @@ namespace node_gtk3
 
                memset(&entries[iEntry], 0, sizeof(GtkActionEntry));
 
-               if(strcasecmp(pszName, "separator") == 0)
+               if(strcasecmp(scopedstrName, "separator") == 0)
                {
 
                   strInfo += "<separator/>\n";
@@ -150,21 +150,21 @@ namespace node_gtk3
                else
                {
 
-                  entries[iEntry].name = g_strdup(pszLabel);
+                  entries[iEntry].name = g_strdup(scopedstrLabel);
 
                   strInfo += "    <menuitem action='";
                   strInfo += pszLabel;
                   strInfo += "' />";
 
-                  entries[iEntry].stock_id = g_strdup(pszId);
+                  entries[iEntry].stock_id = g_strdup(scopedstrId);
 
-                  entries[iEntry].label = g_strdup(pszName);
+                  entries[iEntry].label = g_strdup(scopedstrName);
 
-                  //entries[iEntry].accelerator = g_strdup(pszAccelerator);
+                  //entries[iEntry].accelerator = g_strdup(scopedstrAccelerator);
 
                   entries[iEntry].accelerator = nullptr;
 
-                  entries[iEntry].tooltip = g_strdup(pszDescription);
+                  entries[iEntry].tooltip = g_strdup(scopedstrDescription);
 
                   entries[iEntry].callback = G_CALLBACK (__extra_action);
 

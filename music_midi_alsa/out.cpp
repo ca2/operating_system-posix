@@ -117,7 +117,7 @@ namespace music
          }
 
 
-         void out::initialize_message_out(::music::midi::midi * pmidi, const ::string & strDevice)
+         void out::initialize_message_out(::music::midi::midi * pmidi, const ::scoped_string & scopedstrDevice)
          {
 
             //auto estatus =

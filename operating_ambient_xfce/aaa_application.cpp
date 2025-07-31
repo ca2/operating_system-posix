@@ -17,7 +17,7 @@ ApexApplication * apex_application_new (const char * pszAppName, const char * ps
 
    ApexApplication * apex_application;
 
-   //g_set_application_name (pszAppName);
+   //g_set_application_name (scopedstrAppName);
 
    apex_application = (ApexApplication *) g_object_new (apex_application_get_type (),
                                           "application-atom", pszProgName,
@@ -251,7 +251,7 @@ void apex_application_class_init (ApexApplicationClass * pclass)
 void apex_application_run(const char * pszAppName, const char * pszProgName)
 {
 
-   g_papexapplication = apex_application_new(pszAppName, pszProgName);
+   g_papexapplication = apex_application_new(scopedstrAppName, pszProgName);
 
    if(g_papexapplication == nullptr)
    {

@@ -86,16 +86,16 @@ namespace str
 
 // #elif defined(WINDOWS_DESKTOP)
 
-//          return ::GetEnvironmentVariableA(pszVar, pszBuffer, dwSize);
+//          return ::GetEnvironmentVariableA(scopedstrVar, pszBuffer, dwSize);
 
 // #else
 
-//          const ::ansi_character * pszEnv = getenv(pszVar);
+//          const ::ansi_character * pszEnv = getenv(scopedstrVar);
 
-//          if (pszBuffer == nullptr)
+//          if (scopedstrBuffer == nullptr)
 //          {
 
-//             if (pszEnv == nullptr)
+//             if (scopedstrEnv == nullptr)
 //             {
 
 //                return 0;
@@ -104,13 +104,13 @@ namespace str
 //             else
 //             {
 
-//                return (unsigned int)strlen(pszEnv);
+//                return (unsigned int)strlen(scopedstrEnv);
 
 //             }
 
 //          }
 
-//          return (unsigned int)strlen(ansi_count_copy(pszBuffer, pszEnv, dwSize));
+//          return (unsigned int)strlen(ansi_count_copy(scopedstrBuffer, pszEnv, dwSize));
 
 // #endif
 
@@ -123,7 +123,7 @@ namespace str
 
 
 
-CLASS_DECL_ACME BSTR AllocSysString(const ::string & str)
+CLASS_DECL_ACME BSTR AllocSysString(const ::scoped_string & scopedstr)
 {
 
    return ::str().AllocSysString(str.c_str(), str.length());
@@ -131,7 +131,7 @@ CLASS_DECL_ACME BSTR AllocSysString(const ::string & str)
 }
 
 
-CLASS_DECL_ACME BSTR SetSysString(BSTR * pbstr, const ::string & str)
+CLASS_DECL_ACME BSTR SetSysString(BSTR * pbstr, const ::scoped_string & scopedstr)
 {
 
    ::str().ReAllocSysString(pbstr, str.c_str(), str.length());

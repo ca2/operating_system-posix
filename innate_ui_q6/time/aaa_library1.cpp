@@ -9,7 +9,7 @@ void * __node_library_open(const scoped_string & strPath, string & strMessage)
 
    string strError;
 
-   string strPath(pszPath);
+   string strPath(scopedstrPath);
 
    unsigned int uiError;
 
@@ -233,7 +233,7 @@ void * __node_library_touch(const scoped_string & strPath, string & strMessage)
 
    string strError;
 
-   string strPath(pszPath);
+   string strPath(scopedstrPath);
 
    unsigned int uiError;
 
@@ -477,12 +477,12 @@ bool __node_library_close(void * plibrary)
 void * __node_library_open_ca2(const scoped_string & str, string & strMessage)
 {
 
-   void * p = LoadLibraryW(wstring(psz));
+   void * p = LoadLibraryW(wstring(scopedstr));
 
    if (p != nullptr)
    {
 
-      strMessage = "Loaded Library (2) " + string(psz);
+      strMessage = "Loaded Library (2) " + string(scopedstr);
 
    }
    else
@@ -490,7 +490,7 @@ void * __node_library_open_ca2(const scoped_string & str, string & strMessage)
 
       unsigned int uiError = GetLastError();
 
-      strMessage = "Failed to Load Library (2) " + string(psz) + " with error (" + ::as_string(uiError) +
+      strMessage = "Failed to Load Library (2) " + string(scopedstr) + " with error (" + ::as_string(uiError) +
                    ")" + get_error_string(uiError);
 
    }

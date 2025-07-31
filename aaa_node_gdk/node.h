@@ -89,11 +89,11 @@ bool m_bFetchingDarkMode;
       //
       // void set_dark_mode(bool bDarkMode) override;
       //
-      // void os_set_user_theme(const string & strUserTheme) override;
+      // void os_set_user_theme(const ::scoped_string & scopedstrUserTheme) override;
       //
-      // virtual ::e_status _os_set_user_theme(const string & strUserTheme);
+      // virtual ::e_status _os_set_user_theme(const ::scoped_string & scopedstrUserTheme);
       //
-      // virtual ::e_status _os_set_user_icon_theme(const string & strUserIconTheme);
+      // virtual ::e_status _os_set_user_icon_theme(const ::scoped_string & scopedstrUserIconTheme);
 
       // void os_process_user_theme(string strTheme) override;
       //
@@ -101,9 +101,9 @@ bool m_bFetchingDarkMode;
 
       void enable_wallpaper_change_notification() override;
 
-      string get_file_icon_path(const ::string & strPath, int iSize) override;
+      string get_file_icon_path(const ::scoped_string & scopedstrPath, int iSize) override;
 
-      string get_file_content_type(const ::string & strPath) override;
+      string get_file_content_type(const ::scoped_string & scopedstrPath) override;
 
       bool set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay) override;
 
@@ -127,11 +127,11 @@ bool m_bFetchingDarkMode;
 
       bool launch_on_node(::topic * ptopic) override;
 
-      int os_launch_uri(const ::string & strUri, char * pszError = NULL, int iBufferSize = 0) override;
+      int os_launch_uri(const ::scoped_string & scopedstrUri, char * pszError = NULL, int iBufferSize = 0) override;
 
-      void shell_launch(const ::string & strAppId) override;
+      void shell_launch(const ::scoped_string & scopedstrAppId) override;
 
-      void open_internet_link_in_system_browser(const string & strUrl, const string & strProfile = {}) override;
+      void open_internet_link_in_system_browser(const ::scoped_string & scopedstrUrl, const ::scoped_string & scopedstrProfile = {}) override;
 
       //void _node_file_dialog(::file::file_dialog * pdialog) override;
 
@@ -187,22 +187,22 @@ bool m_bFetchingDarkMode;
    virtual ::e_status _gsettings_sync();
 
 
-   virtual bool _gsettings_schema_exists(const ::string & strSchema);
+   virtual bool _gsettings_schema_exists(const ::scoped_string & scopedstrSchema);
 
 
-   virtual ::string_array _gsettings_schema_keys(const ::string & strSchema);
+   virtual ::string_array _gsettings_schema_keys(const ::scoped_string & scopedstrSchema);
 
 
-   virtual bool _gsettings_schema_contains_key(const ::string & strSchema, const ::string & strKey);
+   virtual bool _gsettings_schema_contains_key(const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey);
 
 
-   virtual ::e_status _gsettings_set(const ::string & strSchema, const ::string & strKey, const ::string & strValue);
+   virtual ::e_status _gsettings_set(const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey, const ::scoped_string & scopedstrValue);
 
 
    virtual ::e_status _gsettings_get(string & strValue, const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey);
 
 
-   virtual ::e_status _node_enable_wallpaper_change_notification(const ::string & strSchema, const ::string & strKey);
+   virtual ::e_status _node_enable_wallpaper_change_notification(const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey);
 
 
    virtual ::string _g_get_file_icon_path(const char * pszPath, int iSize);

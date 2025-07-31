@@ -55,7 +55,7 @@ namespace command_line
 
             for (auto &newline: stra) {
 
-//auto pszNewLine = get_line(psz, psz);
+//auto pszNewLine = get_line(scopedstr, psz);
 
                if (newline.is_empty()) {
 
@@ -83,7 +83,7 @@ namespace command_line
 
                   ///printf_line("Found space after HTTP/");
 
-                  auto nonSpace = strspn(pszSpace + 1, " \t");
+                  auto nonSpace = strspn(scopedstrSpace + 1, " \t");
 
                   auto pszNonSpace = pszSpace + nonSpace;
 

@@ -32,10 +32,10 @@ namespace windows
 
    {
 
-      ASSERT(pszFileName != nullptr);
+      ASSERT(scopedstrFileName != nullptr);
 
 
-      ASSERT(is_string_ok(pszFileName));
+      ASSERT(is_string_ok(scopedstrFileName));
 
 
       if ((eopen & ::file::e_open_defer_create_directory) && (eopen & ::file::e_open_write))
@@ -44,12 +44,12 @@ namespace windows
 
          auto pacmedir = psystem->m_pdirectorysystem;
 
-pacmedir->create(::file_path_folder(pszFileName));
+pacmedir->create(::file_path_folder(scopedstrFileName));
 
       }
 
       m_pStream = nullptr;
-//      if(!::windows::file::open(pszFileName,(eopen & ~::file::e_open_text)))
+//      if(!::windows::file::open(scopedstrFileName,(eopen & ~::file::e_open_text)))
 
       //    {
 
@@ -95,7 +95,7 @@ pacmedir->create(::file_path_folder(pszFileName));
       szMode[nMode++] = '\0';
 
       // open a C-runtime low-level file handle
-      int nHandle = _wopen(wstring(pszFileName), nFlags);
+      int nHandle = _wopen(wstring(scopedstrFileName), nFlags);
 
 
       // open a C-runtime stream from that handle
@@ -167,14 +167,14 @@ pacmedir->create(::file_path_folder(pszFileName));
          throw ::file::exception(error_file, _doserrno, m_path);
    }
 
-   void stdio_file::write_string(const ::string & psz)
+   void stdio_file::write_string(const ::scoped_string & scopedstr)
 
    {
-      ASSERT(psz != nullptr);
+      ASSERT(scopedstr != nullptr);
 
       ASSERT(m_pStream != nullptr);
 
-      if (fputs(psz, m_pStream) == _TEOF)
+      if (fputs(scopedstr, m_pStream) == _TEOF)
 
          throw ::file::exception(error_disk_full, _doserrno, m_path);
    }
@@ -182,15 +182,15 @@ pacmedir->create(::file_path_folder(pszFileName));
    char * stdio_file::read_string(char * psz, unsigned int nMax)
 
    {
-      ASSERT(psz != nullptr);
+      ASSERT(scopedstr != nullptr);
 
-      ASSERT(is_memory_segment_ok(psz, nMax));
+      ASSERT(is_memory_segment_ok(scopedstr, nMax));
 
       ASSERT(m_pStream != nullptr);
 
-      char * pszResult = fgets(psz, nMax, m_pStream);
+      char * pszResult = fgets(scopedstr, nMax, m_pStream);
 
-      if (pszResult == nullptr && !feof(m_pStream))
+      if (scopedstrResult == nullptr && !feof(m_pStream))
 
       {
          clearerr(m_pStream);
@@ -219,12 +219,12 @@ pacmedir->create(::file_path_folder(pszFileName));
       for (;;)
       {
 
-         pszResult = fgets(psz, nMaxSize+1, m_pStream);
+         pszResult = fgets(scopedstr, nMaxSize+1, m_pStream);
 
          rString.release_buffer();
 
          // handle error/eof case
-         if (pszResult == nullptr && !feof(m_pStream))
+         if (scopedstrResult == nullptr && !feof(m_pStream))
          {
 
             clearerr(m_pStream);
@@ -234,7 +234,7 @@ pacmedir->create(::file_path_folder(pszFileName));
          }
 
          // if string is read completely or EOF
-         if (pszResult == nullptr || (nLen = strlen(psz)) < nMaxSize || psz[nLen - 1] == '\n')
+         if (scopedstrResult == nullptr || (nLen = strlen(scopedstr)) < nMaxSize || psz[nLen - 1] == '\n')
          {
 
             break;
@@ -260,14 +260,14 @@ pacmedir->create(::file_path_folder(pszFileName));
 
    }
 
-   /*void stdio_file::write_string(const ::string & psz)
+   /*void stdio_file::write_string(const ::scoped_string & scopedstr)
 
    {
-   ASSERT(psz != nullptr);
+   ASSERT(scopedstr != nullptr);
 
    ASSERT(m_pStream != nullptr);
 
-   if (fputws(psz, m_pStream) == _TEOF)
+   if (fputws(scopedstr, m_pStream) == _TEOF)
 
    throw ::file::exception(error_disk_full, _doserrno, m_path);
    }*/
@@ -275,15 +275,15 @@ pacmedir->create(::file_path_folder(pszFileName));
    /*unichar * stdio_file::read_string(unichar * psz, unsigned int nMax)
 
    {
-   ASSERT(psz != nullptr);
+   ASSERT(scopedstr != nullptr);
 
-   ASSERT(is_memory_segment_ok(psz, nMax));
+   ASSERT(is_memory_segment_ok(scopedstr, nMax));
 
    ASSERT(m_pStream != nullptr);
 
-   unichar * pszResult = fgetws(psz, nMax, m_pStream);
+   unichar * pszResult = fgetws(scopedstr, nMax, m_pStream);
 
-   if (pszResult == nullptr && !feof(m_pStream))
+   if (scopedstrResult == nullptr && !feof(m_pStream))
 
    {
    clearerr(m_pStream);

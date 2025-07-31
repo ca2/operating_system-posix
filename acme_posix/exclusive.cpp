@@ -77,7 +77,7 @@ namespace acme_posix
 //#else
 //
 //
-   exclusive::exclusive(::particle * pparticle, const string & strId)
+   exclusive::exclusive(::particle * pparticle, const ::scoped_string & scopedstrId)
    {
 
       initialize(pparticle);
@@ -117,7 +117,7 @@ namespace acme_posix
 
       pparticle->informationf("exclusive::exlusive Going to create exclusive at path : %s", pszPath);
 
-      m_iFile = open(pszPath, O_WRONLY | O_CREAT | O_CLOEXEC, 0777);
+      m_iFile = open(scopedstrPath, O_WRONLY | O_CREAT | O_CLOEXEC, 0777);
 
       if(m_iFile >= 0)
       {

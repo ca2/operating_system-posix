@@ -164,7 +164,7 @@ namespace acme_posix
    }
 
 
-   string file_memory_map::calculate_path_from_name(const string & strName)
+   string file_memory_map::calculate_path_from_name(const ::scoped_string & scopedstrName)
    {
 
       string strPath;

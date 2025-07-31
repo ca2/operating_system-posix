@@ -121,7 +121,7 @@ namespace aura_posix
 
 
 
-//      int freebsd::get_file_extension_image(oswindow oswindow, const string & strExtension, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
+//      int freebsd::get_file_extension_image(oswindow oswindow, const ::scoped_string & scopedstrExtension, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
 //      {
 //
 //         int iImage;
@@ -536,7 +536,7 @@ namespace aura_posix
 //
 
 
-   shell::enum_folder shell::get_folder_type(::particle * pparticle, const ::string & str)
+   shell::enum_folder shell::get_folder_type(::particle * pparticle, const ::scoped_string & scopedstr)
    {
 
       return get_folder_type(pparticle, utf8_to_unicode(str));
@@ -671,7 +671,7 @@ namespace aura_posix
 //
 
 
-//      int freebsd::get_image(oswindow oswindow, const string & strPath, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
+//      int freebsd::get_image(oswindow oswindow, const ::scoped_string & scopedstrPath, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
 //      {
 //
 //         int iImage = I32_MINIMUM;
@@ -744,7 +744,7 @@ namespace aura_posix
 
 
    bool shell::get_image_by_file_extension(_get_file_image_ & getfileimage)
-   //int freebsd::get_image_foo(oswindow oswindow, const string & strExtension, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
+   //int freebsd::get_image_foo(oswindow oswindow, const ::scoped_string & scopedstrExtension, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
    {
 
       getfileimage.m_iImage = I32_MINIMUM;

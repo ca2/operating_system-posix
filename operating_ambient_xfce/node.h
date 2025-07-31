@@ -47,15 +47,15 @@ namespace node_xfce
 
       //void system_main() override;
 
-      //void os_set_user_theme(const string & strUserTheme) override;
+      //void os_set_user_theme(const ::scoped_string & scopedstrUserTheme) override;
 
       //virtual void os_process_user_theme(string strTheme) override;
 
       //virtual void enable_wallpaper_change_notification() override;
 
-      //string get_file_icon_path(const ::string & strPath, int iSize) override;
+      //string get_file_icon_path(const ::scoped_string & scopedstrPath, int iSize) override;
 
-      //string get_file_content_type(const ::string & strPath) override;
+      //string get_file_content_type(const ::scoped_string & scopedstrPath) override;
 
       //bool set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay) override;
 
@@ -89,7 +89,7 @@ namespace node_xfce
 
       //virtual bool launch_on_node(::topic * ptopic);
 
-      //int os_launch_uri(const ::string & strUri, char * pszError = NULL, int iBufferSize = 0) override;
+      //int os_launch_uri(const ::scoped_string & scopedstrUri, char * pszError = NULL, int iBufferSize = 0) override;
 
 
    };

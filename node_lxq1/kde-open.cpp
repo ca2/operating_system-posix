@@ -45,9 +45,9 @@
 // void kde_open_local_file(QApplication * papplication, const char *pszUrl, const char * pszMimeType)
 // {
 //
-//    QString strUrl(pszUrl);
+//    QString strUrl(scopedstrUrl);
 //
-//    QString strMimeType(pszMimeType);
+//    QString strMimeType(scopedstrMimeType);
 //
 //    QUrl url = QUrl::fromLocalFile(QDir::current().absoluteFilePath(strUrl));
 //

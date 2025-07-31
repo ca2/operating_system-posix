@@ -194,12 +194,12 @@ void apex_application_run(const char * pszAppName, const char * pszProgName);
 
 // int create_process6(const ::string & _cmd_line, int * pprocessId);
 
-CLASS_DECL_ACME void dll_processes(unsigned_int_array & dwa, string_array & straProcesses, const ::string & pszDll)
+CLASS_DECL_ACME void dll_processes(unsigned_int_array & dwa, string_array & straProcesses, const ::scoped_string & scopedstrDll)
 {
 
    __UNREFERENCED_PARAMETER(dwa);
    __UNREFERENCED_PARAMETER(straProcesses);
-   __UNREFERENCED_PARAMETER(pszDll);
+   __UNREFERENCED_PARAMETER(scopedstrDll);
 
 }
 
@@ -337,7 +337,7 @@ namespace acme_posix
    }
 
 
-   bool node::load_modules_diff(string_array& straOld, string_array& straNew, const ::string & strExceptDir)
+   bool node::load_modules_diff(string_array& straOld, string_array& straNew, const ::scoped_string & scopedstrExceptDir)
    {
 
       throw ::interface_only();
@@ -367,7 +367,7 @@ namespace acme_posix
    }
 
 
-   ::pointer < ::mutex > node::create_local_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::string & strName, security_attributes * psecurityattributes)
+   ::pointer < ::mutex > node::create_local_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes)
    {
 
       return __allocate mutex(pparticleContext, bInitialOwner, "Local\\" + strName);
@@ -375,7 +375,7 @@ namespace acme_posix
    }
 
 
-   ::pointer < ::mutex > node::create_global_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::string & strName, security_attributes * psecurityattributes)
+   ::pointer < ::mutex > node::create_global_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes)
    {
 
       return __allocate mutex(pparticleContext, bInitialOwner, "Global\\" + strName);
@@ -546,7 +546,7 @@ namespace acme_posix
 }
 
 
-   ::pointer < ::mutex > node::open_local_named_mutex(::particle * pparticleContext, const ::string & strName)
+   ::pointer < ::mutex > node::open_local_named_mutex(::particle * pparticleContext, const ::scoped_string & scopedstrName)
    {
 
       return open_named_mutex(pparticleContext, "Local/" + strName);
@@ -554,7 +554,7 @@ namespace acme_posix
    }
 
 
-   ::pointer < ::mutex > node::open_global_named_mutex(::particle * pparticleContext, const ::string & strName)
+   ::pointer < ::mutex > node::open_global_named_mutex(::particle * pparticleContext, const ::scoped_string & scopedstrName)
    {
 
       return open_named_mutex(pparticleContext, "Global/" + strName);
@@ -562,7 +562,7 @@ namespace acme_posix
    }
 
 
-   ::pointer < ::acme::exclusive > node::get_exclusive(::particle * pparticleContext, const ::string & strName, security_attributes * psecurityattributes)
+   ::pointer < ::acme::exclusive > node::get_exclusive(::particle * pparticleContext, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes)
    {
 
       return __allocate exclusive(pparticleContext, strName);
@@ -572,7 +572,7 @@ namespace acme_posix
 //      atom_array node::module_path_get_pid(const char * pszModulePath, bool bModuleNameIsPropertyFormatted)
 //      {
 //
-//         return ::platform::node::module_path_get_pid(pszModulePath, bModuleNameIsPropertyFormatted);
+//         return ::platform::node::module_path_get_pid(scopedstrModulePath, bModuleNameIsPropertyFormatted);
 //
 //
 //      }
@@ -582,7 +582,7 @@ namespace acme_posix
 
    
 
-   bool node::process_contains_module(string& strImage, ::process_identifier processID, const ::string & strLibrary)
+   bool node::process_contains_module(string& strImage, ::process_identifier processID, const ::scoped_string & scopedstrLibrary)
    {
 
       return ::platform::node::process_contains_module(strImage, processID, strLibrary);
@@ -590,7 +590,7 @@ namespace acme_posix
    }
 
 
-::process_identifier_array node::shared_library_process(string_array& straProcesses, const ::string & strLibrary)
+::process_identifier_array node::shared_library_process(string_array& straProcesses, const ::scoped_string & scopedstrLibrary)
    {
 
       throw ::interface_only();
@@ -729,7 +729,7 @@ namespace acme_posix
 
 
 
-   void node::call_async(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay,
+   void node::call_async(const ::scoped_string & scopedstrPath, const ::scoped_string & scopedstrParam, const ::scoped_string & scopedstrDir, ::e_display edisplay,
       bool bPrivileged, unsigned int * puiPid)
    {
 
@@ -737,7 +737,7 @@ namespace acme_posix
 
       strCmdLine = pszPath;
 
-      if (ansi_length(pszParam) > 0)
+      if (ansi_length(scopedstrParam) > 0)
       {
 
          strCmdLine += " ";
@@ -758,7 +758,7 @@ namespace acme_posix
    }
 
 
-   void node::call_sync(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay,
+   void node::call_sync(const ::scoped_string & scopedstrPath, const ::scoped_string & scopedstrParam, const ::scoped_string & scopedstrDir, ::e_display edisplay,
       const class time & timeTimeout, ::property_set & set, int * piExitCode)
    {
 
@@ -766,7 +766,7 @@ namespace acme_posix
 
       strCmdLine = pszPath;
 
-      if (ansi_length(pszParam) > 0)
+      if (ansi_length(scopedstrParam) > 0)
       {
 
          strCmdLine += " ";
@@ -805,12 +805,12 @@ namespace acme_posix
    }
 
 
-::process_identifier node::create_process(const ::string & pszCommandLine)
+::process_identifier node::create_process(const ::scoped_string & scopedstrCommandLine)
    {
 
       string_array stra;
 
-      stra = get_c_args_for_c(pszCommandLine);
+      stra = get_c_args_for_c(scopedstrCommandLine);
 
       address_array < char * > argv;
 
@@ -938,7 +938,7 @@ namespace acme_posix
    }
 
 
-   void node::run_silent(const ::string & strFunct, const ::string & strstrParams)
+   void node::run_silent(const ::scoped_string & scopedstrFunct, const ::scoped_string & scopedstrstrParams)
    {
 
 #if defined(UNIVERSAL_WINDOWS)
@@ -1066,12 +1066,12 @@ namespace acme_posix
    }
 
 
-   //::e_status node::shell_execute_sync(const ::string & pszFile, const ::string & pszParams, ::time timeTimeout)
+   //::e_status node::shell_execute_sync(const ::scoped_string & scopedstrFile, const ::scoped_string & scopedstrParams, ::time timeTimeout)
    //{
 
    //   ::property_set set;
 
-   //   call_sync(pszFile, pszParams, ::file::path(pszFile).folder(), e_display_none, timeTimeout, set);
+   //   call_sync(scopedstrFile, pszParams, ::file::path(scopedstrFile).folder(), e_display_none, timeTimeout, set);
 
    //   return ::success;
 
@@ -1155,7 +1155,7 @@ namespace acme_posix
    }
 
 
-   //      ::int_array node::module_path_get_pid(const ::string & pszPath)
+   //      ::int_array node::module_path_get_pid(const ::scoped_string & scopedstrPath)
    //      {
    //
    //         ::int_array ia;
@@ -1190,10 +1190,10 @@ namespace acme_posix
    //      }
 
 
-::process_identifier_array node::module_path_processes_identifiers(const ::string & psz, bool bModuleNameIsPropertyFormatted)
+::process_identifier_array node::module_path_processes_identifiers(const ::scoped_string & scopedstr, bool bModuleNameIsPropertyFormatted)
    {
 
-      information("os/linux_process.cpp app_get_pid (" + string(psz) + ")");
+      information("os/linux_process.cpp app_get_pid (" + string(scopedstr) + ")");
 
    ::process_identifier_array ia;
 
@@ -1203,11 +1203,11 @@ namespace acme_posix
 
       directory_system()->enumerate(listing);
 
-      string str(psz);
+      string str(scopedstr);
 
       str = "app=" + str;
 
-      string strApp(psz);
+      string strApp(scopedstr);
 
       strApp.find_replace("-", "_");
 
@@ -1577,11 +1577,11 @@ namespace acme_posix
 
          int iErrNo = 0;
          
-	auto stra = command_arguments_from_command_line(pszCommandLine);
+	auto stra = command_arguments_from_command_line(scopedstrCommandLine);
 
 //         glob_t gl{};
 
-//	 ::glob(pszCommandLine, 0, nullptr, &gl);
+//	 ::glob(scopedstrCommandLine, 0, nullptr, &gl);
 
 //         char **argv = __allocate_array< char * >(gl.gl_pathc + 1);
 
@@ -1606,7 +1606,7 @@ namespace acme_posix
 
 //         ::globfree(&gl);
 
-         free(pszCommandLine);
+         free(scopedstrCommandLine);
 
          //_exit(iErrNo);
          
@@ -1620,7 +1620,7 @@ namespace acme_posix
 
          wordexp_t we{};
 
-         wordexp(pszCommandLine, &we, 0);
+         wordexp(scopedstrCommandLine, &we, 0);
 
          char **argv = __allocate_array< char * >(we.we_wordc + 1);
 
@@ -1639,7 +1639,7 @@ namespace acme_posix
 
          wordfree(&we);
 
-         free(pszCommandLine);
+         free(scopedstrCommandLine);
 
          _exit(iErrNo);
 */
@@ -1999,11 +1999,11 @@ namespace acme_posix
 
       int iErrNo = 0;
   
-      auto stra = command_arguments_from_command_line(pszCommandLine);
+      auto stra = command_arguments_from_command_line(scopedstrCommandLine);
 
 //         glob_t gl{};
 
-//	 ::glob(pszCommandLine, 0, nullptr, &gl);
+//	 ::glob(scopedstrCommandLine, 0, nullptr, &gl);
 
 //         char **argv = __allocate_array< char * >(gl.gl_pathc + 1);
 
@@ -2051,7 +2051,7 @@ namespace acme_posix
 /*
    glob_t gl{};
 
-   ::glob(pszCommandLine, 0, nullptr, &gl);
+   ::glob(scopedstrCommandLine, 0, nullptr, &gl);
 
    argv = ___new char * [gl.gl_pathc + 1];
 
@@ -2080,7 +2080,7 @@ namespace acme_posix
    
    wordexp_t we{};
 
-   wordexp(pszCommandLine, &we, 0);
+   wordexp(scopedstrCommandLine, &we, 0);
 
    argv = ___new char * [we.we_wordc + 1];
    
@@ -2187,7 +2187,7 @@ namespace acme_posix
    
 //}
 
-         int iChildExitCode = execvp(pszExecutable, (char **) p->data());
+         int iChildExitCode = execvp(scopedstrExecutable, (char **) p->data());
 
          if (iChildExitCode == -1)
          {
@@ -2210,9 +2210,9 @@ namespace acme_posix
 
 #endif
 */
-         free(pszCommandLine);
+         free(scopedstrCommandLine);
       
-         free(pszExecutable);
+         free(scopedstrExecutable);
 
          //_exit(iErrNo);
          
@@ -2611,7 +2611,7 @@ namespace acme_posix
 
          setsid();
 
-         int iChildExitCode = execvp(pszExecutable, (char **) p->data());
+         int iChildExitCode = execvp(scopedstrExecutable, (char **) p->data());
 
          if (iChildExitCode == -1)
          {
@@ -2622,7 +2622,7 @@ namespace acme_posix
          
          p.release();
          
-         free(pszExecutable);
+         free(scopedstrExecutable);
 
          //_exit(iChildExitCode);
          
@@ -2778,7 +2778,7 @@ namespace acme_posix
 
       ::string strEnvironmentVariable;
 
-      if(::is_null(pszPath))
+      if(::is_null(scopedstrPath))
       {
 
          strEnvironmentVariable = get_environment_variable("PATH");

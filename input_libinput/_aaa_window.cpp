@@ -4469,12 +4469,12 @@ namespace windowing_x11
 
       //synchronous_lock synchronouslock(user_synchronization());
 
-      Atom atomFlag = x11_display()->_intern_atom_unlocked(pszNetStateFlag, 1);
+      Atom atomFlag = x11_display()->_intern_atom_unlocked(scopedstrNetStateFlag, 1);
 
       if (atomFlag == None)
       {
 
-         windowing_output_debug_string("ERROR: cannot find atom for " + string(pszNetStateFlag) + "!\n");
+         windowing_output_debug_string("ERROR: cannot find atom for " + string(scopedstrNetStateFlag) + "!\n");
 
          return 0;
 
@@ -4514,7 +4514,7 @@ namespace windowing_x11
 
       }
 
-      int i = _wm_test_state_unlocked(pszNetStateFlag);
+      int i = _wm_test_state_unlocked(scopedstrNetStateFlag);
 
       windowing_output_debug_string("::wm_test_state 2");
 

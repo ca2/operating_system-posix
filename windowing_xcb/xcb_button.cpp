@@ -3,7 +3,7 @@
 
 
 xcb_button::xcb_button(const char * psz, enum_dialog_result edialogresult) :
-   m_strLabel(psz),
+   m_strLabel(scopedstr),
    m_edialogresult(edialogresult)
 {
 

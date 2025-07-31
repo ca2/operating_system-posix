@@ -270,7 +270,7 @@ namespace music
          //}
 
 
-         ::pointer<::music::midi::message_out>midi::get_message_out(const string& strDevice)
+         ::pointer<::music::midi::message_out>midi::get_message_out(const ::scoped_string & scopedstrDevice)
          {
 
 
@@ -294,7 +294,7 @@ namespace music
          }
 
 
-         ::pointer<::music::midi::sequencer>midi::create_midi_sequencer(sequence * psequence, const string& strDevice)
+         ::pointer<::music::midi::sequencer>midi::create_midi_sequencer(sequence * psequence, const ::scoped_string & scopedstrDevice)
          {
 
 
@@ -321,7 +321,7 @@ namespace music
          }
 
 
-         ::e_status midi::translate_os_result(string & strMessage, string & strOsMessage, ::music::midi::object * pobject, int64_t iOsResult, const string & strContext, const string & strText)
+         ::e_status midi::translate_os_result(string & strMessage, string & strOsMessage, ::music::midi::object * pobject, int64_t iOsResult, const ::scoped_string & scopedstrContext, const ::scoped_string & scopedstrText)
          {
 
             ::e_status mmrc = iOsResult == 0 ? ::success : ::error_failed;

@@ -93,7 +93,7 @@ namespace system_5
 
       memory m;
 
-      int iLen = ansi_length(pszMessage);
+      int iLen = ansi_length(scopedstrMessage);
 
       m.set_size(sizeof(data_struct) + iLen);
 
@@ -126,7 +126,7 @@ namespace system_5
 
       information("channel: \"" + m_strBaseChannel + "\"\n");
 
-      information("message: \"" + string(pszMessage) + "\"\n");
+      information("message: \"" + string(scopedstrMessage) + "\"\n");
 
       //return true;
 
@@ -174,7 +174,7 @@ namespace system_5
 //               }
 //               */
 //
-//      //const ::string & pszMessage = (const ::string &)pdata;
+//      //const ::scoped_string & scopedstrMessage = (const ::string &)pdata;
 //
 //      ::memory_copy(pdata->data, p, iLen);
 //

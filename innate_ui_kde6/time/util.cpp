@@ -26,7 +26,7 @@
 //
 //   ::GetClassNameW(hwnd, szTemp, _countof(szTemp));
 //
-//   return ::wcsicmp(szTemp, wstring(pszClassName)) == 0;
+//   return ::wcsicmp(szTemp, wstring(scopedstrClassName)) == 0;
 //
 //}
 

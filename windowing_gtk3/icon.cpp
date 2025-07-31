@@ -33,7 +33,7 @@ namespace windowing_gtk3
    }
 
 
-   void icon::set_tray_icon_name(const ::string & strTrayIconName)
+   void icon::set_tray_icon_name(const ::scoped_string & scopedstrTrayIconName)
    {
 
       //auto estatus =
@@ -61,7 +61,7 @@ namespace windowing_gtk3
    }
 
 
-   void icon::load_file(const string & strPath)
+   void icon::load_file(const ::scoped_string & scopedstrPath)
    {
 
       throw ::interface_only();
@@ -71,7 +71,7 @@ namespace windowing_gtk3
    }
 
 
-   void icon::load_matter(const string & strMatter)
+   void icon::load_matter(const ::scoped_string & scopedstrMatter)
    {
 
       auto pcontext = m_papplication;
@@ -94,7 +94,7 @@ namespace windowing_gtk3
    }
 
 
-   void icon::load_app_tray_icon(const string & strAppId)
+   void icon::load_app_tray_icon(const ::scoped_string & scopedstrAppId)
    {
 
       //auto estatus =

@@ -279,7 +279,7 @@ namespace windows
          char pszPathA[MAX_PATH * 2];
          if(!::SHGetPathFromIDListA(pidl, pszPathA))
             return false;
-         return utf8_to_unicode(pszPath, MAX_PATH * 2, pszPathA) ? true : false;
+         return utf8_to_unicode(scopedstrPath, MAX_PATH * 2, pszPathA) ? true : false;
       }
 
       BOOL shell::_MoveFile(const unichar * pExistingFileName, const unichar * lpNewFileName)
@@ -297,10 +297,10 @@ namespace windows
 
       {
          string
-         unicode_to_utf8(pszPathA, MAX_PATH * 2, pcsz);
+         unicode_to_utf8(scopedstrPathA, MAX_PATH * 2, pcsz);
 
          WIN32_FIND_DATAA data;
-         HANDLE handle = ::FindFirstFileA(pszPathA, &data);
+         HANDLE handle = ::FindFirstFileA(scopedstrPathA, &data);
          if(handle == INVALID_HANDLE_VALUE)
             return INVALID_HANDLE_VALUE;
 
@@ -421,19 +421,19 @@ namespace windows
 
    //{
    //   char pszPathA[MAX_PATH * 2];
-   //   UnicodeToACP(pszPathA, MAX_PATH * 2, pFileName);
+   //   UnicodeToACP(scopedstrPathA, MAX_PATH * 2, pFileName);
 
    //   string str;
    //   char * psz = str.GetBuffer(nBufferLength * 2);
 
    //   char * pszFilePart;
 
-   //   unsigned int dw = ::GetFullPathName(pszPathA, nBufferLength, psz, &pszFilePart);
+   //   unsigned int dw = ::GetFullPathName(scopedstrPathA, nBufferLength, psz, &pszFilePart);
 
    //   str.ReleaseBuffer();
    //   ACPToUnicode(pBuffer, nBufferLength, str);
 
-   //   *pFilePart = lpBuffer + ((int) (pszFilePart - psz));
+   //   *pFilePart = lpBuffer + ((int) (scopedstrFilePart - psz));
 
    //   return dw;
    //}

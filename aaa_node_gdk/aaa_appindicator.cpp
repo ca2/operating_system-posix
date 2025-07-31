@@ -120,17 +120,17 @@ GtkMenu * gtk_menu_from_application_menu(application_menu * papplicationmenu, ap
             g_signal_connect (G_OBJECT(pgtkwidget), "activate", G_CALLBACK(gtk_menu_item_application_menu_callback),
                               pcallback);
 
-            // gtkactionentriea[iEntry].stock_id = g_strdup(pszId);
+            // gtkactionentriea[iEntry].stock_id = g_strdup(scopedstrId);
 
-            // gtkactionentriea[iEntry].label = g_strdup(pszName);
+            // gtkactionentriea[iEntry].label = g_strdup(scopedstrName);
 
-            // //gtkactionentriea[iEntry].accelerator = g_strdup(pszAccelerator);
+            // //gtkactionentriea[iEntry].accelerator = g_strdup(scopedstrAccelerator);
 
             // //gtkactionentriea[iEntry].accelerator = nullptr;
 
             // gtkactionentriea[iEntry].accelerator = g_strdup("");
 
-            // gtkactionentriea[iEntry].tooltip = g_strdup(pszDescription);
+            // gtkactionentriea[iEntry].tooltip = g_strdup(scopedstrDescription);
 
             // gtkactionentriea[iEntry].callback = G_CALLBACK (user_notify_icon_bridge_extra_action);
 
@@ -193,7 +193,7 @@ namespace node_gtk3
 //
 //      }
 
-      m_pindicator = app_indicator_new_with_path(pszId, pszIcon, APP_INDICATOR_CATEGORY_APPLICATION_STATUS, pszFolder);
+      m_pindicator = app_indicator_new_with_path(scopedstrId, pszIcon, APP_INDICATOR_CATEGORY_APPLICATION_STATUS, pszFolder);
 
       if(m_pindicator == nullptr)
       {
@@ -243,7 +243,7 @@ namespace node_gtk3
 //
 //         GtkWidget * pgtkwidget = nullptr;
 //
-//         if(ansi_icmp(pszName, "separator") == 0)
+//         if(ansi_icmp(scopedstrName, "separator") == 0)
 //         {
 //
 //   	      pgtkwidget = gtk_separator_menu_item_new();
@@ -252,23 +252,23 @@ namespace node_gtk3
 //         else
 //         {
 //
-//            pgtkwidget = gtk_menu_item_new_with_label(pszLabel);
+//            pgtkwidget = gtk_menu_item_new_with_label(scopedstrLabel);
 //
 //            gtk_widget_set_name(GTK_WIDGET(pgtkwidget), pszId);
 //
 //            g_signal_connect (G_OBJECT(pgtkwidget), "activate", G_CALLBACK (user_notify_icon_bridge_extra_action), pbridge);
 //
-//            // gtkactionentriea[iEntry].stock_id = g_strdup(pszId);
+//            // gtkactionentriea[iEntry].stock_id = g_strdup(scopedstrId);
 //
-//            // gtkactionentriea[iEntry].label = g_strdup(pszName);
+//            // gtkactionentriea[iEntry].label = g_strdup(scopedstrName);
 //
-//            // //gtkactionentriea[iEntry].accelerator = g_strdup(pszAccelerator);
+//            // //gtkactionentriea[iEntry].accelerator = g_strdup(scopedstrAccelerator);
 //
 //            // //gtkactionentriea[iEntry].accelerator = nullptr;
 //
 //            // gtkactionentriea[iEntry].accelerator = g_strdup("");
 //
-//            // gtkactionentriea[iEntry].tooltip = g_strdup(pszDescription);
+//            // gtkactionentriea[iEntry].tooltip = g_strdup(scopedstrDescription);
 //
 //            // gtkactionentriea[iEntry].callback = G_CALLBACK (user_notify_icon_bridge_extra_action);
 //

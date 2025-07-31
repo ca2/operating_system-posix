@@ -136,7 +136,7 @@
 //const char * linux_g_direct_get_file_icon_path(const char * pszPath, int iSize)
 //{
 //
-//   GFile * pfile = g_file_new_for_path (pszPath);
+//   GFile * pfile = g_file_new_for_path (scopedstrPath);
 //
 //   if(pfile == nullptr)
 //   {
@@ -238,7 +238,7 @@
 //const char * linux_g_direct_get_file_content_type(const char * pszPath)
 //{
 //
-//   GFile * pfile = g_file_new_for_path (pszPath);
+//   GFile * pfile = g_file_new_for_path (scopedstrPath);
 //
 //   if(pfile == nullptr)
 //   {
@@ -262,10 +262,10 @@
 //
 //   const char * point = nullptr;
 //
-//   if(pszContentType != nullptr)
+//   if(scopedstrContentType != nullptr)
 //   {
 //
-//      point = strdup(pszContentType);
+//      point = strdup(scopedstrContentType);
 //
 //   }
 //
@@ -283,7 +283,7 @@
 //
 //   g_type_init();
 //
-//   ret = g_app_info_launch_default_for_uri(pszUri, NULL, &error);
+//   ret = g_app_info_launch_default_for_uri(scopedstrUri, NULL, &error);
 //
 //   if(ret)
 //   {
@@ -292,10 +292,10 @@
 //
 //   }
 //
-//   if(pszError != nullptr)
+//   if(scopedstrError != nullptr)
 //   {
 //
-//      strncpy(pszError, error->message, iBufferSize);
+//      strncpy(scopedstrError, error->message, iBufferSize);
 //
 //   }
 //

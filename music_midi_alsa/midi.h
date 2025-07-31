@@ -57,12 +57,12 @@ namespace music
             void mmsystem_GetMidiOutDeviceInterface(unsigned int i);*/
 
 
-            virtual ::pointer<::music::midi::message_out>get_message_out(const string& strDevice) override;
-            virtual ::pointer<::music::midi::sequencer>create_midi_sequencer(sequence * psequence, const string& strDevice) override;
+            virtual ::pointer<::music::midi::message_out>get_message_out(const ::scoped_string & scopedstrDevice) override;
+            virtual ::pointer<::music::midi::sequencer>create_midi_sequencer(sequence * psequence, const ::scoped_string & scopedstrDevice) override;
 
 
             using ::music::midi::midi::translate_os_result;
-            virtual ::e_status translate_os_result(string & strMessage, string & strOsMessage, ::music::midi::object * pobject, int64_t iOsResult, const string & strContext, const string & strText);
+            virtual ::e_status translate_os_result(string & strMessage, string & strOsMessage, ::music::midi::object * pobject, int64_t iOsResult, const ::scoped_string & scopedstrContext, const ::scoped_string & scopedstrText);
 
 
             virtual bool Initialize();

@@ -51,7 +51,7 @@ string file_final_extension_dup(const char * path)
 string url_dir_name_for_relative(const scoped_string & strPath)
 {
 
-   string strDir(pszPath);
+   string strDir(scopedstrPath);
 
    if (strDir.ends("/"))
       return strDir;
@@ -68,7 +68,7 @@ string url_dir_name_for_relative(const scoped_string & strPath)
 }
 
 
-CLASS_DECL_ACME string solve_relative(const ::string & strParam, bool * pbUrl)
+CLASS_DECL_ACME string solve_relative(const ::scoped_string & scopedstrParam, bool * pbUrl)
 {
 
    string str(strParam);
@@ -153,7 +153,7 @@ CLASS_DECL_ACME bool solve_relative_inline(string & str, bool & bUrl, bool & bOn
    if (iLen >= 2)
    {
 
-      if (psz[0] == '\\' && psz[1] == '\\')
+      if (scopedstr[0] == '\\' && psz[1] == '\\')
       {
 
 #ifndef WINDOWS
@@ -172,13 +172,13 @@ CLASS_DECL_ACME bool solve_relative_inline(string & str, bool & bUrl, bool & bOn
 
    }
 
-   while (psz[iPos])
+   while (scopedstr[iPos])
    {
 
-      if (psz[iPos] == '/' || psz[iPos] == '\\')
+      if (scopedstr[iPos] == '/' || psz[iPos] == '\\')
       {
 
-         CHECK_NATIVE_FILE_SEP(psz[iPos]);
+         CHECK_NATIVE_FILE_SEP(scopedstr[iPos]);
 
          iaSlash[iSlashCount] = iPos;
 
@@ -205,7 +205,7 @@ CLASS_DECL_ACME bool solve_relative_inline(string & str, bool & bUrl, bool & bOn
             goto ret;
 
          }
-         else if (psz[iPos] == '.')
+         else if (scopedstr[iPos] == '.')
          {
 
             iPos++;
@@ -233,7 +233,7 @@ CLASS_DECL_ACME bool solve_relative_inline(string & str, bool & bUrl, bool & bOn
                goto ret;
 
             }
-            else if (psz[iPos] == '.')
+            else if (scopedstr[iPos] == '.')
             {
 
                iPos++;
@@ -266,10 +266,10 @@ CLASS_DECL_ACME bool solve_relative_inline(string & str, bool & bUrl, bool & bOn
                   goto ret;
 
                }
-               else if (psz[iPos] == '/' || psz[iPos] == '\\')
+               else if (scopedstr[iPos] == '/' || psz[iPos] == '\\')
                {
 
-                  CHECK_NATIVE_FILE_SEP(psz[iPos]);
+                  CHECK_NATIVE_FILE_SEP(scopedstr[iPos]);
 
                   if (!bDup)
                   {
@@ -307,7 +307,7 @@ CLASS_DECL_ACME bool solve_relative_inline(string & str, bool & bUrl, bool & bOn
                else
                {
 
-                  iPos += ch_unicode_len(psz[iPos]);
+                  iPos += ch_unicode_len(scopedstr[iPos]);
 
                   if (iPos >= iLen)
                   {
@@ -321,10 +321,10 @@ CLASS_DECL_ACME bool solve_relative_inline(string & str, bool & bUrl, bool & bOn
                }
 
             }
-            else if (psz[iPos] == '/' || psz[iPos] == '\\')
+            else if (scopedstr[iPos] == '/' || psz[iPos] == '\\')
             {
 
-               CHECK_NATIVE_FILE_SEP(psz[iPos]);
+               CHECK_NATIVE_FILE_SEP(scopedstr[iPos]);
 
                if (!bDup)
                {
@@ -362,7 +362,7 @@ CLASS_DECL_ACME bool solve_relative_inline(string & str, bool & bUrl, bool & bOn
             else
             {
 
-               iPos += ch_unicode_len(psz[iPos]);
+               iPos += ch_unicode_len(scopedstr[iPos]);
 
                if (iPos >= iLen)
                {
@@ -374,10 +374,10 @@ CLASS_DECL_ACME bool solve_relative_inline(string & str, bool & bUrl, bool & bOn
             }
 
          }
-         else if (psz[iPos] == '/' || psz[iPos] == '\\')
+         else if (scopedstr[iPos] == '/' || psz[iPos] == '\\')
          {
 
-            CHECK_NATIVE_FILE_SEP(psz[iPos]);
+            CHECK_NATIVE_FILE_SEP(scopedstr[iPos]);
 
             iaSlash[iSlashCount] = iPos;
 
@@ -408,7 +408,7 @@ CLASS_DECL_ACME bool solve_relative_inline(string & str, bool & bUrl, bool & bOn
          else
          {
 
-            iPos += ch_unicode_len(psz[iPos]);
+            iPos += ch_unicode_len(scopedstr[iPos]);
 
             if (iPos >= iLen)
             {
@@ -423,7 +423,7 @@ CLASS_DECL_ACME bool solve_relative_inline(string & str, bool & bUrl, bool & bOn
       else
       {
 
-         iPos += ch_unicode_len(psz[iPos]);
+         iPos += ch_unicode_len(scopedstr[iPos]);
 
          if (iPos >= iLen)
          {
@@ -458,8 +458,8 @@ ret:
 
 CLASS_DECL_ACME string defer_solve_relative(const scoped_string & strRelative, const scoped_string & strAbsolute)
 {
-   string strRelative(pszRelative);
-   string strAbsolute(pszAbsolute);
+   string strRelative(scopedstrRelative);
+   string strAbsolute(scopedstrAbsolute);
    if (strRelative.is_empty())
       return "";
    if (strAbsolute.is_empty())

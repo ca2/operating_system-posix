@@ -10,7 +10,7 @@
 //
 //int ansi_open(const scoped_string & str,int i)
 //{
-//   return _wopen(utf8_to_unicode(psz),i);
+//   return _wopen(utf8_to_unicode(scopedstr),i);
 //}
 //
 //void ansi_get_errno(int * perrno)
@@ -21,7 +21,7 @@
 //
 //FILE * ansi_fopen(const scoped_string & str,const scoped_string & strMode)
 //{
-//   return _wfopen(utf8_to_unicode(psz),utf8_to_unicode(pszMode));
+//   return _wfopen(utf8_to_unicode(scopedstr),utf8_to_unicode(scopedstrMode));
 //}
 //
 //
@@ -69,7 +69,7 @@
 //void ansi_unlink(const scoped_string & str)
 //{
 //
-//   _unlink(psz);
+//   _unlink(scopedstr);
 //
 //}
 //

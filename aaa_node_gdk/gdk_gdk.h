@@ -23,22 +23,22 @@ namespace gdk
    ::e_status gsettings_sync();
 
    
-   bool gsettings_schema_exists(const ::string & strSchema);
+   bool gsettings_schema_exists(const ::scoped_string & scopedstrSchema);
 
 
-   ::string_array gsettings_schema_keys(const ::string & strSchema);
+   ::string_array gsettings_schema_keys(const ::scoped_string & scopedstrSchema);
 
 
-   bool gsettings_schema_contains_key(const ::string & strSchema, const ::string & strKey);
+   bool gsettings_schema_contains_key(const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey);
 
 
-   ::e_status gsettings_set(const ::string & strSchema, const ::string & strKey, const ::string & strValue);
+   ::e_status gsettings_set(const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey, const ::scoped_string & scopedstrValue);
 
 
-   ::e_status gsettings_get(string & strValue, const ::string & strSchema, const ::string & strKey);
+   ::e_status gsettings_get(string & strValue, const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey);
 
 
-   ::e_status node_enable_wallpaper_change_notification(::node_gtk4::node * pnode, const ::string & strSchema, const ::string & strKey);
+   ::e_status node_enable_wallpaper_change_notification(::node_gtk4::node * pnode, const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey);
 
 
    const char * g_get_file_icon_path(const char * pszPath, int iSize);

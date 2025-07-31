@@ -80,15 +80,15 @@ namespace node_kde6
 
       //string os_get_user_theme() override;
 
-      //void os_set_user_theme(const string & strUserTheme) override;
+      //void os_set_user_theme(const ::scoped_string & scopedstrUserTheme) override;
 
       //void os_process_user_theme(string strTheme) override;
 
       //void enable_wallpaper_change_notification() override;
 
-      string get_file_icon_path(const ::string & pszPath, int iSize) override;
+      string get_file_icon_path(const ::scoped_string & scopedstrPath, int iSize) override;
 
-      string get_file_content_type(const ::string & pszPath) override;
+      string get_file_content_type(const ::scoped_string & scopedstrPath) override;
 
       //bool set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::acme::windowing::display * pwindowingdisplay) override;
 
@@ -110,7 +110,7 @@ namespace node_kde6
 
       bool launch_on_node(::topic * ptopic) override;
 
-      int os_launch_uri(const ::string & pszUri, char * pszError = NULL, int iBufferSize = 0) override;
+      int os_launch_uri(const ::scoped_string & scopedstrUri, char * pszError = NULL, int iBufferSize = 0) override;
 
       //bool nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result)  override;
 
@@ -118,10 +118,10 @@ namespace node_kde6
       //virtual ::e_status _qapplication_exec();
 
 
-      void shell_launch(const ::string & strAppId) override;
+      void shell_launch(const ::scoped_string & scopedstrAppId) override;
 
 
-      void open_internet_link_in_system_browser(const ::string & strUrl, const ::string & strProfile) override;
+      void open_internet_link_in_system_browser(const ::scoped_string & scopedstrUrl, const ::scoped_string & scopedstrProfile) override;
 
 
       void _node_file_dialog(::file::file_dialog * pdialog) override;

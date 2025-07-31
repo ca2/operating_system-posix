@@ -59,7 +59,7 @@ namespace acme_posix
 
       bool list(::string_array & stra, const ::scoped_string & scopedstr, ::file::e_flag eflag = ::file::e_flag_file_or_folder) override;
 
-      ::file::path pathfind(const string & pszEnv, const string & pszTopic, const string & pszMode) override;
+      ::file::path pathfind(const ::scoped_string & scopedstrEnv, const ::scoped_string & scopedstrTopic, const ::scoped_string & scopedstrMode) override;
 
       ::file::path archive() override;
 

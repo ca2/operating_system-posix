@@ -47,9 +47,9 @@ int_bool read_resource_as_file(const scoped_string & strFile, HINSTANCE hinstanc
 
          auto pacmedir = psystem->m_pdirectorysystem;
 
-pacmedir->create(::file_path_folder(pszFile));
+pacmedir->create(::file_path_folder(scopedstrFile));
 
-      file = FILE_open(pszFile, "wb", _SH_DENYNO);
+      file = FILE_open(scopedstrFile, "wb", _SH_DENYNO);
 
       if(file != nullptr)
       {
@@ -152,9 +152,9 @@ int_bool file_is_equal_path_dup(const scoped_string & str1, const scoped_string 
 
    const int iBufSize = MAX_PATH * 8;
 
-   wstring pwsz1 = utf8_to_unicode(psz1);
+   wstring pwsz1 = utf8_to_unicode(scopedstr1);
 
-   wstring pwsz2 = utf8_to_unicode(psz2);
+   wstring pwsz2 = utf8_to_unicode(scopedstr2);
 
    unichar * pwszFile1;
 
@@ -859,9 +859,9 @@ int_bool file_set_length(const char * lpszName, size_t iSize)
 int_bool file_move(const scoped_string & strNewName, const scoped_string & strOldName)
 {
 
-   wstring wstrOldName(pszOldName);
+   wstring wstrOldName(scopedstrOldName);
 
-   wstring wstrNewName(pszNewName);
+   wstring wstrNewName(scopedstrNewName);
 
    if (!::MoveFileW(wstrOldName, wstrNewName))
    {
@@ -878,7 +878,7 @@ int_bool file_move(const scoped_string & strNewName, const scoped_string & strOl
 int_bool file_delete(const scoped_string & strFileName)
 {
 
-   wstring wstrFileName(pszFileName);
+   wstring wstrFileName(scopedstrFileName);
 
    if (!::DeleteFileW(wstrFileName))
    {
@@ -967,7 +967,7 @@ bool GetDrive(const scoped_string & strDosName, string& csDrive, bool bDriveLett
    WCHAR tcDeviceName[50];
    WCHAR tcDrive[3] = L"A:";
 
-   wstring wstrDosName(pszDosName);
+   wstring wstrDosName(scopedstrDosName);
 
    // Iterating through the drive letters
    for (WCHAR actDrive = L'A'; actDrive <= L'Z'; actDrive++)
@@ -1153,7 +1153,7 @@ bool GetDrive(const scoped_string & strDosName, string& csDrive, bool bDriveLett
 string get_volume_path(const scoped_string & str)
 {
    WCHAR wsz[4096];
-   if (!GetVolumePathNameW(utf8_to_unicode(psz), wsz, sizeof(wsz) / sizeof(wsz[0])))
+   if (!GetVolumePathNameW(utf8_to_unicode(scopedstr), wsz, sizeof(wsz) / sizeof(wsz[0])))
    {
       return "";
    }

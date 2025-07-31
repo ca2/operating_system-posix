@@ -33,7 +33,7 @@ namespace acme_posix
       virtual bool is_mapped() override;
 
 
-      virtual string calculate_path_from_name(const string & strName) override;
+      virtual string calculate_path_from_name(const ::scoped_string & scopedstrName) override;
 
 
    };

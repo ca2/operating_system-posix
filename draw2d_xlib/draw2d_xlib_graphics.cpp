@@ -1657,7 +1657,7 @@ namespace draw2d_xlib
    // double blend
    //// COLOR_DEST = SRC_ALPHA * BLEND_ALPHA * COLOR_SRC  + (1 - SRC_ALPHA * BLEND_ALPHA) * COLOR_DST
 
-   bool graphics::text_out(int x, int y, const string & str)
+   bool graphics::text_out(int x, int y, const ::scoped_string & scopedstr)
    {
 
       if(m_pimageAlphaBlend->is_set())
@@ -1720,7 +1720,7 @@ namespace draw2d_xlib
 
    } // call virtual
 
-   bool graphics::text_out(double x, double y, const string & str)
+   bool graphics::text_out(double x, double y, const ::scoped_string & scopedstr)
    {
       if(m_pimageAlphaBlend->is_set())
       {
@@ -1786,7 +1786,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::ExtTextOut(int x, int y, unsigned int nOptions, const ::int_rectangle & rectangle, const string & str, LPINT lpDxWidths)
+   bool graphics::ExtTextOut(int x, int y, unsigned int nOptions, const ::int_rectangle & rectangle, const ::scoped_string & scopedstr, LPINT lpDxWidths)
    {
 
       throw ::not_implemented();
@@ -1808,7 +1808,7 @@ namespace draw2d_xlib
 
    }
 
-   int_size graphics::TabbedTextOut(int x, int y, const string & str, int nTabPositions, LPINT lpnTabStopPositions, int nTabOrigin)
+   int_size graphics::TabbedTextOut(int x, int y, const ::scoped_string & scopedstr, int nTabPositions, LPINT lpnTabStopPositions, int nTabOrigin)
    {
 
       throw ::not_implemented();
@@ -1831,7 +1831,7 @@ namespace draw2d_xlib
 
    }
 
-   int_size graphics::GetTabbedTextExtent(const string & str, int nTabPositions, LPINT lpnTabStopPositions) const
+   int_size graphics::GetTabbedTextExtent(const ::scoped_string & scopedstr, int nTabPositions, LPINT lpnTabStopPositions) const
    {
 
       throw ::not_implemented();
@@ -1853,7 +1853,7 @@ namespace draw2d_xlib
 
    }
 
-   int_size graphics::GetOutputTabbedTextExtent(const string & str, int nTabPositions, LPINT lpnTabStopPositions) const
+   int_size graphics::GetOutputTabbedTextExtent(const ::scoped_string & scopedstr, int nTabPositions, LPINT lpnTabStopPositions) const
    {
 
       throw ::not_implemented();
@@ -4403,7 +4403,7 @@ namespace draw2d_xlib
    }
 
 
-   int graphics::draw_text(const string & str, ::int_rectangle * prectangle, const ::e_align & ealign, const ::e_draw_text & edrawtext)
+   int graphics::draw_text(const ::scoped_string & scopedstr, ::int_rectangle * prectangle, const ::e_align & ealign, const ::e_draw_text & edrawtext)
    {
 
       //synchronous_lock ml(&xlib_mutex());
@@ -4518,7 +4518,7 @@ namespace draw2d_xlib
       */
    }
 
-   int graphics::draw_text_ex(const string & str, ::int_rectangle * prectangle, const ::e_align & ealign, const ::e_draw_text & edrawtext, LPDRAWTEXTPARAMS lpDTParams)
+   int graphics::draw_text_ex(const ::scoped_string & scopedstr, ::int_rectangle * prectangle, const ::e_align & ealign, const ::e_draw_text & edrawtext, LPDRAWTEXTPARAMS lpDTParams)
    {
 
       throw ::not_implemented();
@@ -4592,7 +4592,7 @@ namespace draw2d_xlib
    }
 
 
-   int_size graphics::get_text_extent(const string & str) const
+   int_size graphics::get_text_extent(const ::scoped_string & scopedstr) const
    {
 
       return get_text_extent(str);
@@ -4617,7 +4617,7 @@ namespace draw2d_xlib
 
    }
 
-   int_size graphics::GetOutputTextExtent(const string & str) const
+   int_size graphics::GetOutputTextExtent(const ::scoped_string & scopedstr) const
    {
 
       throw ::not_implemented();
@@ -4657,7 +4657,7 @@ namespace draw2d_xlib
    }
 
 
-   bool graphics::get_text_extent(double_size & size, const string & str) const
+   bool graphics::get_text_extent(double_size & size, const ::scoped_string & scopedstr) const
    {
 
       return get_text_extent(size, str, 0);

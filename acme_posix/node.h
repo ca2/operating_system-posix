@@ -38,17 +38,17 @@ namespace acme_posix
 
 
       // defined at process.cpp
-      void call_async(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid = nullptr) override;
-      void call_sync(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, const class time & timeTimeout, ::property_set & set, int * piExitCode) override;
-      ::process_identifier create_process(const ::string & pszCommandLine) override;
+      void call_async(const ::scoped_string & scopedstrPath, const ::scoped_string & scopedstrParam, const ::scoped_string & scopedstrDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid = nullptr) override;
+      void call_sync(const ::scoped_string & scopedstrPath, const ::scoped_string & scopedstrParam, const ::scoped_string & scopedstrDir, ::e_display edisplay, const class time & timeTimeout, ::property_set & set, int * piExitCode) override;
+      ::process_identifier create_process(const ::scoped_string & scopedstrCommandLine) override;
       virtual int _create_process3(const ::string & _cmd_line, int * pprocessId);
-      void run_silent(const ::string & strFunct, const ::string & strstrParams) override;
-      //::e_status shell_execute_sync(const ::string & pszFile, const ::string & pszParams, class ::time timeTimeout) override;
+      void run_silent(const ::scoped_string & scopedstrFunct, const ::scoped_string & scopedstrstrParams) override;
+      //::e_status shell_execute_sync(const ::scoped_string & scopedstrFile, const ::scoped_string & scopedstrParams, class ::time timeTimeout) override;
 
 
       // defined at process.cpp
       ::file::path process_identifier_module_path(::process_identifier pid) override;
-      ::process_identifier_array module_path_processes_identifiers(const ::string & pszModulePath, bool bModuleNameIsPropertyFormatted) override;
+      ::process_identifier_array module_path_processes_identifiers(const ::scoped_string & scopedstrModulePath, bool bModuleNameIsPropertyFormatted) override;
       string process_identifier_command_line(process_identifier pid) override;
       //bool is_shared_library_busy(process_identifier processid, const string_array & stra) override;
       //bool is_shared_library_busy(const string_array & stra) override;
@@ -58,25 +58,25 @@ namespace acme_posix
 
       ::file::path_array process_identifier_modules_paths(process_identifier processidentifier) override;
 
-      bool load_modules_diff(string_array& straOld, string_array& straNew, const ::string & pszExceptDir) override;
+      bool load_modules_diff(string_array& straOld, string_array& straNew, const ::scoped_string & scopedstrExceptDir) override;
 
       ::process_identifier_array processes_identifiers() override;
 
       ::process_identifier current_process_identifier() override;
       
-      ::pointer < ::mutex > create_local_named_mutex(::particle * pparticleContext, bool bInitiallyOwned, const ::string & strName, security_attributes * psecurityattributes = nullptr) override;
-      ::pointer < ::mutex > create_global_named_mutex(::particle * pparticleContext, bool bInitiallyOwned, const ::string & strName, security_attributes * psecurityattributes = nullptr) override;
+      ::pointer < ::mutex > create_local_named_mutex(::particle * pparticleContext, bool bInitiallyOwned, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes = nullptr) override;
+      ::pointer < ::mutex > create_global_named_mutex(::particle * pparticleContext, bool bInitiallyOwned, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes = nullptr) override;
 
       ::pointer<::mutex> open_named_mutex(::particle * pparticle, const char * lpszName);
 
-      ::pointer < ::mutex > open_local_named_mutex(::particle * pparticleContext, const ::string & strName) override;
-      ::pointer < ::mutex > open_global_named_mutex(::particle * pparticleContext, const ::string & strName) override;
+      ::pointer < ::mutex > open_local_named_mutex(::particle * pparticleContext, const ::scoped_string & scopedstrName) override;
+      ::pointer < ::mutex > open_global_named_mutex(::particle * pparticleContext, const ::scoped_string & scopedstrName) override;
 
-      ::pointer < ::acme::exclusive > get_exclusive(::particle * pparticleContext, const ::string & strName, security_attributes * psecurityattributes = nullptr) override;
+      ::pointer < ::acme::exclusive > get_exclusive(::particle * pparticleContext, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes = nullptr) override;
 
-      bool process_contains_module(string& strImage, ::process_identifier processID, const ::string & pszLibrary) override;
+      bool process_contains_module(string& strImage, ::process_identifier processID, const ::scoped_string & scopedstrLibrary) override;
 
-      ::process_identifier_array shared_library_process(string_array& straProcesses, const ::string & pszLibrary) override;
+      ::process_identifier_array shared_library_process(string_array& straProcesses, const ::scoped_string & scopedstrLibrary) override;
 
       string get_environment_variable(const ::scoped_string & scopedstrEnvironmentVariable) override;
 

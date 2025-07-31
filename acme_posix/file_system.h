@@ -44,8 +44,8 @@ namespace acme_posix
 
       string get_temporary_file_name(const ::scoped_string & scopedstrName, const ::scoped_string & scopedstrExtension) override;
       //bool write_memory_to_file(FILE * file, const void * pdata, memsize nCount, memsize * puiWritten) override;
-      //bool append_wait(const ::string & strFile, const block & block, const class time & time) override;
-      //bool append(const ::string & strFile, const block & block) override;
+      //bool append_wait(const ::scoped_string & scopedstrFile, const block & block, const class time & time) override;
+      //bool append(const ::scoped_string & scopedstrFile, const block & block) override;
 
       //bool exists(const ::file::path & path) override;
 

@@ -38,7 +38,7 @@ namespace music
             ~out() override;
 
 
-            void initialize_message_out(::music::midi::midi * pmidi, const ::string & strDevice) override;
+            void initialize_message_out(::music::midi::midi * pmidi, const ::scoped_string & scopedstrDevice) override;
 
 
             void open(bool bForSequencing) override;

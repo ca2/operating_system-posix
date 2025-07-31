@@ -43,7 +43,7 @@ namespace node_gtk_based
 
       bool launch_on_node(::topic * ptopic) override;
 
-      //int os_launch_uri(const ::string & strUri, char * pszError = nullptr, int iBufferSize = 0) override;
+      //int os_launch_uri(const ::scoped_string & scopedstrUri, char * pszError = nullptr, int iBufferSize = 0) override;
 
       void handle(::topic * ptopic, ::handler_context * phandlercontext) override;
 

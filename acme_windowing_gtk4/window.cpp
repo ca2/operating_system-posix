@@ -39,7 +39,7 @@ void             gtk_css_provider_load_from_string (GtkCssProvider  *css_provide
                                                   const char      *psz)
 {
 
-   gtk_css_provider_load_from_data(css_provider, psz, string_safe_length(psz));
+   gtk_css_provider_load_from_data(css_provider, psz, string_safe_length(scopedstr));
 
                   }
 
@@ -1088,7 +1088,7 @@ namespace gtk4
 
             GMenuItem* pitemSection = nullptr;
             // auto pitemSection = g_menu_item_new_section(NULL, G_MENU_MODEL(pmenuSection));
-            // GVariant* variant2 = g_variant_new_string(pszDisplayHint);
+            // GVariant* variant2 = g_variant_new_string(scopedstrDisplayHint);
             // g_menu_item_set_attribute_value(pitemSection, "display-hint", variant2);
             // g_menu_append_item(pmenu, pitemSection);
             // g_object_unref(pmenuSection);
@@ -1113,10 +1113,10 @@ namespace gtk4
                   pmenuSection = g_menu_new();
                   pitemSection = g_menu_item_new_section(NULL, G_MENU_MODEL(pmenuSection));
 
-                  if (pszDisplayHint)
+                  if (scopedstrDisplayHint)
                   {
 
-                     GVariant* variant2 = g_variant_new_string(pszDisplayHint);
+                     GVariant* variant2 = g_variant_new_string(scopedstrDisplayHint);
 
                      g_menu_item_set_attribute_value(pitemSection, "display-hint", variant2);
 

@@ -10,10 +10,10 @@
 //{
 //
 //
-//   HINSTANCE load_library(const ::string & psz)
+//   HINSTANCE load_library(const ::scoped_string & scopedstr)
 //   {
 //
-//      return ::LoadLibraryW(utf8_to_unicode(psz));
+//      return ::LoadLibraryW(utf8_to_unicode(scopedstr));
 //
 //   }
 //
@@ -61,12 +61,12 @@
 //   }
 //
 //
-//   //int reg_query_value(HKEY hkey, const ::string & pszSubKey, string& str)
+//   //int reg_query_value(HKEY hkey, const ::scoped_string & scopedstrSubKey, string& str)
 //   //{
 //
 //   //   DWORD dwType = 0;
 //   //   DWORD dwSize = 0;
-//   //   int lResult = RegQueryValueExW(hkey, wstring(pszSubKey), nullptr, &dwType, nullptr, &dwSize);
+//   //   int lResult = RegQueryValueExW(hkey, wstring(scopedstrSubKey), nullptr, &dwType, nullptr, &dwSize);
 //
 //   //   if (lResult != ERROR_SUCCESS)
 //   //      return lResult;
@@ -76,7 +76,7 @@
 //
 //   //      natural_wstring pwsz(byte_count, dwSize);
 //
-//   //      lResult = RegQueryValueExW(hkey, wstring(pszSubKey), nullptr, &dwType, (unsigned char*)(unichar*)pwsz, &dwSize);
+//   //      lResult = RegQueryValueExW(hkey, wstring(scopedstrSubKey), nullptr, &dwType, (unsigned char*)(unichar*)pwsz, &dwSize);
 //
 //   //      str = pwsz;
 //
@@ -95,11 +95,11 @@
 //   //}
 //
 //
-//   HICON extract_icon(HINSTANCE hInst, const ::string & pszExeFileName, unsigned int nIconIndex)
+//   HICON extract_icon(HINSTANCE hInst, const ::scoped_string & scopedstrExeFileName, unsigned int nIconIndex)
 //
 //   {
 //
-//      return ::ExtractIconW(hInst, utf8_to_unicode(pszExeFileName), nIconIndex);
+//      return ::ExtractIconW(hInst, utf8_to_unicode(scopedstrExeFileName), nIconIndex);
 //
 //
 //   }

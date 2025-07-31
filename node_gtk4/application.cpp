@@ -23,7 +23,7 @@ NodeGtkApplication * node_gtk_application_new (const char * pszAppName, const ch
 
    NodeGtkApplication * pnodegtkapplication;
 
-   //g_set_application_name (pszAppName);
+   //g_set_application_name (scopedstrAppName);
 
    pnodegtkapplication = (NodeGtkApplication *) g_object_new (node_gtk_application_get_type (),
                                           "application-atom", pszProgName,
@@ -283,7 +283,7 @@ void node_gtk_application_class_init (NodeGtkApplicationClass * pclass)
 //void apex_application_run(const char * pszAppName, const char * pszProgName)
 //{
 //
-//   g_papexapplication = apex_application_new(pszAppName, pszProgName);
+//   g_papexapplication = apex_application_new(scopedstrAppName, pszProgName);
 //
 //   if(g_papexapplication == nullptr)
 //   {

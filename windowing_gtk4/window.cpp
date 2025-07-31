@@ -1184,7 +1184,7 @@ on_text(scopedstr, scopedstr.size());
    void window::_on_gtk_im_context_commit(const char * psz)
    {
 
-         on_text(psz, ::string_get_length(psz));
+         on_text(scopedstr, ::string_get_length(scopedstr));
 
    }
 

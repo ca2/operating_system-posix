@@ -10,9 +10,9 @@ namespace user
    bool gsettings_get(string & str, const char * pszSchema, const char * pszKey)
    {
 
-      char * psz = gsettings_get_malloc(pszSchema, pszKey);
+      char * psz = gsettings_get_malloc(scopedstrSchema, pszKey);
 
-      if(psz == nullptr)
+      if(scopedstr == nullptr)
       {
 
          return false;
@@ -33,7 +33,7 @@ namespace user
       try
       {
 
-         ::free(psz);
+         ::free(scopedstr);
 
       }
       catch(...)

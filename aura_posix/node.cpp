@@ -141,18 +141,18 @@ namespace aura_posix
    //}
    //
 
-   //void node::call_async(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid)
+   //void node::call_async(const ::scoped_string & scopedstrPath, const ::scoped_string & scopedstrParam, const ::scoped_string & scopedstrDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid)
    //{
 
-   //   ::apex::posix::node::call_async(pszPath, pszParam, pszDir, edisplay, bPrivileged, puiPid);
+   //   ::apex::posix::node::call_async(scopedstrPath, pszParam, pszDir, edisplay, bPrivileged, puiPid);
 
    //}
 
    //
-   //void node::call_sync(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay, const class time & timeTimeout, ::property_set & set)
+   //void node::call_sync(const ::scoped_string & scopedstrPath, const ::scoped_string & scopedstrParam, const ::scoped_string & scopedstrDir, ::e_display edisplay, const class time & timeTimeout, ::property_set & set)
    //{
 
-   //   ::apex::posix::node::call_sync(pszPath, pszParam, pszDir, edisplay, timeTimeout, set);
+   //   ::apex::posix::node::call_sync(scopedstrPath, pszParam, pszDir, edisplay, timeTimeout, set);
 
    //}
 
@@ -234,7 +234,7 @@ namespace aura_posix
 
    //}
    //   
-   //bool node::load_modules_diff(string_array & straOld, string_array & straNew, const ::string & pszExceptDir)
+   //bool node::load_modules_diff(string_array & straOld, string_array & straNew, const ::scoped_string & scopedstrExceptDir)
 
    //{
 
@@ -249,10 +249,10 @@ namespace aura_posix
 
    //}
 
-   //atom_array node::module_path_get_pid(const ::string & pszModulePath, bool bModuleNameIsPropertyFormatted)
+   //atom_array node::module_path_get_pid(const ::scoped_string & scopedstrModulePath, bool bModuleNameIsPropertyFormatted)
    //{
 
-   //   return ::apex::posix::node::module_path_get_pid(pszModulePath, bModuleNameIsPropertyFormatted);
+   //   return ::apex::posix::node::module_path_get_pid(scopedstrModulePath, bModuleNameIsPropertyFormatted);
 
    //}
 
@@ -284,14 +284,14 @@ namespace aura_posix
    //   return ::apex::posix::node::is_shared_library_busy(stra);
 
    //}
-   //   bool node::process_contains_module(string & strImage, unsigned int processID, const ::string & pszLibrary)
+   //   bool node::process_contains_module(string & strImage, unsigned int processID, const ::scoped_string & scopedstrLibrary)
    //{
 
    //   return ::apex::posix::node::process_contains_module(strImage, processID, pszLibrary);
 
    //}
 
-   //void node::shared_library_process(dword_array & dwa, string_array & straProcesses, const ::string & pszLibrary)
+   //void node::shared_library_process(dword_array & dwa, string_array & straProcesses, const ::scoped_string & scopedstrLibrary)
    //{
 
    //   ::apex::posix::node::shared_library_process(dwa, straProcesses, pszLibrary);
@@ -305,14 +305,14 @@ namespace aura_posix
    //   return ::apex::posix::node::is_process_running(pid);
 
    //}
-   //string node::get_environment_variable(const ::string & pszEnvironmentVariable)
+   //string node::get_environment_variable(const ::scoped_string & scopedstrEnvironmentVariable)
    //{
 
-   //   return ::apex::posix::node::get_environment_variable(pszEnvironmentVariable);
+   //   return ::apex::posix::node::get_environment_variable(scopedstrEnvironmentVariable);
 
    //}
 
-   //string node::expand_environment_variables(const ::string & str)
+   //string node::expand_environment_variables(const ::scoped_string & scopedstr)
    //{
 
    //   return ::apex::posix::node::expand_environment_variables(str);

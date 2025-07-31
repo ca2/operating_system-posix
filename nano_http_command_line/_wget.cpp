@@ -69,7 +69,7 @@ namespace command_line
 
             for (auto &newline: stra) {
 
-//auto pszNewLine = get_line(psz, psz);
+//auto pszNewLine = get_line(scopedstr, psz);
 
                if (newline.is_empty()) {
 
@@ -94,11 +94,11 @@ namespace command_line
 
                   }
 
-                  auto nonSpace = strspn(pszSpace, " \t");
+                  auto nonSpace = strspn(scopedstrSpace, " \t");
 
                   auto pszNonSpace = pszSpace + nonSpace;
 
-                  auto pszNextSpace = strpbrk(pszNonSpace, " \t");
+                  auto pszNextSpace = strpbrk(scopedstrNonSpace, " \t");
 
                   if (!pszNextSpace) {
 
@@ -106,7 +106,7 @@ namespace command_line
 
                   }
 
-                  if (!strncmp(pszNonSpace, "200", pszNextSpace - pszNonSpace)) {
+                  if (!strncmp(scopedstrNonSpace, "200", pszNextSpace - pszNonSpace)) {
 
                      return true;
 
@@ -146,7 +146,7 @@ namespace command_line
 
             for (auto &newline: stra) {
 
-//auto pszNewLine = get_line(psz, psz);
+//auto pszNewLine = get_line(scopedstr, psz);
 
                if (newline.is_empty()) {
 

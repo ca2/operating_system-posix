@@ -29,8 +29,8 @@ namespace node_gtk_based
       bool _has_filea() override;
 
 
-      //virtual bool set_plain_text(const string & str) override;
-      bool _set_plain_text(const string & str) override;
+      //virtual bool set_plain_text(const ::scoped_string & scopedstr) override;
+      bool _set_plain_text(const ::scoped_string & scopedstr) override;
       bool _get_plain_text(string & str) override;
       bool _has_plain_text() override;
 

@@ -248,11 +248,11 @@ namespace node_kde5
 
 //      const ::string &pszName = m_XstrAppId;
 
-//       g_set_application_name(pszName);
+//       g_set_application_name(scopedstrName);
 
 //      const ::string &pszPrgName = m_strProgName;
 
-//      g_set_prgname(pszPrgName);
+//      g_set_prgname(scopedstrPrgName);
 
       //auto idle_source = g_idle_source_new();
 
@@ -622,7 +622,7 @@ namespace node_kde5
 //    }
 
 
-   string node::get_file_icon_path(const ::string & strPath, int iSize)
+   string node::get_file_icon_path(const ::scoped_string & scopedstrPath, int iSize)
    {
 
       QUrl url((const char *) ("file://"+strPath));
@@ -640,7 +640,7 @@ namespace node_kde5
 
       auto path = KIconLoader::global()->iconPath(name, -iSize);
 
-      //return ::linux_g_direct_get_file_icon_path(pszPath, iSize);
+      //return ::linux_g_direct_get_file_icon_path(scopedstrPath, iSize);
 
       QByteArray bytea = path.toUtf8();
 
@@ -651,10 +651,10 @@ namespace node_kde5
    }
 
 
-   string node::get_file_content_type(const ::string & strPath)
+   string node::get_file_content_type(const ::scoped_string & scopedstrPath)
    {
 
-      //return ::linux_g_direct_get_file_content_type(pszPath);
+      //return ::linux_g_direct_get_file_content_type(scopedstrPath);
 
       return "";
 
@@ -776,7 +776,7 @@ namespace node_kde5
    }
 
 
-   int node::os_launch_uri(const ::string & strUri, char * pszError, int iBufferSize)
+   int node::os_launch_uri(const ::scoped_string & scopedstrUri, char * pszError, int iBufferSize)
    {
 
       QDesktopServices::openUrl(QUrl((const char *) strUri));
@@ -872,7 +872,7 @@ namespace node_kde5
 //
 //   }
 
-   void node::shell_launch(const ::string & strAppId)
+   void node::shell_launch(const ::scoped_string & scopedstrAppId)
    {
 
       string strDesktopFileTitle(strAppId);
@@ -892,7 +892,7 @@ namespace node_kde5
    }
 
 
-   void node::open_internet_link_in_system_browser(const ::string & strUrl, const ::string & strProfile)
+   void node::open_internet_link_in_system_browser(const ::scoped_string & scopedstrUrl, const ::scoped_string & scopedstrProfile)
    {
 
       QUrl url(strUrl.c_str());

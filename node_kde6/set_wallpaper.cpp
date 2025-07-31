@@ -9,7 +9,7 @@
 
 bool kde_plasma_set_wallpaper(const char * psz)
 {
-   QString wallpaperFile(psz);
+   QString wallpaperFile(scopedstr);
 
 
    QString script;

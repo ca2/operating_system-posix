@@ -118,10 +118,10 @@ bool engine_get_line_from_address(HANDLE hprocess, OS_DWORD uiAddress, unsigned 
 
    }
 
-   if (psz)
+   if (scopedstr)
    {
 
-      ansi_count_copy(psz, img_line.FileName, nCount);
+      ansi_count_copy(scopedstr, img_line.FileName, nCount);
 
    }
 
@@ -325,11 +325,11 @@ namespace windows
       if (!check())
          return 0;
 
-      engine_symbol(psz, nCount, pdisplacement, address());
+      engine_symbol(scopedstr, nCount, pdisplacement, address());
 
-      ansi_concatenate(psz, "()");
+      ansi_concatenate(scopedstr, "()");
 
-      return strlen(psz);
+      return strlen(scopedstr);
 
    }
 
@@ -620,8 +620,8 @@ namespace windows
          {
             if (m_szaModule[i] == nullptr)
                return 0;
-            ansi_count_copy(psz, m_szaModule[i], nCount);
-            return strlen(psz);
+            ansi_count_copy(scopedstr, m_szaModule[i], nCount);
+            return strlen(scopedstr);
 
          }
       }
@@ -637,7 +637,7 @@ namespace windows
 
       m_ma[m_iMa] = hmodule;
       m_szaModule[m_iMa] = strdup(filename);
-      ansi_count_copy(psz, m_szaModule[m_iMa++], nCount);
+      ansi_count_copy(scopedstr, m_szaModule[m_iMa++], nCount);
       //unsigned int r = GetModuleFileNameA(hmodule, psz, nCount);
 
       //if(!r)
@@ -646,7 +646,7 @@ namespace windows
 
 
       // find the last '\' mark.
-      //char * p = strrchr(psz, '\\');
+      //char * p = strrchr(scopedstr, '\\');
 
       //if(p != nullptr)
       //{
@@ -655,7 +655,7 @@ namespace windows
 
       //}
 
-      return strlen(psz);
+      return strlen(scopedstr);
 
    }
 
@@ -1211,7 +1211,7 @@ namespace windows
 
             iLine = 0;
 
-            char * psz = get_frame(pszFormat, iLine);
+            char * psz = get_frame(scopedstrFormat, iLine);
 
             if (iCount > 0)
             {
@@ -1289,9 +1289,9 @@ namespace windows
 
    //      iLine = 0;
 
-   //      psz = get_frame(pszFormat, iLine);
+   //      psz = get_frame(scopedstrFormat, iLine);
 
-   //      if (psz == nullptr)
+   //      if (scopedstr == nullptr)
    //      {
 
    //         break;
@@ -1478,9 +1478,9 @@ namespace  windows
 
          iLine = 0;
 
-         psz = get_frame(pszFormat, iLine);
+         psz = get_frame(scopedstrFormat, iLine);
 
-         if (psz == nullptr)
+         if (scopedstr == nullptr)
          {
 
             break;

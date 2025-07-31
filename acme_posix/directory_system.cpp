@@ -442,7 +442,7 @@ void directory_system::erase_recursively(const ::file::path &path)
    //   void directory_system::ls_dir(::file::path_array & stra, const char * psz)
    //   {
    //
-   //      DIR * dirp = opendir(psz);
+   //      DIR * dirp = opendir(scopedstr);
    //
    //      if (dirp == nullptr)
    //      {
@@ -463,7 +463,7 @@ void directory_system::erase_recursively(const ::file::path &path)
    //
    //         }
    //
-   //         ::file::path strPath = ::file::path(psz) / dp->d_name;
+   //         ::file::path strPath = ::file::path(scopedstr) / dp->d_name;
    //
    //         if (is(strPath))
    //         {
@@ -482,7 +482,7 @@ void directory_system::erase_recursively(const ::file::path &path)
    //   void directory_system::ls_file(::file::path_array & stra, const char * psz)
    //   {
    //
-   //      DIR * dirp = opendir(psz);
+   //      DIR * dirp = opendir(scopedstr);
    //
    //      if (dirp == nullptr)
    //      {
@@ -503,7 +503,7 @@ void directory_system::erase_recursively(const ::file::path &path)
    //
    //         }
    //
-   //         ::file::path strPath = ::file::path(psz) / dp->d_name;
+   //         ::file::path strPath = ::file::path(scopedstr) / dp->d_name;
    //
    //         if (!is(strPath))
    //         {
@@ -524,7 +524,7 @@ void directory_system::erase_recursively(const ::file::path &path)
 
       string_array stra;
 
-      stra.add_tokens(pszEnv, ":");
+      stra.add_tokens(scopedstrEnv, ":");
 
       string strCandidate;
 
@@ -601,7 +601,7 @@ void directory_system::erase_recursively(const ::file::path &path)
 
       auto pszCurrentDirName = get_current_dir_name();
 
-      if(::is_null(pszCurrentDirName))
+      if(::is_null(scopedstrCurrentDirName))
       {
 
          auto cerrornumber = c_error_number();
@@ -612,7 +612,7 @@ void directory_system::erase_recursively(const ::file::path &path)
 
       }
 
-      string strCurrentDirName = ::string_from_strdup(pszCurrentDirName);
+      string strCurrentDirName = ::string_from_strdup(scopedstrCurrentDirName);
 
       return strCurrentDirName;
 

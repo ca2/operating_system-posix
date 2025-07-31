@@ -18,12 +18,12 @@
 
 // int create_process6(const ::string & _cmd_line, int * pprocessId);
 
-CLASS_DECL_ACME void dll_processes(unsigned_int_array & dwa, string_array & straProcesses, const ::string & pszDll)
+CLASS_DECL_ACME void dll_processes(unsigned_int_array & dwa, string_array & straProcesses, const ::scoped_string & scopedstrDll)
 {
 
    __UNREFERENCED_PARAMETER(dwa);
    __UNREFERENCED_PARAMETER(straProcesses);
-   __UNREFERENCED_PARAMETER(pszDll);
+   __UNREFERENCED_PARAMETER(scopedstrDll);
 
 }
 
@@ -36,7 +36,7 @@ namespace acme
    {
 
 
-      void node::call_async(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay,
+      void node::call_async(const ::scoped_string & scopedstrPath, const ::scoped_string & scopedstrParam, const ::scoped_string & scopedstrDir, ::e_display edisplay,
          bool bPrivileged, unsigned int * puiPid)
       {
 
@@ -44,7 +44,7 @@ namespace acme
 
          strCmdLine = pszPath;
 
-         if (ansi_length(pszParam) > 0)
+         if (ansi_length(scopedstrParam) > 0)
          {
 
             strCmdLine += " ";
@@ -67,7 +67,7 @@ namespace acme
       }
 
 
-      void node::call_sync(const ::string & pszPath, const ::string & pszParam, const ::string & pszDir, ::e_display edisplay,
+      void node::call_sync(const ::scoped_string & scopedstrPath, const ::scoped_string & scopedstrParam, const ::scoped_string & scopedstrDir, ::e_display edisplay,
          const ::duration & durationTimeout, ::property_set & set)
       {
 
@@ -75,7 +75,7 @@ namespace acme
 
          strCmdLine = pszPath;
 
-         if (ansi_length(pszParam) > 0)
+         if (ansi_length(scopedstrParam) > 0)
          {
 
             strCmdLine += " ";
@@ -107,12 +107,12 @@ namespace acme
       }
 
 
-      void node::create_process(const ::string & pszCommandLine, unsigned int * pprocessId)
+      void node::create_process(const ::scoped_string & scopedstrCommandLine, unsigned int * pprocessId)
       {
 
          string_array stra;
 
-         stra = get_c_args_for_c(pszCommandLine);
+         stra = get_c_args_for_c(scopedstrCommandLine);
 
          address_array < char * > argv;
 
@@ -220,7 +220,7 @@ namespace acme
       }
 
 
-      void node::run_silent(const ::string & strFunct, const ::string & strstrParams)
+      void node::run_silent(const ::scoped_string & scopedstrFunct, const ::scoped_string & scopedstrstrParams)
       {
 
 #if defined(UNIVERSAL_WINDOWS)
@@ -346,12 +346,12 @@ namespace acme
       }
 
 
-      //::e_status node::shell_execute_sync(const ::string & pszFile, const ::string & pszParams, ::duration durationTimeout)
+      //::e_status node::shell_execute_sync(const ::scoped_string & scopedstrFile, const ::scoped_string & scopedstrParams, ::duration durationTimeout)
       //{
 
       //   ::property_set set;
 
-      //   call_sync(pszFile, pszParams, ::file::path(pszFile).folder(), e_display_none, durationTimeout, set);
+      //   call_sync(scopedstrFile, pszParams, ::file::path(scopedstrFile).folder(), e_display_none, durationTimeout, set);
 
       //   return ::success;
 
@@ -435,7 +435,7 @@ namespace acme
       }
 
 
-      //      ::int_array node::module_path_get_pid(const ::string & pszPath)
+      //      ::int_array node::module_path_get_pid(const ::scoped_string & scopedstrPath)
       //      {
       //
       //         ::int_array ia;
@@ -470,10 +470,10 @@ namespace acme
       //      }
 
 
-      atom_array node::module_path_get_pid(const ::string & psz, bool bModuleNameIsPropertyFormatted)
+      atom_array node::module_path_get_pid(const ::scoped_string & scopedstr, bool bModuleNameIsPropertyFormatted)
       {
 
-         informationf("os/linux_process.cpp app_get_pid (" + string(psz) + ")");
+         informationf("os/linux_process.cpp app_get_pid (" + string(scopedstr) + ")");
 
          atom_array ia;
 
@@ -483,11 +483,11 @@ namespace acme
 
          directory_system()->enumerate(listing);
 
-         string str(psz);
+         string str(scopedstr);
 
          str = "app=" + str;
 
-         string strApp(psz);
+         string strApp(scopedstr);
 
          strApp.find_replace("-", "_");
 
@@ -665,12 +665,12 @@ namespace acme
 
 #ifdef LINUX
 
-int daemonize_process(const ::string & pszCommandLine, int * pprocessId)
+int daemonize_process(const ::scoped_string & scopedstrCommandLine, int * pprocessId)
 {
 
    string_array stra;
 
-   stra = get_c_args_for_c(pszCommandLine);
+   stra = get_c_args_for_c(scopedstrCommandLine);
 
    char ** argv = (char **) malloc(sizeof(char *) * (stra.get_size() + 1));
 
@@ -774,12 +774,12 @@ int daemonize_process(const ::string & pszCommandLine, int * pprocessId)
 #endif
 
 
-int create_process4(const ::string & pszCommandLine, int * pprocessId)
+int create_process4(const ::scoped_string & scopedstrCommandLine, int * pprocessId)
 {
 
    string_array stra;
 
-   stra = get_c_args_for_c(pszCommandLine);
+   stra = get_c_args_for_c(scopedstrCommandLine);
 
    char ** argv = (char **) malloc(sizeof(char *) * (stra.get_size() + 1));
 
@@ -870,12 +870,12 @@ CLASS_DECL_ACME int ca2_main();
 
 
 
-int create_process2(const ::string & pszCommandLine, int * pprocessId)
+int create_process2(const ::scoped_string & scopedstrCommandLine, int * pprocessId)
 {
 
    string_array stra;
 
-   stra = get_c_args_for_c(pszCommandLine);
+   stra = get_c_args_for_c(scopedstrCommandLine);
 
    char ** argv = (char **) malloc(sizeof(char *) * (stra.get_size() + 1));
 

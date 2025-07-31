@@ -31,7 +31,7 @@ namespace windowing_xcb
    }
 
 
-   void icon::set_tray_icon_name(const ::string & strTrayIconName)
+   void icon::set_tray_icon_name(const ::scoped_string & scopedstrTrayIconName)
    {
 
       //auto estatus =

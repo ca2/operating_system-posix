@@ -31,7 +31,7 @@ void __xcb_hook_on_idle(xcb_connection_t * pdisplay);
 //::e_status defer_initialize_xcb();
 //void xcb_handle_just_hooks();
 //void xcb_defer_handle_just_hooks();
-int xcb_message_box(const string & str, const string & strTitle, const ::e_message_box & emessagebox);
+int xcb_message_box(const ::scoped_string & scopedstr, const ::scoped_string & scopedstrTitle, const ::e_message_box & emessagebox);
 //bool __xcb_hook_process_event(xcb_connection_t * pdisplay, xcb_generic_event_t * pevent, XGenericEventCookie * cookie);
 bool __xcb_hook_process_event(xcb_connection_t * pdisplay, xcb_generic_event_t * pevent);
 

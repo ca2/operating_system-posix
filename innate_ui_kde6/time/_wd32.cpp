@@ -73,16 +73,16 @@ unsigned int format_message(unsigned int dwFlags, const void * pSource, unsigned
 //character_count  char_traits::SafeStringLen(const ::wd32_character * psz) noexcept
 //{
 //   // returns length in bytes
-//   return (psz != nullptr) ? character_count(strlen(psz)) : 0;
+//   return (scopedstr != nullptr) ? character_count(strlen(scopedstr)) : 0;
 //}
 //
 //character_count  char_traits::SafeStringLen(const ::wd32_character * psz) noexcept
 //{
 //   // returns length in wchar_ts
 //#ifdef WINDOWS
-//   return (psz != nullptr) ? character_count(wd32_len(psz)) : 0;
+//   return (scopedstr != nullptr) ? character_count(wd32_len(scopedstr)) : 0;
 //#else
-//   return (psz != nullptr) ? character_count(wide_length(psz)) : 0;
+//   return (scopedstr != nullptr) ? character_count(wide_length(scopedstr)) : 0;
 //#endif
 //}
 //
@@ -113,26 +113,26 @@ unsigned int format_message(unsigned int dwFlags, const void * pSource, unsigned
 
 //    auto psz = wstr.get_buffer(dwSize);
 
-//    wstring wstrVar(pszVar);
+//    wstring wstrVar(scopedstrVar);
 
 //    auto result = ::GetEnvironmentVariableW(wstrVar, psz, dwSize);
 
-//    utf_to_utf(pszBuffer, psz);
+//    utf_to_utf(scopedstrBuffer, psz);
 
 //    return result;
 
 // #else
 
-//    string strVar(pszVar);
+//    string strVar(scopedstrVar);
 
 //    auto pszEnv = getenv(strVar);
 
-//    wd32_string wstrEnv(pszEnv);
+//    wd32_string wstrEnv(scopedstrEnv);
 
-//    if (pszBuffer == nullptr)
+//    if (scopedstrBuffer == nullptr)
 //    {
 
-//       if (pszEnv == nullptr)
+//       if (scopedstrEnv == nullptr)
 //       {
 
 //          return 0;
@@ -147,7 +147,7 @@ unsigned int format_message(unsigned int dwFlags, const void * pSource, unsigned
 
 //    }
 
-//    return (unsigned int)__wd32len(wd32_count_copy(pszBuffer, wstrEnv, dwSize));
+//    return (unsigned int)__wd32len(wd32_count_copy(scopedstrBuffer, wstrEnv, dwSize));
 
 // #endif
 
@@ -163,7 +163,7 @@ unsigned int format_message(unsigned int dwFlags, const void * pSource, unsigned
 void output_debug_string(const ::wd32_character * psz)
 {
 
-   string str(psz);
+   string str(scopedstr);
 
    output_debug_string(str);
 

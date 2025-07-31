@@ -70,7 +70,7 @@ namespace node_kde5
    }
 
 
-   bool copydesk::_set_plain_text(const string & str)
+   bool copydesk::_set_plain_text(const ::scoped_string & scopedstr)
    {
 
       auto psystem = system();

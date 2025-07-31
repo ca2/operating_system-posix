@@ -188,7 +188,7 @@ namespace windowing_xcb
 
             auto pszWindowName = ::x11::atom_name((::x11::enuid()) iAtomName);
 
-            auto atom = intern_atom(pszWindowName);
+            auto atom = intern_atom(scopedstrWindowName);
 
             m_atoma[iAtomName] = atom;
 
@@ -330,7 +330,7 @@ namespace windowing_xcb
    xcb_atom_t display::intern_atom(const char * pszAtomName, bool bCreate)
    {
 
-      return m_pxcbdisplay->intern_atom(pszAtomName, bCreate);
+      return m_pxcbdisplay->intern_atom(scopedstrAtomName, bCreate);
 
 //      if (::is_null(this))
 //      {
@@ -339,7 +339,7 @@ namespace windowing_xcb
 //
 //      }
 //
-//      auto cookie = xcb_intern_atom(xcb_connection(), !bCreate, strlen(pszAtomName), pszAtomName);
+//      auto cookie = xcb_intern_atom(xcb_connection(), !bCreate, strlen(scopedstrAtomName), pszAtomName);
 //
 //      ::acme::malloc preply(xcb_intern_atom_reply(xcb_connection(), cookie, nullptr));
 //
@@ -390,7 +390,7 @@ namespace windowing_xcb
 
          auto pszName = strName.get_buffer(len);
 
-         ::memory_copy(pszName, xcb_get_atom_name_name(reply), len);
+         ::memory_copy(scopedstrName, xcb_get_atom_name_name(reply), len);
 
          strName.release_buffer(len);
 

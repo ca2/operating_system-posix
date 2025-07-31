@@ -51,11 +51,11 @@ stdio_file::~stdio_file()
 
          auto pdirectorysystem = psystem->m_pdirectorysystem;
 
-pdirectorysystem->create(::file::path(pszFileName).folder());
+pdirectorysystem->create(::file::path(scopedstrFileName).folder());
 
    }
 
-   if (eopen & ::file::e_open_no_truncate && file_system()->exists(pszFileName))
+   if (eopen & ::file::e_open_no_truncate && file_system()->exists(scopedstrFileName))
    {
 
       str += "r";
@@ -107,7 +107,7 @@ pdirectorysystem->create(::file::path(pszFileName).folder());
 
    }
 
-   m_pfile = FILE_open(pszFileName, str, _SH_DENYNO);
+   m_pfile = FILE_open(scopedstrFileName, str, _SH_DENYNO);
 
    if (m_pfile == nullptr)
    {

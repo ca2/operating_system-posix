@@ -862,14 +862,14 @@ bool is_good_active_w(HWND w)
 //
 //   const scoped_string & str = str;
 //
-//   while (psz != nullptr && *psz != '\0')
+//   while (scopedstr != nullptr && *psz != '\0')
 //   {
 //
-//      int iIndex = unicode_uni_index(psz);
+//      int iIndex = unicode_uni_index(scopedstr);
 //
 //      send_input_unicode(iIndex, iSleep);
 //
-//      psz = ::str().utf8_inc(psz);
+//      psz = ::str().utf8_inc(scopedstr);
 //
 //   }
 //

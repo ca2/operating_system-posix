@@ -84,7 +84,7 @@ namespace q
          //         Atom display::intern_atom(const char *pszAtomName, bool bCreate)
          //         {
          //
-         //            return _intern_atom_unlocked(pszAtomName, bCreate);
+         //            return _intern_atom_unlocked(scopedstrAtomName, bCreate);
          //
          //            //      if (m_pdisplay == nullptr)
          //            //      {
@@ -98,7 +98,7 @@ namespace q
          //            //      if (atom == None)
          //            //      {
          //            //
-         //            //         windowing_output_debug_string("ERROR: cannot find atom for " + string(pszAtomName) + "\n");
+         //            //         windowing_output_debug_string("ERROR: cannot find atom for " + string(scopedstrAtomName) + "\n");
          //            //
          //            //         return None;
          //            //
@@ -153,7 +153,7 @@ namespace q
          //            if (atom == None)
          //            {
          //
-         //               windowing_output_debug_string("ERROR: cannot find atom for " + string(pszAtomName) + "\n");
+         //               windowing_output_debug_string("ERROR: cannot find atom for " + string(scopedstrAtomName) + "\n");
          //
          //               return None;
          //
