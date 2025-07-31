@@ -97,7 +97,7 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
 
 
-   #if (USE_PKGCONFIG)
+   #if (${USE_PKGCONFIG})
    if(NOT "${extra_pkg_modules}" STREQUAL "")
    pkg_check_modules(${PROJECT_NAME}_PKGCONFIG ${extra_pkg_modules})
    endif ()

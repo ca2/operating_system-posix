@@ -89,7 +89,7 @@ if (MSVC)
 elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
 
-    if (USE_PKGCONFIG)
+    if (${USE_PKGCONFIG})
         #pkg_check_modules(PKGCONFIG libstartup-notification-1.0 Qt5Core x11 xcb xcb-xkb xcb-icccm xcb-xinput xcb-aux x11-xcb xcb-render xcb-image xkbcommon-x11 xcb-xfixes freetype2)
         #pkg_check_modules(PKGCONFIG Qt5Core x11 xcb xcb-xkb xcb-icccm xcb-xinput xcb-aux x11-xcb xcb-render xcb-image xkbcommon-x11 xcb-xfixes freetype2)
         pkg_check_modules(PKGCONFIG x11 xcb xcb-shm xcb-sync xcb-xkb xcb-icccm xcb-xinput xcb-aux x11-xcb xcb-render xcb-image xkbcommon-x11 xcb-xfixes freetype2)
