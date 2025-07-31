@@ -54,7 +54,7 @@ if (MSVC)
    target_link_libraries(${PROJECT_NAME} PRIVATE acme apex aqua aura Gdiplus)
 elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
-   if(if (${USE_PKGCONFIG}))
+   if (${USE_PKGCONFIG})
       pkg_check_modules(${PROJECT_NAME}_PKGCONFIG cairo)
    else()
       list(APPEND library_references

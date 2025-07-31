@@ -50,7 +50,7 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
 
     if(${USE_PKGCONFIG})
-        pkg_check_modules(PKGCONFIG pangocairo)
+        pkg_check_modules(${PROJECT_NAME}_PKGCONFIG pangocairo)
     endif()
 
 
